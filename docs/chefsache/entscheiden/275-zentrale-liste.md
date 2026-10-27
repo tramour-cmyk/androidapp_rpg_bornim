@@ -67,6 +67,19 @@ Es gibt auch einen Gegenbeleg: Die Übersicht der Chefsache schreibt ein Werkzeu
    - Bauplan nach `LISTE-ZENTRALE-VORGAENGE-275.md`.
 4. Das Vorgangsarchiv (Entschiedenes) bleibt. Neu Erledigtes bleibt als Stand „erledigt“ in der Liste. `LISTE-VORGAENGE-ARCHIV.md` bleibt für das Alte und wird nicht weiter gefüllt.
 
-**Sag:** „275 ja“ (beide Stufen), „275 nur Stufe 1“ oder „275 noch nicht“.
+**Was sich für dich ändert (Stufe 1):**
+- Es gibt eine Seite „Heute für dich“, die ein Werkzeug erzeugt (Entscheiden, Ansehen, Tun, Testen) und die immer stimmt. „Tun“ enthält dann auch die Sitzungen, die auf einen Satz von dir warten, etwa „add_repo ja“.
+- Ein „beim Chef“ ohne Vorlage gibt es nicht mehr; was dort steht, liegt als Datei in der Chefsache.
+- Leichen meldet das Werkzeug den Besitzern, bevor du sie findest. Durchsichten auf Zuruf entfallen.
+- Für die Teams ändert sich die Schreibweise des Stands (Felder); wer was tut, bleibt gleich.
+
+**Was sich für dich ändert (Stufe 2):** sichtbar nichts. Die Vorräte werden kurz, die Liste wird die einzige Quelle; für dich heißt das nur, dass weniger Fehler ankommen.
+
+**Bedeutung der Antworten:**
+- „275 ja“: Stufe 1 jetzt; Stufe 2 startet von selbst eine Woche nach dem Einsatz, wenn Diogenes in dieser Woche keinen Werkzeugfehler zählt, sonst kommt sie zu dir zurück.
+- „275 nur Stufe 1“: Über Stufe 2 entscheidest du später neu.
+- „275 noch nicht“: Alles bleibt wie heute, Termin wie 274.
+
+**Sag:** „275 ja“, „275 nur Stufe 1“ oder „275 noch nicht“.
 
 Antwort:
