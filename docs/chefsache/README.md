@@ -39,12 +39,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 21, Muss 10, startbar 4
+**Tom** – offen 21, Muss 10, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 348.12i | M | von Sokrates (Chef 19:41, „348.12i B“, Archiv): nur Kaufmodelle mit AESContext verschlüsse | wartet auf Test/Build (gebaut) |
-| 388 | M | von Sokrates (Chef 21:58): Play-Fassung: „Kopieren“ der Geräteangaben (TestTab) auch im Sy | wartet auf Test/Build (gebaut) |
+| 388 | M | von Sokrates (Chef 21:58; „jetzt“ 27.10., 22:17, „388 machen“): Play-Fassung: „Kopieren“ d | startbar |
 | 385 | M? | von Sokrates (Archiv): Zauberer-Set (Biped, LISTE-BESTAND) auf Kaufkörper, Film | startbar |
 | 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | startbar |
 | 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | startbar |
