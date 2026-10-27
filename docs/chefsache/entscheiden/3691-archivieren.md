@@ -16,6 +16,7 @@ Die „Lösung“ aus 371 (3), nämlich einmal neu versuchen, reicht nicht. Der 
 
 - 261.5 und 273: Erlaubnis und Begründungssatz stehen in der Projektdatei; beide wirken in der Cloud nicht (369, Doku: `autoMode` aus der Projektdatei wird nie gelesen).
 - Heute um 09:1x: 33 Sitzungen archiviert, 2 von 35 Aufrufen abgelehnt, beim zweiten Mal durch (`ARBEIT-BETRIEB.md`, Eingang). Seit Mittag blieben 8 Sitzungen abgelehnt (Fords Übergabe 14:55).
+- **Bestätigt 15:05:** nach deinem Wort hat Ford alle acht archiviert, der Prüfer ließ es zu (Fords Übergabe). Offen ist nur noch Folgerung 3 (die neue Ford-Sitzung bittet beim Start um den Satz).
 - Ford lebt in **einer** Sitzung (`Ford – Betriebsleiter`) und startet sich neu, wenn sie etwa 400 Tsd. Token erreicht hat, heute um 13:25.
 
 ## Auswertung
