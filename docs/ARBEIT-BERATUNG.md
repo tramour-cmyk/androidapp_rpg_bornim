@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (27.10., 15:1x, `session_01Hmoj76cioXZJxAcjBxBYbB`):** Rückfrage Modelle beantwortet; Chefwort Köpfe gestalten an Tom (Zu 376.1); Durchsicht aller Vorräte (378, von Perikles verteilt); Chefsache 275 (zentrale Liste, Stufe 1 jetzt) gestellt; 369.1 ja (Archiv), an Perikles. Kosten auf: 376, 378, 275, 369.1. Nachfolger: Sokrates – 275 und 376 begleiten
+**Übergabe (27.10., 17:32, `session_01Hmoj79xvKYy4VB6rvFGma7`):** 275: „wer schreibt“ (Archiv 15:20), Chefworte Seit mit Uhrzeit und Vorlage weg bei Überarbeitung an Perikles; Vorrat aufgeräumt (26.1, 142 Zu tun, 48–50 Ideenspeicher, 316 erledigt); 381 Film statt Standbild an Perikles; 376.1a: Ursache Startstand der Sitzungen (Tom 17:30), Ford prüft `source_revision`; Umgebung hat kein Feld „Repositories“ (Chef 17:30). Kosten auf: 275, 381, 376. Nachfolger: Sokrates – 376.1a und 381 begleiten
 
 ## Zeilen
 
