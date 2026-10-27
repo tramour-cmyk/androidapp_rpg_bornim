@@ -9,8 +9,8 @@ Im Bild ist der graue Wolf oben links der Kaufwolf, die Heldin trägt den roten 
 2. **Schnauze: so lassen oder 10 cm näher?** Mein Votum ist „näher“, damit der Biss die Heldin wirklich trifft. Dagegen spricht: Im Bild ragt die Schnauze dann noch weiter über die Heldin.
 
 **Bitte ansehen**, jeweils nur die rechte Hälfte (gekauftes Tier; links läuft unser altes, nicht zeitgleich):
-- [Film Kaufwolf](bilder:pruefung/348.12f-kaufwolf-drehen.mp4), 29 s: nach dem Biss ab 5,2 s ein Schritt rückwärts, Drehung 5,9–6,3 s.
-- [Film Ratte](bilder:pruefung/348.12f-ratte-drehen.mp4), 30 s: Drehungen bei etwa 5,1 s, 6,0 s, 6,8 s, 9,0 s und 18,7 s; Biss bei 4,0 s.
+- [Film Kaufwolf](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/pruefung/348.12f-kaufwolf-drehen.mp4), 29 s: nach dem Biss ab 5,2 s ein Schritt rückwärts, Drehung 5,9–6,3 s.
+- [Film Ratte](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/pruefung/348.12f-ratte-drehen.mp4), 30 s: Drehungen bei etwa 5,1 s, 6,0 s, 6,8 s, 9,0 s und 18,7 s; Biss bei 4,0 s.
 
 **Was gebaut ist:**
 - Dreht sich ein Tier auf der Stelle um, bleiben seine Pfoten am Boden stehen. Sie treten nach, immer zwei über Kreuz zugleich. Vorher drehten sie 15–25 cm am Boden mit.
