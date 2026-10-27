@@ -44,25 +44,25 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 19, Muss 9, startbar 9
+**Tom** – offen 19, Muss 9, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 348.12i | M | von Sokrates (Chef 19:41, „348.12i B“, Archiv): nur Kaufmodelle mit AESContext verschlüsse | wartet auf Test/Build (gebaut) |
 | 376.1 | M | von Sokrates (Chef kaufte 12:20, „jetzt“ 12:46): Probeblatt Quaternius-Figuren (Archiv 376 | Chef (Datei in der Chefsache) |
-| 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
-| 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | startbar |
+| 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | Chef |
+| 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | wartet auf 348.6 (Chef) |
 | 372 | M | von Perikles (338a B, Chef 27.10., 09:36, Archiv): Feinschliff Held: Kettenhemd, Helm, Kra | ruht |
-| 348.13 | M | von Sokrates (Chef 26.10., Archiv): Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Sc | Chef |
-| 267 | M | von Chef (20.10., 21:46, B48, Tablet): „Das Game laggt ziemlich auf dem Tablet...“ | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
-| 302.3 | M | von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3): alle Bilder von Intro und Outro m | Leiche: Bedingung „Urteil 348“ erfüllt |
-| 302.2 | K | von Chef über Sokrates (22.10., 23:50): Tusche auf der Gebietskarte | Leiche: Bedingung „Urteil 348“ erfüllt |
-| 302.1 | M | von Sokrates (Vorgangsarchiv 302.1; 338 b): Tuschelinie für Menschengestalten über Doll, C | Leiche: Bedingung „Urteil 348“ erfüllt |
-| 292.2 | K | von Chef (21.10., 22:28): Hauptmenü: seltene, gute Bewegung je Klasse (Zu 292.2) | Leiche: Bedingung „Urteil 348“ erfüllt |
-| 292.4 | K | aus 292.3: Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (Zu 292.4) | Leiche: Bedingung „Urteil 348“ erfüllt |
+| 348.13 | M | von Sokrates (Chef 26.10., Archiv): Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Sc | startbar |
+| 267 | M | von Chef (20.10., 21:46, B48, Tablet): „Das Game laggt ziemlich auf dem Tablet...“ | ruht |
+| 302.3 | M | von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3): alle Bilder von Intro und Outro m | ruht |
+| 302.2 | K | von Chef über Sokrates (22.10., 23:50): Tusche auf der Gebietskarte | ruht |
+| 302.1 | M | von Sokrates (Vorgangsarchiv 302.1; 338 b): Tuschelinie für Menschengestalten über Doll, C | ruht |
+| 292.2 | K | von Chef (21.10., 22:28): Hauptmenü: seltene, gute Bewegung je Klasse (Zu 292.2) | ruht |
+| 292.4 | K | aus 292.3: Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (Zu 292.4) | ruht |
 | 355 | K | von Perikles (Chef 24.10., 17:17, Chefsache 26, „gut“): Kisten: zwei bis vier je Gebietska | ruht |
 | 356.2 | K | von Perikles (Chef über Sokrates 24.10., 21:33, „356b … Folge der Empfehlung“; Anschlagbre | ruht |
-| 357 | K | von Perikles (Chef 24.10., Chefsache 26, „okay“): Puppe in der Charaktererstellung sieht b | Leiche: Bedingung „Urteil 348“ erfüllt |
+| 357 | K | von Perikles (Chef 24.10., Chefsache 26, „okay“): Puppe in der Charaktererstellung sieht b | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
@@ -158,7 +158,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung), 348.13 (Team Tom), 267 (Team Tom)
+Nicht gestellt: 186.3 (Pruefung)
 
 Ohne Datei: 275 (Projekt)
 
