@@ -345,8 +345,9 @@ func _fireball(p: float, from: Vector2, to: Vector2, ground: float, u: float) ->
 		var c := to + Vector2(cos(a) * d, sin(a) * d * 0.75 - s * 18 * u)
 		var rad := (14 + _rf() * 14) * u * (0.45 + 0.75 * ausw)
 		var heat := clampf(1.0 - s * (1.0 + _rf() * 0.7) + (1.0 - d / (56 * u)) * 0.25, 0.0, 1.0)
-		var col := FIRE_HOT if heat > 0.7 else (FIRE if heat > 0.4 else (FIRE_DARK if heat > 0.15 else SMOKE))
-		var a0 := 0.3 * (1 - s) if col == SMOKE else (1 - s * 0.7)     # Rauch 0,6: zwei dunkle runde Flecken „wie Augen“ (Helfer Lauf 126)
+		# ohne Rauchballen (Helfer Lauf 126 und Runde 2: zwei dunkle runde Flecken „wie Augen“); Rauch steigt in _smoke darüber auf
+		var col := FIRE_HOT if heat > 0.7 else (FIRE if heat > 0.4 else FIRE_DARK)
+		var a0 := (1 - s * 0.7) * (1.0 if heat > 0.15 else 0.4)
 		_glow(c, rad, [_a(col, a0), _a(col, a0 * 0.4), _a(col, 0.0)])
 	_smoke(to + Vector2(0, -10 * u), (s - 0.25) / 0.75, u, 6, 70.0, 0.55)
 	_burst(to, s, u, [FIRE_HOT, FIRE, FIRE_DARK], 16, 50.0)
@@ -376,12 +377,14 @@ func _blessing(p: float, chest: Vector2, ground: float, u: float) -> void:
 	var x := chest.x
 	if front < 2.0 * u:
 		return
-	var pts := PackedVector2Array()
-	for i in 7:
-		pts.append(Vector2(x - 14 * u, 0).lerp(Vector2(x - 32 * u, front), i / 6.0))
-	for i in 7:
-		pts.append(Vector2(x + 14 * u, 0).lerp(Vector2(x + 32 * u, front), 1.0 - i / 6.0))
-	_vgrad(pts, 0.0, front + 8 * u, [_a(GOLD_LIGHT, 0.0), _a(GOLD_LIGHT, 0.16 * f), _a(GOLD_LIGHT, 0.3 * f), _a(GOLD_LIGHT, 0.0)])
+	# drei Kegel ineinander, so laufen die Ränder weich aus (Helfer Runde 2: harte gerade Kanten, teilte den Wolf)
+	for wk in [1.0, 0.72, 0.45]:
+		var pts := PackedVector2Array()
+		for i in 7:
+			pts.append(Vector2(x - 14 * u * wk, 0).lerp(Vector2(x - 32 * u * wk, front), i / 6.0))
+		for i in 7:
+			pts.append(Vector2(x + 14 * u * wk, 0).lerp(Vector2(x + 32 * u * wk, front), 1.0 - i / 6.0))
+		_vgrad(pts, 0.0, front + 8 * u, [_a(GOLD_LIGHT, 0.0), _a(GOLD_LIGHT, 0.06 * f), _a(GOLD_LIGHT, 0.11 * f), _a(GOLD_LIGHT, 0.0)])
 	for i in 14:
 		var t := fmod(p * (0.7 + _rf() * 0.5) + _rf() * 0.3, 1.0)
 		var dx := (_rf() - 0.5) * 44 * u + sin(t * 6.0 + i) * 3 * u
@@ -413,9 +416,10 @@ func _arrow(p: float, from: Vector2, hit: Vector2, u: float) -> void:
 	var tail := head - d * (15 * u)
 	for k in 4:
 		ci.draw_line(fly.call(t - 0.06 * (k + 1)), tail if k == 0 else fly.call(t - 0.06 * k), Color(1, 1, 1, 0.3 - 0.06 * k), 1.2 * u, true)     # Spur kräftiger: Pfeil „praktisch unsichtbar“ (Helfer Lauf 126)
-	ci.draw_line(tail, head - d * (2.5 * u), Color("5e3c20"), 0.8 * u, true)
-	var b := head - d * (3 * u)
-	ci.draw_colored_polygon(PackedVector2Array([head, b + n * 1.1 * u, b - n * 1.1 * u]), Color("8c9298"))
+	# Schaft hell und kräftiger (Helfer Runde 2: 3 px brauner Strich auf braunem Weg)
+	ci.draw_line(tail, head - d * (2.5 * u), Color("b89a70"), 1.3 * u, true)
+	var b := head - d * (3.5 * u)
+	ci.draw_colored_polygon(PackedVector2Array([head, b + n * 1.5 * u, b - n * 1.5 * u]), Color("c8ccd0"))
 	for side in [1.0, -1.0]:
 		ci.draw_line(tail + d * (2.5 * u), tail - d * (0.5 * u) + n * (side * 1.4 * u), Color("a08c6c", 0.75), 0.8 * u, true)
 

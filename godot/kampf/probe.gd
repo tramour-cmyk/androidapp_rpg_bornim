@@ -63,7 +63,7 @@ func _still(path: String) -> void:
 	# wie im alten Bild: der Held ist dran, die Knöpfe stehen (höchstens 10 s warten)
 	# im Zeitraffer bis zum Zug der Gruppe (die Gegner sind oft zuerst dran; Schritte sonst rund eine Minute)
 	Engine.time_scale = 8.0
-	var until := Time.get_ticks_msec() + 60000
+	var until := Time.get_ticks_msec() + 240000     # unter Last (mehrere Proben zugleich) reichten 60 s nicht: Probe mitten im Zug der Gegner
 	while Time.get_ticks_msec() < until and fight and (fight.busy or fight.playing or fight.mars.current().side != "PARTY"):
 		await get_tree().process_frame
 	Engine.time_scale = 1.0

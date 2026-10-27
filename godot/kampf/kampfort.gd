@@ -452,10 +452,24 @@ func _pivot(p: Vector2, z: float) -> Vector2:
 	var lo := Vector2(base_off.x - half.x + m, base_off.y - half.y + below + m)
 	var hi := Vector2(base_off.x + half.x - m, base_off.y + half.y - m)
 	var k := 1.0 - 1.0 / z
+	var c := p
+	# erst alle; passt das nicht, wenigstens die Gruppe und der Getroffene (Helfer: Mira am linken Rand halb abgeschnitten)
+	for only_party in [false, true]:
+		var r := _pivot_range(p, z, k, lo, hi, only_party)
+		if r[0].x <= r[1].x and r[0].y <= r[1].y:
+			c.x = clampf(p.x, r[0].x, r[1].x)
+			c.y = clampf(p.y, r[0].y, r[1].y)
+			break
+	return c
+
+
+func _pivot_range(p: Vector2, z: float, k: float, lo: Vector2, hi: Vector2, only_party: bool) -> Array:
 	var mn := Vector2(-INF, -INF)
 	var mx := Vector2(INF, INF)
 	for fig in figures.values():
 		if not fig.visible or fig.down:
+			continue
+		if only_party and fig.fighter.side != "PARTY" and fig != figures.get(hit.get("on", "")):
 			continue
 		var foot := _near_of(fig.position)
 		var top := _near_of(fig.head())
@@ -467,12 +481,7 @@ func _pivot(p: Vector2, z: float) -> Vector2:
 			mn.x = maxf(mn.x, (q.x - hi.x / z) / k)
 			mx.y = minf(mx.y, (q.y - lo.y / z) / k)
 			mn.y = maxf(mn.y, (q.y - hi.y / z) / k)
-	var c := p
-	if mn.x <= mx.x:
-		c.x = clampf(p.x, mn.x, mx.x)
-	if mn.y <= mx.y:
-		c.y = clampf(p.y, mn.y, mx.y)
-	return c
+	return [mn, mx]
 
 
 ## Wo [q] (Welt) auf der Nahebene der Kamera liegt, in deren Maß (wie frustum_offset).
