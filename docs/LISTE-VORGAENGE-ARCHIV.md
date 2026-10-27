@@ -448,3 +448,8 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 318.1 | Uhrzeit im Chat-Stempel streichen (Messung 25.10.: 42 % daneben) | B Abläufe | – | – | Sokrates | nein |
 | 377 | Vor jedem Eigenbau zuerst Bestand (gekauft, geladen) prüfen, sichergestellt? (Chef 27.10., 12:53) | B Abläufe | M | – | Perikles | fertig |
 | 373a | Rückfrage: Nachturteil Sokrates (362) mit 373 gestrichen lassen? | B Abläufe | M | – | Perikles | entschieden |
+| 149 | Probewoche Ford mit neuem Modell: Regelverstöße zählen bis 24.10. (Chef) | Q QM | M |  | Diogenes | erledigt |
+| 236 | notiz.sh bleibt im Merge stehen (altes lokales main im Abbild), Notizen auf altem Stand | Q Ablauf | M | – | Perikles | erledigt |
+| 377.1 | Inventur: Übersicht aller Bewegungen, Modelle, Dinge im Bestand (Chef 27.10., 14:28) | B Abläufe | M | – | Sokrates | erledigt |
+| 377.2 | Freigabe `add_repo` (Kaufmodelle) dauerhaft erlauben (Chef 27.10., 14:31) | B Abläufe | M | – | Perikles | fertig |
+| 378 | Durchsicht aller Vorräte: Leichen verteilen (Chef 27.10., 14:45) | B Abläufe | M | – | Perikles | fertig |

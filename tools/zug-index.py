@@ -44,6 +44,7 @@ REGELN = """## So geht's
 - Zeile 1 `# <Nr.> · <Frage>`, Zeile 2 `<Absender> · <TT.MM.>, <HH:MM> · <Bereich> · …` (Bereich wie „B Abläufe“, 136); Vorrang = Klasse der Nummer in `LISTE-VORGAENGE.md`; eine Zeile `Kurz: …` ersetzt in der Übersicht die Frage. Dann in dieser Folge (364): **Frage**, **Votum** (was der Chef tun oder sagen soll), **Berührt** (Vorgänge); darunter kurz **Begründung**, **Sachverhalt** (belegt, mit Quelle), **Auswertung** (mit dem stärksten Gegenargument), **Folgerungen** (was danach geschieht, wer); zuletzt `Antwort: …`. Lange Teile in `<details>`.
 - Zu billigen (Vorentscheid, 194.1): `billigen/<nr>-<stichwort>.md`, Aufbau wie bei „entscheiden“, Votum = Entschieden, plus: Umgesetzt (Commit), Rückbau, Kosten; in der Auswertung bei Balance und Spielgefühl die verworfene Möglichkeit. Hält keine Arbeit an; Antwort „gebilligt“ oder „zurück“, Sokrates löscht die Datei und setzt „gebilligt TT.MM.“ oder „zurück TT.MM.“ in die Archivzeile.
 - Bilder in `bilder/`: JPG oder WebP, höchstens 800 px breit und 60 KB, höchstens 3 je Punkt. Größere Bilder und Hörproben nur über Telegram (`meldung.sh --datei`), in der Datei vermerkt: „Großbild: Telegram TT.MM. HH:MM“.
+- Zu tun (275): `tun/<nr>-<stichwort>.md`, Zeile 1 `# <Nr.> · <was der Chef tun soll>`, Zeile 2 `<Absender> · <TT.MM.>, <HH:MM> · <Bereich>`, dann der Satz zum Kopieren als Codeblock oder der Weg in Schritten; erledigt heißt Datei löschen (wer sie angelegt hat). Ein „wartet auf Chef“ ohne Datei hier meldet `startbar.py` als Leiche.
 - Telegram-Sprungmarke `[72s.1](cs:72s1)` führt auf die Datei (`tools/meldung.sh`).
 """
 
@@ -154,7 +155,7 @@ NR = r"[A-Z]?\d+[a-z]*(?:\.\d+[a-z]*)?"
 def luecken():
     """D21.3: Vorratszeilen, die auf den Chef warten oder „Chefsache <Nr>“ nennen, ohne Datei hier (ARCHIV eingefroren, nicht gelesen)."""
     texte = []
-    for ordner in ("entscheiden", "ansehen", "billigen"):
+    for ordner in ("entscheiden", "ansehen", "billigen", "tun"):
         pfad = os.path.join(ZUG, ordner)
         for n in (sorted(os.listdir(pfad)) if os.path.isdir(pfad) else []):
             if n.endswith(".md"): texte.append(n + "\n" + open(os.path.join(pfad, n), encoding="utf-8").read())
@@ -227,7 +228,7 @@ def versionen_nachtragen():
         if geaendert: open(datei, "w", encoding="utf-8").write("\n".join(zeilen))
 
 versionen_nachtragen()
-neu = "\n".join([t for t in [KOPF, tafel("entscheiden", "Zu entscheiden"), tafel("billigen", "Zu billigen", "Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers."), tafel_ansehen(), offen_je_rolle(), luecken(), REGELN] if t])
+neu = "\n".join([t for t in [KOPF, tafel("entscheiden", "Zu entscheiden"), tafel("billigen", "Zu billigen", "Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers."), tafel_ansehen(), tafel("tun", "Zu tun", "Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen."), offen_je_rolle(), luecken(), REGELN] if t])
 ziel = os.path.join(ZUG, "README.md")
 alt = open(ziel, encoding="utf-8").read() if os.path.exists(ziel) else ""
 if neu != alt:

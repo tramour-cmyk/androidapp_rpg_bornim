@@ -101,6 +101,7 @@ def chefdateien_je_rolle():
             aus.setdefault(r, []).append(n)
     return aus
 
+LEICHEN_START = False  # 275 Stufe 1: Leichen als erste Muss-Zeile starten; Perikles schaltet ein, sobald Diogenes geprüft hat
 GESPERRT = {}  # Rolle → {Nummer: Grund} der nicht startbaren Zeilen (276: Nachfolger auf gesperrter Zeile)
 
 def stand():
@@ -112,7 +113,9 @@ def stand():
         zs = startbar.hochstufen([x for x in startbar.zeilen(inhalt) if x[1] not in ("–", "-")])
         sperr = {x[0]: startbar.blocker(x[0], x[3], chef, x[2]) for x in zs}
         zs = [x for x in zs if sperr[x[0]] != "ERLEDIGT"]
+        leichen = startbar.leichen_von(zs, sperr)  # 275 Stufe 1: überholte Stände zuerst berichtigen, als eine Muss-Zeile wie „M?“
         muss = [x for x in zs if x[1] == "M" and not sperr[x[0]]]
+        if leichen and LEICHEN_START: muss.insert(0, ("Leichen", "M", "Stand berichtigen (275): " + "; ".join("%s %s" % l for l in leichen) + " (startbar.py --leichen)", ""))
         kuer = [x for x in zs if x[1] != "M" and not sperr[x[0]]]
         kuer += [(x[0], "N", x[2], x[3]) for x in zs if sperr[x[0]] == "nach dem Meilenstein"]  # 190.10: letzte Stufe vor Leerlauf
         wartet = [x[0] for x in zs if (sperr[x[0]] or "").startswith("Chef")]
@@ -218,6 +221,16 @@ def nummer_aus_titel(t):
     s = re.sub(r"\b(Godot|Runde|Lauf|Brücke)\s+\d+[a-z]?\b", " ", s)  # „Tom – Umzug Godot 12“ buchte auf Vorgang 12 (Ford 25.10.)
     m = re.search(r"(?<![\d.:])(\d{2,3}[a-zA-Z]?(?:\.\d+[a-z]?)*)(?![\d:])", s)
     return m.group(1).rstrip(".") if m else ""
+
+def nummern_aus_titel(t):
+    """379: alle Vorgangsnummern im Titel als Kommaliste („Jerry – 348.7a Runde 5, 348.12f Rute r7“ → „348.7a,348.12f“), Kosten zu gleichen Teilen (197)."""
+    erste = nummer_aus_titel(t)
+    if not erste: return ""
+    s = re.sub(r"\([^)]*\)", " ", t.split("–", 1)[-1])
+    s = re.sub(r"\bBuilds?\s+\d+(\s+und\s+\d+)?", " ", s)
+    s = re.sub(r"\b(Godot|Runde|Lauf|Brücke)\s+\d+[a-z]?\b", " ", s)
+    alle = [erste] + [m.rstrip(".") for m in re.findall(r"(?<![\d.:\w])(\d{2,3}[a-zA-Z]?(?:\.\d+[a-z]?)*)(?![\d:])", s)]
+    return ",".join(dict.fromkeys(alle))
 
 PROTOKOLL_MAX = 20  # ARBEIT-BETRIEB.md „höchstens 20 Zeilen; ältere streichen“ (117)
 TECHNIK = re.compile(r"Marke |Startsperre \d|Nachfolger-Warnung")
@@ -346,7 +359,7 @@ def main():
             # 261.6 (Chef 22.10., 06:43): „neuer“ = letzte Arbeit (updated_at), nicht created_at; bleiben darf nur die zuletzt tätige
             if s is juengste(ss): continue
             k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
-            nrn = nummer_aus_titel(s.get("title", "")) or "Betrieb"
+            nrn = nummern_aus_titel(s.get("title", "")) or "Betrieb"
             if r == "Sokrates":  # (4) Kostenbuchung bleibt eigene Regel (197): Kosten auf die Nummern der Übergabe
                 auf = sokrates_ziel(s, ss)
                 if auf: nrn = auf
@@ -387,7 +400,7 @@ def main():
             archiviert.add(s["id"])
             k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
             if s.get("_frage_alt"): ausgabe.append("ÜBERTRAGE %s | %s | %s" % (s["id"], r, str(s["_frage_alt"]).replace("\n", " ")[:200]))
-            ausgabe.append("ARCHIVIERE %s | %s | %s | %s" % (s["id"], r, ("%.2f" % k) if k is not None else "fehlt", nummer_aus_titel(s.get("title", "")) or "Betrieb"))
+            ausgabe.append("ARCHIVIERE %s | %s | %s | %s" % (s["id"], r, ("%.2f" % k) if k is not None else "fehlt", nummern_aus_titel(s.get("title", "")) or "Betrieb"))
             if not marke_zeit("Archiv " + s["id"]): neue_marken.append("Archiv " + s["id"])
     for r in START_REIHE:
         muss, kuer, pause, _ = st.get(r, ([], [], None, []))
@@ -420,6 +433,7 @@ def main():
             thema = re.sub(r"\s*\([^)]*\)\s*$", "", offen_nf)
             titel = "%s (%s)" % (thema, berlin(JETZT))
             msg = "%s\n\nNachfolger laut Übergabe in %s: %s. Zuerst Start nach deiner Rollendatei, dann die Übergabe lesen und dort weiterarbeiten." % (r, VORRAT[r], offen_nf)
+            if muss and muss[0][0] == "Leichen": msg += " Vorher: " + muss[0][2] + "."
             ausgabe.append("START %s | %s | %s | %s | %s | %s" % (r, MODELL[r], UMGEBUNG.get(r, MITTEL), REPO, titel, msg.replace("\n", "\\n")))
             vorgaenger(r); sperren.append(r); continue
         if pause:
@@ -439,6 +453,7 @@ def main():
             sperren.append(r); continue
         titel = "%s – %s (%s)" % (r, nr, berlin(JETZT))
         msg = "%s\n\nArbeite Vorgang %s (%s) aus deinem Vorrat %s; zuerst Start nach deiner Rollendatei, dann den Vorgang lesen und die Übergabe beachten." % (r, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", VORRAT[r])
+        if nr == "Leichen": msg += " Leichen: " + thema + "; danach weiter nach Vorrang."
         if JETZT.weekday() == 4: msg += " Freitag: am Ende der Sitzung Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340)."
         ausgabe.append("START %s | %s | %s | %s | %s | %s" % (r, MODELL[r], UMGEBUNG.get(r, MITTEL), REPO, titel, msg.replace("\n", "\\n")))
         vorgaenger(r); sperren.append(r)
@@ -569,7 +584,7 @@ def kosten_addieren(nr, usd, sid=None):
                 k = l.split("\t")
                 if len(k) == 2: alt[k[0]] = float(k[1])
         diff = round(usd - alt.get(sid, 0.0), 2)
-        if diff <= 0: print("Kosten %s: %.2f $ schon gebucht, nichts zu tun" % (nr, usd)); return
+        if diff <= 0: print("Kosten %s: %.2f $ für %s schon gebucht, nichts zu tun (mehrere Vorgänge einer Sitzung: eine Kommaliste in einem Aufruf, 379)" % (nr, usd, sid)); return
         alt[sid] = usd
         open(vz, "w", encoding="utf-8").write("".join("%s\t%.2f\n" % kv for kv in sorted(alt.items())))
         usd = diff

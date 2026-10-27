@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (27.10., 14:4x, `session_01Hmoj7738F2EaHYxUsv6sop`):** 373a entschieden (Archiv); 376.3 Votum „keins kaufen“ im Chat; 377 Beleg 348.6 an Perikles; 377.1 Inventur `LISTE-BESTAND.md` eingestellt; 377.2 (`add_repo` dauerhaft, Regelverweis) an Perikles. Rückfrage 12:50 „andere Modelle = KI-Modelle?“: Nachfolger beantwortete beide Lesarten 14:4x im Chat (KI: keine Änderung vor 06.11., 270). Kosten auf: 373a, 376, 377. Nachfolger: Sokrates – 376 begleiten (Probeblatt 376.1)
+**Übergabe (27.10., 15:1x, `session_01Hmoj76cioXZJxAcjBxBYbB`):** Rückfrage Modelle beantwortet; Chefwort Köpfe gestalten an Tom (Zu 376.1); Durchsicht aller Vorräte (378, von Perikles verteilt); Chefsache 275 (zentrale Liste, Stufe 1 jetzt) gestellt; 369.1 ja (Archiv), an Perikles. Kosten auf: 376, 378, 275, 369.1. Nachfolger: Sokrates – 275 und 376 begleiten
 
 ## Zeilen
 
@@ -43,6 +43,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 365:** ja 12:38 (Archiv). Test 13:31: Umgebung „WireStorm Hoch“ (`CLAUDE_CODE_EFFORT_LEVEL=high`) wirkt, rund +40 % Ausgabe-Token; die App zeigt nur die Grundeinstellung „Mittel“; kein Handgriff des Chefs.
 - **Zu 340.2:** `LISTE-ROLLENSPIEGEL.md` „Wie“, Freitagshinweis in `lauf.py`; prüfen 30.10.: 0 Hinweise „mitgelesen“; B wieder vorlegen, wenn Pflegefehler am 01.11. länger als einen Tag stehen.
 - **Zu 142, Stand:** AAB 142.1 im internen Test (Chef 25.10., 12:38 erledigt); Konto geprüft, App angelegt 25.10. (Zu 142, Konto); Entwickler-E-Mail info@bornwire.de bestätigt (25.10., 12:51); Datenschutz-URL für den Store `https://bornwire.de/datenschutz.html` (252 online 25.10., 13:12; Godot-Fassung mit INTERNET-Recht: Datenschutz vorher anpassen).
+- **Von Perikles (378, 27.10., 15:1x):** „Zeile 26 in `ARBEIT-PROJEKT.md`“ gibt es nicht (26 steht nur hier); Verweis berichtigen. Offen ohne Vorratszeile: 316 („in Arbeit“); 142.2 nur in 142.
 - **Zu 26:** Diktat 17:20 in `LISTE-DURCHSPIELBOGEN.md`, an Perikles (Zeile 26 in `ARBEIT-PROJEKT.md`). Chef 22:00: Warum kämpfen Leute am Handy? Er sieht Taktik oder Schauwert, sonst „Taste spammen“. Antwort im Chat: dazu Fortschritt, Einsatz, Meisterung, Entspannung; Empfehlung: jeder Kampf stellt eine Frage, leichte abkürzbar (Entscheidung Chef mit Homer).
 - **Zu 142, Konto:** 25 $ bezahlt 23.10. (Beleg 263); Ausweis und Telefon geprüft, App angelegt 25.10., 08:36 (`de.bornim.game`, kostenlos, Spiel, de-DE, automatischer Schutz an); ggf. Geräteprüfung mit der Play-Console-App; privat, BornWire TCS, Konto-Mail bornwire@famibos.de; Chef 23.10., 18:58: sobald `play@bornwire.de` steht, Entwickler-E-Mail in der Play Console umstellen (Einstellungen → Kontodetails). Chef 22:11 Play-Upload: Dienstkonto als Secret, Action, interner Test, AAB; erstes Mal von Hand.
 - **Zu 142:** vor Marktstart Klangmarken DPMA/EUIPO suchen (292.1). Chef 16:50 fragt nach Online-Testern; Tauschgruppen angeboten.

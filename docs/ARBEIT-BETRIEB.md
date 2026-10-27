@@ -2,9 +2,9 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (27.10., 14:55, Ford `session_01Hmoj76zGbw1bYHxyZ3XqUH`, Tiefe 0):** Läuft: Tom `01Hmoj77MK` (376.1 Blätter/Film), Jerry `01Hmoj79d6` (348.7a r5, 348.12f r7), Sokrates `01Hmoj76ci` (376), Perikles `01Hmoj79Bo` (377.2, danach „Weiter: 378“ nach Sokrates 14:5x; hängt an Freigabesatz des Chefs). Zum Archivieren beim Chef (Prüfer lehnt ab, 369): Ford `78hRdj`, Tom `778n`, `79SM`, Jerry `76oY`, `761u`, Perikles `77YJ`, Sokrates `7738`, Diogenes `77X9`. Homer, Diogenes ohne Sitzung (Diogenes über 374 täglich 8:00 vom 28.10. bis 03.11.). 378-Punkte für Ford erledigt: Eingang bereinigt, Besetzung schreibt `lauf.py`. Nachfolger: Ford – Betriebsleiter.
+**Übergabe (27.10., 14:55, Ford `session_01Hmoj76zGbw1bYHxyZ3XqUH`, Tiefe 0):** Läuft: Tom `01Hmoj77MK` (376.1 Blätter/Film), Jerry `01Hmoj79d6` (348.7a r5, 348.12f r7), Sokrates `01Hmoj76ci` (376), Perikles `01Hmoj79Bo` (377.2, danach „Weiter: 378“ nach Sokrates 14:5x; hängt an Freigabesatz des Chefs). Alle acht alten Sitzungen 15:05 von Ford archiviert und gebucht (Chef: „keine Lust, deinen Job zu machen“; Auto-Modus ließ es nach Chefwort zu); Chef nie mit Kennungen ansprechen, nur Titel. Homer, Diogenes ohne Sitzung (Diogenes über 374 täglich 8:00 vom 28.10. bis 03.11.). 378-Punkte für Ford erledigt: Eingang bereinigt, Besetzung schreibt `lauf.py`. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 379** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 381** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -26,6 +26,8 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
+- **Von Perikles (378, 27.10., 15:1x; Durchsicht Sokrates):** Dashboard (339) seit 08:07 nicht erneuert (Perikles hat 15:1x veröffentlicht; jeder Lauf, `LISTE-BETRIEB.md` 11); `ARBEIT-BESETZUNG.md` Stand 13:23, alle Sitzungen ersetzt; Übergabe oben nennt Perikles `77YJ` laufend; Eingang: Zeilen archiviert/ERLEDIGT/318 „nach dem ersten Start streichen“, „Sparbetrieb (23.10.)“ prüfen; Protokoll etwa 70 statt 20 Zeilen (Datei 15,5 KB); acht erledigte Sitzungen nicht archiviert (Tom `79SM`, `778n`; Jerry `761u`, `76oY`; Sokrates `7738`; Perikles `77YJ`; Diogenes `77X9`; Ford `78hRdj`): versuchen, Abgelehntes dem Chef nennen (369); Diogenes 348.9 Nachfolger „Blätter messen“ starten.
+
 - **374 (Sokrates 27.10., 12:00, Chef „374 ja“):** Diogenes täglich 8:00 vom 28.10. bis 03.11. starten (zählt die Vorlagen des Vortags, Zeile oben in `ARBEIT-PRUEFUNG.md`); im ersten Lauf ab 8 Uhr „Auftrag Diogenes 374“ wie `START`. Werkzeugteil bei Perikles. Nach dem 03.11. Zeile streichen.
 - **Von Sokrates (27.10., 09:3x, Durchsicht Chefsache):** Vorräte nennen „beim Chef“ ohne Datei (gilt nach Regel 8 nicht): Jerry „Boden r6, Grimmzahn“ (entschieden 25.10., 22:00), „Wildschwein r3“; Tom „Dorf r13b“. Homer wartet nicht auf 348.12g (entschieden 26.10., 16:17), sondern auf Chefsache 348.12c Listen. Bitte an Tom, Jerry, Homer zum Bereinigen. Chefsache 110 erledigt (Ford von Hand gestartet), Datei gelöscht.
 - **369:** Chef 26.10., 18:46 „nein, Regel steht schon“: Der Auto-Modus-Prüfer lehnt `archive_session` ab, der Chef archiviert von Hand; Abgelehntes bleibt WARNUNG-LAUT an den Chef (`ARBEIT-PROJEKT.md` „Zu 369“).
@@ -33,6 +35,8 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 15:25 27.10.: Auftrag Diogenes 275 (Perikles, Muss, Chef 15:09) von Hand gestartet `01Hmoj79Rk` „Diogenes – 275 Stufe 1 prüfen“, weil lauf.py ihn nicht startete (380 an Perikles)
+- 15:10 27.10.: Neustart Sokrates angenommen (`0089dc4da`), Nachfolger `01Hmoj79xv` „Sokrates – 275 und 376 begleiten“ gestartet; alter Sokrates „Sokrates – 376 begleiten (27.10., 14:40)“ noch zu archivieren
 - 14:40 27.10.: Neustart Sokrates angenommen (`bcdb44477`), Nachfolger `01Hmoj76ci` „Sokrates – 376 begleiten (Probeblatt 376.1)“ gestartet; alter Sokrates `01Hmoj7738` beim Chef zum Archivieren
 - 14:36 27.10.: Neustart Jerry angenommen (`f89a80fac`), Nachfolger `01Hmoj79d6` „Jerry – 348.7a Runde 5, 348.12f Rute r7“ gestartet; alter Jerry `01Hmoj761u` beim Chef zum Archivieren
 - 14:28 27.10.: Neustart Tom angenommen (`e329c2397`), Nachfolger `01Hmoj77MK` „Tom – 376.1 Blätter und Film prüfen, an den Chef“ gestartet; alter Tom `01Hmoj79SM` beim Chef zum Archivieren

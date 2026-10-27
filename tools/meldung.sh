@@ -81,6 +81,7 @@ zeile=$(NAME="$name" ZEIT="$zeit" SITZUNG="$sitzung" TEXT="$text" ZUG="$zug" BES
 import os, re, html
 t = html.escape(os.environ["TEXT"].replace("\\n", "\n"), quote=False)
 t = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", t)
+t = re.sub(r"`([^`\n]+)`", r"<code>\1</code>", t)  # 369.1: Satz zum Kopieren (Antippen kopiert)
 import glob
 gh = "https://github.com/tramour-cmyk/androidapp_rpg_bornim/"
 def dz(u):  # Chefsache im Repo (108, 117): cs:72o1 -> docs/chefsache/<ordner>/72o1-….md, sonst der Ordner
