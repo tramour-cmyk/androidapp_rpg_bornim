@@ -89,7 +89,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 376.1 | M | von Sokrates (Chef kaufte Quaternius-Figuren 27.10., 12:20): Probeblatt für Tom einreihen: | startbar |
+| 376.1 | M | von Sokrates (Chef kaufte Quaternius-Figuren 27.10., 12:20): Probeblatt für Tom einreihen | startbar |
 | 373a | M | von Perikles (373): Nachturteil Sokrates (362) gestrichen lassen? | Chef (Datei in der Chefsache) |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9): Meilenstein „Kapitel 1 auf G | wartet auf Test/Build (gebaut) |
 | 338 | M | von Sokrates (Vorgangsarchiv 338, 348): Meilenstein ohne Datum, Umzug nach Godot jetzt; Um | Termin 02.11. |
