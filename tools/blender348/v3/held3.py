@@ -68,6 +68,7 @@ else:
     # Runde 2 (Helfer blind: Stoppeln graubraun wie Schmutz, Augen leer): Stoppeln in Haarfarbe, Augenhoehle weniger tief, Mund dunkler
     COL['sock'] = (78, 46, 34); COL['brow'] = mix(0x5E3C26, 0x18120E, 0.6); COL['stoppel'] = mix(0xC98B6B, 0x4A2E1C, 0.55)
     COL['lipf'] = (150, 86, 70); COL['lip'] = hx(0x6E3A2C)
+    if os.environ.get('HOSE'): COL['pants'] = hx(int(os.environ['HOSE'], 16))
 SKINHEX = (COL['skin'][0] << 16) | (COL['skin'][1] << 8) | COL['skin'][2]
 
 # ---------------------------------------------------------------- Szene leeren
@@ -169,12 +170,14 @@ def finish(nt, col, name):
     z = nt.nodes.new('ShaderNodeSeparateXYZ'); nt.links.new(geo.outputs['Position'], z.inputs[0]); Z = z.outputs['Z']
     blot = _noise(nt, 0.09, 'World')
     if name in ('tabard', 'cloak', 'sleeve', 'pants'):
-        col = _mix(nt, 0.22 * W, col, lin(hx(0x8A8076)))                      # ausgeblichen (348.5: lebendiger)
+        bl_ = float(os.environ.get('HOSE_BLEICH', '1')) if (name == 'pants' and FIGUR == 'held') else 1.0
+        col = _mix(nt, 0.22 * W * bl_, col, lin(hx(0x8A8076)))                # ausgeblichen (348.5: lebendiger)
         st = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', blot, 0.46), 5.0))
         col = _mix(nt, _m(nt, 'MULTIPLY', st, 0.95 * W), col, lin(hx(0x3A2E26)))  # Flecken
     if name == 'chain':
         rs = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise(nt, 0.11, 'World'), 0.48), 6.0))
-        col = _mix(nt, _m(nt, 'MULTIPLY', rs, 0.85 * W), col, lin(hx(0x5E4A3C)))     # Rost (Dress.kt rusty)
+        ro_ = float(os.environ.get('KETTE_ROST', '1')) if FIGUR == 'held' else 1.0
+        col = _mix(nt, _m(nt, 'MULTIPLY', rs, 0.85 * W * ro_), col, lin(hx(0x5E4A3C)))     # Rost (Dress.kt rusty)
         dk = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', blot, 0.6), 7.0))
         col = _mix(nt, _m(nt, 'MULTIPLY', dk, 0.6 * W), col, lin(hx(0x3A3632)))
     if name in ('helm', 'helmrim', 'fit', 'steel', 'gold', 'belt', 'boots', 'cuff', 'shield', 'grip'):
@@ -282,7 +285,7 @@ def chain_rings(nt):
 
 def chain_color(nt):
     r = chain_rings(nt)
-    hi = rgb_node(nt, COL['chain'], 1.12); lo = rgb_node(nt, COL['chain'], 0.42)
+    hi = rgb_node(nt, COL['chain'], 1.12); lo = rgb_node(nt, COL['chain'], float(os.environ.get('KETTE_LO', '0.42')) if FIGUR == 'held' else 0.42)
     return mixc(nt, r, lo, hi)
 
 make_mat('skin', 1, lambda nt: rgb_node(nt, COL['skin']))
@@ -1359,10 +1362,14 @@ for s_, sg in (('R', 1), ('L', -1)):
     # in den Aermel hinein, darunter ein Handgelenk aus Haut, das im Aermel beginnt
     sh_ = -(w_ - f_).normalized() * (1.8 if FIGUR != 'held' else 0.0)
     for v in hd_.data.vertices: v.co = w_ + (v.co - w_) * HK + sh_
-    if FIGUR != 'held':
-        d_ = (w_ - f_).normalized(); rw_ = J['wr' + s_][1][0]; before = set(bpy.data.objects)
-        capsule(w_ - d_ * 3.0, w_ + d_ * 1.2, rw_ * 0.78, rw_ * 0.72, HM)
-        fuse([o for o in bpy.data.objects if o not in before], 'wrist' + s_, voxel=0.26)
+    # 348.6 Handgelenk (Helfer Godot nah: Hand schwebt unter dem Aermel; pruef_hand: Hand oben 0,9 cm unter dem Handgelenk, Aermel bis
+    # 0,1 cm): der Held bekommt ein Handgelenk aus Haut wie die Leute; die Faust bleibt, wo sie ist (Griffe in held-info.json). Blind gegen
+    # ohne 14:2 besser; wie bei den Leuten (3 cm in den Aermel, Radius 0,78/0,72) Hautwulst, seitlich aus dem Aermel: HANDGELENK=<in den
+    # Aermel>,<Radius oben>,<unten> (Anteile des Handgelenks), 1,5/0,62/0,6 blind gegen 2/0,68/0,64 und die Leute-Werte 8 von 12 vorn
+    d_ = (w_ - f_).normalized(); rw_ = J['wr' + s_][1][0]; before = set(bpy.data.objects)
+    WR_ = (3.0, 0.78, 0.72) if FIGUR != 'held' else tuple(float(x) for x in os.environ.get('HANDGELENK', '1.5,0.62,0.6').split(','))
+    capsule(w_ - d_ * WR_[0], w_ + d_ * 1.2, rw_ * WR_[1], rw_ * WR_[2], HM)
+    fuse([o for o in bpy.data.objects if o not in before], 'wrist' + s_, voxel=0.26)
 
 # ---------------------------------------------------------------- Schwert in der Scheide an der linken Huefte
 def cyl(a, b, ra, rb, mat):
