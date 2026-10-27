@@ -125,7 +125,7 @@ Kartenformat für alle Karten: `MapExport.kt` → `godot/daten/karten.json`.
 | garrick | Jäger Garrick | `Story.kt:579` | hunter :30 | `leute.json`, Entwurf | 0,5 S, 2 R (Bogen auf dem Rücken von Jerry) |
 | morwen | Kräuterfrau Morwen | `Story.kt:681` | herbalist :77 | `leute.json`, Entwurf | 0,5 S, 2 R (Haltung) |
 | merc | Söldner (nur MARS-Probe) | `core/Skirmish.kt:1220` | wie Held (`Hero.create`) | – | 0,5 S, 1 R |
-| Held | Held, vier Klassen | – | – | `v3/held3.py` + `rig.py`, Entwurf (348.6) | 3 S, 2 R (Halt der Fackel, Modell von Jerry; Rennen, Varianten, Rücken, Schild) |
+| Held | Held, vier Klassen | – | – | `v3/held3.py` + `rig.py`, Entwurf (348.6) | 3 S, 2 R (Halt der Fackel, Modell von Jerry; Rennen, Varianten, Rücken, Schild; von Jerry 27.10.: Kampfbewegungen fehlen, `held.bin` nur Gehen, Stehen, im Kampf gleitet der Held; gebraucht Hieb, Stich, Ausholen, Treffer, Ausweichen, Abwehr, Tod, `figur.gd` spielt sie unter diesen Namen) |
 
 Die zwei Runden der Leute sind zwei gemeinsame Blätter für alle 13, nicht je Figur; die Leute hatten schon 12 Runden (Grenze 10), darum nur noch Fehler mit Befund „stark“ und Wort des Chefs.
 
