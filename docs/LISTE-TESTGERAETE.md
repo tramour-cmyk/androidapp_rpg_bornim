@@ -40,7 +40,7 @@ Kampf bereit: Eröffnung –, Held –, Gegner –
 
 Lesart (Sokrates, ohne Nachstellen): Im Haus mehr als dreimal so viele lange Bilder wie auf dem Markt (28 statt 8 in 10 s), alle während „Atmen“ und fast alle während „Leute“; Speicher wieder ohne Bremse. Verdacht: die Atembewegung der Figuren im Innenraum. „Held ganz gezeichnet nach 41,9 s“ ist in beiden Messungen gleich, also wohl ein Wert seit dem Start, nicht je Ort.
 
-## Tester 1, gleiches Gerät, dritte Messung, Ort nicht genannt (Chef 27.10., 23:35)
+## Tester 1, gleiches Gerät, dritte Messung, Flüsterwald nach Kampf mit Skelett (Chef 27.10., 23:35)
 
 ```
 App: 0.1.1037 (1038, release)
