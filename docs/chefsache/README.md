@@ -12,7 +12,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [348.12f](entscheiden/34812f-kaufratte-r3.md) | **Muss** | E Technik | 27.10. | Reicht die nachgebesserte Kaufratte, oder bleibt die eigene? | Jerry |
 | [348.13](entscheiden/34813-tusche-nah.md) | **Muss** | G Aussehen | 27.10. | Tusche in der Nahansicht so lassen, etwas kräftiger („halb“) oder so kräftig wie in der Grundansicht („voll“)? | Tom |
 | [348.13a](entscheiden/34813a-goblin-r6.md) | **Muss** | G Aussehen | 27.10. | Soll Jerry im Kampfort die Tusche nach Licht übernehmen wie im Dorf („neu“), oder bleibt dort die alte, rundum gleich dicke („alt“)? | Tom |
-| [348.7a](entscheiden/3487a-flugbahn.md) | **Muss** | E Technik | 27.10. | Geschosse sehen nach acht Nachbesserungen noch aus, als träfen sie die eigenen Leute oder den falschen Wolf; Votum: in die 3D-Szene verlegen | Jerry |
 | [348.12c](entscheiden/34812c-listen.md) | **Muss** | G Aussehen | 26.10. | vier neue Listen mit je fünf Prüfpunkten, aus deinem Ja von 20:32 und den Modellbildern; nötig, bevor Jerry die gekauften Modelle bemalt | Homer |
 
 ## Zu billigen
@@ -70,7 +69,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | 348.12f | M | von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b): Probe gekaufte Riesenratte: unter 6.0 | Chef (Datei in der Chefsache) |
 | 348.12 | M | von Sokrates (Chef 16:21, „cc0 nochmal“): Goblin CC0 r2: geduckt über UAL (wie geruest.py) | Chef (Datei in der Chefsache) |
 | 348.12c | M | von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv): Wiedergänger, Grabhund, Riesenegel, Säur | Chef (Datei in der Chefsache) |
-| 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | Chef |
+| 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | ruht |
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Jerry: hätte Godot die Ch | Chef |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, Test B46): App „hängt“, ging dann weiter (Zu 257) | ruht |
