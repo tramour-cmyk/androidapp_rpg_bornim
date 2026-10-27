@@ -1115,6 +1115,10 @@ func _lane_box(o) -> AABB:
 ## Behoben: Geschosse auf dem Kopf von Wolf 3, Strahl durch Wolf 3, Pfeil daneben über Wolf 1, drei Strahlen getrennt (42–51 px).
 ## Runde 6: Spitze höchstens 0,9 m, Bahn höchstens 45° steil (STEEP_MAX), Ansagen der Gegner Hindernis am Schirm (_lane_signs),
 ## Start immer neben dem Körper (START_SIDE 0,45); Wolke des Feuerballs und Heilige Flamme in der Mitte licht (zauber.gd)
+## Nach Prüfer r6 (Lauf 40532649967; lokal nachgestellt, Aufstellung am Schirm): Mira (x 238–460, y 818–1298) und Wolf 3 (x 333–558,
+## y 535–916, Ansage bis y 443) bilden zwischen Magier (Start x 195, y 1122) und Wolf 1 (x 679–852) eine Wand; jeder Weg geht
+## über die Ansage (r5, Spitze 1,5 m) oder kreuzt am Schirm Wolf 3, Wolf 2 oder Wolf 1 (r6: 8–26 Punkte, alle 31 Wege der Wahl
+## gezählt); auch jeder Fleck für den Fehlschuss (18 geprüft) liegt am Schirm an oder hinter einer Figur. Grundfrage an den Chef
 func _lane(kind: String, by, on, a: Vector3, b: Vector3, dir: Vector3, missed := false) -> Dictionary:
 	var t0 := Time.get_ticks_usec()
 	var side := Vector3(-dir.z, 0, dir.x)

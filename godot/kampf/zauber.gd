@@ -426,7 +426,8 @@ func _fireball(p: float, from: Vector2, to: Vector2, ground: float, u: float) ->
 	var flash := clampf(1 - s / 0.18, 0.0, 1.0)
 	if flash > 0.0 and ohne != "blitz":
 		# Runde 4 (Prüfer r3: Feuerball überstrahlt Wolf 1): Blitz 52 statt 70 u, der Getroffene bleibt darin sichtbar
-		_glow(to, 52 * u, [_a(WHITE, 0.7 * flash), _a(FIRE_HOT, 0.5 * flash), _a(FIRE, 0.2 * flash), NONE])
+		# Runde 7 (Prüfer r6: 350 ms 96 % von Wolf 1 getönt; Weglassprobe: der Blitz, ohne ihn 8 %): 36 u, Kern halb so hell
+		_glow(to, 36 * u, [_a(WHITE, 0.35 * flash), _a(FIRE_HOT, 0.3 * flash), _a(FIRE, 0.12 * flash), NONE])
 	if ohne != "boden":
 		_clinging_fire(Vector2(to.x, ground), s, u, 1.9)
 	var ausw := 1.0 - (1.0 - s) * (1.0 - s)

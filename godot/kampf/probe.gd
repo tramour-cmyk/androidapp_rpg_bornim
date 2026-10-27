@@ -245,7 +245,9 @@ func _still(path: String) -> void:
 				fight.ui.cast(kind, by2.id, on_id, false, OS.get_environment("ZAUBERDANEBEN") != "")
 				var t1: float = fight.clock_ms
 				for at in ([0, 120, 250, 350, 500, 700] if n == 0 else [120]):
-					while fight.clock_ms - t1 < at:
+					# 348.7a Runde 7 (Prüfer r6: Feuerpfeil bei 0 ms unsichtbar): das Bild „0 ms“ war das letzte vor dem Wirken (Zauber
+					# erst im nächsten Bild gemalt, beim ersten „Tafeln 0 Ecken“, sonst Reste des vorigen); jetzt das erste mit ihm
+					while fight.clock_ms - t1 < maxf(at, 1.0):
 						await get_tree().process_frame
 					await RenderingServer.frame_post_draw
 					var fz := path.get_basename() + "-%s%s-%04d.png" % [kind.to_lower(), "" if n == 0 else str(n + 1), at]
