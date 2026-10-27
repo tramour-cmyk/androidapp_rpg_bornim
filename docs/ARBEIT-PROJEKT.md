@@ -9,7 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 376.1 | M | **von Sokrates (Chef kaufte Quaternius-Figuren 27.10., 12:20):** Probeblatt für Tom einreihen (Chefsache 376 „Figuren“, Zu 376.1) | wartet auf Chef: lädt hoch, gibt Bescheid (12:22); dann einreihen, Tom-Vorrat voll; vor dem Kopf Chefurteil zum Gesicht (Testliste 78) abgleichen; Rohdateien `tramour-cmyk/bornim-kaufmodelle`, nur glTF |
+| 376.1 | M | **von Sokrates (Chef kaufte Quaternius-Figuren 27.10., 12:20):** Probeblatt für Tom einreihen (Chefsache 376 „Figuren“, Zu 376.1) | startbar: hochgeladen 12:28 (Release „stufe1“, `LIZENZ.md`); einreihen, Tom-Vorrat voll; vor dem Kopf Chefurteil zum Gesicht (Testliste 78) abgleichen; Rohdateien `tramour-cmyk/bornim-kaufmodelle`, nur glTF |
 | 373a | M | **von Perikles (373):** Nachturteil Sokrates (362) gestrichen lassen? | wartet auf Chef: entscheiden/373a-nachturteil (Votum ja) |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9):** Meilenstein „Kapitel 1 auf Godot mindestens so gut wie alt“ mit Checkliste aus der Bestandsliste 348.8 und Tagesziele je Team; `ROLLE-PRUEFUNG.md` für Diogenes (Arbeitsteilung 1, 3) | gebaut 25.10., 12:4x (Übergabe; fremd geprüft, 10 Funde behoben); Tagesziele täglich im Stand zum Marktstart |
 | 338 | M | **von Sokrates (Vorgangsarchiv 338, 348):** Meilenstein ohne Datum, Umzug nach Godot jetzt; Umzugsplan mit Sokrates (Zu 338) | frühestens 02.11.: Wochenzählung, Termine prüfen; Termine je Block und Wochenziel 2 gesetzt 26.10., 17:15 (Zu 338) |
