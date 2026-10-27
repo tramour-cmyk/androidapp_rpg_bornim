@@ -190,6 +190,6 @@ if os.environ.get('HANDNAH') == '1' and 'Stehen' in acts:
     act = acts['Stehen']; rig.animation_data.action = act; scn.frame_set(int(act.frame_range[0]))
     for b, s in (('hand_r', 'r'), ('hand_l', 'l')):
         pb_ = rig.pose.bones[b]; c_ = rig.matrix_world @ ((pb_.head + pb_.tail) * 0.5)
-        for n, az in (('vorn', 0), ('aussen', 90 if s == 'r' else 270), ('hinten', 180)):
+        for n, az in (('vorn', 0), ('aussen', 270 if s == 'r' else 90), ('hinten', 180)):
             shot('m_hand%s_%s' % (s, n), az, 45, c_, 0.32, 360, 360)
 print('PB OK')
