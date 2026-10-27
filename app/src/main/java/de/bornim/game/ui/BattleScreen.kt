@@ -481,6 +481,13 @@ object BattleLook {
 
 @Composable
 fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
+    // 296.2: with the switch on MARS, the same fight in MARS
+    val mars = vm.marsFor(battle)
+    if (mars != null) SkirmishScreen(vm, mars, battle) else ClassicBattle(vm, game, battle)
+}
+
+@Composable
+private fun ClassicBattle(vm: GameViewModel, game: Game, battle: Battle) {
     // 24.6: a black screen with words before the fight, until its opening pictures are drawn
     val veil = remember(battle) { FightVeilState() }
     Box(Modifier.fillMaxSize()) {
@@ -1683,7 +1690,7 @@ private fun EnemyBox(battle: Battle, hp: Int, status: Map<de.bornim.core.Status,
 
 /** Small colored tags for active statuses, with the rounds left. */
 @Composable
-private fun StatusChips(status: Map<de.bornim.core.Status, Int>, lang: Lang) {
+internal fun StatusChips(status: Map<de.bornim.core.Status, Int>, lang: Lang) {
     if (status.isEmpty()) return
     Row(Modifier.padding(top = 4.dp), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
         status.forEach { (st, turns) ->

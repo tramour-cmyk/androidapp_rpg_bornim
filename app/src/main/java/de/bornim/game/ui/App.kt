@@ -90,7 +90,8 @@ fun BornimApp(vm: GameViewModel) {
     }
     LaunchedEffect(musicScene) { vm.music.play(musicScene) }
     // a won fight: the victory piece before the place's music (28.1)
-    val won = fight?.battle?.outcome == Outcome.WON
+    // 296.2: a fight in MARS plays it on its own end field
+    val won = fight?.battle?.let { it.outcome == Outcome.WON && !vm.inMars(it) } == true
     LaunchedEffect(won) { if (won) vm.music.victory() }
     // the pictures of the supplies and of what the hero carries, drawn ahead in the background so lists open at once
     val heroKey = vm.game?.hero

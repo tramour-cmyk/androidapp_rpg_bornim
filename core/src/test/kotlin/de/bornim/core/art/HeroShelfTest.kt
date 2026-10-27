@@ -49,6 +49,8 @@ class HeroShelfTest {
                 MapFigure.hold = true // the drawing threads stand still; only reading can make it ready
                 MapFigure.prepare(hero, 0.0)
                 assertTrue(waitFor(10_000) { MapFigure.ready(hero) }, "ready from the device")
+                // ready comes before the worker marks where the pictures came from (wobbly under load, 23.10.)
+                assertTrue(waitFor(10_000) { MapFigure.full(hero) }, "marked done")
                 assertTrue(MapFigure.lastFromShelf)
                 assertContentEquals(drawn.pixels, MapFigure.frame(hero, 9, 5)!!.pixels)
             } finally { MapFigure.hold = false }
@@ -73,6 +75,8 @@ class HeroShelfTest {
                 MapFigure.hold = true
                 MapFigure.prepare(hero, 0.0)
                 assertTrue(waitFor(10_000) { MapFigure.ready(hero) }, "ready from the device")
+                // ready comes before the worker marks where the pictures came from (wobbly under load, 23.10.)
+                assertTrue(waitFor(10_000) { MapFigure.full(hero) }, "marked done")
                 assertTrue(MapFigure.lastFromShelf)
             } finally { MapFigure.hold = false }
         } finally { HeroShelf.dir = null; dir.deleteRecursively() }
