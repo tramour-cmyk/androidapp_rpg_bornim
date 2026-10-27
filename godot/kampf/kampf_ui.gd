@@ -1133,10 +1133,12 @@ func _lane(kind: String, by, on, a: Vector3, b: Vector3, dir: Vector3, missed :=
 	# Schirm hinter Bertrams Kopf, „in 7, verdeckt 3“, Feuerpfeil bei 0 ms unsichtbar)
 	var reach: float = maxf((b - a).length(), 0.5)
 	var ways := []
+	# Blatt zur Grundfrage (BAHN=hoch): wie Runde 5, die Spitze spät (über dem, der nahe beim Ziel steht) bis 1,5 m, ohne Steilgrenze
+	var hoch := OS.get_environment("BAHN") == "hoch"
 	for st in [-START_SIDE, START_SIDE]:
 		for at in [0.5, 0.3, 0.7, 0.2, 0.8]:
-			for h in [0.0, 0.3, 0.6, 0.9]:
-				if h * PI / 2.0 / minf(at, 1.0 - at) / reach + (4.0 * Zauber.ARROW_RISE if kind == "ARROW" else 0.0) > STEEP_MAX and h > 0.0:
+			for h in ([0.0, 0.3, 0.6, 0.9, 1.2, 1.5] if hoch and at >= 0.7 else [0.0, 0.3, 0.6, 0.9]):
+				if not hoch and h * PI / 2.0 / minf(at, 1.0 - at) / reach + (4.0 * Zauber.ARROW_RISE if kind == "ARROW" else 0.0) > STEEP_MAX and h > 0.0:
 					continue
 				for l in [0.0, -0.4, 0.4, -0.8, 0.8, -1.2, 1.2]:
 					ways.append([h * (2.0 if kind == "RAYS" else 1.2) + absf(l) + absf(at - 0.5), l, h, at, st])
@@ -1145,7 +1147,7 @@ func _lane(kind: String, by, on, a: Vector3, b: Vector3, dir: Vector3, missed :=
 	# Runde 6 (Prüfer r5: Geschosse quer über die Ansage von Wolf 3, verschwinden dahinter): Ansagen mit Lebensbalken liegen am
 	# Schirm über allem, sie zählen wie eine Figur (Rechtecke aus dem letzten Bild)
 	_lane_signs = []
-	for r in sign_rects:
+	for r in ([] if hoch else sign_rects):     # hoch: wie Runde 5 über die Ansagen hinweg
 		_lane_signs.append((r as Rect2).grow(6 * dp))
 	for w in ways:
 		if w[0] >= best_cost:
