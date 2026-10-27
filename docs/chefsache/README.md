@@ -52,7 +52,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | 385 | M? | von Sokrates (Archiv): Zauberer-Set (Biped, LISTE-BESTAND) auf Kaufkörper, Film | startbar |
 | 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | startbar |
 | 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | startbar |
-| 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | wartet auf 348.6 (Chef) |
+| 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | wartet auf 348.6 (startbar) |
 | 372 | M | von Perikles (338a B, Chef 27.10., 09:36, Archiv): Feinschliff Held: Kettenhemd, Helm, Kra | ruht |
 | 348.13 | M | von Sokrates (Chef 26.10., Archiv): Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Sc | startbar |
 | 267 | M | von Chef (20.10., 21:46, B48, Tablet): „Das Game laggt ziemlich auf dem Tablet...“ | ruht |
@@ -73,7 +73,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere schnell auf Bewegungen und unsere Haut prüfen, v | startbar |
+| 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | startbar |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | startbar |
 | 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | startbar |
 | 348.12c | M | von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv): Wiedergänger, Grabhund, Riesenegel, Säur | ruht |
