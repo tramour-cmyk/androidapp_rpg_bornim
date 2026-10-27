@@ -56,3 +56,8 @@ Vorgezeichnet: Held 313/313 (gespeichert), Gegner skeleton 14 (nicht fertig), ge
 (übrige Zeilen wie oben)
 
 Lesart (Sokrates, ohne Nachstellen): wieder alle langen Bilder während „Leute“ und „Atmen“. Neu: einmal hält die Speicherbereinigung das Spiel 458 ms an. Der Kampf ist schnell bereit, nur der Gegner (Skelett) braucht 3,6 s und war beim Start noch nicht fertig vorgezeichnet.
+
+## Auswertung 388 (Tom, 28.10.; nach dem Code, nicht am Gerät nachgestellt)
+
+- **Ursache in der Alt-Fassung (Verdacht, aus dem Code):** „Leute“ und „Atmen“ heißt: der Prozessor malt Bilder der Figuren (je Blickrichtung, Haltung, Atemzug) im Hintergrund (`MapRest.Shelf`, `MapFolk`, `SdfRender`). Der A22 hat nur zwei schnelle Kerne; malt der Hintergrund, fehlt dem Bildaufbau Rechenzeit. Jede lange Pause fiel in eine Malzeit („nichts 0“). Im Haus stehen die Figuren groß und nah, ihre Bilder sind größer. Die Ablage ist begrenzt, alte Bilder fliegen heraus und werden neu gemalt; deshalb hört das Malen nicht auf (28 von 28).
+- **Für Godot:** Dort zeichnet die Grafikkarte die Figuren als Modelle mit Knochen, ohne Bilder im Voraus; diese Ursache fällt weg, ebenso das Vorzeichnen des Skeletts. Neue Gefahr auf dem Mali-G57 MC2 (2 Kerne) bei 1080×2408 und 90 Hz: die Zahl der Bildpunkte. Teuer sind Tusche, Schatten und halb durchsichtige Häuser. Folgerung: Godot auf einem Gerät dieser Klasse messen, bevor es zu Testern geht. Mittel dafür: Auflösung 0,75, `gl_compatibility`, wenige Schattenwerfer, Bildrate fest 30 oder 60 statt 90.

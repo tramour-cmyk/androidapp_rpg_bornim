@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (27.10., 22:3x, „Tom – 348.6 Probehaus Fenster“ `session_01Hmoj78kywURiK6MdD5LhSf`):** 348.6 Probehaus Fenster vorgelegt, A2 als Vorgabe (77aca6c63); 388 Build 90 PR #176 (abonnieren); 376.1 Oberarm behoben (2ef066346). Nachfolger: „Tom – 348.6 Häuser mit Innenraum“.
+**Übergabe (28.10., 00:0x, „Tom – 348.6 Häuser mit Innenraum“ `session_01Hmoj772CgjfnusdVqBwhFH`):** 388 auf main und im Play-Test, ausgewertet (`LISTE-TESTGERAETE.md`), erledigt; 348.6 Häuser mit Innenraum vorgelegt (Chefsache 3486, d23bf6cf8; Probe `tools/pruef348/haeuser.sh`). 376.1 braucht `add_repo` (Satz des Chefs). Nachfolger: „Tom – 348.13 Tusche Runde 8“.
 
 ## Zeilen
 
@@ -10,10 +10,9 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 |---|---|---|---|---|
 | 389 | M | **von Perikles (Chef 27.10., 23:55, Archiv):** `main` in den Arbeitszweig mergen (Haken `probelauf.py` in `.claude/settings.json`), Bildläufe nur als `PROBE=<Nr> …`; höchstens zwei je Vorlage (`ROLLE-ENTWICKLUNG.md`) | neu | – |
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101: Held im APK verschlüsselt, lädt) | `claude/tom-348-12i-verschluesseln` |
-| 388 | M | **von Sokrates (Chef 21:58; „jetzt“ 27.10., 22:17, „388 machen“):** Play-Fassung: „Kopieren“ der Geräteangaben (TestTab) auch im Systemmenü; Ruckeln eines Testers in den Hütten auswerten | startbar: im Play-Test; Geräteangaben Tester 1 da (`LISTE-TESTGERAETE.md`), auswerten für Godot |
 | 385 | M? | **von Sokrates (Archiv):** Zauberer-Set (Biped, LISTE-BESTAND) auf Kaufkörper, Film | startbar |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | startbar: Kaufkopf ja (Chef 21:41); Oberarm behoben, Halszacken offen, dann Formen, Kopfvorlagen, Editor (Zu 376.1) | `claude/tom-376-1-figuren` |
-| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | in Arbeit: Gasthaus, Laden, Ältester, Tempel aus dem Bausatz, Fenster aus dem Raum (be4c2933d); offen: Rippen auf Dächern, Grau; dann Vorlage, Dorf | `claude/tom-348-fundament` |
+| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | wartet auf Chef: Chefsache 3486 (Häuser mit Innenraum, be4c2933d…d23bf6cf8); dann Dorf | `claude/tom-348-fundament` |
 | 376.2 | M | **von Perikles (Chef 12:37, `LISTE-CC0-MODELLE.md`):** RenderHub-Marktpaket: Brunnen und Stände als Form, unsere gemalten Farben | wartet auf 348.6 (Dorf nach Urteil Probehaus); Paket im Release stufe1 erreichbar (Chef 17:38) | – |
 | 372 | M | **von Perikles (338a B, Chef 27.10., 09:36, Archiv):** Feinschliff Held: Kettenhemd, Helm, Kragen (Zu 348.6, Hände) | ruht bis Ende des Umzugs | `claude/tom-348-fundament` |
 | 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | startbar: 348.13a 1,3 (Chef 22:10, Archiv); offene Fehler der Runde 8 beheben; Zweig 6c2f2ae62; dann an Jerry | `claude/tom-34813-kampfprobe` |
