@@ -49,7 +49,7 @@ def bildlauf(befehl):
     return SKRIPT.search(befehl) or any("--import" not in m.group(0) for m in GODOT_LAUF.finditer(befehl))
 
 
-def git(*args, cwd=REPO, timeout=20):
+def git(*args, cwd=REPO, timeout=8):
     return subprocess.run(["git", "-C", cwd, *args], capture_output=True, text=True, timeout=timeout)
 
 

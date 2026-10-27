@@ -88,7 +88,7 @@
           {
             "type": "command",
             "command": "f=/home/user/bornim-main/tools/probelauf.py; [ -f \"$f\" ] || f=\"$CLAUDE_PROJECT_DIR\"/tools/probelauf.py; command -v python3 >/dev/null && python3 \"$f\"; r=$?; [ $r = 2 ] && exit 2; true",
-            "timeout": 30
+            "timeout": 90
           }
         ]
       }

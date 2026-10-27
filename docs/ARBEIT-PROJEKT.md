@@ -3,7 +3,7 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 28.10., 00:05
+**Gelesen bis:** `origin/main` 28.10., 00:02
 
 **Übergabe (28.10., 00:0x, `session_01Hmoj76mW9cxhS7viQ9cfW9`):** 389 gebaut: Haken `probelauf.py`, Regel in `ROLLE-ENTWICKLUNG.md`, Zeilen 389 an Tom und Jerry. Kosten auf: 389. Nachfolger: keiner
 
