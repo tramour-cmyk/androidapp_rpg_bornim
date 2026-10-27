@@ -21,6 +21,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [348.13a](ansehen/34813a-tusche-kampf-r7.md) | Tusche im Kampf nach Licht, Runde 7: 1,0 oder 1,3? | Tom | 27.10., 17:45 |
+| [376](ansehen/376-haeuser-gedreht.md) | Häuser leicht gedreht: so? | Tom | 27.10., 18:08 |
 
 ## Zu tun
 
