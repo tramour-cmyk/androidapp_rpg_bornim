@@ -36,8 +36,8 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
-- 00:04 27.10.: Lauf; START Perikles (Nachfolgername „den Stand zum Marktstart 27.10. …“ ist ein Termin 7:30, `lauf.py` startet ihn sofort, Werkzeugfehler an Perikles) und START Sokrates (Nachtvertretung läuft, 362) nicht ausgeführt; Stellungnahme 34812c-listen an Sokrates `01BeMf` per Nachricht
 
+- 00:04 27.10.: Lauf; START Perikles (Nachfolgername „den Stand zum Marktstart 27.10. …“ ist ein Termin 7:30, `lauf.py` startet ihn sofort, Werkzeugfehler an Perikles) und START Sokrates (Nachtvertretung läuft, 362) nicht ausgeführt; Stellungnahme 34812c-listen an Sokrates `01BeMf` per Nachricht
 - 21:05 25.10.: Neustart Jerry angenommen (35ae76b44 auf main, Nachfolger in Übergabe): Start „Jerry – 348.7 Goblin-Späher Godot 37 (25.10., 21:05)“
 - 12:30 25.10.: Neustart Sokrates angenommen (242 Tsd., Übergabe auf main): Start „Sokrates – 252 Webseite“ `session_019bZp2HJbpfC6NHSJd5NASK`; alte archiviert (6,35 $ auf 340.2)
 - 12:29 25.10.: Auftrag über Sokrates (Chef 12:24 entschied 348.9): Start „Diogenes – 348.9“ `session_01MB66tbqYyMipmruX982SXv`, „Homer – 348.9“ `session_018G9aKPLrnvQspQVHEm1kLZ` (beide per Lauf), „Perikles – 348.9 Meilenstein Godot“ `session_018Bf1F8yyFZ7K4YQA3nqosD` (von Hand wegen vollem Vorrat, Auftrag in der ersten Nachricht); Perikles 364 (fertig, idle) archiviert (2,41 $ gebucht); Tom Runde 11 läuft schon
@@ -57,7 +57,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:06 25.10.: Lauf 10:03: keine Starts (Tom 15, Jerry 16, Sokrates 318 laufen), Dashboard aktualisiert; Sokrates „Bilder Dorf und Wölfe“ 5,33 $ von lauf.py nochmals auf Betrieb gebucht (Doppelbuchung, siehe Eingang)
 - 09:53 25.10.: Neustart Tom angenommen (199 Tsd., Übergabe auf main): Start „Tom – 348.6 Umzug Godot 15“ `session_01CN7z2bpKgJ5DG2bjBtdR7j`; alte archiviert (5,29 $ auf 348.6)
 - 09:35 25.10.: Neustart Tom angenommen (235 Tsd., Übergabe auf main): Start „Tom – 348.6 Umzug Godot 14“ `session_01MdBVh4ZRzKuFW7CfdUJdGK`; alte archiviert (7,70 $ auf 348.6); Weckruf der alten Sitzung war schon weg
-- 09:26 25.10.: Neustart Sokrates angenommen (206 Tsd., Übergabe auf main): Start „Sokrates – 318 messen“ `session_0181vCupxSiHbkBCSuMSGUiw`; alte archiviert (5,33 $: 1,72 Betrieb durch lauf.py, Rest je 1,80 auf 348.7 und 340)
 - 07:04 26.10.: Startsperre 07:04 Start Perikles (lauf.py)
 - 07:04 26.10.: Marke Abgleich Vorentscheid 348.6 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 07:04 26.10.: Marke Abgleich Vorentscheid-Bremse (194.1): 8 ungebilligt, 0 älter als 7 Ta (lauf.py)
@@ -121,3 +120,9 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:04 27.10.: Marke Archiv session_01V3uSXtsP3YXgps5LN1enxX (lauf.py)
 - 00:04 27.10.: Marke Archiv session_01An8vnxw8uD5fsxpAfgY4Sc (lauf.py)
 - 00:04 27.10.: Nachfolger-Warnung Homer (Übergabe 26.10., 21:09) (lauf.py)
+- 01:04 27.10.: Startsperre 01:04 Start Perikles (lauf.py)
+- 01:04 27.10.: Marke Stellungnahme Sokrates 27.10. (lauf.py)
+- 01:04 27.10.: Marke Archiv session_01UV5xMnJEHtS589W2SCC7Pp (lauf.py)
+- 01:04 27.10.: Marke Archiv session_01CFG2MvnC6g9Pa11vY4Jiyp (lauf.py)
+- 01:04 27.10.: Marke Archiv session_01YUTKEPhcVuor2aGzn62Zzu (lauf.py)
+- 01:04 27.10.: Marke Mehrfach Jerry (lauf.py)
