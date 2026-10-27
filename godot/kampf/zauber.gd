@@ -24,6 +24,9 @@ const ARROW_RISE := 0.12
 
 var ci: CanvasItem
 var rnd := RandomNumberGenerator.new()
+## 348.7 (Helfer Lauf 126: Feuerpfeil, Feuerball, Geschosse flogen vor dem näheren Wolf durch): so viele Bildpunkte steigt die
+## Bahn in der Mitte über die Gerade, damit sie über die Köpfe derer geht, die vor ihr stehen (kampf_ui.gd setzt es je Effekt)
+static var over := 0.0
 
 
 ## Wie lange ein Effekt spielt (BattleFx.kt baseFxDuration), in ms
@@ -62,7 +65,7 @@ static func _arc(a: Vector2, b: Vector2, t: float, bend: float) -> Vector2:
 	var d := b - a
 	var ln := maxf(d.length(), 1.0)
 	var lift := sin(t * PI) * bend
-	return Vector2(base.x - d.y / ln * lift, base.y + d.x / ln * lift)
+	return Vector2(base.x - d.y / ln * lift, base.y + d.x / ln * lift - sin(t * PI) * over)
 
 
 static func _fade(p: float) -> float:
@@ -72,7 +75,9 @@ static func _fade(p: float) -> float:
 func _square(c: Color, at: Vector2, s: float, alpha := 1.0) -> void:
 	if alpha <= 0.0:
 		return
-	ci.draw_rect(Rect2(at.x - s / 2, at.y - s / 2, s, s), _a(c, c.a * alpha))
+	# Funken rund mit Schein (Helfer Lauf 126: „Pixelquadrate“)
+	ci.draw_circle(at, s, _a(c, c.a * alpha * 0.25))
+	ci.draw_circle(at, s * 0.45, _a(c, c.a * alpha))
 
 
 ## Weicher Kreis (radialGradient): Farben von der Mitte nach außen, gleich verteilt; sy staucht ihn zur Ellipse
@@ -127,7 +132,10 @@ func _tongue(base: Vector2, h: float, w: float, lean: float, c: Color, a: float,
 	for i in range(1, 7):
 		var t := i / 6.0
 		pts.append(tip.lerp(rc, t).lerp(rc.lerp(r0, t), t))
-	_vgrad(pts, base.y - h, base.y, cols if not cols.is_empty() else [_a(c, 0.0), _a(c, a), _a(c, a * 0.5)])
+	# am Grund weich auslaufen (Helfer Lauf 126: harte waagrechte Unterkante wie eine abgeschnittene Karte)
+	var cs: Array = cols if not cols.is_empty() else [_a(c, 0.0), _a(c, a), _a(c, a * 0.5)]
+	cs = cs + [_a(cs[cs.size() - 1], 0.0)]
+	_vgrad(pts, base.y - h, base.y, cs)
 
 
 func _smoke(at: Vector2, t: float, u: float, n: int, rise: float, a: float) -> void:
@@ -338,7 +346,7 @@ func _fireball(p: float, from: Vector2, to: Vector2, ground: float, u: float) ->
 		var rad := (14 + _rf() * 14) * u * (0.45 + 0.75 * ausw)
 		var heat := clampf(1.0 - s * (1.0 + _rf() * 0.7) + (1.0 - d / (56 * u)) * 0.25, 0.0, 1.0)
 		var col := FIRE_HOT if heat > 0.7 else (FIRE if heat > 0.4 else (FIRE_DARK if heat > 0.15 else SMOKE))
-		var a0 := 0.6 * (1 - s) if col == SMOKE else (1 - s * 0.7)
+		var a0 := 0.3 * (1 - s) if col == SMOKE else (1 - s * 0.7)     # Rauch 0,6: zwei dunkle runde Flecken „wie Augen“ (Helfer Lauf 126)
 		_glow(c, rad, [_a(col, a0), _a(col, a0 * 0.4), _a(col, 0.0)])
 	_smoke(to + Vector2(0, -10 * u), (s - 0.25) / 0.75, u, 6, 70.0, 0.55)
 	_burst(to, s, u, [FIRE_HOT, FIRE, FIRE_DARK], 16, 50.0)
@@ -397,14 +405,14 @@ func _arrow(p: float, from: Vector2, hit: Vector2, u: float) -> void:
 	var rise := hit.distance_to(from) * ARROW_RISE
 	var fly := func(x: float) -> Vector2:
 		var c := clampf(x, 0.0, 1.0)
-		return from.lerp(hit, c) - Vector2(0, 4 * rise * c * (1 - c))
+		return from.lerp(hit, c) - Vector2(0, 4 * rise * c * (1 - c) + sin(c * PI) * over)
 	var head: Vector2 = fly.call(t)
-	var ahead := Vector2(hit.x - from.x, hit.y - from.y - 4 * rise * (1 - 2 * t))
+	var ahead := Vector2(hit.x - from.x, hit.y - from.y - 4 * rise * (1 - 2 * t) - PI * cos(t * PI) * over)
 	var d := ahead.normalized() if ahead.length() > 0.001 else Vector2.RIGHT
 	var n := Vector2(-d.y, d.x)
 	var tail := head - d * (15 * u)
 	for k in 4:
-		ci.draw_line(fly.call(t - 0.06 * (k + 1)), tail if k == 0 else fly.call(t - 0.06 * k), Color(1, 1, 1, 0.094), 0.6 * u, true)
+		ci.draw_line(fly.call(t - 0.06 * (k + 1)), tail if k == 0 else fly.call(t - 0.06 * k), Color(1, 1, 1, 0.3 - 0.06 * k), 1.2 * u, true)     # Spur kräftiger: Pfeil „praktisch unsichtbar“ (Helfer Lauf 126)
 	ci.draw_line(tail, head - d * (2.5 * u), Color("5e3c20"), 0.8 * u, true)
 	var b := head - d * (3 * u)
 	ci.draw_colored_polygon(PackedVector2Array([head, b + n * 1.1 * u, b - n * 1.1 * u]), Color("8c9298"))

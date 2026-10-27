@@ -561,6 +561,12 @@ func grass_spot() -> Vector3:
 	return Vector3(c.x, c.z, 0.5 * _scale() if wolf else 0.3)
 
 
+## Im Schlag unterwegs (Hin- und Rückweg): zählt beim Ausweichen der Ansagen nicht (Helfer Lauf 126: Ansagen sprangen um
+## 300–400 px, während die Heldin zum Wolf und zurück lief)
+func lunging() -> bool:
+	return tween != null and tween.is_running()
+
+
 func falling() -> bool:
 	# Spielzeit wie die Zeitgeber in die(): mit --write-movie lief die Wanduhr davon, die Ansage galt zu früh als ausgeblendet
 	return dead_at >= 0 and kampfort.clock_ms - dead_at < FALL_MS + FADE_MS

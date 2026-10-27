@@ -182,8 +182,13 @@ func _still(path: String) -> void:
 	# 249: EFFEKT=KILL|CRIT|HARD (EFFEKTZIEL=<id>): der erste der Gruppe schlägt den ersten Gegner, Bildfolge ab dem Aufschlag
 	# als <bild>-<ms>.png (Zoom, Ruck, Zittern, Blut); BLUT_TREFFER=0..1 wie schwer verwundet
 	var fx := OS.get_environment("EFFEKT")
+	# Helfer Lauf 126 (Zugleiste „▶ Bertram“, Ring unter dem Söldner, Balken ab 1100 wieder voll): es schlägt, wer dran ist, und
+	# der Kampf spielt währenddessen keine weiteren Meldungen ab
+	var dran = fight.mars.current() if fight.mars.current().side == "PARTY" else fight.mars.fighters().filter(func(x): return x.side == "PARTY")[0]
+	if fx != "" or OS.get_environment("ZAUBER") != "":
+		fight.playing = true
 	if fx != "":
-		var by = fight.mars.fighters().filter(func(x): return x.side == "PARTY")[0]
+		var by = dran
 		var foes: Array = fight.mars.fighters().filter(func(x): return x.side == "FOES" and x.standing())
 		var on = foes[0]
 		if OS.get_environment("EFFEKTZIEL") != "":
@@ -213,7 +218,7 @@ func _still(path: String) -> void:
 	# 348.7: ZAUBER=FIRE_BOLT,ARROW,… (ZAUBERDANEBEN=1 verfehlt): der erste der Gruppe wirkt auf den ersten Gegner (HEAL, BLESS
 	# auf sich), Bildfolge als <bild>-<art>-<ms>.png
 	if OS.get_environment("ZAUBER") != "":
-		var by2 = fight.mars.fighters().filter(func(x): return x.side == "PARTY")[0]
+		var by2 = dran
 		var on2 = fight.mars.fighters().filter(func(x): return x.side == "FOES" and x.standing())[0]
 		for kind in OS.get_environment("ZAUBER").split(","):
 			var self_cast: bool = kind in ["HEAL", "BLESS"]

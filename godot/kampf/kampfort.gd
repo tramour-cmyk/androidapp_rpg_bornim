@@ -428,7 +428,9 @@ func _hit_camera() -> void:
 		hz = 1.0 - _soft(minf((el - t_in - hold) / t_out, 1.0))
 	var jp := Wucht.jolt(el / Wucht.jolt_ms(w))
 	var z := 1.0 + hz * (0.10 if kill else Wucht.zoom(w)) + 0.03 * jp
-	var p := _near_of(on.position)
+	if not hit.has("pivot"):
+		hit["pivot"] = _pivot(_near_of(on.position), 1.0 + (0.10 if kill else Wucht.zoom(w)) + 0.03)
+	var p: Vector2 = hit.pivot
 	cam.size = base_size / z
 	var off := p + (base_off - p) / z
 	# der Ruck: die Szene ein Stück vom Schlagenden zum Getroffenen hin (am Schirm, in dp)
@@ -437,6 +439,40 @@ func _hit_camera() -> void:
 		var vs := get_viewport().get_visible_rect().size
 		off -= dir.normalized() * jp * Wucht.jolt_dp(w) * (vs.x / 412.0) * cam.size / vs.y
 	cam.frustum_offset = off
+
+
+## 348.7 (Helfer Lauf 126: Heldin am Rand angeschnitten): die Mitte des Zooms so nah an [p] wie möglich, aber so, dass bei
+## [z] jede stehende Figur ganz in der Szene bleibt (über dem Bedienfeld, 8 dp Rand); geht das nicht, bleibt es bei [p].
+func _pivot(p: Vector2, z: float) -> Vector2:
+	var vs := get_viewport().get_visible_rect().size
+	var per_px := base_size / vs.y
+	var half := Vector2(vs.x, vs.y) * per_px / 2.0
+	var m := 8.0 * (vs.x / 412.0) * per_px
+	var below := (vs.y - scene_rect().size.y) * per_px
+	var lo := Vector2(base_off.x - half.x + m, base_off.y - half.y + below + m)
+	var hi := Vector2(base_off.x + half.x - m, base_off.y + half.y - m)
+	var k := 1.0 - 1.0 / z
+	var mn := Vector2(-INF, -INF)
+	var mx := Vector2(INF, INF)
+	for fig in figures.values():
+		if not fig.visible or fig.down:
+			continue
+		var foot := _near_of(fig.position)
+		var top := _near_of(fig.head())
+		var wolf: bool = fig.fighter.monster != null and fig.fighter.monster.id == Mars.WOLF
+		var w: float = (top.y - foot.y) * (0.8 if wolf else 0.45)
+		for q in [Vector2(foot.x - w, foot.y), Vector2(foot.x + w, top.y)]:
+			# sichtbar bei Zoom z um c: lo ≤ c + (q - c)·z … umgestellt nach c
+			mx.x = minf(mx.x, (q.x - lo.x / z) / k)
+			mn.x = maxf(mn.x, (q.x - hi.x / z) / k)
+			mx.y = minf(mx.y, (q.y - lo.y / z) / k)
+			mn.y = maxf(mn.y, (q.y - hi.y / z) / k)
+	var c := p
+	if mn.x <= mx.x:
+		c.x = clampf(p.x, mn.x, mx.x)
+	if mn.y <= mx.y:
+		c.y = clampf(p.y, mn.y, mx.y)
+	return c
 
 
 ## Wo [q] (Welt) auf der Nahebene der Kamera liegt, in deren Maß (wie frustum_offset).
@@ -697,6 +733,24 @@ func _play_say(e: Dictionary) -> void:
 	ui.refresh()
 	ui.show_roll(e)
 	await get_tree().create_timer(maxf(SAY_MS, lunge_ms) / 1000.0).timeout
+
+
+## 348.7: warmes Licht am Ziel eines Feuerzaubers, ab seiner Ankunft, flackernd verlöschend
+func fire_light(id: String, after_ms: float, ms: float, big: bool) -> void:
+	var fig = figures.get(id)
+	if fig == null:
+		return
+	var l := OmniLight3D.new()
+	l.light_color = Color(1.0, 0.62, 0.3)
+	l.omni_range = 4.0 if big else 2.5
+	l.light_energy = 0.0
+	add_child(l)
+	l.position = fig.position + Vector3(0, 0.7, 0)
+	var tw := create_tween()
+	tw.tween_interval(after_ms / 1000.0)
+	tw.tween_property(l, "light_energy", 3.0 if big else 2.0, 0.05)
+	tw.tween_property(l, "light_energy", 0.0, ms / 1000.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	tw.tween_callback(l.queue_free)
 
 
 ## Daneben: ein Angriff, der nicht trifft, oder ein Rettungswurf, der alles abwehrt (roll[4] heißt beim Angriff „trifft“,

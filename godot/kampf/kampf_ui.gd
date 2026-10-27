@@ -826,6 +826,9 @@ func cast(kind: String, by: String, on: String, crit: bool, missed: bool, after_
 	spell_seed += 1
 	spells.append({"kind": kind, "by": by, "on": on, "crit": crit, "missed": missed, "seed": spell_seed * 7919,
 		"t0": kampfort.clock_ms + after_ms})
+	# Feuer wirft Licht auf Gegner und Boden (Helfer Lauf 126: „Feuer ohne Licht“; DESIGN-STIL Signatur: Licht aus Quellen)
+	if kind in ["FIRE_BOLT", "RAYS", "FIREBALL"]:
+		kampfort.fire_light(on, after_ms + Zauber.arrives(kind), Zauber.duration(kind) - Zauber.arrives(kind), kind == "FIREBALL")
 
 
 ## Wie BattleFxLayer im alten MARS: vom Schlagenden (Brusthöhe) zum Getroffenen, u = Höhe des Getroffenen / 40, bei kritisch 1,35-fach
@@ -847,8 +850,36 @@ func _draw_spells() -> void:
 		var by = k.figures.get(sp.by, on)
 		var from := _foot(by) - Vector2(0, _tall(by) * 0.55)
 		var u := tall / 40.0 * (1.35 if sp.crit else 1.0)
+		Zauber.over = _over(from, to - Vector2(0, tall * 0.55), [by, on]) if sp.kind in ["ARROW", "FIRE_BOLT", "MISSILES", "FIREBALL"] else 0.0
 		zauber.draw(sp.kind, int(sp.seed), p, from, to - Vector2(0, tall * 0.55), u, to.y, sp.missed)
 	spells = still
+
+
+## 348.7 (Helfer Lauf 126: Geschosse flogen vor dem näheren Wolf durch, „wie ein Treffer am falschen Wolf“): wie hoch die
+## Bahn von a nach b in der Mitte steigen muss, um über jede Figur zu gehen, die näher an der Kamera steht als die Bahn
+## (ihr Fuß tiefer im Bild als der Boden unter der Bahn); weiter hinten Stehende verdeckt sie zu Recht.
+func _over(a: Vector2, b: Vector2, skip: Array) -> float:
+	var k = kampfort
+	var need := 0.0
+	var fa := a.y + _tall(skip[0]) * 0.55 if skip[0] != null else a.y
+	var fb := b.y + _tall(skip[1]) * 0.55
+	for id in k.figures:
+		var o = k.figures[id]
+		if o in skip or not o.visible or o.down:
+			continue
+		var foot := _foot(o)
+		var tall := _tall(o)
+		var half: float = tall * (0.8 if o.fighter.monster != null and o.fighter.monster.id == Mars.WOLF else 0.45)
+		for x in [foot.x - half, foot.x, foot.x + half]:
+			var t: float = (x - a.x) / (b.x - a.x) if absf(b.x - a.x) > 1.0 else -1.0
+			if t <= 0.05 or t >= 0.95:
+				continue
+			if foot.y <= lerpf(fa, fb, t):
+				continue
+			var gap: float = lerpf(a.y, b.y, t) - (foot.y - tall - 10 * dp)
+			if gap > 0.0:
+				need = maxf(need, gap / sin(t * PI))
+	return minf(need, a.distance_to(b) * 0.6)
 
 
 ## 249 (BattleBlood.kt drawBloodSpray): Tropfen von der Brust des Getroffenen, weg vom Schlagenden und etwas aufwärts, die zu
@@ -1049,7 +1080,7 @@ func _draw_intents(sr: Rect2) -> void:
 	for id in k.figures:
 		var o = k.figures[id]
 		# 348.7 (Prüfer 26.10.: beim tödlichen Treffer sprang die Ansage des Nachbarn über den Sterbenden): wer fällt, steht noch im Bild
-		if o.visible and (k.shown.hp.get(id, o.fighter.hp) > 0 or o.falling()):
+		if o.visible and not o.lunging() and (k.shown.hp.get(id, o.fighter.hp) > 0 or o.falling()):
 			var of := _foot(o)
 			var ot := _tall(o)
 			# ein Wolf ist länger als hoch: im Bild etwa 1,6 mal so breit (Prüfer: Ansage lag auf dem Hinterteil des grauen)
