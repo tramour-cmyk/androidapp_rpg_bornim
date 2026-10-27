@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [373a](entscheiden/373a-nachturteil.md) | **Muss** | B Abläufe | 27.10. | Nach deinem „373 ja“ (11:35, nur du urteilst über Aussehen und Bewegung) habe ich auch das Nachturteil von Sokrates gestrichen (362: schläft der Chef, urteilt Sokrates über Entwürfe). Die Vorlage 373 nannte das nicht ausdrücklich. | Perikles |
 | [374](entscheiden/374-wer-prueft-373.md) | **Muss** | B Abläufe | 27.10. | Heute prüft das keiner regelmäßig. Diogenes prüft Abläufe nur montags in der Wochenzählung und bei Anlass; eine Woche Abweichung fällt so zu spät auf (heute früh gingen sechs Blätter ungemessen an dich, aufgefallen ist es auf deine Frage). | Sokrates |
 
 ## Zu billigen
@@ -85,11 +86,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 11, Muss 9, startbar 1
+**Perikles** – offen 12, Muss 10, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 373 | M | von Chef über Sokrates (27.10., 11:31): Vorlagen zu Aussehen, Design, Bewegung, Animation: | startbar |
+| 373a | M | von Perikles (373): Nachturteil Sokrates (362) gestrichen lassen? | Chef (Datei in der Chefsache) |
+| 375 | M | von Ford (Eingang 25.–27.10.): Werkzeugfehler lauf.py: Nachfolger-Titel mit Terminvermerk | startbar |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9): Meilenstein „Kapitel 1 auf G | wartet auf Test/Build (gebaut) |
 | 338 | M | von Sokrates (Vorgangsarchiv 338, 348): Meilenstein ohne Datum, Umzug nach Godot jetzt; Um | Termin 02.11. |
 | 347.2 | M | von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347): Paket Regeltreue umsetzen nach tool | wartet auf Test/Build (gebaut) |
