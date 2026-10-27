@@ -874,12 +874,21 @@ for sg in (1, -1):
     for p in e.data.polygons: p.use_smooth = True
 
 # Helm (helmet, Dress.kt): Schale ueber dem Schaedel, Rand, Nasal
-def head_part(name, keep, off, mat, thick):
+def head_part(name, keep, off, mat, thick, snap=None):
     bm = bmesh.new(); bm.from_mesh(hme)
     kill = [f for f in bm.faces if not all(keep(v.co) for v in f.verts)]
     bmesh.ops.delete(bm, geom=kill, context='FACES')
-    bm.normal_update()
-    for v in bm.verts: v.co = v.co + v.normal * off
+    if snap:   # HELM_FORM (Helfer: Unterkante wellig wie Treppe, sie folgte den Flaechen des Kopfes): Randecken auf die Schnittlinie;
+        # Schale glatt (Helfer: Delle und Falten ueber der Stirn wie Stoff, die Schale bildete Brauenbogen und Stirn nach)
+        for v in bm.verts:
+            if v.is_boundary: v.co.z = snap(v.co)
+        for _ in range(12):
+            bmesh.ops.smooth_vert(bm, verts=[v for v in bm.verts if not v.is_boundary], factor=0.5, use_axis_x=True, use_axis_y=True, use_axis_z=True)
+        bm.normal_update()
+        for v in bm.verts: v.co = v.co + v.normal * off
+    else:
+        bm.normal_update()
+        for v in bm.verts: v.co = v.co + v.normal * off
     m2 = bpy.data.meshes.new(name); bm.to_mesh(m2); bm.free()
     o = bpy.data.objects.new(name, m2); link(o); o.location = head.location; o.data.materials.append(MATS[mat])
     for p in m2.polygons: p.use_smooth = True
@@ -887,8 +896,34 @@ def head_part(name, keep, off, mat, thick):
     apply_mods(o)
     return o
 edge_u = lambda co: 2.2 + 0.38 * (-co.y)  # Helmkante: vorn hoeher, hinten tiefer
+def rim_band(name, keep, snap, hoch, off, mat, thick):
+    """HELM_FORM (Helfer: Rand aus dem Kopfnetz geschnitten zackt, schmal mit Luecken): Band aus der Unterkante der Schale, hoch cm."""
+    bm = bmesh.new(); bm.from_mesh(hme)
+    bmesh.ops.delete(bm, geom=[f for f in bm.faces if not all(keep(v.co) for v in f.verts)], context='FACES')
+    bm.normal_update()
+    rand = [e for e in bm.edges if e.is_boundary]
+    def nh(v):   # waagerechte Aussenrichtung
+        n = Vector((v.normal.x, v.normal.y, 0)); return n.normalized() if n.length > 1e-6 else Vector((v.co.x, v.co.y, 0)).normalized()
+    unten = {v: Vector((v.co.x, v.co.y, snap(v.co))) + nh(v) * off for e in rand for v in e.verts}
+    b2 = bmesh.new(); u_ = {}; o_ = {}
+    for v, p in unten.items():
+        u_[v] = b2.verts.new(p); o_[v] = b2.verts.new(p + Vector((0, 0, hoch)))
+    for e in rand:
+        a_, c_ = e.verts
+        try: b2.faces.new((u_[a_], u_[c_], o_[c_], o_[a_]))
+        except ValueError: pass
+    bmesh.ops.recalc_face_normals(b2, faces=b2.faces)
+    if sum(f.normal.dot(Vector((f.calc_center_median().x, f.calc_center_median().y, 0))) for f in b2.faces) < 0:
+        bmesh.ops.reverse_faces(b2, faces=b2.faces)
+    m2 = bpy.data.meshes.new(name); b2.to_mesh(m2); b2.free(); bm.free()
+    o = bpy.data.objects.new(name, m2); link(o); o.location = head.location; o.data.materials.append(MATS[mat])
+    for p in m2.polygons: p.use_smooth = True
+    so = o.modifiers.new('so', 'SOLIDIFY'); so.thickness = thick; so.offset = -1
+    apply_mods(o)
+    return o
 if FG['kopf'] == 'helm':
-    hm_ = head_part('helm', lambda co: co.z > edge_u(co) - 0.2, 1.3, 'helm', 0.6)
+    form_ = float(os.environ.get('HELM_FORM', '0')) if FIGUR == 'held' else 0.0
+    hm_ = head_part('helm', lambda co: co.z > edge_u(co) - 0.2, 1.3, 'helm', 0.6, (lambda co: edge_u(co) - 0.2) if form_ > 0 else None)
     if FIGUR != 'held':   # Leute Runde 4 (Helfer: Jorins Helm wie eine Muetze): Glocke mit Spitze statt Kappe, Kettenkragen darunter
         # Runde 4b (Helfer: Helm wie Kalotte, Spitze und Rand nicht lesbar): hoehere, schlankere Spitze, breiterer Rand;
         # Kettenkragen nur seitlich hinter den Wangen und im Nacken (vorher wie eine Maske), tiefer bis auf die Schultern
@@ -901,12 +936,22 @@ if FG['kopf'] == 'helm':
             if v.co.z < -4.0:
                 k_ = -4.0 - v.co.z
                 v.co += Vector((v.co.x, v.co.y, 0)).normalized() * 0.12 * k_ + Vector((0, 0, -0.55 * k_))
+    if form_ > 0:   # 348.6 („Helm wie Muetze“, Probe ac64f9788: Kappe zu klein und rund): wie Leute 4b, milder; hoeher, leicht spitz,
+        # unten etwas ausgestellt; Probe HELM_FORM=<cm Spitze> (Vorgabe 0)
+        for v in hm_.data.vertices:
+            t_ = max(0.0, min(1.0, (v.co.z - 3.0) / 9.0))
+            xy_ = Vector((v.co.x, v.co.y, 0))
+            v.co += xy_.normalized() * 0.35 * (1 - t_) - xy_ * 0.22 * t_ ** 3 + Vector((0, 0, form_ * t_ ** 2.2))
     kamm_ = float(os.environ.get('HELM_KAMM', '0')) if FIGUR == 'held' else 0.0
     if kamm_ > 0:   # 348.6 („Helm wie Muetze“): Grat von der Stirn ueber den Scheitel in den Nacken, Kappe gegen Haube unterscheidbar; Probe HELM_KAMM=0.5 (Vorgabe 0)
         for v in hm_.data.vertices:
             u_ = max(0.0, min(1.0, (v.co.z - edge_u(v.co)) / 3.0))
             v.co += Vector((0, v.co.y, v.co.z)).normalized() * kamm_ * math.exp(-(v.co.x / 1.4) ** 2) * u_   # Runde 2 (Helfer: Grat schief, hinten wie Nadel): flacher, breiter
-    rim_ = head_part('helmrim', lambda co: edge_u(co) - 0.2 < co.z < edge_u(co) + (1.5 if FIGUR == 'held' else 2.2), 1.9 if FIGUR == 'held' else 3.1, 'helmrim', 0.8)
+    rh_ = (0.8 if form_ > 0 else 1.5) if FIGUR == 'held' else 2.2   # HELM_FORM: schmaler Rand (Helfer: Rand wie Stoffwulst)
+    if form_ > 0 and os.environ.get('HELM_BAND') == '1':   # Helfer blind: Band aus der Unterkante steht vorn ab wie Hutkrempe, verworfen
+        rim_ = rim_band('helmrim', lambda co: co.z > edge_u(co) - 0.2, lambda co: edge_u(co) - 0.2, rh_ + 0.2, 2.05, 'helmrim', 0.6)
+    else:
+        rim_ = head_part('helmrim', lambda co: edge_u(co) - 0.2 < co.z < edge_u(co) + rh_, (2.05 if form_ > 0 else 1.9) if FIGUR == 'held' else 3.1, 'helmrim', 0.6 if form_ > 0 else 0.8)
     if kamm_ > 0:   # Runde 3 (Helfer: Rand wie weicher, gerollter Stoffwulst): flach schattiert, liest sich als Eisenband
         for p_ in rim_.data.polygons: p_.use_smooth = False
     bpy.ops.mesh.primitive_cube_add(size=1)
