@@ -40,6 +40,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:37–06:35 27.10.: Neustarts angenommen und Nachfolger gestartet: Tom 01:46, 02:33, 02:57, 03:23, 03:51, 04:16, 04:43, 05:01, 05:20, 05:44, 06:03, 06:35, 07:21; Jerry 01:37, 02:42, 03:25, 04:57; Jerry 05:55 zurückgestellt (wartet auf Chefsache 3487a). Läufe 02:03, 03:03 ohne Starts; START Perikles (Terminname) nicht ausgeführt
 - 25.10., 09:35–21:05: Neustarts Tom/Jerry/Sokrates angenommen; Perikles 364 und Sokrates 340.2 gestartet; Sparbetrieb und Max 20x (Verlauf in Git)
 
+- 12:08 27.10.: Neustart Tom angenommen (c4f86ec7c auf main): Start „Tom – 348.6 Kampfbewegungen Runde 6“ `01Hmoj79fQ`; offen zum Archivieren, sobald `idle`: Tom Runde 5 `01Hmoj776m` und Sokrates alt `01Hmoj77Kr` (8,37 $; beide noch `working`)
 - 12:07 27.10.: Neustart Sokrates angenommen (5a4134d03 auf main): Start „Sokrates – 376 Outfits prüfen“ `01Hmoj77AV`; alter Sokrates `01Hmoj77Kr` (8,37 $, zu je 1/3 auf 373, 374, 376) noch `working`: archivieren und buchen, sobald `idle`
 - 12:01 27.10.: Neustart Perikles (91e5d6870) angenommen: Nachfolger heißt jetzt „374 und 375 Werkzeug“; keine zweite Sitzung, die schon laufende `01Hmoj75Q3` per Nachricht „Weiter: 374 und 375“ erweitert; alter Perikles archiviert, 8,79 $ auf 373 gebucht
 - 12:00 27.10.: Auftrag 374 (Diogenes täglich 8:00, 28.10.–03.11.) von Sokrates angenommen, in den Eingang gelegt
