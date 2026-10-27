@@ -332,8 +332,13 @@ EN: Stab: a plain blow, without a ring. Helps: Defend gives it disadvantage; usu
 `[210T.stab.eingebung]` Nur ein Stich. Dafür lohnt kein Ausweichen.
 EN: Just a stab. Not worth dodging.
 
-`[210T.flank]` Flanke: er läuft um die Reihe und sticht eine Figur hinten, ohne Deckung. Hilft: die Figur wechselt die Reihe, dann sticht er ins Leere; oder jeder Treffer auf ihn, auch ein leichter.
-EN: Flank: he runs round the line and stabs a figure at the back, without cover. Helps: that figure changes places and he stabs at nothing; or any hit on him, however light.
+`[210T.hieb]` (348.12, Chef 27.10., 09:49 „Ansage über Homer“: Goblin mit Krummsäbel oder Beil sagt „Hieb“ an statt „Stich“; beim Umzug für alle: Waffen nach Schadensart Hieb, Stich, Schlag, Tiere mit eigenem Namen wie Biss, Klauen, Hauer) Hieb: ein einfacher Schlag, ohne Ring. Hilft: Abwehr gibt ihm Nachteil; meist lohnt der eigene Angriff mehr.
+EN: Slash: a plain blow, without a ring. Helps: Defend gives it disadvantage; usually your own attack is worth more.
+`[210T.hieb.eingebung]` Nur ein Hieb. Dafür lohnt kein Ausweichen.
+EN: Just a slash. Not worth dodging.
+
+`[210T.flank]` Flanke: er läuft um die Reihe und schlägt eine Figur hinten, ohne Deckung. Hilft: die Figur wechselt die Reihe, dann schlägt er ins Leere; oder jeder Treffer auf ihn, auch ein leichter. (348.12: „schlägt“ statt „sticht“)
+EN: Flank: he runs round the line and strikes a figure at the back, without cover. Helps: that figure changes places and he strikes at nothing; or any hit on him, however light.
 `[210T.flank.eingebung]` Er will hintenrum. Ein Kratzer hält ihn auf, ein Wechsel der Reihe auch.
 EN: He means to go round. A scratch stops him, and so does a change of place.
 
