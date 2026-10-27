@@ -874,15 +874,26 @@ func _draw_spells() -> void:
 		var u := tall / 40.0 * (1.35 if sp.crit else 1.0)
 		Zauber.d_from = _depth(a3)
 		Zauber.d_to = _depth(b3)
-		Zauber.d_hit = _depth(on.position) - _girth(on) * 1.1
+		# 348.7a Prüfer 1b (Feuerpfeil, Feuerball, Heilige Flamme brannten hinter Kopf und Brust des Wolfs): der Einschlag liegt
+		# vor der Figur, in der Tiefe ihres der Kamera nächsten Umrisspunkts
+		Zauber.d_hit = _front_depth(on)
 		Zauber.m_px = h_on / maxf(tall, 1.0)
-		# der Strahl bleibt gerade (Runde 4b: im Bogen ein „Regenbogen“ bis an die Bäume)
-		Zauber.lift = _lift(a3, b3, [by, on]) if flying and sp.kind != "RAYS" else 0.0
-		# Prüfer Runde 4d: der Fehlschuss lag auf dem Wolf vor dem Ziel („Treffer am falschen Wolf“); der freieste Fleck
+		# Prüfer Runde 4d: der Fehlschuss lag auf dem Wolf vor dem Ziel („Treffer am falschen Wolf“); der freieste Fleck.
+		# 348.7a Prüfer 1b: im Raum gewählt (am Schirm lag die Heilige Flamme im Busch hinten), die Bahn hebt sich für ihr wahres Ende
+		# (für das Ziel gehoben flog sie über Wolf 3 und kehrte zum Helden um)
 		Zauber.miss_at = Vector2.INF
+		var end3 := b3
 		if sp.missed and (flying or sp.kind == "SACRED_FLAME"):     # die Heilige Flamme fällt neben dem Ziel (leckte am Nachbarn)
-			Zauber.miss_at = _miss_spot(_foot(by), to, tall, [0.4, 0.5, 0.6, 0.7, 0.8, 0.9] if flying else [1.0])
-			Zauber.d_miss = _ground_depth(Zauber.miss_at, Zauber.d_hit)
+			end3 = _miss_point(by, on, flying)
+			Zauber.miss_at = k.screen_of(end3)
+			Zauber.d_miss = _depth(end3)
+		# der Strahl bleibt fast gerade (Runde 4b: im Bogen ein „Regenbogen“ bis an die Bäume); 348.7a Prüfer 1b: gerade lief er
+		# durch Mira davor („Mira zaubert“), darum höchstens RAY_LIFT über die Köpfe
+		Zauber.lift = 0.0
+		if flying:
+			Zauber.lift = _lift(a3, end3, [by, on])
+			if sp.kind == "RAYS":
+				Zauber.lift = minf(Zauber.lift, RAY_LIFT)
 		zauber.draw(sp.kind, int(sp.seed), p, from, k.screen_of(b3), u, to.y, sp.missed)
 	spells = still
 	tafel.end()
@@ -893,6 +904,47 @@ func _draw_spells() -> void:
 
 ## 348.7a: Start der Geschosse in Anteilen der Höhe des Wirkenden (Brust bis Schulter)
 const START_UP := 0.62
+## 348.7a Prüfer 1b: so weit (m) darf sich der Strahl über die Köpfe dazwischen heben
+const RAY_LIFT := 0.6
+
+
+## Tiefe (m vor der Kamera) des der Kamera nächsten Punkts im Umriss der Figur, eine Handbreit davor
+func _front_depth(fig) -> float:
+	var box: AABB = fig.footprint()
+	var best := INF
+	for i in 8:
+		best = minf(best, _depth(fig.global_transform * box.get_endpoint(i)))
+	return maxf(best - 0.1, 0.3)
+
+
+## 348.7a Prüfer 1b: Fehlschuss am Boden im Raum, neben dem Ziel und etwas davor (Geschosse) oder seitlich (Heilige Flamme), wo
+## am meisten Platz zu jeder Figur ist; nicht hinter dem Ziel (dort Busch und Bäume) und im Bild
+func _miss_point(by, on, flying: bool) -> Vector3:
+	var k = kampfort
+	var a: Vector3 = by.position * Vector3(1, 0, 1)
+	var b: Vector3 = on.position * Vector3(1, 0, 1)
+	var dir := (b - a).normalized() if a.distance_to(b) > 0.01 else Vector3.FORWARD
+	var side := Vector3(-dir.z, 0, dir.x)
+	var d_on := _depth(b)
+	var vs: Vector2 = overlay.get_viewport_rect().size
+	var best := b + side
+	var best_score := -INF
+	for back in ([0.4, 0.8, 1.2] if flying else [0.0, 0.3]):
+		for lat in [-0.7, 0.7, -1.0, 1.0, -1.4, 1.4]:
+			var q: Vector3 = b - dir * back + side * lat
+			var sq: Vector2 = k.screen_of(q)
+			if sq.x < vs.x * 0.08 or sq.x > vs.x * 0.92:
+				continue
+			var clear := INF
+			for id in k.figures:
+				var o = k.figures[id]
+				if o.visible and not o.down:
+					clear = minf(clear, o.clearance(q))
+			var score: float = minf(clear, 0.8) - maxf(_depth(q) - d_on, 0.0) - absf(lat) * 0.1
+			if score > best_score:
+				best_score = score
+				best = q
+	return best
 
 
 ## Wie weit eine Figur um ihre Mitte reicht (m): Wölfe sind lang und stehen mit der Brust zur Gruppe
@@ -904,15 +956,6 @@ func _girth(fig) -> float:
 ## Meter vor der Kamera
 func _depth(q: Vector3) -> float:
 	return -(kampfort.cam.global_transform.affine_inverse() * q).z
-
-
-## Tiefe des Bodens unter dem Bildpunkt q (sonst dflt)
-func _ground_depth(q: Vector2, dflt: float) -> float:
-	var o: Vector3 = kampfort.cam.global_transform.origin
-	var n: Vector3 = tafel.world_at(q, 1.0) - o     # nicht project_ray_normal: übergeht die verschobene Linse (tafel.gd)
-	if n.y > -0.0001:
-		return dflt
-	return -o.y / n.y
 
 
 ## 348.7a: wie hoch (m) die Bahn von a nach b in der Mitte steigen muss, um über jeden zu gehen, der im Raum auf ihr steht (Kopf
@@ -936,35 +979,6 @@ func _lift(a: Vector3, b: Vector3, skip: Array) -> float:
 		if gap > 0.0:
 			need = maxf(need, gap / sin(t * PI))
 	return minf(need, 1.5)
-
-
-## Fehlschuss: Fleck am Boden auf dem Weg vom Wirkenden zum Ziel (Anteile ts, quer bis 1,5 Zielhöhen) mit dem größten Abstand
-## am Schirm zu jeder stehenden Figur, Wirkenden und Ziel eingeschlossen; bei Gleichstand näher an 0,6 des Wegs
-func _miss_spot(a: Vector2, b: Vector2, tall_on: float, ts: Array) -> Vector2:
-	var k = kampfort
-	var dv := b - a
-	var nrm := Vector2(-dv.y, dv.x).normalized()
-	var best := b
-	var best_score := -INF
-	for t in ts:
-		for side in [0.0, -0.5, 0.5, -1.0, 1.0, -1.5, 1.5]:
-			var q: Vector2 = a.lerp(b, t) + nrm * side * tall_on
-			var clear := INF
-			for id in k.figures:
-				var o = k.figures[id]
-				if not o.visible or o.down:
-					continue
-				var foot := _foot(o)
-				var ot := _tall(o)
-				var half: float = ot * (0.8 if o.fighter.monster != null and o.fighter.monster.id == Mars.WOLF else 0.35)
-				var dx := maxf(0.0, absf(q.x - foot.x) - half)
-				var dy := maxf(0.0, maxf(foot.y - ot - q.y, q.y - (foot.y + ot * 0.15)))
-				clear = minf(clear, Vector2(dx, dy).length())
-			var score: float = clear - absf(t - 0.6) * tall_on * 0.2 - absf(side) * tall_on * 0.1
-			if score > best_score:
-				best_score = score
-				best = q
-	return best
 
 
 ## 249 (BattleBlood.kt drawBloodSpray): Tropfen von der Brust des Getroffenen, weg vom Schlagenden und etwas aufwärts, die zu

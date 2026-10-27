@@ -6,6 +6,7 @@ uniform vec3 r0;   // Sicht: Strahl zum Bildpunkt (0, 0) in Tiefe 1
 uniform vec3 rx;   // je Bildpunkt nach rechts
 uniform vec3 ry;   // je Bildpunkt nach unten
 uniform float boden = 0.08;   // so weit vor dem Boden (m)
+uniform float soft_gamma = 1.8;
 
 void vertex() {
 	vec3 ray = r0 + VERTEX.x * rx + VERTEX.y * ry;
@@ -28,5 +29,7 @@ void fragment() {
 	vec3 lo = c.rgb / 12.92;
 	vec3 hi = pow((c.rgb + 0.055) / 1.055, vec3(2.4));
 	ALBEDO = mix(hi, lo, step(c.rgb, vec3(0.04045)));
-	ALPHA = c.a;
+	// 348.7a Prüfer 1b (Heilung übernebelte den Kleriker, Segen 3–4-mal so hell wie alt): weiche Tafeln mischen im linearen Raum,
+	// ihr dünner Rand deckte so wie im Bild weit mehr Deckkraft; über dunklem Grund gleicht a^soft_gamma das sRGB-Mischen aus
+	ALPHA = UV2.x > 0.5 ? pow(c.a, soft_gamma) : c.a;
 }
