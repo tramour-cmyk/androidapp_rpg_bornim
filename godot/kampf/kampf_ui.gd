@@ -1133,7 +1133,7 @@ func _draw_intents(sr: Rect2) -> void:
 		var side := _tall(fig) * (0.8 if fig.fighter.monster != null and fig.fighter.monster.id == Mars.WOLF else 0.42) + 4 * dp
 		var head_mid := head_y + 10 * dp - h
 		signs.append({"x": x, "y": want_y, "w": w, "h": h, "ch": ch, "mark": mark, "label": label, "border": border, "bw": bw, "tc": tc, "ring": ring,
-			"fx": foot.x, "head": head_y, "top": foot.y - _tall(fig) * 0.88, "hx": kampfort.screen_of(fig.head()).x, "id": id, "alts": [
+			"fx": foot.x, "head": head_y, "top": foot.y - _tall(fig) * (1.0 if _bat(fig) else 0.88), "hx": kampfort.screen_of(fig.head()).x, "id": id, "alts": [
 				Vector2(clampf(foot.x - side - w, 4 * dp, sr.size.x - w - 4 * dp), head_mid),
 				Vector2(clampf(foot.x + side, 4 * dp, sr.size.x - w - 4 * dp), head_mid),
 				# unter den Pfoten, wenn darüber und daneben andere stehen (Prüfer Runde 6: Schild ohne Strich über dem falschen Wolf)
@@ -1306,6 +1306,12 @@ func _stroke_from(r: Rect2, fx: float, head: float) -> Vector2:
 	if head - r.end.y > 2 * dp:
 		return Vector2(clampf(fx, r.position.x + 4 * dp, r.end.x - 4 * dp), r.end.y)
 	return Vector2(r.position.x if fx < r.position.x else r.end.x, r.get_center().y)
+
+
+## Fledermaus Runde 4c (Prüfer 4b: der Strich endete im Gesicht und deckte Maul und Augen): sie hängt aufrecht, das Gesicht liegt
+## knapp unter den Ohrspitzen; der Strich endet darum an den Ohrspitzen
+func _bat(fig) -> bool:
+	return fig.fighter.monster != null and fig.fighter.monster.id == Mars.WOLF and fig.ersatz() == "giant_bat"
 
 
 func _stroke_to(r: Rect2, s: Dictionary) -> Vector2:

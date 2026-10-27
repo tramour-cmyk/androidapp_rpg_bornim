@@ -486,6 +486,15 @@ func _face(dir := Vector3.ZERO) -> void:
 			var body := clampf(to, turn - 20.0, turn + 20.0)
 			look = to - body
 			turn = body
+		# Fledermaus Runde 4 (Prüfer 3b: die Schwarze hing 35° schräg „wie abstürzend“, Flügelkeil über dem Kopf): der zum Ziel gedrehte
+		# Rumpf kippte die gespreizten Flügel am Schirm (gemessen 28° bei 29° Drehung). Sie hält den Rumpf zur Kamera, der Kopf blickt
+		var cam: Camera3D = get_viewport().get_camera_3d() if is_inside_tree() else null
+		if ersatz() == "giant_bat" and cam != null:
+			var zc := cam.global_position - global_position
+			zc.y = 0.0
+			var front: float = rad_to_deg(d.signed_angle_to(zc, Vector3.UP))
+			look += turn - front
+			turn = front
 		d = d.rotated(Vector3.UP, deg_to_rad(turn))
 	if neck:
 		neck.want = look

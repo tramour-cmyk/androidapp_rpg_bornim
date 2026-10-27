@@ -418,6 +418,11 @@ func _report_facing() -> void:
 			print("%s %s: Achse (Klinge) %s, Fläche %s, Ort %s" % [w.name, id, gb.y.snapped(Vector3.ONE * 0.01), gb.z.snapped(Vector3.ONE * 0.01), (w as Node3D).global_position.snapped(Vector3.ONE * 0.01)])
 		if sk and fig.fighter.monster != null and fig.fighter.monster.id == Mars.SCOUT:
 			_bogen_schnitt(id, fig, sk)
+		if sk and sk.find_bone("handL") >= 0 and sk.find_bone("handR") >= 0:     # Fledermaus Runde 4: Flügel am Schirm schräg?
+			var hl: Vector2 = fight.screen_of(sk.global_transform * sk.get_bone_global_pose(sk.find_bone("handL")).origin)
+			var hr: Vector2 = fight.screen_of(sk.global_transform * sk.get_bone_global_pose(sk.find_bone("handR")).origin)
+			var hv: Vector2 = hl - hr if hl.x > hr.x else hr - hl
+			print("Flügel %s: am Schirm %.0f° (+ rechts tiefer), Spanne %d px" % [id, rad_to_deg(hv.angle()), hv.length()])
 		var foot: Vector2 = fight.screen_of(fig.global_position)
 		var top: Vector2 = fight.screen_of(fig.head())
 		print("Schirm %s: Fuß %d,%d Kopf %d,%d" % [id, foot.x, foot.y, top.x, top.y])
