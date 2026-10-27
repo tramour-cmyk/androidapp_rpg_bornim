@@ -188,6 +188,9 @@ func _setup_world() -> void:
 		# 348.13a (Chef 27.10., 09:41): Schattenseite im Kampf kräftiger als im Dorf; Probe TUSCHE_DICK=<Faktor auf das Dorf>
 		_ink(tu, 1.3, 1.7)
 		_ink(tu_held, 0.8, 1.5)
+		var tu_gegner := Shader.new()     # Runde 7: Gegner (figur.gd toon_gegner, Schablone 3) wie der Held statt mit der Welttusche
+		tu_gegner.code = tu.code.replace("stencil_mode read, compare_equal, 0;", "stencil_mode read, compare_equal, 3;")
+		_ink(tu_gegner, 0.8, 1.5)
 		var k := float(OS.get_environment("TUSCHE_DICK")) if OS.has_environment("TUSCHE_DICK") else 1.0     # Probe: Faktor auf den Umriss
 		for m in _ink_mats: m.set_shader_parameter("umriss_dick", k)
 	elif OS.get_environment("TUSCHE") != "0":     # Prüflauf: TUSCHE=0 misst, was die Linie ausmacht
