@@ -211,14 +211,14 @@ func platz() -> Vector3:
 	var kam: Kamera = spiel.kamera
 	var rechts := kam.global_basis.x; rechts.y = 0
 	var zur := kam.global_basis.z; zur.y = 0
-	return spiel.karte.kachel_pos(PLATZ) + Vector3(0, 0, 1.2) + zur.normalized() * 1.5 - rechts.normalized() * 0.8
+	return spiel.karte.kachel_pos(PLATZ) + Vector3(0, 0, 1.2) + zur.normalized() * 1.5 - rechts.normalized() * 1.1
 
 func reihe() -> void:
 	var mitte := platz()
 	var z := zielpunkt(mitte)
 	spiel.kamera.ziel = z
 	for k in REIHE: spiel_bew(k, "Stehen")
-	stelle(REIHE, 1.0, mitte)
+	stelle(REIHE, 0.9, mitte)   # Helfer Runde 2: Laterne verdeckte das Bein der Elfe
 	for st in [[Kamera.FERN, "grund"], [Kamera.FERN * 1.6, "weit"]]:
 		zoom(st[0])
 		spiel.kamera.springe()
@@ -232,7 +232,7 @@ func reihe() -> void:
 		spiel.kamera.springe()
 		await get_tree().create_timer(0.6).timeout
 		await knips(aus + "/reihe_nah_%d.png" % (i + 1))
-	stelle(REIHE, 1.0, mitte)
+	stelle(REIHE, 0.9, mitte)
 	zoom(Kamera.FERN)
 	nacht(true)
 	await get_tree().create_timer(3.0).timeout
@@ -268,9 +268,9 @@ func menue(mitte: Vector3) -> void:
 	boden.material_override = bm
 	spiel.add_child(boden)
 	boden.position = mitte
-	kegel.shadow_enabled = true
+	kegel.shadow_enabled = false   # Helfer Runde 2: Eigenschatten im Kegel wie Schmutzflecken, Maske ueber dem Mund
 	spiel.add_child(kegel)
-	kegel.position = mitte + Vector3(0, 6.0, 1.5)
+	kegel.position = mitte + spiel.kamera.global_basis.z * 3.0 + Vector3(0, 5.0, 0)   # schraeg von vorn oben: Gesichter im Licht
 	kegel.look_at(mitte, Vector3.FORWARD)
 	for m_k in mats:
 		for m in mats[m_k]: (m as ShaderMaterial).set_shader_parameter("fill", 0.0)
@@ -280,7 +280,10 @@ func menue(mitte: Vector3) -> void:
 		stelle(gruppen[i], 1.05, mitte)
 		spiel.kamera.springe()
 		await get_tree().create_timer(0.6).timeout
-		await knips(aus + "/reihe_menue_%d.png" % (i + 1))
+		await RenderingServer.frame_post_draw
+		var img := spiel.get_viewport().get_texture().get_image()   # Helfer Runde 2: Figuren nur im mittleren Viertel: Ausschnitt
+		var fuss: Vector2 = spiel.kamera.unproject_position(mitte)
+		img.get_region(Rect2i(0, int(fuss.y) - 900, img.get_width(), 1100)).save_png(aus + "/reihe_menue_%d.png" % (i + 1))
 	kegel.queue_free()
 	boden.queue_free()
 	for s in sonne: s.visible = true
