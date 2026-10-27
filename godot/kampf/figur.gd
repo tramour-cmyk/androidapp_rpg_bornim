@@ -81,6 +81,18 @@ var paws: Array = []    # Runde 14: Kontaktschatten je Pfote [Knochen, Länge, F
 var hurt_at := -1.0      # 249: seit wann (kampfort.clock_ms) der Getroffene zittert
 var model_rest := Vector3.ZERO
 var gob_h := 0.0        # Goblin: Scheitel in Modellmetern (goblin-info.json), für Namen und Ansage (head())
+## 348.12f (Chef 27.10., 18:01, Archiv: „Bewegungen mit Ortswechsel im Kampfort, nicht auf der Stelle“): Wurzelweg je Bewegung
+## aus <art>-info.json „weg“ (kaufratte.py, aus den _RM-Dateien der Quelle), je Bild [x, z] in Modellmetern, +Z vorn. Wer ihn hat,
+## geht oder rennt beim Platzwechsel, weicht mit dem Weg der Quelle aus, läuft zum Biss bis vors Ziel und springt es an.
+var weg := {}
+var weg_fps := 30.0
+## ab dieser Strecke (m) rennt es statt zu gehen
+const RUN_FROM := 1.2
+## Je Bewegung (gemessen mit probe.gd SCHAU=ort SCHAU_MESS=1, Lauf 1): Abstand Ursprung–Rand des Ziels beim Biss (Modellmeter;
+## Schnauze dann 0,05–0,1 m im Rand), Zeitpunkt des Zubeißens (s, Schnauze am tiefsten) und Drehung des Körpers, damit die
+## Schnauze dann aufs Ziel zeigt (Grad, + links): in Ruhe zeigt sie 8° rechts vorbei (Kopf 0,11 m rechts der Achse), im Zubeißen
+## schwenkt der Kopf der Quelle 15–21° nach links
+const BITE := {"Biss": [0.72, 0.5, -7.0], "Sprungbiss": [0.72, 0.6, -11.0]}
 
 
 func setup(f, k) -> void:
@@ -98,6 +110,7 @@ func setup(f, k) -> void:
 		if sk:
 			neck = preload("res://kampf/kopfdreh.gd").new()
 			sk.add_child(neck)
+	weg = _weg()
 	_face()
 	_idle()
 	_ground_shadow()
@@ -240,7 +253,7 @@ func _load_model() -> Node3D:
 			_paint(n)
 			anim = _find(n, "AnimationPlayer") as AnimationPlayer
 			if anim:
-				for a in ["Stehen", "Gehen", "Hocke"]:
+				for a in ["Stehen", "Gehen", "Hocke", "Rennen"]:
 					if anim.has_animation(a):
 						anim.get_animation(a).loop_mode = Animation.LOOP_LINEAR
 			return n
@@ -523,6 +536,8 @@ func scharren_name() -> String:
 func _play(name: String, blend := 0.15) -> void:
 	if anim and not anim.has_animation(name):
 		name = ALIAS.get(name, name)
+	if anim and name == "Sprung" and not anim.has_animation(name) and anim.has_animation("Sprungbiss"):
+		name = "Sprungbiss"     # 348.12f: die Kaufratte springt mit dem Sprungbiss der Quelle an
 	if anim and name in ["Biss", "Hauer"] and not anim.has_animation(name) and anim.has_animation("Hieb"):
 		name = "Hieb"     # 348.12 Runde 3: Goblin auf dem CC0-Gerüst schlägt (sonst schnellt er nur vor)
 	if anim and anim.has_animation(name):
@@ -577,8 +592,117 @@ func glide_to(p: Vector3) -> void:
 	home = p
 	if tween and tween.is_running():
 		return     # a lunge brings it back to its new home
+	if weg.has("Gehen") and not down:
+		_walk_home()
+		return
 	var t := create_tween()
 	t.tween_property(self, "position", p, GLIDE_S).set_trans(Tween.TRANS_SINE)
+
+
+func _weg() -> Dictionary:
+	var p := _model_path()
+	var ip := "res://kampf/daten/%s-info.json" % art()
+	if fighter.monster == null or art() == "" or not FileAccess.file_exists(ip):
+		return {}
+	var j = JSON.parse_string(FileAccess.get_file_as_string(ip))
+	var fell := p.get_file().get_basename().get_slice("-", 1)
+	if j is Dictionary and j.get(fell) is Dictionary and j[fell].get("weg") is Dictionary:
+		weg_fps = float(j[fell].get("fps", 30.0))
+		return j[fell].weg
+	return {}
+
+
+## Ort auf dem Wurzelweg [nm] nach [t] s, ab [o] mit der Drehung [b]; [k] dehnt den Weg (Sprungbiss auf die Strecke)
+func _weg_at(o: Vector3, b: Basis, nm: String, t: float, k := 1.0) -> Vector3:
+	var w: Array = weg[nm]
+	var f := clampf(t * weg_fps, 0.0, w.size() - 1.0)
+	var i := int(f)
+	var j := mini(i + 1, w.size() - 1)
+	var x: float = lerpf(w[i][0], w[j][0], f - i)
+	var z: float = lerpf(w[i][1], w[j][1], f - i)
+	return o + b * (Vector3(x, 0.0, z) * model.scale.x * k)
+
+
+## Länge des Wurzelwegs (m in der Welt) und Tempo einer Schleife (m/s)
+func _weg_len(nm: String) -> float:
+	var e: Array = weg[nm][-1]
+	return Vector2(e[0], e[1]).length() * model.scale.x
+
+
+func _mps(nm: String) -> float:
+	return _weg_len(nm) / maxf((weg[nm].size() - 1) / weg_fps, 0.1)
+
+
+## 348.12f: geht (weiter als RUN_FROM: rennt) heim im Tempo des Wurzelwegs, die Pfoten gleiten nicht; dort wieder zum Ziel.
+## Gibt die Dauer (s) zurück.
+func _walk_home() -> float:
+	var d := home - position
+	d.y = 0.0
+	if d.length() < 0.12:
+		position = home
+		_face()
+		_idle()
+		return 0.0
+	var nm := "Rennen" if d.length() > RUN_FROM and weg.has("Rennen") else "Gehen"
+	var t := d.length() / _mps(nm)
+	_face(d)
+	_play(nm, 0.15)
+	tween = create_tween()
+	tween.tween_property(self, "position", home, t)
+	tween.tween_callback(func(): _face(); _idle())
+	return t
+
+
+## 348.12f (Chef 27.10., 18:01, Archiv: „Biss zum Helden nachjustieren wie bei eigenen“): mit Wurzelweg läuft das Tier bis vor das
+## Ziel, die Schnauze an dessen Rand, und beißt dort; angesagt (Sprung) springt es aus der Weite des Sprungbisses der Quelle an.
+## Danach springt es zurück (Ausweichen zurück) und geht heim. Gibt wie strike() die Zeit bis zum Biss / 0,42 zurück (ms).
+func _bite(other, leap: bool) -> int:
+	var flat := Vector3(other.position.x - position.x, 0.0, other.position.z - position.z)
+	if flat.length() < 0.01:
+		flat = basis.z
+	var dir := flat.normalized()
+	var nm := "Sprungbiss" if leap and anim and anim.has_animation("Sprungbiss") and weg.has("Sprungbiss") else "Biss"
+	var stand: float = other.body_r() + BITE[nm][0] * model.scale.x     # Ursprung bis Mitte des Ziels beim Biss
+	var jump := _weg_len(nm) if nm == "Sprungbiss" else 0.0
+	var k := 1.0
+	var gap := flat.length() - stand
+	if jump > 0.0 and gap < jump:     # zu nah für den ganzen Satz: kürzer springen
+		k = maxf(gap, 0.2 * jump) / jump
+		jump *= k
+	var start := position + dir * maxf(0.0, gap - jump)
+	_face(flat)
+	rotation.y += deg_to_rad(BITE[nm][2])     # die Schnauze, nicht die Körperachse zum Ziel
+	if tween and tween.is_running():
+		tween.kill()
+	tween = create_tween()
+	var t_run := 0.0
+	var run := start.distance_to(position)
+	if run > 0.15:
+		var gn := "Rennen" if run > RUN_FROM and weg.has("Rennen") else "Gehen"
+		t_run = run / _mps(gn)
+		_play(gn, 0.1)
+		tween.tween_property(self, "position", start, t_run)
+	var bl: float = anim.get_animation(nm).length if anim and anim.has_animation(nm) else 0.8
+	var b := Basis(Vector3.UP, atan2(dir.x, dir.z))
+	tween.tween_callback(func(): _play(nm, 0.08))
+	if nm == "Sprungbiss":
+		tween.tween_method(func(x: float): position = _weg_at(start, b, nm, x, k), 0.0, bl, bl)
+	else:
+		tween.tween_interval(bl)
+	var t_back := 0.0
+	var ende := start + dir * jump
+	if weg.has("Ausweichen zurück") and anim.has_animation("Ausweichen zurück"):
+		var hb: float = anim.get_animation("Ausweichen zurück").length
+		tween.tween_callback(func(): _play("Ausweichen zurück", 0.1))
+		tween.tween_method(func(x: float): position = _weg_at(ende, b, "Ausweichen zurück", x), 0.0, hb, hb)
+		t_back = hb
+		ende = _weg_at(ende, b, "Ausweichen zurück", hb)
+	tween.tween_callback(_walk_home)
+	# bis daheim, damit keiner zu einem Ort schlägt, an dem es nicht mehr steht
+	var heim := Vector2(home.x - ende.x, home.z - ende.z).length()
+	var t_heim := 0.0 if heim < 0.12 else heim / _mps("Rennen" if heim > RUN_FROM and weg.has("Rennen") else "Gehen")
+	busy_ms = int((t_run + bl + t_back + t_heim) * 1000.0)
+	return int((t_run + BITE[nm][1]) * 1000.0 / 0.42)
 
 
 ## Ground under the figure where no grass grows (halm.gdshader spots): x, z, radius.
@@ -622,6 +746,10 @@ func strike(other, e: Dictionary) -> int:
 		busy_ms = 700
 		return 700
 	var leap: bool = fighter.monster != null and pouncing and fighter.monster.id == Mars.WOLF
+	if fighter.monster != null and weg.has("Gehen"):
+		if leap:
+			pouncing = false
+		return _bite(other, leap)
 	var ms := BEAST_LUNGE_MS if fighter.monster != null else BLOW_MS
 	var to: Vector3 = other.position
 	var reach := (to - position) * (0.8 if leap else 0.6)
@@ -804,14 +932,29 @@ func hurt(after_ms: int, dies: bool) -> void:
 		get_tree().create_timer(0.45).timeout.connect(_idle)
 
 
-func dodge(after_ms: int) -> void:
+func dodge(after_ms: int, nm := "") -> void:
 	await get_tree().create_timer(after_ms / 1000.0).timeout
+	# 348.12f: mit Wurzelweg zur Seite oder zurück, wie die Quelle (Ausweichen links nicht: Kopf unter den Vorderbeinen, Prüfer r7),
+	# dann heim; [nm] wählt (Probe SCHAU=ort), sonst der Zufall
+	if nm == "":
+		nm = "Ausweichen zurück" if weg.has("Ausweichen zurück") and randf() < 0.5 else "Ausweichen"
+	if weg.has(nm) and anim and anim.has_animation(nm) and not down and not lunging():
+		_play(nm, 0.05)
+		var o := position
+		var b := basis
+		var bl: float = anim.get_animation(nm).length
+		tween = create_tween()
+		tween.tween_method(func(x: float): position = _weg_at(o, b, nm, x), 0.0, bl, bl)
+		tween.tween_callback(_walk_home)
+		return
 	_play("Ausweichen", 0.05)
 	get_tree().create_timer(0.45).timeout.connect(_idle)
 
 
 func die() -> void:
 	down = true
+	if not weg.is_empty() and tween and tween.is_running():
+		tween.kill()     # 348.12f: im Lauf getroffen, liegt es, wo es fällt
 	dead_at = int(kampfort.clock_ms)
 	if anim and anim.has_animation("Tod"):
 		anim.play("Tod", 0.05)

@@ -258,6 +258,18 @@ jobs:
             timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 --write-movie $RUNNER_TEMP/alle.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/alle-film.log 2>&1) || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/alle.avi -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/348.12f-alle.mp4 || true
           python3 tools/blender348/rutenknick.py $P/alle-film.log || true
+          # Ortswechsel (Chef 27.10., 18:01, Archiv: „Bewegungen mit Ortswechsel im Kampfort, nicht auf der Stelle“): probe.gd SCHAU=ort,
+          # links eigen (ohne Wurzelweg), rechts gekauft; Messung je Bild im Log (Ortmess: Schnauze gegen das Ziel)
+          cp $RUNNER_TEMP/kauf/giant_rat-info.json $D/
+          ort() { (cd godot && GEGNER=RATS OHNEUI=1 SCHAU=ort SCHAU_MESS=1 SCHAU_TITEL=$2 timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/ort-$1.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/ort-$1.log 2>&1) || true
+            ffmpeg -loglevel error -y -i $RUNNER_TEMP/ort-$1.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $P/ort-$1.mp4 || true; }
+          ort kauf gekauft
+          for f in braun grau schwarz; do cp $RUNNER_TEMP/out/giant_rat-$f.glb $D/giant_rat-$f.bin; done; cp $RUNNER_TEMP/out/giant_rat-info.json $D/
+          ort eigen eigen
+          L=$(dauer ort-eigen ort-kauf | awk '{print $1 - 1}')
+          ffmpeg -loglevel error -y -ss 1 -i $P/ort-eigen.mp4 -ss 1 -i $P/ort-kauf.mp4 -filter_complex "[0]tpad=stop_mode=clone:stop_duration=30[a];[1]tpad=stop_mode=clone:stop_duration=30[b];[a][b]hstack=inputs=2,trim=duration=$L" \
+            -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $P/348.12f-ort.mp4 || true
+          grep -E "^Ort |SCRIPT ERROR" $P/ort-*.log | head -30 || true
           rm -f $D/giant_rat-*.bin
           ls -l $P
       - uses: actions/upload-artifact@v4

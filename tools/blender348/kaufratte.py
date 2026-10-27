@@ -303,6 +303,41 @@ def verstaerken(a, name, faktoren):
     return h
 
 
+# 348.12f Ortswechsel (Chef 27.10., 18:01, Archiv: „Bewegungen mit Ortswechsel im Kampfort, nicht auf der Stelle“): die Quelle hat
+# jede Fortbewegung auch mit Wurzelbewegung (<q>_RM.FBX). Weg je Bild = Becken mit minus ohne Wurzelbewegung, waagerecht, in
+# Modellmetern und glTF-Achsen (+Z vorn, +X links der Ratte); figur.gd fährt die Figur diesen Weg, die Pfoten gleiten nicht.
+WEGE = (('Gehen', 'walk'), ('Rennen', 'run'), ('Ausweichen', 'dodgeRight'), ('Ausweichen links', 'dodgeLeft'),
+        ('Ausweichen zurück', 'dodgeBackwards'), ('Sprungbiss', 'jumpBite'))
+
+
+def wurzelweg(d, s, dreh):
+    wege = {}
+    for nm, q in WEGE:
+        bahn = []
+        for v in (q, q + '_RM'):
+            f = os.path.join(d, 'GIANT_RAT@%s.FBX' % v)
+            if not os.path.exists(f):
+                break
+            n = importiere(f); r = next((o for o in n if o.type == 'ARMATURE'), None); a = aktion_von(n)
+            if r is None or a is None or 'GIANT_RAT_ Pelvis' not in r.pose.bones:
+                weg(n); break
+            pb = r.pose.bones['GIANT_RAT_ Pelvis']; pts = []
+            for fr in range(int(a.frame_range[0]), int(a.frame_range[1]) + 1):
+                bpy.context.scene.frame_set(fr)
+                pts.append(r.matrix_world @ pb.head)
+            bahn.append(pts); weg(n)
+        if len(bahn) < 2:
+            print('WEG fehlt', q); continue
+        k = min(len(bahn[0]), len(bahn[1])); rot = Matrix.Rotation(-dreh, 4, 'Z')
+        w = []
+        for i in range(k):
+            p = rot @ (bahn[1][i] - bahn[0][i]) - rot @ (bahn[1][0] - bahn[0][0])
+            w.append([round(p.x * s * GROSS[1], 4), round(-p.y * s, 4)])     # Blender -Y vorn = glTF +Z
+        wege[nm] = w
+        print('WEG %s (%s): %d Bilder, Ende x %.3f z %.3f m' % (nm, q, k, w[-1][0], w[-1][1]))
+    return wege
+
+
 def ohren(meshes, faktor):
     """Restrunde (Prüfer 20:54: „spitze Ohren wie Hörner, eher dämonisch als Ratte“): Ohren kürzer und runder. Kein Ohrknochen:
     Ohr = Kopf-Ecken seitlich (|x| > 9 cm) über der Schädeldecke (z > 0,50 m) hinter den Augen (y > -0,72 m), Ruhelage der Quelle.
@@ -937,6 +972,7 @@ def baue(fell):
     print('MASS neu: breit %.3f lang %.3f hoch %.3f, Boden %.3f, Kopf %s, Drehung %.0f°, Maßstab %.4f' % (
         hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2], lo[2], tuple(round(x, 2) for x in kp) if kp else '-', math.degrees(dreh), s))
     INFO['hoehe_m'] = round(float(hi[2] - lo[2]), 3); INFO['laenge_m'] = round(float(hi[1] - lo[1]), 3)
+    INFO['weg'] = wurzelweg(d, s, dreh)
     # Hocke: Kampfort zeigt sie vor dem Anspringen, in Schleife (figur.gd). Bis Runde 2: Bild 1–2 aus jumpBite, die Quelle steigt
     # dort schon (Becken 0,52 -> 0,95 m) -> in Schleife zitterte die Ratte 30-mal je Sekunde (Chef 20:15, Lauf 118: „springt es
     # bei der Kaufratte beim Hocken“). Jetzt: erstes Bild von jumpBite festgehalten (alle Schlüssel gleich, 1 s) und HOCKE m tiefer.

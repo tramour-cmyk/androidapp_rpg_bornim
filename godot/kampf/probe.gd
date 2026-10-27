@@ -60,6 +60,9 @@ func _still(path: String) -> void:
 	if schau:     # Kurzvideo: gleich anhalten, nicht auf den Zug der Gruppe warten
 		if OS.get_environment("OHNEUI") != "" and fight.ui != null:
 			fight.ui.visible = false
+		if OS.get_environment("SCHAU") == "ort":
+			await _ort()
+			return
 		await _schau()
 		return
 	# wie im alten Bild: der Held ist dran, die Knöpfe stehen (höchstens 10 s warten)
@@ -358,6 +361,119 @@ func _schau() -> void:
 			await get_tree().process_frame
 	await get_tree().create_timer(0.6).timeout
 	get_tree().quit()
+
+
+## 348.12f (Chef 27.10., 18:01, Archiv: „Bewegungen mit Ortswechsel im Kampfort, nicht auf der Stelle“): SCHAU=ort spielt Gegner 1
+## die Wege vor, wie figur.gd sie im Kampf fährt (glide_to, strike, dodge, hurt, die): aus der Tiefe auf den Platz, Biss, Ausweichen
+## zur Seite und zurück, Sprung, Treffer der Heldin, Platzwechsel, Tod. Die Regeln laufen nicht. SCHAU_MESS=1: je Bild Ort, Schnauze
+## gegen das Ziel (Abstand zum Rand, Winkel am Boden)
+func _ort() -> void:
+	# Uhr, Kamera und Gras laufen, Meldungen der Regeln nicht: die laufende zu Ende, danach jede verwerfen (Lauf 1: die Regeln
+	# ließen Ratte 1 mitten in der Probe beißen und hocken)
+	var bis0 := Time.get_ticks_msec() + 15000
+	while fight.playing and Time.get_ticks_msec() < bis0:
+		await get_tree().process_frame
+	fight.playing = true
+	var cl := CanvasLayer.new()
+	add_child(cl)
+	var lb := Label.new()
+	var vs := get_viewport().get_visible_rect().size
+	lb.position = Vector2(vs.x * 0.05, vs.y * 0.05)
+	lb.add_theme_font_size_override("font_size", int(vs.x / 16.0))
+	lb.add_theme_color_override("font_color", Color(0.95, 0.82, 0.45))
+	lb.add_theme_color_override("font_outline_color", Color.BLACK)
+	lb.add_theme_constant_override("outline_size", int(vs.x / 90.0))
+	cl.add_child(lb)
+	var titel := OS.get_environment("SCHAU_TITEL")
+	var rat = fig_of("wolf1")
+	var held = fig_of("hero")
+	for id in fight.figures:     # die übrigen Gegner sehen zu (Gegner 1 steht sonst hinter ihnen)
+		if fight.figures[id].fighter.monster != null and id != "wolf1":
+			fight.figures[id].aim = held
+	var h0: Vector3 = rat.home
+	var mess := OS.get_environment("SCHAU_MESS") != ""
+	var warte := func(s: float) -> void:
+		var bis: float = fight.clock_ms + s * 1000.0
+		while fight.clock_ms < bis:
+			fight.playing = true
+			fight.beats_lock.lock()
+			fight.beats.clear()
+			fight.beats_lock.unlock()
+			if mess:
+				_ort_mess(rat, held)
+			_ort_bild += 1
+			await get_tree().process_frame
+	var zeig := func(nm: String) -> void:
+		_ort_schritt = nm
+		_ort_bild = 0
+		lb.text = (titel + ": " if titel != "" else "") + nm
+		print("Ort %s ab %.0f ms" % [nm, fight.clock_ms])
+	await warte.call(0.4)
+	zeig.call("Anlauf")
+	rat.position = h0 + fight.facing(true) * -3.0
+	rat.home = rat.position
+	rat.glide_to(h0)
+	await warte.call(2.2)
+	zeig.call("Biss")
+	rat.announce(null, held)
+	await warte.call(0.4)
+	var ms: int = rat.strike(held, {"spell": null})
+	held.hurt(int(ms * 0.42), false)
+	await warte.call(rat.busy_ms / 1000.0 + 0.6)
+	for nm in ["Ausweichen", "Ausweichen zurück"]:
+		zeig.call(nm)
+		rat.dodge(0, nm)
+		await warte.call(2.4)
+	zeig.call("Sprung")
+	rat.announce({"effect": "POUNCE"}, held)
+	await warte.call(1.0)
+	ms = rat.strike(held, {"spell": null})
+	held.hurt(int(ms * 0.42), false)
+	await warte.call(rat.busy_ms / 1000.0 + 0.6)
+	zeig.call("Treffer")
+	ms = held.strike(rat, {"spell": null})
+	rat.hurt(int(ms * 0.42), false)
+	await warte.call(held.busy_ms / 1000.0 + 0.6)
+	zeig.call("Platzwechsel")
+	rat.glide_to(fight._spot_pos(rat.fighter, Vector2i(1, 1)))
+	await warte.call(2.0)
+	rat.glide_to(h0)
+	await warte.call(2.0)
+	zeig.call("Tod")
+	ms = held.strike(rat, {"spell": null})
+	rat.hurt(int(ms * 0.42), true)
+	await warte.call(held.busy_ms / 1000.0 + 1.8)
+	get_tree().quit()
+
+
+func _ort_mess(rat, ziel) -> void:
+	var schritt := _ort_schritt
+	var bild := _ort_bild
+	var sk: Skeleton3D = _skeleton(rat)
+	if sk == null:
+		return
+	var kb := sk.find_bone("kopf")
+	var hb := sk.find_bone("hals")
+	if kb < 0 or hb < 0:
+		return
+	var kopf: Vector3 = sk.global_transform * sk.get_bone_global_pose(kb).origin
+	var hals: Vector3 = sk.global_transform * sk.get_bone_global_pose(hb).origin
+	if _ort_nase < 0.0:     # Schnauzenspitze in Ruhe: Vorderkante des Umrisses vor dem Kopfknochen
+		_ort_nase = maxf(0.05, rat.footprint().end.z - (rat.global_transform.affine_inverse() * kopf).z)
+		print("Ortmess Nase %.3f m vor dem Kopf, Umriss vorn %.3f m, Modellmaßstab %.3f, Rand Ziel %.2f m" % [_ort_nase, rat.footprint().end.z, rat.model.scale.x, ziel.body_r()])
+	var nase: Vector3 = kopf + (kopf - hals).normalized() * _ort_nase
+	var zu: Vector3 = ziel.position - rat.position
+	zu.y = 0.0
+	var sn: Vector3 = nase - rat.position
+	sn.y = 0.0
+	var rand: float = Vector2(ziel.position.x - nase.x, ziel.position.z - nase.z).length() - ziel.body_r()
+	print("Ortmess %s %3d %s %s Lauf %s Ort %.2f,%.2f Nase-Rand %.2f m Winkel %.0f° Nase hoch %.2f" % [schritt, bild, rat.anim.current_animation,
+		"%.2f" % rat.anim.current_animation_position, rat.lunging(), rat.position.x, rat.position.z, rand, rad_to_deg(zu.signed_angle_to(sn, Vector3.UP)), nase.y - rat.position.y])
+
+
+var _ort_nase := -1.0
+var _ort_schritt := ""
+var _ort_bild := 0
 
 
 ## 348.12f Rutenursache (Chef 27.10., 09:57; Prüfer: Haken im Film, obwohl kaufratte.py die Rute flach misst): Steigung jedes
