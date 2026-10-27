@@ -11,6 +11,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [348.12](entscheiden/34812-goblin-hieb.md) | **Muss** | G Aussehen | 27.10. | Goblin CC0 oder eigen? Der CC0-Hieb hat nach sechs Runden noch Fehler | Jerry |
 | [348.12f](entscheiden/34812f-kaufratte-r3.md) | **Muss** | E Technik | 27.10. | Reicht die nachgebesserte Kaufratte, oder bleibt die eigene? | Jerry |
 | [348.13](entscheiden/34813-tusche-nah.md) | **Muss** | G Aussehen | 27.10. | Tusche in der Nahansicht so lassen, etwas kräftiger („halb“) oder so kräftig wie in der Grundansicht („voll“)? | Tom |
+| [348.13a](entscheiden/34813a-goblin-r6.md) | **Muss** | G Aussehen | 27.10. | Soll Jerry im Kampfort die Tusche nach Licht übernehmen wie im Dorf („neu“), oder bleibt dort die alte, rundum gleich dicke („alt“)? | Tom |
 | [348.12c](entscheiden/34812c-listen.md) | **Muss** | G Aussehen | 26.10. | vier neue Listen mit je fünf Prüfpunkten, aus deinem Ja von 20:32 und den Modellbildern; nötig, bevor Jerry die gekauften Modelle bemalt | Homer |
 | [110](entscheiden/110-ford-von-hand.md) | – | – | 27.10. | Ford läuft auf Tiefe 6 (Grenze 8); Selbstneustart geht nicht mehr, bevor sein Kontext voll ist, bitte neue Sitzung von Hand starten. | Ford |
 
