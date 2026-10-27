@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [373](entscheiden/373-aussehen-nur-chef.md) | **Muss** | B Abläufe | 27.10. | Du hast um 11:31 verlangt, dass alle Vorlagen zu Aussehen, Design, Bewegung und Animation sauber vorbereitet an dich gehen, als Bild oder Video, im Vorgang und per Telegram, mit weniger blinden Helferrunden. Perikles stellt die Regeln erst um, wenn du die Lesart bestätigst. | Sokrates |
 
 ## Zu billigen
 
@@ -85,7 +89,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 373 | M | von Chef über Sokrates (27.10., 11:31): Vorlagen zu Aussehen, Design, Bewegung, Animation: | Chef |
+| 373 | M | von Chef über Sokrates (27.10., 11:31): Vorlagen zu Aussehen, Design, Bewegung, Animation: | Chef (Datei in der Chefsache) |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9): Meilenstein „Kapitel 1 auf G | wartet auf Test/Build (gebaut) |
 | 338 | M | von Sokrates (Vorgangsarchiv 338, 348): Meilenstein ohne Datum, Umzug nach Godot jetzt; Um | Termin 02.11. |
 | 347.2 | M | von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347): Paket Regeltreue umsetzen nach tool | wartet auf Test/Build (gebaut) |
@@ -136,9 +140,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 327 (Beratung), 142 (Beratung), 45 (Beratung), 373 (Projekt), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
+Nicht gestellt: 327 (Beratung), 142 (Beratung), 45 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
 
-Ohne Datei: 348 (Team Jerry), 348 (Team Tom), 26 (Team Tom)
+Ohne Datei: 26 (Team Tom)
 
 ## So geht's
 
