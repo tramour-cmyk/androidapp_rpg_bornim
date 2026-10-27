@@ -40,6 +40,21 @@ Quellseite: <https://quaternius.itch.io/universal-animation-library>. Lizenz lau
 
 **Was fehlt:** Abwechslung, nämlich mehrere Stehvarianten, Gesten (Hände in die Hüfte, Arme verschränken), mehrere Angriffe je Waffe und eigene Treffer und Tode (Chef 26.10., 11:42).
 
+## Bewegungen gegen Geld: Protofactor-Animsets (385, Chef 27.10., 20:52–20:59)
+
+Chef: „Zauberer, den finde ich genial“; „ziemlich gut und weich und geschmeidig und für fast alle Situationen. Aber halt Mensch“; „wenn das technisch nutzbar ist für uns“. Alle: Bewegungserfassung (Motion Capture), Unity „Mecanim Humanoid“, Lizenz Standard Unity Asset Store EULA (andere Engines erlaubt, siehe Lizenzen unten), Single Entity. Inhalte laut Store-Seite 27.10.; Preise in $ (Chef sah den Zauberer für 18,39, wohl Euro).
+
+| Set | $ | Inhalt laut Seite | wofür bei uns |
+|---|---|---|---|
+| Wizard | 19,99 | über 100: Stehen, Gehen, Ducken, Rennen, Zauber, Treffer, Tod | Magier, Kleriker, Schamane, Aldric, Lyra |
+| Dual Swords | 24,99 | 185: Stehen, Gehen, Rennen, Ducken, Angriffe, Treffer, Parade | Schurke (zwei Klingen) |
+| Campfire | 14,99 | 25: Stehen, Feuer anzünden, Rasten, Schlafen; dazu Lagerfeuer und Spieß | Garrick, Rast im Wald |
+| Zombie | 19,99 | 56 (20 mit Wegbewegung): Stehen, Gehen, Angriff, Fressen, Treffer, Tod | Wiedergänger, Untote |
+| weitere, ungeprüft | 14,99–34,99 | Sword & Shield, 1 Handed Melee, 2 Handed Melee, Fencing, Bow & Arrow, Combat Bare Fists, Basic Locomotion, Female Basic Locomotion, Injured, Crowd, Climbing, Creature | Kämpfer (Schild, Stich), Bogen, Dorf (Menge, Verletzte) |
+| Ultimate Animation Collection | 259,99 | 24 Sets, über 2.400 Bewegungen (darin 6 Schusswaffen-Sets) | alles oben auf einmal |
+
+**Offen (technisch):** Übertragen von „Mecanim Humanoid“ auf unsere Körper in Godot (Kaufkörper 376.1, UAL-Gerüst, CC0-Goblin); erst an einem Set prüfen, dann mehr kaufen.
+
 ## Eigene Bewegungen: drei Wege
 
 Das Gerüst gehört uns. Jede selbstgebaute Bewegung läuft darauf wie eine gekaufte (Chef 26.10., 11:47: „können wir die Bewegungen nicht selbst bauen … Garrick am Feuer …?“).
