@@ -45,6 +45,7 @@ func _ready() -> void:
 	leute_blatt()
 	held_film()
 	tusche_blatt()
+	if FigurenProbe.an(): add_child(FigurenProbe.new(self))   # 376.1 Probeblatt Quaternius-Figuren (figurenprobe.gd)
 
 func betrete(id: String, t: Vector2i, blick: String) -> void:
 	if gebiet: gebiet.queue_free()
