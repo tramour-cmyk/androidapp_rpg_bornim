@@ -18,7 +18,7 @@ Nichts offen.
 |---|---|---|---|
 | [348.13a](ansehen/34813a-tusche-kampf-r7.md) | Tusche im Kampf nach Licht, Runde 7: 1,0 oder 1,3? | Tom | 27.10., 17:45 |
 | [348.7b](ansehen/3487b-bahn.md) | Zauberbahn hoch über die Köpfe (A) oder flach quer über Wolf 3 (B)? | Jerry | 27.10., 18:33 |
-| [376](ansehen/376-haeuser-gedreht.md) | Häuser leicht gedreht: so? | Tom | 27.10., 18:08 |
+| [376](ansehen/376-probehaus.md) | Probehaus aus dem Dorfbausatz: A, B oder unser Haus? | Tom | 27.10., 19:17 |
 
 ## Zu tun
 
@@ -46,7 +46,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 |---|---|---|---|
 | 348.12i | M | von Sokrates (Chef 19:41, „348.12i B“, Archiv): nur Kaufmodelle mit AESContext verschlüsse | wartet auf Test/Build (gebaut) |
 | 376.1 | M | von Sokrates (Chef kaufte 12:20, „jetzt“ 12:46): Probeblatt Quaternius-Figuren (Archiv 376 | startbar |
-| 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | startbar |
+| 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | startbar |
 | 372 | M | von Perikles (338a B, Chef 27.10., 09:36, Archiv): Feinschliff Held: Kettenhemd, Helm, Kra | ruht |
 | 348.13 | M | von Sokrates (Chef 26.10., Archiv): Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Sc | Chef |
