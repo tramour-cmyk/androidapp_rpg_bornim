@@ -20,9 +20,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [348.12f](ansehen/34812f-kaufratte-r7.md) | Letzter Vergleich Ratte: eigene oder gekaufte? | Jerry | 27.10., 16:10 |
 | [348.13a](ansehen/34813a-tusche-kampf-r7.md) | Tusche im Kampf nach Licht, Runde 7: 1,0 oder 1,3? | Tom | 27.10., 17:45 |
-| [376.1](ansehen/3761-figuren.md) | Kauffigur in unserer Kleidung: Richtung richtig? | Tom | 27.10., 17:46 |
 
 ## Zu tun
 
@@ -44,12 +42,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 19, Muss 9, startbar 9
+**Tom** – offen 19, Muss 9, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 348.12i | M | von Sokrates (Chef 19:41, „348.12i B“, Archiv): nur Kaufmodelle mit AESContext verschlüsse | wartet auf Test/Build (gebaut) |
-| 376.1 | M | von Sokrates (Chef kaufte 12:20, „jetzt“ 12:46): Probeblatt Quaternius-Figuren (Archiv 376 | Chef |
+| 376.1 | M | von Sokrates (Chef kaufte 12:20, „jetzt“ 12:46): Probeblatt Quaternius-Figuren (Archiv 376 | startbar |
 | 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | startbar |
 | 372 | M | von Perikles (338a B, Chef 27.10., 09:36, Archiv): Feinschliff Held: Kettenhemd, Helm, Kra | ruht |
@@ -68,11 +66,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 25, Muss 14, startbar 2
+**Jerry** – offen 25, Muss 14, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 348.12f | M | von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b): Probe gekaufte Riesenratte: unter 6.0 | Chef |
+| 348.12f | M | von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b): Probe gekaufte Riesenratte: unter 6.0 | startbar |
 | 348.12 | M | von Sokrates (Chef 16:21, „cc0 nochmal“): Goblin CC0 r2: geduckt über UAL (wie geruest.py) | startbar |
 | 348.12c | M | von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv): Wiedergänger, Grabhund, Riesenegel, Säur | ruht |
 | 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | startbar |
