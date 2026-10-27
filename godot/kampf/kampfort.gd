@@ -179,7 +179,14 @@ func _setup_world() -> void:
 	var tu: Shader = load("res://kampf/tusche.gdshader")
 	var tu_held := Shader.new()
 	tu_held.code = tu.code.replace("stencil_mode read, compare_equal, 0;", "stencil_mode read, compare_equal, 2;")
-	if OS.get_environment("TUSCHE") != "0":     # Prüflauf: TUSCHE=0 misst, was die Linie ausmacht
+	_sun = sun
+	if OS.get_environment("TUSCHE") == "licht":     # 348.13 Probe (Tom): Tusche nach Licht wie kamera.gd
+		tu = load("res://kampf/tusche_licht.gdshader")
+		tu_held = Shader.new()
+		tu_held.code = tu.code.replace("stencil_mode read, compare_equal, 0;", "stencil_mode read, compare_equal, 2;")
+		_ink(tu, 1.3, 1.7)
+		_ink(tu_held, 0.8, 1.5)
+	elif OS.get_environment("TUSCHE") != "0":     # Prüflauf: TUSCHE=0 misst, was die Linie ausmacht
 		_ink(tu, 1.3, 1.25)
 		_ink(tu_held, 0.8, 1.0)
 
@@ -198,6 +205,17 @@ func _ink(sh: Shader, width: float, thick: float) -> void:
 	q.material_override = tm
 	q.position = Vector3(0, 0, -1)
 	cam.add_child(q)
+	_ink_mats.append(tm)
+
+var _sun: DirectionalLight3D
+var _ink_mats: Array[ShaderMaterial] = []
+func _ink_licht() -> void:
+	if OS.get_environment("TUSCHE") != "licht" or _ink_mats.is_empty(): return
+	var bm := get_viewport().get_visible_rect().size.x / (120.0 * scene_rect().size.x / 412.0 / 1.75) * cam.size / base_size
+	for m in _ink_mats:
+		m.set_shader_parameter("licht_dir", _sun.global_transform.basis.z)
+		m.set_shader_parameter("breite_m", bm)
+	_ink_mats[1].set_shader_parameter("hinten_ab", lerpf(0.05, 0.25, clampf((bm - 3.4) / (9.0 - 3.4), 0.0, 1.0)))
 
 
 ## Die Lichtung (tools/blender348/kampfort_wald.py): Bäume, Büsche, Steine, Boden mit Weg und Sonnentupfen, Grasbüschel.
@@ -655,6 +673,7 @@ func _state_now() -> Dictionary:
 
 # ---------------------------------------------------------------- playing the beats one after another
 func _process(_dt: float) -> void:
+	_ink_licht()
 	clock_ms += _dt * 1000.0
 	_hit_camera()
 	_grass_spots()
