@@ -922,7 +922,7 @@ def rim_band(name, keep, snap, hoch, off, mat, thick):
     apply_mods(o)
     return o
 if FG['kopf'] == 'helm':
-    form_ = float(os.environ.get('HELM_FORM', '0')) if FIGUR == 'held' else 0.0
+    form_ = float(os.environ.get('HELM_FORM', '3')) if FIGUR == 'held' else 0.0   # Vorgabe 3 (Helfer blind, vier Runden)
     hm_ = head_part('helm', lambda co: co.z > edge_u(co) - 0.2, 1.3, 'helm', 0.6, (lambda co: edge_u(co) - 0.2) if form_ > 0 else None)
     if FIGUR != 'held':   # Leute Runde 4 (Helfer: Jorins Helm wie eine Muetze): Glocke mit Spitze statt Kappe, Kettenkragen darunter
         # Runde 4b (Helfer: Helm wie Kalotte, Spitze und Rand nicht lesbar): hoehere, schlankere Spitze, breiterer Rand;
@@ -937,7 +937,7 @@ if FG['kopf'] == 'helm':
                 k_ = -4.0 - v.co.z
                 v.co += Vector((v.co.x, v.co.y, 0)).normalized() * 0.12 * k_ + Vector((0, 0, -0.55 * k_))
     if form_ > 0:   # 348.6 („Helm wie Muetze“, Probe ac64f9788: Kappe zu klein und rund): wie Leute 4b, milder; hoeher, leicht spitz,
-        # unten etwas ausgestellt; Probe HELM_FORM=<cm Spitze> (Vorgabe 0)
+        # unten etwas ausgestellt; HELM_FORM=<cm Spitze>, 0 wie vorher
         for v in hm_.data.vertices:
             t_ = max(0.0, min(1.0, (v.co.z - 3.0) / 9.0))
             xy_ = Vector((v.co.x, v.co.y, 0))
