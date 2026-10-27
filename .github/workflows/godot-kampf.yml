@@ -212,7 +212,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
         run: |
-          export GEGNER=RATS OHNEUI=1
+          # Rutenursache (Archiv 27.10.): RUTE_MESS misst die Rute in Blender (Bau-Log) und im Film (Film-Log) gleich
+          export GEGNER=RATS OHNEUI=1 RUTE_MESS=1 BAHN_BILDER=q_treffer,q_tod
           P=$GITHUB_WORKSPACE/kaufprobe; mkdir -p $P
           # ffmpeg statisch aus imageio-ffmpeg (apt-get install brauchte in Lauf 112 bis zum Abbruch über 30 min)
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
@@ -229,7 +230,7 @@ jobs:
           for v in kauf gross; do
             t0=$SECONDS; env OUT=$RUNNER_TEMP/$v KAUF=$RUNNER_TEMP/kauf VARIANTE=$( [ $v = gross ] && echo gross ) timeout 1200 bl/bin/python -I tools/blender348/kaufratte.py > $P/$v-bau.log 2>&1 || (tail -60 $P/$v-bau.log; exit 1)
             echo "Bau $v: $((SECONDS - t0)) s" | tee $P/$v-zeit.txt
-            grep -E "IMPORT|KNOCHEN|NETZ|RIG|FELLKARTEN|BEWEGUNG|FEHLT|BEMALUNG|MASS|HOCKE|KOPF|GLB|FERTIG" $P/$v-bau.log | cut -c1-900
+            grep -E "IMPORT|KNOCHEN|NETZ|RIG|FELLKARTEN|BEWEGUNG|FEHLT|BEMALUNG|MASS|HOCKE|KOPF|GLB|FERTIG|RUTE" $P/$v-bau.log | cut -c1-900
             for f in braun grau schwarz; do cp $RUNNER_TEMP/$v/giant_rat-$f.glb $D/giant_rat-$f.bin; done
             cp $RUNNER_TEMP/$v/giant_rat-info.json $P/$v-info.json
             bild ratte-$v; film $v $( [ $v = gross ] && echo Variante || echo gekauft )

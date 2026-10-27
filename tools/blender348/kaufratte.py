@@ -58,6 +58,10 @@ DROHEN = (('Head', 2.0), ('Neck', 2.0), ('Spine1', 1.8), ('Spine', 1.5), ('Tail'
 DROHEN_NICKEN, DROHEN_TIEFE = -35.0, 0.04      # b: Drohen „unverändert schwach“: Kopf hoch, Rumpf tiefer (gesträubt, lauernd)
 RUTE_RUHIG = (('Tail', 0.4),)                  # Lefzen, Tod, Ausweichen: Rute nicht als Haken hoch
 RUTE = float(os.environ.get('RUTE', '0.55'))
+# Rutenursache (Chef 27.10., 09:57, Archiv): RUTE_MESS=1 misst je Bewegung die Steigung jedes Rutenglieds wie probe.gd im Spiel
+# (Zeile „RUTE STEIGUNG“ gegen „Rute … Steigung“ im Film-Log) und den Maßstab je Rutenknochen (min..max/größte Ungleichheit der Achsen)
+RUTE_MESS = os.environ.get('RUTE_MESS', '') != ''
+RUTE_KETTE = ['GIANT_RAT_ Tail'] + ['GIANT_RAT_ Tail%d' % i for i in range(1, 9)]
 RUTE_SENKEN = 0.6     # d: im Tod liegt die Rute ab diesem Anteil der Bewegung flach am Boden
 RUTE_STRECK = 0.85     # d: so weit richtet sich die Rute im Tod nach hinten aus (Rest: Biegung der Quelle)
 RUTE_DECKEL = float(os.environ.get('RUTE_DECKEL', '0.10'))     # d: im Treffer kein Gliedende mehr als so viel über dem ersten Bild (m, Quelle)
@@ -669,13 +673,18 @@ def baue(fell):
         if q in akt and B + 'Tail' in rig.pose.bones: rute_aus_dem_boden(rig, akt[q], senken=q == 'q_tod', deckel=0.0 if q == 'q_tod' else RUTE_DECKEL)
     # Messung je Bewegung (Welt, Quelle): Becken, Neigung, Pfoten, Rutenspitze, Kopfweg
     W = rig.matrix_world; pb = rig.pose.bones
+    if RUTE_MESS: print('RUTE ERBE', [(n[len(B):], rig.data.bones[n].inherit_scale, rig.data.bones[n].use_connect) for n in RUTE_KETTE if n in rig.data.bones])
     for q in ('jumpBite', 'q_biss', 'getHitFront', 'q_treffer', 'taunt', 'q_drohen', 'q_lefzen', 'death', 'q_tod', 'dodgeRight', 'q_ausweichen', 'idle'):
         if q not in akt: continue
         a = akt[q]; rig.animation_data.action = a
         if slot(a) is not None: rig.animation_data.action_slot = slot(a)
-        R = []
+        R = []; E = []; S = {}
         for f in range(int(a.frame_range[0]), int(a.frame_range[1]) + 1):
             bpy.context.scene.frame_set(f)
+            if RUTE_MESS:     # Rutenursache (Archiv 27.10.): Steigung je Glied (Kopf zu Kopf), Maßstab je Rutenknochen
+                hs = [W @ pb[n].head for n in RUTE_KETTE]
+                E.append([math.degrees(math.asin(max(-1.0, min(1.0, (hs[i + 1] - hs[i]).z / max((hs[i + 1] - hs[i]).length, 1e-6))))) for i in range(len(hs) - 1)])
+                for n in RUTE_KETTE: S.setdefault(n, []).append(tuple(pb[n].scale))
             h = W @ pb[B + 'Head'].tail; c = W @ pb[B + 'Pelvis'].head; nk = W @ pb[B + 'Neck'].head
             R.append((h.x, h.y, h.z, c.z, math.degrees(math.atan2(nk.z - c.z, -(nk.y - c.y))),
                       min((W @ pb[B + s].head).z for s in ('L Hand', 'R Hand', 'L Foot', 'R Foot')), spitze(rig, pb[B + 'Tail8']).z,
@@ -685,6 +694,10 @@ def baue(fell):
         R = np.array(R); dh = np.sqrt(((R[:, :3] - R[0, :3]) ** 2).sum(1))
         # Prüfweg: BAHN_BILDER=q_tod,… je Bild Rutenspitze / tiefster / höchster Rutenpunkt
         if os.environ.get('BAHN_BILDER') and q in os.environ['BAHN_BILDER'].split(','): print('BILDER', q, ' '.join('%d:%.2f/%.2f/%.2f' % (j, r[6], r[7], r[8]) for j, r in enumerate(R)))
+        if RUTE_MESS and E:
+            E = np.array(E)
+            print('RUTE STEIGUNG %-12s max %s | Ende %s' % (q, ' '.join('%+.0f' % x for x in E.max(0)), ' '.join('%+.0f' % x for x in E[-1])))
+            print('RUTE MASSSTAB %-12s %s' % (q, ' '.join('%s:%.2f..%.2f/%.2f' % (n[len(B):], np.array(v).min(), np.array(v).max(), np.ptp(np.array(v), axis=1).max()) for n, v in S.items())))
         print('BAHN %-12s Nasenweg %.3f m (Bild +%d), Becken z %.2f..%.2f, Neigung %.0f..%.0f°, Pfoten z min %.3f, Rutenspitze z max %.2f, am Ende %.2f, Rute tiefster Punkt %.3f, Rute höchstes Glied am Ende %.3f' % (
             q, dh.max(), dh.argmax(), R[:, 3].min(), R[:, 3].max(), R[:, 4].min(), R[:, 4].max(), R[:, 5].min(), R[:, 6].max(), R[-1, 6], R[:, 7].min(), R[-1, 8]))
     rig.animation_data.action = None

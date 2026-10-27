@@ -315,6 +315,8 @@ func _schau() -> void:
 			for fg in foes:
 				if not fg.paws.is_empty():
 					fg._paw_shadow_update()
+				if OS.get_environment("RUTE_MESS") != "" and fg == foes[0]:
+					_rute_mess(fg, nm, bild)
 				# 348.12 Runde 5 (Prüfer sah den Hieb anders, als das GLB misst): SCHAU_MESS=1 schreibt je Bild Griff, Klingenachse und
 				# Spitze der Waffe in der Figur (+Z vorn, +Y oben, +X links), in m über dem Boden
 				if OS.get_environment("SCHAU_MESS") != "" and fg == foes[0]:
@@ -348,6 +350,31 @@ func _schau() -> void:
 			await get_tree().process_frame
 	await get_tree().create_timer(0.6).timeout
 	get_tree().quit()
+
+
+## 348.12f Rutenursache (Chef 27.10., 09:57; Prüfer: Haken im Film, obwohl kaufratte.py die Rute flach misst): Steigung jedes
+## Rutenglieds (Kopf zu Kopf, Grad, + aufwärts) je Bild, wie die Zeile „RUTE STEIGUNG“ im Bau-Log
+func _rute_mess(fg, nm: String, bild: int) -> void:
+	for node in fg.find_children("*", "Skeleton3D", true, false):
+		var sk := node as Skeleton3D
+		var kette: Array = []
+		for bi in sk.get_bone_count():
+			if sk.get_bone_name(bi).contains("Tail"):
+				kette.append(bi)
+		if kette.size() < 2:
+			continue
+		kette.sort_custom(func(a, b): return _rute_nr(sk.get_bone_name(a)) < _rute_nr(sk.get_bone_name(b)))
+		var inv: Transform3D = fg.global_transform.affine_inverse() * sk.global_transform
+		var txt := ""
+		for i in kette.size() - 1:
+			var v: Vector3 = inv * sk.get_bone_global_pose(kette[i + 1]).origin - inv * sk.get_bone_global_pose(kette[i]).origin
+			txt += " %+.0f" % rad_to_deg(asin(clampf(v.y / maxf(v.length(), 1e-6), -1.0, 1.0)))
+		print("Rute %s %2d %.2f Steigung je Glied%s" % [nm, bild, fg.anim.current_animation_position, txt])
+
+
+func _rute_nr(bn: String) -> int:
+	var rest := bn.get_slice("Tail", 1)
+	return int(rest) if rest.is_valid_int() else 0
 
 
 ## For the Prüflauf: which way each figure looks (heel to toe, or its +Z) against the way it should face.
