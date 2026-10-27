@@ -20,6 +20,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [348.12f](ansehen/34812f-kaufwolf.md) | Gekaufter Wolf im Kampfort neben unserem | Jerry | 27.10., 21:44 |
 | [348.13a](ansehen/34813a-tusche-kampf-r8.md) | Tusche im Kampf mit schräger Sonne: 1,0 oder 1,3? | Tom | 27.10., 20:04 |
 | [376.1](ansehen/3761-koepfe.md) | Gekaufter Kopf angepasst: Form, Bart, Farbe, Haar | Tom | 27.10., 21:19 |
 

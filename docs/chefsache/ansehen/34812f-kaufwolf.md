@@ -2,7 +2,7 @@
 
 ![Gekaufter Wolf, 8 Momente: Anlauf, Biss, Ausweichen, Hocke, Sprungbiss, Treffer, Platzwechsel, Tod](../bilder/34812f-kaufwolf.webp)
 
-**Bitte ansehen (Morgenblatt):** [Film Ortswechsel](bilder:pruefung/348.12f-kaufwolf-ort.mp4) (links unser Wolf wie bisher, rechts der gekaufte Janpec-Wolf), [Film alle Bewegungen](bilder:pruefung/348.12f-kaufwolf-alle.mp4), [Standbild-Blatt](bilder:pruefung/348.12f-kaufwolf-blatt.jpg) (oben unsere Wölfe grau, dunkel, rost; unten die gekauften in denselben Fellen).
+**Bitte ansehen (Morgenblatt):** [Film Ortswechsel](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/pruefung/348.12f-kaufwolf-ort.mp4) (links unser Wolf wie bisher, rechts der gekaufte Janpec-Wolf), [Film alle Bewegungen](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/pruefung/348.12f-kaufwolf-alle.mp4), [Standbild-Blatt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/pruefung/348.12f-kaufwolf-blatt.jpg) (oben unsere Wölfe grau, dunkel, rost; unten die gekauften in denselben Fellen).
 
 **Frage:** Nehmen wir den gekauften Wolf mit unserer Bemalung, wie bei der Ratte? Auf deine Frage 18:09 („Was ist mit dem Kaufwolf? Den nehmen wir nicht? Oder seine Animationen?“). Seine Bewegungen allein passen nicht auf unseren Wolf, weil die Knochen anders gebaut sind; darum zeigt die Probe den ganzen gekauften Wolf. Sag „gekauft“, „eigen“ oder was anders sein soll.
 
