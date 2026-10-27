@@ -4,13 +4,13 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (27.10., 18:0x, `session_01Hmoj78SxUwEZNsTMHCZo6F`):** 376.1a erledigt: `add_repo` geht nur mit wörtlichem Chefsatz in der Sitzung („Klone das Repository tramour-cmyk/bornim-kaufmodelle in diese Sitzung.“), Tom hat Zugang seit 17:38; 383 ja (Archiv), Bau bei Perikles; 348.12 Hieb r7 abgenommen, 348.12f gekauft (Archiv); Chef 18:06 im Chat beantwortet: kein Paketkauf jetzt (348.12c), Anziehen hängt an Toms Chefsache 3761, Ausrüstung CC0 etwa 40/74, Rest Eigenbau; Tom und Ford (für Jerry-Nachfolger): erst vorlegen, keine weitere Runde. Kosten auf: 376, 383, 348.12. Nachfolger: Sokrates – 383 Sitzungsgröße messen (bis 28.10., 12:00)
+**Übergabe (27.10., 18:17, `session_01Hmoj77UKZsnswrNjiPy18C`):** 383 Sitzungsgröße gemessen (Zu 383): keine Größenregel. Kosten auf: 383. Nachfolger: keiner, nichts startbar bis 31.10. (347, 318, 365, 374, 383 auswerten).
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 383 | M | **von Chef (27.10., 17:44, „Sollen wir einfach aufhören damit?“; 17:47 Vorschlag „nicht griffig“):** Chef räumt nur hinter allen her | ja 17:53 (Archiv), Bau bei Perikles; Sitzungsgröße aus gebuchten Kosten messen bis 28.10., 12:00 |
+| 383 | M | **von Chef (27.10., 17:44, „Sollen wir einfach aufhören damit?“; 17:47 Vorschlag „nicht griffig“):** Chef räumt nur hinter allen her | frühestens 31.10.: Größe gemessen 18:15, keine Größenregel (Zu 383); Bau Wartewächter bei Perikles; nachmessen mit 347 |
 | 376 | M | **von Chef (27.10., 12:00):** Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Tom: Häuser ja 12:42 (Archiv), Probeblatt 376.1 „jetzt“ 12:46; Markt 376.2 bei Tom (Perikles 12:5x) (Zu 376) |
 | 374 | M | **von Chef (27.10., 11:54):** wer prüft 373? | frühestens 31.10.: auswerten mit 347 (Archiv) |
 | 348.12c | M | **von Chef (26.10., 11:59):** Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters Kit“) und andere Anbieter; Kosten, Erwerb, Verkauf im Spiel erlaubt; Monster dürfen von D&D abweichen; „schönen Vorschlag und ein schönes Paket“ | ruht: Ratte gekauft 18:03; kein Paketkauf jetzt, je Monster kaufen, wenn es im Kapitel dran ist (Empfehlung 18:0x, Chef offen) |
@@ -36,6 +36,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (Gewerbeschein); 45a/45c, 72g–72j entschieden ([Artefakt](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj), vertraulich); offen: Preis endgültig mit 142 (ab Gewerbeschein), bis 30.11.; iOS-Schätzung Tom nach Kapitel 2 |
 | 109 | K | Repo öffentlich | ruht (Archiv 16.10.); vor dem Marktstart wieder vorlegen, vorher APK-Aufbewahrung kürzen |
 
+- **Zu 383, Sitzungsgröße (gemessen 27.10., 18:15; 99 Sitzungen 26.10., 17:48 bis 27.10., 18:11, `get_session` usage; Helfer rechnete nach):** 96 mit Kosten, 787 $ in 24 h. Großes Modell je Million Ausgabetokens nach Kontext am Ende: 100–200k 103 $ (n 14), 200–300k 101 $ (n 61), 300–500k 92 $ (n 17); Cache-Lesen je Ausgabetoken 212/248/229. Kein Hinweis, dass große Sitzungen je Arbeit teurer sind; Beleg schwach (nur Endstand, kein Vergleich gleicher Aufgabe). Jeder Start mindestens etwa 125k Kontext, kleinste Sitzung 1,25 $. Treiber sind Runden: 348.12 202 $, 348.7 185 $, 348.13 142 $, 376 105 $ (Titel überlappen); Titel mit Runde/Prüf/Befund 348 $ (44 %). Folgerung: keine Größenregel, kein früherer Neustart; sparen über weniger Runden (Wartewächter 383, „erst vorlegen“). Wiederholen mit 347 am 31.10.
 - **Zu 376:** Chef 12:09–12:10: 20 $ „super gerne“, wenn Größe und Form anpassbar und Tusche darauf geht; „dann hätten die vielleicht auch mal einen richtigen Kopf“; nah sichtbar in Ausrüstung, Charaktererstellung, Kartenzoom; 12:12 „Universal Base Characters“ als Alternative zum Selbstbau.
 - **Von Team Tom (27.10., 13:4x, zu 376.3):** UAL Pro gesichtet (Liste: `ARBEIT-TEAM-TOM.md` Zu 376.1): hat Ausweichen (`Dodge_Left/Right`, `Roll`), Treffer (`Hit_*`), Tod, Schwerthieb, `Counter_*`; hat **keinen** Stich, keine Schildabwehr, kein gehaltenes Ausholen; Zauber in Pro nicht vermerkt (frei nur `Spell_Simple_*`). Lücke also Block und Stich, nicht Ausweichen und Treffer.
 - **Zu 348.12c:** Bericht `LISTE-CC0-MODELLE.md` „Gegen Geld“; Protofactor-EULA: Verkauf ja, „protected form“, „ONE individual“. Protofactor per Mail: unverschlüsselt kein Ja („Encryption would be best“), KI-Sitzungen ok; Rabatt je Warenkorb.
