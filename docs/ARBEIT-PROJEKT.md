@@ -5,7 +5,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 27.10., 12:45
 
-**Übergabe (27.10., 12:5x, `session_01Hmoj78vHYPT8chF7CZmYup`):** 376.1 und 376.2 bei Tom eingereiht: 376.1 nach Kampfbewegungen Runde 6, vor Kopf t78 (Kopf nur, wenn der Chef die Quaternius-Figuren ablehnt); 376.2 mit dem Dorf; Toms Vorrat auf 15 KB gekürzt (ruhende Einzelheiten nach Git). Kosten auf: 376. Nachfolger: keiner
+**Übergabe (27.10., 12:5x, `session_01Hmoj78vHYPT8chF7CZmYup`):** 376.1 bei Tom (zugleich Sokrates, Chef 12:46 „jetzt“, vor Runde 7); 376.2 bei Tom mit dem Dorf; Toms Vorrat unter 15 KB gekürzt (ruhende Einzelheiten nach Git). Kosten auf: 376. Nachfolger: keiner
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
