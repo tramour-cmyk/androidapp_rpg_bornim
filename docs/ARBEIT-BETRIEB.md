@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 15:54 27.10.: Neustart Jerry angenommen (`eef2681e6`), Nachfolger `01Hmoj76FQ` „Jerry – Fehlerprüfung 348.12f r7, 348.7a r5“ gestartet; alter Jerry `01Hmoj79d6` archiviert, 7,31 $ auf 348.7a und 348.12f
 - 15:40 27.10.: Neustart Tom angenommen (`047f51581`), Nachfolger `01Hmoj77Ko` „Tom – 376.1 Tracht und Film fertig, an den Chef“ gestartet; alter Tom `01Hmoj799Z` und `77MK` archiviert, 7,30 $ und 10,33 $ auf 376.1
 - 15:26 27.10.: Neustart Tom angenommen (`bf5fbd292`), Nachfolger `01Hmoj799Z` „Tom – 376.1 Film prüfen, an den Chef“ gestartet; alter Tom `01Hmoj77MK` archivieren, sobald `idle` (10,08 $ auf 376.1, Kommaliste beachten)
 - 15:25 27.10.: Auftrag Diogenes 275 (Perikles, Muss, Chef 15:09) von Hand gestartet `01Hmoj79Rk` „Diogenes – 275 Stufe 1 prüfen“, weil lauf.py ihn nicht startete (380 an Perikles)
