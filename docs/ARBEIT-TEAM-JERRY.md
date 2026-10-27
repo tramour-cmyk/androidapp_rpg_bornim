@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates für den Chef, 25.10., 01:2x):** Arbeit nach `LISTE-UMZUG-348.md`, 348.6–348.8; altes Spiel ruht.
 
-**Übergabe (27.10., 17:08, `session_01Hmoj78DTdLDoieBSBWfqx6`):** 348.12 Hieb r7 fremd geprüft (kein hoch, 6 mittel), Text fremd geprüft, Vorlage `ansehen/34812-goblin-hieb-r7` (Votum passt), Film und Blatt auf `bilder:pruefung/348.12-r7-*`, Telegram 16:4x laut. Messung Diogenes 17:0x in beide Vorlagen (Hieb, Ratte). 348.7a Runde 6 gebaut (4f3f8b3c6: Spitze ≤ 0,9 m, ≤ 45° steil, Start 0,45 m neben dem Körper, Ansagen als Hindernis, Feuerball-Ring, Flamme schmaler), Lauf 40532649967 grün, ohne SCRIPT ERROR, Artefakt `todprobe`; Bahnwahl am Schirm 8–26 Punkte über anderen (Spitze 0,2). 348.3, 296.2a erledigt; Stände nach 378 berichtigt. Lokales Godot vom Sicherheitsfilter abgelehnt (Download), nur über Läufe prüfbar; an Chef gemeldet. Nachfolger: „Jerry – 348.7a Fehlerprüfung Runde 6“
+**Übergabe (27.10., 17:08, `session_01Hmoj78DTdLDoieBSBWfqx6`):** 348.12 Hieb r7 fremd geprüft, vorgelegt (`ansehen/34812-goblin-hieb-r7`, Telegram), Diogenes 17:0x in beide Vorlagen. 348.7a Runde 6 gebaut (4f3f8b3c6), Lauf 40532649967 grün, Artefakt `todprobe`. 348.3, 296.2a erledigt, Stände nach 378. Lokales Godot vom Sicherheitsfilter abgelehnt, nur über Läufe prüfbar. Nachfolger: „Jerry – 348.7a Fehlerprüfung Runde 6“
 
 ## Zeilen
 
