@@ -11,10 +11,10 @@ REGLER = ('breite', 'kiefer', 'laenge', 'kinn', 'nase', 'wangen', 'brauen')
 FORMEN = {   # Pruefer 20:2x/20:33: schmal = hager = gekauft, kantig einseitig gebeult: schmal nur eng, hager lang mit hohen Wangen
              # und langer Nase, kantig der Kiefer breit mit Kinn und Brauen vor (Kiefer weicher nach hinten, kopf.feld)
     'gekauft': {},
-    'schmal':  {'breite': -0.12, 'kiefer': -0.18, 'laenge': 0.05, 'wangen': -0.004},
+    'schmal':  {'breite': -0.15, 'kiefer': -0.20, 'laenge': 0.05, 'wangen': -0.004},
     'rund':    {'breite': 0.12, 'kiefer': 0.18, 'laenge': -0.08, 'kinn': -0.006, 'wangen': 0.006, 'nase': -0.15, 'brauen': -0.002},
-    'kantig':  {'breite': -0.03, 'kiefer': 0.26, 'laenge': 0.03, 'kinn': 0.010, 'brauen': 0.008, 'nase': 0.12},
-    'hager':   {'breite': -0.02, 'laenge': 0.15, 'kinn': 0.008, 'wangen': 0.010, 'brauen': 0.007, 'nase': 0.30},
+    'kantig':  {'breite': -0.03, 'kiefer': 0.32, 'laenge': 0.03, 'kinn': 0.010, 'brauen': 0.008, 'nase': 0.12},
+    'hager':   {'breite': -0.02, 'kiefer': -0.08, 'laenge': 0.18, 'kinn': 0.008, 'wangen': 0.012, 'brauen': 0.007, 'nase': 0.30},
 }
 # Haut (Faktor auf das Bild): die Textur ist hell-rosig
 HAUT = {'hell': (1.16, 1.12, 1.08), 'mittel': (1.0, 1.0, 1.0), 'warm': (1.0, 0.90, 0.74), 'gebraeunt': (0.80, 0.68, 0.56),

@@ -274,7 +274,10 @@ for i, v in enumerate(QV):
         qkoerper.data.vertices[i].co += Vector(qmi @ (np.linalg.inv(A) @ d)); rein += 1
 print('KOERPER ZURUECK', rein)
 bm = bmesh.new(); bm.from_mesh(qkoerper.data); bm.faces.ensure_lookup_table()
-weg = [f for f in bm.faces if sum(verdeckt[v.index] for v in f.verts) >= (WEG_AB or len(f.verts))]
+# Pruefer 21:0x (Vergleich k01-k04): am gestauchten Kragen liegen Halshaut und Kette gleich tief, Flaechen ab einer verdeckten Ecke
+# weg gab Zinnen; am Hals (Kopf- und Halsgewicht) darum nur ganz verdeckte Flaechen weg, sonst WEG_AB
+am_hals = (WQ[:, iH] + WQ[:, iN] + (WQ[:, Q_KN.index('neck_02')] if 'neck_02' in Q_KN else 0)) > 0.3 if f < 1.0 else np.zeros(len(QV), dtype=bool)
+weg = [f_ for f_ in bm.faces if sum(verdeckt[v.index] for v in f_.verts) >= (len(f_.verts) if any(am_hals[v.index] for v in f_.verts) else (WEG_AB or len(f_.verts)))]
 bmesh.ops.delete(bm, geom=weg, context='FACES')
 bm.to_mesh(qkoerper.data); bm.free()
 print('KOERPER VERDECKT', int(verdeckt.sum()), 'von', len(QV), 'Ecken;', len(weg), 'Flaechen weg')
