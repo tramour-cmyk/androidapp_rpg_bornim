@@ -3,8 +3,12 @@
 nachzukontrollieren“). Läuft als Stop-Haken für alle Rollen und tut bei jedem Fehler still nichts.
 
 Enthält die letzte Antwort eine Frage oder Empfehlung an den Nutzer, hält der Haken den Zug einmal an und nennt die
-Nummern: Jede muss auf „Chefsache“ stehen (Datei docs/chefsache/<ordner>/<nr>-….md), bevor der Zug endet. Beim
-zweiten Beenden lässt er durch (stop_hook_active), es gibt also nie eine Schleife.
+Nummern: Jede muss auf „Chefsache“ stehen (Datei docs/chefsache/<ordner>/<nr>-….md), bevor der Zug endet.
+383 (Chef 27.10., 17:53): beim zweiten Beenden prüft der Haken nach, statt durchzulassen: jede genannte Nummer braucht eine
+Datei in docs/chefsache/, ohne Nummer muss seit dem Anhalten eine Chefsache-Datei angelegt oder geändert sein; sonst hält er
+ein zweites Mal an. Ausweg für Fehlalarm: die Nachantwort enthält „Keine Chefsache: <Grund>“ (gezählt). Beim dritten Beenden
+lässt er immer durch (keine Schleife); Spalte zweitstopp im Zähler: frei, ausnahme, gehalten, durch.
+Erkennt auch Bitten ohne Fragezeichen und ohne „du“ (Ford 27.10., 19:06: „Brauche vom Chef: … Bitte von Hand archivieren“).
 
 347 (Chef 24.10., 16:30): Stempelprüfung und Zähler im selben Haken, ein gemeinsames Anhalten (Gegenprüfung 347.1 B):
 - Steht am Anfang der Antwort ein Stempel „[TT.MM., HH:MM]“ außerhalb von Nachricht des Nutzers minus 1 Minute bis
@@ -23,7 +27,9 @@ import zoneinfo
 
 BERLIN = zoneinfo.ZoneInfo("Europe/Berlin")
 ZAEHLER = os.environ.get("BORNIM_REGELTREUE") or os.path.expanduser("~/.bornim-regeltreue.tsv")
-KOPF = "zeit\tsitzung\tkontext_token\twoerter\tentschuldigung\tstempel\tdaneben_min\tangehalten"
+KOPF = "zeit\tsitzung\tkontext_token\twoerter\tentschuldigung\tstempel\tdaneben_min\tangehalten\tzweitstopp"
+STAND = os.environ.get("BORNIM_HAKEN63") or os.path.expanduser("~/.bornim-haken63.json")  # 383: was beim ersten Anhalten fehlte
+CHEFSACHE = os.environ.get("BORNIM_CHEFSACHE") or os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs", "chefsache")
 STEMPEL = re.compile(r"^\W*(?:\*\*[^*\n]{1,40}\*\*)?\s*\[(\d{1,2})\.(\d{1,2})\.,? (\d{1,2}):(\d{2})\]")
 ENTSCHULD = re.compile(r"entschuldig|verzeih|tut mir (so |sehr )?leid|\bsorry\b|mein fehler", re.IGNORECASE)
 
@@ -37,6 +43,10 @@ ANSPRACHE = re.compile(r"\b(du|dir|dich|dein\w*)\b", re.IGNORECASE)
 # Themennummern wie 68n, 72s.1, D3.13, 90a, 7.2
 NUMMER = re.compile(r"\b(D?\d{1,3}[a-z]?(?:\.\d{1,2})?[a-z]?)\b")
 FREI = re.compile(r"vorrat leer|weiter in .{0,80}: https://", re.IGNORECASE)
+# 383: Bitte ohne Fragezeichen und ohne „du“ (Ford 19:06 „Brauche vom Chef: … Bitte von Hand archivieren oder den Satz … geben“)
+BITTE = re.compile(r"\b(brauche|benötige)\b.{0,30}\b(chef|dir|euch)\b|\bvom chef\b|\bfür den chef\b|\bchef (muss|soll|möge)|"
+                   r"(^|[.:!]\s+)bitte\b|\bfreigabe\b|\bfreigeben\b", re.IGNORECASE | re.MULTILINE)
+AUSNAHME = re.compile(r"keine chefsache:\s*\S", re.IGNORECASE)
 
 
 def letzter_text(pfad):
@@ -143,9 +153,15 @@ def summe(rolle, sitzung=None):
 def main():
     try:
         e = json.load(sys.stdin)
-        if e.get("stop_hook_active"):
-            return
         t = e.get("last_assistant_message") or letzter_text(e["transcript_path"])
+        if e.get("stop_hook_active"):
+            grund, wort = zweitstopp(e, t)
+            if wort:
+                zaehlen([datetime.datetime.now(BERLIN).strftime("%Y-%m-%d %H:%M"), str(e.get("session_id", "?"))[:40], 0, 0, 0, 0, 0,
+                         1 if grund else 0, wort])
+            if grund:
+                print(json.dumps({"decision": "block", "reason": grund}))
+            return
         gruende = []
         try:
             jetzt = datetime.datetime.now(BERLIN)
@@ -159,31 +175,107 @@ def main():
         chef = chefsache(t)
         if chef:
             gruende.append(chef)
+        st = stand_lesen()  # 383: Stand für die Nachprüfung beim zweiten Beenden; ohne Anhalten alten Stand löschen
+        if chef:
+            st[str(e.get("session_id", "?"))] = {"nummern": erkennen(t)[1], "zeit": datetime.datetime.now().timestamp()}
+        else:
+            st.pop(str(e.get("session_id", "?")), None)
+        stand_schreiben(st)
         if werte:
-            zaehlen(werte + [1 if gruende else 0])
+            zaehlen(werte + [1 if gruende else 0, ""])
         if gruende:
             print(json.dumps({"decision": "block", "reason": " · ".join(gruende)}))
     except Exception:
         return
 
 
-def chefsache(t):
-    """Grund zum Anhalten, wenn die Antwort eine Frage oder Empfehlung an den Nutzer enthält (63), sonst None."""
+def erkennen(t):
+    """(Bitte an den Nutzer erkannt, Nummern) für die Antwort t (63, 383)."""
     if not t or FREI.search(t):
-        return None
+        return False, []
     ohne = re.sub(r"`[^`]*`|\]\([^)]*\)|https?://\S+|\[\d{1,2}\.\d{1,2}\.,? ?\d{1,2}:\d{2}\]|\b\d+\.\d+\.\d+\b|\b\d{1,2}\.\d{1,2}\.", "", t)
     # Empfehlung und Testbitte nur, wenn derselbe Satz den Nutzer anspricht (ein „du“ irgendwo reichte nicht)
     saetze = re.split(r"(?<=[.!?:;])\s+|\n+| – ", ohne)
-    bitte = any((EMPFEHLUNG.search(z) or TEST.search(z)) and ANSPRACHE.search(z) for z in saetze)
+    bitte = any((EMPFEHLUNG.search(z) or TEST.search(z)) and ANSPRACHE.search(z) for z in saetze) or bool(BITTE.search(ohne))
     if not (FRAGE.search(ohne) or bitte):
+        return False, []
+    return True, sorted({n for n in NUMMER.findall(ohne) if re.search(r"[a-zA-Z.]", n)})
+
+
+def chefsache(t):
+    """Grund zum Anhalten, wenn die Antwort eine Frage oder Empfehlung an den Nutzer enthält (63), sonst None."""
+    ja, nummern = erkennen(t)
+    if not ja:
         return None
-    nummern = sorted({n for n in NUMMER.findall(ohne) if re.search(r"[a-zA-Z.]", n)})
     liste = ", ".join(nummern[:12]) or "keine Nummer gefunden"
-    return ("Chefsache-Haken (63): Deine Antwort enthält eine Frage oder Empfehlung an den Nutzer (Nummern: "
-                  + liste + "). Steht jede davon auf „Chefsache“ (Datei docs/chefsache/entscheiden/ oder ansehen/<nr>-….md) und hat eine "
-                  "Zeile mit Nummer im Vorrat (ARBEIT-…)? Gilt auch für Testbitten („Anzusehen“). Fehlt etwas: jetzt eintragen, ohne es im Chat zu erwähnen. Ohne "
-                  "Nummer: erst Nummer vergeben. Steht schon alles dort oder ist es keine Frage an den Nutzer: "
-                  "einfach erneut beenden. Die Antwort nie wiederholen, der Chef hat sie schon.")
+    return ("Chefsache-Haken (63): Deine Antwort enthält eine Frage, Bitte oder Empfehlung an den Nutzer (Nummern: "
+                  + liste + "). Steht jede davon auf „Chefsache“ (Datei docs/chefsache/entscheiden/, ansehen/ oder tun/<nr>-….md) und hat eine "
+                  "Zeile mit Nummer im Vorrat (ARBEIT-…)? Gilt auch für Testbitten („Anzusehen“). Fehlt etwas: jetzt eintragen und pushen, ohne es im Chat zu erwähnen. Ohne "
+                  "Nummer: erst Nummer vergeben. Beim zweiten Beenden prüft der Haken die Dateien nach (383). Ist es keine Frage an den Nutzer: "
+                  "schreibe nur „Keine Chefsache: <Grund>“. Die Antwort nie wiederholen, der Chef hat sie schon.")
+
+
+def chefdatei(nr):
+    """Liegt zu nr (72s.1, 376.1) eine Datei docs/chefsache/<ordner>/<nr ohne Punkt>-….md?"""
+    k = nr.replace(".", "").lower()
+    try:
+        for ordner in os.listdir(CHEFSACHE):
+            d = os.path.join(CHEFSACHE, ordner)
+            if os.path.isdir(d) and any(n.lower().endswith(".md") and n.lower().split("-")[0].removesuffix(".md") == k for n in os.listdir(d)):
+                return True
+    except OSError:
+        return True  # ohne Chefsache-Ordner nie anhalten
+    return False
+
+
+def chefsache_neu_seit(t0):
+    """Wurde seit t0 (Unix-Zeit) eine Datei in docs/chefsache/ angelegt oder geändert?"""
+    try:
+        for wurzel, _, dateien in os.walk(CHEFSACHE):
+            if any(os.path.getmtime(os.path.join(wurzel, n)) >= t0 for n in dateien if n.endswith(".md")):
+                return True
+    except OSError:
+        return True
+    return False
+
+
+def stand_lesen():
+    try:
+        return json.load(open(STAND, encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+def stand_schreiben(d):
+    try:
+        json.dump(d, open(STAND, "w", encoding="utf-8"))
+    except OSError:
+        pass
+
+
+def zweitstopp(e, t):
+    """383: (Grund zum zweiten Anhalten oder None, Wort für die Zählspalte) beim Beenden nach einem Anhalten."""
+    sid = str(e.get("session_id", "?"))
+    st = stand_lesen()
+    alt = st.get(sid)
+    if not alt:
+        return None, ""
+    if alt.get("zweimal"):  # drittes Beenden: immer durch, keine Schleife
+        st.pop(sid, None); stand_schreiben(st)
+        return None, "durch"
+    if AUSNAHME.search(t or ""):
+        st.pop(sid, None); stand_schreiben(st)
+        return None, "ausnahme"
+    nummern = alt.get("nummern") or []
+    fehlt = [n for n in nummern if not chefdatei(n)]
+    if (nummern and not fehlt) or (not nummern and chefsache_neu_seit(alt.get("zeit", 0))):
+        st.pop(sid, None); stand_schreiben(st)
+        return None, "frei"
+    alt["zweimal"] = True; st[sid] = alt; stand_schreiben(st)
+    was = ("ohne Datei in docs/chefsache/: " + ", ".join(fehlt)) if nummern else "ohne Nummer, und seit dem Anhalten keine Chefsache-Datei angelegt"
+    return ("Chefsache-Haken (63, nachgeprüft 383): Deine Bitte an den Chef steht noch nicht auf Chefsache (" + was + "). "
+            "Der Chef sieht nur Telegram und die Chefsache, nicht diesen Chat (369). Datei anlegen (docs/chefsache/README.md), Zeile im Vorrat, pushen. "
+            "War es keine Bitte an den Chef: schreibe nur „Keine Chefsache: <Grund>“ (wird gezählt)."), "gehalten"
 
 
 if __name__ == "__main__":

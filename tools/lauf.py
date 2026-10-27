@@ -21,6 +21,7 @@ Ausgabe, Zeile für Zeile auszuführen:
   VORRAT-LEER: …                                                    → Ford meldet es einmal am Tag (Schritt 9, 192.2)
   WOCHENSTART TT.MM. | Rolle | Titel | erste Nachricht                  → Ford startet wie START (Schritt 11, 192.2); Marke „Wochenstart TT.MM. Rolle“ schreibt --sperre
   TAGESBERICHT TT.MM. | Perikles | Titel | erste Nachricht                → dasselbe für den Tagesbericht ab 7:30, Sa, So 9:30 (247.1, Marke „Tagesbericht TT.MM.“)
+  WÄCHTER <Nr> | <Rollen> | <session_id|-> | <Text>                  → Ford: meldung.sh --laut Ford "<Text>" und send_message <Text> an die Sitzung (383; einmal je „jetzt“, Marke schreibt --sperre)
   AUSGESCHLOSSEN NR: Grund                                          → Ford hat die Zeile mit --ohne ausgeschlossen; Ford meldet Grund lautlos (190.2)
 --ohne NR:Grund  (mehrfach) schließt die Zeile NR für diesen Lauf aus; lauf.py nimmt dann die nächste startbare Zeile derselben Rolle (190.2). Ohne Grund gilt es nicht.
 --ohne-pull  lässt das Vorspulen der Notizen aus (380: sonst zieht lauf.py bornim-main auf origin/main und bricht ab, wenn das nicht geht).
@@ -551,6 +552,10 @@ def main():
             else:
                 ausgabe.append("START Sokrates | opus | %s | %s | %s | Sokrates – Stellungnahme (%s) | %s" % (MITTEL, REPO, REVISION, berlin(JETZT), msg.replace("\n", "\\n")))
             wochen.append("Stellungnahme Sokrates %s" % heute)
+    try:  # 383: Wartewächter
+        ww, wm = waechter(je_rolle, marke_text); ausgabe += ww; wochen += wm
+    except Exception as e:
+        ausgabe.append("WARNUNG Wartewächter fehlgeschlagen: %s (383, Perikles)" % e)
     wochen += vorentscheid_marken + neue_marken
     for l in ausgabe: print(l)
     if not ausgabe: print("NICHTS: nichts zu tun")
@@ -565,6 +570,79 @@ def main():
         n = aufraeumen()
         if n: print("Aufgeräumt: %d Zeilen aus Protokoll und LISTE-VORGAENGE.md (270; Notizen pushen)" % n)
     if besetz: besetzung_schreiben([s for s in leb if s["id"] not in archiviert])
+
+WAECHTER_STUNDEN = 3  # 383 (Chef 27.10., 17:53): Chef sagt „jetzt“ und bekommt drei Stunden lang keine Vorlage → laut an Chef und Sitzung
+WAECHTER_AB = datetime.datetime(2026, 10, 27, 19, 0, tzinfo=BERLIN)  # Protokoll der Meldungen gibt es erst ab hier; ältere „jetzt“ zählen nicht
+JETZT_FELD = re.compile(r"[„\"]jetzt[“\"]\s*(?:(\d{1,2})\.(\d{1,2})\.,?\s*)?(\d{1,2}):(\d{2})")
+
+def meldungen():
+    """Zeilen (Zeit, {Nummern ohne Punkt}, Name, Art) aus dem Zweig „meldungen“ (meldung.sh schreibt je Meldung eine, 383)."""
+    try:
+        if os.environ.get("BORNIM_MELDUNGEN"): roh = lesen(os.environ["BORNIM_MELDUNGEN"])
+        else:
+            repo = os.path.join(DOCS, "..")
+            subprocess.run(["git", "-C", repo, "fetch", "-q", "origin", "meldungen"], capture_output=True, timeout=30, check=True)
+            roh = subprocess.run(["git", "-C", repo, "show", "FETCH_HEAD:meldungen.tsv"], capture_output=True, text=True, timeout=30, check=True).stdout
+    except Exception:
+        return []
+    aus = []
+    for l in roh.splitlines():
+        t = l.split("\t")
+        if len(t) < 4: continue
+        try: d = datetime.datetime.strptime(t[0], "%Y-%m-%d %H:%M").replace(tzinfo=BERLIN)
+        except ValueError: continue
+        aus.append((d, {x.replace(".", "").lower() for x in t[1].split(",")}, t[2], t[3]))
+    return aus
+
+def chefsache_seit(nr):
+    """Zeit des letzten Commits einer Chefsache-Datei zu nr (auch gelöschte), sonst None."""
+    k = nr.replace(".", "").lower()
+    try:
+        r = subprocess.run(["git", "-C", os.path.join(DOCS, ".."), "log", "-1", "--format=%ct", "--until=%d" % int(JETZT.timestamp()), "--", ":(glob)docs/chefsache/*/%s-*.md" % k],
+                           capture_output=True, text=True, timeout=30).stdout.strip()
+        return datetime.datetime.fromtimestamp(int(r), BERLIN) if r else None
+    except Exception:
+        return None
+
+def waechter(je_rolle, marke_text):
+    """383: je Vorratszeile mit „jetzt“ TT.MM., HH:MM (Datum fehlt: letztes Datum davor in der Zeile), Stand nicht „ruht“:
+    nach drei Stunden ohne Vorlage eine Zeile WÄCHTER. Vorlage = Meldung eines anderen als Ford mit --laut, Bild, Film oder Datei
+    zu dieser Nummer, oder eine Chefsache-Datei zur Nummer, seit dem „jetzt“ angelegt oder geändert. Lautlose Standzeilen zählen nicht."""
+    offen = {}
+    for datei, rolle in startbar.ROLLEN:
+        for nr, kl, titel, rest in startbar.zeilen(startbar.lesen(datei)):
+            if kl in ("–", "-") or rest.strip().lower().startswith("ruht"): continue
+            zeile = titel + " | " + rest
+            m = JETZT_FELD.search(zeile)
+            if not m: continue
+            if m.group(1): tag, mon = int(m.group(1)), int(m.group(2))
+            else:
+                vorher = re.findall(r"(?<![\d.])(\d{1,2})\.(\d{1,2})\.", zeile[:m.start()])
+                if not vorher: continue
+                tag, mon = int(vorher[-1][0]), int(vorher[-1][1])
+            try: d = JETZT.replace(month=mon, day=tag, hour=int(m.group(3)), minute=int(m.group(4)), second=0, microsecond=0)
+            except ValueError: continue
+            if d > JETZT + datetime.timedelta(days=1): d = d.replace(year=d.year - 1)
+            nr = re.sub(r"\*", "", nr)
+            if nr in offen: offen[nr][1].append(rolle)
+            else: offen[nr] = (d, [rolle])
+    if not offen: return [], []
+    ml = meldungen(); aus = []; marken = []
+    for nr, (d, rollen) in offen.items():
+        if d < WAECHTER_AB or JETZT - d < datetime.timedelta(hours=WAECHTER_STUNDEN): continue
+        marke = "Wächter %s %s" % (nr, d.strftime("%d.%m. %H:%M"))
+        if marke in marke_text: continue
+        k = nr.replace(".", "").lower()
+        if any(d <= z <= JETZT and k in nrn and name != "Ford" and art != "text" for z, nrn, name, art in ml): continue
+        cs = chefsache_seit(nr)
+        if cs and cs >= d: continue
+        sitz = [s for r in rollen for s in je_rolle.get(r, [])]
+        sid = juengste(sitz)["id"] if sitz else "-"
+        std = int((JETZT - d).total_seconds() // 3600)
+        aus.append("WÄCHTER %s | %s | %s | %s: Chef „jetzt“ %s, seit %d Std. keine Vorlage (Wartewächter 383); %s: vorlegen oder Chefsache-Datei mit Stand" % (
+            nr, ", ".join(rollen), sid, nr, berlin(d), std, ", ".join(rollen)))
+        marken.append(marke)
+    return aus, marken
 
 def morgenmeldung():
     """192.2, Schritt 10, 247.1: Morgenmeldung als eine Zeile (Ford schickt sie mit meldung.sh --laut); die Seite zum Tag schreibt Perikles um 7:30 als Tagesbericht."""

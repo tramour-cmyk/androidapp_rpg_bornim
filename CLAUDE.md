@@ -47,7 +47,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 - `ROLLE-…`: wer ich bin, was ich tue, wen ich anspreche, was ich beim Start lese.
 - `ARBEIT-…` = **Vorrat** je Rolle (`-TEAM-TOM`, `-TEAM-JERRY`, `-KREATIV`, `-PROJEKT`, `-BERATUNG`, `-PRUEFUNG`):
   - oben „Übergabe:“, ggf. „Pause bis …“ (Ford startet dann keine neue Arbeit, nur den Nachfolger einer Übergabe, 347);
-  - Zeilenfolge = Vorrang; Spalte „Kl.“: **M** Muss (im Wochenziel oder Chef sagt „jetzt“), **K** Kür, „M?“ (Perikles entscheidet);
+  - Zeilenfolge = Vorrang; Spalte „Kl.“: **M** Muss (im Wochenziel oder Chef sagt „jetzt“, dann `„jetzt“ TT.MM., HH:MM` in die Zeile, Wächter 383), **K** Kür, „M?“ (Perikles entscheidet);
   - Kür nur, wenn kein Muss startbar; danach Zeilen „nach dem Meilenstein“; „A“ heißt nur: hält Arbeit an; Zahlen: `python3 tools/startbar.py --stand`.
 - `ARBEIT-BETRIEB.md`: Vorgangszähler, Fords Stellung, Guthaben, Eingang (was keinem gehört), Protokoll.
 - `ARBEIT-BESETZUNG.md`: wer gerade woran; schreibt `tools/lauf.py`, darum haben Vorräte keine Spalte „Wer“.
