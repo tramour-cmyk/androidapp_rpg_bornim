@@ -61,6 +61,20 @@ for f in (0, 20, 40):
         if c is None: continue
         n += 1
         if any(bva.ray_cast(p + r * 0.001, r, 2.0)[0] is None for r in BL): vor += 1
-    ergebnis.append((f, n, vor))
+    # Innenseite der Kette (Normale zum Hals hin) im Kragen, die zur Kamera sichtbar ist (Pruefer 22:3x: graue Zacken = Kragen innen)
+    kn = [Vector((0, 0, 0)) for _ in KV]
+    for fc in KF:
+        nn = (KV[fc[1]] - KV[fc[0]]).cross(KV[fc[2]] - KV[fc[0]])
+        for i in fc: kn[i] += nn
+    ax = (qa.matrix_world @ qa.pose.bones['neck_01'].head) if 'neck_01' in qa.pose.bones else Vector((0, 0, oben))
+    innen = 0
+    for fc in KF:
+        p = sum((KV[i] for i in fc), Vector()) / len(fc)
+        if p[2] < oben - 0.05 or Vector((p[0] - ax[0], p[1] - ax[1], 0)).length > 0.11: continue
+        nn = (KV[fc[1]] - KV[fc[0]]).cross(KV[fc[2]] - KV[fc[0]])
+        zum = Vector((ax[0] - p[0], ax[1] - p[1], 0))
+        if nn.length == 0 or nn.normalized().dot(zum.normalized()) < 0.3: continue
+        if any(bva.ray_cast(p + r * 0.002, r, 2.0)[0] is None for r in BL): innen += 1
+    ergebnis.append((f, n, vor, innen))
     pb.rotation_quaternion = q0
-print('KRAGEN', os.path.basename(FIG), 'gehoben %.0f Grad' % HEBEN, ' '.join('Bild %d: %d von %d Halsecken im Kragen sichtbar' % (f, v, n) for f, n, v in ergebnis))
+print('KRAGEN', os.path.basename(FIG), 'gehoben %.0f Grad' % HEBEN, ' '.join('Bild %d: %d von %d Halsecken im Kragen sichtbar, Kragen innen sichtbar %d' % (f, v, n, k) for f, n, v, k in ergebnis))
