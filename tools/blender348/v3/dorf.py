@@ -675,7 +675,7 @@ def house_gedreht(cells, st):
 # PAKETE=medieval-village-megakit cc0_laden.sh) mit unseren Texturen und Toenungen statt der Bausatz-Texturen, auf den Kacheln
 # eines unserer Haeuser: PROBEHAUS=<spalte>,<zeile> (Haus aus karten.json), CC0=<ordner>. Raster 2 m: 3 Teile breit, 2 tief,
 # Masstab so, dass die Front die Kacheln fuellt (bei 4 Kacheln 0,77: Geschoss 2,4 m wie unsere Traufe 2,6 m)
-PROBE = tuple(int(v) for v in os.environ['PROBEHAUS'].split(',')) if os.environ.get('PROBEHAUS') else None
+PROBE = tuple(int(v) for v in os.environ.get('PROBEHAUS', '3,12').split(',')) if os.environ.get('PROBEHAUS', '3,12') else None   # Chef 22:14: bleibt Gwennas Haus; PROBEHAUS= ohne
 KIT_MAT = dict(MI_Plaster='putz', MI_WoodTrim='balken', MI_WoodTrim_Wear='balken', MI_MetalOrnaments='balken', MI_Brick='feldstein',
                MI_RedBrick='feldstein', MI_UnevenBrick='feldstein', MI_RockTrim='feldstein', MI_RoundTiles='ziegel', MI_WindowGlass='glas')
 def kit_teil(name, M, tint):
@@ -722,14 +722,14 @@ def probehaus(cells, style):
         kit_teil(w, at(-2 + 2 * i, -2, 0, 0), tint)
         if 'Window' in w: kit_teil('Window_Wide_Flat1', at(-2 + 2 * i, -2, 0, 0), tint)
     kit_teil('Door_1_Round', at(-0.51, -2, 0, 0), tint)
-    if os.environ.get('PROBE_HINTEN', '0') == '1':              # Chef 19:38: Rueckseite mit Fenstern wie vorn, Mitte glatt
+    if os.environ.get('PROBE_HINTEN', '1') == '1':              # Chef 22:16 A2: Rueckseite mit Fenstern wie vorn, Mitte glatt
         for i in range(3):
             kit_teil('Wall_Plaster_Straight_Base' if i == 1 else 'Wall_Plaster_Window_Wide_Flat', at(2 - 2 * i, 2, 0, 180), tint)
             if i != 1: kit_teil('Window_Wide_Flat1', at(2 - 2 * i, 2, 0, 180), tint)
     else:
         for i in range(3): kit_teil('Wall_Plaster_Straight_Base' if i != 1 else 'Wall_Plaster_Window_Thin_Round', at(2 - 2 * i, 2, 0, 180), tint)   # Nord
         kit_teil('Window_Thin_Round1', at(0, 2, 0, 180), tint)
-    mitte = os.environ.get('PROBE_MITTE', '0') == '1'           # Chef 19:38: Giebelfenster mittig (Fensterteil in der Mitte, halbe Wand je Seite)
+    mitte = os.environ.get('PROBE_MITTE', '1') == '1'           # Chef 22:16 „376 A2“ (Frage 19:38): Giebelfenster mittig (Fensterteil in der Mitte, halbe Wand je Seite)
     for sgn in (-1, 1):                                         # Ost, West: Giebelseiten
         if mitte:
             kit_teil('Wall_Plaster_Window_Thin_Round', at(3 * sgn, 0, 0, 90 * sgn), tint)

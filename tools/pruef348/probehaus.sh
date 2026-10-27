@@ -10,7 +10,7 @@ mkdir -p $S/out
 for s in tex held3 rig; do [ -f $S/out/.$s ] || { OUT=$S/out $B -I tools/blender348/v3/$s.py > $S/$s.log 2>&1 && touch $S/out/.$s; }; done
 echo GEMEINSAM OK
 mkdir -p $S/out_alt $S/out_neu; ln -sfn $S/out/tex $S/out_alt/tex; ln -sfn $S/out/tex $S/out_neu/tex
-OUT=$S/out_alt $B -I tools/blender348/v3/dorf.py > $S/dorf_alt.log 2>&1
+OUT=$S/out_alt PROBEHAUS= $B -I tools/blender348/v3/dorf.py > $S/dorf_alt.log 2>&1
 OUT=$S/out_neu PROBEHAUS=3,12 $B -I tools/blender348/v3/dorf.py > $S/dorf_neu.log 2>&1
 echo DORF OK
 for v in alt neu; do
