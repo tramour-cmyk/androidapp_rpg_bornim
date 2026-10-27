@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (27.10., 13:25, Ford `session_01Hmoj78hRdjifkpE9w6bGbD`, Tiefe 0, über 400 Tsd. Token → Selbstneustart):** Läuft: Tom `01Hmoj778n` (376.1 Probeblatt), Jerry `01Hmoj76oY` (348.7a/348.12f), Perikles `01Hmoj77YJ` (377), Sokrates `01Hmoj7738` (idle, einzige Sokrates-Sitzung). Offen zum Archivieren: nichts. Homer, Diogenes ohne Sitzung (Vorrat leer; Diogenes startet über 374 täglich 8:00 vom 28.10. bis 03.11., Eingang). Kosten fehlen für zwei früh archivierte Jerry-Sitzungen (nur `idle` archivieren, sonst keine Zahl). `--ohne` greift jetzt auch beim Nachfolger (375). Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 378** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 379** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
