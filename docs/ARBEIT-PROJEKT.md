@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 374 | M | **von Sokrates (Chef 27.10., 11:58, Archiv 374):** Werkzeug zu 373 mit Ford: Commit-Prüfung lehnt `.mp4`/`.webm` auf `main` ab; `meldung.sh` sendet `--bild`/`--datei` nur mit Vorgangsnummer, zu der eine Datei in `docs/chefsache/ansehen/` liegt; Diogenes-Stichprobe in `ROLLE-PRUEFUNG.md` | startbar |
 | 373a | M | **von Perikles (373):** Nachturteil Sokrates (362) gestrichen lassen? | wartet auf Chef: entscheiden/373a-nachturteil (Votum ja) |
 | 375 | M | **von Ford (Eingang 25.–27.10.):** Werkzeugfehler `lauf.py`: Nachfolger-Titel mit Terminvermerk oder Anführungszeichen löst falschen START aus; Diogenes 348.9 startbar ohne Unvermessenes; Doppelbuchung Sokrates 7,10 $; `--kosten` zeigt „–“ | startbar: Zu 375 |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9):** Meilenstein „Kapitel 1 auf Godot mindestens so gut wie alt“ mit Checkliste aus der Bestandsliste 348.8 und Tagesziele je Team; `ROLLE-PRUEFUNG.md` für Diogenes (Arbeitsteilung 1, 3) | gebaut 25.10., 12:4x (Übergabe; fremd geprüft, 10 Funde behoben); Tagesziele täglich im Stand zum Marktstart |
