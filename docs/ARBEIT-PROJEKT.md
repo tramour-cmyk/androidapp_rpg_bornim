@@ -9,8 +9,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 275 | M | **von Sokrates (Chef 27.10., 15:09 ja, 15:15 „jetzt loslegen“, Archiv):** Stufe 1 (Chefsache 275, Git); Statusfeld mit Wortliste; nur gezielte Suche, Token je Start messen (15:11) | startbar, jetzt |
 | 379 | M | **von Ford (27.10., 15:15):** `tools/lauf.py` `kosten_addieren` merkt sich je Sitzungskennung nur einen Betrag (`KOSTEN-GEBUCHT.tsv`); wird eine Sitzung in zwei Aufrufen auf zwei Vorgänge gebucht (348.12f + 348.7a), gilt der zweite gleich hohe Betrag als „schon gebucht“ und entfällt (Jerry `76oY` 7,42 $, `761u` 5,75 $; von Hand nachgebucht). Fix: Aufruf mit Kommaliste teilt (Zeile 197) — Ford wird so angewiesen, oder Schlüssel Kennung+Vorgang | startbar, jetzt |
-| 275 | M | **von Sokrates (Chef 27.10., 15:09 „auf jeden Fall 275 ja“, Archiv):** Stufe 1 (Chefsache 275 in Git); Statusfeld mit Wortliste; nur gezielte Suche, Token je Start messen (Archiv 15:11) | startbar, jetzt |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9):** Meilenstein „Kapitel 1 auf Godot mindestens so gut wie alt“ mit Checkliste aus der Bestandsliste 348.8 und Tagesziele je Team; `ROLLE-PRUEFUNG.md` für Diogenes (Arbeitsteilung 1, 3) | bis 02.11. Dauerzeile (Meilenstein Umzug): Tagesziele täglich im Stand zum Marktstart |
 | 338 | M | **von Sokrates (Vorgangsarchiv 338, 348):** Meilenstein ohne Datum, Umzug nach Godot jetzt; Umzugsplan mit Sokrates (Zu 338) | frühestens 02.11.: Wochenzählung, Termine prüfen; Termine je Block und Wochenziel 2 gesetzt 26.10., 17:15 (Zu 338) |
 | 347.2 | M | **von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347):** Paket Regeltreue umsetzen nach `tools/regeltreue/PLAN-347.md` (Punkte 1–7, 5a, 5b), mit Ford für `lauf.py` und Haken | gebaut 24.10., 16:5x mit A–H (Zu 347.2); beobachten bis 31.10., dann wertet Sokrates aus |
