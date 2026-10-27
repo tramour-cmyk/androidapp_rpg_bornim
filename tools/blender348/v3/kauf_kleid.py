@@ -114,9 +114,9 @@ for teil, name in (('kopf', KOPF), ('haar', HAAR), ('bart', BART)):
     a2 = next((o for o in objs if o.type == 'ARMATURE'), None)
     vs = (QT_.kopf_pos(qa) - QT_.kopf_pos(a2)) if a2 and 'Head' in a2.data.bones else Vector()
     if teil == 'kopf':   # Kopf tauschen: Kopf und Hals des Koerpers weg
-        for o in qnetze:
-            if o.name.startswith(('Eyes', 'Eyebrows')): bpy.data.objects.remove(o)
-        qnetze = [o for o in qnetze if o.name in bpy.data.objects]
+        weg_o = [o for o in qnetze if o.name.startswith(('Eyes', 'Eyebrows'))]   # erst merken: entfernte Objekte sind nicht mehr lesbar
+        qnetze = [o for o in qnetze if o not in weg_o]
+        for o in weg_o: bpy.data.objects.remove(o)
         g = {vg.index: vg.name for vg in qkoerper.vertex_groups}
         bm = bmesh.new(); bm.from_mesh(qkoerper.data); bm.verts.ensure_lookup_table()
         weg = [bm.verts[v.index] for v in qkoerper.data.vertices if v.groups and g.get(max(v.groups, key=lambda x: x.weight).group) in ('Head',)]

@@ -47,6 +47,7 @@ var aus := ""
 var quelle := ""
 var ual_pfad := ""
 var teil := ""
+var nur: Array[int] = []                   # --nur=6,13: nur diese Felder des Films (Probe einzelner Felder)
 var ual_lib: AnimationLibrary
 var ual_becken := 1.0                      # Laenge der Ruhelage des Beckens in der UAL (Hoehe)
 var figuren := {}                          # kennung -> Node3D
@@ -66,6 +67,8 @@ func _init(s: Node3D) -> void:
 		elif a.begins_with("--quelle="): quelle = a.substr(9)
 		elif a.begins_with("--ual="): ual_pfad = a.substr(6)
 		elif a.begins_with("--teil="): teil = a.substr(7)
+		elif a.begins_with("--nur="):
+			for x in a.substr(6).split(","): nur.append(int(x))
 
 func _ready() -> void:
 	DirAccess.make_dir_recursive_absolute(aus)
@@ -156,6 +159,15 @@ func bewaffne(k: String, an: bool) -> void:
 	var fr: Dictionary = info["faust_R"]
 	var ax := Vector3(fr["achse"][0], fr["achse"][1], fr["achse"][2]).normalized()
 	var g := Vector3(fr["griff"][0], fr["griff"][1], fr["griff"][2])
+	# Quaternius-Hand (Helfer 16:36: Klinge im Hals, in Ruhe nach hinten): faust_R gilt fuer unsere Hand; hier aus der Ruhelage,
+	# Klinge vom Knoechel des kleinen Fingers zum Zeigefinger, Griff zwischen beiden
+	if k != "held" and sk.find_bone("index_01_r") >= 0 and sk.find_bone("pinky_01_r") >= 0:
+		var hr := sk.get_bone_global_rest(sk.find_bone("hand_r")).affine_inverse()
+		var zf := hr * sk.get_bone_global_rest(sk.find_bone("index_01_r")).origin
+		var kf := hr * sk.get_bone_global_rest(sk.find_bone("pinky_01_r")).origin
+		ax = (zf - kf).normalized()
+		g = (zf + kf) * 0.5
+		protokoll.append("GRIFF %s achse %s griff %s" % [k, ax, g])
 	var edge := (Vector3.UP - ax * ax.y).normalized()
 	haenge(sk, "hand_r", "longsword", Transform3D(Basis(edge, ax, edge.cross(ax)), g), "WaffeR")
 	# Quaternius: ohne Schild, die UAL hat keine Schildhaltung (Helfer Film: Schild wie ein Tablett, von der Kante wie eine zweite Klinge)
@@ -331,6 +343,7 @@ func film(felder: Array) -> void:
 	for i in felder.size():
 		var k: String = felder[i][0]
 		var bew: String = felder[i][1]
+		if not nur.is_empty() and i + 1 not in nur: continue
 		var ordner := aus + "/film/%02d_%s_%s" % [i + 1, k, bew]
 		DirAccess.make_dir_recursive_absolute(ordner)
 		var n := bew_name(k, bew)
@@ -347,12 +360,23 @@ func film(felder: Array) -> void:
 		var v := 0.0
 		if bew == "Sitzen": setze_auf_bank(k, ap, lang)
 		elif bew in ["Gehen", "Rennen"]: v = schritt_tempo(k, ap, lang)
+		# Tod (Helfer 16:36: Death02 stuerzt eine Koerperlaenge nach vorn, aufs Dach vor der Figur): von der Seite, die Figur so
+		# zurueckgesetzt, dass Anfang und Ende des Sturzes gleich weit von der Bildmitte liegen
+		var mitte_vers := Vector3.ZERO
+		if bew == "Tod":
+			w.rotation.y -= PI * 0.5
+			ap.seek(lang, true)
+			var ende := knochen_pos(k, "pelvis") - w.position
+			ap.seek(0.0, true)
+			mitte_vers = Vector3(ende.x, 0, ende.z) * 0.5
+			if k == "held": spiel.held.weg.clear()
+			w.position -= mitte_vers
 		var start := w.position
 		var vor := Vector3(sin(w.rotation.y), 0, cos(w.rotation.y))
 		# Schleifen ganze Umlaeufe, mindestens 1,5 s (Helfer Film: Ruck an der Naht, Gehen 1,33 s lief 1,5 s)
 		var dauer := lang * ceilf(1.5 / lang) if schleife else lang + 0.5
 		var bilder := int(ceil(dauer * FPS))
-		z.position = Vector3(start.x, 0, start.z)
+		z.position = Vector3(start.x, 0, start.z) + mitte_vers
 		spiel.kamera.springe()
 		await get_tree().create_timer(0.3).timeout
 		for f in bilder:
@@ -367,11 +391,11 @@ func film(felder: Array) -> void:
 			await RenderingServer.frame_post_draw
 			await RenderingServer.frame_post_draw
 			var img := spiel.get_viewport().get_texture().get_image()
-			var fuss: Vector2 = spiel.kamera.unproject_position(Vector3(w.position.x, 0, w.position.z))
+			var fuss: Vector2 = spiel.kamera.unproject_position(Vector3(w.position.x, 0, w.position.z) + mitte_vers)
 			var r := Rect2i(int(fuss.x) - FELD_PX.x / 2, int(fuss.y) - FELD_PX.y + FUSS_UNTEN, FELD_PX.x, FELD_PX.y)
 			img.get_region(r).save_png(ordner + "/%03d.png" % f)
 		bewaffne(k, false)
-		w.position = start
+		w.position = start + mitte_vers
 		liste.append("%02d %s %s: %s, %.2f s, %d Bilder%s" % [i + 1, k, bew, n, lang, bilder, (", %.2f m/s" % v) if v > 0.0 else ""])
 	protokoll.append_array(liste)
 	var f2 := FileAccess.open(aus + "/film/felder.txt", FileAccess.WRITE)
@@ -384,18 +408,27 @@ func knochen_pos(k: String, nm: String) -> Vector3:
 	if bi < 0: return Vector3.ZERO
 	return sk.global_transform * sk.get_bone_global_pose(bi).origin
 
-# Geschwindigkeit aus dem Standfuss: in einer Schleife auf der Stelle gleitet jeder Fuss einmal je Umlauf um die Strecke zurueck,
-# die der Koerper vorankaeme (vorn bis hinten im Blick der Figur)
+# Geschwindigkeit aus dem Standfuss: auf der Stelle gleitet der Fuss, der gerade am Boden steht, mit dem Tempo zurueck, mit dem der
+# Koerper vorankaeme. Helfer 16:36: Spannweite je Umlauf ergab nur die Haelfte (der Fuss steht nur gut die Haelfte des Umlaufs).
+# Gemessen: je Fuss die Rueckwaertsgeschwindigkeit in den Bildern, in denen er hoechstens 2 cm ueber seinem Tiefstand ist; Median.
 func schritt_tempo(k: String, ap: AnimationPlayer, lang: float) -> float:
 	var w: Node3D = spiel.held if k == "held" else figuren[k]
 	var vor := Vector3(sin(w.rotation.y), 0, cos(w.rotation.y))
-	var lo := INF; var hi := -INF
-	for j in 40:
-		ap.seek(lang * j / 40.0, true)
-		var d := (knochen_pos(k, "foot_l") - w.position).dot(vor)
-		lo = minf(lo, d); hi = maxf(hi, d)
+	var n := 120
+	var vs: Array[float] = []
+	for fu in ["foot_l", "foot_r"]:
+		var d: Array[float] = []; var h: Array[float] = []
+		for j in n + 1:
+			ap.seek(lang * j / n, true)
+			var p := knochen_pos(k, fu) - w.position
+			d.append(p.dot(vor)); h.append(p.y)
+		var tief: float = h.min()
+		for j in n:
+			if h[j] < tief + 0.02 and h[j + 1] < tief + 0.02: vs.append((d[j] - d[j + 1]) * n / lang)
 	ap.seek(0.0, true)
-	return (hi - lo) / lang
+	if vs.is_empty(): return 0.0
+	vs.sort()
+	return maxf(vs[vs.size() / 2], 0.0)
 
 # auf die Bank: Blick zur Mitte der Platzkacheln wie dorf.py, Becken ueber der Sitzmitte, Sitzbein auf 47 cm
 func setze_auf_bank(k: String, ap: AnimationPlayer, lang: float) -> void:
