@@ -71,13 +71,17 @@ RUTE_ANSATZ = float(os.environ.get('RUTE_ANSATZ', '30'))     # erstes Glied so v
 RUTE_LIEGT = float(os.environ.get('RUTE_LIEGT', '2.6'))     # Rute erreicht den Boden nach so viel mal der Höhe des Ansatzes (Bogenlänge)
 RUTE_STEIL = 45.0     # kein Glied steiler abwärts
 RUTE_NACHLAUF = 1     # jedes Glied folgt der Richtung des Körpers so viele Bilder später (Peitsche)
-RUTE_WELLE = 0.5     # Pendeln: Phasenverzug je Glied (rad), die Welle läuft zur Spitze
+RUTE_WELLE = 0.25     # Pendeln: Phasenverzug je Glied (rad), die Welle läuft zur Spitze (r4 0,5: Haken an der Spitze)
+RUTE_QUER = 8.0     # Runde 5: seitlich höchstens so viel Grad von Glied zu Glied
+RUTE_TOD_BOGEN = 50.0     # Runde 5: im Tod liegt die Rute so gebogen (Grad an der Spitze)
 # Pendeln je Bewegung: (Ausschlag an der Spitze in Grad, Schwünge je Bewegung, abklingen bis Anteil der Bewegung oder 0)
 RUTE_PENDEL = {'idle': (20, 1, 0), 'walk': (14, 1, 0), 'run': (10, 1, 0), 'q_hocke': (10, 1, 0), 'q_biss': (10, 1, 0),
-               'jumpBite': (10, 1, 0), 'q_treffer': (14, 1, 0), 'getHitLeft': (14, 1, 0), 'getHitRight': (14, 1, 0),
+               'jumpBite': (10, 1, 0), 'q_treffer': (10, 1, 0), 'getHitLeft': (10, 1, 0), 'getHitRight': (10, 1, 0),
                'q_ausweichen': (10, 1, 0), 'dodgeLeft': (10, 1, 0), 'dodgeBackwards': (10, 1, 0), 'q_lefzen': (8, 2, 0),
-               'q_drohen': (16, 3, 0), 'q_tod': (12, 1, 0.6)}
+               'q_drohen': (12, 2, 0), 'q_tod': (12, 1, 0.6)}
 RUTE_SCHLEIFE = ('idle', 'walk', 'run', 'q_hocke')
+RUTE_TEILE = int(os.environ.get('RUTE_TEILE', '3'))     # Runde 5: so viele Knochen mehr im starren Rutenende (rute_teilen())
+RUTE_RINGE = 2     # so viele Ringe je lange Kante dort (rute_gewichte())
 RUTE_BODEN = RUTE_DICKE     # (m, Quelle); baue() setzt den Boden aus dem Netz im Stehen       # Rute: 1,6 m in der Quelle, Rumpf mit Kopf 1,4 m; die Rute reichte über den Bildrand
 OHR = float(os.environ.get('OHR', '0.45'))          # Ohren so lang wie in der Quelle mal OHR (Prüfer: „spitze Ohren wie Hörner“)
 # Felle wie ratte.py COATS: (Fell, Sattel, Bauch, Auge); Haut wie ratte.py HAUT, RUTE
@@ -344,12 +348,72 @@ def rutenspitze(rig, meshes):
 
 
 SPITZE = None
+RUTE_TEIL = []     # Runde 5: zusätzliche Rutenknochen am Ende (rute_teilen())
 
 
 def spitze(rig, p):
-    """d: Welt-Ort der Rutenspitze (fernste Ecke am letzten Glied, rutenspitze()) in der Pose von `p`."""
+    """d: Welt-Ort der Rutenspitze (fernste Ecke am letzten Glied, rutenspitze()) in der Pose von `p`; ab Runde 5 das Ende des
+    letzten zusätzlichen Knochens (`p` zählt dann nicht)."""
+    if RUTE_TEIL: return rig.matrix_world @ rig.pose.bones[RUTE_TEIL[-1]].tail
     if SPITZE is None: return rig.matrix_world @ (p.head + (p.tail - p.head) * RUTE)
     return rig.matrix_world @ (p.matrix @ SPITZE)
+
+
+def rutenkette():
+    return [B + 'Tail'] + [B + 'Tail%d' % i for i in range(1, 9)] + RUTE_TEIL
+
+
+def rute_teilen(rig):
+    """Runde 5 (Prüfer r4: im Tod „gerader Stab aus dem Rücken“, Glieder 5–8 ohne Knick): Tail8 trägt in der Quelle die letzten 0,36 m
+    der Rute starr (45 % der Länge, 15 Ecken). Drei Knochen mehr von seinem Kopf bis zur Spitze (fernste Ecke), Kette unter Tail8;
+    die Ecken verteilt rute_gewichte() nach dem Ausdünnen."""
+    global RUTE_TEIL
+    b8 = rig.data.bones.get(B + 'Tail8')
+    if b8 is None or SPITZE is None or RUTE_TEILE < 1: return
+    h, z = b8.head_local.copy(), b8.matrix_local @ SPITZE     # Armaturraum
+    bpy.context.view_layer.objects.active = rig; rig.select_set(True)
+    bpy.ops.object.mode_set(mode='EDIT')
+    eb = rig.data.edit_bones; vor = eb[B + 'Tail8']; namen = []
+    for k in range(1, RUTE_TEILE + 1):
+        e = eb.new(B + 'Tail%d' % (8 + k))
+        e.head = h + (z - h) * (k / (RUTE_TEILE + 1)); e.tail = h + (z - h) * ((k + 1) / (RUTE_TEILE + 1))
+        e.roll = 0.0; e.parent = vor; e.use_connect = False; vor = e; namen.append(e.name)
+    bpy.ops.object.mode_set(mode='OBJECT')
+    for n in namen: rig.pose.bones[n].rotation_mode = 'QUATERNION'
+    RUTE_TEIL = namen; RUTE_KETTE.extend(n for n in namen if n not in RUTE_KETTE)
+    print('RUTE TEILEN', namen, 'Stück %.3f (Armaturraum)' % ((z - h).length / (RUTE_TEILE + 1)))
+
+
+def rute_gewichte(rig, meshes):
+    """Runde 5: die Ecken von Tail8 nach ihrer Lage längs Tail8-Kopf -> Spitze auf Tail8 und die zusätzlichen Knochen verteilt
+    (je zwei Nachbarn, linear zwischen den Stückmitten); vorher die langen Kanten dort quer geteilt (Ringe), sonst biegt sich nichts."""
+    if not RUTE_TEIL: return
+    import bmesh
+    W = rig.matrix_world; b8 = rig.data.bones[B + 'Tail8']
+    h = W @ b8.head_local; z = W @ rig.data.bones[RUTE_TEIL[-1]].tail_local; ax = (z - h); L = ax.length; ax.normalize()
+    kn = [B + 'Tail8'] + RUTE_TEIL; m = len(kn)
+    for o in meshes:
+        M = o.matrix_world; gi = {g.index: g.name for g in o.vertex_groups}
+        g8 = next((g.index for g in o.vertex_groups if g.name == B + 'Tail8'), None)
+        if g8 is None: continue
+        bm = bmesh.new(); bm.from_mesh(o.data); dl = bm.verts.layers.deform.active
+        drin = lambda v: dl is not None and v[dl].get(g8, 0.0) >= 0.5
+        lang = [e for e in bm.edges if all(drin(v) for v in e.verts)
+                and abs((M.to_3x3() @ (e.verts[1].co - e.verts[0].co)).normalized().dot(ax)) > 0.6]
+        if lang: bmesh.ops.subdivide_edges(bm, edges=lang, cuts=RUTE_RINGE, use_grid_fill=True)
+        bm.to_mesh(o.data); bm.free(); o.data.update()
+        gs = [o.vertex_groups.get(n) or o.vertex_groups.new(name=n) for n in kn]
+        n = 0
+        for v in o.data.vertices:
+            w8 = next((e.weight for e in v.groups if e.group == g8), 0.0)
+            if w8 <= 0: continue
+            u = max(0.0, min(1.0, ((M @ v.co) - h).dot(ax) / L))
+            t = max(0.0, min(m - 1.0, u * m - 0.5)); j = min(m - 2, int(t)); f = t - j
+            o.vertex_groups[g8].remove([v.index])
+            for g, w in ((gs[j], w8 * (1 - f)), (gs[j + 1], w8 * f)):
+                if w > 1e-4: g.add([v.index], w, 'ADD')
+            n += 1
+        print('RUTE GEWICHTE', o.name, 'Kanten geteilt', len(lang), 'Ecken verteilt', n, 'Dreiecke', tris([o]))
 
 
 def rute_legen(rig, a, art):
@@ -366,7 +430,7 @@ def rute_legen(rig, a, art):
     if slot(a) is not None: rig.animation_data.action_slot = slot(a)
     a0, a1 = int(a.frame_range[0]), int(a.frame_range[1]); n = a1 - a0
     schleife = art in RUTE_SCHLEIFE
-    kette = [B + 'Tail'] + [B + 'Tail%d' % i for i in range(1, 9)]
+    kette = rutenkette()
     bpy.context.scene.frame_set(a0); vl.update()
     hs = [W @ pb[nm].head for nm in kette] + [spitze(rig, pb[kette[-1]])]
     laenge = [(hs[j + 1] - hs[j]).length for j in range(len(kette))]; ganz = sum(laenge)
@@ -385,6 +449,8 @@ def rute_legen(rig, a, art):
     for f in range(a0, a1 + 1):
         u = (f - a0) / max(1, n)
         amp = aus * ((1.0 - min(1.0, u / abklingen)) ** 2 if abklingen else 1.0)
+        # Runde 5 (Prüfer r4: im Tod gerader Stab): die tote Rute liegt seitlich gebogen, der Bogen wächst, während das Pendeln abklingt
+        k = min(1.0, u / abklingen) if abklingen else 0.0; bogen_tod = RUTE_TOD_BOGEN * k * k * (3 - 2 * k)
         # springt die Ratte (Sprungbiss: Ansatz 0,75 m), fällt die Rute nur so steil wie im Stehen und läuft dann waagerecht aus
         S = min(0.85 * ganz, max(0.3 * ganz, (wurzel[f] - RUTE_BODEN) * RUTE_LIEGT))
         unten = max(RUTE_BODEN, wurzel[f] - S / RUTE_LIEGT); hoch = max(0.0, wurzel[f] - unten)
@@ -396,8 +462,16 @@ def rute_legen(rig, a, art):
             ph = math.asin(max(-1.0, min(1.0, (zp - z) / laenge[i])))
             ph = max(ph, -math.radians(RUTE_STEIL))
             b = hinten[bild(f - RUTE_NACHLAUF * (i + 1))]
-            w = amp * math.radians(1) * (bogen[i] / ganz) * math.sin(2 * math.pi * schwuenge * u - RUTE_WELLE * i)
+            w = math.radians(amp * math.sin(2 * math.pi * schwuenge * u - RUTE_WELLE * i) + bogen_tod) * (bogen[i] / ganz)
             h = Vector((b.x * math.cos(w) - b.y * math.sin(w), b.x * math.sin(w) + b.y * math.cos(w), 0))
+            # Runde 5 (Prüfer r4: Spitze als Haken, J oder L, bei Ausweichen links, Treffer rechts, Drohen): seitlich höchstens RUTE_QUER
+            # gegen das vorige Glied (Nachlauf bei Drehung und Welle summierten sich an der Spitze)
+            if vorher is not None:
+                hv = Vector((vorher.x, vorher.y, 0)).normalized()
+                if hv.length > 0.5 and hv.angle(h, 0.0) > math.radians(RUTE_QUER):
+                    c = math.radians(RUTE_QUER)
+                    h = max((Vector((hv.x * math.cos(x) - hv.y * math.sin(x), hv.x * math.sin(x) + hv.y * math.cos(x), 0)) for x in (c, -c)),
+                            key=lambda g: g.dot(h))
             d = h * math.cos(ph) + oben * math.sin(ph)
             if vorher is not None and d.angle(vorher) > math.radians(RUTE_BIEGE):     # räumlicher Knick gegen das vorige Glied
                 d = vorher.slerp(d, math.radians(RUTE_BIEGE) / d.angle(vorher))
@@ -425,7 +499,7 @@ def rute_pruefen(rig, a, name):
     rig.animation_data.action = a
     if slot(a) is not None: rig.animation_data.action_slot = slot(a)
     a0, a1 = int(a.frame_range[0]), int(a.frame_range[1])
-    kette = [B + 'Tail'] + [B + 'Tail%d' % i for i in range(1, 9)]
+    kette = rutenkette()
     knick, steig, boden, vorn, wege, liegt, seit = (0.0, 0, 0), [90.0, -90.0], 9.0, 0.0, [], [], []
     for f in range(a0, a1 + 1):
         bpy.context.scene.frame_set(f); vl.update()
@@ -704,6 +778,7 @@ def baue(fell):
     if 'death' in akt: akt['q_tod'] = verstaerken(akt['death'], 'q_tod', (('Tail', 0.9),))     # 0,4 und 0,65: Spitze am Ende im Boden
     if 'dodgeRight' in akt: akt['q_ausweichen'] = verstaerken(akt['dodgeRight'], 'q_ausweichen', RUTE_RUHIG)
     rutenspitze(rig, meshes)
+    rute_teilen(rig)
     if TIEFE > 0:
         beine = {'q_treffer': akt.get('getHitFront'), 'q_drohen': akt.get('taunt')}
         quelle_akt = {q: a.copy() for q, a in beine.items() if q in akt and a is not None}     # vor dem Ducken der Quelle
@@ -782,6 +857,7 @@ def baue(fell):
         m = o.modifiers.new('duenn', 'DECIMATE'); m.ratio = min(1.0, DREIECKE / max(1, tri0))
         bpy.ops.object.modifier_move_to_index(modifier='duenn', index=0)
         bpy.ops.object.modifier_apply(modifier='duenn')
+    rute_gewichte(rig, meshes)
     tri1 = tris(meshes)
     struppig_rand(meshes, np.random.default_rng(31))
     # ------------------------------------------------ Bemalung: je Netz unsere Textur statt der gekauften
