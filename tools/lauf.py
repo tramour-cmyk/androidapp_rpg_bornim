@@ -23,6 +23,7 @@ Ausgabe, Zeile für Zeile auszuführen:
   TAGESBERICHT TT.MM. | Perikles | Titel | erste Nachricht                → dasselbe für den Tagesbericht ab 7:30, Sa, So 9:30 (247.1, Marke „Tagesbericht TT.MM.“)
   AUSGESCHLOSSEN NR: Grund                                          → Ford hat die Zeile mit --ohne ausgeschlossen; Ford meldet Grund lautlos (190.2)
 --ohne NR:Grund  (mehrfach) schließt die Zeile NR für diesen Lauf aus; lauf.py nimmt dann die nächste startbare Zeile derselben Rolle (190.2). Ohne Grund gilt es nicht.
+--ohne-pull  lässt das Vorspulen der Notizen aus (380: sonst zieht lauf.py bornim-main auf origin/main und bricht ab, wenn das nicht geht).
 --nur-muss   startet nur Muss, keine Kür und nichts „nach dem Meilenstein“ (D31.3: Ford setzt es bei `allowed_warning` vor Wochenmitte, D20.2).
 --sperre     trägt „Startsperre HH:MM Start <Name>“ ins Protokoll von ARBEIT-BETRIEB.md (Ford pusht, erst dann create_session).
 --morgen     gibt die Morgenmeldung als fertigen Text aus (192.2, Schritt 10).
@@ -266,6 +267,21 @@ def aufraeumen():
         n += len(weg)
     return n
 
+def notizen_frisch():
+    """380: Ford zog den Arbeitsbaum, lauf.py las aber die alten Notizen in bornim-main (Zeile 275 von Diogenes fehlte, NICHTS statt START).
+    Vor jedem Lauf die Notizen auf origin/main bringen (nur vorspulen); geht das nicht, Lauf abbrechen statt mit altem Stand rechnen."""
+    d = os.path.join(DOCS, "..")
+    try:
+        subprocess.run(["git", "-C", d, "pull", "-q", "--ff-only", "origin", "main"], capture_output=True, text=True, timeout=60)
+        r = subprocess.run(["git", "-C", d, "rev-list", "--count", "HEAD..origin/main"], capture_output=True, text=True, timeout=20)
+        hinten = int(r.stdout.strip() or 0)
+    except Exception as e:
+        print("WARNUNG Notizen nicht geprüft (%s); Lauf mit Stand %s" % (e, d)); return True
+    if hinten:
+        print("WARNUNG-LAUT Notizen in %s %d Commits hinter origin/main und nicht vorspulbar (eigene Commits?): erst git -C %s pull --no-rebase, dann lauf.py erneut (380)" % (os.path.abspath(d), hinten, os.path.abspath(d)))
+        return False
+    return True
+
 def main():
     a = sys.argv[1:]
     if a[:1] == ["--morgen"]:
@@ -274,6 +290,7 @@ def main():
         return print("Aufgeräumt: %d Zeilen (Notizen pushen)" % aufraeumen())
     if a[:1] == ["--kosten"]:
         return kosten_addieren(a[1], float(a[2].replace(",", ".")), a[3] if len(a) > 3 else None)
+    if "--ohne-pull" not in a and not notizen_frisch(): sys.exit(1)
     nur_muss = "--nur-muss" in a
     sperre = "--sperre" in a; besetz = "--besetzung" in a
     ausschluss = {}

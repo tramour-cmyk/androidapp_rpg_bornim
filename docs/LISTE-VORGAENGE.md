@@ -83,7 +83,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 376.2 | RenderHub-Marktpaket: Brunnen, Stände als Form (Chef 27.10., 12:37) | E Welt | M | – | Team Tom | startbar |
 | 376.3 | Vier RenderHub-Bewegungspakete prüfen (Chef 27.10., 12:52) | E Figuren | M | – | Sokrates | erledigt |
 | 379 | `lauf.py --kosten` bucht eine Sitzung, die auf zwei Vorgänge aufgeteilt wird, nur einmal (Ford 27.10., 15:15) | Q Werkzeug | M | – | Perikles | erledigt |
-| 380 | `lauf.py` startet Diogenes nicht, wenn die Übergabe einen nicht startbaren Nachfolger nennt, obwohl `startbar.py` ein Muss zeigt (Ford 27.10., 15:25) | Q Werkzeug | M | – | Perikles | wartet |
+| 380 | `lauf.py` startet Diogenes nicht, wenn die Übergabe einen nicht startbaren Nachfolger nennt, obwohl `startbar.py` ein Muss zeigt (Ford 27.10., 15:25) | Q Werkzeug | M | – | Perikles | erledigt |
 | 374 | Wer prüft regelmäßig, dass alle 373 einhalten? (Chef 27.10., 11:54) | B Abläufe | M | 4,45 $ | Perikles, Diogenes, Sokrates | offen |
 | 372 | Feinschliff Held am Ende des Umzugs: Kettenhemd, Helm, Kragen (aus 338a B, Chef 27.10., 09:36) | E Figuren | M | – | Team Tom | ruht |
 | 341 | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug und Diogenes (Chef 23.10., 09:39) | B Abläufe | M | – | Perikles | Dauer |

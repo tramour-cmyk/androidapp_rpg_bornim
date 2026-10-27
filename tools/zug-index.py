@@ -45,6 +45,7 @@ REGELN = """## So geht's
 - Zeile 1 `# <Nr.> · <Frage>`, Zeile 2 `<Absender> · <TT.MM.>, <HH:MM> · <Bereich> · …` (Bereich wie „B Abläufe“, 136); Vorrang = Klasse der Nummer in `LISTE-VORGAENGE.md`; eine Zeile `Kurz: …` ersetzt in der Übersicht die Frage. Dann in dieser Folge (364): **Frage**, **Votum** (was der Chef tun oder sagen soll), **Berührt** (Vorgänge); darunter kurz **Begründung**, **Sachverhalt** (belegt, mit Quelle), **Auswertung** (mit dem stärksten Gegenargument), **Folgerungen** (was danach geschieht, wer); zuletzt `Antwort: …`. Lange Teile in `<details>`.
 - Zu billigen (Vorentscheid, 194.1): `billigen/<nr>-<stichwort>.md`, Aufbau wie bei „entscheiden“, Votum = Entschieden, plus: Umgesetzt (Commit), Rückbau, Kosten; in der Auswertung bei Balance und Spielgefühl die verworfene Möglichkeit. Hält keine Arbeit an; Antwort „gebilligt“ oder „zurück“, Sokrates löscht die Datei und setzt „gebilligt TT.MM.“ oder „zurück TT.MM.“ in die Archivzeile.
 - Bilder in `bilder/`: JPG oder WebP, höchstens 800 px breit und 60 KB, höchstens 3 je Punkt. Größere Bilder und Hörproben nur über Telegram (`meldung.sh --datei`), in der Datei vermerkt: „Großbild: Telegram TT.MM. HH:MM“.
+- **Überarbeiten** (275, Chef 27.10., 15:23: „sonst schaue ich es mir am Schluss zweimal an“): wer eine Vorlage überarbeitet, löscht die Datei sofort und legt sie neu an, wenn die neue Fassung fertig ist; nie „folgt“, „kommt nach“ in einer Vorlage (die Übersicht meldet es unter „Lücken“).
 - Zu tun (275): `tun/<nr>-<stichwort>.md`, Zeile 1 `# <Nr.> · <was der Chef tun soll>`, Zeile 2 `<Absender> · <TT.MM.>, <HH:MM> · <Bereich>`, dann der Satz zum Kopieren als Codeblock oder der Weg in Schritten; erledigt heißt Datei löschen (wer sie angelegt hat). Ein „wartet auf Chef“ ohne Datei hier meldet `startbar.py` als Leiche.
 - Telegram-Sprungmarke `[72s.1](cs:72s1)` führt auf die Datei (`tools/meldung.sh`).
 """
@@ -174,11 +175,18 @@ def luecken():
             if "wartet auf Chef" in z and not gestellt(nr) and (nr, wer) not in nicht: nicht.append((nr, wer))
             for c in re.findall(r"Chefsache (" + NR + r")\b", z):
                 if not gestellt(c) and (c, wer) not in ohne: ohne.append((c, wer))
+    alt = []  # 275 (Chef 15:23): Vorlage in Überarbeitung bleibt nicht stehen
+    for ordner in ("entscheiden", "ansehen", "billigen", "tun"):
+        pfad = os.path.join(ZUG, ordner)
+        for n in (sorted(os.listdir(pfad)) if os.path.isdir(pfad) else []):
+            if n.endswith(".md") and re.search(r"\b(folgen|folgt)\s+(hier|später|bald)\b|\b(folgen|folgt|kommen|kommt)\b[^.\n]{0,30}\bnach der (Fehler)?[Pp]rüfung|in Überarbeitung", open(os.path.join(pfad, n), encoding="utf-8").read()):
+                alt.append(f"{ordner}/{n}")
     form = formfehler()
-    if not nicht and not ohne and not form: return ""
+    if not nicht and not ohne and not form and not alt: return ""
     teile = ["## Lücken\n\nVom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.\n"]
     if form: teile.append("Format (Muster: „So geht's“ unten): " + "; ".join(form) + "\n")
     if nicht: teile.append("Nicht gestellt: " + ", ".join(f"{nr} ({wer})" for nr, wer in nicht) + "\n")
+    if alt: teile.append("In Überarbeitung, aus der Chefsache nehmen, bis die neue Fassung fertig ist: " + ", ".join(alt) + "\n")
     if ohne: teile.append("Ohne Datei: " + ", ".join(f"{nr} ({wer})" for nr, wer in ohne) + "\n")
     return "\n".join(teile)
 
