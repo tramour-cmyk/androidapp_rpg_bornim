@@ -12,6 +12,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 |---|---|---|---|---|
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101: Held im APK verschlüsselt, lädt) | `claude/tom-348-12i-verschluesseln` |
 | 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: zuerst Kampfbewegungen Runde 2 (Zu 348.6, Kampf; Perikles 08:16); dann Kopf t78 (oval, Ohren, Nase; ≤ 3 Sitz., 371), dann Dorf, Rest Feinschliff (338a B, Archiv); MuMu startet nicht; Feinschliff 11; beim Chef: Dorf r13b | `claude/tom-348-fundament` |
+| 372 | M | **von Perikles (338a B, Chef 27.10., 09:36, Archiv):** Feinschliff Held: Kettenhemd, Helm, Kragen (Zu 348.6, Hände) | ruht bis Ende des Umzugs | `claude/tom-348-fundament` |
 | 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | startbar: 348.13a neu, Schatten im Kampf kräftiger (Archiv): 2–3 Stärken ein Blatt, dann Jerry; nah „halb“ (≈4 px, Archiv) | `claude/tom-34813-kampfprobe` |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10.10., hätte Godot sie verhindert; Umzugskosten in Sitzungen | wartet auf Chef: Tabelle in Chefsache 348 (19 von 39 ja, ohne Tempo/Speicher 9; Umzug Tom 30–40 Sitzungen) | – |
 | 267 | M | **von Chef (20.10., 21:46, B48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Chef: Gefühl am Tablet, abends (77.7, Zu 267) | – |
@@ -31,7 +32,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 ## Einzelheiten
 
 
-- **Von Perikles (26.10., 17:15), zu 338/348.14:** Termine je Block in `LISTE-ABNAHME-KAPITEL1.md` (unter „Meilenstein Umzug“): D Dorf spielbar bis Mi 28.10. nachmittags (spätestens So 01.11.), W Wald Mi abends (spätestens So), R Rahmen So 01.11. früh (spätestens Mo 02.11.). Huhn und Vögel erst nach Jerrys Fledermaus (Vogelskelett, in seinem Block K bis Mi 28.10.).
+- **Von Perikles (27.10., 10:1x, 338a B):** Termine neu (`LISTE-ABNAHME-KAPITEL1.md`): D So 01.11. früh, W So mittags, R Mo 02.11. früh. Huhn und Vögel erst nach Jerrys Fledermaus.
 
 - **Zu 348.12i:** Kaufmodell nach `godot/daten`: Pfad in `godot/daten/kauf.txt`.
 - **Zu 348.13** (Tom, Verlauf in Git): **Chef 20:24:** „nicht vergessen, dass wir zoomen können und insofern näher ran (mehr Details) und weiter weg“. **Rechner:** `--tusche=<o>` (27 Bilder, ≈3 Min.), `--umrissblass`, `--tuscheaussen`, `--ohneheld`, `--zoomdick0`; messen mit `tools/pruef348/tusche_breite.py` (Magenta-Tusche, braucht `scipy`). Stand 8523fbca6 (Git). Offen: Keil hinterer Stiefel; Tusche auf Schlagschattenkanten und über Rauch; Turmkante, Baumsäume; Ausschnitt weit verfehlt den Helden (`zoom_ausschnitt.py`).

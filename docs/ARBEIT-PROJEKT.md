@@ -3,13 +3,12 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 27.10., 09:29
+**Gelesen bis:** `origin/main` 27.10., 10:05
 
-**Übergabe (27.10., 09:3x):** 371 eingetragen: Geschmack per Blatt an den Chef, nachts nur Technik (`ROLLE-ENTWICKLUNG.md`, `LISTE-UMZUG-348.md` „Der Chef sieht mit“), Archivieren einmal wiederholen (`LISTE-BETRIEB.md` Schritt 4), Bekannter Fehler „nach einer Runde“; Messung an Diogenes. Kosten auf: 371. Kein Nachfolger; den nächsten Stand startet `lauf.py`.
+**Übergabe (27.10., 10:2x):** 338a erledigt: Tagesziel Tom (Kampfbewegungen, Kopf, Dorf), Feinschliff Held als 372 in Toms Vorrat (ruht bis D, W, R gebaut), Termine Tom neu (+5 S, Guthaben 09:47): Umzug gebaut Mo 02.11. früh, spätestens Di 03.11. früh (`LISTE-ABNAHME-KAPITEL1.md`). Kosten auf: 338a. Kein Nachfolger; den nächsten Stand startet `lauf.py`.
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 338a | M | **von Perikles (Z2):** Umzug Block (D) rot: Held stehen lassen, Dorf weiterbauen? | startbar: Chef 09:36 „B, Kopf nach den Kampfbewegungen“ (Archiv); Reihenfolge als Tagesziel an Tom, Feinschliff-Zeile in Toms Vorrat; Termine neu rechnen, dabei Kampfbewegungen schätzen (fehlen in der Rechnung; Hinweis Sokrates) |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9):** Meilenstein „Kapitel 1 auf Godot mindestens so gut wie alt“ mit Checkliste aus der Bestandsliste 348.8 und Tagesziele je Team; `ROLLE-PRUEFUNG.md` für Diogenes (Arbeitsteilung 1, 3) | gebaut 25.10., 12:4x (Übergabe; fremd geprüft, 10 Funde behoben); Tagesziele täglich im Stand zum Marktstart |
 | 338 | M | **von Sokrates (Vorgangsarchiv 338, 348):** Meilenstein ohne Datum, Umzug nach Godot jetzt; Umzugsplan mit Sokrates (Zu 338) | frühestens 02.11.: Wochenzählung, Termine prüfen; Termine je Block und Wochenziel 2 gesetzt 26.10., 17:15 (Zu 338) |
 | 347.2 | M | **von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347):** Paket Regeltreue umsetzen nach `tools/regeltreue/PLAN-347.md` (Punkte 1–7, 5a, 5b), mit Ford für `lauf.py` und Haken | gebaut 24.10., 16:5x mit A–H (Zu 347.2); beobachten bis 31.10., dann wertet Sokrates aus |
