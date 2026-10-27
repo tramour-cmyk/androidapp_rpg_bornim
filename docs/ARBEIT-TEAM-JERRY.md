@@ -4,13 +4,13 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates für den Chef, 25.10., 01:2x):** Arbeit nach `LISTE-UMZUG-348.md`, 348.6–348.8; altes Spiel ruht.
 
-**Übergabe (27.10., 19:20, `session_01Hmoj76PXJG7iSg9mGYZZKz`):** 348.12f Ortswechsel Runde 1 gebaut (53699fc36: Wurzelweg aus den _RM-Dateien, Gehen/Rennen, Ausweichen, Sprungbiss, Biss bis zum Ziel ausgerichtet; Probe `SCHAU=ort`), Film lokal, Lauf 348.12f angestoßen. Nachfolger: „Jerry – 348.12f Ortswechsel Fehlerrunde“
+**Übergabe (27.10., 20:33, `session_01Hmoj76E9VX2kkW348A6Xid`):** 348.12f Ortswechsel r2 (768963623), geprüft, Film an Chef (ansehen/34812f-ort-r2). Bestand geprüft: Janpec-Wolf (`LISTE-BESTAND.md`) genommen. Nachfolger: „Jerry – 348.12f Janpec-Wolf Probe“
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 348.12f | M | **von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b):** Probe gekaufte Riesenratte: unter 6.000 Dreiecke, eigene Bemalung, Shader; Blatt neben eigenem Modell | startbar: Ortswechsel r1 gebaut (53699fc36, Film lokal); Fehlerprüfung r1 auswerten, beheben, dann Film an Chef (Zu 348.12f, Ort) | `claude/jerry-348-kampf` |
+| 348.12f | M | **von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b):** Probe gekaufte Riesenratte: unter 6.000 Dreiecke, eigene Bemalung, Shader; Blatt neben eigenem Modell | startbar: Ratte Ortswechsel r2 beim Chef (ansehen/34812f-ort-r2, Film 20:3x); Janpec-Wolf als Probe bauen (Zu 348.12f) | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Chef 16:21, „cc0 nochmal“):** Goblin CC0 r2: geduckt über UAL (wie `geruest.py`); Kurzvideo eigen/cc0 (368); Tusche 348.13 | startbar: Hieb r7 abgenommen 17:57 (Archiv); Grak, Kobold, Zombie aufs CC0-Gerüst, offene Punkte beim Übertrag | `claude/jerry-348-kampf` |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht bis Kauf: Werte, Listen ja (Archiv), dann einbauen; erst Größe prüfen | – |
 | 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | wartet auf Chef: Bahn 348.7b; dann Fledermaus r4d und Wildschwein r3 neu vorlegen; Kobold bis Chef; Treffer: Ansage zuerst (Archiv) | `claude/jerry-348-kampf` |
@@ -43,7 +43,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 - **Von Team Tom (27.10., 09:40), zu 348.7:** Kampfbewegungen des Helden Runde 1 und vier Befunde zu `figur.gd`: `ARBEIT-TEAM-TOM.md` „Zu 348.6, Kampf“.
 - **Zu 348.12f:** Aufruf im Kopf von `kaufratte.py`, Workflow „348.12f“. Lokal: `add_repo` bornim-kaufmodelle, Asset 678372860 per `gh api` (octet-stream), `unar`; Rest wie Workflow.
 - **Zu 348.12f, von Sokrates über Ford (Chef 27.10., 18:09, „Was ist mit dem Kaufwolf? Den nehmen wir nicht? Oder seine Animationen?“):** Janpec-Wolf (gekauft) als nächste Probe nach der Ratte, gleiche Art: Kampfort mit Ortswechsel neben unserem Wolf, eine Fehlerrunde, dann Chef.
-- **Zu 348.12f, Ort:** Wurzelweg `weg` in `giant_rat-info.json` (`kaufratte.py`), `figur.gd` `_bite`, `BITE`, `_walk_home`, `dodge(ms, nm)`; Probe `GEGNER=RATS OHNEUI=1 SCHAU=ort SCHAU_MESS=1` („Ortmess“), Film `348.12f-ort.mp4`; Rute `RUTE_MESS=1`. Offen: fremde Prüfung r1 des Films, dann Film an Chef.
+- **Zu 348.12f, Ort:** Wurzelweg `weg` in `giant_rat-info.json` (`kaufratte.py`), `figur.gd` `_bite`, `BITE`, `_walk_home`, `dodge(ms, nm)`; Probe `GEGNER=RATS OHNEUI=1 SCHAU=ort SCHAU_MESS=1` („Ortmess“), Film `348.12f-ort.mp4`; Rute `RUTE_MESS=1`. Lokal: bpy per `pip download`, dann aus der Datei; `apt-get install unar xvfb`; Kauf `gh api …/releases/assets/<id>`.
 - **Zu 348.12, von Sokrates (Chef 27.10., 17:19):** Telegram brachte nur Standbilder: Bewegung immer mit Film schicken (381); „ob das Modell trifft … muss man halt nachjustieren, das kann kein Kriterium sein“.
 - **Zu 348.12 Hieb (r7, 1f934b3dd):** `ual_lauer.py` `HIEB_SCHLUESSEL`, `HIEB_ROLLE`, Prüfwerte `HIEB_EIGEN`, `LAUER Faust-Mund`; im Kampfort `probe.gd` `SCHAU_MESS=1` (Figur +X links, +Y oben, +Z vorn); `hiebblatt.py`. Lokal: `cc0_laden.sh ~/cc0`, Toms v3 von e457d6d8b.
 - **Zu 348.9 Vierbeiner (Jerry 25, 25.10., 15:08):** Grundmodell `vierbeiner.py`; Arten `wildschwein.py` (boar), `ratte.py` (giant_rat), `.glb` als `godot/kampf/daten/<id>-<fell>.bin`; Probe `ERSATZ=boar|giant_rat`; `ALIAS`, `ERSATZ_KOPF`, `ERSATZ_SCHATTEN` (`figur.gd`), `ART_SIZE` (`kampfort.gd`). **Wildschwein Runde 4** (r3 beim Chef; Homer, Diogenes, Prüfer): Runde 4 nach Urteil des Chefs (Befunde in Git).
