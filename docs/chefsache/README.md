@@ -9,6 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [373a](entscheiden/373a-nachturteil.md) | **Muss** | B Abläufe | 27.10. | Nach deinem „373 ja“ (11:35, nur du urteilst über Aussehen und Bewegung) habe ich auch das Nachturteil von Sokrates gestrichen (362: schläft der Chef, urteilt Sokrates über Entwürfe). Die Vorlage 373 nannte das nicht ausdrücklich. | Perikles |
+| [376](entscheiden/376-bausaetze-haeuser.md) | **Muss** | E Welt | 27.10. | Du hast vier Pakete von Quaternius und die Frage nach leicht gedrehten Häusern zur Prüfung gegeben. Alle vier sind CC0 (auf der Seite und in der Lizenzdatei). Brauchbar sind Teile, keine ganzen Welten. Befunde je Paket: `LISTE-CC0-MODELLE.md` „Quaternius-Bausätze“. | Sokrates |
 
 ## Zu billigen
 
@@ -109,10 +110,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 24, Muss 14, startbar 2
+**Sokrates** – offen 25, Muss 15, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 376 | M | von Chef (27.10., 12:00): Quaternius-Bausätze prüfen; Häuser leicht gedreht? | Chef |
 | 374 | M | von Chef (27.10., 11:54): wer prüft 373? | Termin 31.10. |
 | 348.12c | M | von Chef (26.10., 11:59): Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters | ruht |
 | 348.12 | M | von Chef (25.10., 21:21, „b prüfen“): fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit | wartet auf Jerry |

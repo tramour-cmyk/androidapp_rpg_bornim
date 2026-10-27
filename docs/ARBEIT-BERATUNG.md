@@ -4,12 +4,13 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (27.10., 10:2x, `session_01Hmoj78YkjUbXnu7DRJy5i3`):** Chefrunde, Chefsache leer (Archiv); verwaiste „beim Chef“ an Ford; Diogenes 348.9 nachgeholt (Chef 10:27). Kosten auf: 338a, 348.7a, 348.13, 348.12, 348.12f, 348.12c, 348.9. Nachfolger: Sokrates – auf Zuruf.
+**Übergabe (27.10., 12:0x, `session_01Hmoj77KrpkiKr3euwsn3S6`):** 373 und 374 entschieden (Archiv), an Perikles und Diogenes; 376 vier Bausätze geprüft (`LISTE-CC0-MODELLE.md` „Quaternius-Bausätze“), Chefsache 376. Kosten auf: 373, 374, 376. Nachfolger: Sokrates – 376 Outfits prüfen
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 376 | M | **von Chef (27.10., 12:00):** Quaternius-Bausätze prüfen; Häuser leicht gedreht? | startbar: Outfits-Paket prüfen (Chef 12:05), dann wartet auf Chef (Chefsache 376) |
 | 374 | M | **von Chef (27.10., 11:54):** wer prüft 373? | frühestens 31.10.: auswerten mit 347 (Archiv) |
 | 348.12c | M | **von Chef (26.10., 11:59):** Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters Kit“) und andere Anbieter; Kosten, Erwerb, Verkauf im Spiel erlaubt; Monster dürfen von D&D abweichen; „schönen Vorschlag und ein schönes Paket“ | ruht: Stufe 2 bis Rutenursache und letztem Rattenvergleich (Chef 27.10., 09:57, Archiv 348.12f); dann Kaufliste (6 Links, etwa 134 $) an Chef |
 | 348.12 | M | **von Chef (25.10., 21:21, „b prüfen“):** fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit Skelett) prüfen, nichts bauen | wartet auf Jerry: Goblin CC0 entschieden 27.10., 09:49 (Archiv), Hieb nachbessern, dann Grak, Kobold, Zombie |
@@ -35,8 +36,8 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 109 | K | Repo öffentlich | ruht (Archiv 16.10.); vor dem Marktstart wieder vorlegen, vorher APK-Aufbewahrung kürzen |
 | 48–50 | K | Dungeons (48a–48f ja, Archiv bis `f3ec7200`), Lehrer und Talente, weitere Klassen (`DESIGN-HELDENBAU.md`) | ruht bis nach dem Meilenstein Kapitel 1 |
 
-- **Zu 348.12c:** Bericht `LISTE-CC0-MODELLE.md` „Gegen Geld“; Protofactor-EULA: Verkauf ja, „protected form“, „ONE individual“. Mail Protofactor 15:47: Ende-Nutzer ohne Zugriff aufs Original „fine“ Antwort 26.10. auf „unverschlüsselt?“: „Encryption would be best …“ (kein Ja); KI-Sitzungen ok; Rabatt nur je Warenkorb, Stufe 2 gesammelt.
-- **Zu 348.12:** Probe CDmir-Goblin, Keiler noch nicht vorgelegt (`LISTE-CC0-MODELLE.md` „Folgerung“; mit 348.12c).
+- **Zu 348.12c:** Bericht `LISTE-CC0-MODELLE.md` „Gegen Geld“; Protofactor-EULA: Verkauf ja, „protected form“, „ONE individual“. Protofactor per Mail: unverschlüsselt kein Ja („Encryption would be best“), KI-Sitzungen ok; Rabatt je Warenkorb.
+- **Zu 348.12:** Keiler noch nicht vorgelegt (`LISTE-CC0-MODELLE.md`).
 - **Zu 366:** Bau in `docs/firma/webseite/inhalt/start.*.html`, `stil.css`; Push auf main lädt sofort hoch, darum Vorschau nur in einer Kopie (`bauen.py <ziel> --entwurf`). Entwurf 1: Abschnitt `section.tester`, Kleintext „nur für den Test und geben sie dafür an Google weiter“. Vor dem Push fremder Helfer, dann „366, ja“. Prüfbogen: 4 Befunde (`PRUEFBERICHT.md` L43, D43.1–4); erst verlinken, wenn behoben (Vorgang an Tom, sobald die Seite online soll; Seite erst nach Einrichtung des geschlossenen Tests, Zu 142).
 - **Zu 365:** ja 12:38 (Archiv). Test 13:31: Umgebung „WireStorm Hoch“ (`CLAUDE_CODE_EFFORT_LEVEL=high`) wirkt, rund +40 % Ausgabe-Token; die App zeigt nur die Grundeinstellung „Mittel“; kein Handgriff des Chefs.
 - **Zu 340.2:** `LISTE-ROLLENSPIEGEL.md` „Wie“, Freitagshinweis in `lauf.py`; prüfen 30.10.: 0 Hinweise „mitgelesen“; B wieder vorlegen, wenn Pflegefehler am 01.11. länger als einen Tag stehen.

@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (27.10., 09:30, Ford `session_01Hmoj78hRdjifkpE9w6bGbD`, Tiefe 0, vom Chef von Hand gestartet, 110):** Uhr übernommen, alter Ford und Sokrates-Nachtvertretung archiviert und gebucht, Perikles 371 gestartet (`01Hmoj79Ae`), Perikles alt archiviert. Läuft: Tom `01Hmoj77aE`, Jerry `01Hmoj79qo`. Jerry-Nachfolger 348.7a erst nach Antwort auf 3487a. Offen: Homer `01Twr8` (idle, wartet auf Chefsache 348.12g, einzige Homer-Sitzung). Selbstneustart ab 400 Tsd. Token möglich (Tiefe 0). Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 376** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 377** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
