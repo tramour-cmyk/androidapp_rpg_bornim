@@ -1,6 +1,6 @@
 # 385 · Animsets: erst das Zauberer-Set als Probe kaufen?
 Sokrates · 27.10., 20:59 · E Figuren
-Kurz: Zauberer-Set (19,99 $) kaufen, Tom prüft, ob es auf unsere Körper in Godot passt; dann mehr?
+Kurz: Zauberer-Set (19,98 $) kaufen, Tom prüft, ob es auf unsere Körper in Godot passt; dann mehr?
 
 **Frage:** Die Protofactor-Bewegungen (Liste: `LISTE-CC0-MODELLE.md`, „Bewegungen gegen Geld“) sind für Unity-Menschen („Mecanim Humanoid“) gemacht. Ob sie in Godot sauber auf unsere Körper passen, weiß noch keiner. Sollen wir es an einem Set prüfen, bevor wir mehr kaufen?
 
@@ -10,17 +10,17 @@ Kurz: Zauberer-Set (19,99 $) kaufen, Tom prüft, ob es auf unsere Körper in God
 
 ## Begründung
 
-Du findest das Zauberer-Set „genial“; es ist billig und deckt Magier, Kleriker, Schamane, Aldric und Lyra ab. Ein Set reicht, um die Technik zu prüfen.
+Du findest das Zauberer-Set „genial“; es ist billig und deckt Magier, Kleriker und Goblin-Schamane ab. Ein Set reicht, um die Technik zu prüfen.
 
 ## Sachverhalt
 
-- Zauberer: über 100 Bewegungen (Stehen, Gehen, Ducken, Rennen, Zauber, Treffer, Tod), 19,99 $.
+- Zauberer: über 100 Bewegungen (Stehen, Gehen, Ducken, Rennen, Zauber, Treffer, Tod), 19,98 $.
 - Godot kann Menschen-Bewegungen über ein Standardgerüst übertragen; ob Finger, Wurzelbewegung und Haltung bei unserem Kaufkörper stimmen, ist ungeprüft.
 - Die UAL hat schon 120 Bewegungen; es fehlen Stich, Schildabwehr, gehaltenes Ausholen (Zu 376.1 bei Tom).
 
 ## Auswertung
 
-Stärkstes Gegenargument: Die Sammlung kostet so viel wie die etwa zehn Sets, die wir brauchen, und Protofactor schreibt, der Preis steige mit jedem neuen Set; früh kaufen wäre billiger. Dagegen: 260 $ ohne Technikprobe ist ein Wagnis; 20 $ Probe klärt es in einer Sitzung.
+Stärkstes Gegenargument: Die zehn Sets, die wir brauchen, kosten einzeln etwa 225 $, die Sammlung mit allen 24 nur 260 $, und Protofactor schreibt, der Preis steige mit jedem neuen Set; früh kaufen wäre billiger. Dagegen: 260 $ ohne Technikprobe ist ein Wagnis; 20 $ Probe klärt es in einer Sitzung.
 
 ## Folgerungen
 

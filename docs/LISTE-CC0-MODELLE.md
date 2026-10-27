@@ -42,16 +42,24 @@ Quellseite: <https://quaternius.itch.io/universal-animation-library>. Lizenz lau
 
 ## Bewegungen gegen Geld: Protofactor-Animsets (385, Chef 27.10., 20:52–20:59)
 
-Chef: „Zauberer, den finde ich genial“; „ziemlich gut und weich und geschmeidig und für fast alle Situationen. Aber halt Mensch“; „wenn das technisch nutzbar ist für uns“. Alle: Bewegungserfassung (Motion Capture), Unity „Mecanim Humanoid“, Lizenz Standard Unity Asset Store EULA (andere Engines erlaubt, siehe Lizenzen unten), Single Entity. Inhalte laut Store-Seite 27.10.; Preise in $ (Chef sah den Zauberer für 18,39, wohl Euro).
+Chef: „Zauberer, den finde ich genial“; „ziemlich gut und weich und geschmeidig und für fast alle Situationen. Aber halt Mensch“; „wenn das technisch nutzbar ist für uns“. Alle: Bewegungserfassung (Motion Capture), Unity „Mecanim Humanoid“, Lizenz Standard Unity Asset Store EULA (andere Engines erlaubt, siehe Lizenzen unten), Single Entity. Inhalte aus den Store-Seiten, im Browser gelesen 27.10., 20:5x (Sokrates; ein Helfer sah per Abruf nur leere Beschreibungen); Preise in $ ohne Steuer (Chef sah den Zauberer für 18,39, wohl Euro mit Steuer). Liste aller 24 Sets: Store-Suche „animset“, Anbieter Protofactor (Chef 21:00).
 
 | Set | $ | Inhalt laut Seite | wofür bei uns |
 |---|---|---|---|
-| Wizard | 19,99 | über 100: Stehen, Gehen, Ducken, Rennen, Zauber, Treffer, Tod | Magier, Kleriker, Schamane, Aldric, Lyra |
-| Dual Swords | 24,99 | 185: Stehen, Gehen, Rennen, Ducken, Angriffe, Treffer, Parade | Schurke (zwei Klingen) |
+| Wizard | 19,98 | über 100: Stehen, Gehen, Ducken, Rennen, Zauber, Treffer, Tod | Magier, Kleriker, Goblin-Schamane |
+| Sword & Shield | 24,99 | ungelesen | Kämpfer, Jorin (Schildabwehr fehlt in der UAL) |
+| 1 Handed Melee Weapon | 19,98 | ungelesen | Kämpfer, Schurke, Goblins (Stich fehlt in der UAL) |
+| 2 Handed Melee Weapon | 19,98 | ungelesen | Krogg (Morgenstern), Grak |
+| Dual Swords | 24,99 | 185: Stehen, Gehen, Rennen, Ducken, Angriffe, Treffer, Parade | Schurke |
+| Bow & Arrow | 24,99 | ungelesen | Goblin-Späher, Waldläufer |
 | Campfire | 14,99 | 25: Stehen, Feuer anzünden, Rasten, Schlafen; dazu Lagerfeuer und Spieß | Garrick, Rast im Wald |
-| Zombie | 19,99 | 56 (20 mit Wegbewegung): Stehen, Gehen, Angriff, Fressen, Treffer, Tod | Wiedergänger, Untote |
-| weitere, ungeprüft | 14,99–34,99 | Sword & Shield, 1 Handed Melee, 2 Handed Melee, Fencing, Bow & Arrow, Combat Bare Fists, Basic Locomotion, Female Basic Locomotion, Injured, Crowd, Climbing, Creature | Kämpfer (Schild, Stich), Bogen, Dorf (Menge, Verletzte) |
-| Ultimate Animation Collection | 259,99 | 24 Sets, über 2.400 Bewegungen (darin 6 Schusswaffen-Sets) | alles oben auf einmal |
+| Crowd | 34,99 | ungelesen | Dorfleben |
+| Injured | 19,98 | ungelesen | Verwundete (72c) |
+| Female Basic Locomotion | 19,98 | ungelesen | Frauen im Dorf |
+| Zombie | 19,98 | 56 (20 mit Wurzelbewegung): Stehen, Gehen, Angriff, Fressen, Treffer, Tod | Untote; Wiedergänger hat eigene 34 (348.12c) |
+| vielleicht | 9,99–24,99 | Basic Locomotion, Fencing, Combat Bare Fists, Creature, Hostage | Raufen in der Schänke, Lyra verschleppt |
+| nicht | 19,98–29,99 | Climbing, Push & Pull Cube, sechs Schusswaffen-Sets | – |
+| Ultimate Animation Collection | 259,99 | alle 24 Sets, über 2.400 Bewegungen | die zehn oben zusammen kosten einzeln etwa 225 $ |
 
 **Offen (technisch):** Übertragen von „Mecanim Humanoid“ auf unsere Körper in Godot (Kaufkörper 376.1, UAL-Gerüst, CC0-Goblin); erst an einem Set prüfen, dann mehr kaufen.
 
