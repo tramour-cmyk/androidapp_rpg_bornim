@@ -662,6 +662,15 @@ func _walk_home() -> float:
 	if d.length() < 0.12:
 		position = home
 		return _turn_home()
+	if not HEIMWEG_BOGEN:
+		var nm := "Rennen" if d.length() > RUN_FROM and weg.has("Rennen") else "Gehen"
+		var tg := d.length() / _mps(nm)
+		tween = create_tween()
+		var tt := _turn(tween, atan2(d.x, d.z))
+		tween.tween_callback(func(): _play(nm, 0.15))
+		tween.tween_property(self, "position", home, tg)
+		tween.tween_callback(_turn_home)
+		return tt + tg
 	var pfad := _heimweg()
 	var t := _pfad_fahren(pfad, false)
 	tween.tween_callback(_turn_home)
@@ -674,6 +683,9 @@ func _walk_home() -> float:
 ## oder rechts je Bogen) gilt die kürzeste, die den anderen nicht näher kommt als Start und Ziel; geht keine, ein kleinerer Radius.
 ## Erster Versuch (Bogen, dann kubische Kurve): die Kurve drehte daheim in den letzten 0,1 m um 140° (Ortmess). Je Punkt [Ort, Weg, Drehung].
 const TURN_R := 0.55
+## Fehlerprüfung r3c (Prüfer, 22:5x): im engen Kampfort fand der Pfad nach dem Biss nur Radius 0,16–0,20 m (175° in 0,23 s, schneller
+## als vorher), beim Anlauf einen Kreis von 341°, beim Platzwechsel eine Schleife aus dem Bild: bis zur Lösung aus, Heimweg wie r2
+const HEIMWEG_BOGEN := false
 const PFAD_SCHRITT := 0.05
 ## so viel (m) darf der Pfad den anderen näher kommen als Start und Ziel (Ortmess r3a: mit 0,05 fand er nach dem Biss nur Radius 0,18 m,
 ## der Bogen beginnt vor der Heldin)
@@ -801,8 +813,8 @@ func _auf_zeit(pts: Array, t: float, lauf: String) -> void:
 	position = a[0].lerp(b[0], f)
 	rotation.y = a[2] + wrapf(b[2] - a[2], -PI, PI) * f
 	var nm: String = lauf if b[3] == "G" else "Gehen"
-	if nm != _pfad_anim:
-		_pfad_anim = nm
+	if nm + b[3] != _pfad_anim:     # Prüfer r3c: Gehen im Bogen und auf der Geraden hatten dieselbe Schrittfolge
+		_pfad_anim = nm + b[3]
 		if anim and anim.has_animation(nm):
 			anim.play(nm, 0.15, 1.0 if b[3] == "G" else BOGEN_TEMPO)
 
@@ -885,7 +897,8 @@ func _bite(other, leap: bool) -> int:
 	# bis daheim, damit keiner zu einem Ort schlägt, an dem es nicht mehr steht
 	var heim := Vector2(home.x - ende.x, home.z - ende.z).length()
 	# r3: Heimweg mit Bogen und Kurve statt Drehen (höchstens ein Halbkreis und ein Bogen daheim mehr als die Gerade)
-	var t_heim := 0.0 if heim < 0.12 else heim / _mps("Rennen" if heim > RUN_FROM and weg.has("Rennen") else "Gehen") + 2.0 * PI * TURN_R * _scale() / (_mps("Gehen") * BOGEN_TEMPO)     # r3b: Dubins, Bögen im Schritt
+	var t_heim := 0.0 if heim < 0.12 else heim / _mps("Rennen" if heim > RUN_FROM and weg.has("Rennen") else "Gehen")
+	t_heim += 2.0 * PI * TURN_R * _scale() / (_mps("Gehen") * BOGEN_TEMPO) if HEIMWEG_BOGEN else 2.0 * 180.0 / TURN_DPS
 	busy_ms = int((t_run + bl + t_back + t_heim) * 1000.0)
 	return int((t_run + bite[nm][1]) * 1000.0 / 0.42)
 
