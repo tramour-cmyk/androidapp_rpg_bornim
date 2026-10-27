@@ -4,13 +4,12 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (27.10., 14:4x, `session_01Hmoj7738F2EaHYxUsv6sop`):** 373a entschieden (Archiv); 376.3 Votum „keins kaufen“ im Chat; 377 Beleg 348.6 an Perikles; 377.1 Inventur `LISTE-BESTAND.md` eingestellt; 377.2 (`add_repo` dauerhaft, Regelverweis) an Perikles. Rückfrage 12:50 „andere Modelle = KI-Modelle?“: Nachfolger beantwortete beide Lesarten 14:4x im Chat (KI: keine Änderung vor 06.11., 270). Kosten auf: 373a, 376, 377. Nachfolger: Sokrates – 376 begleiten (Probeblatt 376.1)
+**Übergabe (27.10., 15:1x, `session_01Hmoj76cioXZJxAcjBxBYbB`):** Rückfrage Modelle beantwortet; Chefwort Köpfe gestalten an Tom (Zu 376.1); Durchsicht aller Vorräte (378, von Perikles verteilt); Chefsache 275 (zentrale Liste, Stufe 1 jetzt) gestellt; 369.1 ja (Archiv), an Perikles. Kosten auf: 376, 378, 275, 369.1. Nachfolger: Sokrates – 275 und 376 begleiten
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 369.1 | M | **von Chef (27.10., 15:04):** Ford kann wieder nicht archivieren | wartet auf Chef: Chefsache 369.1 (Satz des Chefs in Fords Sitzung; sonst Organisationseinstellung) |
 | 275 | M? | **von Chef (27.10., 15:00):** eine zentrale Vorgangsliste, löst das die Leichen? | wartet auf Chef: Chefsache 275 (Votum: Stufe 1 jetzt, Stufe 2 nach einer Woche) |
 | 376 | M | **von Chef (27.10., 12:00):** Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Tom: Häuser ja 12:42 (Archiv), Probeblatt 376.1 „jetzt“ 12:46; Markt 376.2 bei Tom (Perikles 12:5x) (Zu 376) |
 | 374 | M | **von Chef (27.10., 11:54):** wer prüft 373? | frühestens 31.10.: auswerten mit 347 (Archiv) |
