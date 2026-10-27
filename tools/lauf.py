@@ -30,7 +30,9 @@ Ausgabe, Zeile für Zeile auszuführen:
 --morgen     gibt die Morgenmeldung als fertigen Text aus (192.2, Schritt 10).
 --aufraeumen kürzt Fords Protokoll auf die 20 neuesten Taten (plus Marken von heute und gestern) und schiebt erledigte Zeilen von LISTE-VORGAENGE.md ins Archiv (270); --sperre tut es in jedem Lauf.
 --besetzung  schreibt ARBEIT-BESETZUNG.md neu (nur Tabelle und Stand); schreibt nur, wenn sich die Tabelle ändert.
---kosten NR USD [SESSION_ID]  addiert USD auf die Kostenspalte der Zeile NR in LISTE-VORGAENGE.md oder -ARCHIV.md (Ford ruft es je ARCHIVIERE-Zeile, mit der Kennung).
+--kosten NR USD SESSION_ID  addiert USD auf die Kostenspalte der Zeile NR in LISTE-VORGAENGE.md oder -ARCHIV.md (Ford ruft es je ARCHIVIERE-Zeile, mit der Kennung).
+  Kennung Pflicht (384: nachts gebuchte Sitzungen ohne Kennung waren nicht mehr nachweisbar); ohne Sitzung nur `ohne:<Grund>`. USD frisch aus get_session nach dem Archivieren
+  (384: 3,13 statt 6,31 $ aus einer alten Abfrage gebucht).
   Mit Kennung gilt das Buchungsverzeichnis docs/KOSTEN-GEBUCHT.tsv (191): gebucht wird nur die Differenz zu früher Gebuchtem, damit wieder geöffnete oder doppelt archivierte Sitzungen nichts doppelt kosten.
 Offene „M?“ aller Vorräte erscheinen als eine Muss-Zeile „M? entscheiden: …“ im Plan für Perikles (190.8).
 Jeder Lauf hängt die WARNUNG-Zeilen von abgleich.py an (191).
@@ -297,8 +299,10 @@ def main():
         return morgenmeldung()
     if a[:1] == ["--aufraeumen"]:
         return print("Aufgeräumt: %d Zeilen (Notizen pushen)" % aufraeumen())
-    if a[:1] == ["--kosten"]:
-        return kosten_addieren(a[1], float(a[2].replace(",", ".")), a[3] if len(a) > 3 else None)
+    if a[:1] == ["--kosten"]:  # 384: nur mit Kennung, sonst fehlt die Sitzung im Buchungsverzeichnis (doppelt oder nie gebucht)
+        if len(a) < 4 or not a[3].startswith(("session_", "ohne:")):
+            print("lauf.py --kosten NR USD session_…: Kennung fehlt (384); ohne Sitzung nur mit „ohne:<Grund>“", file=sys.stderr); sys.exit(2)
+        return kosten_addieren(a[1], float(a[2].replace(",", ".")), a[3] if a[3].startswith("session_") else None)
     if "--ohne-pull" not in a and not notizen_frisch(): sys.exit(1)
     nur_muss = "--nur-muss" in a
     sperre = "--sperre" in a; besetz = "--besetzung" in a
