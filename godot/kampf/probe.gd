@@ -250,7 +250,7 @@ func _still(path: String) -> void:
 					await RenderingServer.frame_post_draw
 					var fz := path.get_basename() + "-%s%s-%04d.png" % [kind.to_lower(), "" if n == 0 else str(n + 1), at]
 					get_viewport().get_texture().get_image().save_png(fz)
-					print("Bild ", fz)
+					print("Bild ", fz, " Tafeln ", fight.ui.tafel_ecken, " Ecken ", fight.ui.tafel_us, " µs")
 				while fight.clock_ms - t1 < (fight.SAY_MS if kind == "RAYS" and n < 2 else 1000):
 					await get_tree().process_frame
 		get_tree().quit()

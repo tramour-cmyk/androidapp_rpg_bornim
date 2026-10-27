@@ -1,6 +1,7 @@
 extends RefCounted
-## 348.7, Rest aus 249: Zauber und Pfeile im Kampfort wie im alten MARS (BattleFx.kt, BattleFxLayer und drawFx), gezeichnet in die
-## Anzeige über der Szene. Nur, was MARS wirft: Feuerpfeil, Magisches Geschoss, Sengender Strahl, Feuerball, Heilige Flamme,
+## 348.7, Rest aus 249: Zauber und Pfeile im Kampfort wie im alten MARS (BattleFx.kt, BattleFxLayer und drawFx). 348.7a (Chef
+## 27.10., 09:38): die Bahnen laufen im Raum, gemalt wird als Tafel in der Tiefe des Bahnpunkts (ci = tafel.gd), so verdecken
+## Figuren, was hinter ihnen fliegt; Maße weiter in Bildpunkten. Nur, was MARS wirft: Feuerpfeil, Magisches Geschoss, Sengender Strahl, Feuerball, Heilige Flamme,
 ## Heilung, Segen und der Pfeil. Maß wie alt: u = Höhe des Getroffenen / 40 (ein Wolf steht rund 40 Einheiten hoch).
 
 ## Was fliegt, geht beim Fehlschlag am Ziel vorbei (BattleFx.kt FLYING)
@@ -27,13 +28,20 @@ const NONE := Color(0, 0, 0, 0)
 ## Chef 21.10., 14:46: wie hoch ein Pfeil im Flug steigt, im Verhältnis zur Weite
 const ARROW_RISE := 0.12
 
-var ci: CanvasItem
+var ci     # tafel.gd
 var rnd := RandomNumberGenerator.new()
 ## Der Effekt schlägt in den Boden statt ins Ziel (Fehlschuss, draw_fx exact)
 var on_floor := false
-## 348.7 (Helfer Lauf 126: Feuerpfeil, Feuerball, Geschosse flogen vor dem näheren Wolf durch): so viele Bildpunkte steigt die
-## Bahn in der Mitte über die Gerade, damit sie über die Köpfe derer geht, die vor ihr stehen (kampf_ui.gd setzt es je Effekt)
-static var over := 0.0
+## 348.7a: Raum je Effekt (kampf_ui.gd setzt es): Kamera; Tiefe (m vor der Kamera) von Start, Bahnende, Einschlag und
+## Fehlschuss am Boden; so viele Meter steigt die Bahn in der Mitte über die Köpfe derer, die im Raum dazwischen stehen; Meter je
+## Bildpunkt am Ziel (Bögen in Bildpunkten wie alt)
+static var cam: Camera3D
+static var d_from := 10.0
+static var d_to := 10.0
+static var d_hit := 10.0
+static var d_miss := 10.0
+static var lift := 0.0
+static var m_px := 0.01
 ## Fehlschuss: Bodenpunkt am Schirm, den kampf_ui.gd frei von Figuren wählt (INF: wie bisher neben dem Ziel)
 static var miss_at := Vector2.INF
 
@@ -69,12 +77,23 @@ static func _a(c: Color, a: float) -> Color:
 	return Color(c, clampf(a, 0.0, 1.0))
 
 
-static func _arc(a: Vector2, b: Vector2, t: float, bend: float) -> Vector2:
-	var base := a.lerp(b, t)
+## Bahnpunkt bei t im Raum: von a (Tiefe d_from) nach b (d_to), um bend Bildpunkte quer zur Bahn am Schirm gebogen, über die
+## Köpfe gehoben (lift) und, für den Pfeil, um rise der Weite gestiegen; setzt die Tiefe des Pinsels auf diesen Punkt
+func _arc(a: Vector2, b: Vector2, t: float, bend: float, rise := 0.0) -> Vector2:
+	var a3: Vector3 = ci.world_at(a, d_from)
+	var b3: Vector3 = ci.world_at(b, d_to)
 	var d := b - a
 	var ln := maxf(d.length(), 1.0)
-	var lift := sin(t * PI) * bend
-	return Vector2(base.x - d.y / ln * lift, base.y + d.x / ln * lift - sin(t * PI) * over)
+	var across := cam.global_transform.basis * Vector3(-d.y / ln, d.x / ln * -1.0, 0.0)
+	var up := sin(t * PI) * lift + 4.0 * a3.distance_to(b3) * rise * t * (1.0 - t)
+	var q := a3.lerp(b3, t) + across * sin(t * PI) * bend * m_px + Vector3.UP * up
+	ci.depth = -(cam.global_transform.affine_inverse() * q).z
+	return cam.unproject_position(q)
+
+
+## Einschlag: der Pinsel malt in der Tiefe vor dem Getroffenen (oder am Boden des Fehlschusses)
+func _at_hit() -> void:
+	ci.depth = d_hit
 
 
 static func _fade(p: float) -> float:
@@ -93,7 +112,14 @@ func _square(c: Color, at: Vector2, s: float, alpha := 1.0) -> void:
 func _glow(at: Vector2, r: float, cols: Array, sy := 1.0) -> void:
 	if r <= 0.5:
 		return
-	var n := 20
+	if cols.size() == 2 and (cols[1] as Color).a <= 0.003:     # eine Tafel, den Verlauf rechnet tafel.gdshader
+		ci.soft_disc(at, r, cols[0], sy)
+		return
+	var first: Color = cols[0]
+	if cols.size() == 3 and (cols[2] as Color).a <= 0.003 and first.a > 0.003 and (cols[1] as Color).is_equal_approx(Color(first, (cols[1] as Color).a)):
+		ci.soft_disc(at, r, first, sy, (cols[1] as Color).a / first.a)
+		return
+	var n := 20 if r > 20.0 else 14
 	var rings := cols.size() - 1
 	for i in rings:
 		var r0 := r * i / rings
@@ -261,8 +287,9 @@ func _fire_bolt(p: float, from: Vector2, to: Vector2, u: float) -> void:
 		var c := _arc(from, to, tt, bend) + Vector2(0, -age * 8 * u)
 		_glow(c, (5 + 9 * age) * u, [_a(SMOKE, 0.5 * (1 - age)), _a(SMOKE, 0.0)])
 	if p < travel:
-		var head := _arc(from, to, t, bend)
 		var back := _arc(from, to, maxf(t - 0.05, 0.0), bend)
+		var head := _arc(from, to, t, bend)
+		var dh: float = ci.depth
 		var dir := (head - back).normalized() if head.distance_to(back) > 0.01 else Vector2.RIGHT
 		for k in range(11, -1, -1):
 			var d := k * 3.6 * u
@@ -272,11 +299,13 @@ func _fire_bolt(p: float, from: Vector2, to: Vector2, u: float) -> void:
 			ci.draw_circle(c, (8.0 - k * 0.6) * u, _a(col, 1.0 - k * 0.075))
 		_glow(head, 24 * u, [_a(FIRE, 0.4), NONE])
 		ci.draw_circle(head, 3.2 * u, _a(WHITE, 0.9))
+		ci.depth = dh
 		for i in 5:
 			var st := maxf(t - _rf() * 0.3, 0.0)
 			var sp := _arc(from, to, st, bend) + Vector2((_rf() - 0.5) * 8 * u, (t - st) * 30 * u)
 			_square(FIRE_HOT, sp, 1.6 * u, 1.0 - (t - st) * 3.0)
 	else:
+		_at_hit()
 		var s := (p - travel) / (1 - travel)
 		var flash := clampf(1 - s / 0.3, 0.0, 1.0)
 		if flash > 0.0:
@@ -300,13 +329,14 @@ func _force_dart(sd: int, p: float, i: int, from: Vector2, to0: Vector2, u: floa
 			var pt := _arc(from, to, maxf(t - 0.22 + k * 0.0275, 0.0), bend)
 			ci.draw_line(prev, pt, _a(FORCE, 0.06 * k), (0.6 + 0.35 * k) * u, true)
 			prev = pt
-		var head := _arc(from, to, t, bend)
 		var back := _arc(from, to, maxf(t - 0.07, 0.0), bend)
+		var head := _arc(from, to, t, bend)
 		_glow(head, 12 * u, [_a(FORCE, 0.4), NONE])
 		ci.draw_line(back, head, FORCE, 3.2 * u, true)
 		ci.draw_line(back.lerp(head, 0.4), head, FORCE_CORE, 1.4 * u, true)
 	var s := (p - delay - travel) / 0.32
 	if s > 0.0 and s < 1.0:
+		_at_hit()
 		_glow(to, 14 * u, [_a(FORCE_CORE, 0.85 * (1 - s)), _a(FORCE, 0.4 * (1 - s)), NONE])
 		for k in 6:
 			var a := k * PI / 3 + r.randf() * 0.5
@@ -332,6 +362,7 @@ func _scorching_ray(p: float, from0: Vector2, to: Vector2, u: float) -> void:
 			ci.draw_line(prev, pt, _a(band[1], band[2] * life), band[0] * u * (0.6 + 0.4 * f), true)
 			prev = pt
 	if reach >= 1.0:
+		_at_hit()
 		var s := (p - 0.22) / 0.78
 		var flash := clampf(1 - s / 0.25, 0.0, 1.0)
 		if flash > 0.0:
@@ -368,6 +399,7 @@ func _fireball(p: float, from: Vector2, to: Vector2, ground: float, u: float) ->
 			var sc := FIRE_HOT if i % 2 == 0 else FIRE
 			_glow(sp, 1.8 * u, [_a(sc, clampf(1.0 - (t - st) * 3.0, 0.0, 1.0)), _a(sc, 0.0)])
 		return
+	_at_hit()
 	var s := (p - travel) / (1 - travel)
 	var flash := clampf(1 - s / 0.18, 0.0, 1.0)
 	if flash > 0.0 and ohne != "blitz":
@@ -400,6 +432,7 @@ func _mending(p: float, src: Vector2, chest: Vector2, u: float, c: Color, core: 
 	var f := _fade(p)
 	# am Wirkenden deutlich (Prüfer Runde 3: „leuchtet kaum“), das Licht zieht fast gerade hinüber (zog im weiten Bogen ans Bildende)
 	var hand := sin(clampf(p / 0.5, 0.0, 1.0) * PI)
+	ci.depth = d_from
 	_glow(src, 22 * u, [_a(core, 0.7 * hand), _a(c, 0.3 * hand), NONE])     # Runde 3b: 30 machte das Bild heller als alt
 	if src.distance_to(chest) > 8 * u:
 		for i in 10:
@@ -409,6 +442,7 @@ func _mending(p: float, src: Vector2, chest: Vector2, u: float, c: Color, core: 
 			var q := _arc(src, chest, t, (i % 3 - 1) * 4 * u)
 			_glow(q, 4.2 * u, [_a(core, 0.9 * sin(t * PI)), _a(c, 0.0)])
 	var swell := sin(clampf(p, 0.0, 1.0) * PI)
+	_at_hit()
 	_glow(chest, 36 * u, [_a(core, 0.4 * swell), _a(c, 0.22 * swell), NONE])
 	_glow(chest, 26 * u, [_a(c, 0.22 * swell), NONE], 60.0 / 26.0)
 	for i in 24:
@@ -460,17 +494,17 @@ func _arrow(p: float, from: Vector2, hit: Vector2, u: float) -> void:
 	if p >= 0.6:
 		_arrow_lands(p, from, hit, u)
 		return
-	var rise := hit.distance_to(from) * ARROW_RISE
 	var fly := func(x: float) -> Vector2:
-		var c := clampf(x, 0.0, 1.0)
-		return from.lerp(hit, c) - Vector2(0, 4 * rise * c * (1 - c) + sin(c * PI) * over)
+		return _arc(from, hit, clampf(x, 0.0, 1.0), 0.0, ARROW_RISE)
+	var back: Vector2 = fly.call(t - 0.02)
 	var head: Vector2 = fly.call(t)
-	var ahead := Vector2(hit.x - from.x, hit.y - from.y - 4 * rise * (1 - 2 * t) - PI * cos(t * PI) * over)
-	var d := ahead.normalized() if ahead.length() > 0.001 else Vector2.RIGHT
+	var dh: float = ci.depth
+	var d := (head - back).normalized() if head.distance_to(back) > 0.001 else Vector2.RIGHT
 	var n := Vector2(-d.y, d.x)
 	var tail := head - d * (15 * u)
 	for k in 4:
 		ci.draw_line(fly.call(t - 0.06 * (k + 1)), tail if k == 0 else fly.call(t - 0.06 * k), Color(1, 1, 1, 0.3 - 0.06 * k), 1.2 * u, true)     # Spur kräftiger: Pfeil „praktisch unsichtbar“ (Helfer Lauf 126)
+	ci.depth = dh
 	# Schaft hell und kräftiger (Helfer Runde 2: 3 px brauner Strich auf braunem Weg)
 	ci.draw_line(tail, head - d * (2.5 * u), Color("b89a70"), 1.3 * u, true)
 	var b := head - d * (3.5 * u)
@@ -482,8 +516,8 @@ func _arrow(p: float, from: Vector2, hit: Vector2, u: float) -> void:
 ## Einschlag (Helfer Runde 2: Pfeil ohne Einschlag): er steckt kurz, wo er traf, ein Ruck Splitter und Staub, dann vergeht er
 func _arrow_lands(p: float, from: Vector2, hit: Vector2, u: float) -> void:
 	var s := (p - 0.6) / 0.4
-	var rise := hit.distance_to(from) * ARROW_RISE
-	var d := Vector2(hit.x - from.x, hit.y - from.y + 4 * rise + PI * over).normalized()
+	var d := (hit - _arc(from, hit, 0.97, 0.0, ARROW_RISE)).normalized()
+	_at_hit()
 	if on_floor:
 		d = (d + Vector2(0, 1.4)).normalized()     # im Boden steil (Prüfer Runde 3: lag fast waagerecht)
 	var a := 1.0 - clampf((s - 0.75) / 0.25, 0.0, 1.0)
@@ -503,6 +537,7 @@ func _arrow_lands(p: float, from: Vector2, hit: Vector2, u: float) -> void:
 func draw_fx(kind: String, sd: int, p: float, source: Vector2, target: Vector2, u: float, ground: float, exact := false) -> void:
 	rnd.seed = sd
 	on_floor = exact
+	_at_hit()
 	var hit := Vector2(target.x + (_rf() - 0.5) * 14 * u, target.y + (_rf() - 0.5) * 14 * u)
 	if exact:
 		hit = target
@@ -535,6 +570,8 @@ func draw(kind: String, sd: int, p: float, source: Vector2, target: Vector2, u: 
 	if not missed:
 		draw_fx(kind, sd, p, source, target, u, ground)
 		return
+	d_to = d_miss     # schlägt am Boden des Fehlschusses ein
+	d_hit = d_miss
 	if kind == "SACRED_FLAME":
 		var away := -1.0 if sd % 2 == 0 else 1.0
 		if miss_at != Vector2.INF:     # Prüfer Runde 4d: leckte am Nachbarwolf; der freieste Fleck neben dem Ziel
@@ -548,7 +585,7 @@ func draw(kind: String, sd: int, p: float, source: Vector2, target: Vector2, u: 
 	var ln := maxf(dv.length(), 1.0)
 	var side := 1.0 if sd % 2 == 0 else -1.0
 	# zur Bildmitte hin, wo der Kampfplatz frei ist (Prüfer Runde 3b: der Fehlschuss steckte im Busch am Rand)
-	var mid := ci.get_viewport_rect().size.x * 0.5
+	var mid: float = ci.get_viewport_rect().size.x * 0.5
 	if signf(-dv.y / ln * side) != signf(mid - target.x) and absf(mid - target.x) > 20 * u:
 		side = -side
 	# Helfer Runde 2 (Feuerpfeil daneben brannte in der Luft): was vorbeifliegt, schlägt neben dem Ziel in den Boden; seitlich
