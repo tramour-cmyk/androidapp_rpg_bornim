@@ -255,6 +255,21 @@ func _still(path: String) -> void:
 					await get_tree().process_frame
 		get_tree().quit()
 		return
+	# 348.13a (Helfer: Fassungen aus getrennten Läufen zeigen verschiedene Augenblicke): TUSCHE_REIHE=1.0,1.6,2.2 hält den Kampf an
+	# und legt im selben Bild je Stärke des Umrisses ein Bild ab, dazu eines mit Magenta-Tusche zum Messen
+	if OS.get_environment("TUSCHE_REIHE") != "" and not fight._ink_mats.is_empty():
+		Engine.time_scale = 0.0
+		for v in OS.get_environment("TUSCHE_REIHE").split(","):
+			for mag in [false, true]:
+				for m in fight._ink_mats:
+					m.set_shader_parameter("umriss_dick", float(v))
+					m.set_shader_parameter("ink", Color(1, 0, 1) if mag else Color(0.07, 0.05, 0.04))
+				for _i in 3: await RenderingServer.frame_post_draw
+				var fv := path.get_basename() + "-%s%s.png" % [v, "-m" if mag else ""]
+				get_viewport().get_texture().get_image().save_png(fv)
+				print("Bild ", fv)
+		get_tree().quit()
+		return
 	await RenderingServer.frame_post_draw
 	get_viewport().get_texture().get_image().save_png(path)
 	print("Bild ", path)

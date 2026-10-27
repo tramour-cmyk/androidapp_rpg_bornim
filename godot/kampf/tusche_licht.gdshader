@@ -16,6 +16,7 @@ uniform float innen = 1.0;         // 348.13: Umriss nur auf der vorderen Flaech
 uniform float breite_m = 3.4;      // 348.13: Bildbreite in Metern (Kamera.size)
 uniform float zoomdick = 1.0;      // 348.13: 1 Schattenseite weiter weg duenner (Wurzel aus Nah/Bildbreite, hoechstens 0,6-fach), 0 wie 832ad3959
 uniform float hinten_ab = 0.25;   // 348.13: Meter, ab denen die hintere Seite einer Stufe keine Tusche bekommt (Boden hinter dem Umriss)
+uniform float umriss_dick = 1.0;   // 348.13a (Chef 27.10., 09:41): Schattenseite im Kampf kraeftiger; nur am Umriss, Knicke im Gesicht bleiben
 uniform float knick = 0.06;        // Meter: Krümmung der Tiefe, ab der eine Linie entsteht
 uniform vec3 ink : source_color = vec3(0.07, 0.05, 0.04);
 void vertex() { POSITION = vec4(VERTEX.xy, 1.0, 1.0); }
@@ -67,6 +68,9 @@ void fragment() {
 		// die Verdoppelung galt auch auf der Lichtseite (2 x 1 Bildpunkt), und tiefer als dick sieht g keinen Rand mehr: Lichtseite 2,1,
 		// Schattenseite 2,4 Bildpunkte, kaum verschieden. Verdoppeln nur im Schatten, die Lichtseite bleibt 1 Bildpunkt
 		f *= mix(1.0, 2.0, smoothstep(0.4, 1.0, length(g)) * innen * (1.0 - ls));
+		// 348.13a: Helfer am Blatt (dick 1,4 und 1,8 auf alle Kanten): linke Gesichtshaelfte der Goblins schwarz, Hand am Griff Klumpen,
+		// Streifen an den Beinen; kraeftiger darum nur am Umriss (Tiefensprung ueber 0,4 m) und nur im Schatten
+		f *= mix(1.0, umriss_dick, smoothstep(0.04, 0.12, length(g)) * (1.0 - ls));
 	}
 	vec2 e = e1 * f;
 	float zl = lz(SCREEN_UV - vec2(e.x, 0), INV_PROJECTION_MATRIX), zr = lz(SCREEN_UV + vec2(e.x, 0), INV_PROJECTION_MATRIX);
