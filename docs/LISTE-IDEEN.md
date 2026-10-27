@@ -142,6 +142,7 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 - **Dokumente BornWire TCS nachziehen (102)** (aus Perikles' Vorrat 18.10., Kür ohne Termin): Firmenhandbuch und Begleittexte auf den Stand nach dem Umbau 17.10. bringen.
 - **`DESIGN-BLENDE.md` kürzen (111)** (aus Perikles' Vorrat 18.10., erst nach 24.6): Entschiedenes ins Vorgangsarchiv, Rest auf das Nötige.
 - **Kennzahl des Chefs** (Chef 19.10., 10:42: „Wie werde ich eigentlich gemessen oder bilanziert?“): heute keine eigene; Vorschlag Sokrates: **Wartezeit auf den Chef** (Stunden von Datei in `entscheiden/`/`billigen/` bis Löschen, aus Git, ohne Zählkosten) neben „ersparte Fragen“ (FIRMA.md). Contra: „Mehr Kennzahlen nicht“ (106.1), Chef ist kein Mitarbeiter. → Urteil Homer/Perikles; Wochenzählung 26.10.
+- **389 genauer zählen** (Tom 28.10., 00:1x; an Perikles, Vorrat über 15 KB): `probelauf.py` hält auch `sed -n … tools/pruef348/kampf_modelle.sh` an (Pfad irgendwo im Befehl) und zählt `kampf_modelle.sh` (nur Modelle, kein Bild). Vorschlag: nur mit `bash`, `sh` oder `./` davor zählen, `kampf_modelle.sh` ausnehmen.
 
 
 ## M Markt
