@@ -57,7 +57,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 - **Zu 348.7a (579f38ba8):** Bahnen im Raum (`kampf_ui.gd` `_draw_spells`), Pinsel `tafel.gd`. Falle: `project_position` übergeht `frustum_offset`, darum `tafel.world_at`. **Runde 3 (6883faff8, Lauf 138; Prüfer r2 und Lösung im Commit):** Weg je Zauber `_lane`; Probe `BAHN_PRUEF=1`, lokal 0 zu nah. Prüfer offen: Strahl 0,9 m über Mira („Regenbogen“?), daneben 1,2 m seitlich.
 - **Zu 348.7, Werkzeug:** lokal: Godot 4.7.2 nach `~/godot/godot`; Daten aus dem APK-Artefakt (`unzip kampf348.apk 'assets/kampf/daten/*'`); `bild()`/`film()` wie im Workflow; Blender: `uv venv -p 3.13 ~/bl`, `bpy==5.2.3 numpy pillow`.
 - **Von Ford (27.10., 11:59, Regel 373):** Vorlagen nach `ROLLE-ENTWICKLUNG.md` „Aussehen urteilt nur der Chef“ (eine Fehlerprüfung mit Zahlen, Befund im Begleittext; Videos auf Zweig `bilder`). 348.7a r2 nicht technisch sauber (Strahl durchdringt Wolf 3).
-
 - **Zu 348.7, von Sokrates (Chef 25.10., 13:11), ab dem nächsten Blatt:** „Gradmesser ist Leitbild 1 ‚Düster, erwachsen, glaubwürdig‘; ‚quietschehell passt nicht‘. Nie heller als alt.“
 - **Zu 348.7, nach Runde 16 offen** (Gründe in Git): Kampfort (4ad3ecb86): Lebensbalken und Zustände an der Ansage; offen: Gelb des halben Lebens gleicht „Betäubt“ (Farben wie alt).
 - **Zu 348.7, Lohn (20bbfb2ef):** wie `Battle.finishWin`; fehlt bis Toms Held/Tasche: Ausrüstungsbeute, Elite, Boni, Gutschrift (`Kampfort.reward`). Endfeld `SIEG=1` (77af01a55).

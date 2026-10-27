@@ -19,7 +19,7 @@ Sokrates, Stand 24.10., 17:56. Ergebnisse der Gespräche mit dem Chef vom 24.10.
 ## Modelle bauen: Blender
 
 - **Geprüft 24.10., 17:54:** Blender 5.2 läuft in unserer Umgebung als Python-Modul, ohne Fenster, nur über Code. Testmodell angelegt, Skelett eingebaut, als glTF gespeichert, Bild gerechnet, in einer Minute. Kostenlos, frei auch für den Verkauf, Animation eingebaut.
-- Chef 17:55: nichts kaufen, selbst entwickeln, mit sinnvollen Werkzeugen. Darum keine gekauften Modelle, keine Modell-Generatoren.
+- Chef 24.10., 17:55: nichts kaufen, selbst entwickeln. **Überholt** durch 348.12c (bezahlte Modelle erlaubt) und 377 („Bestand zuerst“, `ROLLE-ENTWICKLUNG.md`); Modell-Generatoren bleiben aus.
 - Alternativen, verworfen: eigener Zeichner (nur Bilder, keine bewegbaren Modelle); Grundformen in Godot (Kisten, Mauern, keine Figuren); Klötzchen- oder Maßzeichnungsprogramme (falscher Stil oder nur mit Maus).
 
 ## Neues effektiv erstellen: Baukästen
