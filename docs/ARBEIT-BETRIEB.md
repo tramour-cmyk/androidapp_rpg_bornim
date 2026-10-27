@@ -40,6 +40,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:37–06:35 27.10.: Neustarts angenommen und Nachfolger gestartet: Tom 01:46, 02:33, 02:57, 03:23, 03:51, 04:16, 04:43, 05:01, 05:20, 05:44, 06:03, 06:35, 07:21; Jerry 01:37, 02:42, 03:25, 04:57; Jerry 05:55 zurückgestellt (wartet auf Chefsache 3487a). Läufe 02:03, 03:03 ohne Starts; START Perikles (Terminname) nicht ausgeführt
 - 25.10., 09:35–21:05: Neustarts Tom/Jerry/Sokrates angenommen; Perikles 364 und Sokrates 340.2 gestartet; Sparbetrieb und Max 20x (Verlauf in Git)
 
+- 10:22 27.10.: Neustart Tom angenommen (eb41ad25c auf main): Start „Tom – 348.6 Kampfbewegungen Runde 3“ `01Hmoj76AA`, alter Tom archiviert, 10,70 $ gebucht
 - 10:05 27.10.: Lauf; Start Homer-Nachfolger (Übergabe, 348.12c erledigt, `--ohne` griff nicht beim Nachfolger) `01Hmoj782P` und Perikles 338a `01Hmoj75Sn`; alte Homer und Perikles archiviert, 2,21 $ und 1,25 $ gebucht. Tom/Jerry/Sokrates laufen
 - 09:46 27.10.: Neustart Jerry angenommen (66a981053 auf main): Start „Jerry – 348.7a Geschosse in 3D“ `01Hmoj77Zu` (Chef hat 3487a entschieden); alter Jerry archiviert, Kosten fehlen (Sitzung lieferte keine Zahl)
 - 09:40 27.10.: Neustart Tom angenommen (d0908c130 auf main): Start „Tom – 348.6 Kampfbewegungen Runde 2“ `01Hmoj75zb`, alter Tom archiviert, 9,86 $ gebucht
