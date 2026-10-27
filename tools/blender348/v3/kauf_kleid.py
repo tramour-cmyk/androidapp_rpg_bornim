@@ -217,16 +217,6 @@ for i, v in enumerate(VK1):
     w = np.array([1.0 / max(d, 0.005) ** 2 for _, _, d in nb]); j = [j for _, j, _ in nb]
     VK2[i] = v + (w[:, None] * D[j]).sum(0) / w.sum()
 
-# ---------------------------------------------------------------- 6. was noch im fremden Koerper liegt, hinaus
-raus = 0
-for i, v in enumerate(VK2):
-    c, nrm, _, _ = qbvh.find_nearest(Vector(v))
-    if c is None: continue
-    a = (Vector(v) - c).dot(nrm)
-    if a < RAND:
-        VK2[i] = np.array(c + nrm * RAND); raus += 1
-print('KLEIDUNG HINAUS', raus, 'von', len(VK2))
-
 # Helfer 20:2x (Kragen verdeckt Kinn und Mund, Kinn sticht durch): unser Kettenkragen reicht am Kaufkopf 2-3 cm ueber das Kinn,
 # Schritt 7 drueckte dann das Kinn hinter den Kragen. Vorn (zum Kinn hin) weich unter die Kinnunterkante, hinten bleibt er hoch
 iH = Q_KN.index('Head'); iN = Q_KN.index('neck_01') if 'neck_01' in Q_KN else iH
@@ -234,9 +224,10 @@ hals_y = float(QV[WQ[:, iN] > 0.5][:, 1].mean()) if (WQ[:, iN] > 0.5).any() else
 vk = (WQ[:, iH] > 0.5) & (QV[:, 1] < hals_y - 0.04)
 KINN_Z = float(QV[vk][:, 2].min()) if vk.any() else 1e9
 # Prueferin 2 (20:33): weiches Abschneiden bei c riss den Kragen (Zacken, Haut durch): statt dessen der ganze Kragen ueber dem
-# Halsansatz gleichmaessig gestaucht (Faktor je Ecke nach vorn/hinten), oben vorn KRAGEN_FREI unter dem Kinn
+# Halsansatz gleichmaessig gestaucht (Faktor je Ecke nach vorn/hinten), oben vorn KRAGEN_FREI unter dem Kinn. Pruefer 20:49 (Splitter
+# auf Kinn und Hals): vor Schritt 6, damit was danach im Hals liegt, hinausgeschoben wird (nicht der Koerper zurueck)
 c = KINN_Z - float(os.environ.get('KRAGEN_FREI', '0.015'))
-vorn = np.clip((hals_y + 0.01 - VK2[:, 1]) / 0.05, 0, 1); vorn = vorn * vorn * (3 - 2 * vorn)
+vorn = np.clip((hals_y + 0.01 - VK2[:, 1]) / 0.08, 0, 1); vorn = vorn * vorn * (3 - 2 * vorn)
 nahe = np.linalg.norm(VK2[:, :2] - np.array([0.0, hals_y]), axis=1) < 0.13
 z = VK2[:, 2]
 basis = float(QV[WQ[:, iN] > 0.3][:, 2].min()) if (WQ[:, iN] > 0.3).any() else c - 0.08   # Halsansatz
@@ -247,6 +238,16 @@ fz = 1.0 + vorn * rr * (f - 1.0)
 neu_z = np.where(z > basis, basis + (z - basis) * fz, z)
 print('KRAGEN gestaucht', int((np.abs(neu_z - z) > 0.002).sum()), 'Ecken, Kinn %.3f, Halsansatz %.3f, oben %.3f, Faktor vorn %.2f' % (KINN_Z, basis, oben, f))
 VK2[:, 2] = neu_z
+# ---------------------------------------------------------------- 6. was noch im fremden Koerper liegt, hinaus
+raus = 0
+for i, v in enumerate(VK2):
+    c, nrm, _, _ = qbvh.find_nearest(Vector(v))
+    if c is None: continue
+    a = (Vector(v) - c).dot(nrm)
+    if a < RAND:
+        VK2[i] = np.array(c + nrm * RAND); raus += 1
+print('KLEIDUNG HINAUS', raus, 'von', len(VK2))
+
 
 # ---------------------------------------------------------------- 7. Koerper unter der Kleidung weg
 kme = kleid.data
@@ -291,6 +292,11 @@ for i in np.where(ENG_K)[0]:
 leer = WKq.sum(1) == 0
 WKq[leer, Q_KN.index('pelvis')] = 1.0
 WKq /= WKq.sum(1, keepdims=True)
+# Pruefer 20:49 (Kettensplitter auf Kinn und Hals): die Kragenecken erbten am Kinn Gewichte des Kopfs, drehten mit ihm (UAL, Kopf
+# heben in figurenprobe.gd) und stachen ins Gesicht; Kleidung haengt hoechstens am Hals
+iKopf = Q_KN.index('Head'); iHals = Q_KN.index('neck_02') if 'neck_02' in Q_KN else Q_KN.index('neck_01')
+print('KLEIDUNG AM KOPF', int((WKq[:, iKopf] > 1e-3).sum()), 'Ecken, an den Hals')
+WKq[:, iHals] += WKq[:, iKopf]; WKq[:, iKopf] = 0.0
 # Helfer 16:48 (hinten Kettenhemd und Rock durch den Mantel; pruef_tracht.py: in jeder Bewegung 17-46 Ecken je Bild): Wappenrock
 # und Umhang haben unsere Gewichte, das Kettenhemd die des Koerpers, in Bewegung laufen sie auseinander. Ueber der Huefte folgen sie
 # darum der Lage darunter (deren Gewichte an der Stelle, die der Strahl nach innen trifft), darunter gleitend die eigenen (Saum frei)

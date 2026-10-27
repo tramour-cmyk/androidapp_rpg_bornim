@@ -13,11 +13,11 @@ FORMEN = {   # Pruefer 20:2x/20:33: schmal = hager = gekauft, kantig einseitig g
     'gekauft': {},
     'schmal':  {'breite': -0.12, 'kiefer': -0.18, 'laenge': 0.05, 'wangen': -0.004},
     'rund':    {'breite': 0.12, 'kiefer': 0.18, 'laenge': -0.08, 'kinn': -0.006, 'wangen': 0.006, 'nase': -0.15, 'brauen': -0.002},
-    'kantig':  {'breite': 0.02, 'kiefer': 0.22, 'laenge': 0.03, 'kinn': 0.010, 'brauen': 0.008, 'nase': 0.12},
+    'kantig':  {'breite': -0.03, 'kiefer': 0.26, 'laenge': 0.03, 'kinn': 0.010, 'brauen': 0.008, 'nase': 0.12},
     'hager':   {'breite': -0.02, 'laenge': 0.15, 'kinn': 0.008, 'wangen': 0.010, 'brauen': 0.007, 'nase': 0.30},
 }
 # Haut (Faktor auf das Bild): die Textur ist hell-rosig
-HAUT = {'hell': (1.16, 1.12, 1.08), 'mittel': (1.0, 1.0, 1.0), 'warm': (0.88, 0.76, 0.62), 'gebraeunt': (0.80, 0.68, 0.56),
+HAUT = {'hell': (1.16, 1.12, 1.08), 'mittel': (1.0, 1.0, 1.0), 'warm': (1.0, 0.90, 0.74), 'gebraeunt': (0.80, 0.68, 0.56),
         'dunkel': (0.58, 0.46, 0.38), 'blass': (0.98, 0.98, 1.0)}
 
 
@@ -81,7 +81,7 @@ def feld(W, p, f):
     D = np.zeros_like(W)
     D[:, 0] += x * f.get('breite', 0.0) * w
     # Kiefer: unter der Nase, vorn und seitlich (hinter dem Ohr nicht)
-    wj = (1 - _glatt(p['mund_z'], p['augen_z'] - 0.01, z)) * (1 - _glatt(p['mitte'][1] - 0.01, p['mitte'][1] + 0.09, y))
+    wj = (1 - _glatt(p['mund_z'] - 0.01, p['nase'][2], z)) * (1 - _glatt(p['mitte'][1] - 0.02, p['mitte'][1] + 0.07, y))
     D[:, 0] += x * f.get('kiefer', 0.0) * w * wj
     # Laenge: unter den Augen gestreckt
     unter = z < p['augen_z']
