@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (27.10., 12:0x, `session_01Hmoj77KrpkiKr3euwsn3S6`):** 373 und 374 entschieden (Archiv), an Perikles und Diogenes; 376 vier Bausätze geprüft (`LISTE-CC0-MODELLE.md` „Quaternius-Bausätze“), Chefsache 376. Kosten auf: 373, 374, 376. Nachfolger: Sokrates – 376 Outfits prüfen
+**Übergabe (27.10., 12:4x, `session_01Hmoj77AVFUUq2zm9nWvgjm`):** 376 Figuren geprüft (Chefsache 376 „Figuren“, `LISTE-CC0-MODELLE.md`), Chef kaufte beide Pakete 12:20; 376.1 Probeblatt mit Völkern und Film an Perikles. Kosten auf: 376. Nachfolger: Sokrates – 376 Häuser offen, Ergebnis 376.1 begleiten
 
 ## Zeilen
 
