@@ -2,7 +2,7 @@
 
 Geräteangaben, die Tester über „Kopieren“ im Systemmenü schicken (388). Je Meldung Datum, Ort im Spiel und Wortlaut der Angaben. Nutzen: die Godot-Fassung muss auf diesen Geräten flüssig laufen (Alt-Fassung ist zu, Archiv 27.10., 22:17).
 
-## Tester 1, Samsung Galaxy A22 5G (Chef 27.10., 23:25, „Von erwähntem Tester, bei dem es ruckelt“; Ort: Mitte des Marktplatzes)
+## Tester 1, Samsung Galaxy A22 5G (Chef 27.10., 23:25, „Von erwähnten Tester, bei dem es ruckelt“; Ort: Mitte des Marktplatzes)
 
 ```
 App: 0.1.1037 (1038, release)
@@ -22,4 +22,20 @@ Held ganz gezeichnet nach 41,9 s
 Kampf bereit: Eröffnung –, Held –, Gegner –
 ```
 
-Lesart (Sokrates, ohne Nachstellen): untere Mittelklasse (Mali-G57 mit 2 Kernen, 3,6 GB). Die Speicherbereinigung bremst nicht (0 ms anhaltend). Die Pausen von etwa 0,5 s fallen zusammen mit dem Zeichnen von Held, Leuten und Atmen; der Held ist erst nach 42 s ganz gezeichnet. Das spricht für teures Zeichnen der Figuren auf der Grafik, nicht für Speichernot. Gemeldet war das Ruckeln in den Hütten; diese Messung ist vom Marktplatz. Auswertung und Folgerung für Godot: Tom (388).
+Lesart (Sokrates, ohne Nachstellen): untere Mittelklasse (Mali-G57 mit 2 Kernen, 3,6 GB). Die Speicherbereinigung bremst nicht (0 ms anhaltend). Die Pausen von etwa 0,5 s fallen zusammen mit dem Zeichnen von Held, Leuten und Atmen. Das spricht für teures Zeichnen der Figuren auf der Grafik, nicht für Speichernot. Auswertung und Folgerung für Godot: Tom (388).
+
+## Tester 1, gleiches Gerät, im Starterhaus (Chef 27.10., 23:29)
+
+```
+App: 0.1.1037 (1038, release)
+Arbeitsspeicher: 3631 MB, frei 1027 MB
+Blende: bereit nach 2,2 s (Held 0,0 s, Boden 0,0 s, Leute 2,2 s), längste Bildpause in der Blende 344 ms
+Danach 10 s: längste Bildpause 421 ms, über 50 ms: 28
+Langsame Bilder während: Atmen 28, Leute 26, Kampf 2, nichts 0
+Speicherbereinigung danach: 23, davon anhaltend 0 (0 ms)
+Held ganz gezeichnet nach 41,9 s
+Kampf bereit: Eröffnung –, Held –, Gegner –
+```
+(übrige Zeilen wie oben)
+
+Lesart (Sokrates, ohne Nachstellen): Im Haus mehr als dreimal so viele lange Bilder wie auf dem Markt (28 statt 8 in 10 s), alle während „Atmen“ und fast alle während „Leute“; Speicher wieder ohne Bremse. Verdacht: die Atembewegung der Figuren im Innenraum. „Held ganz gezeichnet nach 41,9 s“ ist in beiden Messungen gleich, also wohl ein Wert seit dem Start, nicht je Ort.
