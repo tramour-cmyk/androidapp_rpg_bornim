@@ -4,7 +4,7 @@
 
 **Frage:** Passt die Richtung bei jedem der sechs Tiere? Das ist dein Auftrag von 22:31 („Alle grundsätzlich nehmen außer die ausgeschlossenen“) und 22:34 („Alles in eins packen“). Sag je Tier „ja“ oder was anders sein soll. Die Fehler unten behebe ich ohnehin.
 
-**Bitte ansehen:** [Film](bilder:pruefung/387-kauftiere-r2.mp4), 148 s. Je Art stehen drei Tiere da, das vorderste bewegt sich. Start im Film: Keiler 0 s, Hundertfüßer 35 s, Rind 86 s, Ziege 100 s, Huhn 113 s, Kaninchen 132 s.
+**Bitte ansehen:** [Film](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/pruefung/387-kauftiere-r2.mp4), 148 s. Je Art stehen drei Tiere da, das vorderste bewegt sich. Start im Film: Keiler 0 s, Hundertfüßer 35 s, Rind 86 s, Ziege 100 s, Huhn 113 s, Kaninchen 132 s.
 - Keiler und Hundertfüßer: Anlauf, Biss, Ausweichen, Sprung, Treffer, Ortswechsel, Tod.
 - Dorftiere: Anlauf, Fressen, Ortswechsel, Tod.
 

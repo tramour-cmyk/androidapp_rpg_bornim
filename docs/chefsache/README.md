@@ -16,7 +16,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [387](ansehen/387-kauftiere-r2.md) | Sechs gekaufte Tiere mit Nacharbeit und Wegen über den Kampfort | – | 28.10., 00:38 |
 
 ## Zu tun
 
