@@ -10,7 +10,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere schnell auf Bewegungen und unsere Haut prüfen, vor Eigenbau; zuerst Wolf, Keiler, Hundertfüßer, Dorftiere | startbar: ja außer Schwein, Gans (Chef 22:31, Archiv); je Tier Bemalung, Wege, Fehler, einzeln vorlegen; kauftier.py |
+| 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | startbar: ja außer Schwein, Gans (Chef 22:31, Archiv); je Tier Bemalung, Wege, Fehler, einzeln vorlegen, nie mehr nur auf der Stelle (Chef 22:33: „da braucht man doch viel Vorstellungskraft“); kauftier.py |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | startbar: Umdrehen ohne Schritt (Ratte und Wolf) und Schnauze beheben (Archiv 21:26); Kaufwolf ja (Chef 21:51, Archiv): Ausweichen mit Ortswechsel wie Ratte | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: Hieb abgenommen 17:57; Grak, Kobold aufs CC0-Gerüst (Zombie-Platz = gekaufter Wiedergänger, Archiv 26.10., 20:32; von Sokrates) | `claude/jerry-348-kampf` |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht bis Kauf: Werte, Listen ja (Archiv), dann einbauen; erst Größe prüfen | – |
