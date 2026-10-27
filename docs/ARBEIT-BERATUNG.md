@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (27.10., 10:2x, `session_01Hmoj78YkjUbXnu7DRJy5i3`):** Chefrunde, Chefsache leer (Archiv); verwaiste „beim Chef“ an Ford. Kosten auf: 338a, 348.7a, 348.13, 348.12, 348.12f, 348.12c. Nachfolger: keiner, Sokrates auf Zuruf.
+**Übergabe (27.10., 10:2x, `session_01Hmoj78YkjUbXnu7DRJy5i3`):** Chefrunde, Chefsache leer (Archiv); verwaiste „beim Chef“ an Ford; Diogenes 348.9 nachgeholt (Chef 10:27). Kosten auf: 338a, 348.7a, 348.13, 348.12, 348.12f, 348.12c, 348.9. Nachfolger: Sokrates – auf Zuruf.
 
 ## Zeilen
 
