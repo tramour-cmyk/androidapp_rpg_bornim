@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (27.10., 01:20, Ford `session_017jS8iw2nQqpekHt9g3xtP6`, Tiefe 6):** Uhr übernommen, alte gelöscht. Läuft: Tom `session_01AJQaX4xh3QNsDcV9y6x7Br`, Jerry `session_01YC3vgDr2uSCzQvSE8zrZ7A`, Sokrates Nachtvertretung `session_01X9NaGNMk4y1nymcSDE4k5b`. Zu archivieren, wenn idle (Klassifizierer lehnt ab, Chef von Hand): Ford `01Rxjv`/`01Aysc`, Tom `014V2G`/`01AJQa`/`01AXm9` (5,67 $ auf 348.6 gebucht)/`01Hmoj75` (5,56 $ auf 348.6 gebucht)/`01Hmoj78` (8,35 $ auf 348.13 gebucht)/`01Hmoj77` (Kosten fehlen), Jerry `019sKq`/`01YC3v` (7,22 $ auf 348.7 gebucht)/`01VsW9` (17,34 $ auf 348.7 gebucht)/`01Hmoj76` (8,85 $ auf 348.7 gebucht), Sokrates `01BeMf`/`017XDY`, Diogenes `014acp`. `lauf.py` startet Perikles/Sokrates ungewollt (Terminname, Nachtvertretung): nicht ausführen, Perikles startet 7:30. Tiefe 6: kein Selbstneustart mehr, Chef-Bitte Datei 110. Nachfolger: Ford – Betriebsleiter.
+**Übergabe (27.10., 01:20, Ford `session_017jS8iw2nQqpekHt9g3xtP6`, Tiefe 6):** Uhr übernommen, alte gelöscht. Läuft: Tom `session_01AJQaX4xh3QNsDcV9y6x7Br`, Jerry `session_01YC3vgDr2uSCzQvSE8zrZ7A`, Sokrates Nachtvertretung `session_01X9NaGNMk4y1nymcSDE4k5b`. Zu archivieren, wenn idle (Klassifizierer lehnt ab, Chef von Hand): Ford `01Rxjv`/`01Aysc`, Tom `014V2G`/`01AJQa`/`01AXm9` (5,67 $ auf 348.6 gebucht)/`01Hmoj75` (5,56 $ auf 348.6 gebucht)/`01Hmoj78` (8,35 $ auf 348.13 gebucht)/`01Hmoj77` (Kosten fehlen)/`01Hmoj7AC` (8,87 $ auf 348.6 gebucht), Jerry `019sKq`/`01YC3v` (7,22 $ auf 348.7 gebucht)/`01VsW9` (17,34 $ auf 348.7 gebucht)/`01Hmoj76` (8,85 $ auf 348.7 gebucht), Sokrates `01BeMf`/`017XDY`, Diogenes `014acp`. `lauf.py` startet Perikles/Sokrates ungewollt (Terminname, Nachtvertretung): nicht ausführen, Perikles startet 7:30. Tiefe 6: kein Selbstneustart mehr, Chef-Bitte Datei 110. Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 371** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -38,6 +38,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 04:16 27.10.: Neustart Tom angenommen (afc1800fb auf main, Nachfolger in Übergabe): Start „Tom – 348.6 Faust, Kettenhemd; 348.13 Goblin r6 (27.10., 04:16)“
 - 03:51 27.10.: Neustart Tom angenommen (f432f8b16 auf main, Nachfolger in Übergabe): Start „Tom – 348.6 Handgelenk, Grau des Helden; 348.13 Goblin r6 (27.10., 03:51)“
 - 03:25 27.10.: Neustart Jerry angenommen (81a13c104 auf main, Nachfolger in Übergabe): Start „Jerry – 348.7 Todprobe Runde 4 (27.10., 03:25)“
 - 03:23 27.10.: Neustart Tom angenommen (d184ad765 auf main, Nachfolger in Übergabe; offene Frage im Eingang): Start „Tom – 348.6 Hände, Grau des Helden; 348.13 Goblin r6 (27.10., 03:23)“
