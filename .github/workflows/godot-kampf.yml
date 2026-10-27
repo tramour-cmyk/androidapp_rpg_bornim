@@ -188,9 +188,11 @@ jobs:
           export SCHAU_LISTE=Stehen,Gehen,Hieb
           halt() { for h in Stehen= Gehen=Gehen:0.25 $2; do for g in 1 2 3; do NUR=gob$g HALTUNG=${h#*=} bild st-$1-${h%%=*}-$g; done; done; }
           bild goblin-eigen; halt eigen; film gob-eigen eigen
-          git fetch -q --depth 1 origin claude/tom-348-fundament
+          # Toms Gerüst fest auf e457d6d8b (27.10., 01:14; Runde 6 lief damit): rig.py von 7ca5c1811 an setzt die Eckfarben anders,
+          # goblin.py hält dann an („rig.py: Eckfarben geändert“, lokal nachgestellt 27.10.)
+          git fetch -q --depth 1 origin e457d6d8b9ea1ec8a5d7ebc2a7a87be08d6ad73d || git fetch -q origin claude/tom-348-fundament
           V=$RUNNER_TEMP/v3cc0; mkdir -p $V
-          for f in held3.py rig.py geruest.py cc0_laden.sh; do git show FETCH_HEAD:tools/blender348/v3/$f > $V/$f; done
+          for f in held3.py rig.py geruest.py cc0_laden.sh; do git show e457d6d8b:tools/blender348/v3/$f > $V/$f; done
           bash $V/cc0_laden.sh ~/cc0 > /dev/null
           # Runde 2d: tiefe symmetrische Hocke (ual_lauer.py HOCKE=ik) als Ruhe; Runde 3: Gang und Hieb geduckt wie sie
           bl/bin/python -I tools/blender348/ual_lauer.py ~/cc0 ~/cc0b > $P/ual-lauer.log 2>&1 || (tail -40 $P/ual-lauer.log; exit 1)

@@ -162,7 +162,7 @@ def build_crude_shield(P):
     box(P, (-5 * CM, 0, -1.2 * CM), (5 * CM, 3 * CM, 1.2 * CM), LEATHER)   # die Fessel
 # 348.7 Goblin (MonsterKits): Krummsäbel und Handbeil wie Dress.kt (grip, guard, blade, haft, HEAD_AT)
 def build_scimitar(P): sword(P, 5.0, 5.0, 1.3, 1.6, 5.6, 5.0, 0.6, 59.0, 1.8, 2.5, 0.42, 13.0, curve=-7.0)
-def build_handaxe(P, s=1.0):
+def build_handaxe(P, s=1.0, sz=None):
     # Stiel 9 cm hinter, 37 cm vor der Hand; Kopf bei 32 cm: Tülle, Blatt nach +X (Schneide), Nacken nach −X
     # s: Kopf größer (Goblin Runde 6, Prüfer Runde 5: Beilkopf dunkel und klein)
     tube(P, -9, 37, 1.3, 1.2, WOOD, n=8)
@@ -171,7 +171,8 @@ def build_handaxe(P, s=1.0):
     th0, th1 = 0.6, 0.12
     prof = [(0.0, -1.1, th0), (9.5, -2.3 - 0.3, th1), (10.0, 0.0, th1), (9.5, 2.3 + 0.2, th1), (0.0, 1.1, th0)]   # (x, z, halbe Dicke)
     prof = [(x - 1.6 * (z / 2.3) ** 2 * (x / 9.5), z, t) for x, z, t in prof]   # Schneide leicht gebogen (curve −1,6)
-    prof = [(x * s, z * (s if abs(z) > 2 else 1.0), t) for x, z, t in prof]
+    sz = s if sz is None else sz
+    prof = [(x * s, z * (sz if abs(z) > 2 else 1.0), t) for x, z, t in prof]
     F = [Vector(((x + 1.6) * CM, -t * CM, (32 + z) * CM)) for x, z, t in prof]; B = [Vector(((x + 1.6) * CM, t * CM, (32 + z) * CM)) for x, z, t in prof]
     mid = STEEL     # Runde 6b (Prüfer 6a: Beil ganz in Rost „blutig, roter Klumpen“): Stahl, Rost nur als Flecken
     face(P, F, mid); face(P, list(reversed(B)), mid)
@@ -189,7 +190,8 @@ def build_handaxe(P, s=1.0):
             q += [Vector(((x + 1.6) * CM, side * (t + 0.02) * CM, (32 + z) * CM)) for x, z, t in reversed(prof[1:4])]
             face(P, q if side < 0 else list(reversed(q)), EDGE)
     box(P, (-4.4 * CM, -1.2 * CM, 30.6 * CM), (-1.6 * CM, 1.2 * CM, 33.4 * CM), DARK)   # Nacken
-def build_handaxe_gob(P): build_handaxe(P, 1.8)
+# 348.12 Runde 7 (Prüfer r6: das Beil des Kappen-Goblins sehr klein, wirkt wie ein Stock): Schneide 1,5-mal höher (12 statt 8 cm)
+def build_handaxe_gob(P): build_handaxe(P, 1.8, 2.7)
 
 # 348.7 Kobold (MonsterKits kobold: „the spear it fights with“, Vorgangsarchiv 55d: etwa 0,9 m, wächst mit dem Träger): Schaft
 # 40 cm hinter, 62 cm vor der Hand, Tülle und blattförmige Spitze aus altem Eisen; figur.gd verkleinert Goblinwaffen auf 0,8

@@ -13,7 +13,8 @@ from mathutils import Quaternion, Vector, Matrix
 
 QUELLE, ZIEL = sys.argv[-2], sys.argv[-1]
 GEDUCKT = float(os.environ.get('GEDUCKT', '0.55'))
-ARM_VOR = {'r': float(os.environ.get('ARM_R', '125')), 'l': float(os.environ.get('ARM_L', '60'))}
+# Runde 7 (Prüfer r6: Faust vor dem Mund in der Lauer): rechter Arm 90° statt 125° gehoben, die Faust auf Brusthöhe
+ARM_VOR = {'r': float(os.environ.get('ARM_R', '90')), 'l': float(os.environ.get('ARM_L', '60'))}
 UNTEN = ('root', 'pelvis', 'spine_01', 'spine_02', 'spine_03', 'neck_01', 'Head',
          'thigh_l', 'calf_l', 'foot_l', 'ball_l', 'thigh_r', 'calf_r', 'foot_r', 'ball_r')
 NAME = 'Goblin_Lauer_Loop'
@@ -143,6 +144,12 @@ B = []
 for f in range(1, n + 2, 5):
     scn.frame_set(f); bpy.context.view_layer.update(); B.append((round(W('ball_l').z, 2), round(W('ball_r').z, 2)))
 print('LAUER Ballen je 5 Bilder', B)
+# Runde 7: Abstand der Fäuste zum Mund quer zur Blickrichtung der Kampfkamera (in der Figur gemessen, probe.gd „Mess Kamera“)
+KAM = Vector((0.40, -0.84, 0.37)).normalized()
+scn.frame_set(1); bpy.context.view_layer.update()
+MUND = W('Head') + Vector((0, -0.12, 0.05))
+quer = lambda p: ((p - MUND) - KAM * (p - MUND).dot(KAM)).length
+print('LAUER Faust-Mund quer zur Kamera r %.2f l %.2f m' % (quer(W('hand_r')), quer(W('hand_l'))))
 scn.frame_set(1); bpy.context.view_layer.update()
 print('LAUER Füße l %s r %s, Knie l %s r %s, Ballen z %.3f %.3f' % tuple([tuple(round(x, 2) for x in W(b) - P0) for b in ('foot_l', 'foot_r', 'calf_l', 'calf_r')] + [W('ball_l').z, W('ball_r').z]))
 
@@ -301,16 +308,22 @@ if HIEB_ART == 'lauer':
 HIEB_KLINGE_LAUER = Vector((-0.1, -0.8, 0.6)).normalized()
 HIEB_SCHLUESSEL = [     # Zeit, Rumpf DREH, VOR (Grad), Hand, Ellbogen-Pol, Klinge; None = Lauer
     (0.0, None),
-    (0.20, -16, -8, (-0.24, 0.28, 1.56), (-1.0, -0.3, 0.4), (-0.15, 0.85, 0.20)),
-    (0.24, -17, -9, (-0.24, 0.29, 1.57), (-1.0, -0.3, 0.4), (-0.15, 0.86, 0.15)),
-    (0.31, -6, 0, (-0.30, -0.12, 1.40), (-1.0, -0.2, 0.0), (-0.55, -0.20, 0.80)),
-    (0.40, 6, 10, (-0.08, -0.52, 1.06), (-0.7, 0.0, -0.7), (0.20, -0.72, -0.66)),
-    (0.46, 7, 11, (-0.07, -0.52, 1.03), (-0.7, 0.0, -0.7), (0.22, -0.70, -0.68)),
+    # Runde 7 (Chefsache 34812-goblin-hieb, Chef 27.10., 09:49 „CC0“, Befunde der fremden Prüfung r6): Ausholen höher und neben
+    # dem Kopf (Hand 0,47 m über der Schulter, 0,25 m nach außen; r6 hinter dem Kopf, Klinge nach hinten am Schirm senkrecht), Klinge
+    # schräg nach hinten oben außen; die Hand bleibt im Schlag über Kopfhöhe, bis die Klinge vorn ist (0,36 s; r6 waagrecht auf
+    # Kopfhöhe wie ein Stich); Aufschlag mit gestrecktem Arm vor der Schulter, Klinge zum Gegner, im Spiel gemessen 20° abwärts (r6 37°; geruest.py neigt sie um 12° mehr als hier entworfen)
+    (0.20, -20, -8, (-0.36, 0.10, 1.60), (-1.0, 0.2, 0.3), (-0.40, 0.45, 0.80)),
+    (0.24, -21, -9, (-0.37, 0.11, 1.61), (-1.0, 0.2, 0.3), (-0.42, 0.47, 0.78)),
+    (0.31, -6, 2, (-0.30, -0.18, 1.55), (-1.0, -0.2, 0.2), (-0.35, -0.45, 0.82)),
+    (0.36, 2, 6, (-0.20, -0.40, 1.40), (-0.9, -0.1, -0.3), (-0.20, -0.80, 0.56)),
+    (0.40, 6, 12, (-0.10, -0.58, 1.02), (-0.7, 0.0, -0.7), (0.0, -0.99, -0.15)),
+    (0.46, 7, 13, (-0.09, -0.59, 1.00), (-0.7, 0.0, -0.7), (0.02, -0.98, -0.19)),
     (0.80, None)]
 # im fertigen Goblin (geruest.py überträgt auf sein Gerüst) stand die Klinge in Ausholen und Aufschlag 24–27° weiter gegen den
 # Uhrzeigersinn (von oben) als hier entworfen, in der Lauer genau; HIEB_GIER dreht den Entwurf um so viel zurück (gemessen im GLB)
 HIEB_GIER = float(os.environ.get('HIEB_GIER', '-25'))
-HIEB_WEG = {0.0: 'weich', 0.20: 'linear', 0.24: 'an', 0.31: 'linear', 0.40: 'weich', 0.46: 'weich'}     # Verlauf vom Schlüssel bis zum nächsten
+HIEB_ROLLE = os.environ.get('HIEB_ROLLE', '1') == '1'
+HIEB_WEG = {0.0: 'weich', 0.20: 'linear', 0.24: 'an', 0.31: 'linear', 0.36: 'linear', 0.40: 'weich', 0.46: 'weich'}     # Verlauf vom Schlüssel bis zum nächsten
 
 
 def drehe(b, achse, grad):     # Knochen b um eine Weltachse an seinem Kopf
@@ -341,6 +354,16 @@ def hieb_pose(dreh, vor, hand, pol, klinge):
     x = (a * a - b_ * b_ + d * d) / (2 * d); hh = math.sqrt(max(a * a - x * x, 0.0))
     p = Vector(pol); v = (p - u * p.dot(u)).normalized()
     richte('upperarm_r', S + u * x + v * hh); richte('lowerarm_r', T)
+    # Runde 7 (Knick im Handgelenk bis 80°): der Unterarm dreht sich um seine Achse (Pronation), bis die Klinge ohne Handgelenk in
+    # derselben Ebene liegt wie die gewollte; das Handgelenk biegt danach nur noch den Unterschied der Neigung
+    ziel = Matrix.Rotation(math.radians(HIEB_GIER), 3, 'Z') @ Vector(klinge).normalized()
+    pb = PB['lowerarm_r']; A = pb.matrix.col[1].xyz.normalized(); h = pb.matrix.translation.copy()
+    N = (PB['hand_r'].matrix.to_3x3() @ KH).normalized()
+    pn, pt = N - A * N.dot(A), ziel - A * ziel.dot(A)
+    if pn.length > 1e-4 and pt.length > 1e-4 and HIEB_ROLLE:
+        w = pn.angle(pt) * (1 if A.dot(pn.cross(pt)) >= 0 else -1)
+        pb.matrix = Matrix.Translation(h) @ Matrix.Rotation(w, 4, A) @ Matrix.Translation(-h) @ pb.matrix
+        bpy.context.view_layer.update()
     R = PB['hand_r'].matrix.to_3x3()
     q = (R @ KH).normalized().rotation_difference(Matrix.Rotation(math.radians(HIEB_GIER), 3, 'Z') @ Vector(klinge).normalized())
     PB['hand_r'].matrix = Matrix.Translation(PB['hand_r'].matrix.translation) @ (q.to_matrix() @ R).to_4x4()
@@ -379,8 +402,10 @@ if HIEB_ART == 'eigen':
         kopf = PB['Head'].matrix.translation + PB['Head'].matrix.col[1].xyz.normalized() * 0.1
         t = max(0.0, min(LANG, (kopf - H).dot(kl))); ab = (H + kl * t - kopf).length
         knick = math.degrees(PB['lowerarm_r'].matrix.col[1].xyz.normalized().angle(PB['hand_r'].matrix.col[1].xyz.normalized()))
-        print('HIEB_EIGEN %.2f s Hand %s Spitze %s Klinge %s Kopf %.2f Knick %3.0f' % (i / FPS_Q, tuple(round(c, 2) for c in H),
-              tuple(round(c, 2) for c in sp), tuple(round(c, 2) for c in kl), ab, knick))
+        print('HIEB_EIGEN %.2f s Hand %s Spitze %s Klinge %s Kopf %.2f Knick %3.0f Unterarm %s Klinge-Unterarm %3.0f' % (i / FPS_Q,
+              tuple(round(c, 2) for c in H), tuple(round(c, 2) for c in sp), tuple(round(c, 2) for c in kl), ab, knick,
+              tuple(round(c, 2) for c in PB['lowerarm_r'].matrix.col[1].xyz.normalized()),
+              math.degrees(PB['lowerarm_r'].matrix.col[1].xyz.normalized().angle(kl))))
 for s_ in 'lr':
     PB['calf_' + s_].constraints.remove(ziele[s_][2])
     bpy.data.objects.remove(ziele[s_][0]); bpy.data.objects.remove(ziele[s_][1])
