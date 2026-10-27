@@ -63,16 +63,6 @@ bpy.ops.object.mode_set(mode='EDIT'); bpy.ops.mesh.select_all(action='SELECT')
 bpy.ops.uv.select_all(action='SELECT'); bpy.ops.uv.average_islands_scale()   # Augeninseln auf die Dichte des Rests
 bpy.ops.uv.pack_islands(margin=0.004)
 bpy.ops.object.mode_set(mode='OBJECT')
-# 348.6 Kettenhemd fern (Helfer: grauer Filz mit Metallton): Bildmass der Kette (UV je cm) fuer den Glitzer je Ring in toon.gdshader
-MASSE = {}
-_uv = _cm = 0.0
-for o in meshes:
-    me = o.data; uvd = me.uv_layers.active.data
-    for p in me.polygons:
-        if not me.materials or me.materials[min(p.material_index, len(me.materials) - 1)].name.split('.')[0] != 'chain': continue
-        u = [uvd[li].uv for li in p.loop_indices]
-        _uv += abs(sum(u[i].x * u[i - 1].y - u[i - 1].x * u[i].y for i in range(len(u)))) / 2; _cm += p.area
-if _cm > 0: MASSE['kette_uv_je_cm'] = round(math.sqrt(_uv / _cm), 6); MASSE['kette_ring_cm'] = float(os.environ.get('KETTE_RING', '2.0'))   # wie held3.py
 scn.render.bake.target = 'IMAGE_TEXTURES'; scn.render.bake.margin = 6
 bpy.ops.object.bake(type='EMIT')
 img.filepath_raw = OUT + '/held-albedo.png'; img.file_format = 'PNG'; img.save()
@@ -607,7 +597,6 @@ if GERUEST == 'cc0':   # Gang und Haltungen unten entfallen (348.12): Knochen un
     for s in 'RL':
         if (LP.get('arme') or {}).get(s) == 'haengen': IKW[s] = (Matrix.Identity(3), Matrix.Identity(3))
     LP = dict(LP); LP['_arme'] = {s: (ARME[s], IKW[s]) for s in IKW}
-    LP['_masse'] = MASSE
     geruest.aufs_cc0(held, rig, J, FIGUR, LP, OUT)
     sys.exit(0)
 IM_GANG = ('schulter', 'stab', 'vorn', 'ruecken')
@@ -748,7 +737,7 @@ def ground(sides='RL', fest=None):
     return foot_pts(), low
 def clear():
     for pb in PB: pb.rotation_quaternion = (1, 0, 0, 0); pb.location = (0, 0, 0)
-INFO = dict(MASSE)
+INFO = {}
 def bake_action(name, n, fn, measure=False, sides=None, flug=0.0):
     act = bpy.data.actions.new(name); act.use_fake_user = True
     # 348.6 (Chef 25.10., 18:20: „egal wer steht, so circa im 3 bis 4 Sekunden Takt glitscht dann die Figur und zuckt“): beim
