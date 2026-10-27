@@ -163,7 +163,7 @@ Wer: Jerry. Modell: Stand je Zeile (26.10.); Held: Tom. Vorkommen: Kapitel 1 end
 | giant_spider | Riesenspinne | `:121` | VerminArt | Tiefer Wald, Höhle | Spinne | – | 4 S, 5 R (erste Spinne: Skelett, Gang) |
 | giant_centipede | Riesen-Hundertfüßer | `:155` | VerminArt | Wald am Tag | Insekt | – | 3 S, 4 R (erstes Insekt) |
 | stirge | Stirge | `:150` | VerminArt | Wald | Insekt | – | 2,5 S, 3 R (Flügel) |
-| giant_bat | Riesenfledermaus | `:170` | VerminArt | Wald nachts, Höhle | Vogel | – | 3 S, 4 R (erstes Vogelskelett, auch für Toms Vögel) |
+| giant_bat | Riesenfledermaus | `:170` | VerminArt | Wald nachts, Höhle | Vogel | `fledermaus.py`, Entwurf (Runde 4d, gemessen 27.10.) | 3 S, 4 R (erstes Vogelskelett, auch für Toms Vögel) |
 | ochre_jelly | Ockergallerte | `:180` | VerminArt | Höhle, selten | keins | – | 1,5 S, 2 R |
 
 Je Monster in den S: Bewegungen nach Modellregel 5 (Biss oder Hieb, Treffer, Sturz, Tod), Kontaktblatt, Einbau in den Kampfort.
