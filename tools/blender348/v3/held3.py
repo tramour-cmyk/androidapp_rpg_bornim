@@ -1328,10 +1328,14 @@ def hand(wrist, fore, sg):
     # Runde 4b (Helfer: Haende der Leute wie Krallen): halb geschlossen, Finger beieinander, wie eine ruhende Hand
     # Feinschliff 3 (Fremdpruefung: Aldrics Finger offen und gespreizt am Stab): wer etwas traegt, ballt die rechte Hand
     faust = FIGUR == 'held' or (sg == 1 and bool(FG.get('traegt')))
+    # 348.6 Haende (Helfer Godot nah und Blender 45 Grad: linke Hand Halbmond, rechte „O“-Faust, Griff um etwas, das fehlt): die
+    # Finger rollten nur 126 Grad ein, die Spitzen standen 2 cm vor der Handflaeche, dazwischen ein Loch. Der Held ballt die Faust
+    # geschlossen (250 Grad, Spitzen an der Handflaeche; Fackel und Ding gehen quer durch die Faust); Leute mit Ding wie bisher
+    zu = FIGUR == 'held'
     for i, (off, L, fan) in enumerate(((3.1, 4.1, 5), (1.05, 4.6, 1.5), (-1.05, 4.4, -1.5), (-3.1, 3.5, -6))):
         base = pc + d * 2.8 + fw * off * 0.92
         dirv = Matrix.Rotation(math.radians(fan * (0.3 if faust else 0.4)), 3, palm_n) @ d; pnt = base
-        for seg, (ln, cu) in enumerate(((L * 0.46, 34), (L * 0.30, 52), (L * 0.24, 40)) if faust else ((L * 0.46, 22), (L * 0.30, 34), (L * 0.24, 22))):
+        for seg, (ln, cu) in enumerate(((L * 0.46, 80), (L * 0.30, 100), (L * 0.24, 70)) if zu else ((L * 0.46, 34), (L * 0.30, 52), (L * 0.24, 40)) if faust else ((L * 0.46, 22), (L * 0.30, 34), (L * 0.24, 22))):
             dirv = (Matrix.Rotation(math.radians(cu), 3, axis) @ dirv)
             nxt = pnt + dirv * ln
             capsule(pnt, nxt, 0.86 - 0.07 * seg, 0.8 - 0.07 * seg, HM)
@@ -1340,6 +1344,9 @@ def hand(wrist, fore, sg):
     tb = pc - d * 1.4 + fw * 3.3 + palm_n * 0.8
     t1 = tb + (d * 0.75 + fw * 0.35 + palm_n * 0.25).normalized() * 2.6
     t2 = t1 + (d * 0.95 + fw * 0.05 + palm_n * 0.3).normalized() * 2.1
+    if zu:   # geschlossene Faust: Daumen ueber Zeige- und Mittelfinger (Mittelglieder), nicht daneben
+        t1 = tb + (d * 0.8 - fw * 0.1 + palm_n * 0.6).normalized() * 2.6
+        t2 = pc + d * 2.1 + fw * 1.0 + palm_n * 2.9
     capsule(tb, t1, 1.15, 0.98, HM); capsule(t1, t2, 0.98, 0.82, HM)
 for s_, sg in (('R', 1), ('L', -1)):
     w_ = J['wr' + s_][0]; f_ = J['fo' + s_][0]

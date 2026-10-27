@@ -184,4 +184,12 @@ for an in ('Stehen', 'Gehen'):
     scn.frame_set(f0 if an == 'Stehen' else f0 + (f1 - f0) // 2)
     for n, az in (('l', 90), ('hl', 135), ('hr', 225), ('r', 270)):
         shot('k_%s_%s' % (an.lower(), n), az, 15, Vector((0, 0, sz)), 0.75, 240, 240)
+# 348.6 Haende (Helfer Godot nah: linke Hand Halbmond, Schwerthand „O“-Faust): HANDNAH=1 je Hand im Stehen, 45 Grad wie die
+# Spielkamera, von vorn, aussen und hinten
+if os.environ.get('HANDNAH') == '1' and 'Stehen' in acts:
+    act = acts['Stehen']; rig.animation_data.action = act; scn.frame_set(int(act.frame_range[0]))
+    for b, s in (('hand_r', 'r'), ('hand_l', 'l')):
+        pb_ = rig.pose.bones[b]; c_ = rig.matrix_world @ ((pb_.head + pb_.tail) * 0.5)
+        for n, az in (('vorn', 0), ('aussen', 90 if s == 'r' else 270), ('hinten', 180)):
+            shot('m_hand%s_%s' % (s, n), az, 45, c_, 0.32, 360, 360)
 print('PB OK')
