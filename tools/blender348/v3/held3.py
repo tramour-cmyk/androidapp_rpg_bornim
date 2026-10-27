@@ -278,18 +278,33 @@ def chain_rings(nt):
     comb = nt.nodes.new('ShaderNodeCombineXYZ')
     nt.links.new(u, comb.inputs[0]); nt.links.new(sep.outputs['Z'], comb.inputs[1])
     vor = nt.nodes.new('ShaderNodeTexVoronoi'); vor.voronoi_dimensions = '2D'
-    vor.inputs['Scale'].default_value = 0.62; vor.inputs['Randomness'].default_value = 0.0
+    # 348.6 Kettenhemd (Helfer Godot nah: liest sich als Stoff, keine Ringe): Ringe 1,6 cm verschwanden in der Nahstufe (1,6 Bildpunkte
+    # je cm) zur glatten Flaeche; beim Helden groesser (KETTE_RING, Ring in cm)
+    vor.inputs['Scale'].default_value = 1.0 / float(os.environ.get('KETTE_RING', '2.2')) if FIGUR == 'held' else 0.62; vor.inputs['Randomness'].default_value = 0.0
     nt.links.new(comb.outputs[0], vor.inputs['Vector'])
+    RING_VOR[0] = vor
     d = vor.outputs['Distance']
     ring = math_node(nt, 'ABSOLUTE', math_node(nt, 'SUBTRACT', d, 0.40))
     # 1 auf dem Ring, 0 im Loch und zwischen den Ringen
     r = math_node(nt, 'SUBTRACT', 1.0, math_node(nt, 'MULTIPLY', ring, 7.0))
     return math_node(nt, 'MAXIMUM', r, 0.0)
 
+RING_VOR = [None]
 def chain_color(nt):
     r = chain_rings(nt)
-    hi = rgb_node(nt, COL['chain'], 1.12); lo = rgb_node(nt, COL['chain'], float(os.environ.get('KETTE_LO', '0.75')) if FIGUR == 'held' else 0.42)
-    return mixc(nt, r, lo, hi)
+    # 348.6 Kettenhemd: KETTE_LO 0,75 (heller, 18d0a9352) nahm den Ringen den Kontrast (1,12 zu 0,75); beim Helden Ringe hell, Fugen
+    # dunkel bei gleichem Mittel (0,88), dazu jeder Ring etwas anders hell (KETTE_STREU), matt wie Stahl in der Signatur
+    held_ = FIGUR == 'held'
+    hi = rgb_node(nt, COL['chain'], float(os.environ.get('KETTE_HI', '1.42')) if held_ else 1.12)
+    lo = rgb_node(nt, COL['chain'], float(os.environ.get('KETTE_LO', '0.58')) if held_ else 0.42)
+    c = mixc(nt, r, lo, hi)
+    streu = float(os.environ.get('KETTE_STREU', '0.3')) if held_ else 0.0
+    if streu > 0:
+        sp = nt.nodes.new('ShaderNodeSeparateColor'); nt.links.new(RING_VOR[0].outputs['Color'], sp.inputs[0])
+        f = math_node(nt, 'MULTIPLY_ADD', sp.outputs[0], streu, 1.0 - streu * 0.5)
+        vm = nt.nodes.new('ShaderNodeVectorMath'); vm.operation = 'SCALE'; nt.links.new(c, vm.inputs[0]); nt.links.new(f, vm.inputs['Scale'])
+        c = vm.outputs[0]
+    return c
 
 make_mat('skin', 1, lambda nt: rgb_node(nt, COL['skin']))
 make_mat('chain', 2, chain_color, bump_fn=chain_rings)
@@ -1338,14 +1353,25 @@ def hand(wrist, fore, sg):
     # Finger rollten nur 126 Grad ein, die Spitzen standen 2 cm vor der Handflaeche, dazwischen ein Loch. Der Held ballt die Faust
     # geschlossen (250 Grad, Spitzen an der Handflaeche; Fackel und Ding gehen quer durch die Faust); Leute mit Ding wie bisher
     zu = FIGUR == 'held'
+    schl = []   # Punkte je Fingerschleife (Faust)
     for i, (off, L, fan) in enumerate(((3.1, 4.1, 5), (1.05, 4.6, 1.5), (-1.05, 4.4, -1.5), (-3.1, 3.5, -6))):
         base = pc + d * 2.8 + fw * off * 0.92
-        dirv = Matrix.Rotation(math.radians(fan * (0.3 if faust else 0.4)), 3, palm_n) @ d; pnt = base
+        dirv = Matrix.Rotation(math.radians(fan * (0.3 if faust else 0.4)), 3, palm_n) @ d; pnt = base; schl.append([base])
         for seg, (ln, cu) in enumerate(((L * 0.46, 80), (L * 0.30, 100), (L * 0.24, 70)) if zu else ((L * 0.46, 34), (L * 0.30, 52), (L * 0.24, 40)) if faust else ((L * 0.46, 22), (L * 0.30, 34), (L * 0.24, 22))):
             dirv = (Matrix.Rotation(math.radians(cu), 3, axis) @ dirv)
             nxt = pnt + dirv * ln
             capsule(pnt, nxt, 0.86 - 0.07 * seg, 0.8 - 0.07 * seg, HM)
-            pnt = nxt
+            pnt = nxt; schl[-1].append(pnt)
+    # 348.6 Faust (Helfer Godot nah: Dreiecksloch in der Faust; pruef_faust: je Hand 0,8 cm3 Hohlraum in den Fingerschleifen, offen zur
+    # Zeigefingerseite): jede Schleife innen gefuellt, Fuellkoerper bis 0,5 cm in die Finger; FAUSTVOLL=0 wie vorher
+    if zu and os.environ.get('FAUSTVOLL', '1') == '1':
+        def abst(q, a, b):
+            ab = b - a; t = max(0.0, min(1.0, (q - a).dot(ab) / ab.dot(ab))); return (a + ab * t - q).length
+        mit = []
+        for pts in schl:
+            cen = sum(pts, P(0, 0, 0)) / len(pts); r_ = min(abst(cen, pts[k], pts[k + 1]) for k in range(len(pts) - 1)) + 0.5
+            mit.append((cen, r_))
+        for k in range(len(mit) - 1): capsule(mit[k][0], mit[k + 1][0], mit[k][1], mit[k + 1][1], HM)
     # Daumen: vorn seitlich an der Hand, locker neben dem Zeigefinger, Spitze leicht zur Handflaeche
     tb = pc - d * 1.4 + fw * 3.3 + palm_n * 0.8
     t1 = tb + (d * 0.75 + fw * 0.35 + palm_n * 0.25).normalized() * 2.6
@@ -1354,6 +1380,8 @@ def hand(wrist, fore, sg):
         t1 = tb + (d * 0.8 - fw * 0.1 + palm_n * 0.6).normalized() * 2.6
         t2 = pc + d * 2.1 + fw * 1.0 + palm_n * 2.9
     capsule(tb, t1, 1.15, 0.98, HM); capsule(t1, t2, 0.98, 0.82, HM)
+    if zu and os.environ.get('FAUSTVOLL', '1') == '1':   # Rest (0,2 cm3) im Winkel Daumen, Handflaeche, Zeigefinger: Daumenballen
+        capsule(tb, (t1 + schl[0][1]) * 0.5, 1.0, 0.8, HM)
 for s_, sg in (('R', 1), ('L', -1)):
     w_ = J['wr' + s_][0]; f_ = J['fo' + s_][0]
     before = set(bpy.data.objects)
