@@ -46,6 +46,7 @@ REGELN = """## So geht's
 - Zu billigen (Vorentscheid, 194.1): `billigen/<nr>-<stichwort>.md`, Aufbau wie bei „entscheiden“, Votum = Entschieden, plus: Umgesetzt (Commit), Rückbau, Kosten; in der Auswertung bei Balance und Spielgefühl die verworfene Möglichkeit. Hält keine Arbeit an; Antwort „gebilligt“ oder „zurück“, Sokrates löscht die Datei und setzt „gebilligt TT.MM.“ oder „zurück TT.MM.“ in die Archivzeile.
 - Bilder in `bilder/`: JPG oder WebP, höchstens 800 px breit und 60 KB, höchstens 3 je Punkt. Größere Bilder und Hörproben nur über Telegram (`meldung.sh --datei`), in der Datei vermerkt: „Großbild: Telegram TT.MM. HH:MM“. Ablage im Zweig `bilder` als `bilder:<pfad>` (z. B. `[Film](bilder:pruefung/x.mp4)`); die Übersicht macht daraus Links, Filme spielen im Browser (381.1).
 - **Überarbeiten** (275, Chef 27.10., 15:23: „sonst schaue ich es mir am Schluss zweimal an“): wer eine Vorlage überarbeitet, löscht die Datei sofort und legt sie neu an, wenn die neue Fassung fertig ist; nie „folgt“, „kommt nach“ in einer Vorlage (die Übersicht meldet es unter „Lücken“).
+- **Beantwortet oder zurück beim Team** (383.3, Chef 27.10., 19:55: „Sachen, die nicht mehr zur Vorlage sind, dann weg … Das ist kein Arbeiten so.“): wer eine Antwort des Chefs zu einer Vorlage einträgt (Vorgangsarchiv oder Vorrat), löscht die Datei im selben Commit, auch die eines anderen; bleibt ein Teil offen, legt der Besitzer sie neu an, sobald sie vorlegbar ist. Gilt die Antwort einer anderen Frage derselben Nummer, setzt er die Zeit in Zeile 1 oder 2 neu. Die Commit-Prüfung hält einen Archiveintrag an, dessen Vorlage stehen bleibt; Übersehenes meldet die Übersicht unter „Lücken“.
 - Zu tun (275): `tun/<nr>-<stichwort>.md`, Zeile 1 `# <Nr.> · <was der Chef tun soll>`, Zeile 2 `<Absender> · <TT.MM.>, <HH:MM> · <Bereich>`, dann der Satz zum Kopieren als Codeblock oder der Weg in Schritten; erledigt heißt Datei löschen (wer sie angelegt hat). Ein „wartet auf Chef“ ohne Datei hier meldet `startbar.py` als Leiche.
 - Telegram-Sprungmarke `[72s.1](cs:72s1)` führt auf die Datei (`tools/meldung.sh`).
 """
@@ -181,11 +182,17 @@ def luecken():
         for n in (sorted(os.listdir(pfad)) if os.path.isdir(pfad) else []):
             if n.endswith(".md") and re.search(r"\b(folgen|folgt)\s+(hier|später|bald)\b|\b(folgen|folgt|kommen|kommt)\b[^.\n]{0,30}\bnach der (Fehler)?[Pp]rüfung|in Überarbeitung", open(os.path.join(pfad, n), encoding="utf-8").read()):
                 alt.append(f"{ordner}/{n}")
+    try:  # 383.3: beantwortete Vorlagen, die noch stehen
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import startbar
+        beantw = ["%s (Antwort %s, %s)" % (f, nr, w.strftime("%d.%m., %H:%M")) for f, nr, w in startbar.beantwortet()]
+    except Exception:
+        beantw = []
     form = formfehler()
-    if not nicht and not ohne and not form and not alt: return ""
+    if not nicht and not ohne and not form and not alt and not beantw: return ""
     teile = ["## Lücken\n\nVom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.\n"]
     if form: teile.append("Format (Muster: „So geht's“ unten): " + "; ".join(form) + "\n")
     if nicht: teile.append("Nicht gestellt: " + ", ".join(f"{nr} ({wer})" for nr, wer in nicht) + "\n")
+    if beantw: teile.append("Beantwortet, Datei noch da (383.3: der Absender löscht sofort): " + ", ".join(beantw) + "\n")
     if alt: teile.append("In Überarbeitung, aus der Chefsache nehmen, bis die neue Fassung fertig ist: " + ", ".join(alt) + "\n")
     if ohne: teile.append("Ohne Datei: " + ", ".join(f"{nr} ({wer})" for nr, wer in ohne) + "\n")
     return "\n".join(teile)
