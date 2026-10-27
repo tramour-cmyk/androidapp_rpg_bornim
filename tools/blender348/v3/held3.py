@@ -636,6 +636,16 @@ def shell(name, mask, off, mat, thick=0.5, schnitt=(), auch=None):
         weg = [f for f in bm.faces if any(v in vs for v in f.verts) and (f.calc_center_median() - co).dot(no) > 0]   # nur Flaechen mit Armecken
         bmesh.ops.delete(bm, geom=weg, context='FACES')
     if schnitt: bm.normal_update()
+    if name == 'chain' and KRAGEN_SAUM > 0:   # 348.6 Kragen (Helfer: Strick-Rollkragen, weicher Rand ohne Metallkante): Lederborte oben
+        nk_ = Vector(J['neck'][0])                # am Halsrohr (Hals 5,4 cm), nicht auf Brust und Schultern; Schnitt fuer die gerade Kante
+        global KRAGEN_UNTEN
+        rand_ = [v.co.z for e in bm.edges if e.is_boundary for v in e.verts if (v.co.xy - nk_.xy).length < KRAGEN_R and v.co.z > shoulderY]
+        KRAGEN_UNTEN = min(rand_) - KRAGEN_SAUM   # unter dem tiefsten Punkt des Halsrands, sonst zackt die Borte
+        print('KRAGEN Rand', round(min(rand_), 2), round(max(rand_), 2), 'Borte ab', round(KRAGEN_UNTEN, 2))
+        fs = [f for f in bm.faces if (f.calc_center_median().xy - nk_.xy).length < KRAGEN_R and f.calc_center_median().z > KRAGEN_UNTEN - 2]
+        bmesh.ops.bisect_plane(bm, geom=fs + list({e for f in fs for e in f.edges}) + list({v for f in fs for v in f.verts}),
+                               plane_co=Vector((0, 0, KRAGEN_UNTEN)), plane_no=Vector((0, 0, 1)), dist=0.01)
+        bm.normal_update()
     for v in bm.verts: v.co = v.co + v.normal * off
     me2 = bpy.data.meshes.new(name); bm.to_mesh(me2); bm.free()
     o = bpy.data.objects.new(name, me2); link(o); o.data.materials.append(MATS[mat])
@@ -643,6 +653,11 @@ def shell(name, mask, off, mat, thick=0.5, schnitt=(), auch=None):
     if thick and not (EINLAGIG and name in ('chain', 'sleeves')):
         so = o.modifiers.new('so', 'SOLIDIFY'); so.thickness = thick; so.offset = -1; so.use_even_offset = False   # CC0 Runde 4: gleichmaessige Dicke stach an den Achseln 50 cm lange Nadeln aus der Schale (Jorin, Garrick, Ruhelage)
         apply_mods(o)
+    if name == 'chain' and KRAGEN_SAUM > 0:
+        o.data.materials.append(MATS['cuff']); nk_ = Vector(J['neck'][0])
+        for p in o.data.polygons:   # die Schale erbt die Nummern des Koerpers (Hose 1), mit einem Material galt das als 0
+            p.material_index = 0
+            if (p.center.xy - nk_.xy).length < KRAGEN_R + off + thick and p.center.z > KRAGEN_UNTEN: p.material_index = 1
     return o
 
 Z = BV[:, 2]
@@ -659,6 +674,8 @@ for s in 'RL':
     side = seg_is(BLAB, 'sh' + s + '-', 'up' + s + '-el', 'up' + s)
     upper_part |= side & (t < 0.75)
 HEM = hipY - 0.06 * H
+KRAGEN_R = float(os.environ.get('KRAGEN_R', '7.0'))   # Halsrohr des Kettenhemds: Abstand zur Halsachse (cm)
+KRAGEN_SAUM = float(os.environ.get('KRAGEN_SAUM', '0')) if FIGUR == 'held' else 0.0       # Lederborte oben (cm), 0 aus
 chain_mask = ((trunkm & (Z > 40)) | upper_part | (legs & (Z > HEM - 2) & seg_is(BLAB, 'hip'))) & (Z > HEM) & (Z < 152)
 chain_mask |= upper_part
 # Feinschliff 9 (Fremdpruefung Feinschliff 8: dunkle Zacken und Zinnen unter dem Saum am Oberarm, Jorin, Bram): der Saum folgte den
