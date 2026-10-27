@@ -646,15 +646,6 @@ func strike(other, e: Dictionary) -> int:
 	return ms
 
 
-## Heilung oder Segen (Helfer Runde 2: Heilung ohne erkennbaren Wirkenden): der Wirkende wendet sich dem Ziel zu, das Licht
-## geht von ihm aus (zauber.gd); ohne „Ausholen“ (Prüfer Runde 3: klappte den Schild heraus „wie ein zweiter Schild“)
-func bless(other) -> void:
-	if other == self:
-		return
-	_face(other.position - position)
-	get_tree().create_timer(0.8).timeout.connect(func(): _face())
-
-
 ## Halbe Breite am Boden, wie der Bodenschatten (Wolf 1,1 m lang, halb seitlich gesehen; Mensch 0,3 m)
 func body_r() -> float:
 	if fighter.monster != null and fighter.monster.id == Mars.WOLF:

@@ -234,8 +234,6 @@ func _still(path: String) -> void:
 			elif kind == "HEAL":
 				on_id = mates[0].id
 			for n in (3 if kind == "RAYS" else 1):
-				if kind in ["HEAL", "BLESS"]:
-					fight.figures[by2.id].bless(fight.figures[on_id])
 				fight.ui.cast(kind, by2.id, on_id, false, OS.get_environment("ZAUBERDANEBEN") != "")
 				var t1: float = fight.clock_ms
 				for at in ([0, 120, 250, 350, 500, 700] if n == 0 else [120]):

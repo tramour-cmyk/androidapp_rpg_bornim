@@ -379,12 +379,13 @@ func _fireball(p: float, from: Vector2, to: Vector2, ground: float, u: float) ->
 
 
 ## Heilung: warmes Licht sammelt sich im Körper, Funken von ringsum, ein Schein schwillt in der Brust und vergeht. Helfer
-## Runde 2 (Heilung ohne erkennbaren Wirkenden): erst leuchten die Hände des Wirkenden, von dort zieht das Licht zum Ziel
+## Runde 2 (Heilung ohne erkennbaren Wirkenden): erst leuchtet es am Wirkenden, von dort zieht das Licht zum Ziel; er selbst
+## bleibt dem Feind zugewandt (Prüfer Runde 3: „Ausholen“ klappte den Schild heraus, Drehen zeigte den Wölfen den Rücken)
 func _mending(p: float, src: Vector2, chest: Vector2, u: float, c: Color, core: Color) -> void:
 	var f := _fade(p)
 	# am Wirkenden deutlich (Prüfer Runde 3: „leuchtet kaum“), das Licht zieht fast gerade hinüber (zog im weiten Bogen ans Bildende)
 	var hand := sin(clampf(p / 0.5, 0.0, 1.0) * PI)
-	_glow(src, 30 * u, [_a(core, 0.85 * hand), _a(c, 0.4 * hand), NONE])
+	_glow(src, 22 * u, [_a(core, 0.7 * hand), _a(c, 0.3 * hand), NONE])     # Runde 3b: 30 machte das Bild heller als alt
 	if src.distance_to(chest) > 8 * u:
 		for i in 10:
 			var t := clampf((p - 0.05 - i * 0.025) / 0.35, 0.0, 1.0)
@@ -397,7 +398,7 @@ func _mending(p: float, src: Vector2, chest: Vector2, u: float, c: Color, core: 
 	_glow(chest, 26 * u, [_a(c, 0.22 * swell), NONE], 60.0 / 26.0)
 	for i in 24:
 		var a := _rf() * TAU
-		var d0 := (30 + _rf() * 22) * u
+		var d0 := (18 + _rf() * 14) * u     # Prüfer Runde 3b: Lichtwolke trieb bis an die Wölfe
 		var t := clampf((p - _rf() * 0.35) / 0.6, 0.0, 1.0)
 		if t <= 0.0 or t >= 1.0:
 			continue
@@ -474,7 +475,7 @@ func _arrow_lands(p: float, from: Vector2, hit: Vector2, u: float) -> void:
 	var flash := clampf(1.0 - s / 0.2, 0.0, 1.0)
 	if flash > 0.0:
 		_glow(hit, 7 * u, [_a(WARM_WHITE, 0.5 * flash), NONE])
-	_burst(hit, s / 0.45, u * 1.1, [DUST, Color("c8b08a")], 10, 16.0)
+	_burst(hit, s / 0.3, u * 0.6, [DUST, Color("6a5a44")], 8, 14.0)     # Runde 3b: helle Scheiben „wie Flecken“
 
 
 ## Ein Effekt bei p (0..1) von source nach target; ground: Boden unter dem Ziel (drawFx)
@@ -484,6 +485,8 @@ func draw_fx(kind: String, sd: int, p: float, source: Vector2, target: Vector2, 
 	var hit := Vector2(target.x + (_rf() - 0.5) * 14 * u, target.y + (_rf() - 0.5) * 14 * u)
 	if exact:
 		hit = target
+	elif kind == "ARROW":
+		hit.y += 9 * u     # Prüfer Runde 3b: steckte im Auge; Hals und Brust
 	match kind:
 		"ARROW":
 			_arrow(p, source, hit, u)

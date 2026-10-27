@@ -700,8 +700,6 @@ func _play_say(e: Dictionary) -> void:
 	if across and (e.roll != null or e.spell != null or e.cue == "DUCKED"):
 		lunge_ms = figures[actor].strike(figures[target], e)
 		busy_ms = figures[actor].busy_ms
-	elif e.spell in ["HEAL", "BLESS"] and figures.has(actor) and figures.has(target):
-		figures[actor].bless(figures[target])
 	for id in e.intents:
 		var aimed: Array = e.intents[id][1]
 		figures[id].announce(e.intents[id][0], figures.get(aimed[0]) if aimed.size() > 0 else null)
