@@ -66,6 +66,8 @@ RUTE_SENKEN = 0.6     # d: im Tod liegt die Rute ab diesem Anteil der Bewegung f
 RUTE_STRECK = 0.85     # d: so weit richtet sich die Rute im Tod nach hinten aus (Rest: Biegung der Quelle)
 RUTE_DECKEL = float(os.environ.get('RUTE_DECKEL', '0.10'))     # d: im Treffer kein Gliedende mehr als so viel über dem ersten Bild (m, Quelle)
 RUTE_DICKE = 0.03     # c (Helfer Runde b: im Tod liegt die Rute „wie abgetrennt“, bis 19 cm im Boden): Rutenknochen so hoch über dem Boden
+RUTE_BIEGE = float(os.environ.get('RUTE_BIEGE', '18'))     # Rutenursache: höchstens so viel Grad Knick von Glied zu Glied (Tod, Treffer)
+RUTE_WURZEL = float(os.environ.get('RUTE_WURZEL', '35'))     # erstes Glied höchstens so steil abwärts (Tod: war −90°)
 RUTE_BODEN = RUTE_DICKE     # (m, Quelle); baue() setzt den Boden aus dem Netz im Stehen       # Rute: 1,6 m in der Quelle, Rumpf mit Kopf 1,4 m; die Rute reichte über den Bildrand
 OHR = float(os.environ.get('OHR', '0.45'))          # Ohren so lang wie in der Quelle mal OHR (Prüfer: „spitze Ohren wie Hörner“)
 # Felle wie ratte.py COATS: (Fell, Sattel, Bauch, Auge); Haut wie ratte.py HAUT, RUTE
@@ -355,6 +357,7 @@ def rute_aus_dem_boden(rig, a, senken=False, deckel=None):
     if slot(a) is not None: rig.animation_data.action_slot = slot(a)
     a0, a1 = int(a.frame_range[0]), int(a.frame_range[1]); summe = []
     kette = [B + 'Tail'] + [B + 'Tail%d' % i for i in range(1, 9)]
+    vorher = None     # Rutenursache: Steigung des vorigen Glieds je Bild (nach dem Setzen)
     for i, nm in enumerate(kette):
         p = pb[nm]; nach = pb[kette[i + 1]] if i + 1 < len(kette) else None
         roh, lage, dboden, dziel = {}, {}, {}, {}
@@ -380,16 +383,27 @@ def rute_aus_dem_boden(rig, a, senken=False, deckel=None):
                 dziel[f] = hin(RUTE_BODEN + max(0.0, min(z0, zstart + (deckel or 0.0)) - RUTE_BODEN) * (1 - k))
             else:
                 dboden[f] = dziel[f] = max(0.0, dboden[f])
+        gesetzt = {}
         for f in range(a0, a1 + 1):
             nb = range(max(a0, f - 3), min(a1, f + 3) + 1)
             frei = senken or deckel is not None
             dz = sum(dziel[g] for g in nb) / len(nb) if frei else max(dziel[g] for g in nb)
             dw = max(dz, dboden[f]) if frei else dz
             u, h, phi = lage[f]; ph = max(-math.pi / 2, min(math.pi / 2, phi + dw))
+            # Rutenursache (Messung Blender = Spiel, Lauf 133): jedes Gliedende lag richtig hoch, aber Glied gegen Glied geknickt
+            # (Treffer +21° dann −56°: Bogen als Haken; Tod erstes Glied −90° senkrecht in den Boden, dann flach: Winkel);
+            # darum höchstens RUTE_BIEGE gegen das vorige Glied, das erste höchstens RUTE_WURZEL abwärts; der Boden geht vor
+            if vorher is None:
+                ph = max(ph, -math.radians(RUTE_WURZEL))
+            else:
+                ph = max(vorher[f] - math.radians(RUTE_BIEGE), min(vorher[f] + math.radians(RUTE_BIEGE), ph))
+            ph = min(math.pi / 2, max(ph, phi + dboden[f]))
+            gesetzt[f] = ph
             q = Rwi @ u.rotation_difference(h * math.cos(ph) + oben * math.sin(ph)).to_matrix() @ Rw
             bpy.context.scene.frame_set(f); ra = roh[f].to_translation()
             p.matrix = Matrix.Translation(ra) @ q.to_4x4() @ Matrix.Translation(-ra) @ roh[f]
             vl.update(); p.keyframe_insert('rotation_quaternion', frame=f)
+        vorher = gesetzt
         summe.append((round(math.degrees(min(dziel.values()))), round(math.degrees(max(dziel.values())))))
     print('RUTE BODEN', a.name, 'senken' if senken else 'heben', 'Deckel', deckel, 'Grad je Glied (min, max)', summe)
     rig.animation_data.action = None
