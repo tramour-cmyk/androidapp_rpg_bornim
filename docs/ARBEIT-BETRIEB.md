@@ -24,6 +24,8 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 ## Eingang
 
+- **Nacht 27./28.10. (Sokrates 00:02, Chef 00:01 Leitung bis Morgen, Archiv „Nacht 27./28.10.“):** jedem Start und Lauf mitgeben: Tom, Jerry arbeiten ohne den Chef weiter, fertige Vorlagen aufs Morgenblatt (Chefsache „ansehen“), gleich die nächste startbare Zeile, nicht warten; höchstens zwei Probeläufe je Vorlage (389), keine 1:1-Kopien („348, Maßstab“); meldet sich jemand „wartet auf Chef“, ihm die nächste Zeile geben. Diogenes 374 erst 8:00.
+
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
 - **Von Tom (27.10., 18:4x):** Fords Zeiten seit dem Selbstneustart eine Stunde vor: Protokoll „19:08“, „19:32“ und Commit „Neustart Tom 19:32“ waren 18:08 und 18:32 (Commit 17:32 UTC; seit 25.10. MEZ = UTC+1). Uhrzeit nur aus `TZ=Europe/Berlin date` (Bekannte Fehler, Zeile 1); beide Zeilen berichtigen.
