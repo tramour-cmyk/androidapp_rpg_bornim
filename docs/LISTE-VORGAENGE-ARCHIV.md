@@ -444,3 +444,5 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 338a | Rückfrage: Umzug Block (D) rot, Held stehen lassen und Dorf weiterbauen? | B Abläufe | M | –; +0,96 $ | Perikles | erledigt |
 | 375 | Werkzeugfehler `lauf.py` aus Fords Eingang: falscher START bei Nachfolger-Titeln, Diogenes startbar ohne Arbeit, Kostenbuchung | B Betrieb | M | 1,52 $ | Perikles | erledigt 27.10. (Betrieb −7,10 $ berichtigt) |
 | 373 | Aussehen, Design, Bewegung, Animation urteilt nur der Chef: Bilder und Videos in den Vorgang und per Telegram, keine Helferrunden über Wirkung, für alle (Chef 27.10., 11:31) | B Abläufe | M | 11,72 $ | Perikles | erledigt |
+| 167.7 | Auslöser: neuer Vorratseintrag startet Sitzung ohne Warten auf Fords Stundenlauf (Chef 18.10.) | B Steuerung | M? |  | Perikles | abgelehnt |
+| 318.1 | Uhrzeit im Chat-Stempel streichen (Messung 25.10.: 42 % daneben) | B Abläufe | – | – | Sokrates | nein |

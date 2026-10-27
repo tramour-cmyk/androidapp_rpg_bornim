@@ -38,7 +38,6 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | Woche | Wochenzählung der Kennzahlen | Q QM | K |  | Diogenes | offen |
 | 145 | Karten je Kapitel zum Drucken | E Welt | K | 6,22 $ | Tom | ruht |
 | 149 | Probewoche Ford mit neuem Modell: Regelverstöße zählen bis 24.10. (Chef) | Q QM | M |  | Diogenes | offen |
-| 167.7 | Auslöser: neuer Vorratseintrag startet Sitzung ohne Warten auf Fords Stundenlauf (Chef 18.10.) | B Steuerung | M? |  | Perikles | abgelehnt |
 | 167.6 | Morgenbericht mit Kennzahlen und Kostenbilanz (Chef 18.10.) | B Steuerung | M | 2,29 $ | Sokrates | Termin |
 | 168.1 | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | G Story | K |  | Jerry | nach Meilenstein |
 | 72u.1 | Umsetzung 72u: Kampfort aus der Karte (Standbild 2, Bau) | E Kampf | K | 2,38 $ | Jerry | freigegeben |
@@ -76,7 +75,6 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 302.3 | Intro und Outro mit Tusche im Zeichner, etwas kräftiger als Intro 4 (Chef 23.10., 10:45) | G Stil | M | –; +6,40 $ | Team Tom | offen |
 | 327 | Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (Chef 23.10., 00:08; vertraulich, Dokument außerhalb des Repos) | F Firma | K | –; +1,26 $ | Sokrates | wartet |
 | 318 | Knappheit per Einstellung: Antwortstil „Knapp“ und Startanhang (Chef 22.10., 21:34) | B Abläufe | M | –; +45,66 $ | Sokrates | beobachten |
-| 318.1 | Uhrzeit im Chat-Stempel streichen (Messung 25.10.: 42 % daneben) | B Abläufe | – | – | Sokrates | nein |
 | 316 | Entschuldigungen und Beichten im Chat: keine neue Regel (Chef 21:19, steht schon in Haltung 5), nur Auslöser suchen (Chef 22.10., 21:16, über Sokrates) | B Abläufe | M | –; +3,26 $ | Sokrates | in Arbeit |
 | 339 | Dashboard „Stand zum Marktstart“, immer aktuell (Plan, Ausgaben, Risiken) (Chef 23.10., 09:08) | B Abläufe | M | – | Perikles | offen |
 | 340 | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Chef 23.10., 09:34) | B Abläufe | M | –; +3,54 $ | Sokrates | entschieden |
