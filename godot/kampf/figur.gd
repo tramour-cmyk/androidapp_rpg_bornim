@@ -926,6 +926,13 @@ func _bite(other, leap: bool) -> int:
 		tween.tween_method(func(x: float): position = _weg_at(ende, b, "Ausweichen zurück", x), 0.0, hb, hb)
 		t_back = hb
 		ende = _weg_at(ende, b, "Ausweichen zurück", hb)
+	elif weg.has("Gehen"):     # r5 (Prüfer r4: der Kaufwolf drehte am Ort des Bisses, der Kopf schwang durch die Heldin): erst rückwärts absetzen
+		var zurueck := ABSETZEN * _scale()
+		var tz := zurueck / maxf(_mps("Gehen"), 0.1)
+		ende = ende - dir * zurueck
+		tween.tween_callback(func(): anim.play("Gehen", 0.1, -float(tempo.get("Gehen", 1.0))))
+		tween.tween_property(self, "position", ende, tz)
+		t_back = tz
 	tween.tween_callback(_walk_home)
 	# bis daheim, damit keiner zu einem Ort schlägt, an dem es nicht mehr steht
 	var heim := Vector2(home.x - ende.x, home.z - ende.z).length()
@@ -1215,6 +1222,10 @@ func dodge(after_ms: int, nm := "") -> void:
 			return
 	_play("Ausweichen", 0.05)
 	get_tree().create_timer(0.45).timeout.connect(_idle)
+
+
+## nach dem Biss ohne „Ausweichen zurück“ der Quelle so weit (Modellmeter) rückwärts, bevor es sich umdreht (Kopf bleibt vor der Heldin)
+const ABSETZEN := 0.6
 
 
 ## Satz beim Ausweichen ohne Wurzelweg der Quelle (Modellmeter, Grad): zur Seite (seitlich, zurück), schräg zurück (seitlich, zurück),
