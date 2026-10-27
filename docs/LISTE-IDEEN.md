@@ -22,6 +22,7 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 
 ### Welt
 
+- **Begehbare Häuser über mehrere Ebenen, mit Kampf** (Chef 27.10., 12:00, an Sokrates: „dann könnten wir sozusagen auch mit unserem Held ein Abenteuer machen, in einem größeren Haus. Über Etagen. Kämpfen sozusagen.“). Befund Sokrates (376): Kapitel 1 hat keine Ebenen (`LISTE-UMZUG-348.md`); braucht Treppen im Wegenetz, Verdecken der oberen Ebene, MARS auf Ebenen, Story (Homer). Bausatz Medieval Village liefert Treppen und Böden. Nach dem Meilenstein.
 - **Hund und Katze reagieren auf den Helden** (Chef 23.10., 08:06, an Sokrates: „Was ist mit Hund und Katze? Haben die auch irgendwelche Geräusche schon, wenn man aus Versehen drüber läuft … Oder auch grundsätzlich, wenn man schon drüber läuft, dass sie dann weggehen oder sich verscheucht fühlen wie die Hühner?“). Befund: Hund (`MapDog`) und Katze (`MapCat`) gehen einen festen Tagesablauf ohne Klang und ohne Reaktion; die Hühner haben beides (83b, 83c). Vorschlag Sokrates: wie die Hühner, Hund steht auf und trottet weg (kurzes Knurren oder Bellen), Katze faucht und springt weg; Bau Tom, Klang Jerry.
 - **Dorfbewohner mit Tätigkeit statt Hin und Her** (Chef 23.10., 08:06, an Sokrates: „die halt auf dem Marktplatz mal 3 Schritte vorwärts, 3 Schritte rückwärts gehen … Die haben halt irgendwie auch nichts zu tun … der Junge könnte ja was spielen und … der eine könnte am Marktstand stehen“). Befund: `VillageDay` kennt nur Ort und Umkreis zum Schlendern. Vorschlag Sokrates: je Bewohner eine Tätigkeit am Halt (Händler am Stand, Junge mit Reifen oder Ball, zwei im Gespräch); Wer was tut, legt Homer fest, bauen soll Tom.
 
@@ -48,6 +49,7 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 - **Rennbilder des Helden früher zeichnen** (Tom 23.10., aus 332): beim ersten Start nach dem Einspielen zeichnet der Held alle Bilder neu (A56: 23,9 s), Rennen zeigt bis dahin das Gehen; Rennbilder der Blickrichtung vor die übrigen Gehbilder ziehen.
 - **Feinschliff aller Figuren und Animationen** (Chef 23.10., 12:54: „genereller Merker für Figuren- und Animationsfeintuning (alle Monster!!! Und Helden)“): Griff, Haltung und Ablauf bei allen Monstern und Helden prüfen und glätten, möglichst zusammen mit der Tusche für Figuren (302.1). Erster Fall: Grak, schwerer Hieb (320, Bilder in Git vor 12:54): im Ausholen Arme vor dem Gesicht, Hände nicht wie beim Holzspalten, Stiel in der Szene zu flach, Doppelblatt im Seitenblick, Schurz kantig, kein Schatten beim Vorspringen. Bau Jerry (Monster) und Tom (Helden).
 
+- **Charaktererstellung mit Gesicht** (Chef 27.10., 12:06, an Sokrates: „so sieht sein Gesicht aus, so färbe ich die Haare, so mache ich den Bart. Ein bisschen dicker, ein bisschen dünner. Das wäre optimal.“): Gesicht, Haarfarbe, Bart, Statur wählbar. Grundlage entscheidet Chefsache 376 (Quaternius-Grundfiguren). → **später:** nach dem Meilenstein.
 - **Dorfhund streicheln** (Chef 20.10., 17:18, an Sokrates, Wortlaut: „Idee, Interaktion mit dem Hund, der im Dorf rumläuft. Eine Aktionstaste haben wir ja eh, dass man den Hund dann vielleicht streicheln kann oder irgend sowas. Oder ihm ein Leckerli geben. Keine Ahnung. Und der macht Wuff. Ja.“). Hund läuft schon (D29.3, `MapDog`). *Pro:* billiger Reiz, das Dorf lebt, Aktionstaste vorhanden. *Contra:* Kür neben 179; braucht neue Bilder (sitzt, wedelt; Tom), einen neuen Klang „Wuff“ (es gibt keinen; Jerry) und eine Zeile von Homer; Leckerli braucht einen Gegenstand. *Sokrates:* klein zuerst: Aktionstaste → Hund wedelt, bellt einmal, eine Zeile; Leckerli erst mit „Begleiter mit Bindung“ (72.15, unten), dort könnte der Hund später mitgehen. → **später** (Vorschlag Sokrates, Urteil Homer)
 - **Dorfhund jault, wenn man ihn überrennt** (Chef 21.10., 12:42, an Tom, Wortlaut: „Feedback Wenn Hund im Dorf "überrannt" wird, ein Winseln oder Jaulen einspielen und ggf. Animation (Kür)“). Gehört zu „Dorfhund streicheln“ (oben): Klang Jerry (es gibt keinen Hundelaut), Bild Tom (`MapDog`, weicht aus oder duckt sich). Kür ohne Zweig.
 - **Handlaterne für Jorin** (66a, 13.10.): Laterne in der freien Hand bei Nacht, neue Haltungen für Gehen, Wache, Abstellen. → **später:** neue Haltungen nach dem Meilenstein; Leerlauf (55) und Licht im Dorf (66) sind erledigt.
@@ -113,6 +115,8 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 
 ### Balance und Attribute
 
+- **48–50 Dungeons, Lehrer, weitere Klassen** (aus dem Vorrat Sokrates, 27.10.): zufallsgenerierte Dungeons und Questhöhlen (48a–48f ja, Archiv bis `f3ec7200`); Lehrer für Waffen-, Rüstungs-, Rettungswurf-Übung und Talente; weitere Klassen, ggf. zum Kauf (`DESIGN-HELDENBAU.md`). → **später:** nach dem Meilenstein Kapitel 1.
+
 - **Stärke, rohe Gewalt:** Truhen oder Gitter ab einem Mindestwert aufbrechen statt nur mit Schlüssel. → **später:** neuer Karteninhalt, Kapitel 2.
 - **Charisma, Gesprächsoptionen:** „Überreden“ oder „Einschüchtern“ bei Wachen, Händlern, Bösewichten, wenn es zur Geschichte passt. → **später:** Vorschlag mit 133 (Vorrat Homer), gebaut in Kapitel 2.
 - **Charisma, Auftreten auf der Karte:** Wanderer und schwächere Monster weichen einem einschüchternden Helden aus. → **später:** nach dem Meilenstein; verschiebt sonst die Messung 38.
@@ -130,12 +134,15 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 
 ### Werkzeuge
 
+- **Testbitte nur mit Abkürzung** (Sokrates 25.10., 07:4x; Anlass t89.4: Lyra beim Chef längst befreit, „Bosse zurücksetzen“ setzt `LYRA_RESCUED` nicht zurück, Chef hätte neu durchspielen müssen): verlangt ein Punkt einen Spielstand, den der Chef wahrscheinlich nicht mehr hat, liefert das Team den Weg dorthin im Testreiter mit, sonst nicht in die Testbitte. Gilt auch für Godot.
+
 - **Zentrale Vorgangsliste (275)** (Chef 21.10., 07:30/07:39; nach dem Meilenstein, Vorgangsarchiv 274): eine Liste als einzige Quelle, je Vorgang eine Datei, Schreiben nur über `tools/vorgang.py`; Pro und Contra in [Zentrale Vorgangsliste](LISTE-ZENTRALE-VORGAENGE-275.md).
 
 - **Bilder der Chefsache selbsttätig nach Telegram (277)** (Chef 21.10., 08:35: „die Idee grundsätzlich mal nicht ganz verwerfen, sondern noch vorhalten“): `zug-index.yml` schickt jedes neue Bild in `chefsache/bilder/` beim Push mit Sprungmarke nach Telegram; braucht `TELEGRAM_BOT_TOKEN` als GitHub-Secret (legt nur der Chef an); dann entfällt die Regel für die Sitzungen. Contra: Umbau am Ablauf, doppelte Bilder in der Übergangszeit. Vorerst nur die Regel in `ROLLE-KREATIV.md` (Vorgangsarchiv 277).
 - **Dokumente BornWire TCS nachziehen (102)** (aus Perikles' Vorrat 18.10., Kür ohne Termin): Firmenhandbuch und Begleittexte auf den Stand nach dem Umbau 17.10. bringen.
 - **`DESIGN-BLENDE.md` kürzen (111)** (aus Perikles' Vorrat 18.10., erst nach 24.6): Entschiedenes ins Vorgangsarchiv, Rest auf das Nötige.
 - **Kennzahl des Chefs** (Chef 19.10., 10:42: „Wie werde ich eigentlich gemessen oder bilanziert?“): heute keine eigene; Vorschlag Sokrates: **Wartezeit auf den Chef** (Stunden von Datei in `entscheiden/`/`billigen/` bis Löschen, aus Git, ohne Zählkosten) neben „ersparte Fragen“ (FIRMA.md). Contra: „Mehr Kennzahlen nicht“ (106.1), Chef ist kein Mitarbeiter. → Urteil Homer/Perikles; Wochenzählung 26.10.
+- **389 genauer zählen** (Tom 28.10., 00:1x; an Perikles, Vorrat über 15 KB): `probelauf.py` hält auch `sed -n … tools/pruef348/kampf_modelle.sh` an (Pfad irgendwo im Befehl) und zählt `kampf_modelle.sh` (nur Modelle, kein Bild). Vorschlag: nur mit `bash`, `sh` oder `./` davor zählen, `kampf_modelle.sh` ausnehmen.
 
 
 ## M Markt

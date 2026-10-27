@@ -596,7 +596,7 @@ private fun HeroTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec)
         LabeledBar(Ui.xp(lang), 1, 1, Colors.xp, "${h.xp}")
         Txt(
             if (lang == Lang.DE) "Höchststufe für Kapitel 1 erreicht. In diesem Kapitel gibt es keine weiteren EP; Kämpfe lohnen sich weiter für Beute und Ausrüstung."
-            else "Highest level for chapter 1 reached. No further XP in this chapter; fights still pay in loot and gear.",
+            else "Maximum level for Chapter 1 reached. No more XP this chapter; fights still pay off in loot and gear.",
             size = 13.sp, color = Colors.textDim,
         )
     } else if (next != null) LabeledBar(Ui.xp(lang), h.xp - prev, next - prev, Colors.xp, "${h.xp} / $next")
@@ -604,7 +604,7 @@ private fun HeroTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec)
     val weapon = h.weapon
     Txt("${Ui.ac(lang)} ${h.armorClass}   ${Ui.attack(lang)} ${Rules.signed(h.attackBonus)}   ${Ui.damage(lang)} ${h.weaponDamage.label(lang)}", size = 15.sp, bold = true)
     Txt("${Ui.proficiency(lang)} ${Rules.signed(h.proficiency)}" + (weapon?.let { " · ${it.name(lang)}" } ?: ""), size = 14.sp, color = Colors.textDim)
-    if (h.cls.caster) Txt((if (lang == Lang.DE) "Zauberangriff " else "Spell attack ") + Rules.signed(h.spellAttack) + (if (lang == Lang.DE) "   Zauber-SG " else "   Spell DC ") + h.spellDc, size = 14.sp, color = Colors.textDim)
+    if (h.cls.caster) Txt((if (lang == Lang.DE) "Zauberangriff " else "Spell attack ") + Rules.signed(h.spellAttack) + (if (lang == Lang.DE) "   Zauber-SG " else "   Spell save DC ") + h.spellDc, size = 14.sp, color = Colors.textDim)
 
     Spacer(Modifier.height(10.dp))
     val de = lang == Lang.DE
@@ -877,7 +877,7 @@ private fun GearTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec)
     stat(if (de) "Angriff" else "Attack", Rules.signed(h.attackBonus))
     stat(if (de) "Schaden" else "Damage", h.weaponDamage.label(lang))
     h.offHandWeapon?.let { stat(if (de) "Nebenhand" else "Off hand", "${Rules.signed(h.attackBonus(it))} · ${h.weaponDamage(it, true).label(lang)}") }
-    stat(if (de) "Kritisch ab" else "Critical from", "${h.critFrom}")
+    stat(if (de) "Kritisch ab" else "Critical on", if (de) "${h.critFrom}" else "${h.critFrom}–20")
     if (h.cls.caster) stat(if (de) "Zauberangriff / SG" else "Spell attack / DC", "${Rules.signed(h.spellAttack)} / ${h.spellDc}")
     if (h.lifeSteal > 0) stat(Affix.LIFESTEAL.title(lang), "${h.lifeSteal}%")
     if (h.damageReduction > 0) stat(Affix.RESIST.title(lang), "${h.damageReduction}")

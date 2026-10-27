@@ -13,6 +13,7 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 - [Prüfbericht](PRUEFBERICHT.md): offene Befunde von Diogenes und Kennzahlen der Woche; erledigte Läufe im [Archiv](PRUEFBERICHT-ARCHIV.md)
 - [Vorgänge](LISTE-VORGAENGE.md): jede Nummer mit Bereich, Muss oder Kür, Kosten
 - [Checkliste MARS](LISTE-MARS.md): was im Kampfsystem steht, was fehlt, klassisch ↔ MARS (296)
+- [Testgeräte](LISTE-TESTGERAETE.md): Geräteangaben und Messwerte der Tester (388)
 - [Abnahme Kapitel 1](LISTE-ABNAHME-KAPITEL1.md): Meilenstein und Wochenziel
 
 ## Spiel
@@ -26,6 +27,8 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 - Aus Artefakten übernommen (246.1): [Roter Faden](STORY-ROTER-FADEN.md), [Chronik-Texte Kapitel 1](STORY-CHRONIK-TEXTE-K1.md), [Kapitel-2-Landkarte](STORY-K2-LANDKARTE.md), [Spielanleitung MARS 72.10a](DESIGN-KAMPF-SPIELANLEITUNG-72-10A.md), [MARS-Aufstellung](DESIGN-MARS-AUFSTELLUNG.md), [Prüfbogen Tester](LISTE-PRUEFBOGEN-TESTER.md)
 - [Figuren](LISTE-FIGUREN.md): festes Aussehen wiederkehrender Leute und Monster
 - [Grafikweg](LISTE-GRAFIKWEG.md): Engine, Grafikkerne, Blender-Modelle, Baukästen (348)
+- [Bestand](LISTE-BESTAND.md): Inventur aller gekauften und geladenen Bewegungen, Figuren, Tiere, Dinge, Bauteile; vor jedem Eigenbau lesen (377)
+- [Freie Modelle und Bewegungen](LISTE-CC0-MODELLE.md): CC0-Gerüst, Bewegungsbibliothek, Kosten, Suche Tiere und Monster (348.12)
 - [Ideen](LISTE-IDEEN.md): lose Einfälle, noch nicht geprüft
 - [Rollenspiegel](LISTE-ROLLENSPIEGEL.md): Ist-Soll-Abgleich je Rolle, freitags (340)
 - [Arbeitsorte](LISTE-ARBEITSORTE.md): GitHub, Proxmox, NAS, ALL-INKL; Wege zu einem privaten Repo (264, 109)

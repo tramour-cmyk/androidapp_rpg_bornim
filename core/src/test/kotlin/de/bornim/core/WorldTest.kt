@@ -95,8 +95,10 @@ class WorldTest {
             bot.walkTo("cave", 10, 4) // triggers Grak
             assertTrue(state.has(Story.GRAK_DEFEATED), "Grak not defeated")
             assertEquals(1, state.count("sun_amulet"))
+            assertEquals(1, state.count("grak_key"))
             bot.talkTo("cave", "lyra_cave")
             assertTrue(state.has(Story.LYRA_RESCUED))
+            assertEquals(0, state.count("grak_key"))
             bot.talkTo("elder", "aldric")
             assertTrue(state.has(Story.CHAPTER1_DONE), "chapter not finished for $cls")
             assertTrue(state.bag.any { it.unique == "ring_protection" })

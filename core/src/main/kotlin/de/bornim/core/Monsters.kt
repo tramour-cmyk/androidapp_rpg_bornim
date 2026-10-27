@@ -34,7 +34,7 @@ enum class EliteTrait(private val de: String, private val en: String, val color:
     ANCIENT("Uralt", "Ancient", 0xFFB48CFF.toInt(), T("Zäh wie altes Leder.", "Tough as old leather.")),
     SWIFT("Flink", "Swift", 0xFF40E0FF.toInt(), T("Blitzschnell und schwer zu treffen.", "Lightning fast and hard to hit.")),
     VENOMOUS("Giftig", "Venomous", 0xFF96F046.toInt(), T("Greift mit Gift an.", "Attacks with venom.")),
-    BURNING("Glühend", "Burning", 0xFFFFA028.toInt(), T("Brennt vor unheiliger Glut.", "Burns with an unholy glow.")),
+    BURNING("Glühend", "Glowing", 0xFFFFA028.toInt(), T("Brennt vor unheiliger Glut.", "Burns with an unholy glow.")),
     VAMPIRIC("Blutdurstig", "Bloodthirsty", 0xFFFF3C78.toInt(), T("Nährt sich von deinem Blut.", "Feeds on your blood.")),
     ;
 
@@ -138,7 +138,7 @@ object Monsters {
         MonsterDef(
             "hobgoblin_captain", T("Hauptmann Grak", "Captain Grak"), 16, dice(6, 10, 6), T("Kriegsaxt", "War Axe"), 5, dice(1, 10, 3), DamageType.SLASHING,
             450, dice(8, 10), 1, 2, 1,
-            listOf(LootEntry("sun_amulet", 1.0), LootEntry("prophet_letter", 1.0), LootEntry("greataxe_grak", 1.0)),
+            listOf(LootEntry("sun_amulet", 1.0), LootEntry("prophet_letter", 1.0), LootEntry("grak_key", 1.0), LootEntry("greataxe_grak", 1.0)),
             special = MonsterSpecial.MARTIAL_ADVANTAGE, potions = 1, boss = true, cr = "2",
         ),
         MonsterDef(

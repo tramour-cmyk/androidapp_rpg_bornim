@@ -157,7 +157,7 @@ private fun ReelScreen(vm: GameViewModel, reel: Reel, onPicture: (Int) -> Unit, 
             confirm = if (de) "Überspringen" else "Skip",
             cancel = if (de) "Weiter ansehen" else "Keep watching",
             onConfirm = onEnd,
-        ) { Txt(if (de) "Die Zwischensequenz endet, du kannst sie in der Chronik wieder ansehen." else "The scene ends; you can watch it again in the chronicle.", size = 16.sp) }) { asking = false }
+        ) { Txt(if (de) "Die Zwischensequenz endet, du kannst sie in der Chronik wieder ansehen." else "This ends the cutscene; you can watch it again in the Chronicle.", size = 16.sp) }) { asking = false }
     }
     }
 }

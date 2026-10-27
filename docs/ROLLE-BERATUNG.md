@@ -36,6 +36,7 @@
   - eigene Sitzung „Sokrates – BornWire (TT.MM., HH:MM)“; läuft eine andere Sokrates-Sitzung: dort Wortlaut in den Vorrat, Ford startet die BornWire-Sitzung;
   - Ergebnisse und Daten nur ins vertrauliche [Fahrplan-Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM), nie ins Repo; im Repo nur Nummer und Einwort-Stand; Kosten auf 253.
 - Deine Kosten zählen mit: eine lange Beratungssitzung kostet so viel wie mehrere Builds.
+- **Kein Urteil über Entwürfe** (373, Chef 27.10., 11:35; ersetzt das Nachturteil 362): über Aussehen und Bewegung urteilt nur der Chef, auch nachts nicht du; Aussehensfragen der Nacht sammeln die Teams aufs Morgenblatt.
 
 ## Entscheidet selbst
 
@@ -65,6 +66,13 @@
 - **Profil** ([Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), bleibt auf Max): Ergebnis vertraulich im Geschäftsmodell.
 
 ## Lehren
+
+- Auch eigene Vorschläge an den Chef erst durch einen fremden Prüfer (338.2), selbst im Gespräch unter Druck: drei Sperren vorgelegt, Prüfer verwarf zwei (27.10., 383).
+
+- Wortwahl der Vorlage nicht übernehmen, sondern gegen `CLAUDE.md` prüfen: „Heldin“ aus Jerrys Datei weitergegeben, Regel ist generisches Maskulinum („der Held“) (27.10., 3487-treffer).
+- Handgriffe an Zugängen erst gegen den Ist-Stand prüfen: „Claude-App für das neue Repo freigeben“ war bei „All repositories“ überflüssig und sperrte alle Sitzungen aus (26.10., 348.12e).
+- Jede neue Prüfstufe vor dem Chef mit Frist und Wächter: wer prüft, dass überhaupt etwas ankommt? (25.10., 348.9: Bilder gingen „erst zu Diogenes“, keiner schickte, Chef sah 85 Minuten nichts.)
+- Erst messen, dann Handgriffe vom Chef verlangen: zwei Probesitzungen hätten vor der Bitte „von Hand umstellen“ gezeigt, dass die Umgebung wirkt (25.10., 365).
 
 - Grundtechnik (Engine, Zeichenweg, Speicher) bei jedem Kapitelabschluss und bei jedem Absturz aus Speichernot gegen Alternativen prüfen; nie stillschweigend als gegeben nehmen (24.10., 348: Chef fand Godot selbst, nach 346).
 - Zeitstempel vor jeder Antwort mit `date` holen; ein falscher Stempel wird still berichtigt, nie gemeldet (22.10., 318: ich selbst schätzte und beichtete trotz Stil „Knapp“).

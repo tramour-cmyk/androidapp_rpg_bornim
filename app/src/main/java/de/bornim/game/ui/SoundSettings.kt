@@ -44,12 +44,12 @@ fun SoundAndLight(vm: GameViewModel, lang: Lang) {
         GoldSlider(if (de) "Gesamt" else "Overall", vm.volumeAll, off, { vm.changeVolumeAll(it) }) { vm.play(Sound.CLICK) }
         GoldSlider(if (de) "Musik" else "Music", if (vm.musicOn) vm.volumeMusic else 0, off, { vm.changeVolumeMusic(it) })
         // 40a: the sounds of a place go with the effects; on letting go one click shows how loud they are now
-        GoldSlider(if (de) "Effekte und Ortsklang" else "Effects and places", if (vm.sfxOn) vm.volumeFx else 0, off, { vm.changeVolumeFx(it) }) { vm.play(Sound.CLICK) }
+        GoldSlider(if (de) "Effekte und Ortsklang" else "Effects and ambience", if (vm.sfxOn) vm.volumeFx else 0, off, { vm.changeVolumeFx(it) }) { vm.play(Sound.CLICK) }
         Txt(if (de) "Helligkeit" else "Brightness", size = 15.sp, bold = true)
-        GoldSlider(if (de) "Dunkle Töne" else "Dark tones", vm.brightness, off, { vm.changeBrightness(it) })
+        GoldSlider(if (de) "Dunkle Töne" else "Shadows", vm.brightness, off, { vm.changeBrightness(it) })
         BrightnessSign()
         Txt(if (de) "So einstellen, dass das Zeichen gerade noch zu sehen ist. Die Höhle bleibt dunkel."
-            else "Set it so the sign can only just be seen. The cave stays dark.", size = 13.sp, color = Colors.textDim)
+            else "Adjust until the sign is barely visible. The cave stays dark.", size = 13.sp, color = Colors.textDim)
     }
 }
 

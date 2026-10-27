@@ -2,11 +2,12 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 25.10., 02:05 (lauf.py)
+**Stand:** 28.10., 00:05 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
-| Sonstige | [Ford-Wache](https://claude.ai/code/session_01EjSztWBEfCSuvh2gg2pRrC) | Betrieb | – | 17.10., 02:00 |
-| Homer | [Homer – 296.2 (25.10., 00:03)](https://claude.ai/code/session_01VKihdGjdGCWLW3KURkrYPc) | 296.2 | – | 25.10., 00:03 |
-| Sokrates | [Sokrates – Vertretung Nacht, Umzug 348 (25.10., 01:23)](https://claude.ai/code/session_01KCxc8hNNVcDSo9r43JBPZr) | 348 | – | 25.10., 01:21 |
-| Ford | [Ford – Betriebsleiter (25.10., 02:06)](https://claude.ai/code/session_014pMJy1VvWx3AoH5fsv49d3) | Betrieb | – | 25.10., 02:04 |
+| Sokrates | [Sokrates – Chefrunde 348.13a und Bausätze 376 (27.10., 19:15)](https://claude.ai/code/session_01Hmoj79NGUpegjwGyVmjQax) | 348.13a | – | 27.10., 19:15 |
+| Jerry | [Jerry – 348.12f Drehen auf der Stelle, Ratte Schnauze (27.10., 22:51)](https://claude.ai/code/session_01Hmoj7A1BVyf4NUznVohA2c) | 348.12f | – | 27.10., 22:51 |
+| Ford | [Ford – Betriebsleiter (27.10., 23:06)](https://claude.ai/code/session_01Hmoj78maf1xG6QSj4w28Lw) | Betrieb | – | 27.10., 23:05 |
+| Perikles | [Perikles – 389 Probeläufe begrenzen (27.10., 23:58)](https://claude.ai/code/session_01Hmoj76mW9cxhS7viQ9cfW9) | 389 | – | 27.10., 23:56 |
+| Tom | [Tom – 348.13 Tusche Runde 8 (28.10., 00:03)](https://claude.ai/code/session_01Hmoj79S6feFe45n6FScZvr) | 348.13 | – | 28.10., 00:01 |

@@ -1,0 +1,39 @@
+name: Webseite
+
+# Lädt bornwire.de (252) per FTPS zu ALL-INKL hoch, wenn sich docs/firma/webseite auf main ändert, oder von Hand.
+# Name, Anschrift und Telefon fürs Impressum kommen nur aus den Secrets (nie in Git), ebenso der FTP-Zugang.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/firma/webseite/**"
+      - ".github/workflows/webseite.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: webseite
+  cancel-in-progress: false
+
+jobs:
+  hochladen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bauen
+        env:
+          BORNWIRE_INHABER: ${{ secrets.BORNWIRE_INHABER }}
+          BORNWIRE_ANSCHRIFT: ${{ secrets.BORNWIRE_ANSCHRIFT }}
+          BORNWIRE_TELEFON: ${{ secrets.BORNWIRE_TELEFON }}
+        run: python3 docs/firma/webseite/bauen.py _site
+      - name: Hochladen
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./_site/
+          server-dir: ./

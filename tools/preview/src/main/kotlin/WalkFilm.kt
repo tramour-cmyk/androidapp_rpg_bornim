@@ -108,6 +108,8 @@ fun idleFilm(spec: String) {
     val map = p.getOrElse(0) { "forest" }
     g.state.place = Place(map, p.getOrElse(1) { "10" }.toInt(), p.getOrElse(2) { "14" }.toInt(), Facing.UP)
     g.state.minutes = p.getOrElse(4) { "${12 * 60}" }.toInt()
+    // FLAGS=a,b (356.1): the story so far, e.g. grak_defeated,lyra_rescued for Lyra walking out of the hall
+    System.getenv("FLAGS")?.split(",")?.let { g.state.flags += it }
     val m = de.bornim.core.World[map]
     g.state.explored[map] = "f".repeat((m.width * m.height + 3) / 4)
     de.bornim.core.art.MapGround.prepareNow(m)
@@ -128,7 +130,10 @@ fun idleFilm(spec: String) {
     scene.render(0L).close()
     var t = from
     time = from * 1_000_000L
+    // FLAGAT=ms:flag (356.1): the flag is set at that time of the film, e.g. lyra_rescued after the hall is in view
+    val flagAt = System.getenv("FLAGAT")?.split(":")
     while (t < total) {
+        if (flagAt != null && t >= flagAt[0].toInt()) g.state.flags += flagAt[1]
         val img = scene.render(time)
         saveFilmPicture(img, File(dir, "f%03d.png".format(n++)))
         img.close()

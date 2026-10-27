@@ -51,7 +51,7 @@ object Resting {
     val short = T("Kurze Rast · 1 Stunde", "Short rest · 1 hour")
     val long = T("Lange Rast · 8 Stunden", "Long rest · 8 hours")
     // [86.kurzwirkt]
-    val shortDoes = T("Ausdauer voll, ein Viertel der TP zurück", "Stamina full, a quarter of HP back")
+    val shortDoes = T("Ausdauer voll, ein Viertel der TP zurück", "Full stamina, regain a quarter of your HP")
     // [86.langwirkt]
     val longDoes = T("TP, ZP und Ausdauer voll, Zustände geheilt", "HP, SP and stamina full, conditions cured")
     val longDone = T("Heute hast du schon lange gerastet.", "You have already had a long rest today.")
@@ -60,7 +60,7 @@ object Resting {
     val roomBuy = T("Zimmer · {0} Gold", "Room · {0} gold")
     // [86.zimmerwirkt]
     val roomDoes = T("Ein Bett für die Nacht: lange Rast", "A bed for the night: long rest")
-    val leave = T("Weiter", "Go on")
+    val leave = T("Weiter", "Continue")
     val hourGone = T("Eine Stunde vergeht.", "An hour passes.")
     val hoursGone = T("Acht Stunden vergehen.", "Eight hours pass.")
     // [86.kurzfertig]
@@ -86,6 +86,6 @@ object Resting {
     // [139.rowena.danke]
     val meatThanks = T("Rowena: „Ehrlicher Preis für ehrliche Ware. Komm wieder, wenn du mehr erlegst.“", "Rowena: “An honest price for honest goods. Come back when you've hunted more.”")
     val noGold = T("Dafür reicht dein Gold nicht.", "You don't have enough gold for that.")
-    val staminaDrunk = T("{0} trinkt den Ausdauertrank. Bis zur nächsten Rast reicht der Atem doppelt so lange.", "{0} drinks the stamina draught. Until the next rest, the breath lasts twice as long.")
-    val staminaAlready = T("Der Ausdauertrank wirkt noch bis zur nächsten Rast.", "The stamina draught still works until the next rest.")
+    val staminaDrunk = T("{0} trinkt den Ausdauertrank. Bis zur nächsten Rast reicht der Atem doppelt so lange.", "{0} drinks the stamina draught. Until the next rest, your stamina lasts twice as long.")
+    val staminaAlready = T("Der Ausdauertrank wirkt noch bis zur nächsten Rast.", "The stamina draught lasts until your next rest.")
 }

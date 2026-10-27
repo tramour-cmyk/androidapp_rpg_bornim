@@ -23,7 +23,7 @@ object MapPeople {
     // where they are in their day follows the plans of [VillageDay]
     val folk = listOf(
         Folk("aldric", T("Ältester Aldric", "Elder Aldric"), T("Haus des Ältesten", "the Elder's house"), inside = "elder"),
-        Folk("rowena", T("Rowena", "Rowena"), T("Wirtin im Schlafenden Greif", "keeps the Sleeping Griffin"), inside = "inn"),
+        Folk("rowena", T("Rowena", "Rowena"), T("Wirtin im Schlafenden Greif", "innkeeper at the Sleeping Griffin"), inside = "inn"),
         Folk("borin", T("Borin", "Borin"), T("sitzt meist in der Schänke", "mostly sits in the inn"), inside = "inn"),
         Folk("thessa", T("Thessa", "Thessa"), T("Kramladen", "the general store"), inside = "shop"),
         Folk("osric", T("Bruder Osric", "Brother Osric"), T("Tempel", "the temple"), inside = "temple"),

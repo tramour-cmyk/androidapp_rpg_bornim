@@ -1,0 +1,5 @@
+# bornwire.de (252): alles auf https://bornwire.de, auch www und bornwire.com, bornwiretcs.de, bornwiretcs.com (301)
+RewriteEngine On
+RewriteCond %{HTTP_HOST} !^bornwire\.de$ [NC,OR]
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://bornwire.de/$1 [R=301,L]

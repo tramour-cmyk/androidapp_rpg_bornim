@@ -228,7 +228,7 @@ fun GearDetails(g: Gear, game: Game, lang: Lang) {
     Spacer(Modifier.height(8.dp))
     Row(Modifier.fillMaxWidth()) {
         Txt(if (de) "Vergleich" else "Compare", Modifier.weight(1.8f), size = 15.sp, bold = true)
-        Txt(if (de) "Angelegt" else "Worn", Modifier.weight(0.9f), size = 13.sp, color = Colors.textDim)
+        Txt(if (de) "Angelegt" else "Equipped", Modifier.weight(0.9f), size = 13.sp, color = Colors.textDim)
         Txt(if (de) "Neu" else "New", Modifier.weight(0.9f), size = 13.sp, color = Colors.textDim)
     }
     Box(Modifier.fillMaxWidth().padding(vertical = 3.dp).height(1.dp).background(if (LocalVeil.current) Veil.rim else Colors.textDim.copy(alpha = 0.35f)))

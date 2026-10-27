@@ -227,6 +227,8 @@ Wirkung heute: kein Fehlalarm in der echten Übersicht (Lücken leer). Behebung 
 
 ## Lauf 23 · Geprüft
 
+**Aus „Offen für den Chef“ (26.10., Perikles 165):** „D4.1 neu gemessen: Ziel verfehlt“ (Text in Git vor „Diogenes: Wochenzählung“); erledigt: D23.1 entschieden (nichts ändern), Rest D23.3 ruht bei Jerry.
+
 **Auftrag:** **38, D4.1 neu messen** (Zeile von Team Jerry 16.10., 20:2x; Start durch Ford 17.10., 09:08, Probebetrieb): Rauchbündel ist auf `main` (PR #90); Kapitel 1 wie in D4 messen, Ziel laut Beschluss D4.1: zielstrebig Stufe 2–3 vor Krogg, Median höchstens 3 Tode.
 
 **Stand:** `main` 799f7cf4

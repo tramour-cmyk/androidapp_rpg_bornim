@@ -168,7 +168,7 @@ private fun ShopBody(vm: GameViewModel, game: Game, stock: List<String>, brewing
         if (!buying && !brewTab && !brewing) {
             Panel(Modifier.fillMaxWidth()) {
                 Column {
-                    heading(if (de) "Angelegt" else "Worn")
+                    heading(if (de) "Angelegt" else "Equipped")
                     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                         val hero = game.hero
                         listOf(GearSlot.HEAD, GearSlot.CLOAK, GearSlot.CHEST, GearSlot.ARMS, GearSlot.LEGS, GearSlot.AMULET, GearSlot.RING, GearSlot.MAIN_HAND, GearSlot.OFF_HAND).forEach { slot ->
@@ -256,7 +256,7 @@ private fun ShopBody(vm: GameViewModel, game: Game, stock: List<String>, brewing
                         heading((if (de) "Ausrüstung" else "Equipment") + " (${gear.size})")
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             if (!buying && gear.any { it.rarity == Rarity.COMMON }) {
-                                PixelButton(if (de) "Gewöhnliche verkaufen" else "Sell commons", Modifier.height(36.dp), size = 13.sp) {
+                                PixelButton(if (de) "Gewöhnliche verkaufen" else "Sell common items", Modifier.height(36.dp), size = 13.sp) {
                                     fun sellAll() {
                                         val n = game.sellAllCommon()
                                         message = if (de) "$n gewöhnliche Gegenstände verkauft." else "Sold $n common items."
@@ -265,7 +265,7 @@ private fun ShopBody(vm: GameViewModel, game: Game, stock: List<String>, brewing
                                     val commons = gear.filter { it.rarity == Rarity.COMMON }
                                     if (!vm.confirmations) sellAll()
                                     else dialog = DialogSpec(
-                                        title = if (de) "Alle gewöhnlichen verkaufen?" else "Sell all commons?",
+                                        title = if (de) "Alle gewöhnlichen verkaufen?" else "Sell all common items?",
                                         confirm = (if (de) "Verkaufen · " else "Sell · ") + Ui.price.f(lang, commons.sumOf { game.sellPrice(it) }),
                                         cancel = cancel, onConfirm = { sellAll() },
                                     ) {
@@ -334,7 +334,7 @@ private fun supplyDialog(game: Game, id: String, buy: Boolean, amount: Int, canc
         Spacer(Modifier.height(10.dp))
         // 349 (Chef 24.10.: „vielleicht will ich ja vier Gesundheitstränke kaufen“): one less or one more, then the quick picks
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
-            Txt(if (de) "Menge" else "Amount", Modifier.width(64.dp), size = 15.sp, color = Colors.textDim)
+            Txt(if (de) "Menge" else "Quantity", Modifier.width(64.dp), size = 15.sp, color = Colors.textDim)
             PixelButton("−", Modifier.weight(1f).height(40.dp), enabled = n > 1, size = 24.sp) { onAmount(n - 1) }
             Txt("$n", Modifier.weight(1f), size = 22.sp, tabular = true, align = androidx.compose.ui.text.style.TextAlign.Center)
             PixelButton("+", Modifier.weight(1f).height(40.dp), enabled = n < most, size = 24.sp) { onAmount(n + 1) }
