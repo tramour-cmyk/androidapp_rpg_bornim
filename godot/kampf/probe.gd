@@ -220,19 +220,29 @@ func _still(path: String) -> void:
 	if OS.get_environment("ZAUBER") != "":
 		var by2 = dran
 		var on2 = fight.mars.fighters().filter(func(x): return x.side == "FOES" and x.standing())[0]
+		# Helfer Runde 2: Heilung auf einen Gefährten (sonst sieht man den Wirkenden nicht); Sengender Strahl dreimal, wie im
+		# Spiel je Meldung einer (SAY_MS auseinander), Bilder je Strahl
+		var mates: Array = fight.mars.fighters().filter(func(x): return x.side == "PARTY" and x.standing() and x.id != by2.id)
 		for kind in OS.get_environment("ZAUBER").split(","):
-			var self_cast: bool = kind in ["HEAL", "BLESS"]
-			fight.ui.cast(kind, by2.id, by2.id if self_cast else on2.id, false, OS.get_environment("ZAUBERDANEBEN") != "")
-			var t1: float = fight.clock_ms
-			for at in [0, 120, 250, 350, 500, 700]:
-				while fight.clock_ms - t1 < at:
+			var on_id: String = on2.id
+			if kind == "BLESS" or (kind == "HEAL" and mates.is_empty()):
+				on_id = by2.id
+			elif kind == "HEAL":
+				on_id = mates[0].id
+			for n in (3 if kind == "RAYS" else 1):
+				if kind in ["HEAL", "BLESS"]:
+					fight.figures[by2.id].bless(fight.figures[on_id])
+				fight.ui.cast(kind, by2.id, on_id, false, OS.get_environment("ZAUBERDANEBEN") != "")
+				var t1: float = fight.clock_ms
+				for at in ([0, 120, 250, 350, 500, 700] if n == 0 else [120]):
+					while fight.clock_ms - t1 < at:
+						await get_tree().process_frame
+					await RenderingServer.frame_post_draw
+					var fz := path.get_basename() + "-%s%s-%04d.png" % [kind.to_lower(), "" if n == 0 else str(n + 1), at]
+					get_viewport().get_texture().get_image().save_png(fz)
+					print("Bild ", fz)
+				while fight.clock_ms - t1 < (fight.SAY_MS if kind == "RAYS" and n < 2 else 1000):
 					await get_tree().process_frame
-				await RenderingServer.frame_post_draw
-				var fz := path.get_basename() + "-%s-%04d.png" % [kind.to_lower(), at]
-				get_viewport().get_texture().get_image().save_png(fz)
-				print("Bild ", fz)
-			while fight.clock_ms - t1 < 1000:
-				await get_tree().process_frame
 		get_tree().quit()
 		return
 	await RenderingServer.frame_post_draw

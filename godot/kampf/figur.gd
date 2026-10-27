@@ -11,10 +11,15 @@ const GLIDE_S := 0.4
 const HERO_R := 0.3          # 348.7: halbe Breite eines Menschen am Boden
 const HERO_REACH := 0.75     # 348.7: Arm und Klinge vor dem eigenen Rand bis zum Rand des Ziels
 ## 348.7 (Helfer Lauf 126: drehte 110 ms nach dem Aufschlag um, Rückweg zischte durch): Halt bis 0,68 des Hiebs wie im alten
-## MARS (SkirmishScreen.kt STEP_HOLD, STEP_BACK), dann rückwärts zurück, das Gesicht zum Gegner; 0,5 s, so endet er vor SAY_MS
+## MARS (SkirmishScreen.kt STEP_HOLD, STEP_BACK), dann rückwärts zurück, das Gesicht zum Gegner
 const STEP_HOLD := 0.42
 const STEP_BACK := 0.68
+## Helfer Runde 2 (Rückweg 0,5 s wirkte schnell, bis 4 m/s rückwärts): Schritt rückwärts gut 1,6 m/s, mindestens 0,5 s;
+## dauert er über SAY_MS hinaus, wartet die nächste Meldung (busy_ms)
 const HERO_BACK_S := 0.5
+const HERO_BACK_MPS := 1.6
+## Wie lange der letzte Schlag samt Rückweg dauert (ms), kampfort.gd wartet darauf
+var busy_ms := 0
 const FALL_MS := 900
 const FADE_MS := 600
 const WOLF_COATS := ["grau", "dunkel", "rost", "asche"]
@@ -592,6 +597,7 @@ func strike(other, e: Dictionary) -> int:
 		_face(other.position - position)
 		_play("Ausholen")
 		get_tree().create_timer(0.6).timeout.connect(func(): _face(); _idle())
+		busy_ms = 700
 		return 700
 	var leap: bool = fighter.monster != null and pouncing and fighter.monster.id == Mars.WOLF
 	var ms := BEAST_LUNGE_MS if fighter.monster != null else BLOW_MS
@@ -606,7 +612,7 @@ func strike(other, e: Dictionary) -> int:
 		var stand: float = HERO_R + other.body_r() + HERO_REACH
 		reach = flat.normalized() * maxf(0.0, flat.length() - stand) if flat.length() > 0.01 else Vector3.ZERO
 		hold = ms * (STEP_BACK - STEP_HOLD) / 1000.0
-		back = HERO_BACK_S
+		back = maxf(HERO_BACK_S, reach.length() / HERO_BACK_MPS)
 	var there := position + reach
 	_face(to - position)
 	_play("Sprung" if leap else ("Biss" if fighter.monster != null else "Hieb"), 0.05)
@@ -635,7 +641,16 @@ func strike(other, e: Dictionary) -> int:
 	tween.tween_callback(func(): _face(); _idle())
 	if leap:
 		pouncing = false
+	busy_ms = int(ms * STEP_BACK + back * 1000.0) if hero else ms
 	return ms
+
+
+## Heilung oder Segen (Helfer Runde 2: Heilung ohne erkennbaren Wirkenden): der Wirkende hebt die Hand zum Ziel, wie beim Zauber
+func bless(other) -> void:
+	if other != self:
+		_face(other.position - position)
+	_play("Ausholen")
+	get_tree().create_timer(0.6).timeout.connect(func(): _face(); _idle())
 
 
 ## Halbe Breite am Boden, wie der Bodenschatten (Wolf 1,1 m lang, halb seitlich gesehen; Mensch 0,3 m)

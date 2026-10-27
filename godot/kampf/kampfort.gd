@@ -696,8 +696,12 @@ func _play_say(e: Dictionary) -> void:
 	var tg = mars.find(target) if target != null else null
 	var across: bool = by != null and tg != null and actor != target and by.side != tg.side
 	var lunge_ms := 0
+	var busy_ms := 0
 	if across and (e.roll != null or e.spell != null or e.cue == "DUCKED"):
 		lunge_ms = figures[actor].strike(figures[target], e)
+		busy_ms = figures[actor].busy_ms
+	elif e.spell in ["HEAL", "BLESS"] and figures.has(actor) and figures.has(target):
+		figures[actor].bless(figures[target])
 	for id in e.intents:
 		var aimed: Array = e.intents[id][1]
 		figures[id].announce(e.intents[id][0], figures.get(aimed[0]) if aimed.size() > 0 else null)
@@ -741,7 +745,7 @@ func _play_say(e: Dictionary) -> void:
 			figures[f.id].glide_to(_spot_pos(f, e.places[f.id]))
 	ui.refresh()
 	ui.show_roll(e)
-	await get_tree().create_timer(maxf(SAY_MS, lunge_ms) / 1000.0).timeout
+	await get_tree().create_timer(maxi(SAY_MS, maxi(lunge_ms, busy_ms)) / 1000.0).timeout
 
 
 ## 348.7: warmes Licht am Ziel eines Feuerzaubers, ab seiner Ankunft, flackernd verlöschend
