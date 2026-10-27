@@ -4,15 +4,16 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (27.10., 17:4x, `session_01Hmoj78SxUwEZNsTMHCZo6F`):** 381 erledigt (Perikles); 376.1a gemessen: `add_repo` auch bei Start auf aktuellem `main` mit Regel gesperrt, ebenso Klonen nach Chef-„Plus“ in laufender Sitzung (17:34); Repos werden beim Start einer Sitzung gewählt, `create_session` (Ford) kennt nur eins; 376.1 bei Tom startbar über Actions wie 348.12f. Kosten auf: 376. Nachfolger: Sokrates – Auswertung 318, 347, 365 (ab 31.10.)
+**Übergabe (27.10., 18:0x, `session_01Hmoj78SxUwEZNsTMHCZo6F`):** 376.1a erledigt: `add_repo` geht nur mit wörtlichem Chefsatz in der Sitzung („Klone das Repository tramour-cmyk/bornim-kaufmodelle in diese Sitzung.“), Tom hat Zugang seit 17:38; 383 ja (Archiv), Bau bei Perikles; 348.12 Hieb r7 abgenommen, 348.12f gekauft (Archiv); Chef 18:06 im Chat beantwortet: kein Paketkauf jetzt (348.12c), Anziehen hängt an Toms Chefsache 3761, Ausrüstung CC0 etwa 40/74, Rest Eigenbau; Tom und Ford (für Jerry-Nachfolger): erst vorlegen, keine weitere Runde. Kosten auf: 376, 383, 348.12. Nachfolger: Sokrates – 383 Sitzungsgröße messen (bis 28.10., 12:00)
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 383 | M | **von Chef (27.10., 17:44, „Sollen wir einfach aufhören damit?“; 17:47 Vorschlag „nicht griffig“):** Chef räumt nur hinter allen her | ja 17:53 (Archiv), Bau bei Perikles; Sitzungsgröße aus gebuchten Kosten messen bis 28.10., 12:00 |
 | 376 | M | **von Chef (27.10., 12:00):** Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Tom: Häuser ja 12:42 (Archiv), Probeblatt 376.1 „jetzt“ 12:46; Markt 376.2 bei Tom (Perikles 12:5x) (Zu 376) |
 | 374 | M | **von Chef (27.10., 11:54):** wer prüft 373? | frühestens 31.10.: auswerten mit 347 (Archiv) |
-| 348.12c | M | **von Chef (26.10., 11:59):** Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters Kit“) und andere Anbieter; Kosten, Erwerb, Verkauf im Spiel erlaubt; Monster dürfen von D&D abweichen; „schönen Vorschlag und ein schönes Paket“ | ruht: Stufe 2 bis Rutenursache und letztem Rattenvergleich (Chef 27.10., 09:57, Archiv 348.12f); dann Kaufliste (6 Links, etwa 134 $) an Chef |
+| 348.12c | M | **von Chef (26.10., 11:59):** Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters Kit“) und andere Anbieter; Kosten, Erwerb, Verkauf im Spiel erlaubt; Monster dürfen von D&D abweichen; „schönen Vorschlag und ein schönes Paket“ | ruht: Ratte gekauft 18:03; kein Paketkauf jetzt, je Monster kaufen, wenn es im Kapitel dran ist (Empfehlung 18:0x, Chef offen) |
 | 348.12 | M | **von Chef (25.10., 21:21, „b prüfen“):** fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit Skelett) prüfen, nichts bauen | wartet auf Jerry: Goblin CC0 entschieden 27.10., 09:49 (Archiv), Hieb nachbessern, dann Grak, Kobold, Zombie |
 | 348.12h | M | **von Chef (26.10., 16:16; ja 16:19, Archiv):** fertige Dinge, Möbel, Waffen suchen | wartet auf Jerry: gesucht (`LISTE-CC0-MODELLE.md`, CC0 etwa 40/74); nach Rattenprobe Probeblatt vorschlagen |
 | 340.2 | M | **von Chef (25.10., 10:16, Vorgangsarchiv 340):** `tools/rollenspiegel.sh <Rolle>` zeigt nur Fragen und eigene Vorwochenantwort, hängt die neue an; ersetzt „erst antworten, dann lesen“ | gebaut 25.10.; prüfen 30.10. (Zu 340.2) |
