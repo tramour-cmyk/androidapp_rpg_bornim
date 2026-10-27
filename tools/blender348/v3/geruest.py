@@ -52,6 +52,37 @@ FACKEL = 'Idle_Torch_Loop'
 IM_GANG = ('schulter', 'stab', 'vorn', 'ruecken')   # wie rig.py: diese Armhaltungen bleiben auch im Gehen
 
 
+def verstecke_knochen(sk, VERSTECK, namen):
+    """348.6 Kampf: je Teil (Rueckenschild, Schwertgriff) ein Knochen am Rumpf; in den Bewegungen namen je Bild so gestellt, wie die
+    gemittelten Gewichte das Teil bisher bewegten (Mischung der Knochen, Drehung daraus), Groesse 1"""
+    scn = bpy.context.scene; arm = sk.data
+    bpy.context.view_layer.objects.active = sk; bpy.ops.object.mode_set(mode='EDIT')
+    for kn_, (gw, mitte) in VERSTECK.items():
+        eb = arm.edit_bones.new(kn_); eb.head = mitte; eb.tail = mitte + Vector((0, 0, 0.1))
+        eb.parent = arm.edit_bones[max(gw, key=gw.get)]; eb.use_connect = False
+    bpy.ops.object.mode_set(mode='OBJECT')
+    ad = sk.animation_data; PB = sk.pose.bones
+    for t in ad.nla_tracks: t.mute = True
+    for nm in namen:
+        act = bpy.data.actions[nm]; ad.action = act; ad.use_nla = False
+        if hasattr(ad, 'action_slot') and act.slots: ad.action_slot = act.slots[0]
+        n = int(round(act.frame_range[1] - act.frame_range[0]))
+        for f in range(n + 1):
+            scn.frame_set(f)
+            for kn_, (gw, _) in VERSTECK.items():
+                Mb = sum(((PB[b].matrix @ arm.bones[b].matrix_local.inverted()) * w for b, w in gw.items()), Matrix.Diagonal((0, 0, 0, 0)))
+                Mb = Mb * (1.0 / sum(gw.values()))
+                R0 = arm.bones[kn_].matrix_local
+                pb = PB[kn_]; pb.rotation_mode = 'QUATERNION'
+                pb.matrix = Matrix.Translation((Mb @ R0).translation) @ (Mb.to_3x3() @ R0.to_3x3()).to_quaternion().to_matrix().to_4x4()
+                bpy.context.view_layer.update()
+                pb.scale = (1, 1, 1)
+                for k_ in ('rotation_quaternion', 'location', 'scale'): pb.keyframe_insert(k_, frame=f)
+    ad.action = None; ad.use_nla = True
+    for t in ad.nla_tracks: t.mute = False
+    print('VERSTECK', {k: (len(v[0]), [round(x, 3) for x in v[1]]) for k, v in VERSTECK.items()})
+
+
 def ual_datei():
     d = os.environ.get('CC0', os.path.expanduser('~/cc0'))
     f = sorted(glob.glob(os.path.join(d, '**', 'UAL1_Standard.glb'), recursive=True))
@@ -118,7 +149,7 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
             if n is None or e.weight <= 0: continue
             W.setdefault(n, {}); W[n][v.index] = W[n].get(v.index, 0.0) + e.weight
     TEILM = {t: np.array([any(alt_name[e.group] == t and e.weight > 0.5 for e in v.groups) for v in me.vertices])
-             for t in ('TEIL_umhang', 'TEIL_koerper', 'TEIL_schale') if t in alt_name.values()}
+             for t in ('TEIL_umhang', 'TEIL_koerper', 'TEIL_schale', 'TEIL_schild', 'TEIL_griff') if t in alt_name.values()}
     fremd = [n for n in alt_name.values() if n not in G and n != 'fest' and not n.startswith('TEIL_')]
     if fremd: print('GRUPPEN OHNE ZIEL', fremd)
     # Runde 2 (Fremdpruefung Tom 34: Nadeln an Achseln und Schultern, Bram, Jorin): um die Schultergelenke (12 cm) die Gewichte ueber
@@ -205,6 +236,16 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
     for n, d in W.items():
         g = held.vertex_groups.new(name=n)
         for i, w in d.items(): g.add([i], min(1.0, w), 'REPLACE')
+    # 348.6 Kampf (Fremdpruefung Kampf Runde 1: Schild auch auf dem Ruecken): Rueckenschild und Schwertgriff in der Scheide ganz an einen
+    # eigenen Knochen; der folgt ausserhalb des Kampfs den gemittelten Gewichten wie bisher (verstecke_knochen), im Kampf ist er
+    # auf ein Tausendstel verkleinert (kampf.py)
+    VERSTECK = {}
+    for t, kn_ in (('TEIL_schild', 'schild_ruecken'), ('TEIL_griff', 'schwert_griff')):
+        if t not in TEILM or not TEILM[t].any(): continue
+        idx = np.where(TEILM[t])[0]; mw_ = M[idx].mean(0)
+        VERSTECK[kn_] = ({NG[j]: float(mw_[j]) for j in range(len(NG)) if mw_[j] > 1e-3}, Vector(P[idx].mean(0)))
+        for g in held.vertex_groups: g.remove([int(i) for i in idx])
+        held.vertex_groups.new(name=kn_).add([int(i) for i in idx], 1.0, 'REPLACE')
     # Runde 2 (Fremdpruefung Tom 34: Jorins schwarze Nadeln aus beiden Achseln): wo ein Hemd Rumpf und Innenseite des Aermels unter der
     # Achsel zu einer Haut verbindet (Kettenhemd), rissen diese Dreiecke auf, sobald der Arm sich gegen den Rumpf bewegt. Unter der
     # Achsel (3 cm unter dem Schultergelenk) fallen Flaechen weg, deren Ecken teils am Arm, teils am Rumpf haengen. Nur mit ACHSEL=1:
@@ -456,6 +497,9 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
         g, R = im_knochen('foL-wrL', (-1.87, 18.7, 0.72), 'hand_l')     # held.gd FAUST_GRIFF (Runde 5c, in Godot nachgemessen)
         return {'knochen': 'hand_l', 'griff': [round(x, 4) for x in g], 'achse': [round(x, 4) for x in (R @ Vector((-0.358, 0.0, -0.934)))]}
     INFO['faust_L'] = faust_l()
+    if VERSTECK: verstecke_knochen(sk, VERSTECK, [n for n, _, _ in (HELD if FIGUR == 'held' else leute_liste(LP))])
+    if FIGUR == 'held' and os.environ.get('VOR_KAMPF'):   # zum Probieren: kampf.py <OUT>/held3-vorkampf.blend <x.glb>
+        bpy.ops.wm.save_as_mainfile(filepath=OUT + '/held3-vorkampf.blend', copy=True)
     if FIGUR == 'held':   # 348.6 Kampfbewegungen (kampf.py): Kampfstehen, Ausholen, Hieb, Stich, Treffer, Ausweichen, Abwehr; Tod von oben
         import kampf
         kampf.bauen(sk, INFO)

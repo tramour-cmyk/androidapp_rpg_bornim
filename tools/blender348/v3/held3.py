@@ -1520,11 +1520,13 @@ if FG['schwert']:
     capsule(bot - dd * 5, bot, 2.1, 1.9, 'fit')            # Ortband
     hilt = -dd
     g0 = top + hilt * 2.0
+    vor_griff = set(bpy.data.objects)   # 348.6 Kampf: Griff, Parierstange, Knauf markiert (rig.py TEIL_griff), im Kampf ausgeblendet
     e_ = hilt.cross(P(1, 0, 0)).normalized()
     capsule(g0 - e_ * 10.0, g0 + e_ * 10.0, 0.75, 0.75, 'fit')   # Parierstange
     capsule(g0, g0 + hilt * 14.0, 1.35, 1.35, 'grip')
     bpy.ops.mesh.primitive_uv_sphere_add(radius=1, segments=16, ring_count=8); pm_ = bpy.context.active_object; pm_.parent = root
     pm_.location = g0 + hilt * 15.6; pm_.scale = (2.0, 2.0, 2.0); pm_.data.materials.append(MATS['fit'])
+    for o in set(bpy.data.objects) - vor_griff: o['griff'] = 1
 
 # ---------------------------------------------------------------- Schild (heater, Dress.kt), am linken Unterarm
 def heater_d(x, y, hw, ht):

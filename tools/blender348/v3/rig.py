@@ -188,6 +188,10 @@ if GERUEST == 'cc0':
         n_ = o.name.split('.')[0]
         t = 'TEIL_umhang' if n_ == 'cloak' else 'TEIL_koerper' if n_ == 'body' else 'TEIL_schale' if n_ in ('chain', 'sleeves') else None
         if t: o.vertex_groups.new(name=t).add(list(range(len(o.data.vertices))), 1.0, 'REPLACE')
+        # 348.6 Kampf: Schild auf dem Ruecken und Schwertgriff in der Scheide bekommen in geruest.py je einen Knochen, der sie im Kampf
+        # ausblendet (Waffe und Schild dort in der Hand)
+        t = 'TEIL_schild' if n_ in ('shield', 'boss') else 'TEIL_griff' if o.get('griff') else None
+        if t: o.vertex_groups.new(name=t).add(list(range(len(o.data.vertices))), 1.0, 'REPLACE')
 # Runde 2: der Schild nimmt die gemittelten Gewichte der Umhang- (sonst Koerper-)Ecken hinter seiner Innenseite; so bleibt er
 # als Ganzes (gleiche Gewichte, fast starr) am Ruecken, auch wenn Brust und Bauch verschieden kippen
 UM = [o for o in meshes if RIGID.get(o.name) == 'UMHANG']
