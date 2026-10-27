@@ -654,9 +654,26 @@ def house(cells, style):
                 box(DORF, (-24, -7, -7), (24, 7, 7), lambda p, n: sc(W1, 0.8 + 0.3 * h1(k, 3, 9)), M=M)
     return (c0, c1, r0, r1)
 HOUSES = []
+# 376 (Chef 27.10., 12:42, Archiv): Häuser 3 bis 8 Grad gedreht, auf ihren Kacheln, Tür zum Weg: gedreht um die Schwelle der Tür
+# (Mitte der Türkachel an der Front), so bleibt die Tür am Weg; Richtung nach Lage, HAUS_DREH=0 wie bisher
+DREH = float(os.environ.get('HAUS_DREH', '1'))
+def house_gedreht(cells, st):
+    n = len(LIGHTS)
+    res = house(cells, st)
+    c0, c1, r0, r1 = res
+    if DREH and st[3] != 'BELL_TOWER':                          # Kirche bleibt gerade (Glockenturm am Platz)
+        dc = next((c for c in range(c0, c1 + 1) if ch(c, r1) == 'D'), (c0 + c1) // 2)
+        piv = Vector((tx(dc) + TS / 2, ty(r1) - TS + 18, 0))
+        a = (3.0 + 5.0 * h1(c0, r0, 41)) * (1 if (c0 * 7 + r0 * 3) % 2 else -1) * DREH
+        M = Matrix.Translation(piv) @ Matrix.Rotation(math.radians(a), 4, 'Z') @ Matrix.Translation(-piv)
+        for P in (DORF, GLAS):
+            for i in range(len(P.V)): P.V[i] = M @ P.V[i]
+        for l in LIGHTS[n:]: l['pos'] = list(M @ Vector(l['pos']))
+        print('HAUS %d,%d gedreht %.1f Grad' % (c0, r0, a))
+    return res
 for cells in comps():
     st = next((v for (sx, sy), v in STYLE.items() if (sx, sy) in cells), None) or ('STRAW', 'TIMBER', 0, 'NONE')
-    HOUSES.append(gruppe('haus', min(cells)[0], min(cells, key=lambda q: (q[1], q[0]))[1], house, cells, st))
+    HOUSES.append(gruppe('haus', min(cells)[0], min(cells, key=lambda q: (q[1], q[0]))[1], house_gedreht, cells, st))
 
 # ---------------------------------------------------------------- Dinge auf dem Platz
 def tile_c(c, r): return Vector((tx(c) + TS / 2, ty(r) - TS / 2, 0))
