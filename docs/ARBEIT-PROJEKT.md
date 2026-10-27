@@ -5,7 +5,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 27.10., 11:58
 
-**Übergabe (27.10., 11:5x, `session_01Hmoj75SnysPb9URmTxU37x`):** 373 umgestellt (`ROLLE-ENTWICKLUNG.md`, `-KREATIV`, `-PRUEFUNG`, `-BERATUNG`, `LISTE-UMZUG-348.md`, `CLAUDE.md` Bekannte Fehler 2, `LISTE-ABNAHME-KAPITEL1.md` mit Engpass Chef), fremd geprüft, Weitergabe an Ford (Eingang), Telegram; 373a beim Chef; 375 aus Fords Eingang angelegt. Kosten auf: 373. Nachfolger: Perikles – 375 Werkzeugfehler lauf.py
+**Übergabe (27.10., 11:5x, `session_01Hmoj75SnysPb9URmTxU37x`):** 373 umgestellt (`ROLLE-ENTWICKLUNG.md`, `-KREATIV`, `-PRUEFUNG`, `-BERATUNG`, `LISTE-UMZUG-348.md`, `CLAUDE.md` Bekannte Fehler 2, `LISTE-ABNAHME-KAPITEL1.md` mit Engpass Chef), fremd geprüft, Weitergabe an Ford (Eingang), Telegram; 373a beim Chef; 375 aus Fords Eingang angelegt. Kosten auf: 373. Nachfolger: Perikles – 374 und 375 Werkzeug
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
