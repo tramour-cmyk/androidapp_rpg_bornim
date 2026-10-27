@@ -38,7 +38,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 ## Einzelheiten
 
-- **Von Perikles (378):** Stände prüfen, Liste in `ARBEIT-PROJEKT.md` „Zu 378, Jerry“.
 
 - **Von Team Tom (27.10., 09:40), zu 348.7:** Kampfbewegungen des Helden Runde 1 und vier Befunde zu `figur.gd`: `ARBEIT-TEAM-TOM.md` „Zu 348.6, Kampf“.
 - **Zu 348.12f:** Aufruf im Kopf von `kaufratte.py`, Workflow „348.12f“ (Film `348.12f-alle.mp4`, `SCHAU_LISTE`). Lokal: `add_repo` bornim-kaufmodelle, Asset 678372860 per `gh api` (octet-stream), `unar`; Bau 57 s; Spieldaten aus dem APK-Artefakt.
