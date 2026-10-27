@@ -20,8 +20,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [348.13a](ansehen/34813a-tusche-kampf-r8.md) | Tusche im Kampf mit schräger Sonne: 1,0 oder 1,3? | Tom | 27.10., 20:04 |
-| [376](ansehen/376-probehaus-fenster.md) | Probehaus: Giebelfenster mittig und Fenster hinten? | Tom | 27.10., 22:00 |
+| [387](ansehen/387-kauftiere.md) | Gekaufte Tiere schnell geprüft: Bewegungen und unsere Bemalung | – | 27.10., 22:25 |
 
 ## Zu tun
 
@@ -44,18 +43,18 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 21, Muss 10, startbar 4
+**Tom** – offen 21, Muss 10, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 348.12i | M | von Sokrates (Chef 19:41, „348.12i B“, Archiv): nur Kaufmodelle mit AESContext verschlüsse | wartet auf Test/Build (gebaut) |
-| 388 | M | von Sokrates (Chef 21:58): Play-Fassung: „Kopieren“ der Geräteangaben (TestTab) auch im Sy | startbar |
+| 388 | M | von Sokrates (Chef 21:58; „jetzt“ 27.10., 22:17, „388 machen“): Play-Fassung: „Kopieren“ d | startbar |
 | 385 | M? | von Sokrates (Archiv): Zauberer-Set (Biped, LISTE-BESTAND) auf Kaufkörper, Film | startbar |
 | 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | startbar |
-| 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
+| 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | startbar |
 | 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | wartet auf 348.6 (Chef) |
 | 372 | M | von Perikles (338a B, Chef 27.10., 09:36, Archiv): Feinschliff Held: Kettenhemd, Helm, Kra | ruht |
-| 348.13 | M | von Sokrates (Chef 26.10., Archiv): Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Sc | Chef |
+| 348.13 | M | von Sokrates (Chef 26.10., Archiv): Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Sc | startbar |
 | 267 | M | von Chef (20.10., 21:46, B48, Tablet): „Das Game laggt ziemlich auf dem Tablet...“ | ruht |
 | 302.3 | M | von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3): alle Bilder von Intro und Outro m | ruht |
 | 302.2 | K | von Chef über Sokrates (22.10., 23:50): Tusche auf der Gebietskarte | ruht |
@@ -70,11 +69,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 27, Muss 16, startbar 5
+**Jerry** – offen 27, Muss 16, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere schnell auf Bewegungen und unsere Haut prüfen, v | startbar |
+| 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere schnell auf Bewegungen und unsere Haut prüfen, v | Chef |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | startbar |
 | 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | startbar |
 | 348.12c | M | von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv): Wiedergänger, Grabhund, Riesenegel, Säur | ruht |
@@ -164,7 +163,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung), 348.13 (Team Tom)
+Nicht gestellt: 186.3 (Pruefung), 348.7 (Team Jerry)
 
 Ohne Datei: 275 (Projekt)
 
