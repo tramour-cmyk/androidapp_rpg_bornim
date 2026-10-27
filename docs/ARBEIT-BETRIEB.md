@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (27.10., 01:20, Ford `session_01RxjVWgHtAySkDQkjFTYRpN`, Tiefe 5, bei 390 Tsd. Token):** Selbstneustart; Läufe bis 01:04 erledigt, Neustarts Tom/Jerry/Sokrates gebucht. Läuft: Tom `session_01AJQaX4xh3QNsDcV9y6x7Br`, Jerry `session_01YC3vgDr2uSCzQvSE8zrZ7A`, Sokrates Nachtvertretung `session_01X9NaGNMk4y1nymcSDE4k5b`. Zu archivieren, wenn idle: Tom `session_014V2GN5ar2HJ3QG9t3AgoEX`, Jerry `session_019sKqMr1dcYYEhghWKPWerT`, Sokrates `session_01BeMfbV5jUX9VTBoArL1LeL`; vom Klassifizierer abgelehnt, nächster Versuch: alter Ford `session_01AyscMQYxPRGvhJzpxGd5pR`, Sokrates `session_017XDYAMk2XGjr9uKDP9iZHq`, Diogenes `session_014acpRTD2zqs5v5gG2FPKZa` (Kosten gebucht). `lauf.py` startet Perikles/Sokrates wegen Terminnamen und Nachtvertretung ungewollt: nicht ausführen, Perikles startet 7:30. Neuer Ford ist auf Tiefe 6: Selbstneustart nicht mehr möglich, einmal `--laut` „Chef: Ford bitte von Hand starten (Tiefe 6)“ und Datei 110 in `chefsache/entscheiden/` anlegen. Nachfolger: Ford – Betriebsleiter.
+**Übergabe (27.10., 01:20, Ford `session_017jS8iw2nQqpekHt9g3xtP6`, Tiefe 6):** Uhr übernommen, alte gelöscht. Läuft: Tom `session_01AJQaX4xh3QNsDcV9y6x7Br`, Jerry `session_01YC3vgDr2uSCzQvSE8zrZ7A`, Sokrates Nachtvertretung `session_01X9NaGNMk4y1nymcSDE4k5b`. Zu archivieren, wenn idle (Klassifizierer lehnt ab, Chef von Hand): Ford `01Rxjv`/`01Aysc`, Tom `014V2G`, Jerry `019sKq`, Sokrates `01BeMf`/`017XDY`, Diogenes `014acp`. `lauf.py` startet Perikles/Sokrates ungewollt (Terminname, Nachtvertretung): nicht ausführen, Perikles startet 7:30. Tiefe 6: kein Selbstneustart mehr, Chef-Bitte Datei 110. Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 371** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (26.10., 16:40)“ `session_01RxjVWgHtAySkDQkjFTYRpN` (seit 26.10., 16:36, Tiefe 5). Stundenuhr „Ford-Lauf“ `trig_01EfPPkDsQ8sZFcxuxjgfDdD` (:03). Alter Ford `session_01AyscMQYxPRGvhJzpxGd5pR` (7,91 $ auf Betrieb gebucht) steht idle: `archive_session` vom Klassifizierer abgelehnt.
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (27.10., 01:20)“ `session_017jS8iw2nQqpekHt9g3xtP6` (seit 27.10., 01:16, Tiefe 6). Stundenuhr „Ford-Lauf“ `trig_01KJRx9pMTKd5WQKGF4EudtS` (:03). Alte Ford `session_01RxjVWgHtAySkDQkjFTYRpN` (7,01 $ gebucht) und `session_01AyscMQYxPRGvhJzpxGd5pR` stehen idle: `archive_session` vom Klassifizierer abgelehnt.
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus; Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
 
