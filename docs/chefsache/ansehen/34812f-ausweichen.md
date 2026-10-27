@@ -4,7 +4,7 @@
 
 **Frage:** Passt das Ausweichen so? Auf dein Wort 21:51 („Nur die Ausweichen-Bewegung war am Platz und ohne Ortswechsel. Ich gehe davon aus, dass das nur vergessen wurde und grundsätzlich wie bei der Ratte funktioniert“). Sag „ja“ oder was anders sein soll.
 
-**Bitte ansehen:** [Film](bilder:pruefung/348.12f-kaufwolf-ausweichen.mp4), 6 s: ab 0,3 s „Ausweichen“ zur Seite, ab 3,1 s „Ausweichen zurück“.
+**Bitte ansehen:** [Film](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/pruefung/348.12f-kaufwolf-ausweichen.mp4), 6 s: ab 0,3 s „Ausweichen“ zur Seite, ab 3,1 s „Ausweichen zurück“.
 
 **Was gebaut ist:** Das gekaufte Wolfspaket hat keine Ausweichbewegung. Darum macht der Wolf einen Satz im Lauf. Wie bei der Ratte gibt es zwei Arten: zur Seite (1,3 m) oder schräg nach hinten (1,2 m zurück, 0,7 m zur Seite), danach geht er heim. Anders als bei der Ratte läuft er dabei mit der Laufbewegung, weil ein Sprung zur Seite im Paket fehlt. Ein Ausweichen dauert so 1,2–1,3 s, bis er wieder ruhig steht. Er wählt die Seite weiter weg von den anderen Kämpfern.
 
