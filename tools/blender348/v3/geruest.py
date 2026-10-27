@@ -247,6 +247,16 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
         VERSTECK[kn_] = ({NG[j]: float(mw_[j]) for j in range(len(NG)) if mw_[j] > 1e-3}, Vector(P[idx].mean(0)))
         for g in held.vertex_groups: g.remove([int(i) for i in idx])
         held.vertex_groups.new(name=kn_).add([int(i) for i in idx], 1.0, 'REPLACE')
+    # Runde 4 (Pruefer 3: im Tod Liegestuhl auf starrem Umhang, 20 cm im Boden): der Beckenanteil der Umhangecken an einen eigenen
+    # Knochen am Becken; ausserhalb des Kampfs folgt er dem Becken genau (verstecke_knochen), kampf.py klappt ihn im Tod nach hinten
+    if FIGUR == 'held' and 'TEIL_umhang' in TEILM and 'pelvis' in gi:
+        jp = gi['pelvis']; idx = np.where(TEILM['TEIL_umhang'] & (M[:, jp] > 1e-3))[0]
+        if len(idx):
+            gp, gu = held.vertex_groups['pelvis'], held.vertex_groups.new(name='umhang')
+            for i in idx: gp.remove([int(i)]); gu.add([int(i)], min(1.0, float(M[i, jp])), 'REPLACE')
+            k_ = idx[M[idx].argmax(1) == jp]; k_ = k_ if len(k_) else idx
+            VERSTECK['umhang'] = ({'pelvis': 1.0}, Vector((0.0, float(P[k_, 1].mean()), float(P[k_, 2].max()))))
+            print('UMHANG KNOCHEN', len(idx), 'Ecken, Gelenk', [round(x, 3) for x in VERSTECK['umhang'][1]])
     # Runde 2 (Fremdpruefung Tom 34: Jorins schwarze Nadeln aus beiden Achseln): wo ein Hemd Rumpf und Innenseite des Aermels unter der
     # Achsel zu einer Haut verbindet (Kettenhemd), rissen diese Dreiecke auf, sobald der Arm sich gegen den Rumpf bewegt. Unter der
     # Achsel (3 cm unter dem Schultergelenk) fallen Flaechen weg, deren Ecken teils am Arm, teils am Rumpf haengen. Nur mit ACHSEL=1:
