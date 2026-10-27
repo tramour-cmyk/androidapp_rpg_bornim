@@ -15,7 +15,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [348.13a](entscheiden/34813a-goblin-r6.md) | **Muss** | G Aussehen | 27.10. | Soll Jerry im Kampfort die Tusche nach Licht übernehmen wie im Dorf („neu“), oder bleibt dort die alte, rundum gleich dicke („alt“)? | Tom |
 | [348.7a](entscheiden/3487a-flugbahn.md) | **Muss** | E Technik | 27.10. | Geschosse sehen nach acht Nachbesserungen noch aus, als träfen sie die eigenen Leute oder den falschen Wolf; Votum: in die 3D-Szene verlegen | Jerry |
 | [348.12c](entscheiden/34812c-listen.md) | **Muss** | G Aussehen | 26.10. | vier neue Listen mit je fünf Prüfpunkten, aus deinem Ja von 20:32 und den Modellbildern; nötig, bevor Jerry die gekauften Modelle bemalt | Homer |
-| [110](entscheiden/110-ford-von-hand.md) | – | – | 27.10. | Ford läuft auf Tiefe 6 (Grenze 8); Selbstneustart geht nicht mehr, bevor sein Kontext voll ist, bitte neue Sitzung von Hand starten. | Ford |
 
 ## Zu billigen
 
