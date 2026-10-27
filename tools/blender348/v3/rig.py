@@ -257,6 +257,16 @@ if KOPF_W > 0:
     for o in meshes:
         if o.name.startswith(('hair', 'ear')):
             (o.vertex_groups.get('fest') or o.vertex_groups.new(name='fest')).add(list(range(len(o.data.vertices))), KOPF_W, 'REPLACE')
+# 348.6 Kragen (Helfer: Flecken am Kragen hinten; nachgestellt: wo das volle Netz am Hals Haut oder Hintergrund zeigt, stand nach dem
+# Abbau die Innenwand des Kragens von Kettenhemd und Umhang 1 bis 4 cm hoeher und weiter innen, man sah ihre dunkle Innenseite): alles
+# oberhalb KRAGEN_Z unter dem Halsgelenk (Kragen; die Netze sind geschlossen, ohne offenen Rand) schwaecher abbauen (Gewicht KRAGEN_W in „fest“ wie ELL_W)
+KRAGEN_W = float(os.environ.get('KRAGEN_W', '0.01' if FIGUR == 'held' else '0'))   # Kopfbilder, Flecken gegen ohne Abbau: 0 7533, 0,003 5739, 0,01 3795, 0,03 gleich
+if KRAGEN_W > 0:
+    zk = J['neck'][0][2] - float(os.environ.get('KRAGEN_Z', '3'))
+    for o in meshes:
+        if o.name.startswith(DICHT) or o.name in RIGID: continue
+        idx = [v.index for v in o.data.vertices if (o.matrix_world @ v.co).z > zk]
+        if idx: (o.vertex_groups.get('fest') or o.vertex_groups.new(name='fest')).add(idx, KRAGEN_W, 'REPLACE'); print('KRAGEN', o.name, len(idx))
 # Feinschliff 5 (Fremdpruefung Feinschliff 4: Bram Keile unter dem Saum, Spalt hinter der Schulter, Manschette als Kasten; Borin
 # Fetzenarm, Dreieck am Schulterblatt; ohne Abbau, DREIECKE=0, alle weg): der Abbau legt jede Lage fuer sich um einige Millimeter
 # daneben, die Lage darunter stach durch. Was eine aeussere Lage binnen LAGE_WEIT deckt, ruecken wir vor dem Abbau um LAGE_EIN
@@ -379,6 +389,50 @@ if ziel > 0 and drei > ziel:
             nachher.append((h[0] - pv).length); uv[lp.index].uv = u.xy; n_neu += 1
         print('UV NEU', n_neu, 'von', len(nachher), 'Ecken (in', len(jt), 'Inseln); Abstand UV-Punkt zur Ecke (cm, 50/90/99 %) vorher',
               np.percentile(vorher, [50, 90, 99]).round(2), 'nachher', np.percentile(nachher, [50, 90, 99]).round(2))
+        # 348.6 Kopf (dunkler Fleck unter der Nase und unter der Unterlippe; ohne Abbau weg, auch im reinen Albedo): nachgestellt, die
+        # Flaeche nahm alle drei UVs aus einer winzigen Insel an der Naht (UV 0,001 breit, Flaeche 1 cm); die Insel ist richtig verortet,
+        # zeigt aber nur ein, zwei schlecht gebackene Bildpunkte. Darum je Flaeche die UV-Dichte (UV-Flaeche je cm2) gegen die des vollen
+        # Netzes: liegt sie unter einem Viertel oder ueber dem Vierfachen, oder zeigt die UV-Mitte mehr als UVTOL weiter daneben als das
+        # volle Netz, holen alle Ecken ihre UV in einer Insel ihrer Umgebung (Inseln an Mitte und Ecken); genommen wird die beste
+        if os.environ.get('UVFL', '1') == '1':
+            # je Teil (Spange liegt auf dem Kettenhemd: sonst nahm sie dessen Insel)
+            _vtl = [0] * len(voll.vertices); voll.attributes['teil'].data.foreach_get('value', _vtl)
+            _mtl = [0] * len(me.vertices); me.attributes['teil'].data.foreach_get('value', _mtl)
+            _tt = {}
+            for i, t in enumerate(vt): _tt.setdefault(_vtl[t.vertices[0]], []).append(i)
+            ganz = {k: (_BVH.FromPolygons(vco, [vt[i].vertices[:] for i in ix]), ix) for k, ix in _tt.items()}
+            def naechst(x, tl):
+                b, ix = ganz.get(tl, (None, None))
+                if b is None: return None, None
+                h = b.find_nearest(x); return (None, None) if h[0] is None else (h[3], ix[h[2]])
+            n_fl = n_fl2 = 0
+            def _fl(a, b, c_): return ((b - a).cross(c_ - a)).length / 2
+            dmed = float(np.median([_fl(*tu) / max(_fl(*(vco[j] for j in t.vertices)), 1e-9) for t, tu in zip(vt, vtuv)]))
+            def guete(p, us):   # kleiner ist besser
+                c = p.center; q, _ = punkt(sum(us, Vector((0, 0, 0))).xy / len(us)); sag, _ = naechst(c, _mtl[p.vertices[0]])
+                e = (q - c).length - (sag or 0.0) if q is not None else 99.0
+                a3 = _fl(*(me.vertices[i].co for i in p.vertices[:3])); d = _fl(*us[:3]) / max(a3, 1e-9) / dmed
+                return max(e - UVTOL, 0.0) + abs(math.log(max(d, 1e-6))), d, e
+            for p in me.polygons:
+                alt = [Vector((*uv[li].uv, 0)) for li in p.loop_indices]; g0, d0, e0 = guete(p, alt)
+                if 0.25 <= d0 <= 4.0 and e0 <= UVTOL: continue
+                n_fl += 1; kand = set()
+                for x in [p.center] + [me.vertices[i].co for i in p.vertices]:
+                    _, i = naechst(x, _mtl[p.vertices[0]])
+                    if i is not None: kand.add(insel[i])
+                best = (g0, None)
+                for k in kand:
+                    b, ix = baum[k]; us = []
+                    for li in p.loop_indices:
+                        hv = b.find_nearest(me.vertices[me.loops[li].vertex_index].co); i = ix[hv[2]]
+                        us.append(_bary(hv[0], *(vco[j] for j in vt[i].vertices), *vtuv[i]))
+                    if any(math.isnan(u.x) for u in us): continue
+                    g = guete(p, us)[0]
+                    if g < best[0]: best = (g, us)
+                if best[1] is None: continue
+                for li, u in zip(p.loop_indices, best[1]): uv[li].uv = u.xy
+                n_fl2 += 1
+            print('UV FLAECHEN', n_fl, 'Flaechen zu duenn, zu dicht oder daneben, davon', n_fl2, 'neu geholt')
     bpy.data.meshes.remove(voll)
 held.parent = rig
 md = held.modifiers.new('skelett', 'ARMATURE'); md.object = rig
