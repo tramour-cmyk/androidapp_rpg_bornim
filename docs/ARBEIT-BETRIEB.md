@@ -37,6 +37,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 01:46 27.10.: Neustart Tom angenommen (32fdcad66 auf main, Nachfolger in Übergabe): Start „Tom – 348.6 Brauendreieck, Schulterlücken; 348.13 Zoom-Blatt (27.10., 01:46)“
 - 01:37 27.10.: Neustart Jerry angenommen (e682bc820 auf main, Nachfolger in Übergabe): Start „Jerry – 348.7 Todprobe-Befunde (27.10., 01:37)“
 - 00:04 27.10.: Lauf; START Perikles (Nachfolgername „den Stand zum Marktstart 27.10. …“ ist ein Termin 7:30, `lauf.py` startet ihn sofort, Werkzeugfehler an Perikles) und START Sokrates (Nachtvertretung läuft, 362) nicht ausgeführt; Stellungnahme 34812c-listen an Sokrates `01BeMf` per Nachricht
 - 21:05 25.10.: Neustart Jerry angenommen (35ae76b44 auf main, Nachfolger in Übergabe): Start „Jerry – 348.7 Goblin-Späher Godot 37 (25.10., 21:05)“
