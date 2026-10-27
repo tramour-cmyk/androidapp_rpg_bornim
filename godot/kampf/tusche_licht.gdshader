@@ -79,16 +79,27 @@ void fragment() {
 		// Stiefelringe, rundum dick; der breite Abstand liess auch die Knicke greifen, und schmale Teile sahen beidseits Hintergrund.
 		// Jetzt ohne Knicke: der Punkt wird direkt Tusche, wenn in einer der 8 Richtungen bis zur Zielbreite Hintergrund liegt
 		// (mehr als 0,25 m tiefer) und diese Richtung von der Sonne weg zeigt; Knicke bleiben wie im Dorf
+		// Runde 5 (Helfer 17:07: Goblins gefuellt, Helden rundum dick): an jeder Kante sah eine Schraegrichtung von der Sonne weg
+		// auch Hintergrund, und duenne Teile (Beine, Arme, Klingen) sahen ihn beidseits. Jetzt zaehlt die Summe der Richtungen zum
+		// Hintergrund (Aussenseite der Kante) gegen die Sonne, und wo gegenueberliegende Richtungen beide Hintergrund sehen, bleibt
+		// das Teil bei der Dorflinie
 		if (umriss_dick > 1.0) {
 			vec2 r = e1 * max(dick * zs, l1) * 2.0 * umriss_dick;
 			vec2 sn = length(sl) > 0.05 ? normalize(sl) : vec2(0.0);
-			float hl = smoothstep(0.008, 0.02, lum);
+			float sp[8];
+			vec2 aussen = vec2(0.0);
 			for (int i = 0; i < 8; i++) {
 				vec2 d = vec2(cos(float(i) * 0.7853982), sin(float(i) * 0.7853982));
 				float dz = lz(SCREEN_UV + d * r, INV_PROJECTION_MATRIX) - z;
-				float sprung = smoothstep(0.25, 0.4, dz) * (1.0 - smoothstep(sprung_max, sprung_max * 1.5, dz));
-				breit = max(breit, sprung * (1.0 - smoothstep(0.0, 0.6, dot(d, sn)) * hl));
+				sp[i] = smoothstep(0.25, 0.4, dz) * (1.0 - smoothstep(sprung_max, sprung_max * 1.5, dz));
+				aussen += d * sp[i];
+				breit = max(breit, sp[i]);
 			}
+			float duenn_teil = 0.0;
+			for (int i = 0; i < 4; i++) duenn_teil = max(duenn_teil, min(sp[i], sp[i + 4]));
+			// seitliche Kanten (Sonne hoch, Skalarprodukt um 0,4) galten mit 0..0,6 nur halb als Lichtseite und blieben halb deckend
+			float lw = length(aussen) > 1e-3 ? smoothstep(-0.1, 0.3, dot(aussen / length(aussen), sn)) * smoothstep(0.008, 0.02, lum) : 0.0;
+			breit *= (1.0 - lw) * (1.0 - duenn_teil);
 			float d0 = texture(depth_tex, SCREEN_UV).r;
 #if CURRENT_RENDERER == RENDERER_COMPATIBILITY
 			d0 = d0 * 2.0 - 1.0;
