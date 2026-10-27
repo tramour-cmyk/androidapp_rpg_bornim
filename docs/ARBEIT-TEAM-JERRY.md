@@ -10,7 +10,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere schnell auf Bewegungen und unsere Haut prüfen, vor Eigenbau; zuerst Wolf, Keiler, Hundertfüßer, Dorftiere | startbar |
+| 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere schnell auf Bewegungen und unsere Haut prüfen, vor Eigenbau; zuerst Wolf, Keiler, Hundertfüßer, Dorftiere | wartet auf Chef: Schnellprüfung 8 Tiere (ansehen/387-kauftiere, Morgenblatt); kauftier.py |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | startbar: Umdrehen ohne Schritt (Ratte und Wolf) und Schnauze beheben (Archiv 21:26); Kaufwolf ja (Chef 21:51, Archiv): Ausweichen mit Ortswechsel wie Ratte | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: Hieb abgenommen 17:57; Grak, Kobold aufs CC0-Gerüst (Zombie-Platz = gekaufter Wiedergänger, Archiv 26.10., 20:32; von Sokrates) | `claude/jerry-348-kampf` |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht bis Kauf: Werte, Listen ja (Archiv), dann einbauen; erst Größe prüfen | – |
@@ -42,10 +42,9 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 
 - **Von Team Tom (27.10., 09:40), zu 348.7:** Kampfbewegungen des Helden Runde 1 und vier Befunde zu `figur.gd`: `ARBEIT-TEAM-TOM.md` „Zu 348.6, Kampf“.
-- **Zu 348.12f:** Aufruf im Kopf von `kaufratte.py`, Workflow „348.12f“. Lokal: `add_repo` bornim-kaufmodelle, Asset 678372860 per `gh api` (octet-stream), `unar`; Rest wie Workflow.
-- **Zu 348.12f, von Sokrates über Ford (Chef 27.10., 18:09, „Was ist mit dem Kaufwolf? Den nehmen wir nicht? Oder seine Animationen?“):** Janpec-Wolf (gekauft) als nächste Probe nach der Ratte, gleiche Art: Kampfort mit Ortswechsel neben unserem Wolf, eine Fehlerrunde, dann Chef.
-- **Zu 348.12f, Ort:** Wurzelweg `weg` in `giant_rat-info.json` (`kaufratte.py`), `figur.gd` `_bite`, `BITE`, `_walk_home`, `dodge(ms, nm)`; Probe `GEGNER=RATS OHNEUI=1 SCHAU=ort SCHAU_MESS=1` („Ortmess“), Film `348.12f-ort.mp4`; Rute `RUTE_MESS=1`. Lokal: bpy per `pip download`, dann aus der Datei; `apt-get install unar xvfb`; Kauf `gh api …/releases/assets/<id>`.
-- **Zu 348.12, von Sokrates (Chef 27.10., 17:19):** Telegram brachte nur Standbilder: Bewegung immer mit Film schicken (381); „ob das Modell trifft … muss man halt nachjustieren, das kann kein Kriterium sein“.
+- **Zu 348.12f, Kaufwolf und 387:** `kaufwolf.py` (Probe `ERSATZ=kaufwolf`, Workflow „Kaufwolf“), `kauftier.py` (`TIER=`, `ERSATZ=kauf_<tier>`); Heimweg und Ausweichen ohne Wurzelweg: `figur.gd` `_heimweg`, `_dubins`. An Tom offen (sein Vorrat über 15 KB): Heldin tritt in `SCHAU=1` alle 3 s (Ruhe-Naht, Prüfer 387).
+- **Zu 348.12f, Ort:** Wurzelweg `weg` in `giant_rat-info.json` (`kaufratte.py`), `figur.gd` `_bite`, `BITE`, `_walk_home`, `dodge(ms, nm)`; Probe `GEGNER=RATS OHNEUI=1 SCHAU=ort SCHAU_MESS=1` („Ortmess“), Film `348.12f-ort.mp4`; Rute `RUTE_MESS=1`. Lokal: bpy per `pip download`, dann aus der Datei; `apt-get install unar xvfb`; Kauf (`add_repo` bornim-kaufmodelle) `gh api …/releases/assets/<id>` (octet-stream; Ratte 678372860, Janpec 678515204); Aufruf im Kopf von `kaufratte.py`.
+- **Zu 348.12 (Chef 27.10., 17:19):** „ob das Modell trifft … muss man halt nachjustieren, das kann kein Kriterium sein“.
 - **Zu 348.12 Hieb (r7, 1f934b3dd):** `ual_lauer.py` `HIEB_SCHLUESSEL`, `HIEB_ROLLE`, Prüfwerte `HIEB_EIGEN`, `LAUER Faust-Mund`; im Kampfort `probe.gd` `SCHAU_MESS=1` (Figur +X links, +Y oben, +Z vorn); `hiebblatt.py`. Lokal: `cc0_laden.sh ~/cc0`, Toms v3 von e457d6d8b.
 - **Zu 348.9 Vierbeiner (Jerry 25, 25.10., 15:08):** Grundmodell `vierbeiner.py`; Arten `wildschwein.py` (boar), `ratte.py` (giant_rat), `.glb` als `godot/kampf/daten/<id>-<fell>.bin`; Probe `ERSATZ=boar|giant_rat`; `ALIAS`, `ERSATZ_KOPF`, `ERSATZ_SCHATTEN` (`figur.gd`), `ART_SIZE` (`kampfort.gd`). **Wildschwein Runde 4** (r3 beim Chef; Homer, Diogenes, Prüfer): Runde 4 nach Urteil des Chefs (Befunde in Git).
 - **Zu 348.7 und 348.9, von Chef (25.10., 19:05, zu den Kampfbildern):** (1) Kampfort-Hintergrund mehr an der Welt: „keine schnurgeraden Wege, sondern das ein bisschen ausfransen. Bisschen mehr richtige Wiese“ (`kampfort_wald.py`). (2) Ratte: gebaut (Jerry 33), Dorf an Tom.
