@@ -13,6 +13,7 @@ Der Auto-Modus lehnt `add_repo` in neuen Sitzungen ab (Tom 15:33, 15:42, 16:46; 
 ## Sachverhalt
 
 - Ablehnung des Prüfers: „Access Added As A Means“; Abhilfe laut Meldung: Erlaubnisregel für das Werkzeug in den Einstellungen.
+- Nachgestellt (Tom 17:29, Vermutung Sokrates 17:24): Regel steht auf `main` seit 14:57; diese Sitzung startete aber auf `07d30cc0c` (26.10., 21:35, ohne Regel). `main` in den Arbeitszweig gemischt, Einstellung damit im Arbeitsbaum: `add_repo` trotzdem abgelehnt. Ob eine Sitzung, die mit der Regel startet, durchkommt, ist offen; Startstand der Sitzungen veraltet (Ford prüft).
 - Fertig mit Kaufteilen (Sitzung 16:08): Blätter, Tracht-Standbilder (`bilder:pruefung/3761-*`). Offen: Figurenfilm nach den Korrekturen `0771a7bde`, Trachtfilm (lief 16:44 aus Speichermangel nicht durch).
 
 ## Auswertung
