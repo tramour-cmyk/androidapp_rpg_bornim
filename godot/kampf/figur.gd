@@ -238,12 +238,25 @@ func _model_path() -> String:
 			return "res://kampf/daten/dire_wolf-%s.bin" % (OS.get_environment("GRIMMFELL") if OS.has_environment("GRIMMFELL") else "schwarz")
 		var n: int = maxi(fighter.nr, 1) - 1
 		var art := ersatz()
+		if art.begins_with("kauf_"):     # 387: gekaufte Tiere (kauftier.py), Felle aus <art>-info.json
+			var fl := _kauf_felle(art)
+			if not fl.is_empty():
+				return "res://kampf/daten/%s-%s.bin" % [art, fl[n % fl.size()]]
 		if ERSATZ_FELLE.has(art):
 			return "res://kampf/daten/%s-%s.bin" % [art, ERSATZ_FELLE[art][n % ERSATZ_FELLE[art].size()]]
 		return "res://kampf/daten/wolf-%s.bin" % WOLF_COATS[n % WOLF_COATS.size()]
 	if fighter.monster.id in [Mars.CALLED, Mars.SCOUT]:     # 348.7: Goblin, Späher je Nummer eines der drei Kits (goblin.py, MonsterKits)
 		return "res://kampf/daten/%s-%s.bin" % [_gob_art(), _gob_kit()]
 	return "res://kampf/daten/%s.bin" % fighter.monster.id
+
+
+## 387: Felle eines gekauften Tiers (Schlüssel in <art>-info.json, wie kauftier.py sie baut)
+static func _kauf_felle(a: String) -> Array:
+	var ip := "res://kampf/daten/%s-info.json" % a
+	if not FileAccess.file_exists(ip):
+		return []
+	var j = JSON.parse_string(FileAccess.get_file_as_string(ip))
+	return j.keys() if j is Dictionary else []
 
 
 func _load_model() -> Node3D:
@@ -642,21 +655,107 @@ func _mps(nm: String) -> float:
 
 ## 348.12f: geht (weiter als RUN_FROM: rennt) heim im Tempo des Wurzelwegs, die Pfoten gleiten nicht; dort wieder zum Ziel.
 ## Ortmess Lauf 148: vor dem Loslaufen und nach der Ankunft drehte es in einem Bild (bis 178°); jetzt dreht es mit Schritten
-## (Gehen) mit TURN_DPS. Gibt die Dauer (s) zurück.
+## (Gehen) mit TURN_DPS; r3: auf dem Pfad von _heimweg() ohne Drehen auf der Stelle. Gibt die Dauer (s) zurück.
 func _walk_home() -> float:
 	var d := home - position
 	d.y = 0.0
 	if d.length() < 0.12:
 		position = home
 		return _turn_home()
-	var nm := "Rennen" if d.length() > RUN_FROM and weg.has("Rennen") else "Gehen"
-	var t := d.length() / _mps(nm)
+	var pfad := _heimweg()
+	var lang: float = pfad[pfad.size() - 1][1]
+	var nm := "Rennen" if lang > RUN_FROM and weg.has("Rennen") else "Gehen"
+	var t := lang / _mps(nm)
 	tween = create_tween()
-	var tt := _turn(tween, atan2(d.x, d.z))
 	tween.tween_callback(func(): _play(nm, 0.15))
-	tween.tween_property(self, "position", home, t)
+	tween.tween_method(func(x: float): _auf_pfad(pfad, x), 0.0, lang, t)
 	tween.tween_callback(_turn_home)
-	return tt + t
+	return t
+
+
+## 348.12f r3 (Chef 27.10., 21:26, Archiv: offene Befunde der Ratte beheben; Prüfer Ratte r2 und Kaufwolf r1: beim Umdrehen auf
+## der Stelle drehen die Pfoten 15–25 cm mit, ohne Schritt): der Heimweg ist ein Pfad ohne Drehen auf der Stelle. Liegt das Ziel
+## mehr als TURN_BOGEN hinter der Blickrichtung, läuft es erst einen Bogen (Radius TURN_R mal Größe) zur freieren Seite; dann eine
+## Kurve (kubisch), die daheim schon in der Blickrichtung von _face() ankommt. Je Punkt [Ort, Weg bis dahin, Drehung].
+const TURN_BOGEN := 60.0
+const TURN_R := 0.55
+const PFAD_SCHRITTE := 48
+
+
+func _heimweg() -> Array:
+	var r0 := rotation.y
+	var p0 := position
+	_face()     # Blickrichtung daheim: wie _face() sie dort setzt
+	position = home
+	_face()
+	var ziel := rotation.y
+	position = p0
+	rotation.y = r0
+	var R := TURN_R * _scale()
+	var pts: Array = [[p0, 0.0, r0]]
+	var yaw := r0
+	var p := p0
+	var zu := home - p0
+	var dw := wrapf(atan2(zu.x, zu.z) - yaw, -PI, PI)
+	if absf(rad_to_deg(dw)) > TURN_BOGEN:
+		# beide Drehsinne prüfen: Mittelpunkt links (+dw) oder rechts (−dw), Luft entlang des Bogens
+		var best := []
+		var luft := -INF
+		for sg in [1.0, -1.0]:
+			var x := Vector3(cos(yaw), 0.0, -sin(yaw))     # lokales +X in der Welt
+			var c: Vector3 = p0 + x * R * sg
+			var th := 0.0
+			var q := p0
+			var bogen := []
+			for _i in 3:     # bis die Blickrichtung vom Bogenende auf daheim zeigt
+				var v := home - q
+				th = wrapf(atan2(v.x, v.z) - yaw, -PI, PI)
+				if th * sg < 0.0:
+					th += TAU * float(sg)
+				q = c + (p0 - c).rotated(Vector3.UP, th)
+			for k in range(1, 9):
+				bogen.append([c + (p0 - c).rotated(Vector3.UP, th * k / 8.0), yaw + th * k / 8.0])
+			var g := INF
+			for b in bogen:
+				g = minf(g, _seg_gap(p0, b[0], null))
+			if g - absf(th) * 0.05 > luft:
+				luft = g - absf(th) * 0.05
+				best = bogen
+		var s := 0.0
+		for b in best:
+			s += Vector2(b[0].x - p.x, b[0].z - p.z).length()
+			pts.append([b[0], s, b[1]])
+			p = b[0]
+		yaw = best[best.size() - 1][1]
+	# Kurve vom Bogenende (Blick yaw) nach daheim (Blick ziel)
+	var a := p
+	var dist := Vector2(home.x - a.x, home.z - a.z).length()
+	var k := maxf(dist / 3.0, R)
+	var h0 := Vector3(sin(yaw), 0.0, cos(yaw))
+	var h1 := Vector3(sin(ziel), 0.0, cos(ziel))
+	var c1 := a + h0 * minf(k, dist * 0.5 + 0.01)
+	var c2 := home - h1 * k
+	var s: float = pts[pts.size() - 1][1]
+	var vorher := a
+	for i in range(1, PFAD_SCHRITTE + 1):
+		var u := float(i) / PFAD_SCHRITTE
+		var q := a.bezier_interpolate(c1, c2, home, u)
+		var tq := a.bezier_derivative(c1, c2, home, u)
+		s += Vector2(q.x - vorher.x, q.z - vorher.z).length()
+		pts.append([q, s, atan2(tq.x, tq.z) if Vector2(tq.x, tq.z).length() > 1e-4 else ziel])
+		vorher = q
+	return pts
+
+
+func _auf_pfad(pts: Array, s: float) -> void:
+	var i := 1
+	while i < pts.size() - 1 and pts[i][1] < s:
+		i += 1
+	var a: Array = pts[i - 1]
+	var b: Array = pts[i]
+	var f := clampf((s - a[1]) / maxf(b[1] - a[1], 1e-5), 0.0, 1.0)
+	position = a[0].lerp(b[0], f)
+	rotation.y = a[2] + wrapf(b[2] - a[2], -PI, PI) * f
 
 
 ## Grad je Sekunde, mit denen ein Tier mit Wurzelweg sich umdreht (180° in 0,4 s)
@@ -736,8 +835,8 @@ func _bite(other, leap: bool) -> int:
 	tween.tween_callback(_walk_home)
 	# bis daheim, damit keiner zu einem Ort schlägt, an dem es nicht mehr steht
 	var heim := Vector2(home.x - ende.x, home.z - ende.z).length()
-	var t_heim := 0.0 if heim < 0.12 else heim / _mps("Rennen" if heim > RUN_FROM and weg.has("Rennen") else "Gehen")
-	t_heim += 2.0 * 180.0 / TURN_DPS     # umdrehen zum Heimweg und daheim zurück (höchstens)
+	# r3: Heimweg mit Bogen und Kurve statt Drehen (höchstens ein Halbkreis und ein Bogen daheim mehr als die Gerade)
+	var t_heim := 0.0 if heim < 0.12 else (heim + 2.0 * PI * TURN_R * _scale()) / _mps("Rennen" if heim + PI * TURN_R * _scale() > RUN_FROM and weg.has("Rennen") else "Gehen")
 	busy_ms = int((t_run + bl + t_back + t_heim) * 1000.0)
 	return int((t_run + bite[nm][1]) * 1000.0 / 0.42)
 

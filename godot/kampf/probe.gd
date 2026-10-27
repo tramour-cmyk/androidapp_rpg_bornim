@@ -494,8 +494,9 @@ func _ort_mess(rat, ziel) -> void:
 	var sn: Vector3 = nase - rat.position
 	sn.y = 0.0
 	var rand: float = Vector2(ziel.position.x - nase.x, ziel.position.z - nase.z).length() - ziel.body_r()
-	print("Ortmess %s %3d %s %s Lauf %s Ort %.2f,%.2f Nase-Rand %.2f m Winkel %.0f° Nase hoch %.2f" % [schritt, bild, rat.anim.current_animation,
-		"%.2f" % rat.anim.current_animation_position, rat.lunging(), rat.position.x, rat.position.z, rand, rad_to_deg(zu.signed_angle_to(sn, Vector3.UP)), nase.y - rat.position.y])
+	print("Ortmess %s %3d %s %s Lauf %s Ort %.2f,%.2f Nase-Rand %.2f m Winkel %.0f° Nase hoch %.2f Gier %.1f°" % [schritt, bild, rat.anim.current_animation,
+		"%.2f" % rat.anim.current_animation_position, rat.lunging(), rat.position.x, rat.position.z, rand, rad_to_deg(zu.signed_angle_to(sn, Vector3.UP)), nase.y - rat.position.y,
+		rad_to_deg(rat.rotation.y)])
 
 
 var _ort_nase := -1.0
