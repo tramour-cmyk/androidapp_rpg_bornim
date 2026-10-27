@@ -335,12 +335,13 @@ func _scorching_ray(p: float, from0: Vector2, to: Vector2, u: float) -> void:
 
 ## Feuerball: eine wälzende Masse, am Rand dunkel, innen weißglühend; am Ziel ein Blitz, Flammenballen, der Boden brennt
 func _fireball(p: float, from: Vector2, to: Vector2, ground: float, u: float) -> void:
+	var ohne := OS.get_environment("FB_OHNE")     # Probe: Teile weglassen, um den „Doppelfleck“ zu finden
 	var travel := 0.42
 	var bend := (_rf() - 0.5) * 60 * u
 	var t := minf(p / travel, 1.0)
 	for k in range(1, 11):
 		var tt := t - k * 0.055
-		if tt <= 0.0:
+		if tt <= 0.0 or ohne == "spur":
 			continue
 		var age := clampf((p - tt * travel) / 0.55, 0.0, 1.0)
 		var c := _arc(from, to, tt, bend) + Vector2(0, -age * 12 * u)
@@ -361,9 +362,10 @@ func _fireball(p: float, from: Vector2, to: Vector2, ground: float, u: float) ->
 		return
 	var s := (p - travel) / (1 - travel)
 	var flash := clampf(1 - s / 0.18, 0.0, 1.0)
-	if flash > 0.0:
+	if flash > 0.0 and ohne != "blitz":
 		_glow(to, 70 * u, [_a(WHITE, 0.85 * flash), _a(FIRE_HOT, 0.6 * flash), _a(FIRE, 0.25 * flash), NONE])
-	_clinging_fire(Vector2(to.x, ground), s, u, 1.9)
+	if ohne != "boden":
+		_clinging_fire(Vector2(to.x, ground), s, u, 1.9)
 	var ausw := 1.0 - (1.0 - s) * (1.0 - s)
 	for k in 30:
 		var a := _rf() * TAU
@@ -374,9 +376,13 @@ func _fireball(p: float, from: Vector2, to: Vector2, ground: float, u: float) ->
 		# ohne Rauchballen (Helfer Lauf 126 und Runde 2: zwei dunkle runde Flecken „wie Augen“); Rauch steigt in _smoke darüber auf
 		var col := FIRE_HOT if heat > 0.7 else (FIRE if heat > 0.4 else FIRE_DARK)
 		var a0 := (1 - s * 0.7) * (1.0 if heat > 0.15 else 0.4)
+		if ohne == "ballen" or (ohne == "dunkel" and col == FIRE_DARK):
+			continue
 		_glow(c, rad, [_a(col, a0), _a(col, a0 * 0.4), _a(col, 0.0)])
-	_smoke(to + Vector2(0, -10 * u), (s - 0.25) / 0.75, u, 10, 70.0, 0.3)     # Prüfer Runde 4: zwei dunkle Ballen „wie Augen“
-	_burst(to, s, u, [FIRE_HOT, FIRE, FIRE_DARK], 16, 50.0)
+	if ohne != "rauch":
+		_smoke(to + Vector2(0, -10 * u), (s - 0.25) / 0.75, u, 10, 70.0, 0.3)     # Prüfer Runde 4: zwei dunkle Ballen „wie Augen“
+	if ohne != "funken":
+		_burst(to, s, u, [FIRE_HOT, FIRE, FIRE_DARK], 16, 50.0)
 
 
 ## Heilung: warmes Licht sammelt sich im Körper, Funken von ringsum, ein Schein schwillt in der Brust und vergeht. Helfer
@@ -435,8 +441,9 @@ func _blessing(p: float, chest: Vector2, ground: float, u: float) -> void:
 	# am Ziel (Prüfer Runde 3b: „kaum sichtbar“): das Licht sammelt sich als Schein um die Füße, er schwillt und vergeht
 	var pool := sin(clampf((p - 0.25) / 0.7, 0.0, 1.0) * PI)
 	if pool > 0.0:
-		# als goldener Ring, innen dünn (Prüfer Runde 4: grau wie Bodennebel, nahm den Schatten unter den Füßen)
-		_glow(Vector2(x, ground), 30 * u, [_a(HOLY_GOLD, 0.06 * pool), _a(HOLY_GOLD, 0.12 * pool), _a(HOLY_GOLD, 0.42 * pool), NONE], 0.3)
+		# eng um die Füße, golden (Prüfer Runde 4: grau wie Bodennebel, nahm den Schatten; 4b: Ring las sich als Schmierfleck bis
+		# zum Nachbarn)
+		_glow(Vector2(x, ground), 16 * u, [_a(HOLY_GOLD, 0.3 * pool), _a(HOLY_GOLD, 0.22 * pool), NONE], 0.32)
 
 
 ## Pfeil (Rückläufer t55, t64): dünner dunkler Schaft, kleine Spitze, graubraune Federn, im Bogen geworfen, die Spitze voran
@@ -535,9 +542,10 @@ func draw(kind: String, sd: int, p: float, source: Vector2, target: Vector2, u: 
 		side = -side
 	# Helfer Runde 2 (Feuerpfeil daneben brannte in der Luft): was vorbeifliegt, schlägt neben dem Ziel in den Boden; seitlich
 	# statt dahinter (Prüfer Runde 3: dahinter lag es unter Ansage und Lebensbalken)
-	# Prüfer Runde 4 (lag weiter an der Buschkante): kurz vor dem Ziel, auf dem freien Platz zwischen den Parteien
-	var by := Vector2(target.x - dv.x / ln * 30 * u - dv.y / ln * side * 30 * u, target.y - dv.y / ln * 30 * u + dv.x / ln * side * 30 * u)
-	var floor_y := ground + (by.y - target.y)
+	# Prüfer Runde 4, 4b (an der Buschkante; dann an der Schulter des Wolfs, „wie ein Treffer“): auf dem freien Platz zwischen
+	# den Parteien, gut vor dem Ziel und etwas seitlich
+	var by := source.lerp(target, 0.6) + Vector2(-dv.y / ln, dv.x / ln) * side * 18 * u
+	var floor_y := by.y + (ground - target.y)     # Boden unter dem Punkt, Brusthöhe wie am Ziel
 	if kind != "MISSILES":
 		by.y = floor_y - 2 * u
 	draw_fx(kind, sd, p, source, by, u * 0.8, floor_y, kind != "MISSILES")

@@ -849,13 +849,42 @@ func _draw_spells() -> void:
 		var tall := _tall(on)
 		var by = k.figures.get(sp.by, on)
 		var from := _foot(by) - Vector2(0, _tall(by) * 0.55)
-		# Prüfer Runde 4 (Geschoss startet in der Schildmitte): vom vorderen Rand des Wirkenden, zum Ziel hin
-		if by != on and sp.kind in ["ARROW", "FIRE_BOLT", "MISSILES", "FIREBALL", "RAYS"]:
-			from.x += signf(to.x - from.x) * _tall(by) * 0.22
+		var flying: bool = by != on and sp.kind in ["ARROW", "FIRE_BOLT", "MISSILES", "FIREBALL", "RAYS"]
+		# Prüfer Runde 4, 4b (Strahl und Geschoss des Magiers hinten begannen auf Miras Schild vorn): steht jemand am Schirm
+		# zwischen Wirkendem und Ziel, geht es über ihn, von über der Schulter des Wirkenden
+		if flying:
+			from = _clear_from(from, to - Vector2(0, tall * 0.55), [by, on], _tall(by))
 		var u := tall / 40.0 * (1.35 if sp.crit else 1.0)
-		Zauber.over = _over(from, to - Vector2(0, tall * 0.55), [by, on]) if sp.kind in ["ARROW", "FIRE_BOLT", "MISSILES", "FIREBALL", "RAYS"] else 0.0
+		# der Strahl bleibt gerade (Runde 4b: im Bogen ein „Regenbogen“ bis an die Bäume)
+		Zauber.over = _over(from, to - Vector2(0, tall * 0.55), [by, on]) if flying and sp.kind != "RAYS" else 0.0
 		zauber.draw(sp.kind, int(sp.seed), p, from, to - Vector2(0, tall * 0.55), u, to.y, sp.missed)
 	spells = still
+
+
+## Startpunkt über der Schulter: so weit über der Brust des Wirkenden (höchstens bis 0,7 seiner Höhe), bis die Gerade zum
+## Ziel am Schirm keine andere stehende Figur mehr kreuzt
+func _clear_from(a: Vector2, b: Vector2, skip: Array, tall_by: float) -> Vector2:
+	for step in 8:
+		var s := a - Vector2(0, tall_by * 0.1 * step)
+		if not _crosses(s, b, skip):
+			return s
+	return a - Vector2(0, tall_by * 0.7)
+
+
+func _crosses(a: Vector2, b: Vector2, skip: Array) -> bool:
+	var k = kampfort
+	for id in k.figures:
+		var o = k.figures[id]
+		if o in skip or not o.visible or o.down:
+			continue
+		var foot := _foot(o)
+		var tall := _tall(o)
+		var half: float = tall * (0.8 if o.fighter.monster != null and o.fighter.monster.id == Mars.WOLF else 0.45)
+		for i in 21:
+			var q := a.lerp(b, i / 20.0)
+			if absf(q.x - foot.x) < half and q.y > foot.y - tall - 6 * dp and q.y < foot.y:
+				return true
+	return false
 
 
 ## 348.7 (Helfer Lauf 126: Geschosse flogen vor dem näheren Wolf durch, „wie ein Treffer am falschen Wolf“): wie hoch die
