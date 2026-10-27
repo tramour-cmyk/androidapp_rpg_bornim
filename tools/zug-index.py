@@ -8,6 +8,7 @@ Je Datei: Zeile 1 „# <Nr.> · <Frage>“, Zeile 2 „<Absender> · <TT.MM.>, �
 import os, re, sys
 
 ZUG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs", "chefsache")
+SEIT = r"\b(\d\d)\.(\d\d)\.(?:,? (\d\d:\d\d))?"  # 275 (Chef 15:21): „Seit“ mit Uhrzeit, „damit ich sehe, das liegt jetzt schon so und so lange“
 BEREICH = re.compile(r"^[EGQBM] [A-ZÄÖÜ]\w+$")
 
 def vorgaenge():
@@ -56,14 +57,14 @@ def eintrag(ordner, name):
     if not was: nr, was = name.split("-")[0], kopf
     meta = next((z for z in zeilen[1:] if not z.startswith("Kurz:")), "")
     wer = meta.split(" · ")[0] if " · " in meta else ""
-    m = re.search(r"\b(\d\d)\.(\d\d)\.", meta)
+    m = re.search(SEIT, meta)
     seit = m.group(0) if m else ""
     kurz = next((z[5:].strip() for z in zeilen if z.startswith("Kurz:")), None)
     if kurz: was = kurz
     else:
         e = re.search(r"\*\*Empfehlung:?\s*([^*]{1,40}?)\.?\*\*", text)
         if e and e.group(1).strip(): was += f" (Empfehlung: {e.group(1).strip()})"
-    sort = (m.group(2) + m.group(1)) if m else "0000"
+    sort = (m.group(2) + m.group(1) + (m.group(3) or "")) if m else "0000"
     bereich, klasse = nachschlagen(nr)
     bereich = next((t.strip() for t in meta.split(" · ")[1:] if BEREICH.match(t.strip())), bereich)
     vorrang = KLASSE.get(klasse, klasse if klasse not in ("", "–") else "–")
@@ -86,7 +87,7 @@ def builds(name):
     kopf = zeilen[0].lstrip("#").strip() if zeilen else name
     meta = next((z for z in zeilen[1:] if not z.startswith("Kurz:")), "")
     wer = kopf.split(" · ")[0]
-    m = re.search(r"\b(\d\d)\.(\d\d)\.", meta)
+    m = re.search(SEIT, meta)
     seit = m.group(0) if m else ""
     tn = re.match(r"t(\d+)-", name)
     # APK-Link in der Bereichszeile (Lauf oder Pull-Request), sonst der Pull-Request aus Zeile 1: die Spalte „Build“ ist dann anklickbar
@@ -96,7 +97,7 @@ def builds(name):
     if not tn:  # Bildvorschau (228, 165): „# <Nr.> · <Thema> · <Team> · <TT.MM.>, <HH:MM>“, kein Build
         teile = kopf.split(" · ")
         team = next((t for t in teile[2:] if re.sub(r" \d+$", "", t) in TEAMS), "")
-        d = re.search(r"\b(\d\d)\.(\d\d)\.", kopf)
+        d = re.search(SEIT, kopf)
         return [(None, teile[0], "", teile[1] if len(teile) > 1 else kopf, name, team or "–", d.group(0) if d else seit)]  # 367: Wer nie die Nummer
     def zeile(teile, standard):
         v = next((VERSION.search(t) for t in teile if VERSION.search(t)), None)
