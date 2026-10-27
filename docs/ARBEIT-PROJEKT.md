@@ -9,7 +9,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 383.1 | M | **von Sokrates (Chef 27.10., 19:19, „deine letzte Sitzung war ja nicht mal 2 Seiten lang. Also warum wurde jetzt wieder neu aufgemacht?“):** Neustartgrund „wartet auf den Chef“ streichen; Beleg: 221k von 1 Mio., jeder Start ≥ 1,25 $ (Zu 383 Sokrates); Chef 19:23 „383.1 ja“, „jetzt“ 27.10., 19:23 | gebaut 27.10., 19:29; Grenzen Vorentscheid (billigen/3831) |
+| 383.3 | M | **von Sokrates (Chef 27.10., 19:55, „Sachen, die nicht mehr zur Vorlage sind, dann weg … Das ist kein Arbeiten so.“):** Vorlage zurück beim Team: sofort aus der Chefsache; Wächter | neu |
+| 383.1 | M | **von Sokrates (Chef 19:19, 19:23 ja, „jetzt“ 27.10., 19:23):** Neustartgrund „wartet auf den Chef“ streichen (Zu 383 Sokrates) | gebaut 27.10., 19:29; Grenzen Vorentscheid (billigen/3831) |
 | 383 | M | **von Sokrates (Chef 27.10., 17:53 „ja, 383“, Archiv):** Wartewächter in `lauf.py` (Zeitfeld zum „jetzt“, Protokollzeile in `meldung.sh`), Haken 63 verschärfen; Fälle 376.1 und Ford-Bitte 17:3x nachstellen | gebaut 27.10., 19:1x; Diogenes zählt ab 28.10. (Zu 383) |
 | 275 | M | **von Sokrates (Chef 27.10., 15:09 ja, 15:15 „jetzt loslegen“, Archiv):** Stufe 1 (Chefsache 275, Git); Statusfeld mit Wortliste; nur gezielte Suche, Token je Start messen (15:11); Besitzer schreiben selbst über `vorgang.py` (15:20) | frühestens 03.11.: Stufe 2, wenn Diogenes keinen Werkzeugfehler zählt; LEICHEN_START an seit 27.10., 17:2x; offen D46.3, D46.5, D47.2 (Zu 275) |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9):** Meilenstein „Kapitel 1 auf Godot mindestens so gut wie alt“ mit Checkliste aus der Bestandsliste 348.8 und Tagesziele je Team; `ROLLE-PRUEFUNG.md` für Diogenes (Arbeitsteilung 1, 3) | bis 02.11. Dauerzeile (Meilenstein Umzug): Tagesziele täglich im Stand zum Marktstart |
