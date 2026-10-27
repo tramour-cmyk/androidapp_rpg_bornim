@@ -446,10 +446,16 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 373 | Aussehen, Design, Bewegung, Animation urteilt nur der Chef: Bilder und Videos in den Vorgang und per Telegram, keine Helferrunden über Wirkung, für alle (Chef 27.10., 11:31) | B Abläufe | M | 11,72 $ | Perikles | erledigt |
 | 167.7 | Auslöser: neuer Vorratseintrag startet Sitzung ohne Warten auf Fords Stundenlauf (Chef 18.10.) | B Steuerung | M? |  | Perikles | abgelehnt |
 | 318.1 | Uhrzeit im Chat-Stempel streichen (Messung 25.10.: 42 % daneben) | B Abläufe | – | – | Sokrates | nein |
-| 377 | Vor jedem Eigenbau zuerst Bestand (gekauft, geladen) prüfen, sichergestellt? (Chef 27.10., 12:53) | B Abläufe | M | 1,56 $ | Perikles | fertig |
+| 377 | Vor jedem Eigenbau zuerst Bestand (gekauft, geladen) prüfen, sichergestellt? (Chef 27.10., 12:53) | B Abläufe | M | 16,75 $ | Perikles | fertig |
 | 373a | Rückfrage: Nachturteil Sokrates (362) mit 373 gestrichen lassen? | B Abläufe | M | – | Perikles | entschieden |
 | 149 | Probewoche Ford mit neuem Modell: Regelverstöße zählen bis 24.10. (Chef) | Q QM | M |  | Diogenes | erledigt |
 | 236 | notiz.sh bleibt im Merge stehen (altes lokales main im Abbild), Notizen auf altem Stand | Q Ablauf | M | – | Perikles | erledigt |
 | 377.1 | Inventur: Übersicht aller Bewegungen, Modelle, Dinge im Bestand (Chef 27.10., 14:28) | B Abläufe | M | – | Sokrates | erledigt |
 | 377.2 | Freigabe `add_repo` (Kaufmodelle) dauerhaft erlauben (Chef 27.10., 14:31) | B Abläufe | M | – | Perikles | fertig |
 | 378 | Durchsicht aller Vorräte: Leichen verteilen (Chef 27.10., 14:45) | B Abläufe | M | – | Perikles | fertig |
+| 296.2a | Rückfrage: Rudeltiere in MARS als volle Gegner? | G Balance | – | – | Team Jerry | erledigt |
+| 376.3 | Vier RenderHub-Bewegungspakete prüfen (Chef 27.10., 12:52) | E Figuren | M | – | Sokrates | erledigt |
+| 379 | `lauf.py --kosten` bucht eine Sitzung, die auf zwei Vorgänge aufgeteilt wird, nur einmal (Ford 27.10., 15:15) | Q Werkzeug | M | – | Perikles | erledigt |
+| 380 | `lauf.py` startet Diogenes nicht, wenn die Übergabe einen nicht startbaren Nachfolger nennt, obwohl `startbar.py` ein Muss zeigt (Ford 27.10., 15:25) | Q Werkzeug | M | – | Perikles | erledigt |
+| 348.3 | Fehlermessung Engine: hätte Godot die Fehler des Chefs verhindert, Umzugskosten | E Technik | M | – | Tom, Jerry | erledigt |
+| 369.1 | Ford archiviert selbst: Satz des Chefs in Fords Sitzung (Chef 27.10., 15:04) | B Abläufe | M | – | Perikles | erledigt |
