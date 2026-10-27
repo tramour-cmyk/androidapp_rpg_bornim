@@ -211,8 +211,8 @@ jobs:
           ls -l $P
       # 348.12f Probe gekaufte Ratte (Archiv 348.12c b): nach dem APK (das trägt nur die eigene Ratte); die gekauften Dateien
       # bleiben auf dem Runner, ins Artefakt gehen nur Bilder, Kurzvideos und Protokolle (348.12c a: nie Rohdateien hierher)
-      - name: 348.12f Probe gekaufte Ratte (nur bei Commits mit „348.12f“)
-        if: contains(github.event.head_commit.message, '348.12f')
+      - name: 348.12f Probe gekaufte Ratte (nur bei Commits mit „348.12f“, ohne „Kaufwolf“)
+        if: contains(github.event.head_commit.message, '348.12f') && !contains(github.event.head_commit.message, 'Kaufwolf')
         env:
           GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
         run: |
@@ -272,6 +272,41 @@ jobs:
             -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $P/348.12f-ort.mp4 || true
           grep -E "^Ort |SCRIPT ERROR" $P/ort-*.log | head -30 || true
           rm -f $D/giant_rat-*.bin
+          ls -l $P
+      # 348.12f Kaufwolf (Chef 27.10., 18:09): gekaufter Janpec-Wolf neben unserem Wolf, Kampfort mit Ortswechsel wie die Ratte
+      - name: 348.12f Probe gekaufter Wolf (nur bei Commits mit „Kaufwolf“)
+        if: contains(github.event.head_commit.message, 'Kaufwolf')
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+        run: |
+          export GEGNER=WOLVES OHNEUI=1
+          P=$GITHUB_WORKSPACE/kaufprobe; mkdir -p $P
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
+          python3 -c 'import PIL' 2> /dev/null || python3 -m pip install -q pillow
+          git fetch -q --depth 1 origin claude/tom-348-fundament
+          git show FETCH_HEAD:tools/blender348/kauf_laden.sh > $RUNNER_TEMP/kauf_laden.sh
+          timeout 900 bash $RUNNER_TEMP/kauf_laden.sh $RUNNER_TEMP/kauf > $P/kauf-laden.log 2>&1 || echo "kauf_laden.sh Ende $?"
+          bild() { (cd godot && timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 -- --bild=$P/$1.png > $P/$1.log 2>&1) || true; }
+          ort() { (cd godot && SCHAU=ort SCHAU_MESS=1 SCHAU_TITEL=$2 timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/ort-$1.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/ort-$1.log 2>&1) || true
+            ffmpeg -loglevel error -y -i $RUNNER_TEMP/ort-$1.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $P/ort-$1.mp4 || true; }
+          D=godot/kampf/daten
+          env OUT=$RUNNER_TEMP/kw KAUF=$RUNNER_TEMP/kauf timeout 1200 bl/bin/python -I tools/blender348/kaufwolf.py > $P/kaufwolf-bau.log 2>&1 || (tail -60 $P/kaufwolf-bau.log; exit 1)
+          grep -E "IMPORT|BEWEGUNG|MASS|TEMPO|HALTUNG|BEMALUNG|BISS|FEHLT|GLB|FERTIG" $P/kaufwolf-bau.log | cut -c1-400
+          for f in grau dunkel rost asche; do cp $RUNNER_TEMP/kw/kaufwolf-$f.glb $D/kaufwolf-$f.bin; done
+          cp $RUNNER_TEMP/kw/kaufwolf-info.json $D/
+          bild wolf-eigen; ort eigen eigen
+          export ERSATZ=kaufwolf
+          bild wolf-kauf; ort kauf gekauft
+          (cd godot && SCHAU=1 SCHAU_TITEL=gekauft SCHAU_LISTE="Stehen,Lefzen,Gehen,Rennen,Hocke,Biss,Treffer,Ausweichen,Heulen,Tod" \
+            timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 --write-movie $RUNNER_TEMP/alle.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/alle-film.log 2>&1) || true
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/alle.avi -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/348.12f-kaufwolf-alle.mp4 || true
+          NAMEN="grau;dunkel;rost" python3 tools/blender348/kaufblatt.py $P/348.12f-kaufwolf-blatt.png "eigen (wolf.py Runde 10)=$P/wolf-eigen.png=$P/wolf-eigen.log" "gekauft (Janpec), unsere Felle=$P/wolf-kauf.png=$P/wolf-kauf.log" || true
+          dauer() { for v in "$@"; do ffmpeg -i $P/$v.mp4 2>&1 | grep -oE 'Duration: [0-9:.]+' | awk -F'[: ]' '{print $3*3600+$4*60+$5}'; done | sort -g | tail -1; }
+          L=$(dauer ort-eigen ort-kauf | awk '{print $1 - 1.25}')
+          ffmpeg -loglevel error -y -ss 1.25 -i $P/ort-eigen.mp4 -ss 1.25 -i $P/ort-kauf.mp4 -filter_complex "[0]tpad=stop_mode=clone:stop_duration=30[a];[1]tpad=stop_mode=clone:stop_duration=30[b];[a][b]hstack=inputs=2,trim=duration=$L" \
+            -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $P/348.12f-kaufwolf-ort.mp4 || true
+          grep -E "SCRIPT ERROR" $P/*.log | head -20 || true
+          rm -f $D/kaufwolf-*.bin
           ls -l $P
       - uses: actions/upload-artifact@v4
         if: contains(github.event.head_commit.message, '348.12f')

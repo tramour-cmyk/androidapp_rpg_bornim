@@ -28,11 +28,13 @@ const FALL_MS := 900
 const FADE_MS := 600
 const WOLF_COATS := ["grau", "dunkel", "rost", "asche"]
 ## 348.9 Entwurf: ERSATZ=boar zeigt das Wolfsrudel mit einem anderen Vierbeiner (Modell und Größe, Regeln bleiben die des Wolfs)
-const ERSATZ_FELLE := {"boar": ["dunkel", "grau", "rost"], "giant_rat": ["braun", "grau", "schwarz"], "giant_bat": ["braun", "schwarz", "grau"]}
+## 348.12f: ERSATZ=kaufwolf, der gekaufte Wolf (kaufwolf.py, Janpec) mit unseren vier Fellen, Probe neben unserem Wolf
+const ERSATZ_FELLE := {"boar": ["dunkel", "grau", "rost"], "giant_rat": ["braun", "grau", "schwarz"], "giant_bat": ["braun", "schwarz", "grau"],
+		"kaufwolf": ["grau", "dunkel", "rost", "asche"]}
 ## Bewegungen eines Vierbeiners, die beim Wolf anders heißen (wildschwein.py: Hauerstoß statt Biss, Rammen statt Sprung)
 ## Kopfhöhe (Ohrspitzen) und Bodenschatten (Breite, Länge, Mitte vor dem Ursprung) des Ersatzes in Modellmetern (Ratte Runde 2:
 ## Balken 200 px über der Ratte, Schatten größer als das Tier)
-const ERSATZ_KOPF := {"giant_rat": 0.4, "giant_bat": 0.98}
+const ERSATZ_KOPF := {"giant_rat": 0.4, "giant_bat": 0.98, "kaufwolf": 1.06}     # Kaufwolf: Ohren 1,175 m (unser Wolf 1,24 m bei 1,12)
 const ERSATZ_SCHATTEN := {"giant_rat": [0.3, 0.85, -0.08], "giant_bat": [0.9, 0.5, -0.04]}
 ## Ersatz ohne Umgebungsvariable (Prüf-APK: Probekampf „Ratten“ setzt giant_rat); ERSATZ geht vor
 static var ersatz_art := ""
@@ -94,6 +96,8 @@ const RUN_FROM := 1.2
 ## schwenkt der Kopf der Quelle 15–21° nach links
 ## Prüfer Lauf 148: Nase 0,05–0,09 m (Sprungbiss 0,09–0,12 m) im Rand, Kopf am Schirm jenseits der Heldin: Abstand +0,06/+0,09 m
 const BITE := {"Biss": [0.78, 0.5, -7.0], "Sprungbiss": [0.81, 0.6, -11.0]}
+## dasselbe je Modell aus <art>-info.json „biss“ (kaufwolf.py misst es beim Bau), sonst BITE
+var bite := BITE
 
 
 func setup(f, k) -> void:
@@ -609,6 +613,8 @@ func _weg() -> Dictionary:
 	var fell := p.get_file().get_basename().get_slice("-", 1)
 	if j is Dictionary and j.get(fell) is Dictionary and j[fell].get("weg") is Dictionary:
 		weg_fps = float(j[fell].get("fps", 30.0))
+		if j[fell].get("biss") is Array:
+			bite = {"Biss": j[fell].biss}
 		return j[fell].weg
 	return {}
 
@@ -692,7 +698,7 @@ func _bite(other, leap: bool) -> int:
 		flat = basis.z
 	var dir := flat.normalized()
 	var nm := "Sprungbiss" if leap and anim and anim.has_animation("Sprungbiss") and weg.has("Sprungbiss") else "Biss"
-	var stand: float = other.body_r() + BITE[nm][0] * model.scale.x     # Ursprung bis Mitte des Ziels beim Biss
+	var stand: float = other.body_r() + bite[nm][0] * model.scale.x     # Ursprung bis Mitte des Ziels beim Biss
 	var jump := _weg_len(nm) if nm == "Sprungbiss" else 0.0
 	var k := 1.0
 	var gap := flat.length() - stand
@@ -701,7 +707,7 @@ func _bite(other, leap: bool) -> int:
 		jump *= k
 	var start := position + dir * maxf(0.0, gap - jump)
 	_face(flat)
-	rotation.y += deg_to_rad(BITE[nm][2])     # die Schnauze, nicht die Körperachse zum Ziel
+	rotation.y += deg_to_rad(bite[nm][2])     # die Schnauze, nicht die Körperachse zum Ziel
 	if tween and tween.is_running():
 		tween.kill()
 	tween = create_tween()
@@ -733,7 +739,7 @@ func _bite(other, leap: bool) -> int:
 	var t_heim := 0.0 if heim < 0.12 else heim / _mps("Rennen" if heim > RUN_FROM and weg.has("Rennen") else "Gehen")
 	t_heim += 2.0 * 180.0 / TURN_DPS     # umdrehen zum Heimweg und daheim zurück (höchstens)
 	busy_ms = int((t_run + bl + t_back + t_heim) * 1000.0)
-	return int((t_run + BITE[nm][1]) * 1000.0 / 0.42)
+	return int((t_run + bite[nm][1]) * 1000.0 / 0.42)
 
 
 ## Ground under the figure where no grass grows (halm.gdshader spots): x, z, radius.
