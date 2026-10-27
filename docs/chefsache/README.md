@@ -119,7 +119,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 376 | M | von Chef (27.10., 12:00): Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Perikles |
+| 376 | M | von Chef (27.10., 12:00): Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Tom |
 | 374 | M | von Chef (27.10., 11:54): wer prüft 373? | Termin 31.10. |
 | 348.12c | M | von Chef (26.10., 11:59): Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters | ruht |
 | 348.12 | M | von Chef (25.10., 21:21, „b prüfen“): fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit | wartet auf Jerry |
