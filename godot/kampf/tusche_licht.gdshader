@@ -133,6 +133,13 @@ void fragment() {
 	float lap = abs(zl + zr + zd + zu - 4.0 * z);
 	float hinten = smoothstep(hinten_ab, hinten_ab * 1.6, z - min(min(zl, zr), min(zd, zu))) * innen * step(0.5, richtung);   // hinter der Kante: Boden
 	float edge = smoothstep(knick, knick * 2.5, lap);
+	// Runde 9 (Helfer an Runde 8: Langschwert „ganz schwarz“): nachgestellt, die Klinge ist von der Schneide her 1 Bildpunkt
+	// breit, die Kante 2 bis 3 Bildpunkte, der Stahl verschwand. Liegt 2 echte Bildpunkte beidseits Hintergrund, ist das Teil
+	// hoechstens 3 Bildpunkte schmal und bekommt keine Linie (der Boden daneben hat schon keine, hinten)
+	vec2 p2 = 2.0 / VIEWPORT_SIZE;
+	float sl_x = min(lz(SCREEN_UV - vec2(p2.x, 0), INV_PROJECTION_MATRIX), lz(SCREEN_UV + vec2(p2.x, 0), INV_PROJECTION_MATRIX)) - z;
+	float sl_y = min(lz(SCREEN_UV - vec2(0, p2.y), INV_PROJECTION_MATRIX), lz(SCREEN_UV + vec2(0, p2.y), INV_PROJECTION_MATRIX)) - z;
+	edge *= 1.0 - smoothstep(hinten_ab, hinten_ab * 1.6, max(sl_x, sl_y)) * innen * step(0.5, richtung);
 	ALBEDO = ink;
 	ALPHA = max(edge * a_licht * (1.0 - hinten), breit);
 	if (dbg > 0.5) {   // 348.13a Runde 9 Messlauf: Farbe je Durchgang, hell = breites Band, halb = Kante; deckend ab 0,3
