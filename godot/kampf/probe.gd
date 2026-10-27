@@ -102,6 +102,11 @@ func _still(path: String) -> void:
 		print("Lohn ", fight.reward.get("lines", []))
 	# 348.7: HALTUNG=Lefzen:0.5 hält alle Wölfe in dieser Bewegung an dieser Stelle (Sekunden), für Standbilder der Ruhebewegungen
 	var hal := OS.get_environment("HALTUNG")
+	# 348.12 Runde 6 (Prüfer 5e: im Blatt ragte der Nachbar abgeschnitten in die Kachel): NUR=gob2 blendet die übrigen Gegner aus
+	if OS.get_environment("NUR") != "":
+		for id in fight.figures:
+			if fight.figures[id].fighter.monster != null and id != OS.get_environment("NUR"):
+				fight.figures[id].visible = false
 	if hal != "":
 		for id in fight.figures:
 			var fg = fight.figures[id]

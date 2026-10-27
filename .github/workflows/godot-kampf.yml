@@ -177,7 +177,10 @@ jobs:
           python3 -c 'import PIL' 2> /dev/null || python3 -m pip install -q pillow     # kaufblatt.py; Lauf 116/117: ohne PIL kein Blatt, Lauf 117 brach ab
           film() { (cd godot && SCHAU=1 SCHAU_TITEL="$2" timeout 300 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/$1.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/$1-film.log 2>&1) || true
             ffmpeg -loglevel error -y -i $RUNNER_TEMP/$1.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/$1.mp4 || true; }
-          bild goblin-eigen; film gob-eigen eigen
+          # Runde 6 (Prüfer 5e): je Goblin allein (NUR) und je Haltung; Film nur Stehen, Gehen, Hieb (der eigene hat keinen Hieb)
+          export SCHAU_LISTE=Stehen,Gehen,Hieb
+          halt() { for h in Stehen= Gehen=Gehen:0.25 $2; do for g in 1 2 3; do NUR=gob$g HALTUNG=${h#*=} bild st-$1-${h%%=*}-$g; done; done; }
+          bild goblin-eigen; halt eigen; film gob-eigen eigen
           git fetch -q --depth 1 origin claude/tom-348-fundament
           V=$RUNNER_TEMP/v3cc0; mkdir -p $V
           for f in held3.py rig.py geruest.py cc0_laden.sh; do git show FETCH_HEAD:tools/blender348/v3/$f > $V/$f; done
@@ -189,10 +192,13 @@ jobs:
           grep -E "GOBLIN FERTIG|ANIM|GLB" $P/goblin-bau.log | cut -c1-300
           for k in leder kappe helm; do cp $RUNNER_TEMP/cc0out/goblin-$k.glb godot/kampf/daten/goblin-$k.bin; done
           cp $RUNNER_TEMP/cc0out/goblin-info.json godot/kampf/daten/ && cp godot/kampf/daten/goblin-info.json $P/
-          bild goblin-cc0; film gob-cc0 CC0
+          bild goblin-cc0; halt cc0 "Aus=Hieb:0.22 Auf=Hieb:0.43"; film gob-cc0 CC0
           grep -E "Schirm|Waffe|Schild|SCRIPT ERROR|^ +at: " $P/goblin-cc0.log | head -20 || true
-          FIGUR=gob python3 tools/blender348/kaufblatt.py $P/348.12-goblin-blatt.png "eigen (Runde 6)=$P/goblin-eigen.png=$P/goblin-eigen.log" "CC0-Gerüst, tiefe Hocke=$P/goblin-cc0.png=$P/goblin-cc0.log" || true
-          ffmpeg -loglevel error -y -i $P/gob-eigen.mp4 -i $P/gob-cc0.mp4 -filter_complex "[0]tpad=stop_mode=clone:stop_duration=30[a];[1]tpad=stop_mode=clone:stop_duration=30[b];[a][b]hstack=inputs=2,trim=duration=$(for v in gob-eigen gob-cc0; do ffmpeg -i $P/$v.mp4 2>&1 | grep -oE 'Duration: [0-9:.]+' | awk -F'[: ]' '{print $3*3600+$4*60+$5}'; done | sort -g | tail -1)" -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/348.12-goblin-film.mp4 || true
+          python3 tools/blender348/hiebblatt.py $P/348.12-goblin-blatt.png $P "Stehen (Lauer)=Stehen" "Gehen 0,25 s=Gehen" "Hieb ausgeholt 0,22 s=Aus!" "Hieb Aufschlag 0,43 s=Auf!" || true
+          # erste Sekunde zeigt noch den Kampfschirm: je Eingang -ss 1 (wie 348.12f)
+          L=$(for v in gob-eigen gob-cc0; do ffmpeg -i $P/$v.mp4 2>&1 | grep -oE 'Duration: [0-9:.]+' | awk -F'[: ]' '{print $3*3600+$4*60+$5}'; done | sort -g | tail -1 | awk '{print $1 - 1}')
+          ffmpeg -loglevel error -y -ss 1 -i $P/gob-eigen.mp4 -ss 1 -i $P/gob-cc0.mp4 -filter_complex "[0]tpad=stop_mode=clone:stop_duration=30[a];[1]tpad=stop_mode=clone:stop_duration=30[b];[a][b]hstack=inputs=2,trim=duration=$L" -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/348.12-goblin-film.mp4 || true
+          rm -f $P/st-*.png
           ls -l $P
       # 348.12f Probe gekaufte Ratte (Archiv 348.12c b): nach dem APK (das trägt nur die eigene Ratte); die gekauften Dateien
       # bleiben auf dem Runner, ins Artefakt gehen nur Bilder, Kurzvideos und Protokolle (348.12c a: nie Rohdateien hierher)

@@ -301,15 +301,16 @@ if HIEB_ART == 'lauer':
 HIEB_KLINGE_LAUER = Vector((-0.1, -0.8, 0.6)).normalized()
 HIEB_SCHLUESSEL = [     # Zeit, Rumpf DREH, VOR (Grad), Hand, Ellbogen-Pol, Klinge; None = Lauer
     (0.0, None),
-    (0.25, -10, -6, (-0.20, 0.20, 1.48), (-1.0, -0.4, 0.3), (-0.1, 0.9, 0.45)),
-    (0.28, -11, -7, (-0.20, 0.21, 1.49), (-1.0, -0.4, 0.3), (-0.1, 0.95, 0.32)),
-    (0.42, 3, 8, (-0.10, -0.45, 1.00), (-0.7, 0.0, -0.7), (0.05, -0.99, 0.12)),
-    (0.48, 4, 9, (-0.09, -0.46, 0.97), (-0.7, 0.0, -0.7), (0.06, -0.97, 0.0)),
+    (0.20, -16, -8, (-0.24, 0.28, 1.56), (-1.0, -0.3, 0.4), (-0.15, 0.85, 0.20)),
+    (0.24, -17, -9, (-0.24, 0.29, 1.57), (-1.0, -0.3, 0.4), (-0.15, 0.86, 0.15)),
+    (0.31, -6, 0, (-0.30, -0.12, 1.40), (-1.0, -0.2, 0.0), (-0.55, -0.20, 0.80)),
+    (0.40, 6, 10, (-0.08, -0.52, 1.06), (-0.7, 0.0, -0.7), (0.20, -0.72, -0.66)),
+    (0.46, 7, 11, (-0.07, -0.52, 1.03), (-0.7, 0.0, -0.7), (0.22, -0.70, -0.68)),
     (0.80, None)]
 # im fertigen Goblin (geruest.py überträgt auf sein Gerüst) stand die Klinge in Ausholen und Aufschlag 24–27° weiter gegen den
 # Uhrzeigersinn (von oben) als hier entworfen, in der Lauer genau; HIEB_GIER dreht den Entwurf um so viel zurück (gemessen im GLB)
 HIEB_GIER = float(os.environ.get('HIEB_GIER', '-25'))
-HIEB_WEG = {0.0: 'weich', 0.25: 'linear', 0.28: 'an', 0.42: 'aus', 0.48: 'weich'}     # Verlauf vom Schlüssel bis zum nächsten
+HIEB_WEG = {0.0: 'weich', 0.20: 'linear', 0.24: 'an', 0.31: 'linear', 0.40: 'weich', 0.46: 'weich'}     # Verlauf vom Schlüssel bis zum nächsten
 
 
 def drehe(b, achse, grad):     # Knochen b um eine Weltachse an seinem Kopf
@@ -333,6 +334,7 @@ def hieb_pose(dreh, vor, hand, pol, klinge):
     pb = PB['upperarm_l']; pb.matrix = Matrix.Translation(pb.matrix.translation) @ SCHILDARM.to_3x3().to_4x4()
     bpy.context.view_layer.update()
     S = PB['upperarm_r'].matrix.translation.copy(); T = Vector(hand)
+    print('HIEB_SCHULTER', tuple(round(c, 2) for c in S), 'Kopf', tuple(round(c, 2) for c in PB['Head'].matrix.translation), 'Arm', round(PB['upperarm_r'].length + PB['lowerarm_r'].length, 2))
     a, b_ = PB['upperarm_r'].length, PB['lowerarm_r'].length
     if (T - S).length > (a + b_) * 0.995: print('HIEB_EIGEN Hand nicht erreicht', round((T - S).length - a - b_, 3))
     d = min((T - S).length, (a + b_) * 0.995); u = (T - S).normalized(); T = S + u * d
