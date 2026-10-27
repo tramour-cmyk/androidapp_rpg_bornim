@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 27.10., 17:22
+**Gelesen bis:** `origin/main` 27.10., 17:4x
 
-**Übergabe (27.10., 17:2x, `session_01Hmoj77bYPVAwDMmjEUx18c`):** 275: D46.1, D46.2, D46.4, D47.1 behoben, von Diogenes nachgeprüft (Lauf 47), `LEICHEN_START` an. 381: `meldung.sh --film`, Regel in `CLAUDE.md`. Kosten auf: 275, 381. Nachfolger: keiner
+**Übergabe (27.10., 17:4x, `session_01Hmoj77bYPVAwDMmjEUx18c`):** 275: D46.1, D46.2, D46.4, D47.1 behoben, von Diogenes nachgeprüft (Lauf 47), `LEICHEN_START` an. 381: `meldung.sh --film`, Regel in `CLAUDE.md`. 381.1: `zug-index.py` macht `bilder:`-Angaben in der Chefsache zu Links (Filme über jsDelivr, im Browser geprüft). Kosten auf: 275, 381, 381.1. Nachfolger: keiner
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
