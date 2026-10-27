@@ -95,7 +95,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 348.2 | Tusche nach Licht auch am Helden, Innenlinien an Bäumen: zweites Vergleichsbild jetzt (Chef 24.10., 17:30, 17:36) | E Technik | M | – | Team Tom | ruht |
 | 348.3 | Fehlermessung Engine: hätte Godot die Fehler des Chefs verhindert, Umzugskosten | E Technik | M | – | Tom, Jerry | offen |
 | 348.6 | Umzug Godot: Fundament, Dorf als erste Gebietskarte | E Technik | M | –; +438,13 $ | Team Tom | offen |
-| 348.7 | Umzug Godot: Modellregel, Kampfort Wolfsrudel MARS | E Technik | M | –; +381,77 $ | Team Jerry | offen |
+| 348.7 | Umzug Godot: Modellregel, Kampfort Wolfsrudel MARS | E Technik | M | –; +390,62 $ | Team Jerry | offen |
 | 348.8 | Umzug Godot: Bestandsliste altes Spiel | E Technik | M | – | Tom, Jerry | fertig (25.10.) |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | B Abläufe | M | –; +107,93 $ | Perikles, Homer, Diogenes | offen |
 | 348.14 | Umzug Godot: Schätzung je Punkt der Checkliste (Wochenziel 26.10.) | B Abläufe | M | –; +5,07 $ | Tom, Jerry | fertig (26.10.) |
@@ -106,7 +106,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | G Story | M | –; +2,21 $ | Homer | entschieden |
 | 348.12h | Fertige Dinge, Möbel, Waffen suchen (CC0 zuerst, sonst gekauft; Chef 26.10., 16:16) | G Geld | M | – | Sokrates | in Arbeit |
 | 348.12i | Kaufmodelle mit `AESContext` verschlüsseln, Bedingung für Kauf Protofactor (Chef 26.10., 19:41, B) | E Technik | M | – | Tom | gebaut |
-| 348.13 | Tusche nach Licht wie entschieden (Chef 26.10.) | E Technik | M | –; +44,02 $ | Tom | startbar |
+| 348.13 | Tusche nach Licht wie entschieden (Chef 26.10.) | E Technik | M | –; +52,37 $ | Tom | startbar |
 | 353a | Rückfrage: Loch in den Kronen vor dem Helden in den nächsten Build? | G Stil | M | – | Team Tom | Chef |
 | 355 | Kisten: zwei bis vier je Gebietskarte, gern versteckt (Chef 24.10., 17:17) | E Welt | K | – | Team Tom | ruht |
 | 356.2 | Sammelaufträge: Felle 3, Pelzumhang, Hauerdolch (356 b, Chef 24.10., 21:33) | G Balance | K | – | Team Tom | offen |
