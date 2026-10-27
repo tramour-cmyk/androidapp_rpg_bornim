@@ -12,11 +12,7 @@ Nichts offen.
 
 ## Anzusehen
 
-**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
-
-| Nr. | Was | Wer | Seit |
-|---|---|---|---|
-| [376.1](ansehen/3761-figuren.md) | Probeblatt Quaternius-Figuren | Tom | 27.10. |
+Nichts offen.
 
 ## Zu tun
 
@@ -150,7 +146,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 142 (Beratung), 45 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
 
-Ohne Datei: 275 (Projekt), 348 (Team Jerry), 348 (Team Tom), 26 (Team Tom)
+Ohne Datei: 275 (Projekt), 348 (Team Jerry), 3761 (Team Tom), 348 (Team Tom), 26 (Team Tom)
 
 ## So geht's
 
