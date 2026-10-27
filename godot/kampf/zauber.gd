@@ -313,16 +313,16 @@ func _scorching_ray(p: float, from0: Vector2, to: Vector2, u: float) -> void:
 	var from := Vector2(from0.x, from0.y + (_rf() - 0.5) * 4 * u)
 	var reach := minf(p / 0.22, 1.0)
 	var life := 1.0 if p < 0.5 else (1 - p) / 0.5
-	var end := from.lerp(to, reach)
-	var dv := end - from
+	var dv := to - from
 	var ln := maxf(dv.length(), 1.0)
 	var nrm := Vector2(-dv.y / ln, dv.x / ln)
+	# im flachen Bogen über die, die am Schirm im Weg stehen (Prüfer Runde 4: Strahl lief durch die Heldin vorn)
 	for band in [[11.0, FIRE_DARK, 0.25, 2.5, 0.0], [6.0, FIRE, 0.65, 1.6, 1.3], [2.4, FIRE_HOT, 0.95, 0.8, 2.1], [1.0, Color("ffe8c0"), 0.18, 4.0, 4.0]]:
 		var prev := from
 		for k in range(1, 15):
-			var f := k / 14.0
+			var f := k / 14.0 * reach
 			var w: float = sin(f * 19.0 + p * 70.0 + float(band[4])) * float(band[3]) * u * sin(f * PI)
-			var pt := from + dv * f + nrm * w
+			var pt := _arc(from, to, f, 0.0) + nrm * w
 			ci.draw_line(prev, pt, _a(band[1], band[2] * life), band[0] * u * (0.6 + 0.4 * f), true)
 			prev = pt
 	if reach >= 1.0:
@@ -375,7 +375,7 @@ func _fireball(p: float, from: Vector2, to: Vector2, ground: float, u: float) ->
 		var col := FIRE_HOT if heat > 0.7 else (FIRE if heat > 0.4 else FIRE_DARK)
 		var a0 := (1 - s * 0.7) * (1.0 if heat > 0.15 else 0.4)
 		_glow(c, rad, [_a(col, a0), _a(col, a0 * 0.4), _a(col, 0.0)])
-	_smoke(to + Vector2(0, -10 * u), (s - 0.25) / 0.75, u, 6, 70.0, 0.55)
+	_smoke(to + Vector2(0, -10 * u), (s - 0.25) / 0.75, u, 10, 70.0, 0.3)     # Prüfer Runde 4: zwei dunkle Ballen „wie Augen“
 	_burst(to, s, u, [FIRE_HOT, FIRE, FIRE_DARK], 16, 50.0)
 
 
@@ -395,11 +395,11 @@ func _mending(p: float, src: Vector2, chest: Vector2, u: float, c: Color, core: 
 			var q := _arc(src, chest, t, (i % 3 - 1) * 4 * u)
 			_glow(q, 4.2 * u, [_a(core, 0.9 * sin(t * PI)), _a(c, 0.0)])
 	var swell := sin(clampf(p, 0.0, 1.0) * PI)
-	_glow(chest, 46 * u, [_a(core, 0.55 * swell), _a(c, 0.3 * swell), NONE])
+	_glow(chest, 36 * u, [_a(core, 0.4 * swell), _a(c, 0.22 * swell), NONE])
 	_glow(chest, 26 * u, [_a(c, 0.22 * swell), NONE], 60.0 / 26.0)
 	for i in 24:
 		var a := _rf() * TAU
-		var d0 := (18 + _rf() * 14) * u     # Prüfer Runde 3b: Lichtwolke trieb bis an die Wölfe
+		var d0 := (12 + _rf() * 10) * u     # Prüfer Runde 3b, 4: Lichtwolke trieb bis an die Wölfe
 		var t := clampf((p - _rf() * 0.35) / 0.6, 0.0, 1.0)
 		if t <= 0.0 or t >= 1.0:
 			continue
@@ -435,7 +435,8 @@ func _blessing(p: float, chest: Vector2, ground: float, u: float) -> void:
 	# am Ziel (Prüfer Runde 3b: „kaum sichtbar“): das Licht sammelt sich als Schein um die Füße, er schwillt und vergeht
 	var pool := sin(clampf((p - 0.25) / 0.7, 0.0, 1.0) * PI)
 	if pool > 0.0:
-		_glow(Vector2(x, ground), 30 * u, [_a(GOLD_LIGHT, 0.4 * pool), _a(GOLD_LIGHT, 0.15 * pool), NONE], 0.3)
+		# als goldener Ring, innen dünn (Prüfer Runde 4: grau wie Bodennebel, nahm den Schatten unter den Füßen)
+		_glow(Vector2(x, ground), 30 * u, [_a(HOLY_GOLD, 0.06 * pool), _a(HOLY_GOLD, 0.12 * pool), _a(HOLY_GOLD, 0.42 * pool), NONE], 0.3)
 
 
 ## Pfeil (Rückläufer t55, t64): dünner dunkler Schaft, kleine Spitze, graubraune Federn, im Bogen geworfen, die Spitze voran
@@ -508,7 +509,7 @@ func draw_fx(kind: String, sd: int, p: float, source: Vector2, target: Vector2, 
 		"SACRED_FLAME":
 			_sacred_flame(p, hit.x, ground, u)
 		"HEAL":
-			_mending(p, source, target, u, HEAL_LIGHT, WHITE)
+			_mending(p, source, target, u, HEAL_LIGHT, WARM_WHITE)     # Prüfer Runde 4: weiß, hellstes Bild
 		"BLESS":
 			_blessing(p, target, ground, u)
 
@@ -534,7 +535,8 @@ func draw(kind: String, sd: int, p: float, source: Vector2, target: Vector2, u: 
 		side = -side
 	# Helfer Runde 2 (Feuerpfeil daneben brannte in der Luft): was vorbeifliegt, schlägt neben dem Ziel in den Boden; seitlich
 	# statt dahinter (Prüfer Runde 3: dahinter lag es unter Ansage und Lebensbalken)
-	var by := Vector2(target.x + dv.x / ln * 10 * u - dv.y / ln * side * 40 * u, target.y + dv.y / ln * 10 * u + dv.x / ln * side * 40 * u)
+	# Prüfer Runde 4 (lag weiter an der Buschkante): kurz vor dem Ziel, auf dem freien Platz zwischen den Parteien
+	var by := Vector2(target.x - dv.x / ln * 30 * u - dv.y / ln * side * 30 * u, target.y - dv.y / ln * 30 * u + dv.x / ln * side * 30 * u)
 	var floor_y := ground + (by.y - target.y)
 	if kind != "MISSILES":
 		by.y = floor_y - 2 * u

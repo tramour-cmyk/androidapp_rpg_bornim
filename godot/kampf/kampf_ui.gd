@@ -849,20 +849,22 @@ func _draw_spells() -> void:
 		var tall := _tall(on)
 		var by = k.figures.get(sp.by, on)
 		var from := _foot(by) - Vector2(0, _tall(by) * 0.55)
+		# Prüfer Runde 4 (Geschoss startet in der Schildmitte): vom vorderen Rand des Wirkenden, zum Ziel hin
+		if by != on and sp.kind in ["ARROW", "FIRE_BOLT", "MISSILES", "FIREBALL", "RAYS"]:
+			from.x += signf(to.x - from.x) * _tall(by) * 0.22
 		var u := tall / 40.0 * (1.35 if sp.crit else 1.0)
-		Zauber.over = _over(from, to - Vector2(0, tall * 0.55), [by, on]) if sp.kind in ["ARROW", "FIRE_BOLT", "MISSILES", "FIREBALL"] else 0.0
+		Zauber.over = _over(from, to - Vector2(0, tall * 0.55), [by, on]) if sp.kind in ["ARROW", "FIRE_BOLT", "MISSILES", "FIREBALL", "RAYS"] else 0.0
 		zauber.draw(sp.kind, int(sp.seed), p, from, to - Vector2(0, tall * 0.55), u, to.y, sp.missed)
 	spells = still
 
 
 ## 348.7 (Helfer Lauf 126: Geschosse flogen vor dem näheren Wolf durch, „wie ein Treffer am falschen Wolf“): wie hoch die
-## Bahn von a nach b in der Mitte steigen muss, um über jede Figur zu gehen, die näher an der Kamera steht als die Bahn
-## (ihr Fuß tiefer im Bild als der Boden unter der Bahn); weiter hinten Stehende verdeckt sie zu Recht.
+## Bahn von a nach b in der Mitte steigen muss, um über jede Figur zu gehen, die sie am Schirm kreuzt. Auch über die weiter
+## hinten: die Anzeige liegt über der Szene, ein Geschoss vor dem Kopf von Wolf 3 las sich als Treffer (Prüfer Runde 4), und
+## der Strahl des Magiers hinten lief durch die Heldin vorn.
 func _over(a: Vector2, b: Vector2, skip: Array) -> float:
 	var k = kampfort
 	var need := 0.0
-	var fa := a.y + _tall(skip[0]) * 0.55 if skip[0] != null else a.y
-	var fb := b.y + _tall(skip[1]) * 0.55
 	for id in k.figures:
 		var o = k.figures[id]
 		if o in skip or not o.visible or o.down:
@@ -873,8 +875,6 @@ func _over(a: Vector2, b: Vector2, skip: Array) -> float:
 		for x in [foot.x - half, foot.x, foot.x + half]:
 			var t: float = (x - a.x) / (b.x - a.x) if absf(b.x - a.x) > 1.0 else -1.0
 			if t <= 0.05 or t >= 0.95:
-				continue
-			if foot.y <= lerpf(fa, fb, t):
 				continue
 			var gap: float = lerpf(a.y, b.y, t) - (foot.y - tall - 10 * dp)
 			if gap > 0.0:

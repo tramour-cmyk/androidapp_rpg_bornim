@@ -657,6 +657,7 @@ func _back_home(back: float, skip) -> void:
 	var via := _detour(from, home, skip)
 	var way := from.distance_to(via) + via.distance_to(home) if via != from else from.distance_to(home)
 	if anim and anim.has_animation("Gehen") and way > 0.2:
+		_guard(true)
 		anim.play("Gehen", 0.12, -clampf(way / back / WALK_MPS, 1.0, WALK_MAX))
 	tween = create_tween()
 	if via != from:
@@ -665,7 +666,36 @@ func _back_home(back: float, skip) -> void:
 		tween.tween_property(self, "position", home, back - b1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	else:
 		tween.tween_property(self, "position", home, back).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_callback(func(): _face(); _idle())
+	tween.tween_callback(func(): _guard(false); _face(); _idle())
+
+
+## Prüfer Runde 4: beim Gehen rückwärts schwang der Waffenarm mit offener Hand an der Hüfte, die Waffe stand daneben. Die Arme
+## bleiben darum in der Haltung, in der sie losgeht (Deckung), nur die Beine gehen.
+class ArmHold extends SkeletonModifier3D:
+	var poses := {}
+	func _process_modification_with_delta(_delta: float) -> void:
+		var sk := get_skeleton()
+		if sk == null:
+			return
+		for bi in poses:
+			sk.set_bone_pose(bi, poses[bi])
+
+var arm_hold: ArmHold
+
+func _guard(on: bool) -> void:
+	var sk := _find(model, "Skeleton3D") as Skeleton3D
+	if sk == null:
+		return
+	if arm_hold == null:
+		arm_hold = ArmHold.new()
+		sk.add_child(arm_hold)
+	if on:
+		arm_hold.poses.clear()
+		for bi in sk.get_bone_count():
+			var nm := sk.get_bone_name(bi)
+			if nm.begins_with("chestTop-sh") or nm.begins_with("sh") or nm.begins_with("up") or nm.begins_with("el") or nm.begins_with("fo"):
+				arm_hold.poses[bi] = sk.get_bone_pose(bi)
+	arm_hold.active = on
 
 
 ## Halbe Breite am Boden, wie der Bodenschatten (Wolf 1,1 m lang, halb seitlich gesehen; Mensch 0,3 m)

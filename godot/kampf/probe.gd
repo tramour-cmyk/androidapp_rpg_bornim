@@ -714,6 +714,12 @@ func _pfad(fg, on_id: String) -> void:
 			var rand: float = Vector2(dx, dz).length() - fg.body_r()
 			if gap < 0.6 or px < 60 or rand < 0.3:
 				zeile += "  %s Rand %.2f m, Umriss %.2f m, Schirm %.0f px" % [id, gap, rand, px]
+		var sk := _skeleton(fg)
+		if sk:
+			for at in sk.find_children("*", "BoneAttachment3D", false, false):
+				var bi := sk.find_bone(at.bone_name)
+				var bp: Vector3 = sk.global_transform * sk.get_bone_global_pose(bi).origin
+				zeile += "  %s an %s: Knochen (%.2f %.2f %.2f) Halter %.3f m" % [at.get_child(0).name if at.get_child_count() else "?", at.bone_name, bp.x, bp.y, bp.z, at.global_position.distance_to(bp)]
 		print(zeile)
 
 
