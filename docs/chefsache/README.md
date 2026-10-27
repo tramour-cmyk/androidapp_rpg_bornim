@@ -9,6 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [109](entscheiden/109-repo-privat.md) | **Muss** | M Veröffentlichung | 27.10., 19:58 | Repo vor dem Tester-Aufruf privat (A), nur Releases löschen (B) oder so lassen (C)? | Sokrates |
+| [385](entscheiden/385-animset-probe.md) | M? | E Figuren | 27.10., 20:59 | Zauberer-Set (19,99 $) kaufen, Tom prüft, ob es auf unsere Körper in Godot passt; dann mehr? | Sokrates |
 
 ## Zu billigen
 
@@ -125,7 +126,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 27, Muss 19, startbar 3
+**Sokrates** – offen 28, Muss 19, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -149,7 +150,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | 366 | M | von Chef (25.10., 18:39): bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Vorgangsarc | startbar |
 | 365 | M | von Chef (25.10., 12:36): bringt Aufwand „Hoch“ statt „Mittel“ einem Beschäftigten etwas, | Termin 31.10. |
 | 262 | K | von Chef (20.10.): monatliche API-Credits im Plan, was damit anfangen? | ruht |
-| 253 | K | von Chef (20.10., 14:32): Stichwort „BornWire“ = Firmensachen in eigener Sitzung, Ergebnis | ruht |
+| 385 | M? | von Chef (27.10., 20:59): Protofactor-Animsets auf die Listen, Zauberer „genial“ | Chef (Datei in der Chefsache) |
+| 253 | K | von Chef (20.10.): „BornWire“ = Firmensachen in eigener Sitzung (Archiv 253) | ruht |
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 31.10. |
 | 142.3 | M | von Chef (27.10., 19:32): Tester öffentlich suchen | startbar |
