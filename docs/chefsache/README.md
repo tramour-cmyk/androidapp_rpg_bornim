@@ -12,11 +12,7 @@ Nichts offen.
 
 ## Anzusehen
 
-**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
-
-| Nr. | Was | Wer | Seit |
-|---|---|---|---|
-| [348.7](ansehen/3487-treffer.md) | Godot-Kampf: Trefferwirkung wie im alten MARS | Jerry | 26.10. |
+Nichts offen.
 
 ## Offen je Rolle
 
@@ -140,6 +136,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 327 (Beratung), 142 (Beratung), 45 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
+
+Ohne Datei: 348 (Team Jerry), 348 (Team Tom), 26 (Team Tom)
 
 ## So geht's
 
