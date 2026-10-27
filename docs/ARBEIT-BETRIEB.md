@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 19:32 27.10.: Neustart Tom angenommen (`796aea398`), Nachfolger `01Hmoj76F3` „Tom – 376.1 Kaufkopf und Fehler Tracht“ gestartet (main, Hoch); alter Tom `01Hmoj77wa` zu archivieren (Prüfer lehnt ab, 369), Kosten ungebucht
 - 19:08 27.10.: Neustart Sokrates angenommen (`f3fece15d`), Nachfolger `01Hmoj77UK` „Sokrates – 383 Sitzungsgröße messen“ gestartet (main, Mittel); alte Sitzungen Sokrates `01Hmoj78Sx`, `01Hmoj79xv`, Jerry `01Hmoj761r`, Ford `01Hmoj76zG` zu archivieren (Prüfer lehnt ab, 369), Kosten ungebucht
 - 01:37–06:35 27.10.: Neustarts angenommen und Nachfolger gestartet: Tom 01:46, 02:33, 02:57, 03:23, 03:51, 04:16, 04:43, 05:01, 05:20, 05:44, 06:03, 06:35, 07:21; Jerry 01:37, 02:42, 03:25, 04:57; Jerry 05:55 zurückgestellt (wartet auf Chefsache 3487a). Läufe 02:03, 03:03 ohne Starts; START Perikles (Terminname) nicht ausgeführt
 - 25.10., 09:35–21:05: Neustarts Tom/Jerry/Sokrates angenommen; Perikles 364 und Sokrates 340.2 gestartet; Sparbetrieb und Max 20x (Verlauf in Git)
