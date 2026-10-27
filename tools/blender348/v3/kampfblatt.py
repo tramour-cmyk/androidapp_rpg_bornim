@@ -7,7 +7,7 @@ import bpy, os, sys, math, json
 from mathutils import Vector, Matrix
 OUT = os.environ['OUT']; WAF = os.environ.get('WAFFEN', OUT + '/../waffen')
 LISTE = os.environ.get('BEWEGUNGEN', 'Kampfstehen:0,Ausholen:0;4;8;12,Hieb:0;4;6;8;9;10;11;14;20;24,Stich:0;3;5;7;8;10;14;18,'
-                       'Treffer:0;2;4;8;13,Ausweichen:0;2;4;7;10;13,Abwehr:0;3;5;7,Tod:0;8;16;24;30;36;48;72')
+                       'Treffer:0;2;4;8;13,Ausweichen:0;2;4;7;10;13,Abwehr:0;3;5;7,Tod:0;8;12;16;21;24;30;36;48;72')
 bpy.ops.wm.open_mainfile(filepath=OUT + '/held3-rig.blend')
 scn = bpy.context.scene; rig = bpy.data.objects['Held_Skelett']; ad = rig.animation_data
 INFO = json.load(open(OUT + '/held-info.json'))
@@ -52,7 +52,8 @@ def setze_waffen():
     schild.matrix_world = rig.matrix_world @ PB['hand_l'].matrix @ SCH_REL
 
 
-SICHT = [('vorn links', 35), ('vorn rechts', -35), ('hinten rechts', -145)]
+# Runde 5: dazu die Spielkamera (kampfort.gd: 25 Grad von oben, Kampflinie 30 Grad nach rechts, Helden vorn links: von hinten rechts)
+SICHT = [('vorn links', 35, 15), ('vorn rechts', -35, 15), ('hinten rechts', -145, 15), ('Spiel', -150, 25)]
 os.makedirs(OUT + '/kampfblatt', exist_ok=True)
 from PIL import Image, ImageDraw
 for eintrag in LISTE.split(','):
@@ -62,11 +63,11 @@ for eintrag in LISTE.split(','):
     act = bpy.data.actions[nm]; ad.action = act; ad.use_nla = False
     if act.slots: ad.action_slot = act.slots[0]
     bilder = []
-    for vi, (vn, az) in enumerate(SICHT):
+    for vi, (vn, az, el_) in enumerate(SICHT):
         zeile = []
         for f in frames:
             scn.frame_set(f); setze_waffen()
-            a = math.radians(az); el = math.radians(15)
+            a = math.radians(az); el = math.radians(el_)
             k_ = min(1.0, max(0.0, (f - 9) / 12.0)) if nm == 'Tod' else 0.0   # Tod: Ausschnitt gleitet mit (sprang bei Bild 20)
             ziel = Vector((0, 0, 0.85)).lerp(Vector((0, 0.5, 0.4)), k_)
             d = Vector((math.sin(a) * math.cos(el), -math.cos(a) * math.cos(el), math.sin(el)))
