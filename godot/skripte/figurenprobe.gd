@@ -7,7 +7,8 @@ extends Node
 #   film:  je Feld (Bewegung x Figur) Bilder <ausgabe>/film/<nn>_<feld>/<bild>.png, 30 je s, Ausschnitt um die Figur
 # Nur Probe, nicht im Spiel.
 
-const FELD_PX := Vector2i(560, 760)        # Ausschnitt je Feld in der Nahstufe (Bild 1080 breit, 3,4 m: 318 px je m)
+const FELD_PX := Vector2i(560, 900)        # Ausschnitt je Feld in der Nahstufe (Bild 1080 breit, 3,4 m: 318 px je m)
+const FUSS_UNTEN := 300                     # Bildpunkte unter dem Fuss (Helfer Film 14:58: Tod nach vorn rutschte bei 120 unten hinaus)
 const FPS := 30.0
 const PLATZ := Vector2i(19, 13)            # Dorfplatz am Brunnen
 
@@ -338,7 +339,7 @@ func film() -> void:
 			await RenderingServer.frame_post_draw
 			var img := spiel.get_viewport().get_texture().get_image()
 			var fuss: Vector2 = spiel.kamera.unproject_position(mitte)
-			var r := Rect2i(int(fuss.x) - FELD_PX.x / 2, int(fuss.y) - FELD_PX.y + 120, FELD_PX.x, FELD_PX.y)
+			var r := Rect2i(int(fuss.x) - FELD_PX.x / 2, int(fuss.y) - FELD_PX.y + FUSS_UNTEN, FELD_PX.x, FELD_PX.y)
 			img.get_region(r).save_png(ordner + "/%03d.png" % f)
 		bewaffne(k, false)
 		liste.append("%02d %s %s: %s, %.2f s, %d Bilder" % [i + 1, k, bew, n, lang, bilder])
