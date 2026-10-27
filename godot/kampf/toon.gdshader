@@ -10,6 +10,7 @@ uniform float cut_on = 0.0;        // Durchsicht (DESIGN-STIL „Karte und Räum
 uniform vec3 cut_pos = vec3(0.0);  // Brust des Helden
 uniform float cut_ab = 0.0;        // Rinde: erst ab dieser Hoehe (Stamm in der Krone), Laub: ganz
 uniform vec3 glow_col : source_color = vec3(1.0, 0.72, 0.38);          // Glas: nachts leuchtend
+uniform float weg = 0.0;           // 348.7: Ausblenden des Toten (0 da, 1 weg), als Raster, damit Tiefe und Tusche bleiben
 varying vec3 wpos;
 void vertex() {
 	wpos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
@@ -44,6 +45,7 @@ void fragment() {
 #else
 	if (loch > 0.5 && !IN_SHADOW_PASS) discard;
 #endif
+	if (weg > 0.0 && fract(sin(dot(floor(FRAGCOORD.xy), vec2(12.9898, 78.233))) * 43758.5453) < weg) discard;
 	ALBEDO = texture(tex, UV).rgb * COLOR.rgb;
 	ROUGHNESS = 1.0;
 	SPECULAR = 0.0;      // kein Glanz aus der Umgebung (sonst Plastik)

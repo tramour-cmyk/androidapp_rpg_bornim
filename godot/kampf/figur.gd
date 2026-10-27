@@ -10,6 +10,11 @@ const STAB_MS := 600
 const GLIDE_S := 0.4
 const HERO_R := 0.3          # 348.7: halbe Breite eines Menschen am Boden
 const HERO_REACH := 0.75     # 348.7: Arm und Klinge vor dem eigenen Rand bis zum Rand des Ziels
+## 348.7 (Helfer Lauf 126: drehte 110 ms nach dem Aufschlag um, Rückweg zischte durch): Halt bis 0,68 des Hiebs wie im alten
+## MARS (SkirmishScreen.kt STEP_HOLD, STEP_BACK), dann rückwärts zurück, das Gesicht zum Gegner; 0,5 s, so endet er vor SAY_MS
+const STEP_HOLD := 0.42
+const STEP_BACK := 0.68
+const HERO_BACK_S := 0.5
 const FALL_MS := 900
 const FADE_MS := 600
 const WOLF_COATS := ["grau", "dunkel", "rost", "asche"]
@@ -587,26 +592,33 @@ func strike(other, e: Dictionary) -> int:
 	var to: Vector3 = other.position
 	var reach := (to - position) * (0.8 if leap else 0.6)
 	var hold := ms * 0.16 / 1000.0
-	if fighter.monster == null:
+	var back := ms * 0.42 / 1000.0
+	var hero: bool = fighter.monster == null
+	if hero:
 		# 348.7 (Prüfer 26.10.: die Heldin schlug aus etwa zwei Wolfslängen): nur bis in Waffenreichweite vor den Rand des Ziels
 		var flat := Vector3(to.x - position.x, 0.0, to.z - position.z)
 		var stand: float = HERO_R + other.body_r() + HERO_REACH
 		reach = flat.normalized() * maxf(0.0, flat.length() - stand) if flat.length() > 0.01 else Vector3.ZERO
-		# Umdrehen erst, wenn der Hieb ausgeschwungen ist (drehte beim Treffer schon zum Rücklauf um)
-		if anim and anim.has_animation("Hieb"):
-			hold = clampf(anim.get_animation("Hieb").length - ms * 0.42 / 1000.0, hold, 0.35)     # höchstens 0,35 s: der nächste Schlag wartet nicht
+		hold = ms * (STEP_BACK - STEP_HOLD) / 1000.0
+		back = HERO_BACK_S
 	var there := position + reach
 	_face(to - position)
 	_play("Sprung" if leap else ("Biss" if fighter.monster != null else "Hieb"), 0.05)
 	if tween and tween.is_running():
 		tween.kill()
 	tween = create_tween()
-	tween.tween_property(self, "position", there, ms * 0.42 / 1000.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "position", there, ms * STEP_HOLD / 1000.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	tween.tween_interval(hold)
 	# Rückweg um die anderen herum (lief durch den Nachbarwolf zurück): ein Umweg, wenn die Gerade jemanden streift
-	var via: Vector3 = _detour(there, home) if fighter.monster == null else there
-	var back := ms * 0.42 / 1000.0
-	if via != there:
+	var via: Vector3 = _detour(there, home) if hero else there
+	if hero:
+		# rückwärts, ohne Umdrehen (beim Umdrehen sah man Brust und Schildinnenseite: „andere Ausrüstung“, Helfer Lauf 126)
+		if via != there:
+			tween.tween_property(self, "position", via, back * 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+			tween.tween_property(self, "position", home, back * 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		else:
+			tween.tween_property(self, "position", home, back).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	elif via != there:
 		tween.tween_callback(func(): _face(via - position))
 		tween.tween_property(self, "position", via, back * 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 		tween.tween_callback(func(): _face(home - position))
@@ -686,9 +698,21 @@ func die() -> void:
 		var t := create_tween()
 		t.tween_property(model, "rotation:z", deg_to_rad(80), FALL_MS / 1000.0)
 	if fighter.side == "FOES":
-		# MARS: eigene Sterbebilder, dann ausgeblendet (LISTE-MARS.md)
-		await get_tree().create_timer((FALL_MS + FADE_MS) / 1000.0).timeout
+		# MARS: eigene Sterbebilder, dann ausgeblendet (LISTE-MARS.md); Körper und Bodenschatten zusammen (Helfer Lauf 126: der
+		# Schatten lag noch allein auf dem Weg)
+		await get_tree().create_timer(FALL_MS / 1000.0).timeout
+		var t := create_tween()
+		t.tween_method(_fade_out, 0.0, 1.0, FADE_MS / 1000.0)
+		await t.finished
 		visible = false
+
+
+func _fade_out(x: float) -> void:
+	for m in mats:
+		m.set_shader_parameter("weg", x)
+	var sh := get_node_or_null("Bodenschatten") as MeshInstance3D
+	if sh and sh.material_override is ShaderMaterial:
+		(sh.material_override as ShaderMaterial).set_shader_parameter("dichte", 0.78 * (1.0 - x))
 
 
 func knocked_down() -> void:

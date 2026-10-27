@@ -546,6 +546,10 @@ func _start(seed := -1) -> void:
 			m = m.duplicate()
 			m.de = "Kobold"
 			m.en = "Kobold"
+		elif foe == "RATS":     # Name aus den Regeln (Monsters.kt giant_rat; Helfer Lauf 126: Ratten hießen „Wolf“)
+			m = m.duplicate()
+			m.de = "Riesenratte"
+			m.en = "Giant Rat"
 		elif foe == "SHAMANS":     # Name aus den Regeln (Monsters.kt goblin_shaman)
 			m = m.duplicate()
 			m.de = "Goblin-Schamane"

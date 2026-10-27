@@ -1003,7 +1003,8 @@ func _draw_intents(sr: Rect2) -> void:
 	var fs := sp(14)
 	var signs := []
 	for id in k.shown.intents:
-		if not k.figures.has(id) or not k.figures[id].visible:
+		# 348.7 (Helfer Lauf 126): wer fällt, sagt nichts mehr an (die Ansage zeigte bis zur Meldung „fällt“ auf leeren Boden)
+		if not k.figures.has(id) or not k.figures[id].visible or k.figures[id].down:
 			continue
 		var fig = k.figures[id]
 		var plan: Array = k.shown.intents[id]
