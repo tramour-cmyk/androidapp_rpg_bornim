@@ -4,14 +4,14 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates für den Chef, 25.10., 01:2x):** Arbeit nach `LISTE-UMZUG-348.md`, 348.6–348.8; altes Spiel ruht.
 
-**Übergabe (27.10., 20:33, `session_01Hmoj76E9VX2kkW348A6Xid`):** 348.12f Ortswechsel r2 (768963623), geprüft, Film an Chef (ansehen/34812f-ort-r2). Bestand geprüft: Janpec-Wolf (`LISTE-BESTAND.md`) genommen. Nachfolger: „Jerry – 348.12f Janpec-Wolf Probe“
+**Übergabe (27.10., 22:50, `session_01Hmoj78dk8Sv8ZUsMn6P1wV`):** 348.12f Kaufwolf (Chef ja), Ausweichen an Chef; 387 an Chef. Bestand geprüft: Janpec, MadeCG genommen. Nachfolger: „Jerry – 348.12f Drehen auf der Stelle, Ratte Schnauze“
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | startbar: ja außer Schwein, Gans (Chef 22:31, Archiv); Bemalung, Wege, Fehler; alle Tiere in **einer** Vorlage, mit Bewegung über den Platz (Chef 22:34: „Alles in eins packen“) |
-| 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | startbar: Umdrehen ohne Schritt (Ratte und Wolf) und Schnauze beheben (Archiv 21:26); Kaufwolf ja (Chef 21:51, Archiv): Ausweichen mit Ortswechsel wie Ratte | `claude/jerry-348-kampf` |
+| 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | startbar: Drehen auf der Stelle (Ratte, Wolf; Bogen-Heimweg gebaut, aus: Befunde r3c im Commit b26a2b2bd), Schnauze Ratte (Archiv 21:26); Ausweichen Kaufwolf beim Chef (ansehen/34812f-ausweichen) | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: Hieb abgenommen 17:57; Grak, Kobold aufs CC0-Gerüst (Zombie-Platz = gekaufter Wiedergänger, Archiv 26.10., 20:32; von Sokrates) | `claude/jerry-348-kampf` |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht bis Kauf: Werte, Listen ja (Archiv), dann einbauen; erst Größe prüfen | – |
 | 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | wartet auf Chef: Bahn 348.7b; dann Fledermaus r4d und Wildschwein r3 neu vorlegen; Kobold bis Chef; Treffer: Ansage zuerst (Archiv) | `claude/jerry-348-kampf` |
