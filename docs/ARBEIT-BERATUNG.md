@@ -12,7 +12,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 |---|---|---|---|
 | 376 | M | **von Chef (27.10., 12:00):** Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Tom: Häuser ja 12:42 (Archiv), Probeblatt 376.1 „jetzt“ 12:46; Markt 376.2 bei Tom (Perikles 12:5x) (Zu 376) |
 | 376.3 | M | **von Chef (27.10., 12:52):** vier RenderHub-Bewegungspakete „check das bitte“ | Votum 14:3x: keins kaufen (UAL Pro hat Ausweichen, Treffer, Tod; fehlt Stich, Schildabwehr, die keins der vier sicher hat) (Zu 376.3) |
-| 377.1 | M | **von Chef (27.10., 14:28):** Inventur: „was für Animationen haben wir alles? Was für Modelle … Objekte“ zum leichten Nachschauen | in Arbeit: `LISTE-BESTAND.md` nach Art, Helfer sichtet Ungesichtetes |
+| 377.1 | M | **von Chef (27.10., 14:28):** Inventur: „was für Animationen haben wir alles? Was für Modelle … Objekte“ zum leichten Nachschauen | erledigt 14:4x: `LISTE-BESTAND.md`; Verweis in `ROLLE-ENTWICKLUNG.md` bei Perikles (377.2) |
 | 374 | M | **von Chef (27.10., 11:54):** wer prüft 373? | frühestens 31.10.: auswerten mit 347 (Archiv) |
 | 348.12c | M | **von Chef (26.10., 11:59):** Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters Kit“) und andere Anbieter; Kosten, Erwerb, Verkauf im Spiel erlaubt; Monster dürfen von D&D abweichen; „schönen Vorschlag und ein schönes Paket“ | ruht: Stufe 2 bis Rutenursache und letztem Rattenvergleich (Chef 27.10., 09:57, Archiv 348.12f); dann Kaufliste (6 Links, etwa 134 $) an Chef |
 | 348.12 | M | **von Chef (25.10., 21:21, „b prüfen“):** fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit Skelett) prüfen, nichts bauen | wartet auf Jerry: Goblin CC0 entschieden 27.10., 09:49 (Archiv), Hieb nachbessern, dann Grak, Kobold, Zombie |

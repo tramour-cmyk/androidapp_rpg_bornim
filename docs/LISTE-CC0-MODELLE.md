@@ -200,19 +200,10 @@ Auftrag des Chefs (26.10., 11:59): Pakete auch gegen Geld, wenn der Verkauf des 
 
 **Folgerung (Sokrates):** Protofactor ist der einzige Anbieter mit durchgehend düsterem, glaubwürdigem Stil, aber für den PC gebaut. Erst eine Probe (Ratte, 7.650 Dreiecke, kaum Ausdünnen), dann der Rest. Ghul und Hundertfüßer im Abschnitt „Folgerung“ oben (Eigenbau) sind damit überholt, falls der Chef 348.12c b billigt.
 
-### Bestand: gekauft und hochgeladen (Stand 27.10., 13:3x, 377)
+### Bestand: gekauft und hochgeladen
 
-Privates Repo `tramour-cmyk/bornim-kaufmodelle`, Version `stufe1` (Anhänge; Zugang `add_repo`, Abruf `gh api …/releases/assets/<id>`, Zu 376.1 in `ARBEIT-TEAM-TOM.md`). Vor jedem Eigenbau hier nachsehen (Regel „Bestand zuerst“, `ROLLE-ENTWICKLUNG.md`). Freie Pakete in Gebrauch stehen oben (UAL Standard) und unter „Quaternius-Bausätze“. Spalte „Inhalt“ = was drin ist, nicht nur das Paket; „ungesichtet“ heißt: wer es zuerst öffnet, trägt die Teile ein.
+Steht jetzt nach Art geordnet in [`LISTE-BESTAND.md`](LISTE-BESTAND.md) (377.1, 27.10., 14:3x); dort nachsehen und eintragen. Die alte Tabelle je Datei steht in Git (vor „Sokrates: 377.1 Inventur eingestellt“).
 
-| Datei | Inhalt | Lizenz | Für |
-|---|---|---|---|
-| `Universal.Animation.Library.Pro.zip` | Quaternius UAL Pro, `Unreal-Godot/UAL1.glb`, 120 Bewegungen, Gerüst wie UAL1 (Tom 27.10., 13:1x): Schwert nur `Sword_Attack(_Standing)`, `Sword_Enter/Exit/Idle`; `Dodge_Left/Right`, `Roll`, `Hit_*`, `Death01/02`, `Sitting_*`, `GroundSit_*`, `Counter_*`, `Celebration`, `Drink`. **Fehlt:** Stich, Schildabwehr, gehaltenes Ausholen | **CC0** (`License.txt`), darf auch ins öffentliche Repo | Leute (Tom), menschenähnliche Monster (Jerry) |
-| `Universal.Animation.Library.Standard.zip`, `…Source.zip` | Freifassung (43 Bewegungen, oben „Freifassung, ausgelesen 26.10.“); Source mit `UAL1.blend` | CC0 | wie oben |
-| Quaternius Universal Base Characters, Modular Character Outfits – Fantasy (Source; Chef 27.10., 12:20) | Grundfiguren `Base Characters/Exports/Godot - UE/Regular_Male_FullBody.gltf`, auch Teen, Female, `_OnlyHead`; Outfits `Exports/glTF (Godot-Unreal)/Outfits/`: Knight (`_Cloth`), Noble, Peasant, Ranger, Wizard je Male/Female, Einzelteile in `Modular Parts/`; Gerüst 65 Knochen wie unsere Leute; nur glTF verwenden | CC0 | Leute, Held (Tom, Probeblatt 376.1) |
-| `GIANT.RAT.RAW.FILES.rar`, `GiantRat.4.14.rar`, `GIANT_RAT_ASSET.rar` | Protofactor Riesenratte: Rohdateien, Unreal 4.14, Unity-Paket; im Einsatz für Probe 348.12f (`kaufratte.py`, Asset 678372860); Bewegungen (Jerry 27.10.): Idle, Walk, Run, Taunt, DodgeLeft/Right/Backwards, JumpBite, GetHitFront/Right/Left, Death (Walk, Run, Dodge, JumpBite auch als _RM mit Wurzelweg); Rute: letzter Knochen Tail8 trägt 45 % starr (Runde 5 teilt ihn) | Protofactor EULA | Riesenratte (Jerry) |
-| `low.poly.animated.centipede.zip` | MadeCG Hundertfüßer: FBX, OBJ, Blender, Maya, 3ds, Unreal, Unity; Bewegungen ungesichtet | RenderHub Extended Use | Riesen-Hundertfüßer (Jerry) |
-| `Animal pack deluxe.unitypackage` (324 MB, Chef 26.10., 16:07) | Janpec, 26 Tiere (tar.gz, ohne Unity entpackbar); welche Tiere und Bewegungen ungesichtet | Unity Asset Store EULA | Tiere, Wolf, Keiler (Jerry), Dorftiere (Tom) |
-| `medieval.market.asset.pack.zip` (Chef 27.10., 12:43) | MagicCGIStudios, 100 Dinge, nur .blend (2.79): Brunnen mit Dach und Kurbel, 4 Marktstände, Kisten mit Obst und Gemüse, 16 Fässer, Körbe, Heu- und Fasswagen, Tische mit Waren, Holzstapel, Strohballen (Seitenbefund unten) | RenderHub Extended Use | Brunnen, Stände als Form (Tom, 376.2); Kram fürs Dorf |
 
 ### Dinge und Waffen (348.12h, Helfer 26.10., 16:27)
 
