@@ -1,7 +1,7 @@
 # 376.1: Probefiguren aus Quaternius' Bausaetzen (Universal Base Characters, Modular Character Outfits - Fantasy;
 # frei CC0 1.0, gekauft im privaten Repo bornim-kaufmodelle): Kleidung, Kopf, Haar, Bart zu einer Figur, Volk ueber Knochen
 # (Zwerg, Elf, Halbling, Halbork), ohne Bewegungen (die kommen in Godot aus der Universal Animation Library, figurenprobe.gd).
-# Aufruf: Q=<ordner mit den Paketen> OUT=<ordner> bl/bin/python -I quaternius.py   -> <OUT>/<kennung>.glb, figuren.json
+# Aufruf: Q=<ordner mit den Paketen> [KAUF=<ordner>] OUT=<ordner> bl/bin/python -I quaternius.py   -> <OUT>/<kennung>.glb, figuren.json
 # Gesucht wird je Datei nach Namen unter Q (frei und gekauft liegen verschieden); fehlt eine gekaufte Datei, nimmt die Figur
 # den freien Ersatz (ERSATZ) und figuren.json sagt welchen.
 import bpy, os, json, sys
@@ -13,13 +13,19 @@ NUR = [s for s in os.environ.get('FIGUREN', '').split(',') if s]
 os.makedirs(OUT, exist_ok=True)
 
 DATEIEN = {}
-for wo, _, fs in os.walk(Q):
-    for f in fs:
-        if f.endswith('.gltf'): DATEIEN.setdefault(f[:-5], os.path.join(wo, f))
+# KAUF=<ordner mit den entpackten Source-Paketen>: nur Namen, die es frei nicht gibt (Regular-Koepfe, Knight, Noble)
+for wurzel in (Q, os.environ.get('KAUF', '')):
+    if not wurzel: continue
+    neu = {}
+    for wo, _, fs in sorted(os.walk(wurzel)):
+        for f in sorted(fs):
+            if f.endswith('.gltf') and f[:-5] not in DATEIEN: neu.setdefault(f[:-5], os.path.join(wo, f))
+    DATEIEN.update(neu)
 
 # gekauft -> frei: Regular-Koepfe und Knight gibt es nur gekauft
 ERSATZ = {'Regular_Male_OnlyHead': 'Superhero_Male_FullBody', 'Regular_Female_OnlyHead': 'Superhero_Female_FullBody',
-          'Male_Knight': 'Male_Ranger', 'Female_Knight': 'Female_Ranger', 'Male_Noble': 'Male_Peasant', 'Female_Noble': 'Female_Peasant'}
+          'Male_Knight': 'Male_Ranger', 'Female_Knight': 'Female_Ranger', 'Male_Noble': 'Male_Peasant', 'Female_Noble': 'Female_Peasant',
+          'Male_Knight_Cloth': 'Male_Peasant'}
 
 # Volk: Groesse je Knochen (Laenge entlang des Knochens, quer), dazu Hauttoenung; Mensch = 1
 # (Helfer 13:45: Zwerg nur kleiner Bauer, Halbork ohne Gruen: kraeftiger quer, Haut aus der Textur getoent)
@@ -42,10 +48,10 @@ FIGUREN = {
     'q_held':     {'kleid': 'Male_Knight',    'kopf': 'Regular_Male_OnlyHead',   'haar': 'Hair_SimpleParted', 'bart': 'Hair_Beard', 'farbe': 'braun', 'ohne': ['Hood']},
     'q_bauer':    {'kleid': 'Male_Peasant',   'kopf': 'Regular_Male_OnlyHead',   'haar': 'Hair_Buzzed', 'bart': 'Hair_Beard', 'farbe': 'dunkel'},
     'q_baeuerin': {'kleid': 'Female_Peasant', 'kopf': 'Regular_Female_OnlyHead', 'haar': 'Hair_Buns', 'brauen': 'Eyebrows_Female', 'farbe': 'kastanie'},
-    'q_zwerg':    {'kleid': 'Male_Peasant',   'kopf': 'Regular_Male_OnlyHead',   'haar': 'Hair_Buzzed', 'bart': 'Hair_Beard', 'farbe': 'rot', 'volk': 'zwerg'},
+    'q_zwerg':    {'kleid': 'Male_Noble',     'kopf': 'Regular_Male_OnlyHead',   'haar': 'Hair_Buzzed', 'bart': 'Hair_Beard', 'farbe': 'rot', 'volk': 'zwerg'},
     'q_elf':      {'kleid': 'Female_Ranger',  'kopf': 'Regular_Female_OnlyHead', 'haar': 'Hair_Long', 'brauen': 'Eyebrows_Female', 'farbe': 'blond', 'volk': 'elf', 'ohne': ['Hood']},
     'q_halbling': {'kleid': 'Male_Peasant',   'kopf': 'Regular_Male_OnlyHead',   'haar': 'Hair_SimpleParted', 'farbe': 'braun', 'volk': 'halbling'},
-    'q_halbork':  {'kleid': 'Male_Peasant',   'kopf': 'Regular_Male_OnlyHead',   'haar': 'Hair_Buzzed', 'farbe': 'schwarz', 'volk': 'halbork'},
+    'q_halbork':  {'kleid': 'Male_Knight_Cloth', 'kopf': 'Regular_Male_OnlyHead',   'haar': 'Hair_Buzzed', 'farbe': 'schwarz', 'volk': 'halbork'},
 }
 KOPF_KNOCHEN = {'Head', 'neck_01', 'neck_02'}
 
