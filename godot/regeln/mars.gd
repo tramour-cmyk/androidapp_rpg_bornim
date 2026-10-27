@@ -93,6 +93,8 @@ var I_HEAVY := _intent("heavy", "Schwerer Hieb", "Heavy blow", "STRIKE", [2, 6, 
 var I_CALL := _intent("call", "Rudel rufen", "Call the pack", "CALL", null, false, false)
 var I_GATHER := _intent("gather", "Kraft sammeln", "Gather strength", "GATHER", null, false, false, true)
 var I_STAB := _intent("stab", "Stich", "Stab", "STRIKE", null, false, false)
+## 348.12 (Chef 27.10., 09:49; Homer [210T.hieb]): Goblin mit Krummsäbel oder Beil sagt „Hieb“ an; gewollte Abweichung vom alten MARS
+var I_SLASH := _intent("slash", "Hieb", "Slash", "STRIKE", null, false, false)
 var I_POUNCE := _intent("pounce", "Anspringen", "Pounce", "STRIKE", null, false, false, false, "POUNCE")
 var I_CIRCLE := _intent("circle", "Einkreisen", "Circle", "GATHER", null, false, false, false, "CIRCLE", true)
 var I_VENOM := _intent("venom", "Gift sammeln", "Gather venom", "STRIKE", [2, 6, 0], true, false, true)
@@ -1385,13 +1387,14 @@ func _pick_intent(foe: Fighter) -> Dictionary:
 	if id == SCOUT:
 		return I_AIM if foe.hidden else dice.pick([I_AIM, I_AIM, I_SHADOW])
 	var lineup := not _covered().is_empty()
+	var plain: Dictionary = I_SLASH if id == CALLED else I_STAB
 	if id == CALLED:
-		var can2 := [I_STAB, I_STAB]
+		var can2 := [plain, plain]
 		if lineup:
 			can2.append(I_FLANK)
 		return dice.pick(can2)
 	if id != GRAK:
-		return I_STAB
+		return plain
 	var can3 := [I_HEAVY, I_HEAVY]
 	if lineup:
 		can3.append(I_BREAKTHROUGH)

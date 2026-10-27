@@ -69,8 +69,19 @@ static func _compact(e: Dictionary) -> String:
 	return JSON.stringify(JSON.parse_string(JSON.stringify(d)), "", true)
 
 
+## Gewollte Abweichungen vom Kotlin-Kampf: 348.12 (Chef 27.10., 09:49, Homer [210T.hieb]) Goblin sagt „Hieb“ statt „Stich“ an.
+const GEWOLLT := [["Goblin: Stich!", "Goblin: Hieb!"], ["Goblin kündigt an: Stich.", "Goblin kündigt an: Hieb."]]
+
+
 static func _golden(e: Dictionary) -> String:
-	return JSON.stringify(e, "", true)
+	var d := e.duplicate()
+	for g in GEWOLLT:
+		if d.get("t") == g[0]:
+			d["t"] = g[1]
+	if d.has("i"):
+		var re := RegEx.create_from_string("(gob\\d+)>stab:")
+		d["i"] = re.sub(str(d["i"]), "$1>slash:", true)
+	return JSON.stringify(d, "", true)
 
 
 func _replay(c: Dictionary, tables: Dictionary) -> Dictionary:
