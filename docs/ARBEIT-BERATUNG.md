@@ -10,7 +10,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 383.2 | M | **von Chef (27.10., 19:24, „wo steckt jetzt hier wieder die Wahrheit? Und wer hat damit geprüft?“):** dieselbe Aufgabe frisch gegen groß messen? | wartet auf Chef: entscheiden/3832 (Votum ja) |
+| 383.2 | M | **von Chef (27.10., 19:24, „wo steckt jetzt hier wieder die Wahrheit? Und wer hat damit geprüft?“):** dieselbe Aufgabe frisch gegen groß messen; ja 19:30 („nimm den Vergleich dort mit auf“, Archiv) | frühestens 31.10. |
 | 383 | M | **von Chef (27.10., 17:44, „Sollen wir einfach aufhören damit?“; 17:47 Vorschlag „nicht griffig“):** Chef räumt nur hinter allen her | frühestens 31.10.: Größe gemessen 18:15, keine Größenregel (Zu 383); Bau Wartewächter bei Perikles; nachmessen mit 347 |
 | 376 | M | **von Chef (27.10., 12:00):** Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Tom: Häuser so lassen (19:08, Archiv); Bausätze bewertet im Chat 19:1x (Leute aus Trachten, Tierpaket, Hundertfüßer, Markt; Zu 376); Markt 376.2 bei Tom |
 | 374 | M | **von Chef (27.10., 11:54):** wer prüft 373? | frühestens 31.10.: auswerten mit 347 (Archiv) |
