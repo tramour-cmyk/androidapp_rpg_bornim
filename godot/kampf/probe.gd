@@ -366,10 +366,15 @@ func _rute_mess(fg, nm: String, bild: int) -> void:
 		kette.sort_custom(func(a, b): return _rute_nr(sk.get_bone_name(a)) < _rute_nr(sk.get_bone_name(b)))
 		var inv: Transform3D = fg.global_transform.affine_inverse() * sk.global_transform
 		var txt := ""
+		var knick := ""     # 348.12f Runde 4 (Prüfer r3: „Messung nur senkrecht“): Winkel zwischen Nachbargliedern im Raum
+		var vor := Vector3.ZERO
 		for i in kette.size() - 1:
 			var v: Vector3 = inv * sk.get_bone_global_pose(kette[i + 1]).origin - inv * sk.get_bone_global_pose(kette[i]).origin
 			txt += " %+.0f" % rad_to_deg(asin(clampf(v.y / maxf(v.length(), 1e-6), -1.0, 1.0)))
-		print("Rute %s %2d %.2f Steigung je Glied%s" % [nm, bild, fg.anim.current_animation_position, txt])
+			if i > 0:
+				knick += " %.0f" % rad_to_deg(vor.angle_to(v))
+			vor = v
+		print("Rute %s %2d %.2f Steigung je Glied%s | Knick räumlich%s" % [nm, bild, fg.anim.current_animation_position, txt, knick])
 
 
 func _rute_nr(bn: String) -> int:

@@ -251,8 +251,11 @@ jobs:
             -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/348.12f-ratte-film.mp4 || true
           # Restrunde (Chef 21:12: „verschiedene Ausweichbewegungen, Angriffsarten und Todesanimationen?“): alle Bewegungen der gekauften
           for f in braun grau schwarz; do cp $RUNNER_TEMP/kauf/giant_rat-$f.glb $D/giant_rat-$f.bin; done
-          SCHAU_LISTE="Biss,Sprungbiss,Ausweichen,Ausweichen links,Ausweichen zurück,Treffer,Treffer links,Treffer rechts,Drohen,Tod" film alle gekauft
-          mv $P/alle.mp4 $P/348.12f-alle.mp4 || true
+          # Rute Runde 4 (Prüfer r3): alle Bewegungen, Ruhe und Schleifen dabei; Film in 1080 px Breite
+          (cd godot && SCHAU=1 SCHAU_TITEL=gekauft SCHAU_LISTE="Stehen,Gehen,Rennen,Hocke,Biss,Sprungbiss,Ausweichen,Ausweichen links,Ausweichen zurück,Treffer,Treffer links,Treffer rechts,Lefzen,Drohen,Tod" \
+            timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 --write-movie $RUNNER_TEMP/alle.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/alle-film.log 2>&1) || true
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/alle.avi -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/348.12f-alle.mp4 || true
+          python3 tools/blender348/rutenknick.py $P/alle-film.log || true
           rm -f $D/giant_rat-*.bin
           ls -l $P
       - uses: actions/upload-artifact@v4

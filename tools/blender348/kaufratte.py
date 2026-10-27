@@ -14,6 +14,8 @@
 # Boden (RUTE_SENKEN) und gestreckt nach hinten (RUTE_STRECK), im Treffer höchstens RUTE_DECKEL über dem ersten Bild; Prüfweg
 # BAHN_BILDER=q_tod je Bild. d2 (Helfer d, im Spiel nachgemessen): Rute nur im ersten Bild gekürzt (RUTE jetzt je Bild), Boden aus
 # dem Netz, Rutenspitze aus der fernsten Ecke (spitze(); der letzte Knochen zeigt 90° daneben).
+# Runde 4 (Prüfer r3): rute_legen() legt die Rute in jeder Bewegung je Bild (Boden, Pendeln, Nachlauf), rute_aus_dem_boden() entfällt;
+# rute_pruefen() misst räumlich (Knick, nach vorn unter den Körper, Naht der Schleifen).
 import os, sys, glob, json, math, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 T0 = time.time()
@@ -62,13 +64,20 @@ RUTE = float(os.environ.get('RUTE', '0.55'))
 # (Zeile „RUTE STEIGUNG“ gegen „Rute … Steigung“ im Film-Log) und den Maßstab je Rutenknochen (min..max/größte Ungleichheit der Achsen)
 RUTE_MESS = os.environ.get('RUTE_MESS', '') != ''
 RUTE_KETTE = ['GIANT_RAT_ Tail'] + ['GIANT_RAT_ Tail%d' % i for i in range(1, 9)]
-RUTE_SENKEN = 0.6     # d: im Tod liegt die Rute ab diesem Anteil der Bewegung flach am Boden
-RUTE_STRECK = 0.85     # d: so weit richtet sich die Rute im Tod nach hinten aus (Rest: Biegung der Quelle)
-RUTE_DECKEL = float(os.environ.get('RUTE_DECKEL', '0.10'))     # d: im Treffer kein Gliedende mehr als so viel über dem ersten Bild (m, Quelle)
 RUTE_DICKE = 0.03     # c (Helfer Runde b: im Tod liegt die Rute „wie abgetrennt“, bis 19 cm im Boden): Rutenknochen so hoch über dem Boden
-RUTE_BIEGE = float(os.environ.get('RUTE_BIEGE', '18'))     # Rutenursache: höchstens so viel Grad Knick von Glied zu Glied (Tod, Treffer)
-RUTE_WURZEL = float(os.environ.get('RUTE_WURZEL', '35'))     # erstes Glied höchstens so steil abwärts (Tod: war −90°)
-RUTE_ANLAUF = float(os.environ.get('RUTE_ANLAUF', '0.15'))     # Runde 3: im Tod so viel der Bewegung bis zum geplanten Verlauf
+RUTE_BIEGE = float(os.environ.get('RUTE_BIEGE', '18'))     # Rutenursache: höchstens so viel Grad Knick von Glied zu Glied (räumlich, Runde 4)
+# Runde 4 (rute_legen): Rute je Bild gelegt statt aus der Quelle
+RUTE_ANSATZ = float(os.environ.get('RUTE_ANSATZ', '30'))     # erstes Glied so viel Grad abwärts
+RUTE_LIEGT = float(os.environ.get('RUTE_LIEGT', '2.6'))     # Rute erreicht den Boden nach so viel mal der Höhe des Ansatzes (Bogenlänge)
+RUTE_STEIL = 45.0     # kein Glied steiler abwärts
+RUTE_NACHLAUF = 1     # jedes Glied folgt der Richtung des Körpers so viele Bilder später (Peitsche)
+RUTE_WELLE = 0.5     # Pendeln: Phasenverzug je Glied (rad), die Welle läuft zur Spitze
+# Pendeln je Bewegung: (Ausschlag an der Spitze in Grad, Schwünge je Bewegung, abklingen bis Anteil der Bewegung oder 0)
+RUTE_PENDEL = {'idle': (20, 1, 0), 'walk': (14, 1, 0), 'run': (10, 1, 0), 'q_hocke': (10, 1, 0), 'q_biss': (10, 1, 0),
+               'jumpBite': (10, 1, 0), 'q_treffer': (14, 1, 0), 'getHitLeft': (14, 1, 0), 'getHitRight': (14, 1, 0),
+               'q_ausweichen': (10, 1, 0), 'dodgeLeft': (10, 1, 0), 'dodgeBackwards': (10, 1, 0), 'q_lefzen': (8, 2, 0),
+               'q_drohen': (16, 3, 0), 'q_tod': (12, 1, 0.6)}
+RUTE_SCHLEIFE = ('idle', 'walk', 'run', 'q_hocke')
 RUTE_BODEN = RUTE_DICKE     # (m, Quelle); baue() setzt den Boden aus dem Netz im Stehen       # Rute: 1,6 m in der Quelle, Rumpf mit Kopf 1,4 m; die Rute reichte über den Bildrand
 OHR = float(os.environ.get('OHR', '0.45'))          # Ohren so lang wie in der Quelle mal OHR (Prüfer: „spitze Ohren wie Hörner“)
 # Felle wie ratte.py COATS: (Fell, Sattel, Bauch, Auge); Haut wie ratte.py HAUT, RUTE
@@ -343,89 +352,101 @@ def spitze(rig, p):
     return rig.matrix_world @ (p.matrix @ SPITZE)
 
 
-def rute_aus_dem_boden(rig, a, senken=False, deckel=None):
-    """c: je Bild jedes Rutenglied (vom Ansatz zur Spitze) so wenig wie nötig heben, dass sein Ende über RUTE_BODEN liegt; die
-    Änderung der Steigung je Glied über ±3 Bilder geglättet (kein Zucken). Glied für Glied, jedes auf allen Bildern gesetzt, bevor
-    das nächste drankommt (die Rute bleibt am Boden liegen statt als Bogen hochzustehen).
-    d (Helfer c: im Tod steht die Rute am Ende als Haken): mit `senken` auch senken, das Ziel jedes Gliedendes gleitet von der
-    Quelle (höchstens so hoch wie im ersten Bild) bis RUTE_SENKEN der Bewegung auf RUTE_BODEN (legt sich flach hin, schnellt nicht
-    hoch). Gedreht wird in der senkrechten Ebene des Glieds (Steigung gerechnet, nicht gesucht: die Suche um eine feste Querachse
-    sprang, wenn das Glied quer oder senkrecht stand); steht es senkrecht, gilt die Körperlinie (Hals -> Rutenansatz).
-    `deckel` (m): kein Gliedende höher als im ersten Bild plus so viel (Treffer: Rute schnellte steil hoch, Helfer c)."""
+def rute_legen(rig, a, art):
+    """Runde 4 (Prüfer r3: Sprungbiss, Treffer links/rechts Rute senkrecht und oben eingerollt; Ruhe starrer Stab in der Luft;
+    Ausweichen zurück Knick an der Spitze; Tod Rute unter dem Körper): die Rute der Quelle zählt in keiner Bewegung mehr, je Bild
+    wird sie gelegt. Höhe: vom Ansatz mit RUTE_ANSATZ Grad abwärts auf einer Hermite-Kurve, die bei S (RUTE_LIEGT mal die Höhe
+    des Ansatzes) tangential den Boden erreicht; der Rest liegt (springt die Ratte, läuft sie in der Luft waagerecht aus). Richtung: nach hinten
+    (Rutenansatz minus Hals, waagerecht), jedes Glied RUTE_NACHLAUF Bilder später als das vorige (Peitsche bei Drehung und Satz),
+    dazu ein Pendeln als Welle zur Spitze (RUTE_PENDEL je Bewegung). Grenzen: Knick je Glied höchstens RUTE_BIEGE (räumlich),
+    kein Glied steiler als RUTE_STEIL, kein Gliedende unter dem Boden. `art`: Schlüssel in RUTE_PENDEL."""
     pb = rig.pose.bones; W = rig.matrix_world; vl = bpy.context.view_layer; Rw = W.to_3x3().normalized(); Rwi = Rw.inverted()
     oben = Vector((0, 0, 1))
     rig.animation_data.action = a
     if slot(a) is not None: rig.animation_data.action_slot = slot(a)
-    a0, a1 = int(a.frame_range[0]), int(a.frame_range[1]); summe = []
+    a0, a1 = int(a.frame_range[0]), int(a.frame_range[1]); n = a1 - a0
+    schleife = art in RUTE_SCHLEIFE
     kette = [B + 'Tail'] + [B + 'Tail%d' % i for i in range(1, 9)]
-    vorher = None     # Rutenursache: Steigung des vorigen Glieds je Bild (nach dem Setzen)
-    # Rutenursache, Lauf 134: mit Knickgrenze allein lag die Rute nach zwei steilen Gliedern am Boden und knickte dort flach (−53° auf
-    # −1°). Im Tod darum ein geplanter Verlauf: Gliedenden auf z(s) = Boden + (h0 − Boden)·(1 − s/S)², bei s = S tangential am Boden,
-    # S so lang, dass die Wurzel höchstens RUTE_WURZEL fällt, mindestens 0,4 der Rute
-    laenge, h0 = [], {}
-    if senken:
-        bpy.context.scene.frame_set(a0); vl.update()
-        hs = [W @ pb[n].head for n in kette] + [spitze(rig, pb[kette[-1]])]
-        laenge = [(hs[j + 1] - hs[j]).length for j in range(len(kette))]
-        for f in range(a0, a1 + 1):
-            bpy.context.scene.frame_set(f); vl.update(); h0[f] = (W @ pb[kette[0]].head).z
+    bpy.context.scene.frame_set(a0); vl.update()
+    hs = [W @ pb[nm].head for nm in kette] + [spitze(rig, pb[kette[-1]])]
+    laenge = [(hs[j + 1] - hs[j]).length for j in range(len(kette))]; ganz = sum(laenge)
+    bogen = [sum(laenge[:j + 1]) for j in range(len(kette))]     # Bogenlänge am Ende jedes Glieds
+    wurzel, hinten = {}, {}
+    for f in range(a0, a1 + 1):
+        bpy.context.scene.frame_set(f); vl.update()
+        wurzel[f] = (W @ pb[kette[0]].head).z
+        k = (W @ pb[kette[0]].head) - (W @ pb[B + 'Neck'].head); k.z = 0
+        hinten[f] = k.normalized() if k.length > 1e-6 else Vector((0, 1, 0))
+    aus, schwuenge, abklingen = RUTE_PENDEL[art]
+    def bild(f):     # Nachlauf: Schleifen ringsum, sonst am Anfang festhalten
+        if schleife: return a0 + (f - a0) % n
+        return max(a0, f)
+    ziel = {}
+    for f in range(a0, a1 + 1):
+        u = (f - a0) / max(1, n)
+        amp = aus * ((1.0 - min(1.0, u / abklingen)) ** 2 if abklingen else 1.0)
+        # springt die Ratte (Sprungbiss: Ansatz 0,75 m), fällt die Rute nur so steil wie im Stehen und läuft dann waagerecht aus
+        S = min(0.85 * ganz, max(0.3 * ganz, (wurzel[f] - RUTE_BODEN) * RUTE_LIEGT))
+        unten = max(RUTE_BODEN, wurzel[f] - S / RUTE_LIEGT); hoch = max(0.0, wurzel[f] - unten)
+        m0 = -math.tan(math.radians(RUTE_ANSATZ)) * S
+        z = wurzel[f]; vorher = None; ziel[f] = []
+        for i in range(len(kette)):
+            t = min(1.0, bogen[i] / S)
+            zp = unten + (hoch * (2 * t ** 3 - 3 * t * t + 1) + m0 * (t ** 3 - 2 * t * t + t) if t < 1 else 0.0)
+            ph = math.asin(max(-1.0, min(1.0, (zp - z) / laenge[i])))
+            ph = max(ph, -math.radians(RUTE_STEIL))
+            b = hinten[bild(f - RUTE_NACHLAUF * (i + 1))]
+            w = amp * math.radians(1) * (bogen[i] / ganz) * math.sin(2 * math.pi * schwuenge * u - RUTE_WELLE * i)
+            h = Vector((b.x * math.cos(w) - b.y * math.sin(w), b.x * math.sin(w) + b.y * math.cos(w), 0))
+            d = h * math.cos(ph) + oben * math.sin(ph)
+            if vorher is not None and d.angle(vorher) > math.radians(RUTE_BIEGE):     # räumlicher Knick gegen das vorige Glied
+                d = vorher.slerp(d, math.radians(RUTE_BIEGE) / d.angle(vorher))
+            if z + laenge[i] * d.z < RUTE_BODEN:     # der Boden geht vor
+                hz = Vector((d.x, d.y, 0)).normalized(); s = (RUTE_BODEN - z) / laenge[i]
+                d = hz * math.sqrt(max(0.0, 1 - s * s)) + oben * s
+            d.normalize(); ziel[f].append(d); vorher = d; z += laenge[i] * d.z
+    # Glied für Glied auf allen Bildern setzen (die Eltern sind dann schon gesetzt)
     for i, nm in enumerate(kette):
         p = pb[nm]; nach = pb[kette[i + 1]] if i + 1 < len(kette) else None
-        roh, lage, dboden, dziel = {}, {}, {}, {}
-        # Ende des Glieds = Kopf des nächsten (p.tail kennt den Maßstab RUTE am Rutenansatz nicht)
-        ende = lambda: (W @ nach.head) if nach else spitze(rig, p)
-        zstart = None
         for f in range(a0, a1 + 1):
-            bpy.context.scene.frame_set(f); vl.update(); roh[f] = p.matrix.copy()
-            k0 = W @ p.head; v = ende() - k0; L = max(v.length, 1e-6); h = Vector((v.x, v.y, 0))
-            koerper = (W @ pb[B + 'Tail'].head) - (W @ pb[B + 'Neck'].head); koerper.z = 0
-            if h.length < 0.2 * L: h = koerper
-            h = h.normalized() if h.length > 1e-6 else Vector((0, 1, 0))
-            if senken and koerper.length > 1e-6:     # d: im Tod legt sich die Rute gestreckt nach hinten (die Quelle rollt sie zum U ein)
-                k = min(1.0, (f - a0) / max(1.0, RUTE_SENKEN * (a1 - a0))); k = k * k * (3 - 2 * k)
-                h = h.lerp(koerper.normalized(), k * RUTE_STRECK).normalized()
-            phi = math.asin(max(-1.0, min(1.0, v.z / L))); lage[f] = (v.normalized(), h, phi)
-            z0 = (k0 + v).z
-            if zstart is None: zstart = z0; phi0 = phi
-            hin = lambda z: math.asin(max(-1.0, min(1.0, (z - k0.z) / L))) - phi     # Steigungsänderung, damit das Ende auf z liegt
-            dboden[f] = hin(RUTE_BODEN)
-            if senken or deckel is not None:
-                k = min(1.0, (f - a0) / max(1.0, RUTE_SENKEN * (a1 - a0))) if senken else 0.0; k = k * k * (3 - 2 * k)
-                if senken:
-                    # Runde 3 (Lauf 136 lokal: Tod 0,40 s −63° auf −13°): bis RUTE_SENKEN folgte das Ziel der Quelle, die die Rute
-                    # steil in den Boden schlägt; jetzt hält jedes Glied seine Steigung aus dem ersten Bild und geht in RUTE_ANLAUF
-                    # der Bewegung in den geplanten Verlauf über
-                    k = min(1.0, (f - a0) / max(1.0, RUTE_ANLAUF * (a1 - a0))); k = k * k * (3 - 2 * k)
-                    hoch = max(0.0, h0[f] - RUTE_BODEN); S = max(0.4 * sum(laenge), 2 * hoch / math.tan(math.radians(RUTE_WURZEL)))
-                    zp = RUTE_BODEN + hoch * max(0.0, 1.0 - sum(laenge[:i + 1]) / S) ** 2
-                    dziel[f] = hin((1 - k) * max(RUTE_BODEN, k0.z + L * math.sin(phi0)) + k * zp)
-                else:
-                    dziel[f] = hin(RUTE_BODEN + max(0.0, min(z0, zstart + (deckel or 0.0)) - RUTE_BODEN) * (1 - k))
-            else:
-                dboden[f] = dziel[f] = max(0.0, dboden[f])
-        gesetzt = {}
-        for f in range(a0, a1 + 1):
-            nb = range(max(a0, f - 3), min(a1, f + 3) + 1)
-            frei = senken or deckel is not None
-            dz = sum(dziel[g] for g in nb) / len(nb) if frei else max(dziel[g] for g in nb)
-            dw = max(dz, dboden[f]) if frei else dz
-            u, h, phi = lage[f]; ph = max(-math.pi / 2, min(math.pi / 2, phi + dw))
-            # Rutenursache (Messung Blender = Spiel, Lauf 133): jedes Gliedende lag richtig hoch, aber Glied gegen Glied geknickt
-            # (Treffer +21° dann −56°: Bogen als Haken; Tod erstes Glied −90° senkrecht in den Boden, dann flach: Winkel);
-            # darum höchstens RUTE_BIEGE gegen das vorige Glied, das erste höchstens RUTE_WURZEL abwärts; der Boden geht vor
-            # Runde 3 (Treffer 0,27 s: −42° vor dem Boden, dann −18°): kein Glied steiler abwärts als RUTE_WURZEL
-            ph = max(ph, -math.radians(RUTE_WURZEL))
-            if vorher is not None:
-                ph = max(vorher[f] - math.radians(RUTE_BIEGE), min(vorher[f] + math.radians(RUTE_BIEGE), ph))
-            ph = min(math.pi / 2, max(ph, phi + dboden[f]))
-            gesetzt[f] = ph
-            q = Rwi @ u.rotation_difference(h * math.cos(ph) + oben * math.sin(ph)).to_matrix() @ Rw
-            bpy.context.scene.frame_set(f); ra = roh[f].to_translation()
-            p.matrix = Matrix.Translation(ra) @ q.to_4x4() @ Matrix.Translation(-ra) @ roh[f]
+            bpy.context.scene.frame_set(f); vl.update()
+            k0 = W @ p.head; v = ((W @ nach.head) if nach else spitze(rig, p)) - k0
+            q = Rwi @ v.normalized().rotation_difference(ziel[f][i]).to_matrix() @ Rw
+            ra = p.matrix.to_translation()
+            p.matrix = Matrix.Translation(ra) @ q.to_4x4() @ Matrix.Translation(-ra) @ p.matrix
             vl.update(); p.keyframe_insert('rotation_quaternion', frame=f)
-        vorher = gesetzt
-        summe.append((round(math.degrees(min(dziel.values()))), round(math.degrees(max(dziel.values())))))
-    print('RUTE BODEN', a.name, 'senken' if senken else 'heben', 'Deckel', deckel, 'Grad je Glied (min, max)', summe)
+    rig.animation_data.action = None
+
+
+def rute_pruefen(rig, a, name):
+    """Runde 4 (Prüfer r3: „Messung nur senkrecht“): je Bewegung räumlicher Knick zwischen Gliedern, Steigung, Höhe über dem Boden,
+    Reichweite nach vorn über den Ansatz (Rute unter dem Körper) und bei Schleifen der Sprung an der Naht."""
+    pb = rig.pose.bones; W = rig.matrix_world; vl = bpy.context.view_layer
+    rig.animation_data.action = a
+    if slot(a) is not None: rig.animation_data.action_slot = slot(a)
+    a0, a1 = int(a.frame_range[0]), int(a.frame_range[1])
+    kette = [B + 'Tail'] + [B + 'Tail%d' % i for i in range(1, 9)]
+    knick, steig, boden, vorn, wege, liegt, seit = (0.0, 0, 0), [90.0, -90.0], 9.0, 0.0, [], [], []
+    for f in range(a0, a1 + 1):
+        bpy.context.scene.frame_set(f); vl.update()
+        hs = [W @ pb[nm].head for nm in kette] + [spitze(rig, pb[kette[-1]])]
+        vs = [hs[j + 1] - hs[j] for j in range(len(kette))]
+        for j in range(len(vs) - 1):
+            w = math.degrees(vs[j].angle(vs[j + 1], 0.0))
+            if w > knick[0]: knick = (w, f - a0, j)
+        for v in vs:
+            s = math.degrees(math.asin(max(-1.0, min(1.0, v.z / max(v.length, 1e-6))))); steig = [min(steig[0], s), max(steig[1], s)]
+        boden = min(boden, min(h.z for h in hs[1:]) - RUTE_BODEN)
+        k = (W @ pb[B + 'Neck'].head) - hs[0]; k.z = 0; k = k.normalized() if k.length > 1e-6 else k
+        vorn = max(vorn, max((h - hs[0]).dot(k) for h in hs[1:]))
+        liegt.append(sum(1 for h in hs[1:] if h.z < RUTE_BODEN + 0.01) / (len(hs) - 1))
+        seit.append((hs[-1] - hs[0]).cross(k).z)     # Spitze quer zur Körperachse (Pendeln)
+        wege.append(hs)
+    naht = max((wege[0][j] - wege[-1][j]).length for j in range(len(wege[0])))
+    print('RUTE PRUEF %-18s Knick räumlich max %.0f° (Bild %d, Glied %d/%d), Steigung %.0f..%.0f°, über Boden min %+.3f m, '
+          'nach vorn über den Ansatz max %.3f m, Naht %.3f m, am Boden %.0f..%.0f %%, Spitze quer %+.2f..%+.2f m' % (
+              name, knick[0], knick[1], knick[2], knick[2] + 1, steig[0], steig[1], boden, vorn, naht, 100 * min(liegt), 100 * max(liegt),
+              min(seit), max(seit)))
     rig.animation_data.action = None
 
 
@@ -703,8 +724,26 @@ def baue(fell):
                 pt.scale = (RUTE, RUTE, RUTE); pt.keyframe_insert('scale', frame=f)
         pt.scale = (1, 1, 1); rig.animation_data.action = None
         print('RUTE', RUTE)
-    for q in ('q_tod', 'q_treffer'):
-        if q in akt and B + 'Tail' in rig.pose.bones: rute_aus_dem_boden(rig, akt[q], senken=q == 'q_tod', deckel=0.0 if q == 'q_tod' else RUTE_DECKEL)
+    # Hocke (vor der Rute und den Hüllen; Runde 4: so legt rute_legen() auch ihre Rute): erstes Bild von jumpBite gehalten
+    if 'jumpBite' in akt:
+        h = akt['jumpBite'].copy(); h.name = 'q_hocke'; h.use_fake_user = True
+        a0 = h.frame_range[0]
+        h.use_frame_range = True; h.frame_start, h.frame_end = a0, a0 + 30     # Schleife 1 s (spur unten); Rute und Ducken auf allen Bildern
+        for lay in h.layers:
+            for st in lay.strips:
+                for cb in st.channelbags:
+                    for fc in cb.fcurves:
+                        v = fc.evaluate(a0)
+                        for kp in fc.keyframe_points:
+                            kp.co[1] = v; kp.handle_left[1] = v; kp.handle_right[1] = v
+        if HOCKE > 0: ducken(rig, h, HOCKE, 0.0)
+        akt['q_hocke'] = h
+    if B + 'Tail' in rig.pose.bones:
+        for q in RUTE_PENDEL:
+            if q in akt: rute_legen(rig, akt[q], q)
+        if RUTE_MESS:
+            for nm, q, _ in NAMEN + [('Hocke', 'q_hocke', True)] + [(nm, q, False) for nm, q in WEITERE]:
+                if q in akt: rute_pruefen(rig, akt[q], nm)
     # Messung je Bewegung (Welt, Quelle): Becken, Neigung, Pfoten, Rutenspitze, Kopfweg
     W = rig.matrix_world; pb = rig.pose.bones
     if RUTE_MESS: print('RUTE ERBE', [(n[len(B):], rig.data.bones[n].inherit_scale, rig.data.bones[n].use_connect) for n in RUTE_KETTE if n in rig.data.bones])
@@ -813,23 +852,12 @@ def baue(fell):
     # Hocke: Kampfort zeigt sie vor dem Anspringen, in Schleife (figur.gd). Bis Runde 2: Bild 1–2 aus jumpBite, die Quelle steigt
     # dort schon (Becken 0,52 -> 0,95 m) -> in Schleife zitterte die Ratte 30-mal je Sekunde (Chef 20:15, Lauf 118: „springt es
     # bei der Kaufratte beim Hocken“). Jetzt: erstes Bild von jumpBite festgehalten (alle Schlüssel gleich, 1 s) und HOCKE m tiefer.
-    if 'jumpBite' in akt:
-        h = akt['jumpBite'].copy(); h.name = 'q_hocke'; h.use_fake_user = True
-        a0 = h.frame_range[0]
-        for lay in h.layers:
-            for st in lay.strips:
-                for cb in st.channelbags:
-                    for fc in cb.fcurves:
-                        v = fc.evaluate(a0)
-                        for kp in fc.keyframe_points:
-                            kp.co[1] = v; kp.handle_left[1] = v; kp.handle_right[1] = v
+    if 'q_hocke' in akt:
+        h = akt['q_hocke']; a0 = h.frame_range[0]
         rig.animation_data.action = h
         if slot(h) is not None: rig.animation_data.action_slot = slot(h)
-        h0 = welt_netz(meshes, int(a0))[:, 2].max()
-        if HOCKE > 0: ducken(rig, h, HOCKE, 0.0)
-        rig.animation_data.action = h
         h1 = welt_netz(meshes, int(a0))[:, 2].max(); h2 = welt_netz(meshes, int(a0) + 15)[:, 2].max()
-        print('HOCKE gehalten, Höhe %.3f -> %.3f (Bild +15: %.3f), Stehen %.3f' % (h0, h1, h2, hi[2]))
+        print('HOCKE gehalten, Höhe %.3f (Bild +15: %.3f), Stehen %.3f' % (h1, h2, hi[2]))
         spur('Hocke', h, int(a0), int(a0) + 30)
     rig.animation_data.action = None
     # Gehtempo aus walk_RM (Wurzelweg je Sekunde), sonst wie ratte.py
