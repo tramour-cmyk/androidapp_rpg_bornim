@@ -1010,7 +1010,8 @@ func _miss_point(by, on, flying: bool) -> Vector3:
 					clear = minf(clear, o.clearance(q))
 			var score: float = minf(clear, 0.8) - maxf(_depth(q) - d_on, 0.0) - absf(lat) * 0.1
 			for ob in rects:     # am Schirm im Umriss einer Figur: verdeckt oder „auf“ ihr
-				if ob.rect.has_point(sq):
+				# Runde 6 (Prüfer r5: Feuerpfeil daneben deckt 20 px des Hinterteils von Wolf 3): mit dem Funkenkreis des Einschlags
+				if ob.rect.grow(24 * dp).has_point(sq):
 					score -= 1.0
 			if score > best_score:
 				best_score = score
@@ -1058,6 +1059,9 @@ func _lane_over(obs: Array, a: Vector3, b: Vector3, side: Vector3, lift: float, 
 			if (ob.on and t > 0.6) or (ob.by and _depth(q) < ob.depth + 0.1):
 				continue
 			if ob.rect.has_point(sq):
+				n += 1
+		for r in _lane_signs:
+			if r.has_point(sq):
 				n += 1
 	return n
 
@@ -1109,8 +1113,8 @@ func _lane_box(o) -> AABB:
 ## zeigen Bertram. Gering: Segen links abgeschnitten (am Rand 65 %); Heilung bleicht Bertrams Schild (90 %), Funken bis Wolf 3; Strahl-
 ## scheitel eckig; Probe Treffer: Rattenschwanz schwebt 500–1100 ms, Wolfsschatten und leere Leiste bleiben bis 1100 ms.
 ## Behoben: Geschosse auf dem Kopf von Wolf 3, Strahl durch Wolf 3, Pfeil daneben über Wolf 1, drei Strahlen getrennt (42–51 px).
-## Plan r6: Spitze wieder niedrig (höchstens 0,9 m) und Tafeln der Gegner als Hindernis am Schirm; Start vor den Körper des Wirkenden
-## (am Schirm sichtbar, nicht nur im Raum); Wolke und Flamme kleiner oder nur am Rand dicht; Pfeil nie steiler als 45°
+## Runde 6: Spitze höchstens 0,9 m, Bahn höchstens 45° steil (STEEP_MAX), Ansagen der Gegner Hindernis am Schirm (_lane_signs),
+## Start immer neben dem Körper (START_SIDE 0,45); Wolke des Feuerballs und Heilige Flamme in der Mitte licht (zauber.gd)
 func _lane(kind: String, by, on, a: Vector3, b: Vector3, dir: Vector3, missed := false) -> Dictionary:
 	var t0 := Time.get_ticks_usec()
 	var side := Vector3(-dir.z, 0, dir.x)
@@ -1120,21 +1124,30 @@ func _lane(kind: String, by, on, a: Vector3, b: Vector3, dir: Vector3, missed :=
 	# Runde 4 (Prüfer r3: Feuerpfeil 1,5 m über der Bahn, „vier Kopfhöhen über Mira“): steht ein Gefährte vor dem Wirkenden in der
 	# Schusslinie (Magier hinten, 0,2 m neben Mira), wich keine Bahn ab seiner Brust ihm aus; der Wirkende hält die Hand zur
 	# freien Seite (START_SIDE; der Start ist dann auch nicht hinter ihm verdeckt), die Bahn hebt sich höchstens 0,9 m
+	# Runde 6 (Prüfer r5: Bögen 4,4–8,3 Kopfhöhen über Mira mit Spitze 1,5 m, Pfeil 81° steil): höchstens 0,9 m, und keine Bahn
+	# fällt oder steigt im Raum steiler als 45° (STEEP_MAX); der Start liegt immer neben dem Körper (r5: vor der Brust lag er am
+	# Schirm hinter Bertrams Kopf, „in 7, verdeckt 3“, Feuerpfeil bei 0 ms unsichtbar)
+	var reach: float = maxf((b - a).length(), 0.5)
 	var ways := []
-	for st in [0.0, -START_SIDE, START_SIDE]:
+	for st in [-START_SIDE, START_SIDE]:
 		for at in [0.5, 0.3, 0.7, 0.2, 0.8]:
-			# Runde 5: liegt die Spitze nahe am Ziel, darf die Bahn höher steigen (über den, der am Schirm davor steht), über dem
-			# Gefährten vorn bleibt sie niedrig (Prüfer r3: „vier Kopfhöhen über Mira“)
-			for h in ([0.0, 0.3, 0.6, 0.9, 1.2, 1.5] if at >= 0.7 else [0.0, 0.3, 0.6, 0.9]):
+			for h in [0.0, 0.3, 0.6, 0.9]:
+				if h * PI / 2.0 / minf(at, 1.0 - at) / reach + (4.0 * Zauber.ARROW_RISE if kind == "ARROW" else 0.0) > STEEP_MAX and h > 0.0:
+					continue
 				for l in [0.0, -0.4, 0.4, -0.8, 0.8, -1.2, 1.2]:
-					ways.append([h * (2.0 if kind == "RAYS" else 1.2) + absf(l) + absf(at - 0.5) + absf(st) * 0.5, l, h, at, st])
+					ways.append([h * (2.0 if kind == "RAYS" else 1.2) + absf(l) + absf(at - 0.5), l, h, at, st])
 	ways.sort_custom(func(x, y): return x[0] < y[0])
 	var obs := _lane_obs(by, on, missed)
+	# Runde 6 (Prüfer r5: Geschosse quer über die Ansage von Wolf 3, verschwinden dahinter): Ansagen mit Lebensbalken liegen am
+	# Schirm über allem, sie zählen wie eine Figur (Rechtecke aus dem letzten Bild)
+	_lane_signs = []
+	for r in sign_rects:
+		_lane_signs.append((r as Rect2).grow(6 * dp))
 	for w in ways:
 		if w[0] >= best_cost:
 			break
-		# mit seitlichem Start hält er die Hand neben den Körper statt vor die Brust
-		var a0: Vector3 = a + side * w[4] - (dir * _girth(by) if w[4] != 0.0 else Vector3.ZERO)
+		# die Hand neben dem Körper, zur Seite der Bahn hin
+		var a0: Vector3 = a + side * w[4] - dir * _girth(by)
 		var hits := _lane_hits(obs, a0, b, side * w[1], w[2], w[3])
 		if kind == "MISSILES":     # die beiden äußeren Splitter
 			for m in [-DART_M, DART_M]:
@@ -1178,8 +1191,13 @@ func _lane_who(by, on, a: Vector3, b: Vector3, side: Vector3, lift: float, at: f
 const LANE_STEPS := 24
 ## Abstand (m), den die Bahn zu jeder Figur hält, die sie nicht wirkt oder trifft
 const LANE_GAP := 0.15
-## Runde 4: so weit (m) hält der Wirkende die Hand zur Seite, wenn ein Gefährte vor ihm in der Schusslinie steht
-const START_SIDE := 0.35
+## Runde 4: so weit (m) hält der Wirkende die Hand zur Seite, wenn ein Gefährte vor ihm in der Schusslinie steht; Runde 6 immer,
+## 0,45 m liegt am Schirm neben dem Umriss (Kasten ±0,25 m)
+const START_SIDE := 0.45
+## Runde 6: steilste Neigung der Bahn im Raum (1,0 = 45°)
+const STEEP_MAX := 1.0
+## Runde 6: Ansagen am Schirm, denen die Bahn fernbleibt (aus sign_rects, je Zauber einmal)
+var _lane_signs: Array = []
 ## Runde 4: Höhe des Lebensbalkens über dem Kopf eines Gegners (m, mit Rand), den die Bahn nicht kreuzt
 const BAR_M := 0.35
 ## Runde 4: Umweg (m), den ein Bahnpunkt wert ist, der am Schirm über oder hinter einer anderen Figur liegt

@@ -254,8 +254,9 @@ func _sacred_flame(p: float, x: float, ground: float, u: float) -> void:
 	var sway := sin(p * 9.0) * 1.5 * u
 	if front < 2.0 * u:
 		return
-	# 348.7a Runde 5 (Prüfer r4: die Säule deckt 70 % des Ziels): äußere Bahnen lichter (0,28 und 0,6)
-	for col in [[46.0, 26.0, HOLY, 0.18], [24.0, 13.0, HOLY, 0.42], [9.0, 5.0, WARM_WHITE, 0.8]]:
+	# 348.7a Runde 5 (Prüfer r4: die Säule deckt 70 % des Ziels): äußere Bahnen lichter (0,28 und 0,6); Runde 6 (r5: 74 %):
+	# schmaler, der helle Kern nur noch ein Strich
+	for col in [[34.0, 20.0, HOLY, 0.14], [16.0, 9.0, HOLY, 0.3], [5.0, 3.0, WARM_WHITE, 0.6]]:
 		var wt: float = col[0] * u
 		var wl: float = col[1] * u
 		var c: Color = col[2]
@@ -275,7 +276,8 @@ func _sacred_flame(p: float, x: float, ground: float, u: float) -> void:
 	for i in 11:
 		var bx := x + (i - 5) * 4.2 * u + (_rf() - 0.5) * 3 * u
 		var edge := 1.0 - absf(i - 5) / 6.0
-		var h := (16 + 30 * edge + _rf() * 12) * u * burn * (0.75 + 0.25 * sin(p * 38.0 + i * 1.9))
+		# Runde 6 (Prüfer r5: Zungen bis über den Rücken, 74 % des Ziels bedeckt): niedriger, außen höher als in der Mitte
+		var h := (10 + 14 * (1.0 - edge) + _rf() * 8) * u * burn * (0.75 + 0.25 * sin(p * 38.0 + i * 1.9))
 		var w := (6 + 4 * edge) * u
 		var lean := sin(p * 21.0 + i) * 3 * u + (i - 5) * 0.8 * u
 		var b := Vector2(bx, ground + 2 * u)
@@ -404,7 +406,8 @@ func _fireball(p: float, from: Vector2, to: Vector2, ground: float, u: float) ->
 		_glow(c, (8 + 12 * age) * u, [_a(SMOKE, 0.55 * (1 - age)), _a(SMOKE, 0.0)])
 	if p < travel:
 		var head := _arc(from, to, t, bend)
-		_glow(head, 34 * u, [_a(FIRE, 0.45), _a(FIRE_DARK, 0.15), NONE])
+		# Runde 6 (Prüfer r5: bei 350 ms deckt der ankommende Ball Wolf 1 zu 83 %): Schein 22 statt 34 u
+		_glow(head, 22 * u, [_a(FIRE, 0.45), _a(FIRE_DARK, 0.15), NONE])
 		for k in 16:
 			var a := _rf() * TAU + p * (8.0 + k)
 			var d := (4 + _rf() * 10) * u
@@ -429,9 +432,10 @@ func _fireball(p: float, from: Vector2, to: Vector2, ground: float, u: float) ->
 	var ausw := 1.0 - (1.0 - s) * (1.0 - s)
 	for k in 30:
 		var a := _rf() * TAU
-		var d := (6 + _rf() * 50) * u * ausw
+		# Runde 6 (Prüfer r5: die Wolke deckt Wolf 1 bei 500 ms zu 76 %): ein Ring, dicht am Rand, die Mitte bleibt frei
+		var d := (26 + sqrt(_rf()) * 30) * u * ausw
 		var c := to + Vector2(cos(a) * d, sin(a) * d * 0.75 - s * 18 * u)
-		var rad := (14 + _rf() * 14) * u * (0.45 + 0.75 * ausw)
+		var rad := (9 + _rf() * 9) * u * (0.45 + 0.75 * ausw)
 		var heat := clampf(1.0 - s * (1.0 + _rf() * 0.7) + (1.0 - d / (56 * u)) * 0.25, 0.0, 1.0)
 		# ohne Rauchballen (Helfer Lauf 126 und Runde 2: zwei dunkle runde Flecken „wie Augen“); Rauch steigt in _smoke darüber auf
 		var col := FIRE_HOT if heat > 0.7 else (FIRE if heat > 0.4 else FIRE_DARK)
