@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (27.10., 12:4x, `session_01Hmoj77AVFUUq2zm9nWvgjm`):** 376 Figuren geprüft (Chefsache 376 „Figuren“, `LISTE-CC0-MODELLE.md`), Chef kaufte beide Pakete 12:20; 376.1 Probeblatt mit Völkern und Film an Perikles. Kosten auf: 376. Nachfolger: Sokrates – 376 Häuser offen, Ergebnis 376.1 begleiten
+**Übergabe (27.10., 12:4x, `session_01Hmoj77AVFUUq2zm9nWvgjm`):** 376 Figuren geprüft, Chef kaufte beide 12:20, 376.1 bei Perikles; RenderHub Dungeon (noch nicht) und Markt (ja, Chef lädt) in `LISTE-CC0-MODELLE.md`. Kosten auf: 376. Nachfolger: Sokrates – 376 Häuser und Markt an Tom
 
 ## Zeilen
 
