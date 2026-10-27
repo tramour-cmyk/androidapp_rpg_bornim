@@ -16,6 +16,7 @@ bpy.ops.wm.open_mainfile(filepath=BLEND)
 scn = bpy.context.scene; rig = bpy.data.objects['Held_Skelett']; ad = rig.animation_data; held = bpy.data.objects['Held_Netz']
 INFO = json.load(open(os.path.join(os.path.dirname(BLEND), 'held-info.json')))
 TN = json.load(open(os.path.join(os.path.dirname(BLEND), 'teile.json')))
+SPRUNG_M = 0.08      # Runde 6: so viel schneller (m je Bild, 2,4 m/s in einem Bild) darf das Netz von einem Bild zum naechsten werden
 NAMEN = os.environ.get('BEWEGUNGEN', 'Kampfstehen,Ausholen,Hieb,Stich,Treffer,Ausweichen,Abwehr,Tod').split(',')
 
 
@@ -109,6 +110,7 @@ for nm in NAMEN:
     nb = int(round(act.frame_range[1] - act.frame_range[0]))
     bef = {}
     sch_z, kl_z, lage = 9.0, 9.0, None
+    alt_v, alt_s, schritt = None, None, []   # Runde 6: Weg des Netzes je Bild (Sprung)
     for f in range(nb + 1):
         scn.frame_set(f); setze_waffen(); bpy.context.view_layer.update()
         BH, V = bvh_held()
@@ -152,6 +154,12 @@ for nm in NAMEN:
                         bef.setdefault('Klinge verkuerzt auf %s (%s)' % (x, vn), []).append(s); break
                 if h[0] is None or x == 'Schwerthand' or (sg > 0 and hinter[0]): continue
                 bef.setdefault('Spitze %s %s (%s)' % ('hinter' if sg > 0 else 'an', x, vn), []).append(s); break
+            # Runde 6 (Pruefer 5, hoch: Hieb „Spiel“ 0,33-0,47 Klinge hinter Koerper und Umhang): mehr als die Haelfte der Klinge
+            # verdeckt, ohne die Schwerthand
+            vd = sum(1 for x in hinter if x and x != 'Schwerthand') / len(hinter)
+            if vd > 0.5: bef.setdefault('Klinge verdeckt (%s)' % vn, []).append(s)
+            if os.environ.get('SICHT_DBG') == nm and vn == 'Spiel':
+                print('SICHT %s %s %.2f %s Spitze %s' % (nm, s, vd, ''.join((x or '.')[0] for x in hinter), tuple(round(c, 2) for c in L[-1])))
             for g in {x for x in hinter if x and x != 'Schwerthand'}:
                 k = hinter.count(g) / len(hinter)
                 if 0.1 < k and hinter.count('') > 1: bef.setdefault('Klinge steckt in %s (%s)' % (g, vn), []).append(s)
@@ -160,13 +168,24 @@ for nm in NAMEN:
         sch_z = min(sch_z, min(p.z for p in SV)); kl_z = min(kl_z, min(KV[i].z for f_ in KL_F for i in f_))
         if min(p.z for p in SV) < -0.01: bef.setdefault('Schild im Boden', []).append(s)
         if min(p.z for p in KV) < -0.01: bef.setdefault('Schwert im Boden', []).append(s)
+        # Runde 6 (Pruefer 5, gering: Tod 0,27-0,40 Spitze auf Sohlenhoehe): Spitze unter 8 cm, waehrend die Faust noch ueber 35 cm hoch ist
+        if L[-1].z < 0.08 and schwert.matrix_world.translation.z > 0.35: bef.setdefault('Spitze am Boden', []).append(s)
+        # Runde 6 (Pruefer 5, mittel: Ausweichen 0,00-0,07 Sprung): Weg der Ecken je Bild (Median des Netzes) und dessen Aenderung
+        # gegen das vorige Bild; Sprung, wenn das Netz aus dem Stand oder gegen das vorige Bild um mehr als SPRUNG_M je Bild schneller wird
+        Vn = np.array(V)
+        if alt_v is not None:
+            st = float(np.median(np.linalg.norm(Vn - alt_v, axis=1))); schritt.append(st)
+            if st - (alt_s or 0.0) > SPRUNG_M: bef.setdefault('Sprung', []).append(s)
+            alt_s = st
+        alt_v = Vn
         if f == nb:
             nrm = (schild.matrix_world.to_3x3() @ SH_N).normalized()
             ax = (schwert.matrix_world.to_3x3() @ Vector((0, 0, 1))).normalized()
             lage = {'schild_gegen_boden_grad': round(90 - math.degrees(math.asin(min(1.0, abs(nrm.z))))),
                     'klinge_gegen_boden_grad': round(math.degrees(math.asin(min(1.0, abs(ax.z)))))}
-    out[nm] = {'befunde': bef, 'schild_tiefst': round(sch_z, 3), 'klinge_tiefst': round(kl_z, 3), 'ende': lage}
+    out[nm] = {'schritt_max_m': round(max(schritt, default=0.0), 3), 'befunde': bef, 'schild_tiefst': round(sch_z, 3), 'klinge_tiefst': round(kl_z, 3), 'ende': lage}
     zeit = lambda l: l[0] if len(l) == 1 else '%s-%s (%d)' % (l[0], l[-1], len(l))
-    print('NETZ %-11s %s  Schild tiefst %+.3f  Klinge tiefst %+.3f  Ende %s' % (
-        nm, '  '.join('%s %s' % (k, zeit(v)) for k, v in bef.items()) or 'sauber', sch_z, kl_z, lage))
+    print('NETZ %-11s %s  Schild tiefst %+.3f  Klinge tiefst %+.3f  Netz je Bild bis %.3f m  Ende %s' % (
+        nm, '  '.join('%s %s' % (k, zeit(v)) for k, v in bef.items()) or 'sauber', sch_z, kl_z, max(schritt, default=0.0), lage))
+    if os.environ.get('SCHRITTE'): print('SCHRITT', nm, ' '.join('%.3f' % x for x in schritt))
 json.dump(out, open(os.path.join(os.path.dirname(BLEND), 'pruef_kampf.json'), 'w'), indent=1, ensure_ascii=False)

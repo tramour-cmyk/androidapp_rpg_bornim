@@ -591,9 +591,11 @@ def bauen(sk, INFO, stehen='Stehen', tod='Tod', log=print):
         blick()
 
     def aufschlag():    # Faust vor der linken Huefte, Klinge links unten vor dem Bein (Runde 5: weiter nach vorn, die Spitze frei)
+        # Runde 6 (Pruefer 5, hoch: von der Spielkamera hinten rechts lag die Klinge 0,37-0,47 hinter Koerper und Umhang, links unten
+        # vor dem Bein ist dort hinter ihm): Faust vor der Koerpermitte, Klinge nach vorn unten (35 Grad), wenig nach links; so steht
+        # sie von hinten rechts vor ihm frei (pruef_kampf.py „Klinge verdeckt“, von 12 Lagen die einzige ohne Befund bei Knick wie Runde 5)
         ausfall(); rumpf(dreh=24, vor=10)
-        schwertarm((0.14, -0.44, 1.02), (-0.6, 0.0, -0.8), bahn(148), name='Aufschlag', kegel=8,
-                   wahl=[bahn(w_) for w_ in (138, 158)])
+        schwertarm((0.0, -0.55, 1.00), (-0.6, 0.0, -0.8), (0.15, -0.80, -0.60), name='Aufschlag', kegel=8)
         schildarm(name='Aufschlag', **SEITAB)
         blick()
 
@@ -757,8 +759,10 @@ def bauen(sk, INFO, stehen='Stehen', tod='Tod', log=print):
         # haengt steil, die Scheide bleibt am Guertel (sie legt sich erst, wenn sie den Boden beruehrt, am_boden)
         becken((0, 0.02, -0.16), vor=18); rumpf(vor=22)
         fuesse()
-        schwertarm((-0.36, -0.02, 0.80), (-0.6, 0.6, -0.2), (-0.35, 0.20, -0.92), name='Tod knick',
-                   wahl=[(x_, y_, -0.92) for x_ in (-0.25, -0.4) for y_ in (0.1, 0.3)])
+        # Runde 6 (Pruefer 5, gering: 0,27-0,40 Spitze auf Sohlenhoehe, Faust noch hoch): Klinge 50 statt 65 Grad abwaerts, auch
+        # weiter nach rechts aussen waehlbar
+        schwertarm((-0.36, -0.02, 0.80), (-0.6, 0.6, -0.2), (-0.35, 0.20, -0.75), name='Tod knick',
+                   wahl=[(x_, y_, -0.75) for x_ in (-0.25, -0.4, -0.6) for y_ in (0.1, 0.3)])
         schildarm((0.44, -0.10, 0.84), (1.0, 0.3, -0.3), (0.95, -0.2, 0.2), name='Tod knick', oben=False)
         blick(0.2); pu.drehe('Head', 'X', 14)
 
@@ -835,6 +839,7 @@ def bauen(sk, INFO, stehen='Stehen', tod='Tod', log=print):
                                     ('t_zuck', tod_zuck), ('t_knick', tod_knick), ('t_sitz', tod_sitz), ('t_ruecken', tod_ruecken),
                                     ('t_liegen', tod_liegen))}
     P['k0'] = K0
+    P['ausw_h'] = mische(K0, P['ausw'], 0.5)
     log('KAMPF Tod Klinge %s Grad von rechts' % LIEG.get('w'))
 
     def folge(name, keys, schleife=False, nach=None):
@@ -864,7 +869,11 @@ def bauen(sk, INFO, stehen='Stehen', tod='Tod', log=print):
     # Treffer 0,45 s (figur.gd ruht nach 0,45 s): Ruck 0,08 s, zurueck
     folge('Treffer', [(0.0, 'k0', 'aus'), (0.08, 'treffer', 'linear'), (0.14, 'treffer', 'weich'), (0.45, 'k0', 'weich')])
     # Ausweichen 0,45 s: weg 0,12 s, Halt bis 0,24, zurueck
-    folge('Ausweichen', [(0.0, 'k0', 'aus'), (0.12, 'ausw', 'linear'), (0.24, 'ausw', 'weich'), (0.45, 'k0', 'weich')])
+    # Runde 6 (Pruefer 5, mittel: 0,00-0,07 Sprung; gemessen 30 cm des Netzes im ersten Bild, „aus“ beginnt mit voller Fahrt): je Weg
+    # gleichmaessig beschleunigt bis zur Haelfte (ausw_h), dann gebremst: weg bis AUSW_T, Halt, zurueck
+    AT, AH = 0.20, 0.03
+    folge('Ausweichen', [(0.0, 'k0', 'an'), (AT / 2, 'ausw_h', 'aus'), (AT, 'ausw', 'linear'), (AT + AH, 'ausw', 'an'),
+                         ((AT + AH + 0.45) / 2, 'ausw_h', 'aus'), (0.45, 'k0', 'weich')])
     # Abwehr 0,25 s hinein, dann gehalten
     folge('Abwehr', [(0.0, 'k0', 'aus'), (0.25, 'abwehr', 'weich')])
 
