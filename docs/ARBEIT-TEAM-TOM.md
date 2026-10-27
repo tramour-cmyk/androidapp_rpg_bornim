@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (27.10., 18:5x, „Tom – 376.1 Kaufkopf und Fehler Tracht“ `session_01Hmoj76F3KvM4odEwqUYmo3`):** `add_repo` ohne Satz des Chefs abgelehnt, Bitte per Telegram (18:36); Befunde Film r2 eingetragen (Zu 376.1, Film); Probehaus aus dem Dorfbausatz gebaut und gerendert (`c2d2441a2`, `tools/pruef348/probehaus.sh`, Bilder alt/neu `bilder:pruefung/376-probehaus-*`), ungeprüft; Ford auf eine Stunde vorgehende Zeiten hingewiesen. Nachfolger: „Tom – 376 Probehaus prüfen, vorlegen“: Fremdprüfung der Bilder, Fehlerrunde, Vorlage; kommt der Satz zum Zugang, zuerst 376.1.
+**Übergabe (27.10., 19:20, „Tom – 376 Probehaus prüfen, vorlegen“ `session_01Hmoj78XeWjSrw1FZSi67UY`):** Probehaus fremd geprüft (2 Runden), Schornstein behoben, Fassung B mit Kniestock (`1dc9ad900`, `PROBE_KNIE=1 PROBE_NEIGUNG=0.8`), vorgelegt (Chefsache ansehen/376-probehaus, Telegram 19:19); ansehen/376 Häuser gelöscht (Chef 19:08); Zugang Kaufmodelle da (Chef 19:12), Chef schrieb danach „376.1 erledigt“, Rückfrage 19:13 (nur Zugang oder ganzer Vorgang?) unbeantwortet. Nachfolger: „Tom – 348.13a Tusche mit schräger Sonne“; 376.1 erst nach Antwort.
 
 ## Zeilen
 
