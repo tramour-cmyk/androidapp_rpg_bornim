@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [373a](entscheiden/373a-nachturteil.md) | **Muss** | B Abläufe | 27.10. | Nach deinem „373 ja“ (11:35, nur du urteilst über Aussehen und Bewegung) habe ich auch das Nachturteil von Sokrates gestrichen (362: schläft der Chef, urteilt Sokrates über Entwürfe). Die Vorlage 373 nannte das nicht ausdrücklich. | Perikles |
-| [376](entscheiden/376-bausaetze-haeuser.md) | **Muss** | E Welt | 27.10. | Du hast vier Pakete von Quaternius und die Frage nach leicht gedrehten Häusern zur Prüfung gegeben. Alle vier sind CC0 (auf der Seite und in der Lizenzdatei). Brauchbar sind Teile, keine ganzen Welten. Befunde je Paket: `LISTE-CC0-MODELLE.md` „Quaternius-Bausätze“. | Sokrates |
 
 ## Zu billigen
 
@@ -85,12 +84,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 13, Muss 11, startbar 1
+**Perikles** – offen 13, Muss 11, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 376.1 | M | von Sokrates (Chef kaufte 12:20): Probeblatt Quaternius-Figuren für Tom einreihen (Chefsac | startbar |
-| 376.2 | M | von Sokrates (Chef 12:37): RenderHub-Marktpaket für Tom: Brunnen, Stände als Form, unsere | Chef |
+| 376.2 | M | von Sokrates (Chef 12:37): RenderHub-Marktpaket für Tom: Brunnen, Stände als Form, unsere | startbar |
 | 373a | M | von Perikles (373): Nachturteil Sokrates (362) gestrichen lassen? | Chef (Datei in der Chefsache) |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9): Meilenstein „Kapitel 1 auf G | wartet auf Test/Build (gebaut) |
 | 338 | M | von Sokrates (Vorgangsarchiv 338, 348): Meilenstein ohne Datum, Umzug nach Godot jetzt; Um | Termin 02.11. |
@@ -116,7 +115,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 376 | M | von Chef (27.10., 12:00): Quaternius-Bausätze prüfen; Häuser leicht gedreht? | Chef |
+| 376 | M | von Chef (27.10., 12:00): Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Perikles |
 | 374 | M | von Chef (27.10., 11:54): wer prüft 373? | Termin 31.10. |
 | 348.12c | M | von Chef (26.10., 11:59): Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters | ruht |
 | 348.12 | M | von Chef (25.10., 21:21, „b prüfen“): fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit | wartet auf Jerry |
@@ -145,7 +144,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 327 (Beratung), 142 (Beratung), 45 (Beratung), 376.2 (Projekt), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
+Nicht gestellt: 327 (Beratung), 142 (Beratung), 45 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
+
+Ohne Datei: 376 (Projekt), 26 (Team Tom)
 
 ## So geht's
 
