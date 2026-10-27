@@ -326,10 +326,12 @@ jobs:
           git fetch -q --depth 1 origin claude/tom-348-fundament
           git show FETCH_HEAD:tools/blender348/kauf_laden.sh > $RUNNER_TEMP/kauf_laden.sh
           [ -d $RUNNER_TEMP/kauf ] || timeout 900 bash $RUNNER_TEMP/kauf_laden.sh $RUNNER_TEMP/kauf > $P/kauf-laden.log 2>&1 || echo "kauf_laden.sh Ende $?"
+          # Lauf 40595109118: im Zip des Hundertfüßers (MadeCG) liegt je Format ein weiteres Zip, kauf_laden.sh packt nur eine Stufe aus
+          find $RUNNER_TEMP/kauf/anhang -name 'fbx.zip' | while read -r z; do [ -d "${z%.zip}" ] || unzip -q -o "$z" -d "${z%.zip}"; done
           D=godot/kampf/daten; L=""
           for t in keiler:Keiler hundertfuesser:Hundertfüßer rind:Rind ziege:Ziege huhn:Huhn kaninchen:Kaninchen; do
             id=${t%%:*}; name=${t#*:}
-            env TIER=$id OUT=$RUNNER_TEMP/k387 KAUF=$RUNNER_TEMP/kauf timeout 900 bl/bin/python -I tools/blender348/kauftier.py > $P/387-$id-bau.log 2>&1 || (tail -40 $P/387-$id-bau.log; exit 1)
+            env TIER=$id OUT=$RUNNER_TEMP/k387 KAUF=$RUNNER_TEMP/kauf timeout 900 bl/bin/python -I tools/blender348/kauftier.py > $P/387-$id-bau.log 2>&1 || { tail -20 $P/387-$id-bau.log; echo "BAU FEHLT $id"; continue; }
             grep -E "MASS|BODEN|TEMPO|BISS|BEHALTEN|RUECKWAERTS|FEHLT|FERTIG" $P/387-$id-bau.log | sort -u | cut -c1-300
             cp $RUNNER_TEMP/k387/kauf_$id-*.glb $D/ && for f in $D/kauf_$id-*.glb; do mv $f ${f%.glb}.bin; done
             cp $RUNNER_TEMP/k387/kauf_$id-info.json $D/
