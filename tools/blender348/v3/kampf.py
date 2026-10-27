@@ -1,6 +1,5 @@
 # 348.6 Kampfbewegungen des Helden (von Jerry 27.10.; Vorrang Perikles 338.1): Kampfstehen, Ausholen, Hieb, Stich, Treffer,
-# Ausweichen, Abwehr aus eigenen Schluesselbildern auf unserem Skelett; Tod aus Death01 (geruest.py HELD, hier nur der Anfang aus
-# Kampfstehen). Die Bibliothek hat dafuer nichts Brauchbares (Sword_Attack ist ein Stoss von hinter dem Kopf, Jerry Runde 4;
+# Ausweichen, Abwehr und Tod aus eigenen Schluesselbildern auf unserem Skelett (Tod bis Runde 2 aus Death01, geruest.py HELD). Die Bibliothek hat dafuer nichts Brauchbares (Sword_Attack ist ein Stoss von hinter dem Kopf, Jerry Runde 4;
 # Hit_Chest 0,3 s nur der Kopf; kein Stich, kein Ausweichen, keine Abwehr).
 # Waffe in der rechten Faust laengs des Faustlochs (faust_R in held-info.json, gespiegelt wie faust_L); die Schneide liegt in der
 # Ebene aus Klinge und Knochenrichtung der Hand. Schild am linken Unterarm wie figur.gd _hold (Ruhelage: Vorderseite nach aussen,
