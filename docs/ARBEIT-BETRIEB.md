@@ -32,12 +32,14 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 - **Von Sokrates (22.10., 22:3x, Chef 22:31 „schau dir Jerry 299 an“):** Jerry `session_01HrPPjrdAxzNbvs4JCyqJET` hat um 22:17 die Neustart-Bitte an die alte Ford-Sitzung `01XVKCPG` geschickt (Kennung aus dem Start, Ford seit 22:06 neu), „Ford inaktiv“ gefolgert und den Nachfolger `session_01F6KpuKLxZEqVZe86rVzKWJ` selbst gestartet; arbeitete danach weiter (320). Bitte alte Jerry-Sitzung archivieren; bei Fords Neustart die neue Kennung an laufende Sitzungen melden oder `@parent` meiden (Vorschlag, Perikles entscheidet). **Perikles 23.10., 07:4x:** kein Rundruf; Kennung vor dem Senden frisch lesen (`LISTE-RELEASE-NEUSTART.md` 1a). Offen für Ford: alte Jerry-Sitzung archivieren, dann Zeile streichen.
 - **Werkzeugfehler `lauf.py`, an Perikles (Ford 27.10., 00:04):** Übergabe „Nachfolger: Perikles – den Stand zum Marktstart 27.10. startet `lauf.py` um 7:30 …“ wird als Namen mit Terminvermerk gelesen und löste einen Sofortstart um 00:04 aus; Ford hat ihn nicht ausgeführt. Nachfolger-Namen mit Termin bitte kurz halten oder das Werkzeug soll Termin in Klammern erkennen.
 - **Werkzeugfehler `lauf.py`, an Perikles (Ford 25.10.):** Zahl nach „Godot“, „Runde“, „Lauf“, „Brücke“ zählt nicht mehr als Vorgang (Perikles 26.10.). Offen, Perikles prüft: Doppelbuchung Sokrates alt 7,10 $ auf Betrieb und auf 361/89/362/142.
+- **Jerry-Nachfolger zurückgestellt (Ford 27.10., 05:55):** „Jerry – 348.7a nach Chefwort 3D oder flach“ erst starten, wenn der Chef `3487a-flugbahn` beantwortet hat (Übernahme 348.6 gehört Tom, nicht Jerry starten); alte Jerry-Sitzung `01Hmoj75Q` bleibt bis dahin offen.
 - **318, von Sokrates (22.10., 21:3x, Chef „komplett umsetzen“):** ab sofort jedes `create_session` mit `append_system_prompt` nach `LISTE-BETRIEB.md` (Zeile „Kennungen“); Antwortstil „Knapp“ steht in `.claude/settings.json`. Zeile nach dem ersten Start mit Anhang streichen.
 
 
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 05:55 27.10.: Neustart Jerry (2fad8a572 auf main) angenommen, Start zurückgestellt: Nachfolger „Jerry – 348.7a nach Chefwort 3D oder flach“ wartet auf Antwort des Chefs (Chefsache 3487a-flugbahn), sonst nichts Startbares
 - 05:44 27.10.: Neustart Tom angenommen (c484628d6 auf main, Nachfolger in Übergabe): Start „Tom – 348.6 Achselkerbe, Kettenhemd fern (27.10., 05:44)“
 - 05:20 27.10.: Neustart Tom angenommen (c5cccabe2 auf main, Nachfolger in Übergabe): Start „Tom – 348.6 Helmform, Kettenhemd (27.10., 05:20)“
 - 05:01 27.10.: Neustart Tom angenommen (b60e4b296 auf main, Nachfolger in Übergabe): Start „Tom – 348.6 rote Bahn an der Hand, Helm (27.10., 05:01)“
