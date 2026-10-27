@@ -142,6 +142,8 @@ func bewaffne(k: String, an: bool) -> void:
 	var g := Vector3(fr["griff"][0], fr["griff"][1], fr["griff"][2])
 	var edge := (Vector3.UP - ax * ax.y).normalized()
 	haenge(sk, "hand_r", "longsword", Transform3D(Basis(edge, ax, edge.cross(ax)), g), "WaffeR")
+	# Quaternius: ohne Schild, die UAL hat keine Schildhaltung (Helfer Film: Schild wie ein Tablett, von der Kante wie eine zweite Klinge)
+	if k != "held": return
 	# Schild: in der Ruhelage der Hand x vorn (+Z der Figur), y oben, z aussen (+X), 0,35 * 15,7 cm am Knochen, 4 cm aussen
 	var bi := sk.find_bone("hand_l")
 	var rl := sk.get_bone_global_rest(bi)
@@ -324,7 +326,8 @@ func film() -> void:
 		ap.play(n)
 		var lang := ap.get_animation(n).length
 		var schleife := ap.get_animation(n).loop_mode != Animation.LOOP_NONE
-		var dauer := maxf(lang, 1.5) if schleife else lang + 0.5
+		# Schleifen ganze Umlaeufe, mindestens 1,5 s (Helfer Film: Ruck an der Naht, Gehen 1,33 s lief 1,5 s)
+		var dauer := lang * ceilf(1.5 / lang) if schleife else lang + 0.5
 		var bilder := int(ceil(dauer * FPS))
 		await get_tree().create_timer(0.3).timeout
 		for f in bilder:

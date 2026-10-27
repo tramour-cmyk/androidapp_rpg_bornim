@@ -48,14 +48,10 @@ for i in range(n):
         bild.paste(cache[p], (x, y + KOPF))
         dr.rectangle([x, y + KOPF, x + W - 1, y + KOPF + H - 1], outline=(70, 58, 30))
     bild.save(os.path.join(tmp, '%04d.png' % i))
-# Echtzeit zweimal, dann vierfach langsamer
-liste = os.path.join(tmp, 'liste.txt')
-with open(liste, 'w') as f:
-    for wdh, dauer in ((2, 1 / 30), (1, 4 / 30)):
-        for _ in range(wdh):
-            for i in range(n): f.write("file '%s'\nduration %.5f\n" % (os.path.join(tmp, '%04d.png' % i), dauer))
-    f.write("file '%s'\n" % os.path.join(tmp, '%04d.png' % (n - 1)))
-subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', liste, '-vf', 'fps=30,format=yuv420p',
-                '-c:v', 'libx264', '-crf', '23', '-movflags', '+faststart', ZIEL], check=True)
+# Echtzeit zweimal, dann vierfach langsamer; als Bildfolge mit fester Rate (Helfer: concat mit Dauern liess je 6 Bilder eines aus)
+folge = [i for _ in range(2) for i in range(n)] + [i for i in range(n) for _ in range(4)]
+for j, i in enumerate(folge): os.symlink(os.path.join(tmp, '%04d.png' % i), os.path.join(tmp, 'f%05d.png' % j))
+subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-framerate', '30', '-i', os.path.join(tmp, 'f%05d.png'), '-vf', 'format=yuv420p',
+                '-c:v', 'libx264', '-crf', '18', '-g', '60', '-movflags', '+faststart', ZIEL], check=True)
 Image.open(os.path.join(tmp, '%04d.png' % (n // 2))).save(ZIEL.rsplit('.', 1)[0] + '_mitte.png')
 print('FILM', ZIEL, n, 'Bilder je Durchlauf,', len(felder), 'Felder')
