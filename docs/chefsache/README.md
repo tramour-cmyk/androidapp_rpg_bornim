@@ -10,6 +10,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 |---|---|---|---|---|---|
 | [348.12](entscheiden/34812-goblin-hieb.md) | **Muss** | G Aussehen | 27.10. | Goblin CC0 oder eigen? Der CC0-Hieb hat nach sechs Runden noch Fehler | Jerry |
 | [348.12f](entscheiden/34812f-kaufratte-r3.md) | **Muss** | E Technik | 27.10. | Reicht die nachgebesserte Kaufratte, oder bleibt die eigene? | Jerry |
+| [348.13](entscheiden/34813-tusche-nah.md) | **Muss** | G Aussehen | 27.10. | Tusche in der Nahansicht so lassen, etwas kräftiger („halb“) oder so kräftig wie in der Grundansicht („voll“)? | Tom |
 | [348.12c](entscheiden/34812c-listen.md) | **Muss** | G Aussehen | 26.10. | vier neue Listen mit je fünf Prüfpunkten, aus deinem Ja von 20:32 und den Modellbildern; nötig, bevor Jerry die gekauften Modelle bemalt | Homer |
 | [110](entscheiden/110-ford-von-hand.md) | – | – | 27.10. | Ford läuft auf Tiefe 6 (Grenze 8); Selbstneustart geht nicht mehr, bevor sein Kontext voll ist, bitte neue Sitzung von Hand starten. | Ford |
 
@@ -39,13 +40,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 17, Muss 7, startbar 2
+**Tom** – offen 17, Muss 7, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 348.12i | M | von Sokrates (Chef 19:41, „348.12i B“, Archiv): nur Kaufmodelle mit AESContext verschlüsse | wartet auf Test/Build (gebaut) |
 | 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | startbar |
-| 348.13 | M | von Sokrates (Chef 26.10., Archiv): Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Sc | startbar |
+| 348.13 | M | von Sokrates (Chef 26.10., Archiv): Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Sc | Chef (Datei in der Chefsache) |
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10. | Chef |
 | 267 | M | von Chef (20.10., 21:46, B48, Tablet): „Das Game laggt ziemlich auf dem Tablet...“ | Chef |
 | 302.3 | M | von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3): alle Bilder von Intro und Outro m | ruht |
