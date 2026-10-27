@@ -243,5 +243,10 @@ fun SystemSigns(vm: GameViewModel, game: Game, lang: Lang) {
     val s = game.state
     Text((if (de) "Schritte: " else "Steps: ") + s.steps + (if (de) " · Siege: " else " · Victories: ") + s.battlesWon, color = Veil.dim,
         style = TextStyle(fontFamily = Serif, fontSize = 13.sp * TypeLook.scale, fontFeatureSettings = "lnum"))
+    // 388 (Chef 27.10., 21:58): the device details with the readings, to copy, also without the test mode, so testers can send
+    // them when the game stutters (as in the test tab)
+    Spacer(Modifier.height(10.dp))
+    fun t2(d: String, e: String) = if (de) d else e
+    DeviceBox(vm, ::t2, deviceReadings(::t2))
     Box(Modifier.size(1.dp))
 }

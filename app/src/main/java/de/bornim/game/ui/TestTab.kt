@@ -53,43 +53,7 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
         Spacer(Modifier.height(4.dp))
         // 218: the test tab in groups by purpose, each under its heading
         Txt(t("Anzeigen und Messwerte", "Displays and readings"), size = 16.sp, bold = true)
-        val readings = mutableListOf<String>()
-        // 24.1: how long the last black screen between places waited until everything was drawn
-        readings += t("Blende: bereit nach ", "Fade: ready after ") + (VeilMemory.readyAfterMs?.let { "%.1f s".format(it / 1000f) } ?: "–") +
-            // 299: which part kept it waiting, and whether the screen itself stood still meanwhile
-            " (" + VeilMemory.parts() + t("), längste Bildpause in der Blende ", "), longest frame pause in the fade ") + (VeilMemory.veilLongestMs?.let { "$it ms" } ?: "–")
-        // 175: the first 10 s after it: the longest pause between two pictures, and how many paused over 50 ms
-        readings += t("Danach 10 s: längste Bildpause ", "Then 10 s: longest frame pause ") + (VeilMemory.afterLongestMs?.let { "$it ms" } ?: "–") +
-            t(", über 50 ms: ", ", over 50 ms: ") + (if (VeilMemory.afterLongestMs != null) "${VeilMemory.afterSlow}" else "–") +
-            (VeilMemory.afterCutMs?.let { t(" (abgebrochen nach ", " (cut short after ") + "%.1f s)".format(it / 1000f) } ?: "")
-        // 267: what drew in the background during those slow pictures, and the runtime's collections of garbage meanwhile
-        VeilMemory.afterBy?.let { by ->
-            readings += t("Langsame Bilder während: ", "Slow frames during: ") +
-                (by.entries.sortedByDescending { it.value }.map { (k, n) -> t(k.de, k.en) + " $n" } + (t("nichts ", "nothing ") + VeilMemory.afterAlone)).joinToString(", ")
-        }
-        VeilMemory.afterGc?.let { (all, held, ms) ->
-            readings += t("Speicherbereinigung danach: ", "Garbage collections afterwards: ") + all + t(", davon anhaltend ", ", of them halting ") + held + " ($ms ms)"
-        }
-        // 24.13: how long the hero took until drawn in full, also beyond the veil's 4 s
-        readings += t("Held ganz gezeichnet nach ", "Hero fully drawn after ") + (de.bornim.core.art.MapFigure.lastFullMs?.let { "%.1f s".format(it / 1000f) } ?: "–") +
-            (if (de.bornim.core.art.MapFigure.lastFromShelf) t(" (gespeichert)", " (kept)") else "")
-        // 24.5: how long the last fight waited for its frames: the hero's opening, all of the hero's, the foe's
-        de.bornim.core.art.BattleAhead.let { a ->
-            fun s(ms: Long?) = ms?.let { "%.1f s".format(it / 1000f) } ?: "–"
-            readings += t("Kampf bereit: Eröffnung ", "Fight ready: opening ") + s(a.openingMs) + t(", Held ", ", hero ") + s(a.heroMs) +
-                t(", Gegner ", ", foe ") + s(a.foeMs)
-            // 24.16: what it found drawn ahead on the map, and how long the drawing ahead waited for the map
-            a.report?.let { r ->
-                readings += t("Vorgezeichnet: Held ", "Drawn ahead: hero ") + "${r.heroReady}/${r.heroAll}" + (if (r.kept) t(" (gespeichert)", " (kept)") else "") + t(", Gegner ", ", foe ") + r.foe + " ${r.foeDrawn}" +
-                    t(if (r.foeDone) " (fertig)" else " (nicht fertig)", if (r.foeDone) " (all)" else " (not all)") +
-                    t(", gewartet ", ", waited ") + s(r.waitedMs) + t(", Gegner nahe ", ", foe near ") + s(r.nearMs) +
-                    t(", Speicher ", ", memory ") + "${Runtime.getRuntime().maxMemory() / (1024 * 1024)} MB" +
-                        t(", geräumt ", ", freed ") + "${de.bornim.core.art.ArtMemory.trims}×" +
-                        // 358: how full the heap was then, and now
-                        (if (de.bornim.core.art.ArtMemory.trims > 0) t(" (zuletzt bei ", " (last at ") + "${de.bornim.core.art.ArtMemory.lastUsedMb} MB)" else "") +
-                        t(", belegt jetzt ", ", in use now ") + "${Runtime.getRuntime().let { it.totalMemory() - it.freeMemory() } / (1024 * 1024)} MB"
-            }
-        }
+        val readings = deviceReadings(::t)
         for (r in readings) Txt(r, size = 13.sp)
         DeviceBox(vm, ::t, readings)
         // 27m: frames per second over the map, to see whether the wood beyond the edge slows the phone
@@ -338,9 +302,52 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
     }
 }
 
+/** 266, 388: the readings of the last fade, fight and memory, shown in the test tab and copied with the device details
+ * (also from the system tab, Chef 27.10., 21:58). */
+fun deviceReadings(t: (String, String) -> String): List<String> {
+    val readings = mutableListOf<String>()
+    // 24.1: how long the last black screen between places waited until everything was drawn
+    readings += t("Blende: bereit nach ", "Fade: ready after ") + (VeilMemory.readyAfterMs?.let { "%.1f s".format(it / 1000f) } ?: "–") +
+        // 299: which part kept it waiting, and whether the screen itself stood still meanwhile
+        " (" + VeilMemory.parts() + t("), längste Bildpause in der Blende ", "), longest frame pause in the fade ") + (VeilMemory.veilLongestMs?.let { "$it ms" } ?: "–")
+    // 175: the first 10 s after it: the longest pause between two pictures, and how many paused over 50 ms
+    readings += t("Danach 10 s: längste Bildpause ", "Then 10 s: longest frame pause ") + (VeilMemory.afterLongestMs?.let { "$it ms" } ?: "–") +
+        t(", über 50 ms: ", ", over 50 ms: ") + (if (VeilMemory.afterLongestMs != null) "${VeilMemory.afterSlow}" else "–") +
+        (VeilMemory.afterCutMs?.let { t(" (abgebrochen nach ", " (cut short after ") + "%.1f s)".format(it / 1000f) } ?: "")
+    // 267: what drew in the background during those slow pictures, and the runtime's collections of garbage meanwhile
+    VeilMemory.afterBy?.let { by ->
+        readings += t("Langsame Bilder während: ", "Slow frames during: ") +
+            (by.entries.sortedByDescending { it.value }.map { (k, n) -> t(k.de, k.en) + " $n" } + (t("nichts ", "nothing ") + VeilMemory.afterAlone)).joinToString(", ")
+    }
+    VeilMemory.afterGc?.let { (all, held, ms) ->
+        readings += t("Speicherbereinigung danach: ", "Garbage collections afterwards: ") + all + t(", davon anhaltend ", ", of them halting ") + held + " ($ms ms)"
+    }
+    // 24.13: how long the hero took until drawn in full, also beyond the veil's 4 s
+    readings += t("Held ganz gezeichnet nach ", "Hero fully drawn after ") + (de.bornim.core.art.MapFigure.lastFullMs?.let { "%.1f s".format(it / 1000f) } ?: "–") +
+        (if (de.bornim.core.art.MapFigure.lastFromShelf) t(" (gespeichert)", " (kept)") else "")
+    // 24.5: how long the last fight waited for its frames: the hero's opening, all of the hero's, the foe's
+    de.bornim.core.art.BattleAhead.let { a ->
+        fun s(ms: Long?) = ms?.let { "%.1f s".format(it / 1000f) } ?: "–"
+        readings += t("Kampf bereit: Eröffnung ", "Fight ready: opening ") + s(a.openingMs) + t(", Held ", ", hero ") + s(a.heroMs) +
+            t(", Gegner ", ", foe ") + s(a.foeMs)
+        // 24.16: what it found drawn ahead on the map, and how long the drawing ahead waited for the map
+        a.report?.let { r ->
+            readings += t("Vorgezeichnet: Held ", "Drawn ahead: hero ") + "${r.heroReady}/${r.heroAll}" + (if (r.kept) t(" (gespeichert)", " (kept)") else "") + t(", Gegner ", ", foe ") + r.foe + " ${r.foeDrawn}" +
+                t(if (r.foeDone) " (fertig)" else " (nicht fertig)", if (r.foeDone) " (all)" else " (not all)") +
+                t(", gewartet ", ", waited ") + s(r.waitedMs) + t(", Gegner nahe ", ", foe near ") + s(r.nearMs) +
+                t(", Speicher ", ", memory ") + "${Runtime.getRuntime().maxMemory() / (1024 * 1024)} MB" +
+                    t(", geräumt ", ", freed ") + "${de.bornim.core.art.ArtMemory.trims}×" +
+                    // 358: how full the heap was then, and now
+                    (if (de.bornim.core.art.ArtMemory.trims > 0) t(" (zuletzt bei ", " (last at ") + "${de.bornim.core.art.ArtMemory.lastUsedMb} MB)" else "") +
+                    t(", belegt jetzt ", ", in use now ") + "${Runtime.getRuntime().let { it.totalMemory() - it.freeMemory() } / (1024 * 1024)} MB"
+        }
+    }
+    return readings
+}
+
 /** 266: what the device is (model, processor, graphics, memory, screen, warmth) with the [readings] above, to copy into a report. */
 @Composable
-private fun DeviceBox(vm: GameViewModel, t: (String, String) -> String, readings: List<String>) {
+fun DeviceBox(vm: GameViewModel, t: (String, String) -> String, readings: List<String>) {
     val clip = androidx.compose.ui.platform.LocalClipboardManager.current
     var open by remember { mutableStateOf(false) }
     val all = if (open) (runCatching { de.bornim.game.DeviceInfo.lines() }.getOrElse { mapOf("Fehler" to "$it") }
