@@ -2,9 +2,11 @@
 
 ![Kampfort Waldlichtung, zwei Helden von hinten, drei Goblins; links Stärke 1,0, rechts 1,3, gleicher Augenblick.](../bilder/34813a-tusche-r7.webp)
 
-**Frage:** Welche Stärke der Schattenlinie am Umriss: 1,0 (links) oder 1,3 (rechts)? Und soll ich die offenen Punkte unten angehen, bevor die Tusche an Jerry geht?
+**Frage:** Welche Linie am Umriss: links (1,0: Linie wie bisher im Kampf) oder rechts (1,3: auf der Schattenseite der Figuren zusätzlich breiter)?
 
-**Votum Tom: 1,0.** Ruhigere Umrisse, Goblins und Fäuste lesbarer, Scheide und Stab sauberer. Stärkstes Gegenargument: bei 1,0 ist die Schattenseite kaum kräftiger als im Dorf, dein Auftrag vom 27.10., 09:41 war „kräftiger“.
+**Votum Tom: links (1,0).** Ruhigere Umrisse, Goblins und Fäuste lesbarer, Scheide und Stab sauberer. Stärkstes Gegenargument: dein Auftrag vom 27.10., 09:41 war „kräftiger“; links fehlt genau diese zusätzliche Breite. Die offenen Punkte unten behebe ich vor der Übergabe an Jerry, wenn du nichts anderes sagst.
+
+Ortsangaben unten gelten in jeder Bildhälfte gleich.
 
 **Berührt:** Kampfort (Jerry, 348.7), Goblins (348.12).
 
@@ -16,5 +18,5 @@
 - **Goblins dunkel** (mittel bis hoch): etwa die Hälfte des Schwarz ist ihre Grundfarbe, der Rest Umriss und Innenlinien. Hand am Säbel (Goblin oben rechts) ein schwarzer Keil; über Brust und Arm (Goblin unten rechts) ein X aus Innenlinien.
 - **Sohle des linken Helden** dick und gezackt (mittel), unabhängig von der Stärke; Ursache noch nicht nachgestellt.
 - **Rechter Held:** Schweif an der Scheidenspitze, Stab an der Mantelkante doppelt (mittel; bei 1,0 dünner); Waffe ganz schwarz, ohne Metall (mittel).
-- **Lichtseite kaum sichtbar** (mittel): die Kampfsonne steht von vorn (65° hoch, 0° seitlich); links und rechts sind gleich, darum gleich dick. Eine seitlichere Sonne (25°) ist gerendert, ungeprüft; die Sonne ist Jerrys Licht und Aussehen.
+- **Licht- und Schattenseite kaum verschieden** (mittel): die Sonne steht im Kampf hoch und genau von vorn; die linke und rechte Seite jeder Figur bekommen gleich viel Licht, darum gleich dicke Linien. Eine Probe mit der Sonne etwas von der Seite ist gerendert, noch ungeprüft; das Licht im Kampf gehört Jerry.
 - Gering: beide Helden sehen gleich aus; Felsen und Stämme fast ohne Tusche.
