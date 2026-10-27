@@ -97,12 +97,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 12, Muss 10, startbar 1
+**Perikles** – offen 12, Muss 10, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 384 | M | von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“): Kosten aller Si | startbar |
 | 383.3 | M | von Sokrates (Chef 27.10., 19:55, „Sachen, die nicht mehr zur Vorlage sind, dann weg … Das | startbar |
-| 383.1 | M | von Sokrates (Chef 19:19, 19:23 ja, „jetzt“ 27.10., 19:23): Neustartgrund „wartet auf den | wartet auf Test/Build (gebaut) |
 | 383 | M | von Sokrates (Chef 27.10., 17:53 „ja, 383“, Archiv): Wartewächter in lauf.py (Zeitfeld zum | wartet auf Test/Build (gebaut) |
 | 275 | M | von Sokrates (Chef 27.10., 15:09 ja, 15:15 „jetzt loslegen“, Archiv): Stufe 1 (Chefsache 2 | Termin 03.11. |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9): Meilenstein „Kapitel 1 auf G | Dauerzeile bis 02.11. |
