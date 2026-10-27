@@ -267,14 +267,6 @@ def aufraeumen():
         n += len(weg)
     return n
 
-def noch_offen(ausgabe, rolle, nrn):
-    """275 (Chef 15:20, „Ford sichert“): endet eine Sitzung, deren Vorgang im Vorrat oder in der Liste noch „in Arbeit“ steht, meldet Ford es dem Besitzer."""
-    for nr in [x for x in (nrn or "").split(",") if x and x != "Betrieb"]:
-        st = startbar.VORG.get(nr, "")
-        zeile = [z for d, ro in startbar.ROLLEN if ro == rolle for z in startbar.zeilen(startbar.lesen(d)) if z[0] == nr]
-        if re.match(r"in Arbeit", st) or (zeile and re.match(r"in Arbeit|begonnen", startbar.blank(zeile[0][3]))):
-            ausgabe.append("WARNUNG %s %s: Sitzung endet, Stand noch „in Arbeit“; Besitzer setzt ihn mit tools/vorgang.py stand (275)" % (rolle, nr))
-
 def notizen_frisch():
     """380: Ford zog den Arbeitsbaum, lauf.py las aber die alten Notizen in bornim-main (Zeile 275 von Diogenes fehlte, NICHTS statt START).
     Vor jedem Lauf die Notizen auf origin/main bringen (nur vorspulen); geht das nicht, Lauf abbrechen statt mit altem Stand rechnen."""
@@ -396,7 +388,6 @@ def main():
                 ausgabe.append("PR-ABO %s | %s | %s | an %s" % (s["id"], r, pr.group(0), neu["id"]))
             if s.get("_frage_alt"): ausgabe.append("ÜBERTRAGE %s | %s | %s" % (s["id"], r, str(s["_frage_alt"]).replace("\n", " ")[:200]))
             ausgabe.append("ARCHIVIERE %s | %s | %s | %s" % (s["id"], r, ("%.2f" % k) if k is not None else "fehlt", nrn))
-            noch_offen(ausgabe, r, nrn)
             # Prüfung des Ergebnisses: dieselbe Sitzung steht im nächsten Lauf wieder auf ARCHIVIERE
             alt = [d for d in marke_zeit("Archiv " + s["id"]) if (JETZT - d).total_seconds() >= 1800]
             if alt and not marke_zeit("Archiv-Warnung " + s["id"]):  # D40.2: einmal je Sitzung
@@ -427,7 +418,6 @@ def main():
             k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
             if s.get("_frage_alt"): ausgabe.append("ÜBERTRAGE %s | %s | %s" % (s["id"], r, str(s["_frage_alt"]).replace("\n", " ")[:200]))
             ausgabe.append("ARCHIVIERE %s | %s | %s | %s" % (s["id"], r, ("%.2f" % k) if k is not None else "fehlt", nummern_aus_titel(s.get("title", "")) or "Betrieb"))
-            noch_offen(ausgabe, r, nummern_aus_titel(s.get("title", "")))
             if not marke_zeit("Archiv " + s["id"]): neue_marken.append("Archiv " + s["id"])
     for r in START_REIHE:
         muss, kuer, pause, _ = st.get(r, ([], [], None, []))
