@@ -12,11 +12,7 @@ Nichts offen.
 
 ## Anzusehen
 
-**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
-
-| Nr. | Was | Wer | Seit |
-|---|---|---|---|
-| [348.6](ansehen/3486-kampf-r6.md) | Kampfbewegungen des Helden, Runde 6 | Tom | 27.10. |
+Nichts offen.
 
 ## Offen je Rolle
 
@@ -30,13 +26,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 20, Muss 10, startbar 4
+**Tom** – offen 20, Muss 10, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 348.12i | M | von Sokrates (Chef 19:41, „348.12i B“, Archiv): nur Kaufmodelle mit AESContext verschlüsse | wartet auf Test/Build (gebaut) |
 | 376.1 | M | von Sokrates (Chef kaufte 12:20, „jetzt“ 12:46): Probeblatt Quaternius-Figuren (Archiv 376 | startbar |
-| 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | startbar |
+| 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | wartet auf 376.1 (startbar) |
 | 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | startbar |
 | 372 | M | von Perikles (338a B, Chef 27.10., 09:36, Archiv): Feinschliff Held: Kettenhemd, Helm, Kra | ruht |
 | 348.13 | M | von Sokrates (Chef 26.10., Archiv): Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Sc | startbar |
@@ -145,9 +141,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 327 (Beratung), 142 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
+Nicht gestellt: 327 (Beratung), 142 (Beratung), 45 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
 
-Ohne Datei: 26 (Team Tom)
+Ohne Datei: 348 (Team Jerry), 348 (Team Tom), 26 (Team Tom)
 
 ## So geht's
 
