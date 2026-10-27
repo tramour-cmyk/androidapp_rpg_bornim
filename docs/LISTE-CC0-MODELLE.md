@@ -281,4 +281,6 @@ Vorlage an den Chef: Chefsache 348.12c (Stufe 2).
 | Stylized Nature MegaKit (Standard frei, 68 von 116) | CC0 | Bäume 1.600–10.100 Dreiecke (zu schwer), grell, „Ghibli-inspired“; Felsen 244–522, Kiesel, Pilze (880), Farn, Totholz; UV und gemalte Texturen, Blattkarten teils weiß | Felsen, Kiesel, Pilze, Farn für Wald; Bäume nein |
 | 150 Lowpoly Nature Models | CC0 | keine UVs, nur Flächenfarben, harte Kanten, Comic | nein |
 | Lowpoly Modular Dungeon Pack (48 Teile, 2019) | CC0 | keine UVs, Flächenfarben, Raster 2 m, spielzeughaft; kein Naturfels | nein; Fackel, Gitter, Truhe als Rohform höchstens nach dem Meilenstein |
-| Modular Character Outfits – Fantasy | ungeprüft | 12 Outfits aus 62 Teilen, passend zur UAL (Standard: Waldläufer, Bauer frei) | Nachfolger prüft (Leute, Tom) |
+| Modular Character Outfits – Fantasy (Source 20 $) und Universal Base Characters (Source 19,99 $) | CC0 (Seite, `License_Standard.txt`) | Gerüst wie unsere Leute (65 Knochen); Befund und Votum in Chefsache 376 „Figuren“ | wartet auf Chef (376) |
+
+**Hinweis des Herstellers zur Source-Fassung** (Chef 27.10., 12:19, „Zum Merken“): Der erste Start eines Projekts dauert länger, weil die Zwischendateien fehlen. Modelle mit Skelett als glTF nehmen, nie als FBX: FBX aus Blender bringt wegen eines Einheitenfehlers falsche Maße und kann das Übertragen der Bewegungen (Retargeting) brechen. Darum auch beim Wiederausgeben glTF; Import: die `.gltf` hineinziehen. Gekaufte Rohdateien nur im privaten Zweit-Repo (CLAUDE.md „Fremde Inhalte“).
