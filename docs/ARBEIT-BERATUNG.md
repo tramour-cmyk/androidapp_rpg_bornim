@@ -10,6 +10,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 369.1 | M | **von Chef (27.10., 15:04):** Ford kann wieder nicht archivieren | wartet auf Chef: Chefsache 369.1 (Satz des Chefs in Fords Sitzung; sonst Organisationseinstellung) |
 | 275 | M? | **von Chef (27.10., 15:00):** eine zentrale Vorgangsliste, löst das die Leichen? | wartet auf Chef: Chefsache 275 (Votum: Stufe 1 jetzt, Stufe 2 nach einer Woche) |
 | 376 | M | **von Chef (27.10., 12:00):** Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Tom: Häuser ja 12:42 (Archiv), Probeblatt 376.1 „jetzt“ 12:46; Markt 376.2 bei Tom (Perikles 12:5x) (Zu 376) |
 | 374 | M | **von Chef (27.10., 11:54):** wer prüft 373? | frühestens 31.10.: auswerten mit 347 (Archiv) |
