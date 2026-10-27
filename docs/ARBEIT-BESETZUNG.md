@@ -2,11 +2,15 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 27.10., 01:04 (lauf.py)
+**Stand:** 27.10., 02:06 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
-| Sokrates | [Sokrates – Stellungnahme (26.10., 21:04)](https://claude.ai/code/session_01BeMfbV5jUX9VTBoArL1LeL) | Betrieb | – | 26.10., 21:05 |
-| Jerry | [Jerry – 348.12 Goblin-Hieb selbst aufbauen (27.10., 00:14)](https://claude.ai/code/session_019sKqMr1dcYYEhghWKPWerT) | 348.12 | – | 27.10., 00:13 |
-| Tom | [Tom – 348.6 Gesichtsfehler; 348.13 Zoom-Blatt (27.10., 00:47)](https://claude.ai/code/session_014V2GN5ar2HJ3QG9t3AgoEX) | 348.6 | – | 27.10., 00:47 |
-| Jerry | [Jerry – 348.12 Goblin-Hieb lesbar, dann Vorlage (27.10., 01:04)](https://claude.ai/code/session_01YC3vgDr2uSCzQvSE8zrZ7A) | 348.12 | – | 27.10., 01:03 |
+| Ford | [Ford – Betriebsleiter (26.10., 06:06)](https://claude.ai/code/session_01AyscMQYxPRGvhJzpxGd5pR) | Betrieb | – | 26.10., 06:04 |
+| Homer | [Homer – 348.12g (26.10., 13:20)](https://claude.ai/code/session_01Twr8DKumpNBQFzjt1faRwK) | 348.12g | – | 26.10., 13:21 |
+| Diogenes | [Diogenes – 348.9 Goblin-CC0-Blatt r1 messen (26.10., 15:11)](https://claude.ai/code/session_012krqNNsR29bFno54yfBJu1) | 348.9 | – | 26.10., 15:11 |
+| Ford | [Ford – Betriebsleiter (26.10., 16:40)](https://claude.ai/code/session_01RxjVWgHtAySkDQkjFTYRpN) | Betrieb | – | 26.10., 16:36 |
+| Sokrates | [Sokrates – Nachtvertretung (27.10., 01:08)](https://claude.ai/code/session_01X9NaGNMk4y1nymcSDE4k5b) | Betrieb | – | 27.10., 01:07 |
+| Ford | [Ford – Betriebsleiter (27.10., 01:20)](https://claude.ai/code/session_017jS8iw2nQqpekHt9g3xtP6) | Betrieb | – | 27.10., 01:16 |
+| Jerry | [Jerry – 348.7 Todprobe-Befunde (27.10., 01:37)](https://claude.ai/code/session_01VsW9uT2hyTX94mxE7ahRH2) | 348.7 | – | 27.10., 01:36 |
+| Tom | [Tom – 348.6 Brauendreieck, Schulterlücken; 348.13 Zoom-Blatt (27.10., 01:46)](https://claude.ai/code/session_01AXm9jUMeQHj3rEy8Hk1DQu) | 348.6 | – | 27.10., 01:46 |
