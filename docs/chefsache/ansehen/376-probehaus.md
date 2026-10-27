@@ -11,7 +11,7 @@
 ## Sachverhalt
 
 - Gleiche Kacheln wie unser Haus, Front in einer Flucht mit unseren Häusern, Maßstab etwa 0,75 des Bausatzes. Farben und Texturen sind unsere: Putz, Balken, Feldstein, Ziegel.
-- Bilder in voller Größe: [A Mittag](bilder:pruefung/376-probehaus-a-mittag_grund.jpg), [B Mittag](bilder:pruefung/376-probehaus-b-mittag_grund.jpg), [A nah](bilder:pruefung/376-probehaus-a-mittag_nah.jpg), [B nah](bilder:pruefung/376-probehaus-b-mittag_nah.jpg), [A Nacht](bilder:pruefung/376-probehaus-a-nacht_grund.jpg), [B Nacht](bilder:pruefung/376-probehaus-b-nacht_grund.jpg).
+- Bilder in voller Größe: [A Mittag](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/pruefung/376-probehaus-a-mittag_grund.jpg), [B Mittag](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/pruefung/376-probehaus-b-mittag_grund.jpg), [A nah](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/pruefung/376-probehaus-a-mittag_nah.jpg), [B nah](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/pruefung/376-probehaus-b-mittag_nah.jpg), [A Nacht](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/pruefung/376-probehaus-a-nacht_grund.jpg), [B Nacht](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/pruefung/376-probehaus-b-nacht_grund.jpg).
 
 **Fremde Prüfung (19:02 und 19:16), Befunde:**
 - Behoben: Der Schornstein steckte bis auf eine Kante im Dach. Er steht jetzt bei A und B gut sichtbar über dem Dach, der Rauch kommt aus dem Kopf.
