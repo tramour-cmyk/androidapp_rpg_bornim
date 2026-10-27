@@ -17,7 +17,7 @@ uniform vec3 ink : source_color = vec3(0.07, 0.05, 0.04);              // wie tu
 // 348.6 Glanz (Helfer: Kettenhemd fern wie Filz, Helm wie Wollmuetze): nur am Helden (held.gd), Metall aus der Deckkraft der Eckfarben
 // (rig.py: 1 matt, 0,5 Kette, 0 blankes Eisen); Glanzpunkt nach Licht und Blick, hart abgestuft wie die Lichtstufen
 uniform float metall = 0.0;
-uniform float glanz_eisen = 0.9;
+uniform float glanz_eisen = 0.45;   // Helm (Helfer blind 3 von 3: 0,45 vor 0,9 Plastikfleck, vor 0,2 Muetze)
 uniform float glanz_kette = 0.5;
 uniform float kette_lampe = 1.0;   // 348.6 Kette nachts (held.gd): Metall unter Lampe und Fackel, Anteil Streulicht
 uniform float kette_umgebung = 1.0;   // dazu Anteil der Umgebung an der Kette (nachts 0,7)
