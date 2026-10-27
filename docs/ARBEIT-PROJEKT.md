@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 27.10., 15:00
+**Gelesen bis:** `origin/main` 27.10., 15:30
 
-**Übergabe (27.10., 15:0x, `session_01Hmoj79BogmXNEtw71BSiwA`):** 377.2 fertig: Regel auf `LISTE-BESTAND.md`; `add_repo` in `.claude/settings.json` erlaubt (Chef 14:57; Satz unter `autoMode` lehnte der Prüfer ab), danach ging `add_repo` durch; Marktpaket in `LIZENZ.md`. 378 fertig: Befunde als „Von Perikles (378)“ an Tom, Jerry, Homer, Diogenes, Sokrates, Eingang Ford; eigene behoben; `LISTE-DURCHSICHT.md` gelöscht. 369.1 fertig (Satz in Fords Startanleitung, `meldung.sh` macht Backticks zum Kopierblock). 275 Stufe 1 gebaut, an Diogenes. Kosten auf: 377.2, 378, 369.1, 275. Nachfolger: keiner
+**Übergabe (27.10., 15:30, `session_01Hmoj79BogmXNEtw71BSiwA`):** fertig 377.2 (`add_repo` erlaubt, `LIZENZ.md`), 378 (Durchsicht verteilt), 369.1 (Erlaubnissatz in Fords Start), 379 (Kosten je Sitzung auf alle Nummern des Titels), 380 (`lauf.py` spult Notizen vor). 275 Stufe 1 gebaut (Leichen, „Zu tun“, `vorgang.py` lesen und schreiben, Wortliste, „Seit“ mit Uhrzeit, Vorlage in Überarbeitung); Diogenes prüft, danach `LEICHEN_START` einschalten. Kosten auf: 377.2, 378, 369.1, 379, 380, 275. Nachfolger: keiner
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
