@@ -540,6 +540,12 @@ func probe_blatt() -> void:
 	await knips(dir + "/nacht_grund.png")
 	licht.umschalten()
 	await get_tree().create_timer(2.5).timeout
+	for d in [90, 180, 270]:                                    # Chef 27.10., 19:38: Seiten und Rueckseite (Fenster), Ansicht gedreht
+		kamera.gieren_ziel = Kamera.NORD + d
+		kamera.springe()
+		await get_tree().create_timer(1.0).timeout
+		await knips(dir + "/mittag_dreh%d.png" % d)
+	kamera.nach_norden()
 	held.setze(Vector2i(5, 15), "DOWN")
 	kamera.zoom = Kamera.NAH
 	kamera.nah = true

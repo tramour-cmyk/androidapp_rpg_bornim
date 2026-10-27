@@ -722,12 +722,23 @@ def probehaus(cells, style):
         kit_teil(w, at(-2 + 2 * i, -2, 0, 0), tint)
         if 'Window' in w: kit_teil('Window_Wide_Flat1', at(-2 + 2 * i, -2, 0, 0), tint)
     kit_teil('Door_1_Round', at(-0.51, -2, 0, 0), tint)
-    for i in range(3): kit_teil('Wall_Plaster_Straight_Base' if i != 1 else 'Wall_Plaster_Window_Thin_Round', at(2 - 2 * i, 2, 0, 180), tint)   # Nord
-    kit_teil('Window_Thin_Round1', at(0, 2, 0, 180), tint)
+    if os.environ.get('PROBE_HINTEN', '0') == '1':              # Chef 19:38: Rueckseite mit Fenstern wie vorn, Mitte glatt
+        for i in range(3):
+            kit_teil('Wall_Plaster_Straight_Base' if i == 1 else 'Wall_Plaster_Window_Wide_Flat', at(2 - 2 * i, 2, 0, 180), tint)
+            if i != 1: kit_teil('Window_Wide_Flat1', at(2 - 2 * i, 2, 0, 180), tint)
+    else:
+        for i in range(3): kit_teil('Wall_Plaster_Straight_Base' if i != 1 else 'Wall_Plaster_Window_Thin_Round', at(2 - 2 * i, 2, 0, 180), tint)   # Nord
+        kit_teil('Window_Thin_Round1', at(0, 2, 0, 180), tint)
+    mitte = os.environ.get('PROBE_MITTE', '0') == '1'           # Chef 19:38: Giebelfenster mittig (Fensterteil in der Mitte, halbe Wand je Seite)
     for sgn in (-1, 1):                                         # Ost, West: Giebelseiten
-        for j, w in enumerate(['Wall_Plaster_Window_Thin_Round', 'Wall_Plaster_Straight_Base']):
-            kit_teil(w, at(3 * sgn, (-1 + 2 * j) * sgn, 0, 90 * sgn), tint)
-        kit_teil('Window_Thin_Round1', at(3 * sgn, -1 * sgn, 0, 90 * sgn), tint)
+        if mitte:
+            kit_teil('Wall_Plaster_Window_Thin_Round', at(3 * sgn, 0, 0, 90 * sgn), tint)
+            for e in (-1, 1): kit_teil('Wall_Plaster_Straight_Base', at(3 * sgn, 1.5 * e, 0, 90 * sgn) @ Matrix.Diagonal((0.5, 1, 1, 1)), tint)
+            kit_teil('Window_Thin_Round1', at(3 * sgn, 0, 0, 90 * sgn), tint)
+        else:
+            for j, w in enumerate(['Wall_Plaster_Window_Thin_Round', 'Wall_Plaster_Straight_Base']):
+                kit_teil(w, at(3 * sgn, (-1 + 2 * j) * sgn, 0, 90 * sgn), tint)
+            kit_teil('Window_Thin_Round1', at(3 * sgn, -1 * sgn, 0, 90 * sgn), tint)
         kit_teil('Roof_Front_Brick4', at(3 * sgn, 0, zd, 90 * sgn, neig), tint)
         for e in (-1, 1):
             kit_teil('Corner_Exterior_Wood', at(3 * sgn, 2 * e, 0, 0), tint)
