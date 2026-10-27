@@ -149,8 +149,9 @@ hz = G['neckTop'][0][2] * 0.01 + 0.1
 KOPFPX = int(os.environ.get('KOPFPX', '240'))
 for n, az in (('a_vorn', 0), ('b_rechts', 90), ('c_hinten', 180), ('d_links', 270)):
     shot(n, az, 45, Vector((0, 0, 0.95)), 2.4, 260, 360)
+KOPFEL = float(os.environ.get('KOPFEL', '20'))   # 348.6 Kopf: 45 wie die Spielkamera
 for n, az in (('e_kopf_vorn', 0), ('f_kopf_seite', 90), ('g_kopf_hinten', 180)):
-    shot(n, az, 20, Vector((0, G['neckTop'][0][1] * 0.01 - 0.03, hz)), 0.6, KOPFPX, KOPFPX)   # Helfer 4c: Gebeugten hing der Kopf aus dem Bild
+    shot(n, az, KOPFEL, Vector((0, G['neckTop'][0][1] * 0.01 - 0.03, hz)), 0.6, KOPFPX, KOPFPX)   # Helfer 4c: Gebeugten hing der Kopf aus dem Bild
 # Gehen: Aktion aus der NLA
 acts = {t.name: t.strips[0].action for t in rig.animation_data.nla_tracks}
 for t in rig.animation_data.nla_tracks: t.mute = True

@@ -318,7 +318,7 @@ if ziel > 0 and drei > ziel:
     # erst alles uebrige auf ziel minus die Anteile (Teile fest), dann jedes Teil fuer sich auf seinen Anteil (Rest fest)
     def teilmenge(art):
         me = held.data; tl = [0] * len(me.vertices); me.attributes['teil'].data.foreach_get('value', tl)
-        if art == 'schild': return {v.index for v in me.vertices if TEILNAMEN[tl[v.index]] == 'shield'}
+        if art in TEILE_ANTEIL: return {v.index for v in me.vertices if TEILNAMEN[tl[v.index]] in TEILE_ANTEIL[art]}
         # Gesichtshaut (Kopf vorn zwischen Kinn und Brauen) und Lider
         kt, lt = TEILNAMEN.index('head'), TEILNAMEN.index('lid') if 'lid' in TEILNAMEN else -1
         kp = [v.co for v in me.vertices if tl[v.index] == kt]
@@ -330,8 +330,12 @@ if ziel > 0 and drei > ziel:
         dec = held.modifiers.new('duenn', 'DECIMATE'); dec.ratio = n / zahl(); dec.use_collapse_triangulate = True
         if gruppe in held.vertex_groups: dec.vertex_group = gruppe; dec.invert_vertex_group = True; dec.vertex_group_factor = 1000.0
         bpy.context.view_layer.objects.active = held; bpy.ops.object.modifier_apply(modifier='duenn')
-    ANTEIL = [(a, int(os.environ.get(a.upper(), v if FIGUR == 'held' else '0'))) for a, v in (('gesicht', '1000'), ('schild', '700'))]
-    ANTEIL = [(a, n) for a, n in ANTEIL if n > 0 and {'gesicht': 'head', 'schild': 'shield'}[a] in TEILNAMEN]
+    # 348.6 Schwert (Helfer am Spielbild nah: Scheide endet in einem Klumpen, Griff zerfasert, Knauf spitz; gemessen farbfehler.py: Scheide,
+    # Griff, Parierstange (Cylinder) 260 -> 23 Dreiecke, Knauf und Kappen (Sphere) 2184 -> 92, groesste Farbabweichung des Netzes): SCHEIDE, KNAUF
+    # je fuer sich (gemeinsam bekam die Scheide nur ihr Zehntel)
+    TEILE_ANTEIL = {'schild': {'shield'}, 'scheide': {'Cylinder'}, 'knauf': {'Sphere'}}
+    ANTEIL = [(a, int(os.environ.get(a.upper(), v if FIGUR == 'held' else '0'))) for a, v in (('gesicht', '1000'), ('schild', '700'), ('scheide', '150'), ('knauf', '120'))]
+    ANTEIL = [(a, n) for a, n in ANTEIL if n > 0 and ('head' in TEILNAMEN if a == 'gesicht' else TEILE_ANTEIL[a] & set(TEILNAMEN))]
     if ANTEIL:
         vor = {}
         for a, n in ANTEIL:
