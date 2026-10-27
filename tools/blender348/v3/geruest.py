@@ -27,9 +27,12 @@ GEHEN = dict(eng_arm=0.45, vor=0.5, schulter=0.3)
 # 1,3 cm, 8 cm davor 0)
 RENNEN = dict(eng_arm=0.35, vor=0.65, kopf=-8.0, schwung=0.6, schulter=0.0, rueck=-0.08)
 _S = dict(rueck=0.02)
+# 348.6 Kampf (von Jerry 27.10.): Tod faellt nach hinten wie die Quelle (vor 1: gedaempft kippte er nicht), Drehung zum Betrachter wie
+# im ersten Bild, Kopf frei (die Neigung ueber alle Bilder gemittelt richtete den Liegenden auf); Anfang aus Kampfstehen (kampf.py)
+TOD = dict(gerade='anfang', vor=1.0, kopf_frei=True)
 HELD = [('Stehen', 'Idle_Loop', dict(STEHEN, **_S)), ('Gehen', 'Walk_Loop', dict(GEHEN, **_S)), ('Rennen', 'Jog_Fwd_Loop', RENNEN),
         ('Stehen_Fackel', 'Idle_Loop', dict(STEHEN, fackel=True, **_S)), ('Gehen_Fackel', 'Walk_Loop', dict(GEHEN, fackel=True, **_S)),
-        ('Rennen_Fackel', 'Jog_Fwd_Loop', dict(RENNEN, fackel=True))]
+        ('Rennen_Fackel', 'Jog_Fwd_Loop', dict(RENNEN, fackel=True)), ('Tod', 'Death01', TOD)]
 def leute_liste(LP):   # leute.json „ruhe“, „geh“: andere fremde Bewegung je Figur; „gang.takt“: Bilder je Doppelschritt (32 wie der Held)
     takt = (LP.get('gang') or {}).get('takt', 32)
     # Runde 3 (Fremdpruefung Runde 2: Unterschenkel durch lange Gewaender, alle sieben): „gang.schritt“ daempft die Beine gegen die
@@ -307,7 +310,7 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
                     n_ = max(1, len(Gs) - 1)
                     MS[s_] = [Matrix.Rotation(math.radians(MIT_WIPPEN * mitschwung * math.sin(4 * math.pi * f_ / n_)), 3, 'X') for f_ in range(len(Gs))]
         if gerade:   # in Ruhe eingedreht: Becken und Brust zurueck zum Betrachter (Runde 2: 70 % liessen ihn seitlich eingedreht)
-            W = Matrix.Rotation(math.radians(-float(np.mean([gier(Gf, 'spine_03') for Gf in Gs]))), 4, 'Z')
+            W = Matrix.Rotation(math.radians(-float(np.mean([gier(Gf, 'spine_03') for Gf in (Gs[:1] if gerade == 'anfang' else Gs)]))), 4, 'Z')
         res = []
         for f, Gf in enumerate(Gs):
             Go = {b: W @ Gf[b] for b in REIHE}; Bq = Gf['_basis']
@@ -421,7 +424,7 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
         fk = tor if opt.get('fackel') else None
         ka = dict(eng_arm=opt.get('eng_arm', 0.0), eng_bein=opt.get('eng_bein', 0.0), gehen=name.startswith(('Gehen', 'Rennen')), vor=opt.get('vor', 1.0), schritt=opt.get('schritt', 1.0), schwung=opt.get('schwung', 1.0), schulter=opt.get('schulter'), rueck=opt.get('rueck'), mitschwung=opt.get('mitschwung', 0.0))
         res = posen(Gs, opt.get('gerade', False), fk, **ka)
-        korr, dn, dd = kopf_korr(res, opt.get('kopf', KOPF))
+        korr, dn, dd = kopf_korr(res, opt.get('kopf', KOPF)) if not opt.get('kopf_frei') else (None, 0.0, 0.0)
         res = posen(Gs, opt.get('gerade', False), fk, korr, **ka)
         boden = -float(np.percentile([sohle(PN)[1] for BA, PN in res], 10))   # Standfuss auf den Boden (unsere Beine sind kuerzer; Rennen: ohne Flugbilder)
         res = posen(Gs, opt.get('gerade', False), fk, korr, boden, **ka)
@@ -445,13 +448,18 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
         if name in ('Gehen', 'Rennen') and v: INFO[('gehen' if name == 'Gehen' else 'rennen') + '_m_je_s'] = round(float(np.median(v)), 3)
         print('BEWEGUNG', name, INFO['bewegungen'][name], len(v))
     for pb in sk.pose.bones: pb.rotation_quaternion = (1, 0, 0, 0); pb.location = (0, 0, 0)
-    # ---------------------------------------------------------------- Griffe im Handknochen (m): Fackel links (held.gd), Ding rechts (leute.gd)
     def im_knochen(alt_bone, p_cm, neu_bone):
         Ma = alt.data.bones[alt_bone].matrix_local
         q = Ma @ Vector(p_cm)                               # cm, Armatur unseres alten Skeletts (am Ursprung, ungedreht)
         return list(RM[neu_bone].inverted() @ (q / 100.0)), RM[neu_bone].to_3x3().inverted() @ Ma.to_3x3()
-    g, R = im_knochen('foL-wrL', (-1.87, 18.7, 0.72), 'hand_l')     # held.gd FAUST_GRIFF (Runde 5c, in Godot nachgemessen)
-    INFO['faust_L'] = {'knochen': 'hand_l', 'griff': [round(x, 4) for x in g], 'achse': [round(x, 4) for x in (R @ Vector((-0.358, 0.0, -0.934)))]}
+    def faust_l():
+        g, R = im_knochen('foL-wrL', (-1.87, 18.7, 0.72), 'hand_l')     # held.gd FAUST_GRIFF (Runde 5c, in Godot nachgemessen)
+        return {'knochen': 'hand_l', 'griff': [round(x, 4) for x in g], 'achse': [round(x, 4) for x in (R @ Vector((-0.358, 0.0, -0.934)))]}
+    INFO['faust_L'] = faust_l()
+    if FIGUR == 'held':   # 348.6 Kampfbewegungen (kampf.py): Kampfstehen, Ausholen, Hieb, Stich, Treffer, Ausweichen, Abwehr; Tod von oben
+        import kampf
+        kampf.bauen(sk, INFO)
+    # ---------------------------------------------------------------- Griffe im Handknochen (m): Fackel links (held.gd), Ding rechts (leute.gd)
     if LP.get('traegt'):
         wr, fo = J['wrR'][0], J['foR'][0]
         g, R = im_knochen('foR-wrR', (0.0, (wr - fo).length + 4.6, 0.0), 'hand_r')
