@@ -14,7 +14,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [348.13](entscheiden/34813-tusche-nah.md) | **Muss** | G Aussehen | 27.10. | Tusche in der Nahansicht so lassen, etwas kräftiger („halb“) oder so kräftig wie in der Grundansicht („voll“)? | Tom |
 | [348.13a](entscheiden/34813a-goblin-r6.md) | **Muss** | G Aussehen | 27.10. | Soll Jerry im Kampfort die Tusche nach Licht übernehmen wie im Dorf („neu“), oder bleibt dort die alte, rundum gleich dicke („alt“)? | Tom |
 | [348.7a](entscheiden/3487a-flugbahn.md) | **Muss** | E Technik | 27.10. | Geschosse sehen nach acht Nachbesserungen noch aus, als träfen sie die eigenen Leute oder den falschen Wolf; Votum: in die 3D-Szene verlegen | Jerry |
-| [371](entscheiden/371-weniger-pruefrunden.md) | **Muss** | B Betrieb | 27.10. | In der Nacht liefen 22 Teamsitzungen für 207 $. Tom arbeitete am Feinschliff des Helden, Jerry an der Todprobe. Über das Aussehen urteilten Helferrunden statt dir. | Sokrates |
 | [348.12c](entscheiden/34812c-listen.md) | **Muss** | G Aussehen | 26.10. | vier neue Listen mit je fünf Prüfpunkten, aus deinem Ja von 20:32 und den Modellbildern; nötig, bevor Jerry die gekauften Modelle bemalt | Homer |
 | [110](entscheiden/110-ford-von-hand.md) | – | – | 27.10. | Ford läuft auf Tiefe 6 (Grenze 8); Selbstneustart geht nicht mehr, bevor sein Kontext voll ist, bitte neue Sitzung von Hand starten. | Ford |
 
@@ -97,10 +96,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 11, Muss 9, startbar 1
+**Perikles** – offen 12, Muss 10, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 371 | M | von Sokrates (Chef 27.10., 09:21 „371 ja“, Vorgangsarchiv 371): drei Punkte in ROLLE-ENTWI | startbar |
 | 338a | M | von Perikles (Z2): Umzug Block (D) rot: Held stehen lassen, Dorf weiterbauen? | Chef (Datei in der Chefsache) |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9): Meilenstein „Kapitel 1 auf G | wartet auf Test/Build (gebaut) |
 | 338 | M | von Sokrates (Vorgangsarchiv 338, 348): Meilenstein ohne Datum, Umzug nach Godot jetzt; Um | Termin 02.11. |
@@ -121,11 +121,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 24, Muss 14, startbar 2
+**Sokrates** – offen 23, Muss 13, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 371 | M | von Chef (27.10., 09:06): Archivieren; interne Gegenprüfungen kosten Token, „dass ich mehr | Chef (Datei in der Chefsache) |
 | 348.12c | M | von Chef (26.10., 11:59): Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters | Chef (Datei in der Chefsache) |
 | 348.12 | M | von Chef (25.10., 21:21, „b prüfen“): fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit | Chef (Datei in der Chefsache) |
 | 348.12h | M | von Chef (26.10., 16:16; ja 16:19, Archiv): fertige Dinge, Möbel, Waffen suchen | wartet auf Jerry |
