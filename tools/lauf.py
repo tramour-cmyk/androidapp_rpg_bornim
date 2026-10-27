@@ -222,6 +222,16 @@ def nummer_aus_titel(t):
     m = re.search(r"(?<![\d.:])(\d{2,3}[a-zA-Z]?(?:\.\d+[a-z]?)*)(?![\d:])", s)
     return m.group(1).rstrip(".") if m else ""
 
+def nummern_aus_titel(t):
+    """379: alle Vorgangsnummern im Titel als Kommaliste („Jerry – 348.7a Runde 5, 348.12f Rute r7“ → „348.7a,348.12f“), Kosten zu gleichen Teilen (197)."""
+    erste = nummer_aus_titel(t)
+    if not erste: return ""
+    s = re.sub(r"\([^)]*\)", " ", t.split("–", 1)[-1])
+    s = re.sub(r"\bBuilds?\s+\d+(\s+und\s+\d+)?", " ", s)
+    s = re.sub(r"\b(Godot|Runde|Lauf|Brücke)\s+\d+[a-z]?\b", " ", s)
+    alle = [erste] + [m.rstrip(".") for m in re.findall(r"(?<![\d.:\w])(\d{2,3}[a-zA-Z]?(?:\.\d+[a-z]?)*)(?![\d:])", s)]
+    return ",".join(dict.fromkeys(alle))
+
 PROTOKOLL_MAX = 20  # ARBEIT-BETRIEB.md „höchstens 20 Zeilen; ältere streichen“ (117)
 TECHNIK = re.compile(r"Marke |Startsperre \d|Nachfolger-Warnung")
 ZEILE = re.compile(r"- (\d\d):(\d[\dx]) (\d\d)\.(\d\d)\.")
@@ -349,7 +359,7 @@ def main():
             # 261.6 (Chef 22.10., 06:43): „neuer“ = letzte Arbeit (updated_at), nicht created_at; bleiben darf nur die zuletzt tätige
             if s is juengste(ss): continue
             k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
-            nrn = nummer_aus_titel(s.get("title", "")) or "Betrieb"
+            nrn = nummern_aus_titel(s.get("title", "")) or "Betrieb"
             if r == "Sokrates":  # (4) Kostenbuchung bleibt eigene Regel (197): Kosten auf die Nummern der Übergabe
                 auf = sokrates_ziel(s, ss)
                 if auf: nrn = auf
@@ -390,7 +400,7 @@ def main():
             archiviert.add(s["id"])
             k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
             if s.get("_frage_alt"): ausgabe.append("ÜBERTRAGE %s | %s | %s" % (s["id"], r, str(s["_frage_alt"]).replace("\n", " ")[:200]))
-            ausgabe.append("ARCHIVIERE %s | %s | %s | %s" % (s["id"], r, ("%.2f" % k) if k is not None else "fehlt", nummer_aus_titel(s.get("title", "")) or "Betrieb"))
+            ausgabe.append("ARCHIVIERE %s | %s | %s | %s" % (s["id"], r, ("%.2f" % k) if k is not None else "fehlt", nummern_aus_titel(s.get("title", "")) or "Betrieb"))
             if not marke_zeit("Archiv " + s["id"]): neue_marken.append("Archiv " + s["id"])
     for r in START_REIHE:
         muss, kuer, pause, _ = st.get(r, ([], [], None, []))
@@ -574,7 +584,7 @@ def kosten_addieren(nr, usd, sid=None):
                 k = l.split("\t")
                 if len(k) == 2: alt[k[0]] = float(k[1])
         diff = round(usd - alt.get(sid, 0.0), 2)
-        if diff <= 0: print("Kosten %s: %.2f $ schon gebucht, nichts zu tun" % (nr, usd)); return
+        if diff <= 0: print("Kosten %s: %.2f $ für %s schon gebucht, nichts zu tun (mehrere Vorgänge einer Sitzung: eine Kommaliste in einem Aufruf, 379)" % (nr, usd, sid)); return
         alt[sid] = usd
         open(vz, "w", encoding="utf-8").write("".join("%s\t%.2f\n" % kv for kv in sorted(alt.items())))
         usd = diff
