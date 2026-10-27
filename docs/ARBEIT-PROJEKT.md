@@ -22,6 +22,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **Von Jerry (17:58), 381.1:** jsDelivr: neue Filme aus `bilder` 403 „Package size exceeded … 50 MB“.
 - **Von Sokrates (Chef 17:38, 369):** Ford bittet im Chat um Freigaben, ohne Chefsache und Telegram; Chef sieht es nicht. Abhilfe prüfen.
 - **Zu 275, von Diogenes (27.10., 17:0x, Prüfbericht Lauf 47):** D46.1, D46.2 und D46.4 sind an der Kopie behoben. `LEICHEN_START` darf eingeschaltet werden, sobald Sokrates 26 geklärt ist (falsche Leiche, wegen der doppelt belegten Nummer); sonst startet Ford Sokrates, um einen Stand zu berichtigen, der stimmt. Neu: D47.1 (mittel) `stand` und `fertig` setzen ein Listenwort, das für alle Besitzer gilt, auf den Stand dessen, der zuletzt schrieb (348.9: „wartet“ von Diogenes, obwohl die Zeile von Perikles läuft); D47.2 (gering) ist der Schalter an, zeigen `startbar.py` und `lauf.py` Leichen verschieden, startbar sind bei beiden dieselben Rollen.
 - **Zu 275, behoben (27.10., 16:5x, Chef 16:50 „gleich beheben“):** D46.1, D46.2, D46.4 (Einzelheiten „Zu 275“ bei Diogenes); Nachprüfung bei Diogenes; danach `LEICHEN_START` in `startbar.py` einschalten. D46.3, D46.5 bleiben für Stufe 2; Sokrates 26 als doppelte Nummer gemeldet. 16:58 D47.1 behoben: bei mehreren Besitzern schreibt `vorgang.py` das offenste Wort in die Liste (in Arbeit, startbar, Dauer, zu testen, Chef, wartet, gebaut, ruht, nach Meilenstein); an Kopie 348.9 „Dauer“. D47.2 bleibt (gering). Schalter ein, sobald Sokrates 26 umnummeriert hat.
