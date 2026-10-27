@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (27.10., 12:10, „Tom – 348.6 Kampfbewegungen Runde 5 (27.10., 11:37)“ `session_01Hmoj776mGGoL7feBr8DJyT`):** Kampfbewegungen Runde 5 gebaut (00ce9fd35), Netzprüfung `pruef_kampf.py` neu, Kampfblatt mit Zeile „Spiel“, einmal fremd geprüft: Befunde in „Zu 348.6, Kampf“. Einrichtung wie `v3/LIESMICH.md`. Nachfolger: „Tom – 348.6 Kampfbewegungen Runde 6“.
+**Übergabe (27.10., 12:10, „Tom – 348.6 Kampfbewegungen Runde 5 (27.10., 11:37)“ `session_01Hmoj776mGGoL7feBr8DJyT`):** Kampfbewegungen Runde 5 gebaut (00ce9fd35), Netzprüfung `pruef_kampf.py` neu, Kampfblatt mit Zeile „Spiel“, einmal fremd geprüft: Befunde in „Zu 348.6, Kampf“. Einrichtung wie `v3/LIESMICH.md`. Nach 373: Runde 6 nur Messbares (Klinge verdeckt, Sprung, Spitze am Boden), dann Blatt und Video an den Chef, Befund im Begleittext; Stuhl, Brett, Zipfel urteilt er. Nachfolger: „Tom – 348.6 Kampfbewegungen Runde 6“.
 
 ## Zeilen
 
@@ -49,7 +49,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 348.6, Leute Runde 4b–4d** (Tom 31–33; Git): „traegt“ = Waffe aus Jerrys `waffen.py`. **An Jerry:** `spear` (Jorin), `maul` (Borin), `longbow` (Garrick, Rücken) in `waffen.py`; dann „traegt“ eintragen. Prüfblatt `tools/blender348/v3/pb_alle.sh <ordner> <ids…>`; ab Runde 5 Abnahmeliste (Chefsache 34811).
 - **Zu 348.6, Rechner:** `tools/pruef348` (≈5 Min., dazu `scipy` in `~/bl`).
 - **Zu 348.6, Leute** (Tom 23, c94bb4067): `held3.py` baut mit `FIGUR=<kennung>` eine Figur aus `leute.json` (Werte aus `MapFolk.kt`; Held unverändert); `rig.py` wie beim Helden; alte Bilder `tools/t bild LEUTEALT=1`; Felder in `leute.json` „_liesmich“; **348.10** Körperregler (Sokrates 16:38, Git). Bau je Figur wie Workflow `godot.yml`.
-- **Zu 348.6, Dorf:** Helferreste Runden 6–12 nur auf Wort des Chefs (Git). Blätter zuerst an Diogenes `session_0199ubftSiGFAPMLsApcFNr5` (Antwort ≤ 20 Min.) (`vorab.sh` aus Zweig `claude/diogenes-3489-messung`, Ablage `bilder:pruefung/`); Homer `session_01ALTocmozNXduAEAmoW2i7j`.
+- **Zu 348.6, Dorf:** Helferreste Runden 6–12 nur auf Wort des Chefs (Git). Vorlagen nach 373 (eine Fehlerprüfung mit Zahlen, dann Chef; Diogenes misst nebenher, kein Tor; Ablage `bilder:pruefung/`); Homer `session_01ALTocmozNXduAEAmoW2i7j`.
 - **Zu 348.6, von Sokrates (Chef 25.10., 08:57, Wölfe-Bild):** Helden „völlige Klone“, Rücken untexturiert wie Statue: Varianten, Rücken texturieren (`LISTE-UMZUG-348.md` „Urteil Chef Wölfe“; mit Jerry abstimmen, wer).
 - **Zu 348.6, Testbitte:** Dorftiere: Chef 19:09 (UMZUG). Tiere `godot/tiere/<name>.glb` + `-info.json`, Knopf „Tiere“ (Chef 16:52: bleiben im Dorf).
 - **Zu 348.6** (Tom 25.10., 02:17, 4ff8dbfc2): Bestand und Lauf am Rechner in `godot/LIESMICH.md` (Godot `~/godot`, `--bilder=<ordner>`, Artefakt `bornim-godot-bilder`); alte Bilder `tools/t bild KARTENZOOM=1 …` (Befehl im Git-Verlauf dieser Datei), Blatt `tools/vgl348.py`.
