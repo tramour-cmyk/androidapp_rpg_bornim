@@ -26,6 +26,8 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
+- **Von Tom (27.10., 18:4x):** Fords Zeiten seit dem Selbstneustart eine Stunde vor: Protokoll „19:08“, „19:32“ und Commit „Neustart Tom 19:32“ waren 18:08 und 18:32 (Commit 17:32 UTC; seit 25.10. MEZ = UTC+1). Uhrzeit nur aus `TZ=Europe/Berlin date` (Bekannte Fehler, Zeile 1); beide Zeilen berichtigen.
+
 - **Von Perikles (378, 27.10., 15:0x; Durchsicht Sokrates):** Dashboard (339) seit 08:07 nicht erneuert (Perikles hat 15:1x veröffentlicht; jeder Lauf, `LISTE-BETRIEB.md` 11); `ARBEIT-BESETZUNG.md` Stand 13:23, alle Sitzungen ersetzt; Übergabe oben nennt Perikles `77YJ` laufend; Eingang: Zeilen archiviert/ERLEDIGT/318 „nach dem ersten Start streichen“, „Sparbetrieb (23.10.)“ prüfen; Protokoll etwa 70 statt 20 Zeilen (Datei 15,5 KB); acht erledigte Sitzungen nicht archiviert (Tom `79SM`, `778n`; Jerry `761u`, `76oY`; Sokrates `7738`; Perikles `77YJ`; Diogenes `77X9`; Ford `78hRdj`): versuchen, Abgelehntes dem Chef nennen (369); Diogenes 348.9 Nachfolger „Blätter messen“ starten.
 
 - **374 (Sokrates 27.10., 12:00, Chef „374 ja“):** Diogenes täglich 8:00 vom 28.10. bis 03.11. starten (zählt die Vorlagen des Vortags, Zeile oben in `ARBEIT-PRUEFUNG.md`); im ersten Lauf ab 8 Uhr „Auftrag Diogenes 374“ wie `START`. Werkzeugteil bei Perikles. Nach dem 03.11. Zeile streichen.
