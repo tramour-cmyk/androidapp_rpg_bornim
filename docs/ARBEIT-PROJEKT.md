@@ -3,14 +3,14 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 27.10., 19:29
+**Gelesen bis:** `origin/main` 27.10., 20:14
 
-**Übergabe (27.10., 19:29, `session_01Hmoj76Wn7nYknRiqdsrpYq`):** 383.1 gebaut: `CLAUDE.md` ohne Neustartgrund Warten; Weiter-Grenze 400 Tsd., Neustart-Haken 300 Tsd. als Vorentscheid (`billigen/3831`). Kosten auf: 383.1. Nachfolger: keiner
+**Übergabe (27.10., 20:15, `session_01Hmoj77KVVgxT4ibZLpzXjH`):** 383.3 gebaut (Commit-Prüfung, Übersicht, Regel); 384 Kosten geprüft, drei nachgebucht, `--kosten` nur mit Kennung. Kosten auf: 383.3, 384. Nachfolger: keiner
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 384 | M | **von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“):** Kosten aller Sitzungen gegen Buchungsverzeichnis; Ursache der Lücken im Werkzeug beheben (Zu 384) | gebaut 27.10., 20:4x: drei nachgebucht, --kosten nur mit Kennung, Ford holt Kosten frisch; 79,23 $ Nachtbuchungen nicht nachweisbar (Zu 384) |
-| 383.3 | M | **von Sokrates (Chef 27.10., 19:55, „Sachen, die nicht mehr zur Vorlage sind, dann weg … Das ist kein Arbeiten so.“):** Vorlage zurück beim Team: sofort aus der Chefsache; Wächter | gebaut 27.10., 20:3x: Commit-Prüfung hält Archiveintrag mit stehender Vorlage an, Übersicht meldet Übersehenes, Regel in CLAUDE.md und Chefsache; nachgestellt 348.13a/376 (19:07, 19:08) |
+| 384 | M | **von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“):** Kosten aller Sitzungen gegen Buchungsverzeichnis; Ursache der Lücken im Werkzeug beheben (Zu 384) | gebaut 27.10., 20:1x: drei nachgebucht, --kosten nur mit Kennung, Ford holt Kosten frisch; 79,23 $ Nachtbuchungen nicht nachweisbar (Zu 384) |
+| 383.3 | M | **von Sokrates (Chef 27.10., 19:55, „Sachen, die nicht mehr zur Vorlage sind, dann weg … Das ist kein Arbeiten so.“):** Vorlage zurück beim Team: sofort aus der Chefsache; Wächter | gebaut 27.10., 20:1x: Commit-Prüfung hält Archiveintrag mit stehender Vorlage an, Übersicht meldet Übersehenes, Regel in CLAUDE.md und Chefsache; nachgestellt 348.13a/376 (19:07, 19:08) |
 | 383 | M | **von Sokrates (Chef 27.10., 17:53 „ja, 383“, Archiv):** Wartewächter in `lauf.py` (Zeitfeld zum „jetzt“, Protokollzeile in `meldung.sh`), Haken 63 verschärfen; Fälle 376.1 und Ford-Bitte 17:3x nachstellen | gebaut 27.10., 19:1x; Diogenes zählt ab 28.10. (Zu 383) |
 | 275 | M | **von Sokrates (Chef 27.10., 15:09 ja, 15:15 „jetzt loslegen“, Archiv):** Stufe 1 (Chefsache 275, Git); Statusfeld mit Wortliste; nur gezielte Suche, Token je Start messen (15:11); Besitzer schreiben selbst über `vorgang.py` (15:20) | frühestens 03.11.: Stufe 2, wenn Diogenes keinen Werkzeugfehler zählt; LEICHEN_START an seit 27.10., 17:2x; offen D46.3, D46.5, D47.2 (Zu 275) |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9):** Meilenstein „Kapitel 1 auf Godot mindestens so gut wie alt“ mit Checkliste aus der Bestandsliste 348.8 und Tagesziele je Team; `ROLLE-PRUEFUNG.md` für Diogenes (Arbeitsteilung 1, 3) | bis 02.11. Dauerzeile (Meilenstein Umzug): Tagesziele täglich im Stand zum Marktstart |
