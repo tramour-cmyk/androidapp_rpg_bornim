@@ -37,6 +37,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 14:40 27.10.: Neustart Sokrates angenommen (`bcdb44477`), Nachfolger `01Hmoj76ci` „Sokrates – 376 begleiten (Probeblatt 376.1)“ gestartet; alter Sokrates `01Hmoj7738` beim Chef zum Archivieren
 - 14:36 27.10.: Neustart Jerry angenommen (`f89a80fac`), Nachfolger `01Hmoj79d6` „Jerry – 348.7a Runde 5, 348.12f Rute r7“ gestartet; alter Jerry `01Hmoj761u` beim Chef zum Archivieren
 - 14:28 27.10.: Neustart Tom angenommen (`e329c2397`), Nachfolger `01Hmoj77MK` „Tom – 376.1 Blätter und Film prüfen, an den Chef“ gestartet; alter Tom `01Hmoj79SM` beim Chef zum Archivieren
 - 14:08 27.10.: Neustart Tom angenommen (`6cdf1cd19`), Nachfolger `01Hmoj79SM` „Tom – 376.1 Film prüfen, Kaufteile einsetzen“ gestartet; alter Tom `01Hmoj778n` zum Archivieren beim Chef (Kosten fehlen)
