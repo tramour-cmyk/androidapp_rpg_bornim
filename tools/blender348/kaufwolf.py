@@ -44,11 +44,14 @@ UMBENENNEN = {HALS: 'hals', NACKEN: 'kopf', J('l_FrontLeg_Ball'): 'vpfoteL', J('
               J('l_HindLeg_Ball'): 'hpfoteL', J('r_HindLeg_Ball'): 'hpfoteR'}
 QUELLEN = ['IdleA', 'IdleC', 'Walk', 'Run', 'Attack', 'Die', 'Howl']
 # Tod: Die dauert 4,1 s, figur.gd blendet nach FALL_MS + FADE_MS = 1,5 s aus; die Quelle sinkt bei Bild 64–78 -> ab Bild 52
-TOD_AB, TOD_BIS = 52, 110
-HELL = float(os.environ.get('HELL', '1.0'))
+TOD_AB, TOD_BIS = 60, 110     # Prüfer r1 (ab 52): Ausblenden begann noch im Fall, liegend nur 0,4 s; ab 60 fällt er bei 0,13–0,6 s
+# Prüfer r1 (Blatt, Wolfspixel eigen/gekauft): grau 62/82, dunkel 44/73, rost 31/70, Unterbeine und Bauch fast weiß (Quelle dort
+# hell; Leitbild „nie heller als alt“): Zeichnung nur noch von Sattel bis Fell (TMAX), Bauchfarbe nicht mehr; je Fell HELL
+TMAX = float(os.environ.get('TMAX', '0.5'))
+HELL = {'grau': 0.9, 'dunkel': 1.0, 'rost': 0.75, 'asche': 0.9}
 # Biss nachgemessen (probe.gd SCHAU=ort SCHAU_MESS=1, lokal 27.10.): mit Schnauze am weitesten vorn minus 0,07 m blieb die Nase
 # 0,04–0,08 m vor dem Rand der Heldin, zugebissen 0,77–1,03 s, Winkel +2 bis +5°: Abstand −0,06 m (Modell), Zeit, Winkel −4°
-BISS_KORR = (-0.06, 0.8, -4.0)
+BISS_KORR = (-0.03, 0.8, -4.0)     # Prüfer r1: Kopf verschwindet am Rumpf der Heldin; Nase dort 0,01–0,05 m im Rand: 3 cm zurück
 KOPF_KNOCHEN = ('neck_top', 'head', 'jaw', 'tongue', 'ear')
 # Augen nach Lage im Netz (Ruhe, Quelle): erster Lauf färbte nach Farbe 4,9 % der Textur als Auge (das Fell der Quelle ist braun
 # gesättigt); gemessen: Iris um (±0,047, −0,832, 0,890) m, Radius 0,010; darum ein weißer Ring (Lid, bis 0,019), wird dunkel
@@ -210,9 +213,9 @@ def bemalung(texdir, fell, masken, striche):
     fein = np.clip(L / np.maximum(Lb, 1e-3), 0.6, 1.5)
     grob = np.clip((Lb - p5) / max(p95 - p5, 1e-3), 0, 1)
     fu, sa, be, au = (lin(h) for h in COATS[fell])
-    t = grob[..., None]
+    t = grob[..., None] * TMAX
     farbe = np.where(t < 0.5, sa + (fu - sa) * (t / 0.5), fu + (be - fu) * ((t - 0.5) / 0.5))
-    farbe = farbe * fein[..., None] ** 1.3 * (0.35 + 0.65 * ao[..., None]) * HELL
+    farbe = farbe * fein[..., None] ** 1.3 * (0.35 + 0.65 * ao[..., None]) * HELL[fell] * float(os.environ.get('HELL', '1'))
     farbe = farbe * np.clip(striche, 0.3, 1.8)[..., None] ** 0.9
     weich = lambda m, rr: np.asarray(Image.fromarray((m * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(rr))).astype(np.float32)[..., None] / 255.0
     if auge.any():     # Augenhöhle dunkel, weich auslaufend (wie kaufratte.py)

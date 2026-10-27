@@ -451,7 +451,18 @@ func _ort() -> void:
 	rat.hurt(int(ms * 0.42), false)
 	await warte.call(held.busy_ms / 1000.0 + 0.6)
 	zeig.call("Platzwechsel")
-	rat.glide_to(fight._spot_pos(rat.fighter, Vector2i(1, 1)))
+	# Kaufwolf r1 (Prüfer: Platz (1,1) liegt beim Wolf zwischen zwei Rudelwölfen, Wolf in Wolf 20–35 cm): Ziel 2,4 m zur Seite oder
+	# nach hinten in der Richtung, deren Weg und Ziel am weitesten von den anderen frei sind (im Kampf wechselt er nur auf freie Plätze)
+	var pw: Vector3 = fight._spot_pos(rat.fighter, Vector2i(1, 1))
+	var luft := -INF
+	for wi in range(-90, 91, 15):     # zur Seite oder nach hinten, nicht auf die Gruppe zu
+		var c: Vector3 = h0 + (fight.facing(true) * -2.4).rotated(Vector3.UP, deg_to_rad(wi))
+		var g: float = rat._seg_gap(h0, c, null)
+		if g > luft:
+			luft = g
+			pw = c
+	print("Ort Platzwechsel nach %.2f,%.2f, Luft %.2f m" % [pw.x, pw.z, luft])
+	rat.glide_to(pw)
 	await warte.call(2.4)
 	rat.glide_to(h0)
 	await warte.call(2.4)
