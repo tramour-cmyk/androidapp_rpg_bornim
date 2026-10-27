@@ -30,7 +30,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 366 | M | **von Chef (25.10., 18:39):** bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Vorgangsarchiv 366) | wartet auf Godot-Fassung im Test: Tester gebaut 25.10., 23:1x (`inhalt/tester.*.html`, Helfer ohne Befund), offline bis zur Godot-Fassung im Test (142.2 ja, 23:33): dann `TESTER_ONLINE = True` in `bauen.py`; Stand mit Godot-Bildern, sobald sie taugen (Zu 366) |
 | 365 | M | **von Chef (25.10., 12:36):** bringt Aufwand „Hoch“ statt „Mittel“ einem Beschäftigten etwas, was kostet es? | frühestens 31.10.: Probe auswerten mit 318 und 347 (Zu 365) |
 | 262 | K | **von Chef (20.10.):** monatliche API-Credits im Plan, was damit anfangen? | ruht, bis der Chef den Betrag nennt; Empfehlung: Routine auf kleines Modell, nie ins Spiel |
-| 385 | M? | **von Chef (27.10., 20:59):** Protofactor-Animsets auf die Listen, Zauberer „genial“ | wartet auf Chef: entscheiden/385 (Probe Zauberer-Set) |
+| 385 | M? | **von Chef (27.10., 20:59):** Protofactor-Animsets auf die Listen, Zauberer „genial“ | wartet auf Chef: Kauf (tun/385), dann Probe Tom (Archiv) |
 | 253 | K | **von Chef (20.10.):** „BornWire“ = Firmensachen in eigener Sitzung (Archiv 253) | ruht bis Gewerbeschein: Gewerbe ummelden, Google-Konto (Fahrplan-Dokument) |
 | 72c | K | **von Chef (19.10., 12:55):** Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunden); Wortlaut Vorgangsarchiv 72c | nach dem Meilenstein (Chef 20.10.); vorher einseitige Vorlage Sokrates |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | frühestens 31.10.: mit 347 prüfen, ob der Tagesbericht ihn ersetzt (Wiedervorlage 26.10. verpasst; Morgenbericht 19.10. in Git) |

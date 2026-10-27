@@ -60,7 +60,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 348.6** (Tom 25.10., 02:17, 4ff8dbfc2): Bestand und Lauf am Rechner in `godot/LIESMICH.md` (Godot `~/godot`, `--bilder=<ordner>`, Artefakt `bornim-godot-bilder`); alte Bilder `tools/t bild KARTENZOOM=1 …` (Befehl im Git-Verlauf dieser Datei), Blatt `tools/vgl348.py`.
   - **Chef 18:06/18:20 (Dorf-APK):** Wortlaut `LISTE-UMZUG-348.md` „Urteil Chef Dorf-APK“ (Runde 4). Offen: Gesicht flach, „Bornim“ unleserlich.
 - **Zu 348.6, Probehaus (Chef 19:39):** A geht; klären: Ostfenster **mittig**? **Fenster hinten**? Innenraum folgt dem Haus.
-- **Von Sokrates:** Godot-Kennung `de.bornim.game.godot` → `de.bornim.game` (142.3). Chef 19:55: ansehen/34813a, 376 entfernt; neu erst, wenn vorlegbar.
+- **Von Sokrates:** Godot-Kennung → `de.bornim.game` (142.3). 385 (Archiv): nach Kauf Zauberer-Set eine Zauberbewegung auf Kaufkörper, Film an Chef.
 - **Zu 376.2:** `medieval.market.asset.pack.zip` (privat, .blend 2.79), Farben gemalt (Modellregel 6).
 - **Zu 355** (Git): Kerntest 2–4 Kisten je Karte.
 - **Zu 356.2:** `STORY-K1-HANDLUNG.md` „Sammelaufträge (356)“, Marken `[356.…]`.
