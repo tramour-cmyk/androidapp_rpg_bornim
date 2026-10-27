@@ -12,7 +12,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [376.1](ansehen/3761-figuren.md) | Probeblatt Quaternius-Figuren | Tom | 27.10. |
 
 ## Offen je Rolle
 
