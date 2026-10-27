@@ -432,22 +432,103 @@ Es kennt keinen Schmerz und keine Gnade.
 `[24.gegner.skelett.5]`
 Der Tod hat es nicht behalten wollen.
 
-### Zombie
+Wiedergänger, Grabhund, Riesenegel, Säureschnecke ersetzen Zombie, Ghul, Stirge, Ockergallerte (348.12c, Chef 26.10., 20:32); ihre alten Sätze (`Interlude.kt`) fallen weg. Englisch vom Chef mit abgenommen.
 
-`[24.gegner.zombie.1]`
+### Wiedergänger
+
+Angriff: Klauen / Claws
+
+`[24.gegner.wiedergaenger.1]`
+Erde rieselt von ihm. Man hat ihn begraben, und es hat nicht gehalten.
+EN: Earth trickles off him. They buried him, and it did not hold.
+
+`[24.gegner.wiedergaenger.2]`
+Lange Finger, schwarze Nägel, ein Grinsen ohne Lippen.
+EN: Long fingers, black nails, a grin without lips.
+
+`[24.gegner.wiedergaenger.3]`
+Er kriecht auf dich zu, dann richtet er sich auf.
+EN: He crawls toward you, then rises to his feet.
+
+`[24.gegner.wiedergaenger.4]`
+Was einmal ein Mensch war, will zurück zu den Lebenden.
+EN: What was once a man wants to return to the living.
+
+`[24.gegner.wiedergaenger.5]`
 Der Gestank erreicht dich vor ihm.
+EN: The stench reaches you before he does.
 
-`[24.gegner.zombie.2]`
-Fauliges Fleisch, schlurfende Schritte.
+### Grabhund
 
-`[24.gegner.zombie.3]`
-Es stöhnt. Es hungert.
+Angriff: Biss / Bite
 
-`[24.gegner.zombie.4]`
-Was einmal ein Mensch war, kommt auf dich zu.
+`[24.gegner.grabhund.1]`
+Ein Hund, groß wie ein Kalb. Kein Laut kommt aus seiner Kehle.
+EN: A hound as big as a calf. No sound leaves its throat.
 
-`[24.gegner.zombie.5]`
-Langsam und unaufhaltsam greifen seine Hände nach dir.
+`[24.gegner.grabhund.2]`
+Unter der schwarzen Mähne ist seine Haut fahl wie die eines Toten.
+EN: Beneath the black mane, its skin is pale as a corpse's.
+
+`[24.gegner.grabhund.3]`
+Er riecht nach frisch aufgewühlter Grabeserde.
+EN: It smells of freshly turned grave earth.
+
+`[24.gegner.grabhund.4]`
+Wer ihn sieht, sagt man, dem ist der Tod schon nah.
+EN: Whoever sees it, they say, is already marked for death.
+
+`[24.gegner.grabhund.5]`
+Er senkt den Kopf, die Krallen graben sich in den Boden.
+EN: It lowers its head; its claws dig into the ground.
+
+### Riesenegel
+
+Angriff: Saugmaul / Sucker
+
+`[24.gegner.egel.1]`
+Im nassen Gras windet sich etwas, dick wie ein Unterarm.
+EN: Something writhes in the wet grass, thick as a forearm.
+
+`[24.gegner.egel.2]`
+Ein runder Mund voller Zähnchen sucht deine Haut.
+EN: A round mouth full of tiny teeth seeks your skin.
+
+`[24.gegner.egel.3]`
+Er hat Blut gerochen. Deins.
+EN: It has smelled blood. Yours.
+
+`[24.gegner.egel.4]`
+Prall und dunkel, noch voll vom letzten Opfer.
+EN: Bloated and dark, still full from its last victim.
+
+`[24.gegner.egel.5]`
+Kein Auge, kein Laut, nur Hunger.
+EN: No eye, no sound, only hunger.
+
+### Säureschnecke
+
+Angriff: Zunge / Tongue
+
+`[24.gegner.schnecke.1]`
+Der Boden bewegt sich. Es ist kein Boden.
+EN: The floor moves. It is not the floor.
+
+`[24.gegner.schnecke.2]`
+Eine Schleimspur zischt auf dem Stein, dann hebt die Schnecke den Kopf.
+EN: A trail of slime hisses on the stone; then the slug raises its head.
+
+`[24.gegner.schnecke.3]`
+Lang wie ein Pferd und so langsam, dass du sie fast übersehen hättest.
+EN: As long as a horse, and so slow you nearly missed it.
+
+`[24.gegner.schnecke.4]`
+Ihre Augen tasten auf Stielen nach dir.
+EN: Its stalked eyes grope toward you.
+
+`[24.gegner.schnecke.5]`
+Es riecht nach Säure und verdautem Fleisch.
+EN: It smells of acid and digested flesh.
 
 ### Krogg der Grobian (Boss)
 

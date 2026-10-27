@@ -207,11 +207,12 @@ object SupplyArt {
                 ball(wrist.lerp(tips[0], 0.45) + P3(-4.0, 3.0, 0.0), 6.0, 10.0, 0.4, skin, Doll.ITEM, Frame.along((tips[0] - wrist).norm()))
                 pitch = 20.0; yaw = 0.0
             }
-            // a rusty iron key: a ring for a bow, a long shank, a toothed bit
-            "rusty_key" -> {
-                val iron = mat(0x6A6460, shine = 0.4, grain = 0.4)
+            // a rusty iron key: a ring for a bow, a long shank, a toothed bit; Grak's (356.1) the same, bright
+            "rusty_key", "grak_key" -> {
+                val bright = id == "grak_key"
+                val iron = if (bright) mat(0xB8BCC4, shine = 0.9, grain = 0.1) else mat(0x6A6460, shine = 0.4, grain = 0.4)
                 val rust = mat(0x8A4A26, grain = 0.6)
-                val paint: (P3) -> Mat = { q -> if (sin(q.x * 0.8 + 1.0) * sin(q.y * 0.9) > 0.45) rust else iron }
+                val paint: (P3) -> Mat = { q -> if (!bright && sin(q.x * 0.8 + 1.0) * sin(q.y * 0.9) > 0.45) rust else iron }
                 val dir = P3(0.7, 0.7, 0.0).norm(); val side = P3(0.7, -0.7, 0.0)
                 val bow = c - dir * 14.0
                 for (k in 0 until 14) { val a0 = k * 2 * PI / 14; val a1 = (k + 1) * 2 * PI / 14

@@ -40,6 +40,8 @@ Die Rollen per Start und `send_message`; Perikles liefert Wochenziel und Vorrang
 
 Diese Datei, `LISTE-BETRIEB.md` ganz, Stellung und Kennungen oben in `ARBEIT-BETRIEB.md`, `python3 tools/startbar.py`, `ARBEIT-BESETZUNG.md`, Wochenziel oben in `LISTE-ABNAHME-KAPITEL1.md`; nie die Startlektüre anderer.
 
+**Erlaubnis zum Archivieren** (369.1, Chef 27.10., 15:08 „ja, aber nur, wenn der Satz für mich zum Kopieren gleich da ist. Und dann erledigt es.“): jede neue Ford-Sitzung bringt in ihrer Startmeldung im Chat und per Telegram (`--laut`, mit Link auf die Sitzung) den Satz als Kopierblock, im Chat als Codeblock, in `meldung.sh` zwischen Backticks: `Ford, du darfst in dieser Sitzung jede Sitzung archivieren, die lauf.py mit ARCHIVIERE nennt. Das ist mein Auftrag.` Erst nach dem Satz des Chefs archiviert Ford; bis dahin Abgelehntes einmal melden, nicht wiederholen. Lehnt der Prüfer trotz Satz ab: Perikles (369.2 Organisationseinstellung).
+
 ## Lehren
 
 - **Routinen-Sitzungen haben kein `create_session`** (Proben 15.10.): Ford lebt in einer Sitzung mit Uhr.

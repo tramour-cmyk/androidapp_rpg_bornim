@@ -25,6 +25,7 @@ ROLLEN = [("ARBEIT-KREATIV.md", "Homer"), ("ARBEIT-TEAM-TOM.md", "Tom"), ("ARBEI
 FERTIG = re.compile(r"erledigt|auf main|getestet|gebaut", re.I)
 ROLLEN_NAMEN = r"(?:Homer|Tom|Jerry|Perikles|Diogenes|Sokrates|Ford(?: 2)?|Chef)"
 JETZT = datetime.datetime.now()
+LEICHEN_START = True  # 275 Stufe 1, der eine Schalter (D46.2; an seit 27.10., 17:2x, Lauf 47): Leichen zählen erst als startbar, wenn an; gilt auch für lauf.py
 
 def blank(t):
     """Stand ohne Markdown-Zeichen am Anfang."""
@@ -105,6 +106,7 @@ def blocker(nr, rest, chef, thema=""):
     if not stellung and any(f.startswith(pre + "-") for f in chef): return "Chef (Datei in der Chefsache)"
     if re.search(r"wartet auf (den )?Test", rest, re.I): return "wartet auf Test (Build)"
     if re.search(r"wartet auf Chef|Chef entscheidet", rest, re.I): return "Chef"
+    if re.search(r"wartet auf (?:das |den |die )?(?:nächste|neue)", rest, re.I): return "wartet auf Eingang"  # 375: „wartet auf nächstes Blatt“
     m = re.search(r"wartet auf (?:\*\*)?" + ROLLEN_NAMEN + r"\b", rest)
     if m: return m.group(0).replace("*", "")
     if re.search(r"wartet auf Chef|Entscheidung des Chefs", rest, re.I): return "Chef"
@@ -124,6 +126,47 @@ def blocker(nr, rest, chef, thema=""):
         return None
     if re.search(r"wartet auf (Test|Sammelbuild|Build)", rest): return "wartet auf Test/Build"
     return None
+
+LEICHE = {}  # 275 Stufe 1: Nummer → Grund; die Zeile zählt als startbar, damit Ford den Besitzer zum Berichtigen startet
+LISTE_FERTIG = re.compile(r"^(erledigt|fertig|entschieden|freigegeben)\b", re.I)
+
+def chef_datei(nr):
+    """Liegt zur Nummer eine Datei in entscheiden/, ansehen/, billigen/ oder tun/ (Name beginnt mit der Nummer ohne Punkte)?"""
+    pre = nr.replace(".", "").lower()
+    for ordner in ("entscheiden", "ansehen", "billigen", "tun"):
+        d = os.path.join(DOCS, "chefsache", ordner)
+        if os.path.isdir(d) and any(f.lower().startswith(pre + "-") or f.lower().startswith(pre + ".") for f in os.listdir(d)): return True
+    return False
+
+_ARCHIV = None
+def entschieden(x):
+    """Urteil zu X gefallen: Eintrag „**X …“ im Vorgangsarchiv oder X in LISTE-VORGAENGE fertig."""
+    global _ARCHIV
+    if _ARCHIV is None: _ARCHIV = lesen("VORGANGSARCHIV.md")
+    st = stand_von(x)[1]
+    return bool(st and (FERTIG.search(st) or LISTE_FERTIG.match(st))) or re.search(r"\*\*" + re.escape(x) + r"[ ,.*:]", _ARCHIV) is not None
+
+def leiche(nr, rest, sperre):
+    """275 Stufe 1: Stand, der nachweislich überholt ist; Grund oder None. Nur sichere Fälle, keine Vermutung."""
+    b = blank(rest)
+    r = re.sub(r"„[^“]*“", "", rest)
+    st = VORG.get(nr)  # D46.4: nur „erledigt“/„fertig“; „entschieden“, „freigegeben“ lassen Arbeit offen (347, 72u.1)
+    if st and re.match(r"(erledigt|fertig)\b", st, re.I): return "in LISTE-VORGAENGE.md „%s“, Zeile noch im Vorrat" % st
+    m = re.search(r"(?:ruht|zurückgestellt|wartet)\s+(?:bis|auf)\s+(?:das |dem |den )?(?:Urteil|Entscheidung)\s+(?:zu |von )?(\d+[a-z0-9.]*)", r)
+    if m and entschieden(m.group(1).rstrip(".")): return "Bedingung „Urteil %s“ erfüllt" % m.group(1).rstrip(".")
+    h = datetime.date.today()
+    for m in re.finditer(r"(?:^|ruht |zurückgestellt |beobachten |Dauerzeile )bis\s+(?:\w{1,3}\s+)?(\d\d)\.(\d\d)\.", b):
+        try: d = jahr_von(int(m.group(1)), int(m.group(2)))
+        except ValueError: continue
+        if d < h: return "Frist %s vorbei" % m.group(0).split("bis")[-1].strip()
+    if (sperre == "Chef" or re.search(r"\bbeim Chef\b", r)) and not chef_datei(nr):
+        c = re.search(r"Chefsache (\d+[a-z0-9.]*)", r)
+        if not (c and chef_datei(c.group(1).rstrip("."))): return "wartet auf den Chef ohne Datei in der Chefsache"
+    return None
+
+def leichen_von(zs, sperr):
+    """[(Nummer, Grund)] der überholten Zeilen eines Vorrats (ohne gestrichene)."""
+    return [(z[0], l) for z in zs if sperr.get(z[0]) != "ERLEDIGT" for l in [leiche(z[0], z[3], sperr.get(z[0]))] if l]
 
 WARTET = re.compile(r"(?:wartet auf|hängt an|erst nach|erst mit)\s+(\d+[a-z0-9.]*)(?![:\d])|^nach\s+(\d+[a-z0-9.]*)(?![:\d])")
 _FREMD = None
@@ -164,7 +207,7 @@ def pause(inhalt):
             return z.strip()[:40] + " (Datum nicht lesbar)"
     return None
 
-ZU = re.compile(r"^(erledigt|abgelehnt|verworfen|aufgeteilt|laufend|Idee)", re.I)
+ZU = re.compile(r"^(erledigt|fertig|entschieden|freigegeben|abgelehnt|verworfen|aufgeteilt|laufend|Idee)", re.I)
 
 def ohne_vorrat(alle):
     """Vorgänge offen in LISTE-VORGAENGE.md ohne Zeile (erste Spalte) in einem Vorrat (188); 72 deckt 72s.1 und umgekehrt."""
@@ -218,6 +261,9 @@ def main():
         sperr = {z[0]: blocker(z[0], z[3], chef, z[2]) for z in zs}
         erl = [z[0] for z in zs if sperr[z[0]] == "ERLEDIGT"]
         zs = [z for z in zs if sperr[z[0]] != "ERLEDIGT"]
+        for nr, l in leichen_von(zs, sperr):
+            LEICHE[nr] = (rolle, l)
+            if LEICHEN_START: sperr[nr] = None
         warn = ""
         if erl: warn += "  ERLEDIGT, NICHT GESTRICHEN: " + ", ".join(erl)
         if unles: warn += "  UNLESBAR (Klasse/Spalten): " + ", ".join(unles)
@@ -228,7 +274,7 @@ def main():
             print("| Nr. | Kl. | Was | Stand |\n|---|---|---|---|")
             for nr, kl, thema, rest in zs:
                 w = re.sub(r"\*\*|`|\|", "", thema)[:90].strip()
-                print("| %s | %s | %s | %s |" % (nr, kl, w, sperr[nr] or "startbar"))
+                print("| %s | %s | %s | %s |" % (nr, kl, w, ("Leiche: " + LEICHE[nr][1]) if nr in LEICHE else (sperr[nr] or "startbar")))
             print()
             continue
         if p: print("  %s: PAUSE bis %s%s" % (rolle, p, warn)); continue
@@ -247,6 +293,7 @@ def main():
             info[rolle] = ([z for z in zs if not sperr[z[0]] and z[1] != "–"], sum(1 for n, b in sperren if b.startswith("wartet auf Test")), erstes["M"] or erstes["K"] or erstes["N"])
         def kurz(e):
             if not e: return "–"
+            if e[0] in LEICHE and LEICHEN_START: return "%s Stand berichtigen (Leiche 275: %s)" % (e[0], LEICHE[e[0]][1])
             return "%s %s%s" % (e[0], re.sub(r"\*\*|`", "", e[2])[:70], (" ↑ Muss: %s wartet" % ", ".join(fremd_wartend()[e[0]])) if e[0] in fremd_wartend() else "")
         print("  %s: Muss %s | Kür %s%s%s" % (rolle, kurz(erstes["M"]), kurz(erstes["K"]), (" | nach dem Meilenstein " + kurz(erstes["N"])) if erstes["N"] else "", warn))
         if stand:
@@ -263,6 +310,10 @@ def main():
         if all(r in info for r in UEBERNAHME) and sum(info[r][1] for r in UEBERNAHME) >= 4:  # 317: ab 4 fertigen Punkten beider Teams bittet der Erste (Chef 24.10., 21:17)
             print("  Gemeinsamer Build: %s warten auf Test (ab 4 bittet der Erste, höchstens 6 je Build; 317)" % ", ".join("%s %d" % (r, info[r][1]) for r in UEBERNAHME))
         ohne_vorrat(alle)
+        if LEICHE and ("--leichen" in sys.argv or alle):
+            for nr, (rolle, grund) in LEICHE.items(): print("  LEICHE %s %s: %s" % (rolle, nr, grund))
+        elif LEICHE:
+            print("  Leichen (275, Stand überholt, %s): %d – %s" % ("zählen als startbar" if LEICHEN_START else "Schalter aus, zählen nicht", len(LEICHE), ", ".join("%s %s" % (r, n) for n, (r, _) in LEICHE.items())))
     sys.exit(1 if falsch else 0)
 
 if __name__ == "__main__":

@@ -44,7 +44,7 @@ fun ChronicleTab(game: Game, lang: Lang, onIntro: (() -> Unit)? = null, onTemple
     androidx.compose.runtime.LaunchedEffect(Unit) { Chronicle.markRead(s) }
     Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
         PixelButton(if (de) "Aufträge" else "Quests", Modifier.weight(1f).height(36.dp), selected = !soFar, size = 14.sp) { soFar = false }
-        PixelButton(if (de) "Bisher geschehen" else "So far", Modifier.weight(1f).height(36.dp), selected = soFar, size = 14.sp) { soFar = true }
+        PixelButton(if (de) "Bisher geschehen" else "Story so far", Modifier.weight(1f).height(36.dp), selected = soFar, size = 14.sp) { soFar = true }
     }
     Spacer(Modifier.height(10.dp))
     if (soFar) {
@@ -68,7 +68,7 @@ fun ChronicleTab(game: Game, lang: Lang, onIntro: (() -> Unit)? = null, onTemple
     }
     // the main task, in gold
     Column(Modifier.fillMaxWidth().border(1.dp, Veil.rim).padding(horizontal = 12.dp, vertical = 8.dp)) {
-        Txt(if (de) "Hauptauftrag" else "Main task", size = 13.sp, color = Veil.gold)
+        Txt(if (de) "Hauptauftrag" else "Main quest", size = 13.sp, color = Veil.gold)
         Txt(Story.objective(s)(lang), size = 16.sp, bold = true, color = Veil.bright)
     }
     // tasks the story gives beside the main one (D4.1)
@@ -82,7 +82,7 @@ fun ChronicleTab(game: Game, lang: Lang, onIntro: (() -> Unit)? = null, onTemple
     val carried = Jobs.carried(s)
     if (carried.isNotEmpty()) {
         Spacer(Modifier.height(12.dp))
-        Txt(if (de) "Nebenaufträge" else "Odd jobs", size = 15.sp, color = Veil.gold)
+        Txt(if (de) "Nebenaufträge" else "Side quests", size = 15.sp, color = Veil.gold)
     }
     for (j in carried) {
         Spacer(Modifier.height(8.dp))
@@ -93,7 +93,7 @@ fun ChronicleTab(game: Game, lang: Lang, onIntro: (() -> Unit)? = null, onTemple
             Txt((if (de) "von " else "from ") + j.giverName(lang), size = 13.sp, color = Veil.dim)
             Txt(j.note(lang), size = 14.sp, color = Veil.text)
             val what = Items[j.item].name(lang)
-            Txt(if (ready) (if (de) "Bereit zur Abgabe – bei ${j.giverName(lang)}" else "Ready to hand in – to ${j.giverName(lang)}")
+            Txt(if (ready) (if (de) "Bereit zur Abgabe – bei ${j.giverName(lang)}" else "Ready to turn in to ${j.giverName(lang)}")
                 else "$have ${if (de) "von" else "of"} ${j.count} · $what", size = 14.sp, color = if (ready) Veil.good else Veil.gold)
             Txt((if (de) "Lohn: " else "Reward: ") + j.reward(lang), size = 13.sp, color = Veil.dim)
             // only where the map has a mark of the giver (someone the hero has met, or who waits with the reward)

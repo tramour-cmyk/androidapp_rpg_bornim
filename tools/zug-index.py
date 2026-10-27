@@ -8,6 +8,7 @@ Je Datei: Zeile 1 „# <Nr.> · <Frage>“, Zeile 2 „<Absender> · <TT.MM.>, �
 import os, re, sys
 
 ZUG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs", "chefsache")
+SEIT = r"\b(\d\d)\.(\d\d)\.(?:,? (\d\d:\d\d))?"  # 275 (Chef 15:21): „Seit“ mit Uhrzeit, „damit ich sehe, das liegt jetzt schon so und so lange“
 BEREICH = re.compile(r"^[EGQBM] [A-ZÄÖÜ]\w+$")
 
 def vorgaenge():
@@ -41,9 +42,11 @@ REGELN = """## So geht's
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
 - Anzusehen als Bildvorschau (228, kein Build): `ansehen/<nr>-<stichwort>.md`, Zeile 1 `# <Nr.> · <Thema> · <Team> · <TT.MM.>, <HH:MM>`, dann Bild aus `bilder/` und der Satz, was der Chef sagen soll.
 - Anzusehen (nur mit Build, Datei `ansehen/t<build>-<stichwort>.md`): Zeile 1 `# <Team oder „Tom und Jerry“> · Build <n> · <Version> · <Thema> · <PR>` (fehlt die Version, trägt die Action sie aus dem Lauf zum PR nach, 298), Zeile 2 `<Bereich, z. B. E Kampf> · <Team> · <TT.MM.>, <HH:MM> · <APK-Link>`, dann Tabelle `| # | Team | Nr. | Wo und wie | Richtig | Falsch |` (Spalte Team bei gemeinsamem Build) mit 3–6 Vorgängen (317, Ziel 4; weniger nur auf „jetzt“ des Chefs, Wort in der Datei) und konkreten Schritten („Tippe …, erwarte …“); davor ein Satz „Ein Weg: …; über Build <n−1> installieren“, Zeilen in der Reihenfolge dieses Wegs (`LISTE-BAUEN-TESTEN.md` „Gemeinsamer Build“). Sammelseite je Build: `## Build <n> · <Version> · <Thema> · <PR>`. Die Übersicht zeigt jeden Build als Zeile, nach Version sortiert (127); Abweichungen stehen unter „Lücken“.
-- Zeile 1 `# <Nr.> · <Frage>`, Zeile 2 `<Absender> · <TT.MM.>, <HH:MM> · <Bereich> · …` (Bereich wie „B Abläufe“, 136); Vorrang = Klasse der Nummer in `LISTE-VORGAENGE.md`; eine Zeile `Kurz: …` ersetzt in der Übersicht die Frage. Dann Frage, Empfehlung, stärkstes Gegenargument (lange Begründung in `<details>`).
-- Zu billigen (Vorentscheid, 194.1): `billigen/<nr>-<stichwort>.md`, Aufbau wie bei „entscheiden“ plus: Entschieden, Umgesetzt (Commit), Rückbau, Kosten, stärkstes Gegenargument (bei Balance und Spielgefühl die verworfene Möglichkeit). Hält keine Arbeit an; Antwort „gebilligt“ oder „zurück“, Sokrates löscht die Datei und setzt „gebilligt TT.MM.“ oder „zurück TT.MM.“ in die Archivzeile.
+- Zeile 1 `# <Nr.> · <Frage>`, Zeile 2 `<Absender> · <TT.MM.>, <HH:MM> · <Bereich> · …` (Bereich wie „B Abläufe“, 136); Vorrang = Klasse der Nummer in `LISTE-VORGAENGE.md`; eine Zeile `Kurz: …` ersetzt in der Übersicht die Frage. Dann in dieser Folge (364): **Frage**, **Votum** (was der Chef tun oder sagen soll), **Berührt** (Vorgänge); darunter kurz **Begründung**, **Sachverhalt** (belegt, mit Quelle), **Auswertung** (mit dem stärksten Gegenargument), **Folgerungen** (was danach geschieht, wer); zuletzt `Antwort: …`. Lange Teile in `<details>`.
+- Zu billigen (Vorentscheid, 194.1): `billigen/<nr>-<stichwort>.md`, Aufbau wie bei „entscheiden“, Votum = Entschieden, plus: Umgesetzt (Commit), Rückbau, Kosten; in der Auswertung bei Balance und Spielgefühl die verworfene Möglichkeit. Hält keine Arbeit an; Antwort „gebilligt“ oder „zurück“, Sokrates löscht die Datei und setzt „gebilligt TT.MM.“ oder „zurück TT.MM.“ in die Archivzeile.
 - Bilder in `bilder/`: JPG oder WebP, höchstens 800 px breit und 60 KB, höchstens 3 je Punkt. Größere Bilder und Hörproben nur über Telegram (`meldung.sh --datei`), in der Datei vermerkt: „Großbild: Telegram TT.MM. HH:MM“.
+- **Überarbeiten** (275, Chef 27.10., 15:23: „sonst schaue ich es mir am Schluss zweimal an“): wer eine Vorlage überarbeitet, löscht die Datei sofort und legt sie neu an, wenn die neue Fassung fertig ist; nie „folgt“, „kommt nach“ in einer Vorlage (die Übersicht meldet es unter „Lücken“).
+- Zu tun (275): `tun/<nr>-<stichwort>.md`, Zeile 1 `# <Nr.> · <was der Chef tun soll>`, Zeile 2 `<Absender> · <TT.MM.>, <HH:MM> · <Bereich>`, dann der Satz zum Kopieren als Codeblock oder der Weg in Schritten; erledigt heißt Datei löschen (wer sie angelegt hat). Ein „wartet auf Chef“ ohne Datei hier meldet `startbar.py` als Leiche.
 - Telegram-Sprungmarke `[72s.1](cs:72s1)` führt auf die Datei (`tools/meldung.sh`).
 """
 
@@ -55,14 +58,14 @@ def eintrag(ordner, name):
     if not was: nr, was = name.split("-")[0], kopf
     meta = next((z for z in zeilen[1:] if not z.startswith("Kurz:")), "")
     wer = meta.split(" · ")[0] if " · " in meta else ""
-    m = re.search(r"\b(\d\d)\.(\d\d)\.", meta)
+    m = re.search(SEIT, meta)
     seit = m.group(0) if m else ""
     kurz = next((z[5:].strip() for z in zeilen if z.startswith("Kurz:")), None)
     if kurz: was = kurz
     else:
         e = re.search(r"\*\*Empfehlung:?\s*([^*]{1,40}?)\.?\*\*", text)
         if e and e.group(1).strip(): was += f" (Empfehlung: {e.group(1).strip()})"
-    sort = (m.group(2) + m.group(1)) if m else "0000"
+    sort = (m.group(2) + m.group(1) + (m.group(3) or "")) if m else "0000"
     bereich, klasse = nachschlagen(nr)
     bereich = next((t.strip() for t in meta.split(" · ")[1:] if BEREICH.match(t.strip())), bereich)
     vorrang = KLASSE.get(klasse, klasse if klasse not in ("", "–") else "–")
@@ -76,7 +79,7 @@ def tafel(ordner, titel, kopf=None):
     kopf = kopf or "Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136)."
     return f"## {titel}\n\n{kopf}\n\n| Nr. | Vorrang | Bereich | Seit | Was | Wer |\n|---|---|---|---|---|---|\n" + "\n".join(zeilen) + "\n"
 
-VERSION = re.compile(r"\b0\.1\.(\d+)\b")
+VERSION = re.compile(r"\b0\.(\d+)\.(\d+)\b")  # altes Spiel 0.1.<Lauf>, Godot 0.348.<Lauf> (367)
 
 def builds(name):
     """Anzusehen (127): eine Zeile je Build, auch aus Sammelseiten („## Build n · 0.1.x · Thema · PR“)."""
@@ -85,7 +88,7 @@ def builds(name):
     kopf = zeilen[0].lstrip("#").strip() if zeilen else name
     meta = next((z for z in zeilen[1:] if not z.startswith("Kurz:")), "")
     wer = kopf.split(" · ")[0]
-    m = re.search(r"\b(\d\d)\.(\d\d)\.", meta)
+    m = re.search(SEIT, meta)
     seit = m.group(0) if m else ""
     tn = re.match(r"t(\d+)-", name)
     # APK-Link in der Bereichszeile (Lauf oder Pull-Request), sonst der Pull-Request aus Zeile 1: die Spalte „Build“ ist dann anklickbar
@@ -94,14 +97,14 @@ def builds(name):
     apk = ml.group(1) if ml else (f"https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/{pr.group(1)}" if pr else "")
     if not tn:  # Bildvorschau (228, 165): „# <Nr.> · <Thema> · <Team> · <TT.MM.>, <HH:MM>“, kein Build
         teile = kopf.split(" · ")
-        team = next((t for t in teile[2:] if t in TEAMS), "")
-        d = re.search(r"\b(\d\d)\.(\d\d)\.", kopf)
-        return [(10**6, "–", "–", teile[1] if len(teile) > 1 else kopf, name, team or wer, d.group(0) if d else seit)]
+        team = next((t for t in teile[2:] if re.sub(r" \d+$", "", t) in TEAMS), "")
+        d = re.search(SEIT, kopf)
+        return [(None, teile[0], "", teile[1] if len(teile) > 1 else kopf, name, team or "–", d.group(0) if d else seit)]  # 367: Wer nie die Nummer
     def zeile(teile, standard):
         v = next((VERSION.search(t) for t in teile if VERSION.search(t)), None)
         build = next((t for t in teile if re.match(r"Build \d+$", t)), f"Build {tn.group(1)}" if tn else "")
         was = next((t for t in teile[1:] if not VERSION.search(t) and not t.startswith("[PR") and not re.match(r"Build \d+$", t)), standard)
-        return (int(v.group(1)) if v else 10**6, v.group(0) if v else "–", f"[{build}]({apk})" if apk and build else build, was.replace("|", "/"))
+        return ((int(v.group(1)), int(v.group(2))) if v else (10**6, 0), v.group(0) if v else "–", f"[{build}]({apk})" if apk and build else build, was.replace("|", "/"))
     abschnitte = [z.lstrip("#").strip().split(" · ") for z in text.splitlines() if re.match(r"## Build \d+ · ", z)]
     if abschnitte:
         return [(*zeile(t, t[0]), name, wer, seit) for t in abschnitte]
@@ -111,10 +114,19 @@ def builds(name):
 def tafel_ansehen():
     pfad = os.path.join(ZUG, "ansehen")
     namen = sorted(n for n in os.listdir(pfad) if n.endswith(".md")) if os.path.isdir(pfad) else []
-    alle = sorted((b for n in namen for b in builds(n)), key=lambda b: b[0])
+    alle = [b for n in namen for b in builds(n)]
     if not alle: return "## Anzusehen\n\nNichts offen.\n"
-    kopf = "## Anzusehen\n\nReihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über niedrigere).\n\n| Folge | Version | Build | Was | Wer | Seit |\n|---|---|---|---|---|---|\n"
-    return kopf + "\n".join(f"| {i} | [{v}](ansehen/{n}) | {b or '–'} | {w} | {wer} | {seit} |" for i, (_, v, b, w, n, wer, seit) in enumerate(alle, 1)) + "\n"
+    # 367: Bilder (ohne Build) und Builds in getrennten Tafeln, sonst stehen in Version und Build nur Striche
+    bilder = [b for b in alle if b[0] is None]
+    apks = sorted((b for b in alle if b[0] is not None), key=lambda b: b[0])
+    teile = ["## Anzusehen\n"]
+    if bilder:
+        teile.append("**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):\n\n| Nr. | Was | Wer | Seit |\n|---|---|---|---|\n"
+                     + "\n".join(f"| [{nr}](ansehen/{n}) | {w} | {wer} | {seit} |" for _, nr, _, w, n, wer, seit in bilder) + "\n")
+    if apks:
+        teile.append("**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):\n\n| Folge | Version | Build | Was | Wer | Seit |\n|---|---|---|---|---|---|\n"
+                     + "\n".join(f"| {i} | [{v}](ansehen/{n}) | {b or '–'} | {w} | {wer} | {seit} |" for i, (_, v, b, w, n, wer, seit) in enumerate(apks, 1)) + "\n")
+    return "\n".join(teile)
 
 DOCS = os.path.join(ZUG, "..")
 TEAMS = ("Tom", "Jerry", "Homer", "Perikles", "Sokrates", "Diogenes", "Ford")
@@ -138,14 +150,14 @@ def formfehler():
             if len(nrn) > 6: fehler.append(f"{n}: {len(nrn)} Vorgänge, höchstens 6 je Build (317)")
             elif len(nrn) < 3 and "jetzt" not in text: fehler.append(f"{n}: nur {len(nrn)} Vorgänge; ein Build bündelt 3–6, weniger nur auf „jetzt“ des Chefs (317)")
         kopfzeilen = [kopf] + [x for x in z if re.match(r"## Build \d+ · ", x)]
-        if not any(VERSION.search(x) for x in kopfzeilen): fehler.append(f"{n}: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)")
+        if not any(VERSION.search(x) for x in kopfzeilen): fehler.append(f"{n}: Version 0.1.<Laufnummer> (Godot 0.348.<Laufnummer>) fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)")
     return fehler
 NR = r"[A-Z]?\d+[a-z]*(?:\.\d+[a-z]*)?"
 
 def luecken():
     """D21.3: Vorratszeilen, die auf den Chef warten oder „Chefsache <Nr>“ nennen, ohne Datei hier (ARCHIV eingefroren, nicht gelesen)."""
     texte = []
-    for ordner in ("entscheiden", "ansehen", "billigen"):
+    for ordner in ("entscheiden", "ansehen", "billigen", "tun"):
         pfad = os.path.join(ZUG, ordner)
         for n in (sorted(os.listdir(pfad)) if os.path.isdir(pfad) else []):
             if n.endswith(".md"): texte.append(n + "\n" + open(os.path.join(pfad, n), encoding="utf-8").read())
@@ -163,11 +175,18 @@ def luecken():
             if "wartet auf Chef" in z and not gestellt(nr) and (nr, wer) not in nicht: nicht.append((nr, wer))
             for c in re.findall(r"Chefsache (" + NR + r")\b", z):
                 if not gestellt(c) and (c, wer) not in ohne: ohne.append((c, wer))
+    alt = []  # 275 (Chef 15:23): Vorlage in Überarbeitung bleibt nicht stehen
+    for ordner in ("entscheiden", "ansehen", "billigen", "tun"):
+        pfad = os.path.join(ZUG, ordner)
+        for n in (sorted(os.listdir(pfad)) if os.path.isdir(pfad) else []):
+            if n.endswith(".md") and re.search(r"\b(folgen|folgt)\s+(hier|später|bald)\b|\b(folgen|folgt|kommen|kommt)\b[^.\n]{0,30}\bnach der (Fehler)?[Pp]rüfung|in Überarbeitung", open(os.path.join(pfad, n), encoding="utf-8").read()):
+                alt.append(f"{ordner}/{n}")
     form = formfehler()
-    if not nicht and not ohne and not form: return ""
+    if not nicht and not ohne and not form and not alt: return ""
     teile = ["## Lücken\n\nVom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.\n"]
     if form: teile.append("Format (Muster: „So geht's“ unten): " + "; ".join(form) + "\n")
     if nicht: teile.append("Nicht gestellt: " + ", ".join(f"{nr} ({wer})" for nr, wer in nicht) + "\n")
+    if alt: teile.append("In Überarbeitung, aus der Chefsache nehmen, bis die neue Fassung fertig ist: " + ", ".join(alt) + "\n")
     if ohne: teile.append("Ohne Datei: " + ", ".join(f"{nr} ({wer})" for nr, wer in ohne) + "\n")
     return "\n".join(teile)
 
@@ -218,7 +237,7 @@ def versionen_nachtragen():
         if geaendert: open(datei, "w", encoding="utf-8").write("\n".join(zeilen))
 
 versionen_nachtragen()
-neu = "\n".join([t for t in [KOPF, tafel("entscheiden", "Zu entscheiden"), tafel("billigen", "Zu billigen", "Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers."), tafel_ansehen(), offen_je_rolle(), luecken(), REGELN] if t])
+neu = "\n".join([t for t in [KOPF, tafel("entscheiden", "Zu entscheiden"), tafel("billigen", "Zu billigen", "Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers."), tafel_ansehen(), tafel("tun", "Zu tun", "Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen."), offen_je_rolle(), luecken(), REGELN] if t])
 ziel = os.path.join(ZUG, "README.md")
 alt = open(ziel, encoding="utf-8").read() if os.path.exists(ziel) else ""
 if neu != alt:

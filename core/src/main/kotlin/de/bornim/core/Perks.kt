@@ -78,13 +78,13 @@ object Perks {
         lines += (if (de) "Wert ${h.score(a)}, Modifikator " else "Score ${h.score(a)}, modifier ") + Rules.signed(m)
         when (a) {
             Ability.STR -> {
-                lines += if (de) "• Treffer und Schaden mit Nahkampfwaffen (außer Finesse-Waffen, wenn GES höher ist)." else "• Hit and damage with melee weapons (except finesse weapons if DEX is higher)."
-                lines += if (de) "• Rettungswurf gegen Umwerfen, z. B. durch Wölfe." else "• Saving throw against being knocked down, e.g. by wolves."
+                lines += if (de) "• Treffer und Schaden mit Nahkampfwaffen (außer Finesse-Waffen, wenn GES höher ist)." else "• Attack and damage rolls with melee weapons (except finesse weapons if DEX is higher)."
+                lines += if (de) "• Rettungswurf gegen Umwerfen, z. B. durch Wölfe." else "• Saving throw against being knocked prone, e.g. by wolves."
                 lines += if (de) "• Wurfgeschosse (Alchemistenfeuer, Weihwasser): +$p Schaden." else "• Thrown flasks (alchemist's fire, holy water): +$p damage."
             }
             Ability.DEX -> {
-                lines += if (de) "• Rüstungsklasse ohne, mit leichter und (bis +2) mittlerer Rüstung." else "• Armor class without armor, with light and (up to +2) medium armor."
-                lines += if (de) "• Treffer und Schaden mit Fernkampf- und Finesse-Waffen." else "• Hit and damage with ranged and finesse weapons."
+                lines += if (de) "• Rüstungsklasse ohne, mit leichter und (bis +2) mittlerer Rüstung." else "• Armor Class without armor, with light and (up to +2) medium armor."
+                lines += if (de) "• Treffer und Schaden mit Fernkampf- und Finesse-Waffen." else "• Attack and damage rolls with ranged and finesse weapons."
                 lines += if (de) "• Initiative und Fluchtchance; Rettungswurf gegen Netze." else "• Initiative and chance to flee; saving throw against webs."
                 lines += if (de) "• Schleichen: Jagende Monster bemerken dich erst ab ${noticeRange(h)} Feldern (normal 4)." else "• Stealth: hunting monsters only notice you within ${noticeRange(h)} tiles (normally 4)."
             }
@@ -97,12 +97,12 @@ object Perks {
             Ability.INT -> {
                 if (h.cls == CharClass.WIZARD) lines += if (de) "• Magier: Zauberangriff und Zauber-Schwierigkeitsgrad." else "• Wizard: spell attack and spell save DC."
                 lines += if (de) "• Wissen: " + (if (knowsWeaknesses(h)) "Du erkennst Schwächen und Resistenzen deiner Gegner." else "Ab INT 12 erkennst du Schwächen und Resistenzen deiner Gegner.")
-                    else "• Knowledge: " + (if (knowsWeaknesses(h)) "You recognise your foes' weaknesses and resistances." else "From INT 12 on you recognise your foes' weaknesses and resistances.")
+                    else "• Knowledge: " + (if (knowsWeaknesses(h)) "You recognize your foes' weaknesses and resistances." else "At INT 12 or higher, you recognize your foes' weaknesses and resistances.")
                 lines += if (de) "• Alchemie: ${pct(extraBrewChance(h))} Chance auf einen zusätzlichen Trank beim Brauen." else "• Alchemy: ${pct(extraBrewChance(h))} chance of an extra potion when brewing."
                 lines += if (de) "• Lernen: +${pct(xpFactor(h) - 1)} Erfahrung." else "• Learning: +${pct(xpFactor(h) - 1)} experience."
             }
             Ability.WIS -> {
-                if (h.cls == CharClass.CLERIC) lines += if (de) "• Kleriker: Zauberangriff, Zauber-SG, Heilung und Spirituelle Waffe." else "• Cleric: spell attack, spell DC, healing and spiritual weapon."
+                if (h.cls == CharClass.CLERIC) lines += if (de) "• Kleriker: Zauberangriff, Zauber-SG, Heilung und Spirituelle Waffe." else "• Cleric: spell attack, spell save DC, healing and Spiritual Weapon."
                 lines += if (de) "• Rettungswurf gegen Flüche." else "• Saving throw against curses."
                 lines += if (de) "• Wahrnehmung: +${num(sightBonus(h))} Felder Sicht im Nebel, ${pct(1 - ambushFactor(h))} seltener Hinterhalte." else "• Perception: +${num(sightBonus(h))} tiles of sight in the fog, ${pct(1 - ambushFactor(h))} fewer ambushes."
                 lines += if (de) "• Kräuterkunde: ${pct(extraHerbChance(h))} Chance auf ein zusätzliches Kraut beim Pflücken." else "• Herb lore: ${pct(extraHerbChance(h))} chance of an extra herb when picking."
@@ -110,7 +110,7 @@ object Perks {
             Ability.CHA -> {
                 val buy = ((1 - buyFactor(h)) * 100).roundToInt()
                 lines += if (de) "• Handeln: " + (if (buy >= 0) "$buy % günstiger einkaufen und $buy % teurer verkaufen." else "${-buy} % teurer einkaufen und ${-buy} % billiger verkaufen.")
-                    else "• Trading: " + (if (buy >= 0) "buy $buy % cheaper and sell $buy % dearer." else "buy ${-buy} % dearer and sell ${-buy} % cheaper.")
+                    else "• Trading: " + (if (buy >= 0) "buy for $buy% less and sell for $buy% more." else "buy for ${-buy}% more and sell for ${-buy}% less.")
                 lines += if (de) "• Auftreten: ${pct(cowChance(h))} Chance, dass ein normaler Gegner eingeschüchtert zögert und seine erste Runde verliert." else "• Presence: ${pct(cowChance(h))} chance that an ordinary foe hesitates, cowed, and loses its first round."
             }
         }

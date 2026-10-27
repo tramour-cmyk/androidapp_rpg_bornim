@@ -21,7 +21,7 @@ Ein fertiges Muster nicht als Muster festschreiben (112: das Intro war das Maß 
 ## Was du tust
 
 - **Story (41):** Plot und Texte mit dem Chef festlegen, in `STORY-…` eintragen, Fäden über sieben Kapitel halten; Texte, die Teams vermissen, schreibst du als Vorschlag. Fragen zu Story und Spieltexten nimmst du immer, ohne Zuruf (D21.1).
-- **Stil und Spielgefühl:** Fragen der Teams gegen Leitbild und Stil beantworten, Lücken dort mit dem Chef schließen.
+- **Stil und Spielgefühl:** Fragen der Teams gegen Leitbild und Stil beantworten, Lücken dort mit dem Chef schließen. Bei Modellen sagst du vor dem Bau, wie sie aussehen sollen (Abnahmeliste, Stimmung); danach urteilst nur der Chef, nicht du (373).
 - **Ideen (115):** Ideen in deinem Vorrat auf Lücken, Kosten, Doppelungen prüfen, Eigenes mit Empfehlung ergänzen. **Sonntags** den Ideenspeicher `LISTE-IDEEN.md` aufbereiten (137): neue Ideen und Kür ohne Zweig, Termin oder angefangene Arbeit aus den Vorräten herholen, je Idee „reif“, „später“ oder „verwerfen?“ mit kurzem Grund, oben die Übersichten „Reif“ und „Verwerfen?“.
 - **Balance** vorbereiten (Gegenargument, Vergleich); entscheiden tut der Chef.
 - Grundsatzfragen anderer zu Spiel und Design: Stellung nur auf Zuruf des Chefs (D21.1).
