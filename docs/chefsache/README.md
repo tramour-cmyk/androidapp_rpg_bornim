@@ -20,6 +20,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [348.13a](ansehen/34813a-tusche-kampf-r9.md) | Tusche im Kampf, Runde 9: Langschwert nicht mehr schwarz | Tom | 28.10., 00:46 |
 | [387](ansehen/387-kauftiere-r2.md) | Sechs gekaufte Tiere mit Nacharbeit und Wegen über den Kampfort | – | 28.10., 00:38 |
 
 ## Zu tun
