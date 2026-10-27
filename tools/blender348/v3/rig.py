@@ -66,10 +66,19 @@ bpy.ops.object.mode_set(mode='OBJECT')
 scn.render.bake.target = 'IMAGE_TEXTURES'; scn.render.bake.margin = 6
 bpy.ops.object.bake(type='EMIT')
 img.filepath_raw = OUT + '/held-albedo.png'; img.file_format = 'PNG'; img.save()
+# 348.6 Glanz (Helfer: Kettenhemd fern wie Filz, Helm wie Wollmuetze, kein Lichtreflex): Metall in der Deckkraft der Eckfarben,
+# 1 matt, 0,5 Kette, 0 blankes Eisen; toon.gdshader (metall) setzt daraus einen Glanzpunkt nach Licht und Blick
+GLANZ_ART = {'chain': 0.5, 'helm': 0.0, 'helmrim': 0.0, 'steel': 0.0, 'fit': 0.0}
 for o in meshes:
     me = o.data
     ca = me.color_attributes.new('albedo', 'FLOAT_COLOR', 'POINT')
-    c = np.ones(len(me.vertices) * 4, np.float32); ca.data.foreach_set('color', c)
+    c = np.ones(len(me.vertices) * 4, np.float32)
+    if FIGUR == 'held' and os.environ.get('GLANZ', '1') == '1':
+        for p in me.polygons:
+            mn = me.materials[min(p.material_index, len(me.materials) - 1)].name.split('.')[0] if me.materials else ''
+            if mn in GLANZ_ART:
+                for vi in p.vertices: c[vi * 4 + 3] = GLANZ_ART[mn]
+    ca.data.foreach_set('color', c)
     me.color_attributes.active_color = ca
 print('BAKE OK', len(meshes))
 

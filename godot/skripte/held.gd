@@ -35,6 +35,7 @@ func _ready() -> void:
 	modell = Gebiet.lade_glb("res://daten/held.bin")
 	add_child(modell)
 	Gebiet.male(modell, null, 2, mats)
+	for m in mats: (m as ShaderMaterial).set_shader_parameter("metall", 1.0)   # 348.6 Glanz an Kette und Helm (toon.gdshader)
 	var info: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://daten/held-info.json"))
 	gang = float(info.get("gehen_m_je_s", gang))
 	renn = float(info.get("rennen_m_je_s", 0.0))

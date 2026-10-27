@@ -191,7 +191,7 @@ def finish(nt, col, name):
         col = _mix(nt, _m(nt, 'MULTIPLY', cav, 0.6 * W), col, lin(hx(0x2A2420)))
     # 348.6 (Helfer Lauf 80–90 „Helm wie Muetze“, t78 „Helm ohne Metall“): das Spiel zeichnet ohne Glanzlicht (specular_disabled), darum
     # Glanz gemalt: Lichtfleck oben vorn, dunkles Spiegelband darunter, feine senkrechte Schliffspuren; Probe HELM_GLANZ=1 (Vorgabe 0 wie bisher)
-    hg = float(os.environ.get('HELM_GLANZ', '0')) if FIGUR == 'held' else 0.0
+    hg = float(os.environ.get('HELM_GLANZ', '1')) if FIGUR == 'held' else 0.0   # Vorgabe 1 seit Glanz im Zeichner (Helfer blind mit HELM_FORM 3: 1 besser, 5 gleich)
     if name in ('helm', 'helmrim') and hg > 0:
         dp = nt.nodes.new('ShaderNodeVectorMath'); dp.operation = 'DOT_PRODUCT'
         nt.links.new(geo.outputs['Normal'], dp.inputs[0]); dp.inputs[1].default_value = Vector((0.35, -0.45, 0.82)).normalized()
@@ -942,7 +942,7 @@ if FG['kopf'] == 'helm':
             t_ = max(0.0, min(1.0, (v.co.z - 3.0) / 9.0))
             xy_ = Vector((v.co.x, v.co.y, 0))
             v.co += xy_.normalized() * 0.35 * (1 - t_) - xy_ * 0.22 * t_ ** 3 + Vector((0, 0, form_ * t_ ** 2.2))
-    kamm_ = float(os.environ.get('HELM_KAMM', '0')) if FIGUR == 'held' else 0.0
+    kamm_ = float(os.environ.get('HELM_KAMM', '0.5')) if FIGUR == 'held' else 0.0   # Vorgabe 0,5 mit HELM_GLANZ (Helfer: spitz mit hellem Grat, eher Eisen)
     if kamm_ > 0:   # 348.6 („Helm wie Muetze“): Grat von der Stirn ueber den Scheitel in den Nacken, Kappe gegen Haube unterscheidbar; Probe HELM_KAMM=0.5 (Vorgabe 0)
         for v in hm_.data.vertices:
             u_ = max(0.0, min(1.0, (v.co.z - edge_u(v.co)) / 3.0))

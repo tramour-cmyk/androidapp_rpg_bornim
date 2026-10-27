@@ -14,7 +14,14 @@ uniform vec3 glow_col : source_color = vec3(1.0, 0.72, 0.38);          // Glas: 
 uniform float kontur = 0.0;        // Busch: Tusche im Zeichner nach dem Licht, Schattenseite kraeftig, Lichtseite keine (Chef 25.10., 10:16)
 uniform vec3 licht_dir = vec3(0.0, 1.0, 0.0);   // zur Sonne, Welt (Licht.richtung)
 uniform vec3 ink : source_color = vec3(0.07, 0.05, 0.04);              // wie tusche.gdshader
+// 348.6 Glanz (Helfer: Kettenhemd fern wie Filz, Helm wie Wollmuetze): nur am Helden (held.gd), Metall aus der Deckkraft der Eckfarben
+// (rig.py: 1 matt, 0,5 Kette, 0 blankes Eisen); Glanzpunkt nach Licht und Blick, hart abgestuft wie die Lichtstufen
+uniform float metall = 0.0;
+uniform float glanz_eisen = 0.9;
+uniform float glanz_kette = 0.5;
 varying vec3 wpos;
+varying float v_eisen;
+varying float v_kette;
 void vertex() {
 	wpos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
 	if (sway > 0.0) {
@@ -56,6 +63,8 @@ void fragment() {
 		float w = mix(0.88, 0.62, sch);   // im Schatten breiter; Helfer Runde 9: schwarze Keile in den Naehten zwischen den Ballen -> schmaler, nur halb deckend
 		ALBEDO = mix(ALBEDO, ink, smoothstep(w, w + 0.1, rim) * smoothstep(0.2, 0.7, sch) * 0.6 * kontur);
 	}
+	v_eisen = metall * (1.0 - smoothstep(0.15, 0.35, COLOR.a));
+	v_kette = metall * smoothstep(0.15, 0.35, COLOR.a) * (1.0 - smoothstep(0.65, 0.85, COLOR.a));
 	ROUGHNESS = 1.0;
 	SPECULAR = 0.0;      // kein Glanz aus der Umgebung (sonst Plastik)
 	METALLIC = 0.0;
@@ -69,4 +78,11 @@ void light() {
 	else b = ndl * smoothstep(0.0, 1.0, ATTENUATION);                                                     // Lampen, Fackel: weicher Schein
 	if (LIGHT_IS_DIRECTIONAL) b = max(b, fill);
 	DIFFUSE_LIGHT += b * LIGHT_COLOR / PI;
+	if (v_eisen + v_kette > 0.0) {
+		float nh = clamp(dot(NORMAL, normalize(LIGHT + VIEW)), 0.0, 1.0);
+		// Runde 2 (Helfer blind: weisser, ausgebrannter Fleck wie Plastik, Kragen wie Waesche): Glanz in der Farbe des Metalls, schmaler
+		float s = smoothstep(0.88, 0.93, nh) * glanz_eisen * v_eisen + smoothstep(0.8, 0.92, nh) * glanz_kette * v_kette;
+		vec3 lc = LIGHT_COLOR / max(1.0, max(LIGHT_COLOR.r, max(LIGHT_COLOR.g, LIGHT_COLOR.b)));   // Fackel nah: nicht ausbrennen
+		SPECULAR_LIGHT += s * min(ndl * ATTENUATION, 1.0) * lc * ALBEDO;
+	}
 }
