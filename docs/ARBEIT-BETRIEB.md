@@ -31,7 +31,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 - **369:** Chef 26.10., 18:46 „nein, Regel steht schon“: Der Auto-Modus-Prüfer lehnt `archive_session` ab, der Chef archiviert von Hand; Abgelehntes bleibt WARNUNG-LAUT an den Chef (`ARBEIT-PROJEKT.md` „Zu 369“).
 - **Werkzeugfehler `lauf.py`, an Perikles (Ford 27.10., 00:04):** Nachfolger-Name mit Terminvermerk („den Stand zum Marktstart 27.10. startet `lauf.py` um 7:30 …“) löst Sofortstart aus; Ford führt ihn nicht aus. Namen kurz halten oder das Werkzeug soll Termin in Klammern erkennen.
 - **Werkzeugfehler `lauf.py`, an Perikles (Ford 25.10.):** Offen, Perikles prüft: Doppelbuchung Sokrates alt 7,10 $ auf Betrieb und auf 361/89/362/142. Dazu 27.10.: `lauf.py --kosten` meldet nach jedem Lauf der Neustarts „Kosten …: –“ (nur Gesamtsumme in der Ausgabe, Zeile des Vorgangs nicht sichtbar): bitte prüfen.
-- **348.7a (Ford 27.10., 08:17):** „Jerry – 348.7a nach Chefwort 3D oder flach“ erst starten, wenn der Chef `3487a-flugbahn` beantwortet hat; Jerry läuft inzwischen mit 348.7 Riesenfledermaus (`01Hmoj79q`, Perikles).
+- **348.7a (Ford 27.10., 08:17):** „Jerry – 348.7a nach Chefwort 3D oder flach“ erst starten, wenn der Chef `3487a-flugbahn` beantwortet hat (**beantwortet 09:38: „3D, Effekte als Tafeln“, Archiv; startbar**, Sokrates); Jerry läuft inzwischen mit 348.7 Riesenfledermaus (`01Hmoj79q`, Perikles).
 - **318, von Sokrates (22.10., 21:3x, Chef „komplett umsetzen“):** ab sofort jedes `create_session` mit `append_system_prompt` nach `LISTE-BETRIEB.md` (Zeile „Kennungen“); Antwortstil „Knapp“ steht in `.claude/settings.json`. Zeile nach dem ersten Start mit Anhang streichen.
 
 ## Protokoll
