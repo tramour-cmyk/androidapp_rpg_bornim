@@ -8,16 +8,16 @@ from mathutils import Vector
 
 # Regler (0 = wie gekauft): breite, kiefer, laenge = Anteil (0,1 = 10 %); kinn (vor), wangen (aussen), brauen (vor) in m; nase Anteil
 REGLER = ('breite', 'kiefer', 'laenge', 'kinn', 'nase', 'wangen', 'brauen')
-FORMEN = {   # Helfer 20:2x: schmal = hager, rund = kantig: weiter auseinander (schmal lang und eng, rund kurz und voll,
-             # kantig nur der Kiefer breit mit Kinn und Brauen vor, hager mit hohen Wangen, langer Nase, langem Kinn)
+FORMEN = {   # Pruefer 20:2x/20:33: schmal = hager = gekauft, kantig einseitig gebeult: schmal nur eng, hager lang mit hohen Wangen
+             # und langer Nase, kantig der Kiefer breit mit Kinn und Brauen vor (Kiefer weicher nach hinten, kopf.feld)
     'gekauft': {},
-    'schmal':  {'breite': -0.10, 'kiefer': -0.16, 'laenge': 0.08, 'kinn': 0.003, 'wangen': -0.003, 'nase': 0.05},
-    'rund':    {'breite': 0.12, 'kiefer': 0.20, 'laenge': -0.08, 'kinn': -0.006, 'wangen': 0.006, 'nase': -0.15, 'brauen': -0.002},
-    'kantig':  {'breite': 0.02, 'kiefer': 0.28, 'laenge': 0.03, 'kinn': 0.010, 'brauen': 0.007, 'nase': 0.15},
-    'hager':   {'breite': -0.04, 'kiefer': -0.02, 'laenge': 0.12, 'kinn': 0.006, 'wangen': 0.008, 'brauen': 0.006, 'nase': 0.25},
+    'schmal':  {'breite': -0.12, 'kiefer': -0.18, 'laenge': 0.05, 'wangen': -0.004},
+    'rund':    {'breite': 0.12, 'kiefer': 0.18, 'laenge': -0.08, 'kinn': -0.006, 'wangen': 0.006, 'nase': -0.15, 'brauen': -0.002},
+    'kantig':  {'breite': 0.02, 'kiefer': 0.22, 'laenge': 0.03, 'kinn': 0.010, 'brauen': 0.008, 'nase': 0.12},
+    'hager':   {'breite': -0.02, 'laenge': 0.15, 'kinn': 0.008, 'wangen': 0.010, 'brauen': 0.007, 'nase': 0.30},
 }
 # Haut (Faktor auf das Bild): die Textur ist hell-rosig
-HAUT = {'hell': (1.04, 1.0, 0.98), 'mittel': (1.0, 1.0, 1.0), 'warm': (0.88, 0.76, 0.62), 'gebraeunt': (0.80, 0.68, 0.56),
+HAUT = {'hell': (1.16, 1.12, 1.08), 'mittel': (1.0, 1.0, 1.0), 'warm': (0.88, 0.76, 0.62), 'gebraeunt': (0.80, 0.68, 0.56),
         'dunkel': (0.58, 0.46, 0.38), 'blass': (0.98, 0.98, 1.0)}
 
 
@@ -81,7 +81,7 @@ def feld(W, p, f):
     D = np.zeros_like(W)
     D[:, 0] += x * f.get('breite', 0.0) * w
     # Kiefer: unter der Nase, vorn und seitlich (hinter dem Ohr nicht)
-    wj = (1 - _glatt(p['mund_z'], p['augen_z'] - 0.01, z)) * (1 - _glatt(p['mitte'][1] + 0.02, p['mitte'][1] + 0.07, y))
+    wj = (1 - _glatt(p['mund_z'], p['augen_z'] - 0.01, z)) * (1 - _glatt(p['mitte'][1] - 0.01, p['mitte'][1] + 0.09, y))
     D[:, 0] += x * f.get('kiefer', 0.0) * w * wj
     # Laenge: unter den Augen gestreckt
     unter = z < p['augen_z']

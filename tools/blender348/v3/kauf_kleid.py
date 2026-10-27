@@ -233,12 +233,19 @@ iH = Q_KN.index('Head'); iN = Q_KN.index('neck_01') if 'neck_01' in Q_KN else iH
 hals_y = float(QV[WQ[:, iN] > 0.5][:, 1].mean()) if (WQ[:, iN] > 0.5).any() else 0.0
 vk = (WQ[:, iH] > 0.5) & (QV[:, 1] < hals_y - 0.04)
 KINN_Z = float(QV[vk][:, 2].min()) if vk.any() else 1e9
-c = KINN_Z - float(os.environ.get('KRAGEN_FREI', '0.012')); sw = 0.004
-vorn = np.clip((hals_y + 0.01 - VK2[:, 1]) / 0.04, 0, 1); vorn = vorn * vorn * (3 - 2 * vorn)
-z = VK2[:, 2]; zs = c - sw * np.logaddexp(0, (c - z) / sw)   # weiches Minimum von z und c
+# Prueferin 2 (20:33): weiches Abschneiden bei c riss den Kragen (Zacken, Haut durch): statt dessen der ganze Kragen ueber dem
+# Halsansatz gleichmaessig gestaucht (Faktor je Ecke nach vorn/hinten), oben vorn KRAGEN_FREI unter dem Kinn
+c = KINN_Z - float(os.environ.get('KRAGEN_FREI', '0.015'))
+vorn = np.clip((hals_y + 0.01 - VK2[:, 1]) / 0.05, 0, 1); vorn = vorn * vorn * (3 - 2 * vorn)
 nahe = np.linalg.norm(VK2[:, :2] - np.array([0.0, hals_y]), axis=1) < 0.13
-neu_z = np.where(nahe, z + vorn * (zs - z), z)
-print('KRAGEN gesenkt', int((np.abs(neu_z - z) > 0.002).sum()), 'Ecken, Kinn %.3f, hoechstens %.1f cm' % (KINN_Z, 100 * float(np.abs(neu_z - z).max())))
+z = VK2[:, 2]
+basis = float(QV[WQ[:, iN] > 0.3][:, 2].min()) if (WQ[:, iN] > 0.3).any() else c - 0.08   # Halsansatz
+oben = float(z[nahe & (VK2[:, 1] < hals_y)].max()) if (nahe & (VK2[:, 1] < hals_y)).any() else c
+f = 1.0 if oben <= c else (c - basis) / max(oben - basis, 1e-3)
+rr = np.clip((np.linalg.norm(VK2[:, :2] - np.array([0.0, hals_y]), axis=1) - 0.09) / 0.06, 0, 1); rr = 1 - rr * rr * (3 - 2 * rr)
+fz = 1.0 + vorn * rr * (f - 1.0)
+neu_z = np.where(z > basis, basis + (z - basis) * fz, z)
+print('KRAGEN gestaucht', int((np.abs(neu_z - z) > 0.002).sum()), 'Ecken, Kinn %.3f, Halsansatz %.3f, oben %.3f, Faktor vorn %.2f' % (KINN_Z, basis, oben, f))
 VK2[:, 2] = neu_z
 
 # ---------------------------------------------------------------- 7. Koerper unter der Kleidung weg

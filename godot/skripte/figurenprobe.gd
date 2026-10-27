@@ -45,8 +45,8 @@ const FELDER_TRACHT := [
 # Helfer 20:2x (Kopf stark gesenkt, Augen halb zu; fremd im Stehen 13-22 Grad, geruest.py hebt unseren Helden auf -3 Grad): den Kopf
 # nach der Bewegung hoechstens bis ZIEL heben, solange der Rumpf aufrecht ist (Tod, Ausweichen nicht); Heben nach oben bleibt
 class KopfHeben extends SkeletonModifier3D:
-	const ZIEL := -3.0
-	const HOECHSTENS := 20.0
+	const ZIEL := 0.0         # Pruefer 20:33: bei -3 im Bild noch gesenkt (Kamera von oben)
+	const HOECHSTENS := 25.0
 	var vorher := 999.0
 	var gehoben := 0.0
 	func _process_modification() -> void:
@@ -147,7 +147,7 @@ func lade_figur(k: String) -> void:
 	mats[k] = ms
 	var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
 	var kh := KopfHeben.new()
-	sk.add_child(kh)
+	if "--ohneheben" not in OS.get_cmdline_user_args(): sk.add_child(kh)
 	heber[k] = kh
 	# Bewegungen der UAL auf diese Knochen: nur Drehungen (die Laengen sind die der Figur); das Becken bewegt sich mit,
 	# im Verhaeltnis der Beckenhoehe (Halbling, Zwerg)
@@ -541,7 +541,7 @@ func koepfe() -> void:
 		protokoll.append("BILD kopf_%s Kopf %s Neigung Bewegung %.1f Grad, gehoben %.1f" % [k, kopf, heber[k].vorher, heber[k].gehoben])
 	kam.neigung = -30.0
 	var sr := SPIELREIHE.filter(func(k): return k in figuren)
-	stelle(sr, 0.75, mitte)
+	stelle(sr, 0.6, mitte)   # Pruefer 20:33: Randfiguren bei 0,75 abgeschnitten
 	z.position = mitte
 	zoom(Kamera.NAH)
 	kam.springe()
