@@ -190,9 +190,12 @@ def finish(nt, col, name):
         col = _mix(nt, _m(nt, 'MULTIPLY', sc, 0.25 * W), col, lin(hx(0xA89880)))    # Kratzer
     # Runde 2 (Helfer: Rocksaum braun): bei den Leuten Schlamm nur an Stiefeln und Hose, nicht am Rock
     if name in (('boots', 'cuff', 'pants', 'cloak', 'tabard') if FIGUR == 'held' else ('boots', 'cuff', 'pants')):
-        top = 20 + 55 * W
+        # 348.6 (Helfer am Spielbild: Unterkoerper grau-braun verwaschen, Beine auf dem Weg kaum vom Boden zu trennen): Schlamm 7A6448 lag
+        # beim Helden bis etwa 50 cm deckend auf Hose und Stiefeln, fast die Farbe des Wegs; SCHLAMM=<f> kuerzt Hoehe und Deckung (1 wie bisher)
+        sf = float(os.environ.get('SCHLAMM', '1'))
+        top = 20 + 55 * W * sf
         mud = _sat(nt, _m(nt, 'ADD', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', top, Z), 9.0), _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', blot, 0.5), 2.2)))
-        col = _mix(nt, _m(nt, 'MULTIPLY', mud, 0.95), col, lin(hx(0x7A6448)))         # Schlamm
+        col = _mix(nt, _m(nt, 'MULTIPLY', mud, 0.95 * min(1.0, 0.4 + 0.6 * sf)), col, lin(hx(0x7A6448)))         # Schlamm
     return col
 # ---------------------------------------------------------------- Materialien mit Modus-Weiche
 MATS = {}
