@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 16:45 27.10.: Neustart Tom angenommen (`9aa291ab1`), Nachfolger `01Hmoj79D3` „Tom – 376.1 Trachtfilm, Prüfung, an den Chef“ gestartet; alter Tom `01Hmoj767w` archiviert, 6,88 $ auf 376.1
 - 16:30 27.10.: Neustart Jerry angenommen (`e85ffc292`), Nachfolger `01Hmoj78DT` „Jerry – 348.12 Fehlerprüfung Hieb r7, 348.7a Runde 6“ gestartet; alter Jerry `01Hmoj76FQ` und Tom `01Hmoj77Ko` archiviert und gebucht (18,20 $ auf 348.12f, 348.7a; 4,62 $ auf 376.1). Jerry meldet: 348.3 „wartet auf Chef“ ohne Chefsache-Datei (Befund 378, Perikles)
 - 16:08 27.10.: Neustart Tom angenommen (`37e7f73ab`), Nachfolger `01Hmoj767w` „Tom – 376.1 Tracht und Film rendern, prüfen, an den Chef“ gestartet; alter Tom `01Hmoj77Ko` archivieren, sobald `idle` (Kosten auf 376.1)
 - 16:05 27.10.: Lauf; Sokrates „376 begleiten (14:40)“ und Diogenes „275 Stufe 1 prüfen“ (Vorrat leer) archiviert und gebucht (9,18 $ auf 376, 275; 2,58 $ auf 275); sonst nichts zu starten, Tom/Jerry laufen
