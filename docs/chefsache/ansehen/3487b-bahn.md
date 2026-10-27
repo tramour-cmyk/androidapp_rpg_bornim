@@ -1,5 +1,4 @@
-# 348.7b · Zauberbahn hoch über die Köpfe (A) oder flach quer über Wolf 3 (B)?
-Jerry · 27.10., 18:33 · E Kampf · Aussehen
+# 348.7b · Zauberbahn hoch über die Köpfe (A) oder flach quer über Wolf 3 (B)? · Jerry · 27.10., 18:33
 Kurz: Zauberbahn A hoch über die Köpfe oder B flach quer über Wolf 3?
 
 **Frage:** In der Aufstellung des Wolfsrudels stehen Mira und Wolf 3 am Schirm wie eine Wand zwischen Magier (unten links) und Wolf 1 (oben rechts). Jede Bahn muss entweder hoch drüber (A) oder quer über Wolf 3 (B). Welche?
