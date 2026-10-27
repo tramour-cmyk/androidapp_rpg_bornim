@@ -60,14 +60,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:05 27.10.: Lauf; Start Homer-Nachfolger (Übergabe, 348.12c erledigt, `--ohne` griff nicht beim Nachfolger) `01Hmoj782P` und Perikles 338a `01Hmoj75Sn`; alte Homer und Perikles archiviert, 2,21 $ und 1,25 $ gebucht. Tom/Jerry/Sokrates laufen
 - 09:46 27.10.: Neustart Jerry angenommen (66a981053 auf main): Start „Jerry – 348.7a Geschosse in 3D“ `01Hmoj77Zu` (Chef hat 3487a entschieden); alter Jerry archiviert, Kosten fehlen (Sitzung lieferte keine Zahl)
 - 09:40 27.10.: Neustart Tom angenommen (d0908c130 auf main): Start „Tom – 348.6 Kampfbewegungen Runde 2“ `01Hmoj75zb`, alter Tom archiviert, 9,86 $ gebucht
-- 09:31 27.10.: Sokrates auf Zuruf des Chefs gestartet `01Hmoj78Yk`; 09:28 Perikles 371 `01Hmoj79Ae`; neuer Ford (Tiefe 0) übernimmt Uhr
-- 09:08 27.10.: Neustart Jerry angenommen (b86e4d044 auf main, Nachfolger in Übergabe): Start „Jerry – 348.7 Riesenfledermaus Runde 4 (27.10., 09:08)“
-- 09:03 27.10.: Neustart Tom angenommen (8274a5378 auf main): Start nach Perikles' Vorrang als „Tom – 348.6 Kampfbewegungen des Helden für Jerry (27.10., 09:03)“ statt „Helmform, Saum Kettenhemd“
-- 08:50 27.10.: Neustart Jerry angenommen (Übergabe e961978b4 auf main; genannter Commit 614ef2956 nicht auf origin): Start „Jerry – 348.7 Riesenfledermaus Runde 3 (27.10., 08:50)“
-- 08:17 27.10.: Start „Jerry – 348.7 Riesenfledermaus mit Vogelskelett (27.10., 08:17)“ `session_01Hmoj75vX6Z7EFP57RtBRAo` auf Perikles' Vorrang (338.1); alter Jerry `01Hmoj75Q` zur Übergabe aufgefordert
-- 08:07 27.10.: Lauf; Start „Perikles – Stand zum Marktstart 27.10.“ `session_01Hmoj75j5Wuu9TbGJZNX6Cf` (Tagesbericht); Perikles-Nachfolger-Start (Terminname) damit erledigt
-- 07:10 27.10.: Morgenmeldung `--laut`; Vorrat gekürzt (Übergabe, Eingang, Protokoll)
-- 00:04 27.10.: Lauf; START Perikles (Terminname, `lauf.py` startet ihn sofort) und START Sokrates (Nachtvertretung läuft, 362) nicht ausgeführt
 - 07:04 26.10.: Startsperre 07:04 Start Perikles (lauf.py)
 - 07:04 26.10.: Marke Abgleich Vorentscheid 348.6 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 07:04 26.10.: Marke Abgleich Vorentscheid-Bremse (194.1): 8 ungebilligt, 0 älter als 7 Ta (lauf.py)
@@ -106,3 +98,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:05 27.10.: Startsperre 10:05 Start Homer, Perikles (lauf.py)
 - 10:05 27.10.: Marke Archiv session_01Twr8DKumpNBQFzjt1faRwK (lauf.py)
 - 10:05 27.10.: Marke Archiv session_01Hmoj79AezEQYw2pW8hJJJN (lauf.py)
+- 12:44 27.10.: Startsperre 12:44 Start Perikles (lauf.py)
+- 12:44 27.10.: Marke Archiv session_01Hmoj75Q3H9eTeXLS1ojGTE (lauf.py)
+- 12:44 27.10.: Nachfolger-Warnung Diogenes (Übergabe 27.10., 10:35) (lauf.py)
