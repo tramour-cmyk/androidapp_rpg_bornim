@@ -4,11 +4,19 @@
 # des Kaufs entsättigt und dunkler), unsere Fellstriche; im Spiel trägt figur.gd Shader und Tusche (Probe ERSATZ=kauf_<tier>).
 # Größe wie im Kauf (Janpec in Metern), Bewegungen auf der Stelle (kein Wurzelweg), Augen nicht eigens bemalt.
 # Aufruf: TIER=keiler KAUF=<ordner> OUT=<ordner> python -I kauftier.py  ->  <OUT>/kauf_<tier>-<fell>.glb, kauf_<tier>-info.json
+# Runde 2 (Chef 27.10., 22:31, Archiv: alle außer Schwein und Gans, mit Nacharbeit; 22:34 „Alles in eins packen“, mit Bewegung über
+# den Platz): Boden und Mitte aus dem Stehen (vorher Ruhe mit allen NLA-Spuren: die oberste, der Tod des Keilers, setzte das Maß,
+# Keiler 0,44 m hoch und 0,3 m seitlich); Tod des Keilers liegt in der Quelle rückwärts (vom Liegen zum Stehen, gemessen), wird
+# gespiegelt (RUECKWAERTS); Hundertfüßer 1,5 m lang (LISTE-FIGUREN 1,4–1,6 m; Kauf 1,24 m), blauschwarz heller; Huhn und
+# Kaninchen unsere Felle, gesättigte Stellen (Kamm, Schnabel, Beine) behalten die Farbe des Kaufs (BEHALTEN); Wurzelweg „weg“ für
+# Gehen und Rennen im Tempo der Pfoten am Boden und „biss“ wie kaufwolf.py; Pfoten der Vierbeiner heißen wie beim Wolf (vpfoteL …,
+# figur.gd Pfotenschatten und Pfotenhalt).
 import os, sys, glob, json, math, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 T0 = time.time()
 import bpy
 import numpy as np
+from mathutils import Vector
 from kaufratte import lin, srgb, tris, aktion_von, weg as entferne, slot, welt_netz, fellstriche, TEX
 
 KAUF = os.environ.get('KAUF', '')
@@ -26,20 +34,36 @@ TIERE = {
     'hundertfuesser': {'rig': 'skin.FBX', 'anim': '%s.FBX', 'tex': 'centipede*',
                'namen': {'Stehen': 'idle', 'Gehen': 'walk', 'Biss': 'attack', 'Treffer': 'hit', 'Drohen': 'alert', 'Tod': 'die'},
                # LISTE-FIGUREN.md Riesen-Hundertfüßer: rostrot (gelbe Beine), blauschwarz (rote Beine), ocker und schwarz
-               'felle': {'rost': (0x6A2A1A, 0x2A100C, 0x8A6A2A), 'blauschwarz': (0x1E2028, 0x0A0A10, 0x5A1A14), 'ocker': (0x7A5A2A, 0x161210, 0x8A7040)}},
+               # Runde 2 (Prüfer: blauschwarz fast schwarz, Zeichnung unsichtbar): heller
+               'felle': {'rost': (0x6A2A1A, 0x2A100C, 0x8A6A2A), 'blauschwarz': (0x3A4258, 0x161A26, 0x8A2E20), 'ocker': (0x7A5A2A, 0x161210, 0x8A7040)},
+               'laenge': 1.5,
+               # Prüfer: Gehen kaum vom Stehen zu unterscheiden (die Beine schieben 0,05–0,07 m/s): Gehen schneller abgespielt bis zu diesem
+               # Tempo, Rennen = Gehen doppelt so schnell (der Kauf hat kein Rennen)
+               'tempo_ziel': {'Gehen': 0.35}, 'rennen_aus_gehen': 2.0},
     'rind': {'rig': 'Cattle_Rig.fbx', 'anim': 'Cattle_%s.fbx', 'tex': 'iron_age_cattle_col_unity*',
              'namen': {'Stehen': 'Idle', 'Gehen': 'Walk', 'Rennen': 'Run', 'Stoss': 'Attack', 'Fressen': 'Eat', 'Tod': 'Die'}, 'felle': {'natur': None}},
     'ziege': {'rig': 'Goat_Rig.fbx', 'anim': 'Goat_%s.fbx', 'tex': 'goat_col*',
               'namen': {'Stehen': 'Idle', 'Stehen2': 'Idle02', 'Gehen': 'Walk', 'Rennen': 'Run', 'Stoss': 'Attack', 'Fressen': 'Eat', 'Tod': 'Die'}, 'felle': {'natur': None}},
     'huhn': {'rig': 'Chicken_Rig.fbx', 'anim': 'Chicken_%s.fbx', 'tex': 'chicken_col14*',
-             'namen': {'Stehen': 'Idle', 'Gehen': 'Walk', 'Rennen': 'Run', 'Fressen': 'Eat', 'Tod': 'Die'}, 'felle': {'natur': None}},
+             'namen': {'Stehen': 'Idle', 'Gehen': 'Walk', 'Rennen': 'Run', 'Fressen': 'Eat', 'Tod': 'Die'},
+             # Runde 2 (Prüfer: reinweiß, Kamm, Schnabel, Auge unsichtbar): braun, hell, schwarz; Kamm und Schnabel aus dem Kauf
+             'felle': {'braun': (0x8A5A30, 0x4A2A14, 0xB08050), 'hell': (0xC8BCA0, 0x8C806A, 0xDAD2BE), 'schwarz': (0x34322C, 0x181814, 0x4E4A40)},
+             'behalten': 0.35},
     'schwein': {'rig': 'iron_age_pig_rig_exp.FBX', 'anim': 'iron_age_pig_%s_anim.FBX', 'tex': 'iron_age_pig_col_unity*',
                 'namen': {'Stehen': 'idle', 'Gehen': 'walk', 'Fressen': 'eat', 'Tod': 'die'}, 'felle': {'natur': None}},
     'gans': {'rig': 'swan_goose_rig_exp.FBX', 'anim': 'swan_goose_%s_anim.FBX', 'tex': 'swan_goose_col*',
              'namen': {'Stehen': 'idle', 'Gehen': 'walk', 'Rennen': 'run', 'Fressen': 'eat', 'Tod': 'die'}, 'felle': {'natur': None}},
     'kaninchen': {'rig': 'WildRabbit_Rig.fbx', 'anim': 'WildRabbit_%s.fbx', 'tex': 'wild_rabbit_col5*',
-                  'namen': {'Stehen': 'Idle', 'Gehen': 'Walk', 'Rennen': 'Run', 'Fressen': 'Eat', 'Tod': 'Die'}, 'felle': {'natur': None}},
+                  'namen': {'Stehen': 'Idle', 'Gehen': 'Walk', 'Rennen': 'Run', 'Fressen': 'Eat', 'Tod': 'Die'},
+                  # Runde 2 (Prüfer: fast schwarz, ohne Zeichnung): Wildkaninchen graubraun, braun, grau mit hellem Bauch
+                  'felle': {'graubraun': (0x6E5C46, 0x3A3024, 0xB4A68E), 'braun': (0x7A5A3A, 0x40301E, 0xB09A7A), 'grau': (0x6A6660, 0x34322E, 0xA8A49A)},
+                  'behalten': 0.45},
 }
+# Runde 2: Bewegungen, die in der Quelle rückwärts liegen (gemessen: Tod des Keilers beginnt liegend, 0,44 m unter dem Boden, und
+# endet stehend)
+RUECKWAERTS = {'keiler': ['Tod']}
+# Vierbeiner von Janpec: Pfoten wie beim Wolf (kaufwolf.py), für Pfotenschatten und Pfotenhalt in figur.gd
+PFOTEN = {'l_FrontLeg_BallSHJnt': 'vpfoteL', 'r_FrontLeg_BallSHJnt': 'vpfoteR', 'l_HindLeg_BallSHJnt': 'hpfoteL', 'r_HindLeg_BallSHJnt': 'hpfoteR'}
 TIER = os.environ.get('TIER', 'keiler')
 T = TIERE[TIER]
 ID = 'kauf_' + TIER
@@ -72,7 +96,7 @@ def uv_belegt(meshes):
     return np.asarray(bel) > 127
 
 
-def bemalung(src, fell, farben, bel, striche):
+def bemalung(src, fell, farben, bel, striche, behalten=None):
     from PIL import Image, ImageFilter
     s = np.asarray(Image.open(src).convert('RGB').resize((TEX, TEX), Image.LANCZOS)).astype(np.float32) / 255.0
     L = 0.2126 * s[..., 0] + 0.7152 * s[..., 1] + 0.0722 * s[..., 2]
@@ -88,11 +112,89 @@ def bemalung(src, fell, farben, bel, striche):
         fu, sa, be = (lin(h) for h in farben)
         farbe = np.where(t < 0.5, sa + (fu - sa) * (t / 0.5), fu + (be - fu) * ((t - 0.5) / 0.5)) * fein[..., None] ** 1.3
     farbe = farbe * np.clip(striche, 0.3, 1.8)[..., None] ** 0.9
+    if behalten is not None and farben is not None:     # Kamm, Schnabel, Beine: gesättigte Stellen des Kaufs bleiben (dunkler)
+        mx, mn = s.max(-1), s.min(-1)
+        sat = (mx - mn) / np.maximum(mx, 1e-3)
+        m = (sat > behalten) & (mx > 0.2)
+        ln = np.where(s <= 0.04045, s / 12.92, ((s + 0.055) / 1.055) ** 2.4)
+        farbe = np.where(m[..., None], ln * DUNKLER, farbe)
+        print('BEHALTEN %s %s: %.1f %% der Fläche in der Farbe des Kaufs' % (TIER, fell, 100.0 * float((m & bel).sum()) / max(int(bel.sum()), 1)))
     farbe = np.where(bel[..., None], farbe, np.median(farbe[bel], axis=0))
     print('BEMALUNG %s %s: Quelle Helligkeit p5 %.3f p95 %.3f, neu Mittel %.3f' % (TIER, fell, p5, p95, float(farbe[bel].mean())))
     p = os.path.join(OUT, '%s-bemalung-%s.png' % (ID, fell))
     Image.fromarray((srgb(farbe) * 255).astype(np.uint8)).save(p)
     return p
+
+
+def setze(rig, a):
+    rig.animation_data.action = a
+    if slot(a) is not None: rig.animation_data.action_slot = slot(a)
+
+
+def kurven(a):
+    try:
+        return list(a.fcurves)
+    except AttributeError:     # Blender 5: Kurven in Ebenen, Streifen, Kanalbündeln
+        return [fc for l in a.layers for st in l.strips for cb in st.channelbags for fc in cb.fcurves]
+
+
+def spiegeln(a):
+    """Bewegung zeitlich umkehren (Bild f -> f0 + f1 - f), Griffe mit"""
+    f0, f1 = a.frame_range
+    for fc in kurven(a):
+        for kp in fc.keyframe_points:
+            l, r = kp.handle_left.copy(), kp.handle_right.copy()
+            kp.co.x = f0 + f1 - kp.co.x
+            kp.handle_left = (f0 + f1 - r.x, r.y); kp.handle_right = (f0 + f1 - l.x, l.y)
+        fc.update()
+
+
+def am_boden(rig, a, meshes, beine):
+    """Tempo (m/s, Welt) gegen Fußgleiten wie kaufwolf.tempo(): je Bein (Knochen, der in der Schleife den Boden berührt) die Strecke,
+    die er am Boden (höchstens 6 cm über seinem tiefsten Stand) nach hinten (+Y, Blick −Y) läuft, durch die Zeit dafür"""
+    setze(rig, a); W = rig.matrix_world
+    a0, a1 = int(a.frame_range[0]), int(a.frame_range[1])
+    Y, Z = {b: [] for b in beine}, {b: [] for b in beine}
+    for f in range(a0, a1 + 1):
+        bpy.context.scene.frame_set(f)
+        for b in beine:
+            p = W @ rig.pose.bones[b].head; Y[b].append(p.y); Z[b].append(p.z)
+    v = []
+    for b in beine:
+        y, z = np.array(Y[b]), np.array(Z[b])
+        if z.min() > 0.06:
+            continue
+        # am Boden: höchstens 6 cm über dem tiefsten Stand (Rennen: die Pfote rollt ab, mit 3 cm fand sich bei Rind und Ziege kein Bild)
+        d = np.diff(y); unten = (z[1:] < z.min() + 0.06) & (z[:-1] < z.min() + 0.06) & (d > 0)
+        if unten.sum() >= 2:
+            v.append(d[unten].mean() * FPS)
+    v = np.array(v) if v else np.array([0.0])
+    # Median: einzelne Knochen am Boden ohne Schritt (Keiler Gehen 0,07 neben 0,68–0,86 m/s) ziehen das Mittel herunter
+    print('TEMPO %s %s: %d Beine am Boden, m/s %s, Median %.3f' % (TIER, a.name, len(v), ' '.join('%.2f' % x for x in v), float(np.median(v))))
+    return float(np.median(v))
+
+
+def boden_halten(rig, a, meshes):
+    """Runde 2 (Keiler: liegend steckt er 0,44 m im Boden): je Bild den Hauptknochen so weit heben, dass das Netz nicht unter den Boden
+    reicht (Schlüssel je Bild auf seinem Ort)"""
+    setze(rig, a)
+    wurzel = next(b for b in rig.data.bones if b.parent is None)
+    a0, a1 = int(a.frame_range[0]), int(a.frame_range[1])
+    hub = {f: max(0.0, -float(welt_netz(meshes, f)[:, 2].min())) for f in range(a0, a1 + 1)}
+    if max(hub.values()) < 0.01:
+        return
+    inv = (rig.matrix_world.to_3x3() @ wurzel.matrix_local.to_3x3()).inverted()
+    pfad = 'pose.bones["%s"].location' % wurzel.name
+    fcs = {fc.array_index: fc for fc in kurven(a) if fc.data_path == pfad}
+    if len(fcs) < 3:
+        print('BODEN HALTEN: keine Ortskurven am Hauptknochen', wurzel.name); return
+    neu = {f: [fcs[i].evaluate(f) + (inv @ Vector((0.0, 0.0, h)))[i] for i in range(3)] for f, h in hub.items()}
+    for f, w in neu.items():
+        for i in range(3):
+            fcs[i].keyframe_points.insert(f, w[i], options={'FAST'})
+    for fc in fcs.values():
+        fc.update()
+    print('BODEN HALTEN %s: bis %.2f m gehoben (Bild %d)' % (a.name, max(hub.values()), max(hub, key=hub.get)))
 
 
 def baue(fell):
@@ -117,31 +219,27 @@ def baue(fell):
             print('KEINE BEWEGUNG', nm, os.path.basename(f[0])); continue
         a.use_fake_user = True; a.name = 'q_' + nm; akt[nm] = a
         print('BEWEGUNG', nm, '<-', os.path.basename(f[0]), 'Bilder', tuple(round(x, 1) for x in a.frame_range))
+    for nm in RUECKWAERTS.get(TIER, []):
+        if nm in akt:
+            spiegeln(akt[nm]); print('RUECKWAERTS', nm, 'gespiegelt')
     rig.animation_data_create()
     if 'Stehen' in akt:
-        rig.animation_data.action = akt['Stehen']
-        if slot(akt['Stehen']) is not None: rig.animation_data.action_slot = slot(akt['Stehen'])
+        setze(rig, akt['Stehen'])
     f0 = int(akt['Stehen'].frame_range[0]) if 'Stehen' in akt else 1
     P = welt_netz(meshes, f0); lo, hi = P.min(0), P.max(0)
-    rig.animation_data.action = None
     # Bemalung
     bel = uv_belegt(meshes)
     farben = T['felle'][fell]
-    bild = bpy.data.images.load(bemalung(tex, fell, farben, bel, fellstriche(meshes, np.random.default_rng(23), np.zeros((TEX, TEX), bool))))
+    INFO = {'fps': FPS, 'fell': fell, 'dreiecke': tris(meshes), 'knochen': len(rig.data.bones), 'quelle': 'gekauft (387): %s' % os.path.basename(fbx)}
+    bild = bpy.data.images.load(bemalung(tex, fell, farben, bel, fellstriche(meshes, np.random.default_rng(23), np.zeros((TEX, TEX), bool)), T.get('behalten')))
     mat = bpy.data.materials.new('%s-%s' % (ID, fell)); mat.use_nodes = True
     bs = mat.node_tree.nodes['Principled BSDF']; bs.inputs['Roughness'].default_value = 1.0
     im = mat.node_tree.nodes.new('ShaderNodeTexImage'); im.image = bild
     mat.node_tree.links.new(im.outputs['Color'], bs.inputs['Base Color'])
     for o in meshes:
         o.data.materials.clear(); o.data.materials.append(mat)
-    INFO = {'fps': FPS, 'fell': fell, 'dreiecke': tris(meshes), 'knochen': len(rig.data.bones), 'quelle': 'gekauft (387): %s' % os.path.basename(fbx)}
-    for nm, a in akt.items():
-        a2 = a.copy(); a2.name = nm; a2.use_fake_user = True
-        tr = rig.animation_data.nla_tracks.new(); tr.name = nm
-        st = tr.strips.new(nm, int(a2.frame_range[0]), a2)
-        if slot(a2) is not None and hasattr(st, 'action_slot'): st.action_slot = slot(a2)
-        INFO[nm] = round((st.action_frame_end - st.action_frame_start) / FPS, 3)
-    # Blick: Kopf zur langen Achse; Janpec und MadeCG schauen nach −Y oder +Y (Blender), gewünscht −Y (glTF +Z)
+    # Blick: Kopf zur langen Achse; Janpec und MadeCG schauen nach −Y oder +Y (Blender), gewünscht −Y (glTF +Z). Runde 2: Maß, Boden
+    # und Mitte im Stehen, vor den NLA-Spuren (sonst zählt die oberste Spur)
     kb = [b for b in rig.pose.bones if 'head' in b.name.lower()]
     lang = 0 if (hi - lo)[0] > (hi - lo)[1] else 1
     vor = np.sign((rig.matrix_world @ kb[0].head)[lang] - (lo + hi)[lang] / 2) if kb else -1.0
@@ -152,17 +250,71 @@ def baue(fell):
     aussen.rotation_euler = (0, 0, dreh)
     bpy.context.view_layer.update()
     P = welt_netz(meshes, f0); lo, hi = P.min(0), P.max(0)
-    aussen.location = (-(lo[0] + hi[0]) / 2, -(lo[1] + hi[1]) / 2, -lo[2])
+    k = T['laenge'] / float(hi[1] - lo[1]) if 'laenge' in T else 1.0
+    aussen.scale = (k, k, k)
+    aussen.location = (-(lo[0] + hi[0]) / 2 * k, -(lo[1] + hi[1]) / 2 * k, -lo[2] * k)
     bpy.context.view_layer.update()
     P = welt_netz(meshes, f0); lo, hi = P.min(0), P.max(0)
     INFO['hoehe_m'] = round(float(hi[2] - lo[2]), 3); INFO['laenge_m'] = round(float(hi[1] - lo[1]), 3); INFO['breite_m'] = round(float(hi[0] - lo[0]), 3)
-    print('MASS %s: breit %.2f lang %.2f hoch %.2f m, Drehung %.0f°, Kopfknochen %s' % (TIER, hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2], math.degrees(dreh), kb[0].name if kb else '-'))
+    print('MASS %s: breit %.2f lang %.2f hoch %.2f m, Boden %.3f, Maßstab %.2f, Drehung %.0f°, Kopfknochen %s' % (TIER, hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2], lo[2], k, math.degrees(dreh), kb[0].name if kb else '-'))
+    if 'Tod' in akt:
+        boden_halten(rig, akt['Tod'], meshes)
+    for nm in ('Tod', 'Gehen', 'Rennen'):     # Prüfwert: Boden je Bewegung (Tod: Anfang und Ende)
+        if nm in akt:
+            setze(rig, akt[nm]); a0, a1 = (int(x) for x in akt[nm].frame_range)
+            print('BODEN %s %s: Bild %d %.3f m, Bild %d %.3f m' % (TIER, nm, a0, welt_netz(meshes, a0)[:, 2].min(), a1, welt_netz(meshes, a1)[:, 2].min()))
+    # Wurzelweg (Modellmeter, +Z vorn): gerade im Tempo der Pfoten; Beine = Knochen, die in Gehen den Boden berühren
+    beine = [b.name for b in rig.pose.bones if b.parent is not None and not b.children and 'tail' not in b.name.lower()]
+    tempo = {}     # figur.gd spielt diese Bewegungen so viel schneller (der Weg ist für Tempo 1)
+    if 'rennen_aus_gehen' in T and 'Gehen' in akt and 'Rennen' not in akt:
+        akt['Rennen'] = akt['Gehen']
+    for nm in ('Gehen', 'Rennen'):
+        if nm in akt:
+            v = am_boden(rig, akt[nm], meshes, beine)
+            if nm == 'Gehen' and 'tempo_ziel' in T and v > 0.0:
+                tempo[nm] = round(max(1.0, T['tempo_ziel']['Gehen'] / v), 2)
+            if nm == 'Rennen' and akt['Rennen'] is akt.get('Gehen'):
+                tempo[nm] = round(tempo.get('Gehen', 1.0) * T['rennen_aus_gehen'], 2)
+            if v > 0.03:
+                INFO.setdefault('weg', {})[nm] = [[0.0, round(v * i / FPS, 4)] for i in range(int(round(akt[nm].frame_range[1] - akt[nm].frame_range[0])) + 1)]
+    if tempo:
+        INFO['tempo'] = tempo; print('TEMPO %s abgespielt mal %s' % (TIER, tempo))
+    # Biss (Kampftiere): Netz am weitesten vorn in der Angriffsbewegung; figur.gd BITE: Abstand Ursprung–Rand des Ziels (Schnauze
+    # 0,07 m im Rand), Zeitpunkt (s), Drehung des Körpers (Grad, + links), damit die Schnauze aufs Ziel zeigt
+    for nm in ('Hauer', 'Biss'):
+        if nm in akt:
+            setze(rig, akt[nm]); a0, a1 = (int(x) for x in akt[nm].frame_range)
+            # Zeitpunkt: der größte Satz nach vorn (Hundertfüßer: bäumt sich auf, Vorderende bis 0,13 m hinter den Ursprung, schlägt dann in
+            # einem Bild 0,36 m vor); ohne solchen Satz der Kopf am weitesten aus der Ruhe (Keiler: Hauer schlägt hoch, vorn ist er im ersten Bild)
+            vorn, aus, k0 = [], [], None
+            for f in range(a0, a1 + 1):
+                P = welt_netz(meshes, f); i = int(P[:, 1].argmin()); vorn.append((f, P[i, 1], P[i, 0]))
+                kk = np.array((rig.matrix_world @ kb[0].head)[:]) if kb else np.zeros(3)
+                k0 = kk if k0 is None else k0
+                aus.append(float(np.linalg.norm(kk - k0)))
+            satz = np.diff([v[1] for v in vorn])
+            j = int(satz.argmin()) + 1 if satz.min() < -0.05 else int(np.argmax(aus))
+            best = vorn[j]
+            INFO['biss'] = [round(float(-best[1] - 0.07), 3), round((best[0] - a0) / FPS, 3), round(-math.degrees(math.atan2(best[2], -best[1])), 1)]
+            print('BISS %s %s: vorn %.2f m bei %.2f s, seitlich %.2f m -> %s' % (TIER, nm, -best[1], (best[0] - a0) / FPS, best[2], INFO['biss']))
+            break
+    rig.animation_data.action = None
+    for nm, a in akt.items():
+        a2 = a.copy(); a2.name = nm; a2.use_fake_user = True
+        tr = rig.animation_data.nla_tracks.new(); tr.name = nm
+        st = tr.strips.new(nm, int(a2.frame_range[0]), a2)
+        if slot(a2) is not None and hasattr(st, 'action_slot'): st.action_slot = slot(a2)
+        INFO[nm] = round((st.action_frame_end - st.action_frame_start) / FPS, 3)
+    for b in list(rig.data.bones):
+        for alt, neu in PFOTEN.items():
+            if b.name.endswith('_' + alt):
+                b.name = neu
     bpy.ops.object.select_all(action='DESELECT')
     for o in [aussen, rig] + meshes: o.select_set(True)
     path = os.path.join(OUT, '%s-%s.glb' % (ID, fell))
     bpy.ops.export_scene.gltf(filepath=path, export_format='GLB', use_selection=True, export_animations=True, export_skins=True,
                               export_animation_mode='NLA_TRACKS', export_yup=True, export_apply=False, export_image_format='JPEG', export_jpeg_quality=88)
-    print('GLB', path, os.path.getsize(path), INFO)
+    print('GLB', path, os.path.getsize(path), {k: v for k, v in INFO.items() if k != 'weg'}, 'Weg', {k: len(v) for k, v in INFO.get('weg', {}).items()})
     return INFO
 
 

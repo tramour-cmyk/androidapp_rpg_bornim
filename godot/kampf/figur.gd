@@ -99,6 +99,10 @@ const RUN_FROM := 1.2
 const BITE := {"Biss": [0.78, 0.5, -7.0], "Sprungbiss": [0.81, 0.6, -11.0]}
 ## dasselbe je Modell aus <art>-info.json „biss“ (kaufwolf.py misst es beim Bau), sonst BITE
 var bite := BITE
+## 387 Runde 2: so viel schneller spielt das Modell eine Bewegung (<art>-info.json „tempo“; Hundertfüßer: Gehen kaum sichtbar), der
+## Wurzelweg gilt für Tempo 1; Maße am Boden („breite_m“, „laenge_m“) für Bodenschatten und Umriss der Kauftiere
+var tempo := {}
+var mass := {}
 
 
 func setup(f, k) -> void:
@@ -118,7 +122,7 @@ func setup(f, k) -> void:
 			sk.add_child(neck)
 	weg = _weg()
 	var skw: Skeleton3D = _find(model, "Skeleton3D") if weg.has("Gehen") else null
-	if skw:
+	if skw and skw.find_bone("vpfoteL") >= 0 and skw.find_bone("hpfoteR") >= 0:     # Pfotenhalt nur mit vier Pfoten
 		halt = preload("res://kampf/pfotenhalt.gd").new()
 		halt.figur = self
 		skw.add_child(halt)
@@ -159,6 +163,8 @@ void fragment() {
 	if wolf and ERSATZ_SCHATTEN.has(ersatz()):
 		var es: Array = ERSATZ_SCHATTEN[ersatz()]
 		pm.size = Vector2(es[0], es[1]) * _scale(); vor = es[2]
+	elif wolf and mass.has("laenge_m"):     # 387 Runde 2 (Prüfer: Schatten in Wolfsgröße, bei Huhn und Kaninchen doppelt so breit): nach dem Kauftier
+		pm.size = Vector2(mass.get("breite_m", 0.4) * 1.3, mass.laenge_m * 0.9) * _scale(); vor = 0.0
 	mi.mesh = pm
 	var m := ShaderMaterial.new()
 	m.shader = shadow_shader
@@ -567,7 +573,7 @@ func _play(name: String, blend := 0.15) -> void:
 	if anim and name in ["Biss", "Hauer"] and not anim.has_animation(name) and anim.has_animation("Hieb"):
 		name = "Hieb"     # 348.12 Runde 3: Goblin auf dem CC0-Gerüst schlägt (sonst schnellt er nur vor)
 	if anim and anim.has_animation(name):
-		anim.play(name, blend)
+		anim.play(name, blend, float(tempo.get(name, 1.0)))
 
 
 func _idle() -> void:
@@ -638,6 +644,11 @@ func _weg() -> Dictionary:
 		weg_fps = float(j[fell].get("fps", 30.0))
 		if j[fell].get("biss") is Array:
 			bite = {"Biss": j[fell].biss}
+		if j[fell].get("tempo") is Dictionary:
+			tempo = j[fell].tempo
+		for k in ["breite_m", "laenge_m"]:
+			if art().begins_with("kauf_") and j[fell].get(k) != null:
+				mass[k] = float(j[fell][k])
 		return j[fell].weg
 	return {}
 
@@ -660,7 +671,7 @@ func _weg_len(nm: String) -> float:
 
 
 func _mps(nm: String) -> float:
-	return _weg_len(nm) / maxf((weg[nm].size() - 1) / weg_fps, 0.1)
+	return _weg_len(nm) / maxf((weg[nm].size() - 1) / weg_fps, 0.1) * float(tempo.get(nm, 1.0))
 
 
 ## 348.12f: geht (weiter als RUN_FROM: rennt) heim im Tempo des Wurzelwegs, die Pfoten gleiten nicht; dort wieder zum Ziel.
@@ -826,7 +837,7 @@ func _auf_zeit(pts: Array, t: float, lauf: String) -> void:
 	if nm + b[3] != _pfad_anim:     # Prüfer r3c: Gehen im Bogen und auf der Geraden hatten dieselbe Schrittfolge
 		_pfad_anim = nm + b[3]
 		if anim and anim.has_animation(nm):
-			anim.play(nm, 0.15, 1.0 if b[3] == "G" else BOGEN_TEMPO)
+			anim.play(nm, 0.15, (1.0 if b[3] == "G" else BOGEN_TEMPO) * float(tempo.get(nm, 1.0)))
 
 
 ## Grad je Sekunde, mit denen ein Tier mit Wurzelweg sich umdreht (180° in 0,4 s)
@@ -1067,6 +1078,8 @@ func _guard(on: bool) -> void:
 ## Halbe Breite am Boden, wie der Bodenschatten (Wolf 1,1 m lang, halb seitlich gesehen; Mensch 0,3 m)
 func body_r() -> float:
 	if fighter.monster != null and fighter.monster.id == Mars.WOLF:
+		if mass.has("laenge_m"):     # 387: Kauftier, wie der Wolf (1,1 m lang, 0,45 m) nach seiner Länge
+			return 0.45 / 1.1 * mass.laenge_m * _scale()
 		return 0.45 * _scale()
 	return HERO_R * (_scale() if fighter.monster != null else 1.0)
 

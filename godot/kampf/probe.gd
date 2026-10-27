@@ -432,6 +432,13 @@ func _ort() -> void:
 	zeig.call("Anlauf")
 	rat.glide_to(h0)
 	await warte.call(2.2)
+	if OS.get_environment("SCHAU_DORF") != "":     # 387 Runde 2: Dorftiere (Rind, Ziege, Huhn, Kaninchen) kämpfen nicht: fressen, Platzwechsel, Tod
+		zeig.call("Fressen")
+		rat._play("Fressen", 0.2)
+		await warte.call(minf(rat.anim.get_animation("Fressen").length, 4.0) if rat.anim and rat.anim.has_animation("Fressen") else 1.0)
+		rat._idle()
+		await _ort_rest(rat, held, h0, zeig, warte)
+		return
 	zeig.call("Biss")
 	rat.announce(null, held)
 	await warte.call(0.4)
@@ -452,6 +459,13 @@ func _ort() -> void:
 	ms = held.strike(rat, {"spell": null})
 	rat.hurt(int(ms * 0.42), false)
 	await warte.call(held.busy_ms / 1000.0 + 0.6)
+	await _ort_rest(rat, held, h0, zeig, warte)
+
+
+## Platzwechsel (weg und zurück), Tod
+func _ort_rest(rat, held, h0: Vector3, zeig: Callable, warte: Callable) -> void:
+	var mess := OS.get_environment("SCHAU_MESS") != ""
+	var ms := 0
 	zeig.call("Platzwechsel")
 	# Kaufwolf r1 (Prüfer: Platz (1,1) liegt beim Wolf zwischen zwei Rudelwölfen, Wolf in Wolf 20–35 cm): Ziel 2,4 m zur Seite oder
 	# nach hinten in der Richtung, deren Weg und Ziel am weitesten von den anderen frei sind (im Kampf wechselt er nur auf freie Plätze)
@@ -464,10 +478,14 @@ func _ort() -> void:
 			luft = g
 			pw = c
 	print("Ort Platzwechsel nach %.2f,%.2f, Luft %.2f m" % [pw.x, pw.z, luft])
-	rat.glide_to(pw)
-	await warte.call(2.4)
-	rat.glide_to(h0)
-	await warte.call(2.4)
+	# 387 Runde 2: bis es angekommen ist (Hundertfüßer 0,35 m/s; vorher fest 2,4 s), höchstens 9 s
+	for ziel in [pw, h0]:
+		rat.glide_to(ziel)
+		await warte.call(0.6)
+		var bis: float = fight.clock_ms + 8400.0
+		while rat.tween and rat.tween.is_running() and fight.clock_ms < bis:
+			await warte.call(0.1)
+		await warte.call(0.3)
 	zeig.call("Tod")
 	ms = held.strike(rat, {"spell": null})
 	rat.hurt(int(ms * 0.42), true)
