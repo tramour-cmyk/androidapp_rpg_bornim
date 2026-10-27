@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 27.10., 20:14
+**Gelesen bis:** `origin/main` 28.10., 00:05
 
-**Übergabe (27.10., 20:15, `session_01Hmoj77KVVgxT4ibZLpzXjH`):** 383.3 gebaut (Commit-Prüfung, Übersicht, Regel); 384 Kosten geprüft, drei nachgebucht, `--kosten` nur mit Kennung. Kosten auf: 383.3, 384. Nachfolger: keiner
+**Übergabe (28.10., 00:0x, `session_01Hmoj76mW9cxhS7viQ9cfW9`):** 389 gebaut: Haken `probelauf.py`, Regel in `ROLLE-ENTWICKLUNG.md`, Zeilen 389 an Tom und Jerry. Kosten auf: 389. Nachfolger: keiner
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|

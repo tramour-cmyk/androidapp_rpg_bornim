@@ -8,6 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 389 | M | **von Perikles (Chef 27.10., 23:55, Archiv):** `main` in den Arbeitszweig mergen (Haken `probelauf.py` in `.claude/settings.json`), Bildläufe nur als `PROBE=<Nr> …`; höchstens zwei je Vorlage (`ROLLE-ENTWICKLUNG.md`) | neu | – |
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101: Held im APK verschlüsselt, lädt) | `claude/tom-348-12i-verschluesseln` |
 | 388 | M | **von Sokrates (Chef 21:58; „jetzt“ 27.10., 22:17, „388 machen“):** Play-Fassung: „Kopieren“ der Geräteangaben (TestTab) auch im Systemmenü; Ruckeln eines Testers in den Hütten auswerten | startbar: im Play-Test; Geräteangaben Tester 1 da (`LISTE-TESTGERAETE.md`), auswerten für Godot |
 | 385 | M? | **von Sokrates (Archiv):** Zauberer-Set (Biped, LISTE-BESTAND) auf Kaufkörper, Film | startbar |

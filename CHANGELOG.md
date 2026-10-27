@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **389 (Chef 27.10., 23:55):** Haken `tools/probelauf.py` (PreToolUse, Bash): höchstens zwei Probeläufe je Vorgang bis zur nächsten Vorlage mit Bild oder Film; zählt Bildläufe am Rechner (`PROBE=<Nr>`) und Pushes mit Godot-Lauf, Zählung im Zweig `probelaeufe`.
+
 - **388 (Chef 27.10., 22:48, ohne Gerätetest, Test über den Play Store; auf `main` als Merge e370eae33, Build 90):** Geräteangaben mit Messwerten (Blende, Bildpausen, Speicher) auch im Systemmenü zum Kopieren, ganz unten wie im Testmenü, damit Tester sie schicken können, wenn es ruckelt.
 
 - **142.1 (Ja des Chefs 25.10., 23:33, ohne Gerätetest; auf `main` als Merge e619da75d):** Knopf „AAB in den internen Test der Play Console“ beim Start des Builds von Hand auf `main`; lädt das AAB per Dienstkonto hoch.
