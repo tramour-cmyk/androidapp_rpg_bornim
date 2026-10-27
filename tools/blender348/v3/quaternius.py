@@ -22,23 +22,30 @@ ERSATZ = {'Regular_Male_OnlyHead': 'Superhero_Male_FullBody', 'Regular_Female_On
           'Male_Knight': 'Male_Ranger', 'Female_Knight': 'Female_Ranger', 'Male_Noble': 'Male_Peasant', 'Female_Noble': 'Female_Peasant'}
 
 # Volk: Groesse je Knochen (Laenge entlang des Knochens, quer), dazu Hauttoenung; Mensch = 1
+# (Helfer 13:45: Zwerg nur kleiner Bauer, Halbork ohne Gruen: kraeftiger quer, Haut aus der Textur getoent)
 VOLK = {
     'mensch':   {},
-    'zwerg':    {'ganz': 0.86, 'beine': (0.72, 1.12), 'rumpf': (0.95, 1.18), 'arme': (0.9, 1.15), 'kopf': 1.08},
-    'elf':      {'ganz': 1.04, 'beine': (1.06, 0.92), 'rumpf': (1.04, 0.9), 'arme': (1.04, 0.9), 'kopf': 0.96},
-    'halbling': {'ganz': 0.62, 'beine': (0.9, 1.05), 'rumpf': (0.95, 1.08), 'kopf': 1.14},
-    'halbork':  {'ganz': 1.06, 'beine': (1.0, 1.12), 'rumpf': (1.0, 1.2), 'arme': (1.0, 1.18), 'kopf': 1.0, 'haut': (0.70, 0.86, 0.64)},
+    'zwerg':    {'ganz': 0.8, 'beine': (0.7, 1.2), 'rumpf': (0.92, 1.3), 'arme': (0.88, 1.25), 'kopf': 1.12},
+    'elf':      {'ganz': 1.04, 'beine': (1.08, 0.9), 'rumpf': (1.04, 0.88), 'arme': (1.04, 0.88), 'kopf': 0.95},
+    'halbling': {'ganz': 0.6, 'beine': (0.88, 1.08), 'rumpf': (0.95, 1.12), 'kopf': 1.16},
+    'halbork':  {'ganz': 1.07, 'beine': (1.0, 1.18), 'rumpf': (1.0, 1.3), 'arme': (1.0, 1.25), 'kopf': 1.02, 'haut': (0.62, 0.80, 0.52)},
 }
 BEINE = ['thigh_l', 'thigh_r']   # Kinder erben die Groesse (Wade mit)
 
+# Haarfarben (die Haarbilder sind hellgrau zum Toenen; Helfer 13:45: fuenf Figuren mit gleichem weissen Haar und Bart)
+HAAR = {'dunkel': (0.16, 0.11, 0.08), 'braun': (0.34, 0.22, 0.13), 'kastanie': (0.45, 0.22, 0.12), 'rot': (0.62, 0.26, 0.10),
+        'blond': (0.86, 0.72, 0.45), 'schwarz': (0.07, 0.06, 0.06), 'grau': (0.55, 0.53, 0.50)}
+# Teile ohne eigene Farbe (Helfer: Schulterstueck des Waldlaeufers weiss): Netz -> Farbe auf die Textur
+LEDER = (0.42, 0.30, 0.20)
+
 FIGUREN = {
-    'q_held':     {'kleid': 'Male_Knight',    'kopf': 'Regular_Male_OnlyHead',   'haar': 'Hair_SimpleParted', 'bart': 'Hair_Beard'},
-    'q_bauer':    {'kleid': 'Male_Peasant',   'kopf': 'Regular_Male_OnlyHead',   'haar': 'Hair_Buzzed', 'bart': 'Hair_Beard'},
-    'q_baeuerin': {'kleid': 'Female_Peasant', 'kopf': 'Regular_Female_OnlyHead', 'haar': 'Hair_Buns', 'brauen': 'Eyebrows_Female'},
-    'q_zwerg':    {'kleid': 'Male_Peasant',   'kopf': 'Regular_Male_OnlyHead',   'haar': 'Hair_Buzzed', 'bart': 'Hair_Beard', 'volk': 'zwerg'},
-    'q_elf':      {'kleid': 'Female_Ranger',  'kopf': 'Regular_Female_OnlyHead', 'haar': 'Hair_Long', 'brauen': 'Eyebrows_Female', 'volk': 'elf'},
-    'q_halbling': {'kleid': 'Male_Peasant',   'kopf': 'Regular_Male_OnlyHead',   'haar': 'Hair_SimpleParted', 'volk': 'halbling'},
-    'q_halbork':  {'kleid': 'Male_Ranger',    'kopf': 'Regular_Male_OnlyHead',   'haar': 'Hair_Buzzed', 'volk': 'halbork'},
+    'q_held':     {'kleid': 'Male_Knight',    'kopf': 'Regular_Male_OnlyHead',   'haar': 'Hair_SimpleParted', 'bart': 'Hair_Beard', 'farbe': 'braun', 'ohne': ['Hood']},
+    'q_bauer':    {'kleid': 'Male_Peasant',   'kopf': 'Regular_Male_OnlyHead',   'haar': 'Hair_Buzzed', 'bart': 'Hair_Beard', 'farbe': 'dunkel'},
+    'q_baeuerin': {'kleid': 'Female_Peasant', 'kopf': 'Regular_Female_OnlyHead', 'haar': 'Hair_Buns', 'brauen': 'Eyebrows_Female', 'farbe': 'kastanie'},
+    'q_zwerg':    {'kleid': 'Male_Peasant',   'kopf': 'Regular_Male_OnlyHead',   'haar': 'Hair_Buzzed', 'bart': 'Hair_Beard', 'farbe': 'rot', 'volk': 'zwerg'},
+    'q_elf':      {'kleid': 'Female_Ranger',  'kopf': 'Regular_Female_OnlyHead', 'haar': 'Hair_Long', 'brauen': 'Eyebrows_Female', 'farbe': 'blond', 'volk': 'elf', 'ohne': ['Hood']},
+    'q_halbling': {'kleid': 'Male_Peasant',   'kopf': 'Regular_Male_OnlyHead',   'haar': 'Hair_SimpleParted', 'farbe': 'braun', 'volk': 'halbling'},
+    'q_halbork':  {'kleid': 'Male_Peasant',   'kopf': 'Regular_Male_OnlyHead',   'haar': 'Hair_Buzzed', 'farbe': 'schwarz', 'volk': 'halbork'},
 }
 KOPF_KNOCHEN = {'Head', 'neck_01', 'neck_02'}
 
@@ -95,22 +102,33 @@ def nur_kopf(o):
     bm.to_mesh(o.data); bm.free()
 
 
-def toene_haut(objs, farbe):
-    for o in objs:
-        if o.type != 'MESH': continue
-        for m in o.data.materials:
-            if not m or not any(k in m.name for k in ('Regular', 'Superhero')): continue
-            bsdf = next((n for n in m.node_tree.nodes if n.type == 'BSDF_PRINCIPLED'), None)
-            if not bsdf or not bsdf.inputs['Base Color'].links: continue
-            tn = bsdf.inputs['Base Color'].links[0].from_node
-            if tn.type != 'TEX_IMAGE' or not tn.image: continue
-            im = tn.image.copy(); im.name = tn.image.name + '_ork'
-            px = list(im.pixels)
-            for i in range(0, len(px), 4):
-                px[i] *= farbe[0]; px[i + 1] *= farbe[1]; px[i + 2] *= farbe[2]
-            im.pixels = px
-            im.pack()
+def basisbild(m):
+    bsdf = next((n for n in m.node_tree.nodes if n.type == 'BSDF_PRINCIPLED'), None) if m and m.node_tree else None
+    n = bsdf.inputs['Base Color'].links[0].from_node if bsdf and bsdf.inputs['Base Color'].links else None
+    while n is not None and n.type != 'TEX_IMAGE':   # ueber MIX (Eckfarben) zum Bild
+        n = next((i.links[0].from_node for i in n.inputs if i.links), None)
+    return n
+
+
+KOPIEN = {}
+def toene(o, wahl, farbe):
+    # Materialien des Netzes, fuer die wahl(name) gilt, bekommen eine Kopie mit getoentem Bild (Godot liest nur das Bild, gebiet.gd male)
+    import numpy as np
+    for i, m in enumerate(o.data.materials):
+        if not m or not wahl(m.name): continue
+        key = (m.name, farbe)
+        if key not in KOPIEN:
+            tn0 = basisbild(m)
+            if not tn0 or not tn0.image: continue
+            m2 = m.copy(); m2.name = m.name + '_t%d' % len(KOPIEN)
+            tn = basisbild(m2)
+            im = tn.image.copy(); im.name = tn.image.name + '_t%d' % len(KOPIEN)
+            px = np.empty(len(im.pixels), dtype=np.float32); im.pixels.foreach_get(px)
+            px = px.reshape(-1, 4); px[:, :3] *= np.array(farbe, dtype=np.float32)
+            im.pixels.foreach_set(px.ravel()); im.update(); im.pack()
             tn.image = im
+            KOPIEN[key] = m2
+        o.data.materials[i] = KOPIEN[key]
 
 
 def volk(arm, netze, v):
@@ -176,18 +194,28 @@ def baue(kennung, f):
         neu = [o for o in objs if o.type == 'MESH']
         an_geruest(objs, arm, vs)
         netze += neu
+    for o in [o for o in netze if any(w in o.name for w in f.get('ohne', []))]:
+        netze.remove(o); bpy.data.objects.remove(o)
     v = VOLK.get(f.get('volk', 'mensch'), {})
     volk(arm, netze, v)
-    if 'haut' in v: toene_haut(netze, v['haut'])
+    KOPIEN.clear()
+    hf = HAAR[f.get('farbe', 'braun')]
+    for o in netze:
+        if o.name.startswith(('Hair_', 'Eyebrows')): toene(o, lambda n: True, hf)
+        else: toene(o, lambda n: n.startswith('MI_Hair'), hf)   # Brauen im Kopf des Ersatzes
+        if 'Pauldron' in o.name: toene(o, lambda n: True, LEDER)
+        if 'haut' in v: toene(o, lambda n: 'Regular' in n or 'Superhero' in n, v['haut'])
     dr = 0
     for o in netze:
         o.data.calc_loop_triangles(); dr += len(o.data.loop_triangles)
     bpy.context.view_layer.update()
     hoch = max((o.matrix_world @ Vector(c)).z for o in netze for c in o.bound_box)
-    info.update({'dreiecke': dr, 'hoehe_m': round(hoch, 3), 'netze': sorted(o.name for o in netze), 'volk': f.get('volk', 'mensch')})
+    rumpf = [o for o in netze if o.name.endswith('_Body')]
+    breit = max((o.matrix_world @ Vector(c)).x for o in rumpf for c in o.bound_box) - min((o.matrix_world @ Vector(c)).x for o in rumpf for c in o.bound_box) if rumpf else 0
+    info.update({'dreiecke': dr, 'hoehe_m': round(hoch, 3), 'rumpf_breit_m': round(breit, 3), 'netze': sorted(o.name for o in netze), 'volk': f.get('volk', 'mensch')})
     p = os.path.join(OUT, kennung + '.glb')
     bpy.ops.export_scene.gltf(filepath=p, export_format='GLB', export_animations=False, export_apply=False, export_skins=True)
-    print('FIGUR', kennung, dr, 'Dreiecke', round(hoch, 2), 'm', info['ersatz'])
+    print('FIGUR', kennung, dr, 'Dreiecke', round(hoch, 2), 'm hoch', round(breit, 2), 'm Rumpf', info['ersatz'])
     return info
 
 

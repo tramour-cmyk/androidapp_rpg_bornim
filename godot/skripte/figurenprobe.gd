@@ -206,8 +206,15 @@ func nacht(an: bool) -> void:
 	for k in mats:
 		for m in mats[k]: (m as ShaderMaterial).set_shader_parameter("fill", 0.0 if an else 0.42)
 
+# Reihe vor dem Brunnen, zur Kamera und nach links versetzt (Helfer 13:45: der Halbork stand rechts im Marktstand)
+func platz() -> Vector3:
+	var kam: Kamera = spiel.kamera
+	var rechts := kam.global_basis.x; rechts.y = 0
+	var zur := kam.global_basis.z; zur.y = 0
+	return spiel.karte.kachel_pos(PLATZ) + Vector3(0, 0, 1.2) + zur.normalized() * 1.5 - rechts.normalized() * 0.8
+
 func reihe() -> void:
-	var mitte: Vector3 = spiel.karte.kachel_pos(PLATZ) + Vector3(0, 0, 1.2)
+	var mitte := platz()
 	var z := zielpunkt(mitte)
 	spiel.kamera.ziel = z
 	for k in REIHE: spiel_bew(k, "Stehen")
@@ -242,14 +249,25 @@ func menue(mitte: Vector3) -> void:
 	var bg := env.background_color
 	var amb := env.ambient_light_energy
 	env.background_color = Color.BLACK
-	env.ambient_light_energy = 0.08
+	env.ambient_light_energy = 0.02
 	var sonne: Array = spiel.licht.find_children("*", "DirectionalLight3D", true, false)
 	for s in sonne: s.visible = false
 	var kegel := SpotLight3D.new()
 	kegel.light_color = Color(1.0, 0.78, 0.5)
-	kegel.light_energy = 6.0
+	kegel.light_energy = 14.0      # Helfer 13:45: Kegel kaum zu sehen; dazu ein dunkler Boden, auf dem er liegt
 	kegel.spot_range = 12.0
-	kegel.spot_angle = 32.0
+	kegel.spot_angle = 22.0
+	kegel.spot_attenuation = 0.5
+	var boden := MeshInstance3D.new()
+	var pm := PlaneMesh.new(); pm.size = Vector2(14, 14)
+	boden.mesh = pm
+	var bm := ShaderMaterial.new(); bm.shader = load("res://shader/toon.gdshader")
+	var dunkel := Image.create(4, 4, false, Image.FORMAT_RGB8)
+	dunkel.fill(Color(0.16, 0.13, 0.10))
+	bm.set_shader_parameter("tex", ImageTexture.create_from_image(dunkel))
+	boden.material_override = bm
+	spiel.add_child(boden)
+	boden.position = mitte
 	kegel.shadow_enabled = true
 	spiel.add_child(kegel)
 	kegel.position = mitte + Vector3(0, 6.0, 1.5)
@@ -264,6 +282,7 @@ func menue(mitte: Vector3) -> void:
 		await get_tree().create_timer(0.6).timeout
 		await knips(aus + "/reihe_menue_%d.png" % (i + 1))
 	kegel.queue_free()
+	boden.queue_free()
 	for s in sonne: s.visible = true
 	env.background_color = bg
 	env.ambient_light_energy = amb
@@ -280,7 +299,7 @@ func spiel_bew(k: String, bew: String) -> float:
 
 # je Feld eine Figur in der Mitte, Kamera nah, Bewegung Bild fuer Bild gesetzt (seek), Ausschnitt um die Figur
 func film() -> void:
-	var mitte: Vector3 = spiel.karte.kachel_pos(PLATZ) + Vector3(0, 0, 1.2)
+	var mitte := platz()
 	var z := zielpunkt(mitte)
 	spiel.kamera.ziel = z
 	zoom(Kamera.NAH)
