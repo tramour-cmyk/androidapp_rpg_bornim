@@ -112,7 +112,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 366 | bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Chef 25.10., 18:39) | M Markt | M | –; +25,65 $ | Sokrates | offen |
 | 386 | GitHub verlangt Zwei-Faktor-Anmeldung bis 11.12.2026 (Chef 27.10., 21:02) | B Werkzeuge | M | – | Perikles | wartet auf Chef |
 | 384 | Kosten: alle Sitzungen gebucht? Lücken und Buchungen ohne Kennung (Chef 27.10., 20:06) | B Werkzeuge | M | – | Perikles | gebaut |
-| 383.3 | Zurückgestellte Vorlagen sofort aus der Chefsache (Chef 27.10., 19:55) | B Werkzeuge | M | – | Perikles | gebaut |
+| 383.3 | Zurückgestellte Vorlagen sofort aus der Chefsache (Chef 27.10., 19:55) | B Werkzeuge | M | 7,30 $ | Perikles | gebaut |
 | 385 | Protofactor-Animsets (Zauberer u. a.) auf die Listen, Probe ob nutzbar (Chef 27.10., 20:59) | E Figuren | M? | – | Team Tom | startbar |
 | 387 | Gekaufte Tiere schnell auf Bewegungen und unsere Haut prüfen, vor Eigenbau (Chef 27.10., 21:27) | E Monster | M | 16,18 $ | Team Jerry | in Arbeit |
 | 388 | Alt-Fassung: Geräteangaben kopieren im Systemmenü, Ruckeln in Hütten auswerten (Chef 27.10., 21:58) | A Technik | M | 8,14 $ | Team Tom | startbar |
