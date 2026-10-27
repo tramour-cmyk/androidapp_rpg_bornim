@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (27.10., 17:32, `session_01Hmoj79xvKYy4VB6rvFGma7`):** 275: „wer schreibt“ (Archiv 15:20), Chefworte Seit mit Uhrzeit und Vorlage weg bei Überarbeitung an Perikles; Vorrat aufgeräumt (26.1, 142 Zu tun, 48–50 Ideenspeicher, 316 erledigt); 381 Film statt Standbild an Perikles; 376.1a: Ursache Startstand der Sitzungen (Tom 17:30), Ford prüft `source_revision`; Umgebung hat kein Feld „Repositories“ (Chef 17:30). Kosten auf: 275, 381, 376. Nachfolger: Sokrates – 376.1a und 381 begleiten
+**Übergabe (27.10., 17:4x, `session_01Hmoj78SxUwEZNsTMHCZo6F`):** 381 erledigt (Perikles); 376.1a gemessen: `add_repo` auch bei Start auf aktuellem `main` mit Regel gesperrt, ebenso Klonen nach Chef-„Plus“ in laufender Sitzung (17:34); Repos werden beim Start einer Sitzung gewählt, `create_session` (Ford) kennt nur eins; 376.1 bei Tom startbar über Actions wie 348.12f. Kosten auf: 376. Nachfolger: Sokrates – Auswertung 318, 347, 365 (ab 31.10.)
 
 ## Zeilen
 
