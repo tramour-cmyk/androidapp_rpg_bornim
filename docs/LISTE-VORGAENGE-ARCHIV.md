@@ -443,4 +443,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 371 | Weniger interne Prüfrunden, mehr Bilder an den Chef; Archivieren (Chef 27.10., 09:06) | B Betrieb | M | –; +5,95 $ | Perikles | erledigt |
 | 338a | Rückfrage: Umzug Block (D) rot, Held stehen lassen und Dorf weiterbauen? | B Abläufe | M | –; +0,96 $ | Perikles | erledigt |
 | 375 | Werkzeugfehler `lauf.py` aus Fords Eingang: falscher START bei Nachfolger-Titeln, Diogenes startbar ohne Arbeit, Kostenbuchung | B Betrieb | M | – | Perikles | erledigt 27.10. (Betrieb −7,10 $ berichtigt) |
-| 373 | Aussehen, Design, Bewegung, Animation urteilt nur der Chef: Bilder und Videos in den Vorgang und per Telegram, keine Helferrunden über Wirkung, für alle (Chef 27.10., 11:31) | B Abläufe | M | – | Perikles | erledigt |
+| 373 | Aussehen, Design, Bewegung, Animation urteilt nur der Chef: Bilder und Videos in den Vorgang und per Telegram, keine Helferrunden über Wirkung, für alle (Chef 27.10., 11:31) | B Abläufe | M | 8,79 $ | Perikles | erledigt |

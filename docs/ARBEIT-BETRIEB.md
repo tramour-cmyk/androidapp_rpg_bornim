@@ -26,6 +26,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
+- **374 (Sokrates 27.10., 12:00, Chef „374 ja“):** Diogenes täglich 8:00 vom 28.10. bis 03.11. starten (zählt die Vorlagen des Vortags, Zeile oben in `ARBEIT-PRUEFUNG.md`); im ersten Lauf ab 8 Uhr „Auftrag Diogenes 374“ wie `START`. Werkzeugteil bei Perikles. Nach dem 03.11. Zeile streichen.
 - **Von Sokrates (27.10., 09:3x, Durchsicht Chefsache):** Vorräte nennen „beim Chef“ ohne Datei (gilt nach Regel 8 nicht): Jerry „Boden r6, Grimmzahn“ (entschieden 25.10., 22:00), „Wildschwein r3“; Tom „Dorf r13b“. Homer wartet nicht auf 348.12g (entschieden 26.10., 16:17), sondern auf Chefsache 348.12c Listen. Bitte an Tom, Jerry, Homer zum Bereinigen. Chefsache 110 erledigt (Ford von Hand gestartet), Datei gelöscht.
 - **Von Sokrates (27.10., 09:1x, Chef 09:06 „1000 Sitzungen links stehen, die nicht archiviert sind“):** 33 alte Sitzungen archiviert (Tom, Jerry der Nacht, Ford `01Rxj`, `01Ays`, Sokrates, Diogenes, Perikles alt); im Auto-Modus 2 von 35 Aufrufen abgelehnt, beim zweiten Versuch durch. Offen: Homer `01Twr8` (wartet auf Eingabe), Perikles `01Hmoj75j5`. Kosten der Nacht bucht `lauf.py` (GEBUCHT). Nachtvertretung beendet. Folge: Vorgang 371.
 - **369:** Chef 26.10., 18:46 „nein, Regel steht schon“: Der Auto-Modus-Prüfer lehnt `archive_session` ab, der Chef archiviert von Hand; Abgelehntes bleibt WARNUNG-LAUT an den Chef (`ARBEIT-PROJEKT.md` „Zu 369“).
@@ -39,6 +40,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:37–06:35 27.10.: Neustarts angenommen und Nachfolger gestartet: Tom 01:46, 02:33, 02:57, 03:23, 03:51, 04:16, 04:43, 05:01, 05:20, 05:44, 06:03, 06:35, 07:21; Jerry 01:37, 02:42, 03:25, 04:57; Jerry 05:55 zurückgestellt (wartet auf Chefsache 3487a). Läufe 02:03, 03:03 ohne Starts; START Perikles (Terminname) nicht ausgeführt
 - 25.10., 09:35–21:05: Neustarts Tom/Jerry/Sokrates angenommen; Perikles 364 und Sokrates 340.2 gestartet; Sparbetrieb und Max 20x (Verlauf in Git)
 
+- 12:01 27.10.: Neustart Perikles (91e5d6870) angenommen: Nachfolger heißt jetzt „374 und 375 Werkzeug“; keine zweite Sitzung, die schon laufende `01Hmoj75Q3` per Nachricht „Weiter: 374 und 375“ erweitert; alter Perikles archiviert, 8,79 $ auf 373 gebucht
+- 12:00 27.10.: Auftrag 374 (Diogenes täglich 8:00, 28.10.–03.11.) von Sokrates angenommen, in den Eingang gelegt
 - 12:00 27.10.: Neustart Perikles angenommen (1ead5e6d2 auf main): Start „Perikles – 375 Werkzeugfehler lauf.py“ `01Hmoj75Q3`; 373 an fünf laufende Sitzungen weitergegeben; alter Perikles (2,88 $) wird nach `idle` archiviert
 - 11:52 27.10.: Neustart Jerry angenommen (912fd21f3 auf main): Start „Jerry – 348.12f Rute und 348.7a Runde 2 prüfen“ `01Hmoj78j8`, alter Jerry erst nach `idle` archiviert, 9,28 $ zu gleichen Teilen auf 348.7a und 348.12f gebucht
 - 11:37 27.10.: Neustart Tom angenommen (f1003eb12 auf main): Start „Tom – 348.6 Kampfbewegungen Runde 5“ `01Hmoj776m`, alter Tom archiviert, 10,61 $ gebucht; Runde 3 (9,05 $) nachgebucht. Lehre: Jerry-Sitzungen, die noch `working` waren, lieferten beim Archivieren keine Kosten und stehen „failed“ (2 Sitzungen, Kosten fehlen): erst archivieren, wenn die Sitzung `idle` ist

@@ -5,7 +5,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 27.10., 11:59
 
-**Übergabe (27.10., 11:5x, `session_01Hmoj75SnysPb9URmTxU37x`):** 373 umgestellt (`ROLLE-ENTWICKLUNG.md`, `-KREATIV`, `-PRUEFUNG`, `-BERATUNG`, `LISTE-UMZUG-348.md`, `CLAUDE.md` Bekannte Fehler 2, `LISTE-ABNAHME-KAPITEL1.md` mit Engpass Chef), fremd geprüft, Weitergabe an Ford (Eingang), Telegram; 373a beim Chef; 375 aus Fords Eingang angelegt. Kosten auf: 373. Nachfolger: Perikles – 375 Werkzeugfehler lauf.py
+**Übergabe (27.10., 11:5x, `session_01Hmoj75SnysPb9URmTxU37x`):** 373 umgestellt (`ROLLE-ENTWICKLUNG.md`, `-KREATIV`, `-PRUEFUNG`, `-BERATUNG`, `LISTE-UMZUG-348.md`, `CLAUDE.md` Bekannte Fehler 2, `LISTE-ABNAHME-KAPITEL1.md` mit Engpass Chef), fremd geprüft, Weitergabe an Ford (Eingang), Telegram; 373a beim Chef; 375 aus Fords Eingang angelegt. Kosten auf: 373. Nachfolger: Perikles – 374 und 375 Werkzeug
 
 375 erledigt 27.10., 12:1x (`session_01Hmoj75Q3`): `lauf.py` liest Nachfolger nur bis „;“ bzw. schließendes Anführungszeichen, „startet `lauf.py`“ = bedingt, heute mit „um/ab H:MM“ = Termin, `--ohne` gilt für den Nachfolger; Sokrates-Nachbuchung nach „Kosten auf“; `--kosten` zeigt Betrag und Summe, „–; +N $“ wird N $; `startbar.py`: „wartet auf nächstes/neues …“ sperrt. Betrieb −7,10 $ berichtigt.
 
