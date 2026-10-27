@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (27.10., 09:30, Ford `session_01Hmoj78hRdjifkpE9w6bGbD`, Tiefe 0, vom Chef von Hand gestartet, 110):** Uhr übernommen, alter Ford und Sokrates-Nachtvertretung archiviert und gebucht, Perikles 371 gestartet (`01Hmoj79Ae`), Perikles alt archiviert. Läuft: Tom `01Hmoj77aE`, Jerry `01Hmoj79qo`. Jerry-Nachfolger 348.7a erst nach Antwort auf 3487a. Offen: Homer `01Twr8` (idle, wartet auf Chefsache 348.12g, einzige Homer-Sitzung). Selbstneustart ab 400 Tsd. Token möglich (Tiefe 0). Nachfolger: Ford – Betriebsleiter.
+**Übergabe (27.10., 13:25, Ford `session_01Hmoj78hRdjifkpE9w6bGbD`, Tiefe 0, über 400 Tsd. Token → Selbstneustart):** Läuft: Tom `01Hmoj778n` (376.1 Probeblatt), Jerry `01Hmoj76oY` (348.7a/348.12f), Perikles `01Hmoj77YJ` (377), Sokrates `01Hmoj7738` (idle, einzige Sokrates-Sitzung). Offen zum Archivieren: nichts. Homer, Diogenes ohne Sitzung (Vorrat leer; Diogenes startet über 374 täglich 8:00 vom 28.10. bis 03.11., Eingang). Kosten fehlen für zwei früh archivierte Jerry-Sitzungen (nur `idle` archivieren, sonst keine Zahl). `--ohne` greift jetzt auch beim Nachfolger (375). Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 378** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (27.10., 09:26)“ `session_01Hmoj78hRdjifkpE9w6bGbD` (seit 27.10., 09:26, Tiefe 0). Stundenuhr „Ford-Lauf“ `trig_019gmvMzPaYQMy1h2x6h1ZXk` (:03). Alle alten Ford-Sitzungen archiviert.
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (27.10., 09:26)“ `session_01Hmoj78hRdjifkpE9w6bGbD` (Tiefe 0); Stundenuhr „Ford-Lauf“ `trig_019gmvMzPaYQMy1h2x6h1ZXk` (:03). Selbstneustart läuft (13:25): Nachfolger legt neue Uhr an, löscht diese und archiviert den alten Ford (Eintrag dann ersetzen).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus; Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
 
@@ -40,6 +40,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:37–06:35 27.10.: Neustarts angenommen und Nachfolger gestartet: Tom 01:46, 02:33, 02:57, 03:23, 03:51, 04:16, 04:43, 05:01, 05:20, 05:44, 06:03, 06:35, 07:21; Jerry 01:37, 02:42, 03:25, 04:57; Jerry 05:55 zurückgestellt (wartet auf Chefsache 3487a). Läufe 02:03, 03:03 ohne Starts; START Perikles (Terminname) nicht ausgeführt
 - 25.10., 09:35–21:05: Neustarts Tom/Jerry/Sokrates angenommen; Perikles 364 und Sokrates 340.2 gestartet; Sparbetrieb und Max 20x (Verlauf in Git)
 
+- 13:25 27.10.: Perikles 377 gestartet `01Hmoj77YJ` (alter Perikles archiviert, 3,37 $ auf 376.1); Tom Runde 7 archiviert (10,47 $ auf 348.6); Selbstneustart Ford wegen 400 Tsd. Token
 - 13:21 27.10.: Neustart Tom angenommen (21956f5c1): Start „Tom – 376.1 Probeblatt Quaternius-Figuren“ `01Hmoj778n`; Jerry `01Hmoj791A` archiviert (8,13 $ je zur Hälfte auf 348.7a und 348.12f); Tom Runde 7 `01Hmoj77bi` noch `working`: archivieren und auf 348.6 buchen, sobald `idle`
 - 12:56 27.10.: Neustart Jerry angenommen (b9ebd2899): Start „Jerry – 348.7a Runde 3 prüfen, 348.12f Rute r4“ `01Hmoj76oY`; alter Jerry `01Hmoj791A` noch `working`: archivieren und Kosten je zur Hälfte auf 348.7a und 348.12f, sobald `idle`; Perikles meldet Vorrat leer ohne Nachfolger (Sitzung `01Hmoj78vH` bleibt idle)
 - 12:53 27.10.: Neustart Sokrates angenommen (6d04b480c): Start „Sokrates – 376 begleiten, Antwort Modelle“ `01Hmoj7738`, alter Sokrates `01Hmoj77Tr` archiviert, 3,90 $ auf 376; Chef nimmt die Rückfrage 12:50 (KI-Modelle gemeint?) in der neuen Sitzung entgegen: Link per Telegram
