@@ -1101,6 +1101,16 @@ func _lane_box(o) -> AABB:
 ## Runde 5 (Prüfer r4: Geschosse bei 120 ms am Schirm auf dem Kopf von Wolf 3, Strahl durch ihn; Pfeil daneben über Wolf 1; drei
 ## Strahlen eine Bahn): ein Punkt über einer anderen Figur kostet so viel wie die ganze Höhe (OVER_COST), die Spitze darf auch spät
 ## liegen (über dem, der nahe beim Ziel steht), beim Fehlschuss zählt das Ziel mit (_lane_obs)
+## Offen nach Prüfer r5 (Lauf 144, todprobe, nicht vorlegbar): hoch: Feuerball-Wolke deckt Wolf 1 bei 350 ms 83 %, 500 ms 76 %
+## (r4 60 %); Heilige Flamme 500 ms 74 %; Pfeil (zauber2) fast senkrecht (81°) 150 px über dem Hinterteil von Wolf 3. Mittel: Bögen
+## jetzt 4,4–8,3 Kopfhöhen über Mira (Scheitel y 400–420 von 2340, Spitze 1,5 m) und quer über die Tafel von Wolf 3 (Geschosse
+## verschwinden dahinter); jeder Start sichtbar am oder hinter Bertrams Kopf (Hand y 1125 vom Körper verdeckt, Log „in 7, verdeckt 3“);
+## Feuerpfeil bei 0 ms unsichtbar; Feuerpfeil daneben deckt 20 px des Hinterteils von Wolf 3; Ring und Leiste bei der Heiligen Flamme
+## zeigen Bertram. Gering: Segen links abgeschnitten (am Rand 65 %); Heilung bleicht Bertrams Schild (90 %), Funken bis Wolf 3; Strahl-
+## scheitel eckig; Probe Treffer: Rattenschwanz schwebt 500–1100 ms, Wolfsschatten und leere Leiste bleiben bis 1100 ms.
+## Behoben: Geschosse auf dem Kopf von Wolf 3, Strahl durch Wolf 3, Pfeil daneben über Wolf 1, drei Strahlen getrennt (42–51 px).
+## Plan r6: Spitze wieder niedrig (höchstens 0,9 m) und Tafeln der Gegner als Hindernis am Schirm; Start vor den Körper des Wirkenden
+## (am Schirm sichtbar, nicht nur im Raum); Wolke und Flamme kleiner oder nur am Rand dicht; Pfeil nie steiler als 45°
 func _lane(kind: String, by, on, a: Vector3, b: Vector3, dir: Vector3, missed := false) -> Dictionary:
 	var t0 := Time.get_ticks_usec()
 	var side := Vector3(-dir.z, 0, dir.x)
