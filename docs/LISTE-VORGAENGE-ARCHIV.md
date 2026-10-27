@@ -440,4 +440,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 348.14 | Umzug Godot: Schätzung je Punkt der Checkliste (Wochenziel 26.10.) | B Abläufe | M | –; +5,07 $ | Tom, Jerry | fertig (26.10.) |
 | 348.12e | Privates Zweit-Repo für gekaufte Modelle, Abruf im Build | E Technik | M | –; +3,69 $ | Tom | fertig |
 | 261 | Alte Sitzungen bleiben offen: eine aktive Sitzung je Arbeitsbereich, Fragen auf den Nachfolger, dann archivieren (Chef 20.10.) | B Betrieb | M? | –; +7,13 $ | Perikles | erledigt |
-| 371 | Weniger interne Prüfrunden, mehr Bilder an den Chef; Archivieren (Chef 27.10., 09:06) | B Betrieb | M | –; +4,70 $ | Perikles | erledigt |
+| 371 | Weniger interne Prüfrunden, mehr Bilder an den Chef; Archivieren (Chef 27.10., 09:06) | B Betrieb | M | –; +5,95 $ | Perikles | erledigt |
