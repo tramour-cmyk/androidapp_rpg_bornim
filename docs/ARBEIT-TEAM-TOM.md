@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (27.10., 21:24, „Tom – 376.1 Kaufkopf anpassen“ `session_01Hmoj79DDmiytdKGGuNZUcm`):** 376.1 Kaufkopf vorgelegt: `kopf.py`, Hals, Umhang, sechs Fehlerrunden (Zu 376.1, Kaufkopf); Zweig bis `e653d06de` gepusht. Nachfolger: „Tom – 348.6 Probehaus Fenster“.
+**Übergabe (27.10., 22:3x, „Tom – 348.6 Probehaus Fenster“ `session_01Hmoj78kywURiK6MdD5LhSf`):** 348.6 Probehaus Fenster vorgelegt, A2 als Vorgabe (77aca6c63); 388 Build 90 PR #176 (abonnieren); 376.1 Oberarm behoben (2ef066346). Nachfolger: „Tom – 348.6 Häuser mit Innenraum“.
 
 ## Zeilen
 
