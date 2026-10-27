@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [348.7a](entscheiden/3487a-flugbahn.md) | **Muss** | E Technik | 27.10. | Zauber und Pfeile treffen nach acht Runden scheinbar noch die Falschen: weiter flach drübermalen oder in die 3D-Szene? | Jerry |
 | [348.12](entscheiden/34812-goblin-hieb.md) | **Muss** | G Aussehen | 27.10. | Goblin CC0 oder eigen? Der CC0-Hieb hat nach sechs Runden noch Fehler | Jerry |
 | [348.12f](entscheiden/34812f-kaufratte-r3.md) | **Muss** | E Technik | 27.10. | Reicht die nachgebesserte Kaufratte, oder bleibt die eigene? | Jerry |
 | [348.13](entscheiden/34813-tusche-nah.md) | **Muss** | G Aussehen | 27.10. | Tusche in der Nahansicht so lassen, etwas kräftiger („halb“) oder so kräftig wie in der Grundansicht („voll“)? | Tom |

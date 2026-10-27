@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates für den Chef, 25.10., 01:2x):** Arbeit nach `LISTE-UMZUG-348.md`, 348.6–348.8; altes Spiel ruht.
 
-**Übergabe (27.10., 05:0x, `session_01Hmoj7A1nxyKmqPqvz3pspn`):** 348.7 Todprobe Runden 4 bis 4d gebaut, lokal fremd geprüft (291465f21, 2a9805494; 4c 6835067ae und 4d 331406826 noch ungeprüft). Nachfolger: „Jerry – 348.7 Todprobe Runde 4c/4d prüfen (27.10.)“
+**Übergabe (27.10., 05:5x, `session_01Hmoj75QZ2wjSV2z4E9bvFE`):** 348.7 Todprobe 4d lokal geprüft, 4e gebaut (5ce421670, Fehlschuss auf freiem Fleck) und geprüft; Bahnfrage als entscheiden/3487a-flugbahn vorgelegt (Probebilder lokal, Godot und Daten wie „Zu 348.7, Werkzeug“). Nachfolger: „Jerry – 348.7a nach Chefwort 3D oder flach“
 
 ## Zeilen
 
@@ -13,7 +13,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 348.12f | M | **von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b):** Probe gekaufte Riesenratte: unter 6.000 Dreiecke, eigene Bemalung, Shader; Blatt neben eigenem Modell | wartet auf Chef: entscheiden/34812f-kaufratte-r3 (Votum eigen; Lauf 129 geprüft, Befunde dort) | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Chef 16:21, „cc0 nochmal“):** Goblin CC0 r2: geduckt über UAL (wie `geruest.py`); Kurzvideo eigen/cc0 (368); Tusche 348.13 | wartet auf Chef: entscheiden/34812-goblin-hieb (Runde 6 geprüft, Befunde dort; Votum CC0) | `claude/jerry-348-kampf` |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht bis Kauf: Werte ja (Archiv 21:33, Chefsache in Git), dann einbauen | – |
-| 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | startbar: Todprobe 4e (Prüfer 4d: Fehlschüsse am falschen Wolf) lokal proben, fremd prüfen, Commit „348.7:“, dann dem Chef vorlegen (Zu 348.7 Treffer); Kobold ruht (3e); beim Chef: ansehen/3487-treffer, Boden r6, Grimmzahn, Wildschwein r3 | `claude/jerry-348-kampf` |
+| 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | wartet auf Chef: entscheiden/3487a-flugbahn (Todprobe 4e 5ce421670 geprüft, Befunde dort; Geschosse flach oder 3D); Kobold ruht (3e); beim Chef: ansehen/3487-treffer, Boden r6, Grimmzahn, Wildschwein r3 | `claude/jerry-348-kampf` |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Jerry: hätte Godot die Chef-Fehler seit 10.10. verhindert; Umzugskosten in Sitzungen; Tabelle in Chefsache 348 | wartet auf Chef: Tabelle in Chefsache 348: Godot allein 0, mit Modellen 11 von 32; Umzug 15–21 Sitzungen | – |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel); ändern nur auf Wort des Chefs | – |
 | 257 | M | **von Chef (20.10., 17:17, Test B46):** App „hängt“, ging dann weiter (Zu 257) | ruht: Hänger-Wächter (Tom) seit Build 49; bis zum nächsten Hänger mit Absturzbericht | – |

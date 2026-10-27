@@ -96,6 +96,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 348.3 | Fehlermessung Engine: hätte Godot die Fehler des Chefs verhindert, Umzugskosten | E Technik | M | – | Tom, Jerry | offen |
 | 348.6 | Umzug Godot: Fundament, Dorf als erste Gebietskarte | E Technik | M | –; +447,00 $ | Team Tom | offen |
 | 348.7 | Umzug Godot: Modellregel, Kampfort Wolfsrudel MARS | E Technik | M | –; +409,69 $ | Team Jerry | offen |
+| 348.7a | Rückfrage: Geschosse flach oder in 3D | E Technik | M | – | Jerry | Chefsache |
 | 348.8 | Umzug Godot: Bestandsliste altes Spiel | E Technik | M | – | Tom, Jerry | fertig (25.10.) |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | B Abläufe | M | –; +107,93 $ | Perikles, Homer, Diogenes | offen |
 | 348.14 | Umzug Godot: Schätzung je Punkt der Checkliste (Wochenziel 26.10.) | B Abläufe | M | –; +5,07 $ | Tom, Jerry | fertig (26.10.) |
