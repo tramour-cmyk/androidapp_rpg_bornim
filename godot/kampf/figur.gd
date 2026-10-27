@@ -663,99 +663,148 @@ func _walk_home() -> float:
 		position = home
 		return _turn_home()
 	var pfad := _heimweg()
-	var lang: float = pfad[pfad.size() - 1][1]
-	var nm := "Rennen" if lang > RUN_FROM and weg.has("Rennen") else "Gehen"
-	var t := lang / _mps(nm)
-	tween = create_tween()
-	tween.tween_callback(func(): _play(nm, 0.15))
-	tween.tween_method(func(x: float): _auf_pfad(pfad, x), 0.0, lang, t)
+	var t := _pfad_fahren(pfad, false)
 	tween.tween_callback(_turn_home)
 	return t
 
 
 ## 348.12f r3 (Chef 27.10., 21:26, Archiv: offene Befunde der Ratte beheben; Prüfer Ratte r2 und Kaufwolf r1: beim Umdrehen auf
-## der Stelle drehen die Pfoten 15–25 cm mit, ohne Schritt): der Heimweg ist ein Pfad ohne Drehen auf der Stelle. Liegt das Ziel
-## mehr als TURN_BOGEN hinter der Blickrichtung, läuft es erst einen Bogen (Radius TURN_R mal Größe) zur freieren Seite; dann eine
-## Kurve (kubisch), die daheim schon in der Blickrichtung von _face() ankommt. Je Punkt [Ort, Weg bis dahin, Drehung].
-const TURN_BOGEN := 60.0
+## der Stelle drehen die Pfoten 15–25 cm mit, ohne Schritt): der Heimweg ist ein Dubins-Pfad (Bogen, Gerade, Bogen) mit Wenderadius
+## TURN_R mal Größe, der daheim schon in der Blickrichtung von _face() ankommt; kein Drehen auf der Stelle. Von den vier Arten (links
+## oder rechts je Bogen) gilt die kürzeste, die den anderen nicht näher kommt als Start und Ziel; geht keine, ein kleinerer Radius.
+## Erster Versuch (Bogen, dann kubische Kurve): die Kurve drehte daheim in den letzten 0,1 m um 140° (Ortmess). Je Punkt [Ort, Weg, Drehung].
 const TURN_R := 0.55
-const PFAD_SCHRITTE := 48
+const PFAD_SCHRITT := 0.05
+## so viel (m) darf der Pfad den anderen näher kommen als Start und Ziel (Ortmess r3a: mit 0,05 fand er nach dem Biss nur Radius 0,18 m,
+## der Bogen beginnt vor der Heldin)
+const PFAD_NAEHER := 0.3
 
 
 func _heimweg() -> Array:
 	var r0 := rotation.y
 	var p0 := position
-	_face()     # Blickrichtung daheim: wie _face() sie dort setzt
 	position = home
-	_face()
+	_face()     # Blickrichtung daheim: wie _face() sie dort setzt
 	var ziel := rotation.y
 	position = p0
 	rotation.y = r0
-	var R := TURN_R * _scale()
-	var pts: Array = [[p0, 0.0, r0]]
-	var yaw := r0
-	var p := p0
-	var zu := home - p0
-	var dw := wrapf(atan2(zu.x, zu.z) - yaw, -PI, PI)
-	if absf(rad_to_deg(dw)) > TURN_BOGEN:
-		# beide Drehsinne prüfen: Mittelpunkt links (+dw) oder rechts (−dw), Luft entlang des Bogens
-		var best := []
-		var luft := -INF
-		for sg in [1.0, -1.0]:
-			var x := Vector3(cos(yaw), 0.0, -sin(yaw))     # lokales +X in der Welt
-			var c: Vector3 = p0 + x * R * sg
-			var th := 0.0
-			var q := p0
-			var bogen := []
-			for _i in 3:     # bis die Blickrichtung vom Bogenende auf daheim zeigt
-				var v := home - q
-				th = wrapf(atan2(v.x, v.z) - yaw, -PI, PI)
-				if th * sg < 0.0:
-					th += TAU * float(sg)
-				q = c + (p0 - c).rotated(Vector3.UP, th)
-			for k in range(1, 9):
-				bogen.append([c + (p0 - c).rotated(Vector3.UP, th * k / 8.0), yaw + th * k / 8.0])
+	var g0 := minf(_seg_gap(p0, p0, null), _seg_gap(home, home, null)) - PFAD_NAEHER
+	var best: Array = []
+	var luft := -INF
+	for k in [1.0, 0.5, 0.25]:
+		var r: float = TURN_R * _scale() * k
+		for art in ["LSL", "RSR", "LSR", "RSL"]:
+			var pts := _dubins(p0, r0, home, ziel, r, art)
+			if pts.is_empty():
+				continue
 			var g := INF
-			for b in bogen:
-				g = minf(g, _seg_gap(p0, b[0], null))
-			if g - absf(th) * 0.05 > luft:
-				luft = g - absf(th) * 0.05
-				best = bogen
-		var s := 0.0
-		for b in best:
-			s += Vector2(b[0].x - p.x, b[0].z - p.z).length()
-			pts.append([b[0], s, b[1]])
-			p = b[0]
-		yaw = best[best.size() - 1][1]
-	# Kurve vom Bogenende (Blick yaw) nach daheim (Blick ziel)
-	var a := p
-	var dist := Vector2(home.x - a.x, home.z - a.z).length()
-	var k := maxf(dist / 3.0, R)
-	var h0 := Vector3(sin(yaw), 0.0, cos(yaw))
-	var h1 := Vector3(sin(ziel), 0.0, cos(ziel))
-	var c1 := a + h0 * minf(k, dist * 0.5 + 0.01)
-	var c2 := home - h1 * k
-	var s: float = pts[pts.size() - 1][1]
-	var vorher := a
-	for i in range(1, PFAD_SCHRITTE + 1):
-		var u := float(i) / PFAD_SCHRITTE
-		var q := a.bezier_interpolate(c1, c2, home, u)
-		var tq := a.bezier_derivative(c1, c2, home, u)
-		s += Vector2(q.x - vorher.x, q.z - vorher.z).length()
-		pts.append([q, s, atan2(tq.x, tq.z) if Vector2(tq.x, tq.z).length() > 1e-4 else ziel])
-		vorher = q
+			for i in range(0, pts.size(), 3):
+				g = minf(g, _seg_gap(pts[i][0], pts[i][0], null))
+			var gut: bool = g >= g0
+			var lang: float = pts[pts.size() - 1][1]
+			# gute Pfade nach Länge, sonst nach Luft
+			var wert: float = (1000.0 - lang) if gut else g
+			if wert > luft:
+				luft = wert
+				best = pts
+				if OS.get_environment("SCHAU_MESS") != "":
+					print("Heimweg %s Radius %.2f m, Länge %.2f m, Luft %.2f (Grenze %.2f)" % [art, r, lang, g, g0])
+		if luft >= 900.0:
+			break
+	if best.is_empty():
+		best = [[p0, 0.0, r0, "G"], [home, Vector2(home.x - p0.x, home.z - p0.z).length(), ziel, "G"]]
+	return best
+
+
+## Dubins-Pfad einer Art (L links, R rechts, S gerade) von (a, Drehung ya) nach (b, yb) mit Radius r; [] wenn es ihn nicht gibt.
+## Rechnet in (x, z) mit dem Winkel th = PI/2 − Drehung (vorn = (cos th, sin th)); links heißt th wächst.
+func _dubins(a: Vector3, ya: float, b: Vector3, yb: float, r: float, art: String) -> Array:
+	var t1 := PI / 2.0 - ya
+	var t2 := PI / 2.0 - yb
+	var p1 := Vector2(a.x, a.z)
+	var p2 := Vector2(b.x, b.z)
+	var l1 := art[0] == "L"
+	var l2 := art[2] == "L"
+	var c1 := p1 + r * (Vector2(-sin(t1), cos(t1)) if l1 else Vector2(sin(t1), -cos(t1)))
+	var c2 := p2 + r * (Vector2(-sin(t2), cos(t2)) if l2 else Vector2(sin(t2), -cos(t2)))
+	var d := c2 - c1
+	var dd := d.length()
+	var al := atan2(d.y, d.x)
+	var psi := al
+	var gerade := dd
+	if l1 != l2:
+		if dd < 2.0 * r:
+			return []
+		psi = al + asin(2.0 * r / dd) * (1.0 if l1 else -1.0)
+		gerade = sqrt(dd * dd - 4.0 * r * r)
+	var b1 := fposmod(psi - t1, TAU) if l1 else fposmod(t1 - psi, TAU)
+	var b2 := fposmod(t2 - psi, TAU) if l2 else fposmod(psi - t2, TAU)
+	var gesamt := r * (b1 + b2) + gerade
+	var pts: Array = []
+	var n := maxi(2, int(gesamt / PFAD_SCHRITT))
+	for i in n + 1:
+		var s := gesamt * i / n
+		var q: Vector2
+		var th: float
+		if s <= r * b1:
+			var w := s / r * (1.0 if l1 else -1.0)
+			th = t1 + w
+			q = c1 + (p1 - c1).rotated(w)
+		elif s <= r * b1 + gerade:
+			th = psi
+			var q1 := c1 + (p1 - c1).rotated(b1 * (1.0 if l1 else -1.0))
+			q = q1 + Vector2(cos(psi), sin(psi)) * (s - r * b1)
+		else:
+			var w2 := (gesamt - s) / r * (1.0 if l2 else -1.0)
+			th = t2 - w2
+			q = c2 + (p2 - c2).rotated(-w2)
+		pts.append([Vector3(q.x, a.y, q.y), s, PI / 2.0 - th, "G" if s > r * b1 and s <= r * b1 + gerade else "B"])
 	return pts
 
 
-func _auf_pfad(pts: Array, s: float) -> void:
+var _pfad_anim := ""
+
+
+## Neuer tween, der [pfad] abfährt: Bögen im Schritt (Gehen mal BOGEN_TEMPO; die Pfoten treten beim Wenden), Geraden über RUN_FROM
+## im Lauf; [eilig]: alles im Lauf (Ausweichen). Gibt die Dauer (s) zurück; je Punkt hängt die Zeit an (pfad[i][4]).
+func _pfad_fahren(pfad: Array, eilig: bool) -> float:
+	var gerade := 0.0
+	for i in range(1, pfad.size()):
+		if eilig:
+			pfad[i][3] = "G"
+		if pfad[i][3] == "G":
+			gerade += pfad[i][1] - pfad[i - 1][1]
+	var lauf := "Rennen" if (eilig or gerade > RUN_FROM) and weg.has("Rennen") else "Gehen"
+	var t := 0.0
+	pfad[0].append(0.0)
+	for i in range(1, pfad.size()):
+		var v: float = _mps(lauf) if pfad[i][3] == "G" else _mps("Gehen") * BOGEN_TEMPO
+		t += (pfad[i][1] - pfad[i - 1][1]) / v
+		pfad[i].append(t)
+	_pfad_anim = ""
+	tween = create_tween()
+	tween.tween_method(func(x: float): _auf_zeit(pfad, x, lauf), 0.0, t, t)
+	return t
+## Bögen im Schritt, aber so viel schneller (Bewegung und Schrittfolge zugleich, die Pfoten treten weiter auf; r3b: im Schritt
+## dauerte der Biss mit Heimweg 7,3 s statt 4,4 s)
+const BOGEN_TEMPO := 1.8
+
+
+## Ort und Drehung auf dem Pfad nach [t] s (Zeit je Punkt in pts[i][4]); wechselt zwischen Gehen (Bogen) und [lauf] (Gerade)
+func _auf_zeit(pts: Array, t: float, lauf: String) -> void:
 	var i := 1
-	while i < pts.size() - 1 and pts[i][1] < s:
+	while i < pts.size() - 1 and pts[i][4] < t:
 		i += 1
 	var a: Array = pts[i - 1]
 	var b: Array = pts[i]
-	var f := clampf((s - a[1]) / maxf(b[1] - a[1], 1e-5), 0.0, 1.0)
+	var f := clampf((t - a[4]) / maxf(b[4] - a[4], 1e-5), 0.0, 1.0)
 	position = a[0].lerp(b[0], f)
 	rotation.y = a[2] + wrapf(b[2] - a[2], -PI, PI) * f
+	var nm: String = lauf if b[3] == "G" else "Gehen"
+	if nm != _pfad_anim:
+		_pfad_anim = nm
+		if anim and anim.has_animation(nm):
+			anim.play(nm, 0.15, 1.0 if b[3] == "G" else BOGEN_TEMPO)
 
 
 ## Grad je Sekunde, mit denen ein Tier mit Wurzelweg sich umdreht (180° in 0,4 s)
@@ -836,7 +885,7 @@ func _bite(other, leap: bool) -> int:
 	# bis daheim, damit keiner zu einem Ort schlägt, an dem es nicht mehr steht
 	var heim := Vector2(home.x - ende.x, home.z - ende.z).length()
 	# r3: Heimweg mit Bogen und Kurve statt Drehen (höchstens ein Halbkreis und ein Bogen daheim mehr als die Gerade)
-	var t_heim := 0.0 if heim < 0.12 else (heim + 2.0 * PI * TURN_R * _scale()) / _mps("Rennen" if heim + PI * TURN_R * _scale() > RUN_FROM and weg.has("Rennen") else "Gehen")
+	var t_heim := 0.0 if heim < 0.12 else heim / _mps("Rennen" if heim > RUN_FROM and weg.has("Rennen") else "Gehen") + 2.0 * PI * TURN_R * _scale() / (_mps("Gehen") * BOGEN_TEMPO)     # r3b: Dubins, Bögen im Schritt
 	busy_ms = int((t_run + bl + t_back + t_heim) * 1000.0)
 	return int((t_run + bite[nm][1]) * 1000.0 / 0.42)
 
@@ -1083,8 +1132,46 @@ func dodge(after_ms: int, nm := "") -> void:
 		tween.tween_method(func(x: float): position = _weg_at(o, b, nm, x), 0.0, bl, bl)
 		tween.tween_callback(_walk_home)
 		return
+	# Kaufwolf (Chef 27.10., 21:51, Archiv: „Ausweichen-Bewegung war am Platz und ohne Ortswechsel … grundsätzlich wie bei der
+	# Ratte“; der Kauf hat keine Ausweichbewegung): ein Satz im Lauf zur freieren Seite (Ausweichen) oder schräg zurück (Ausweichen
+	# zurück), Pfad wie der Heimweg (Dubins, Radius halb), dann heim
+	if weg.has("Rennen") and not down and not lunging():
+		if nm == "":
+			nm = "Ausweichen zurück" if randf() < 0.5 else "Ausweichen"
+		var sc := model.scale.x
+		var best: Array = []
+		var luft := -INF
+		for sg in [1.0, -1.0]:
+			var off: Vector3 = (basis.x * sg * AUSWEICHEN[0] - basis.z * AUSWEICHEN[1]) if nm == "Ausweichen" else (basis.x * sg * AUSWEICHEN[2] - basis.z * AUSWEICHEN[3])
+			var ziel: Vector3 = position + off * sc
+			var yw: float = rotation.y + deg_to_rad(AUSWEICHEN[4] if nm == "Ausweichen" else AUSWEICHEN[5]) * sg
+			for art in ["LSL", "RSR", "LSR", "RSL"]:
+				var pts := _dubins(position, rotation.y, ziel, yw, TURN_R * 0.5 * _scale(), art)
+				if pts.is_empty():
+					continue
+				var g := INF
+				for i in range(0, pts.size(), 3):
+					g = minf(g, _seg_gap(pts[i][0], pts[i][0], null))
+				# wie _heimweg(): der kürzeste, der den anderen nicht näher kommt als der Start (Ortmess r3c: nach Luft gewählt
+				# liefen beide Sätze 3,2–3,7 m)
+				var g0 := _seg_gap(position, position, null) - PFAD_NAEHER
+				var wert: float = (1000.0 - pts[pts.size() - 1][1]) if g >= g0 else g
+				if wert > luft:
+					luft = wert
+					best = pts
+		if not best.is_empty():
+			if OS.get_environment("SCHAU_MESS") != "":
+				print("Ausweichen %s Länge %.2f m" % [nm, best[best.size() - 1][1]])
+			_pfad_fahren(best, true)
+			tween.tween_callback(_walk_home)
+			return
 	_play("Ausweichen", 0.05)
 	get_tree().create_timer(0.45).timeout.connect(_idle)
+
+
+## Satz beim Ausweichen ohne Wurzelweg der Quelle (Modellmeter, Grad): zur Seite (seitlich, zurück), schräg zurück (seitlich, zurück),
+## Drehung am Ende zur Seite bzw. schräg zurück
+const AUSWEICHEN := [0.9, 0.2, 0.5, 0.9, 0.0, 120.0]
 
 
 func die() -> void:
