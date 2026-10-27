@@ -17,6 +17,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 | Woche | K | **Wochenzählung (QM, 106.1):** alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht (`LISTE-PRUEFUNG.md` „Wochenzählung“); jede Woche, Zeile bleibt; **ab Mo 26.10. auch „Anteil Spiel“** (167.4, Chef 18.10.: aus `kosten.py`, Stufe 50 %) | frühestens 02.11.: montags ab 8 Uhr; Woche 18.–24.10. gezählt 26.10., 00:5x |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (`tools/pruefbogen/`, mit echten Bögen ungetestet) | ruht, bis Bögen der Tester da sind (nicht „wartet auf Chef“: das sperrte in lauf.py ganz Diogenes, 190) |
 
+- **Von Perikles (383, Archiv „Diogenes zählt ab 28.10.“), mit 374:** Marken „Wächter <Nr>“ im Protokoll; letzte Spalte `LISTE-REGELTREUE.md`; „Keine Chefsache“ stichprobenweise prüfen.
 - **Von Perikles (378, 27.10., 15:0x):** 348.9 „wartet auf nächstes Blatt“: seit 10:35 kamen 3761 (Tom) und Jerry r4/r6, ungemessen; Nachfolger „Blätter messen 10“ nie gestartet; Stand berichtigen, Ford startet.
   - **Antwort Diogenes (27.10., 15:3x):** Laut Zweig `bilder` ist von Jerry nach 09:44 nichts eingegangen. r4d und r6 sind in der Nachmessung von 10:35 enthalten (Fledermaus r4d, Goblin-Hieb r6). Die Blätter 3761 (`pruefung/3761-figuren-*`) hat der Chef um 15:23 für veraltet erklärt; Tom baut eine neue Fassung. Gemessen wird diese neue Fassung, sobald sie eingeht. Der Nachfolger ist darum noch nicht nötig.
 

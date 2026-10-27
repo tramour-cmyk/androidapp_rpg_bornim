@@ -32,6 +32,39 @@ Namen aus `UAL1.glb` (Pro); `_Loop` weggelassen; **fett** = auch in Standard.
 
 **Fehlt** (Tom 27.10.): Stich, Schildabwehr, gehaltenes Ausholen; je Waffe nur ein Angriff.
 
+### Menschen: Protofactor Animset Wizard (385, gekauft 27.10., 21:10)
+
+| Datei (Asset-Id) | Ort | Lizenz | Format |
+|---|---|---|---|
+| `ANIMSET.WIZARD.unitypackage` (682733782, 170 MB) | privat | Unity Asset Store EULA | Unity-Paket (tar.gz, ohne Unity entpackbar); 105 FBX: `Humanoid@<Bewegung>Wizard.fbx`, dazu `SK_Protof-Actor.fbx` (Körper), `Protof-Actor@WizardAnimset.fbx` (alle in einer Datei), `SM_WizardStaffProp.fbx` (Zauberstab) |
+
+Bewegungserfassung (Motion Capture), Unity „Mecanim Humanoid“. Gerüst `SK_Protof-Actor` nach 3ds-Max-Biped-Art (Pelvis, Spine/Spine1/Spine2, Neck, Head, Clavicle, UpperArm, Forearm, Hand, Finger0–42, Thigh, Calf, Foot, Toe0; aus den Knochennamen gelesen 27.10.): auf unsere Körper (UAL-Gerüst, 65 Knochen) nur über Zuordnung je Knochen in Godot übertragbar, ungeprüft (Tom, 385). Ausgelesen aus den Dateinamen 27.10., 21:1x; „(+RM)“ = zusätzlich mit Wurzelweg.
+
+| Gruppe | Bewegungen |
+|---|---|
+| Stehen | Idle, IdleLookAround |
+| Zaubern | CastSpell1 bis CastSpell14 (14 verschiedene) |
+| Fortbewegung | Walk Forward/Backwards/Left/Right und schräg (8 Richtungen), Run ebenso, RunFast, Sprint (alle +RM) |
+| Hocken | CrouchIdle, CrouchIdleLookAround, Crouch in 8 Richtungen (+RM) |
+| Ausweichen | DodgeLeft, DodgeRight (+RM) |
+| Treffer | GetHit Front/Back/Left/Right je Light und Heavy, dazu FrontLight2, BackLight2 (Heavy +RM) |
+| Tod, Liegen, Aufstehen | Death Front/Back/Left/Right; Dead Front/Back/Left/Right (liegend); GetBackUp Front/Back/Left/Right |
+
+### Was wir mit Bewegungen abdecken (Stand 27.10., 21:1x)
+
+| Bedarf | Quelle im Bestand | Lücke |
+|---|---|---|
+| Leute im Dorf: Stehen, Gehen, Reden, Sitzen, Theke, Trinken, Arbeiten | UAL | Gesten (Hüfte, Arme verschränkt), Frauen-Gang |
+| Rast, Lagerfeuer | UAL (GroundSit) | Feuer anzünden, Schlafen |
+| Held Schwert | UAL (ein Angriff) | Stich, Schildabwehr, gehaltenes Ausholen, mehrere Angriffe |
+| Held Zauber (Magier, Kleriker), Goblin-Schamane | Wizard (14 Zauber), UAL (Spell_Simple, Spell_Double) | – (Übertragung ungeprüft) |
+| Bogen (Späher, Waldläufer) | – | ganz |
+| Ausweichen, Treffer, Tod beim Menschen | Wizard (je Richtung), UAL (Hit, Death, Dodge) | – (Wizard ungeprüft) |
+| Ratte | Protofactor Ratte (18) | – |
+| Wolf, Wildschwein, Bär, Hirsch, Kaninchen u. a. | Janpec (je etwa 5–9) | Ausweichen, Treffer je Richtung |
+| Hundertfüßer | MadeCG (6) | – |
+| Goblins, Kobold | CC0-Gerüst mit UAL | – |
+
 ### Tiere und Monster (Bewegungen je Tier unten)
 
 | Paket | Datei (Asset-Id) | Ort | Lizenz | Format |

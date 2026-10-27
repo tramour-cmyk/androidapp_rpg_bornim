@@ -58,6 +58,48 @@ def chefdateien():
     d = os.path.join(DOCS, "chefsache", "entscheiden")
     return os.listdir(d) if os.path.isdir(d) else []
 
+ZEIT = re.compile(r"(?<![\d.])(\d{1,2})\.(\d{1,2})\.,? (\d{1,2}):(\d\d)")
+
+def _zeit(m):
+    d = jahr_von(int(m.group(1)), int(m.group(2)))
+    return datetime.datetime(d.year, d.month, d.day, int(m.group(3)), int(m.group(4)))
+
+def antworten(text=None):
+    """Vorgangsarchiv → {Dateikürzel (348.13a → 34813a): (Nr., Zeit der jüngsten Antwort des Chefs)}; Vorentscheide (→ **Vorentscheid**) zählen nicht."""
+    antwort = {}
+    for z in (lesen("VORGANGSARCHIV.md") if text is None else text).splitlines():
+        m = re.match(r"- \*\*([0-9A-Za-z][0-9A-Za-z.]*?)(?:,|\*\*| )", z)
+        t = ZEIT.search(z)
+        if not m or not t or z.rstrip().endswith("**Vorentscheid**"): continue
+        k = m.group(1).replace(".", "").lower()
+        try: w = _zeit(t)
+        except ValueError: continue
+        if k not in antwort or w > antwort[k][1]: antwort[k] = (m.group(1), w)
+    return antwort
+
+def ueberholt(name, inhalt, antwort):
+    """Ist die Vorlage name (z. B. 34813a-tusche.md) mit diesem Inhalt laut antwort beantwortet? Zeit aus Zeile 1 oder 2 der Datei."""
+    k = name.split("-")[0].lower()
+    t = ZEIT.search("\n".join(inhalt.splitlines()[:2]))
+    if k not in antwort or not t: return None
+    try: seit = _zeit(t)
+    except ValueError: return None
+    return antwort[k] if antwort[k][1] > seit else None
+
+def beantwortet():
+    """383.3 (Chef 27.10., 19:55: „Sachen, die nicht mehr zur Vorlage sind, dann weg“): Vorlagen in entscheiden/, ansehen/, billigen/,
+    zu deren Nummer das Vorgangsarchiv eine Antwort des Chefs hat, die jünger ist als die Zeit in Zeile 1 oder 2 der Datei.
+    Bleibt eine Frage trotz Antwort offen (Antwort galt einer anderen Frage derselben Nummer), setzt der Besitzer die Zeit neu.
+    Liefert [(ordner/datei, Nr. im Archiv, Archivzeit)]."""
+    antwort = antworten(); aus = []
+    for ordner in ("entscheiden", "ansehen", "billigen"):
+        d = os.path.join(DOCS, "chefsache", ordner)
+        for f in (sorted(os.listdir(d)) if os.path.isdir(d) else []):
+            if not f.endswith(".md"): continue
+            a = ueberholt(f, open(os.path.join(d, f), encoding="utf-8").read(), antwort)
+            if a: aus.append((ordner + "/" + f, a[0], a[1]))
+    return aus
+
 def jahr_von(tag, monat):
     """Datum zu TT.MM.: dieses Jahr, liegt es mehr als ein halbes Jahr zurück, das nächste (Januartermine im Herbst, D28.4)."""
     h = datetime.date.today()

@@ -18,8 +18,8 @@ Zählung je Sitzung, geschrieben vom Stop-Haken `tools/zug-haken.py` in `~/.born
 
 Befund: Wörter der Teams −43 % gegen A (Ziel −30 % erreicht); Stempel schlechter (42 %, Ziel unter 5 %), fast immer vorgerechnet, der Stop-Haken zählt nur (Chef 24.10., 21:15); Zwischenstände unverändert; Sokrates bleibt lang (darf begründen). Vorschlag: Chefsache 318.1.
 
-| Zeit | Rolle | Sitzung | Züge | Wörter Median | Wörter max | Entschuldigungen | Stempel daneben/gesamt | Kontext Tsd. |
-|---|---|---|---|---|---|---|---|---|
+| Zeit | Rolle | Sitzung | Züge | Wörter Median | Wörter max | Entschuldigungen | Stempel daneben/gesamt | Kontext Tsd. | Haken 63 nachgeprüft: gehalten/„Keine Chefsache“/durch (383, ab 27.10., 19:15) |
+|---|---|---|---|---|---|---|---|---|---|
 | 24.10., 16:57 | Perikles | 9440fe84-e09 | 1 | 22 | 22 | 0 | 1/1 | 166 |
 | 24.10., 21:41 | Homer | 11bcbe06-db2 | 4 | 43 | 69 | 0 | 1/4 | 189 |
 | 24.10., 21:56 | Jerry | 89e59e50-e44 | 1 | 107 | 107 | 0 | 1/1 | 199 |
@@ -69,3 +69,9 @@ Befund: Wörter der Teams −43 % gegen A (Ziel −30 % erreicht); Stempel schle
 | 27.10., 12:10 | Jerry | 24eeb98b-dc4 | 2 | 33 | 37 | 0 | 0/1 | 155 |
 | 27.10., 13:41 | Jerry | e64f59f6-8e7 | 3 | 20 | 21 | 0 | 0/3 | 283 |
 | 27.10., 15:53 | Jerry | dc2901f7-d25 | 1 | 94 | 94 | 0 | 0/1 | 111 |
+| 27.10., 18:38 | Jerry | 79341a58-233 | 2 | 12 | 14 | 0 | 0/1 | 212 |
+| 27.10., 20:05 | Tom | abb87c40-811 | 3 | 5 | 8 | 0 | 0/0 | 179 | 0/0/0 |
+| 27.10., 20:34 | Jerry | bca6f3f0-5e5 | 1 | 14 | 14 | 0 | 1/1 | 122 | 0/0/0 |
+| 27.10., 22:33 | Tom | a183cafc-27a | 4 | 18 | 23 | 0 | 0/0 | 252 | 0/0/0 |
+| 27.10., 22:50 | Jerry | c681341f-7b7 | 8 | 6 | 7 | 0 | 0/0 | 324 | 0/0/0 |
+| 28.10., 00:01 | Tom | fbdaf056-352 | 8 | 21 | 40 | 0 | 0/6 | 329 | 0/0/0 |

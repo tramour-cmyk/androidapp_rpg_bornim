@@ -47,7 +47,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 - `ROLLE-…`: wer ich bin, was ich tue, wen ich anspreche, was ich beim Start lese.
 - `ARBEIT-…` = **Vorrat** je Rolle (`-TEAM-TOM`, `-TEAM-JERRY`, `-KREATIV`, `-PROJEKT`, `-BERATUNG`, `-PRUEFUNG`):
   - oben „Übergabe:“, ggf. „Pause bis …“ (Ford startet dann keine neue Arbeit, nur den Nachfolger einer Übergabe, 347);
-  - Zeilenfolge = Vorrang; Spalte „Kl.“: **M** Muss (im Wochenziel oder Chef sagt „jetzt“), **K** Kür, „M?“ (Perikles entscheidet);
+  - Zeilenfolge = Vorrang; Spalte „Kl.“: **M** Muss (im Wochenziel oder Chef sagt „jetzt“, dann `„jetzt“ TT.MM., HH:MM` in die Zeile, Wächter 383), **K** Kür, „M?“ (Perikles entscheidet);
   - Kür nur, wenn kein Muss startbar; danach Zeilen „nach dem Meilenstein“; „A“ heißt nur: hält Arbeit an; Zahlen: `python3 tools/startbar.py --stand`.
 - `ARBEIT-BETRIEB.md`: Vorgangszähler, Fords Stellung, Guthaben, Eingang (was keinem gehört), Protokoll.
 - `ARBEIT-BESETZUNG.md`: wer gerade woran; schreibt `tools/lauf.py`, darum haben Vorräte keine Spalte „Wer“.
@@ -58,7 +58,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 
 ## Wie wir zusammenarbeiten
 
-1. **Arbeiten, solange Startbares da ist:** Vorgang für Vorgang, Muss vor Kür vor „nach dem Meilenstein“. Fertig, wartet auf den Chef oder zweite Erinnerung des Neustart-Hakens: Übergabe mit „Nachfolger: <Titel>“, Neustart über Ford (`LISTE-RELEASE-NEUSTART.md`). Nur „noch nicht“ des Chefs hält auf.
+1. **Arbeiten, solange Startbares da ist:** Vorgang für Vorgang, Muss vor Kür vor „nach dem Meilenstein“. Fertig oder zweite Erinnerung des Neustart-Hakens: Übergabe mit „Nachfolger: <Titel>“, Neustart über Ford (`LISTE-RELEASE-NEUSTART.md`). Nur „noch nicht“ des Chefs hält auf.
 2. **Start:** `tools/notiz.sh` (holt `main`, meldet die Rolle; „unbekannt“ → Chef fragen, nichts anfangen). Dann „Start“ der Rollendatei. Startmeldung höchstens drei Zeilen: Name; Neues für den Chef; ein Satz mit Link, falls in der Chefsache etwas offen ist. Automatischen Sitzungsnamen umbenennen: Rolle, Thema, „(TT.MM., HH:MM)“, ohne laufende Nummer (ohne Werkzeug: vorschlagen); Nachfolger gleich so benennen.
 3. **Wer entscheidet:** Wie du deine Aufgabe erledigst, du; sonst der Besitzer, im Zweifel der Chef. **Vorentscheid** nur Perikles, Homer, Sokrates, nur was in ihrer Rollendatei unter „Entscheidet selbst“ steht (ins Vorgangsarchiv mit „Vorentscheid“ und Datei in `docs/chefsache/billigen/`; Chef antwortet „gebilligt“ oder „zurück“, „zurück“ = Rückbau als Muss; Regeln `docs/chefsache/README.md`). **Nie selbst:** Story, Spielgefühl, Aussehen, Balance, Geschäftsmodell, Umbauten über mehrere Orte oder beide Teams, Code auf `main`.
 4. **Grundsatzfragen** (Liste in 3): selbst eine Datei in der Chefsache anlegen (Frage, Votum, Berührt; dann Begründung, Sachverhalt, Auswertung mit stärkstem Gegenargument, Folgerungen; 364), Zeile im eigenen Vorrat, weiterarbeiten. Homer, Perikles, Sokrates nehmen Stellung nur auf Zuruf des Chefs. Story und Spieltexte immer über Homer. Testbitten stellen die Teams selbst.
@@ -88,7 +88,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
   - Auftrag des Chefs und Einzelheiten als „Zu <Nr.>:“ unter der Tabelle; Stand setzen und Erledigtes streichen nur mit `python3 tools/vorgang.py stand|fertig <Nr>` (Vorrat und `LISTE-VORGAENGE.md` zugleich; suchen: `vorgang.py <Nr>`; 275);
   - eine Übergabe je Rolle, oben im Vorrat: nur Getanes und Nachfolger, kein Stand; die alte ersetzen; vor Pause oder Neustart pushen.
 - **Story und Dialoge:** Plot und Texte legen Chef und Homer fest; Verzeichnis `STORY-REGELN.md`, über die Marke `[Thema.kurz]` suchen, wortgetreu übernehmen, Englisch selbst übersetzen. Fehlt ein Text: Vorgang an Homer, nie erfinden. Tippfehler direkt korrigieren (Commit „Text:“).
-- **Chefsache:** je Punkt eine Datei, jeder nur seine (Regeln `docs/chefsache/README.md`, Bilder höchstens 60 KB); im Chat nur Nummern. Entschieden wird in der Chefrunde mit Sokrates (`ROLLE-BERATUNG.md`).
+- **Chefsache:** je Punkt eine Datei, jeder nur seine; beantwortet heißt weg, im selben Commit wie die Antwort (383.3; Regeln `docs/chefsache/README.md`, Bilder höchstens 60 KB); im Chat nur Nummern. Entschieden wird in der Chefrunde mit Sokrates (`ROLLE-BERATUNG.md`).
 - **Begriffe** (auch im Spiel): **Vorgang** („Vorgang 72s.1“, in Meldungen „72s.1:“; nicht „Thema“, nicht „Nummer“). **Landkarte** → **Gebietskarte** (unter freiem Himmel) → **Grundriss** (hinter einem Eingang); übereinanderliegende Teile eines Grundrisses: **Ebene** (nie „Stockwerk“, nie für Kartenstufen). Kampfsystem **MARS**; wo gekämpft wird: **Kampfort** (nie „Bühne“). Menschen an der Seite des Helden: **Gefährte** oder **Söldner**, sonst **Begleiter**. Erster Schirm mit Auswahl: **Hauptmenü** (nie „Titelbild“; 292).
 - **Ford steht:** kommt um 7 Uhr (Sa, So, Urlaub 9 Uhr) keine Morgenmeldung, ein Wort an Team Tom oder Perikles („Ford-Wache“, `LISTE-BETRIEB.md`).
 
