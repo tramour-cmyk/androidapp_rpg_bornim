@@ -49,7 +49,7 @@ def vn(x, y, s=0):
 W1 = (1.0, 1.0, 1.0)
 
 # ---------------------------------------------------------------- Materialien: Textur und Wiederholung (cm je Bild)
-SCALE = dict(putz=200, bretter=200, feldstein=200, stroh=200, schindel=200, schiefer=200, ziegel=200, schindel2=200, schindel3=200, schiefer2=200, ziegel2=200, holz=100, balken=100,
+SCALE = dict(putz=200, bretter=200, feldstein=200, stroh=200, schindel=200, schiefer=200, ziegel=200, schindel2=200, schindel3=200, schiefer2=200, ziegel2=200, ziegel3=200, ziegel4=200, holz=100, balken=100,
              rinde=120, laub=160, laub_busch=160, laub_nadel=120, stoff=100, heu=120, weiss=100, erde=232)
 GRAIN = {'holz', 'balken', 'rinde'}            # Maserung laengs der laengsten Kante
 CUR = ['weiss']
@@ -450,10 +450,10 @@ def glockenturm(x1, ym, ridge, eave):
                Vector((tcx + hw + 7, ym + hw + 7, top + 3)), Vector((tcx - hw - 7, ym + hw + 7, top + 3))]
         ap = Vector((tcx, ym, top + 130))   # spitzer als alt (50 Einheiten): die Kamera staucht Hoehen
         for k in range(4): add_face(DORF, [cs_[k], cs_[(k + 1) % 4], ap], lambda p, n: sc(lin(0x585C62), 2.4))
-def markise(x0, x1, yf, dz=0.0):
+def markise(x0, x1, yf, dz=0.0, aus=0.7):
     # Markise des Ladens wie MapTownIso.kt: gestreiftes Tuch (0,15 Kachel von den Ecken) 0,7 Kacheln vor der Front,
     # vorn 45 cm tiefer, ausgefranster Saum, zwei Stangen (Masse alt * 1,73 cm)
-    a0, a1, out = x0 + 0.15 * TS, x1 - 0.15 * TS, 0.7 * TS
+    a0, a1, out = x0 + 0.15 * TS, x1 - 0.15 * TS, aus * TS
     ns = max(4, int((a1 - a0) / TS * 4))
     with use('stoff'):
         for k in range(ns):
@@ -777,7 +777,7 @@ for a_ in K.get('ausgaenge', []):
 def wand_plan(L, oeffnungen, tuer=None):
     """Teile einer Wand der Laenge L (Bausatz-m, Mitte 0): Tuer an ihrer Stelle, Fenster an ihrer Stelle (Anteil 0..1),
     ueberlappende Fenster zusammen, vor die Tuer geschoben; dazwischen glatte Stuecke. Liste (mitte, breite, art)"""
-    B = 2.0; rand = 0.12
+    B = 2.0; rand = 0.0                                         # Fenster an den Enden bis an die Ecke wie bei Gwenna (Helfer 23:09: Putzstreifen)
     teile = []
     if tuer is not None: teile.append([tuer, B, 'D'])
     for t in sorted(oeffnungen):
@@ -815,12 +815,12 @@ def kithaus(cells, style):
     stein = walls == 'STONE'
     pre = 'Wall_UnevenBrick_' if stein else 'Wall_Plaster_'
     glatt = pre + ('Straight' if stein else 'Straight_Base')
-    rm = dict(RED='ziegel', SHINGLE='schindel', SLATE='schiefer', BLUE='schiefer').get(roof, 'ziegel')
+    rm = dict(RED='ziegel2', SHINGLE='ziegel4', SLATE='ziegel3', BLUE='ziegel3').get(roof, 'ziegel2')   # Rundziegel (Helfer 23:09: Schiefer, Schindel ergaben Treppen)
     mat = dict(KIT_MAT, MI_RoundTiles=rm)
     ptint = ratio(lk['plaster'], 0x8C8270); ttint = ratio(lk['timber'], 0x3E2E22)
     def putz(p, n): return sc(ptint, (0.72 + 0.28 * ss(0, 90, p.z)) * (0.94 + 0.12 * vn(p.x / 80 + p.y / 80, p.z / 80, 13)))
     def dach(p, n): return mixc(W1, (0.8, 0.95, 0.6), 0.3 * vn(p.x / 120, p.y / 120, 21))
-    tint = dict(putz=putz, balken=ttint, feldstein=lambda p, n: stone_tint(p, n), ziegel=dach, schindel=dach, schiefer=dach)
+    tint = dict(putz=putz, balken=ttint, feldstein=lambda p, n: stone_tint(p, n), ziegel2=dach, ziegel3=dach, ziegel4=dach)
     def at(x, y, z, a, sx=1.0, sy=1.0, sz=1.0):
         return (Matrix.Translation((cx + x * 100 * s, cy + y * 100 * s, z * 100 * s)) @ Matrix.Rotation(math.radians(a), 4, 'Z')
                 @ Matrix.Scale(s, 4) @ Matrix.Diagonal((sx, sy, sz, 1)))
@@ -864,13 +864,15 @@ def kithaus(cells, style):
     first = (zd + 3.72) * 100 * s
     herd = [(i - 0.5) / (w - 2) for i in range(1, w - 1) if nord[i] == 'Z']
     if herd and not temple:                                     # Kamin ueber der Feuerstelle, hinten am Dach
-        u = -L / 2 + sum(herd) / len(herd) * L; yc = 1.3
+        u = -L / 2 + sum(herd) / len(herd) * L; yc = 0.7   # wie Gwenna (Helfer 23:09: bei 1,3 nur ein Stummel hinter dem First)
         kz = zd + (3.72 - (3.72 + 0.52) * yc / 2.76) + 1.0 - 3.0
         kit_teil('Prop_Chimney2', at(u, yc, kz, 0), tint, mat)
         LIGHTS.append(dict(art='rauch', pos=[cx + u * 100 * s, cy + yc * 100 * s, (kz + 3.0) * 100 * s]))
     if temple: glockenturm(cx + L / 2 * 100 * s, cy, first, zd * 100 * s)
-    if feat == 'AWNING': markise(x0, x1, yf, -12)               # Bausatzdach reicht vorn bis 1,87 m: Tuch tiefer
-    if feat == 'INN_SIGN': wirtsschild(tx(dc) + 1.15 * TS, yf, -42)
+    if feat == 'AWNING': markise(x0, x1, yf, 0, 0.5)            # Bausatzdach reicht 0,57 m vor bis 1,87 m: Tuch kuerzer statt tiefer (Helfer 23:09: auf Kopfhoehe)
+    if feat == 'INN_SIGN':                                      # Bausatzdach: Arm unter der Traufe; links der Tuer auf der glatten Wand
+        u = next((u for u, b, k in vorn[::-1] if k == '#' and u < ud), ud - 1.5)   # (Helfer 23:09: rechts verdeckte es von Suedost die Tuer)
+        wirtsschild(cx + u * 100 * s, yf, -42)
     LIGHTS.append(dict(art='tuer', pos=[tx(dc) + TS / 2, yf - 60, 0]))
     for u, b, k in vorn:
         if k == 'W': LIGHTS.append(dict(art='fenster', pos=[cx + u * 100 * s, yf - 30, 170 * s]))

@@ -451,3 +451,7 @@ if __name__ == '__main__':
     roofrows('schiefer2', 1024, 13, [0x24282C, 0x3A4048, 0x50565C], 142, moss=0x5A6040, slip=0.35, per_k=1.2, hi_amt=0.1, life=0.6, newtint=(1.18, 1.2, 1.24))
     roofrows('ziegel', 1024, 14, [0x4A2016, 0x6E3A28, 0x8A5038], 133, moss=0x6A6A4A, round_=True, per_k=2.2, life=0.7)
     roofrows('ziegel2', 1024, 14, [0x52281A, 0x7A4430, 0x9A5C40], 143, moss=0x5A5A3A, mossamt=0.5, round_=True, per_k=2.0, life=1.0)
+    # 348.6 Haeuser mit Innenraum (Helfer 23:09: Schiefer und Schindel auf der Rundziegelform des Bausatzes ergaben Treppen- und Wuerfelmuster):
+    # Rundziegel in Schiefergrau und dunklem Braun
+    roofrows('ziegel3', 1024, 14, [0x26282C, 0x3E4246, 0x585C60], 144, moss=0x5A6040, mossamt=0.4, round_=True, per_k=2.1, life=0.7, newtint=(1.18, 1.2, 1.24))
+    roofrows('ziegel4', 1024, 14, [0x2A1C14, 0x4A3424, 0x664A34], 145, moss=0x3A4622, mossamt=0.4, round_=True, per_k=2.1, life=0.8)
