@@ -1171,7 +1171,7 @@ func dodge(after_ms: int, nm := "") -> void:
 
 ## Satz beim Ausweichen ohne Wurzelweg der Quelle (Modellmeter, Grad): zur Seite (seitlich, zurück), schräg zurück (seitlich, zurück),
 ## Drehung am Ende zur Seite bzw. schräg zurück
-const AUSWEICHEN := [0.9, 0.2, 0.5, 0.9, 0.0, 120.0]
+const AUSWEICHEN := [1.0, 0.0, 0.5, 0.9, 90.0, 120.0]     # r3c: mit Blick geradeaus zur Seite brauchte der Pfad Schleifen (3,5 m), mit 90° 1,6 m
 
 
 func die() -> void:
