@@ -43,15 +43,17 @@ HAAR = {'dunkel': (0.16, 0.11, 0.08), 'braun': (0.34, 0.22, 0.13), 'kastanie': (
         'blond': (0.86, 0.72, 0.45), 'schwarz': (0.07, 0.06, 0.06), 'grau': (0.55, 0.53, 0.50)}
 # Teile ohne eigene Farbe (Helfer: Schulterstueck des Waldlaeufers weiss): Netz -> Farbe auf die Textur
 LEDER = (0.42, 0.30, 0.20)
+# Ritterplatten (Helfer Kaufteile: grauweiss, ueberstrahlt; Godot liest nur das Bild, kein Metall): Stahl abgedunkelt
+STAHL = (0.55, 0.56, 0.60)
 
 FIGUREN = {
-    'q_held':     {'kleid': 'Male_Knight',    'kopf': 'Regular_Male_OnlyHead',   'haar': 'Hair_SimpleParted', 'bart': 'Hair_Beard', 'farbe': 'braun', 'ohne': ['Hood']},
+    'q_held':     {'kleid': 'Male_Knight',    'kopf': 'Regular_Male_OnlyHead',   'haar': 'Hair_SimpleParted', 'bart': 'Hair_Beard', 'farbe': 'braun', 'ohne': ['Hood', 'Head_Armet']},
     'q_bauer':    {'kleid': 'Male_Peasant',   'kopf': 'Regular_Male_OnlyHead',   'haar': 'Hair_Buzzed', 'bart': 'Hair_Beard', 'farbe': 'dunkel'},
     'q_baeuerin': {'kleid': 'Female_Peasant', 'kopf': 'Regular_Female_OnlyHead', 'haar': 'Hair_Buns', 'brauen': 'Eyebrows_Female', 'farbe': 'kastanie'},
-    'q_zwerg':    {'kleid': 'Male_Noble',     'kopf': 'Regular_Male_OnlyHead',   'haar': 'Hair_Buzzed', 'bart': 'Hair_Beard', 'farbe': 'rot', 'volk': 'zwerg'},
-    'q_elf':      {'kleid': 'Female_Ranger',  'kopf': 'Regular_Female_OnlyHead', 'haar': 'Hair_Long', 'brauen': 'Eyebrows_Female', 'farbe': 'blond', 'volk': 'elf', 'ohne': ['Hood']},
+    'q_zwerg':    {'kleid': 'Male_Noble',     'kopf': 'Regular_Male_OnlyHead',   'haar': 'Hair_Buzzed', 'bart': 'Hair_Beard', 'farbe': 'rot', 'volk': 'zwerg', 'ohne': ['Crown']},
+    'q_elf':      {'kleid': 'Female_Ranger',  'kopf': 'Regular_Female_OnlyHead', 'haar': 'Hair_Ponytail', 'brauen': 'Eyebrows_Female', 'farbe': 'blond', 'volk': 'elf', 'ohne': ['Hood']},
     'q_halbling': {'kleid': 'Male_Peasant',   'kopf': 'Regular_Male_OnlyHead',   'haar': 'Hair_SimpleParted', 'farbe': 'braun', 'volk': 'halbling'},
-    'q_halbork':  {'kleid': 'Male_Knight_Cloth', 'kopf': 'Regular_Male_OnlyHead',   'haar': 'Hair_Buzzed', 'farbe': 'schwarz', 'volk': 'halbork'},
+    'q_halbork':  {'kleid': 'Male_Knight_Cloth', 'kopf': 'Regular_Male_OnlyHead',   'haar': 'Hair_Buzzed', 'farbe': 'schwarz', 'volk': 'halbork', 'ohne': ['Head_Horns']},
 }
 KOPF_KNOCHEN = {'Head', 'neck_01', 'neck_02'}
 
@@ -210,6 +212,7 @@ def baue(kennung, f):
         if o.name.startswith(('Hair_', 'Eyebrows')): toene(o, lambda n: True, hf)
         else: toene(o, lambda n: n.startswith('MI_Hair'), hf)   # Brauen im Kopf des Ersatzes
         if 'Pauldron' in o.name: toene(o, lambda n: True, LEDER)
+        elif o.name.startswith('Male_Knight') or o.name.startswith('Female_Knight'): toene(o, lambda n: n.startswith('MI_Knight'), STAHL)
         if 'haut' in v: toene(o, lambda n: 'Regular' in n or 'Superhero' in n, v['haut'])
     dr = 0
     for o in netze:
