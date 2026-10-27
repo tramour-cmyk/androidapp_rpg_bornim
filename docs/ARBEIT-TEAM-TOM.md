@@ -8,6 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 389 | M | **von Perikles (Chef 27.10., 23:55, Archiv):** `main` in den Arbeitszweig mergen (Haken `probelauf.py` in `.claude/settings.json`), Bildläufe nur als `PROBE=<Nr> …`; höchstens zwei je Vorlage (`ROLLE-ENTWICKLUNG.md`) | neu | – |
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101: Held im APK verschlüsselt, lädt) | `claude/tom-348-12i-verschluesseln` |
 | 385 | M? | **von Sokrates (Archiv):** Zauberer-Set (Biped, LISTE-BESTAND) auf Kaufkörper, Film | startbar |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | startbar: Kaufkopf ja (Chef 21:41); Oberarm behoben, Halszacken offen, dann Formen, Kopfvorlagen, Editor (Zu 376.1) | `claude/tom-376-1-figuren` |
