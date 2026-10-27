@@ -49,7 +49,7 @@ def vn(x, y, s=0):
 W1 = (1.0, 1.0, 1.0)
 
 # ---------------------------------------------------------------- Materialien: Textur und Wiederholung (cm je Bild)
-SCALE = dict(putz=200, bretter=200, feldstein=200, stroh=200, schindel=200, schiefer=200, ziegel=200, schindel2=200, schindel3=200, schiefer2=200, ziegel2=200, ziegel3=200, ziegel4=200, holz=100, balken=100,
+SCALE = dict(putz=200, bretter=200, feldstein=200, stroh=200, schindel=200, schiefer=200, ziegel=200, schindel2=200, schindel3=200, schiefer2=200, ziegel2=200, holz=100, balken=100,
              rinde=120, laub=160, laub_busch=160, laub_nadel=120, stoff=100, heu=120, weiss=100, erde=232)
 GRAIN = {'holz', 'balken', 'rinde'}            # Maserung laengs der laengsten Kante
 CUR = ['weiss']
@@ -815,12 +815,15 @@ def kithaus(cells, style):
     stein = walls == 'STONE'
     pre = 'Wall_UnevenBrick_' if stein else 'Wall_Plaster_'
     glatt = pre + ('Straight' if stein else 'Straight_Base')
-    rm = dict(RED='ziegel2', SHINGLE='ziegel4', SLATE='ziegel3', BLUE='ziegel3').get(roof, 'ziegel2')   # Rundziegel (Helfer 23:09: Schiefer, Schindel ergaben Treppen)
+    # Rundziegel wie Gwenna, Farbe nach Dachart getoent (Helfer 23:09: Schiefer, Schindel auf der Rundziegelform ergaben Treppen;
+    # 23:24: eigene graue und braune Rundziegel zeigten abends Rippen wie Wellblech, Gwennas Ziegel nicht)
+    rm = 'ziegel2' if roof == 'RED' else 'ziegel'
+    farbe = dict(SHINGLE=ratio(0x4E3826, 0x6E3A28), SLATE=ratio(0x4C5056, 0x6E3A28), BLUE=ratio(0x4A5058, 0x6E3A28)).get(roof, W1)
     mat = dict(KIT_MAT, MI_RoundTiles=rm)
     ptint = ratio(lk['plaster'], 0x8C8270); ttint = ratio(lk['timber'], 0x3E2E22)
     def putz(p, n): return sc(ptint, (0.72 + 0.28 * ss(0, 90, p.z)) * (0.94 + 0.12 * vn(p.x / 80 + p.y / 80, p.z / 80, 13)))
-    def dach(p, n): return mixc(W1, (0.8, 0.95, 0.6), 0.3 * vn(p.x / 120, p.y / 120, 21))
-    tint = dict(putz=putz, balken=ttint, feldstein=lambda p, n: stone_tint(p, n), ziegel2=dach, ziegel3=dach, ziegel4=dach)
+    def dach(p, n): return tuple(a * b for a, b in zip(mixc(W1, (0.8, 0.95, 0.6), 0.3 * vn(p.x / 120, p.y / 120, 21)), farbe))
+    tint = dict(putz=putz, balken=ttint, feldstein=lambda p, n: stone_tint(p, n), ziegel=dach, ziegel2=dach)
     def at(x, y, z, a, sx=1.0, sy=1.0, sz=1.0):
         return (Matrix.Translation((cx + x * 100 * s, cy + y * 100 * s, z * 100 * s)) @ Matrix.Rotation(math.radians(a), 4, 'Z')
                 @ Matrix.Scale(s, 4) @ Matrix.Diagonal((sx, sy, sz, 1)))
