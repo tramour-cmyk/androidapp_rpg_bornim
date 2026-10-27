@@ -138,7 +138,7 @@ t = re.sub(r"(?m)^(\s*(?:⚠\s*)?)<b>([^<:]+):</b>", lambda m: m.group(1) + ("<a
 n = "<b>" + html.escape(os.environ["NAME"]) + "</b>"
 if os.environ["SITZUNG"]: n = "<a href=\"" + os.environ["SITZUNG"] + "\">" + n + "</a>"
 print(n + " <b>" + os.environ["ZEIT"] + "</b>\n" + t)')
-[ $probe = 1 ] && { [ -n "$art" ] && echo "($art: $bild)"; echo "$zeile"; exit 0; }
+[ $probe = 1 ] && { [ -n "$art" ] && echo "($art: $bild)"; echo "$zeile"; printf '%b' "${text#⚠ }" | sed -nE 's/^[[:space:]]*(⚠[[:space:]]*)?\[?([A-Za-z]?[0-9]+[a-z]?(\.[0-9]+[a-z]?)*)[]:( ].*/\2/p' | sort -u | paste -sd, - | sed 's/^/(Protokoll 383: /;s/$/)/'; exit 0; }
 if [ -n "$art" ]; then
   methode=sendPhoto; [ $art = document ] && methode=sendDocument; [ $art = video ] && methode=sendVideo
   antwort=$(curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/$methode" \
@@ -151,3 +151,22 @@ else
     --data-urlencode "link_preview_options={\"is_disabled\":true}" 2>&1)  # keine Vorschaukarten (Nutzer 15.10.)
 fi
 case "$antwort" in *'"ok":true'*) echo "meldung: gesendet" ;; *) echo "meldung: Fehler: ${antwort:0:200}" >&2; exit 1 ;; esac
+# 383 (Chef 27.10., 17:53): je Meldung eine Protokollzeile im Zweig „meldungen“ (Zeit, Vorgänge am Zeilenanfang, Name, Art),
+# damit der Wartewächter in lauf.py sieht, ob zu einem „jetzt“ des Chefs etwas vorgelegt wurde. Fehler hier ändern nichts am Senden.
+nrn=$(printf '%b' "${text#⚠ }" | sed -nE 's/^[[:space:]]*(⚠[[:space:]]*)?\[?([A-Za-z]?[0-9]+[a-z]?(\.[0-9]+[a-z]?)*)[]:( ].*/\2/p' | sort -u | paste -sd, -)
+if [ -n "$nrn" ]; then
+  wie=text; [ $laut = 1 ] && wie=laut; [ -n "$art" ] && wie=$art
+  repo="$(dirname "$(realpath "$0")")/.."
+  zeile_p="$(TZ=Europe/Berlin date "+%Y-%m-%d %H:%M")\t$nrn\t$name\t$wie"
+  for versuch in 1 2 3; do
+    eltern=""; git -C "$repo" fetch -q origin meldungen 2>/dev/null && eltern=$(git -C "$repo" rev-parse FETCH_HEAD)
+    alt=""; [ -n "$eltern" ] && alt=$(git -C "$repo" show "$eltern:meldungen.tsv" 2>/dev/null)
+    blob=$( { [ -n "$alt" ] && printf '%s\n' "$alt" | tail -n 2000; printf '%b\n' "$zeile_p"; } | git -C "$repo" hash-object -w --stdin)
+    idx=$(mktemp); rm -f "$idx"
+    GIT_INDEX_FILE=$idx git -C "$repo" update-index --add --cacheinfo "100644,$blob,meldungen.tsv"
+    baum=$(GIT_INDEX_FILE=$idx git -C "$repo" write-tree); rm -f "$idx"
+    neu=$(git -C "$repo" commit-tree "$baum" ${eltern:+-p "$eltern"} -m "Meldung $nrn ($name)")
+    git -C "$repo" push -q origin "$neu:refs/heads/meldungen" 2>/dev/null && break
+    sleep $versuch
+  done
+fi
