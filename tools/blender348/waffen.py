@@ -15,6 +15,7 @@ def lin(h):
     c = [((h >> s) & 255) / 255.0 for s in (16, 8, 0)]
     return tuple(x / 12.92 if x <= 0.04045 else ((x + 0.055) / 1.055) ** 2.4 for x in c)
 STEEL, EDGE, DARK = lin(0x868E98), lin(0xB4BAC2), lin(0x3A3C42)
+FULLER = lin(0x6A7078)   # 348.13a Runde 9: Hohlkehle, vorher DARK
 LEATHER, BRASS, WOOD = lin(0x3A2A20), lin(0xA8884A), lin(0x6A4A2E)
 PAINT, STRIPE, IRON = lin(0x6E2E24), lin(0xC8BCA0), lin(0x4A4C50)
 
@@ -62,7 +63,10 @@ def blade(P, z0, length, w0, w1, t0, tip, fuller=0.0, curve=0.0):
         a, b = rows[i], rows[i + 1]
         for k in range(4):
             col = EDGE if k in (0, 3) else STEEL
-            if fuller and k in (1, 2) and i < steps * fuller: col = DARK
+            # 348.13a Runde 9 (Helfer: untere Hälfte des Langschwerts schwarz, „ein Speer mit Metallspitze“): die Hohlkehle färbte
+            # die ganze Hälfte -X auf fuller der Länge in DARK; von dieser Seite war die Klinge im Kampf ein schwarzer Stab. Jetzt nur
+            # etwas dunkler als der Stahl
+            if fuller and k in (1, 2) and i < steps * fuller: col = FULLER
             if RUST and k in (1, 2) and (i * 7 + k * 3) % 4 == 1: col = RUST   # Goblin Runde 6: Rostflecken auf der Fläche
             face(P, [a[k], a[(k + 1) % 4], b[(k + 1) % 4], b[k]], col)
     top = Vector((curve * CM, 0, (z0 + length) * CM)); e = rows[-1]

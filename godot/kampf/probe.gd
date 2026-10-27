@@ -292,6 +292,21 @@ func _still(path: String) -> void:
 						m.set_shader_parameter("ink", Color(0.07, 0.05, 0.04))
 		if OS.get_environment("TUSCHE_TEIL") != "":
 			_report_rects()
+			# Runde 9 (Helfer: untere Hälfte des Langschwerts dunkel, keine Tusche): Bild ohne Schlagschatten der Gruppe und eines
+			# ohne Sonnenschatten überhaupt, je mit Helligkeit der Klinge
+			var aus: Array = []
+			for id in fight.figures:
+				if fig_of(id).fighter.side == "PARTY":
+					for mi in fig_of(id).find_children("*", "MeshInstance3D", true, false):
+						if mi.cast_shadow != GeometryInstance3D.SHADOW_CASTING_SETTING_OFF:
+							aus.append([mi, mi.cast_shadow])
+							mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+			for _i in 3: await RenderingServer.frame_post_draw
+			get_viewport().get_texture().get_image().save_png(path.get_basename() + "-ohne_gruppenschatten.png")
+			fight._sun.shadow_enabled = false
+			for _i in 3: await RenderingServer.frame_post_draw
+			get_viewport().get_texture().get_image().save_png(path.get_basename() + "-ohne_schatten.png")
+			print("Bild ohne Schatten (", aus.size(), " Teile)")
 		get_tree().quit()
 		return
 	await RenderingServer.frame_post_draw
