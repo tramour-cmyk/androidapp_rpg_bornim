@@ -41,4 +41,4 @@ VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 1200 xvfb-run -a -
   --rendering-driver vulkan --rendering-method mobile --resolution 1080x2340 -- --figuren=$A/bild_koepfe --quelle=$F --ual=$UAL --teil=koepfe \
   > $A/godot_koepfe.log 2>&1 || echo "godot $?"
 grep -h "SCRIPT ERROR" $A/godot_koepfe.log | head -3 || true
-python3 -I $R/tools/pruef348/koepfe_blatt.py $A/bild_koepfe $F/koepfe.txt $S/3761-koepfe.jpg "$A/bild_koepfe/kopf_q_k99.png=Hals A: Kragen hoch" "$A/bild_koepfe/kopf_q_k01.png=Hals B: Kragen offen"
+python3 -I $R/tools/pruef348/koepfe_blatt.py $A/bild_koepfe $F/koepfe.txt $S/3761-koepfe.jpg   # Hals A (q_k99) nicht im Blatt: Pruefer 21:17 Geflecht ueber Kinn und Unterlippe
