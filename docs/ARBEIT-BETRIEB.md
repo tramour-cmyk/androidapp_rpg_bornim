@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (27.10., 07:10, Ford `session_017jS8iw2nQqpekHt9g3xtP6`, Tiefe 6):** Uhr übernommen, Neustarts Tom (bis 07:21) und Jerry (bis 04:57) gebucht. Läuft: Tom `session_01Hmoj77PY5ssr7PJqcdqjZW`, Jerry `session_01Hmoj75QZ2wjSV2z4E9bvFE` (Nachfolger wartet auf Chefsache 3487a), Sokrates Nachtvertretung `01X9Na`. Alle anderen alten Sitzungen (Ford, Tom, Jerry, Sokrates, Diogenes) vom Chef von Hand zu archivieren, `archive_session` lehnt der Klassifizierer ab; Kosten steht `lauf.py` bei. Tiefe 6: kein Selbstneustart, Chefsache 110. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 371** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 372** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -26,7 +26,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
-- **Nachtvertretung (Sokrates 26.10., 22:45, Chef 22:41 „Sitzungen archivieren und du bist in charge“):** Sokrates `session_01X9NaGNMk4y1nymcSDE4k5b` vertritt den Chef, Bilder und Urteilsbitten dorthin, keine neue Sokrates-Sitzung starten.
+- **Von Sokrates (27.10., 09:1x, Chef 09:06 „1000 Sitzungen links stehen, die nicht archiviert sind“):** 33 alte Sitzungen archiviert (Tom, Jerry der Nacht, Ford `01Rxj`, `01Ays`, Sokrates, Diogenes, Perikles alt); im Auto-Modus 2 von 35 Aufrufen abgelehnt, beim zweiten Versuch durch. Offen: Homer `01Twr8` (wartet auf Eingabe), Perikles `01Hmoj75j5`. Kosten der Nacht bucht `lauf.py` (GEBUCHT). Nachtvertretung beendet. Folge: Vorgang 371.
 - **369:** Chef 26.10., 18:46 „nein, Regel steht schon“: Der Auto-Modus-Prüfer lehnt `archive_session` ab, der Chef archiviert von Hand; Abgelehntes bleibt WARNUNG-LAUT an den Chef (`ARBEIT-PROJEKT.md` „Zu 369“).
 - **Werkzeugfehler `lauf.py`, an Perikles (Ford 27.10., 00:04):** Nachfolger-Name mit Terminvermerk („den Stand zum Marktstart 27.10. startet `lauf.py` um 7:30 …“) löst Sofortstart aus; Ford führt ihn nicht aus. Namen kurz halten oder das Werkzeug soll Termin in Klammern erkennen.
 - **Werkzeugfehler `lauf.py`, an Perikles (Ford 25.10.):** Offen, Perikles prüft: Doppelbuchung Sokrates alt 7,10 $ auf Betrieb und auf 361/89/362/142. Dazu 27.10.: `lauf.py --kosten` meldet nach jedem Lauf der Neustarts „Kosten …: –“ (nur Gesamtsumme in der Ausgabe, Zeile des Vorgangs nicht sichtbar): bitte prüfen.
