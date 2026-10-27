@@ -39,11 +39,15 @@ COATS = {
 GROESSE = {'braun': 1.0, 'schwarz': 1.07, 'grau': 0.9}      # Spannweite 1,68 · 1,80 · 1,51 m
 SPANNWEITE = 1.68
 KOPF = 0.98            # Ohrspitzen über dem Boden in Ruhe (Held 1,8 m: Hüfte etwa 0,95 m)
-ZAHN, SCHLUND, ZUNGE, GEIFER, AUGE, NARBE, KRALLE = 0xD8CCB0, 0x1E0A0A, 0x5A1C1E, 0xB8B0A0, 0x3A1410, 0x7A6C66, 0x2A2420
+# Runde 3: Schlund, Zunge, Geifer heller (Maul lag im Schwarz), Narbe hell gegen das graue Fell (war gleich hell wie das Fell)
+ZAHN, SCHLUND, ZUNGE, GEIFER, AUGE, NARBE, KRALLE = 0xE6DCC2, 0x5A1A1C, 0x8A3438, 0xD0C8B8, 0x3A1410, 0xC8B0A6, 0x2A2420
+OHR_INNEN = {'braun': 0x9A6A58, 'schwarz': 0x5E4648, 'grau': 0xA08E88}
 AUFLOESUNG = 0.006
 DREIECKE = 2400
 GLAETTEN = (6, 0.5)
-HELL = {'braun': 0.2, 'schwarz': 0.3, 'grau': 0.38}      # Median im Kampfbild wie alt (VERMINCLOSE=bat: braun 27, Mittel 43; schwarz 10; grau 85)
+# Runde 3: Braun heller (Prüfer Runde 2: im Gesamtbild fast schwarz wie alt; die Liste verlangt Braun und Schwarz auf einen Blick
+# verschieden, alt: braun 27, Mittel 43; schwarz 10; grau 85)
+HELL = {'braun': 0.45, 'schwarz': 0.3, 'grau': 0.38}
 
 
 def zeige(h, f=1.0):
@@ -51,17 +55,23 @@ def zeige(h, f=1.0):
     linear (gemessen 27.10.: reines Weiß mit Haartextur ergibt 216 im Licht), darum hier die Umkehrung."""
     c = np.array([((h >> s) & 255) for s in (16, 8, 0)], float) * f / 216.0
     return np.clip(c, 0, 1) ** (1 / 2.2)
-SCHLAG = 38.0          # Grad je Flügelschlag nach oben und unten
+SCHLAG = 30.0          # Grad je Flügelschlag nach oben und unten (Runde 3: 38 gab das V „wie ein Vogel“, im Bild nur 1,1 m breit)
 GEHTEMPO = 1.4         # m/s im Flug (Kampfort: Gehen)
+
+# Runde 3 (Prüfer Runde 2: Gesicht auf Handygröße verloren): Kopf mit Maul, Zähnen, Augen, Nasenblatt um KS größer, um den Hals
+KS = 1.35
+HALS = np.array((0, -0.07, 0.785))
+def kk(p):
+    return tuple(HALS + (np.array(p, float) - HALS) * KS)
 
 # ---------------------------------------------------------------- Gelenke (Meter; x quer, +y hinten, z oben), nach Vermin.kt
 J = fl.spiegel({
     'wurzel': (0, 0, 0),
     'becken': (0, 0.07, 0.43), 'kreuz': (0, 0.05, 0.52), 'brust': (0, -0.01, 0.67), 'widerrist': (0, -0.04, 0.74),
-    'hals': (0, -0.07, 0.785), 'kopf': (0, -0.12, 0.815), 'nase': (0, -0.215, 0.80),
-    'kiefer': (0, -0.125, 0.78), 'kinn': (0, -0.20, 0.755),
+    'hals': (0, -0.07, 0.785), 'kopf': kk((0, -0.12, 0.815)), 'nase': kk((0, -0.215, 0.80)),
+    'kiefer': kk((0, -0.125, 0.78)), 'kinn': kk((0, -0.20, 0.755)),
     'schwanz1': (0, 0.10, 0.38), 'schwanz2': (0, 0.12, 0.34),
-    'ohrL0': (0.035, -0.10, 0.86), 'ohrL1': (0.075, -0.075, KOPF),
+    'ohrL0': kk((0.035, -0.10, 0.86)), 'ohrL1': (0.085, -0.085, KOPF),
     'schulterL': (0.06, -0.03, 0.70), 'achselL': (0.13, -0.0, 0.72), 'ellbogenL': (0.25, 0.05, 0.75),
     'handgelenkL': (0.54, 0.0, 0.80), 'handL': (0.555, 0.0, 0.80), 'daumenL': (0.575, -0.045, 0.835),
     'f2mL': (0.65, -0.012, 0.815), 'f2tL': (0.76, -0.005, 0.80),
@@ -78,8 +88,8 @@ BLOBS = [
     ('kreuz', 'brust', 0.078, 0.084, 'ruecken'),
     ('brust', 'widerrist', 0.08, 0.058, 'brust'),
     ('widerrist', 'hals', 0.056, 0.05, 'hals'),
-    ('hals', 'kopf', 0.052, 0.062, 'kopf'),
-    ('kopf', 'nase', 0.05, 0.022, 'schnauze'),
+    ('hals', 'kopf', 0.052, 0.062 * KS, 'kopf'),
+    ('kopf', 'nase', 0.05 * KS, 0.024 * KS, 'schnauze'),
 ]
 for s in 'LR':
     BLOBS += [('schulter' + s, 'achsel' + s, 0.036, 0.024, 'oberarm' + s),
@@ -87,7 +97,7 @@ for s in 'LR':
               ('fuss' + s, 'zehe' + s, 0.012, 0.008, 'fuss' + s)]
 KB = {}
 KNUBBEL = []
-KIEFER = (0.03, 0.017)
+KIEFER = (0.03 * KS, 0.017 * KS)
 
 
 def form(Jv, me):
@@ -117,7 +127,7 @@ def faerbe(Jv, V, N, jaw, fell):
     m = np.clip((V[:, 2] - 0.60) / 0.08, 0, 1) * np.clip((0.80 - V[:, 2]) / 0.04, 0, 1) * (V[:, 1] > -0.13)
     C = C * (1 - m[:, None]) + zeige(k['mantel'], HELL[fell]) * m[:, None]
     # nackte Haut im Gesicht (Schnauze, um die Augen), am Unterkiefer und an den Füßen
-    gesicht = (V[:, 1] < -0.165) | jaw | (V[:, 2] < 0.31)
+    gesicht = (V[:, 1] < HALS[1] + (-0.165 - HALS[1]) * KS) | jaw | (V[:, 2] < 0.31)
     C[gesicht] = zeige(k['haut'], HELL[fell])
     # Bauch dunkler (Umgebungslicht von oben), Rücken etwas dunkler als die Brust
     C *= (0.82 + 0.18 * np.clip((V[:, 2] - 0.4) / 0.35, 0, 1))[:, None]
@@ -177,7 +187,7 @@ def haeute(J, fell):
             # Adern dunkler an den Fingern, zwischen ihnen wenig heller (dünne Haut); Ränder dunkler
             f = 0.9 + 0.12 * math.sin(math.pi * v) * (0.4 + 0.6 * u) - 0.08 * (u > 0.93)
             c = zeige(k['flug'], f * HELL[fell])
-            if fell == 'grau' and abs(math.sin(31 * u + 17 * v)) < 0.05 and u > 0.3: c = zeige(NARBE, 0.9)    # Narben in der Haut
+            if fell == 'grau' and abs(math.sin(31 * u + 17 * v)) < 0.12 and u > 0.3: c = zeige(NARBE, 0.8)    # Narben in der Haut
             out.append(c)
         return out
     out = []
@@ -191,7 +201,8 @@ def haeute(J, fell):
         finger = {f: kt(['hand', 'f%sm' % f, 'f%st' % f], ['finger%sa' % f, 'finger%sb' % f]) for f in '2345'}
         riss = None
         if fell == 'schwarz' and s == 'L':      # eingerissener Flügel: zackiger Riss vom Rand zwischen drittem und viertem Finger
-            riss = lambda u, v: u > 0.5 and abs(v - 0.45 - 0.08 * math.sin(u * 23)) < (u - 0.5) * 0.55 + 0.02
+            # Runde 3: tiefer und breiter (Prüfer Runde 2: kaum sichtbar)
+            riss = lambda u, v: u > 0.3 and abs(v - 0.45 - 0.08 * math.sin(u * 23)) < (u - 0.3) * 0.75 + 0.05
         out.append((finger['2'], finger['3'], 6, 2, 0.12, 0.004, farbe, None))
         out.append((finger['3'], finger['4'], 7, 4, 0.32, 0.014, farbe, riss))
         out.append((finger['4'], finger['5'], 7, 3, 0.32, 0.012, farbe, None))
@@ -217,21 +228,22 @@ def anbauten(J, fell):
         V_, F_ = vb.anbau_rohr([a, (np.array(a) + np.array(b)) / 2, b], [ra, (ra + rb) / 2, rb], n)
         out.append((V_, F_, knochen, farbe))
     for s, sg in (('L', 1), ('R', -1)):
-        # hohe Ohren, eingekerbt, innen dunkel
+        # hohe Ohren, glatt mit flacher Kerbe, innen hell (Runde 3, Prüfer Runde 2: tiefe Kerbe und dunkle Innenseite lasen sich als
+        # „Büschel, Hörner“)
         quer = np.array([sg * 0.3, -1.0, 0.0])
-        V_, F_ = blatt(J['ohr%s0' % s], J['ohr%s1' % s], 0.032, quer, -0.008, kerbe=(0.55, 0.45))
+        V_, F_ = blatt(J['ohr%s0' % s], J['ohr%s1' % s], 0.044, quer, -0.010, kerbe=(0.62, 0.2))
         out.append((V_, F_, 'ohr' + s, k['haut']))
-        V_, F_ = blatt(J['ohr%s0' % s] + np.array([0, -0.004, 0.01]), J['ohr%s1' % s] + np.array([0, -0.006, -0.03]), 0.018, quer, -0.006)
-        out.append((V_, F_, 'ohr' + s, SCHLUND))
-        # Augen klein und matt unter schwerem Brauenwulst
-        V_, F_ = kugel((sg * 0.03, -0.168, 0.833), 0.0085, 6, 4); out.append((V_, F_, 'kopf', AUGE))
-        V_, F_ = kugel((sg * 0.031, -0.163, 0.846), (0.017, 0.011, 0.007), 6, 4); out.append((V_, F_, 'kopf', k['haut']))
-        # Fangzähne oben und unten, Nadelzähne dazwischen
-        cone((sg * 0.016, -0.198, 0.788), (sg * 0.015, -0.203, 0.757), 0.0055, 0.0008, 'schnauze', ZAHN)
-        cone((sg * 0.014, -0.185, 0.762), (sg * 0.014, -0.19, 0.787), 0.005, 0.0008, 'kiefer', ZAHN)
+        V_, F_ = blatt(J['ohr%s0' % s] + np.array([0, -0.005, 0.012]), J['ohr%s1' % s] + np.array([0, -0.007, -0.028]), 0.028, quer, -0.008)
+        out.append((V_, F_, 'ohr' + s, OHR_INNEN[fell]))
+        # Augen klein und matt unter schwerem Brauenwulst (Runde 3: Glanz weg, dunkelrot statt fast schwarz)
+        V_, F_ = kugel(kk((sg * 0.03, -0.168, 0.833)), 0.0085 * KS, 6, 4); out.append((V_, F_, 'kopf', AUGE))
+        V_, F_ = kugel(kk((sg * 0.031, -0.163, 0.846)), (0.017 * KS, 0.011 * KS, 0.007 * KS), 6, 4); out.append((V_, F_, 'kopf', k['haut']))
+        # Fangzähne oben und unten, Nadelzähne dazwischen (Runde 3: Fänge dicker und länger, auf Handygröße sichtbar)
+        cone(kk((sg * 0.016, -0.198, 0.788)), kk((sg * 0.015, -0.204, 0.752)), 0.0075 * KS, 0.001, 'schnauze', ZAHN)
+        cone(kk((sg * 0.014, -0.185, 0.762)), kk((sg * 0.014, -0.191, 0.791)), 0.0068 * KS, 0.001, 'kiefer', ZAHN)
         for t in (1, 2):
-            cone((sg * (0.016 - 0.0055 * t), -0.203 + 0.004 * t, 0.789), (sg * (0.016 - 0.0055 * t), -0.205 + 0.004 * t, 0.776), 0.0025, 0.0005, 'schnauze', ZAHN, 5)
-            cone((sg * (0.014 - 0.005 * t), -0.19 + 0.003 * t, 0.763), (sg * (0.014 - 0.005 * t), -0.192 + 0.003 * t, 0.774), 0.0022, 0.0005, 'kiefer', ZAHN, 5)
+            cone(kk((sg * (0.016 - 0.0055 * t), -0.203 + 0.004 * t, 0.789)), kk((sg * (0.016 - 0.0055 * t), -0.205 + 0.004 * t, 0.776)), 0.0025 * KS, 0.0005, 'schnauze', ZAHN, 5)
+            cone(kk((sg * (0.014 - 0.005 * t), -0.19 + 0.003 * t, 0.763)), kk((sg * (0.014 - 0.005 * t), -0.192 + 0.003 * t, 0.774)), 0.0022 * KS, 0.0005, 'kiefer', ZAHN, 5)
         # Hakenkralle am Daumen und an den Zehen
         d = J['daumen' + s]
         V_, F_ = vb.anbau_rohr([J['hand' + s], d, d + np.array([sg * 0.004, -0.012, -0.012])], [0.007, 0.004, 0.0008], 6)
@@ -241,16 +253,17 @@ def anbauten(J, fell):
             V_, F_ = vb.anbau_rohr([z + np.array([q, 0.01, 0.0]), z + np.array([q, -0.006, -0.01]), z + np.array([q, 0.0, -0.024])], [0.004, 0.003, 0.0006], 5)
             out.append((V_, F_, 'fuss' + s, KRALLE))
     # Nasenblatt: Spitze steil über der Schnauze, darunter die Nüstern
-    V_, F_ = blatt((0, -0.214, 0.804), (0, -0.207, 0.852), 0.013, (1.0, 0, 0), -0.004)
+    V_, F_ = blatt(kk((0, -0.214, 0.804)), kk((0, -0.207, 0.856)), 0.015 * KS, (1.0, 0, 0), -0.004 * KS)
     out.append((V_, F_, 'schnauze', k['haut']))
-    # Schlund dunkel zwischen den Kiefern, Zunge, Geiferfaden von der Unterlippe
-    V_, F_ = kugel((0, -0.172, 0.776), (0.022, 0.03, 0.016), 7, 4); out.append((V_, F_, 'kopf', SCHLUND))
-    V_, F_ = kugel((0, -0.175, 0.765), (0.013, 0.022, 0.005), 6, 3); out.append((V_, F_, 'kiefer', ZUNGE))
-    V_, F_ = vb.anbau_rohr([(0.008, -0.198, 0.758), (0.0095, -0.201, 0.735), (0.011, -0.203, 0.70)], [0.0016, 0.0012, 0.0022], 5)
+    # Schlund zwischen den Kiefern (Runde 3: dunkelrot statt schwarz, damit das offene Maul liest), Zunge, Geiferfaden von der Unterlippe
+    V_, F_ = kugel(kk((0, -0.172, 0.776)), (0.022 * KS, 0.03 * KS, 0.016 * KS), 7, 4); out.append((V_, F_, 'kopf', SCHLUND))
+    V_, F_ = kugel(kk((0, -0.175, 0.765)), (0.013 * KS, 0.022 * KS, 0.005 * KS), 6, 3); out.append((V_, F_, 'kiefer', ZUNGE))
+    V_, F_ = vb.anbau_rohr([kk((0.008, -0.198, 0.758)), kk((0.0095, -0.201, 0.735)), (0.012, -0.21, 0.66)], [0.0022, 0.0016, 0.003], 5)
     out.append((V_, F_, 'kiefer', GEIFER))
-    if fell == 'grau':     # alte Narben quer über Brust und Schulter
-        for a, b in (((-0.065, -0.072, 0.66), (0.02, -0.082, 0.585)), ((0.05, -0.06, 0.71), (0.075, -0.035, 0.64))):
-            V_, F_ = vb.anbau_rohr([a, (np.array(a) + np.array(b)) / 2 + np.array([0, -0.004, 0]), b], [0.003, 0.004, 0.003], 5)
+    if fell == 'grau':     # alte Narben quer über Brust und Schulter (Runde 3: hell und breiter, Prüfer Runde 2 sah keine)
+        for a, b in (((-0.07, -0.074, 0.67), (0.025, -0.084, 0.58)), ((0.05, -0.062, 0.72), (0.08, -0.035, 0.63)),
+                     ((-0.03, -0.08, 0.55), (0.04, -0.078, 0.50))):
+            V_, F_ = vb.anbau_rohr([a, (np.array(a) + np.array(b)) / 2 + np.array([0, -0.006, 0]), b], [0.005, 0.007, 0.005], 5)
             out.append((V_, F_, 'ruecken', NARBE))
     return out
 
@@ -264,8 +277,8 @@ def bewegungen(K):
     def stehen(p):     # schwebt: zwei ruhige Schläge je Durchlauf, wippt gegen den Schlag, das Maul arbeitet
         w = 2 * math.pi * 2 * p
         clear(); root(dz=0.035 * math.sin(w), pitch=-3 * math.sin(w))
-        kopf(4 * math.sin(w + 1), -24 - 10 * math.sin(2 * math.pi * p)); beine(math.sin(w + 2))
-        fluegel(math.sin(w), 0.35 * max(0.0, math.cos(w)))
+        kopf(4 * math.sin(w + 1), -32 - 10 * math.sin(2 * math.pi * p)); beine(math.sin(w + 2))
+        fluegel(math.sin(w) - 0.25, 0.18 * max(0.0, math.cos(w)))
     def gehen(p):      # vorwärts fliegen: schneller, Rumpf nach vorn geneigt
         w = 2 * math.pi * p
         clear(); root(dz=0.04 * math.sin(w), pitch=-18)
