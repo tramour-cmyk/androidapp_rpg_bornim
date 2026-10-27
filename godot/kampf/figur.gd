@@ -28,12 +28,12 @@ const FALL_MS := 900
 const FADE_MS := 600
 const WOLF_COATS := ["grau", "dunkel", "rost", "asche"]
 ## 348.9 Entwurf: ERSATZ=boar zeigt das Wolfsrudel mit einem anderen Vierbeiner (Modell und Größe, Regeln bleiben die des Wolfs)
-const ERSATZ_FELLE := {"boar": ["dunkel", "grau", "rost"], "giant_rat": ["braun", "grau", "schwarz"]}
+const ERSATZ_FELLE := {"boar": ["dunkel", "grau", "rost"], "giant_rat": ["braun", "grau", "schwarz"], "giant_bat": ["braun", "schwarz", "grau"]}
 ## Bewegungen eines Vierbeiners, die beim Wolf anders heißen (wildschwein.py: Hauerstoß statt Biss, Rammen statt Sprung)
 ## Kopfhöhe (Ohrspitzen) und Bodenschatten (Breite, Länge, Mitte vor dem Ursprung) des Ersatzes in Modellmetern (Ratte Runde 2:
 ## Balken 200 px über der Ratte, Schatten größer als das Tier)
-const ERSATZ_KOPF := {"giant_rat": 0.4}
-const ERSATZ_SCHATTEN := {"giant_rat": [0.3, 0.85, -0.08]}
+const ERSATZ_KOPF := {"giant_rat": 0.4, "giant_bat": 0.98}
+const ERSATZ_SCHATTEN := {"giant_rat": [0.3, 0.85, -0.08], "giant_bat": [0.9, 0.5, -0.04]}
 ## Ersatz ohne Umgebungsvariable (Prüf-APK: Probekampf „Ratten“ setzt giant_rat); ERSATZ geht vor
 static var ersatz_art := ""
 static func ersatz() -> String:
