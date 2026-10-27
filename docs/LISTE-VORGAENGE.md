@@ -112,5 +112,5 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 366 | bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Chef 25.10., 18:39) | M Markt | M | –; +25,65 $ | Sokrates | offen |
 | 383.3 | Zurückgestellte Vorlagen sofort aus der Chefsache (Chef 27.10., 19:55) | B Werkzeuge | M | – | Perikles | neu |
 | 383.2 | Kosten: dieselbe Aufgabe frisch gegen groß messen (Chef 27.10., 19:24) | B Werkzeuge | M | – | Sokrates | wartet |
-| 383.1 | Kein Neustart nur wegen Warten auf den Chef (Chef 27.10., 19:19) | B Werkzeuge | M | – | Perikles | gebaut |
+| 383.1 | Kein Neustart nur wegen Warten auf den Chef (Chef 27.10., 19:19) | B Werkzeuge | M | 2,01 $ | Perikles | gebaut |
 | 383 | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokrates) | B Werkzeuge | M | 12,91 $ | Perikles | wartet |

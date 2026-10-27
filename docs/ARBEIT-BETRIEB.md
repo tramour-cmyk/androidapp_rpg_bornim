@@ -37,6 +37,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 20:04 27.10.: Lauf; Perikles „383.3 (27.10., 20:04)“ `01Hmoj77KV` gestartet (main, Mittel); alter Perikles `01Hmoj76Wn` (383.1 fertig, gebilligt) archiviert und gebucht (2,01 $); Tom, Jerry laufen
 - 17:35–19:54 27.10.: Ford-Selbstneustart; Neustarts angenommen: Sokrates 19:08, Tom 19:32, Jerry 19:40, Tom 19:54; Vorgang 382 an Perikles
 - 01:37–06:35 27.10.: Neustarts angenommen und Nachfolger gestartet: Tom 01:46, 02:33, 02:57, 03:23, 03:51, 04:16, 04:43, 05:01, 05:20, 05:44, 06:03, 06:35, 07:21; Jerry 01:37, 02:42, 03:25, 04:57; Jerry 05:55 zurückgestellt (wartet auf Chefsache 3487a). Läufe 02:03, 03:03 ohne Starts; START Perikles (Terminname) nicht ausgeführt
 - 25.10., 09:35–21:05: Neustarts Tom/Jerry/Sokrates angenommen; Perikles 364 und Sokrates 340.2 gestartet; Sparbetrieb und Max 20x (Verlauf in Git)
