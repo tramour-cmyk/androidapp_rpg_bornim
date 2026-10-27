@@ -67,7 +67,8 @@ for eintrag in LISTE.split(','):
         for f in frames:
             scn.frame_set(f); setze_waffen()
             a = math.radians(az); el = math.radians(15)
-            ziel = Vector((0, 0, 0.85)) if nm != 'Tod' or f < 20 else Vector((0, 0.5, 0.4))
+            k_ = min(1.0, max(0.0, (f - 9) / 12.0)) if nm == 'Tod' else 0.0   # Tod: Ausschnitt gleitet mit (sprang bei Bild 20)
+            ziel = Vector((0, 0, 0.85)).lerp(Vector((0, 0.5, 0.4)), k_)
             d = Vector((math.sin(a) * math.cos(el), -math.cos(a) * math.cos(el), math.sin(el)))
             cam.location = ziel + d * 6; cam.rotation_euler = (-d).to_track_quat('-Z', 'Y').to_euler()
             p = OUT + '/kampfblatt/_%s_%d_%d.png' % (nm, vi, f); scn.render.filepath = p
