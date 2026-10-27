@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (27.10., 07:10, Ford `session_017jS8iw2nQqpekHt9g3xtP6`, Tiefe 6):** Uhr übernommen, Neustarts Tom (bis 07:21) und Jerry (bis 04:57) gebucht. Läuft: Tom `session_01Hmoj77PY5ssr7PJqcdqjZW`, Jerry `session_01Hmoj75QZ2wjSV2z4E9bvFE` (Nachfolger wartet auf Chefsache 3487a), Sokrates Nachtvertretung `01X9Na`. Alle anderen alten Sitzungen (Ford, Tom, Jerry, Sokrates, Diogenes) vom Chef von Hand zu archivieren, `archive_session` lehnt der Klassifizierer ab; Kosten steht `lauf.py` bei. Tiefe 6: kein Selbstneustart, Chefsache 110. Nachfolger: Ford – Betriebsleiter.
+**Übergabe (27.10., 09:23, Ford `session_017jS8iw2nQqpekHt9g3xtP6`, Tiefe 6):** Uhr übernommen, Neustarts Tom/Jerry bis 09:08 gebucht, alte Sitzungen archiviert und gebucht (`archive_session` geht wieder, 371: bei Ablehnung im selben Lauf einmal wiederholen). Läuft: Tom `session_01Hmoj77aEGbT2HLYy3ECfX4`, Jerry `session_01Hmoj79qoghk2pv277tRtUT`, Perikles `01Hmoj75j5`. Jerry-Nachfolger 348.7a erst nach Antwort auf 3487a. Offen: alte Ford `01Rxjv`/`01Aysc` und die Sitzungen, die noch idle stehen. Tiefe 6: kein Selbstneustart, Chefsache 110. Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 372** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
