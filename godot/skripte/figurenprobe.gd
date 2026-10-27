@@ -530,6 +530,7 @@ func koepfe() -> void:
 	kam.neigung = -8.0
 	for k in ks:
 		stelle([k], 0.0, mitte)
+		figuren[k].rotation.y -= deg_to_rad(20.0)   # Pruefer 21:09: halb seitlich wirkte der Kiefer einseitig (Beule); von vorn
 		await get_tree().create_timer(0.5).timeout
 		var kopf := knochen_pos(k, "Head") + Vector3(0, 0.08, 0)
 		z.position = kopf

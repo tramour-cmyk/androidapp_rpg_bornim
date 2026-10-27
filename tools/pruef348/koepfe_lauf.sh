@@ -19,9 +19,9 @@ q_k07|gekauft|Hair_SimpleParted|Hair_Beard|grau|mittel|0|Bart: Vollbart, grau
 q_k08|gekauft|Hair_SimpleParted|Hair_Moustache|braun|mittel|0|Bart: Schnurrbart
 q_k09|gekauft|Hair_SimpleParted|Hair_MuttonChops|braun|mittel|0|Bart: Koteletten + Schnurrb.
 q_k10|gekauft|Hair_SimpleParted|Hair_Beard|rot|mittel|0|Bart: Vollbart, rot
-q_k11|kantig|Hair_Buzzed|Hair_Beard|schwarz|gebraeunt|0|kurz, schwarz, braun, Bart
+q_k11|kantig|Hair_Buzzed|Hair_Beard|schwarz|gebraeunt|0|kurz schwarz, Bart, gebräunt
 q_k12|schmal|Hair_Long||blond|hell|0|lang, blond, hell
-q_k13|rund|Hair_Bob|Hair_MuttonChops|rot|mittel|0|Pagenkopf, rot, Koteletten
+q_k13|rund|Hair_SimpleParted|Hair_MuttonChops|rot|mittel|0|rot, Koteletten + Schnurrb.
 q_k14|hager|Hair_Balding|Hair_Moustache|grau|warm|0|Halbglatze, grau, Schnurrb.
 q_k15|gekauft|Hair_SlickBack|Hair_Beard|dunkel|dunkel|0|Seiten kurz, dunkel, Bart
 T

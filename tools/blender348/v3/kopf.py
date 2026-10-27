@@ -17,7 +17,7 @@ FORMEN = {   # Pruefer 20:2x/20:33: schmal = hager = gekauft, kantig einseitig g
     'hager':   {'breite': -0.02, 'kiefer': -0.08, 'laenge': 0.18, 'kinn': 0.008, 'wangen': 0.012, 'brauen': 0.007, 'nase': 0.30},
 }
 # Haut (Faktor auf das Bild): die Textur ist hell-rosig
-HAUT = {'hell': (1.16, 1.12, 1.08), 'mittel': (1.0, 1.0, 1.0), 'warm': (1.0, 0.90, 0.74), 'gebraeunt': (0.80, 0.68, 0.56),
+HAUT = {'hell': (1.22, 1.16, 1.10), 'mittel': (1.0, 1.0, 1.0), 'warm': (0.98, 0.90, 0.80), 'gebraeunt': (0.80, 0.68, 0.56),
         'dunkel': (0.58, 0.46, 0.38), 'blass': (0.98, 0.98, 1.0)}
 
 
