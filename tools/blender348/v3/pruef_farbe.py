@@ -5,7 +5,7 @@ import sys, os, json
 import numpy as np
 from PIL import Image
 def srgb(c): c = np.clip(c, 0, 1); return np.where(c <= 0.0031308, 12.92 * c, 1.055 * c ** (1 / 2.4) - 0.055) * 255
-F = {'koerper': (1, 0, 0), 'kittel': (0, 0.8, 0), 'aermel': (0, 0.3, 1), 'rock': (1, 1, 0), 'schuerze': (1, 0.5, 0), 'sonst': (0.5, 0.5, 0.5)}
+F = {'koerper': (1, 0, 0), 'kittel': (0, 0.8, 0), 'aermel': (0, 0.3, 1), 'rock': (1, 1, 0), 'schuerze': (1, 0.5, 0), 'umhang': (0, 1, 1), 'umhanginnen': (1, 0, 1), 'sonst': (0.5, 0.5, 0.5)}
 NAM, REF = ['grund'], [srgb(np.array((0.02, 0.02, 0.02)))]
 for n, c in F.items():
     for suf, k in (('', 1.0), ('_innen', 0.25)): NAM.append(n + suf); REF.append(srgb(np.array(c) * k))
@@ -16,7 +16,7 @@ for d in sys.argv[1:]:
         if not f.startswith(('k_', 'h_')): continue
         a = np.array(Image.open(d + '/pbt/' + f).convert('RGB')).reshape(-1, 3).astype(float)
         k = np.argmin(((a[:, None, :] - REF[None]) ** 2).sum(2), 1); n = np.bincount(k, minlength=len(NAM))
-        z = {NAM[i]: int(n[i]) for i in range(1, len(NAM)) if n[i] and (NAM[i] == 'koerper' or NAM[i].endswith('_innen'))}
+        z = {NAM[i]: int(n[i]) for i in range(1, len(NAM)) if n[i] and (NAM[i] in ('koerper', 'umhanginnen') or NAM[i].endswith('_innen'))}
         for kk, v in z.items(): ges[kk] = ges.get(kk, 0) + v if f.startswith('k_') else ges.get(kk, 0)
         print('FARBE', os.path.basename(d), f[:-4], json.dumps(z))
     print('FARBE', os.path.basename(d), 'SUMME k_*', json.dumps(ges))

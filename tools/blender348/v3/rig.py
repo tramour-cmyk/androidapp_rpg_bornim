@@ -294,6 +294,23 @@ if LAGE_EIN > 0 and int(os.environ.get('DREIECKE', '6000')) > 0:
         for i, q in weg: o.data.vertices[i].co = q
         n_ein += len(weg)
     print('LAGEN EIN', n_ein, 'Ecken nach innen')
+# 348.6 Achselkerbe (Fremdpruefung: Kerbe unter der rechten Achsel, Innenseite des Umhangs an der Vorderkante; nachgestellt mit
+# Strahlen aufs gerigte Netz, pruef_umhang.py: ohne Abbau 0, mit Abbau 38 Treffer im Stehen, deren erste Flaeche die Innenlage von hinten ist): der Abbau legt
+# beide Lagen des Umhangs (0,6 cm) je fuer sich daneben, die innere sticht durch die aeussere. Innenlage hier markieren (Normale zum
+# Koerper wie bei LAGE_EIN), nach dem Abbau zuruecksetzen; geruest.py gibt ihr die Gewichte der Aussenlage (Stehen 38 -> 21,
+# Gehen 32 -> 24, Achsel 0; TEILFARBE-Schulterbilder Innenlage von hinten 2666 -> 347 Punkte; SPALT 0,25: 538, 0,6: 437; Helfer blind:
+# Kerbe mit Saegezahn und hellem Keil unter der rechten Achsel weg)
+UMHANG_SPALT = float(os.environ.get('UMHANG_SPALT', '0.4'))   # cm, die Innenlage mindestens so weit unter der aeusseren
+if UMHANG_SPALT > 0 and 'body' in [o.name for o in meshes]:
+    from mathutils.bvhtree import BVHTree
+    import bmesh
+    _ko = [o for o in meshes if o.name == 'body'][0]; _bm = bmesh.new(); _bm.from_mesh(_ko.data); _bm.transform(_ko.matrix_world)
+    _kt = BVHTree.FromBMesh(_bm); _bm.free()
+    for o in meshes:
+        if o.name.split('.')[0] != 'cloak': continue
+        mw = o.matrix_world; nm = mw.to_3x3().inverted().transposed()
+        idx = [v.index for v in o.data.vertices if (nm @ v.normal).dot(_kt.find_nearest(mw @ v.co)[1]) < 0]
+        o.vertex_groups.new(name='TEIL_umhanginnen').add(idx, 1.0, 'REPLACE'); print('UMHANG INNEN', len(idx), 'von', len(o.data.vertices))
 # Feinschliff 4: Pruefwerkzeuge (pruef_lagen, pruef_teile) erkennen die Lage an der Kennung 'teil' (vorher geraten nach dem naechsten
 # Punkt; Kettenhemd und Aermel liegen 0,05 cm auseinander); geht nicht ins glb (export_attributes aus)
 TEILNAMEN = sorted({o.name.split('.')[0] for o in meshes})
@@ -441,6 +458,21 @@ if ziel > 0 and drei > ziel:
                 n_fl2 += 1
             print('UV FLAECHEN', n_fl, 'Flaechen zu duenn, zu dicht oder daneben, davon', n_fl2, 'neu geholt')
     bpy.data.meshes.remove(voll)
+if 'TEIL_umhanginnen' in held.vertex_groups:
+    from mathutils.bvhtree import BVHTree
+    me = held.data; gi = held.vertex_groups['TEIL_umhanginnen'].index; tl = [0] * len(me.vertices); me.attributes['teil'].data.foreach_get('value', tl)
+    ic = TEILNAMEN.index('cloak')
+    innen = {v.index for v in me.vertices if any(g.group == gi and g.weight > 0.5 for g in v.groups)}
+    aussen = [p for p in me.polygons if all(tl[i] == ic and i not in innen for i in p.vertices)]
+    if innen and aussen:
+        bt = BVHTree.FromPolygons([v.co for v in me.vertices], [tuple(p.vertices) for p in aussen]); n_ = 0
+        for i in innen:
+            v = me.vertices[i]; q, nr, _, _ = bt.find_nearest(v.co)
+            if q is None: continue
+            s_ = (v.co - q).dot(nr)
+            if s_ > -UMHANG_SPALT: v.co = v.co - nr * (s_ + UMHANG_SPALT); n_ += 1
+        print('UMHANG SPALT', n_, 'Ecken der Innenlage zurueck')
+    if GERUEST != 'cc0': held.vertex_groups.remove(held.vertex_groups['TEIL_umhanginnen'])   # geruest.py gibt ihr die Gewichte der Aussenlage
 held.parent = rig
 md = held.modifiers.new('skelett', 'ARMATURE'); md.object = rig
 print('NETZ', len(held.data.vertices), 'Ecken', sum(len(p.vertices) - 2 for p in held.data.polygons), 'Dreiecke')

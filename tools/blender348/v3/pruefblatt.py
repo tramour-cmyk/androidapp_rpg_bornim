@@ -132,6 +132,19 @@ if TEILFARBE:
     gm = nt.nodes.new('ShaderNodeNewGeometry'); mx = nt.nodes.new('ShaderNodeMixRGB'); mx.blend_type = 'MULTIPLY'; mx.inputs[2].default_value = (0.25, 0.25, 0.25, 1)
     nt.links.new(at.outputs['Fac'], mp.inputs[0]); nt.links.new(mp.outputs[0], cr.inputs[0])
     nt.links.new(cr.outputs['Color'], mx.inputs[1]); nt.links.new(gm.outputs['Backfacing'], mx.inputs[0])
+    if 'cloak' in _tn:   # 348.6 Achselkerbe: Umhang aussen tuerkis, innere Lage (Normale zum Koerper, Ruhelage) magenta
+        cr.color_ramp.elements[_tn.index('cloak')].color = (0, 1, 1, 1)
+        _me = bpy.data.objects['Held_Netz'].data; _tl = [0] * len(_me.vertices); _me.attributes['teil'].data.foreach_get('value', _tl)
+        _ic = _tn.index('cloak'); _ui = [0.0] * len(_me.vertices)
+        from mathutils.bvhtree import BVHTree as _BT
+        _kt = _BT.FromPolygons([v.co for v in _me.vertices], [tuple(p.vertices) for p in _me.polygons if all(_tl[i] == _tn.index('body') for i in p.vertices)])
+        for v in _me.vertices:   # wie rig.py UMHANG_SPALT: Normale zum Koerper
+            if _tl[v.index] == _ic and v.normal.dot(_kt.find_nearest(v.co)[1]) < 0: _ui[v.index] = 1.0
+        _me.attributes.new('uin', 'FLOAT', 'POINT').data.foreach_set('value', _ui)
+        au = nt.nodes.new('ShaderNodeAttribute'); au.attribute_name = 'uin'; gt = nt.nodes.new('ShaderNodeMath'); gt.operation = 'GREATER_THAN'
+        gt.inputs[1].default_value = 0.5; mu = nt.nodes.new('ShaderNodeMixRGB'); mu.inputs[2].default_value = (1, 0, 1, 1)
+        nt.links.new(au.outputs['Fac'], gt.inputs[0]); nt.links.new(gt.outputs[0], mu.inputs[0]); nt.links.new(cr.outputs['Color'], mu.inputs[1])
+        nt.links.new(mu.outputs[0], mx.inputs[1])
     _bg = bpy.data.worlds['w'].node_tree.nodes['Background'].inputs[0]; _bg.default_value = (0.02, 0.02, 0.02, 1)   # Hintergrund fast schwarz
     nt.links.new(mx.outputs[0], em.inputs['Color']); nt.links.new(em.outputs[0], o_.inputs['Surface'])
     me_ = bpy.data.objects['Held_Netz']; me_.data.materials.clear(); me_.data.materials.append(m)

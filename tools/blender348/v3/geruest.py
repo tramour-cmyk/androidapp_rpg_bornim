@@ -184,6 +184,19 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
     if 'TEIL_umhang' in TEILM:
         print('UMHANG AUF DER UNTERLAGE', auflegen(TEILM['TEIL_umhang'], TEILM.get('TEIL_koerper', Z0) | TEILM.get('TEIL_schale', Z0), UM_NAH, UM_ARM),
               'von', int(TEILM['TEIL_umhang'].sum()))
+    # 348.6 Achselkerbe (rig.py UMHANG_SPALT): die Innenlage des Umhangs nimmt die Gewichte der Aussenlage an ihrer Stelle (drei naechste
+    # Ecken nach Abstand), sonst bewegen sich die Lagen verschieden und die innere sticht durch
+    if 'TEIL_umhanginnen' in alt_name.values() and 'TEIL_umhang' in TEILM:
+        inn = np.array([any(alt_name[e.group] == 'TEIL_umhanginnen' and e.weight > 0.5 for e in v.groups) for v in me.vertices])
+        iq = np.where(TEILM['TEIL_umhang'] & ~inn)[0]
+        if len(iq) and inn.any():
+            kd_ = KDTree(len(iq))
+            for k_, i in enumerate(iq): kd_.insert(P[i], k_)
+            kd_.balance()
+            for i in np.where(inn)[0]:
+                nb = kd_.find_n(P[i], 3); g_ = np.array([1.0 / max(d_, 1e-4) for _, _, d_ in nb])
+                wt = sum(g * M[iq[k_]] for g, (_, k_, _) in zip(g_, nb)); M[i] = wt / max(wt.sum(), 1e-9)
+            print('UMHANG INNEN WIE AUSSEN', int(inn.sum()), 'Ecken')
     W = {n: {int(i): float(M[i, gi[n]]) for i in np.where(M[:, gi[n]] > 1e-3)[0]} for n in NG}
     for g in list(held.vertex_groups): held.vertex_groups.remove(g)
     for n, d in W.items():
