@@ -92,7 +92,8 @@ const RUN_FROM := 1.2
 ## Schnauze dann 0,05–0,1 m im Rand), Zeitpunkt des Zubeißens (s, Schnauze am tiefsten) und Drehung des Körpers, damit die
 ## Schnauze dann aufs Ziel zeigt (Grad, + links): in Ruhe zeigt sie 8° rechts vorbei (Kopf 0,11 m rechts der Achse), im Zubeißen
 ## schwenkt der Kopf der Quelle 15–21° nach links
-const BITE := {"Biss": [0.72, 0.5, -7.0], "Sprungbiss": [0.72, 0.6, -11.0]}
+## Prüfer Lauf 148: Nase 0,05–0,09 m (Sprungbiss 0,09–0,12 m) im Rand, Kopf am Schirm jenseits der Heldin: Abstand +0,06/+0,09 m
+const BITE := {"Biss": [0.78, 0.5, -7.0], "Sprungbiss": [0.81, 0.6, -11.0]}
 
 
 func setup(f, k) -> void:
@@ -634,22 +635,51 @@ func _mps(nm: String) -> float:
 
 
 ## 348.12f: geht (weiter als RUN_FROM: rennt) heim im Tempo des Wurzelwegs, die Pfoten gleiten nicht; dort wieder zum Ziel.
-## Gibt die Dauer (s) zurück.
+## Ortmess Lauf 148: vor dem Loslaufen und nach der Ankunft drehte es in einem Bild (bis 178°); jetzt dreht es mit Schritten
+## (Gehen) mit TURN_DPS. Gibt die Dauer (s) zurück.
 func _walk_home() -> float:
 	var d := home - position
 	d.y = 0.0
 	if d.length() < 0.12:
 		position = home
-		_face()
-		_idle()
-		return 0.0
+		return _turn_home()
 	var nm := "Rennen" if d.length() > RUN_FROM and weg.has("Rennen") else "Gehen"
 	var t := d.length() / _mps(nm)
-	_face(d)
-	_play(nm, 0.15)
 	tween = create_tween()
+	var tt := _turn(tween, atan2(d.x, d.z))
+	tween.tween_callback(func(): _play(nm, 0.15))
 	tween.tween_property(self, "position", home, t)
-	tween.tween_callback(func(): _face(); _idle())
+	tween.tween_callback(_turn_home)
+	return tt + t
+
+
+## Grad je Sekunde, mit denen ein Tier mit Wurzelweg sich umdreht (180° in 0,4 s)
+const TURN_DPS := 450.0
+## unter diesem Winkel dreht es ohne Schritte
+const TURN_STILL := 15.0
+
+
+## Hängt an [tw] eine Drehung auf [yaw] mit Schritten an (kleine Winkel sofort); gibt die Dauer (s) zurück
+func _turn(tw: Tween, yaw: float) -> float:
+	var dw := wrapf(yaw - rotation.y, -PI, PI)
+	if absf(rad_to_deg(dw)) < TURN_STILL:
+		tw.tween_callback(func(): rotation.y = yaw)
+		return 0.0
+	var t := absf(rad_to_deg(dw)) / TURN_DPS
+	tw.tween_callback(func(): _play("Gehen", 0.1))
+	tw.tween_property(self, "rotation:y", rotation.y + dw, t)
+	return t
+
+
+## Daheim zur Blickrichtung von _face() drehen, dann Ruhe; gibt die Dauer (s) zurück
+func _turn_home() -> float:
+	var r := rotation.y
+	_face()
+	var goal := rotation.y
+	rotation.y = r
+	tween = create_tween()
+	var t := _turn(tween, goal)
+	tween.tween_callback(_idle)
 	return t
 
 
@@ -701,6 +731,7 @@ func _bite(other, leap: bool) -> int:
 	# bis daheim, damit keiner zu einem Ort schlägt, an dem es nicht mehr steht
 	var heim := Vector2(home.x - ende.x, home.z - ende.z).length()
 	var t_heim := 0.0 if heim < 0.12 else heim / _mps("Rennen" if heim > RUN_FROM and weg.has("Rennen") else "Gehen")
+	t_heim += 2.0 * 180.0 / TURN_DPS     # umdrehen zum Heimweg und daheim zurück (höchstens)
 	busy_ms = int((t_run + bl + t_back + t_heim) * 1000.0)
 	return int((t_run + BITE[nm][1]) * 1000.0 / 0.42)
 

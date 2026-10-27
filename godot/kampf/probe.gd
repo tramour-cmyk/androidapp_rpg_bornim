@@ -408,10 +408,26 @@ func _ort() -> void:
 		_ort_bild = 0
 		lb.text = (titel + ": " if titel != "" else "") + nm
 		print("Ort %s ab %.0f ms" % [nm, fight.clock_ms])
+	# Start des Anlaufs 3 m hinter dem Platz, frei von den anderen (Prüfer Lauf 148: genau dahinter steckte das Hinterteil im Kopf der
+	# hinteren Ratte), schon vom ersten Bild an dort (Lauf 148: Sprung um 3 m beim Start des Anlaufs)
+	if mess:
+		_ort_mess(rat, held)     # Schnauze in Ruhe am Platz eichen (footprint gilt für den Platz)
+	var start: Vector3 = h0 + fight.facing(true) * -3.0
+	for wi in [0, 25, -25, 45, -45, 65, -65]:
+		var c: Vector3 = h0 + (fight.facing(true) * -3.0).rotated(Vector3.UP, deg_to_rad(wi))
+		var frei := true
+		for id in fight.figures:
+			var o = fight.figures[id]
+			if o != rat and Vector2(o.position.x - c.x, o.position.z - c.z).length() < o.body_r() + rat.body_r() + 0.5:
+				frei = false
+		if frei:
+			start = c
+			break
+	rat.position = start
+	rat.home = start
+	rat._face(h0 - start)
 	await warte.call(0.4)
 	zeig.call("Anlauf")
-	rat.position = h0 + fight.facing(true) * -3.0
-	rat.home = rat.position
 	rat.glide_to(h0)
 	await warte.call(2.2)
 	zeig.call("Biss")
@@ -423,7 +439,7 @@ func _ort() -> void:
 	for nm in ["Ausweichen", "Ausweichen zurück"]:
 		zeig.call(nm)
 		rat.dodge(0, nm)
-		await warte.call(2.4)
+		await warte.call(2.8)     # mit Umdrehen (TURN_DPS)
 	zeig.call("Sprung")
 	rat.announce({"effect": "POUNCE"}, held)
 	await warte.call(1.0)
@@ -436,9 +452,9 @@ func _ort() -> void:
 	await warte.call(held.busy_ms / 1000.0 + 0.6)
 	zeig.call("Platzwechsel")
 	rat.glide_to(fight._spot_pos(rat.fighter, Vector2i(1, 1)))
-	await warte.call(2.0)
+	await warte.call(2.4)
 	rat.glide_to(h0)
-	await warte.call(2.0)
+	await warte.call(2.4)
 	zeig.call("Tod")
 	ms = held.strike(rat, {"spell": null})
 	rat.hurt(int(ms * 0.42), true)
