@@ -6,7 +6,7 @@
 
 **Votum Jerry: „passt“.** Die offenen Punkte unten behebe ich beim Übertrag auf Grak, Kobold und Zombie, zuerst die Schilde und den Rückweg. Stärkstes Gegenargument: Auf dem Schirm wirkt der Aufschlag wie ein Schlag von oben bis zum Boden, nicht wie ein Schlag nach vorn (unten erster offener Punkt).
 
-Bitte den [Film](bilder:pruefung/348.12-r7-film.mp4) ansehen, links eigen, rechts CC0. Das Blatt in voller Größe liegt [hier](bilder:pruefung/348.12-r7-blatt.png).
+Bitte den [Film](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/pruefung/348.12-r7-film.mp4) ansehen, links eigen, rechts CC0. Das Blatt in voller Größe liegt [hier](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/pruefung/348.12-r7-blatt.png).
 
 **Berührt:** Grak, Kobold, Zombie (348.12), Kampfort in Godot (348.7).
 

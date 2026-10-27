@@ -4,7 +4,7 @@
 
 **Frage:** Die Ursache des Rutenfehlers ist gefunden und behoben (dein Wort 27.10., 09:57: „sodann abschließende Vorlage … zum finalen Vergleich“). Bleibt die eigene Ratte („eigen“), oder kommt die gekaufte ins Spiel („gekauft“)? Bei „gekauft“ folgt Kauf Stufe 2 (348.12c).
 
-**Votum Jerry: „eigen“.** Die Rute ist jetzt in allen Bewegungen sichtbar. Offen sind an ihr noch die zerfaserte Spitze und der Rand im Vergleichsbild. Die übrigen Fehler der gekauften stecken in den Bewegungen der Quelle, und mehr verschiedene Bewegungen hat sie nicht (Vorlage r3). Stärkstes Gegenargument: Auf dem Standbild wirkt die gekaufte ausdrucksstärker. Bitte die Filme ansehen: [Film 1](bilder:pruefung/348.12f-r7-1.mp4) (links eigen, Mitte gekauft, rechts Variante), [Film 2](bilder:pruefung/348.12f-r7-2.mp4) (alle Bewegungen der gekauften einzeln).
+**Votum Jerry: „eigen“.** Die Rute ist jetzt in allen Bewegungen sichtbar. Offen sind an ihr noch die zerfaserte Spitze und der Rand im Vergleichsbild. Die übrigen Fehler der gekauften stecken in den Bewegungen der Quelle, und mehr verschiedene Bewegungen hat sie nicht (Vorlage r3). Stärkstes Gegenargument: Auf dem Standbild wirkt die gekaufte ausdrucksstärker. Bitte die Filme ansehen: [Film 1](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/pruefung/348.12f-r7-1.mp4) (links eigen, Mitte gekauft, rechts Variante), [Film 2](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/pruefung/348.12f-r7-2.mp4) (alle Bewegungen der gekauften einzeln).
 
 **Berührt:** Riesenratte Kapitel 1; Kauf Stufe 2 (348.12c); Einbau gekaufter Modelle (348.12i, Tom); Janpec-Wolf als nächste Probe.
 
