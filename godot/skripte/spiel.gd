@@ -540,7 +540,9 @@ func probe_blatt() -> void:
 	await knips(dir + "/nacht_grund.png")
 	licht.umschalten()
 	await get_tree().create_timer(2.5).timeout
-	for d in [90, 180, 270]:                                    # Chef 27.10., 19:38: Seiten und Rueckseite (Fenster), Ansicht gedreht
+	for dk in [[90, Vector2i(7, 11)], [180, Vector2i(2, 10)], [270, Vector2i(2, 17)]]:   # Chef 27.10., 19:38: Seiten und Rueckseite (Fenster), gedreht; Held auf der Kameraseite, sonst wird das Haus durchsichtig
+		var d: int = dk[0]
+		held.setze(dk[1], "DOWN")
 		kamera.gieren_ziel = Kamera.NORD + d
 		kamera.springe()
 		await get_tree().create_timer(1.0).timeout
