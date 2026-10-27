@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 27.10., 16:51
+**Gelesen bis:** `origin/main` 27.10., 17:22
 
-**Übergabe (27.10., 16:5x, `session_01Hmoj77bYPVAwDMmjEUx18c`):** 275: D46.1, D46.2, D46.4 behoben (Zu 275), Nachprüfung als Zeile 275 bei Diogenes; Sokrates 26 als doppelte Nummer gemeldet. Kosten auf: 275. Nachfolger: keiner
+**Übergabe (27.10., 17:2x, `session_01Hmoj77bYPVAwDMmjEUx18c`):** 275: D46.1, D46.2, D46.4, D47.1 behoben, von Diogenes nachgeprüft (Lauf 47), `LEICHEN_START` an. 381: `meldung.sh --film`, Regel in `CLAUDE.md`. Kosten auf: 275, 381. Nachfolger: keiner
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
