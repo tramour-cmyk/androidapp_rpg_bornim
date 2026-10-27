@@ -30,6 +30,8 @@ while IFS='|' read k fo h b fa hu st t; do
     $B -I $R/tools/blender348/v3/kauf_kleid.py 2>&1 | grep -E "Error|Trace" || true
   [ -f $F/$k.glb ] || { echo "FEHLT $k"; exit 1; }
 done < $F/koepfe.txt
+# Halsfassung A (Kragen hoch, KRAGEN=0) zum Vergleich mit B (Vorgabe, q_k01): Pruefer 21:0x
+OUT=$O ZIEL=$F Q=~/cc0 KAUF=$K KOERPER=Regular_Male_FullBody KENNUNG=q_k99 STOPPELN=0 KRAGEN=0 $B -I $R/tools/blender348/v3/kauf_kleid.py 2>&1 | grep -E "Error|Trace" || true
 cp $R/godot/skripte/figurenprobe.gd $R/godot/skripte/kamera.gd $G/skripte/
 UAL=$A/ual.glb
 [ -f $UAL ] || cp "$(find $K/678371987 -path "*Unreal-Godot/UAL1.glb" | head -1)" $UAL
@@ -39,4 +41,4 @@ VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 1200 xvfb-run -a -
   --rendering-driver vulkan --rendering-method mobile --resolution 1080x2340 -- --figuren=$A/bild_koepfe --quelle=$F --ual=$UAL --teil=koepfe \
   > $A/godot_koepfe.log 2>&1 || echo "godot $?"
 grep -h "SCRIPT ERROR" $A/godot_koepfe.log | head -3 || true
-python3 -I $R/tools/pruef348/koepfe_blatt.py $A/bild_koepfe $F/koepfe.txt $S/3761-koepfe.jpg
+python3 -I $R/tools/pruef348/koepfe_blatt.py $A/bild_koepfe $F/koepfe.txt $S/3761-koepfe.jpg "$A/bild_koepfe/kopf_q_k99.png=Hals A: Kragen hoch" "$A/bild_koepfe/kopf_q_k01.png=Hals B: Kragen offen"

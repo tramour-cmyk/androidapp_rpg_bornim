@@ -6,7 +6,7 @@ from PIL import Image, ImageDraw, ImageFont
 A, T, Z = sys.argv[1:4]
 EXTRA = [a.split('=', 1) for a in sys.argv[4:]]
 f = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 21)   # Pruefer 20:49: 26 lief ins Nachbarfeld
-zeilen = [l.rstrip('\n').split('|') for l in open(T) if l.strip()]
+zeilen = [l.rstrip('\n').split('|') for l in open(T) if l.strip()]   # q_k99 (Hals A) steht nicht in der Liste
 W, H, KOPF, SP = 400, 470, 44, 5
 reihen = [zeilen[i:i + SP] for i in range(0, len(zeilen), SP)]
 spiel = Image.open(os.path.join(A, 'koepfe_spiel.png')).convert('RGB')
