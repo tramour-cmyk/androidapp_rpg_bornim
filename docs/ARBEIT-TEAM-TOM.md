@@ -9,6 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101: Held im APK verschlüsselt, lädt) | `claude/tom-348-12i-verschluesseln` |
+| 388 | M | **von Sokrates (Chef 21:58):** Play-Fassung: „Kopieren“ der Geräteangaben (TestTab) auch im Systemmenü; Ruckeln eines Testers in den Hütten auswerten | startbar |
 | 385 | M? | **von Sokrates (Archiv):** Zauberer-Set (Biped, LISTE-BESTAND) auf Kaufkörper, Film | startbar |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | startbar: Kaufkopf ja (Chef 21:41): Fehler beheben, Kopfvorlagen, Editor (Zu 376.1) | `claude/tom-376-1-figuren` |
 | 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | in Arbeit: Probehaus, Frage Chef 19:38 Fenster (Zu 348.6, Probehaus; B: PROBE_KNIE=1 PROBE_NEIGUNG=0.8); dann Dorf | `claude/tom-348-fundament` |
@@ -35,7 +36,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 - **Von Perikles (27.10., 10:1x, 338a B):** Termine neu (`LISTE-ABNAHME-KAPITEL1.md`): D So 01.11. früh, W So mittags, R Mo 02.11. früh. Huhn und Vögel erst nach Jerrys Fledermaus.
 
-- **Zu 376.1, Chef 21:28/21:41 (Archiv):** alle Menschen mit gekauftem Kopf; Kopfvorlagen, Spieler-Editor.
 - **Zu 376.1:** neben dem heutigen Helden: Bauer, Kopf „Regular“, Haar, Toon, Tusche, Menü und Kartenzoom; auch Zwerg, Elf, Halbling, Halbork; Film als Raster, je Feld eine UAL-Bewegung für Kapitel 1 (Stehen, Gehen, Rennen, Sitzen, Gesten, Hieb, Stich, Ausweichen, Treffer, Tod), Chef je Feld ja/nein; 13 Figuren am A56. UAL Pro (`Unreal-Godot/UAL1.glb`, 120 Bewegungen, Liste in Git): kein Stich, keine Schildabwehr, kein gehaltenes Ausholen (bleiben eigen).
 - **Von Sokrates (Chef zu 376.1):** 14:44 „Köpfe gestalten? Bart, Farben, rundes Gesicht?“: Kopf schmal/rund, mit/ohne Bart. 15:23: eine Kauffigur in unserer Kleidung; Vorlage weg, bis neu. 18:06 „376.1 passt, funktioniert also. Dann kann es weiter gehen.“ 18:09 „Wieso unser Kopf? Ist der Gekaufte nicht modellierbar? Der sieht doch viel echter aus als unserer?!?“: gekauften Kopf nehmen und anpassen (Form, Bart, Haar), in die Fehlerrunde. Zugang: Chef schreibt „Klone das Repository tramour-cmyk/bornim-kaufmodelle in diese Sitzung.“, dann geht `add_repo` (17:38); Pakete am Release `stufe1`.
 - **Zu 376.1, Blätter, Tracht, Film:** alte Befunde und Film r2 (nicht vorlegbar, Helfer 18:43) in Git (`4c6b67c86`^ dieser Datei).
