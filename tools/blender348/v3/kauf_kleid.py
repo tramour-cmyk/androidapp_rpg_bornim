@@ -273,6 +273,16 @@ for i, v in enumerate(QV):
         A = np.tensordot(WQ[i], SA, axes=1)[:3, :3]
         qkoerper.data.vertices[i].co += Vector(qmi @ (np.linalg.inv(A) @ d)); rein += 1
 print('KOERPER ZURUECK', rein)
+# Pruefer 21:17 (Hautsplitter am Oberarm in der Spielansicht), pruef_haut.py: am Oberarm liegt die Haut 0-7 mm auf oder vor Kettenhemd
+# und Umhang; kein Strahl trifft, sie blieb und stach in der Bewegung durch. Unter der Kleidung (Rumpf, Oberarm, Oberschenkel) gilt auch
+# als verdeckt, was naeher als VERDECKT_NAH an der Kleidung liegt; Kopf, Hals, Haende, Unterarme, Fuesse nicht (Raender von Kragen, Aermel, Stiefel)
+NAH = float(os.environ.get('VERDECKT_NAH', '0.012'))
+RUMPF = ('upperarm', 'clavicle', 'spine', 'pelvis', 'thigh')
+nah = 0
+for i, v in enumerate(QV):
+    if verdeckt[i] or not any(Q_KN[int(WQ[i].argmax())].lower().startswith(r) for r in RUMPF): continue
+    if kbvh.find_nearest(Vector(v), NAH)[0] is not None: verdeckt[i] = True; nah += 1
+print('KOERPER NAH VERDECKT', nah)
 bm = bmesh.new(); bm.from_mesh(qkoerper.data); bm.faces.ensure_lookup_table()
 # Pruefer 21:0x (Vergleich k01-k04): am gestauchten Kragen liegen Halshaut und Kette gleich tief, Flaechen ab einer verdeckten Ecke
 # weg gab Zinnen; am Hals (Kopf- und Halsgewicht) darum nur ganz verdeckte Flaechen weg, sonst WEG_AB
