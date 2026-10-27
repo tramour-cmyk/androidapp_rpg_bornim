@@ -826,11 +826,18 @@ func bleed(by: String, on: String, crit: bool, hurt: float, monster_id: String) 
 		"seed": int(bleeding.get("seed", 0)) + 1, "t0": kampfort.clock_ms}
 
 
+var _in_row := {}     # Wirkender und Art -> [Start ms, Nummer in Folge]
+
 ## 348.7: ein Zauber oder Pfeil von by nach on, ab after_ms; kommt nach Zauber.arrives am Ziel an
 func cast(kind: String, by: String, on: String, crit: bool, missed: bool, after_ms := 0.0) -> void:
 	spell_seed += 1
+	# 348.7a Runde 5 (Prüfer r4: „drei Strahlen eine Bahn“): der wievielte Strahl dieses Wirkenden in Folge (je Strahl eigene Bahn)
+	var t: float = kampfort.clock_ms + after_ms
+	var last: Array = _in_row.get(by + kind, [-INF, -1])
+	var nr: int = last[1] + 1 if t - float(last[0]) < 3000.0 else 0
+	_in_row[by + kind] = [t, nr]
 	spells.append({"kind": kind, "by": by, "on": on, "crit": crit, "missed": missed, "seed": spell_seed * 7919,
-		"t0": kampfort.clock_ms + after_ms})
+		"t0": kampfort.clock_ms + after_ms, "nr": nr})
 	# Feuer wirft Licht auf Gegner und Boden (Helfer Lauf 126: „Feuer ohne Licht“; DESIGN-STIL Signatur: Licht aus Quellen)
 	if kind in ["FIRE_BOLT", "RAYS", "FIREBALL"]:
 		kampfort.fire_light(on, after_ms + Zauber.arrives(kind), Zauber.duration(kind) - Zauber.arrives(kind), kind == "FIREBALL")
@@ -891,7 +898,10 @@ func _draw_spells() -> void:
 		Zauber.peak = 0.5
 		if flying:
 			if not sp.has("lane"):
-				sp["lane"] = _lane(sp.kind, by, on, a3, end3, dir)
+				sp["lane"] = _lane(sp.kind, by, on, a3, end3, dir, sp.missed)
+				# Runde 5 (Prüfer r4: „drei Strahlen eine Bahn“): der zweite und dritte Strahl seitlich versetzt
+				if sp.kind == "RAYS":
+					sp["lane"]["side"] += RAY_APART * [0, -1, 1][int(sp.get("nr", 0)) % 3]
 			var ln: Dictionary = sp["lane"]
 			Zauber.lift = ln.lift
 			Zauber.lane = ln.side
@@ -962,7 +972,7 @@ func _cells(id: String) -> void:
 
 
 ## 348.7a: Start der Geschosse in Anteilen der Höhe des Wirkenden (Brust bis Schulter)
-const START_UP := 0.62
+const START_UP := 0.5     # Runde 5 (Prüfer r4: Start wirkt aus Bertrams Kopf): an der Hand statt vor der Brust
 
 
 ## Tiefe (m vor der Kamera) des der Kamera nächsten Punkts im Umriss der Figur, eine Handbreit davor
@@ -986,6 +996,7 @@ func _miss_point(by, on, flying: bool) -> Vector3:
 	var vs: Vector2 = overlay.get_viewport_rect().size
 	var best := b + side
 	var best_score := -INF
+	var rects := _lane_obs(by, null)     # Runde 5 (Prüfer r4: Feuerpfeil daneben schlug über dem Hinterteil von Wolf 2 ein)
 	for back in ([0.4, 0.8, 1.2] if flying else [0.0, 0.3]):
 		for lat in [-0.7, 0.7, -1.0, 1.0, -1.4, 1.4]:
 			var q: Vector3 = b - dir * back + side * lat
@@ -998,6 +1009,9 @@ func _miss_point(by, on, flying: bool) -> Vector3:
 				if o.visible and not o.down:
 					clear = minf(clear, o.clearance(q))
 			var score: float = minf(clear, 0.8) - maxf(_depth(q) - d_on, 0.0) - absf(lat) * 0.1
+			for ob in rects:     # am Schirm im Umriss einer Figur: verdeckt oder „auf“ ihr
+				if ob.rect.has_point(sq):
+					score -= 1.0
 			if score > best_score:
 				best_score = score
 				best = q
@@ -1050,7 +1064,7 @@ func _lane_over(obs: Array, a: Vector3, b: Vector3, side: Vector3, lift: float, 
 
 ## Je stehende Figur: Umkehrung ihrer Lage, Kasten (_lane_box), Umriss am Schirm (Rechteck um den Kasten, etwas eingezogen, der
 ## Kasten reicht über Schnauze und Rute), Tiefe, ob sie wirkt oder getroffen wird
-func _lane_obs(by, on) -> Array:
+func _lane_obs(by, on, missed := false) -> Array:
 	var k = kampfort
 	var obs := []
 	for id in k.figures:
@@ -1061,7 +1075,8 @@ func _lane_obs(by, on) -> Array:
 		var r := Rect2(k.screen_of(o.global_transform * box.get_endpoint(0)), Vector2.ZERO)
 		for i in range(1, 8):
 			r = r.expand(k.screen_of(o.global_transform * box.get_endpoint(i)))
-		obs.append({"inv": o.global_transform.affine_inverse(), "box": _lane_box(o), "by": o == by, "on": o == on,
+		# Runde 5 (Prüfer r4: Pfeil daneben über der Brust von Wolf 1): beim Fehlschuss ist das Ziel ein Hindernis wie jede Figur
+		obs.append({"inv": o.global_transform.affine_inverse(), "box": _lane_box(o), "by": o == by, "on": o == on and not missed,
 			"rect": r.grow_individual(-r.size.x * 0.1, -r.size.y * 0.05, -r.size.x * 0.1, 0.0), "depth": _depth(o.position)})
 	return obs
 
@@ -1075,20 +1090,18 @@ func _lane_box(o) -> AABB:
 	return box
 
 
-## Offen nach Prüfer r4 (lokal, Aufstellung Lauf 138, nicht vorlegbar): hoch: jedes Geschoss liegt bei 120 ms am Schirm auf dem Kopf
-## von Wolf 3, der Strahl läuft durch ihn (Wolf 3 steht am Schirm zwischen Magier und Wolf 1; OVER_COST 0,25 zu billig gegen Höhe,
-## Spitze nur früh); Pfeil daneben über der Brust von Wolf 1 (_lane_over lässt das Ziel auch beim Fehlschuss aus); Pfeil (zauber2)
-## senkrecht über Wolf 3; Feuerball-Wolke deckt 60 % von Wolf 1, Heilige Flamme 70 %. Mittel: Start wirkt aus Bertrams Kopf (Brust
-## vor ihm projiziert auf den Kopf), Feuerpfeil bei 0 ms unsichtbar, Feuerball am Start deckt seinen Kopf; drei Strahlen eine Bahn;
-## Pfeil daneben 4 Kopfhöhen über Mira; Feuerpfeil daneben schlägt über dem Hinterteil von Wolf 2 ein; zauber2: Ring und Leiste zeigen
-## bei der Heiligen Flamme Bertram (Probe); Segen kaum sichtbar, links abgeschnitten; Bertram und Mira gleich (Tom). Gering: Heilung
-## bleicht Bertrams Schild, Funken bis an Wolf 3; Knicke im Strahl. Plan r5: Überdeckung teurer als Höhe, Spitze auch spät (über
-## Wolf 3 statt über Mira), Ziel beim Fehlschuss mitzählen, Start tiefer an der Hand, je Strahl eigene Bahn, Wolke und Flamme lichter
+## Runde 5 (Prüfer r4, lokal Aufstellung Lauf 138, BAHN_DEBUG=2 zeigt alle Wege): Wolf 3 steht am Schirm zwischen Magier und Wolf 1,
+## jeder Weg bis 0,9 m Höhe lag 7–9 Punkte über ihm. Jetzt Spitze auch spät (0,7/0,8) und dort Höhe bis 1,5 m: Feuerpfeil, Strahl,
+## Feuerball 3 Punkte am Schirm über anderen (r4: 9), Geschosse 10 (27); Fehlschuss frei nach dem Start (r4: 20 über Wolf 2, Ziel
+## zählt mit, _miss_point meidet Umrisse); drei Strahlen je 0,4 m versetzt (RAY_APART); Start an der Hand (START_UP 0,5).
 ## 348.7a Runde 3 (Prüfer r2: Strahl durch Wolf 3, Geschosse senkrecht über Miras Kopf, Feuerpfeil daneben durch Wolf 3 und 1):
 ## seitliche Ausweiche und Höhe (m) der Bahn und wo sie am weitesten ausweicht; wenigste Punkte zu nah an anderen, dann der
 ## kürzeste Umweg. Der Strahl hebt sich ungern (Runde 4b: im Bogen ein „Regenbogen“), Geschosse brauchen Platz für alle drei.
 ## Der Start bleibt vor der Brust: seitlich davon verdeckte ihn der Stab des Magiers (Probe BAHN_PRUEF), mittig nicht
-func _lane(kind: String, by, on, a: Vector3, b: Vector3, dir: Vector3) -> Dictionary:
+## Runde 5 (Prüfer r4: Geschosse bei 120 ms am Schirm auf dem Kopf von Wolf 3, Strahl durch ihn; Pfeil daneben über Wolf 1; drei
+## Strahlen eine Bahn): ein Punkt über einer anderen Figur kostet so viel wie die ganze Höhe (OVER_COST), die Spitze darf auch spät
+## liegen (über dem, der nahe beim Ziel steht), beim Fehlschuss zählt das Ziel mit (_lane_obs)
+func _lane(kind: String, by, on, a: Vector3, b: Vector3, dir: Vector3, missed := false) -> Dictionary:
 	var t0 := Time.get_ticks_usec()
 	var side := Vector3(-dir.z, 0, dir.x)
 	var best := {"side": 0.0, "lift": 0.0, "peak": 0.5, "hits": 0, "over": 0, "start": 0.0, "from": Vector3.ZERO}
@@ -1099,12 +1112,14 @@ func _lane(kind: String, by, on, a: Vector3, b: Vector3, dir: Vector3) -> Dictio
 	# freien Seite (START_SIDE; der Start ist dann auch nicht hinter ihm verdeckt), die Bahn hebt sich höchstens 0,9 m
 	var ways := []
 	for st in [0.0, -START_SIDE, START_SIDE]:
-		for at in [0.5, 0.3, 0.2]:
-			for h in [0.0, 0.3, 0.6, 0.9]:
+		for at in [0.5, 0.3, 0.7, 0.2, 0.8]:
+			# Runde 5: liegt die Spitze nahe am Ziel, darf die Bahn höher steigen (über den, der am Schirm davor steht), über dem
+			# Gefährten vorn bleibt sie niedrig (Prüfer r3: „vier Kopfhöhen über Mira“)
+			for h in ([0.0, 0.3, 0.6, 0.9, 1.2, 1.5] if at >= 0.7 else [0.0, 0.3, 0.6, 0.9]):
 				for l in [0.0, -0.4, 0.4, -0.8, 0.8, -1.2, 1.2]:
 					ways.append([h * (2.0 if kind == "RAYS" else 1.2) + absf(l) + absf(at - 0.5) + absf(st) * 0.5, l, h, at, st])
 	ways.sort_custom(func(x, y): return x[0] < y[0])
-	var obs := _lane_obs(by, on)
+	var obs := _lane_obs(by, on, missed)
 	for w in ways:
 		if w[0] >= best_cost:
 			break
@@ -1158,7 +1173,9 @@ const START_SIDE := 0.35
 ## Runde 4: Höhe des Lebensbalkens über dem Kopf eines Gegners (m, mit Rand), den die Bahn nicht kreuzt
 const BAR_M := 0.35
 ## Runde 4: Umweg (m), den ein Bahnpunkt wert ist, der am Schirm über oder hinter einer anderen Figur liegt
-const OVER_COST := 0.25
+const OVER_COST := 1.0     # Runde 5: 0,25 war billiger als jede Höhe
+## Runde 5: so weit (m) liegen die drei Strahlen eines Sengenden Strahls seitlich auseinander
+const RAY_APART := 0.4
 ## Abstand der äußeren Splitter des Magischen Geschosses von der Mitte (m), wie in zauber.gd
 const DART_M := 0.3
 

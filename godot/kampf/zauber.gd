@@ -254,7 +254,8 @@ func _sacred_flame(p: float, x: float, ground: float, u: float) -> void:
 	var sway := sin(p * 9.0) * 1.5 * u
 	if front < 2.0 * u:
 		return
-	for col in [[46.0, 26.0, HOLY, 0.28], [24.0, 13.0, HOLY, 0.6], [9.0, 5.0, WARM_WHITE, 0.8]]:
+	# 348.7a Runde 5 (Prüfer r4: die Säule deckt 70 % des Ziels): äußere Bahnen lichter (0,28 und 0,6)
+	for col in [[46.0, 26.0, HOLY, 0.18], [24.0, 13.0, HOLY, 0.42], [9.0, 5.0, WARM_WHITE, 0.8]]:
 		var wt: float = col[0] * u
 		var wl: float = col[1] * u
 		var c: Color = col[2]
@@ -434,7 +435,8 @@ func _fireball(p: float, from: Vector2, to: Vector2, ground: float, u: float) ->
 		var heat := clampf(1.0 - s * (1.0 + _rf() * 0.7) + (1.0 - d / (56 * u)) * 0.25, 0.0, 1.0)
 		# ohne Rauchballen (Helfer Lauf 126 und Runde 2: zwei dunkle runde Flecken „wie Augen“); Rauch steigt in _smoke darüber auf
 		var col := FIRE_HOT if heat > 0.7 else (FIRE if heat > 0.4 else FIRE_DARK)
-		var a0 := (1 - s * 0.7) * (1.0 if heat > 0.15 else 0.4)
+		# 348.7a Runde 5 (Prüfer r4: die Wolke deckt 60 % von Wolf 1): lichter, der Getroffene bleibt darin erkennbar
+		var a0 := (1 - s * 0.7) * (0.75 if heat > 0.15 else 0.3)
 		if ohne == "ballen" or (ohne == "dunkel" and col == FIRE_DARK):
 			continue
 		_glow(c, rad, [_a(col, a0), _a(col, a0 * 0.4), _a(col, 0.0)])
