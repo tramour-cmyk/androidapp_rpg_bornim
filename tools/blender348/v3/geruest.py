@@ -414,7 +414,7 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
         return {'neck_01': R(0.4), 'Head': R(1.0)}, round(dn, 1), round(dd, 1)
 
     ad = sk.animation_data_create()
-    INFO = {}
+    INFO = dict(LP.get('_masse', {}))   # rig.py: Bildmass der Kette
     tor = lies(bpy.data.actions[FACKEL]) if FIGUR == 'held' else None
     for name, quelle, opt in (HELD if FIGUR == 'held' else leute_liste(LP)):
         Gs = lies(bpy.data.actions[quelle], opt.get('takt'))

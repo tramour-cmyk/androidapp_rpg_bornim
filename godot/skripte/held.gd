@@ -37,6 +37,8 @@ func _ready() -> void:
 	Gebiet.male(modell, null, 2, mats)
 	for m in mats: (m as ShaderMaterial).set_shader_parameter("metall", 1.0)   # 348.6 Glanz an Kette und Helm (toon.gdshader)
 	var info: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://daten/held-info.json"))
+	if info.has("kette_uv_je_cm") and not ("--ohneglitzer" in OS.get_cmdline_user_args()):   # 348.6 Kettenhemd fern: Glitzer je Ring (toon.gdshader)
+		for m in mats: (m as ShaderMaterial).set_shader_parameter("kette_zelle", float(info["kette_uv_je_cm"]) * float(info.get("kette_ring_cm", 2.0)))
 	gang = float(info.get("gehen_m_je_s", gang))
 	renn = float(info.get("rennen_m_je_s", 0.0))
 	# 348.6 CC0-Geruest (348.12): Knochen der Faust und Griff stehen in held-info.json (geruest.py), sonst das alte Skelett

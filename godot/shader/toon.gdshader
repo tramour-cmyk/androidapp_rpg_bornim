@@ -19,9 +19,19 @@ uniform vec3 ink : source_color = vec3(0.07, 0.05, 0.04);              // wie tu
 uniform float metall = 0.0;
 uniform float glanz_eisen = 0.9;
 uniform float glanz_kette = 0.5;
+// Kettenhemd fern (Helfer: grauer Filz mit Metallton): die Ringe sind kleiner als drei Bildpunkte und mitteln sich zu Grau; dort je
+// Ring (Zelle im Bild, held.gd: Ring in UV) ein Glitzerpunkt nach einer zufaellig gekippten Normale, Grund etwas dunkler; nah aus
+uniform float kette_zelle = 0.0;
+uniform float glitzer = 1.0;
+uniform float glitzer_kipp = 0.9;
+uniform float glitzer_schwelle = 0.95;
+uniform float glitzer_anteil = 0.35;
+uniform float kette_dunkel = 0.8;
 varying vec3 wpos;
 varying float v_eisen;
 varying float v_kette;
+varying float v_fern;
+varying vec2 v_zelle;
 void vertex() {
 	wpos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
 	if (sway > 0.0) {
@@ -65,6 +75,16 @@ void fragment() {
 	}
 	v_eisen = metall * (1.0 - smoothstep(0.15, 0.35, COLOR.a));
 	v_kette = metall * smoothstep(0.15, 0.35, COLOR.a) * (1.0 - smoothstep(0.65, 0.85, COLOR.a));
+	v_fern = 0.0;
+	v_zelle = vec2(0.0);
+	// Ring in Bildpunkten, in der feineren Richtung (Runde 2, Helfer nah: weisse Flecken am Kragen, dort schraeg und nur in einer
+	// Richtung gestaucht); Ableitung ausserhalb der Verzweigung
+	float px = kette_zelle / max(min(length(dFdx(UV)), length(dFdy(UV))), 1e-7);
+	if (v_kette > 0.0 && kette_zelle > 0.0) {
+		v_fern = (1.0 - smoothstep(3.0, 6.0, px)) * v_kette;
+		v_zelle = floor(UV / kette_zelle);
+		ALBEDO *= mix(1.0, kette_dunkel, v_fern);
+	}
 	ROUGHNESS = 1.0;
 	SPECULAR = 0.0;      // kein Glanz aus der Umgebung (sonst Plastik)
 	METALLIC = 0.0;
@@ -84,5 +104,13 @@ void light() {
 		float s = smoothstep(0.88, 0.93, nh) * glanz_eisen * v_eisen + smoothstep(0.8, 0.92, nh) * glanz_kette * v_kette;
 		vec3 lc = LIGHT_COLOR / max(1.0, max(LIGHT_COLOR.r, max(LIGHT_COLOR.g, LIGHT_COLOR.b)));   // Fackel nah: nicht ausbrennen
 		SPECULAR_LIGHT += s * min(ndl * ATTENUATION, 1.0) * lc * ALBEDO;
+		if (v_fern > 0.0) {
+			vec3 h3 = fract(sin(vec3(dot(v_zelle, vec2(127.1, 311.7)), dot(v_zelle, vec2(269.5, 183.3)), dot(v_zelle, vec2(419.2, 371.9)))) * 43758.5453);
+			// Runde 2 (Helfer: Kragen wie Schnee, Punkte wie Pailletten): stark gekippt, damit die Punkte verstreut statt im Glanzfleck
+			// gehaeuft liegen; nur jeder dritte Ring; in der Farbe des Metalls
+			vec3 n2 = normalize(NORMAL + (h3 - 0.5) * 2.0 * glitzer_kipp);
+			float g = step(glitzer_schwelle, dot(n2, normalize(LIGHT + VIEW))) * step(0.05, ndl) * step(fract(h3.x * 7.31 + h3.z * 3.17), glitzer_anteil);
+			SPECULAR_LIGHT += g * glitzer * v_fern * min(ATTENUATION, 1.0) * lc * ALBEDO * 1.4;
+		}
 	}
 }
