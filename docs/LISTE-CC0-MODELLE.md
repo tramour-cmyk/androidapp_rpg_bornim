@@ -208,6 +208,7 @@ Privates Repo `tramour-cmyk/bornim-kaufmodelle`, Version `stufe1` (Anhänge, von
 |---|---|---|---|
 | `GIANT.RAT.RAW.FILES.rar`, `GiantRat.4.14.rar`, `GIANT_RAT_ASSET.rar` | Protofactor Riesenratte: Rohdateien, Unreal 4.14, Unity-Paket (.rar, Inhalt nicht geöffnet) | Protofactor EULA | Probe 348.12f (Jerry) |
 | `low.poly.animated.centipede.zip` | MadeCG Hundertfüßer: FBX, OBJ, Blender, Maya, 3ds, Unreal, Unity | RenderHub Extended Use | Riesen-Hundertfüßer (Jerry) |
+| `medieval.market.asset.pack.zip` (Chef 27.10., 12:43) | MagicCGIStudios Marktpaket, nur .blend (2.79) | RenderHub Extended Use | Brunnen, Marktstände als Form (Tom, 376.2) |
 | `Universal.Animation.Library.Pro.zip`, `…Standard.zip`, `…Source.zip` | Quaternius UAL: Menschen-Bewegungen für Godot, Unreal, Unity; Source mit `UAL1.blend` | **CC0** (`License.txt`), darf also auch ins öffentliche Repo | Leute (Tom), menschenähnliche Monster (Jerry) |
 | `Animal pack deluxe.unitypackage` (324 MB, Chef 26.10., 16:07) | Janpec Tiere (26; tar.gz, ohne Unity entpackbar) | Unity Asset Store EULA | Tiere, Wolf, Keiler (Jerry, Tom) |
 
@@ -281,7 +282,9 @@ Vorlage an den Chef: Chefsache 348.12c (Stufe 2).
 | Stylized Nature MegaKit (Standard frei, 68 von 116) | CC0 | Bäume 1.600–10.100 Dreiecke (zu schwer), grell, „Ghibli-inspired“; Felsen 244–522, Kiesel, Pilze (880), Farn, Totholz; UV und gemalte Texturen, Blattkarten teils weiß | Felsen, Kiesel, Pilze, Farn für Wald; Bäume nein |
 | 150 Lowpoly Nature Models | CC0 | keine UVs, nur Flächenfarben, harte Kanten, Comic | nein |
 | Lowpoly Modular Dungeon Pack (48 Teile, 2019) | CC0 | keine UVs, Flächenfarben, Raster 2 m, spielzeughaft; kein Naturfels | nein; Fackel, Gitter, Truhe als Rohform höchstens nach dem Meilenstein |
-| Modular Character Outfits – Fantasy (Source 20 $) und Universal Base Characters (Source 19,99 $) | CC0 (Seite, `License_Standard.txt`) | Gerüst wie unsere Leute (65 Knochen); Befund und Votum in Chefsache 376 „Figuren“ | wartet auf Chef (376) |
+| Modular Character Outfits – Fantasy (Source 20 $) und Universal Base Characters (Source 19,99 $) | CC0 (Seite, `License_Standard.txt`) | Gerüst wie unsere Leute (65 Knochen); Befund und Votum in Chefsache 376 „Figuren“ (Git) | gekauft 12:20, Probeblatt 376.1 |
+
+Chef 27.10., 12:42 „376 ja“: aus dem Dorfbausatz nur ein Probehaus (Tom), Natur wie oben, die beiden „nein“ gelten.
 
 **RenderHub „Asset Pack Vol 10 – Modular Dungeon Interior“** (JuanChee, 7 $, Extended Use; Chef 27.10., 12:34 „checken“): 40 Teile, 18 fertige Hallen, 16.686 Dreiecke gesamt, 4096-px-Atlas PBR (fotografisch abgenutzt), glTF dabei. Gemauert (Quader, Holz, Eisen), Rundbogentüren, Gittertür, Doppeltor, Treppen, Säulen, Fackel und Kerze mit Bildfolge; Fässer, Truhen, Kisten, Säcke, Tisch, Bank, Hocker, Spinnennetz, Trümmer. Kein Naturfels, also nicht für die Blutzahnhöhle; gemauerte Verliese hat Kapitel 1 nicht (48 Dungeons nach dem Meilenstein). Votum noch nicht: Requisiten erst gegen 348.12h (CC0) abgleichen; Fototexturen gegen „Farbe gemalt“ (Modellregel 6).
 
