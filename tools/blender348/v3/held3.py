@@ -675,7 +675,7 @@ for s in 'RL':
     upper_part |= side & (t < 0.75)
 HEM = hipY - 0.06 * H
 KRAGEN_R = float(os.environ.get('KRAGEN_R', '7.0'))   # Halsrohr des Kettenhemds: Abstand zur Halsachse (cm)
-KRAGEN_SAUM = float(os.environ.get('KRAGEN_SAUM', '0')) if FIGUR == 'held' else 0.0       # Lederborte oben (cm), 0 aus
+KRAGEN_SAUM = float(os.environ.get('KRAGEN_SAUM', '1.2')) if FIGUR == 'held' else 0.0   # Lederborte oben (cm; Helfer blind 1,2 vor 2,0 vor ohne, ohne liest sich als Strick-Rollkragen), 0 aus
 chain_mask = ((trunkm & (Z > 40)) | upper_part | (legs & (Z > HEM - 2) & seg_is(BLAB, 'hip'))) & (Z > HEM) & (Z < 152)
 chain_mask |= upper_part
 # Feinschliff 9 (Fremdpruefung Feinschliff 8: dunkle Zacken und Zinnen unter dem Saum am Oberarm, Jorin, Bram): der Saum folgte den
