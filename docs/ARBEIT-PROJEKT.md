@@ -3,13 +3,12 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 27.10., 12:45
+**Gelesen bis:** `origin/main` 27.10., 14:06
 
-**Übergabe (27.10., 12:5x, `session_01Hmoj78vHYPT8chF7CZmYup`):** 376.1 bei Tom (zugleich Sokrates, Chef 12:46 „jetzt“, vor Runde 7); 376.2 bei Tom mit dem Dorf; Toms Vorrat unter 15 KB gekürzt (ruhende Einzelheiten nach Git). Kosten auf: 376. Nachfolger: keiner
+**Übergabe (27.10., 13:3x, `session_01Hmoj77YJBTf85Gbd2KuyaG`):** 377 fertig: Regel „Bestand zuerst“ in `ROLLE-ENTWICKLUNG.md` (Vorlage und Übergabe nennen „Bestand geprüft“), Bestand in `LISTE-CC0-MODELLE.md` je Datei mit Inhalt (UAL Pro, Grundfiguren, Markt; Ratte, Hundertfüßer, Janpec „ungesichtet“, füllt der Erste, der öffnet), alte Zeile „nichts kaufen“ in `LISTE-GRAFIKWEG.md` als überholt markiert; Jerry per Nachricht (Fledermaus gegen Janpec). Kosten auf: 377. Nachfolger: keiner. Nachstart 14:05 (`session_01Hmoj79Bo`): nichts offen; einziger Rest ist die Freigabe `add_repo` beim Chef (Telegram 13:27), kein Neustart deswegen
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 377 | M | **von Chef über Sokrates (27.10., 12:53):** „wäre es … hilfreich, wenn … allererstes geguckt wird, ob wir dazu was gekauft haben. Oder was downgeloadet haben. Bevor wir wieder selbst was entwickeln. Ist das sichergestellt?“ Nein: nur ein Satz in `LISTE-CC0-MODELLE.md` „Bestand“, nicht in `ROLLE-ENTWICKLUNG.md`; Bestand veraltet (UAL Pro ungesichtet). Beleg (Chef 12:57 zu 348.6): sechs Runden Kampfbewegungen eigen, geprüft nur UAL frei, UAL Pro seit 26.10. im Bestand. Chef 14:28: „wenn jemand unsere Bibliothek mal auswertet … was für Animationen haben wir alles? Was für Modelle … Objekte … Macht das Sinn, so eine Art Inventur anzulegen?“ (Votum Sokrates im Chat: ja, eine Liste aus den Dateien erzeugt) | startbar, jetzt: Regel in `ROLLE-ENTWICKLUNG.md`, Bestand je Datei mit Inhalt, Vorlage nennt „Bestand geprüft“ |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9):** Meilenstein „Kapitel 1 auf Godot mindestens so gut wie alt“ mit Checkliste aus der Bestandsliste 348.8 und Tagesziele je Team; `ROLLE-PRUEFUNG.md` für Diogenes (Arbeitsteilung 1, 3) | gebaut 25.10., 12:4x (Übergabe; fremd geprüft, 10 Funde behoben); Tagesziele täglich im Stand zum Marktstart |
 | 338 | M | **von Sokrates (Vorgangsarchiv 338, 348):** Meilenstein ohne Datum, Umzug nach Godot jetzt; Umzugsplan mit Sokrates (Zu 338) | frühestens 02.11.: Wochenzählung, Termine prüfen; Termine je Block und Wochenziel 2 gesetzt 26.10., 17:15 (Zu 338) |
 | 347.2 | M | **von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347):** Paket Regeltreue umsetzen nach `tools/regeltreue/PLAN-347.md` (Punkte 1–7, 5a, 5b), mit Ford für `lauf.py` und Haken | gebaut 24.10., 16:5x mit A–H (Zu 347.2); beobachten bis 31.10., dann wertet Sokrates aus |

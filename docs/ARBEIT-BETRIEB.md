@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (27.10., 09:30, Ford `session_01Hmoj78hRdjifkpE9w6bGbD`, Tiefe 0, vom Chef von Hand gestartet, 110):** Uhr übernommen, alter Ford und Sokrates-Nachtvertretung archiviert und gebucht, Perikles 371 gestartet (`01Hmoj79Ae`), Perikles alt archiviert. Läuft: Tom `01Hmoj77aE`, Jerry `01Hmoj79qo`. Jerry-Nachfolger 348.7a erst nach Antwort auf 3487a. Offen: Homer `01Twr8` (idle, wartet auf Chefsache 348.12g, einzige Homer-Sitzung). Selbstneustart ab 400 Tsd. Token möglich (Tiefe 0). Nachfolger: Ford – Betriebsleiter.
+**Übergabe (27.10., 13:25, Ford `session_01Hmoj78hRdjifkpE9w6bGbD`, Tiefe 0, über 400 Tsd. Token → Selbstneustart):** Läuft: Tom `01Hmoj778n` (376.1 Probeblatt), Jerry `01Hmoj76oY` (348.7a/348.12f), Perikles `01Hmoj77YJ` (377), Sokrates `01Hmoj7738` (idle, einzige Sokrates-Sitzung). Offen zum Archivieren: nichts. Homer, Diogenes ohne Sitzung (Vorrat leer; Diogenes startet über 374 täglich 8:00 vom 28.10. bis 03.11., Eingang). Kosten fehlen für zwei früh archivierte Jerry-Sitzungen (nur `idle` archivieren, sonst keine Zahl). `--ohne` greift jetzt auch beim Nachfolger (375). Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 378** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (27.10., 09:26)“ `session_01Hmoj78hRdjifkpE9w6bGbD` (seit 27.10., 09:26, Tiefe 0). Stundenuhr „Ford-Lauf“ `trig_019gmvMzPaYQMy1h2x6h1ZXk` (:03). Alle alten Ford-Sitzungen archiviert.
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (27.10., 13:26)“ `session_01Hmoj76zGbw1bYHxyZ3XqUH` (Tiefe 0); Stundenuhr „Ford-Lauf“ `trig_01RYYEpJ7dDYfzUMB6SGJMYe` (:03, geprüft 13:25). Alte Uhr gelöscht; alter Ford `01Hmoj78hRdjifkpE9w6bGbD` nicht archiviert (Auto-Modus-Prüfer lehnt ab, 369): Chef archiviert von Hand.
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus; Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
 
@@ -37,9 +37,15 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 14:28 27.10.: Neustart Tom angenommen (`e329c2397`), Nachfolger `01Hmoj77MK` „Tom – 376.1 Blätter und Film prüfen, an den Chef“ gestartet; alter Tom `01Hmoj79SM` beim Chef zum Archivieren
+- 14:08 27.10.: Neustart Tom angenommen (`6cdf1cd19`), Nachfolger `01Hmoj79SM` „Tom – 376.1 Film prüfen, Kaufteile einsetzen“ gestartet; alter Tom `01Hmoj778n` zum Archivieren beim Chef (Kosten fehlen)
+- 14:05 27.10.: Perikles `01Hmoj77YJ` blockiert (add_repo-Freigabe) → Nachfolger `01Hmoj79Bo` „Perikles – 377“ gestartet; alter bleibt, Chef archiviert von Hand. Jerry/Tom laufen
+- 13:46 27.10.: Neustart Jerry angenommen, Nachfolger `01Hmoj761u` „Jerry – 348.12f Rute r6 prüfen, 348.7a Runde 4“ gestartet; alter Jerry `01Hmoj76oY` bleibt (Archivieren vom Prüfer abgelehnt, Chef von Hand). Perikles `01Hmoj77YJ` wartet auf add_repo-Freigabe (blocked)
 - 01:37–06:35 27.10.: Neustarts angenommen und Nachfolger gestartet: Tom 01:46, 02:33, 02:57, 03:23, 03:51, 04:16, 04:43, 05:01, 05:20, 05:44, 06:03, 06:35, 07:21; Jerry 01:37, 02:42, 03:25, 04:57; Jerry 05:55 zurückgestellt (wartet auf Chefsache 3487a). Läufe 02:03, 03:03 ohne Starts; START Perikles (Terminname) nicht ausgeführt
 - 25.10., 09:35–21:05: Neustarts Tom/Jerry/Sokrates angenommen; Perikles 364 und Sokrates 340.2 gestartet; Sparbetrieb und Max 20x (Verlauf in Git)
 
+- 13:25 27.10.: Perikles 377 gestartet `01Hmoj77YJ` (alter Perikles archiviert, 3,37 $ auf 376.1); Tom Runde 7 archiviert (10,47 $ auf 348.6); Selbstneustart Ford wegen 400 Tsd. Token
+- 13:21 27.10.: Neustart Tom angenommen (21956f5c1): Start „Tom – 376.1 Probeblatt Quaternius-Figuren“ `01Hmoj778n`; Jerry `01Hmoj791A` archiviert (8,13 $ je zur Hälfte auf 348.7a und 348.12f); Tom Runde 7 `01Hmoj77bi` noch `working`: archivieren und auf 348.6 buchen, sobald `idle`
 - 12:56 27.10.: Neustart Jerry angenommen (b9ebd2899): Start „Jerry – 348.7a Runde 3 prüfen, 348.12f Rute r4“ `01Hmoj76oY`; alter Jerry `01Hmoj791A` noch `working`: archivieren und Kosten je zur Hälfte auf 348.7a und 348.12f, sobald `idle`; Perikles meldet Vorrat leer ohne Nachfolger (Sitzung `01Hmoj78vH` bleibt idle)
 - 12:53 27.10.: Neustart Sokrates angenommen (6d04b480c): Start „Sokrates – 376 begleiten, Antwort Modelle“ `01Hmoj7738`, alter Sokrates `01Hmoj77Tr` archiviert, 3,90 $ auf 376; Chef nimmt die Rückfrage 12:50 (KI-Modelle gemeint?) in der neuen Sitzung entgegen: Link per Telegram
 - 12:52 27.10.: Sokrates-Auftrag (Chef 12:46 „jetzt“) an Tom Runde 7 `01Hmoj77bi` weitergegeben: zuerst 376.1 (UAL Pro sichten, höchstens 15 Min., Probeblatt), dann Runde 7 nur Technik; Tom Runde 6 archiviert (7,98 $ auf 348.6), Homer (Vorrat leer, 2,08 $ auf 348.12g) archiviert, Homer ruht ohne Sitzung bis neue Arbeit
@@ -59,11 +65,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:04 27.10.: Lauf; START Diogenes nicht ausgeführt (`--ohne 348.9`: Diogenes hat um 10:34 alle sieben Blätter gemessen, kein neues Blatt gemeldet; Nachfolger-Titel von `lauf.py` zerlegt, siehe Eingang); Homer/Perikles nichts Startbares; Tom, Jerry laufen
 - 11:00 27.10.: Neustart Tom angenommen (b608d45e2 auf main): Start „Tom – 348.6 Kampfbewegungen Runde 4“ `01Hmoj767p`, alter Tom archiviert, Kosten fehlen (keine Zahl geliefert)
 - 10:42 27.10.: Neustart Jerry angenommen (638e7a6e5 auf main): Start „Jerry – 348.7a Geschosse in 3D, Prüfung“ `01Hmoj77dR`, alter Jerry archiviert, Kosten fehlen (keine Zahl geliefert)
-- 10:31 27.10.: Neustart Sokrates angenommen (b07e0442a auf main): Start „Sokrates – auf Zuruf (27.10., 10:31)“ `01Hmoj77Kr`, alter Sokrates archiviert, 6,75 $ zu je 0,96 auf die sieben Nummern der Übergabe gebucht
-- 10:29 27.10.: Auftrag Diogenes 348.9 (Sokrates) angenommen: Start „Diogenes – 348.9 Fledermaus r4d messen“ `01Hmoj77X9`; Hinweis „jedes Blatt vor dem Chef als Zeile bei Diogenes“ an Tom/Jerry konnte nicht in deren Vorrat (beide über 15 KB, Commit-Prüfung hält an): an Perikles
-- 10:22 27.10.: Neustart Tom angenommen (eb41ad25c auf main): Start „Tom – 348.6 Kampfbewegungen Runde 3“ `01Hmoj76AA`, alter Tom archiviert, 10,70 $ gebucht
-- 10:05 27.10.: Lauf; Start Homer-Nachfolger (Übergabe, 348.12c erledigt, `--ohne` griff nicht beim Nachfolger) `01Hmoj782P` und Perikles 338a `01Hmoj75Sn`; alte Homer und Perikles archiviert, 2,21 $ und 1,25 $ gebucht. Tom/Jerry/Sokrates laufen
-- 09:46 27.10.: Neustart Jerry angenommen (66a981053 auf main): Start „Jerry – 348.7a Geschosse in 3D“ `01Hmoj77Zu` (Chef hat 3487a entschieden); alter Jerry archiviert, Kosten fehlen (Sitzung lieferte keine Zahl)
 - 07:04 26.10.: Startsperre 07:04 Start Perikles (lauf.py)
 - 07:04 26.10.: Marke Abgleich Vorentscheid 348.6 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 07:04 26.10.: Marke Abgleich Vorentscheid-Bremse (194.1): 8 ungebilligt, 0 älter als 7 Ta (lauf.py)
@@ -105,3 +106,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:44 27.10.: Startsperre 12:44 Start Perikles (lauf.py)
 - 12:44 27.10.: Marke Archiv session_01Hmoj75Q3H9eTeXLS1ojGTE (lauf.py)
 - 12:44 27.10.: Nachfolger-Warnung Diogenes (Übergabe 27.10., 10:35) (lauf.py)
+- 13:23 27.10.: Startsperre 13:23 Start Perikles (lauf.py)
+- 13:23 27.10.: Marke Archiv session_01Hmoj78vHYPT8chF7CZmYup (lauf.py)
