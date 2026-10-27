@@ -4,13 +4,13 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (27.10., 12:4x, `session_01Hmoj77AVFUUq2zm9nWvgjm`):** 376 Figuren geprüft, Chef kaufte beide 12:20, 376.1 bei Perikles; RenderHub Dungeon (noch nicht) und Markt (ja, Chef lädt) in `LISTE-CC0-MODELLE.md`. Kosten auf: 376. Nachfolger: Sokrates – 376 Häuser und Markt an Tom
+**Übergabe (27.10., 12:50, `session_01Hmoj77Trmsodmh6sDTTSzz`):** 376 ja archiviert, Häuser und 376.1 („jetzt“ 12:46) bei Tom, Markt 376.2 bei Perikles; Chef 12:44 „wer arbeitet an Zeitverschwendung … andere Modelle?“ im Chat beantwortet (3D-Modelle: Kopf t78, Kleidungsfehler ruhen), Rückfrage 12:50, ob KI-Modelle gemeint (270). Kosten auf: 376. Nachfolger: Sokrates – 376 begleiten, Antwort Modelle
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 376 | M | **von Chef (27.10., 12:00):** Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Perikles: Häuser ja 12:42 (Archiv, bei Tom); Figuren 376.1 und Markt 376.2 geladen, bei Perikles zum Einreihen (Zu 376) |
+| 376 | M | **von Chef (27.10., 12:00):** Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Tom: Häuser ja 12:42 (Archiv), Probeblatt 376.1 „jetzt“ 12:46; Markt 376.2 bei Perikles (Zu 376) |
 | 374 | M | **von Chef (27.10., 11:54):** wer prüft 373? | frühestens 31.10.: auswerten mit 347 (Archiv) |
 | 348.12c | M | **von Chef (26.10., 11:59):** Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters Kit“) und andere Anbieter; Kosten, Erwerb, Verkauf im Spiel erlaubt; Monster dürfen von D&D abweichen; „schönen Vorschlag und ein schönes Paket“ | ruht: Stufe 2 bis Rutenursache und letztem Rattenvergleich (Chef 27.10., 09:57, Archiv 348.12f); dann Kaufliste (6 Links, etwa 134 $) an Chef |
 | 348.12 | M | **von Chef (25.10., 21:21, „b prüfen“):** fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit Skelett) prüfen, nichts bauen | wartet auf Jerry: Goblin CC0 entschieden 27.10., 09:49 (Archiv), Hieb nachbessern, dann Grak, Kobold, Zombie |
