@@ -18,8 +18,8 @@ Zählung je Sitzung, geschrieben vom Stop-Haken `tools/zug-haken.py` in `~/.born
 
 Befund: Wörter der Teams −43 % gegen A (Ziel −30 % erreicht); Stempel schlechter (42 %, Ziel unter 5 %), fast immer vorgerechnet, der Stop-Haken zählt nur (Chef 24.10., 21:15); Zwischenstände unverändert; Sokrates bleibt lang (darf begründen). Vorschlag: Chefsache 318.1.
 
-| Zeit | Rolle | Sitzung | Züge | Wörter Median | Wörter max | Entschuldigungen | Stempel daneben/gesamt | Kontext Tsd. |
-|---|---|---|---|---|---|---|---|---|
+| Zeit | Rolle | Sitzung | Züge | Wörter Median | Wörter max | Entschuldigungen | Stempel daneben/gesamt | Kontext Tsd. | Haken 63 nachgeprüft: gehalten/„Keine Chefsache“/durch (383, ab 27.10., 19:15) |
+|---|---|---|---|---|---|---|---|---|---|
 | 24.10., 16:57 | Perikles | 9440fe84-e09 | 1 | 22 | 22 | 0 | 1/1 | 166 |
 | 24.10., 21:41 | Homer | 11bcbe06-db2 | 4 | 43 | 69 | 0 | 1/4 | 189 |
 | 24.10., 21:56 | Jerry | 89e59e50-e44 | 1 | 107 | 107 | 0 | 1/1 | 199 |

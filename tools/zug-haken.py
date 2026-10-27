@@ -143,11 +143,14 @@ def summe(rolle, sitzung=None):
         return
     sid = next((k for k in je if sitzung and k.startswith(sitzung)), None) or zeilen[-1][1]
     for sid, zz in [(sid, je[sid])]:
+        zweit = [z[8] for z in zz if len(z) > 8 and z[8]]  # 383: Nachprüfung beim zweiten Beenden, keine eigenen Züge
+        zz = [z for z in zz if not (len(z) > 8 and z[8])] or zz
         w = [int(z[3]) for z in zz]
         st = [z for z in zz if z[5] == "1"]
-        print("| %s | %s | %s | %d | %d | %d | %d | %d/%d | %d |" % (
+        print("| %s | %s | %s | %d | %d | %d | %d | %d/%d | %d | %d/%d/%d |" % (
             datetime.datetime.now(BERLIN).strftime("%d.%m., %H:%M"), rolle, sid[:12], len(zz), int(statistics.median(w)),
-            max(w), sum(int(z[4]) for z in zz), sum(1 for z in st if z[6] != "0"), len(st), max(int(z[2]) for z in zz) // 1000))
+            max(w), sum(int(z[4]) for z in zz), sum(1 for z in st if z[6] != "0"), len(st), max(int(z[2]) for z in zz) // 1000,
+            zweit.count("gehalten"), zweit.count("ausnahme"), zweit.count("durch")))
 
 
 def main():
