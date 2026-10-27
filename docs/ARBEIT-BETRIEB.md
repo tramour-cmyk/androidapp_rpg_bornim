@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (27.10., 01:20, Ford `session_017jS8iw2nQqpekHt9g3xtP6`, Tiefe 6):** Uhr übernommen, alte gelöscht. Läuft: Tom `session_01AJQaX4xh3QNsDcV9y6x7Br`, Jerry `session_01YC3vgDr2uSCzQvSE8zrZ7A`, Sokrates Nachtvertretung `session_01X9NaGNMk4y1nymcSDE4k5b`. Zu archivieren, wenn idle (Klassifizierer lehnt ab, Chef von Hand): Ford `01Rxjv`/`01Aysc`, Tom `014V2G`/`01AJQa`/`01AXm9` (5,67 $ auf 348.6 gebucht)/`01Hmoj75` (5,56 $ auf 348.6 gebucht), Jerry `019sKq`/`01YC3v` (7,22 $ auf 348.7 gebucht)/`01VsW9` (17,34 $ auf 348.7 gebucht), Sokrates `01BeMf`/`017XDY`, Diogenes `014acp`. `lauf.py` startet Perikles/Sokrates ungewollt (Terminname, Nachtvertretung): nicht ausführen, Perikles startet 7:30. Tiefe 6: kein Selbstneustart mehr, Chef-Bitte Datei 110. Nachfolger: Ford – Betriebsleiter.
+**Übergabe (27.10., 01:20, Ford `session_017jS8iw2nQqpekHt9g3xtP6`, Tiefe 6):** Uhr übernommen, alte gelöscht. Läuft: Tom `session_01AJQaX4xh3QNsDcV9y6x7Br`, Jerry `session_01YC3vgDr2uSCzQvSE8zrZ7A`, Sokrates Nachtvertretung `session_01X9NaGNMk4y1nymcSDE4k5b`. Zu archivieren, wenn idle (Klassifizierer lehnt ab, Chef von Hand): Ford `01Rxjv`/`01Aysc`, Tom `014V2G`/`01AJQa`/`01AXm9` (5,67 $ auf 348.6 gebucht)/`01Hmoj75` (5,56 $ auf 348.6 gebucht)/`01Hmoj78` (8,35 $ auf 348.13 gebucht), Jerry `019sKq`/`01YC3v` (7,22 $ auf 348.7 gebucht)/`01VsW9` (17,34 $ auf 348.7 gebucht), Sokrates `01BeMf`/`017XDY`, Diogenes `014acp`. `lauf.py` startet Perikles/Sokrates ungewollt (Terminname, Nachtvertretung): nicht ausführen, Perikles startet 7:30. Tiefe 6: kein Selbstneustart mehr, Chef-Bitte Datei 110. Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 371** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -34,9 +34,12 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 - **Werkzeugfehler `lauf.py`, an Perikles (Ford 25.10.):** Zahl nach „Godot“, „Runde“, „Lauf“, „Brücke“ zählt nicht mehr als Vorgang (Perikles 26.10.). Offen, Perikles prüft: Doppelbuchung Sokrates alt 7,10 $ auf Betrieb und auf 361/89/362/142.
 - **318, von Sokrates (22.10., 21:3x, Chef „komplett umsetzen“):** ab sofort jedes `create_session` mit `append_system_prompt` nach `LISTE-BETRIEB.md` (Zeile „Kennungen“); Antwortstil „Knapp“ steht in `.claude/settings.json`. Zeile nach dem ersten Start mit Anhang streichen.
 
+- **Von Tom alt `01Hmoj78` (Ford 27.10., 03:23, 348.13):** offene Frage „Soll die Tusche in der Nahansicht mitwachsen und kräftiger werden, oder bleibt sie so?“ an den Chef; Tom neu `01Hmoj77` legt die Chefsache-Datei an, dann Zeile streichen.
+
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 03:23 27.10.: Neustart Tom angenommen (d184ad765 auf main, Nachfolger in Übergabe; offene Frage im Eingang): Start „Tom – 348.6 Hände, Grau des Helden; 348.13 Goblin r6 (27.10., 03:23)“
 - 02:57 27.10.: Neustart Tom angenommen (ee6c28938 auf main, Nachfolger in Übergabe): Start „Tom – 348.13 Tusche-Stufe mit dem Zoom; Zoom-Blatt (27.10., 02:57)“
 - 02:42 27.10.: Neustart Jerry angenommen (6b4629fc4 auf main, Nachfolger in Übergabe): Start „Jerry – 348.7 Todprobe Runde 3 (27.10., 02:42)“
 - 02:33 27.10.: Neustart Tom angenommen (c33ee446f auf main, Nachfolger in Übergabe): Start „Tom – 348.13 Zoom-Blatt; 348.6 Hand, Buckel, Spangen (27.10., 02:33)“
