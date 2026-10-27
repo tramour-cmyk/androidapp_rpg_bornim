@@ -1075,6 +1075,15 @@ func _lane_box(o) -> AABB:
 	return box
 
 
+## Offen nach Prüfer r4 (lokal, Aufstellung Lauf 138, nicht vorlegbar): hoch: jedes Geschoss liegt bei 120 ms am Schirm auf dem Kopf
+## von Wolf 3, der Strahl läuft durch ihn (Wolf 3 steht am Schirm zwischen Magier und Wolf 1; OVER_COST 0,25 zu billig gegen Höhe,
+## Spitze nur früh); Pfeil daneben über der Brust von Wolf 1 (_lane_over lässt das Ziel auch beim Fehlschuss aus); Pfeil (zauber2)
+## senkrecht über Wolf 3; Feuerball-Wolke deckt 60 % von Wolf 1, Heilige Flamme 70 %. Mittel: Start wirkt aus Bertrams Kopf (Brust
+## vor ihm projiziert auf den Kopf), Feuerpfeil bei 0 ms unsichtbar, Feuerball am Start deckt seinen Kopf; drei Strahlen eine Bahn;
+## Pfeil daneben 4 Kopfhöhen über Mira; Feuerpfeil daneben schlägt über dem Hinterteil von Wolf 2 ein; zauber2: Ring und Leiste zeigen
+## bei der Heiligen Flamme Bertram (Probe); Segen kaum sichtbar, links abgeschnitten; Bertram und Mira gleich (Tom). Gering: Heilung
+## bleicht Bertrams Schild, Funken bis an Wolf 3; Knicke im Strahl. Plan r5: Überdeckung teurer als Höhe, Spitze auch spät (über
+## Wolf 3 statt über Mira), Ziel beim Fehlschuss mitzählen, Start tiefer an der Hand, je Strahl eigene Bahn, Wolke und Flamme lichter
 ## 348.7a Runde 3 (Prüfer r2: Strahl durch Wolf 3, Geschosse senkrecht über Miras Kopf, Feuerpfeil daneben durch Wolf 3 und 1):
 ## seitliche Ausweiche und Höhe (m) der Bahn und wo sie am weitesten ausweicht; wenigste Punkte zu nah an anderen, dann der
 ## kürzeste Umweg. Der Strahl hebt sich ungern (Runde 4b: im Bogen ein „Regenbogen“), Geschosse brauchen Platz für alle drei.

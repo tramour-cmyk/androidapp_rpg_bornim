@@ -16,6 +16,14 @@
 # dem Netz, Rutenspitze aus der fernsten Ecke (spitze(); der letzte Knochen zeigt 90° daneben).
 # Runde 4 (Prüfer r3): rute_legen() legt die Rute in jeder Bewegung je Bild (Boden, Pendeln, Nachlauf), rute_aus_dem_boden() entfällt;
 # rute_pruefen() misst räumlich (Knick, nach vorn unter den Körper, Naht der Schleifen).
+# Offen nach Prüfer r6 (Lauf 141, 348.12f-alle.mp4, nicht vorlegbar): hoch: Tod 22,4 s und Ausweichen links 11,2 s drei Strähnen
+# (1–2 px breit, 32 px lang, 2 px Lücke) über der Schulter nach vorn zum Kopf (Rutenspitze durch den Körper? RUTE_SEITE biegt die
+# Spitze 70° nach vorn); mittel: Rute in 12 von 15 Bewegungen unsichtbar (seitliche Biegung hinter dem Körper?), Ausweichen gerader
+# Keil 0,18 Körperlängen, springt in 2 Bildern zum Haken; Drohen 19,9 s, Gehen 3,5 s heller Stummel 17×23 px über dem Hinterteil
+# (Rute oder Hinterfuß?); Blatt grau: Rute 0,36 Körperlängen; Schattenscheiben lösen sich bei Sprüngen (Ausweichen zurück 12,2 s,
+# Sprungbiss 8,6 s, Rennen 4,7 s); Rennen 4,8 s Hinterfuß über dem Rücken; gering: Hocke nur 7 px tiefer, Titel „Ausweichen zurück“
+# rechts abgeschnitten. Netz lokal (Bau 57 s): Spitze geschlossen und glatt, keine Fellkarten übrig; die Rute sind zwei Inseln
+# (Tail–Tail1 bis z −137 cm, Tail10–11 ab z −120 cm, überlappend), Ecken je Bild im Film nachmessen, bevor gebaut wird.
 import os, sys, glob, json, math, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 T0 = time.time()
