@@ -42,6 +42,31 @@ const FELDER_TRACHT := [
 	["q_tracht", "Hieb"], ["q_tracht", "Ausweichen"], ["q_tracht", "Treffer"], ["q_tracht", "Tod"],
 ]
 
+# Helfer 20:2x (Kopf stark gesenkt, Augen halb zu; fremd im Stehen 13-22 Grad, geruest.py hebt unseren Helden auf -3 Grad): den Kopf
+# nach der Bewegung hoechstens bis ZIEL heben, solange der Rumpf aufrecht ist (Tod, Ausweichen nicht); Heben nach oben bleibt
+class KopfHeben extends SkeletonModifier3D:
+	const ZIEL := -3.0
+	const HOECHSTENS := 20.0
+	var vorher := 999.0
+	var gehoben := 0.0
+	func _process_modification() -> void:
+		var sk := get_skeleton()
+		var h := sk.find_bone("Head")
+		var b := sk.find_bone("spine_03")
+		if h < 0 or b < 0: return
+		var hg := sk.get_bone_global_pose(h)
+		var f := hg.basis * (sk.get_bone_global_rest(h).basis.inverse() * Vector3.BACK)
+		var auf := sk.get_bone_global_pose(b).basis * (sk.get_bone_global_rest(b).basis.inverse() * Vector3.UP)
+		var wieviel := smoothstep(0.5, 0.85, auf.normalized().y)
+		var neig := rad_to_deg(asin(clampf(f.normalized().y, -1.0, 1.0)))
+		var w := clampf(ZIEL - neig, 0.0, HOECHSTENS) * wieviel
+		vorher = neig; gehoben = w
+		var achse := f.cross(Vector3.UP)
+		if w < 0.1 or achse.length() < 1e-4: return
+		var neu := Basis(achse.normalized(), deg_to_rad(w)) * hg.basis.orthonormalized()
+		var pg := sk.get_bone_global_pose(sk.get_bone_parent(h))
+		sk.set_bone_pose_rotation(h, (pg.basis.orthonormalized().inverse() * neu).get_rotation_quaternion())
+
 var spiel: Node3D
 var aus := ""
 var quelle := ""
@@ -53,6 +78,7 @@ var ual_becken := 1.0                      # Laenge der Ruhelage des Beckens in 
 var figuren := {}                          # kennung -> Node3D
 var mats := {}                             # kennung -> Array der Materialien
 var protokoll: Array = []
+var heber := {}                           # kennung -> KopfHeben
 
 static func an() -> bool:
 	for a in OS.get_cmdline_user_args():
@@ -75,13 +101,18 @@ func _ready() -> void:
 	spiel.ui.visible = false
 	if spiel.leute: spiel.leute.visible = false
 	lade_ual()
-	for k in REIHE + TRACHT + KOEPFE:
+	var ks: Array = REIHE + TRACHT + KOEPFE
+	if teil == "koepfe":   # Kopfblatt: alle q_k*.glb der Quelle (koepfe_lauf.sh)
+		ks = Array(DirAccess.get_files_at(quelle)).filter(func(f): return f.begins_with("q_k") and f.ends_with(".glb")).map(func(f): return f.get_basename())
+		ks.sort()
+	for k in ks:
 		if k != "held" and k not in figuren: lade_figur(k)
 	await get_tree().create_timer(1.0).timeout
 	if teil in ["", "reihe"]: await reihe()
 	if teil in ["", "film"]: await film(FELDER)
 	if teil == "tracht": await tracht()
 	if teil == "trachtfilm": await film(FELDER_TRACHT)
+	if teil == "koepfe": await koepfe()
 	var f := FileAccess.open(aus + "/probe.txt", FileAccess.WRITE)
 	f.store_string("\n".join(protokoll) + "\n")
 	get_tree().quit()
@@ -115,6 +146,9 @@ func lade_figur(k: String) -> void:
 	for x in ms: (x as ShaderMaterial).set_shader_parameter("fill", 0.42)
 	mats[k] = ms
 	var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
+	var kh := KopfHeben.new()
+	sk.add_child(kh)
+	heber[k] = kh
 	# Bewegungen der UAL auf diese Knochen: nur Drehungen (die Laengen sind die der Figur); das Becken bewegt sich mit,
 	# im Verhaeltnis der Beckenhoehe (Halbling, Zwerg)
 	var f := sk.get_bone_rest(sk.find_bone("pelvis")).origin.length() / ual_becken
@@ -479,3 +513,41 @@ func tracht() -> void:
 	var kopf: Vector2 = spiel.kamera.unproject_position(mitte + Vector3(0, 1.65, 0))
 	img.get_region(Rect2i(0, int(kopf.y) - 220, img.get_width(), 440)).save_png(aus + "/tracht_koepfe.png")
 	protokoll.append("BILD tracht_koepfe")
+
+# 376.1 (Chef 19:40: gekauften Kopf anpassen, Form, Bart, Farbe, Haar): je Kopf q_k* ein Bild halb von vorn auf Gesichtshoehe wie in
+# der Charaktererstellung (kopf_<k>.png), dazu die Koepfe aus SPIELREIHE nebeneinander in der Spielansicht nah (koepfe_spiel.png)
+const SPIELREIHE := ["q_k11", "q_k12", "q_k13", "q_k14", "q_k15"]
+func koepfe() -> void:
+	var ks: Array = figuren.keys().filter(func(k): return String(k).begins_with("q_k"))
+	ks.sort()
+	var mitte := platz()
+	var z := zielpunkt(mitte)
+	var kam: Kamera = spiel.kamera
+	kam.ziel = z
+	for k in ks: spiel_bew(k, "Stehen")
+	kam.nah = false
+	kam.zoom = 0.62
+	kam.neigung = -8.0
+	for k in ks:
+		stelle([k], 0.0, mitte)
+		await get_tree().create_timer(0.5).timeout
+		var kopf := knochen_pos(k, "Head") + Vector3(0, 0.08, 0)
+		z.position = kopf
+		kam.springe()
+		await RenderingServer.frame_post_draw
+		var img := spiel.get_viewport().get_texture().get_image()
+		var sp: Vector2 = kam.unproject_position(kopf)
+		img.get_region(Rect2i(int(sp.x) - 400, int(sp.y) - 470, 800, 940)).save_png(aus + "/kopf_%s.png" % k)
+		protokoll.append("BILD kopf_%s Kopf %s Neigung Bewegung %.1f Grad, gehoben %.1f" % [k, kopf, heber[k].vorher, heber[k].gehoben])
+	kam.neigung = -30.0
+	var sr := SPIELREIHE.filter(func(k): return k in figuren)
+	stelle(sr, 0.75, mitte)
+	z.position = mitte
+	zoom(Kamera.NAH)
+	kam.springe()
+	await get_tree().create_timer(0.6).timeout
+	await RenderingServer.frame_post_draw
+	var img := spiel.get_viewport().get_texture().get_image()
+	var kp: Vector2 = kam.unproject_position(mitte + Vector3(0, 1.6, 0))
+	img.get_region(Rect2i(0, int(kp.y) - 260, img.get_width(), 520)).save_png(aus + "/koepfe_spiel.png")
+	protokoll.append("BILD koepfe_spiel")

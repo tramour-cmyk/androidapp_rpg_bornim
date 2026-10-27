@@ -6,7 +6,7 @@
 # unterschied der Koerper als Verschiebungsfeld von unserem Koerper auf die Kleidung (Lagen bleiben uebereinander); (4) wo der fremde
 # Koerper noch durchsticht, Kleidung hinaus; (5) Koerperflaechen unter der Kleidung weg (sticht in Bewegung nicht durch); (6) Kleidung
 # mit der Haltung aus (1) zurueck in deren Ruhelage (umgekehrte Hautbindung).
-# Aufruf: OUT=<ordner mit held3-rig.blend> Q=<cc0> [KAUF=<ordner>] [KOPF=Regular_Male_OnlyHead] [HAAR=..] [BART=..] [RUND=1.0]
+# Aufruf: OUT=<ordner mit held3-rig.blend> Q=<cc0> [KAUF=<ordner>] [KOPF=Regular_Male_OnlyHead] [HAAR=..] [BART=..] [FORM=rund] [HAUT=mittel] [STOPPELN=1]
 #         [KENNUNG=q_tracht] [ZIEL=<ordner>] bl/bin/python -I kauf_kleid.py   -> <ZIEL>/<KENNUNG>.glb, <KENNUNG>.json
 import bpy, bmesh, os, json, sys
 import numpy as np
@@ -23,7 +23,9 @@ KOPF = os.environ.get('KOPF', '')            # leer: Kopf des Koerpers
 HAAR = os.environ.get('HAAR', 'Hair_SimpleParted')
 BART = os.environ.get('BART', '')
 FARBE = os.environ.get('FARBE', 'braun')
-RUND = float(os.environ.get('RUND', '1.0'))   # Kopfbreite (Chef 14:44 „rundes Gesicht“): Kopfknochen quer
+FORM = os.environ.get('FORM', '')            # Kopfform (Chef 14:44, 19:40): Vorlage aus kopf.FORMEN und/oder Regler, „rund,nase=0.2“
+HAUT = os.environ.get('HAUT', 'mittel')      # kopf.HAUT
+STOPPELN = float(os.environ.get('STOPPELN', '1.0'))   # 0: glatt rasiert (Helfer 16:48: „ohne Bart“ mit Stoppeln)
 os.makedirs(ZIEL, exist_ok=True)
 
 # Teile unseres Helden, die Kleidung sind (Helm, Schild, Schwert, Scheide nicht: Kleidung, kein Geraet)
@@ -108,7 +110,7 @@ qa = next(o for o in kq if o.type == 'ARMATURE'); qa.name = 'Armature'
 qnetze = [o for o in kq if o.type == 'MESH']
 qkoerper = max(qnetze, key=lambda o: len(o.data.vertices))
 import quaternius as QT_   # nur Hilfen (an_geruest, nur_kopf, toene, kopf_pos); baut beim Import nichts, wenn FIGUREN=keine
-for teil, name in (('kopf', KOPF), ('haar', HAAR), ('bart', BART)):
+for teil, name in [('kopf', KOPF), ('haar', HAAR)] + [('bart', b) for b in BART.split(',')]:   # BART: mehrere mit Komma
     if not name or name not in QQ: continue
     objs = importiere(QQ[name])
     a2 = next((o for o in objs if o.type == 'ARMATURE'), None)
@@ -127,6 +129,10 @@ for teil, name in (('kopf', KOPF), ('haar', HAAR), ('bart', BART)):
 QT_.KOPIEN.clear()
 for o in qnetze:
     if o.name.startswith(('Hair_', 'Eyebrows')): QT_.toene(o, lambda n: True, QT_.HAAR[FARBE])
+# gekauften Kopf formen (Ruhelage, vor dem Anpassen der Kleidung: der Kragen sitzt am geformten Hals), Haut toenen
+import kopf as KO
+MERK = KO.forme(qnetze, KO.form_aus(FORM), qkoerper)
+KO.toene_haut(qkoerper, MERK, KO.HAUT[HAUT], STOPPELN, mat=lambda n: 'Regular' in n or 'Superhero' in n)
 Q_KN = [b.name for b in qa.data.bones]
 
 # ---------------------------------------------------------------- 3. Kauffigur in unsere Ruhehaltung
@@ -221,6 +227,20 @@ for i, v in enumerate(VK2):
         VK2[i] = np.array(c + nrm * RAND); raus += 1
 print('KLEIDUNG HINAUS', raus, 'von', len(VK2))
 
+# Helfer 20:2x (Kragen verdeckt Kinn und Mund, Kinn sticht durch): unser Kettenkragen reicht am Kaufkopf 2-3 cm ueber das Kinn,
+# Schritt 7 drueckte dann das Kinn hinter den Kragen. Vorn (zum Kinn hin) weich unter die Kinnunterkante, hinten bleibt er hoch
+iH = Q_KN.index('Head'); iN = Q_KN.index('neck_01') if 'neck_01' in Q_KN else iH
+hals_y = float(QV[WQ[:, iN] > 0.5][:, 1].mean()) if (WQ[:, iN] > 0.5).any() else 0.0
+vk = (WQ[:, iH] > 0.5) & (QV[:, 1] < hals_y - 0.04)
+KINN_Z = float(QV[vk][:, 2].min()) if vk.any() else 1e9
+c = KINN_Z - float(os.environ.get('KRAGEN_FREI', '0.012')); sw = 0.004
+vorn = np.clip((hals_y + 0.01 - VK2[:, 1]) / 0.04, 0, 1); vorn = vorn * vorn * (3 - 2 * vorn)
+z = VK2[:, 2]; zs = c - sw * np.logaddexp(0, (c - z) / sw)   # weiches Minimum von z und c
+nahe = np.linalg.norm(VK2[:, :2] - np.array([0.0, hals_y]), axis=1) < 0.13
+neu_z = np.where(nahe, z + vorn * (zs - z), z)
+print('KRAGEN gesenkt', int((np.abs(neu_z - z) > 0.002).sum()), 'Ecken, Kinn %.3f, hoechstens %.1f cm' % (KINN_Z, 100 * float(np.abs(neu_z - z).max())))
+VK2[:, 2] = neu_z
+
 # ---------------------------------------------------------------- 7. Koerper unter der Kleidung weg
 kme = kleid.data
 KF = [tuple(p.vertices) for p in kme.polygons]
@@ -264,6 +284,35 @@ for i in np.where(ENG_K)[0]:
 leer = WKq.sum(1) == 0
 WKq[leer, Q_KN.index('pelvis')] = 1.0
 WKq /= WKq.sum(1, keepdims=True)
+# Helfer 16:48 (hinten Kettenhemd und Rock durch den Mantel; pruef_tracht.py: in jeder Bewegung 17-46 Ecken je Bild): Wappenrock
+# und Umhang haben unsere Gewichte, das Kettenhemd die des Koerpers, in Bewegung laufen sie auseinander. Ueber der Huefte folgen sie
+# darum der Lage darunter (deren Gewichte an der Stelle, die der Strahl nach innen trifft), darunter gleitend die eigenen (Saum frei)
+FOLGT = [('tabard', ('chain', 'sleeves')), ('cloak', ('tabard', 'chain', 'belt', 'buckle', 'sleeves', 'clasp'))]
+LTk = tl[ist_kleid]; TID = {n: i for i, n in enumerate(TEILNAMEN)}
+kme.vertices.foreach_set('co', VK2.ravel()); kme.update()
+NK2 = np.empty(len(VK2) * 3); kme.vertices.foreach_get('normal', NK2); NK2 = NK2.reshape(-1, 3)
+hz = QP_MAT['pelvis'].translation.z
+gefolgt = {}
+for a_teil, unter in FOLGT:
+    ids = [TID[u] for u in unter if u in TID]
+    fl = [j for j, f in enumerate(KF) if LTk[f[0]] in ids]
+    if a_teil not in TID or not fl: continue
+    bv = BVHTree.FromPolygons([Vector(v) for v in VK2], [KF[j] for j in fl])
+    n_ok = 0
+    for i in np.where(LTk == TID[a_teil])[0]:
+        a = float(np.clip((VK2[i, 2] - (hz - 0.05)) / 0.17, 0, 1)); a = a * a * (3 - 2 * a)
+        if a <= 0: continue
+        n = Vector(NK2[i])
+        h = bv.ray_cast(Vector(VK2[i]) - n * 0.001, -n, 0.06)
+        if h[0] is None:
+            h = bv.find_nearest(Vector(VK2[i]), 0.04)
+            if h[0] is None: continue
+        ecken = list(KF[fl[h[2]]]); d = np.linalg.norm(VK2[ecken] - np.array(h[0]), axis=1)
+        w = 1.0 / np.maximum(d, 1e-4); neu = (w[:, None] * WKq[ecken]).sum(0) / w.sum()
+        WKq[i] = (1 - a) * WKq[i] + a * neu; n_ok += 1
+    gefolgt[a_teil] = n_ok
+WKq /= WKq.sum(1, keepdims=True)
+print('LAGEN FOLGEN', gefolgt)
 VK3 = np.empty_like(VK2)
 for i, v in enumerate(VK2):
     A = np.tensordot(WKq[i], SA, axes=1)
@@ -311,18 +360,8 @@ for m in list(kleid.modifiers): kleid.modifiers.remove(m)
 kleid.parent = qa
 md = kleid.modifiers.new('Armature', 'ARMATURE'); md.object = qa
 
-# ---------------------------------------------------------------- 9. Kopf rund (Chef 14:44): quer um die Kopfachse, nach Kopfgewicht
-if RUND != 1.0:
-    hx = (qa.matrix_world @ qa.data.bones['Head'].head_local).x
-    for o in qnetze:
-        g = o.vertex_groups.get('Head')
-        if g is None: continue
-        for v in o.data.vertices:
-            w = next((e.weight for e in v.groups if e.group == g.index), 0.0)
-            if w > 0: v.co.x = hx + (v.co.x - hx) * (1.0 + (RUND - 1.0) * w)
-
 dr = sum(len(o.data.polygons) for o in qnetze + [kleid])
-info = {'kennung': KENNUNG, 'koerper': KOERPER, 'kopf': KOPF or KOERPER, 'haar': HAAR, 'bart': BART, 'rund': RUND,
+info = {'kennung': KENNUNG, 'koerper': KOERPER, 'kopf': KOPF or KOERPER, 'haar': HAAR, 'bart': BART, 'form': KO.form_aus(FORM), 'haut': HAUT, 'stoppeln': STOPPELN, 'farbe': FARBE,
         'hoehe_m': round(float(hoehe_q), 3), 'kleidung_hinaus': raus, 'koerper_verdeckt': int(verdeckt.sum()), 'flaechen': dr}
 json.dump(info, open(os.path.join(ZIEL, KENNUNG + '.json'), 'w'), indent=1, ensure_ascii=False)
 bpy.ops.object.select_all(action='DESELECT')

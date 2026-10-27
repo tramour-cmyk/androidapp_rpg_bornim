@@ -14,6 +14,7 @@ var zoom := FERN
 var nah := false
 var tusche: MeshInstance3D
 var tusche_mats: Array[ShaderMaterial] = []   # 348.13: bekommen die Sonnenrichtung (Tusche nach der Lichtrichtung)
+var neigung := -30.0     # 376.1 Kopfblatt (figurenprobe.gd): flacher auf Gesichtshoehe
 var hinten_fest := -1.0   # 348.13: --hintenheld=<m> haelt die Stufe am Helden fest (Versuch), sonst mit dem Zoom
 
 func _ready() -> void:
@@ -90,7 +91,7 @@ func kneifen(faktor: float) -> void:
 func folge(k: float) -> void:
 	if ziel == null: return
 	gieren = lerpf(gieren, gieren_ziel, minf(1.0, k * 1.6))
-	rotation_degrees = Vector3(-30, gieren, 0)
+	rotation_degrees = Vector3(neigung, gieren, 0)
 	var auf := ziel.position + Vector3(0, 0.9 if nah else 0.0, 0)
 	position = position.lerp(auf + global_basis.z * 40.0, k)
 	size = lerpf(size, zoom, k)
