@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [338a](entscheiden/338a-block-dorf.md) | **Muss** | B Abläufe | 27.10. | Block (D) rot seit 27.10., 08:15: Tom hat seit dem Plan 25 Sitzungen an Held und Tusche gearbeitet, kein Dorf-Punkt kam voran; Termin Mi 28.10. nicht haltbar | Perikles |
 | [348.12](entscheiden/34812-goblin-hieb.md) | **Muss** | G Aussehen | 27.10. | Goblin CC0 oder eigen? Der CC0-Hieb hat nach sechs Runden noch Fehler | Jerry |
 | [348.12f](entscheiden/34812f-kaufratte-r3.md) | **Muss** | E Technik | 27.10. | Reicht die nachgebesserte Kaufratte, oder bleibt die eigene? | Jerry |
 | [348.13](entscheiden/34813-tusche-nah.md) | **Muss** | G Aussehen | 27.10. | Tusche in der Nahansicht so lassen, etwas kräftiger („halb“) oder so kräftig wie in der Grundansicht („voll“)? | Tom |
@@ -95,10 +96,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 10, Muss 8, startbar 1
+**Perikles** – offen 11, Muss 9, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 338a | M | von Perikles (Z2): Umzug Block (D) rot: Held stehen lassen, Dorf weiterbauen? | Chef (Datei in der Chefsache) |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9): Meilenstein „Kapitel 1 auf G | wartet auf Test/Build (gebaut) |
 | 338 | M | von Sokrates (Vorgangsarchiv 338, 348): Meilenstein ohne Datum, Umzug nach Godot jetzt; Um | Termin 02.11. |
 | 347.2 | M | von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347): Paket Regeltreue umsetzen nach tool | wartet auf Test/Build (gebaut) |
