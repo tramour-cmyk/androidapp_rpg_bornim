@@ -232,7 +232,7 @@ nahe = np.linalg.norm(VK2[:, :2] - np.array([0.0, hals_y]), axis=1) < 0.13
 z = VK2[:, 2]
 basis = float(QV[WQ[:, iN] > 0.3][:, 2].min()) if (WQ[:, iN] > 0.3).any() else c - 0.08   # Halsansatz
 oben = float(z[nahe & (VK2[:, 1] < hals_y)].max()) if (nahe & (VK2[:, 1] < hals_y)).any() else c
-f = 1.0 if oben <= c else (c - basis) / max(oben - basis, 1e-3)
+f = 1.0 if oben <= c or os.environ.get('KRAGEN') == '0' else float(np.clip((c - basis) / max(oben - basis, 1e-3), 0.1, 1.0))   # KRAGEN=0: aus
 rr = np.clip((np.linalg.norm(VK2[:, :2] - np.array([0.0, hals_y]), axis=1) - 0.09) / 0.06, 0, 1); rr = 1 - rr * rr * (3 - 2 * rr)
 fz = 1.0 + vorn * rr * (f - 1.0)
 neu_z = np.where(z > basis, basis + (z - basis) * fz, z)
