@@ -41,6 +41,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:37–06:35 27.10.: Neustarts angenommen und Nachfolger gestartet: Tom 01:46, 02:33, 02:57, 03:23, 03:51, 04:16, 04:43, 05:01, 05:20, 05:44, 06:03, 06:35, 07:21; Jerry 01:37, 02:42, 03:25, 04:57; Jerry 05:55 zurückgestellt (wartet auf Chefsache 3487a). Läufe 02:03, 03:03 ohne Starts; START Perikles (Terminname) nicht ausgeführt
 - 25.10., 09:35–21:05: Neustarts Tom/Jerry/Sokrates angenommen; Perikles 364 und Sokrates 340.2 gestartet; Sparbetrieb und Max 20x (Verlauf in Git)
 
+- 11:00 27.10.: Neustart Tom angenommen (b608d45e2 auf main): Start „Tom – 348.6 Kampfbewegungen Runde 4“ `01Hmoj767p`, alter Tom archiviert, Kosten fehlen (keine Zahl geliefert)
 - 10:42 27.10.: Neustart Jerry angenommen (638e7a6e5 auf main): Start „Jerry – 348.7a Geschosse in 3D, Prüfung“ `01Hmoj77dR`, alter Jerry archiviert, Kosten fehlen (keine Zahl geliefert)
 - 10:31 27.10.: Neustart Sokrates angenommen (b07e0442a auf main): Start „Sokrates – auf Zuruf (27.10., 10:31)“ `01Hmoj77Kr`, alter Sokrates archiviert, 6,75 $ zu je 0,96 auf die sieben Nummern der Übergabe gebucht
 - 10:29 27.10.: Auftrag Diogenes 348.9 (Sokrates) angenommen: Start „Diogenes – 348.9 Fledermaus r4d messen“ `01Hmoj77X9`; Hinweis „jedes Blatt vor dem Chef als Zeile bei Diogenes“ an Tom/Jerry konnte nicht in deren Vorrat (beide über 15 KB, Commit-Prüfung hält an): an Perikles
