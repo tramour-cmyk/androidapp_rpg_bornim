@@ -333,8 +333,11 @@ if ziel > 0 and drei > ziel:
     # 348.6 Schwert (Helfer am Spielbild nah: Scheide endet in einem Klumpen, Griff zerfasert, Knauf spitz; gemessen farbfehler.py: Scheide,
     # Griff, Parierstange (Cylinder) 260 -> 23 Dreiecke, Knauf und Kappen (Sphere) 2184 -> 92, groesste Farbabweichung des Netzes): SCHEIDE, KNAUF
     # je fuer sich (gemeinsam bekam die Scheide nur ihr Zehntel)
-    TEILE_ANTEIL = {'schild': {'shield'}, 'scheide': {'Cylinder'}, 'knauf': {'Sphere'}}
-    ANTEIL = [(a, int(os.environ.get(a.upper(), v if FIGUR == 'held' else '0'))) for a, v in (('gesicht', '1000'), ('schild', '700'), ('scheide', '150'), ('knauf', '120'))]
+    # 348.6 Buckel sechseckig, Spangen eckig, Klumpen am Guertel (Helfer nah): gezaehlt Buckel 528 -> 26, Spangen 720 -> 18,
+    # Guertelschnalle 108 -> 1 Dreieck: BUCKEL, SPANGEN, SCHNALLE
+    TEILE_ANTEIL = {'schild': {'shield'}, 'scheide': {'Cylinder'}, 'knauf': {'Sphere'}, 'buckel': {'boss'}, 'spangen': {'clasp'}, 'schnalle': {'buckle'}, 'haende': {'handL', 'handR'}}
+    ANTEIL = [(a, int(os.environ.get(a.upper(), v if FIGUR == 'held' else '0'))) for a, v in (('gesicht', '1000'), ('schild', '700'), ('scheide', '150'),
+              ('knauf', '120'), ('buckel', '120'), ('spangen', '160'), ('schnalle', '60'), ('haende', '0'))]
     ANTEIL = [(a, n) for a, n in ANTEIL if n > 0 and ('head' in TEILNAMEN if a == 'gesicht' else TEILE_ANTEIL[a] & set(TEILNAMEN))]
     if ANTEIL:
         vor = {}
