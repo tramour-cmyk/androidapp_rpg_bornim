@@ -10,7 +10,6 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 371 | M | **von Chef (27.10., 09:06):** Archivieren; interne Gegenprüfungen kosten Token, „dass ich mehr sehe“ | wartet auf Chef: [371](chefsache/entscheiden/371-weniger-pruefrunden.md) |
 | 348.12c | M | **von Chef (26.10., 11:59):** Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters Kit“) und andere Anbieter; Kosten, Erwerb, Verkauf im Spiel erlaubt; Monster dürfen von D&D abweichen; „schönen Vorschlag und ein schönes Paket“ | wartet auf Rattenprobe (Film) und 348.12i: Zuordnung ja (20:32, Archiv), dann Kaufliste (6 Links, etwa 134 $) an Chef |
 | 348.12 | M | **von Chef (25.10., 21:21, „b prüfen“):** fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit Skelett) prüfen, nichts bauen | wartet auf Jerry: Goblin CC0 Runde 3, Gehen (Chef 20:29) |
 | 348.12h | M | **von Chef (26.10., 16:16; ja 16:19, Archiv):** fertige Dinge, Möbel, Waffen suchen | wartet auf Jerry: gesucht (`LISTE-CC0-MODELLE.md`, CC0 etwa 40/74); nach Rattenprobe Probeblatt vorschlagen |

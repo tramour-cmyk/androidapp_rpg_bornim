@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 371 | M | **von Sokrates (Chef 27.10., 09:21 „371 ja“, Vorgangsarchiv 371):** drei Punkte in `ROLLE-ENTWICKLUNG.md`, `LISTE-BETRIEB.md` (Ford), `LISTE-UMZUG-348.md` „Der Chef sieht mit“ eintragen; CLAUDE.md Bekannte Fehler „nach drei Runden“ → „nach einer Runde“ | startbar; Teams und Ford per Nachricht 09:2x schon unterrichtet |
 | 338a | M | **von Perikles (Z2):** Umzug Block (D) rot: Held stehen lassen, Dorf weiterbauen? | wartet auf Chef: entscheiden/338a-block-dorf (Votum A); danach Termine prüfen |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9):** Meilenstein „Kapitel 1 auf Godot mindestens so gut wie alt“ mit Checkliste aus der Bestandsliste 348.8 und Tagesziele je Team; `ROLLE-PRUEFUNG.md` für Diogenes (Arbeitsteilung 1, 3) | gebaut 25.10., 12:4x (Übergabe; fremd geprüft, 10 Funde behoben); Tagesziele täglich im Stand zum Marktstart |
 | 338 | M | **von Sokrates (Vorgangsarchiv 338, 348):** Meilenstein ohne Datum, Umzug nach Godot jetzt; Umzugsplan mit Sokrates (Zu 338) | frühestens 02.11.: Wochenzählung, Termine prüfen; Termine je Block und Wochenziel 2 gesetzt 26.10., 17:15 (Zu 338) |
