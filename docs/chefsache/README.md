@@ -154,7 +154,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 186.3 (Pruefung), 376.2 (Team Tom), 267 (Team Tom)
 
-Ohne Datei: 275 (Projekt), 26 (Team Tom)
+Ohne Datei: 275 (Projekt)
 
 ## So geht's
 
