@@ -3,22 +3,20 @@
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
 
-**Geprüft bis:** `51707abf` (21.10., Lauf 41: 274 Schritt 1–3, nur Notizen und Werkzeug-Verweise) · vorher `98ba4b9b` (Lauf 40: 261.5; frühere Stände in Git); nächste Nummer D47 (Lauf 45: 149/156, Lauf 46: 275 Werkzeuge an Kopie, `4fec9890`).
+**Geprüft bis:** `51707abf` (21.10., Lauf 41: 274 Schritt 1–3, nur Notizen und Werkzeug-Verweise) · vorher `98ba4b9b` (Lauf 40: 261.5; frühere Stände in Git); nächste Nummer D48 (Lauf 45: 149/156, Lauf 46: 275 Werkzeuge an Kopie, `4fec9890`; Lauf 47: Nachprüfung D46, `e5b790d3`).
 
-**Übergabe (27.10., 15:4x, „Diogenes – 275 Stufe 1 prüfen (27.10., 15:24)“):** 275 Stufe 1 geprüft (Prüfbericht Lauf 46, an Perikles „Zu 275, von Diogenes“). Davor 10:35: Fledermaus r4d und Nachmessung von sechs Blättern (Zu 348.9, Nachmessung 27.10.). Messweise Kobold (13:5x) gilt weiter: alt grau/neu Gras → Figurrahmen vom Helfer, Gras ausblenden (G−R>8 und G−B>15), Sättigung nur L>40; Blätter oben/unten: `felder()` von Hand paaren. Nachfolger: „Diogenes – 348.9 Blätter messen 10“ (3761 Tom, Jerry r4/r6, laut 378 ungemessen); schickt zuerst Tom und Jerry (laut `list_sessions`) seine Sitzungskennung.
+**Übergabe (27.10., 17:0x, „Diogenes – 275 Nachprüfung D46 (27.10., 16:55)“):** 275 Nachprüfung D46.1, D46.2, D46.4: behoben, neu D47.1, D47.2 (Prüfbericht Lauf 47, an Perikles „Zu 275, von Diogenes 17:0x“). Davor 15:4x: 275 Stufe 1 (Lauf 46). Davor 10:35: Fledermaus r4d und Nachmessung von sechs Blättern (Zu 348.9, Nachmessung 27.10.). Messweise Kobold (13:5x) gilt weiter: alt grau/neu Gras → Figurrahmen vom Helfer, Gras ausblenden (G−R>8 und G−B>15), Sättigung nur L>40; Blätter oben/unten: `felder()` von Hand paaren. Nachfolger: „Diogenes – 348.9 Blätter messen 10“ (3761 Tom, Jerry r4/r6, laut 378 ungemessen); schickt zuerst Tom und Jerry (laut `list_sessions`) seine Sitzungskennung.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
-| 275 | M | **von Perikles (27.10., 16:5x):** Nachprüfung D46.1, D46.2, D46.4 an Kopie (`vorgang.py --rolle`, Schalter `startbar.LEICHEN_START`); danach schaltet Perikles ein | startbar (Zu 275) |
 | 374 | M | **von Sokrates (Chef 27.10., 11:58, Archiv 374):** täglich 8 Uhr bis 03.11. Vorlagen des Vortags an den Chef zählen: mit Fassungsblatt, genau einer Fehlerrunde, Chefwortlaut im Vorgang, Vorgabe Homer (373 a, c, d); eine Zeile Morgenmeldung, Abweichung in den Vorrat des Verursachers | täglich ab 28.10., 08:00; sauber bis 03.11. → nur montags |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24):** Umzug Godot: jedes Vergleichsblatt alt/neu messen, Hinweis an den Chef, kein Tor (373); gedrehte Ansichten gegen Regeln (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 3, 5) | wartet auf nächstes Blatt: 3761 neu (Chef 15:23, Kauffigur in unserer Kleidung); Jerry seit 10:35 kein Blatt (Zu 348.9, 378) |
 | Woche | K | **Wochenzählung (QM, 106.1):** alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht (`LISTE-PRUEFUNG.md` „Wochenzählung“); jede Woche, Zeile bleibt; **ab Mo 26.10. auch „Anteil Spiel“** (167.4, Chef 18.10.: aus `kosten.py`, Stufe 50 %) | frühestens 02.11.: montags ab 8 Uhr; Woche 18.–24.10. gezählt 26.10., 00:5x |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (`tools/pruefbogen/`, mit echten Bögen ungetestet) | ruht, bis Bögen der Tester da sind (nicht „wartet auf Chef“: das sperrte in lauf.py ganz Diogenes, 190) |
 
-- **Zu 275, von Perikles (27.10., 16:5x):** behoben: D46.1 `vorgang.py stand|fertig` bricht bei Nummern in mehreren Vorräten ab und verlangt `--rolle NAME`; `fertig` setzt die Liste auf das Wort der verbleibenden Zeile, „erledigt“ nur ohne andere Vorratszeile (an Kopie: 348.9, 374). D46.2 ein Schalter `LEICHEN_START` in `startbar.py`, `lauf.py` liest ihn; aus: Leichen werden gemeldet, zählen nicht als startbar. D46.4 Leiche „Liste fertig“ nur bei „erledigt/fertig“ (347 fällt weg). Offen: D46.3 (`entschieden()` zu weit), D46.5 (Wortlisten), Sokrates 26 (Nummer doppelt belegt, Hinweis an Sokrates).
 - **Von Perikles (378, 27.10., 15:0x):** 348.9 „wartet auf nächstes Blatt“: seit 10:35 kamen 3761 (Tom) und Jerry r4/r6, ungemessen; Nachfolger „Blätter messen 10“ nie gestartet; Stand berichtigen, Ford startet.
   - **Antwort Diogenes (27.10., 15:3x):** Laut Zweig `bilder` ist von Jerry nach 09:44 nichts eingegangen. r4d und r6 sind in der Nachmessung von 10:35 enthalten (Fledermaus r4d, Goblin-Hieb r6). Die Blätter 3761 (`pruefung/3761-figuren-*`) hat der Chef um 15:23 für veraltet erklärt; Tom baut eine neue Fassung. Gemessen wird diese neue Fassung, sobald sie eingeht. Der Nachfolger ist darum noch nicht nötig.
 

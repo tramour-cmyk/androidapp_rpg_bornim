@@ -25,6 +25,17 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 47 · Auftrag 275 Nachprüfung D46.1, D46.2, D46.4 (`main` `e5b790d3`, an einer Kopie; 27.10., 17:0x)
+
+**Ergebnis:** D46.1, D46.2 und D46.4 sind behoben. `LEICHEN_START` darf eingeschaltet werden, sobald die falsche Leiche Sokrates 26 geklärt ist. Ist der Schalter an, solange 26 ungeklärt ist, startet Ford Sokrates, um einen Stand zu berichtigen, der stimmt.
+
+- **D46.1 behoben.** Geprüft an einer Kopie mit 10 Aufrufen. `stand 348.9` und `fertig 374` ohne `--rolle` brechen ab, nennen die Vorräte und schreiben nichts (Exit 1). Eine unbekannte Rolle, eine Rolle ohne Zeile und `--rolle` ohne Wert brechen ebenfalls mit Meldung ab. `stand 348.9 … --rolle diogenes` schreibt nur in die Zeile von Diogenes; Groß- und Kleinschreibung ist egal. `--rolle` vor dem Befehl wirkt auch. `fertig 374 --rolle Diogenes` setzt die Liste auf „wartet“, das Wort aus der Zeile von Sokrates, und meldet „weiter bei Sokrates“. Erst `fertig 374 --rolle Sokrates` setzt „erledigt“. Nummern mit nur einer Vorratszeile gehen weiter ohne `--rolle` (348.12i).
+- **D46.2 behoben.** Ist der Schalter aus, rechnen `startbar.py` und `lauf.stand()` dasselbe: Muss Tom 376.2, Diogenes 275, Sokrates 366, sonst keiner. Die Zeile meldet „11 Leichen, Schalter aus, zählen nicht“. Ist der Schalter an, machen beide Tom und Sokrates startbar. Es gibt nur noch einen Schalter; `lauf.py` liest `startbar.LEICHEN_START`, sonst nichts.
+- **D46.4 behoben.** 347 und 72u.1 sind keine Leichen mehr. Es bleiben 11 Leichen: Tom 348.6, 267, 302.3, 302.2, 302.1, 292.2, 292.4, 357 sowie Sokrates 26, 142, 45.
+- `regelcheck.py` (voller Lauf) endet vor und nach dem Commit mit Exit 1, wegen der Wortliste 4a. Das kommt nicht von dieser Änderung.
+- **D47.1 (mittel) Die Liste führt ein Wort für mehrere Besitzer.** `stand` des einen überschreibt das Wort, das für alle gilt. An der Kopie setzte Diogenes für 348.9 „wartet“, obwohl die Zeile von Perikles eine laufende Dauerzeile ist. `fertig` übernimmt das Wort der ersten Zeile, die übrig bleibt. Das ergibt keine falsche Leiche, weil nur „erledigt“ oder „fertig“ als Leiche zählt. Die Liste zeigt aber den Stand dessen, der zuletzt geschrieben hat. Vorschlag für Stufe 2: Bei mehreren Besitzern gilt das „offenste“ Wort (in Arbeit vor wartet vor ruht).
+- **D47.2 (gering) Ist der Schalter an, zeigen die Werkzeuge Leichen verschieden.** `startbar.py` zeigt eine Leiche in ihrer eigenen Klasse (Tom: Kür 302.2 neben Muss 348.6). `lauf.py` fasst alle Leichen zu einer Muss-Zeile „Leichen“ zusammen. Welche Rolle startbar ist, ist bei beiden gleich; nur Ford liest zwei Darstellungen.
+
 ## Lauf 46 · Auftrag 275 (Stufe 1 vor dem Einsatz; `main` `4fec9890`, an einer Kopie; 27.10., 15:4x)
 
 **Ergebnis:** `LEICHEN_START` erst nach D46.1 und D46.2 einschalten. D46.1 trifft `vorgang.py`, das schon jetzt die einzige Schreibweise ist: vor dem nächsten Gebrauch beheben. Regelcheck 4a, „Zu tun“ und die Fehlerprüfungen von `vorgang.py` arbeiten richtig.
