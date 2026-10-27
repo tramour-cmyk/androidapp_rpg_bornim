@@ -19,6 +19,9 @@ const STEP_BACK := 0.68
 const HERO_BACK_S := 0.5
 const HERO_BACK_MAX_S := 0.9
 const HERO_BACK_MPS := 7.5
+## Gehen der Heldin (held.glb) bei Tempo 1 in m/s und wie schnell es rückwärts höchstens läuft (sonst trippelt sie)
+const WALK_MPS := 1.4
+const WALK_MAX := 2.5
 ## Wie lange der letzte Schlag samt Rückweg dauert (ms), kampfort.gd wartet darauf
 var busy_ms := 0
 const FALL_MS := 900
@@ -620,30 +623,49 @@ func strike(other, e: Dictionary) -> int:
 	if tween and tween.is_running():
 		tween.kill()
 	tween = create_tween()
-	tween.tween_property(self, "position", there, ms * STEP_HOLD / 1000.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	tween.tween_interval(hold)
-	# Rückweg um die anderen herum (lief durch den Nachbarwolf zurück): ein Umweg, wenn die Gerade jemanden streift
-	var via: Vector3 = _detour(there, home) if hero else there
-	if hero:
-		# rückwärts, ohne Umdrehen (beim Umdrehen sah man Brust und Schildinnenseite: „andere Ausrüstung“, Helfer Lauf 126)
-		if via != there:
-			tween.tween_property(self, "position", via, back * 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
-			tween.tween_property(self, "position", home, back * 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-		else:
-			tween.tween_property(self, "position", home, back).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	elif via != there:
-		tween.tween_callback(func(): _face(via - position))
-		tween.tween_property(self, "position", via, back * 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
-		tween.tween_callback(func(): _face(home - position))
-		tween.tween_property(self, "position", home, back * 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	var out := ms * STEP_HOLD / 1000.0
+	# auch hin um die anderen herum (PFAD=1: Hinweg 0,2–0,3 m im Umriss des Nachbarn)
+	var via_out: Vector3 = _detour(position, there, other) if hero else position
+	if hero and OS.get_environment("PFAD") != "":
+		print("Umweg hin ", position, " -> ", via_out, " -> ", there, " Luft gerade %.2f, mit Umweg %.2f" % [_seg_gap(position, there, other), minf(_seg_gap(position, via_out, other), _seg_gap(via_out, there, other))])
+	if via_out != position:
+		var o1 := position.distance_to(via_out) / (position.distance_to(via_out) + via_out.distance_to(there)) * out
+		tween.tween_property(self, "position", via_out, o1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+		tween.tween_property(self, "position", there, out - o1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	else:
-		tween.tween_callback(func(): _face(home - position))
-		tween.tween_property(self, "position", home, back).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+		tween.tween_property(self, "position", there, out).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_interval(hold)
+	# Rückweg um die anderen herum (lief durch den Nachbarwolf zurück): ein Umweg, wenn die Gerade jemanden streift; die Heldin
+	# rechnet ihn erst, wenn sie losgeht (Prüfer Runde 3b: der Wolf dreht sich unterdessen nach ihr, sein Kopf stand im Weg)
+	if hero:
+		tween.tween_callback(func(): _back_home(back, other))
+		busy_ms = int(ms * STEP_BACK + back * 1000.0)
+		return ms
+	tween.tween_callback(func(): _face(home - position))
+	tween.tween_property(self, "position", home, back).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_callback(func(): _face(); _idle())
 	if leap:
 		pouncing = false
-	busy_ms = int(ms * STEP_BACK + back * 1000.0) if hero else ms
+	busy_ms = ms
 	return ms
+
+
+## Rückweg der Heldin: rückwärts, ohne Umdrehen (beim Umdrehen sah man Brust und Schildinnenseite: „andere Ausrüstung“, Helfer
+## Lauf 126), mit Gehen rückwärts statt Gleiten (Prüfer Runde 3b), um die anderen herum
+func _back_home(back: float, skip) -> void:
+	var from := position
+	var via := _detour(from, home, skip)
+	var way := from.distance_to(via) + via.distance_to(home) if via != from else from.distance_to(home)
+	if anim and anim.has_animation("Gehen") and way > 0.2:
+		anim.play("Gehen", 0.12, -clampf(way / back / WALK_MPS, 1.0, WALK_MAX))
+	tween = create_tween()
+	if via != from:
+		var b1 := from.distance_to(via) / way * back
+		tween.tween_property(self, "position", via, b1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+		tween.tween_property(self, "position", home, back - b1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	else:
+		tween.tween_property(self, "position", home, back).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_callback(func(): _face(); _idle())
 
 
 ## Halbe Breite am Boden, wie der Bodenschatten (Wolf 1,1 m lang, halb seitlich gesehen; Mensch 0,3 m)
@@ -653,35 +675,72 @@ func body_r() -> float:
 	return HERO_R * (_scale() if fighter.monster != null else 1.0)
 
 
-## Ein Punkt seitlich der Geraden a → b, wenn sie eine stehende andere Figur streift; sonst a selbst.
-func _detour(a: Vector3, b: Vector3) -> Vector3:
+## Umriss am Boden im eigenen Raum (Kasten der Netze in Ruhe); ein Wolf ist lang, der Kreis aus body_r() verfehlte den
+## Kopf (Prüfer Runde 3b: die Heldin lief durch Wolf 2 zurück; PFAD=1 maß 0,18 m im Umriss bei 0,38 m Kreisabstand)
+var _foot := AABB()
+var _foot_ok := false
+func footprint() -> AABB:
+	if not _foot_ok:
+		_foot_ok = true
+		var inv := global_transform.affine_inverse()
+		var first := true
+		for m in find_children("*", "MeshInstance3D", true, false):
+			var b: AABB = (inv * m.global_transform) * m.get_aabb()
+			_foot = b if first else _foot.merge(b)
+			first = false
+		if first:
+			_foot = AABB(Vector3(-body_r(), 0, -body_r()), Vector3(2 * body_r(), 1, 2 * body_r()))
+	return _foot
+
+
+## Wie weit p (Welt) am Boden außerhalb des Umrisses liegt (< 0: darin)
+func clearance(p: Vector3) -> float:
+	var box := footprint()
+	var loc := global_transform.affine_inverse() * p
+	var dx := maxf(box.position.x - loc.x, loc.x - box.end.x)
+	var dz := maxf(box.position.z - loc.z, loc.z - box.end.z)
+	if dx <= 0.0 and dz <= 0.0:
+		return maxf(dx, dz)
+	return Vector2(maxf(dx, 0.0), maxf(dz, 0.0)).length()
+
+
+## Kleinster Abstand der Strecke a → b zu einer stehenden anderen Figur (Rand der Heldin an Umriss), in 16 Schritten
+func _seg_gap(a: Vector3, b: Vector3, skip = null) -> float:
+	var g := INF
+	for o in kampfort.figures.values():
+		if o == self or o == skip or not o.visible or o.down:
+			continue
+		for k in 17:
+			g = minf(g, o.clearance(a.lerp(b, k / 16.0)) - HERO_R)
+	return g
+
+
+## Ein Punkt seitlich der Geraden a → b, wenn sie den Umriss einer stehenden anderen Figur (außer dem Ziel skip) streift;
+## sonst a selbst. Gesucht wird der kleinste seitliche Versatz, bei dem beide Teilstrecken 0,3 m Luft lassen; sonst der mit der meisten Luft.
+func _detour(a: Vector3, b: Vector3, skip = null) -> Vector3:
+	const AIR := 0.3     # der Nachbar dreht Rumpf und Kopf nach ihr, solange sie läuft (bis 0,2 m an der Schnauze)
+	if _seg_gap(a, b, skip) >= AIR:
+		return a
 	var ab := Vector3(b.x - a.x, 0.0, b.z - a.z)
 	var n := ab.length()
 	if n < 0.05:
 		return a
 	var d := ab / n
 	var side := Vector3(-d.z, 0.0, d.x)
-	var best := 0.0
-	var at := n * 0.45
-	for o in kampfort.figures.values():
-		if o == self or not o.visible or o.down:
-			continue
-		var rel := Vector3(o.position.x - a.x, 0.0, o.position.z - a.z)
-		var along := rel.dot(d)
-		if along <= 0.0 or along >= n:
-			continue
-		var off := rel.dot(side)
-		var need: float = o.body_r() + HERO_R + 0.1
-		if absf(off) < need:
-			# auf die Seite, auf der der Weg kürzer ist
-			var push: float = (off - need) if off >= 0.0 else (off + need)
-			if absf(push) > absf(best):
-				best = push
-				at = along
-	if best == 0.0:
-		return a
-	# der Umweg liegt neben dem, der im Weg steht
-	return a + d * at + side * best
+	var best := a
+	var best_gap := _seg_gap(a, b, skip)
+	for k in range(1, 13):
+		var off := 0.2 * k
+		for at in [0.5, 0.35, 0.65]:
+			for sg in [1.0, -1.0]:
+				var via: Vector3 = a + d * (n * at) + side * (off * sg)
+				var g := minf(_seg_gap(a, via, skip), _seg_gap(via, b, skip))
+				if g >= AIR:
+					return via
+				if g > best_gap:
+					best_gap = g
+					best = via
+	return best
 
 
 func hurt(after_ms: int, dies: bool) -> void:

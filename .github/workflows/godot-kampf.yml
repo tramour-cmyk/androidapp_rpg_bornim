@@ -160,9 +160,9 @@ jobs:
           GEGNER=WOLVES EFFEKT=CRIT folge wolf-crit
           GEGNER=RATS EFFEKT=KILL folge ratte-kill
           # Helfer Lauf 126: zauber.log brach nach 180 s ab (Feuerball, Heilige Flamme fehlten); je Lauf höchstens vier Zauber
-          GEGNER=WOLVES ZAUBER=FIRE_BOLT,MISSILES,RAYS,FIREBALL folge zauber
+          GEGNER=WOLVES SOELDNER=WIZARD ZAUBER=FIRE_BOLT,MISSILES,RAYS,FIREBALL folge zauber
           GEGNER=WOLVES ZAUBER=SACRED_FLAME,HEAL,BLESS,ARROW folge zauber2
-          GEGNER=WOLVES ZAUBER=FIRE_BOLT,SACRED_FLAME,ARROW ZAUBERDANEBEN=1 folge daneben
+          GEGNER=WOLVES SOELDNER=WIZARD ZAUBER=FIRE_BOLT,SACRED_FLAME,ARROW ZAUBERDANEBEN=1 folge daneben
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
           (cd godot && GEGNER=RATS OHNEUI=1 SCHAU=1 SCHAU_TITEL=eigen timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/ratte.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/ratte-schau.log 2>&1) || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/ratte.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/ratte-schau.mp4 || true

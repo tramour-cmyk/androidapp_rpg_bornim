@@ -230,14 +230,15 @@ func _sacred_flame(p: float, x: float, ground: float, u: float) -> void:
 		var w := (6 + 4 * edge) * u
 		var lean := sin(p * 21.0 + i) * 3 * u + (i - 5) * 0.8 * u
 		var b := Vector2(bx, ground + 2 * u)
-		# Zungen golden, an der Spitze verglühend, breiter und niedriger (Prüfer Runde 3: cremefarbene Zacken „wie Eiskristalle“)
-		_tongue(b, h * 0.8, w * 1.3, lean, HOLY_FIRE, 0.7 * burn, [_a(HOLY_FIRE, 0.0), _a(HOLY_FIRE, 0.7 * burn), _a(HOLY_GOLD, 0.5 * burn)])
+		# Zungen blassgolden, an der Spitze verglühend, breiter und niedriger (Prüfer Runde 3: cremefarbene Zacken „wie Eiskristalle“;
+		# Runde 3c: Orange am Grund „eher Bernstein“, jetzt nur ein Hauch Gold unten)
+		_tongue(b, h * 0.8, w * 1.3, lean, HOLY_GOLD, 0.7 * burn, [_a(HOLY_FIRE, 0.0), _a(HOLY_GOLD, 0.65 * burn), _a(HOLY, 0.45 * burn)])
 		_tongue(b, h * 0.45, w * 0.8, lean, HOLY, 0.75 * burn, [_a(HOLY, 0.0), _a(HOLY, 0.75 * burn), _a(HOLY, 0.45 * burn)])
-	# Glut steigt weich auf, golden bis orange (Helfer Runde 2: weiße Splitter „wie Eis“; Prüfer Runde 3: Glut fehlte)
+	# Glut steigt weich auf, blassgolden (Helfer Runde 2: weiße Splitter „wie Eis“; Prüfer Runde 3: Glut fehlte; 3c: ohne Orange)
 	for i in 9:
 		var t := clampf((p - 0.3) / 0.7 * (0.6 + _rf() * 0.6) + _rf() * 0.2, 0.0, 1.0)
 		var ex := x + (_rf() - 0.5) * 40 * u + sin(t * 8.0 + i) * 3 * u
-		var gc: Color = [HOLY_GOLD, FIRE, HOLY_FIRE][i % 3]
+		var gc: Color = [HOLY_GOLD, HOLY, HOLY_GOLD][i % 3]
 		_glow(Vector2(ex, ground - t * 60 * u), 2.6 * u, [_a(gc, 0.9 * (1 - t) * f), _a(gc, 0.0)])
 
 
@@ -431,6 +432,10 @@ func _blessing(p: float, chest: Vector2, ground: float, u: float) -> void:
 	if zeichen > 0.0:
 		var c := Vector2(x, chest.y + 4 * u)
 		_glow(c, 10 * u, [_a(GOLD_LIGHT, 0.55 * zeichen), NONE])     # klein (Prüfer Runde 3: 18 als Schleier über der Figur)
+	# am Ziel (Prüfer Runde 3b: „kaum sichtbar“): das Licht sammelt sich als Schein um die Füße, er schwillt und vergeht
+	var pool := sin(clampf((p - 0.25) / 0.7, 0.0, 1.0) * PI)
+	if pool > 0.0:
+		_glow(Vector2(x, ground), 30 * u, [_a(GOLD_LIGHT, 0.4 * pool), _a(GOLD_LIGHT, 0.15 * pool), NONE], 0.3)
 
 
 ## Pfeil (Rückläufer t55, t64): dünner dunkler Schaft, kleine Spitze, graubraune Federn, im Bogen geworfen, die Spitze voran
@@ -523,6 +528,10 @@ func draw(kind: String, sd: int, p: float, source: Vector2, target: Vector2, u: 
 	var dv := target - source
 	var ln := maxf(dv.length(), 1.0)
 	var side := 1.0 if sd % 2 == 0 else -1.0
+	# zur Bildmitte hin, wo der Kampfplatz frei ist (Prüfer Runde 3b: der Fehlschuss steckte im Busch am Rand)
+	var mid := ci.get_viewport_rect().size.x * 0.5
+	if signf(-dv.y / ln * side) != signf(mid - target.x) and absf(mid - target.x) > 20 * u:
+		side = -side
 	# Helfer Runde 2 (Feuerpfeil daneben brannte in der Luft): was vorbeifliegt, schlägt neben dem Ziel in den Boden; seitlich
 	# statt dahinter (Prüfer Runde 3: dahinter lag es unter Ansage und Lebensbalken)
 	var by := Vector2(target.x + dv.x / ln * 10 * u - dv.y / ln * side * 40 * u, target.y + dv.y / ln * 10 * u + dv.x / ln * side * 40 * u)

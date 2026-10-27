@@ -51,6 +51,8 @@ func _still(path: String) -> void:
 	hero_cls = "CLERIC"
 	still_name = "Mira"
 	merc_cls = "FIGHTER"
+	if OS.get_environment("SOELDNER") != "":     # SOELDNER=WIZARD: Magier als Söldner (Zauberprobe: Strahl kam aus Miras Schild)
+		merc_cls = OS.get_environment("SOELDNER")
 	foe = OS.get_environment("GEGNER") if OS.has_environment("GEGNER") else "WOLVES"     # GEGNER=GRIMM, RATS …
 	_start.call_deferred(7)
 	var schau := OS.get_environment("SCHAU") != ""
@@ -194,6 +196,8 @@ func _still(path: String) -> void:
 		if OS.get_environment("EFFEKTZIEL") != "":
 			on = fight.mars.find(OS.get_environment("EFFEKTZIEL"))
 		var lunge: int = fight.figures[by.id].strike(fight.figures[on.id], {"spell": null})
+		if OS.get_environment("PFAD") != "":     # Prüfer 3b: Heldin läuft durch Wolf 2 zurück; Abstand am Boden und am Schirm je Bild
+			_pfad(fight.figures[by.id], on.id)
 		await get_tree().create_timer(lunge * 0.42 / 1000.0).timeout
 		# Leben wie nach dem echten Treffer (tödlich 0); die Ansage geht wie im Spiel erst mit der nächsten Meldung „fällt“
 		var hp_now := {}
@@ -225,8 +229,12 @@ func _still(path: String) -> void:
 		# Prüfer Runde 3: Bertram (Kämpfer) heilte; Heilung, Segen, Heilige Flamme wirkt der Kleriker, wie im Spiel
 		var party: Array = fight.mars.fighters().filter(func(x): return x.side == "PARTY" and x.standing())
 		var cleric: Array = party.filter(func(x): return x.hero != null and x.hero.cls == "CLERIC")
+		# Prüfer Runde 3b (Strahl aus der Schildmitte): Feuerpfeil, Geschosse, Strahl, Feuerball wirkt der Magier, wie im Spiel
+		var wizard: Array = party.filter(func(x): return x.hero != null and x.hero.cls == "WIZARD")
 		for kind in OS.get_environment("ZAUBER").split(","):
 			by2 = cleric[0] if kind in ["HEAL", "BLESS", "SACRED_FLAME"] and not cleric.is_empty() else dran
+			if kind in ["FIRE_BOLT", "MISSILES", "RAYS", "FIREBALL"] and not wizard.is_empty():
+				by2 = wizard[0]
 			var mates: Array = party.filter(func(x): return x.id != by2.id)
 			var on_id: String = on2.id
 			if kind == "BLESS" or (kind == "HEAL" and mates.is_empty()):
@@ -683,3 +691,38 @@ func _report_tail() -> void:
 				var g0: Vector3 = Vector3(fig.global_position.x, foot, fig.global_position.z)
 				print("Schwanz %s Achsen am Schirm je 30 cm am Boden: +X %s, −Z (hinten) %s" % [id, (fight.screen_of(g0 + sk.global_basis.x.normalized() * 0.3) - sf).round(), (fight.screen_of(g0 - sk.global_basis.z.normalized() * 0.3) - sf).round()])
 				print("Schwanz %s: %d Ecken, Spitze Ruhelage %.1f cm über 0, jetzt %.1f cm über dem Fuß (%.0f %%), tiefste %.1f, höchste %.1f cm; Animation %s %.2f s" % [id, sel, tip.y * 100.0, (tip_now.y - foot) * 100.0, (tip_now.y - foot) / hgt * 100.0, (vmin - foot) * 100.0, (vmax - foot) * 100.0, fig.anim.current_animation if fig.anim else "-", fig.anim.current_animation_position if fig.anim else 0.0])
+
+
+## PFAD=1: je Bild bis 2,5 s, wie weit der Schlagende am Boden vom Rand jeder anderen stehenden Figur ist (Rand an Rand, < 0
+## heißt hindurch) und ob sich die Fußpunkte am Schirm näher als 60 px kommen
+func _pfad(fg, on_id: String) -> void:
+	var t0: float = fight.clock_ms
+	while fight.clock_ms - t0 < 2500:
+		await get_tree().process_frame
+		var zeile := "Pfad %4d ms (%.2f, %.2f)" % [fight.clock_ms - t0, fg.position.x, fg.position.z]
+		for id in fight.figures:
+			var o = fight.figures[id]
+			if o == fg or not o.visible or o.down or id == on_id:
+				continue
+			var gap: float = Vector2(o.position.x - fg.position.x, o.position.z - fg.position.z).length() - o.body_r() - fg.body_r()
+			var px: float = fight.screen_of(o.position).distance_to(fight.screen_of(fg.position))
+			# Umriss am Boden: Abstand des Fußpunkts zum Rechteck der Netze im eigenen Raum der Figur (Wolf lang, nicht rund)
+			var box := _netzkasten(o)
+			var loc: Vector3 = o.global_transform.affine_inverse() * fg.global_position
+			var dx := maxf(0.0, maxf(box.position.x - loc.x, loc.x - box.end.x))
+			var dz := maxf(0.0, maxf(box.position.z - loc.z, loc.z - box.end.z))
+			var rand: float = Vector2(dx, dz).length() - fg.body_r()
+			if gap < 0.6 or px < 60 or rand < 0.3:
+				zeile += "  %s Rand %.2f m, Umriss %.2f m, Schirm %.0f px" % [id, gap, rand, px]
+		print(zeile)
+
+
+func _netzkasten(o) -> AABB:
+	var box := AABB()
+	var first := true
+	var inv: Transform3D = o.global_transform.affine_inverse()
+	for m in o.find_children("*", "MeshInstance3D", true, false):
+		var b: AABB = (inv * m.global_transform) * m.get_aabb()
+		box = b if first else box.merge(b)
+		first = false
+	return box
