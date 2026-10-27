@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (27.10., 22:3x, „Tom – 348.6 Probehaus Fenster“ `session_01Hmoj78kywURiK6MdD5LhSf`):** 348.6 Probehaus Fenster vorgelegt, A2 als Vorgabe (77aca6c63); 388 Build 90 PR #176 (abonnieren); 376.1 Oberarm behoben (2ef066346). Nachfolger: „Tom – 348.6 Häuser mit Innenraum“.
+**Übergabe (28.10., 00:0x, „Tom – 348.6 Häuser mit Innenraum“ `session_01Hmoj772CgjfnusdVqBwhFH`):** 388 auf main und im Play-Test, ausgewertet (`LISTE-TESTGERAETE.md`), erledigt; 348.6 Häuser mit Innenraum vorgelegt (Chefsache 3486, d23bf6cf8; Probe `tools/pruef348/haeuser.sh`). 376.1 braucht `add_repo` (Satz des Chefs). Nachfolger: „Tom – 348.13 Tusche Runde 8“.
 
 ## Zeilen
 
