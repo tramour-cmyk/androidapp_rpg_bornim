@@ -303,9 +303,36 @@ drei = sum(len(p.vertices) - 2 for p in held.data.polygons)
 print('DREIECKE vorher', drei)
 if ziel > 0 and drei > ziel:
     voll = held.data.copy()
-    dec = held.modifiers.new('duenn', 'DECIMATE'); dec.ratio = ziel / drei; dec.use_collapse_triangulate = True
-    if 'fest' in held.vertex_groups: dec.vertex_group = 'fest'; dec.invert_vertex_group = True; dec.vertex_group_factor = 1000.0
-    bpy.context.view_layer.objects.active = held; bpy.ops.object.modifier_apply(modifier='duenn')
+    # 348.6 Kopf (Lidstrich als Schwanz, Keil Augeninnenwinkel-Nase, Doppellinie Unterlippe, alle vom Abbau): Gesichtshaut und Lider
+    # behielten von 8200 Dreiecken rund 110 (Augaepfel fest 576), der Schild 1660 von 4640. Darum feste Anteile (GESICHT, SCHILD):
+    # erst alles uebrige auf ziel minus die Anteile (Teile fest), dann jedes Teil fuer sich auf seinen Anteil (Rest fest)
+    def teilmenge(art):
+        me = held.data; tl = [0] * len(me.vertices); me.attributes['teil'].data.foreach_get('value', tl)
+        if art == 'schild': return {v.index for v in me.vertices if TEILNAMEN[tl[v.index]] == 'shield'}
+        # Gesichtshaut (Kopf vorn zwischen Kinn und Brauen) und Lider
+        kt, lt = TEILNAMEN.index('head'), TEILNAMEN.index('lid') if 'lid' in TEILNAMEN else -1
+        kp = [v.co for v in me.vertices if tl[v.index] == kt]
+        y0, y1 = min(p.y for p in kp), max(p.y for p in kp); z0, z1 = min(p.z for p in kp), max(p.z for p in kp)
+        return {v.index for v in me.vertices if tl[v.index] == lt or (tl[v.index] == kt and v.co.y < (y0 + y1) / 2 - 0.15 * (y1 - y0)
+                and z0 + 0.15 * (z1 - z0) < v.co.z < z0 + 0.75 * (z1 - z0))}
+    def zahl(m=None): return sum(len(p.vertices) - 2 for p in held.data.polygons if m is None or all(i in m for i in p.vertices))
+    def abbau(n, gruppe):
+        dec = held.modifiers.new('duenn', 'DECIMATE'); dec.ratio = n / zahl(); dec.use_collapse_triangulate = True
+        if gruppe in held.vertex_groups: dec.vertex_group = gruppe; dec.invert_vertex_group = True; dec.vertex_group_factor = 1000.0
+        bpy.context.view_layer.objects.active = held; bpy.ops.object.modifier_apply(modifier='duenn')
+    ANTEIL = [(a, int(os.environ.get(a.upper(), v if FIGUR == 'held' else '0'))) for a, v in (('gesicht', '1000'), ('schild', '700'))]
+    ANTEIL = [(a, n) for a, n in ANTEIL if n > 0 and {'gesicht': 'head', 'schild': 'shield'}[a] in TEILNAMEN]
+    if ANTEIL:
+        vor = {}
+        for a, n in ANTEIL:
+            m = teilmenge(a); vor[a] = zahl(m)
+            (held.vertex_groups.get('fest') or held.vertex_groups.new(name='fest')).add(list(m), 1.0, 'REPLACE')
+        abbau(ziel - sum(n for a, n in ANTEIL) + sum(vor.values()), 'fest')
+        for a, n in ANTEIL:
+            m = teilmenge(a); held.vertex_groups.new(name='rest').add([v.index for v in held.data.vertices if v.index not in m], 1.0, 'REPLACE')
+            abbau(zahl() - zahl(m) + n, 'rest'); held.vertex_groups.remove(held.vertex_groups['rest'])
+            print('ANTEIL', a, vor[a], '->', zahl(teilmenge(a)), 'Dreiecke')
+    else: abbau(ziel, 'fest')
     # 348.6 Kopf (Schraegstrich ueber der Nasenwurzel, nachgestellt): die Nasenwurzel ist Naht dreier UV-Inseln; der Abbau zog das rechte
     # Brauenende dorthin und liess ihm die UV seiner Insel (zeigte 1,5 cm daneben); ohne Abbau kein Strich. Darum jede UV, die mehr als
     # UVTOL neben ihrer Ecke liegt, nach dem Abbau neu: naechster Punkt des vollen Netzes in derselben Insel (die Insel, in der die alte UV liegt), dort dessen UV. Verworfen: naechster

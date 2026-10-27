@@ -1428,6 +1428,9 @@ def shield():
     for k in range(n): faces.append((last + k, last + (k + 1) % n, c))
     o = mesh_obj('shield', verts, faces, MATS['shield'])
     at_ = o.data.attributes.new('rim', 'FLOAT', 'POINT'); at_.data.foreach_set('value', rim)
+    # 348.6 Kopf: die inneren Ringe fallen bei kurzem Radius in die Mitte (508 doppelte Ecken); daran blieb der Abbau in rig.py bei
+    # 1600 Dreiecken stehen (ohne sie 510 bei gleichem Anteil), dem Gesicht fehlten sie. Doppelte zusammenlegen
+    bm_ = bmesh.new(); bm_.from_mesh(o.data); bmesh.ops.remove_doubles(bm_, verts=bm_.verts, dist=1e-4); bm_.to_mesh(o.data); bm_.free()
     so = o.modifiers.new('so', 'SOLIDIFY'); so.thickness = 2.0; so.offset = -1
     # Buckel
     bpy.ops.mesh.primitive_uv_sphere_add(radius=1, segments=24, ring_count=12)
