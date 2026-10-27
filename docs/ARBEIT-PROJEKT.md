@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 27.10., 10:05
+**Gelesen bis:** `origin/main` 27.10., 11:58
 
-**Übergabe (27.10., 11:5x):** 373 umgestellt: Aussehen und Bewegung urteilt nur der Chef, eine Fehlerprüfung, Diogenes Hinweis statt Tor, Homer Vorgabe vor dem Bau, kein Nachturteil Sokrates, Videos auf `bilder` (`ROLLE-ENTWICKLUNG.md`, `LISTE-UMZUG-348.md`, `ROLLE-PRUEFUNG.md`, `ROLLE-BERATUNG.md`, `CLAUDE.md` Bekannte Fehler 2, `LISTE-ABNAHME-KAPITEL1.md` mit Engpass Chef); Weitergabe an Ford (Eingang). Kosten auf: 373. Kein Nachfolger; den nächsten Stand startet `lauf.py`.
+**Übergabe (27.10., 11:5x, `session_01Hmoj75SnysPb9URmTxU37x`):** 373 umgestellt (`ROLLE-ENTWICKLUNG.md`, `-KREATIV`, `-PRUEFUNG`, `-BERATUNG`, `LISTE-UMZUG-348.md`, `CLAUDE.md` Bekannte Fehler 2, `LISTE-ABNAHME-KAPITEL1.md` mit Engpass Chef), fremd geprüft, Weitergabe an Ford (Eingang), Telegram; 373a beim Chef; 375 aus Fords Eingang angelegt. Kosten auf: 373. Nachfolger: Perikles – 375 Werkzeugfehler lauf.py
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
