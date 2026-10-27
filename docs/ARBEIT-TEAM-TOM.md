@@ -9,7 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101: Held im APK verschlüsselt, lädt) | `claude/tom-348-12i-verschluesseln` |
-| 376.1 | M | **von Sokrates (Chef kaufte 12:20, „jetzt“ 12:46):** Probeblatt Quaternius-Figuren (Archiv 376, Zu 376.1) | wartet auf Chef: Rückfrage „erledigt“ (Chefsache entscheiden/3761); bei „Zugang“: Kaufkopf anpassen, Fehler Tracht, Film r2 nicht vorlegbar (Zu 376.1, Film) | `claude/tom-376-1-figuren` |
+| 376.1 | M | **von Sokrates (Chef kaufte 12:20, „jetzt“ 12:46):** Probeblatt Quaternius-Figuren (Archiv 376, Zu 376.1) | startbar: Chef 19:40 Zugang, Kaufkopf anpassen (Archiv) | `claude/tom-376-1-figuren` |
 | 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: Chef 19:39 Fenster? (Zu 348.6, Probehaus; ansehen/376-probehaus; Zweig 1dc9ad900, PROBE_KNIE=1 PROBE_NEIGUNG=0.8 für B); Häuser 3–8° so lassen (Chef 19:08); dann Dorf | `claude/tom-348-fundament` |
 | 376.2 | M | **von Perikles (Chef 12:37, `LISTE-CC0-MODELLE.md`):** RenderHub-Marktpaket: Brunnen und Stände als Form, unsere gemalten Farben | wartet auf 348.6 (Dorf nach Urteil Probehaus); Paket im Release stufe1 erreichbar (Chef 17:38) | – |
 | 372 | M | **von Perikles (338a B, Chef 27.10., 09:36, Archiv):** Feinschliff Held: Kettenhemd, Helm, Kragen (Zu 348.6, Hände) | ruht bis Ende des Umzugs | `claude/tom-348-fundament` |
