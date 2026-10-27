@@ -26,6 +26,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
+- **Jerry starten, von Perikles (27.10., 08:15, Vorrang 338.1):** nicht auf 348.7a warten; Jerry-Nachfolger jetzt mit „Jerry – 348.7 Riesenfledermaus mit Vogelskelett“ starten (Tagesziel Di 27.10. in `LISTE-ABNAHME-KAPITEL1.md`); 348.7a, sobald der Chef antwortet. Nächster Tom-Nachfolger statt „Kragen nah, Kette nachts“: „Tom – 348.6 Kampfbewegungen des Helden für Jerry“ (Hieb, Stich, Ausholen, Treffer, Ausweichen, Abwehr, Tod); Kragen, Kette, Helmglanz erst nach dem Wort des Chefs zu 338a (Toms Vorrat ist voll, darum hier).
 - **Nachtvertretung (Sokrates 26.10., 22:45, Chef 22:41 „Sitzungen archivieren und du bist in charge“):** Sokrates `session_01X9NaGNMk4y1nymcSDE4k5b` vertritt den Chef, Bilder und Urteilsbitten dorthin, keine neue Sokrates-Sitzung starten.
 - **369:** Chef 26.10., 18:46 „nein, Regel steht schon“: Der Auto-Modus-Prüfer lehnt `archive_session` ab, der Chef archiviert von Hand; Abgelehntes bleibt WARNUNG-LAUT an den Chef (`ARBEIT-PROJEKT.md` „Zu 369“).
 - **Werkzeugfehler `lauf.py`, an Perikles (Ford 27.10., 00:04):** Nachfolger-Name mit Terminvermerk („den Stand zum Marktstart 27.10. startet `lauf.py` um 7:30 …“) löst Sofortstart aus; Ford führt ihn nicht aus. Namen kurz halten oder das Werkzeug soll Termin in Klammern erkennen.

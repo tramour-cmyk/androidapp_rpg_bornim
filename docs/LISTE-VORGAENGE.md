@@ -83,9 +83,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 340 | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Chef 23.10., 09:34) | B Abläufe | M | –; +3,54 $ | Sokrates | entschieden |
 | 340.2 | Rollenspiegel C: `tools/rollenspiegel.sh`, eigene Antwort ohne fremde | B Abläufe | M | –; +6,35 $ | Sokrates | gebaut |
 | 338.1 | Stand zum Marktstart: jeden Montag eine Seite für den Chef, Ampel je Block (Chef 23.10., 09:01: Stand wird ihm nie vorgelegt) | B Abläufe | M | – | Perikles | laufend |
+| 338a | Rückfrage: Umzug Block (D) rot, Held stehen lassen und Dorf weiterbauen? | B Abläufe | M | – | Perikles | Chefsache |
 | 341 | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug und Diogenes (Chef 23.10., 09:39) | B Abläufe | M | – | Perikles | laufend |
-| 341.1a | Rückfrage: wie viel MARS zum Marktstart (Block e) | E Kampf | M | – | Perikles | entschieden |
-| 341.1b | Rückfrage: Store-Konto jetzt privat oder mit Gewerbeschein (Block f) | M Markt | M | – | Perikles | entschieden |
 | 304 | Klassischer Kampf: Konter nach Abwehr, obwohl getroffen, regeltechnisch richtig? (Chef 22.10., 13:22) | E Kampf | M | – | Team Jerry | Chef |
 | 344 | Fackel: brennt überall außer in hellen Grundrissen; Kampf mit der Fackel nach SRD (Chef 23.10., 16:05) | E Welt | M | – | Sokrates | entschieden |
 | 347 | Paket „Regeltreue erhöhen, Kosten senken“ (Zähler, Kernregeln, kleiner Start) prüfen und umsetzen (Chef 24.10., 16:20) | B Abläufe | M | –; +15,42 $ | Sokrates | entschieden |
@@ -97,12 +96,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 348.6 | Umzug Godot: Fundament, Dorf als erste Gebietskarte | E Technik | M | –; +447,00 $ | Team Tom | offen |
 | 348.7 | Umzug Godot: Modellregel, Kampfort Wolfsrudel MARS | E Technik | M | –; +409,69 $ | Team Jerry | offen |
 | 348.7a | Rückfrage: Geschosse flach oder in 3D | E Technik | M | – | Jerry | Chefsache |
-| 348.8 | Umzug Godot: Bestandsliste altes Spiel | E Technik | M | – | Tom, Jerry | fertig (25.10.) |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | B Abläufe | M | –; +107,93 $ | Perikles, Homer, Diogenes | offen |
-| 348.14 | Umzug Godot: Schätzung je Punkt der Checkliste (Wochenziel 26.10.) | B Abläufe | M | –; +5,07 $ | Tom, Jerry | fertig (26.10.) |
 | 348.12 | Fertige CC0-Grundmodelle prüfen, Probe Mensch (Chef 25.10., 21:21, 21:36) | E Technik | M | –; +31,27 $ | Sokrates, Jerry | Probe |
 | 348.12c | Modellpaket auch gegen Geld (Quaternius QAL, Dungeon Monsters Kit, andere), Vorschlag mit Preisen (Chef 26.10., 11:59) | G Geld | M | –; +7,84 $ | Sokrates | Probe |
-| 348.12e | Privates Zweit-Repo für gekaufte Modelle, Abruf im Build | E Technik | M | –; +3,69 $ | Tom | fertig |
 | 348.12f | Probe gekaufte Riesenratte in unserem Look | E Technik | M | –; +73,04 $ | Jerry | Chefsache |
 | 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | G Story | M | –; +2,21 $ | Homer | entschieden |
 | 348.12h | Fertige Dinge, Möbel, Waffen suchen (CC0 zuerst, sonst gekauft; Chef 26.10., 16:16) | G Geld | M | – | Sokrates | in Arbeit |

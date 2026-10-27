@@ -3,12 +3,13 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 26.10., 19:04
+**Gelesen bis:** `origin/main` 27.10., 08:07
 
-**Übergabe (26.10., 19:15):** 370 in „Bekannte Fehler“ eingetragen; dafür zwei alte Zeilen zu einer zusammengelegt (Gedächtnis, Stand). 369 geklärt, Befund an Ford. 338-Zeile gekürzt. Kein Nachfolger: den Stand zum Marktstart 27.10. startet `lauf.py` um 7:30 („Tagesbericht 27.10.“); ein Nachfolger-Name für einen späteren Termin löst sofort einen Start aus (26.10., 18:04, leer gelaufen).
+**Übergabe (27.10., 08:2x):** Stand zum Marktstart 27.10. gesetzt und gemeldet; Block (D) rot, Chefsache 338a; Jerry-Start ohne 348.7a an Ford, Vorrang Kampfbewegungen an Tom; fünf erledigte Zeilen aus `LISTE-VORGAENGE.md` ins Archiv. Kein Nachfolger; den nächsten Stand startet `lauf.py`.
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 338a | M | **von Perikles (Z2):** Umzug Block (D) rot: Held stehen lassen, Dorf weiterbauen? | wartet auf Chef: entscheiden/338a-block-dorf (Votum A); danach Termine prüfen |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9):** Meilenstein „Kapitel 1 auf Godot mindestens so gut wie alt“ mit Checkliste aus der Bestandsliste 348.8 und Tagesziele je Team; `ROLLE-PRUEFUNG.md` für Diogenes (Arbeitsteilung 1, 3) | gebaut 25.10., 12:4x (Übergabe; fremd geprüft, 10 Funde behoben); Tagesziele täglich im Stand zum Marktstart |
 | 338 | M | **von Sokrates (Vorgangsarchiv 338, 348):** Meilenstein ohne Datum, Umzug nach Godot jetzt; Umzugsplan mit Sokrates (Zu 338) | frühestens 02.11.: Wochenzählung, Termine prüfen; Termine je Block und Wochenziel 2 gesetzt 26.10., 17:15 (Zu 338) |
 | 347.2 | M | **von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347):** Paket Regeltreue umsetzen nach `tools/regeltreue/PLAN-347.md` (Punkte 1–7, 5a, 5b), mit Ford für `lauf.py` und Haken | gebaut 24.10., 16:5x mit A–H (Zu 347.2); beobachten bis 31.10., dann wertet Sokrates aus |

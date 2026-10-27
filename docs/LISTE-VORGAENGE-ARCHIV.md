@@ -434,3 +434,8 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 368 | Bewegungen als Kurzvideo an den Chef (Chef 26.10., 16:23) | A Ablauf | M | –; +3,66 $ | Perikles | erledigt |
 | 370 | Bekannte Fehler: Urteil des Chefs nie umformulieren oder durch Helfer ersetzen (Chef 26.10., 18:53) | A Ablauf | M | – | Perikles | erledigt |
 | 369 | Archivieren: warum greift die erlaubte Regel bei Ford nicht? (Chef 26.10.: nein zur neuen Freigabe) | A Ablauf | M | – | Perikles | erledigt |
+| 341.1a | Rückfrage: wie viel MARS zum Marktstart (Block e) | E Kampf | M | – | Perikles | entschieden |
+| 341.1b | Rückfrage: Store-Konto jetzt privat oder mit Gewerbeschein (Block f) | M Markt | M | – | Perikles | entschieden |
+| 348.8 | Umzug Godot: Bestandsliste altes Spiel | E Technik | M | – | Tom, Jerry | fertig (25.10.) |
+| 348.14 | Umzug Godot: Schätzung je Punkt der Checkliste (Wochenziel 26.10.) | B Abläufe | M | –; +5,07 $ | Tom, Jerry | fertig (26.10.) |
+| 348.12e | Privates Zweit-Repo für gekaufte Modelle, Abruf im Build | E Technik | M | –; +3,69 $ | Tom | fertig |
