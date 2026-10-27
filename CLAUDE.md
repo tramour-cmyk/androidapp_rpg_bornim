@@ -74,7 +74,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 ## Notizen nur auf `main`
 
 - Notizen = `CLAUDE.md`, `CHANGELOG.md`, `docs/`: nur auf `main`, direkt committen und pushen (baut keine APK); Arbeitszweige nur Code.
-- Bearbeiten in `../bornim-main` nur mit Edit/Write, nie mit Bash-Skripten, die Notizen umschreiben; sofort pushen. Push abgelehnt: `git pull`, erneut pushen.
+- Bearbeiten in `../bornim-main` nur mit Edit/Write, nie mit Bash-Skripten, die Notizen umschreiben (einzige Ausnahme `tools/vorgang.py`, 275); sofort pushen. Push abgelehnt: `git pull`, erneut pushen.
 - Vor jeder Antwort an den Chef `tools/notiz.sh`.
 
 ## Feste Regeln
@@ -85,7 +85,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 - **Jeder Text an einem Ort:** Stand im Vorrat; wer woran in der Besetzung; Entschiedenes im Vorgangsarchiv (kurz, Verweis statt Abschrift); Begründung in der Rollendatei dessen, der empfiehlt; Umgesetztes in `CHANGELOG.md` („## Unveröffentlicht“); Verlauf in Git. Der Text zu einem Vorgang wandert mit seiner Zeile.
 - **Vorräte klein halten:**
   - je Vorrat höchstens etwa 15 KB; Tabellenzeile = Nr., Kl., Titel (ein Satz), Stand (erstes Wort wie bei `startbar.py`), Zweig, höchstens 400 Zeichen;
-  - Auftrag des Chefs und Einzelheiten als „Zu <Nr.>:“ unter der Tabelle; Erledigtes streichen, `LISTE-VORGAENGE.md` anpassen;
+  - Auftrag des Chefs und Einzelheiten als „Zu <Nr.>:“ unter der Tabelle; Stand setzen und Erledigtes streichen nur mit `python3 tools/vorgang.py stand|fertig <Nr>` (Vorrat und `LISTE-VORGAENGE.md` zugleich; suchen: `vorgang.py <Nr>`; 275);
   - eine Übergabe je Rolle, oben im Vorrat: nur Getanes und Nachfolger, kein Stand; die alte ersetzen; vor Pause oder Neustart pushen.
 - **Story und Dialoge:** Plot und Texte legen Chef und Homer fest; Verzeichnis `STORY-REGELN.md`, über die Marke `[Thema.kurz]` suchen, wortgetreu übernehmen, Englisch selbst übersetzen. Fehlt ein Text: Vorgang an Homer, nie erfinden. Tippfehler direkt korrigieren (Commit „Text:“).
 - **Chefsache:** je Punkt eine Datei, jeder nur seine (Regeln `docs/chefsache/README.md`, Bilder höchstens 60 KB); im Chat nur Nummern. Entschieden wird in der Chefrunde mit Sokrates (`ROLLE-BERATUNG.md`).
