@@ -1,6 +1,4 @@
-# 348.12f · Letzter Vergleich Ratte: eigene oder gekaufte?
-
-Jerry · 27.10., 16:10 · G Aussehen, Geld · M
+# 348.12f · Letzter Vergleich Ratte: eigene oder gekaufte? · Jerry · 27.10., 16:10
 
 ![Zeilen: oben eigene Ratte, Mitte gekauft (Rute Runde 7), unten Variante (1,25-fach, breiter, Schorf); Spalten: Fell braun, grau, schwarz](../bilder/34812f-ratte-r7.webp)
 
@@ -35,4 +33,4 @@ Jerry · 27.10., 16:10 · G Aussehen, Geld · M
   - Im Vergleichsbild sind in „Variante braun“ links unten kleine Strichreste.
 - Aus r3, nicht neu geprüft: Die gekaufte ist größer als die Helden, ihr Gesicht ist in Spielgröße kaum lesbar.
 
-Antwort:
+**Sag:** „eigen“ oder „gekauft“.
