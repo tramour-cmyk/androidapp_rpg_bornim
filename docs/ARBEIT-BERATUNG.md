@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (27.10., 17:4x, `session_01Hmoj78SxUwEZNsTMHCZo6F`):** 381 erledigt (Perikles); 376.1a gemessen: `add_repo` auch bei Start auf aktuellem `main` mit Regel gesperrt, ebenso Klonen nach Chef-„Plus“ in laufender Sitzung (17:34); Repos werden beim Start einer Sitzung gewählt, `create_session` (Ford) kennt nur eins; 376.1 bei Tom startbar über Actions wie 348.12f. Kosten auf: 376. Nachfolger: Sokrates – Auswertung 318, 347, 365 (ab 31.10.)
+**Übergabe (27.10., 18:0x, `session_01Hmoj78SxUwEZNsTMHCZo6F`):** 376.1a erledigt: `add_repo` geht nur mit wörtlichem Chefsatz in der Sitzung („Klone das Repository tramour-cmyk/bornim-kaufmodelle in diese Sitzung.“), Tom hat Zugang seit 17:38; 383 ja (Archiv), Bau bei Perikles; 348.12 Hieb r7 abgenommen (Archiv); Tom und Ford (für Jerry-Nachfolger): erst vorlegen, keine weitere Runde. Kosten auf: 376, 383, 348.12. Nachfolger: Sokrates – 383 Sitzungsgröße messen (bis 28.10., 12:00)
 
 ## Zeilen
 

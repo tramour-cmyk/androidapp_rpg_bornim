@@ -67,6 +67,8 @@
 
 ## Lehren
 
+- Auch eigene Vorschläge an den Chef erst durch einen fremden Prüfer (338.2), selbst im Gespräch unter Druck: drei Sperren vorgelegt, Prüfer verwarf zwei (27.10., 383).
+
 - Wortwahl der Vorlage nicht übernehmen, sondern gegen `CLAUDE.md` prüfen: „Heldin“ aus Jerrys Datei weitergegeben, Regel ist generisches Maskulinum („der Held“) (27.10., 3487-treffer).
 - Handgriffe an Zugängen erst gegen den Ist-Stand prüfen: „Claude-App für das neue Repo freigeben“ war bei „All repositories“ überflüssig und sperrte alle Sitzungen aus (26.10., 348.12e).
 - Jede neue Prüfstufe vor dem Chef mit Frist und Wächter: wer prüft, dass überhaupt etwas ankommt? (25.10., 348.9: Bilder gingen „erst zu Diogenes“, keiner schickte, Chef sah 85 Minuten nichts.)
