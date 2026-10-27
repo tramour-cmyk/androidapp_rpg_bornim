@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [383](entscheiden/383-sperren.md) | **Muss** | B Werkzeuge |  | 383 Sperren statt Textregeln |  |
+| [383](entscheiden/383-sperren.md) | **Muss** | B Werkzeuge |  | 383 Wartewächter statt neuer Textregeln |  |
 | [3761a](entscheiden/3761a-zugang-kaufteile.md) | – | – |  | 376.1a Zugang zu den Kaufteilen für Tom-Sitzungen |  |
 
 ## Zu billigen
