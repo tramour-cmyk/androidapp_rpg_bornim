@@ -232,7 +232,8 @@ func _ink_licht() -> void:
 		m.set_shader_parameter("breite_m", bm)
 		m.set_shader_parameter("nah_bis", d0 + 5.0)     # 348.13a: breite Linie nur auf der Lichtung (Helfer: Kronen oben als dicker Ast)
 		m.set_shader_parameter("nah_ab", d0 - 6.0)
-	_ink_mats[1].set_shader_parameter("hinten_ab", lerpf(0.05, 0.25, clampf((bm - 3.4) / (9.0 - 3.4), 0.0, 1.0)))
+	for i in range(1, _ink_mats.size()):     # Held und (Runde 7) Gegner gleich; vorher nur der Held
+		_ink_mats[i].set_shader_parameter("hinten_ab", lerpf(0.05, 0.25, clampf((bm - 3.4) / (9.0 - 3.4), 0.0, 1.0)))
 
 
 ## Die Lichtung (tools/blender348/kampfort_wald.py): Bäume, Büsche, Steine, Boden mit Weg und Sonnentupfen, Grasbüschel.
