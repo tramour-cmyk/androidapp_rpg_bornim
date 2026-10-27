@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [3761a](entscheiden/3761a-zugang-kaufteile.md) | – | – |  | 376.1a Zugang zu den Kaufteilen für Tom-Sitzungen |  |
+Nichts offen.
 
 ## Zu billigen
 
@@ -152,7 +148,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 142 (Beratung), 45 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
 
-Ohne Datei: 275 (Projekt), 3761 (Team Tom), 26 (Team Tom)
+Ohne Datei: 275 (Projekt), 3761a (Team Tom), 3761 (Team Tom), 26 (Team Tom)
 
 ## So geht's
 
