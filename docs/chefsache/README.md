@@ -16,11 +16,7 @@ Nichts offen.
 
 ## Anzusehen
 
-**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
-
-| Nr. | Was | Wer | Seit |
-|---|---|---|---|
-| [348.12f](ansehen/34812f-ausweichen.md) | Ausweichen des Kaufwolfs mit Ortswechsel | – | 27.10., 22:50 |
+Nichts offen.
 
 ## Zu tun
 
