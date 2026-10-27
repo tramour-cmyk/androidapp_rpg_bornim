@@ -6,7 +6,7 @@
 
 **Votum Tom: ja.** Stärkstes Gegenargument: die Kopfformen unterscheiden sich in unserem flachen Comic-Licht nur schwach (der fremde Prüfer verwechselt „wie gekauft“ mit „rund“ und „schmal“ mit „hager“). In der Spielansicht erkennt man die Figuren vor allem an Haar und Bart, kaum am Gesicht.
 
-**Ansehen:** [Blatt groß](bilder:pruefung/3761-koepfe.jpg), [Spielansicht](bilder:pruefung/3761-koepfe-spiel.png).
+**Ansehen:** [Blatt groß](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/pruefung/3761-koepfe.jpg), [Spielansicht](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/pruefung/3761-koepfe-spiel.png).
 
 **Berührt:** Charaktererstellung, Leute im Dorf (348.6), Held (372).
 
