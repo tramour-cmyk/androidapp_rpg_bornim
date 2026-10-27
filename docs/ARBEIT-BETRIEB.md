@@ -37,6 +37,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 20:21 27.10.: Neustart Jerry angenommen (`940d29967`), Nachfolger `01Hmoj76E9` „Jerry – 348.12f Ortswechsel Fehlerrunde“ gestartet (main, Hoch); alter Jerry `01Hmoj76PX` zu archivieren (Prüfer lehnt ab, 369), Kosten ungebucht
 - 20:20 27.10.: Neustart Tom angenommen (`3699c749a`), Nachfolger `01Hmoj76zw` „Tom – 348.13a Tusche mit schräger Sonne“ gestartet (main, Hoch); alter Tom `01Hmoj78Xe` zu archivieren (Prüfer lehnt ab, 369), Kosten ungebucht
 - 20:15 27.10.: Neustart Sokrates angenommen (`5ef998c3e`), Nachfolger `01Hmoj79NG` „Sokrates – Chefrunde 348.13a und Bausätze 376“ gestartet (main, Mittel); alter Sokrates `01Hmoj77UK` zu archivieren (Prüfer lehnt ab, 369), Kosten ungebucht
 - 19:05 27.10.: Lauf; Perikles „383 (27.10., 19:05)“ `01Hmoj76q6` gestartet (main, Mittel); ARCHIVIERE (Prüfer lehnt ab, 369, Kosten ungebucht): Jerry `761r`, `75RB`; Sokrates `79xv`, `78Sx`; Tom `76F3`, `77wa`; Perikles `77bY`
