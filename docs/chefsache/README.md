@@ -22,6 +22,7 @@ Nichts offen.
 |---|---|---|---|
 | [348.12](ansehen/34812-goblin-hieb-r7.md) | Goblin-Hieb Runde 7: abnehmen? | Jerry | 27.10., 16:49 |
 | [348.12f](ansehen/34812f-kaufratte-r7.md) | Letzter Vergleich Ratte: eigene oder gekaufte? | Jerry | 27.10., 16:10 |
+| [348.13a](ansehen/34813a-tusche-kampf-r7.md) | Tusche im Kampf nach Licht, Runde 7: 1,0 oder 1,3? | Tom | 27.10., 17:45 |
 
 ## Zu tun
 
