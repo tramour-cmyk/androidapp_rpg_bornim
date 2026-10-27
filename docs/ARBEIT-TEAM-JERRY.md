@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates für den Chef, 25.10., 01:2x):** Arbeit nach `LISTE-UMZUG-348.md`, 348.6–348.8; altes Spiel ruht.
 
-**Übergabe (27.10., 22:50, `session_01Hmoj78dk8Sv8ZUsMn6P1wV`):** 348.12f Kaufwolf (Chef ja), Ausweichen an Chef; 387 an Chef. Bestand geprüft: Janpec, MadeCG genommen. Nachfolger: „Jerry – 348.12f Drehen auf der Stelle, Ratte Schnauze“
+**Übergabe (28.10., 00:52, `session_01Hmoj7A1BVyf4NUznVohA2c`):** 348.12f Pfotenhalt (Drehen mit Schritten), Kaufwolf setzt nach dem Biss ab, an Chef; 387 r2 sechs Kauftiere an Chef. Bestand geprüft: Janpec, MadeCG genommen. Nachfolger: „Jerry – 348.12 Grak und Kobold aufs CC0-Gerüst“
 
 ## Zeilen
 
@@ -13,7 +13,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 389 | M | **von Perikles (Chef 27.10., 23:55, Archiv):** `main` in den Arbeitszweig mergen (Haken `probelauf.py` in `.claude/settings.json`); Push mit Godot-Lauf zählt, Commit-Nachricht beginnt mit der Nr.; höchstens zwei je Vorlage (`ROLLE-ENTWICKLUNG.md`) | neu | – |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | Chef: r2 an Chef (ansehen/387-kauftiere-r2, ein Film, sechs Tiere, Befunde offen); danach Befunde beheben |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | Chef: Drehen auf der Stelle (Ratte, Kaufwolf) an Chef (ansehen/34812f-drehen), Frage Schnauze näher; Ausweichen Kaufwolf ja (Archiv 22:54) | `claude/jerry-348-kampf` |
-| 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: Hieb abgenommen 17:57; Grak, Kobold aufs CC0-Gerüst (Zombie-Platz = gekaufter Wiedergänger, Archiv 26.10., 20:32; von Sokrates) | `claude/jerry-348-kampf` |
+| 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: Grak, Kobold aufs CC0-Gerüst (Hieb ab 17:57; Zombie-Platz = Kauf-Wiedergänger, Archiv 26.10.) | `claude/jerry-348-kampf` |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht bis Kauf: Werte, Listen ja (Archiv), dann einbauen; erst Größe prüfen | – |
 | 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | wartet auf Chef: Bahn 348.7b; dann Fledermaus r4d und Wildschwein r3 neu vorlegen; Kobold bis Chef; Treffer: Ansage zuerst (Archiv) | `claude/jerry-348-kampf` |
 | 348.7b | M | Zauberbahn nach Chef „D“ | startbar: Zu 348.7b, Archiv | `claude/jerry-348-kampf` |
@@ -43,7 +43,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 
 - **Von Team Tom (27.10., 09:40), zu 348.7:** Kampfbewegungen des Helden Runde 1 und vier Befunde zu `figur.gd`: `ARBEIT-TEAM-TOM.md` „Zu 348.6, Kampf“.
-- **Zu 348.12f, Kaufwolf und 387:** `kaufwolf.py` (Probe `ERSATZ=kaufwolf`, Workflow „Kaufwolf“), `kauftier.py` (`TIER=`, `ERSATZ=kauf_<tier>`); Heimweg und Ausweichen ohne Wurzelweg: `figur.gd` `_heimweg`, `_dubins`. An Tom offen (sein Vorrat über 15 KB): Heldin tritt in `SCHAU=1` alle 3 s (Ruhe-Naht, Prüfer 387).
+- **Zu 348.12f, Kaufwolf und 387:** `kaufwolf.py` (Probe `ERSATZ=kaufwolf`, Workflow „Kaufwolf“), `kauftier.py` (Workflow „387 r“); `pfotenhalt.gd`; Artefakt per `gh api …/artifacts/<id>/zip`. An Tom: Heldin tritt in `SCHAU=1` alle 3 s.
 - **Zu 348.12f, Ort:** Wurzelweg `weg` in `giant_rat-info.json` (`kaufratte.py`), `figur.gd` `_bite`, `BITE`, `_walk_home`, `dodge(ms, nm)`; Probe `GEGNER=RATS OHNEUI=1 SCHAU=ort SCHAU_MESS=1` („Ortmess“), Film `348.12f-ort.mp4`; Rute `RUTE_MESS=1`. Lokal: bpy per `pip download`, dann aus der Datei; `apt-get install unar xvfb`; Kauf (`add_repo` bornim-kaufmodelle) `gh api …/releases/assets/<id>` (octet-stream; Ratte 678372860, Janpec 678515204); Aufruf im Kopf von `kaufratte.py`.
 - **Zu 348.12 (Chef 27.10., 17:19):** „ob das Modell trifft … muss man halt nachjustieren, das kann kein Kriterium sein“.
 - **Zu 348.12 Hieb (r7, 1f934b3dd):** `ual_lauer.py` `HIEB_SCHLUESSEL`, `HIEB_ROLLE`, Prüfwerte `HIEB_EIGEN`, `LAUER Faust-Mund`; im Kampfort `probe.gd` `SCHAU_MESS=1` (Figur +X links, +Y oben, +Z vorn); `hiebblatt.py`. Lokal: `cc0_laden.sh ~/cc0`, Toms v3 von e457d6d8b.
