@@ -102,7 +102,6 @@ def chefdateien_je_rolle():
             aus.setdefault(r, []).append(n)
     return aus
 
-LEICHEN_START = False  # 275 Stufe 1: Leichen als erste Muss-Zeile starten; Perikles schaltet ein, sobald Diogenes geprüft hat
 GESPERRT = {}  # Rolle → {Nummer: Grund} der nicht startbaren Zeilen (276: Nachfolger auf gesperrter Zeile)
 
 def stand():
@@ -116,7 +115,7 @@ def stand():
         zs = [x for x in zs if sperr[x[0]] != "ERLEDIGT"]
         leichen = startbar.leichen_von(zs, sperr)  # 275 Stufe 1: überholte Stände zuerst berichtigen, als eine Muss-Zeile wie „M?“
         muss = [x for x in zs if x[1] == "M" and not sperr[x[0]]]
-        if leichen and LEICHEN_START: muss.insert(0, ("Leichen", "M", "Stand berichtigen (275): " + "; ".join("%s %s" % l for l in leichen) + " (startbar.py --leichen)", ""))
+        if leichen and startbar.LEICHEN_START: muss.insert(0, ("Leichen", "M", "Stand berichtigen (275): " + "; ".join("%s %s" % l for l in leichen) + " (startbar.py --leichen)", ""))
         kuer = [x for x in zs if x[1] != "M" and not sperr[x[0]]]
         kuer += [(x[0], "N", x[2], x[3]) for x in zs if sperr[x[0]] == "nach dem Meilenstein"]  # 190.10: letzte Stufe vor Leerlauf
         wartet = [x[0] for x in zs if (sperr[x[0]] or "").startswith("Chef")]

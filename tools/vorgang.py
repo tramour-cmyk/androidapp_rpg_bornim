@@ -3,8 +3,10 @@
 
 Aufruf: python3 tools/vorgang.py NR [NR …]          zeigt je Nummer: Zeile in LISTE-VORGAENGE.md (oder -ARCHIV.md),
         Vorratszeile(n) mit Rolle, Absätze „Zu NR“, Entscheide im Vorgangsarchiv, Dateien in der Chefsache, Leiche laut startbar.py.
-        python3 tools/vorgang.py stand NR "Stand"     setzt den Stand der Vorratszeile und das Wort in LISTE-VORGAENGE.md zugleich
-        python3 tools/vorgang.py fertig NR            streicht die Vorratszeile, Liste „erledigt“ (Absätze „Zu NR“ nennt es, streichen tut der Besitzer)
+        python3 tools/vorgang.py stand NR "Stand" [--rolle NAME]   setzt den Stand der Vorratszeile und das Wort in LISTE-VORGAENGE.md zugleich
+        python3 tools/vorgang.py fertig NR [--rolle NAME]          streicht die Vorratszeile; Liste „erledigt“ nur, wenn kein anderer Vorrat die Nummer führt
+                                                                    (Absätze „Zu NR“ nennt es, streichen tut der Besitzer)
+        --rolle (Homer, Tom, Jerry, Perikles, Diogenes, Sokrates) ist Pflicht, wenn die Nummer in mehreren Vorräten steht (D46.1).
 Schreiben (Chef 27.10., 15:20): jeder Besitzer selbst, nur über dieses Werkzeug, die einzige Ausnahme von „Notizen nur mit Edit/Write“;
 danach wie immer committen und pushen. Das Wort der Liste kommt aus dem ersten Wort des Stands (Wortliste 275, regelcheck.py 4a).
 """
@@ -52,11 +54,18 @@ def schreiben(name, alt, neu):
     if t.count(alt) != 1: sys.exit("vorgang.py: Zeile in %s nicht eindeutig, nichts geschrieben" % name)
     open(p, "w", encoding="utf-8").write(t.replace(alt, neu))
 
-def zeile_finden(nr):
-    for datei, rolle in startbar.ROLLEN:
-        for z in startbar.lesen(datei).splitlines():
-            if re.match(r"\| " + re.escape(nr) + r" \|", z): return datei, rolle, z
-    return None, None, None
+def zeilen_finden(nr):
+    """[(Datei, Rolle, Zeile)] aller Vorratszeilen der Nummer."""
+    return [(datei, rolle, z) for datei, rolle in startbar.ROLLEN for z in startbar.lesen(datei).splitlines()
+            if re.match(r"\| " + re.escape(nr) + r" \|", z)]
+
+def zeile_finden(nr, rolle=None):
+    """Die eine Vorratszeile des Aufrufers; mehrere Treffer ohne Rolle → Abbruch (D46.1)."""
+    zs = zeilen_finden(nr)
+    if rolle: zs = [x for x in zs if x[1].lower() == rolle.lower()]
+    if not zs: sys.exit("vorgang.py: keine Vorratszeile %s%s" % (nr, (" bei " + rolle) if rolle else ""))
+    if len(zs) > 1: sys.exit("vorgang.py: %s steht in mehreren Vorräten (%s), nichts geschrieben; Aufruf mit --rolle NAME" % (nr, ", ".join(x[1] for x in zs)))
+    return zs[0]
 
 def listenzeile(nr):
     for z in startbar.lesen("LISTE-VORGAENGE.md").splitlines():
@@ -69,29 +78,37 @@ def liste_setzen(nr, w):
     t = z.split("|"); t[-2] = " %s " % w
     schreiben("LISTE-VORGAENGE.md", z, "|".join(t))
 
-def stand_setzen(nr, stand):
+def stand_setzen(nr, stand, rolle=None):
     w = wort(stand)
     if not w: sys.exit("vorgang.py: Stand muss mit einem Wort der Liste beginnen (%s)" % ", ".join(sorted({w for _, w in WORT})))
     if "|" in stand or "\n" in stand: sys.exit("vorgang.py: Stand ohne | und Zeilenumbruch")
-    datei, rolle, z = zeile_finden(nr)
-    if not z: sys.exit("vorgang.py: keine Vorratszeile %s" % nr)
+    datei, rolle, z = zeile_finden(nr, rolle)
     t = z.split("|"); t[4] = " %s " % stand
     neu = "|".join(t)
     if len(neu) > 400: sys.exit("vorgang.py: Zeile über 400 Zeichen (%d), Einzelheiten als „Zu %s“ unter die Tabelle" % (len(neu), nr))
     schreiben(datei, z, neu); liste_setzen(nr, w)
     print("vorgang.py: %s (%s) „%s“, Liste „%s“" % (nr, rolle, stand, w))
 
-def fertig(nr):
-    datei, rolle, z = zeile_finden(nr)
-    if not z: sys.exit("vorgang.py: keine Vorratszeile %s" % nr)
-    schreiben(datei, z + "\n", ""); liste_setzen(nr, "erledigt")
+def fertig(nr, rolle=None):
+    datei, rolle, z = zeile_finden(nr, rolle)
+    schreiben(datei, z + "\n", "")
+    rest = zeilen_finden(nr)  # D46.1: führt ein anderer die Nummer weiter, bekommt die Liste dessen Wort
+    w = (wort(rest[0][2].split("|")[4]) or "in Arbeit") if rest else "erledigt"
+    liste_setzen(nr, w)
     zu = [l[:60] for l in startbar.lesen(datei).splitlines() if re.match(r"- \*\*Zu " + re.escape(nr) + r"\b", l)]
-    print("vorgang.py: %s aus %s gestrichen, Liste „erledigt“%s" % (nr, datei, ("; Absätze noch da: " + " | ".join(zu)) if zu else ""))
+    print("vorgang.py: %s aus %s gestrichen, Liste „%s“%s%s" % (nr, datei, w, (" (weiter bei %s)" % ", ".join(x[1] for x in rest)) if rest else "",
+                                                             ("; Absätze noch da: " + " | ".join(zu)) if zu else ""))
 
 if __name__ == "__main__":
+    rolle = None
+    if "--rolle" in sys.argv:
+        i = sys.argv.index("--rolle")
+        if i + 1 >= len(sys.argv) or sys.argv[i + 1].lower() not in [r.lower() for _, r in startbar.ROLLEN]:
+            sys.exit("vorgang.py: --rolle braucht eine von: " + ", ".join(r for _, r in startbar.ROLLEN))
+        rolle = sys.argv[i + 1]; del sys.argv[i:i + 2]
     if len(sys.argv) < 2: print(__doc__); sys.exit(2)
-    if sys.argv[1] == "stand" and len(sys.argv) == 4: stand_setzen(sys.argv[2], sys.argv[3]); sys.exit(0)
-    if sys.argv[1] == "fertig" and len(sys.argv) == 3: fertig(sys.argv[2]); sys.exit(0)
+    if sys.argv[1] == "stand" and len(sys.argv) == 4: stand_setzen(sys.argv[2], sys.argv[3], rolle); sys.exit(0)
+    if sys.argv[1] == "fertig" and len(sys.argv) == 3: fertig(sys.argv[2], rolle); sys.exit(0)
     if sys.argv[1] in ("stand", "fertig"): print(__doc__); sys.exit(2)
     for nr in sys.argv[1:]:
         print("== %s" % nr)

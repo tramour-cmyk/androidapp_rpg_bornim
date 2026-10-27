@@ -25,6 +25,7 @@ ROLLEN = [("ARBEIT-KREATIV.md", "Homer"), ("ARBEIT-TEAM-TOM.md", "Tom"), ("ARBEI
 FERTIG = re.compile(r"erledigt|auf main|getestet|gebaut", re.I)
 ROLLEN_NAMEN = r"(?:Homer|Tom|Jerry|Perikles|Diogenes|Sokrates|Ford(?: 2)?|Chef)"
 JETZT = datetime.datetime.now()
+LEICHEN_START = False  # 275 Stufe 1, der eine Schalter (D46.2): Leichen zählen erst als startbar, wenn an; gilt auch für lauf.py
 
 def blank(t):
     """Stand ohne Markdown-Zeichen am Anfang."""
@@ -149,8 +150,8 @@ def leiche(nr, rest, sperre):
     """275 Stufe 1: Stand, der nachweislich überholt ist; Grund oder None. Nur sichere Fälle, keine Vermutung."""
     b = blank(rest)
     r = re.sub(r"„[^“]*“", "", rest)
-    st = VORG.get(nr)
-    if st and LISTE_FERTIG.match(st): return "in LISTE-VORGAENGE.md „%s“, Zeile noch im Vorrat" % st
+    st = VORG.get(nr)  # D46.4: nur „erledigt“/„fertig“; „entschieden“, „freigegeben“ lassen Arbeit offen (347, 72u.1)
+    if st and re.match(r"(erledigt|fertig)\b", st, re.I): return "in LISTE-VORGAENGE.md „%s“, Zeile noch im Vorrat" % st
     m = re.search(r"(?:ruht|zurückgestellt|wartet)\s+(?:bis|auf)\s+(?:das |dem |den )?(?:Urteil|Entscheidung)\s+(?:zu |von )?(\d+[a-z0-9.]*)", r)
     if m and entschieden(m.group(1).rstrip(".")): return "Bedingung „Urteil %s“ erfüllt" % m.group(1).rstrip(".")
     h = datetime.date.today()
@@ -261,7 +262,8 @@ def main():
         erl = [z[0] for z in zs if sperr[z[0]] == "ERLEDIGT"]
         zs = [z for z in zs if sperr[z[0]] != "ERLEDIGT"]
         for nr, l in leichen_von(zs, sperr):
-            LEICHE[nr] = (rolle, l); sperr[nr] = None
+            LEICHE[nr] = (rolle, l)
+            if LEICHEN_START: sperr[nr] = None
         warn = ""
         if erl: warn += "  ERLEDIGT, NICHT GESTRICHEN: " + ", ".join(erl)
         if unles: warn += "  UNLESBAR (Klasse/Spalten): " + ", ".join(unles)
@@ -291,7 +293,7 @@ def main():
             info[rolle] = ([z for z in zs if not sperr[z[0]] and z[1] != "–"], sum(1 for n, b in sperren if b.startswith("wartet auf Test")), erstes["M"] or erstes["K"] or erstes["N"])
         def kurz(e):
             if not e: return "–"
-            if e[0] in LEICHE: return "%s Stand berichtigen (Leiche 275: %s)" % (e[0], LEICHE[e[0]][1])
+            if e[0] in LEICHE and LEICHEN_START: return "%s Stand berichtigen (Leiche 275: %s)" % (e[0], LEICHE[e[0]][1])
             return "%s %s%s" % (e[0], re.sub(r"\*\*|`", "", e[2])[:70], (" ↑ Muss: %s wartet" % ", ".join(fremd_wartend()[e[0]])) if e[0] in fremd_wartend() else "")
         print("  %s: Muss %s | Kür %s%s%s" % (rolle, kurz(erstes["M"]), kurz(erstes["K"]), (" | nach dem Meilenstein " + kurz(erstes["N"])) if erstes["N"] else "", warn))
         if stand:
@@ -311,7 +313,7 @@ def main():
         if LEICHE and ("--leichen" in sys.argv or alle):
             for nr, (rolle, grund) in LEICHE.items(): print("  LEICHE %s %s: %s" % (rolle, nr, grund))
         elif LEICHE:
-            print("  Leichen (275, Stand überholt, zählen als startbar): %d – %s" % (len(LEICHE), ", ".join("%s %s" % (r, n) for n, (r, _) in LEICHE.items())))
+            print("  Leichen (275, Stand überholt, %s): %d – %s" % ("zählen als startbar" if LEICHEN_START else "Schalter aus, zählen nicht", len(LEICHE), ", ".join("%s %s" % (r, n) for n, (r, _) in LEICHE.items())))
     sys.exit(1 if falsch else 0)
 
 if __name__ == "__main__":
