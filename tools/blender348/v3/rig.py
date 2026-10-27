@@ -69,6 +69,7 @@ img.filepath_raw = OUT + '/held-albedo.png'; img.file_format = 'PNG'; img.save()
 # 348.6 Glanz (Helfer: Kettenhemd fern wie Filz, Helm wie Wollmuetze, kein Lichtreflex): Metall in der Deckkraft der Eckfarben,
 # 1 matt, 0,5 Kette, 0 blankes Eisen; toon.gdshader (metall) setzt daraus einen Glanzpunkt nach Licht und Blick
 GLANZ_ART = {'chain': 0.5, 'helm': 0.0, 'helmrim': 0.0, 'steel': 0.0, 'fit': 0.0}
+if os.environ.get('TEILMASKE') == '1': GLANZ_ART.update(face=0.9, skinface=0.9, lid=0.9, lidup=0.9)  # nur zum Messen (godot --teilfarbe): Haut matt, aber unterscheidbar
 for o in meshes:
     me = o.data
     ca = me.color_attributes.new('albedo', 'FLOAT_COLOR', 'POINT')

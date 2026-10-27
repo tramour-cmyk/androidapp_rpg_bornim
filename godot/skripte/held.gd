@@ -36,6 +36,12 @@ func _ready() -> void:
 	add_child(modell)
 	Gebiet.male(modell, null, 2, mats)
 	for m in mats: (m as ShaderMaterial).set_shader_parameter("metall", 1.0)   # 348.6 Glanz an Kette und Helm (toon.gdshader)
+	if "--teilfarbe" in OS.get_cmdline_user_args():   # nur zum Messen: Teile in Falschfarben (toon.gdshader teil, rig.py TEILMASKE)
+		for m in mats: (m as ShaderMaterial).set_shader_parameter("teil", 1.0)
+	# 348.6 Kette nachts (Helfer: Kette fast weiss, Gesicht darunter schwarz wie eine Maske; gemessen ohne Fackel Kette = Gesicht, mit Fackel
+	# Kette 0,29, Gesicht 0,22: das Licht sass 9 cm ueber der Flamme seitlich am Kopf, traf die Brust von oben, das Gesicht streifend):
+	# Metall streut Lampenlicht wenig (kette_lampe), nachts weniger Umgebung (kette_umgebung in nacht()); Licht vor der Flamme (richte_fackel)
+	for m in mats: (m as ShaderMaterial).set_shader_parameter("kette_lampe", 0.35)
 	var info: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://daten/held-info.json"))
 	gang = float(info.get("gehen_m_je_s", gang))
 	renn = float(info.get("rennen_m_je_s", 0.0))
@@ -154,7 +160,9 @@ var mats: Array = []   # Held im Schatten nicht nur Umriss (Probe Build 11), nac
 
 func nacht(k: float) -> void:
 	fackel_kraft = 2.2 * k
-	for m in mats: (m as ShaderMaterial).set_shader_parameter("fill", 0.42 * (1.0 - k))
+	for m in mats:
+		(m as ShaderMaterial).set_shader_parameter("fill", 0.42 * (1.0 - k))
+		(m as ShaderMaterial).set_shader_parameter("kette_umgebung", lerpf(1.0, 0.7, k))
 	if fackel:   # ganze Fackel weg am Tag (Helfer Runde 3: Stiel blieb in der Hand, wirkte wie ein Knueppel)
 		(fackel.get_parent() as Node3D).visible = k > 0.02
 		fackel.visible = k > 0.02
@@ -177,6 +185,7 @@ func baue_fackel() -> void:
 	wm.albedo_color = Color(0.42, 0.28, 0.16)
 	stiel.material_override = wm
 	stiel.position = Vector3(0, 0.06, 0)
+	stiel.layers = 2                                   # die eigene Flamme beleuchtet den Stiel nicht (sonst gluehte er, Licht vor der Flamme)
 	t.add_child(stiel)
 	# Runde 5b (Helfer: schwarzer Stummel im Flammenfuss, die Flamme deckt nicht): Pechkopf glimmt am Stielende
 	var glut := MeshInstance3D.new()
@@ -229,6 +238,7 @@ func baue_fackel() -> void:
 	fackel.light_color = Color(1.0, 0.72, 0.38)
 	fackel.omni_range = 8.0
 	fackel.omni_attenuation = 2.0
+	fackel.light_cull_mask = 0xFFFFF & ~2
 	t.add_child(fackel)
 	nacht(0.0)
 
@@ -252,7 +262,10 @@ func richte_fackel() -> void:
 	var b := Basis(Vector3.UP, rotation.y)
 	b = b.rotated(global_basis.x.normalized(), -minf(0.6, tempo_jetzt * 0.12) + 0.1 * sin(zeit * 6.1))
 	b = b.rotated(global_basis.z.normalized(), 0.1 * sin(zeit * 8.3))
+	# Licht 25 cm vor der Flamme in Blickrichtung (blind 3 von 3 besser: Gesicht lesbar statt Maske; den Stiel beleuchtet es nicht, light_cull_mask)
+	fackel.global_position = flamme.global_position + global_basis.z.normalized() * FACKEL_VOR
 	flamme.global_basis = b * Basis.from_scale(Vector3(1.0 + 0.12 * sin(zeit * 9.3), 1.0 + 0.3 * sin(zeit * 13.0) * sin(zeit * 5.1), 1.0 + 0.12 * sin(zeit * 7.7)))
+const FACKEL_VOR := 0.25
 var faust_knochen := "foL-wrL"
 var faust_griff := Vector3(-0.0187, 0.187, 0.0072)     # Knochenraum foL-wrL in Ruhelage (aus held3.py hand(): pc + d·3, 2 cm zur Handinnenseite)
 var faust_achse := Vector3(-0.358, 0.0, -0.934)        # Breite der Hand (fw) im Knochenraum: der Stiel liegt quer in der Faust

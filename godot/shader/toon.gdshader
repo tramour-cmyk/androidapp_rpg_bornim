@@ -19,6 +19,9 @@ uniform vec3 ink : source_color = vec3(0.07, 0.05, 0.04);              // wie tu
 uniform float metall = 0.0;
 uniform float glanz_eisen = 0.9;
 uniform float glanz_kette = 0.5;
+uniform float kette_lampe = 1.0;   // 348.6 Kette nachts (held.gd): Metall unter Lampe und Fackel, Anteil Streulicht
+uniform float kette_umgebung = 1.0;   // dazu Anteil der Umgebung an der Kette (nachts 0,7)
+uniform float teil = 0.0;          // nur zum Messen (held.gd --teilfarbe): Eisen gruen, Kette rot, Haut (rig.py TEILMASKE) blau, Rest schwarz
 varying vec3 wpos;
 varying float v_eisen;
 varying float v_kette;
@@ -65,17 +68,22 @@ void fragment() {
 	}
 	v_eisen = metall * (1.0 - smoothstep(0.15, 0.35, COLOR.a));
 	v_kette = metall * smoothstep(0.15, 0.35, COLOR.a) * (1.0 - smoothstep(0.65, 0.85, COLOR.a));
+	AO = mix(1.0, kette_umgebung, v_kette);
 	ROUGHNESS = 1.0;
 	SPECULAR = 0.0;      // kein Glanz aus der Umgebung (sonst Plastik)
 	METALLIC = 0.0;
 	EMISSION = glow_col * glow;
+	if (teil > 0.5) {
+		ALBEDO = vec3(0.0);
+		EMISSION = COLOR.a < 0.25 ? vec3(0.0, 1.0, 0.0) : (COLOR.a < 0.7 ? vec3(1.0, 0.0, 0.0) : (COLOR.a < 0.95 ? vec3(0.0, 0.0, 1.0) : vec3(0.0)));
+	}
 }
 void light() {
 	float ndl = clamp(dot(NORMAL, LIGHT), 0.0, 1.0);
 	float l = ndl * ATTENUATION;
 	float b;
 	if (LIGHT_IS_DIRECTIONAL) b = smoothstep(0.38, 0.5, l) * 0.45 + smoothstep(0.04, 0.12, l) * 0.55;   // Sonne, Mond: drei Stufen, weiche Kante
-	else b = ndl * smoothstep(0.0, 1.0, ATTENUATION);                                                     // Lampen, Fackel: weicher Schein
+	else b = ndl * smoothstep(0.0, 1.0, ATTENUATION) * mix(1.0, kette_lampe, v_kette + v_eisen);              // Lampen, Fackel: weicher Schein
 	if (LIGHT_IS_DIRECTIONAL) b = max(b, fill);
 	DIFFUSE_LIGHT += b * LIGHT_COLOR / PI;
 	if (v_eisen + v_kette > 0.0) {
