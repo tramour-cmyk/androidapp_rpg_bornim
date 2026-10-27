@@ -5,6 +5,7 @@ Aufruf: python3 tools/vorgang.py NR [NR …]          zeigt je Nummer: Zeile in 
         Vorratszeile(n) mit Rolle, Absätze „Zu NR“, Entscheide im Vorgangsarchiv, Dateien in der Chefsache, Leiche laut startbar.py.
         python3 tools/vorgang.py stand NR "Stand" [--rolle NAME]   setzt den Stand der Vorratszeile und das Wort in LISTE-VORGAENGE.md zugleich
         python3 tools/vorgang.py fertig NR [--rolle NAME]          streicht die Vorratszeile; Liste „erledigt“ nur, wenn kein anderer Vorrat die Nummer führt
+                                                                    (mehrere Besitzer: Liste zeigt das offenste Wort, D47.1)
                                                                     (Absätze „Zu NR“ nennt es, streichen tut der Besitzer)
         --rolle (Homer, Tom, Jerry, Perikles, Diogenes, Sokrates) ist Pflicht, wenn die Nummer in mehreren Vorräten steht (D46.1).
 Schreiben (Chef 27.10., 15:20): jeder Besitzer selbst, nur über dieses Werkzeug, die einzige Ausnahme von „Notizen nur mit Edit/Write“;
@@ -78,6 +79,13 @@ def liste_setzen(nr, w):
     t = z.split("|"); t[-2] = " %s " % w
     schreiben("LISTE-VORGAENGE.md", z, "|".join(t))
 
+OFFEN = ["in Arbeit", "startbar", "Dauer", "zu testen", "Chef", "wartet", "gebaut", "ruht", "nach Meilenstein", "erledigt"]
+
+def listenwort(nr):
+    """D47.1: führen mehrere Vorräte die Nummer, gilt in der Liste das offenste Wort; ohne Vorratszeile „erledigt“."""
+    ws = [wort(z.split("|")[4]) or "in Arbeit" for _, _, z in zeilen_finden(nr)]
+    return min(ws, key=OFFEN.index) if ws else "erledigt"
+
 def stand_setzen(nr, stand, rolle=None):
     w = wort(stand)
     if not w: sys.exit("vorgang.py: Stand muss mit einem Wort der Liste beginnen (%s)" % ", ".join(sorted({w for _, w in WORT})))
@@ -86,14 +94,14 @@ def stand_setzen(nr, stand, rolle=None):
     t = z.split("|"); t[4] = " %s " % stand
     neu = "|".join(t)
     if len(neu) > 400: sys.exit("vorgang.py: Zeile über 400 Zeichen (%d), Einzelheiten als „Zu %s“ unter die Tabelle" % (len(neu), nr))
-    schreiben(datei, z, neu); liste_setzen(nr, w)
-    print("vorgang.py: %s (%s) „%s“, Liste „%s“" % (nr, rolle, stand, w))
+    schreiben(datei, z, neu); lw = listenwort(nr); liste_setzen(nr, lw)
+    print("vorgang.py: %s (%s) „%s“, Liste „%s“%s" % (nr, rolle, stand, lw, "" if lw == w else " (offenstes Wort aller Besitzer)"))
 
 def fertig(nr, rolle=None):
     datei, rolle, z = zeile_finden(nr, rolle)
     schreiben(datei, z + "\n", "")
-    rest = zeilen_finden(nr)  # D46.1: führt ein anderer die Nummer weiter, bekommt die Liste dessen Wort
-    w = (wort(rest[0][2].split("|")[4]) or "in Arbeit") if rest else "erledigt"
+    rest = zeilen_finden(nr)  # D46.1: führt ein anderer die Nummer weiter, bekommt die Liste dessen Wort (D47.1: das offenste)
+    w = listenwort(nr)
     liste_setzen(nr, w)
     zu = [l[:60] for l in startbar.lesen(datei).splitlines() if re.match(r"- \*\*Zu " + re.escape(nr) + r"\b", l)]
     print("vorgang.py: %s aus %s gestrichen, Liste „%s“%s%s" % (nr, datei, w, (" (weiter bei %s)" % ", ".join(x[1] for x in rest)) if rest else "",
