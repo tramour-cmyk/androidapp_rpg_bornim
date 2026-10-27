@@ -451,3 +451,6 @@ if __name__ == '__main__':
     roofrows('schiefer2', 1024, 13, [0x24282C, 0x3A4048, 0x50565C], 142, moss=0x5A6040, slip=0.35, per_k=1.2, hi_amt=0.1, life=0.6, newtint=(1.18, 1.2, 1.24))
     roofrows('ziegel', 1024, 14, [0x4A2016, 0x6E3A28, 0x8A5038], 133, moss=0x6A6A4A, round_=True, per_k=2.2, life=0.7)
     roofrows('ziegel2', 1024, 14, [0x52281A, 0x7A4430, 0x9A5C40], 143, moss=0x5A5A3A, mossamt=0.5, round_=True, per_k=2.0, life=1.0)
+    # 348.6 Haeuser mit Innenraum (Helfer 23:35: rote Ziegel grau getoent wurden braun): wie ziegel, nur in Schiefergrau und Braun
+    roofrows('ziegelgrau', 1024, 14, [0x2C2E32, 0x464A50, 0x5C6268], 133, moss=0x6A6A4A, round_=True, per_k=2.2, life=0.7)
+    roofrows('ziegelbraun', 1024, 14, [0x2E2016, 0x4E3826, 0x6A4E36], 133, moss=0x6A6A4A, round_=True, per_k=2.2, life=0.7)
