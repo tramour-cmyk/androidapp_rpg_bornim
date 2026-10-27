@@ -40,8 +40,11 @@ GROESSE = {'braun': 1.0, 'schwarz': 1.07, 'grau': 0.9}      # Spannweite 1,68 ·
 SPANNWEITE = 1.68
 KOPF = 0.98            # Ohrspitzen über dem Boden in Ruhe (Held 1,8 m: Hüfte etwa 0,95 m)
 # Runde 3: Schlund, Zunge, Geifer heller (Maul lag im Schwarz), Narbe hell gegen das graue Fell (war gleich hell wie das Fell)
-ZAHN, SCHLUND, ZUNGE, GEIFER, AUGE, NARBE, KRALLE = 0xE6DCC2, 0x5A1A1C, 0x8A3438, 0xD0C8B8, 0x3A1410, 0xC8B0A6, 0x2A2420
-OHR_INNEN = {'braun': 0x9A6A58, 'schwarz': 0x5E4648, 'grau': 0xA08E88}
+# Runde 3b (Prüfer 3: Gesicht als blasse Scheibe, Ohren ohne Innenseite): wie alt rotes Maul, rote Innenohren, dunkelrote matte Augen
+ZAHN, SCHLUND, ZUNGE, GEIFER, AUGE, NARBE, KRALLE = 0xF0E6CC, 0x8C2420, 0xA83C3C, 0xD8D0C0, 0x7A1C14, 0xD8B4AA, 0x2A2420
+OHR_INNEN = {'braun': 0x8C3A30, 'schwarz': 0x6A2A28, 'grau': 0x8C4440}
+HAUT_GESICHT = 0.55    # Gesicht dunkler als das Fell (Prüfer 3: helle Kopfscheibe „wie Eule, Plüsch“)
+FLUG_HELL = 0.75       # Flughaut dunkler als der Rumpf (Prüfer 3: hellgrau glänzend „wie Gummi“)
 AUFLOESUNG = 0.006
 DREIECKE = 2400
 GLAETTEN = (6, 0.5)
@@ -128,7 +131,7 @@ def faerbe(Jv, V, N, jaw, fell):
     C = C * (1 - m[:, None]) + zeige(k['mantel'], HELL[fell]) * m[:, None]
     # nackte Haut im Gesicht (Schnauze, um die Augen), am Unterkiefer und an den Füßen
     gesicht = (V[:, 1] < HALS[1] + (-0.165 - HALS[1]) * KS) | jaw | (V[:, 2] < 0.31)
-    C[gesicht] = zeige(k['haut'], HELL[fell])
+    C[gesicht] = zeige(k['haut'], HELL[fell] * HAUT_GESICHT)
     # Bauch dunkler (Umgebungslicht von oben), Rücken etwas dunkler als die Brust
     C *= (0.82 + 0.18 * np.clip((V[:, 2] - 0.4) / 0.35, 0, 1))[:, None]
     strand = 1 + 0.05 * np.sin(V[:, 1] * 300 + V[:, 2] * 140) + np.random.default_rng(7).normal(0, 0.015, len(V))
@@ -186,7 +189,7 @@ def haeute(J, fell):
         for u, v in UV:
             # Adern dunkler an den Fingern, zwischen ihnen wenig heller (dünne Haut); Ränder dunkler
             f = 0.9 + 0.12 * math.sin(math.pi * v) * (0.4 + 0.6 * u) - 0.08 * (u > 0.93)
-            c = zeige(k['flug'], f * HELL[fell])
+            c = zeige(k['flug'], f * HELL[fell] * FLUG_HELL)
             if fell == 'grau' and abs(math.sin(31 * u + 17 * v)) < 0.12 and u > 0.3: c = zeige(NARBE, 0.8)    # Narben in der Haut
             out.append(c)
         return out
@@ -202,7 +205,7 @@ def haeute(J, fell):
         riss = None
         if fell == 'schwarz' and s == 'L':      # eingerissener Flügel: zackiger Riss vom Rand zwischen drittem und viertem Finger
             # Runde 3: tiefer und breiter (Prüfer Runde 2: kaum sichtbar)
-            riss = lambda u, v: u > 0.3 and abs(v - 0.45 - 0.08 * math.sin(u * 23)) < (u - 0.3) * 0.75 + 0.05
+            riss = lambda u, v: u > 0.25 and abs(v - 0.45 - 0.1 * math.sin(u * 23)) < (u - 0.25) * 0.9 + 0.08
         out.append((finger['2'], finger['3'], 6, 2, 0.12, 0.004, farbe, None))
         out.append((finger['3'], finger['4'], 7, 4, 0.32, 0.014, farbe, riss))
         out.append((finger['4'], finger['5'], 7, 3, 0.32, 0.012, farbe, None))
@@ -263,7 +266,7 @@ def anbauten(J, fell):
     if fell == 'grau':     # alte Narben quer über Brust und Schulter (Runde 3: hell und breiter, Prüfer Runde 2 sah keine)
         for a, b in (((-0.07, -0.074, 0.67), (0.025, -0.084, 0.58)), ((0.05, -0.062, 0.72), (0.08, -0.035, 0.63)),
                      ((-0.03, -0.08, 0.55), (0.04, -0.078, 0.50))):
-            V_, F_ = vb.anbau_rohr([a, (np.array(a) + np.array(b)) / 2 + np.array([0, -0.006, 0]), b], [0.005, 0.007, 0.005], 5)
+            V_, F_ = vb.anbau_rohr([a, (np.array(a) + np.array(b)) / 2 + np.array([0, -0.008, 0]), b], [0.008, 0.011, 0.008], 5)
             out.append((V_, F_, 'ruecken', NARBE))
     return out
 
@@ -284,11 +287,13 @@ def bewegungen(K):
         clear(); root(dz=0.04 * math.sin(w), pitch=-18)
         kopf(14, -18); beine(-0.6)
         fluegel(1.15 * math.cos(w), 0.3 * max(0.0, -math.sin(w)))
-    def hocke(p):      # lauert zum Sturzflug: Flügel hoch, Kopf vor, Maul weit offen
+    def hocke(p):      # lauert zum Sturzflug: Flügel weit und flach gespreizt, Kopf vor, Maul weit offen
+        # Runde 3 (Prüfer Runde 2 sah die Hocke, alle drei sagten „Anspringen“ an): Flügel hoch gab das V „wie ein Vogel“, bei der
+        # Schwarzen mit dem Blickwinkel einen Keil über dem Kopf, Rumpf zurückgelehnt „wie abstürzend“
         w = 2 * math.pi * 2 * p
-        clear(); root(dy=0.06, dz=0.1 + 0.02 * math.sin(w), pitch=6)
-        kopf(-6, -40 + 4 * math.sin(w)); beine(0.8)
-        fluegel(0.85 + 0.12 * math.sin(w), 0.15)
+        clear(); root(dz=0.08 + 0.02 * math.sin(w), pitch=-6)
+        kopf(-10, -44 + 4 * math.sin(w)); beine(0.8)
+        fluegel(0.1 + 0.15 * math.sin(w), 0.0)
     def biss(p):       # ausholen nach hinten oben, vorschnellen, zubeißen am Aufschlag (p 0,45), zurück (0,6 s)
         clear()
         if p < 0.3: u = p / 0.3; dy, dz, pt, auf, maul = 0.08 * u, 0.06 * u, 6 * u, 0.9 * u, -22 - 18 * u
