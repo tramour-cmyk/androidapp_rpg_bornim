@@ -14,10 +14,11 @@ const HERO_REACH := 0.75     # 348.7: Arm und Klinge vor dem eigenen Rand bis zu
 ## MARS (SkirmishScreen.kt STEP_HOLD, STEP_BACK), dann rückwärts zurück, das Gesicht zum Gegner
 const STEP_HOLD := 0.42
 const STEP_BACK := 0.68
-## Helfer Runde 2 (Rückweg 0,5 s wirkte schnell, bis 4 m/s rückwärts): Schritt rückwärts gut 1,6 m/s, mindestens 0,5 s;
-## dauert er über SAY_MS hinaus, wartet die nächste Meldung (busy_ms)
+## Helfer Runde 2 (Rückweg 0,5 s wirkte schnell: bis 6,3 m, 12 m/s): rückwärts 7,5 m/s, 0,5 bis 0,9 s (Runde 3: 1,6 m/s
+## brauchte 3,9 s, er „blieb stehen“); dauert er über SAY_MS hinaus, wartet die nächste Meldung (busy_ms)
 const HERO_BACK_S := 0.5
-const HERO_BACK_MPS := 1.6
+const HERO_BACK_MAX_S := 0.9
+const HERO_BACK_MPS := 7.5
 ## Wie lange der letzte Schlag samt Rückweg dauert (ms), kampfort.gd wartet darauf
 var busy_ms := 0
 const FALL_MS := 900
@@ -612,7 +613,7 @@ func strike(other, e: Dictionary) -> int:
 		var stand: float = HERO_R + other.body_r() + HERO_REACH
 		reach = flat.normalized() * maxf(0.0, flat.length() - stand) if flat.length() > 0.01 else Vector3.ZERO
 		hold = ms * (STEP_BACK - STEP_HOLD) / 1000.0
-		back = maxf(HERO_BACK_S, reach.length() / HERO_BACK_MPS)
+		back = clampf(reach.length() / HERO_BACK_MPS, HERO_BACK_S, HERO_BACK_MAX_S)
 	var there := position + reach
 	_face(to - position)
 	_play("Sprung" if leap else ("Biss" if fighter.monster != null else "Hieb"), 0.05)
@@ -645,12 +646,13 @@ func strike(other, e: Dictionary) -> int:
 	return ms
 
 
-## Heilung oder Segen (Helfer Runde 2: Heilung ohne erkennbaren Wirkenden): der Wirkende hebt die Hand zum Ziel, wie beim Zauber
+## Heilung oder Segen (Helfer Runde 2: Heilung ohne erkennbaren Wirkenden): der Wirkende wendet sich dem Ziel zu, das Licht
+## geht von ihm aus (zauber.gd); ohne „Ausholen“ (Prüfer Runde 3: klappte den Schild heraus „wie ein zweiter Schild“)
 func bless(other) -> void:
-	if other != self:
-		_face(other.position - position)
-	_play("Ausholen")
-	get_tree().create_timer(0.6).timeout.connect(func(): _face(); _idle())
+	if other == self:
+		return
+	_face(other.position - position)
+	get_tree().create_timer(0.8).timeout.connect(func(): _face())
 
 
 ## Halbe Breite am Boden, wie der Bodenschatten (Wolf 1,1 m lang, halb seitlich gesehen; Mensch 0,3 m)

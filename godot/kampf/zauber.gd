@@ -20,6 +20,8 @@ const GOLD_LIGHT := Color("ffe6a8")
 ## Helfer Runde 2 (Heilige Flamme: weiße Splitter „wie Eis“): heiliges Licht warmweiß statt reinweiß
 const WARM_WHITE := Color("fff4d6")
 const DUST := Color("8a7458")
+const HOLY_FIRE := Color("ffc24a")
+const HOLY_GOLD := Color("ffdd7a")
 const NONE := Color(0, 0, 0, 0)
 
 ## Chef 21.10., 14:46: wie hoch ein Pfeil im Flug steigt, im Verhältnis zur Weite
@@ -27,6 +29,8 @@ const ARROW_RISE := 0.12
 
 var ci: CanvasItem
 var rnd := RandomNumberGenerator.new()
+## Der Effekt schlägt in den Boden statt ins Ziel (Fehlschuss, draw_fx exact)
+var on_floor := false
 ## 348.7 (Helfer Lauf 126: Feuerpfeil, Feuerball, Geschosse flogen vor dem näheren Wolf durch): so viele Bildpunkte steigt die
 ## Bahn in der Mitte über die Gerade, damit sie über die Köpfe derer geht, die vor ihr stehen (kampf_ui.gd setzt es je Effekt)
 static var over := 0.0
@@ -165,15 +169,20 @@ func _clinging_fire(at: Vector2, t: float, u: float, size := 1.0) -> void:
 		var ph := fmod(cyc, 1.0)
 		var r := RandomNumberGenerator.new()
 		r.seed = int(cyc) * 7919 + i * 131 + rnd.seed
-		var bx := at.x + (r.randf() - 0.5) * 22 * u * size + sin(ph * 3.0 + i) * 1.5 * u
-		var by := at.y + (r.randf() - 0.2) * 14 * u * size - ph * 7 * u * size
+		# eng am Körper (Prüfer Runde 3: Zungen schwebten frei über dem Wolf)
+		var bx := at.x + (r.randf() - 0.5) * 14 * u * size + sin(ph * 3.0 + i) * 1.2 * u
+		var by := at.y + (r.randf() - 0.3) * 8 * u * size - ph * 4 * u * size
 		var life := sin(ph * PI)
 		var h := (8 + r.randf() * 12) * u * size * f * life
+		# schmal mit der Höhe (Prüfer Runde 3: kleine Zungen lagen als waagrechte Striche)
+		if h < 2.5 * u:
+			continue
+		var w := minf(6 * u * size, h * 0.55)
 		var lean := sin(t * 23.0 + i) * 2.5 * u + (r.randf() - 0.5) * 3 * u * ph
 		var a := 1.0 - ph * 0.6
-		_tongue(Vector2(bx, by), h, 6 * u * size * (0.6 + 0.4 * life), lean, FIRE_DARK, 0.55 * a)
-		_tongue(Vector2(bx, by), h * 0.75, 4 * u * size, lean, FIRE, 0.7 * a)
-		_tongue(Vector2(bx, by), h * 0.4, 2.4 * u * size, lean * 0.5, FIRE_HOT, 0.8 * a)
+		_tongue(Vector2(bx, by), h, w, lean, FIRE_DARK, 0.55 * a)
+		_tongue(Vector2(bx, by), h * 0.75, w * 0.66, lean, FIRE, 0.7 * a)
+		_tongue(Vector2(bx, by), h * 0.4, w * 0.4, lean * 0.5, FIRE_HOT, 0.8 * a)
 	_smoke(Vector2(at.x, at.y - 8 * u), t, u, 4, 40.0, 0.45)
 	for i in 6:
 		var e := clampf(t * (0.7 + _rf() * 0.6), 0.0, 1.0)
@@ -221,13 +230,15 @@ func _sacred_flame(p: float, x: float, ground: float, u: float) -> void:
 		var w := (6 + 4 * edge) * u
 		var lean := sin(p * 21.0 + i) * 3 * u + (i - 5) * 0.8 * u
 		var b := Vector2(bx, ground + 2 * u)
-		_tongue(b, h, w, lean, HOLY, 0.75 * burn, [_a(HOLY, 0.0), _a(HOLY, 0.75 * burn), _a(HOLY, 0.45 * burn)])
-		_tongue(b, h * 0.55, w * 0.55, lean, WARM_WHITE, 0.8 * burn, [_a(WARM_WHITE, 0.0), _a(WARM_WHITE, 0.8 * burn), _a(WARM_WHITE, 0.48 * burn)])
-	# Glut steigt weich und golden auf (Helfer Runde 2: weiße Splitter „wie Eis“)
+		# Zungen golden, an der Spitze verglühend, breiter und niedriger (Prüfer Runde 3: cremefarbene Zacken „wie Eiskristalle“)
+		_tongue(b, h * 0.8, w * 1.3, lean, HOLY_FIRE, 0.7 * burn, [_a(HOLY_FIRE, 0.0), _a(HOLY_FIRE, 0.7 * burn), _a(HOLY_GOLD, 0.5 * burn)])
+		_tongue(b, h * 0.45, w * 0.8, lean, HOLY, 0.75 * burn, [_a(HOLY, 0.0), _a(HOLY, 0.75 * burn), _a(HOLY, 0.45 * burn)])
+	# Glut steigt weich auf, golden bis orange (Helfer Runde 2: weiße Splitter „wie Eis“; Prüfer Runde 3: Glut fehlte)
 	for i in 9:
 		var t := clampf((p - 0.3) / 0.7 * (0.6 + _rf() * 0.6) + _rf() * 0.2, 0.0, 1.0)
 		var ex := x + (_rf() - 0.5) * 40 * u + sin(t * 8.0 + i) * 3 * u
-		_glow(Vector2(ex, ground - t * 70 * u), 3.2 * u, [_a(GOLD_LIGHT if i % 2 == 0 else HOLY, 0.85 * (1 - t) * f), _a(HOLY, 0.0)])
+		var gc: Color = [HOLY_GOLD, FIRE, HOLY_FIRE][i % 3]
+		_glow(Vector2(ex, ground - t * 60 * u), 2.6 * u, [_a(gc, 0.9 * (1 - t) * f), _a(gc, 0.0)])
 
 
 ## Feuerpfeil: ein zischender Funke, weißglühend an der Spitze, mit Flammenschweif und dunklem Rauch; zerplatzt am Gegner
@@ -371,14 +382,15 @@ func _fireball(p: float, from: Vector2, to: Vector2, ground: float, u: float) ->
 ## Runde 2 (Heilung ohne erkennbaren Wirkenden): erst leuchten die Hände des Wirkenden, von dort zieht das Licht zum Ziel
 func _mending(p: float, src: Vector2, chest: Vector2, u: float, c: Color, core: Color) -> void:
 	var f := _fade(p)
+	# am Wirkenden deutlich (Prüfer Runde 3: „leuchtet kaum“), das Licht zieht fast gerade hinüber (zog im weiten Bogen ans Bildende)
 	var hand := sin(clampf(p / 0.5, 0.0, 1.0) * PI)
-	_glow(src, 22 * u, [_a(core, 0.7 * hand), _a(c, 0.3 * hand), NONE])
+	_glow(src, 30 * u, [_a(core, 0.85 * hand), _a(c, 0.4 * hand), NONE])
 	if src.distance_to(chest) > 8 * u:
 		for i in 10:
 			var t := clampf((p - 0.05 - i * 0.025) / 0.35, 0.0, 1.0)
 			if t <= 0.0 or t >= 1.0:
 				continue
-			var q := _arc(src, chest, t, (i % 3 - 1) * 14 * u)
+			var q := _arc(src, chest, t, (i % 3 - 1) * 4 * u)
 			_glow(q, 4.2 * u, [_a(core, 0.9 * sin(t * PI)), _a(c, 0.0)])
 	var swell := sin(clampf(p, 0.0, 1.0) * PI)
 	_glow(chest, 46 * u, [_a(core, 0.55 * swell), _a(c, 0.3 * swell), NONE])
@@ -417,7 +429,7 @@ func _blessing(p: float, chest: Vector2, ground: float, u: float) -> void:
 	# nur ein Schein in der Brust (Helfer Runde 2: das gezeichnete Sonnenzeichen wirkte wie ein Bedien-Symbol)
 	if zeichen > 0.0:
 		var c := Vector2(x, chest.y + 4 * u)
-		_glow(c, 18 * u, [_a(WARM_WHITE, 0.7 * zeichen), _a(GOLD_LIGHT, 0.3 * zeichen), NONE])
+		_glow(c, 10 * u, [_a(GOLD_LIGHT, 0.55 * zeichen), NONE])     # klein (Prüfer Runde 3: 18 als Schleier über der Figur)
 
 
 ## Pfeil (Rückläufer t55, t64): dünner dunkler Schaft, kleine Spitze, graubraune Federn, im Bogen geworfen, die Spitze voran
@@ -450,20 +462,25 @@ func _arrow_lands(p: float, from: Vector2, hit: Vector2, u: float) -> void:
 	var s := (p - 0.6) / 0.4
 	var rise := hit.distance_to(from) * ARROW_RISE
 	var d := Vector2(hit.x - from.x, hit.y - from.y + 4 * rise + PI * over).normalized()
-	var a := 1.0 - clampf((s - 0.5) / 0.5, 0.0, 1.0)
-	var tail := hit - d * (12 * u)
-	ci.draw_line(tail, hit, _a(Color("b89a70"), a), 1.3 * u, true)
+	if on_floor:
+		d = (d + Vector2(0, 1.4)).normalized()     # im Boden steil (Prüfer Runde 3: lag fast waagerecht)
+	var a := 1.0 - clampf((s - 0.75) / 0.25, 0.0, 1.0)
+	# Spitze im Körper oder Boden: nur der hintere Schaft mit Federn (Prüfer Runde 3: heller Stab quer übers Gesicht, „aufgelegt“)
+	var stuck := hit - d * (2 * u)
+	var tail := hit - d * (10 * u)
+	ci.draw_line(tail, stuck, _a(Color("7a6040"), a), 1.1 * u, true)
 	for side in [1.0, -1.0]:
-		ci.draw_line(tail + d * (2.5 * u), tail - d * (0.5 * u) + Vector2(-d.y, d.x) * (side * 1.4 * u), _a(Color("a08c6c"), 0.75 * a), 0.8 * u, true)
+		ci.draw_line(tail + d * (2.5 * u), tail - d * (0.5 * u) + Vector2(-d.y, d.x) * (side * 1.6 * u), _a(Color("a08c6c"), 0.85 * a), 0.9 * u, true)
 	var flash := clampf(1.0 - s / 0.2, 0.0, 1.0)
 	if flash > 0.0:
-		_glow(hit, 7 * u, [_a(WARM_WHITE, 0.7 * flash), NONE])
-	_burst(hit, s / 0.45, u * 0.6, [DUST, Color("c8b08a")], 7, 14.0)
+		_glow(hit, 7 * u, [_a(WARM_WHITE, 0.5 * flash), NONE])
+	_burst(hit, s / 0.45, u * 1.1, [DUST, Color("c8b08a")], 10, 16.0)
 
 
 ## Ein Effekt bei p (0..1) von source nach target; ground: Boden unter dem Ziel (drawFx)
 func draw_fx(kind: String, sd: int, p: float, source: Vector2, target: Vector2, u: float, ground: float, exact := false) -> void:
 	rnd.seed = sd
+	on_floor = exact
 	var hit := Vector2(target.x + (_rf() - 0.5) * 14 * u, target.y + (_rf() - 0.5) * 14 * u)
 	if exact:
 		hit = target
@@ -503,8 +520,9 @@ func draw(kind: String, sd: int, p: float, source: Vector2, target: Vector2, u: 
 	var dv := target - source
 	var ln := maxf(dv.length(), 1.0)
 	var side := 1.0 if sd % 2 == 0 else -1.0
-	var by := Vector2(target.x + dv.x / ln * 34 * u - dv.y / ln * side * 30 * u, target.y + dv.y / ln * 34 * u + dv.x / ln * side * 30 * u)
-	# Helfer Runde 2 (Feuerpfeil daneben brannte in der Luft): was vorbeifliegt, schlägt hinter dem Ziel in den Boden
+	# Helfer Runde 2 (Feuerpfeil daneben brannte in der Luft): was vorbeifliegt, schlägt neben dem Ziel in den Boden; seitlich
+	# statt dahinter (Prüfer Runde 3: dahinter lag es unter Ansage und Lebensbalken)
+	var by := Vector2(target.x + dv.x / ln * 10 * u - dv.y / ln * side * 40 * u, target.y + dv.y / ln * 10 * u + dv.x / ln * side * 40 * u)
 	var floor_y := ground + (by.y - target.y)
 	if kind != "MISSILES":
 		by.y = floor_y - 2 * u

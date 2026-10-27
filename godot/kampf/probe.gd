@@ -222,8 +222,12 @@ func _still(path: String) -> void:
 		var on2 = fight.mars.fighters().filter(func(x): return x.side == "FOES" and x.standing())[0]
 		# Helfer Runde 2: Heilung auf einen Gefährten (sonst sieht man den Wirkenden nicht); Sengender Strahl dreimal, wie im
 		# Spiel je Meldung einer (SAY_MS auseinander), Bilder je Strahl
-		var mates: Array = fight.mars.fighters().filter(func(x): return x.side == "PARTY" and x.standing() and x.id != by2.id)
+		# Prüfer Runde 3: Bertram (Kämpfer) heilte; Heilung, Segen, Heilige Flamme wirkt der Kleriker, wie im Spiel
+		var party: Array = fight.mars.fighters().filter(func(x): return x.side == "PARTY" and x.standing())
+		var cleric: Array = party.filter(func(x): return x.hero != null and x.hero.cls == "CLERIC")
 		for kind in OS.get_environment("ZAUBER").split(","):
+			by2 = cleric[0] if kind in ["HEAL", "BLESS", "SACRED_FLAME"] and not cleric.is_empty() else dran
+			var mates: Array = party.filter(func(x): return x.id != by2.id)
 			var on_id: String = on2.id
 			if kind == "BLESS" or (kind == "HEAL" and mates.is_empty()):
 				on_id = by2.id
