@@ -1,25 +1,28 @@
-# 383 Sperren statt Textregeln
+# 383 Wartewächter statt neuer Textregeln
 
-**Frage:** Soll Perikles drei Haken bauen, die die Fehler von heute mechanisch verhindern?
+**Frage:** Soll Perikles einen Wartewächter bauen: hat der Chef „jetzt“ gesagt und drei Stunden lang nichts bekommen, meldet sich das Werkzeug laut, bei ihm und bei der Sitzung?
 
-**Votum:** Ja, alle drei; jede einzeln, an den Fällen vom 27.10. nachgestellt; fliegt raus, wenn sie in der Woche danach mehr stört als nützt.
+**Votum (Sokrates 27.10., 17:5x, nach Fremdprüfung; ersetzt „drei Sperren“):** Ja. Dazu Haken 63 verschärfen: eine Bitte an den Chef ohne Chefsache-Datei kommt nicht mehr beim zweiten Beenden durch.
 
-**Berührt:** Tom, Jerry, Ford, Perikles (baut), Diogenes (misst).
+**Berührt:** Perikles (baut), Ford (Lauf stündlich), Tom, Jerry, Diogenes (zählt ab 28.10. mit).
+
+## Was sich für den Chef ändert
+
+Höchstens eine laute Telegram-Zeile je Vorgang, wenn etwas, das er „jetzt“ wollte, drei Stunden hängt. Sonst nichts.
 
 ## Begründung
 
-Chef 27.10., 17:44: er räumt „nur hinter allen anderen her“; Textregeln hält keine Sitzung ein (Regel 373 bestand, trotzdem 7 Runden 348.13a ohne Vorlage). Was ein Haken erzwingt, wird eingehalten (Zeitstempel seit Stop-Haken).
+Chef 27.10., 17:44: er räumt „nur hinter allen anderen her“. Heute: 376.1 („jetzt“ 12:46) bis 17:39 ohne Vorlage, fünf Sitzungen, 57,43 $; 348.13a sieben Runden ohne Vorlage.
 
 ## Sachverhalt
 
-1. **Prüfsperre:** zweiter Fremdprüfauftrag zu einem Vorgang ohne Telegram-Vorlage seit dem ersten → Aufruf gesperrt, „erst vorlegen“.
-2. **Wartewächter:** `lauf.py` (stündlich): Vorgang mit „jetzt“ des Chefs drei Stunden ohne Vorlage → laute Meldung an Chef und Sitzung (376.1: „jetzt“ 12:46, 57,43 $, fünf Sitzungen, keine Vorlage).
-3. **Bittsperre:** Schlussnachricht mit Bitte an den Chef ohne neue Chefsache-Datei → Stop-Haken hält an (Ford 17:3x: Rebase-Freigabe nur im Chat).
+- Fremdprüfung 17:50 verwarf zwei der drei Sperren: Prüfsperre leicht zu umgehen (Prüfung ohne Helfer, Nummer weglassen; dann fiele die Fremdprüfung ganz weg) und sieht nur die eigene Sitzung; Bittsperre gibt es schon als Haken 63, er lässt beim zweiten Beenden absichtlich durch.
+- Wächter braucht: Zeitfeld zum „jetzt“ im Vorrat; `meldung.sh` schreibt je Meldung eine Protokollzeile (Nummer, Zeit); `lauf.py` vergleicht stündlich.
 
 ## Auswertung
 
-Stärkstes Gegenargument: Haken schlagen falsch an (Haken 63 hielt oft grundlos). Darum einzeln, nachgestellt, mit Rückbau nach einer Woche.
+Stärkstes Gegenargument: wer überwacht wird, legt vielleicht Halbfertiges vor, nur um den Wächter zu stillen. Dagegen: der Chef sieht es dann wenigstens und urteilt selbst, statt nach Stunden selbst zu fragen.
 
 ## Folgerungen
 
-Ja: Perikles baut 1–3, Diogenes zählt Fehlalarme. Nein: alles bleibt Textregel.
+Ja: Perikles baut, Diogenes zählt ab 28.10., wie oft der Wächter anschlägt. Nein: bleibt wie heute.
