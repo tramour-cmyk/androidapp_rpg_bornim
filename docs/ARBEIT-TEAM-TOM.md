@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (27.10., 19:20, „Tom – 376 Probehaus prüfen, vorlegen“ `session_01Hmoj78XeWjSrw1FZSi67UY`):** Probehaus fremd geprüft (2 Runden), Schornstein behoben, Fassung B mit Kniestock (`1dc9ad900`, `PROBE_KNIE=1 PROBE_NEIGUNG=0.8`), vorgelegt (Chefsache ansehen/376-probehaus, Telegram 19:19); ansehen/376 Häuser gelöscht (Chef 19:08); Zugang Kaufmodelle da (Chef 19:12), Chef schrieb danach „376.1 erledigt“, Rückfrage 19:13 (nur Zugang oder ganzer Vorgang?) unbeantwortet. Nachfolger: „Tom – 348.13a Tusche mit schräger Sonne“; 376.1 erst nach Antwort (Chefsache 3761).
+**Übergabe (27.10., 19:20, `session_01Hmoj78XeWjSrw1FZSi67UY`):** Probehaus A/B vorgelegt (Chefsache ansehen/376-probehaus, Telegram 19:19); Rückfrage 19:13 zu „376.1 erledigt“ (nur Zugang oder ganzer Vorgang?) unbeantwortet. Nachfolger: „Tom – 348.13a Tusche mit schräger Sonne“.
 
 ## Zeilen
 
@@ -10,19 +10,19 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 |---|---|---|---|---|
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101: Held im APK verschlüsselt, lädt) | `claude/tom-348-12i-verschluesseln` |
 | 376.1 | M | **von Sokrates (Chef kaufte 12:20, „jetzt“ 12:46):** Probeblatt Quaternius-Figuren (Archiv 376, Zu 376.1) | wartet auf Chef: Rückfrage „erledigt“ (Chefsache entscheiden/3761); bei „Zugang“: Kaufkopf anpassen, Fehler Tracht, Film r2 nicht vorlegbar (Zu 376.1, Film) | `claude/tom-376-1-figuren` |
-| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | wartet auf Chef: Probehaus A/B vorgelegt (Chefsache ansehen/376-probehaus, Zweig 1dc9ad900, PROBE_KNIE=1 PROBE_NEIGUNG=0.8 für B); Häuser 3–8° so lassen (Chef 19:08); dann Dorf | `claude/tom-348-fundament` |
-| 376.2 | M | **von Perikles (Chef 12:37, `LISTE-CC0-MODELLE.md`):** RenderHub-Marktpaket: Brunnen und Stände als Form, unsere gemalten Farben | startbar mit dem Dorf: Paket im Release stufe1 erreichbar (Chef 17:38) | – |
+| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | wartet auf Chef: Probehaus A/B vorgelegt (Chefsache 376, ansehen/376-probehaus; Zweig 1dc9ad900, PROBE_KNIE=1 PROBE_NEIGUNG=0.8 für B); Häuser 3–8° so lassen (Chef 19:08); dann Dorf | `claude/tom-348-fundament` |
+| 376.2 | M | **von Perikles (Chef 12:37, `LISTE-CC0-MODELLE.md`):** RenderHub-Marktpaket: Brunnen und Stände als Form, unsere gemalten Farben | wartet auf 348.6 (Dorf nach Urteil Probehaus); Paket im Release stufe1 erreichbar (Chef 17:38) | – |
 | 372 | M | **von Perikles (338a B, Chef 27.10., 09:36, Archiv):** Feinschliff Held: Kettenhemd, Helm, Kragen (Zu 348.6, Hände) | ruht bis Ende des Umzugs | `claude/tom-348-fundament` |
-| 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | wartet auf Chef: Vorlage 348.13a Runde 7 (Chefsache 34813a, 1,0 oder 1,3); dann an Jerry | `claude/tom-34813-kampfprobe` |
-| 267 | M | **von Chef (20.10., 21:46, B48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Chef: Gefühl am Tablet, abends (77.7, Zu 267) | – |
-| 302.3 | M | **von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3):** alle Bilder von Intro und Outro mit Tusche im Zeichner, Licht aus der Quelle, etwas kräftiger als Intro 4 | ruht bis Urteil 348 (Grafik angehalten, Chef 24.10., 18:16); dann von c8cc89dd ausgehen | claude/tom-3023-kraeftiger |
-| 302.2 | K | **von Chef über Sokrates (22.10., 23:50):** Tusche auf der Gebietskarte | ruht bis Urteil 348; vorher zurückgestellt (Chef 10:45, gefällt ihm); Probe a478e244 ist Filterart | claude/tom-3022-tuschebild |
-| 302.1 | M | **von Sokrates (Vorgangsarchiv 302.1; 338 b):** Tuschelinie für Menschengestalten über `Doll`, Charaktererstellung zuerst, Hauptmenü mit (Chef 10:45) (Zu 302.1) | ruht bis Urteil 348 (Grafik angehalten, Chef 24.10., 18:16); danach große Figuren zuerst, Termin 15.11. neu schätzen | claude/tom-3021-tusche |
-| 292.2 | K | **von Chef (21.10., 22:28):** Hauptmenü: seltene, gute Bewegung je Klasse (Zu 292.2) | ruht bis Urteil 348; vorher Vorrang Perikles | – |
-| 292.4 | K | **aus 292.3:** Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (Zu 292.4) | ruht bis Urteil 348; vorher Vorrang Perikles | claude/tom-2923-titelmodus |
+| 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | in Arbeit (Tom 19:3x): 348.13a Runde 8, Sonne schräg (Chef 19:07) -65,25 gerendert, Fehlerprüfung, dann Vorlage (Chefsache 34813a); dann an Jerry | `claude/tom-34813-kampfprobe` |
+| 267 | M | **von Chef (20.10., 21:46, B48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | ruht: Gefühl am Tablet sagt der Chef beim nächsten Tablettest (77.7, Zu 267), ohne Rückfrage-Datei | – |
+| 302.3 | M | **von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3):** alle Bilder von Intro und Outro mit Tusche im Zeichner, Licht aus der Quelle, etwas kräftiger als Intro 4 | ruht bis Ende Umzug 348 (altes Spiel ruht, Perikles 25.10.); dann von c8cc89dd ausgehen | claude/tom-3023-kraeftiger |
+| 302.2 | K | **von Chef über Sokrates (22.10., 23:50):** Tusche auf der Gebietskarte | ruht bis Ende Umzug 348 (altes Spiel ruht, Perikles 25.10.); Probe a478e244 ist Filterart | claude/tom-3022-tuschebild |
+| 302.1 | M | **von Sokrates (Vorgangsarchiv 302.1; 338 b):** Tuschelinie für Menschengestalten über `Doll`, Charaktererstellung zuerst, Hauptmenü mit (Chef 10:45) (Zu 302.1) | ruht bis Ende Umzug 348 (altes Spiel ruht, Perikles 25.10.); danach große Figuren zuerst, Termin 15.11. neu schätzen | claude/tom-3021-tusche |
+| 292.2 | K | **von Chef (21.10., 22:28):** Hauptmenü: seltene, gute Bewegung je Klasse (Zu 292.2) | ruht bis Ende Umzug 348 (altes Spiel ruht); vorher Vorrang Perikles | – |
+| 292.4 | K | **aus 292.3:** Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (Zu 292.4) | ruht bis Ende Umzug 348 (altes Spiel ruht); vorher Vorrang Perikles | claude/tom-2923-titelmodus |
 | 355 | K | **von Perikles (Chef 24.10., 17:17, Chefsache 26, „gut“):** Kisten: zwei bis vier je Gebietskarte, gern versteckt, kleiner Inhalt genügt; Bestand zählen, fehlende ergänzen (Höhle mit Jerry) | ruht (Umzug 348): gebaut 59c1b45, fremd geprüft (Zu 355) | `claude/tom-355-kisten` |
 | 356.2 | K | **von Perikles (Chef über Sokrates 24.10., 21:33, „356b … Folge der Empfehlung“; Anschlagbrett 29 bei Tom):** Sammelaufträge: Felle 3 statt 5 plus Pelzumhang, Hauer plus Hauerdolch; Werte wie ungewöhnliche Umhänge und Dolche | ruht: altes Spiel ruht (348, Perikles 25.10.); zieht mit den Läden in Godot um; offen Texte, Mengen, Lohn (Zu 356.2) | – |
-| 357 | K | **von Perikles (Chef 24.10., Chefsache 26, „okay“):** Puppe in der Charaktererstellung sieht beim Drehen „nicht sonderlich fein“ aus; mit 302.1 | ruht bis Urteil 348; dann mit 302.1 | – |
+| 357 | K | **von Perikles (Chef 24.10., Chefsache 26, „okay“):** Puppe in der Charaktererstellung sieht beim Drehen „nicht sonderlich fein“ aus; mit 302.1 | ruht bis Ende Umzug 348; dann mit 302.1 | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2 (Zu 145) | claude/tom-145-kartenmappe |
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (`STORY-WAHLEN.md`) | wartet auf 41 (Kapitel 2 nicht im Spiel) und 49 (ruht); geprüft 19.10. | – |
