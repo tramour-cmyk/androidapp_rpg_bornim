@@ -189,13 +189,17 @@ func _clinging_fire(at: Vector2, t: float, u: float, size := 1.0) -> void:
 		_square(FIRE_HOT if i % 2 == 0 else FIRE, Vector2(at.x + (_rf() - 0.5) * 26 * u + sin(e * 9.0 + i) * 3 * u, at.y - e * 46 * u), 1.8 * u, (1 - e) * f)
 
 
-func _burst(at: Vector2, t: float, u: float, cols: Array, n := 10, reach := 18.0) -> void:
+func _burst(at: Vector2, t: float, u: float, cols: Array, n := 10, reach := 18.0, soft := false) -> void:
 	if t <= 0.0 or t >= 1.0:
 		return
 	for i in n:
 		var a := _rf() * TAU
-		var d := (0.4 + _rf() * 0.8) * reach * u * t
-		_square(cols[i % cols.size()], at + Vector2(cos(a) * d, sin(a) * d), u * (2.5 - 1.5 * t), 1.0 - t)
+		var d := ((0.15 + sqrt(_rf()) * 1.05) if soft else (0.4 + _rf() * 0.8)) * reach * u * t
+		var c: Color = cols[i % cols.size()]
+		if soft:
+			_glow(at + Vector2(cos(a) * d, sin(a) * d), u * (2.2 - 1.2 * t), [_a(c, 0.8 * (1.0 - t)), _a(c, 0.0)])
+		else:
+			_square(c, at + Vector2(cos(a) * d, sin(a) * d), u * (2.5 - 1.5 * t), 1.0 - t)
 
 
 ## Heilige Flamme: Licht wie eine Flamme fällt von oben auf den Gegner, unten lecken weißgoldene Zungen um die Füße
@@ -335,7 +339,7 @@ func _scorching_ray(p: float, from0: Vector2, to: Vector2, u: float) -> void:
 
 ## Feuerball: eine wälzende Masse, am Rand dunkel, innen weißglühend; am Ziel ein Blitz, Flammenballen, der Boden brennt
 func _fireball(p: float, from: Vector2, to: Vector2, ground: float, u: float) -> void:
-	var ohne := OS.get_environment("FB_OHNE")     # Probe: Teile weglassen, um den „Doppelfleck“ zu finden
+	var ohne := OS.get_environment("FB_OHNE")     # Probe: Teile weglassen (spur, blitz, boden, dunkel, funken), Ursachensuche
 	var travel := 0.42
 	var bend := (_rf() - 0.5) * 60 * u
 	var t := minf(p / travel, 1.0)
@@ -358,7 +362,9 @@ func _fireball(p: float, from: Vector2, to: Vector2, ground: float, u: float) ->
 		for i in 6:
 			var st := maxf(t - _rf() * 0.25, 0.0)
 			var sp := _arc(from, to, st, bend) + Vector2((_rf() - 0.5) * 12 * u, (t - st) * 40 * u)
-			_square(FIRE_HOT if i % 2 == 0 else FIRE, sp, 1.8 * u, 1.0 - (t - st) * 3.0)
+			# weich statt Kern mit Hof (Prüfer Runde 4b: Punktringe „wie Augen“ am fliegenden Ball)
+			var sc := FIRE_HOT if i % 2 == 0 else FIRE
+			_glow(sp, 1.8 * u, [_a(sc, clampf(1.0 - (t - st) * 3.0, 0.0, 1.0)), _a(sc, 0.0)])
 		return
 	var s := (p - travel) / (1 - travel)
 	var flash := clampf(1 - s / 0.18, 0.0, 1.0)
@@ -379,10 +385,10 @@ func _fireball(p: float, from: Vector2, to: Vector2, ground: float, u: float) ->
 		if ohne == "ballen" or (ohne == "dunkel" and col == FIRE_DARK):
 			continue
 		_glow(c, rad, [_a(col, a0), _a(col, a0 * 0.4), _a(col, 0.0)])
-	if ohne != "rauch":
-		_smoke(to + Vector2(0, -10 * u), (s - 0.25) / 0.75, u, 10, 70.0, 0.3)     # Prüfer Runde 4: zwei dunkle Ballen „wie Augen“
+	# kein Rauch und keine dunkelroten Funken (Weglassprobe Runde 4c: der Rauch war der dunkle Doppelfleck „wie Augen“, die
+	# Funken die roten Punkte und, alle im gleichen Abstand, der Zielscheiben-Ring); Funken füllen die Fläche
 	if ohne != "funken":
-		_burst(to, s, u, [FIRE_HOT, FIRE, FIRE_DARK], 16, 50.0)
+		_burst(to, s, u, [FIRE_HOT, FIRE], 16, 50.0, true)
 
 
 ## Heilung: warmes Licht sammelt sich im Körper, Funken von ringsum, ein Schein schwillt in der Brust und vergeht. Helfer
