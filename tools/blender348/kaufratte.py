@@ -72,7 +72,10 @@ RUTE_LIEGT = float(os.environ.get('RUTE_LIEGT', '2.6'))     # Rute erreicht den 
 RUTE_STEIL = 45.0     # kein Glied steiler abwärts
 RUTE_NACHLAUF = 1     # jedes Glied folgt der Richtung des Körpers so viele Bilder später (Peitsche)
 RUTE_WELLE = 0.25     # Pendeln: Phasenverzug je Glied (rad), die Welle läuft zur Spitze (r4 0,5: Haken an der Spitze)
-RUTE_QUER = 8.0     # Runde 5: seitlich höchstens so viel Grad von Glied zu Glied
+RUTE_QUER = 12.0     # Runde 5: seitlich höchstens so viel Grad von Glied zu Glied
+# Runde 6 (Prüfer r5: Stummel senkrecht, Haken): nach hinten liegt die Rute von der Kamera weg und wirkt verkürzt senkrecht; darum
+# in jeder Haltung seitlich gebogen (Grad an der Spitze), quer zur Blickrichtung
+RUTE_SEITE = float(os.environ.get('RUTE_SEITE', '70'))
 RUTE_TOD_BOGEN = 50.0     # Runde 5: im Tod liegt die Rute so gebogen (Grad an der Spitze)
 # Pendeln je Bewegung: (Ausschlag an der Spitze in Grad, Schwünge je Bewegung, abklingen bis Anteil der Bewegung oder 0)
 RUTE_PENDEL = {'idle': (20, 1, 0), 'walk': (14, 1, 0), 'run': (10, 1, 0), 'q_hocke': (10, 1, 0), 'q_biss': (10, 1, 0),
@@ -462,7 +465,7 @@ def rute_legen(rig, a, art):
             ph = math.asin(max(-1.0, min(1.0, (zp - z) / laenge[i])))
             ph = max(ph, -math.radians(RUTE_STEIL))
             b = hinten[bild(f - RUTE_NACHLAUF * (i + 1))]
-            w = math.radians(amp * math.sin(2 * math.pi * schwuenge * u - RUTE_WELLE * i) + bogen_tod) * (bogen[i] / ganz)
+            w = math.radians(amp * math.sin(2 * math.pi * schwuenge * u - RUTE_WELLE * i) + RUTE_SEITE + bogen_tod) * (bogen[i] / ganz)
             h = Vector((b.x * math.cos(w) - b.y * math.sin(w), b.x * math.sin(w) + b.y * math.cos(w), 0))
             # Runde 5 (Prüfer r4: Spitze als Haken, J oder L, bei Ausweichen links, Treffer rechts, Drohen): seitlich höchstens RUTE_QUER
             # gegen das vorige Glied (Nachlauf bei Drehung und Welle summierten sich an der Spitze)
