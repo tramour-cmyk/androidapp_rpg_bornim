@@ -36,6 +36,8 @@ Anderes Team, Homer, Perikles über deren Vorrat („von Team Tom“); den Chef 
 
 **Aussehen erst als Bild, Build erst nach „passt“** (228, Chef 19.10.): grafische Ideen, Vorschauen und Anpassungen (Outro, Bilder aus dem Spiel, Designs) gehen nicht als Build, sondern als Bild an den Chef (`tools/preview`, Bild höchstens 60 KB); Bewegtes als Bildserie der entscheidenden Momente, ergänzend gern als kurzer Film. **Nur mit Vorgangsnummer und Datei in `docs/chefsache/ansehen/` oder `entscheiden/`**, nie lose im Chat; jedes dieser Bilder zusätzlich mit `meldung.sh --bild` und Sprungmarke an Telegram (228, Klarstellung 21:29). Gebaut wird nach „passt“; Spiellogik braucht weiter den Build, der Gerätetest vor `main` bleibt (Ausnahme 201a). Ersetzt die Einzelauflagen „Standbild vorher“ (211, 68; 90a).
 
+**Geschmack entscheidet der Chef** (371, Chef 27.10., 09:21): bei Glanz, Farbe, Form oder Gesicht zwei oder drei Fassungen auf ein Blatt, ein Helfer prüft nur auf Fehler (338.2), dann sofort per `meldung.sh --bild` an den Chef; keine blinden Helferrunden über Geschmack. **21 bis 7 Uhr nur Technik:** Bewegungen, Fehlerbehebungen, Einbau; offene Aussehensfragen sammelst du auf einem Morgenblatt für den Chef.
+
 ## Start
 
 Kleiner Start (347): Abschnitte nur über ihre Überschrift laden; die Überschriften prüft `regelcheck.py`.
