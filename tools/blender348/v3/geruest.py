@@ -149,7 +149,7 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
             if n is None or e.weight <= 0: continue
             W.setdefault(n, {}); W[n][v.index] = W[n].get(v.index, 0.0) + e.weight
     TEILM = {t: np.array([any(alt_name[e.group] == t and e.weight > 0.5 for e in v.groups) for v in me.vertices])
-             for t in ('TEIL_umhang', 'TEIL_koerper', 'TEIL_schale', 'TEIL_schild', 'TEIL_griff') if t in alt_name.values()}
+             for t in ('TEIL_umhang', 'TEIL_koerper', 'TEIL_schale', 'TEIL_schild', 'TEIL_griff', 'TEIL_scheide') if t in alt_name.values()}
     fremd = [n for n in alt_name.values() if n not in G and n != 'fest' and not n.startswith('TEIL_')]
     if fremd: print('GRUPPEN OHNE ZIEL', fremd)
     # Runde 2 (Fremdpruefung Tom 34: Nadeln an Achseln und Schultern, Bram, Jorin): um die Schultergelenke (12 cm) die Gewichte ueber
@@ -240,7 +240,8 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
     # eigenen Knochen; der folgt ausserhalb des Kampfs den gemittelten Gewichten wie bisher (verstecke_knochen), im Kampf ist er
     # auf ein Tausendstel verkleinert (kampf.py)
     VERSTECK = {}
-    for t, kn_ in (('TEIL_schild', 'schild_ruecken'), ('TEIL_griff', 'schwert_griff')):
+    # Runde 3: die Scheide an einen eigenen Knochen (bleibt sichtbar; kampf.py legt sie im Tod flach)
+    for t, kn_ in (('TEIL_schild', 'schild_ruecken'), ('TEIL_griff', 'schwert_griff'), ('TEIL_scheide', 'scheide')):
         if t not in TEILM or not TEILM[t].any(): continue
         idx = np.where(TEILM[t])[0]; mw_ = M[idx].mean(0)
         VERSTECK[kn_] = ({NG[j]: float(mw_[j]) for j in range(len(NG)) if mw_[j] > 1e-3}, Vector(P[idx].mean(0)))

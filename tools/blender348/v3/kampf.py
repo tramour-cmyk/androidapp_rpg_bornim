@@ -13,7 +13,8 @@
 # Boden; Rueckenschild und Griff in der Scheide im Kampf weg (geruest.py verstecke_knochen); Pruefung mit dem Kopf aus dem Netz.
 # Koordinaten: Armatur in Metern, Blick -Y, links +X, oben +Z. Aufruf aus geruest.py (FIGUR=held) oder zum Probieren allein:
 # bl/bin/python -I kampf.py <held3-rig.blend> <ausgabe.glb>
-import bpy, math, os, sys
+import bpy, math, os, sys, json
+import numpy as np
 from mathutils import Vector, Matrix, Quaternion
 
 FPS = 30
@@ -22,6 +23,7 @@ VERDREH_MAX = 100.0  # Grad: Unterarm um seine Achse gegen die Ruhelage (Stoss m
 VERDREH = 0.4        # Gewicht der Verdrehung gegen den Knick bei der Wahl der Handdrehung
 POL_KOSTEN = 0.15    # je Grad, das der Ellbogen von der gewuenschten Seite abweicht
 KEGEL_KOSTEN = 0.5   # je Grad, das die Klinge (der Schild) von der gewuenschten Richtung abweicht
+OBEN_KOSTEN = 0.4    # je Grad, das die Oberkante des Schilds von oben abweicht (Runde 3)
 
 
 def _upd():
@@ -33,11 +35,12 @@ class Puppe:
         self.sk = sk; self.PB = sk.pose.bones
         self.A = achse_r          # Faustloch rechts im Raum des Handknochens
         self.N = schild_n         # Vorderseite des Schilds im Raum des linken Handknochens
+        self.O = sk.data.bones['hand_l'].matrix_local.to_3x3().inverted() @ Vector((0, 0, 1))   # Oberkante des Schilds dort
         self.REIHE = [b.name for b in sk.data.bones]
 
-    def stelle(self, P):
+    def stelle(self, P):    # Groesse immer 1 (Runde 3: ueber viele Zuweisungen von pb.matrix wuchs die Hand bis auf 80fach)
         for b, (q, l) in P.items():
-            self.PB[b].rotation_quaternion = q; self.PB[b].location = l
+            self.PB[b].rotation_quaternion = q; self.PB[b].location = l; self.PB[b].scale = (1, 1, 1)
         _upd()
 
     def merke(self):
@@ -48,12 +51,12 @@ class Puppe:
 
     def setze(self, b, R3, kopf=None):
         pb = self.PB[b]; h = pb.matrix.translation.copy() if kopf is None else kopf
-        pb.matrix = Matrix.Translation(h) @ R3.to_4x4(); _upd()
+        pb.matrix = Matrix.Translation(h) @ R3.to_quaternion().to_matrix().to_4x4(); pb.scale = (1, 1, 1); _upd()
 
     def drehe(self, b, achse, grad):     # Knochen b um eine Weltachse an seinem Kopf
         pb = self.PB[b]; h = pb.matrix.translation.copy()
         pb.matrix = Matrix.Translation(h) @ Matrix.Rotation(math.radians(grad), 4, achse) @ Matrix.Translation(-h) @ pb.matrix
-        _upd()
+        pb.scale = (1, 1, 1); _upd()
 
     def schiebe(self, b, d):
         pb = self.PB[b]; pb.matrix = Matrix.Translation(Vector(d)) @ pb.matrix; _upd()
@@ -75,10 +78,11 @@ class Puppe:
         self.richte(b1, S + u * x + v * hh); self.richte(b2, T)
         return rest
 
-    def faust(self, s, achse, ziel_dir, nur_kosten=False, kegel=0):
+    def faust(self, s, achse, ziel_dir, nur_kosten=False, kegel=0, oben=None):
         """Hand s so drehen, dass ihre achse (lokal) nach ziel_dir zeigt; um diese Richtung so gedreht, dass Knick gegen den
         Unterarm und Verdrehung um ihn zusammen am kleinsten sind (Verdrehung zaehlt VERDREH-fach); die Verdrehung uebernimmt der
-        Unterarm (sonst verwringt das Handgelenk). Gibt Knick und Verdrehung (Grad)."""
+        Unterarm (sonst verwringt das Handgelenk). oben: (lokale Achse, Weltrichtung) soll moeglichst dorthin zeigen (Schild
+        aufrecht, Runde 3), jedes Grad kostet OBEN_KOSTEN. Gibt Knick und Verdrehung (Grad)."""
         h, lo = 'hand_' + s, 'lowerarm_' + s
         kz = Vector(ziel_dir).normalized()
         R0 = self.W(h).to_3x3()
@@ -110,6 +114,7 @@ class Puppe:
             kn = R.col[1].angle(d)
             c = math.degrees(kn) + VERDREH * abs(math.degrees(ell)) + KEGEL_KOSTEN * ab
             c += 5 * max(0.0, math.degrees(kn) - KNICK_MAX) + 5 * max(0.0, abs(math.degrees(ell)) - VERDREH_MAX)   # ueber die Grenzen teuer
+            if oben: c += OBEN_KOSTEN * math.degrees((R @ oben[0]).angle(oben[1]))
             if best is None or c < best[0]: best = (c, R, kn, tau, ell)
         c, R, kn, tau, ell = best
         if nur_kosten: return c, math.degrees(kn), math.degrees(ell)
@@ -123,6 +128,9 @@ class Puppe:
     def schild(self):
         return (self.W('hand_l').to_3x3() @ self.N).normalized()
 
+    def schild_oben(self):   # Oberkante des Schilds (figur.gd _hold: in der Ruhelage der Hand +Z)
+        return (self.W('hand_l').to_3x3() @ self.O).normalized()
+
 
 KLINGE_M = 0.75      # Langschwert: Griffpunkt bis Spitze (longsword.glb 0,753 m)
 # Schild wie figur.gd _hold (kampfblatt.py): in der Ruhelage der linken Hand Breite laengs -Y, Hoehe +Z, Vorderseite +X; Griff 0,35 der
@@ -130,6 +138,7 @@ KLINGE_M = 0.75      # Langschwert: Griffpunkt bis Spitze (longsword.glb 0,753 m
 SCHILD_UMRISS = [(-0.28, 0.30), (0.28, 0.30), (-0.28, 0.0), (0.28, 0.0), (0.0, -0.42), (-0.2, -0.25), (0.2, -0.25)]
 # Ansichten fuer „Klinge vor dem Gesicht“: Kontaktblatt vorn links und vorn rechts (15 Grad), Spielkamera schraeg (45 Grad)
 SICHTEN = [('vorn links', 35, 15), ('vorn rechts', -35, 15), ('vorn', 0, 45)]
+GESICHT_ANTEIL = 0.10   # Runde 3: so viel des sichtbaren Gesichts darf die Klinge in einem Bild verdecken
 
 
 def _strecke(p, a, b):    # Abstand Punkt p zur Strecke a-b
@@ -162,16 +171,95 @@ def gesicht_verdeckt(kopf, r, g0, sp):
     return out
 
 
-def pruefen(pu, lies, namen, log=print):
+def _bildachsen(d):    # zwei Bildachsen zur Blickrichtung d (zur Kamera hin)
+    e1 = d.cross(Vector((0, 0, 1))).normalized(); e2 = e1.cross(d).normalized()
+    return np.array(e1), np.array(e2), np.array(d)
+
+
+def _abstand_strecke(Q, A, B):
+    """Abstand der Punkte Q (n x k) zu den Strecken A-B (m x k): (n x m) Abstaende und Lage t auf der Strecke"""
+    AB = B - A; t = np.clip(((Q[:, None, :] - A[None]) * AB[None]).sum(-1) / np.maximum((AB * AB).sum(-1), 1e-12)[None], 0, 1)
+    C = A[None] + t[..., None] * AB[None]
+    return np.linalg.norm(Q[:, None, :] - C, axis=-1), t
+
+
+class Netz:
+    """Runde 3: das verformte Netz je Bild als numpy, mit den Teilen aus rig.py (Attribut teil, teile.json) und dem staerksten Knochen
+    je Ecke; ohne die im Kampf ausgeblendeten Teile"""
+    def __init__(self, ob, tn, aus):
+        self.ob = ob; me = ob.data; n = len(me.vertices)
+        t = np.zeros(n, np.int32)
+        if 'teil' in me.attributes: me.attributes['teil'].data.foreach_get('value', t)
+        name = np.array([tn[i] if i < len(tn) else '?' for i in t])
+        gi = {g.index: g.name for g in ob.vertex_groups}
+        kn = np.array([gi[max(v.groups, key=lambda e: e.weight).group] if len(v.groups) else '-' for v in me.vertices])
+        self.aus = np.zeros(n, bool); self.aus[list(aus)] = True
+        da = ~self.aus
+        nr = np.zeros(n * 3); me.vertices.foreach_get('normal', nr); nr = nr.reshape(-1, 3)
+        # Gesicht: Kopfhaut, deren Normale in der Ruhelage nach vorn zeigt
+        self.gesicht = da & (name == 'head') & (nr[:, 1] < -0.4)
+        self.umhang = da & (name == 'cloak')
+        # Rumpf zum Aufliegen: Becken bis Kopf und Oberschenkel, ohne Arme, Umhang, Scheide
+        self.rumpf = da & np.isin(kn, ('pelvis', 'spine_01', 'spine_02', 'spine_03', 'neck_01', 'Head', 'thigh_l', 'thigh_r')) & \
+            ~np.isin(name, ('cloak', 'Cylinder', 'Sphere', 'shield', 'boss'))
+        self.beine = da & np.isin(kn, ('calf_l', 'calf_r', 'foot_l', 'foot_r', 'ball_l', 'ball_r'))
+        self.seite = {s: np.array([k.endswith('_' + s) for k in kn]) for s in 'lr'}
+        self.arme = da & np.array([k.startswith(('upperarm', 'lowerarm', 'hand')) for k in kn])
+        self.unterarme = da & np.array([k.startswith(('lowerarm', 'hand')) for k in kn])
+        self.scheide = da & np.isin(name, ('Cylinder', 'Sphere'))
+        self.alle = da
+
+    def lies(self):
+        dg = bpy.context.evaluated_depsgraph_get(); ev = self.ob.evaluated_get(dg); m = ev.to_mesh()
+        n = len(m.vertices); P = np.zeros(n * 3); N = np.zeros(n * 3)
+        m.vertices.foreach_get('co', P); m.vertices.foreach_get('normal', N); ev.to_mesh_clear()
+        M = np.array(self.ob.matrix_world); P = P.reshape(-1, 3) @ M[:3, :3].T + M[:3, 3]; N = N.reshape(-1, 3) @ M[:3, :3].T
+        self.P, self.N = P, N
+        return P
+
+    def tief(self, maske):
+        self.lies(); return float(self.P[maske, 2].min()) if maske.any() else 9.0
+
+    def gesicht_deckung(self, g0, sp):
+        """je Ansicht der Anteil der sichtbaren Gesichtsecken, vor denen im Bild die Klinge (Parierstange bis Spitze, 2,5 cm um
+        die Mitte) naeher an der Kamera liegt"""
+        out = {}
+        F, Fn = self.P[self.gesicht], self.N[self.gesicht]
+        S = np.array([g0 + (sp - g0) * (i / 12) for i in range(13)])
+        for nm, az, el in SICHTEN:
+            a, e = math.radians(az), math.radians(el)
+            d = Vector((math.sin(a) * math.cos(e), -math.cos(a) * math.cos(e), math.sin(e)))
+            e1, e2, dd = _bildachsen(d)
+            sicht = Fn @ dd > 0.1
+            if sicht.sum() < 5: continue
+            f = F[sicht]; Q = np.stack([f @ e1, f @ e2], 1); fz = f @ dd
+            s2 = np.stack([S @ e1, S @ e2], 1); sz = S @ dd
+            ab, t = _abstand_strecke(Q, s2[:-1], s2[1:])
+            zc = sz[:-1][None] + t * (sz[1:] - sz[:-1])[None]
+            out[nm] = float(((ab < 0.025) & (zc > fz[:, None] + 0.01)).any(1).mean())
+        return out
+
+    def nah(self, maske, g0, sp, r=0.02):   # Ecken von maske naeher als r an der Klinge (3D)
+        Q = self.P[maske]
+        if not len(Q): return 0
+        S = np.array([g0 + (sp - g0) * (i / 12) for i in range(13)])
+        ab, _ = _abstand_strecke(Q, S[:-1], S[1:])
+        return int((ab.min(1) < r).sum())
+
+
+def pruefen(pu, lies, namen, log=print, NZ=None):
     """je Bewegung und Bild: Knick im Handgelenk, Drehung des Unterarms, Klinge zu Kopf, Rumpf, Beinen und Schildarm (Luft in m,
     negativ = hinein), Sprung der Klingenspitze je Bild (m), tiefster Punkt der Sohlen und der Spitze (m); Klinge vor dem Gesicht
-    (Bilder), waagerecht vor der Huefte (Bilder), Ellbogen ueber der Linie Schulter-Hand (m), Schild tiefst (m)"""
+    (Bilder mit mehr als GESICHT_ANTEIL der sichtbaren Gesichtsecken verdeckt, je Ansicht), durch den Umhang (Bilder), waagerecht vor
+    der Huefte, waagerecht zur Seite, senkrecht vor den Beinen (Bilder), Ellbogen ueber der Linie Schulter-Hand (Grad), Schild tiefst
+    (m) und Oberkante gegen oben (Grad, groesster Wert stehend); Netz tiefst (m), im Liegen Rumpf hoechstens ueber dem Boden (m)"""
     out = {}
     for nm in namen:
         if nm not in bpy.data.actions: continue
         act = bpy.data.actions[nm]; n = int(round(act.frame_range[1] - act.frame_range[0]))
         kn_, tw_, luft, wo, spr, boden, spitze_z = 0, 0, 9.0, '', 0.0, 9.0, 9.0
-        gesicht, waag, ell, schild_z = {}, [], 0.0, 9.0
+        gesicht, waag, seit, senk, umh, ell, schild_z, schild_oben = {}, [], [], [], [], 0.0, 9.0, 0.0
+        netz_z, rumpf_hoch, hand_z = 9.0, 0.0, 9.0
         alt = None
         for f in range(n + 1):
             pu.stelle(lies(act, f)); W = lambda b: pu.W(b).translation
@@ -179,14 +267,28 @@ def pruefen(pu, lies, namen, log=print):
             d = pu.W('lowerarm_r').col[1].xyz.normalized()
             kn_ = max(kn_, math.degrees(pu.W('hand_r').col[1].xyz.normalized().angle(d)))
             kopf = pu.W('Head') @ pu.KOPF[0]
-            for v in gesicht_verdeckt(kopf, pu.KOPF[1] * 0.8, g0, sp): gesicht.setdefault(v, []).append(f)
+            steht = W('pelvis').z > 0.6
             vorn = (pu.W('pelvis').to_3x3() @ pu.sk.data.bones['pelvis'].matrix_local.to_3x3().inverted()) @ Vector((0, -1, 0))
-            if abs(math.degrees(math.asin(max(-1.0, min(1.0, kl.z))))) < 20 and kl.dot(vorn) > 0.5 and 0.6 < H.z < 1.12 and W('pelvis').z > 0.6:
-                waag.append(f)
+            rechts = (pu.W('pelvis').to_3x3() @ pu.sk.data.bones['pelvis'].matrix_local.to_3x3().inverted()) @ Vector((-1, 0, 0))
+            if NZ:
+                NZ.lies()
+                for v, a_ in NZ.gesicht_deckung(g0, sp).items():
+                    if a_ > GESICHT_ANTEIL: gesicht.setdefault(v, []).append(f)
+                if NZ.nah(NZ.umhang, g0, sp) > 0: umh.append(f)
+                netz_z = min(netz_z, float(NZ.P[NZ.alle, 2].min()))
+                hand_z = min(hand_z, float(NZ.P[NZ.arme, 2].min()))
+                if nm == 'Tod' and f >= n - 30: rumpf_hoch = max(rumpf_hoch, float(NZ.P[NZ.rumpf, 2].min()))
+            else:
+                for v in gesicht_verdeckt(kopf, pu.KOPF[1] * 0.8, g0, sp): gesicht.setdefault(v, []).append(f)
+            neig = math.degrees(math.asin(max(-1.0, min(1.0, kl.z))))
+            if abs(neig) < 20 and kl.dot(vorn) > 0.5 and 0.6 < H.z < 1.12 and steht: waag.append(f)
+            if abs(neig) < 20 and abs(kl.dot(rechts)) > 0.75 and steht: seit.append(f)
+            if neig < -60 and steht and abs((sp - W('pelvis')).dot(rechts)) < 0.25 and (sp - W('pelvis')).dot(vorn) > 0: senk.append(f)
             S_ = W('upperarm_r'); E_ = W('lowerarm_r'); u_ = (H - S_).normalized(); e_ = (E_ - S_) - u_ * (E_ - S_).dot(u_)
             un = Vector((0, 0, -1)) - u_ * (-u_.z)     # Ellbogen als Winkel um die Linie Schulter-Hand: 0 unten, 90 seitlich, 180 oben
-            if e_.length > 0.03 and un.length > 0.2 and W('pelvis').z > 0.6: ell = max(ell, math.degrees(e_.angle(un)))
+            if e_.length > 0.03 and un.length > 0.2 and steht: ell = max(ell, math.degrees(e_.angle(un)))
             schild_z = min(schild_z, min(p.z for p in schild_punkte(pu)))
+            if steht: schild_oben = max(schild_oben, math.degrees(pu.schild_oben().angle(Vector((0, 0, 1)))))
             koerper = {'Kopf': (kopf, None, pu.KOPF[1]),
                        'Rumpf': (W('pelvis'), W('neck_01'), 0.15),
                        'Bein links': (W('thigh_l'), W('foot_l'), 0.08), 'Bein rechts': (W('thigh_r'), W('foot_r'), 0.08),
@@ -200,10 +302,15 @@ def pruefen(pu, lies, namen, log=print):
             spitze_z = min(spitze_z, sp.z)
         out[nm] = {'knick': round(kn_), 'luft_m': round(luft, 3), 'wo': wo, 'sprung_m': round(spr, 3), 'gelenk_z': round(boden, 3),
                    'spitze_z': round(spitze_z, 2), 'gesicht': {k: len(v) for k, v in gesicht.items()}, 'waagerecht': len(waag),
-                   'ellbogen_grad': round(ell), 'schild_z': round(schild_z, 3)}
+                   'seitlich': len(seit), 'senkrecht_vor_beinen': len(senk), 'umhang': len(umh),
+                   'ellbogen_grad': round(ell), 'schild_z': round(schild_z, 3), 'schild_oben_grad': round(schild_oben),
+                   'netz_z': round(netz_z, 3), 'hand_z': round(hand_z, 3), 'rumpf_hoch_m': round(rumpf_hoch, 3)}
         log('PRUEF %-12s Knick %3d  Klinge Luft %+.3f m (%s)  Spitze je Bild bis %.2f m  Gelenk tiefst %+.3f  Spitze tiefst %.2f  '
-            'vor Gesicht %s  waagerecht %s  Ellbogen %3d Grad von unten  Schild tiefst %+.3f' % (
-            nm, kn_, luft, wo, spr, boden, spitze_z, {k: '%d-%d' % (v[0], v[-1]) for k, v in gesicht.items()} or '-', waag or '-', ell, schild_z))
+            'vor Gesicht %s  Umhang %s  waagerecht %s  seitlich %s  senkrecht vor Beinen %s  Ellbogen %3d Grad von unten  Schild tiefst %+.3f'
+            '  Schild oben %d Grad  Netz tiefst %+.3f  Hand tiefst %+.3f%s' % (
+            nm, kn_, luft, wo, spr, boden, spitze_z, gesicht or '-', umh or '-',
+            waag or '-', seit or '-', senk or '-', ell, schild_z, schild_oben, netz_z, hand_z,
+            '  Rumpf im Liegen bis %+.3f' % rumpf_hoch if nm == 'Tod' else ''))
     return out
 
 
@@ -252,6 +359,16 @@ def bauen(sk, INFO, stehen='Stehen', tod='Tod', log=print):
     if NETZ:
         vg = [NETZ.vertex_groups[b].index for b in VERSTECK if b in NETZ.vertex_groups]
         AUS = {v.index for v in NETZ.data.vertices if any(e.group in vg and e.weight > 0.5 for e in v.groups)}
+    tn_ = os.path.join(os.environ.get('OUT', os.path.dirname(bpy.data.filepath)), 'teile.json')
+    NZ = Netz(NETZ, json.load(open(tn_)), AUS) if NETZ and os.path.exists(tn_) else None
+    # Runde 3 (Fremdpruefung 2b: im Tod steht die Scheide wie ein Stuhlbein): Scheide an eigenem Knochen (geruest.py), Ecken in Ruhe
+    SCH = None
+    if NETZ and 'scheide' in sk.data.bones and 'scheide' in NETZ.vertex_groups:
+        gs = NETZ.vertex_groups['scheide'].index
+        sv = [NETZ.matrix_world @ v.co for v in NETZ.data.vertices if any(e.group == gs and e.weight > 0.5 for e in v.groups)]
+        if sv:
+            oben_ = max(sv, key=lambda q: q.z); unten_ = min(sv, key=lambda q: q.z)
+            SCH = (sv, oben_, (unten_ - oben_).normalized())
 
     def lies(act, f):
         ad.action = act; ad.use_nla = False
@@ -283,18 +400,25 @@ def bauen(sk, INFO, stehen='Stehen', tod='Tod', log=print):
     S0 = lies(st_act, 0)
     pu.stelle(S0)
     KOPF0 = {b: pu.W(b).to_3x3() for b in ('neck_01', 'Head')}
-    FUSS0 = {s: pu.W('foot_' + s) for s in 'lr'}
+    # Runde 3 (Fremdpruefung 2b: Kampfstehen mit gekreuzten Fuessen auf den Zehen; Stehen hebt die Fersen 3 cm): eigener Stand, Fuesse
+    # flach wie in der Ruhelage, linker Fuss vor, schulterbreit (von vorn links lagen sie sonst im Bild uebereinander), rechte Spitze
+    # nach aussen
+    def fussmatrix(s, d, gier, kipp=0.0):   # gier: + Spitze nach links; kipp: + Spitze nach unten
+        R = Matrix.Rotation(math.radians(gier), 3, 'Z') @ Matrix.Rotation(math.radians(kipp), 3, 'X') @ RL('foot_' + s)
+        M = R.to_4x4(); M.translation = Vector(d); return M
+    zk = sk.data.bones['foot_l'].head_local.z       # Knoechel ueber dem Boden in der Ruhelage
+    FUSS0 = {'l': fussmatrix('l', (0.15, -0.09, zk), 10), 'r': fussmatrix('r', (-0.16, 0.15, zk), -28)}
 
     def blick(stark=1.0):     # Hals und Kopf halten den Blick wie in Stehen (der Rumpf dreht darunter)
         for b, k in (('neck_01', 0.5), ('Head', 1.0)):
             R = pu.W(b).to_3x3(); q = R.to_quaternion().slerp(KOPF0[b].to_quaternion(), k * stark)
             pu.setze(b, q.to_matrix())
 
-    def fuesse(ziel=None):    # Fuesse an ihren Ort (Welt) und flach wie in Stehen; Knie nach vorn
+    def fuesse(ziel=None, pol=None, rot=None):    # Fuesse an ihren Ort (Welt) und flach wie im Kampfstand; Knie nach vorn (pol)
         for s in 'lr':
             T = (ziel or {}).get(s, FUSS0[s].translation)
-            pu.zwei('thigh_' + s, 'calf_' + s, T, Vector((0.15 if s == 'l' else -0.15, -1.0, 0.0)))
-            pu.setze('foot_' + s, FUSS0[s].to_3x3())
+            pu.zwei('thigh_' + s, 'calf_' + s, T, Vector(pol or (0.15 if s == 'l' else -0.15, -1.0, 0.0)))
+            pu.setze('foot_' + s, (rot or {}).get(s, FUSS0[s].to_3x3()))
 
     def rumpf(dreh=0.0, vor=0.0, seit=0.0):    # + dreh: rechte Schulter vor; + vor: nach vorn; + seit: nach links
         for b in ('spine_01', 'spine_02', 'spine_03'):
@@ -307,7 +431,8 @@ def bauen(sk, INFO, stehen='Stehen', tod='Tod', log=print):
         if seit: pu.drehe('pelvis', 'Y', -seit)
 
     KN = {}
-    def arm(sd, achse, hand, pol, ziel, name, kegel=24, spiel=90, leise=False):
+    OBEN_L = (pu.O, Vector((0, 0, 1)))    # Schild aufrecht (Runde 3)
+    def arm(sd, achse, hand, pol, ziel, name, kegel=24, spiel=90, leise=False, oben=None):
         """Arm sd: Hand an hand, Achse nach ziel; das Gelenk (Ellbogen) um die Linie Schulter-Hand bis 90 Grad von pol weg, wo Knick
         und Verdrehung im Handgelenk am kleinsten sind (jedes Grad Abweichung zaehlt POL_KOSTEN), nie in den Rumpf"""
         P0 = pu.merke(); S_ = pu.W('upperarm_' + sd).translation.copy(); u = (Vector(hand) - S_).normalized()
@@ -317,7 +442,7 @@ def bauen(sk, INFO, stehen='Stehen', tod='Tod', log=print):
             pol_ = Matrix.Rotation(math.radians(dl), 3, u) @ Vector(pol)
             rest = pu.zwei('upperarm_' + sd, 'lowerarm_' + sd, hand, pol_)
             E = pu.W('lowerarm_' + sd).translation
-            c, kn, tw = pu.faust(sd, achse, ziel, nur_kosten=True, kegel=kegel)
+            c, kn, tw = pu.faust(sd, achse, ziel, nur_kosten=True, kegel=kegel, oben=oben)
             # Ellbogen nicht im Rumpf: Abstand zur Achse Becken-Brust unter 16 cm kostet
             B, C = pu.W('spine_01').translation, pu.W('neck_01').translation; ax = (C - B).normalized()
             q = E - B; dr = (q - ax * q.dot(ax)).length
@@ -325,7 +450,7 @@ def bauen(sk, INFO, stehen='Stehen', tod='Tod', log=print):
             if best is None or c < best[0]: best = (c, dl, pol_)
         pu.stelle(P0)
         rest = pu.zwei('upperarm_' + sd, 'lowerarm_' + sd, hand, best[2])
-        kn, tw = pu.faust(sd, achse, ziel, kegel=kegel)
+        kn, tw = pu.faust(sd, achse, ziel, kegel=kegel, oben=oben)
         ab = math.degrees((pu.W('hand_' + sd).to_3x3() @ achse).angle(Vector(ziel)))
         KN[name] = (round(kn), round(tw), best[1], round(ab), round(rest, 3))
         if not leise and (kn > KNICK_MAX or abs(tw) > VERDREH_MAX or rest > 0.01):
@@ -343,17 +468,28 @@ def bauen(sk, INFO, stehen='Stehen', tod='Tod', log=print):
             pu.stelle(P0); klinge = best[1]; log('KAMPF %s Klinge %s' % (name, tuple(round(x, 2) for x in klinge)))
         arm('r', A, hand, pol, Vector(klinge).normalized(), name, spiel=spiel, kegel=kegel)
 
-    def schildarm(hand, pol, vorn, name=''):
-        arm('l', N, hand, pol, vorn, name + ' Schild')
+    def schildarm(hand, pol, vorn, name='', oben=True):
+        arm('l', N, hand, pol, vorn, name + ' Schild', oben=OBEN_L if oben else None)
 
-    # ------------------------------------------------------------ Kampfstehen: Stehen, Schwertarm in Bereitschaft
-    BEREIT = dict(hand=(-0.25, -0.20, 1.06), pol=(-0.5, 0.6, -0.3), klinge=(-0.20, -0.45, 0.85))
-    pu.stelle(S0); schwertarm(name='Bereit', **BEREIT)
+    # ------------------------------------------------------------ Kampfstehen: Kampfstand, Schwertarm in Bereitschaft, Schild vor dem Bauch
+    # Runde 3 (Fremdpruefung 2b: von hinten lag der Schild wie auf dem Ruecken): Schildarm vor, Schild nach vorn und aufrecht
+    # Runde 3: Klinge weiter nach rechts aussen (von vorn rechts stand sie vor dem Gesicht, Pruefung mit den Gesichtsecken)
+    BEREIT = dict(hand=(-0.25, -0.20, 1.06), pol=(-0.5, 0.6, -0.3), klinge=(-0.55, -0.40, 0.73))
+    WACHE = dict(hand=(0.22, -0.26, 1.02), pol=(1.0, 0.3, -0.5), vorn=(0.30, -0.95, 0.05))
     ARM_R = ('clavicle_r', 'upperarm_r', 'lowerarm_r', 'hand_r')
-    B0 = pu.merke(); ARM = {b: B0[b] for b in ARM_R}
+    ARM_L = ('clavicle_l', 'upperarm_l', 'lowerarm_l', 'hand_l')
+
+    def stand():     # Knie leicht gebeugt, linke Seite vor, Fuesse im Kampfstand
+        becken((0, 0.02, -0.045), dreh=-10); rumpf(dreh=-6); fuesse()
+
+    pu.stelle(S0); stand(); blick()
+    schwertarm(name='Bereit', **BEREIT); schildarm(name='Wache', **WACHE)
+    B0 = pu.merke(); ARM = {b: B0[b] for b in ARM_R + ARM_L}
     kampfstehen = []
     for f in range(n_st + 1):
-        P = lies(st_act, f); P.update(ARM); kampfstehen.append(P)
+        pu.stelle(lies(st_act, f)); stand()
+        for b in ('neck_01', 'Head'): pu.drehe(b, 'Z', 8)    # Blick nach vorn wie in Stehen
+        P_ = pu.merke(); P_.update(ARM); kampfstehen.append(P_)
     schreibe('Kampfstehen', kampfstehen, True)
     K0 = kampfstehen[0]
 
@@ -364,10 +500,18 @@ def bauen(sk, INFO, stehen='Stehen', tod='Tod', log=print):
     def ausgeholt(stark=1.0):     # Schwert ueber der rechten Schulter, Klinge nach hinten oben, Rumpf rechts zurueck
         # Runde 2 (Pruefer: Klinge durch den Kopf statt ueber die rechte Schulter; dann Faust auf Kopfhoehe, Arm senkrecht, Klinge
         # waagerecht am Helm): Faust vor der rechten Schulter, Ellbogen unten, Klinge ueber die Schulter nach hinten oben
-        becken((0, 0.03 * stark, -0.03 * stark), dreh=-8 * stark)
-        rumpf(dreh=-18 * stark, vor=-4 * stark)
+        # Runde 3 (Pruefer: wie Hochrecken): Faust auf Schulterhoehe weiter rechts, Klinge flacher nach hinten, Knie tiefer
+        becken((0, 0.04 * stark, -0.04 * stark), dreh=-6 * stark)
+        rumpf(dreh=-16 * stark, vor=2 * stark)
         fuesse()
-        schwertarm((-0.26, -0.08, 1.48), (-0.4, 0.2, -1.0), (-0.25, 0.62, 0.74), schulter=6 * stark, name='Ausgeholt', kegel=8)
+        schwertarm((-0.34, 0.02, 1.36), (-0.6, 0.4, -0.7), (-0.25, 0.80, 0.55), schulter=4 * stark, name='Ausgeholt', kegel=8)
+        blick()
+
+    def ausholen_weg():    # Runde 3 (Pruefer: Klinge vor dem Gesicht von vorn rechts bei 0,13 s): auf dem Weg nach hinten geht die
+        # Klinge rechts aussen am Kopf vorbei
+        becken((0, 0.02, -0.03), dreh=-3); rumpf(dreh=-8)
+        fuesse()
+        schwertarm((-0.42, -0.10, 1.22), (-0.6, 0.3, -0.7), (-0.80, -0.05, 0.60), name='Ausholen Weg', kegel=8)
         blick()
 
     def ausfall(vor_cm=22, tief=0.07):   # linker Fuss vor, Becken vor und tief
@@ -375,33 +519,41 @@ def bauen(sk, INFO, stehen='Stehen', tod='Tod', log=print):
         fl = FUSS0['l'].translation + Vector((0.0, -vor_cm / 100.0, 0.0))
         fuesse({'l': fl})
 
-    def hieb_mitte():     # Runde 2 (Pruefer: der Hieb ging erst waagerecht zur Seite): Faust ueber der rechten Schulter vorn, Klinge steil
-        ausfall(10, 0.03); rumpf(dreh=2, vor=4)
-        schwertarm((-0.26, -0.30, 1.60), (-0.6, 0.2, -0.6), (0.15, -0.45, 0.88), schulter=6, name='Hieb Mitte', kegel=8,
-                   wahl=[(x_, y_, 0.9) for x_ in (-0.2, 0.0, 0.2, 0.4) for y_ in (-0.7, -0.4, -0.1)])
+    # Runde 3 (Pruefer 2b: Klinge bei 0,27-0,30 vor dem Gesicht von vorn rechts, bei 0,33 waagerecht zur Seite, Ende senkrecht vor den
+    # Beinen): oben bleibt die Faust rechts neben dem Kopf, in der Mitte zeigt die Klinge nach vorn, am Ende links aussen am Bein vorbei
+    def hieb_oben():
+        ausfall(8, 0.02); rumpf(dreh=-2, vor=2)
+        schwertarm((-0.40, -0.12, 1.58), (-0.7, 0.2, -0.6), (-0.30, -0.15, 0.94), schulter=6, name='Hieb oben', kegel=8,
+                   wahl=[(x_, y_, 0.94) for x_ in (-0.45, -0.3, -0.15) for y_ in (-0.3, -0.1, 0.1)])
         blick()
 
-    def aufschlag():    # schraeg von rechts oben nach links unten, Faust vor der linken Huefte, Spitze links unten zum Boden
+    def hieb_mitte():
+        ausfall(16, 0.05); rumpf(dreh=12, vor=6)
+        schwertarm((-0.10, -0.48, 1.30), (-0.7, 0.0, -0.7), (0.35, -0.85, -0.10), name='Hieb Mitte', kegel=8,
+                   wahl=[(x_, -0.85, z_) for x_ in (0.2, 0.35, 0.5) for z_ in (-0.25, -0.1, 0.05, 0.2, 0.35)])
+        blick()
+
+    def aufschlag():    # schraeg von rechts oben nach links unten, Faust vor der linken Huefte, Klinge links aussen am Bein vorbei
         # Runde 2 (Pruefer: Faust im Schritt, Klinge waagerecht vor der Huefte): Faust 13 cm weiter links, Klinge steil nach unten
-        ausfall(); rumpf(dreh=22, vor=10)
-        schwertarm((0.14, -0.42, 1.02), (-0.6, 0.0, -0.8), (0.65, -0.45, -0.60), name='Aufschlag', kegel=8,
-                   wahl=[(x_, -0.45, z_) for x_ in (0.3, 0.45, 0.6) for z_ in (-0.6, -0.8, -1.0)])   # Spitze links unten, nie waagerecht
+        ausfall(); rumpf(dreh=24, vor=10)
+        schwertarm((0.14, -0.38, 1.04), (-0.6, 0.0, -0.8), (0.75, -0.35, -0.55), name='Aufschlag', kegel=8,
+                   wahl=[(x_, y_, z_) for x_ in (0.65, 0.8) for y_ in (-0.45, -0.25) for z_ in (-0.5, -0.65)])   # 30-45 Grad unter waagerecht
         blick()
 
     # Runde 2 (Pruefer: Stich mit dem Ellbogen hoch): Ellbogen nach unten aussen, hoechstens 30 Grad davon weg (sonst waehlte der Bau
     # 60 und 90 Grad, weil die Faust so weniger knickt); Stoss: Faust auf Brusthoehe, Klinge aus der wahl (tiefer stand sie waagerecht
     # vor dem Bauch, hoeher verdrehte der Unterarm ueber 120 Grad)
+    # Runde 3 (Pruefer 2b: von vorn rechts unlesbar): weiter zurueck und tiefer, weiter vor, Arm gestreckt, Klinge gerade nach vorn
     def stich_zurueck():   # Faust an die rechte Brustseite zurueck, Klinge nach vorn, leicht gehoben
-        # Runde 2b (Pruefer: Faust zurueck kaum zu sehen, Klinge zeigte nach links): 6 cm weiter zurueck, Klinge enger nach vorn
-        becken((0, 0.05, -0.03), dreh=-12); rumpf(dreh=-20)
+        becken((0, 0.06, -0.04), dreh=-10); rumpf(dreh=-18)
         fuesse()
-        schwertarm((-0.28, 0.16, 1.18), (-0.3, 0.5, -1.0), (0.0, -0.97, 0.20), name='Stich zurueck', spiel=30, kegel=8)
+        schwertarm((-0.30, 0.22, 1.14), (-0.3, 0.5, -1.0), (0.0, -0.98, 0.18), name='Stich zurueck', spiel=30, kegel=8)
         blick()
 
     def stoss():           # Faust vor, Klinge auf Brusthoehe nach vorn
-        ausfall(24, 0.08); rumpf(dreh=14, vor=8)
-        schwertarm((-0.20, -0.46, 1.22), (-0.5, 0.2, -1.0), (0.25, -0.96, 0.10), name='Stoss', spiel=30, kegel=8,
-                   wahl=[(x_, -1.0, z_) for x_ in (0.0, 0.25, 0.5, 0.75) for z_ in (-0.15, 0.0, 0.15)])
+        ausfall(34, 0.11); rumpf(dreh=28, vor=10)
+        schwertarm((-0.14, -0.56, 1.24), (-0.5, 0.2, -1.0), (0.10, -0.99, 0.05), name='Stoss', spiel=30, kegel=8,
+                   wahl=[(x_, -1.0, z_) for x_ in (0.0, 0.12, 0.25) for z_ in (-0.05, 0.05, 0.15)])
         blick()
 
     # Runde 2 (Pruefer: Treffer und Ausweichen zu schwach): etwa doppelt so weit
@@ -416,138 +568,195 @@ def bauen(sk, INFO, stehen='Stehen', tod='Tod', log=print):
     def ausweichen():      # Schritt nach links weg, Knie gebeugt, Oberkoerper seitlich; Schwert aussen rechts, nicht vor dem Gesicht
         # Runde 2b (Pruefer: kaum seitlich, wirkt wie Ducken; Schwertarm steif seitlich wie ein Wegweiser): ganzer Schritt 40 cm zur
         # Seite, weniger tief; Schwert wie in der Bereitschaft vorn
-        becken((0.40, 0.08, -0.06), dreh=-14, seit=6); rumpf(dreh=-14, vor=-8, seit=14)
-        fuesse({'l': FUSS0['l'].translation + Vector((0.46, 0.06, 0.0)), 'r': FUSS0['r'].translation + Vector((0.32, 0.08, 0.0))})
-        schwertarm((0.20, -0.10, 1.04), (-0.5, 0.6, -0.4), (-0.60, -0.35, 0.72), name='Ausweichen')   # rechts vor dem verschobenen Becken
+        # Runde 3 (Pruefer: 40 cm kaum sichtbar): schraeg nach links hinten, tiefer, Oberkoerper staerker zur Seite
+        becken((0.40, 0.18, -0.12), dreh=-16, seit=8); rumpf(dreh=-10, vor=-6, seit=22)
+        fuesse({'l': FUSS0['l'].translation + Vector((0.46, 0.14, 0.0)), 'r': FUSS0['r'].translation + Vector((0.30, 0.16, 0.0))})
+        schwertarm((0.16, -0.06, 1.0), (-0.5, 0.6, -0.4), (-0.60, -0.35, 0.72), name='Ausweichen')   # rechts vor dem verschobenen Becken
         blick(0.7)
 
-    def abwehr():          # Schild vor die Brust, Vorderseite nach vorn; Schwert rechts hinten hochgenommen, Knie etwas gebeugt
+    def abwehr():          # Schild vor die Brust, Vorderseite nach vorn; Schwert rechts hochgenommen, Knie etwas gebeugt
         # Runde 2 (Pruefer: Klinge vor dem Gesicht): Klinge nach rechts hinten oben statt senkrecht vor der Schulter
+        # Runde 3 (Pruefer: roter Streifen durch den Umhang): Klinge nach rechts aussen oben statt nach hinten
         becken((0, 0.03, -0.05), dreh=8); rumpf(dreh=6, vor=4)
         fuesse()
         schildarm((0.06, -0.30, 1.14), (1.0, -0.2, -0.4), (-0.15, -0.95, 0.25), name='Abwehr')
-        schwertarm((-0.32, 0.06, 1.12), (-0.6, 0.6, -0.3), (-0.35, 0.40, 0.85), name='Abwehr')
+        schwertarm((-0.36, -0.02, 1.14), (-0.6, 0.5, -0.4), (-0.55, 0.10, 0.83), name='Abwehr')
         blick()
 
     def hoch():            # Rueckweg vom Aufschlag: Faust hoch vor den Bauch, Klinge links aufgerichtet
         ausfall(7, 0.02); rumpf(dreh=8, vor=4)
-        schwertarm((0.0, -0.40, 1.14), (-0.6, 0.0, -0.8), (0.90, -0.10, 0.35), name='Hieb hoch')
+        schwertarm((0.0, -0.40, 1.14), (-0.6, 0.0, -0.8), (0.75, -0.15, 0.55), name='Hieb hoch')   # Runde 3: steiler (sonst waagerecht zur Seite)
         blick()
 
-    P = {n: pose(fn) for n, fn in (('aus', ausgeholt), ('hoch', hoch), 
-                                    ('auf', aufschlag), ('szur', stich_zurueck), ('stoss', stoss), ('treffer', getroffen),
-                                    ('ausw', ausweichen), ('abwehr', abwehr))}
-    P['k0'] = K0
-    P['mitte'] = pose(hieb_mitte)
+    # ------------------------------------------------------------ Tod (Runde 3, Pruefer 2b: bei 0,80 s Sitz auf einem unsichtbaren Stuhl,
+    # bei 1,00 Liegestuhl in der Luft, Scheide wie ein Stuhlbein): eigener Fall nach hinten aus Schluesselbildern statt Death01; die Knie
+    # geben nach, er faellt aufs Gesaess, dann auf den Ruecken, die Beine gleiten vor; ab dem Sitzen liegt der Rumpf (Becken bis Kopf,
+    # Oberschenkel, ohne Arme, Umhang, Scheide) auf dem Boden; die Haende stuetzen nie; die Scheide legt sich flach
+    def erde(nach=None, n=3):    # Becken heben oder senken, bis der Rumpf auf dem Boden liegt; danach nach() (Fuesse, Arme neu)
+        for _ in range(n):
+            if NZ: z = NZ.tief(NZ.rumpf)
+            else: z = min(pu.W(b).translation.z for b in ('pelvis', 'spine_03', 'Head')) - 0.10
+            if abs(z) < 0.003: break
+            pu.schiebe('pelvis', (0, 0, -z))
+            if nach: nach()
 
-    ARME = [b + s for s in ('_r', '_l') for b in ('clavicle', 'upperarm', 'lowerarm', 'hand')]
-    BEINE = [b + s for s in ('_r', '_l') for b in ('thigh', 'calf', 'foot', 'ball')]
-
-    def netz_tief():      # tiefster Punkt des Netzes ohne die ausgeblendeten Teile (m)
-        if not NETZ: return None
-        dg = bpy.context.evaluated_depsgraph_get(); ev = NETZ.evaluated_get(dg); me = ev.to_mesh()
-        z = [v.co.z for i, v in enumerate(me.vertices) if i not in AUS]
-        ev.to_mesh_clear()
-        return min(z)
-
-    def tod_liegen(frames):
-        nt = len(frames) - 1
+    def achsen():     # zum Kopf und nach rechts, waagerecht
         W = lambda b: pu.W(b).translation
-        ad.action = None; ad.use_nla = False
-        zb = []
-        for P_ in frames:
-            pu.stelle(P_); zb.append((W('pelvis').z, W('spine_03').z))
-        f0 = next(f for f in range(nt + 1) if zb[f][0] < 0.6)                 # Becken sinkt: das Fallen beginnt
-        f1 = next(f for f in range(f0, nt + 1) if zb[f][1] < 0.25)            # Brust am Boden
-        # Runde 2b (Pruefer: setzt sich auf einen unsichtbaren Stuhl, dann in 0,2 s liegend): von der Quelle nur der Anfang (Knie
-        # geben nach) bis fa und das Liegen ab fb; dazwischen gemischt, beschleunigt wie ein Fall
-        fa = max(1, f0 - 9); fb = min(nt, f1 + 3)
-        Pa, Pb = frames[fa], frames[fb]
-        frames = list(frames)
-        for f in range(fa + 1, fb):
-            frames[f] = mische(Pa, Pb, ease((f - fa) / (fb - fa), 'an'))
-        pu.stelle(frames[-1])
-        lang = W('Head') - W('pelvis'); lang.z = 0; lang.normalize()             # zum Kopf
+        lang = W('Head') - W('pelvis'); lang.z = 0; lang.normalize()
         rechts = (pu.W('pelvis').to_3x3() @ sk.data.bones['pelvis'].matrix_local.to_3x3().inverted()) @ Vector((-1, 0, 0))
         rechts.z = 0; rechts.normalize()
+        return lang, rechts
+
+    def scheide_flach(k=1.0):    # Scheide um ihr oberes Ende waagerecht, tiefster Punkt 1,5 cm ueber dem Boden
+        if not SCH or k <= 0: return
+        sv, o_, a_ = SCH; Rb = sk.data.bones['scheide'].matrix_local; pb = pu.PB['scheide']
+        Md = pu.W('scheide') @ Rb.inverted(); o = Md @ o_; a = (Md.to_3x3() @ a_).normalized()
+        f = Vector((a.x, a.y, 0.0))
+        f = f.normalized() if f.length > 0.2 else -achsen()[0]
+        q = Quaternion().slerp(a.rotation_difference(f), k)
+        pb.matrix = Matrix.Translation(o) @ q.to_matrix().to_4x4() @ Matrix.Translation(-o) @ pu.W('scheide'); pb.scale = (1, 1, 1); _upd()
+        Md = pu.W('scheide') @ Rb.inverted(); z = min((Md @ v).z for v in sv)
+        pu.schiebe('scheide', (0, 0, (0.015 - z) * k))
+
+    def tod_zuck():      # Ruck nach hinten, Kopf zurueck, die Arme sinken
+        becken((0, 0.07, -0.02), vor=-5); rumpf(vor=-14, dreh=-6)
+        fuesse()
+        schwertarm((-0.36, 0.04, 0.98), (-0.6, 0.6, -0.3), (-0.80, -0.25, -0.55), name='Tod zuck')   # aussen, nie waagerecht vor der Huefte
+        schildarm((0.30, -0.06, 0.98), (1.0, 0.2, -0.6), (0.4, -0.9, 0.0), name='Tod zuck')
+        blick(0.3); pu.drehe('Head', 'X', -14)
+
+    def tod_knick():     # die Knie geben nach, das Becken sinkt 30 cm, die Arme haengen
+        becken((0, 0.12, -0.30), vor=6); rumpf(vor=-4)
+        fuesse()
+        schwertarm((-0.34, 0.10, 0.62), (-0.6, 0.6, -0.2), (-0.60, -0.20, -0.75), name='Tod knick')
+        schildarm((0.32, 0.06, 0.64), (1.0, 0.3, -0.3), (0.7, -0.6, 0.0), name='Tod knick', oben=False)
+        blick(0.2); pu.drehe('Head', 'X', 10)
+
+    def tod_arme(hoehe, k_aus):    # Arme seitlich zum Boden (hoehe: Hand ueber dem Boden), k_aus: wie weit nach aussen
+        lang, rechts = achsen(); W = lambda b: pu.W(b).translation
         Sr, Sl = W('upperarm_r').copy(), W('upperarm_l').copy()
-        hr = Sr + rechts * 0.40 - lang * 0.15; hr.z = 0.06
+        hr = Sr + rechts * 0.40 * k_aus - lang * 0.15; hr.z = hoehe
         # Klinge flach am Boden: die Richtung (um die Hochachse), in der das Handgelenk am wenigsten knickt und verdreht
         P0 = pu.merke(); best = None
         for w_ in range(-80, 81, 20):    # nur nach aussen: nach innen stach die Klinge im Fallen durch den Rumpf
             kl_ = (Matrix.Rotation(math.radians(w_), 3, 'Z') @ rechts); kl_.z = 0.0; kl_.normalize()
-            pu.stelle(P0); arm('r', A, hr, rechts + Vector((0, 0, -0.3)), kl_, 'Tod', kegel=0, leise=True)
+            pu.stelle(P0); arm('r', A, hr, rechts + Vector((0, 0, 0.2)), kl_, 'Tod', kegel=0, leise=True)   # Ellbogen nie unter den Boden
             kn_, tw_ = KN['Tod'][:2]; sp_ = pu.W('hand_r').translation + pu.klinge() * KLINGE_M
             c = kn_ + VERDREH * abs(tw_) + 500 * max(0.0, 0.25 - _strecke(pu.W('spine_03').translation, hr, sp_))
             if best is None or c < best[0]: best = (c, w_, pu.merke())
-        pu.stelle(best[2]); log('KAMPF Tod Klinge %d Grad von rechts, Knick und Verdrehung %s' % (best[1], KN['Tod'][:2]))
-        hl = Sl - rechts * 0.36 - lang * 0.10; hl.z = 0.06
-        arm('l', N, hl, -rechts + Vector((0, 0, -0.3)), Vector((0, 0, 1)), 'Tod Schild')
-        E = pu.merke()
-        out = []
-        for f, P_ in enumerate(frames):
-            P_ = dict(P_)
-            ka = ease(max(0.0, min(1.0, (f - f0) / max(1, f1 + 2 - f0))), 'weich')
-            kb = 0.8 * ease(max(0.0, min(1.0, (f - f1 + 2) / 6.0)), 'weich') if f < nt - 6 else 1.0
-            for b in ARME: P_[b] = mische({b: P_[b]}, {b: E[b]}, ka)[b]
-            for b in BEINE: P_[b] = mische({b: P_[b]}, {b: frames[-1][b]}, kb)[b]
-            pu.stelle(P_)
-            if f > fa:
-                z = netz_tief()
-                if z is not None: pu.schiebe('pelvis', (0, 0, -z))
-            out.append(pu.merke())
-        log('KAMPF Tod: Quelle bis Bild %d, Fall bis %d (Becken sinkt ab %d, Brust am Boden %d), Boden %s' % (fa, fb, f0, f1, 'Netz' if NETZ else '-'))
-        return out
+        pu.stelle(best[2])
+        hl = Sl - rechts * 0.36 * k_aus - lang * 0.10; hl.z = hoehe
+        arm('l', N, hl, -rechts + Vector((0, 0, 0.2)), Vector((0, 0, 1)), 'Tod Schild', kegel=0)   # flach (mit Spielraum lag er schief im Boden)
+        return best[1]
 
-    def folge(name, keys, schleife=False):
-        """keys: (Zeit s, Pose, Verlauf bis zum naechsten)"""
+    def tod_arme_boden(hoehe, k_aus):   # wie tod_arme, die Haende so hoch, dass kein Arm im Boden liegt
+        P0 = pu.merke(); w_ = tod_arme(hoehe, k_aus)
+        if NZ:
+            for _ in range(2):
+                z = NZ.tief(NZ.unterarme)
+                if z > -0.005: break
+                hoehe -= z; pu.stelle(P0); w_ = tod_arme(hoehe, k_aus)
+        return w_
+
+    def tod_sitz():      # auf dem Gesaess, Rumpf 35 Grad zurueck, Knie hoch, die Arme fallen seitlich nach hinten
+        becken((0, 0.30, -0.60), dreh=6, vor=-35); rumpf(vor=-8, dreh=4)
+        beine = lambda: fuesse({s: FUSS0[s].translation + Vector((0, -0.06, 0)) for s in 'lr'})
+        beine(); erde(beine)
+        lang, rechts = achsen(); W = lambda b: pu.W(b).translation
+        schwertarm(W('upperarm_r') + rechts * 0.22 + lang * 0.10 + Vector((0, 0, -0.32)), (-0.3, 0.6, -0.6), rechts * 0.8 + Vector((0, 0, -0.4)),
+                   name='Tod sitz')
+        schildarm(W('upperarm_l') - rechts * 0.22 + lang * 0.10 + Vector((0, 0, -0.32)), (1.0, 0.3, -0.3), -rechts * 0.4 + Vector((0, 0, 0.9)),
+                  name='Tod sitz', oben=False)   # fast flach, die Spitze sonst im Boden
+        pu.drehe('Head', 'X', -12)
+        scheide_flach(0.6)
+
+    def tod_ruecken():   # auf dem Ruecken, die Knie noch hoch, die Arme fast am Boden
+        becken((0, 0.34, -0.66), dreh=8, vor=-82); rumpf(vor=-4, dreh=4)
+        beine = lambda: fuesse({s: FUSS0[s].translation + Vector((0, -0.14, 0)) for s in 'lr'}, pol=(0, -0.4, 1.0))
+        beine(); erde(beine)
+        tod_arme_boden(0.12, 0.8)
+        pu.drehe('Head', 'X', -6)
+        scheide_flach(1.0)
+
+    LIEG = {}
+    def tod_liegen():    # liegt: Beine vorgeglitten, Fussspitzen nach oben aussen, Kopf zur Seite, Schwert und Schild flach
+        becken((0, 0.34, -0.68), dreh=10, vor=-90); rumpf(vor=0, dreh=4)
+        def beine():
+            lang, rechts = achsen()
+            z_ = {}; r_ = {}
+            for s, sg in (('l', 1), ('r', -1)):
+                T = pu.W('thigh_' + s).translation - lang * (0.80 if s == 'l' else 0.74) - rechts * sg * 0.07; T.z = 0.075
+                z_[s] = T
+                r_[s] = Matrix.Rotation(math.radians(35 * sg), 3, lang) @ Matrix.Rotation(math.radians(-75), 3, 'X') @ RL('foot_' + s)
+            fuesse(z_, pol=(0, 0, 1.0), rot=r_)
+        beine(); erde(beine)
+        LIEG['w'] = tod_arme_boden(0.06, 1.0)
+        lang, _ = achsen(); pu.drehe('Head', lang, 22)
+        scheide_flach(1.0)
+
+    P = {n: pose(fn) for n, fn in (('aus', ausgeholt), ('weg', ausholen_weg), ('hoch', hoch), ('oben', hieb_oben), ('mitte', hieb_mitte),
+                                    ('auf', aufschlag), ('szur', stich_zurueck), ('stoss', stoss), ('treffer', getroffen),
+                                    ('ausw', ausweichen), ('abwehr', abwehr),
+                                    ('t_zuck', tod_zuck), ('t_knick', tod_knick), ('t_sitz', tod_sitz), ('t_ruecken', tod_ruecken),
+                                    ('t_liegen', tod_liegen))}
+    P['k0'] = K0
+    log('KAMPF Tod Klinge %s Grad von rechts' % LIEG.get('w'))
+
+    def folge(name, keys, schleife=False, nach=None):
+        """keys: (Zeit s, Pose, Verlauf bis zum naechsten); nach(t): je Bild nach dem Mischen (Tod: auf den Boden)"""
         n = int(round(keys[-1][0] * FPS)); out = []
         for i in range(n + 1):
             t = i / FPS
             j = max(j for j in range(len(keys) - 1) if keys[j][0] <= t + 1e-9) if t < keys[-1][0] else len(keys) - 2
             (t0, p0, v0), (t1, p1, _) = keys[j], keys[j + 1]
             s = ease(min(1.0, (t - t0) / (t1 - t0)), v0)
-            out.append(mische(P[p0], P[p1], s))
+            Pm = mische(P[p0], P[p1], s)
+            if nach: pu.stelle(Pm); nach(t); Pm = pu.merke()
+            out.append(Pm)
         schreibe(name, out, schleife)
         INFO.setdefault('bewegungen', {})[name] = {'quelle': 'eigen (kampf.py)', 'bilder': n}
         return out
 
-    # Ausholen 0,4 s, dann gehalten (figur.gd: Zauber und Fernkampf, 0,6 s, dann Ruhe)
-    folge('Ausholen', [(0.0, 'k0', 'weich'), (0.40, 'aus', 'weich')])
-    # Hieb 0,8 s: ausholen bis 0,18, Halt bis 0,22, Schlag 0,14 s bis 0,36 (ueber den Kopf: Mitte als eigener Schluessel drehte den Unterarm
-    # 137 Grad), Halt am Aufschlag bis 0,46, zurueck bis 0,80
-    folge('Hieb', [(0.0, 'k0', 'weich'), (0.18, 'aus', 'linear'), (0.22, 'aus', 'an'), (0.29, 'mitte', 'linear'), (0.36, 'auf', 'linear'),
-                   (0.46, 'auf', 'weich'), (0.62, 'hoch', 'weich'), (0.80, 'k0', 'weich')])
+    # Ausholen 0,4 s, dann gehalten (figur.gd: Zauber und Fernkampf, 0,6 s, dann Ruhe); ueber rechts aussen (Runde 3)
+    folge('Ausholen', [(0.0, 'k0', 'weich'), (0.16, 'weg', 'linear'), (0.40, 'aus', 'weich')])
+    # Hieb 0,8 s: ausholen bis 0,18 (rechts aussen), Halt bis 0,22, Schlag 0,15 s bis 0,37 (oben rechts neben dem Kopf, Mitte nach vorn,
+    # Aufschlag links unten), Halt am Aufschlag bis 0,46, zurueck bis 0,80
+    folge('Hieb', [(0.0, 'k0', 'weich'), (0.09, 'weg', 'linear'), (0.18, 'aus', 'linear'), (0.22, 'aus', 'an'), (0.27, 'oben', 'linear'),
+                   (0.32, 'mitte', 'linear'), (0.37, 'auf', 'aus'), (0.46, 'auf', 'weich'), (0.62, 'hoch', 'weich'), (0.80, 'k0', 'weich')])
     # Stich 0,6 s: zurueck bis 0,18, Stoss bis 0,28, Halt bis 0,36, zurueck bis 0,60
     folge('Stich', [(0.0, 'k0', 'weich'), (0.18, 'szur', 'an'), (0.28, 'stoss', 'linear'), (0.36, 'stoss', 'weich'),
                     (0.60, 'k0', 'weich')])
     # Treffer 0,45 s (figur.gd ruht nach 0,45 s): Ruck 0,08 s, zurueck
     folge('Treffer', [(0.0, 'k0', 'aus'), (0.08, 'treffer', 'linear'), (0.14, 'treffer', 'weich'), (0.45, 'k0', 'weich')])
-    # Ausweichen 0,45 s: weg 0,14 s, Halt, zurueck
-    folge('Ausweichen', [(0.0, 'k0', 'aus'), (0.14, 'ausw', 'linear'), (0.22, 'ausw', 'weich'), (0.45, 'k0', 'weich')])
+    # Ausweichen 0,45 s: weg 0,12 s, Halt bis 0,24, zurueck
+    folge('Ausweichen', [(0.0, 'k0', 'aus'), (0.12, 'ausw', 'linear'), (0.24, 'ausw', 'weich'), (0.45, 'k0', 'weich')])
     # Abwehr 0,25 s hinein, dann gehalten
     folge('Abwehr', [(0.0, 'k0', 'aus'), (0.25, 'abwehr', 'weich')])
-    # Tod: Death01 (geruest.py) beginnt in Stehen; die ersten 0,25 s aus Kampfstehen hinein
-    if tod in bpy.data.actions:
-        ta = bpy.data.actions[tod]; nt = int(round(ta.frame_range[1] - ta.frame_range[0]))
-        frames = [lies(ta, f) for f in range(nt + 1)]
-        m = 8
-        for f in range(min(m, nt) + 1):
-            frames[f] = mische(K0, frames[f], ease(f / m, 'weich'))
-        # Unterarm und Hand bleiben wie in Kampfstehen gegen den Oberarm (Pruefung: mit der haengenden Hand der Quelle stach die
-        # Klinge 14 cm in den Rumpf)
-        for f in range(nt + 1):
-            for b in ('lowerarm_r', 'hand_r'): frames[f][b] = K0[b]
-        # Runde 2 (Pruefer: Sitz in der Luft, Beine hoch, Schwert senkrecht, Schild im Boden): liegend die Arme in eine Endlage am Boden
-        # (Schwert flach neben der rechten Hand, Schild flach auf dem linken Unterarm), die Beine nach dem Aufschlag zur Endlage hin
-        # gedaempft, je Bild der tiefste Punkt des Netzes auf den Boden (der Rueckenschild ist im Kampf weg)
-        frames = tod_liegen(frames)
-        for t in list(ad.nla_tracks):
-            if t.name == tod: ad.nla_tracks.remove(t)
-        bpy.data.actions.remove(ta)
-        schreibe(tod, frames)
+
+    # Tod 2,4 s (wie Death01): Ruck bis 0,15, Knie geben nach bis 0,45, Fall aufs Gesaess bis 0,66, auf den Ruecken bis 0,86, Beine
+    # gleiten vor bis 1,20, liegt
+    def am_boden(t):
+        if t < 0.45: return
+        if NZ: z = NZ.tief(NZ.rumpf)
+        else: return
+        if t >= 0.66 or z < 0: pu.schiebe('pelvis', (0, 0, -z))     # ab dem Sitzen aufliegend, vorher nur nicht hinein
+        if SCH and NZ.tief(NZ.scheide) < 0.0:    # die Scheide legt sich, sobald sie den Boden beruehrt
+            P_ = pu.merke()
+            for k in (0.3, 0.6, 1.0):
+                pu.stelle(P_); scheide_flach(k)
+                if NZ.tief(NZ.scheide) >= 0.0: break
+        for s in 'lr':    # kein Fuss im Boden: Knoechel so weit hoeher, Fuss gedreht wie gemischt
+            zb = NZ.tief(NZ.beine & NZ.seite[s])
+            if zb < -0.005:
+                R = pu.W('foot_' + s).to_3x3(); T = pu.W('foot_' + s).translation + Vector((0, 0, -zb))
+                kn = pu.W('calf_' + s).translation; hf = pu.W('thigh_' + s).translation
+                pu.zwei('thigh_' + s, 'calf_' + s, T, kn - (hf + T) / 2); pu.setze('foot_' + s, R)
+    for t in [t for t in ad.nla_tracks if t.name == tod]: ad.nla_tracks.remove(t)
+    if tod in bpy.data.actions: bpy.data.actions.remove(bpy.data.actions[tod])
+    folge(tod, [(0.0, 'k0', 'aus'), (0.15, 't_zuck', 'weich'), (0.45, 't_knick', 'an'), (0.66, 't_sitz', 'an'), (0.86, 't_ruecken', 'weich'),
+                (1.20, 't_liegen', 'linear'), (2.40, 't_liegen', 'linear')], nach=am_boden)
     INFO['kampf_knick'] = KN
-    INFO['kampf_pruefung'] = pruefen(pu, lies, ['Kampfstehen', 'Ausholen', 'Hieb', 'Stich', 'Treffer', 'Ausweichen', 'Abwehr', tod], log)
+    INFO['kampf_pruefung'] = pruefen(pu, lies, ['Kampfstehen', 'Ausholen', 'Hieb', 'Stich', 'Treffer', 'Ausweichen', 'Abwehr', tod], log, NZ)
     pu.stelle({b: (Quaternion(), Vector()) for b in REIHE})
     for t in ad.nla_tracks: t.mute = False
     log('KAMPF', KN)

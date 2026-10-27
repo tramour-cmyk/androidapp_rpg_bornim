@@ -191,6 +191,8 @@ if GERUEST == 'cc0':
         # 348.6 Kampf: Schild auf dem Ruecken und Schwertgriff in der Scheide bekommen in geruest.py je einen Knochen, der sie im Kampf
         # ausblendet (Waffe und Schild dort in der Hand)
         t = 'TEIL_schild' if n_ in ('shield', 'boss') else 'TEIL_griff' if o.get('griff') else None
+        # Runde 3 (Fremdpruefung 2b: im Tod steht die Scheide wie ein Stuhlbein): die Scheide (Cylinder, Sphere ohne griff) ebenso
+        if t is None and FIGUR == 'held' and n_ in ('Cylinder', 'Sphere'): t = 'TEIL_scheide'
         if t: o.vertex_groups.new(name=t).add(list(range(len(o.data.vertices))), 1.0, 'REPLACE')
 # Runde 2: der Schild nimmt die gemittelten Gewichte der Umhang- (sonst Koerper-)Ecken hinter seiner Innenseite; so bleibt er
 # als Ganzes (gleiche Gewichte, fast starr) am Ruecken, auch wenn Brust und Bauch verschieden kippen
