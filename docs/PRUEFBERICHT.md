@@ -25,6 +25,39 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 47 · Auftrag 275 Nachprüfung D46.1, D46.2, D46.4 (`main` `e5b790d3`, an einer Kopie; 27.10., 17:0x)
+
+**Ergebnis:** D46.1, D46.2 und D46.4 sind behoben. `LEICHEN_START` darf eingeschaltet werden, sobald die falsche Leiche Sokrates 26 geklärt ist. Ist der Schalter an, solange 26 ungeklärt ist, startet Ford Sokrates, um einen Stand zu berichtigen, der stimmt.
+
+- **D46.1 behoben.** Geprüft an einer Kopie mit 10 Aufrufen. `stand 348.9` und `fertig 374` ohne `--rolle` brechen ab, nennen die Vorräte und schreiben nichts (Exit 1). Eine unbekannte Rolle, eine Rolle ohne Zeile und `--rolle` ohne Wert brechen ebenfalls mit Meldung ab. `stand 348.9 … --rolle diogenes` schreibt nur in die Zeile von Diogenes; Groß- und Kleinschreibung ist egal. `--rolle` vor dem Befehl wirkt auch. `fertig 374 --rolle Diogenes` setzt die Liste auf „wartet“, das Wort aus der Zeile von Sokrates, und meldet „weiter bei Sokrates“. Erst `fertig 374 --rolle Sokrates` setzt „erledigt“. Nummern mit nur einer Vorratszeile gehen weiter ohne `--rolle` (348.12i).
+- **D46.2 behoben.** Ist der Schalter aus, rechnen `startbar.py` und `lauf.stand()` dasselbe: Muss Tom 376.2, Diogenes 275, Sokrates 366, sonst keiner. Die Zeile meldet „11 Leichen, Schalter aus, zählen nicht“. Ist der Schalter an, machen beide Tom und Sokrates startbar. Es gibt nur noch einen Schalter; `lauf.py` liest `startbar.LEICHEN_START`, sonst nichts.
+- **D46.4 behoben.** 347 und 72u.1 sind keine Leichen mehr. Es bleiben 11 Leichen: Tom 348.6, 267, 302.3, 302.2, 302.1, 292.2, 292.4, 357 sowie Sokrates 26, 142, 45.
+- `regelcheck.py` (voller Lauf) endet vor und nach dem Commit mit Exit 1, wegen der Wortliste 4a. Das kommt nicht von dieser Änderung.
+- **D47.1 (mittel) Die Liste führt ein Wort für mehrere Besitzer.** `stand` des einen überschreibt das Wort, das für alle gilt. An der Kopie setzte Diogenes für 348.9 „wartet“, obwohl die Zeile von Perikles eine laufende Dauerzeile ist. `fertig` übernimmt das Wort der ersten Zeile, die übrig bleibt. Das ergibt keine falsche Leiche, weil nur „erledigt“ oder „fertig“ als Leiche zählt. Die Liste zeigt aber den Stand dessen, der zuletzt geschrieben hat. Vorschlag für Stufe 2: Bei mehreren Besitzern gilt das „offenste“ Wort (in Arbeit vor wartet vor ruht).
+- **D47.2 (gering) Ist der Schalter an, zeigen die Werkzeuge Leichen verschieden.** `startbar.py` zeigt eine Leiche in ihrer eigenen Klasse (Tom: Kür 302.2 neben Muss 348.6). `lauf.py` fasst alle Leichen zu einer Muss-Zeile „Leichen“ zusammen. Welche Rolle startbar ist, ist bei beiden gleich; nur Ford liest zwei Darstellungen.
+
+## Lauf 46 · Auftrag 275 (Stufe 1 vor dem Einsatz; `main` `4fec9890`, an einer Kopie; 27.10., 15:4x)
+
+**Ergebnis:** `LEICHEN_START` erst nach D46.1 und D46.2 einschalten. D46.1 trifft `vorgang.py`, das schon jetzt die einzige Schreibweise ist: vor dem nächsten Gebrauch beheben. Regelcheck 4a, „Zu tun“ und die Fehlerprüfungen von `vorgang.py` arbeiten richtig.
+
+**Leichen (`startbar.py --leichen`, 19, je gegen die Quelle):** 14 echt, 2 halb, 3 falsch.
+- echt, „Urteil 348“ gefallen (Archiv 348 Umstieg 25.10., 00:30; „altes Spiel ruht ganz“ 01:04), Grund im Stand veraltet, Zeile ruht weiter: Tom 302.3, 302.2, 302.1, 292.2, 292.4, 357; Jerry 296.3, 19.
+- echt, „wartet auf Chef“ ohne Datei: Tom 267 (Gefühl am Tablet, altes Spiel ruht); Jerry 348.3 (Tabelle der geschlossenen Chefsache 348, durch den Umstieg überholt); Sokrates 142 (12 Bekannte) und 45 (Gewerbeschein) sind Chef-Aufgaben → Datei in `tun/`.
+- echt, nur der Nebensatz „beim Chef“ ohne Datei, die Zeile selbst läuft: Tom 348.6 (Dorf r13b), Jerry 348.7 (Fledermaus r4d, Wildschwein r3).
+- halb: Jerry 217 (zweite Bedingung „Bildschirmfoto des Chefs“ offen), Jerry 211.14 (nur der Kür-Teil hängt an 348, der Muss-Teil wartet auf 249).
+- falsch: Sokrates 347 (Liste „entschieden“, die Auswertung frühestens 31.10. ist offen), Jerry 72u.1 (Liste „freigegeben“ = Bau nach dem Meilenstein erlaubt, Archiv 72u.1 19.10.), Sokrates 26 (Archivzeile 26 „Durchspielen“, Perikles, erledigt; die Vorratszeile 26 ist die neue Auswertung nach 348.7: Nummer doppelt belegt, Streichen wäre falsch).
+
+**Befunde (Verdacht, bis Perikles bestätigt):**
+- **D46.1 (hoch) `vorgang.py stand|fertig` trifft bei Nummern in mehreren Vorräten den ersten Vorrat in `ROLLEN`, nicht den des Aufrufers.** An der Kopie schrieb `stand 348.9 "wartet …"` von Diogenes in die Zeile von Perikles. `fertig 374` strich die Zeile von Diogenes und setzte die Liste auf „erledigt“, obwohl Sokrates 374 weiter führt. Heute stehen 7 Nummern doppelt: 133, 275, 348.12, 348.12c, 348.3, 348.9, 374. Vorschlag: bei mehreren Treffern die Rolle als Angabe verlangen; `fertig` setzt die Liste nur dann auf „erledigt“, wenn keine andere Vorratszeile bleibt.
+- **D46.2 (hoch) Der Schalter `LEICHEN_START` wirkt nur in `lauf.py`.** `startbar.py` zählt Leichen schon jetzt als startbar (`sperr[nr] = None`). Heute zeigt es „Sokrates: Muss 26 Stand berichtigen“ (26 ist eine falsche Leiche, siehe oben) sowie Kür 302.2 bei Tom und 296.3 bei Jerry. Wer `startbar.py` liest (Ford stündlich), sieht also vor der Freigabe eine andere Startbarkeit als `lauf.py`.
+- **D46.3 (mittel) `entschieden()` ist zu weit gefasst.** Jeder Archiveintrag `**X` zählt als Urteil, auch die Einträge von Unternummern (`**X.1`, weil `.` in `[ ,.*:]` steht) und Baufreigaben. Dazu zählt „gebaut“ in der Liste (`FERTIG`). Gegenprobe: 348.13 (Liste „startbar“, im Bau) gilt als entschieden; 296 gilt als entschieden, obwohl nur Einträge zu 296.x im Archiv stehen; 340.2 und 347.2 („gebaut“, warten auf den Test des Chefs) gelten ebenfalls als entschieden. Eine Zeile „wartet auf Urteil 348.13“ würde also zur Leiche. Heute gibt es noch keinen Fehlalarm, weil alle 12 Fälle 348 betreffen und 348 tatsächlich entschieden ist.
+- **D46.4 (mittel) `LISTE_FERTIG` zählt „entschieden“ und „freigegeben“ als fertig.** Daraus entstehen die zwei falschen Leichen 347 und 72u.1. Beide Wörter stehen nicht in der Wortliste von 4a; nach der Bereinigung von 4a verschwindet der Fehlalarm, bis dahin bleibt er.
+- **D46.5 (gering) Wortliste nicht gleich:** `vorgang.py` lehnt „offen“, „aufgeteilt“ und „Idee“ ab, `regelcheck.py` 4a erlaubt sie. In `ARBEIT-PROJEKT.md` sind 12 Zeilen länger als 400 Zeichen; für sie verweigert `vorgang.py stand` jeden Stand, bis die Zeile gekürzt ist. Das ist richtig, aber vorher zu wissen.
+
+**Geprüft und in Ordnung:** 4a meldet 17 Zeilen außerhalb der Wortliste; die Gegenzählung über alle Listenzeilen findet dieselben 17. Für „Zu tun“ erschien die Probedatei `tun/45-…` in der Übersicht (Spalte „Seit“ nur mit Datum, Uhrzeit fehlt laut Chef 15:21 noch), die Leiche 45 verschwand und das Dashboard zeigt den Abschnitt. In `vorgang.py` greifen die Prüfungen auf ein Wort außerhalb der Liste, auf über 400 Zeichen (539) und auf eine unbekannte Nummer; `stand` und `fertig` arbeiten bei einfach belegter Nummer richtig (302.2, 357).
+
+**Nicht geprüft:** Frist-Leichen (heute keine), die Startnachricht von `lauf.py` mit Leichen (nur den Code gelesen), Token je Start, „Ford sichert bei Sitzungsende“ (noch nicht gebaut).
+
 ## Lauf 45 · Auftrag 149/156 (Probewoche Ford; Tom gegen Jerry; Woche 18.–24.10., gezählt 26.10., 01:0x, fremder Helfer, nur Zahlen)
 
 **Ford (149):**

@@ -18,8 +18,8 @@ Zählung je Sitzung, geschrieben vom Stop-Haken `tools/zug-haken.py` in `~/.born
 
 Befund: Wörter der Teams −43 % gegen A (Ziel −30 % erreicht); Stempel schlechter (42 %, Ziel unter 5 %), fast immer vorgerechnet, der Stop-Haken zählt nur (Chef 24.10., 21:15); Zwischenstände unverändert; Sokrates bleibt lang (darf begründen). Vorschlag: Chefsache 318.1.
 
-| Zeit | Rolle | Sitzung | Züge | Wörter Median | Wörter max | Entschuldigungen | Stempel daneben/gesamt | Kontext Tsd. |
-|---|---|---|---|---|---|---|---|---|
+| Zeit | Rolle | Sitzung | Züge | Wörter Median | Wörter max | Entschuldigungen | Stempel daneben/gesamt | Kontext Tsd. | Haken 63 nachgeprüft: gehalten/„Keine Chefsache“/durch (383, ab 27.10., 19:15) |
+|---|---|---|---|---|---|---|---|---|---|
 | 24.10., 16:57 | Perikles | 9440fe84-e09 | 1 | 22 | 22 | 0 | 1/1 | 166 |
 | 24.10., 21:41 | Homer | 11bcbe06-db2 | 4 | 43 | 69 | 0 | 1/4 | 189 |
 | 24.10., 21:56 | Jerry | 89e59e50-e44 | 1 | 107 | 107 | 0 | 1/1 | 199 |
@@ -48,3 +48,29 @@ Befund: Wörter der Teams −43 % gegen A (Ziel −30 % erreicht); Stempel schle
 | 26.10., 11:25 | Sokrates | 5147604d-34b | 12 | 74 | 486 | 0 | 4/12 | 232 |
 | 26.10., 11:55 | Sokrates | a1d42023-79c | 9 | 218 | 474 | 0 | 0/9 | 204 |
 | 26.10., 13:59 | Jerry | 03b48619-44b | 1 | 6 | 6 | 0 | 0/0 | 212 |
+| 26.10., 14:29 | Jerry | 47ddc8c9-812 | 1 | 12 | 12 | 0 | 0/1 | 253 |
+| 26.10., 15:40 | Sokrates | dc01c9c1-6d0 | 15 | 63 | 201 | 0 | 1/13 | 207 |
+| 26.10., 15:42 | Tom | a6157a47-4a7 | 3 | 30 | 40 | 0 | 0/2 | 227 |
+| 26.10., 16:58 | Jerry | 89af8434-d31 | 1 | 39 | 39 | 0 | 0/1 | 258 |
+| 26.10., 18:39 | Jerry | 30e7c341-d4c | 5 | 12 | 28 | 0 | 1/1 | 252 |
+| 26.10., 19:47 | Jerry | 207212c7-385 | 3 | 20 | 22 | 0 | 1/3 | 231 |
+| 26.10., 21:01 | Tom | a9d874da-052 | 2 | 65 | 109 | 0 | 0/2 | 280 |
+| 26.10., 21:20 | Jerry | add6a2f9-c16 | 2 | 26 | 29 | 0 | 0/2 | 190 |
+| 26.10., 22:25 | Tom | 186fd555-4c2 | 5 | 9 | 15 | 0 | 0/0 | 250 |
+| 26.10., 23:47 | Jerry | 892eb731-fb6 | 6 | 20 | 60 | 0 | 0/6 | 281 |
+| 27.10., 00:12 | Jerry | af2cc2b8-f26 | 3 | 9 | 17 | 0 | 2/3 | 220 |
+| 27.10., 01:02 | Jerry | 42af22b8-ba0 | 3 | 6 | 7 | 0 | 0/0 | 297 |
+| 27.10., 02:40 | Jerry | dc455aab-5da | 3 | 13 | 13 | 0 | 0/0 | 276 |
+| 27.10., 05:54 | Jerry | 0b0a2bd1-ba4 | 6 | 8 | 11 | 0 | 3/6 | 216 |
+| 27.10., 09:07 | Jerry | b9a2c3ed-9cb | 3 | 5 | 9 | 0 | 0/0 | 193 |
+| 27.10., 10:21 | Tom | 9d9348af-c34 | 1 | 4 | 4 | 0 | 0/0 | 262 |
+| 27.10., 10:41 | Jerry | e18dc88d-751 | 1 | 22 | 22 | 0 | 0/1 | 221 |
+| 27.10., 11:50 | Jerry | 20adb6b5-a3b | 3 | 188 | 189 | 0 | 0/2 | 270 |
+| 27.10., 12:10 | Jerry | 24eeb98b-dc4 | 2 | 33 | 37 | 0 | 0/1 | 155 |
+| 27.10., 13:41 | Jerry | e64f59f6-8e7 | 3 | 20 | 21 | 0 | 0/3 | 283 |
+| 27.10., 15:53 | Jerry | dc2901f7-d25 | 1 | 94 | 94 | 0 | 0/1 | 111 |
+| 27.10., 18:38 | Jerry | 79341a58-233 | 2 | 12 | 14 | 0 | 0/1 | 212 |
+| 27.10., 20:05 | Tom | abb87c40-811 | 3 | 5 | 8 | 0 | 0/0 | 179 | 0/0/0 |
+| 27.10., 20:34 | Jerry | bca6f3f0-5e5 | 1 | 14 | 14 | 0 | 1/1 | 122 | 0/0/0 |
+| 27.10., 22:33 | Tom | a183cafc-27a | 4 | 18 | 23 | 0 | 0/0 | 252 | 0/0/0 |
+| 27.10., 22:50 | Jerry | c681341f-7b7 | 8 | 6 | 7 | 0 | 0/0 | 324 | 0/0/0 |

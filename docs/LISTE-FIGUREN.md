@@ -99,6 +99,7 @@ Gebilligt (Chef 25.10., 23:33, 348.11 b): übrige Monster aus Kapitel 1. Für al
 - **Leuchten** nur, wo eine sichtbare Quelle ist: Schamane (Fluch) und Skelett (Untod), dazu Grimmzahn (Faden der Geschichte); alle anderen Augen matt, grelle Farben gedämpft.
 - **Kits am Umriss verschieden** (Kapuze, Fellkragen, Helm), nicht nur an der Farbe.
 - Jeder Goblin, Kobold, Untote ist zufällig schlank, mittel oder kräftig.
+- **Gekaufte Modelle** (348.12c, Chef 26.10., 20:32): Größe nach diesen Listen, nicht nach dem Modell; Augen matt, auch wo das Modell leuchtet (nur das Skelett behält seinen Glutpunkt); Rolle des Vorgängers bleibt, Werte nach dem Modell.
 
 **Goblin-Späher**
 1. **Größe:** wie der Goblin, 98–118 cm.
@@ -128,19 +129,19 @@ Gebilligt (Chef 25.10., 23:33, 348.11 b): übrige Monster aus Kapitel 1. Für al
 4. **Farbe und Ausrüstung:** vergilbter, fleckiger Knochen; drei Kits, alles rostig: Kurzschwert und Helm; Kurzschwert und Schild; Speer und Helm.
 5. **Haltung:** aufrecht und steif, Kopf leicht gedreht.
 
-**Zombie**
-1. **Größe:** 158–186 cm, etwa wie der Held.
-2. **Umriss:** menschlich, abgemagert, Kopf hängt zur Seite.
-3. **Merkmal:** Unterkiefer hängt offen auf abgebrochenen Zähnen, eine Wange bis auf den Knochen weg, milchige Augen in dunklen Höhlen, Blut vom Mundwinkel, strähniges Haar auf fleckig kahlem Schädel.
-4. **Farbe und Ausrüstung:** Haut graugrün, aschgrau, bläulich oder wächsern; Kleidung zerrissen und fleckig; drei Kits am Umriss verschieden: Lumpen; Lederwams; rostiges Kettenhemd und Helm.
-5. **Haltung:** schlaff vorgeneigt, schlurft.
+**Wiedergänger** (gekauft, Evil Undead; ersetzt den Zombie, 348.12c)
+1. **Größe:** 160–185 cm, etwa wie der Held; jeder zufällig schlank, mittel oder kräftig.
+2. **Umriss:** menschlich, ausgemergelt, überlange Arme mit langen Fingern und schwarzen Nägeln; kriecht und richtet sich auf.
+3. **Merkmal:** Gesicht wie ein Totenschädel, Grinsen ohne Lippen, Rippen frei; Augen matt, auch wo das Modell leuchtet; Erde an Haut und Lumpen.
+4. **Farbe und Ausrüstung:** Haut grabgrau, fahl oder erdbraun, nicht plastikglänzend; Fleischreste gedämpft, kein Gedärm; drei Kits am Umriss verschieden (Lumpen; Leichenhemd; rostiges Kettenhemd), immer Krallen statt Waffe.
+5. **Haltung:** vorgebeugt, Arme hängen bis zu den Knien, Kopf vorgestoßen.
 
-**Ghul**
-1. **Größe:** 158–182 cm, etwa wie der Held.
-2. **Umriss:** menschlich, sehr hager, lange Arme, sehr große Hände mit langen schwarzen Krallen.
-3. **Merkmal:** langer schmaler Schädel, Rippen sichtbar, spitze hohe Ohren, statt einer Nase zwei Schlitze, Kiefer weit offen mit Nadelzähnen, lange dunkle Zunge; blassgelbe Augen, matt.
-4. **Farbe und Ausrüstung:** Haut grabgrau mit Blaustich, fahl, aschgrau oder blaurot; drei Kits: nackt mit Lendentuch; Lederwams; Robe; immer Krallen statt Waffe.
-5. **Haltung:** tief geduckt wie ein Raubtier vor dem Sprung, Kopf vorgestoßen, Krallen vorgehalten.
+**Grabhund** (gekauft, Barghest; ersetzt den Ghul, 348.12c)
+1. **Größe:** Schulter 90–100 cm, groß wie ein Kalb; Rücken etwa auf Hüfthöhe des Helden; jeder zufällig schlank, mittel oder kräftig.
+2. **Umriss:** Riesenhund auf vier Beinen, tiefe Brust, schmale Hüften, schwere Mähne über Hals und Schultern.
+3. **Merkmal:** schwarze Mähne über nackter fahler Haut; langer Fang mit gebleckten Zähnen; Krallen, die sich in den Boden graben; Augen matt, auch wo das Modell leuchtet.
+4. **Farbe:** Haut leichenfahl, grabgrau oder graublau, Mähne schwarz; drei Tiere auf einen Blick verschieden (Mähne lang, kurz oder zerrupft, Narben).
+5. **Haltung:** Kopf gesenkt, lautlos, lauernd.
 
 **Krogg** (einmalig, Tabelle oben)
 1. **Größe:** 212 cm, gut einen Kopf größer als der Held.
@@ -184,24 +185,26 @@ Gebilligt (Chef 25.10., 23:33, 348.11 b): übrige Monster aus Kapitel 1. Für al
 4. **Farbe:** braun; schwarz mit eingerissenem Flügel; grau mit Narben; Braun und Schwarz auf einen Blick verschieden (bisher beide fast schwarz).
 5. **Haltung:** schwebt, schlägt ruhig mit den Flügeln, wippt, das Maul arbeitet.
 
-**Stirge**
-1. **Größe:** schwebt mit dem Rumpf 45–55 cm über dem Boden, Fühlerspitzen bis 80 cm hoch; Spannweite 1,1–1,3 m.
-2. **Umriss:** wie eine kleine Fledermaus mit Insektenhinterleib aus Ringen.
-3. **Merkmal:** langer Stachelrüssel mit Blut an der Spitze; Stacheln am Rücken; vier lange Gliederbeine mit Haken; Flügel mit Löchern; vorquellende Insektenaugen, matt.
-4. **Farbe:** braun; grau; dunkel mit prallem Blutbauch; alle drei auf einen Blick verschieden (bisher Braun und Dunkel nur am Bauch).
-5. **Haltung:** schwebt wie die Fledermaus, kleiner in der Bewegung.
+**Riesenegel** (gekauft, Mobile Leeches; ersetzt die Stirge, 348.12c)
+1. **Größe:** 0,8–1,2 m lang, dick wie ein Unterarm; aufgerichtet etwa kniehoch.
+2. **Umriss:** Wurm aus Ringen ohne Beine, kriecht, richtet das Vorderende auf; fliegt nicht.
+3. **Merkmal:** runder Saugmund voller Zähnchen, kein Auge; prall vom Blut des letzten Opfers.
+4. **Farbe:** nur dunkle Häute: braun, grau, ocker; nie türkis, nie glühend rot, keine leuchtenden Ringe; nass glänzend, sonst matt.
+5. **Haltung:** windet sich, tastet mit dem Vorderende, schnellt beim Angriff vor.
 
-**Ockergallerte**
-1. **Größe:** 40–50 cm hoch, Hügel 0,7–0,8 m breit, Lache mit Zungen 1,1–1,3 m.
-2. **Umriss:** klumpiger, nasser Hügel ohne Vorne, Höcker rundum, flache Zungen auf dem Boden.
-3. **Merkmal:** Blasen, herabhängende Fäden; Verschlungenes ragt heraus: Schädel mit Armknochen, Brustkorb mit Kiefer, verbeulter Helm mit Schwert.
-4. **Farbe:** ocker, kränklich gelbgrün, dunkler Bernstein, fleckig.
-5. **Haltung:** hebt und senkt sich langsam; schwer verwundet flacher und breiter.
+**Säureschnecke** (gekauft, Giant Slug; ersetzt die Ockergallerte, 348.12c)
+1. **Größe:** lang wie ein Pferd (2,0–2,4 m), Kopf aufgerichtet etwa auf Brusthöhe des Helden.
+2. **Umriss:** Nacktschnecke ohne Haus, flach hinten, Kopf vorn aufgerichtet.
+3. **Merkmal:** Stielaugen, die nach dem Ziel tasten; Zahnmaul mit langer Zunge; zischende Schleimspur.
+4. **Farbe:** schlammbraun, kränklich gelbgrau oder dunkel ocker; nirgends rosa (Beulen auf dem Rücken und Perlen an der Zunge in Hautfarbe übermalt); Schleim nass, nicht grell.
+5. **Haltung:** sehr langsam, hebt den Kopf, bevor sie zustößt; schwer verwundet flacher.
 
-Wolf und Grimmzahn ohne Liste: sie stehen nach Wort des Chefs. Neue Monster (ab Kapitel 2) bekommen ihre Liste vor Entwurfsrunde 1 (Homer).
+Wolf und Grimmzahn ohne Liste: sie stehen nach Wort des Chefs. Wiedergänger, Grabhund, Riesenegel, Säureschnecke: Homer 26.10. nach Chefsache 34812c-monsterwahl (Git, `6d3ffeb9b^`), gebilligt (Chef 27.10., 10:04, Vorgangsarchiv 348.12c Listen; beim ersten Standbild zuerst Größe prüfen). Neue Monster (ab Kapitel 2) bekommen ihre Liste vor Entwurfsrunde 1 (Homer).
 
 Fundstellen übrige Monster: Chefsache 34811b-monsterlisten (Git, `929f19051^`). Fundstellen: Goblin: `Doll.kt` :65–70, :102, :879–935; `FoeArt.kt` :86; `MonsterKit.kt` :14–16, :33–38. Wildschwein: `Beast.kt` :267–368; `BeastArt.kt` :36–45, :213. Held: `Doll.kt` :65–70, :724–725. Leute: `MapFolk.kt` :40–98.
 
 ## Verwechslungsgefahr
 
 Lange Stangen tragen Aldric (quer auf der Schulter), Jorin (Speer mit Spitze), Ansel (senkrecht, viel länger) und Kael (Stock, gebeugt, mit Decke und Laterne). Am ersten Standbild prüfen; reicht es nicht, bekommt Ansel statt des Stakstocks eine Reuse.
+
+Vierbeiner im nächtlichen Wald: Wolf, Grimmzahn (fast schwarz, Narbe) und Grabhund (größer, schwarze Mähne über fahler nackter Haut) am ersten gemeinsamen Standbild prüfen.

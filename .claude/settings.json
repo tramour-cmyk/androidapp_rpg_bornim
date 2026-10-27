@@ -12,7 +12,8 @@
       "Bash(git fetch:*)",
       "Bash(git diff:*)",
       "Bash(git merge-tree:*)",
-      "mcp__claude-code-remote__archive_session"
+      "mcp__claude-code-remote__archive_session",
+      "mcp__claude-code-remote__add_repo"
     ],
     "deny": [
       "Bash(git push --force:*)",
