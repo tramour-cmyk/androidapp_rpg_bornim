@@ -46,6 +46,6 @@ Stärkstes Gegenargument: Der CC0-Hieb hat nach sechs Runden noch rund zehn Fehl
 - **„eigen“:** Der eigene Goblin bleibt. Jerry baut ihm einen Hieb.
 - **Ansage, eigene Frage, kein Votum:** Der Kampf sagt den Angriff der Goblins als „Stich“ an, wie im alten MARS. Die Bewegung ist ein Hieb. Soll die Ansage „Hieb“ heißen? Das ist eine Regel- und Textfrage. Die Entscheidung liegt bei dir, auf dein Wort hin fragt Jerry Homer.
 
-Großbild und Film: Telegram 27.10., 01:34
+Großbild und Film: Telegram 27.10., 01:35
 
 Antwort:
