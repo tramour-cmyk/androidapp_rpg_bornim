@@ -35,6 +35,8 @@ func _ready() -> void:
 		for m in tusche_mats: m.set_shader_parameter("umriss_licht", 0.0)
 	if "--zoomdick0" in OS.get_cmdline_user_args():   # 348.13: Verdoppelung im Schatten bei jedem Zoom wie 832ad3959
 		for m in tusche_mats: m.set_shader_parameter("zoomdick", 0.0)
+	for a in OS.get_cmdline_user_args():   # 348.13 Versuch: Stufe, ab der die hintere Seite am Helden frei bleibt
+		if a.begins_with("--hintenheld="): tusche_mats[1].set_shader_parameter("hinten_ab", float(a.substr(13)))
 	if "--tuscheaussen" in OS.get_cmdline_user_args():   # 348.13: Umriss beidseits der Kante wie d08456e7d
 		for m in tusche_mats: m.set_shader_parameter("innen", 0.0)
 

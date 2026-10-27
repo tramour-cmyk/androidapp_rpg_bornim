@@ -15,6 +15,7 @@ uniform float umriss_licht = 1.0;  // 348.13: Umriss auf der Lichtseite deckend 
 uniform float innen = 1.0;         // 348.13: Umriss nur auf der vorderen Flaeche (0 = beidseits der Kante wie d08456e7d)
 uniform float breite_m = 3.4;      // 348.13: Bildbreite in Metern (Kamera.size)
 uniform float zoomdick = 1.0;      // 348.13: 1 Schattenseite weiter weg duenner (Wurzel aus Nah/Bildbreite, hoechstens 0,6-fach), 0 wie 832ad3959
+uniform float hinten_ab = 0.25;   // 348.13: Meter, ab denen die hintere Seite einer Stufe keine Tusche bekommt (Boden hinter dem Umriss)
 uniform float knick = 0.06;        // Meter: Krümmung der Tiefe, ab der eine Linie entsteht
 uniform vec3 ink : source_color = vec3(0.07, 0.05, 0.04);
 void vertex() { POSITION = vec4(VERTEX.xy, 1.0, 1.0); }
@@ -71,7 +72,7 @@ void fragment() {
 	float zl = lz(SCREEN_UV - vec2(e.x, 0), INV_PROJECTION_MATRIX), zr = lz(SCREEN_UV + vec2(e.x, 0), INV_PROJECTION_MATRIX);
 	float zd = lz(SCREEN_UV - vec2(0, e.y), INV_PROJECTION_MATRIX), zu = lz(SCREEN_UV + vec2(0, e.y), INV_PROJECTION_MATRIX);
 	float lap = abs(zl + zr + zd + zu - 4.0 * z);
-	float hinten = smoothstep(0.25, 0.4, z - min(min(zl, zr), min(zd, zu))) * innen * step(0.5, richtung);   // hinter der Kante: Boden
+	float hinten = smoothstep(hinten_ab, hinten_ab * 1.6, z - min(min(zl, zr), min(zd, zu))) * innen * step(0.5, richtung);   // hinter der Kante: Boden
 	float edge = smoothstep(knick, knick * 2.5, lap);
 	ALBEDO = ink;
 	ALPHA = edge * a_licht * (1.0 - hinten);
