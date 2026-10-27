@@ -4,15 +4,13 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (27.10., 12:50, `session_01Hmoj77Trmsodmh6sDTTSzz`):** 376 ja archiviert, Häuser und 376.1 („jetzt“ 12:46) bei Tom, Markt 376.2 bei Perikles; Chef 12:44 „wer arbeitet an Zeitverschwendung … andere Modelle?“ im Chat beantwortet (3D-Modelle: Kopf t78, Kleidungsfehler ruhen), Rückfrage 12:50, ob KI-Modelle gemeint (270). Kosten auf: 376. Nachfolger: Sokrates – 376 begleiten, Antwort Modelle
+**Übergabe (27.10., 14:4x, `session_01Hmoj7738F2EaHYxUsv6sop`):** 373a entschieden (Archiv); 376.3 Votum „keins kaufen“ im Chat; 377 Beleg 348.6 an Perikles; 377.1 Inventur `LISTE-BESTAND.md` eingestellt; 377.2 (`add_repo` dauerhaft, Regelverweis) an Perikles. Rückfrage 12:50 „andere Modelle = KI-Modelle?“ unbeantwortet. Kosten auf: 373a, 376, 377. Nachfolger: Sokrates – 376 begleiten (Probeblatt 376.1)
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 376 | M | **von Chef (27.10., 12:00):** Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Tom: Häuser ja 12:42 (Archiv), Probeblatt 376.1 „jetzt“ 12:46; Markt 376.2 bei Tom (Perikles 12:5x) (Zu 376) |
-| 376.3 | M | **von Chef (27.10., 12:52):** vier RenderHub-Bewegungspakete „check das bitte“ | Votum 14:3x: keins kaufen (UAL Pro hat Ausweichen, Treffer, Tod; fehlt Stich, Schildabwehr, die keins der vier sicher hat) (Zu 376.3) |
-| 377.1 | M | **von Chef (27.10., 14:28):** Inventur: „was für Animationen haben wir alles? Was für Modelle … Objekte“ zum leichten Nachschauen | erledigt 14:4x: `LISTE-BESTAND.md`; Verweis in `ROLLE-ENTWICKLUNG.md` bei Perikles (377.2) |
 | 374 | M | **von Chef (27.10., 11:54):** wer prüft 373? | frühestens 31.10.: auswerten mit 347 (Archiv) |
 | 348.12c | M | **von Chef (26.10., 11:59):** Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters Kit“) und andere Anbieter; Kosten, Erwerb, Verkauf im Spiel erlaubt; Monster dürfen von D&D abweichen; „schönen Vorschlag und ein schönes Paket“ | ruht: Stufe 2 bis Rutenursache und letztem Rattenvergleich (Chef 27.10., 09:57, Archiv 348.12f); dann Kaufliste (6 Links, etwa 134 $) an Chef |
 | 348.12 | M | **von Chef (25.10., 21:21, „b prüfen“):** fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit Skelett) prüfen, nichts bauen | wartet auf Jerry: Goblin CC0 entschieden 27.10., 09:49 (Archiv), Hieb nachbessern, dann Grak, Kobold, Zombie |
@@ -39,7 +37,6 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 48–50 | K | Dungeons (48a–48f ja, Archiv bis `f3ec7200`), Lehrer und Talente, weitere Klassen (`DESIGN-HELDENBAU.md`) | ruht bis nach dem Meilenstein Kapitel 1 |
 
 - **Zu 376:** Chef 12:09–12:10: 20 $ „super gerne“, wenn Größe und Form anpassbar und Tusche darauf geht; „dann hätten die vielleicht auch mal einen richtigen Kopf“; nah sichtbar in Ausrüstung, Charaktererstellung, Kartenzoom; 12:12 „Universal Base Characters“ als Alternative zum Selbstbau.
-- **Zu 376.3:** alle vier „Extended Use“. jasirkt „50 Fight Animations“ 11,20 $ (Rabatt noch 3 Tage), Epic-Skelett, 50 Clips, 20 Posen, Waffe ungenannt; animo „Mocap Movement“ 9,99 $, 37 Clips Gehen, Rennen mit Übergängen, Mecanim; Tomasi „3-Match Spear and Shield“ 13,50 $, 3 Clips, Text sagt Boxen zu zweit; ShapeLoom „Ultra Mage Spell“ 30 $, 250 Clips, Unity Humanoid, unbewertet. Votum: nur Ultra Mage, wenn UAL Pro Block, Ausweichen, Treffer, Zauber nicht hat.
 - **Von Team Tom (27.10., 13:4x, zu 376.3):** UAL Pro gesichtet (Liste: `ARBEIT-TEAM-TOM.md` Zu 376.1): hat Ausweichen (`Dodge_Left/Right`, `Roll`), Treffer (`Hit_*`), Tod, Schwerthieb, `Counter_*`; hat **keinen** Stich, keine Schildabwehr, kein gehaltenes Ausholen; Zauber in Pro nicht vermerkt (frei nur `Spell_Simple_*`). Lücke also Block und Stich, nicht Ausweichen und Treffer.
 - **Zu 348.12c:** Bericht `LISTE-CC0-MODELLE.md` „Gegen Geld“; Protofactor-EULA: Verkauf ja, „protected form“, „ONE individual“. Protofactor per Mail: unverschlüsselt kein Ja („Encryption would be best“), KI-Sitzungen ok; Rabatt je Warenkorb.
 - **Zu 366:** Bau in `docs/firma/webseite/inhalt/start.*.html`, `stil.css`; Push auf main lädt sofort hoch, darum Vorschau nur in einer Kopie (`bauen.py <ziel> --entwurf`). Entwurf 1: Abschnitt `section.tester`, Kleintext „nur für den Test und geben sie dafür an Google weiter“. Vor dem Push fremder Helfer, dann „366, ja“. Prüfbogen: 4 Befunde (`PRUEFBERICHT.md` L43, D43.1–4); erst verlinken, wenn behoben (Vorgang an Tom, sobald die Seite online soll; Seite erst nach Einrichtung des geschlossenen Tests, Zu 142).
