@@ -4,7 +4,7 @@
 
 **Frage:** Welche gekauften Tiere nehmen wir? Auf deinen Auftrag 21:27 (über Sokrates): erst schnell prüfen, ob die Bewegungen taugen und unsere Bemalung draufpasst, bevor wir wieder selbst bauen. Mein Vorschlag steht in der letzten Spalte. Sag je Tier „ja“, „nein“ oder was anders sein soll. Den Wolf hast du um 21:51 schon genommen.
 
-**Bitte ansehen (Morgenblatt):** [Film](bilder:pruefung/387-kauftiere.mp4), alle acht Tiere nacheinander, je Tier jede Bewegung des Kaufs auf der Stelle, Titel oben. Start im Film: Keiler 0 s, Hundertfüßer 12 s, Rind 22 s, Ziege 37 s, Huhn 53 s, Schwein 65 s, Gans 78 s, Kaninchen 93 s.
+**Bitte ansehen (Morgenblatt):** [Film](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/pruefung/387-kauftiere.mp4), alle acht Tiere nacheinander, je Tier jede Bewegung des Kaufs auf der Stelle, Titel oben. Start im Film: Keiler 0 s, Hundertfüßer 12 s, Rind 22 s, Ziege 37 s, Huhn 53 s, Schwein 65 s, Gans 78 s, Kaninchen 93 s.
 
 So ist die Probe gebaut: Körper und Bewegungen aus dem Kauf, je drei Tiere auf den Plätzen der Wölfe, in echter Größe. Bemalung: Keiler und Hundertfüßer in unseren Farben; bei den übrigen die Farbe des Kaufs, etwas blasser und dunkler (ein weißes Huhn bleibt darum fast weiß, ein dunkles Kaninchen fast schwarz). Dazu unsere Fellstriche und Tusche-Linien. Augen sind nicht eigens bemalt. Die Tiere bewegen sich noch nicht über den Kampfort (beim Wolf: hin zum Ziel und zurück), und es gibt keine Feinarbeit.
 
