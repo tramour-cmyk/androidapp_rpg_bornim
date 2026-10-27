@@ -12,7 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 348.12c | M | **von Sokrates (Chef 26.10., 16:15, Archiv):** sechs freie Gegnerplätze Kapitel 1 gekauften Modellen zuordnen, mit Bildern, neuen Namen und Texten | wartet auf Chef: Listen [34812c-listen](chefsache/entscheiden/34812c-listen.md); Texte und „Wer Feuer scheut“ eingetragen (Zuordnung ja 20:32) |
+| 348.12c | M | **von Sokrates (Chef 26.10., 16:15, Archiv):** sechs freie Gegnerplätze Kapitel 1 gekauften Modellen zuordnen, mit Bildern, neuen Namen und Texten | erledigt: Listen gebilligt (Chef 27.10., 10:04, Archiv; in `LISTE-FIGUREN.md` eingetragen, Sokrates); streichen; Texte und „Wer Feuer scheut“ eingetragen (Zuordnung ja 20:32) |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24):** Umzug Godot: Stimmung je Ort und Tageszeit vorschlagen (wie dunkel, welches Licht, welche Farben; Leitbild „düster“), Chefsache zum Billigen; jeden Modellentwurf vor dem Chef ansehen (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 4) | wartet auf Tom und Jerry (Modellentwürfe): Tafel und Messlatte in `LISTE-UMZUG-348.md` (13:30) |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |

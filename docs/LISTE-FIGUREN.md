@@ -199,7 +199,7 @@ Gebilligt (Chef 25.10., 23:33, 348.11 b): übrige Monster aus Kapitel 1. Für al
 4. **Farbe:** schlammbraun, kränklich gelbgrau oder dunkel ocker; nirgends rosa (Beulen auf dem Rücken und Perlen an der Zunge in Hautfarbe übermalt); Schleim nass, nicht grell.
 5. **Haltung:** sehr langsam, hebt den Kopf, bevor sie zustößt; schwer verwundet flacher.
 
-Wolf und Grimmzahn ohne Liste: sie stehen nach Wort des Chefs. Wiedergänger, Grabhund, Riesenegel, Säureschnecke: Homer 26.10. nach Chefsache 34812c-monsterwahl (Git, `6d3ffeb9b^`), noch vom Chef zu billigen (348.11). Neue Monster (ab Kapitel 2) bekommen ihre Liste vor Entwurfsrunde 1 (Homer).
+Wolf und Grimmzahn ohne Liste: sie stehen nach Wort des Chefs. Wiedergänger, Grabhund, Riesenegel, Säureschnecke: Homer 26.10. nach Chefsache 34812c-monsterwahl (Git, `6d3ffeb9b^`), gebilligt (Chef 27.10., 10:04, Vorgangsarchiv 348.12c Listen; beim ersten Standbild zuerst Größe prüfen). Neue Monster (ab Kapitel 2) bekommen ihre Liste vor Entwurfsrunde 1 (Homer).
 
 Fundstellen übrige Monster: Chefsache 34811b-monsterlisten (Git, `929f19051^`). Fundstellen: Goblin: `Doll.kt` :65–70, :102, :879–935; `FoeArt.kt` :86; `MonsterKit.kt` :14–16, :33–38. Wildschwein: `Beast.kt` :267–368; `BeastArt.kt` :36–45, :213. Held: `Doll.kt` :65–70, :724–725. Leute: `MapFolk.kt` :40–98.
 
