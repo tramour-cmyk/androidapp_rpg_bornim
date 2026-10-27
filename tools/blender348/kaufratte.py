@@ -68,6 +68,7 @@ RUTE_DECKEL = float(os.environ.get('RUTE_DECKEL', '0.10'))     # d: im Treffer k
 RUTE_DICKE = 0.03     # c (Helfer Runde b: im Tod liegt die Rute „wie abgetrennt“, bis 19 cm im Boden): Rutenknochen so hoch über dem Boden
 RUTE_BIEGE = float(os.environ.get('RUTE_BIEGE', '18'))     # Rutenursache: höchstens so viel Grad Knick von Glied zu Glied (Tod, Treffer)
 RUTE_WURZEL = float(os.environ.get('RUTE_WURZEL', '35'))     # erstes Glied höchstens so steil abwärts (Tod: war −90°)
+RUTE_ANLAUF = float(os.environ.get('RUTE_ANLAUF', '0.15'))     # Runde 3: im Tod so viel der Bewegung bis zum geplanten Verlauf
 RUTE_BODEN = RUTE_DICKE     # (m, Quelle); baue() setzt den Boden aus dem Netz im Stehen       # Rute: 1,6 m in der Quelle, Rumpf mit Kopf 1,4 m; die Rute reichte über den Bildrand
 OHR = float(os.environ.get('OHR', '0.45'))          # Ohren so lang wie in der Quelle mal OHR (Prüfer: „spitze Ohren wie Hörner“)
 # Felle wie ratte.py COATS: (Fell, Sattel, Bauch, Auge); Haut wie ratte.py HAUT, RUTE
@@ -385,15 +386,19 @@ def rute_aus_dem_boden(rig, a, senken=False, deckel=None):
                 h = h.lerp(koerper.normalized(), k * RUTE_STRECK).normalized()
             phi = math.asin(max(-1.0, min(1.0, v.z / L))); lage[f] = (v.normalized(), h, phi)
             z0 = (k0 + v).z
-            if zstart is None: zstart = z0
+            if zstart is None: zstart = z0; phi0 = phi
             hin = lambda z: math.asin(max(-1.0, min(1.0, (z - k0.z) / L))) - phi     # Steigungsänderung, damit das Ende auf z liegt
             dboden[f] = hin(RUTE_BODEN)
             if senken or deckel is not None:
                 k = min(1.0, (f - a0) / max(1.0, RUTE_SENKEN * (a1 - a0))) if senken else 0.0; k = k * k * (3 - 2 * k)
                 if senken:
+                    # Runde 3 (Lauf 136 lokal: Tod 0,40 s −63° auf −13°): bis RUTE_SENKEN folgte das Ziel der Quelle, die die Rute
+                    # steil in den Boden schlägt; jetzt hält jedes Glied seine Steigung aus dem ersten Bild und geht in RUTE_ANLAUF
+                    # der Bewegung in den geplanten Verlauf über
+                    k = min(1.0, (f - a0) / max(1.0, RUTE_ANLAUF * (a1 - a0))); k = k * k * (3 - 2 * k)
                     hoch = max(0.0, h0[f] - RUTE_BODEN); S = max(0.4 * sum(laenge), 2 * hoch / math.tan(math.radians(RUTE_WURZEL)))
                     zp = RUTE_BODEN + hoch * max(0.0, 1.0 - sum(laenge[:i + 1]) / S) ** 2
-                    dziel[f] = hin((1 - k) * max(RUTE_BODEN, min(z0, zstart)) + k * zp)
+                    dziel[f] = hin((1 - k) * max(RUTE_BODEN, k0.z + L * math.sin(phi0)) + k * zp)
                 else:
                     dziel[f] = hin(RUTE_BODEN + max(0.0, min(z0, zstart + (deckel or 0.0)) - RUTE_BODEN) * (1 - k))
             else:
@@ -408,9 +413,9 @@ def rute_aus_dem_boden(rig, a, senken=False, deckel=None):
             # Rutenursache (Messung Blender = Spiel, Lauf 133): jedes Gliedende lag richtig hoch, aber Glied gegen Glied geknickt
             # (Treffer +21° dann −56°: Bogen als Haken; Tod erstes Glied −90° senkrecht in den Boden, dann flach: Winkel);
             # darum höchstens RUTE_BIEGE gegen das vorige Glied, das erste höchstens RUTE_WURZEL abwärts; der Boden geht vor
-            if vorher is None:
-                ph = max(ph, -math.radians(RUTE_WURZEL))
-            else:
+            # Runde 3 (Treffer 0,27 s: −42° vor dem Boden, dann −18°): kein Glied steiler abwärts als RUTE_WURZEL
+            ph = max(ph, -math.radians(RUTE_WURZEL))
+            if vorher is not None:
                 ph = max(vorher[f] - math.radians(RUTE_BIEGE), min(vorher[f] + math.radians(RUTE_BIEGE), ph))
             ph = min(math.pi / 2, max(ph, phi + dboden[f]))
             gesetzt[f] = ph
