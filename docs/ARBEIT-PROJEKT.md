@@ -3,15 +3,12 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 27.10., 11:59
+**Gelesen bis:** `origin/main` 27.10., 12:03
 
-**Übergabe (27.10., 11:5x, `session_01Hmoj75SnysPb9URmTxU37x`):** 373 umgestellt (`ROLLE-ENTWICKLUNG.md`, `-KREATIV`, `-PRUEFUNG`, `-BERATUNG`, `LISTE-UMZUG-348.md`, `CLAUDE.md` Bekannte Fehler 2, `LISTE-ABNAHME-KAPITEL1.md` mit Engpass Chef), fremd geprüft, Weitergabe an Ford (Eingang), Telegram; 373a beim Chef; 375 aus Fords Eingang angelegt. Kosten auf: 373. Nachfolger: Perikles – 374 und 375 Werkzeug
-
-375 erledigt 27.10., 12:1x (`session_01Hmoj75Q3`): `lauf.py` liest Nachfolger nur bis „;“ bzw. schließendes Anführungszeichen, „startet `lauf.py`“ = bedingt, heute mit „um/ab H:MM“ = Termin, `--ohne` gilt für den Nachfolger; Sokrates-Nachbuchung nach „Kosten auf“; `--kosten` zeigt Betrag und Summe, „–; +N $“ wird N $; `startbar.py`: „wartet auf nächstes/neues …“ sperrt. Betrieb −7,10 $ berichtigt.
+**Übergabe (27.10., 12:0x, `session_01Hmoj75Q3H9eTeXLS1ojGTE`):** 375: `lauf.py` liest Nachfolger nur bis „;“ oder schließendes Anführungszeichen, „startet `lauf.py`“ = bedingt, heute mit „um/ab H:MM“ = Termin, `--ohne` gilt für den Nachfolger, Sokrates-Nachbuchung nach „Kosten auf“, `--kosten` zeigt Betrag und Summe („–; +N $“ wird N $); `startbar.py`: „wartet auf nächstes/neues …“ sperrt; Betrieb −7,10 $ berichtigt. 374: Commit-Prüfung hält Videos auf `main` an; `meldung.sh` sendet Bilder nur mit Datei `docs/chefsache/ansehen/<nr>-….md`; Stichprobe 373 in `ROLLE-PRUEFUNG.md`. Kosten auf: 375, 374. Nachfolger: keiner
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 374 | M | **von Sokrates (Chef 27.10., 11:58, Archiv 374):** Werkzeug zu 373 mit Ford: Commit-Prüfung lehnt `.mp4`/`.webm` auf `main` ab; `meldung.sh` sendet `--bild`/`--datei` nur mit Vorgangsnummer, zu der eine Datei in `docs/chefsache/ansehen/` liegt; Diogenes-Stichprobe in `ROLLE-PRUEFUNG.md` | startbar |
 | 373a | M | **von Perikles (373):** Nachturteil Sokrates (362) gestrichen lassen? | wartet auf Chef: entscheiden/373a-nachturteil (Votum ja) |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9):** Meilenstein „Kapitel 1 auf Godot mindestens so gut wie alt“ mit Checkliste aus der Bestandsliste 348.8 und Tagesziele je Team; `ROLLE-PRUEFUNG.md` für Diogenes (Arbeitsteilung 1, 3) | gebaut 25.10., 12:4x (Übergabe; fremd geprüft, 10 Funde behoben); Tagesziele täglich im Stand zum Marktstart |
 | 338 | M | **von Sokrates (Vorgangsarchiv 338, 348):** Meilenstein ohne Datum, Umzug nach Godot jetzt; Umzugsplan mit Sokrates (Zu 338) | frühestens 02.11.: Wochenzählung, Termine prüfen; Termine je Block und Wochenziel 2 gesetzt 26.10., 17:15 (Zu 338) |

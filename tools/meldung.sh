@@ -47,6 +47,12 @@ still=true; [ $laut = 1 ] && still=false
 if [ -n "$art" ]; then
   nr=$(printf '%s' "${text#⚠ }" | sed -nE '1s/^[[:space:]]*\[?([A-Za-z]?[0-9]+[a-z]?(\.[0-9]+[a-z]?)*)[]:( ].*/\1/p')
   if [ -z "$nr" ]; then echo "meldung: Bild ohne Vorgangsnummer am Textanfang („348.7: …“), nichts gesendet (363)" >&2; exit 2; fi
+  # 374 (373 Punkt 2, 228): Bilder an den Chef nur mit Datei docs/chefsache/ansehen/<Nummer ohne Punkt>-….md
+  ansehen="$(dirname "$(realpath "$0")")/../docs/chefsache/ansehen"
+  k=$(printf '%s' "$nr" | tr -d . | tr 'A-Z' 'a-z')
+  if ! ls "$ansehen" 2>/dev/null | tr 'A-Z' 'a-z' | grep -q "^$k-.*\.md$"; then
+    echo "meldung: zu $nr liegt keine Datei docs/chefsache/ansehen/$k-….md, nichts gesendet (374); erst die Datei anlegen und pushen" >&2; exit 2
+  fi
   if [ $probe = 0 ]; then
     repo="$(dirname "$(realpath "$0")")/.."
     pfad="$(TZ=Europe/Berlin date +%Y-%m)/$(TZ=Europe/Berlin date +%d-%H%M)-$nr-$(printf '%s' "$name" | tr -c 'A-Za-z0-9' '_' | sed 's/_*$//').${bild##*.}"
