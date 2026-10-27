@@ -84,6 +84,18 @@ def gruppe(i):
 
 POLY = [(list(p.vertices), gruppe(p.vertices[0])) for p in me.polygons if not any(aus[i] for i in p.vertices)]
 P_F = [f for f, _ in POLY]; P_G = [g for _, g in POLY]
+# Runde 7 (Pruefer 5, hoch: Hieb 0,23-0,27 Koerper 90 Grad und Schild 60 cm in einem Bild, Tod 0,40-0,43 Kopf 25 cm; Ausweichen beide
+# Fuesse gleiten 45-57 cm): Weg je Bild fuer Kopf, Rumpf und Schild (Mitte), dessen Aenderung als Vektor (Ruck: Umkehr, Abbremsen),
+# Drehung der Brust (spine_03) und Fusssohlen am Boden, solange er steht (Rumpf ueber 60 cm; im Tod gleiten die Beine beim Hinlegen)
+TEIL_V = {}
+for f_, g in POLY:
+    if g in ('Kopf', 'Rumpf'): TEIL_V.setdefault(g, set()).update(f_)
+TEIL_V = {g: np.array(sorted(v)) for g, v in TEIL_V.items()}
+FUSS_V = {s_: np.array([i for i in range(n) if kn[i] in ('foot_' + s_, 'ball_' + s_) and not aus[i]]) for s_ in 'lr'}
+TEIL_SPRUNG_M = 0.08   # so viel schneller (m je Bild) darf Kopf, Rumpf oder Schild von einem Bild zum naechsten werden, ab 10 cm je Bild
+DREH_SPRUNG = 15.0     # Grad: so viel schneller darf die Brust von einem Bild zum naechsten drehen, ab 20 Grad je Bild
+RUCK_M = 0.12         # m je Bild: so viel darf sich der Weg je Bild (als Richtung und Laenge) von einem Bild zum naechsten aendern
+SOHLE_M, GLEIT_M = 0.03, 0.05   # Sohle am Boden (tiefste Ecke unter 3 cm in beiden Bildern); gleitet: mehr als 5 cm je Bewegung
 
 
 # wie kampfblatt.py (15 Grad von oben), dazu die Spielkamera: kampfort.gd 25 Grad von oben, Kampflinie 30 Grad nach rechts, Helden
@@ -111,6 +123,8 @@ for nm in NAMEN:
     bef = {}
     sch_z, kl_z, lage = 9.0, 9.0, None
     alt_v, alt_s, schritt = None, None, []   # Runde 6: Weg des Netzes je Bild (Sprung)
+    alt_t, alt_ts, alt_r, alt_rs, gleit, tschritt = {}, {}, None, 0.0, {'l': 0.0, 'r': 0.0}, {}   # Runde 7
+    alt_tv, truck = {}, {}
     for f in range(nb + 1):
         scn.frame_set(f); setze_waffen(); bpy.context.view_layer.update()
         BH, V = bvh_held()
@@ -177,12 +191,40 @@ for nm in NAMEN:
             st = float(np.median(np.linalg.norm(Vn - alt_v, axis=1))); schritt.append(st)
             if st - (alt_s or 0.0) > SPRUNG_M: bef.setdefault('Sprung', []).append(s)
             alt_s = st
+        # Runde 7: Teile, Brust, Sohlen
+        tm = {g: Vn[ix].mean(axis=0) for g, ix in TEIL_V.items()}; tm['Schild'] = np.array(SV).mean(axis=0)
+        for g, c in tm.items():
+            if g in alt_t:
+                st = float(np.linalg.norm(c - alt_t[g])); tschritt.setdefault(g, []).append(st)
+                # Ruck: Aenderung des Wegs je Bild als Vektor (Umkehr, Abbremsen), m je Bild
+                if g in alt_tv:
+                    rk = float(np.linalg.norm((c - alt_t[g]) - alt_tv[g])); truck.setdefault(g, []).append(rk)
+                    if rk > RUCK_M: bef.setdefault('Ruck ' + g, []).append(s)
+                alt_tv[g] = c - alt_t[g]
+                if st > 0.10 and st - alt_ts.get(g, 0.0) > TEIL_SPRUNG_M: bef.setdefault('Sprung ' + g, []).append(s)
+                alt_ts[g] = st
+            alt_t[g] = c
+        R3 = (rig.matrix_world @ PB['spine_03'].matrix).to_quaternion()
+        if alt_r is not None:
+            w = math.degrees(R3.rotation_difference(alt_r).angle); tschritt.setdefault('Brust (Grad)', []).append(w)
+            if w > 20 and w - alt_rs > DREH_SPRUNG: bef.setdefault('Sprung Brust', []).append(s)
+            alt_rs = w
+        alt_r = R3
+        for s_, ix in FUSS_V.items():
+            F = Vn[ix]
+            if alt_v is not None and F[:, 2].min() < SOHLE_M and alt_v[ix][:, 2].min() < SOHLE_M and tm['Rumpf'][2] > 0.6:   # im Stand
+                gleit[s_] += float(np.linalg.norm((F.mean(axis=0) - alt_v[ix].mean(axis=0))[:2]))
         alt_v = Vn
         if f == nb:
             nrm = (schild.matrix_world.to_3x3() @ SH_N).normalized()
             ax = (schwert.matrix_world.to_3x3() @ Vector((0, 0, 1))).normalized()
             lage = {'schild_gegen_boden_grad': round(90 - math.degrees(math.asin(min(1.0, abs(nrm.z))))),
                     'klinge_gegen_boden_grad': round(math.degrees(math.asin(min(1.0, abs(ax.z)))))}
+    for s_, g_ in gleit.items():
+        if g_ > GLEIT_M: bef.setdefault('Fuss %s gleitet %.0f cm' % (s_, g_ * 100), []).append('')
+    if os.environ.get('SCHRITTE'):
+        for g, l in truck.items(): print('RUCK', nm, g, ' '.join('%.2f' % x for x in l))
+        for g, l in tschritt.items(): print('TEIL', nm, g, ' '.join('%.2f' % x if 'Grad' not in g else '%.0f' % x for x in l))
     out[nm] = {'schritt_max_m': round(max(schritt, default=0.0), 3), 'befunde': bef, 'schild_tiefst': round(sch_z, 3), 'klinge_tiefst': round(kl_z, 3), 'ende': lage}
     zeit = lambda l: l[0] if len(l) == 1 else '%s-%s (%d)' % (l[0], l[-1], len(l))
     print('NETZ %-11s %s  Schild tiefst %+.3f  Klinge tiefst %+.3f  Netz je Bild bis %.3f m  Ende %s' % (

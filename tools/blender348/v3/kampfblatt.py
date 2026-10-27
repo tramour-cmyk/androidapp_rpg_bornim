@@ -68,8 +68,10 @@ for eintrag in LISTE.split(','):
         for f in frames:
             scn.frame_set(f); setze_waffen()
             a = math.radians(az); el = math.radians(el_)
-            k_ = min(1.0, max(0.0, (f - 9) / 12.0)) if nm == 'Tod' else 0.0   # Tod: Ausschnitt gleitet mit (sprang bei Bild 20)
-            ziel = Vector((0, 0, 0.85)).lerp(Vector((0, 0.5, 0.4)), k_)
+            # Runde 7 (Pruefer 5: im Tod fuhr der Ausschnitt ab 0,33 s mit, „Spiel“ war keine feste Kamera; ab 0,63 s Schild abgeschnitten):
+            # Tod mit festem, weiterem Ausschnitt ueber Stand und Liegen
+            ziel = Vector((0, 0.3, 0.6)) if nm == 'Tod' else Vector((0, 0, 0.85))
+            cam.data.ortho_scale = 3.4 if nm == 'Tod' else 2.6
             d = Vector((math.sin(a) * math.cos(el), -math.cos(a) * math.cos(el), math.sin(el)))
             cam.location = ziel + d * 6; cam.rotation_euler = (-d).to_track_quat('-Z', 'Y').to_euler()
             p = OUT + '/kampfblatt/_%s_%d_%d.png' % (nm, vi, f); scn.render.filepath = p

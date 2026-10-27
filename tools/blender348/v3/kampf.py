@@ -349,6 +349,9 @@ def pruefen(pu, lies, namen, log=print, NZ=None):
 
 
 def ease(s, art):
+    if isinstance(art, tuple):    # Runde 7: ('h', m0, m1) Hermite mit Anfangs- und Endtempo (1 = mittleres Tempo des Abschnitts)
+        m0, m1 = art[1:]
+        return (-2 * s ** 3 + 3 * s * s) + m0 * (s ** 3 - 2 * s * s + s) + m1 * (s ** 3 - s * s)
     return {'weich': s * s * (3 - 2 * s), 'linear': s, 'an': s * s, 'aus': 1 - (1 - s) ** 2}[art]
 
 
@@ -569,6 +572,7 @@ def bauen(sk, INFO, stehen='Stehen', tod='Tod', log=print):
     # Beinen): oben bleibt die Faust rechts neben dem Kopf, in der Mitte zeigt die Klinge nach vorn, am Ende links aussen am Bein vorbei
     # Runde 4 (Pruefer 3: Klinge 0,33-0,57 durch den Schild): der Schildarm geht im Hieb nach links aussen zurueck
     SEITAB = dict(hand=(0.38, 0.10, 1.00), pol=(1.0, 0.4, -0.4), vorn=(0.85, -0.50, 0.10))
+    SCHILD_WEG_HAND = tuple(float(x) for x in os.environ.get('SCHILD_WEG', '0.42,-0.12,1.00').split(','))
     # Runde 5 (Pruefer 4b: 0,27 Arm gestreckt und Klinge senkrecht, 0,30-0,33 Bahn waagerecht ueber den Schild, 0,37-0,47 Spitze an der
     # linken Huefte, Sprung 0,47-0,53): die Klinge laeuft in einer schraegen Ebene durch vorn (Oberhau von rechts oben nach links
     # unten); Richtung = cos(w) * schraeg + sin(w) * vorn, w = 20 (oben, schraeg nach rechts oben), 110 (Mitte, nach vorn), 150 (Ende,
@@ -576,6 +580,19 @@ def bauen(sk, INFO, stehen='Stehen', tod='Tod', log=print):
     def bahn(w):
         d = Vector((-0.71, 0.0, 0.71)); v = Vector((0.0, -1.0, 0.0)); a = math.radians(w)
         return tuple(d * math.cos(a) + v * math.sin(a))
+    # Runde 7: auf dem Weg zum Ausholen (und im Stich zurueck) ist der Schild halb nach aussen, weiter links und vorn als die Mitte
+    # (dazwischen lag er im Umhang)
+    SCHILD_WEG = dict({k: tuple((x + y) / 2 for x, y in zip(WACHE[k], SEITAB[k])) for k in WACHE}, hand=SCHILD_WEG_HAND)
+    def ausholen_weg_hieb():
+        ausholen_weg(); schildarm(name='Ausholen Weg Schild', **SCHILD_WEG)
+
+    def stich_weg_s():
+        stich_weg(); schildarm(name='Stich Weg Schild', **SCHILD_WEG)
+
+    def ausgeholt_hieb():    # Runde 7 (Pruefer 5, hoch: Schild 60 cm in einem Bild bei 0,23-0,27): der Schild geht schon beim Ausholen
+        # nach links aussen (SEITAB), nicht erst im Schlag
+        ausgeholt(); schildarm(name='Ausgeholt Schild', **SEITAB)
+
     def hieb_oben():    # Faust rechts vor dem Kopf, Ellbogen gebeugt, Klinge schraeg nach rechts oben (nicht senkrecht)
         ausfall(8, 0.04); rumpf(dreh=-8, vor=6)
         schwertarm((-0.30, -0.24, 1.34), (-0.7, 0.2, -0.6), bahn(25), schulter=2, name='Hieb oben', kegel=8,
@@ -633,7 +650,8 @@ def bauen(sk, INFO, stehen='Stehen', tod='Tod', log=print):
         # Runde 2b (Pruefer: nur Oberkoerper und Kopf, von vorn links schwach): rechter Fuss einen halben Schritt zurueck, Rumpf
         # zur Seite gedreht
         becken((-0.03, 0.16, -0.05), vor=-6, dreh=-10); rumpf(dreh=-16, vor=-24, seit=8)
-        fuesse({'r': FUSS0['r'].translation + Vector((-0.02, 0.18, 0.0)), 'l': FUSS0['l'].translation + Vector((0.0, 0.06, 0.0))})
+        # Runde 7: der linke Fuss bleibt stehen (6 cm in 0,05 s waren ein Schleifen, kein Schritt)
+        fuesse({'r': FUSS0['r'].translation + Vector((-0.02, 0.18, 0.0))})
         schwertarm((-0.39, 0.16, 0.93), (-0.6, 0.6, -0.3), (-0.45, -0.45, 0.77), name='Treffer')   # wie vorher, mit dem Becken verschoben
         # Runde 4 (Pruefer 3: Kopf in den Nacken, Schildkante am Helm): Kopf 8 statt 18 Grad zurueck, Schild tiefer vor den Bauch
         schildarm((0.26, -0.10, 0.92), (1.0, 0.3, -0.5), (0.35, -0.93, 0.0), name='Treffer')
@@ -799,10 +817,13 @@ def bauen(sk, INFO, stehen='Stehen', tod='Tod', log=print):
                 hoehe -= z; pu.stelle(P0); w_ = tod_arme(hoehe, k_aus)
         return w_
 
+    SITZ_VOR = [float(x) for x in os.environ.get('SITZ_VOR', '0,4').split(',')]
     def tod_sitz():      # Runde 4 (Pruefer 4: bei 0,50 noch Stuhl, 0,60-0,70 Liegestuhl): er plumpst gerade nach unten aufs Gesaess hinter
         # den Fersen, der Oberkoerper noch fast aufrecht (leicht zurueck), Knie hoch; Schwert und Schild schon am Boden (vorher hielt er
         # das Schwert waagerecht in die Luft); danach kippt er schnell auf den Ruecken
-        becken((0, 0.20, -0.62), dreh=6, vor=-12); rumpf(vor=-6, dreh=4)
+        # Runde 7 (Pruefer 5: 0,20-0,47 ruckweise; Kopf vor im Knick, zurueck im Sitz kehrte vor dem Aufsetzen um, 0,22 m je Bild):
+        # er sitzt noch vorgebeugt auf, der Oberkoerper geht erst danach zurueck
+        becken((0, 0.20, -0.62), dreh=6, vor=SITZ_VOR[0]); rumpf(vor=SITZ_VOR[1], dreh=4)
         beine = lambda: fuesse({s: FUSS0[s].translation + Vector((0, -0.10, 0)) for s in 'lr'})
         beine(); erde(beine)
         tod_arme_boden(0.10, 0.7)
@@ -833,8 +854,8 @@ def bauen(sk, INFO, stehen='Stehen', tod='Tod', log=print):
         lang, _ = achsen(); pu.drehe('Head', lang, 22)
         scheide_flach(1.0); umhang_klappen()
 
-    P = {n: pose(fn) for n, fn in (('aus', ausgeholt), ('weg', ausholen_weg), ('hoch', hoch), ('oben', hieb_oben), ('mitte', hieb_mitte),
-                                    ('auf', aufschlag), ('szur', stich_zurueck), ('sweg', stich_weg), ('stoss', stoss), ('treffer', getroffen),
+    P = {n: pose(fn) for n, fn in (('aus', ausgeholt), ('aus_h', ausgeholt_hieb), ('weg_h', ausholen_weg_hieb), ('weg', ausholen_weg), ('hoch', hoch), ('oben', hieb_oben), ('mitte', hieb_mitte),
+                                    ('auf', aufschlag), ('szur', stich_zurueck), ('sweg', stich_weg), ('sweg_s', stich_weg_s), ('stoss', stoss), ('treffer', getroffen),
                                     ('ausw', ausweichen), ('abwehr', abwehr),
                                     ('t_zuck', tod_zuck), ('t_knick', tod_knick), ('t_sitz', tod_sitz), ('t_ruecken', tod_ruecken),
                                     ('t_liegen', tod_liegen))}
@@ -842,15 +863,93 @@ def bauen(sk, INFO, stehen='Stehen', tod='Tod', log=print):
     P['ausw_h'] = mische(K0, P['ausw'], 0.5)
     log('KAMPF Tod Klinge %s Grad von rechts' % LIEG.get('w'))
 
-    def folge(name, keys, schleife=False, nach=None):
+    # Runde 7 (Pruefer 5, hoch: Hieb 0,23-0,27 Koerper 90 Grad und Schild 60 cm in einem Bild nach Stillstand; Tod 0,20-0,47 ruckweise,
+    # 0,40-0,43 Kopf 25 cm): Verlauf 'fluss' geht ohne Halt durch die Schluesselbilder: je Knochen kubisch (Hermite) mit Tangenten wie
+    # Catmull-Rom (Nachbarn durch ihre Zeit), monoton begrenzt, an Halt, Anfang und Ende 0; so aendert auch kein Teil in einem
+    # Schluesselbild die Richtung ruckartig (gleiches Tempo aller Knochen hielt den Kopf beim Knick im Tod an); 'fall' kommt mit
+    # FALL-fachem mittlerem Tempo an (Aufprall)
+    FALL = 1.0
+    def kurve(keys):
+        X = []
+        for _, p, _ in keys:
+            x = np.array([list(P[p][b][0]) + list(P[p][b][1]) for b in REIHE])
+            if X:    # Vorzeichen der Quaternionen wie im vorigen Schluesselbild
+                x[(x[:, :4] * X[-1][:, :4]).sum(axis=1) < 0, :4] *= -1
+            X.append(x)
+        tk = [k[0] for k in keys]; n_ = len(keys)
+        fl = [keys[j][2] in ('fluss', 'fall') and keys[j][1] != keys[j + 1][1] for j in range(n_ - 1)]
+        M = [np.zeros_like(X[0]) for _ in keys]
+        for k in range(1, n_ - 1):
+            if fl[k - 1] and fl[k]:    # monoton (Fritsch-Carlson): nichts schiesst ueber, Umkehr eines Werts im Schluesselbild
+                a_ = (X[k] - X[k - 1]) / (tk[k] - tk[k - 1]); b_ = (X[k + 1] - X[k]) / (tk[k + 1] - tk[k])
+                m_ = (X[k + 1] - X[k - 1]) / (tk[k + 1] - tk[k - 1])
+                m_ = np.clip(m_, -3 * np.minimum(abs(a_), abs(b_)), 3 * np.minimum(abs(a_), abs(b_)))
+                M[k] = np.where(a_ * b_ > 0, m_, 0.0)
+        return X, M, fl
+
+    def kurve_pose(kv, keys, j, u):
+        X, M, _ = kv; T = keys[j + 1][0] - keys[j][0]
+        m0 = M[j]; m1 = FALL * (X[j + 1] - X[j]) / T if keys[j][2] == 'fall' else M[j + 1]
+        h00, h10, h01, h11 = 2 * u ** 3 - 3 * u * u + 1, u ** 3 - 2 * u * u + u, -2 * u ** 3 + 3 * u * u, u ** 3 - u * u
+        x = h00 * X[j] + h10 * T * m0 + h01 * X[j + 1] + h11 * T * m1
+        return {b: (Quaternion(x[i, :4]).normalized(), Vector(x[i, 4:])) for i, b in enumerate(REIHE)}
+
+    # Runde 7 (Pruefer 5, hoch: Ausweichen beide Fuesse gleiten 45-57 cm; mittel: Treffer hinterer Fuss schleift): die Fuesse stehen
+    # fest am Ort des letzten Schluesselbilds; aendert sich ihr Ort (mehr als FUSS_WEG, auch ueber mehrere Abschnitte am Stueck), hebt der
+    # Fuss ab und setzt auf (Bogen 4 cm bis hoch); gehen beide, zuerst der in Laufrichtung vordere (erste 60 % der Zeit), der andere danach
+    FUSS_WEG = 0.03
+    def fussorte(p):
+        pu.stelle(P[p]); return {s_: pu.W('foot_' + s_).copy() for s_ in 'lr'}
+
+    def schritte(keys, heben=True, hoch=0.09):
+        F = [fussorte(p) for _, p, _ in keys]; plan = {'l': [], 'r': []}
+        for s_ in 'lr':
+            j = 0
+            while j < len(keys) - 1:
+                if (F[j + 1][s_].translation - F[j][s_].translation).to_2d().length <= FUSS_WEG: j += 1; continue
+                k = j + 1
+                while k < len(keys) - 1 and (F[k + 1][s_].translation - F[k][s_].translation).to_2d().length > FUSS_WEG: k += 1
+                plan[s_].append([keys[j][0], keys[k][0], F[j][s_], F[k][s_]]); j = k
+        for a_ in (plan['l'] if heben else []):     # beide zugleich: nacheinander, der in Laufrichtung vordere zuerst
+            for b_ in plan['r']:
+                if a_[0] < b_[1] and b_[0] < a_[1]:
+                    t0, t1 = min(a_[0], b_[0]), max(a_[1], b_[1])
+                    d = ((a_[3].translation + b_[3].translation) - (a_[2].translation + b_[2].translation)).to_2d()
+                    erst, dann = (a_, b_) if a_[2].translation.to_2d().dot(d) >= b_[2].translation.to_2d().dot(d) else (b_, a_)
+                    erst[0], erst[1] = t0, t0 + 0.6 * (t1 - t0); dann[0], dann[1] = t0 + 0.4 * (t1 - t0), t1
+        return plan, F, heben, hoch
+
+    def fuesse_setzen(plan, F, heben, hoch, keys, t):
+        for s_ in 'lr':
+            M = None
+            for t0, t1, Ma, Mb in plan[s_]:
+                if t0 - 1e-9 <= t <= t1 + 1e-9:
+                    # erst heben, dann vor (mittlere 70 % der Zeit), dann setzen: am Boden gleitet nichts
+                    u_ = (t - t0) / (t1 - t0); w = (Mb.translation - Ma.translation).to_2d().length
+                    k = ease(min(1.0, max(0.0, (u_ - 0.15) / 0.7)) if heben else u_, 'weich')
+                    T = Ma.translation.lerp(Mb.translation, k); T.z += heben * min(hoch, max(0.04, 0.4 * w)) * math.sin(math.pi * u_)
+                    M = (T, Ma.to_quaternion().slerp(Mb.to_quaternion(), k).to_matrix()); break
+            if M is None:    # steht: am Ort des letzten Schluesselbilds, an dem er stand (nach einem Schritt dessen Ziel)
+                last = max(j for j in range(len(keys)) if keys[j][0] <= t + 1e-9)
+                Mf = F[last][s_]
+                for t0, t1, Ma, Mb in plan[s_]:
+                    if t0 <= keys[last][0] < t1: Mf = Mb if t > t1 else Ma
+                M = (Mf.translation.copy(), Mf.to_3x3())
+            T, R = M
+            kn_ = pu.W('calf_' + s_).translation; hf = pu.W('thigh_' + s_).translation
+            pu.zwei('thigh_' + s_, 'calf_' + s_, T, kn_ - (hf + T) / 2); pu.setze('foot_' + s_, R)
+
+    def folge(name, keys, schleife=False, nach=None, schritt=True, hoch=0.09):
         """keys: (Zeit s, Pose, Verlauf bis zum naechsten); nach(t): je Bild nach dem Mischen (Tod: auf den Boden)"""
         n = int(round(keys[-1][0] * FPS)); out = []
+        kv = kurve(keys); plan = schritte(keys, schritt != 'gleiten', hoch) if schritt else None
         for i in range(n + 1):
             t = i / FPS
             j = max(j for j in range(len(keys) - 1) if keys[j][0] <= t + 1e-9) if t < keys[-1][0] else len(keys) - 2
             (t0, p0, v0), (t1, p1, _) = keys[j], keys[j + 1]
-            s = ease(min(1.0, (t - t0) / (t1 - t0)), v0)
-            Pm = mische(P[p0], P[p1], s)
+            u = min(1.0, (t - t0) / (t1 - t0))
+            Pm = kurve_pose(kv, keys, j, u) if kv[2][j] else mische(P[p0], P[p1], ease(u, 'linear' if v0 in ('fluss', 'fall') else v0))
+            if plan: pu.stelle(Pm); fuesse_setzen(*plan, keys, t); Pm = pu.merke()
             if nach: pu.stelle(Pm); nach(t); Pm = pu.merke()
             out.append(Pm)
         schreibe(name, out, schleife)
@@ -861,11 +960,14 @@ def bauen(sk, INFO, stehen='Stehen', tod='Tod', log=print):
     folge('Ausholen', [(0.0, 'k0', 'weich'), (0.16, 'weg', 'linear'), (0.40, 'aus', 'weich')])
     # Hieb 0,8 s: ausholen bis 0,18 (rechts aussen), Halt bis 0,22, Schlag 0,15 s bis 0,37 (oben rechts neben dem Kopf, Mitte nach vorn,
     # Aufschlag links unten), Halt am Aufschlag bis 0,46, zurueck bis 0,80
-    folge('Hieb', [(0.0, 'k0', 'weich'), (0.09, 'weg', 'linear'), (0.18, 'aus', 'linear'), (0.22, 'aus', 'an'), (0.27, 'oben', 'linear'),
-                   (0.32, 'mitte', 'linear'), (0.37, 'auf', 'aus'), (0.46, 'auf', 'weich'), (0.58, 'hoch', 'weich'), (0.80, 'k0', 'weich')])
+    # Runde 7 (Pruefer 5, hoch: 0,17-0,23 Stillstand, dann 0,23-0,27 80 % des Wegs zur Pose oben in einem Bild, 'an' ueber 0,05 s):
+    # Halt am Ausholen nur 0,02 s, der Schlag laeuft ohne Halt (fluss) ueber oben und Mitte zum Aufschlag
+    folge('Hieb', [(0.0, 'k0', 'fluss'), (0.09, 'weg_h', 'fluss'), (0.18, 'aus_h', 'linear'), (0.20, 'aus_h', 'fluss'), (0.28, 'oben', 'fluss'),
+                   (0.33, 'mitte', 'fluss'), (0.37, 'auf', 'linear'), (0.46, 'auf', 'fluss'), (0.58, 'hoch', 'fluss'), (0.80, 'k0', 'linear')])
     # Stich 0,6 s: zurueck bis 0,18, Stoss bis 0,28, Halt bis 0,36, zurueck bis 0,60
-    folge('Stich', [(0.0, 'k0', 'weich'), (0.09, 'sweg', 'linear'), (0.18, 'szur', 'an'), (0.28, 'stoss', 'linear'), (0.36, 'stoss', 'weich'),
-                    (0.60, 'k0', 'weich')])
+    # Runde 7: der Schild geht schon auf dem Weg zurueck halb nach aussen (vorher 22 cm je Bild bei 0,10-0,13), ohne Halt bis szur
+    folge('Stich', [(0.0, 'k0', 'fluss'), (0.09, 'sweg_s', 'fluss'), (0.18, 'szur', 'an'), (0.28, 'stoss', 'linear'), (0.36, 'stoss', 'weich'),
+                    (0.60, 'k0', 'weich')], hoch=0.05)   # Runde 7: Ausfallschritt flach (bei 9 cm stiess das Knie 0,47 an den Schild)
     # Treffer 0,45 s (figur.gd ruht nach 0,45 s): Ruck 0,08 s, zurueck
     folge('Treffer', [(0.0, 'k0', 'aus'), (0.08, 'treffer', 'linear'), (0.14, 'treffer', 'weich'), (0.45, 'k0', 'weich')])
     # Ausweichen 0,45 s: weg 0,12 s, Halt bis 0,24, zurueck
@@ -879,15 +981,15 @@ def bauen(sk, INFO, stehen='Stehen', tod='Tod', log=print):
 
     # Tod 2,4 s (wie Death01): Ruck bis 0,15, Knie geben nach bis 0,38, Fall aufs Gesaess bis 0,58, auf den Ruecken bis 0,76, Beine
     # gleiten vor bis 1,10, liegt
-    T_SITZ, UMW = 0.44, []
+    T_KNICK, T_SITZ, T_LIEGT, UMW = 0.37, 0.57, 0.61, []   # Runde 7: Knick 0,30 -> 0,37, Sitz 0,44 -> 0,57, ab T_LIEGT kippt er
     def am_boden(t):
         if t < 0.30: UMH_SK.append((1, 1, 1)); return
         if NZ: z = NZ.tief(NZ.rumpf)
         else: return
         if t >= T_SITZ or z < 0: pu.schiebe('pelvis', (0, 0, -z))     # ab dem Sitzen aufliegend, vorher nur nicht hinein
         UMW.append(umhang_klappen(spiel=20))
-        UMH_SK.append(umhang_flach(ease(min(1.0, max(0.0, (t - 0.48) / 0.20)), 'weich')))
-        if T_SITZ <= t < 0.48: auf_umhang()     # danach liegt der flache Umhang unter ihm (umhang_flach)
+        UMH_SK.append(umhang_flach(ease(min(1.0, max(0.0, (t - T_LIEGT) / 0.20)), 'weich')))
+        if T_SITZ <= t < T_LIEGT: auf_umhang()     # danach liegt der flache Umhang unter ihm (umhang_flach)
         if SCH and NZ.tief(NZ.scheide) < 0.0:    # die Scheide legt sich, sobald sie den Boden beruehrt
             P_ = pu.merke()
             for k in (0.3, 0.6, 1.0):
@@ -903,8 +1005,12 @@ def bauen(sk, INFO, stehen='Stehen', tod='Tod', log=print):
     if tod in bpy.data.actions: bpy.data.actions.remove(bpy.data.actions[tod])
     # Runde 4 (Pruefer 3, 4): Knick bis 0,36, plumpst aufs Gesaess (0,50), kippt beschleunigt auf den Ruecken (0,70)
     # Runde 5 (Pruefer 4b: Stuhl bei 0,40): Knick bis 0,30, aufs Gesaess bis 0,44, auf den Ruecken bis 0,64
-    folge(tod, [(0.0, 'k0', 'aus'), (0.15, 't_zuck', 'weich'), (0.30, 't_knick', 'an'), (T_SITZ, 't_sitz', 'linear'), (0.48, 't_sitz', 'an'),
-                (0.64, 't_ruecken', 'weich'), (1.00, 't_liegen', 'linear'), (2.40, 't_liegen', 'linear')], nach=am_boden)
+    # Runde 7 (Pruefer 5, hoch: 0,20-0,47 ruckweise, zuck -> knick hielt an, dann 'an'; 0,40-0,43 Kopf 25 cm, Schild klappt flach in
+    # einem Bild): nach dem Ruck ohne Halt (fluss) ueber den Knick (0,22 statt 0,15 s) aufs Gesaess (0,20 statt 0,14 s); auf den
+    # Ruecken mit Endtempo 1,0 statt 2 ('an'), 0,32 statt 0,16 s
+    folge(tod, [(0.0, 'k0', 'aus'), (0.15, 't_zuck', 'fluss'), (T_KNICK, 't_knick', 'fall'), (T_SITZ, 't_sitz', 'linear'),
+                (T_LIEGT, 't_sitz', ('h', 0.0, 1.0)), (0.93, 't_ruecken', 'weich'), (1.25, 't_liegen', 'linear'), (2.40, 't_liegen', 'linear')],
+          nach=am_boden, schritt='gleiten')   # Runde 7: Fuesse fest, beim Sitzen und Liegen gleiten sie (ohne Heben)
     log('KAMPF Tod Umhang geklappt (Grad je Bild ab dem Knick)', UMW)
     INFO['kampf_knick'] = KN
     INFO['kampf_pruefung'] = pruefen(pu, lies, ['Kampfstehen', 'Ausholen', 'Hieb', 'Stich', 'Treffer', 'Ausweichen', 'Abwehr', tod], log, NZ)
