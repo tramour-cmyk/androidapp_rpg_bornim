@@ -43,4 +43,6 @@ Bitte den [Film](bilder:pruefung/348.12-r7-film.mp4) ansehen, links eigen, recht
   - Im Blatt endet die Spitze von Leder beim Aufschlag 3 px über der Beschriftung.
   - Die letzten 0,67 s des Films stehen still (Fehler beim Schnitt).
 
+**Messung Diogenes (27.10., 17:0x, nur Hinweis):** Eigen und CC0 sind gleich hell, im Stehen ±2 %, im Gehen −3 bis +7 % (Helm +7 %). Das Paar im Gehen ist ungleich: Der eigene ist dort ohne Schild und in anderer Haltung.
+
 **Sag:** „passt“ (oder „ja“): so übernehmen, die offenen Punkte behebe ich beim Übertrag. Sonst sag, was anders sein soll.

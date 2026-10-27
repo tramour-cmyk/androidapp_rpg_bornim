@@ -33,4 +33,6 @@
   - Im Vergleichsbild sind in „Variante braun“ links unten kleine Strichreste.
 - Aus r3, nicht neu geprüft: Die gekaufte ist größer als die Helden, ihr Gesicht ist in Spielgröße kaum lesbar.
 
+**Messung Diogenes (27.10., 17:0x, nur Hinweis):** Die gekaufte ist so hell wie die eigene (−3 bis +3 %). Die Variante ist dunkler (−7 bis −18 %). Der gekauften fehlen die rosa Ohren und die Wunden der eigenen. Ihr Maul ist zu, die eigene zeigt bei grau und schwarz die Zähne. Ihre Augen sind orange-rot statt rot. Im Vergleichsbild ist der Schwanz angeschnitten, bei der gekauften im braunen und schwarzen Fell, bei der Variante in allen drei Fellen.
+
 **Sag:** „eigen“ oder „gekauft“.
