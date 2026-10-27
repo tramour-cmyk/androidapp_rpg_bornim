@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (27.10., 18:32, „Tom – 348.13a Tusche Kampf Runde 6“ `session_01Hmoj77waA193TDB2hnJsnm`):** 348.13a Runden 6–7 gebaut, geprüft, vorgelegt (Chefsache 34813a); Zugang Kaufteile da (Chef 17:38), 3761a gelöscht; Tracht vorgelegt (Chef 18:06 ja); Figurenfilm mit Kaufteilen Runde 2 gerendert (`bilder:pruefung/3761-figuren-kauf-film-r2.mp4`, Blätter `-r2`), Fremdprüfung lief, Ergebnis nicht übergeben: neu prüfen lassen; Häuser gedreht (`c2348f92e`), vorgelegt (Chefsache 376). Nachfolger: „Tom – 376.1 Kaufkopf und Fehler Tracht“; braucht vom Chef den Satz aus Zu 376.1 (Zugang).
+**Übergabe (27.10., 18:5x, „Tom – 376.1 Kaufkopf und Fehler Tracht“ `session_01Hmoj76F3KvM4odEwqUYmo3`):** `add_repo` ohne Satz des Chefs abgelehnt, Bitte per Telegram (18:36); Befunde Film r2 eingetragen (Zu 376.1, Film); Probehaus aus dem Dorfbausatz gebaut und gerendert (`c2d2441a2`, `tools/pruef348/probehaus.sh`, Bilder alt/neu `bilder:pruefung/376-probehaus-*`), ungeprüft; Ford auf eine Stunde vorgehende Zeiten hingewiesen. Nachfolger: „Tom – 376 Probehaus prüfen, vorlegen“: Fremdprüfung der Bilder, Fehlerrunde, Vorlage; kommt der Satz zum Zugang, zuerst 376.1.
 
 ## Zeilen
 
@@ -10,7 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 |---|---|---|---|---|
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101: Held im APK verschlüsselt, lädt) | `claude/tom-348-12i-verschluesseln` |
 | 376.1 | M | **von Sokrates (Chef kaufte 12:20, „jetzt“ 12:46):** Probeblatt Quaternius-Figuren (Archiv 376, Zu 376.1) | wartet auf Chef: Satz zum Zugang (Zu 376.1) in der Sitzung Tom; Film r2 nicht vorlegbar (Befunde Zu 376.1, Film); dann Kaufkopf anpassen, Fehler Tracht | `claude/tom-376-1-figuren` |
-| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: Häuser gedreht vorgelegt (Chefsache 376, c2348f92e); als Nächstes Probehaus Dorfbausatz (376); Kampf r7 Urteil im Film 376.1; Kleidung, Kopf ruhen bis dahin; dann Dorf | `claude/tom-348-fundament` |
+| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: Probehaus gebaut (c2d2441a2, Haus 3/12, Bilder bilder:pruefung/376-probehaus-*.jpg), ungeprüft: Fremdprüfung, Fehlerrunde, Vorlage (Chefsache 376); Häuser gedreht beim Chef; dann Dorf | `claude/tom-348-fundament` |
 | 376.2 | M | **von Perikles (Chef 12:37, `LISTE-CC0-MODELLE.md`):** RenderHub-Marktpaket: Brunnen und Stände als Form, unsere gemalten Farben | startbar mit dem Dorf: Paket im Release stufe1 erreichbar (Chef 17:38) | – |
 | 372 | M | **von Perikles (338a B, Chef 27.10., 09:36, Archiv):** Feinschliff Held: Kettenhemd, Helm, Kragen (Zu 348.6, Hände) | ruht bis Ende des Umzugs | `claude/tom-348-fundament` |
 | 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | wartet auf Chef: Vorlage 348.13a Runde 7 (Chefsache 34813a, 1,0 oder 1,3); dann an Jerry | `claude/tom-34813-kampfprobe` |
