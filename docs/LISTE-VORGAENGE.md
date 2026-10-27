@@ -114,3 +114,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 344.2 | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | E Kampf | K | – | Team Jerry | offen |
 | 366 | bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Chef 25.10., 18:39) | M Markt | M | –; +25,65 $ | Sokrates | offen |
 | 377.1 | Inventur: Übersicht aller Bewegungen, Modelle, Dinge im Bestand (Chef 27.10., 14:28) | B Abläufe | M | – | Sokrates | in Arbeit |
+| 377.2 | Freigabe `add_repo` (Kaufmodelle) dauerhaft erlauben (Chef 27.10., 14:31) | B Abläufe | M | – | Perikles | startbar |
