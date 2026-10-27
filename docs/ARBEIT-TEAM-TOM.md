@@ -9,7 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101: Held im APK verschlüsselt, lädt) | `claude/tom-348-12i-verschluesseln` |
-| 388 | M | **von Sokrates (Chef 21:58; „jetzt“ 27.10., 22:17, „388 machen“):** Play-Fassung: „Kopieren“ der Geräteangaben (TestTab) auch im Systemmenü; Ruckeln eines Testers in den Hütten auswerten | zu testen: main e370eae33, play Lauf 40590735336; Chef über Play Store |
+| 388 | M | **von Sokrates (Chef 21:58; „jetzt“ 27.10., 22:17, „388 machen“):** Play-Fassung: „Kopieren“ der Geräteangaben (TestTab) auch im Systemmenü; Ruckeln eines Testers in den Hütten auswerten | wartet: im Play-Test (Lauf 40590735336); Chef testet, dann Ruckeln nach Geräteangaben |
 | 385 | M? | **von Sokrates (Archiv):** Zauberer-Set (Biped, LISTE-BESTAND) auf Kaufkörper, Film | startbar |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | startbar: Kaufkopf ja (Chef 21:41); Oberarm behoben, Halszacken offen, dann Formen, Kopfvorlagen, Editor (Zu 376.1) | `claude/tom-376-1-figuren` |
 | 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: Gwennas Haus A2 Vorgabe (77aca6c63); Häuser mit Innenraum auf den Bausatz, Fenster nach Grundriss (Zu 348.6, Probehaus); dann Dorf | `claude/tom-348-fundament` |
