@@ -191,8 +191,9 @@ def finish(nt, col, name):
     # Runde 2 (Helfer: Rocksaum braun): bei den Leuten Schlamm nur an Stiefeln und Hose, nicht am Rock
     if name in (('boots', 'cuff', 'pants', 'cloak', 'tabard') if FIGUR == 'held' else ('boots', 'cuff', 'pants')):
         # 348.6 (Helfer am Spielbild: Unterkoerper grau-braun verwaschen, Beine auf dem Weg kaum vom Boden zu trennen): Schlamm 7A6448 lag
-        # beim Helden bis etwa 50 cm deckend auf Hose und Stiefeln, fast die Farbe des Wegs; SCHLAMM=<f> kuerzt Hoehe und Deckung (1 wie bisher)
-        sf = float(os.environ.get('SCHLAMM', '1'))
+        # beim Helden bis etwa 50 cm deckend auf Hose und Stiefeln, fast die Farbe des Wegs; SCHLAMM=<f> kuerzt Hoehe und Deckung (1 wie
+        # bisher). 0,4 (bis 35 cm, Deckung 0,6) blind 16:0 besser, nah und Grundansicht (Hose grau, Stiefel braun getrennt, Kniespuren reichen)
+        sf = float(os.environ.get('SCHLAMM', '0.4' if FIGUR == 'held' else '1'))
         top = 20 + 55 * W * sf
         mud = _sat(nt, _m(nt, 'ADD', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', top, Z), 9.0), _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', blot, 0.5), 2.2)))
         col = _mix(nt, _m(nt, 'MULTIPLY', mud, 0.95 * min(1.0, 0.4 + 0.6 * sf)), col, lin(hx(0x7A6448)))         # Schlamm
