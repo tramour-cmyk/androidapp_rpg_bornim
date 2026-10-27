@@ -28,7 +28,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [142](tun/142-pflichttest.md) | **Muss** | M Veröffentlichung | 27.10., 17:20 | Pflichttest Play Store: 12 Tester sammeln, Gewerbeschein melden | Sokrates |
+| [142](tun/142-pflichttest.md) | **Muss** | M Veröffentlichung | 27.10., 20:07 | Pflichttest Play Store: Gewerbeschein melden | Sokrates |
 
 ## Offen je Rolle
 
@@ -123,7 +123,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 27, Muss 19, startbar 2
+**Sokrates** – offen 27, Muss 19, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -150,8 +150,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | 253 | K | von Chef (20.10., 14:32): Stichwort „BornWire“ = Firmensachen in eigener Sitzung, Ergebnis | ruht |
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 31.10. |
-| 142.3 | M | von Chef (27.10., 19:32): Tester öffentlich suchen: Foren, 14 Tage erklären, Name im Abspa | startbar |
-| 142 | M | Vorbereitung Pflichttest Play Store (von Perikles); dabei Store-Text „jede Entscheidung zä | Chef |
+| 142.3 | M | von Chef (27.10., 19:32): Tester öffentlich suchen | startbar |
+| 142 | M | Pflichttest Play Store (von Perikles); Store-Text „jede Entscheidung zählt“ prüfen (72a) | startbar |
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (wartet) |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | Chef (Datei in der Chefsache) |
 ## Lücken
