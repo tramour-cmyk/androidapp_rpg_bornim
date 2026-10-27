@@ -40,6 +40,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:37–06:35 27.10.: Neustarts angenommen und Nachfolger gestartet: Tom 01:46, 02:33, 02:57, 03:23, 03:51, 04:16, 04:43, 05:01, 05:20, 05:44, 06:03, 06:35, 07:21; Jerry 01:37, 02:42, 03:25, 04:57; Jerry 05:55 zurückgestellt (wartet auf Chefsache 3487a). Läufe 02:03, 03:03 ohne Starts; START Perikles (Terminname) nicht ausgeführt
 - 25.10., 09:35–21:05: Neustarts Tom/Jerry/Sokrates angenommen; Perikles 364 und Sokrates 340.2 gestartet; Sparbetrieb und Max 20x (Verlauf in Git)
 
+- 09:46 27.10.: Neustart Jerry angenommen (66a981053 auf main): Start „Jerry – 348.7a Geschosse in 3D“ `01Hmoj77Zu` (Chef hat 3487a entschieden); alter Jerry archiviert, Kosten fehlen (Sitzung lieferte keine Zahl)
 - 09:40 27.10.: Neustart Tom angenommen (d0908c130 auf main): Start „Tom – 348.6 Kampfbewegungen Runde 2“ `01Hmoj75zb`, alter Tom archiviert, 9,86 $ gebucht
 - 09:31 27.10.: Sokrates auf Zuruf des Chefs gestartet `01Hmoj78Yk`; 09:28 Perikles 371 `01Hmoj79Ae`; neuer Ford (Tiefe 0) übernimmt Uhr
 - 09:08 27.10.: Neustart Jerry angenommen (b86e4d044 auf main, Nachfolger in Übergabe): Start „Jerry – 348.7 Riesenfledermaus Runde 4 (27.10., 09:08)“
