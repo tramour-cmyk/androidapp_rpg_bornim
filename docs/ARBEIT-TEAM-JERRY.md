@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates für den Chef, 25.10., 01:2x):** Arbeit nach `LISTE-UMZUG-348.md`, 348.6–348.8; altes Spiel ruht.
 
-**Übergabe (27.10., 10:4x, `session_01Hmoj77ZuvDVacBD3NFVbFA`):** 348.7a Runde 1 gebaut, Prüferbefund behoben, 1b ungeprüft (579f38ba8). Nachfolger: „Jerry – 348.7a Geschosse in 3D, Prüfung“
+**Übergabe (27.10., 11:5x, `session_01Hmoj77dR1UeHga2r337Kus`):** 348.7a 1b durchgefallen (Prüfer), r2 gebaut; 348.12f Rutenursache gemessen, r2 gebaut. Nachfolger: „Jerry – 348.12f Rute und 348.7a Runde 2 prüfen“
 
 ## Zeilen
 
@@ -41,7 +41,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 - **Von Team Tom (27.10., 09:40), zu 348.7:** Kampfbewegungen des Helden Runde 1 und vier Befunde zu `figur.gd`: `ARBEIT-TEAM-TOM.md` „Zu 348.6, Kampf“.
 - **Zu 348.12f:** Aufruf im Kopf von `kaufratte.py`, Workflow „348.12f“ (Film `348.12f-alle.mp4`, `SCHAU_LISTE`). Lokal: `add_repo` bornim-kaufmodelle, Asset 678372860 per `gh api`, `unar`; Messzeilen `BAHN` im Bau-Log.
-- **Zu 348.12f Restrunde:** Ursache (Lauf 133, `RUTE_MESS=1`): Spiel = Blender; Glieder geknickt (Treffer +21/−56°, Tod −90°); Knickgrenze 8d8c3c8ae, Lauf prüfen.
+- **Zu 348.12f Restrunde:** Ursache (Lauf 133, `RUTE_MESS=1`): Glieder geknickt; r2 bb57faa09: Knick im Film-Log ≤ ~20°?, dann Blatt, Film, Prüfer, Chef.
 - **Zu 348.12 Runde 6 (Jerry 27.10., 01:34, 54de6448f):** `ual_lauer.py` `HIEB_SCHLUESSEL` (Ausholen 0,20, Halt 0,24, Mitte 0,31, Aufschlag 0,40, Halt 0,46), Kamera in der Figur (0,4; 0,37; 0,83) (+X links, +Y oben, +Z vorn); `probe.gd` `NUR=gobN`, `SCHAU_MESS=1`; `hiebblatt.py` (Zeile `name!` = nur CC0, der eigene hat keinen Hieb). Lokal: Godot 4.7.2 nach `~/godot`, `bl` = venv mit bpy 5.2.3, `cc0_laden.sh ~/cc0`. Befunde in der Chefsache.
 - **Zu 348.9 Vierbeiner (Jerry 25, 25.10., 15:08):** Grundmodell `vierbeiner.py`; Arten `wildschwein.py` (boar), `ratte.py` (giant_rat), `.glb` als `godot/kampf/daten/<id>-<fell>.bin`; Probe `ERSATZ=boar|giant_rat`; `ALIAS`, `ERSATZ_KOPF`, `ERSATZ_SCHATTEN` (`figur.gd`), `ART_SIZE` (`kampfort.gd`). **Wildschwein Runde 4** (r3 beim Chef; Homer, Diogenes, Prüfer): Runde 4 nach Urteil des Chefs (Befunde in Git).
 - **Zu 348.7 und 348.9, von Chef (25.10., 19:05, zu den Kampfbildern):** (1) Kampfort-Hintergrund mehr an der Welt: „keine schnurgeraden Wege, sondern das ein bisschen ausfransen. Bisschen mehr richtige Wiese“ (`kampfort_wald.py`). (2) Ratte: gebaut (Jerry 33), Dorf an Tom.
@@ -54,7 +54,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 - **Zu 348.7 Goblin:** Runde 6 steht (Sokrates, billigen/3487-goblin-r6); Feinschliff laut Chefsache, Beil-Goblin sagt „Stich“ an; Lendentuch nimmt wie beim Späher Unterarm-Gewichte (Fix nur für Späher und Schamane, 8bfec7d13). Probe `GEGNER=GOBLINS`, alt `FOEDRAFT=goblin`, Blatt `FIGUR=gob vergleichsblatt.py`.
 - **Zu 348.7, von Sokrates (Chef 25.10., 08:58 und 09:04, Zustandszeichen):** Textschilder „nichts“; Vorschlag Chef: sprechende Symbole in den Farben aus `Status.kt`, alte Zustandsanimationen mitnutzen, Einzelheiten durch Antippen. Empfehlung Sokrates: Einzelheiten per langem Druck (`whoIs`). **Bauen erst nach Ja.**
 - **Zu 348.7, Fledermaus (4ed188d7c):** Eigenbau (34812c-stufe2). Aufruf, Eichung (`MASKE=1`), offene Befunde 4d im Kopf von `fledermaus.py`; Probe `GEGNER=BATS`, nicht im Workflow. 4d beim Chef (Telegram 09:4x); Runde 5 (Gesicht, Tod, Biss, Drohen) nach seinem Urteil. Chef 10:06 „gleichmäßiger Tuscherand?“: alte Tusche; nach 348.13a neu.
-- **Zu 348.7a (579f38ba8):** Bahnen im Raum (`kampf_ui.gd` `_draw_spells`), Pinsel `tafel.gd`. Falle: `project_position` übergeht `frustum_offset`, darum `tafel.world_at`. 1b ungeprüft: Proben wie Workflow, Blatt alt (`todprobe` Lauf 131)/neu, Prüfer (auch Helligkeit), Log „Tafeln … µs“.
+- **Zu 348.7a (579f38ba8):** Bahnen im Raum (`kampf_ui.gd` `_draw_spells`), Pinsel `tafel.gd`. Falle: `project_position` übergeht `frustum_offset`, darum `tafel.world_at`. r2 (2ddd59a49, Lauf 135) prüfen: Blatt alt (Lauf 131)/neu, Prüfer mit Befunden 1b (Commit). 1b: 2337 Ecken, 0,5/1,4 ms.
 - **Zu 348.7, Werkzeug:** lokal: Godot 4.7.2 nach `~/godot/godot` (26.10., 20:08 ging es); Daten aus dem APK-Artefakt (`unzip kampf348.apk 'assets/kampf/daten/*'`); `bild()`/`film()` wie im Workflow; Log „Schirm“, „Waffe“, „Schild“, „Blick“, „HandL/HandR“. Blender: `uv venv -p 3.13 ~/bl`, `bpy==5.2.3 numpy pillow`. Goblins einzeln: `OUT=… ART=… python -I goblin.py`.
 - **Von Diogenes (348.9, Chef 12:24):** jedes Vergleichsblatt alt/neu vor Telegram an Diogenes (`tools/vorab.sh`, alt und neu je Zeile nebeneinander; „Zu 348.9“ in `ARBEIT-PRUEFUNG.md`); nach 20 min ohne Antwort senden mit „Diogenes nicht gemessen“.
 
