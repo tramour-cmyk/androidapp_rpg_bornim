@@ -31,6 +31,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Von Perikles (378):** Stände prüfen, `ARBEIT-PROJEKT.md` Zu 378.
+
 
 - **Von Chef (27.10., 12:44, hier):** „So, wer in dieser Firma arbeitet denn an Sachen, die aktuell definitiv Zeitverschwendung sind? Weil wir vielleicht was Neues entscheiden? Und andere Modelle nehmen?“ Antwort Tom im Chat (eigener Bereich); Modellwahl (270) und Rest: Perikles, Sokrates (Vorräte voll, Hinweis an Ford).
 - **Von Perikles (27.10., 10:1x, 338a B):** Termine neu (`LISTE-ABNAHME-KAPITEL1.md`): D So 01.11. früh, W So mittags, R Mo 02.11. früh. Huhn und Vögel erst nach Jerrys Fledermaus.
@@ -47,7 +49,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 348.6, Lauf 80–90:** offen in Git. **MuMu:** startet es nach dem Tausch Vulkan ↔ DirectX, Rechnerfassung mit `renderer/rendering_method.x86_64="gl_compatibility"`; sonst Absturzprotokoll über MuMu-ADB.
 
 - **Zu 348.6 (Chefrunde 25.10., Archiv):** Grundansicht wie alt (`Kamera.NORD` 45), Held südlich der Häuser; `licht.gd` auf Homers Tafel eichen. **Chef 21:33:** Leute tragen Speer, Stab, Hammer, Krug wie alt (`MapFolk.kt` `carry`).
-- **Zu 348.6, Urteil Chef 12:11** (an Tom, zum Blatt nach Runde 10, Archiv): „echt stark“, Bäume verschieden, Tusche nach Licht gut; Baum an der Kirche passt. Bauen (Runde 11): Büsche über Dachfirsten, Laternenpfahl am Steg, Lichtstreifen nachts, Buschreihe am Kornfeld, Korn „wirkt ein bisschen wie eine Gestrüppwiese“, Schatten ohne Werfer, Flimmern; südlicher Ortsrand ohne Abschluss. Offen: Sonne alt aus Norden, neu aus Süden, und neu „alles sehr hell“, alt gedämpfter (Chefsache 3486-sonne). Alte Bilder: `HELDORT=…;village:15:24:u` für den Fluss.
+- **Zu 348.6, Urteil Chef 12:11** (an Tom, zum Blatt nach Runde 10, Archiv): „echt stark“, Bäume verschieden, Tusche nach Licht gut; Baum an der Kirche passt. Bauen (Runde 11): Büsche über Dachfirsten, Laternenpfahl am Steg, Lichtstreifen nachts, Buschreihe am Kornfeld, Korn „wirkt ein bisschen wie eine Gestrüppwiese“, Schatten ohne Werfer, Flimmern; südlicher Ortsrand ohne Abschluss. Sonne entschieden 25.10., 12:25. Alte Bilder: `HELDORT=…;village:15:24:u` für den Fluss.
 - **Zu 348.6, CC0** (von Team Jerry 25.10., 23:5x, Telegram 23:55): Held und Leute aufs CC0-Gerüst (Modellregel 4, 5), Körper und Kleidung aus `held3.py`, Haltungen und Gang aus `rig.py` entfallen. Einzelheiten `tools/blender348/v3/LIESMICH.md`; Knochen `hand_l`/`hand_r`, Griffe in `held-info.json`.
 - **Zu 348.6, CC0 offen (362, mittel):** Schild von der Seite mit Spalt, wie Flosse (kein Gurt); Umhang beim Rennen steif; Flamme der Fackel vor dem Gesicht (alt); Gwennas Unterarm, Morwen 90° (Homer). Gering: Kettenhemd am Hals, Osric dünner Hals, Gwenna nachts. Am Rechner: `WAFFEN=<ordner>` für Aldrics Stab im Prüfblatt; nur `rig.py` neu reicht, wenn `held3.blend` steht (≈1 Min. je Figur).
 - **Zu 348.6, Leute Runde 4b–4d** (Tom 31–33; Git): „traegt“ = Waffe aus Jerrys `waffen.py`. **An Jerry:** `spear` (Jorin), `maul` (Borin), `longbow` (Garrick, Rücken) in `waffen.py`; dann „traegt“ eintragen. Prüfblatt `tools/blender348/v3/pb_alle.sh <ordner> <ids…>`; ab Runde 5 Abnahmeliste (Chefsache 34811).

@@ -12,7 +12,6 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 - [Vorgangsarchiv](VORGANGSARCHIV.md): was entschieden ist, neueste oben
 - [Prüfbericht](PRUEFBERICHT.md): offene Befunde von Diogenes und Kennzahlen der Woche; erledigte Läufe im [Archiv](PRUEFBERICHT-ARCHIV.md)
 - [Vorgänge](LISTE-VORGAENGE.md): jede Nummer mit Bereich, Muss oder Kür, Kosten
-- [Durchsicht](LISTE-DURCHSICHT.md): Leichen in den Vorräten, 27.10. (378, bis verteilt)
 - [Checkliste MARS](LISTE-MARS.md): was im Kampfsystem steht, was fehlt, klassisch ↔ MARS (296)
 - [Abnahme Kapitel 1](LISTE-ABNAHME-KAPITEL1.md): Meilenstein und Wochenziel
 

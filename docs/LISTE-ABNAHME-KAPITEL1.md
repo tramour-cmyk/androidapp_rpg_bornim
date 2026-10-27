@@ -4,13 +4,12 @@
 
 ## Stand zum Marktstart (338.1; Perikles: montags ganz, täglich neu; als Seite: [Dashboard](https://claude.ai/artifact/5gdqbHNUUpbBUU9sBo4i7t), 339)
 
-**Stand 27.10., 08:15: gelb, Umzug Block (D) Dorf rot.** Gebaut sind 6 von 76 Punkten, alles Monster von Jerry; neu seit gestern früh ist davon nur der Schamane, die anderen standen schon und sind jetzt nachgetragen. Seit dem Plan (26.10., 17:15) kam bei keinem Team ein Punkt auf „gebaut“. Tom hat in dieser Zeit 25 Sitzungen fast nur an Kopf, Händen und Rüstung des Helden und an der Tusche gearbeitet, im Dorf nur an den Säcken am Markt; geschätzt waren für den Helden 3. Der Termin für das Dorf (Mi 28.10.) hält nicht mehr. **Nachtrag 10:1x:** du hast 338a um 09:36 mit „B, Kopf nach den Kampfbewegungen“ entschieden; Tom baut jetzt Kampfbewegungen, dann deine drei Kopfpunkte, dann das Dorf; Kettenhemd, Helm, Kragen sind Feinschliff (372). Neue Termine unten: Dorf So 01.11., früh, Umzug „gebaut“ Mo 02.11., früh. Jerry steht seit 05:55 und wartet auf deine Antwort zu den Geschossen (348.7a); ich lasse ihn bis dahin die Riesenfledermaus bauen.
-
+**Stand 27.10., 08:15: gelb, Umzug Block (D) Dorf rot.** Gebaut sind 6 von 76 Punkten, alles Monster von Jerry; neu seit gestern früh ist davon nur der Schamane, die anderen standen schon und sind jetzt nachgetragen. Seit dem Plan (26.10., 17:15) kam bei keinem Team ein Punkt auf „gebaut“. Tom hat in dieser Zeit 25 Sitzungen fast nur an Kopf, Händen und Rüstung des Helden und an der Tusche gearbeitet, im Dorf nur an den Säcken am Markt; geschätzt waren für den Helden 3. Der Termin für das Dorf (Mi 28.10.) hält nicht mehr. **Nachtrag 10:1x:** du hast 338a um 09:36 mit „B, Kopf nach den Kampfbewegungen“ entschieden; Tom baut jetzt Kampfbewegungen, dann deine drei Kopfpunkte, dann das Dorf; Kettenhemd, Helm, Kragen sind Feinschliff (372). Neue Termine unten: Dorf So 01.11., früh, Umzug „gebaut“ Mo 02.11., früh.
 **Heute für dich**
-- **Entscheiden, zuerst:** [Geschosse flach oder 3D](chefsache/entscheiden/3487a-flugbahn.md) (348.7a; ohne Antwort kommt Jerrys Kampf nicht weiter; Votum „3D“); Held stehen lassen, Dorf weiterbauen (338a): entschieden 09:36, „B“.
-- **Entscheiden, dann:** [Goblin CC0 oder eigen](chefsache/entscheiden/34812-goblin-hieb.md) (348.12; Votum Jerry „CC0“); [Kaufratte oder eigene](chefsache/entscheiden/34812f-kaufratte-r3.md) (348.12f; Votum Jerry „eigen“); [Abnahmelisten für vier Kaufmodelle](chefsache/entscheiden/34812c-listen.md) (348.12c; Homer); [Tusche nah so, halb, voll](chefsache/entscheiden/34813-tusche-nah.md) (348.13; Tom); [Tusche im Kampfort alt oder neu](chefsache/entscheiden/34813a-goblin-r6.md) (348.13a; Tom).
-- **Tun:** nichts mehr (Ford läuft seit 09:30, dein Guthabenbild kam 09:47).
-- **Ansehen:** [Trefferwirkung im Godot-Kampf](chefsache/ansehen/3487-treffer.md) (348.7; Jerry).
+(neu 27.10., 15:0x, 378; alle Entscheidungen von heute früh sind gefallen)
+- **Entscheiden:** nichts offen.
+- **Tun:** nichts (Zugang zu den gekauften Paketen geht seit 14:57, 377.2).
+- **Ansehen:** [Probeblatt Quaternius-Figuren im Dorf](chefsache/ansehen/3761-figuren.md) (376.1; Tom; die Blätter zeigen nur freie Teile, die mit den gekauften kommen nach der Fehlerprüfung in dieselbe Datei).
 - **Testen:** nichts.
 
 **0. Meilenstein Umzug:** 6 von 76 Punkten gebaut, 21 Entwurf, 49 nicht begonnen, keiner gemessen oder abgenommen. Block (D) Dorf rot; (K) Kampf im Wald gelb, der Termin Mi vormittags hält nicht, ob „spätestens Mi nachts“ hält, zeigt der Tag; Termine und Tagesziele unten unter „Meilenstein Umzug“.
