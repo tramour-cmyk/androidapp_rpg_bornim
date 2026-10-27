@@ -10,7 +10,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 383 | M | **von Chef (27.10., 17:44, „Sollen wir einfach aufhören damit?“; 17:47 Vorschlag „nicht griffig“):** Chef räumt nur hinter allen her | ja 17:53 (Archiv), Bau bei Perikles; Sitzungsgröße aus gebuchten Kosten messen bis 28.10., 12:00 |
+| 383 | M | **von Chef (27.10., 17:44, „Sollen wir einfach aufhören damit?“; 17:47 Vorschlag „nicht griffig“):** Chef räumt nur hinter allen her | frühestens 31.10.: Größe gemessen 18:15, keine Größenregel (Zu 383); Bau Wartewächter bei Perikles; nachmessen mit 347 |
 | 376 | M | **von Chef (27.10., 12:00):** Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Tom: Häuser ja 12:42 (Archiv), Probeblatt 376.1 „jetzt“ 12:46; Markt 376.2 bei Tom (Perikles 12:5x) (Zu 376) |
 | 374 | M | **von Chef (27.10., 11:54):** wer prüft 373? | frühestens 31.10.: auswerten mit 347 (Archiv) |
 | 348.12c | M | **von Chef (26.10., 11:59):** Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters Kit“) und andere Anbieter; Kosten, Erwerb, Verkauf im Spiel erlaubt; Monster dürfen von D&D abweichen; „schönen Vorschlag und ein schönes Paket“ | ruht: Ratte gekauft 18:03; kein Paketkauf jetzt, je Monster kaufen, wenn es im Kapitel dran ist (Empfehlung 18:0x, Chef offen) |
