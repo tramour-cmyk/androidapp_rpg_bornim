@@ -24,6 +24,7 @@ uniform float fuss_bis = 0.3;     // 348.13a Runde 6 (Helfer 17:13: Stiefel fran
 uniform float hoch_bis = 2.6;     // 348.13a: Meter ueber dem Boden; darueber (Kronen am Rand der Lichtung) keine breite Linie
 uniform float knick = 0.06;        // Meter: Krümmung der Tiefe, ab der eine Linie entsteht
 uniform vec3 ink : source_color = vec3(0.07, 0.05, 0.04);
+uniform float dbg = 0.0;          // 348.13a Runde 9: Messlauf (probe.gd TUSCHE_TEIL)
 void vertex() { POSITION = vec4(VERTEX.xy, 1.0, 1.0); }
 float lz(vec2 uv, mat4 ip) {
 	float d = texture(depth_tex, clamp(uv, vec2(0.0005), vec2(0.9995))).r;   // am Bildrand nicht ueber den Rand greifen
@@ -134,4 +135,8 @@ void fragment() {
 	float edge = smoothstep(knick, knick * 2.5, lap);
 	ALBEDO = ink;
 	ALPHA = max(edge * a_licht * (1.0 - hinten), breit);
+	if (dbg > 0.5) {   // 348.13a Runde 9 Messlauf: Farbe je Durchgang, hell = breites Band, halb = Kante; deckend ab 0,3
+		ALBEDO = ink * (breit > 0.01 && breit >= edge * a_licht * (1.0 - hinten) ? 1.0 : 0.5);
+		ALPHA = step(0.3, ALPHA);
+	}
 }

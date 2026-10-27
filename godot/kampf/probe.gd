@@ -277,6 +277,21 @@ func _still(path: String) -> void:
 					var fv := path.get_basename() + "-%s%s%s.png" % ["" if so == "" else "s" + so.replace(",", "_") + "-", v, "-m" if mag else ""]
 					get_viewport().get_texture().get_image().save_png(fv)
 					print("Bild ", fv)
+				# Runde 9 (TUSCHE_TEIL=1): je Durchgang eine Farbe (Welt magenta, Held cyan, Gegner gelb), hell = breites Band, halb = Kante
+				if OS.get_environment("TUSCHE_TEIL") != "":
+					var farben := [Color(1, 0, 1), Color(0, 1, 1), Color(1, 1, 0)]
+					for i in fight._ink_mats.size():
+						fight._ink_mats[i].set_shader_parameter("ink", farben[mini(i, 2)])
+						fight._ink_mats[i].set_shader_parameter("dbg", 1.0)
+					for _i in 3: await RenderingServer.frame_post_draw
+					var ft := path.get_basename() + "-%s%s-t.png" % ["" if so == "" else "s" + so.replace(",", "_") + "-", v]
+					get_viewport().get_texture().get_image().save_png(ft)
+					print("Bild ", ft)
+					for m in fight._ink_mats:
+						m.set_shader_parameter("dbg", 0.0)
+						m.set_shader_parameter("ink", Color(0.07, 0.05, 0.04))
+		if OS.get_environment("TUSCHE_TEIL") != "":
+			_report_rects()
 		get_tree().quit()
 		return
 	await RenderingServer.frame_post_draw
@@ -532,6 +547,22 @@ func _bogen_schnitt(id, fig, sk: Skeleton3D) -> void:
 
 func fig_of(id):
 	return fight.figures[id]
+
+
+## 348.13a Runde 9: Lage jedes Teils am Schirm (Bildpunkte) und Höhe der Unterkante, um Tuschefehler einem Teil zuzuordnen
+func _report_rects() -> void:
+	for id in fight.figures:
+		for mi in fig_of(id).find_children("*", "MeshInstance3D", true, false):
+			if not mi.is_visible_in_tree() or mi.mesh == null:
+				continue
+			var bb: AABB = mi.global_transform * mi.get_aabb()
+			var lo := Vector2(1e9, 1e9)
+			var hi := Vector2(-1e9, -1e9)
+			for k in 8:
+				var p: Vector2 = fight.cam.unproject_position(bb.get_endpoint(k))
+				lo = lo.min(p)
+				hi = hi.max(p)
+			print("Teil %s/%s/%s: %d,%d-%d,%d unten %.2f m" % [id, mi.get_parent().name, mi.name, lo.x, lo.y, hi.x, hi.y, bb.position.y])
 
 
 func _skeleton(n: Node) -> Skeleton3D:
