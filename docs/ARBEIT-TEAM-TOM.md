@@ -4,14 +4,14 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (27.10., 09:05, „Tom – 348.6 Kragen nah, Kette nachts (27.10., 07:21)“ `session_01Hmoj77PY5ssr7PJqcdqjZW`):** Kette nachts, Kragenborte, Helmglanz blind besser (Zu 348.6, Hände). Einrichtung: `v3/LIESMICH.md`, `cc0_laden.sh`, Godot wie `godot.yml`, Bilder wie Workflow (`--held=`); Messen `--teilfarbe` mit Bau `TEILMASKE=1`. Nachfolger: „Tom – 348.6 Helmform, Saum Kettenhemd“.
+**Übergabe (27.10., 09:05, „Tom – 348.6 Kragen nah, Kette nachts (27.10., 07:21)“ `session_01Hmoj77PY5ssr7PJqcdqjZW`):** Kette nachts, Kragen, Helmglanz (Zu 348.6, Hände). Einrichtung: `v3/LIESMICH.md`, `cc0_laden.sh`, Godot wie `godot.yml`. Nachfolger: „Tom – 348.6 Kampfbewegungen des Helden für Jerry“.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101: Held im APK verschlüsselt, lädt) | `claude/tom-348-12i-verschluesseln` |
-| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: Helm wie glatte Mütze (Form, Saum wie Naht), Saum Kettenhemd zackig, graue Flecken Ärmel (Zu 348.6, Hände); t78 (Chef): Gesicht oval, Ohren, Nase; MuMu startet nicht; Feinschliff 11; beim Chef: Dorf r13b | `claude/tom-348-fundament` |
+| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: zuerst Kampfbewegungen des Helden für Jerry (Hieb, Stich, Ausholen, Treffer, Ausweichen, Abwehr, Tod; Namen wie `figur.gd`; Perikles 08:16); Feinschliff erst nach Chefsache 338a (Zu 348.6, Hände); t78 (Chef): Gesicht oval, Ohren, Nase; MuMu startet nicht; Feinschliff 11; beim Chef: Dorf r13b | `claude/tom-348-fundament` |
 | 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | wartet auf Chef: Chefsache 348.13a (Kampfort alt/neu, Probe 00823dac3), 348.13 (Tusche nah); dann Jerry | `claude/tom-34813-kampfprobe` |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10.10., hätte Godot sie verhindert; Umzugskosten in Sitzungen | wartet auf Chef: Tabelle in Chefsache 348 (19 von 39 ja, ohne Tempo/Speicher 9; Umzug Tom 30–40 Sitzungen) | – |
 | 267 | M | **von Chef (20.10., 21:46, B48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Chef: Gefühl am Tablet, abends (77.7, Zu 267) | – |
