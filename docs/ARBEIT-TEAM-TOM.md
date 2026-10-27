@@ -10,7 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 |---|---|---|---|---|
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101: Held im APK verschlüsselt, lädt) | `claude/tom-348-12i-verschluesseln` |
 | 376.1 | M | **von Sokrates (Chef kaufte 12:20, „jetzt“ 12:46):** Probeblatt Quaternius-Figuren (Archiv 376, Zu 376.1) | wartet auf Chef: Rückfrage „erledigt“ (Chefsache entscheiden/3761); bei „Zugang“: Kaufkopf anpassen, Fehler Tracht, Film r2 nicht vorlegbar (Zu 376.1, Film) | `claude/tom-376-1-figuren` |
-| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | wartet auf Chef: Probehaus A/B vorgelegt (Chefsache 376, ansehen/376-probehaus; Zweig 1dc9ad900, PROBE_KNIE=1 PROBE_NEIGUNG=0.8 für B); Häuser 3–8° so lassen (Chef 19:08); dann Dorf | `claude/tom-348-fundament` |
+| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: Chef 19:39 Fenster? (Zu 348.6, Probehaus; ansehen/376-probehaus; Zweig 1dc9ad900, PROBE_KNIE=1 PROBE_NEIGUNG=0.8 für B); Häuser 3–8° so lassen (Chef 19:08); dann Dorf | `claude/tom-348-fundament` |
 | 376.2 | M | **von Perikles (Chef 12:37, `LISTE-CC0-MODELLE.md`):** RenderHub-Marktpaket: Brunnen und Stände als Form, unsere gemalten Farben | wartet auf 348.6 (Dorf nach Urteil Probehaus); Paket im Release stufe1 erreichbar (Chef 17:38) | – |
 | 372 | M | **von Perikles (338a B, Chef 27.10., 09:36, Archiv):** Feinschliff Held: Kettenhemd, Helm, Kragen (Zu 348.6, Hände) | ruht bis Ende des Umzugs | `claude/tom-348-fundament` |
 | 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | in Arbeit (Tom 19:3x): 348.13a Runde 8, Sonne schräg (Chef 19:07) -65,25 gerendert, Fehlerprüfung, dann Vorlage (Chefsache 34813a); dann an Jerry | `claude/tom-34813-kampfprobe` |
@@ -58,6 +58,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 348.6, Testbitte:** Dorftiere: Chef 19:09 (UMZUG). Tiere `godot/tiere/<name>.glb` + `-info.json`, Knopf „Tiere“ (Chef 16:52: bleiben im Dorf).
 - **Zu 348.6** (Tom 25.10., 02:17, 4ff8dbfc2): Bestand und Lauf am Rechner in `godot/LIESMICH.md` (Godot `~/godot`, `--bilder=<ordner>`, Artefakt `bornim-godot-bilder`); alte Bilder `tools/t bild KARTENZOOM=1 …` (Befehl im Git-Verlauf dieser Datei), Blatt `tools/vgl348.py`.
   - **Chef 18:06/18:20 (Dorf-APK):** Wortlaut `LISTE-UMZUG-348.md` „Urteil Chef Dorf-APK“ (Runde 4). Offen: Gesicht flach, „Bornim“ unleserlich.
+- **Zu 348.6, Probehaus (Chef 19:39):** A geht; klären: Ostfenster **mittig**? **Fenster hinten**? Innenraum folgt dem Haus.
+- **Von Sokrates:** Godot-Kennung `de.bornim.game.godot` → `de.bornim.game` (142.3).
 - **Zu 376.2:** `medieval.market.asset.pack.zip` (privat, .blend 2.79), Farben gemalt (Modellregel 6).
 - **Zu 355** (Git): Kerntest 2–4 Kisten je Karte.
 - **Zu 356.2:** `STORY-K1-HANDLUNG.md` „Sammelaufträge (356)“, Marken `[356.…]`.
