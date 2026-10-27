@@ -41,9 +41,22 @@ static var d_to := 10.0
 static var d_hit := 10.0
 static var d_miss := 10.0
 static var lift := 0.0
+## 348.7a Runde 3: so viele Meter weicht die Bahn in der Mitte seitlich aus (side3: waagerecht quer zur Bahn), kampf_ui.gd wählt
+static var lane := 0.0
+static var side3 := Vector3.ZERO
+## ... und wo die Bahn am weitesten ausweicht (Anteil der Strecke): früh, wenn der im Weg nahe beim Wirkenden steht
+static var peak := 0.5
+
+
+## 348.7a Runde 3: Ausweiche der Bahn bei t, 0 an den Enden, 1 bei peak, weich
+static func bulge(t: float, at: float) -> float:
+	return sin(PI / 2.0 * t / at) if t < at else cos(PI / 2.0 * (t - at) / (1.0 - at))
 static var m_px := 0.01
 ## Fehlschuss: Bodenpunkt am Schirm, den kampf_ui.gd frei von Figuren wählt (INF: wie bisher neben dem Ziel)
 static var miss_at := Vector2.INF
+## 348.7a Runde 3, Probe BAHN_PRUEF: jeder Bahnpunkt im Raum (kampf_ui.gd prüft, ob er in einer Figur steckt oder hinter ihr liegt)
+static var bahn: Array = []
+static var pruef := OS.get_environment("BAHN_PRUEF") != ""
 
 
 ## Wie lange ein Effekt spielt (BattleFx.kt baseFxDuration), in ms
@@ -85,9 +98,12 @@ func _arc(a: Vector2, b: Vector2, t: float, bend: float, rise := 0.0) -> Vector2
 	var d := b - a
 	var ln := maxf(d.length(), 1.0)
 	var across := cam.global_transform.basis * Vector3(-d.y / ln, d.x / ln * -1.0, 0.0)
-	var up := sin(t * PI) * lift + 4.0 * a3.distance_to(b3) * rise * t * (1.0 - t)
-	var q := a3.lerp(b3, t) + across * sin(t * PI) * bend * m_px + Vector3.UP * up
+	var f := bulge(t, peak)
+	var up := f * lift + 4.0 * a3.distance_to(b3) * rise * t * (1.0 - t)
+	var q := a3.lerp(b3, t) + across * sin(t * PI) * bend * m_px + Vector3.UP * up + side3 * lane * f
 	ci.depth = -(cam.global_transform.affine_inverse() * q).z
+	if pruef:
+		bahn.append(q)
 	return cam.unproject_position(q)
 
 
@@ -277,7 +293,7 @@ func _sacred_flame(p: float, x: float, ground: float, u: float) -> void:
 ## Feuerpfeil: ein zischender Funke, weißglühend an der Spitze, mit Flammenschweif und dunklem Rauch; zerplatzt am Gegner
 func _fire_bolt(p: float, from: Vector2, to: Vector2, u: float) -> void:
 	var travel := 0.42
-	var bend := (_rf() - 0.5) * 50 * u
+	var bend := (_rf() - 0.5) * 0.3 / m_px     # 348.7a Runde 3: ±0,15 m (±25 u lief bis 0,6 Wolfshöhen quer in die Nachbarn)
 	var t := minf(p / travel, 1.0)
 	for k in range(1, 10):
 		var tt := t - k * 0.06
@@ -322,7 +338,9 @@ func _force_dart(sd: int, p: float, i: int, from: Vector2, to0: Vector2, u: floa
 	var delay := i * 0.13
 	var travel := 0.42
 	var t := clampf((p - delay) / travel, 0.0, 1.0)
-	var bend := (1 if i % 2 == 0 else -1) * (40 + r.randf() * 50) * u
+	# 348.7a Runde 3 (Prüfer r2: ein Splitter stieg senkrecht über Miras Kopf): seitlich um höchstens DART_M (kampf_ui.gd) statt
+	# 40–90 u, das waren bis 2,5 Wolfshöhen quer zur Bahn; der mittlere gerade
+	var bend: float = [0.0, 1.0, -1.0][i] * (0.2 + r.randf() * 0.1) / m_px
 	if t > 0.0 and t < 1.0:
 		var prev := _arc(from, to, maxf(t - 0.22, 0.0), bend)
 		for k in range(1, 9):
