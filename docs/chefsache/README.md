@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [3761a](entscheiden/3761a-zugang-kaufteile.md) | – | – |  | 376.1a Zugang zu den Kaufteilen für Tom-Sitzungen |  |
+| [348.7b](entscheiden/3487b-bahn.md) | **Muss** | E Kampf | 27.10., 18:33 | Zauberbahn A hoch über die Köpfe oder B flach quer über Wolf 3? | Jerry |
 
 ## Zu billigen
 
@@ -67,14 +67,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 25, Muss 14, startbar 3
+**Jerry** – offen 26, Muss 15, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 348.12f | M | von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b): Probe gekaufte Riesenratte: unter 6.0 | startbar |
 | 348.12 | M | von Sokrates (Chef 16:21, „cc0 nochmal“): Goblin CC0 r2: geduckt über UAL (wie geruest.py) | startbar |
 | 348.12c | M | von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv): Wiedergänger, Grabhund, Riesenegel, Säur | ruht |
-| 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | startbar |
+| 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
+| 348.7b | M | Rückfrage: Zauberbahn hoch über die Köpfe (A) oder flach quer über Wolf 3 (B) (Zu 348.7b) | Chef (Datei in der Chefsache) |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, Test B46): App „hängt“, ging dann weiter (Zu 257) | ruht |
 | 211.14 | M | von Sokrates (20.10.): Rest 211.13: Leistung am A56 messen (M), Puppe aus Kamerawinkel, Wi | ruht |

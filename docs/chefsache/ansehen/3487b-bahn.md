@@ -7,7 +7,7 @@ Kurz: Zauberbahn A hoch über die Köpfe oder B flach quer über Wolf 3?
 
 **Berührt:** 348.7, 348.7a (Geschosse in 3D, Maß altes MARS).
 
-**Ansehen:** [Film A|B, 23 s](bilder:pruefung/3487b-bahn.mp4) (Echtzeit: Magier, dann Kleriker mit Pfeil und Pfeil daneben; danach Magier halb so schnell)
+**Ansehen:** [Film A|B, 23 s](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/pruefung/3487b-bahn.mp4) (Echtzeit: Magier, dann Kleriker mit Pfeil und Pfeil daneben; danach Magier halb so schnell)
 
 ![Feuerpfeil 120 ms](../bilder/3487b-bahn-1.jpg)
 ![Magisches Geschoss 250 ms](../bilder/3487b-bahn-2.jpg)
