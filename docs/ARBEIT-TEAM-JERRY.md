@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates für den Chef, 25.10., 01:2x):** Arbeit nach `LISTE-UMZUG-348.md`, 348.6–348.8; altes Spiel ruht.
 
-**Übergabe (27.10., 08:4x, `session_01Hmoj75vX6Z7EFP57RtBRAo`):** 348.7 Riesenfledermaus: Vogelskelett `flieger.py` und `fledermaus.py` gebaut, Runde 1, 2 fremd geprüft (614ef2956, „Zu 348.7, Fledermaus“). Nachfolger: „Jerry – 348.7 Riesenfledermaus Runde 3“ (vorher 348.7a, falls der Chef 3487a-flugbahn beantwortet hat)
+**Übergabe (27.10., 09:07, `session_01Hmoj78NLRVQDKdJgPES6hE`):** 348.7 Riesenfledermaus Runde 3 und 3b gebaut und fremd geprüft (8e9e0c00c, „Zu 348.7, Fledermaus“). Nachfolger: „Jerry – 348.7 Riesenfledermaus Runde 4“ (vorher 348.7a, falls der Chef 3487a-flugbahn beantwortet hat)
 
 ## Zeilen
 
@@ -13,7 +13,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 348.12f | M | **von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b):** Probe gekaufte Riesenratte: unter 6.000 Dreiecke, eigene Bemalung, Shader; Blatt neben eigenem Modell | wartet auf Chef: entscheiden/34812f-kaufratte-r3 (Votum eigen; Lauf 129 geprüft, Befunde dort) | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Chef 16:21, „cc0 nochmal“):** Goblin CC0 r2: geduckt über UAL (wie `geruest.py`); Kurzvideo eigen/cc0 (368); Tusche 348.13 | wartet auf Chef: entscheiden/34812-goblin-hieb (Runde 6 geprüft, Befunde dort; Votum CC0) | `claude/jerry-348-kampf` |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht bis Kauf: Werte ja (Archiv 21:33, Chefsache in Git), dann einbauen | – |
-| 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | Riesenfledermaus Runde 3 offen (Zu 348.7, Fledermaus; Perikles 27.10., 08:15); 348.7a wartet auf Chef: entscheiden/3487a-flugbahn; Kobold ruht (3e); beim Chef: ansehen/3487-treffer, Boden r6, Grimmzahn, Wildschwein r3 | `claude/jerry-348-kampf` |
+| 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | Riesenfledermaus Runde 4 offen (Zu 348.7, Fledermaus); 348.7a wartet auf Chef: entscheiden/3487a-flugbahn; Kobold ruht (3e); beim Chef: ansehen/3487-treffer, Boden r6, Grimmzahn, Wildschwein r3 | `claude/jerry-348-kampf` |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Jerry: hätte Godot die Chef-Fehler seit 10.10. verhindert; Umzugskosten in Sitzungen; Tabelle in Chefsache 348 | wartet auf Chef: Tabelle in Chefsache 348: Godot allein 0, mit Modellen 11 von 32; Umzug 15–21 Sitzungen | – |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel); ändern nur auf Wort des Chefs | – |
 | 257 | M | **von Chef (20.10., 17:17, Test B46):** App „hängt“, ging dann weiter (Zu 257) | ruht: Hänger-Wächter (Tom) seit Build 49; bis zum nächsten Hänger mit Absturzbericht | – |
@@ -53,7 +53,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 - **Zu 348.12 Aufruf:** wie Workflow-Schritt „348.12:“ (`cc0_laden.sh`, `ual_lauer.py`, `goblin.py GERUEST=cc0`; Artefakt `cc0probe`); Waffen an `hand_r`/`hand_l` (`griff_hand_m`).
 - **Zu 348.7 Goblin:** Runde 6 steht (Sokrates, billigen/3487-goblin-r6); Feinschliff laut Chefsache, Beil-Goblin sagt „Stich“ an; Lendentuch nimmt wie beim Späher Unterarm-Gewichte (Fix nur für Späher und Schamane, 8bfec7d13). Probe `GEGNER=GOBLINS`, alt `FOEDRAFT=goblin`, Blatt `FIGUR=gob vergleichsblatt.py`.
 - **Zu 348.7, von Sokrates (Chef 25.10., 08:58 und 09:04, Zustandszeichen):** Textschilder „nichts“; Vorschlag Chef: sprechende Symbole in den Farben aus `Status.kt`, alte Zustandsanimationen mitnutzen, Einzelheiten durch Antippen. Empfehlung Sokrates: Einzelheiten per langem Druck (`whoIs`). **Bauen erst nach Ja.**
-- **Zu 348.7, Fledermaus (614ef2956):** Eigenbau (34812c-stufe2). Aufruf, Eichung (`MASKE=1`, alt `VERMINCLOSE=bat`), Befunde Runde 2 im Kopf von `fledermaus.py`; Probe `GEGNER=BATS`; noch nicht im Workflow. Runde 3, dann Kurzvideo, Diogenes, Homer, Chef.
+- **Zu 348.7, Fledermaus (8e9e0c00c):** Eigenbau (34812c-stufe2). Aufruf, Eichung (`MASKE=1`, alt `VERMINCLOSE=bat`), Befunde 3b im Kopf von `fledermaus.py`; Probe `GEGNER=BATS` zeigt die Hocke; nicht im Workflow. Runde 4 nur „hoch“, dann vorlegen mit Befunden (362): Kurzvideo, Diogenes, Homer, Chef.
 - **Zu 348.7, Werkzeug:** lokal: Godot 4.7.2 nach `~/godot/godot` (26.10., 20:08 ging es); Daten aus dem APK-Artefakt (`unzip kampf348.apk 'assets/kampf/daten/*'`); `bild()`/`film()` wie im Workflow; Log „Schirm“, „Waffe“, „Schild“, „Blick“, „HandL/HandR“. Blender: `uv venv -p 3.13 ~/bl`, `bpy==5.2.3 numpy pillow`. Goblins einzeln: `OUT=… ART=… python -I goblin.py`.
 - **Von Diogenes (348.9, Chef 12:24):** jedes Vergleichsblatt alt/neu vor Telegram an Diogenes (`tools/vorab.sh`, alt und neu je Zeile nebeneinander; „Zu 348.9“ in `ARBEIT-PRUEFUNG.md`); nach 20 min ohne Antwort senden mit „Diogenes nicht gemessen“.
 
