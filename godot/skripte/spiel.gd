@@ -46,6 +46,7 @@ func _ready() -> void:
 	held_film()
 	tusche_blatt()
 	probe_blatt()
+	haeuser_blatt()
 
 func betrete(id: String, t: Vector2i, blick: String) -> void:
 	if gebiet: gebiet.queue_free()
@@ -554,6 +555,52 @@ func probe_blatt() -> void:
 	kamera.springe()
 	await get_tree().create_timer(1.0).timeout
 	await knips(dir + "/mittag_nah.png")
+	get_tree().quit()
+
+# 348.6 Haeuser mit Innenraum (dorf.py KITHAUS): --haeuser=<ordner>:<name>,c0,r0,c1,r1,tuer;... legt je Haus die Grundansicht
+# bei Mittag, Abend und Nacht ab, gedreht 90/180/270 (Held auf der Kameraseite) und nah vor der Tuer
+func haeuser_blatt() -> void:
+	var arg := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--haeuser="): arg = a.substr(10)
+	if arg == "": return
+	var dir := arg.get_slice(":", 0)
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	for hs in arg.get_slice(":", 1).split(";"):
+		var f := hs.split(",")
+		var n := f[0]
+		var c0 := int(f[1]); var r0 := int(f[2]); var c1 := int(f[3]); var r1 := int(f[4]); var tuer := int(f[5])
+		kamera.nach_norden()
+		kamera.zoom = Kamera.FERN
+		kamera.nah = false
+		held.setze(Vector2i(c1 + 1, r1 + 2), "UP")
+		for st in [[Licht.Stand.MITTAG, "mittag"], [Licht.Stand.ABEND, "abend"]]:
+			licht.setze_stand(st[0])
+			kamera.springe()
+			await get_tree().create_timer(1.0).timeout
+			await knips(dir + "/%s_%s_grund.png" % [n, st[1]])
+		licht.setze_stand(Licht.Stand.MITTAG)
+		licht.umschalten()
+		await get_tree().create_timer(2.5).timeout
+		await knips(dir + "/%s_nacht_grund.png" % n)
+		licht.umschalten()
+		await get_tree().create_timer(2.5).timeout
+		for dk in [[90, Vector2i(c1 + 1, r0 - 1)], [180, Vector2i(c0, r0 - 1)], [270, Vector2i(c0, r1 + 1)]]:
+			var d: int = dk[0]
+			held.setze(dk[1], "DOWN")
+			kamera.gieren_ziel = Kamera.NORD + d
+			kamera.springe()
+			await get_tree().create_timer(1.0).timeout
+			await knips(dir + "/%s_mittag_dreh%d.png" % [n, d])
+		kamera.nach_norden()
+		held.setze(Vector2i(tuer, r1 + 1), "DOWN")
+		kamera.zoom = Kamera.NAH
+		kamera.nah = true
+		kamera.springe()
+		await get_tree().create_timer(1.0).timeout
+		await knips(dir + "/%s_mittag_nah.png" % n)
 	get_tree().quit()
 
 func knips(p: String) -> void:
