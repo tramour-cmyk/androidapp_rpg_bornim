@@ -39,6 +39,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 ## Einzelheiten
 
+- **Von Team Tom (27.10.):** „Stehen“ schon behoben (59da3e4e5); `rig.py` von `claude/tom-348-fundament` holen.
 - **Zu 348.12f:** Aufruf im Kopf von `kaufratte.py`, Workflow „348.12f“ (Film `348.12f-alle.mp4`, `SCHAU_LISTE`). Lokal: `add_repo` bornim-kaufmodelle, Asset 678372860 per `gh api`, `unar`; Messzeilen `BAHN` im Bau-Log.
 - **Zu 348.12f Restrunde:** Lauf 129 (Prüfer 27.10., 00:00): Rute im Treffer Haken, im Tod schräg, Spitze gezinkt, obwohl `BAHN` flach misst (Ursache offen: Messung gegen Film nachstellen); Befunde in der Chefsache.
 - **Zu 348.12 Runde 5 (Jerry 27.10., 01:03, 0ab042ad2):** `ual_lauer.py` `HIEB_ART=eigen`, `HIEB_SCHLUESSEL` (Zeit, Rumpf, Hand, Ellbogen, Klinge), `HIEB_GIER` gleicht `geruest.py` aus. Kamera links vorn über dem Goblin: vorn = am Schirm links unten, Klinge nach vorn verkürzt, Faust oben vor dem Kopf. Messen: `SCHAU=1 SCHAU_MESS=1 SCHAU_LISTE=Hieb`. **Prüfer 5e:** oben 0,2 s senkrecht; Faust vor Stirn, Mund; ein Zwischenbild; Aufschlag liest sich als Stoß; Beil vor dem Schritt. Blatt: `NAMEN=leder;kappe;helm`, Nachbar in Spalte 2 abgeschnitten, Zeilen `HALTUNG=Gehen:0.25`, `Hieb:0.27`, `Hieb:0.43`; Film `SCHAU_LISTE=Stehen,Gehen,Hieb` für beide; Ansage „Stich“. CC0 laut Prüfer glaubwürdiger als eigen. Regel 362: nach drei Runden mit Befunden vorlegen.
