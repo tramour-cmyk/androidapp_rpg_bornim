@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (27.10., 14:4x, `session_01Hmoj7738F2EaHYxUsv6sop`):** 373a entschieden (Archiv); 376.3 Votum „keins kaufen“ im Chat; 377 Beleg 348.6 an Perikles; 377.1 Inventur `LISTE-BESTAND.md` eingestellt; 377.2 (`add_repo` dauerhaft, Regelverweis) an Perikles. Rückfrage 12:50 „andere Modelle = KI-Modelle?“ unbeantwortet. Kosten auf: 373a, 376, 377. Nachfolger: Sokrates – 376 begleiten (Probeblatt 376.1)
+**Übergabe (27.10., 14:4x, `session_01Hmoj7738F2EaHYxUsv6sop`):** 373a entschieden (Archiv); 376.3 Votum „keins kaufen“ im Chat; 377 Beleg 348.6 an Perikles; 377.1 Inventur `LISTE-BESTAND.md` eingestellt; 377.2 (`add_repo` dauerhaft, Regelverweis) an Perikles. Rückfrage 12:50 „andere Modelle = KI-Modelle?“: Nachfolger beantwortete beide Lesarten 14:4x im Chat (KI: keine Änderung vor 06.11., 270). Kosten auf: 373a, 376, 377. Nachfolger: Sokrates – 376 begleiten (Probeblatt 376.1)
 
 ## Zeilen
 
