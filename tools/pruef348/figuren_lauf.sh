@@ -7,12 +7,16 @@ K=$A/kauf; S=$A/aus; O=$A/out; G=$A/godot
 R=/home/user/androidapp_rpg_bornim; B=~/bl/bin/python
 mkdir -p $K/src $S $O
 # Universal Base Characters Source, Modular Character Outfits Source, UAL Pro
+# OHNEKAUF=1: nur freie Teile (itch, cc0_laden.sh), solange kein Zugang zum privaten Repo
 for id in 681384045 681373666 678371987; do
+  [ -n "$OHNEKAUF" ] && break
   [ -f $K/$id.ok ] || { gh api -H "Accept: application/octet-stream" repos/tramour-cmyk/bornim-kaufmodelle/releases/assets/$id > $K/$id.zip \
     && unzip -q -o $K/$id.zip -d $K/src/$id && : > $K/$id.zip && touch $K/$id.ok; }
 done
-UAL=$(find $K/src/678371987 -path "*Unreal-Godot/UAL1.glb" | head -1)
-Q=~/cc0 KAUF=$K/src OUT=$A/fig $B -I $R/tools/blender348/v3/quaternius.py | grep -E "FIGUR|FEHLT|OK"
+UAL=$(find $K/src/678371987 -path "*Unreal-Godot/UAL1.glb" 2>/dev/null | head -1)
+[ -n "$UAL" ] || UAL=$(find ~/cc0/universal-animation-library -name "UAL1_Standard.glb" | head -1)
+KS=$K/src; [ -n "$OHNEKAUF" ] && KS=
+Q=~/cc0 KAUF=$KS OUT=$A/fig $B -I $R/tools/blender348/v3/quaternius.py | grep -E "FIGUR|FEHLT|OK"
 cd $R
 [ -f $O/karten.json ] || ./gradlew -p core exportMaps -Pout=$O/karten.json -q
 export KARTEN=$O/karten.json

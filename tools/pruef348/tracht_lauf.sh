@@ -6,7 +6,7 @@ set -e
 A=${1:-/home/user/q376}
 O=$A/out; G=$A/godot; F=$A/fig; S=$A/aus
 R=/home/user/androidapp_rpg_bornim; B=~/bl/bin/python
-K=; [ -d $A/kauf/src ] && K=$A/kauf/src
+K=; [ -n "$(ls -A $A/kauf/src 2>/dev/null)" ] && K=$A/kauf/src
 KOPF=; [ -n "$K" ] && KOPF=Regular_Male_OnlyHead
 mkdir -p $F $S
 for v in "q_tracht:1.0:" "q_tracht_b:1.0:Hair_Beard" "q_tracht_r:1.12:" "q_tracht_rb:1.12:Hair_Beard"; do

@@ -7,10 +7,16 @@ extends Node
 #   film:  je Feld (Bewegung x Figur) Bilder <ausgabe>/film/<nn>_<feld>/<bild>.png, 30 je s, Ausschnitt um die Figur
 # Nur Probe, nicht im Spiel.
 
-const FELD_PX := Vector2i(560, 900)        # Ausschnitt je Feld in der Nahstufe (Bild 1080 breit, 3,4 m: 318 px je m)
-const FUSS_UNTEN := 300                     # Bildpunkte unter dem Fuss (Helfer Film 14:58: Tod nach vorn rutschte bei 120 unten hinaus)
+# Helfer Film 15:37: Schwertspitze unter dem Kopfbalken (6), Fuss und Hand am Rand (9, 14): Feld groesser
+const FELD_PX := Vector2i(680, 1040)       # Ausschnitt je Feld in der Nahstufe (Bild 1080 breit, 3,4 m: 318 px je m)
+const FUSS_UNTEN := 320                     # Bildpunkte unter dem Fuss (Helfer Film 14:58: Tod nach vorn rutschte bei 120 unten hinaus)
 const FPS := 30.0
 const PLATZ := Vector2i(19, 13)            # Dorfplatz am Brunnen
+# Helfer Film 15:37: angeschnittene Bank in jedem Feld, Tod fiel hinein, Sitzen ohne Sitz: Film auf freiem Gras (Probeort „gras“
+# in spiel.gd), Sitzen auf der Bank westlich am Platz (dorf.py bench: Sitz 47 cm, Blick zur Platzmitte)
+const FILM_ORT := Vector2i(10, 17)
+const BANK := Vector2i(14, 16)
+const SITZ_HOEHE := 0.47
 
 # Bewegungen der UAL: erste vorhandene gilt (gekauft UAL Pro, frei UAL1_Standard)
 const UAL := {
@@ -312,10 +318,11 @@ func spiel_bew(k: String, bew: String) -> float:
 	ap.seek(0.0, true)
 	return ap.get_animation(n).length
 
-# je Feld eine Figur in der Mitte, Kamera nah, Bewegung Bild fuer Bild gesetzt (seek), Ausschnitt um die Figur
+# je Feld eine Figur, Kamera nah, Bewegung Bild fuer Bild gesetzt (seek), Ausschnitt um die Figur. Gehen und Rennen laufen mit
+# ihrer Schrittgeschwindigkeit vorwaerts, Kamera folgt (Helfer 15:37: Fussgleiten 15-40 px auf der Stelle)
 func film(felder: Array) -> void:
-	var mitte := platz()
-	var z := zielpunkt(mitte)
+	var ort := spiel.karte.kachel_pos(FILM_ORT)
+	var z := zielpunkt(ort)
 	spiel.kamera.ziel = z
 	zoom(Kamera.NAH)
 	spiel.kamera.springe()
@@ -330,31 +337,82 @@ func film(felder: Array) -> void:
 		if n == "":
 			liste.append("%02d %s %s: keine Bewegung" % [i + 1, k, bew])
 			continue
-		stelle([k], 1.0, mitte)
+		stelle([k], 1.0, ort)
+		var w: Node3D = spiel.held if k == "held" else figuren[k]
 		bewaffne(k, bew in KAMPF)
 		var ap := spieler(k)
 		ap.play(n)
 		var lang := ap.get_animation(n).length
 		var schleife := ap.get_animation(n).loop_mode != Animation.LOOP_NONE
+		var v := 0.0
+		if bew == "Sitzen": setze_auf_bank(k, ap, lang)
+		elif bew in ["Gehen", "Rennen"]: v = schritt_tempo(k, ap, lang)
+		var start := w.position
+		var vor := Vector3(sin(w.rotation.y), 0, cos(w.rotation.y))
 		# Schleifen ganze Umlaeufe, mindestens 1,5 s (Helfer Film: Ruck an der Naht, Gehen 1,33 s lief 1,5 s)
 		var dauer := lang * ceilf(1.5 / lang) if schleife else lang + 0.5
 		var bilder := int(ceil(dauer * FPS))
+		z.position = Vector3(start.x, 0, start.z)
+		spiel.kamera.springe()
 		await get_tree().create_timer(0.3).timeout
 		for f in bilder:
 			var t := float(f) / FPS
 			ap.seek(fmod(t, lang) if schleife else minf(t, lang), true)
 			ap.pause()
+			if v > 0.0:
+				if k == "held": spiel.held.weg.clear()
+				w.position = start + vor * v * t
+				z.position = Vector3(w.position.x, 0, w.position.z)
+				spiel.kamera.springe()
 			await RenderingServer.frame_post_draw
 			await RenderingServer.frame_post_draw
 			var img := spiel.get_viewport().get_texture().get_image()
-			var fuss: Vector2 = spiel.kamera.unproject_position(mitte)
+			var fuss: Vector2 = spiel.kamera.unproject_position(Vector3(w.position.x, 0, w.position.z))
 			var r := Rect2i(int(fuss.x) - FELD_PX.x / 2, int(fuss.y) - FELD_PX.y + FUSS_UNTEN, FELD_PX.x, FELD_PX.y)
 			img.get_region(r).save_png(ordner + "/%03d.png" % f)
 		bewaffne(k, false)
-		liste.append("%02d %s %s: %s, %.2f s, %d Bilder" % [i + 1, k, bew, n, lang, bilder])
+		w.position = start
+		liste.append("%02d %s %s: %s, %.2f s, %d Bilder%s" % [i + 1, k, bew, n, lang, bilder, (", %.2f m/s" % v) if v > 0.0 else ""])
 	protokoll.append_array(liste)
 	var f2 := FileAccess.open(aus + "/film/felder.txt", FileAccess.WRITE)
 	f2.store_string("\n".join(liste) + "\n")
+
+func knochen_pos(k: String, nm: String) -> Vector3:
+	var w: Node3D = spiel.held if k == "held" else figuren[k]
+	var sk := Gebiet.finde(w, "Skeleton3D") as Skeleton3D
+	var bi := sk.find_bone(nm)
+	if bi < 0: return Vector3.ZERO
+	return sk.global_transform * sk.get_bone_global_pose(bi).origin
+
+# Geschwindigkeit aus dem Standfuss: in einer Schleife auf der Stelle gleitet jeder Fuss einmal je Umlauf um die Strecke zurueck,
+# die der Koerper vorankaeme (vorn bis hinten im Blick der Figur)
+func schritt_tempo(k: String, ap: AnimationPlayer, lang: float) -> float:
+	var w: Node3D = spiel.held if k == "held" else figuren[k]
+	var vor := Vector3(sin(w.rotation.y), 0, cos(w.rotation.y))
+	var lo := INF; var hi := -INF
+	for j in 40:
+		ap.seek(lang * j / 40.0, true)
+		var d := (knochen_pos(k, "foot_l") - w.position).dot(vor)
+		lo = minf(lo, d); hi = maxf(hi, d)
+	ap.seek(0.0, true)
+	return (hi - lo) / lang
+
+# auf die Bank: Blick zur Mitte der Platzkacheln wie dorf.py, Becken ueber der Sitzmitte, Sitzbein auf 47 cm
+func setze_auf_bank(k: String, ap: AnimationPlayer, lang: float) -> void:
+	var kt: Karte = spiel.karte
+	var sx := 0.0; var sy := 0.0; var nn := 0
+	for y in kt.hoehe:
+		for x in kt.breite:
+			if kt.zeichen(Vector2i(x, y)) == "o": sx += x; sy += y; nn += 1
+	var w: Node3D = figuren[k]
+	w.rotation.y = atan2(sx / nn - BANK.x, sy / nn - BANK.y)
+	w.position = kt.kachel_pos(BANK)
+	ap.seek(lang * 0.5, true)
+	var b := knochen_pos(k, "pelvis")
+	var ziel := kt.kachel_pos(BANK) + Vector3(sin(w.rotation.y), 0, cos(w.rotation.y)) * 0.03
+	w.position += Vector3(ziel.x - b.x, SITZ_HOEHE + 0.10 - b.y, ziel.z - b.z)
+	ap.seek(0.0, true)
+	protokoll.append("BANK %s Becken %.2f m, Figur %.2f m hoch gesetzt" % [k, b.y, w.position.y])
 
 # Kauffigur in unserer Kleidung neben dem Helden und der Kauffigur in Kaufkleidung: nah von vorn und hinten, Nacht; Koepfe als Ausschnitt
 func tracht() -> void:

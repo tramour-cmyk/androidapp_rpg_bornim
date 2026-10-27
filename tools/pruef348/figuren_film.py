@@ -8,7 +8,7 @@ from PIL import Image, ImageDraw, ImageFont
 FILM, ZIEL = sys.argv[1], sys.argv[2]
 SP = int(sys.argv[3]) if len(sys.argv) > 3 else 3
 # Helfer Film 14:58: auf 280 px verkleinert verschwand die Tusche (1 Bildpunkt); 0,8-fach, drei Spalten, Hochformat wie das Handy
-W, H, KOPF, LEISTE = 448, 720, 44, 40
+W, H, KOPF, LEISTE = 544, 832, 44, 40   # 0,8 von FELD_PX 680 x 1040 (figurenprobe.gd)
 NAMEN = {'held': 'unser Held (Runde 7)', 'q_held': 'Quaternius Held', 'q_bauer': 'Quaternius Bauer'}
 felder = []
 zeilen = {l.split(' ')[0]: l.strip() for l in open(os.path.join(FILM, 'felder.txt')) if l.strip()}
@@ -34,11 +34,12 @@ cache = {}
 # Film weiter (j), Einzelbewegungen beginnen je Durchlauf neu und halten vorher kurz das Ende; Leiste oben sagt Echtzeit oder Zeitlupe
 HALT = 15
 folge = []   # (Bild der Einzelbewegung i, Schleifenzaehler in Bildern, Leiste)
+# Helfer 15:37: len(folge) in der Listenbildung blieb je Durchlauf gleich, Schleifen standen in Echtzeit still; Zaehler laufend
 for d in range(2):
-    folge += [(i, len(folge) + 0.0, 'Echtzeit, Durchlauf %d von 2' % (d + 1)) for i in range(n)]
-    folge += [(n - 1, len(folge) + 0.0, 'Echtzeit, Pause') for _ in range(HALT)]
+    for i in range(n): folge.append((i, float(len(folge)), 'Echtzeit, Durchlauf %d von 2' % (d + 1)))
+    for _ in range(HALT): folge.append((n - 1, float(len(folge)), 'Echtzeit, Pause'))
 z0 = len(folge)
-folge += [(i // 4, z0 + i / 4.0, 'Zeitlupe, vierfach langsamer') for i in range(4 * n)]
+for i in range(4 * n): folge.append((i // 4, z0 + i / 4.0, 'Zeitlupe, vierfach langsamer'))
 for fnr, (i, jz, leiste) in enumerate(folge):
     bild = Image.new('RGB', (SP * W, LEISTE + ZL * (H + KOPF)), (12, 10, 8))
     dr = ImageDraw.Draw(bild)

@@ -33,7 +33,8 @@ KLEID = {'belt', 'buckle', 'boots', 'chain', 'cuff', 'clasp', 'cloak', 'pants', 
 ENG = {'belt', 'buckle', 'boots', 'chain', 'cuff', 'clasp', 'pants', 'sleeves'}
 KOERPERTEILE = {'body', 'wristL', 'wristR', 'handL', 'handR'}
 RAND = 0.004          # Kleidung mindestens so weit ueber dem fremden Koerper (m)
-VERDECKT = 0.06       # Koerperecke, ueber der in dieser Entfernung Kleidung liegt, gilt als verdeckt (m)
+VERDECKT = float(os.environ.get('VERDECKT', '0.06'))   # Koerperecke, ueber der in dieser Entfernung Kleidung liegt, gilt als verdeckt (m)
+WEG_AB = int(os.environ.get('WEG_AB', '1'))             # Flaeche weg ab so vielen verdeckten Ecken (0: alle; 1: Durchstechen halbiert, Tom 15:48)
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 QQ = {}
@@ -245,7 +246,7 @@ for i, v in enumerate(QV):
         qkoerper.data.vertices[i].co += Vector(qmi @ (np.linalg.inv(A) @ d)); rein += 1
 print('KOERPER ZURUECK', rein)
 bm = bmesh.new(); bm.from_mesh(qkoerper.data); bm.faces.ensure_lookup_table()
-weg = [f for f in bm.faces if all(verdeckt[v.index] for v in f.verts)]
+weg = [f for f in bm.faces if sum(verdeckt[v.index] for v in f.verts) >= (WEG_AB or len(f.verts))]
 bmesh.ops.delete(bm, geom=weg, context='FACES')
 bm.to_mesh(qkoerper.data); bm.free()
 print('KOERPER VERDECKT', int(verdeckt.sum()), 'von', len(QV), 'Ecken;', len(weg), 'Flaechen weg')
