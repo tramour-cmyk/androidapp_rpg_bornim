@@ -710,7 +710,13 @@ def probehaus(cells, style):
     def putz(p, n): return sc(ptint, (0.72 + 0.28 * ss(0, 90, p.z)) * (0.94 + 0.12 * vn(p.x / 80 + p.y / 80, p.z / 80, 13)))
     def ziegel(p, n): return mixc(W1, (0.8, 0.95, 0.6), 0.3 * vn(p.x / 120, p.y / 120, 21))
     tint = dict(putz=putz, balken=ttint, feldstein=lambda p, n: stone_tint(p, n), ziegel=ziegel)
-    def at(x, y, z, a): return Matrix.Translation((cx + x * 100 * s, cy + y * 100 * s, z * 100 * s)) @ Matrix.Rotation(math.radians(a), 4, 'Z') @ Matrix.Scale(s, 4)
+    def at(x, y, z, a, sz=1.0): return (Matrix.Translation((cx + x * 100 * s, cy + y * 100 * s, z * 100 * s)) @ Matrix.Rotation(math.radians(a), 4, 'Z')
+                                        @ Matrix.Scale(s, 4) @ Matrix.Diagonal((1, 1, sz, 1)))
+    # Fehlerrunde 376 (Helfer 19:02): auf 3,0 m haengt die Traufe 0,52 m tiefer und 0,76 m vor der Wand und verdeckt in unserer
+    # Draufsicht Tuerbogen und Fensteroberkanten. PROBE_KNIE=<m> hebt Dach und Giebel ueber einen Kniestock aus Putz und macht das Dach
+    # flacher (PROBE_NEIGUNG, Hoehe des Dachs), damit der First nicht waechst; 0 = Bausatz wie gedacht
+    knie = float(os.environ.get('PROBE_KNIE', '0')); neig = float(os.environ.get('PROBE_NEIGUNG', '1'))
+    zd = 3.0 + knie
     front = ['Wall_Plaster_Window_Wide_Flat', 'Wall_Plaster_Door_Round', 'Wall_Plaster_Window_Wide_Flat']
     for i, w in enumerate(front):                               # Sued (Front, Blick -Y)
         kit_teil(w, at(-2 + 2 * i, -2, 0, 0), tint)
@@ -722,14 +728,24 @@ def probehaus(cells, style):
         for j, w in enumerate(['Wall_Plaster_Window_Thin_Round', 'Wall_Plaster_Straight_Base']):
             kit_teil(w, at(3 * sgn, (-1 + 2 * j) * sgn, 0, 90 * sgn), tint)
         kit_teil('Window_Thin_Round1', at(3 * sgn, -1 * sgn, 0, 90 * sgn), tint)
-        kit_teil('Roof_Front_Brick4', at(3 * sgn, 0, 3.0, 90 * sgn), tint)
-        for e in (-1, 1): kit_teil('Corner_Exterior_Wood', at(3 * sgn, 2 * e, 0, 0), tint)
-    kit_teil('Roof_RoundTiles_4x6', at(0, 0, 3.0, 90), tint)
-    kit_teil('Prop_Chimney2', at(1.8, 0.7, 3.0, 0), tint)
-    LIGHTS.append(dict(art='rauch', pos=[cx + 180 * s, cy + 70 * s, 630 * s]))
+        kit_teil('Roof_Front_Brick4', at(3 * sgn, 0, zd, 90 * sgn, neig), tint)
+        for e in (-1, 1):
+            kit_teil('Corner_Exterior_Wood', at(3 * sgn, 2 * e, 0, 0), tint)
+            if knie > 0: kit_teil('Corner_Exterior_Wood', at(3 * sgn, 2 * e, 3.0, 0, knie / 3.0), tint)
+    if knie > 0:                                                # Kniestock: glatte Wand, Unterkante in der Wandkrone
+        for i in range(3):
+            for y, a in ((-2, 0), (2, 180)): kit_teil('Wall_Plaster_Straight', at(-2 + 2 * i, y, 3.0, a, (knie + 0.12) / 3.12), tint)
+        for sgn in (-1, 1):
+            for j in range(2): kit_teil('Wall_Plaster_Straight', at(3 * sgn, (-1 + 2 * j) * sgn, 3.0, 90 * sgn, (knie + 0.12) / 3.12), tint)
+    kit_teil('Roof_RoundTiles_4x6', at(0, 0, zd, 90, neig), tint)
+    # Schornstein (Helfer 19:02: steckte bis auf 0,35 m im Dach): Kopf 1 m ueber der Dachflaeche an seiner Stelle (Dach 4x6: First 3,72 m
+    # ueber dem Fuss, Traufe 0,52 m darunter, halbe Tiefe 2,76 m)
+    dach = zd + neig * (3.72 - (3.72 + 0.52) * 0.7 / 2.76); kz = dach + 1.0 - 3.0
+    kit_teil('Prop_Chimney2', at(1.8, 0.7, kz, 0), tint)
+    LIGHTS.append(dict(art='rauch', pos=[cx + 180 * s, cy + 70 * s, (kz + 3.0) * 100 * s]))
     LIGHTS.append(dict(art='tuer', pos=[cx, yf - 60, 0]))
     for x in (-2, 2): LIGHTS.append(dict(art='fenster', pos=[cx + x * 100 * s, yf - 30, 170 * s]))
-    print('PROBEHAUS %d,%d Masstab %.3f' % (c0, r0, s))
+    print('PROBEHAUS %d,%d Masstab %.3f Kniestock %.2f Neigung %.2f Schornstein %.2f' % (c0, r0, s, knie, neig, kz))
     return (c0, c1, r0, r1)
 for cells in comps():
     st = next((v for (sx, sy), v in STYLE.items() if (sx, sy) in cells), None) or ('STRAW', 'TIMBER', 0, 'NONE')
