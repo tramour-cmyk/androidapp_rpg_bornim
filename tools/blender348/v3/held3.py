@@ -189,6 +189,22 @@ def finish(nt, col, name):
         col = _mix(nt, _m(nt, 'MULTIPLY', edge, 0.8 * W), col, _scale(nt, col, 1.7))  # Kantenabrieb
         cav = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', 0.48, pt), 14.0))
         col = _mix(nt, _m(nt, 'MULTIPLY', cav, 0.6 * W), col, lin(hx(0x2A2420)))
+    # 348.6 (Helfer Lauf 80–90 „Helm wie Muetze“, t78 „Helm ohne Metall“): das Spiel zeichnet ohne Glanzlicht (specular_disabled), darum
+    # Glanz gemalt: Lichtfleck oben vorn, dunkles Spiegelband darunter, feine senkrechte Schliffspuren; Probe HELM_GLANZ=1 (Vorgabe 0 wie bisher)
+    hg = float(os.environ.get('HELM_GLANZ', '0')) if FIGUR == 'held' else 0.0
+    if name in ('helm', 'helmrim') and hg > 0:
+        dp = nt.nodes.new('ShaderNodeVectorMath'); dp.operation = 'DOT_PRODUCT'
+        nt.links.new(geo.outputs['Normal'], dp.inputs[0]); dp.inputs[1].default_value = Vector((0.35, -0.45, 0.82)).normalized()
+        f_ = dp.outputs['Value']
+        hi = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', f_, 0.72), 3.5))   # Runde 2 (Helfer: weisser Fleck, harte Facette): weicher, grauer
+        dk = _sat(nt, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'ABSOLUTE', _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', f_, 0.35), 5.0))))
+        sv = nt.nodes.new('ShaderNodeVectorMath'); sv.operation = 'MULTIPLY'; sv.inputs[1].default_value = (0.5, 0.5, 0.03)
+        nt.links.new(geo.outputs['Position'], sv.inputs[0])
+        sn = nt.nodes.new('ShaderNodeTexNoise'); sn.inputs['Scale'].default_value = 4.0; sn.inputs['Detail'].default_value = 2.0
+        nt.links.new(sv.outputs[0], sn.inputs['Vector'])
+        col = _scale(nt, col, _m(nt, 'ADD', 0.85, _m(nt, 'MULTIPLY', sn.outputs['Fac'], 0.3 * hg)))
+        col = _mix(nt, _m(nt, 'MULTIPLY', dk, 0.55 * hg), col, lin(hx(0x1E2024)))
+        col = _mix(nt, _m(nt, 'MULTIPLY', hi, 0.25 * hg), col, lin(hx(0x9EA4AA)))   # Runde 3 (Helfer: im Spiel heller Fleck auf der Kuppe): schwaecher
     if name == 'shield':
         tc = nt.nodes.new('ShaderNodeTexCoord'); vo = nt.nodes.new('ShaderNodeTexVoronoi'); vo.feature = 'DISTANCE_TO_EDGE'
         vo.inputs['Scale'].default_value = 0.09; nt.links.new(tc.outputs['Object'], vo.inputs['Vector'])
@@ -885,7 +901,14 @@ if FG['kopf'] == 'helm':
             if v.co.z < -4.0:
                 k_ = -4.0 - v.co.z
                 v.co += Vector((v.co.x, v.co.y, 0)).normalized() * 0.12 * k_ + Vector((0, 0, -0.55 * k_))
-    head_part('helmrim', lambda co: edge_u(co) - 0.2 < co.z < edge_u(co) + (1.5 if FIGUR == 'held' else 2.2), 1.9 if FIGUR == 'held' else 3.1, 'helmrim', 0.8)
+    kamm_ = float(os.environ.get('HELM_KAMM', '0')) if FIGUR == 'held' else 0.0
+    if kamm_ > 0:   # 348.6 („Helm wie Muetze“): Grat von der Stirn ueber den Scheitel in den Nacken, Kappe gegen Haube unterscheidbar; Probe HELM_KAMM=0.5 (Vorgabe 0)
+        for v in hm_.data.vertices:
+            u_ = max(0.0, min(1.0, (v.co.z - edge_u(v.co)) / 3.0))
+            v.co += Vector((0, v.co.y, v.co.z)).normalized() * kamm_ * math.exp(-(v.co.x / 1.4) ** 2) * u_   # Runde 2 (Helfer: Grat schief, hinten wie Nadel): flacher, breiter
+    rim_ = head_part('helmrim', lambda co: edge_u(co) - 0.2 < co.z < edge_u(co) + (1.5 if FIGUR == 'held' else 2.2), 1.9 if FIGUR == 'held' else 3.1, 'helmrim', 0.8)
+    if kamm_ > 0:   # Runde 3 (Helfer: Rand wie weicher, gerollter Stoffwulst): flach schattiert, liest sich als Eisenband
+        for p_ in rim_.data.polygons: p_.use_smooth = False
     bpy.ops.mesh.primitive_cube_add(size=1)
     nas = bpy.context.active_object; nas.name = 'nasal'; nas.parent = root
     # Runde 3 (1): las sich als Strich durchs Gesicht; wie Dress.kt (halb 0,035 k breit, 0,12 k lang) schmaler, kuerzer, dunkler wie der Rand
