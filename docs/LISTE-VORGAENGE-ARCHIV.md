@@ -446,7 +446,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 373 | Aussehen, Design, Bewegung, Animation urteilt nur der Chef: Bilder und Videos in den Vorgang und per Telegram, keine Helferrunden über Wirkung, für alle (Chef 27.10., 11:31) | B Abläufe | M | 11,72 $ | Perikles | erledigt |
 | 167.7 | Auslöser: neuer Vorratseintrag startet Sitzung ohne Warten auf Fords Stundenlauf (Chef 18.10.) | B Steuerung | M? |  | Perikles | abgelehnt |
 | 318.1 | Uhrzeit im Chat-Stempel streichen (Messung 25.10.: 42 % daneben) | B Abläufe | – | – | Sokrates | nein |
-| 377 | Vor jedem Eigenbau zuerst Bestand (gekauft, geladen) prüfen, sichergestellt? (Chef 27.10., 12:53) | B Abläufe | M | – | Perikles | fertig |
+| 377 | Vor jedem Eigenbau zuerst Bestand (gekauft, geladen) prüfen, sichergestellt? (Chef 27.10., 12:53) | B Abläufe | M | 1,56 $ | Perikles | fertig |
 | 373a | Rückfrage: Nachturteil Sokrates (362) mit 373 gestrichen lassen? | B Abläufe | M | – | Perikles | entschieden |
 | 149 | Probewoche Ford mit neuem Modell: Regelverstöße zählen bis 24.10. (Chef) | Q QM | M |  | Diogenes | erledigt |
 | 236 | notiz.sh bleibt im Merge stehen (altes lokales main im Abbild), Notizen auf altem Stand | Q Ablauf | M | – | Perikles | erledigt |
