@@ -17,6 +17,16 @@
 # Schwarz schräg „wie abstürzend“, Flügelkante als langes Dreieck über den Kopf, Riss kaum sichtbar; Stein vor dem Kopf der
 # Schwarzen (Tiefe prüfen); Narben bei Grau nicht erkennbar; Braun im Gesamtbild fast schwarz (gemessen wie alt; Liste verlangt
 # Braun und Schwarz verschieden).
+# Runde 3, 3b (Jerry 27.10., 09:05; Prüfer Runde 3, 3b): die Probe GEGNER=BATS zeigt die Hocke (alle sagen „Anspringen“ an), darum
+# hocke() flach gespreizt statt Flügel hoch; Kopf KS 1,35; Maul, Innenohren, Augen rot wie alt; Gesicht dunkler; Braun HELL 0,45;
+# Narben breiter; Riss größer. Behoben: V-Haltung, Mondgesicht, rosa Rechteck, Braun gegen Schwarz, Riss sichtbar.
+# Offen nach 3b (Prüfer): hoch: Schwarze (wolf2) etwa 35° schräg mit Flügelkeil über dem Kopf, Stein dahinter (Log: Blick soll
+# gegen ist −29°, Ursache Drehung in figur.gd prüfen; Stein liegt hinten im Wald, nur am Schirm am Kopf); Gesicht auf Handygröße
+# nicht lesbar (Maul erst ab 6-fach, Nasenblatt, Geifer, Augen nicht; Zahnpixel lesen sich als Augenglanz). mittel: Innenohr der
+# Schwarzen hellrosa (niedlich, soll dunkelrot); Flughaut nicht sichtbar dunkler, Gummi mit Lichtflecken; drei gleiche flache
+# Spreizhaltungen „Deko“ (Hocke je Figur versetzen, Lauer lesbar machen); Spannweite im Bild etwa 1,2–1,3 m; Ohren weiter Büschel
+# (Umrisslinie franst). gering: Narben auf Handygröße kaum; Grau und Braun ähnlich; Füße hängen als Stummel; alt heller als neu?
+# nein: neu heller als alt (Braun nach Liste gewollt, Flügel zu hell).
 # Aufruf: OUT=<ordner> FELL=braun|schwarz|grau python -I fledermaus.py  ->  <OUT>/giant_bat-<fell>.glb, giant_bat-info.json;
 # Probe in Godot: Dateien als godot/kampf/daten/giant_bat-<fell>.bin, GEGNER=BATS (drei Fledermäuse, Regeln des Wolfs)
 import os, sys, math
