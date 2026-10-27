@@ -853,22 +853,58 @@ func _draw_spells() -> void:
 		# Prüfer Runde 4, 4b (Strahl und Geschoss des Magiers hinten begannen auf Miras Schild vorn): steht jemand am Schirm
 		# zwischen Wirkendem und Ziel, geht es über ihn, von über der Schulter des Wirkenden
 		if flying:
-			from = _clear_from(from, to - Vector2(0, tall * 0.55), [by, on], _tall(by))
+			from = _clear_from(from, to - Vector2(0, tall * 0.55), [by, on], _tall(by), sp.kind == "RAYS")
 		var u := tall / 40.0 * (1.35 if sp.crit else 1.0)
 		# der Strahl bleibt gerade (Runde 4b: im Bogen ein „Regenbogen“ bis an die Bäume)
 		Zauber.over = _over(from, to - Vector2(0, tall * 0.55), [by, on]) if flying and sp.kind != "RAYS" else 0.0
+		# Prüfer Runde 4d: der Fehlschuss lag auf dem Wolf vor dem Ziel („Treffer am falschen Wolf“); der freieste Fleck
+		Zauber.miss_at = Vector2.INF
+		if sp.missed and (flying or sp.kind == "SACRED_FLAME"):     # die Heilige Flamme fällt neben dem Ziel (leckte am Nachbarn)
+			Zauber.miss_at = _miss_spot(_foot(by), to, tall, [0.4, 0.5, 0.6, 0.7, 0.8, 0.9] if flying else [1.0])
 		zauber.draw(sp.kind, int(sp.seed), p, from, to - Vector2(0, tall * 0.55), u, to.y, sp.missed)
 	spells = still
 
 
-## Startpunkt über der Schulter: so weit über der Brust des Wirkenden (höchstens bis 0,7 seiner Höhe), bis die Gerade zum
+## Fehlschuss: Fleck am Boden auf dem Weg vom Wirkenden zum Ziel (Anteile ts, quer bis 1,5 Zielhöhen) mit dem größten Abstand
+## am Schirm zu jeder stehenden Figur, Wirkenden und Ziel eingeschlossen; bei Gleichstand näher an 0,6 des Wegs
+func _miss_spot(a: Vector2, b: Vector2, tall_on: float, ts: Array) -> Vector2:
+	var k = kampfort
+	var dv := b - a
+	var nrm := Vector2(-dv.y, dv.x).normalized()
+	var best := b
+	var best_score := -INF
+	for t in ts:
+		for side in [0.0, -0.5, 0.5, -1.0, 1.0, -1.5, 1.5]:
+			var q: Vector2 = a.lerp(b, t) + nrm * side * tall_on
+			var clear := INF
+			for id in k.figures:
+				var o = k.figures[id]
+				if not o.visible or o.down:
+					continue
+				var foot := _foot(o)
+				var ot := _tall(o)
+				var half: float = ot * (0.8 if o.fighter.monster != null and o.fighter.monster.id == Mars.WOLF else 0.35)
+				var dx := maxf(0.0, absf(q.x - foot.x) - half)
+				var dy := maxf(0.0, maxf(foot.y - ot - q.y, q.y - (foot.y + ot * 0.15)))
+				clear = minf(clear, Vector2(dx, dy).length())
+			var score: float = clear - absf(t - 0.6) * tall_on * 0.2 - absf(side) * tall_on * 0.1
+			if score > best_score:
+				best_score = score
+				best = q
+	return best
+
+
+## Startpunkt über der Schulter: so weit über der Brust des Wirkenden (höchstens bis 0,3 seiner Höhe), bis die Gerade zum
 ## Ziel am Schirm keine andere stehende Figur mehr kreuzt
-func _clear_from(a: Vector2, b: Vector2, skip: Array, tall_by: float) -> Vector2:
-	for step in 8:
+func _clear_from(a: Vector2, b: Vector2, skip: Array, tall_by: float, beam: bool) -> Vector2:
+	# höchstens bis zur Schulter (Prüfer Runde 4d: bis 0,7 schwebte der Start 150–230 px über dem Kopf); darüber hebt die Bahn
+	for step in 4:
 		var s := a - Vector2(0, tall_by * 0.1 * step)
 		if not _crosses(s, b, skip):
 			return s
-	return a - Vector2(0, tall_by * 0.7)
+	# sonst von der Brust, der Bogen (_over) hebt die Bahn (Runde 4d: der Start lag hoch auf dem Wolf davor); der Strahl
+	# hat keinen Bogen und bleibt an der Schulter (Runde 4: aus der Brust lief er durch Miras Schild)
+	return a - Vector2(0, tall_by * 0.3) if beam else a
 
 
 func _crosses(a: Vector2, b: Vector2, skip: Array) -> bool:

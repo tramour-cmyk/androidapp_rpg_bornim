@@ -34,6 +34,8 @@ var on_floor := false
 ## 348.7 (Helfer Lauf 126: Feuerpfeil, Feuerball, Geschosse flogen vor dem näheren Wolf durch): so viele Bildpunkte steigt die
 ## Bahn in der Mitte über die Gerade, damit sie über die Köpfe derer geht, die vor ihr stehen (kampf_ui.gd setzt es je Effekt)
 static var over := 0.0
+## Fehlschuss: Bodenpunkt am Schirm, den kampf_ui.gd frei von Figuren wählt (INF: wie bisher neben dem Ziel)
+static var miss_at := Vector2.INF
 
 
 ## Wie lange ein Effekt spielt (BattleFx.kt baseFxDuration), in ms
@@ -535,6 +537,9 @@ func draw(kind: String, sd: int, p: float, source: Vector2, target: Vector2, u: 
 		return
 	if kind == "SACRED_FLAME":
 		var away := -1.0 if sd % 2 == 0 else 1.0
+		if miss_at != Vector2.INF:     # Prüfer Runde 4d: leckte am Nachbarwolf; der freieste Fleck neben dem Ziel
+			draw_fx(kind, sd, p, source, Vector2(miss_at.x, miss_at.y - (ground - target.y)), u, miss_at.y)
+			return
 		draw_fx(kind, sd, p, source, Vector2(target.x + away * 30 * u, target.y), u, ground)
 		return
 	if not (kind in FLYING):
@@ -552,6 +557,9 @@ func draw(kind: String, sd: int, p: float, source: Vector2, target: Vector2, u: 
 	# den Parteien, gut vor dem Ziel und etwas seitlich
 	var by := source.lerp(target, 0.6) + Vector2(-dv.y / ln, dv.x / ln) * side * 18 * u
 	var floor_y := by.y + (ground - target.y)     # Boden unter dem Punkt, Brusthöhe wie am Ziel
+	if miss_at != Vector2.INF:     # Prüfer Runde 4d: lag auf dem Wolf vor dem Ziel
+		floor_y = miss_at.y
+		by = Vector2(miss_at.x, floor_y - (ground - target.y))
 	if kind != "MISSILES":
 		by.y = floor_y - 2 * u
 	draw_fx(kind, sd, p, source, by, u * 0.8, floor_y, kind != "MISSILES")
