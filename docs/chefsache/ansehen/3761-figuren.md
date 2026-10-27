@@ -4,7 +4,7 @@
 
 **Ansehen:** drei Blätter in Godot mit unserem Toon, Tusche und Licht: [Dorf Tag, Nacht, weit](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/pruefung/3761-figuren-reihe.jpg), [Nahstufe](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/pruefung/3761-figuren-nah.jpg), [Hauptmenü-Licht](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/pruefung/3761-figuren-menue.jpg). Von links: unser bisheriger Held, dann Quaternius-Held, Bauer, Bäuerin, Zwerg, Elfe, Halbling, Halbork. Zweig `claude/tom-376-1-figuren`.
 
-**Nur freie Teile:** der Zugang zu den gekauften Dateien fehlt noch (Freigabe `add_repo` in der Sitzung). Darum Kopf „Superhero“ statt „Regular“, Waldläufer statt Ritter, nur zwei Kleidungen (Bauer, Waldläufer), freie Bewegungen. Die gekauften setzt der Nachfolger danach nur noch ein.
+**Nur freie Teile:** der Zugang zu den gekauften Dateien fehlt noch (Freigabe `add_repo` in der Sitzung). Darum Kopf „Superhero“ statt „Regular“, Waldläufer statt Ritter, nur zwei Kleidungen (Bauer, Waldläufer), freie Bewegungen. Die gekauften setzt der Nachfolger danach nur noch ein. **Nachtrag 14:28:** Zugang ist da, die gekauften Teile sind eingesetzt; Blätter und Film damit folgen hier nach der Fehlerprüfung, bis dahin gelten die Blätter oben nur für die freien Teile.
 
 **Fehlerprüfung (fremde Helfer, drei Runden):** behoben: weißes Haar (jetzt getönt), Halbork ohne Grün, Figur im Marktstand, Völker kaum verschieden, Menülicht. Offen:
 - mittel: Stehhaltung der Quaternius-Bewegungen starr (Arme 23° abgespreizt, breitbeinig, Kopf gesenkt). Unser Held nutzt dieselbe Quelle mit eigener Korrektur, die sich übernehmen lässt.
