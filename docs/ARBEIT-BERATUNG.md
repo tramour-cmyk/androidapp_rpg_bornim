@@ -33,8 +33,8 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 253 | K | **von Chef (20.10., 14:32):** Stichwort „BornWire“ = Firmensachen in eigener Sitzung, Ergebnisse ins Fahrplan-Dokument (Vorgangsarchiv 253) | Name BornWire TCS geprüft und frei (Fahrplan-Dokument); Logo 251 an Homer; ruht bis Gewerbeschein: dann Gewerbe ummelden, Google-Konto (Schritte des Chefs) |
 | 72c | K | **von Chef (19.10., 12:55):** Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunden); Wortlaut Vorgangsarchiv 72c | nach dem Meilenstein (Chef 20.10.); vorher einseitige Vorlage Sokrates |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | frühestens 31.10.: mit 347 prüfen, ob der Tagesbericht ihn ersetzt (Wiedervorlage 26.10. verpasst; Morgenbericht 19.10. in Git) |
-| 142.3 | M | **von Chef (27.10., 19:32):** Tester öffentlich suchen: Foren, 14 Tage erklären, Name im Abspann | startbar: A und C (19:51, Archiv); Schritte in Git (1423) |
-| 142 | M | Vorbereitung Pflichttest Play Store (von Perikles); dabei Store-Text „jede Entscheidung zählt“ prüfen (72a); 338 (f) | wartet auf Chef: `chefsache/tun/142-pflichttest.md` (12 Tester, Gewerbeschein); 142.2 ja (Archiv), bis 15.11.; Upload-Knopf bei Tom (Zu 142, Stand) |
+| 142.3 | M | **von Chef (27.10., 19:32):** Tester öffentlich suchen | in Arbeit (Sokrates 20:0x), A und C (Archiv): bis 28.10. C Organisationskonto klären; A Forenregeln, Aufruf de/en, Abspann, Datenschutz; Aufruf nach 109; dann Tom |
+| 142 | M | Pflichttest Play Store (von Perikles); Store-Text „jede Entscheidung zählt“ prüfen (72a) | wartet auf 142.3: Tester; Chef meldet Gewerbeschein (tun/142); bis 15.11. (Zu 142, Stand) |
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (Gewerbeschein); 45a/45c, 72g–72j entschieden ([Artefakt](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj), vertraulich); offen: Preis endgültig mit 142 (ab Gewerbeschein), bis 30.11.; iOS-Schätzung Tom nach Kapitel 2 |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | wartet auf Chef: entscheiden/109 (Votum A) |
 
