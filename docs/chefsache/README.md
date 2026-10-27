@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [348.12](entscheiden/34812-goblin-hieb.md) | **Muss** | G Aussehen | 27.10. | Goblin CC0 oder eigen? Der CC0-Hieb hat nach sechs Runden noch Fehler | Jerry |
 | [348.12f](entscheiden/34812f-kaufratte-r3.md) | **Muss** | E Technik | 27.10. | Reicht die nachgebesserte Kaufratte, oder bleibt die eigene? | Jerry |
 | [348.12c](entscheiden/34812c-listen.md) | **Muss** | G Aussehen | 26.10. | vier neue Listen mit je fünf Prüfpunkten, aus deinem Ja von 20:32 und den Modellbildern; nötig, bevor Jerry die gekauften Modelle bemalt | Homer |
 | [110](entscheiden/110-ford-von-hand.md) | – | – | 27.10. | Ford läuft auf Tiefe 6 (Grenze 8); Selbstneustart geht nicht mehr, bevor sein Kontext voll ist, bitte neue Sitzung von Hand starten. | Ford |
@@ -60,12 +61,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 26, Muss 15, startbar 2
+**Jerry** – offen 26, Muss 15, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 348.12f | M | von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b): Probe gekaufte Riesenratte: unter 6.0 | Chef (Datei in der Chefsache) |
-| 348.12 | M | von Sokrates (Chef 16:21, „cc0 nochmal“): Goblin CC0 r2: geduckt über UAL (wie geruest.py) | startbar |
+| 348.12 | M | von Sokrates (Chef 16:21, „cc0 nochmal“): Goblin CC0 r2: geduckt über UAL (wie geruest.py) | Chef (Datei in der Chefsache) |
 | 348.12c | M | von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv): Wiedergänger, Grabhund, Riesenegel, Säur | Chef (Datei in der Chefsache) |
 | 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | startbar |
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Jerry: hätte Godot die Ch | Chef |
@@ -119,7 +120,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 348.12c | M | von Chef (26.10., 11:59): Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters | Chef (Datei in der Chefsache) |
-| 348.12 | M | von Chef (25.10., 21:21, „b prüfen“): fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit | wartet auf Jerry |
+| 348.12 | M | von Chef (25.10., 21:21, „b prüfen“): fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit | Chef (Datei in der Chefsache) |
 | 348.12h | M | von Chef (26.10., 16:16; ja 16:19, Archiv): fertige Dinge, Möbel, Waffen suchen | wartet auf Jerry |
 | 340.2 | M | von Chef (25.10., 10:16, Vorgangsarchiv 340): tools/rollenspiegel.sh <Rolle> zeigt nur Fra | wartet auf Test/Build (gebaut) |
 | 348 | M | von Chef (24.10., 16:43; „jetzt“ 16:54): fertige Spiel-Engine statt Selbstbau? | ruht |
