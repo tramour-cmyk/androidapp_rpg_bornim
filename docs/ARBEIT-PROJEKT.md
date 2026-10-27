@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 27.10., 13:23
+**Gelesen bis:** `origin/main` 27.10., 14:06
 
-**Übergabe (27.10., 13:3x, `session_01Hmoj77YJBTf85Gbd2KuyaG`):** 377 fertig: Regel „Bestand zuerst“ in `ROLLE-ENTWICKLUNG.md` (Vorlage und Übergabe nennen „Bestand geprüft“), Bestand in `LISTE-CC0-MODELLE.md` je Datei mit Inhalt (UAL Pro, Grundfiguren, Markt; Ratte, Hundertfüßer, Janpec „ungesichtet“, füllt der Erste, der öffnet), alte Zeile „nichts kaufen“ in `LISTE-GRAFIKWEG.md` als überholt markiert; Jerry per Nachricht (Fledermaus gegen Janpec). Kosten auf: 377. Nachfolger: keiner
+**Übergabe (27.10., 13:3x, `session_01Hmoj77YJBTf85Gbd2KuyaG`):** 377 fertig: Regel „Bestand zuerst“ in `ROLLE-ENTWICKLUNG.md` (Vorlage und Übergabe nennen „Bestand geprüft“), Bestand in `LISTE-CC0-MODELLE.md` je Datei mit Inhalt (UAL Pro, Grundfiguren, Markt; Ratte, Hundertfüßer, Janpec „ungesichtet“, füllt der Erste, der öffnet), alte Zeile „nichts kaufen“ in `LISTE-GRAFIKWEG.md` als überholt markiert; Jerry per Nachricht (Fledermaus gegen Janpec). Kosten auf: 377. Nachfolger: keiner. Nachstart 14:05 (`session_01Hmoj79Bo`): nichts offen; einziger Rest ist die Freigabe `add_repo` beim Chef (Telegram 13:27), kein Neustart deswegen
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
