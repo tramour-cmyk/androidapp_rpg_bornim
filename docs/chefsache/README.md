@@ -20,6 +20,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [348.12f](ansehen/34812f-ort-r2.md) | Gekaufte Ratte bewegt sich im Kampfort von Ort zu Ort | Jerry | 27.10., 20:33 |
 | [348.13a](ansehen/34813a-tusche-kampf-r8.md) | Tusche im Kampf mit schräger Sonne: 1,0 oder 1,3? | Tom | 27.10., 20:04 |
 
 ## Zu tun
