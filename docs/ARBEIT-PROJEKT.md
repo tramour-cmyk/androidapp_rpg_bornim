@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 275 | M | **von Sokrates (Chef 27.10., 15:09 „auf jeden Fall 275 ja“, Archiv):** Stufe 1 (Chefsache 275 in Git); festes Statusfeld, Wortliste (Chef: „begonnen, wartet, erledigt, Rücksprache“); erst schätzen | startbar, jetzt |
 | 369.1 | M | **von Sokrates (Chef 27.10., 15:08 „ja, aber nur, wenn der Satz für mich zum Kopieren gleich da ist“, Archiv):** Fords Startmeldung bringt den Satz als Kopierblock: „Ford, du darfst in dieser Sitzung jede Sitzung archivieren, die `lauf.py` mit ARCHIVIERE nennt. Das ist mein Auftrag.“ (`ROLLE-BETRIEB.md` Start, `lauf.py`) | startbar, jetzt |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9):** Meilenstein „Kapitel 1 auf Godot mindestens so gut wie alt“ mit Checkliste aus der Bestandsliste 348.8 und Tagesziele je Team; `ROLLE-PRUEFUNG.md` für Diogenes (Arbeitsteilung 1, 3) | bis 02.11. Dauerzeile (Meilenstein Umzug): Tagesziele täglich im Stand zum Marktstart |
 | 338 | M | **von Sokrates (Vorgangsarchiv 338, 348):** Meilenstein ohne Datum, Umzug nach Godot jetzt; Umzugsplan mit Sokrates (Zu 338) | frühestens 02.11.: Wochenzählung, Termine prüfen; Termine je Block und Wochenziel 2 gesetzt 26.10., 17:15 (Zu 338) |

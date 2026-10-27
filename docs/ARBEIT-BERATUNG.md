@@ -10,7 +10,6 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 275 | M? | **von Chef (27.10., 15:00):** eine zentrale Vorgangsliste, löst das die Leichen? | wartet auf Chef: Chefsache 275 (Votum: Stufe 1 jetzt, Stufe 2 nach einer Woche) |
 | 376 | M | **von Chef (27.10., 12:00):** Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Tom: Häuser ja 12:42 (Archiv), Probeblatt 376.1 „jetzt“ 12:46; Markt 376.2 bei Tom (Perikles 12:5x) (Zu 376) |
 | 374 | M | **von Chef (27.10., 11:54):** wer prüft 373? | frühestens 31.10.: auswerten mit 347 (Archiv) |
 | 348.12c | M | **von Chef (26.10., 11:59):** Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters Kit“) und andere Anbieter; Kosten, Erwerb, Verkauf im Spiel erlaubt; Monster dürfen von D&D abweichen; „schönen Vorschlag und ein schönes Paket“ | ruht: Stufe 2 bis Rutenursache und letztem Rattenvergleich (Chef 27.10., 09:57, Archiv 348.12f); dann Kaufliste (6 Links, etwa 134 $) an Chef |
