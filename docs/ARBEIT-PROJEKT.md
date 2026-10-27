@@ -3,15 +3,16 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 27.10., 11:58
+**Gelesen bis:** `origin/main` 27.10., 11:59
 
 **Übergabe (27.10., 11:5x, `session_01Hmoj75SnysPb9URmTxU37x`):** 373 umgestellt (`ROLLE-ENTWICKLUNG.md`, `-KREATIV`, `-PRUEFUNG`, `-BERATUNG`, `LISTE-UMZUG-348.md`, `CLAUDE.md` Bekannte Fehler 2, `LISTE-ABNAHME-KAPITEL1.md` mit Engpass Chef), fremd geprüft, Weitergabe an Ford (Eingang), Telegram; 373a beim Chef; 375 aus Fords Eingang angelegt. Kosten auf: 373. Nachfolger: Perikles – 375 Werkzeugfehler lauf.py
+
+375 erledigt 27.10., 12:1x (`session_01Hmoj75Q3`): `lauf.py` liest Nachfolger nur bis „;“ bzw. schließendes Anführungszeichen, „startet `lauf.py`“ = bedingt, heute mit „um/ab H:MM“ = Termin, `--ohne` gilt für den Nachfolger; Sokrates-Nachbuchung nach „Kosten auf“; `--kosten` zeigt Betrag und Summe, „–; +N $“ wird N $; `startbar.py`: „wartet auf nächstes/neues …“ sperrt. Betrieb −7,10 $ berichtigt.
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
 | 374 | M | **von Sokrates (Chef 27.10., 11:58, Archiv 374):** Werkzeug zu 373 mit Ford: Commit-Prüfung lehnt `.mp4`/`.webm` auf `main` ab; `meldung.sh` sendet `--bild`/`--datei` nur mit Vorgangsnummer, zu der eine Datei in `docs/chefsache/ansehen/` liegt; Diogenes-Stichprobe in `ROLLE-PRUEFUNG.md` | startbar |
 | 373a | M | **von Perikles (373):** Nachturteil Sokrates (362) gestrichen lassen? | wartet auf Chef: entscheiden/373a-nachturteil (Votum ja) |
-| 375 | M | **von Ford (Eingang 25.–27.10.):** Werkzeugfehler `lauf.py`: Nachfolger-Titel mit Terminvermerk oder Anführungszeichen löst falschen START aus; Diogenes 348.9 startbar ohne Unvermessenes; Doppelbuchung Sokrates 7,10 $; `--kosten` zeigt „–“ | startbar: Zu 375 |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9):** Meilenstein „Kapitel 1 auf Godot mindestens so gut wie alt“ mit Checkliste aus der Bestandsliste 348.8 und Tagesziele je Team; `ROLLE-PRUEFUNG.md` für Diogenes (Arbeitsteilung 1, 3) | gebaut 25.10., 12:4x (Übergabe; fremd geprüft, 10 Funde behoben); Tagesziele täglich im Stand zum Marktstart |
 | 338 | M | **von Sokrates (Vorgangsarchiv 338, 348):** Meilenstein ohne Datum, Umzug nach Godot jetzt; Umzugsplan mit Sokrates (Zu 338) | frühestens 02.11.: Wochenzählung, Termine prüfen; Termine je Block und Wochenziel 2 gesetzt 26.10., 17:15 (Zu 338) |
 | 347.2 | M | **von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347):** Paket Regeltreue umsetzen nach `tools/regeltreue/PLAN-347.md` (Punkte 1–7, 5a, 5b), mit Ford für `lauf.py` und Haken | gebaut 24.10., 16:5x mit A–H (Zu 347.2); beobachten bis 31.10., dann wertet Sokrates aus |
@@ -25,7 +26,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
-- **Zu 375** (aus Fords Eingang, Wortlaut Ford): (1) 27.10., 00:04: Nachfolger-Name mit Terminvermerk („den Stand zum Marktstart 27.10. startet `lauf.py` um 7:30 …“) löst Sofortstart aus; Ford führt ihn nicht aus; Werkzeug soll Termin erkennen. (2) 27.10., 11:04: Nachfolger-Titel mit Anführungszeichen im Satz (Diogenes: „Diogenes – 348.9 Blätter messen 10“; schickt zuerst …) wird samt Rest gelesen; Werkzeug soll beim ersten schließenden Anführungszeichen enden. (3) Diogenes-Zeile 348.9 gilt als startbar, obwohl nichts Unvermessenes liegt. (4) 25.10.: Doppelbuchung Sokrates alt 7,10 $ auf Betrieb und auf 361/89/362/142; 27.10.: `lauf.py --kosten` meldet „Kosten …: –“.
 
 - **Von Team Tom (26.10., 08:0x), zu 338/348.14:** Schätzung Bereich Tom fertig, fremd geprüft: rund 79 Sitzungen, 59 Bilderrunden (Spanne 59–99 S, 470–790 $; rund 110 S, 880 $, wenn die Runden wie bisher über die Grenze 10 gehen); ohne Warten auf den Chef; offen beim Chef: Intro, Zwischenbilder als alte Bilder oder neu in 3D (+6 S); je Punkt in `LISTE-UMZUG-348.md`, Summe und Annahmen im Absatz „Schätzung 348.14“ unter „Bereich Tom“. Jerry fehlt noch (Spalte in „Funktionen“ mit „Jerry“ vorbelegt).
 - **Von Team Jerry (26.10., 12:1x), zu 338/348.14:** Schätzung Bereich Jerry fertig, fremd geprüft (Befunde eingearbeitet): rund 95 Sitzungen, 79 Bilderrunden (Spanne 71–119 S, 500–830 $; rund 125 S, 870 $, wenn die Runden wie bisher über die Grenze 10 gehen); Hebel 348.12c (fertiges Modellpaket für Skelett, Zombie, Ghul, Spinne, Fledermaus, Gallerte: etwa −10 S, −15 R); je Punkt in `LISTE-UMZUG-348.md`, Summe und Annahmen im Absatz „Schätzung 348.14“ unter „Bereich Jerry“; Stände nachgetragen (Ratte, Goblin, Späher gebaut; Schamane, Kobold Entwurf). Zwei Fragen (abgenommen nach „steht“; Vogelskelett) beantwortet 13:3x in `LISTE-UMZUG-348.md` (Stände; Dorftiere): „steht“ zum Vergleichsblatt = abgenommen; Vogelskelett Jerry.

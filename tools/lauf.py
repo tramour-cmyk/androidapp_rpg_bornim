@@ -154,8 +154,11 @@ def nachfolger(rolle):
         if m:
             try: zeit = datetime.datetime(JETZT.year, int(m.group(2)), int(m.group(1)), int(m.group(3)), int(m.group(4) + ("9" if m.group(5) == "x" else m.group(5))), tzinfo=BERLIN)
             except ValueError: pass
-        roh = NACHFOLGER.search(l).group(1).strip()
-        roh = re.split(r"\.(?=\s+[A-ZÄÖÜ„*]|\s*$)", roh, maxsplit=1)[0].strip(" *„“\"")
+        roh = NACHFOLGER.search(l).group(1).strip().lstrip("*").strip()
+        q = re.match(r"[„\"]([^“\"]+)[“\"]", roh)  # 375: Titel in Anführungszeichen endet beim schließenden („…“; schickt zuerst …)
+        if q: roh = q.group(1)
+        roh = re.split(r"\.(?=\s+[A-ZÄÖÜ„*]|\s*$)|;", roh, maxsplit=1)[0].strip(" *„“\"")
+        if re.search(r"startet\s+`?lauf\.py`?", roh): return None, zeit, "bedingt: " + roh[:60]  # 375: Termin, den lauf.py selbst startet
         if re.match(r"keine[rn]?\b", roh, re.I): return None, zeit, "keiner"
         if re.search(r"\b(nur wenn|falls|sobald|bis )", roh, re.I): return None, zeit, "bedingt: " + roh[:60]
         if not re.match(r"(%s)\b" % "|".join(MODELL), roh): roh = "%s – %s" % (rolle, roh)
@@ -182,16 +185,24 @@ def kosten_auf(bis=None):
             return re.findall(r"\d+[a-z]*(?:\.\d+[a-z]*)*", roh)
     return []
 
+def sokrates_ziel(s, ss):
+    """„Kosten auf“ aus der Übergabe der Sokrates-Sitzung s (Stand vor dem Start der nächsten aus ss, 197.1) als „361,89“, sonst ""."""
+    neuere = [x for x in ss if x is not s and z(x["created_at"]) > z(s["created_at"])]
+    return ",".join(kosten_auf(min(z(x["created_at"]) for x in neuere) if neuere else z(s["updated_at"])))
+
 def juengste(ss):
     """Die zuletzt tätige Sitzung eines Bereichs (261.6): späteres updated_at, bei Gleichstand späteres created_at."""
     return max(ss, key=lambda x: (z(x["updated_at"]), z(x["created_at"])))
 
 def titel_datum(titel):
-    """Erstes TT.MM. im Titel, wenn es in der Zukunft liegt, sonst None."""
+    """Erstes TT.MM. im Titel, wenn es in der Zukunft liegt; heute mit „um/ab H:MM“ danach, wenn die Uhrzeit noch kommt (375); sonst None."""
     for m in re.finditer(r"(?<!\d)(\d\d?)\.(\d\d)\.", titel):
         try: d = startbar.jahr_von(int(m.group(1)), int(m.group(2)))
         except ValueError: continue
         if d > JETZT.date(): return "%02d.%02d." % (d.day, d.month)
+        u = re.search(r"\b(?:um|ab)\s+(\d\d?)[:.](\d\d)\b", titel[m.end():])
+        if d == JETZT.date() and u and (int(u.group(1)), int(u.group(2))) > (JETZT.hour, JETZT.minute):
+            return "%02d.%02d., %d:%s" % (d.day, d.month, int(u.group(1)), u.group(2))
     return None
 
 def warnungen_bekannt():
@@ -305,6 +316,8 @@ def main():
         if not info and (JETZT - z(s["updated_at"])).total_seconds() < 3600 and s.get("session_status") == "SESSION_STATUS_RUNNING": continue
         r = kosten.rolle(s.get("title", ""))
         ziel = "Betrieb" if r in ("Ford", "Ford 2") else (nummer_aus_titel(s.get("title", "")) or "Betrieb")
+        if r == "Sokrates":  # 375: auch hier „Kosten auf“ der Übergabe (197), sonst Betrieb hier und die Nummern beim ARCHIVIERE (7,10 $ doppelt, 25.10.)
+            ziel = sokrates_ziel(s, [x for x in alle.values() if kosten.rolle(x.get("title", "")) == "Sokrates"]) or ziel
         if sperre:  # echter Lauf: lauf.py bucht selbst (19.10.: Ford führte BUCHE nicht aus, 261.2); Ford pusht die Notizen
             kosten_addieren(ziel, k, s["id"]); ausgabe.append("GEBUCHT %s | %s | %.2f | %s (Notizen pushen)" % (s["id"], r, k, ziel))
         else:
@@ -335,9 +348,8 @@ def main():
             k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
             nrn = nummer_aus_titel(s.get("title", "")) or "Betrieb"
             if r == "Sokrates":  # (4) Kostenbuchung bleibt eigene Regel (197): Kosten auf die Nummern der Übergabe
-                neuere = [x for x in ss if x is not s and z(x["created_at"]) > z(s["created_at"])]
-                auf = kosten_auf(min(z(x["created_at"]) for x in neuere) if neuere else z(s["updated_at"]))
-                if auf: nrn = ",".join(auf)
+                auf = sokrates_ziel(s, ss)
+                if auf: nrn = auf
                 else: ausgabe.append("WARNUNG Sokrates %s: Übergabe in %s nennt keine „Kosten auf: <Nummern>“ (197), Kosten auf %s" % (s["id"], VORRAT["Sokrates"], nrn))
             archiviert.add(s["id"])
             pr = re.search(r"PR #\d+", s.get("title", ""))  # D40.4: lauf.py kennt keine Abos, nur den Titel
@@ -398,7 +410,10 @@ def main():
             offen_nf = None
         # 276 (Fall 251): nennt der Nachfolger eine Zeile des eigenen Vorrats, die nicht startbar ist, gilt die Zeilenregel; beim zweiten Lauf laut
         nf_nr = re.search(r"–\s*([0-9][0-9a-zA-Z.]*[0-9a-zA-Z])", offen_nf or "")
-        if nf_nr and nf_nr.group(1) in GESPERRT.get(r, {}):
+        if nf_nr and nf_nr.group(1) in ausschluss:  # 375 (Ford 27.10., 10:05): --ohne gilt auch für den Nachfolger
+            ausgabe.append("NICHTS %s: Nachfolger „%s“ ausgeschlossen (--ohne %s); Zeilenregel gilt" % (r, offen_nf, nf_nr.group(1)))
+            offen_nf = None
+        elif nf_nr and nf_nr.group(1) in GESPERRT.get(r, {}):
             warnen(ausgabe, neue_warnungen, bekannt, r, nf_zeit, "Nachfolger „%s“ nicht startbar (%s), oberste startbare Zeile statt dessen; Übergabe anpassen" % (offen_nf, GESPERRT[r][nf_nr.group(1)]))
             offen_nf = None
         if offen_nf:
@@ -572,7 +587,8 @@ def _buchen(nr, usd):
         for i, l in enumerate(L):
             t = [x.strip() for x in l.split("|")]
             if l.startswith("| ") and len(t) > 7 and t[1] == ziel:
-                alt = t[-4]; m = re.fullmatch(r"([\d,.]+)\s*\$", alt) if alt else None
+                alt = re.sub(r"^[–-]\s*(;\s*\+)?", "", t[-4])  # 375: „–“ und „–; +N $“ heißen nur N $, Ford las „Kosten …: –“
+                m = re.fullmatch(r"([\d,.]+)\s*\$", alt) if alt else None
                 if m or not alt:
                     t[-4] = ("%.2f" % ((float(m.group(1).replace(",", ".")) if m else 0.0) + usd)).replace(".", ",") + " $"
                 else:  # Nachträge in einem „+N $“ am Ende sammeln statt anhängen (Größe LISTE-VORGAENGE, Perikles 24.10.)
@@ -580,7 +596,7 @@ def _buchen(nr, usd):
                     t[-4] = (m.group(1) if m else alt) + "; +" + ("%.2f" % ((float(m.group(2).replace(",", ".")) if m else 0.0) + usd)).replace(".", ",") + " $"
                 L[i] = "| " + " | ".join(t[1:-1]) + " |"
                 open(p, "w", encoding="utf-8").write("\n".join(L))
-                print("Kosten %s: %s" % (ziel, t[-4])); return
+                print("Kosten %s: +%s $, jetzt %s" % (ziel, ("%.2f" % usd).replace(".", ","), t[-4])); return
       kurz = re.sub(r"(\.\d+[a-z]*|[a-z])$", "", ziel)
       if kurz == ziel: break
       ziel = kurz

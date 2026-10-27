@@ -105,6 +105,7 @@ def blocker(nr, rest, chef, thema=""):
     if not stellung and any(f.startswith(pre + "-") for f in chef): return "Chef (Datei in der Chefsache)"
     if re.search(r"wartet auf (den )?Test", rest, re.I): return "wartet auf Test (Build)"
     if re.search(r"wartet auf Chef|Chef entscheidet", rest, re.I): return "Chef"
+    if re.search(r"wartet auf (?:das |den |die )?(?:nächste|neue)", rest, re.I): return "wartet auf Eingang"  # 375: „wartet auf nächstes Blatt“
     m = re.search(r"wartet auf (?:\*\*)?" + ROLLEN_NAMEN + r"\b", rest)
     if m: return m.group(0).replace("*", "")
     if re.search(r"wartet auf Chef|Entscheidung des Chefs", rest, re.I): return "Chef"
