@@ -9,8 +9,9 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 338b | M | **von Perikles (338.1, Z2):** Block (K) rot, Termine neu | wartet auf Chef: entscheiden/338b |
 | 386 | M | **von Chef (27.10., 21:02, GitHub-Mail „will soon require 2FA“, „Ist das für uns ein Problem?“):** Zwei-Faktor bis 11.12.2026 (Chefsache tun/386) | wartet auf Chef: tun/386 |
-| 384 | M | **von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“):** Kosten aller Sitzungen gegen Buchungsverzeichnis; Ursache der Lücken im Werkzeug beheben (Zu 384) | gebaut 27.10., 20:1x: drei nachgebucht, --kosten nur mit Kennung, Ford holt Kosten frisch; 79,23 $ Nachtbuchungen nicht nachweisbar (Zu 384) |
+| 384 | M | **von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“):** Kosten aller Sitzungen gegen Buchungsverzeichnis; Ursache der Lücken im Werkzeug beheben (Zu 384) | gebaut 27.10., 20:1x: --kosten nur mit Kennung, Ford holt Kosten frisch (Zu 384) |
 | 383.3 | M | **von Sokrates (Chef 19:55):** Vorlage zurück beim Team sofort aus der Chefsache | gebaut 27.10., 20:1x |
 | 383 | M | **von Sokrates (Chef 27.10., 17:53 „ja, 383“, Archiv):** Wartewächter in `lauf.py` (Zeitfeld zum „jetzt“, Protokollzeile in `meldung.sh`), Haken 63 verschärfen; Fälle 376.1 und Ford-Bitte 17:3x nachstellen | gebaut 27.10., 19:1x; Diogenes zählt ab 28.10. (Zu 383) |
 | 275 | M | **von Sokrates (Chef 27.10., 15:09 ja, 15:15 „jetzt loslegen“, Archiv):** Stufe 1 (Chefsache 275, Git); Statusfeld mit Wortliste; nur gezielte Suche, Token je Start messen (15:11); Besitzer schreiben selbst über `vorgang.py` (15:20) | frühestens 03.11.: Stufe 2, wenn Diogenes keinen Werkzeugfehler zählt; LEICHEN_START an seit 27.10., 17:2x; offen D46.3, D46.5, D47.2 (Zu 275) |
