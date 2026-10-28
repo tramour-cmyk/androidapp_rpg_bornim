@@ -12,7 +12,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101: Held im APK verschlüsselt, lädt) | `claude/tom-348-12i-verschluesseln` |
 | 385 | M? | **von Sokrates (Archiv):** Zauberer-Set (Biped, LISTE-BESTAND) auf Kaufkörper, Film | startbar: Zugang da (Chef 08:35, Archiv) |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | startbar: Zugang da (Chef 08:35, Archiv); Halszacken, Formen, Editor | `claude/tom-376-1-figuren` |
-| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | in Arbeit: Dorftiere (Kauf 387) Lauf 2 e452c0825 (Lauf 1 Runnerfehler), dann Vorlage | `claude/tom-348-fundament` |
+| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | Chef: Dorftiere ansehen (3486-dorftiere); Befunde behoben c9c7363c0, Lauf nach seinem Wort | `claude/tom-348-fundament` |
 | 376.2 | M | **von Perikles (Chef 12:37, `LISTE-CC0-MODELLE.md`):** RenderHub-Marktpaket: Brunnen und Stände als Form, unsere gemalten Farben | wartet auf 348.6 (Dorf nach Urteil Probehaus); Paket im Release stufe1 erreichbar (Chef 17:38) | – |
 | 372 | M | **von Perikles (338a B, Chef 27.10., 09:36, Archiv):** Feinschliff Held: Kettenhemd, Helm, Kragen (Zu 348.6, Hände) | ruht bis Ende des Umzugs | `claude/tom-348-fundament` |
 | 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | wartet auf Jerry: übergeben 28.10. per Nachricht (1,3, Sonne -45,55, Goblins aufhellen, Waffen Schablone 2); Zeile trägt Jerry ein |
