@@ -138,6 +138,12 @@ def treiber():
             # Runde 3 (Chef 20:29 „cc0 Gehen nachbessern“): der Gang (ual_lauer.py Goblin_Pirsch_Loop) trägt den Oberkörper der Lauer;
             # die Leute-Werte des Gehens (Rumpf halb aufgerichtet, Arme zur Ruhe) zögen ihn wieder auseinander; Hieb (Goblin_Hieb)
             # wie das Stehen
+            if GRAK:
+                # Runde 2c (Prüfer Probe 2: beim Aufschlag ein rotes Dreieck quer vor der Brust): der Umhang nahm auf der Unterlage bis
+                # 10 cm unter der Schulter Armgewichte und zog mit dem Arm nach vorn; bei Grak nur über der Schulter
+                a_ = "TEILM.get('TEIL_schale', Z0), UM_NAH, UM_ARM)"
+                assert g.count(a_) == 1, 'geruest.py: Umhang geändert'
+                g = g.replace(a_, "TEILM.get('TEIL_schale', Z0), UM_NAH, -0.06)")
             if KOB:
                 # Runde 2b (Prüfer Probe 1: beim Hieb zieht das Fell mit dem Arm): gemessen nahm das Lendentuch 6–7 % Unterarm (die Hand
                 # hängt in der Ruhelage an der Hüfte) und verzog sich im Hieb um 19–22 cm; Lendentuch, Wams, Gürtel ohne Armgewichte
@@ -289,6 +295,16 @@ def treiber():
             # die nächsten Glieder (Oberarm 45 %, Rumpf 36 %, Schlüsselbein 19 %), im Hieb verbog sich das Stück um bis zu 10 cm;
             # jetzt starr am Oberarm (wie ein festgeschnallter Schulterschutz)
             src = src.replace(a8, "    elif n.startswith('schulter'): RIGID[n] = 'upR-elR' if np.mean([(o.matrix_world @ v.co).x for v in o.data.vertices]) < 0 else 'upL-elL'\n" + a8)
+            # Runde 2c (Prüfer Probe 2: beim Aufschlag eine graue Sichel quer vor der Brust): die Halbplatte nahm an den Schultern
+            # Schlüsselbein und Oberarm (zusammen 27 %), am Hals trug sie aus dem Kettenhemd die Beschriftung „Unterarm“ (seg) und
+            # verzog sich im Hieb um bis zu 72 cm; jetzt nur Rumpf, ohne die Beschriftung
+            a7g = "    D = np.stack([seg_dist(V, *b.split('-')) for b in BONES], 1)\n    b0 = np.argmin(D, 1)\n"
+            assert src.count(a7g) == 1, 'rig.py: Gewichte geändert'
+            src = src.replace(a7g, "    D = np.stack([seg_dist(V, *b.split('-')) for b in BONES], 1)\n"
+                              "    if o.name.startswith('platte'):\n"
+                              "        D[:, [i_ for i_, b_ in enumerate(BONES) if b_.startswith(('sh', 'up', 'el', 'fo', 'chestTop-sh'))]] = 1e9\n"
+                              "        if 'seg' in me.attributes: me.attributes.remove(me.attributes['seg'])\n"
+                              "    b0 = np.argmin(D, 1)\n")
         if ART in ('goblin_archer', 'goblin_shaman', 'kobold'):
             # Späher Runde 3b, Schamane Runde 2b (Prüfer: an der freien Hand ragt ein schwarz gestreifter Kamm ins Leere, an der
             # Stabhand Striche über den Stab, an der Hüfte ein losgelöster Fleck): in der Ruhelage hängen die Unterarme neben der
