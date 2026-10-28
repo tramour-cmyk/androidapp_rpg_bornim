@@ -18,6 +18,10 @@ var blende: ColorRect
 var gedacht := {}                                # Rand (67): erster Gedanke lang, danach kurz
 var zeiten: Array = []
 var ziel_stoss := Vector2i(-1, -1)               # angetippter gesperrter Ausgang: beim Ankommen Text zeigen
+var zustand := Zustand.new()                     # 390: Flaggen, Taschen, Gold (GameState)
+var szene: Array = []                            # 390: Befehle, die noch laufen (Game.queue)
+var ziel_person: Leute                           # 390: angetippte Person: beim Ankommen ansprechen
+var angebot_uhr := 0.0                           # 390: Knopf neu, wenn Leute herankommen oder gehen
 
 func _ready() -> void:
 	licht = Licht.new()
@@ -38,6 +42,7 @@ func _ready() -> void:
 	ui.aktion.connect(_aktion)
 	ui.knopf.connect(_knopf)
 	ui.windrose.zurueck.connect(kamera.nach_norden)
+	ui.gelesen.connect(weiter)
 	licht.nacht_geaendert.connect(_nacht)
 	betrete(START, START_KACHEL, "DOWN")
 	bilder()
@@ -55,12 +60,13 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	if held: held.queue_free()
 	if leute: leute.queue_free()
 	karte = Karte.lade(id)
+	karte.flaggen = zustand.flaggen   # 390: Schlagbaum, Tor und Ausgaenge lesen den Spielstand
 	gebiet = Gebiet.new(karte)
 	add_child(gebiet)
 	held = Held.new(karte)
 	add_child(held)
 	held.setze(t, blick)
-	held.steht_auf.connect(_steht_auf)
+	held.steht_auf.connect(_betritt)
 	held.stoesst.connect(_stoesst)
 	leute = Node3D.new()
 	leute.name = "Leute"
@@ -75,6 +81,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	ui.ort.text = karte.name()
 	_nacht(licht.nacht)
 	_steht_auf(t)
+	spiele(Geschichte.betreten(id, zustand))   # 390: MapDef.onEnter
 
 func _nacht(k: float) -> void:
 	kamera.nacht = k   # 348.13b: Tusche nach Laterne, Fenster, Fackel
@@ -117,6 +124,15 @@ func _tippen(sp: Vector2) -> void:
 	if p == null or held == null: return
 	var b := karte.pos_kachel(p)
 	ziel_stoss = Vector2i(-1, -1)
+	ziel_person = null
+	# 390 (Ui.touchHint: "Tippe auf Personen …, um sie direkt anzusprechen"): hin und ansprechen
+	var wer := person_bei(p)
+	if wer:
+		if wer == person_nah(): sprich(wer)
+		else:
+			ziel_person = wer
+			held.geh_zu(wer.position)
+		return
 	if karte.begehbar(b):
 		held.geh_zu(p)
 		return
@@ -149,6 +165,11 @@ func schild(t: Vector2i) -> String:
 func _steht_auf(t: Vector2i) -> void:
 	ui.biete_an.callv(angebot(t))
 
+# 390: der Held tritt auf eine Kachel (Trigger der Karte)
+func _betritt(t: Vector2i) -> void:
+	_steht_auf(t)
+	if not ui.spricht(): spiele(Geschichte.ausloeser(karte.id, t, zustand))
+
 # was der Held von t aus mit dem Knopf tun kann: Ausgang unter ihm, Tuer daneben (zuerst die vor ihm), Schild daneben
 func vor_ihm(t: Vector2i) -> Vector2i:
 	if not karte.ausgang(t).is_empty(): return t
@@ -159,6 +180,7 @@ func vor_ihm(t: Vector2i) -> Vector2i:
 
 # wie Navigation.actionAt: Ausgang und Tuer (auch verschlossen) ENTER, Schild READ; dazu actionPlace: wohin, wenn offen
 func angebot(t: Vector2i) -> Array:
+	if karte.ausgang(t).is_empty() and person_nah(): return ["TALK", ""]   # 390: Leute vor Dingen (actionTarget)
 	var z := vor_ihm(t)
 	if z.x < 0: return ["", ""]
 	if zeichen_lesbar(z): return ["READ", ""]
@@ -167,6 +189,10 @@ func angebot(t: Vector2i) -> Array:
 	return ["ENTER", Sprache.t(Karte.namen.get(String(a["ziel"]["karte"]), ""))]
 
 func _aktion() -> void:
+	var p: Leute = person_nah() if karte.ausgang(held.kachel).is_empty() else null
+	if p:
+		sprich(p)
+		return
 	var z := vor_ihm(held.kachel)
 	if z.x < 0: return
 	if z != held.kachel: held.rotation.y = atan2(float(z.x - held.kachel.x), float(z.y - held.kachel.y))
@@ -229,9 +255,86 @@ func abblenden(ziel: float) -> void:
 	tw.tween_property(blende, "color:a", ziel, 0.35)
 	await tw.finished
 
+# ---------------------------------------------------------------- Gespraeche (390)
+const REICHWEITE := 1.3                          # Kacheln vom Helden zur Person (Navigation.ACTION_REACH)
+
+func spricht_was(l: Leute) -> bool:
+	return not Geschichte.gespraech(String(l.daten.get("id", "")), zustand).is_empty()
+
+# wie Navigation.actionTarget: Personen in Reichweite, die im Faecher von 120 Grad vor dem Helden zuerst, dann die naehere
+func person_nah() -> Leute:
+	if leute == null or held == null: return null
+	var vorn := Vector2(sin(held.rotation.y), cos(held.rotation.y))
+	var best: Leute = null
+	var best_w := INF
+	for l in leute.get_children():
+		if not (l is Leute) or l.is_queued_for_deletion() or not spricht_was(l): continue
+		var d := Vector2(l.position.x - held.position.x, l.position.z - held.position.z) / Karte.TS
+		var n := d.length()
+		if n > REICHWEITE: continue
+		var w := n + (0.0 if n < 0.01 or d.normalized().dot(vorn) >= 0.5 else 10.0)
+		if w < best_w: best_w = w; best = l
+	return best
+
+# angetippt: wer an dieser Stelle am Boden steht (eine Kachel um die Fuesse)
+func person_bei(p: Vector3) -> Leute:
+	var best: Leute = null
+	var best_d := Karte.TS * 0.75
+	for l in leute.get_children():
+		if not (l is Leute) or l.is_queued_for_deletion() or not spricht_was(l): continue
+		var d := Vector2(l.position.x - p.x, l.position.z - p.z).length()
+		if d < best_d: best_d = d; best = l
+	return best
+
+func sprich(l: Leute) -> void:
+	held.rotation.y = atan2(l.position.x - held.position.x, l.position.z - held.position.z)
+	ui.biete_an("")
+	spiele(Geschichte.gespraech(String(l.daten["id"]), zustand))
+
+# wie Game.runQueue: Befehle der Reihe nach, bis einer auf den Spieler wartet (Text); der Rest nach dem Tippen
+func spiele(befehle: Array) -> void:
+	szene.append_array(befehle)
+	weiter()
+
+func weiter() -> void:
+	while not szene.is_empty():
+		var c: Dictionary = szene.pop_front()
+		match String(c["art"]):
+			"sagen":
+				var e := {"text": Sprache.t(c["text"]).replace("{name}", zustand.name)}
+				if c.has("wer"): e["wer"] = Sprache.t(c["wer"]).replace("{name}", zustand.name)
+				ui.sage([e])
+				return
+			"flagge": zustand.setze(String(c["flagge"]))
+			"geben":
+				zustand.dazu(String(c["ding"]), int(c["anzahl"]))
+				ui.sage([{"text": Sprache.u("found", [Sprache.ding(String(c["ding"]), int(c["anzahl"]))])}])
+				return
+			"nehmen": zustand.weg(String(c["ding"]), int(c["anzahl"]))
+			"gold":
+				zustand.gold += int(c["anzahl"])
+				ui.sage([{"text": Sprache.u("foundGold", [int(c["anzahl"])])}])
+				return
+			"kampf":
+				# Kampf kommt mit Jerrys Kampfort (348.7); bis dahin endet die Szene hier, ohne Sieg und ohne dessen Flagge
+				szene.clear()
+			_:
+				pass   # Laden, Rast, Heilen, Kapitelende, Tempel, Morgen, Schenke: folgen mit ihren Punkten (390)
+	if held: _steht_auf(held.kachel)
+
 # ---------------------------------------------------------------- Lauf
 func _process(dt: float) -> void:
 	if held == null: return
+	if ziel_person and is_instance_valid(ziel_person) and (not held.geht() or person_nah() == ziel_person):
+		var wer := ziel_person
+		ziel_person = null
+		if person_nah() == wer:
+			held.halt()
+			sprich(wer)
+	angebot_uhr -= dt
+	if angebot_uhr <= 0.0 and not ui.spricht():
+		angebot_uhr = 0.25
+		_steht_auf(held.kachel)
 	if ziel_stoss.x >= 0 and not held.geht():
 		var s := ziel_stoss
 		ziel_stoss = Vector2i(-1, -1)

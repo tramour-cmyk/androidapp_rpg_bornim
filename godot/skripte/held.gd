@@ -71,6 +71,9 @@ func geh_zu(ziel: Vector3) -> void:
 	for k in range(1, ids.size()): weg.append(karte.kachel_pos(ids[k]))
 	if weg.is_empty(): weg.append(karte.kachel_pos(b))
 
+# 390: stehen bleiben (vor einer angetippten Person)
+func halt() -> void: weg.clear()
+
 func frei(p: Vector3) -> bool:
 	if not karte.begehbar(karte.pos_kachel(p)): return false
 	for l in leute:

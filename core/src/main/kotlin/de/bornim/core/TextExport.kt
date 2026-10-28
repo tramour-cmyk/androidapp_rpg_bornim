@@ -9,7 +9,8 @@ import java.io.File
 
 /**
  * 390 (Englisch): the texts of [Ui] in both languages as JSON for the Godot game (`godot/daten/texte.json`), keyed by
- * the field name (`newGame`, `chestEmpty` …); placeholders stay {0}, {1}. Texts of maps and people come with `karten.json`.
+ * the field name (`newGame`, `chestEmpty` …), placeholders stay {0}, {1}; names of the items ([Items], by id, with what they do)
+ * and of the story's unique gear ([Uniques], with its rarity) for "Erhalten: …". Texts of maps and people come with `karten.json`.
  * Run: `./gradlew -p core exportTexts -Pout=<file>`.
  */
 object TextExport {
@@ -22,8 +23,14 @@ object TextExport {
 
     fun json(): JsonObject = buildJsonObject {
         put("version", VERSION)
-        putJsonObject("ui") { for ((k, t) in ui()) putJsonObject(k) { put("de", t.de); put("en", t.en) } }
+        putJsonObject("ui") { for ((k, t) in ui()) put(k, text(t)) }
+        putJsonObject("dinge") { for (i in Items.all) putJsonObject(i.id) { put("name", text(i.name)); put("info", text(i.desc)) } }
+        putJsonObject("einzelstuecke") {
+            for (id in Uniques.ids) putJsonObject(id) { put("name", text(Uniques.name(id))); put("seltenheit", text(Uniques.rarity(id).title)) }
+        }
     }
+
+    private fun text(t: T) = buildJsonObject { put("de", t.de); put("en", t.en) }
 
     @JvmStatic
     fun main(args: Array<String>) {

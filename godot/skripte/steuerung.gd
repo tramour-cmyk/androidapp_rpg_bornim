@@ -10,6 +10,7 @@ signal kneifen(faktor: float, drehung_grad: float)
 signal aktion
 signal laufen(an: bool)
 signal knopf(was: String)
+signal gelesen                          # 390: Textfeld zu, die Szene geht weiter (Game.advance)
 
 const GOLD := Color(0.86, 0.68, 0.32)
 const JOY := 94.0 * AktionsKnopf.DP          # 131 (alt StickFeel.runAt, mittel): im Ring gehen, darueber hinaus laufen
@@ -165,8 +166,10 @@ func spricht() -> bool: return textfeld.visible
 
 func naechste() -> void:
 	if zeilen.is_empty():
+		var war := textfeld.visible
 		textfeld.visible = false
 		lauf_knopf.visible = LAUF_TASTE
+		if war: gelesen.emit()
 		return
 	var z: Dictionary = zeilen.pop_front()
 	text.text = (String(z["wer"]) + ": " if z.has("wer") else "") + String(z["text"])

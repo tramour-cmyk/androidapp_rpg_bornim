@@ -6,6 +6,7 @@ class_name Sprache
 const DATEI := "user://einstellungen.cfg"
 static var lang := ""
 static var ui := {}
+static var texte := {}
 
 static func aktiv() -> String:
 	if lang == "":
@@ -30,8 +31,20 @@ static func t(text) -> String:
 
 # Text der Oberflaeche nach Schluessel (Ui.newGame -> "newGame"), Platzhalter der Reihe nach
 static func u(schluessel: String, werte: Array = []) -> String:
-	if ui.is_empty() and FileAccess.file_exists("res://daten/texte.json"):
-		ui = JSON.parse_string(FileAccess.get_file_as_string("res://daten/texte.json")).get("ui", {})
+	lade()
 	var s := t(ui.get(schluessel, schluessel))
 	for i in werte.size(): s = s.replace("{%d}" % i, str(werte[i]))
 	return s
+
+# Name eines Dings fuer "Erhalten: …" wie Game.runQueue (Cmd.Give): Einzelstueck mit Seltenheit, sonst Anzahl und Name
+static func ding(id: String, anzahl: int = 1) -> String:
+	lade()
+	var e: Dictionary = texte.get("einzelstuecke", {})
+	if e.has(id): return "%s (%s)" % [t(e[id]["name"]), t(e[id]["seltenheit"])]
+	var d: Dictionary = texte.get("dinge", {})
+	return ("%d× " % anzahl if anzahl > 1 else "") + (t(d[id]["name"]) if d.has(id) else id)
+
+static func lade() -> void:
+	if texte.is_empty() and FileAccess.file_exists("res://daten/texte.json"):
+		texte = JSON.parse_string(FileAccess.get_file_as_string("res://daten/texte.json"))
+		ui = texte.get("ui", {})

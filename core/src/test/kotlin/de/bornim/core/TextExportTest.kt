@@ -8,7 +8,8 @@ import kotlin.test.assertTrue
 
 /** 390 (Englisch): the Godot game gets every text of [Ui] in German and English, with the same placeholders. */
 class TextExportTest {
-    private val ui = TextExport.json()["ui"]!!.jsonObject
+    private val j = TextExport.json()
+    private val ui = j["ui"]!!.jsonObject
 
     @Test
     fun everyUiTextBothLanguages() {
@@ -22,5 +23,16 @@ class TextExportTest {
             assertTrue(de.isNotEmpty() && en.isNotEmpty(), k)
             assertEquals(stelle.findAll(de).map { it.value }.toSet(), stelle.findAll(en).map { it.value }.toSet(), k)
         }
+    }
+
+    @Test
+    fun everyStoryGiftHasAName() {
+        val dinge = j["dinge"]!!.jsonObject
+        val einzel = j["einzelstuecke"]!!.jsonObject
+        assertEquals("Heiltrank", dinge["potion"]!!.jsonObject["name"]!!.jsonObject["de"]!!.jsonPrimitive.content)
+        assertEquals("Elder's Ring", einzel["ring_protection"]!!.jsonObject["name"]!!.jsonObject["en"]!!.jsonPrimitive.content)
+        // was Story.kt gibt oder nimmt, steht in dinge oder einzelstuecke
+        val story = java.io.File("src/main/kotlin/de/bornim/core/Story.kt").readText()
+        for (m in Regex("""(?:give|take)\("(\w+)"""").findAll(story)) assertTrue(m.groupValues[1] in dinge || m.groupValues[1] in einzel, m.groupValues[1])
     }
 }

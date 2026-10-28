@@ -389,6 +389,9 @@ object Uniques {
     )
 
     fun name(id: String): T = all[id]?.name ?: T(id, id)
+    /** 390: for the texts of the Godot game (TextExport). */
+    fun rarity(id: String): Rarity = all.getValue(id).rarity
+    val ids: Set<String> get() = all.keys
     fun exists(id: String) = id in all
     fun make(id: String, uid: Long, ilvl: Int): Gear {
         val u = all.getValue(id)
