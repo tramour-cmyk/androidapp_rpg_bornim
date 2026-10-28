@@ -467,3 +467,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 388 | Alt-Fassung: Geräteangaben kopieren im Systemmenü, Ruckeln in Hütten auswerten (Chef 27.10., 21:58) | A Technik | M | 18,44 $ | Team Tom | erledigt |
 | 389 | Grenze für Probeläufe je Vorlage, die greift (Chef 27.10., 23:53) | B Abläufe | M | 3,78 $ | Perikles | erledigt |
 | 353a | Rückfrage: Loch in den Kronen vor dem Helden in den nächsten Build? | G Stil | M | – | Team Tom | erledigt (Archiv 353a; Anforderung in 348.8) |
+| 338b | Rückfrage: Umzug Block (K) rot, Termine nach den Kaufmodellen neu schätzen? | B Abläufe | M | – | Perikles | erledigt |
