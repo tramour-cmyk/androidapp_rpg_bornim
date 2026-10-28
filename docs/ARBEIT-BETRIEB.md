@@ -114,3 +114,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 06:04 28.10.: Startsperre 06:04 Start Perikles (lauf.py)
 - 07:05 28.10.: Startsperre 07:05 Start Perikles (lauf.py)
 - 07:05 28.10.: Nachfolger-Warnung Jerry (Übergabe 28.10., 06:35) (lauf.py)
+- 08:05 28.10.: Startsperre 08:05 Start Jerry, Diogenes, Perikles (lauf.py)
+- 08:05 28.10.: Marke Tagesbericht 28.10. (lauf.py)
+- 08:05 28.10.: Marke Archiv session_01Hmoj79A1YeyWdR5ENs3tjE (lauf.py)
