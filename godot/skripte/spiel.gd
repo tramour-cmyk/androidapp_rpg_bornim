@@ -263,6 +263,7 @@ func _aktion() -> void:
 	geh_hinaus(a)
 
 func _stoesst(t: Vector2i) -> void:
+	if await _schiebt(t): return
 	if karte.zeichen(t) == "z" and not karte.flaggen.has("barrier_open"):
 		ui.sage([{"text": Sprache.t(karte.schlagbaum)}])
 		return
@@ -277,6 +278,22 @@ func _stoesst(t: Vector2i) -> void:
 		if a.has(k): ui.sage([{"text": Sprache.t(a[k])}])
 	else:
 		ui.sage(zeilen(a.get("abgewiesen", [])))
+
+# 348.6 Ausweichen wie alt (Game.nudge, makeWay; 92): wer vor dem Helden steht und weicht (Leute.weicht), tritt zur Seite. Mit dem
+# Steuerkreuz erst, wenn der Held weiter drueckt (alt zwei Stoesse, PUSH_BUMPS 2); auf einem getippten Weg gleich
+func _schiebt(t: Vector2i) -> bool:
+	var wer: Leute = null
+	for l in leute.get_children():
+		if l is Leute and l.weicht() and (l.kachel == t or l.ziel == t): wer = l
+	if wer == null: return false
+	var d := t - held.kachel
+	d = Vector2i(signi(d.x), 0) if absi(d.x) >= absi(d.y) else Vector2i(0, signi(d.y))
+	if d == Vector2i.ZERO: return true
+	if held.richtung.length() > 0.15:
+		await get_tree().create_timer(0.5).timeout
+		if not is_instance_valid(wer) or held.richtung.length() <= 0.15 or held.geht(): return true
+	wer.weiche(d)
+	return true
 
 func zeilen(liste: Array) -> Array:
 	var r: Array = []

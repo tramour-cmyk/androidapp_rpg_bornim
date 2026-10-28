@@ -74,7 +74,10 @@ static func tiere(k: Karte, h: Node3D) -> Array:
 # auf der Wiese suedlich des Flusses beim Kornfeld, Kaninchen am Westrand und am Nordufer, frei vor Kronen und Daechern (Pruefung
 # 09:04: unter Krone und Dach nicht zu sehen). Tiere bleiben auf Wiese und Blumen (TIERBODEN); grosse Tiere (Ziege, Rind) nicht
 # neben Feld, Garten, Zaun, Heu, ihr Koerper ragte sonst hinein (Pruefung: Ziege halb im Korn)
-const DORFTIERE := {"village": [["rind", 27, 27], ["ziege", 25, 27], ["ziege", 30, 27], ["ziege", 14, 29], ["kaninchen", 2, 23], ["kaninchen", 27, 24]]}
+# Chef 28.10., 16:12 („südlich des Flusses Hühner, Ziegen und Kühe und der Bauer … Das ist zu viel … die Kuh muss da unten weg …
+# auch die Ziegen zum Teil … unter Umständen auch die Durchgang da blockiert“): Rind vorerst ganz weg, suedlich des Flusses eine Ziege
+# statt drei, abseits von Bruecke und Weg
+const DORFTIERE := {"village": [["ziege", 30, 27], ["kaninchen", 2, 23], ["kaninchen", 27, 24]]}
 const HUHN_PLATZ := [Vector2i(-1, 0), Vector2i(0, -1), Vector2i(-1, -1), Vector2i(1, 0), Vector2i(0, 1)]
 const TIERBODEN := ".f,"
 # Pause zwischen zwei Schritten (s) und Anteil Fressen statt Stehen: Huehner picken oft, das Rind grast lange
@@ -284,6 +287,22 @@ func nacht(k: float) -> void:
 func sperrt(p: Vector3) -> bool:
 	if drinnen or not da: return false
 	return Vector2(p.x - position.x, p.z - position.z).length() < leib
+
+# 348.6 Ausweichen wie alt (Game.makeWay, 92; Chef 16:12: „man kann ja auch noch keine NPCs oder Tiere … schieben“): wer vom Helden
+# geschoben wird, tritt zur Seite (links oder rechts des Wegs, sonst voran) und bleibt dort einen Moment (alt 4 s), bevor der Tag
+# weitergeht; Wachen auf ihrer Runde nicht (alt: patrol). Tiere auch.
+func weicht() -> bool: return da and not drinnen and not daten.has("runde")
+
+func weiche(d: Vector2i) -> bool:
+	var seiten := [Vector2i(d.y, d.x), Vector2i(-d.y, -d.x)]   # quer zum Weg, in zufaelliger Folge
+	if zufall.randf() < 0.5: seiten.reverse()
+	for s in seiten + [d]:
+		var n: Vector2i = kachel + s
+		if frei_fuer_mich(n):
+			ziel = n
+			warte = 4.0
+			return true
+	return false
 
 func held_kachel() -> Vector2i:
 	return karte.pos_kachel(held.position) if held else Vector2i(-99, -99)
