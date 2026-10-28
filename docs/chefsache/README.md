@@ -46,13 +46,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 27, Muss 17, startbar 5
+**Tom** – offen 27, Muss 17, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf | wartet auf Test/Build (gebaut) |
 | 399.4 | M | von Chef (21:4x, Archiv): oben Rand für die Kamera wie alt | wartet auf Test/Build (gebaut) |
-| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | startbar |
+| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | wartet auf Test/Build (gebaut) |
 | 399.5 | M | von Chef („jetzt“ 28.10., 21:5x, Archiv): Innenräume wie alt: Lichtquellen, Licht und Scha | startbar |
 | 399.3.1 | M | von Team Jerry (16:5x): Klang: Haken in spiel.gd (Jerry, claude/jerry-348-klang) übernehme | startbar |
 | 385 | M | von Sokrates („jetzt“ 28.10., 10:00, Archiv): Zauberer-Set auf Kaufkörper, Film | startbar |
@@ -78,7 +78,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 36, Muss 25, startbar 5
+**Jerry** – offen 37, Muss 25, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -86,6 +86,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 399.2b | M | von Team Tom (15:05): Rudel allein zu stark | wartet auf Test/Build (gebaut) |
 | 399.3 | M | von Chef über Sokrates (16:42): Klang in die Spielfassung | wartet auf Test/Build (gebaut) |
 | 402 | M | von Sokrates (Chef 22:2x, Archiv): Blende vor dem Kampf wie alt; Herzschlag beim Hinterhal | startbar |
+| 403 | M? | von Team Tom (23:1x, zu 376.1): Kampfort: Held je Klasse wie im Dorf (HeldFigur.baue, date | startbar |
 | 401 | M | von Chef über Sokrates (Archiv): Tierlaute, mind. 3 je Tier | startbar |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | wartet auf Test/Build (gebaut) |
