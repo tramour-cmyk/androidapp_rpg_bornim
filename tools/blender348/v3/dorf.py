@@ -1513,7 +1513,9 @@ def dinge_mehr():
     # Stamm abgewandt ist (sonst zur Dorfmitte); keine Pilze (zu klein, 880 Dreiecke je Stueck)
     # Lauf 4 (Helfer 03:13: Moos fast schwarz; 03:5x: kaum oliv, hebt sich vom Gras nicht ab): Moos hell gelbgruen bis 40 cm hoch,
     # Seiten weniger abgedunkelt
-    stein = lambda p, nn: sc(mixc(lin(0x7A766C), lin(0x8E9A4A), ss(40, 5, p.z) * (0.55 + 0.45 * vn(p.x / 25, p.y / 25, 92))),
+    # Lauf 5 (Helfer 04:25: Felsen gelb-oliv wie Buesche): sie sind nur 26 bis 36 cm hoch, das Moos bis 40 cm deckte fast alles;
+    # jetzt Moos nur unten (bis 12 cm), Stein kuehl grau
+    stein = lambda p, nn: sc(mixc(lin(0x84848A), lin(0x7E8A44), ss(12, 2, p.z) * (0.55 + 0.45 * vn(p.x / 25, p.y / 25, 92))),
                              (0.85 + 0.3 * vn(p.x / 18 + p.z / 18, p.y / 18, 93)) * (0.85 + 0.3 * max(0.0, nn.z)))
     from mathutils.bvhtree import BVHTree
     SV, SF = [], []                                               # alles bis hier: Boden, Baeume, Zaeune und die Gruppen (Haeuser, Staende)
