@@ -8,6 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 392 | M | **von Sokrates (Chef 09:50):** Alt: „Atmen aus“ nur schätzen | startbar |
 | 390 | M | **von Perikles (28.10.):** zwischen Blättern beim Chef Funktionen ohne Bild bauen (`LISTE-UMZUG-348.md`): Englisch, Gespräche und Quests, Tagesablauf, Laden, Rast | startbar: Englisch, Gespräche, Tagesablauf gebaut (Test: 390a); offen Held, Laden, Rast | `claude/tom-390-englisch` |
 | 390a | M | Rückfrage: Tests ohne Bild von 389 ausnehmen? | wartet auf Chef: Chefsache 390a | – |
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101 lädt) | `claude/tom-348-12i-verschluesseln` |
@@ -61,8 +62,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 348.6, Testbitte:** Dorftiere: Chef 19:09 (UMZUG). Tiere `godot/tiere/<name>.glb` + `-info.json`, Knopf „Tiere“ (Chef 16:52: bleiben im Dorf).
 - **Zu 348.6** (Tom 25.10., 02:17, 4ff8dbfc2): Bestand und Lauf am Rechner in `godot/LIESMICH.md` (Godot `~/godot`, `--bilder=<ordner>`, Artefakt `bornim-godot-bilder`); alte Bilder `tools/t bild KARTENZOOM=1 …` (Befehl im Git-Verlauf dieser Datei), Blatt `tools/vgl348.py`.
   - **Chef 18:06/18:20 (Dorf-APK):** Wortlaut `LISTE-UMZUG-348.md` „Urteil Chef Dorf-APK“ (Runde 4). Offen: Gesicht flach, „Bornim“ unleserlich.
-- **Zu 348.6, Häuser und Dinge (Chef 22:14, 23:48, 00:07; Archiv):** „keine 1:1 Kopien … Leute, mitdenken“; keine Ziegelläufe. `DINGE=0` ohne Dinge. Runde 2 (c56589ea0): Kisten `weiss` mit Holzfarbe (glb kappt Farbe über 1). Rechner: `rechner.sh`, `cc0_laden.sh` (`PAKETE=` Dorf- und Naturbausatz), `PROBE=348.6` mit `haeuser.sh`, `--bilder`, `--haeuser=<o>:westrand,1,5,1,5,1;suedrand,11,26,11,26,12` (≈17 Min.). Runde 3 (3547b46b3): Felsen per Sichttest (`FELS` im Log), Kiesel. Offen: Felsen oliv statt grau.
-- **Von Sokrates:** Godot-Kennung → `de.bornim.game` (142.3).
+- **Zu 348.6, Häuser und Dinge (Chef 22:14, 23:48, 00:07; Archiv):** keine 1:1-Kopie, keine Ziegelläufe. `DINGE=0` ohne Dinge. Runde 2 (c56589ea0): Kisten `weiss` mit Holzfarbe (glb kappt Farbe über 1). Rechner: `rechner.sh`, `cc0_laden.sh` (`PAKETE=` Dorf- und Naturbausatz), `PROBE=348.6` mit `haeuser.sh`, `--bilder`, `--haeuser=<o>:westrand,1,5,1,5,1;suedrand,11,26,11,26,12` (≈17 Min.). Runde 3 (3547b46b3): Felsen per Sichttest (`FELS` im Log), Kiesel. Offen: Felsen oliv statt grau.
 - **Zu 376.2:** `medieval.market.asset.pack.zip` (privat, .blend 2.79), Farben gemalt (Modellregel 6).
 - **Zu 355** (Git): Kerntest 2–4 Kisten je Karte.
 - **Zu 356.2:** `STORY-K1-HANDLUNG.md` „Sammelaufträge (356)“, Marken `[356.…]`.
