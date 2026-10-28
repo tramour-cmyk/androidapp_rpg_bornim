@@ -1357,6 +1357,8 @@ func _draw_intents(sr: Rect2) -> void:
 				mark = "»"
 			"GATHER":
 				mark = "!" if intent.get("effect") == "CIRCLE" else "+"
+			"WAIT":
+				mark = "…"     # 399.2b: Jungwolf knurrt nur, kein Angriff
 		var tg = m.find(plan[1][0]) if not plan[1].is_empty() else null
 		var fc: Color = _friend_color(tg) if tg != null else GOLD
 		var border: Color = WARN if intent.strong else fc

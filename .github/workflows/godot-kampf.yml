@@ -206,18 +206,19 @@ jobs:
           ls -l $GITHUB_WORKSPACE/kampf348.apk
           unzip -l $GITHUB_WORKSPACE/kampf348.apk | grep -E "daten|\.pck" || { echo "Daten fehlen im APK"; exit 1; }
       # 399.2 (Chef 28.10., 16:10: „dann läuft der hintere Wolf durch den vorderen“): mit dem gekauften Wolf und dem Schlüssel des
-      # Laufs; erst mit figur.gd des Vorgänger-Commits (Fehler nachgestellt), dann mit dem neuen (muss 0 sein)
+      # Laufs; erst mit figur.gd und kampfort.gd vor 399.2 (73c804fa8, Fehler nachgestellt), dann mit den neuen (muss 0 sein)
       - name: 399.2 Wölfe laufen umeinander herum (vorher und nachher)
         run: |
           cd godot
-          git fetch -q --deepen=1 origin "$GITHUB_REF_NAME" || true
-          cp kampf/figur.gd $RUNNER_TEMP/figur-neu.gd
-          if git show HEAD~1:godot/kampf/figur.gd > $RUNNER_TEMP/figur-alt.gd 2>/dev/null; then
-            cp $RUNNER_TEMP/figur-alt.gd kampf/figur.gd
+          V=73c804fa8
+          git fetch -q --depth=1 origin $V || true
+          cp kampf/figur.gd $RUNNER_TEMP/figur-neu.gd; cp kampf/kampfort.gd $RUNNER_TEMP/kampfort-neu.gd
+          if git show $V:godot/kampf/figur.gd > $RUNNER_TEMP/figur-alt.gd 2>/dev/null && git show $V:godot/kampf/kampfort.gd > $RUNNER_TEMP/kampfort-alt.gd 2>/dev/null; then
+            cp $RUNNER_TEMP/figur-alt.gd kampf/figur.gd; cp $RUNNER_TEMP/kampfort-alt.gd kampf/kampfort.gd
             timeout 600 ~/godot/godot --headless --path . -s res://tests/umweg_399.gd > umweg-alt.log 2>&1 || true
             echo "vorher:"; grep -E "^(gut|FEHLER)|Umweg|SCRIPT ERROR" umweg-alt.log | head -20 || true
-            cp $RUNNER_TEMP/figur-neu.gd kampf/figur.gd
           fi
+          cp $RUNNER_TEMP/figur-neu.gd kampf/figur.gd; cp $RUNNER_TEMP/kampfort-neu.gd kampf/kampfort.gd
           timeout 600 ~/godot/godot --headless --path . -s res://tests/umweg_399.gd > umweg.log 2>&1 || r=$?
           echo "nachher:"; grep -E "^(gut|FEHLER)|Umweg|SCRIPT ERROR|^ +at: " umweg.log | head -30 || true
           [ ${r:-0} = 0 ] || { echo "Wolf läuft durch Wolf"; exit 1; }

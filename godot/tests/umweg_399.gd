@@ -69,7 +69,7 @@ func _one(foe: String, hero: String, merc: String) -> Array:
 				var c: float = o.clearance(f.position) - r
 				if c < tight:
 					tight = c
-					wer = ", %s in %s" % [f.fighter.id, o.fighter.id]
+					wer = ", %s in %s%s" % [f.fighter.id, o.fighter.id, " (beide unterwegs)" if o.lunging() else ""]
 				if c < TIEF:
 					bad += 1
 		if k.mars.outcome != "ONGOING" and not k.busy and not k.playing and k.beats.is_empty():

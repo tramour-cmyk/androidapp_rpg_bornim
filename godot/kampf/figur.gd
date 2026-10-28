@@ -24,6 +24,7 @@ const WALK_MPS := 1.4
 const WALK_MAX := 2.5
 ## Wie lange der letzte Schlag samt Rückweg dauert (ms), kampfort.gd wartet darauf
 var busy_ms := 0
+var anlauf_ms := 0          # 399.2: so lange läuft es beim letzten Biss an, bevor es zubeißt (kampfort.gd: wer Platz macht, wartet)
 const FALL_MS := 900
 const FADE_MS := 600
 const WOLF_COATS := ["grau", "dunkel", "rost", "asche"]
@@ -1048,6 +1049,7 @@ func _bite(other, leap: bool) -> int:
 		tween.kill()
 	tween = create_tween()
 	var t_run := 0.0
+	anlauf_ms = 0
 	var run := start.distance_to(position)
 	if run > 0.15:
 		# 399.2 (Chef 28.10., 16:10: „dann läuft der hintere Wolf durch den vorderen“): um die anderen herum wie die Heldin
@@ -1098,6 +1100,7 @@ func _bite(other, leap: bool) -> int:
 	var t_heim := 0.0 if heim < 0.12 else heim / _mps("Rennen" if heim > RUN_FROM and weg.has("Rennen") else "Gehen")
 	t_heim += 2.0 * PI * TURN_R * _scale() / (_mps("Gehen") * BOGEN_TEMPO) if HEIMWEG_BOGEN else 2.0 * 180.0 / _turn_dps()
 	busy_ms = int((t_run + bl + t_back + t_heim) * 1000.0)
+	anlauf_ms = int(t_run * 1000.0)
 	return int((t_run + bite[nm][1]) * 1000.0 / 0.42)
 
 

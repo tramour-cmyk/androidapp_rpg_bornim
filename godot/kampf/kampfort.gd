@@ -801,9 +801,17 @@ func _play_say(e: Dictionary) -> void:
 				hit = {"by": actor, "on": target, "w": w, "t0": clock_ms}
 			if wound:
 				ui.bleed(actor, target, w == Wucht.CRIT or (w == Wucht.KILL and crit), gore, tg.monster.id if tg.monster != null else ""))
+	# 399.2 (Chef 28.10., 16:10: „wenn nur noch zwei Wölfe da sind und die dann in einer Linie stehen, dann läuft der hintere Wolf
+	# durch den vorderen“; umweg_399 Lauf 168): greift einer von hinten an, tauscht er mit dem vorderen den Platz (mars.gd
+	# _leap_forward); beide liefen zugleich auf derselben Linie gegeneinander. Wer Platz macht, geht erst, wenn der Angreifer vorbei ist
+	var warte_ms: int = figures[actor].anlauf_ms if lunge_ms > 0 and actor != null and figures.has(actor) else 0
 	for f in mars.fighters():
 		if figures.has(f.id) and e.places.has(f.id) and not f.fled:     # 399.2a: wer flieht, kommt nicht an seinen Platz zurück
-			figures[f.id].glide_to(_spot_pos(f, e.places[f.id]))
+			var ziel := _spot_pos(f, e.places[f.id])
+			if warte_ms > 0 and f.id != actor and not figures[f.id].home.is_equal_approx(ziel):
+				get_tree().create_timer(warte_ms / 1000.0).timeout.connect(figures[f.id].glide_to.bind(ziel))
+			else:
+				figures[f.id].glide_to(ziel)
 	ui.refresh()
 	ui.show_roll(e)
 	await get_tree().create_timer(maxi(SAY_MS, maxi(lunge_ms, busy_ms)) / 1000.0).timeout

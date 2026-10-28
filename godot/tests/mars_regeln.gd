@@ -406,19 +406,25 @@ func _cub_chance() -> void:
 	var cub = mars.find(foes[1].id)
 	var turns := 0
 	var growls := 0
+	var angesagt_geknurrt := 0
 	for i in 400:
-		if not mars.intents.has(cub.id):
-			mars.announce(cub)
-		if mars.intents[cub.id][0].kind != "STRIKE":
-			mars.intents.erase(cub.id)
+		mars.intents.erase(cub.id)
+		mars.announce(cub)
+		var eff: String = String(mars.intents[cub.id][0].effect)
+		if eff == "CIRCLE":
 			continue
+		var knurrt := eff == "GROWL"
 		heard.clear()
 		hero.hp = 9999
 		mars._foe_turn(cub, Callable())
 		turns += 1
-		growls += heard.filter(func(e): return e.cue == "GROWLS" and e.actor == cub.id).size()
+		var g := heard.filter(func(e): return e.cue == "GROWLS" and e.actor == cub.id).size()
+		growls += g
+		# kündigt keinen Biss an, wenn er nur knurrt: keine Ansage, kein Angriffswurf
+		if knurrt and (g != 1 or heard.any(func(e): return e.actor == cub.id and e.roll != null)):
+			angesagt_geknurrt += 1
 	var share := float(growls) / maxi(turns, 1)
-	var ok := turns >= 100 and share > 0.4 and share < 0.6
-	print(("gleich" if ok else "FEHLER") + " Jungwolf knurrt statt zu beißen: %d von %d Zügen (%.0f %%, soll etwa 50)" % [growls, turns, share * 100.0])
+	var ok := turns >= 100 and share > 0.4 and share < 0.6 and angesagt_geknurrt == 0
+	print(("gleich" if ok else "FEHLER") + " Jungwolf knurrt statt zu beißen: %d von %d Zügen (%.0f %%, soll etwa 50), Knurren mit Biss %d" % [growls, turns, share * 100.0, angesagt_geknurrt])
 	if not ok:
 		failed += 1
