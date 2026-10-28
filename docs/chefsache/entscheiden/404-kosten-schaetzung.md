@@ -1,7 +1,7 @@
 # 404: Fehlende Sitzungskosten schätzen?
 
 **Frage:** Bei drei archivierten Sitzungen fehlt die Kostenangabe im Datensatz. Soll Sokrates sie aus Tokenzahl und Dollar je Token vergleichbarer Sitzungen schätzen und als „geschätzt“ kennzeichnen, oder bleibt „fehlt“ stehen?
-**Votum Ford:** „fehlt“ stehen lassen; eine Schätzung höchstens in einer eigenen Spalte „geschätzt“, nie in `KOSTEN-GEBUCHT.tsv`.
+**Votum Ford (geändert 28.10., 23:36 nach Rückfrage des Chefs):** gekennzeichnete Schätzung („~“, Spanne ±30 %) statt Lücke, in eigener Spalte „geschätzt“, nie als gebuchte Zahl in `KOSTEN-GEBUCHT.tsv`; ohne Tokenzahl (Jerry 348.12) bleibt „fehlt“. Gegenargument: Scheingenauigkeit; spricht für die Spanne, nicht gegen die Schätzung, weil „fehlt“ die Kosten je Vorgang systematisch zu niedrig ausweist.
 **Berührt:** `docs/KOSTEN-GEBUCHT.tsv`, Spalte „Kosten“ in `LISTE-VORGAENGE.md`, `tools/kosten.py`.
 
 ## Sachverhalt
