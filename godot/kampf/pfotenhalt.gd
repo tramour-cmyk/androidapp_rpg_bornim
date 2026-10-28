@@ -104,8 +104,10 @@ func _process_modification_with_delta(delta: float) -> void:
 			p = (_von[i] as Vector3).lerp(_nach[i], smoothstep(0.0, 1.0, u)) + Vector3.UP * HUB * _lauf[i] * sin(PI * u)
 		if weich > 0.0:
 			p = p.lerp(soll[i], smoothstep(0.0, 1.0, weich))
-		ort[_n[i]] = p
 		_ik(sk, xs, _b[i], p)
+		# 348.12f r8 (Prüfer: Pfotenfleck des Kaufwolfs bleibt 40–50 px neben der Pfote stehen, Log „gehalten“ bis 0,51 m): reicht das
+		# Bein nicht bis p, zieht die Pfote mit dem Rumpf weiter; der Fleck folgt der Pfote, wo sie nach dem Beugen wirklich ist
+		ort[_n[i]] = xs * sk.get_bone_global_pose(_b[i][0]).origin
 
 
 func _ende() -> void:
