@@ -4,7 +4,7 @@
 
 **Frage:** Passt die Tusche an den Tieren so? Sag „ja“ oder was anders sein soll.
 
-**Bitte ansehen:** [Film](bilder:pruefung/387-kauftiere-r6.mp4), 128 s: Keiler 0 s, Hundertfüßer 35 s, Rind 68 s, Ziege 82 s, Huhn 95 s, Kaninchen 112 s.
+**Bitte ansehen:** [Film](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/pruefung/387-kauftiere-r6.mp4), 128 s: Keiler 0 s, Hundertfüßer 35 s, Rind 68 s, Ziege 82 s, Huhn 95 s, Kaninchen 112 s.
 
 **Geändert nach deinem Wort (10:51, „unser Tuscherahmen nach Lichteinfall“):**
 - Alle sechs Tiere haben den Tuscherand wie Held und Goblins im Kampf: dicker auf der Schattenseite, dünn zur Sonne, gleiche Linienstärke, Sonne wie im Kampfort.
