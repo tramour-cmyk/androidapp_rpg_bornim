@@ -8,7 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | in Arbeit: Test 133 (Schalter, Tasche, Flucht, Abwehr); Wolf durch Wolf: Chefsache 399.2c, 399.2d | `claude/jerry-348-kampf` |
+| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | in Arbeit: Test 133 (Schalter, Tasche, Flucht, Abwehr; Foto: unten nur „WOLF 6/12“, „ZURÜCK“, Sokrates); Wolf durch Wolf: Chefsache 399.2c, 399.2d | `claude/jerry-348-kampf` |
 | 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | in Arbeit: 50 % im Lauf 168 bestätigt; knurrt ohne Ansage (mit 399.2c); Text Homer | – |
 | 399.3 | M | **von Chef (28.10., 16:42):** Klang in die Spielfassung (Umzug „Musik, Klang“) | in Arbeit: Stufe 1 Lauf 135; Stufe 2 Kampfklang ungeprüft (nächster Lauf); folgt Orts-, Raumklang, Regler bei Tom | `claude/jerry-348-klang` |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: Tusche passt (Chef 12:31); im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
