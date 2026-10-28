@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (28.10., 20:43, `session_01Hmoj79LByUdi14J1tuo1ez`):** auf `claude/tom-399-spielfassung`: System fertig bis auf Kampfteil (Jerry), Anschlagbrett, Laden-Kasten, Ausdauer, Ruf „!“, Fackel nur mit Fackel, Bilder der Dinge, Heiligensymbol (Homers Notiz in `ARBEIT-KREATIV.md` erledigt). Build 139 an den Chef (t139, ersetzt t137, Telegram). Danach f326159d0 (2H). Nachfolger: Tom – 399.1 Urteil t139, Rest Spielfassung.
+**Übergabe (28.10., 21:3x, `session_01Hmoj78ePKKgJA9WBvynVt3`):** auf `claude/tom-399-spielfassung` gebaut, ohne Bildlauf (Probegrenze 389), nur Tests ohne Bild: Ruf ohne Worte, Intro mit Start in der Schenke, Vorspann, Ortsworte in der Blende (bis 3b17961e9; `zwischenbild.gd`, `ortsblende.gd`, `IntroExport.kt`). Nachfolger: Tom – 399.1 Rückläufer t139 (Testmenü, neues Spiel, Aktionsknopf, Anleitung).
 
 ## Zeilen
 
