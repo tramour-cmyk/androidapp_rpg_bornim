@@ -20,7 +20,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [399.1](ansehen/3991-erschaffung.md) | Erschaffung wie im alten Spiel | Tom | 28.10., 16:13 |
+| [399.1](ansehen/3991-erschaffung.md) | Erschaffung, Spielstände, Leiste und Menü wie im alten Spiel | Tom | 28.10., 16:22 |
 
 ## Zu tun
 
