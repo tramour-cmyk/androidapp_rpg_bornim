@@ -96,7 +96,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 348.7a | Rückfrage: Geschosse flach oder in 3D | E Technik | M | 58,17 $ | Jerry | in Arbeit |
 | 348.7b | Rückfrage: Zauberbahn hoch über die Köpfe oder flach quer über Wolf 3 | E Kampf | M | – | Jerry | startbar |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | B Abläufe | M | 119,56 $ | Perikles, Diogenes | wartet |
-| 348.12 | Fertige CC0-Grundmodelle prüfen, Probe Mensch (Chef 25.10., 21:21, 21:36) | E Technik | M | 72,22 $ | Sokrates, Jerry | Chef |
+| 348.12 | Fertige CC0-Grundmodelle prüfen, Probe Mensch (Chef 25.10., 21:21, 21:36) | E Technik | M | 84,76 $ | Sokrates, Jerry | Chef |
 | 348.12c | Modellpaket auch gegen Geld (Quaternius QAL, Dungeon Monsters Kit, andere), Vorschlag mit Preisen (Chef 26.10., 11:59) | G Geld | M | –; +9,24 $ | Sokrates | ruht |
 | 348.12f | Probe gekaufte Riesenratte in unserem Look | E Technik | M | 179,57 $ | Jerry | Chef |
 | 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | G Story | M | 4,29 $ | Homer | entschieden |
@@ -114,6 +114,6 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 384 | Kosten: alle Sitzungen gebucht? Lücken und Buchungen ohne Kennung (Chef 27.10., 20:06) | B Werkzeuge | M | – | Perikles | gebaut |
 | 383.3 | Zurückgestellte Vorlagen sofort aus der Chefsache (Chef 27.10., 19:55) | B Werkzeuge | M | 7,30 $ | Perikles | gebaut |
 | 385 | Protofactor-Animsets (Zauberer u. a.) auf die Listen, Probe ob nutzbar (Chef 27.10., 20:59) | E Figuren | M? | – | Team Tom | startbar |
-| 387 | Gekaufte Tiere schnell auf Bewegungen und unsere Haut prüfen, vor Eigenbau (Chef 27.10., 21:27) | E Monster | M | 28,05 $ | Team Jerry | Chef |
+| 387 | Gekaufte Tiere schnell auf Bewegungen und unsere Haut prüfen, vor Eigenbau (Chef 27.10., 21:27) | E Monster | M | 40,59 $ | Team Jerry | Chef |
 | 383.2 | Kosten: dieselbe Aufgabe frisch gegen groß messen (Chef 27.10., 19:24) | B Werkzeuge | M | – | Sokrates | wartet |
 | 383 | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokrates) | B Werkzeuge | M | 12,91 $ | Perikles | wartet |
