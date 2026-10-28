@@ -435,7 +435,8 @@ jobs:
           grep -E "SCRIPT ERROR|^ +at: |^Seitenschritt" $P/zauberbahn.log | head -20 || true
           ls -l $P
       # 348.7 Fledermaus r5 (Chef 28.10., 10:06 zu 4d „gleichmäßiger Tuscherand?“: 4d hatte die alte Tusche): Modell wie 4d, Tusche
-      # nach Licht (348.13a), Bewegungen mit Ortswechsel wie die Kauftiere (Chef 27.10., 18:01); die Fledermaus fährt noch nicht im APK
+      # nach Licht (348.13a), Bewegungen mit Ortswechsel wie die Kauftiere (Chef 27.10., 18:01); die Fledermaus fährt noch nicht im APK;
+      # Lauf 162 kam nicht bis hier (Modellbau, bd950c6b2)
       - name: 348.7 Probe Fledermaus (nur bei Commits mit „348.7 Fledermaus Film“)
         if: contains(github.event.head_commit.message, '348.7 Fledermaus Film')
         run: |
