@@ -10,7 +10,7 @@ Die Größe kommt aus dem Gesprächsprotokoll (transcript_path): Token der letzt
 zwischengespeichert). Gemessen wird der Zuwachs gegenüber der ersten Antwort, weil schon der Start je nach
 Umgebung viel Platz braucht. Nach einem Verdichten (Kontext schrumpft deutlich) zählt der neue Stand als Start.
 
-Schwellen über Umgebungsvariablen änderbar: BORNIM_NEUSTART_AB (Zuwachs in Token, Vorgabe 100000),
+Schwellen über Umgebungsvariablen änderbar: BORNIM_NEUSTART_AB (Zuwachs in Token, Vorgabe 300000; 383.1, vorher 100000),
 BORNIM_OFFEN_MAX (Bytes, Vorgabe 15000). Zustand je Sitzung in /tmp/bornim-neustart-<Sitzung>.json.
 Bei der 1., 11., 21. … Nachricht zusätzlich die Kernregel-Zeile aus tools/kernregeln.txt (347, ein Wortlaut, auch notiz.sh).
 """
@@ -19,7 +19,7 @@ import os
 import sys
 
 KERN_ALLE = 10
-AB = int(os.environ.get("BORNIM_NEUSTART_AB", "100000"))
+AB = int(os.environ.get("BORNIM_NEUSTART_AB", "300000"))
 OFFEN_MAX = int(os.environ.get("BORNIM_OFFEN_MAX", "15000"))
 # Abstände in Nachrichten zwischen zwei Erinnerungen: erst 6, dann 4, 3, 2, danach bei jeder Nachricht.
 ABSTAENDE = [6, 4, 3, 2, 1]

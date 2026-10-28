@@ -1,7 +1,8 @@
 class_name Leute
 extends Node3D
 # 348.6 Leute: eine Person der Karte (karten.json „leute“, MapExport.kt) als Figur aus tools/blender348/v3 (held3.py FIGUR=<id>,
-# rig.py: Gehen/Stehen, Gang je Figur), daten/leute/<id>.bin. Bewegt sich wie Game.updateWalkers ohne Tagesplan (VillageDay folgt):
+# rig.py: Gehen/Stehen, Gang je Figur), daten/leute/<id>.bin. Bewegt sich wie Game.updateWalkers; 390 mit Tagesplan (VillageDay,
+# karten.json „tagesablauf“): zur vollen Stunde zum naechsten Ort ihres Tages, dort streifen; nachts an der eigenen Tuer hinein.
 # „streifen“ n: Schritt fuer Schritt um den eigenen Platz (Manhattan <= n), Pause 1,5–4 s; „runde“: Wache von Punkt zu Punkt,
 # dort 2,5–5 s Umschauen, jedes zweite Mal laenger (55.1b). Steht der Held daneben, bleibt sie stehen; durch sie geht er nicht.
 
@@ -29,7 +30,15 @@ var weg: Array[Vector2i] = []          # Runde: Weg zum naechsten Punkt
 var bein := 0                          # Runde: Index des Punkts, zu dem sie geht (Walker.leg)
 var warte := 0.0
 var blick := 0.0
+var leib := LEIB
+var pause := "Stehen"                  # Dorftiere: Stehen oder Fressen in der Pause
 var zufall := RandomNumberGenerator.new()
+var ruhe_bis := -1.0                   # 397: Wechsel der Ruhebewegung (Gebiet.ruhe_naechste), nur bei pause Stehen
+var streifen_n := 0                    # Kacheln um heim (alt wander; mit Tagesplan der des Orts)
+var drinnen := false                   # 390 (5la): an der Tuer fuer die Nacht hineingegangen: nicht zu sehen, nicht im Weg
+static var uhr := Callable()           # 390: Minute des Tages (spiel.gd, Zustand.minuten)
+static var still := false              # 390: waehrend eines Gespraechs bleiben alle stehen (Mode.Dialog)
+var da := true                         # 390: nach der Geschichte zu sehen (Story.kt visible: besiegt, befreit)
 
 static func alle(k: Karte, h: Node3D) -> Array:
 	var r := []
@@ -59,15 +68,133 @@ static func tiere(k: Karte, h: Node3D) -> Array:
 		r.append(Leute.new(k, {"id": namen[i], "x": t.x, "y": t.y, "blick": "DOWN", "streifen": 3, "datei": "res://daten/tiere/%s.bin" % namen[i]}, h))
 	return r
 
+# 348.6 Dorftiere (Chefrunde 28.10., 08:09: „lieber ein paar Tiere zuerst ‚Platzieren‘“): die gekauften Tiere aus 387 (Jerrys
+# kauftier.py, daten/dorftiere/kauf_<tier>-<fell>.bin, kauf_<tier>-info.json je Fell). Huehner wie alt zwei an jedem Heuballen auf
+# der freien Seite (MapHen.find: westlich, noerdlich, nordwestlich, oestlich nur, wenn sonst nichts frei ist); neu Rind und Ziegen
+# auf der Wiese suedlich des Flusses beim Kornfeld, Kaninchen am Westrand und am Nordufer, frei vor Kronen und Daechern (Pruefung
+# 09:04: unter Krone und Dach nicht zu sehen). Tiere bleiben auf Wiese und Blumen (TIERBODEN); grosse Tiere (Ziege, Rind) nicht
+# neben Feld, Garten, Zaun, Heu, ihr Koerper ragte sonst hinein (Pruefung: Ziege halb im Korn)
+# Chef 28.10., 16:12 („südlich des Flusses Hühner, Ziegen und Kühe und der Bauer … Das ist zu viel … die Kuh muss da unten weg …
+# auch die Ziegen zum Teil … unter Umständen auch die Durchgang da blockiert“): Rind vorerst ganz weg, suedlich des Flusses eine Ziege
+# statt drei, abseits von Bruecke und Weg
+const DORFTIERE := {"village": [["ziege", 30, 27], ["kaninchen", 2, 23], ["kaninchen", 27, 24]]}
+const HUHN_PLATZ := [Vector2i(-1, 0), Vector2i(0, -1), Vector2i(-1, -1), Vector2i(1, 0), Vector2i(0, 1)]
+const TIERBODEN := ".f,"
+# Pause zwischen zwei Schritten (s) und Anteil Fressen statt Stehen: Huehner picken oft, das Rind grast lange
+const TIERPAUSE := {"huhn": [1.0, 3.5, 0.6], "rind": [5.0, 12.0, 0.7], "ziege": [3.0, 8.0, 0.6], "kaninchen": [2.0, 6.0, 0.5]}
+
+static func dorftiere(k: Karte, h: Node3D) -> Array:
+	var r := []
+	if not DirAccess.dir_exists_absolute("res://daten/dorftiere"): return r
+	var felle := {}                    # Tier -> Felle, nach Namen sortiert
+	for f in DirAccess.get_files_at("res://daten/dorftiere"):
+		if not f.ends_with(".bin"): continue
+		var n := f.get_basename()
+		var t := n.get_slice("-", 0).trim_prefix("kauf_")
+		if not felle.has(t): felle[t] = []
+		felle[t].append(n.get_slice("-", 1))
+	for t in felle: felle[t].sort()
+	var plaetze := []                  # [Tier, Kachel]
+	var belegt := {}
+	if felle.has("huhn"):
+		for y in k.hoehe:
+			for x in k.breite:
+				if k.zeichen(Vector2i(x, y)) != "y": continue
+				var frei := HUHN_PLATZ.filter(func(d): return Leute.tierboden(k, Vector2i(x, y) + d) and not belegt.has(Vector2i(x, y) + d))
+				var offen := frei.filter(func(d): return d != Vector2i(1, 0))
+				if offen.is_empty(): offen = frei
+				for d in offen.slice(0, 2):
+					belegt[Vector2i(x, y) + d] = true
+					plaetze.append(["huhn", Vector2i(x, y) + d])
+	for p in DORFTIERE.get(k.id, []):
+		var t := Vector2i(int(p[1]), int(p[2]))
+		var boden_ok := Leute.tierboden_gross(k, t) if p[0] in ["rind", "ziege"] else Leute.tierboden(k, t)
+		if felle.has(p[0]) and boden_ok and not belegt.has(t):
+			belegt[t] = true
+			plaetze.append([p[0], t])
+	var zahl := {}
+	for p in plaetze:
+		var tier: String = p[0]
+		var i: int = zahl.get(tier, 0)
+		zahl[tier] = i + 1
+		var fell: String = felle[tier][i % felle[tier].size()]
+		var blicke := ["DOWN", "LEFT", "UP", "RIGHT"]
+		r.append(Leute.new(k, {"id": "%s%d" % [tier, i + 1], "x": p[1].x, "y": p[1].y, "blick": blicke[(i + p[1].x) % 4], "streifen": 2,
+			"tier": tier, "fell": fell, "datei": "res://daten/dorftiere/kauf_%s-%s.bin" % [tier, fell],
+			"info": "res://daten/dorftiere/kauf_%s-info.json" % tier}, h))
+	return r
+
+static func tierboden(k: Karte, t: Vector2i) -> bool:
+	return k.begehbar(t) and k.ausgang(t).is_empty() and TIERBODEN.contains(k.zeichen(t))
+
+const FELDRAND := "cvxy"
+static func tierboden_gross(k: Karte, t: Vector2i) -> bool:
+	if not tierboden(k, t): return false
+	for dy in range(-1, 2):
+		for dx in range(-1, 2):
+			if FELDRAND.contains(k.zeichen(t + Vector2i(dx, dy))): return false
+	return true
+
 func _init(k: Karte, d: Dictionary, h: Node3D) -> void:
 	karte = k
 	daten = d
 	held = h
 	name = "Leute_" + String(d["id"])
 	heim = Vector2i(int(d["x"]), int(d["y"]))
+	streifen_n = int(d.get("streifen", 0))
+	# 5l: beim Betreten der Karte steht jeder schon dort, wohin sein Tag ihn gefuehrt hat (Game.walkersHere)
+	var st := plan_jetzt()
+	if not st.is_empty() and k.begehbar(Vector2i(int(st[1]), int(st[2]))): heim = Vector2i(int(st[1]), int(st[2]))
 	kachel = heim
 	zufall.seed = hash(String(d["id"]))
 	warte = zufall.randf_range(0.5, 3.0)
+
+# 390: nach der Geschichte da oder nicht (Geschichte.sichtbar)
+# 399.1 Ruf (134.1): ein goldenes „!“ mit dunklem Rand ueber dem Kopf, durch alles sichtbar, immer zur Kamera
+var ruf_zeichen: Label3D
+var ruft_bis := 0                       # ms (Hail.calms)
+
+func rufe(an: bool) -> void:
+	if not an and ruf_zeichen == null: return
+	if ruf_zeichen == null:
+		ruf_zeichen = Label3D.new()
+		ruf_zeichen.text = "!"
+		ruf_zeichen.font = Stil.schrift()
+		ruf_zeichen.font_size = 96
+		ruf_zeichen.outline_size = 18
+		ruf_zeichen.modulate = Color("f0c850")
+		ruf_zeichen.outline_modulate = Color("201408b0")
+		ruf_zeichen.pixel_size = 0.004
+		ruf_zeichen.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+		ruf_zeichen.no_depth_test = true
+		ruf_zeichen.shaded = false
+		ruf_zeichen.position = Vector3(0, kopfhoehe() + 0.35, 0)
+		add_child(ruf_zeichen)
+	ruf_zeichen.visible = an
+
+# Scheitel ueber den Fuessen: aus den Netzen der Figur, sonst 1,75 m
+func kopfhoehe() -> float:
+	var oben := 0.0
+	if modell:
+		for m in modell.find_children("*", "MeshInstance3D", true, false):
+			var bb: AABB = (m as MeshInstance3D).get_aabb()
+			var t: Transform3D = global_transform.affine_inverse() * (m as MeshInstance3D).global_transform if m.is_inside_tree() and is_inside_tree() else Transform3D()
+			oben = maxf(oben, (t * bb).end.y)
+	return oben if oben > 0.5 else 1.75
+
+func zeige(ja: bool) -> void:
+	da = ja
+	visible = da and not drinnen
+
+# der Ort des Tages jetzt: [ab, x, y, streifen, drinnen] wie VillageDay.stopAt, [] ohne Tagesplan
+func plan_jetzt() -> Array:
+	var p: Array = Karte.tagesablauf.get(String(daten["id"]), [])
+	if p.is_empty() or not uhr.is_valid(): return []
+	var m := int(uhr.call())
+	var st: Array = p[p.size() - 1]
+	for e in p:
+		if int(e[0]) <= m: st = e
+	return st
 
 func _ready() -> void:
 	var datei := String(daten.get("datei", "res://daten/leute/%s.bin" % daten["id"]))
@@ -75,12 +202,20 @@ func _ready() -> void:
 	add_child(modell)
 	Gebiet.male(modell, null, 2, mats)
 	var p := datei.get_basename() + "-info.json"
-	if FileAccess.file_exists(p):
+	if daten.has("info") and FileAccess.file_exists(String(daten["info"])):
+		# Dorftiere (kauftier.py): je Fell ein Eintrag; Tempo ohne Gleiten aus dem Wurzelweg des Gehens (Weg fuer Tempo 1)
+		var alle: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(String(daten["info"])))
+		var info: Dictionary = alle.get(String(daten["fell"]), {})
+		var w: Array = info.get("weg", {}).get("Gehen", [])
+		if w.size() > 1 and float(info.get("Gehen", 0.0)) > 0.0: gang = float(w[w.size() - 1][1]) / float(info["Gehen"])
+		# Pruefung 09:04: Rind (2,5 m) hielt 1 m Abstand, der Kopf reicht 1,25 m vor die Mitte: halbe Laenge plus eine Handbreit
+		leib = clampf(float(info.get("laenge_m", 1.0)) * 0.5 + 0.15, 0.3, 1.5)
+	elif FileAccess.file_exists(p):
 		var info: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(p))
 		gang = float(info.get("gehen_m_je_s", gang))
 		baue_ding(info)
 	anim = Gebiet.finde(modell, "AnimationPlayer") as AnimationPlayer
-	if anim: Gebiet.bewegungen(anim, ["Gehen", "Stehen"])
+	if anim: Gebiet.bewegungen(anim, ["Gehen", "Stehen", "Fressen", "Stehen_2", "Stehen_3"])
 	if anim:
 		anim.play("Stehen")
 		anim.seek(zufall.randf() * 2.0, true)   # nicht alle im selben Atemzug
@@ -182,7 +317,24 @@ func nacht(k: float) -> void:
 
 # fuer Held.frei: steht hier jemand?
 func sperrt(p: Vector3) -> bool:
-	return Vector2(p.x - position.x, p.z - position.z).length() < LEIB
+	if drinnen or not da: return false
+	return Vector2(p.x - position.x, p.z - position.z).length() < leib
+
+# 348.6 Ausweichen wie alt (Game.makeWay, 92; Chef 16:12: „man kann ja auch noch keine NPCs oder Tiere … schieben“): wer vom Helden
+# geschoben wird, tritt zur Seite (links oder rechts des Wegs, sonst voran) und bleibt dort einen Moment (alt 4 s), bevor der Tag
+# weitergeht; Wachen auf ihrer Runde nicht (alt: patrol). Tiere auch.
+func weicht() -> bool: return da and not drinnen and not daten.has("runde")
+
+func weiche(d: Vector2i) -> bool:
+	var seiten := [Vector2i(d.y, d.x), Vector2i(-d.y, -d.x)]   # quer zum Weg, in zufaelliger Folge
+	if zufall.randf() < 0.5: seiten.reverse()
+	for s in seiten + [d]:
+		var n: Vector2i = kachel + s
+		if frei_fuer_mich(n):
+			ziel = n
+			warte = 4.0
+			return true
+	return false
 
 func held_kachel() -> Vector2i:
 	return karte.pos_kachel(held.position) if held else Vector2i(-99, -99)
@@ -193,21 +345,31 @@ func nah_am_held(t: Vector2i) -> bool:
 
 func frei_fuer_mich(t: Vector2i) -> bool:
 	if not karte.begehbar(t) or not karte.ausgang(t).is_empty(): return false
+	if daten.has("tier") and not (Leute.tierboden_gross(karte, t) if leib > 0.7 else Leute.tierboden(karte, t)): return false
 	if t == held_kachel(): return false
 	for l in get_parent().get_children():
-		if l is Leute and l != self and (l.kachel == t or l.ziel == t): return false
+		if l is Leute and l != self and l.visible and (l.kachel == t or l.ziel == t): return false
 	return true
 
 func _process(dt: float) -> void:
 	if ziel.x >= 0:
 		laufe(dt)
 		return
-	if anim and anim.current_animation != "Stehen":
-		anim.play("Stehen", 0.25)
+	if anim and pause.begins_with("Stehen"):   # 397
+		if ruhe_bis < 0.0: ruhe_bis = anim.get_animation("Stehen").length * zufall.randi_range(2, 4)
+		ruhe_bis -= dt
+		if ruhe_bis <= 0.0:
+			var r := Gebiet.ruhe_naechste(anim, pause, zufall)
+			pause = r[0]; ruhe_bis = float(r[1])
+	if anim and anim.current_animation != pause:
+		anim.play(pause, 0.5 if anim.current_animation.begins_with("Stehen") else 0.25)
 		anim.speed_scale = 1.0
 	rotation.y = drehe(rotation.y, blick, DREH_STEH * dt)
+	if still or not da: return
+	if Time.get_ticks_msec() < ruft_bis: return   # 399.1 (306): wer ruft, haelt still, bis das zweite Zeichen vorbei ist
 	warte -= dt
 	if warte > 0: return
+	if tagesplan(): return
 	if nah_am_held(kachel):
 		warte = 0.8
 		return
@@ -216,13 +378,49 @@ func _process(dt: float) -> void:
 
 func streife() -> void:
 	warte = zufall.randf_range(1.5, 4.0)
+	if daten.has("tier"):
+		var tp: Array = TIERPAUSE.get(String(daten["tier"]), [1.5, 4.0, 0.5])
+		warte = zufall.randf_range(tp[0], tp[1])
+		pause = "Fressen" if anim and anim.has_animation("Fressen") and zufall.randf() < tp[2] else "Stehen"
+		ruhe_bis = -1.0
 	var d := Vector2i(zufall.randi_range(-1, 1), zufall.randi_range(-1, 1))
 	if d == Vector2i.ZERO: return
 	var n := kachel + d
-	if absi(n.x - heim.x) + absi(n.y - heim.y) > int(daten.get("streifen", 0)): return
+	if absi(n.x - heim.x) + absi(n.y - heim.y) > streifen_n: return
 	if not frei_fuer_mich(n): return
 	if d.x != 0 and d.y != 0 and not (karte.begehbar(kachel + Vector2i(d.x, 0)) and karte.begehbar(kachel + Vector2i(0, d.y))): return
 	ziel = n
+
+# 390 (Game.updateWalkers 5l): weit vom Ort des Tages: dorthin, dort erst eine Weile stehen (330); an der Tuer fuer die Nacht
+# hinein. true: die Person ist unterwegs oder drinnen, das Streifen faellt aus
+func tagesplan() -> bool:
+	var st := plan_jetzt()
+	if st.is_empty(): return false
+	var ort := Vector2i(int(st[1]), int(st[2]))
+	heim = ort
+	streifen_n = int(st[3])
+	drinnen = bool(st[4]) and kachel == ort
+	visible = da and not drinnen
+	if drinnen:
+		warte = 5.0
+		return true
+	if absi(kachel.x - ort.x) + absi(kachel.y - ort.y) <= streifen_n: return false
+	gehe_nach(ort)
+	if absi(ziel.x - ort.x) + absi(ziel.y - ort.y) <= streifen_n and ziel.x >= 0: warte = zufall.randf_range(5.0, 10.0)
+	return true
+
+# ein Schritt auf dem Weg nach p (Wegsuche der Karte); wartet, wenn jemand im Weg steht
+func gehe_nach(p: Vector2i) -> void:
+	if weg.is_empty() or weg[weg.size() - 1] != p:
+		weg = karte.weg(kachel, p)
+		if not weg.is_empty(): weg.pop_front()
+	if weg.is_empty():
+		warte = 1.0
+		return
+	if not frei_fuer_mich(weg[0]):
+		warte = 0.5
+		return
+	ziel = weg.pop_front()
 
 func runde() -> void:
 	var r: Array = daten["runde"]
@@ -235,16 +433,7 @@ func runde() -> void:
 		warte = zufall.randf_range(10.0, 16.0) if lang else zufall.randf_range(2.5, 5.0)
 		weg.clear()
 		return
-	if weg.is_empty() or weg[weg.size() - 1] != p:
-		weg = karte.weg(kachel, p)
-		if not weg.is_empty(): weg.pop_front()
-	if weg.is_empty():
-		warte = 1.0
-		return
-	if not frei_fuer_mich(weg[0]):
-		warte = 0.5
-		return
-	ziel = weg.pop_front()
+	gehe_nach(p)
 
 func laufe(dt: float) -> void:
 	var zp := karte.kachel_pos(ziel)

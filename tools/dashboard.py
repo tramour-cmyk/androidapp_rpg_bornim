@@ -83,7 +83,7 @@ def main(ziel):
 
     cs = lesen("chefsache/README.md")
     chef = ""
-    for teil in ("Zu entscheiden", "Zu billigen", "Anzusehen"):
+    for teil in ("Zu entscheiden", "Zu billigen", "Anzusehen", "Zu tun"):  # Zu tun: 275
         a = abschnitt(cs, teil)
         if a is None:
             chef += "<h3>%s</h3>" % teil + fehlt("„%s“ in chefsache/README.md" % teil); continue

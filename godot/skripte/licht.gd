@@ -8,6 +8,7 @@ var sonne: DirectionalLight3D
 var env: Environment
 var nacht := 0.0
 var ziel := 0.0
+var innen := false                     # 399.1 Grundriss: Licht aus Kamin, Kerzen, Fenstern; die Sonne nur als schwacher Rest von oben
 
 # 348.6 Runde 11 (Chef 25.10., 12:12: Sonnenstand und Schatten falsch, neu kurz nach rechts statt alt lang nach links unten):
 # drei Staende wie MapSun.Stand (Schattenrichtung auf der Karte, x Osten, z Sueden; Laenge je Meter Hoehe), gewechselt nur an
@@ -115,6 +116,10 @@ func stelle(k: float) -> void:
 	env.adjustment_contrast = lerpf(TAG_KONTRAST, NACHT_KONTRAST, k)
 	env.adjustment_saturation = lerpf(TAG_SAETTIGUNG, 0.45, k) + 0.1 * daemmerung   # nachts blasser und blau wie alt
 	env.background_color = Color(0.36, 0.42, 0.34).lerp(Color(0.03, 0.04, 0.08), k)
+	if innen:
+		sonne.light_energy *= 0.3
+		env.ambient_light_energy *= 0.7
+		env.background_color = Color(0.0, 0.0, 0.0)
 	toene(1.0 - k)
 	nacht_geaendert.emit(k)
 

@@ -11,16 +11,23 @@ var ziel: Node3D
 var gieren := NORD
 var gieren_ziel := NORD
 var zoom := FERN
+var fern := FERN                       # 399.1 Bedienung „Karte“: Normal oder Näher (MapZoom 6,75 oder 5,6 Kacheln quer)
 var nah := false
 var tusche: MeshInstance3D
 var tusche_mats: Array[ShaderMaterial] = []   # 348.13: bekommen die Sonnenrichtung (Tusche nach der Lichtrichtung)
 var neigung := -30.0     # 376.1 Kopfblatt (figurenprobe.gd): flacher auf Gesichtshoehe
 var hinten_fest := -1.0   # 348.13: --hintenheld=<m> haelt die Stufe am Helden fest (Versuch), sonst mit dem Zoom
+# 348.13b (Chef 28.10., 08:09): Tusche auch nach Laterne, Fenster, Fackel; Knoten der Gruppe „tuschelicht“ (Meta reich, kraft),
+# die naechsten zum Helden gehen an den Shader; nacht von spiel._nacht; --tuschelampen=0 schaltet es ab (Vergleich, Kosten)
+const TUSCHE_LAMPEN := 8              # wie LAMPEN in tusche.gdshader
+var nacht := 0.0
+var lampen_an := true
 
 func _ready() -> void:
 	name = "Kamera"
 	projection = PROJECTION_ORTHOGONAL
 	keep_aspect = KEEP_WIDTH
+	fern_neu()
 	size = zoom
 	near = 0.5
 	far = 120.0
@@ -41,12 +48,39 @@ func _ready() -> void:
 		if a.begins_with("--hintenheld="): hinten_fest = float(a.substr(13))
 	if "--tuscheaussen" in OS.get_cmdline_user_args():   # 348.13: Umriss beidseits der Kante wie d08456e7d
 		for m in tusche_mats: m.set_shader_parameter("innen", 0.0)
+	if "--tuschelampen=0" in OS.get_cmdline_user_args(): lampen_an = false
 
 func _process(_d: float) -> void:
 	for m in tusche_mats:
 		m.set_shader_parameter("licht_dir", Licht.richtung())
 		m.set_shader_parameter("breite_m", size)
 	tusche_mats[1].set_shader_parameter("hinten_ab", hinten_fest if hinten_fest >= 0.0 else hinten_held(size))
+	tusche_lampen()
+
+func tusche_lampen() -> void:
+	var pos := PackedVector4Array()
+	var kraft := PackedFloat32Array()
+	if lampen_an and nacht > 0.02:
+		var mitte := ziel.global_position if ziel else global_position
+		var l := []
+		for n in get_tree().get_nodes_in_group("tuschelicht"):
+			var o := n as Node3D
+			if o.is_visible_in_tree(): l.append([o.global_position.distance_squared_to(mitte), o])
+		l.sort_custom(func(a, b): return a[0] < b[0])
+		for e in l.slice(0, TUSCHE_LAMPEN):
+			var o: Node3D = e[1]
+			var p := o.global_position
+			pos.append(Vector4(p.x, p.y, p.z, float(o.get_meta("reich", 3.0))))
+			kraft.append(float(o.get_meta("kraft", 1.0)))
+	var n := pos.size()
+	while pos.size() < TUSCHE_LAMPEN:
+		pos.append(Vector4(0, -100, 0, 1))
+		kraft.append(0.0)
+	for m in tusche_mats:
+		m.set_shader_parameter("lampen", pos)
+		m.set_shader_parameter("lampen_kraft", kraft)
+		m.set_shader_parameter("lampen_n", n)
+		m.set_shader_parameter("nacht", nacht)
 
 # 348.13: Helfer nah (8d879cbf4): schwarzer Klumpen an der Schwerthand; die Hand liegt keine 0,25 m vor dem Koerper, darum Tusche
 # beidseits der Kante. 0,05 m nah blind 8:1 besser, in der Grundansicht 6:0 schlechter (Beine und Stiefel verschwinden im Boden):
@@ -82,7 +116,13 @@ func nord_winkel() -> float: return deg_to_rad(gieren)
 
 func nah_fern() -> void:
 	nah = not nah
-	zoom = NAH if nah else FERN
+	zoom = NAH if nah else fern
+
+func fern_neu() -> void:
+	Bedienung.lade()
+	var war := fern
+	fern = FERN * (Bedienung.NAEHER if Bedienung.karte_nah else 1.0)
+	if not nah and is_equal_approx(zoom, war): zoom = fern
 
 func kneifen(faktor: float) -> void:
 	zoom = clampf(zoom * faktor, NAH * 0.8, FERN * 1.6)

@@ -12,7 +12,8 @@
       "Bash(git fetch:*)",
       "Bash(git diff:*)",
       "Bash(git merge-tree:*)",
-      "mcp__claude-code-remote__archive_session"
+      "mcp__claude-code-remote__archive_session",
+      "mcp__claude-code-remote__add_repo"
     ],
     "deny": [
       "Bash(git push --force:*)",
@@ -24,7 +25,9 @@
   "autoMode": {
     "environment": [
       "$defaults",
-      "Project workflow (Chroniken von Bornim): team sessions routinely fetch origin/main and merge it into their own claude/* working branches, and check for conflicts with git merge-tree or git diff; these are expected and not merges without review. A pull request into main is merged only after the project owner has tested the build; that approval is recorded in docs/VORGANGSARCHIV.md or the team's docs/ARBEIT-*.md file on main. Notes (CLAUDE.md, CHANGELOG.md, docs/) are committed and pushed directly to main by design.",      "Ford (Betriebsleiter) archives old sessions of this account every hour with archive_session when tools/lauf.py prints an ARCHIVIERE line; this is intended by the project owner (decision 273) and is not interference with other work."
+      "Project workflow (Chroniken von Bornim): team sessions routinely fetch origin/main and merge it into their own claude/* working branches, and check for conflicts with git merge-tree or git diff; these are expected and not merges without review. A pull request into main is merged only after the project owner has tested the build; that approval is recorded in docs/VORGANGSARCHIV.md or the team's docs/ARBEIT-*.md file on main. Notes (CLAUDE.md, CHANGELOG.md, docs/) are committed and pushed directly to main by design.",
+      "Ford (Betriebsleiter) archives old sessions of this account every hour with archive_session when tools/lauf.py prints an ARCHIVIERE line; this is intended by the project owner (decision 273) and is not interference with other work.",
+      "Team sessions (Tom, Jerry) download the official Godot 4.7.2 editor and export templates from https://github.com/godotengine/godot/releases (the same version and URL as .github/workflows/godot.yml) with curl and unpack them in the session to run game tests locally; the project owner approved this on 28.10. (decision 399.2d)."
     ]
   },
   "hooks": {
@@ -75,6 +78,18 @@
             "type": "command",
             "command": "f=/home/user/bornim-main/tools/zug-haken.py; [ -f \"$f\" ] || f=\"$CLAUDE_PROJECT_DIR\"/tools/zug-haken.py; command -v python3 >/dev/null && python3 \"$f\" 2>/dev/null; true",
             "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=/home/user/bornim-main/tools/probelauf.py; [ -f \"$f\" ] || f=\"$CLAUDE_PROJECT_DIR\"/tools/probelauf.py; command -v python3 >/dev/null && python3 \"$f\"; r=$?; [ $r = 2 ] && exit 2; true",
+            "timeout": 90
           }
         ]
       }

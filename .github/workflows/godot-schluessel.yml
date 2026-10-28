@@ -1,0 +1,37 @@
+# 399.1a (Chef 28.10., 14:41 „399.1a ja“): ein Debug-Schluessel fuer alle Godot-Builds (godot.yml), sonst lehnt Android das Update ab
+# (Build 130: jeder Zweig legte sich im Cache einen eigenen an). Caches von main sieht jeder Zweig, Caches eines Zweigs nur dieser.
+# Dieser Ablauf legt den Schluessel einmal auf main an und liest ihn woechentlich (GitHub loescht, was 7 Tage niemand liest).
+# Nie der Play-Schluessel des alten Spiels; nur der Debug-Schluessel der Probe de.bornim.game.godot.
+name: Godot-Schluessel
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * 1,4"
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/godot-schluessel.yml"
+
+jobs:
+  schluessel:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/cache/restore@v4
+        id: alt
+        with:
+          path: ~/bornim-godot-schluessel
+          key: bornim-godot-schluessel-2
+      - name: Schluessel anlegen
+        if: steps.alt.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p ~/bornim-godot-schluessel
+          keytool -genkeypair -keystore ~/bornim-godot-schluessel/debug.keystore -storepass android -alias androiddebugkey -keypass android \
+            -keyalg RSA -validity 9999 -dname "CN=Android Debug,O=Android,C=US" > /dev/null 2>&1
+      - uses: actions/cache/save@v4
+        if: steps.alt.outputs.cache-hit != 'true'
+        with:
+          path: ~/bornim-godot-schluessel
+          key: bornim-godot-schluessel-2
+      - name: Fingerabdruck
+        run: keytool -list -keystore ~/bornim-godot-schluessel/debug.keystore -storepass android | grep -i "SHA-256\|SHA256"

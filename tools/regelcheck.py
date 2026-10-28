@@ -120,6 +120,16 @@ for p in quellen:
     m = re.search(alt, lesen(p))
     if m: fund.append("%s: alter Dateiname %s" % (os.path.basename(p), m.group(0)))
 
+# 4a. Statusfeld (275 Stufe 1, Chef 15:09: festes Wort wie „begonnen, wartet, erledigt, Rücksprache“): letzte Spalte von LISTE-VORGAENGE.md nur aus der Wortliste
+WORTE = r"(offen|startbar|in Arbeit|wartet|Chef|ruht|gebaut|zu testen|Dauer|nach Meilenstein|aufgeteilt|Idee|erledigt)\b"
+falsch = {}
+for z in lesen(os.path.join(DOCS, "LISTE-VORGAENGE.md")).splitlines():
+    t = [x.strip() for x in z.split("|")]
+    if not z.startswith("| ") or len(t) < 8 or not re.match(r"^D?\d", t[1]) or re.match(WORTE, t[-2]): continue
+    falsch.setdefault(t[-3] or "?", []).append("%s „%s“" % (t[1], t[-2]))
+if falsch: fund.append("LISTE-VORGAENGE.md: Stand außerhalb der Wortliste (%s; 275), je Besitzer:" % WORTE[1:-3].replace("|", ", "))
+for wer, v in sorted(falsch.items()): fund.append("  %s: %s" % (wer, ", ".join(v)))
+
 # 5. Anlass
 if "--anlass" in sys.argv:
     sha = sys.argv[sys.argv.index("--anlass") + 1]

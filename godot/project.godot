@@ -6,12 +6,27 @@ config/name="Chroniken von Bornim"
 run/main_scene="res://spiel.tscn"
 config/features=PackedStringArray("4.7", "Mobile")
 
+[autoload]
+
+; 399.3 (Jerry): Musik und Klang wie im alten Spiel (klang/klang.gd)
+Klang="*res://klang/klang.gd"
+
+[debug]
+
+; 399.1 Gerät: die letzten Fehlermeldungen aus dem Protokoll (messung.gd), auch am Handy
+file_logging/enable_file_logging=true
+
 [display]
 window/size/viewport_width=1080
 window/size/viewport_height=2340
 window/handheld/orientation=1
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[gui]
+
+; 399.1 (Chef 28.10., 14:38; DESIGN-STIL.md „Oberfläche“, 292.3): eine Schrift ueberall, Alegreya
+theme/custom_font="res://kampf/schrift/alegreya_regular.ttf"
 
 [input_devices]
 pointing/emulate_touch_from_mouse=true

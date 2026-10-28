@@ -7,11 +7,12 @@ const RAND := Color(0.710, 0.604, 0.416)       # Veil.gold 0xB59A6A
 const HELL := Color(0.851, 0.737, 0.510)       # Veil.bright 0xD9BC82
 const DP := 1080.0 / 411.0                     # alt: dp auf einem Handy mit 411 dp Breite
 
-var zeichen := ""                              # ENTER, READ, LOOK, TALK, OPEN (ActionKind)
+var zeichen := ""                              # ENTER, READ, LOOK, TALK, OPEN (ActionKind); ACT, NEXT, RUN (ActionSign)
 var gedrueckt := false
+var matt := false                              # 399.1 alt dim: Rand Veil.rim, Zeichen Gold zu 45 % (nichts zu tun, Rennen aus)
 
-func _init() -> void:
-	custom_minimum_size = Vector2(76, 76) * DP
+func _init(groesse := 76.0) -> void:
+	custom_minimum_size = Vector2(groesse, groesse) * DP
 	size = custom_minimum_size
 	flat = true
 	focus_mode = Control.FOCUS_NONE
@@ -27,12 +28,12 @@ func _draw() -> void:
 	var r := size.x / 2
 	var m := size / 2
 	draw_circle(m, r, Color(0.090, 0.078, 0.059, 0.85) if gedrueckt else Color(0, 0, 0, 0.7))   # Veil.raised beim Druecken
-	draw_arc(m, r - 0.75 * DP, 0, TAU, 64, HELL if gedrueckt else RAND, 1.5 * DP, true)
+	draw_arc(m, r - 0.75 * DP, 0, TAU, 64, Stil.RIM if matt else (HELL if gedrueckt else RAND), 1.5 * DP, true)
 	# Zeichen auf halber Knopfgroesse, Raster 24
 	var s := size.x * 0.5
 	var u := s / 24.0
 	var o := m - Vector2(s, s) / 2
-	var c := HELL
+	var c := Color(RAND, 0.45) if matt else HELL
 	var dick := 1.6 * u
 	var duenn := 1.1 * u
 	var P := func(x: float, y: float) -> Vector2: return o + Vector2(x, y) * u
@@ -79,6 +80,23 @@ func _draw() -> void:
 			draw_style_box(sb, b)
 			zug.call([Vector2(11, 16), Vector2(7, 20.5), Vector2(8, 16)])
 			for x in [8.0, 12.0, 16.0]: punkt.call(x, 10, 0.9)
+		"REST":
+			# 390 (ActionSigns.REST): eine Flamme ueber zwei gekreuzten Scheiten
+			var qb := func(p0: Vector2, p1: Vector2, p2: Vector2) -> Array:
+				var pts: Array = []
+				for i in range(1, 13):
+					var t := i / 12.0
+					pts.append(p0.lerp(p1, t).lerp(p1.lerp(p2, t), t))
+				return pts
+			var flamme: Array = [Vector2(12, 3)]
+			flamme.append_array(qb.call(Vector2(12, 3), Vector2(18, 10), Vector2(12, 15.5)))
+			flamme.append_array(qb.call(Vector2(12, 15.5), Vector2(6, 10), Vector2(12, 3)))
+			zug.call(flamme)
+			var kern: Array = [Vector2(12, 8.5)]
+			kern.append_array(qb.call(Vector2(12, 8.5), Vector2(14.5, 12), Vector2(12, 14)))
+			kern.append_array(qb.call(Vector2(12, 14), Vector2(9.5, 12), Vector2(12, 8.5)))
+			zug.call(kern, false, duenn)
+			l.call(5, 20.5, 19, 16.5); l.call(5, 16.5, 19, 20.5)
 		"OPEN":
 			# eine Truhe: Kasten, gewoelbter Deckel, Baender, Schloss
 			zug.call([Vector2(3, 11.5), Vector2(21, 11.5), Vector2(21, 20.5), Vector2(3, 20.5)], true)
@@ -88,3 +106,23 @@ func _draw() -> void:
 			l.call(7.5, 5.6, 7.5, 11.5, duenn); l.call(16.5, 5.6, 16.5, 11.5, duenn)
 			zug.call([Vector2(10, 10), Vector2(14, 10), Vector2(14, 15), Vector2(10, 15)], true)
 			punkt.call(12, 12.6, 0.9)
+		"ACT":
+			# 399.1 (ActionSign.ACT, Klassisch): ein Funke, vier Spitzen
+			zug.call([Vector2(12, 3), Vector2(14, 10), Vector2(21, 12), Vector2(14, 14), Vector2(12, 21), Vector2(10, 14), Vector2(3, 12), Vector2(10, 10)], true)
+		"NEXT":
+			# ActionSign.NEXT: zwei Winkel nach rechts
+			zug.call([Vector2(6, 6), Vector2(12, 12), Vector2(6, 18)])
+			zug.call([Vector2(12, 6), Vector2(18, 12), Vector2(12, 18)])
+		"RUN":
+			# ActionSign.RUN: ein Stiefel, Schaft und Sohle, drei Striche Tempo dahinter
+			var stiefel: Array = [Vector2(10, 3), Vector2(16, 3), Vector2(16, 11.5)]
+			for i in range(1, 9):
+				var t := i / 8.0
+				stiefel.append(Vector2(16, 11.5).lerp(Vector2(21, 12.5), t).lerp(Vector2(21, 12.5).lerp(Vector2(21.5, 17), t), t))
+			stiefel.append_array([Vector2(21.5, 19.5), Vector2(10, 19.5)])
+			for i in range(1, 9):
+				var t := i / 8.0
+				stiefel.append(Vector2(10, 19.5).lerp(Vector2(8.5, 19), t).lerp(Vector2(8.5, 19).lerp(Vector2(9, 16.5), t), t))
+			zug.call(stiefel, true)
+			l.call(10, 6.5, 16, 6.5, duenn); l.call(9.5, 17, 21.5, 17, duenn)
+			l.call(2.5, 8, 6.5, 8); l.call(1.5, 12, 6.5, 12); l.call(2.5, 16, 6, 16)

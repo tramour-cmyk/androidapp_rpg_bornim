@@ -40,6 +40,29 @@ Quellseite: <https://quaternius.itch.io/universal-animation-library>. Lizenz lau
 
 **Was fehlt:** Abwechslung, nämlich mehrere Stehvarianten, Gesten (Hände in die Hüfte, Arme verschränken), mehrere Angriffe je Waffe und eigene Treffer und Tode (Chef 26.10., 11:42).
 
+## Bewegungen gegen Geld: Protofactor-Animsets (385, Chef 27.10., 20:52–20:59)
+
+Chef: „Zauberer, den finde ich genial“; „ziemlich gut und weich und geschmeidig und für fast alle Situationen. Aber halt Mensch“; „wenn das technisch nutzbar ist für uns“. Alle: Bewegungserfassung (Motion Capture), Unity „Mecanim Humanoid“, Lizenz Standard Unity Asset Store EULA (andere Engines erlaubt, siehe Lizenzen unten), Single Entity. Inhalte aus den Store-Seiten, im Browser gelesen 27.10., 20:5x (Sokrates; ein Helfer sah per Abruf nur leere Beschreibungen); Preise in $ ohne Steuer (Chef sah den Zauberer für 18,39, wohl Euro mit Steuer). Liste aller 24 Sets: Store-Suche „animset“, Anbieter Protofactor (Chef 21:00).
+
+| Set | $ | Inhalt laut Seite | wofür bei uns |
+|---|---|---|---|
+| Wizard | 19,98 | über 100: Stehen, Gehen, Ducken, Rennen, Zauber, Treffer, Tod | Magier, Kleriker, Goblin-Schamane |
+| Sword & Shield | 24,99 | ungelesen | Kämpfer, Jorin (Schildabwehr fehlt in der UAL) |
+| 1 Handed Melee Weapon | 19,98 | ungelesen | Kämpfer, Schurke, Goblins (Stich fehlt in der UAL) |
+| 2 Handed Melee Weapon | 19,98 | ungelesen | Krogg (Morgenstern), Grak |
+| Dual Swords | 24,99 | 185: Stehen, Gehen, Rennen, Ducken, Angriffe, Treffer, Parade | Schurke |
+| Bow & Arrow | 24,99 | ungelesen | Goblin-Späher, Waldläufer |
+| Campfire | 14,99 | 25: Stehen, Feuer anzünden, Rasten, Schlafen; dazu Lagerfeuer und Spieß | Garrick, Rast im Wald |
+| Crowd | 34,99 | ungelesen | Dorfleben |
+| Injured | 19,98 | ungelesen | Verwundete (72c) |
+| Female Basic Locomotion | 19,98 | ungelesen | Frauen im Dorf |
+| Zombie | 19,98 | 56 (20 mit Wurzelbewegung): Stehen, Gehen, Angriff, Fressen, Treffer, Tod | Untote; Wiedergänger hat eigene 34 (348.12c) |
+| vielleicht | 9,99–24,99 | Basic Locomotion, Fencing, Combat Bare Fists, Creature, Hostage | Raufen in der Schänke, Lyra verschleppt |
+| nicht | 19,98–29,99 | Climbing, Push & Pull Cube, sechs Schusswaffen-Sets | – |
+| Ultimate Animation Collection | 259,99 | alle 24 Sets, über 2.400 Bewegungen | die zehn oben zusammen kosten einzeln etwa 225 $ |
+
+**Offen (technisch):** Übertragen von „Mecanim Humanoid“ auf unsere Körper in Godot (Kaufkörper 376.1, UAL-Gerüst, CC0-Goblin); erst an einem Set prüfen, dann mehr kaufen.
+
 ## Eigene Bewegungen: drei Wege
 
 Das Gerüst gehört uns. Jede selbstgebaute Bewegung läuft darauf wie eine gekaufte (Chef 26.10., 11:47: „können wir die Bewegungen nicht selbst bauen … Garrick am Feuer …?“).
@@ -168,7 +191,7 @@ Auftrag des Chefs (26.10., 11:59): Pakete auch gegen Geld, wenn der Verkauf des 
 - **Unity Asset Store** [G]: andere Engines erlaubt (Hilfeseite Unity), „Extension Asset“ = ein Platz, höchstens 2 Rechner; Ausnahme „Restricted Assets“.
 - **Fab Standard** [S, EULA gesperrt]: nicht auf Unreal beschränkt, außer „UE-Only“.
 - **Sketchfab Standard** [G]: Engine frei, Verkauf ja, nicht als Einzeldatei weitergeben; „Editorial“ verbietet Verkauf.
-- **Protofactor EULA** [G]: verkaufte Echtzeitanwendungen frei, „single computer“; Lieferung als Unity-, UE4-Paket und Rohdateien.
+- **Protofactor EULA** [G]: verkaufte Echtzeitanwendungen frei, „single computer“; Lieferung als Unity-, UE4-Paket und Rohdateien. Umbau erlaubt (1e, gelesen 26.10., 16:1x): „modify the content (bigger alteration of the model's geometry, UVs, textures, rig, animations etc…)“; Umbauten bleiben Eigentum von Protofactor, nie einzeln weiterverkaufen. Varianten im eigenen Spiel also frei.
 - **RenderHub „Extended Use“** (MadeCG) [G]: Handyspiele ausdrücklich, Firma, unbegrenzt.
 - **Mixamo** [S, Adobe-Seite gesperrt]: Spiele frei, nur Rohdateien nicht weitergeben; nur Zweibeiner.
 - **Alle außer CC0 verbieten die Weitergabe der Rohdateien**; unser Repo ist öffentlich (109). Bezahlte Rohdateien nur in ein privates Repo.
@@ -199,3 +222,88 @@ Auftrag des Chefs (26.10., 11:59): Pakete auch gegen Geld, wenn der Verkauf des 
 **Nicht gefunden:** Goblin-Schamane, Bugbear, Stirge, Ockergallerte, Libelle in passendem Stil. CGTrader, TurboSquid, Humble Bundle, Fab und Poly Pizza sperrten den Abruf.
 
 **Folgerung (Sokrates):** Protofactor ist der einzige Anbieter mit durchgehend düsterem, glaubwürdigem Stil, aber für den PC gebaut. Erst eine Probe (Ratte, 7.650 Dreiecke, kaum Ausdünnen), dann der Rest. Ghul und Hundertfüßer im Abschnitt „Folgerung“ oben (Eigenbau) sind damit überholt, falls der Chef 348.12c b billigt.
+
+### Bestand: gekauft und hochgeladen
+
+Steht jetzt nach Art geordnet in [`LISTE-BESTAND.md`](LISTE-BESTAND.md) (377.1, 27.10., 14:3x); dort nachsehen und eintragen. Die alte Tabelle je Datei steht in Git (vor „Sokrates: 377.1 Inventur eingestellt“).
+
+
+### Dinge und Waffen (348.12h, Helfer 26.10., 16:27)
+
+Liste: `LISTE-UMZUG-348.md` „Dinge im Dorf“, „Möbel der Grundrisse“, „Ausrüstung“ (rund 74 Posten). „[Bild]“ = Vorschau gesehen; Dreiecke bei Quaternius und Kenney aus den OBJ gezählt.
+
+| Paket | Fundstelle | Lizenz | Preis | Deckt ab | Dreiecke | Stil | Eignung |
+|---|---|---|---|---|---|---|---|
+| Quaternius Fantasy Props MegaKit | quaternius.com/packs/fantasypropsmegakit.html | CC0 | Standard frei; Pro 9,99 $ (Inhalt ungeprüft) | Möbel etwa 15/20, Dorf 4 (Stand, Wandlaterne, Bank, Fass), Fackel, Buch, Holzschild | Amboss 750, Fass 824, Bett 1600, Regal 2148, Truhe 2546, Laterne 2822, Tisch 986 | neutral, leicht überzeichnet [Bild] | gut (Möbel) |
+| Tedium „melee weapons 0“ | opengameart.org/content/melee-weapons-0 | CC0 | frei | 11/21 Waffen | sehr wenige (ungezählt) | glaubwürdig, schlicht [Bild] | gut |
+| System G6 „medieval weapon pack“ | opengameart.org/content/medieval-weapon-pack | CC0 | frei | Bogen, Armbrust, Stab, Zauberstab, Schild, Buch | 36–198 (Autor) | ungeprüft | ungeprüft |
+| Poly Haven | polyhaven.com | CC0 | frei | etwa 12 (Fass, Laterne, Wappenschild, Stumpf …) | hoch, stark ausdünnen | Fotoscan (ungeprüft) | mit Umbau |
+| Quaternius Medieval Village | quaternius.com | CC0 | frei | 3 (Wagen, Zaun, Kiste) | – | handgemalt [Bild] | wenig Nutzen |
+| Kenney Survival Kit | kenney.nl | CC0 | frei | etwa 8 | 56–900 | ungeprüft | mit Umbau |
+| Quaternius Medieval Weapons; Kenney Fantasy Town; KayKit | – | CC0 | frei | – | – | niedlich, Spielzeug [Bild] | nein |
+| Synty POLYGON Fantasy Kingdom | syntystore.com | EULA: jede Engine, unbefristet; Quelldateien nur im Team; **KI-Klausel** („third party services for … 3D model generation“, „datasets utilised by Generative AI“) | 349,99 $ | vermutlich über 50 | – | glaubwürdig, kantig [Bild] | nein (Preis, KI-Klausel) |
+
+**Folgerung (Sokrates):** CC0 deckt etwa 40 von 74 (Quaternius Props für Möbel, Tedium und G6 für Waffen, Poly Haven als Lückenfüller); kein Kauf nötig. Fehlt danach: Ziehbrunnen, Schlagbaum, Anschlagbrett, Waschzuber, Netz, Heu, Gasthausschild, Brücke, Bäume; Altar, Kamin, Lehnstuhl, Theke; rapier, morningstar, greatsword, greataxe, maul, longbow; Turmschild, Kugel, heiliges Symbol (Eigenbau `dorf.py`, `waffen.py`). **Stärkstes Gegenargument:** der Shader gleicht Farbe an, nicht Form; drei Formensprachen geben ungleich dichte Tusche. Darum fremd nur, wo viele gleiche Teile stehen (Möbel, Kram, Waffen); erst Probeblatt mit Tusche 348.13 nach der Rattenprobe.
+
+### Stufe 2: weg von D&D (26.10., 15:1x)
+
+Anlass: Chef 15:04 (Vorgangsarchiv „348.12c, Monster“): Modell zählt, nicht die D&D-Vorlage. Zwei Helfer: ganzer Protofactor-Katalog (Kreaturen, Humanoide, Tiere, Pakete; Produktseiten einzeln geöffnet) und andere Anbieter (RenderHub-Lizenz im Wortlaut gelesen). Sci-Fi, Meerestiere, Afrika, Comic ausgeschlossen. [G] bei RenderHub = Vorschaubild gesehen; bei Protofactor nur Seitentext.
+
+**Lizenz RenderHub „Extended Use“** [G, `renderhub.com/info/3d-content-licensing` III]: „non-exclusive, perpetual, worldwide“, Spiele ausdrücklich, ohne Umsatzgrenze, ohne Nennung; Artikel mit „Editorial Use Only (IP Restricted)“ ausgenommen (keiner der unten).
+
+**Protofactor, handytauglich (unter etwa 14.000 Dreiecke), düster:**
+
+| Modell | $ | Dreiecke | Bewegungen | Seitentext |
+|---|---|---|---|---|
+| Death Skull | 19,99 | 3.600 | 12 | fliegender Totenschädel |
+| Crasc | 19,99 | 4.650 | 21 | Höhlenfischmonster, Giftstachel |
+| Giant Viper | 14,99 | 4.520 | 21 | Riesenviper |
+| Darkness Spider | 19,99 | 6.200 | 22 | Monsterspinne |
+| Mummy | 24,99 | 10.700 | 44 | Mumie, Gruft |
+| Skeleton Knight | 24,99 | 10.600 | 62 | Skelettritter |
+| Golem | 34,99 | 11.200 | 38 | Steingolem |
+| Giant Slug | 24,99 | 11.240 | 28 | schleimige Riesenschnecke |
+| Basilisk | 24,99 | 11.300 | 19 | Hahn-Schlange |
+| Hellrot | 24,99 | 13.100 | 37 | fliegender Dämon, Klauen |
+| Giant Worm | 39,99 | 13.500 (Brut 1.500) | 36 | Riesenwurm mit Brut |
+| Demon Minion | 24,99 | 13.620 | 21 | kleiner Dämon |
+
+**Protofactor, größer (ausdünnen):** Ghoul 24,99 $ 19.200/33, Fungoid (Pilzleiche) 24,99 $ 16.000/38, Undead 24.600/55, Undertaker 18.000/27, Vampire 15.150/33, Barghest (Friedhofshund) 19.170/19, Werewolf 14.900/26, Werehog 14.730/30, Weregoat 27.620/33, Troll 16.400/31, Witch 20.400/17, Cavecrawler 21.000/24, Giant Beetle 21.300/18, Giant Scorpion 19.900/31, Gargoyle 17.800/47, Evil Watcher 16.830/16, Oak Tree Ent 36.060/44; je 24,99–34,99 $. Rüstung als Baukasten nur beim Zwerg (44,99 $). Rigs sind Unity-Generic; Import nach Godot zeigt die Rattenprobe.
+
+**Mengenrabatt Protofactor** (Bundle-Seite): 3–4 Teile 10 %, 5–6 20 %, 7–9 30 %, 10–19 40 %, 20–29 50 %, ab 30 60 %; nicht während Sonderaktionen. Pakete (Inhalt nicht geöffnet): Monster Pack Vol 1–18 je 84,99–94,99 $, Were Creatures 119,99 $, Demons Vol 1 84,99 $, Horror-Reihe „MONSTER: …“ (rund 130 Teile) als Alien und Körperhorror ausgeschlossen.
+
+**Andere Anbieter (RenderHub, Extended Use):**
+
+| Modell | Anbieter, $ | Dreiecke | Bewegungen | Aussehen [G] |
+|---|---|---|---|---|
+| 20 Creatures Mega Pack | Maksim_Bugrimov, 29,99 (sonst 49,99; Frist etwa 04.11.) | 4.526–9.444 je | 198 (8–12 je) | bleiche, sehnige Fleischwesen, Hörner, Klauen, Kokon |
+| Evil Undead | Wernerkurt, 35 | 13.350 | 34 | ausgemergelte Leiche, Schädelkopf, Glutaugen |
+| Corrupted Rat 01 | Game-Ready Studios, 17,99 (Frist etwa 30.10.) | 1.958 | 21; 4 Körper (heil bis zerfetzt) | haarlose Riesenratte, Eiterbeulen |
+| Arachnid Monster | Game-Ready Studios, 17,99 (Frist etwa 30.10.) | 3.276 | 22 | klingenbeinige Chitinspinne |
+| Mobile Leeches Collection | Game-Ready Studios, 17,99 (Frist etwa 30.10.) | 800 (4 Netze) | 10 | gepanzerte Blutegel, rot glühende Ringe |
+| Wood Monster | Tanchik, 30 | unbekannt (9.744 Flächen) | 7 | lebender Baumstumpf, Glutaugen, Pilze |
+| Hell Dog Monster | Coffeemill, 12,59 | 11.144 | 25 | augenloser Fleischhund, Hauer |
+| Reptile Beast | Tselueva, 29 | 13.055 | 18 | graue Krötenechse, Zahnmaul |
+| Monster Flesh | Coffeemill, 12 | 19.962 | 31 | aufgeplatzter Fleischkoloss |
+
+Nicht abrufbar: gamedevmarket (403), CGTrader, TurboSquid, Fab, Poly Pizza; Sketchfab-Store geschlossen (Verkauf jetzt über Fab); ArtStation, Kenney, itch ohne Treffer mit Lizenz, Skelett und Bewegungen.
+
+Vorlage an den Chef: Chefsache 348.12c (Stufe 2).
+
+### Quaternius-Bausätze (Chef 27.10., 12:00, Vorgang 376; vier Helfer, Downloads geprüft)
+
+| Paket | Lizenz (Seite und Datei) | Befund | Eignung |
+|---|---|---|---|
+| Medieval Village MegaKit (Standard frei, 176 Teile) | CC0 | Wände Putz/Bruchstein, Fachwerk, Ecken, Böden, Hohlziegel- und Holzdächer, Gauben, Vorkragungen, Balkone, 4 Innentreppen, Außentreppen; Raster 2,0 m, Wand 3,12 m hoch (×1,16 = 2 Kacheln, 3,6 m hoch); Wand 56–166, Dach 2.000–6.400 Dreiecke; gemalte Bahnen mit UV, also unsere Texturen möglich; streng rechtwinklig; bunt, märchenhaft, Hohlziegel südländisch, Detail dichter als unser Dorf. Wohl dasselbe wie „Medieval Village“ oben | Teile, nicht ganze Häuser: Treppen, Vorkragung, Gauben, Innenböden; nur nach Probehaus |
+| Stylized Nature MegaKit (Standard frei, 68 von 116) | CC0 | Bäume 1.600–10.100 Dreiecke (zu schwer), grell, „Ghibli-inspired“; Felsen 244–522, Kiesel, Pilze (880), Farn, Totholz; UV und gemalte Texturen, Blattkarten teils weiß | Felsen, Kiesel, Pilze, Farn für Wald; Bäume nein |
+| 150 Lowpoly Nature Models | CC0 | keine UVs, nur Flächenfarben, harte Kanten, Comic | nein |
+| Lowpoly Modular Dungeon Pack (48 Teile, 2019) | CC0 | keine UVs, Flächenfarben, Raster 2 m, spielzeughaft; kein Naturfels | nein; Fackel, Gitter, Truhe als Rohform höchstens nach dem Meilenstein |
+| Modular Character Outfits – Fantasy (Source 20 $) und Universal Base Characters (Source 19,99 $) | CC0 (Seite, `License_Standard.txt`) | Gerüst wie unsere Leute (65 Knochen); Befund und Votum in Chefsache 376 „Figuren“ (Git) | gekauft 12:20, Probeblatt 376.1 |
+
+Chef 27.10., 12:42 „376 ja“: aus dem Dorfbausatz nur ein Probehaus (Tom), Natur wie oben, die beiden „nein“ gelten.
+
+**RenderHub „Asset Pack Vol 10 – Modular Dungeon Interior“** (JuanChee, 7 $, Extended Use; Chef 27.10., 12:34 „checken“): 40 Teile, 18 fertige Hallen, 16.686 Dreiecke gesamt, 4096-px-Atlas PBR (fotografisch abgenutzt), glTF dabei. Gemauert (Quader, Holz, Eisen), Rundbogentüren, Gittertür, Doppeltor, Treppen, Säulen, Fackel und Kerze mit Bildfolge; Fässer, Truhen, Kisten, Säcke, Tisch, Bank, Hocker, Spinnennetz, Trümmer. Kein Naturfels, also nicht für die Blutzahnhöhle; gemauerte Verliese hat Kapitel 1 nicht (48 Dungeons nach dem Meilenstein). Votum noch nicht: Requisiten erst gegen 348.12h (CC0) abgleichen; Fototexturen gegen „Farbe gemalt“ (Modellregel 6).
+
+**RenderHub „Medieval Market Asset Pack“** (MagicCGIStudios, frei, Extended Use; Chef 27.10., 12:37 „check“): 100 Dinge, 127.056 Polygone gesamt (im Mittel etwa 1.300), nur .blend (Blender 2.79), Texturen 2K/1K PBR, realistisch gerendert. Brunnen offen in der Mitte, Satteldach auf zwei Pfosten, Kurbelwalze; 4 Marktstände, Dach auf vier Eckpfosten mit Streben (beides Chefbefund 25.10., 18:06); Kisten mit Obst und Gemüse, 16 Holzfässer, Körbe, Heu- und Fasswagen, Tische mit Käse, Brot, Fleisch, Flaschen, Holzstapel, Strohballen. Gegen: Fototexturen, Stoffe bunt wie Jahrmarkt. Votum ja: Chef lädt (Anmeldung nötig) ins private Repo; Tom nimmt Brunnen und Stände als Form, unsere gemalten Farben.
+
+**Hinweis des Herstellers zur Source-Fassung** (Chef 27.10., 12:19, „Zum Merken“): Der erste Start eines Projekts dauert länger, weil die Zwischendateien fehlen. Modelle mit Skelett als glTF nehmen, nie als FBX: FBX aus Blender bringt wegen eines Einheitenfehlers falsche Maße und kann das Übertragen der Bewegungen (Retargeting) brechen. Darum auch beim Wiederausgeben glTF; Import: die `.gltf` hineinziehen. Gekaufte Rohdateien nur im privaten Zweit-Repo (CLAUDE.md „Fremde Inhalte“).

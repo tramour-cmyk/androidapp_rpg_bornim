@@ -23,6 +23,9 @@ var fackel: OmniLight3D
 var flamme: MeshInstance3D
 var kachel := Vector2i(-1, -1)
 var zeit := 0.0
+var ruhe := "Stehen"                  # 397: jetzige Ruhebewegung (Gebiet.ruhe_naechste)
+var ruhe_bis := -1.0
+var ruhe_zufall := RandomNumberGenerator.new()
 var gestossen := Vector2i(-1, -1)
 var stoss_zeit := -9.0
 var leute: Array = []                  # Leute der Karte (spiel.gd): durch sie geht er nicht
@@ -52,7 +55,7 @@ func _ready() -> void:
 		faust_griff = Vector3(fa["griff"][0], fa["griff"][1], fa["griff"][2])
 		faust_achse = Vector3(fa["achse"][0], fa["achse"][1], fa["achse"][2])
 	anim = Gebiet.finde(modell, "AnimationPlayer") as AnimationPlayer
-	if anim: Gebiet.bewegungen(anim, ["Gehen", "Stehen", "Rennen", "Gehen_Fackel", "Stehen_Fackel", "Rennen_Fackel"])
+	if anim: Gebiet.bewegungen(anim, ["Gehen", "Stehen", "Rennen", "Gehen_Fackel", "Stehen_Fackel", "Rennen_Fackel", "Stehen_2", "Stehen_3", "Stehen_2_Fackel", "Stehen_3_Fackel"])
 	if anim: anim.play("Stehen")
 	baue_fackel()
 
@@ -63,13 +66,29 @@ func setze(t: Vector2i, blick := "DOWN") -> void:
 	kachel = t
 	steht_auf.emit(t)
 
-func geh_zu(ziel: Vector3) -> void:
+# 390 (Rast: Wiederkehrort wie Place.facing): die naechste der vier Richtungen von setze
+func blick() -> String:
+	var w := wrapf(rotation.y, -PI, PI)
+	if absf(w) <= PI / 4: return "DOWN"
+	if absf(w) >= 3 * PI / 4: return "UP"
+	return "RIGHT" if w > 0 else "LEFT"
+
+func geh_zu(ziel: Vector3) -> bool:
 	var b := karte.pos_kachel(ziel)
 	var ids := karte.weg(karte.pos_kachel(position), b)
 	weg.clear()
-	if ids.is_empty(): return
+	if ids.is_empty(): return false   # 399.1: kein Weg, die Welt ruettelt (WorldScreen route == null)
 	for k in range(1, ids.size()): weg.append(karte.kachel_pos(ids[k]))
 	if weg.is_empty(): weg.append(karte.kachel_pos(b))
+	return true
+
+# 390: stehen bleiben (vor einer angetippten Person)
+func halt() -> void: weg.clear()
+
+func sperrer(p: Vector3) -> Leute:
+	for l in leute:
+		if is_instance_valid(l) and l.sperrt(p): return l
+	return null
 
 func frei(p: Vector3) -> bool:
 	if not karte.begehbar(karte.pos_kachel(p)): return false
@@ -109,8 +128,24 @@ func _process(dt: float) -> void:
 			var step := d * minf(rest, 0.08)
 			rest -= step.length()
 			var np := position + step
-			if frei(np) and frei(np + d * RAND):
+			var vorn_frei := frei(np) and frei(np + d * RAND)
+			# Test 139.7: steht jemand vorn im Weg, ist er gemeint, auch wenn der Held schraeg an ihm entlang gleitet (die Kamera blickt
+			# schraeg, der Joystick zeigt selten genau entlang der Kacheln); spiel.gd _schiebt entscheidet, ob er zur Seite tritt
+			var gegen := false   # ungefaehr auf die Person zu (bis 60 Grad): er bleibt vor ihr stehen, statt um sie herumzugleiten
+			if not vorn_frei:
+				var wer := sperrer(np + d * RAND)
+				if wer == null: wer = sperrer(np)
+				if wer:
+					var zu := Vector3(wer.position.x - position.x, 0, wer.position.z - position.z)
+					gegen = zu.length() < 0.05 or d.dot(zu.normalized()) > 0.5
+					if wer.kachel != gestossen or zeit - stoss_zeit > 2.0:
+						gestossen = wer.kachel; stoss_zeit = zeit
+						stoesst.emit(wer.kachel)
+			if vorn_frei:
 				position = np
+			elif gegen:
+				weg.clear()
+				break
 			elif absf(step.x) > 1e-5 and frei(position + Vector3(step.x + signf(step.x) * RAND, 0, 0)):
 				position.x += step.x
 			elif absf(step.z) > 1e-5 and frei(position + Vector3(0, 0, step.z + signf(step.z) * RAND)):
@@ -118,6 +153,8 @@ func _process(dt: float) -> void:
 			else:
 				weg.clear()
 				var vor := karte.pos_kachel(position + d * (RAND + 0.05))
+				var wer := sperrer(np + d * RAND)   # vor einer breiten Person (Rind) stand der Held noch auf der eigenen Kachel
+				if wer: vor = wer.kachel
 				if vor != gestossen or zeit - stoss_zeit > 2.0:
 					gestossen = vor; stoss_zeit = zeit
 					stoesst.emit(vor)
@@ -129,15 +166,22 @@ func _process(dt: float) -> void:
 		if not moving: tempo_jetzt = 0.0
 		var geh_t := karte.gehen * Karte.TS / karte.schritt(karte.pos_kachel(position))
 		var rennt := moving and renn > 0.0 and tempo > geh_t * 1.45
-		var want := ("Rennen" if rennt else "Gehen") if moving else "Stehen"
-		if fackel and fackel.visible and anim.has_animation(want + "_Fackel"): want += "_Fackel"
+		if moving: ruhe = "Stehen"; ruhe_bis = -1.0
+		elif ruhe_bis < 0.0: ruhe_bis = zeit + anim.get_animation("Stehen").length * ruhe_zufall.randi_range(2, 4)
+		elif zeit >= ruhe_bis:
+			var r := Gebiet.ruhe_naechste(anim, ruhe, ruhe_zufall)
+			ruhe = r[0]; ruhe_bis = zeit + float(r[1])
+		var want := ("Rennen" if rennt else "Gehen") if moving else ruhe
+		if fackel and traegt_fackel:
+			if anim.has_animation(want + "_Fackel"): want += "_Fackel"
+			elif not moving: want = "Stehen_Fackel" if anim.has_animation("Stehen_Fackel") else "Stehen"   # Fackel bleibt in der Hand
 		var cur := anim.current_animation
 		if cur != want:
 			# Gehen <-> Rennen im selben Schritt (beide beginnen mit dem rechten Fuss vorn) und laenger ueberblendet
 			var phase := anim.current_animation_position / maxf(0.001, anim.current_animation_length) if cur != "" else 0.0
 			var schritt := cur.begins_with("Gehen") or cur.begins_with("Rennen")
 			# Runde 5 (Helfer Runde 3: „Haltung springt beim Anlaufen in 0,1 s“): Gehen <-> Rennen 0,6 s (Rumpf neigt sich weich; 0,45: in 1/15 s 9 Grad), aus dem Stehen 0,25 s
-			anim.play(want, 0.6 if schritt and moving else 0.25)
+			anim.play(want, 0.6 if schritt and moving else (0.5 if cur.begins_with("Stehen") else 0.25))   # 397: Ruhe in Ruhe weich
 			if schritt and moving: anim.seek(phase * anim.get_animation(want).length)
 		anim.speed_scale = (tempo / (renn if rennt else gang)) if moving else 1.0
 	var k := karte.pos_kachel(position)
@@ -148,25 +192,34 @@ func _process(dt: float) -> void:
 	if flamme:
 		var innen := flamme.get_child(1) as Node3D
 		innen.scale = Vector3.ONE * (0.85 + 0.2 * sin(zeit * 17.0 + 1.3))
-	if fackel and fackel.visible: richte_fackel()   # Runde 5b: erst nach dem Schritt (vorher blieb die Fackel ein Bild zurueck)
+	if fackel and traegt_fackel: richte_fackel()   # Runde 5b: erst nach dem Schritt (vorher blieb die Fackel ein Bild zurueck)
 
 func geht() -> bool:
 	return weg.size() > 0 or richtung.length() > 0.15
 
 # ---------------------------------------------------------------- Fackel (nachts), in der linken Hand
 var fackel_kraft := 0.0
+var traegt_fackel := false   # 399.1 Light.torch: nur mit einer Fackel in der Nebenhand (vorher nachts immer)
+var im_raum := false         # Light.burns (344.1, Chef 23.10.): in Haeusern, Schenke, Laden, Tempel ohne Flamme gehalten
+var nacht_k := 0.0
+
+# 344.1: die Fackel brennt ueberall ausser in einem Raum, Tag und Nacht; ihr Licht zaehlt nur im Dunkeln (Staerke nach der Nacht)
+func fackel_neu(traegt: bool, raum: bool) -> void:
+	traegt_fackel = traegt; im_raum = raum
+	nacht(nacht_k)
 
 var mats: Array = []   # Held im Schatten nicht nur Umriss (Probe Build 11), nachts nicht (sonst leuchtet er)
 
 func nacht(k: float) -> void:
+	nacht_k = k
 	fackel_kraft = 2.2 * k
 	for m in mats:
 		(m as ShaderMaterial).set_shader_parameter("fill", 0.42 * (1.0 - k))
 		(m as ShaderMaterial).set_shader_parameter("kette_umgebung", lerpf(1.0, 0.7, k))
-	if fackel:   # ganze Fackel weg am Tag (Helfer Runde 3: Stiel blieb in der Hand, wirkte wie ein Knueppel)
-		(fackel.get_parent() as Node3D).visible = k > 0.02
-		fackel.visible = k > 0.02
-		flamme.visible = k > 0.02
+	if fackel:
+		(fackel.get_parent() as Node3D).visible = traegt_fackel
+		flamme.visible = traegt_fackel and not im_raum
+		fackel.visible = traegt_fackel and not im_raum and k > 0.02
 
 func baue_fackel() -> void:
 	var sk := Gebiet.finde(modell, "Skeleton3D") as Skeleton3D
@@ -240,6 +293,9 @@ func baue_fackel() -> void:
 	fackel.omni_attenuation = 2.0
 	fackel.light_cull_mask = 0xFFFFF & ~2
 	t.add_child(fackel)
+	fackel.set_meta("reich", 4.0)   # 348.13b: Tusche nach der Fackel (am Tag unsichtbar, zaehlt dann nicht)
+	fackel.set_meta("kraft", 1.0)
+	fackel.add_to_group("tuschelicht")
 	nacht(0.0)
 
 func richte_fackel() -> void:

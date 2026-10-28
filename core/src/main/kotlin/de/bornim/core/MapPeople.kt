@@ -76,6 +76,17 @@ object MapPeople {
         "elder" to T("Ältester", "Elder"), "temple" to T("Tempel", "Temple"),
     )
 
+    /** 399.1: every house that can get a name on a map, known or not (the Godot game asks its own flags, [houses]). */
+    fun allHouses(): List<House> {
+        val out = ArrayList<House>()
+        for (m in World.maps.values) for (w in m.warps) {
+            val inside = World.maps[w.to.map]
+            if (inside != null && inside.kind == MapKind.INTERIOR && m.kind != MapKind.INTERIOR) out += House(m.id, w.x, w.y, shortNames[inside.id] ?: inside.name, inside.id)
+            else if (m.id == "village") homes[w.x to w.y]?.let { out += House(m.id, w.x, w.y, it) }
+        }
+        return out
+    }
+
     /** The houses whose names the hero knows, on every map. */
     fun houses(s: GameState): List<House> {
         val out = ArrayList<House>()

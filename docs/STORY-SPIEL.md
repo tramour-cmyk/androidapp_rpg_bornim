@@ -332,8 +332,13 @@ EN: Stab: a plain blow, without a ring. Helps: Defend gives it disadvantage; usu
 `[210T.stab.eingebung]` Nur ein Stich. Dafür lohnt kein Ausweichen.
 EN: Just a stab. Not worth dodging.
 
-`[210T.flank]` Flanke: er läuft um die Reihe und sticht eine Figur hinten, ohne Deckung. Hilft: die Figur wechselt die Reihe, dann sticht er ins Leere; oder jeder Treffer auf ihn, auch ein leichter.
-EN: Flank: he runs round the line and stabs a figure at the back, without cover. Helps: that figure changes places and he stabs at nothing; or any hit on him, however light.
+`[210T.hieb]` (348.12, Chef 27.10., 09:49 „Ansage über Homer“: Goblin mit Krummsäbel oder Beil sagt „Hieb“ an statt „Stich“; beim Umzug für alle: Waffen nach Schadensart Hieb, Stich, Schlag, Tiere mit eigenem Namen wie Biss, Klauen, Hauer) Hieb: ein einfacher Schlag, ohne Ring. Hilft: Abwehr gibt ihm Nachteil; meist lohnt der eigene Angriff mehr.
+EN: Slash: a plain blow, without a ring. Helps: Defend gives it disadvantage; usually your own attack is worth more.
+`[210T.hieb.eingebung]` Nur ein Hieb. Dafür lohnt kein Ausweichen.
+EN: Just a slash. Not worth dodging.
+
+`[210T.flank]` Flanke: er läuft um die Reihe und schlägt eine Figur hinten, ohne Deckung. Hilft: die Figur wechselt die Reihe, dann schlägt er ins Leere; oder jeder Treffer auf ihn, auch ein leichter. (348.12: „schlägt“ statt „sticht“)
+EN: Flank: he runs round the line and strikes a figure at the back, without cover. Helps: that figure changes places and he strikes at nothing; or any hit on him, however light.
 `[210T.flank.eingebung]` Er will hintenrum. Ein Kratzer hält ihn auf, ein Wechsel der Reihe auch.
 EN: He means to go round. A scratch stops him, and so does a change of place.
 
@@ -348,6 +353,16 @@ EN: It crouches to leap. Whoever no longer stands there is not struck.
 EN: Circle: every wolf bites the same figure at once. Helps: any hit on the wolf that calls it, however light, scatters the pack.
 `[210T.circle.eingebung]` Der eine führt das Rudel. Den treffen, egal wie leicht.
 EN: That one leads the pack. Hit it, however lightly.
+
+`[210T.growl]` (399.2b, Chef 28.10., 15:32: Jungwölfe beißen wie alt nur zu 50 % je Runde; Ansagezeichen „…“) Knurren: der Jungwolf greift diese Runde nicht an. Hilft: Zeit für einen Schlag auf den großen Wolf.
+EN: Growl: the young wolf does not attack this round. Helps: time to strike at the big wolf.
+`[210T.growl.eingebung]` Der Junge traut sich nicht. Erst der Große.
+EN: The young one holds back. The big one first.
+
+`[399.2b.knurrt]` Zeile im Zug, eine der drei nach Zufall; {0} = Name mit Artikel wie in `mars_texte.gd`:
+- {0} knurrt, wagt aber keinen Biss. / EN: {0} snarls but dares no bite.
+- {0} duckt sich und fletscht die Zähne, kommt aber nicht heran. / EN: {0} crouches and bares its teeth, but does not come in.
+- {0} knurrt und hält Abstand. / EN: {0} growls and keeps its distance.
 
 **Riesenspinne**
 
@@ -586,7 +601,7 @@ EN: Continue
 
 Beide Kampfsysteme (Vorgangsarchiv 344). Je Marke drei Fassungen, Auswahl wie 279 (nie zweimal hintereinander dieselbe). `{0}` = wer handelt, `{1}` = Ziel, Namen wie im Kampf. Treffer- und Fehlzeile schließen den Stoß ein; „{0} stößt mit der Fackel zu.“ entfällt davor. Ausweichen und Standhalten nur bei Tieren, die Feuer scheuen; dort ist `{0}` das Ziel.
 
-**Wer Feuer scheut:** Riesenratte, Wolf, Grimmzahn (Leitwolf), Riesenspinne, Wildschwein, Stirge, Riesenfledermaus, Riesen-Hundertfüßer (alle Tiere). Nicht: Goblins aller Art, Kobold, Krogg, Grak (kennen Feuer, tragen selbst Fackeln), Skelett, Zombie, Ghul (Tote fürchten nichts), Ockergallerte (ohne Sinne).
+**Wer Feuer scheut:** Riesenratte, Wolf, Grimmzahn (Leitwolf), Riesenspinne, Wildschwein, Riesenegel, Riesenfledermaus, Riesen-Hundertfüßer (alle Tiere). Nicht: Goblins aller Art, Kobold, Krogg, Grak (kennen Feuer, tragen selbst Fackeln), Skelett, Wiedergänger, Grabhund (Tote fürchten nichts), Säureschnecke (kalter Schleim, kennt keine Furcht; 348.12c).
 
 `[344.2.name]` (Aktion im Kampfmenü) Fackel
 EN: Torch

@@ -7,13 +7,13 @@ SEITE = gespeicherte Ausgabe von list_sessions (mine, alle Seiten bis has_more f
   `Kennung | working|idle|blocked|need_input|archived | updated_at (ISO) | Titel | Kosten $ (oder -) | created_at | used_tokens (context_usage, für WEITER, 261.5)`
   Letzte Zeile der Kurzform: `# has_more: nein` (erst nach der letzten Seite von list_sessions); fehlt sie oder steht „ja“, warnt lauf.py „Seite abgeschnitten“ (261.4).
 Ausgabe, Zeile für Zeile auszuführen:
-  START <Rolle> | model | environment_id | source_url | Titel | erste Nachricht   → create_session mit allen Feldern, source_url Pflicht (187) (Startsperre vorher pushen: --sperre schreibt sie)
+  START <Rolle> | model | environment_id | source_url | source_revision | Titel | erste Nachricht   → create_session mit allen Feldern, source_url (187) und source_revision main (382) Pflicht (Startsperre vorher pushen: --sperre schreibt sie)
   ARCHIVIERE <session_id> | <Rolle> | <Kosten $> | <Vorgang>        → archive_session, danach --kosten (siehe unten)
   GEBUCHT <session_id> | <Rolle> | <Kosten $> | <Vorgang>           → lauf.py hat selbst gebucht (nur mit --sperre); Ford pusht die Notizen, sonst nichts
   BUCHE <session_id> | <Rolle> | <Kosten $> | <Vorgang>             → nur `--kosten <Vorgang> <Kosten> <session_id>` (ruhende oder schon archivierte Sitzung von heute, Differenz zum Verzeichnis, 261.2)
   PR-ABO <session_id> | <Rolle> | PR #n | an <neuere session_id>    → „PR #“ im Titel: Abo der alten Sitzung an die neuere übergeben (subscribe_pr_activity dort), dann ARCHIVIERE (D40.4)
   ÜBERTRAGE <session_id> | <Rolle> | <Frage>                       → offene Frage der alten Sitzung wörtlich in Vorrat/Chefsache holen (list_events), dann folgt ARCHIVIERE (261)
-  WEITER <session_id> | <Rolle> | <Vorgang> | <Nachricht>          → send_message „Weiter: <Vorgang>…“ an die alte Sitzung statt START (unter 150 Tsd. Token, unter 60 Minuten Ruhe; abgelehnt → START, 261.5)
+  WEITER <session_id> | <Rolle> | <Vorgang> | <Nachricht>          → send_message „Weiter: <Vorgang>…“ an die alte Sitzung statt START (unter 400 Tsd. Token, unter 60 Minuten Ruhe; abgelehnt → START, 261.5)
   NICHTS <Rolle>: Grund                                             → nichts tun
   WARNUNG …                                                         → Ford meldet es lautlos
   WARNUNG-LAUT …                                                    → Ford meldet es mit --laut (190.7: dieselbe Warnung zum zweiten Mal)
@@ -21,14 +21,18 @@ Ausgabe, Zeile für Zeile auszuführen:
   VORRAT-LEER: …                                                    → Ford meldet es einmal am Tag (Schritt 9, 192.2)
   WOCHENSTART TT.MM. | Rolle | Titel | erste Nachricht                  → Ford startet wie START (Schritt 11, 192.2); Marke „Wochenstart TT.MM. Rolle“ schreibt --sperre
   TAGESBERICHT TT.MM. | Perikles | Titel | erste Nachricht                → dasselbe für den Tagesbericht ab 7:30, Sa, So 9:30 (247.1, Marke „Tagesbericht TT.MM.“)
+  WÄCHTER <Nr> | <Rollen> | <session_id|-> | <Text>                  → Ford: meldung.sh --laut Ford "<Text>" und send_message <Text> an die Sitzung (383; einmal je „jetzt“, Marke schreibt --sperre)
   AUSGESCHLOSSEN NR: Grund                                          → Ford hat die Zeile mit --ohne ausgeschlossen; Ford meldet Grund lautlos (190.2)
 --ohne NR:Grund  (mehrfach) schließt die Zeile NR für diesen Lauf aus; lauf.py nimmt dann die nächste startbare Zeile derselben Rolle (190.2). Ohne Grund gilt es nicht.
+--ohne-pull  lässt das Vorspulen der Notizen aus (380: sonst zieht lauf.py bornim-main auf origin/main und bricht ab, wenn das nicht geht).
 --nur-muss   startet nur Muss, keine Kür und nichts „nach dem Meilenstein“ (D31.3: Ford setzt es bei `allowed_warning` vor Wochenmitte, D20.2).
 --sperre     trägt „Startsperre HH:MM Start <Name>“ ins Protokoll von ARBEIT-BETRIEB.md (Ford pusht, erst dann create_session).
 --morgen     gibt die Morgenmeldung als fertigen Text aus (192.2, Schritt 10).
 --aufraeumen kürzt Fords Protokoll auf die 20 neuesten Taten (plus Marken von heute und gestern) und schiebt erledigte Zeilen von LISTE-VORGAENGE.md ins Archiv (270); --sperre tut es in jedem Lauf.
 --besetzung  schreibt ARBEIT-BESETZUNG.md neu (nur Tabelle und Stand); schreibt nur, wenn sich die Tabelle ändert.
---kosten NR USD [SESSION_ID]  addiert USD auf die Kostenspalte der Zeile NR in LISTE-VORGAENGE.md oder -ARCHIV.md (Ford ruft es je ARCHIVIERE-Zeile, mit der Kennung).
+--kosten NR USD SESSION_ID  addiert USD auf die Kostenspalte der Zeile NR in LISTE-VORGAENGE.md oder -ARCHIV.md (Ford ruft es je ARCHIVIERE-Zeile, mit der Kennung).
+  Kennung Pflicht (384: nachts gebuchte Sitzungen ohne Kennung waren nicht mehr nachweisbar); ohne Sitzung nur `ohne:<Grund>`. USD frisch aus get_session nach dem Archivieren
+  (384: 3,13 statt 6,31 $ aus einer alten Abfrage gebucht).
   Mit Kennung gilt das Buchungsverzeichnis docs/KOSTEN-GEBUCHT.tsv (191): gebucht wird nur die Differenz zu früher Gebuchtem, damit wieder geöffnete oder doppelt archivierte Sitzungen nichts doppelt kosten.
 Offene „M?“ aller Vorräte erscheinen als eine Muss-Zeile „M? entscheiden: …“ im Plan für Perikles (190.8).
 Jeder Lauf hängt die WARNUNG-Zeilen von abgleich.py an (191).
@@ -40,7 +44,7 @@ Nennt der Nachfolger („<Rolle> – <Nr> …“) eine nicht startbare Zeile des
 Dateien der Chefsache und „wartet auf Chef“ halten keine Sitzung (261.4: die Frage steht in der Chefsache, nicht in der Sitzung);
 Archivregel (261.5, vier Sätze; nur Ford und Ford 2 ausgenommen): (1) je Bereich höchstens eine Sitzung, Bereich = Rolle laut Titel; ohne Rolle im Titel bleibt die Sitzung stehen, WARNUNG einmal;
 (2) gibt es mehr als eine, archiviert Ford die ältere, also jede außer der zuletzt tätigen (späteres updated_at, nicht created_at; 261.6) (bei START im selben Lauf: ARCHIVIERE-Zeilen der alten Sitzungen direkt nach der START-Zeile), sobald die neuere läuft und die ältere nicht mehr arbeitet (261.5 Wartezeit, Chef 21.10., 16:46: keine 60 Minuten mehr; offene Frage: vorher ÜBERTRAGE; PR-Abo: Ford übergibt es vorher an die neuere Sitzung); (3) neue Arbeit geht per WEITER in die alte Sitzung,
-wenn sie unter 150 Tsd. Token liegt (D40.1, Vorentscheid) und unter 60 Minuten ruht, sonst START; (4) Kostenbuchung bleibt eigene Regel (--kosten, GEBUCHT). Kein Hindernis hält eine Sitzung.
+wenn sie unter 400 Tsd. Token liegt (383.1, Vorentscheid; vorher 150 Tsd., D40.1) und unter 60 Minuten ruht, sonst START; (4) Kostenbuchung bleibt eigene Regel (--kosten, GEBUCHT). Kein Hindernis hält eine Sitzung.
 Prüfung des Ergebnisses: steht dieselbe Sitzung im nächsten Lauf wieder auf ARCHIVIERE, gibt es WARNUNG-LAUT „Ford hat … nicht ausgeführt“ (Marke „Archiv <id>“); mehr als eine Sitzung je Bereich in zwei Läufen hintereinander
 gibt WARNUNG-LAUT (Marke „Mehrfach <Rolle>“). Marken schreibt nur --sperre.
 Laufend = Status working/blocked und updated_at jünger als 60 Minuten (Start-Sperre und Belegung 20 Minuten). Laufend oder jünger als 20 Minuten: Rolle belegt, kein zweiter Start.
@@ -61,14 +65,16 @@ MITTEL = "env_01F9WxikYD4TTdhscxvPi93p"
 HOCH = "env_017fgL1YDcVTYTkJsU3APEfR"  # „WireStorm Hoch“
 UMGEBUNG = {"Tom": HOCH, "Jerry": HOCH}  # 365: Probe Aufwand „Hoch“ für die Teams bis 31.10. (Chef 25.10., 12:38); sonst MITTEL
 REPO = "https://github.com/tramour-cmyk/androidapp_rpg_bornim"  # ohne source_url startet die Sitzung ohne Repo (18.10., Jerry 39; 187)
+REVISION = "main"  # 382: ohne source_revision lasen neue Sitzungen einen alten Stand (26.10., ohne add_repo-Erlaubnis; Tom 376.1a)
 MODELL = {"Tom": "opus", "Homer": "opus", "Sokrates": "opus", "Jerry": "opus", "Perikles": "opus", "Diogenes": "opus"}  # 270: Regelwächter groß, Probe bis 26.10.
 VORRAT = {"Homer": "ARBEIT-KREATIV.md", "Tom": "ARBEIT-TEAM-TOM.md", "Jerry": "ARBEIT-TEAM-JERRY.md",
-          "Perikles": "ARBEIT-PROJEKT.md", "Diogenes": "ARBEIT-PRUEFUNG.md", "Sokrates": "ARBEIT-BERATUNG.md"}
+          "Perikles": "ARBEIT-PROJEKT.md", "Diogenes": "ARBEIT-PRUEFUNG.md", "Sokrates": "ARBEIT-BERATUNG.md",
+          "Spike": "ARBEIT-TEAM-TOM.md", "Tuffy": "ARBEIT-TEAM-JERRY.md"}  # 394: eigene Rolle (belegt Tom nicht), Vorrat des Teams
 START_REIHE = ["Tom", "Jerry", "Diogenes", "Homer", "Perikles"]
 MIT_KUER = {"Tom", "Jerry", "Diogenes", "Homer", "Perikles"}
 NIE_ARCHIV = {"Ford", "Ford 2"}  # Ford, Wache; Sokrates und Sonstige nach eigener Regel (197)
 SPERRE_MIN = 20
-WEITER_TOKEN = 150000  # 261.5 (3), D40.1: frisch gestartet steht eine Sitzung schon bei etwa 100 Tsd.; Vorentscheid Perikles 21.10. (Chef: 100 Tsd.)
+WEITER_TOKEN = 400000  # 261.5 (3); 383.1 (Chef 27.10., 19:19 „nicht mal 2 Seiten lang“): Kontext 1 Mio., Kosten je Arbeit bis 500 Tsd. gleich (Messung Sokrates 18:15); Vorentscheid Perikles 27.10. (vorher 150 Tsd., D40.1)
 WEITER_MIN = 60  # 261.5 (3): WEITER nur in eine Sitzung, die unter 60 Minuten ruht; fürs Archivieren gibt es keine Wartezeit mehr (Chef 21.10., 16:46)
 
 def z(s):
@@ -112,7 +118,9 @@ def stand():
         zs = startbar.hochstufen([x for x in startbar.zeilen(inhalt) if x[1] not in ("–", "-")])
         sperr = {x[0]: startbar.blocker(x[0], x[3], chef, x[2]) for x in zs}
         zs = [x for x in zs if sperr[x[0]] != "ERLEDIGT"]
+        leichen = startbar.leichen_von(zs, sperr)  # 275 Stufe 1: überholte Stände zuerst berichtigen, als eine Muss-Zeile wie „M?“
         muss = [x for x in zs if x[1] == "M" and not sperr[x[0]]]
+        if leichen and startbar.LEICHEN_START: muss.insert(0, ("Leichen", "M", "Stand berichtigen (275): " + "; ".join("%s %s" % l for l in leichen) + " (startbar.py --leichen)", ""))
         kuer = [x for x in zs if x[1] != "M" and not sperr[x[0]]]
         kuer += [(x[0], "N", x[2], x[3]) for x in zs if sperr[x[0]] == "nach dem Meilenstein"]  # 190.10: letzte Stufe vor Leerlauf
         wartet = [x[0] for x in zs if (sperr[x[0]] or "").startswith("Chef")]
@@ -154,8 +162,11 @@ def nachfolger(rolle):
         if m:
             try: zeit = datetime.datetime(JETZT.year, int(m.group(2)), int(m.group(1)), int(m.group(3)), int(m.group(4) + ("9" if m.group(5) == "x" else m.group(5))), tzinfo=BERLIN)
             except ValueError: pass
-        roh = NACHFOLGER.search(l).group(1).strip()
-        roh = re.split(r"\.(?=\s+[A-ZÄÖÜ„*]|\s*$)", roh, maxsplit=1)[0].strip(" *„“\"")
+        roh = NACHFOLGER.search(l).group(1).strip().lstrip("*").strip()
+        q = re.match(r"[„\"]([^“\"]+)[“\"]", roh)  # 375: Titel in Anführungszeichen endet beim schließenden („…“; schickt zuerst …)
+        if q: roh = q.group(1)
+        roh = re.split(r"\.(?=\s+[A-ZÄÖÜ„*]|\s*$)|;", roh, maxsplit=1)[0].strip(" *„“\"")
+        if re.search(r"startet\s+`?lauf\.py`?", roh): return None, zeit, "bedingt: " + roh[:60]  # 375: Termin, den lauf.py selbst startet
         if re.match(r"keine[rn]?\b", roh, re.I): return None, zeit, "keiner"
         if re.search(r"\b(nur wenn|falls|sobald|bis )", roh, re.I): return None, zeit, "bedingt: " + roh[:60]
         if not re.match(r"(%s)\b" % "|".join(MODELL), roh): roh = "%s – %s" % (rolle, roh)
@@ -182,16 +193,24 @@ def kosten_auf(bis=None):
             return re.findall(r"\d+[a-z]*(?:\.\d+[a-z]*)*", roh)
     return []
 
+def sokrates_ziel(s, ss):
+    """„Kosten auf“ aus der Übergabe der Sokrates-Sitzung s (Stand vor dem Start der nächsten aus ss, 197.1) als „361,89“, sonst ""."""
+    neuere = [x for x in ss if x is not s and z(x["created_at"]) > z(s["created_at"])]
+    return ",".join(kosten_auf(min(z(x["created_at"]) for x in neuere) if neuere else z(s["updated_at"])))
+
 def juengste(ss):
     """Die zuletzt tätige Sitzung eines Bereichs (261.6): späteres updated_at, bei Gleichstand späteres created_at."""
     return max(ss, key=lambda x: (z(x["updated_at"]), z(x["created_at"])))
 
 def titel_datum(titel):
-    """Erstes TT.MM. im Titel, wenn es in der Zukunft liegt, sonst None."""
+    """Erstes TT.MM. im Titel, wenn es in der Zukunft liegt; heute mit „um/ab H:MM“ danach, wenn die Uhrzeit noch kommt (375); sonst None."""
     for m in re.finditer(r"(?<!\d)(\d\d?)\.(\d\d)\.", titel):
         try: d = startbar.jahr_von(int(m.group(1)), int(m.group(2)))
         except ValueError: continue
         if d > JETZT.date(): return "%02d.%02d." % (d.day, d.month)
+        u = re.search(r"\b(?:um|ab)\s+(\d\d?)[:.](\d\d)\b", titel[m.end():])
+        if d == JETZT.date() and u and (int(u.group(1)), int(u.group(2))) > (JETZT.hour, JETZT.minute):
+            return "%02d.%02d., %d:%s" % (d.day, d.month, int(u.group(1)), u.group(2))
     return None
 
 def warnungen_bekannt():
@@ -207,6 +226,16 @@ def nummer_aus_titel(t):
     s = re.sub(r"\b(Godot|Runde|Lauf|Brücke)\s+\d+[a-z]?\b", " ", s)  # „Tom – Umzug Godot 12“ buchte auf Vorgang 12 (Ford 25.10.)
     m = re.search(r"(?<![\d.:])(\d{2,3}[a-zA-Z]?(?:\.\d+[a-z]?)*)(?![\d:])", s)
     return m.group(1).rstrip(".") if m else ""
+
+def nummern_aus_titel(t):
+    """379: alle Vorgangsnummern im Titel als Kommaliste („Jerry – 348.7a Runde 5, 348.12f Rute r7“ → „348.7a,348.12f“), Kosten zu gleichen Teilen (197)."""
+    erste = nummer_aus_titel(t)
+    if not erste: return ""
+    s = re.sub(r"\([^)]*\)", " ", t.split("–", 1)[-1])
+    s = re.sub(r"\bBuilds?\s+\d+(\s+und\s+\d+)?", " ", s)
+    s = re.sub(r"\b(Godot|Runde|Lauf|Brücke)\s+\d+[a-z]?\b", " ", s)
+    alle = [erste] + [m.rstrip(".") for m in re.findall(r"(?<![\d.:\w])(\d{2,3}[a-zA-Z]?(?:\.\d+[a-z]?)*)(?![\d:])", s)]
+    return ",".join(dict.fromkeys(alle))
 
 PROTOKOLL_MAX = 20  # ARBEIT-BETRIEB.md „höchstens 20 Zeilen; ältere streichen“ (117)
 TECHNIK = re.compile(r"Marke |Startsperre \d|Nachfolger-Warnung")
@@ -242,14 +271,40 @@ def aufraeumen():
         n += len(weg)
     return n
 
+def noch_offen(ausgabe, rolle, nrn):
+    """275 (Chef 15:20, „Ford sichert“): endet eine Sitzung, deren Vorgang im Vorrat oder in der Liste noch „in Arbeit“ steht, meldet Ford es dem Besitzer."""
+    for nr in [x for x in (nrn or "").split(",") if x and x != "Betrieb"]:
+        st = startbar.VORG.get(nr, "")
+        zeile = [z for d, ro in startbar.ROLLEN if ro == kosten.TEAM.get(rolle, rolle) for z in startbar.zeilen(startbar.lesen(d)) if z[0] == nr]
+        if re.match(r"in Arbeit", st) or (zeile and re.match(r"in Arbeit|begonnen", startbar.blank(zeile[0][3]))):
+            ausgabe.append("WARNUNG %s %s: Sitzung endet, Stand noch „in Arbeit“; Besitzer setzt ihn mit tools/vorgang.py stand (275)" % (rolle, nr))
+
+def notizen_frisch():
+    """380: Ford zog den Arbeitsbaum, lauf.py las aber die alten Notizen in bornim-main (Zeile 275 von Diogenes fehlte, NICHTS statt START).
+    Vor jedem Lauf die Notizen auf origin/main bringen (nur vorspulen); geht das nicht, Lauf abbrechen statt mit altem Stand rechnen."""
+    d = os.path.join(DOCS, "..")
+    try:
+        subprocess.run(["git", "-C", d, "pull", "-q", "--ff-only", "origin", "main"], capture_output=True, text=True, timeout=60)
+        r = subprocess.run(["git", "-C", d, "rev-list", "--count", "HEAD..origin/main"], capture_output=True, text=True, timeout=20)
+        hinten = int(r.stdout.strip() or 0)
+    except Exception as e:
+        print("WARNUNG Notizen nicht geprüft (%s); Lauf mit Stand %s" % (e, d)); return True
+    if hinten:
+        print("WARNUNG-LAUT Notizen in %s %d Commits hinter origin/main und nicht vorspulbar (eigene Commits?): erst git -C %s pull --no-rebase, dann lauf.py erneut (380)" % (os.path.abspath(d), hinten, os.path.abspath(d)))
+        return False
+    return True
+
 def main():
     a = sys.argv[1:]
     if a[:1] == ["--morgen"]:
         return morgenmeldung()
     if a[:1] == ["--aufraeumen"]:
         return print("Aufgeräumt: %d Zeilen (Notizen pushen)" % aufraeumen())
-    if a[:1] == ["--kosten"]:
-        return kosten_addieren(a[1], float(a[2].replace(",", ".")), a[3] if len(a) > 3 else None)
+    if a[:1] == ["--kosten"]:  # 384: nur mit Kennung, sonst fehlt die Sitzung im Buchungsverzeichnis (doppelt oder nie gebucht)
+        if len(a) < 4 or not a[3].startswith(("session_", "ohne:")):
+            print("lauf.py --kosten NR USD session_…: Kennung fehlt (384); ohne Sitzung nur mit „ohne:<Grund>“", file=sys.stderr); sys.exit(2)
+        return kosten_addieren(a[1], float(a[2].replace(",", ".")), a[3] if a[3].startswith("session_") else None)
+    if "--ohne-pull" not in a and not notizen_frisch(): sys.exit(1)
     nur_muss = "--nur-muss" in a
     sperre = "--sperre" in a; besetz = "--besetzung" in a
     ausschluss = {}
@@ -305,6 +360,8 @@ def main():
         if not info and (JETZT - z(s["updated_at"])).total_seconds() < 3600 and s.get("session_status") == "SESSION_STATUS_RUNNING": continue
         r = kosten.rolle(s.get("title", ""))
         ziel = "Betrieb" if r in ("Ford", "Ford 2") else (nummer_aus_titel(s.get("title", "")) or "Betrieb")
+        if r == "Sokrates":  # 375: auch hier „Kosten auf“ der Übergabe (197), sonst Betrieb hier und die Nummern beim ARCHIVIERE (7,10 $ doppelt, 25.10.)
+            ziel = sokrates_ziel(s, [x for x in alle.values() if kosten.rolle(x.get("title", "")) == "Sokrates"]) or ziel
         if sperre:  # echter Lauf: lauf.py bucht selbst (19.10.: Ford führte BUCHE nicht aus, 261.2); Ford pusht die Notizen
             kosten_addieren(ziel, k, s["id"]); ausgabe.append("GEBUCHT %s | %s | %.2f | %s (Notizen pushen)" % (s["id"], r, k, ziel))
         else:
@@ -333,11 +390,10 @@ def main():
             # 261.6 (Chef 22.10., 06:43): „neuer“ = letzte Arbeit (updated_at), nicht created_at; bleiben darf nur die zuletzt tätige
             if s is juengste(ss): continue
             k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
-            nrn = nummer_aus_titel(s.get("title", "")) or "Betrieb"
+            nrn = nummern_aus_titel(s.get("title", "")) or "Betrieb"
             if r == "Sokrates":  # (4) Kostenbuchung bleibt eigene Regel (197): Kosten auf die Nummern der Übergabe
-                neuere = [x for x in ss if x is not s and z(x["created_at"]) > z(s["created_at"])]
-                auf = kosten_auf(min(z(x["created_at"]) for x in neuere) if neuere else z(s["updated_at"]))
-                if auf: nrn = ",".join(auf)
+                auf = sokrates_ziel(s, ss)
+                if auf: nrn = auf
                 else: ausgabe.append("WARNUNG Sokrates %s: Übergabe in %s nennt keine „Kosten auf: <Nummern>“ (197), Kosten auf %s" % (s["id"], VORRAT["Sokrates"], nrn))
             archiviert.add(s["id"])
             pr = re.search(r"PR #\d+", s.get("title", ""))  # D40.4: lauf.py kennt keine Abos, nur den Titel
@@ -346,6 +402,7 @@ def main():
                 ausgabe.append("PR-ABO %s | %s | %s | an %s" % (s["id"], r, pr.group(0), neu["id"]))
             if s.get("_frage_alt"): ausgabe.append("ÜBERTRAGE %s | %s | %s" % (s["id"], r, str(s["_frage_alt"]).replace("\n", " ")[:200]))
             ausgabe.append("ARCHIVIERE %s | %s | %s | %s" % (s["id"], r, ("%.2f" % k) if k is not None else "fehlt", nrn))
+            noch_offen(ausgabe, r, nrn)
             # Prüfung des Ergebnisses: dieselbe Sitzung steht im nächsten Lauf wieder auf ARCHIVIERE
             alt = [d for d in marke_zeit("Archiv " + s["id"]) if (JETZT - d).total_seconds() >= 1800]
             if alt and not marke_zeit("Archiv-Warnung " + s["id"]):  # D40.2: einmal je Sitzung
@@ -375,7 +432,8 @@ def main():
             archiviert.add(s["id"])
             k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
             if s.get("_frage_alt"): ausgabe.append("ÜBERTRAGE %s | %s | %s" % (s["id"], r, str(s["_frage_alt"]).replace("\n", " ")[:200]))
-            ausgabe.append("ARCHIVIERE %s | %s | %s | %s" % (s["id"], r, ("%.2f" % k) if k is not None else "fehlt", nummer_aus_titel(s.get("title", "")) or "Betrieb"))
+            ausgabe.append("ARCHIVIERE %s | %s | %s | %s" % (s["id"], r, ("%.2f" % k) if k is not None else "fehlt", nummern_aus_titel(s.get("title", "")) or "Betrieb"))
+            noch_offen(ausgabe, r, nummern_aus_titel(s.get("title", "")))
             if not marke_zeit("Archiv " + s["id"]): neue_marken.append("Archiv " + s["id"])
     for r in START_REIHE:
         muss, kuer, pause, _ = st.get(r, ([], [], None, []))
@@ -398,14 +456,18 @@ def main():
             offen_nf = None
         # 276 (Fall 251): nennt der Nachfolger eine Zeile des eigenen Vorrats, die nicht startbar ist, gilt die Zeilenregel; beim zweiten Lauf laut
         nf_nr = re.search(r"–\s*([0-9][0-9a-zA-Z.]*[0-9a-zA-Z])", offen_nf or "")
-        if nf_nr and nf_nr.group(1) in GESPERRT.get(r, {}):
+        if nf_nr and nf_nr.group(1) in ausschluss:  # 375 (Ford 27.10., 10:05): --ohne gilt auch für den Nachfolger
+            ausgabe.append("NICHTS %s: Nachfolger „%s“ ausgeschlossen (--ohne %s); Zeilenregel gilt" % (r, offen_nf, nf_nr.group(1)))
+            offen_nf = None
+        elif nf_nr and nf_nr.group(1) in GESPERRT.get(r, {}):
             warnen(ausgabe, neue_warnungen, bekannt, r, nf_zeit, "Nachfolger „%s“ nicht startbar (%s), oberste startbare Zeile statt dessen; Übergabe anpassen" % (offen_nf, GESPERRT[r][nf_nr.group(1)]))
             offen_nf = None
         if offen_nf:
             thema = re.sub(r"\s*\([^)]*\)\s*$", "", offen_nf)
             titel = "%s (%s)" % (thema, berlin(JETZT))
             msg = "%s\n\nNachfolger laut Übergabe in %s: %s. Zuerst Start nach deiner Rollendatei, dann die Übergabe lesen und dort weiterarbeiten." % (r, VORRAT[r], offen_nf)
-            ausgabe.append("START %s | %s | %s | %s | %s | %s" % (r, MODELL[r], UMGEBUNG.get(r, MITTEL), REPO, titel, msg.replace("\n", "\\n")))
+            if muss and muss[0][0] == "Leichen": msg += " Vorher: " + muss[0][2] + "."
+            ausgabe.append("START %s | %s | %s | %s | %s | %s | %s" % (r, MODELL[r], UMGEBUNG.get(r, MITTEL), REPO, REVISION, titel, msg.replace("\n", "\\n")))
             vorgaenger(r); sperren.append(r); continue
         if pause:
             ausgabe.append("NICHTS %s: Pause bis %s" % (r, pause)); continue
@@ -424,8 +486,9 @@ def main():
             sperren.append(r); continue
         titel = "%s – %s (%s)" % (r, nr, berlin(JETZT))
         msg = "%s\n\nArbeite Vorgang %s (%s) aus deinem Vorrat %s; zuerst Start nach deiner Rollendatei, dann den Vorgang lesen und die Übergabe beachten." % (r, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", VORRAT[r])
+        if nr == "Leichen": msg += " Leichen: " + thema + "; danach weiter nach Vorrang."
         if JETZT.weekday() == 4: msg += " Freitag: am Ende der Sitzung Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340)."
-        ausgabe.append("START %s | %s | %s | %s | %s | %s" % (r, MODELL[r], UMGEBUNG.get(r, MITTEL), REPO, titel, msg.replace("\n", "\\n")))
+        ausgabe.append("START %s | %s | %s | %s | %s | %s | %s" % (r, MODELL[r], UMGEBUNG.get(r, MITTEL), REPO, REVISION, titel, msg.replace("\n", "\\n")))
         vorgaenger(r); sperren.append(r)
     vorentscheid_marken = []
     try:
@@ -492,8 +555,12 @@ def main():
             if alte:
                 ausgabe.append("WEITER %s | Sokrates | Stellungnahme | %s; wird send_message abgelehnt, stattdessen START wie sonst" % (juengste(alte)["id"], msg.split("\n\n", 1)[1]))
             else:
-                ausgabe.append("START Sokrates | opus | %s | %s | Sokrates – Stellungnahme (%s) | %s" % (MITTEL, REPO, berlin(JETZT), msg.replace("\n", "\\n")))
+                ausgabe.append("START Sokrates | opus | %s | %s | %s | Sokrates – Stellungnahme (%s) | %s" % (MITTEL, REPO, REVISION, berlin(JETZT), msg.replace("\n", "\\n")))
             wochen.append("Stellungnahme Sokrates %s" % heute)
+    try:  # 383: Wartewächter
+        ww, wm = waechter(je_rolle, marke_text); ausgabe += ww; wochen += wm
+    except Exception as e:
+        ausgabe.append("WARNUNG Wartewächter fehlgeschlagen: %s (383, Perikles)" % e)
     wochen += vorentscheid_marken + neue_marken
     for l in ausgabe: print(l)
     if not ausgabe: print("NICHTS: nichts zu tun")
@@ -508,6 +575,79 @@ def main():
         n = aufraeumen()
         if n: print("Aufgeräumt: %d Zeilen aus Protokoll und LISTE-VORGAENGE.md (270; Notizen pushen)" % n)
     if besetz: besetzung_schreiben([s for s in leb if s["id"] not in archiviert])
+
+WAECHTER_STUNDEN = 3  # 383 (Chef 27.10., 17:53): Chef sagt „jetzt“ und bekommt drei Stunden lang keine Vorlage → laut an Chef und Sitzung
+WAECHTER_AB = datetime.datetime(2026, 10, 27, 19, 0, tzinfo=BERLIN)  # Protokoll der Meldungen gibt es erst ab hier; ältere „jetzt“ zählen nicht
+JETZT_FELD = re.compile(r"[„\"]jetzt[“\"]\s*(?:(\d{1,2})\.(\d{1,2})\.,?\s*)?(\d{1,2}):(\d{2})")
+
+def meldungen():
+    """Zeilen (Zeit, {Nummern ohne Punkt}, Name, Art) aus dem Zweig „meldungen“ (meldung.sh schreibt je Meldung eine, 383)."""
+    try:
+        if os.environ.get("BORNIM_MELDUNGEN"): roh = lesen(os.environ["BORNIM_MELDUNGEN"])
+        else:
+            repo = os.path.join(DOCS, "..")
+            subprocess.run(["git", "-C", repo, "fetch", "-q", "origin", "meldungen"], capture_output=True, timeout=30, check=True)
+            roh = subprocess.run(["git", "-C", repo, "show", "FETCH_HEAD:meldungen.tsv"], capture_output=True, text=True, timeout=30, check=True).stdout
+    except Exception:
+        return []
+    aus = []
+    for l in roh.splitlines():
+        t = l.split("\t")
+        if len(t) < 4: continue
+        try: d = datetime.datetime.strptime(t[0], "%Y-%m-%d %H:%M").replace(tzinfo=BERLIN)
+        except ValueError: continue
+        aus.append((d, {x.replace(".", "").lower() for x in t[1].split(",")}, t[2], t[3]))
+    return aus
+
+def chefsache_seit(nr):
+    """Zeit des letzten Commits einer Chefsache-Datei zu nr (auch gelöschte), sonst None."""
+    k = nr.replace(".", "").lower()
+    try:
+        r = subprocess.run(["git", "-C", os.path.join(DOCS, ".."), "log", "-1", "--format=%ct", "--until=%d" % int(JETZT.timestamp()), "--", ":(glob)docs/chefsache/*/%s-*.md" % k],
+                           capture_output=True, text=True, timeout=30).stdout.strip()
+        return datetime.datetime.fromtimestamp(int(r), BERLIN) if r else None
+    except Exception:
+        return None
+
+def waechter(je_rolle, marke_text):
+    """383: je Vorratszeile mit „jetzt“ TT.MM., HH:MM (Datum fehlt: letztes Datum davor in der Zeile), Stand nicht „ruht“:
+    nach drei Stunden ohne Vorlage eine Zeile WÄCHTER. Vorlage = Meldung eines anderen als Ford mit --laut, Bild, Film oder Datei
+    zu dieser Nummer, oder eine Chefsache-Datei zur Nummer, seit dem „jetzt“ angelegt oder geändert. Lautlose Standzeilen zählen nicht."""
+    offen = {}
+    for datei, rolle in startbar.ROLLEN:
+        for nr, kl, titel, rest in startbar.zeilen(startbar.lesen(datei)):
+            if kl in ("–", "-") or rest.strip().lower().startswith("ruht"): continue
+            zeile = titel + " | " + rest
+            m = JETZT_FELD.search(zeile)
+            if not m: continue
+            if m.group(1): tag, mon = int(m.group(1)), int(m.group(2))
+            else:
+                vorher = re.findall(r"(?<![\d.])(\d{1,2})\.(\d{1,2})\.", zeile[:m.start()])
+                if not vorher: continue
+                tag, mon = int(vorher[-1][0]), int(vorher[-1][1])
+            try: d = JETZT.replace(month=mon, day=tag, hour=int(m.group(3)), minute=int(m.group(4)), second=0, microsecond=0)
+            except ValueError: continue
+            if d > JETZT + datetime.timedelta(days=1): d = d.replace(year=d.year - 1)
+            nr = re.sub(r"\*", "", nr)
+            if nr in offen: offen[nr][1].append(rolle)
+            else: offen[nr] = (d, [rolle])
+    if not offen: return [], []
+    ml = meldungen(); aus = []; marken = []
+    for nr, (d, rollen) in offen.items():
+        if d < WAECHTER_AB or JETZT - d < datetime.timedelta(hours=WAECHTER_STUNDEN): continue
+        marke = "Wächter %s %s" % (nr, d.strftime("%d.%m. %H:%M"))
+        if marke in marke_text: continue
+        k = nr.replace(".", "").lower()
+        if any(d <= z <= JETZT and k in nrn and name != "Ford" and art != "text" for z, nrn, name, art in ml): continue
+        cs = chefsache_seit(nr)
+        if cs and cs >= d: continue
+        sitz = [s for r in rollen for s in je_rolle.get(r, [])]
+        sid = juengste(sitz)["id"] if sitz else "-"
+        std = int((JETZT - d).total_seconds() // 3600)
+        aus.append("WÄCHTER %s | %s | %s | %s: Chef „jetzt“ %s, seit %d Std. keine Vorlage (Wartewächter 383); %s: vorlegen oder Chefsache-Datei mit Stand" % (
+            nr, ", ".join(rollen), sid, nr, berlin(d), std, ", ".join(rollen)))
+        marken.append(marke)
+    return aus, marken
 
 def morgenmeldung():
     """192.2, Schritt 10, 247.1: Morgenmeldung als eine Zeile (Ford schickt sie mit meldung.sh --laut); die Seite zum Tag schreibt Perikles um 7:30 als Tagesbericht."""
@@ -554,7 +694,7 @@ def kosten_addieren(nr, usd, sid=None):
                 k = l.split("\t")
                 if len(k) == 2: alt[k[0]] = float(k[1])
         diff = round(usd - alt.get(sid, 0.0), 2)
-        if diff <= 0: print("Kosten %s: %.2f $ schon gebucht, nichts zu tun" % (nr, usd)); return
+        if diff <= 0: print("Kosten %s: %.2f $ für %s schon gebucht, nichts zu tun (mehrere Vorgänge einer Sitzung: eine Kommaliste in einem Aufruf, 379)" % (nr, usd, sid)); return
         alt[sid] = usd
         open(vz, "w", encoding="utf-8").write("".join("%s\t%.2f\n" % kv for kv in sorted(alt.items())))
         usd = diff
@@ -572,7 +712,8 @@ def _buchen(nr, usd):
         for i, l in enumerate(L):
             t = [x.strip() for x in l.split("|")]
             if l.startswith("| ") and len(t) > 7 and t[1] == ziel:
-                alt = t[-4]; m = re.fullmatch(r"([\d,.]+)\s*\$", alt) if alt else None
+                alt = re.sub(r"^[–-]\s*(;\s*\+)?", "", t[-4])  # 375: „–“ und „–; +N $“ heißen nur N $, Ford las „Kosten …: –“
+                m = re.fullmatch(r"([\d,.]+)\s*\$", alt) if alt else None
                 if m or not alt:
                     t[-4] = ("%.2f" % ((float(m.group(1).replace(",", ".")) if m else 0.0) + usd)).replace(".", ",") + " $"
                 else:  # Nachträge in einem „+N $“ am Ende sammeln statt anhängen (Größe LISTE-VORGAENGE, Perikles 24.10.)
@@ -580,7 +721,7 @@ def _buchen(nr, usd):
                     t[-4] = (m.group(1) if m else alt) + "; +" + ("%.2f" % ((float(m.group(2).replace(",", ".")) if m else 0.0) + usd)).replace(".", ",") + " $"
                 L[i] = "| " + " | ".join(t[1:-1]) + " |"
                 open(p, "w", encoding="utf-8").write("\n".join(L))
-                print("Kosten %s: %s" % (ziel, t[-4])); return
+                print("Kosten %s: +%s $, jetzt %s" % (ziel, ("%.2f" % usd).replace(".", ","), t[-4])); return
       kurz = re.sub(r"(\.\d+[a-z]*|[a-z])$", "", ziel)
       if kurz == ziel: break
       ziel = kurz

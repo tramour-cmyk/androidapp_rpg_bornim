@@ -42,6 +42,11 @@ func _ready() -> void:
 	pm.size = Vector2(160, 160)
 	wiese.mesh = pm
 	wiese.material_override = boden
+	if info.get("innen", false):               # 399.1 Grundriss (raum.py): ringsum schwarz
+		var schwarz := StandardMaterial3D.new()
+		schwarz.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		schwarz.albedo_color = Color.BLACK
+		wiese.material_override = schwarz
 	wiese.layers = BODEN_SCHICHT
 	wiese.position = Vector3(karte.breite * Karte.TS / 2, -0.4, karte.hoehe * Karte.TS / 2)   # unter dem Flussbett (-0,34): auf -0,03 deckte sie das Wasser (-0,1) zu
 	add_child(wiese)
@@ -55,9 +60,35 @@ static func datei(id: String) -> String:
 static func lade_glb(p: String) -> Node3D:
 	var doc := GLTFDocument.new()
 	var state := GLTFState.new()
-	var err := doc.append_from_buffer(FileAccess.get_file_as_bytes(p), "", state)
+	var err := doc.append_from_buffer(entschluessele(FileAccess.get_file_as_bytes(p), p), "", state)
 	if err != OK: push_error("glTF %s: %d" % [p, err])
 	return doc.generate_scene(state) as Node3D
+
+# 348.12i: gekaufte Modelle liegen verschluesselt im APK (tools/blender348/verschluesseln.sh: „BKV1“, IV, AES-256-CBC mit PKCS7)
+static func entschluessele(b: PackedByteArray, p: String) -> PackedByteArray:
+	if b.size() < 36 or b.slice(0, 4).get_string_from_ascii() != "BKV1": return b
+	if Schluessel.KAUF.length() != 64 or (b.size() - 20) % 16 != 0:
+		push_error("verschluesselt, ohne Schluessel: %s" % p)
+		return PackedByteArray()
+	var aes := AESContext.new()
+	aes.start(AESContext.MODE_CBC_DECRYPT, Schluessel.KAUF.hex_decode(), b.slice(4, 20))
+	var d := aes.update(b.slice(20))
+	aes.finish()
+	var pad := d[d.size() - 1]
+	if pad < 1 or pad > 16:
+		push_error("falscher Schluessel: %s" % p)
+		return PackedByteArray()
+	return d.slice(0, d.size() - pad)
+
+# 397 (Chef 28.10., 11:15: Ruhebewegungen wie im alten Spiel, mindestens drei): wer steht, spielt Stehen zwei- bis viermal, dann
+# eine der anderen Ruhebewegungen (geruest.py RUHE, aus der UAL Pro) einmal, dann wieder Stehen; ohne die Kaufbewegungen nur Stehen.
+# Gibt [Name, Dauer in s] der naechsten zurueck
+const RUHE := ["Stehen", "Stehen_2", "Stehen_3"]
+static func ruhe_naechste(anim: AnimationPlayer, jetzt: String, z: RandomNumberGenerator) -> Array:
+	var da := RUHE.filter(func(n): return anim.has_animation(n))
+	if jetzt != "Stehen" or da.size() < 2: return ["Stehen", anim.get_animation("Stehen").length * z.randi_range(2, 4)]
+	var n: String = da[z.randi_range(1, da.size() - 1)]
+	return [n, anim.get_animation(n).length]
 
 # 348.6 (Helfer: Held stand nachts nach dem Rennen gegraetscht; Chef 18:20 „glitscht … und zuckt“): beim Laden verwirft Godot
 # Spuren von Knochen, die in einer Bewegung ruhen (Stehen hat keine Beine); beim Wechsel blieben sie in der Pose der Bewegung
@@ -309,10 +340,23 @@ func baue_lampen() -> void:
 	var inseln := PackedVector4Array()
 	for l in info["lichter"]:
 		var art: String = l["art"]
+		if art == "kamin" or art == "kerze":   # 399.1 Grundriss: Feuer im Kamin, Kerzen (raum.py)
+			var f := OmniLight3D.new()
+			f.position = gpos(l["pos"])
+			f.omni_range = float(l.get("reich", 2.0)) * Karte.TS
+			f.light_energy = float(l.get("kraft", 1.0)) * 1.6
+			f.light_color = Color(1.0, 0.62, 0.3)
+			f.omni_attenuation = 0.9
+			f.shadow_enabled = art == "kamin"
+			add_child(f)   # brennt Tag und Nacht (nicht in lampen, die nacht() nach der Tageszeit stellt)
+			f.set_meta("reich", f.omni_range); f.set_meta("kraft", float(l.get("kraft", 1.0)))
+			f.add_to_group("tuschelicht")
+			continue
 		if art != "laterne" and art != "fenster": continue
 		var q := gpos(l["pos"])
 		if art == "fenster":   # wie MapLight WINDOW: vor dem Haus auf den Boden, Reichweite 1,6 Kacheln, Staerke 0,7
 			inseln.append(Vector4(q.x, q.z + 0.5, 1.6 * Karte.TS, 0.7))
+			tuschelicht(Vector3(q.x, maxf(q.y, 1.2), q.z + 0.3), 1.6 * Karte.TS, 0.6)   # 348.13b
 			continue
 		inseln.append(Vector4(q.x, q.z, float(l.get("reich", 2.6)) * Karte.TS, float(l.get("kraft", 0.95))))   # LAMP (Bruecke 2,4/0,8; Kael 1,2/0,3)
 		if l.get("kerze", false): continue   # Kaels Laterne: nur ein kleiner, matter Fleck, kein Laternenlicht
@@ -324,12 +368,24 @@ func baue_lampen() -> void:
 		o.light_cull_mask = 0xFFFFF & ~BODEN_SCHICHT
 		add_child(o)
 		lampen.append(o)
+		o.set_meta("reich", o.omni_range)   # 348.13b: Tusche nach der Laterne
+		o.set_meta("kraft", 0.95)
+		o.add_to_group("tuschelicht")
 	inseln = inseln.slice(0, 64)
 	for m in [boden, halme, wasser]:
 		if m:
 			m.set_shader_parameter("inseln", inseln)
 			m.set_shader_parameter("inseln_n", inseln.size())
 	insel_liste = inseln
+
+# 348.13b: Ort eines Lichts ohne eigenes OmniLight3D (Fenster) fuer die Tusche (Kamera.tusche_lampen)
+func tuschelicht(p: Vector3, reich: float, kraft: float) -> void:
+	var o := Node3D.new()
+	o.position = p
+	o.set_meta("reich", reich)
+	o.set_meta("kraft", kraft)
+	o.add_to_group("tuschelicht")
+	add_child(o)
 
 # ---------------------------------------------------------------- Leben (WorldScreen.kt): Gras, Korn, Falter, Rauch, Gluehwuermchen
 static func kreuz() -> ArrayMesh:

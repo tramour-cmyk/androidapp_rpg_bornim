@@ -18,7 +18,22 @@ uniform float zoomdick = 1.0;      // 348.13: 1 Schattenseite weiter weg duenner
 uniform float hinten_ab = 0.25;   // 348.13: Meter, ab denen die hintere Seite einer Stufe keine Tusche bekommt (Boden hinter dem Umriss)
 uniform float knick = 0.06;        // Meter: Krümmung der Tiefe, ab der eine Linie entsteht
 uniform vec3 ink : source_color = vec3(0.07, 0.05, 0.04);
+// 348.13b (Chef 28.10., 08:09): Tusche auch nach Laterne, Fenster, Fackel; je Licht Lage (Welt) und Reichweite (m), Kraft;
+// nachts verliert die Sonne (Mond) an Gewicht, nahe einer Flamme zeigt die Lichtseite zu ihr. Kamera.gd waehlt die naechsten 8 (TUSCHE_LAMPEN)
+uniform vec4 lampen[8];
+uniform float lampen_kraft[8];
+uniform int lampen_n = 0;
+uniform float nacht = 0.0;
 void vertex() { POSITION = vec4(VERTEX.xy, 1.0, 1.0); }
+// Lage des Bildpunkts in der Welt (fuer die Richtung zu Laterne, Fenster, Fackel)
+vec3 welt(vec2 uv, mat4 ip, mat4 iv) {
+	float d = texture(depth_tex, uv).r;
+#if CURRENT_RENDERER == RENDERER_COMPATIBILITY
+	d = d * 2.0 - 1.0;
+#endif
+	vec4 v = ip * vec4(uv * 2.0 - 1.0, d, 1.0);
+	return (iv * vec4(v.xyz / v.w, 1.0)).xyz;
+}
 float lz(vec2 uv, mat4 ip) {
 	float d = texture(depth_tex, clamp(uv, vec2(0.0005), vec2(0.9995))).r;   // am Bildrand nicht ueber den Rand greifen
 #if CURRENT_RENDERER == RENDERER_COMPATIBILITY
@@ -38,7 +53,18 @@ void fragment() {
 		// Aussenseite der Kante = Richtung, in der die Tiefe waechst (zum Hintergrund); Sonne auf den Bildschirm (UV: y nach unten)
 		vec2 g = vec2(lz(SCREEN_UV + vec2(e1.x * dick, 0), INV_PROJECTION_MATRIX) - lz(SCREEN_UV - vec2(e1.x * dick, 0), INV_PROJECTION_MATRIX),
 			lz(SCREEN_UV + vec2(0, e1.y * dick), INV_PROJECTION_MATRIX) - lz(SCREEN_UV - vec2(0, e1.y * dick), INV_PROJECTION_MATRIX));
-		vec3 lv = (VIEW_MATRIX * vec4(licht_dir, 0.0)).xyz;
+		vec3 zum_licht = normalize(licht_dir) * mix(1.0, 0.35, nacht);
+		if (lampen_n > 0 && nacht > 0.02) {
+			vec3 wp = welt(SCREEN_UV, INV_PROJECTION_MATRIX, INV_VIEW_MATRIX);
+			for (int i = 0; i < 8; i++) {
+				if (i >= lampen_n) break;
+				vec3 zur_lampe = lampen[i].xyz - wp;
+				float ld = length(zur_lampe);
+				float lk = 1.0 - clamp(ld / lampen[i].w, 0.0, 1.0);
+				zum_licht += zur_lampe / max(ld, 1e-3) * lampen_kraft[i] * nacht * lk * lk * 3.0;
+			}
+		}
+		vec3 lv = (VIEW_MATRIX * vec4(zum_licht, 0.0)).xyz;
 		// Helfer an Lauf 94 (blind nur knapp besser): Lichtseite kaum duenner, Held gar nicht; die Sonne steht hoch, lv.xy war kurz
 		// (s hoechstens etwa 0,3), und dunkle Kleidung galt als tiefer Schatten: Sonne auf dem Bild normiert, Schattengrenze tiefer
 		vec2 sl = vec2(lv.x, -lv.y);

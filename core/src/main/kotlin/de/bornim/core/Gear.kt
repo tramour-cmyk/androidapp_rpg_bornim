@@ -144,7 +144,7 @@ data class Gear(
             else -> {
                 val first = rolls.getOrNull(0)?.affix
                 val second = rolls.getOrNull(1)?.affix
-                val prefix = first?.let { if (de) it.prefixDe + d.gender.ending else it.prefixEn }
+                val prefix = first?.let { a -> (PREFIX_FOR[d.id to a] ?: T(a.prefixDe, a.prefixEn)).let { if (de) it.de + d.gender.ending else it.en } }
                 val suffix = (second ?: if (rarity == Rarity.UNCOMMON) null else first)?.let { if (de) it.suffixDe else it.suffixEn }
                 when {
                     rarity == Rarity.UNCOMMON && nameSeed % 2 == 0 && first != null -> (if (de) first.suffixDe else first.suffixEn).let { "$baseName $it" }
@@ -238,17 +238,20 @@ data class Gear(
         }
 
     companion object {
-        private val epicFirst = listOf(
+        /** 399.1 (Homer): a prefix that does not fit its base: no "Arkanes Heiligensymbol" (Stamm wie [Affix.prefixDe]). */
+        val PREFIX_FOR: Map<Pair<String, Affix>, T> = mapOf(("holy_symbol" to Affix.SPELL) to T("Geweiht", "Hallowed"))
+
+        internal val epicFirst = listOf(
             T("Sturm", "Storm"), T("Schatten", "Shadow"), T("Seelen", "Soul"), T("Drachen", "Dragon"), T("Blut", "Blood"),
             T("Frost", "Frost"), T("Donner", "Thunder"), T("Aschen", "Ash"), T("Eisen", "Iron"), T("Sternen", "Star"),
             T("Nacht", "Night"), T("Greifen", "Griffin"),
         )
-        private val epicSecond = listOf(
+        internal val epicSecond = listOf(
             T("wache", "ward"), T("brecher", "breaker"), T("fang", "fang"), T("ruf", "call"), T("zorn", "wrath"),
             T("hüter", "keeper"), T("biss", "bite"), T("schwur", "oath"), T("glanz", "gleam"), T("schneide", "edge"),
             T("herz", "heart"), T("sang", "song"),
         )
-        private val gods = listOf(
+        internal val gods = listOf(
             T("des Morgenlichts", "of the Dawnlight"), T("der Ewigen Flamme", "of the Eternal Flame"),
             T("des Sturmvaters", "of the Stormfather"), T("der Sternenmutter", "of the Star Mother"),
             T("des Eisernen Richters", "of the Iron Judge"), T("der Stillen Jägerin", "of the Silent Huntress"),
@@ -389,6 +392,9 @@ object Uniques {
     )
 
     fun name(id: String): T = all[id]?.name ?: T(id, id)
+    /** 390: for the texts of the Godot game (TextExport). */
+    fun rarity(id: String): Rarity = all.getValue(id).rarity
+    val ids: Set<String> get() = all.keys
     fun exists(id: String) = id in all
     fun make(id: String, uid: Long, ilvl: Int): Gear {
         val u = all.getValue(id)

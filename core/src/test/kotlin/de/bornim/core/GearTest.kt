@@ -19,6 +19,18 @@ class GearTest {
     }
 
     @Test
+    fun theHolySymbolIsTheClericsAndHallowed() {
+        // 399.1 (Homer): kein „Arkanes Heiligensymbol“; als Beute nur für Kleriker, Kugel und Foliant für Magier
+        val g = Gear(1, "holy_symbol", Rarity.RARE, 3, 0, listOf(Roll(Affix.SPELL, 1), Roll(Affix.WIS, 1)))
+        assertEquals("Geweihtes Heiligensymbol der Eule", g.name(Lang.DE))
+        assertEquals("Hallowed Holy Symbol of the Owl", g.name(Lang.EN))
+        assertEquals("Arkane Zauberkugel der Eule", Gear(2, "orb", Rarity.RARE, 3, 0, listOf(Roll(Affix.SPELL, 1), Roll(Affix.WIS, 1))).name(Lang.DE))
+        val sym = GearBases["holy_symbol"]
+        assertTrue(Loot.suits(CharClass.CLERIC, sym) && !Loot.suits(CharClass.WIZARD, sym))
+        assertTrue(Loot.suits(CharClass.WIZARD, GearBases["orb"]) && !Loot.suits(CharClass.CLERIC, GearBases["tome"]))
+    }
+
+    @Test
     fun germanNamesUseGenderEndings() {
         val g = Gear(1, "longsword", Rarity.RARE, 3, 1, listOf(Roll(Affix.FIRE, 2), Roll(Affix.STR, 1)))
         assertEquals("Flammendes Langschwert der Bärenkraft", g.name(Lang.DE))

@@ -83,6 +83,28 @@ def verstecke_knochen(sk, VERSTECK, namen):
     print('VERSTECK', {k: (len(v[0]), [round(x, 3) for x in v[1]]) for k, v in VERSTECK.items()})
 
 
+# 397 (Chef 28.10., 11:15: Ruhebewegungen wie im alten Spiel, mindestens drei): weitere Ruhe aus der gekauften UAL Pro (KAUF, 678371987,
+# Unreal-Godot/UAL1.glb, gleiches Geruest), nur wenn vorhanden; held.bin und daten/leute sind dann Kaufmodelle (kauf.txt, 348.12i)
+RUHE = [('Stehen_2', 'Idle_LookAround_Loop'), ('Stehen_3', 'Idle_Tired_Loop')]
+
+
+def ual_pro():
+    d = os.environ.get('KAUF', '')
+    f = sorted(glob.glob(os.path.join(d, '**', 'Unreal-Godot', 'UAL1.glb'), recursive=True)) if d else []
+    return f[0] if f else None
+
+
+def mit_ruhe(liste, FIGUR):
+    """die Liste der Bewegungen und dazu je vorhandener Ruhe aus RUHE eine wie Stehen (Held auch mit Fackel)"""
+    st = {n: o for n, _, o in liste}
+    extra = []
+    for n, q in RUHE:
+        if q not in bpy.data.actions: continue
+        extra.append((n, q, st['Stehen']))
+        if FIGUR == 'held' and 'Stehen_Fackel' in st: extra.append((n + '_Fackel', q, st['Stehen_Fackel']))
+    return liste + extra
+
+
 def ual_datei():
     d = os.environ.get('CC0', os.path.expanduser('~/cc0'))
     f = sorted(glob.glob(os.path.join(d, '**', 'UAL1_Standard.glb'), recursive=True))
@@ -282,6 +304,12 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
     ual = next(o for o in neu if o.type == 'ARMATURE')
     for o in neu:
         if o is not ual: bpy.data.objects.remove(o, do_unlink=True)
+    pro = ual_pro()
+    if pro:   # 397: nur die Ruhebewegungen der Pro dazu, Objekte weg
+        vor2 = set(bpy.data.objects)
+        bpy.ops.import_scene.gltf(filepath=pro)
+        for o in [o for o in bpy.data.objects if o not in vor2]: bpy.data.objects.remove(o, do_unlink=True)
+        print('RUHE aus', pro, [q for _, q in RUHE if q in bpy.data.actions])
     uad = ual.animation_data_create()
     for t in list(uad.nla_tracks): uad.nla_tracks.remove(t)
     UB = ual.data.bones; UP = ual.pose.bones
@@ -471,7 +499,7 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
     ad = sk.animation_data_create()
     INFO = {}
     tor = lies(bpy.data.actions[FACKEL]) if FIGUR == 'held' else None
-    for name, quelle, opt in (HELD if FIGUR == 'held' else leute_liste(LP)):
+    for name, quelle, opt in mit_ruhe(HELD if FIGUR == 'held' else leute_liste(LP), FIGUR):
         Gs = lies(bpy.data.actions[quelle], opt.get('takt'))
         fk = tor if opt.get('fackel') else None
         ka = dict(eng_arm=opt.get('eng_arm', 0.0), eng_bein=opt.get('eng_bein', 0.0), gehen=name.startswith(('Gehen', 'Rennen')), vor=opt.get('vor', 1.0), schritt=opt.get('schritt', 1.0), schwung=opt.get('schwung', 1.0), schulter=opt.get('schulter'), rueck=opt.get('rueck'), mitschwung=opt.get('mitschwung', 0.0))
@@ -508,7 +536,7 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
         g, R = im_knochen('foL-wrL', (-1.87, 18.7, 0.72), 'hand_l')     # held.gd FAUST_GRIFF (Runde 5c, in Godot nachgemessen)
         return {'knochen': 'hand_l', 'griff': [round(x, 4) for x in g], 'achse': [round(x, 4) for x in (R @ Vector((-0.358, 0.0, -0.934)))]}
     INFO['faust_L'] = faust_l()
-    if VERSTECK: verstecke_knochen(sk, VERSTECK, [n for n, _, _ in (HELD if FIGUR == 'held' else leute_liste(LP))])
+    if VERSTECK: verstecke_knochen(sk, VERSTECK, [n for n, _, _ in mit_ruhe(HELD if FIGUR == 'held' else leute_liste(LP), FIGUR)])
     if FIGUR == 'held' and os.environ.get('VOR_KAMPF'):   # zum Probieren: kampf.py <OUT>/held3-vorkampf.blend <x.glb>
         bpy.ops.wm.save_as_mainfile(filepath=OUT + '/held3-vorkampf.blend', copy=True)
     if FIGUR == 'held':   # 348.6 Kampfbewegungen (kampf.py): Kampfstehen, Ausholen, Hieb, Stich, Treffer, Ausweichen, Abwehr; Tod von oben

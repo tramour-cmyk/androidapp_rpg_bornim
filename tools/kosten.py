@@ -3,7 +3,7 @@
 
 Aufruf: python3 tools/kosten.py [--tag TT.MM.] [--ab TT.MM.] DATEI [DATEI …]
 DATEI = Ausgabe von list_sessions (oder Kurzform, eine Zeile je Sitzung, siehe `kurzzeilen`) (die Datei, in der das Werkzeug sie ablegt, oder von Hand gesichert); mehrere Seiten (has_more) einfach alle angeben.
-Rolle = erstes Wort des Sitzungstitels (Homer, Tom, Jerry, Ford, Ford 2, Perikles, Diogenes, Sokrates), sonst „Sonstige“.
+Rolle = erstes Wort des Sitzungstitels (Homer, Tom, Jerry, Ford, Ford 2, Perikles, Diogenes, Sokrates; Spike und Tuffy zählen zu Tom und Jerry, 394), sonst „Sonstige“.
 Anteil Spiel = (Tom + Jerry + Homer) / alle Kosten. Kosten = usage.cost_usd, auch bei archivierten Sitzungen (geprüft 18.10.); Niederlassung (Pro) ist nicht lesbar.
 Sitzungen ohne cost_usd werden gezählt und genannt („ohne Kosten“), nie als 0 $ gerechnet.
 """
@@ -11,7 +11,8 @@ import json, sys, re, datetime
 from collections import defaultdict
 
 SPIEL = {"Tom", "Jerry", "Homer"}
-ROLLEN = ["Ford 2", "Ford", "Perikles", "Diogenes", "Sokrates", "Tom", "Jerry", "Homer"]
+ROLLEN = ["Ford 2", "Ford", "Perikles", "Diogenes", "Sokrates", "Tom", "Jerry", "Homer", "Spike", "Tuffy"]
+TEAM = {"Spike": "Tom", "Tuffy": "Jerry"}  # 394 (Chef 28.10., 10:26): Zusatzentwickler, eigene Sitzung, Vorrat und Kosten ihres Teams
 
 def sitzungen(pfad, offen):
     """Sitzungen einer Seite; ist has_more wahr, kommt der Dateiname in offen (D28.3c)."""
@@ -73,6 +74,7 @@ def main():
         k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
         if k is None: ohne.append(s.get("title", s["id"])); continue
         r = rolle(s.get("title", ""))
+        r = TEAM.get(r, r)
         je_rolle[r][0] += 1; je_rolle[r][1] += k
         je_tag[tg][0] += k
         if r in SPIEL: je_tag[tg][1] += k
