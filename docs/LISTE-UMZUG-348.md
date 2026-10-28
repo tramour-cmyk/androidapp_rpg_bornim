@@ -6,7 +6,7 @@ Entschieden 25.10., 00:30–01:04 (Vorgangsarchiv „348, Umstieg“, „348, Um
 
 - **Ein Projekt:** `godot/` im Repo (Arbeitszweige `claude/tom-348-…`, `claude/jerry-348-…`), App-Kennung bleibt `de.bornim.game`, Build über eigenen Workflow; `main` erst nach Test des Chefs.
 - **Look aus der Probe** (`tools/godot348/`, Build 12, b71b9a47f): `toon.gdshader` (drei Lichtstufen, `fill` hellt den Helden im Schatten auf), `tusche.gdshader` (Tusche nach Licht, ohne MSAA; Schablone: 1 = ohne Linie wie Blüten, 2 = feinere Linie wie Held, `main.gd` `toon_mark`), Gras `halm.gdshader` ohne Linie, gemalte Texturen aus `tools/blender348/v3/tex.py`. Keiner stellt seine eigene Tusche ein.
-- **Modellregel** (Jerry, 348.7): unten im Abschnitt „Modellregel“.
+- **Modellregel** (Jerry, 348.7): unten im Abschnitt „Modellregel“; Zauber und Schüsse: Abschnitt „Zauberbahn“ (348.7b).
 - **Regeln** (`core`) nach GDScript mit denselben Testfällen; Tom Welt, Leute, Story, Läden, Spielstand; Jerry Kampf, MARS, Höhle, Klang.
 - **Keine 1:1-Kopie** (Chef 27.10., 23:56, Archiv „348, Maßstab“): Übernommen werden die Karten (Orte, Wege, was wo steht) und der Grundton: düster, erwachsen. Kleinigkeiten wie die Drehung einer Fichte, die Höhe eines Lagerfeuers oder die Farbe eines Dachziegels sind kein Fehler und kein Grund für einen Lauf. Bilder und Bewegungen früh vorlegen, der Chef entscheidet; höchstens zwei Probeläufe je Vorlage (389).
 - **Abgleich:** je Ort und Figur ein Vergleichsbild alt/neu; was fehlt (ein Ort, ein Weg, eine Figur, eine Funktion) oder im Grundton schlechter ist, ist ein Fehler.
@@ -39,6 +39,14 @@ Gilt für jedes Modell im neuen Spiel: Figur, Tier, Monster, Ausrüstung, Ding, 
 **Urteil Chef Dorf-APK (25.10., Lauf 46; über Sokrates):** 18:06 (Bild), „Mehrfach bereits angesprochen“: „Brunnendach verkehrt, Brunnen nicht offen in der Mitte“, Marktstanddach „nicht auf Stand, sondern schwebt auf einer Seite“ (Tom). 18:07: „Ratte viel zu klein für eine Riesenratte“; 18:20 nach 0,44 m: „Die Ratte muss deutlich größer sein“ (Jerry). 18:20 Wolf: „sieht eher aus wie ein Kojote. Der Wolf ist im Rist gleich hoch vorne und hinten. Der Brustkorb geht dann nach unten weiter und ist muskulös. Also der muss irgendwie hinten angehoben werden“ (Jerry). 18:20 Held: „Die Fackel des Helden trägt immer noch hinten“; „Der Übergang von Gehen zu Rennen ist zu krass. Außerdem ist es keine Rennanimation, sondern nur eine … beschleunigte Gehen-Animation“ (Tom). 18:20 Leute: „das Gehen der einzelnen Leute an sich läuft“; „egal wer steht, so circa im 3 bis 4 Sekunden Takt glitscht dann die Figur und zuckt“ (Tom). 18:28 zur Testbitte: „Zu 348.6 gibt es ja nix freizugeben. Rest war okay. Der kleine Junge marschiert ein bisschen wie ein Soldat“ (Tom; Pim). **Chef 25.10., 17:03, Gang je Figur** (offen; fiel 19:58 aus Toms Vorrat, Sokrates 26.10. wieder eingetragen): „Kind ein bisschen flotter, eine Dame schreitet mehr, ein alter Bauer geht langsam. Und schleift vielleicht Bein noch“ (Tom; Helfer 25.10.: Hinken kaum sichtbar, Pims Takt kaum schneller).
 
 **Urteil Chef Lauf 75 (26.10., 11:41, über Sokrates):** „sieht alles schon recht schön aus“; aber (1) Gesicht des Helden „völlig nichtssagend … schrecklich, möchte ich fast sagen“ (Tom); (2) Leute wenden um 180° „sehr flott … wirkt jetzt nicht sehr natürlich. Aber wir wollen ja eine natürlich lebendige Welt haben“ (Tom: Wenden langsamer, über Schritte). 11:42: „Lauf 75 … auf dem Rechner über MuMu-Player nicht laufen lassen. Das startet da nicht. Auf Handy ging's“ (Tom: Ursache, z. B. x86 oder Vulkan).
+
+## Zauberbahn (348.7b, Chef 28.10., 07:57: „348.7b passt“; Archiv 348.7b)
+
+Gilt für jeden Zauber und Schuss im Kampfort, Freund und Feind.
+
+1. **Bahn:** gerade von Stabspitze oder Hand (`Figur.cast_point`) zur Brust des Ziels; über Köpfe und Ansagen hinweg, keine Wegsuche. Ausnahmen: Magisches Geschoss in drei Bögen, seitlich aufgefächert; Pfeil und Bolzen leichter Bogen.
+2. **Seitenschritt:** steht ein eigener Mann in der Linie, tritt der Wirkende 0,3–1,0 m nach links oder rechts (zuerst zur Bildmitte, ganz im Bild), wirkt, tritt zurück; nur Bild, keine Bewegung, kein Gelegenheitsangriff; nicht beim Magischen Geschoss. Ein Gegner in der Linie zählt nicht und gibt keine Deckung.
+3. **Feuerball** gerade zum Zielpunkt, dort die Explosion; **Brennende Hände** ein Kegel aus den Händen, der Wirkende bleibt am Seitenplatz, solange er brennt.
 
 ## Arbeitsteilung ab 25.10. (348.9, Chef 12:24: „Super Vorschläge“)
 
