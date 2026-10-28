@@ -131,3 +131,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:04 28.10.: Marke Archiv session_01Hmoj76kqDZ5MjqaSWsoJcZ (lauf.py)
 - 12:36 28.10.: Startsperre 12:36 Start Perikles (lauf.py)
 - 13:11 28.10.: Nachfolger-Warnung Diogenes (Übergabe 28.10., 12:19) (lauf.py)
+- 14:01 28.10.: Neustart Tom 971fcda1a → Nachfolger „Tom – 399.1 Test 130 begleiten“ `01Hmoj76hw` gestartet; alter Tom `01Hmoj76N4` noch working, archivieren im nächsten Lauf (Kosten 399.1/390/397).
