@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (28.10., 21:3x, `session_01Hmoj78ePKKgJA9WBvynVt3`):** auf `claude/tom-399-spielfassung` gebaut, ohne Bildlauf (Probegrenze 389), nur Tests ohne Bild: Ruf ohne Worte, Intro mit Start in der Schenke, Vorspann, Ortsworte in der Blende (bis 3b17961e9; `zwischenbild.gd`, `ortsblende.gd`, `IntroExport.kt`). Nachfolger: Tom – 399.1 Rückläufer t139 (Testmenü, neues Spiel, Aktionsknopf, Anleitung).
+**Übergabe (28.10., 22:2x, `session_01Hmoj75YJs7P43H1asCCog9`):** auf `claude/tom-399-spielfassung`: t139 Aktionsknopf, Anleitung, neues Spiel, Testmenü; Build 141 an den Chef (t141). Danach für den nächsten Build: 139.10, Gerät mit Messwerten, 139.7, 399.4 (bis 554cf01d9). Godot am Rechner: `~/godot/godot`, Tests ohne Bild in `godot/tests/*_399.gd`. Nachfolger: Tom – 399.5 Innenräume wie alt.
 
 ## Zeilen
 
