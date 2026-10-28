@@ -12,7 +12,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [385](ansehen/385-zauberer-film.md) | Zauberer-Set auf dem Kaufkörper | Tom | 28.10., 11:05 |
 
 ## Zu tun
 
