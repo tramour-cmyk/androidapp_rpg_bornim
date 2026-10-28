@@ -27,7 +27,6 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [391](tun/391-repo-umgebung.md) | **Muss** | B Werkzeuge | 28.10. | Zweit-Repo fest in die Umgebung „WireStorm Hoch“ eintragen | Sokrates |
 | [142](tun/142-pflichttest.md) | **Muss** | M Veröffentlichung | 27.10., 20:07 | Pflichttest Play Store: Gewerbeschein melden | Sokrates |
 
 ## Offen je Rolle
@@ -136,7 +135,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 391 | M | von Chef (28.10., 09:21): Repos dauerhaft ohne Ablehnung | Chef |
+| 391 | M | von Chef (28.10., 09:21): Repos dauerhaft ohne Ablehnung | ruht |
 | 383.2 | M | von Chef (27.10., 19:24, „wo steckt jetzt hier wieder die Wahrheit? Und wer hat damit gepr | Termin 31.10. |
 | 383 | M | von Chef (27.10., 17:44, „Sollen wir einfach aufhören damit?“; 17:47 Vorschlag „nicht grif | Termin 31.10. |
 | 376 | M | von Chef (27.10., 12:00): Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Tom |
@@ -170,7 +169,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 186.3 (Pruefung)
 
-Ohne Datei: 275 (Projekt)
+Ohne Datei: 275 (Projekt), 26 (Team Tom)
 
 ## So geht's
 
