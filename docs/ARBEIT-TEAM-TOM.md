@@ -14,8 +14,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 390 | M | **von Perikles:** zwischen Chef-Blättern Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | gebaut: Laden, Rast, Held, Tagesablauf, Gespräche, Englisch (64a6e5a80; Test 390a) | `claude/tom-390-englisch` |
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101 lädt) | `claude/tom-348-12i-verschluesseln` |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | ruht (Chef 12:34, 399) | `claude/tom-376-1-figuren` |
-| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | wartet: Hund (395), Google Drive gesperrt 16:0x, neuer Versuch ab 18:30; Katze Chefsache 395a | `claude/tom-348-fundament` |
-| 395a | M | **von Tom (Chef 10:53 zu 395):** Katze: Quaternius hat keine; MadeCG kaufen? | wartet auf Chef: Chefsache 395a | – |
+| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: Kuh südlich des Flusses weg, dort weniger Tiere, Durchgang frei (Chef 16:12, Archiv); Ausweichen wie alt; Hund (395) ab 18:30 (Drive gesperrt) | `claude/tom-348-fundament` |
+| 395a | M | **von Tom (zu 395):** Katze von MadeCG? | wartet auf Chef: Chefsache 395a | – |
 | 376.2 | M | **von Perikles (Chef 12:37, `LISTE-CC0-MODELLE.md`):** RenderHub-Marktpaket: Brunnen und Stände als Form, unsere gemalten Farben | wartet auf 348.6 (Dorf nach Urteil Probehaus); Paket im Release stufe1 erreichbar (Chef 17:38) | – |
 | 372 | M | **von Perikles (338a B, Chef 27.10., 09:36, Archiv):** Feinschliff Held: Kettenhemd, Helm, Kragen (Zu 348.6, Hände) | ruht bis Ende des Umzugs | `claude/tom-348-fundament` |
 | 397 | M | **von Chef (28.10., 11:15):** Held, Leute: mind. drei Ruhebewegungen wie alt (`LISTE-UMZUG-348.md`) | gebaut: Held, Leute Stehen, Umsehen, Müde (UAL Pro), in 399.1 | `claude/tom-397-ruhe` |
@@ -32,8 +32,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 357 | K | **von Perikles (Chef 24.10., Chefsache 26, „okay“):** Puppe in der Charaktererstellung sieht beim Drehen „nicht sonderlich fein“ aus; mit 302.1 | ruht bis Ende Umzug 348; dann mit 302.1 | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2 (Zu 145) | claude/tom-145-kartenmappe |
-| 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (`STORY-WAHLEN.md`) | wartet auf 41 (Kapitel 2 nicht im Spiel) und 49 (ruht); geprüft 19.10. | – |
-| 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (Kapitel 2 nicht im Spiel) | – |
+| 133 | K | Charisma-Wahlen Kapitel 2 (`STORY-WAHLEN.md`) | wartet auf 41 (Kapitel 2 nicht im Spiel) und 49 (ruht); geprüft 19.10. | – |
+| 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (Kapitel 2 nicht im Spiel) | – |
 
 ## Einzelheiten
 
