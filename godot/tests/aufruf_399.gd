@@ -40,8 +40,23 @@ func _alle() -> void:
 			print(("endet " if gut else "FEHLER ") + "Heldwerte %s: %s" % [k, r])
 			if not gut:
 				fehler += 1
+		# 399.2a (Chef 14:19: Kapitel 1, der Held allein, Wolf mit 1–2 Jungwölfen): neu erschaffener Held ohne Söldner
+		for k in ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]:
+			n += 1
+			var h = HW.erschaffe("Alrik", "HUMAN", k)
+			var r: String = await _einer("RUDEL", "tag", h, -1, null, 0)
+			var gut := r.begins_with("WON ") or r.begins_with("LOST ")
+			print(("endet " if gut else "FEHLER ") + "Rudel allein %s: %s" % [k, r])
+			if not gut:
+				fehler += 1
 	else:
 		print("Heldwerte fehlen (vor 399.1): nur Blätter aus tabellen.json")
+	n += 1
+	var rr: String = await _einer("RUDEL", "abend", tab.probe.FIGHTER.hero.hero, int(tab.probe.FIGHTER.hero.hp), null, 0)
+	var rgut := rr.begins_with("WON ") or rr.begins_with("LOST ")
+	print(("endet " if rgut else "FEHLER ") + "Rudel allein (Blatt): %s" % rr)
+	if not rgut:
+		fehler += 1
 	# ohne LP kein Kampf: ende kommt gleich mit NONE
 	var a = Aufruf.new()
 	root.add_child(a)
@@ -58,7 +73,7 @@ func _alle() -> void:
 	quit(1 if fehler > 0 else 0)
 
 
-func _einer(gegner: String, zeit: String, held, held_tp: int, merc: Dictionary, merc_tp: int) -> String:
+func _einer(gegner: String, zeit: String, held, held_tp: int, merc, merc_tp: int) -> String:
 	var a = Aufruf.new()
 	root.add_child(a)
 	_ende.clear()
@@ -70,7 +85,8 @@ func _einer(gegner: String, zeit: String, held, held_tp: int, merc: Dictionary, 
 	var k = a.kampf
 	if k.tageszeit != zeit:
 		return "Tageszeit %s statt %s" % [k.tageszeit, zeit]
-	k.mars.find("merc").auto = true
+	if merc != null:
+		k.mars.find("merc").auto = true
 	k.mars.set_autopilot(true)
 	if not k.busy:
 		k.go_on()
@@ -94,7 +110,7 @@ func _einer(gegner: String, zeit: String, held, held_tp: int, merc: Dictionary, 
 	if _ende.size() != 1:
 		return "%s, ende %d-mal" % [k.mars.outcome if is_instance_valid(k) else "?", _ende.size()]
 	var e: Array = _ende[0]
-	if not (e[1].has("hero") and e[1].has("merc")):
+	if not (e[1].has("hero") and (merc == null or e[1].has("merc"))):
 		return "%s ohne Trefferpunkte %s" % [e[0], e[1]]
 	if e[0] == "WON" and e[2].is_empty():
 		return "WON ohne Lohn"

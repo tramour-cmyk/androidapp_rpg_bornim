@@ -744,6 +744,13 @@ func snap_to(p: Vector3) -> void:
 	position = p
 
 
+## 399.2a: läuft vom Kampfort weg (fällt sein Leitwolf, fliehen die Jungwölfe) und verschwindet hinter dem Bildrand
+func flee_off(away: Vector3) -> void:
+	announce(null)
+	glide_to(home + away * 9.0)
+	get_tree().create_timer(3.0).timeout.connect(func(): visible = false)
+
+
 func glide_to(p: Vector3) -> void:
 	if p.is_equal_approx(home):
 		return

@@ -629,6 +629,11 @@ func screen_of(p: Vector3) -> Vector2:
 func foe_scale(f) -> float:
 	if f.monster == null:
 		return 1.0
+	# 399.2a: der Jungwolf halb so groß wie der Wolf (Packs.kt cubs 0,55)
+	return _foe_scale(f) * float(f.monster.get("scale", 1.0))
+
+
+func _foe_scale(f) -> float:
 	if f.monster.id == Mars.WOLF:
 		if Figur.ersatz().begins_with("kauf_"):     # 387: gekaufte Tiere (kauftier.py) in echter Größe wie im Kauf
 			return 1.0
@@ -767,6 +772,8 @@ func _play_say(e: Dictionary) -> void:
 		figures[actor].rise()
 	elif e.cue == "CIRCLE" and actor != null:
 		figures[actor].howl()
+	elif e.cue == "FOE_FLEES" and target != null and figures.has(target):     # 399.2a: die Jungwölfe laufen nach hinten davon
+		figures[target].flee_off(-facing(true))
 	var lands := int(lunge_ms * 0.42)
 	# 348.7 (Rest aus 249, BattleFxLayer): Zauber und Pfeile fliegen sichtbar, auch daneben; der Treffer fällt, wenn sie ankommen
 	var fx = _fx_of(e, by, tg, across)
@@ -795,7 +802,7 @@ func _play_say(e: Dictionary) -> void:
 			if wound:
 				ui.bleed(actor, target, w == Wucht.CRIT or (w == Wucht.KILL and crit), gore, tg.monster.id if tg.monster != null else ""))
 	for f in mars.fighters():
-		if figures.has(f.id) and e.places.has(f.id):
+		if figures.has(f.id) and e.places.has(f.id) and not f.fled:     # 399.2a: wer flieht, kommt nicht an seinen Platz zurück
 			figures[f.id].glide_to(_spot_pos(f, e.places[f.id]))
 	ui.refresh()
 	ui.show_roll(e)
