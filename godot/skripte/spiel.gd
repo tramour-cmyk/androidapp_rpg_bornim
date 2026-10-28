@@ -613,8 +613,9 @@ func haeuser_blatt() -> void:
 # 348.6 Dorftiere (Chefrunde 28.10., 08:09): --dorftiere=<ordner> legt die Grundansicht an jedem Ort der Tiere ab (Wiese suedlich
 # des Flusses mit Rind, Ziegen, Huehnern; Heuballen im Westen; Kaninchen am Waldrand), nah bei den Huehnern, nachts;
 # --dorftierfilm (mit --write-movie) zeigt sie in Bewegung: Wiese, Huehner nah, Westen, je einige Sekunden
-const TIERORTE := [[Vector2i(29, 28), "wiese", false], [Vector2i(33, 30), "huehner_nah", true], [Vector2i(13, 28), "west", false],
-	[Vector2i(34, 10), "kaninchen_ost", false], [Vector2i(3, 9), "kaninchen_west", false]]
+# Pruefung 09:04: der Held stand fuer „huehner_nah“ auf dem Platz eines Huhns (Huhn im Stiefel)
+const TIERORTE := [[Vector2i(29, 28), "wiese", false], [Vector2i(31, 28), "huehner_nah", true], [Vector2i(13, 28), "west", false],
+	[Vector2i(29, 23), "kaninchen_ufer", false], [Vector2i(4, 24), "kaninchen_west", false]]
 
 func dorftiere_blatt() -> void:
 	var dir := ""

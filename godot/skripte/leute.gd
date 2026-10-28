@@ -64,8 +64,10 @@ static func tiere(k: Karte, h: Node3D) -> Array:
 # 348.6 Dorftiere (Chefrunde 28.10., 08:09: „lieber ein paar Tiere zuerst ‚Platzieren‘“): die gekauften Tiere aus 387 (Jerrys
 # kauftier.py, daten/dorftiere/kauf_<tier>-<fell>.bin, kauf_<tier>-info.json je Fell). Huehner wie alt zwei an jedem Heuballen auf
 # der freien Seite (MapHen.find: westlich, noerdlich, nordwestlich, oestlich nur, wenn sonst nichts frei ist); neu Rind und Ziegen
-# auf der Wiese suedlich des Flusses beim Kornfeld, Kaninchen am Waldrand. Tiere bleiben auf Wiese und Blumen (TIERBODEN)
-const DORFTIERE := {"village": [["rind", 27, 27], ["ziege", 24, 28], ["ziege", 30, 27], ["ziege", 14, 29], ["kaninchen", 33, 11], ["kaninchen", 2, 10]]}
+# auf der Wiese suedlich des Flusses beim Kornfeld, Kaninchen am Westrand und am Nordufer, frei vor Kronen und Daechern (Pruefung
+# 09:04: unter Krone und Dach nicht zu sehen). Tiere bleiben auf Wiese und Blumen (TIERBODEN); grosse Tiere (Ziege, Rind) nicht
+# neben Feld, Garten, Zaun, Heu, ihr Koerper ragte sonst hinein (Pruefung: Ziege halb im Korn)
+const DORFTIERE := {"village": [["rind", 27, 27], ["ziege", 25, 27], ["ziege", 30, 27], ["ziege", 14, 29], ["kaninchen", 2, 23], ["kaninchen", 27, 24]]}
 const HUHN_PLATZ := [Vector2i(-1, 0), Vector2i(0, -1), Vector2i(-1, -1), Vector2i(1, 0), Vector2i(0, 1)]
 const TIERBODEN := ".f,"
 # Pause zwischen zwei Schritten (s) und Anteil Fressen statt Stehen: Huehner picken oft, das Rind grast lange
@@ -96,7 +98,8 @@ static func dorftiere(k: Karte, h: Node3D) -> Array:
 					plaetze.append(["huhn", Vector2i(x, y) + d])
 	for p in DORFTIERE.get(k.id, []):
 		var t := Vector2i(int(p[1]), int(p[2]))
-		if felle.has(p[0]) and Leute.tierboden(k, t) and not belegt.has(t):
+		var boden_ok := Leute.tierboden_gross(k, t) if p[0] in ["rind", "ziege"] else Leute.tierboden(k, t)
+		if felle.has(p[0]) and boden_ok and not belegt.has(t):
 			belegt[t] = true
 			plaetze.append([p[0], t])
 	var zahl := {}
@@ -113,6 +116,14 @@ static func dorftiere(k: Karte, h: Node3D) -> Array:
 
 static func tierboden(k: Karte, t: Vector2i) -> bool:
 	return k.begehbar(t) and k.ausgang(t).is_empty() and TIERBODEN.contains(k.zeichen(t))
+
+const FELDRAND := "cvxy"
+static func tierboden_gross(k: Karte, t: Vector2i) -> bool:
+	if not tierboden(k, t): return false
+	for dy in range(-1, 2):
+		for dx in range(-1, 2):
+			if FELDRAND.contains(k.zeichen(t + Vector2i(dx, dy))): return false
+	return true
 
 func _init(k: Karte, d: Dictionary, h: Node3D) -> void:
 	karte = k
@@ -136,7 +147,8 @@ func _ready() -> void:
 		var info: Dictionary = alle.get(String(daten["fell"]), {})
 		var w: Array = info.get("weg", {}).get("Gehen", [])
 		if w.size() > 1 and float(info.get("Gehen", 0.0)) > 0.0: gang = float(w[w.size() - 1][1]) / float(info["Gehen"])
-		leib = clampf(maxf(float(info.get("laenge_m", 1.0)), float(info.get("breite_m", 0.5))) * 0.4, 0.2, 1.0)
+		# Pruefung 09:04: Rind (2,5 m) hielt 1 m Abstand, der Kopf reicht 1,25 m vor die Mitte: halbe Laenge plus eine Handbreit
+		leib = clampf(float(info.get("laenge_m", 1.0)) * 0.5 + 0.15, 0.3, 1.5)
 	elif FileAccess.file_exists(p):
 		var info: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(p))
 		gang = float(info.get("gehen_m_je_s", gang))
@@ -255,7 +267,7 @@ func nah_am_held(t: Vector2i) -> bool:
 
 func frei_fuer_mich(t: Vector2i) -> bool:
 	if not karte.begehbar(t) or not karte.ausgang(t).is_empty(): return false
-	if daten.has("tier") and not Leute.tierboden(karte, t): return false
+	if daten.has("tier") and not (Leute.tierboden_gross(karte, t) if leib > 0.7 else Leute.tierboden(karte, t)): return false
 	if t == held_kachel(): return false
 	for l in get_parent().get_children():
 		if l is Leute and l != self and (l.kachel == t or l.ziel == t): return false
