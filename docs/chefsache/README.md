@@ -20,7 +20,6 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [348.12](ansehen/34812-grak-film.md) | Grak bewegt sich im Kampfort | – | 28.10., 15:17 |
 | [348.7](ansehen/3487-fledermaus-r5.md) | Riesenfledermaus Runde 5 mit neuer Tusche | – | 28.10., 15:17 |
 | [348.7b](ansehen/3487b-zauberbahn-r4.md) | Zauberbahn Runde 4 (deine Wahl „b“) | – | 28.10., 15:17 |
 
