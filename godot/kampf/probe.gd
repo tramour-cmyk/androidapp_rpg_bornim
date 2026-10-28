@@ -166,6 +166,14 @@ func _still(path: String) -> void:
 			var pn := sk_n.get_bone_global_pose(bn)
 			var vn: Vector3 = (sk_n.global_basis * (pn.basis * sk_n.get_bone_global_rest(bn).basis.inverse() * Vector3(0, 0, 1))).normalized()
 			kopf = sk_n.global_transform * pn.origin + vn * 0.06 * fg._scale()
+		elif sk_n != null and sk_n.find_bone("Head") >= 0 and sk_n.find_bone("neck_01") >= 0:
+			# 348.12 r2 (Prüfer Probe 2: NAH=grak zeigte die Brust, der Kopf abgeschnitten): CC0-Gerüst; Kopfmitte eine Halslänge über
+			# dem Kopfgelenk, längs des Kopfknochens
+			var hp := sk_n.get_bone_global_pose(sk_n.find_bone("Head"))
+			var np_ := sk_n.get_bone_global_pose(sk_n.find_bone("neck_01"))
+			var hw: Vector3 = sk_n.global_transform * hp.origin
+			var hl: float = (hw - sk_n.global_transform * np_.origin).length()
+			kopf = hw + (sk_n.global_basis * hp.basis.y).normalized() * hl
 		var nah := Camera3D.new()
 		fight.add_child(nah)
 		nah.fov = 20.0

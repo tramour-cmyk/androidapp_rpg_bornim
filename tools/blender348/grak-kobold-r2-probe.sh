@@ -30,7 +30,7 @@ SCHAU_MESS=1 film grak grak
 export GEGNER=KOBOLDS
 bild kobold-ort
 for h in Stehen= Gehen=Gehen:0.25 Aus=Hieb:0.22 Auf=Hieb:0.43; do for g in 1 2 3; do NUR=gob$g HALTUNG=${h#*=} bild st-cc0-${h%%=*}-$g; done; done
-for g in 1 2 3; do NAH=gob$g NUR=gob$g bild nah-kob$g; done   # Runde 2b: Strich durch Kopf und Hals, Kappe (Prüfer Probe 1)
+for g in 1 2 3; do NAH=gob$g NAHVORN=0 NAHM=0.9 NUR=gob$g bild nah-kob$g; done   # Runde 2b: Strich durch Kopf und Hals, Kappe (Prüfer Probe 1); 2d: von vorn (Probe 2 zeigte Ohr und Hinterkopf)
 film kobold kobold
 grep -E "Schirm|Zweihand|SCRIPT ERROR|^ +at: res" $P/grak-ort.log | head -20
 for h in Stehen Aus Ab Auf; do grep -E "Zweihand" $P/st-grak-$h.log | head -1 | sed "s/^/$h: /"; done
