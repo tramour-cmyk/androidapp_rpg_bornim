@@ -8,7 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf (`LISTE-UMZUG-348.md` „Spielfassung“) | startbar: nächster Build (Chef 14:38): Wald/Wolfskampf, Hauptmenü wie alt, Alegreya überall, Gesprächsfenster wie alt | `claude/tom-399-spielfassung` |
+| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf (`LISTE-UMZUG-348.md` „Spielfassung“) | in Arbeit: 399.1a fester Schlüssel (Chef 14:41 „ja“), Rudel statt drei Wölfe (399.2a); Test 130 läuft beim Chef | `claude/tom-399-spielfassung` |
 | 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | in Arbeit: 385.1 Film Grundbewegungen (Umsehen, Gehen, Hocken, Ausweichen, Treffer, Tod, Aufstehen, Feuerpfeil, Feuerball; Bauer Hocken, Tod, Aufstehen); die übrigen der 14 Zauber später (Chef 12:31) |
 | 398 | M | **von Perikles:** 398-Zeilen schätzen (`LISTE-UMZUG-348.md`) | startbar | – |
 | 390 | M | **von Perikles:** zwischen Chef-Blättern Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | gebaut: Laden, Rast, Held, Tagesablauf, Gespräche, Englisch (64a6e5a80; Test 390a) | `claude/tom-390-englisch` |
