@@ -295,8 +295,13 @@ func _schiebt(t: Vector2i) -> bool:
 	d = Vector2i(signi(d.x), 0) if absi(d.x) >= absi(d.y) else Vector2i(0, signi(d.y))
 	if d == Vector2i.ZERO: return true
 	if held.richtung.length() > 0.15:
-		await get_tree().create_timer(0.5).timeout
-		if not is_instance_valid(wer) or held.richtung.length() <= 0.15 or held.geht(): return true
+		# Test 133.7: weiter gedrueckt heisst weiter gegen ihn; abbrechen nur, wenn losgelassen, abgewandt oder weitergegangen
+		# (vorher held.geht(), das ist beim Druecken immer wahr, so wich nie jemand)
+		var von := held.kachel
+		await (Engine.get_main_loop() as SceneTree).create_timer(0.5).timeout
+		if not is_instance_valid(wer) or held.kachel != von or held.richtung.length() <= 0.15: return true
+		var r := held.richtung
+		if (Vector2i(int(signf(r.x)), 0) if absf(r.x) >= absf(r.z) else Vector2i(0, int(signf(r.z)))) != d: return true
 	wer.weiche(d)
 	return true
 
@@ -994,7 +999,7 @@ func leute_blatt() -> void:
 		kamera.nah_fern()
 		kamera.springe()
 		for l in leute.get_children(): l.rotation.y += PI
-		await get_tree().create_timer(0.5).timeout
+		await (Engine.get_main_loop() as SceneTree).create_timer(0.5).timeout
 	# Leute Runde 4 (Helfer: Bein durch den Rock im Gang): alle gehen auf der Stelle, seitlich zur Kamera, vier Bilder nah
 	for l in leute.get_children():
 		l.rotation.y = atan2(zu.x, zu.z) + PI / 2
