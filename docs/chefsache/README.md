@@ -4,13 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [394](entscheiden/394-namen-zusatzentwickler.md) | **Muss** | B Betrieb | 28.10., 10:25 | Zusatzentwickler heißen Spike (zu Team Tom) und Tuffy (zu Team Jerry) (A), oder ein anderes Paar (B)? | Sokrates |
-| [390a](entscheiden/390a-logiktests-godot.md) | **Muss** | E Technik | 28.10., 09:46 | Testprogramme aus `godot/tests/` nicht als Probelauf zählen (A) oder so lassen (B)? | Tom |
-| [109](entscheiden/109-repo-privat.md) | **Muss** | M Veröffentlichung | 27.10., 19:58 | Repo vor dem Tester-Aufruf privat (A), nur Releases löschen (B) oder so lassen (C)? | Sokrates |
+Nichts offen.
 
 ## Zu billigen
 
@@ -34,7 +28,6 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [391](tun/391-repo-umgebung.md) | **Muss** | B Werkzeuge | 28.10. | Zweit-Repo fest in die Umgebung „WireStorm Hoch“ eintragen | Sokrates |
-| [386](tun/386-github-2fa.md) | **Muss** | B Werkzeuge | 27.10., 21:05 | GitHub: Zwei-Faktor-Anmeldung einschalten (bis 11.12.2026) | Perikles |
 | [142](tun/142-pflichttest.md) | **Muss** | M Veröffentlichung | 27.10., 20:07 | Pflichttest Play Store: Gewerbeschein melden | Sokrates |
 
 ## Offen je Rolle
@@ -49,14 +42,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 24, Muss 14, startbar 6
+**Tom** – offen 23, Muss 13, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 385 | M | von Sokrates („jetzt“ 28.10., 10:00, Archiv): Zauberer-Set auf Kaufkörper, Film; 1 Sitzung | startbar |
 | 392 | M | von Sokrates (Chef 09:50): Alt: „Atmen aus“ nur schätzen | startbar |
 | 390 | M | von Perikles (28.10.): zwischen Blättern beim Chef Funktionen ohne Bild bauen (LISTE-UMZUG | startbar |
-| 390a | M | Rückfrage: Tests ohne Bild von 389 ausnehmen? | Chef (Datei in der Chefsache) |
 | 348.12i | M | von Sokrates (Chef 19:41, „348.12i B“, Archiv): nur Kaufmodelle mit AESContext verschlüsse | wartet auf Test/Build (gebaut) |
 | 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | startbar |
 | 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | startbar |
@@ -112,11 +104,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 13, Muss 11, startbar 0
+**Perikles** – offen 14, Muss 12, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 386 | M | von Chef (27.10., 21:02, GitHub-Mail „will soon require 2FA“, „Ist das für uns ein Problem | Chef |
+| 390a | M | von Sokrates (Chef 10:26, „390a A“, Archiv): probelauf.py: Tests aus godot/tests/ frei, en | startbar |
+| 394 | M | von Sokrates (Chef 10:26, Archiv): Rollen Spike (Tom), Tuffy (Jerry) in die Werkzeuge | startbar |
 | 384 | M | von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“): Kosten aller Si | wartet auf Test/Build (gebaut) |
 | 383.3 | M | von Sokrates (Chef 19:55): Vorlage zurück beim Team sofort aus der Chefsache | wartet auf Test/Build (gebaut) |
 | 383 | M | von Sokrates (Chef 27.10., 17:53 „ja, 383“, Archiv): Wartewächter in lauf.py (Zeitfeld zum | wartet auf Test/Build (gebaut) |
@@ -139,11 +132,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 29, Muss 21, startbar 3
+**Sokrates** – offen 28, Muss 20, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 394 | M | von Chef (28.10., 10:21, „lasst uns aber trotzdem Zusatzentwickler anders nennen, dann bin | Chef (Datei in der Chefsache) |
 | 391 | M | von Chef (28.10., 09:21): Repos dauerhaft ohne Ablehnung | Chef |
 | 383.2 | M | von Chef (27.10., 19:24, „wo steckt jetzt hier wieder die Wahrheit? Und wer hat damit gepr | Termin 31.10. |
 | 383 | M | von Chef (27.10., 17:44, „Sollen wir einfach aufhören damit?“; 17:47 Vorschlag „nicht grif | Termin 31.10. |
@@ -171,7 +163,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 142.3 | M | von Chef (27.10., 19:32): Tester öffentlich suchen | startbar |
 | 142 | M | Pflichttest Play Store (von Perikles); Store-Text „jede Entscheidung zählt“ prüfen (72a) | startbar |
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (wartet) |
-| 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | Chef (Datei in der Chefsache) |
+| 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | ruht |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
