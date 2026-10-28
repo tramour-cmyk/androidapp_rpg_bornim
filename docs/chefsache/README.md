@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [390a](entscheiden/390a-logiktests-godot.md) | **Muss** | E Technik | 28.10., 09:46 | Testprogramme aus `godot/tests/` nicht als Probelauf zählen (A) oder so lassen (B)? | Tom |
-| [385a](entscheiden/385a-zauberer-jetzt.md) | **Muss** | E Figuren | 28.10. | Mit der Probe klären wir, ob wir Bewegungen günstig kaufen können oder sie selbst bauen müssen. Davon hängt die Rechnung für die Helden, die vier Völker und die menschenähnlichen Gegner ab. | Sokrates |
 | [109](entscheiden/109-repo-privat.md) | **Muss** | M Veröffentlichung | 27.10., 19:58 | Repo vor dem Tester-Aufruf privat (A), nur Releases löschen (B) oder so lassen (C)? | Sokrates |
 
 ## Zu billigen
@@ -25,6 +24,7 @@ Nichts offen.
 | [348.12f](ansehen/34812f-biss.md) | Ratte und Kaufwolf beißen näher; der Kopf verschwindet dabei hinter der Heldin | – | 28.10., 10:00 |
 | [348.6](ansehen/3486-dorftiere.md) | Dorftiere: Hühner am Heu, Rind und Ziegen auf der Südwiese, Kaninchen am Waldrand | Tom | 28.10., 09:06 |
 | [348.7b](ansehen/3487b-zauberbahn.md) | Zauberbahn Runde 3: kein Feuerklumpen mehr; der Start liegt im Bild noch immer vor der Heldin | – | 28.10., 08:35 |
+| [387](ansehen/387-kauftiere.md) | Gekaufte Tiere Runde 5: Hundertfüßer schneller, Huhn größer, Kaninchen hoppelt | – | 28.10., 10:05 |
 
 ## Zu tun
 
@@ -48,15 +48,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 24, Muss 13, startbar 6
+**Tom** – offen 24, Muss 14, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 385 | M | von Sokrates („jetzt“ 28.10., 10:00, Archiv): Zauberer-Set auf Kaufkörper, Film; 1 Sitzung | startbar |
 | 392 | M | von Sokrates (Chef 09:50): Alt: „Atmen aus“ nur schätzen | startbar |
 | 390 | M | von Perikles (28.10.): zwischen Blättern beim Chef Funktionen ohne Bild bauen (LISTE-UMZUG | startbar |
 | 390a | M | Rückfrage: Tests ohne Bild von 389 ausnehmen? | Chef (Datei in der Chefsache) |
 | 348.12i | M | von Sokrates (Chef 19:41, „348.12i B“, Archiv): nur Kaufmodelle mit AESContext verschlüsse | wartet auf Test/Build (gebaut) |
-| 385 | M? | von Sokrates (Archiv): Zauberer-Set (Biped, LISTE-BESTAND) auf Kaufkörper, Film | startbar |
 | 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | startbar |
 | 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | startbar |
 | 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | wartet auf 348.6 (Chef) |
@@ -77,11 +77,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 29, Muss 18, startbar 4
+**Jerry** – offen 29, Muss 18, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | startbar |
+| 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | Chef |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | Chef |
 | 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | startbar |
 | 348.13a | M | von Team Tom (Chef 08:09, Archiv: r9 ja): Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13 | startbar |
@@ -138,12 +138,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 29, Muss 21, startbar 3
+**Sokrates** – offen 28, Muss 20, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 391 | M | von Chef (28.10., 09:21): Repos dauerhaft ohne Ablehnung | Chef |
-| 385a | M | von Chef (28.10., 09:55, „Zauberer-Test schon systemkritisch … Für und Wider abwägen“): 38 | Chef (Datei in der Chefsache) |
 | 383.2 | M | von Chef (27.10., 19:24, „wo steckt jetzt hier wieder die Wahrheit? Und wer hat damit gepr | Termin 31.10. |
 | 383 | M | von Chef (27.10., 17:44, „Sollen wir einfach aufhören damit?“; 17:47 Vorschlag „nicht grif | Termin 31.10. |
 | 376 | M | von Chef (27.10., 12:00): Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Tom |
