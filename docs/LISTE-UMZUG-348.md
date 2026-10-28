@@ -210,7 +210,7 @@ Was das alte Spiel kann, ohne eigenes Modell. Regeln mit denselben Testfällen w
 | Hilfe im Systemmenü | `core/Guide.kt`, `ui/GuideScreen.kt` | Tom | – | 1 S, 1 R |
 | **Neu:** Grafikstufen im Systemmenü (Niedrig/Mittel/Hoch, Automatisch; Bildrate, Schatten einzeln; Chef 28.10., 08:31, `LISTE-IDEEN.md` „Oberfläche“) | – (gibt es alt nicht) | Tom | – | nach Messung auf einem schwachen Gerät (A22, 388), dann schätzen |
 | Deutsch und Englisch | `core/I18n.kt` | Tom | – | 2 S, 0 R |
-| Klassischer Kampf | `core/Battle.kt`, `ui/BattleScreen.kt` | Jerry | – | 6 S, 3 R (Regeln mit Goldtests, Ansicht im Kampfort; Schalter 212) |
+| Klassischer Kampf | `core/Battle.kt`, `ui/BattleScreen.kt` | Jerry | Regeln gebaut (390: `regeln/klassisch.gd`, golden 92 Kämpfe gleich; ohne Elite/schimmernd, Beute vom Aufrufer); Ansicht offen | 6 S, 3 R (Regeln mit Goldtests, Ansicht im Kampfort; Schalter 212) |
 | MARS | `core/Skirmish.kt`; `ui/SkirmishScreen.kt`, `MarsRules.kt`, `MarsTips.kt` | Jerry | Entwurf (348.7) | 8 S, 6 R (Wolfsrudel am Handy, Rest 296.2 mit Toms Held und Tasche, Zustandszeichen nach Ja; Kampforte Wald und Tiefer Wald, Tag und Nacht) |
 | Regeln: Würfel, Zustände, Stufen, Talente, Ausdauer | `core/Rules.kt`, `Dice.kt`, `Status.kt`, `Perks.kt`, `Stamina.kt` | Jerry | Talente, Ausdauer gebaut (390: `talente.gd`, `ausdauer.gd`, Test `regeln_390.gd`) | 3 S, 0 R (Würfel, Zustände, Stufen in `godot/regeln/` angefangen; Ausdauer als eigenes Objekt, bis Toms `zustand.gd` es aufnimmt) |
 | Gegner auf der Karte, Rudel, Beute | `core/Roamers.kt`, `Packs.kt`, `MonsterKit.kt`, `Loot.kt` | Jerry | – | 4 S, 1 R (auf Toms Karten: Streifen, Bemerken, Übergang in den Kampf) |
