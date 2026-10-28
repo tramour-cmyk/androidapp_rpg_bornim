@@ -9,11 +9,12 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 398 | M | **von Sokrates (Chef 28.10., 11:22):** 15 Lücken aus der Gegenprobe (`LISTE-UMZUG-348.md` „398“) einplanen: Schätzung bei Tom, Jerry; Schwierigkeitsgrade (39) neu | startbar |
 | 396a | M | Rückfrage: gilt 396 auch für Text? (Chefsache 396a) | wartet auf Chef |
 | 384 | M | **von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“):** Kosten aller Sitzungen gegen Buchungsverzeichnis; Ursache der Lücken im Werkzeug beheben (Zu 384) | gebaut 27.10., 20:1x: --kosten nur mit Kennung, Ford holt Kosten frisch (Zu 384) |
 | 383.3 | M | **von Sokrates (Chef 19:55):** Vorlage zurück beim Team sofort aus der Chefsache | gebaut 27.10., 20:1x |
-| 383 | M | **von Sokrates (Chef 27.10., 17:53 „ja, 383“, Archiv):** Wartewächter in `lauf.py` (Zeitfeld zum „jetzt“, Protokollzeile in `meldung.sh`), Haken 63 verschärfen; Fälle 376.1 und Ford-Bitte 17:3x nachstellen | gebaut 27.10., 19:1x; Diogenes zählt ab 28.10. (Zu 383) |
-| 275 | M | **von Sokrates (Chef 27.10., 15:09 ja, 15:15 „jetzt loslegen“, Archiv):** Stufe 1 (Chefsache 275, Git); Statusfeld mit Wortliste; nur gezielte Suche, Token je Start messen (15:11); Besitzer schreiben selbst über `vorgang.py` (15:20) | frühestens 03.11.: Stufe 2, wenn Diogenes keinen Werkzeugfehler zählt; LEICHEN_START an seit 27.10., 17:2x; offen D46.3, D46.5, D47.2 (Zu 275) |
+| 383 | M | **von Sokrates (Chef 27.10., 17:53 „ja, 383“, Archiv):** Wartewächter in `lauf.py`, Haken 63 verschärfen (Zu 383) | gebaut 27.10., 19:1x; Diogenes zählt ab 28.10. (Zu 383) |
+| 275 | M | **von Sokrates (Chef 27.10., 15:09 ja, 15:15 „jetzt loslegen“, Archiv):** Stufe 1 (Chefsache 275 in Git, Zu 275) | frühestens 03.11.: Stufe 2, wenn Diogenes keinen Werkzeugfehler zählt; LEICHEN_START an seit 27.10., 17:2x; offen D46.3, D46.5, D47.2 (Zu 275) |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9):** Meilenstein „Kapitel 1 auf Godot mindestens so gut wie alt“ mit Checkliste aus der Bestandsliste 348.8 und Tagesziele je Team; `ROLLE-PRUEFUNG.md` für Diogenes (Arbeitsteilung 1, 3) | bis 02.11. Dauerzeile (Meilenstein Umzug): Tagesziele täglich im Stand zum Marktstart |
 | 347.2 | M | **von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347):** Paket Regeltreue umsetzen nach `tools/regeltreue/PLAN-347.md` (Punkte 1–7, 5a, 5b), mit Ford für `lauf.py` und Haken | gebaut 24.10., 16:5x mit A–H (Zu 347.2); beobachten bis 31.10., dann wertet Sokrates aus |
 | 276 | K | **von Sokrates (zu 274):** Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in `lauf.py` oder zu Perikles | ruht bis Meilenstein Umzug (Perikles 26.10., 11:5x, Zu 276); Zählung 149 da (Lauf 45: etwa 22 Abweichungen, fast alle Schritt 4, 12 Urteil, 8 Mechanik) |

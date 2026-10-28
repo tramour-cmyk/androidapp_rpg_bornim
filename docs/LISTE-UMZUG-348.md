@@ -220,3 +220,20 @@ Was das alte Spiel kann, ohne eigenes Modell. Regeln mit denselben Testfällen w
 | Kampfeffekte: Blut, Todesbild, Trefferhalt | `ui/BattleFx.kt`, `BattleBlood.kt`, `BattleKill.kt`; `core/HitWeight.kt` | Jerry | – | 4 S, 3 R |
 | Ausgleich bei Pechsträhnen | `core/MissStreak.kt` | Jerry | gebaut (390: `pechstraehne.gd`; Einbau mit dem klassischen Kampf) | 0,5 S, 0 R |
 | Spuren (Blut, Fußspuren) | `core/Tracks.kt` | Jerry | – | 1,5 S, 1 R |
+| **398:** Bewegungen in drei Varianten (Treffer, Tod, Angriff), Killerschlag (`DESIGN-STIL.md` „Abwechslung“) | `art/HeroFigure.kt:458` `variant.mod(3)` | Jerry | – | – |
+| **398:** Klangregeln: echte Aufnahmen statt Synthese, drei Fassungen je Klang, nur was da ist, Schritte nach Boden, in der Blende Hören vor Sehen (Leitbild 6, `DESIGN-BLENDE.md` 1) | `app/src/main/assets` (1284 Aufnahmen), `Recorded.kt`, `audio/Footsteps.kt` | Jerry | – | – |
+| **398:** Kampfort nach dem Ort auf der Karte (Lichtung, Waldrand, Teich, Baum, Felsen, Steinkreis; 77e.3) | `art/BattleScene.kt` `spotFor` | Jerry | – | – |
+| **398:** Niederlage: Erwachen am Wiederkehrort, Stunden vergehen, volle TP, Zustände weg, auf Normal kein Goldverlust (154) | `Game.kt:1503–1517` | Jerry (Kampfende), Tom (Wiederkehr) | – | – |
+| **398:** Beute mit Seltenheitsdeckel je Kapitel; Ausrüstung aus Kämpfen (Zuständigkeit klären: `klassisch.gd` nennt Tom) | `Loot.kt:38–46` | Jerry | – | – |
+| **398:** Elite- (12 %) und Schimmergegner (1/150), mehr EP und beste Beute | `Game.kt:39–40`, `Battle.kt:85–116` | Jerry | – | – |
+| **398:** Wiederkehr besiegter Gegner nach 60 Schritten (Grinden möglich) | `Game.kt:1476` | Jerry | – | – |
+| **398:** Balance-Messung: Kapitelsimulation, Zufallsspieler (Meilenstein; 38) | `ChapterSimTest`, `PlayerSimTest`, `BalanceTest` | Jerry | – | – |
+| **398:** MARS-Lernhilfen: Erklärung je Knopf auf langen Druck, Ersthinweise je Absicht, Ring, Rücken | `MarsTips.kt`, `SkirmishScreen.kt:116–119, 571–583` | Jerry | – | – |
+| **398:** Leute schauen den Helden an (bis 3 Felder, nach etwa 10 s nicht mehr; `DESIGN-STIL.md` „Lebendige Welt“) | `art/MapFolk.kt:858` | Tom | – | – |
+| **398:** Held unterwegs: Waffe geschultert, Schild auf dem Rücken | `DESIGN-STIL.md` „Karte und Räume“ | Tom | – | – |
+| **398:** Spielstand mit Fassungsnummer, Übernahme alter Spielstände der Tester, automatisch beim Kartenwechsel | `GameState.kt:35, 128`, `Game.kt:60` | Tom | – | – |
+| **398:** Absturzbericht (Leitbild 12; 30.1) | `app/…/CrashLog.kt` | Tom | – | – |
+| **398:** Eine Schrift überall: Alegreya, auch in der Welt (292.3) | `DESIGN-STIL.md` „Oberfläche“ | Tom | – | – |
+| **398:** Sprungtest je Übergang Bild für Bild, Ziel 0 (`DESIGN-ABNAHME.md`) | `JumpTest` | Tom, Jerry | – | – |
+
+Gegenprobe 398 (Sokrates mit zwei Prüfern, 28.10., 11:2x): Grundsätze aus `DESIGN-*` gegen diese Liste und die Godot-Zweige; die Zeilen oben fehlten hier. Neu, kein Umzugsverlust: Schwierigkeitsgrade (39, nie im alten Spiel), bei Perikles.
