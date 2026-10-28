@@ -2,18 +2,19 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben.
 
-**Übergabe (28.10., 17:2x, `session_01Hmoj79BF…`):** 399.2 e5c207b71, 399.2b in `mars.gd`, 399.3 Stufen 1–2 (`claude/jerry-348-klang`). Nachfolger: „Jerry – 399.3 Klang, Test 133 Kampfmenü“
+**Übergabe (28.10., 18:42, `session_01Hmoj77PX…`):** 399.2 Kampfmenü 0b773829c, Beute 3b9fb3116, `umweg_399` mit Ort und Bewegung 0f8321508 (Zweig `claude/jerry-348-kampf`); 399.3 Orts-, Raumklang, Blende ac16bbef7 (`claude/jerry-348-klang`); beides in Toms Build 137. Chefsache 399.2d neu gefasst, 399.2c zurückgezogen. Nachfolger: „Jerry – 399.2 Wolf durch Wolf (nach 399.2d)“
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | in Arbeit: Menü 0b773829c, Beute 3b9fb3116; Wolf durch Wolf offen (Tom 17:42: −0,92 m auch ohne Kaufwolf); Ursache braucht Godot, Chefsache 399.2d | `claude/jerry-348-kampf` |
+| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | wartet auf 399.2d: Wolf durch Wolf (Tom 17:42: −0,92 m auch ohne Kaufwolf) braucht Godot; Menü 0b773829c, Beute 3b9fb3116 in Build 137 | `claude/jerry-348-kampf` |
 | 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | wartet auf Homer: Text fürs Knurren (Vorrat Kreativ 399.2b); 50 % und Knurren ohne Ansage gebaut e5c207b71, in Toms Testfassung | – |
-| 399.3 | M | **von Chef (28.10., 16:42):** Klang in die Spielfassung (Umzug „Musik, Klang“) | gebaut ac16bbef7: Musik, Kampf-, Orts-, Raumklang, Blende; Lauf 136 rot an einer Zeile, behoben; Prüfung mit Toms Spielfassung | `claude/jerry-348-klang` |
-| 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: Tusche passt (Chef 12:31); im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
-| 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK, CI 158 grün | `claude/jerry-348-kampf` |
+| 399.3 | M | **von Chef (28.10., 16:42):** Klang in die Spielfassung | gebaut ac16bbef7 (Tom 20fd2d4ab): Musik, Kampf-, Orts-, Raumklang, Blende in Build 137; offen Leute, Hühner, Vögel | `claude/jerry-348-klang` |
+| 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
+| 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: nachbessern (Chef 15:23, Archiv): Gehen und Platzwechsel mit UAL-Laufbewegung, Hieb trifft den Helden, Tod als Zusammenbruch | `claude/jerry-348-kampf` |
+| 385.2 | M | **von Chef (Archiv 385.1):** Feuer aus dem Stab | startbar | – |
 | 348.13a | M | **von Team Tom (Chef 08:09, Archiv: r9 ja):** Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13a) | gebaut 421662dbd: Tusche nach Licht Vorgabe, Linie 1,3; offen Säbel (Tom) | `claude/jerry-348-kampf` |
 | 397 | M | **von Chef (28.10., 11:15):** Tiere, Monster: mind. drei Ruhebewegungen wie alt (`LISTE-UMZUG-348.md`) | ruht (399) | – |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht bis Kauf: Werte, Listen ja (Archiv), dann einbauen; erst Größe prüfen | – |
@@ -62,7 +63,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 - **Zu 348.13a (Tom 08:27):** offen r9: Säbel liest sich als Bogen; Schwert, Schild, Scheide bei Tom (372).
 - **Zu 348.7 (Chef 25.10., 13:11):** „Gradmesser ist Leitbild 1 ‚Düster, erwachsen, glaubwürdig‘; ‚quietschehell passt nicht‘. Nie heller als alt.“
 - **Zu 348.7, nach Runde 16 offen** (Gründe in Git): Kampfort (4ad3ecb86): Lebensbalken und Zustände an der Ansage; offen: Gelb des halben Lebens gleicht „Betäubt“ (Farben wie alt).
-- **Zu 348.7, Lohn (20bbfb2ef):** wie `Battle.finishWin`; fehlt bis Toms Held/Tasche: Ausrüstungsbeute, Elite, Boni, Gutschrift (`Kampfort.reward`). Endfeld `SIEG=1` (77af01a55).
+- **Zu 348.7, Lohn:** wie `Battle.finishWin`, Beute 3b9fb3116; fehlt Elite, Boni.
 
 - **Zu 296.2, Test 89.2 (von Chef über Sokrates 25.10., 07:39):** 89.2 durchgefallen: (a) drei MARS-Kämpfe gegen Wölfe verloren; (b) neuer Kampf mit totem Helden, dann `OutOfMemoryError`; (c) zwei Waffen, nur eine greift an; (d) Wolfsfleisch „trinken“; (e) Rest der Tasche gesperrt; (f) Waffenwechsel nur zu Fernkampf. Anforderung für 348.7; Chef 07:45: Englisch und Lyra auf `main`, MARS nicht. Godot: (b), (c) gebaut (`mars_regeln.gd`); (d)–(f) mit Toms Tasche und Held; (a) Balance mit echtem Helden.
 

@@ -23,6 +23,7 @@ Nichts offen.
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.348.133](ansehen/t133-spielfassung.md) | [Build 133](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40716450882/artifacts/12828143859) | 399 Spielfassung: Erschaffung, Spielstände, Leiste, Menü; Dorf | Tom | 28.10., 16:49 |
+| 2 | [0.348.137](ansehen/t137-spielfassung.md) | [Build 137](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40734586208/artifacts/12838307685) | 399 Spielfassung: Menü fertig bis auf Kleinigkeiten, Klang, Schieben, Kampfmenü | Tom | 28.10., 18:56 |
 
 ## Zu tun
 
@@ -37,27 +38,26 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 4, Muss 1, startbar 1
+**Homer** – offen 3, Muss 0, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 399.2b | M | von Sokrates (Chef 15:32, Archiv): Kampfansage, wenn ein Jungwolf nicht beißt, sondern nur | startbar |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 25, Muss 15, startbar 3
+**Tom** – offen 25, Muss 15, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf (LISTE-UMZUG | startbar |
-| 399.3.1 | M | von Team Jerry (16:5x): Klang: Haken in spiel.gd (Jerry, claude/jerry-348-klang) übernehme | wartet auf Test/Build (gebaut) |
+| 399.3.1 | M | von Team Jerry (16:5x): Klang: Haken in spiel.gd (Jerry, claude/jerry-348-klang) übernehme | startbar |
 | 385 | M | von Sokrates („jetzt“ 28.10., 10:00, Archiv): Zauberer-Set auf Kaufkörper, Film | startbar |
 | 390 | M | von Perikles: zwischen Chef-Blättern Funktionen ohne Bild (LISTE-UMZUG-348.md) | wartet auf Test/Build (gebaut) |
 | 348.12i | M | von Sokrates (Chef 19:41, „348.12i B“, Archiv): nur Kaufmodelle mit AESContext verschlüsse | wartet auf Test/Build (gebaut) |
 | 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | ruht |
 | 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | startbar |
-| 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | wartet auf 348.6 (startbar) |
+| 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | wartet auf 348.6 (zu testen) |
 | 372 | M | von Perikles (338a B, Chef 27.10., 09:36, Archiv): Feinschliff Held: Kettenhemd, Helm, Kra | ruht |
 | 397 | M | von Chef (28.10., 11:15): Held, Leute: mind. drei Ruhebewegungen wie alt (LISTE-UMZUG-348. | wartet auf Test/Build (gebaut) |
 | 348.13 | M | von Sokrates (Chef 26.10., Archiv): Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Sc | wartet auf Jerry |
@@ -76,16 +76,17 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 33, Muss 22, startbar 4
+**Jerry** – offen 34, Muss 23, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 399.2 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv): Kampfort aufrufbar | startbar |
 | 399.2b | M | von Team Tom (15:05): Rudel allein zu stark | wartet auf Homer |
-| 399.3 | M | von Chef (28.10., 16:42): Klang in die Spielfassung (Umzug „Musik, Klang“) | startbar |
+| 399.3 | M | von Chef (28.10., 16:42): Klang in die Spielfassung | wartet auf Test/Build (gebaut) |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | wartet auf Test/Build (gebaut) |
 | 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | startbar |
+| 385.2 | M | von Chef (Archiv 385.1): Feuer aus dem Stab | startbar |
 | 348.13a | M | von Team Tom (Chef 08:09, Archiv: r9 ja): Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13 | wartet auf Test/Build (gebaut) |
 | 397 | M | von Chef (28.10., 11:15): Tiere, Monster: mind. drei Ruhebewegungen wie alt (LISTE-UMZUG-3 | ruht |
 | 348.12c | M | von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv): Wiedergänger, Grabhund, Riesenegel, Säur | ruht |

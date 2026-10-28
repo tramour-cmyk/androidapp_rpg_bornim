@@ -2,19 +2,19 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (28.10., 17:45, `session_01Hmoj76Rmjqu578uucWVaen`):** 385.1 über Actions (`add_repo` gesperrt): Zweig `claude/tom-348-385-film`, Job `zauber385`, Lauf 134 (Run 40722034654) legt die Filme auf `claude/tom-385-film-aus-134`. 399.1 bb494c077: Benutzen, Ausrüstung, System, Chronik; Jerrys 0b773829c gemischt. Nachfolger: Tom – 385 Filme senden, 399.1 Karte.
+**Übergabe (28.10., 18:57, `session_01Hmoj78DBWYJa6zFir6Su8N`):** 385.1 zwölf Filme gesendet (Chefsache 3851, Prüferbefund: kein Feuer in 8, 9). Build 137 (t137) mit Karte, Klang, Reglern, 133.7. Danach auf `claude/tom-399-spielfassung` bis 7359b3107: Schritte, Helligkeit, Vergleich ▲▼, Attribut-Erklärung, Beute, Siege, Geräteangaben. Nachfolger: Tom – 399.1 Rest (System Bedienung), Urteile 385.1 und t137.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf (`LISTE-UMZUG-348.md` „Spielfassung“) | zu testen: Build 133 (t133); gebaut d95925355: Benutzen, Ausrüstung, Reiterzeichen, System, Chronik (Vorlage 3991); b6572b0e2 Karte (ohne Bild, im nächsten Build) | `claude/tom-399-spielfassung` |
-| 399.3.1 | M | **von Team Jerry (16:5x):** Klang: Haken in `spiel.gd` (Jerry, `claude/jerry-348-klang`) übernehmen; Menü System: Regler wie SoundSettings über `Klang.stelle` | gebaut 20fd2d4ab: Jerrys Klang bis 212b47394 in der Spielfassung, Regler Gesamt, Musik, Effekte im Menü System; fährt im nächsten Build | – |
-| 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | in Arbeit: 385.1 je Bewegung ein Film, Lauf 134 (Actions, add_repo gesperrt); `claude/tom-348-385-film` |
+| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf (`LISTE-UMZUG-348.md` „Spielfassung“) | zu testen: Build 137 (t137); danach gebaut: System, Anschlagbrett, Laden-Kasten, Ausdauer, Ruf „!“ u. a. (bis d9453194a) | `claude/tom-399-spielfassung` |
+| 399.3.1 | M | **von Team Jerry (16:5x):** Klang: Haken in `spiel.gd` (Jerry, `claude/jerry-348-klang`) übernehmen; Menü System: Regler wie SoundSettings über `Klang.stelle` | zu testen: Build 137 (t137.2) | – |
+| 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | startbar: 385.1 alle zwölf ja (Chef 19:1x, Archiv); Feuer aus dem Stab an Jerry (385.2); weitere Käufe nur mit Chefsache-Datei |
 | 390 | M | **von Perikles:** zwischen Chef-Blättern Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | gebaut: Laden, Rast, Held, Tagesablauf, Gespräche, Englisch (64a6e5a80; Test 390a) | `claude/tom-390-englisch` |
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101 lädt) | `claude/tom-348-12i-verschluesseln` |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | ruht (Chef 12:34, 399) | `claude/tom-376-1-figuren` |
-| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: Test 133.7 durchgefallen (Chef 16:5x, Archiv): Leute und Tiere lassen sich nicht wegschieben; Ursache nachstellen | `claude/tom-348-fundament` |
+| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | zu testen: Build 137 (t137.3, 133.7 behoben 7b9e9aa39) | `claude/tom-348-fundament` |
 | 376.2 | M | **von Perikles (Chef 12:37, `LISTE-CC0-MODELLE.md`):** RenderHub-Marktpaket: Brunnen und Stände als Form, unsere gemalten Farben | wartet auf 348.6 (Dorf nach Urteil Probehaus); Paket im Release stufe1 erreichbar (Chef 17:38) | – |
 | 372 | M | **von Perikles (338a B, Chef 27.10., 09:36, Archiv):** Feinschliff Held: Kettenhemd, Helm, Kragen (Zu 348.6, Hände) | ruht bis Ende des Umzugs | `claude/tom-348-fundament` |
 | 397 | M | **von Chef (28.10., 11:15):** Held, Leute: mind. drei Ruhebewegungen wie alt (`LISTE-UMZUG-348.md`) | gebaut: Held, Leute Stehen, Umsehen, Müde (UAL Pro), in 399.1 | `claude/tom-397-ruhe` |
@@ -37,7 +37,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 ## Einzelheiten
 
 - **Von Perikles (378):** Stände prüfen, `ARBEIT-PROJEKT.md` Zu 378.
-- **Zu 399.3.1 an Jerry** (19:2x, Vorrat voll): 20fd2d4ab (`tom-399`) ändert `klang.gd` 525 (`bett: String`, lud nicht) und `klang_test` (0,6 s); erst holen, dann weiter.
+- **Zu 399.3.1 an Jerry** (18:1x): 20fd2d4ab (`tom-399`) ändert `klang.gd` 525 und `klang_test`; erst holen.
+- **Zu 399.1 an Jerry** (19:5x, sein Vorrat voll, Sitzung inaktiv; beim nächsten Jerry-Start nachtragen): System „Kampf“ hat nur Rückfragen (fe7acbb32); Blut, Tempo, Kampftext (`MenuSigns.kt` 197–211) fehlen.
 - **Zu 399.1 an Jerry** (17:15, sein Vorrat voll): `Zustand.satt` (alt `wellFed`) fehlt dem Kampfort (+1, `Battle.fedBonus`).
 - **Zu 399.1** (Chef über Sokrates): 14:31 130.1–130.5 gehen, Wald nicht (131). 14:38 „Einfach mal das alte Spiel nehmen … so soll es im neuen halt auch schon … die Schriftart umzustellen und auch in den Dialogen … in ein vernünftiges Menü starten“; 14:39 „an die Designvorgaben halten“. Für 132: Hauptmenü wie alt (`App.kt` `MainMenuColumn`, Bild `assets/menu/hauptmenue.jpg`; Bildschirmfoto: graugrün, Titel bricht um, Probeknöpfe darüber, „Sprache“ zu breit, alles links), Alegreya überall, Gesprächsfenster wie `DialogBox`; vorher gegen `DESIGN-STIL.md` „Oberfläche“, `DESIGN-BLENDE.md` „Vorspann und Hauptmenü“ prüfen, im Testbogen nennen.
 
