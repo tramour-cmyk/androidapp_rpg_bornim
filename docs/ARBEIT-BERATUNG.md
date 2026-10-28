@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (28.10., 00:10, `session_01Hmoj79NGUpegjwGyVmjQax`):** Chefrunde 27.10. abends: 383.1–383.3, 389, 142.3 A und C, 109 vorgelegt, 385 (Zauberer-Set gekauft), 387, 388 (Play-Test), 348.7b D, 348.12f, 348.13a 1,3, 376 A2, 376.1, 348.6, Maßstab Umzug (Archiv). Chef 00:01: Sokrates führt die Nacht (Archiv „Nacht 27./28.10.“). Offen bis 28.10.: 142.3 Aufruftexte, Forenregeln, Organisationskonto. Kosten auf: 383, 142.3, 385, 348.12c, 109. Nachfolger: Sokrates – 142.3 Tester-Aufruf
+**Übergabe (28.10., 00:10, `session_01Hmoj79NGUpegjwGyVmjQax`):** Chefrunde 27.10. abends (Archiv), Nacht geführt. Kosten auf: 383, 142.3, 385, 348.12c, 109. Nachfolger: Sokrates – 142.3 Tester-Aufruf
 
 ## Zeilen
 
@@ -37,6 +37,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 142 | M | Pflichttest Play Store (von Perikles); Store-Text „jede Entscheidung zählt“ prüfen (72a) | wartet auf 142.3: Tester; Chef meldet Gewerbeschein (tun/142); bis 15.11. (Zu 142, Stand) |
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (Gewerbeschein); 45a/45c, 72g–72j entschieden ([Artefakt](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj), vertraulich); offen: Preis endgültig mit 142 (ab Gewerbeschein), bis 30.11.; iOS-Schätzung Tom nach Kapitel 2 |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | wartet auf Chef: entscheiden/109 (Votum A) |
+| 348.13b | M | **von Chef (28.10., 07:59):** Tusche nach Lichtquellen im Kampf und Dorf? | wartet auf Chef: entscheiden/34813b |
 
 - **Zu 383, Sitzungsgröße (gemessen 27.10., 18:15; 99 Sitzungen 26.10., 17:48 bis 27.10., 18:11, `get_session` usage; Helfer rechnete nach):** 96 mit Kosten, 787 $ in 24 h. Großes Modell je Million Ausgabetokens nach Kontext am Ende: 100–200k 103 $ (n 14), 200–300k 101 $ (n 61), 300–500k 92 $ (n 17); Kein Hinweis, dass große Sitzungen je Arbeit teurer sind; Beleg schwach (nur Endstand, kein Vergleich gleicher Aufgabe). Jeder Start mindestens etwa 125k Kontext, kleinste Sitzung 1,25 $. Treiber: Runden (44 %). Früher: 99h (Perikles 17.10., Ford), 185 (Messung 20.10.), 99h.6 (Teams, Zu 163.1 in Git 22.10.), D40.1. Wiederholen mit 347 und 383.2 am 31.10.
 - **Zu 376:** Chef 12:09–12:10: 20 $ „super gerne“, wenn Größe und Form anpassbar und Tusche darauf geht; „dann hätten die vielleicht auch mal einen richtigen Kopf“; nah sichtbar in Ausrüstung, Charaktererstellung, Kartenzoom; 12:12 „Universal Base Characters“ als Alternative zum Selbstbau.
