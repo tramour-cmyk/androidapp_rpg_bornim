@@ -24,6 +24,9 @@ class IntroExportTest {
         val (x, z) = IntroLife.at(1, 40 * IntroExport.STEP_MS)
         assertEquals(IntroLife.sx(x, z).toDouble(), bahn[40].jsonArray[1].jsonArray[0].jsonPrimitive.content.toDouble(), 0.01)
         assertEquals(4, j["klang"]!!.jsonObject["nacht"]!!.jsonArray.size)
+        val orte = j["blende"]!!.jsonObject["orte"]!!.jsonObject
+        assertEquals(Interlude.places.keys, orte.keys)
+        assertEquals(Interlude.places.getValue("village").map { it.text.de }, orte["village"]!!.jsonArray.map { it.jsonObject["de"]!!.jsonPrimitive.content })
         val v = j["vorspann"]!!.jsonObject
         assertEquals(Prelude.nameStart, v["name_ms"]!!.jsonPrimitive.content.toLong())
         assertEquals(Prelude.end, v["ende_ms"]!!.jsonPrimitive.content.toLong())

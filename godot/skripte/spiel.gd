@@ -81,7 +81,10 @@ func _ready() -> void:
 			zustand = Zustand.aus_daten(stand["zustand"])
 			werte = Heldwerte.aus_daten(stand["held"])
 			var o: Dictionary = stand["ort"]
+			blende.color.a = 1.0
+			klang("verhuelle", [true])
 			betrete(String(o["karte"]), Vector2i(int(o["x"]), int(o["y"])), String(o["blick"]))
+			ortsworte("", false)   # 24.1 Spielbeginn: Name und Satz
 			return
 		zustand.name = String(w.get("name", zustand.name))
 		werte = Heldwerte.erschaffe(zustand.name, String(w.get("volk", "HUMAN")), String(w.get("klasse", "FIGHTER")), w.get("werte", {}), zustand.neue_uid)   # 399.1 Punktekauf
@@ -89,8 +92,9 @@ func _ready() -> void:
 		# (Story.START), wo Rowena ihn weckt; vorher begann das neue Spiel am Brunnen
 		await zwischenbild("intro")
 		blende.color.a = 1.0
+		klang("verhuelle", [true])
 		betrete(String(Rast.START["karte"]), Vector2i(int(Rast.START["x"]), int(Rast.START["y"])), String(Rast.START["blick"]))
-		abblenden(0.0)
+		ortsworte("", true)   # 24.1 Spielbeginn: Name und Satz
 		return
 	betrete(START, START_KACHEL, "DOWN")
 	bilder()
@@ -347,8 +351,10 @@ func geh_hinaus(a: Dictionary) -> void:
 	klang("effekt", ["door"])   # 399.3 (Jerry): Game.kt DOOR
 	await abblenden(1.0)
 	if FileAccess.file_exists("res://daten/" + Gebiet.datei(id) + ".bin") and id != karte.id:
+		var von := karte.id
+		var erster := not zustand.has("besucht:" + id)
 		betrete(id, Vector2i(int(z["x"]), int(z["y"])), String(z["blick"]))
-		await abblenden(0.0)
+		await ortsworte(von, erster)
 		return
 	var alle: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json"))
 	var name := Sprache.t(alle["karten"][id]["name"]) if alle["karten"].has(id) else id
@@ -678,6 +684,26 @@ func oeffne_menue() -> void:
 		fackel_neu()
 		kamera.fern_neu()
 		ui.leiste.zeige(held_werte(), zustand, licht.nacht > 0.65))
+
+# 399.1 Schwarzblende mit Worten wie alt (Ortsblende, 24.1): auf der stehenden Blende Name und Satz, dann steigt der Ort auf;
+# [von] leer beim Spielbeginn, [erster] beim ersten Besuch. Ohne daten/intro.json wie bisher nur die Blende
+func ortsworte(von: String, erster: bool) -> void:
+	if not Zwischenbild.da():
+		await abblenden(0.0)
+		return
+	var a := Ortsblende.art_fuer(von, karte.id, erster)
+	var satz = null
+	if a == "FULL":
+		var z := RandomNumberGenerator.new()
+		z.randomize()
+		satz = Ortsblende.waehle(Ortsblende.saetze(karte.id, zustand, tageszeit() == "nacht"), Ortsblende.letzter.get("satz"), z)
+		if satz != null: Ortsblende.letzter["satz"] = satz
+	var o := Ortsblende.new(a, karte.name(), satz)
+	ui.add_child(o)
+	blende.color.a = 0.0   # das Schwarz traegt jetzt die Ortsblende
+	await o.fertig
+	o.queue_free()
+	klang("verhuelle", [false])   # 319: Effekte und Musik erst, wenn der Ort da ist
 
 # 399.1 Zwischensequenz (Zwischenbild, 69): ueber allem, laeuft auch, wenn das Spiel steht; ohne daten/intro.json gleich vorbei
 func zwischenbild(art: String) -> void:

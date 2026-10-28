@@ -42,6 +42,23 @@ object IntroExport {
             put("firma_ende_ms", Prelude.firmEnd); put("name_ms", Prelude.nameStart); put("menue_ms", Prelude.menuStart); put("ende_ms", Prelude.end)
             put("praesentiert", text(Ui.presents))
         }
+        // 24.1 die Schwarzblende zwischen Orten (InterludeClock, Interlude.places): Zeiten je Art, das Dorf, die Saetze je Karte
+        putJsonObject("blende") {
+            putJsonObject("arten") {
+                for (k in listOf(InterludeClock.Kind.FULL, InterludeClock.Kind.NAME, InterludeClock.Kind.BLINK)) putJsonObject(k.name) {
+                    put("ein_ms", k.wordsInMs); put("mind_ms", k.leastMs); put("aus_ms", k.wordsOutMs); put("schleier_aus_ms", k.veilOutMs)
+                }
+            }
+            putJsonArray("dorf") { for (m in InterludeClock.VILLAGE) add(m) }
+            putJsonObject("orte") {
+                for ((m, lines) in Interlude.places) putJsonArray(m) {
+                    for (l in lines) addJsonObject {
+                        put("de", l.text.de); put("en", l.text.en)
+                        l.night?.let { put("nacht", it) }; l.needs?.let { put("braucht", it) }; l.without?.let { put("ohne", it) }
+                    }
+                }
+            }
+        }
         put("intro", reel(Intro))
         put("tempel", reel(TempleScene))
         putJsonObject("klang") {

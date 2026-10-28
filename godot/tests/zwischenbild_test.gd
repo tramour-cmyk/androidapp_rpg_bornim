@@ -62,6 +62,33 @@ func _lauf() -> void:
 	var lg := Hauptmenue.logo(631)
 	pruefe("Logo scharf", [lg != null, lg.get_width() if lg else 0], [true, 631])
 	h.free()
+	# 24.1 Ortsblende (InterludeClock.kindFor, at; Interlude.placeLines, pick)
+	pruefe("Arten", [Ortsblende.art_fuer("", "inn", false), Ortsblende.art_fuer("village", "inn", true), Ortsblende.art_fuer("village", "inn", false),
+		Ortsblende.art_fuer("village", "forest", false)], ["FULL", "FULL", "BLINK", "NAME"])
+	var zs := Zustand.new()
+	var tag := Ortsblende.saetze("village", zs, false)
+	var nacht := Ortsblende.saetze("village", zs, true)
+	pruefe("Saetze Dorf", [tag.size(), tag.any(func(l): return l.has("nacht")), nacht.size(), nacht.filter(func(l): return l.has("nacht")).size()], [5, false, 7, 2])
+	var zr := RandomNumberGenerator.new()
+	var vor = null
+	var doppelt := false
+	for i in 30:
+		var w = Ortsblende.waehle(tag, vor, zr)
+		doppelt = doppelt or w == vor
+		vor = w
+	pruefe("nie zweimal", doppelt, false)
+	var ob := Ortsblende.new("FULL", "Bornim", tag[0])
+	pruefe("FULL", [0, 200, 1900, 2400, 2800].map(func(t): return ob.bei(t).map(func(x): return snappedf(x, 0.01) if x is float else x)),
+		[[1.0, 0.0, false], [1.0, 0.5, false], [1.0, 1.0, false], [0.5, 0.0, false], [0.0, 0.0, true]])
+	ob.free()
+	ob = Ortsblende.new("BLINK", "Bornim", null)
+	pruefe("BLINK", [0, 250, 500].map(func(t): return ob.bei(t).map(func(x): return snappedf(x, 0.01) if x is float else x)),
+		[[1.0, 0.0, false], [0.5, 0.0, false], [0.0, 0.0, true]])
+	ob.free()
+	ob = Ortsblende.new("NAME", "Bornim", null)
+	ob.tippt = true
+	pruefe("Tippen", ob.bei(100)[0] == 1.0 and ob.verlassen == 100.0, true)
+	ob.free()
 	# Ueberspringen: fragen, dann beenden
 	z.frage()
 	pruefe("fragt", z.fragt != null, true)
