@@ -32,6 +32,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [142](tun/142-pflichttest.md) | **Muss** | M Veröffentlichung | 27.10., 20:07 | Pflichttest Play Store: Gewerbeschein melden | Sokrates |
+| [348.12h](tun/34812h-ausruestung-laden.md) | **Muss** | G Geld | 28.10., 23:2x | Ausrüstung: Omie kaufen (1,99 $), drei kostenlose Pakete laden; Links und Gründe | Sokrates |
 
 ## Offen je Rolle
 
