@@ -227,8 +227,8 @@ def bretter_hoehen(name, x_rand=0.15):
         zs[z] = zs.get(z, 0) + n.length / 2
     return sorted(z for z, a in zs.items() if a > 0.02 and 15 < z < (hi.z - lo.z) * 100 - 15)
 
-def kerze_licht(pos, reich, kraft, flammen, art='kerze'):
-    LICHTER.append(dict(art=art, pos=list(pos), reich=reich, kraft=kraft, flammen=[list(f) for f in flammen]))
+def kerze_licht(pos, reich, kraft, flammen, art='kerze', wand=None):
+    LICHTER.append(dict(art=art, pos=list(pos), reich=reich, kraft=kraft, flammen=[list(f) for f in flammen], **({'wand': wand} if wand else {})))
 
 def leuchter(P, pos, a=0.0, hoch=None):
     """Kerzenhalter mit brennender Kerze (Bausatz CandleStick + Candle_2); gibt die Dochtspitze zurueck"""
@@ -250,16 +250,16 @@ def waage(P, pos):
     """Kraemerwaage (alt shopTop 0): Fuss, Saeule, Balken ein wenig schief, zwei Schalen an Schnueren, Gewicht in der einen"""
     P = klein(P)
     zylinder(P, pos, 5.0, 2.0, 12, MESSING, 'weiss', r2=4.0)
-    zylinder(P, pos, 1.0, 30, 6, MESSING, 'weiss')
-    links = pos + Vector((-20, 0, 30.5)); rechts = pos + Vector((20, 0, 28.5))
+    zylinder(P, pos, 1.3, 34, 6, MESSING, 'weiss')
+    links = pos + Vector((-22, 0, 34.5)); rechts = pos + Vector((22, 0, 32.0))
     zylinder(P, links, 0.8, (rechts - links).length, 6, MESSING, 'weiss', achse=rechts - links)
     for end, tief in ((links, 16.0), (rechts, 14.0)):
         schale = end - Vector((0, 0, tief))
         for dx in (-5, 5):
             q = schale + Vector((dx, 0, 1.2))
             zylinder(P, q, 0.25, (end - q).length, 4, lin(0x4a3a20), 'weiss', achse=end - q)
-        zylinder(P, schale, 3.5, 1.4, 12, MESSING, 'weiss', r2=6.5)
-    zylinder(P, links - Vector((0, 0, 14.6)), 1.6, 2.4, 8, lin(0x9a5a30), 'weiss')
+        zylinder(P, schale, 4.0, 2.0, 14, MESSING, 'weiss', r2=8.0)
+    zylinder(P, links - Vector((0, 0, 14.0)), 2.2, 3.0, 8, lin(0x9a5a30), 'weiss')
 
 def tuchballen(P, pos, s, schere=True):
     """Tuchballen auf der Theke, halb abgerollt, daneben eine eiserne Schere (alt shopTop 2)"""
@@ -273,12 +273,12 @@ def tuchballen(P, pos, s, schere=True):
 
 def kraeuter(P, p, n, e):
     """Kraeuterbuendel an einem Brett unter der Decke (alt MapRoom.wallThing 0): vier Buendel kopfueber, gruen bis braun"""
-    a = p + e * -42 + n * 2 + Vector((0, 0, 196)); b = p + e * 42 + n * 9 + Vector((0, 0, 202))
+    a = p + e * -42 + n * 2 + Vector((0, 0, 194)); b = p + e * 42 + n * 16 + Vector((0, 0, 204))
     box(P, tuple(min(a[i], b[i]) for i in range(3)), tuple(max(a[i], b[i]) for i in range(3)), lambda q, n_: sc(BALKEN_T, 0.8), 'balken')
     for k in range(4):
-        q = p + e * (-30 + 20 * k) + n * 6 + Vector((0, 0, 196))
+        q = p + e * (-30 + 20 * k) + n * 12 + Vector((0, 0, 194))
         lang = 22 + (hsh(int(q.x), int(q.y), k) % 10)
-        col = [lin(0x6a7a4a), lin(0x4e5a36), lin(0x6a5a3a), lin(0x7a6a3a)][(k + hsh(int(p.x), int(p.y), 3)) % 4]
+        col = [lin(0x8aa060), lin(0x6e8050), lin(0x9a8050), lin(0xa89a5a)][(k + hsh(int(p.x), int(p.y), 3)) % 4]   # Lauf 2: wie Flecken
         zylinder(P, q - Vector((0, 0, 4)), 0.4, 4, 4, lin(0x7a6a4a), 'weiss')
         zylinder(P, q - Vector((0, 0, 4 + lang)), 5.5, lang, 7, lambda q_, n_, c=col: sc(c, 0.8 + 0.4 * vn(q_.x / 3, q_.z / 3, k)), 'weiss', r2=1.4)
 
@@ -316,7 +316,7 @@ if rs:
         if rand < 15: return sc(borte, (0.8 if rand < 7 else 1.0) * (0.9 + 0.15 * vn(p.x / 20, p.y / 20, 8)))
         d = abs((p.x - x0) % 40 - 20) + abs((p.y - y0) % 40 - 20)   # Rauten wie alt
         return sc(grund, (1.2 if 11 < d < 14 else 1.0) * (0.9 + 0.15 * vn(p.x / 40, p.y / 40, 8)))
-    box(P, (x0, y0, 0), (x1, y1, 1.0), teppich, 'stoff')
+    box(P, (x0, y0, 0), (x1, y1, 1.0), teppich, 'weiss')   # Pruefer Lauf 2: mit Stoffbild grau-gruen
     for x in range(int(x0) + 3, int(x1) - 2, 6):   # Fransen an den Schmalseiten
         for y_, d_ in ((y0, -1), (y1, 1)):
             box(P, (x, min(y_, y_ + d_ * 7), 0), (x + 2, max(y_, y_ + d_ * 7), 0.6), lin(0xc8b48c), 'stoff')
@@ -517,7 +517,7 @@ for s, zs, n, e, hoch, tief in HERDE:
     mw = 58.0; mh = 88.0; tiefe = 46.0                # Feuerloch
     def russ(p, n_): return sc(RUSS, 0.6 + 0.6 * vn(p.x / 20, p.z / 20, 4))
     # Mantel (Brust) vor der Wand, mit dem Loch: links, rechts, Sturz; hinten Rueckwand und Seiten des Lochs in der Wand
-    for Pn, h_ in ((PH, WAND_H), (PT, TIEF_H + 30)):
+    for Pn, h_ in ((PH, WAND_H), (PT, TIEF_H)):   # Pruefer Lauf 2: gedreht ragte der Mantel ueber die Bruestung
         box(Pn, (-W_ / 2, -34, 0), (-mw / 2, 0, h_), stein_ton, 'feldstein', M)
         box(Pn, (mw / 2, -34, 0), (W_ / 2, 0, h_), stein_ton, 'feldstein', M)
         if h_ > mh: box(Pn, (-mw / 2, -34, mh), (mw / 2, 0, h_), stein_ton, 'feldstein', M)
@@ -542,7 +542,7 @@ for s, zs, n, e, hoch, tief in HERDE:
     stelle(PH, 'Vase_4', sims[2], a, 0.45, z=0)
     if hsh(zs[0]['c'], zs[0]['r'], 61) % 3 == 1:
         f = leuchter(PH, sims[3], a)
-        kerze_licht(f + Vector((0, 0, 10)), 1.4, 0.4, [f], 'kerze')
+        kerze_licht(f + Vector((0, 0, 10)), 1.4, 0.4, [f], 'kerze', wand=hoch)   # Lauf 2: gedreht brannte die Flamme frei
     else: stelle(PH, 'Book_Stack_2', sims[3], a, 0.8, z=0)
     feuer = M @ Vector((0, -18, 18))
     LICHTER.append(dict(art='kamin', pos=list(M @ Vector((0, -70, 55))), reich=3.6, kraft=1.05, flammen=[list(feuer)], breite=mw * 0.7))
@@ -594,7 +594,7 @@ def theke(c, r):
         p = Vector((tx(cc) + TS / 2, yc - 4, 105))
         w = hsh(cc, r, 2) % 3
         if LADEN:   # alt shopTop: Waage mit Muenzen, Kontobuch mit Feder, Tuchballen mit Schere; je Feld ein Kerzenstumpf
-            [lambda: (waage(P, p + Vector((-14, 2, 0))), stelle(P, 'Coin_Pile', p + Vector((22, -4, 0)), 20)),
+            [lambda: (waage(P, p + Vector((-6, -12, 0))), stelle(P, 'Coin_Pile', p + Vector((26, -14, 0)), 20)),
              lambda: (stelle(P, 'Book_5', p + Vector((-16, 0, 0)), 15), stelle(P, 'Scroll_2', p + Vector((18, 8, 0)), 70)),
              lambda: (tuchballen(P, p + Vector((-12, 4, 0)), hsh(cc, r, 5)), stelle(P, 'Pouch_Large', p + Vector((24, -2, 0)), -30))][w]()
         else:
@@ -603,8 +603,11 @@ def theke(c, r):
              lambda: (stelle(P, 'SmallBottles_1', p + Vector((-10, 8, 0)), 10), stelle(P, 'Table_Plate', p + Vector((18, -2, 0)), 0, 0.8))][w]()
         # alt counter: auf jedem Feld eine Kerze (Pruefer Lauf 1: alt etwa sechs, neu eine), dazu ein Stumpf; Licht je Feld wie
         # MapLight COUNTER
-        f = leuchter(P, p + Vector((30 if i % 2 else -30, 16, 0)), 0)
-        g = stumpf(P, p + Vector((-4, 20, 0)), 6 + hsh(cc, r, 9) % 6)
+        if LADEN:   # Pruefer Lauf 2: Kerze steckte in der Waage; Kerzen hinten, Waage und Ware vorn
+            f = leuchter(P, p + Vector((32, 20, 0)), 0); g = stumpf(P, p + Vector((-34, 24, 0)), 6 + hsh(cc, r, 9) % 6)
+        else:
+            f = leuchter(P, p + Vector((30 if i % 2 else -30, 16, 0)), 0)
+            g = stumpf(P, p + Vector((-4, 20, 0)), 6 + hsh(cc, r, 9) % 6)
         kerze_licht(p + Vector((0, 0, 40)), 1.5 if herd_naehe else 2.4, 0.5 if herd_naehe else 0.45, [f, g])
 
 def tisch(c, r):
@@ -641,11 +644,12 @@ def bank(c, r):
     tisch_n = any(ch(cc, r - 1) in 'YA' for cc in range(c0, c1 + 1)) or TEMPEL
     sg_y = -1 if tisch_n else 1
     y_l = pm.y + sg_y * 20
-    box(P, (pm.x - L / 2 + 4, min(y_l, y_l + sg_y * 5), 0), (pm.x + L / 2 - 4, max(y_l, y_l + sg_y * 5), 92),
-        lambda p, n_: sc(DUNKEL, 0.85 + 0.2 * vn(p.x / 30, p.z / 30, 3)), 'holz')
+    # Pruefer Lauf 2: Lehne mit DUNKEL fast schwarz, Sitz stach durch die Wangen: Eiche wie die Bank, Wangen aussen am Sitz
+    eiche = lambda p, n_: sc(HOLZ, 0.75 + 0.2 * vn(p.x / 30, p.z / 30, 3))
+    box(P, (pm.x - L / 2 + 2, min(y_l, y_l + sg_y * 5), 30), (pm.x + L / 2 - 2, max(y_l, y_l + sg_y * 5), 84), eiche, 'holz')
     for sg in (-1, 1):
-        box(P, (pm.x + sg * (L / 2 - 4) - 3, min(pm.y - sg_y * 8, y_l + sg_y * 7), 0),
-            (pm.x + sg * (L / 2 - 4) + 3, max(pm.y - sg_y * 8, y_l + sg_y * 7), 96), DUNKEL, 'holz')
+        xw = pm.x + sg * (L / 2 + 1)
+        box(P, (xw - 3, min(pm.y - sg_y * 20, y_l + sg_y * 7), 0), (xw + 3, max(pm.y - sg_y * 20, y_l + sg_y * 7), 88), eiche, 'holz')
 
 def bett(c, r):
     if (c, r) in erledigt: return
@@ -673,7 +677,7 @@ def himmel(P, pm, w, d):
     yk = pm.y + d / 2 - 4; yv = yk - d / 3; H = 214.0
     for sg in (-1, 1):
         x = pm.x + sg * (w / 2 - 4)
-        box(P, (x - 4, yk - 4, 0), (x + 4, yk + 4, H + 6), lambda q, n_: sc(DUNKEL, 0.9 + 0.2 * vn(q.z / 30, 0, 3)), 'holz')
+        box(P, (x - 5, yk - 5, 0), (x + 5, yk + 5, H + 8), lambda q, n_: sc(HOLZ, 0.8 + 0.2 * vn(q.z / 30, 0, 3)), 'holz')   # Lauf 2: unsichtbar
         box(P, (x - 3, yv - 3, H - 6), (x + 3, yk, H), DUNKEL, 'holz')                              # Rahmen seitlich
         # Vorhang, an den Pfosten gebunden: oben breit, unter der Schleife schmal, unten wieder etwas breiter
         for z0, z1, b in ((H - 6, 150, 22), (150, 132, 7), (132, 60, 15)):
@@ -703,7 +707,7 @@ def regal(c, r):
         sx = (bw - 4) / ms.x; szz = 215 / ms.z
         stelle(P, 'Bookcase_2', q, a, (sx, 0.9, szz), ton=(0.85, 0.8, 0.78))
         for j, h in enumerate(hz):
-            nt = 3 if AELTESTER else 5   # Laden, Schenke: dicht wie alt (Pruefer Lauf 1: Regale fast leer)
+            nt = 3 if AELTESTER else 4   # Laden, Schenke: dicht wie alt (Pruefer Lauf 1: leer; Lauf 2: fuenf kleine wie Schlieren)
             for t in range(nt):
                 x_ = -bw / 2 + 20 + t * (bw - 40) / (nt - 1)
                 p = q + Vector((x_, 0, h * szz)) if abs(n.y) > 0.5 else q + Vector((0, x_, h * szz))
@@ -712,8 +716,8 @@ def regal(c, r):
                 elif SCHENKE: stelle(P, ['Mug', 'Bottle_1', 'SmallBottles_1', 'Vase_4', 'Bottle_1', 'Mug', 'SmallBottle', 'Bottle_1'][w], p, a,
                                      [1.0, 1.0, 1.1, 0.5, 1.0, 1.0, 1.4, 1.0][w])
                 elif w == 6: tuchballen(P, p + n * 4, i + t + j, schere=False)   # Tuchballen (alt bolts of cloth)
-                else: stelle(P, ['Potion_2', 'Vase_4', 'Bottle_1', 'Pouch_Large', 'Rope_2', 'Pot_1', '', 'SmallBottles_1'][w], p, a,
-                             [1.0, 0.55, 1.0, 1.0, 0.8, 0.55, 1.0, 1.1][w])
+                else: stelle(P, ['Potion_2', 'Vase_4', 'Bottle_1', 'Pouch_Large', 'Bag', 'Pot_1', '', 'Crate_Wooden'][w], p, a,
+                             [1.2, 0.6, 1.2, 1.2, 0.32, 0.6, 1.0, 0.3][w], farbe=lin(0x9a7a58))
 
 def gestell(c, r):
     n, s = an_wand(c, r); a = dreh(n)
@@ -753,7 +757,8 @@ def kram(c, r):
 
 def fass(c, r):
     P = part('Ding_' + stueck(c, r))
-    p = mitte(c, r)
+    n_w, s_w = an_wand(c, r)
+    p = mitte(c, r) + (n_w * 12 if s_w else Vector())   # Pruefer Lauf 2: Fass steckte im Eckbalken
     w = hsh(c, r, 3) % 3
     stelle(P, 'Barrel_Apples' if (LADEN and w == 0) else 'Barrel', p, hsh(c, r, 8) % 360, 0.85, ton=[(0.95, 0.9, 0.85), (0.8, 0.75, 0.7), (1.0, 1.0, 1.0)][w])
     if w == 1 and not LADEN: stelle(P, 'Mug', p + Vector((8, -6, 0)), 30, 1.0, z=77)
@@ -795,7 +800,7 @@ def pult(c, r):
     n, s = an_wand(c, r); a = dreh(n)
     p = mitte(c, r)
     if TEMPEL:   # Lesepult mit offenem Buch (alt lectern); Pruefer Lauf 1: stand an der Bank, jetzt um eine halbe Kachel zum Altar
-        if any(ch(c + dx, r + 1) == 'n' for dx in (-1, 0, 1)): p = p + Vector((0, 0.45 * TS, 0))
+        if any(ch(c + dx, r + 1) == 'n' for dx in (-1, 0, 1)): p = p + Vector((0, 0.15 * TS, 0))   # Lauf 2: 0,45 stach in den Altar
         stelle(P, 'BookStand', p, a + 180, 0.9, ton=(0.85, 0.8, 0.78))
         f = leuchter(P, p + Vector((34, 20, 0)), 0, hoch=24)
         kerze_licht(f + Vector((0, 0, 20)), 1.8, 0.6, [f])
@@ -836,13 +841,13 @@ def altar(c, r):
     # die Sonne des Morgenlichts auf ihrem Staender hinten in der Mitte (alt altar; Pruefer Lauf 1: fehlte)
     sm = Vector(((x0 + x1) / 2, yc + 22, 101.5))
     zylinder(P, sm, 7, 2, 10, MESSING, 'weiss', r2=5)
-    zylinder(P, sm, 1.4, 34, 6, MESSING, 'weiss')
-    sz = sm + Vector((0, 1, 46))
-    zylinder(P, sz, 11, 2.0, 18, lin(0xc9a24a), 'weiss', achse=Vector((0, -1, 0)))
-    zylinder(P, sz + Vector((0, -2, 0)), 5, 1.2, 14, lin(0xe8c870), 'weiss', achse=Vector((0, -1, 0)))
+    zylinder(P, sm, 2.0, 40, 6, MESSING, 'weiss')
+    sz = sm + Vector((0, 1, 62))   # Pruefer Lauf 2: viel kleiner als alt; Scheibe 40 cm mit Strahlen
+    zylinder(P, sz, 20, 3.0, 24, lin(0xc9a24a), 'weiss', achse=Vector((0, -1, 0)))
+    zylinder(P, sz + Vector((0, -3, 0)), 9, 1.5, 18, lin(0xe8c870), 'weiss', achse=Vector((0, -1, 0)))
     for k in range(12):
         an = k * math.pi / 6; rv = Vector((math.cos(an), 0, math.sin(an)))
-        zylinder(P, sz + rv * 11 + Vector((0, -1, 0)), 1.1, 7 if k % 2 else 10, 4, lin(0xc9a24a), 'weiss', r2=0.3, achse=rv)
+        zylinder(P, sz + rv * 19 + Vector((0, -1.5, 0)), 2.6, 12 if k % 2 else 18, 4, lin(0xc9a24a), 'weiss', r2=0.4, achse=rv)
     stelle(P, 'Book_7', Vector(((x0 + x1) / 2 + 40, yc - 6, 101.5)), 15, 1.0)
     kerze_licht(Vector(((x0 + x1) / 2, yc - 30, 150)), 3.2, 0.75, fl)
 

@@ -12,6 +12,7 @@ var feuer: Array = []        # [OmniLight3D, Grundkraft, Saat]
 var flammen: Array = []      # [Node3D Kern, Saat]
 var fenster: Array = []      # [SpotLight3D, Kraft, Tuer?]
 var scheiben: Array[ShaderMaterial] = []
+var an_wand := {}            # hohe Fassung (Name) -> [Licht, Flammenkerne], gehen mit der Wand (Simskerze)
 var waende: Array = []       # [hoch, tief, glas, innen (Godot, waagrecht), Kleinkram der hohen Fassung]
 var zeit := 0.0
 var nacht_k := 0.0
@@ -48,9 +49,10 @@ func licht(l: Dictionary) -> void:
 	if art == "kamin" or art == "kerze":
 		var o := OmniLight3D.new()
 		o.position = gpos(l["pos"])
-		o.omni_range = float(l.get("reich", 2.0)) * ts
+		# Kerze: kleinere Reichweite, kraeftiger, eine Lichtinsel um den Leuchter (Pruefer Lauf 2: keine Inseln zu sehen)
+		o.omni_range = float(l.get("reich", 2.0)) * ts * (1.0 if art == "kamin" else 0.6)
 		var k := float(l.get("kraft", 0.6))
-		var kraft := k * (3.2 if art == "kamin" else 2.6)
+		var kraft := k * (3.2 if art == "kamin" else 4.5)
 		o.light_energy = kraft
 		o.light_color = Color(1.0, 0.56, 0.26) if art == "kamin" else Color(1.0, 0.72, 0.42)
 		# Kerzen: Lichtinsel um den Tisch (Pruefer Lauf 1: keine Inseln), steiler abfallend als der Kamin
@@ -61,8 +63,10 @@ func licht(l: Dictionary) -> void:
 		feuer.append([o, kraft, randf() * 10.0])
 		o.add_to_group("tuschelicht")   # 348.13b: Tusche nach dem Licht
 		o.set_meta("reich", o.omni_range); o.set_meta("kraft", k)
+		var teile: Array = [o]
 		for f in l.get("flammen", []):
-			flamme(gpos(f), 2.0 if art == "kamin" else 0.32, art == "kamin")
+			teile.append(flamme(gpos(f), 2.0 if art == "kamin" else 0.32, art == "kamin"))
+		if l.has("wand"): an_wand[String(l["wand"])] = an_wand.get(String(l["wand"]), []) + teile
 	elif art == "tageslicht" or art == "tuer":
 		var s := SpotLight3D.new()
 		var von := gpos(l["pos"]); var zu := gpos(l["ziel"])
@@ -75,7 +79,7 @@ func licht(l: Dictionary) -> void:
 		s.shadow_bias = 0.05
 		fenster.append([s, float(l.get("kraft", 0.55)), art == "tuer"])
 
-func flamme(p: Vector3, gross: float, kamin: bool) -> void:
+func flamme(p: Vector3, gross: float, kamin: bool) -> Node3D:
 	if flamme_shader == null: flamme_shader = load("res://shader/flamme.gdshader")
 	var kern := Node3D.new()
 	kern.position = p + Vector3(0, 0.1 * gross, 0)   # Fuss der Flamme auf Docht oder Scheit
@@ -110,6 +114,7 @@ func flamme(p: Vector3, gross: float, kamin: bool) -> void:
 		mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		kern.add_child(mi)
 	flammen.append([kern, p.x * 3.0 + p.z])
+	return kern
 
 func sammle_scheiben(n: Node) -> void:
 	if n is MeshInstance3D:
@@ -155,3 +160,5 @@ func _process(dt: float) -> void:
 		if w[1]: (w[1] as Node3D).visible = not hoch
 		if w[2]: (w[2] as Node3D).visible = hoch
 		if w[4]: (w[4] as Node3D).visible = hoch   # Kleinkram auf Wandbrett und Regal geht mit der Wand
+		if w[0]:
+			for t in an_wand.get(String((w[0] as Node3D).name), []): (t as Node3D).visible = hoch
