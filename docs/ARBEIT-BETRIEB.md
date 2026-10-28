@@ -136,3 +136,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:09 28.10.: Marke Wächter 399.2 28.10. 12:34 (lauf.py)
 - 22:23 28.10.: Neustart Tom 7d5e21fac: Nachfolger `01Hmoj79nW` gestartet; alter Tom `01Hmoj75YJ` noch working, archivieren sobald idle (Kosten 399.1).
 - 22:53 28.10.: Neustart Jerry 96d840aae: Nachfolger `01Hmoj77So` gestartet (alter Jerry `01Hmoj775u` noch working, archivieren sobald idle, Kosten 399.2,399.2b,399.3); alter Tom `01Hmoj75YJ` archiviert (19,49 $ auf 399.1); Tom `01Hmoj79nW` läuft an 376.1.
+- 23:05 28.10.: alter Jerry `01Hmoj775u` archiviert (25,55 $ auf 399.2,399.2b,399.3). Alle Rollen mit Muss haben Sitzung.
