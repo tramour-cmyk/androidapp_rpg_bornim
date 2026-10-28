@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben.
 
-**Übergabe (28.10., 15:20, `session_01Hmoj75aYZ2RLhVV4vUowFc`):** Lauf 167 (30e32b835, drei Filme in einem Lauf), Filme an den Chef 15:17; 399.2b gemessen (`tests/rudel_mess.gd`, braucht Toms Heldwerte und `exportHero` von `claude/tom-399-spielfassung`). Nachfolger: „Jerry – Urteile Grak, Zauberbahn, Fledermaus, Rudel (nach Chef)“
+**Übergabe (28.10., 17:2x, `session_01Hmoj79BFDGCDU6uaUGZb49`):** 399.2 e5c207b71 (`umweg_399`), 399.2b in `mars.gd`. 399.3 `claude/jerry-348-klang`: Stufe 1 a966720f1, Stufe 2 c08d813be (`KlangExport.kt`). Godot-Download: Auto-Modus lehnte ab. Nachfolger: „Jerry – 399.3 Klang, Test 133 Kampfmenü“
 
 ## Zeilen
 
@@ -10,7 +10,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 |---|---|---|---|---|
 | 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | in Arbeit: Test 133 (Chef 16:4x, Archiv): Schalter Position, Schaden ohne Wirkung; im Kampf nur Angriff (Tasche, Flucht, Abwehr fehlen); Wolf durch Wolf: Chefsache 399.2c | `claude/jerry-348-kampf` |
 | 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | in Arbeit: 50 % im Lauf 168 bestätigt; knurrt ohne Ansage (mit 399.2c); Text Homer | – |
-| 399.3 | M | **von Chef (28.10., 16:42):** Klang in die Spielfassung (Umzug „Musik, Klang“) | in Arbeit: Stufe 1 (Musik, Schritte, Tür, Klick) im Lauf; folgt Orts-, Raum-, Kampfklang | `claude/jerry-348-klang` |
+| 399.3 | M | **von Chef (28.10., 16:42):** Klang in die Spielfassung (Umzug „Musik, Klang“) | in Arbeit: Stufe 1 Lauf 135; Stufe 2 Kampfklang ungeprüft (nächster Lauf); folgt Orts-, Raumklang, Regler bei Tom | `claude/jerry-348-klang` |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: Tusche passt (Chef 12:31); im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK, CI 158 grün | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: nachbessern (Chef 15:23, Archiv): Gehen und Platzwechsel mit UAL-Laufbewegung, Hieb trifft den Helden, Tod als Zusammenbruch | `claude/jerry-348-kampf` |
