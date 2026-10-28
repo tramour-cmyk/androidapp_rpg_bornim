@@ -63,6 +63,9 @@ func _still(path: String) -> void:
 		if OS.get_environment("SCHAU") == "ort":
 			await _ort()
 			return
+		if OS.get_environment("SCHAU") == "dreh":
+			await _dreh()
+			return
 		await _schau()
 		return
 	# wie im alten Bild: der Held ist dran, die Knöpfe stehen (höchstens 10 s warten)
@@ -450,6 +453,103 @@ func _schau() -> void:
 			await get_tree().process_frame
 	await get_tree().create_timer(0.6).timeout
 	get_tree().quit()
+
+
+## 348.12 Gestalt (Chef 28.10., 08:09: „Nahaufnahme auf Augenhöhe, ganzer Körper, drehend auf der Stelle“): SCHAU=dreh zeigt jeden
+## Gegner allein auf der Lichtung im Spiellicht mit Tusche, Kamera waagerecht auf Augenhöhe, Linse nach unten verschoben, so dass der
+## ganze Körper 80 % der Bildhöhe füllt (15–95 %, darüber Titel und Zeile); eine volle Drehung in DREH_S Sekunden (Stehen läuft), danach der Kopf nah, noch eine Drehung.
+## SCHAU_TITEL oben, DREH_ZEILE darunter (Modell, Texturen); DREH_BILDER=<ordner>: Standbilder bei 0°, 45°, 90°, 180° und Kopf 0°, 30°
+func _dreh() -> void:
+	var bis0 := Time.get_ticks_msec() + 15000
+	while fight.playing and Time.get_ticks_msec() < bis0:
+		await get_tree().process_frame
+	fight.playing = true     # keine Meldungen der Regeln mehr; _process des Kampforts läuft weiter (Tusche nach Licht)
+	var foes: Array = []
+	for id in fight.figures:
+		var fg = fight.figures[id]
+		fg.set_process(false)
+		if fg.fighter.monster != null:
+			foes.append(fg)
+		fg.visible = false
+	var cam: Camera3D = fight.cam
+	var vs := get_viewport().get_visible_rect().size
+	var cl := CanvasLayer.new()
+	add_child(cl)
+	var lb := Label.new()     # oben der Titel, darunter klein Modell und Texturen (r2, Prüfer r1: unten lag die Zeile über den Füßen)
+	lb.position = Vector2(vs.x * 0.04, vs.y * 0.02)
+	lb.add_theme_color_override("font_color", Color(0.95, 0.82, 0.45))
+	lb.add_theme_color_override("font_outline_color", Color.BLACK)
+	lb.add_theme_constant_override("outline_size", int(vs.x / 90.0))
+	lb.add_theme_font_size_override("font_size", int(vs.x / 16.0))
+	cl.add_child(lb)
+	var lz := Label.new()
+	lz.position = Vector2(vs.x * 0.04, vs.y * 0.075)
+	lz.size = Vector2(vs.x * 0.92, vs.y * 0.07)
+	lz.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	lz.add_theme_color_override("font_color", Color(0.92, 0.88, 0.80))
+	lz.add_theme_color_override("font_outline_color", Color.BLACK)
+	lz.add_theme_constant_override("outline_size", int(vs.x / 120.0))
+	lz.add_theme_font_size_override("font_size", int(vs.x / 34.0))
+	cl.add_child(lz)
+	var titel := OS.get_environment("SCHAU_TITEL")
+	var zeile := OS.get_environment("DREH_ZEILE")
+	var dauer := float(OS.get_environment("DREH_S")) if OS.get_environment("DREH_S") != "" else 8.0
+	var ordner := OS.get_environment("DREH_BILDER")
+	var mitte: Vector3 = fight._ground(0, 0)
+	# von der Seite der Kampfkamera her (dort ist die Lichtung frei), Bild 0° zeigt die Figur von vorn
+	var vorn: Vector3 = cam.global_position - mitte
+	vorn.y = 0.0
+	vorn = vorn.normalized()
+	var grund := atan2(vorn.x, vorn.z)
+	for fg in foes:
+		fg.visible = true
+		fg.position = mitte
+		fg.rotation = Vector3(0, grund, 0)
+		if fg.anim and fg.anim.has_animation("Stehen"):
+			fg.anim.play("Stehen")
+		await get_tree().process_frame
+		# Ausmaß der Figur im Stehen (alle Netze, auch die Waffe), Augenhöhe = 93 % der Körperhöhe ohne Waffe
+		var lo := INF; var hi := -INF; var hk := -INF
+		for mi in fg.find_children("*", "MeshInstance3D", true, false):
+			var ab: AABB = (mi as MeshInstance3D).global_transform * (mi as MeshInstance3D).get_aabb()
+			lo = minf(lo, ab.position.y); hi = maxf(hi, ab.end.y)
+			if not String(mi.get_path()).contains("Waffe"):
+				hk = maxf(hk, ab.end.y)
+		var boden := mitte.y
+		var koerper := hk - boden
+		var auge := boden + koerper * 0.93
+		var hoch := hi - minf(lo, boden)
+		print("Dreh %s: Boden %.2f, Scheitel %.2f, mit Waffe %.2f, Augen %.2f, Maßstab %.2f" % [fg.name, boden, hk, hi, auge, fg._scale()])
+		if fg == foes[0]:     # r2 (Prüfer r1: Sekunde 1 zeigte den Kampf): ab hier schneidet das Probeskript den Film
+			print("Dreh Start Bild %d" % Engine.get_frames_drawn())
+		for teil in [["ganz", hoch / 0.80, boden + hoch * 0.5 + 0.05 * hoch / 0.80], ["kopf", koerper * 0.36, boden + koerper * 0.86]]:
+			var fov := 24.0
+			var weit: float = teil[1] / (2.0 * tan(deg_to_rad(fov / 2.0)))
+			var hz: float = auge if teil[0] == "ganz" else teil[2]
+			cam.position = mitte + Vector3(0, hz - mitte.y, 0) + vorn * weit
+			cam.look_at(Vector3(mitte.x, hz, mitte.z))
+			cam.size = 2.0 * cam.near * tan(deg_to_rad(fov / 2.0))
+			cam.frustum_offset = Vector2(0, (float(teil[2]) - hz) * cam.near / weit)
+			fight.base_size = cam.size
+			fight.base_off = cam.frustum_offset
+			lb.text = titel + (" (Kopf nah)" if teil[0] == "kopf" else "")
+			lz.text = zeile
+			lz.visible = teil[0] == "ganz"
+			var t := 0.0
+			var lang := dauer if teil[0] == "ganz" else dauer * 0.75
+			var bilder := [0.0, 45.0, 90.0, 180.0] if teil[0] == "ganz" else [0.0, 30.0]
+			while t < lang:
+				var grad := 360.0 * t / lang
+				fg.rotation.y = grund + deg_to_rad(grad)
+				if ordner != "" and not bilder.is_empty() and grad >= bilder[0]:
+					await RenderingServer.frame_post_draw
+					get_viewport().get_texture().get_image().save_png("%s/dreh-%s-%s-%03d.png" % [ordner, fg.name, teil[0], int(bilder[0])])
+					bilder.pop_front()
+				await get_tree().process_frame
+				t += get_process_delta_time()
+		if fg != foes[-1]:
+			fg.visible = false
+	get_tree().quit()     # r2 (Prüfer r1: letzte Sekunde ohne Figur): gleich beenden
 
 
 ## 348.12f (Chef 27.10., 18:01, Archiv: „Bewegungen mit Ortswechsel im Kampfort, nicht auf der Stelle“): SCHAU=ort spielt Gegner 1
