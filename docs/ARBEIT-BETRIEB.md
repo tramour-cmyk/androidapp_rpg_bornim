@@ -41,13 +41,13 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
-- 13:12 28.10.: Neustart Jerry angenommen (`ff9aead43`), Nachfolger „Jerry – 399.2 CI prüfen, 348.12 Grak-Film“ `01Hmoj75RG` gestartet (main, Hoch, mit add_repo-Satz); alter Jerry `76aX` archiviert und gebucht (27,93 $ auf 348.12, 387, 399.2)
-- 13:09 28.10.: Lauf; Diogenes `77nv` (398, Vorrat leer) archiviert und gebucht (0,79 $); Perikles `76yC` (399), Tom `76N4`, Jerry `76aX`, Sokrates `78fq` laufen; kein Start nötig
-- 12:38 28.10.: Auftrag Sokrates (Chef 12:34 „399 jetzt“): Perikles „399“ `01Hmoj76yC` gestartet (main, Mittel); alter Perikles `77KE` (398 fertig) archiviert und gebucht (1,88 $); Tom, Jerry, Diogenes, Sokrates laufen
 - 17:35–19:54 27.10.: Ford-Selbstneustart; Neustarts angenommen: Sokrates 19:08, Tom 19:32, Jerry 19:40, Tom 19:54; Vorgang 382 an Perikles
 - 01:37–06:35 27.10.: Neustarts angenommen und Nachfolger gestartet: Tom 01:46, 02:33, 02:57, 03:23, 03:51, 04:16, 04:43, 05:01, 05:20, 05:44, 06:03, 06:35, 07:21; Jerry 01:37, 02:42, 03:25, 04:57; Jerry 05:55 zurückgestellt (wartet auf Chefsache 3487a). Läufe 02:03, 03:03 ohne Starts; START Perikles (Terminname) nicht ausgeführt
 - 25.10., 09:35–21:05: Neustarts Tom/Jerry/Sokrates angenommen; Perikles 364 und Sokrates 340.2 gestartet; Sparbetrieb und Max 20x (Verlauf in Git)
 
+- 13:12 28.10.: Neustart Jerry angenommen (`ff9aead43`), Nachfolger „Jerry – 399.2 CI prüfen, 348.12 Grak-Film“ `01Hmoj75RG` gestartet (main, Hoch, mit add_repo-Satz); alter Jerry `76aX` archiviert und gebucht (27,93 $ auf 348.12, 387, 399.2)
+- 13:09 28.10.: Lauf; Diogenes `77nv` (398, Vorrat leer) archiviert und gebucht (0,79 $); Perikles `76yC` (399), Tom `76N4`, Jerry `76aX`, Sokrates `78fq` laufen; kein Start nötig
+- 12:38 28.10.: Auftrag Sokrates (Chef 12:34 „399 jetzt“): Perikles „399“ `01Hmoj76yC` gestartet (main, Mittel); alter Perikles `77KE` (398 fertig) archiviert und gebucht (1,88 $); Tom, Jerry, Diogenes, Sokrates laufen
 - 12:08 28.10.: gestartet (main, Mittel): Diogenes „398“ `01Hmoj77nv`, Perikles „398“ `01Hmoj77KE`; alter Perikles `76kq` (396) archiviert und gebucht (3,01 $); Sokrates `78fq` idle (Chef ruft ihn, bleibt), Tom `76N4`, Jerry `76aX` laufen
 - 12:06 28.10.: Neustart Tom angenommen (`5791b512c`), Nachfolger „Tom – 376.1 Halszacken in Godot, dann 397 Ruhebewegungen“ `01Hmoj76N4` gestartet (main, Hoch, mit add_repo-Satz; Prüfer lehnte den ersten Versuch wegen eines nicht überprüften Chefzitats im Startprompt ab, danach nur der Satz des Chefs 10:38); alter Tom `01Hmoj78eF` archiviert und gebucht (15,40 $ auf 390, 376.1)
 - 11:58 28.10.: Neustart Jerry angenommen (`3434960d7`), Nachfolger „Jerry – 387 Vorlage, 348.12 Grak animieren“ `01Hmoj76aX` gestartet (main, Hoch, mit add_repo-Satz); alter Jerry `01Hmoj78sy` archiviert und gebucht (26,93 $ auf 390, 387, 348.12f)
@@ -65,9 +65,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:08 28.10.: Morgenmeldung gesendet (laut); gestartet (main): Jerry „348.7b nach Urteil des Chefs“, Diogenes „374“ (Tagesauftrag), Perikles „Stand zum Marktstart 28.10.“; alter Jerry `01Hmoj79A1` archiviert und gebucht (11,99 $); Tom `01Hmoj771Z` blockiert (wartet auf Satz des Chefs für `add_repo` bornim-kaufmodelle, 376.1)
 - 05:53 28.10.: Jerry-Kosten gebucht (50,64 $ auf 387, 348.12); `rate_limit_info` der Sitzung zeigt `seven_day` `allowed_warning` (Zurücksetzung 1793473200): ab jetzt `lauf.py --nur-muss` (D31.3, 287)
 - 05:51 28.10.: Neustart Jerry angenommen (`49af405c0`), Nachfolger „Jerry – 348.7b Zauberbahn nach Chef „D““ gestartet (main, Hoch); alter Jerry `01Hmoj75wa` archiviert
-- 04:22 28.10.: Neustart Jerry angenommen (`61baa45cf`), Nachfolger „Jerry – 387 Ursachen Huhn, Kaninchen, Rind, Hundertfüßer, dann 348.12 r3“ gestartet (main, Hoch); alter Jerry `01Hmoj79G6` archiviert
-- 02:38 28.10.: Neustart Jerry angenommen (`07948ad02`), Nachfolger „Jerry – 348.12 Runde 2 prüfen und vorlegen, dann 387“ gestartet (main, Hoch); alter Jerry `01Hmoj76Hc` archiviert
-- 01:56 28.10.: Neustart Tom angenommen (`2916a3231`), Nachfolger „Tom – 348.6 Dorf Lauf 3“ gestartet (main, Hoch); alter Tom `01Hmoj79S6` archiviert, Kosten fehlen (Antwort ohne `usage`)
 - 00:04 27.10.: Startsperre 00:04 Start Perikles (lauf.py)
 - 00:04 27.10.: Marke Stellungnahme Sokrates 27.10. (lauf.py)
 - 00:04 27.10.: Nachfolger-Warnung Homer (Übergabe 26.10., 21:09) (lauf.py)
@@ -133,3 +130,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:04 28.10.: Startsperre 12:04 Start Diogenes, Perikles (lauf.py)
 - 12:04 28.10.: Marke Archiv session_01Hmoj76kqDZ5MjqaSWsoJcZ (lauf.py)
 - 12:36 28.10.: Startsperre 12:36 Start Perikles (lauf.py)
+- 13:11 28.10.: Nachfolger-Warnung Diogenes (Übergabe 28.10., 12:19) (lauf.py)
