@@ -40,6 +40,8 @@ for n in NAMEN:
         for o in bpy.data.objects:
             if o.type != 'MESH' or o is axt: continue
             kn = knochen(o)
-            paare = [kn[j] for _, j in ta.overlap(baum(o, dg)) if not kn[j].startswith(HAND)]     # an der Faust erlaubt
+            # Netze mit Modifikatoren (Umhang) haben ausgewertet mehr Flächen als im Original: Knochen dort „?“, zählen mit
+            paare = [kn[j] if j < len(kn) else '?' for _, j in ta.overlap(baum(o, dg))]
+            paare = [k for k in paare if not k.startswith(HAND)]     # an der Faust erlaubt
             if paare: schlimm[o.name] = max(schlimm.get(o.name, (0, 0, '')), (len(paare), f, max(set(paare), key=paare.count)))
     print('AXT %s: %s' % (n, ', '.join('%s %d Paare (Bild %d, meist %s)' % (o, k, f, b) for o, (k, f, b) in sorted(schlimm.items())) or 'frei außer an den Fäusten'))

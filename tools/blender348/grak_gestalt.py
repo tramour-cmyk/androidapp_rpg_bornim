@@ -556,8 +556,11 @@ for o in axt_teile:
 axt.name = 'Waffe'
 
 # ---------------------------------------------------------------- (8) Stehen aus der UAL (Idle_Loop), auf unser Gerüst übertragen
+# UAL=<pfad>: dazu die Bewegungen einer zweiten Fassung, z. B. der gekauften Pro (Bestand: UAL1.glb, 120 Bewegungen, CC0) mit Death02
 ual = importiere(finde('UAL1_Standard.glb'))
 UA = next(o for o in ual if o.type == 'ARMATURE')
+if os.environ.get('UAL'):     # nur ihre Bewegungen (gleiche Knochennamen); Gerüst und Netze wieder weg
+    for o in importiere(os.environ['UAL']): bpy.data.objects.remove(o)
 quelle = bpy.data.actions['Idle_Loop']
 UA.animation_data.action = quelle
 f0, f1 = [int(round(v)) for v in quelle.frame_range]
@@ -596,7 +599,7 @@ def uebertrage(q_name, z_name):     # UAL-Bewegung q_name als z_name auf unser G
 
 # 348.12 Bewegungen (Liste „Grak“ 5; Übergabe 28.10., 11:55: Gehen, Hieb, Treffer, Tod mit der Zweihandhaltung): Gehen aus Walk_Loop,
 # Treffer aus Hit_Chest, Tod aus Death01 (UAL, CC0); die Arme stellt (8c) je Bild an die Axt, den Hieb baut (8c) selbst
-UAL_ZU = (('Walk_Loop', 'Gehen'), ('Hit_Chest', 'Treffer'), ('Death01', 'Tod'))
+UAL_ZU = (('Walk_Loop', 'Gehen'), ('Hit_Chest', 'Treffer'), (os.environ.get('TOD_QUELLE', 'Death01'), 'Tod'))
 BEWEGT = {z_: uebertrage(q_, z_) for q_, z_ in UAL_ZU}
 akt, _ = uebertrage('Idle_Loop', 'Stehen')
 for o in ual: bpy.data.objects.remove(o)
@@ -640,9 +643,12 @@ def griff(s_):     # Griffpunkt der Faust (Raum des Gerüsts)
     return pb.matrix.translation + pb.matrix.col[1].xyz.normalized() * GRIFF + innen * HANDFL
 
 
+ITER = int(os.environ.get('ITER', '5'))     # Durchgänge je Arm: Griffpunkt und Handgelenk gleichen sich an
+
+
 def zweihand(R, r, pol_r, pol_l, KH=None):     # KH: Stiel im Raum der rechten Hand; dann dreht die Hand den Stiel nach r (ual_lauer.py)
     r = Vector(r).normalized()
-    for _ in range(2):
+    for _ in range(ITER):
         zwei('r', R - (griff('r') - PB['hand_r'].matrix.translation), pol_r)
     if KH is not None:
         pb = PB['lowerarm_r']; A_ = pb.matrix.col[1].xyz.normalized(); h = pb.matrix.translation.copy()
@@ -655,7 +661,7 @@ def zweihand(R, r, pol_r, pol_l, KH=None):     # KH: Stiel im Raum der rechten H
         PB['hand_r'].matrix = Matrix.Translation(PB['hand_r'].matrix.translation) @ (q.to_matrix() @ Rm).to_4x4()
         bpy.context.view_layer.update()
     L = griff('r') - r * AXT_LINKS
-    for _ in range(2):
+    for _ in range(ITER):
         zwei('l', L - (griff('l') - PB['hand_l'].matrix.translation), pol_l)
     return (griff('l') - L).length
 
@@ -710,10 +716,13 @@ if not ZWEIHAND:
 
 # ---------------------------------------------------------------- (8c) Gehen, Hieb, Treffer, Tod mit der Axt in beiden Händen
 # Gehen, Treffer, Tod (aus (8)): Faust und Stiel folgen der Brust (spine_03) wie in Bild 0 von Stehen, die Arme je Bild als zwei
-# Glieder, die Hand dreht den Stiel (KH: Stiel im Raum der rechten Hand, seit die Axt dort hängt). Tod: die linke Hand lässt ab
-# TOD_LOS los und geht in TOD_WEICH s in die Quelle über, die rechte hält die Axt. Hieb: eigener Zweihandhieb von oben aus
+# Glieder, die Hand dreht den Stiel (KH: Stiel im Raum der rechten Hand, seit die Axt dort hängt). Tod (Vorgabe Death01; mit
+# UAL=<Pro> TOD_QUELLE=Death02): erst die linke (TOD_LOS), dann die rechte Hand (TOD_LOS_R, Anteil der Bewegung) lässt los und geht
+# in TOD_WEICH s in die Quelle über; die Axt fällt in TOD_FALL s und liegt flach neben ihm. Hieb: eigener Zweihandhieb von oben aus
 # ual_lauer.py GRAK_HIEB (dort auf der Bibliothek entworfen und gemessen), hier auf Graks Gerüst gestellt.
-TOD_LOS, TOD_WEICH = float(os.environ.get('TOD_LOS', '0.35')), 0.25
+TOD_LOS, TOD_WEICH = float(os.environ.get('TOD_LOS', '0.08')), 0.25
+TOD_LOS_R = float(os.environ.get('TOD_LOS_R', '0.12'))
+TOD_FALL = float(os.environ.get('TOD_FALL', '0.4'))
 FPS = sc.render.fps / sc.render.fps_base
 GRAK_HIEB = [
     (0.0, None),
@@ -725,8 +734,11 @@ GRAK_HIEB = [
     (0.50, 0, 10, (-0.07, -0.46, 0.90), (0.0, -0.25, 0.97), (-1.0, 0.0, 0.0), (1.0, 0.0, 0.0)),
     (0.54, 3, 14, (-0.05, -0.62, 0.58), (0.0, -0.80, 0.60), (-1.0, 0.0, -0.2), (1.0, 0.0, -0.2)),
     (0.56, 4, 17, (-0.05, -0.68, 0.36), (0.0, -1.0, 0.0), (-1.0, 0.0, -0.3), (1.0, 0.0, -0.3)),
-    (0.58, 6, 20, (-0.05, -0.58, 0.14), (0.0, -0.82, -0.57), (-1.0, 0.0, -0.4), (1.0, 0.0, -0.4)),
-    (0.66, 6, 20, (-0.05, -0.58, 0.12), (0.0, -0.80, -0.60), (-1.0, 0.0, -0.4), (1.0, 0.0, -0.4)),
+    # auf Graks Gerüst (grak_axtmess.py: beim Aufschlag 0,58–0,67 s das Stielende 157 Paare in der Brustplatte, 47 im Körper; mit
+    # 0,51 m Stiel hinter der rechten Faust und 0,51 m Arm liegt das Ende bei jedem Schlag gerade nach vorn in der Brust): Aufschlag
+    # schräg von rechts oben nach links vorn unten, Rumpf 15° nach links gedreht; gefunden mit SUCHE (unten), frei außer an den Fäusten
+    (0.58, 15, 11, (-0.14, -0.58, 0.37), (0.46, -0.75, -0.48), (-1.0, 0.0, -0.4), (1.0, 0.0, -0.4)),
+    (0.66, 15, 11, (-0.14, -0.58, 0.35), (0.46, -0.74, -0.50), (-1.0, 0.0, -0.4), (1.0, 0.0, -0.4)),
     (0.72, 4, 14, (-0.08, -0.58, 0.36), (-0.1, -0.55, 0.83), (-1.0, 0.1, -0.4), (1.0, 0.1, -0.5)),
     (0.78, 3, 10, (-0.12, -0.50, 0.50), (-0.2, -0.45, 0.87), (-1.0, 0.3, -0.5), (1.0, 0.2, -0.7)),
     (0.90, None)]
@@ -763,34 +775,138 @@ if ZWEIHAND:
     R0 = PB['pelvis'].matrix.translation + Vector(R_)
     L0 = {pb.name: (pb.rotation_quaternion.copy(), pb.location.copy()) for pb in PB}
     LINKS = ('upperarm_l', 'lowerarm_l', 'hand_l')
+    # Axt gegen Graks Netze ohne Bild (wie grak_axtmess.py; Flächen an Hand und Fingern zählen nicht): für Tod und SUCHE
+    HANDK = ('hand_', 'thumb_', 'index_', 'middle_', 'ring_', 'pinky_')
+    NETZE = [o for o in bpy.data.objects if o.type == 'MESH' and o is not axt]
+
+    def knoten(o):
+        gn = {g.index: g.name for g in o.vertex_groups}
+        return [gn.get(max(o.data.vertices[p.vertices[0]].groups, key=lambda e: e.weight).group, '')
+                if len(o.data.vertices[p.vertices[0]].groups) else '' for p in o.data.polygons]
+    KN = {o.name: knoten(o) for o in NETZE}
+
+    def baum_(o, dg):
+        e = o.evaluated_get(dg); me = e.to_mesh(); bm = bmesh.new(); bm.from_mesh(me); bm.transform(o.matrix_world)
+        t = BVHTree.FromBMesh(bm); bm.free(); e.to_mesh_clear(); return t
+
+    def treffer_():
+        dg = bpy.context.evaluated_depsgraph_get(); ta = baum_(axt, dg); n_ = 0
+        for o in NETZE:
+            kn = KN[o.name]
+            n_ += sum(1 for _, j in ta.overlap(baum_(o, dg)) if not (j < len(kn) and kn[j].startswith(HANDK)))
+        e = axt.evaluated_get(dg); me = e.to_mesh()     # dazu jede Ecke der Axt unter dem Boden (Tod: bis 53 cm im Boden)
+        n_ += sum(1 for v in me.vertices if (axt.matrix_world @ v.co).z < 0.0); e.to_mesh_clear()
+        return n_
+    # Axt an einem eigenen Knochen „axt“ (Kind von root) statt an hand_r: in jeder Bewegung je Bild dorthin, wo die rechte Faust sie
+    # hält (H: Axt im Raum der Hand aus Bild 0 von Stehen); im Tod lässt die Faust sie los, sie fällt und liegt flach am Boden
+    # (Death02 auf Graks Maß: die Faust steckte liegend bis 14 cm im Boden, die Axt bis 53 cm)
+    AW = ARM.matrix_world.copy()
+    H = (AW @ PB['hand_r'].matrix).inverted() @ axt.matrix_world
+    M_axt0 = axt.matrix_world.copy()
+    bpy.context.view_layer.objects.active = ARM; bpy.ops.object.mode_set(mode='EDIT')
+    eb = ARM.data.edit_bones.new('axt'); eb.head = (0, 0, 0); eb.tail = (0, 0.1, 0); eb.parent = ARM.data.edit_bones['root']
+    bpy.ops.object.mode_set(mode='POSE')
+    bpy.ops.object.mode_set(mode='OBJECT')
+    PB = ARM.pose.bones; PB['axt'].rotation_mode = 'QUATERNION'
+    axt.parent = ARM; axt.parent_type = 'BONE'; axt.parent_bone = 'axt'
+    bpy.context.view_layer.update()
+    axt.matrix_world = M_axt0
+    bpy.context.view_layer.update()
+    K_axt = (AW @ PB['axt'].matrix).inverted() @ axt.matrix_world     # Axt im Raum des Knochens axt (fest)
+
+    def axt_nach(M, f):     # Knochen axt so, dass die Axt in der Welt bei M liegt; Schlüssel in Bild f
+        pb = PB['axt']; pb.matrix = AW.inverted() @ M @ K_axt.inverted(); bpy.context.view_layer.update()
+        pb.keyframe_insert('rotation_quaternion', frame=f); pb.keyframe_insert('location', frame=f)
+
+    def axt_hand(f):
+        axt_nach(AW @ PB['hand_r'].matrix @ H, f)
+
+    ARM.animation_data.action = akt     # Stehen: die Axt folgt der Faust
+    for f in range(0, f1 - f0 + 1):
+        sc.frame_set(f); bpy.context.view_layer.update(); axt_hand(f)
+
+    def tiefst():     # tiefster Punkt von Graks Netzen ohne Axt (Welt)
+        dg = bpy.context.evaluated_depsgraph_get(); z_ = 9.0
+        for o in NETZE:
+            e = o.evaluated_get(dg); me = e.to_mesh()
+            if len(me.vertices):
+                v_ = np.empty(len(me.vertices) * 3); me.vertices.foreach_get('co', v_)
+                z_ = min(z_, float((np.array(o.matrix_world) @ np.c_[v_.reshape(-1, 3), np.ones(len(me.vertices))].T)[2].min()))
+            e.to_mesh_clear()
+        return z_
+
+    def axt_tief():
+        dg = bpy.context.evaluated_depsgraph_get(); e = axt.evaluated_get(dg); me = e.to_mesh()
+        z_ = min((axt.matrix_world @ v.co).z for v in me.vertices); e.to_mesh_clear(); return z_
+
     for nm, (z, n) in BEWEGT.items():
         ARM.animation_data.action = z
-        los = TOD_LOS * n if nm == 'Tod' else n + 1
+        los, los_r = (TOD_LOS * n, TOD_LOS_R * n) if nm == 'Tod' else (n + 1, n + 1)
         for f in range(0, n + 1):
             sc.frame_set(f); bpy.context.view_layer.update()
-            quelle_l = {b: PB[b].rotation_quaternion.copy() for b in LINKS + tuple(x for x in FINGER if x.endswith('_l'))}
-            B = PB['spine_03'].matrix; D = B.to_3x3() @ B0i
+            if nm == 'Tod':     # Death02 auf Graks Maß: Körper bis 20 cm im Boden; Becken so weit heben
+                z_ = tiefst()
+                if z_ < 0.0:
+                    pb = PB['pelvis']; pb.matrix = Matrix.Translation((0, 0, -z_)) @ pb.matrix; bpy.context.view_layer.update()
+                    pb.keyframe_insert('location', frame=f)
+            quelle = {b: PB[b].rotation_quaternion.copy() for b in ARME + FINGER}
+            B = PB['spine_03'].matrix.copy(); D = B.to_3x3() @ B0i
             ab = zweihand(B.translation + D @ (R0 - B0.translation), D @ Vector(r_), D @ Vector(pr_), D @ Vector(pl_), KH=KH)
             faeuste(f)
-            w = 0.0 if f <= los else min(1.0, (f - los) / (TOD_WEICH * FPS))
-            if w > 0.0:     # Tod: die linke Hand lässt los
-                w = w * w * (3 - 2 * w)
-                for b, q in quelle_l.items():
-                    PB[b].rotation_quaternion = PB[b].rotation_quaternion.slerp(q, w)
-                bpy.context.view_layer.update()
+            for los_, seite in ((los, '_l'), (los_r, '_r')):     # Tod: erst die linke, dann die rechte Hand lässt los
+                w = 0.0 if f <= los_ else min(1.0, (f - los_) / (TOD_WEICH * FPS)); w = w * w * (3 - 2 * w)
+                if w > 0.0:
+                    for b in ARME + FINGER:
+                        if b.endswith(seite): PB[b].rotation_quaternion = PB[b].rotation_quaternion.slerp(quelle[b], w)
+                    bpy.context.view_layer.update()
             for b in ARME + FINGER: PB[b].keyframe_insert('rotation_quaternion', frame=f)
-            miss(nm, f)
-            if w == 0.0: MESS[nm]['faust'] = max(MESS[nm]['faust'], ab)
+            if f <= los_r:
+                axt_hand(f); miss(nm, f)
+            if f <= los: MESS[nm]['faust'] = max(MESS[nm]['faust'], ab)
+        if nm == 'Tod':     # die Axt fällt ab dem Loslassen der Rechten in TOD_FALL s (beschleunigt) flach zu Boden, neben Grak
+            fl = int(math.floor(los_r)); sc.frame_set(fl); bpy.context.view_layer.update()
+            M0 = axt.matrix_world.copy()
+            nf = max(1, int(round(TOD_FALL * FPS)))
+            sc.frame_set(n); bpy.context.view_layer.update()
+            becken = AW @ PB['pelvis'].matrix.translation; kopf = AW @ PB['Head'].matrix.translation
+            lang = Vector((kopf.x - becken.x, kopf.y - becken.y, 0.0)).normalized()     # liegend: Körperachse am Boden
+            quer = Vector((0, 0, 1)).cross(lang).normalized()
+            if quer.dot(Vector((M0.translation.x - becken.x, M0.translation.y - becken.y, 0.0))) < 0: quer = -quer     # Seite der Axt
+            mitte = Vector((becken.x, becken.y, 0.0)) + lang * 0.3
+            proben = list(range(fl + nf, n + 1, 3)) + [n]
+            best = None
+            for seite in (1, -1):     # liegend neben ihm, Stiel längs oder schräg; frei über alle Bilder nach dem Aufschlag
+                for ab_ in (0.55, 0.8, 1.05):
+                    for winkel in (0, 35, -35):
+                        zs = Quaternion((0, 0, 1), math.radians(winkel)) @ lang
+                        R1 = Matrix((Vector((0, 0, 1)).cross(zs).normalized(), Vector((0, 0, 1)), zs)).transposed()
+                        M1 = Matrix.Translation(mitte + quer * seite * ab_) @ R1.to_4x4()
+                        axt_nach(M1, n); M1 = Matrix.Translation((0, 0, 0.004 - axt_tief())) @ M1
+                        t_ = 0
+                        for f in proben:
+                            sc.frame_set(f); bpy.context.view_layer.update(); axt_nach(M1, f); t_ += treffer_()
+                        wert = (t_, seite != 1, ab_)
+                        if best is None or wert < best[0]: best = (wert, M1)
+            M1 = best[1]
+            for i in range(0, nf + 1):
+                fall = (i / nf) ** 2
+                M = Matrix.Translation(M0.translation.lerp(M1.translation, fall)) @ M0.to_quaternion().slerp(M1.to_quaternion(), fall).to_matrix().to_4x4()
+                if fl + i > n: break
+                sc.frame_set(fl + i); bpy.context.view_layer.update(); axt_nach(M, fl + i)
+                if axt_tief() < 0.004: axt_nach(Matrix.Translation((0, 0, 0.004 - axt_tief())) @ M, fl + i)
+            for f in range(fl + nf + 1, n + 1):
+                sc.frame_set(f); bpy.context.view_layer.update(); axt_nach(M1, f)
+            print('TOD Axt fällt ab Bild %d in %d Bildern, liegt %.2f m vom Becken, Treffer liegend %d' % (fl, nf, (M1.translation - becken).length, best[0][0]))
     # Hieb aus Bild 0 von Stehen: Rumpf DREH, VOR, Hals gleicht den Blick aus, Fäuste und Stiel je Schlüssel, Zwischenbilder gemischt
     hieb = bpy.data.actions.new('Hieb'); hieb.use_fake_user = True; ARM.animation_data.action = hieb
     ST = (0, 0) + GRAK_HALT
-    K = [(k[0], ST if k[1] is None else k[1:]) for k in GRAK_HIEB]
+    HK = [(k[0], ST if k[1] is None else k[1:]) for k in GRAK_HIEB]
     weg_ = {'weich': lambda s: s * s * (3 - 2 * s), 'linear': lambda s: s, 'an': lambda s: s ** 1.3}
-    nh = int(round(K[-1][0] * FPS))
+    nh = int(round(HK[-1][0] * FPS))
     for i in range(nh + 1):
-        t = min(i / FPS, K[-1][0])
-        j = max(j for j in range(len(K) - 1) if K[j][0] <= t) if t < K[-1][0] else len(K) - 2
-        (k0, A0), (k1, A1) = K[j], K[j + 1]
+        t = min(i / FPS, HK[-1][0])
+        j = max(j for j in range(len(HK) - 1) if HK[j][0] <= t) if t < HK[-1][0] else len(HK) - 2
+        (k0, A0), (k1, A1) = HK[j], HK[j + 1]
         s = weg_[GRAK_WEG[k0]](min(1.0, (t - k0) / (k1 - k0)))
         m = [a0 + (a1 - a0) * s for a0, a1 in zip(A0[:2], A1[:2])] + [Vector(a0).lerp(Vector(a1), s) for a0, a1 in zip(A0[2:], A1[2:])]
         if Vector(A0[3]).normalized().dot(Vector(A1[3]).normalized()) > -0.99:
@@ -802,13 +918,36 @@ if ZWEIHAND:
         drehe('spine_01', 'Z', dreh); drehe('spine_01', 'X', vor)
         drehe('neck_01', 'X', -vor); drehe('neck_01', 'Z', -dreh * 0.7)
         ab = zweihand(PB['pelvis'].matrix.translation + Vector(R), r, pol_r, pol_l, KH=KH)
-        key_alle(i); faeuste(i)
+        key_alle(i); faeuste(i); axt_hand(i)
         miss('Hieb', i); MESS['Hieb']['faust'] = max(MESS['Hieb']['faust'], ab)
+        if ab > 0.02:
+            Sl = PB['upperarm_l'].matrix.translation; Lz = griff('r') - (PB['hand_r'].matrix.to_3x3() @ KH).normalized() * AXT_LINKS
+            print('HIEB %.2f s linke Faust %.3f m neben dem Stiel, Schulter zum Griff %.2f m, Arm %.2f m' % (i / FPS, ab, (Lz - Sl).length, PB['upperarm_l'].length + PB['lowerarm_l'].length))
     BEWEGT['Hieb'] = (hieb, nh)
+    if os.environ.get('SUCHE'):     # Aufschlag suchen: Haltungen ohne Bild durchprobieren, Axt gegen Netze wie grak_axtmess.py
+        import random
+        random.seed(int(os.environ['SUCHE']))
+        ERG = []
+        for _ in range(int(os.environ.get('SUCHE_N', '200'))):
+            vor = random.uniform(0, 30); dreh = random.uniform(-25, 25)
+            R = (random.uniform(-0.30, 0.15), random.uniform(-0.62, -0.35), random.uniform(0.0, 0.55))
+            az, el = math.radians(random.uniform(-20, 60)), math.radians(random.uniform(0, 70))     # az > 0: nach links
+            r = (math.sin(az) * math.cos(el), -math.cos(az) * math.cos(el), -math.sin(el))
+            for b, (q, l) in L0.items():
+                PB[b].rotation_quaternion = q; PB[b].location = l
+            bpy.context.view_layer.update()
+            drehe('spine_01', 'Z', dreh); drehe('spine_01', 'X', vor); drehe('neck_01', 'X', -vor); drehe('neck_01', 'Z', -dreh * 0.7)
+            ab = zweihand(PB['pelvis'].matrix.translation + Vector(R), r, (-1.0, 0.0, -0.4), (1.0, 0.0, -0.4), KH=KH)
+            G = griff('r'); rr = (PB['hand_r'].matrix.to_3x3() @ KH).normalized(); kp = ARM.matrix_world @ (G + rr * 0.9)
+            n_ = treffer_() if ab < 0.01 else 999
+            ERG.append((n_, round(ab, 3), round(vor), round(dreh), tuple(round(c, 2) for c in R), tuple(round(c, 2) for c in r),
+                        round(kp.z, 2), round(-kp.y, 2)))
+        for e_ in sorted(ERG)[:15]:
+            print('SUCHE Paare %d Faust %.3f VOR %d DREH %d R %s r %s Axtkopf z %.2f vor %.2f' % e_)
     for nm, m in MESS.items():
         print('BEWEGUNG %s %d Bilder: linke Faust höchstens %.3f m neben dem Stiel, Kopf der Axt tiefstens %.2f m über dem Boden'
               % (nm, BEWEGT[nm][1] + 1, m['faust'], m['axt_z']))
-    print('BEWEGUNG nicht erreicht: %s' % (', '.join(sorted(set(WARN))) or 'keine'))
+    print('BEWEGUNG Hand mehr als 1 cm nicht erreicht: %s' % (', '.join(sorted(w_ for w_ in set(WARN) if float(w_.split()[1]) > 0.01)) or 'keine'))
     ARM.animation_data.action = akt
     sc.frame_set(0); bpy.context.view_layer.update()
 
