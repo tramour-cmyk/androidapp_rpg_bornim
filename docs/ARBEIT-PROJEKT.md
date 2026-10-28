@@ -3,13 +3,12 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 28.10., 12:36
+**Gelesen bis:** `origin/main` 28.10., 22:05
 
-**Übergabe (28.10., 12:4x):** 399 verteilt: 399.1 Tom (Spielfassung, Zweig von 390, Jerrys Kampf hinein), 399.2 Jerry (Kampfort aufrufbar), beide zuerst; 397, 348.13b ruhen. Kosten auf: 399. Nachfolger: keiner (399 wartet auf Tom, Jerry)
+**Übergabe (28.10., 22:1x):** 400 erledigt: Commit-Prüfung lässt Hinweise anderer („von <Absender>“) in volle Vorräte; liegengebliebene an Tom, Jerry zugestellt; Ford „Ford-Lauf“ (letzter Lauf 13:11). Kosten auf: 400. Nachfolger: keiner (399 wartet auf Tom, Jerry)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 400 | M | **von Chef über Sokrates (28.10., 21:5x, „das liegt seit 2 Stunden bei ihm rum. Krass“):** Hinweise an volle Vorräte bleiben liegen (Homer 399.2b, 374; Archiv) | startbar |
 | 399 | M | **von Chef über Sokrates („jetzt“ 28.10., 12:34, Archiv):** Vorrang neu: erst eine Godot-Fassung am Handy, in der der Chef im Dorf herumläuft und einen Kampf spielt; Feintuning ruht | wartet auf Tom, Jerry: 399.1 Spielfassung, 399.2 Kampfort aufrufbar (12:4x); Feinschliff 397, 348.13b ruht |
 | 398 | M | **von Sokrates (Chef 28.10., 11:22):** Termine je Block nachrechnen mit der Schätzung der 15 Zeilen 398 | wartet auf Tom, Jerry: Schätzung 398 in `LISTE-UMZUG-348.md` |
 | 384 | M | **von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“):** Kosten aller Sitzungen gegen Buchungsverzeichnis; Ursache der Lücken im Werkzeug beheben (Zu 384) | gebaut 27.10., 20:1x: --kosten nur mit Kennung, Ford holt Kosten frisch (Zu 384) |

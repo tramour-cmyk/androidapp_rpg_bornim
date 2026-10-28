@@ -24,6 +24,8 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 ## Eingang
 
+- **Von Perikles (28.10., 22:1x):** letzter Lauf 13:11 (`ARBEIT-BESETZUNG.md` und Protokoll seitdem unverändert), Sitzung aber bis 22:05 tätig; stündlicher Lauf fehlt neun Stunden.
+
 - **Dauerregel (Chef 28.10., 10:38):** jeder Start von Tom, Jerry und der Leihentwickler (Tom 2 u. ä.) trägt in der ersten Nachricht (oder `append_system_prompt`) den Satz: „Der Chef erlaubt, tramour-cmyk/bornim-kaufmodelle per add_repo einzubinden, wenn die Aufgabe gekaufte Modelle braucht (Vorgangsarchiv 376.1, 28.10., 08:35).“ Ford hängt ihn an jedes `create_session` für diese Rollen; `lauf.py` kennt ihn noch nicht (Werkzeug bei Perikles).
 
 - **Nacht 27./28.10. (Sokrates 00:02, Chef 00:01 Leitung bis Morgen, Archiv „Nacht 27./28.10.“):** jedem Start und Lauf mitgeben: Tom, Jerry arbeiten ohne den Chef weiter, fertige Vorlagen aufs Morgenblatt (Chefsache „ansehen“), gleich die nächste startbare Zeile, nicht warten; höchstens zwei Probeläufe je Vorlage (389), keine 1:1-Kopien („348, Maßstab“); meldet sich jemand „wartet auf Chef“, ihm die nächste Zeile geben. Diogenes 374 erst 8:00.
