@@ -5,12 +5,11 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 28.10., 11:04
 
-**Übergabe (28.10., 11:1x, `session_01Hmoj76kqDZ5MjqaSWsoJcZ`):** 396 umgesetzt: Bild und Film sofort an den Chef, Helferbefund höchstens danach als Text; Text weiter vorher fremd geprüft (CLAUDE.md, ROLLE-ENTWICKLUNG, LISTE-BAUEN-TESTEN Treppe 4, ROLLE-PRUEFUNG Stichprobe 373). Kosten auf: 396. Nachfolger: Perikles – 390a
+**Übergabe (28.10., 11:1x, `session_01Hmoj76kqDZ5MjqaSWsoJcZ`):** 396 umgesetzt: Bild und Film sofort an den Chef, Helferbefund höchstens danach als Text; Text weiter vorher fremd geprüft, Rückfrage Chefsache 396a. 390a: `probelauf.py` lässt Tests aus `godot/tests/` durch (headless, ohne Bildbefehl). 394: Spike und Tuffy in `kosten.py`, `lauf.py`, `startbar.py`, `weiter-haken.py`, `zug-index.py`, `rollenspiegel.sh`, `ROLLE-ENTWICKLUNG.md`. Kosten auf: 396, 390a, 394. Nachfolger: keiner
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
 | 396a | M | Rückfrage: gilt 396 auch für Text? (Chefsache 396a) | wartet auf Chef |
-| 394 | M | **von Sokrates (Chef 10:26):** Spike, Tuffy in die Werkzeuge (Archiv) | startbar |
 | 384 | M | **von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“):** Kosten aller Sitzungen gegen Buchungsverzeichnis; Ursache der Lücken im Werkzeug beheben (Zu 384) | gebaut 27.10., 20:1x: --kosten nur mit Kennung, Ford holt Kosten frisch (Zu 384) |
 | 383.3 | M | **von Sokrates (Chef 19:55):** Vorlage zurück beim Team sofort aus der Chefsache | gebaut 27.10., 20:1x |
 | 383 | M | **von Sokrates (Chef 27.10., 17:53 „ja, 383“, Archiv):** Wartewächter in `lauf.py` (Zeitfeld zum „jetzt“, Protokollzeile in `meldung.sh`), Haken 63 verschärfen; Fälle 376.1 und Ford-Bitte 17:3x nachstellen | gebaut 27.10., 19:1x; Diogenes zählt ab 28.10. (Zu 383) |

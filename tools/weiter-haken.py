@@ -44,7 +44,8 @@ def letzter_text(pfad):
 # erster Nachricht (bei Ford-Starts steht er im angehängten Text); dort schweigt der Haken.
 ROLLE_OHNE_HAKEN = re.compile(r"\b(sokrates|ford)\b", re.IGNORECASE)
 # 195 (Chef 19.10.): „Solange Arbeit da ist, arbeiten.“ Auch Perikles, Homer, Diogenes, Tom, Jerry: ist laut startbar.py eine Zeile startbar, hält der Haken einmal an
-ROLLE_STARTBAR = re.compile(r"\b(perikles|homer|diogenes|tom|jerry)\b", re.IGNORECASE)
+ROLLE_STARTBAR = re.compile(r"\b(perikles|homer|diogenes|tom|jerry|spike|tuffy)\b", re.IGNORECASE)
+TEAM = {"Spike": "Tom", "Tuffy": "Jerry"}  # 394: Zusatzentwickler arbeiten aus dem Vorrat ihres Teams
 
 
 def startbar_nr(rolle):
@@ -141,7 +142,7 @@ def main():
             print(json.dumps({"decision": "block", "reason": "Weiter-Haken (195): zweite Erinnerung des Neustart-Hakens ist da. Übergabe mit „Nachfolger: <Titel>“ pushen und Ford „Neustart <Name>, <Commit>“ per send_message schicken (LISTE-RELEASE-NEUSTART.md 1a); erst dann darfst du gehen."}))
             return
         rm = ROLLE_STARTBAR.search(erste)
-        nr = startbar_nr(rm.group(1).capitalize()) if rm else None
+        nr = startbar_nr(TEAM.get(rm.group(1).capitalize(), rm.group(1).capitalize())) if rm else None
         if nr:
             print(json.dumps({"decision": "block", "reason": "Weiter-Haken (195): weiter mit %s (startbar laut startbar.py, Muss vor Kür vor „nach dem Meilenstein“). Sofort anfangen, ohne Ankündigung; nur wenn sie wirklich nicht geht, „Vorrat leer“ schreiben und den Grund nennen." % nr}))
             return

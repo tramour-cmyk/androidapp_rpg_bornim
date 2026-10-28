@@ -68,7 +68,8 @@ REPO = "https://github.com/tramour-cmyk/androidapp_rpg_bornim"  # ohne source_ur
 REVISION = "main"  # 382: ohne source_revision lasen neue Sitzungen einen alten Stand (26.10., ohne add_repo-Erlaubnis; Tom 376.1a)
 MODELL = {"Tom": "opus", "Homer": "opus", "Sokrates": "opus", "Jerry": "opus", "Perikles": "opus", "Diogenes": "opus"}  # 270: Regelwächter groß, Probe bis 26.10.
 VORRAT = {"Homer": "ARBEIT-KREATIV.md", "Tom": "ARBEIT-TEAM-TOM.md", "Jerry": "ARBEIT-TEAM-JERRY.md",
-          "Perikles": "ARBEIT-PROJEKT.md", "Diogenes": "ARBEIT-PRUEFUNG.md", "Sokrates": "ARBEIT-BERATUNG.md"}
+          "Perikles": "ARBEIT-PROJEKT.md", "Diogenes": "ARBEIT-PRUEFUNG.md", "Sokrates": "ARBEIT-BERATUNG.md",
+          "Spike": "ARBEIT-TEAM-TOM.md", "Tuffy": "ARBEIT-TEAM-JERRY.md"}  # 394: eigene Rolle (belegt Tom nicht), Vorrat des Teams
 START_REIHE = ["Tom", "Jerry", "Diogenes", "Homer", "Perikles"]
 MIT_KUER = {"Tom", "Jerry", "Diogenes", "Homer", "Perikles"}
 NIE_ARCHIV = {"Ford", "Ford 2"}  # Ford, Wache; Sokrates und Sonstige nach eigener Regel (197)
@@ -274,7 +275,7 @@ def noch_offen(ausgabe, rolle, nrn):
     """275 (Chef 15:20, „Ford sichert“): endet eine Sitzung, deren Vorgang im Vorrat oder in der Liste noch „in Arbeit“ steht, meldet Ford es dem Besitzer."""
     for nr in [x for x in (nrn or "").split(",") if x and x != "Betrieb"]:
         st = startbar.VORG.get(nr, "")
-        zeile = [z for d, ro in startbar.ROLLEN if ro == rolle for z in startbar.zeilen(startbar.lesen(d)) if z[0] == nr]
+        zeile = [z for d, ro in startbar.ROLLEN if ro == kosten.TEAM.get(rolle, rolle) for z in startbar.zeilen(startbar.lesen(d)) if z[0] == nr]
         if re.match(r"in Arbeit", st) or (zeile and re.match(r"in Arbeit|begonnen", startbar.blank(zeile[0][3]))):
             ausgabe.append("WARNUNG %s %s: Sitzung endet, Stand noch „in Arbeit“; Besitzer setzt ihn mit tools/vorgang.py stand (275)" % (rolle, nr))
 
