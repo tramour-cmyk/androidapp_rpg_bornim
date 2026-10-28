@@ -68,6 +68,8 @@ jobs:
           grep -h "GLB OK\|ANIM\|DREIECKE\|ANTEIL\|NETZ" rig.log dorf.log
           D=godot/daten
           cp $OUT/held.glb $D/held.bin && cp $OUT/held-info.json $D/
+          # 397: Ruhebewegungen aus der gekauften UAL Pro im Helden, dann ist er ein Kaufmodell (348.12i)
+          grep -q '^RUHE aus' rig.log && echo daten/held.bin >> $D/kauf.txt || true
           cp $OUT/dorf.glb $D/dorf.bin && cp $OUT/dorf-info.json $D/
           for t in gras erde pflaster halme korn weiss; do cp $OUT/tex/$t.png $D/$t.bild; done
           cp $OUT/boden-maske.png $D/boden-maske.bild
@@ -83,6 +85,7 @@ jobs:
           echo $ids | tr ' ' '\n' | xargs -P 4 -I{} bash -c 'bau {}'
           D=godot/daten/leute; mkdir -p $D
           for i in $ids; do cp $RUNNER_TEMP/leute/$i/held.glb $D/$i.bin && cp $RUNNER_TEMP/leute/$i/held-info.json $D/$i-info.json; done
+          for i in $ids; do grep -q '^RUHE aus' $RUNNER_TEMP/leute/$i/rig.log && echo daten/leute/$i.bin >> godot/daten/kauf.txt || true; done   # 397
           ls -l $D
           # 348.6 Leute Runde 4b: was die Leute tragen (leute.json "traegt"), aus Jerrys waffen.py (Waffen = Bereich Jerry);
           # liegt das Skript noch nicht in diesem Zweig, von seinem Zweig claude/jerry-348-kampf; fehlt eine Waffe, traegt sie keiner

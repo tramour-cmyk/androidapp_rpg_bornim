@@ -23,6 +23,9 @@ var fackel: OmniLight3D
 var flamme: MeshInstance3D
 var kachel := Vector2i(-1, -1)
 var zeit := 0.0
+var ruhe := "Stehen"                  # 397: jetzige Ruhebewegung (Gebiet.ruhe_naechste)
+var ruhe_bis := -1.0
+var ruhe_zufall := RandomNumberGenerator.new()
 var gestossen := Vector2i(-1, -1)
 var stoss_zeit := -9.0
 var leute: Array = []                  # Leute der Karte (spiel.gd): durch sie geht er nicht
@@ -52,7 +55,7 @@ func _ready() -> void:
 		faust_griff = Vector3(fa["griff"][0], fa["griff"][1], fa["griff"][2])
 		faust_achse = Vector3(fa["achse"][0], fa["achse"][1], fa["achse"][2])
 	anim = Gebiet.finde(modell, "AnimationPlayer") as AnimationPlayer
-	if anim: Gebiet.bewegungen(anim, ["Gehen", "Stehen", "Rennen", "Gehen_Fackel", "Stehen_Fackel", "Rennen_Fackel"])
+	if anim: Gebiet.bewegungen(anim, ["Gehen", "Stehen", "Rennen", "Gehen_Fackel", "Stehen_Fackel", "Rennen_Fackel", "Stehen_2", "Stehen_3", "Stehen_2_Fackel", "Stehen_3_Fackel"])
 	if anim: anim.play("Stehen")
 	baue_fackel()
 
@@ -139,15 +142,22 @@ func _process(dt: float) -> void:
 		if not moving: tempo_jetzt = 0.0
 		var geh_t := karte.gehen * Karte.TS / karte.schritt(karte.pos_kachel(position))
 		var rennt := moving and renn > 0.0 and tempo > geh_t * 1.45
-		var want := ("Rennen" if rennt else "Gehen") if moving else "Stehen"
-		if fackel and fackel.visible and anim.has_animation(want + "_Fackel"): want += "_Fackel"
+		if moving: ruhe = "Stehen"; ruhe_bis = -1.0
+		elif ruhe_bis < 0.0: ruhe_bis = zeit + anim.get_animation("Stehen").length * ruhe_zufall.randi_range(2, 4)
+		elif zeit >= ruhe_bis:
+			var r := Gebiet.ruhe_naechste(anim, ruhe, ruhe_zufall)
+			ruhe = r[0]; ruhe_bis = zeit + float(r[1])
+		var want := ("Rennen" if rennt else "Gehen") if moving else ruhe
+		if fackel and fackel.visible:
+			if anim.has_animation(want + "_Fackel"): want += "_Fackel"
+			elif not moving: want = "Stehen_Fackel" if anim.has_animation("Stehen_Fackel") else "Stehen"   # Fackel bleibt in der Hand
 		var cur := anim.current_animation
 		if cur != want:
 			# Gehen <-> Rennen im selben Schritt (beide beginnen mit dem rechten Fuss vorn) und laenger ueberblendet
 			var phase := anim.current_animation_position / maxf(0.001, anim.current_animation_length) if cur != "" else 0.0
 			var schritt := cur.begins_with("Gehen") or cur.begins_with("Rennen")
 			# Runde 5 (Helfer Runde 3: „Haltung springt beim Anlaufen in 0,1 s“): Gehen <-> Rennen 0,6 s (Rumpf neigt sich weich; 0,45: in 1/15 s 9 Grad), aus dem Stehen 0,25 s
-			anim.play(want, 0.6 if schritt and moving else 0.25)
+			anim.play(want, 0.6 if schritt and moving else (0.5 if cur.begins_with("Stehen") else 0.25))   # 397: Ruhe in Ruhe weich
 			if schritt and moving: anim.seek(phase * anim.get_animation(want).length)
 		anim.speed_scale = (tempo / (renn if rennt else gang)) if moving else 1.0
 	var k := karte.pos_kachel(position)

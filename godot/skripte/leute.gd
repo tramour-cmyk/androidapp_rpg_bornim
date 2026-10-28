@@ -33,6 +33,7 @@ var blick := 0.0
 var leib := LEIB
 var pause := "Stehen"                  # Dorftiere: Stehen oder Fressen in der Pause
 var zufall := RandomNumberGenerator.new()
+var ruhe_bis := -1.0                   # 397: Wechsel der Ruhebewegung (Gebiet.ruhe_naechste), nur bei pause Stehen
 var streifen_n := 0                    # Kacheln um heim (alt wander; mit Tagesplan der des Orts)
 var drinnen := false                   # 390 (5la): an der Tuer fuer die Nacht hineingegangen: nicht zu sehen, nicht im Weg
 static var uhr := Callable()           # 390: Minute des Tages (spiel.gd, Zustand.minuten)
@@ -179,7 +180,7 @@ func _ready() -> void:
 		gang = float(info.get("gehen_m_je_s", gang))
 		baue_ding(info)
 	anim = Gebiet.finde(modell, "AnimationPlayer") as AnimationPlayer
-	if anim: Gebiet.bewegungen(anim, ["Gehen", "Stehen", "Fressen"])
+	if anim: Gebiet.bewegungen(anim, ["Gehen", "Stehen", "Fressen", "Stehen_2", "Stehen_3"])
 	if anim:
 		anim.play("Stehen")
 		anim.seek(zufall.randf() * 2.0, true)   # nicht alle im selben Atemzug
@@ -303,8 +304,14 @@ func _process(dt: float) -> void:
 	if ziel.x >= 0:
 		laufe(dt)
 		return
+	if anim and pause.begins_with("Stehen"):   # 397
+		if ruhe_bis < 0.0: ruhe_bis = anim.get_animation("Stehen").length * zufall.randi_range(2, 4)
+		ruhe_bis -= dt
+		if ruhe_bis <= 0.0:
+			var r := Gebiet.ruhe_naechste(anim, pause, zufall)
+			pause = r[0]; ruhe_bis = float(r[1])
 	if anim and anim.current_animation != pause:
-		anim.play(pause, 0.25)
+		anim.play(pause, 0.5 if anim.current_animation.begins_with("Stehen") else 0.25)
 		anim.speed_scale = 1.0
 	rotation.y = drehe(rotation.y, blick, DREH_STEH * dt)
 	if still or not da: return
@@ -323,6 +330,7 @@ func streife() -> void:
 		var tp: Array = TIERPAUSE.get(String(daten["tier"]), [1.5, 4.0, 0.5])
 		warte = zufall.randf_range(tp[0], tp[1])
 		pause = "Fressen" if anim and anim.has_animation("Fressen") and zufall.randf() < tp[2] else "Stehen"
+		ruhe_bis = -1.0
 	var d := Vector2i(zufall.randi_range(-1, 1), zufall.randi_range(-1, 1))
 	if d == Vector2i.ZERO: return
 	var n := kachel + d

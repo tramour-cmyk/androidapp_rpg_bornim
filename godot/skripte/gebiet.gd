@@ -75,6 +75,16 @@ static func entschluessele(b: PackedByteArray, p: String) -> PackedByteArray:
 		return PackedByteArray()
 	return d.slice(0, d.size() - pad)
 
+# 397 (Chef 28.10., 11:15: Ruhebewegungen wie im alten Spiel, mindestens drei): wer steht, spielt Stehen zwei- bis viermal, dann
+# eine der anderen Ruhebewegungen (geruest.py RUHE, aus der UAL Pro) einmal, dann wieder Stehen; ohne die Kaufbewegungen nur Stehen.
+# Gibt [Name, Dauer in s] der naechsten zurueck
+const RUHE := ["Stehen", "Stehen_2", "Stehen_3"]
+static func ruhe_naechste(anim: AnimationPlayer, jetzt: String, z: RandomNumberGenerator) -> Array:
+	var da := RUHE.filter(func(n): return anim.has_animation(n))
+	if jetzt != "Stehen" or da.size() < 2: return ["Stehen", anim.get_animation("Stehen").length * z.randi_range(2, 4)]
+	var n: String = da[z.randi_range(1, da.size() - 1)]
+	return [n, anim.get_animation(n).length]
+
 # 348.6 (Helfer: Held stand nachts nach dem Rennen gegraetscht; Chef 18:20 „glitscht … und zuckt“): beim Laden verwirft Godot
 # Spuren von Knochen, die in einer Bewegung ruhen (Stehen hat keine Beine); beim Wechsel blieben sie in der Pose der Bewegung
 # davor stehen. Jede Bewegung bekommt fuer jeden fehlenden Knochen eine Spur mit der Ruhepose, dazu Schleife
