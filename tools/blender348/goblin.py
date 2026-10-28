@@ -247,6 +247,8 @@ def treiber():
             src = src.replace(a9, "    if o.name.startswith(('eye', 'head_zahn', 'head_horn', 'head_maul', 'head_kamm', 'head_kragen')): o.vertex_groups.new(name='fest')")
             # Kobold: der Schwanz hängt starr am Becken (pelvis-hipR hängt an der Wurzel, nicht am Rumpf, der sich vorbeugt)
             a8 = "    elif n == 'handR': RIGID[n] = 'foR-wrR'\n"
+            if GERUEST == 'cc0':   # 348.12: Toms rig.py (e457d6d8b) hängt Hand und Handgelenk zusammen an HANDR
+                a8 = "    elif n in ('handR', 'wristR'): RIGID[n] = 'HANDR' if GERUEST == 'cc0' else 'foR-wrR'"
             assert src.count(a8) == 1, 'rig.py: Hände geändert'
             src = src.replace(a8, "    elif n.startswith('schwanz'): RIGID[n] = 'pelvis-hipR'\n" + a8)
         if ART in ('goblin_archer', 'goblin_shaman', 'kobold'):
@@ -293,6 +295,8 @@ def treiber():
             if KOB and not k['waffen'][1]: cu = "{1: (74, 90, 72), -1: (22, 38, 34)}"   # Runde 3c: links eine Kralle statt Faust
             hp = os.path.join(T, 'held3.py'); h3 = open(hp).read()
             a6 = "((L * 0.46, 10), (L * 0.30, 20), (L * 0.24, 16))"
+            if GERUEST == 'cc0':   # 348.12: Toms held3.py (e457d6d8b) wählt Faust oder offene Hand selbst
+                a6 = "((L * 0.46, 34), (L * 0.30, 52), (L * 0.24, 40)) if faust else ((L * 0.46, 22), (L * 0.30, 34), (L * 0.24, 22))"
             assert h3.count(a6) == 1, 'held3.py: Finger geändert'
             h3 = h3.replace(a6, "((L * 0.46, CU[sg][0]), (L * 0.30, CU[sg][1]), (L * 0.24, CU[sg][2]))")
             h3 = h3.replace("def hand(wrist, fore, sg):", "CU = " + cu + "\ndef hand(wrist, fore, sg):", 1)

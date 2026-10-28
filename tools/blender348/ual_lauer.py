@@ -17,7 +17,18 @@ GEDUCKT = float(os.environ.get('GEDUCKT', '0.55'))
 ARM_VOR = {'r': float(os.environ.get('ARM_R', '90')), 'l': float(os.environ.get('ARM_L', '60'))}
 UNTEN = ('root', 'pelvis', 'spine_01', 'spine_02', 'spine_03', 'neck_01', 'Head',
          'thigh_l', 'calf_l', 'foot_l', 'ball_l', 'thigh_r', 'calf_r', 'foot_r', 'ball_r')
-NAME = 'Goblin_Lauer_Loop'
+# 348.12 Kobold (Archiv 17:57: Grak, Kobold aufs CC0-Gerüst; Liste „Kobold“ 5: tiefer geduckt als der Goblin, Schnauze
+# vorgestreckt): UAL_ART=Kobold schreibt Kobold_Lauer_Loop, Kobold_Pirsch_Loop, Kobold_Hieb mit eigenen Werten (KOBOLD unten);
+# KOPF_DREH dreht Hals und Kopf um die Hochachse (Grad, + nach links), damit die Schnauze im Kampfbild seitlich steht wie in der
+# eigenen Lauer (goblin.py KDREH)
+UAL_ART = os.environ.get('UAL_ART', 'Goblin')
+# HIEB_VERSATZ (m, x y z): die Handziele des Hiebs wandern mit der Schulter (Kobold: Schulter 2 cm innen, 6 cm vor, 10 cm tiefer
+# als beim Goblin; sonst erreichte die Hand drei Schlüssel um 3–7 cm nicht)
+KOBOLD = dict(BECKEN='0.50', RUMPF='34', KOPF_AUF='1.25', KOPF_DREH='-30', HIEB_TIEF='0.5', HIEB_VERSATZ='-0.02,-0.06,-0.10')
+if UAL_ART == 'Kobold':
+    for k_, v_ in KOBOLD.items(): os.environ.setdefault(k_, v_)
+KOPF_DREH = float(os.environ.get('KOPF_DREH', '0'))
+NAME = UAL_ART + '_Lauer_Loop'
 HOCKE = os.environ.get('HOCKE', 'ik')
 ELLE = {'r': float(os.environ.get('ELLE_R', '65')), 'l': float(os.environ.get('ELLE_L', '40'))}
 BECKEN = float(os.environ.get('BECKEN', '0.58'))
@@ -103,6 +114,11 @@ if HOCKE == 'ik':
         pb = PB['neck_01']; h = pb.matrix.translation.copy()
         pb.matrix = Matrix.Translation(h) @ Matrix.Rotation(math.radians(-RUMPF * KOPF_AUF), 4, 'X') @ Matrix.Translation(-h) @ pb.matrix
         bpy.context.view_layer.update()
+        if KOPF_DREH:   # Hals und Kopf je zur Hälfte um die Hochachse der Welt
+            for kb in ('neck_01', 'Head'):
+                pb = PB[kb]; h = pb.matrix.translation.copy()
+                pb.matrix = Matrix.Translation(h) @ Matrix.Rotation(math.radians(KOPF_DREH / 2), 4, 'Z') @ Matrix.Translation(-h) @ pb.matrix
+                bpy.context.view_layer.update()
         frames.append({pb.name: (pb.rotation_quaternion.copy(), pb.location.copy()) for pb in PB})
         for s_ in 'lr': ziele[s_][2].mute = False
     # das erste Bild kam aus dem noch nicht eingeschwungenen IK (Ballen rechts 18 cm hoch); die Schleife endet in derselben Stellung
@@ -157,7 +173,7 @@ print('LAUER Füße l %s r %s, Knie l %s r %s, Ballen z %.3f %.3f' % tuple([tupl
 # Leute, Klinge hängt wie ein Krückstock, Schild am Knie): „Goblin_Pirsch_Loop“ aus Walk_Loop (aufrecht, flüssig) mit dem Unterbau
 # der Lauer: Becken auf BECKEN (Wippen der Quelle mal WIPPEN), Füße per IK an ihren Ort, Schritt SCHRITT-mal so lang, je Seite
 # GANG_BREIT weiter außen; Oberkörper (Rumpf, Hals, Kopf, Arme bis zu den Fingern) starr wie in der Lauer.
-PIRSCH = 'Goblin_Pirsch_Loop'
+PIRSCH = UAL_ART + '_Pirsch_Loop'
 SCHRITT = float(os.environ.get('SCHRITT', '0.8'))
 WIPPEN = float(os.environ.get('WIPPEN', '0.6'))
 GANG_BREIT = float(os.environ.get('GANG_BREIT', '0.05'))
@@ -223,7 +239,7 @@ pf[0] = pf[-1]     # wie die Lauer: das erste Bild aus dem noch nicht eingeschwu
 # Runde 3 (Archiv 348.12 20:29: Film mit Stehen, Gehen, Hieb; beide Gerüste hatten keinen Hieb, der Goblin schnellte nur vor):
 # „Goblin_Hieb“ aus Sword_Attack (Ausfallschritt, Schlag von oben), am Anfang und Ende in der Lauer (Gewicht w: Füße, Rumpf, Arme
 # wie dort), dazwischen die Quelle; Becken um BECKEN gegen Sword_Idle gesenkt, die Tiefe des Ausfalls HIEB_TIEF-mal.
-HIEB = 'Goblin_Hieb'
+HIEB = UAL_ART + '_Hieb'
 HIEB_TIEF = float(os.environ.get('HIEB_TIEF', '0.6'))
 ha = A['Sword_Attack']; nh = int(round(ha.frame_range[1] - ha.frame_range[0]))
 stelle(lies(sw, 0.0)); ruhe_z = PB['pelvis'].matrix.translation.z
@@ -322,6 +338,7 @@ HIEB_SCHLUESSEL = [     # Zeit, Rumpf DREH, VOR (Grad), Hand, Ellbogen-Pol, Klin
 # im fertigen Goblin (geruest.py überträgt auf sein Gerüst) stand die Klinge in Ausholen und Aufschlag 24–27° weiter gegen den
 # Uhrzeigersinn (von oben) als hier entworfen, in der Lauer genau; HIEB_GIER dreht den Entwurf um so viel zurück (gemessen im GLB)
 HIEB_GIER = float(os.environ.get('HIEB_GIER', '-25'))
+HIEB_VERSATZ = Vector([float(c) for c in os.environ.get('HIEB_VERSATZ', '0,0,0').split(',')])
 HIEB_ROLLE = os.environ.get('HIEB_ROLLE', '1') == '1'
 HIEB_WEG = {0.0: 'weich', 0.20: 'linear', 0.24: 'an', 0.31: 'linear', 0.36: 'linear', 0.40: 'weich', 0.46: 'weich'}     # Verlauf vom Schlüssel bis zum nächsten
 
@@ -346,7 +363,7 @@ def hieb_pose(dreh, vor, hand, pol, klinge):
     # Runde 5b (Prüfer: der Schild rutscht mit dem Rumpf vor Hüfte und Schritt): der Schildarm behält seine Lage aus der Lauer
     pb = PB['upperarm_l']; pb.matrix = Matrix.Translation(pb.matrix.translation) @ SCHILDARM.to_3x3().to_4x4()
     bpy.context.view_layer.update()
-    S = PB['upperarm_r'].matrix.translation.copy(); T = Vector(hand)
+    S = PB['upperarm_r'].matrix.translation.copy(); T = Vector(hand) + HIEB_VERSATZ
     print('HIEB_SCHULTER', tuple(round(c, 2) for c in S), 'Kopf', tuple(round(c, 2) for c in PB['Head'].matrix.translation), 'Arm', round(PB['upperarm_r'].length + PB['lowerarm_r'].length, 2))
     a, b_ = PB['upperarm_r'].length, PB['lowerarm_r'].length
     if (T - S).length > (a + b_) * 0.995: print('HIEB_EIGEN Hand nicht erreicht', round((T - S).length - a - b_, 3))
