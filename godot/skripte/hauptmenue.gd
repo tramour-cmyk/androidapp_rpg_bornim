@@ -36,6 +36,7 @@ func _init(s: Steuerung) -> void:
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	Rand.ruecke(self, Rand.oben(get_viewport()))   # 399.4: unter der Kamera des Handys
 	var bg := ColorRect.new()
 	bg.color = Color.BLACK
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -49,7 +50,7 @@ func _ready() -> void:
 	mitte.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	mitte.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	var vs := get_viewport().get_visible_rect().size
-	mitte.custom_minimum_size = vs
+	mitte.custom_minimum_size = vs - Vector2(0, Rand.oben(get_viewport()))   # 399.4: ohne den Rand oben
 	rolle.add_child(mitte)
 	box = VBoxContainer.new()
 	box.custom_minimum_size.x = vs.x - 48 * DP

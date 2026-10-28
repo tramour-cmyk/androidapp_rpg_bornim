@@ -192,6 +192,10 @@ func _ready() -> void:
 	blinken.timeout.connect(func(): weiter_zeichen.modulate.a = 1.0 - weiter_zeichen.modulate.a)
 	add_child(blinken)
 	richte_ein()
+	# 399.4: oben frei, was die Kamera des Handys verdeckt (Rand.gd); der Zeichner des Rings zeichnet, wo der Finger ist, er bleibt
+	var r := Rand.oben(get_viewport())
+	for c in get_children():
+		if c is Control and c != zeichner: Rand.ruecke(c, r)
 
 # 399.1 Bedienung aus dem Menue System (Bedienung.gd): Wischen oder Klassisch, Ring, Renntaste, Seite des Aktionsknopfs.
 # Masse wie alt in dp: Wischen Aktionsknopf 76, 22 vom Rand, Renntaste 58, 31 vom Rand, 112 von unten, Schild 106 und 46;
