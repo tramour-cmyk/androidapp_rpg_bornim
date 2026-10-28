@@ -9,7 +9,7 @@
 **Bitte ansehen:** [Film](bilder:pruefung/348.7b-zauberbahn-r2.mp4), 10,7 s. Bertram steht hinten links, die Heldin vor ihm (am Grundplatz). Feuerpfeil mit Seitenschritt ab 5,9 s; Magisches Geschoss ohne Schritt 7,2–7,4 s; Feuerball mit Schritt ab 8,2 s; Brennende Hände mit Schritt ab 9,4 s, Kegel 9,7–9,8 s.
 
 **Was gebaut ist:**
-- Jeder Zauber startet an der Stabspitze, sonst an der Hand. Feuerpfeil, Strahl und Feuerball fliegen gerade zur Brust des Ziels. Über Köpfe und Ansagen fliegt er einfach hinweg. Die alte Wegsuche über die Köpfe ist entfernt.
+- Jeder Zauber startet an der Stabspitze, sonst an der Hand. Feuerpfeil, Strahl und Feuerball fliegen gerade zur Brust des Ziels. Sie fliegen über Köpfe und Ansagen einfach hinweg. Die alte Wegsuche über die Köpfe ist entfernt.
 - Steht ein eigener Mann in der Linie, tritt der Wirkende 0,3–1,0 m zur Seite, zur Bildmitte hin, wirkt und tritt zurück. Das ist nur Bild, keine Bewegung im Kampf. Gegner machen es ebenso (im Probekampf: Goblin hinter Grak). Ein Gegner in der Linie zählt nicht.
 - Magisches Geschoss: kein Schritt, drei Bögen wie im alten Kampf, zur Seite aufgefächert.
 - Feuerball: gerade zum Ziel, dort die Explosion.
