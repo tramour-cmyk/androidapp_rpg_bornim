@@ -1,7 +1,8 @@
 class_name Leute
 extends Node3D
 # 348.6 Leute: eine Person der Karte (karten.json „leute“, MapExport.kt) als Figur aus tools/blender348/v3 (held3.py FIGUR=<id>,
-# rig.py: Gehen/Stehen, Gang je Figur), daten/leute/<id>.bin. Bewegt sich wie Game.updateWalkers ohne Tagesplan (VillageDay folgt):
+# rig.py: Gehen/Stehen, Gang je Figur), daten/leute/<id>.bin. Bewegt sich wie Game.updateWalkers; 390 mit Tagesplan (VillageDay,
+# karten.json „tagesablauf“): zur vollen Stunde zum naechsten Ort ihres Tages, dort streifen; nachts an der eigenen Tuer hinein.
 # „streifen“ n: Schritt fuer Schritt um den eigenen Platz (Manhattan <= n), Pause 1,5–4 s; „runde“: Wache von Punkt zu Punkt,
 # dort 2,5–5 s Umschauen, jedes zweite Mal laenger (55.1b). Steht der Held daneben, bleibt sie stehen; durch sie geht er nicht.
 
@@ -32,6 +33,9 @@ var blick := 0.0
 var leib := LEIB
 var pause := "Stehen"                  # Dorftiere: Stehen oder Fressen in der Pause
 var zufall := RandomNumberGenerator.new()
+var streifen_n := 0                    # Kacheln um heim (alt wander; mit Tagesplan der des Orts)
+var drinnen := false                   # 390 (5la): an der Tuer fuer die Nacht hineingegangen: nicht zu sehen, nicht im Weg
+static var uhr := Callable()           # 390: Minute des Tages (spiel.gd, Zustand.minuten)
 
 static func alle(k: Karte, h: Node3D) -> Array:
 	var r := []
@@ -131,9 +135,23 @@ func _init(k: Karte, d: Dictionary, h: Node3D) -> void:
 	held = h
 	name = "Leute_" + String(d["id"])
 	heim = Vector2i(int(d["x"]), int(d["y"]))
+	streifen_n = int(d.get("streifen", 0))
+	# 5l: beim Betreten der Karte steht jeder schon dort, wohin sein Tag ihn gefuehrt hat (Game.walkersHere)
+	var st := plan_jetzt()
+	if not st.is_empty() and k.begehbar(Vector2i(int(st[1]), int(st[2]))): heim = Vector2i(int(st[1]), int(st[2]))
 	kachel = heim
 	zufall.seed = hash(String(d["id"]))
 	warte = zufall.randf_range(0.5, 3.0)
+
+# der Ort des Tages jetzt: [ab, x, y, streifen, drinnen] wie VillageDay.stopAt, [] ohne Tagesplan
+func plan_jetzt() -> Array:
+	var p: Array = Karte.tagesablauf.get(String(daten["id"]), [])
+	if p.is_empty() or not uhr.is_valid(): return []
+	var m := int(uhr.call())
+	var st: Array = p[p.size() - 1]
+	for e in p:
+		if int(e[0]) <= m: st = e
+	return st
 
 func _ready() -> void:
 	var datei := String(daten.get("datei", "res://daten/leute/%s.bin" % daten["id"]))
@@ -256,6 +274,7 @@ func nacht(k: float) -> void:
 
 # fuer Held.frei: steht hier jemand?
 func sperrt(p: Vector3) -> bool:
+	if drinnen: return false
 	return Vector2(p.x - position.x, p.z - position.z).length() < leib
 
 func held_kachel() -> Vector2i:
@@ -270,7 +289,7 @@ func frei_fuer_mich(t: Vector2i) -> bool:
 	if daten.has("tier") and not (Leute.tierboden_gross(karte, t) if leib > 0.7 else Leute.tierboden(karte, t)): return false
 	if t == held_kachel(): return false
 	for l in get_parent().get_children():
-		if l is Leute and l != self and (l.kachel == t or l.ziel == t): return false
+		if l is Leute and l != self and not l.drinnen and (l.kachel == t or l.ziel == t): return false
 	return true
 
 func _process(dt: float) -> void:
@@ -283,6 +302,7 @@ func _process(dt: float) -> void:
 	rotation.y = drehe(rotation.y, blick, DREH_STEH * dt)
 	warte -= dt
 	if warte > 0: return
+	if tagesplan(): return
 	if nah_am_held(kachel):
 		warte = 0.8
 		return
@@ -298,10 +318,41 @@ func streife() -> void:
 	var d := Vector2i(zufall.randi_range(-1, 1), zufall.randi_range(-1, 1))
 	if d == Vector2i.ZERO: return
 	var n := kachel + d
-	if absi(n.x - heim.x) + absi(n.y - heim.y) > int(daten.get("streifen", 0)): return
+	if absi(n.x - heim.x) + absi(n.y - heim.y) > streifen_n: return
 	if not frei_fuer_mich(n): return
 	if d.x != 0 and d.y != 0 and not (karte.begehbar(kachel + Vector2i(d.x, 0)) and karte.begehbar(kachel + Vector2i(0, d.y))): return
 	ziel = n
+
+# 390 (Game.updateWalkers 5l): weit vom Ort des Tages: dorthin, dort erst eine Weile stehen (330); an der Tuer fuer die Nacht
+# hinein. true: die Person ist unterwegs oder drinnen, das Streifen faellt aus
+func tagesplan() -> bool:
+	var st := plan_jetzt()
+	if st.is_empty(): return false
+	var ort := Vector2i(int(st[1]), int(st[2]))
+	heim = ort
+	streifen_n = int(st[3])
+	drinnen = bool(st[4]) and kachel == ort
+	visible = not drinnen
+	if drinnen:
+		warte = 5.0
+		return true
+	if absi(kachel.x - ort.x) + absi(kachel.y - ort.y) <= streifen_n: return false
+	gehe_nach(ort)
+	if absi(ziel.x - ort.x) + absi(ziel.y - ort.y) <= streifen_n and ziel.x >= 0: warte = zufall.randf_range(5.0, 10.0)
+	return true
+
+# ein Schritt auf dem Weg nach p (Wegsuche der Karte); wartet, wenn jemand im Weg steht
+func gehe_nach(p: Vector2i) -> void:
+	if weg.is_empty() or weg[weg.size() - 1] != p:
+		weg = karte.weg(kachel, p)
+		if not weg.is_empty(): weg.pop_front()
+	if weg.is_empty():
+		warte = 1.0
+		return
+	if not frei_fuer_mich(weg[0]):
+		warte = 0.5
+		return
+	ziel = weg.pop_front()
 
 func runde() -> void:
 	var r: Array = daten["runde"]
@@ -314,16 +365,7 @@ func runde() -> void:
 		warte = zufall.randf_range(10.0, 16.0) if lang else zufall.randf_range(2.5, 5.0)
 		weg.clear()
 		return
-	if weg.is_empty() or weg[weg.size() - 1] != p:
-		weg = karte.weg(kachel, p)
-		if not weg.is_empty(): weg.pop_front()
-	if weg.is_empty():
-		warte = 1.0
-		return
-	if not frei_fuer_mich(weg[0]):
-		warte = 0.5
-		return
-	ziel = weg.pop_front()
+	gehe_nach(p)
 
 func laufe(dt: float) -> void:
 	var zp := karte.kachel_pos(ziel)

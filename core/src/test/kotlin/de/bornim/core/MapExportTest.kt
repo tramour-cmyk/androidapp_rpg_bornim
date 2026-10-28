@@ -50,4 +50,15 @@ class MapExportTest {
         assertTrue(ring.isNotEmpty() && ring.any { it[2].jsonPrimitive.content == "busch" })
         assertTrue(v["bewuchs"]!!.jsonArray.isNotEmpty())
     }
+
+    @Test
+    fun villageDayForGodot() {
+        val t = j["tagesablauf"]!!.jsonObject
+        assertEquals(VillageDay.plans.keys, t.keys)
+        val pim = t["pim"]!!.jsonArray.map { it.jsonArray }
+        assertEquals(VillageDay.plans.getValue("pim").size, pim.size)
+        val nacht = pim.last()
+        assertEquals(21 * 60, nacht[0].jsonPrimitive.int)
+        assertTrue(nacht[4].jsonPrimitive.boolean)
+    }
 }

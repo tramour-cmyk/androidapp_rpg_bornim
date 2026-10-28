@@ -6,6 +6,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.add
 import kotlinx.serialization.json.put
 import kotlinx.serialization.json.putJsonArray
 import kotlinx.serialization.json.putJsonObject
@@ -33,6 +34,12 @@ object MapExport {
         put("schlagbaum", text(Game.BARRIER_DOWN))   // Anstossen am Schlagbaum (Game.barrier), zu Beginn der Geschichte
         put("gehen", FreeWalk.WALK)   // Kacheln je Sekunde auf Gras
         put("laufen", FreeWalk.RUN)
+        // 390 Tagesablauf (VillageDay, 5l): je Person ab Minute des Tages [ab, x, y, streifen, drinnen]
+        putJsonObject("tagesablauf") {
+            for ((id, plan) in VillageDay.plans) put(id, buildJsonArray {
+                for (st in plan) add(buildJsonArray { add(st.from); add(st.x); add(st.y); add(st.wander); add(st.inside) })
+            })
+        }
         putJsonObject("karten") { for (m in maps) put(m.id, map(m)) }
     }
 

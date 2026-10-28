@@ -44,6 +44,7 @@ func _ready() -> void:
 	ui.windrose.zurueck.connect(kamera.nach_norden)
 	ui.gelesen.connect(weiter)
 	licht.nacht_geaendert.connect(_nacht)
+	Leute.uhr = func(): return zustand.minuten   # 390 Tagesablauf
 	betrete(START, START_KACHEL, "DOWN")
 	bilder()
 	gang_film()
@@ -92,7 +93,9 @@ func _nacht(k: float) -> void:
 
 func _knopf(was: String) -> void:
 	match was:
-		"nacht": licht.umschalten()
+		"nacht":
+			licht.umschalten()
+			zustand.minuten = 23 * 60 if licht.ziel > 0.5 else 12 * 60   # 390: die Leute folgen der Uhr (Tag mittags, Nacht 23 Uhr)
 		"nah": kamera.nah_fern()
 		"links": kamera.drehe(-45.0)
 		"rechts": kamera.drehe(45.0)
@@ -259,7 +262,7 @@ func abblenden(ziel: float) -> void:
 const REICHWEITE := 1.3                          # Kacheln vom Helden zur Person (Navigation.ACTION_REACH)
 
 func spricht_was(l: Leute) -> bool:
-	return not Geschichte.gespraech(String(l.daten.get("id", "")), zustand).is_empty()
+	return l.visible and not Geschichte.gespraech(String(l.daten.get("id", "")), zustand).is_empty()
 
 # wie Navigation.actionTarget: Personen in Reichweite, die im Faecher von 120 Grad vor dem Helden zuerst, dann die naehere
 func person_nah() -> Leute:
@@ -342,6 +345,7 @@ func _process(dt: float) -> void:
 			held.rotation.y = atan2(float(s.x - held.kachel.x), float(s.y - held.kachel.y))
 			if karte.tuer(s) or zeichen_lesbar(s): ui.biete_an.callv(angebot(held.kachel))
 			else: _stoesst(s)
+	zustand.uhr(dt)
 	kamera.folge(minf(1.0, dt * 5.0))
 	ui.windrose.richte(kamera.nord_winkel())
 	gebiet.nah(kamera.nah, held.position)

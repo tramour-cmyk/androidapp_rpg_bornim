@@ -7,6 +7,7 @@ const TS := 1.16                       # Meter je Kachel (Probe Build 11, Dorf a
 
 var id: String
 var daten: Dictionary
+static var tagesablauf := {}           # 390: Person -> [[ab, x, y, streifen, drinnen], …] (VillageDay)
 static var namen := {}                 # Kennung -> Name {de, en} aller Karten, fuer das Schild am Aktionsknopf (actionPlace)
 var kacheln: Dictionary                # Zeichen -> {name, begehbar}
 var breite := 0
@@ -30,6 +31,7 @@ static func lade(karte_id: String) -> Karte:
 	k.schlagbaum = alle["schlagbaum"]
 	k.daten = alle["karten"][karte_id]
 	for id in alle["karten"]: namen[id] = alle["karten"][id]["name"]
+	tagesablauf = alle.get("tagesablauf", {})
 	k.breite = int(k.daten["breite"])
 	k.hoehe = int(k.daten["hoehe"])
 	k.zeilen = PackedStringArray(k.daten["zeilen"])
