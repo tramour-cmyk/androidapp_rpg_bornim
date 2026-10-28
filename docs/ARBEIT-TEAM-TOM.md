@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (28.10., 13:58, `session_01Hmoj76N4zECBDzpCT4MSFu`):** 399.1 Spielfassung `claude/tom-399-spielfassung` (881bb4bb5, mit 390, 397, Jerrys Kampf bis 4499b7fe3): Wald → `kampf/aufruf.gd`, Grundrisse `raum.py`, Hauptmenü, Erschaffung, Spielstand; Lauf 130 an den Chef (t130). 397 gebaut. 376.1 Halszacken ruhen (Zu 376.1). Tests ohne Bild: `wald_kampf`, `grundriss_test`, `spielstand_test`, `ruhe_test`. Nachfolger: Tom – 399.1 Test 130 begleiten, dann 385.1 Zauberer-Grundbewegungen.
+**Übergabe (28.10., 15:49, `session_01Hmoj76hwb6a47VizaygRUo`):** 399.1 Build 132 (`claude/tom-399-spielfassung` 13b97af52, t132): Wald-Kampf (`ResourceLoader.exists`, Wächter in `skripte_pruefen.gd`), Rudel, Hauptmenü (`hauptmenue.gd`), `stil.gd`, Alegreya, Textkasten; Probe `tests/oberflaeche_bild.gd`. 399.1a Schlüssel auf `main` (`godot-schluessel.yml`, 4E:1E…). 385.1 Film an den Chef (ansehen/3851; `claude/tom-385-1-grundbewegungen`, `tools/pruef348/zauber_lauf.sh`). 398 geschätzt. Nachfolger: Tom – 399.1 Test 132 begleiten, dann Erschaffung wie alt.
 
 ## Zeilen
 
