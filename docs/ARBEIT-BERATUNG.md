@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (28.10., 16:35, `session_01Hmoj78fqdVY4ga5UUvDw1v`):** Chefrunde ab 11:07: 385, 387, 348.12, 348.12f, 348.7, 348.7b, 396a, 399.2a/b, 395a eingetragen; 397, 398 (Gegenprobe, 15 Lücken), 399 (erst spielbar) angelegt; Tests 130 und 132 an Tom; Ideen Katze, Leopard. Offen beim Chef: 399a, 399.1, 142. Kosten auf: 385, 397, 398, 399. Nachfolger: Sokrates – Chefrunde (28.10., 16:35)
+**Übergabe (29.10., 00:1x, `session_01Hmoj76vRfh2Apaay4BMFvb`):** Stellungnahme in 404 geschrieben. Kosten auf: 404. Nachfolger: Sokrates – Chefrunde (29.10., 00:1x)
 
 ## Zeilen
 
