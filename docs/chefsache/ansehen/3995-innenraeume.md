@@ -1,4 +1,4 @@
-# 399.5 · Innenräume wie alt, zweiter Stand · Tom · 29.10., 00:2x
+# 399.5 · Innenräume wie alt, dritter Stand · Tom · 29.10., 00:3x
 
 Probe am Rechner, noch kein Build. Je Raum v. l. n. r.: alt Tag, neu Tag, alt Nacht, neu Nacht, neu um 180° gedreht. Ohne Leute (in der Probe nicht gebaut).
 
@@ -17,7 +17,8 @@ Seit dem ersten Stand nach den Befunden des Prüfers geändert:
 - Kräuterbündel an den Wänden, Bänke in der Schenke mit Lehne, Lesepult im Tempel weg von der Bank.
 - Ältester: Himmelbett mit rotem Vorhang, roter Teppich wie alt. Tempel: Sonne auf dem Altar, grauer Quaderstein. Truhe in Holzfarbe, Weihwasser hell.
 - Nachts etwas heller, Kerzen als Lichtinseln.
+- Dritter Stand, nach dem Prüfer zum zweiten: Kerzen auf der Ladentheke hinten, Waage größer vorn; Ladenregal mit weniger, größeren Waren; Bänke in Eiche statt schwarz; Fass nicht mehr im Balken; Kräuter heller; Pfosten am Himmelbett; Altarsonne 40 cm; Teppich rot; Pult nicht mehr im Altar; gedreht kein Kaminblock und keine freie Flamme mehr.
 
-Noch offen, gemessen: nachts weiter zu dunkel (neu 39–48 % des Tags, alt 44–64 %); Tempel bei Tag dunkler als alt. Das kommt in den nächsten Lauf.
+Noch offen, gemessen: nachts weiter zu dunkel (neu 50–52 % des Tags, alt 44–64 %); mehr Grundlicht hilft kaum, die Ursache suche ich noch. Tempel bei Tag dunkler als alt (37 zu 51).
 
 **Was du sagen sollst:** nichts nötig; ich baue weiter, dann neue Bilder, dann der Build mit 376.1.
