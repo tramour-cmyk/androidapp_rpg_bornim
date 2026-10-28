@@ -43,7 +43,7 @@ TEST_SKRIPT = re.compile(r"(?:^|\s)-s\s+[\"']?res://tests/([\w./-]+\.gd)\b")
 BILDBEFEHL = re.compile(r"save_png|save_jpg|save_webp|save_exr|get_image\s*\(|get_texture\s*\(|MovieWriter|screenshot", re.I)
 CD = re.compile(r"\bcd\s+([^\s;&|]+)")
 CI_ZWEIG = re.compile(r"claude/(?:tom|jerry)-348-[\w./-]+")
-CI_PFADE = ("godot/", "tools/blender348/", "core/src/main/", ".github/workflows/godot.yml")
+CI_PFADE = ("godot/", "tools/blender348/", "core/src/main/", ".github/workflows/godot.yml", ".github/workflows/godot-kampf.yml")
 
 
 def jetzt():
@@ -134,7 +134,8 @@ def push_lauf(befehl, cwd):
     m = PUSH.search(befehl)
     if not m:
         return None
-    wo = m.group(1) or cwd
+    cds = CD.findall(befehl[:m.start()])  # `cd ../bornim-main && git push`: Zweig des cd-Ziels (Jerry 12:05, 13:08)
+    wo = m.group(1) or (os.path.join(cwd, os.path.expanduser(cds[-1].strip("\"'"))) if cds else cwd)
     ziel = CI_ZWEIG.search(m.group(2))
     zweig = ziel.group(0).split(":")[-1] if ziel else git("rev-parse", "--abbrev-ref", "HEAD", cwd=wo).stdout.strip()
     if not CI_ZWEIG.fullmatch(zweig):
