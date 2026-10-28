@@ -27,7 +27,7 @@ const TIEF_UMGEBUNG := 1.1     # Morgen, Abend: Fronten im Schatten, Himmel trae
 const DAEMMERUNG_UMGEBUNG := 0.18
 const INNEN_TAG := 0.34        # 399.5 Grundriss: Umgebung am Tag und nachts
 const INNEN_TAG_OHNE_HERD := 0.55   # wie alt MapLight ambient: ohne Feuer am Tag doppelt so hell (Tempel Lauf 2: Mittel 34, alt 51)
-const INNEN_NACHT := 0.6       # Lauf 1: nachts 37–48 % des Tags (alt 44–64 %), Waende fast schwarz; Lauf 3 Stufen 0,34/0,45/0,6: 44/47/50 %
+const INNEN_NACHT := 0.24      # Lauf 4 misst neu (Stimmung innen jetzt wie alt). Lauf 1: nachts 37–48 % des Tags (alt 44–64 %), Waende fast schwarz; Lauf 3 Stufen 0,34/0,45/0,6: 44/47/50 %
 const ALT := [[Vector2(-1.0, -0.2), 1.2], [Vector2(0.15, 1.0), 0.35], [Vector2(1.0, -0.2), 1.2]]
 const NATUR := [[Vector2(-1.0, -0.3), 1.2], [Vector2(0.35, -1.0), 0.6], [Vector2(1.0, -0.3), 1.2]]
 static var bahn := NATUR   # Chef 25.10., 12:25 (3486-sonne): wie in der Natur
@@ -127,7 +127,16 @@ func stelle(k: float) -> void:
 		env.ambient_light_color = Color(0.62, 0.56, 0.5).lerp(Color(0.4, 0.42, 0.55), k)
 		env.ambient_light_energy = lerpf(INNEN_TAG if herd else INNEN_TAG_OHNE_HERD, INNEN_NACHT, k)
 		env.background_color = Color(0.0, 0.0, 0.0)
-	toene(1.0 - k)
+		# alt MapGrade.of INTERIOR: die Stimmung im Raum haengt nicht an der Uhr (mit Herd warm FFE8C8 0,45, ohne F0EAE0 0,35, Rand
+		# 0,2); Kontrast und Saettigung bleiben wie am Tag. Lauf 3: die Nacht von draussen (blau, Rand 0,32, Saettigung 0,45)
+		# drueckte den Raum auf 50 % des Tags, mehr Grundlicht half kaum
+		env.adjustment_contrast = TAG_KONTRAST
+		env.adjustment_saturation = TAG_SAETTIGUNG
+		var f := Color8(0xFF, 0xE8, 0xC8) if herd else Color8(0xF0, 0xEA, 0xE0)
+		stimmung.set_shader_parameter("toenung", Vector3(f.r, f.g, f.b))
+		stimmung.set_shader_parameter("anteil", 0.45 if herd else 0.35)
+		stimmung.set_shader_parameter("rand", 0.2)
+	else: toene(1.0 - k)
 	nacht_geaendert.emit(k)
 
 # MapGrade.of fuer das Dorf (daylight 1 Tag, 0,5 Daemmerung, 0 Nacht); Wald und Hoehle beim Bau je Ort
