@@ -8,7 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film; 1 Sitzung, 2 Läufe, sonst Befund | Chef: Film 11:05 (ansehen/385); Lauf 2 nur auf sein Ja |
+| 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | startbar: Lauf 2 sofort senden (Chef 11:09); dann 385.1 ein Film Wizard-Grundbewegungen auf Kaufkörper, ggf. Goblin: Gehen, Hocken, Ausweichen, Treffer, Tod, Aufstehen; Käufe am Film (Archiv 385) |
 | 390 | M | **von Perikles (28.10.):** zwischen Blättern beim Chef Funktionen ohne Bild bauen (`LISTE-UMZUG-348.md`): Englisch, Gespräche und Quests, Tagesablauf, Laden, Rast | startbar: Englisch, Gespräche, Tagesablauf gebaut (Test: 390a); offen Held, Laden, Rast | `claude/tom-390-englisch` |
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101 lädt) | `claude/tom-348-12i-verschluesseln` |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | startbar: Zugang da (Chef 09:54); Halszacken, Formen, Editor | `claude/tom-376-1-figuren` |
