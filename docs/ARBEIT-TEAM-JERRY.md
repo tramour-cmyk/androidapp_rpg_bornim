@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates für den Chef, 25.10., 01:2x):** Arbeit nach `LISTE-UMZUG-348.md`, 348.6–348.8; altes Spiel ruht.
 
-**Übergabe (28.10., 05:5x, `session_01Hmoj75waM2otVYsp8o7hGq`):** 387 r4 und 348.12 r3 aufs Morgenblatt (je zwei Probeläufe verbraucht); Messung „Hülle“ in `probe.gd` (Godot = Blender bei allen Kauftieren); Pfotenhalt-Fix in `figur.gd`; Gewichte Goblin-Arten höchstens 4 (`goblin.py`, ohne sichtbare Wirkung auf Dreieck und Keile). Nachfolger: „Jerry – 348.7b Zauberbahn nach Chef „D““
+**Übergabe (28.10., 06:35, `session_01Hmoj79A1YeyWdR5ENs3tjE`):** 348.7b gebaut (80170c532, r2 ebd. Zweig): gerade Bahn ab Stabspitze, Seitenschritt zur Bildmitte, Geschosse im Fächer, Kegel Brennende Hände; r2 aufs Morgenblatt (zwei Probeläufe 348 und zwei 348.7b verbraucht). Golden, Regeln, Kampfort-Lauf, core grün. Nachfolger: „Jerry – 348.7b nach Urteil des Chefs“
 
 ## Zeilen
 
