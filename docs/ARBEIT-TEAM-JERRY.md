@@ -10,7 +10,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 |---|---|---|---|---|
 | 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | wartet auf 399.2d: Wolf durch Wolf (Tom 17:42: −0,92 m auch ohne Kaufwolf) braucht Godot; Menü 0b773829c, Beute 3b9fb3116 in Build 137 | `claude/jerry-348-kampf` |
 | 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | wartet auf Homer: Text fürs Knurren (Vorrat Kreativ 399.2b); 50 % und Knurren ohne Ansage gebaut e5c207b71, in Toms Testfassung | – |
-| 399.3 | M | **von Chef (28.10., 16:42):** Klang in die Spielfassung | startbar: Keuchen fehlt (Chef 21:3x, wie alt Panting.kt); 139.1 sonst gut; Tierlaute, Vögel Kür | `claude/jerry-348-klang` |
+| 399.3 | M | **von Chef (28.10., 16:42):** Klang in die Spielfassung | startbar: Keuchen fehlt (Chef 21:3x, wie alt Panting.kt); 139.1 sonst gut, Vögel da (21:4x); Tierlaute Kür | `claude/jerry-348-klang` |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: nachbessern (Chef 15:23, Archiv): Gehen und Platzwechsel mit UAL-Laufbewegung, Hieb trifft den Helden, Tod als Zusammenbruch | `claude/jerry-348-kampf` |
