@@ -1613,15 +1613,18 @@ func raeume_bilder() -> void:
 		await get_tree().create_timer(1.5).timeout
 		ui.sage([])
 		ui.textfeld.visible = false   # Gruss beim Eintreten und Tipps: nicht ueber dem Raum
+		ui.textfeld.visible = false   # Lauf 1: der Gruss kam nach dem Ausblenden wieder (Textkasten unten im Bild)
 		await knips(dir + "/%s_tag.png" % r[0])
 		licht.ziel = 1.0
 		licht.stelle(1.0)
 		await get_tree().create_timer(1.0).timeout
+		ui.textfeld.visible = false
 		await knips(dir + "/%s_nacht.png" % r[0])
 		licht.ziel = 0.0
 		licht.stelle(0.0)
 		kamera.drehe(180.0)
 		await get_tree().create_timer(2.5).timeout
+		ui.textfeld.visible = false
 		await knips(dir + "/%s_gedreht.png" % r[0])
 		kamera.nach_norden()
 		await get_tree().create_timer(2.5).timeout

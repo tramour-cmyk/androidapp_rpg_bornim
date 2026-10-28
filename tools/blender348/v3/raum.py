@@ -29,7 +29,8 @@ CC0 = os.path.expanduser(os.environ.get('CC0') or os.environ.get('Q') or '~/cc0'
 VDIR = glob.glob(glob.escape(CC0) + '/medieval-village-megakit/*/glTF')[0]
 PDIR = glob.glob(glob.escape(CC0) + '/fantasy-props-megakit/*/glTF')[0]
 S_KIT = (4 * TS - 12) / 600.0                        # wie dorf.py kithaus (Gwennas Haus): Bausatz-Meter -> cm
-SZ = 0.85                                            # Hoehe: Wand 2,65 m, Tuer 1,97 m (aussen S_KIT: 2,35, 1,75; der Held ist 1,8 m)
+SZ = 1.0                                             # Hoehe: Wand 3,12 m, Tuer 2,32 m (aussen S_KIT: 2,35, 1,75; der Held ist 1,8 m;
+                                                     # Pruefer Lauf 1: bei 0,85 die Tuer kaum hoeher als der Held)
 WAND_H = 312 * SZ
 TIEF_H = 48.0                                        # Bruestung zum Betrachter
 TEMPEL = ID.startswith('temple')
@@ -77,6 +78,7 @@ def klein(P):
 def stueck(c, r): return '%d_%d' % (int(c) // 3, int(r) // 3)
 LICHTER = []
 WANDLISTE = []
+WAND_VON = {}                                        # (Spalte, Zeile, Seite) -> hohe Fassung der Wand dort
 
 def add_face(P, pts, col, m, uv=None):
     """Flaeche in P; col eine Farbe (linear), eine Liste je Ecke oder eine Funktion (Punkt, Normale) -> Farbe; uv sonst planar"""
@@ -236,6 +238,50 @@ def leuchter(P, pos, a=0.0, hoch=None):
     stelle(P, 'Candle_2', pos, a, (0.9, 0.9, s), z=6.0)
     return Vector((pos.x, pos.y, pos.z + 6.0 + h + 2.5))
 
+WACHS = lin(0xf0e6c8); MESSING = lin(0xb09048)
+def stumpf(P, pos, h):
+    """Kerzenstumpf ohne Halter, Wachs am Fuss verlaufen (alt candle drips); gibt die Dochtspitze zurueck"""
+    P = klein(P)
+    zylinder(P, pos, 4.0, 0.6, 10, WACHS, 'weiss', r2=3.0)
+    zylinder(P, pos, 2.0, h, 8, WACHS, 'weiss', r2=1.8)
+    return Vector((pos.x, pos.y, pos.z + h + 2.0))
+
+def waage(P, pos):
+    """Kraemerwaage (alt shopTop 0): Fuss, Saeule, Balken ein wenig schief, zwei Schalen an Schnueren, Gewicht in der einen"""
+    P = klein(P)
+    zylinder(P, pos, 5.0, 2.0, 12, MESSING, 'weiss', r2=4.0)
+    zylinder(P, pos, 1.0, 30, 6, MESSING, 'weiss')
+    links = pos + Vector((-20, 0, 30.5)); rechts = pos + Vector((20, 0, 28.5))
+    zylinder(P, links, 0.8, (rechts - links).length, 6, MESSING, 'weiss', achse=rechts - links)
+    for end, tief in ((links, 16.0), (rechts, 14.0)):
+        schale = end - Vector((0, 0, tief))
+        for dx in (-5, 5):
+            q = schale + Vector((dx, 0, 1.2))
+            zylinder(P, q, 0.25, (end - q).length, 4, lin(0x4a3a20), 'weiss', achse=end - q)
+        zylinder(P, schale, 3.5, 1.4, 12, MESSING, 'weiss', r2=6.5)
+    zylinder(P, links - Vector((0, 0, 14.6)), 1.6, 2.4, 8, lin(0x9a5a30), 'weiss')
+
+def tuchballen(P, pos, s, schere=True):
+    """Tuchballen auf der Theke, halb abgerollt, daneben eine eiserne Schere (alt shopTop 2)"""
+    P = klein(P)
+    col = lin([0x7a3a2e, 0x3c5270, 0x5a6a3a, 0xa08040][s % 4])
+    zylinder(P, pos + Vector((-17, 0, 6)), 6.0, 34, 10, col, 'stoff', achse=Vector((1, 0, 0)))
+    if schere: box(P, (pos.x + 17, pos.y - 6, 0), (pos.x + 24, pos.y + 6, 0.6), col, 'stoff')
+    for d in ((-1, 1) if schere else ()):
+        a = Vector((pos.x + 28, pos.y + 14 - 4 * d, 0.5)); b = Vector((pos.x + 40, pos.y + 14 + 4 * d, 0.5))
+        zylinder(P, a, 0.6, (b - a).length, 4, lin(0x5a5652), 'weiss', achse=b - a)
+
+def kraeuter(P, p, n, e):
+    """Kraeuterbuendel an einem Brett unter der Decke (alt MapRoom.wallThing 0): vier Buendel kopfueber, gruen bis braun"""
+    a = p + e * -42 + n * 2 + Vector((0, 0, 196)); b = p + e * 42 + n * 9 + Vector((0, 0, 202))
+    box(P, tuple(min(a[i], b[i]) for i in range(3)), tuple(max(a[i], b[i]) for i in range(3)), lambda q, n_: sc(BALKEN_T, 0.8), 'balken')
+    for k in range(4):
+        q = p + e * (-30 + 20 * k) + n * 6 + Vector((0, 0, 196))
+        lang = 22 + (hsh(int(q.x), int(q.y), k) % 10)
+        col = [lin(0x6a7a4a), lin(0x4e5a36), lin(0x6a5a3a), lin(0x7a6a3a)][(k + hsh(int(p.x), int(p.y), 3)) % 4]
+        zylinder(P, q - Vector((0, 0, 4)), 0.4, 4, 4, lin(0x7a6a4a), 'weiss')
+        zylinder(P, q - Vector((0, 0, 4 + lang)), 5.5, lang, 7, lambda q_, n_, c=col: sc(c, 0.8 + 0.4 * vn(q_.x / 3, q_.z / 3, k)), 'weiss', r2=1.4)
+
 # ---------------------------------------------------------------- Boden
 def boden_ton(p, n):
     c, r = int(p.x // TS), int(-p.y // TS)
@@ -263,12 +309,13 @@ if rs:
     c0, c1 = min(c for c, _ in rs), max(c for c, _ in rs); r0, r1 = min(r for _, r in rs), max(r for _, r in rs)
     P = part('Ding_' + stueck((c0 + c1) / 2, (r0 + r1) / 2))
     x0, x1 = tx(c0) + 12, tx(c1 + 1) - 12; y0, y1 = ty(r1 + 1) + 14, ty(r0) - 14
-    grund = STOFF_BLAU if AELTESTER else STOFF_ROT
+    # rot mit hellbrauner Borte wie alt MapRoom RUG/RUG_B, auch beim Aeltesten (Pruefer Lauf 1: alt roter Teppich, neu blau)
+    grund = lin(0x7a3a2e); borte = lin(0x8a7650)
     def teppich(p, n):
         rand = min(p.x - x0, x1 - p.x, p.y - y0, y1 - p.y)
-        k = 0.55 if 7 < rand < 15 else (0.8 if rand < 7 else 1.0)
-        muster = 0.85 + 0.15 * (math.sin((p.x - x0) / 9) * math.sin((p.y - y0) / 9) > 0.3)
-        return sc(grund, k * muster * (0.9 + 0.15 * vn(p.x / 40, p.y / 40, 8)))
+        if rand < 15: return sc(borte, (0.8 if rand < 7 else 1.0) * (0.9 + 0.15 * vn(p.x / 20, p.y / 20, 8)))
+        d = abs((p.x - x0) % 40 - 20) + abs((p.y - y0) % 40 - 20)   # Rauten wie alt
+        return sc(grund, (1.2 if 11 < d < 14 else 1.0) * (0.9 + 0.15 * vn(p.x / 40, p.y / 40, 8)))
     box(P, (x0, y0, 0), (x1, y1, 1.0), teppich, 'stoff')
     for x in range(int(x0) + 3, int(x1) - 2, 6):   # Fransen an den Schmalseiten
         for y_, d_ in ((y0, -1), (y1, 1)):
@@ -310,13 +357,14 @@ def laeufe():
 KIT_MAT = dict(MI_Plaster='putz', MI_WoodTrim='balken', MI_WoodTrim_Wear='balken', MI_MetalOrnaments='balken', MI_Brick='feldstein',
                MI_RedBrick='feldstein', MI_UnevenBrick='feldstein', MI_RockTrim='feldstein', MI_WindowGlass='glas')
 PUTZ_T = lin(0xb8ab92); BALKEN_T = (1.0, 0.95, 0.9)
+GRAU = lin(0x9a968e)                                 # Tempel: grauer Quaderstein wie alt ashlar (Pruefer Lauf 1: neu beige)
 def putz_ton(p, n):
     """Putz innen wie alt timber(): oben russig, am Sockel feucht, hier und da ausgebessert"""
     k = (0.92 + 0.14 * vn(p.x / 70 + p.y / 70, p.z / 60, 13)) * (1.0 - 0.28 * ss(110, WAND_H, p.z)) * (1.0 - 0.14 * ss(40, 0, p.z))
-    if TEMPEL: return sc(lin(0xd8d0c0), k * 1.05)
+    if TEMPEL: return sc(GRAU, k * 1.05)
     return sc(PUTZ_T, k)
 def stein_ton(p, n):
-    return sc(lin(0xd0c8b8) if TEMPEL else STEIN, (0.8 + 0.25 * vn(p.x / 50 + p.y / 50, p.z / 40, 11)) * (1.0 - 0.2 * ss(130, WAND_H, p.z)))
+    return sc(GRAU if TEMPEL else STEIN, (0.8 + 0.25 * vn(p.x / 50 + p.y / 50, p.z / 40, 11)) * (1.0 - 0.2 * ss(130, WAND_H, p.z)))
 WTON = dict(putz=putz_ton, balken=lambda p, n: sc(BALKEN_T, 0.85 + 0.15 * vn(p.x / 60 + p.y / 60, p.z / 60, 17)), feldstein=stein_ton)
 
 def kit_wand(P, G, name, M, n_innen):
@@ -377,7 +425,8 @@ for nr_, (s, lauf) in enumerate(laeufe()):
         if k['art'] in 'WD': oeff.append((u_von(k['m']), 2.0 if k['art'] == 'W' else 1.6, k['art']))
     plan = wand_plan(Lk, oeff)
     PH, PT, PG = part(hoch), part(tief), part(glas)
-    WANDLISTE.append(dict(hoch=hoch, tief=tief, glas=glas, innen=[n.x, -n.y]))
+    WANDLISTE.append(dict(hoch=hoch, tief=tief, glas=glas, klein='Klein_' + hoch.split('_', 1)[1], innen=[n.x, -n.y]))   # Kleinkram der Wand mit ihr
+    for k in lauf: WAND_VON[(k['c'], k['r'], s)] = hoch
     def at(u, sx):
         p = mitte_l + e * (u * 100 * S_KIT) - n * (31 * S_KIT)
         return Matrix.Translation(p) @ Matrix.Rotation(math.radians(a), 4, 'Z') @ Matrix.Diagonal((S_KIT * sx, S_KIT, SZ, 1))
@@ -433,8 +482,9 @@ for nr_, (s, lauf) in enumerate(laeufe()):
             kz = [kk for kk in lauf if abs(u_von(kk['m']) - u) < 0.8]
             if any(ch(kk['c'], kk['r']) in HOCH_DINGE for kk in kz): continue
             wahl = hsh(int(p.x), int(p.y), 31) % 5
-            if wahl == 4: continue
             wand_p = p + Vector((0, 0, 0))
+            if wahl == 4 or (LADEN and wahl == 2):   # Pruefer Lauf 1: Kraeuterbuendel fehlten (Laden)
+                kraeuter(PH, wand_p, n, e); continue
             ar = a + 180   # Front des Wandteils (-Y) in den Raum
             if SCHENKE:
                 [lambda: stelle(PH, 'Shield_Wooden', wand_p, ar, 0.9, z=150, boden=False),
@@ -498,6 +548,10 @@ for s, zs, n, e, hoch, tief in HERDE:
     LICHTER.append(dict(art='kamin', pos=list(M @ Vector((0, -70, 55))), reich=3.6, kraft=1.05, flammen=[list(feuer)], breite=mw * 0.7))
 
 # ---------------------------------------------------------------- Einrichtung (MapRoomIso.objects je Zeichen)
+def wand_teil(c, r, s, sonst):
+    """Hohes an der Wand (Regal, Gestell, Wandtuch) gehoert zur hohen Fassung seiner Wand: steht die Wand vorn (tief), ist es mit ihr
+    weg wie alt 5h.1 (Pruefer Lauf 1: gedreht zeigten Regale an der Vorderwand ihre Rueckseite ueber der Bruestung)"""
+    return part(WAND_VON[(c, r, s)]) if (c, r, s) in WAND_VON else part(sonst)
 def an_wand(c, r):
     """Richtung in den Raum (Blender) von der naechsten Wand: N, W, O, S der Reihe nach"""
     for s in 'NWOS':
@@ -533,24 +587,25 @@ def theke(c, r):
     box(P, (x0, yc - 30, 0), (x1, yc + 26, 98), front, 'holz')
     for x in range(int(x0) + 16, int(x1) - 4, 19):
         box(P, (x - 1.2, yc - 31, 8), (x + 1.2, yc - 30, 92), lin(0x3a2a1c), 'weiss')
-    box(P, (x0 - 3, yc - 36, 98), (x1 + 3, yc + 30, 105), lambda p, n_: sc(lin(0x6a4e36), 0.9 + 0.2 * vn(p.x / 30, p.y / 30, 7)), 'balken')
+    # Platte Eiche wie alt oakTop (Pruefer Lauf 1: mit Balkenbild und dunklem Ton schwarz)
+    box(P, (x0 - 3, yc - 36, 98), (x1 + 3, yc + 30, 105), lambda p, n_: sc(lin(0xa07a54), 0.85 + 0.2 * vn(p.x / 30, p.y / 30, 7)), 'holz')
     box(P, (x0, yc - 33, 0), (x1, yc - 30, 10), lin(0x3a2a1c), 'holz')
     for i, cc in enumerate(range(c0, c1 + 1)):
         p = Vector((tx(cc) + TS / 2, yc - 4, 105))
-        w = hsh(cc, r, 2) % 4
-        if LADEN:
-            [lambda: (stelle(P, 'Coin_Pile', p + Vector((-18, 0, 0)), 20), stelle(P, 'Scroll_2', p + Vector((20, 6, 0)), 70)),
-             lambda: (stelle(P, 'Pouch_Large', p + Vector((-14, 4, 0)), -30), stelle(P, 'Book_5', p + Vector((22, -2, 0)), 15)),
-             lambda: (stelle(P, 'Potion_2', p + Vector((-20, 2, 0)), 0), stelle(P, 'Potion_1', p + Vector((-6, 8, 0)), 0), stelle(P, 'Coin', p + Vector((20, -6, 0)), 30)),
-             lambda: stelle(P, 'Bag', p + Vector((10, 4, 0)), 40, 0.35)][w]()
+        w = hsh(cc, r, 2) % 3
+        if LADEN:   # alt shopTop: Waage mit Muenzen, Kontobuch mit Feder, Tuchballen mit Schere; je Feld ein Kerzenstumpf
+            [lambda: (waage(P, p + Vector((-14, 2, 0))), stelle(P, 'Coin_Pile', p + Vector((22, -4, 0)), 20)),
+             lambda: (stelle(P, 'Book_5', p + Vector((-16, 0, 0)), 15), stelle(P, 'Scroll_2', p + Vector((18, 8, 0)), 70)),
+             lambda: (tuchballen(P, p + Vector((-12, 4, 0)), hsh(cc, r, 5)), stelle(P, 'Pouch_Large', p + Vector((24, -2, 0)), -30))][w]()
         else:
             [lambda: (stelle(P, 'Mug', p + Vector((-20, 0, 0)), 30), stelle(P, 'Mug', p + Vector((14, 8, 0)), 160)),
              lambda: (stelle(P, 'Bottle_1', p + Vector((-16, 6, 0)), 0), stelle(P, 'Mug', p + Vector((18, -4, 0)), 80)),
-             lambda: (stelle(P, 'SmallBottles_1', p + Vector((-10, 8, 0)), 10), stelle(P, 'Table_Plate', p + Vector((18, -2, 0)), 0, 0.8)),
-             lambda: stelle(P, 'Mug', p + Vector((0, 4, 0)), 210)][w]()
-    pm = Vector(((x0 + x1) / 2 + 30, yc + 8, 105))
-    f = leuchter(P, pm, 0)
-    kerze_licht(pm + Vector((0, 0, 40)), 1.5 if herd_naehe else 2.4, 0.5 if herd_naehe else 0.45, [f])
+             lambda: (stelle(P, 'SmallBottles_1', p + Vector((-10, 8, 0)), 10), stelle(P, 'Table_Plate', p + Vector((18, -2, 0)), 0, 0.8))][w]()
+        # alt counter: auf jedem Feld eine Kerze (Pruefer Lauf 1: alt etwa sechs, neu eine), dazu ein Stumpf; Licht je Feld wie
+        # MapLight COUNTER
+        f = leuchter(P, p + Vector((30 if i % 2 else -30, 16, 0)), 0)
+        g = stumpf(P, p + Vector((-4, 20, 0)), 6 + hsh(cc, r, 9) % 6)
+        kerze_licht(p + Vector((0, 0, 40)), 1.5 if herd_naehe else 2.4, 0.5 if herd_naehe else 0.45, [f, g])
 
 def tisch(c, r):
     c0, c1 = lauf_x(c, r, 'Y')
@@ -581,9 +636,16 @@ def bank(c, r):
     ms = masse('Bench')
     pm = Vector(((tx(c0) + tx(c1 + 1)) / 2, ty(r) - TS / 2, 0))
     stelle(P, 'Bench', pm, 0, (L / ms.x, 1.0, 0.85), ton=(0.9, 0.85, 0.8))
-    if TEMPEL:   # Kirchenbank: Lehne auf der Seite vom Altar weg (alt bench back)
-        box(P, (pm.x - L / 2 + 4, pm.y - 22, 0), (pm.x + L / 2 - 4, pm.y - 17, 92), lambda p, n_: sc(DUNKEL, 0.85 + 0.2 * vn(p.x / 30, p.z / 30, 3)), 'holz')
-        for sg in (-1, 1): box(P, (pm.x + sg * (L / 2 - 4) - 3, pm.y - 24, 0), (pm.x + sg * (L / 2 - 4) + 3, pm.y + 8, 96), DUNKEL, 'holz')
+    # Lehne auf der Seite vom Tisch bzw. Altar weg (alt bench back; Pruefer Lauf 1: in der Schenke fehlte sie). Tisch im Norden
+    # (Blender +y): Lehne im Sueden, sonst im Norden
+    tisch_n = any(ch(cc, r - 1) in 'YA' for cc in range(c0, c1 + 1)) or TEMPEL
+    sg_y = -1 if tisch_n else 1
+    y_l = pm.y + sg_y * 20
+    box(P, (pm.x - L / 2 + 4, min(y_l, y_l + sg_y * 5), 0), (pm.x + L / 2 - 4, max(y_l, y_l + sg_y * 5), 92),
+        lambda p, n_: sc(DUNKEL, 0.85 + 0.2 * vn(p.x / 30, p.z / 30, 3)), 'holz')
+    for sg in (-1, 1):
+        box(P, (pm.x + sg * (L / 2 - 4) - 3, min(pm.y - sg_y * 8, y_l + sg_y * 7), 0),
+            (pm.x + sg * (L / 2 - 4) + 3, max(pm.y - sg_y * 8, y_l + sg_y * 7), 96), DUNKEL, 'holz')
 
 def bett(c, r):
     if (c, r) in erledigt: return
@@ -602,45 +664,60 @@ def bett(c, r):
         stelle(P, 'Bed_Twin1', pm, 90 if not drin(c1 + 1, r0) else -90, (d / ms.x, w / ms.y, 0.85))
     fuss = pm + Vector((w / 2 - 20, -d / 2 + 14, 0)) if kopf_n else pm + Vector((w / 2 - 20, d / 2 - 14, 0))
     if drin(c1 + 1, r1): stelle(P, 'Bag', fuss + Vector((26, 0, 0)), 70, 0.35)   # ein Beutel am Fussende (alt bed)
+    if AELTESTER and kopf_n: himmel(wand_teil(c0, r0, 'N', 'Ding_' + stueck(c0, r0)), pm, w, d)
+
+def himmel(P, pm, w, d):
+    """Halber Betthimmel des Aeltesten (alt elderBed 13q.7): zwei hohe Pfosten am Kopfende, ein Rahmen ein Drittel ueber das Bett,
+    Tuch darueber, hinten ein Vorhang bis zum Kopfbrett, seitlich Vorhaenge an die Pfosten gebunden (Pruefer Lauf 1: fehlte)"""
+    rot = lambda q, n_: sc(lin(0x7a2a24), 0.8 + 0.3 * vn(q.x / 12, q.z / 25 + q.y / 25, 21))
+    yk = pm.y + d / 2 - 4; yv = yk - d / 3; H = 214.0
+    for sg in (-1, 1):
+        x = pm.x + sg * (w / 2 - 4)
+        box(P, (x - 4, yk - 4, 0), (x + 4, yk + 4, H + 6), lambda q, n_: sc(DUNKEL, 0.9 + 0.2 * vn(q.z / 30, 0, 3)), 'holz')
+        box(P, (x - 3, yv - 3, H - 6), (x + 3, yk, H), DUNKEL, 'holz')                              # Rahmen seitlich
+        # Vorhang, an den Pfosten gebunden: oben breit, unter der Schleife schmal, unten wieder etwas breiter
+        for z0, z1, b in ((H - 6, 150, 22), (150, 132, 7), (132, 60, 15)):
+            box(P, (min(x, x - sg * b), yk - 10, z1), (max(x, x - sg * b), yk - 2, z0), rot, 'stoff')
+    box(P, (pm.x - w / 2, yv - 3, H - 6), (pm.x + w / 2, yv + 3, H), DUNKEL, 'holz')                # Rahmen vorn
+    box(P, (pm.x - w / 2 - 2, yv - 4, H), (pm.x + w / 2 + 2, yk + 4, H + 3), rot, 'stoff')           # Tuch oben
+    for k in range(int(w // 24)):                                                                      # Volant vorn
+        x = pm.x - w / 2 + 12 + k * 24
+        box(P, (x - 11, yv - 6, H - 22 - 4 * (k % 2)), (x + 11, yv - 3, H + 3), rot, 'stoff')
+    box(P, (pm.x - w / 2, yk, 80), (pm.x + w / 2, yk + 3, H), rot, 'stoff')                           # Vorhang hinten
 
 def regal(c, r):
     c0, c1 = lauf_x(c, r, 'Q')
     if c != c0: return
-    P = part('Ding_' + stueck((c0 + c1) / 2, r))
     n, s = an_wand(c, r)
+    P = wand_teil(c0, r, s, 'Ding_' + stueck((c0 + c1) / 2, r))
     a = dreh(n)
     L = (c1 - c0 + 1) * TS - 8
     pm = Vector(((tx(c0) + tx(c1 + 1)) / 2, ty(r) - TS / 2, 0))
     wand = pm - n * (TS / 2)
-    if LADEN or AELTESTER:   # Laden: Waren, Aeltester: Buecher (alt goodsShelf, bookshelf), je Regal 1,5 m
-        k = max(1, round(L / 150)); ms = masse('Bookcase_2'); bw = L / k
-        hz = bretter_hoehen('Bookcase_2')
-        for i in range(k):
-            q = wand + n * (ms.y / 2 + 2) + Vector((-L / 2 + bw * (i + 0.5), 0, 0)) * (1 if abs(n.y) > 0.5 else 0)
-            sx = (bw - 4) / ms.x; szz = 215 / ms.z
-            stelle(P, 'Bookcase_2', q, a, (sx, 0.9, szz), ton=(0.85, 0.8, 0.78))
-            for j, h in enumerate(hz):
-                for t in range(3):
-                    x_ = -bw / 2 + 24 + t * (bw - 48) / 2
-                    p = q + Vector((x_, 0, h * szz)) if abs(n.y) > 0.5 else q + Vector((0, x_, h * szz))
-                    w = hsh(i * 7 + t, j, 12) % 6
-                    if AELTESTER: stelle(P, ['BookGroup_Small_1', 'BookGroup_Small_2', 'BookGroup_Small_3', 'Book_Stack_1', 'BookGroup_Small_2', 'Scroll_2'][w], p, a, 0.85)
-                    else: stelle(P, ['Potion_2', 'Vase_4', 'Bottle_1', 'Pouch_Large', 'Potion_4', 'SmallBottles_1'][w], p, a, [0.9, 0.4, 0.8, 0.9, 0.9, 1.0][w])
-    else:   # Schenke: Schrank mit Flaschen und Kruegen, darueber ein Brett mit Flaschen (alt shelf)
-        ms = masse('Cabinet')
-        q = wand + n * (ms.y / 2 + 2)
-        stelle(P, 'Cabinet', q, a, (L / ms.x, 1.0, 1.0), ton=(0.85, 0.8, 0.78))
-        for t in range(4):
-            p = q + Vector((-L / 2 + 22 + t * (L - 44) / 3, 0, ms.z))
-            stelle(P, ['Mug', 'Bottle_1', 'Vase_4', 'Mug'][(t + c0) % 4], p, a, [1.0, 0.9, 0.4, 1.0][(t + c0) % 4])
-        mb = masse('Shelf_Small_Bottles')
-        for i in range(max(1, round(L / 120))):
-            k = max(1, round(L / 120)); bw = L / k
-            stelle(P, 'Shelf_Small_Bottles', wand + Vector((-L / 2 + bw * (i + 0.5), 0, 0)), a, (bw / mb.x * 0.95, 1.0, 1.0), z=150, boden=False)
+    # alle Raeume ein hohes Regal je 1,5 m (alt goodsShelf, bookshelf, shelf): Laden Waren, Aeltester Buecher, Schenke Kruege und
+    # Flaschen (Pruefer Lauf 1: alt hohes Regal mit vier, fuenf Brettern voller Kruege und Flaschen, neu nur ein Schrank)
+    k = max(1, round(L / 150)); ms = masse('Bookcase_2'); bw = L / k
+    hz = bretter_hoehen('Bookcase_2')
+    for i in range(k):
+        q = wand + n * (ms.y / 2 + 2) + Vector((-L / 2 + bw * (i + 0.5), 0, 0)) * (1 if abs(n.y) > 0.5 else 0)
+        sx = (bw - 4) / ms.x; szz = 215 / ms.z
+        stelle(P, 'Bookcase_2', q, a, (sx, 0.9, szz), ton=(0.85, 0.8, 0.78))
+        for j, h in enumerate(hz):
+            nt = 3 if AELTESTER else 5   # Laden, Schenke: dicht wie alt (Pruefer Lauf 1: Regale fast leer)
+            for t in range(nt):
+                x_ = -bw / 2 + 20 + t * (bw - 40) / (nt - 1)
+                p = q + Vector((x_, 0, h * szz)) if abs(n.y) > 0.5 else q + Vector((0, x_, h * szz))
+                w = hsh(i * 7 + t, j, 12) % 8
+                if AELTESTER: stelle(P, ['BookGroup_Small_1', 'BookGroup_Small_2', 'BookGroup_Small_3', 'Book_Stack_1', 'BookGroup_Small_2', 'Scroll_2', 'BookGroup_Medium_1', 'Book_Stack_2'][w], p, a, 0.85)
+                elif SCHENKE: stelle(P, ['Mug', 'Bottle_1', 'SmallBottles_1', 'Vase_4', 'Bottle_1', 'Mug', 'SmallBottle', 'Bottle_1'][w], p, a,
+                                     [1.0, 1.0, 1.1, 0.5, 1.0, 1.0, 1.4, 1.0][w])
+                elif w == 6: tuchballen(P, p + n * 4, i + t + j, schere=False)   # Tuchballen (alt bolts of cloth)
+                else: stelle(P, ['Potion_2', 'Vase_4', 'Bottle_1', 'Pouch_Large', 'Rope_2', 'Pot_1', '', 'SmallBottles_1'][w], p, a,
+                             [1.0, 0.55, 1.0, 1.0, 0.8, 0.55, 1.0, 1.1][w])
 
 def gestell(c, r):
-    P = part('Ding_' + stueck(c, r))
     n, s = an_wand(c, r); a = dreh(n)
+    P = wand_teil(c, r, s, 'Ding_' + stueck(c, r))
     ms = masse('WeaponStand')
     sk = (TS - 14) / ms.x
     p = mitte(c, r) - n * (TS / 2 - ms.y * sk / 2 - 4)
@@ -698,7 +775,7 @@ def truhe(c, r):
     ms = masse('Chest_Wood')
     sk = 80 / ms.x
     p = mitte(c, r) - n * (TS / 2 - ms.y * sk / 2 - 6)
-    stelle(P, 'Chest_Wood', p, a, sk)
+    stelle(P, 'Chest_Wood', p, a, sk, farbe=lin(0x7a5a3c))   # Pruefer Lauf 1: ohne Bild des Bausatzes weiss
     if hsh(c, r, 3) % 3 == 2:   # ein Leuchter auf der Truhe (alt smallFlame)
         f = leuchter(P, p + Vector((0, 0, ms.z * sk)), a)
         kerze_licht(f + Vector((0, 0, 10)), 1.5, 0.45, [f])
@@ -717,7 +794,8 @@ def pult(c, r):
     P = part('Ding_' + stueck(c, r))
     n, s = an_wand(c, r); a = dreh(n)
     p = mitte(c, r)
-    if TEMPEL:   # Lesepult mit offenem Buch (alt lectern)
+    if TEMPEL:   # Lesepult mit offenem Buch (alt lectern); Pruefer Lauf 1: stand an der Bank, jetzt um eine halbe Kachel zum Altar
+        if any(ch(c + dx, r + 1) == 'n' for dx in (-1, 0, 1)): p = p + Vector((0, 0.45 * TS, 0))
         stelle(P, 'BookStand', p, a + 180, 0.9, ton=(0.85, 0.8, 0.78))
         f = leuchter(P, p + Vector((34, 20, 0)), 0, hoch=24)
         kerze_licht(f + Vector((0, 0, 20)), 1.8, 0.6, [f])
@@ -731,8 +809,7 @@ def pult(c, r):
 
 def wandtuch(c, r):
     n, s = an_wand(c, r)
-    w = [x for x in WANDLISTE if x['hoch'].split('_')[1] == s]
-    P = part(w[0]['hoch']) if w else part('Ding_' + stueck(c, r))
+    P = wand_teil(c, r, s, 'Ding_' + stueck(c, r))
     p = mitte(c, r) - n * (TS / 2 - 3)
     stelle(P, 'Banner_1_Cloth', p, dreh(n), (0.85, 1.0, 0.8), z=232, boden=False, ton=(0.55, 0.65, 0.95))
 
@@ -744,7 +821,7 @@ def altar(c, r):
     yc = ty(r) - TS / 2
     def quader(p, n_):   # Werkstein, Fugen alle 30 cm (alt ashlar)
         fuge = (abs(math.sin(p.x / 30 * math.pi)) < 0.06) or (abs(math.sin(p.z / 24 * math.pi)) < 0.08)
-        return sc(lin(0xd0c8b8), (0.62 if fuge else 0.88 + 0.12 * vn(p.x / 30, p.z / 30, 9)))
+        return sc(GRAU, (0.62 if fuge else 0.88 + 0.12 * vn(p.x / 30, p.z / 30, 9)))
     box(P, (x0 + 8, yc - 34, 0), (x1 - 8, yc + 30, 90), quader, 'feldstein')
     box(P, (x0, yc - 40, 90), (x1, yc + 36, 100), quader, 'feldstein')
     box(P, (x0 + 30, yc - 42, 60), (x1 - 30, yc - 40, 101), lin(0xf4eee0), 'stoff')      # Tuch ueber die Front
@@ -755,7 +832,17 @@ def altar(c, r):
     for x_ in (x0 + 26, x1 - 26):
         stelle(P, 'CandleStick_Triple', Vector((x_, yc + 4, 101.5)), 0, 0.9)
         fl += [Vector((x_ + x * 90, yc + 4 + y * 90, 101.5 + (z - klo.z) * 90 + 2)) for x, y, z in dochte(kf, klo, khi)]
-    stelle(P, 'Chalice', Vector(((x0 + x1) / 2, yc + 8, 101.5)), 0, 1.0)
+    stelle(P, 'Chalice', Vector(((x0 + x1) / 2, yc - 14, 101.5)), 0, 1.0)
+    # die Sonne des Morgenlichts auf ihrem Staender hinten in der Mitte (alt altar; Pruefer Lauf 1: fehlte)
+    sm = Vector(((x0 + x1) / 2, yc + 22, 101.5))
+    zylinder(P, sm, 7, 2, 10, MESSING, 'weiss', r2=5)
+    zylinder(P, sm, 1.4, 34, 6, MESSING, 'weiss')
+    sz = sm + Vector((0, 1, 46))
+    zylinder(P, sz, 11, 2.0, 18, lin(0xc9a24a), 'weiss', achse=Vector((0, -1, 0)))
+    zylinder(P, sz + Vector((0, -2, 0)), 5, 1.2, 14, lin(0xe8c870), 'weiss', achse=Vector((0, -1, 0)))
+    for k in range(12):
+        an = k * math.pi / 6; rv = Vector((math.cos(an), 0, math.sin(an)))
+        zylinder(P, sz + rv * 11 + Vector((0, -1, 0)), 1.1, 7 if k % 2 else 10, 4, lin(0xc9a24a), 'weiss', r2=0.3, achse=rv)
     stelle(P, 'Book_7', Vector(((x0 + x1) / 2 + 40, yc - 6, 101.5)), 15, 1.0)
     kerze_licht(Vector(((x0 + x1) / 2, yc - 30, 150)), 3.2, 0.75, fl)
 
@@ -788,7 +875,7 @@ def weihwasser(c, r):
     zylinder(P, p + Vector((0, 0, 12)), 12, 58, 10, st, 'feldstein', r2=10)
     zylinder(P, p + Vector((0, 0, 70)), 14, 18, 12, st, 'feldstein', r2=34, deckel=False)
     zylinder(P, p + Vector((0, 0, 70)), 14, 0.5, 12, st, 'feldstein')
-    zylinder(P, p + Vector((0, 0, 84)), 30, 0.4, 12, lin(0x2a3a44), 'weiss')        # Wasser
+    zylinder(P, p + Vector((0, 0, 84)), 30, 0.4, 12, lin(0x8aa4b0), 'weiss')        # Wasser, hell spiegelnd (Pruefer Lauf 1: schwarz)
     if hsh(c, r, 3) % 3 == 2:   # eine Kerze schwimmt (alt font smallFlame)
         f = p + Vector((8, 4, 92))
         zylinder(P, p + Vector((8, 4, 84)), 3, 6, 8, lin(0xf0e6c8), 'weiss')

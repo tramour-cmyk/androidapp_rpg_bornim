@@ -12,7 +12,7 @@ var feuer: Array = []        # [OmniLight3D, Grundkraft, Saat]
 var flammen: Array = []      # [Node3D Kern, Saat]
 var fenster: Array = []      # [SpotLight3D, Kraft, Tuer?]
 var scheiben: Array[ShaderMaterial] = []
-var waende: Array = []       # [hoch, tief, glas, innen (Godot, waagrecht)]
+var waende: Array = []       # [hoch, tief, glas, innen (Godot, waagrecht), Kleinkram der hohen Fassung]
 var zeit := 0.0
 var nacht_k := 0.0
 static var flamme_shader: Shader
@@ -27,7 +27,8 @@ static func baue(g: Node3D, info: Dictionary, netz: Node3D) -> Raumlicht:
 		var t := netz.find_child(String(w["tief"]), true, false) as Node3D
 		var s := netz.find_child(String(w["glas"]), true, false) as Node3D
 		var n := Vector3(float(w["innen"][0]), 0, float(w["innen"][1]))
-		r.waende.append([h, t, s, n])
+		var kl := netz.find_child(String(w["klein"]), true, false) as Node3D if w.has("klein") else null
+		r.waende.append([h, t, s, n, kl])
 		if s: r.sammle_scheiben(s)
 	r.ohne_schatten(netz)
 	return r
@@ -49,10 +50,11 @@ func licht(l: Dictionary) -> void:
 		o.position = gpos(l["pos"])
 		o.omni_range = float(l.get("reich", 2.0)) * ts
 		var k := float(l.get("kraft", 0.6))
-		var kraft := k * (3.2 if art == "kamin" else 2.0)
+		var kraft := k * (3.2 if art == "kamin" else 2.6)
 		o.light_energy = kraft
 		o.light_color = Color(1.0, 0.56, 0.26) if art == "kamin" else Color(1.0, 0.72, 0.42)
-		o.omni_attenuation = 1.2
+		# Kerzen: Lichtinsel um den Tisch (Pruefer Lauf 1: keine Inseln), steiler abfallend als der Kamin
+		o.omni_attenuation = 1.2 if art == "kamin" else 1.9
 		o.shadow_enabled = art == "kamin"
 		o.shadow_bias = 0.06
 		add_child(o)
@@ -123,7 +125,7 @@ func nacht(k: float) -> void:
 		var s: SpotLight3D = f[0]
 		var tag := 1.0 - k
 		# MapLight WINDOW/DOOR: Tageslicht nur am Tag (grau-weiss); nachts Mond kuehl und schwach (MOON_RGB, 0,5)
-		s.light_energy = f[1] * (5.0 * tag + 1.2 * k)
+		s.light_energy = f[1] * (5.0 * tag + 2.0 * k)
 		s.light_color = Color(0.92, 0.95, 1.0).lerp(Color(0.64, 0.71, 0.9), k)
 		s.visible = s.light_energy > 0.02
 	for m in scheiben:
@@ -152,3 +154,4 @@ func _process(dt: float) -> void:
 		if w[0]: (w[0] as Node3D).visible = hoch
 		if w[1]: (w[1] as Node3D).visible = not hoch
 		if w[2]: (w[2] as Node3D).visible = hoch
+		if w[4]: (w[4] as Node3D).visible = hoch   # Kleinkram auf Wandbrett und Regal geht mit der Wand
