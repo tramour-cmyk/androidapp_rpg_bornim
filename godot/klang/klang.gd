@@ -450,6 +450,39 @@ func _process(dt: float) -> void:
 	_phase = f
 
 
+# ---------------------------------------------------------------- Keuchen (Panting.kt, 95; Chef 28.10., Test 139.8)
+
+const ATEM_LAUT := 0.6                   # Panting.LOUD: gleich nach dem Leerlaufen
+const ATEM_LEISE := 0.3                  # Panting.QUIET: kurz bevor der Atem zurück ist
+const ATEM_PAUSE_MS := 1400.0            # Panting.PAUSE_MS: Pause nach einem Atemzug, wenn der Atem fast zurück ist
+const ATEM_WIEDER := 0.25                # Stamina.AGAIN (Ausdauer.WIEDER)
+var _atem_naechst := 0.0
+
+## Panting.breathMs: so lange dauert ein Atemzug (tools/klang/atem.py)
+static func atem_ms(weiblich: bool) -> float:
+	return 1600.0 if weiblich else 1420.0
+
+
+## Panting.Breath.due: zur Zeit [jetzt] ms der Pegel eines Atemzugs, der jetzt kommt, sonst -1; erst Zug auf Zug, dann mit
+## wachsender Pause und leiser, bis der Held wieder rennen darf
+func atem_pegel(atemlos: bool, ausdauer: float, jetzt: float, weiblich := false) -> float:
+	if not atemlos:
+		_atem_naechst = 0.0
+		return -1.0
+	if jetzt < _atem_naechst:
+		return -1.0
+	var zurueck := clampf(ausdauer / ATEM_WIEDER, 0.0, 1.0)
+	_atem_naechst = jetzt + atem_ms(weiblich) + ATEM_PAUSE_MS * zurueck
+	return ATEM_LAUT + (ATEM_LEISE - ATEM_LAUT) * zurueck
+
+
+## Jedes Bild aus spiel.gd: atemlos keucht der Held (WorldScreen.kt); bis der Held ein Geschlecht hat (erschaffung.gd), der Mann
+func atme(atemlos: bool, ausdauer: float, weiblich := false) -> void:
+	var p := atem_pegel(atemlos, ausdauer, float(Time.get_ticks_msec()), weiblich)
+	if p > 0.0:
+		effekt("pant_woman" if weiblich else "pant_man", p)
+
+
 # ---------------------------------------------------------------- Ortsklang (PlaceSound, Ambience, RiverSound; WorldScreen.kt)
 
 const ORT_TAKT_S := 0.1
