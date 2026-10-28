@@ -470,7 +470,12 @@ func _burning_hands(p: float, from: Vector2, to: Vector2, u: float) -> void:
 		var lat := (_rf() - 0.5) * 2.0
 		var up := (_rf() - 0.5) * 2.0
 		var t0 := _rf()
-		var t := clampf(t0 * front + fmod(p * (1.4 + _rf()), 0.25), 0.0, front)
+		var t := t0 + fmod(p * (1.4 + _rf()), 0.25)
+		# Prüfer r2 (die ersten zwei Bilder flog ein Feuerklumpen, erst dann stand der Kegel): solange er nach vorn schießt, stehen
+		# die Ballen an ihrem Platz im Kegel und die Front gibt sie frei; vorher drängten sich alle 50 bis zur Front
+		if front < 1.0 and t > front:
+			continue
+		t = minf(t, 1.0)
 		if t <= 0.02 or t < back:
 			continue
 		var q := a3 + ab * t + side * (lat * half * t) + Vector3.UP * (up * half * 0.45 * t + t * 0.1)

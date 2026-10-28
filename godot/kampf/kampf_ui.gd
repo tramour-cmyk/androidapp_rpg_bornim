@@ -902,13 +902,15 @@ func _step_aside(kind: String, by, on, after_ms: float, arrives_ms: float) -> fl
 				continue
 			var sx: float = k.screen_of(q).x
 			var cost: float = m + (0.01 if sg != first else 0.0) + (2.0 if sx < vs.x * 0.1 or sx > vs.x * 0.9 else 0.0)
+			if _starts_on_mate(q + rel, b3, mates):     # Prüfer r2: Feuerball über der Schulter der Heldin, „als käme er aus ihr“
+				cost += 1.0
 			if cost < best:
 				best = cost
 				off = side * (m * sg)
 	if off == Vector3.ZERO:     # kein freier Fleck: ein halber Meter zur Bildmitte
 		off = side * (0.5 * first)
 	if OS.get_environment("SCHRITT_DEBUG") != "":
-		print("Seitenschritt %s -> %s: %s in der Linie, %+.1f m (Bild %s, Platz x %.0f, Seite zur Mitte %+.0f)" % [by.fighter.id, on.fighter.id, blocker.fighter.id, off.dot(side), vs, k.screen_of(by.home).x, first])
+		print("Seitenschritt %s -> %s: %s in der Linie, %+.1f m (Bild %s, Platz x %.0f, Seite zur Mitte %+.0f, Start auf eigenem Mann: %s)" % [by.fighter.id, on.fighter.id, blocker.fighter.id, off.dot(side), vs, k.screen_of(by.home).x, first, _starts_on_mate(by.home + off + rel, b3, mates)])
 	var hold := maxf(arrives_ms, 250.0) / 1000.0 + 0.15
 	if kind == "BURNING_HANDS":     # Prüfer r1: der Kegel hing am Seitenplatz, als er schon zurücktrat; er bleibt, solange er brennt
 		hold = Zauber.duration(kind) * BH_FLAME / 1000.0
@@ -917,6 +919,24 @@ func _step_aside(kind: String, by, on, after_ms: float, arrives_ms: float) -> fl
 	else:
 		by.side_step(off, hold, STEP_S)
 	return STEP_S * 1000.0
+
+
+## 348.7b Prüfer r2 (am Seitenplatz stand Bertram im Bild genau vor der Heldin, Feuerpfeil und Feuerball begannen auf Höhe
+## ihrer Brust und Schulter): ob Start oder erstes Viertel der Bahn a → b am Schirm im Umriss eines eigenen Manns liegt
+func _starts_on_mate(a: Vector3, b: Vector3, mates: Array) -> bool:
+	var k = kampfort
+	var sa: Vector2 = k.screen_of(a)
+	var sb: Vector2 = k.screen_of(b)
+	for o in mates:
+		var box: AABB = o.footprint()
+		var r := Rect2(k.screen_of(o.global_transform * box.get_endpoint(0)), Vector2.ZERO)
+		for i in range(1, 8):
+			r = r.expand(k.screen_of(o.global_transform * box.get_endpoint(i)))
+		r = r.grow(4 * dp)
+		for f in [0.0, 0.08, 0.16, 0.25]:
+			if r.has_point(sa.lerp(sb, f)):
+				return true
+	return false
 
 
 ## Brust des Ziels, zum Wirkenden hin (Ende der Bahn)
