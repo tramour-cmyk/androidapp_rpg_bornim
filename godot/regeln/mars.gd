@@ -9,7 +9,11 @@ const Wuerfel = preload("res://regeln/wuerfel.gd")
 const X = preload("res://regeln/mars_texte.gd")
 const Zustaende = preload("res://regeln/zustaende.gd")
 ## The lines by name, for the ones picked in several wordings.
-var TX: Dictionary = load("res://regeln/mars_texte.gd").get_script_constant_map()
+## 399.2b (Homer [399.2b.knurrt]): die Zeile im Zug, wenn ein Jungwolf nur knurrt; gibt es im alten MARS nicht, darum nicht in mars_texte.gd
+const MSG399_GROWLS := [["{0} knurrt, wagt aber keinen Biss.", "{0} snarls but dares no bite."],
+	["{0} duckt sich und fletscht die Zähne, kommt aber nicht heran.", "{0} crouches and bares its teeth, but does not come in."],
+	["{0} knurrt und hält Abstand.", "{0} growls and keeps its distance."]]
+var TX: Dictionary = load("res://regeln/mars_texte.gd").get_script_constant_map().merged({"MSG399_GROWLS": MSG399_GROWLS})
 
 const FRONT := 0
 const BACK := 1
@@ -98,8 +102,8 @@ var I_STAB := _intent("stab", "Stich", "Stab", "STRIKE", null, false, false)
 ## 348.12 (Chef 27.10., 09:49; Homer [210T.hieb]): Goblin mit Krummsäbel oder Beil sagt „Hieb“ an; gewollte Abweichung vom alten MARS
 var I_SLASH := _intent("slash", "Hieb", "Slash", "STRIKE", null, false, false)
 var I_POUNCE := _intent("pounce", "Anspringen", "Pounce", "STRIKE", null, false, false, false, "POUNCE")
-## 399.2b: ein Jungwolf knurrt nur, kein Angriff (Name von Homer, bis dahin ohne Wort)
-var I_GROWL := _intent("growl", "", "", "WAIT", null, false, false, false, "GROWL")
+## 399.2b: ein Jungwolf knurrt nur, kein Angriff (Homer [210T.growl])
+var I_GROWL := _intent("growl", "Knurren", "Growl", "WAIT", null, false, false, false, "GROWL")
 var I_CIRCLE := _intent("circle", "Einkreisen", "Circle", "GATHER", null, false, false, false, "CIRCLE", true)
 var I_VENOM := _intent("venom", "Gift sammeln", "Gather venom", "STRIKE", [2, 6, 0], true, false, true)
 var I_WEB := _intent("web", "Netz werfen", "Cast web", "STRIKE", null, false, true, false, "WEB")
@@ -1130,9 +1134,8 @@ func _foe_turn(foe: Fighter, react: Callable) -> void:
 	var intent: Dictionary = plan[0]
 	var aimed: Array = plan[1]
 	foe.hidden = false
-	if intent.effect == "GROWL":     # 399.2b: knurrt nur (Text von Homer; solange er fehlt, keine Zeile)
-		var growl = foe.monster.get("growl")
-		_say(str(growl[lang]) if growl != null else "", foe.id, null, 0, null, false, false, "GROWLS")
+	if intent.effect == "GROWL":     # 399.2b: knurrt nur (Homer [399.2b.knurrt])
+		_say(fmt(pick("MSG399_GROWLS"), lang, [foe.name(lang)]), foe.id, null, 0, null, false, false, "GROWLS")
 		announce(foe)
 		_say_announce(foe)
 		return
