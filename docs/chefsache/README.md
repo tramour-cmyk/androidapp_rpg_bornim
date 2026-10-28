@@ -38,7 +38,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf (LISTE-UMZUG | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
+| 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf (LISTE-UMZUG | startbar |
 | 385 | M | von Sokrates („jetzt“ 28.10., 10:00, Archiv): Zauberer-Set auf Kaufkörper, Film | startbar |
 | 398 | M | von Perikles: 398-Zeilen schätzen (LISTE-UMZUG-348.md) | startbar |
 | 390 | M | von Perikles: zwischen Chef-Blättern Funktionen ohne Bild (LISTE-UMZUG-348.md) | wartet auf Test/Build (gebaut) |
@@ -64,11 +64,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 31, Muss 20, startbar 3
+**Jerry** – offen 32, Muss 21, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 399.2 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv): Kampfort aufrufbar (LISTE-UMZUG-348.md „Spie | wartet auf Test/Build (gebaut) |
+| 399.2b | M | von Team Tom (15:05): Rudel allein: 3 von 4 Klassen verlieren; Ursache prüfen, Balance an | startbar |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | wartet auf Test/Build (gebaut) |
 | 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | startbar |
@@ -87,7 +88,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 296.1 | K | von Sokrates (22.10.): LISTE-MARS.md gegen den Code prüfen, je Build pflegen | ruht |
 | 296.2 | M | von Sokrates (Chef 23.10., 18:25, Vorgangsarchiv 341.1a): MARS spielnötig (Vorgangsarchiv | ruht |
 | 296.3 | K | von Sokrates (Chef 23.10., 18:25): MARS-Schmuck: Todesschrei, Flucht vor heiligem Licht/Ze | ruht |
-| 344.2 | K | von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344): Kampf mit der Fackel in beiden Syst | ruht |
+| 344.2 | K | von Sokrates (Chef 23.10., Archiv 344): Kampf mit der Fackel in beiden Systemen (Zu 344.2) | ruht |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 (Zu 168.1) | wartet auf 38 (offen) |
 | D23.3 | M | Diogenes Lauf 23: Magier und Kleriker sterben oft; Kleriker Stufe 1 vor dem Meilenstein (A | ruht |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) (Zu 72u.1) | ruht |
