@@ -60,6 +60,13 @@ jobs:
           grep -E "^(endet|FEHLER|Kampfort)|SCRIPT ERROR|^ +at: " lauf.log | head -80
           grep -q " 0 hängen" lauf.log
           ! grep -q "SCRIPT ERROR" lauf.log
+      - name: Kampfort aus einem Aufruf (399.2, wie aus dem Dorf)
+        run: |
+          cd godot
+          timeout 600 ~/godot/godot --headless --path . -s res://tests/aufruf_399.gd > aufruf.log 2>&1 || true
+          grep -E "^(endet|FEHLER|Aufruf|Heldwerte)|SCRIPT ERROR|^ +at: " aufruf.log | head -40
+          grep -q " 0 ohne richtiges Ende" aufruf.log
+          ! grep -q "SCRIPT ERROR" aufruf.log
 
   apk:
     needs: regeln
@@ -141,7 +148,17 @@ jobs:
           grep -E "^GLB|FEHLT" kaufwolf.log | cut -c1-160 || true
           for f in grau dunkel rost asche; do cp $RUNNER_TEMP/kw/kaufwolf-$f.glb $D/kaufwolf-$f.bin; done
           cp $RUNNER_TEMP/kw/kaufwolf-info.json $D/
-          (cd godot && ls kampf/daten/giant_rat-*.bin kampf/daten/kaufwolf-*.bin > kampf/daten/kauf.txt)
+          # 399.2 Grak, soweit fertig (348.12 Gestalt mit Gehen, Hieb, Treffer, Tod, 1d6618d74): Quaternius-Teile (CC0, cc0_laden.sh von
+          # Toms Zweig), Tod aus der gekauften UAL Pro (Death02), darum auch verschlüsselt; ohne Kaufdateien Death01
+          git show e457d6d8b:tools/blender348/v3/cc0_laden.sh > $RUNNER_TEMP/cc0_laden.sh
+          bash $RUNNER_TEMP/cc0_laden.sh $RUNNER_TEMP/cc0 > cc0.log 2>&1 || { tail -5 cc0.log; exit 1; }
+          PRO=$(find $RUNNER_TEMP/kaufroh -path '*Unreal-Godot/UAL1.glb' | head -1)
+          OUT=$RUNNER_TEMP/grak CC0=$RUNNER_TEMP/cc0 WAFFEN=$OUT UAL=$PRO TOD_QUELLE=$([ -n "$PRO" ] && echo Death02 || echo Death01) \
+            timeout 1500 bl/bin/python -I tools/blender348/grak_gestalt.py > grak.log 2>&1 || (tail -40 grak.log; exit 1)
+          grep -E "^(ZWEIHAND|BEWEGUNG|TOD)" grak.log | cut -c1-200 || true
+          cp $RUNNER_TEMP/grak/grak-gestalt.glb $D/hobgoblin_captain-hauptmann.bin
+          echo '{"hauptmann": {"waffen": [], "groesse_cm": 186, "geruest": "cc0"}}' > $D/hobgoblin_captain-info.json
+          (cd godot && ls kampf/daten/giant_rat-*.bin kampf/daten/kaufwolf-*.bin kampf/daten/hobgoblin_captain-*.bin > kampf/daten/kauf.txt)
       - uses: actions/cache@v4
         with:
           path: ~/godot
@@ -391,6 +408,24 @@ jobs:
             ffmpeg -loglevel error -y -i $f -vf "fps=4/$d,scale=240:-2,tile=4x1" -frames:v 1 ${f%.mp4}-reihe.png || true; done
           ffmpeg -loglevel error -y $(for f in $L; do echo "-i ${f%.mp4}-reihe.png"; done) -filter_complex "vstack=inputs=$n" $P/387-kauftiere-blatt.png || true
           ls -l $P
+      # 348.12 Grak (1d6618d74, im APK seit 399.2): Bewegungen mit Ortswechsel im Kampfort wie die Kauftiere (Chef 27.10., 18:01), mit dem
+      # Spiel-Grak aus „Modelle bauen“ (verschlüsselt, derselbe Schlüssel): Anlauf, Stehen, Hieb, Treffer, Platzwechsel, Tod
+      - name: 348.12 Probe Grak im Kampfort (nur bei Commits mit „348.12 Grak Film“)
+        if: contains(github.event.head_commit.message, '348.12 Grak Film')
+        run: |
+          P=$GITHUB_WORKSPACE/grakprobe; mkdir -p $P
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
+          (cd godot && GEGNER=GRAK ORT_ID=grak OHNEUI=1 SCHAU=ort SCHAU_TITEL=Grak timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/grak.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/grak-ort.log 2>&1) || true
+          ffmpeg -loglevel error -y -ss 1.25 -i $RUNNER_TEMP/grak.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $P/348.12-grak-film.mp4 || true
+          grep -E "SCRIPT ERROR|^ +at: |^Ort " $P/grak-ort.log | head -20 || true
+          d=$(ffmpeg -i $P/348.12-grak-film.mp4 2>&1 | grep -oE 'Duration: [0-9:.]+' | awk -F'[: ]' '{print $3*3600+$4*60+$5}')
+          ffmpeg -loglevel error -y -i $P/348.12-grak-film.mp4 -vf "fps=8/$d,scale=270:-2,tile=8x1" -frames:v 1 $P/348.12-grak-blatt.png || true
+          ls -l $P
+      - uses: actions/upload-artifact@v4
+        if: contains(github.event.head_commit.message, '348.12 Grak Film')
+        with:
+          name: grakprobe
+          path: grakprobe
       - uses: actions/upload-artifact@v4
         if: contains(github.event.head_commit.message, '348.12f') || contains(github.event.head_commit.message, '387 r')
         with:

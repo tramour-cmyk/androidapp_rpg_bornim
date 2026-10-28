@@ -66,6 +66,9 @@ var shown := {}            # the last message played: hp, places, intents, queue
 var progress := {}
 ## 296.2: what the won fight brings ({xp, gold, items, level, levels, xp_total, lines}), empty otherwise
 var reward := {}
+## 399.2 (aufruf.gd): Kampfort und Tageszeit aus dem Aufruf; heute gibt es nur den Wald, die Tageszeit dämpft das Licht
+var ort := "wald"
+var tageszeit := "tag"
 var lang := 0
 
 # the rules' thread and its beats (ProbeRun)
@@ -173,6 +176,15 @@ func _setup_world() -> void:
 	sun.shadow_normal_bias = 1.2
 	sun.light_energy = 1.3
 	sun.light_color = Color(1.0, 0.94, 0.82)
+	if tageszeit == "abend":     # 399.2: nur Funktion, Feinschliff auf der Feintuning-Liste
+		sun.light_energy *= 0.75
+		sun.light_color = Color(1.0, 0.74, 0.52)
+		env.ambient_light_energy *= 0.8
+	elif tageszeit == "nacht":
+		sun.light_energy *= 0.3
+		sun.light_color = Color(0.62, 0.7, 1.0)
+		env.ambient_light_color = Color(0.4, 0.46, 0.62)
+		env.ambient_light_energy *= 0.5
 	add_child(sun)
 	_build_forest()
 	cam = Camera3D.new()
