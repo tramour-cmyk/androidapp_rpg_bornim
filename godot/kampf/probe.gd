@@ -7,6 +7,7 @@ const Mars = preload("res://regeln/mars.gd")
 const Wuerfel = preload("res://regeln/wuerfel.gd")
 const Kampfort = preload("res://kampf/kampfort.gd")
 const Figur = preload("res://kampf/figur.gd")
+const Aufruf = preload("res://kampf/aufruf.gd")
 const CLASSES := ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]
 const NAMES := {"FIGHTER": "Kämpfer", "WIZARD": "Magier", "ROGUE": "Schurke", "CLERIC": "Kleriker"}
 const FOES := {"WOLVES": "Wolfsrudel", "GRAK": "Grak", "SPIDER": "Spinne", "SCOUT": "Späher", "RATS": "Ratten", "BATS": "Fledermäuse", "GRIMM": "Grimmzahn", "GOBLINS": "Goblins", "SCOUTS": "Goblin-Späher", "SHAMANS": "Goblin-Schamanen", "KOBOLDS": "Kobolde"}
@@ -1126,59 +1127,10 @@ func _start(seed := -1) -> void:
 		Mars.hero_fighter("hero", "PARTY", Vector2i(Mars.FRONT, 0), hs.hero, int(hs.hp), hs.hero.second, skills),
 		Mars.hero_fighter("merc", "PARTY", Vector2i(Mars.BACK, 0) if merc_back else Vector2i(Mars.FRONT, 1), ms.hero, int(ms.hp), ms.hero.second, skills),
 	]
-	var foes := []
-	var lineup: Array = {
-		"WOLVES": [["wolf1", Mars.WOLF, Vector2i(0, 0)], ["wolf2", Mars.WOLF, Vector2i(0, 1)], ["wolf3", Mars.WOLF, Vector2i(1, 0)]],
-		"GRAK": [["grak", Mars.GRAK, Vector2i(0, 0)]],
-		"SPIDER": [["wolf1", Mars.WOLF, Vector2i(0, 0)], ["spider", Mars.SPIDER, Vector2i(1, 0)]],
-		"SCOUT": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["scout", Mars.SCOUT, Vector2i(1, 0)]],
-		# 348.9: drei Riesenratten im Aussehen, Regeln noch die des Wolfs (Ratte in MARS fehlt noch)
-		"RATS": [["wolf1", Mars.WOLF, Vector2i(0, 0)], ["wolf2", Mars.WOLF, Vector2i(0, 1)], ["wolf3", Mars.WOLF, Vector2i(1, 0)]],
-		# 348.7: drei Riesenfledermäuse im Aussehen (fledermaus.py), Regeln noch die des Wolfs (Fledermaus in MARS fehlt noch)
-		"BATS": [["wolf1", Mars.WOLF, Vector2i(0, 0)], ["wolf2", Mars.WOLF, Vector2i(0, 1)], ["wolf3", Mars.WOLF, Vector2i(1, 0)]],
-		# 348.7: Grimmzahn allein vorn, zwei Wölfe seiner Leibwache (Packs.kt guard) hinten an den Seiten; im Aussehen, Regeln
-		# noch die des Wolfs (vorn rechts stand ihm der hintere Wolf auf dem Rücken, hinten verschwand er hinter der Wache: Prüfer Runden 2, 3)
-		"GRIMM": [[Figur.GRIMM, Mars.WOLF, Vector2i(0, 0)], ["wolf1", Mars.WOLF, Vector2i(1, 0)], ["wolf2", Mars.WOLF, Vector2i(1, 1)]],
-		# 348.7: drei Goblins, je eines der Kits (goblin.py), mit den Regeln des Goblins
-		"GOBLINS": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["gob2", Mars.CALLED, Vector2i(0, 1)], ["gob3", Mars.CALLED, Vector2i(1, 0)]],
-		# 348.7: drei Goblin-Späher, je eines der Kits (goblin.py ART=goblin_archer), mit den Regeln des Spähers
-		"SCOUTS": [["gob1", Mars.SCOUT, Vector2i(0, 0)], ["gob2", Mars.SCOUT, Vector2i(0, 1)], ["gob3", Mars.SCOUT, Vector2i(1, 0)]],
-		# 348.7: drei Goblin-Schamanen im Aussehen (goblin.py ART=goblin_shaman), Regeln noch die des Goblins (Schamane in MARS fehlt)
-		"SHAMANS": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["gob2", Mars.CALLED, Vector2i(0, 1)], ["gob3", Mars.CALLED, Vector2i(1, 0)]],
-		# 348.7: drei Kobolde im Aussehen (goblin.py ART=kobold), Regeln noch die des Goblins (Kobold in MARS fehlt)
-		"KOBOLDS": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["gob2", Mars.CALLED, Vector2i(0, 1)], ["gob3", Mars.CALLED, Vector2i(1, 0)]],
-	}[foe]
-	Figur.ersatz_art = {"RATS": "giant_rat", "BATS": "giant_bat", "SHAMANS": Figur.SHAMAN, "KOBOLDS": Figur.KOBOLD}.get(foe, "")
-	# 348.12f eingebaut (Chef 28.10., 11:50: Kaufwolf abgenommen, Archiv 27.10., 21:51: „eigener entfällt“): Wölfe sind der gekaufte
-	# Wolf, sobald er gebaut beiliegt (godot-kampf.yml „Modelle bauen“); ERSATZ geht weiter vor
-	if foe in ["WOLVES", "GRIMM", "SPIDER"] and FileAccess.file_exists("res://kampf/daten/kaufwolf-info.json"):
-		Figur.ersatz_art = "kaufwolf"
 	if still_name != "":
 		party[0].hero = party[0].hero.duplicate()
 		party[0].hero.name = still_name
-	for e in lineup:
-		var m: Dictionary = monsters[e[1]]
-		if e[0] == Figur.GRIMM:     # Name aus den Regeln (Monsters.kt dire_wolf)
-			m = m.duplicate()
-			m.de = "Grimmzahn, der Leitwolf"
-			m.en = "Grimfang the Alpha"
-		elif foe == "KOBOLDS":     # Name aus den Regeln (Monsters.kt kobold)
-			m = m.duplicate()
-			m.de = "Kobold"
-			m.en = "Kobold"
-		elif foe == "RATS":     # Name aus den Regeln (Monsters.kt giant_rat; Helfer Lauf 126: Ratten hießen „Wolf“)
-			m = m.duplicate()
-			m.de = "Riesenratte"
-			m.en = "Giant Rat"
-		elif foe == "BATS":     # Name aus den Regeln (Monsters.kt giant_bat)
-			m = m.duplicate()
-			m.de = "Riesenfledermaus"
-			m.en = "Giant Bat"
-		elif foe == "SHAMANS":     # Name aus den Regeln (Monsters.kt goblin_shaman)
-			m = m.duplicate()
-			m.de = "Goblin-Schamane"
-			m.en = "Goblin Shaman"
-		foes.append(Mars.monster_fighter(e[0], e[2], m, dice.roll_expr(m.hp)))
+	var foes: Array = Aufruf.gegner(foe, monsters, dice)
 	visible = false
 	fight = Kampfort.new()
 	# 296.2: der Held der Probe steht am Anfang seiner Stufe; ohne LP kein Kampf

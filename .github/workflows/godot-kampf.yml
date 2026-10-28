@@ -60,6 +60,13 @@ jobs:
           grep -E "^(endet|FEHLER|Kampfort)|SCRIPT ERROR|^ +at: " lauf.log | head -80
           grep -q " 0 hängen" lauf.log
           ! grep -q "SCRIPT ERROR" lauf.log
+      - name: Kampfort aus einem Aufruf (399.2, wie aus dem Dorf)
+        run: |
+          cd godot
+          timeout 600 ~/godot/godot --headless --path . -s res://tests/aufruf_399.gd > aufruf.log 2>&1 || true
+          grep -E "^(endet|FEHLER|Aufruf|Heldwerte)|SCRIPT ERROR|^ +at: " aufruf.log | head -40
+          grep -q " 0 ohne richtiges Ende" aufruf.log
+          ! grep -q "SCRIPT ERROR" aufruf.log
 
   apk:
     needs: regeln
