@@ -128,7 +128,7 @@ for teil, name in [('kopf', KOPF), ('haar', HAAR)] + [('bart', b) for b in BART.
     qnetze += neu
 QT_.KOPIEN.clear()
 for o in qnetze:
-    if o.name.startswith(('Hair_', 'Eyebrows')): QT_.toene(o, lambda n: True, QT_.HAAR[FARBE])
+    if o.name.startswith(('Hair_', 'Eyebrows')) and FARBE in QT_.HAAR: QT_.toene(o, lambda n: True, QT_.HAAR[FARBE])   # FARBE=keine: Godot toent (held_klassen.py)
 # gekauften Kopf formen (Ruhelage, vor dem Anpassen der Kleidung: der Kragen sitzt am geformten Hals), Haut toenen
 import kopf as KO
 MERK = KO.forme(qnetze, KO.form_aus(FORM), qkoerper)

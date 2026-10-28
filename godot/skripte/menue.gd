@@ -166,7 +166,7 @@ func held() -> void:
 	var d := Heldwerte.lade()
 	var oben := HBoxContainer.new()
 	oben.add_theme_constant_override("separation", int(10 * DP))
-	oben.add_child(Drehteller.new())
+	oben.add_child(Drehteller.new(HeldFigur.wahl(hw, z)))
 	var wer := VBoxContainer.new()
 	wer.add_theme_constant_override("separation", 0)
 	wer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -592,7 +592,7 @@ func ausruestung() -> void:
 		for platz in seite: spalte.add_child(fach(platz))
 		puppe.add_child(spalte)
 		if seite[0] == "HEAD":
-			var t := Drehteller.new()
+			var t := Drehteller.new(HeldFigur.wahl(hw, z))
 			t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			puppe.add_child(t)
 	inhalt.add_child(puppe)

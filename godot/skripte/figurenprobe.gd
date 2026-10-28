@@ -116,6 +116,11 @@ func _ready() -> void:
 	DirAccess.make_dir_recursive_absolute(aus)
 	spiel.ui.visible = false
 	if spiel.leute: spiel.leute.visible = false
+	if teil == "klassen":   # 376.1 Held je Klasse (heldfigur.gd): ohne UAL-Datei und Probefiguren
+		await klassen()
+		FileAccess.open(aus + "/probe.txt", FileAccess.WRITE).store_string("\n".join(protokoll) + "\n")
+		get_tree().quit()
+		return
 	lade_ual()
 	var ks: Array = REIHE + TRACHT + KOEPFE
 	if teil == "koepfe":   # Kopfblatt: alle q_k*.glb der Quelle (koepfe_lauf.sh)
@@ -703,3 +708,112 @@ func zackenzahl(img: Image, hals: Vector2) -> Array:
 		var d := nb[nb.size() / 2] - oben[i]
 		if d > 2: spitzen += d
 	return [mehr, spitzen, rot]
+
+# 376.1 (Chef 28.10., 22:0x: vier Klassen auf dem guten Modell, Einfluss in der Erschaffung, Grundausruestung sichtbar; „ich will
+# Bilder sehen“): die vier Klassen mit ihrer Grundausruestung (heldfigur.gd, wie im Spiel) auf dem Dorfplatz von vorn, von hinten
+# (Waffe, Schild auf dem Ruecken) und in der Spielansicht; der Kaempfer in sechs Aussehen (Kopf nah); die Erschaffung mit „Aussehen“.
+const KLASSEN_REIHE := ["FIGHTER", "CLERIC", "ROGUE", "WIZARD"]
+# Lauf 2 (Pruefer Lauf 1: „wie Klone“, alle mit Vorgabe): je Klasse ein anderes Aussehen
+const KLASSEN_AUSSEHEN := [
+	{"form": "", "frisur": "Hair_SimpleParted", "bart": "", "haarfarbe": 0, "haut": 0},
+	{"form": "rund", "frisur": "Hair_Balding", "bart": "Hair_Beard", "haarfarbe": 2, "haut": 2},
+	{"form": "schmal", "frisur": "Hair_Ponytail", "bart": "", "haarfarbe": 3, "haut": 1},
+	{"form": "hager", "frisur": "Hair_Buzzed", "bart": "Hair_Moustache", "haarfarbe": 1, "haut": 3},
+]
+# Kopfblatt: erste Reihe die fuenf Gesichter mit gleicher Frisur (Pruefer Lauf 1: Formen sahen gleich aus), zweite Reihe Frisur,
+# Bart, Farben
+const AUSSEHEN_PROBE := [
+	{"form": "", "frisur": "Hair_Buzzed", "bart": "", "haarfarbe": 0, "haut": 0},
+	{"form": "schmal", "frisur": "Hair_Buzzed", "bart": "", "haarfarbe": 0, "haut": 0},
+	{"form": "rund", "frisur": "Hair_Buzzed", "bart": "", "haarfarbe": 0, "haut": 0},
+	{"form": "kantig", "frisur": "Hair_Buzzed", "bart": "", "haarfarbe": 0, "haut": 0},
+	{"form": "hager", "frisur": "Hair_Buzzed", "bart": "", "haarfarbe": 0, "haut": 0},
+	{"form": "rund", "frisur": "Hair_SlickBack", "bart": "Hair_Beard", "haarfarbe": 2, "haut": 3},
+	{"form": "kantig", "frisur": "Hair_Dreads", "bart": "Hair_MuttonChops", "haarfarbe": 3, "haut": 1},
+	{"form": "schmal", "frisur": "Hair_Mohawk", "bart": "", "haarfarbe": 1, "haut": 0},
+	{"form": "hager", "frisur": "Hair_Balding", "bart": "Hair_Moustache", "haarfarbe": 0, "haut": 2},
+	{"form": "", "frisur": "", "bart": "Hair_Beard", "haarfarbe": 3, "haut": 1},
+]
+func klasse_figur(kennung: String, w: Dictionary) -> void:
+	var ms := []
+	var m := HeldFigur.baue(w, ms)
+	if m == null: protokoll.append("FEHLT Klasse " + kennung); return
+	var w3 := Node3D.new()
+	w3.name = kennung
+	w3.add_child(m)
+	spiel.add_child(w3)
+	for x in ms: (x as ShaderMaterial).set_shader_parameter("fill", 0.42)
+	mats[kennung] = ms
+	figuren[kennung] = w3
+	var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
+	ap.play("Stehen")
+	protokoll.append("KLASSE %s %s Gehen %.2f m/s" % [kennung, w.get("aussehen", {}), m.get_meta("gehen_m_je_s")])
+
+func klassen() -> void:
+	for i in KLASSEN_REIHE.size():
+		var k: String = KLASSEN_REIHE[i]
+		var hw := Heldwerte.erschaffe("Probe", "HUMAN", k)
+		klasse_figur("kl_" + k, {"klasse": k, "volk": "HUMAN", "aussehen": KLASSEN_AUSSEHEN[i], "ausruestung": hw.ausruestung})
+	for i in AUSSEHEN_PROBE.size():
+		var hw := Heldwerte.erschaffe("Probe", "HUMAN", "FIGHTER")
+		klasse_figur("ak_%d" % i, {"klasse": "FIGHTER", "volk": "HUMAN", "aussehen": AUSSEHEN_PROBE[i], "ausruestung": hw.ausruestung})
+	await get_tree().create_timer(1.0).timeout
+	var kam: Kamera = spiel.kamera
+	var li := kam.global_basis.x; li.y = 0
+	var mitte := platz() - li.normalized() * 0.7   # Lauf 1: Dach verdeckte den Magier rechts
+	var z := zielpunkt(mitte)
+	kam.ziel = z
+	var ks: Array = KLASSEN_REIHE.map(func(k): return "kl_" + k)
+	# Spielansicht (Grundzoom), dann nah von vorn und von hinten
+	stelle(ks, 0.8, mitte)
+	zoom(Kamera.FERN)
+	kam.springe()
+	await get_tree().create_timer(0.8).timeout
+	await knips(aus + "/klassen_spiel.png")
+	zoom(Kamera.NAH)
+	for seite in ["vorn", "hinten"]:
+		stelle(ks, 0.8, mitte)   # Lauf 1: bei 1,0 m Kaempfer und Magierstab am Rand angeschnitten
+		if seite == "hinten":
+			for k in ks: figuren[k].rotation.y += PI
+		kam.springe()
+		await get_tree().create_timer(0.8).timeout
+		await RenderingServer.frame_post_draw
+		var img := spiel.get_viewport().get_texture().get_image()
+		var fuss: Vector2 = kam.unproject_position(mitte)
+		var kopf: Vector2 = kam.unproject_position(mitte + Vector3(0, 2.0, 0))
+		var o := clampi(int(kopf.y) - 60, 0, img.get_height() - 10)
+		img.get_region(Rect2i(0, o, img.get_width(), clampi(int(fuss.y) + 80 - o, 10, img.get_height() - o))).save_png(aus + "/klassen_%s.png" % seite)
+		protokoll.append("BILD klassen_%s" % seite)
+	# Aussehen: sechs Koepfe des Kaempfers halb von vorn auf Gesichtshoehe (wie koepfe())
+	var aks: Array = []
+	for i in AUSSEHEN_PROBE.size(): aks.append("ak_%d" % i)
+	kam.nah = false
+	kam.zoom = 0.62
+	kam.neigung = -8.0
+	for k in aks:
+		stelle([k], 0.0, mitte)
+		figuren[k].rotation.y -= deg_to_rad(20.0)
+		await get_tree().create_timer(0.5).timeout
+		var kp := knochen_pos(k, "Head") + Vector3(0, 0.08, 0)
+		z.position = kp
+		kam.springe()
+		await RenderingServer.frame_post_draw
+		var img := spiel.get_viewport().get_texture().get_image()
+		var sp: Vector2 = kam.unproject_position(kp)
+		img.get_region(Rect2i(int(sp.x) - 400, int(sp.y) - 470, 800, 940)).save_png(aus + "/aussehen_%s.png" % k)
+		protokoll.append("BILD aussehen_%s" % k)
+	kam.neigung = -30.0
+	for k in figuren: figuren[k].visible = false
+	# Erschaffung wie im Spiel: oben der Held im Drehteller, dann bis „Aussehen“ gerollt
+	var e := Erschaffung.new()
+	spiel.get_tree().root.add_child(e)
+	await get_tree().create_timer(1.5).timeout
+	await knips(aus + "/erschaffung_oben.png")
+	e.klasse = "ROGUE"; e.gekauft = Heldwerte.vorschlag("ROGUE"); e.aussehen = KLASSEN_AUSSEHEN[2].duplicate(); e.baue()
+	await get_tree().create_timer(1.5).timeout
+	var ziel_y := 0
+	for c in e.inhalt.get_children():
+		if c is Label and (c as Label).text == "AUSSEHEN": ziel_y = int(c.position.y)
+	e.rolle.scroll_vertical = ziel_y
+	await get_tree().create_timer(0.8).timeout
+	await knips(aus + "/erschaffung_aussehen.png")

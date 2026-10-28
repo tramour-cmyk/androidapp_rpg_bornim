@@ -30,14 +30,21 @@ var gestossen := Vector2i(-1, -1)
 var stoss_zeit := -9.0
 var leute: Array = []                  # Leute der Karte (spiel.gd): durch sie geht er nicht
 
-func _init(k: Karte) -> void:
+var wahl := {}                         # 376.1 Klasse, Aussehen, Ausruestung (HeldFigur.wahl); leer: der bisherige Held
+
+func _init(k: Karte, w: Dictionary = {}) -> void:
 	karte = k
+	wahl = w
 	name = "Held"
 
 func _ready() -> void:
-	modell = Gebiet.lade_glb("res://daten/held.bin")
+	# 376.1: je Klasse der Held auf dem Kaufkoerper (heldfigur.gd), sonst der bisherige (held.bin, rig.py)
+	modell = HeldFigur.baue(wahl, mats) if not wahl.is_empty() else null
+	var kauf := modell != null
+	if not kauf:
+		modell = Gebiet.lade_glb("res://daten/held.bin")
+		Gebiet.male(modell, null, 2, mats)
 	add_child(modell)
-	Gebiet.male(modell, null, 2, mats)
 	for m in mats: (m as ShaderMaterial).set_shader_parameter("metall", 1.0)   # 348.6 Glanz an Kette und Helm (toon.gdshader)
 	if "--teilfarbe" in OS.get_cmdline_user_args():   # nur zum Messen: Teile in Falschfarben (toon.gdshader teil, rig.py TEILMASKE)
 		for m in mats: (m as ShaderMaterial).set_shader_parameter("teil", 1.0)
@@ -45,15 +52,16 @@ func _ready() -> void:
 	# Kette 0,29, Gesicht 0,22: das Licht sass 9 cm ueber der Flamme seitlich am Kopf, traf die Brust von oben, das Gesicht streifend):
 	# Metall streut Lampenlicht wenig (kette_lampe), nachts weniger Umgebung (kette_umgebung in nacht()); Licht vor der Flamme (richte_fackel)
 	for m in mats: (m as ShaderMaterial).set_shader_parameter("kette_lampe", 0.35)
-	var info: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://daten/held-info.json"))
+	var info: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://daten/held-info.json")) if not kauf else \
+		{"gehen_m_je_s": modell.get_meta("gehen_m_je_s"), "rennen_m_je_s": modell.get_meta("rennen_m_je_s"), "faust_L": modell.get_meta("faust_L")}
 	gang = float(info.get("gehen_m_je_s", gang))
 	renn = float(info.get("rennen_m_je_s", 0.0))
 	# 348.6 CC0-Geruest (348.12): Knochen der Faust und Griff stehen in held-info.json (geruest.py), sonst das alte Skelett
 	var fa: Dictionary = info.get("faust_L", {})
 	if fa.has("knochen"):
 		faust_knochen = String(fa["knochen"])
-		faust_griff = Vector3(fa["griff"][0], fa["griff"][1], fa["griff"][2])
-		faust_achse = Vector3(fa["achse"][0], fa["achse"][1], fa["achse"][2])
+		faust_griff = fa["griff"] if fa["griff"] is Vector3 else Vector3(fa["griff"][0], fa["griff"][1], fa["griff"][2])
+		faust_achse = fa["achse"] if fa["achse"] is Vector3 else Vector3(fa["achse"][0], fa["achse"][1], fa["achse"][2])
 	anim = Gebiet.finde(modell, "AnimationPlayer") as AnimationPlayer
 	if anim: Gebiet.bewegungen(anim, ["Gehen", "Stehen", "Rennen", "Gehen_Fackel", "Stehen_Fackel", "Rennen_Fackel", "Stehen_2", "Stehen_3", "Stehen_2_Fackel", "Stehen_3_Fackel"])
 	if anim: anim.play("Stehen")

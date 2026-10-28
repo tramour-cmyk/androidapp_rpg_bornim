@@ -23,6 +23,8 @@ uniform float kette_lampe = 1.0;   // 348.6 Kette nachts (held.gd): Metall unter
 uniform float kette_umgebung = 1.0;   // dazu Anteil der Umgebung an der Kette (nachts 0,7)
 uniform float rueckseite = 0.0;    // 376.1 Halszacken (Helfer 22:3x: Innenseite des Kettenkragens): 1 Rueckseiten magenta (Messen), 2 Rueckseiten im Schatten ohne fill
 uniform float kette_aus = 0.0;     // nur zum Messen (376.1 Halszacken): Kette (Eckfarbe alpha 0,25-0,7) so viele Meter laengs der Normale hinaus
+uniform vec3 toenung = vec3(1.0);   // 376.1 Held: Haut und Haar getoent (heldfigur.gd): Zielton linear
+uniform float toen_hell = 0.0;     // > 0: Helligkeit des Bildes am Zielton (Bildhelligkeit / toen_hell), sonst Faktor toenung
 uniform float teil = 0.0;          // nur zum Messen (held.gd --teilfarbe): Eisen gruen, Kette rot, Haut (rig.py TEILMASKE) blau, Rest schwarz
 varying vec3 wpos;
 varying float v_eisen;
@@ -64,6 +66,8 @@ void fragment() {
 	if (loch > 0.5 && !IN_SHADOW_PASS) discard;
 #endif
 	ALBEDO = texture(tex, UV).rgb * COLOR.rgb;
+	if (toen_hell > 0.0) ALBEDO = toenung * dot(ALBEDO, vec3(0.2126, 0.7152, 0.0722)) / toen_hell;   // 376.1: Zeichnung des Bildes, Farbe des Tons
+	else ALBEDO *= toenung;
 	if (kontur > 0.0) {
 		float rim = 1.0 - abs(dot(NORMAL, VIEW));
 		float sch = 1.0 - smoothstep(-0.2, 0.35, dot(normalize((INV_VIEW_MATRIX * vec4(NORMAL, 0.0)).xyz), licht_dir));

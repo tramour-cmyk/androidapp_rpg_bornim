@@ -107,6 +107,7 @@ func starte(w: Dictionary) -> void:
 		return
 	zustand = Zustand.new()   # nichts vom vorigen Spiel: Flaggen, Gold, Taschen, Ort
 	zustand.name = String(w.get("name", zustand.name))
+	zustand.aussehen = (w.get("aussehen", {}) as Dictionary).duplicate()   # 376.1
 	werte = Heldwerte.erschaffe(zustand.name, String(w.get("volk", "HUMAN")), String(w.get("klasse", "FIGHTER")), w.get("werte", {}), zustand.neue_uid)   # 399.1 Punktekauf
 	# 399.1 wie alt (69, GameViewModel.newGame): einmal die Ankunft bei Nacht, dann erwacht der Held neben dem Bett der Schenke
 	# (Story.START), wo Rowena ihn weckt; vorher begann das neue Spiel am Brunnen
@@ -127,7 +128,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	licht.stelle(licht.nacht)
 	gebiet = Gebiet.new(karte)
 	add_child(gebiet)
-	held = Held.new(karte)
+	held = Held.new(karte, HeldFigur.wahl(werte, zustand))   # 376.1 Klasse, Aussehen, Ausruestung
 	add_child(held)
 	held.setze(t, blick)
 	fackel_neu()   # 399.1 Light.burns

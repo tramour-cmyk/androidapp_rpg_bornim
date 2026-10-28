@@ -2,12 +2,16 @@ class_name Drehteller
 extends SubViewportContainer
 # 399.1 HeroTurntable wie alt (HeroDollUi.kt): der Held (daten/held.bin) dreht sich langsam, eine Drehung in etwa sechs Sekunden;
 # Tippen dreht ihn eine Viertelrunde weiter. Fuer Erschaffung und Menue (Held). Ohne Modell (Probe am Rechner) bleibt der Platz leer.
+# 376.1: der Held seiner Klasse mit Aussehen und Ausruestung (HeldFigur.wahl), in der Erschaffung bei jeder Wahl neu (zeige)
 
 const DP := AktionsKnopf.DP
 const HELD := "res://daten/held.bin"
 var teller: Node3D
+var sonne: DirectionalLight3D
+var wahl := {}
 
-func _init() -> void:
+func _init(w: Dictionary = {}) -> void:
+	wahl = w
 	stretch = true
 	custom_minimum_size = Vector2(150, 230) * 0.62 * DP
 	size_flags_vertical = Control.SIZE_SHRINK_CENTER
@@ -22,7 +26,7 @@ func _init() -> void:
 	welt.environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	welt.environment.ambient_light_color = Color(0.55, 0.5, 0.45)
 	v.add_child(welt)
-	var sonne := DirectionalLight3D.new()   # warm von vorn oben links wie der Lichtkegel des Hauptmenues
+	sonne = DirectionalLight3D.new()   # warm von vorn oben links wie der Lichtkegel des Hauptmenues
 	sonne.light_color = Color(1.0, 0.92, 0.8)
 	sonne.rotation_degrees = Vector3(-40, -30, 0)
 	v.add_child(sonne)
@@ -33,11 +37,19 @@ func _init() -> void:
 	v.add_child(kam)
 	teller = Node3D.new()
 	v.add_child(teller)
-	var modell := Gebiet.lade_glb(HELD)
-	if modell == null: return
-	teller.add_child(modell)
+	zeige(wahl)
+
+func zeige(w: Dictionary) -> void:
+	wahl = w
+	if teller == null: return
+	for c in teller.get_children(): c.free()
 	var mats := []
-	Gebiet.male(modell, null, 2, mats)
+	var modell: Node3D = HeldFigur.baue(w, mats) if not w.is_empty() else null
+	if modell == null:
+		modell = Gebiet.lade_glb(HELD)
+		if modell == null: return
+		Gebiet.male(modell, null, 2, mats)
+	teller.add_child(modell)
 	for m in mats:
 		(m as ShaderMaterial).set_shader_parameter("metall", 1.0)
 		(m as ShaderMaterial).set_shader_parameter("licht_dir", Basis.from_euler(sonne.rotation).z)   # zur Sonne wie Licht.richtung

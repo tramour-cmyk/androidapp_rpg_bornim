@@ -167,7 +167,10 @@ object HeroExport {
         )))
         // 399.1 (Erschaffung wie alt, CreateScreen.kt): Beschreibung und Merkmal der Voelker, Beschreibung der Klassen und Faehigkeiten,
         // Namen der Attribute und Ruestungsarten
-        put("voelker", j(Race.entries.associate { it.name to mapOf("name" to it.title, "bonus" to it.bonus, "text" to it.desc, "merkmal" to it.trait) }))
+        // 376.1 (Aussehen wie alt, CreateScreen.kt ToneChoices): Haut- und Haarfarben je Volk (Appearance), Farbe als RGB-Hex
+        val toene = { l: List<Appearance.Tone> -> l.map { mapOf("name" to it.title, "rgb" to "%06x".format(it.rgb and 0xFFFFFF)) } }
+        put("voelker", j(Race.entries.associate { it.name to mapOf("name" to it.title, "bonus" to it.bonus, "text" to it.desc, "merkmal" to it.trait,
+            "haut" to toene(Appearance.skins(it)), "haar" to toene(Appearance.hairs(it))) }))
         put("attribute", j(Ability.entries.associate { it.name to mapOf("kurz" to it.short, "name" to it.full) }))
         put("ruestungsarten", j(ArmorCategory.entries.associate { it.name to it.title }))
         // 399.1 (Leiste wie HudChip): Kurzname und Farbe der Zustaende (Status)

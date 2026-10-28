@@ -5,8 +5,9 @@ extends Control
 # dreht, daneben Name, Volk, Klasse, TP, RK, ZP und die sechs Werte; darunter rollend Name, Volk mit Beschreibung, Bonus und Merkmal,
 # Klasse mit Beschreibung, Trefferwuerfel, Hauptattribut, Ruestung und den Faehigkeiten der Stufe 1, dann der Punktekauf mit
 # Vorschlag; unten fest Zurueck und Abenteuer beginnen. Masse in dp/sp wie alt (Theme.kt Txt, VeilHead, Panel, PixelButton).
-# Noch nicht wie alt: Aussehen (Geschlecht, Statur, Haut, Haar), bis der Held Varianten hat.
-# Ende: Signal fertig({"name", "volk", "klasse", "werte", "platz"}) oder zurueck.
+# 376.1 Aussehen wie alt nach dem Volk: Haut und Haar als Farbtoene des Volks (Appearance.kt), dazu Gesicht, Frisur, Bart des
+# Kaufkopfs (HeldFigur); der Held im Drehteller zeigt seine Klasse mit Grundausruestung. Noch nicht wie alt: Geschlecht, Statur.
+# Ende: Signal fertig({"name", "volk", "klasse", "werte", "aussehen", "platz"}) oder zurueck.
 
 signal fertig(wahl: Dictionary)
 signal zurueck
@@ -23,6 +24,9 @@ var gekauft := {}                     # Punktekauf vor dem Volksbonus (Hero.sugg
 var rolle: ScrollContainer
 var inhalt: VBoxContainer
 var kopf: VBoxContainer               # Zusammenfassung neben dem Helden
+var aussehen := HeldFigur.VORGABE.duplicate()   # 376.1
+var teller: Drehteller
+var teller_wahl := ""                 # zuletzt gezeigte Wahl (Punktekauf baut die Seite neu, den Helden nicht)
 
 func _init() -> void:
 	name = "Erschaffung"
@@ -87,7 +91,7 @@ func baue() -> void:
 	inhalt.add_child(kopfzeile(Sprache.u("yourName")))
 	inhalt.add_child(namensfeld())
 	inhalt.add_child(kopfzeile(Sprache.u("chooseRace")))
-	inhalt.add_child(wahl(VOELKER, volk, func(v): return Sprache.t(d["voelker"][v]["name"]), func(v): volk = v; baue()))
+	inhalt.add_child(wahl(VOELKER, volk, func(v): return Sprache.t(d["voelker"][v]["name"]), func(v): volk = v; aussehen["haut"] = 0; aussehen["haarfarbe"] = 0; baue()))
 	var vk := VBoxContainer.new()
 	vk.add_theme_constant_override("separation", 0)
 	var vd: Dictionary = d["voelker"][volk]
@@ -99,6 +103,7 @@ func baue() -> void:
 	vk.add_child(txt("  ".join(PackedStringArray(bon)), 15))
 	vk.add_child(txt(Sprache.t(vd["merkmal"]), 15, Stil.GOLD))
 	inhalt.add_child(kasten(vk))
+	if HeldFigur.da(klasse): aussehen_wahl()
 	inhalt.add_child(kopfzeile(Sprache.u("chooseClass")))
 	inhalt.add_child(wahl(KLASSEN, klasse, func(k): return Sprache.t(d["klassen"][k]["name"]), func(k): klasse = k; gekauft = Heldwerte.vorschlag(k); baue()))
 	var kk := VBoxContainer.new()
@@ -119,6 +124,7 @@ func baue() -> void:
 		kk.add_child(txt(Sprache.t(fd["text"]), 14, Stil.DIM))
 	inhalt.add_child(kasten(kk))
 	punktekauf()
+	zeige_held()
 	# die Rolle bleibt, wo sie war (sonst springt sie bei jeder Wahl nach oben)
 	await get_tree().process_frame
 	rolle.scroll_vertical = y
@@ -130,7 +136,7 @@ func beginne(p: int = 0) -> void:
 		platzwahl()
 		return
 	fertig.emit({"name": name_.strip_edges() if name_.strip_edges() != "" else Sprache.u("defaultName"),
-		"volk": volk, "klasse": klasse, "werte": gekauft.duplicate(), "platz": p})
+		"volk": volk, "klasse": klasse, "werte": gekauft.duplicate(), "aussehen": aussehen.duplicate(), "platz": p})
 
 # SlotChooser: alle Plaetze belegt; der gewaehlte Spielstand geht verloren
 func platzwahl() -> void:
@@ -273,9 +279,66 @@ func punktekauf() -> void:
 		p.add_child(r)
 	inhalt.add_child(kasten(p))
 
-# HeroTurntable (drehteller.gd)
+# HeroTurntable (drehteller.gd); 376.1 mit Klasse, Aussehen und Grundausruestung
 func vorschau() -> Control:
-	return Drehteller.new()
+	teller = Drehteller.new(wahl_jetzt())
+	teller_wahl = str(wahl_jetzt())
+	return teller
+
+func wahl_jetzt() -> Dictionary:
+	return {"klasse": klasse, "volk": volk, "aussehen": aussehen.duplicate(), "ausruestung": held().ausruestung}
+
+func zeige_held() -> void:
+	var w := wahl_jetzt()
+	if teller == null or str(w) == teller_wahl: return
+	teller_wahl = str(w)
+	teller.zeige(w)
+
+# 376.1 Aussehen (CreateScreen.kt „Aussehen“): Haut und Haar als Farbfelder des Volks wie alt (ToneChoices), Gesicht, Frisur, Bart als Knoepfe
+func aussehen_wahl() -> void:
+	var de := Sprache.aktiv() == "de"
+	inhalt.add_child(kopfzeile("Aussehen" if de else "Appearance"))
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", int(8 * DP))
+	v.add_child(toene("Haut" if de else "Skin", HeldFigur.toene_liste(volk, "haut"), "haut"))
+	v.add_child(toene("Haar" if de else "Hair", HeldFigur.toene_liste(volk, "haar"), "haarfarbe"))
+	inhalt.add_child(v)
+	for teil in [["form", HeldFigur.formen()], ["frisur", HeldFigur.frisuren()], ["bart", HeldFigur.baerte()]]:
+		inhalt.add_child(txt(HeldFigur.wort(teil[0]), 14))
+		inhalt.add_child(wahl(teil[1], String(aussehen.get(teil[0], "")), func(x): return HeldFigur.wort(teil[0] + ":" + x),
+			func(x): aussehen[teil[0]] = x; baue()))
+
+# ToneChoices: Beschriftung, dann je Ton ein Feld mit Namen darunter; das gewaehlte mit Goldrand
+func toene(wort: String, liste: Array, schluessel: String) -> Control:
+	var r := HBoxContainer.new()
+	r.add_theme_constant_override("separation", int(6 * DP))
+	var l := txt(wort, 14)
+	l.size_flags_horizontal = Control.SIZE_FILL
+	l.custom_minimum_size.x = 52 * DP
+	r.add_child(l)
+	var gewaehlt := clampi(int(aussehen.get(schluessel, 0)), 0, maxi(0, liste.size() - 1))
+	for i in liste.size():
+		var t: Dictionary = liste[i]
+		var sp := VBoxContainer.new()
+		sp.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		sp.add_theme_constant_override("separation", int(2 * DP))
+		sp.alignment = BoxContainer.ALIGNMENT_CENTER
+		var feld := Panel.new()
+		feld.custom_minimum_size = Vector2(34, 34) * DP
+		feld.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		var sb := Stil.kasten(Color.html(String(t["rgb"])), Stil.GOLD if i == gewaehlt else Stil.RIM, 3.0 if i == gewaehlt else 1.0)
+		sb.set_corner_radius_all(int(6 * DP))
+		feld.add_theme_stylebox_override("panel", sb)
+		sp.add_child(feld)
+		var n := Stil.zeile(Sprache.t(t["name"]), 11, Stil.GOLD if i == gewaehlt else Stil.DIM, 0.0)
+		n.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		n.clip_text = true
+		sp.add_child(n)
+		var nr := i
+		sp.mouse_filter = Control.MOUSE_FILTER_STOP
+		sp.gui_input.connect(func(e): if e is InputEventMouseButton and e.pressed: aussehen[schluessel] = nr; baue())
+		r.add_child(sp)
+	return r
 
 # ---------------------------------------------------------------- Bausteine wie Theme.kt im schwarzen Look
 
