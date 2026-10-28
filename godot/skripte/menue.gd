@@ -11,10 +11,14 @@ extends Control
 #   Nebenhand, wegwerfen (mit Rueckfrage und Haendlerpreis).
 # - Ausruestung (GearTab): Plaetze links und rechts des Helden (PaperDoll), Antippen legt ab, wechselt oder waehlt aus der Tasche,
 #   was passt (die Nebenhand nimmt auch Einhandwaffen); darunter die Kampfwerte.
-# Noch nicht wie alt: Karte, Chronik, System; Bilder der Dinge; Vergleich mit dem Getragenen (GearCompare); Fackel im Dunkeln;
+# - System (SystemSigns), soweit es die Welt schon kann: Speichern, Sprache, Hauptmenue; Siege.
+# Noch nicht wie alt: Karte, Chronik; im System Kampf, Bedienung, Klang und Licht, Version, Geraeteangaben; Bilder der Dinge; Vergleich mit dem Getragenen (GearCompare); Fackel im Dunkeln;
 # Erklaerung der Attribute beim Antippen (Perks).
 
 signal zu
+signal speichern                   # 399.1 System: die Welt haelt den Stand fest (spiel.gd speichere)
+signal sprache                     # die Welt wechselt die Sprache (spiel.gd sprache_wechseln)
+signal hauptmenue                  # speichern und zum Hauptmenue (spiel.gd)
 
 const DP := AktionsKnopf.DP
 const BLAU := Color("82aaf2")      # gearBlue auf Schwarz (Veil.of rare)
@@ -81,20 +85,21 @@ func baue() -> void:
 	for c in leiste.get_children():
 		leiste.remove_child(c)
 		c.queue_free()
-	for r in ["held", "tasche", "ausruestung"]:
-		var stern := " ★" if r == "held" and hw.offen > 0 else ""
-		leiste.add_child(Erschaffung.knopf(Sprache.u(WORT[r]) + stern, func(): reiter = r; geplant.clear(); baue(), r == reiter))
+	# 399.1: Reiter als Zeichen wie alt (TabSign, 60j); Woerter passten zu viert nicht in die Breite
+	for r in ["held", "tasche", "ausruestung", "system"]:
+		leiste.add_child(Reiterzeichen.knopf(r, Sprache.u(WORT[r]), func(): reiter = r; geplant.clear(); baue(), r == reiter, r == "held" and hw.offen > 0))
 	for c in inhalt.get_children():
 		inhalt.remove_child(c)
 		c.queue_free()
 	match reiter:
 		"held": held()
 		"tasche": tasche()
-		_: ausruestung()
+		"ausruestung": ausruestung()
+		_: system()
 	await get_tree().process_frame
 	rolle.scroll_vertical = y
 
-const WORT := {"held": "hero", "tasche": "bag", "ausruestung": "equipment"}
+const WORT := {"held": "hero", "tasche": "bag", "ausruestung": "equipment", "system": "system"}
 
 func meldung(t: String) -> void:
 	if t == "": return
@@ -532,17 +537,17 @@ func fach(platz: String) -> Control:
 	var g = hw.waffe() if zwei else hw.ding(platz)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", 0)
-	v.custom_minimum_size.x = 86 * DP
+	v.custom_minimum_size.x = 96 * DP
 	var rahmen := PanelContainer.new()
 	rahmen.add_theme_stylebox_override("panel", Stil.kasten(Color.BLACK, Stil.LINE if g == null else farbe_von(g), 1.0))
-	rahmen.custom_minimum_size = Vector2(86, 56) * DP
+	rahmen.custom_minimum_size = Vector2(96, 56) * DP
 	rahmen.size_flags_horizontal = Control.SIZE_FILL
 	rahmen.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	# Helfer an der Probe 17:11: lange Namen („Arkanes Heiligensymbol des Gelehrten“) stiessen an den Rahmen und brachen ab:
-	# 86 dp breit, 13 sp (DESIGN-STIL „Oberfläche“: mindestens 13 sp), bis drei Zeilen, sonst mit Auslassung
+	# 96 dp breit, 13 sp (DESIGN-STIL „Oberfläche“: mindestens 13 sp), bis drei Zeilen, sonst mit Auslassung
 	var n := Stil.zeile(Beute.name(g) if g != null else "–", 13.0, farbe_von(g) if g != null else Stil.DIM, 0.0)
-	n.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	n.custom_minimum_size.x = 80 * DP
+	n.autowrap_mode = TextServer.AUTOWRAP_WORD   # Helfer 17:24: WORD_SMART trennte „Heiligensymb/ol“ mitten im Wort
+	n.custom_minimum_size.x = 90 * DP
 	n.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	n.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	n.max_lines_visible = 3
@@ -564,3 +569,18 @@ func tippe_fach(platz: String) -> void:
 	if not passend(platz).is_empty(): k.append(["Wechseln" if de else "Swap", func(): waehle(platz)])
 	k.append([Sprache.u("close"), func(): pass])
 	dialog(Beute.name(g), farbe_von(g), stueck_zeilen(g), k)
+
+# ---------------------------------------------------------------- System (SystemSigns), Teil „Spiel“
+func system() -> void:
+	var de := Sprache.aktiv() == "de"
+	zeile(("Spiel" if de else "Game").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))
+	luecke(6)
+	for k in [["Speichern" if de else "Save", "Hält deinen Stand jetzt fest. Beim Verlassen des Spiels und auf dem Weg ins Hauptmenü speichert es ohnehin." if de
+			else "Saves your progress now. The game also saves when you leave it or go to the main menu.", func(): speichern.emit(); meldung(Sprache.u("saved"))],
+		[("Sprache" if de else "Language") + " · " + Sprache.aktiv().to_upper(), "Wechselt zwischen Deutsch und Englisch." if de else "Switches between German and English.", func(): sprache.emit(); baue()],
+		["Hauptmenü" if de else "Main menu", "Speichert und kehrt zum Hauptmenü zurück." if de else "Saves and returns to the main menu.", func(): hauptmenue.emit()]]:
+		inhalt.add_child(Erschaffung.knopf(String(k[0]), k[2]))
+		zeile(String(k[1]), 13, Stil.DIM)
+		luecke(8)
+	luecke(8)
+	zeile(("Siege: " if de else "Victories: ") + str(z.siege), 13, Stil.DIM)

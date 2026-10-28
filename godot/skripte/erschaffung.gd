@@ -312,7 +312,7 @@ static func kasten(innen: Control) -> PanelContainer:
 # PixelButton auf Schwarz: 48 dp, Versalien 13 sp gesperrt 1,2 sp; gewaehlt Veil.raised mit 1,5 dp Veil.bright; gesperrt blass
 static func knopf(t: String, was: Callable, gewaehlt := false) -> Button:
 	var b := Button.new()
-	b.text = t.to_upper()
+	b.text = t.to_upper().replace("ß", "SS")   # Helfer 17:24: „SCHLIEßEN“; Compose schrieb „SCHLIESSEN“
 	b.custom_minimum_size = Vector2(0, 48 * DP)
 	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	b.clip_text = true

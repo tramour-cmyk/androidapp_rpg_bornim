@@ -97,6 +97,19 @@ func _lauf() -> void:
 	m.lege_ab(platz)
 	if hw.ding(platz) != null or m.im_beutel(g) < 0: fehler += 1; print("FEHLER ablegen")
 	if m.passend(platz).is_empty(): fehler += 1; print("FEHLER passend leer fuer ", platz)
+	# System: Speichern meldet sich, die Knoepfe senden
+	var gesendet := []
+	m.speichern.connect(func(): gesendet.append("speichern"))
+	m.hauptmenue.connect(func(): gesendet.append("hauptmenue"))
+	m.reiter = "system"; m.baue()
+	await process_frame; await process_frame
+	var sk: Array = m.inhalt.find_children("*", "Button", true, false)
+	print("System: ", texte(m).substr(0, 300))
+	if sk.size() != 3: fehler += 1; print("FEHLER System: %d Knöpfe" % sk.size())
+	else:
+		sk[0].pressed.emit(); sk[2].pressed.emit()
+		if gesendet != ["speichern", "hauptmenue"] or not m.meldung_.visible: fehler += 1; print("FEHLER System sendet ", gesendet)
+	if m.leiste.get_child_count() != 4: fehler += 1; print("FEHLER %d Reiter" % m.leiste.get_child_count())
 	# Satt wird gespeichert
 	z.satt = true
 	if not Zustand.aus_daten(z.als_daten()).satt: fehler += 1; print("FEHLER satt nicht gespeichert")

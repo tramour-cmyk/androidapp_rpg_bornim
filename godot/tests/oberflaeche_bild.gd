@@ -86,6 +86,8 @@ func _lauf() -> void:
 	m.tippe_fach("MAIN_HAND")
 	await _bild("menue_fach")
 	for c in m.get_children(): if c is ColorRect and c.color.a < 0.9: c.queue_free()
+	m.reiter = "system"; m.baue()
+	await _bild("menue_system")
 	ebene2.queue_free()
 	ui.sage([{"wer": "Rowena", "text": "Probetext mit Sprecher: zwei Zeilen lang, damit Umbruch, Zeilenhöhe und Rand zu sehen sind."}])
 	await _bild("text_sprecher")

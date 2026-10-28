@@ -522,6 +522,12 @@ func oeffne_menue() -> void:
 	add_child(ebene)
 	var m := Menue.new(held_werte(), zustand)
 	ebene.add_child(m)
+	m.speichern.connect(speichere)
+	m.sprache.connect(sprache_wechseln)
+	m.hauptmenue.connect(func():   # 399.1: wie alt vm.toMenu: speichern, dann von vorn mit dem Hauptmenue
+		speichere()
+		get_tree().paused = false
+		get_tree().reload_current_scene())
 	get_tree().paused = true
 	m.zu.connect(func():
 		get_tree().paused = false
