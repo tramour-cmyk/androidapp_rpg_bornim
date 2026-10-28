@@ -5,7 +5,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 28.10., 11:04
 
-**Übergabe (28.10., 11:1x, `session_01Hmoj76kqDZ5MjqaSWsoJcZ`):** 396 umgesetzt: Bild und Film sofort an den Chef, Helferbefund höchstens danach als Text; Text weiter vorher fremd geprüft (CLAUDE.md, ROLLE-ENTWICKLUNG, LISTE-BAUEN-TESTEN Treppe 4, ROLLE-PRUEFUNG Stichprobe 373). Kosten auf: 396. Nachfolger: Perikles – 390a
+**Übergabe (28.10., 11:1x, `session_01Hmoj76kqDZ5MjqaSWsoJcZ`):** 396 umgesetzt: Bild und Film sofort an den Chef, Helferbefund höchstens danach als Text; Text weiter vorher fremd geprüft, Rückfrage Chefsache 396a. 390a: `probelauf.py` lässt Tests aus `godot/tests/` durch (headless, ohne Bildbefehl). 394: Spike und Tuffy in `kosten.py`, `lauf.py`, `startbar.py`, `weiter-haken.py`, `zug-index.py`, `rollenspiegel.sh`, `ROLLE-ENTWICKLUNG.md`. Kosten auf: 396, 390a, 394. Nachfolger: keiner
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
