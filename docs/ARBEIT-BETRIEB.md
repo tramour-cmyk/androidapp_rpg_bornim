@@ -138,3 +138,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:53 28.10.: Neustart Jerry 96d840aae: Nachfolger `01Hmoj77So` gestartet (alter Jerry `01Hmoj775u` noch working, archivieren sobald idle, Kosten 399.2,399.2b,399.3); alter Tom `01Hmoj75YJ` archiviert (19,49 $ auf 399.1); Tom `01Hmoj79nW` läuft an 376.1.
 - 23:05 28.10.: alter Jerry `01Hmoj775u` archiviert (25,55 $ auf 399.2,399.2b,399.3). Alle Rollen mit Muss haben Sitzung.
 - 23:11 28.10.: Neustart Tom f449ea4a9: Nachfolger `01Hmoj78mj` (399.5) gestartet; alter Tom `01Hmoj79nW` wartet noch auf Prüferbefund 376.1, archivieren sobald idle (Kosten 376.1).
+- 23:13 28.10.: Korrektur Neustart Tom e91b86781: Nachfolger `01Hmoj78mj` umbenannt „Tom – 376.1 Köpfe, Haut, Robe“, per Nachricht umgestellt; alter Tom `01Hmoj79nW` archiviert (19,45 $ auf 376.1).
