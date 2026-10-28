@@ -808,19 +808,30 @@ func _mps(nm: String) -> float:
 ## 348.12f: geht (weiter als RUN_FROM: rennt) heim im Tempo des Wurzelwegs, die Pfoten gleiten nicht; dort wieder zum Ziel.
 ## Ortmess Lauf 148: vor dem Loslaufen und nach der Ankunft drehte es in einem Bild (bis 178°); jetzt dreht es mit Schritten
 ## (Gehen) mit TURN_DPS; r3: auf dem Pfad von _heimweg() ohne Drehen auf der Stelle. Gibt die Dauer (s) zurück.
-func _walk_home() -> float:
+func _walk_home(skip = null) -> float:
 	var d := home - position
 	d.y = 0.0
 	if d.length() < 0.12:
 		position = home
 		return _turn_home()
 	if not HEIMWEG_BOGEN:
-		var nm := "Rennen" if d.length() > RUN_FROM and weg.has("Rennen") else "Gehen"
-		var tg := d.length() / _mps(nm)
+		# 399.2 (Chef 28.10., 16:10: „dann läuft der hintere Wolf durch den vorderen“): um die anderen herum wie die Heldin
+		var via := _detour(position, home, skip)
+		var way := d.length() if via == position else position.distance_to(via) + via.distance_to(home)
+		var nm := "Rennen" if way > RUN_FROM and weg.has("Rennen") else "Gehen"
+		var tg := way / _mps(nm)
 		tween = create_tween()
-		var tt := _turn(tween, atan2(d.x, d.z), false)
+		var first := via - position if via != position else d
+		var tt := _turn(tween, atan2(first.x, first.z), false)
 		tween.tween_callback(func(): _play(nm, 0.15))
-		tween.tween_property(self, "position", home, tg)
+		if via != position:
+			var t1 := position.distance_to(via) / _mps(nm)
+			var rest := home - via
+			tween.tween_property(self, "position", via, t1)
+			tween.tween_callback(func(): rotation.y = atan2(rest.x, rest.z))
+			tween.tween_property(self, "position", home, tg - t1)
+		else:
+			tween.tween_property(self, "position", home, tg)
 		tween.tween_callback(_turn_home)
 		return tt + tg
 	var pfad := _heimweg()
@@ -1039,10 +1050,24 @@ func _bite(other, leap: bool) -> int:
 	var t_run := 0.0
 	var run := start.distance_to(position)
 	if run > 0.15:
-		var gn := "Rennen" if run > RUN_FROM and weg.has("Rennen") else "Gehen"
-		t_run = run / _mps(gn)
+		# 399.2 (Chef 28.10., 16:10: „dann läuft der hintere Wolf durch den vorderen“): um die anderen herum wie die Heldin
+		var via := _detour(position, start, other)
+		var way := run if via == position else position.distance_to(via) + via.distance_to(start)
+		var gn := "Rennen" if way > RUN_FROM and weg.has("Rennen") else "Gehen"
+		t_run = way / _mps(gn)
 		_play(gn, 0.1)
-		tween.tween_property(self, "position", start, t_run)
+		if via != position:
+			var t1 := position.distance_to(via) / _mps(gn)
+			var auf := via - position
+			var ab := start - via
+			var schnauze := rotation.y
+			rotation.y = atan2(auf.x, auf.z)
+			tween.tween_property(self, "position", via, t1)
+			tween.tween_callback(func(): rotation.y = atan2(ab.x, ab.z))
+			tween.tween_property(self, "position", start, t_run - t1)
+			tween.tween_callback(func(): rotation.y = schnauze)
+		else:
+			tween.tween_property(self, "position", start, t_run)
 	var bl: float = anim.get_animation(nm).length if anim and anim.has_animation(nm) else 0.8
 	var b := Basis(Vector3.UP, atan2(dir.x, dir.z))
 	tween.tween_callback(func(): _play(nm, 0.08))
@@ -1065,9 +1090,10 @@ func _bite(other, leap: bool) -> int:
 		tween.tween_callback(func(): anim.play("Gehen", 0.1, -float(tempo.get("Gehen", 1.0))))
 		tween.tween_property(self, "position", ende, tz)
 		t_back = tz
-	tween.tween_callback(_walk_home)
-	# bis daheim, damit keiner zu einem Ort schlägt, an dem es nicht mehr steht
-	var heim := Vector2(home.x - ende.x, home.z - ende.z).length()
+	tween.tween_callback(func(): _walk_home(other))
+	# bis daheim, damit keiner zu einem Ort schlägt, an dem es nicht mehr steht (399.2: mit Umweg)
+	var vh := _detour(ende, home, other)
+	var heim := Vector2(home.x - ende.x, home.z - ende.z).length() if vh == ende else ende.distance_to(vh) + vh.distance_to(home)
 	# r3: Heimweg mit Bogen und Kurve statt Drehen (höchstens ein Halbkreis und ein Bogen daheim mehr als die Gerade)
 	var t_heim := 0.0 if heim < 0.12 else heim / _mps("Rennen" if heim > RUN_FROM and weg.has("Rennen") else "Gehen")
 	t_heim += 2.0 * PI * TURN_R * _scale() / (_mps("Gehen") * BOGEN_TEMPO) if HEIMWEG_BOGEN else 2.0 * 180.0 / _turn_dps()
@@ -1308,12 +1334,21 @@ func clearance(p: Vector3) -> float:
 ## Kleinster Abstand der Strecke a → b zu einer stehenden anderen Figur (Rand der Heldin an Umriss), in 16 Schritten
 func _seg_gap(a: Vector3, b: Vector3, skip = null) -> float:
 	var g := INF
+	var r := own_r()
 	for o in kampfort.figures.values():
 		if o == self or o == skip or not o.visible or o.down:
 			continue
 		for k in 17:
-			g = minf(g, o.clearance(a.lerp(b, k / 16.0)) - HERO_R)
+			g = minf(g, o.clearance(a.lerp(b, k / 16.0)) - r)
 	return g
+
+
+## Eigener Rand quer zum Weg: die Heldin HERO_R, ein Tier die halbe Breite seines Umrisses (399.2: Wölfe weichen jetzt auch aus)
+func own_r() -> float:
+	if fighter.monster == null:
+		return HERO_R
+	var box := footprint()
+	return maxf(0.5 * minf(box.size.x, box.size.z), 0.1)
 
 
 ## Ein Punkt seitlich der Geraden a → b, wenn sie den Umriss einer stehenden anderen Figur (außer dem Ziel skip) streift;

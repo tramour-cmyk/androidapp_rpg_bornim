@@ -77,7 +77,7 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 ## (Packs.kt cubs): vorn der Wolf, dazu 1–2 Jungwölfe, halb so groß (scale 0,55), Biss 1W3, Angriff −1; neu, weil MARS
 ## Trefferpunkte braucht: halb so viele wie ein Wolf; sie folgen dem Wolf und fliehen, wenn er fällt (mars.gd follows);
 ## Erfahrung wie alt über lohn.gd (Leitwolf, je Jungwolf 0,3 dazu)
-const JUNGWOLF := {"de": "Jungwolf", "en": "Young wolf", "scale": 0.55, "atk_shift": -1, "dmg": [1, 3, 0], "hp_share": 0.5,
+const JUNGWOLF := {"de": "Jungwolf", "en": "Young wolf", "scale": 0.55, "atk_shift": -1, "dmg": [1, 3, 0], "hp_share": 0.5, "chance": 0.5,
 	"flee": ["Mit eingezogenem Schwanz fliehen die Jungwölfe ins Unterholz!", "Tails tucked, the young wolves flee into the undergrowth!"]}
 
 static func rudel(monsters: Dictionary, dice) -> Array:
@@ -91,6 +91,7 @@ static func rudel(monsters: Dictionary, dice) -> Array:
 	jung.dmg = JUNGWOLF.dmg
 	jung.xp = 0     # lohn.gd zählt sie als Rudel des Wolfs (xpShare), nicht einzeln
 	jung.flee = JUNGWOLF.flee
+	jung.chance = JUNGWOLF.chance     # 399.2b (Chef 28.10., 15:32): beißt wie alt nur zu 50 % je Runde (Packs.kt cubs)
 	var n: int = dice.roll_expr([1, 2, 0])
 	for i in n:
 		var f = Mars.monster_fighter("cub%d" % (i + 1), [Vector2i(0, 1), Vector2i(1, 0)][i], jung, maxi(1, int(dice.roll_expr(wolf.hp) * float(JUNGWOLF.hp_share))))

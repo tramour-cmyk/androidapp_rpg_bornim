@@ -1128,6 +1128,14 @@ func _foe_turn(foe: Fighter, react: Callable) -> void:
 	var intent: Dictionary = plan[0]
 	var aimed: Array = plan[1]
 	foe.hidden = false
+	# 399.2b (Chef 28.10., 15:32, Archiv: Jungwölfe beißen wie im alten Spiel nur zu 50 % je Runde; Packs.kt chance): wer einem
+	# Leittier folgt, greift nur mit seiner Chance an, sonst knurrt er (Text von Homer; solange er fehlt, keine Zeile)
+	if foe.follows != "" and intent.kind == "STRIKE" and foe.monster.has("chance") and not dice.chance(float(foe.monster.chance)):
+		var growl = foe.monster.get("growl")
+		_say(str(growl[lang]) if growl != null else "", foe.id, null, 0, null, false, false, "GROWLS")
+		announce(foe)
+		_say_announce(foe)
+		return
 	var cue := ""
 	if intent.effect == "CIRCLE":
 		cue = "CIRCLE"
