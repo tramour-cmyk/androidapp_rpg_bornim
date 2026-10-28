@@ -36,7 +36,7 @@ def _richte(m, ziel):
     return Matrix.Translation(h) @ q.to_matrix().to_4x4() @ m.to_3x3().normalized().to_4x4()
 
 
-def _zwei(PN, RM, s, W, pol, warn):
+def _zwei(PN, RM, s, W, pol, warn, basis=None):
     up, lo = 'upperarm_' + s, 'lowerarm_' + s
     S = PN[up].translation.copy()
     a = (RM[lo].translation - RM[up].translation).length; b = (RM['hand_' + s].translation - RM[lo].translation).length
@@ -47,7 +47,9 @@ def _zwei(PN, RM, s, W, pol, warn):
     v = pol - u * pol.dot(u)
     v = v.normalized() if v.length > 1e-6 else Vector((0, 0, -1))
     E = S + u * x + v * hh
-    PN[up] = _richte(PN[up], E)
+    # Runde 2b: basis = Lage des Oberarms im vorigen Bild (zu seinem Elternknochen); ohne sie drehte der Oberarm mit der Quelle
+    # um seine Länge (Hieb Bild 2–4: 140°), das starre Schulterstück mit, und Godot verdrehte beim Überblenden die Faust
+    PN[up] = _richte(PN[up] if basis is None else Matrix.Translation(S) @ basis.to_4x4(), E)
     PN[lo] = _richte(Matrix.Translation(E) @ PN[lo].to_3x3().normalized().to_4x4(), S + u * d)
 
 
@@ -87,6 +89,12 @@ def arme(name, Gs, res, C):
         ST['aL'] = (RM['hand_l'].to_3x3().inverted() @ Ma.to_3x3() @ Vector((-0.358, 0.0, -0.934))).normalized()
     gR, aR, gL, aL = ST['gR'], ST['aR'], ST['gL'], ST['aL']
     out, warn, mess = [], [], []
+    def basis(PN, s, f):     # Oberarm wie im vorigen Bild (Bild 0 jeder Bewegung: wie Stehen, Bild 0), Drall nur, wo nötig
+        k_ = ('tw0' if f == 0 else 'tw') + s
+        return PN[PAR['upperarm_' + s]].to_3x3().normalized() @ ST[k_] if k_ in ST else None
+    def merke(PN, s, f):
+        ST['tw' + s] = PN[PAR['upperarm_' + s]].to_3x3().normalized().inverted() @ PN['upperarm_' + s].to_3x3().normalized()
+        if f == 0: ST.setdefault('tw0' + s, ST['tw' + s])
     for f, ((BA, PN), G) in enumerate(zip(res, Gs)):
         PN = dict(PN); BA = dict(BA)
         Ds = G['spine_03'].to_3x3().normalized() @ RU['spine_03'].to_3x3().normalized().inverted()
@@ -104,25 +112,27 @@ def arme(name, Gs, res, C):
         if 'Aloc' not in ST:     # Stehen, Bild 0: die Faust gerade am Unterarm, ihr Loch längs des Stiels; gilt dann für alle Bilder
             H = PN['hand_r'].to_3x3().normalized()
             for _ in range(4):
-                _zwei(PN, RM, 'r', R - H @ gR, pol['r'], [])
+                _zwei(PN, RM, 'r', R - H @ gR, pol['r'], [], basis(PN, 'r', f))
                 Hg = _gerade(PN, RM, 'r'); g = Hg @ aR
                 ST.setdefault('sR', 1.0 if g.dot(r) >= 0 else -1.0)
                 H = (ST['sR'] * g).rotation_difference(r).to_matrix() @ Hg
             el = (H.inverted() @ e); sa = ST['sR'] * aR; el = (el - sa * el.dot(sa)).normalized()
             ST['Aloc'] = Matrix((el, sa, el.cross(sa))).transposed()
         H = A @ ST['Aloc'].inverted()
-        _zwei(PN, RM, 'r', R - H @ gR, pol['r'], warn)
+        _zwei(PN, RM, 'r', R - H @ gR, pol['r'], warn, basis(PN, 'r', f))
+        merke(PN, 'r', f)
         _drill(PN, RM, 'r', H)
         PN['hand_r'] = Matrix.Translation(PN['lowerarm_r'] @ Vector((0, (RM['hand_r'].translation - RM['lowerarm_r'].translation).length, 0))) @ H.to_4x4()
         # links: Griff LINKS m tiefer am Stiel, die Faust gerade am Unterarm, ihr Loch längs des Stiels (kleinste Drehung)
         L = R - r * LINKS
         Hl = PN['hand_l'].to_3x3().normalized()
         for _ in range(4):
-            _zwei(PN, RM, 'l', L - Hl @ gL, pol['l'], [])
+            _zwei(PN, RM, 'l', L - Hl @ gL, pol['l'], [], basis(PN, 'l', f))
             Hg = _gerade(PN, RM, 'l'); g = Hg @ aL
             ST.setdefault('sL', 1.0 if g.dot(r) >= 0 else -1.0)
             Hl = (ST['sL'] * g).rotation_difference(r).to_matrix() @ Hg
-        _zwei(PN, RM, 'l', L - Hl @ gL, pol['l'], warn)
+        _zwei(PN, RM, 'l', L - Hl @ gL, pol['l'], warn, basis(PN, 'l', f))
+        merke(PN, 'l', f)
         PN['hand_l'] = Matrix.Translation(PN['lowerarm_l'] @ Vector((0, (RM['hand_l'].translation - RM['lowerarm_l'].translation).length, 0))) @ Hl.to_4x4()
         for b in ('upperarm_l', 'lowerarm_l', 'hand_l', 'upperarm_r', 'lowerarm_r', 'hand_r'):
             p = PAR[b]; BA[b] = (PN[p] @ RM[p].inverted() @ RM[b]).inverted() @ PN[b]
