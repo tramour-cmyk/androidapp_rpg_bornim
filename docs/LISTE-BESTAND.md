@@ -157,7 +157,7 @@ Quaternius, itch, CC0 (`License_Standard.txt`), glTF/FBX/OBJ; laut 376 herunterg
 | Treppen, Balkone | Stair_Interior_Rails/Simple/Solid/SolidExtended; Stairs_Exterior_* (13); Balcony_Cross/Simple_Corner/Straight |
 | Kram | Prop_Chimney, Prop_Crate, Prop_Wagon, Prop_Vine (6), Prop_Brick (4), Prop_Support, Prop_WoodenFence_Single/Extension, Prop_MetalFence_Simple/Ornament, Prop_ExteriorBorder_Corner/Straight |
 
-**Stylized Nature MegaKit [Standard]** (Chef: Felsen, Kiesel, Pilze, Farn ja; Bäume nein): Rock_Medium (3), Pebble_Round (5)/_Square (6), RockPath_Round/Square_Small/Thin/Wide; Mushroom_Common, Mushroom_Laetiporus; Fern, Clover (2), Plant (2), Plant_1_Big, Plant_7_Big, Bush_Common(_Flowers), Grass_Common/Wispy_Short/Tall, Flower_3/4_Single/Group, Petal (5); Bäume (nicht verwenden): CommonTree, DeadTree, Pine, TwistedTree je 5.
+**Stylized Nature MegaKit [Standard]** (Chef: Felsen, Kiesel, Pilze, Farn ja; Bäume nein): Rock_Medium (3), Pebble_Round (5)/_Square (6), RockPath_Round/Square_Small/Thin/Wide; Mushroom_Common, Mushroom_Laetiporus; Fern, Clover (2), Plant (2), Plant_1_Big, Plant_7_Big, Bush_Common(_Flowers), Grass_Common/Wispy_Short/Tall, Flower_3/4_Single/Group, Petal (5); Bäume (nicht verwenden): CommonTree, DeadTree, Pine, TwistedTree je 5. Lizenzdatei oben im Paket. **In Gebrauch** (348.6, `dorf.py` `dinge_mehr`, Tom 28.10.): Rock_Medium 1–3, Mushroom_Common im Dorf; aus dem Dorfbausatz Prop_Crate neben den Fässern.
 
 Ebenfalls geprüft, **nicht verwenden** (Chef 27.10., 12:42 „nein“): 150 Lowpoly Nature Models; Lowpoly Modular Dungeon Pack (höchstens Fackel, Gitter, Truhe als Rohform nach dem Meilenstein).
 
