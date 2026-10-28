@@ -402,8 +402,11 @@ func tageszeit() -> String:   # Kampfort.tageszeit: tag, abend, nacht
 	var m := zustand.minuten
 	return "nacht" if m < 6 * 60 or m >= 21 * 60 else ("abend" if m >= 18 * 60 else "tag")
 
-func kampf_im_wald(zurueck: Vector2i) -> void:
-	var hw := held_werte()
+# gegner wie kampf/probe.gd FOES; [probe] (Test „MARS-Probekampf“, Skirmish.probe): Held und Soeldner [klasse, stufe] statt des eigenen
+# Helden, danach bleibt er, wie er war (kein Lohn, keine TP, kein Tod)
+func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = []) -> void:
+	var hw := held_werte() if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
+	var soeldner = null if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
 	var erg := {"ende": "", "tp": {}, "lohn": {}, "rest": zustand.anzahl("potion")}
 	var aufruf := AufrufS.new()
 	add_child(aufruf)
@@ -424,8 +427,8 @@ func kampf_im_wald(zurueck: Vector2i) -> void:
 		var ilvl := int(Karte.lade("forest").daten.get("stufe", 1))
 		var st: Dictionary = Heldwerte.lade()["seltenheiten"]
 		return Beute.beute(hw, w, ilvl, false, false, zustand.neue_uid).map(func(g): return {"gear": g, "name": Beute.name(g), "rarity": Sprache.t(st[String(g["rarity"])]["name"])})
-	var gestartet: bool = aufruf.starte("RUDEL", hw, null, "wald", tageszeit(), zustand.anzahl("potion"), -1, -1, -1, beute)
-	zustand.satt = false   # 399.1: Battle.wellFed endet mit dem Kampfbeginn; den Bonus +1 kennt der Kampfort noch nicht (an Jerry)
+	var gestartet: bool = aufruf.starte(gegner, hw, soeldner, "wald", tageszeit(), zustand.anzahl("potion") if probe.is_empty() else 2, -1, -1, -1, beute)
+	if probe.is_empty(): zustand.satt = false   # 399.1: Battle.wellFed endet mit dem Kampfbeginn; den Bonus +1 kennt der Kampfort noch nicht (an Jerry)
 	if gestartet:
 		for we in umgebung: we.environment = null
 		visible = false; ui.visible = false
@@ -437,11 +440,11 @@ func kampf_im_wald(zurueck: Vector2i) -> void:
 	for k in umgebung.size(): umgebung[k].environment = env_alt[k]
 	kamera.make_current()
 	visible = true; ui.visible = true
-	if int(erg["rest"]) < zustand.anzahl("potion"): zustand.weg("potion", zustand.anzahl("potion") - int(erg["rest"]))   # getrunken
+	if probe.is_empty() and int(erg["rest"]) < zustand.anzahl("potion"): zustand.weg("potion", zustand.anzahl("potion") - int(erg["rest"]))   # getrunken
 	var lohn: Dictionary = erg["lohn"]
 	var ende := [String(erg["ende"])]
 	klang("nach_kampf", [ende[0] == "WON", karte])   # 399.3 (Jerry): Sieg mit sieg_, sonst Ortsmusik nach 10 s
-	if ende[0] == "NONE":
+	if ende[0] == "NONE" or not probe.is_empty():
 		held.setze(zurueck, "DOWN"); kamera.springe(); await abblenden(0.0)
 		return
 	var tp_nach := int(erg["tp"].get("hero", hw.tp))
@@ -674,6 +677,9 @@ func oeffne_menue() -> void:
 		get_tree().paused = false
 		klang("ort", [karte, held]))
 	m.sprache.connect(sprache_wechseln)
+	m.test.connect(func(was: String, mit: Array):   # 399.1 Reiter „Test“: erst das Menue zu, dann in der Welt
+		m.zu.emit()
+		test_tat(was, mit))
 	m.ueber.connect(func():   # 399.1 System „Über“ wie alt: vm.toMenu, dann Screen.ABOUT
 		Hauptmenue.ueber_zuerst = true
 		m.hauptmenue.emit())
@@ -690,6 +696,32 @@ func oeffne_menue() -> void:
 		fackel_neu()
 		kamera.fern_neu()
 		ui.leiste.zeige(held_werte(), zustand, licht.nacht > 0.65))
+
+# 399.1 Reiter „Test“ (Testmodus.gd) wie alt: cheatWarp, cheatChapterEnd, cheatFight, startProbe
+func test_tat(was: String, mit: Array) -> void:
+	match was:
+		"teleport":
+			await abblenden(1.0)
+			var von := karte.id
+			betrete(String(mit[0]), Vector2i(int(mit[1]), int(mit[2])), String(mit[3]))
+			await ortsworte(von, false)
+		"kapitelende":   # Hoehle geschafft, Lyra frei, das Amulett in der Tasche, Abend, vor Aldric in seinem Haus
+			for f in [Geschichte.INTRO_DONE, Geschichte.QUEST_STARTED, Geschichte.BARRIER_OPEN, Geschichte.KROGG_DEFEATED, Geschichte.GRAK_DEFEATED,
+					Geschichte.LYRA_RESCUED, Geschichte.LYRA_GONE]:
+				zustand.setze(f)
+			if zustand.anzahl("sun_amulet") == 0: zustand.dazu("sun_amulet")
+			if zustand.minuten < 18 * 60: zustand.minuten = 20 * 60
+			var ziel := Testmodus.vor_aldric()
+			if ziel.is_empty(): return
+			await abblenden(1.0)
+			var von := karte.id
+			betrete("elder", ziel[0], ziel[1])
+			await ortsworte(von, false)
+			ui.sage([{"text": Sprache.t({"de": "Höhle geschafft, Lyra frei, Amulett in der Tasche: sprich mit Aldric.", "en": "Cave cleared, Lyra free, the amulet in your bag: talk to Aldric."})}])
+		"kampf", "probe":
+			if not ResourceLoader.exists("res://kampf/kampfort.gd"): return
+			await abblenden(1.0)
+			await kampf_im_wald(held.kachel, String(mit[0]), [] if was == "kampf" else [String(mit[1]), int(mit[2])])
 
 # 399.1 Schwarzblende mit Worten wie alt (Ortsblende, 24.1): auf der stehenden Blende Name und Satz, dann steigt der Ort auf;
 # [von] leer beim Spielbeginn, [erster] beim ersten Besuch. Ohne daten/intro.json wie bisher nur die Blende
@@ -1070,6 +1102,7 @@ func _process(dt: float) -> void:
 	gebiet.nah(kamera.nah, held.position)
 	zeiten.append(dt)
 	if zeiten.size() > 240: zeiten.pop_front()
+	if Testmodus.standort: ui.standort = "%s %d/%d" % [karte.id, held.kachel.x, held.kachel.y]
 	ui.messe(zeiten)
 
 # ---------------------------------------------------------------- Standbilder am Rechner (Vergleich alt/neu)

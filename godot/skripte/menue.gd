@@ -14,6 +14,7 @@ extends Control
 # - System (SystemSigns), soweit es die Welt schon kann: Speichern, Sprache, Hauptmenue; Rückfragen, Bedienung; Lautstaerke (399.3.1),
 #   Schritte, Helligkeit; Siege, Geraet.
 # - Karte (MapTab, 62): kartenreiter.gd.
+# - Test (TestTab, nur im Testmodus, 399.1): testmodus.gd.
 # - Chronik (ChronicleTab): Hauptauftrag in Gold, Auftraege der Geschichte, Nebenauftraege vom Brett, Erledigt zum Aufklappen, „Bisher geschehen“.
 # Noch nicht wie alt: in der Chronik Ankunft und Morgenandacht ansehen; im System Blut, Tempo, Kampftext, MARS-Probe (Jerry); Bilder der Dinge;
 # Fackel im Dunkeln.
@@ -24,6 +25,7 @@ signal sprache                     # die Welt wechselt die Sprache (spiel.gd spr
 signal hauptmenue                  # speichern und zum Hauptmenue (spiel.gd)
 signal ueber                       # 399.1 „Über“: wie hauptmenue, dort gleich „Über das Spiel“
 signal ankunft                     # 399.1 Chronik: die Ankunft (Intro) noch einmal ansehen (spiel.gd zwischenbild)
+signal test(was: String, mit: Array)   # 399.1 Reiter „Test“: teleport, kapitelende, kampf, probe (spiel.gd test_tat)
 
 const DP := AktionsKnopf.DP
 const BLAU := Color("82aaf2")      # gearBlue auf Schwarz (Veil.of rare)
@@ -94,7 +96,7 @@ func baue() -> void:
 		leiste.remove_child(c)
 		c.queue_free()
 	# 399.1: Reiter als Zeichen wie alt (TabSign, 60j); Woerter passten zu viert nicht in die Breite
-	for r in ["held", "tasche", "ausruestung", "karte", "chronik", "system"]:
+	for r in ["held", "tasche", "ausruestung", "karte", "chronik", "system"] + (["test"] if Testmodus.ist_an() else []):   # 399.1 wie alt Tab.TEST
 		var stern: bool = (r == "held" and hw.offen > 0) or (r == "chronik" and reiter != "chronik" and Chronik.frisch(z))
 		leiste.add_child(Reiterzeichen.knopf(r, wort(r), func(): reiter = r; geplant.clear(); baue(), r == reiter, stern))
 	for c in inhalt.get_children():
@@ -106,6 +108,7 @@ func baue() -> void:
 		"ausruestung": ausruestung()
 		"chronik": chronik()
 		"karte": inhalt.add_child(Kartenreiter.new(z, ort, rolle.size.y, func(): reiter = "chronik"; baue()))
+		"test": Testmodus.reiter(self)
 		_: system()
 	# die Karte schiebt und zoomt selbst, der Kasten rollt dann nicht
 	rolle.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED if reiter == "karte" else ScrollContainer.SCROLL_MODE_SHOW_NEVER
@@ -119,6 +122,7 @@ const WORT := {"held": "hero", "tasche": "bag", "ausruestung": "equipment", "sys
 func wort(r: String) -> String:
 	if r == "chronik": return Sprache.t(CHRONIK)
 	if r == "karte": return Sprache.t(KARTE)
+	if r == "test": return "Test"
 	return Sprache.u(WORT[r])
 
 func meldung(t: String) -> void:
