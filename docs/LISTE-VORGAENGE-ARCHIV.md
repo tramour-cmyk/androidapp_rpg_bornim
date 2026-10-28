@@ -468,3 +468,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 389 | Grenze für Probeläufe je Vorlage, die greift (Chef 27.10., 23:53) | B Abläufe | M | 3,78 $ | Perikles | erledigt |
 | 353a | Rückfrage: Loch in den Kronen vor dem Helden in den nächsten Build? | G Stil | M | – | Team Tom | erledigt (Archiv 353a; Anforderung in 348.8) |
 | 338b | Rückfrage: Umzug Block (K) rot, Termine nach den Kaufmodellen neu schätzen? | B Abläufe | M | – | Perikles | erledigt |
+| 385a | Rückfrage: Zauberer-Probe 385 jetzt als Muss vor dem Dorf? (Chef 28.10., 09:55) | E Figuren | M | – | Sokrates | erledigt |
