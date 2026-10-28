@@ -23,7 +23,7 @@ DOCS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs")
 ROLLEN = [("ARBEIT-KREATIV.md", "Homer"), ("ARBEIT-TEAM-TOM.md", "Tom"), ("ARBEIT-TEAM-JERRY.md", "Jerry"),
           ("ARBEIT-PROJEKT.md", "Perikles"), ("ARBEIT-PRUEFUNG.md", "Diogenes"), ("ARBEIT-BERATUNG.md", "Sokrates")]
 FERTIG = re.compile(r"erledigt|auf main|getestet|gebaut", re.I)
-ROLLEN_NAMEN = r"(?:Homer|Tom|Jerry|Perikles|Diogenes|Sokrates|Ford(?: 2)?|Chef)"
+ROLLEN_NAMEN = r"(?:Homer|Tom|Jerry|Spike|Tuffy|Perikles|Diogenes|Sokrates|Ford(?: 2)?|Chef)"  # 394: Spike, Tuffy
 JETZT = datetime.datetime.now()
 LEICHEN_START = True  # 275 Stufe 1, der eine Schalter (D46.2; an seit 27.10., 17:2x, Lauf 47): Leichen zählen erst als startbar, wenn an; gilt auch für lauf.py
 

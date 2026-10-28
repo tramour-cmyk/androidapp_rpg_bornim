@@ -16,7 +16,8 @@ try: sys.stdout.reconfigure(errors="replace")
 except Exception: pass
 import signal; signal.signal(signal.SIGPIPE, signal.SIG_DFL)
 NAMEN = {"sokrates": "Sokrates", "perikles": "Perikles", "homer": "Homer", "ford": "Ford", "diogenes": "Diogenes",
-         "tom": "Team Tom", "team tom": "Team Tom", "jerry": "Team Jerry", "team jerry": "Team Jerry"}
+         "tom": "Team Tom", "team tom": "Team Tom", "jerry": "Team Jerry", "team jerry": "Team Jerry",
+         "spike": "Team Tom", "tuffy": "Team Jerry"}  # 394
 if not args or args[0].lower() not in NAMEN:
     sys.exit("Aufruf: tools/rollenspiegel.sh <Rolle> [--antwort <datei|->] [--sitzung \"<Titel>\"]; Rollen: Sokrates, Perikles, Homer, Ford, Diogenes, Tom, Jerry")
 rolle, antwort, sitzung = NAMEN[args[0].lower()], None, ""
