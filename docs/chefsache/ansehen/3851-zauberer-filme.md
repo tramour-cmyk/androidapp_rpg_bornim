@@ -15,6 +15,6 @@ Zwölf Filme per Telegram, je Bewegung einer in voller Größe (Chef 16:16: „F
 | 9 | Feuerball | wie 8 |
 | 10–12 | Hocken, Tod, Aufstehen | am Bauern |
 
-Noch nicht geprüft von einem fremden Prüfer (396: Fertiges sofort); sein Befund folgt als Text.
+**Befund des fremden Prüfers (18:38, per Telegram):** in 8 und 9 kein Feuer zu sehen; Stab ohne Tuschelinie und Schatten, steckt in 3, 6, 8 teils in Körper oder Boden, schwebt in 4 kurz; Figur in 6, 7, 11, 12 rechts angeschnitten; Endpose von 7 hält den Stab waagrecht; in 10 kniendes Bein vermutlich im Boden; keine Ruckler.
 
 **Was du sagen sollst:** je Film ja oder nein (z. B. „385.1: 1–9 ja, 11 nein“); danach entscheidest du über weitere Käufe (Archiv 385).
