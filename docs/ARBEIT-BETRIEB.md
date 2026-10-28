@@ -47,7 +47,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 
 - 23:30 28.10.: Chef „Räum auf und buche Kosten“: Protokoll und Eingang gekürzt (Datei 18 → unter 15 KB), alter Ford 9,02 $ gebucht; drei Sitzungen ohne Kosten (Eingang).
 - 22:07 28.10.: Perikles `01Hmoj77Hj` gestartet (400, Chef über Sokrates), alter Perikles `76yC` archiviert (3,05 $ auf 399). Ford-Lücke: Homer 399.2b (startbar seit 15:32, gestartet 19:06); jeden Lauf `startbar.py` gegen laufende Sitzungen prüfen.
-- 20:04 27.10.: Marke Abgleich Vorentscheid 383.1 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 00:05 28.10.: Marke Abgleich Vorentscheid 348.7 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 00:05 28.10.: Marke Abgleich Vorentscheid 348.6 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 03:04 28.10.: Marke Wächter 389 27.10. 23:55 (lauf.py)
@@ -61,3 +60,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:57 28.10.: Startsperre 23:57 Start Perikles (lauf.py)
 - 23:57 28.10.: Marke Archiv session_01Hmoj78mjLPT6PZaqKUninZ (lauf.py)
 - 23:57 28.10.: Marke Archiv session_01Hmoj77Hj5um3BFGBKYLTet (lauf.py)
+- 00:05 29.10.: Startsperre 00:05 Start Diogenes (lauf.py)
+- 00:05 29.10.: Marke Stellungnahme Sokrates 29.10. (lauf.py)
+- 00:05 29.10.: Marke Stellungnahme Sokrates 29.10. (lauf.py)
+- 00:05 29.10.: Marke Abgleich Vorentscheid 383.1 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
