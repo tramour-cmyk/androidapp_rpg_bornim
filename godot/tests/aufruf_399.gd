@@ -65,6 +65,12 @@ func _alle() -> void:
 		print(("endet " if tgut else "FEHLER ") + "Testende %s: %s" % ["Haken" if win else "Kreuz", rt])
 		if not tgut:
 			fehler += 1
+	# 402: die Blende vor dem Kampf: Hinterhalt schlagartig mit Herzschlag, der Kampf wartet darunter und läuft danach zu Ende
+	n += 1
+	var rb: String = await _blende(tab.probe.FIGHTER.hero)
+	print(("endet " if rb.begins_with("gut") else "FEHLER ") + "Blende: %s" % rb)
+	if not rb.begins_with("gut"):
+		fehler += 1
 	# ohne LP kein Kampf: ende kommt gleich mit NONE
 	var a = Aufruf.new()
 	root.add_child(a)
@@ -152,3 +158,36 @@ func _testende(win: bool, held: Dictionary) -> String:
 	await process_frame
 	Testmodus.an = false
 	return o if schalter or k.ring_open else o + " ohne Schalter"
+
+
+func _blende(held: Dictionary) -> String:
+	var a = Aufruf.new()
+	root.add_child(a)
+	_ende.clear()
+	a.ende.connect(func(e, tp, lohn): _ende.append([e, tp, lohn]))
+	if not a.starte("RUDEL", held.hero, null, "wald", "nacht", 2, int(held.hp), -1, 7, Callable(), {"eroeffnung": "AMBUSHED", "blende": true}):
+		return "nicht gestartet"
+	await process_frame
+	await process_frame
+	var k = a.kampf
+	var kb: Array = k.find_children("*", "Kampfblende", true, false)
+	if kb.is_empty() or not k.verhuellt:
+		return "keine Blende (verhüllt %s)" % k.verhuellt
+	var b = kb[0]
+	var worte: Array = b.worte.get_children().filter(func(c): return c is Label).map(func(c): return c.text)
+	var art: String = b.art_name
+	var t0 := Time.get_ticks_msec()
+	while k.verhuellt and Time.get_ticks_msec() - t0 < LIMIT_MS:
+		await process_frame
+	var unter := Time.get_ticks_msec() - t0
+	k.mars.set_autopilot(true)
+	while Time.get_ticks_msec() - t0 < LIMIT_MS and (k.mars.outcome == "ONGOING" or k.busy or k.playing or not k.beats.is_empty()):
+		await process_frame
+		if not k.busy and not k.playing and k.beats.is_empty() and k.mars.outcome == "ONGOING":
+			if k.mars.pilot_next() or k.mars.set_autopilot(true):
+				k.go_on()
+	var o: String = k.mars.outcome
+	k.finish()
+	await process_frame
+	var gut: bool = art == "AMBUSH" and worte.size() == 2 and worte[1] == "WOLF" and o != "ONGOING"
+	return ("gut " if gut else "") + "%s, %s, %d ms verhüllt (Spielzeit ×30), %s" % [art, worte, unter, o]

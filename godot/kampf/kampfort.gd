@@ -63,6 +63,7 @@ var figures := {}          # id -> Figur
 var shown := {}            # the last message played: hp, places, intents, queue, sp
 ## 296.2: the hero's experience before the fight, how far above the place he stands, the level cap (null: chapter's)
 var progress := {}
+var verhuellt := false     # 402: die Blende vor dem Kampf steht noch (Kampfblende.gd)
 ## 296.2: what the won fight brings ({xp, gold, items, level, levels, xp_total, lines}), empty otherwise
 var reward := {}
 ## 399.2 (aufruf.gd): Kampfort und Tageszeit aus dem Aufruf; heute gibt es nur den Wald, die Tageszeit dämpft das Licht
@@ -126,6 +127,17 @@ func _ready() -> void:
 	get_viewport().size_changed.connect(_fit_camera)
 	_fit_camera()
 	ui.refresh()
+	# 402: die Blende vor dem Kampf wie alt (progress „blende“: aus der Welt, nicht in Proben und Tests)
+	if bool(progress.get("blende", false)):
+		var ebene := CanvasLayer.new()
+		ebene.layer = 100
+		add_child(ebene)
+		var zufall := RandomNumberGenerator.new()
+		zufall.randomize()
+		var kb := Kampfblende.new(String(progress.get("eroeffnung", "NORMAL")), Kampfblende.lage(mars), zufall)
+		verhuellt = true
+		kb.geht.connect(func(): verhuellt = false)
+		ebene.add_child(kb)
 	_run(func(): mars.start(_react))
 
 
@@ -733,7 +745,7 @@ func _process(_dt: float) -> void:
 	_grass_spots()
 	if ring_open and Time.get_ticks_msec() > ring_start + RING_MS + GOOD_MS + 60:
 		_answer_ring(Mars.NONE)
-	if playing:
+	if playing or verhuellt:     # 402: unter der Blende warten Worte und Züge
 		return
 	beats_lock.lock()
 	var b = beats.pop_front() if not beats.is_empty() else null

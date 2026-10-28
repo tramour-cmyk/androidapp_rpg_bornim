@@ -299,3 +299,7 @@ Alle BigSoundBank, Urheber Joseph Sardin, CC0 1.0 („CC0 (public domain): Free 
 | 0990 | Horse eating grass #2 | Grasrupfen 1–3 (höher, dunkler) | https://bigsoundbank.com/horse-eating-grass-2-s0990.html |
 | 0185 | Rat nibbling | Knabbern 1–3 (dunkler) | https://bigsoundbank.com/rat-nibbling-s0185.html |
 | 1376 | Bunny hutch | Klopfen 1–4 (nur der dumpfe Tritt) | https://bigsoundbank.com/bunny-hutch-s1376.html |
+
+## 402 Herzschlag beim Hinterhalt (28.10., im Spiel: `heartbeat_strong_1–3`)
+
+Aus den Aufnahmen von `heartbeat` (24.8, oben): bart „Heartbeat sounds“ (heartbeat_slow_0.wav) und qubodup „Heartbeat single sound“ (heartbeat.mp3_.flac), OpenGameArt, CC0 1.0 (Quellseiten geprüft 28.10.2026). Rezept `tools/klang/herzschlag.py`: drei Schläge, tiefer, Brust voller, leicht angezerrt, schneller werdend.
