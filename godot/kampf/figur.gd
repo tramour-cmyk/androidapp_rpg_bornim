@@ -64,7 +64,10 @@ const GRAK_KITS := ["hauptmann"]
 const GOB_BOGEN := 0.48 / 1.01
 ## Runde 3: Waffen und Schild der Goblins gegen die Menschenwaffen (waffen.py) verkleinert
 const GOB_WAFFE := 0.8
-static var GOB_FILL := float(OS.get_environment("GOB_FILL")) if OS.has_environment("GOB_FILL") else 0.3     # 348.13a: Goblins im Schatten höchstens so dunkel (Held 0,42); Probe GOB_FILL=0
+# 348.13a Probe (Tom: Goblins aufhellen, Prüfer r9: hinterer Goblin hebt sich vom Weg kaum ab): Mindesthelligkeit der Goblins im
+# Schatten. Gemessen im selben Augenblick (FILL_REIHE): der Goblin ist dunkler als der Weg, 0,3 verringert den Abstand von 42 auf
+# 38, 0,45 auf 36 (von 255) und hebt ihn damit weniger ab; Vorgabe darum 0, Probe GOB_FILL=<Wert>
+static var GOB_FILL := float(OS.get_environment("GOB_FILL")) if OS.has_environment("GOB_FILL") else 0.0
 const GOB_SCHILD := 0.65
 const ALIAS := {"Biss": "Hauer", "Sprung": "Ansturm", "Lefzen": "Schnauben", "Heulen": "Drohen"}
 # Chef 25.10., 08:57 (2): halb seitlich (−35°) sah er aus, als wolle er weglaufen; jetzt fast zum Gegner
@@ -551,7 +554,7 @@ func _toon(c: Color) -> ShaderMaterial:
 	elif load("res://kampf/kampfort.gd").tusche() == "licht":     # 348.13a: Vorgabe Tusche nach Licht
 		m.shader = toon_gegner()
 		# 348.13a (Prüfer r9: der hintere Goblin hebt sich vom Weg kaum ab; Tom: Goblins aufhellen): Mindesthelligkeit im Schatten
-		if fighter != null and fighter.monster != null and String(fighter.monster.id).begins_with("goblin"):
+		if GOB_FILL > 0.0 and fighter != null and fighter.monster != null and String(fighter.monster.id).begins_with("goblin"):
 			m.set_shader_parameter("fill", GOB_FILL)
 	else:
 		m.shader = load("res://kampf/toon.gdshader")
