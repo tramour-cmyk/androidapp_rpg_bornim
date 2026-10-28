@@ -8,8 +8,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | in Arbeit: r5 gebaut (a5cc70aac, 43b379b2e): Hundertfüßer 0,8/2,0 m/s, Huhn 1,2-fach braun mit Kamm, Kaninchen eigenes Hoppeln, Laufen am Boden, Pfotenfleck; zwei Probeläufe verbraucht, Fehlerprüfung läuft, dann Vorlage |
-| 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | in Arbeit: r8 (43b379b2e, Pfotenhalt danach) Biss 10 cm näher, Pfotenfleck; zwei Probeläufe verbraucht, Vorlage ansehen/34812f-biss folgt nach Textprüfung | `claude/jerry-348-kampf` |
+| 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | in Arbeit: r5 gebaut (43b379b2e), Fehlerprüfung läuft, dann Vorlage |
+| 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | wartet auf Chef: r8 (ansehen/34812f-biss, Film), Frage Biss so oder etwa 12 cm zurück; Pfotenfleck beim Drehen im Code behoben (Pfotenhalt), nicht gefilmt; offen Ratte Heimweg, Gleiten, Beine | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: Chef 08:09 (Archiv): Grak „sieht gar nicht gut aus“, Kobolde „wie ‚das Ding‘ aus einem John-Carpenter-Film“; **erst die Gestalt, dann Bewegung** (Chef 08:10, Archiv): Hieb, Gehen ruhen; Gestalt nachbessern, dann ein Film: beide nah, Augenhöhe, ganzer Körper, drehend; dazu welches Modell, welche Texturen | `claude/jerry-348-kampf` |
 | 348.13a | M | **von Team Tom (Chef 08:09, Archiv: r9 ja):** Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13a) | startbar | `claude/jerry-348-kampf` |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht bis Kauf: Werte, Listen ja (Archiv), dann einbauen; erst Größe prüfen | – |
