@@ -8,7 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar (`LISTE-UMZUG-348.md` „Spielfassung“) | gebaut e18c6a223, CI 159 grün (aufruf_399, kampfort_lauf); Grak eingehängt 181d9368b, im Lauf 160; Tom kann mergen (399.1) | `claude/jerry-348-kampf` |
+| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar (`LISTE-UMZUG-348.md` „Spielfassung“) | wartet auf Chef: 399.2a Waldgruppe; gebaut e18c6a223, CI 159 grün; Grak im Lauf 160; Tom hat gemergt (ad3797d11) | `claude/jerry-348-kampf` |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: Tusche passt (Chef 12:31); im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK, CI 158 grün | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | gebaut: Zweihand passt (Chef 12:31, Archiv); 1d6618d74 Gehen, Hieb, Treffer, Tod frei, im Spiel-APK (399.2); Film im Kampfort mit Ortswechsel 4499b7fe3 läuft in CI (Probe 1/2), dann vorlegen | `claude/jerry-348-kampf` |
