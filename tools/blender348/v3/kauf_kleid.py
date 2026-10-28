@@ -299,6 +299,14 @@ weg = [f_ for f_ in bm.faces if sum(verdeckt[v.index] for v in f_.verts) >= (len
 bmesh.ops.delete(bm, geom=weg, context='FACES')
 bm.to_mesh(qkoerper.data); bm.free()
 print('KOERPER VERDECKT', int(verdeckt.sum()), 'von', len(QV), 'Ecken;', len(weg), 'Flaechen weg')
+# 376.1 Halszacken: Halshaut, die nach dem Abbau bleibt und naeher als 1/2/4 mm an der Kette liegt (gleich tief: Flackern im Spiel)
+_hh = [i for i in range(len(QV)) if am_hals[i] or (WQ[i, iN] > 0.3)]
+_d = []
+for i in _hh:
+    h_ = kbvh.find_nearest(Vector(QV[i]), 0.01)
+    if h_[0] is not None: _d.append(h_[3])
+_d = np.array(_d) if _d else np.zeros(0)
+print('HALS AN KETTE <1mm %d <2mm %d <4mm %d von %d Ecken' % ((_d < 0.001).sum(), (_d < 0.002).sum(), (_d < 0.004).sum(), len(_hh)))
 
 # ---------------------------------------------------------------- 8. Kleidung zurueck in die Ruhelage der Kauffigur
 WKq = np.zeros((len(VK2), len(Q_KN)))
