@@ -12,11 +12,7 @@ Nichts offen.
 
 ## Anzusehen
 
-**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
-
-| Nr. | Was | Wer | Seit |
-|---|---|---|---|
-| [348.12](ansehen/34812-grak-gestalt.md) | Grak, Gestalt Runde 2: neu aus freien Quaternius-Teilen | – | 28.10., 10:38 |
+Nichts offen.
 
 ## Zu tun
 
@@ -66,13 +62,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 29, Muss 18, startbar 5
+**Jerry** – offen 29, Muss 18, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | startbar |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | startbar |
-| 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | Chef |
+| 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | startbar |
 | 348.13a | M | von Team Tom (Chef 08:09, Archiv: r9 ja): Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13 | wartet auf Test/Build (gebaut) |
 | 348.12c | M | von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv): Wiedergänger, Grabhund, Riesenegel, Säur | ruht |
 | 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
