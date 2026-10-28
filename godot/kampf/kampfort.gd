@@ -888,7 +888,10 @@ func _done() -> void:
 	shown.queue = mars.queue()
 	busy = false
 	if mars.outcome == "WON" and reward.is_empty():
-		reward = Lohn.reward(mars, int(progress.get("xp", 0)), mars.dice, int(progress.get("over", 0)), progress.get("cap"))
+		# 399.2: Ausrüstung als Beute (Loot.drops) würfelt die Welt, die Held und Tasche kennt (progress „beute“, aufruf.gd)
+		var beute: Callable = progress.get("beute", Callable())
+		reward = Lohn.reward(mars, int(progress.get("xp", 0)), mars.dice, int(progress.get("over", 0)), progress.get("cap"), 1.0, 1.0,
+			beute.call() if beute.is_valid() else [])
 	if mars.outcome == "ONGOING" and mars.pilot_next():
 		go_on()
 	ui.refresh()
