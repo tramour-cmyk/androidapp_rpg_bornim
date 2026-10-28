@@ -8,7 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf (`LISTE-UMZUG-348.md` „Spielfassung“) | in Arbeit: Dorf und Kampf in einem Projekt (5050a27b5), Wald führt in den Kampf, am Rechner Sieg und zurück; APK-Bau läuft; Kampfwerte bis 399.2 vom Probehelden | `claude/tom-399-spielfassung` |
+| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf (`LISTE-UMZUG-348.md` „Spielfassung“) | in Arbeit: Dorf, Grundrisse und Kampf in einem Projekt (8d298f1cd), am Rechner geprüft; APK-Bau läuft | `claude/tom-399-spielfassung` |
 | 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | startbar: Lauf 2 passt (Chef 12:31, Archiv); 385.1 Grundbewegungen; übrige der 14 Zauber zurückgestellt |
 | 398 | M | **von Perikles:** 398-Zeilen schätzen (`LISTE-UMZUG-348.md`) | startbar | – |
 | 390 | M | **von Perikles:** zwischen Chef-Blättern Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | gebaut: Laden, Rast, Held, Tagesablauf, Gespräche, Englisch (64a6e5a80; Test 390a) | `claude/tom-390-englisch` |
