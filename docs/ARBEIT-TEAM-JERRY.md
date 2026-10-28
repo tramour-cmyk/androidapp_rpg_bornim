@@ -12,7 +12,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 |---|---|---|---|---|
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | Chef: r2 an Chef (ansehen/387-kauftiere-r2, ein Film, sechs Tiere, Befunde offen); danach Befunde beheben |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | Chef: Drehen auf der Stelle (Ratte, Kaufwolf) an Chef (ansehen/34812f-drehen), Frage Schnauze näher; Ausweichen Kaufwolf ja (Archiv 22:54) | `claude/jerry-348-kampf` |
-| 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: Grak, Kobold aufs CC0-Gerüst (Hieb ab 17:57; Zombie-Platz = Kauf-Wiedergänger, Archiv 26.10.) | `claude/jerry-348-kampf` |
+| 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | Chef: Kobold CC0 r1 an Chef (ansehen/34812-kobold-cc0, Befunde offen); Grak gebaut (goblin.py ART=hobgoblin_captain), Bild fehlt | `claude/jerry-348-kampf` |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht bis Kauf: Werte, Listen ja (Archiv), dann einbauen; erst Größe prüfen | – |
 | 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | wartet auf Chef: Bahn 348.7b; dann Fledermaus r4d und Wildschwein r3 neu vorlegen; Kobold bis Chef; Treffer: Ansage zuerst (Archiv) | `claude/jerry-348-kampf` |
 | 348.7b | M | Zauberbahn nach Chef „D“ | startbar: Zu 348.7b, Archiv | `claude/jerry-348-kampf` |
