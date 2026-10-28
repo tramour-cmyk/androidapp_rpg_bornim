@@ -18,11 +18,21 @@ for d in sorted(os.listdir(FILM)):
     nr, rest = d.split('_', 1)
     fig, bew = rest.rsplit('_', 1)
     bilder = sorted(os.path.join(p, f) for f in os.listdir(p) if f.endswith('.png'))
-    schleife = bew in ('Stehen', 'Gehen', 'Rennen', 'Sitzen', 'Gesten', 'Kampfstehen', 'Zauberstehen')   # 385
+    schleife = bew in ('Stehen', 'Gehen', 'Rennen', 'Sitzen', 'Gesten', 'Kampfstehen', 'Zauberstehen', 'Umsehen', 'Hocken')   # 385, 385.1
     quelle = zeilen.get(nr, '').split(': ', 1)[-1].split(',')[0] if bilder else 'keine Bewegung in der UAL'
     felder.append((nr, fig, bew, bilder, schleife, quelle))
 n = max((len(f[3]) for f in felder), default=1)
-ZL = (len(felder) + SP - 1) // SP
+# 385.1: Zauber im breiten Feld (figurenprobe.gd, ganze Bildbreite) ueber zwei Spalten, im selben Massstab, mittig
+BREIT = ('Feuerpfeil', 'Feuerball')
+platz = []   # (Spalte, Zeile, Spalten) je Feld
+sp_, zl_ = 0, 0
+for f in felder:
+    b = 2 if f[2] in BREIT and SP >= 2 else 1
+    if sp_ + b > SP: sp_, zl_ = 0, zl_ + 1
+    platz.append((sp_, zl_, b))
+    sp_ += b
+    if sp_ >= SP: sp_, zl_ = 0, zl_ + 1
+ZL = max((z + 1 for _, z, _ in platz), default=1)
 try:
     font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 17)
     klein = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 13)
@@ -47,8 +57,8 @@ for fnr, (i, jz, leiste) in enumerate(folge):
     dr = ImageDraw.Draw(bild)
     dr.text((10, 8), leiste, font=font, fill=(214, 178, 92))
     for j, (nr, fig, bew, bilder, schleife, quelle) in enumerate(felder):
-        x, y = (j % SP) * W, LEISTE + (j // SP) * (H + KOPF)
-        dr.rectangle([x, y, x + W - 1, y + KOPF - 1], fill=(0, 0, 0))
+        x, y, bb = platz[j][0] * W, LEISTE + platz[j][1] * (H + KOPF), platz[j][2] * W
+        dr.rectangle([x, y, x + bb - 1, y + KOPF - 1], fill=(0, 0, 0))
         dr.text((x + 6, y + 3), '%s  %s' % (int(nr), bew), font=font, fill=(214, 178, 92))
         dr.text((x + 6, y + 24), '%s · %s' % (NAMEN.get(fig, fig), quelle), font=klein, fill=(220, 214, 200))
         if not bilder:
@@ -58,9 +68,10 @@ for fnr, (i, jz, leiste) in enumerate(folge):
         p = bilder[k]
         if p not in cache:
             if len(cache) > 400: cache.clear()
-            cache[p] = Image.open(p).convert('RGB').resize((W, H), Image.LANCZOS)
-        bild.paste(cache[p], (x, y + KOPF))
-        dr.rectangle([x, y + KOPF, x + W - 1, y + KOPF + H - 1], outline=(70, 58, 30))
+            q = Image.open(p).convert('RGB')
+            cache[p] = q.resize((min(bb, round(q.width * H / q.height)), H), Image.LANCZOS)
+        bild.paste(cache[p], (x + (bb - cache[p].width) // 2, y + KOPF))
+        dr.rectangle([x, y + KOPF, x + bb - 1, y + KOPF + H - 1], outline=(70, 58, 30))
     bild.save(os.path.join(tmp, 'f%05d.png' % fnr))
 # als Bildfolge mit fester Rate (Helfer: concat mit Dauern liess je 6 Bilder eines aus)
 subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-framerate', '30', '-i', os.path.join(tmp, 'f%05d.png'), '-vf', 'format=yuv420p',

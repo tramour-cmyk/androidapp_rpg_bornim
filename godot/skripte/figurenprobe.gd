@@ -38,6 +38,23 @@ const FELDER := [
 ]
 # 385: Film der Zauberbewegungen am Kaufkoerper (Chef 27.10., 21:04; „jetzt“ 28.10., 10:00)
 const FELDER_ZAUBER := [["q_held", "Zauberstehen"], ["q_held", "Zauber kurz"], ["q_held", "Zauber mittel"], ["q_held", "Zauber groß"]]
+# 385.1 (Chef 11:09 „Grundbewegungen im Film zeigen“; 11:11 Hocken und Tod „auch für andere geeignet?“; 11:16 Stehen „etwas steif“,
+# „Zauber, ohne dass was rauskommt, ist halt auch blöd“): Grundbewegungen des Sets am Zauberer mit Stab, zwei Zauber mit Jerrys
+# Feuer aus dem Kampf (kampf/zauber.gd), Hocken, Tod, Aufstehen am Bauern ohne Stab. Bei --teil=zauber2 gelten diese Namen vor der UAL.
+const ZAUBER2 := {
+	"Umsehen": ["Zauber_IdleLookAroundWizard"], "Gehen": ["Zauber_WalkForwardWizard"], "Hocken": ["Zauber_CrouchIdleWizard"],
+	"Ausweichen": ["Zauber_DodgeLeftWizard"], "Treffer": ["Zauber_GetHitFrontHeavyWizard"], "Tod": ["Zauber_DeathBackWizard"],
+	"Aufstehen": ["Zauber_GetBackUpBackWizard"], "Feuerpfeil": ["Zauber_CastSpell6Wizard"], "Feuerball": ["Zauber_CastSpell4Wizard"],
+}
+const FELDER_ZAUBER2 := [
+	["q_held", "Umsehen"], ["q_held", "Gehen"], ["q_held", "Hocken"], ["q_held", "Ausweichen"], ["q_held", "Treffer"], ["q_held", "Tod"],
+	["q_held", "Aufstehen"], ["q_held", "Feuerpfeil"], ["q_held", "Feuerball"], ["q_bauer", "Hocken"], ["q_bauer", "Tod"], ["q_bauer", "Aufstehen"],
+]
+# Zauber im breiten Feld (ganze Bildbreite, 4,2 m): Zauberer links mit Blick nach rechts, Einschlag rechts in Brusthoehe eines Wolfs
+const ZAUBER_ART := {"Feuerpfeil": "FIRE_BOLT", "Feuerball": "FIREBALL"}
+const ZIEL_WEIT := 2.7     # m vom Zauberer zum Einschlag
+const ZIEL_HOCH := 0.45    # Brust eines Wolfs
+const WOLF_HOCH := 0.8     # Mass der Zauber: u = Hoehe des Getroffenen / 40 (kampf_ui.gd)
 const REIHE := ["held", "q_held", "q_bauer", "q_baeuerin", "q_zwerg", "q_elf", "q_halbling", "q_halbork"]
 # Chef 15:23: eine Kauffigur in unserer Kleidung (kauf_kleid.py); 14:44 Koepfe: schmal/rund, ohne/mit Bart
 const TRACHT := ["held", "q_tracht", "q_held"]
@@ -129,6 +146,11 @@ func _ready() -> void:
 	if teil == "tracht": await tracht()
 	if teil == "trachtfilm": await film(FELDER_TRACHT)
 	if teil == "koepfe": await koepfe()
+	if teil == "zauber2":
+		freie_wiese()
+		film_zoom = 4.2
+		fuss_unten = 200
+		await film(FELDER_ZAUBER2)
 	if teil == "zauber":
 		freie_wiese()
 		film_zoom = 4.2     # 385 Lauf 2: Stab bis 2,8 m ueber dem Boden (Zauber gross, Faeuste oben); 257 statt 318 px je m
@@ -157,7 +179,7 @@ func lade_ual() -> void:
 		sc2.free()
 
 func ual_name(bew: String) -> String:
-	for n in UAL.get(bew, []):
+	for n in (ZAUBER2 if teil == "zauber2" and ZAUBER2.has(bew) else UAL).get(bew, []):
 		if ual_lib.has_animation(n): return n
 	return ""
 
@@ -199,7 +221,8 @@ func lade_figur(k: String) -> void:
 	m.add_child(ap)
 	ap.root_node = ap.get_path_to(m)
 	ap.add_animation_library("", lib)
-	for n in ["Idle_Loop", "Walk_Loop", "Jog_Fwd_Loop", "Sitting_Idle_Loop", "Idle_Talking_Loop", "Sword_Idle", "Zauber_IdleWizard"]:
+	for n in ["Idle_Loop", "Walk_Loop", "Jog_Fwd_Loop", "Sitting_Idle_Loop", "Idle_Talking_Loop", "Sword_Idle", "Zauber_IdleWizard",
+			"Zauber_IdleLookAroundWizard", "Zauber_WalkForwardWizard", "Zauber_CrouchIdleWizard"]:
 		if lib.has_animation(n): lib.get_animation(n).loop_mode = Animation.LOOP_LINEAR
 	ap.play("Idle_Loop")
 	figuren[k] = w
@@ -454,8 +477,8 @@ func film(felder: Array) -> void:
 			continue
 		stelle([k], 1.0, ort)
 		var w: Node3D = spiel.held if k == "held" else figuren[k]
-		bewaffne(k, bew in KAMPF)
-		stab(k, bew.begins_with("Zauber"))
+		bewaffne(k, bew in KAMPF and not teil.begins_with("zauber"))
+		stab(k, bew.begins_with("Zauber") or (teil == "zauber2" and k == "q_held"))
 		var ap := spieler(k)
 		ap.play(n)
 		var lang := ap.get_animation(n).length
@@ -466,7 +489,7 @@ func film(felder: Array) -> void:
 		# Tod (Helfer 16:36: Death02 stuerzt eine Koerperlaenge nach vorn, aufs Dach vor der Figur): von der Seite, die Figur so
 		# zurueckgesetzt, dass Anfang und Ende des Sturzes gleich weit von der Bildmitte liegen
 		var mitte_vers := Vector3.ZERO
-		if bew == "Tod":
+		if bew in ["Tod", "Aufstehen"]:
 			w.rotation.y -= PI * 0.5
 			ap.seek(lang, true)
 			var ende := knochen_pos(k, "pelvis") - w.position
@@ -474,12 +497,16 @@ func film(felder: Array) -> void:
 			mitte_vers = Vector3(ende.x, 0, ende.z) * 0.5
 			if k == "held": spiel.held.weg.clear()
 			w.position -= mitte_vers
+		var zart: String = ZAUBER_ART.get(bew, "") if teil == "zauber2" else ""
+		var zs := {}
+		if zart != "": zs = zauber_an(k, ap, n, lang)
 		var start := w.position
 		var vor := Vector3(sin(w.rotation.y), 0, cos(w.rotation.y))
 		# Schleifen ganze Umlaeufe, mindestens 1,5 s (Helfer Film: Ruck an der Naht, Gehen 1,33 s lief 1,5 s)
 		var dauer := lang * ceilf(1.5 / lang) if schleife else lang + 0.5
 		var bilder := int(ceil(dauer * FPS))
 		z.position = Vector3(start.x, 0, start.z) + mitte_vers
+		if zart != "": z.position += vor * ZIEL_WEIT * 0.5
 		spiel.kamera.springe()
 		await get_tree().create_timer(0.3).timeout
 		for f in bilder:
@@ -491,19 +518,86 @@ func film(felder: Array) -> void:
 				w.position = start + vor * v * t
 				z.position = Vector3(w.position.x, 0, w.position.z)
 				spiel.kamera.springe()
+			if zart != "": zauber_bild(zs, zart, k, t)
 			await RenderingServer.frame_post_draw
 			await RenderingServer.frame_post_draw
 			var img := spiel.get_viewport().get_texture().get_image()
 			var fuss: Vector2 = spiel.kamera.unproject_position(Vector3(w.position.x, 0, w.position.z) + mitte_vers)
 			var r := Rect2i(int(fuss.x) - FELD_PX.x / 2, int(fuss.y) - FELD_PX.y + fuss_unten, FELD_PX.x, FELD_PX.y)
+			if zart != "": r = Rect2i(0, r.position.y, img.get_width(), FELD_PX.y)   # breites Feld: ganze Bildbreite
 			img.get_region(r).save_png(ordner + "/%03d.png" % f)
+		if zart != "": zs["tafel"].node.queue_free()
 		bewaffne(k, false)
 		stab(k, false)
 		w.position = start + mitte_vers
+		if zart != "": protokoll.append("ZAUBER %s %s: los %.2f s, Stabspitze %s, Ziel %s" % [bew, zart, zs["los"], zs.get("von"), zs["ziel"]])
 		liste.append("%02d %s %s: %s, %.2f s, %d Bilder%s" % [i + 1, k, bew, n, lang, bilder, (", %.2f m/s" % v) if v > 0.0 else ""])
 	protokoll.append_array(liste)
 	var f2 := FileAccess.open(aus + "/film/felder.txt", FileAccess.WRITE)
 	f2.store_string("\n".join(liste) + "\n")
+
+# 385.1: Zauber im Film wie im Kampf (kampf_ui.gd _draw_spells): Jerrys zauber.gd malt in tafel.gd, gerade von der Stabspitze
+# (beim Loslassen festgehalten) zum Ziel. Loslassen: das erste Bild, in dem die Stabhand 95 % ihrer weitesten Reichweite nach vorn hat.
+# Zauberer blickt nach rechts im Bild, Ziel ZIEL_WEIT vor ihm. Die Dateien kampf/ kopiert der Lauf aus Jerrys Zweig (zauber_lauf.sh).
+func zauber_an(k: String, ap: AnimationPlayer, n: String, lang: float) -> Dictionary:
+	var w: Node3D = figuren[k]
+	var kam: Kamera = spiel.kamera
+	var rechts := kam.global_basis.x; rechts.y = 0; rechts = rechts.normalized()
+	w.rotation.y = atan2(rechts.x, rechts.z)
+	w.position -= rechts * ZIEL_WEIT * 0.5
+	var vor := Vector3(sin(w.rotation.y), 0, cos(w.rotation.y))
+	var weit: Array[float] = []
+	for j in 121:
+		ap.seek(lang * j / 120.0, true)
+		weit.append((knochen_pos(k, "hand_l") - w.position).dot(vor))
+	ap.seek(0.0, true)
+	var hoch: float = weit.max()
+	var los := 0.0
+	for j in 121:
+		if weit[j] >= hoch * 0.95:
+			los = lang * j / 120.0
+			break
+	var Tafel = load("res://kampf/tafel.gd")
+	var zb = load("res://kampf/zauber.gd").new()
+	zb.ci = Tafel.new(spiel, spiel.kamera)
+	return {"los": los, "zb": zb, "tafel": zb.ci, "ziel": w.position + vor * ZIEL_WEIT + Vector3.UP * ZIEL_HOCH, "boden": w.position + vor * ZIEL_WEIT}
+
+func zauber_bild(zs: Dictionary, art: String, k: String, t: float) -> void:
+	var kam: Camera3D = spiel.kamera
+	var Zb = zs["zb"].get_script()
+	var vp := spiel.get_viewport().get_visible_rect().size
+	var tf = zs["tafel"]
+	tf.begin(vp)
+	var p: float = (t - float(zs["los"])) * 1000.0 / float(Zb.duration(art))
+	if p >= 0.0 and p < 1.0:
+		if not zs.has("von"): zs["von"] = stab_spitze(k)
+		var tiefe := func(q: Vector3) -> float: return -(kam.global_transform.affine_inverse() * q).z
+		Zb.cam = kam
+		Zb.d_from = tiefe.call(zs["von"])
+		Zb.d_to = tiefe.call(zs["ziel"])
+		Zb.d_hit = maxf(Zb.d_to - 0.1, 0.3)
+		Zb.m_px = kam.size / vp.x
+		Zb.miss_at = Vector2.INF
+		Zb.bahn.clear()
+		var u: float = WOLF_HOCH / Zb.m_px / 40.0
+		zs["zb"].draw(art, 7, p, kam.unproject_position(zs["von"]), kam.unproject_position(zs["ziel"]), u, kam.unproject_position(zs["boden"]).y, false)
+	tf.end()
+
+# oberstes Ende des Stabs in der Welt, aus der Stabhand (der Anhang folgt dem Knochen erst im naechsten Bild)
+func stab_spitze(k: String) -> Vector3:
+	var sk := Gebiet.finde(figuren[k], "Skeleton3D") as Skeleton3D
+	var d := (sk.find_child("Stab", true, false) as Node3D).get_child(0) as Node3D
+	var top := Vector3.ZERO
+	var best := -INF
+	for mi in d.find_children("*", "MeshInstance3D", true, false):
+		var rel := d.global_transform.affine_inverse() * (mi as MeshInstance3D).global_transform
+		var bb := (mi as MeshInstance3D).get_aabb()
+		var q := rel * Vector3(bb.get_center().x, bb.end.y, bb.get_center().z)
+		if q.y > best:
+			best = q.y
+			top = q
+	var st: Transform3D = stab_t
+	return sk.global_transform * sk.get_bone_global_pose(sk.find_bone("hand_l")) * st * top
 
 func knochen_pos(k: String, nm: String) -> Vector3:
 	var w: Node3D = spiel.held if k == "held" else figuren[k]

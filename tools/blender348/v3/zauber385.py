@@ -3,7 +3,9 @@
 # (figurenprobe.gd --ual2=) legt sie neben die UAL-Bewegungen. Uebertragung in Weltlage: je Knochen die Drehung gegen die eigene
 # Ruhelage (Quelle) auf die Ruhelage des Ziels, vorher die Richtung der Ruhelagen angeglichen (Quelle hat keine T-Pose, ihre Ruhelage
 # ist das erste Bild); Becken mit der Beckenhoehe skaliert. Drall um die Knochenachse gleicht das nicht an (Befund im Film pruefen).
-# Aufruf: QUELLE=<Humanoid@X.fbx> ZIEL=<UAL1.glb> NAME=<Bewegung> OUT=<datei.glb> bl/bin/python -I zauber385.py
+# Aufruf: QUELLE=<Humanoid@X.fbx> ZIEL=<UAL1.glb> NAME=<Bewegung> OUT=<datei.glb> [RUHE=<Humanoid@IdleWizard.fbx>] bl/bin/python -I zauber385.py
+# 385.1: Ruhelage einer Datei = ihr erstes Bild; Hocken begann geduckt (Becken x2,21), Aufstehen liegend (x11,32). RUHE nimmt die
+# Ruhelage aus einer anderen Datei (dem Stehen), fuer alle Bewegungen dieselbe.
 import bpy, os
 from mathutils import Matrix, Quaternion, Vector
 
@@ -23,6 +25,16 @@ bpy.ops.import_scene.gltf(filepath=ZIEL)
 T = next(o for o in bpy.data.objects if o.type == 'ARMATURE')
 for o in [o for o in bpy.data.objects if o != T]: bpy.data.objects.remove(o)
 for a in list(bpy.data.actions): bpy.data.actions.remove(a)
+RUHE = os.environ.get('RUHE', '')
+def dreh(m): return m.to_3x3().normalized().to_quaternion()   # FBX-Geruest ist auf 0,01 skaliert
+if RUHE:
+    bpy.ops.import_scene.fbx(filepath=RUHE)
+    R = next(o for o in bpy.data.objects if o.type == 'ARMATURE' and o != T)
+    RW = R.matrix_world.copy()
+    Rs0 = {b.name: dreh(RW @ b.matrix_local) for b in R.data.bones}
+    Ps0 = {b.name: RW @ b.head_local for b in R.data.bones}
+    for o in [o for o in bpy.data.objects if o != T]: bpy.data.objects.remove(o)
+    for a in list(bpy.data.actions): bpy.data.actions.remove(a)
 bpy.ops.import_scene.fbx(filepath=QUELLE)
 S = next(o for o in bpy.data.objects if o.type == 'ARMATURE' and o != T)
 for o in [o for o in bpy.data.objects if o not in (T, S)]: bpy.data.objects.remove(o)
@@ -32,11 +44,11 @@ fps = bpy.context.scene.render.fps
 
 tb = T.data.bones; sb = S.data.bones
 TW = T.matrix_world.copy(); SW = S.matrix_world.copy()
-def dreh(m): return m.to_3x3().normalized().to_quaternion()   # FBX-Geruest ist auf 0,01 skaliert
 Rt0 = {b.name: dreh(TW @ b.matrix_local) for b in tb}
 Pt0 = {b.name: TW @ b.head_local for b in tb}
-Rs0 = {b.name: dreh(SW @ b.matrix_local) for b in sb}
-Ps0 = {b.name: SW @ b.head_local for b in sb}
+if not RUHE:
+    Rs0 = {b.name: dreh(SW @ b.matrix_local) for b in sb}
+    Ps0 = {b.name: SW @ b.head_local for b in sb}
 
 # Angleichen der Ruhelagen: Richtung zum (ersten abgebildeten) Kind; ohne Kind wie der Elternknochen
 def kind(b):
