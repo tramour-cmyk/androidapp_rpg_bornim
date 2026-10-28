@@ -9,7 +9,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | wartet auf Chef: r5 (ansehen/387-kauftiere, Film), Frage je Tier; Fleck beim Drehen im Code (Pfotenhalt), nicht gefilmt |
-| 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | startbar: Chef 10:36 b als letzte Runde, Schatten Ratte prüfen, „Held“ statt „Heldin“ (Archiv) | `claude/jerry-348-kampf` |
+| 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | in Arbeit: b (Nase am Rand) und Schatten Ratte (Pfotenfleck ein Drittel, Bodenschatten) gebaut, CI-Lauf 672293948 (Lauf 1 von 2), dann Vorlage | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | wartet auf Chef: Gestalt Grak r2 (ansehen/34812-grak-gestalt, Film), neu aus freien Quaternius-Teilen; Frage Weg ja; Kobolde danach neu | `claude/jerry-348-kampf` |
 | 348.13a | M | **von Team Tom (Chef 08:09, Archiv: r9 ja):** Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13a) | gebaut (421662dbd): Toms Probe gemischt, Tusche nach Licht Vorgabe, Linie 1,3, Sonne −45,55; Aufhellen der Goblins verworfen (Abstand zum Weg 42→36); offen Säbel | `claude/jerry-348-kampf` |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht bis Kauf: Werte, Listen ja (Archiv), dann einbauen; erst Größe prüfen | – |
