@@ -14,7 +14,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 390 | M | **von Perikles:** zwischen Chef-Blättern Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | gebaut: Laden, Rast, Held, Tagesablauf, Gespräche, Englisch (64a6e5a80; Test 390a) | `claude/tom-390-englisch` |
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101 lädt) | `claude/tom-348-12i-verschluesseln` |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | ruht (Chef 12:34, 399) | `claude/tom-376-1-figuren` |
-| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: Test 133.7 durchgefallen (Chef 16:5x, Archiv): Leute und Tiere lassen sich nicht wegschieben; Ursache nachstellen | `claude/tom-348-fundament` |
+| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | gebaut 7b9e9aa39: Test 133.7 Ursache (Steuerkreuz brach das Schieben immer ab), im Test nachgestellt; fährt im nächsten Build | `claude/tom-348-fundament` |
 | 376.2 | M | **von Perikles (Chef 12:37, `LISTE-CC0-MODELLE.md`):** RenderHub-Marktpaket: Brunnen und Stände als Form, unsere gemalten Farben | wartet auf 348.6 (Dorf nach Urteil Probehaus); Paket im Release stufe1 erreichbar (Chef 17:38) | – |
 | 372 | M | **von Perikles (338a B, Chef 27.10., 09:36, Archiv):** Feinschliff Held: Kettenhemd, Helm, Kragen (Zu 348.6, Hände) | ruht bis Ende des Umzugs | `claude/tom-348-fundament` |
 | 397 | M | **von Chef (28.10., 11:15):** Held, Leute: mind. drei Ruhebewegungen wie alt (`LISTE-UMZUG-348.md`) | gebaut: Held, Leute Stehen, Umsehen, Müde (UAL Pro), in 399.1 | `claude/tom-397-ruhe` |
@@ -37,7 +37,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 ## Einzelheiten
 
 - **Von Perikles (378):** Stände prüfen, `ARBEIT-PROJEKT.md` Zu 378.
-- **Zu 399.3.1 an Jerry** (19:2x, Vorrat voll): 20fd2d4ab (`tom-399`) ändert `klang.gd` 525 (`bett: String`, lud nicht) und `klang_test` (0,6 s); erst holen, dann weiter.
+- **Zu 399.3.1 an Jerry** (18:1x, Vorrat voll): 20fd2d4ab (`tom-399`) ändert `klang.gd` 525 (`bett: String`, lud nicht) und `klang_test` (0,6 s); erst holen, dann weiter.
 - **Zu 399.1 an Jerry** (17:15, sein Vorrat voll): `Zustand.satt` (alt `wellFed`) fehlt dem Kampfort (+1, `Battle.fedBonus`).
 - **Zu 399.1** (Chef über Sokrates): 14:31 130.1–130.5 gehen, Wald nicht (131). 14:38 „Einfach mal das alte Spiel nehmen … so soll es im neuen halt auch schon … die Schriftart umzustellen und auch in den Dialogen … in ein vernünftiges Menü starten“; 14:39 „an die Designvorgaben halten“. Für 132: Hauptmenü wie alt (`App.kt` `MainMenuColumn`, Bild `assets/menu/hauptmenue.jpg`; Bildschirmfoto: graugrün, Titel bricht um, Probeknöpfe darüber, „Sprache“ zu breit, alles links), Alegreya überall, Gesprächsfenster wie `DialogBox`; vorher gegen `DESIGN-STIL.md` „Oberfläche“, `DESIGN-BLENDE.md` „Vorspann und Hauptmenü“ prüfen, im Testbogen nennen.
 
