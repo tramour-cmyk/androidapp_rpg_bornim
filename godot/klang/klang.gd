@@ -141,7 +141,8 @@ func spiele_szene(neu: String) -> void:
 		_blende(p, 0.0, aus_ms, true)
 	if neu != "CAVE" and not (kampf and alt == "CAVE"):     # ein Kampf in der Höhle behält deren Teppich
 		_blende(_teppich, 0.0, TEPPICH_FADE_MS, true)
-	await _warte((aus_ms + PAUSE_MS) / 1000.0)
+	if not (neu == "TITLE" and alt == ""):   # 399.1 Music.kt enter: die Titelmusik nach dem Vorspann sofort, ohne Pause
+		await _warte((aus_ms + PAUSE_MS) / 1000.0)
 	if not await _nach_schleier(lauf):
 		return
 	if neu == "CAVE":

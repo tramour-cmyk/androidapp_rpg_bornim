@@ -42,6 +42,7 @@ func _lauf() -> void:
 	for n in [1, 3]:
 		Spielstand.platz = n
 		Spielstand.speichere(z, hw, {"karte": "inn" if n == 1 else "village", "x": 4, "y": 6, "blick": "UP"})
+	Hauptmenue.vorspann_gezeigt = true   # 292: das Menue selbst, ohne Vorspann
 	var menue := Hauptmenue.new(ui)
 	ebene.add_child(menue)
 	await _bild("menue")

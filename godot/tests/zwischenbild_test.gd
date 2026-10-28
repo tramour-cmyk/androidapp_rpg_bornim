@@ -53,6 +53,15 @@ func _lauf() -> void:
 	var mx := 0.0
 	for p in rand: mx += float(p[0]) / rand.size()
 	pruefe("Pfuetze", Zwischenbild._pfuetze_bei(rand, mx).size(), 2)
+	# 292 Vorspann (Prelude.kt): Firma ein, steht, aus; Pause; Name; Menue
+	var h := Hauptmenue.new(null)
+	h.vorspann = Zwischenbild.daten()["vorspann"]
+	pruefe("Vorspann", [0, 200, 1000, 3000, 3500, 3900, 5500, 6000].map(func(t): return h.vorspann_bei(t).map(func(x): return snappedf(x, 0.01))),
+		[[0.0, 0.0, 0.0], [0.5, 0.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.5, 0.0], [0.0, 1.0, 0.5], [0.0, 1.0, 1.0]])
+	pruefe("praesentiert", Sprache.t(h.vorspann["praesentiert"]), "präsentiert")
+	var lg := Hauptmenue.logo(631)
+	pruefe("Logo scharf", [lg != null, lg.get_width() if lg else 0], [true, 631])
+	h.free()
 	# Ueberspringen: fragen, dann beenden
 	z.frage()
 	pruefe("fragt", z.fragt != null, true)

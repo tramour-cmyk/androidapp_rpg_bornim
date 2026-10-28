@@ -13,7 +13,7 @@ import kotlinx.serialization.json.putJsonObject
 import java.io.File
 
 /**
- * 399.1 (Intro wie alt): the intro and the temple scene for the Godot game (`godot/daten/intro.json`): the clock of [Reel],
+ * 399.1 (Intro wie alt): the opening ([Prelude]), the intro and the temple scene for the Godot game (`godot/daten/intro.json`): the clock of [Reel],
  * the sentences of [Intro] and [TempleScene] word for word, the sounds under the intro ([IntroSound]) and the torch procession
  * over picture 3 ([IntroLife]) sampled every [STEP_MS] ms in the picture's own pixels, so Godot only draws what the old screen drew.
  * Run: `./gradlew -p core exportIntro -Pout=<file>`.
@@ -35,6 +35,12 @@ object IntroExport {
         putJsonObject("uhr") {
             put("blende_ms", Reel.FADE_MS); put("halten_ms", Reel.HOLD_MS); put("schritt_ms", Reel.STEP_MS)
             put("text_ein_ms", Reel.TEXT_IN_MS); put("text_aus_ms", Reel.TEXT_OUT_MS); put("ende_ms", Reel.END_MS)
+        }
+        // 292: der Vorspann beim Kaltstart (Prelude.kt): Firma, Pause, Name, dann das Menue
+        putJsonObject("vorspann") {
+            put("ein_ms", Prelude.fadeIn); put("firma_ms", Prelude.firmHold); put("aus_ms", Prelude.fadeOut)
+            put("firma_ende_ms", Prelude.firmEnd); put("name_ms", Prelude.nameStart); put("menue_ms", Prelude.menuStart); put("ende_ms", Prelude.end)
+            put("praesentiert", text(Ui.presents))
         }
         put("intro", reel(Intro))
         put("tempel", reel(TempleScene))

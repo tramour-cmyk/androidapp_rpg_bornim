@@ -7,13 +7,14 @@ extends Control
 # Designvorgaben halten“): Aussehen wie App.kt MainMenuColumn (292.3, Entwurf A): schwarz, Titel gross in gesperrten Versalien, Zier,
 # Kapitelzeile, das Bild der vier im warmen Lichtkegel (assets/menu/hauptmenue.jpg, im Bau kopiert), Hauptweg golden umrandet,
 # Knoepfe schwarz mit duennem Rand, Sprache als kleines rundes Zeichen, Firmenzeichen und Versionszeile unten; Masse in dp wie alt.
-# Liegt ueber allem (eigene Ebene), ohne die Probeknoepfe des Dorfs. Noch nicht wie alt: Musik und Klang.
+# Liegt ueber allem (eigene Ebene), ohne die Probeknoepfe des Dorfs. Beim Kaltstart vorher der Vorspann (292), dann die Titelmusik.
 
 signal fertig(wahl: Dictionary)
 
 const DP := AktionsKnopf.DP
 const BILD := "res://daten/hauptmenue.bild"   # JPEG aus app/src/main/assets/menu, im Bau kopiert (godot.yml)
 const LOGO := "res://bilder/logo-quer.svg"
+const LOGO_SVG := "res://daten/logo.bild"       # 292 Vorspann: dasselbe SVG roh, im Bau kopiert
 var st: Steuerung
 var box: VBoxContainer
 
@@ -56,11 +57,101 @@ func _ready() -> void:
 	box.add_theme_constant_override("separation", 0)
 	mitte.add_child(box)
 	titel()
+	if not vorspann_gezeigt: starte_vorspann()
+	else: spiele_titel()
 	if ueber_zuerst:   # 399.1 System „Über“ wie alt (vm.toMenu, Screen.ABOUT): speichern, ins Hauptmenue, gleich die Seite
 		ueber_zuerst = false
 		ueber()
 
 static var ueber_zuerst := false
+
+# ---------------------------------------------------------------- 292 Vorspann (Prelude.kt, App.kt MainMenuScreen)
+# beim Kaltstart einmal: das Firmenzeichen mit „präsentiert“ und dem Klanglogo (292.1, nur mit Musik), dann schwarz und still
+# (eine hoerbare Pause), dann der Name mit der Titelmusik, um den das Menue waechst; Tippen ueberspringt. Zeiten aus intro.json.
+static var vorspann_gezeigt := false
+var vorspann := {}
+var vorspann_ms := 0.0
+var name_bis := 0                                # Kinder von box, die mit dem Namen kommen (Titel, Zier, Kapitelzeile)
+var firma: Control
+var titelmusik := false
+
+func klang() -> Node: return get_node_or_null("/root/Klang")
+
+func spiele_titel() -> void:
+	if titelmusik: return
+	titelmusik = true
+	if klang(): klang().spiele_szene("TITLE")   # 399.3 (Jerry): Titelmusik wie alt
+
+func starte_vorspann() -> void:
+	vorspann_gezeigt = true
+	if not Zwischenbild.da():
+		spiele_titel()
+		return
+	vorspann = Zwischenbild.daten().get("vorspann", {})
+	firma = Control.new()
+	firma.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	firma.mouse_filter = Control.MOUSE_FILTER_STOP   # das Menue darunter nimmt kein Tippen, bis es da ist
+	firma.gui_input.connect(func(e: InputEvent):
+		if (e is InputEventMouseButton and e.pressed) or (e is InputEventScreenTouch and e.pressed): ende_vorspann())
+	add_child(firma)
+	var mitte := CenterContainer.new()
+	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	firma.add_child(mitte)
+	var v := VBoxContainer.new()
+	v.alignment = BoxContainer.ALIGNMENT_CENTER
+	v.add_theme_constant_override("separation", int(18 * DP))
+	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	mitte.add_child(v)
+	var tex := logo(240 * DP)
+	if tex:
+		var r := TextureRect.new()
+		r.texture = tex
+		r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		r.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		r.custom_minimum_size = Vector2(240, 240.0 * tex.get_height() / tex.get_width()) * DP
+		r.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		v.add_child(r)
+	var p := Stil.zeile(Sprache.t(vorspann.get("praesentiert", {})), 15, Stil.DIM, 1.2)
+	p.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	v.add_child(p)
+	if klang() and klang().musik_an: klang().effekt("brand", 1.0)   # 292.1: das Klanglogo, mit dem Firmenzeichen; still ohne Musik
+	stelle_vorspann()
+
+# das Firmenzeichen [breite] Pixel breit, scharf aus dem SVG (daten/logo.bild, godot.yml); sonst das eingelesene (444 px)
+static func logo(breite: float) -> Texture2D:
+	var img := Image.new()
+	if FileAccess.file_exists(LOGO_SVG) and img.load_svg_from_buffer(FileAccess.get_file_as_bytes(LOGO_SVG), breite / 444.0) == OK:
+		return ImageTexture.create_from_image(img)
+	return load(LOGO) if ResourceLoader.exists(LOGO) else null
+
+static func rampe(t: float, von: float, bis: float) -> float: return clampf((t - von) / (bis - von), 0.0, 1.0)
+
+# Prelude.firm, name, menu: wie viel Firmenzeichen, Name und uebriges Menue gerade zu sehen sind
+func vorspann_bei(t: float) -> Array:
+	var ein := float(vorspann["ein_ms"]); var steht := ein + float(vorspann["firma_ms"])
+	var f := rampe(t, 0, ein) if t < ein else (1.0 if t < steht else 1.0 - rampe(t, steht, float(vorspann["firma_ende_ms"])))
+	var n := float(vorspann["name_ms"])
+	return [f, rampe(t, n, n + ein), rampe(t, float(vorspann["menue_ms"]), float(vorspann["ende_ms"]))]
+
+func stelle_vorspann() -> void:
+	var a := vorspann_bei(vorspann_ms) if not vorspann.is_empty() else [0.0, 1.0, 1.0]
+	if firma: firma.modulate.a = a[0]
+	for i in box.get_child_count():
+		(box.get_child(i) as CanvasItem).modulate.a = a[1] if i < name_bis else a[2]
+
+func _process(dt: float) -> void:
+	if vorspann.is_empty(): return
+	vorspann_ms += dt * 1000.0
+	if vorspann_ms >= float(vorspann["name_ms"]): spiele_titel()
+	if vorspann_ms >= float(vorspann["ende_ms"]): ende_vorspann()
+	else: stelle_vorspann()
+
+func ende_vorspann() -> void:
+	vorspann = {}
+	if firma: firma.queue_free(); firma = null
+	stelle_vorspann()
+	spiele_titel()
 
 func leer() -> void:
 	for c in box.get_children():
@@ -156,6 +247,7 @@ func titel() -> void:
 	mittig(Zier.new())
 	abstand(12)
 	zeile(Sprache.u("subtitle").replace(": ", " · "), 15, Stil.DIM, 1.0)
+	name_bis = box.get_child_count()
 	abstand(18)
 	bild(BILD, 330)
 	abstand(22)

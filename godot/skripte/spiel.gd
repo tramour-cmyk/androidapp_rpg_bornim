@@ -71,7 +71,7 @@ func _ready() -> void:
 		add_child(ebene)
 		var menue := Hauptmenue.new(ui)
 		ebene.add_child(menue)
-		klang("spiele_szene", ["TITLE"])   # 399.3 (Jerry): Titelmusik wie alt
+		# 399.3 (Jerry): die Titelmusik startet das Hauptmenue, beim Kaltstart erst nach dem Vorspann (292)
 		var w: Dictionary = await menue.fertig
 		ebene.queue_free()
 		Spielstand.platz = maxi(1, int(w.get("platz", 1)))   # 399.1: vier Plaetze wie alt; gespeichert wird in diesen
