@@ -530,11 +530,25 @@ static func toon_mark() -> Shader:
 	return marked
 
 
+# 348.13a Runde 7 (Probe TUSCHE=licht, Tom): Gegner mit eigener Schablone 3; ohne sie zeichnete die Welttusche (1,3 x 1,7 statt
+# 0,8 x 1,5 am Helden) die Goblins: am Rechner gemessen 2200 bis 4300 Tuschepunkte je Goblin schon ohne breiten Umriss
+static var marked_gegner: Shader
+
+static func toon_gegner() -> Shader:
+	if marked_gegner == null:
+		var toon: Shader = load("res://kampf/toon.gdshader")
+		marked_gegner = Shader.new()
+		marked_gegner.code = toon.code.replace("render_mode cull_disabled, specular_disabled;", "render_mode cull_disabled, specular_disabled;\nstencil_mode write, compare_always, 3;")
+	return marked_gegner
+
+
 func _toon(c: Color) -> ShaderMaterial:
 	var m := ShaderMaterial.new()
 	if fighter != null and fighter.side == "PARTY":
 		m.shader = toon_mark()
 		m.set_shader_parameter("fill", 0.42)
+	elif OS.get_environment("TUSCHE") == "licht":
+		m.shader = toon_gegner()
 	else:
 		m.shader = load("res://kampf/toon.gdshader")
 	var img := Image.create(4, 4, false, Image.FORMAT_RGB8)

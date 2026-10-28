@@ -279,6 +279,60 @@ func _still(path: String) -> void:
 					await get_tree().process_frame
 		get_tree().quit()
 		return
+	# 348.13a (Helfer: Fassungen aus getrennten Läufen zeigen verschiedene Augenblicke): TUSCHE_REIHE=1.0,1.6,2.2 hält den Kampf an
+	# und legt im selben Bild je Stärke des Umrisses ein Bild ab, dazu eines mit Magenta-Tusche zum Messen
+	if OS.get_environment("TUSCHE_REIHE") != "" and not fight._ink_mats.is_empty():
+		Engine.time_scale = 0.0
+		# Runde 8: SONNE_REIHE=-45,55;-40,70 im selben Augenblick je Sonnenstand (KAMPF_SONNE -65,25 stand am Schirm nur 11° schräg)
+		var sonnen: Array = [""] if OS.get_environment("SONNE_REIHE") == "" else Array(OS.get_environment("SONNE_REIHE").split(";"))
+		for so in sonnen:
+			if so != "":
+				var sv: PackedStringArray = so.split(",")
+				fight._sun.rotation_degrees = Vector3(float(sv[0]), float(sv[1]), 0)
+				fight._ink_licht()
+				var lv: Vector3 = fight.cam.global_transform.basis.inverse() * fight._sun.global_transform.basis.z
+				print("Sonne ", so, " Schirm ", Vector2(lv.x, -lv.y).normalized())
+			for v in OS.get_environment("TUSCHE_REIHE").split(","):
+				for mag in [false, true]:
+					for m in fight._ink_mats:
+						m.set_shader_parameter("umriss_dick", float(v))
+						m.set_shader_parameter("ink", Color(1, 0, 1) if mag else Color(0.07, 0.05, 0.04))
+					for _i in 3: await RenderingServer.frame_post_draw
+					var fv := path.get_basename() + "-%s%s%s.png" % ["" if so == "" else "s" + so.replace(",", "_") + "-", v, "-m" if mag else ""]
+					get_viewport().get_texture().get_image().save_png(fv)
+					print("Bild ", fv)
+				# Runde 9 (TUSCHE_TEIL=1): je Durchgang eine Farbe (Welt magenta, Held cyan, Gegner gelb), hell = breites Band, halb = Kante
+				if OS.get_environment("TUSCHE_TEIL") != "":
+					var farben := [Color(1, 0, 1), Color(0, 1, 1), Color(1, 1, 0)]
+					for i in fight._ink_mats.size():
+						fight._ink_mats[i].set_shader_parameter("ink", farben[mini(i, 2)])
+						fight._ink_mats[i].set_shader_parameter("dbg", 1.0)
+					for _i in 3: await RenderingServer.frame_post_draw
+					var ft := path.get_basename() + "-%s%s-t.png" % ["" if so == "" else "s" + so.replace(",", "_") + "-", v]
+					get_viewport().get_texture().get_image().save_png(ft)
+					print("Bild ", ft)
+					for m in fight._ink_mats:
+						m.set_shader_parameter("dbg", 0.0)
+						m.set_shader_parameter("ink", Color(0.07, 0.05, 0.04))
+		if OS.get_environment("TUSCHE_TEIL") != "":
+			_report_rects()
+			# Runde 9 (Helfer: untere Hälfte des Langschwerts dunkel, keine Tusche): Bild ohne Schlagschatten der Gruppe und eines
+			# ohne Sonnenschatten überhaupt, je mit Helligkeit der Klinge
+			var aus: Array = []
+			for id in fight.figures:
+				if fig_of(id).fighter.side == "PARTY":
+					for mi in fig_of(id).find_children("*", "MeshInstance3D", true, false):
+						if mi.cast_shadow != GeometryInstance3D.SHADOW_CASTING_SETTING_OFF:
+							aus.append([mi, mi.cast_shadow])
+							mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+			for _i in 3: await RenderingServer.frame_post_draw
+			get_viewport().get_texture().get_image().save_png(path.get_basename() + "-ohne_gruppenschatten.png")
+			fight._sun.shadow_enabled = false
+			for _i in 3: await RenderingServer.frame_post_draw
+			get_viewport().get_texture().get_image().save_png(path.get_basename() + "-ohne_schatten.png")
+			print("Bild ohne Schatten (", aus.size(), " Teile)")
+		get_tree().quit()
+		return
 	await RenderingServer.frame_post_draw
 	get_viewport().get_texture().get_image().save_png(path)
 	print("Bild ", path)
@@ -874,6 +928,22 @@ func _bogen_schnitt(id, fig, sk: Skeleton3D) -> void:
 
 func fig_of(id):
 	return fight.figures[id]
+
+
+## 348.13a Runde 9: Lage jedes Teils am Schirm (Bildpunkte) und Höhe der Unterkante, um Tuschefehler einem Teil zuzuordnen
+func _report_rects() -> void:
+	for id in fight.figures:
+		for mi in fig_of(id).find_children("*", "MeshInstance3D", true, false):
+			if not mi.is_visible_in_tree() or mi.mesh == null:
+				continue
+			var bb: AABB = mi.global_transform * mi.get_aabb()
+			var lo := Vector2(1e9, 1e9)
+			var hi := Vector2(-1e9, -1e9)
+			for k in 8:
+				var p: Vector2 = fight.cam.unproject_position(bb.get_endpoint(k))
+				lo = lo.min(p)
+				hi = hi.max(p)
+			print("Teil %s/%s/%s: %d,%d-%d,%d unten %.2f m" % [id, mi.get_parent().name, mi.name, lo.x, lo.y, hi.x, hi.y, bb.position.y])
 
 
 func _skeleton(n: Node) -> Skeleton3D:

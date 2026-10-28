@@ -160,6 +160,9 @@ func _setup_world() -> void:
 	# höher und von vorn als im Dorf (licht.gd -50, 25): sonst liegt der Schatten der Bäume auf der Lichtung (Lauf 11:
 	# Wölfe schwarz, grauer Wolf Helligkeit 8, ohne Baumschatten 43)
 	sun.rotation_degrees = Vector3(-65, 0, 0)
+	if OS.has_environment("KAMPF_SONNE"):     # 348.13a Probe (Tom): Sonne von vorn hat keine Lichtseite links/rechts; KAMPF_SONNE=<Höhe>,<seitlich>
+		var sv := OS.get_environment("KAMPF_SONNE").split(",")
+		sun.rotation_degrees = Vector3(float(sv[0]), float(sv[1]), 0)
 	sun.shadow_enabled = true
 	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_ORTHOGONAL
 	sun.directional_shadow_max_distance = 40.0
@@ -180,7 +183,20 @@ func _setup_world() -> void:
 	var tu: Shader = load("res://kampf/tusche.gdshader")
 	var tu_held := Shader.new()
 	tu_held.code = tu.code.replace("stencil_mode read, compare_equal, 0;", "stencil_mode read, compare_equal, 2;")
-	if OS.get_environment("TUSCHE") != "0":     # Prüflauf: TUSCHE=0 misst, was die Linie ausmacht
+	_sun = sun
+	if OS.get_environment("TUSCHE") == "licht":     # 348.13 Probe (Tom): Tusche nach Licht wie kamera.gd
+		tu = load("res://kampf/tusche_licht.gdshader")
+		tu_held = Shader.new()
+		tu_held.code = tu.code.replace("stencil_mode read, compare_equal, 0;", "stencil_mode read, compare_equal, 2;")
+		# 348.13a (Chef 27.10., 09:41): Schattenseite im Kampf kräftiger als im Dorf; Probe TUSCHE_DICK=<Faktor auf das Dorf>
+		_ink(tu, 1.3, 1.7)
+		_ink(tu_held, 0.8, 1.5)
+		var tu_gegner := Shader.new()     # Runde 7: Gegner (figur.gd toon_gegner, Schablone 3) wie der Held statt mit der Welttusche
+		tu_gegner.code = tu.code.replace("stencil_mode read, compare_equal, 0;", "stencil_mode read, compare_equal, 3;")
+		_ink(tu_gegner, 0.8, 1.5)
+		var k := float(OS.get_environment("TUSCHE_DICK")) if OS.has_environment("TUSCHE_DICK") else 1.0     # Probe: Faktor auf den Umriss
+		for m in _ink_mats: m.set_shader_parameter("umriss_dick", k)
+	elif OS.get_environment("TUSCHE") != "0":     # Prüflauf: TUSCHE=0 misst, was die Linie ausmacht
 		_ink(tu, 1.3, 1.25)
 		_ink(tu_held, 0.8, 1.0)
 
@@ -196,9 +212,28 @@ func _ink(sh: Shader, width: float, thick: float) -> void:
 	tm.shader = sh
 	tm.set_shader_parameter("px", width)
 	tm.set_shader_parameter("dick", thick)
+	if OS.get_environment("TUSCHE_MAGENTA") != "":     # Messlauf: Breite der Linie zählen (tusche_breite.py)
+		tm.set_shader_parameter("ink", Color(1, 0, 1))
 	q.material_override = tm
 	q.position = Vector3(0, 0, -1)
 	cam.add_child(q)
+	_ink_mats.append(tm)
+
+var _sun: DirectionalLight3D
+var _ink_mats: Array[ShaderMaterial] = []
+func _ink_licht() -> void:
+	if OS.get_environment("TUSCHE") != "licht" or _ink_mats.is_empty(): return
+	var bm := get_viewport().get_visible_rect().size.x / (120.0 * scene_rect().size.x / 412.0 / 1.75) * cam.size / base_size
+	if OS.get_environment("TUSCHE_DBG") != "" and Engine.get_process_frames() % 30 == 0:     # 348.13a: Sonne am Schirm (wie sl im Shader)
+		var lv := cam.global_transform.basis.inverse() * _sun.global_transform.basis.z
+		print("Sonne Schirm ", Vector2(lv.x, -lv.y).normalized(), " Laenge ", Vector2(lv.x, lv.y).length())
+	for m in _ink_mats:
+		m.set_shader_parameter("licht_dir", _sun.global_transform.basis.z)
+		m.set_shader_parameter("breite_m", bm)
+		m.set_shader_parameter("nah_bis", d0 + 5.0)     # 348.13a: breite Linie nur auf der Lichtung (Helfer: Kronen oben als dicker Ast)
+		m.set_shader_parameter("nah_ab", d0 - 6.0)
+	for i in range(1, _ink_mats.size()):     # Held und (Runde 7) Gegner gleich; vorher nur der Held
+		_ink_mats[i].set_shader_parameter("hinten_ab", lerpf(0.05, 0.25, clampf((bm - 3.4) / (9.0 - 3.4), 0.0, 1.0)))
 
 
 ## Die Lichtung (tools/blender348/kampfort_wald.py): Bäume, Büsche, Steine, Boden mit Weg und Sonnentupfen, Grasbüschel.
@@ -658,6 +693,7 @@ func _state_now() -> Dictionary:
 
 # ---------------------------------------------------------------- playing the beats one after another
 func _process(_dt: float) -> void:
+	_ink_licht()
 	clock_ms += _dt * 1000.0
 	_hit_camera()
 	_grass_spots()
