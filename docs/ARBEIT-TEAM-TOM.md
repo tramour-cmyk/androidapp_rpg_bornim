@@ -39,7 +39,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 ## Einzelheiten
 
 - **Von Perikles (378):** Stände prüfen, `ARBEIT-PROJEKT.md` Zu 378.
-- **Von Team Jerry (28.10., 22:1x), für den nächsten Build:** 399.3 Keuchen `jerry-348-klang` 5af6cd0f0; 399.2 Wolf durch Wolf, 399.2b Knurren mit Text `jerry-348-kampf` 0eda4bb3e.
+- **Von Team Jerry (28.10., 22:2x), für den nächsten Build:** 399.3 Keuchen, 401 Tierlaute `jerry-348-klang` 5c63de384; 399.2 Wolf durch Wolf, 399.2b Knurren mit Text `jerry-348-kampf` 0eda4bb3e.
 - **Zu 399.1, von Homer (28.10., 19:2x; Prüferbefund „Arkanes Heiligensymbol“):** Name „Heiligensymbol“ bleibt; Fehler ist die Beute: `Loot.kt` 82 gibt jedem Zauberer jeden Fokus. Heiligensymbol nur für Kleriker, Zauberkugel und Foliant für Magier; Vorsilbe „Arkan“ (Affix SPELL) auf dem Heiligensymbol als „Geweiht“/„Hallowed“.
 
 - **Zu 376.1:** neben dem heutigen Helden: Bauer, Kopf „Regular“, Haar, Toon, Tusche, Menü und Kartenzoom; auch Zwerg, Elf, Halbling, Halbork; Film als Raster, je Feld eine UAL-Bewegung für Kapitel 1 (Stehen, Gehen, Rennen, Sitzen, Gesten, Hieb, Stich, Ausweichen, Treffer, Tod), Chef je Feld ja/nein; 13 Figuren am A56. UAL Pro (`Unreal-Godot/UAL1.glb`, 120 Bewegungen, Liste in Git): kein Stich, keine Schildabwehr, kein gehaltenes Ausholen (bleiben eigen).
