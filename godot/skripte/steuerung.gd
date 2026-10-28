@@ -31,6 +31,8 @@ var lauf_knopf: Button
 var ort: Label
 var mess: Label
 var textfeld: PanelContainer
+var sprecher: Label                     # 399.1: Name im Kasten, gesperrte Versalien in Gold
+var weiter_zeichen: Label               # ▼, blinkt wie alt alle 400 ms
 var text: Label
 var zeilen: Array = []
 var lauf_an := false
@@ -103,10 +105,19 @@ func _ready() -> void:
 	lauf_knopf.toggled.connect(func(an): lauf_an = an; laufen.emit(an))
 	lauf_knopf.visible = LAUF_TASTE   # 348.6 (Runde 2e: stand allein rechts vor Kirchenfenster und Brunnen)
 	add_child(lauf_knopf)
+	# 399.1 (Chef 14:38 „auch in den Dialogen“): Textkasten wie im alten Spiel (DialogDraft.kt DialogBoxVeil, 42b): ganz schwarz,
+	# duenner Goldrand, Sprecher klein, gesperrt, in Versalien und Gold im Kasten, Worte in gebrochenem Weiss, Erzaehltes schraeg,
+	# ▼ in Gold blinkt; mindestens 132 dp hoch, waechst mit dem Text nach oben
 	textfeld = PanelContainer.new()
 	textfeld.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
-	textfeld.offset_left = 30; textfeld.offset_right = -30; textfeld.offset_top = -480; textfeld.offset_bottom = -60
-	textfeld.add_theme_stylebox_override("panel", rahmen())
+	textfeld.offset_left = 30; textfeld.offset_right = -30; textfeld.offset_bottom = -60
+	textfeld.offset_top = textfeld.offset_bottom - 132 * AktionsKnopf.DP
+	textfeld.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	textfeld.custom_minimum_size.y = 132 * AktionsKnopf.DP
+	var tk := Stil.kasten(Color.BLACK, Stil.RIM, 1.0)
+	tk.content_margin_left = 18 * AktionsKnopf.DP; tk.content_margin_right = 18 * AktionsKnopf.DP
+	tk.content_margin_top = 12 * AktionsKnopf.DP; tk.content_margin_bottom = 16 * AktionsKnopf.DP
+	textfeld.add_theme_stylebox_override("panel", tk)
 	textfeld.visible = false
 	textfeld.gui_input.connect(_text_tippen)
 	add_child(textfeld)
@@ -129,11 +140,25 @@ func _ready() -> void:
 	wahl_box.add_theme_constant_override("separation", 14)
 	wahl_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	wahl_rolle.add_child(wahl_box)
-	text = Label.new()
+	var spalte := VBoxContainer.new()
+	spalte.add_theme_constant_override("separation", int(6 * AktionsKnopf.DP))
+	textfeld.add_child(spalte)
+	sprecher = Stil.zeile("", 12, Stil.GOLD, 3.0)
+	spalte.add_child(sprecher)
+	text = Stil.zeile("", 17, Stil.TEXT, 0.3)
 	text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	text.add_theme_font_size_override("font_size", 36)
-	text.add_theme_color_override("font_color", Color(0.93, 0.88, 0.76))
-	textfeld.add_child(text)
+	text.add_theme_constant_override("line_spacing", int(4 * Stil.SP))   # Zeilenhoehe 24 sp bei 17 sp
+	spalte.add_child(text)
+	weiter_zeichen = Stil.zeile("▼", 12, Stil.GOLD)
+	weiter_zeichen.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	weiter_zeichen.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
+	weiter_zeichen.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	textfeld.add_child(weiter_zeichen)
+	var blinken := Timer.new()
+	blinken.wait_time = 0.4
+	blinken.autostart = true
+	blinken.timeout.connect(func(): weiter_zeichen.modulate.a = 1.0 - weiter_zeichen.modulate.a)
+	add_child(blinken)
 
 func rahmen() -> StyleBoxFlat:
 	var s := StyleBoxFlat.new()
@@ -258,7 +283,10 @@ func naechste() -> void:
 		ring(false)
 		zeichner.queue_redraw()
 	if not textfeld.visible: druck_im_text = false
-	text.text = (String(z["wer"]) + ": " if z.has("wer") else "") + String(z["text"])
+	sprecher.text = String(z["wer"]).to_upper() if z.has("wer") else ""
+	sprecher.visible = z.has("wer")
+	text.text = String(z["text"])
+	text.add_theme_font_override("font", Stil.variante(0.3, not z.has("wer")))   # Erzaehltes schraeg wie alt
 	textfeld.visible = true
 	aktion_knopf.visible = false
 	ort_schild.visible = false

@@ -13,6 +13,11 @@ window/handheld/orientation=1
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[gui]
+
+; 399.1 (Chef 28.10., 14:38; DESIGN-STIL.md „Oberfläche“, 292.3): eine Schrift ueberall, Alegreya
+theme/custom_font="res://kampf/schrift/alegreya_regular.ttf"
+
 [input_devices]
 pointing/emulate_touch_from_mouse=true
 

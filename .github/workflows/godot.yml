@@ -199,6 +199,9 @@ jobs:
           [ -f $K ] || { echo "Schluessel fehlt: Godot-Schluessel (godot-schluessel.yml) auf main laufen lassen"; exit 1; }
           keytool -list -keystore $K -storepass android | grep -i "SHA-256\|SHA256"
           sed -i "s/^version\/code=.*/version\/code=$GITHUB_RUN_NUMBER/; s/^version\/name=.*/version\/name=\"0.348.$GITHUB_RUN_NUMBER\"/" godot/export_presets.cfg
+          # 399.1: Version fuer die Zeile unter dem Firmenzeichen im Hauptmenue; Bild der vier wie im alten Hauptmenue
+          sed -i "/^\[application\]/a config/version=\"0.348.$GITHUB_RUN_NUMBER\"" godot/project.godot
+          cp app/src/main/assets/menu/hauptmenue.jpg godot/daten/hauptmenue.bild
           export GODOT_ANDROID_KEYSTORE_DEBUG_PATH=$K GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD=android
           mkdir -p ~/.config/godot
           printf '[gd_resource type="EditorSettings" format=3]\n\n[resource]\nexport/android/android_sdk_path = "%s"\nexport/android/java_sdk_path = "%s"\n' "$ANDROID_SDK_ROOT" "$JAVA_HOME" > ~/.config/godot/editor_settings-${GODOT%.*}.tres

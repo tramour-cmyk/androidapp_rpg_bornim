@@ -56,10 +56,13 @@ func _ready() -> void:
 	Leute.uhr = func(): return zustand.minuten   # 390 Tagesablauf
 	# 399: Hauptmenue und Erschaffung zuerst, ausser bei Probelaeufen am Rechner (--bilder, --figuren …, Tests ohne Fenster)
 	if OS.get_cmdline_user_args().is_empty() and DisplayServer.get_name() != "headless":
+		var ebene := CanvasLayer.new()   # 399.1 (Test 130: Probeknoepfe und Windrose lagen ueber dem Menue): eigene Ebene ueber allem
+		ebene.layer = 50
+		add_child(ebene)
 		var menue := Hauptmenue.new(ui)
-		ui.add_child(menue)
+		ebene.add_child(menue)
 		var w: Dictionary = await menue.fertig
-		menue.queue_free()
+		ebene.queue_free()
 		var stand := Spielstand.lade() if w.get("laden", false) else {}
 		if not stand.is_empty():
 			zustand = Zustand.aus_daten(stand["zustand"])
