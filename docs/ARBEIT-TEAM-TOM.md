@@ -38,7 +38,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 - **Von Perikles (378):** Stände prüfen, `ARBEIT-PROJEKT.md` Zu 378.
 - **Zu 399.3.1 an Jerry** (18:1x): 20fd2d4ab (`tom-399`) ändert `klang.gd` 525 und `klang_test`; erst holen.
-- **Zu 399.1 an Jerry** (19:5x, per Nachricht): System „Kampf“ hat nur Rückfragen (fe7acbb32); Blut, Tempo, Kampftext (`MenuSigns.kt` 197–211) fehlen.
+- **Zu 399.1 an Jerry** (19:5x, sein Vorrat voll, Sitzung inaktiv; beim nächsten Jerry-Start nachtragen): System „Kampf“ hat nur Rückfragen (fe7acbb32); Blut, Tempo, Kampftext (`MenuSigns.kt` 197–211) fehlen.
 - **Zu 399.1 an Jerry** (17:15, sein Vorrat voll): `Zustand.satt` (alt `wellFed`) fehlt dem Kampfort (+1, `Battle.fedBonus`).
 - **Zu 399.1** (Chef über Sokrates): 14:31 130.1–130.5 gehen, Wald nicht (131). 14:38 „Einfach mal das alte Spiel nehmen … so soll es im neuen halt auch schon … die Schriftart umzustellen und auch in den Dialogen … in ein vernünftiges Menü starten“; 14:39 „an die Designvorgaben halten“. Für 132: Hauptmenü wie alt (`App.kt` `MainMenuColumn`, Bild `assets/menu/hauptmenue.jpg`; Bildschirmfoto: graugrün, Titel bricht um, Probeknöpfe darüber, „Sprache“ zu breit, alles links), Alegreya überall, Gesprächsfenster wie `DialogBox`; vorher gegen `DESIGN-STIL.md` „Oberfläche“, `DESIGN-BLENDE.md` „Vorspann und Hauptmenü“ prüfen, im Testbogen nennen.
 
