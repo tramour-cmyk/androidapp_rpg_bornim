@@ -113,6 +113,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 391 | Zweit-Repo dauerhaft in den Sitzungen, ohne Ablehnung (Chef 28.10., 09:21) | B Werkzeuge | M | – | Sokrates | ruht |
 | 396 | Fertige Vorlagen sofort an den Chef, Prüfer nicht davor (Chef 28.10., 11:01) | B Betrieb | M | – | Perikles | erledigt |
 | 397 | Ruhebewegungen wie im alten Spiel, mindestens drei je Figur, für alle (Chef 28.10., 11:15) | E Figuren | M | – | Team Tom, Team Jerry | startbar |
+| 398 | Gegenprobe: Grundsätze aus DESIGN-Dateien, die im Umzug nach Godot fehlen (Chef 28.10., 11:22) | B Umzug | M | – | Sokrates | in Arbeit |
 | 396a | Rückfrage: Textvorlagen auch sofort senden? (Perikles 28.10.) | B Betrieb | M | – | Perikles | wartet |
 | 394 | Eigene Namen für Zusatzentwickler statt „Tom 2“ (Chef 28.10., 10:21) | B Betrieb | M | – | Perikles | erledigt |
 | 384 | Kosten: alle Sitzungen gebucht? Lücken und Buchungen ohne Kennung (Chef 27.10., 20:06) | B Werkzeuge | M | – | Perikles | gebaut |
