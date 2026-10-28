@@ -23,6 +23,7 @@ Nichts offen.
 | [348.12](ansehen/34812-grak-zweihand.md) | Grak hält die Axt jetzt mit beiden Händen | – | 28.10., 11:53 |
 | [385](ansehen/385-zauberer-lauf2.md) | Zauberer-Set Lauf 2: mit Stab | Tom | 28.10., 11:55 |
 | [387](ansehen/387-kauftiere.md) | Gekaufte Tiere mit unserer Tusche nach Licht | – | 28.10., 12:05 |
+| [376.1](ansehen/3761-halszacken.md) | Halszacken: drei Fassungen des Kopfhebens | Tom | 28.10., 12:28 |
 
 ## Zu tun
 
