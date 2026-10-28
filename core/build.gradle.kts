@@ -27,3 +27,24 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+// 348.6: Karten als JSON fuer Godot und Blender (MapExport.kt)
+tasks.register<JavaExec>("exportMaps") {
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("de.bornim.core.MapExport")
+    args((findProperty("out") as String?) ?: layout.buildDirectory.file("karten.json").get().asFile.path)
+}
+
+// 390: Texte der Oberflaeche in beiden Sprachen fuer Godot (TextExport.kt)
+tasks.register<JavaExec>("exportTexts") {
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("de.bornim.core.TextExport")
+    args((findProperty("out") as String?) ?: layout.buildDirectory.file("texte.json").get().asFile.path)
+}
+
+// 390: Regeln und Proben des Helden fuer Godot (HeroExport.kt)
+tasks.register<JavaExec>("exportHero") {
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("de.bornim.core.HeroExport")
+    args(listOfNotNull((findProperty("out") as String?) ?: layout.buildDirectory.file("held.json").get().asFile.path, findProperty("proben") as String?))
+}

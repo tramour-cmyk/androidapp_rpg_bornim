@@ -12,6 +12,9 @@ object Terrain {
      */
     const val PACE = 1.6
 
+    /** A low bush (291) slows like tall grass. */
+    const val BUSH = 1.5
+
     /** How long a step onto [tile] takes, relative to a step on open grass. */
     fun stepFactor(tile: Tile): Double = when (tile) {
         Tile.PATH, Tile.COBBLE, Tile.BRIDGE -> 0.85
@@ -23,5 +26,5 @@ object Terrain {
 
     /** How long a step onto ([x], [y]) of [map] takes: a low bush (291) slows like tall grass. */
     fun stepFactor(map: MapDef, x: Int, y: Int): Double =
-        if (map.tile(x, y) == Tile.TREE && (x to y) in map.bushes) 1.5 else stepFactor(map.tile(x, y))
+        if (map.tile(x, y) == Tile.TREE && (x to y) in map.bushes) BUSH else stepFactor(map.tile(x, y))
 }

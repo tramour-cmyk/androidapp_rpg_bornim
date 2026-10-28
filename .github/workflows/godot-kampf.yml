@@ -1,0 +1,482 @@
+name: Godot Kampf (348.7)
+
+# 348.7 (Jerry): Regeln von MARS in GDScript gegen die aufgezeichneten Kämpfe aus dem Kotlin-Kern prüfen
+# (godot/tests/mars_golden.gd). Läuft nur auf Jerrys Umzugszweigen; das Spiel-APK baut Toms Workflow (348.6).
+on:
+  push:
+    branches: ["claude/jerry-348-**"]
+    paths: ["godot/**", "tools/blender348/**", ".github/workflows/godot-kampf.yml"]
+  workflow_dispatch:
+
+jobs:
+  regeln:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      GODOT: "4.7.2"
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/cache@v4
+        with:
+          path: ~/godot
+          key: godot-${{ env.GODOT }}
+      - name: Godot
+        run: |
+          mkdir -p ~/godot && cd ~/godot
+          base=https://github.com/godotengine/godot/releases/download/$GODOT-stable
+          [ -f godot ] || { curl -sSL -o g.zip $base/Godot_v$GODOT-stable_linux.x86_64.zip && unzip -q g.zip && mv Godot_v$GODOT-stable_linux.x86_64 godot && rm g.zip; }
+          [ -d templates ] || { curl -sSL -o t.tpz $base/Godot_v$GODOT-stable_export_templates.tpz && unzip -q t.tpz && rm t.tpz; }
+          ~/godot/godot --version
+      - name: Regeln gegen Kotlin (MARS golden)
+        run: |
+          cd godot
+          timeout 90 ~/godot/godot --headless --import --path . > import.log 2>&1 || true
+          tail -20 import.log
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/mars_golden.gd > golden.log 2>&1 || true
+          tail -80 golden.log
+          grep -q " 0 abweichend" golden.log
+      - name: Regeln über Kotlin hinaus (SRD, Test 89.2)
+        run: |
+          cd godot
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/mars_regeln.gd > regeln.log 2>&1 || true
+          cat regeln.log
+          grep -q "MARS Regeln: 0 abweichend" regeln.log
+      - name: Regeln aus core (390, Pechsträhne, Ausdauer, Talente)
+        run: |
+          cd godot
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/regeln_390.gd > regeln390.log 2>&1 || true
+          cat regeln390.log
+          grep -q "regeln_390: alles gut" regeln390.log
+      - name: Klassischer Kampf gegen Kotlin (390, golden)
+        run: |
+          cd godot
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/klassisch_golden.gd > klassisch.log 2>&1 || true
+          grep -E "ABWEICHUNG|golden|SCRIPT ERROR" klassisch.log | head -20
+          grep -q " 0 abweichend" klassisch.log
+      - name: Kampfort selbst ablaufen lassen (alle Probekämpfe)
+        run: |
+          cd godot
+          timeout 600 ~/godot/godot --headless --path . -s res://tests/kampfort_lauf.gd > lauf.log 2>&1 || true
+          grep -E "^(endet|FEHLER|Kampfort)|SCRIPT ERROR|^ +at: " lauf.log | head -80
+          grep -q " 0 hängen" lauf.log
+          ! grep -q "SCRIPT ERROR" lauf.log
+      - name: Kampfort aus einem Aufruf (399.2, wie aus dem Dorf)
+        run: |
+          cd godot
+          timeout 600 ~/godot/godot --headless --path . -s res://tests/aufruf_399.gd > aufruf.log 2>&1 || true
+          grep -E "^(endet|FEHLER|Aufruf|Heldwerte)|SCRIPT ERROR|^ +at: " aufruf.log | head -40
+          grep -q " 0 ohne richtiges Ende" aufruf.log
+          ! grep -q "SCRIPT ERROR" aufruf.log
+
+  apk:
+    needs: regeln
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90     # 348.12f: Filme und Bau der Kaufratte; Lauf 112 lief in die alten 40 min
+    env:
+      GODOT: "4.7.2"
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Blender als Python-Modul
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libsm6 libxkbcommon0 > /dev/null
+          python -m venv bl && bl/bin/pip -q install bpy==5.2.3 numpy pillow
+      - name: Modelle bauen (Held, Wolf, Grimmzahn, Ratte, Goblin, Späher, Wald)
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+        run: |
+          export OUT=$RUNNER_TEMP/out
+          bl/bin/python -I tools/blender348/v3/tex.py > tex.log 2>&1 || (tail -40 tex.log; exit 1)
+          bl/bin/python -I tools/blender348/v3/held3.py > held.log 2>&1 || (tail -40 held.log; exit 1)
+          bl/bin/python -I tools/blender348/v3/rig.py > rig.log 2>&1 || (tail -40 rig.log; exit 1)
+          bl/bin/python -I tools/blender348/wolf.py > wolf.log 2>&1 || (tail -60 wolf.log; exit 1)
+          grep -E "^GLB" wolf.log
+          ART=dire_wolf bl/bin/python -I tools/blender348/wolf.py > grimm.log 2>&1 || (tail -60 grimm.log; exit 1)
+          grep -E "^GLB" grimm.log | cut -c1-160
+          bl/bin/python -I tools/blender348/kampfort_wald.py > wald.log 2>&1 || (tail -60 wald.log; exit 1)
+          grep -E "^(NETZ|GLB|MASKE)" wald.log
+          bl/bin/python -I tools/blender348/waffen.py > waffen.log 2>&1 || (tail -40 waffen.log; exit 1)
+          grep -E "^GLB" waffen.log
+          bl/bin/python -I tools/blender348/ratte.py > ratte.log 2>&1 || (tail -40 ratte.log; exit 1)
+          grep -E "^GLB" ratte.log | cut -c1-160
+          bl/bin/python -I tools/blender348/goblin.py > goblin.log 2>&1 || (tail -60 goblin.log; exit 1)
+          grep -E "GOBLIN|GLB" goblin.log | cut -c1-160
+          ART=goblin_archer bl/bin/python -I tools/blender348/goblin.py > spaeher.log 2>&1 || (tail -60 spaeher.log; exit 1)
+          grep -E "GOBLIN|GLB" spaeher.log | cut -c1-160
+          ART=goblin_shaman bl/bin/python -I tools/blender348/goblin.py > schamane.log 2>&1 || (tail -60 schamane.log; exit 1)
+          grep -E "GOBLIN|GLB" schamane.log | cut -c1-160
+          ART=kobold bl/bin/python -I tools/blender348/goblin.py > kobold.log 2>&1 || (tail -60 kobold.log; exit 1)
+          grep -E "GOBLIN|GLB" kobold.log | cut -c1-160
+          mkdir -p godot/kampf/daten
+          cp $OUT/held.glb godot/kampf/daten/held.bin
+          for f in grau dunkel rost asche; do cp $OUT/wolf-$f.glb godot/kampf/daten/wolf-$f.bin; done
+          cp $OUT/wolf-info.json godot/kampf/daten/
+          for f in schwarz schimmer; do cp $OUT/dire_wolf-$f.glb godot/kampf/daten/dire_wolf-$f.bin; done
+          cp $OUT/dire_wolf-info.json godot/kampf/daten/
+          for f in braun grau schwarz; do cp $OUT/giant_rat-$f.glb godot/kampf/daten/giant_rat-$f.bin; done
+          cp $OUT/giant_rat-info.json godot/kampf/daten/
+          cp $OUT/kampfort-wald.glb godot/kampf/daten/kampfort-wald.bin
+          cp $OUT/wald-maske.png godot/kampf/daten/wald-maske.bild
+          for w in dagger shortsword longsword quarterstaff shield round_shield scimitar handaxe scimitar-rost handaxe-rost dagger-rost dagger-kobold round_shield-grob shortbow staff-schamane spear-rost; do cp $OUT/$w.glb godot/kampf/daten/$w.bin; done
+          for k in leder kappe helm; do cp $OUT/goblin-$k.glb godot/kampf/daten/goblin-$k.bin; done
+          cp $OUT/goblin-info.json godot/kampf/daten/
+          for k in kapuze kappe fell; do cp $OUT/goblin_archer-$k.glb godot/kampf/daten/goblin_archer-$k.bin; done
+          cp $OUT/goblin_archer-info.json godot/kampf/daten/
+          for k in robe fell beides; do cp $OUT/goblin_shaman-$k.glb godot/kampf/daten/goblin_shaman-$k.bin; done
+          cp $OUT/goblin_shaman-info.json godot/kampf/daten/
+          for k in kappe schild fell; do cp $OUT/kobold-$k.glb godot/kampf/daten/kobold-$k.bin; done
+          cp $OUT/kobold-info.json godot/kampf/daten/
+          for t in gras erde halme; do cp $OUT/tex/$t.png godot/kampf/daten/$t.bild; done
+          # 348.12f eingebaut (Chef 28.10., 11:50, Archiv: Kaufwolf und Ratte abgenommen; 27.10., 21:51 „eigener entfällt“): im Spiel die
+          # gekaufte Ratte (kaufratte.py) als giant_rat und der gekaufte Wolf (kaufwolf.py; probe.gd nimmt ihn für die Wölfe); gekauft,
+          # also nur verschlüsselt ins APK (348.12i, Schritt Android-Export, Liste kauf.txt)
+          git fetch -q --depth 1 origin claude/tom-348-fundament
+          git show FETCH_HEAD:tools/blender348/kauf_laden.sh > $RUNNER_TEMP/kauf_laden.sh
+          timeout 900 bash $RUNNER_TEMP/kauf_laden.sh $RUNNER_TEMP/kaufroh > kauf-laden.log 2>&1 || { tail -20 kauf-laden.log; exit 1; }
+          D=godot/kampf/daten
+          KAUF=$RUNNER_TEMP/kaufroh OUT=$RUNNER_TEMP/kr timeout 1200 bl/bin/python -I tools/blender348/kaufratte.py > kaufratte.log 2>&1 || (tail -60 kaufratte.log; exit 1)
+          grep -E "^GLB|FEHLT" kaufratte.log | cut -c1-160 || true
+          for f in braun grau schwarz; do cp $RUNNER_TEMP/kr/giant_rat-$f.glb $D/giant_rat-$f.bin; done
+          cp $RUNNER_TEMP/kr/giant_rat-info.json $D/
+          KAUF=$RUNNER_TEMP/kaufroh OUT=$RUNNER_TEMP/kw timeout 1200 bl/bin/python -I tools/blender348/kaufwolf.py > kaufwolf.log 2>&1 || (tail -60 kaufwolf.log; exit 1)
+          grep -E "^GLB|FEHLT" kaufwolf.log | cut -c1-160 || true
+          for f in grau dunkel rost asche; do cp $RUNNER_TEMP/kw/kaufwolf-$f.glb $D/kaufwolf-$f.bin; done
+          cp $RUNNER_TEMP/kw/kaufwolf-info.json $D/
+          # 399.2 Grak, soweit fertig (348.12 Gestalt mit Gehen, Hieb, Treffer, Tod, 1d6618d74): Quaternius-Teile (CC0, cc0_laden.sh von
+          # Toms Zweig), Tod aus der gekauften UAL Pro (Death02), darum auch verschlüsselt; ohne Kaufdateien Death01
+          # Lauf 160–162: e457d6d8b fehlte im flachen Checkout (fatal: invalid object name); erst holen wie im Schritt 348.12
+          git fetch -q --depth 1 origin e457d6d8b9ea1ec8a5d7ebc2a7a87be08d6ad73d || git fetch -q origin claude/tom-376-1-figuren
+          git show e457d6d8b:tools/blender348/v3/cc0_laden.sh > $RUNNER_TEMP/cc0_laden.sh
+          bash $RUNNER_TEMP/cc0_laden.sh $RUNNER_TEMP/cc0 > cc0.log 2>&1 || { tail -5 cc0.log; exit 1; }
+          PRO=$(find $RUNNER_TEMP/kaufroh -path '*Unreal-Godot/UAL1.glb' | head -1)
+          # Lauf 163: WAFFEN=$OUT las schon das neue OUT (bash setzt Vorab-Zuweisungen der Reihe nach), die Axt liegt in out/
+          OUT=$RUNNER_TEMP/grak CC0=$RUNNER_TEMP/cc0 WAFFEN=$RUNNER_TEMP/out UAL=$PRO TOD_QUELLE=$([ -n "$PRO" ] && echo Death02 || echo Death01) \
+            timeout 1500 bl/bin/python -I tools/blender348/grak_gestalt.py > grak.log 2>&1 || (tail -40 grak.log; exit 1)
+          grep -E "^(ZWEIHAND|BEWEGUNG|TOD)" grak.log | cut -c1-200 || true
+          cp $RUNNER_TEMP/grak/grak-gestalt.glb $D/hobgoblin_captain-hauptmann.bin
+          echo '{"hauptmann": {"waffen": [], "groesse_cm": 186, "geruest": "cc0"}}' > $D/hobgoblin_captain-info.json
+          (cd godot && ls kampf/daten/giant_rat-*.bin kampf/daten/kaufwolf-*.bin kampf/daten/hobgoblin_captain-*.bin > kampf/daten/kauf.txt)
+      - uses: actions/cache@v4
+        with:
+          path: ~/godot
+          key: godot-${{ env.GODOT }}
+      - name: Godot und Exportvorlagen
+        run: |
+          mkdir -p ~/godot && cd ~/godot
+          base=https://github.com/godotengine/godot/releases/download/$GODOT-stable
+          [ -f godot ] || { curl -sSL -o g.zip $base/Godot_v$GODOT-stable_linux.x86_64.zip && unzip -q g.zip && mv Godot_v$GODOT-stable_linux.x86_64 godot && rm g.zip; }
+          [ -d templates ] || { curl -sSL -o t.tpz $base/Godot_v$GODOT-stable_export_templates.tpz && unzip -q t.tpz && rm t.tpz; }
+          mkdir -p ~/.local/share/godot/export_templates/$GODOT.stable
+          cp templates/android_debug.apk templates/android_release.apk templates/version.txt ~/.local/share/godot/export_templates/$GODOT.stable/
+      - uses: actions/cache@v4
+        with:
+          path: ~/kampf348-schluessel
+          key: kampf348-schluessel-1
+      - name: Android-Export
+        run: |
+          mkdir -p ~/kampf348-schluessel
+          [ -f ~/kampf348-schluessel/debug.keystore ] || keytool -genkeypair -v -keystore ~/kampf348-schluessel/debug.keystore -storepass android -alias androiddebugkey -keypass android \
+            -keyalg RSA -validity 9999 -dname "CN=Android Debug,O=Android,C=US" > /dev/null 2>&1
+          sed -i "s/^version\/code=.*/version\/code=$GITHUB_RUN_NUMBER/" godot/export_presets.cfg
+          # 348.12i wie Toms godot.yml: Schlüssel je Lauf neu, nur im Programm (schluessel.gd), nie im Protokoll; die gekauften Modelle aus
+          # kampf/daten/kauf.txt verschlüsselt (figur.gd lade_bin entschlüsselt); spätere Schritte laufen mit demselben Schlüssel
+          git fetch -q --depth 1 origin claude/tom-348-fundament && git show FETCH_HEAD:tools/blender348/verschluesseln.sh > $RUNNER_TEMP/verschluesseln.sh
+          K=$(openssl rand -hex 32)
+          echo "::add-mask::$K"
+          sed -i "s/^const KAUF := \"\"/const KAUF := \"$K\"/" godot/skripte/schluessel.gd
+          grep -q "$K" godot/skripte/schluessel.gd || { echo "Schlüssel nicht gesetzt"; exit 1; }
+          (cd godot && sort -u kampf/daten/kauf.txt | xargs -r bash $RUNNER_TEMP/verschluesseln.sh $K)
+          export GODOT_ANDROID_KEYSTORE_DEBUG_PATH=$HOME/kampf348-schluessel/debug.keystore GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD=android
+          mkdir -p ~/.config/godot
+          v=${GODOT%.*}
+          printf '[gd_resource type="EditorSettings" format=3]\n\n[resource]\nexport/android/android_sdk_path = "%s"\nexport/android/java_sdk_path = "%s"\n' "$ANDROID_SDK_ROOT" "$JAVA_HOME" > ~/.config/godot/editor_settings-$v.tres
+          cd godot
+          timeout 90 ~/godot/godot --headless --import --path . > import.log 2>&1 || true
+          grep -iE "error|fehler" import.log | head -30 || true
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/kauf_entschluesseln.gd > kauf.log 2>&1 || r=$?
+          grep -E "Kaufmodelle|FEHLER|kauf.txt" kauf.log || true
+          [ ${r:-0} = 0 ] || { echo "Kaufmodelle nicht verschlüsselt oder nicht lesbar"; exit 1; }
+          timeout 600 ~/godot/godot --headless --path . --export-debug "Android" $GITHUB_WORKSPACE/kampf348.apk 2>&1 | tail -30
+          ls -l $GITHUB_WORKSPACE/kampf348.apk
+          unzip -l $GITHUB_WORKSPACE/kampf348.apk | grep -E "daten|\.pck" || { echo "Daten fehlen im APK"; exit 1; }
+      - name: Vergleichsbild (Kleriker, Söldner Kämpfer, Wölfe wie MarsShot)
+        run: |
+          sudo apt-get install -y -qq xvfb libgl1-mesa-dri > /dev/null
+          cd godot
+          timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 -- --bild=$GITHUB_WORKSPACE/kampf348-neu.png 2>&1 | grep -E "Bild|Blick|Hand|Schirm|Waffe|Schild|SCRIPT ERROR|^ +at: " | head -20 || true
+          ls -l $GITHUB_WORKSPACE/kampf348-neu.png || true
+      # 348.7 Tod im Kampfort: Bildfolgen ab dem tödlichen Aufschlag (Wölfe, Ratten), Schau der Ratte als Kurzvideo
+      - name: 348.7 Probe Tod (nur bei Commits mit „348.7:“)
+        if: contains(github.event.head_commit.message, '348.7:')
+        run: |
+          P=$GITHUB_WORKSPACE/todprobe; mkdir -p $P
+          folge() { (cd godot && timeout 300 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 --fixed-fps 50 -- --bild=$P/$1.png > $P/$1.log 2>&1) || true; }
+          GEGNER=WOLVES EFFEKT=KILL folge wolf-kill
+          GEGNER=WOLVES EFFEKT=CRIT folge wolf-crit
+          GEGNER=RATS EFFEKT=KILL folge ratte-kill
+          # Helfer Lauf 126: zauber.log brach nach 180 s ab (Feuerball, Heilige Flamme fehlten); je Lauf höchstens vier Zauber
+          # 348.7a: TAFEL_PRUEF misst, ob ein Bildpunkt der Tafel am Schirm dort ankommt, wo er gemalt wurde
+          # 348.7a Runde 3: BAHN_PRUEF schreibt die gewählte Bahn und je Bild, welche Figur sie berührt oder verdeckt
+          GEGNER=WOLVES SOELDNER=WIZARD TAFEL_PRUEF=1 BAHN_PRUEF=1 ZAUBER=FIRE_BOLT,MISSILES,RAYS,FIREBALL folge zauber
+          GEGNER=WOLVES BAHN_PRUEF=1 ZAUBER=SACRED_FLAME,HEAL,BLESS,ARROW folge zauber2
+          GEGNER=WOLVES SOELDNER=WIZARD BAHN_PRUEF=1 ZAUBER=FIRE_BOLT,SACRED_FLAME,ARROW ZAUBERDANEBEN=1 folge daneben
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
+          (cd godot && GEGNER=RATS OHNEUI=1 SCHAU=1 SCHAU_TITEL=eigen timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/ratte.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/ratte-schau.log 2>&1) || true
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/ratte.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/ratte-schau.mp4 || true
+          grep -hE "SCRIPT ERROR|^ +at: " $P/*.log | head -20 || true
+          # 348.7a Leistung: Ecken und Zeit der Tafeln je Bild, Prüfpunkte
+          grep -hE "Tafeln|Tafel-Prüfung" $P/zauber*.log $P/daneben.log | sed "s|.*/todprobe/||" | sort -u | head -60 || true
+          grep -hE "^Bahnwahl" $P/zauber*.log $P/daneben.log || true
+          ls -l $P
+      - name: 348.12 Probe Goblin auf dem CC0-Gerüst (nur bei Commits mit „348.12:“)
+        if: contains(github.event.head_commit.message, '348.12:')
+        run: |
+          export GEGNER=GOBLINS OHNEUI=1
+          P=$GITHUB_WORKSPACE/cc0probe; mkdir -p $P
+          bild() { (cd godot && timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 -- --bild=$P/$1.png > $P/$1.log 2>&1) || true; }
+          # ffmpeg statisch aus imageio-ffmpeg (apt-get install brauchte in Lauf 112 bis zum Abbruch über 30 min)
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
+          python3 -c 'import PIL' 2> /dev/null || python3 -m pip install -q pillow     # kaufblatt.py; Lauf 116/117: ohne PIL kein Blatt, Lauf 117 brach ab
+          film() { (cd godot && SCHAU=1 SCHAU_TITEL="$2" timeout 300 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/$1.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/$1-film.log 2>&1) || true
+            ffmpeg -loglevel error -y -i $RUNNER_TEMP/$1.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/$1.mp4 || true; }
+          # Runde 6 (Prüfer 5e): je Goblin allein (NUR) und je Haltung; Film nur Stehen, Gehen, Hieb (der eigene hat keinen Hieb)
+          export SCHAU_LISTE=Stehen,Gehen,Hieb
+          halt() { for h in Stehen= Gehen=Gehen:0.25 $2; do for g in 1 2 3; do NUR=gob$g HALTUNG=${h#*=} bild st-$1-${h%%=*}-$g; done; done; }
+          bild goblin-eigen; halt eigen; film gob-eigen eigen
+          # Toms Gerüst fest auf e457d6d8b (27.10., 01:14; Runde 6 lief damit): rig.py von 7ca5c1811 an setzt die Eckfarben anders,
+          # goblin.py hält dann an („rig.py: Eckfarben geändert“, lokal nachgestellt 27.10.)
+          git fetch -q --depth 1 origin e457d6d8b9ea1ec8a5d7ebc2a7a87be08d6ad73d || git fetch -q origin claude/tom-348-fundament
+          V=$RUNNER_TEMP/v3cc0; mkdir -p $V
+          for f in held3.py rig.py geruest.py cc0_laden.sh; do git show e457d6d8b:tools/blender348/v3/$f > $V/$f; done
+          bash $V/cc0_laden.sh ~/cc0 > /dev/null
+          # Runde 2d: tiefe symmetrische Hocke (ual_lauer.py HOCKE=ik) als Ruhe; Runde 3: Gang und Hieb geduckt wie sie
+          bl/bin/python -I tools/blender348/ual_lauer.py ~/cc0 ~/cc0b > $P/ual-lauer.log 2>&1 || (tail -40 $P/ual-lauer.log; exit 1)
+          grep -E "LAUER|PIRSCH|HIEB|UAL" $P/ual-lauer.log
+          OUT=$RUNNER_TEMP/cc0out V3=$V GERUEST=cc0 CC0=$HOME/cc0b CC0_RUHE=Goblin_Lauer_Loop CC0_GEH=Goblin_Pirsch_Loop CC0_HIEB=Goblin_Hieb bl/bin/python -I tools/blender348/goblin.py > $P/goblin-bau.log 2>&1 || (tail -60 $P/goblin-bau.log; exit 1)
+          grep -E "GOBLIN FERTIG|ANIM|GLB" $P/goblin-bau.log | cut -c1-300
+          for k in leder kappe helm; do cp $RUNNER_TEMP/cc0out/goblin-$k.glb godot/kampf/daten/goblin-$k.bin; done
+          cp $RUNNER_TEMP/cc0out/goblin-info.json godot/kampf/daten/ && cp godot/kampf/daten/goblin-info.json $P/
+          bild goblin-cc0; halt cc0 "Aus=Hieb:0.22 Auf=Hieb:0.43"; film gob-cc0 CC0
+          grep -E "Schirm|Waffe|Schild|SCRIPT ERROR|^ +at: " $P/goblin-cc0.log | head -20 || true
+          python3 tools/blender348/hiebblatt.py $P/348.12-goblin-blatt.png $P "Stehen (Lauer)=Stehen" "Gehen 0,25 s=Gehen" "Hieb ausgeholt 0,22 s=Aus!" "Hieb Aufschlag 0,43 s=Auf!" || true
+          # erste Sekunde zeigt noch den Kampfschirm: je Eingang -ss 1 (wie 348.12f)
+          L=$(for v in gob-eigen gob-cc0; do ffmpeg -i $P/$v.mp4 2>&1 | grep -oE 'Duration: [0-9:.]+' | awk -F'[: ]' '{print $3*3600+$4*60+$5}'; done | sort -g | tail -1 | awk '{print $1 - 1}')
+          ffmpeg -loglevel error -y -ss 1 -i $P/gob-eigen.mp4 -ss 1 -i $P/gob-cc0.mp4 -filter_complex "[0]tpad=stop_mode=clone:stop_duration=30[a];[1]tpad=stop_mode=clone:stop_duration=30[b];[a][b]hstack=inputs=2,trim=duration=$L" -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/348.12-goblin-film.mp4 || true
+          rm -f $P/st-*.png
+          ls -l $P
+      # 348.12f Probe gekaufte Ratte (Archiv 348.12c b): nach dem APK (das trägt nur die eigene Ratte); die gekauften Dateien
+      # bleiben auf dem Runner, ins Artefakt gehen nur Bilder, Kurzvideos und Protokolle (348.12c a: nie Rohdateien hierher)
+      - name: 348.12f Probe gekaufte Ratte (nur bei Commits mit „348.12f“, ohne „Kaufwolf“ oder mit „Ratte und Kaufwolf“)
+        if: contains(github.event.head_commit.message, '348.12f') && !contains(github.event.head_commit.message, 'eingebaut') && (!contains(github.event.head_commit.message, 'Kaufwolf') || contains(github.event.head_commit.message, 'Ratte und Kaufwolf'))
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+        run: |
+          # Rutenursache (Archiv 27.10.): RUTE_MESS misst die Rute in Blender (Bau-Log) und im Film (Film-Log) gleich
+          export GEGNER=RATS OHNEUI=1 RUTE_MESS=1 BAHN_BILDER=q_treffer,q_tod
+          P=$GITHUB_WORKSPACE/kaufprobe; mkdir -p $P
+          # ffmpeg statisch aus imageio-ffmpeg (apt-get install brauchte in Lauf 112 bis zum Abbruch über 30 min)
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
+          python3 -c 'import PIL' 2> /dev/null || python3 -m pip install -q pillow     # kaufblatt.py; Lauf 116/117: ohne PIL kein Blatt, Lauf 117 brach ab
+          git fetch -q --depth 1 origin claude/tom-348-fundament
+          git show FETCH_HEAD:tools/blender348/kauf_laden.sh > $RUNNER_TEMP/kauf_laden.sh
+          timeout 900 bash $RUNNER_TEMP/kauf_laden.sh $RUNNER_TEMP/kauf > $P/kauf-laden.log 2>&1 || echo "kauf_laden.sh Ende $?"
+          grep -c . $P/kauf-laden.log
+          bild() { (cd godot && timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 -- --bild=$P/$1.png > $P/$1.log 2>&1) || true; }
+          film() { (cd godot && SCHAU=1 SCHAU_TITEL="$2" timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/$1.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/$1-film.log 2>&1) || true
+            ffmpeg -loglevel error -y -i $RUNNER_TEMP/$1.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/$1.mp4 || true; }
+          D=godot/kampf/daten
+          bild ratte-eigen; film eigen eigen
+          for v in kauf gross; do
+            t0=$SECONDS; env OUT=$RUNNER_TEMP/$v KAUF=$RUNNER_TEMP/kauf VARIANTE=$( [ $v = gross ] && echo gross ) timeout 1200 bl/bin/python -I tools/blender348/kaufratte.py > $P/$v-bau.log 2>&1 || (tail -60 $P/$v-bau.log; exit 1)
+            echo "Bau $v: $((SECONDS - t0)) s" | tee $P/$v-zeit.txt
+            grep -E "IMPORT|KNOCHEN|NETZ|RIG|FELLKARTEN|BEWEGUNG|FEHLT|BEMALUNG|MASS|HOCKE|KOPF|GLB|FERTIG|RUTE" $P/$v-bau.log | cut -c1-900
+            for f in braun grau schwarz; do cp $RUNNER_TEMP/$v/giant_rat-$f.glb $D/giant_rat-$f.bin; done
+            cp $RUNNER_TEMP/$v/giant_rat-info.json $P/$v-info.json
+            bild ratte-$v; film $v $( [ $v = gross ] && echo Variante || echo gekauft )
+            grep -E "Schirm|Schau|SCRIPT ERROR|^ +at: " $P/ratte-$v.log $P/$v-film.log | head -30 || true
+          done
+          # Kasten je Platz (Figurhöhen ab dem Fuß) aus Lauf 118, Helfer 26.10., 20:42: Variante mit Rute bis 2,2 h links vom Fuß
+          KASTEN="wolf1=-1.36,0.82,-1.17,0.82;wolf3=-1.55,0.98,-1.27,0.86;wolf2=-2.3,1.9,-0.95,0.78" python3 tools/blender348/kaufblatt.py $P/348.12f-ratte-blatt.png "eigen (ratte.py Runde 11)=$P/ratte-eigen.png=$P/ratte-eigen.log" \
+            "gekauft, Restrunde=$P/ratte-kauf.png=$P/ratte-kauf.log" "Variante: 1,25-fach, breiter, Schorf=$P/ratte-gross.png=$P/ratte-gross.log"
+          # Chef 26.10., 20:01 „Filme gleich lang“: kürzere bis zum längsten mit dem letzten Bild verlängern (Lauf 118 schnitt den Tod ab)
+          # Länge aus „Duration:“ von ffmpeg (Lauf 125: ffprobe fehlt neben dem statischen ffmpeg, L war 0, der Film 30 s zu lang)
+          dauer() { for v in "$@"; do ffmpeg -i $P/$v.mp4 2>&1 | grep -oE 'Duration: [0-9:.]+' | awk -F'[: ]' '{print $3*3600+$4*60+$5}'; done | sort -g | tail -1; }
+          # erste Sekunde zeigt noch den Kampfschirm („Wolf 1 …“, Helfer 26.10.): je Eingang -ss 1
+          L=$(dauer eigen kauf gross | awk '{print $1 - 1}')
+          ffmpeg -loglevel error -y -ss 1 -i $P/eigen.mp4 -ss 1 -i $P/kauf.mp4 -ss 1 -i $P/gross.mp4 -filter_complex \
+            "[0]tpad=stop_mode=clone:stop_duration=30[a];[1]tpad=stop_mode=clone:stop_duration=30[b];[2]tpad=stop_mode=clone:stop_duration=30[c];[a][b][c]hstack=inputs=3,trim=duration=$L" \
+            -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/348.12f-ratte-film.mp4 || true
+          # Restrunde (Chef 21:12: „verschiedene Ausweichbewegungen, Angriffsarten und Todesanimationen?“): alle Bewegungen der gekauften
+          for f in braun grau schwarz; do cp $RUNNER_TEMP/kauf/giant_rat-$f.glb $D/giant_rat-$f.bin; done
+          # Rute Runde 4 (Prüfer r3): alle Bewegungen, Ruhe und Schleifen dabei; Film in 1080 px Breite
+          (cd godot && SCHAU=1 SCHAU_TITEL=gekauft SCHAU_LISTE="Stehen,Gehen,Rennen,Hocke,Biss,Sprungbiss,Ausweichen,Ausweichen links,Ausweichen zurück,Treffer,Treffer links,Treffer rechts,Lefzen,Drohen,Tod" \
+            timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 --write-movie $RUNNER_TEMP/alle.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/alle-film.log 2>&1) || true
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/alle.avi -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/348.12f-alle.mp4 || true
+          python3 tools/blender348/rutenknick.py $P/alle-film.log || true
+          # Ortswechsel (Chef 27.10., 18:01, Archiv: „Bewegungen mit Ortswechsel im Kampfort, nicht auf der Stelle“): probe.gd SCHAU=ort,
+          # links eigen (ohne Wurzelweg), rechts gekauft; Messung je Bild im Log (Ortmess: Schnauze gegen das Ziel)
+          cp $RUNNER_TEMP/kauf/giant_rat-info.json $D/
+          ort() { (cd godot && GEGNER=RATS OHNEUI=1 SCHAU=ort SCHAU_MESS=1 SCHAU_TITEL=$2 timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/ort-$1.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/ort-$1.log 2>&1) || true
+            ffmpeg -loglevel error -y -i $RUNNER_TEMP/ort-$1.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $P/ort-$1.mp4 || true; }
+          ort kauf gekauft
+          for f in braun grau schwarz; do cp $RUNNER_TEMP/out/giant_rat-$f.glb $D/giant_rat-$f.bin; done; cp $RUNNER_TEMP/out/giant_rat-info.json $D/
+          ort eigen eigen
+          # ab 1,25 s: probe.gd setzt den Anlauf-Start erst, wenn die erste Meldung der Regeln durch ist (1,1 s; Prüfer r2: Sprung um 3 m)
+          L=$(dauer ort-eigen ort-kauf | awk '{print $1 - 1.25}')
+          ffmpeg -loglevel error -y -ss 1.25 -i $P/ort-eigen.mp4 -ss 1.25 -i $P/ort-kauf.mp4 -filter_complex "[0]tpad=stop_mode=clone:stop_duration=30[a];[1]tpad=stop_mode=clone:stop_duration=30[b];[a][b]hstack=inputs=2,trim=duration=$L" \
+            -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $P/348.12f-ort.mp4 || true
+          grep -E "^Ort |SCRIPT ERROR|^Pfotenmess" $P/ort-*.log | head -40 || true
+          # r4: Schnauze gegen den Körper der Heldin beim Zubeißen (Leib), Pfotenhalt beim Drehen (Stichprobe)
+          grep -E "^Ortmess (Biss|Sprung) " $P/ort-kauf.log | grep -E " (Biss|Sprungbiss) 0\.[3-7]" | cut -c1-240 || true
+          grep -E "^Pfotenhalt " $P/ort-kauf.log | awk 'NR % 6 == 1' | head -40 | cut -c1-240 || true
+          rm -f $D/giant_rat-*.bin
+          ls -l $P
+      # 348.12f Kaufwolf (Chef 27.10., 18:09): gekaufter Janpec-Wolf neben unserem Wolf, Kampfort mit Ortswechsel wie die Ratte
+      - name: 348.12f Probe gekaufter Wolf (nur bei Commits mit „Kaufwolf“)
+        if: contains(github.event.head_commit.message, 'Kaufwolf')
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+        run: |
+          export GEGNER=WOLVES OHNEUI=1
+          P=$GITHUB_WORKSPACE/kaufprobe; mkdir -p $P
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
+          python3 -c 'import PIL' 2> /dev/null || python3 -m pip install -q pillow
+          git fetch -q --depth 1 origin claude/tom-348-fundament
+          git show FETCH_HEAD:tools/blender348/kauf_laden.sh > $RUNNER_TEMP/kauf_laden.sh
+          timeout 900 bash $RUNNER_TEMP/kauf_laden.sh $RUNNER_TEMP/kauf > $P/kauf-laden.log 2>&1 || echo "kauf_laden.sh Ende $?"
+          bild() { (cd godot && timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 -- --bild=$P/$1.png > $P/$1.log 2>&1) || true; }
+          ort() { (cd godot && SCHAU=ort SCHAU_MESS=1 SCHAU_TITEL=$2 timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/ort-$1.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/ort-$1.log 2>&1) || true
+            ffmpeg -loglevel error -y -i $RUNNER_TEMP/ort-$1.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $P/ort-$1.mp4 || true; }
+          D=godot/kampf/daten
+          env OUT=$RUNNER_TEMP/kw KAUF=$RUNNER_TEMP/kauf timeout 1200 bl/bin/python -I tools/blender348/kaufwolf.py > $P/kaufwolf-bau.log 2>&1 || (tail -60 $P/kaufwolf-bau.log; exit 1)
+          grep -E "IMPORT|BEWEGUNG|MASS|TEMPO|HALTUNG|BEMALUNG|BISS|FEHLT|GLB|FERTIG" $P/kaufwolf-bau.log | cut -c1-400
+          for f in grau dunkel rost asche; do cp $RUNNER_TEMP/kw/kaufwolf-$f.glb $D/kaufwolf-$f.bin; done
+          cp $RUNNER_TEMP/kw/kaufwolf-info.json $D/
+          bild wolf-eigen; ort eigen eigen
+          export ERSATZ=kaufwolf
+          bild wolf-kauf; ort kauf gekauft
+          (cd godot && SCHAU=1 SCHAU_TITEL=gekauft SCHAU_LISTE="Stehen,Lefzen,Gehen,Rennen,Hocke,Biss,Treffer,Ausweichen,Heulen,Tod" \
+            timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 --write-movie $RUNNER_TEMP/alle.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/alle-film.log 2>&1) || true
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/alle.avi -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/348.12f-kaufwolf-alle.mp4 || true
+          NAMEN="grau;dunkel;rost" python3 tools/blender348/kaufblatt.py $P/348.12f-kaufwolf-blatt.png "eigen (wolf.py Runde 10)=$P/wolf-eigen.png=$P/wolf-eigen.log" "gekauft (Janpec), unsere Felle=$P/wolf-kauf.png=$P/wolf-kauf.log" || true
+          dauer() { for v in "$@"; do ffmpeg -i $P/$v.mp4 2>&1 | grep -oE 'Duration: [0-9:.]+' | awk -F'[: ]' '{print $3*3600+$4*60+$5}'; done | sort -g | tail -1; }
+          L=$(dauer ort-eigen ort-kauf | awk '{print $1 - 1.25}')
+          ffmpeg -loglevel error -y -ss 1.25 -i $P/ort-eigen.mp4 -ss 1.25 -i $P/ort-kauf.mp4 -filter_complex "[0]tpad=stop_mode=clone:stop_duration=30[a];[1]tpad=stop_mode=clone:stop_duration=30[b];[a][b]hstack=inputs=2,trim=duration=$L" \
+            -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $P/348.12f-kaufwolf-ort.mp4 || true
+          grep -E "SCRIPT ERROR|^Pfotenmess|^Ort " $P/*.log | head -40 || true
+          grep -E "^Ortmess (Biss|Sprung) " $P/ort-kauf.log | grep -E " (Biss|Sprungbiss) 0\.[3-7]" | cut -c1-240 || true
+          grep -E "^Pfotenhalt " $P/ort-kauf.log | awk 'NR % 6 == 1' | head -40 | cut -c1-240 || true
+          rm -f $D/kaufwolf-*.bin
+          ls -l $P
+      # 387 Runde 2 (Chef 27.10., 22:31 alle außer Schwein und Gans, 22:34 „Alles in eins packen“): die sechs Kauftiere (kauftier.py) je mit
+      # Bewegung über den Kampfort (probe.gd SCHAU=ort; Dorftiere SCHAU_DORF: fressen, Platzwechsel, Tod), ein Film und ein Blatt
+      - name: 387 Probe Kauftiere (nur bei Commits mit „387 r“)
+        if: contains(github.event.head_commit.message, '387 r')
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+        run: |
+          export GEGNER=WOLVES OHNEUI=1
+          P=$GITHUB_WORKSPACE/kaufprobe; mkdir -p $P
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
+          git fetch -q --depth 1 origin claude/tom-348-fundament
+          git show FETCH_HEAD:tools/blender348/kauf_laden.sh > $RUNNER_TEMP/kauf_laden.sh
+          [ -d $RUNNER_TEMP/kauf ] || timeout 900 bash $RUNNER_TEMP/kauf_laden.sh $RUNNER_TEMP/kauf > $P/kauf-laden.log 2>&1 || echo "kauf_laden.sh Ende $?"
+          # Lauf 40595109118: im Zip des Hundertfüßers (MadeCG) liegt je Format ein weiteres Zip, kauf_laden.sh packt nur eine Stufe aus
+          find $RUNNER_TEMP/kauf/anhang -name 'fbx.zip' | while read -r z; do [ -d "${z%.zip}" ] || unzip -q -o "$z" -d "${z%.zip}"; done
+          D=godot/kampf/daten; L=""
+          for t in keiler:Keiler hundertfuesser:Hundertfüßer rind:Rind ziege:Ziege huhn:Huhn kaninchen:Kaninchen; do
+            id=${t%%:*}; name=${t#*:}
+            env TIER=$id OUT=$RUNNER_TEMP/k387 KAUF=$RUNNER_TEMP/kauf timeout 900 bl/bin/python -I tools/blender348/kauftier.py > $P/387-$id-bau.log 2>&1 || { tail -20 $P/387-$id-bau.log; echo "BAU FEHLT $id"; continue; }
+            grep -E "MASS|BODEN|TEMPO|BISS|BEHALTEN|RUECKWAERTS|FEHLT|FERTIG" $P/387-$id-bau.log | sort -u | cut -c1-300
+            cp $RUNNER_TEMP/k387/kauf_$id-*.glb $D/ && for f in $D/kauf_$id-*.glb; do mv $f ${f%.glb}.bin; done
+            cp $RUNNER_TEMP/k387/kauf_$id-info.json $D/
+            dorf=$(case $id in keiler|hundertfuesser) echo "";; *) echo 1;; esac)
+            (cd godot && ERSATZ=kauf_$id SCHAU_DORF=$dorf SCHAU=ort SCHAU_MESS=1 SCHAU_TITEL="$name" timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/387-$id.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/387-$id-ort.log 2>&1) || true
+            # r6 (Chef 28.10., 10:51: „unsere Tusch, unser Tuscherahmen nach Lichteinfall“ an die Tiere): volle 540 px, sonst verschwimmt die Linie
+            ffmpeg -loglevel error -y -ss 1.25 -i $RUNNER_TEMP/387-$id.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $P/387-$id.mp4 || true
+            grep -E "SCRIPT ERROR|^Ort |^Pfotenmess" $P/387-$id-ort.log | head -12 || true
+            L="$L $P/387-$id.mp4"
+            rm -f $D/kauf_$id-*
+          done
+          n=0; in=""; fl=""; for f in $L; do in="$in -i $f"; fl="$fl[$n:v]"; n=$((n+1)); done
+          ffmpeg -loglevel error -y $in -filter_complex "${fl}concat=n=$n:v=1:a=0[v]" -map "[v]" -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $P/387-kauftiere.mp4 || true
+          # Blatt: je Tier vier Momente (ein Bild alle Viertel seines Films), 6 Zeilen
+          for f in $L; do d=$(ffmpeg -i $f 2>&1 | grep -oE 'Duration: [0-9:.]+' | awk -F'[: ]' '{print $3*3600+$4*60+$5}')
+            ffmpeg -loglevel error -y -i $f -vf "fps=4/$d,scale=240:-2,tile=4x1" -frames:v 1 ${f%.mp4}-reihe.png || true; done
+          ffmpeg -loglevel error -y $(for f in $L; do echo "-i ${f%.mp4}-reihe.png"; done) -filter_complex "vstack=inputs=$n" $P/387-kauftiere-blatt.png || true
+          ls -l $P
+      # 348.12 Grak (1d6618d74, im APK seit 399.2): Bewegungen mit Ortswechsel im Kampfort wie die Kauftiere (Chef 27.10., 18:01), mit dem
+      # Spiel-Grak aus „Modelle bauen“ (verschlüsselt, derselbe Schlüssel): Anlauf, Stehen, Hieb, Treffer, Platzwechsel, Tod
+      - name: 348.12 Probe Grak im Kampfort (nur bei Commits mit „348.12 Grak Film“)
+        if: contains(github.event.head_commit.message, '348.12 Grak Film')
+        run: |
+          P=$GITHUB_WORKSPACE/grakprobe; mkdir -p $P
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
+          (cd godot && GEGNER=GRAK ORT_ID=grak OHNEUI=1 SCHAU=ort SCHAU_TITEL=Grak timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/grak.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/grak-ort.log 2>&1) || true
+          ffmpeg -loglevel error -y -ss 1.25 -i $RUNNER_TEMP/grak.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $P/348.12-grak-film.mp4 || true
+          grep -E "SCRIPT ERROR|^ +at: |^Ort " $P/grak-ort.log | head -20 || true
+          d=$(ffmpeg -i $P/348.12-grak-film.mp4 2>&1 | grep -oE 'Duration: [0-9:.]+' | awk -F'[: ]' '{print $3*3600+$4*60+$5}')
+          ffmpeg -loglevel error -y -i $P/348.12-grak-film.mp4 -vf "fps=8/$d,scale=270:-2,tile=8x1" -frames:v 1 $P/348.12-grak-blatt.png || true
+          ls -l $P
+      # 348.7b r4 (Chef 28.10., 10:43 „b“): Zauberbahn mit dem längeren Seitenschritt, Aufstellung wie r3 (Magier als Söldner, Wölfe);
+      # Lauf 161 kam nicht bis hier (Modellbau, bd950c6b2)
+      - name: 348.7b Probe Zauberbahn (nur bei Commits mit „348.7b Film“)
+        if: contains(github.event.head_commit.message, '348.7b Film')
+        run: |
+          P=$GITHUB_WORKSPACE/grakprobe; mkdir -p $P
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
+          (cd godot && GEGNER=WOLVES SOELDNER=WIZARD SCHRITT_DEBUG=1 ZAUBER=FIRE_BOLT,MISSILES,FIREBALL,BURNING_HANDS timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/zb.avi --fixed-fps 30 -- --bild=$P/zb.png > $P/zauberbahn.log 2>&1) || true
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/zb.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $P/348.7b-zauberbahn-r4.mp4 || true
+          grep -E "SCRIPT ERROR|^ +at: |^Seitenschritt" $P/zauberbahn.log | head -20 || true
+          ls -l $P
+      # 348.7 Fledermaus r5 (Chef 28.10., 10:06 zu 4d „gleichmäßiger Tuscherand?“: 4d hatte die alte Tusche): Modell wie 4d, Tusche
+      # nach Licht (348.13a), Bewegungen mit Ortswechsel wie die Kauftiere (Chef 27.10., 18:01); die Fledermaus fährt noch nicht im APK;
+      # Lauf 162 kam nicht bis hier (Modellbau, bd950c6b2)
+      - name: 348.7 Probe Fledermaus (nur bei Commits mit „348.7 Fledermaus Film“)
+        if: contains(github.event.head_commit.message, '348.7 Fledermaus Film')
+        run: |
+          P=$GITHUB_WORKSPACE/grakprobe; mkdir -p $P; D=godot/kampf/daten
+          OUT=$RUNNER_TEMP/fm timeout 900 bl/bin/python -I tools/blender348/fledermaus.py > $P/fledermaus-bau.log 2>&1 || (tail -40 $P/fledermaus-bau.log; exit 1)
+          for f in braun schwarz grau; do cp $RUNNER_TEMP/fm/giant_bat-$f.glb $D/giant_bat-$f.bin; done
+          cp $RUNNER_TEMP/fm/giant_bat-info.json $D/
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
+          (cd godot && GEGNER=BATS OHNEUI=1 SCHAU=ort SCHAU_TITEL=Fledermaus timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/fm.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/fledermaus-ort.log 2>&1) || true
+          ffmpeg -loglevel error -y -ss 1.25 -i $RUNNER_TEMP/fm.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $P/348.7-fledermaus-r5.mp4 || true
+          (cd godot && GEGNER=BATS OHNEUI=1 timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 -- --bild=$P/348.7-fledermaus-r5.png > $P/fledermaus-bild.log 2>&1) || true
+          grep -E "SCRIPT ERROR|^ +at: |^Ort " $P/fledermaus-ort.log | head -20 || true
+          ls -l $P
+      - uses: actions/upload-artifact@v4
+        if: contains(github.event.head_commit.message, '348.12 Grak Film') || contains(github.event.head_commit.message, '348.7b Film') || contains(github.event.head_commit.message, '348.7 Fledermaus Film')
+        with:
+          name: grakprobe
+          path: grakprobe
+      - uses: actions/upload-artifact@v4
+        if: contains(github.event.head_commit.message, '348.12f') || contains(github.event.head_commit.message, '387 r')
+        with:
+          name: kaufprobe
+          path: kaufprobe
+      - uses: actions/upload-artifact@v4
+        if: contains(github.event.head_commit.message, '348.12:')
+        with:
+          name: cc0probe
+          path: cc0probe
+      - uses: actions/upload-artifact@v4
+        if: contains(github.event.head_commit.message, '348.7:')
+        with:
+          name: todprobe
+          path: todprobe
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kampf348-apk
+          path: kampf348.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kampf348-bild
+          path: kampf348-neu.png
+          if-no-files-found: warn

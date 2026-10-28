@@ -1,0 +1,5 @@
+# erzeugt im Bau (godot.yml): Karten aus core, Modelle und Bilder aus tools/blender348; Kampfort (Jerry) unter kampf/daten
+daten/
+kampf/daten/
+.godot/
+*.import

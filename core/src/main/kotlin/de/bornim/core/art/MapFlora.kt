@@ -107,25 +107,35 @@ object MapFlora {
         val deep = map.id == "deep_forest"
         val cx = (tx + 0.5) * S; val cy = (ty + 0.5) * S
         // set off a little each, some two small ones side by side; in the village mostly bushes, a hedge in front
-        // of the fields and beds (83, user 14.10.)
-        val pick = hash(tx, ty, 17) % 10
-        val town = map.kind == de.bornim.core.MapKind.TOWN
-        // D3.3: in the deep forest the young ones grow in three heights and stand further apart within their tile,
+        // of the fields and beds (83, user 14.10.); D3.3: in the deep forest the young ones grow in three heights and stand further apart within their tile,
         // so that a run of such tiles never reads as one row
         fun young(k: Int) = obj(spruce(hash(tx, ty, 6 + k) % 6, if (deep) hash(tx, ty, 24 + k) % 3 else 1, young = true),
             cx + (rnd(tx, ty, 18 + k) - 0.5) * S * (if (deep) 0.9 else 0.6),
             cy + S * (if (deep) 0.2 + rnd(tx, ty, 20 + k) * 0.75 else 0.45 + rnd(tx, ty, 20 + k) * 0.3))
-        // D6.2: someone (or a door) just behind, towards the top of the screen, would still be half hidden by young
-        // spruces taller than a person: there only a low bush
-        val close = closeBehind(map, tx, ty)
+        return when (lowKind(map, tx, ty)) {
+            Low.BUSH -> listOf(MapWoodIso.bushObj(((cx + (rnd(tx, ty, 22) - 0.5) * S * 0.5) / D).toInt(), ((cy + S * 0.5) / D).toInt(), hash(tx, ty, 19) % 6))
+            Low.YOUNG2 -> listOf(young(0), young(1))
+            Low.YOUNG -> listOf(young(0))
+        }
+    }
+
+    /** What low growth [shrubs] puts on a tile (348.6: also for the export to the new engine). */
+    enum class Low { BUSH, YOUNG, YOUNG2 }
+
+    fun lowKind(map: MapDef, tx: Int, ty: Int): Low {
+        val pick = hash(tx, ty, 17) % 10
+        val town = map.kind == de.bornim.core.MapKind.TOWN
+        val deep = map.id == "deep_forest"
         return when {
-            close -> listOf(MapWoodIso.bushObj(((cx + (rnd(tx, ty, 22) - 0.5) * S * 0.5) / D).toInt(), ((cy + S * 0.5) / D).toInt(), hash(tx, ty, 19) % 6))
+            // D6.2: someone (or a door) just behind, towards the top of the screen, would still be half hidden by young
+            // spruces taller than a person: there only a low bush
+            closeBehind(map, tx, ty) -> Low.BUSH
             // D3.3: in the woods too set off a little each, now and then two side by side, never in rows
-            !town && !deep -> if (pick < 3) listOf(young(0), young(1)) else listOf(young(0))
+            !town && !deep -> if (pick < 3) Low.YOUNG2 else Low.YOUNG
             // the bush in the slant like those of the undergrowth (56)
-            pick < (if (town) 6 else 3) -> listOf(MapWoodIso.bushObj(((cx + (rnd(tx, ty, 22) - 0.5) * S * 0.5) / D).toInt(), ((cy + S * 0.5) / D).toInt(), hash(tx, ty, 19) % 6))
-            pick < (if (town) 8 else 6) -> listOf(young(0), young(1))
-            else -> listOf(young(0))
+            pick < (if (town) 6 else 3) -> Low.BUSH
+            pick < (if (town) 8 else 6) -> Low.YOUNG2
+            else -> Low.YOUNG
         }
     }
 
