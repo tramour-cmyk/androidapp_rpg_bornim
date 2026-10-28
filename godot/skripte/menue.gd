@@ -642,6 +642,15 @@ static func stueck_rahmen(g: Dictionary, dp: float) -> Control:
 	c.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	c.add_child(bild_feld("stueck-%s-%s" % [g["base"], g["rarity"]], dp * 0.78))
 	p.add_child(c)
+	var b := Beute.grundform(String(g["base"]))
+	if Beute.ist_waffe(b) and bool(b["zweihaendig"]):   # „2H“ oben rechts, unten sitzen die Steine der Seltenheit
+		var t := Stil.zeile("2H", clampf(dp / 5.0, 8.0, 12.0), Stil.GOLD)
+		var ts := Stil.kasten(Color(0, 0, 0, 0.88), Color(0, 0, 0, 0), 0.0)
+		ts.content_margin_left = 2 * DP; ts.content_margin_right = 2 * DP
+		t.add_theme_stylebox_override("normal", ts)
+		t.size_flags_horizontal = Control.SIZE_SHRINK_END
+		t.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+		p.add_child(t)
 	return p
 
 # ein Platz: Rahmen mit Bild und Namen des Getragenen in seiner Farbe, darunter der Platz; eine Zweihandwaffe
