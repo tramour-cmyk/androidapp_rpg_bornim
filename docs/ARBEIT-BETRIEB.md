@@ -146,3 +146,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:00 28.10.: Neustart Tom e930f681e: Nachfolger `01Hmoj79LB` gestartet, alter Tom `01Hmoj78DB` archiviert (20,91 $ auf 385, 399.1).
 - 19:06 28.10.: Homer `01Hmoj77EQ` gestartet (399.2b Kampfansage Jungwolf, Muss startbar, keine Sitzung).
 - 20:45 28.10.: Neustart Tom fb048b94a: Nachfolger `01Hmoj78eP` gestartet, alter Tom `01Hmoj79LB` archiviert (28,01 $ auf 399.1).
+- 21:33 28.10.: Neustart Tom 9eabc83d1: Nachfolger `01Hmoj75YJ` gestartet, alter Tom `01Hmoj78eP` archiviert (13,76 $ auf 399.1).
