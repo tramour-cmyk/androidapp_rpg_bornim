@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben.
 
-**Übergabe (28.10., 13:10, `session_01Hmoj76aXbXMchtzxCkPnwi`):** 399.2 gebaut (CI 40684416539); 348.12f eingebaut (CI 40683164033); Grak-Bewegungen gebaut; 387 r6 vorgelegt. Bestand: UAL Pro Death02. Nachfolger: „Jerry – 399.2 CI prüfen, 348.12 Grak-Film“
+**Übergabe (28.10., 14:42, `session_01Hmoj75RGhNPWnmxSqJ6X8c`):** 399.2a Rudel (6c59777c2); Grak im APK (f5ed4ee0f grün); 348.7b b (dda3b67ab); Filmschritte im Workflow; 398 geschätzt. Neuer Workflow-Schritt erst allein laufen lassen. Nachfolger: „Jerry – Filme Grak, Zauberbahn, Fledermaus (nach 348.12)“
 
 ## Zeilen
 
@@ -15,8 +15,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 348.13a | M | **von Team Tom (Chef 08:09, Archiv: r9 ja):** Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13a) | gebaut 421662dbd: Tusche nach Licht Vorgabe, Linie 1,3; offen Säbel (Tom) | `claude/jerry-348-kampf` |
 | 397 | M | **von Chef (28.10., 11:15):** Tiere, Monster: mind. drei Ruhebewegungen wie alt (`LISTE-UMZUG-348.md`) | ruht (399) | – |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht bis Kauf: Werte, Listen ja (Archiv), dann einbauen; erst Größe prüfen | – |
-| 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | wartet auf 348.12 (Chef: dritter Lauf für Fledermaus r5); Ansage beim Tod behoben (adc040dcc); Wildschwein entfällt (Keiler, 387); Kobold mit 348.12 | `claude/jerry-348-kampf` |
-| 348.7b | M | Zauberbahn nach Chef „D“ | wartet auf 348.12 (Chef: dritter Lauf für Film r4); gebaut dda3b67ab: b (Schritt bis 2 m, Dreieck verdeckt); Reihe stimmt (2ee3c14e6) | `claude/jerry-348-kampf` |
+| 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | wartet auf 348.12 (Chef: dritter Lauf, Fledermaus r5); Ansage beim Tod behoben; Wildschwein entfällt (Keiler); Kobold mit 348.12 | `claude/jerry-348-kampf` |
+| 348.7b | M | Zauberbahn nach Chef „D“ | wartet auf 348.12 (Chef: dritter Lauf, Film r4); gebaut dda3b67ab (b); Reihe stimmt (2ee3c14e6) | `claude/jerry-348-kampf` |
 | 390 | M | **von Perikles:** Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | wartet auf 399.1: Regeln samt Elite golden gleich; offen Ansicht klassisch, Gegner auf der Karte (Elitewurf) | `claude/jerry-348-kampf` |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel); ändern nur auf Wort des Chefs | – |
 | 257 | M | **von Chef (20.10., 17:17, Test B46):** App „hängt“, ging dann weiter (Zu 257) | ruht: Hänger-Wächter (Tom) seit Build 49; bis zum nächsten Hänger mit Absturzbericht | – |
