@@ -48,6 +48,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 ## Einzelheiten
 
+- **von Team Tom (00:47), zu 403:** `add_repo` bornim-kaufmodelle ging bei Tom neu durch; erneut versuchen (Abruf `gh api`, nicht `gh release`).
 
 - **Zu 348.12f, Kaufwolf und 387:** `kaufwolf.py` (Probe `ERSATZ=kaufwolf`, Workflow „Kaufwolf“), `kauftier.py` (Workflow „387 r“); `pfotenhalt.gd`; Artefakt per `gh api …/artifacts/<id>/zip`. An Tom: Heldin tritt in `SCHAU=1` alle 3 s. **387 r4:** Probe druckt „Hülle“ je Bild (Godot = Blender); Offenes im Blatt r4.
 - **Zu 348.12f, Ort:** Wurzelweg `weg` in `giant_rat-info.json` (`kaufratte.py`), `figur.gd` `_bite`, `BITE`, `_walk_home`, `dodge(ms, nm)`; Probe `GEGNER=RATS OHNEUI=1 SCHAU=ort SCHAU_MESS=1` („Ortmess“), Film `348.12f-ort.mp4`; Rute `RUTE_MESS=1`. Kauf (`add_repo` bornim-kaufmodelle) `gh api …/releases/assets/<id>` (Ratte 678372860, Janpec 678515204); Aufruf im Kopf von `kaufratte.py`.
