@@ -8,7 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | gebaut ae285e149: Wolf durch Wolf behoben (umweg_399 grün), an Tom | `claude/jerry-348-kampf` |
+| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | startbar: Testmodus im Kampfort (Zu 399.1); gebaut a0131df5d, an Tom | `claude/jerry-348-kampf` |
 | 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | gebaut 0eda4bb3e: Knurren mit Text, an Tom für den Build; Hilfe, Eingebung mit 390 | – |
 | 399.3 | M | **von Chef (28.10., 16:42):** Klang in die Spielfassung | gebaut 5c63de384: Keuchen, an Tom; Zweig auf tom-399 (UAL1 da) | `claude/jerry-348-klang` |
 | 401 | M | **von Chef (22:0x, Archiv):** Laute für jedes Dorftier, mind. 3 je Tier | gebaut 5c63de384: Huhn, Ziege, Kaninchen je mind. 3 Laute (CC0), an Tom für den Build | – |
@@ -46,7 +46,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 ## Einzelheiten
 
-- **Zu 399.1, von Team Tom (28.10., 17:15–22:0x), für den Kampfort:** System „Kampf“ hat nur Rückfragen (fe7acbb32), Blut, Tempo, Kampftext fehlen (`MenuSigns.kt` 197–211); Testmodus (`Testmodus.ist_an()`) wie alt: Sieg/Niederlage (`test_end`), Kampfhilfen, Varianten, Eröffnung, Aufruf `kampf_im_wald(kachel, gegner, probe)`; `Zustand.satt` (alt `wellFed`) fehlt (+1, `Battle.fedBonus`).
+- **Zu 399.1, von Team Tom (28.10., 17:15–22:0x), für den Kampfort:** offen Testmodus (`Testmodus.ist_an()`) wie alt: Sieg/Niederlage (`test_end`), Kampfhilfen, Varianten, Eröffnung, Aufruf `kampf_im_wald(kachel, gegner, probe)`. Gebaut a0131df5d: System „Kampf“, satt, atemlos.
 
 - **Von Team Tom (27.10., 09:40), zu 348.7:** Kampfbewegungen des Helden Runde 1 und vier Befunde zu `figur.gd`: `ARBEIT-TEAM-TOM.md` „Zu 348.6, Kampf“.
 - **Zu 348.12f, Kaufwolf und 387:** `kaufwolf.py` (Probe `ERSATZ=kaufwolf`, Workflow „Kaufwolf“), `kauftier.py` (Workflow „387 r“); `pfotenhalt.gd`; Artefakt per `gh api …/artifacts/<id>/zip`. An Tom: Heldin tritt in `SCHAU=1` alle 3 s. **387 r4:** Probe druckt „Hülle“ je Bild (Godot = Blender); Offenes im Blatt r4.
