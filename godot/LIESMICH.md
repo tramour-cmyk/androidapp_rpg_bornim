@@ -11,6 +11,7 @@ Plan und Regeln: `docs/LISTE-UMZUG-348.md` (auf `main`). Bau: `.github/workflows
 - `skripte/kamera.gd`, `licht.gd`, `steuerung.gd`: Blick schräg von oben mit Tusche; Tag und Nacht; Tippen, Joystick, zwei Finger, Knöpfe, Textfeld.
 - `skripte/heldwerte.gd` (390): der Held wie `Hero.kt` (Werte, RK, Angriff, Schaden, Stufen, Ausruestung anlegen); Gegenprobe `tests/held_golden.gd`.
 - `skripte/geschichte.gd`, `skript.gd`, `zustand.gd`, `sprache.gd` (390): Gespraeche und Auftraege wie `Story.kt` (Texte wortgleich, `tools/pruef348/story_texte.py`), Spielstand, Deutsch/Englisch.
+- `kampf/` (Jerry, 348.7): Kampfort mit MARS, `kampf/aufruf.gd` startet ihn aus der Welt; 399.1: der Weg in den Wald fuehrt dorthin (`spiel.gd` `kampf_im_wald`), Grundrisse aus `tools/blender348/v3/raum.py` (`daten/<id>.bin`).
 - `shader/`: `toon` (drei Lichtstufen), `tusche` (nach Licht), `boden`, `halm`, `wasser`; keiner stellt seine eigene Tusche ein.
 
 ## Maße
