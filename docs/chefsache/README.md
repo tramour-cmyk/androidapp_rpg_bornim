@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [399.2c](entscheiden/3992c-dritter-lauf.md) | **Muss** | E Kampf | 28.10., 17:19 | ein dritter Probelauf für 399.2, sonst bleibt die Korrektur ungeprüft liegen | Jerry |
+Nichts offen.
 
 ## Zu billigen
 
@@ -34,7 +30,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [399.2d](tun/3992d-godot-am-rechner.md) | **Muss** | E Kampf | 28.10. | der Auto-Modus lehnte den Download von Godot 4.7.2 ab; frühere Jerry-Sitzungen testeten damit am Rechner | Jerry |
+| [399.2d](tun/3992d-godot-am-rechner.md) | **Muss** | E Kampf | 28.10., 18:05 | der Auto-Modus lehnt den Download von Godot 4.7.2 ab (17:2x und 18:00); Tom testet damit am Rechner, Jerry nicht | Jerry |
 | [142](tun/142-pflichttest.md) | **Muss** | M Veröffentlichung | 27.10., 20:07 | Pflichttest Play Store: Gewerbeschein melden | Sokrates |
 
 ## Offen je Rolle
@@ -80,11 +76,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 33, Muss 22, startbar 3
+**Jerry** – offen 33, Muss 22, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 399.2 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv): Kampfort aufrufbar | wartet auf Test/Build (gebaut) |
+| 399.2 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv): Kampfort aufrufbar | startbar |
 | 399.2b | M | von Team Tom (15:05): Rudel allein zu stark | wartet auf Homer |
 | 399.3 | M | von Chef (28.10., 16:42): Klang in die Spielfassung (Umzug „Musik, Klang“) | startbar |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
