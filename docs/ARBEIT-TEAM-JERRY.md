@@ -10,8 +10,9 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 |---|---|---|---|---|
 | 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | startbar: Testmodus im Kampfort (Zu 399.1); gebaut a0131df5d, an Tom | `claude/jerry-348-kampf` |
 | 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | gebaut 0eda4bb3e: Knurren mit Text, an Tom für den Build; Hilfe, Eingebung mit 390 | – |
-| 399.3 | M | **von Chef (28.10., 16:42):** Klang in die Spielfassung | gebaut 5c63de384: Keuchen, an Tom; Zweig auf tom-399 (UAL1 da) | `claude/jerry-348-klang` |
-| 401 | M | **von Chef (22:0x, Archiv):** Laute für jedes Dorftier, mind. 3 je Tier | gebaut 5c63de384: Huhn, Ziege, Kaninchen je mind. 3 Laute (CC0), an Tom für den Build | – |
+| 399.3 | M | **von Chef über Sokrates (16:42):** Klang in die Spielfassung | gebaut 5c63de384: Keuchen, an Tom | `claude/jerry-348-klang` |
+| 402 | M | **von Sokrates (Chef 22:2x, Archiv):** Blende vor dem Kampf wie alt; Herzschlag beim Hinterhalt stärker | startbar | – |
+| 401 | M | **von Chef über Sokrates (Archiv):** Tierlaute, mind. 3 je Tier | gebaut 5c63de384: Huhn, Ziege, Kaninchen (CC0), an Tom | – |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: nachbessern (Chef 15:23, Archiv): Gehen und Platzwechsel mit UAL-Laufbewegung, Hieb trifft den Helden, Tod als Zusammenbruch | `claude/jerry-348-kampf` |
