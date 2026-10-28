@@ -91,7 +91,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 348 | Fertige Spiel-Engine statt Selbstbau: Umzug nach Godot (Chef 24.10., 16:43) | E Technik | M | –; +115,14 $ | Sokrates | in Arbeit |
 | 348.1 | Vergleichsbild Gebietskarte alt/neu, 64 (heute) und 128 je Kachel (Chef 24.10., 16:51, „jetzt“ 16:54) | E Technik | M | – | Team Tom | raus |
 | 348.2 | Tusche nach Licht auch am Helden, Innenlinien an Bäumen: zweites Vergleichsbild jetzt (Chef 24.10., 17:30, 17:36) | E Technik | M | – | Team Tom | ruht |
-| 348.6 | Umzug Godot: Fundament, Dorf als erste Gebietskarte | E Technik | M | 640,45 $ | Team Tom | wartet |
+| 348.6 | Umzug Godot: Fundament, Dorf als erste Gebietskarte | E Technik | M | 640,45 $ | Team Tom | startbar |
 | 395a | Katze fürs Gasthaus: Quaternius hat keine, MadeCG kaufen? | E Figuren | M |  | Team Tom | Chef |
 | 348.7 | Umzug Godot: Modellregel, Kampfort Wolfsrudel MARS | E Technik | M | –; +441,15 $ | Team Jerry | startbar |
 | 348.7a | Rückfrage: Geschosse flach oder in 3D | E Technik | M | 58,17 $ | Jerry | in Arbeit |
@@ -121,7 +121,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 399.2b | Rudel allein: drei von vier Klassen verlieren; Ursache prüfen, Balance an Chef (aus 399.2a) | E Kampf | M | – | Team Jerry | startbar |
 | 384 | Kosten: alle Sitzungen gebucht? Lücken und Buchungen ohne Kennung (Chef 27.10., 20:06) | B Werkzeuge | M | – | Perikles | gebaut |
 | 383.3 | Zurückgestellte Vorlagen sofort aus der Chefsache (Chef 27.10., 19:55) | B Werkzeuge | M | 7,30 $ | Perikles | gebaut |
-| 385 | Protofactor-Animsets (Zauberer u. a.) auf die Listen, Probe ob nutzbar (Chef 27.10., 20:59) | E Figuren | M | 12,72 $ | Team Tom | Chef |
+| 385 | Protofactor-Animsets (Zauberer u. a.) auf die Listen, Probe ob nutzbar (Chef 27.10., 20:59) | E Figuren | M | 12,72 $ | Team Tom | startbar |
 | 387 | Gekaufte Tiere schnell auf Bewegungen und unsere Haut prüfen, vor Eigenbau (Chef 27.10., 21:27) | E Monster | M | 95,15 $ | Team Jerry | ruht |
 | 390 | Umzug: Punkte ohne Bilderrunde weiterbauen, solange Blätter beim Chef liegen (Perikles 28.10., Wochenziel 348) | E Technik | M | 39,54 $ | Team Tom, Team Jerry | wartet |
 | 383.2 | Kosten: dieselbe Aufgabe frisch gegen groß messen (Chef 27.10., 19:24) | B Werkzeuge | M | – | Sokrates | wartet |
