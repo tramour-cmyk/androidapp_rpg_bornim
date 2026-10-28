@@ -181,6 +181,16 @@ jobs:
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --bilder=$GITHUB_WORKSPACE/bilder 2>&1 | grep -E "Vulkan|SCRIPT ERROR" || true
           ls -l $GITHUB_WORKSPACE/bilder
+      # 348.13b Tusche nach Laterne, Fenster, Fackel: nachts je Ort mit und ohne, Kosten je Bild (Renderer wie am Handy), nur bei „348.13b“
+      - name: Tusche nachts (348.13b)
+        if: contains(github.event.head_commit.message, '348.13b')
+        continue-on-error: true
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/bilder/tuschenacht
+          cd godot
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --tuschenacht=$GITHUB_WORKSPACE/bilder/tuschenacht 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^BILD|^KOSTEN" | cut -c1-300 || true
+          ls -l $GITHUB_WORKSPACE/bilder/tuschenacht
       # 348.6 Dorftiere: Grundansicht und nah an jedem Ort, nachts, dazu ein Film (Tiere bewegen sich), nur bei Commits mit „Dorftiere“
       - name: Dorftiere Bilder und Film
         if: contains(github.event.head_commit.message, 'Dorftiere')

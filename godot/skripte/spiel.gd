@@ -48,6 +48,7 @@ func _ready() -> void:
 	probe_blatt()
 	haeuser_blatt()
 	dorftiere_blatt()
+	tusche_nacht()
 
 func betrete(id: String, t: Vector2i, blick: String) -> void:
 	if gebiet: gebiet.queue_free()
@@ -76,6 +77,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	_steht_auf(t)
 
 func _nacht(k: float) -> void:
+	kamera.nacht = k   # 348.13b: Tusche nach Laterne, Fenster, Fackel
 	if gebiet: gebiet.nacht(k)
 	if held: held.nacht(k)
 	if leute:
@@ -643,6 +645,45 @@ func dorftiere_blatt() -> void:
 		licht.umschalten()
 		await get_tree().create_timer(2.5).timeout
 		await knips(dir + "/wiese_nacht.png")
+	get_tree().quit()
+
+# 348.13b (Chef 28.10., 08:09: Tusche nach Fackel, Feuer, Fenster; Dorf zuerst, Kosten messen): --tuschenacht=<ordner> legt nachts
+# an Laterne, Gasthausfenster und auf freier Wiese (nur die Fackel) je ein Bild mit und ohne Lichter in der Tusche ab, im selben
+# Augenblick (Welt angehalten), und misst die Zeit der Grafik je Bild (Mittel ueber 90 Bilder, an und aus abwechselnd)
+func tusche_nacht() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--tuschenacht="): dir = a.substr(14)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	licht.umschalten()
+	await get_tree().create_timer(2.5).timeout
+	var vp := get_viewport().get_viewport_rid()
+	RenderingServer.viewport_set_measure_render_time(vp, true)
+	var orte := [[Vector2i(6, 7), "gasthaus"], [Vector2i(10, 17), "wiese"]]
+	for o in gebiet.lampen.slice(0, 2):   # Laternen: Held eine Kachel suedoestlich
+		orte.append([karte.pos_kachel(o.global_position) + Vector2i(1, 1), "laterne%d" % orte.size()])
+	for o in orte:
+		held.setze(o[0], "UP")
+		kamera.springe()
+		await get_tree().create_timer(1.5).timeout
+		var zeit := {true: [], false: []}
+		for i in 240:   # je 60 Bilder an, aus, an, aus; die ersten 5 je Block zaehlen nicht (Messung haengt ein Bild nach)
+			kamera.lampen_an = (i / 60) % 2 == 0
+			await RenderingServer.frame_post_draw
+			if i % 60 >= 5: zeit[kamera.lampen_an].append(RenderingServer.viewport_get_measured_render_time_gpu(vp) + RenderingServer.viewport_get_measured_render_time_cpu(vp))
+		get_tree().paused = true
+		for an in [true, false]:
+			kamera.lampen_an = an
+			kamera.tusche_lampen()
+			await knips(dir + "/%s_%s.png" % [o[1], "an" if an else "aus"])
+		get_tree().paused = false
+		kamera.lampen_an = true
+		var mittel := func(l: Array) -> float: return l.reduce(func(s, x): return s + x, 0.0) / maxf(l.size(), 1)
+		print("KOSTEN %s an %.2f ms aus %.2f ms Lichter %d" % [o[1], mittel.call(zeit[true]), mittel.call(zeit[false]),
+			get_tree().get_nodes_in_group("tuschelicht").filter(func(n): return n.is_visible_in_tree()).size()])
 	get_tree().quit()
 
 func knips(p: String) -> void:

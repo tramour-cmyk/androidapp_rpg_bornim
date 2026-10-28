@@ -329,6 +329,7 @@ func baue_lampen() -> void:
 		var q := gpos(l["pos"])
 		if art == "fenster":   # wie MapLight WINDOW: vor dem Haus auf den Boden, Reichweite 1,6 Kacheln, Staerke 0,7
 			inseln.append(Vector4(q.x, q.z + 0.5, 1.6 * Karte.TS, 0.7))
+			tuschelicht(Vector3(q.x, maxf(q.y, 1.2), q.z + 0.3), 1.6 * Karte.TS, 0.6)   # 348.13b
 			continue
 		inseln.append(Vector4(q.x, q.z, float(l.get("reich", 2.6)) * Karte.TS, float(l.get("kraft", 0.95))))   # LAMP (Bruecke 2,4/0,8; Kael 1,2/0,3)
 		if l.get("kerze", false): continue   # Kaels Laterne: nur ein kleiner, matter Fleck, kein Laternenlicht
@@ -340,12 +341,24 @@ func baue_lampen() -> void:
 		o.light_cull_mask = 0xFFFFF & ~BODEN_SCHICHT
 		add_child(o)
 		lampen.append(o)
+		o.set_meta("reich", o.omni_range)   # 348.13b: Tusche nach der Laterne
+		o.set_meta("kraft", 0.95)
+		o.add_to_group("tuschelicht")
 	inseln = inseln.slice(0, 64)
 	for m in [boden, halme, wasser]:
 		if m:
 			m.set_shader_parameter("inseln", inseln)
 			m.set_shader_parameter("inseln_n", inseln.size())
 	insel_liste = inseln
+
+# 348.13b: Ort eines Lichts ohne eigenes OmniLight3D (Fenster) fuer die Tusche (Kamera.tusche_lampen)
+func tuschelicht(p: Vector3, reich: float, kraft: float) -> void:
+	var o := Node3D.new()
+	o.position = p
+	o.set_meta("reich", reich)
+	o.set_meta("kraft", kraft)
+	o.add_to_group("tuschelicht")
+	add_child(o)
 
 # ---------------------------------------------------------------- Leben (WorldScreen.kt): Gras, Korn, Falter, Rauch, Gluehwuermchen
 static func kreuz() -> ArrayMesh:

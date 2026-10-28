@@ -240,6 +240,9 @@ func baue_fackel() -> void:
 	fackel.omni_attenuation = 2.0
 	fackel.light_cull_mask = 0xFFFFF & ~2
 	t.add_child(fackel)
+	fackel.set_meta("reich", 4.0)   # 348.13b: Tusche nach der Fackel (am Tag unsichtbar, zaehlt dann nicht)
+	fackel.set_meta("kraft", 1.0)
+	fackel.add_to_group("tuschelicht")
 	nacht(0.0)
 
 func richte_fackel() -> void:
