@@ -30,4 +30,6 @@ Stärkstes Gegenargument: Deine Regel „genau einmal“ ist eine Woche alt und 
 - **B:** Ford startet bei Arbeit wieder Leihsitzungen, eine zweite Sitzung je Team; die Regel vom 21.10. fällt. Diese Woche kommt das Limit dann etwa einen halben Tag früher.
 - **C:** so lassen (385a): Tom übergibt 376.1 und macht jetzt 385, danach weiter 376.1.
 
+**Chef 10:17:** „Also wenn es am Namen liegt, können wir die anderen ja auch Tick, Trick und Track nennen, damit es keinen Tom 2 gibt, weil es gibt ja jeden nur einmal. Das ist mir jetzt eigentlich egal. Oder Pat und Patachon.“ Rückfrage Sokrates 10:18: A oder B gemeint?
+
 Antwort: …
