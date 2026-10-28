@@ -323,6 +323,26 @@ func _model_path() -> String:
 	return "res://kampf/daten/%s.bin" % fighter.monster.id
 
 
+## 348.12f eingebaut (Chef 28.10., 11:50, Archiv: Kaufwolf und Ratte abgenommen): gekaufte Modelle liegen im APK nur verschlüsselt
+## (348.12i: verschluesseln.sh „BKV1“, IV, AES-256-CBC mit PKCS7; wie Toms gebiet.gd entschluessele); unverschlüsselte gehen durch
+static func lade_bin(p: String) -> PackedByteArray:
+	var b := FileAccess.get_file_as_bytes(p)
+	if b.size() < 36 or b.slice(0, 4).get_string_from_ascii() != "BKV1":
+		return b
+	if Schluessel.KAUF.length() != 64 or (b.size() - 20) % 16 != 0:
+		push_error("verschlüsselt, ohne Schlüssel: %s" % p)
+		return PackedByteArray()
+	var aes := AESContext.new()
+	aes.start(AESContext.MODE_CBC_DECRYPT, Schluessel.KAUF.hex_decode(), b.slice(4, 20))
+	var d := aes.update(b.slice(20))
+	aes.finish()
+	var pad := d[d.size() - 1]
+	if pad < 1 or pad > 16:
+		push_error("falscher Schlüssel: %s" % p)
+		return PackedByteArray()
+	return d.slice(0, d.size() - pad)
+
+
 ## 387: Felle eines gekauften Tiers (Schlüssel in <art>-info.json, wie kauftier.py sie baut)
 static func _kauf_felle(a: String) -> Array:
 	var ip := "res://kampf/daten/%s-info.json" % a
@@ -337,7 +357,7 @@ func _load_model() -> Node3D:
 	if FileAccess.file_exists(p):
 		var doc := GLTFDocument.new()
 		var st := GLTFState.new()
-		if doc.append_from_buffer(FileAccess.get_file_as_bytes(p), "", st) == OK:
+		if doc.append_from_buffer(lade_bin(p), "", st) == OK:
 			# Runde 15: unveränderliche Spuren behalten; sonst fehlten im Scharren die ruhenden Knochen (rechter Vorderlauf) und blieben
 			# in der Haltung der vorigen Bewegung stehen (Prüfer: „Hasensprung“, zweite Vorderpfote in der Luft)
 			var n := doc.generate_scene(st, 30.0, false, false) as Node3D
@@ -447,7 +467,7 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		return
 	var doc := GLTFDocument.new()
 	var st := GLTFState.new()
-	if doc.append_from_buffer(FileAccess.get_file_as_bytes(p), "", st) != OK:
+	if doc.append_from_buffer(lade_bin(p), "", st) != OK:
 		return
 	var w := doc.generate_scene(st) as Node3D
 	_paint(w)

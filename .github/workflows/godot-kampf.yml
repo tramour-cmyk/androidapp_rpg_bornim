@@ -81,6 +81,8 @@ jobs:
           sudo apt-get update -qq && sudo apt-get install -y -qq libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libsm6 libxkbcommon0 > /dev/null
           python -m venv bl && bl/bin/pip -q install bpy==5.2.3 numpy pillow
       - name: Modelle bauen (Held, Wolf, Grimmzahn, Ratte, Goblin, Späher, Wald)
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
         run: |
           export OUT=$RUNNER_TEMP/out
           bl/bin/python -I tools/blender348/v3/tex.py > tex.log 2>&1 || (tail -40 tex.log; exit 1)
@@ -124,6 +126,22 @@ jobs:
           for k in kappe schild fell; do cp $OUT/kobold-$k.glb godot/kampf/daten/kobold-$k.bin; done
           cp $OUT/kobold-info.json godot/kampf/daten/
           for t in gras erde halme; do cp $OUT/tex/$t.png godot/kampf/daten/$t.bild; done
+          # 348.12f eingebaut (Chef 28.10., 11:50, Archiv: Kaufwolf und Ratte abgenommen; 27.10., 21:51 „eigener entfällt“): im Spiel die
+          # gekaufte Ratte (kaufratte.py) als giant_rat und der gekaufte Wolf (kaufwolf.py; probe.gd nimmt ihn für die Wölfe); gekauft,
+          # also nur verschlüsselt ins APK (348.12i, Schritt Android-Export, Liste kauf.txt)
+          git fetch -q --depth 1 origin claude/tom-348-fundament
+          git show FETCH_HEAD:tools/blender348/kauf_laden.sh > $RUNNER_TEMP/kauf_laden.sh
+          timeout 900 bash $RUNNER_TEMP/kauf_laden.sh $RUNNER_TEMP/kaufroh > kauf-laden.log 2>&1 || { tail -20 kauf-laden.log; exit 1; }
+          D=godot/kampf/daten
+          KAUF=$RUNNER_TEMP/kaufroh OUT=$RUNNER_TEMP/kr timeout 1200 bl/bin/python -I tools/blender348/kaufratte.py > kaufratte.log 2>&1 || (tail -60 kaufratte.log; exit 1)
+          grep -E "^GLB|FEHLT" kaufratte.log | cut -c1-160 || true
+          for f in braun grau schwarz; do cp $RUNNER_TEMP/kr/giant_rat-$f.glb $D/giant_rat-$f.bin; done
+          cp $RUNNER_TEMP/kr/giant_rat-info.json $D/
+          KAUF=$RUNNER_TEMP/kaufroh OUT=$RUNNER_TEMP/kw timeout 1200 bl/bin/python -I tools/blender348/kaufwolf.py > kaufwolf.log 2>&1 || (tail -60 kaufwolf.log; exit 1)
+          grep -E "^GLB|FEHLT" kaufwolf.log | cut -c1-160 || true
+          for f in grau dunkel rost asche; do cp $RUNNER_TEMP/kw/kaufwolf-$f.glb $D/kaufwolf-$f.bin; done
+          cp $RUNNER_TEMP/kw/kaufwolf-info.json $D/
+          (cd godot && ls kampf/daten/giant_rat-*.bin kampf/daten/kaufwolf-*.bin > kampf/daten/kauf.txt)
       - uses: actions/cache@v4
         with:
           path: ~/godot
@@ -146,6 +164,14 @@ jobs:
           [ -f ~/kampf348-schluessel/debug.keystore ] || keytool -genkeypair -v -keystore ~/kampf348-schluessel/debug.keystore -storepass android -alias androiddebugkey -keypass android \
             -keyalg RSA -validity 9999 -dname "CN=Android Debug,O=Android,C=US" > /dev/null 2>&1
           sed -i "s/^version\/code=.*/version\/code=$GITHUB_RUN_NUMBER/" godot/export_presets.cfg
+          # 348.12i wie Toms godot.yml: Schlüssel je Lauf neu, nur im Programm (schluessel.gd), nie im Protokoll; die gekauften Modelle aus
+          # kampf/daten/kauf.txt verschlüsselt (figur.gd lade_bin entschlüsselt); spätere Schritte laufen mit demselben Schlüssel
+          git fetch -q --depth 1 origin claude/tom-348-fundament && git show FETCH_HEAD:tools/blender348/verschluesseln.sh > $RUNNER_TEMP/verschluesseln.sh
+          K=$(openssl rand -hex 32)
+          echo "::add-mask::$K"
+          sed -i "s/^const KAUF := \"\"/const KAUF := \"$K\"/" godot/skripte/schluessel.gd
+          grep -q "$K" godot/skripte/schluessel.gd || { echo "Schlüssel nicht gesetzt"; exit 1; }
+          (cd godot && sort -u kampf/daten/kauf.txt | xargs -r bash $RUNNER_TEMP/verschluesseln.sh $K)
           export GODOT_ANDROID_KEYSTORE_DEBUG_PATH=$HOME/kampf348-schluessel/debug.keystore GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD=android
           mkdir -p ~/.config/godot
           v=${GODOT%.*}
@@ -153,6 +179,9 @@ jobs:
           cd godot
           timeout 90 ~/godot/godot --headless --import --path . > import.log 2>&1 || true
           grep -iE "error|fehler" import.log | head -30 || true
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/kauf_entschluesseln.gd > kauf.log 2>&1 || r=$?
+          grep -E "Kaufmodelle|FEHLER|kauf.txt" kauf.log || true
+          [ ${r:-0} = 0 ] || { echo "Kaufmodelle nicht verschlüsselt oder nicht lesbar"; exit 1; }
           timeout 600 ~/godot/godot --headless --path . --export-debug "Android" $GITHUB_WORKSPACE/kampf348.apk 2>&1 | tail -30
           ls -l $GITHUB_WORKSPACE/kampf348.apk
           unzip -l $GITHUB_WORKSPACE/kampf348.apk | grep -E "daten|\.pck" || { echo "Daten fehlen im APK"; exit 1; }
@@ -224,7 +253,7 @@ jobs:
       # 348.12f Probe gekaufte Ratte (Archiv 348.12c b): nach dem APK (das trägt nur die eigene Ratte); die gekauften Dateien
       # bleiben auf dem Runner, ins Artefakt gehen nur Bilder, Kurzvideos und Protokolle (348.12c a: nie Rohdateien hierher)
       - name: 348.12f Probe gekaufte Ratte (nur bei Commits mit „348.12f“, ohne „Kaufwolf“ oder mit „Ratte und Kaufwolf“)
-        if: contains(github.event.head_commit.message, '348.12f') && (!contains(github.event.head_commit.message, 'Kaufwolf') || contains(github.event.head_commit.message, 'Ratte und Kaufwolf'))
+        if: contains(github.event.head_commit.message, '348.12f') && !contains(github.event.head_commit.message, 'eingebaut') && (!contains(github.event.head_commit.message, 'Kaufwolf') || contains(github.event.head_commit.message, 'Ratte und Kaufwolf'))
         env:
           GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
         run: |
