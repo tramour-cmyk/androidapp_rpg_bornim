@@ -314,6 +314,10 @@ def baue(fell):
     path = os.path.join(OUT, '%s-%s.glb' % (ID, fell))
     bpy.ops.export_scene.gltf(filepath=path, export_format='GLB', use_selection=True, export_animations=True, export_skins=True,
                               export_animation_mode='NLA_TRACKS', export_yup=True, export_apply=False, export_image_format='JPEG', export_jpeg_quality=88)
+    # Prüfer r2: Rind überschlägt sich im Tod kopfüber, Ziege auf dem Rücken, Keiler dreht in einem Bild um 90°; im GLB lagen Drehschlüssel mit
+    # wechselndem Vorzeichen (Keiler in jeder Bewegung 2–3 Knochen), Godot blendet sie über den langen Weg (wie 348.12 Grak)
+    from glbquat import quat_stetig
+    quat_stetig(path)
     print('GLB', path, os.path.getsize(path), {k: v for k, v in INFO.items() if k != 'weg'}, 'Weg', {k: len(v) for k, v in INFO.get('weg', {}).items()})
     return INFO
 

@@ -432,6 +432,11 @@ func _ort() -> void:
 	zeig.call("Anlauf")
 	rat.glide_to(h0)
 	await warte.call(2.2)
+	# 387 r3 (Prüfer r2: Huhn rutscht beim Fressen über den Boden): Huhn und Kaninchen brauchen für 3 m 3,9–4,8 s, das Fressen begann
+	# nach 2,2 s mitten im Lauf; bis es angekommen ist, höchstens 8 s
+	var bis_a: float = fight.clock_ms + 8000.0
+	while rat.tween and rat.tween.is_running() and fight.clock_ms < bis_a:
+		await warte.call(0.1)
 	if OS.get_environment("SCHAU_DORF") != "":     # 387 Runde 2: Dorftiere (Rind, Ziege, Huhn, Kaninchen) kämpfen nicht: fressen, Platzwechsel, Tod
 		zeig.call("Fressen")
 		rat._play("Fressen", 0.2)
@@ -503,7 +508,10 @@ func _ort_mess(rat, ziel) -> void:
 		return
 	var kb := sk.find_bone("kopf")
 	var hb := sk.find_bone("hals")
-	if kb < 0 or hb < 0:
+	if kb < 0 or hb < 0:     # 387 r3: Kauftiere ohne „kopf“/„hals“: Bewegung, Ort, Drehung je Bild (Kaninchen gleitet sitzend)
+		print("Ortlauf %s %3d %s %.2f Ort %.2f,%.2f Gier %.1f° tween %s" % [schritt, bild, rat.anim.current_animation if rat.anim else "-",
+			rat.anim.current_animation_position if rat.anim and rat.anim.current_animation != "" else 0.0, rat.position.x, rat.position.z,
+			rad_to_deg(rat.rotation.y), rat.tween != null and rat.tween.is_running()])
 		return
 	var kopf: Vector3 = sk.global_transform * sk.get_bone_global_pose(kb).origin
 	var hals: Vector3 = sk.global_transform * sk.get_bone_global_pose(hb).origin
