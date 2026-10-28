@@ -469,3 +469,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 353a | Rückfrage: Loch in den Kronen vor dem Helden in den nächsten Build? | G Stil | M | – | Team Tom | erledigt (Archiv 353a; Anforderung in 348.8) |
 | 338b | Rückfrage: Umzug Block (K) rot, Termine nach den Kaufmodellen neu schätzen? | B Abläufe | M | – | Perikles | erledigt |
 | 385a | Rückfrage: Zauberer-Probe 385 jetzt als Muss vor dem Dorf? (Chef 28.10., 09:55) | E Figuren | M | – | Sokrates | erledigt |
+| 386 | GitHub verlangt Zwei-Faktor-Anmeldung bis 11.12.2026 (Chef 27.10., 21:02) | B Werkzeuge | M | – | Perikles | erledigt |
+| 395 | Hund und Katze fürs Dorf: welche Modelle? (Chef 28.10., 10:46) | E Figuren | M | – | Sokrates | erledigt |
+| 393 | Zweiter Tom oder Jerry wegen der Fülle, z. B. für 385? (Chef 28.10., 10:09) | B Betrieb | M | – | Sokrates | erledigt |
+| 392 | Alt-Fassung: Schalter „Atmen aus“ schätzen, nicht bauen (Chef 28.10., 09:50) | A Technik | M | – | Team Tom | erledigt |
