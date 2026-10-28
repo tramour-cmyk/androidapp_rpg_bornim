@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 28.10., 22:05
+**Gelesen bis:** `origin/main` 28.10., 23:57
 
-**Übergabe (28.10., 22:1x):** 400 erledigt: Commit-Prüfung lässt Hinweise anderer („von <Absender>“) in volle Vorräte; liegengebliebene an Tom, Jerry zugestellt; Ford „Ford-Lauf“ (letzter Lauf 13:11). Kosten auf: 400. Nachfolger: keiner (399 wartet auf Tom, Jerry)
+**Übergabe (28.10., 23:58):** M? 403 → M (Kampfort-Held je Klasse mit Kampfbewegungen: im Kampf der Spielfassung 399 gleitet der Held ohne Hieb, `LISTE-UMZUG-348.md` Zeile Held; Fehler, kein Feinschliff; gesperrt bis Urteil 376.1). Kosten auf: 399. Nachfolger: keiner (399 wartet auf Tom, Jerry)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
