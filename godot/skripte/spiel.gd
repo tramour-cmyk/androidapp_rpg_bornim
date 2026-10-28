@@ -362,6 +362,7 @@ func kampf_im_wald(zurueck: Vector2i) -> void:
 	var env_alt := umgebung.map(func(we): return we.environment)
 	# 399.2a (Chef 14:19 „a“): Wolf mit 1–2 Jungwölfen wie im alten Spiel
 	var gestartet: bool = aufruf.starte("RUDEL", hw, null, "wald", tageszeit(), zustand.anzahl("potion"))
+	zustand.satt = false   # 399.1: Battle.wellFed endet mit dem Kampfbeginn; den Bonus +1 kennt der Kampfort noch nicht (an Jerry)
 	if gestartet:
 		for we in umgebung: we.environment = null
 		visible = false; ui.visible = false

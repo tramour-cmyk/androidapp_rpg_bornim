@@ -16,6 +16,7 @@ var ausdauer := 1.0
 var atemlos := false
 var ausdauer_trank := false
 var funke := false
+var satt := false                     # 399.1: GameState.wellFed, nach dem Essen bis zum naechsten Kampf
 var lange_rast_tag := 0
 var met := 0
 var leiden := {}                       # Zustand -> Runden (GameState.ailments)
@@ -69,7 +70,7 @@ static func stueck(g: Dictionary) -> Dictionary:
 
 func als_daten() -> Dictionary:
 	return {"name": name, "stufe": stufe_held, "gold": gold, "taschen": taschen.duplicate(), "flaggen": flaggen.keys(), "minuten": minuten, "tag": tag,
-		"ausdauer": ausdauer, "atemlos": atemlos, "ausdauer_trank": ausdauer_trank, "funke": funke, "lange_rast_tag": lange_rast_tag,
+		"ausdauer": ausdauer, "atemlos": atemlos, "ausdauer_trank": ausdauer_trank, "funke": funke, "satt": satt, "lange_rast_tag": lange_rast_tag,
 		"met": met, "leiden": leiden.duplicate(), "wiederkehr": wiederkehr.duplicate(), "beutel": beutel.duplicate(true), "siege": siege,
 		"laden_verkauft": laden_verkauft.keys(), "uid_zaehler": uid_zaehler}
 
@@ -80,7 +81,7 @@ static func aus_daten(d: Dictionary) -> Zustand:
 	for f in d.get("flaggen", []): z.flaggen[String(f)] = true
 	z.minuten = int(d.get("minuten", z.minuten)); z.tag = int(d.get("tag", 1))
 	z.ausdauer = float(d.get("ausdauer", 1.0)); z.atemlos = bool(d.get("atemlos", false)); z.ausdauer_trank = bool(d.get("ausdauer_trank", false))
-	z.funke = bool(d.get("funke", false)); z.lange_rast_tag = int(d.get("lange_rast_tag", 0)); z.met = int(d.get("met", 0))
+	z.funke = bool(d.get("funke", false)); z.satt = bool(d.get("satt", false)); z.lange_rast_tag = int(d.get("lange_rast_tag", 0)); z.met = int(d.get("met", 0))
 	for k in d.get("leiden", {}): z.leiden[String(k)] = int(d["leiden"][k])
 	if d.has("wiederkehr"):
 		var w: Dictionary = d["wiederkehr"]

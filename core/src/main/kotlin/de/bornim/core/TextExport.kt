@@ -7,6 +7,7 @@ import kotlinx.serialization.json.put
 import kotlinx.serialization.json.putJsonObject
 import kotlinx.serialization.json.putJsonArray
 import kotlinx.serialization.json.addJsonObject
+import kotlinx.serialization.json.add
 import java.io.File
 
 /**
@@ -38,14 +39,27 @@ object TextExport {
         return felder(msgs).filterKeys { it in setOf("brewed", "brewedTwo", "missing") }
     }
 
+    /** 399.1 (Tasche, Game.useItemOutside): eating, curing and healing outside battle, and the spark (Game's Msgs, [Light]). */
+    fun benutzen(): Map<String, T> {
+        val msgs = Class.forName("de.bornim.core.Game\$Msgs").getDeclaredField("INSTANCE").apply { isAccessible = true }.get(null)
+        return felder(msgs).filterKeys { it in setOf("ate", "alreadyFed", "cured") } +
+            ("sparkDrunk" to Light.sparkDrunk) + ("sparkAlready" to Light.sparkAlready) +
+            ("healed" to T("{0} heilt {1} TP.", "{0} recovers {1} HP."))
+    }
+
     fun json(): JsonObject = buildJsonObject {
         put("version", VERSION)
         putJsonObject("ui") { for ((k, t) in ui()) put(k, text(t)) }
         putJsonObject("rast") { for ((k, t) in rast()) put(k, text(t)) }
         putJsonObject("laden") { for ((k, t) in laden()) put(k, text(t)) }
+        putJsonObject("benutzen") { for ((k, t) in benutzen()) put(k, text(t)) }
         // 390 (Laden): dazu Preis und Art je Ding, und Morwens Rezepte (Recipes)
         putJsonObject("dinge") {
-            for (i in Items.all) putJsonObject(i.id) { put("name", text(i.name)); put("info", text(i.desc)); put("preis", i.price); put("art", i.kind.name) }
+            for (i in Items.all) putJsonObject(i.id) { put("name", text(i.name)); put("info", text(i.desc)); put("preis", i.price); put("art", i.kind.name)
+                // 399.1: was das Ding heilt (Wuerfel, Wurf, Bonus) und ob es Leiden heilt, fuer Benutzen in der Tasche
+                i.heal?.let { h -> putJsonArray("heilt") { add(h.count); add(h.sides); add(h.bonus) } }
+                if (i.cures) put("heilt_leiden", true)
+            }
         }
         putJsonArray("rezepte") {
             for (r in Recipes.all) addJsonObject {
