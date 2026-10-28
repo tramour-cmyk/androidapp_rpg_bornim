@@ -7,9 +7,10 @@ Laute seit 83c (huehner.py). Alle CC0 (QUELLEN.md, 401).
     python3 tools/klang/dorftiere.py <ordner mit den Aufnahmen> --spiel    # nach app/src/main/assets/sfx (goat_*, rabbit_*)
 
 Aufnahmen (tools/klang/holen.sh): BigSoundBank (Joseph Sardin, CC0) 0279/0280 „Bleating goat #1/#2“, 1380/1381 „Goat #1/#2“,
-0990 „Horse eating grass #2“, 1376 „Bunny hutch“, 0185 „Rat nibbling“.
+0990 „Horse eating grass #2“, 0185 „Rat nibbling“, 3202 „Footsteps on Gravels #3“; OpenGameArt qubodup „Heartbeat single
+sound“ (heartbeat.mp3_.flac, wie herzschlag.py).
 """
-import sys, os, subprocess
+import sys, os, subprocess, numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from klang import *
 D, OUT = sys.argv[1], sys.argv[2]
 if OUT != "--spiel": os.makedirs(OUT, exist_ok=True)
@@ -31,10 +32,16 @@ S["goat_graze"] = [rupf(1.62, 2.90, 1), rupf(3.20, 4.20, 2), rupf(5.18, 6.35, 3)
 nib = L("0185")
 def knabber(a, b, seed): return yard(lowpass(win(nib, a, b, 0.02, 0.10), 3500, 2), 5000, 0.08, seed)
 S["rabbit_munch"] = [knabber(9.45, 11.95, 1), knabber(24.75, 26.70, 2), knabber(29.45, 30.15, 3)]
-# Klopfen: die tiefsten Tritte aus dem Stall, nur der dumpfe Schlag auf den Boden (ohne das Klappern des Stalls)
-hutch = L("1376")
-def tritt(t, seed): return yard(lowpass(win(hutch, t - 0.02, t + 0.30, 0.002, 0.12), 1200, 4), 3000, 0.06, seed)
-S["rabbit_thump"] = [tritt(53.08, 1), tritt(45.10, 2), tritt(7.04, 3), tritt(60.40, 4)]
+# Klopfen mit dem Hinterlauf auf Erde (Chef 28.10., 23:0x: der Tritt im Stall „eher wie ein Türklopfen“, Holz): ein dumpfer
+# Schlag ohne Holzklang (ein Herzschlag, viel höher und kurz) und darüber leise das Knirschen der Erde unter der Pfote
+herz = cut(load(os.path.join(D, "heartbeat.mp3_.flac")), 0.12, 0.40, 0.001, 0.08)
+erde = L("3202")
+def tritt(semis, t, seed):
+    dumpf = lowpass(pitch(herz, semis), 1500, 4); g = np.max(np.abs(dumpf))
+    hart = lowpass(highpass(np.tanh(20 * dumpf / g), 250, 2), 1500, 4)   # Obertöne, sonst bleibt der Schlag im Handy stumm (402)
+    dumpf = dumpf + 0.8 * hart * g / np.max(np.abs(hart))
+    return yard(mix((dumpf, 0.0, 1.0), (lowpass(win(erde, t - 0.005, t + 0.10, 0.002, 0.05), 2500, 2), 0.004, 0.5)), 3000, 0.06, seed)
+S["rabbit_thump"] = [tritt(7, 56.77, 1), tritt(8, 49.14, 2), tritt(6, 23.87, 3), tritt(9, 45.40, 4)]
 
 LEISE = {"goat_graze": -30, "rabbit_munch": -32, "rabbit_thump": -26}
 def finish(name, x): return norm(trim(x, -55), -1.0, LEISE.get(name, -22))
