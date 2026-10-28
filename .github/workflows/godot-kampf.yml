@@ -148,7 +148,17 @@ jobs:
           grep -E "^GLB|FEHLT" kaufwolf.log | cut -c1-160 || true
           for f in grau dunkel rost asche; do cp $RUNNER_TEMP/kw/kaufwolf-$f.glb $D/kaufwolf-$f.bin; done
           cp $RUNNER_TEMP/kw/kaufwolf-info.json $D/
-          (cd godot && ls kampf/daten/giant_rat-*.bin kampf/daten/kaufwolf-*.bin > kampf/daten/kauf.txt)
+          # 399.2 Grak, soweit fertig (348.12 Gestalt mit Gehen, Hieb, Treffer, Tod, 1d6618d74): Quaternius-Teile (CC0, cc0_laden.sh von
+          # Toms Zweig), Tod aus der gekauften UAL Pro (Death02), darum auch verschlüsselt; ohne Kaufdateien Death01
+          git show e457d6d8b:tools/blender348/v3/cc0_laden.sh > $RUNNER_TEMP/cc0_laden.sh
+          bash $RUNNER_TEMP/cc0_laden.sh $RUNNER_TEMP/cc0 > cc0.log 2>&1 || { tail -5 cc0.log; exit 1; }
+          PRO=$(find $RUNNER_TEMP/kaufroh -path '*Unreal-Godot/UAL1.glb' | head -1)
+          OUT=$RUNNER_TEMP/grak CC0=$RUNNER_TEMP/cc0 WAFFEN=$OUT UAL=$PRO TOD_QUELLE=$([ -n "$PRO" ] && echo Death02 || echo Death01) \
+            timeout 1500 bl/bin/python -I tools/blender348/grak_gestalt.py > grak.log 2>&1 || (tail -40 grak.log; exit 1)
+          grep -E "^(ZWEIHAND|BEWEGUNG|TOD)" grak.log | cut -c1-200 || true
+          cp $RUNNER_TEMP/grak/grak-gestalt.glb $D/hobgoblin_captain-hauptmann.bin
+          echo '{"hauptmann": {"waffen": [], "groesse_cm": 186, "geruest": "cc0"}}' > $D/hobgoblin_captain-info.json
+          (cd godot && ls kampf/daten/giant_rat-*.bin kampf/daten/kaufwolf-*.bin kampf/daten/hobgoblin_captain-*.bin > kampf/daten/kauf.txt)
       - uses: actions/cache@v4
         with:
           path: ~/godot
