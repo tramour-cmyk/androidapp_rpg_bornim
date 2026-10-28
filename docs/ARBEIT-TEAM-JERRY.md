@@ -2,8 +2,6 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben.
 
-**Pause aufgehoben (Sokrates für den Chef, 25.10., 01:2x):** Arbeit nach `LISTE-UMZUG-348.md`, 348.6–348.8; altes Spiel ruht.
-
 **Übergabe (28.10., 06:35, `session_01Hmoj79A1YeyWdR5ENs3tjE`):** 348.7b r2 gebaut (80170c532). Nachfolger: „Jerry – 348.7b nach Urteil des Chefs“
 
 ## Zeilen
@@ -13,6 +11,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | startbar: alle sechs Richtung ja (Chef 08:09, Archiv); Hundertfüßer deutlich schneller („da lässt sich ja keiner angreifen bei dem Speed“), Huhn größer, kräftiger braun mit Kamm, Kaninchen eigene Hoppelbewegung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | startbar: Drehen ja, Schnauze näher (Chef 08:09, Archiv); offene Befunde der Vorlage beheben | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: Chef 08:09 (Archiv): Grak „sieht gar nicht gut aus“, Kobolde „wie ‚das Ding‘ aus einem John-Carpenter-Film“; **erst die Gestalt, dann Bewegung** (Chef 08:10, Archiv): Hieb, Gehen ruhen; Gestalt nachbessern, dann ein Film: beide nah, Augenhöhe, ganzer Körper, drehend; dazu welches Modell, welche Texturen | `claude/jerry-348-kampf` |
+| 348.13a | M | **von Team Tom (Chef 08:09, Archiv: r9 ja):** Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13a) | startbar | `claude/jerry-348-kampf` |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht bis Kauf: Werte, Listen ja (Archiv), dann einbauen; erst Größe prüfen | – |
 | 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | wartet auf 348.7b (Zauberbahn nach Chef „D“); danach Fledermaus r4d und Wildschwein r3 neu vorlegen; Kobold mit 348.12; Treffer: Ansage zuerst (Archiv) | `claude/jerry-348-kampf` |
 | 348.7b | M | Zauberbahn nach Chef „D“ | wartet auf Chef: r3 (ansehen/3487b-zauberbahn, Film r3), Frage Start vor der Heldin: so lassen oder Schritt etwa 1,7 m; Feuerklumpen behoben (ab434b384), Regel in LISTE-UMZUG-348 | `claude/jerry-348-kampf` |
@@ -55,8 +54,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 - **Zu 348.7 Goblin:** Runde 6 steht (Sokrates, billigen/3487-goblin-r6); Feinschliff laut Chefsache, Beil-Goblin sagt „Stich“ an; Lendentuch nimmt wie beim Späher Unterarm-Gewichte (Fix nur für Späher und Schamane, 8bfec7d13). Probe `GEGNER=GOBLINS`, alt `FOEDRAFT=goblin`, Blatt `FIGUR=gob vergleichsblatt.py`.
 - **Zu 348.7, von Sokrates (Chef 25.10., 08:58 und 09:04, Zustandszeichen):** Textschilder „nichts“; Vorschlag Chef: sprechende Symbole in den Farben aus `Status.kt`, alte Zustandsanimationen mitnutzen, Einzelheiten durch Antippen. Empfehlung Sokrates: Einzelheiten per langem Druck (`whoIs`). **Bauen erst nach Ja.**
 - **Zu 348.7, Fledermaus (4ed188d7c):** Eigenbau (34812c-stufe2). Aufruf, Eichung (`MASKE=1`), offene Befunde 4d im Kopf von `fledermaus.py`; Probe `GEGNER=BATS`, nicht im Workflow. 4d beim Chef (Telegram 09:4x); Runde 5 (Gesicht, Tod, Biss, Drohen) nach seinem Urteil. Chef 10:06 „gleichmäßiger Tuscherand?“: alte Tusche; nach 348.13a neu.
-- **Zu 348.7a/b:** Bahnen `kampf_ui.gd` `_draw_spells`, Pinsel `tafel.gd` (`tafel.world_at`, nicht `project_position`). 348.7b (80170c532, Archiv „D“): gerade ab `Figur.cast_point`, `_step_aside`, Kegel `_burning_hands`; Proben `BAHN_PRUEF=1`, `SCHRITT_DEBUG=1`; Messung Kegel: Pixel im Band Hand–Ziel.
-- **Zu 348.7, Werkzeug:** Godot 4.7.2 nach `~/godot/godot`, Blender `uv venv -p 3.13 ~/bl` mit bpy 5.2.3 (wie Workflow); Deckung messen und Daten aus dem APK: Git-Verlauf dieser Zeile.
+- **Zu 348.7b:** Regel `LISTE-UMZUG-348.md` „Zauberbahn“; Code `kampf_ui.gd` `_draw_spells`, `_step_aside`, Pinsel `tafel.gd`; Proben `BAHN_PRUEF=1`, `SCHRITT_DEBUG=1`.
+- **Zu 348.13a (Tom 08:27):** Zweig `claude/tom-34813-kampfprobe` (00823dac3–dc6ec050d) mischen; Vorgabe Linie 1,3, Sonne −45,55, Waffen Schablone 2; Goblins aufhellen; offen r9: Säbel liest sich als Bogen; Schwert, Schild, Scheide bei Tom (372). Werkzeug 348.7: Git-Verlauf.
 - **Zu 348.7 (Chef 25.10., 13:11):** „Gradmesser ist Leitbild 1 ‚Düster, erwachsen, glaubwürdig‘; ‚quietschehell passt nicht‘. Nie heller als alt.“
 - **Zu 348.7, nach Runde 16 offen** (Gründe in Git): Kampfort (4ad3ecb86): Lebensbalken und Zustände an der Ansage; offen: Gelb des halben Lebens gleicht „Betäubt“ (Farben wie alt).
 - **Zu 348.7, Lohn (20bbfb2ef):** wie `Battle.finishWin`; fehlt bis Toms Held/Tasche: Ausrüstungsbeute, Elite, Boni, Gutschrift (`Kampfort.reward`). Endfeld `SIEG=1` (77af01a55).
