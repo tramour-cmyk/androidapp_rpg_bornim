@@ -74,27 +74,8 @@ func _ready() -> void:
 		# 399.3 (Jerry): die Titelmusik startet das Hauptmenue, beim Kaltstart erst nach dem Vorspann (292)
 		var w: Dictionary = await menue.fertig
 		ebene.queue_free()
-		Spielstand.platz = maxi(1, int(w.get("platz", 1)))   # 399.1: vier Plaetze wie alt; gespeichert wird in diesen
 		add_child(Helligkeit.schicht())   # 399.1: Helligkeit ueber dem ganzen Spiel, nicht im Hauptmenue (App.kt liftBlack)
-		var stand := Spielstand.lade(Spielstand.platz) if w.get("laden", false) else {}
-		if not stand.is_empty():
-			zustand = Zustand.aus_daten(stand["zustand"])
-			werte = Heldwerte.aus_daten(stand["held"])
-			var o: Dictionary = stand["ort"]
-			blende.color.a = 1.0
-			klang("verhuelle", [true])
-			betrete(String(o["karte"]), Vector2i(int(o["x"]), int(o["y"])), String(o["blick"]))
-			ortsworte("", false)   # 24.1 Spielbeginn: Name und Satz
-			return
-		zustand.name = String(w.get("name", zustand.name))
-		werte = Heldwerte.erschaffe(zustand.name, String(w.get("volk", "HUMAN")), String(w.get("klasse", "FIGHTER")), w.get("werte", {}), zustand.neue_uid)   # 399.1 Punktekauf
-		# 399.1 wie alt (69, GameViewModel.newGame): einmal die Ankunft bei Nacht, dann erwacht der Held neben dem Bett der Schenke
-		# (Story.START), wo Rowena ihn weckt; vorher begann das neue Spiel am Brunnen
-		await zwischenbild("intro")
-		blende.color.a = 1.0
-		klang("verhuelle", [true])
-		betrete(String(Rast.START["karte"]), Vector2i(int(Rast.START["x"]), int(Rast.START["y"])), String(Rast.START["blick"]))
-		ortsworte("", true)   # 24.1 Spielbeginn: Name und Satz
+		starte(w)
 		return
 	betrete(START, START_KACHEL, "DOWN")
 	bilder()
@@ -107,6 +88,31 @@ func _ready() -> void:
 	dorftiere_blatt()
 	tusche_nacht()
 	rast_probe()
+
+# 399: Spielbeginn aus dem Hauptmenue: geladen an den gespeicherten Ort, sonst ein neues Spiel mit frischem Zustand (Test 139: das neue
+# Spiel begann dort, wo das vorige stand; seit 3b17961e9 nach der Ankunft im Bett der Schenke). Eigene Funktion fuer tests/neues_spiel_399.gd
+func starte(w: Dictionary) -> void:
+	Spielstand.platz = maxi(1, int(w.get("platz", 1)))   # 399.1: vier Plaetze wie alt; gespeichert wird in diesen
+	var stand := Spielstand.lade(Spielstand.platz) if w.get("laden", false) else {}
+	if not stand.is_empty():
+		zustand = Zustand.aus_daten(stand["zustand"])
+		werte = Heldwerte.aus_daten(stand["held"])
+		var o: Dictionary = stand["ort"]
+		blende.color.a = 1.0
+		klang("verhuelle", [true])
+		betrete(String(o["karte"]), Vector2i(int(o["x"]), int(o["y"])), String(o["blick"]))
+		ortsworte("", false)   # 24.1 Spielbeginn: Name und Satz
+		return
+	zustand = Zustand.new()   # nichts vom vorigen Spiel: Flaggen, Gold, Taschen, Ort
+	zustand.name = String(w.get("name", zustand.name))
+	werte = Heldwerte.erschaffe(zustand.name, String(w.get("volk", "HUMAN")), String(w.get("klasse", "FIGHTER")), w.get("werte", {}), zustand.neue_uid)   # 399.1 Punktekauf
+	# 399.1 wie alt (69, GameViewModel.newGame): einmal die Ankunft bei Nacht, dann erwacht der Held neben dem Bett der Schenke
+	# (Story.START), wo Rowena ihn weckt; vorher begann das neue Spiel am Brunnen
+	await zwischenbild("intro")
+	blende.color.a = 1.0
+	klang("verhuelle", [true])
+	betrete(String(Rast.START["karte"]), Vector2i(int(Rast.START["x"]), int(Rast.START["y"])), String(Rast.START["blick"]))
+	ortsworte("", true)   # 24.1 Spielbeginn: Name und Satz
 
 func betrete(id: String, t: Vector2i, blick: String) -> void:
 	if gebiet: gebiet.queue_free()

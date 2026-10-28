@@ -226,6 +226,17 @@ func _lauf() -> void:
 	var erk := Menue.erklaerung(hw, "INT")
 	print("Erklärung INT: ", erk)
 	if erk.size() < 4 or not (erk[1].contains("Magier") or erk[1].contains("Wizard")): fehler += 1; print("FEHLER Erklärung INT")
+	# 399.1 (Test 139: Anleitung rollt nicht): in der Anleitung haelt kein Text das Wischen fest, nur Knoepfe nehmen es (wie im System)
+	m.anleitung()
+	await process_frame
+	var seite: Node = m.get_child(m.get_child_count() - 1)
+	var rollen := seite.find_children("*", "ScrollContainer", true, false)
+	if rollen.is_empty(): fehler += 1; print("FEHLER Anleitung ohne Rolle")
+	for r in rollen:
+		var haelt := r.find_children("*", "Control", true, false).filter(func(c): return c.is_visible_in_tree() and c.mouse_filter == Control.MOUSE_FILTER_STOP and not c is BaseButton)
+		print("Anleitung: %d Teile, %d halten das Wischen" % [r.find_children("*", "Control", true, false).size(), haelt.size()])
+		if not haelt.is_empty(): fehler += 1; print("FEHLER Anleitung rollt nicht: ", haelt.map(func(c): return c.get_class()))
+	seite.queue_free()
 	# Satt wird gespeichert
 	z.satt = true
 	if not Zustand.aus_daten(z.als_daten()).satt: fehler += 1; print("FEHLER satt nicht gespeichert")

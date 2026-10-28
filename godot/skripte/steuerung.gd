@@ -217,16 +217,16 @@ func richte_ein() -> void:
 		c.set_anchors_preset(Control.PRESET_BOTTOM_LEFT if li else Control.PRESET_BOTTOM_RIGHT)
 	if k:
 		var mitte := -(14 + KREUZ - 5)   # Oberkante der 140er Flaeche
-		aktion_knopf.position = Vector2(16 if li else -(16 + 70), mitte + 6) * dp
-		lauf_knopf.position = Vector2(16 + 140 - 58 if li else -(16 + 140), mitte + 140 - 6 - 58) * dp
+		an_ecke(aktion_knopf, Vector2(16 if li else -(16 + 70), mitte + 6) * dp)
+		an_ecke(lauf_knopf, Vector2(16 + 140 - 58 if li else -(16 + 140), mitte + 140 - 6 - 58) * dp)
 		kreuz.anchor_left = 1.0 if li else 0.0
 		kreuz.anchor_right = kreuz.anchor_left
 		kreuz.offset_left = -(16 + KREUZ) * dp if li else 16 * dp
 		kreuz.offset_right = kreuz.offset_left + KREUZ * dp
 		kreuz.offset_top = 14 * dp; kreuz.offset_bottom = (14 + KREUZ) * dp
 	else:
-		aktion_knopf.position = Vector2(22 if li else -98, -98) * dp
-		lauf_knopf.position = Vector2(31 if li else -(31 + 58), -(112 + 58)) * dp
+		an_ecke(aktion_knopf, Vector2(22 if li else -98, -98) * dp)
+		an_ecke(lauf_knopf, Vector2(31 if li else -(31 + 58), -(112 + 58)) * dp)
 	ort_schild.set_anchors_preset(Control.PRESET_BOTTOM_LEFT if li else Control.PRESET_BOTTOM_RIGHT)
 	ort_schild.grow_horizontal = Control.GROW_DIRECTION_END if li else Control.GROW_DIRECTION_BEGIN
 	ort_schild.offset_left = 106 * dp if li else -106 * dp
@@ -236,6 +236,12 @@ func richte_ein() -> void:
 	textfeld.offset_bottom = -((KREUZ + 28) * dp + 8 * dp) if k else -60.0
 	textfeld.offset_top = textfeld.offset_bottom - 132 * dp
 	zeige_knoepfe()
+
+# 399.1 (Test 139: „Aktionsbutton … gefehlt“): Lage vom Anker aus. position zaehlt ab der linken oberen Ecke, sobald der Knopf im Baum
+# haengt; nach dem ersten Aufbau (Menue zu, Hauptmenue, neues Spiel) lagen Aktions- und Renntaste damit ausserhalb des Schirms
+func an_ecke(c: Control, p: Vector2) -> void:
+	c.offset_left = p.x; c.offset_top = p.y
+	c.offset_right = p.x + c.custom_minimum_size.x; c.offset_bottom = p.y + c.custom_minimum_size.y
 
 # was gerade zu sehen ist: Wischen den Aktionsknopf nur mit Angebot, Klassisch immer (matt ohne Angebot, im Gespraech „Weiter“)
 func zeige_knoepfe() -> void:

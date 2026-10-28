@@ -40,12 +40,12 @@ func _lauf() -> void:
 	pruefe("Wischen ohne Angebot", [ui.aktion_knopf.visible, ui.lauf_knopf.visible], [false, false])
 	ui.biete_an("ENTER", "Laden")
 	pruefe("Wischen Angebot", [ui.aktion_knopf.visible, ui.ort_schild.visible, ui.aktion_knopf.anchor_left], [true, true, 1.0])
-	pruefe("Wischen rechts", ui.aktion_knopf.position.is_equal_approx(Vector2(-98, -98) * dp), true)
+	pruefe("Wischen rechts", Vector2(ui.aktion_knopf.offset_left, ui.aktion_knopf.offset_top).is_equal_approx(Vector2(-98, -98) * dp), true)   # vom Anker aus (t139)
 	pruefe("Ring Normal", ui.JOY, 94.0 * dp)
 	# Linkshaender: Knopf und Schild links
 	Bedienung.links = true; Bedienung.ring = 0; Bedienung.lauf_taste = true
 	ui.richte_ein()
-	pruefe("links Knopf", [ui.aktion_knopf.anchor_left, ui.aktion_knopf.position.is_equal_approx(Vector2(22, -98) * dp)], [0.0, true])
+	pruefe("links Knopf", [ui.aktion_knopf.anchor_left, Vector2(ui.aktion_knopf.offset_left, ui.aktion_knopf.offset_top).is_equal_approx(Vector2(22, -98) * dp)], [0.0, true])
 	pruefe("links Schild", [ui.ort_schild.anchor_left, is_equal_approx(ui.ort_schild.offset_left, 106 * dp)], [0.0, true])
 	pruefe("Ring Fein", ui.JOY, 76.0 * dp)
 	pruefe("Renntaste da", ui.lauf_knopf.visible, true)

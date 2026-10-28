@@ -823,6 +823,7 @@ func anleitung() -> void:
 		rt.bbcode_enabled = true
 		rt.fit_content = true
 		rt.scroll_active = false
+		rt.mouse_filter = Control.MOUSE_FILTER_IGNORE   # 399.1 (Test 139: „Anleitung. Kann man nicht scrollen“): sonst schluckt der Text das Wischen
 		rt.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		rt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		rt.add_theme_font_override("normal_font", gerade)
