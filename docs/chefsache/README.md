@@ -17,6 +17,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [385.1](ansehen/3851-zauberer-grund.md) | Zauberer-Set: Grundbewegungen und Feuer | Tom | 28.10., 15:45 |
+| [399.1](ansehen/3991-erschaffung.md) | Erschaffung wie im alten Spiel | Tom | 28.10., 15:56 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
