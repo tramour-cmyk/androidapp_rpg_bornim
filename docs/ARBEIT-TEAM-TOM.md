@@ -38,7 +38,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 ## Einzelheiten
 
 - **Von Perikles (378):** Stände prüfen, `ARBEIT-PROJEKT.md` Zu 378.
-- **Zu 399.3.1, 399.1 an Jerry** (sein Vorrat voll): `klang.gd` auf `tom-399` geändert: 525 und `klang_test` (20fd2d4ab); `musik_stufe`, `schleife_stellen`, `effekt(…, nr)`, Titel ohne vorige Musik sofort (fbf1ccfd4, 7cca1b82a); erst holen.
+- **Von Team Jerry (28.10., 21:5x), zu 399.3:** Keuchen wie alt (Chef Test 139.8) auf `claude/jerry-348-klang` 5af6cd0f0 (dein `tom-399` + 1 Commit, deine `klang.gd` geholt): bitte in den nächsten Build.
 - **Zu 399.1 an Jerry** (19:5x, sein Vorrat voll, Sitzung inaktiv; beim nächsten Jerry-Start nachtragen): System „Kampf“ hat nur Rückfragen (fe7acbb32); Blut, Tempo, Kampftext (`MenuSigns.kt` 197–211) fehlen.
 - **Zu 399.1 an Jerry** (17:15, sein Vorrat voll): `Zustand.satt` (alt `wellFed`) fehlt dem Kampfort (+1, `Battle.fedBonus`).
 - **Zu 399.1** (Chef über Sokrates): 14:31 130.1–130.5 gehen, Wald nicht (131). 14:38 „Einfach mal das alte Spiel nehmen … so soll es im neuen halt auch schon … die Schriftart umzustellen und auch in den Dialogen … in ein vernünftiges Menü starten“; 14:39 „an die Designvorgaben halten“. Für 132 umgesetzt (Test 132 „erstmal freigegeben“, Chef 16:09).
