@@ -23,7 +23,7 @@ Nichts offen.
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.348.133](ansehen/t133-spielfassung.md) | [Build 133](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40716450882/artifacts/12828143859) | 399 Spielfassung: Erschaffung, Spielstände, Leiste, Menü; Dorf | Tom | 28.10., 16:49 |
-| 2 | [0.348.137](ansehen/t137-spielfassung.md) | [Build 137](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40734586208/artifacts/12838307685) | 399 Spielfassung: Menü fertig bis auf Kleinigkeiten, Klang, Schieben, Kampfmenü | Tom | 28.10., 18:56 |
+| 2 | [0.348.139](ansehen/t139-spielfassung.md) | [Build 139](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40751357273/artifacts/12844293709) | 399 Spielfassung: alles aus 137, dazu System fertig, Anschlagbrett, Laden-Kasten, Ausdauer, Ruf, Fackel, Bilder der Dinge | Tom | 28.10., 20:41 |
 
 ## Zu tun
 
