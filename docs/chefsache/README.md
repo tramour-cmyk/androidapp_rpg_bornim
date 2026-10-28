@@ -78,13 +78,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 34, Muss 23, startbar 6
+**Jerry** – offen 35, Muss 24, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 399.2 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv): Kampfort aufrufbar | startbar |
 | 399.2b | M | von Team Tom (15:05): Rudel allein zu stark | startbar |
 | 399.3 | M | von Chef (28.10., 16:42): Klang in die Spielfassung | startbar |
+| 401 | M | von Chef (22:0x, Archiv): Laute für jedes Dorftier, mind. 3 je Tier | startbar |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | wartet auf Test/Build (gebaut) |
 | 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | startbar |
