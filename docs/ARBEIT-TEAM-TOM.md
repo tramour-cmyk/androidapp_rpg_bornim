@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (28.10., 18:57, `session_01Hmoj78DBWYJa6zFir6Su8N`):** 385.1 zwölf Filme gesendet (Chefsache 3851, Prüferbefund: kein Feuer in 8, 9). Build 137 (t137) mit Karte, Klang, Reglern, 133.7. Danach auf `claude/tom-399-spielfassung` bis 7359b3107: Schritte, Helligkeit, Vergleich ▲▼, Attribut-Erklärung, Beute, Siege, Geräteangaben. Nachfolger: Tom – 399.1 Rest (System Bedienung), Urteile 385.1 und t137.
+**Übergabe (28.10., 20:43, `session_01Hmoj79LByUdi14J1tuo1ez`):** auf `claude/tom-399-spielfassung`: System fertig bis auf Kampfteil (Jerry), Anschlagbrett, Laden-Kasten, Ausdauer, Ruf „!“, Fackel nur mit Fackel, Bilder der Dinge, Heiligensymbol (Homers Notiz in `ARBEIT-KREATIV.md` erledigt). Build 139 an den Chef (t139, ersetzt t137, Telegram). Danach f326159d0 (2H). Nachfolger: Tom – 399.1 Urteil t139, Rest Spielfassung.
 
 ## Zeilen
 
