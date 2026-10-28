@@ -41,3 +41,10 @@ tasks.register<JavaExec>("exportTexts") {
     mainClass.set("de.bornim.core.TextExport")
     args((findProperty("out") as String?) ?: layout.buildDirectory.file("texte.json").get().asFile.path)
 }
+
+// 390: Regeln und Proben des Helden fuer Godot (HeroExport.kt)
+tasks.register<JavaExec>("exportHero") {
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("de.bornim.core.HeroExport")
+    args(listOfNotNull((findProperty("out") as String?) ?: layout.buildDirectory.file("held.json").get().asFile.path, findProperty("proben") as String?))
+}
