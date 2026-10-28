@@ -39,11 +39,11 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
-- 00:55 28.10.: Neustart Jerry angenommen (`f9a7149a5`), Nachfolger „Jerry – 348.12 Grak und Kobold aufs CC0-Gerüst“ gestartet (main, Hoch); alter Jerry `01Hmoj7A1B` archiviert; Tom bekam 348.6 (Chef 00:07) als Vorrang; Diogenes 374 mit `--ohne` bis 8:00 zurückgestellt
 - 17:35–19:54 27.10.: Ford-Selbstneustart; Neustarts angenommen: Sokrates 19:08, Tom 19:32, Jerry 19:40, Tom 19:54; Vorgang 382 an Perikles
 - 01:37–06:35 27.10.: Neustarts angenommen und Nachfolger gestartet: Tom 01:46, 02:33, 02:57, 03:23, 03:51, 04:16, 04:43, 05:01, 05:20, 05:44, 06:03, 06:35, 07:21; Jerry 01:37, 02:42, 03:25, 04:57; Jerry 05:55 zurückgestellt (wartet auf Chefsache 3487a). Läufe 02:03, 03:03 ohne Starts; START Perikles (Terminname) nicht ausgeführt
 - 25.10., 09:35–21:05: Neustarts Tom/Jerry/Sokrates angenommen; Perikles 364 und Sokrates 340.2 gestartet; Sparbetrieb und Max 20x (Verlauf in Git)
 
+- 00:55 28.10.: Neustart Jerry angenommen (`f9a7149a5`), Nachfolger „Jerry – 348.12 Grak und Kobold aufs CC0-Gerüst“ gestartet (main, Hoch); alter Jerry `01Hmoj7A1B` archiviert; Tom bekam 348.6 (Chef 00:07) als Vorrang; Diogenes 374 mit `--ohne` bis 8:00 zurückgestellt
 - 23:08 27.10.: Selbstneustart Ford (Tiefe 3) angenommen: Uhr `trig_014A6QWBSksj49igbfpa1D6i` angelegt und geprüft, alte gelöscht; alter Ford `01Hmoj75jV` archivieren zweimal abgelehnt (369), WARNUNG-LAUT nachts zurückgestellt; Tom `772C`, Jerry `7A1B` laufen, Perikles `77KV`, Sokrates `79NG` idle; kein Start nötig
 - 22:51 27.10.: Neustart Jerry angenommen (`ab3cc8cf3`), Nachfolger `01Hmoj7A1B` „Jerry – 348.12f Drehen auf der Stelle, Ratte Schnauze“ gestartet (main, Hoch); alter Jerry `01Hmoj78dk` archiviert, gebucht (32,36 $ auf 348.12f, 387)
 - 22:34 27.10.: Neustart Tom angenommen (`54e43fbf9`), Nachfolger `01Hmoj772C` „Tom – 348.6 Häuser mit Innenraum“ gestartet (main, Hoch), PR-Abo #176 (Build 90, nur 388) an ihn gegeben; alter Tom `01Hmoj78ky` war schon `idle` ohne Testbitte → archiviert, gebucht (16,29 $ auf 348.6, 388); Testbitte Build 90 dem neuen Tom übertragen
@@ -63,7 +63,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:05 27.10.: Lauf; Perikles „383 (27.10., 19:05)“ `01Hmoj76q6` gestartet (main, Mittel); ARCHIVIERE (Prüfer lehnt ab, 369, Kosten ungebucht): Jerry `761r`, `75RB`; Sokrates `79xv`, `78Sx`; Tom `76F3`, `77wa`; Perikles `77bY`
 - 17:57 27.10.: Neustart Jerry angenommen (`3dd068b4d`), Nachfolger `01Hmoj75RB` „Jerry – 348.7a Blatt Grundfrage Bahn“ gestartet (main, Hoch); alter Jerry `01Hmoj761r` zu archivieren (Prüfer lehnt ab, 369), 4,03 $ auf 348.7a noch zu buchen (`bornim-main` hängt im Rebase)
 - 17:35 27.10.: Selbstneustart Ford (neue Uhr, alter Ford `01Hmoj76zG` nicht archiviert, Prüfer lehnte ab); Neustart Sokrates (alter Ford, `8dadd8998`): Nachfolger `01Hmoj78Sx` „Sokrates – 376.1a und 381 begleiten“ läuft, alter Sokrates `01Hmoj79xv` zu archivieren (Prüfer lehnt ab, Kosten 275, 376 noch zu buchen); 382 (`source_revision main`) an Perikles
-- 17:16 27.10.: Neustart Tom angenommen (`9e8337eef`), Nachfolger `01Hmoj77wa` „Tom – 348.13a Tusche Kampf Runde 6“ gestartet; alter Tom `01Hmoj79D3` archiviert, 9,25 $ auf 376.1, 348.13a
 - 00:04 27.10.: Startsperre 00:04 Start Perikles (lauf.py)
 - 00:04 27.10.: Marke Stellungnahme Sokrates 27.10. (lauf.py)
 - 00:04 27.10.: Nachfolger-Warnung Homer (Übergabe 26.10., 21:09) (lauf.py)
