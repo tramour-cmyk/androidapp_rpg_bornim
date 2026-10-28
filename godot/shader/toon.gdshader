@@ -22,12 +22,14 @@ uniform float glanz_kette = 0.5;
 uniform float kette_lampe = 1.0;   // 348.6 Kette nachts (held.gd): Metall unter Lampe und Fackel, Anteil Streulicht
 uniform float kette_umgebung = 1.0;   // dazu Anteil der Umgebung an der Kette (nachts 0,7)
 uniform float rueckseite = 0.0;    // 376.1 Halszacken (Helfer 22:3x: Innenseite des Kettenkragens): 1 Rueckseiten magenta (Messen), 2 Rueckseiten im Schatten ohne fill
+uniform float kette_aus = 0.0;     // nur zum Messen (376.1 Halszacken): Kette (Eckfarbe alpha 0,25-0,7) so viele Meter laengs der Normale hinaus
 uniform float teil = 0.0;          // nur zum Messen (held.gd --teilfarbe): Eisen gruen, Kette rot, Haut (rig.py TEILMASKE) blau, Rest schwarz
 varying vec3 wpos;
 varying float v_eisen;
 varying float v_kette;
 varying float v_hinten;
 void vertex() {
+	if (kette_aus > 0.0 && COLOR.a >= 0.25 && COLOR.a < 0.7) VERTEX += NORMAL * kette_aus;
 	wpos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
 	if (sway > 0.0) {
 		float h = clamp((wpos.y - 1.6) / 2.5, 0.0, 1.0);

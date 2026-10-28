@@ -54,6 +54,7 @@ class KopfHeben extends SkeletonModifier3D:
 	const HOECHSTENS := 25.0
 	var vorher := 999.0
 	var gehoben := 0.0
+	var verteilt := false     # 376.1 Halszacken: Heben zu gleichen Teilen auf neck_01, neck_02, Head (Kragen haengt an neck_02)
 	func _process_modification() -> void:
 		var sk := get_skeleton()
 		var h := sk.find_bone("Head")
@@ -68,6 +69,14 @@ class KopfHeben extends SkeletonModifier3D:
 		vorher = neig; gehoben = w
 		var achse := f.cross(Vector3.UP)
 		if w < 0.1 or achse.length() < 1e-4: return
+		if verteilt:
+			var kette := ["neck_01", "neck_02", "Head"].map(func(n): return sk.find_bone(n)).filter(func(i): return i >= 0)
+			for i in kette:   # je Knochen ein Teil um dieselbe Weltachse; die Kinder erben, der Kopf dreht zusammen um w
+				var g := sk.get_bone_global_pose(i)
+				var n := Basis(achse.normalized(), deg_to_rad(w / kette.size())) * g.basis.orthonormalized()
+				var p := sk.get_bone_global_pose(sk.get_bone_parent(i))
+				sk.set_bone_pose_rotation(i, (p.basis.orthonormalized().inverse() * n).get_rotation_quaternion())
+			return
 		var neu := Basis(achse.normalized(), deg_to_rad(w)) * hg.basis.orthonormalized()
 		var pg := sk.get_bone_global_pose(sk.get_bone_parent(h))
 		sk.set_bone_pose_rotation(h, (pg.basis.orthonormalized().inverse() * neu).get_rotation_quaternion())
@@ -610,6 +619,7 @@ func koepfe() -> void:
 		for x in mats[k]: (x as ShaderMaterial).set_shader_parameter("rueckseite", 0.0)
 		var hals := kam.unproject_position(knochen_pos(k, "neck_01"))
 		protokoll.append("HALS kopf_%s %d %d" % [k, int(hals.x - sp.x + 400), int(hals.y - sp.y + 470)])
+		await zacken(k, sp, hals)
 		protokoll.append("BILD kopf_%s Kopf %s Neigung Bewegung %.1f Grad, gehoben %.1f" % [k, kopf, heber[k].vorher, heber[k].gehoben])
 	kam.neigung = -30.0
 	var sr := SPIELREIHE.filter(func(k): return k in figuren)
@@ -623,3 +633,73 @@ func koepfe() -> void:
 	var kp: Vector2 = kam.unproject_position(mitte + Vector3(0, 1.6, 0))
 	img.get_region(Rect2i(0, int(kp.y) - 260, img.get_width(), 520)).save_png(aus + "/koepfe_spiel.png")
 	protokoll.append("BILD koepfe_spiel")
+
+# 376.1 Halszacken in Godot nachstellen (Helfer 28.10.: graue Zacken vorn am Hals bei k01/03/06-10/13/15, nicht bei schmal, kantig,
+# hager; Rueckseiten keine, Lage in Blender gleich): dieselbe Ansicht in Teilfarben (Kette rot), Tusche aus, je Spalte am Hals die
+# roten Laeufe (mehr als einer = Zacke oder Insel) und Spitzen der Kragenkante ueber ihrem gleitenden Median (Bildpunkte), ohne Bild.
+# Fassungen: Kopfheben wie bisher (nur Head), aus, verteilt (neck_01, neck_02, Head), Schatten aus, Kette 3 mm hinaus.
+const ZACKEN_FASSUNGEN := [["heben", 1, true, 0.0], ["ohne", 0, true, 0.0], ["verteilt", 2, true, 0.0], ["schattenlos", 1, false, 0.0], ["kette3", 1, true, 0.003]]
+func zacken(k: String, sp: Vector2, hals: Vector2) -> void:
+	var kam: Kamera = spiel.kamera
+	var sonne: Array = spiel.licht.find_children("*", "DirectionalLight3D", true, false)
+	var knick: Array = kam.tusche_mats.map(func(m): return m.get_shader_parameter("knick"))
+	var zeile := "ZACKEN kopf_%s" % k
+	for fa in ZACKEN_FASSUNGEN:
+		heber[k].active = fa[1] > 0
+		heber[k].verteilt = fa[1] == 2
+		for s in sonne: (s as DirectionalLight3D).shadow_enabled = fa[2]
+		for x in mats[k]: (x as ShaderMaterial).set_shader_parameter("kette_aus", fa[3])
+		await RenderingServer.frame_post_draw
+		await RenderingServer.frame_post_draw
+		if fa[0] in ["ohne", "verteilt"]:   # dieselbe Ansicht in Farbe, falls die Fassung die Abhilfe ist
+			var bild := spiel.get_viewport().get_texture().get_image()
+			bild.get_region(Rect2i(int(sp.x) - 400, int(sp.y) - 470, 800, 940)).save_png(aus + "/kopf_%s_%s.png" % [k, fa[0]])
+		for m in kam.tusche_mats: m.set_shader_parameter("knick", 1000.0)
+		for x in mats[k]: (x as ShaderMaterial).set_shader_parameter("teil", 1.0)
+		var summe := [0, 0, 0]
+		for probe in 2:
+			await get_tree().create_timer(0.15).timeout
+			await RenderingServer.frame_post_draw
+			var z := zackenzahl(spiel.get_viewport().get_texture().get_image(), hals)
+			for i in 3: summe[i] += z[i]
+		for x in mats[k]: (x as ShaderMaterial).set_shader_parameter("teil", 0.0)
+		for i in kam.tusche_mats.size(): kam.tusche_mats[i].set_shader_parameter("knick", knick[i])
+		zeile += " | %s: Laeufe %d, Spitzen %d, Kette %d" % [fa[0], summe[0], summe[1], summe[2]]
+	heber[k].active = true
+	heber[k].verteilt = false
+	for s in sonne: (s as DirectionalLight3D).shadow_enabled = true
+	for x in mats[k]: (x as ShaderMaterial).set_shader_parameter("kette_aus", 0.0)
+	protokoll.append(zeile)
+
+func zackenzahl(img: Image, hals: Vector2) -> Array:
+	var x0 := clampi(int(hals.x) - 260, 0, img.get_width() - 1)
+	var x1 := clampi(int(hals.x) + 260, 0, img.get_width())
+	var y0 := clampi(int(hals.y) - 380, 0, img.get_height() - 1)
+	var y1 := clampi(int(hals.y) + 60, 0, img.get_height())
+	var mehr := 0
+	var rot := 0
+	var oben: Array[int] = []
+	for x in range(x0, x1):
+		var drin := false
+		var laeufe := 0
+		var top := -1
+		for y in range(y0, y1):
+			var c := img.get_pixel(x, y)
+			var r := c.r > 0.35 and c.r > 2.0 * c.g and c.r > 2.0 * c.b
+			if r:
+				rot += 1
+				if top < 0: top = y
+				if not drin: laeufe += 1
+			drin = r
+		if laeufe > 1: mehr += laeufe - 1
+		oben.append(top)
+	var spitzen := 0
+	for i in oben.size():
+		if oben[i] < 0: continue
+		var nb: Array[int] = []
+		for j in range(maxi(0, i - 15), mini(oben.size(), i + 16)):
+			if oben[j] >= 0: nb.append(oben[j])
+		nb.sort()
+		var d := nb[nb.size() / 2] - oben[i]
+		if d > 2: spitzen += d
+	return [mehr, spitzen, rot]

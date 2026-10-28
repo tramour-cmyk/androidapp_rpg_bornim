@@ -32,7 +32,7 @@ while IFS='|' read k fo h b fa hu st t; do
 done < $F/koepfe.txt
 # Halsfassung A (Kragen hoch, KRAGEN=0) zum Vergleich mit B (Vorgabe, q_k01): Pruefer 21:0x
 OUT=$O ZIEL=$F Q=~/cc0 KAUF=$K KOERPER=Regular_Male_FullBody KENNUNG=q_k99 STOPPELN=0 KRAGEN=0 $B -I $R/tools/blender348/v3/kauf_kleid.py 2>&1 | grep -E "Error|Trace" || true
-cp $R/godot/skripte/figurenprobe.gd $R/godot/skripte/kamera.gd $G/skripte/
+cp $R/godot/skripte/figurenprobe.gd $R/godot/skripte/kamera.gd $G/skripte/; cp $R/godot/shader/toon.gdshader $G/shader/
 UAL=$A/ual.glb
 [ -f $UAL ] || cp "$(find $K/678371987 -path "*Unreal-Godot/UAL1.glb" | head -1)" $UAL
 rm -rf $A/bild_koepfe; mkdir -p $A/bild_koepfe
