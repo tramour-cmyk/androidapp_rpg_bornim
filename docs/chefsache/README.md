@@ -17,7 +17,6 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [399.1](ansehen/3991-ausruestung.md) | Menü: Benutzen und Ausrüstung wie alt | Tom | 28.10., 17:15 |
-| [401](ansehen/401-hoerprobe.md) | Hörprobe: Ziege, Kaninchen, Keuchen, Herzschlag | Jerry | 28.10., 22:55 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
