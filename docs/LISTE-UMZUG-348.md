@@ -202,7 +202,7 @@ Was das alte Spiel kann, ohne eigenes Modell. Regeln mit denselben Testfällen w
 | Gespräche, Story, Quests, Chronik | `core/Story.kt`, `Script.kt`, `Chronicle.kt`; `ui/Dialogs.kt`, `ChronicleTab.kt` | Tom | – | 5 S, 2 R |
 | Laden | `ui/ShopScreen.kt`, `core/Loot.kt` | Tom | – | 2 S, 2 R (Preise nach Charisma: `godot/regeln/talente.gd` `buy_price`/`sell_price`, Jerry 390, Zweig `claude/jerry-348-kampf`) |
 | Anschlagbrett (Aufträge) | `ui/BoardScreen.kt`, `core/Jobs.kt` | Tom | – | 1 S, 1 R |
-| Rast | `ui/RestScreen.kt`, `core/Resting.kt` | Tom | – | 1 S, 1 R |
+| Rast | `ui/RestScreen.kt`, `core/Resting.kt` | Tom | gebaut (390, 7269390b9: `rast.gd`, Test `rast_test.gd`; Fleisch an Rowena mit dem Laden) | 1 S, 1 R |
 | Menü: Held, Tasche, Ausrüstung mit Vergleich, Karte mit Nebel, System | `ui/MenuScreen.kt`, `MenuTabs.kt`, `GearUi.kt`; `core/GearCompare.kt`, `Fog.kt`, `MapMarks.kt` | Tom | – | 5 S, 3 R |
 | Charaktererstellung, vier Klassen | `ui/CreateScreen.kt`, `core/Hero.kt` | Tom | – | 3 S, 3 R (Puppe drehen, 357) |
 | Vorspann, Hauptmenü, Spielstände | `core/Prelude.kt`, `GameState.kt`; `ui/App.kt`, `SlotsScreen.kt` | Tom | – | 3 S, 2 R |
