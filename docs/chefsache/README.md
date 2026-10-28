@@ -25,6 +25,7 @@ Nichts offen.
 | [348.12f](ansehen/34812f-drehen.md) | Ratte und Kaufwolf drehen sich auf der Stelle mit Schritten | – | 28.10., 00:50 |
 | [348.13a](ansehen/34813a-tusche-kampf-r9.md) | Tusche im Kampf, Runde 9: Langschwert nicht mehr schwarz | Tom | 28.10., 00:59 |
 | [348.6](ansehen/3486-dorf-dinge.md) | Dorf: Turmfuß, Markise, Kisten (Runde 2); Felsen, Kiesel (Runde 3) | Tom | 28.10., 04:49 |
+| [348.7b](ansehen/3487b-zauberbahn.md) | Zauberbahn nach deinem „D“: gerade Linie, Seitenschritt, Geschosse im Fächer | – | 28.10., 06:12 |
 | [387](ansehen/387-kauftiere-r4.md) | Sechs gekaufte Tiere, Runde 4: Ursachen gefunden, vieles liegt in den gekauften Bewegungen | – | 28.10., 05:45 |
 
 ## Zu tun
@@ -74,7 +75,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 27, Muss 16, startbar 1
+**Jerry** – offen 27, Muss 16, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -82,8 +83,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | Chef |
 | 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | Chef |
 | 348.12c | M | von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv): Wiedergänger, Grabhund, Riesenegel, Säur | ruht |
-| 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | wartet auf 348.7b (startbar) |
-| 348.7b | M | Zauberbahn nach Chef „D“ | startbar |
+| 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | wartet auf 348.7b (Chef) |
+| 348.7b | M | Zauberbahn nach Chef „D“ | Chef |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, Test B46): App „hängt“, ging dann weiter (Zu 257) | ruht |
 | 211.14 | M | von Sokrates (20.10.): Rest 211.13: Leistung am A56 messen (M), Puppe aus Kamerawinkel, Wi | ruht |

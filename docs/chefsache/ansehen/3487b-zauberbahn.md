@@ -6,7 +6,7 @@
 
 **Frage:** Passen gerade Linie, Seitenschritt und Fächer der Geschosse so? Sag „ja“ oder was anders sein soll. Brennende Hände bitte noch nicht beurteilen (siehe unten).
 
-**Bitte ansehen:** [Film](bilder:pruefung/348.7b-zauberbahn.mp4), 10,7 s. Bertram steht hinten links, die Heldin vor ihm. Feuerpfeil mit Seitenschritt 5,8–6,8 s; danach das Magische Geschoss ohne Schritt; Feuerball mit Schritt ab 8,2 s, Explosion 8,8 s; Brennende Hände mit Schritt ab 9,4 s.
+**Bitte ansehen:** [Film](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/pruefung/348.7b-zauberbahn.mp4), 10,7 s. Bertram steht hinten links, die Heldin vor ihm. Feuerpfeil mit Seitenschritt 5,8–6,8 s; danach das Magische Geschoss ohne Schritt; Feuerball mit Schritt ab 8,2 s, Explosion 8,8 s; Brennende Hände mit Schritt ab 9,4 s.
 
 **Was gebaut ist:**
 - Jeder Zauber startet an der Stabspitze, sonst an der Hand, und fliegt gerade zur Brust des Ziels. Über Köpfe und Ansagen fliegt er einfach hinweg. Die alte Wegsuche über die Köpfe ist entfernt.
