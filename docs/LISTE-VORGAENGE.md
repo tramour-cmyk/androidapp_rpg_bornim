@@ -119,7 +119,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 399a | Spielfassung 13b97af52 nach Test 132 auf main? | B Umzug | M | 8,49 $ | Team Tom | erledigt |
 | 399.2 | Kampfort als aufrufbare Szene für die Spielfassung 399.1 (aus 399) | B Umzug | M | 19,27 $ | Team Jerry | startbar |
 | 399.2b | Rudel allein: drei von vier Klassen verlieren; Ursache prüfen, Balance an Chef (aus 399.2a) | E Kampf | M | – | Team Jerry | in Arbeit |
-| 399.3 | Klang in die Spielfassung: Musik, Ortsklang, Schritte, Kampfklang aus dem alten Spiel (aus 399; Chef 28.10., 16:42) | B Umzug | M | – | Team Jerry | startbar |
+| 399.3 | Klang in die Spielfassung: Musik, Ortsklang, Schritte, Kampfklang aus dem alten Spiel (aus 399; Chef 28.10., 16:42) | B Umzug | M | – | Team Jerry | in Arbeit |
+| 399.3.1 | Klang: Haken in spiel.gd übernehmen, Klangregler im Menü System (aus 399.3) | B Umzug | M | – | Team Tom | startbar |
 | 384 | Kosten: alle Sitzungen gebucht? Lücken und Buchungen ohne Kennung (Chef 27.10., 20:06) | B Werkzeuge | M | – | Perikles | gebaut |
 | 383.3 | Zurückgestellte Vorlagen sofort aus der Chefsache (Chef 27.10., 19:55) | B Werkzeuge | M | 7,30 $ | Perikles | gebaut |
 | 385 | Protofactor-Animsets (Zauberer u. a.) auf die Listen, Probe ob nutzbar (Chef 27.10., 20:59) | E Figuren | M | 16,56 $ | Team Tom | in Arbeit |

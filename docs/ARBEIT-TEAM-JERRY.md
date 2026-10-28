@@ -10,7 +10,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 |---|---|---|---|---|
 | 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | startbar: Test 133 (Chef 16:4x, Archiv): Wolf durch Wolf weiter; Schalter Position und Schaden ohne Wirkung; im Kampf nur Angriff, keine Tasche, Flucht, Abwehr | `claude/jerry-348-kampf` |
 | 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | in Arbeit: Jungwölfe 50 % b90a32225 im Lauf (mars_regeln); Knurrtext von Homer fehlt noch | – |
-| 399.3 | M | **von Chef (28.10., 16:42):** Klang in die Spielfassung (Umzug „Musik, Klang“) | startbar | – |
+| 399.3 | M | **von Chef (28.10., 16:42):** Klang in die Spielfassung (Umzug „Musik, Klang“) | in Arbeit: Stufe 1 (Musik, Schritte, Tür, Klick) im Lauf; folgt Orts-, Raum-, Kampfklang | `claude/jerry-348-klang` |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: Tusche passt (Chef 12:31); im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK, CI 158 grün | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: nachbessern (Chef 15:23, Archiv): Gehen und Platzwechsel mit UAL-Laufbewegung, Hieb trifft den Helden, Tod als Zusammenbruch | `claude/jerry-348-kampf` |
