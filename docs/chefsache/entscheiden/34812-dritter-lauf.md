@@ -17,7 +17,7 @@ Ohne neuen Lauf gibt es keinen Film. Die Regel 389 hält den dritten Lauf an, un
 - Alle sechs Läufe brachen schon beim Modellbau ab, bevor gefilmt wurde. Grund war der Grak-Bau, den das APK seit 399.2 mitbaut (Commit 13:05):
   1. Ein Skript kam aus einem Commit, den CI nicht geladen hatte.
   2. Die Axt wurde im falschen Ordner gesucht.
-- Beide Fehler sind im Protokoll nachgestellt und behoben. Der Bau läuft jetzt als 399.2 (f5ed4ee0f), ohne Film.
+- Beide Fehler sind im Protokoll nachgestellt und behoben. Ein Lauf als 399.2 (f5ed4ee0f, ohne Film) prüft jetzt, ob der Bau durchgeht; das Ergebnis steht noch aus.
 - Die Filme selbst sind unverändert, wie sie gebaut wurden.
 
 ## Auswertung
