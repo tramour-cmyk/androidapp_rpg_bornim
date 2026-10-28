@@ -12,4 +12,10 @@ Wie im alten Spiel (`MenuScreen.kt` BagTab, GearTab): Vorräte antippen und benu
 
 Befunde des Prüfers, nicht geändert: das Zeichen Ausrüstung (Schild, Schwert) liest sich eher als Schild mit Strich; es ist genau das alte Zeichen. Der Name „Arkanes Heiligensymbol“ beim Magier stammt aus den alten Daten; ein Heiligensymbol ist eigentlich der Fokus des Klerikers (an Homer). Schaden und Zauberangriff unterscheiden sich zwischen Held und Ausrüstung, weil in der Probe dazwischen das Symbol angelegt wird (Stab dann einhändig).
 
+**17:34, dazu:** Reiter Chronik wie alt (`ChronicleTab`): Aufträge (Hauptauftrag in Gold, Aufträge der Geschichte, Erledigtes zum Aufklappen) und Bisher geschehen (das Neueste oben); Texte wortgleich aus dem alten Spiel. Bilder: Aufträge, Bisher geschehen.
+
+![399.1 Chronik](../bilder/3991-chronik.webp)
+
+Befunde des Prüfers: der Eintrag über Garrick fehlt, weil die Probe „Rauch gegen Krogg“ setzt, ohne dass der Held Garrick traf (Probedaten, kein Fehler im Spiel). Ältere Titel sind wie alt nur wenig dunkler als der neueste. Noch nicht: Nebenaufträge vom Anschlagbrett (das Brett fehlt noch) und die Knöpfe, mit denen man Ankunft und Morgenandacht noch einmal ansieht.
+
 **Was du sagen sollst:** nichts nötig; Befunde gern, sonst prüfst du es im nächsten Build.
