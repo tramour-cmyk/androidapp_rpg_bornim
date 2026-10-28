@@ -2,13 +2,13 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben.
 
-**Übergabe (28.10., 18:42, `session_01Hmoj77PX…`):** 399.2 Menü, Beute; 399.3 Orts-, Raumklang (Build 137). Nachfolger: „Jerry – 399.2 Wolf durch Wolf“
+**Übergabe (28.10., 22:52, `session_01Hmoj775u…`):** 399.2, .2b, .3, 401, 402 gebaut (`jerry-348-kampf` = `-klang` 1923456c7), an Tom; Godot am Rechner geht. Nachfolger: „Jerry – 348.12 Grak nachbessern“
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | gebaut e5c9f4fa7: Wolf durch Wolf, System Kampf, satt, Testende, Eröffnung; an Tom | `claude/jerry-348-kampf` |
+| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | gebaut 1923456c7: Wolf durch Wolf, System Kampf, satt, Testende; an Tom | `claude/jerry-348-kampf` |
 | 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | gebaut 0eda4bb3e: Knurren mit Text, an Tom für den Build; Hilfe, Eingebung mit 390 | – |
 | 399.3 | M | **von Chef über Sokrates (16:42):** Klang in die Spielfassung | gebaut 1923456c7: Keuchen, an Tom | `claude/jerry-348-klang` |
 | 402 | M | **von Sokrates (Chef 22:2x, Archiv):** Blende vor dem Kampf wie alt; Herzschlag beim Hinterhalt stärker | gebaut 1923456c7: Blende vor dem Kampf wie alt, Hinterhalt mit drei schweren Herzschlägen; an Tom für den Build | – |
@@ -56,7 +56,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 - **Zu 348.7 (Chef 25.10., 19:05):** Kampfort-Hintergrund mehr wie die Welt: „keine schnurgeraden Wege, sondern das ein bisschen ausfransen. Bisschen mehr richtige Wiese“ (`kampfort_wald.py`).
 - **Zu 348.7 (Chef 21:21, 23:33, Archiv):** jedes Modell nur gegen seine Abnahmeliste (`LISTE-FIGUREN.md`), auch Goblin ab Runde 5. **Von Homer (23:4x):** Listen aller übrigen Monster K1 dort eingetragen (348.11 b: echte Größe im Kampf, Leuchten nur Schamane und Skelett, Kits am Umriss verschieden).
 - **Zu 348.7, stehen (Feinschliff nur auf Wort des Chefs):** Wolf r10 (04269eb1d), Grimmzahn Schulter 1,3 m (`wolf.py ART=dire_wolf`, `GEGNER=GRIMM`), Boden nach Chef 22:00, Schamane r4c (0e2c5ff96; `ART=goblin_shaman`, `GEGNER=SHAMANS`, `NAH=gob1`), Späher r4b (85daf3a5d; `ART=goblin_archer`, `GEGNER=SCOUTS`); Probe-Schalter `OHNEUI=1` (Blatt), alt `FOEDRAFT=<art>`.
-- **Zu 348.7 Treffer (Jerry 26.10., 16:58):** f64b301fa; Probe `EFFEKT=KILL|CRIT`, im Lauf bei Commit „348.7:“ (Artefakt `todprobe`). Zauber `zauber.gd`, Probe `ZAUBER=`; fehlt aus 249: Klang (`MarsSound`). Lauf-Proben lokal nie parallel; Schalter `PFAD=1` (Weg), `FB_OHNE=` (Weglassprobe), `SOELDNER=WIZARD`. **Offen (Prüfer 4b):** Heilige Flamme nicht erkennbar blasser (gering); Fußring über Wolfskopf (alt); „Er duckt sich“ bei Ratte (Probe, Wolfsregeln). **An Tom offen** (sein Vorrat über 15 KB, Eintrag abgelehnt): Heldin und Söldner sehen gleich aus, Magier mit Schild und Speer, `held.glb` nur Gehen/Stehen (kein Hieb, kein Zaubern), beim Rückweg Hand neben dem Speer mit orangen Flecken.
+- **Zu 348.7 Treffer (Jerry 26.10., 16:58):** f64b301fa; Probe `EFFEKT=KILL|CRIT`, im Lauf bei Commit „348.7:“. Zauber `zauber.gd`, Probe `ZAUBER=`; Klang seit 399.3. Lauf-Proben lokal nie parallel; Schalter `PFAD=1` (Weg), `FB_OHNE=` (Weglassprobe), `SOELDNER=WIZARD`. **Offen (Prüfer 4b):** Heilige Flamme nicht erkennbar blasser (gering); Fußring über Wolfskopf (alt); „Er duckt sich“ bei Ratte (Probe, Wolfsregeln). **An Tom offen** (sein Vorrat über 15 KB, Eintrag abgelehnt): Heldin und Söldner sehen gleich aus, Magier mit Schild und Speer, `held.glb` nur Gehen/Stehen (kein Hieb, kein Zaubern), beim Rückweg Hand neben dem Speer mit orangen Flecken.
 - **Zu 348.12 Gestalt (28.10.):** Bau `OUT=~/grakg CC0=~/cc0 WAFFEN=~/basis ~/bl/bin/python -I tools/blender348/grak_gestalt.py` (Einrichtung 5 min: venv `bpy==5.2.3`, `v3/cc0_laden.sh ~/cc0` vom Zweig `claude/tom-376-1-figuren`, Basis v3/tex, held3, rig, kampfort_wald, waffen mit `OUT=~/basis`); Probe `grak-gestalt-probe.sh ~/grakg ~/basis <ziel>`. Gemessen (BVH, Bild 0): Axt schneidet Arme (564 Paare), Brustplatte, Körper; Liste „Grak“ 4: Axt in beiden Händen → Haltung wie `ual_lauer.py` GRAK_HALT, Arme per IK wie `grak_arme.py`. UAL1 hat Sword_Attack, Hit_Chest, Death01, Walk_Loop, kein Zweihandhieb (eigener wie `ual_lauer.py`).
 - **Zu 390:** gebaut: pechstraehne, ausdauer, talente, zustaende, spuren, klassisch (`ClassicGoldenTest`); offen Ansicht, Gegner auf der Karte. An Tom: `HeroShelfTest.newLoot…` wackelt.
 - **Zu 348.7 Goblin:** Runde 6 steht (Sokrates, billigen/3487-goblin-r6); Feinschliff laut Chefsache, Beil-Goblin sagt „Stich“ an; Lendentuch nimmt wie beim Späher Unterarm-Gewichte (Fix nur für Späher und Schamane, 8bfec7d13). Probe `GEGNER=GOBLINS`, alt `FOEDRAFT=goblin`, Blatt `FIGUR=gob vergleichsblatt.py`.
