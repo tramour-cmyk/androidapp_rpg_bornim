@@ -12,6 +12,12 @@ func _init() -> void:
 			if not f.ends_with(".gd"): continue
 			n += 1
 			var s = load(ordner + "/" + f)
+			# 399.1 Test 130: FileAccess.file_exists auf Skripte, Szenen, Shader ist im APK immer falsch; ResourceLoader.exists nehmen
+			var quelltext := FileAccess.get_file_as_string(ordner + "/" + f)
+			var re := RegEx.create_from_string("FileAccess\\.file_exists\\(\"res://[^\"]*\\.(gd|tscn|gdshader)\"\\)")
+			if re.search(quelltext) != null:
+				fehler += 1
+				print("FALSCH ", ordner, "/", f, ": FileAccess.file_exists auf ein Skript, im APK immer falsch")
 			if not s is GDScript or not s.can_instantiate():
 				fehler += 1
 				print("FALSCH ", ordner, "/", f)

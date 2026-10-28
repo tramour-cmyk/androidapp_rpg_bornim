@@ -186,17 +186,18 @@ jobs:
           ~/godot/godot --headless --import --path . 2>&1 | tail -5 || true
           timeout 120 ~/godot/godot --headless --path . --quit-after 300 2>&1 | tee check.log | tail -20
           ! grep -E "SCRIPT ERROR|Parse Error|Failed to load|ERROR:" check.log
-      # fester Schluessel ueber alle Laeufe, sonst lehnt Android das Update ab (348.5, Build 9)
-      - uses: actions/cache@v4
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/skripte_pruefen.gd 2>&1 | grep -E "SKRIPTE|FALSCH"   # 399.1 Test 130
+      # fester Schluessel ueber alle Laeufe, sonst lehnt Android das Update ab (348.5, Build 9). 399.1a (Chef 28.10., 14:41): der Cache
+      # eines Zweigs galt nur dort (Build 130 bekam einen neuen); jetzt nur lesen, angelegt wird er auf main (godot-schluessel.yml)
+      - uses: actions/cache/restore@v4
         with:
           path: ~/bornim-godot-schluessel
-          key: bornim-godot-schluessel-1
+          key: bornim-godot-schluessel-2
       - name: Android-Export
         run: |
           K=~/bornim-godot-schluessel/debug.keystore
-          mkdir -p $(dirname $K)
-          [ -f $K ] || keytool -genkeypair -v -keystore $K -storepass android -alias androiddebugkey -keypass android \
-            -keyalg RSA -validity 9999 -dname "CN=Android Debug,O=Android,C=US" > /dev/null 2>&1
+          [ -f $K ] || { echo "Schluessel fehlt: Godot-Schluessel (godot-schluessel.yml) auf main laufen lassen"; exit 1; }
+          keytool -list -keystore $K -storepass android | grep -i "SHA-256\|SHA256"
           sed -i "s/^version\/code=.*/version\/code=$GITHUB_RUN_NUMBER/; s/^version\/name=.*/version\/name=\"0.348.$GITHUB_RUN_NUMBER\"/" godot/export_presets.cfg
           export GODOT_ANDROID_KEYSTORE_DEBUG_PATH=$K GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD=android
           mkdir -p ~/.config/godot

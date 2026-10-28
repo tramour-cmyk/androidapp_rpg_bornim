@@ -294,7 +294,9 @@ func geh_hinaus(a: Dictionary) -> void:
 	var alle: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json"))
 	var name := Sprache.t(alle["karten"][id]["name"]) if alle["karten"].has(id) else id
 	var zurueck := vor_tuer(alle, id, a)
-	if id in WALD and FileAccess.file_exists("res://kampf/kampfort.gd"):   # 399.1: Wald noch nicht gebaut, dort wartet der Kampf
+	# 399.1: Wald noch nicht gebaut, dort wartet der Kampf. Test 130 (Chef 14:31, „Grundriss folgt“ statt Kampf): FileAccess.file_exists
+	# auf ein .gd ist im APK falsch (Skripte liegen dort uebersetzt), ResourceLoader.exists findet sie
+	if id in WALD and ResourceLoader.exists("res://kampf/kampfort.gd"):
 		await kampf_im_wald(zurueck)
 		return
 	held.setze(zurueck, "DOWN")
@@ -335,7 +337,8 @@ func kampf_im_wald(zurueck: Vector2i) -> void:
 	# die Welt ruht unsichtbar; Kamera und Umgebung des Kampforts gelten (sonst zeichnet unsere Kamera, unsere Umgebung zuerst)
 	var umgebung: Array = find_children("*", "WorldEnvironment", true, false)
 	var env_alt := umgebung.map(func(we): return we.environment)
-	var gestartet: bool = aufruf.starte("WOLVES", hw, null, "wald", tageszeit(), zustand.anzahl("potion"))
+	# 399.2a (Chef 14:19 „a“): Wolf mit 1–2 Jungwölfen wie im alten Spiel
+	var gestartet: bool = aufruf.starte("RUDEL", hw, null, "wald", tageszeit(), zustand.anzahl("potion"))
 	if gestartet:
 		for we in umgebung: we.environment = null
 		visible = false; ui.visible = false
