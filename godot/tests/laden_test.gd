@@ -99,5 +99,14 @@ func _init() -> void:
 	var hs := {"base": "holy_symbol", "rarity": "RARE", "rolls": [["SPELL", 1], ["WIS", 1]], "name_seed": 1}
 	pruefe("Heiligensymbol", [Beute.name(hs, "de"), Beute.name(hs, "en")], ["Geweihtes Heiligensymbol der Eule", "Hallowed Holy Symbol of the Owl"])
 	pruefe("Fokus je Klasse", [Beute.passt("CLERIC", "holy_symbol"), Beute.passt("WIZARD", "holy_symbol"), Beute.passt("WIZARD", "orb"), Beute.passt("CLERIC", "tome")], [true, false, true, false])
+	# 399.1 Bilder der Dinge (ThingArtExport): jede Grundform je Seltenheit, jeder Vorrat und das Gold
+	var fehlt := []
+	for id in Heldwerte.lade()["grundform_reihe"]:
+		for sel in ["COMMON", "UNCOMMON", "RARE", "VERY_RARE", "EPIC", "DIVINE"]:
+			if Kartenreiter.bild("stueck-%s-%s" % [id, sel]) == null: fehlt.append("%s-%s" % [id, sel])
+	for id in Sprache.texte["dinge"].keys() + ["gold"]:
+		if Kartenreiter.bild("ding-" + id) == null: fehlt.append(id)
+	pruefe("Bilder der Dinge", fehlt.slice(0, 5), [])
+	pruefe("Bildgroesse", Kartenreiter.bild("stueck-longsword-RARE").get_size(), Vector2(32, 32))
 	print("LADEN %s: %d Fehler" % ["OK" if fehler == 0 else "FALSCH", fehler])
 	quit(1 if fehler else 0)

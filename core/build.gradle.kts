@@ -56,6 +56,13 @@ tasks.register<JavaExec>("exportMapSheets") {
     args((findProperty("out") as String?) ?: layout.buildDirectory.dir("kartenblatt").get().asFile.path)
 }
 
+// 399.1: Bilder der Dinge (Tasche, Laden) fuer Godot (ThingArtExport.kt)
+tasks.register<JavaExec>("exportThingArt") {
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("de.bornim.core.ThingArtExport")
+    args((findProperty("out") as String?) ?: layout.buildDirectory.dir("dinge").get().asFile.path)
+}
+
 // 399.3: synthetische Klaenge als WAV und kampfklang.json fuer Godot (audio/KlangExport.kt)
 tasks.register<JavaExec>("exportKlang") {
     classpath = sourceSets["main"].runtimeClasspath

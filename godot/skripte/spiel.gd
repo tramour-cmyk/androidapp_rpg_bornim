@@ -772,7 +772,7 @@ func zeige_laden() -> void:
 	for id in laden.waren:
 		var p := Laden.kaufpreis(h, String(id))
 		k.append({"text": "%s · %s" % [Laden.name(String(id)), Sprache.u("price", [p])], "info": Sprache.t(Laden.ding(String(id)).get("info", "")),
-			"an": z.gold >= p, "id": "kauf:" + String(id)})
+			"an": z.gold >= p, "id": "kauf:" + String(id), "bild": "ding-" + String(id)})
 	if laden.brauen:
 		k.append({"kopf": Sprache.t(Laden.REZEPTE)})
 		var rz := Laden.rezepte()
@@ -789,7 +789,7 @@ func zeige_laden() -> void:
 	if not verk.is_empty(): k.append({"kopf": Sprache.u("sell")})
 	for id in verk:   # Tippen waehlt die Menge (59.5); in Klammern, wie viele er hat
 		k.append({"text": "%s (%d) · %s" % [Laden.name(String(id)), z.anzahl(String(id)), Sprache.u("price", [Laden.verkaufspreis(h, String(id))])],
-			"id": "verk:" + String(id)})
+			"id": "verk:" + String(id), "bild": "ding-" + String(id)})
 	if not z.beutel.is_empty():
 		k.append({"kopf": "%s: %s (%d)" % [Sprache.u("sell"), Sprache.t(Laden.AUSRUESTUNG), z.beutel.size()]})
 		if z.beutel.any(func(g): return String(g["rarity"]) == "COMMON"): k.append({"text": Sprache.t(Laden.GEWOEHNLICHE), "id": "alle"})
@@ -888,7 +888,7 @@ func _ware_zeile(h: Heldwerte, g: Dictionary, kaufen: bool, i: int = -1) -> Dict
 	var selten := Sprache.t(Beute.d_()["seltenheiten"][String(g["rarity"])]["name"])
 	var zeile := Beute.listen_zeile(g)
 	return {"text": "%s · %s" % [Beute.name(g), Sprache.u("price", [p])], "info": selten.left(1).to_upper() + selten.substr(1) + (" · " + zeile if zeile != "" else ""),
-		"an": zustand.gold >= p if kaufen else true, "id": ("ag:%d" % int(g["uid"])) if kaufen else ("vg:%d" % i)}
+		"an": zustand.gold >= p if kaufen else true, "id": ("ag:%d" % int(g["uid"])) if kaufen else ("vg:%d" % i), "bild": "stueck-%s-%s" % [g["base"], g["rarity"]]}
 
 func _laden_wahl(id: String, ja := false, gesehen := false) -> void:
 	if laden == null: return

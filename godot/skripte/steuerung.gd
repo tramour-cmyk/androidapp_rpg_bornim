@@ -346,6 +346,12 @@ func zeige_wahl(titel: String, zeilen_: Array, knoepfe: Array, weiter_text: Stri
 			continue
 		var b := knopf_neu(String(k["text"]), Vector2(0, 96), 32)
 		b.disabled = not bool(k.get("an", true))
+		if k.has("bild"):   # 399.1 (ShopScreen): das Bild des Dings links im Knopf, Pixel scharf
+			b.icon = Kartenreiter.bild(String(k["bild"]))
+			b.expand_icon = true
+			b.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			b.add_theme_constant_override("icon_max_width", 80)
+			b.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		var id := String(k["id"])
 		b.pressed.connect(func(): gewaehlt.emit(id))
 		wahl_box.add_child(b)

@@ -304,14 +304,14 @@ func frage_verteilen() -> void:
 func tasche() -> void:
 	var de := Sprache.aktiv() == "de"
 	zeile(("Vorräte" if de else "Supplies").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))
-	inhalt.add_child(posten(Sprache.u("gold"), str(z.gold), Stil.BRIGHT))   # 171: Gold zuerst, eine Zeile fuer sich
+	inhalt.add_child(posten(Sprache.u("gold"), str(z.gold), Stil.BRIGHT, Menue.vorrat_bild("gold")))   # 171: Gold zuerst, eine Zeile fuer sich
 	if z.taschen.is_empty(): zeile(Sprache.u("nothing"), 16, Stil.DIM)
 	for id in z.taschen:
 		var dd := Laden.ding(String(id))
-		var p := posten(Laden.name(String(id)), "×%d" % int(z.taschen[id]), Color(SELTEN.get(String(dd.get("seltenheit", "COMMON")), "e6ddcb")))
+		var p := posten(Laden.name(String(id)), "×%d" % int(z.taschen[id]), Color(SELTEN.get(String(dd.get("seltenheit", "COMMON")), "e6ddcb")), Menue.vorrat_bild(String(id)))
 		var info := Sprache.t(dd.get("info", ""))
 		if info != "":
-			var spalte: VBoxContainer = p.get_child(0)
+			var spalte: VBoxContainer = p.get_child(1)   # nach dem Bild
 			spalte.add_child(Erschaffung.txt(info, 13, Stil.DIM))
 		inhalt.add_child(p)
 		tippbar(p, func(): frage_ding(String(id)))
@@ -326,7 +326,7 @@ func tasche() -> void:
 		# ▲ besser in allem, ▼ schlechter; nichts, wenn gemischt oder gleich (GearUi.kt upgradeVerdict)
 		var u = Vergleich.von(hw, g).urteil() if hw.kann_tragen(g) else null
 		var pfeil := "▲ " if u == 1 else ("▼ " if u == -1 else "")
-		var p := posten(Beute.name(g), pfeil + Beute.kennwert(g), Color(SELTEN.get(String(g["rarity"]), "e6ddcb")))
+		var p := posten(Beute.name(g), pfeil + Beute.kennwert(g), Color(SELTEN.get(String(g["rarity"]), "e6ddcb")), Menue.stueck_rahmen(g, 42))
 		inhalt.add_child(p)
 		tippbar(p, func(): frage_stueck(g))
 
@@ -336,10 +336,11 @@ static func vor(a: Dictionary, b: Dictionary) -> bool:
 	var ra := REIHE.find(String(a["rarity"])); var rb := REIHE.find(String(b["rarity"]))
 	return ra > rb or (ra == rb and int(a["ilvl"]) > int(b["ilvl"]))
 
-# ItemRow ohne Bild: Name (in der Farbe der Seltenheit), rechts die Anzahl oder der Kennwert
-func posten(n: String, rechts: String, farbe: Color) -> HBoxContainer:
+# ItemRow, GearRow: Bild, Name (in der Farbe der Seltenheit), rechts die Anzahl oder der Kennwert
+func posten(n: String, rechts: String, farbe: Color, bild: Control = null) -> HBoxContainer:
 	var r := HBoxContainer.new()
 	r.add_theme_constant_override("separation", int(8 * DP))
+	if bild: r.add_child(bild)
 	var s := VBoxContainer.new()
 	s.add_theme_constant_override("separation", 0)
 	s.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -431,6 +432,9 @@ func frage_ding(id: String) -> void:
 	var de := Sprache.aktiv() == "de"
 	var trinkbar := art in ["POTION", "FOOD", "TONIC"]
 	var zeilen: Array = []
+	var bild := Menue.bild_feld("ding-" + id, 48)   # Dialogs.kt: SupplyPicture 48 dp
+	bild.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	zeilen.append(bild)
 	var info := Sprache.t(dd.get("info", ""))
 	if info != "": zeilen.append(Erschaffung.txt(info, 15))
 	var h: Array = dd.get("heilt", [])
@@ -458,6 +462,9 @@ static func stueck_zeilen_von(hw: Heldwerte, g: Dictionary) -> Array:
 	var b := Beute.grundform(String(g["base"]))
 	var d := Heldwerte.lade()
 	var z_: Array = []
+	var bild := Menue.bild_feld("stueck-%s-%s" % [g["base"], g["rarity"]], 48)   # Dialogs.kt: GearPicture 48 dp
+	bild.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	z_.append(bild)
 	var zeile_ := Beute.listen_zeile(g)
 	if zeile_ != "": z_.append(Erschaffung.txt(zeile_, 14, farbe_von.call(g)))
 	var wo := ("Stufe " if de else "Level ") + str(int(g["ilvl"]))
@@ -607,7 +614,37 @@ func wert_zeile(wort: String, wert: String) -> void:
 	r.add_child(w)
 	inhalt.add_child(r)
 
-# ein Platz: Rahmen mit dem Namen des Getragenen in seiner Farbe (Bilder der Dinge folgen), darunter der Platz; eine Zweihandwaffe
+# 399.1 Bilder der Dinge wie alt (SupplyPicture 36 dp, GearIcon: dunkler Grund mit einem Hauch der Seltenheit, Rand in ihrer Farbe,
+# das Bild auf 78 %), gezeichnet im Bau von core (ThingArtExport: daten/ding-<id>.bild, stueck-<grundform>-<seltenheit>.bild), Pixel scharf
+static func bild_feld(name: String, dp: float) -> Control:
+	var t := TextureRect.new()
+	t.texture = Kartenreiter.bild(name)
+	t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	t.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	t.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	t.custom_minimum_size = Vector2(dp, dp) * DP
+	t.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return t
+
+static func vorrat_bild(id: String) -> Control: return bild_feld("ding-" + id, 36)
+
+static func stueck_rahmen(g: Dictionary, dp: float) -> Control:
+	var farbe := Color(SELTEN.get(String(g["rarity"]), "e6ddcb"))
+	var p := PanelContainer.new()
+	var st := Stil.kasten(Color("0e0c0a").lerp(farbe, 0.16), farbe, 2.0 if Beute.stufe_von(String(g["rarity"])) >= Beute.stufe_von("EPIC") else 1.0)
+	st.set_corner_radius_all(int(3 * DP))
+	p.add_theme_stylebox_override("panel", st)
+	p.custom_minimum_size = Vector2(dp, dp) * DP
+	p.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var c := CenterContainer.new()
+	c.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	c.add_child(bild_feld("stueck-%s-%s" % [g["base"], g["rarity"]], dp * 0.78))
+	p.add_child(c)
+	return p
+
+# ein Platz: Rahmen mit Bild und Namen des Getragenen in seiner Farbe, darunter der Platz; eine Zweihandwaffe
 # fuellt auch die Nebenhand
 func fach(platz: String) -> Control:
 	var zwei := platz == "OFF_HAND" and zweihaendig(hw.waffe())
@@ -630,7 +667,18 @@ func fach(platz: String) -> Control:
 	n.max_lines_visible = 3
 	n.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	if zwei: n.modulate.a = 0.5
-	rahmen.add_child(n)
+	if g != null:   # 399.1: das Bild ueber dem Namen
+		var sp := VBoxContainer.new()
+		sp.add_theme_constant_override("separation", 0)
+		sp.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var b := Menue.bild_feld("stueck-%s-%s" % [g["base"], g["rarity"]], 40)
+		b.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		if zwei: b.modulate.a = 0.5
+		sp.add_child(b)
+		n.max_lines_visible = 2
+		sp.add_child(n)
+		rahmen.add_child(sp)
+	else: rahmen.add_child(n)
 	v.add_child(rahmen)
 	var p := Erschaffung.txt(platzname(platz), 11, Stil.DIM)
 	p.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
