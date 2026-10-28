@@ -609,6 +609,11 @@ func system() -> void:
 			inhalt.add_child(Regler.new(String(r[1]), int(k.lautstaerke[r[0]]) if an else 0, "Aus" if de else "Off",
 				func(v: int): k.stelle(r[0], v), (func(): k.effekt("click", 0.35)) if r[2] else Callable()))
 		luecke(8)
+		# Schritte an oder aus wie alt (MenuSigns.kt Sign „Schritte“, vm.toggleSteps); gespeichert mit den Reglern
+		inhalt.add_child(Erschaffung.knopf(("Schritte" if de else "Steps") + " · " + (("An" if de else "On") if k.schritte_an else ("Aus" if de else "Off")),
+			func(): k.schritte_an = not k.schritte_an; k.stelle("all", int(k.lautstaerke["all"])); baue(), k.schritte_an))
+		zeile("Die Schritte deines Helden hörbar oder still; alle anderen Geräusche bleiben." if de else "Your hero's footsteps audible or silent; all other sounds stay.", 13, Stil.DIM)
+		luecke(8)
 	luecke(8)
 	zeile(("Siege: " if de else "Victories: ") + str(z.siege), 13, Stil.DIM)
 

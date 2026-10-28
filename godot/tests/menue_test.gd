@@ -105,7 +105,7 @@ func _lauf() -> void:
 	await process_frame; await process_frame
 	var sk: Array = m.inhalt.find_children("*", "Button", true, false)
 	print("System: ", texte(m).substr(0, 300))
-	if sk.size() != 3: fehler += 1; print("FEHLER System: %d Knöpfe" % sk.size())
+	if sk.size() != (4 if root.has_node("Klang") else 3): fehler += 1; print("FEHLER System: %d Knöpfe" % sk.size())   # mit Klang dazu Schritte
 	else:
 		sk[0].pressed.emit(); sk[2].pressed.emit()
 		if gesendet != ["speichern", "hauptmenue"] or not m.meldung_.visible: fehler += 1; print("FEHLER System sendet ", gesendet)
@@ -127,6 +127,12 @@ func _lauf() -> void:
 		regler[1]._eingabe(tipp)
 		if int(kl.lautstaerke["music"]) != 50 or regler[1].zahl.text != "50 %": fehler += 1; print("FEHLER Musik ", kl.lautstaerke["music"], " ", regler[1].zahl.text)
 		kl.stelle("music", 100)
+		var schritte: Array = m.inhalt.find_children("*", "Button", true, false).filter(func(b): return b.text.begins_with("SCHRITTE") or b.text.begins_with("STEPS"))
+		if schritte.is_empty(): fehler += 1; print("FEHLER kein Schalter Schritte")
+		else:
+			schritte[0].pressed.emit()
+			if kl.schritte_an: fehler += 1; print("FEHLER Schritte bleiben an")
+			kl.schritte_an = true; kl.stelle("all", 100)
 	if eigener: kl.queue_free()
 	await process_frame
 	# Chronik: Hauptauftrag, Auftrag der Geschichte, Bisher geschehen (das Neueste oben), Stern bis zum Lesen
