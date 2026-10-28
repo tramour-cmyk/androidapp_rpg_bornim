@@ -421,8 +421,18 @@ jobs:
           d=$(ffmpeg -i $P/348.12-grak-film.mp4 2>&1 | grep -oE 'Duration: [0-9:.]+' | awk -F'[: ]' '{print $3*3600+$4*60+$5}')
           ffmpeg -loglevel error -y -i $P/348.12-grak-film.mp4 -vf "fps=8/$d,scale=270:-2,tile=8x1" -frames:v 1 $P/348.12-grak-blatt.png || true
           ls -l $P
+      # 348.7b r4 (Chef 28.10., 10:43 „b“): Zauberbahn mit dem längeren Seitenschritt, Aufstellung wie r3 (Magier als Söldner, Wölfe)
+      - name: 348.7b Probe Zauberbahn (nur bei Commits mit „348.7b Film“)
+        if: contains(github.event.head_commit.message, '348.7b Film')
+        run: |
+          P=$GITHUB_WORKSPACE/grakprobe; mkdir -p $P
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
+          (cd godot && GEGNER=WOLVES SOELDNER=WIZARD SCHRITT_DEBUG=1 ZAUBER=FIRE_BOLT,MISSILES,FIREBALL,BURNING_HANDS timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/zb.avi --fixed-fps 30 -- --bild=$P/zb.png > $P/zauberbahn.log 2>&1) || true
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/zb.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $P/348.7b-zauberbahn-r4.mp4 || true
+          grep -E "SCRIPT ERROR|^ +at: |^Seitenschritt" $P/zauberbahn.log | head -20 || true
+          ls -l $P
       - uses: actions/upload-artifact@v4
-        if: contains(github.event.head_commit.message, '348.12 Grak Film')
+        if: contains(github.event.head_commit.message, '348.12 Grak Film') || contains(github.event.head_commit.message, '348.7b Film')
         with:
           name: grakprobe
           path: grakprobe

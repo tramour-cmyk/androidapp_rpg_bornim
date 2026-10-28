@@ -760,6 +760,8 @@ func _draw_overlay() -> void:
 		var tri := PackedVector2Array()
 		for q in [Vector2(0, -0.22), Vector2(-0.2, -0.5), Vector2(0.2, -0.5)]:
 			tri.append(k.screen_of(fig.position + across * q.x + away * q.y + Vector3(0, 0.02, 0)))
+		if _hidden_by_front(fig, tri):     # 348.7b r3 (Chef 10:43: „das Dreieck … müsste dann halt ebenentechnisch weg sein“)
+			continue
 		overlay.draw_colored_polygon(tri, _friend_color(fig.fighter))
 		tri.append(tri[0])
 		overlay.draw_polyline(tri, Color(0, 0, 0, 0.8), maxf(1.0, dp), true)
@@ -859,8 +861,11 @@ func cast(kind: String, by: String, on: String, crit: bool, missed: bool, after_
 ## und tritt zurück: nur Darstellung, Gegner ebenso; ein Gegner in der Linie zählt nicht (keine Deckung), das Magische Geschoss
 ## braucht keinen Schritt. Gibt die Dauer des Schritts zurück (ms, 0: Linie frei)
 const STEP_KINDS := ["ARROW", "FIRE_BOLT", "RAYS", "FIREBALL", "BURNING_HANDS"]
-const STEP_M := [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
-const STEP_S := 0.22     # je Weg hin und zurück
+# 348.7b r3 b (Chef 28.10., 10:43, Votum Jerry): bis 2 m, damit der Start im Bild neben der eigenen Figur liegt (bei 0,8 m lag er auf
+# der Heldin; nach Rechnung r3 etwa 1,7 m); längere Wege mit STEP_V statt fest STEP_S, sonst flöge er
+const STEP_M := [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0]
+const STEP_S := 0.22     # je Weg hin und zurück, kürzester
+const STEP_V := 4.0      # m/s für längere Schritte
 const BH_FLAME := Zauber.BH_FLAME
 
 func _step_aside(kind: String, by, on, after_ms: float, arrives_ms: float) -> float:
@@ -907,7 +912,7 @@ func _step_aside(kind: String, by, on, after_ms: float, arrives_ms: float) -> fl
 			var sx: float = k.screen_of(q).x
 			var cost: float = m + (0.01 if sg != first else 0.0) + (2.0 if sx < vs.x * 0.1 or sx > vs.x * 0.9 else 0.0)
 			if _starts_on_mate(q + rel, b3, mates):     # Prüfer r2: Feuerball über der Schulter der Heldin, „als käme er aus ihr“
-				cost += 1.0
+				cost += 3.0     # r3 b: lieber jeder längere Schritt (bis 2 m) als ein Start auf dem eigenen Mann
 			if cost < best:
 				best = cost
 				off = side * (m * sg)
@@ -918,11 +923,12 @@ func _step_aside(kind: String, by, on, after_ms: float, arrives_ms: float) -> fl
 	var hold := maxf(arrives_ms, 250.0) / 1000.0 + 0.15
 	if kind == "BURNING_HANDS":     # Prüfer r1: der Kegel hing am Seitenplatz, als er schon zurücktrat; er bleibt, solange er brennt
 		hold = Zauber.duration(kind) * BH_FLAME / 1000.0
+	var step_s := maxf(STEP_S, off.length() / STEP_V)
 	if after_ms > 0.0:
-		get_tree().create_timer(after_ms / 1000.0).timeout.connect(func(): by.side_step(off, hold, STEP_S))
+		get_tree().create_timer(after_ms / 1000.0).timeout.connect(func(): by.side_step(off, hold, step_s))
 	else:
-		by.side_step(off, hold, STEP_S)
-	return STEP_S * 1000.0
+		by.side_step(off, hold, step_s)
+	return step_s * 1000.0
 
 
 ## 348.7b Prüfer r2 (am Seitenplatz stand Bertram im Bild genau vor der Heldin, Feuerpfeil und Feuerball begannen auf Höhe
@@ -939,6 +945,26 @@ func _starts_on_mate(a: Vector3, b: Vector3, mates: Array) -> bool:
 		r = r.grow(4 * dp)
 		for f in [0.0, 0.08, 0.16, 0.25]:
 			if r.has_point(sa.lerp(sb, f)):
+				return true
+	return false
+
+
+## 348.7b r3: das Dreieck am Boden liegt im Bild auf einer Figur, die näher an der Kamera steht (Bertram im Seitenschritt vor der
+## Heldin); die Überlage malt über alles, darum dann gar nicht
+func _hidden_by_front(fig, pts: PackedVector2Array) -> bool:
+	var k = kampfort
+	var cp: Vector3 = k.cam.global_position
+	var d: float = cp.distance_to(fig.position)
+	for id in k.figures:
+		var o = k.figures[id]
+		if o == fig or not o.visible or o.down or cp.distance_to(o.position) >= d:
+			continue
+		var box: AABB = o.footprint()
+		var r := Rect2(k.screen_of(o.global_transform * box.get_endpoint(0)), Vector2.ZERO)
+		for i in range(1, 8):
+			r = r.expand(k.screen_of(o.global_transform * box.get_endpoint(i)))
+		for p in pts:
+			if r.has_point(p):
 				return true
 	return false
 
