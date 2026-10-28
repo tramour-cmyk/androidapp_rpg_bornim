@@ -97,8 +97,9 @@ func setup(party: Array, foes: Array, p_tables: Dictionary, potions: Dictionary,
 		return false
 	var dice = Wuerfel.new(null if seed < 0 else seed)
 	var words = Wuerfel.new(null if seed < 0 else seed + 279)
-	# 399.2: aus der Welt atemlos (Skirmish winded: Initiative mit Nachteil) und satt (+1 auf Angriffe und Schaden)
-	mars = Mars.new(party, foes, tables, dice, words, lang, bool(p_progress.get("atemlos", false)))
+	# 399.2: aus der Welt atemlos (Skirmish winded: Initiative mit Nachteil), satt (+1 auf Angriffe und Schaden), Eröffnung (Opening:
+	# NORMAL, AMBUSHED Gegner zuerst, HERO_FIRST Held zuerst)
+	mars = Mars.new(party, foes, tables, dice, words, lang, bool(p_progress.get("atemlos", false)), String(p_progress.get("eroeffnung", "NORMAL")))
 	mars.fed = bool(p_progress.get("satt", false))
 	for k in potions:
 		mars.potions[k] = int(potions[k])
@@ -685,9 +686,15 @@ func go_on() -> void:
 	_run(func(): mars.proceed(_react))
 
 
+## 272 (Testmodus): gewinnen oder verlieren sofort; läuft der Kampf noch, gilt es, sobald er wartet (SkirmishScreen endAsked)
+var end_asked = null
 func test_end(win: bool) -> void:
-	if busy or mars.outcome != "ONGOING":
+	if mars.outcome != "ONGOING":
 		return
+	if busy:
+		end_asked = win
+		return
+	end_asked = null
 	_run(func(): mars.test_end(win))
 
 
@@ -892,6 +899,9 @@ func _refused() -> void:
 func _done() -> void:
 	shown.queue = mars.queue()
 	busy = false
+	if end_asked != null and mars.outcome == "ONGOING":
+		test_end(bool(end_asked))
+		return
 	if mars.outcome == "WON" and reward.is_empty():
 		# 399.2: Ausrüstung als Beute (Loot.drops) würfelt die Welt, die Held und Tasche kennt (progress „beute“, aufruf.gd)
 		var beute: Callable = progress.get("beute", Callable())

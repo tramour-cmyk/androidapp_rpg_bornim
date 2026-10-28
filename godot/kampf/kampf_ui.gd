@@ -65,6 +65,8 @@ var spell_seed := 0
 var grid_on := false
 var dice_rect := Rect2()
 var grid_rect := Rect2()
+var win_rect := Rect2()        # 272 (Testmodus): Haken gewinnt, Kreuz verliert sofort
+var lose_rect := Rect2()
 
 
 func t(de: String, en: String) -> String:
@@ -191,6 +193,10 @@ func _scene_input(ev) -> void:
 		dice_on = not dice_on
 	elif grid_rect.has_point(p):
 		grid_on = not grid_on
+	elif lose_rect.has_point(p):
+		kampfort.test_end(false)
+	elif win_rect.has_point(p):
+		kampfort.test_end(true)
 	else:
 		kampfort.tap()
 
@@ -810,6 +816,8 @@ func _draw_overlay() -> void:
 	if ended:
 		grid_rect = Rect2()
 		dice_rect = Rect2()
+		win_rect = Rect2()
+		lose_rect = Rect2()
 	else:
 		_draw_turns(sr)
 		_draw_switches(sr)
@@ -1548,6 +1556,27 @@ func _draw_switches(sr: Rect2) -> void:
 	var o := sq.size.x * 0.27
 	for e in [Vector2.ZERO, Vector2(-o, -o), Vector2(o, -o), Vector2(-o, o), Vector2(o, o)]:
 		overlay.draw_circle(c + e, 1.8 * dp, dc)
+	# 272 (Chef 20.10., nur im Testmodus, TestEndUi.kt): links neben den Würfeln Kreuz (verlieren) und Haken (gewinnen), solange
+	# der Kampf läuft und kein Ring offen ist; das angetippte leuchtet, bis es gilt
+	win_rect = Rect2()
+	lose_rect = Rect2()
+	if not Testmodus.ist_an() or kampfort.mars.outcome != "ONGOING" or kampfort.ring_open:
+		return
+	win_rect = Rect2(sr.size.x - 100 * dp - 48 * dp, y, 48 * dp, 48 * dp)
+	lose_rect = Rect2(sr.size.x - 100 * dp - 96 * dp, y, 48 * dp, 48 * dp)
+	for win in [false, true]:
+		var r: Rect2 = win_rect if win else lose_rect
+		var on: bool = kampfort.end_asked != null and bool(kampfort.end_asked) == win
+		var b := Rect2(r.position + Vector2(4, 4) * dp, Vector2(s, s))
+		_chip(b, Color(0, 0, 0, 0.35), Color(GOLD, 0.9 if on else 0.4), 1.0)
+		var col := Color(GOLD if win else WARN, 1.0 if on else 0.7)
+		var q := b.grow(-10 * dp)
+		if win:
+			overlay.draw_line(q.position + Vector2(0, q.size.y * 0.55), q.position + Vector2(q.size.x * 0.38, q.size.y * 0.9), col, 2 * dp, true)
+			overlay.draw_line(q.position + Vector2(q.size.x * 0.38, q.size.y * 0.9), q.position + Vector2(q.size.x, q.size.y * 0.1), col, 2 * dp, true)
+		else:
+			overlay.draw_line(q.position, q.end, col, 2 * dp, true)
+			overlay.draw_line(Vector2(q.end.x, q.position.y), Vector2(q.position.x, q.end.y), col, 2 * dp, true)
 
 
 ## Where the stroke from a sign to its own head starts: from below when the sign is above, else from the near edge.

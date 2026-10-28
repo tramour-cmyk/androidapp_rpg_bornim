@@ -57,6 +57,14 @@ func _alle() -> void:
 	print(("endet " if rgut else "FEHLER ") + "Rudel allein (Blatt): %s" % rr)
 	if not rgut:
 		fehler += 1
+	# 272 (Testmodus): Haken und Kreuz enden den Kampf sofort, auch mitten im Zug (gilt, sobald er wartet); 399.2 Eröffnung, satt
+	for win in [true, false]:
+		n += 1
+		var rt: String = await _testende(win, tab.probe.FIGHTER.hero)
+		var tgut := rt == ("WON" if win else "LOST")
+		print(("endet " if tgut else "FEHLER ") + "Testende %s: %s" % ["Haken" if win else "Kreuz", rt])
+		if not tgut:
+			fehler += 1
 	# ohne LP kein Kampf: ende kommt gleich mit NONE
 	var a = Aufruf.new()
 	root.add_child(a)
@@ -117,3 +125,30 @@ func _einer(gegner: String, zeit: String, held, held_tp: int, merc, merc_tp: int
 	if is_instance_valid(a) and a.is_inside_tree():
 		return "%s, Aufruf bleibt" % e[0]
 	return "%s TP %s Lohn %s" % [e[0], e[1], e[2].keys()]
+
+
+func _testende(win: bool, held: Dictionary) -> String:
+	Testmodus.geladen = true     # die Schalter zeichnen sich nur im Testmodus
+	Testmodus.an = true
+	var a = Aufruf.new()
+	root.add_child(a)
+	_ende.clear()
+	a.ende.connect(func(e, tp, lohn): _ende.append([e, tp, lohn]))
+	if not a.starte("WOLVES", held.hero, null, "wald", "tag", 2, int(held.hp), -1, 7, Callable(), {"eroeffnung": "AMBUSHED", "satt": true}):
+		return "nicht gestartet"
+	await process_frame
+	await process_frame
+	var k = a.kampf
+	if k.mars.opening != "AMBUSHED" or not k.mars.fed:
+		return "Lage nicht angekommen: %s, satt %s" % [k.mars.opening, k.mars.fed]
+	await process_frame
+	var schalter: bool = k.ui.win_rect.has_area() and k.ui.lose_rect.has_area()
+	k.test_end(win)
+	var t0 := Time.get_ticks_msec()
+	while Time.get_ticks_msec() - t0 < LIMIT_MS and (k.mars.outcome == "ONGOING" or k.busy or k.playing or not k.beats.is_empty()):
+		await process_frame
+	var o: String = k.mars.outcome
+	k.finish()
+	await process_frame
+	Testmodus.an = false
+	return o if schalter or k.ring_open else o + " ohne Schalter"
