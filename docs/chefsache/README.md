@@ -46,10 +46,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 23, Muss 12, startbar 4
+**Tom** – offen 24, Muss 13, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 392 | M | von Sokrates (Chef 09:50): Alt: „Atmen aus“ nur schätzen | startbar |
 | 390 | M | von Perikles (28.10.): zwischen Blättern beim Chef Funktionen ohne Bild bauen (LISTE-UMZUG | startbar |
 | 390a | M | Rückfrage: Tests ohne Bild von 389 ausnehmen? | Chef (Datei in der Chefsache) |
 | 348.12i | M | von Sokrates (Chef 19:41, „348.12i B“, Archiv): nur Kaufmodelle mit AESContext verschlüsse | wartet auf Test/Build (gebaut) |
