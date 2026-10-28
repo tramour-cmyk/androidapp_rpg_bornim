@@ -8,9 +8,9 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | gebaut 0b773829c: Test 133 Kampfmenü (Zielwahl blieb stehen; Schalter sprangen doppelt), Wolf durch Wolf e5c207b71; fährt mit Toms nächster Testfassung; Lauf: Chefsache 399.2c, 399.2d | `claude/jerry-348-kampf` |
+| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | gebaut 0b773829c: Kampfmenü (Test 133), Wolf durch Wolf e5c207b71; mit Toms nächster Testfassung; Chefsache 399.2c, 399.2d | `claude/jerry-348-kampf` |
 | 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | in Arbeit: 50 % im Lauf 168 bestätigt; knurrt ohne Ansage (mit 399.2c); Text Homer | – |
-| 399.3 | M | **von Chef (28.10., 16:42):** Klang in die Spielfassung (Umzug „Musik, Klang“) | in Arbeit: Stufe 1 Lauf 135; Stufe 2 Kampfklang ungeprüft (nächster Lauf); folgt Orts-, Raumklang, Regler bei Tom | `claude/jerry-348-klang` |
+| 399.3 | M | **von Chef (28.10., 16:42):** Klang in die Spielfassung (Umzug „Musik, Klang“) | in Arbeit: Lauf 135 rot, behoben a0b137208; Stufe 3 Orts-, Raumklang 356d1b5f2; zweiter Lauf läuft | `claude/jerry-348-klang` |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: Tusche passt (Chef 12:31); im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK, CI 158 grün | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: nachbessern (Chef 15:23, Archiv): Gehen und Platzwechsel mit UAL-Laufbewegung, Hieb trifft den Helden, Tod als Zusammenbruch | `claude/jerry-348-kampf` |
