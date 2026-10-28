@@ -87,6 +87,15 @@ jobs:
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libsm6 libxkbcommon0 > /dev/null
           python -m venv bl && bl/bin/pip -q install bpy==5.2.3 numpy pillow
+      # Sokrates 21:53 (Lauf 40766226723 rot: „UAL1_Standard.glb fehlt unter /home/runner/cc0“): Toms held3/rig (348.6, im Zweig seit
+      # tom-399) brauchen die Quaternius-Pakete in ~/cc0 wie in godot.yml; derselbe Zwischenspeicher
+      - uses: actions/cache@v4
+        with:
+          path: ~/cc0
+          key: cc0-quaternius-3
+      - name: CC0-Pakete (Quaternius)
+        run: |
+          [ -n "$(find ~/cc0 -name UAL1_Standard.glb 2>/dev/null)" ] || bash tools/blender348/v3/cc0_laden.sh ~/cc0
       - name: Modelle bauen (Held, Wolf, Grimmzahn, Ratte, Goblin, Späher, Wald)
         env:
           GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
