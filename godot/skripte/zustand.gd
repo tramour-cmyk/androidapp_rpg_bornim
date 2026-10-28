@@ -1,7 +1,7 @@
 class_name Zustand
 extends RefCounted
 # 390: der Spielstand, soweit Gespraeche und Quests ihn brauchen (GameState.kt: flags, inventory, gold, Stufe des Helden);
-# als Woerterbuch speicherbar (Spielstand folgt). Uhr und Rast (390) sind dabei; Ausruestung kommt mit ihrem Punkt dazu.
+# als Woerterbuch speicherbar (Spielstand folgt). Uhr, Rast und Laden (390) sind dabei.
 
 var name := "Alrik"
 var stufe_held := 1
@@ -20,6 +20,11 @@ var lange_rast_tag := 0
 var met := 0
 var leiden := {}                       # Zustand -> Runden (GameState.ailments)
 var wiederkehr := {"karte": "inn", "x": 8, "y": 2, "blick": "DOWN"}   # GameState.respawn, anfangs Story.START
+# 390 (Laden): Ausruestung in der Tasche (GameState.bag, Woerterbuecher wie Gear), Siege (battlesWon), schon gekaufte Ware (shopSold)
+var beutel: Array = []
+var siege := 0
+var laden_verkauft := {}               # "Satz:uid" -> true
+var uid_zaehler := 0                   # GameState.uidCounter
 
 func has(f: String) -> bool: return flaggen.has(f)
 func setze(f: String) -> void: flaggen[f] = true
@@ -44,10 +49,29 @@ func weg(ding: String, n: int = 1) -> void:
 	if rest > 0: taschen[ding] = rest
 	else: taschen.erase(ding)
 
+func neue_uid() -> int:
+	uid_zaehler += 1
+	return uid_zaehler
+
+# GameState.addGear: ohne eigene Kennung bekommt das Stueck eine neue
+func ausruestung_dazu(g: Dictionary) -> Dictionary:
+	var eigen := g.duplicate(true)
+	if int(eigen.get("uid", 0)) <= 0: eigen["uid"] = neue_uid()
+	beutel.append(eigen)
+	return eigen
+
+# ein Stueck Ausruestung aus JSON: Zahlen wieder ganz
+static func stueck(g: Dictionary) -> Dictionary:
+	var rolls: Array = []
+	for r in g.get("rolls", []): rolls.append([String(r[0]), int(r[1])])
+	return {"uid": int(g.get("uid", 0)), "base": String(g["base"]), "rarity": String(g.get("rarity", "COMMON")), "ilvl": int(g.get("ilvl", 1)),
+		"plus": int(g.get("plus", 0)), "rolls": rolls, "unique": g.get("unique"), "name_seed": int(g.get("name_seed", 0))}
+
 func als_daten() -> Dictionary:
 	return {"name": name, "stufe": stufe_held, "gold": gold, "taschen": taschen.duplicate(), "flaggen": flaggen.keys(), "minuten": minuten, "tag": tag,
 		"ausdauer": ausdauer, "atemlos": atemlos, "ausdauer_trank": ausdauer_trank, "funke": funke, "lange_rast_tag": lange_rast_tag,
-		"met": met, "leiden": leiden.duplicate(), "wiederkehr": wiederkehr.duplicate()}
+		"met": met, "leiden": leiden.duplicate(), "wiederkehr": wiederkehr.duplicate(), "beutel": beutel.duplicate(true), "siege": siege,
+		"laden_verkauft": laden_verkauft.keys(), "uid_zaehler": uid_zaehler}
 
 static func aus_daten(d: Dictionary) -> Zustand:
 	var z := Zustand.new()
@@ -58,5 +82,10 @@ static func aus_daten(d: Dictionary) -> Zustand:
 	z.ausdauer = float(d.get("ausdauer", 1.0)); z.atemlos = bool(d.get("atemlos", false)); z.ausdauer_trank = bool(d.get("ausdauer_trank", false))
 	z.funke = bool(d.get("funke", false)); z.lange_rast_tag = int(d.get("lange_rast_tag", 0)); z.met = int(d.get("met", 0))
 	for k in d.get("leiden", {}): z.leiden[String(k)] = int(d["leiden"][k])
-	if d.has("wiederkehr"): z.wiederkehr = (d["wiederkehr"] as Dictionary).duplicate()
+	if d.has("wiederkehr"):
+		var w: Dictionary = d["wiederkehr"]
+		z.wiederkehr = {"karte": String(w["karte"]), "x": int(w["x"]), "y": int(w["y"]), "blick": String(w.get("blick", "DOWN"))}
+	for g in d.get("beutel", []): z.beutel.append(stueck(g))
+	z.siege = int(d.get("siege", 0)); z.uid_zaehler = int(d.get("uid_zaehler", 0))
+	for k in d.get("laden_verkauft", []): z.laden_verkauft[String(k)] = true
 	return z

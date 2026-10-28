@@ -462,7 +462,8 @@ func raste(art: String) -> void:
 	zeige_zeilen(zeilen_)
 
 # ---------------------------------------------------------------- Laden (390, ShopScreen.kt): Dinge kaufen (je Tippen eines),
-# Verkaeufliches aus der Tasche verkaufen, die letzten fuenf Verkaeufe zurueckkaufen, bei Morwen brauen. Ausruestung folgt.
+# Verkaeufliches aus der Tasche verkaufen, die letzten fuenf Verkaeufe zurueckkaufen, bei Morwen brauen; Ausruestung bei Thessa
+# kaufen (Tragbares zuerst, 59.2), ueberall verkaufen (Seltenes zuerst), Gewoehnliches auf einmal.
 func oeffne_laden(waren: Array, brauen: bool) -> void:
 	laden = Laden.new(waren, brauen)
 	laden_notiz = ""
@@ -483,20 +484,51 @@ func zeige_laden() -> void:
 		var rz := Laden.rezepte()
 		for i in rz.size():
 			k.append({"text": Laden.name(String(rz[i]["ergebnis"])), "info": Laden.kosten(rz[i]), "an": Laden.bezahlbar(z, rz[i]), "id": "brau:%d" % i})
+	if not laden.brauen:   # Morwen handelt nur mit Kraeutern und Traenken
+		var ware := Laden.ware(z, h)
+		k.append({"kopf": "%s (%d)" % [Sprache.t(Laden.AUSRUESTUNG), ware.size()]})
+		var nicht := ware.filter(func(g): return not h.kann_tragen(g))
+		for g in ware.filter(func(g): return h.kann_tragen(g)): k.append(_ware_zeile(h, g, true))
+		if not nicht.is_empty(): k.append({"kopf": "%s (%d)" % [Sprache.t(Laden.NICHT_TRAGBAR), nicht.size()]})
+		for g in nicht: k.append(_ware_zeile(h, g, true))
 	var verk := z.taschen.keys().filter(func(id): return Laden.verkaeuflich(String(id)))
 	if not verk.is_empty(): k.append({"kopf": Sprache.u("sell")})
 	for id in verk:   # je Tippen eines; in Klammern, wie viele er hat
 		k.append({"text": "%s (%d) · %s" % [Laden.name(String(id)), z.anzahl(String(id)), Sprache.u("price", [Laden.verkaufspreis(h, String(id))])],
 			"id": "verk:" + String(id)})
+	if not z.beutel.is_empty():
+		k.append({"kopf": "%s: %s (%d)" % [Sprache.u("sell"), Sprache.t(Laden.AUSRUESTUNG), z.beutel.size()]})
+		if z.beutel.any(func(g): return String(g["rarity"]) == "COMMON"): k.append({"text": Sprache.t(Laden.GEWOEHNLICHE), "id": "alle"})
+		# Seltenes zuerst, dann nach Platz (ShopScreen: rarity absteigend, slot)
+		var reihe := range(z.beutel.size())
+		reihe.sort_custom(func(a, b):
+			var ga: Dictionary = z.beutel[a]
+			var gb: Dictionary = z.beutel[b]
+			var ra := Beute.stufe_von(String(ga["rarity"]))
+			var rb := Beute.stufe_von(String(gb["rarity"]))
+			if ra != rb: return ra > rb
+			var sa := Beute.PLAETZE.find(String(Beute.grundform(String(ga["base"]))["slot"]))
+			var sb := Beute.PLAETZE.find(String(Beute.grundform(String(gb["base"]))["slot"]))
+			return sa < sb if sa != sb else a < b)
+		for i in reihe: k.append(_ware_zeile(h, z.beutel[i], false, i))
 	if not laden.rueckkauf.is_empty(): k.append({"kopf": Sprache.t(Laden.ZURUECK)})
 	for i in laden.rueckkauf.size():
 		var r: Dictionary = laden.rueckkauf[i]
-		k.append({"text": "%s · %s" % [Laden.mit_anzahl(String(r["ding"]), int(r["anzahl"])), Sprache.u("price", [int(r["preis"])])],
+		k.append({"text": "%s · %s" % [Laden.verkauft_name(r), Sprache.u("price", [int(r["preis"])])],
 			"an": z.gold >= int(r["preis"]), "id": "zur:%d" % i})
 	var kopf := Sprache.t(Laden.HUETTE) if laden.brauen else Sprache.u("shop")
 	var zeilen_: Array = ["%s: %d" % [Sprache.u("gold"), z.gold]]
 	if laden.brauen: zeilen_.append(Sprache.t(Laden.KRAEUTER))
+	if not laden.brauen: zeilen_.append(Sprache.t(Laden.NEUE_WARE))
 	ui.zeige_wahl(kopf, zeilen_, k, Sprache.u("close"), laden_notiz)
+
+# ein Stueck Ausruestung: Name · Preis, darunter Seltenheit und Gear.listLine; [i] Platz in der Tasche beim Verkauf
+func _ware_zeile(h: Heldwerte, g: Dictionary, kaufen: bool, i: int = -1) -> Dictionary:
+	var p := Laden.kaufpreis_von(h, g) if kaufen else Laden.verkaufspreis_von(h, g)
+	var selten := Sprache.t(Beute.d_()["seltenheiten"][String(g["rarity"])]["name"])
+	var zeile := Beute.listen_zeile(g)
+	return {"text": "%s · %s" % [Beute.name(g), Sprache.u("price", [p])], "info": selten.left(1).to_upper() + selten.substr(1) + (" · " + zeile if zeile != "" else ""),
+		"an": zustand.gold >= p if kaufen else true, "id": ("ag:%d" % int(g["uid"])) if kaufen else ("vg:%d" % i)}
 
 func _laden_wahl(id: String) -> void:
 	if laden == null: return
@@ -512,6 +544,11 @@ func _laden_wahl(id: String) -> void:
 		"kauf": laden_notiz = laden.kaufe(zustand, h, teil[1])
 		"verk": laden_notiz = laden.verkaufe(zustand, h, teil[1])
 		"zur": laden_notiz = laden.zurueck(zustand, int(teil[1]))
+		"ag":
+			for g in Laden.ware(zustand, h):
+				if int(g["uid"]) == int(teil[1]): laden_notiz = laden.kaufe_ausruestung(zustand, h, g); break
+		"vg": laden_notiz = laden.verkaufe_ausruestung(zustand, h, int(teil[1]))
+		"alle": laden_notiz = Sprache.t(Laden.GEWOEHNLICHE_WEG) % laden.verkaufe_gewoehnliches(zustand, h)
 		"brau": laden_notiz = laden.braue(zustand, h, Laden.rezepte()[int(teil[1])])
 	zeige_laden()
 

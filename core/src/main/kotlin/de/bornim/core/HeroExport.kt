@@ -43,7 +43,11 @@ object HeroExport {
     )
 
     fun gear(g: Gear) = mapOf("uid" to g.uid, "base" to g.base, "rarity" to g.rarity, "ilvl" to g.ilvl, "plus" to g.plus,
-        "rolls" to g.rolls.map { listOf(it.affix.name, it.value) }, "unique" to g.unique)
+        "rolls" to g.rolls.map { listOf(it.affix.name, it.value) }, "unique" to g.unique, "name_seed" to g.nameSeed)
+
+    /** A piece as the shop shows it: the gear, its names, price and line (Gear.name, Gear.price, Gear.listLine). */
+    private fun shown(g: Gear) = gear(g) + mapOf("de" to g.name(Lang.DE), "en" to g.name(Lang.EN), "preis" to g.price,
+        "zeile_de" to g.listLine(Lang.DE), "zeile_en" to g.listLine(Lang.EN))
 
     /** What [h] is, as the port takes it in. */
     fun input(h: Hero) = mapOf("name" to h.name, "volk" to h.race, "klasse" to h.cls, "stufe" to h.level, "ep" to h.xp,
@@ -85,6 +89,63 @@ object HeroExport {
         return out
     }
 
+    /** 390 (Laden): the first numbers of kotlin.random.Random for some seeds, as `godot/skripte/kotlin_zufall.gd` must give them. */
+    fun randomSamples() = listOf(0, 1, -1, 42, 7919, -123456789, Int.MAX_VALUE, Int.MIN_VALUE, "Alrik".hashCode()).map { seed ->
+        val r = kotlin.random.Random(seed)
+        mapOf("seed" to seed, "int" to List(8) { r.nextInt() }, "bis" to listOf(1, 2, 3, 6, 7, 20, 64, 1000, 10_000, Int.MAX_VALUE).map { r.nextInt(it) },
+            "von" to listOf(listOf(1, 7), listOf(1, 21), listOf(-5, 5)).map { r.nextInt(it[0], it[1]) }, "double" to List(4) { r.nextDouble() })
+    }
+
+    /** A game state for the samples: [hero] with [won] victories, in chapter 2 when [chapter2]. */
+    private fun state(hero: Hero, won: Int, chapter2: Boolean): GameState {
+        val s = GameState(hero, 0, place = Story.START, respawn = Story.START, battlesWon = won)
+        if (chapter2) s.flags += Story.CHAPTER2_STARTED
+        hero.chapter = Story.chapter(s)
+        return s
+    }
+
+    private fun sampleHero(name: String, cls: CharClass, lvl: Int, extra: Boolean): Hero {
+        var uid = 1L
+        val h = Hero.create(name, Race.entries[cls.ordinal % Race.entries.size], cls, newUid = { uid++ })
+        // a better helmet and a ring with magic find, so the piece meant for the hero goes elsewhere and drops find more
+        if (extra) { h.equip(Gear(50, "helmet", Rarity.UNCOMMON, 3, 0, listOf(Roll(Affix.CON, 1)))); h.equip(Gear(51, "ring", Rarity.RARE, 4, 0, listOf(Roll(Affix.MAGIC_FIND, 25), Roll(Affix.HP, 5)))) }
+        if (lvl > 1) h.gainXp(Rules.xpForLevel[lvl])
+        h.clamp()
+        return h
+    }
+
+    /** 390 (Laden): Thessa's stock (Loot.shopGear) for heroes of every class, several levels, names and victories. */
+    fun shopSamples(): List<Map<String, Any?>> {
+        val out = mutableListOf<Map<String, Any?>>()
+        for (cls in CharClass.entries) for (lvl in listOf(1, 3, 6, 9)) for (name in listOf("Alrik", "Jörg Ölschläger")) for (won in listOf(0, 8, 17)) {
+            val h = sampleHero(name, cls, lvl, extra = won == 8)
+            val s = state(h, won, chapter2 = lvl == 9)
+            out += mapOf("held" to input(h), "siege" to won, "soll" to Loot.shopGear(s).map { shown(it) })
+        }
+        return out
+    }
+
+    /** 390 (Beute): what a fight drops (Loot.drops) with dice from kotlin.random.Random(seed), the uids counted from 0. */
+    fun dropSamples(): List<Map<String, Any?>> = (0 until 80).map { seed ->
+        val cls = CharClass.entries[seed % CharClass.entries.size]
+        val lvl = listOf(1, 2, 4, 6, 9)[seed / 4 % 5]
+        val h = sampleHero("Probe", cls, lvl, extra = seed % 3 == 0)
+        val s = state(h, 0, chapter2 = lvl == 9)
+        val ilvl = 1 + seed % 8
+        val boss = seed % 5 == 0
+        val elite = !boss && seed % 5 == 1
+        mapOf("held" to input(h), "seed" to seed, "ilvl" to ilvl, "boss" to boss, "elite" to elite,
+            "soll" to Loot.drops(s, Dice(kotlin.random.Random(seed)), ilvl, boss, elite).map { shown(it) })
+    }
+
+    /** 390 (Beute): single pieces of every rarity, epic and divine too (Loot.roll), for their values and names. */
+    fun rollSamples(): List<Map<String, Any?>> = (0 until 60).map { seed ->
+        val base = GearBases.all.filter { it.kind != BaseKind.LIGHT }.let { it[seed * 7 % it.size] }
+        val ilvl = 1 + seed % 12
+        val r = Rarity.entries[seed % Rarity.entries.size]
+        mapOf("seed" to seed, "base" to base.id, "ilvl" to ilvl, "rarity" to r, "soll" to listOf(shown(Loot.roll(seed.toLong(), base, ilvl, r, Dice(kotlin.random.Random(seed))))))
+    }
+
     /** [proben]: the sample heroes too (for the test, not the game). */
     fun json(proben: Boolean = true): JsonObject = buildJsonObject {
         put("version", VERSION)
@@ -103,7 +164,17 @@ object HeroExport {
         put("faehigkeiten", j(Skill.entries.associate { it.name to mapOf("klasse" to it.cls, "stufe" to it.level, "name" to it.title) }))
         put("grundformen", j(GearBases.all.associate { it.id to base(it) }))
         put("affixe", j(Affix.entries.map { it.name }))
+        // 390 (Laden, Beute): was Gear.name und Loot brauchen; Reihenfolge der Grundformen wie GearBases.all (Wuerfel waehlen daraus)
+        put("grundform_reihe", j(GearBases.all.map { it.id }))
+        put("seltenheiten", j(Rarity.entries.associate { it.name to mapOf("name" to it.title, "affixe" to it.affixes) }))
+        put("affixdaten", j(Affix.entries.associate { it.name to mapOf("name" to it.title, "vor_de" to it.prefixDe, "vor_en" to it.prefixEn,
+            "nach_de" to it.suffixDe, "nach_en" to it.suffixEn, "prozent" to it.percent) }))
+        put("endungen", j(Gender.entries.associate { it.name to it.ending }))
+        put("namen", j(mapOf("episch1" to Gear.epicFirst, "episch2" to Gear.epicSecond, "goetter" to Gear.gods)))
+        put("plaetze", j(GearSlot.entries.associate { it.name to it.title }))
+        put("schadensarten", j(DamageType.entries.associate { it.name to it.title }))
         if (proben) put("proben", JsonArray(samples().map { h -> buildJsonObject { put("held", j(input(h))); put("soll", j(expect(h))) } }))
+        if (proben) { put("zufall", j(randomSamples())); put("laden", j(shopSamples())); put("beute", j(dropSamples())); put("wuerfe", j(rollSamples())) }
     }
 
     @JvmStatic

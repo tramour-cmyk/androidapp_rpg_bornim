@@ -238,17 +238,17 @@ data class Gear(
         }
 
     companion object {
-        private val epicFirst = listOf(
+        internal val epicFirst = listOf(
             T("Sturm", "Storm"), T("Schatten", "Shadow"), T("Seelen", "Soul"), T("Drachen", "Dragon"), T("Blut", "Blood"),
             T("Frost", "Frost"), T("Donner", "Thunder"), T("Aschen", "Ash"), T("Eisen", "Iron"), T("Sternen", "Star"),
             T("Nacht", "Night"), T("Greifen", "Griffin"),
         )
-        private val epicSecond = listOf(
+        internal val epicSecond = listOf(
             T("wache", "ward"), T("brecher", "breaker"), T("fang", "fang"), T("ruf", "call"), T("zorn", "wrath"),
             T("hüter", "keeper"), T("biss", "bite"), T("schwur", "oath"), T("glanz", "gleam"), T("schneide", "edge"),
             T("herz", "heart"), T("sang", "song"),
         )
-        private val gods = listOf(
+        internal val gods = listOf(
             T("des Morgenlichts", "of the Dawnlight"), T("der Ewigen Flamme", "of the Eternal Flame"),
             T("des Sturmvaters", "of the Stormfather"), T("der Sternenmutter", "of the Star Mother"),
             T("des Eisernen Richters", "of the Iron Judge"), T("der Stillen Jägerin", "of the Silent Huntress"),
