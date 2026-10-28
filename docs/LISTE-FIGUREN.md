@@ -199,7 +199,7 @@ Gebilligt (Chef 25.10., 23:33, 348.11 b): übrige Monster aus Kapitel 1. Für al
 4. **Farbe:** schlammbraun, kränklich gelbgrau oder dunkel ocker; nirgends rosa (Beulen auf dem Rücken und Perlen an der Zunge in Hautfarbe übermalt); Schleim nass, nicht grell.
 5. **Haltung:** sehr langsam, hebt den Kopf, bevor sie zustößt; schwer verwundet flacher.
 
-**Dorftiere, gekauft (387)** (Homer 28.10. nach Diogenes 374; schreibt den Stand fest, den der Chef abgenommen hat: „passen … ist alles gut so“, 28.10., 10:51, Vorgangsarchiv 387; Keiler gilt als Wildschwein, Hundertfüßer oben; Schwein und Gans nicht genommen). Für alle: Augen matt; Tusche nach Licht wie die Monster (Chef 10:51); laufen nie durch Büsche, Häuser, Leute.
+**Dorftiere, gekauft (387)** (Homer 28.10. nach Diogenes 374; schreibt den Stand fest, den der Chef abgenommen hat: „passen … ist alles gut so“, 28.10., 10:51, Vorgangsarchiv 387; Keiler gilt als Wildschwein, Hundertfüßer oben; Schwein und Gans nicht genommen). Gebilligt (Chef 28.10., 21:5x). Für alle: Augen matt; Tusche nach Licht wie die Monster (Chef 10:51); laufen nie durch Büsche, Häuser, Leute.
 
 **Rind**
 1. **Größe:** wie abgenommen (Kauf, Runde 5); größtes Tier im Dorf, Rücken über der Hüfte des Helden.
