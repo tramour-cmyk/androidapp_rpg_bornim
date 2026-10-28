@@ -568,16 +568,16 @@ func waehle(platz: String) -> void:
 	var l := passend(platz)
 	var zeilen: Array = []
 	if l.is_empty(): zeilen.append(Erschaffung.txt("Nichts Passendes im Beutel." if de else "Nothing in the bag fits.", 15, Stil.DIM))
-	var schleier: Control
+	var schleier := {}   # 399.1 (Test 139.10): ein Lambda haelt den Wert von damals; die Liste wird erst unten zum Kasten
 	for g in l:
 		var p := posten(Beute.name(g), Beute.kennwert(g), farbe_von(g))
 		if not hw.kann_tragen(g): p.modulate.a = 0.45
 		tippbar(p, func():
-			schleier.queue_free()
+			schleier["k"].queue_free()
 			dialog(Beute.name(g), farbe_von(g), stueck_zeilen(g), [[Sprache.u("equip"), func(): meldung(lege_an(g, platz == "OFF_HAND" and String(Beute.grundform(String(g["base"]))["slot"]) != "OFF_HAND")); baue(), hw.kann_tragen(g)],
 				[Sprache.u("back"), func(): waehle(platz)]]))
 		zeilen.append(p)
-	schleier = dialog(platzname(platz), Stil.GOLD, zeilen, [[Sprache.u("close"), func(): pass]])
+	schleier["k"] = dialog(platzname(platz), Stil.GOLD, zeilen, [[Sprache.u("close"), func(): pass]])
 
 # PaperDoll: links Kopf, Umhang, Oberkoerper, Arme, Beine; rechts Amulett, Ring, Haupthand, Nebenhand; der Held dazwischen
 func ausruestung() -> void:
