@@ -33,6 +33,7 @@ var laufen_will := false                        # 399.1 Ring oder Renntaste (Sta
 var brett_offen := false
 var rufe := {}                                   # 399.1 Ruf: Person -> seit wann (ms) sie ruft, -1 = bemerkt, nichts Neues
 var rufe_karte := ""
+var naechster_ruf := 0                           # 134.3 Game.nextCallAt: vorher ruft kein anderer
 var spricht_mit := ""                            # bis das Gespraech vorbei ist, dann gilt gehoert (Game.talkingTo)                        # 399.1 Anschlagbrett (Mode.Board)
 var laden_stueck := ""                           # 399.1 (gearDialog): das Stueck Ausruestung im Kasten vor Kauf oder Verkauf
 var laden_frage := ""                            # 399.1 (59e, Rückfragen): die Wahl, die noch einmal fragt; "" = keine
@@ -618,7 +619,12 @@ func rufe_neu() -> void:
 			if d > r + 2: rufe.erase(id)
 		elif d <= r and id != spricht_mit:
 			rufe[id] = jetzt if Ruf.neu(zustand, id) else -1
-			if int(rufe[id]) >= 0: l.ruft_bis = jetzt + Ruf.WIEDER_MS + Ruf.ZEIGT_MS   # 306 Hail.calms
+			if int(rufe[id]) >= 0:
+				l.ruft_bis = jetzt + Ruf.WIEDER_MS + Ruf.ZEIGT_MS   # 306 Hail.calms
+				var st := Ruf.stimme(id)                             # 134.3 mit dem Zeichen ein Ruf ohne Worte, nie zwei zugleich
+				if st != "" and jetzt >= naechster_ruf:
+					klang("effekt", [st, Ruf.pegel(d)])
+					naechster_ruf = jetzt + Ruf.RUF_ABSTAND_MS
 		l.rufe(rufe.has(id) and int(rufe[id]) >= 0 and Ruf.zeigt(jetzt - int(rufe[id])) and not ui.spricht())
 
 # ---------------------------------------------------------------- Rast (390, RestScreen.kt, Game.rest)

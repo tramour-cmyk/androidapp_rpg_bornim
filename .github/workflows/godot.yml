@@ -92,6 +92,7 @@ jobs:
           echo $ids | tr ' ' '\n' | xargs -P 4 -I{} bash -c 'bau {}'
           D=godot/daten/leute; mkdir -p $D
           for i in $ids; do cp $RUNNER_TEMP/leute/$i/held.glb $D/$i.bin && cp $RUNNER_TEMP/leute/$i/held-info.json $D/$i-info.json; done
+          cp tools/blender348/v3/leute.json $D/   # 134.3 Ruf: Mann, Frau, Kind (ruf.gd stimme)
           for i in $ids; do grep -q '^RUHE aus' $RUNNER_TEMP/leute/$i/rig.log && echo daten/leute/$i.bin >> godot/daten/kauf.txt || true; done   # 397
           ls -l $D
           # 348.6 Leute Runde 4b: was die Leute tragen (leute.json "traegt"), aus Jerrys waffen.py (Waffen = Bereich Jerry);

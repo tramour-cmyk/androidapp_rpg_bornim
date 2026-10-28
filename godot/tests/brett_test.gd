@@ -107,6 +107,11 @@ func _lauf() -> void:
 	y.dazu("wolf_pelt", 5)
 	pruefe("Ruf Abgabe", Ruf.neu(y, "thessa"), true)
 	pruefe("Ruf Zeiten", [Ruf.zeigt(0), Ruf.zeigt(1500), Ruf.zeigt(3300), Ruf.zeigt(4700)], [true, false, true, false])
+	# 134.3 Ruf ohne Worte (Hail.voice, callVolume); leute.json wie im Bau
+	if FileAccess.file_exists(Ruf.LEUTE):
+		pruefe("Ruf Stimmen", ["pim", "thessa", "aldric", "borin", "wache"].map(Ruf.stimme), ["hail_child", "hail_woman", "hail_man", "hail_man", ""])
+	else: print("ohne daten/leute/leute.json: Stimmen nicht geprueft")
+	pruefe("Ruf Pegel", [1, 3, 5, 9].map(func(d): return snappedf(Ruf.pegel(d), 0.01)), [0.6, 0.45, 0.3, 0.3])
 	var hr := Heldwerte.erschaffe("A", "HUMAN", "ROGUE")
 	hr.basis["DEX"] = 10
 	var r10 := Ruf.reichweite(hr)
