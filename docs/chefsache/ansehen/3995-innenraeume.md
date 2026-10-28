@@ -1,4 +1,4 @@
-# 399.5 · Innenräume wie alt, vierter Stand · Tom · 29.10., 00:3x
+# 399.5 · Innenräume wie alt, fünfter Stand · Tom · 29.10., 00:4x
 
 Probe am Rechner, noch kein Build. Je Raum v. l. n. r.: alt Tag, neu Tag, alt Nacht, neu Nacht, neu um 180° gedreht. Ohne Leute (in der Probe nicht gebaut).
 
@@ -19,6 +19,6 @@ Seit dem ersten Stand nach den Befunden des Prüfers geändert:
 - Nachts etwas heller, Kerzen als Lichtinseln.
 - Dritter Stand, nach dem Prüfer zum zweiten: Kerzen auf der Ladentheke hinten, Waage größer vorn; Ladenregal mit weniger, größeren Waren; Bänke in Eiche statt schwarz; Fass nicht mehr im Balken; Kräuter heller; Pfosten am Himmelbett; Altarsonne 40 cm; Teppich rot; Pult nicht mehr im Altar; gedreht kein Kaminblock und keine freie Flamme mehr.
 
-Vierter Stand: Ursache der dunklen Nacht gefunden. Im Raum lief die Nachtstimmung von draußen mit (blau, Ränder dunkler, blass); jetzt bleibt sie im Raum wie im alten Spiel gleich. Gemessen ist die Nacht jetzt zu hell (neu 75–82 % des Tags, alt 44–64 %); das stelle ich im nächsten Lauf ein. Tempel bei Tag weiter dunkler als alt (36 zu 51).
+Vierter und fünfter Stand: Im Raum lief die blaue Nachtstimmung von draußen mit; jetzt bleibt die Stimmung im Raum wie im alten Spiel gleich, und die Nacht ist auf das alte Maß eingestellt (gemessen neu 55–65 % des Tags, alt 44–64 %). Dazu nach dem Prüfer: Teppich rot mit Borte, gedreht verschwinden Kamin und Altar mit ihrer Wand, Fass, Kisten, Truhe und Bett stehen frei von der Wand, Waage kräftiger, Lehnen heller, Kerzenlicht reicht bis auf den Boden. Tempel bei Tag noch etwas dunkler als alt (42 zu 51).
 
 **Was du sagen sollst:** nichts nötig; ich baue weiter, dann neue Bilder, dann der Build mit 376.1.
