@@ -29,6 +29,7 @@ var rast_zweites := false
 var laden: Laden                                 # 390 (Mode.Shop): offen, bis „Schließen“
 var laden_notiz := ""
 var laden_menge := {}                            # 390 (59.5): ein Ding mit Menge {id, kaufen, n}; leer = Liste
+var laden_frage := ""                            # 399.1 (59e, Rückfragen): die Wahl, die noch einmal fragt; "" = keine
 
 func _ready() -> void:
 	licht = Licht.new()
@@ -183,12 +184,14 @@ func _tippen(sp: Vector2) -> void:
 	if p == null: return
 	var b := karte.pos_kachel(p)
 	if karte.begehbar(b):
-		held.geh_zu(p)
+		if not held.geh_zu(p): Bedienung.ruettle()   # 399.1 Ruetteln: kein Weg dorthin (WorldScreen route == null)
 		return
 	# Tuer, gesperrter Ausgang, Schild, Schlagbaum: davor stellen, dann Knopf oder Text
-	if not (karte.tuer(b) or not karte.sperrt(b).is_empty() or zeichen_lesbar(b) or karte.zeichen(b) == "z"): return
+	if not (karte.tuer(b) or not karte.sperrt(b).is_empty() or zeichen_lesbar(b) or karte.zeichen(b) == "z"):
+		Bedienung.ruettle()
+		return
 	var ziel := naechster_nachbar(b)
-	if ziel.x < 0: return
+	if ziel.x < 0: Bedienung.ruettle(); return
 	ziel_stoss = b
 	held.geh_zu(karte.kachel_pos(ziel))
 
@@ -566,6 +569,8 @@ func oeffne_menue() -> void:
 		get_tree().paused = false
 		ebene.queue_free()
 		speichere()
+		ui.richte_ein()      # 399.1 Bedienung aus dem Menue System
+		kamera.fern_neu()
 		ui.leiste.zeige(held_werte(), zustand, licht.nacht > 0.65))
 
 func held_werte() -> Heldwerte:
@@ -656,6 +661,7 @@ func oeffne_laden(waren: Array, brauen: bool) -> void:
 	laden = Laden.new(waren, brauen)
 	laden_notiz = ""
 	laden_menge = {}
+	laden_frage = ""
 	held.halt()
 	held.richtung = Vector3.ZERO
 	zeige_laden()
@@ -736,11 +742,29 @@ func zeige_menge() -> void:
 		"an": most >= 1, "id": "m:ok"})
 	ui.zeige_wahl(Laden.name(id), zeilen_, k, Sprache.u("back"), laden_notiz)
 
+# 399.1 (59e, ShopScreen): noch einmal fragen, mit Titel, Zeilen und dem Knopf, der es tut; „Abbrechen“ zurueck
+func _frage(id: String, titel: String, zeilen_: Array, knopf: String) -> void:
+	laden_frage = id
+	ui.zeige_wahl(titel, zeilen_, [{"text": knopf, "id": "ja"}], "Abbrechen" if _de() else "Cancel")
+
+func _de() -> bool: return Sprache.aktiv() == "de"
+
+# 59e: alles von einem Ding verkaufen (mit „Alle“ gewaehlt, mindestens zwei) fragt noch einmal
+func _frage_menge(id: String, was: String) -> bool:
+	if was != "ok" or bool(laden_menge["kaufen"]) or not bool(laden_menge.get("alle", false)) or not Bedienung.rueckfragen: return false
+	var ding := String(laden_menge["id"])
+	var n := mini(int(laden_menge["n"]), zustand.anzahl(ding))
+	if n < 2: return false
+	_frage(id, "Alle verkaufen?" if _de() else "Sell all?", ["%s ×%d" % [Laden.name(ding), n]],
+		"%s ×%d · %s" % [Sprache.u("sell"), n, Sprache.u("price", [Laden.verkaufspreis(held_werte(), ding) * n])])
+	return true
+
 func _menge_wahl(was: String) -> void:
 	var h := held_werte()
 	var id := String(laden_menge["id"])
 	var kaufen := bool(laden_menge["kaufen"])
 	var most := Laden.kann_kaufen(zustand, h, id) if kaufen else zustand.anzahl(id)
+	laden_menge["alle"] = was == "alle" or (was == "ok" and bool(laden_menge.get("alle", false)))   # alt amount == Int.MAX_VALUE
 	match was:
 		"-": laden_menge["n"] = int(laden_menge["n"]) - 1
 		"+": laden_menge["n"] = int(laden_menge["n"]) + 1
@@ -759,8 +783,14 @@ func _ware_zeile(h: Heldwerte, g: Dictionary, kaufen: bool, i: int = -1) -> Dict
 	return {"text": "%s · %s" % [Beute.name(g), Sprache.u("price", [p])], "info": selten.left(1).to_upper() + selten.substr(1) + (" · " + zeile if zeile != "" else ""),
 		"an": zustand.gold >= p if kaufen else true, "id": ("ag:%d" % int(g["uid"])) if kaufen else ("vg:%d" % i)}
 
-func _laden_wahl(id: String) -> void:
+func _laden_wahl(id: String, ja := false) -> void:
 	if laden == null: return
+	if laden_frage != "":   # „Verkaufen“ fuehrt die Wahl aus, „Abbrechen“ zurueck in die Liste
+		var war := laden_frage
+		laden_frage = ""
+		if id == "ja": _laden_wahl(war, true)
+		else: zeige_laden()
+		return
 	var h := held_werte()
 	if id == "" and not laden_menge.is_empty():   # „Zurück“ aus der Menge in die Liste
 		laden_menge = {}
@@ -776,13 +806,31 @@ func _laden_wahl(id: String) -> void:
 	match teil[0]:
 		"kauf": laden_menge = {"id": teil[1], "kaufen": true, "n": 1}
 		"verk": laden_menge = {"id": teil[1], "kaufen": false, "n": 1}
-		"m": _menge_wahl(teil[1])
+		"m":
+			if not ja and _frage_menge(id, teil[1]): return
+			_menge_wahl(teil[1])
 		"zur": laden_notiz = laden.zurueck(zustand, int(teil[1]))
 		"ag":
 			for g in Laden.ware(zustand, h):
 				if int(g["uid"]) == int(teil[1]): laden_notiz = laden.kaufe_ausruestung(zustand, h, g); break
-		"vg": laden_notiz = laden.verkaufe_ausruestung(zustand, h, int(teil[1]))
-		"alle": laden_notiz = Sprache.t(Laden.GEWOEHNLICHE_WEG) % laden.verkaufe_gewoehnliches(zustand, h)
+		"vg":
+			var g: Dictionary = zustand.beutel[int(teil[1])]
+			if not ja and Bedienung.rueckfragen and Beute.stufe_von(String(g["rarity"])) >= Beute.stufe_von("RARE"):
+				var p := Laden.verkaufspreis_von(h, g)
+				_frage(id, "Wirklich verkaufen?" if _de() else "Really sell?", ["%s (%s)" % [Beute.name(g), Sprache.t(Beute.d_()["seltenheiten"][String(g["rarity"])]["name"])]],
+					"%s · %s" % [Sprache.u("sell"), Sprache.u("price", [p])])
+				return
+			laden_notiz = laden.verkaufe_ausruestung(zustand, h, int(teil[1]))
+		"alle":
+			if not ja and Bedienung.rueckfragen:
+				var gew := zustand.beutel.filter(func(g): return String(g["rarity"]) == "COMMON")
+				var summe := 0
+				for g in gew: summe += Laden.verkaufspreis_von(h, g)
+				_frage(id, "Alle gewöhnlichen verkaufen?" if _de() else "Sell all common items?",
+					[("%d Gegenstände:" if _de() else "%d items:") % gew.size(), ", ".join(PackedStringArray(gew.map(func(g): return Beute.name(g))))],
+					("Verkaufen · " if _de() else "Sell · ") + Sprache.u("price", [summe]))
+				return
+			laden_notiz = Sprache.t(Laden.GEWOEHNLICHE_WEG) % laden.verkaufe_gewoehnliches(zustand, h)
 		"brau": laden_notiz = laden.braue(zustand, h, Laden.rezepte()[int(teil[1])])
 	zeige_laden()
 

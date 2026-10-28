@@ -11,10 +11,11 @@ extends Control
 #   Nebenhand, wegwerfen (mit Rueckfrage und Haendlerpreis).
 # - Ausruestung (GearTab): Plaetze links und rechts des Helden (PaperDoll), Antippen legt ab, wechselt oder waehlt aus der Tasche,
 #   was passt (die Nebenhand nimmt auch Einhandwaffen); darunter die Kampfwerte.
-# - System (SystemSigns), soweit es die Welt schon kann: Speichern, Sprache, Hauptmenue; Lautstaerke (399.3.1), Schritte, Helligkeit; Siege.
+# - System (SystemSigns), soweit es die Welt schon kann: Speichern, Sprache, Hauptmenue; Rückfragen, Bedienung; Lautstaerke (399.3.1),
+#   Schritte, Helligkeit; Siege, Geraet.
 # - Karte (MapTab, 62): kartenreiter.gd.
 # - Chronik (ChronicleTab): Hauptauftrag in Gold, Auftraege der Geschichte, Erledigt zum Aufklappen, „Bisher geschehen“.
-# Noch nicht wie alt: in der Chronik Nebenauftraege (Anschlagbrett), Ankunft und Morgenandacht ansehen; im System Kampf, Bedienung; Bilder der Dinge; Fackel im Dunkeln.
+# Noch nicht wie alt: in der Chronik Nebenauftraege (Anschlagbrett), Ankunft und Morgenandacht ansehen; im System Blut, Tempo, Kampftext (Jerry), Anleitung, MARS-Probe, Über; Bilder der Dinge; Fackel im Dunkeln.
 
 signal zu
 signal speichern                   # 399.1 System: die Welt haelt den Stand fest (spiel.gd speichere)
@@ -503,14 +504,21 @@ func frage_stueck(g: Dictionary) -> void:
 func frage_wegwerfen(g: Dictionary) -> void:
 	var de := Sprache.aktiv() == "de"
 	var preis := Laden.verkaufspreis_von(hw, g)
+	if not Bedienung.rueckfragen:   # 399.1 Rückfragen aus (MenuScreen.kt: if (!vm.confirmations) discard())
+		wirf_weg(g)
+		return
 	dialog("Wirklich wegwerfen?" if de else "Really discard?", farbe_von(g), [
 		Erschaffung.txt("%s (%s)" % [Beute.name(g), Sprache.t(Heldwerte.lade()["seltenheiten"][String(g["rarity"])].get("name", g["rarity"]))], 16, farbe_von(g)),
 		Erschaffung.txt(("Der Gegenstand ist danach verloren. Beim Händler bekämst du dafür %d Gold." if de else "The item will be gone for good. A trader would pay you %d gold for it.") % preis, 15)],
-		[["Wegwerfen" if de else "Discard", func():
-			var i := im_beutel(g)
-			if i >= 0: z.beutel.remove_at(i)
-			meldung(("%s weggeworfen." if de else "%s discarded.") % Beute.name(g))
-			baue()], [abbrechen(), func(): pass]])
+		[["Wegwerfen" if de else "Discard", func(): wirf_weg(g)], [abbrechen(), func(): pass]])
+
+func wirf_weg(g: Dictionary) -> void:
+	var i := im_beutel(g)
+	if i >= 0: z.beutel.remove_at(i)
+	meldung(("%s weggeworfen." if de_() else "%s discarded.") % Beute.name(g))
+	baue()
+
+func de_() -> bool: return Sprache.aktiv() == "de"
 
 # 214: was in der Tasche an den Platz passt; die Nebenhand nimmt auch Einhandwaffen; Tragbares zuerst, dann Seltenheit, Stufe
 func passend(platz: String) -> Array:
@@ -630,6 +638,7 @@ func system() -> void:
 		inhalt.add_child(Erschaffung.knopf(String(k[0]), k[2]))
 		zeile(String(k[1]), 13, Stil.DIM)
 		luecke(8)
+	bedienung()
 	# 399.3.1 Lautstaerke wie alt (SoundSettings.kt SoundAndLight, 40): Gesamt, Musik, Effekte und Ortsklang, in Schritten zu 5 (Mix.STEP);
 	# Loslassen bei Gesamt und Effekten klickt einmal, so hoert man, wie laut es nun ist (40a)
 	var k := get_node_or_null("/root/Klang")   # ueber den Knoten wie spiel.gd klang(): mit -s gibt es den Autoload nicht
@@ -667,6 +676,45 @@ func system() -> void:
 	if geraet_auf: zeile(geraeteangaben(), 11, Stil.TEXT)
 
 var geraet_auf := false
+
+# 399.1 wie alt (SystemSigns): „Kampf“ mit Rückfragen (Blut, Tempo, Kampftext folgen mit dem Kampfort, Jerry), dann „Bedienung“:
+# Steuerung, Joystick und Rennen nur beim Wischen, Aktion, Karte, Rütteln; Antippen wechselt, gespeichert in Bedienung.gd
+func bedienung() -> void:
+	var de := Sprache.aktiv() == "de"
+	Bedienung.lade()
+	var an := func(b: bool) -> String: return ("An" if de else "On") if b else ("Aus" if de else "Off")
+	var eintrag := func(name_: String, wert: String, hinweis: String, an_: bool, tut: Callable) -> void:
+		inhalt.add_child(Erschaffung.knopf(name_ + " · " + wert, func(): tut.call(); Bedienung.speichere(); baue(), an_))
+		zeile(hinweis, 13, Stil.DIM)
+		luecke(8)
+	luecke(4)
+	zeile(("Kampf" if de else "Combat").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))
+	luecke(6)
+	eintrag.call("Rückfragen" if de else "Confirmations", an.call(Bedienung.rueckfragen), Sprache.u("confirmHint"), Bedienung.rueckfragen,
+		func(): Bedienung.rueckfragen = not Bedienung.rueckfragen)
+	luecke(4)
+	zeile(("Bedienung" if de else "Input").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))   # Homer [326.abschnitt.bedienung]
+	luecke(6)
+	eintrag.call("Steuerung" if de else "Controls", ("Klassisch" if de else "Classic") if Bedienung.klassisch else ("Wischen" if de else "Swipe"),
+		"Wischen: Finger ziehen zum Laufen, weit ziehen zum Rennen, tippen zum Hinlaufen. Klassisch: Steuerkreuz und ein großer Knopf zum Handeln." if de
+		else "Swipe: drag to walk, drag far to run, tap to walk there. Classic: a D-pad and a big button to act.", false,
+		func(): Bedienung.klassisch = not Bedienung.klassisch)
+	if not Bedienung.klassisch:   # 86.4, 131: Joystick und Renntaste nur beim Wischen
+		var gefuehl := ["Fein", "Normal", "Ruhig"] if de else ["Fine", "Normal", "Calm"]
+		eintrag.call("Joystick", gefuehl[Bedienung.ring], "Im Kreis geht man, über den Ring hinaus rennt man. Fein: kleiner Ring. Ruhig: großer Ring." if de
+			else "Inside the ring you walk; beyond it you run. Fine: small ring. Calm: large ring.", false, func(): Bedienung.ring = (Bedienung.ring + 1) % 3)
+		eintrag.call("Rennen" if de else "Run", ("Taste" if de else "Button") if Bedienung.lauf_taste else "Ring",
+			"Wie du rennst. Ring: über den Ring des Joysticks hinausziehen. Taste: dazu ein eigener Knopf zum Rennen." if de
+			else "How you run. Ring: push past the joystick's ring. Button: adds a separate run button.", false, func(): Bedienung.lauf_taste = not Bedienung.lauf_taste)
+	eintrag.call("Aktion" if de else "Action", ("Links" if de else "Left") if Bedienung.links else ("Rechts" if de else "Right"),
+		"Auf welcher Seite der Aktionsknopf steht: rechts, oder links für Linkshänder." if de else "Which side the action button sits on: right, or left for left-handed players.",
+		false, func(): Bedienung.links = not Bedienung.links)
+	eintrag.call("Karte" if de else "Map", ("Näher" if de else "Close") if Bedienung.karte_nah else "Normal",
+		"Wie nah die Karte ist. Näher zeigt weniger Umgebung, dafür größer." if de else "Map zoom. Close shows less of your surroundings, but larger.",
+		false, func(): Bedienung.karte_nah = not Bedienung.karte_nah)
+	eintrag.call("Rütteln" if de else "Haptics", an.call(Bedienung.ruetteln),
+		"Das Handy zittert kurz, wenn vor dir etwas zu tun ist oder ein Weg nicht geht." if de else "The phone buzzes briefly when there is something to do ahead of you or a path is blocked.",
+		Bedienung.ruetteln, func(): Bedienung.ruetteln = not Bedienung.ruetteln)
 
 # DeviceInfo.lines: was Geraet, System und Grafik sind, dazu die Messwerte des Spiels
 static func geraeteangaben() -> String:

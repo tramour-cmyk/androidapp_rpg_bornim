@@ -73,13 +73,14 @@ func blick() -> String:
 	if absf(w) >= 3 * PI / 4: return "UP"
 	return "RIGHT" if w > 0 else "LEFT"
 
-func geh_zu(ziel: Vector3) -> void:
+func geh_zu(ziel: Vector3) -> bool:
 	var b := karte.pos_kachel(ziel)
 	var ids := karte.weg(karte.pos_kachel(position), b)
 	weg.clear()
-	if ids.is_empty(): return
+	if ids.is_empty(): return false   # 399.1: kein Weg, die Welt ruettelt (WorldScreen route == null)
 	for k in range(1, ids.size()): weg.append(karte.kachel_pos(ids[k]))
 	if weg.is_empty(): weg.append(karte.kachel_pos(b))
+	return true
 
 # 390: stehen bleiben (vor einer angetippten Person)
 func halt() -> void: weg.clear()
