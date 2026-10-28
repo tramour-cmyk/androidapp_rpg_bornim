@@ -26,6 +26,7 @@ const NACHT_KONTRAST := 0.96   # unter 1 hebt das Schwarz an
 const TIEF_UMGEBUNG := 1.1     # Morgen, Abend: Fronten im Schatten, Himmel traegt mehr
 const DAEMMERUNG_UMGEBUNG := 0.18
 const INNEN_TAG := 0.34        # 399.5 Grundriss: Umgebung am Tag und nachts
+const INNEN_NACHT_KONTRAST := 0.93   # Lauf 5 (Nacht in % des Tags, alt 44–64): Kontrast 0,87 → 78–84, 0,96 mit Umgebung 0,16 → 40–56
 const INNEN_TAG_OHNE_HERD := 0.55   # wie alt MapLight ambient: ohne Feuer am Tag doppelt so hell (Tempel Lauf 2: Mittel 34, alt 51)
 const INNEN_NACHT := 0.24      # Lauf 4 misst neu (Stimmung innen jetzt wie alt). Lauf 1: nachts 37–48 % des Tags (alt 44–64 %), Waende fast schwarz; Lauf 3 Stufen 0,34/0,45/0,6: 44/47/50 %
 const ALT := [[Vector2(-1.0, -0.2), 1.2], [Vector2(0.15, 1.0), 0.35], [Vector2(1.0, -0.2), 1.2]]
@@ -128,9 +129,9 @@ func stelle(k: float) -> void:
 		env.ambient_light_energy = lerpf(INNEN_TAG if herd else INNEN_TAG_OHNE_HERD, INNEN_NACHT, k)
 		env.background_color = Color(0.0, 0.0, 0.0)
 		# alt MapGrade.of INTERIOR: die Stimmung im Raum haengt nicht an der Uhr (mit Herd warm FFE8C8 0,45, ohne F0EAE0 0,35, Rand
-		# 0,2); Kontrast und Saettigung bleiben wie am Tag. Lauf 3: die Nacht von draussen (blau, Rand 0,32, Saettigung 0,45)
+		# 0,2); Saettigung bleibt wie am Tag, der Kontrast steigt nachts nur bis INNEN_NACHT_KONTRAST. Lauf 3: die Nacht von draussen (blau, Rand 0,32, Saettigung 0,45)
 		# drueckte den Raum auf 50 % des Tags, mehr Grundlicht half kaum
-		env.adjustment_contrast = TAG_KONTRAST
+		env.adjustment_contrast = lerpf(TAG_KONTRAST, INNEN_NACHT_KONTRAST, k)
 		env.adjustment_saturation = TAG_SAETTIGUNG
 		var f := Color8(0xFF, 0xE8, 0xC8) if herd else Color8(0xF0, 0xEA, 0xE0)
 		stimmung.set_shader_parameter("toenung", Vector3(f.r, f.g, f.b))
