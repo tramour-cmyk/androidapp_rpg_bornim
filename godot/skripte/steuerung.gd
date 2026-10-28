@@ -323,6 +323,14 @@ func zeige_wahl(titel: String, zeilen_: Array, knoepfe: Array, weiter_text: Stri
 		l.add_theme_color_override("font_color", Color(0.93, 0.88, 0.76))
 		wahl_box.add_child(l)
 	for k in knoepfe + [{"text": weiter_text, "id": ""}]:
+		if k.has("zeile"):   # 399.1 (Anschlagbrett): ein Satz zwischen den Knoepfen, matt mit „matt“
+			var zl := Label.new()
+			zl.text = String(k["zeile"])
+			zl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			zl.add_theme_font_size_override("font_size", 30)
+			zl.add_theme_color_override("font_color", Color(0.62, 0.58, 0.50) if k.get("matt", false) else Color(0.93, 0.88, 0.76))
+			wahl_box.add_child(zl)
+			continue
 		if k.has("kopf"):   # Ueberschrift eines Teils (Laden: Vorraete, Brauen, Verkaufen, Zurueckkaufen)
 			var kl := Label.new()
 			kl.text = String(k["kopf"])

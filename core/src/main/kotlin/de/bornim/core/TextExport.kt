@@ -78,6 +78,15 @@ object TextExport {
         putJsonObject("einzelstuecke") {
             for (id in Uniques.ids) putJsonObject(id) { put("name", text(Uniques.name(id))); put("seltenheit", text(Uniques.rarity(id).title)) }
         }
+        // 399.1 Anschlagbrett (29): die Aushaenge wortgleich aus [Jobs], mit Lohn, Wunsch, Abgabe und Welle; die Regeln in auftraege.gd
+        putJsonArray("auftraege") {
+            for (j in Jobs.all) addJsonObject {
+                put("id", j.id); put("geber", j.giver); put("geber_name", text(j.giverName)); put("titel", text(j.title))
+                put("aushang", text(j.note)); put("lohn", text(j.reward)); put("ding", j.item); put("anzahl", j.count); put("gold", j.gold)
+                putJsonArray("gaben") { for ((id, n) in j.gifts) addJsonObject { put("ding", id); put("anzahl", n) } }
+                put("bringen", text(j.bring)); put("dank", text(j.thanks)); j.after?.let { put("nach", it) }
+            }
+        }
         // 399.1 Menue System: die Anleitung wortgleich aus [Guide] (Homer [352.…]); „nur“ = die Klasse, die den Absatz allein liest
         putJsonObject("anleitung") {
             put("titel", text(Guide.title)); put("zeichen", text(Guide.sign)); put("hinweis", text(Guide.signHint))

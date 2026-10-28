@@ -29,6 +29,7 @@ var rast_zweites := false
 var laden: Laden                                 # 390 (Mode.Shop): offen, bis „Schließen“
 var laden_notiz := ""
 var laden_menge := {}                            # 390 (59.5): ein Ding mit Menge {id, kaufen, n}; leer = Liste
+var brett_offen := false                        # 399.1 Anschlagbrett (Mode.Board)
 var laden_frage := ""                            # 399.1 (59e, Rückfragen): die Wahl, die noch einmal fragt; "" = keine
 
 func _ready() -> void:
@@ -54,6 +55,7 @@ func _ready() -> void:
 	ui.gelesen.connect(weiter)
 	ui.gewaehlt.connect(_rast_wahl)
 	ui.gewaehlt.connect(_laden_wahl)
+	ui.gewaehlt.connect(_brett_wahl)
 	licht.nacht_geaendert.connect(_nacht)
 	Leute.uhr = func(): return zustand.minuten   # 390 Tagesablauf
 	# 399: Hauptmenue und Erschaffung zuerst, ausser bei Probelaeufen am Rechner (--bilder, --figuren …, Tests ohne Fenster)
@@ -187,7 +189,7 @@ func _tippen(sp: Vector2) -> void:
 		if not held.geh_zu(p): Bedienung.ruettle()   # 399.1 Ruetteln: kein Weg dorthin (WorldScreen route == null)
 		return
 	# Tuer, gesperrter Ausgang, Schild, Schlagbaum: davor stellen, dann Knopf oder Text
-	if not (karte.tuer(b) or not karte.sperrt(b).is_empty() or zeichen_lesbar(b) or karte.zeichen(b) == "z"):
+	if not (karte.tuer(b) or not karte.sperrt(b).is_empty() or zeichen_lesbar(b) or brett(b) or karte.zeichen(b) == "z"):
 		Bedienung.ruettle()
 		return
 	var ziel := naechster_nachbar(b)
@@ -209,6 +211,8 @@ func naechster_nachbar(b: Vector2i) -> Vector2i:
 func zeichen_lesbar(t: Vector2i) -> bool:
 	return karte.zeichen(t) == "S" and schild(t) != ""
 
+func brett(t: Vector2i) -> bool: return karte.zeichen(t) == "!"   # 399.1 Tile.NOTICE (Navigation: READ)
+
 func schild(t: Vector2i) -> String:
 	for s in karte.daten["schilder"]:
 		if int(s["x"]) == t.x and int(s["y"]) == t.y: return Sprache.t(s["text"])
@@ -228,7 +232,7 @@ func vor_ihm(t: Vector2i) -> Vector2i:
 	if not karte.ausgang(t).is_empty(): return t
 	var vorn := Vector2i(roundi(sin(held.rotation.y)), roundi(cos(held.rotation.y)))
 	for d in [vorn] + NACHBARN:
-		if karte.tuer(t + d) or zeichen_lesbar(t + d) or rast_kachel(t + d) != "": return t + d
+		if karte.tuer(t + d) or zeichen_lesbar(t + d) or brett(t + d) or rast_kachel(t + d) != "": return t + d
 	return Vector2i(-1, -1)
 
 # wie Navigation.actionAt: Ausgang und Tuer (auch verschlossen) ENTER, Schild READ; dazu actionPlace: wohin, wenn offen
@@ -238,7 +242,7 @@ func angebot(t: Vector2i) -> Array:
 	if pv[0] and pv[1]: return ["TALK", ""]
 	var z := vor_ihm(t)
 	if z.x < 0: return ["TALK", ""] if pv[0] else ["", ""]
-	if zeichen_lesbar(z): return ["READ", ""]
+	if zeichen_lesbar(z) or brett(z): return ["READ", ""]
 	var rk := rast_kachel(z)
 	if rk != "": return ["REST" if rk in ["feuer", "zimmer"] else "LOOK", ""]
 	var a := karte.ausgang(z)
@@ -255,6 +259,9 @@ func _aktion() -> void:
 	if z != held.kachel: held.rotation.y = atan2(float(z.x - held.kachel.x), float(z.y - held.kachel.y))
 	if zeichen_lesbar(z):
 		ui.sage([{"text": schild(z)}])
+		return
+	if brett(z):
+		oeffne_brett()
 		return
 	match rast_kachel(z):
 		"feuer", "zimmer": oeffne_rast(rast_kachel(z)); return
@@ -496,7 +503,8 @@ func sprich(l: Leute) -> void:
 	held.rotation.y = atan2(l.position.x - held.position.x, l.position.z - held.position.z)
 	ui.biete_an("")
 	zustand.setze("met_" + String(l.daten["id"]))   # 399.1 Karte: wen der Held kennt (MapMarks.met, Game.talk)
-	spiele(Geschichte.gespraech(String(l.daten["id"]), zustand))
+	var abgabe := Auftraege.abgabe(zustand, String(l.daten["id"]))   # 399.1 Game.talk: Jobs.handIn vor dem Gespraech
+	spiele(abgabe if not abgabe.is_empty() else Geschichte.gespraech(String(l.daten["id"]), zustand))
 
 # wie Game.enqueue: neue Befehle hinten an; laufen nur, wenn gerade kein Text offen ist (Mode.Explore)
 func spiele(befehle: Array) -> void:
@@ -517,6 +525,9 @@ func weiter() -> void:
 				zustand.setze(String(c["flagge"]))
 				flaggen_neu()
 			"geben":
+				if String(c["ding"]).begins_with("@gear:"):   # 399.1 Game.kt Cmd.Give „@gear:RARITY:SLOT“ (Jorins Kopfschutz)
+					zeige({"text": Sprache.u("found", [gear_gabe(String(c["ding"]))])})
+					return
 				zustand.dazu(String(c["ding"]), int(c["anzahl"]))
 				zeige({"text": Sprache.u("found", [Sprache.ding(String(c["ding"]), int(c["anzahl"]))])})
 				return
@@ -538,6 +549,48 @@ func weiter() -> void:
 				# gebaut sind, endet sie hier, damit nichts danach (Flaggen, Saetze) ohne das Ereignis geschieht (Pruefer)
 				szene.clear()
 	if held: _steht_auf(held.kachel)
+
+# Loot.generate mit Mindestseltenheit (rarityFor special, floor) und Platz, Stufe wie maxOf(areaLevel, hero.level)
+func gear_gabe(was: String) -> String:
+	var t := was.trim_prefix("@gear:").split(":")
+	var hw := held_werte()
+	var w := KotlinZufall.new(randi())
+	var ilvl := maxi(int(karte.daten.get("stufe", 1)), hw.stufe)
+	var g := Beute.erzeuge(w, zustand.neue_uid(), ilvl, Beute.seltenheit_fuer(hw, w, ilvl, true, t[0]), hw.klasse, t[1] if t.size() > 1 else "")
+	zustand.ausruestung_dazu(g)
+	return "%s (%s)" % [Beute.name(g), Sprache.t(Heldwerte.lade()["seltenheiten"][String(g["rarity"])]["name"])]
+
+# ---------------------------------------------------------------- Anschlagbrett (399.1, BoardScreen.kt): was haengt, mit Aushang
+# und Lohn, je einer „Annehmen“ (angenommen: grau); nichts: verblichene Naegel; „Zurück“ schliesst (Game.advance)
+func oeffne_brett() -> void:
+	Auftraege.lies(zustand)
+	brett_offen = true
+	held.halt()
+	held.richtung = Vector3.ZERO
+	zeige_brett()
+
+func zeige_brett() -> void:
+	var de := Sprache.aktiv() == "de"
+	var k: Array = []
+	for j in Auftraege.am_brett(zustand):
+		var an := Auftraege.angenommen(zustand, j)
+		k.append({"kopf": Sprache.t(j["titel"])})
+		k.append({"zeile": Sprache.t(j["aushang"])})
+		k.append({"zeile": ("Lohn: " if de else "Reward: ") + Sprache.t(j["lohn"]), "matt": true})
+		k.append({"text": ("Angenommen" if de else "Accepted") if an else ("Annehmen" if de else "Accept"), "an": not an, "id": "nimm:" + String(j["id"])})
+	var leer := ["Nur verblichene Nägel und Papierfetzen. Kein Aushang." if de else "Only faded nails and scraps of paper. No notices."] if k.is_empty() else []
+	ui.zeige_wahl("Anschlagbrett" if de else "Notice board", leer, k, "Zurück" if de else "Back")
+
+func _brett_wahl(id: String) -> void:
+	if not brett_offen: return
+	if id.begins_with("nimm:"):
+		Auftraege.nimm(zustand, Auftraege.von(id.trim_prefix("nimm:")))
+		speichere()
+		zeige_brett()
+		return
+	brett_offen = false
+	ui.schliesse_wahl()
+	weiter()
 
 # ---------------------------------------------------------------- Rast (390, RestScreen.kt, Game.rest)
 # was an Kachel t zu tun ist: Lagerfeuer (in der Hoehle nur ansehen), Bett der Schenke (anderswo fremd), sonst ""

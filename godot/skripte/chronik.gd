@@ -2,7 +2,7 @@ class_name Chronik
 extends RefCounted
 # 399.1 Chronik wie alt (Chronicle.kt, 64): „Bisher geschehen“ je Wendepunkt der Geschichte, das Neueste oben, und die Auftraege
 # neben dem Hauptauftrag (D4.1). Texte wortgleich aus texte.json (TextExport „chronik“, „chronik_auftraege“); wann ein Eintrag gilt,
-# steht hier je Kennung wie in Chronicle.entries. Nebenauftraege vom Anschlagbrett (Jobs) folgen mit dem Brett.
+# steht hier je Kennung wie in Chronicle.entries. Nebenauftraege vom Anschlagbrett: auftraege.gd.
 
 const LUMPEN := "grey_rag"   # Jobs.RAG
 
@@ -53,8 +53,10 @@ static func fertig(z: Zustand) -> Array: return auftraege().filter(func(t): retu
 static func frisch(z: Zustand) -> bool:
 	for e in eintraege(): if erreicht(String(e["id"]), z) and not z.has("chron_" + String(e["id"])): return true
 	for t in offen(z): if not z.has("chron_task_" + String(t["id"])): return true
+	for j in Auftraege.getragen(z): if not z.has("chron_job_" + String(j["id"])): return true   # 399.1 Anschlagbrett
 	return false
 
 static func gelesen(z: Zustand) -> void:
 	for e in eintraege(): if erreicht(String(e["id"]), z): z.setze("chron_" + String(e["id"]))
 	for t in offen(z): z.setze("chron_task_" + String(t["id"]))
+	for j in Auftraege.getragen(z): z.setze("chron_job_" + String(j["id"]))

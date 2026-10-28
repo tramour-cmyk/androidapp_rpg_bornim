@@ -921,9 +921,26 @@ func chronik() -> void:
 	for t in Chronik.offen(z):
 		luecke(8)
 		kaestchen([Erschaffung.txt(Sprache.t(t["titel"]), 16), Erschaffung.txt(Sprache.t(t["text"]).replace("{name}", hw.name), 14)])
-	var fertig := Chronik.fertig(z)
-	if not fertig.is_empty():
+	# 399.1 Nebenauftraege vom Anschlagbrett (ChronicleTab): Titel, von wem, Aushang, Stand oder „Bereit zur Abgabe“, Lohn
+	var getragen := Auftraege.getragen(z)
+	if not getragen.is_empty():
 		luecke(12)
-		inhalt.add_child(Erschaffung.knopf(("Erledigt (%d)" if de else "Done (%d)") % fertig.size() + (" ▴" if erledigt_auf else " ▾"), func(): erledigt_auf = not erledigt_auf; baue()))
+		zeile("Nebenaufträge" if de else "Side quests", 15, Stil.GOLD)
+	for j in getragen:
+		luecke(8)
+		var hat := Auftraege.stand(z, j)
+		var bereit := hat >= int(j["anzahl"])
+		var wer := Sprache.t(j["geber_name"])
+		kaestchen([Erschaffung.txt(Sprache.t(j["titel"]), 16), Erschaffung.txt(("von " if de else "from ") + wer, 13, Stil.DIM),
+			Erschaffung.txt(Sprache.t(j["aushang"]), 14),
+			Erschaffung.txt((("Bereit zur Abgabe – bei %s" if de else "Ready to turn in to %s") % wer) if bereit
+				else "%d %s %d · %s" % [hat, "von" if de else "of", int(j["anzahl"]), Laden.name(String(j["ding"]))], 14, GRUEN if bereit else Stil.GOLD),
+			Erschaffung.txt(("Lohn: " if de else "Reward: ") + Sprache.t(j["lohn"]), 13, Stil.DIM)])
+	var fertig := Chronik.fertig(z)
+	var fertig_j := Auftraege.alle().filter(func(j): return Auftraege.erledigt(z, j))
+	if not fertig.is_empty() or not fertig_j.is_empty():
+		luecke(12)
+		inhalt.add_child(Erschaffung.knopf(("Erledigt (%d)" if de else "Done (%d)") % (fertig.size() + fertig_j.size()) + (" ▴" if erledigt_auf else " ▾"), func(): erledigt_auf = not erledigt_auf; baue()))
 		if erledigt_auf:
 			for t in fertig: zeile("✓ " + Sprache.t(t["titel"]), 14, Stil.DIM)
+			for j in fertig_j: zeile("✓ " + Sprache.t(j["titel"]) + " · " + Sprache.t(j["geber_name"]), 14, Stil.DIM)

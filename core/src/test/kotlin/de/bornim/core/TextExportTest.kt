@@ -75,6 +75,17 @@ class TextExportTest {
     }
 
     @Test
+    fun theNoticesAreWordForWord() {
+        val a = j["auftraege"]!!.jsonArray.map { it.jsonObject }
+        assertEquals(Jobs.all.map { it.id }, a.map { it["id"]!!.jsonPrimitive.content })
+        val stones = a.first { it["id"]!!.jsonPrimitive.content == "stones" }
+        assertEquals(Jobs["stones"].note.de, stones["aushang"]!!.jsonObject["de"]!!.jsonPrimitive.content)
+        assertEquals(Story.KROGG_DEFEATED, stones["nach"]!!.jsonPrimitive.content)
+        assertEquals("@gear:UNCOMMON:HEAD", stones["gaben"]!!.jsonArray[0].jsonObject["ding"]!!.jsonPrimitive.content)
+        assertTrue("nach" !in a.first { it["id"]!!.jsonPrimitive.content == "pelts" })
+    }
+
+    @Test
     fun theGuideIsWordForWord() {
         val a = j["anleitung"]!!.jsonObject
         val teile = a["teile"]!!.jsonArray
