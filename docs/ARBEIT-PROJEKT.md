@@ -5,11 +5,10 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 28.10., 08:20
 
-**Übergabe (28.10., 08:2x, `session_01Hmoj77rS6KFgtSKa45L74n`):** 338.1 Stand 28.10. gesetzt und gemeldet; 338b (Block K rot) in der Chefsache; 390 an Tom und Jerry. Kosten auf: 338.1, 338b, 390. Nachfolger: keiner
+**Übergabe (28.10., 08:2x, `session_01Hmoj77rS6KFgtSKa45L74n`):** 338.1 Stand 28.10. gesetzt und gemeldet; 338b (Block K rot) in der Chefsache; 390 an Tom und Jerry; 389 Haken zählt Commit und Push im selben Befehl (27e846c5f, Meldung Tom). Kosten auf: 338.1, 338b, 390, 389. Nachfolger: keiner
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 338b | M | **von Perikles (338.1, Z2):** Block (K) rot, Termine neu | startbar: B (Chef 08:26, Archiv): Termine um die Sperre verschieben, Mo 02.11. neu schätzen |
 | 386 | M | **von Chef (27.10., 21:02, GitHub-Mail „will soon require 2FA“, „Ist das für uns ein Problem?“):** Zwei-Faktor bis 11.12.2026 (Chefsache tun/386) | wartet auf Chef: tun/386 |
 | 384 | M | **von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“):** Kosten aller Sitzungen gegen Buchungsverzeichnis; Ursache der Lücken im Werkzeug beheben (Zu 384) | gebaut 27.10., 20:1x: --kosten nur mit Kennung, Ford holt Kosten frisch (Zu 384) |
 | 383.3 | M | **von Sokrates (Chef 19:55):** Vorlage zurück beim Team sofort aus der Chefsache | gebaut 27.10., 20:1x |
