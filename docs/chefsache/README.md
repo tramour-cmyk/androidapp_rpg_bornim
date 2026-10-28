@@ -25,7 +25,7 @@ Nichts offen.
 | [348.12f](ansehen/34812f-drehen.md) | Ratte und Kaufwolf drehen sich auf der Stelle mit Schritten | – | 28.10., 00:50 |
 | [348.13a](ansehen/34813a-tusche-kampf-r9.md) | Tusche im Kampf, Runde 9: Langschwert nicht mehr schwarz | Tom | 28.10., 00:59 |
 | [348.6](ansehen/3486-dorf-dinge.md) | Dorf: Turmfuß, Markise, Kisten (Runde 2); Felsen, Kiesel (Runde 3) | Tom | 28.10., 04:49 |
-| [387](ansehen/387-kauftiere-r3.md) | Sechs gekaufte Tiere, Runde 3: Fehler teils behoben | – | 28.10., 04:19 |
+| [387](ansehen/387-kauftiere-r4.md) | Sechs gekaufte Tiere, Runde 4: Ursachen gefunden, vieles liegt in den gekauften Bewegungen | – | 28.10., 05:45 |
 
 ## Zu tun
 
