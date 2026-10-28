@@ -2,32 +2,33 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben.
 
-**Übergabe (28.10., 14:42, `session_01Hmoj75RGhNPWnmxSqJ6X8c`):** 399.2a Rudel (6c59777c2); Grak im APK (f5ed4ee0f grün); 348.7b b (dda3b67ab); Filmschritte im Workflow; 398 geschätzt. Neuer Workflow-Schritt erst allein laufen lassen. Nachfolger: „Jerry – Filme Grak, Zauberbahn, Fledermaus (nach 348.12)“
+**Übergabe (28.10., 15:20, `session_01Hmoj75aYZ2RLhVV4vUowFc`):** Lauf 167 (30e32b835, drei Filme in einem Lauf), Filme an den Chef 15:17; 399.2b gemessen (`tests/rudel_mess.gd`, braucht Toms Heldwerte und `exportHero` von `claude/tom-399-spielfassung`). Nachfolger: „Jerry – Urteile Grak, Zauberbahn, Fledermaus, Rudel (nach Chef)“
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar (`LISTE-UMZUG-348.md` „Spielfassung“) | gebaut: Aufruf (CI 159 grün), Grak im APK (CI f5ed4ee0f grün), Rudel 6c59777c2 (399.2a, lokal 0); Tom ruft RUDEL (an Perikles) | `claude/jerry-348-kampf` |
+| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar (`LISTE-UMZUG-348.md` „Spielfassung“) | startbar: Test 132 (Chef 16:10, Archiv): Kampf gut; hinterer Wolf läuft durch den vorderen (in einer Linie) beheben | `claude/jerry-348-kampf` |
+| 399.2b | M | **von Team Tom (15:05):** Rudel allein: 3 von 4 Klassen verlieren; Ursache prüfen, Balance an Chef | startbar: ja (Chef 15:32, Archiv): Jungwölfe 50 % je Runde; Knurrtext bei Homer | – |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: Tusche passt (Chef 12:31); im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK, CI 158 grün | `claude/jerry-348-kampf` |
-| 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | in Arbeit: dritter Lauf 167 (30e32b835), alle drei Filme in einem Lauf; dann vorlegen, kein vierter | `claude/jerry-348-kampf` |
+| 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | Chef: Film 15:17 (ansehen/34812-…); Prüfer: Hieb in den Helden, Rand, Treffer unsichtbar, Tod stehend | `claude/jerry-348-kampf` |
 | 348.13a | M | **von Team Tom (Chef 08:09, Archiv: r9 ja):** Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13a) | gebaut 421662dbd: Tusche nach Licht Vorgabe, Linie 1,3; offen Säbel (Tom) | `claude/jerry-348-kampf` |
 | 397 | M | **von Chef (28.10., 11:15):** Tiere, Monster: mind. drei Ruhebewegungen wie alt (`LISTE-UMZUG-348.md`) | ruht (399) | – |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht bis Kauf: Werte, Listen ja (Archiv), dann einbauen; erst Größe prüfen | – |
-| 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | in Arbeit: dritter Lauf 167 (30e32b835), alle drei Filme in einem Lauf; dann vorlegen, kein vierter | `claude/jerry-348-kampf` |
-| 348.7b | M | Zauberbahn nach Chef „D“ | in Arbeit: dritter Lauf 167 (30e32b835), alle drei Filme in einem Lauf; dann vorlegen, kein vierter | `claude/jerry-348-kampf` |
+| 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | startbar: Fledermaus r5 passt (Chef 15:27, Archiv); weiter Wildschwein, Kobold mit 348.12 | `claude/jerry-348-kampf` |
+| 348.7b | M | Zauberbahn nach Chef „D“ | gebaut: r4 passt, Befunde bleiben so (Chef 15:28, Archiv) | `claude/jerry-348-kampf` |
 | 390 | M | **von Perikles:** Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | wartet auf 399.1: Regeln samt Elite golden gleich; offen Ansicht klassisch, Gegner auf der Karte (Elitewurf) | `claude/jerry-348-kampf` |
-| 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel); ändern nur auf Wort des Chefs | – |
+| 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: beantwortet (Konter nur nach Fehlschlag); ändern nur auf Wort des Chefs | – |
 | 257 | M | **von Chef (20.10., 17:17, Test B46):** App „hängt“, ging dann weiter (Zu 257) | ruht: Hänger-Wächter (Tom) seit Build 49; bis zum nächsten Hänger mit Absturzbericht | – |
 | 211.14 | M | **von Sokrates (20.10.):** Rest 211.13: Leistung am A56 messen (M), Rest Kür | ruht: Messung am A56 nach 348.7 in Godot; Kür-Teil (Puppe, Winkel, Gang) mit 348.7 | – |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Vorgangsarchiv 217) | ruht bis 348.7 (Kampf in Godot; Urteil 348 gefallen 25.10.) | – |
 | 249 | M | **von Chef (20.10., 14:41):** MARS sieht und fühlt sich an wie der klassische Kampf (Zu 249) | ruht: gebaut bis auf Zustände (mit 212) und Fliehen (`LISTE-MARS.md`) | – |
 | 289 | K | **von Chef (21.10., 20:11):** MARS: verfügbare Züge im Kästchen zeigen (Zu 289) | ruht: Chef 21.10., 20:59 „stellen wir mal zurück“ | – |
-| 296.1 | K | **von Sokrates (22.10.):** `LISTE-MARS.md` gegen den Code prüfen, je Build pflegen | ruht bis zum nächsten zusammengeführten Build; gepflegt 23.10., 12:36 (bis B81, Zweige 333, 335–337) | – |
+| 296.1 | K | **von Sokrates (22.10.):** `LISTE-MARS.md` gegen den Code prüfen, je Build pflegen | ruht bis zum nächsten zusammengeführten Build; gepflegt bis B81 | – |
 | 296.2 | M | **von Sokrates (Chef 23.10., 18:25, Vorgangsarchiv 341.1a):** MARS spielnötig (Vorgangsarchiv 341.1a, Zu 296.2) | ruht: 89.2 durchgefallen, MARS nicht auf `main` (Chef 07:45); Befund als Anforderung für 348.7 (Zu 296.2) | `claude/build-89` |
 | 296.3 | K | **von Sokrates (Chef 23.10., 18:25):** MARS-Schmuck: Todesschrei, Flucht vor heiligem Licht/Zerfallen, Zustände am Gegner gezeichnet, Siegerpose | ruht bis 348.7 (Kampf in Godot; Urteil 348 gefallen 25.10.) | – |
-| 344.2 | K | **von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344):** Kampf mit der Fackel in beiden Systemen (Zu 344.2) | ruht: zieht mit dem Kampf nach Godot um; Regeln gebaut, Texte Homer da, Bewegung fehlt (Zu 344.2) | `claude/jerry-344-2-fackel` |
+| 344.2 | K | **von Sokrates (Chef 23.10., Archiv 344):** Kampf mit der Fackel in beiden Systemen (Zu 344.2) | ruht: zieht nach Godot um; Regeln gebaut, Texte Homer da, Bewegung fehlt (Zu 344.2) | `claude/jerry-344-2-fackel` |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 (Zu 168.1) | wartet auf 38, dann Bau Kapitel 2; Texte Homer (41) | – |
 | D23.3 | M | Diogenes Lauf 23: Magier und Kleriker sterben oft; Kleriker Stufe 1 vor dem Meilenstein (Archiv 38) | ruht bis Ende Umzug 348.7 (Archiv 38: danach in MARS messen) | `claude/diogenes-d41-messung` |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) (Zu 72u.1) | ruht bis 348.7 (Kampfort in Godot); Kür hinter dem Meilenstein (Chef 19.10.) | `claude/jerry-72u-standbild-2` |
