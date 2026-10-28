@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (28.10., 01:5x, „Tom – 348.13 Tusche Runde 8“ `session_01Hmoj79S6feFe45n6FScZvr`):** 389 erledigt; 348.13a Runde 9 vorgelegt (dc6ec050d); 348.6 Dorf Runde 1 vorgelegt (b642d4cf9). Nachfolger: „Tom – 348.6 Dorf Lauf 3“.
+**Übergabe (28.10., 03:2x, „Tom – 348.6 Dorf Lauf 3“ `session_01Hmoj771ZUzrnCjb3oTBsyP`):** 348.6 Dorf Runde 2 vorgelegt (c56589ea0). Nachfolger: „Tom – 348.6 Dorf Lauf 4“.
 
 ## Zeilen
 
@@ -11,7 +11,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101: Held im APK verschlüsselt, lädt) | `claude/tom-348-12i-verschluesseln` |
 | 385 | M? | **von Sokrates (Archiv):** Zauberer-Set (Biped, LISTE-BESTAND) auf Kaufkörper, Film | startbar |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | startbar: Kaufkopf ja (Chef 21:41); Oberarm behoben, Halszacken offen, dann Formen, Kopfvorlagen, Editor (Zu 376.1) | `claude/tom-376-1-figuren` |
-| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: Lauf 3 (Vorlage ansehen/3486-dorf-dinge, b642d4cf9): Turmblech heraus, Markise von Westen frei, Kisten heller, Felsen sichtbarer; weitere Dinge nach Wort des Chefs (Zu 348.6, Dinge) | `claude/tom-348-fundament` |
+| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: Lauf 4 (Vorlage ansehen/3486-dorf-dinge Runde 2, c56589ea0): Felsen sichtbar an den Stamm (Lage messen), Moos heller; dann Efeu, Kiesel; weitere Dinge nach Wort des Chefs (Zu 348.6, Dinge) | `claude/tom-348-fundament` |
 | 376.2 | M | **von Perikles (Chef 12:37, `LISTE-CC0-MODELLE.md`):** RenderHub-Marktpaket: Brunnen und Stände als Form, unsere gemalten Farben | wartet auf 348.6 (Dorf nach Urteil Probehaus); Paket im Release stufe1 erreichbar (Chef 17:38) | – |
 | 372 | M | **von Perikles (338a B, Chef 27.10., 09:36, Archiv):** Feinschliff Held: Kettenhemd, Helm, Kragen (Zu 348.6, Hände) | ruht bis Ende des Umzugs | `claude/tom-348-fundament` |
 | 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | wartet auf Chef: ansehen/34813a-tusche-kampf-r9 (Runde 9, Langschwert, 1,3 gebaut dc6ec050d); dann an Jerry: Linienstärke, Sonne -45,55, Goblins aufhellen, Goblinwaffen mit Heldentusche (Schablone 2) | `claude/tom-34813-kampfprobe` |
@@ -59,7 +59,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 348.6, Testbitte:** Dorftiere: Chef 19:09 (UMZUG). Tiere `godot/tiere/<name>.glb` + `-info.json`, Knopf „Tiere“ (Chef 16:52: bleiben im Dorf).
 - **Zu 348.6** (Tom 25.10., 02:17, 4ff8dbfc2): Bestand und Lauf am Rechner in `godot/LIESMICH.md` (Godot `~/godot`, `--bilder=<ordner>`, Artefakt `bornim-godot-bilder`); alte Bilder `tools/t bild KARTENZOOM=1 …` (Befehl im Git-Verlauf dieser Datei), Blatt `tools/vgl348.py`.
   - **Chef 18:06/18:20 (Dorf-APK):** Wortlaut `LISTE-UMZUG-348.md` „Urteil Chef Dorf-APK“ (Runde 4). Offen: Gesicht flach, „Bornim“ unleserlich.
-- **Zu 348.6, Häuser und Dinge (Chef 22:14, 23:48, 00:07; Archiv):** „keine 1:1 Kopien … Leute, mitdenken“; keine Ziegelläufe. Rechner: `/tmp`-Ablauf aus b642d4cf9 (Bau ohne Bild, dann `--bilder` und `--haeuser=shop,26,3,30,5,28;temple,26,18,31,20,28`); `DINGE=0` ohne Dinge. Lauf 3: Turmblech heraus (schwarz, gezackt), Markise von Westen (dreh270) frei, Kisten heller, Felsen weiter vom Stamm.
+- **Zu 348.6, Häuser und Dinge (Chef 22:14, 23:48, 00:07; Archiv):** „keine 1:1 Kopien … Leute, mitdenken“; keine Ziegelläufe. `DINGE=0` ohne Dinge. Runde 2 (c56589ea0): Kisten `weiss` mit Holzfarbe (glb kappt Farbe über 1). Rechner: `rechner.sh`, `cc0_laden.sh` (`PAKETE=` Dorf- und Naturbausatz), `PROBE=348.6` mit `haeuser.sh`, `--bilder`, `--haeuser=<o>:baum33,33,17,33,17,33` (≈17 Min.). Offen: Fels nicht am Stamm (`FELS` im Log), Moos schwarz.
 - **Von Sokrates:** Godot-Kennung → `de.bornim.game` (142.3).
 - **Zu 376.2:** `medieval.market.asset.pack.zip` (privat, .blend 2.79), Farben gemalt (Modellregel 6).
 - **Zu 355** (Git): Kerntest 2–4 Kisten je Karte.
