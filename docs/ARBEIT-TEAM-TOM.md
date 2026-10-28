@@ -2,13 +2,13 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (28.10., 12:01, `session_01Hmoj78eFtAHtwf9oWmXcin`):** 390 Laden-Ausrüstung und Menge gebaut (64a6e5a80). 385 Lauf 2 an den Chef. 376.1 Halszacken gemessen (Zu 376.1). 397: Ruhebewegungen nur im UAL Pro (Idle_LookAround, Idle_Tired, Counter_Idle, Crouch_Idle). Nachfolger: Tom – 376.1 Halszacken in Godot, dann 397 Ruhebewegungen.
+**Übergabe (28.10., 13:58, `session_01Hmoj76N4zECBDzpCT4MSFu`):** 399.1 Spielfassung `claude/tom-399-spielfassung` (881bb4bb5, mit 390, 397, Jerrys Kampf bis 4499b7fe3): Wald → `kampf/aufruf.gd`, Grundrisse `raum.py`, Hauptmenü, Erschaffung, Spielstand; Lauf 130 an den Chef (t130). 397 gebaut. 376.1 Halszacken ruhen (Zu 376.1). Tests ohne Bild: `wald_kampf`, `grundriss_test`, `spielstand_test`, `ruhe_test`. Nachfolger: Tom – 399.1 Test 130 begleiten, dann 385.1 Zauberer-Grundbewegungen.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf (`LISTE-UMZUG-348.md` „Spielfassung“) | in Arbeit: Dorf, Grundrisse und Kampf in einem Projekt (8d298f1cd), am Rechner geprüft; APK-Bau läuft | `claude/tom-399-spielfassung` |
+| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf (`LISTE-UMZUG-348.md` „Spielfassung“) | wartet auf Chef: Test 130 (t130), Dorf, Grundrisse, Kampf, Hauptmenü, Spielstand | `claude/tom-399-spielfassung` |
 | 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | startbar: Lauf 2 passt (Chef 12:31, Archiv); 385.1 Grundbewegungen; übrige der 14 Zauber zurückgestellt |
 | 398 | M | **von Perikles:** 398-Zeilen schätzen (`LISTE-UMZUG-348.md`) | startbar | – |
 | 390 | M | **von Perikles:** zwischen Chef-Blättern Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | gebaut: Laden, Rast, Held, Tagesablauf, Gespräche, Englisch (64a6e5a80; Test 390a) | `claude/tom-390-englisch` |
