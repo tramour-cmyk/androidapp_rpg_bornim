@@ -115,7 +115,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 398 | Gegenprobe: Grundsätze aus DESIGN-Dateien, die im Umzug nach Godot fehlen (Chef 28.10., 11:22) | B Umzug | M | 2,67 $ | Sokrates | startbar |
 | 399 | Spielbare Godot-Fassung zuerst: Dorf begehbar, Kampf spielbar; Feintuning ruht (Chef 28.10., 12:34) | B Umzug | M | – | Perikles, Team Tom, Team Jerry | wartet |
 | 399.1 | Spielfassung: eine APK mit Dorf, Laden, Rast, Weg in den Wald, Kampf, zurück (aus 399) | B Umzug | M | – | Team Tom | in Arbeit |
-| 399.2 | Kampfort als aufrufbare Szene für die Spielfassung 399.1 (aus 399) | B Umzug | M | 9,31 $ | Team Jerry | Chef |
+| 399.2 | Kampfort als aufrufbare Szene für die Spielfassung 399.1 (aus 399) | B Umzug | M | 9,31 $ | Team Jerry | wartet |
 | 384 | Kosten: alle Sitzungen gebucht? Lücken und Buchungen ohne Kennung (Chef 27.10., 20:06) | B Werkzeuge | M | – | Perikles | gebaut |
 | 383.3 | Zurückgestellte Vorlagen sofort aus der Chefsache (Chef 27.10., 19:55) | B Werkzeuge | M | 7,30 $ | Perikles | gebaut |
 | 385 | Protofactor-Animsets (Zauberer u. a.) auf die Listen, Probe ob nutzbar (Chef 27.10., 20:59) | E Figuren | M | 12,72 $ | Team Tom | startbar |
