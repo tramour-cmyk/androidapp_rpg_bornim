@@ -72,6 +72,7 @@ Bewegungserfassung (Motion Capture), Unity „Mecanim Humanoid“. Gerüst `SK_P
 | Protofactor Riesenratte | `GIANT.RAT.RAW.FILES.rar` (678372860), `GiantRat.4.14.rar` (678370352, Unreal), `GIANT_RAT_ASSET.rar` (678371040, enthält `GIANT_RAT_PACKAGE.unitypackage`) | privat | Protofactor EULA | FBX je Bewegung, Unreal, Unity; RAR (Entpacken: `unar`) |
 | Janpec Animal Pack Deluxe | `Animal.pack.deluxe.unitypackage` (678515204, 324 MB) | privat | Unity Asset Store EULA | Unity-Paket (tar.gz, ohne Unity entpackbar, `kauf_laden.sh`); FBX: `Models/<Tier>_Rig.fbx`, je Bewegung `Animations/<Tier>_<Bew>.fbx` |
 | MadeCG Hundertfüßer | `low.poly.animated.centipede.zip` (678369839) | privat | RenderHub Extended Use | innen je Zip: FBX, OBJ, .blend, Maya, 3ds Max, Unreal, Unity; je Bewegung eine Datei (`fbx/walk.FBX` …), Netz `skin` |
+| Animated3D Leopard-Mischwesen (Leopard Hybrid A2, RenderHub) | `leopard.hybrid-a2.zip` (685443057, 768 MB) | privat | RenderHub Extended Use (Volltext prüfen) | innen je Zip: `Blender.zip` (.blend 3.6), `FbxBlender`/`FbxUnity`/`FbxUE5` (ein FBX, alle Bewegungen), `FbxC4D`/`Fbx3DSmax`/`FbxMaya` (je Bewegung eine Datei), `Iclone8_CC4`; `Textures_A2.zip` (PNG 4096: diffuse, normal, height, ao, opacity); Film `Leopard_Hybrid_A12.mp4` |
 
 ## Figuren (Menschen, Kleidung)
 
@@ -93,6 +94,8 @@ Alles Quaternius, CC0 (`License_Source.txt`/`License_Standard.txt` geprüft), Ge
 **Protofactor Riesenratte** (privat, siehe oben; im Einsatz Probe 348.12f, `kaufratte.py`): Idle, Walk, Run, Taunt, DodgeLeft/Right/Backwards, JumpBite, GetHitFront/Left/Right, Death; Walk, Run, Dodge*, JumpBite auch `_RM`; dazu `GIANT_RAT@AllAnimations.FBX`. Texturen Fell (tga, png).
 
 **MadeCG Hundertfüßer** (privat): idle, walk, alert, attack, hit, die (6).
+
+**Animated3D Leopard-Mischwesen** (privat, Chef 28.10., 16:38; Idee Gegner ab Kapitel 2, `LISTE-IDEEN.md`): Atk1, Atk2, Idle1, Idle2, Jump, Run, Walk, Walkback (8, 60 fps, laut Herstellerblatt); Treffer und Tod fehlen. 22.848 Punkte, 20.820 Flächen (Regel höchstens 6000, ausdünnen).
 
 **Janpec Animal Pack Deluxe** (privat, 25 Tierarten, 36 Fertigteile mit Farbvarianten; FBX, Namen aus Dateinamen):
 
