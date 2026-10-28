@@ -7,7 +7,7 @@ extends Control
 # Designvorgaben halten“): Aussehen wie App.kt MainMenuColumn (292.3, Entwurf A): schwarz, Titel gross in gesperrten Versalien, Zier,
 # Kapitelzeile, das Bild der vier im warmen Lichtkegel (assets/menu/hauptmenue.jpg, im Bau kopiert), Hauptweg golden umrandet,
 # Knoepfe schwarz mit duennem Rand, Sprache als kleines rundes Zeichen, Firmenzeichen und Versionszeile unten; Masse in dp wie alt.
-# Liegt ueber allem (eigene Ebene), ohne die Probeknoepfe des Dorfs. Noch nicht wie alt: Ueber, Musik und Klang.
+# Liegt ueber allem (eigene Ebene), ohne die Probeknoepfe des Dorfs. Noch nicht wie alt: Musik und Klang.
 
 signal fertig(wahl: Dictionary)
 
@@ -171,6 +171,10 @@ func titel() -> void:
 	reihe.add_child(Erschaffung.knopf(Sprache.u("newGame"), erschaffung))
 	if not stand.is_empty(): reihe.add_child(Erschaffung.knopf("Spielstände" if Sprache.aktiv() == "de" else "Saved games", spielstaende))
 	mittig(reihe)
+	abstand(12)
+	var ue := Erschaffung.knopf(Sprache.u("about"), ueber)   # wie alt: „Über das Spiel“ unter der Reihe, 280 dp
+	ue.custom_minimum_size.x = 280 * DP
+	mittig(ue)
 	abstand(18)
 	rundzeichen("DE" if Sprache.aktiv() == "de" else "EN", func(): Sprache.wechsle(); titel())
 	abstand(22)
@@ -196,3 +200,52 @@ func spielstaende() -> void:
 	s.zurueck.connect(func(): s.queue_free(); titel())
 	s.laden.connect(func(p): fertig.emit({"laden": true, "platz": p}))
 	s.neu.connect(func(p): s.queue_free(); erschaffung(p))
+
+# 399.1 Ueber das Spiel wie alt (App.kt AboutScreen): ein Kasten mit Titel, Text ([312.ueber], [312.srd], [312.eigen]), Schrift,
+# Firmenzeichen, Jahr und Version; unten Zurueck. Schriften: nur noch Alegreya (DESIGN-STIL.md „Oberfläche“)
+func ueber() -> void:
+	var seite := Control.new()
+	seite.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	add_child(seite)
+	var bg := ColorRect.new()
+	bg.color = Color.BLACK
+	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	seite.add_child(bg)
+	var rand := MarginContainer.new()
+	rand.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	for r in ["left", "right", "top", "bottom"]: rand.add_theme_constant_override("margin_" + r, int(16 * DP))
+	seite.add_child(rand)
+	var spalte := VBoxContainer.new()
+	spalte.add_theme_constant_override("separation", int(12 * DP))
+	rand.add_child(spalte)
+	var rolle := ScrollContainer.new()
+	rolle.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	rolle.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
+	var k := Erschaffung.kasten(rolle)
+	k.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	spalte.add_child(k)
+	var v := VBoxContainer.new()
+	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	v.add_theme_constant_override("separation", 0)
+	rolle.add_child(v)
+	v.add_child(Stil.zeile(Sprache.u("title").to_upper(), 12, Stil.BRIGHT, 3.0))
+	v.add_child(Erschaffung.luecke(12))
+	v.add_child(Erschaffung.txt(Sprache.u("aboutText"), 16))
+	v.add_child(Erschaffung.luecke(12))
+	v.add_child(Erschaffung.txt(("Schrift" if Sprache.aktiv() == "de" else "Font") + ": Alegreya – SIL Open Font License 1.1", 14, Stil.DIM))
+	v.add_child(Erschaffung.luecke(18))
+	var tex: Texture2D = load(LOGO) if ResourceLoader.exists(LOGO) else null
+	if tex:
+		var r := TextureRect.new()
+		r.texture = tex
+		r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		r.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		r.custom_minimum_size = Vector2(130, 130.0 * tex.get_height() / tex.get_width()) * DP
+		r.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		v.add_child(r)
+	v.add_child(Erschaffung.luecke(6))
+	var ver := String(ProjectSettings.get_setting("application/config/version", ""))
+	var z := Erschaffung.txt("© 2026 · " + ("v%s · " % ver if ver != "" else "") + "SRD 5.1 · CC BY 4.0", 12, Stil.DIM)
+	z.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	v.add_child(z)
+	spalte.add_child(Erschaffung.knopf(Sprache.u("back"), func(): seite.queue_free()))

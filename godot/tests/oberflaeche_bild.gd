@@ -38,6 +38,12 @@ func _lauf() -> void:
 	await _bild("erschaffung_zwerg_magier")
 	e.rolle.scroll_vertical = 100000
 	await _bild("erschaffung_unten")
+	e.queue_free()
+	menue.spielstaende()
+	await _bild("spielstaende")
+	menue.get_node("Spielstaende").queue_free()
+	menue.ueber()
+	await _bild("ueber")
 	ebene.queue_free()
 	ui.sage([{"wer": "Rowena", "text": "Probetext mit Sprecher: zwei Zeilen lang, damit Umbruch, Zeilenhöhe und Rand zu sehen sind."}])
 	await _bild("text_sprecher")
