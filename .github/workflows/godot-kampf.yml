@@ -349,7 +349,8 @@ jobs:
             cp $RUNNER_TEMP/k387/kauf_$id-info.json $D/
             dorf=$(case $id in keiler|hundertfuesser) echo "";; *) echo 1;; esac)
             (cd godot && ERSATZ=kauf_$id SCHAU_DORF=$dorf SCHAU=ort SCHAU_MESS=1 SCHAU_TITEL="$name" timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/387-$id.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/387-$id-ort.log 2>&1) || true
-            ffmpeg -loglevel error -y -ss 1.25 -i $RUNNER_TEMP/387-$id.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $P/387-$id.mp4 || true
+            # r6 (Chef 28.10., 10:51: „unsere Tusch, unser Tuscherahmen nach Lichteinfall“ an die Tiere): volle 540 px, sonst verschwimmt die Linie
+            ffmpeg -loglevel error -y -ss 1.25 -i $RUNNER_TEMP/387-$id.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $P/387-$id.mp4 || true
             grep -E "SCRIPT ERROR|^Ort |^Pfotenmess" $P/387-$id-ort.log | head -12 || true
             L="$L $P/387-$id.mp4"
             rm -f $D/kauf_$id-*
