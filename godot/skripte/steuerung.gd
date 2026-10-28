@@ -316,6 +316,9 @@ func zeige_wahl(titel: String, zeilen_: Array, knoepfe: Array, weiter_text: Stri
 	t.add_theme_color_override("font_color", GOLD)
 	wahl_box.add_child(t)
 	for z in zeilen_ + ([notiz] if notiz != "" else []):
+		if z is Control:   # 399.1 (Laden): fertige Zeilen wie GearDetails
+			wahl_box.add_child(z)
+			continue
 		var l := Label.new()
 		l.text = String(z)
 		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART

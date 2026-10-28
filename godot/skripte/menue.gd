@@ -447,16 +447,21 @@ func zweihaendig(g) -> bool: return g != null and bool(Beute.grundform(String(g[
 func einhandwaffe(g: Dictionary) -> bool: return Beute.ist_waffe(Beute.grundform(String(g["base"]))) and not zweihaendig(g)
 
 # GearDetails, soweit ohne Vergleich: was und wo, Stufe, Gewicht; die Grundzahl; jede Eigenschaft (Affix.line)
-func stueck_zeilen(g: Dictionary) -> Array:
+func stueck_zeilen(g: Dictionary) -> Array: return Menue.stueck_zeilen_von(hw, g)
+
+# GearDetails fuer Tasche, Ausruestung und Laden (399.1: auch spiel.gd zeige_stueck)
+static func stueck_zeilen_von(hw: Heldwerte, g: Dictionary) -> Array:
 	var de := Sprache.aktiv() == "de"
+	var farbe_von := func(x: Dictionary) -> Color: return Color(SELTEN.get(String(x["rarity"]), "e6ddcb"))
+	var zweihaendig := func(x) -> bool: return x != null and bool(Beute.grundform(String(x["base"]))["zweihaendig"])
 	var b := Beute.grundform(String(g["base"]))
 	var d := Heldwerte.lade()
 	var z_: Array = []
 	var zeile_ := Beute.listen_zeile(g)
-	if zeile_ != "": z_.append(Erschaffung.txt(zeile_, 14, farbe_von(g)))
+	if zeile_ != "": z_.append(Erschaffung.txt(zeile_, 14, farbe_von.call(g)))
 	var wo := ("Stufe " if de else "Level ") + str(int(g["ilvl"]))
-	if zweihaendig(g): wo = ("Beide Hände · " if de else "Both hands · ") + wo
-	z_.append(Erschaffung.txt(wo, 13, Stil.WARN if zweihaendig(g) else Stil.DIM))
+	if zweihaendig.call(g): wo = ("Beide Hände · " if de else "Both hands · ") + wo
+	z_.append(Erschaffung.txt(wo, 13, Stil.WARN if zweihaendig.call(g) else Stil.DIM))
 	for r in g["rolls"]:
 		var a := String(r[0]); var w := int(r[1])
 		var ad: Dictionary = d["affixdaten"][a]

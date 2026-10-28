@@ -30,6 +30,7 @@ var laden: Laden                                 # 390 (Mode.Shop): offen, bis �
 var laden_notiz := ""
 var laden_menge := {}                            # 390 (59.5): ein Ding mit Menge {id, kaufen, n}; leer = Liste
 var brett_offen := false                        # 399.1 Anschlagbrett (Mode.Board)
+var laden_stueck := ""                           # 399.1 (gearDialog): das Stueck Ausruestung im Kasten vor Kauf oder Verkauf
 var laden_frage := ""                            # 399.1 (59e, Rückfragen): die Wahl, die noch einmal fragt; "" = keine
 
 func _ready() -> void:
@@ -718,6 +719,7 @@ func oeffne_laden(waren: Array, brauen: bool) -> void:
 	laden_notiz = ""
 	laden_menge = {}
 	laden_frage = ""
+	laden_stueck = ""
 	held.halt()
 	held.richtung = Vector3.ZERO
 	zeige_laden()
@@ -798,6 +800,17 @@ func zeige_menge() -> void:
 		"an": most >= 1, "id": "m:ok"})
 	ui.zeige_wahl(Laden.name(id), zeilen_, k, Sprache.u("back"), laden_notiz)
 
+# 399.1 gearDialog (ShopScreen): Name, GearDetails, Gold vorher → nachher, „Kaufen · Preis“ (ohne Gold matt) oder „Verkaufen · Preis“
+func zeige_stueck(id: String, g: Dictionary, kaufen: bool) -> void:
+	var h := held_werte()
+	var p := Laden.kaufpreis_von(h, g) if kaufen else Laden.verkaufspreis_von(h, g)
+	laden_stueck = id
+	var zeilen_: Array = Menue.stueck_zeilen_von(h, g)
+	zeilen_.append("%s: %d → %d" % [Sprache.u("gold"), zustand.gold, zustand.gold - p if kaufen else zustand.gold + p])
+	if kaufen and zustand.gold < p: zeilen_.append(Sprache.u("notEnoughGold"))
+	ui.zeige_wahl(Beute.name(g), zeilen_, [{"text": "%s · %s" % [Sprache.u("buy") if kaufen else Sprache.u("sell"), Sprache.u("price", [p])],
+		"an": not kaufen or zustand.gold >= p, "id": "ok"}], "Abbrechen" if _de() else "Cancel")
+
 # 399.1 (59e, ShopScreen): noch einmal fragen, mit Titel, Zeilen und dem Knopf, der es tut; „Abbrechen“ zurueck
 func _frage(id: String, titel: String, zeilen_: Array, knopf: String) -> void:
 	laden_frage = id
@@ -839,12 +852,18 @@ func _ware_zeile(h: Heldwerte, g: Dictionary, kaufen: bool, i: int = -1) -> Dict
 	return {"text": "%s · %s" % [Beute.name(g), Sprache.u("price", [p])], "info": selten.left(1).to_upper() + selten.substr(1) + (" · " + zeile if zeile != "" else ""),
 		"an": zustand.gold >= p if kaufen else true, "id": ("ag:%d" % int(g["uid"])) if kaufen else ("vg:%d" % i)}
 
-func _laden_wahl(id: String, ja := false) -> void:
+func _laden_wahl(id: String, ja := false, gesehen := false) -> void:
 	if laden == null: return
 	if laden_frage != "":   # „Verkaufen“ fuehrt die Wahl aus, „Abbrechen“ zurueck in die Liste
 		var war := laden_frage
 		laden_frage = ""
-		if id == "ja": _laden_wahl(war, true)
+		if id == "ja": _laden_wahl(war, true, true)
+		else: zeige_laden()
+		return
+	if laden_stueck != "":   # „Kaufen“/„Verkaufen“ im Kasten fuehrt aus (Seltenes fragt dann noch einmal), „Abbrechen“ zurueck
+		var st := laden_stueck
+		laden_stueck = ""
+		if id == "ok": _laden_wahl(st, false, true)
 		else: zeige_laden()
 		return
 	var h := held_werte()
@@ -868,9 +887,12 @@ func _laden_wahl(id: String, ja := false) -> void:
 		"zur": laden_notiz = laden.zurueck(zustand, int(teil[1]))
 		"ag":
 			for g in Laden.ware(zustand, h):
-				if int(g["uid"]) == int(teil[1]): laden_notiz = laden.kaufe_ausruestung(zustand, h, g); break
+				if int(g["uid"]) != int(teil[1]): continue
+				if not gesehen: zeige_stueck(id, g, true); return
+				laden_notiz = laden.kaufe_ausruestung(zustand, h, g); break
 		"vg":
 			var g: Dictionary = zustand.beutel[int(teil[1])]
+			if not gesehen: zeige_stueck(id, g, false); return
 			if not ja and Bedienung.rueckfragen and Beute.stufe_von(String(g["rarity"])) >= Beute.stufe_von("RARE"):
 				var p := Laden.verkaufspreis_von(h, g)
 				_frage(id, "Wirklich verkaufen?" if _de() else "Really sell?", ["%s (%s)" % [Beute.name(g), Sprache.t(Beute.d_()["seltenheiten"][String(g["rarity"])]["name"])]],
