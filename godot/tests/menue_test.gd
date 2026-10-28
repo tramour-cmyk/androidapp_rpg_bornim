@@ -120,13 +120,19 @@ func _lauf() -> void:
 	m.reiter = "system"; m.baue()
 	await process_frame; await process_frame
 	var regler: Array = m.inhalt.find_children("*", "", true, false).filter(func(n): return n is Menue.Regler)
-	if regler.size() != 3: fehler += 1; print("FEHLER %d Regler" % regler.size())
+	if regler.size() != 4: fehler += 1; print("FEHLER %d Regler" % regler.size())   # Gesamt, Musik, Effekte, Dunkle Töne
 	else:
 		var tipp := InputEventScreenTouch.new()
 		tipp.position = Vector2(regler[1].linie.size.x * 0.5, 10); tipp.pressed = true
 		regler[1]._eingabe(tipp)
 		if int(kl.lautstaerke["music"]) != 50 or regler[1].zahl.text != "50 %": fehler += 1; print("FEHLER Musik ", kl.lautstaerke["music"], " ", regler[1].zahl.text)
 		kl.stelle("music", 100)
+		var hell := Helligkeit.lade()
+		var t2 := InputEventScreenTouch.new()
+		t2.position = Vector2(regler[3].linie.size.x * 0.5, 10); t2.pressed = true
+		regler[3]._eingabe(t2)
+		if Helligkeit.lade() != 50 or not is_equal_approx(Helligkeit.hebung(50), 0.05): fehler += 1; print("FEHLER Helligkeit ", Helligkeit.lade())
+		Helligkeit.setze(hell)
 		var schritte: Array = m.inhalt.find_children("*", "Button", true, false).filter(func(b): return b.text.begins_with("SCHRITTE") or b.text.begins_with("STEPS"))
 		if schritte.is_empty(): fehler += 1; print("FEHLER kein Schalter Schritte")
 		else:

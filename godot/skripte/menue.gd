@@ -11,10 +11,10 @@ extends Control
 #   Nebenhand, wegwerfen (mit Rueckfrage und Haendlerpreis).
 # - Ausruestung (GearTab): Plaetze links und rechts des Helden (PaperDoll), Antippen legt ab, wechselt oder waehlt aus der Tasche,
 #   was passt (die Nebenhand nimmt auch Einhandwaffen); darunter die Kampfwerte.
-# - System (SystemSigns), soweit es die Welt schon kann: Speichern, Sprache, Hauptmenue; Lautstaerke (399.3.1); Siege.
+# - System (SystemSigns), soweit es die Welt schon kann: Speichern, Sprache, Hauptmenue; Lautstaerke (399.3.1), Schritte, Helligkeit; Siege.
 # - Karte (MapTab, 62): kartenreiter.gd.
 # - Chronik (ChronicleTab): Hauptauftrag in Gold, Auftraege der Geschichte, Erledigt zum Aufklappen, „Bisher geschehen“.
-# Noch nicht wie alt: in der Chronik Nebenauftraege (Anschlagbrett), Ankunft und Morgenandacht ansehen; im System Kampf, Bedienung, Helligkeit, Version, Geraeteangaben; Bilder der Dinge; Vergleich mit dem Getragenen (GearCompare); Fackel im Dunkeln;
+# Noch nicht wie alt: in der Chronik Nebenauftraege (Anschlagbrett), Ankunft und Morgenandacht ansehen; im System Kampf, Bedienung, Version, Geraeteangaben; Bilder der Dinge; Vergleich mit dem Getragenen (GearCompare); Fackel im Dunkeln;
 # Erklaerung der Attribute beim Antippen (Perks).
 
 signal zu
@@ -614,8 +614,30 @@ func system() -> void:
 			func(): k.schritte_an = not k.schritte_an; k.stelle("all", int(k.lautstaerke["all"])); baue(), k.schritte_an))
 		zeile("Die Schritte deines Helden hörbar oder still; alle anderen Geräusche bleiben." if de else "Your hero's footsteps audible or silent; all other sounds stay.", 13, Stil.DIM)
 		luecke(8)
+	# Helligkeit wie alt (SoundAndLight, 13e.6): „Dunkle Töne“ hebt das Schwarz, das Probezeichen liegt mit unter der Hebung
+	zeile("Helligkeit" if de else "Brightness", 15, Stil.TEXT)
+	inhalt.add_child(Regler.new("Dunkle Töne" if de else "Shadows", Helligkeit.lade(), "Aus" if de else "Off", func(v: int): Helligkeit.setze(v), Callable()))
+	var zeichen := Probezeichen.new()
+	inhalt.add_child(zeichen)
+	zeile("So einstellen, dass das Zeichen gerade noch zu sehen ist. Die Höhle bleibt dunkel." if de else "Adjust until the sign is barely visible. The cave stays dark.", 13, Stil.DIM)
+	luecke(8)
 	luecke(8)
 	zeile(("Siege: " if de else "Victories: ") + str(z.siege), 13, Stil.DIM)
+
+# BrightnessSign: ein Ring mit Flammenstrich in 10 von 255 auf reinem Schwarz, so dunkel wie der Umriss einer Hoehle
+class Probezeichen extends Control:
+	func _init() -> void:
+		custom_minimum_size = Vector2(0, 96 * AktionsKnopf.DP)
+		size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	func _draw() -> void:
+		var dp := AktionsKnopf.DP
+		draw_rect(Rect2(Vector2.ZERO, size), Color.BLACK)
+		draw_rect(Rect2(Vector2.ZERO, size), Stil.RIM, false, dp)
+		var c := Color(Helligkeit.ZEICHEN, Helligkeit.ZEICHEN, Helligkeit.ZEICHEN)
+		var m := size / 2
+		var r := 28 * dp
+		draw_arc(m, r, 0, TAU, 48, c, 5 * dp, true)
+		draw_line(m - Vector2(0, r * 0.6), m + Vector2(0, r * 0.6), c, 6 * dp)
 
 # GoldSlider (SoundSettings.kt): Name und Wert darueber, eine Goldlinie darunter; Antippen oder Ziehen, in Schritten zu 5
 class Regler extends VBoxContainer:

@@ -66,6 +66,7 @@ func _ready() -> void:
 		var w: Dictionary = await menue.fertig
 		ebene.queue_free()
 		Spielstand.platz = maxi(1, int(w.get("platz", 1)))   # 399.1: vier Plaetze wie alt; gespeichert wird in diesen
+		add_child(Helligkeit.schicht())   # 399.1: Helligkeit ueber dem ganzen Spiel, nicht im Hauptmenue (App.kt liftBlack)
 		var stand := Spielstand.lade(Spielstand.platz) if w.get("laden", false) else {}
 		if not stand.is_empty():
 			zustand = Zustand.aus_daten(stand["zustand"])
