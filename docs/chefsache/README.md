@@ -21,6 +21,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [348.12f](ansehen/34812f-biss.md) | Ratte und Kaufwolf beißen 10 cm näher; der Kopf verschwindet dabei hinter der Heldin | – | 28.10., 09:50 |
 | [348.6](ansehen/3486-dorftiere.md) | Dorftiere: Hühner am Heu, Rind und Ziegen auf der Südwiese, Kaninchen am Waldrand | Tom | 28.10., 09:06 |
 | [348.7b](ansehen/3487b-zauberbahn.md) | Zauberbahn Runde 3: kein Feuerklumpen mehr; der Start liegt im Bild noch immer vor der Heldin | – | 28.10., 08:35 |
 
