@@ -8,7 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | startbar: Godot am Rechner geht (21:50, 399.2d erledigt); Wolf durch Wolf (Tom 17:42: −0,92 m) nachstellen; Menü, Beute in Build 137 | `claude/jerry-348-kampf` |
+| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | gebaut ae285e149: Wolf durch Wolf behoben (umweg_399 am Rechner grün), an Tom für den Build; Menü, Beute in Build 137 | `claude/jerry-348-kampf` |
 | 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | startbar: Text da (STORY-SPIEL.md [399.2b.knurrt], [210T.growl]); einbauen | – |
 | 399.3 | M | **von Chef (28.10., 16:42):** Klang in die Spielfassung | startbar: zuerst CI jerry-348-klang (UAL1 fehlt); dann Keuchen | `claude/jerry-348-klang` |
 | 401 | M | **von Chef (22:0x, Archiv):** Laute für jedes Dorftier, mind. 3 je Tier | startbar nach 399.3 | – |
