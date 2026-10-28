@@ -522,7 +522,7 @@ func _ortsklang(dt_ms: float) -> void:
 	var ruhig := _ruhig()
 	var t: Vector2i = _karte.pos_kachel(_held.position) if ruhig else _feuer_bei
 	# was unter allem liegt: Wind draußen, die Halle im Tempel (PlaceSound.bed)
-	var bett := {"OUTSIDE": "wind", "HALL": "hall"}.get(ortsart, "")
+	var bett: String = {"OUTSIDE": "wind", "HALL": "hall"}.get(ortsart, "")
 	if bett != "":
 		_schleife("bett", bett, BETT if ruhig else 0.0, BETT, dt_ms, BETT_FADE_MS)
 	# das Knistern von Lagerfeuer und Herd, lauter zum Feuer hin, um Wände herum (Ambience.nearestFire)
