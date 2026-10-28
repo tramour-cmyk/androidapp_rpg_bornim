@@ -275,5 +275,6 @@ func posten(n: String, rechts: String, farbe: Color) -> HBoxContainer:
 	var w := Erschaffung.txt(rechts, 15)
 	w.size_flags_horizontal = Control.SIZE_FILL
 	w.autowrap_mode = TextServer.AUTOWRAP_OFF
+	w.size_flags_vertical = Control.SIZE_SHRINK_BEGIN   # Helfer: „×2“ stand auf Hoehe der Beschreibung statt des Namens
 	r.add_child(w)
 	return r

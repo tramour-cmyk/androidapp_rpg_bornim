@@ -70,8 +70,11 @@ class Zeichen extends Control:
 				for i in 33: p.append((m2 + Vector2.from_angle(lerpf(b2, b1, i / 32.0)) * r2) * u)
 				draw_polyline(p, c, w, true)
 			"tasche":
-				var k := Rect2(Vector2(4, 9) * u, Vector2(16, 12) * u)
-				draw_rect(k, c, false, w)
+				var ecke := PackedVector2Array()   # Koerper mit runden Ecken (2,5), sonst liest er sich als Briefumschlag (Helfer)
+				for m in [[Vector2(17.5, 18.5), 0.0], [Vector2(6.5, 18.5), 0.5], [Vector2(6.5, 11.5), 1.0], [Vector2(17.5, 11.5), 1.5]]:
+					for i in 7: ecke.append((m[0] + Vector2.from_angle((m[1] + i / 12.0) * PI) * 2.5) * u)
+				ecke.append(ecke[0])
+				draw_polyline(ecke, c, w, true)
 				draw_polyline(PackedVector2Array([Vector2(4.5, 10) * u, Vector2(12, 15) * u, Vector2(19.5, 10) * u]), c, w, true)
 				draw_rect(Rect2(Vector2(11, 14.5) * u, Vector2(2, 2.5) * u), c, false, 1.1 * u)
 				draw_arc(Vector2(12, 8.5) * u, 5 * u, PI, TAU, 16, c, 1.1 * u, true)
