@@ -290,7 +290,7 @@ Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 19.10.2026; Freesound-Vorsch
 
 ## 401 Laute der Dorftiere (28.10., im Spiel: `goat_bleat_1–4`, `goat_graze_1–3`, `rabbit_munch_1–3`, `rabbit_thump_1–4`)
 
-Alle BigSoundBank, Urheber Joseph Sardin, CC0 1.0 („CC0 (public domain): Free and royalty-free“, Quellseiten geprüft 28.10.2026). Rezept `tools/klang/dorftiere.py`; die Hühner seit 83c (Runde 5).
+BigSoundBank, Urheber Joseph Sardin, CC0 1.0 („CC0 (public domain): Free and royalty-free“, Quellseiten geprüft 28.10.2026); das Klopfen seit 29.10. aus zwei schon geführten CC0-Aufnahmen (unten). Rezept `tools/klang/dorftiere.py`; die Hühner seit 83c (Runde 5).
 
 | Nr. | Titel | Verwendet für | Quelle |
 |---|---|---|---|
@@ -298,8 +298,9 @@ Alle BigSoundBank, Urheber Joseph Sardin, CC0 1.0 („CC0 (public domain): Free 
 | 1380, 1381 | Goat #1, #2 | Meckern 3–4 | https://bigsoundbank.com/goat-1-s1380.html , https://bigsoundbank.com/goat-2-s1381.html |
 | 0990 | Horse eating grass #2 | Grasrupfen 1–3 (höher, dunkler) | https://bigsoundbank.com/horse-eating-grass-2-s0990.html |
 | 0185 | Rat nibbling | Knabbern 1–3 (dunkler) | https://bigsoundbank.com/rat-nibbling-s0185.html |
-| 1376 | Bunny hutch | Klopfen 1–4 (nur der dumpfe Tritt) | https://bigsoundbank.com/bunny-hutch-s1376.html |
+| `heartbeat.mp3_.flac` (qubodup, OpenGameArt, wie 402) | Heartbeat single sound | Klopfen 1–4 (29.10., Chef 23:0x „wie ein Türklopfen“): der dumpfe Schlag, 6–9 Halbtöne höher, kurz | https://opengameart.org/content/heartbeat-single-sound |
+| 3202 (Pierre, wie `step_earth`) | Footsteps on Gravels #3 | Klopfen 1–4: leise das Knirschen der Erde darüber (Schritte bei 56,77 / 49,14 / 23,87 / 45,40 s) | https://bigsoundbank.com/footsteps-on-gravels-3-s3202.html |
 
 ## 402 Herzschlag beim Hinterhalt (28.10., im Spiel: `heartbeat_strong_1–3`)
 
-Aus den Aufnahmen von `heartbeat` (24.8, oben): bart „Heartbeat sounds“ (heartbeat_slow_0.wav) und qubodup „Heartbeat single sound“ (heartbeat.mp3_.flac), OpenGameArt, CC0 1.0 (Quellseiten geprüft 28.10.2026). Rezept `tools/klang/herzschlag.py`: drei Schläge, tiefer, Brust voller, leicht angezerrt, schneller werdend.
+Aus den Aufnahmen von `heartbeat` (24.8, oben): bart „Heartbeat sounds“ (heartbeat_slow_0.wav) und qubodup „Heartbeat single sound“ (heartbeat.mp3_.flac), OpenGameArt, CC0 1.0 (Quellseiten geprüft 28.10.2026). Rezept `tools/klang/herzschlag.py`: drei Schläge (Fassung 1 und 3 als Doppelschlag bumm-bumm), tiefer, Brust voller, leicht angezerrt, schneller werdend; seit 29.10. mit Mittelschicht (derselbe Schlag hart angezerrt, 200–1400 Hz), damit er im Handylautsprecher hörbar ist (Chef 23:0x „völlig unauffällig“).
