@@ -33,16 +33,18 @@ jobs:
           echo "KAUF=$RUNNER_TEMP/kauf" >> $GITHUB_ENV
           bash tools/blender348/kauf_laden.sh $RUNNER_TEMP/kauf
       - uses: actions/setup-python@v5
+        id: py
         with:
           python-version: "3.13"
+      # Lauf 124 (28.10.): der Runner hatte ein neues Python (3.13.17), die zwischengespeicherte Umgebung zeigte ins alte; Schluessel mit der Fassung
       - uses: actions/cache@v4
         with:
           path: bl
-          key: bpy-5.2.3-${{ runner.os }}
+          key: bpy-5.2.3-${{ runner.os }}-py${{ steps.py.outputs.python-version }}
       - name: Blender als Python-Modul
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libsm6 libxkbcommon0 > /dev/null
-          [ -x bl/bin/python ] || { python -m venv bl && bl/bin/pip -q install bpy==5.2.3 numpy pillow; }
+          [ -x bl/bin/python ] || { rm -rf bl; python -m venv bl && bl/bin/pip -q install bpy==5.2.3 numpy pillow; }
       # 348.6 Held und Leute auf dem CC0-Geruest (348.12): Knochen und Bewegungen aus Quaternius' Universal Animation Library (CC0 1.0)
       - uses: actions/cache@v4
         with:
