@@ -575,9 +575,16 @@ for pb in ARM.pose.bones: pb.rotation_mode = 'QUATERNION'
 sc = bpy.context.scene
 
 
+def binde(o, a):     # Aktion a an o, mit ihrem Slot (Blender 5: eine Aktion aus einer anderen Datei, hier UAL Pro, hat den Slot
+    o.animation_data.action = a     # ihres Gerüsts und bewegte UA nicht; Death02 kam so als Stehen an, „Tod stehend“, Prüfer 15:2x)
+    if len(getattr(a, 'slots', [])):
+        o.animation_data.action_slot = a.slots[0]
+
+
 def uebertrage(q_name, z_name):     # UAL-Bewegung q_name als z_name auf unser Gerüst (Bild 0 = erstes Bild der Quelle)
-    q = bpy.data.actions[q_name]; UA.animation_data.action = q
+    q = bpy.data.actions[q_name]; binde(UA, q)
     a0, a1 = [int(round(v)) for v in q.frame_range]
+    a1 = min(a1, a0 + KURZ.get(z_name, a1))
     z = bpy.data.actions.new(z_name); z.use_fake_user = True; ARM.animation_data.action = z
     for f in range(a0, a1 + 1):
         sc.frame_set(f)
@@ -600,7 +607,38 @@ def uebertrage(q_name, z_name):     # UAL-Bewegung q_name als z_name auf unser G
 # 348.12 Bewegungen (Liste „Grak“ 5; Übergabe 28.10., 11:55: Gehen, Hieb, Treffer, Tod mit der Zweihandhaltung): Gehen aus Walk_Loop,
 # Treffer aus Hit_Chest, Tod aus Death01 (UAL, CC0); die Arme stellt (8c) je Bild an die Axt, den Hieb baut (8c) selbst
 UAL_ZU = (('Walk_Loop', 'Gehen'), ('Hit_Chest', 'Treffer'), (os.environ.get('TOD_QUELLE', 'Death01'), 'Tod'))
+# 348.12 nachbessern (Chef 28.10., 15:23, Archiv: „warum läuft der dann nicht mit einer Animation, sondern wird wieder über den Platz
+# geschoben? … Animation beim Bewegen, beim Ausweichen … Oder in unseren 120 plus Fundus was rausnehmen“): mit UAL=<Pro> dazu Rennen
+# (Jog_Fwd_Loop), Zurück (Jog_Bwd_Loop), Ausweichen (Jog_Right_Loop) und Ausweichen links (Jog_Left_Loop), je die ersten KURZ Bilder:
+# ein Satz zur Seite, aufrecht (Dodge_Left/Right beginnen in tiefer Hocke; mit der Großaxt in beiden Händen fand die Suche keine Haltung
+# ohne Stiel in Stiefel und Wade, grak_axtmess.py 250–400 Paare). Den Weg am Boden je Bewegung
+# (Wurzelknochen root) liest WEG aus UAL1_RM.glb (dieselben Bewegungen mit Weg; ohne ihn die Füße auf der Stelle); figur.gd geht
+# ihn wie bei den Kauftieren (info „weg“), so gleiten die Füße nicht
+PRO_ZU = (('Jog_Fwd_Loop', 'Rennen'), ('Jog_Bwd_Loop', 'Zurück'), ('Jog_Right_Loop', 'Ausweichen'), ('Jog_Left_Loop', 'Ausweichen links'))
+KURZ = {'Ausweichen': 9, 'Ausweichen links': 9}     # Bilder (24 je s): 0,38 s, 1,25 m bei Graks Maß
+if os.environ.get('UAL'):
+    UAL_ZU += PRO_ZU
 BEWEGT = {z_: uebertrage(q_, z_) for q_, z_ in UAL_ZU}
+WEG = {}     # je Bewegung, je Bild [x, z] in Graks Metern, Raum des Modells im Spiel (glTF: +Z vorn = Blender −Y)
+RM = os.environ.get('UAL_RM') or (os.path.join(os.path.dirname(os.environ['UAL']), 'UAL1_RM.glb') if os.environ.get('UAL') else '')
+if RM and os.path.exists(RM):
+    alt_ = set(bpy.data.actions)
+    rm_ = importiere(RM)
+    RA = next(o for o in rm_ if o.type == 'ARMATURE')
+    neu_ = {a_.name.split('.')[0]: a_ for a_ in bpy.data.actions if a_ not in alt_}
+    for q_, z_ in UAL_ZU:
+        if z_ not in ('Gehen',) + tuple(p_[1] for p_ in PRO_ZU) or q_ not in neu_: continue
+        binde(RA, neu_[q_])
+        a0, a1 = [int(round(v)) for v in neu_[q_].frame_range]
+        a1 = min(a1, a0 + KURZ.get(z_, a1))
+        sc.frame_set(a0); w0 = (RA.matrix_world @ RA.pose.bones['root'].matrix).translation.copy()
+        WEG[z_] = []
+        for f in range(a0, a1 + 1):
+            sc.frame_set(f); w_ = (RA.matrix_world @ RA.pose.bones['root'].matrix).translation - w0
+            WEG[z_].append([round(w_.x * mass, 4), round(-w_.y * mass, 4)])
+        print('WEG %s aus %s: %d Bilder, Ende %.2f m seitlich, %.2f m vor' % (z_, q_, len(WEG[z_]), WEG[z_][-1][0], WEG[z_][-1][1]))
+    for o in rm_: bpy.data.objects.remove(o)
+    for a_ in neu_.values(): bpy.data.actions.remove(a_)
 akt, _ = uebertrage('Idle_Loop', 'Stehen')
 for o in ual: bpy.data.objects.remove(o)
 for a_ in list(bpy.data.actions):
@@ -720,8 +758,10 @@ if not ZWEIHAND:
 # UAL=<Pro> TOD_QUELLE=Death02): erst die linke (TOD_LOS), dann die rechte Hand (TOD_LOS_R, Anteil der Bewegung) lässt los und geht
 # in TOD_WEICH s in die Quelle über; die Axt fällt in TOD_FALL s und liegt flach neben ihm. Hieb: eigener Zweihandhieb von oben aus
 # ual_lauer.py GRAK_HIEB (dort auf der Bibliothek entworfen und gemessen), hier auf Graks Gerüst gestellt.
-TOD_LOS, TOD_WEICH = float(os.environ.get('TOD_LOS', '0.08')), 0.25
-TOD_LOS_R = float(os.environ.get('TOD_LOS_R', '0.12'))
+# 348.12 nachbessern (grak_axtmess.py: mit 0,08/0,12 fiel die Axt durch den knienden Oberschenkel, Bild 10, 147 Paare; Fallweg geprüft:
+# 0,35 900, 0,5 1668 Paare): beide Hände lassen beim tödlichen Schlag gleich los, die Axt fällt, bevor er in die Knie geht (0 Paare)
+TOD_LOS, TOD_WEICH = float(os.environ.get('TOD_LOS', '0.03')), 0.25
+TOD_LOS_R = float(os.environ.get('TOD_LOS_R', '0.03'))
 TOD_FALL = float(os.environ.get('TOD_FALL', '0.4'))
 FPS = sc.render.fps / sc.render.fps_base
 GRAK_HIEB = [
@@ -839,8 +879,28 @@ if ZWEIHAND:
         dg = bpy.context.evaluated_depsgraph_get(); e = axt.evaluated_get(dg); me = e.to_mesh()
         z_ = min((axt.matrix_world @ v.co).z for v in me.vertices); e.to_mesh_clear(); return z_
 
+    # 348.12 nachbessern (grak_axtmess.py nach dem Bau mit UAL Pro: Rennen, Zurück, Ausweichen das Stielende 70–224 Paare in den
+    # Oberschenkeln, die Knie heben sich bis an den Stiel): in diesen Bewegungen trägt er die Axt höher und schräger (TRAGE: rechte Faust
+    # so viel höher, vor, Stiel); gefunden mit SUCHE_TRAGE=<Bewegung,…> (Axt gegen die Netze wie treffer_(), jedes Bild)
+    # SUCHE_TRAGE: 0 Paare, linke Faust am Stiel (vorher Rennen 94, Zurück 135 Paare); der Stiel schräger nach links, das Ende weg von
+    # den Knien; Ausweichen (Seitenlauf) ebenso
+    TRAGE = {'Rennen': ((0, 0, 0), (-0.6, -0.2, 0.77)), 'Zurück': ((0, 0, 0), (-0.6, -0.2, 0.77)),
+             'Ausweichen': ((0, 0, 0), (-0.6, -0.2, 0.77)), 'Ausweichen links': ((0, 0, 0), (-0.6, -0.2, 0.77))}
+
+    def trage_treffer(z, n, dR, rT):     # Paare über jedes Bild und wie weit die linke Faust höchstens vom Stiel bleibt
+        z = z.copy(); ARM.animation_data.action = z; t_ = 0; ab_ = 0.0     # auf einer Kopie: die Schlüssel der Suche bleiben nicht im Bau
+        for f in range(0, n + 1):
+            sc.frame_set(f); bpy.context.view_layer.update()
+            B = PB['spine_03'].matrix.copy(); D = B.to_3x3() @ B0i
+            ab_ = max(ab_, zweihand(B.translation + D @ (R0 + Vector(dR) - B0.translation), D @ Vector(rT), D @ Vector(pr_), D @ Vector(pl_), KH=KH))
+            faeuste(f)     # wie unten im Bau: Arme und Finger mit Schlüssel (ohne zählte die Suche Arme der Quelle; Ausweichen 0 statt 283 Paare)
+            for b in ARME + FINGER: PB[b].keyframe_insert('rotation_quaternion', frame=f)
+            axt_hand(f); t_ += treffer_()
+        bpy.data.actions.remove(z)
+        return round(ab_, 2) > 0.02, t_, round(ab_, 3)
     for nm, (z, n) in BEWEGT.items():
         ARM.animation_data.action = z
+        dR, rT = TRAGE.get(nm, ((0, 0, 0), r_))
         los, los_r = (TOD_LOS * n, TOD_LOS_R * n) if nm == 'Tod' else (n + 1, n + 1)
         for f in range(0, n + 1):
             sc.frame_set(f); bpy.context.view_layer.update()
@@ -851,7 +911,7 @@ if ZWEIHAND:
                     pb.keyframe_insert('location', frame=f)
             quelle = {b: PB[b].rotation_quaternion.copy() for b in ARME + FINGER}
             B = PB['spine_03'].matrix.copy(); D = B.to_3x3() @ B0i
-            ab = zweihand(B.translation + D @ (R0 - B0.translation), D @ Vector(r_), D @ Vector(pr_), D @ Vector(pl_), KH=KH)
+            ab = zweihand(B.translation + D @ (R0 + Vector(dR) - B0.translation), D @ Vector(rT), D @ Vector(pr_), D @ Vector(pl_), KH=KH)
             faeuste(f)
             for los_, seite in ((los, '_l'), (los_r, '_r')):     # Tod: erst die linke, dann die rechte Hand lässt los
                 w = 0.0 if f <= los_ else min(1.0, (f - los_) / (TOD_WEICH * FPS)); w = w * w * (3 - 2 * w)
@@ -885,6 +945,12 @@ if ZWEIHAND:
                         t_ = 0
                         for f in proben:
                             sc.frame_set(f); bpy.context.view_layer.update(); axt_nach(M1, f); t_ += treffer_()
+                        # 348.12 nachbessern (grak_axtmess.py: Tod Bild 12, die fallende Axt 98 Paare im knienden Oberschenkel): auch im Fall
+                        for i in range(1, nf):
+                            if fl + i > n: break
+                            fall = (i / nf) ** 2
+                            M = Matrix.Translation(M0.translation.lerp(M1.translation, fall)) @ M0.to_quaternion().slerp(M1.to_quaternion(), fall).to_matrix().to_4x4()
+                            sc.frame_set(fl + i); bpy.context.view_layer.update(); axt_nach(M, fl + i); t_ += treffer_()
                         wert = (t_, seite != 1, ab_)
                         if best is None or wert < best[0]: best = (wert, M1)
             M1 = best[1]
@@ -897,6 +963,15 @@ if ZWEIHAND:
             for f in range(fl + nf + 1, n + 1):
                 sc.frame_set(f); bpy.context.view_layer.update(); axt_nach(M1, f)
             print('TOD Axt fällt ab Bild %d in %d Bildern, liegt %.2f m vom Becken, Treffer liegend %d' % (fl, nf, (M1.translation - becken).length, best[0][0]))
+    if os.environ.get('SUCHE_TRAGE'):     # nach dem Bau (davor zählte treffer_ im selben Bild 0 statt 244 Paare)
+        for nm in os.environ['SUCHE_TRAGE'].split(','):
+            z, n = BEWEGT[nm]; erg = []
+            for hoch in (0.0, 0.12, 0.24, 0.36):
+                for vor in (0.0, 0.1, 0.2):
+                    for rT in (r_, (-0.6, -0.2, 0.77), (-0.3, 0.3, 0.9), (-0.6, 0.3, 0.75), (-0.45, 0.15, 0.88), (-0.9, -0.1, 0.4), (0.0, 0.0, 1.0)):
+                        erg.append(trage_treffer(z, n, (0, -vor, hoch), rT) + (hoch, vor, tuple(round(c, 2) for c in rT)))
+            for e_ in sorted(erg)[:5]:
+                print('SUCHE_TRAGE %s Faust weg %s Paare %d Faust %.3f m hoch %.2f vor %.2f Stiel %s' % ((nm,) + e_))
     # Hieb aus Bild 0 von Stehen: Rumpf DREH, VOR, Hals gleicht den Blick aus, Fäuste und Stiel je Schlüssel, Zwischenbilder gemischt
     hieb = bpy.data.actions.new('Hieb'); hieb.use_fake_user = True; ARM.animation_data.action = hieb
     ST = (0, 0) + GRAK_HALT
@@ -924,6 +999,16 @@ if ZWEIHAND:
             Sl = PB['upperarm_l'].matrix.translation; Lz = griff('r') - (PB['hand_r'].matrix.to_3x3() @ KH).normalized() * AXT_LINKS
             print('HIEB %.2f s linke Faust %.3f m neben dem Stiel, Schulter zum Griff %.2f m, Arm %.2f m' % (i / FPS, ab, (Lz - Sl).length, PB['upperarm_l'].length + PB['lowerarm_l'].length))
     BEWEGT['Hieb'] = (hieb, nh)
+    # 348.12 nachbessern (Chef 15:23: „Der Axthieb trifft auch nicht“; figur.gd schob ihn 0,6 der Strecke vor): Kopf der Axt beim
+    # Aufschlag (GRAK_HIEB 0,58 s) im Raum des Modells im Spiel; figur.gd stellt ihn so weit vor das Ziel und dreht ihn so, dass er
+    # dort auf dessen Rand trifft. HIEB = [Abstand Ursprung–Kopf (m), Zeit (s), Drehung (Grad, + links), Höhe (m)]
+    T_AUF = 0.58
+    sc.frame_set(int(round(T_AUF * FPS))); bpy.context.view_layer.update()
+    # die Ecke der Axt am weitesten vor ihm (die Schneide; Messung grak_348.gd: mit dem Kopf der Axt am Rand lag die Schneide 0,28 m darin)
+    dg_ = bpy.context.evaluated_depsgraph_get(); e_ = axt.evaluated_get(dg_); me_ = e_.to_mesh()
+    kp = max((axt.matrix_world @ v.co for v in me_.vertices), key=lambda w: math.hypot(w.x, w.y)); e_.to_mesh_clear()
+    HIEB = [round(math.hypot(kp.x, kp.y), 3), T_AUF, round(-math.degrees(math.atan2(kp.x, -kp.y)), 1), round(kp.z, 2)]
+    print('HIEB Aufschlag: Schneide %.2f m vor dem Ursprung, %.0f Grad, %.2f m hoch' % (HIEB[0], -HIEB[2], HIEB[3]))
     if os.environ.get('SUCHE'):     # Aufschlag suchen: Haltungen ohne Bild durchprobieren, Axt gegen Netze wie grak_axtmess.py
         import random
         random.seed(int(os.environ['SUCHE']))
@@ -954,6 +1039,10 @@ if ZWEIHAND:
 # ---------------------------------------------------------------- (9) Prüfen mit Zahlen und Ausgabe
 info = {'hoehe': round(scheitel(), 3), 'ohr_spitze': round(OHR_SPITZE * s_, 3), 'quellen': sorted(set(QUELLEN)),
         'lizenz': 'Quaternius, CC0 1.0 (License_Standard.txt je Paket)', 'texturen': {}}
+# fürs Spiel (godot-kampf.yml legt es in hobgoblin_captain-info.json): Wurzelweg je Bewegung, Bilder je Sekunde, Aufschlag des Hiebs
+info['spiel'] = {'weg': WEG, 'fps': FPS}
+if ZWEIHAND:
+    info['spiel']['hieb'] = HIEB
 for o in bpy.data.objects:
     if o.type != 'MESH': continue
     imgs = []

@@ -169,7 +169,10 @@ jobs:
             timeout 1500 bl/bin/python -I tools/blender348/grak_gestalt.py > grak.log 2>&1 || (tail -40 grak.log; exit 1)
           grep -E "^(ZWEIHAND|BEWEGUNG|TOD)" grak.log | cut -c1-200 || true
           cp $RUNNER_TEMP/grak/grak-gestalt.glb $D/hobgoblin_captain-hauptmann.bin
-          echo '{"hauptmann": {"waffen": [], "groesse_cm": 186, "geruest": "cc0"}}' > $D/hobgoblin_captain-info.json
+          grep -E "^(WEG|HIEB)" grak.log | cut -c1-200 || true
+          # 348.12 nachbessern (Chef 28.10., 15:23): Wurzelweg je Bewegung und Aufschlag des Hiebs (grak_gestalt.py „spiel“) für figur.gd
+          python3 -c "import json,sys; s=json.load(open(sys.argv[1])).get('spiel',{}); d={'waffen':[],'groesse_cm':186,'geruest':'cc0'}; d.update(s); json.dump({'hauptmann':d},open(sys.argv[2],'w'))" \
+            $RUNNER_TEMP/grak/grak-gestalt-info.json $D/hobgoblin_captain-info.json
           (cd godot && ls kampf/daten/giant_rat-*.bin kampf/daten/kaufwolf-*.bin kampf/daten/hobgoblin_captain-*.bin > kampf/daten/kauf.txt)
       - uses: actions/cache@v4
         with:
@@ -231,6 +234,13 @@ jobs:
           timeout 600 ~/godot/godot --headless --path . -s res://tests/umweg_399.gd > umweg.log 2>&1 || r=$?
           echo "nachher:"; grep -E "^(gut|FEHLER)|Umweg|SCRIPT ERROR|^ +at: " umweg.log | head -30 || true
           [ ${r:-0} = 0 ] || { echo "Wolf läuft durch Wolf"; exit 1; }
+      # 348.12 nachbessern (Chef 28.10., 15:23): Grak geht und rennt im Tempo seines Wurzelwegs, die Schneide trifft den Rand der
+      # Heldin, Ausweichen zu beiden Seiten, Tod als Zusammenbruch ohne Ausblenden (ohne Bild)
+      - name: 348.12 Grak geht, trifft, weicht aus, bricht zusammen
+        run: |
+          cd godot
+          set -o pipefail
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/grak_348.gd 2>&1 | grep -E "^(gut|FEHLER|übersprungen|Grak)|SCRIPT ERROR|^ +at: "
       - name: Vergleichsbild (Kleriker, Söldner Kämpfer, Wölfe wie MarsShot)
         run: |
           sudo apt-get install -y -qq xvfb libgl1-mesa-dri > /dev/null
@@ -253,7 +263,7 @@ jobs:
           GEGNER=WOLVES BAHN_PRUEF=1 ZAUBER=SACRED_FLAME,HEAL,BLESS,ARROW folge zauber2
           GEGNER=WOLVES SOELDNER=WIZARD BAHN_PRUEF=1 ZAUBER=FIRE_BOLT,SACRED_FLAME,ARROW ZAUBERDANEBEN=1 folge daneben
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
-          (cd godot && GEGNER=RATS OHNEUI=1 SCHAU=1 SCHAU_TITEL=eigen timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/ratte.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/ratte-schau.log 2>&1) || true
+          (cd godot && GEGNER=RATS OHNEUI=1 SCHAU=1 SCHAU_TITEL=eigen timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . res://kampf/probe.tscn --resolution 540x1170 --write-movie $RUNNER_TEMP/ratte.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/ratte-schau.log 2>&1) || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/ratte.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/ratte-schau.mp4 || true
           grep -hE "SCRIPT ERROR|^ +at: " $P/*.log | head -20 || true
           # 348.7a Leistung: Ecken und Zeit der Tafeln je Bild, Prüfpunkte
@@ -269,7 +279,7 @@ jobs:
           # ffmpeg statisch aus imageio-ffmpeg (apt-get install brauchte in Lauf 112 bis zum Abbruch über 30 min)
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
           python3 -c 'import PIL' 2> /dev/null || python3 -m pip install -q pillow     # kaufblatt.py; Lauf 116/117: ohne PIL kein Blatt, Lauf 117 brach ab
-          film() { (cd godot && SCHAU=1 SCHAU_TITEL="$2" timeout 300 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/$1.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/$1-film.log 2>&1) || true
+          film() { (cd godot && SCHAU=1 SCHAU_TITEL="$2" timeout 300 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . res://kampf/probe.tscn --resolution 540x1170 --write-movie $RUNNER_TEMP/$1.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/$1-film.log 2>&1) || true
             ffmpeg -loglevel error -y -i $RUNNER_TEMP/$1.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/$1.mp4 || true; }
           # Runde 6 (Prüfer 5e): je Goblin allein (NUR) und je Haltung; Film nur Stehen, Gehen, Hieb (der eigene hat keinen Hieb)
           export SCHAU_LISTE=Stehen,Gehen,Hieb
@@ -314,7 +324,7 @@ jobs:
           timeout 900 bash $RUNNER_TEMP/kauf_laden.sh $RUNNER_TEMP/kauf > $P/kauf-laden.log 2>&1 || echo "kauf_laden.sh Ende $?"
           grep -c . $P/kauf-laden.log
           bild() { (cd godot && timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 -- --bild=$P/$1.png > $P/$1.log 2>&1) || true; }
-          film() { (cd godot && SCHAU=1 SCHAU_TITEL="$2" timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/$1.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/$1-film.log 2>&1) || true
+          film() { (cd godot && SCHAU=1 SCHAU_TITEL="$2" timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . res://kampf/probe.tscn --resolution 540x1170 --write-movie $RUNNER_TEMP/$1.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/$1-film.log 2>&1) || true
             ffmpeg -loglevel error -y -i $RUNNER_TEMP/$1.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/$1.mp4 || true; }
           D=godot/kampf/daten
           bild ratte-eigen; film eigen eigen
@@ -348,7 +358,7 @@ jobs:
           # Ortswechsel (Chef 27.10., 18:01, Archiv: „Bewegungen mit Ortswechsel im Kampfort, nicht auf der Stelle“): probe.gd SCHAU=ort,
           # links eigen (ohne Wurzelweg), rechts gekauft; Messung je Bild im Log (Ortmess: Schnauze gegen das Ziel)
           cp $RUNNER_TEMP/kauf/giant_rat-info.json $D/
-          ort() { (cd godot && GEGNER=RATS OHNEUI=1 SCHAU=ort SCHAU_MESS=1 SCHAU_TITEL=$2 timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/ort-$1.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/ort-$1.log 2>&1) || true
+          ort() { (cd godot && GEGNER=RATS OHNEUI=1 SCHAU=ort SCHAU_MESS=1 SCHAU_TITEL=$2 timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . res://kampf/probe.tscn --resolution 540x1170 --write-movie $RUNNER_TEMP/ort-$1.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/ort-$1.log 2>&1) || true
             ffmpeg -loglevel error -y -i $RUNNER_TEMP/ort-$1.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $P/ort-$1.mp4 || true; }
           ort kauf gekauft
           for f in braun grau schwarz; do cp $RUNNER_TEMP/out/giant_rat-$f.glb $D/giant_rat-$f.bin; done; cp $RUNNER_TEMP/out/giant_rat-info.json $D/
@@ -377,7 +387,7 @@ jobs:
           git show FETCH_HEAD:tools/blender348/kauf_laden.sh > $RUNNER_TEMP/kauf_laden.sh
           timeout 900 bash $RUNNER_TEMP/kauf_laden.sh $RUNNER_TEMP/kauf > $P/kauf-laden.log 2>&1 || echo "kauf_laden.sh Ende $?"
           bild() { (cd godot && timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 -- --bild=$P/$1.png > $P/$1.log 2>&1) || true; }
-          ort() { (cd godot && SCHAU=ort SCHAU_MESS=1 SCHAU_TITEL=$2 timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/ort-$1.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/ort-$1.log 2>&1) || true
+          ort() { (cd godot && SCHAU=ort SCHAU_MESS=1 SCHAU_TITEL=$2 timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . res://kampf/probe.tscn --resolution 540x1170 --write-movie $RUNNER_TEMP/ort-$1.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/ort-$1.log 2>&1) || true
             ffmpeg -loglevel error -y -i $RUNNER_TEMP/ort-$1.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $P/ort-$1.mp4 || true; }
           D=godot/kampf/daten
           env OUT=$RUNNER_TEMP/kw KAUF=$RUNNER_TEMP/kauf timeout 1200 bl/bin/python -I tools/blender348/kaufwolf.py > $P/kaufwolf-bau.log 2>&1 || (tail -60 $P/kaufwolf-bau.log; exit 1)
@@ -423,7 +433,7 @@ jobs:
             cp $RUNNER_TEMP/k387/kauf_$id-*.glb $D/ && for f in $D/kauf_$id-*.glb; do mv $f ${f%.glb}.bin; done
             cp $RUNNER_TEMP/k387/kauf_$id-info.json $D/
             dorf=$(case $id in keiler|hundertfuesser) echo "";; *) echo 1;; esac)
-            (cd godot && ERSATZ=kauf_$id SCHAU_DORF=$dorf SCHAU=ort SCHAU_MESS=1 SCHAU_TITEL="$name" timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/387-$id.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/387-$id-ort.log 2>&1) || true
+            (cd godot && ERSATZ=kauf_$id SCHAU_DORF=$dorf SCHAU=ort SCHAU_MESS=1 SCHAU_TITEL="$name" timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . res://kampf/probe.tscn --resolution 540x1170 --write-movie $RUNNER_TEMP/387-$id.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/387-$id-ort.log 2>&1) || true
             # r6 (Chef 28.10., 10:51: „unsere Tusch, unser Tuscherahmen nach Lichteinfall“ an die Tiere): volle 540 px, sonst verschwimmt die Linie
             ffmpeg -loglevel error -y -ss 1.25 -i $RUNNER_TEMP/387-$id.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $P/387-$id.mp4 || true
             grep -E "SCRIPT ERROR|^Ort |^Pfotenmess" $P/387-$id-ort.log | head -12 || true
@@ -440,12 +450,14 @@ jobs:
       # 348.12 Grak (1d6618d74, im APK seit 399.2): Bewegungen mit Ortswechsel im Kampfort wie die Kauftiere (Chef 27.10., 18:01), mit dem
       # Spiel-Grak aus „Modelle bauen“ (verschlüsselt, derselbe Schlüssel): Anlauf, Stehen, Hieb, Treffer, Platzwechsel, Tod
       # Dritter Lauf (Chef 28.10., 14:42, Archiv) zusammen mit 348.7b und Fledermaus in einem Lauf; Lauf 163 scheiterte am Grak-Bau (f5ed4ee0f)
+      # 348.12 nachbessern: seit der Spielfassung (399, project.godot startet spiel.tscn) nennen alle Filme hier die Probe ausdrücklich
+      # (res://kampf/probe.tscn); sonst lief das Spiel ohne Karten an und brach ab (am Rechner nachgestellt)
       - name: 348.12 Probe Grak im Kampfort (nur bei Commits mit „348.12 Grak Film“)
         if: contains(github.event.head_commit.message, '348.12 Grak Film')
         run: |
           P=$GITHUB_WORKSPACE/grakprobe; mkdir -p $P
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
-          (cd godot && GEGNER=GRAK ORT_ID=grak OHNEUI=1 SCHAU=ort SCHAU_TITEL=Grak timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/grak.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/grak-ort.log 2>&1) || true
+          (cd godot && GEGNER=GRAK ORT_ID=grak OHNEUI=1 SCHAU=ort SCHAU_TITEL=Grak timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . res://kampf/probe.tscn --resolution 540x1170 --write-movie $RUNNER_TEMP/grak.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/grak-ort.log 2>&1) || true
           ffmpeg -loglevel error -y -ss 1.25 -i $RUNNER_TEMP/grak.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $P/348.12-grak-film.mp4 || true
           grep -E "SCRIPT ERROR|^ +at: |^Ort " $P/grak-ort.log | head -20 || true
           d=$(ffmpeg -i $P/348.12-grak-film.mp4 2>&1 | grep -oE 'Duration: [0-9:.]+' | awk -F'[: ]' '{print $3*3600+$4*60+$5}')
@@ -473,7 +485,7 @@ jobs:
           for f in braun schwarz grau; do cp $RUNNER_TEMP/fm/giant_bat-$f.glb $D/giant_bat-$f.bin; done
           cp $RUNNER_TEMP/fm/giant_bat-info.json $D/
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
-          (cd godot && GEGNER=BATS OHNEUI=1 SCHAU=ort SCHAU_TITEL=Fledermaus timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/fm.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/fledermaus-ort.log 2>&1) || true
+          (cd godot && GEGNER=BATS OHNEUI=1 SCHAU=ort SCHAU_TITEL=Fledermaus timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . res://kampf/probe.tscn --resolution 540x1170 --write-movie $RUNNER_TEMP/fm.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/fledermaus-ort.log 2>&1) || true
           ffmpeg -loglevel error -y -ss 1.25 -i $RUNNER_TEMP/fm.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $P/348.7-fledermaus-r5.mp4 || true
           (cd godot && GEGNER=BATS OHNEUI=1 timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 -- --bild=$P/348.7-fledermaus-r5.png > $P/fledermaus-bild.log 2>&1) || true
           grep -E "SCRIPT ERROR|^ +at: |^Ort " $P/fledermaus-ort.log | head -20 || true

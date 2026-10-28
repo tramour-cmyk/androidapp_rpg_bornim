@@ -641,7 +641,7 @@ func _ort() -> void:
 		rat._idle()
 		await _ort_rest(rat, held, h0, zeig, warte)
 		return
-	if rat.anim and not rat.anim.has_animation("Biss") and rat.anim.has_animation("Hieb"):     # 348.12 Grak: Zweibeiner ohne Sprung und Ausweichen
+	if rat.anim and not rat.anim.has_animation("Biss") and rat.anim.has_animation("Hieb"):     # 348.12 Grak: Zweibeiner ohne Sprung
 		zeig.call("Stehen")
 		await warte.call(2.0)
 		zeig.call("Hieb")
@@ -650,6 +650,15 @@ func _ort() -> void:
 		var mh: int = rat.strike(held, {"spell": null})
 		held.hurt(int(mh * 0.42), false)
 		await warte.call(rat.busy_ms / 1000.0 + 0.6)
+		for nm in ["Ausweichen", "Ausweichen links"]:     # 348.12 nachbessern (Chef 15:23): Seitenlauf der UAL Pro, dann heim
+			if rat.weg.has(nm):
+				zeig.call(nm)
+				rat.dodge(0, nm)
+				await warte.call(1.0)
+				var bis_w: float = fight.clock_ms + 6000.0
+				while rat.tween and rat.tween.is_running() and fight.clock_ms < bis_w:
+					await warte.call(0.1)
+				await warte.call(0.4)
 		zeig.call("Treffer")
 		mh = held.strike(rat, {"spell": null})
 		rat.hurt(int(mh * 0.42), false)
@@ -706,7 +715,9 @@ func _ort_rest(rat, held, h0: Vector3, zeig: Callable, warte: Callable) -> void:
 	zeig.call("Tod")
 	ms = held.strike(rat, {"spell": null})
 	rat.hurt(int(ms * 0.42), true)
-	await warte.call(held.busy_ms / 1000.0 + 1.8)
+	# 348.12: Grak bleibt liegen (Tod 2,5 s); bis er liegt und noch kurz danach
+	var td: float = rat.anim.get_animation("Tod").length if rat.anim and rat.anim.has_animation("Tod") else 0.0
+	await warte.call(maxf(held.busy_ms / 1000.0 + 1.8, ms * 0.42 / 1000.0 + td + 1.2))
 	if mess:
 		_pfoten_bilanz(rat)
 	get_tree().quit()
