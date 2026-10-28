@@ -444,9 +444,13 @@ func _fireball(p: float, from: Vector2, to: Vector2, ground: float, u: float) ->
 		_burst(to, s, u, [FIRE_HOT, FIRE], 16, 50.0, true)
 
 
-## Brennende Hände (348.7b, Chef 27.10., 19:49): ein Fächer aus Flammen bricht aus den Händen, im Raum ein Kegel, am Ziel so
-## breit wie lang (SRD: 15-Fuß-Kegel), schießt in 0,2 s nach vorn, lodert und vergeht; das Ziel brennt kurz nach. Jeder Ballen
-## in der Tiefe seines Punkts, so verdecken Figuren davor, was hinter ihnen brennt
+## Brennende Hände (348.7b, Chef 27.10., 19:49): ein Fächer aus Flammen bricht aus den Händen, im Raum ein Kegel zum Ziel, schießt
+## in 0,2 s nach vorn, lodert bis BH_FLAME und erlischt von den Händen her; das Ziel brennt nach. Jeder Ballen in der Tiefe seines
+## Punkts, so verdecken Figuren davor, was hinter ihnen brennt. Prüfer r1 (kein Kegel zu sehen; gemessen 725 Bildpunkte auf der
+## Linie, ein Feuerpfeil 1870): am Ziel 6 m breit verstreut; jetzt am Ziel höchstens 1,2 m breit, mehr und größere Ballen. Probe r2a:
+## mit 70 Ballen 14 000 Bildpunkte Feuer, doppelt so viel wie die Explosion des Feuerballs (7 400; nie heller als alt): 50, kleiner
+const BH_FLAME := 0.6     # Anteil der Dauer, so lange steht der Kegel (der Wirkende bleibt so lange am Seitenplatz)
+
 func _burning_hands(p: float, from: Vector2, to: Vector2, u: float) -> void:
 	var a3: Vector3 = ci.world_at(from, d_from)
 	var b3: Vector3 = ci.world_at(to, d_to)
@@ -457,31 +461,35 @@ func _burning_hands(p: float, from: Vector2, to: Vector2, u: float) -> void:
 	var flat := Vector3(ab.x, 0.0, ab.z)
 	var side := Vector3(-flat.z, 0.0, flat.x).normalized() if flat.length() > 0.01 else Vector3.RIGHT
 	var front := minf(p / 0.22, 1.0)
-	var life := 1.0 if p < 0.55 else (1.0 - p) / 0.45
+	# erlischt von den Händen her: bis back ist er aus
+	var back := clampf((p - BH_FLAME * 0.6) / (BH_FLAME * 0.4), 0.0, 1.0)
+	var half := minf(0.3 * reach, 1.2)
 	var inv := cam.global_transform.affine_inverse()
-	# Ballen von außen nach innen, dunkel am Rand, weißgelb nahe den Händen; jeder zieht mit dem Strom vom Wirkenden weg
-	for i in 34:
+	# Ballen dunkel am Rand, weißgelb nahe den Händen; jeder zieht mit dem Strom vom Wirkenden weg
+	for i in 50:
 		var lat := (_rf() - 0.5) * 2.0
-		var up := (_rf() - 0.5) * 0.6
+		var up := (_rf() - 0.5) * 2.0
 		var t0 := _rf()
 		var t := clampf(t0 * front + fmod(p * (1.4 + _rf()), 0.25), 0.0, front)
-		if t <= 0.02:
+		if t <= 0.02 or t < back:
 			continue
-		var q := a3 + ab * t + side * (lat * 0.5 * reach * t) + Vector3.UP * (up * 0.35 * reach * t + t * 0.12)
+		var q := a3 + ab * t + side * (lat * half * t) + Vector3.UP * (up * half * 0.45 * t + t * 0.1)
 		ci.depth = -(inv * q).z
 		var sq: Vector2 = cam.unproject_position(q)
 		var edge := absf(lat)
-		var col := FIRE_HOT if t < 0.3 and edge < 0.5 else (FIRE if edge < 0.75 else FIRE_DARK)
-		var a := (0.75 - 0.35 * edge) * life * (1.0 - t * 0.35)
-		_glow(sq, (3.0 + 12.0 * t) * u, [_a(col, a), _a(col, a * 0.35), _a(col, 0.0)])
-	# Glut an den Händen
-	ci.depth = d_from
-	_glow(from, 9 * u, [_a(FIRE_HOT, 0.8 * life), _a(FIRE, 0.25 * life), NONE])
-	for i in 8:
+		var col := FIRE_HOT if t < 0.35 and edge < 0.6 else (FIRE if edge < 0.8 else FIRE_DARK)
+		var a := (0.75 - 0.3 * edge) * (1.0 - t * 0.3) * clampf((t - back) / 0.15, 0.0, 1.0)
+		_glow(sq, (5.0 + 13.0 * t) * u, [_a(col, a), _a(col, a * 0.4), _a(col, 0.0)])
+	# Glut an den Händen, solange es aus ihnen brennt
+	var hand := 1.0 - clampf(back * 4.0, 0.0, 1.0)
+	if hand > 0.0:
+		ci.depth = d_from
+		_glow(from, 10 * u, [_a(FIRE_HOT, 0.85 * hand), _a(FIRE, 0.3 * hand), NONE])
+	for i in 10:
 		var e := clampf(p * (0.8 + _rf() * 0.6), 0.0, 1.0)
-		var q := a3 + ab * (_rf() * front) + side * ((_rf() - 0.5) * reach * 0.6) + Vector3.UP * (e * 0.6)
+		var q := a3 + ab * maxf(_rf() * front, back) + side * ((_rf() - 0.5) * half) + Vector3.UP * (e * 0.6)
 		ci.depth = -(inv * q).z
-		_square(FIRE_HOT if i % 2 == 0 else FIRE, cam.unproject_position(q), 1.6 * u, (1.0 - e) * life)
+		_square(FIRE_HOT if i % 2 == 0 else FIRE, cam.unproject_position(q), 1.6 * u, (1.0 - e) * (1.0 - back))
 	if front >= 1.0:
 		_at_hit()
 		_clinging_fire(to, (p - 0.22) / 0.78, u, 0.9)

@@ -835,7 +835,7 @@ func cast(kind: String, by: String, on: String, crit: bool, missed: bool, after_
 	var k = kampfort
 	var step_ms := 0.0
 	if kind in STEP_KINDS and by != on and k.figures.has(by) and k.figures.has(on):
-		step_ms = _step_aside(k.figures[by], k.figures[on], after_ms, Zauber.arrives(kind))
+		step_ms = _step_aside(kind, k.figures[by], k.figures[on], after_ms, Zauber.arrives(kind))
 	after_ms += step_ms
 	# 348.7a Runde 5 (Prüfer r4: „drei Strahlen eine Bahn“): der wievielte Strahl dieses Wirkenden in Folge
 	var t: float = k.clock_ms + after_ms
@@ -857,8 +857,9 @@ func cast(kind: String, by: String, on: String, crit: bool, missed: bool, after_
 const STEP_KINDS := ["ARROW", "FIRE_BOLT", "RAYS", "FIREBALL", "BURNING_HANDS"]
 const STEP_M := [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 const STEP_S := 0.22     # je Weg hin und zurück
+const BH_FLAME := Zauber.BH_FLAME
 
-func _step_aside(by, on, after_ms: float, arrives_ms: float) -> float:
+func _step_aside(kind: String, by, on, after_ms: float, arrives_ms: float) -> float:
 	var k = kampfort
 	var dir: Vector3 = (on.position - by.home) * Vector3(1, 0, 1)
 	if dir.length() < 0.01:
@@ -876,11 +877,19 @@ func _step_aside(by, on, after_ms: float, arrives_ms: float) -> float:
 	var blocker = _line_blocker(by.home + rel, b3, mates)
 	if blocker == null:
 		return 0.0
-	# zuerst die Seite, auf der das Ziel neben dem Hindernis liegt
+	# zuerst die Seite zur Bildmitte (Prüfer 348.7b r1: zum Rand hin stand Bertram halb außerhalb des Bildes), sonst die, auf der
+	# das Ziel neben dem Hindernis liegt; der Fleck muss ganz im Bild liegen
+	var vs: Vector2 = overlay.get_viewport_rect().size
+	var mid_x: float = vs.x * 0.5
 	var first: float = signf(side.dot(on.position - blocker.position))
 	if first == 0.0:
 		first = 1.0
+	var to_mid: float = k.screen_of(by.home + side * 0.5).x - k.screen_of(by.home - side * 0.5).x
+	if absf(to_mid) > 1.0:
+		first = signf(to_mid) * signf(mid_x - k.screen_of(by.home).x)
+	# der kleinste Schritt mit freier Linie und Platz; einer, der aus dem Bild führt, zählt wie 2 m mehr
 	var off := Vector3.ZERO
+	var best := INF
 	for m in STEP_M:
 		for sg in [first, -first]:
 			var q: Vector3 = by.home + side * (m * sg)
@@ -889,16 +898,20 @@ func _step_aside(by, on, after_ms: float, arrives_ms: float) -> float:
 				var o = k.figures[id]
 				if o != by and o.visible and not o.down:
 					room = minf(room, o.clearance(q))
-			if room > 0.15 and _line_blocker(q + rel, b3, mates) == null:
+			if room <= 0.15 or _line_blocker(q + rel, b3, mates) != null:
+				continue
+			var sx: float = k.screen_of(q).x
+			var cost: float = m + (0.01 if sg != first else 0.0) + (2.0 if sx < vs.x * 0.1 or sx > vs.x * 0.9 else 0.0)
+			if cost < best:
+				best = cost
 				off = side * (m * sg)
-				break
-		if off != Vector3.ZERO:
-			break
-	if off == Vector3.ZERO:     # kein freier Fleck: ein halber Meter zur Seite des Ziels
+	if off == Vector3.ZERO:     # kein freier Fleck: ein halber Meter zur Bildmitte
 		off = side * (0.5 * first)
 	if OS.get_environment("SCHRITT_DEBUG") != "":
-		print("Seitenschritt %s -> %s: %s in der Linie, %+.1f m" % [by.fighter.id, on.fighter.id, blocker.fighter.id, off.dot(side)])
+		print("Seitenschritt %s -> %s: %s in der Linie, %+.1f m (Bild %s, Platz x %.0f, Seite zur Mitte %+.0f)" % [by.fighter.id, on.fighter.id, blocker.fighter.id, off.dot(side), vs, k.screen_of(by.home).x, first])
 	var hold := maxf(arrives_ms, 250.0) / 1000.0 + 0.15
+	if kind == "BURNING_HANDS":     # Prüfer r1: der Kegel hing am Seitenplatz, als er schon zurücktrat; er bleibt, solange er brennt
+		hold = Zauber.duration(kind) * BH_FLAME / 1000.0
 	if after_ms > 0.0:
 		get_tree().create_timer(after_ms / 1000.0).timeout.connect(func(): by.side_step(off, hold, STEP_S))
 	else:
