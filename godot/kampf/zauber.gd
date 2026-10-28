@@ -2,7 +2,7 @@ extends RefCounted
 ## 348.7, Rest aus 249: Zauber und Pfeile im Kampfort wie im alten MARS (BattleFx.kt, BattleFxLayer und drawFx). 348.7a (Chef
 ## 27.10., 09:38): die Bahnen laufen im Raum, gemalt wird als Tafel in der Tiefe des Bahnpunkts (ci = tafel.gd), so verdecken
 ## Figuren, was hinter ihnen fliegt; Maße weiter in Bildpunkten. Nur, was MARS wirft: Feuerpfeil, Magisches Geschoss, Sengender Strahl, Feuerball, Heilige Flamme,
-## Heilung, Segen und der Pfeil. Maß wie alt: u = Höhe des Getroffenen / 40 (ein Wolf steht rund 40 Einheiten hoch).
+## Heilung, Segen, Brennende Hände und der Pfeil. Maß wie alt: u = Höhe des Getroffenen / 40 (ein Wolf steht rund 40 Einheiten hoch).
 
 ## Was fliegt, geht beim Fehlschlag am Ziel vorbei (BattleFx.kt FLYING)
 const FLYING := ["ARROW", "FIRE_BOLT", "MISSILES", "RAYS", "FIREBALL", "SACRED_FLAME"]
@@ -33,24 +33,14 @@ var rnd := RandomNumberGenerator.new()
 ## Der Effekt schlägt in den Boden statt ins Ziel (Fehlschuss, draw_fx exact)
 var on_floor := false
 ## 348.7a: Raum je Effekt (kampf_ui.gd setzt es): Kamera; Tiefe (m vor der Kamera) von Start, Bahnende, Einschlag und
-## Fehlschuss am Boden; so viele Meter steigt die Bahn in der Mitte über die Köpfe derer, die im Raum dazwischen stehen; Meter je
-## Bildpunkt am Ziel (Bögen in Bildpunkten wie alt)
+## Fehlschuss am Boden; Meter je Bildpunkt am Ziel (Bögen in Bildpunkten wie alt). 348.7b (Chef 27.10., 19:36 „D“): die Bahn
+## läuft gerade von Hand oder Stabspitze aufs Ziel, auch über Köpfe und Ansagen hinweg; nur das Magische Geschoss fächert in
+## Bögen auf wie alt, der Pfeil steigt leicht
 static var cam: Camera3D
 static var d_from := 10.0
 static var d_to := 10.0
 static var d_hit := 10.0
 static var d_miss := 10.0
-static var lift := 0.0
-## 348.7a Runde 3: so viele Meter weicht die Bahn in der Mitte seitlich aus (side3: waagerecht quer zur Bahn), kampf_ui.gd wählt
-static var lane := 0.0
-static var side3 := Vector3.ZERO
-## ... und wo die Bahn am weitesten ausweicht (Anteil der Strecke): früh, wenn der im Weg nahe beim Wirkenden steht
-static var peak := 0.5
-
-
-## 348.7a Runde 3: Ausweiche der Bahn bei t, 0 an den Enden, 1 bei peak, weich
-static func bulge(t: float, at: float) -> float:
-	return sin(PI / 2.0 * t / at) if t < at else cos(PI / 2.0 * (t - at) / (1.0 - at))
 static var m_px := 0.01
 ## Fehlschuss: Bodenpunkt am Schirm, den kampf_ui.gd frei von Figuren wählt (INF: wie bisher neben dem Ziel)
 static var miss_at := Vector2.INF
@@ -62,7 +52,7 @@ static var pruef := OS.get_environment("BAHN_PRUEF") != ""
 ## Wie lange ein Effekt spielt (BattleFx.kt baseFxDuration), in ms
 static func duration(kind: String) -> float:
 	match kind:
-		"FIREBALL", "SACRED_FLAME":
+		"FIREBALL", "SACRED_FLAME", "BURNING_HANDS":
 			return 900.0
 		"MISSILES", "FIRE_BOLT", "ARROW", "HEAL", "BLESS":
 			return 750.0
@@ -77,7 +67,7 @@ static func arrives(kind: String) -> float:
 			share = 0.6
 		"FIREBALL", "FIRE_BOLT", "MISSILES":
 			share = 0.42
-		"RAYS":
+		"RAYS", "BURNING_HANDS":
 			share = 0.22
 	return duration(kind) * share
 
@@ -90,17 +80,19 @@ static func _a(c: Color, a: float) -> Color:
 	return Color(c, clampf(a, 0.0, 1.0))
 
 
-## Bahnpunkt bei t im Raum: von a (Tiefe d_from) nach b (d_to), um bend Bildpunkte quer zur Bahn am Schirm gebogen, über die
-## Köpfe gehoben (lift) und, für den Pfeil, um rise der Weite gestiegen; setzt die Tiefe des Pinsels auf diesen Punkt
-func _arc(a: Vector2, b: Vector2, t: float, bend: float, rise := 0.0) -> Vector2:
+## Bahnpunkt bei t im Raum: von a (Tiefe d_from) nach b (d_to), um bend Bildpunkte quer zur Bahn am Schirm gebogen und, für
+## den Pfeil, um rise der Weite gestiegen; setzt die Tiefe des Pinsels auf diesen Punkt
+func _arc(a: Vector2, b: Vector2, t: float, bend: float, rise := 0.0, level := false) -> Vector2:
 	var a3: Vector3 = ci.world_at(a, d_from)
 	var b3: Vector3 = ci.world_at(b, d_to)
 	var d := b - a
 	var ln := maxf(d.length(), 1.0)
 	var across := cam.global_transform.basis * Vector3(-d.y / ln, d.x / ln * -1.0, 0.0)
-	var f := bulge(t, peak)
-	var up := f * lift + 4.0 * a3.distance_to(b3) * rise * t * (1.0 - t)
-	var q := a3.lerp(b3, t) + across * sin(t * PI) * bend * m_px + Vector3.UP * up + side3 * lane * f
+	var flat := Vector3(b3.x - a3.x, 0.0, b3.z - a3.z)
+	if level and flat.length() > 0.01:     # 348.7b: waagerecht quer zur Bahn, so fächern die Geschosse um den Vordermann herum
+		across = Vector3(-flat.z, 0.0, flat.x).normalized()
+	var up := 4.0 * a3.distance_to(b3) * rise * t * (1.0 - t)
+	var q := a3.lerp(b3, t) + across * sin(t * PI) * bend * m_px + Vector3.UP * up
 	ci.depth = -(cam.global_transform.affine_inverse() * q).z
 	if pruef:
 		bahn.append(q)
@@ -296,7 +288,8 @@ func _sacred_flame(p: float, x: float, ground: float, u: float) -> void:
 ## Feuerpfeil: ein zischender Funke, weißglühend an der Spitze, mit Flammenschweif und dunklem Rauch; zerplatzt am Gegner
 func _fire_bolt(p: float, from: Vector2, to: Vector2, u: float) -> void:
 	var travel := 0.42
-	var bend := (_rf() - 0.5) * 0.3 / m_px     # 348.7a Runde 3: ±0,15 m (±25 u lief bis 0,6 Wolfshöhen quer in die Nachbarn)
+	_rf()     # 348.7b: gerade (der Zufall der alten Biegung bleibt gezogen, so bleiben Funken und Einschlag wie bisher)
+	var bend := 0.0
 	var t := minf(p / travel, 1.0)
 	for k in range(1, 10):
 		var tt := t - k * 0.06
@@ -341,17 +334,16 @@ func _force_dart(sd: int, p: float, i: int, from: Vector2, to0: Vector2, u: floa
 	var delay := i * 0.13
 	var travel := 0.42
 	var t := clampf((p - delay) / travel, 0.0, 1.0)
-	# 348.7a Runde 3 (Prüfer r2: ein Splitter stieg senkrecht über Miras Kopf): seitlich um höchstens DART_M (kampf_ui.gd) statt
-	# 40–90 u, das waren bis 2,5 Wolfshöhen quer zur Bahn; der mittlere gerade
-	var bend: float = [0.0, 1.0, -1.0][i] * (0.2 + r.randf() * 0.1) / m_px
+	# 348.7b (Chef 27.10., 19:36: „schön auffächern“ wie alt): jeder in eigenem Bogen, 40–90 u zur Seite, abwechselnd
+	var bend: float = (1.0 if i % 2 == 0 else -1.0) * (40.0 + r.randf() * 50.0) * u
 	if t > 0.0 and t < 1.0:
-		var prev := _arc(from, to, maxf(t - 0.22, 0.0), bend)
+		var prev := _arc(from, to, maxf(t - 0.22, 0.0), bend, 0.0, true)
 		for k in range(1, 9):
-			var pt := _arc(from, to, maxf(t - 0.22 + k * 0.0275, 0.0), bend)
+			var pt := _arc(from, to, maxf(t - 0.22 + k * 0.0275, 0.0), bend, 0.0, true)
 			ci.draw_line(prev, pt, _a(FORCE, 0.06 * k), (0.6 + 0.35 * k) * u, true)
 			prev = pt
-		var back := _arc(from, to, maxf(t - 0.07, 0.0), bend)
-		var head := _arc(from, to, t, bend)
+		var back := _arc(from, to, maxf(t - 0.07, 0.0), bend, 0.0, true)
+		var head := _arc(from, to, t, bend, 0.0, true)
 		_glow(head, 12 * u, [_a(FORCE, 0.4), NONE])
 		ci.draw_line(back, head, FORCE, 3.2 * u, true)
 		ci.draw_line(back.lerp(head, 0.4), head, FORCE_CORE, 1.4 * u, true)
@@ -395,7 +387,8 @@ func _scorching_ray(p: float, from0: Vector2, to: Vector2, u: float) -> void:
 func _fireball(p: float, from: Vector2, to: Vector2, ground: float, u: float) -> void:
 	var ohne := OS.get_environment("FB_OHNE")     # Probe: Teile weglassen (spur, blitz, boden, dunkel, funken), Ursachensuche
 	var travel := 0.42
-	var bend := (_rf() - 0.5) * 60 * u
+	_rf()     # 348.7b: gerade zum Zielpunkt, dort die Explosion
+	var bend := 0.0
 	var t := minf(p / travel, 1.0)
 	for k in range(1, 11):
 		var tt := t - k * 0.055
@@ -449,6 +442,49 @@ func _fireball(p: float, from: Vector2, to: Vector2, ground: float, u: float) ->
 	# Funken die roten Punkte und, alle im gleichen Abstand, der Zielscheiben-Ring); Funken füllen die Fläche
 	if ohne != "funken":
 		_burst(to, s, u, [FIRE_HOT, FIRE], 16, 50.0, true)
+
+
+## Brennende Hände (348.7b, Chef 27.10., 19:49): ein Fächer aus Flammen bricht aus den Händen, im Raum ein Kegel, am Ziel so
+## breit wie lang (SRD: 15-Fuß-Kegel), schießt in 0,2 s nach vorn, lodert und vergeht; das Ziel brennt kurz nach. Jeder Ballen
+## in der Tiefe seines Punkts, so verdecken Figuren davor, was hinter ihnen brennt
+func _burning_hands(p: float, from: Vector2, to: Vector2, u: float) -> void:
+	var a3: Vector3 = ci.world_at(from, d_from)
+	var b3: Vector3 = ci.world_at(to, d_to)
+	var ab := b3 - a3
+	var reach := ab.length()
+	if reach < 0.05:
+		return
+	var flat := Vector3(ab.x, 0.0, ab.z)
+	var side := Vector3(-flat.z, 0.0, flat.x).normalized() if flat.length() > 0.01 else Vector3.RIGHT
+	var front := minf(p / 0.22, 1.0)
+	var life := 1.0 if p < 0.55 else (1.0 - p) / 0.45
+	var inv := cam.global_transform.affine_inverse()
+	# Ballen von außen nach innen, dunkel am Rand, weißgelb nahe den Händen; jeder zieht mit dem Strom vom Wirkenden weg
+	for i in 34:
+		var lat := (_rf() - 0.5) * 2.0
+		var up := (_rf() - 0.5) * 0.6
+		var t0 := _rf()
+		var t := clampf(t0 * front + fmod(p * (1.4 + _rf()), 0.25), 0.0, front)
+		if t <= 0.02:
+			continue
+		var q := a3 + ab * t + side * (lat * 0.5 * reach * t) + Vector3.UP * (up * 0.35 * reach * t + t * 0.12)
+		ci.depth = -(inv * q).z
+		var sq: Vector2 = cam.unproject_position(q)
+		var edge := absf(lat)
+		var col := FIRE_HOT if t < 0.3 and edge < 0.5 else (FIRE if edge < 0.75 else FIRE_DARK)
+		var a := (0.75 - 0.35 * edge) * life * (1.0 - t * 0.35)
+		_glow(sq, (3.0 + 12.0 * t) * u, [_a(col, a), _a(col, a * 0.35), _a(col, 0.0)])
+	# Glut an den Händen
+	ci.depth = d_from
+	_glow(from, 9 * u, [_a(FIRE_HOT, 0.8 * life), _a(FIRE, 0.25 * life), NONE])
+	for i in 8:
+		var e := clampf(p * (0.8 + _rf() * 0.6), 0.0, 1.0)
+		var q := a3 + ab * (_rf() * front) + side * ((_rf() - 0.5) * reach * 0.6) + Vector3.UP * (e * 0.6)
+		ci.depth = -(inv * q).z
+		_square(FIRE_HOT if i % 2 == 0 else FIRE, cam.unproject_position(q), 1.6 * u, (1.0 - e) * life)
+	if front >= 1.0:
+		_at_hit()
+		_clinging_fire(to, (p - 0.22) / 0.78, u, 0.9)
 
 
 ## Heilung: warmes Licht sammelt sich im Körper, Funken von ringsum, ein Schein schwillt in der Brust und vergeht. Helfer
@@ -585,6 +621,8 @@ func draw_fx(kind: String, sd: int, p: float, source: Vector2, target: Vector2, 
 			_scorching_ray(p, source, hit, u)
 		"SACRED_FLAME":
 			_sacred_flame(p, hit.x, ground, u)
+		"BURNING_HANDS":
+			_burning_hands(p, source, hit, u)
 		"HEAL":
 			_mending(p, source, target, u, HEAL_LIGHT, WARM_WHITE)     # Prüfer Runde 4: weiß, hellstes Bild
 		"BLESS":

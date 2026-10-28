@@ -485,6 +485,7 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		o = Vector3(0, grip, 0) + inward * palm
 	w.transform = Transform3D(Basis(b.x * size, b.y * size, b.z * size), o)
 	w.name = "Waffe" if side == "R" else "Schild"
+	w.set_meta("stab", what in STAFFS or what == "staff-schamane")     # 348.7b: Zauber ab der Stabspitze (cast_point)
 	if fighter.monster != null and (what in ["shortbow", "staff-schamane"] or what.ends_with("-rost") or what.ends_with("-grob")):
 		# Späher Runde 1c (Prüfer 1a, 1b: der Bogen ein schwarzer Strich, die Tusche ist breiter als der Wurfarm): ohne Tusche wie
 		# Held und Söldner (Schablone 2), so liest sich das Holz mit der Krümmung
@@ -1081,6 +1082,59 @@ func _back_home(back: float, skip) -> void:
 	else:
 		tween.tween_property(self, "position", home, back).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_callback(func(): _guard(false); _face(); _idle())
+
+
+## 348.7b (Chef 27.10., 19:36 „D“): wo ein Zauber oder Pfeil die Figur verlässt (Welt): die Spitze eines Stabs, sonst die Faust
+## der Waffenhand (Bogen, Klinge) oder die rechte Hand; ohne Gerüst null
+func cast_point():
+	if model == null:
+		return null
+	var w := model.find_child("Waffe", true, false) as Node3D
+	var off := model.find_child("Schild", true, false) as Node3D
+	if off != null and off.get_meta("stab", false):     # Schamane: Stab links (Runde 4)
+		w = off
+	if w != null and w.get_meta("stab", false):
+		var top := -INF
+		var pts := []
+		for m in w.find_children("*", "MeshInstance3D", true, false):
+			var bb: AABB = (m as MeshInstance3D).get_aabb()
+			for i in 8:
+				var q: Vector3 = (m as MeshInstance3D).global_transform * bb.get_endpoint(i)
+				pts.append(q)
+				top = maxf(top, q.y)
+		var tip := Vector3.ZERO
+		var n := 0
+		for q in pts:
+			if q.y > top - 0.03:
+				tip += q
+				n += 1
+		if n > 0:
+			return tip / n
+	if w != null:
+		return w.global_position
+	var sk := _find(model, "Skeleton3D") as Skeleton3D
+	if sk == null:
+		return null
+	var bi := sk.find_bone("foR-wrR")
+	if bi < 0:
+		bi = sk.find_bone("hand_r")
+	if bi < 0:
+		return null
+	return sk.global_transform * sk.get_bone_global_pose(bi).origin
+
+
+## 348.7b (Chef 27.10., 19:49): ein kleiner Schritt um off (Welt, waagerecht) für freie Linie, dort hold_s stehen (zaubern oder
+## schießen), dann zurück an den eigenen Platz; je Weg step_s; nur Darstellung (keine Bewegung im Kampf, wie der Hieb im alten MARS)
+func side_step(off: Vector3, hold_s: float, step_s: float) -> void:
+	if tween and tween.is_running():
+		tween.kill()
+	tween = create_tween()
+	tween.tween_property(self, "position", home + off, step_s).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_interval(hold_s)
+	tween.tween_callback(func():     # zurück an den Platz, der dann gilt (glide_to wartet, solange der Schritt läuft)
+		tween = create_tween()
+		tween.tween_property(self, "position", home, step_s).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT))
+	busy_ms = maxi(busy_ms, int((2.0 * step_s + hold_s) * 1000.0))
 
 
 ## Prüfer Runde 4: beim Gehen rückwärts schwang der Waffenarm mit offener Hand an der Hüfte, die Waffe stand daneben. Die Arme

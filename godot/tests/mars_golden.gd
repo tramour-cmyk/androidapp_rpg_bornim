@@ -49,7 +49,7 @@ static func _compact(e: Dictionary) -> String:
 	if e.wound:
 		d["w"] = true
 	if e.spell != null:
-		d["fx"] = e.spell
+		d["fx"] = "FIREBALL" if e.spell == "BURNING_HANDS" else e.spell     # 348.7b: im Kotlin-Kern noch der Feuerball
 	if e.cue != null:
 		d["cue"] = e.cue
 	var s := []

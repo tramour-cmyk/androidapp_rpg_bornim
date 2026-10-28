@@ -719,8 +719,9 @@ func _play_say(e: Dictionary) -> void:
 	# 348.7 (Rest aus 249, BattleFxLayer): Zauber und Pfeile fliegen sichtbar, auch daneben; der Treffer fällt, wenn sie ankommen
 	var fx = _fx_of(e, by, tg, across)
 	if fx != null:
-		ui.cast(fx, actor, target, _crit(e), _missed(e) or e.cue == "DUCKED")
-		lands = int(Zauber.arrives(fx))
+		var step: float = ui.cast(fx, actor, target, _crit(e), _missed(e) or e.cue == "DUCKED")
+		lands = int(step + Zauber.arrives(fx))
+		busy_ms = maxi(busy_ms, figures[actor].busy_ms)     # 348.7b: Seitenschritt hin und zurück
 	for id in e.hp:
 		if not figures.has(id):
 			continue

@@ -244,7 +244,7 @@ func _still(path: String) -> void:
 		var wizard: Array = party.filter(func(x): return x.hero != null and x.hero.cls == "WIZARD")
 		for kind in OS.get_environment("ZAUBER").split(","):
 			by2 = cleric[0] if kind in ["HEAL", "BLESS", "SACRED_FLAME"] and not cleric.is_empty() else dran
-			if kind in ["FIRE_BOLT", "MISSILES", "RAYS", "FIREBALL"] and not wizard.is_empty():
+			if kind in ["FIRE_BOLT", "MISSILES", "RAYS", "FIREBALL", "BURNING_HANDS"] and not wizard.is_empty():
 				by2 = wizard[0]
 			var mates: Array = party.filter(func(x): return x.id != by2.id)
 			var on_id: String = on2.id
@@ -253,8 +253,19 @@ func _still(path: String) -> void:
 			elif kind == "HEAL":
 				on_id = mates[0].id
 			for n in (3 if kind == "RAYS" else 1):
-				fight.ui.cast(kind, by2.id, on_id, false, OS.get_environment("ZAUBERDANEBEN") != "")
-				var t1: float = fight.clock_ms
+				# 348.7b: Bilder ab dem Loslassen (nach dem Seitenschritt), dazu eines mitten im Schritt
+				var t_cast: float = fight.clock_ms
+				var step: float = fight.ui.cast(kind, by2.id, on_id, false, OS.get_environment("ZAUBERDANEBEN") != "")
+				if step > 0.0 and n == 0:
+					var ts: float = fight.clock_ms
+					while fight.clock_ms - ts < step * 0.6:
+						await get_tree().process_frame
+					await RenderingServer.frame_post_draw
+					get_viewport().get_texture().get_image().save_png(path.get_basename() + "-%s-schritt.png" % kind.to_lower())
+					print("Seitenschritt ", kind, " ", by2.id, " %.0f ms, steht bei " % step, fight.figures[by2.id].position, " Platz ", fight.figures[by2.id].home)
+				var t1: float = t_cast + step
+				while fight.clock_ms < t1:
+					await get_tree().process_frame
 				for at in ([0, 120, 250, 350, 500, 700] if n == 0 else [120]):
 					# 348.7a Runde 7 (Prüfer r6: Feuerpfeil bei 0 ms unsichtbar): das Bild „0 ms“ war das letzte vor dem Wirken (Zauber
 					# erst im nächsten Bild gemalt, beim ersten „Tafeln 0 Ecken“, sonst Reste des vorigen); jetzt das erste mit ihm
