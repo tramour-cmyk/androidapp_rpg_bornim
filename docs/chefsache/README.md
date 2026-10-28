@@ -24,7 +24,6 @@ Nichts offen.
 |---|---|---|---|---|---|
 | 1 | [0.348.133](ansehen/t133-spielfassung.md) | [Build 133](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40716450882/artifacts/12828143859) | 399 Spielfassung: Erschaffung, Spielstände, Leiste, Menü; Dorf | Tom | 28.10., 16:49 |
 | 2 | [0.348.139](ansehen/t139-spielfassung.md) | [Build 139](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40751357273/artifacts/12844293709) | 399 Spielfassung: alles aus 137, dazu System fertig, Anschlagbrett, Laden-Kasten, Ausdauer, Ruf, Fackel, Bilder der Dinge | Tom | 28.10., 20:41 |
-| 3 | [0.348.141](ansehen/t141-spielfassung.md) | [Build 141](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40768078764/artifacts/12852512541) | 399 Spielfassung: Rückläufer t139, Testmenü, Vorspann, Intro, Start in der Schenke, Worte in der Blende | Tom | 28.10. |
 
 ## Zu tun
 
@@ -46,11 +45,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 27, Muss 17, startbar 6
+**Tom** – offen 27, Muss 17, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf | startbar |
+| 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf | wartet auf Test/Build (gebaut) |
 | 399.4 | M | von Chef (21:4x, Archiv): oben Rand für die Kamera wie alt | wartet auf Test/Build (gebaut) |
 | 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | startbar |
 | 399.5 | M | von Chef („jetzt“ 28.10., 21:5x, Archiv): Innenräume wie alt: Lichtquellen, Licht und Scha | startbar |
