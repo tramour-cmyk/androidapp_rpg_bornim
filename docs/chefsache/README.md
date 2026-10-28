@@ -12,7 +12,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [0.348.133](ansehen/t133-spielfassung.md) | [Build 133](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40716450882/artifacts/12828143859) | 399 Spielfassung: Erschaffung, Spielstände, Leiste, Menü; Dorf | Tom | 28.10., 16:49 |
 
 ## Zu tun
 
