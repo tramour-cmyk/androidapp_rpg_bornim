@@ -9,7 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf (`LISTE-UMZUG-348.md` „Spielfassung“) | wartet auf Test 132 (Wald-Kampf, Rudel, Hauptmenü, Alegreya, Gesprächsfenster wie alt; Zu 399.1); Erschaffung wie alt gebaut 64e9e99d4, Bild ansehen/3991, fährt in 133 | `claude/tom-399-spielfassung` |
-| 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | wartet auf Chef: Film 385.1 (ansehen/3851), je Feld ja/nein, weitere Käufe; Zweig claude/tom-385-1-grundbewegungen |
+| 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | wartet auf Chef: Film 385.1 (Chefsache 385.1), je Feld ja/nein, weitere Käufe; Zweig claude/tom-385-1-grundbewegungen |
 | 390 | M | **von Perikles:** zwischen Chef-Blättern Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | gebaut: Laden, Rast, Held, Tagesablauf, Gespräche, Englisch (64a6e5a80; Test 390a) | `claude/tom-390-englisch` |
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101 lädt) | `claude/tom-348-12i-verschluesseln` |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | ruht (Chef 12:34, 399) | `claude/tom-376-1-figuren` |
