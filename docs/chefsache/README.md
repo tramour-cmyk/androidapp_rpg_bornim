@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [399.1a](entscheiden/3991a-schluessel.md) | **Muss** | B Umzug | 28.10., 14:28 | Build 130 ließ sich nicht installieren, weil die Builds je nach Zweig mit verschiedenen Schlüsseln signiert werden. Darf ich einen kleinen Ablauf ohne Spiellogik direkt auf `main` legen, damit alle Godot-Builds denselben Schlüssel tragen? | Tom |
 | [348.12](entscheiden/34812-dritter-lauf.md) | **Muss** | E Kampf | 28.10., 14:15 | Drei Filme sind an zwei Fehlern im Grak-Bau gescheitert, nicht am Film selbst. Darf ich für jeden einen dritten Lauf starten? | Jerry |
 
 ## Zu billigen
@@ -42,11 +43,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 25, Muss 15, startbar 4
+**Tom** – offen 25, Muss 15, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf (LISTE-UMZUG | startbar |
+| 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf (LISTE-UMZUG | wartet auf Test (Build) |
 | 385 | M | von Sokrates („jetzt“ 28.10., 10:00, Archiv): Zauberer-Set auf Kaufkörper, Film | startbar |
 | 398 | M | von Perikles: 398-Zeilen schätzen (LISTE-UMZUG-348.md) | startbar |
 | 390 | M | von Perikles: zwischen Chef-Blättern Funktionen ohne Bild (LISTE-UMZUG-348.md) | wartet auf Test/Build (gebaut) |
