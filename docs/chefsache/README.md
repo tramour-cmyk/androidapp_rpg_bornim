@@ -12,7 +12,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [385.1](ansehen/3851-zauberer-grund.md) | Zauberer-Set: Grundbewegungen und Feuer | Tom | 28.10., 15:45 |
 
 ## Zu tun
 
