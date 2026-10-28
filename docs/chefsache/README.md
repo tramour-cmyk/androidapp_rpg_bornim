@@ -99,11 +99,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 15, Muss 13, startbar 3
+**Perikles** – offen 14, Muss 12, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 396 | M | von Sokrates (Chef 11:01, Archiv): Fertiges sofort senden (338.2) | startbar |
 | 390a | M | von Sokrates (Chef 10:26): probelauf.py: Tests frei (Archiv) | startbar |
 | 394 | M | von Sokrates (Chef 10:26): Spike, Tuffy in die Werkzeuge (Archiv) | startbar |
 | 384 | M | von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“): Kosten aller Si | wartet auf Test/Build (gebaut) |
