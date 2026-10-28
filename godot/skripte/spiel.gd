@@ -54,6 +54,21 @@ func _ready() -> void:
 	ui.gewaehlt.connect(_laden_wahl)
 	licht.nacht_geaendert.connect(_nacht)
 	Leute.uhr = func(): return zustand.minuten   # 390 Tagesablauf
+	# 399: Hauptmenue und Erschaffung zuerst, ausser bei Probelaeufen am Rechner (--bilder, --figuren …, Tests ohne Fenster)
+	if OS.get_cmdline_user_args().is_empty() and DisplayServer.get_name() != "headless":
+		var menue := Hauptmenue.new(ui)
+		ui.add_child(menue)
+		var w: Dictionary = await menue.fertig
+		menue.queue_free()
+		var stand := Spielstand.lade() if w.get("laden", false) else {}
+		if not stand.is_empty():
+			zustand = Zustand.aus_daten(stand["zustand"])
+			werte = Heldwerte.aus_daten(stand["held"])
+			var o: Dictionary = stand["ort"]
+			betrete(String(o["karte"]), Vector2i(int(o["x"]), int(o["y"])), String(o["blick"]))
+			return
+		zustand.name = String(w.get("name", zustand.name))
+		werte = Heldwerte.erschaffe(zustand.name, String(w.get("volk", "HUMAN")), String(w.get("klasse", "FIGHTER")), {}, zustand.neue_uid)
 	betrete(START, START_KACHEL, "DOWN")
 	bilder()
 	gang_film()
@@ -95,6 +110,13 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	_nacht(licht.nacht)
 	_steht_auf(t)
 	spiele(Geschichte.betreten(id, zustand))   # 390: MapDef.onEnter
+	speichere()   # 399: wie alt beim Kartenwechsel
+
+func speichere() -> void:
+	if held and karte and not OS.get_cmdline_user_args().size(): Spielstand.speichere(zustand, held_werte(), platz())
+
+func _notification(what: int) -> void:   # 399: auch beim Verlassen der App (alt: onPause)
+	if what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_WM_CLOSE_REQUEST: speichere()
 
 func _nacht(k: float) -> void:
 	kamera.nacht = k   # 348.13b: Tusche nach Laterne, Fenster, Fackel
