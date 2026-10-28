@@ -134,3 +134,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:36 28.10.: Startsperre 12:36 Start Perikles (lauf.py)
 - 13:11 28.10.: Nachfolger-Warnung Diogenes (Übergabe 28.10., 12:19) (lauf.py)
 - 22:09 28.10.: Marke Wächter 399.2 28.10. 12:34 (lauf.py)
+- 22:23 28.10.: Neustart Tom 7d5e21fac: Nachfolger `01Hmoj79nW` gestartet; alter Tom `01Hmoj75YJ` noch working, archivieren sobald idle (Kosten 399.1).
