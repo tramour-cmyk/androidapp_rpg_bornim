@@ -1,7 +1,8 @@
 # 399.2 (Spielfassung, Perikles 28.10., 12:4x; Chef 12:34 „Ich habe jetzt keinen funktionstüchtigen Kampf“): der Kampfort aus einem
 # Aufruf, ohne Probe-Schalter. Die Welt hängt einen Knoten mit diesem Skript ein und ruft starte(): Gegnergruppe (Schlüssel wie
 # probe.gd FOES), der Held als Toms Heldwerte (oder ein fertiges MARS-Blatt wie tabellen.json „probe“), Söldner wahlweise, Kampfort,
-# Tageszeit, Tränke. Am Ende kommt das Signal ende(ergebnis, tp, lohn): ergebnis WON, LOST, FLED (NONE: ohne LP kein Kampf), tp die
+# Tageszeit, Tränke, wahlweise die Beute (Callable, gibt die Ausrüstung eines Siegs als [{gear, name, rarity}] wie Loot.drops,
+# Toms skripte/beute.gd; sie steht im Endfeld und in lohn.gear). Am Ende kommt das Signal ende(ergebnis, tp, lohn): ergebnis WON, LOST, FLED (NONE: ohne LP kein Kampf), tp die
 # Trefferpunkte je Kämpfer der Gruppe („hero“, „merc“), lohn wie regeln/lohn.gd nach einem Sieg; danach entfernt sich der Knoten.
 extends Node
 
@@ -150,7 +151,7 @@ static func _waffe(h, w, nebenhand := false) -> Dictionary:
 ## Kampf beginnen: [gegner] wie probe.gd FOES („WOLVES“ …), [held] Heldwerte oder MARS-Blatt (dann [held_tp] dazu), [soeldner]
 ## ebenso oder null, [ort] Kampfort (heute nur „wald“), [tageszeit] „tag“, „abend“ oder „nacht“, [traenke] Heiltränke im Gepäck.
 ## false: kein Kampf (Held ohne LP); ende kommt dann gleich mit „NONE“
-func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := "tag", traenke := 2, held_tp := -1, soeldner_tp := -1, seed := -1) -> bool:
+func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := "tag", traenke := 2, held_tp := -1, soeldner_tp := -1, seed := -1, beute := Callable()) -> bool:
 	tabellen = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
 	var dice = Wuerfel.new(null if seed < 0 else seed + 1)
 	var skills := {}
@@ -170,7 +171,7 @@ func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := 
 	kampf.ort = ort
 	# Erfahrung für den Lohn: der Held bringt seine mit, ein Blatt steht am Anfang seiner Stufe (wie die Probe, 296.2)
 	var xp: int = int(tabellen.xpForLevel[int(held.level)]) if held is Dictionary else int(held.ep)
-	if not kampf.setup(party, foes, tabellen, {"potion": traenke}, _fertig, seed, {"xp": xp}):
+	if not kampf.setup(party, foes, tabellen, {"potion": traenke}, _fertig, seed, {"xp": xp, "beute": beute}):
 		kampf.free()
 		kampf = null
 		_fertig.call_deferred("NONE")

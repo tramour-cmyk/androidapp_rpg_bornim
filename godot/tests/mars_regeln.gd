@@ -276,6 +276,13 @@ func _rewards() -> void:
 	g.all[2].called_in = true
 	g.test_end(true)
 	_check_s("Grak mit Gerufenem: EP", str(Lohn.reward(g, 0, Wuerfel.new([1] + _ones())).xp), "450")
+	# 399.2: Ausrüstung, die die Welt gewürfelt hat (Loot.drops), nach den Dingen wie Battle.finishWin
+	var sheet: Dictionary = tables.probe.FIGHTER.hero.hero.duplicate(true)
+	var mg = _fight(sheet, ["wolf"], 1)
+	mg.test_end(true)
+	var ga := Lohn.reward(mg, 450, Wuerfel.new([4, 999, 999, 0]), 0, null, 1.0, 1.0, [{"gear": {"base": "shortsword"}, "name": "Kurzschwert", "rarity": "Ungewöhnlich"}])
+	_check_s("Ausrüstung: Zeilen", " | ".join(ga.lines), "Ansgar erhält 50 EP. | Du erbeutest 4 Gold. | Beute: Wolfsfell! | Beute: Kurzschwert (Ungewöhnlich)!")
+	_check_s("Ausrüstung: Lohn", str(ga.gear), "[{ \"base\": \"shortsword\" }]")
 
 
 func _weights() -> void:
