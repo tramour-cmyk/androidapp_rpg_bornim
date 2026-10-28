@@ -135,3 +135,10 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:43 28.10.: Neustart Jerry cf599b056 geprüft; Nachfolger „Jerry – Filme Grak …“ nicht gestartet (nichts startbar, 348.12 wartet auf Chef, Wochenlimit); alter Jerry `01Hmoj75RG` bleibt idle stehen (19,06 $), Start sobald Chef antwortet.
 - 14:46 28.10.: Neustart Jerry cf599b056 nach Chefantwort 348.12: Nachfolger `01Hmoj75aY` gestartet, alter Jerry `01Hmoj75RG` archiviert (19,91 $ auf 399.2, 348.12).
 - 15:49 28.10.: Neustart Tom a12e99b0d: Nachfolger `01Hmoj78yY` gestartet, alter Tom `01Hmoj76hw` archiviert (25,48 $ auf 399.1).
+- 16:35 28.10.: Neustart Sokrates 3872014e1: Nachfolger `01Hmoj78Ck` gestartet (Chef mitten in der Chefrunde); alter Sokrates `01Hmoj78fq` archivieren, sobald idle (22,13 $, Kosten auf 385,387,396a,397,398,399).
+- 16:47 28.10.: Auftrag Sokrates (Chef 16:42 „Jerry hat keine Arbeit“): Jerry `01Hmoj79BF` neu gestartet (399.2/2b/3), alter Jerry `01Hmoj75aY` archiviert (8,95 $ auf 348.12); Tom `01Hmoj78yY` per „Weiter: 399.1“ angestoßen (über 400 Tsd. Token, wartet auf Build 133).
+- 16:52 28.10.: Neustart Tom bc486f1d9: Nachfolger `01Hmoj76Rm` gestartet, alter Tom `01Hmoj78yY` archiviert (25,48 $ auf 399.1, 399a, 395a).
+- 17:08 28.10.: alter Sokrates `01Hmoj78fq` archiviert (23,05 $, Kosten auf 385,387,396a,397,398,399).
+- 17:28 28.10.: Neustart Jerry 8aefbb7b1: Nachfolger `01Hmoj77PX` gestartet; alter Jerry `01Hmoj79BF` archivieren, sobald idle (5,99 $ bisher, Kosten 399.2,399.2b,399.3).
+- 17:44 28.10.: Neustart Tom a29e7a4ee: Nachfolger `01Hmoj78DB` gestartet (alter Tom `01Hmoj76Rm` läuft noch, archivieren sobald idle, 8,44 $ bisher); alter Jerry `01Hmoj79BF` archiviert (16,86 $ auf 399.2,399.2b,399.3).
+- 18:06 28.10.: alter Tom `01Hmoj76Rm` archiviert (16,58 $ auf 385, 399.1).

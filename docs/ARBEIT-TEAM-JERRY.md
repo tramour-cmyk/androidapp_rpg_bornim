@@ -2,17 +2,18 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben.
 
-**Übergabe (28.10., 15:20, `session_01Hmoj75aYZ2RLhVV4vUowFc`):** Lauf 167 (30e32b835, drei Filme in einem Lauf), Filme an den Chef 15:17; 399.2b gemessen (`tests/rudel_mess.gd`, braucht Toms Heldwerte und `exportHero` von `claude/tom-399-spielfassung`). Nachfolger: „Jerry – Urteile Grak, Zauberbahn, Fledermaus, Rudel (nach Chef)“
+**Übergabe (28.10., 17:2x, `session_01Hmoj79BF…`):** 399.2 e5c207b71, 399.2b in `mars.gd`, 399.3 Stufen 1–2 (`claude/jerry-348-klang`). Nachfolger: „Jerry – 399.3 Klang, Test 133 Kampfmenü“
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar (`LISTE-UMZUG-348.md` „Spielfassung“) | startbar: Test 132 (Chef 16:10, Archiv): Kampf gut; hinterer Wolf läuft durch den vorderen (in einer Linie) beheben | `claude/jerry-348-kampf` |
-| 399.2b | M | **von Team Tom (15:05):** Rudel allein: 3 von 4 Klassen verlieren; Ursache prüfen, Balance an Chef | startbar: ja (Chef 15:32, Archiv): Jungwölfe 50 % je Runde; Knurrtext bei Homer | – |
+| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | in Arbeit: Menü 0b773829c, Beute 3b9fb3116; Wolf durch Wolf offen (Tom 17:42: −0,92 m auch ohne Kaufwolf); Ursache braucht Godot, Chefsache 399.2d | `claude/jerry-348-kampf` |
+| 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | wartet auf Homer: Text fürs Knurren (Vorrat Kreativ 399.2b); 50 % und Knurren ohne Ansage gebaut e5c207b71, in Toms Testfassung | – |
+| 399.3 | M | **von Chef (28.10., 16:42):** Klang in die Spielfassung (Umzug „Musik, Klang“) | gebaut ac16bbef7: Musik, Kampf-, Orts-, Raumklang, Blende; Lauf 136 rot an einer Zeile, behoben; Prüfung mit Toms Spielfassung | `claude/jerry-348-klang` |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: Tusche passt (Chef 12:31); im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK, CI 158 grün | `claude/jerry-348-kampf` |
-| 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | Chef: Film 15:17 (ansehen/34812-…); Prüfer: Hieb in den Helden, Rand, Treffer unsichtbar, Tod stehend | `claude/jerry-348-kampf` |
+| 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: nachbessern (Chef 15:23, Archiv): Gehen und Platzwechsel mit UAL-Laufbewegung, Hieb trifft den Helden, Tod als Zusammenbruch | `claude/jerry-348-kampf` |
 | 348.13a | M | **von Team Tom (Chef 08:09, Archiv: r9 ja):** Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13a) | gebaut 421662dbd: Tusche nach Licht Vorgabe, Linie 1,3; offen Säbel (Tom) | `claude/jerry-348-kampf` |
 | 397 | M | **von Chef (28.10., 11:15):** Tiere, Monster: mind. drei Ruhebewegungen wie alt (`LISTE-UMZUG-348.md`) | ruht (399) | – |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht bis Kauf: Werte, Listen ja (Archiv), dann einbauen; erst Größe prüfen | – |
@@ -56,7 +57,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 - **Zu 390:** gebaut: pechstraehne, ausdauer, talente, zustaende, spuren, klassisch (`ClassicGoldenTest`); offen Ansicht, Gegner auf der Karte. An Tom: `HeroShelfTest.newLoot…` wackelt.
 - **Zu 348.7 Goblin:** Runde 6 steht (Sokrates, billigen/3487-goblin-r6); Feinschliff laut Chefsache, Beil-Goblin sagt „Stich“ an; Lendentuch nimmt wie beim Späher Unterarm-Gewichte (Fix nur für Späher und Schamane, 8bfec7d13). Probe `GEGNER=GOBLINS`, alt `FOEDRAFT=goblin`, Blatt `FIGUR=gob vergleichsblatt.py`.
 - **Zu 348.7, von Sokrates (Chef 25.10., 08:58 und 09:04, Zustandszeichen):** Textschilder „nichts“; Vorschlag Chef: sprechende Symbole in den Farben aus `Status.kt`, alte Zustandsanimationen mitnutzen, Einzelheiten durch Antippen. Empfehlung Sokrates: Einzelheiten per langem Druck (`whoIs`). **Bauen erst nach Ja.**
-- **Zu 348.7, Fledermaus (4ed188d7c):** Eigenbau (34812c-stufe2). Aufruf, Eichung (`MASKE=1`), offene Befunde 4d im Kopf von `fledermaus.py`; Probe `GEGNER=BATS`, nicht im Workflow. 4d beim Chef (Telegram 09:4x); Runde 5 (Gesicht, Tod, Biss, Drohen) nach seinem Urteil. Chef 10:06 „gleichmäßiger Tuscherand?“: alte Tusche; nach 348.13a neu.
+- **Zu 348.7, Fledermaus (4ed188d7c):** r5 abgenommen (Archiv 15:27); Aufruf, Eichung im Kopf von `fledermaus.py`, Probe `GEGNER=BATS`.
 - **Zu 348.7b:** Regel `LISTE-UMZUG-348.md` „Zauberbahn“; Code `kampf_ui.gd` `_draw_spells`, `_step_aside`, Pinsel `tafel.gd`; Proben `BAHN_PRUEF=1`, `SCHRITT_DEBUG=1`.
 - **Zu 348.13a (Tom 08:27):** offen r9: Säbel liest sich als Bogen; Schwert, Schild, Scheide bei Tom (372).
 - **Zu 348.7 (Chef 25.10., 13:11):** „Gradmesser ist Leitbild 1 ‚Düster, erwachsen, glaubwürdig‘; ‚quietschehell passt nicht‘. Nie heller als alt.“

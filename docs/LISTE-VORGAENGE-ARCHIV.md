@@ -475,4 +475,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 392 | Alt-Fassung: Schalter „Atmen aus“ schätzen, nicht bauen (Chef 28.10., 09:50) | A Technik | M | – | Team Tom | erledigt |
 | 396 | Fertige Vorlagen sofort an den Chef, Prüfer nicht davor (Chef 28.10., 11:01) | B Betrieb | M | 3,01 $ | Perikles | erledigt |
 | 394 | Eigene Namen für Zusatzentwickler statt „Tom 2“ (Chef 28.10., 10:21) | B Betrieb | M | – | Perikles | erledigt |
-| 396a | Rückfrage: Textvorlagen auch sofort senden? (Perikles 28.10.) | B Betrieb | M | – | Perikles | erledigt |
+| 396a | Rückfrage: Textvorlagen auch sofort senden? (Perikles 28.10.) | B Betrieb | M | 3,84 $ | Perikles | erledigt |
