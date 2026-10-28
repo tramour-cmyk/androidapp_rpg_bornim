@@ -22,10 +22,13 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
       - name: Karten und Texte aus core
         run: |
-          ./gradlew -p core test --tests '*MapExportTest*' --tests '*TextExportTest*' --tests '*HeroExportTest*' -q
+          ./gradlew -p core test --tests '*MapExportTest*' --tests '*TextExportTest*' --tests '*HeroExportTest*' --tests '*MapSheetExportTest*' -q
           ./gradlew -p core exportMaps -Pout=$GITHUB_WORKSPACE/godot/daten/karten.json -q
           ./gradlew -p core exportTexts -Pout=$GITHUB_WORKSPACE/godot/daten/texte.json -q
           ./gradlew -p core exportHero -Pout=$GITHUB_WORKSPACE/godot/daten/held.json -q
+          # 399.1 Reiter Karte: Kartenblaetter aus core (MapSheetExport), Handschrift der Landkarte (Fondamento, OFL)
+          ./gradlew -p core exportMapSheets -Pout=$GITHUB_WORKSPACE/godot/daten -q
+          cp app/src/main/res/font/fondamento_regular.ttf godot/daten/fondamento.ttf
       # 348.12e gekaufte Modelle aus dem privaten Repo bornim-kaufmodelle (348.12c a), danach unter $KAUF;
       # nie hierher committen, nie als Artefakt; ohne Geheimnis KAUF_TOKEN baut alles ohne Kaufmodelle
       - name: Gekaufte Modelle (privat)

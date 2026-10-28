@@ -109,7 +109,7 @@ func _lauf() -> void:
 	else:
 		sk[0].pressed.emit(); sk[2].pressed.emit()
 		if gesendet != ["speichern", "hauptmenue"] or not m.meldung_.visible: fehler += 1; print("FEHLER System sendet ", gesendet)
-	if m.leiste.get_child_count() != 5: fehler += 1; print("FEHLER %d Reiter" % m.leiste.get_child_count())
+	if m.leiste.get_child_count() != 6: fehler += 1; print("FEHLER %d Reiter" % m.leiste.get_child_count())
 	# Chronik: Hauptauftrag, Auftrag der Geschichte, Bisher geschehen (das Neueste oben), Stern bis zum Lesen
 	z.setze(Geschichte.QUEST_STARTED); z.setze(Geschichte.KROGG_HINT)
 	m.reiter = "held"; m.baue()
@@ -128,6 +128,43 @@ func _lauf() -> void:
 	var e: Array = Chronik.eintraege()
 	if not t.contains(Sprache.t(e[1]["titel"])) or t.find(Sprache.t(e[1]["titel"])) > t.find(Sprache.t(e[0]["titel"])) or t.contains("{name}"):
 		fehler += 1; print("FEHLER Bisher: ", t.substr(0, 300))
+	# 399.1 Karte (MapTab): das Dorf mit dem Helden, Schalter, Zeichen nach dem, was er kennt; Haus oeffnet den Grundriss, der
+	# Knopf oben geht zur Gebietskarte, dann zur Landkarte
+	if Kartenreiter.blatt().is_empty(): fehler += 1; print("FEHLER kartenblatt.json fehlt (exportMapSheets)")
+	else:
+		z.setze("met_rowena"); z.setze("besucht:inn")
+		m.ort = {"karte": "village", "x": 15, "y": 12, "blick": "UP"}
+		m.reiter = "karte"; m.baue()
+		await process_frame; await process_frame
+		var kr: Kartenreiter = m.inhalt.get_child(0)
+		t = texte(m)
+		print("Karte: ", t.substr(0, 200))
+		if not t.contains("Bornim"): fehler += 1; print("FEHLER Karte ohne Bornim")
+		var bl: Kartenreiter.Kartenblatt = kr.flaeche
+		if bl.tex == null or not bl.hier: fehler += 1; print("FEHLER Dorfblatt fehlt oder ohne Held")
+		var arten := bl.marken.map(func(x): return x["art"])
+		for soll in ["GIVER", "PERSON", "INN", "SHOP", "TEMPLE"]:
+			if not soll in arten: fehler += 1; print("FEHLER Karte ohne Zeichen ", soll, " ", arten)
+		if bl.haus.size() < 1: fehler += 1; print("FEHLER kein bekanntes Haus")
+		var schenke: Dictionary = bl.haus.filter(func(h): return h["innen"] == "inn")[0]
+		bl.tippe(bl.an(int(schenke["x"]), int(schenke["y"]) - 2))
+		await process_frame; await process_frame
+		kr = m.inhalt.get_child(0)
+		if kr.gezeigt != "inn" or not (kr.flaeche is Kartenreiter.Kartenblatt) or (kr.flaeche as Kartenreiter.Kartenblatt).tex == null: fehler += 1; print("FEHLER Grundriss Schenke: ", kr.gezeigt)
+		var hoch: Array = kr.find_children("*", "Button", true, false).filter(func(b): return b.text.contains("↑"))
+		hoch[0].pressed.emit()
+		await process_frame
+		if kr.gezeigt != "village": fehler += 1; print("FEHLER nicht zurueck im Dorf")
+		hoch = kr.find_children("*", "Button", true, false).filter(func(b): return b.text.contains("↑"))
+		hoch[0].pressed.emit()
+		await process_frame; await process_frame
+		if not kr.uebersicht or (kr.flaeche as Kartenreiter.Landblatt).tex == null: fehler += 1; print("FEHLER Landkarte")
+		if (kr.flaeche as Kartenreiter.Landblatt).hier() != "village": fehler += 1; print("FEHLER Landkarte: Held nicht im Dorf")
+		var lb: Kartenreiter.Landblatt = kr.flaeche
+		var dorf: Dictionary = lb.land["orte"][0]
+		lb.tippe(lb.an(float(dorf["x"]), float(dorf["y"])))
+		await process_frame; await process_frame
+		if kr.uebersicht or kr.gezeigt != "village": fehler += 1; print("FEHLER Landkarte oeffnet das Dorf nicht")
 	# Satt wird gespeichert
 	z.satt = true
 	if not Zustand.aus_daten(z.als_daten()).satt: fehler += 1; print("FEHLER satt nicht gespeichert")

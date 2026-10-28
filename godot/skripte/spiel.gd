@@ -256,7 +256,9 @@ func _aktion() -> void:
 	var a := karte.ausgang(z)
 	if bool(a["verschlossen"]):
 		var nachts := licht.nacht > 0.5
-		if a.has("klopfen"): ui.sage(zeilen(a["klopfen"]["nacht" if nachts else "tag"]))
+		if a.has("klopfen"):
+			ui.sage(zeilen(a["klopfen"]["nacht" if nachts else "tag"]))
+			zustand.setze("heard_%d_%d" % [z.x, z.y])   # 399.1 Karte: wer hier wohnt (MapPeople.heard)
 		return
 	if a.has("braucht") and not karte.flaggen.has(a["braucht"]):
 		ui.sage(zeilen(a.get("abgewiesen", [])))
@@ -462,6 +464,7 @@ func person_bei(sp: Vector2) -> Leute:
 func sprich(l: Leute) -> void:
 	held.rotation.y = atan2(l.position.x - held.position.x, l.position.z - held.position.z)
 	ui.biete_an("")
+	zustand.setze("met_" + String(l.daten["id"]))   # 399.1 Karte: wen der Held kennt (MapMarks.met, Game.talk)
 	spiele(Geschichte.gespraech(String(l.daten["id"]), zustand))
 
 # wie Game.enqueue: neue Befehle hinten an; laufen nur, wenn gerade kein Text offen ist (Mode.Explore)
@@ -522,6 +525,7 @@ func oeffne_menue() -> void:
 	ebene.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(ebene)
 	var m := Menue.new(held_werte(), zustand)
+	m.ort = platz()
 	ebene.add_child(m)
 	m.speichern.connect(speichere)
 	m.sprache.connect(sprache_wechseln)

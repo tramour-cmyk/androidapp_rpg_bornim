@@ -12,8 +12,9 @@ extends Control
 # - Ausruestung (GearTab): Plaetze links und rechts des Helden (PaperDoll), Antippen legt ab, wechselt oder waehlt aus der Tasche,
 #   was passt (die Nebenhand nimmt auch Einhandwaffen); darunter die Kampfwerte.
 # - System (SystemSigns), soweit es die Welt schon kann: Speichern, Sprache, Hauptmenue; Siege.
+# - Karte (MapTab, 62): kartenreiter.gd.
 # - Chronik (ChronicleTab): Hauptauftrag in Gold, Auftraege der Geschichte, Erledigt zum Aufklappen, „Bisher geschehen“.
-# Noch nicht wie alt: Karte; in der Chronik Nebenauftraege (Anschlagbrett), Ankunft und Morgenandacht ansehen; im System Kampf, Bedienung, Klang und Licht, Version, Geraeteangaben; Bilder der Dinge; Vergleich mit dem Getragenen (GearCompare); Fackel im Dunkeln;
+# Noch nicht wie alt: in der Chronik Nebenauftraege (Anschlagbrett), Ankunft und Morgenandacht ansehen; im System Kampf, Bedienung, Klang und Licht, Version, Geraeteangaben; Bilder der Dinge; Vergleich mit dem Getragenen (GearCompare); Fackel im Dunkeln;
 # Erklaerung der Attribute beim Antippen (Perks).
 
 signal zu
@@ -29,6 +30,7 @@ const SELTEN := {"COMMON": "bdb6a8", "UNCOMMON": "86c46e", "RARE": "82aaf2", "VE
 var hw: Heldwerte
 var z: Zustand
 var reiter := "held"
+var ort := {}                      # 399.1 Karte: wo der Held steht (spiel.gd platz)
 var geplant := {}                  # Attribut -> geplante Punkte (pending)
 var kopf: Label
 var leiste: HBoxContainer
@@ -84,14 +86,14 @@ func _ready() -> void:
 
 func baue() -> void:
 	var y := rolle.scroll_vertical
-	kopf.text = (Sprache.t(CHRONIK) if reiter == "chronik" else Sprache.u(WORT[reiter])).to_upper()
+	kopf.text = wort(reiter).to_upper()
 	for c in leiste.get_children():
 		leiste.remove_child(c)
 		c.queue_free()
 	# 399.1: Reiter als Zeichen wie alt (TabSign, 60j); Woerter passten zu viert nicht in die Breite
-	for r in ["held", "tasche", "ausruestung", "chronik", "system"]:
+	for r in ["held", "tasche", "ausruestung", "karte", "chronik", "system"]:
 		var stern: bool = (r == "held" and hw.offen > 0) or (r == "chronik" and reiter != "chronik" and Chronik.frisch(z))
-		leiste.add_child(Reiterzeichen.knopf(r, Sprache.t(CHRONIK) if r == "chronik" else Sprache.u(WORT[r]), func(): reiter = r; geplant.clear(); baue(), r == reiter, stern))
+		leiste.add_child(Reiterzeichen.knopf(r, wort(r), func(): reiter = r; geplant.clear(); baue(), r == reiter, stern))
 	for c in inhalt.get_children():
 		inhalt.remove_child(c)
 		c.queue_free()
@@ -100,12 +102,21 @@ func baue() -> void:
 		"tasche": tasche()
 		"ausruestung": ausruestung()
 		"chronik": chronik()
+		"karte": inhalt.add_child(Kartenreiter.new(z, ort, rolle.size.y, func(): reiter = "chronik"; baue()))
 		_: system()
+	# die Karte schiebt und zoomt selbst, der Kasten rollt dann nicht
+	rolle.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED if reiter == "karte" else ScrollContainer.SCROLL_MODE_SHOW_NEVER
 	await get_tree().process_frame
 	rolle.scroll_vertical = y
 
 const CHRONIK := {"de": "Chronik", "en": "Chronicle"}   # MenuScreen.kt labels
+const KARTE := {"de": "Karte", "en": "Map"}
 const WORT := {"held": "hero", "tasche": "bag", "ausruestung": "equipment", "system": "system"}
+
+func wort(r: String) -> String:
+	if r == "chronik": return Sprache.t(CHRONIK)
+	if r == "karte": return Sprache.t(KARTE)
+	return Sprache.u(WORT[r])
 
 func meldung(t: String) -> void:
 	if t == "": return

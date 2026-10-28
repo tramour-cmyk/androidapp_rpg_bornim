@@ -48,3 +48,10 @@ tasks.register<JavaExec>("exportHero") {
     mainClass.set("de.bornim.core.HeroExport")
     args(listOfNotNull((findProperty("out") as String?) ?: layout.buildDirectory.file("held.json").get().asFile.path, findProperty("proben") as String?))
 }
+
+// 399.1: Kartenblaetter fuer den Reiter Karte in Godot (MapSheetExport.kt)
+tasks.register<JavaExec>("exportMapSheets") {
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("de.bornim.core.MapSheetExport")
+    args((findProperty("out") as String?) ?: layout.buildDirectory.dir("kartenblatt").get().asFile.path)
+}
