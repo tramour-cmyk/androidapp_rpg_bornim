@@ -9,7 +9,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | wartet auf Chef: Lauf 2 mit Stab gesendet 11:55 (ansehen/385-zauberer-lauf2); dann 385.1 Grundbewegungen, Feuerball |
-| 390 | M | **von Perikles (28.10.):** zwischen Blättern beim Chef Funktionen ohne Bild bauen (`LISTE-UMZUG-348.md`): Englisch, Gespräche und Quests, Tagesablauf, Laden, Rast | gebaut: Laden, Rast, Held, Tagesablauf, Gespräche, Englisch (64a6e5a80; Test 390a) | `claude/tom-390-englisch` |
+| 398 | M | **von Perikles:** 398-Zeilen schätzen (`LISTE-UMZUG-348.md`) | startbar | – |
+| 390 | M | **von Perikles:** zwischen Chef-Blättern Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | gebaut: Laden, Rast, Held, Tagesablauf, Gespräche, Englisch (64a6e5a80; Test 390a) | `claude/tom-390-englisch` |
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101 lädt) | `claude/tom-348-12i-verschluesseln` |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | startbar: Halszacken in Godot, Formen, Editor | `claude/tom-376-1-figuren` |
 | 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: Dorftiere ja, Verhalten wie alt; Hund, Katze Quaternius (395) (Archiv) | `claude/tom-348-fundament` |

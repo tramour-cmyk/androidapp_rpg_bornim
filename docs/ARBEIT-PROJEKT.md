@@ -3,13 +3,13 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 28.10., 11:04
+**Gelesen bis:** `origin/main` 28.10., 12:05
 
-**Übergabe (28.10., 11:1x, `session_01Hmoj76kqDZ5MjqaSWsoJcZ`):** 396 umgesetzt: Bild und Film sofort an den Chef, Helferbefund höchstens danach als Text; Text weiter vorher fremd geprüft, Rückfrage Chefsache 396a. 390a: `probelauf.py` lässt Tests aus `godot/tests/` durch (headless, ohne Bildbefehl). 394: Spike und Tuffy in `kosten.py`, `lauf.py`, `startbar.py`, `weiter-haken.py`, `zug-index.py`, `rollenspiegel.sh`, `ROLLE-ENTWICKLUNG.md`. Kosten auf: 396, 390a, 394. Nachfolger: keiner
+**Übergabe (28.10., 12:1x, `session_01Hmoj77KENJmF3QR1p11Cir`):** 398 eingeplant: 15 Zeilen in die Checkliste Umzug (91 Punkte; Blöcke in `LISTE-UMZUG-348.md` „398“, Satz im Meilenstein), Schätzauftrag 398 an Tom (7) und Jerry (10), Beute-Einbau Jerry; 39 Muss für Block (a), nicht im Umzug. Kosten auf: 398. Nachfolger: keiner (398 wartet auf die Schätzungen)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 398 | M | **von Sokrates (Chef 28.10., 11:22):** 15 Lücken aus der Gegenprobe (`LISTE-UMZUG-348.md` „398“) einplanen: Schätzung bei Tom, Jerry; Schwierigkeitsgrade (39) neu | startbar |
+| 398 | M | **von Sokrates (Chef 28.10., 11:22):** Termine je Block nachrechnen mit der Schätzung der 15 Zeilen 398 | wartet auf Tom, Jerry: Schätzung 398 in `LISTE-UMZUG-348.md` |
 | 396a | M | Rückfrage: gilt 396 auch für Text? (Chefsache 396a) | wartet auf Chef |
 | 384 | M | **von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“):** Kosten aller Sitzungen gegen Buchungsverzeichnis; Ursache der Lücken im Werkzeug beheben (Zu 384) | gebaut 27.10., 20:1x: --kosten nur mit Kennung, Ford holt Kosten frisch (Zu 384) |
 | 383.3 | M | **von Sokrates (Chef 19:55):** Vorlage zurück beim Team sofort aus der Chefsache | gebaut 27.10., 20:1x |
