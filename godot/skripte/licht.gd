@@ -8,6 +8,7 @@ var sonne: DirectionalLight3D
 var env: Environment
 var nacht := 0.0
 var ziel := 0.0
+var herd := true                       # 399.5 Grundriss mit Kamin (alt hasHearth)
 var innen := false                     # 399.1 Grundriss: Licht aus Kamin, Kerzen, Fenstern; die Sonne nur als schwacher Rest von oben
 
 # 348.6 Runde 11 (Chef 25.10., 12:12: Sonnenstand und Schatten falsch, neu kurz nach rechts statt alt lang nach links unten):
@@ -25,6 +26,7 @@ const NACHT_KONTRAST := 0.96   # unter 1 hebt das Schwarz an
 const TIEF_UMGEBUNG := 1.1     # Morgen, Abend: Fronten im Schatten, Himmel traegt mehr
 const DAEMMERUNG_UMGEBUNG := 0.18
 const INNEN_TAG := 0.34        # 399.5 Grundriss: Umgebung am Tag und nachts
+const INNEN_TAG_OHNE_HERD := 0.55   # wie alt MapLight ambient: ohne Feuer am Tag doppelt so hell (Tempel Lauf 2: Mittel 34, alt 51)
 const INNEN_NACHT := 0.24      # Pruefer Lauf 1: nachts 37–48 % des Tags (alt 63 %), Waende fast schwarz, nur Kanten (Drahtgitter)
 const ALT := [[Vector2(-1.0, -0.2), 1.2], [Vector2(0.15, 1.0), 0.35], [Vector2(1.0, -0.2), 1.2]]
 const NATUR := [[Vector2(-1.0, -0.3), 1.2], [Vector2(0.35, -1.0), 0.6], [Vector2(1.0, -0.3), 1.2]]
@@ -123,7 +125,7 @@ func stelle(k: float) -> void:
 		# warmer Rest; hell wird es durch Kamin, Kerzen und das Tageslicht der Fenster (raumlicht.gd)
 		sonne.light_energy = 0.0
 		env.ambient_light_color = Color(0.62, 0.56, 0.5).lerp(Color(0.4, 0.42, 0.55), k)
-		env.ambient_light_energy = lerpf(INNEN_TAG, INNEN_NACHT, k)
+		env.ambient_light_energy = lerpf(INNEN_TAG if herd else INNEN_TAG_OHNE_HERD, INNEN_NACHT, k)
 		env.background_color = Color(0.0, 0.0, 0.0)
 	toene(1.0 - k)
 	nacht_geaendert.emit(k)

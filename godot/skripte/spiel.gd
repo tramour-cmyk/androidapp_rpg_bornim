@@ -126,6 +126,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	karte = Karte.lade(id, zustand.flaggen)   # 390: Schlagbaum, Tor, Ausgaenge und Wege lesen den Spielstand
 	zustand.setze("besucht:" + id)   # 399.1 Chronik „Die Blutzahnhöhle“ (alt GameState.explored)
 	licht.innen = String(karte.daten.get("art", "")) == "INTERIOR"   # 399.1 Grundriss
+	licht.herd = "".join(karte.zeilen).contains("Z")   # 399.5 wie alt hasHearth
 	licht.stelle(licht.nacht)
 	gebiet = Gebiet.new(karte)
 	add_child(gebiet)
@@ -1602,6 +1603,9 @@ func raeume_bilder() -> void:
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--raeume="): dir = a.substr(9)
 	if dir == "": return
+	var stufen: PackedStringArray = []
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--nachtstufen="): stufen = a.substr(14).split(",")
 	DirAccess.make_dir_recursive_absolute(dir)
 	ui.mess.visible = false
 	ui.oben.visible = false
@@ -1620,6 +1624,11 @@ func raeume_bilder() -> void:
 		await get_tree().create_timer(1.0).timeout
 		ui.textfeld.visible = false
 		await knips(dir + "/%s_nacht.png" % r[0])
+		for v in stufen:   # Probe: Umgebung nachts in Stufen, ein Lauf fuer mehrere Messungen
+			licht.env.ambient_light_energy = float(v)
+			await get_tree().create_timer(0.3).timeout
+			await knips(dir + "/%s_nacht_%s.png" % [r[0], v])
+		licht.stelle(1.0)
 		licht.ziel = 0.0
 		licht.stelle(0.0)
 		kamera.drehe(180.0)

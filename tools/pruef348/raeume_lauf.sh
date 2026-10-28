@@ -1,7 +1,8 @@
 # 399.5 Grundrisse am Rechner (nach rechner.sh): Moebelbausatz laden, Held, Dorf, die vier Grundrisse (raum.py), Daten fuer Godot wie
 # godot.yml (ohne Leute und Kaufmodelle), Standbilder --raeume (Tag, Nacht, gedreht), Blatt alt/neu je Raum (raeume_blatt.py).
 # Alte Bilder vorher: tools/t bild KARTENZOOM=1 "HELDORT=inn:4:6:u;inn:4:6:u:23;shop:4:4:u;…" nach <ablage>/alt.
-# Aufruf: PROBE=399.5 bash raeume_lauf.sh [ablage]   -> <ablage>/aus/3995-raeume-*.jpg
+# Aufruf: PROBE=399.5 [NACHTSTUFEN=0.3,0.45] bash raeume_lauf.sh [ablage]   -> <ablage>/aus/3995-raeume-*.jpg (Stufen: Umgebung
+# nachts zusaetzlich, Bilder <raum>_nacht_<stufe>.png)
 set -e
 A=${1:-/home/user/r3995}
 O=$A/out; G=$A/godot; S=$A/aus
@@ -24,7 +25,7 @@ cp $O/boden-maske.png $D/boden-maske.bild
 (cd $G && ~/godot/godot --headless --import --path . > $A/import.log 2>&1 || true)
 rm -rf $A/bild && mkdir -p $A/bild
 (cd $G && VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 1500 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --path . \
-  --rendering-driver vulkan --rendering-method mobile --resolution 1080x2340 -- --raeume=$A/bild > $A/godot.log 2>&1 || true)
+  --rendering-driver vulkan --rendering-method mobile --resolution 1080x2340 -- --raeume=$A/bild ${NACHTSTUFEN:+--nachtstufen=$NACHTSTUFEN} > $A/godot.log 2>&1 || true)
 grep -E "SCRIPT ERROR|SHADER ERROR|^BILD|^ZEICHNEN" $A/godot.log | cut -c1-200 | head -40
 python3 -I $R/tools/pruef348/raeume_blatt.py $A/alt $A/bild $S/3995-raeume
 ls -l $S
