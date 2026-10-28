@@ -318,7 +318,7 @@ func vor_tuer(alle: Dictionary, id: String, a: Dictionary) -> Vector2i:
 # ---------------------------------------------------------------- Kampf (399.1, Chef 28.10., 12:34: im Dorf herumlaufen, in einen Kampf kommen)
 # Der Weg in den Wald fuehrt in den Kampfort von Jerry (kampf/kampfort.gd, MARS) gegen ein Wolfsrudel, bis Wald und tiefer Wald als
 # Gebietskarten stehen; danach zurueck vor den Ausgang, die Trefferpunkte bleiben. Verloren: wie Game.kt (154) vier Stunden vergehen,
-# der Held erwacht ganz geheilt am Wiederkehrort (steht dieser Grundriss noch nicht, vor dessen Tuer im Dorf). Das Kampfblatt
+# der Held erwacht ganz geheilt im Wiederkehrort (steht dieser Grundriss noch nicht, vor dessen Tuer im Dorf). Das Kampfblatt
 # kommt aus den Heldwerten (kampf/aufruf.gd, 399.2 Jerry).
 const WALD := ["forest", "deep_forest"]
 const AufrufS = preload("res://kampf/aufruf.gd")
@@ -366,7 +366,11 @@ func kampf_im_wald(zurueck: Vector2i) -> void:
 		hw.tp = hw.max_tp()
 		var wk: Dictionary = zustand.wiederkehr
 		var alle: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json"))
+		# Test 132 (Chef 16:09: „Bei Heilung bin ich nicht vor der Schenke, sondern vor dem Tempel“): wie Game.kt state.place =
+		# state.respawn im Wiederkehrort selbst (Schenke neben dem Bett, Tempel nach der Heilung des Priesters), seit die Grundrisse stehen
 		if String(wk["karte"]) == karte.id: held.setze(Vector2i(int(wk["x"]), int(wk["y"])), String(wk["blick"]))
+		elif FileAccess.file_exists("res://daten/" + Gebiet.datei(String(wk["karte"])) + ".bin"):
+			betrete(String(wk["karte"]), Vector2i(int(wk["x"]), int(wk["y"])), String(wk["blick"]))
 		else:
 			var tuer := zurueck
 			for a in alle["karten"][karte.id].get("ausgaenge", []):
