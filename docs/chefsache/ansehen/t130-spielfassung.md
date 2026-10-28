@@ -1,6 +1,6 @@
 # Tom und Jerry · Build 130 · Godot 0.1 · 399 Spielfassung: Hauptmenü, Dorf, Grundrisse, Kampf · ohne PR
 
-B Umzug · Tom und Jerry · 28.10., 13:58 · APK: [Lauf 130](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40688776644/artifacts/12817701661) (Kennung de.bornim.game.godot neben dem alten Spiel; Kaufmodelle verschlüsselt, im APK geprüft). Nur Funktion (399): Aussehen und Feinheiten auf die Feintuning-Liste.
+B Umzug · Tom und Jerry · 28.10., 13:56 · APK: [Lauf 130](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40688776644/artifacts/12817701661) (Kennung de.bornim.game.godot neben dem alten Spiel; Kaufmodelle verschlüsselt, im APK geprüft). Nur Funktion (399): Aussehen und Feinheiten auf die Feintuning-Liste.
 
 Ein Weg: Hauptmenü, neuer Held; Start am Brunnen; Dorf, Schenke, Laden, Tempel, Ältester; über Jorin und den Schlagbaum nach Norden in den Wald; Kampf; zurück; App schließen und fortsetzen.
 
