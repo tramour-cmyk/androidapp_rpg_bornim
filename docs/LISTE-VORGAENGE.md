@@ -119,7 +119,6 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 399a | Spielfassung 13b97af52 nach Test 132 auf main? | B Umzug | M | 8,49 $ | Team Tom | erledigt |
 | 399.2 | Kampfort als aufrufbare Szene für die Spielfassung 399.1 (aus 399) | B Umzug | M | 24,89 $ | Team Jerry | in Arbeit |
 | 399.2b | Rudel allein: drei von vier Klassen verlieren; Ursache prüfen, Balance an Chef (aus 399.2a) | E Kampf | M | 5,62 $ | Team Jerry | startbar |
-| 399.2c | Wolf durch Wolf: dritter Probelauf für die Korrektur? (aus 399.2) | E Kampf | M | – | Team Jerry | wartet |
 | 399.2d | Godot am Rechner freigeben (Auto-Modus lehnte Download ab), Tests ohne CI-Lauf (aus 399.2) | E Kampf | M | – | Team Jerry | wartet |
 | 399.3 | Klang in die Spielfassung: Musik, Ortsklang, Schritte, Kampfklang aus dem alten Spiel (aus 399; Chef 28.10., 16:42) | B Umzug | M | 5,62 $ | Team Jerry | in Arbeit |
 | 399.3.1 | Klang: Haken in spiel.gd übernehmen, Klangregler im Menü System (aus 399.3) | B Umzug | M | – | Team Tom | startbar |
