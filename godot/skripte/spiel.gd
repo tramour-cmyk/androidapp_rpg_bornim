@@ -116,6 +116,7 @@ func starte(w: Dictionary) -> void:
 	ortsworte("", true)   # 24.1 Spielbeginn: Name und Satz
 
 func betrete(id: String, t: Vector2i, blick: String) -> void:
+	var t0 := Time.get_ticks_usec()   # 399.1 Gerät: Ladezeit je Ort
 	if gebiet: gebiet.queue_free()
 	if held: held.queue_free()
 	if leute: leute.queue_free()
@@ -148,6 +149,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	_steht_auf(t)
 	spiele(Geschichte.betreten(id, zustand))   # 390: MapDef.onEnter
 	speichere()   # 399: wie alt beim Kartenwechsel
+	Messung.geladen(id, (Time.get_ticks_usec() - t0) / 1000.0)
 
 func speichere() -> void:
 	if held and karte and not OS.get_cmdline_user_args().size(): Spielstand.speichere(zustand, held_werte(), platz())
@@ -428,6 +430,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = []) -> v
 		var ilvl := int(Karte.lade("forest").daten.get("stufe", 1))
 		var st: Dictionary = Heldwerte.lade()["seltenheiten"]
 		return Beute.beute(hw, w, ilvl, false, false, zustand.neue_uid).map(func(g): return {"gear": g, "name": Beute.name(g), "rarity": Sprache.t(st[String(g["rarity"])]["name"])})
+	var k0 := Time.get_ticks_msec()
 	var gestartet: bool = aufruf.starte(gegner, hw, soeldner, "wald", tageszeit(), zustand.anzahl("potion") if probe.is_empty() else 2, -1, -1, -1, beute)
 	if probe.is_empty(): zustand.satt = false   # 399.1: Battle.wellFed endet mit dem Kampfbeginn; den Bonus +1 kennt der Kampfort noch nicht (an Jerry)
 	if gestartet:
@@ -435,6 +438,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = []) -> v
 		visible = false; ui.visible = false
 		while aufruf.kampf != null and not aufruf.kampf.is_inside_tree() and erg["ende"] == "": await get_tree().process_frame
 		kampf = aufruf.kampf
+		Messung.kampf_ms = Time.get_ticks_msec() - k0
 		if kampf and kampf.cam: kampf.cam.make_current()
 	while erg["ende"] == "": await get_tree().process_frame
 	kampf = null
@@ -480,9 +484,11 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = []) -> v
 
 func abblenden(ziel: float) -> void:
 	klang("verhuelle", [ziel > 0.5])   # 399.3 (Jerry): in der Schwarzblende schweigen die Effekte, Musik erst danach (Hush.kt)
+	if ziel > 0.5: Messung.blende(true)
 	var tw := create_tween()
 	tw.tween_property(blende, "color:a", ziel, 0.35)
 	await tw.finished
+	if ziel <= 0.5: Messung.blende(false)
 
 # ---------------------------------------------------------------- Gespraeche (390)
 const REICHWEITE := 1.3                          # Kacheln vom Helden zur Person (Navigation.ACTION_REACH)
@@ -742,6 +748,7 @@ func ortsworte(von: String, erster: bool) -> void:
 	blende.color.a = 0.0   # das Schwarz traegt jetzt die Ortsblende
 	await o.fertig
 	o.queue_free()
+	Messung.blende(false)
 	klang("verhuelle", [false])   # 319: Effekte und Musik erst, wenn der Ort da ist
 
 # 399.1 Zwischensequenz (Zwischenbild, 69): ueber allem, laeuft auch, wenn das Spiel steht; ohne daten/intro.json gleich vorbei
@@ -1070,6 +1077,7 @@ func sichtbar_neu() -> void:
 # ---------------------------------------------------------------- Lauf
 func _process(dt: float) -> void:
 	if held == null: return
+	Messung.bild(dt, "%s %d/%d" % [karte.id, held.kachel.x, held.kachel.y])   # 399.1 Gerät: Messwerte wie alt
 	held.laeuft = Ausdauer.schritt(zustand, held_werte(), dt * 1000.0, held.geht(), laufen_will)   # 399.1 Stamina.step
 	ui.ausdauer_balken.z = zustand
 	klang("atme", [zustand.atemlos and kampf == null, zustand.ausdauer])   # 399.3 (Jerry): atemlos keucht er (Panting.kt)

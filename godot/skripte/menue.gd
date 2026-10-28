@@ -896,10 +896,11 @@ static func geraeteangaben() -> String:
 		"System: %s %s" % [OS.get_name(), OS.get_version()],
 		"Grafik: %s (%s), %s" % [RenderingServer.get_video_adapter_name(), RenderingServer.get_video_adapter_vendor(), String(ProjectSettings.get_setting("rendering/renderer/rendering_method", ""))],
 		"Bildschirm: %d × %d, %d dpi" % [gr.x, gr.y, DisplayServer.screen_get_dpi()],
-		"Bilder je Sekunde: %d" % Engine.get_frames_per_second(),
 		"Speicher: %d MB" % int(OS.get_static_memory_usage() / 1048576),
 		"Prozessorkerne: %d" % OS.get_processor_count(),
 	]
+	var ml := Engine.get_main_loop()
+	z_.append_array(Messung.zeilen(ml.root if ml is SceneTree else null))   # 399.1 Messwerte wie alt (deviceReadings)
 	return "\n".join(PackedStringArray(z_))
 
 # BrightnessSign: ein Ring mit Flammenstrich in 10 von 255 auf reinem Schwarz, so dunkel wie der Umriss einer Hoehle
