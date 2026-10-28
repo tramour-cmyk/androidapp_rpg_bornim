@@ -24,7 +24,7 @@ Nichts offen.
 | [348.12](ansehen/34812-kobold-cc0.md) | Kobold auf dem CC0-Gerüst, Stand nach zwei Probeläufen: noch nicht fertig | – | 28.10., 01:45 |
 | [348.12f](ansehen/34812f-drehen.md) | Ratte und Kaufwolf drehen sich auf der Stelle mit Schritten | – | 28.10., 00:50 |
 | [348.13a](ansehen/34813a-tusche-kampf-r9.md) | Tusche im Kampf, Runde 9: Langschwert nicht mehr schwarz | Tom | 28.10., 00:59 |
-| [348.6](ansehen/3486-dorf-dinge.md) | Dorf: Fehler an den Häusern, erste weitere Dinge | Tom | 28.10., 01:52 |
+| [348.6](ansehen/3486-dorf-dinge.md) | Dorf: Turmfuß, Markise, Kisten, Felsen (Runde 2) | Tom | 28.10., 03:17 |
 | [387](ansehen/387-kauftiere-r2.md) | Sechs gekaufte Tiere mit Nacharbeit und Wegen über den Kampfort | – | 28.10., 00:38 |
 
 ## Zu tun
