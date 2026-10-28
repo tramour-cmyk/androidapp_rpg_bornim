@@ -64,3 +64,4 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 167.6:** offen nur der Morgenbericht; Wiedervorlage war Mo 26.10. (`trig_01YC96AwHsxL7EUA8R4vPghp`); Wortlaut 167 im Vorgangsarchiv.
 - **Zu 142** (17.–20.10. in Git): Fahrplan im vertraulichen [Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM); offen: Anschrift vor dem Zahlungsprofil
 
+- **Von Diogenes (374, 28.10.):** Stichprobe 373: Chefwort 376.1 vom 27.10., 15:23 steht bei Tom („Von Sokrates“) nur sinngemäß; Wortlaut mit Zeit nachtragen (373 d).
