@@ -463,3 +463,5 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 381 | Bewegung nur als Film vorlegen, auch auf Telegram (`meldung.sh --film`; Chef 27.10., 17:19) | B Werkzeuge | M | 2,50 $ | Perikles | erledigt |
 | 381.1 | Filmlinks `bilder:…` in Vorlagen anklickbar machen oder ablehnen (Chef 27.10., 17:31) | B Werkzeuge | M | – | Perikles | erledigt |
 | 382 | `create_session` immer mit `source_revision` `main` (`lauf.py` START-Zeile, `LISTE-BETRIEB.md`; Befund Tom 376.1a, von Ford) | B Werkzeuge | M | – | Perikles | erledigt |
+| 383.1 | Kein Neustart nur wegen Warten auf den Chef (Chef 27.10., 19:19) | B Werkzeuge | M | 2,01 $ | Perikles | erledigt |
+| 388 | Alt-Fassung: Geräteangaben kopieren im Systemmenü, Ruckeln in Hütten auswerten (Chef 27.10., 21:58) | A Technik | M | 18,44 $ | Team Tom | erledigt |

@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (27.10., 19:14, `session_01Hmoj77UKZsnswrNjiPy18C`):** 383 Sitzungsgröße gemessen (Zu 383): keine Größenregel. Chef 19:07/19:08 eingetragen (Archiv 348.13a Sonne schräg, 376 Häuser so lassen; Tom). Rat Dicke und Bausätze im Chat 19:1x. Kosten auf: 383, 376, 348.13. Nachfolger: Sokrates – Chefrunde 348.13a und Bausätze 376
+**Übergabe (28.10., 00:10, `session_01Hmoj79NGUpegjwGyVmjQax`):** Chefrunde 27.10. abends: 383.1–383.3, 389, 142.3 A und C, 109 vorgelegt, 385 (Zauberer-Set gekauft), 387, 388 (Play-Test), 348.7b D, 348.12f, 348.13a 1,3, 376 A2, 376.1, 348.6, Maßstab Umzug (Archiv). Chef 00:01: Sokrates führt die Nacht (Archiv „Nacht 27./28.10.“). Offen bis 28.10.: 142.3 Aufruftexte, Forenregeln, Organisationskonto. Kosten auf: 383, 142.3, 385, 348.12c, 109. Nachfolger: Sokrates – 142.3 Tester-Aufruf
 
 ## Zeilen
 

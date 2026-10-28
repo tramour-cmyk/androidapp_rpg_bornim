@@ -16,7 +16,13 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [348.12f](ansehen/34812f-drehen.md) | Ratte und Kaufwolf drehen sich auf der Stelle mit Schritten | – | 28.10., 00:50 |
+| [348.13a](ansehen/34813a-tusche-kampf-r9.md) | Tusche im Kampf, Runde 9: Langschwert nicht mehr schwarz | Tom | 28.10., 00:46 |
+| [387](ansehen/387-kauftiere-r2.md) | Sechs gekaufte Tiere mit Nacharbeit und Wegen über den Kampfort | – | 28.10., 00:38 |
 
 ## Zu tun
 
@@ -39,16 +45,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 21, Muss 10, startbar 5
+**Tom** – offen 20, Muss 9, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 348.12i | M | von Sokrates (Chef 19:41, „348.12i B“, Archiv): nur Kaufmodelle mit AESContext verschlüsse | wartet auf Test/Build (gebaut) |
-| 388 | M | von Sokrates (Chef 21:58; „jetzt“ 27.10., 22:17, „388 machen“): Play-Fassung: „Kopieren“ d | startbar |
 | 385 | M? | von Sokrates (Archiv): Zauberer-Set (Biped, LISTE-BESTAND) auf Kaufkörper, Film | startbar |
 | 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | startbar |
 | 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | startbar |
-| 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | wartet auf 348.6 (in Arbeit) |
+| 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | wartet auf 348.6 (Chef) |
 | 372 | M | von Perikles (338a B, Chef 27.10., 09:36, Archiv): Feinschliff Held: Kettenhemd, Helm, Kra | ruht |
 | 348.13 | M | von Sokrates (Chef 26.10., Archiv): Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Sc | startbar |
 | 267 | M | von Chef (20.10., 21:46, B48, Tablet): „Das Game laggt ziemlich auf dem Tablet...“ | ruht |
@@ -65,10 +70,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 27, Muss 16, startbar 5
+**Jerry** – offen 28, Muss 17, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 389 | M | von Perikles (Chef 27.10., 23:55, Archiv): main in den Arbeitszweig mergen (Haken probelau | startbar |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | startbar |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | startbar |
 | 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | startbar |
@@ -97,13 +103,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 14, Muss 12, startbar 1
+**Perikles** – offen 14, Muss 12, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 386 | M | von Chef (27.10., 21:02, GitHub-Mail „will soon require 2FA“, „Ist das für uns ein Problem | Chef |
 | 384 | M | von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“): Kosten aller Si | wartet auf Test/Build (gebaut) |
-| 389 | M | von Sokrates (Chef 27.10., 23:53, „dafür habe ich kein Geld. Das muss einfach mal fertig w | startbar |
+| 389 | M | von Sokrates (Chef 27.10., 23:53, „dafür habe ich kein Geld. Das muss einfach mal fertig w | wartet auf Test/Build (gebaut) |
 | 383.3 | M | von Sokrates (Chef 19:55): Vorlage zurück beim Team sofort aus der Chefsache | wartet auf Test/Build (gebaut) |
 | 383 | M | von Sokrates (Chef 27.10., 17:53 „ja, 383“, Archiv): Wartewächter in lauf.py (Zeitfeld zum | wartet auf Test/Build (gebaut) |
 | 275 | M | von Sokrates (Chef 27.10., 15:09 ja, 15:15 „jetzt loslegen“, Archiv): Stufe 1 (Chefsache 2 | Termin 03.11. |

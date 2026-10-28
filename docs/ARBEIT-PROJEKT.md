@@ -3,15 +3,15 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 27.10., 20:14
+**Gelesen bis:** `origin/main` 28.10., 00:02
 
-**Übergabe (27.10., 20:15, `session_01Hmoj77KVVgxT4ibZLpzXjH`):** 383.3 gebaut (Commit-Prüfung, Übersicht, Regel); 384 Kosten geprüft, drei nachgebucht, `--kosten` nur mit Kennung. Kosten auf: 383.3, 384. Nachfolger: keiner
+**Übergabe (28.10., 00:0x, `session_01Hmoj76mW9cxhS7viQ9cfW9`):** 389 gebaut: Haken `probelauf.py`, Regel in `ROLLE-ENTWICKLUNG.md`, Zeilen 389 an Tom und Jerry. Kosten auf: 389. Nachfolger: keiner
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
 | 386 | M | **von Chef (27.10., 21:02, GitHub-Mail „will soon require 2FA“, „Ist das für uns ein Problem?“):** Zwei-Faktor bis 11.12.2026 (Chefsache tun/386) | wartet auf Chef: tun/386 |
 | 384 | M | **von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“):** Kosten aller Sitzungen gegen Buchungsverzeichnis; Ursache der Lücken im Werkzeug beheben (Zu 384) | gebaut 27.10., 20:1x: drei nachgebucht, --kosten nur mit Kennung, Ford holt Kosten frisch; 79,23 $ Nachtbuchungen nicht nachweisbar (Zu 384) |
-| 389 | M | **von Sokrates (Chef 27.10., 23:53, „dafür habe ich kein Geld. Das muss einfach mal fertig werden“):** Tom 348.6: 4 Läufe für Dachziegel statt Vorlage (Regel 373: eine Fehlerprüfung, dann Chef); Grenze für Probeläufe je Vorlage, die greift | neu |
+| 389 | M | **von Sokrates (Chef 27.10., 23:53, „dafür habe ich kein Geld. Das muss einfach mal fertig werden“):** Tom 348.6: 4 Läufe für Dachziegel statt Vorlage; Grenze für Probeläufe je Vorlage, die greift; Chef 23:55 „389 ja, höchstens zwei Läufe“, „jetzt“ 27.10., 23:55 (Archiv) | gebaut 28.10., 00:0x (Haken probelauf.py) |
 | 383.3 | M | **von Sokrates (Chef 19:55):** Vorlage zurück beim Team sofort aus der Chefsache | gebaut 27.10., 20:1x |
 | 383 | M | **von Sokrates (Chef 27.10., 17:53 „ja, 383“, Archiv):** Wartewächter in `lauf.py` (Zeitfeld zum „jetzt“, Protokollzeile in `meldung.sh`), Haken 63 verschärfen; Fälle 376.1 und Ford-Bitte 17:3x nachstellen | gebaut 27.10., 19:1x; Diogenes zählt ab 28.10. (Zu 383) |
 | 275 | M | **von Sokrates (Chef 27.10., 15:09 ja, 15:15 „jetzt loslegen“, Archiv):** Stufe 1 (Chefsache 275, Git); Statusfeld mit Wortliste; nur gezielte Suche, Token je Start messen (15:11); Besitzer schreiben selbst über `vorgang.py` (15:20) | frühestens 03.11.: Stufe 2, wenn Diogenes keinen Werkzeugfehler zählt; LEICHEN_START an seit 27.10., 17:2x; offen D46.3, D46.5, D47.2 (Zu 275) |
@@ -20,7 +20,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 276 | K | **von Sokrates (zu 274):** Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in `lauf.py` oder zu Perikles | ruht bis Meilenstein Umzug (Perikles 26.10., 11:5x, Zu 276); Zählung 149 da (Lauf 45: etwa 22 Abweichungen, fast alle Schritt 4, 12 Urteil, 8 Mechanik) |
 | 341 | M | **von Chef (23.10., 09:39):** Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | frühestens 06.11.: gebaut 23.10.; 06.11. Probe bewerten, Gerüst für alle Rollen vorlegen |
 | 339 | M | **von Sokrates (Chef 23.10., 09:08 „so eine Art Dashboard“, ja 09:53):** Dashboard „Stand zum Marktstart“, immer aktuell | bis 06.11. Dauerzeile: [Seite](https://claude.ai/artifact/5gdqbHNUUpbBUU9sBo4i7t), Ford erneuert jeden Lauf; 27.10. (378): Werkzeug richtig, Ford seit 08:07 säumig (Eingang Ford) |
-| 338.1 | M | **von Sokrates (Chef 23.10., 09:01/09:05):** „wird es mir nie vorgelegt, wie weit wir da eigentlich stehen“; „dazu brauche ich auch regelmäßige Feedback“. „Stand zum Marktstart“ in `LISTE-ABNAHME-KAPITEL1.md` | frühestens 28.10.: Dauerzeile bis Marktstart, zuletzt 27.10., 08:15 (gemeldet); täglich neu (`lauf.py` startet), montags mit Schätzungen der Teams |
+| 338.1 | M | **von Sokrates (Chef 23.10., 09:01/09:05):** „wird es mir nie vorgelegt, wie weit wir da eigentlich stehen“; „dazu brauche ich auch regelmäßige Feedback“. „Stand zum Marktstart“ in `LISTE-ABNAHME-KAPITEL1.md` | frühestens 28.10.: Dauerzeile bis Marktstart, zuletzt 27.10., 08:15 (gemeldet); täglich zur Morgenzeit neu (lauf.py startet), montags mit Schätzungen der Teams |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 06.11.: behalten (Chef 26.10., 11:15, Archiv); Zahlen mit Zielvereinbarung 341 |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
 
