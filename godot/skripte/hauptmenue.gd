@@ -1,7 +1,7 @@
 class_name Hauptmenue
 extends Control
 # 399 (Chef 28.10., 12:34: spielbar zuerst): Hauptmenue (292) und Erschaffung. Fortsetzen, wenn ein Spielstand liegt; Neues Spiel fuehrt
-# durch Name, Volk, Klasse, Zusammenfassung. Ende: Signal fertig({"laden": true}) oder fertig({"name", "volk", "klasse"}).
+# in die Erschaffung (erschaffung.gd). Ende: Signal fertig({"laden": true}) oder fertig({"name", "volk", "klasse", "werte"}).
 # 399.1 (Test 130, Chef 14:38: „Einfach mal das alte Spiel nehmen … so soll es im neuen halt auch schon“; 14:39 „an die
 # Designvorgaben halten“): Aussehen wie App.kt MainMenuColumn (292.3, Entwurf A): schwarz, Titel gross in gesperrten Versalien, Zier,
 # Kapitelzeile, das Bild der vier im warmen Lichtkegel (assets/menu/hauptmenue.jpg, im Bau kopiert), Hauptweg golden umrandet,
@@ -10,14 +10,11 @@ extends Control
 
 signal fertig(wahl: Dictionary)
 
-const VOELKER := ["HUMAN", "ELF", "DWARF", "HALFLING", "HALF_ORC"]
-const KLASSEN := ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]
 const DP := AktionsKnopf.DP
 const BILD := "res://daten/hauptmenue.bild"   # JPEG aus app/src/main/assets/menu, im Bau kopiert (godot.yml)
 const LOGO := "res://bilder/logo-quer.svg"
 var st: Steuerung
 var box: VBoxContainer
-var wahl := {}
 
 # Zier unter dem Titel wie alt: Linie 80 dp aus dem Nichts zum Rand, Raute 7 dp mit Goldrand, Linie zurueck ins Nichts
 class Zier extends Control:
@@ -165,7 +162,7 @@ func titel() -> void:
 		hauptknopf("Weiter" if Sprache.aktiv() == "de" else "Continue", "%s · %s %d · %s" % [h.get("name", ""), Sprache.u("level"), int(h.get("stufe", 1)), ort],
 			func(): fertig.emit({"laden": true}))
 		abstand(12)
-	knopf(Sprache.u("newGame"), name_waehlen)
+	knopf(Sprache.u("newGame"), erschaffung)
 	abstand(18)
 	rundzeichen("DE" if Sprache.aktiv() == "de" else "EN", func(): Sprache.wechsle(); titel())
 	abstand(22)
@@ -175,54 +172,9 @@ func titel() -> void:
 	var vz := zeile(("v%s · " % v if v != "" else "") + "SRD 5.1 · CC BY 4.0", 12, Color(Stil.DIM, 0.75), 0.5)
 	vz.autowrap_mode = TextServer.AUTOWRAP_OFF
 
-func name_waehlen() -> void:
-	leer()
-	zeile(Sprache.u("yourName").to_upper(), 20, Stil.BRIGHT, 3.0)
-	abstand(18)
-	var e := LineEdit.new()
-	e.text = String(wahl.get("name", Sprache.u("defaultName")))
-	e.max_length = 16
-	e.alignment = HORIZONTAL_ALIGNMENT_CENTER
-	e.custom_minimum_size = Vector2(280, 52) * DP
-	e.add_theme_font_override("font", Stil.variante(0.5))
-	e.add_theme_font_size_override("font_size", int(round(18 * Stil.SP)))
-	e.add_theme_color_override("font_color", Stil.TEXT)
-	for z in ["normal", "focus"]: e.add_theme_stylebox_override(z, Stil.kasten(Color.BLACK, Stil.RIM, 1.0))
-	mittig(e)
-	abstand(18)
-	knopf(Sprache.u("next"), func():
-		wahl["name"] = e.text.strip_edges() if e.text.strip_edges() != "" else Sprache.u("defaultName")
-		volk_waehlen())
-	abstand(12)
-	knopf(Sprache.u("back"), titel)
-
-func volk_waehlen() -> void:
-	leer()
-	zeile(Sprache.u("chooseRace").to_upper(), 20, Stil.BRIGHT, 3.0)
-	abstand(18)
-	for v in VOELKER:
-		knopf(Sprache.t(Heldwerte.lade()["voelker"][v]["name"]), func(): wahl["volk"] = v; klasse_waehlen())
-		abstand(10)
-	abstand(8)
-	knopf(Sprache.u("back"), name_waehlen)
-
-func klasse_waehlen() -> void:
-	leer()
-	zeile(Sprache.u("chooseClass").to_upper(), 20, Stil.BRIGHT, 3.0)
-	abstand(18)
-	for k in KLASSEN:
-		knopf(Sprache.t(Heldwerte.lade()["klassen"][k]["name"]), func(): wahl["klasse"] = k; zusammenfassung())
-		abstand(10)
-	abstand(8)
-	knopf(Sprache.u("back"), volk_waehlen)
-
-func zusammenfassung() -> void:
-	leer()
-	zeile(Sprache.u("summary").to_upper(), 20, Stil.BRIGHT, 3.0)
-	abstand(14)
-	var d: Dictionary = Heldwerte.lade()
-	zeile("%s · %s · %s" % [wahl["name"], Sprache.t(d["voelker"][wahl["volk"]]["name"]), Sprache.t(d["klassen"][wahl["klasse"]]["name"])], 17, Stil.TEXT, 0.3)
-	abstand(22)
-	knopf(Sprache.u("start"), func(): fertig.emit(wahl.duplicate()))
-	abstand(12)
-	knopf(Sprache.u("back"), klasse_waehlen)
+# 399.1 Erschaffung wie alt (erschaffung.gd): eine Seite ueber dem Menue; Zurueck fuehrt ins Hauptmenue
+func erschaffung() -> void:
+	var e := Erschaffung.new()
+	add_child(e)
+	e.zurueck.connect(func(): e.queue_free(); titel())
+	e.fertig.connect(func(w): fertig.emit(w))

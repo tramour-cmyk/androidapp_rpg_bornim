@@ -71,7 +71,7 @@ func _ready() -> void:
 			betrete(String(o["karte"]), Vector2i(int(o["x"]), int(o["y"])), String(o["blick"]))
 			return
 		zustand.name = String(w.get("name", zustand.name))
-		werte = Heldwerte.erschaffe(zustand.name, String(w.get("volk", "HUMAN")), String(w.get("klasse", "FIGHTER")), {}, zustand.neue_uid)
+		werte = Heldwerte.erschaffe(zustand.name, String(w.get("volk", "HUMAN")), String(w.get("klasse", "FIGHTER")), w.get("werte", {}), zustand.neue_uid)   # 399.1 Punktekauf
 	betrete(START, START_KACHEL, "DOWN")
 	bilder()
 	gang_film()

@@ -157,11 +157,15 @@ object HeroExport {
             // Obergrenze je Affix im Kapitel k: k + Wert; fehlt der Affix, keine Grenze (Rules.gearCap)
             "deckel" to Affix.entries.mapNotNull { a -> Rules.gearCap(a, 0)?.let { a.name to it } }.toMap(),
         )))
-        put("voelker", j(Race.entries.associate { it.name to mapOf("name" to it.title, "bonus" to it.bonus) }))
+        // 399.1 (Erschaffung wie alt, CreateScreen.kt): Beschreibung und Merkmal der Voelker, Beschreibung der Klassen und Faehigkeiten,
+        // Namen der Attribute und Ruestungsarten
+        put("voelker", j(Race.entries.associate { it.name to mapOf("name" to it.title, "bonus" to it.bonus, "text" to it.desc, "merkmal" to it.trait) }))
+        put("attribute", j(Ability.entries.associate { it.name to mapOf("kurz" to it.short, "name" to it.full) }))
+        put("ruestungsarten", j(ArmorCategory.entries.associate { it.name to it.title }))
         put("klassen", j(CharClass.entries.associate { c -> c.name to mapOf("name" to c.title, "trefferwuerfel" to c.hitDie, "haupt" to c.primary,
             "reihenfolge" to c.priority, "ruestung" to c.armor, "schilde" to c.shields, "waffen" to c.weapons?.toList(), "start" to c.startItems,
-            "startgold" to c.startGold, "zauberer" to c.caster) }))
-        put("faehigkeiten", j(Skill.entries.associate { it.name to mapOf("klasse" to it.cls, "stufe" to it.level, "name" to it.title) }))
+            "startgold" to c.startGold, "zauberer" to c.caster, "text" to c.desc) }))
+        put("faehigkeiten", j(Skill.entries.associate { it.name to mapOf("klasse" to it.cls, "stufe" to it.level, "name" to it.title, "text" to it.desc, "mars" to it.mars) }))
         put("grundformen", j(GearBases.all.associate { it.id to base(it) }))
         put("affixe", j(Affix.entries.map { it.name }))
         // 390 (Laden, Beute): was Gear.name und Loot brauchen; Reihenfolge der Grundformen wie GearBases.all (Wuerfel waehlen daraus)

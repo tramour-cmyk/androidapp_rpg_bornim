@@ -30,12 +30,27 @@ func _lauf() -> void:
 		await process_frame
 		var bs: Array = m.box.get_children().filter(func(c): return c is Button and not c.is_queued_for_deletion())
 		bs[i].pressed.emit()
-	await druecke.call(0)   # Neues Spiel (ohne Spielstand der erste Knopf)
-	await druecke.call(0)   # Weiter mit dem vorgeschlagenen Namen
-	await druecke.call(2)   # Volk: Zwerg
-	await druecke.call(3)   # Klasse: Kleriker
-	await druecke.call(0)   # Abenteuer beginnen
+	await druecke.call(0)   # Neues Spiel (ohne Spielstand der erste Knopf): 399.1 Erschaffung auf einer Seite (erschaffung.gd)
+	await process_frame
+	var e: Erschaffung = m.get_node("Erschaffung")
+	var knoepfe := func() -> Array:
+		await process_frame
+		return e.find_children("*", "Button", true, false).filter(func(c): return not c.is_queued_for_deletion())
+	var bs: Array = await knoepfe.call()
+	bs[2].pressed.emit()    # Volk: Zwerg (Reihe Mensch, Elf, Zwerg, Halbling, Halbork)
+	bs = await knoepfe.call()
+	bs[5 + 3].pressed.emit()   # Klasse: Kleriker (Kaempfer, Magier, Schurke, Kleriker)
+	bs = await knoepfe.call()
+	var minus: Button = bs[5 + 4 + 1]   # nach Vorschlag: − und + je Attribut, STR zuerst
+	minus.pressed.emit()    # STR einen weniger, ein Punkt frei
+	bs = await knoepfe.call()
+	bs[bs.size() - 1].pressed.emit()   # Abenteuer beginnen (unten rechts)
+	await process_frame
 	print("Hauptmenue: %s" % ergebnis)
 	if ergebnis.get("volk") != "DWARF" or ergebnis.get("klasse") != "CLERIC" or String(ergebnis.get("name", "")) == "": fehler += 1; print("FEHLER Hauptmenue")
+	var vor := Heldwerte.vorschlag("CLERIC")
+	if int(ergebnis.get("werte", {}).get("STR", 0)) != int(vor["STR"]) - 1 or not Heldwerte.gueltiger_kauf(ergebnis.get("werte", {})): fehler += 1; print("FEHLER Punktekauf")
+	var h3 := Heldwerte.erschaffe(String(ergebnis["name"]), "DWARF", "CLERIC", ergebnis["werte"])
+	if h3.basis["STR"] != int(vor["STR"]) - 1 + 1: fehler += 1; print("FEHLER Punktekauf im Helden: STR %d" % h3.basis["STR"])   # Zwerg STR +1
 	print("SPIELSTAND %d Fehler" % fehler)
 	quit(1 if fehler else 0)
