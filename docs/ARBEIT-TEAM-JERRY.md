@@ -8,7 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | startbar: Testmodus im Kampfort (Zu 399.1); gebaut a0131df5d, an Tom | `claude/jerry-348-kampf` |
+| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | gebaut e5c9f4fa7: Wolf durch Wolf, System Kampf, satt, Testende, Eröffnung; an Tom | `claude/jerry-348-kampf` |
 | 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | gebaut 0eda4bb3e: Knurren mit Text, an Tom für den Build; Hilfe, Eingebung mit 390 | – |
 | 399.3 | M | **von Chef über Sokrates (16:42):** Klang in die Spielfassung | gebaut 5c63de384: Keuchen, an Tom | `claude/jerry-348-klang` |
 | 402 | M | **von Sokrates (Chef 22:2x, Archiv):** Blende vor dem Kampf wie alt; Herzschlag beim Hinterhalt stärker | startbar | – |
@@ -47,7 +47,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 ## Einzelheiten
 
-- **Zu 399.1, von Team Tom (28.10., 17:15–22:0x), für den Kampfort:** offen Testmodus (`Testmodus.ist_an()`) wie alt: Sieg/Niederlage (`test_end`), Kampfhilfen, Varianten, Eröffnung, Aufruf `kampf_im_wald(kachel, gegner, probe)`. Gebaut a0131df5d: System „Kampf“, satt, atemlos.
 
 - **Von Team Tom (27.10., 09:40), zu 348.7:** Kampfbewegungen des Helden Runde 1 und vier Befunde zu `figur.gd`: `ARBEIT-TEAM-TOM.md` „Zu 348.6, Kampf“.
 - **Zu 348.12f, Kaufwolf und 387:** `kaufwolf.py` (Probe `ERSATZ=kaufwolf`, Workflow „Kaufwolf“), `kauftier.py` (Workflow „387 r“); `pfotenhalt.gd`; Artefakt per `gh api …/artifacts/<id>/zip`. An Tom: Heldin tritt in `SCHAU=1` alle 3 s. **387 r4:** Probe druckt „Hülle“ je Bild (Godot = Blender); Offenes im Blatt r4.
