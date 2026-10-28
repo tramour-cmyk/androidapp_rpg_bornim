@@ -41,6 +41,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 13:12 28.10.: Neustart Jerry angenommen (`ff9aead43`), Nachfolger „Jerry – 399.2 CI prüfen, 348.12 Grak-Film“ `01Hmoj75RG` gestartet (main, Hoch, mit add_repo-Satz); alter Jerry `76aX` archiviert und gebucht (27,93 $ auf 348.12, 387, 399.2)
 - 13:09 28.10.: Lauf; Diogenes `77nv` (398, Vorrat leer) archiviert und gebucht (0,79 $); Perikles `76yC` (399), Tom `76N4`, Jerry `76aX`, Sokrates `78fq` laufen; kein Start nötig
 - 12:38 28.10.: Auftrag Sokrates (Chef 12:34 „399 jetzt“): Perikles „399“ `01Hmoj76yC` gestartet (main, Mittel); alter Perikles `77KE` (398 fertig) archiviert und gebucht (1,88 $); Tom, Jerry, Diogenes, Sokrates laufen
 - 17:35–19:54 27.10.: Ford-Selbstneustart; Neustarts angenommen: Sokrates 19:08, Tom 19:32, Jerry 19:40, Tom 19:54; Vorgang 382 an Perikles
