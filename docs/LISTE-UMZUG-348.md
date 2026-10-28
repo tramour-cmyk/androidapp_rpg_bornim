@@ -199,7 +199,7 @@ Was das alte Spiel kann, ohne eigenes Modell. Regeln mit denselben Testfällen w
 | Uhr, Tag und Nacht, Sonne, Wetter | `core/PlayClock.kt`, `Light.kt`, `Weather.kt` | Tom | Entwurf (3486-sonne) | 2 S, 3 R (Eichung je Tageszeit) |
 | Tagesablauf und Stammplätze der Leute, Hinweiszeichen | `core/VillageDay.kt`, `MapPeople.kt`, `Hail.kt` | Tom | – | 2 S, 1 R |
 | Gespräche, Story, Quests, Chronik | `core/Story.kt`, `Script.kt`, `Chronicle.kt`; `ui/Dialogs.kt`, `ChronicleTab.kt` | Tom | – | 5 S, 2 R |
-| Laden | `ui/ShopScreen.kt`, `core/Loot.kt` | Tom | – | 2 S, 2 R |
+| Laden | `ui/ShopScreen.kt`, `core/Loot.kt` | Tom | – | 2 S, 2 R (Preise nach Charisma: `godot/regeln/talente.gd` `buy_price`/`sell_price`, Jerry 390, Zweig `claude/jerry-348-kampf`) |
 | Anschlagbrett (Aufträge) | `ui/BoardScreen.kt`, `core/Jobs.kt` | Tom | – | 1 S, 1 R |
 | Rast | `ui/RestScreen.kt`, `core/Resting.kt` | Tom | – | 1 S, 1 R |
 | Menü: Held, Tasche, Ausrüstung mit Vergleich, Karte mit Nebel, System | `ui/MenuScreen.kt`, `MenuTabs.kt`, `GearUi.kt`; `core/GearCompare.kt`, `Fog.kt`, `MapMarks.kt` | Tom | – | 5 S, 3 R |
@@ -211,11 +211,11 @@ Was das alte Spiel kann, ohne eigenes Modell. Regeln mit denselben Testfällen w
 | Deutsch und Englisch | `core/I18n.kt` | Tom | – | 2 S, 0 R |
 | Klassischer Kampf | `core/Battle.kt`, `ui/BattleScreen.kt` | Jerry | – | 6 S, 3 R (Regeln mit Goldtests, Ansicht im Kampfort; Schalter 212) |
 | MARS | `core/Skirmish.kt`; `ui/SkirmishScreen.kt`, `MarsRules.kt`, `MarsTips.kt` | Jerry | Entwurf (348.7) | 8 S, 6 R (Wolfsrudel am Handy, Rest 296.2 mit Toms Held und Tasche, Zustandszeichen nach Ja; Kampforte Wald und Tiefer Wald, Tag und Nacht) |
-| Regeln: Würfel, Zustände, Stufen, Talente, Ausdauer | `core/Rules.kt`, `Dice.kt`, `Status.kt`, `Perks.kt`, `Stamina.kt` | Jerry | – | 3 S, 0 R (Würfel, Zustände, Stufen in `godot/regeln/` angefangen) |
+| Regeln: Würfel, Zustände, Stufen, Talente, Ausdauer | `core/Rules.kt`, `Dice.kt`, `Status.kt`, `Perks.kt`, `Stamina.kt` | Jerry | Talente, Ausdauer gebaut (390: `talente.gd`, `ausdauer.gd`, Test `regeln_390.gd`) | 3 S, 0 R (Würfel, Zustände, Stufen in `godot/regeln/` angefangen; Ausdauer als eigenes Objekt, bis Toms `zustand.gd` es aufnimmt) |
 | Gegner auf der Karte, Rudel, Beute | `core/Roamers.kt`, `Packs.kt`, `MonsterKit.kt`, `Loot.kt` | Jerry | – | 4 S, 1 R (auf Toms Karten: Streifen, Bemerken, Übergang in den Kampf) |
 | Musik, Klang, Klangeinstellungen | `app/…/audio/MusicPlayer.kt`, `SfxPlayer.kt`; `core/audio/WildSound.kt`; `ui/SoundSettings.kt` | Jerry | – | 6 S, 0 R (Musik mit Übergängen, Orts- und Kampfklang, Synthese aus `core/audio`; Hörprobe am Handy statt Bild) |
 | Tränke brauen bei Morwen | `core/Recipes.kt` | Tom | – | 0,5 S, 1 R |
 | Truhen, Türen, Gitter, Schlüssel | `core/Game.kt` | Tom, Jerry | – | Tom 1 S, 1 R; Gitter Jerry 0,5 S, 0 R (Bild mit der Höhle) |
 | Kampfeffekte: Blut, Todesbild, Trefferhalt | `ui/BattleFx.kt`, `BattleBlood.kt`, `BattleKill.kt`; `core/HitWeight.kt` | Jerry | – | 4 S, 3 R |
-| Ausgleich bei Pechsträhnen | `core/MissStreak.kt` | Jerry | – | 0,5 S, 0 R |
+| Ausgleich bei Pechsträhnen | `core/MissStreak.kt` | Jerry | gebaut (390: `pechstraehne.gd`; Einbau mit dem klassischen Kampf) | 0,5 S, 0 R |
 | Spuren (Blut, Fußspuren) | `core/Tracks.kt` | Jerry | – | 1,5 S, 1 R |
