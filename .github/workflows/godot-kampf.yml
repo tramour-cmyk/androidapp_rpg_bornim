@@ -155,7 +155,8 @@ jobs:
           git show e457d6d8b:tools/blender348/v3/cc0_laden.sh > $RUNNER_TEMP/cc0_laden.sh
           bash $RUNNER_TEMP/cc0_laden.sh $RUNNER_TEMP/cc0 > cc0.log 2>&1 || { tail -5 cc0.log; exit 1; }
           PRO=$(find $RUNNER_TEMP/kaufroh -path '*Unreal-Godot/UAL1.glb' | head -1)
-          OUT=$RUNNER_TEMP/grak CC0=$RUNNER_TEMP/cc0 WAFFEN=$OUT UAL=$PRO TOD_QUELLE=$([ -n "$PRO" ] && echo Death02 || echo Death01) \
+          # Lauf 163: WAFFEN=$OUT las schon das neue OUT (bash setzt Vorab-Zuweisungen der Reihe nach), die Axt liegt in out/
+          OUT=$RUNNER_TEMP/grak CC0=$RUNNER_TEMP/cc0 WAFFEN=$RUNNER_TEMP/out UAL=$PRO TOD_QUELLE=$([ -n "$PRO" ] && echo Death02 || echo Death01) \
             timeout 1500 bl/bin/python -I tools/blender348/grak_gestalt.py > grak.log 2>&1 || (tail -40 grak.log; exit 1)
           grep -E "^(ZWEIHAND|BEWEGUNG|TOD)" grak.log | cut -c1-200 || true
           cp $RUNNER_TEMP/grak/grak-gestalt.glb $D/hobgoblin_captain-hauptmann.bin
