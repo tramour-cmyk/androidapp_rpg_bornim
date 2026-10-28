@@ -324,3 +324,24 @@ fun renderJellyWounds() {
     ImageIO.write(out, "png", File("build/screens/gallerte_wunden.png"))
     println("wrote jelly wounds")
 }
+
+/**
+ * 348.7: a foe on the hero's doll as the battle shows it (FoeArt, standing), three looks side by side (kit and skin vary
+ * with the seed: kit = seed mod 3, skin = seed / 3 mod 4): FOEDRAFT=goblin → build/screens/entwurf_goblin.png.
+ */
+fun renderFoeDraft(id: String) {
+    val A = de.bornim.core.art.FoeArt
+    val seeds = listOf(0, 4, 8)
+    val frames = seeds.map { A.fineFrame(id, de.bornim.core.MonsterLook(it), de.bornim.core.art.Act.IDLE, 0, 0) }
+    val sc = 3
+    val w = frames.maxOf { it.width }; val h = frames.maxOf { it.height }
+    val img = BufferedImage(w * sc * seeds.size, h * sc, BufferedImage.TYPE_INT_RGB)
+    val g = img.createGraphics(); g.color = java.awt.Color(0x3A3E36); g.fillRect(0, 0, img.width, img.height)
+    for ((i, p) in frames.withIndex()) {
+        for (y in 0 until p.height) for (x in 0 until p.width) { val q = p[x, y]; if ((q ushr 24) < 128) continue
+            g.color = java.awt.Color(q and 0xFFFFFF); g.fillRect(i * w * sc + x * sc, y * sc, sc, sc) }
+        g.color = java.awt.Color(0xF0E8D8); g.drawString("alt: $id, seed ${seeds[i]}", i * w * sc + 4, 14)
+    }
+    ImageIO.write(img, "png", File("build/screens/entwurf_$id.png"))
+    println("wrote foe draft $id ${img.width}x${img.height}")
+}
