@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (28.10., 03:2x, „Tom – 348.6 Dorf Lauf 3“ `session_01Hmoj771ZUzrnCjb3oTBsyP`):** 348.6 Dorf Runde 2 vorgelegt (c56589ea0). Nachfolger: „Tom – 348.6 Dorf Lauf 4“.
+**Übergabe (28.10., 04:5x, „Tom – 348.6 Dorf Lauf 3“ `session_01Hmoj771ZUzrnCjb3oTBsyP`):** 348.6 Dorf Runden 2 und 3 vorgelegt (a5235b512); Chefsache tun/3761 (Zugang Kaufmodelle für 376.1, 385). Nachfolger: keiner, Vorrat leer bis Wort des Chefs.
 
 ## Zeilen
 
