@@ -465,3 +465,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 382 | `create_session` immer mit `source_revision` `main` (`lauf.py` START-Zeile, `LISTE-BETRIEB.md`; Befund Tom 376.1a, von Ford) | B Werkzeuge | M | – | Perikles | erledigt |
 | 383.1 | Kein Neustart nur wegen Warten auf den Chef (Chef 27.10., 19:19) | B Werkzeuge | M | 2,01 $ | Perikles | erledigt |
 | 388 | Alt-Fassung: Geräteangaben kopieren im Systemmenü, Ruckeln in Hütten auswerten (Chef 27.10., 21:58) | A Technik | M | 18,44 $ | Team Tom | erledigt |
+| 389 | Grenze für Probeläufe je Vorlage, die greift (Chef 27.10., 23:53) | B Abläufe | M | – | Perikles | erledigt |

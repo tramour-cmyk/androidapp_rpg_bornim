@@ -108,3 +108,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:05 28.10.: Marke Abgleich Vorentscheid 348.7 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 00:05 28.10.: Marke Abgleich Vorentscheid 348.7 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 03:04 28.10.: Marke Wächter 389 27.10. 23:55 (lauf.py)
+- 04:04 28.10.: Startsperre 04:04 Start Perikles (lauf.py)
