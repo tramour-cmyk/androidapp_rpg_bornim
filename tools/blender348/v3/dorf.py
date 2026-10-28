@@ -1514,7 +1514,11 @@ def dinge_mehr():
     stein = lambda p, nn: sc(mixc(lin(0x6A665E), lin(0x4E5636), ss(30, 0, p.z) * (0.5 + 0.5 * vn(p.x / 25, p.y / 25, 92))),
                              (0.75 + 0.35 * vn(p.x / 18 + p.z / 18, p.y / 18, 93)) * (0.7 + 0.45 * max(0.0, nn.z)))
     for c, r in nb:
-        if ch(c, r) != 'T' or h1(c, r, 501) > 0.25: continue
+        # Lauf 3, Zweiter (Helfer 02:4x: in der Grundansicht kein Fels; jeder vierte traf nur Randbaeume): jeder einzeln stehende Baum
+        # (hoechstens zwei Baumnachbarn) bekommt einen, am Waldrand weiter jeder vierte
+        if ch(c, r) != 'T': continue
+        allein = sum(ch(c + i, r + j) == 'T' for i in (-1, 0, 1) for j in (-1, 0, 1)) <= 3
+        if not allein and h1(c, r, 501) > 0.25: continue
         if any(ch(c + i, r + j) == '~' for i in (-1, 0, 1) for j in (-1, 0, 1)): continue
         # Lauf 3 (Helfer 01:51: in der Grundansicht meist hinter Stamm oder Krone): vor den Stamm zur Kamera der Grundansicht
         # (Suedost), 20 bis 40 Grad seitlich, in der Kachel; die Krone liegt dann hinter dem Felsen
@@ -1524,15 +1528,17 @@ def dinge_mehr():
         g = 0.13 + 0.05 * h1(c, r, 502)                          # 42 bis 58 cm breit
         q = st + kam * 52
         q.x = min(max(q.x, p.x - 46), p.x + 46); q.y = min(max(q.y, p.y - 46), p.y + 46); q.z = 0
+        print('FELS %d,%d bei %.0f,%.0f%s' % (c, r, q.x, q.y, ' allein' if allein else ''))
         fremd_teil('Rock_Medium_%d' % (1 + int(h1(c, r, 503) * 3)), Matrix.Translation(q + Vector((0, 0, -4)))
                    @ Matrix.Rotation(h1(c, r, 504) * 6.283, 4, 'Z') @ Matrix.Scale(g, 4), farbe=stein)
     # Kisten neben jedem Fass, in der Ecke der Fasskachel zu zwei begehbaren Nachbarn (nicht an der Hauswand), jede zweite mit
     # einer zweiten obenauf. Lauf 1 (Helfer: Kiste an der Hausecke wie ein Teil des Hauses, mit dem Fass verschmolzen): heller als
     # Balken und Fass
-    # Lauf 3 (Helfer 01:51: Kisten so dunkel wie Fass und Balken, die linke verschmolz mit dem Fass): helles Holz (Textur holz statt
-    # balken, wie frisch gesaegte Kiefer), Beschlaege dunkel wie bisher
-    kist = dict(holz=lambda p, n: (1.95, 1.75, 1.45), balken=lambda p, n: sc(ratio(0x8A6E4A, 0x3E2E22), 1.0), putz=W1)
-    kmat = dict(KIT_MAT, MI_WoodTrim='holz', MI_WoodTrim_Wear='holz')
+    # Lauf 3 (Helfer 01:51: Kisten so dunkel wie Fass und Balken, die linke verschmolz mit dem Fass): helles Holz wie frisch gesaegte
+    # Kiefer. Toenung ueber 1 kommt nicht an (COLOR_0 im glb normiert 0..1, gemessen; Helfer 02:4x: Kiste 51, Fass 49): darum Material
+    # weiss mit der Holzfarbe je Ecke, Maserung als Rauschen laengs (keine Ritzzeichen der Textur)
+    kist = dict(weiss=lambda p, n: sc(lin(0xB08C5C), 0.82 + 0.22 * vn(p.x / 6 + p.y / 6, p.z / 30, 514)), putz=W1)
+    kmat = dict(KIT_MAT, MI_WoodTrim='weiss', MI_WoodTrim_Wear='weiss')
     for c, r in nb:
         if ch(c, r) != 'b': continue
         ecken = [(i, j) for i in (-1, 1) for j in (-1, 1) if ch(c + i, r) in WALK and ch(c, r - j) in WALK]
