@@ -200,7 +200,7 @@ Was das alte Spiel kann, ohne eigenes Modell. Regeln mit denselben Testfällen w
 | Uhr, Tag und Nacht, Sonne, Wetter | `core/PlayClock.kt`, `Light.kt`, `Weather.kt` | Tom | Entwurf (3486-sonne) | 2 S, 3 R (Eichung je Tageszeit) |
 | Tagesablauf und Stammplätze der Leute, Hinweiszeichen | `core/VillageDay.kt`, `MapPeople.kt`, `Hail.kt` | Tom | – | 2 S, 1 R |
 | Gespräche, Story, Quests, Chronik | `core/Story.kt`, `Script.kt`, `Chronicle.kt`; `ui/Dialogs.kt`, `ChronicleTab.kt` | Tom | – | 5 S, 2 R |
-| Laden | `ui/ShopScreen.kt`, `core/Loot.kt` | Tom | Dinge gebaut (390, a43772d5d: `laden.gd`, Test `laden_test.gd`); offen Ausrüstung (`Loot.shopGear`, Würfel wie Kotlin), Menge wählen (59.5) | 2 S, 2 R (Preise nach Charisma: `godot/regeln/talente.gd` `buy_price`/`sell_price`, Jerry 390, Zweig `claude/jerry-348-kampf`) |
+| Laden | `ui/ShopScreen.kt`, `core/Loot.kt` | Tom | gebaut (390, 64a6e5a80: `laden.gd`, Ausrüstung aus `beute.gd` = `Loot.kt` mit Zufall wie Kotlin `kotlin_zufall.gd`, Menge wählen 59.5; Tests `laden_test.gd`, `beute_golden.gd` 236 Proben gleich) | 2 S, 2 R (Preise nach Charisma: `godot/regeln/talente.gd` `buy_price`/`sell_price`, Jerry 390, Zweig `claude/jerry-348-kampf`) |
 | Anschlagbrett (Aufträge) | `ui/BoardScreen.kt`, `core/Jobs.kt` | Tom | – | 1 S, 1 R |
 | Rast | `ui/RestScreen.kt`, `core/Resting.kt` | Tom | gebaut (390, 7269390b9: `rast.gd`, Test `rast_test.gd`; Fleisch an Rowena mit dem Laden) | 1 S, 1 R |
 | Menü: Held, Tasche, Ausrüstung mit Vergleich, Karte mit Nebel, System | `ui/MenuScreen.kt`, `MenuTabs.kt`, `GearUi.kt`; `core/GearCompare.kt`, `Fog.kt`, `MapMarks.kt` | Tom | – | 5 S, 3 R |
@@ -215,7 +215,7 @@ Was das alte Spiel kann, ohne eigenes Modell. Regeln mit denselben Testfällen w
 | Regeln: Würfel, Zustände, Stufen, Talente, Ausdauer | `core/Rules.kt`, `Dice.kt`, `Status.kt`, `Perks.kt`, `Stamina.kt` | Jerry | Talente, Ausdauer gebaut (390: `talente.gd`, `ausdauer.gd`, Test `regeln_390.gd`) | 3 S, 0 R (Würfel, Zustände, Stufen in `godot/regeln/` angefangen; Ausdauer als eigenes Objekt, bis Toms `zustand.gd` es aufnimmt) |
 | Gegner auf der Karte, Rudel, Beute | `core/Roamers.kt`, `Packs.kt`, `MonsterKit.kt`, `Loot.kt` | Jerry | – | 4 S, 1 R (auf Toms Karten: Streifen, Bemerken, Übergang in den Kampf) |
 | Musik, Klang, Klangeinstellungen | `app/…/audio/MusicPlayer.kt`, `SfxPlayer.kt`; `core/audio/WildSound.kt`; `ui/SoundSettings.kt` | Jerry | – | 6 S, 0 R (Musik mit Übergängen, Orts- und Kampfklang, Synthese aus `core/audio`; Hörprobe am Handy statt Bild) |
-| Tränke brauen bei Morwen | `core/Recipes.kt` | Tom | – | 0,5 S, 1 R |
+| Tränke brauen bei Morwen | `core/Recipes.kt` | Tom | gebaut (390, a43772d5d: `laden.gd` `braue`) | 0,5 S, 1 R |
 | Truhen, Türen, Gitter, Schlüssel | `core/Game.kt` | Tom, Jerry | – | Tom 1 S, 1 R; Gitter Jerry 0,5 S, 0 R (Bild mit der Höhle) |
 | Kampfeffekte: Blut, Todesbild, Trefferhalt | `ui/BattleFx.kt`, `BattleBlood.kt`, `BattleKill.kt`; `core/HitWeight.kt` | Jerry | – | 4 S, 3 R |
 | Ausgleich bei Pechsträhnen | `core/MissStreak.kt` | Jerry | gebaut (390: `pechstraehne.gd`; Einbau mit dem klassischen Kampf) | 0,5 S, 0 R |
@@ -224,7 +224,7 @@ Was das alte Spiel kann, ohne eigenes Modell. Regeln mit denselben Testfällen w
 | **398:** Klang wiederverwenden, nicht neu erfinden (Chef 28.10., 11:38: „dass wir den Ton NICHT neu erfinden (Musik und Geräusche und Effekte), sondern wiederverwenden“): alle Aufnahmen (1284 `.ogg`, davon 41 Musikstücke) und die Mischung so übernehmen, Synthese aus `core/audio` nur, wo das alte Spiel synthetisiert; dieselben Regeln: drei Fassungen je Klang, nur was da ist, Schritte nach Boden, in der Blende Hören vor Sehen (Leitbild 6, `DESIGN-BLENDE.md` 1) | `app/src/main/assets` (1284 Aufnahmen), `Recorded.kt`, `audio/Footsteps.kt` | Jerry | – | – |
 | **398:** Kampfort nach dem Ort auf der Karte (Lichtung, Waldrand, Teich, Baum, Felsen, Steinkreis; 77e.3) | `art/BattleScene.kt` `spotFor` | Jerry | – | – |
 | **398:** Niederlage: Erwachen am Wiederkehrort, Stunden vergehen, volle TP, Zustände weg, auf Normal kein Goldverlust (154) | `Game.kt:1503–1517` | Jerry (Kampfende), Tom (Wiederkehr) | – | – |
-| **398:** Beute mit Seltenheitsdeckel je Kapitel; Ausrüstung aus Kämpfen (Zuständigkeit klären: `klassisch.gd` nennt Tom) | `Loot.kt:38–46` | Jerry | – | – |
+| **398:** Beute mit Seltenheitsdeckel je Kapitel; Ausrüstung aus Kämpfen (Zuständigkeit klären: `klassisch.gd` nennt Tom) | `Loot.kt:38–46` | Jerry | Regeln gebaut von Tom (390, 64a6e5a80, Zweig `claude/tom-390-englisch`: `skripte/beute.gd` `Beute.beute` wie `Loot.drops`, Würfel mit `weighted` wie `kotlin_zufall.gd`; Test `beute_golden.gd`); offen Einbau in `klassisch.gd` `gear_drops` (Jerry) | – |
 | **398:** Elite- (12 %) und Schimmergegner (1/150), mehr EP und beste Beute | `Game.kt:39–40`, `Battle.kt:85–116` | Jerry | – | – |
 | **398:** Wiederkehr besiegter Gegner nach 60 Schritten (Grinden möglich) | `Game.kt:1476` | Jerry | – | – |
 | **398:** Balance-Messung: Kapitelsimulation, Zufallsspieler (Meilenstein; 38) | `ChapterSimTest`, `PlayerSimTest`, `BalanceTest` | Jerry | – | – |
