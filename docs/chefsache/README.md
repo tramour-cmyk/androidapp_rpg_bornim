@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [338b](entscheiden/338b-block-kampf.md) | **Muss** | B Abläufe | 28.10., 08:15 | Block (K) rot seit 28.10., 08:15 (Block D seit 27.10.): seit dem Plan kein Punkt neu „gebaut“, die Teams arbeiteten an deinen Kaufmodell-Proben; Termin Mi 28.10. hält nicht | Perikles |
+| [338b](entscheiden/338b-block-kampf.md) | **Muss** | B Abläufe | 28.10., 08:15 | Block (K) ist seit 28.10., 08:15 rot, weil Jerry an deinen Kaufmodell-Proben arbeitete und der Termin Mi 28.10. nicht hält. | Perikles |
 | [109](entscheiden/109-repo-privat.md) | **Muss** | M Veröffentlichung | 27.10., 19:58 | Repo vor dem Tester-Aufruf privat (A), nur Releases löschen (B) oder so lassen (C)? | Sokrates |
 
 ## Zu billigen
