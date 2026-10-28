@@ -7,7 +7,7 @@ extends VBoxContainer
 # Schalter Auftraege, Leute, Dienste (62f). Schilder ueber den Tueren bekannter Haeuser (62n, MapLook.labels 2).
 # Die Blaetter zeichnet core im Bau (MapSheetExport.kt, daten/kartenblatt.json, karte-<id>.bild, land-<wald><tiefer>.bild).
 # Noch nicht wie alt: Wald und Hoehle als Blatt mit Nebel (62c) samt Lagerfeuern, solange der Held sie in Godot nicht begeht;
-# Anschlagbrett und Nebenauftraege (Jobs); Gewohnheiten der Leute (MapPeople.seenAt).
+# Ziele der Nebenauftraege in Hoehle und Wald (MapMarks.goal); Gewohnheiten der Leute (MapPeople.seenAt).
 
 const DP := AktionsKnopf.DP
 const TINTE := Color("4a3622")
@@ -17,6 +17,7 @@ const ROT := Color("b0302a")
 const BLAU := Color("4f86c6")
 
 static var _blatt := {}
+static var _bretter := {}                # Karte -> [Vector2i] der Anschlagbretter (Tile.NOTICE „!“)
 static var _bilder := {}
 static var _hand: FontFile
 
@@ -153,6 +154,23 @@ func zeichen() -> Array:
 			for l in ["de", "en"]: t[l] += "\n– " + String(leute["aldric"][l]).get_slice(" – ", 1)
 		for a in blatt().get("aeltester", []):
 			alle.append({"karte": a["karte"], "x": a["x"], "y": a["y"], "art": "GIVER", "text": t, "wer": "aldric", "fertig": z.has(Geschichte.CHAPTER1_DONE)})
+	# 62e: das Anschlagbrett, sobald gelesen; ein neuer Aushang sagt es (399.1, auftraege.gd)
+	if Auftraege.alle().any(func(j): return z.has("job_%s_seen" % j["id"])):
+		var neu := Auftraege.frisch(z)
+		for b in bretter(gezeigt):
+			alle.append({"karte": gezeigt, "x": b.x, "y": b.y, "art": "BOARD",
+				"text": {"de": "Anschlagbrett: ein neuer Aushang", "en": "Notice board: a new note"} if neu else {"de": "Anschlagbrett", "en": "Notice board"}})
+	# angenommene und erledigte Aushaenge beim Auftraggeber, den der Held kennt (verblasst, wenn erledigt)
+	for j in Auftraege.alle():
+		var fertig := Auftraege.erledigt(z, j)
+		if not (fertig or Auftraege.angenommen(z, j)) or not z.has("met_" + String(j["geber"])): continue
+		var t := {"de": "%s: %s" % [j["geber_name"]["de"], j["titel"]["de"]], "en": "%s: %s" % [j["geber_name"]["en"], j["titel"]["en"]]}
+		if leute.has(String(j["geber"])):
+			for l in ["de", "en"]: t[l] += "\n– " + String(leute[String(j["geber"])][l]).get_slice(" – ", 1)
+		for f in blatt().get("leute", []):
+			if String(f["id"]) != String(j["geber"]): continue
+			alle.append({"karte": f["karte"], "x": f["x"], "y": f["y"], "art": "GIVER", "text": t, "wer": f["id"], "fertig": fertig})
+			if f.has("innen"): alle.append({"karte": f["innen"], "x": f["innen_x"], "y": f["innen_y"], "art": "GIVER", "text": t, "wer": f["id"], "fertig": fertig})
 	# Schaenke, Laden, Tempel an ihren Tueren: Raeume gelten als bekannt (MapMarks.visited: INTERIOR immer)
 	for d in blatt().get("dienste", []):
 		alle.append({"karte": d["karte"], "x": d["x"], "y": d["y"], "art": d["art"], "text": d["name"]})
@@ -173,6 +191,17 @@ func zeichen() -> Array:
 		stellen[k] = n
 		out.append(n)
 	return out
+
+static func bretter(id: String) -> Array:
+	if not _bretter.has(id):
+		var out := []
+		var j = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json")) if FileAccess.file_exists("res://daten/karten.json") else null
+		if j is Dictionary and j["karten"].has(id):
+			var zl: Array = j["karten"][id]["zeilen"]
+			for y in zl.size():
+				for x in String(zl[y]).length(): if String(zl[y])[x] == "!": out.append(Vector2i(x, y))
+		_bretter[id] = out
+	return _bretter[id]
 
 # ---------------------------------------------------------------- Zeichnen wie MenuScreen.kt (drawService, drawHouseSign)
 
@@ -360,6 +389,12 @@ class Kartenblatt extends Flaeche:
 			if m["art"] == "GIVER":
 				draw_circle(c, r + 2 * Kartenreiter.DP, Color(Kartenreiter.TINTE, a))
 				draw_circle(c, r, Color(Kartenreiter.BLAU, a))
+			elif m["art"] == "BOARD":   # 62e: ein kleiner angenagelter Zettel
+				var dp := Kartenreiter.DP
+				var rr := Rect2(c - Vector2(r * 0.85, r), Vector2(r * 1.7, r * 2))
+				draw_rect(rr, Color("e8dcc0"))
+				draw_rect(rr, Kartenreiter.TINTE, false, 2 * dp)
+				for k in range(1, 4): draw_line(rr.position + Vector2(r * 0.35, r * 0.5 * k), rr.position + Vector2(rr.size.x - r * 0.35, r * 0.5 * k), Color(Kartenreiter.TINTE, 0.6), 1.2 * dp)
 			else: Kartenreiter.zeichne_dienst(self, String(m["art"]), c, r)
 		if hier: Kartenreiter.zeichne_held(self, an(int(reiter.ort["x"]), int(reiter.ort["y"])), String(reiter.ort.get("blick", "DOWN")))
 

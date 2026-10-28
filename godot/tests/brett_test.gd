@@ -50,6 +50,15 @@ func _lauf() -> void:
 	for soll in ["Nebenaufträge", "Felle für den Winter", "von Thessa", "Bereit zur Abgabe – bei Thessa", "Lohn: 60 Gold"]:
 		if not t.contains(soll): fehler += 1; print("FALSCH Chronik ohne ", soll)
 	m.free()
+	# Karte: das gelesene Brett vor der Schenke, Thessa als Auftraggeberin (kennt der Held sie)
+	z.setze("met_thessa")
+	var kr := Kartenreiter.new(z, {"karte": "village", "x": 4, "y": 8, "blick": "UP"}, 800.0, func(): pass)
+	var marken := kr.zeichen()
+	var brett_m := marken.filter(func(x): return x["art"] == "BOARD")
+	var geber_m := marken.filter(func(x): return x["art"] == "GIVER" and x.get("wer", "") == "thessa")
+	pruefe("Karte Brett", brett_m.map(func(x): return [x["x"], x["y"], x["text"]["de"]]), [[4, 7, "Anschlagbrett: ein neuer Aushang"]])
+	pruefe("Karte Thessa", [geber_m.size(), String(geber_m[0]["text"]["de"]).begins_with("Thessa: Felle für den Winter") if geber_m.size() > 0 else false], [1, true])
+	kr.free()
 	# das Spiel: Brett, Annehmen, Abgabe ausfuehren, Jorins Kopfschutz
 	var spiel = load("res://skripte/spiel.gd").new()
 	var ui := Steuerung.new()
