@@ -14,8 +14,9 @@ extends Control
 # - System (SystemSigns), soweit es die Welt schon kann: Speichern, Sprache, Hauptmenue; Rückfragen, Bedienung; Lautstaerke (399.3.1),
 #   Schritte, Helligkeit; Siege, Geraet.
 # - Karte (MapTab, 62): kartenreiter.gd.
-# - Chronik (ChronicleTab): Hauptauftrag in Gold, Auftraege der Geschichte, Erledigt zum Aufklappen, „Bisher geschehen“.
-# Noch nicht wie alt: in der Chronik Nebenauftraege (Anschlagbrett), Ankunft und Morgenandacht ansehen; im System Blut, Tempo, Kampftext (Jerry), Anleitung, MARS-Probe, Über; Bilder der Dinge; Fackel im Dunkeln.
+# - Chronik (ChronicleTab): Hauptauftrag in Gold, Auftraege der Geschichte, Nebenauftraege vom Brett, Erledigt zum Aufklappen, „Bisher geschehen“.
+# Noch nicht wie alt: in der Chronik Ankunft und Morgenandacht ansehen; im System Blut, Tempo, Kampftext, MARS-Probe (Jerry); Bilder der Dinge;
+# Fackel im Dunkeln.
 
 signal zu
 signal speichern                   # 399.1 System: die Welt haelt den Stand fest (spiel.gd speichere)
