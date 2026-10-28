@@ -41,6 +41,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 10:48 28.10.: Neustart Tom angenommen (`c6aa36254`), Nachfolger „Tom – 385 Film senden, dann 376.1 Halszacken“ `01Hmoj78Lq` gestartet (main, Hoch, mit add_repo-Satz); alter Tom `01Hmoj77Qs` archiviert und gebucht (29,17 $ auf 385, 376.1, 390); Sitzungslink lautlos an den Chef (Satz für den Fall einer Ablehnung)
 - 10:43 28.10.: Neustart Jerry angenommen (`b535dadbe`), Nachfolger „Jerry – 390 Funktionen ohne Bild“ gestartet (main, Hoch, mit add_repo-Satz); alter Jerry `01Hmoj78yA` archiviert, Kosten fehlen (Antwort ohne `usage`, 348.12)
 - 10:27 28.10.: Tom 2 `01Hmoj79kd` auf Sokrates (Chef 393, Ergänzung 10:21) archiviert; keine Kostenangabe (nie gelaufen), nichts auf 393 zu buchen; Tom macht 385 selbst, danach 376.1
 - 10:25 28.10.: HALT zu 393 (Sokrates 10:21): Tom 2 `01Hmoj79kd` per interrupt angehalten, nichts committet, Sitzung unberührt; wartet auf Entscheid des Chefs (Tom 376.1 arbeitet laut Sitzungsstand schon an 385)
