@@ -39,7 +39,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 ## Einzelheiten
 
 - **Von Perikles (378):** Stände prüfen, `ARBEIT-PROJEKT.md` Zu 378.
-- **Von Team Jerry (28.10., 22:1x), für den nächsten Build:** 399.3 Keuchen `jerry-348-klang` 5af6cd0f0; 399.2 Wolf durch Wolf `jerry-348-kampf` ae285e149 (je dein `tom-399` + 1).
+- **Von Team Jerry (28.10., 22:1x), für den nächsten Build:** 399.3 Keuchen `jerry-348-klang` 5af6cd0f0; 399.2 Wolf durch Wolf, 399.2b Knurren mit Text `jerry-348-kampf` 0eda4bb3e.
 - **Zu 399.1 an Jerry** (19:5x, sein Vorrat voll, Sitzung inaktiv; beim nächsten Jerry-Start nachtragen): System „Kampf“ hat nur Rückfragen (fe7acbb32); Blut, Tempo, Kampftext (`MenuSigns.kt` 197–211) fehlen.
 - **Zu 399.1 an Jerry** (Tom 22:0x, sein Vorrat voll; beim nächsten Jerry-Start nachtragen): Testmodus (`Testmodus.ist_an()`) im Kampfort wie alt: Sieg/Niederlage (`test_end`), Kampfhilfen, Varianten, Eröffnung; Aufruf `kampf_im_wald(kachel, gegner, probe)`.
 - **Zu 399.1 an Jerry** (17:15, sein Vorrat voll): `Zustand.satt` (alt `wellFed`) fehlt dem Kampfort (+1, `Battle.fedBonus`).
