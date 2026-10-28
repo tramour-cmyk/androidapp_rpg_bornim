@@ -606,6 +606,8 @@ var _pf_sum := {}
 
 var _ort_nase := -1.0
 var _hu := {}     # 387 r4: Netz je MeshInstance3D für _huelle (Ecken, Knochen, Gewichte, Knochen je Bindung)
+var _ort_schritt := ""
+var _ort_bild := 0
 
 
 ## 387 r4 (Prüfer r3: Huhn ein heller Fleck ohne Kopf und Beine, Kaninchen sitzt beim Platzwechsel, Hundertfüßer wirkt 1 m lang; in
@@ -616,14 +618,15 @@ func _huelle(rat) -> String:
 	var hi := -lo
 	var fehlt := 0
 	var inv: Transform3D = rat.global_transform.affine_inverse()
-	for mi in rat.find_children("*", "MeshInstance3D", true, false):
+	for n in rat.find_children("*", "MeshInstance3D", true, false):
+		var mi := n as MeshInstance3D
 		if mi.skin == null or mi.mesh == null or not mi.visible:
 			continue
 		var sk := mi.get_node_or_null(mi.skeleton) as Skeleton3D
 		if sk == null:
 			continue
 		if not _hu.has(mi):
-			var a := mi.mesh.surface_get_arrays(0)
+			var a: Array = mi.mesh.surface_get_arrays(0)
 			var kb: Array = []
 			for i in mi.skin.get_bind_count():
 				var b: int = mi.skin.get_bind_bone(i)
@@ -634,7 +637,7 @@ func _huelle(rat) -> String:
 		var d: Array = _hu[mi]
 		var v: PackedVector3Array = d[0]
 		var nb: int = d[1].size() / maxi(v.size(), 1)
-		var m: Array = []
+		var m: Array[Transform3D] = []
 		for i in mi.skin.get_bind_count():
 			if d[3][i] < 0:
 				fehlt += 1
@@ -646,15 +649,15 @@ func _huelle(rat) -> String:
 			for j in nb:
 				var w: float = d[2][k * nb + j]
 				if w > 0.0:
-					p += w * (m[d[1][k * nb + j]] * v[k])
+					var bi: int = d[1][k * nb + j]
+					p += w * (m[bi] * v[k])
 			lo = lo.min(p)
 			hi = hi.max(p)
 	if lo.x == INF:
 		return "-"
 	var e := hi - lo
-	return "breit %.2f lang %.2f hoch %.2f Boden %.2f vorn %.2f hinten %.2f%s" % [e.x, e.z, e.y, lo.y, hi.z, lo.z, " Bindungen ohne Knochen %d" % fehlt if fehlt else ""]
-var _ort_schritt := ""
-var _ort_bild := 0
+	var rest := " Bindungen ohne Knochen %d" % fehlt if fehlt > 0 else ""
+	return "breit %.2f lang %.2f hoch %.2f Boden %.2f vorn %.2f hinten %.2f%s" % [e.x, e.z, e.y, lo.y, hi.z, lo.z, rest]
 
 
 ## 348.12f Rutenursache (Chef 27.10., 09:57; Prüfer: Haken im Film, obwohl kaufratte.py die Rute flach misst): Steigung jedes

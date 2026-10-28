@@ -16,7 +16,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 T0 = time.time()
 import bpy
 import numpy as np
-from mathutils import Vector
+from mathutils import Vector, Matrix
 from kaufratte import lin, srgb, tris, aktion_von, weg as entferne, slot, welt_netz, fellstriche, TEX
 
 KAUF = os.environ.get('KAUF', '')
@@ -39,7 +39,11 @@ TIERE = {
                'laenge': 1.5,
                # Prüfer: Gehen kaum vom Stehen zu unterscheiden (die Beine schieben 0,05–0,07 m/s): Gehen schneller abgespielt bis zu diesem
                # Tempo, Rennen = Gehen doppelt so schnell (der Kauf hat kein Rennen)
-               'tempo_ziel': {'Gehen': 0.35}, 'rennen_aus_gehen': 2.0},
+               'tempo_ziel': {'Gehen': 0.35}, 'rennen_aus_gehen': 2.0,
+               # Runde 4 (Prüfer r3: wackelt beim Platzwechsel auf der Stelle; gemessen: Gehen lief 7,1-fach, Rennen 14,3-fach, eine Schleife
+               # in 4 bzw. 2 Bildern, das Bild springt zwischen Beinstellungen): Bewegung höchstens 3,5-fach (8,6 Bilder je Schleife), den
+               # Rest des Tempos trägt der Wurzelweg (die Beine gleiten; bei 30 kurzen Beinen kaum zu sehen)
+               'tempo_max': 3.5},
     'rind': {'rig': 'Cattle_Rig.fbx', 'anim': 'Cattle_%s.fbx', 'tex': 'iron_age_cattle_col_unity*',
              'namen': {'Stehen': 'Idle', 'Gehen': 'Walk', 'Rennen': 'Run', 'Stoss': 'Attack', 'Fressen': 'Eat', 'Tod': 'Die'}, 'felle': {'natur': None}},
     'ziege': {'rig': 'Goat_Rig.fbx', 'anim': 'Goat_%s.fbx', 'tex': 'goat_col*',
@@ -57,7 +61,13 @@ TIERE = {
                   'namen': {'Stehen': 'Idle', 'Gehen': 'Walk', 'Rennen': 'Run', 'Fressen': 'Eat', 'Tod': 'Die'},
                   # Runde 2 (Prüfer: fast schwarz, ohne Zeichnung): Wildkaninchen graubraun, braun, grau mit hellem Bauch
                   'felle': {'graubraun': (0x6E5C46, 0x3A3024, 0xB4A68E), 'braun': (0x7A5A3A, 0x40301E, 0xB09A7A), 'grau': (0x6A6660, 0x34322E, 0xA8A49A)},
-                  'behalten': 0.45},
+                  'behalten': 0.45,
+                  # Runde 4 (Prüfer r3: sitzt beim Laufen aufrecht, auch im Anlauf; gemessen in der Quelle: im Rennen hebt sich der Kopf von
+                  # 0,19 auf 0,35 m, das Hinterteil sinkt 0,09 m in den Boden): Rennen = Gehen (Hoppeln, Kopf 0,19–0,31 m, über dem Boden) 1,3-fach
+                  'rennen_aus_gehen': 1.3,
+                  # Runde 4 (Prüfer r3: kippt im Tod kopfüber und schwebt; gemessen in der Quelle: der Rücken neigt sich 34° nach vorn, der Kopf
+                  # liegt 0,26 m unter dem Boden, Boden halten hob alles um 0,32 m): Rücken waagerecht, erst dann den Boden halten
+                  'waagerecht': {'Tod': ('ROOTSHJnt', 'Spine_TopSHJnt')}},
 }
 # Runde 2: Bewegungen, die in der Quelle rückwärts liegen (gemessen: Tod des Keilers beginnt liegend, 0,44 m unter dem Boden, und
 # endet stehend)
@@ -197,6 +207,39 @@ def boden_halten(rig, a, meshes):
     print('BODEN HALTEN %s: bis %.2f m gehoben (Bild %d)' % (a.name, max(hub.values()), max(hub, key=hub.get)))
 
 
+def waagerecht(rig, a, kw, kv):
+    """Runde 4 (Kaninchen im Tod kopfüber): je Bild den Knochen kw so drehen, dass die Strecke kw -> kv so steil steht wie im ersten Bild
+    (Richtung zur Seite bleibt, nur die Neigung nach vorn oder hinten geht weg); Schlüssel je Bild auf Ort und Drehung von kw"""
+    setze(rig, a)
+    pw = next(b for b in rig.pose.bones if b.name.endswith(kw))
+    pv = next(b for b in rig.pose.bones if b.name.endswith(kv))
+    a0, a1 = int(a.frame_range[0]), int(a.frame_range[1])
+    W3 = rig.matrix_world.to_3x3()
+    bpy.context.scene.frame_set(a0)
+    v0 = W3 @ (pv.head - pw.head)
+    st0 = v0.z / v0.length
+    neu, wink = {}, []
+    for f in range(a0, a1 + 1):
+        bpy.context.scene.frame_set(f)
+        v = W3 @ (pv.head - pw.head)
+        fl = Vector((v.x, v.y, 0.0))
+        if fl.length < 1e-6:
+            continue
+        soll = (fl.normalized() * math.sqrt(max(0.0, 1.0 - st0 * st0)) + Vector((0.0, 0.0, st0))) * v.length
+        q = (W3.inverted() @ v).rotation_difference(W3.inverted() @ soll)     # im Raum des Gerüsts
+        h = pw.head.copy()
+        M = Matrix.Translation(h) @ q.to_matrix().to_4x4() @ Matrix.Translation(-h) @ pw.matrix
+        pw.matrix = M
+        bpy.context.view_layer.update()
+        neu[f] = pw.matrix_basis.copy()
+        wink.append(math.degrees(v.angle(soll)))
+    for f, mb in neu.items():
+        pw.matrix_basis = mb
+        pw.keyframe_insert('location', frame=f)
+        pw.keyframe_insert('rotation_quaternion' if pw.rotation_mode == 'QUATERNION' else 'rotation_euler', frame=f)
+    print('WAAGERECHT %s %s: Neigung bis %.0f° weggenommen (Bild %d)' % (TIER, a.name, max(wink), a0 + int(np.argmax(wink))))
+
+
 def baue(fell):
     fbx, d, tex = quelle()
     bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -257,6 +300,9 @@ def baue(fell):
     P = welt_netz(meshes, f0); lo, hi = P.min(0), P.max(0)
     INFO['hoehe_m'] = round(float(hi[2] - lo[2]), 3); INFO['laenge_m'] = round(float(hi[1] - lo[1]), 3); INFO['breite_m'] = round(float(hi[0] - lo[0]), 3)
     print('MASS %s: breit %.2f lang %.2f hoch %.2f m, Boden %.3f, Maßstab %.2f, Drehung %.0f°, Kopfknochen %s' % (TIER, hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2], lo[2], k, math.degrees(dreh), kb[0].name if kb else '-'))
+    for nm, (kw, kv) in T.get('waagerecht', {}).items():
+        if nm in akt:
+            waagerecht(rig, akt[nm], kw, kv)
     if 'Tod' in akt:
         boden_halten(rig, akt['Tod'], meshes)
     for nm in ('Tod', 'Gehen', 'Rennen'):     # Prüfwert: Boden je Bewegung (Tod: Anfang und Ende)
@@ -265,8 +311,9 @@ def baue(fell):
             print('BODEN %s %s: Bild %d %.3f m, Bild %d %.3f m' % (TIER, nm, a0, welt_netz(meshes, a0)[:, 2].min(), a1, welt_netz(meshes, a1)[:, 2].min()))
     # Wurzelweg (Modellmeter, +Z vorn): gerade im Tempo der Pfoten; Beine = Knochen, die in Gehen den Boden berühren
     beine = [b.name for b in rig.pose.bones if b.parent is not None and not b.children and 'tail' not in b.name.lower()]
+    roh = {}       # Runde 4: Tempo vor der Grenze tempo_max
     tempo = {}     # figur.gd spielt diese Bewegungen so viel schneller (der Weg ist für Tempo 1)
-    if 'rennen_aus_gehen' in T and 'Gehen' in akt and 'Rennen' not in akt:
+    if 'rennen_aus_gehen' in T and 'Gehen' in akt:     # Runde 4: auch, wenn der Kauf ein Rennen hat (Kaninchen)
         akt['Rennen'] = akt['Gehen']
     for nm in ('Gehen', 'Rennen'):
         if nm in akt:
@@ -274,7 +321,13 @@ def baue(fell):
             if nm == 'Gehen' and 'tempo_ziel' in T and v > 0.0:
                 tempo[nm] = round(max(1.0, T['tempo_ziel']['Gehen'] / v), 2)
             if nm == 'Rennen' and akt['Rennen'] is akt.get('Gehen'):
-                tempo[nm] = round(tempo.get('Gehen', 1.0) * T['rennen_aus_gehen'], 2)
+                tempo[nm] = round(roh.get('Gehen', 1.0) * T['rennen_aus_gehen'], 2)
+            roh[nm] = tempo.get(nm, 1.0)
+            # Runde 4: Wurzelweg je Tempo 1 so, dass Weg mal Tempo das gewünschte Tempo gibt, das Tempo der Bewegung höchstens tempo_max
+            soll = v * tempo.get(nm, 1.0)
+            if nm in tempo and 'tempo_max' in T and tempo[nm] > T['tempo_max']:
+                tempo[nm] = T['tempo_max']; v = soll / tempo[nm]
+                print('TEMPO %s %s: Bewegung %.1f-fach, Wurzelweg %.3f m/s (Welt %.2f m/s)' % (TIER, nm, tempo[nm], v, soll))
             if v > 0.03:
                 INFO.setdefault('weg', {})[nm] = [[0.0, round(v * i / FPS, 4)] for i in range(int(round(akt[nm].frame_range[1] - akt[nm].frame_range[0])) + 1)]
     if tempo:
