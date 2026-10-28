@@ -27,4 +27,6 @@ B Umzug · Tom, Jerry · 28.10., 20:41 · APK: [Lauf 139](https://github.com/tra
 
 Anders als in 137: die Fackel trägt der Held nur noch, wenn er eine hat (wie alt, Chef 23.10., 344.1). Heiligensymbol als Beute nur noch für Kleriker, „Geweihtes Heiligensymbol“ statt „Arkanes“ (Homer).
 
-Bekannt, kein Testpunkt: Wolf läuft durch Wolf (Jerry, 399.2); Wald und Höhle noch nicht begehbar, darum Gwennas Ring und Jorins Steinkreis nicht lösbar; Blut, Tempo, Kampftext und MARS-Probe im System (Jerry); Geste und Ruf zum „!“; Aussehen in der Erschaffung (376.1).
+Bekannt, kein Testpunkt: Wolf läuft durch Wolf (Jerry, 399.2); Wald und Höhle noch nicht begehbar, darum Gwennas Ring und Jorins Steinkreis nicht lösbar; Blut, Tempo, Kampftext und MARS-Probe im System (Jerry); Geste zum „!“; Aussehen in der Erschaffung (376.1).
+
+Bekannt und schon behoben für den nächsten Build (Tom, 28.10., 21:2x): ein neues Spiel beginnt am Brunnen statt im Bett der Schenke, Rowena weckt nicht; es fehlen Intro (Ankunft bei Nacht), Vorspann (Firmenzeichen mit Klanglogo), Worte in der Blende zwischen Orten, der Ruf ohne Worte zum „!“.
