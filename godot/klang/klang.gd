@@ -7,7 +7,9 @@ extends Node
 # Ortsklang wie PlaceSound.kt, Ambience.kt, RiverSound.kt (WorldScreen.kt: Wind, Halle, Feuer, Fluss, Tropfen, Knarren, Husten);
 # Raumklang wie Room.kt: die Fassungen aus app/src/main/assets/raum (Vorschau RAUMKLANG=spiel), die synthetischen aus KlangExport.kt.
 # Noch nicht hier (Folgeschritte 399.3): Leute (Tassen, Stühle, D1.10), Teich, Hühner, Vögel, Regen (gibt es in Godot noch nicht),
-# Bemerkgrenze (Threat), Schwarzblende (Hush).
+# Bemerkgrenze (Threat).
+# Schwarzblende wie Hush.kt und VeilGate (Music.kt): solange sie steht, schweigen die Effekte (außer Klick und Tür), danach
+# kommen sie in 400 ms wieder; neue Musik und der Höhlenteppich erst nach der Blende und 500 ms Ruhe.
 
 const ORDNER := "res://daten/klang/"
 
@@ -57,6 +59,10 @@ var _zufall := RandomNumberGenerator.new()
 var _held: Node3D
 var _karte
 var _phase := -1.0
+var schleier := false                            # Hush.veiled: die Schwarzblende steht
+var _schleier_ende := -100000                    # Time.get_ticks_msec(), als sie zuletzt ging
+const AUFTAUCHEN_MS := 400                       # VeilGate.EFFECTS_RISE_MS
+const DURCH := ["click", "door"]                # VeilGate.THROUGH
 # Ortsklang (PlaceSound.Kind): OUTSIDE, TAVERN, HALL, ROOM, CAVE; Raum = Ordner der Raumfassungen (leer draußen)
 var ortsart := ""
 var raum := ""
@@ -136,7 +142,7 @@ func spiele_szene(neu: String) -> void:
 	if neu != "CAVE" and not (kampf and alt == "CAVE"):     # ein Kampf in der Höhle behält deren Teppich
 		_blende(_teppich, 0.0, TEPPICH_FADE_MS, true)
 	await _warte((aus_ms + PAUSE_MS) / 1000.0)
-	if lauf != _lauf:
+	if not await _nach_schleier(lauf):
 		return
 	if neu == "CAVE":
 		_teppich_weiter(lauf)
@@ -240,6 +246,27 @@ func _blende(p: AudioStreamPlayer, ziel: float, ms: int, dann_aus: bool) -> void
 		tw.tween_callback(p.stop)
 
 
+## Hush: die Schwarzblende steht ([an]) oder geht
+func verhuelle(an: bool) -> void:
+	if schleier and not an:
+		_schleier_ende = Time.get_ticks_msec()
+	schleier = an
+
+
+## VeilGate.effects: 0 in der Blende, danach in 400 ms wieder ganz
+func schleier_pegel() -> float:
+	if schleier:
+		return 0.0
+	return clampf((Time.get_ticks_msec() - _schleier_ende) / float(AUFTAUCHEN_MS), 0.0, 1.0)
+
+
+## VeilGate.musicMay: warten, bis die Blende fort ist und 500 ms danach; false, wenn inzwischen eine neue Szene kam
+func _nach_schleier(lauf: int) -> bool:
+	while lauf == _lauf and (schleier or Time.get_ticks_msec() - _schleier_ende < PAUSE_MS):
+		await get_tree().process_frame
+	return lauf == _lauf
+
+
 func _warte(s: float) -> void:
 	await get_tree().create_timer(s, true).timeout
 
@@ -250,6 +277,10 @@ func _warte(s: float) -> void:
 func effekt(id: String, pegel := 0.8, tempo := 1.0) -> void:
 	if not effekte_an:
 		return
+	if not id in DURCH:
+		pegel *= schleier_pegel()
+		if pegel <= 0.0:
+			return
 	var takes: Array = liste.get("sfx", []).filter(func(n): return String(n).begins_with(id + "_") and String(n).substr(id.length() + 1).is_valid_int())
 	if takes.is_empty():
 		return
@@ -539,7 +570,7 @@ func _schleife(schluessel: String, klang: String, soll: float, hoechst: float, d
 		var p := AudioStreamPlayer.new()
 		p.bus = "Effekte"
 		p.stream = st
-		p.volume_db = linear_to_db(v)
+		p.volume_db = linear_to_db(maxf(v * schleier_pegel(), 0.0001))     # SfxPlayer.loop: auch die Schleifen hinter der Blende
 		add_child(p)
 		p.play()
 		_schleifen[schluessel] = {"p": p, "v": v}
@@ -547,7 +578,7 @@ func _schleife(schluessel: String, klang: String, soll: float, hoechst: float, d
 		s.p.queue_free()
 		_schleifen.erase(schluessel)
 	elif s != null:
-		s.p.volume_db = linear_to_db(v)
+		s.p.volume_db = linear_to_db(maxf(v * schleier_pegel(), 0.0001))
 		s.v = v
 	return v
 

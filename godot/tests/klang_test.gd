@@ -62,6 +62,13 @@ func _alles() -> void:
 	_pruef("Feuer zu weit", KlangS.feuer_weit(_Probekarte.new({"kacheln": kf.kacheln, "daten": {"art": "TOWN"}, "breite": 7, "hoehe": 3, "zeilen": kf.zeilen}), Vector2i(3, 0)) == null)
 	_pruef("Raumfassungen", k.liste.get("raum", {}).get("tavern", []).has("creak_1") and k.liste.get("raum", {}).get("cave", []).has("hit_slash_1")
 		and not k.liste.get("raum", {}).get("cave", []).has("drip_1"))
+	# Schwarzblende (Hush, VeilGate): still darin, danach in 400 ms wieder ganz
+	k.verhuelle(true)
+	var zu: float = k.schleier_pegel()
+	k.verhuelle(false)
+	var gleich: float = k.schleier_pegel()
+	await create_timer(0.45).timeout
+	_pruef("Schwarzblende", zu == 0.0 and gleich < 0.2 and k.schleier_pegel() == 1.0, "%.2f %.2f %.2f" % [zu, gleich, k.schleier_pegel()])
 	# nie zweimal dasselbe Stück hintereinander
 	var l: Array = k._stuecke("FOREST")
 	var zweimal := false

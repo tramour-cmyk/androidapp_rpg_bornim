@@ -420,6 +420,7 @@ func kampf_im_wald(zurueck: Vector2i) -> void:
 	await abblenden(0.0)
 
 func abblenden(ziel: float) -> void:
+	klang("verhuelle", [ziel > 0.5])   # 399.3 (Jerry): in der Schwarzblende schweigen die Effekte, Musik erst danach (Hush.kt)
 	var tw := create_tween()
 	tw.tween_property(blende, "color:a", ziel, 0.35)
 	await tw.finished
