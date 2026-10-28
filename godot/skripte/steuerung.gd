@@ -42,6 +42,7 @@ var wahl_grund: ColorRect               # 390 (RestScreen): die Welt gedimmt dah
 var wahl_box: VBoxContainer
 var wahl_rolle: ScrollContainer
 const WAHL_HOEHE := 1500.0
+var leiste: Leiste                       # 399.1 Leiste oben wie alt (HudChip)
 var oben: VBoxContainer                 # Probeknoepfe (Tag/Nacht, Nah/Fern, Drehen): gibt es im alten Spiel nicht, in Vergleichsbildern aus
 
 func _ready() -> void:
@@ -51,22 +52,27 @@ func _ready() -> void:
 	zeichner.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	zeichner.draw.connect(_zeichne_joy)
 	add_child(zeichner)
-	ort = schild(Vector2(24, 40), 34)
+	# 399.1 Leiste oben wie alt (HudChip, Test 132): ueber die ganze Breite; Ortsname, Windrose und Probeknoepfe darunter
+	leiste = Leiste.new()
+	leiste.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+	add_child(leiste)
+	var oy := leiste.get_combined_minimum_size().y + 8 * AktionsKnopf.DP
+	ort = schild(Vector2(24, oy), 34)
 	# 348.6 (Befund 7, „Bornim“ schlecht lesbar): auf dunklem Grund wie HudChip (0xAA000000, Ecken 8 dp)
 	var chip := StyleBoxFlat.new()
 	chip.bg_color = Color(0, 0, 0, 0.667); chip.set_corner_radius_all(int(8 * AktionsKnopf.DP))
 	chip.content_margin_left = 6 * AktionsKnopf.DP; chip.content_margin_right = 6 * AktionsKnopf.DP
 	chip.content_margin_top = 3 * AktionsKnopf.DP; chip.content_margin_bottom = 3 * AktionsKnopf.DP
 	ort.add_theme_stylebox_override("normal", chip)
-	mess = schild(Vector2(24, 100), 22)
+	mess = schild(Vector2(24, oy + 60), 22)
 	mess.visible = "--messen" in OS.get_cmdline_user_args() or OS.is_debug_build()
 	windrose = Windrose.new()                # 348.6 Runde 11 (Chefrunde 25.10., 11:48): rechts oben, Probeknoepfe darunter
 	windrose.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
-	windrose.position = Vector2(-Windrose.GROESSE - 16 * AktionsKnopf.DP, 40)
+	windrose.position = Vector2(-Windrose.GROESSE - 16 * AktionsKnopf.DP, oy)
 	add_child(windrose)
 	oben = VBoxContainer.new()
 	oben.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
-	oben.position = Vector2(-300, 40 + Windrose.GROESSE + 16 * AktionsKnopf.DP)
+	oben.position = Vector2(-300, oy + Windrose.GROESSE + 16 * AktionsKnopf.DP)
 	oben.add_theme_constant_override("separation", 12)
 	add_child(oben)
 	var knoepfe := [["Tag / Nacht", "nacht"], ["Nah / Fern", "nah"], ["Drehen ◀", "links"], ["Drehen ▶", "rechts"], ["Deutsch / English", "sprache"]]   # 390: Sprache wie alt im Systemmenue, hier nur zum Testen

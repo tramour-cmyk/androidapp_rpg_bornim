@@ -162,10 +162,12 @@ object HeroExport {
         put("voelker", j(Race.entries.associate { it.name to mapOf("name" to it.title, "bonus" to it.bonus, "text" to it.desc, "merkmal" to it.trait) }))
         put("attribute", j(Ability.entries.associate { it.name to mapOf("kurz" to it.short, "name" to it.full) }))
         put("ruestungsarten", j(ArmorCategory.entries.associate { it.name to it.title }))
+        // 399.1 (Leiste wie HudChip): Kurzname und Farbe der Zustaende (Status)
+        put("zustaende", j(Status.entries.associate { it.name to mapOf("kurz" to it.short, "farbe" to "%06x".format(it.color and 0xFFFFFF)) }))
         put("klassen", j(CharClass.entries.associate { c -> c.name to mapOf("name" to c.title, "trefferwuerfel" to c.hitDie, "haupt" to c.primary,
             "reihenfolge" to c.priority, "ruestung" to c.armor, "schilde" to c.shields, "waffen" to c.weapons?.toList(), "start" to c.startItems,
             "startgold" to c.startGold, "zauberer" to c.caster, "text" to c.desc) }))
-        put("faehigkeiten", j(Skill.entries.associate { it.name to mapOf("klasse" to it.cls, "stufe" to it.level, "name" to it.title, "text" to it.desc, "mars" to it.mars) }))
+        put("faehigkeiten", j(Skill.entries.associate { it.name to mapOf("klasse" to it.cls, "stufe" to it.level, "name" to it.title, "text" to it.desc, "mars" to it.mars, "kosten" to it.cost) }))
         put("grundformen", j(GearBases.all.associate { it.id to base(it) }))
         put("affixe", j(Affix.entries.map { it.name }))
         // 390 (Laden, Beute): was Gear.name und Loot brauchen; Reihenfolge der Grundformen wie GearBases.all (Wuerfel waehlen daraus)

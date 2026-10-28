@@ -1,5 +1,6 @@
 extends SceneTree
-# 399.1 Probe mit Bild am Rechner (nicht im Bau): Hauptmenue und Textkasten wie im alten Spiel (Test 130, Chef 14:38, 14:39),
+# 399.1 Probe mit Bild am Rechner (nicht im Bau): Hauptmenue, Erschaffung, Spielstaende, Ueber, Leiste, Menue und Textkasten wie im
+# alten Spiel (Test 130, Chef 14:38, 14:39; Test 132, Chef 16:09),
 # als PNG nach OBERFLAECHE_AUS (Vorgabe user://). Braucht godot/daten (karten.json, texte.json, held.json, hauptmenue.bild).
 # Aufruf: im Ordner godot, mit Fenster (xvfb-run), -s res://tests/oberflaeche_bild.gd --resolution 1080x2340
 
@@ -27,6 +28,20 @@ func _lauf() -> void:
 	var ebene := CanvasLayer.new()
 	ebene.layer = 50
 	root.add_child(ebene)
+	if Sprache.aktiv() != "de": Sprache.wechsle()   # die Probe auf Deutsch (Helfer: lief auf Englisch)
+	# Beispielheld fuer Leiste, Spielstaende und Menue: Elfenmagierin Stufe 4, angeschlagen, vergiftet, Trank, Beute
+	var z := Zustand.new()
+	z.name = "Mira"; z.gold = 37; z.dazu("potion", 2); z.tag = 3; z.minuten = 21 * 60 + 5; z.leiden["POISON"] = 2
+	var hw := Heldwerte.erschaffe("Mira", "ELF", "WIZARD", {}, z.neue_uid)
+	hw.ep_dazu(int(Heldwerte.regel("ep_fuer_stufe")[4])); hw.tp = 9
+	z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(42), z.neue_uid, 3, "RARE", "WIZARD"))
+	z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(7), z.neue_uid, 2, "UNCOMMON", "WIZARD"))
+	ui.leiste.zeige(hw, z, true)
+	var alt_platz := Spielstand.platz
+	var gesichert := Spielstand.liste()
+	for n in [1, 3]:
+		Spielstand.platz = n
+		Spielstand.speichere(z, hw, {"karte": "inn" if n == 1 else "village", "x": 4, "y": 6, "blick": "UP"})
 	var menue := Hauptmenue.new(ui)
 	ebene.add_child(menue)
 	await _bild("menue")
@@ -42,9 +57,26 @@ func _lauf() -> void:
 	menue.spielstaende()
 	await _bild("spielstaende")
 	menue.get_node("Spielstaende").queue_free()
+	for n in [1, 3]:   # die Plaetze wie vorher
+		Spielstand.loesche(n)
+		if not gesichert[n - 1].is_empty():
+			var f := FileAccess.open(Spielstand.datei(n), FileAccess.WRITE); f.store_string(JSON.stringify(gesichert[n - 1])); f.close()
+	Spielstand.platz = alt_platz
 	menue.ueber()
 	await _bild("ueber")
 	ebene.queue_free()
+	await _bild("leiste")
+	var ebene2 := CanvasLayer.new()
+	ebene2.layer = 40
+	root.add_child(ebene2)
+	var m := Menue.new(hw, z)
+	ebene2.add_child(m)
+	await _bild("menue_held")
+	m.rolle.scroll_vertical = 100000
+	await _bild("menue_held_unten")
+	m.reiter = "tasche"; m.baue()
+	await _bild("menue_tasche")
+	ebene2.queue_free()
 	ui.sage([{"wer": "Rowena", "text": "Probetext mit Sprecher: zwei Zeilen lang, damit Umbruch, Zeilenhöhe und Rand zu sehen sind."}])
 	await _bild("text_sprecher")
 	ui.sage([{"text": "Probetext ohne Sprecher: erzählt, darum schräg wie im alten Spiel, ebenfalls zwei Zeilen lang."}])

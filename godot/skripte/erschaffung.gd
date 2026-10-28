@@ -14,7 +14,6 @@ signal zurueck
 const VOELKER := ["HUMAN", "ELF", "DWARF", "HALFLING", "HALF_ORC"]
 const KLASSEN := ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]
 const DP := AktionsKnopf.DP
-const HELD := "res://daten/held.bin"
 
 var name_ := ""
 var volk := "HUMAN"
@@ -24,7 +23,6 @@ var gekauft := {}                     # Punktekauf vor dem Volksbonus (Hero.sugg
 var rolle: ScrollContainer
 var inhalt: VBoxContainer
 var kopf: VBoxContainer               # Zusammenfassung neben dem Helden
-var drehteller: Node3D
 
 func _init() -> void:
 	name = "Erschaffung"
@@ -76,9 +74,6 @@ func _ready() -> void:
 	los.size_flags_stretch_ratio = 2.0
 	unten.add_child(los)
 	baue()
-
-func _process(dt: float) -> void:
-	if drehteller: drehteller.rotation.y += dt * TAU / 6.0   # eine Drehung in etwa sechs Sekunden wie alt
 
 # ---------------------------------------------------------------- Aufbau
 
@@ -278,49 +273,9 @@ func punktekauf() -> void:
 		p.add_child(r)
 	inhalt.add_child(kasten(p))
 
-# HeroTurntable: der Held dreht sich langsam; Tippen dreht ihn um eine Viertelrunde weiter
+# HeroTurntable (drehteller.gd)
 func vorschau() -> Control:
-	var c := SubViewportContainer.new()
-	c.stretch = true
-	c.custom_minimum_size = Vector2(150, 230) * 0.62 * DP
-	c.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	if not FileAccess.file_exists(HELD): return c
-	var v := SubViewport.new()
-	v.own_world_3d = true
-	v.transparent_bg = true
-	v.msaa_3d = Viewport.MSAA_4X
-	c.add_child(v)
-	var welt := WorldEnvironment.new()
-	welt.environment = Environment.new()
-	welt.environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-	welt.environment.ambient_light_color = Color(0.55, 0.5, 0.45)
-	v.add_child(welt)
-	var sonne := DirectionalLight3D.new()   # warm von vorn oben links wie der Lichtkegel des Hauptmenues
-	sonne.light_color = Color(1.0, 0.92, 0.8)
-	sonne.rotation_degrees = Vector3(-40, -30, 0)
-	v.add_child(sonne)
-	var kam := Camera3D.new()
-	kam.fov = 26.0
-	kam.position = Vector3(0, 1.0, 4.4)
-	kam.rotation_degrees.x = -4.0
-	v.add_child(kam)
-	drehteller = Node3D.new()
-	v.add_child(drehteller)
-	var modell := Gebiet.lade_glb(HELD)
-	if modell == null: return c
-	drehteller.add_child(modell)
-	var mats := []
-	Gebiet.male(modell, null, 2, mats)
-	for m in mats:
-		(m as ShaderMaterial).set_shader_parameter("metall", 1.0)
-		(m as ShaderMaterial).set_shader_parameter("licht_dir", Basis.from_euler(sonne.rotation).z)   # zur Sonne wie Licht.richtung
-	var anim := Gebiet.finde(modell, "AnimationPlayer") as AnimationPlayer
-	if anim:
-		Gebiet.bewegungen(anim, ["Stehen"])
-		if anim.has_animation("Stehen"): anim.play("Stehen")
-	c.gui_input.connect(func(e):
-		if e is InputEventMouseButton and e.pressed: drehteller.rotation.y += TAU / 4.0)
-	return c
+	return Drehteller.new()
 
 # ---------------------------------------------------------------- Bausteine wie Theme.kt im schwarzen Look
 

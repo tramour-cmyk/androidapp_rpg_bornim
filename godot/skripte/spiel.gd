@@ -49,6 +49,7 @@ func _ready() -> void:
 	ui.aktion.connect(_aktion)
 	ui.knopf.connect(_knopf)
 	ui.windrose.zurueck.connect(kamera.nach_norden)
+	ui.leiste.menue.connect(oeffne_menue)
 	ui.gelesen.connect(weiter)
 	ui.gewaehlt.connect(_rast_wahl)
 	ui.gewaehlt.connect(_laden_wahl)
@@ -323,6 +324,7 @@ func vor_tuer(alle: Dictionary, id: String, a: Dictionary) -> Vector2i:
 const WALD := ["forest", "deep_forest"]
 const AufrufS = preload("res://kampf/aufruf.gd")
 var kampf: Node
+var leiste_uhr := 0.0
 
 func tageszeit() -> String:   # Kampfort.tageszeit: tag, abend, nacht
 	var m := zustand.minuten
@@ -491,6 +493,23 @@ func rast_kachel(t: Vector2i) -> String:
 		"F": return "hoehle" if String(karte.daten.get("art", "")) == "CAVE" else "feuer"
 		"B": return "zimmer" if karte.id == "inn" else "bett"
 	return ""
+
+# 399.1 Menue wie alt (menue.gd): die Leiste oeffnet es, nur beim Erkunden (alt: game.mode == Mode.Explore); das Spiel steht so lange
+func oeffne_menue() -> void:
+	if ui.spricht() or rast_ort != "" or laden != null or kampf != null or get_tree().paused: return
+	held.halt(); held.richtung = Vector3.ZERO
+	var ebene := CanvasLayer.new()
+	ebene.layer = 40
+	ebene.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(ebene)
+	var m := Menue.new(held_werte(), zustand)
+	ebene.add_child(m)
+	get_tree().paused = true
+	m.zu.connect(func():
+		get_tree().paused = false
+		ebene.queue_free()
+		speichere()
+		ui.leiste.zeige(held_werte(), zustand, licht.nacht > 0.65))
 
 func held_werte() -> Heldwerte:
 	if werte == null: werte = Heldwerte.erschaffe(zustand.name, "HUMAN", "FIGHTER")
@@ -755,6 +774,10 @@ func _process(dt: float) -> void:
 			if karte.tuer(s) or zeichen_lesbar(s) or rast_kachel(s) != "": ui.biete_an.callv(angebot(held.kachel))
 			else: _stoesst(s)
 	if rast_ort == "" and laden == null: zustand.uhr(dt)   # 390: in Rast und Laden steht die Uhr; die Rast stellt sie selbst weiter
+	leiste_uhr -= dt
+	if leiste_uhr <= 0.0:   # 399.1 Leiste: viermal je Sekunde reicht fuer Uhr und Werte
+		leiste_uhr = 0.25
+		ui.leiste.zeige(held_werte(), zustand, licht.nacht > 0.65)
 	kamera.folge(minf(1.0, dt * 5.0))
 	ui.windrose.richte(kamera.nord_winkel())
 	gebiet.nah(kamera.nah, held.position)
@@ -771,6 +794,7 @@ func bilder() -> void:
 	DirAccess.make_dir_recursive_absolute(dir)
 	ui.mess.visible = false
 	ui.oben.visible = false   # 348.6 (Befund 7): Probeknoepfe standen vor der Turmspitze
+	ui.leiste.visible = false   # 399.1: Vergleichsbilder ohne Leiste
 	await get_tree().create_timer(1.0).timeout
 	await knips(dir + "/tag.png")
 	held.geh_zu(held.position + Vector3(3.0, 0, -2.0))
@@ -850,6 +874,7 @@ func gang_film() -> void:
 	DirAccess.make_dir_recursive_absolute(dir)
 	ui.mess.visible = false
 	ui.oben.visible = false
+	ui.leiste.visible = false   # 399.1: Vergleichsbilder ohne Leiste
 	held.setze(Vector2i(25, 9), "DOWN")
 	for l in leute.get_children():   # nur die Leute
 		if l.daten.has("tier"): l.free()
@@ -885,6 +910,7 @@ func leute_blatt() -> void:
 	DirAccess.make_dir_recursive_absolute(dir)
 	ui.mess.visible = false
 	ui.oben.visible = false
+	ui.leiste.visible = false   # 399.1: Vergleichsbilder ohne Leiste
 	for l in leute.get_children(): l.free()
 	var ids: Array = []
 	for f in DirAccess.get_files_at("res://daten/leute"):
@@ -964,6 +990,7 @@ func held_film() -> void:
 	DirAccess.make_dir_recursive_absolute(dir)
 	ui.mess.visible = false
 	ui.oben.visible = false
+	ui.leiste.visible = false   # 399.1: Vergleichsbilder ohne Leiste
 	for l in leute.get_children(): l.free()
 	held.leute = []
 	held.setze(Vector2i(18, 18), "UP")              # Brunnen 16/16 (348.6, vorher 17/14) und Staende 14-15/12, 20-21/12
@@ -1031,6 +1058,7 @@ func tusche_blatt() -> void:
 	DirAccess.make_dir_recursive_absolute(dir)
 	ui.mess.visible = false
 	ui.oben.visible = false
+	ui.leiste.visible = false   # 399.1: Vergleichsbilder ohne Leiste
 	if "--ohneheld" in OS.get_cmdline_user_args(): held.visible = false   # Maske des Helden: Bild mit minus ohne
 	for st in [[Licht.Stand.MORGEN, "morgen"], [Licht.Stand.MITTAG, "mittag"], [Licht.Stand.ABEND, "abend"]]:
 		licht.setze_stand(st[0])
@@ -1054,6 +1082,7 @@ func probe_blatt() -> void:
 	DirAccess.make_dir_recursive_absolute(dir)
 	ui.mess.visible = false
 	ui.oben.visible = false
+	ui.leiste.visible = false   # 399.1: Vergleichsbilder ohne Leiste
 	held.setze(Vector2i(7, 16), "UP")
 	for st in [[Licht.Stand.MITTAG, "mittag"], [Licht.Stand.ABEND, "abend"]]:
 		licht.setze_stand(st[0])
@@ -1098,6 +1127,7 @@ func haeuser_blatt() -> void:
 	DirAccess.make_dir_recursive_absolute(dir)
 	ui.mess.visible = false
 	ui.oben.visible = false
+	ui.leiste.visible = false   # 399.1: Vergleichsbilder ohne Leiste
 	for hs in arg.get_slice(":", 1).split(";"):
 		var f := hs.split(",")
 		var n := f[0]
@@ -1150,6 +1180,7 @@ func dorftiere_blatt() -> void:
 	if dir != "": DirAccess.make_dir_recursive_absolute(dir)
 	ui.mess.visible = false
 	ui.oben.visible = false
+	ui.leiste.visible = false   # 399.1: Vergleichsbilder ohne Leiste
 	for l in leute.get_children():
 		if l.daten.has("tier"):
 			print("DORFTIERE %s %s %s Fell %s Gang %.2f m/s Leib %.2f m Bewegungen %s" % [l.daten["id"], l.kachel, l.daten["tier"], l.daten["fell"], l.gang, l.leib, l.anim.get_animation_list() if l.anim else []])
@@ -1182,6 +1213,7 @@ func tusche_nacht() -> void:
 	DirAccess.make_dir_recursive_absolute(dir)
 	ui.mess.visible = false
 	ui.oben.visible = false
+	ui.leiste.visible = false   # 399.1: Vergleichsbilder ohne Leiste
 	licht.umschalten()
 	await get_tree().create_timer(2.5).timeout
 	var vp := get_viewport().get_viewport_rid()
