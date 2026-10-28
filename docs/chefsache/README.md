@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [348.13b](entscheiden/34813b-dritter-lauf.md) | **Muss** | G Aussehen | 28.10., 08:35 | Der zweite Probelauf für 348.13b ist an einer Störung bei GitHub gescheitert, nicht an unserem Spiel. Ein Bild gibt es noch nicht, und nach deiner Regel 389 sind beide erlaubten Läufe verbraucht. | Tom |
 | [109](entscheiden/109-repo-privat.md) | **Muss** | M Veröffentlichung | 27.10., 19:58 | Repo vor dem Tester-Aufruf privat (A), nur Releases löschen (B) oder so lassen (C)? | Sokrates |
 
 ## Zu billigen
@@ -43,7 +44,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 22, Muss 11, startbar 5
+**Tom** – offen 22, Muss 11, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -55,7 +56,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | wartet auf 348.6 (in Arbeit) |
 | 372 | M | von Perikles (338a B, Chef 27.10., 09:36, Archiv): Feinschliff Held: Kettenhemd, Helm, Kra | ruht |
 | 348.13 | M | von Sokrates (Chef 26.10., Archiv): Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Sc | wartet auf Jerry |
-| 348.13b | M | von Sokrates (Chef 08:09, Archiv): Tusche nach Fackel, Feuer, Fenster; Dorf zuerst, Kosten | startbar |
+| 348.13b | M | von Sokrates (Chef 08:09, Archiv): Tusche nach Fackel, Feuer, Fenster; Dorf zuerst, Kosten | Chef (Datei in der Chefsache) |
 | 267 | M | von Chef (20.10., 21:46, B48, Tablet): „Das Game laggt ziemlich auf dem Tablet...“ | ruht |
 | 302.3 | M | von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3): alle Bilder von Intro und Outro m | ruht |
 | 302.2 | K | von Chef über Sokrates (22.10., 23:50): Tusche auf der Gebietskarte | ruht |
