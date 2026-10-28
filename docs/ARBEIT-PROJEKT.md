@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 396a | M | Rückfrage: gilt 396 auch für Text? (Chefsache 396a) | wartet auf Chef |
 | 390a | M | **von Sokrates (Chef 10:26):** `probelauf.py`: Tests frei (Archiv) | startbar |
 | 394 | M | **von Sokrates (Chef 10:26):** Spike, Tuffy in die Werkzeuge (Archiv) | startbar |
 | 384 | M | **von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“):** Kosten aller Sitzungen gegen Buchungsverzeichnis; Ursache der Lücken im Werkzeug beheben (Zu 384) | gebaut 27.10., 20:1x: --kosten nur mit Kennung, Ford holt Kosten frisch (Zu 384) |
