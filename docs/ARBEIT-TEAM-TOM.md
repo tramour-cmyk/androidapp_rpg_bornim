@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (28.10., 22:2x, `session_01Hmoj75YJs7P43H1asCCog9`):** auf `claude/tom-399-spielfassung`: t139 Aktionsknopf, Anleitung, neues Spiel, Testmenü; 139.10, Gerät mit Messwerten, 139.7, 399.4 (bis 554cf01d9); Build 141 lief, zurückgezogen (Archiv 22:0x, Prüfliste in Git). Godot am Rechner: `~/godot/godot`, Tests ohne Bild in `godot/tests/*_399.gd`. Nachfolger: Tom – 376.1 Held vier Klassen.
+**Übergabe (28.10., 23:1x, `session_01Hmoj79nWVmRQA1o9PdAa2y`):** 376.1 vier Klassen auf `claude/tom-376-1-figuren` (enthält 399 bis 554cf01d9; 928fe95a0), Vorlage Chefsache 3761-klassen (Lauf 2, Probeläufe 376 verbraucht); 403 an Jerry. 399.5 auf diesem Zweig weiterbauen, damit der nächste Build beides hat. Rechner: `bash tools/pruef348/rechner.sh`, Kaufpakete per `add_repo`. Nachfolger: Tom – 399.5 Innenräume.
 
 ## Zeilen
 
@@ -45,7 +45,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 - **Zu 376.1:** UAL Pro (`Unreal-Godot/UAL1.glb`, 120 Bewegungen): kein Stich, keine Schildabwehr, kein gehaltenes Ausholen (bleiben eigen); Probeblatt und Raster im Git-Verlauf dieser Zeile.
 - **Von Sokrates (Chef zu 376.1):** 14:44 „Köpfe gestalten? Bart, Farben, rundes Gesicht?“: Kopf schmal/rund, mit/ohne Bart. 15:23: eine Kauffigur in unserer Kleidung; Vorlage weg, bis neu. 18:06 „376.1 passt, funktioniert also. Dann kann es weiter gehen.“ 18:09 „Wieso unser Kopf? Ist der Gekaufte nicht modellierbar? Der sieht doch viel echter aus als unserer?!?“: gekauften Kopf nehmen und anpassen (Form, Bart, Haar), in die Fehlerrunde. Zugang: `add_repo` (Chef 28.10., 08:35, Archiv); Pakete am Release `stufe1` (`api.github.com/…/releases/assets/<id>`).
-- **Zu 376.1, Tracht offen:** nachts Fackelschein magenta, Kettenhemd fast weiß; Hüftstücke, Stiefel ohne Fuß, Fäuste; Umhang: Rock und Hemdärmel stechen in Bewegung noch durch (`pruef_tracht.py` 15–29 Ecken je Bild, vorher 17–46).
+- **Zu 376.1, Tracht offen:** nachts Kettenhemd fast weiß; Rock und Hemdärmel stechen in Bewegung durch den Umhang (`pruef_tracht.py`; Verlauf in Git).
 - **Zu 376.1, Klassen** (Tom 28.10., 928fe95a0): `held_klassen.py` (Rechner: OUT mit held3-rig.blend, KAUF=entpackte Pakete, ≈3 Min.) → `held_<KLASSE>.glb`, `haare.glb`, `bewegungen.glb`, `held-klassen.json`; Godot `heldfigur.gd`, Test `held_klassen_376.gd`, Bilder `figurenprobe.gd --teil=klassen`. Offen: Frauen, Völkerkörper, Statur, Fackelhaltung, Kampfort (403), Knopftexte an Homer.
 - **Zu 376.1, Kaufkopf**: 681384045 ohne Formschlüssel, `kopf.py` formt über Merkpunkte (Schalter in `kauf_kleid.py`), `koepfe_lauf.sh` ≈3 Min. Halszacken (ruht): Fläche des inneren Kragens sticht links und rechts durch die Halshaut; `KopfHeben.verteilt` verkleinert auf ein Drittel.
 - **Zu 348.13** (Tom, Verlauf in Git): **Chef 20:24:** „nicht vergessen, dass wir zoomen können und insofern näher ran (mehr Details) und weiter weg“. Rechner `--tusche=<o>`, messen `tools/pruef348/tusche_breite.py`; Schalter und Offenes in Git (8523fbca6).
@@ -66,7 +66,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
   - **Chef 18:06/18:20 (Dorf-APK):** Wortlaut `LISTE-UMZUG-348.md` „Urteil Chef Dorf-APK“ (Runde 4). Offen: Gesicht flach, „Bornim“ unleserlich.
 - **Zu 348.6, Häuser und Dinge (Chef 22:14, 23:48, 00:07; Archiv):** keine 1:1-Kopie, keine Ziegelläufe. `DINGE=0` ohne Dinge. Runde 2 (c56589ea0): Kisten `weiss` mit Holzfarbe (glb kappt Farbe über 1). Rechner: `rechner.sh`, `cc0_laden.sh` (`PAKETE=` Dorf- und Naturbausatz), `PROBE=348.6` mit `haeuser.sh`, `--bilder`, `--haeuser=<o>:westrand,1,5,1,5,1;suedrand,11,26,11,26,12` (≈17 Min.). Runde 3 (3547b46b3): Felsen per Sichttest (`FELS` im Log), Kiesel. Offen: Felsen oliv statt grau.
 - **Zu 376.2:** `medieval.market.asset.pack.zip` (privat, .blend 2.79), Farben gemalt (Modellregel 6).
-- **Zu 355** (Git): Kerntest 2–4 Kisten je Karte.
 - **Zu 356.2:** `STORY-K1-HANDLUNG.md` „Sammelaufträge (356)“, Marken `[356.…]`.
 - **Zu 302.1, 302.3** (Chef 23.10., Git): Figur dreht rund; Tusche im Zeichner, nur Schattenseite, dort dicker, kein Filter; Lichtspalt, Fenster hell; dann Hauptmenü.
 - **Zu 267** (Git): SM-X210 Blende 11,2 s, Pause 55 ms; Gefühl des Chefs fehlt.
