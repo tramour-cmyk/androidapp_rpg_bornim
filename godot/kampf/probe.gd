@@ -726,7 +726,7 @@ func _report_facing() -> void:
 			if w.name == "Waffe" and sk and sk.find_bone("hand_l") >= 0 and fig.fighter.monster != null and fig.fighter.monster.id == Mars.GRAK:
 				# 348.12 Grak: die linke Faust am Stiel (Großaxt, 38 cm hinter der rechten Faust); Handknochen plus Griff wie _hold
 				var hl := sk.global_transform * sk.get_bone_global_pose(sk.find_bone("hand_l"))
-				var gl: Vector3 = hl * Vector3(0, 0.085, 0)
+				var gl: Vector3 = hl * (w.get_meta("links") if w.has_meta("links") else Vector3(0, 0.085, 0))     # Runde 2: Griff aus figur.gd
 				var d: Vector3 = gl - (w as Node3D).global_position
 				var entlang: float = d.dot(gb.y)
 				print("Zweihand %s: linke Faust %.1f cm vom Stiel, %.1f cm hinter der rechten (soll 38)" % [id, (d - gb.y * entlang).length() * 100.0, -entlang * 100.0])

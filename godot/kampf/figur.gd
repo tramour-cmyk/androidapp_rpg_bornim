@@ -373,7 +373,7 @@ func _arm_goblin() -> void:
 			sz = 1.0
 		# 348.12 Probe CC0-Gerüst (goblin.py GERUEST=cc0): der Handknochen beginnt am Handgelenk, der Griff liegt näher
 		var grip: float = info.get("griff_hand_m", 0.0) if info.get("geruest", "") == "cc0" else info.get("griff_m", GRIP_CM * CM)
-		_hold(sk, "R" if i == 0 else "L", w[i], grip, info.get("handflaeche_m", PALM_CM * CM), sz)
+		_hold(sk, "R" if i == 0 else "L", w[i], grip, info.get("handflaeche_m", PALM_CM * CM), sz, info.get("axt", {}))
 	if _gob_art() == SHAMAN:     # Augen und der Schädel am Stab glimmen grün (Eckfarbe mit Alpha 0; goblin.py, waffen.py)
 		for m in mats:
 			m.set_shader_parameter("glut", 1.8)     # Runde 1b (Prüfer 1a: nicht zu sehen) 2,5; 1c (Prüfer 1b: gelb statt grün) 1,8
@@ -381,7 +381,8 @@ func _arm_goblin() -> void:
 
 ## Hangs [what] (a .glb in metres, grip at its origin) on the forearm of [side]; the model is in metres too (held.glb, goblin-*.glb).
 ## [grip] from the forearm joint to the middle of the hand, [palm] half the hand's thickness (metres).
-func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, palm := PALM_CM * CM, size := 1.0) -> void:
+## [axt] (348.12 Grak Runde 2, goblin.py/grak_arme.py): Lage der Axt im Skelett in Stehen, Bild 0 (Griff, Achse, Schneide, linke Faust)
+func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, palm := PALM_CM * CM, size := 1.0, axt := {}) -> void:
 	var p := "res://kampf/daten/%s.bin" % what
 	var bi := sk.find_bone("fo%s-wr%s" % [side, side])
 	if bi < 0:     # 348.12 CC0-Gerüst: Handknochen vom Handgelenk in Richtung des Unterarms (geruest.py lage)
@@ -449,6 +450,19 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		b = Basis(fwd, up, fwd.cross(up))
 		var hand_y: float = (sk.get_bone_global_pose(bi) * Vector3(0, grip, 0)).y
 		o = Vector3(0, grip, 0) + inward * palm + up * (0.60 * size - hand_y)
+	elif what == "greataxe-grak" and axt.has("griff"):
+		# Runde 2 (Prüfer r1: die Axt in keiner Hand, im Hieb bleibt sie stehen): die Arme sind beim Bau an die Axt gestellt
+		# (grak_arme.py); hier nur ihre Lage aus Stehen, Bild 0, in den Raum der rechten Hand, so folgt sie der Faust in jeder Bewegung
+		var hand := sk.get_bone_global_pose(bi).affine_inverse()
+		var p3 := {}
+		for k in ["griff", "achse", "schneide", "links"]:
+			p3[k] = Vector3(axt[k][0], axt[k][1], axt[k][2])
+		var ax: Vector3 = (hand.basis * (p3["achse"] as Vector3)).normalized()
+		var edge: Vector3 = hand.basis * (p3["schneide"] as Vector3)
+		edge = (edge - ax * edge.dot(ax)).normalized()
+		b = Basis(edge, ax, edge.cross(ax))
+		o = hand * (p3["griff"] as Vector3)
+		w.set_meta("links", sk.get_bone_global_pose(sk.find_bone("hand_l")).affine_inverse() * (p3["links"] as Vector3))
 	elif what == "greataxe-grak":
 		# Grak: der Stiel steil vor dem Körper nach oben, etwas nach außen und vor, der Kopf über der rechten Schulter, die
 		# Schneide nach vorn; die linke Faust hält ihn 38 cm tiefer am Stielende (ual_lauer.py GRAK_HALT, gleiche Richtung)

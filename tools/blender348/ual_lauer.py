@@ -24,10 +24,13 @@ UNTEN = ('root', 'pelvis', 'spine_01', 'spine_02', 'spine_03', 'neck_01', 'Head'
 UAL_ART = os.environ.get('UAL_ART', 'Goblin')
 # HIEB_VERSATZ (m, x y z): die Handziele des Hiebs wandern mit der Schulter (Kobold: Schulter 2 cm innen, 6 cm vor, 10 cm tiefer
 # als beim Goblin; sonst erreichte die Hand drei Schlüssel um 3–7 cm nicht)
-KOBOLD = dict(BECKEN='0.50', RUMPF='34', KOPF_AUF='1.25', KOPF_DREH='-30', HIEB_TIEF='0.5', HIEB_VERSATZ='-0.02,-0.06,-0.10')
+# Runde 2: der Kobold sticht (KOBOLD_STICH unten, Schlüssel für ihn entworfen, darum ohne Versatz)
+KOBOLD = dict(BECKEN='0.50', RUMPF='34', KOPF_AUF='1.25', KOPF_DREH='-30', HIEB_TIEF='0.5', HIEB_VERSATZ='0,0,0')
 # Grak (Archiv 27.10., 17:57; Liste „Grak“ 5: aufrecht und gedrillt, beim angekündigten Schlag die Axt über dem Kopf): kein
 # Hocken (Becken der Quelle), Füße schulterbreit, Großaxt in beiden Händen (GRAK_HALT unten), eigener Zweihandhieb von oben
-GRAK = dict(BECKEN='quelle', RUMPF='4', KOPF_AUF='1.0', BREIT='0.15', VERSATZ='0.07', KNIE_AUS='0.08', KNIE_VOR='0.4',
+# Runde 2 (Prüfer r1: geduckt statt aufrecht): das Becken der Quelle ist Sword_Idles Fechterstand (0,73 m, Knie 70° gebeugt, auf
+# Grak übertragen 75° und Fersen 14 cm hoch); jetzt 0,87 m wie Idle_Loop (0,88 m, Knie 18°) etwas gesenkt
+GRAK = dict(BECKEN='0.87', RUMPF='4', KOPF_AUF='1.0', BREIT='0.15', VERSATZ='0.07', KNIE_AUS='0.08', KNIE_VOR='0.4',
             SCHRITT='1.0', WIPPEN='1.0', GANG_BREIT='0.0', HIEB_ART='grak')
 for k_, v_ in {'Kobold': KOBOLD, 'Grak': GRAK}.get(UAL_ART, {}).items(): os.environ.setdefault(k_, v_)
 KOPF_DREH = float(os.environ.get('KOPF_DREH', '0'))
@@ -149,7 +152,9 @@ def richte(b, ziel):     # Knochen b so drehen, dass er zum Punkt ziel zeigt (kl
 # Handgelenk gerade; dann die Hand so gedreht, dass der Stiel in der rechten Faust in Richtung r zeigt (KH: Stiel im Raum der
 # Hand, aus dem ersten Bild der Lauer, figur.gd legt die Axt dort in GRAK_HALT[1])
 # AXT_MASS: die Bibliothek misst bis zum Scheitel etwa 1,46 m, Grak 1,86 m; Abstände an der Axt hier im Maß der Bibliothek
-AXT_MASS = float(os.environ.get('AXT_MASS', '0.79'))
+# Runde 2 (grak_arme.py misst: Graks Hals so hoch wie der der Bibliothek, Verhältnis 1,00; Scheitel der Bibliothek 1,65 m): 1,0;
+# mit 0,79 lagen die Fäuste 30 statt 38 cm auseinander, auf Grak bog der linke Arm sich nach hinten
+AXT_MASS = float(os.environ.get('AXT_MASS', '1.0'))
 AXT_LINKS, GRIFF, HANDFL, AXT_KOPF, AXT_ENDE = 0.38 * AXT_MASS, 0.085 * AXT_MASS, 0.03 * AXT_MASS, 0.80 * AXT_MASS, 0.45 * AXT_MASS
 WARN = {'n': 0}
 
@@ -410,6 +415,21 @@ HIEB_GIER = float(os.environ.get('HIEB_GIER', '-25'))
 HIEB_VERSATZ = Vector([float(c) for c in os.environ.get('HIEB_VERSATZ', '0,0,0').split(',')])
 HIEB_ROLLE = os.environ.get('HIEB_ROLLE', '1') == '1'
 HIEB_WEG = {0.0: 'weich', 0.20: 'linear', 0.24: 'an', 0.31: 'linear', 0.36: 'linear', 0.40: 'weich', 0.46: 'weich'}     # Verlauf vom Schlüssel bis zum nächsten
+# Kobold Runde 2 (Prüfer r1: beim Aufschlag die Speerspitze im Boden, Film 3,9 s der Speer waagerecht auf Hüfthöhe; nachgerechnet wie
+# figur.gd: im Hieb von oben fährt der Speer 0,20–0,47 s durch den Kopf, 12–46 Ecken): Speer und Dolch stechen. Die Hand zieht
+# neben die Hüfte zurück (ausgeholt 0,18–0,24 s), stößt vor der Brust nach vorn (0,34 s), hält beim Aufschlag gestreckt (0,43 s);
+# der Speer zeigt zum Gegner, die Spitze leicht hoch (der Gegner ist doppelt so groß; im Kobold 7° flacher als entworfen). Hand in der Lauer (-0,27, -0,30, 0,80)
+KOBOLD_STICH = [
+    (0.0, None),
+    (0.18, -8, -2, (-0.30, -0.06, 0.78), (-1.0, 0.3, -0.3), (-0.06, -0.93, 0.36)),
+    (0.24, -9, -3, (-0.31, -0.03, 0.79), (-1.0, 0.3, -0.3), (-0.06, -0.93, 0.36)),
+    (0.34, 10, 8, (-0.20, -0.62, 0.92), (-0.9, 0.0, -0.4), (-0.02, -0.94, 0.34)),
+    (0.43, 12, 10, (-0.18, -0.66, 0.93), (-0.9, 0.0, -0.4), (-0.02, -0.94, 0.33)),
+    (0.52, 12, 10, (-0.18, -0.66, 0.93), (-0.9, 0.0, -0.4), (-0.02, -0.94, 0.33)),
+    (0.80, None)]
+if UAL_ART == 'Kobold':
+    HIEB_SCHLUESSEL = KOBOLD_STICH
+    HIEB_WEG = {0.0: 'weich', 0.18: 'linear', 0.24: 'an', 0.34: 'weich', 0.43: 'linear', 0.52: 'weich'}
 
 
 def drehe(b, achse, grad):     # Knochen b um eine Weltachse an seinem Kopf
@@ -493,18 +513,26 @@ GRAK_HIEB = [
     (0.0, None),
     # erster Lauf: beim Heben und Schlagen strich der Stiel 4–5 cm am Gesicht vorbei, beim Zurück 8 cm an der Brust; die Fäuste
     # gehen darum vor dem Gesicht hoch (0,15 s) und vor ihm hinab (0,54 s), zurück vor der Brust (0,78 s)
-    (0.15, -4, 0, (-0.08, -0.34, 0.80), (-0.05, -0.05, 1.0), (-1.0, 0.2, -0.2), (1.0, 0.2, -0.4)),
-    (0.30, -10, -6, (-0.06, 0.02, 1.00), (0.05, 0.75, 0.66), (-1.0, 0.1, 0.3), (1.0, 0.1, 0.3)),
-    (0.38, -12, -8, (-0.06, 0.04, 1.02), (0.05, 0.80, 0.60), (-1.0, 0.1, 0.3), (1.0, 0.1, 0.3)),
+    # Runde 2 (auf Graks Gerüst gemessen, stiel.py: beim Heben 0,23–0,27 s der Stiel durch Hinterkopf und Zopf, 165–205 Ecken; beim
+    # Schlag 0,47–0,70 s das Stielende 3–9 Ecken in der Brustplatte): ausholen über der rechten Schulter neben dem Kopf, im Schlag die
+    # Fäuste weiter vor und der Stiel erst steil, beim Aufschlag die Fäuste auf Hüfthöhe, der Stiel steiler (die linke Faust lag sonst in der Brust)
+    (0.15, -4, 0, (-0.14, -0.30, 0.82), (-0.12, -0.05, 0.99), (-1.0, 0.2, -0.2), (1.0, 0.2, -0.4)),
+    (0.22, -7, -3, (-0.22, -0.16, 0.98), (-0.10, 0.40, 0.91), (-1.0, 0.1, 0.1), (1.0, 0.1, 0.0)),
+    (0.30, -10, -6, (-0.20, 0.02, 1.00), (0.0, 0.75, 0.66), (-1.0, 0.1, 0.3), (1.0, 0.1, 0.3)),
+    (0.38, -12, -8, (-0.20, 0.04, 1.02), (0.0, 0.80, 0.60), (-1.0, 0.1, 0.3), (1.0, 0.1, 0.3)),
     # zweiter Lauf (0,46 s Stiel 7 cm durch den Scheitel): der Stiel steht senkrecht erst, wenn die Fäuste vor dem Gesicht sind
-    (0.44, -2, 8, (-0.10, -0.34, 0.97), (0.0, -0.2, 0.98), (-1.0, 0.1, 0.0), (1.0, 0.1, 0.0)),
-    (0.50, 0, 10, (-0.05, -0.42, 0.90), (0.0, -0.55, 0.83), (-1.0, 0.0, 0.0), (1.0, 0.0, 0.0)),
-    (0.54, 3, 14, (-0.05, -0.62, 0.74), (0.0, -0.90, 0.42), (-1.0, 0.0, -0.2), (1.0, 0.0, -0.2)),
-    (0.58, 6, 20, (-0.05, -0.56, 0.36), (0.0, -0.92, -0.40), (-1.0, 0.0, -0.4), (1.0, 0.0, -0.4)),
-    (0.66, 6, 20, (-0.05, -0.56, 0.34), (0.0, -0.91, -0.42), (-1.0, 0.0, -0.4), (1.0, 0.0, -0.4)),
+    (0.44, -2, 8, (-0.14, -0.36, 0.98), (-0.05, -0.05, 1.0), (-1.0, 0.1, 0.0), (1.0, 0.1, 0.0)),
+    (0.50, 0, 10, (-0.07, -0.46, 0.90), (0.0, -0.25, 0.97), (-1.0, 0.0, 0.0), (1.0, 0.0, 0.0)),
+    (0.54, 3, 14, (-0.05, -0.62, 0.58), (0.0, -0.80, 0.60), (-1.0, 0.0, -0.2), (1.0, 0.0, -0.2)),
+    (0.56, 4, 17, (-0.05, -0.68, 0.36), (0.0, -1.0, 0.0), (-1.0, 0.0, -0.3), (1.0, 0.0, -0.3)),
+    (0.58, 6, 20, (-0.05, -0.58, 0.14), (0.0, -0.82, -0.57), (-1.0, 0.0, -0.4), (1.0, 0.0, -0.4)),
+    (0.66, 6, 20, (-0.05, -0.58, 0.12), (0.0, -0.80, -0.60), (-1.0, 0.0, -0.4), (1.0, 0.0, -0.4)),
+    # Runde 2 (auf Graks Gerüst gemessen, grak_arme.py: beim Zurück 0,71 s der Stiel 2 cm durch die Brust; der Stiel drehte von
+    # vorn unten nach oben, das Stielende schwang durch den Rumpf): erst den Stiel vor dem Körper aufrichten, dann die Fäuste zurück
+    (0.72, 4, 14, (-0.08, -0.58, 0.36), (-0.1, -0.55, 0.83), (-1.0, 0.1, -0.4), (1.0, 0.1, -0.5)),
     (0.78, 3, 10, (-0.12, -0.50, 0.50), (-0.2, -0.45, 0.87), (-1.0, 0.3, -0.5), (1.0, 0.2, -0.7)),
     (0.90, None)]
-GRAK_WEG = {0.0: 'weich', 0.15: 'linear', 0.30: 'linear', 0.38: 'an', 0.44: 'linear', 0.50: 'linear', 0.54: 'linear', 0.58: 'weich', 0.66: 'weich', 0.78: 'weich'}
+GRAK_WEG = {0.0: 'weich', 0.15: 'linear', 0.22: 'linear', 0.30: 'linear', 0.38: 'an', 0.44: 'linear', 0.50: 'linear', 0.54: 'linear', 0.56: 'linear', 0.58: 'weich', 0.66: 'weich', 0.72: 'linear', 0.78: 'weich'}
 if HIEB_ART == 'grak':
     for s_ in 'lr': ziele[s_][2].mute = True
     L0 = lies(neu, 0.0); rig.animation_data.action = None

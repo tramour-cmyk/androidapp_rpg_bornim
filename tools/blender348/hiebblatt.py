@@ -13,20 +13,23 @@ NAMEN = os.environ.get('NAMEN', 'leder;kappe;helm').split(';')
 TW, TH = 178, 230     # Kachel; Ausschnitt 1,4 Figurhöhen breit, 1,8 hoch (ausgeholte Klinge über dem Kopf)
 aus, ordner, zeilen = sys.argv[1], sys.argv[2], [a.split('=', 1) for a in sys.argv[3:]]
 KOPF = 26
-B = Image.new('RGB', (6 * TW + 12, KOPF + len(zeilen) * (TH + 22)), (20, 20, 20)); d = ImageDraw.Draw(B)
-for s, m in enumerate(('eigen', 'CC0')):
+# Kobold Runde 2 (Prüfer r1: im Blatt die Füße abgeschnitten): unten 0,22 statt 0,1 Figurhöhen Rand; NUR_CC0=1: nur die CC0-Spalten
+UNTEN = 0.22
+ARTEN = (('cc0', 'CC0'),) if os.environ.get('NUR_CC0') else (('eigen', 'eigen'), ('cc0', 'CC0'))
+B = Image.new('RGB', (len(ARTEN) * (3 * TW + 12) - 12, KOPF + len(zeilen) * (TH + 22)), (20, 20, 20)); d = ImageDraw.Draw(B)
+for s, m in enumerate(t for _, t in ARTEN):
     d.text((s * (3 * TW + 12) + 4, 4), m, fill=(240, 232, 216), font=SCHRIFT)
 for z, (titel, name) in enumerate(zeilen):
     y = KOPF + z * (TH + 22)
     d.text((4, y + 2), titel, fill=(240, 232, 216), font=SCHRIFT)
-    for s, m in enumerate(('eigen', 'cc0')):
+    for s, m in enumerate(a_ for a_, _ in ARTEN):
         if m == 'eigen' and name.endswith('!'):
             d.text((8, y + 20 + TH // 2), 'eigen: kein Hieb (schnellt nur vor)', fill=(200, 192, 176), font=SCHRIFT); continue
         for g in (1, 2, 3):
             f = '%s/st-%s-%s-%d' % (ordner, m, name.rstrip('!'), g)
             x, fu, k = [int(v) for v in re.search(r'Schirm gob%d: Fuß (\d+),(\d+) Kopf \d+,(\d+)' % g, open(f + '.log').read()).groups()]
             h = max(fu - k, 40); w = int(h * 1.4); hh = int(w * TH / TW)
-            c = Image.open(f + '.png').convert('RGB').crop((x - w // 2, fu + int(h * 0.1) - hh, x + w // 2, fu + int(h * 0.1))).resize((TW, TH))
+            c = Image.open(f + '.png').convert('RGB').crop((x - w // 2, fu + int(h * UNTEN) - hh, x + w // 2, fu + int(h * UNTEN))).resize((TW, TH))
             px = s * (3 * TW + 12) + (g - 1) * TW
             B.paste(c, (px, y + 20))
             d.text((px + 4, y + TH), NAMEN[g - 1], fill=(200, 192, 176), font=SCHRIFT)

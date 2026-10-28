@@ -74,8 +74,9 @@ KOBOLD = {
 # Steppmantel (Doll coatMat), dunkle Hose, schwarze Stiefel, Halbplatte mit Schulterstücken, roter Hauptmannsumhang, kein Helm;
 # Großaxt in beiden Händen. Haut dunkler als Doll 0x8A3E28 (Leitbild: nie heller als alt)
 GRAK_KIT = {
-    'hauptmann': dict(haut=0x6A3220, wams=True, wams_rgb=0x4A1C18, fell=False, kopf=None, groesse=1.0, statur='kraeftig', vor=0,
-                      waffen=['greataxe-grak', ''], umhang='5A1612', hose='2A2622', aermel='4A1C18'),
+    # Runde 2 (Prüfer r1: der Steppmantel rostorange statt dunkelrot): Rot zum Karmin hin (Farbton 5° → 348°, gleiche Helligkeit)
+    'hauptmann': dict(haut=0x6A3220, wams=True, wams_rgb=0x4A1620, fell=False, kopf=None, groesse=1.0, statur='kraeftig', vor=0,
+                      waffen=['greataxe-grak', ''], umhang='5A1612', hose='2A2622', aermel='4A1620'),
 }
 ART = os.environ.get('ART', 'goblin')
 ARTEN = {'goblin': KITS, 'goblin_archer': SPAEHER, 'goblin_shaman': SCHAMANE, 'kobold': KOBOLD, 'hobgoblin_captain': GRAK_KIT}
@@ -141,6 +142,12 @@ def treiber():
             a_ = "('Gehen', LP.get('geh', 'Walk_Loop'), dict(GEHEN, takt=takt, schritt=schritt, mitschwung=mit))]"
             assert g.count(a_) == 1, 'geruest.py: leute_liste geändert'
             g = g.replace(a_, a_ + " + ([('Hieb', LP['hieb'], STEHEN)] if LP.get('hieb') else [])")
+            if GRAK:   # Grak Runde 2 (Prüfer r1: Axt in keiner Hand): Arme nach der Übertragung auf seinem Gerüst an die Axt (grak_arme.py)
+                shutil.copy(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'grak_arme.py'), T)
+                a_ = "        res = posen(Gs, opt.get('gerade', False), fk, korr, boden, **ka)\n"
+                assert g.count(a_) == 1, 'geruest.py: posen mit boden geändert'
+                g = g.replace(a_, a_ + "        import grak_arme\n        res = grak_arme.arme(name, Gs, res, dict(RM=RM, RU=RU, k=k, INFO=INFO, PAR=PAR, "
+                              "lies=lies, A=bpy.data.actions, ruhe=LP.get('ruhe'), alt=alt, J=J, GRIFF_R=GRIFF_R))\n")
             open(gp, 'w').write(g)
         # Runde 2 (Prüfer Runde 1: „steif aufrecht, Arme hängen“): Stehen als Lauer wie FoeArt (Goblin: lean +0,35, crouch +4,
         # Kopf gehoben), die Waffen vor dem Körper wie HeroFigure.READY; rig.py bleibt Toms, die Kopie im Arbeitsordner bekommt sie
@@ -256,7 +263,7 @@ def treiber():
         if KOB:
             src = src.replace(a9, "    if o.name.startswith(('eye', 'head_zahn', 'head_horn', 'head_maul', 'head_kamm', 'head_kragen')): o.vertex_groups.new(name='fest')")
         if GRAK:
-            src = src.replace(a9, "    if o.name.startswith(('eye', 'head_zahn')): o.vertex_groups.new(name='fest')")
+            src = src.replace(a9, "    if o.name.startswith(('eye', 'head_zahn', 'schulter')): o.vertex_groups.new(name='fest')")
             # Kobold: der Schwanz hängt starr am Becken (pelvis-hipR hängt an der Wurzel, nicht am Rumpf, der sich vorbeugt)
             a8 = "    elif n == 'handR': RIGID[n] = 'foR-wrR'\n"
             if GERUEST == 'cc0':   # 348.12: Toms rig.py (e457d6d8b) hängt Hand und Handgelenk zusammen an HANDR
@@ -324,7 +331,11 @@ def treiber():
                              rock='robe' if k.get('robe') else 'keiner', tabard='6A4A32', sleeve=k.get('aermel', '4E4232'), pants=k.get('hose', '4E4232'), groesse=1.0,
                              beine=0.5 if KOB else (1.0 if GRAK else 0.82), gebeugt=4 if ART == 'goblin_shaman' else (20 if KOB else (0 if GRAK else 16)),
                              gang=dict(takt=32, schritt=1.0, knie=1.0, arm=0.6, vor=0) if GRAK else GANG,
-                             **(dict(umhang=k['umhang'], traegt=True) if GRAK else {}),
+                             # Grak Runde 2 (Prüfer r1: Kopf gesenkt): Blick 6° über die Waagerechte statt 3° darunter (geruest.py KOPF, kopfhaltung)
+                             **(dict(umhang=k['umhang'], traegt=True, kopfhaltung=[-26, 0, 0]) if GRAK else {}),
+                             # Kobold Runde 2 (Prüfer r1: Schnauze 30–35° nach unten): Blick 11° über die Waagerechte; geruest.py drehte
+                             # den Kopf zur Mitte zurück (kopf_grad 41°), die Schnauze steht wieder 30° seitlich wie ual_lauer.py KOPF_DREH
+                             **(dict(kopfhaltung=[-40, -30, 0]) if KOB and GERUEST == 'cc0' else {}),
                              **(dict(ruhe=CC0_RUHE, geh=CC0_GEH, hieb=CC0_HIEB) if GERUEST == 'cc0' else {}))},
                   open(os.path.join(T, 'leute.json'), 'w'))
         env = dict(os.environ, OUT=T, FIGUR=fig, GOBLIN=kit, ATLAS='1024', GERUEST=GERUEST)   # Modellregel 6: höchstens 1024 px
@@ -484,6 +495,11 @@ def nach():
             f = float(os.environ.get('CC0_WAMS', '0.65')) if GERUEST == 'cc0' and not os.environ.get('WDIAG') else 1.0
             for n in bpy.data.materials[nm].node_tree.nodes:
                 if n.type == 'RGB': n.outputs[0].default_value = lin(rgb, f)
+    # Grak Runde 2 (Prüfer r1: die Füße hell wie nackt): Stiefel und Stulpen schwarz wie Doll (bisher dunkles Leder 0x3E2C22 aus held3)
+    for nm, rgb in ((('boots', 0x1A1716), ('cuff', 0x24201E)) if GRAK else ()):
+        if nm in bpy.data.materials:
+            for n in bpy.data.materials[nm].node_tree.nodes:
+                if n.type == 'RGB': n.outputs[0].default_value = lin(rgb)
 
     def world_apply(objs, fn):
         """fn(Nx3 Weltpunkte) -> Nx3; auf die Ecken der Objekte anwenden (wie held3.deform)."""
@@ -1256,11 +1272,43 @@ def nach():
         src = bpy.data.objects['chain'] if 'chain' in bpy.data.objects else body
         armd = lambda V_: np.minimum.reduce([seg_dist(V_, a_ + s_, b_ + s_) for s_ in 'RL' for a_, b_ in (('up', 'el'), ('el', 'fo'))])
         schale('platte', src, lambda V_: (V_[:, 2] > hipz + 0.28 * trunk) & (V_[:, 2] < J['neckTop'][0].z - 0.12 * trunk) & (armd(V_) > 3.5), 1.2, 0.8)
-        quelle = [o for o in meshes() if o.name.split('.')[0] in ('sleeves', 'chain')] or [body]
+        # Runde 2 (Prüfer r1: die Füße hell wie nackt): unter den Stiefeln der Körper weg, damit keine Haut durch die dünne Schale sticht
+        # Runde 2 (Prüfer r1: über der rechten Schulter zwei Kegel wie Hörner): held3 legte je 5 Ecken von Stiefel und Stulpe an Hals
+        # und Schultern (z 144–159), dunkle Splitter dort; alles über dem Knie weg
+        kz_ = min(J['kneeR'][0].z, J['kneeL'][0].z)
+        for o_ in [o for o in meshes() if o.name.split('.')[0] in ('boots', 'cuff')]:
+            bm = bmesh.new(); bm.from_mesh(o_.data); mw_ = o_.matrix_world
+            weg_ = [v for v in bm.verts if (mw_ @ v.co).z > kz_]
+            bmesh.ops.delete(bm, geom=weg_, context='VERTS'); bm.to_mesh(o_.data); bm.free()
+            print('GOBLIN', o_.name, 'über dem Knie weg', len(weg_), 'Ecken')
+        bo_ = [o for o in meshes() if o.name.split('.')[0] == 'boots']
+        if bo_:
+            bz_ = max(max((o_.matrix_world @ v.co).z for v in o_.data.vertices) for o_ in bo_) - 1.5
+            bm = bmesh.new(); bm.from_mesh(body.data); mw_ = body.matrix_world
+            weg_ = [f_ for f_ in bm.faces if all((mw_ @ v.co).z < bz_ for v in f_.verts)]
+            bmesh.ops.delete(bm, geom=weg_, context='FACES'); bm.to_mesh(body.data); bm.free()
+            print('GOBLIN Körper unter den Stiefeln weg', len(weg_), 'Flächen')
+        # Runde 2 (Prüfer r1: über der rechten Schulter zwei graue Kegel wie Hörner): je Seite lagen zwei Schalen (aus Ärmel und
+        # Kettenhemd, je 50 Ecken), der Abbau machte Kegel daraus. Jetzt je Seite ein gewölbtes Stück (Kuppel, nach außen geneigt) mit
+        # einer Folgeschiene darunter, ganz (rig.py: Gruppe „fest“)
         for s_ in 'RL':
-            up_ = J['up' + s_][0]
-            for qo in quelle:
-                schale('schulter', qo, lambda V_, up_=up_: (np.linalg.norm(V_ - np.array(up_), axis=1) < 0.22 * trunk + 2.0) & (V_[:, 2] > up_.z - 6.0), 2.2, 0.8)
+            up_ = J['up' + s_][0]; g_ = -1.0 if s_ == 'R' else 1.0     # rechts ist x < 0
+            for nm_, rad, mitte, neig, ab in (('schulter', (0.19, 0.21, 0.16), (0.04, 0.0, 0.05), 28, -0.30),
+                                              ('schulter_schiene', (0.20, 0.215, 0.10), (0.07, 0.0, -0.04), 40, -0.10)):
+                bm = bmesh.new(); bmesh.ops.create_uvsphere(bm, u_segments=12, v_segments=8, radius=1.0)
+                bmesh.ops.delete(bm, geom=[v for v in bm.verts if v.co.z < ab], context='VERTS')
+                if nm_ == 'schulter_schiene':     # nur ein Band: die Kappe oben weg
+                    bmesh.ops.delete(bm, geom=[v for v in bm.verts if v.co.z > 0.55], context='VERTS')
+                R_ = Matrix.Rotation(math.radians(-g_ * neig), 3, 'Y')
+                for v in bm.verts:
+                    v.co = Vector(up_) + Vector((g_ * mitte[0] * trunk, mitte[1] * trunk, mitte[2] * trunk)) + R_ @ Vector(
+                        (v.co.x * rad[0] * trunk, v.co.y * rad[1] * trunk, v.co.z * rad[2] * trunk))
+                me = bpy.data.meshes.new(nm_); bm.to_mesh(me); bm.free()
+                o = bpy.data.objects.new(nm_, me); scn.collection.objects.link(o); me.materials.append(M['platte'])
+                o.parent = root; o.matrix_parent_inverse = root.matrix_world.inverted()
+                so = o.modifiers.new('so', 'SOLIDIFY'); so.thickness = 0.8; so.offset = -1
+                bpy.context.view_layer.objects.active = o; bpy.ops.object.modifier_apply(modifier='so')
+                for p in me.polygons: p.use_smooth = True
 
     # ---- 6a. Späher Runde 2 (Sokrates statt Chef, 362): Fellumhang mit breitem Kragen über den Schultern, damit das Fell den
     # Umriss ändert (Prüfer 1: „das Fell liest sich als Oberteil“); Köcher mit Pfeilen auf dem Rücken wie alt (Diogenes 1: fehlt)
@@ -1461,7 +1509,7 @@ def nach():
         if GRAK:   # erster Bau: 36 600 Dreiecke vor dem Abbau (Umhang 11 800, Handgelenke je 7 600, Ohren je 1 900), der Kopf
             # bekäme beim gleichmäßigen Abbau auf 6000 nur 280; jetzt zusammen etwa 8000
             ZIEL = {'head': 1700, 'handL': 350, 'handR': 350, 'body': 1000, 'hair_zopf': 120, 'ear': 140, 'wristR': 120, 'wristL': 120,
-                    'cloak': 600, 'platte': 450, 'schulter': 100, 'pants': 300, 'sleeves': 350, 'chain': 300, 'boots': 250, 'belt': 100,
+                    'cloak': 600, 'platte': 450, 'schulter': 400, 'pants': 300, 'sleeves': 350, 'chain': 300, 'boots': 250, 'belt': 100,
                     'cuff': 60, 'clasp': 60}
         for o in list(meshes()):
             n_ = o.name.split('.')[0]
