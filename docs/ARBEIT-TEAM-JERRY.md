@@ -2,13 +2,13 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben.
 
-**Übergabe (28.10., 11:55, `session_01Hmoj78sytX4Qq4WnVpSnj2`):** 348.12f r9 abgenommen; 348.12 Grak Zweihand vorgelegt; 387 r6 gepusht; 390 sechs Regelteile gebaut. Nachfolger: „Jerry – 387 Vorlage, 348.12 Grak animieren“
+**Übergabe (28.10., 13:10, `session_01Hmoj76aXbXMchtzxCkPnwi`):** 399.2 gebaut (CI 40684416539); 348.12f eingebaut (CI 40683164033); Grak-Bewegungen gebaut; 387 r6 vorgelegt. Bestand: UAL Pro Death02. Nachfolger: „Jerry – 399.2 CI prüfen, 348.12 Grak-Film“
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar (`LISTE-UMZUG-348.md` „Spielfassung“) | gebaut e18c6a223: kampf/aufruf.gd (Schnittstelle LISTE-UMZUG-348), Test aufruf_399 lokal 0; CI läuft; Tom kann einhängen | `claude/jerry-348-kampf` |
+| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar (`LISTE-UMZUG-348.md` „Spielfassung“) | gebaut e18c6a223 (aufruf.gd, Schnittstelle LISTE-UMZUG-348); CI prüfen | `claude/jerry-348-kampf` |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: Tusche passt (Chef 12:31); im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: APK mit Kaufratte und -wolf, verschlüsselt; CI 40683164033 | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: Zweihand passt (Chef 12:31, Archiv); gebaut 1d6618d74 Gehen, Hieb, Treffer, Tod frei, im Spiel-APK (399.2); Film vorlegen, Probezähler blockiert (an Perikles) | `claude/jerry-348-kampf` |
