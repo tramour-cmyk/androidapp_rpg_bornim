@@ -41,6 +41,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 11:33 28.10.: Neustart Tom angenommen (`482e7485f`), Nachfolger „Tom – 390 Laden-Ausrüstung, dann 376.1 Halszacken“ `01Hmoj78eF` gestartet (main, Hoch, mit add_repo-Satz); alter Tom `01Hmoj78Lq` archiviert und gebucht (6,00 $ auf 385, 390); offene Frage zu 385 steht in Toms Übergabe
 - 11:08 28.10.: Chef „Ich brauche Sokrates“ (11:06): Sokrates „Chefrunde“ `01Hmoj78fq` gestartet (main, Mittel); Perikles „396“ `76kq`, Tom `78Lq`, Jerry `78sy` laufen; Sokrates `773t` archiviert und gebucht (10,68 $ auf 383)
 - 17:35–19:54 27.10.: Ford-Selbstneustart; Neustarts angenommen: Sokrates 19:08, Tom 19:32, Jerry 19:40, Tom 19:54; Vorgang 382 an Perikles
 - 01:37–06:35 27.10.: Neustarts angenommen und Nachfolger gestartet: Tom 01:46, 02:33, 02:57, 03:23, 03:51, 04:16, 04:43, 05:01, 05:20, 05:44, 06:03, 06:35, 07:21; Jerry 01:37, 02:42, 03:25, 04:57; Jerry 05:55 zurückgestellt (wartet auf Chefsache 3487a). Läufe 02:03, 03:03 ohne Starts; START Perikles (Terminname) nicht ausgeführt
