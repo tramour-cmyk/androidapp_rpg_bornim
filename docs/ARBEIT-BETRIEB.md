@@ -38,15 +38,15 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
-- 23:30 28.10.: Chef „Räum auf und buche Kosten“: Protokoll und Eingang gekürzt (Datei 18 → unter 15 KB), alter Ford 9,02 $ gebucht; drei Sitzungen ohne Kosten (Eingang).
 - 22:23–23:13 28.10.: Tom 7d5e21fac/f449ea4a9/e91b86781 Neustarts, Nachfolger `01Hmoj78mj` „376.1 Köpfe, Haut, Robe“ (Titel nach Korrekturen umgestellt); Jerry 96d840aae: Nachfolger `01Hmoj77So`; alte archiviert und gebucht: Tom `75YJ` 19,49 $ (399.1), Jerry `775u` 25,55 $ (399.2,399.2b,399.3), Tom `79nW` 19,45 $ (376.1)
-- 22:07 28.10.: Perikles `01Hmoj77Hj` gestartet (400, Chef über Sokrates), alter Perikles `76yC` archiviert (3,05 $ auf 399). Ford-Lücke: Homer 399.2b (startbar seit 15:32, gestartet 19:06); jeden Lauf `startbar.py` gegen laufende Sitzungen prüfen.
 - 16:35–21:41 28.10.: Neustarts Sokrates (alter `78fq` 23,05 $ auf 385,387,396a,397,398,399), Tom 9eabc83d1/fb048b94a/a12e99b0d/bc486f1d9 (Nachfolger je gestartet, alte archiviert: 28,01 + 13,76 + 25,48 + 16,58 $ auf 399.1 u. a.), Jerry 8aefbb7b1 (`77PX` 14,85 $ auf 399.3,399.2); Homer `01Hmoj77EQ` 19:06 (399.2b)
 - 13:09–15:49 28.10.: Neustarts Jerry cf599b056 (alter `75RG` 19,91 $ auf 399.2,348.12; 14:43 zurückgestellt bis Chefantwort 348.12), Tom 971fcda1a (alter `76N4` 30,41 $ auf 399.1,390,397); Jerry `76aX` 27,93 $ (348.12,387,399.2); Diogenes `77nv` 0,79 $
 - 17:35–19:54 27.10.: Ford-Selbstneustart; Neustarts angenommen: Sokrates 19:08, Tom 19:32, Jerry 19:40, Tom 19:54; Vorgang 382 an Perikles
 - 01:37–06:35 27.10.: Neustarts angenommen und Nachfolger gestartet (Tom 13×, Jerry 4×); Jerry 05:55 zurückgestellt (wartet auf Chefsache 3487a)
 - 25.10., 09:35–21:05: Neustarts Tom/Jerry/Sokrates angenommen; Perikles 364 und Sokrates 340.2 gestartet; Sparbetrieb und Max 20x (Verlauf in Git)
 
+- 23:30 28.10.: Chef „Räum auf und buche Kosten“: Protokoll und Eingang gekürzt (Datei 18 → unter 15 KB), alter Ford 9,02 $ gebucht; drei Sitzungen ohne Kosten (Eingang).
+- 22:07 28.10.: Perikles `01Hmoj77Hj` gestartet (400, Chef über Sokrates), alter Perikles `76yC` archiviert (3,05 $ auf 399). Ford-Lücke: Homer 399.2b (startbar seit 15:32, gestartet 19:06); jeden Lauf `startbar.py` gegen laufende Sitzungen prüfen.
 - 20:04 27.10.: Marke Abgleich Vorentscheid 383.1 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 00:05 28.10.: Marke Abgleich Vorentscheid 348.7 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 00:05 28.10.: Marke Abgleich Vorentscheid 348.6 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
@@ -58,3 +58,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:36 28.10.: Startsperre 12:36 Start Perikles (lauf.py)
 - 13:11 28.10.: Nachfolger-Warnung Diogenes (Übergabe 28.10., 12:19) (lauf.py)
 - 22:09 28.10.: Marke Wächter 399.2 28.10. 12:34 (lauf.py)
+- 23:57 28.10.: Startsperre 23:57 Start Perikles (lauf.py)
+- 23:57 28.10.: Marke Archiv session_01Hmoj78mjLPT6PZaqKUninZ (lauf.py)
+- 23:57 28.10.: Marke Archiv session_01Hmoj77Hj5um3BFGBKYLTet (lauf.py)
