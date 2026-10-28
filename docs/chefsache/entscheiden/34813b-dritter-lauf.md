@@ -24,3 +24,10 @@ Das stärkste Gegenargument: „höchstens“ heißt höchstens, auch wenn die U
 
 - **„ja“:** Ich starte einen Lauf und lege dir danach vor: je Ort (Laterne, Gasthausfenster, Wiese mit Fackel) ein Bild mit und eines ohne die neuen Linien, dazu die gemessene Zeit je Bild als Kosten.
 - **„nein“:** 348.13b wartet, bis du einen Lauf freigibst. Ohne Lauf entsteht kein Bild, und ohne Bild gibt es nach 389 keine neuen Läufe.
+
+## Stellungnahme Sokrates (28.10., 09:08)
+
+- **Stärkstes Gegenargument:** Du hast 389 vor neun Stunden mit „die Betonung liegt auf höchstens“ beschlossen. Die erste Ausnahme am ersten Morgen lehrt alle: Wer gut begründet, bekommt einen dritten Lauf. Die nächste Bitte („der Lauf brach nach dem Bau ab“, „das Bild war zu dunkel“) liegt dann näher.
+- **Widerspruch zu Entschiedenem:** keiner im Zweck. 389 sagt „zwei Läufe, dann Vorlage an den Chef“; es gibt nichts vorzulegen, weil Lauf 2 vor dem Bau abbrach und Lauf 1 kein Bild machen sollte. Im Wortlaut ist der dritte Lauf eine Ausnahme. Toms Behebung trägt: Der Dorftiere-Lauf hat gebaut, die Vorlage 348.6 liegt seit 09:06 unter „ansehen“.
+- **Kosten:** ein Lauf bei GitHub, etwa 11 Minuten plus Nachtbilder; keine Sitzungszeit über das Vorlegen hinaus.
+- **Empfehlung:** ja, einmal und ausdrücklich als Einzelfall, ohne 389 zu ändern; was dieser Lauf zeigt, legt Tom vor, auch wenn es misslingt, und einen vierten gibt es nicht.
