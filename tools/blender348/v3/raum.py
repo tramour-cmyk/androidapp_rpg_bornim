@@ -78,6 +78,7 @@ def klein(P):
 def stueck(c, r): return '%d_%d' % (int(c) // 3, int(r) // 3)
 LICHTER = []
 WANDLISTE = []
+HERD_VON = {}                                        # hohe Fassung -> Netz des Feuerlochs
 WAND_VON = {}                                        # (Spalte, Zeile, Seite) -> hohe Fassung der Wand dort
 
 def add_face(P, pts, col, m, uv=None):
@@ -238,7 +239,7 @@ def leuchter(P, pos, a=0.0, hoch=None):
     stelle(P, 'Candle_2', pos, a, (0.9, 0.9, s), z=6.0)
     return Vector((pos.x, pos.y, pos.z + 6.0 + h + 2.5))
 
-WACHS = lin(0xf0e6c8); MESSING = lin(0xb09048)
+WACHS = lin(0xf0e6c8); MESSING = lin(0xd8b860)
 def stumpf(P, pos, h):
     """Kerzenstumpf ohne Halter, Wachs am Fuss verlaufen (alt candle drips); gibt die Dochtspitze zurueck"""
     P = klein(P)
@@ -252,7 +253,7 @@ def waage(P, pos):
     zylinder(P, pos, 5.0, 2.0, 12, MESSING, 'weiss', r2=4.0)
     zylinder(P, pos, 1.3, 34, 6, MESSING, 'weiss')
     links = pos + Vector((-22, 0, 34.5)); rechts = pos + Vector((22, 0, 32.0))
-    zylinder(P, links, 0.8, (rechts - links).length, 6, MESSING, 'weiss', achse=rechts - links)
+    zylinder(P, links, 1.6, (rechts - links).length, 6, MESSING, 'weiss', achse=rechts - links)   # Lauf 3: als schwarzer Strich gelesen
     for end, tief in ((links, 16.0), (rechts, 14.0)):
         schale = end - Vector((0, 0, tief))
         for dx in (-5, 5):
@@ -316,7 +317,18 @@ if rs:
         if rand < 15: return sc(borte, (0.8 if rand < 7 else 1.0) * (0.9 + 0.15 * vn(p.x / 20, p.y / 20, 8)))
         d = abs((p.x - x0) % 40 - 20) + abs((p.y - y0) % 40 - 20)   # Rauten wie alt
         return sc(grund, (1.2 if 11 < d < 14 else 1.0) * (0.9 + 0.15 * vn(p.x / 40, p.y / 40, 8)))
-    box(P, (x0, y0, 0), (x1, y1, 1.0), teppich, 'weiss')   # Pruefer Lauf 2: mit Stoffbild grau-gruen
+    # oben als Raster zu 5 cm: die Farbe sitzt an den Ecken, mit nur vier Ecken war der ganze Teppich Borte (Pruefer Lauf 3: beige)
+    nx = max(1, int((x1 - x0) / 5)); ny = max(1, int((y1 - y0) / 5))
+    for i in range(nx):
+        for j in range(ny):
+            a0, a1 = x0 + (x1 - x0) * i / nx, x0 + (x1 - x0) * (i + 1) / nx
+            b0, b1 = y0 + (y1 - y0) * j / ny, y0 + (y1 - y0) * (j + 1) / ny
+            add_face(P, [Vector((a0, b0, 1.0)), Vector((a1, b0, 1.0)), Vector((a1, b1, 1.0)), Vector((a0, b1, 1.0))], teppich, 'weiss')
+    for q in ([Vector((x0, y0, 0)), Vector((x1, y0, 0)), Vector((x1, y0, 1)), Vector((x0, y0, 1))],
+              [Vector((x1, y1, 0)), Vector((x0, y1, 0)), Vector((x0, y1, 1)), Vector((x1, y1, 1))],
+              [Vector((x0, y1, 0)), Vector((x0, y0, 0)), Vector((x0, y0, 1)), Vector((x0, y1, 1))],
+              [Vector((x1, y0, 0)), Vector((x1, y1, 0)), Vector((x1, y1, 1)), Vector((x1, y0, 1))]):
+        add_face(P, q, sc(borte, 0.8), 'weiss')
     for x in range(int(x0) + 3, int(x1) - 2, 6):   # Fransen an den Schmalseiten
         for y_, d_ in ((y0, -1), (y1, 1)):
             box(P, (x, min(y_, y_ + d_ * 7), 0), (x + 2, max(y_, y_ + d_ * 7), 0.6), lin(0xc8b48c), 'stoff')
@@ -545,13 +557,21 @@ for s, zs, n, e, hoch, tief in HERDE:
         kerze_licht(f + Vector((0, 0, 10)), 1.4, 0.4, [f], 'kerze', wand=hoch)   # Lauf 2: gedreht brannte die Flamme frei
     else: stelle(PH, 'Book_Stack_2', sims[3], a, 0.8, z=0)
     feuer = M @ Vector((0, -18, 18))
-    LICHTER.append(dict(art='kamin', pos=list(M @ Vector((0, -70, 55))), reich=3.6, kraft=1.05, flammen=[list(feuer)], breite=mw * 0.7))
+    LICHTER.append(dict(art='kamin', pos=list(M @ Vector((0, -70, 55))), reich=3.6, kraft=1.05, flammen=[list(feuer)], breite=mw * 0.7,
+                        wand=hoch))   # Pruefer Lauf 3: gedreht ragte der Feuerkasten ueber die Bruestung; Herd, Feuer, Licht gehen mit der Wand
+    HERD_VON[hoch] = 'Herd_' + stueck(zs[0]['c'], zs[0]['r'])
 
 # ---------------------------------------------------------------- Einrichtung (MapRoomIso.objects je Zeichen)
 def wand_teil(c, r, s, sonst):
     """Hohes an der Wand (Regal, Gestell, Wandtuch) gehoert zur hohen Fassung seiner Wand: steht die Wand vorn (tief), ist es mit ihr
     weg wie alt 5h.1 (Pruefer Lauf 1: gedreht zeigten Regale an der Vorderwand ihre Rueckseite ueber der Bruestung)"""
     return part(WAND_VON[(c, r, s)]) if (c, r, s) in WAND_VON else part(sonst)
+def weg_von_wand(c, r, p, d=18.0):
+    """p um d cm von jeder angrenzenden Wand weg (Wandstaerke und Eckbalken ragen in die Kachel; Pruefer Lauf 3)"""
+    for s in 'NWOS':
+        dd, _, n, a, e = SEITEN[s]
+        if ch(c + dd[0], r + dd[1]) in WAENDE: p = p + n * d
+    return p
 def an_wand(c, r):
     """Richtung in den Raum (Blender) von der naechsten Wand: N, W, O, S der Reihe nach"""
     for s in 'NWOS':
@@ -629,7 +649,7 @@ def tisch(c, r):
         elif w == 2: stelle(P, 'Table_Plate', p + Vector((20, 14, 0)), 0, 0.75); stelle(P, 'Table_Spoon', p + Vector((32, 14, 0)), 0, 0.75)
         else: stelle(P, 'Mug', p + Vector((10, 12, 0)), 200); stelle(P, 'Coin', p + Vector((-24, 14, 0)), 70)
     f = leuchter(P, pm + Vector((0, 8, oben)), 0)
-    kerze_licht(pm + Vector((0, 0, oben + 40)), 1.7 if herd_naehe else 2.8, 0.62 if herd_naehe else 0.6, [f])
+    kerze_licht(pm + Vector((0, 0, oben + 18)), 1.7 if herd_naehe else 2.8, 0.62 if herd_naehe else 0.6, [f])   # Lauf 3: tiefer, Insel am Boden
 
 def bank(c, r):
     c0, c1 = lauf_x(c, r, 'n')
@@ -645,11 +665,11 @@ def bank(c, r):
     sg_y = -1 if tisch_n else 1
     y_l = pm.y + sg_y * 20
     # Pruefer Lauf 2: Lehne mit DUNKEL fast schwarz, Sitz stach durch die Wangen: Eiche wie die Bank, Wangen aussen am Sitz
-    eiche = lambda p, n_: sc(HOLZ, 0.75 + 0.2 * vn(p.x / 30, p.z / 30, 3))
-    box(P, (pm.x - L / 2 + 2, min(y_l, y_l + sg_y * 5), 30), (pm.x + L / 2 - 2, max(y_l, y_l + sg_y * 5), 84), eiche, 'holz')
+    eiche = lambda p, n_: sc(lin(0xb08a60), 0.85 + 0.2 * vn(p.x / 30, p.z / 30, 3))   # Lauf 3: Lehne im Gegenlicht fast schwarz
+    box(P, (pm.x - L / 2 + 2, min(y_l, y_l + sg_y * 5), 40), (pm.x + L / 2 - 2, max(y_l, y_l + sg_y * 5), 72), eiche, 'holz')
     for sg in (-1, 1):
         xw = pm.x + sg * (L / 2 + 1)
-        box(P, (xw - 3, min(pm.y - sg_y * 20, y_l + sg_y * 7), 0), (xw + 3, max(pm.y - sg_y * 20, y_l + sg_y * 7), 88), eiche, 'holz')
+        box(P, (xw - 3, min(pm.y - sg_y * 20, y_l + sg_y * 7), 0), (xw + 3, max(pm.y - sg_y * 20, y_l + sg_y * 7), 76), eiche, 'holz')
 
 def bett(c, r):
     if (c, r) in erledigt: return
@@ -659,6 +679,7 @@ def bett(c, r):
     P = part('Ding_' + stueck((c0 + c1) / 2, (r0 + r1) / 2))
     w = (c1 - c0 + 1) * TS - 12; d = (r1 - r0 + 1) * TS - 12
     pm = Vector(((tx(c0) + tx(c1 + 1)) / 2, (ty(r0) + ty(r1 + 1)) / 2, 0))
+    pm = weg_von_wand(c0, r0, pm, 10.0)   # Pruefer Lauf 3: Kopfteil lag in der Wand
     kopf_n = not drin(c0, r0 - 1)                    # Kopf an der Wand (Bausatz: Kopf bei +Y)
     ms = masse('Bed_Twin1')
     if d >= w:
@@ -731,7 +752,7 @@ def gestell(c, r):
 
 def kram(c, r):
     P = part('Ding_' + stueck(c, r))
-    p = mitte(c, r) + Vector(((hsh(c, r, 5) % 20) - 10, (hsh(c, r, 6) % 20) - 10, 0))
+    p = weg_von_wand(c, r, mitte(c, r)) + Vector(((hsh(c, r, 5) % 20) - 10, (hsh(c, r, 6) % 20) - 10, 0))
     a = hsh(c, r, 7) % 360
     if AELTESTER:   # ein Wanderstock an der Wand
         n, s = an_wand(c, r)
@@ -758,14 +779,14 @@ def kram(c, r):
 def fass(c, r):
     P = part('Ding_' + stueck(c, r))
     n_w, s_w = an_wand(c, r)
-    p = mitte(c, r) + (n_w * 12 if s_w else Vector())   # Pruefer Lauf 2: Fass steckte im Eckbalken
+    p = weg_von_wand(c, r, mitte(c, r))   # Pruefer Lauf 2, 3: Fass steckte im Eckbalken
     w = hsh(c, r, 3) % 3
     stelle(P, 'Barrel_Apples' if (LADEN and w == 0) else 'Barrel', p, hsh(c, r, 8) % 360, 0.85, ton=[(0.95, 0.9, 0.85), (0.8, 0.75, 0.7), (1.0, 1.0, 1.0)][w])
     if w == 1 and not LADEN: stelle(P, 'Mug', p + Vector((8, -6, 0)), 30, 1.0, z=77)
 
 def kisten(c, r):
     P = part('Ding_' + stueck(c, r))
-    p = mitte(c, r)
+    p = weg_von_wand(c, r, mitte(c, r), 24.0)
     if LADEN:   # Ware (alt produce)
         stelle(P, 'FarmCrate_Carrot', p + Vector((-8, 10, 0)), 10, 0.85)
         stelle(P, 'FarmCrate_Apple', p + Vector((10, -18, 0)), -8, 0.85)
@@ -779,11 +800,9 @@ def truhe(c, r):
     n, s = an_wand(c, r); a = dreh(n)
     ms = masse('Chest_Wood')
     sk = 80 / ms.x
-    p = mitte(c, r) - n * (TS / 2 - ms.y * sk / 2 - 6)
-    stelle(P, 'Chest_Wood', p, a, sk, farbe=lin(0x7a5a3c))   # Pruefer Lauf 1: ohne Bild des Bausatzes weiss
-    if hsh(c, r, 3) % 3 == 2:   # ein Leuchter auf der Truhe (alt smallFlame)
-        f = leuchter(P, p + Vector((0, 0, ms.z * sk)), a)
-        kerze_licht(f + Vector((0, 0, 10)), 1.5, 0.45, [f])
+    p = weg_von_wand(c, r, mitte(c, r) - n * (TS / 2 - ms.y * sk / 2 - 6), 12.0)   # Lauf 3: ragte in die Wand
+    stelle(P, 'Chest_Wood', p, a, sk, farbe=lin(0xa07a50))   # Pruefer Lauf 1: ohne Bild des Bausatzes weiss
+    # kein Leuchter mehr auf der Truhe: der Deckel des Bausatzes steht offen, die Kerze stand auf seiner Kante (Pruefer Lauf 3)
 
 def lehnstuhl(c, r):
     P = part('Ding_' + stueck(c, r))
@@ -800,8 +819,8 @@ def pult(c, r):
     n, s = an_wand(c, r); a = dreh(n)
     p = mitte(c, r)
     if TEMPEL:   # Lesepult mit offenem Buch (alt lectern); Pruefer Lauf 1: stand an der Bank, jetzt um eine halbe Kachel zum Altar
-        if any(ch(c + dx, r + 1) == 'n' for dx in (-1, 0, 1)): p = p + Vector((0, 0.15 * TS, 0))   # Lauf 2: 0,45 stach in den Altar
-        stelle(P, 'BookStand', p, a + 180, 0.9, ton=(0.85, 0.8, 0.78))
+        if any(ch(c + dx, r + 1) == 'n' for dx in (-1, 0, 1)): p = p + Vector((0, 0.08 * TS, 0))   # Lauf 2: 0,45 stach in den Altar
+        stelle(P, 'BookStand', p, a + 180, 0.75, ton=(0.85, 0.8, 0.78))   # Lauf 3: beruehrte Altar und Bank
         f = leuchter(P, p + Vector((34, 20, 0)), 0, hoch=24)
         kerze_licht(f + Vector((0, 0, 20)), 1.8, 0.6, [f])
         return
@@ -821,7 +840,8 @@ def wandtuch(c, r):
 def altar(c, r):
     c0, c1 = lauf_x(c, r, 'A')
     if c != c0: return
-    P = part('Ding_' + stueck((c0 + c1) / 2, r))
+    n_a, s_a = an_wand(c, r)
+    P = wand_teil(c0, r, s_a, 'Ding_' + stueck((c0 + c1) / 2, r))   # Pruefer Lauf 3: gedreht ragte der Altar ueber die Bruestung
     x0, x1 = tx(c0) + 6, tx(c1 + 1) - 6
     yc = ty(r) - TS / 2
     def quader(p, n_):   # Werkstein, Fugen alle 30 cm (alt ashlar)
@@ -849,7 +869,7 @@ def altar(c, r):
         an = k * math.pi / 6; rv = Vector((math.cos(an), 0, math.sin(an)))
         zylinder(P, sz + rv * 19 + Vector((0, -1.5, 0)), 2.6, 12 if k % 2 else 18, 4, lin(0xc9a24a), 'weiss', r2=0.4, achse=rv)
     stelle(P, 'Book_7', Vector(((x0 + x1) / 2 + 40, yc - 6, 101.5)), 15, 1.0)
-    kerze_licht(Vector(((x0 + x1) / 2, yc - 30, 150)), 3.2, 0.75, fl)
+    kerze_licht(Vector(((x0 + x1) / 2, yc - 30, 150)), 3.2, 0.75, fl, wand=WAND_VON.get((c0, r, s_a)))
 
 def kerzen(c, r):
     P = part('Ding_' + stueck(c, r))
@@ -940,6 +960,8 @@ for l in LICHTER:
     if 'flammen' in l: q['flammen'] = [m3(f) for f in l['flammen']]
     if 'breite' in l: q['breite'] = l['breite'] * 0.01
     lichter.append(q)
+for w in WANDLISTE:
+    if w['hoch'] in HERD_VON: w['herd'] = HERD_VON[w['hoch']]
 info = dict(kachel_m=TS / 100.0, spalten=NC, zeilen=NR, ursprung=dict(spalte=0, zeile=0), begehbar=walk, karte=ROWS, innen=True,
             lichter=lichter, waende=WANDLISTE,
             hinweis='Meter; Blender: x = Spalte * Kachel, y = -Zeile * Kachel; in glTF/Godot: x gleich, z = +Zeile * Kachel')

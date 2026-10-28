@@ -1624,8 +1624,12 @@ func raeume_bilder() -> void:
 		await get_tree().create_timer(1.0).timeout
 		ui.textfeld.visible = false
 		await knips(dir + "/%s_nacht.png" % r[0])
-		for v in stufen:   # Probe: Umgebung nachts in Stufen, ein Lauf fuer mehrere Messungen
-			licht.env.ambient_light_energy = float(v)
+		for v in stufen:   # Probe: Umgebung nachts in Stufen „Umgebung[:Kontrast[:Mondfaktor]]“, ein Lauf fuer mehrere Messungen
+			var t := String(v).split(":")
+			licht.env.ambient_light_energy = float(t[0])
+			if t.size() > 1: licht.env.adjustment_contrast = float(t[1])
+			if t.size() > 2 and gebiet.raumlicht:
+				for f in gebiet.raumlicht.fenster: (f[0] as SpotLight3D).light_energy = f[1] * float(t[2])
 			await get_tree().create_timer(0.3).timeout
 			await knips(dir + "/%s_nacht_%s.png" % [r[0], v])
 		licht.stelle(1.0)
