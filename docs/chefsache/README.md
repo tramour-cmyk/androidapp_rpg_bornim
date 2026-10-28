@@ -23,7 +23,7 @@ Nichts offen.
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.348.133](ansehen/t133-spielfassung.md) | [Build 133](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40716450882/artifacts/12828143859) | 399 Spielfassung: Erschaffung, Spielstände, Leiste, Menü; Dorf | Tom | 28.10., 16:49 |
-| 2 | [0.348.137](ansehen/t137-spielfassung.md) | [Build 137](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40734586208/artifacts/12838307685) | 399 Spielfassung: Menü fertig bis auf Kleinigkeiten, Klang, Schieben, Kampfmenü | Tom | 28.10., 18:56 |
+| 2 | [0.348.139](ansehen/t139-spielfassung.md) | [Build 139](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40751357273/artifacts/12844293709) | 399 Spielfassung: alles aus 137, dazu System fertig, Anschlagbrett, Laden-Kasten, Ausdauer, Ruf, Fackel, Bilder der Dinge | Tom | 28.10., 20:41 |
 
 ## Zu tun
 
@@ -31,7 +31,6 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [399.2d](tun/3992d-godot-am-rechner.md) | **Muss** | E Kampf | 28.10., 18:05 | der Auto-Modus lehnt den Download von Godot 4.7.2 ab (17:2x und 18:00); Tom testet damit am Rechner, Jerry nicht | Jerry |
 | [142](tun/142-pflichttest.md) | **Muss** | M Veröffentlichung | 27.10., 20:07 | Pflichttest Play Store: Gewerbeschein melden | Sokrates |
 
 ## Offen je Rolle
@@ -46,18 +45,19 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 25, Muss 15, startbar 4
+**Tom** – offen 26, Muss 16, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf (LISTE-UMZUG | startbar |
+| 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf | startbar |
+| 399.4 | M | von Chef (21:4x, Archiv): oben Rand für die Kamera wie alt | startbar |
 | 399.3.1 | M | von Team Jerry (16:5x): Klang: Haken in spiel.gd (Jerry, claude/jerry-348-klang) übernehme | startbar |
 | 385 | M | von Sokrates („jetzt“ 28.10., 10:00, Archiv): Zauberer-Set auf Kaufkörper, Film | startbar |
 | 390 | M | von Perikles: zwischen Chef-Blättern Funktionen ohne Bild (LISTE-UMZUG-348.md) | wartet auf Test/Build (gebaut) |
 | 348.12i | M | von Sokrates (Chef 19:41, „348.12i B“, Archiv): nur Kaufmodelle mit AESContext verschlüsse | wartet auf Test/Build (gebaut) |
 | 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | ruht |
 | 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | startbar |
-| 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | wartet auf 348.6 (zu testen) |
+| 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | wartet auf 348.6 (startbar) |
 | 372 | M | von Perikles (338a B, Chef 27.10., 09:36, Archiv): Feinschliff Held: Kettenhemd, Helm, Kra | ruht |
 | 397 | M | von Chef (28.10., 11:15): Held, Leute: mind. drei Ruhebewegungen wie alt (LISTE-UMZUG-348. | wartet auf Test/Build (gebaut) |
 | 348.13 | M | von Sokrates (Chef 26.10., Archiv): Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Sc | wartet auf Jerry |
@@ -76,13 +76,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 34, Muss 23, startbar 4
+**Jerry** – offen 34, Muss 23, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 399.2 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv): Kampfort aufrufbar | startbar |
-| 399.2b | M | von Team Tom (15:05): Rudel allein zu stark | wartet auf Homer |
-| 399.3 | M | von Chef (28.10., 16:42): Klang in die Spielfassung | wartet auf Test/Build (gebaut) |
+| 399.2b | M | von Team Tom (15:05): Rudel allein zu stark | startbar |
+| 399.3 | M | von Chef (28.10., 16:42): Klang in die Spielfassung | startbar |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | wartet auf Test/Build (gebaut) |
 | 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | startbar |
@@ -115,10 +115,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 14, Muss 12, startbar 0
+**Perikles** – offen 15, Muss 13, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 400 | M | von Chef über Sokrates (28.10., 21:5x, „das liegt seit 2 Stunden bei ihm rum. Krass“): Hin | startbar |
 | 399 | M | von Chef über Sokrates („jetzt“ 28.10., 12:34, Archiv): Vorrang neu: erst eine Godot-Fassu | wartet auf Tom |
 | 398 | M | von Sokrates (Chef 28.10., 11:22): Termine je Block nachrechnen mit der Schätzung der 15 Z | wartet auf Tom |
 | 384 | M | von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“): Kosten aller Si | wartet auf Test/Build (gebaut) |
