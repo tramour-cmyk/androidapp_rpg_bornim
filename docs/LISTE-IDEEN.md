@@ -46,6 +46,7 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 
 ### Figuren
 
+- **Erschöpft kurz stehen bleiben** (Chef 28.10., 21:3x, Test 139.8: „ob wenn die Ausdauer komplett weg ist, ob man eine Sekunde einfach stehen bleibt“): im alten Spiel nicht (`Stamina.kt`: geht weiter). Sokrates: eher nein, ein erzwungener Halt nimmt die Steuerung (stärkstes Gegenargument: ohne Halt spürt man die Erschöpfung kaum); stattdessen Keuchen (`Panting.kt`, Umzug 399.3) und, wenn er ohnehin steht, UAL `Idle_Tired`. Chef entscheidet.
 - **Katze im Gasthaus** (Chef 28.10., 16:24, aus 395a): wie im alten Spiel (`MapCat.kt`: schläft am Herd, setzt sich auf, streckt sich); Farbe egal; Quaternius hat keine; die Siamkatze von MadeCG (RenderHub) gefällt dem Chef „eh nicht so gut“. Erst nach Leuten, Dorf und Klang. Vorschlag Chef 16:31: [Kurilian Bobtail](https://www.renderhub.com/nyilonelycompany/kurilian-bobtail-cat), 18 $ statt 30 $ (Aktion bis etwa 31.10.), Extended Use, 23 Bewegungen (Namen nicht auf der Seite), 23.234 Dreiecke (Regel: höchstens 6000, also stark ausdünnen), 4K-Texturen.
 
 - **Rennbilder des Helden früher zeichnen** (Tom 23.10., aus 332): beim ersten Start nach dem Einspielen zeichnet der Held alle Bilder neu (A56: 23,9 s), Rennen zeigt bis dahin das Gehen; Rennbilder der Blickrichtung vor die übrigen Gehbilder ziehen.
