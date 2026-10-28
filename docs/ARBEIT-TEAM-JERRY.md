@@ -12,12 +12,12 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 399.2b | M | **von Team Tom (15:05):** Rudel allein: 3 von 4 Klassen verlieren; Ursache prüfen, Balance an Chef | Chef: Chefsache entscheiden/3992b (Jungwölfe 50 % wie alt?), gemessen 73c804fa8 | – |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: Tusche passt (Chef 12:31); im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK, CI 158 grün | `claude/jerry-348-kampf` |
-| 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: Grak nachbessern (Chef 15:23, Archiv): Gehen, Platzwechsel bewegt, Hieb trifft, Tod als Zusammenbruch (UAL Death01/02, Wizard Death) | `claude/jerry-348-kampf` |
+| 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | Chef: Film 15:17 (ansehen/34812-…); Prüfer: Hieb in den Helden, Rand, Treffer unsichtbar, Tod stehend | `claude/jerry-348-kampf` |
 | 348.13a | M | **von Team Tom (Chef 08:09, Archiv: r9 ja):** Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13a) | gebaut 421662dbd: Tusche nach Licht Vorgabe, Linie 1,3; offen Säbel (Tom) | `claude/jerry-348-kampf` |
 | 397 | M | **von Chef (28.10., 11:15):** Tiere, Monster: mind. drei Ruhebewegungen wie alt (`LISTE-UMZUG-348.md`) | ruht (399) | – |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht bis Kauf: Werte, Listen ja (Archiv), dann einbauen; erst Größe prüfen | – |
-| 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | Chef: Film vorgelegt 15:17 (ansehen/3487-…), kein vierter Lauf | `claude/jerry-348-kampf` |
-| 348.7b | M | Zauberbahn nach Chef „D“ | Chef: Film vorgelegt 15:17 (ansehen/3487b-…), kein vierter Lauf | `claude/jerry-348-kampf` |
+| 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | Chef: Film 15:17 (ansehen/3487-…); Prüfer: Flügel an Schild, unsicher | `claude/jerry-348-kampf` |
+| 348.7b | M | Zauberbahn nach Chef „D“ | Chef: Film 15:17 (ansehen/3487b-…); Prüfer: Magisches Geschoss durch den Helden, ohne Seitenschritt | `claude/jerry-348-kampf` |
 | 390 | M | **von Perikles:** Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | wartet auf 399.1: Regeln samt Elite golden gleich; offen Ansicht klassisch, Gegner auf der Karte (Elitewurf) | `claude/jerry-348-kampf` |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: beantwortet (Konter nur nach Fehlschlag); ändern nur auf Wort des Chefs | – |
 | 257 | M | **von Chef (20.10., 17:17, Test B46):** App „hängt“, ging dann weiter (Zu 257) | ruht: Hänger-Wächter (Tom) seit Build 49; bis zum nächsten Hänger mit Absturzbericht | – |
