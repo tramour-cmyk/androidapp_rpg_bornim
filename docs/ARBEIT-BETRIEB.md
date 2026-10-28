@@ -133,3 +133,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:11 28.10.: Nachfolger-Warnung Diogenes (Übergabe 28.10., 12:19) (lauf.py)
 - 14:01 28.10.: Neustart Tom 971fcda1a → Nachfolger „Tom – 399.1 Test 130 begleiten“ `01Hmoj76hw` gestartet; alter Tom `01Hmoj76N4` archiviert 14:16 (30,41 $ auf 399.1,390,397).
 - 14:43 28.10.: Neustart Jerry cf599b056 geprüft; Nachfolger „Jerry – Filme Grak …“ nicht gestartet (nichts startbar, 348.12 wartet auf Chef, Wochenlimit); alter Jerry `01Hmoj75RG` bleibt idle stehen (19,06 $), Start sobald Chef antwortet.
+- 14:46 28.10.: Neustart Jerry cf599b056 nach Chefantwort 348.12: Nachfolger `01Hmoj75aY` gestartet, alter Jerry `01Hmoj75RG` archiviert (19,91 $ auf 399.2, 348.12).
