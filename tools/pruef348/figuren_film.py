@@ -37,10 +37,11 @@ DL = int(os.environ.get('DURCHLAEUFE', '2')); LUPE = int(os.environ.get('LUPE', 
 folge = []   # (Bild der Einzelbewegung i, Schleifenzaehler in Bildern, Leiste)
 # Helfer 15:37: len(folge) in der Listenbildung blieb je Durchlauf gleich, Schleifen standen in Echtzeit still; Zaehler laufend
 for d in range(DL):
-    for i in range(n): folge.append((i, float(len(folge)), 'Echtzeit, Durchlauf %d von %d' % (d + 1, DL)))
+    for i in range(n): folge.append((i, float(len(folge)), 'Echtzeit' if DL == 1 else 'Echtzeit, Durchlauf %d von %d' % (d + 1, DL)))   # 385 Pruefer: „1 von 1“
     for _ in range(HALT): folge.append((n - 1, float(len(folge)), 'Echtzeit, Pause'))
 z0 = len(folge)
-for i in range(LUPE * n): folge.append((i // LUPE, z0 + i / float(LUPE), 'Zeitlupe, %dfach langsamer' % LUPE))
+FACH = {2: 'zweifach', 3: 'dreifach', 4: 'vierfach'}.get(LUPE, '%d-fach' % LUPE)   # 385 Pruefer: „2fach“
+for i in range(LUPE * n): folge.append((i // LUPE, z0 + i / float(LUPE), 'Zeitlupe, %s langsamer' % FACH))
 for fnr, (i, jz, leiste) in enumerate(folge):
     bild = Image.new('RGB', (SP * W, LEISTE + ZL * (H + KOPF)), (12, 10, 8))
     dr = ImageDraw.Draw(bild)

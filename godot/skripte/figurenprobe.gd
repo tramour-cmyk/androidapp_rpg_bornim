@@ -26,7 +26,7 @@ const UAL := {
 	"Ausweichen": ["Dodge_Left", "Roll"], "Treffer": ["Hit_Chest"], "Tod": ["Death02", "Death01"],
 	"Kampfstehen": ["Sword_Idle"],
 	# 385 Protofactor-Zauberer (zauber385.py): Stehen, schneller Stoss nach vorn, beide Haende hoch, mittlerer Zauber
-	"Zauberstehen": ["Zauber_IdleWizard"], "Zauber kurz": ["Zauber_CastSpell6Wizard"], "Zauber gross": ["Zauber_CastSpell4Wizard"],
+	"Zauberstehen": ["Zauber_IdleWizard"], "Zauber kurz": ["Zauber_CastSpell6Wizard"], "Zauber groß": ["Zauber_CastSpell4Wizard"],
 	"Zauber mittel": ["Zauber_CastSpell13Wizard"],
 }
 const KAMPF := ["Hieb", "Stich", "Ausweichen", "Treffer", "Tod", "Kampfstehen"]
@@ -37,7 +37,7 @@ const FELDER := [
 	["q_held", "Treffer"], ["held", "Treffer"], ["q_held", "Tod"], ["held", "Tod"], ["q_held", "Kampfstehen"],
 ]
 # 385: Film der Zauberbewegungen am Kaufkoerper (Chef 27.10., 21:04; „jetzt“ 28.10., 10:00)
-const FELDER_ZAUBER := [["q_held", "Zauberstehen"], ["q_held", "Zauber kurz"], ["q_held", "Zauber mittel"], ["q_held", "Zauber gross"]]
+const FELDER_ZAUBER := [["q_held", "Zauberstehen"], ["q_held", "Zauber kurz"], ["q_held", "Zauber mittel"], ["q_held", "Zauber groß"]]
 const REIHE := ["held", "q_held", "q_bauer", "q_baeuerin", "q_zwerg", "q_elf", "q_halbling", "q_halbork"]
 # Chef 15:23: eine Kauffigur in unserer Kleidung (kauf_kleid.py); 14:44 Koepfe: schmal/rund, ohne/mit Bart
 const TRACHT := ["held", "q_tracht", "q_held"]
@@ -120,7 +120,11 @@ func _ready() -> void:
 	if teil == "tracht": await tracht()
 	if teil == "trachtfilm": await film(FELDER_TRACHT)
 	if teil == "koepfe": await koepfe()
-	if teil == "zauber": await film(FELDER_ZAUBER)
+	if teil == "zauber":
+		freie_wiese()
+		film_zoom = 4.2     # 385 Lauf 2: Stab bis 2,8 m ueber dem Boden (Zauber gross, Faeuste oben); 257 statt 318 px je m
+		fuss_unten = 200
+		await film(FELDER_ZAUBER)
 	var f := FileAccess.open(aus + "/probe.txt", FileAccess.WRITE)
 	f.store_string("\n".join(protokoll) + "\n")
 	get_tree().quit()
@@ -238,6 +242,46 @@ func haenge(sk: Skeleton3D, knochen: String, was: String, t: Transform3D, nm: St
 	d.transform = t
 	ba.add_child(d)
 	Gebiet.male(d, null, 2, [])
+
+# 385 Lauf 2 (Pruefer Lauf 1: Arm im Kaminrauch wie ein leerer Umriss, Haende greifen nichts): der Zauberer haelt in der linken Faust
+# seinen Stab (Protofactor SM_WizardStaffProp, Ursprung am Griff, 1,97 m, Kopf oben; daten/waffen/stab.bin). Lage einmal aus dem
+# ersten Bild von Zauber_IdleWizard: senkrecht, durch die Mitte zwischen Zeigefinger- und Kleinfingerknoechel (wie das Schwert);
+# fest an der Hand, danach folgt er ihr in jeder Bewegung
+var stab_t = null
+var film_zoom := Kamera.NAH
+var fuss_unten := FUSS_UNTEN
+func stab(k: String, an: bool) -> void:
+	var w: Node3D = spiel.held if k == "held" else figuren[k]
+	var sk := Gebiet.finde(w, "Skeleton3D") as Skeleton3D
+	for alt in sk.find_children("Stab*", "", true, false): alt.free()
+	if not an or sk.find_bone("index_01_l") < 0: return
+	if stab_t == null:
+		var ap := spieler(k)
+		ap.play(ual_name("Zauberstehen"))
+		ap.seek(0.0, true)
+		var hw := sk.global_transform * sk.get_bone_global_pose(sk.find_bone("hand_l"))
+		var g := sk.global_transform * ((sk.get_bone_global_pose(sk.find_bone("index_01_l")).origin + sk.get_bone_global_pose(sk.find_bone("pinky_01_l")).origin) * 0.5)
+		var ziel := Transform3D(w.global_basis.orthonormalized(), g)   # Stab +Y senkrecht, Kopf zur Blickrichtung der Figur gedreht
+		stab_t = hw.affine_inverse() * ziel
+		protokoll.append("STAB griff %s, unten %.2f m" % [g, g.y - w.global_position.y - 1.233])
+	haenge(sk, "hand_l", "stab", stab_t, "Stab")
+
+# 385 Lauf 2: ohne Dorf (Kamin und Rauch verdeckten in Lauf 1 die Arme), Wiese als ebene Flaeche im Tageslicht
+func freie_wiese() -> void:
+	spiel.gebiet.visible = false
+	var boden := MeshInstance3D.new()
+	var st := SurfaceTool.new()   # 30 m, Gras je 2 m wiederholt (PlaneMesh dehnte das Bild ueber die ganze Flaeche)
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	st.set_normal(Vector3.UP)
+	for e in [[-1, -1], [1, -1], [1, 1], [-1, -1], [1, 1], [-1, 1]]:
+		st.set_uv(Vector2(e[0], e[1]) * 7.5)
+		st.add_vertex(Vector3(e[0] * 15.0, 0.0, e[1] * 15.0))
+	boden.mesh = st.commit()
+	var bm := ShaderMaterial.new(); bm.shader = load("res://shader/toon.gdshader")
+	bm.set_shader_parameter("tex", Gebiet.bild("gras"))
+	boden.material_override = bm
+	spiel.add_child(boden)
+	boden.position = spiel.karte.kachel_pos(FILM_ORT)
 
 func spieler(k: String) -> AnimationPlayer:
 	if k == "held": return spiel.held.anim
@@ -385,7 +429,7 @@ func film(felder: Array) -> void:
 	var ort: Vector3 = spiel.karte.kachel_pos(FILM_ORT)
 	var z := zielpunkt(ort)
 	spiel.kamera.ziel = z
-	zoom(Kamera.NAH)
+	zoom(film_zoom)
 	spiel.kamera.springe()
 	spiel.held.set_process(false)   # sonst waehlt held.gd selbst Stehen oder Gehen
 	var liste := []
@@ -402,6 +446,7 @@ func film(felder: Array) -> void:
 		stelle([k], 1.0, ort)
 		var w: Node3D = spiel.held if k == "held" else figuren[k]
 		bewaffne(k, bew in KAMPF)
+		stab(k, bew.begins_with("Zauber"))
 		var ap := spieler(k)
 		ap.play(n)
 		var lang := ap.get_animation(n).length
@@ -441,9 +486,10 @@ func film(felder: Array) -> void:
 			await RenderingServer.frame_post_draw
 			var img := spiel.get_viewport().get_texture().get_image()
 			var fuss: Vector2 = spiel.kamera.unproject_position(Vector3(w.position.x, 0, w.position.z) + mitte_vers)
-			var r := Rect2i(int(fuss.x) - FELD_PX.x / 2, int(fuss.y) - FELD_PX.y + FUSS_UNTEN, FELD_PX.x, FELD_PX.y)
+			var r := Rect2i(int(fuss.x) - FELD_PX.x / 2, int(fuss.y) - FELD_PX.y + fuss_unten, FELD_PX.x, FELD_PX.y)
 			img.get_region(r).save_png(ordner + "/%03d.png" % f)
 		bewaffne(k, false)
+		stab(k, false)
 		w.position = start + mitte_vers
 		liste.append("%02d %s %s: %s, %.2f s, %d Bilder%s" % [i + 1, k, bew, n, lang, bilder, (", %.2f m/s" % v) if v > 0.0 else ""])
 	protokoll.append_array(liste)

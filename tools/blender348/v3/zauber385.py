@@ -54,6 +54,15 @@ for b in tb:   # Reihenfolge der Liste: Eltern vor Kindern
         p = b.parent
         while p and p.name not in A: p = p.parent
         A[b.name] = A[p.name] if p else Quaternion()
+# Lauf 2 (Pruefer Lauf 1: Handgelenke in Ruhe nach aussen abgeknickt): Hand auch im Drall angleichen, zweite Achse quer ueber die
+# Knoechel (Zeigefinger zum kleinen Finger), Rahmen aus beiden Achsen
+def rahmen(d, w):
+    x = d.normalized(); z = x.cross(w).normalized(); return Matrix((x, z.cross(x), z)).transposed()
+for s in ('l', 'r'):
+    h, m, i, k = 'hand_' + s, 'middle_01_' + s, 'index_01_' + s, 'pinky_01_' + s
+    if all(n in Pt0 and KARTE[n] in Ps0 for n in (h, m, i, k)):
+        Ft = rahmen(Pt0[m] - Pt0[h], Pt0[i] - Pt0[k]); Fs = rahmen(Ps0[KARTE[m]] - Ps0[KARTE[h]], Ps0[KARTE[i]] - Ps0[KARTE[k]])
+        A[h] = (Fs @ Ft.inverted()).to_quaternion()
 
 hoehe = Pt0['pelvis'].z / max(Ps0[KARTE['pelvis']].z, 1e-3)
 TWq = dreh(TW)
@@ -89,7 +98,7 @@ for f in range(f0, f1 + 1, 5):
     bpy.context.scene.frame_set(f)
     bpy.context.view_layer.update()
     for a, c in (('upperarm_l', 'lowerarm_l'), ('lowerarm_l', 'hand_l'), ('upperarm_r', 'lowerarm_r'), ('lowerarm_r', 'hand_r'), ('thigh_l', 'calf_l'),
-                 ('calf_r', 'foot_r'), ('spine_01', 'neck_01'), ('hand_r', 'middle_01_r')):
+                 ('calf_r', 'foot_r'), ('spine_01', 'neck_01'), ('hand_r', 'middle_01_r'), ('pinky_01_r', 'index_01_r'), ('pinky_01_l', 'index_01_l')):
         t = (TW @ T.pose.bones[c].head) - (TW @ T.pose.bones[a].head)
         q = (SW @ S.pose.bones[KARTE[c]].head) - (SW @ S.pose.bones[KARTE[a]].head)
         schlimm[a] = max(schlimm.get(a, 0.0), math.degrees(t.angle(q)))
