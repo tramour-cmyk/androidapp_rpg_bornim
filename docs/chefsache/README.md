@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [396a](entscheiden/396a-text-auch-sofort.md) | **Muss** | B Betrieb | 28.10., 11:10 | Textvorlagen (Chefsache, Meldungen, Entwürfe) weiter vorher fremd prüfen (A) oder auch sofort senden, Befund danach (B)? | Perikles |
+Nichts offen.
 
 ## Zu billigen
 
@@ -20,10 +16,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [348.12](ansehen/34812-grak-zweihand.md) | Grak hält die Axt jetzt mit beiden Händen | – | 28.10., 11:53 |
 | [376.1](ansehen/3761-halszacken.md) | Halszacken: drei Fassungen des Kopfhebens | Tom | 28.10., 12:28 |
-| [385](ansehen/385-zauberer-lauf2.md) | Zauberer-Set Lauf 2: mit Stab | Tom | 28.10., 11:55 |
-| [387](ansehen/387-kauftiere.md) | Gekaufte Tiere mit unserer Tusche nach Licht | – | 28.10., 12:05 |
 
 ## Zu tun
 
@@ -49,7 +42,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 385 | M | von Sokrates („jetzt“ 28.10., 10:00, Archiv): Zauberer-Set auf Kaufkörper, Film | Chef |
+| 385 | M | von Sokrates („jetzt“ 28.10., 10:00, Archiv): Zauberer-Set auf Kaufkörper, Film | ruht |
 | 398 | M | von Perikles: 398-Zeilen schätzen (LISTE-UMZUG-348.md) | startbar |
 | 390 | M | von Perikles: zwischen Chef-Blättern Funktionen ohne Bild (LISTE-UMZUG-348.md) | wartet auf Test/Build (gebaut) |
 | 348.12i | M | von Sokrates (Chef 19:41, „348.12i B“, Archiv): nur Kaufmodelle mit AESContext verschlüsse | wartet auf Test/Build (gebaut) |
@@ -74,13 +67,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 31, Muss 20, startbar 6
+**Jerry** – offen 31, Muss 20, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | Chef |
+| 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | startbar |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | startbar |
-| 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | Chef |
+| 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | startbar |
 | 348.13a | M | von Team Tom (Chef 08:09, Archiv: r9 ja): Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13 | wartet auf Test/Build (gebaut) |
 | 397 | M | von Chef (28.10., 11:15): Tiere, Monster: mind. drei Ruhebewegungen wie alt (LISTE-UMZUG-3 | startbar |
 | 348.12c | M | von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv): Wiedergänger, Grabhund, Riesenegel, Säur | ruht |
@@ -110,12 +103,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 14, Muss 12, startbar 0
+**Perikles** – offen 13, Muss 11, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 398 | M | von Sokrates (Chef 28.10., 11:22): Termine je Block nachrechnen mit der Schätzung der 15 Z | wartet auf Tom |
-| 396a | M | Rückfrage: gilt 396 auch für Text? (Chefsache 396a) | Chef (Datei in der Chefsache) |
 | 384 | M | von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“): Kosten aller Si | wartet auf Test/Build (gebaut) |
 | 383.3 | M | von Sokrates (Chef 19:55): Vorlage zurück beim Team sofort aus der Chefsache | wartet auf Test/Build (gebaut) |
 | 383 | M | von Sokrates (Chef 27.10., 17:53 „ja, 383“, Archiv): Wartewächter in lauf.py, Haken 63 ver | wartet auf Test/Build (gebaut) |
