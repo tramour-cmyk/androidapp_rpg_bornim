@@ -161,6 +161,36 @@ def treiber():
             a_ = "('Gehen', LP.get('geh', 'Walk_Loop'), dict(GEHEN, takt=takt, schritt=schritt, mitschwung=mit))]"
             assert g.count(a_) == 1, 'geruest.py: leute_liste geändert'
             g = g.replace(a_, a_ + " + ([('Hieb', LP['hieb'], STEHEN)] if LP.get('hieb') else [])")
+            # Runde 3 (Prüfer Probe r3a: Grak beim Aufschlag rotes Dreieck und graue Sichel quer vor der Brust, Kobolde schwarze Keile mit
+            # dem Arm; gemessen im fertigen Gerüst: nach dem Glätten trägt eine Ecke bis 11 Knochen, 470 Ecken über 4, an der linken Brust
+            # 10 % rechter Unterarm; das GLB und Godot nehmen je Ecke nur die 4 größten, bis 9 cm anders als in Blender): vor der Ausgabe
+            # Armgewichte nur, wo die Ecke nahe am Arm liegt (ARM_NAH m vom Glied in der Ruhelage; der Umhang nie: 22 Ecken an der
+            # Schulter nahmen den Oberarm, beim Ausholen ein roter Zacken über der Schulter), dann die 4 größten, auf 1
+            a_ = "    # ---------------------------------------------------------------- Ausgabe in Metern (Modellregel 1)\n"
+            assert g.count(a_) == 1, 'geruest.py: Ausgabe geändert'
+            g = g.replace(a_, "    ARM_NAH = {'upperarm': 0.11, 'lowerarm': 0.10, 'hand': 0.10}\n"
+                          "    um_ = np.zeros(len(held.data.vertices), bool)\n"
+                          "    if 'teil' in held.data.attributes and os.path.exists(OUT + '/teile.json'):\n"
+                          "        tn_ = json.load(open(OUT + '/teile.json')); tl_ = np.zeros(len(held.data.vertices), np.int32)\n"
+                          "        held.data.attributes['teil'].data.foreach_get('value', tl_); um_ = np.isin(tl_, [tn_.index(x) for x in ('cloak',) if x in tn_])\n"
+                          "    gn_ = {gr.index: gr.name for gr in held.vertex_groups}; seg_ = {}\n"
+                          "    for b_ in sk.data.bones:\n"
+                          "        seg_[b_.name] = (np.array(tuple(sk.matrix_world @ b_.head_local)), np.array(tuple(sk.matrix_world @ b_.tail_local)))\n"
+                          "    def abst_(p_, n_):\n"
+                          "        h_, t_ = seg_[n_]; d_ = t_ - h_; s_ = min(1.0, max(0.0, float(np.dot(p_ - h_, d_) / max(np.dot(d_, d_), 1e-9))))\n"
+                          "        return float(np.linalg.norm(p_ - (h_ + s_ * d_)))\n"
+                          "    n_arm = n_vier = 0\n"
+                          "    for v_ in held.data.vertices:\n"
+                          "        p_ = np.array(tuple(held.matrix_world @ v_.co)); ws_ = []\n"
+                          "        for e_ in v_.groups:\n"
+                          "            nm_ = gn_[e_.group]; r_ = next((r for k_, r in ARM_NAH.items() if nm_.startswith(k_)), None)\n"
+                          "            if e_.weight > 1e-4 and nm_ in seg_ and r_ is not None and (um_[v_.index] or abst_(p_, nm_) > r_): n_arm += 1; continue\n"
+                          "            ws_.append((e_.weight, e_.group))\n"
+                          "        ws_.sort(reverse=True); n_vier += len(ws_) > 4; ws_ = ws_[:4] or [(1.0, max(v_.groups, key=lambda e: e.weight).group)]\n"
+                          "        s_ = sum(w for w, _ in ws_)\n"
+                          "        for gi_ in [e.group for e in v_.groups]: held.vertex_groups[gn_[gi_]].remove([v_.index])\n"
+                          "        for w_, gi_ in ws_: held.vertex_groups[gn_[gi_]].add([v_.index], w_ / s_, 'REPLACE')\n"
+                          "    print('GEWICHTE fern vom Arm weg %d, Ecken über 4 Knochen %d (jetzt 4)' % (n_arm, n_vier))\n" + a_)
             if GRAK:   # Grak Runde 2 (Prüfer r1: Axt in keiner Hand): Arme nach der Übertragung auf seinem Gerüst an die Axt (grak_arme.py)
                 shutil.copy(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'grak_arme.py'), T)
                 a_ = "        res = posen(Gs, opt.get('gerade', False), fk, korr, boden, **ka)\n"
@@ -532,7 +562,8 @@ def nach():
             for n in bpy.data.materials[nm].node_tree.nodes:
                 if n.type == 'RGB': n.outputs[0].default_value = lin(rgb, f)
     # Grak Runde 2 (Prüfer r1: die Füße hell wie nackt): Stiefel und Stulpen schwarz wie Doll (bisher dunkles Leder 0x3E2C22 aus held3)
-    for nm, rgb in ((('boots', 0x1A1716), ('cuff', 0x24201E)) if GRAK else ()):
+    # Runde 3 (Prüfer Probe r3a: Stiefel am Schirm 71/62/50, heller als die Hose 44/40/35; im Atlas 42/36/31): noch dunkler
+    for nm, rgb in ((('boots', 0x0C0A09), ('cuff', 0x12100F)) if GRAK else ()):
         if nm in bpy.data.materials:
             for n in bpy.data.materials[nm].node_tree.nodes:
                 if n.type == 'RGB': n.outputs[0].default_value = lin(rgb)
@@ -542,7 +573,8 @@ def nach():
         if nm in bpy.data.materials:
             for n in bpy.data.materials[nm].node_tree.nodes:
                 if n.type == 'MIX' and not n.inputs['B'].links and abs(n.inputs['B'].default_value[0] - lin(0x7A6448)[0]) < 1e-3:
-                    n.inputs['B'].default_value = lin(0x2C2620)
+                    # Runde 3 (Atlas: Stiefel 42/36/31 = dieser Schlamm, er deckt sie ganz): Stiefel und Stulpen fast schwarz, Hose wie bisher
+                    n.inputs['B'].default_value = lin(0x2C2620 if nm == 'pants' else 0x100E0C)
 
     def world_apply(objs, fn):
         """fn(Nx3 Weltpunkte) -> Nx3; auf die Ecken der Objekte anwenden (wie held3.deform)."""
