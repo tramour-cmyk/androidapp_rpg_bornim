@@ -11,6 +11,11 @@ config/features=PackedStringArray("4.7", "Mobile")
 ; 399.3 (Jerry): Musik und Klang wie im alten Spiel (klang/klang.gd)
 Klang="*res://klang/klang.gd"
 
+[debug]
+
+; 399.1 Gerät: die letzten Fehlermeldungen aus dem Protokoll (messung.gd), auch am Handy
+file_logging/enable_file_logging=true
+
 [display]
 window/size/viewport_width=1080
 window/size/viewport_height=2340

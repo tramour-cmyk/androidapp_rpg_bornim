@@ -31,7 +31,7 @@ func _alles() -> void:
 	_pruef("Stück lädt", m is AudioStream)
 	var e = k._strom("sfx/click_1")
 	_pruef("Effekt lädt", e is AudioStream)
-	for id in ["click", "door", "coins", "step_grass", "step_wood", "step_cobble", "step_earth", "step_stone"]:
+	for id in ["click", "door", "coins", "pant_man", "pant_woman", "step_grass", "step_wood", "step_cobble", "step_earth", "step_stone"]:
 		_pruef("Aufnahmen " + id, k.liste.get("sfx", []).any(func(n): return String(n) == id + "_1"))
 	_pruef("Schritt Höhle", KlangS.schritt_klang("CAVE", "cave", "GRASS") == "step_stone")
 	_pruef("Schritt Tempel", KlangS.schritt_klang("INTERIOR", "temple", "FLOOR") == "step_cobble")
@@ -40,6 +40,22 @@ func _alles() -> void:
 	_pruef("Schritt Pflaster", KlangS.schritt_klang("TOWN", "village", "COBBLE") == "step_cobble")
 	_pruef("Schritt Weg", KlangS.schritt_klang("TOWN", "village", "PATH") == "step_earth")
 	_pruef("Schritt Gras", KlangS.schritt_klang("TOWN", "village", "GRASS") == "step_grass")
+	# Keuchen (Panting.kt, PantingTest.kt): atemlos leer, dann im Stehen zurück bis Stamina.AGAIN (20 s für den vollen Vorrat)
+	var atem := []
+	var aus := 0.0
+	var t := 0.0
+	_pruef("kein Keuchen mit Atem", k.atem_pegel(false, 0.5, 0.0) < 0.0)
+	while aus < 0.25:
+		var p: float = k.atem_pegel(true, aus, t)
+		if p > 0.0: atem.append([t, p])
+		aus += 20.0 / 20000.0; t += 20.0
+	_pruef("kein Keuchen, wenn der Atem zurück ist", k.atem_pegel(false, aus, t) < 0.0)
+	var luecken := []
+	for i in atem.size() - 1: luecken.append(atem[i + 1][0] - atem[i][0])
+	_pruef("Keuchen sofort, dann Zug auf Zug, Pausen wachsen, leiser", atem.size() >= 3 and atem[0][0] == 0.0 and is_equal_approx(atem[0][1], 0.6)
+		and luecken[0] <= KlangS.atem_ms(false) + 200 and range(luecken.size() - 1).all(func(i): return luecken[i + 1] >= luecken[i])
+		and range(atem.size() - 1).all(func(i): return atem[i + 1][1] <= atem[i][1]), str(atem))
+	_pruef("Atemzug Frau", KlangS.atem_ms(true) == 1600.0)
 	# Kampfklang (MarsSound.kt): synthetische Klänge aus KlangExport.kt, Tabelle, Stimmen
 	_pruef("kampfklang.json", String(k.kampftabelle.get("monster_fx", {}).get("wolf", "")) == "BITE")
 	_pruef("Synthese lädt", k._strom("sfx/hit_slash_1") is AudioStream and k._strom("sfx/swing_heavy_3") is AudioStream)

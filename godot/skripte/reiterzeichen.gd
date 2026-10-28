@@ -2,7 +2,7 @@ class_name Reiterzeichen
 extends Control
 # 399.1 TabSign wie alt (MenuTabs.kt glyph, 60j): die Reiter des Menues als gezeichnetes Zeichen, Linien in Gold auf Schwarz,
 # nie gefuellt, auf 24 mal 24 Einheiten; der Name des gewaehlten Reiters steht gross darueber (326). abzeichen: kleiner Stern oben
-# rechts (Punkte zu verteilen). Arten: held, tasche, ausruestung, karte, chronik, system.
+# rechts (Punkte zu verteilen). Arten: held, tasche, ausruestung, karte, chronik, system, test.
 
 var art := "held"
 var farbe := Stil.TEXT
@@ -59,6 +59,9 @@ func _draw() -> void:
 			linie.call([[7, 3.5], [7, 6], [11, 12], [7, 18], [7, 20.5]], w)
 			linie.call([[17, 3.5], [17, 6], [13, 12], [17, 18], [17, 20.5]], w)
 			draw_colored_polygon(PackedVector2Array([o.call(9, 19.5), o.call(12, 16), o.call(15, 19.5)]), c)
+		"test":   # 399.1 wie alt (TabSign.TEST): ein Kolben mit engem Hals
+			linie.call([[10, 3.5], [10, 9.5], [4.5, 19], [5.5, 21], [18.5, 21], [19.5, 19], [14, 9.5], [14, 3.5]], w)
+			linie.call([[8.5, 3.5], [15.5, 3.5]], w); linie.call([[7, 15], [17, 15]], d)
 	if abzeichen:   # Punkte zu verteilen: ein kleiner Stern, wie das ★ hinter dem Wort war
 		var s := PackedVector2Array()
 		for i in 10:

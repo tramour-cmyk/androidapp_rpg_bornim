@@ -69,7 +69,7 @@ func _ready() -> void:
 	chip.content_margin_top = 3 * AktionsKnopf.DP; chip.content_margin_bottom = 3 * AktionsKnopf.DP
 	ort.add_theme_stylebox_override("normal", chip)
 	mess = schild(Vector2(24, oy + 60), 22)
-	mess.visible = "--messen" in OS.get_cmdline_user_args() or OS.is_debug_build()
+	mess.visible = "--messen" in OS.get_cmdline_user_args()   # 399.1: im Spiel nur mit dem Testmodus (Bildrate, Standort), wie alt FrameMeter
 	windrose = Windrose.new()                # 348.6 Runde 11 (Chefrunde 25.10., 11:48): rechts oben, Probeknoepfe darunter
 	windrose.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
 	windrose.position = Vector2(-Windrose.GROESSE - 16 * AktionsKnopf.DP, oy)
@@ -192,12 +192,17 @@ func _ready() -> void:
 	blinken.timeout.connect(func(): weiter_zeichen.modulate.a = 1.0 - weiter_zeichen.modulate.a)
 	add_child(blinken)
 	richte_ein()
+	# 399.4: oben frei, was die Kamera des Handys verdeckt (Rand.gd); der Zeichner des Rings zeichnet, wo der Finger ist, er bleibt
+	var r := Rand.oben(get_viewport())
+	for c in get_children():
+		if c is Control and c != zeichner: Rand.ruecke(c, r)
 
 # 399.1 Bedienung aus dem Menue System (Bedienung.gd): Wischen oder Klassisch, Ring, Renntaste, Seite des Aktionsknopfs.
 # Masse wie alt in dp: Wischen Aktionsknopf 76, 22 vom Rand, Renntaste 58, 31 vom Rand, 112 von unten, Schild 106 und 46;
 # Klassisch Leiste 178 hoch (Kreuz 150, Rand 16 und 14), Knoepfe in 140 x 140: Aktion 70 oben aussen, Rennen 58 unten innen
 func richte_ein() -> void:
 	Bedienung.lade()
+	mess.visible = "--messen" in OS.get_cmdline_user_args() or Testmodus.bildrate or Testmodus.standort
 	var dp := AktionsKnopf.DP
 	var k := Bedienung.klassisch
 	var li := Bedienung.links
@@ -486,8 +491,13 @@ func ring(an: bool) -> void:
 	laufen.emit(an)
 	if unten: Bedienung.ruettle(an)   # 131: kurz beim Anfang und Ende des Rennens (LongPress, TextHandleMove)
 
+var standort := ""                       # 399.1 Testmodus „Standort anzeigen“ (PlaceMeter): Karte und Kachel, von spiel.gd
+
 func messe(times: Array) -> void:
 	if not mess.visible or Engine.get_process_frames() % 15 != 0 or times.is_empty(): return
+	if not ("--messen" in OS.get_cmdline_user_args() or Testmodus.bildrate):
+		mess.text = standort
+		return
 	var s := times.duplicate()
 	s.sort()
 	var avg := 0.0
@@ -500,6 +510,7 @@ func messe(times: Array) -> void:
 		Performance.get_monitor(Performance.RENDER_VIDEO_MEM_USED) / 1048576.0,
 		Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME),
 		int(Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME) / 1000.0)]
+	if Testmodus.standort: mess.text += "\n" + standort
 
 # 399.1 DPad (WorldScreen.kt) wie alt: Kreuz 150 dp, Arme 50 dp, Mitte frei (10 %); vier Richtungen auf dem Bildschirm, gedrueckt
 # heller; die Welt geht in Bildschirmrichtung wie beim Joystick (spiel.gd kamera.richtung)

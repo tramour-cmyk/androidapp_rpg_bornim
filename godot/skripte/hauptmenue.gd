@@ -36,6 +36,7 @@ func _init(s: Steuerung) -> void:
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	Rand.ruecke(self, Rand.oben(get_viewport()))   # 399.4: unter der Kamera des Handys
 	var bg := ColorRect.new()
 	bg.color = Color.BLACK
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -49,7 +50,7 @@ func _ready() -> void:
 	mitte.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	mitte.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	var vs := get_viewport().get_visible_rect().size
-	mitte.custom_minimum_size = vs
+	mitte.custom_minimum_size = vs - Vector2(0, Rand.oben(get_viewport()))   # 399.4: ohne den Rand oben
 	rolle.add_child(mitte)
 	box = VBoxContainer.new()
 	box.custom_minimum_size.x = vs.x - 48 * DP
@@ -225,20 +226,21 @@ func rundzeichen(t: String, was: Callable) -> void:
 	b.pressed.connect(was)
 	mittig(b)
 
-func bild(pfad: String, breite_dp: float) -> void:
+func bild(pfad: String, breite_dp: float) -> TextureRect:
 	var tex: Texture2D = null
 	if pfad.ends_with(".bild"):   # roh wie Gebiet.bild, nicht eingelesen
 		var img := Image.new()
 		if FileAccess.file_exists(pfad) and img.load_jpg_from_buffer(FileAccess.get_file_as_bytes(pfad)) == OK: tex = ImageTexture.create_from_image(img)
 	elif ResourceLoader.exists(pfad):
 		tex = load(pfad)
-	if tex == null: return
+	if tex == null: return null
 	var r := TextureRect.new()
 	r.texture = tex
 	r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	r.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	r.custom_minimum_size = Vector2(breite_dp, breite_dp * tex.get_height() / tex.get_width()) * DP
 	mittig(r)
+	return r
 
 func titel() -> void:
 	leer()
@@ -275,11 +277,42 @@ func titel() -> void:
 	abstand(18)
 	rundzeichen("DE" if Sprache.aktiv() == "de" else "EN", func(): Sprache.wechsle(); titel())
 	abstand(22)
-	bild(LOGO, 130)
+	var lg := bild(LOGO, 130)
 	abstand(6)
 	var v := String(ProjectSettings.get_setting("application/config/version", ""))
 	var vz := zeile(("v%s · " % v if v != "" else "") + "SRD 5.1 · CC BY 4.0", 12, Color(Stil.DIM, 0.75), 0.5)
 	vz.autowrap_mode = TextServer.AUTOWRAP_OFF
+	# 399.1 wie alt (App.kt secretTaps): siebenmal auf das Firmenzeichen oder die Zeile darunter schaltet den Testmodus (Testmodus.gd)
+	for c in [lg, vz]:
+		if c: c.mouse_filter = Control.MOUSE_FILTER_STOP; c.gui_input.connect(_geheim)
+	if Testmodus.ist_an(): zeile("Testmodus aktiv" if Sprache.aktiv() == "de" else "Test mode on", 12, Stil.WARN)
+
+var geheim := 0
+
+func _geheim(e: InputEvent) -> void:
+	if not (e is InputEventMouseButton and e.button_index == MOUSE_BUTTON_LEFT and e.pressed): return
+	geheim += 1
+	if geheim < Testmodus.TIPPEN: return
+	geheim = 0
+	Testmodus.umschalten()
+	var de := Sprache.aktiv() == "de"
+	titel()
+	hinweis(("Testmodus aktiviert" if de else "Test mode enabled") if Testmodus.an else ("Testmodus deaktiviert" if de else "Test mode disabled"))
+
+# vm.toast: eine kurze Zeile unten auf dunklem Grund, drei Sekunden
+func hinweis(t: String) -> void:
+	var l := Stil.zeile(t, 14, Stil.TEXT, 0.3)
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(0, 0, 0, 0.85); sb.border_color = Stil.LINE; sb.set_border_width_all(int(DP))
+	sb.set_content_margin_all(8 * DP)
+	l.add_theme_stylebox_override("normal", sb)
+	l.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM, Control.PRESET_MODE_MINSIZE)
+	l.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	l.offset_bottom = -48 * DP; l.offset_top = l.offset_bottom - l.get_combined_minimum_size().y
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(l)
+	get_tree().create_timer(3.0).timeout.connect(func(): if is_instance_valid(l): l.queue_free())
 
 # 399.1 Erschaffung wie alt (erschaffung.gd): eine Seite ueber dem Menue; Zurueck fuehrt ins Hauptmenue. ziel: Platz aus den
 # Spielstaenden, sonst der erste freie
