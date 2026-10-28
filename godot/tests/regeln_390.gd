@@ -1,10 +1,11 @@
-# 390: Pechsträhne, Ausdauer und Talente nach GDScript, mit den Testfällen aus core (MissStreakTest, StaminaTest, PerksTest).
+# 390: Pechsträhne, Ausdauer, Talente und Zustände nach GDScript, mit den Testfällen aus core (MissStreakTest, StaminaTest, PerksTest).
 # Run: godot --headless --path godot -s res://tests/regeln_390.gd   (exit code 0 = wie im alten Spiel)
 extends SceneTree
 
 const Pech = preload("res://regeln/pechstraehne.gd")
 const Ausdauer = preload("res://regeln/ausdauer.gd")
 const Talente = preload("res://regeln/talente.gd")
+const Zustaende = preload("res://regeln/zustaende.gd")
 
 var failed := 0
 
@@ -24,6 +25,7 @@ func _init() -> void:
 	_pech()
 	_ausdauer()
 	_talente()
+	_zustaende()
 	print("regeln_390: ", "alles gut" if failed == 0 else "%d Fehler" % failed)
 	quit(1 if failed > 0 else 0)
 
@@ -162,3 +164,18 @@ func _talente() -> void:
 	_check("Handeln", Talente.describe("CHA", h, 0)[1], "• Handeln: 5 % günstiger einkaufen und 5 % teurer verkaufen.")
 	_check("Trading arm", Talente.describe("CHA", Probeheld.new({"CHA": 8}), 1)[1], "• Trading: buy for 5% more and sell for 5% less.")
 	_check("Lernen", Talente.describe("INT", Probeheld.new({"INT": 14}), 0)[3], "• Lernen: +6 % Erfahrung.")
+
+
+func _zustaende() -> void:
+	# Status.kt: wer welchen Zustand nicht erleidet, was den Kampf überdauert
+	_check("Skelett blutet nicht", Zustaende.immune({"id": "skeleton", "immune": ["POISON"]}, "BLEED"), true)
+	_check("Skelett giftfest", Zustaende.immune({"id": "skeleton", "immune": ["POISON"]}, "POISON"), true)
+	_check("Wolf blutet", Zustaende.immune({"id": "wolf", "immune": []}, "BLEED"), false)
+	_check("Gallert nicht betäubt", Zustaende.immune({"id": "ochre_jelly"}, "STUN"), true)
+	_check("Gallert nicht geblendet", Zustaende.immune({"id": "ochre_jelly"}, "BLIND"), true)
+	_check("Zombie verlangsamt", Zustaende.immune({"id": "zombie"}, "SLOW"), false)
+	_check("Gift bleibt", Zustaende.lingers("POISON"), true)
+	_check("Fluch bleibt", Zustaende.lingers("WEAK"), true)
+	_check("Brand endet", Zustaende.lingers("BURN"), false)
+	_check("Brand schadet", Zustaende.damaging("BURN"), true)
+	_check("Betäubt schadet nicht", Zustaende.damaging("STUN"), false)

@@ -7,6 +7,7 @@ extends RefCounted
 
 const Wuerfel = preload("res://regeln/wuerfel.gd")
 const X = preload("res://regeln/mars_texte.gd")
+const Zustaende = preload("res://regeln/zustaende.gd")
 ## The lines by name, for the ones picked in several wordings.
 var TX: Dictionary = load("res://regeln/mars_texte.gd").get_script_constant_map()
 
@@ -1031,7 +1032,7 @@ func _inflict(t: Fighter, st: String, turns: int, save = null, die = null) -> bo
 			_say(fmt(ST_DWARF, lang, [who]), null, t.id)
 			return false
 	else:
-		if st in t.monster.get("immune", []):
+		if Zustaende.immune(t.monster, st):     # 390: wie Status.immune im alten Kampf (Skelett, Zombie, Ockergallert bluten nicht)
 			return false
 		if t.boss() and st == "STUN" and dice.chance(0.5):
 			_say(fmt(ST_SHAKES, lang, [who]), null, t.id)
@@ -1069,7 +1070,7 @@ func _tick(f: Fighter) -> bool:
 	for st in hurting:
 		if outcome != "ONGOING" or not f.standing():
 			break
-		if f.monster != null and st in f.monster.get("immune", []):
+		if f.monster != null and Zustaende.immune(f.monster, st):
 			continue
 		var dmg: int = dice.roll_expr(f.poison_die if st == "POISON" else ([1, 6, 0] if st == "BURN" else [1, 4, 0])) + scale
 		if st == "POISON" and f.hero != null and str(f.hero.get("race", "")) == "DWARF":
