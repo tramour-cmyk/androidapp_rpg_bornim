@@ -41,6 +41,12 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/mars_regeln.gd > regeln.log 2>&1 || true
           cat regeln.log
           grep -q "MARS Regeln: 0 abweichend" regeln.log
+      - name: Regeln aus core (390, Pechsträhne, Ausdauer, Talente)
+        run: |
+          cd godot
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/regeln_390.gd > regeln390.log 2>&1 || true
+          cat regeln390.log
+          grep -q "regeln_390: alles gut" regeln390.log
       - name: Kampfort selbst ablaufen lassen (alle Probekämpfe)
         run: |
           cd godot
