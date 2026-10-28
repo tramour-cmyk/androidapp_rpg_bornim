@@ -71,13 +71,15 @@ jobs:
           # 397: Ruhebewegungen aus der gekauften UAL Pro im Helden, dann ist er ein Kaufmodell (348.12i)
           grep -q '^RUHE aus' rig.log && echo daten/held.bin >> $D/kauf.txt || true
           cp $OUT/dorf.glb $D/dorf.bin && cp $OUT/dorf-info.json $D/
+          # 399.1 Grundrisse (raum.py): Schenke, Laden, Aeltester, Tempel
+          for g in inn shop elder temple; do KARTE=$g bl/bin/python -I tools/blender348/v3/raum.py > raum-$g.log 2>&1 || { tail -30 raum-$g.log; exit 1; }; cp $OUT/$g.glb $D/$g.bin && cp $OUT/$g-info.json $D/; done
           for t in gras erde pflaster halme korn weiss; do cp $OUT/tex/$t.png $D/$t.bild; done
           cp $OUT/boden-maske.png $D/boden-maske.bild
           ls -l $D
       - name: Leute bauen (Dorf)
         run: |
           # 348.6 Leute: jede Person des Dorfs, die leute.json kennt, als Figur (held3 FIGUR=<id>, rig), 4 zugleich
-          ids=$(python3 -c "import json; k=json.load(open('godot/daten/karten.json'))['karten']; l=json.load(open('tools/blender348/v3/leute.json')); print(' '.join(sorted({n['id'] for n in k['village']['leute'] if n['id'] in l})))")
+          ids=$(python3 -c "import json; k=json.load(open('godot/daten/karten.json'))['karten']; l=json.load(open('tools/blender348/v3/leute.json')); print(' '.join(sorted({n['id'] for m in ('village', 'inn', 'shop', 'elder', 'temple') for n in k[m]['leute'] if n['id'] in l})))")   # 399.1: auch die Leute der Grundrisse
           echo "Leute: $ids"
           bau() { o=$RUNNER_TEMP/leute/$1; mkdir -p $o
             for s in held3 rig; do OUT=$o FIGUR=$1 bl/bin/python -I tools/blender348/v3/$s.py > $o/$s.log 2>&1 || { echo "$1 $s"; tail -30 $o/$s.log; return 1; }; done; }

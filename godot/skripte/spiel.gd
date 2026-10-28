@@ -71,6 +71,8 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	if held: held.queue_free()
 	if leute: leute.queue_free()
 	karte = Karte.lade(id, zustand.flaggen)   # 390: Schlagbaum, Tor, Ausgaenge und Wege lesen den Spielstand
+	licht.innen = String(karte.daten.get("art", "")) == "INTERIOR"   # 399.1 Grundriss
+	licht.stelle(licht.nacht)
 	gebiet = Gebiet.new(karte)
 	add_child(gebiet)
 	held = Held.new(karte)

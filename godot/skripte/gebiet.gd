@@ -42,6 +42,11 @@ func _ready() -> void:
 	pm.size = Vector2(160, 160)
 	wiese.mesh = pm
 	wiese.material_override = boden
+	if info.get("innen", false):               # 399.1 Grundriss (raum.py): ringsum schwarz
+		var schwarz := StandardMaterial3D.new()
+		schwarz.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		schwarz.albedo_color = Color.BLACK
+		wiese.material_override = schwarz
 	wiese.layers = BODEN_SCHICHT
 	wiese.position = Vector3(karte.breite * Karte.TS / 2, -0.4, karte.hoehe * Karte.TS / 2)   # unter dem Flussbett (-0,34): auf -0,03 deckte sie das Wasser (-0,1) zu
 	add_child(wiese)
@@ -335,6 +340,18 @@ func baue_lampen() -> void:
 	var inseln := PackedVector4Array()
 	for l in info["lichter"]:
 		var art: String = l["art"]
+		if art == "kamin" or art == "kerze":   # 399.1 Grundriss: Feuer im Kamin, Kerzen (raum.py)
+			var f := OmniLight3D.new()
+			f.position = gpos(l["pos"])
+			f.omni_range = float(l.get("reich", 2.0)) * Karte.TS
+			f.light_energy = float(l.get("kraft", 1.0)) * 1.6
+			f.light_color = Color(1.0, 0.62, 0.3)
+			f.omni_attenuation = 0.9
+			f.shadow_enabled = art == "kamin"
+			add_child(f)   # brennt Tag und Nacht (nicht in lampen, die nacht() nach der Tageszeit stellt)
+			f.set_meta("reich", f.omni_range); f.set_meta("kraft", float(l.get("kraft", 1.0)))
+			f.add_to_group("tuschelicht")
+			continue
 		if art != "laterne" and art != "fenster": continue
 		var q := gpos(l["pos"])
 		if art == "fenster":   # wie MapLight WINDOW: vor dem Haus auf den Boden, Reichweite 1,6 Kacheln, Staerke 0,7
