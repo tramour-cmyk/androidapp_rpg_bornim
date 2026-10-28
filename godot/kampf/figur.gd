@@ -618,7 +618,9 @@ func _process(_dt: float) -> void:
 		_paw_shadow_update()
 	if aim != null and neck and not down and not (tween and tween.is_running()):
 		_face()
-	if halt and halt.drehen and not (tween and tween.is_running()):     # Drehung abgebrochen (Biss tötet den tween)
+	# Drehung abgebrochen (Biss tötet den tween); 387 r4 (Hülle Keiler r4: nach einem abgebrochenen Umdrehen hielt der Pfotenhalt die
+	# Pfoten 1,1 s lang im Rennen fest, der Körper lief weiter): auch, sobald das Tier etwas anderes spielt als Stehen
+	if halt and halt.drehen and (not (tween and tween.is_running()) or anim and anim.current_animation != "Stehen"):
 		halt.los(false)
 	if anim and anim.has_animation("Lefzen") and not down and not pouncing and anim.current_animation == "Stehen":
 		var now := Time.get_ticks_msec()
