@@ -41,6 +41,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 12:06 28.10.: Neustart Tom angenommen (`5791b512c`), Nachfolger „Tom – 376.1 Halszacken in Godot, dann 397 Ruhebewegungen“ `01Hmoj76N4` gestartet (main, Hoch, mit add_repo-Satz; Prüfer lehnte den ersten Versuch wegen eines nicht überprüften Chefzitats im Startprompt ab, danach nur der Satz des Chefs 10:38); alter Tom `01Hmoj78eF` archiviert und gebucht (15,40 $ auf 390, 376.1)
 - 11:58 28.10.: Neustart Jerry angenommen (`3434960d7`), Nachfolger „Jerry – 387 Vorlage, 348.12 Grak animieren“ `01Hmoj76aX` gestartet (main, Hoch, mit add_repo-Satz); alter Jerry `01Hmoj78sy` archiviert und gebucht (26,93 $ auf 390, 387, 348.12f)
 - 11:33 28.10.: Neustart Tom angenommen (`482e7485f`), Nachfolger „Tom – 390 Laden-Ausrüstung, dann 376.1 Halszacken“ `01Hmoj78eF` gestartet (main, Hoch, mit add_repo-Satz); alter Tom `01Hmoj78Lq` archiviert und gebucht (6,00 $ auf 385, 390); offene Frage zu 385 steht in Toms Übergabe
 - 11:08 28.10.: Chef „Ich brauche Sokrates“ (11:06): Sokrates „Chefrunde“ `01Hmoj78fq` gestartet (main, Mittel); Perikles „396“ `76kq`, Tom `78Lq`, Jerry `78sy` laufen; Sokrates `773t` archiviert und gebucht (10,68 $ auf 383)
