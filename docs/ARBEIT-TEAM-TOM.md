@@ -8,7 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf (`LISTE-UMZUG-348.md` „Spielfassung“) | zu testen: Build 137 (t137); danach gebaut: Schritte, Helligkeit, Vergleich, Erklärung, Siege, Geräteangaben (bis 7359b3107) | `claude/tom-399-spielfassung` |
+| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf (`LISTE-UMZUG-348.md` „Spielfassung“) | zu testen: Build 137 (t137); danach gebaut: Schritte, Helligkeit, Vergleich, Erklärung, Siege, Geräteangaben, Bedienung, Rückfragen (bis fe7acbb32) | `claude/tom-399-spielfassung` |
 | 399.3.1 | M | **von Team Jerry (16:5x):** Klang: Haken in `spiel.gd` (Jerry, `claude/jerry-348-klang`) übernehmen; Menü System: Regler wie SoundSettings über `Klang.stelle` | zu testen: Build 137 (t137.2) | – |
 | 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | startbar: 385.1 alle zwölf ja (Chef 19:1x, Archiv); Feuer aus dem Stab an Jerry (385.2); weitere Käufe nur mit Chefsache-Datei |
 | 390 | M | **von Perikles:** zwischen Chef-Blättern Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | gebaut: Laden, Rast, Held, Tagesablauf, Gespräche, Englisch (64a6e5a80; Test 390a) | `claude/tom-390-englisch` |
@@ -37,7 +37,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 ## Einzelheiten
 
 - **Von Perikles (378):** Stände prüfen, `ARBEIT-PROJEKT.md` Zu 378.
-- **Zu 399.3.1 an Jerry** (18:1x, Vorrat voll): 20fd2d4ab (`tom-399`) ändert `klang.gd` 525 (`bett: String`, lud nicht) und `klang_test` (0,6 s); erst holen, dann weiter.
+- **Zu 399.3.1 an Jerry** (18:1x): 20fd2d4ab (`tom-399`) ändert `klang.gd` 525 und `klang_test`; erst holen.
+- **Zu 399.1 an Jerry** (19:5x, per Nachricht): System „Kampf“ hat nur Rückfragen (fe7acbb32); Blut, Tempo, Kampftext (`MenuSigns.kt` 197–211) fehlen.
 - **Zu 399.1 an Jerry** (17:15, sein Vorrat voll): `Zustand.satt` (alt `wellFed`) fehlt dem Kampfort (+1, `Battle.fedBonus`).
 - **Zu 399.1** (Chef über Sokrates): 14:31 130.1–130.5 gehen, Wald nicht (131). 14:38 „Einfach mal das alte Spiel nehmen … so soll es im neuen halt auch schon … die Schriftart umzustellen und auch in den Dialogen … in ein vernünftiges Menü starten“; 14:39 „an die Designvorgaben halten“. Für 132: Hauptmenü wie alt (`App.kt` `MainMenuColumn`, Bild `assets/menu/hauptmenue.jpg`; Bildschirmfoto: graugrün, Titel bricht um, Probeknöpfe darüber, „Sprache“ zu breit, alles links), Alegreya überall, Gesprächsfenster wie `DialogBox`; vorher gegen `DESIGN-STIL.md` „Oberfläche“, `DESIGN-BLENDE.md` „Vorspann und Hauptmenü“ prüfen, im Testbogen nennen.
 
