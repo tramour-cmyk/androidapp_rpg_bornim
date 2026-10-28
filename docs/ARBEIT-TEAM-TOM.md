@@ -2,13 +2,13 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (28.10., 09:1x, `session_01Hmoj78kadotNkVtT6s8KBw`):** 348.6 Dorftiere vorgelegt; 348.13b gebaut (auf `claude/tom-348-fundament`); 348.13 an Jerry; 348.12i in den Fundamentzweig gemischt. Nachfolger: Tom – 376.1 Halszacken in Godot, Formen, Editor.
+**Übergabe (28.10., 10:4x, `session_01Hmoj77QshJ8MtUvZnNueuY`):** 390 vier Teile gebaut, Chefsache 390a; 376.1 Halszacken nachgestellt; 385 Film gebaut, prüfen lassen, senden. Nachfolger: Tom – 385 Film senden, dann 376.1 Halszacken.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film; 1 Sitzung, 2 Läufe, sonst Befund | gebaut 105ceeb3f: Film 4 Bewegungen am Kaufkörper, fremde Prüfung läuft; Lauf 1/2 |
+| 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film; 1 Sitzung, 2 Läufe, sonst Befund | gebaut 105ceeb3f: Film (Zweig bilder, 385/385-zauberer-r1.mp4), fremde Prüfung offen; Lauf 1/2 |
 | 392 | M | **von Sokrates (Chef 09:50):** Alt: „Atmen aus“ nur schätzen | startbar |
 | 390 | M | **von Perikles (28.10.):** zwischen Blättern beim Chef Funktionen ohne Bild bauen (`LISTE-UMZUG-348.md`): Englisch, Gespräche und Quests, Tagesablauf, Laden, Rast | startbar: Englisch, Gespräche, Tagesablauf gebaut (Test: 390a); offen Held, Laden, Rast | `claude/tom-390-englisch` |
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101 lädt) | `claude/tom-348-12i-verschluesseln` |
