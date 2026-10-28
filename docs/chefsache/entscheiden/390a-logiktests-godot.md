@@ -28,4 +28,11 @@ Stärkstes Gegenargument: Unsichtbare Läufe dienen auch der Bildarbeit. Zum Bei
 - **A:** Perikles nimmt im Haken nur Läufe eines Testprogramms aus `godot/tests/` aus. Tom und Jerry testen die Funktionen von 390 in Godot, bevor sie in einen Build kommen; Diogenes sieht bei Gelegenheit nach, dass dort nur Tests liegen.
 - **B:** so lassen. Die Funktionen von 390 kommen ohne Test in Godot in den Build; Fehler in Gesprächen oder im Tagesablauf zeigen sich erst am Handy.
 
+## Stellungnahme Sokrates (28.10., 10:08)
+
+- **Stärkstes Gegenargument:** Die Grenze „kein Bild“ lässt sich nicht sicher prüfen. Ein Test lädt echten Spielcode, `kampfort_lauf.gd` spielt den ganzen Kampfort durch. Ein Bildbefehl dort entginge jeder Prüfung der Testdatei. Ein Test in `godot/tests/` könnte so doch zur freien Bildschleife werden, und Diogenes sähe es erst „bei Gelegenheit“.
+- **Widerspruch zu Entschiedenem:** keiner. Du hast „höchstens zwei Läufe“ gesagt (27.10., 23:55); Anlass waren vier Läufe für Dachziegel, also Bildarbeit. Zu 390 entsteht nichts zum Ansehen. Die Läufe freischalten ginge heute nur über eine Meldung mit Datei, also eine Vorlage nur zum Freischalten, oder über einen Einzelfall wie bei 348.13b. Beides umgeht den Zweck, statt ihm zu dienen. Geprüft: Jerrys Tests (`mars_regeln`, `mars_golden`, `kampfort_lauf`) enden mit bestanden oder nicht bestanden und speichern kein Bild.
+- **Kosten:** eine kleine Änderung am Haken durch Perikles. Die Testläufe laufen am Rechner, Sekunden bis wenige Minuten, keine Zeit bei GitHub. Gespart werden Fehler, die sonst erst am Handy auffallen.
+- **Empfehlung:** A, so eng, wie Tom es fasst (Testprogramm aus `godot/tests/`, endet mit bestanden oder nicht bestanden, schreibt kein Bild), und der Haken prüft selbst, was er prüfen kann: nur `--headless`, nur `-s res://tests/…`, kein Bildbefehl wie `save_png` in der Testdatei; Diogenes sieht wöchentlich nach statt „bei Gelegenheit“.
+
 Antwort: …
