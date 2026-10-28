@@ -20,7 +20,7 @@ Nichts offen.
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [–](ansehen/t130-spielfassung.md) | [Build 130](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40688776644/artifacts/12817701661) | Godot 0.1 | Tom und Jerry | 28.10., 13:58 |
+| 1 | [–](ansehen/t130-spielfassung.md) | [Build 130](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40688776644/artifacts/12817701661) | Godot 0.1 | Tom und Jerry | 28.10., 13:56 |
 
 ## Zu tun
 
