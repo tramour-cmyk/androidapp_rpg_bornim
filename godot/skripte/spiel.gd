@@ -72,7 +72,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	gebiet.held = held
 	gebiet.kamera = kamera
 	kamera.springe()
-	ui.ort.text = karte.name_de()
+	ui.ort.text = karte.name()
 	_nacht(licht.nacht)
 	_steht_auf(t)
 
@@ -90,6 +90,13 @@ func _knopf(was: String) -> void:
 		"links": kamera.drehe(-45.0)
 		"rechts": kamera.drehe(45.0)
 		"tiere": tiere_an_aus()
+		"sprache": sprache_wechseln()
+
+# 390: Sprache umschalten; Ortsname und Schild am Knopf gleich neu, Gesagtes ab der naechsten Zeile
+func sprache_wechseln() -> void:
+	Sprache.wechsle()
+	ui.ort.text = karte.name()
+	_steht_auf(held.kachel)
 
 # 348.6: Tiere zum Anschauen (Chef 16:52), nur im Test-APK; gehen wie die Leute, der Held geht nicht durch sie
 func tiere_an_aus() -> void:
@@ -136,7 +143,7 @@ func zeichen_lesbar(t: Vector2i) -> bool:
 
 func schild(t: Vector2i) -> String:
 	for s in karte.daten["schilder"]:
-		if int(s["x"]) == t.x and int(s["y"]) == t.y: return String(s["text"]["de"])
+		if int(s["x"]) == t.x and int(s["y"]) == t.y: return Sprache.t(s["text"])
 	return ""
 
 func _steht_auf(t: Vector2i) -> void:
@@ -157,7 +164,7 @@ func angebot(t: Vector2i) -> Array:
 	if zeichen_lesbar(z): return ["READ", ""]
 	var a := karte.ausgang(z)
 	if bool(a["verschlossen"]): return ["ENTER", ""] if a.has("klopfen") else ["", ""]
-	return ["ENTER", String(Karte.namen.get(String(a["ziel"]["karte"]), ""))]
+	return ["ENTER", Sprache.t(Karte.namen.get(String(a["ziel"]["karte"]), ""))]
 
 func _aktion() -> void:
 	var z := vor_ihm(held.kachel)
@@ -178,22 +185,22 @@ func _aktion() -> void:
 
 func _stoesst(t: Vector2i) -> void:
 	if karte.zeichen(t) == "z" and not karte.flaggen.has("barrier_open"):
-		ui.sage([{"text": karte.schlagbaum}])
+		ui.sage([{"text": Sprache.t(karte.schlagbaum)}])
 		return
 	var a := karte.sperrt(t)
 	if a.is_empty(): return
 	if bool(a["umkehren"]):
 		var k := "gedanke_kurz" if gedacht.has(karte.id) else "gedanke"
 		gedacht[karte.id] = true
-		if a.has(k): ui.sage([{"text": String(a[k]["de"])}])
+		if a.has(k): ui.sage([{"text": Sprache.t(a[k])}])
 	else:
 		ui.sage(zeilen(a.get("abgewiesen", [])))
 
 func zeilen(liste: Array) -> Array:
 	var r: Array = []
 	for z in liste:
-		var e := {"text": String(z["text"]["de"])}
-		if z.has("wer"): e["wer"] = String(z["wer"]["de"])
+		var e := {"text": Sprache.t(z["text"])}
+		if z.has("wer"): e["wer"] = Sprache.t(z["wer"])
 		r.append(e)
 	return r
 
@@ -208,7 +215,7 @@ func geh_hinaus(a: Dictionary) -> void:
 		await abblenden(0.0)
 		return
 	var alle: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json"))
-	var name := String(alle["karten"][id]["name"]["de"]) if alle["karten"].has(id) else id
+	var name := Sprache.t(alle["karten"][id]["name"]) if alle["karten"].has(id) else id
 	var zurueck := Vector2i(int(a["x"]), int(a["y"]) + 1)
 	for r in alle["karten"].get(id, {}).get("ausgaenge", []):
 		if String(r["ziel"]["karte"]) == karte.id: zurueck = Vector2i(int(r["ziel"]["x"]), int(r["ziel"]["y"]))

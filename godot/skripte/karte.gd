@@ -7,7 +7,7 @@ const TS := 1.16                       # Meter je Kachel (Probe Build 11, Dorf a
 
 var id: String
 var daten: Dictionary
-static var namen := {}                 # Kennung -> Name (de) aller Karten, fuer das Schild am Aktionsknopf (actionPlace)
+static var namen := {}                 # Kennung -> Name {de, en} aller Karten, fuer das Schild am Aktionsknopf (actionPlace)
 var kacheln: Dictionary                # Zeichen -> {name, begehbar}
 var breite := 0
 var hoehe := 0
@@ -19,7 +19,7 @@ var astar := AStarGrid2D.new()
 var gehen := 1.84                      # Kacheln je Sekunde auf Gras (FreeWalk.WALK)
 var laufen := 3.68                     # FreeWalk.RUN
 var busch_schritt := 1.5
-var schlagbaum := ""                   # Anstossen am Schlagbaum (Game.barrier)
+var schlagbaum := {}                   # Anstossen am Schlagbaum (Game.barrier), {de, en}
 
 static func lade(karte_id: String) -> Karte:
 	var alle: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json"))
@@ -27,9 +27,9 @@ static func lade(karte_id: String) -> Karte:
 	k.id = karte_id
 	k.kacheln = alle["kacheln"]
 	k.gehen = float(alle["gehen"]); k.laufen = float(alle["laufen"]); k.busch_schritt = float(alle["busch_schritt"])
-	k.schlagbaum = String(alle["schlagbaum"]["de"])
+	k.schlagbaum = alle["schlagbaum"]
 	k.daten = alle["karten"][karte_id]
-	for id in alle["karten"]: namen[id] = String(alle["karten"][id]["name"]["de"])
+	for id in alle["karten"]: namen[id] = alle["karten"][id]["name"]
 	k.breite = int(k.daten["breite"])
 	k.hoehe = int(k.daten["hoehe"])
 	k.zeilen = PackedStringArray(k.daten["zeilen"])
@@ -38,7 +38,7 @@ static func lade(karte_id: String) -> Karte:
 	k.baue_wege()
 	return k
 
-func name_de() -> String: return String(daten["name"]["de"])
+func name() -> String: return Sprache.t(daten["name"])
 
 func zeichen(t: Vector2i) -> String:
 	if t.x < 0 or t.y < 0 or t.x >= breite or t.y >= hoehe: return String(daten["rand"])

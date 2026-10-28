@@ -20,10 +20,11 @@ jobs:
           distribution: temurin
           java-version: 17
       - uses: gradle/actions/setup-gradle@v4
-      - name: Karten aus core
+      - name: Karten und Texte aus core
         run: |
-          ./gradlew -p core test --tests '*MapExportTest*' -q
+          ./gradlew -p core test --tests '*MapExportTest*' --tests '*TextExportTest*' -q
           ./gradlew -p core exportMaps -Pout=$GITHUB_WORKSPACE/godot/daten/karten.json -q
+          ./gradlew -p core exportTexts -Pout=$GITHUB_WORKSPACE/godot/daten/texte.json -q
       # 348.12e gekaufte Modelle aus dem privaten Repo bornim-kaufmodelle (348.12c a), danach unter $KAUF;
       # nie hierher committen, nie als Artefakt; ohne Geheimnis KAUF_TOKEN baut alles ohne Kaufmodelle
       - name: Gekaufte Modelle (privat)

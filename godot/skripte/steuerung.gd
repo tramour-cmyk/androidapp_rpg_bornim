@@ -61,7 +61,7 @@ func _ready() -> void:
 	oben.position = Vector2(-300, 40 + Windrose.GROESSE + 16 * AktionsKnopf.DP)
 	oben.add_theme_constant_override("separation", 12)
 	add_child(oben)
-	var knoepfe := [["Tag / Nacht", "nacht"], ["Nah / Fern", "nah"], ["Drehen ◀", "links"], ["Drehen ▶", "rechts"]]
+	var knoepfe := [["Tag / Nacht", "nacht"], ["Nah / Fern", "nah"], ["Drehen ◀", "links"], ["Drehen ▶", "rechts"], ["Deutsch / English", "sprache"]]   # 390: Sprache wie alt im Systemmenue, hier nur zum Testen
 	if DirAccess.dir_exists_absolute("res://daten/tiere"): knoepfe.append(["Tiere", "tiere"])   # 348.6: Tiere zum Anschauen (Chef 16:52), nur Test
 	for spec in knoepfe:
 		var b := knopf_neu(spec[0], Vector2(260, 84), 28)
@@ -89,8 +89,8 @@ func _ready() -> void:
 	ort_schild.offset_left = ort_schild.offset_right; ort_schild.offset_top = ort_schild.offset_bottom
 	ort_schild.visible = false
 	add_child(ort_schild)
-	# 348.6 (Befund: verdeckte den Tuerknopf): wie alt (131) ueber dem Aktionsknopf, 58 dp, 31 dp vom Rand, 112 dp von unten
-	lauf_knopf = knopf_neu("Laufen", Vector2(58, 58) * AktionsKnopf.DP, 26)
+	# 348.6 (Befund: verdeckte den Tuerknopf): wie alt (131, Aufschrift MenuSigns, 390) ueber dem Aktionsknopf, 58 dp, 31 dp vom Rand, 112 dp von unten
+	lauf_knopf = knopf_neu("Rennen" if Sprache.aktiv() == "de" else "Run", Vector2(58, 58) * AktionsKnopf.DP, 26)
 	lauf_knopf.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
 	lauf_knopf.position = Vector2(-(31 + 58), -(112 + 58)) * AktionsKnopf.DP
 	lauf_knopf.toggle_mode = true

@@ -34,3 +34,10 @@ tasks.register<JavaExec>("exportMaps") {
     mainClass.set("de.bornim.core.MapExport")
     args((findProperty("out") as String?) ?: layout.buildDirectory.file("karten.json").get().asFile.path)
 }
+
+// 390: Texte der Oberflaeche in beiden Sprachen fuer Godot (TextExport.kt)
+tasks.register<JavaExec>("exportTexts") {
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("de.bornim.core.TextExport")
+    args((findProperty("out") as String?) ?: layout.buildDirectory.file("texte.json").get().asFile.path)
+}
