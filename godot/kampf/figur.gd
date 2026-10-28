@@ -56,6 +56,9 @@ const SHAMAN_KITS := ["robe", "fell", "beides"]
 ## die Probe „Kobolde“ zeigt Goblins mit seinem Aussehen (ersatz_art), Regeln des Goblins
 const KOBOLD := "kobold"
 const KOBOLD_KITS := ["kappe", "schild", "fell"]
+## 348.12 Grak (goblin.py ART=hobgoblin_captain, CC0-Gerüst): ein Kit, Großaxt in beiden Händen (waffen.py greataxe-grak, für
+## ihn gebaut, Größe 1); in Stehen der Stiel steil vor dem Körper, der Kopf der Axt über der rechten Schulter (ual_lauer.py GRAK_HALT)
+const GRAK_KITS := ["hauptmann"]
 ## Kurzbogen wie Dress.bow: 0,58 der Größe des Schützen (waffen.py baut ihn 101 cm, für den Menschen)
 ## Späher Runde 2 (Prüfer 1: „von der Schulter bis auf Fußhöhe, für einen Kurzbogen groß“): 0,48
 const GOB_BOGEN := 0.48 / 1.01
@@ -113,7 +116,7 @@ func setup(f, k) -> void:
 	model.scale = Vector3.ONE * _scale() / ART_GROESSE.get(art(), 1.0)
 	if fighter.monster == null:
 		_arm()
-	elif fighter.monster.id in [Mars.CALLED, Mars.SCOUT]:
+	elif fighter.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK]:
 		_arm_goblin()
 	if fighter.monster != null:
 		var sk: Skeleton3D = _find(model, "Skeleton3D")
@@ -259,7 +262,7 @@ func _model_path() -> String:
 		if ERSATZ_FELLE.has(art):
 			return "res://kampf/daten/%s-%s.bin" % [art, ERSATZ_FELLE[art][n % ERSATZ_FELLE[art].size()]]
 		return "res://kampf/daten/wolf-%s.bin" % WOLF_COATS[n % WOLF_COATS.size()]
-	if fighter.monster.id in [Mars.CALLED, Mars.SCOUT]:     # 348.7: Goblin, Späher je Nummer eines der drei Kits (goblin.py, MonsterKits)
+	if fighter.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK]:     # 348.7: Goblin, Späher je Nummer eines der drei Kits (goblin.py, MonsterKits)
 		return "res://kampf/daten/%s-%s.bin" % [_gob_art(), _gob_kit()]
 	return "res://kampf/daten/%s.bin" % fighter.monster.id
 
@@ -333,6 +336,8 @@ func _gob_art() -> String:
 
 
 func _gob_kit() -> String:
+	if fighter.monster.id == Mars.GRAK:
+		return GRAK_KITS[0]
 	var kits: Array = SCOUT_KITS if fighter.monster.id == Mars.SCOUT else (SHAMAN_KITS if _gob_art() == SHAMAN else (KOBOLD_KITS if _gob_art() == KOBOLD else GOBLIN_KITS))
 	return kits[(maxi(fighter.nr, 1) - 1) % kits.size()]
 
@@ -364,6 +369,8 @@ func _arm_goblin() -> void:
 		# kleiner (der Speer ist für ihn gebaut, waffen.py)
 		if _gob_art() == KOBOLD and String(w[i]) != "spear-rost":
 			sz *= info.get("koerper_cm", 80.0) / 108.0
+		if String(w[i]) == "greataxe-grak":
+			sz = 1.0
 		# 348.12 Probe CC0-Gerüst (goblin.py GERUEST=cc0): der Handknochen beginnt am Handgelenk, der Griff liegt näher
 		var grip: float = info.get("griff_hand_m", 0.0) if info.get("geruest", "") == "cc0" else info.get("griff_m", GRIP_CM * CM)
 		_hold(sk, "R" if i == 0 else "L", w[i], grip, info.get("handflaeche_m", PALM_CM * CM), sz)
@@ -442,6 +449,13 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		b = Basis(fwd, up, fwd.cross(up))
 		var hand_y: float = (sk.get_bone_global_pose(bi) * Vector3(0, grip, 0)).y
 		o = Vector3(0, grip, 0) + inward * palm + up * (0.60 * size - hand_y)
+	elif what == "greataxe-grak":
+		# Grak: der Stiel steil vor dem Körper nach oben, etwas nach außen und vor, der Kopf über der rechten Schulter, die
+		# Schneide nach vorn; die linke Faust hält ihn 38 cm tiefer am Stielende (ual_lauer.py GRAK_HALT, gleiche Richtung)
+		var ax := (-inward * 0.30 + fwd * 0.12 - down * 0.95).normalized()
+		var edge := (fwd - ax * fwd.dot(ax)).normalized()
+		b = Basis(edge, ax, edge.cross(ax))
+		o = Vector3(0, grip, 0) + inward * palm
 	elif what in STAFFS:
 		# Stab senkrecht neben dem Körper, in der Mitte gefasst
 		b = Basis(fwd, -down, fwd.cross(-down))

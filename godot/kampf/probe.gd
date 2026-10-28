@@ -723,6 +723,13 @@ func _report_facing() -> void:
 		for w in fig.find_children("Waffe", "", true, false) + fig.find_children("Schild", "", true, false):
 			var gb: Basis = (w as Node3D).global_basis.orthonormalized()
 			print("%s %s: Achse (Klinge) %s, Fläche %s, Ort %s" % [w.name, id, gb.y.snapped(Vector3.ONE * 0.01), gb.z.snapped(Vector3.ONE * 0.01), (w as Node3D).global_position.snapped(Vector3.ONE * 0.01)])
+			if w.name == "Waffe" and sk and sk.find_bone("hand_l") >= 0 and fig.fighter.monster != null and fig.fighter.monster.id == Mars.GRAK:
+				# 348.12 Grak: die linke Faust am Stiel (Großaxt, 38 cm hinter der rechten Faust); Handknochen plus Griff wie _hold
+				var hl := sk.global_transform * sk.get_bone_global_pose(sk.find_bone("hand_l"))
+				var gl: Vector3 = hl * Vector3(0, 0.085, 0)
+				var d: Vector3 = gl - (w as Node3D).global_position
+				var entlang: float = d.dot(gb.y)
+				print("Zweihand %s: linke Faust %.1f cm vom Stiel, %.1f cm hinter der rechten (soll 38)" % [id, (d - gb.y * entlang).length() * 100.0, -entlang * 100.0])
 		if sk and fig.fighter.monster != null and fig.fighter.monster.id == Mars.SCOUT:
 			_bogen_schnitt(id, fig, sk)
 		if sk and sk.find_bone("handL") >= 0 and sk.find_bone("handR") >= 0:     # Fledermaus Runde 4: Flügel am Schirm schräg?
@@ -915,7 +922,7 @@ func _start(seed := -1) -> void:
 
 
 ## 348.7 Kobold Runde 2 (Sokrates, billigen/3487-kobold-r1 (b): Schnauze im Bild schräg nach unten, Ursache nachstellen): die
-## Schnauze liegt in Ruhelage längs +Z des Modells und hängt fest am Knochen „neck-neckTop“; seine Drehung gegen die Ruhelage gibt
+## Schnauze liegt in Ruhelage entlang +Z des Modells und hängt fest am Knochen „neck-neckTop“; seine Drehung gegen die Ruhelage gibt
 ## ihre Richtung jetzt. Am Schirm Winkel (0° waagerecht, + nach unten) und Länge von 15 cm, im Raum der Winkel zum Blick der
 ## Kamera (90° = Profil)
 func _report_snout() -> void:
@@ -987,7 +994,7 @@ func _report_tail() -> void:
 					if int(B[i * nb]) != bind or float(W[i * nb]) < 0.99:
 						continue
 					var r: Vector3 = rest * (bp * V[i])
-					if r.z > hip_rest.z - 0.02:     # nur hinter dem Becken (Schnauze längs +Z)
+					if r.z > hip_rest.z - 0.02:     # nur hinter dem Becken (Schnauze entlang +Z)
 						continue
 					var w: Vector3 = sk.global_transform * (pose * (bp * V[i]))
 					sel += 1

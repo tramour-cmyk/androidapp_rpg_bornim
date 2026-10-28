@@ -193,6 +193,37 @@ def build_handaxe(P, s=1.0, sz=None):
 # 348.12 Runde 7 (Prüfer r6: das Beil des Kappen-Goblins sehr klein, wirkt wie ein Stock): Schneide 1,5-mal höher (12 statt 8 cm)
 def build_handaxe_gob(P): build_handaxe(P, 1.8, 2.7)
 
+# 348.12 Grak (MonsterKits hobgoblin_captain: greataxe; Liste „Grak“ 4: Großaxt in beiden Händen): die rechte Hand fasst am
+# Ursprung unter dem Kopf, die linke 38 cm weiter hinten am Stielende (ual_lauer.py AXT_LINKS); Stiel 50 cm hinter, 92 cm vor der
+# rechten Hand, Lederwicklung an beiden Griffen; Kopf bei 80 cm: breites Blatt mit Bart nach +X (Schneide 33 cm hoch, gebogen),
+# Dorn nach −X, kurze Spitze oben; dunkles Eisen, blank geschliffene Schneide
+def build_greataxe(P):
+    tube(P, -50, 92, 1.5, 1.7, WOOD, n=8)
+    tube(P, -5, 5, 1.95, 1.95, LEATHER, n=8)
+    tube(P, -43, -33, 1.8, 1.8, LEATHER, n=8)
+    tube(P, -51, -48, 2.1, 2.1, DARK, n=8)
+    tube(P, 72, 88, 2.4, 2.4, DARK, n=8)
+    th0, th1 = 1.0, 0.18
+    # (x, z, halbe Dicke) um den Kopf bei z 80: Blatt oben weit hinauf, unten als Bart zum Stiel zurück
+    prof = [(0.0, 87.0, th0), (6.0, 91.0, 0.6), (15.0, 96.0, th1), (19.5, 87.0, th1), (20.5, 78.0, th1), (19.0, 69.0, th1),
+            (13.0, 63.0, th1), (8.0, 67.0, 0.5), (0.0, 73.0, th0)]
+    F = [Vector(((x + 2.4) * CM, -t * CM, z * CM)) for x, z, t in prof]; B = [Vector(((x + 2.4) * CM, t * CM, z * CM)) for x, z, t in prof]
+    face(P, F, STEEL); face(P, list(reversed(B)), STEEL)
+    for k in range(len(prof) - 1): face(P, [F[k + 1], F[k], B[k], B[k + 1]], EDGE if 1 < k < 6 else DARK)
+    face(P, [F[0], F[-1], B[-1], B[0]], DARK)
+    for side in (-1, 1):   # Schneide als blanker Streifen vor dem dunklen Blatt
+        e0 = [(x - 3.0, z + (80 - z) * 0.08, t) for x, z, t in prof[2:6]]
+        q = [Vector(((x + 2.4) * CM, side * (t + 0.03) * CM, z * CM)) for x, z, t in e0]
+        q += [Vector(((x + 2.4) * CM, side * (t + 0.03) * CM, z * CM)) for x, z, t in reversed(prof[2:6])]
+        face(P, q if side < 0 else list(reversed(q)), EDGE)
+    # Dorn nach hinten und Spitze oben
+    for a, b_, r in (((-2.4, 80), (-14.0, 78), 1.6), ((0.0, 88), (0.0, 100), 1.4)):
+        A = Vector((a[0] * CM, 0, a[1] * CM)); Bv = Vector((b_[0] * CM, 0, b_[1] * CM)); d = (Bv - A).normalized()
+        s1 = d.cross(Vector((0, 1, 0))).normalized() * r * CM; s2 = Vector((0, r * CM, 0))
+        base = [A + s1, A + s2, A - s1, A - s2]
+        for i_ in range(4): face(P, [base[i_], base[(i_ + 1) % 4], Bv], DARK)
+        face(P, list(reversed(base)), DARK)
+
 # 348.7 Kobold (MonsterKits kobold: „the spear it fights with“, Vorgangsarchiv 55d: etwa 0,9 m, wächst mit dem Träger): Schaft
 # 40 cm hinter, 62 cm vor der Hand, Tülle und blattförmige Spitze aus altem Eisen; figur.gd verkleinert Goblinwaffen auf 0,8
 def build_spear(P):
@@ -299,7 +330,7 @@ KINDS = {'dagger': build_dagger, 'shortsword': build_shortsword, 'longsword': bu
          # Goblins (MonsterKits rusty, crude): altes Eisen braun gefleckt, roher Schild aus grauen Brettern (Dress.kt)
          'scimitar-rost': build_scimitar, 'handaxe-rost': build_handaxe_gob, 'dagger-rost': build_dagger_gob, 'dagger-kobold': build_dagger_kobold,
          'round_shield-grob': build_crude_shield, 'shortbow': build_shortbow, 'staff-schamane': build_staff_shaman,
-         'spear-rost': build_spear}
+         'spear-rost': build_spear, 'greataxe-grak': build_greataxe}
 # Runde 3 (Prüfer Goblin Runde 2: Klingen schwarz, nicht als Metall lesbar): Rost heller, Schneide blank geschliffen
 # Runde 6 (Prüfer Goblin Runde 5: Klinge mit der Linie ganz schwarz, Rost kaum): Stahl heller, Schneide blanker, Rost als Flecken
 ROST = dict(STEEL=lin(0x847A70), EDGE=lin(0xA8A49A), DARK=lin(0x3A3028), BRASS=lin(0x4E463C), LEATHER=lin(0x2A1E16), IRON=lin(0x4A3A30),
