@@ -8,9 +8,9 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf (`LISTE-UMZUG-348.md` „Spielfassung“) | zu testen: Build 133 (t133): Erschaffung, Spielstände, Über, Leiste, Menü Held/Tasche, Erwachen im Wiederkehrort; danach Menü Ausrüstung, Karte, Chronik, System, Dinge benutzen | `claude/tom-399-spielfassung` |
+| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf (`LISTE-UMZUG-348.md` „Spielfassung“) | zu testen: Build 133 (t133); gebaut e31b2c067: Benutzen, Ausrüstung (Vorlage 3991), nächster Build; offen Karte, Chronik, System | `claude/tom-399-spielfassung` |
 | 399.3.1 | M | **von Team Jerry (16:5x):** Klang: Haken in `spiel.gd` (Jerry, `claude/jerry-348-klang`) übernehmen; Menü System: Regler wie SoundSettings über `Klang.stelle` | startbar | – |
-| 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | in Arbeit: 385.1 je Bewegung ein großer Film, Actions-Lauf 134 (add_repo gesperrt, Kaufteile über KAUF_TOKEN); Zweig claude/tom-348-385-film |
+| 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | in Arbeit: 385.1 je Bewegung ein Film, Lauf 134 (Actions, add_repo gesperrt); `claude/tom-348-385-film` |
 | 390 | M | **von Perikles:** zwischen Chef-Blättern Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | gebaut: Laden, Rast, Held, Tagesablauf, Gespräche, Englisch (64a6e5a80; Test 390a) | `claude/tom-390-englisch` |
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101 lädt) | `claude/tom-348-12i-verschluesseln` |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | ruht (Chef 12:34, 399) | `claude/tom-376-1-figuren` |
@@ -37,6 +37,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 ## Einzelheiten
 
 - **Von Perikles (378):** Stände prüfen, `ARBEIT-PROJEKT.md` Zu 378.
+- **Zu 399.1 an Jerry** (17:15, sein Vorrat voll): `Zustand.satt` (alt `wellFed`) fehlt dem Kampfort (+1, `Battle.fedBonus`).
 - **Zu 399.1** (Chef über Sokrates): 14:31 130.1–130.5 gehen, Wald nicht (131). 14:38 „Einfach mal das alte Spiel nehmen … so soll es im neuen halt auch schon … die Schriftart umzustellen und auch in den Dialogen … in ein vernünftiges Menü starten“; 14:39 „an die Designvorgaben halten“. Für 132: Hauptmenü wie alt (`App.kt` `MainMenuColumn`, Bild `assets/menu/hauptmenue.jpg`; Bildschirmfoto: graugrün, Titel bricht um, Probeknöpfe darüber, „Sprache“ zu breit, alles links), Alegreya überall, Gesprächsfenster wie `DialogBox`; vorher gegen `DESIGN-STIL.md` „Oberfläche“, `DESIGN-BLENDE.md` „Vorspann und Hauptmenü“ prüfen, im Testbogen nennen.
 
 - **Zu 376.1:** neben dem heutigen Helden: Bauer, Kopf „Regular“, Haar, Toon, Tusche, Menü und Kartenzoom; auch Zwerg, Elf, Halbling, Halbork; Film als Raster, je Feld eine UAL-Bewegung für Kapitel 1 (Stehen, Gehen, Rennen, Sitzen, Gesten, Hieb, Stich, Ausweichen, Treffer, Tod), Chef je Feld ja/nein; 13 Figuren am A56. UAL Pro (`Unreal-Godot/UAL1.glb`, 120 Bewegungen, Liste in Git): kein Stich, keine Schildabwehr, kein gehaltenes Ausholen (bleiben eigen).
