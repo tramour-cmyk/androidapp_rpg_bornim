@@ -10,7 +10,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 |---|---|---|---|---|
 | 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar (`LISTE-UMZUG-348.md` „Spielfassung“) | startbar: zuerst | `claude/jerry-348-kampf` |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | startbar: Tusche passt (Chef 12:31, Archiv): einbauen; Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
-| 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | startbar: r9 abgenommen (Chef 11:50, Archiv), keine Runde mehr; nur einbauen | `claude/jerry-348-kampf` |
+| 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: APK mit Kaufratte und -wolf, verschlüsselt; CI 40683164033 | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | wartet auf Chef: Zweihand Stehen (ansehen/34812-grak-zweihand); gebaut 1d6618d74: Gehen, Hieb, Treffer, Tod frei; Film blockiert (Probezähler, an Perikles) | `claude/jerry-348-kampf` |
 | 348.13a | M | **von Team Tom (Chef 08:09, Archiv: r9 ja):** Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13a) | gebaut (421662dbd): Toms Probe gemischt, Tusche nach Licht Vorgabe, Linie 1,3, Sonne −45,55; Aufhellen der Goblins verworfen (Abstand zum Weg 42→36); offen Säbel | `claude/jerry-348-kampf` |
 | 397 | M | **von Chef (28.10., 11:15):** Tiere, Monster: mind. drei Ruhebewegungen wie alt (`LISTE-UMZUG-348.md`) | ruht (399) | – |
