@@ -70,6 +70,9 @@ func _one(foe: String, hero: String, merc: String) -> Array:
 				if c < tight:
 					tight = c
 					wer = ", %s in %s%s" % [f.fighter.id, o.fighter.id, " (beide unterwegs)" if o.lunging() else ""]
+					# 399.2 Ursache (Tom 17:42: auch ohne Kaufwolf bis −0,92 m): in welcher Bewegung, wo, wessen Platz
+					wer += "; %s %s bei %s, Heim %s; %s %s bei %s, Heim %s" % [f.fighter.id, _bew(f), _xz(f.position), _xz(f.home),
+						o.fighter.id, _bew(o), _xz(o.position), _xz(o.home)]
 				if c < TIEF:
 					bad += 1
 		if k.mars.outcome != "ONGOING" and not k.busy and not k.playing and k.beats.is_empty():
@@ -87,3 +90,11 @@ func _one(foe: String, hero: String, merc: String) -> Array:
 	p.queue_free()
 	await process_frame
 	return [bad, tight if tight < INF else 99.0, wer, "%s, %s" % [out, kauf]]
+
+
+func _bew(f) -> String:
+	return String(f.anim.current_animation) if f.anim != null else "-"
+
+
+func _xz(p: Vector3) -> String:
+	return "(%.2f, %.2f)" % [p.x, p.z]
