@@ -10,7 +10,6 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 394 | M | **von Chef (28.10., 10:21, „lasst uns aber trotzdem Zusatzentwickler anders nennen, dann bin ich nicht so verwirrt. Hast du Namensvorschlag?“):** Namen für Zusatzentwickler | wartet auf Chef: entscheiden/394 |
 | 391 | M | **von Chef (28.10., 09:21):** Repos dauerhaft ohne Ablehnung | wartet auf Chef: tun/391 |
 | 383.2 | M | **von Chef (27.10., 19:24, „wo steckt jetzt hier wieder die Wahrheit? Und wer hat damit geprüft?“):** dieselbe Aufgabe frisch gegen groß messen; ja 19:30 („nimm den Vergleich dort mit auf“, Archiv) | frühestens 31.10. |
 | 383 | M | **von Chef (27.10., 17:44, „Sollen wir einfach aufhören damit?“; 17:47 Vorschlag „nicht griffig“):** Chef räumt nur hinter allen her | frühestens 31.10.: Größe gemessen 18:15, keine Größenregel (Zu 383); Bau Wartewächter bei Perikles; nachmessen mit 347 |
@@ -38,7 +37,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 142.3 | M | **von Chef (27.10., 19:32):** Tester öffentlich suchen | in Arbeit (Sokrates 20:0x), A und C (Archiv): bis 28.10. C Organisationskonto klären; A Forenregeln, Aufruf de/en, Abspann, Datenschutz; Aufruf nach 109; dann Tom |
 | 142 | M | Pflichttest Play Store (von Perikles); Store-Text „jede Entscheidung zählt“ prüfen (72a) | wartet auf 142.3: Tester; Chef meldet Gewerbeschein (tun/142); bis 15.11. (Zu 142, Stand) |
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (Gewerbeschein); 45a/45c, 72g–72j entschieden ([Artefakt](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj), vertraulich); offen: Preis endgültig mit 142 (ab Gewerbeschein), bis 30.11.; iOS-Schätzung Tom nach Kapitel 2 |
-| 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | wartet auf Chef: entscheiden/109 (Votum A) |
+| 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | ruht bis Gewerbeschein (Chef 28.10., 10:26; 142); dann Chefsache neu |
 
 - **Zu 383, Sitzungsgröße (gemessen 27.10., 18:15; 99 Sitzungen 26.10., 17:48 bis 27.10., 18:11, `get_session` usage; Helfer rechnete nach):** 96 mit Kosten, 787 $ in 24 h. Großes Modell je Million Ausgabetokens nach Kontext am Ende: 100–200k 103 $ (n 14), 200–300k 101 $ (n 61), 300–500k 92 $ (n 17); Kein Hinweis, dass große Sitzungen je Arbeit teurer sind; Beleg schwach (nur Endstand, kein Vergleich gleicher Aufgabe). Jeder Start mindestens etwa 125k Kontext, kleinste Sitzung 1,25 $. Treiber: Runden (44 %). Früher: 99h (Perikles 17.10., Ford), 185 (Messung 20.10.), 99h.6 (Teams, Zu 163.1 in Git 22.10.), D40.1. Wiederholen mit 347 und 383.2 am 31.10.
 - **Zu 376:** Chef 12:09–12:10: 20 $ „super gerne“, wenn Größe und Form anpassbar und Tusche darauf geht; „dann hätten die vielleicht auch mal einen richtigen Kopf“; nah sichtbar in Ausrüstung, Charaktererstellung, Kartenzoom; 12:12 „Universal Base Characters“ als Alternative zum Selbstbau.

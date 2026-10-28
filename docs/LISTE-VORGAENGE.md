@@ -29,7 +29,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 86 | Bewegung und Übersicht: Ausdauer, Rennen, Rast, Kartenzeichen | E Kampf | K | 0,72; 1,21 $; +1,81 $ | Jerry | wartet |
 | 99 | Zwei Niederlassungen | B Steuerung | K | 7,25 $ | Perikles | ruht |
 | 102 | Dokumente BornWire TCS nachziehen | B Abläufe | K |  | Ideen | Idee |
-| 109 | Repo öffentlich | M Veröffentlichung | M |  | Sokrates | Chef |
+| 109 | Repo öffentlich | M Veröffentlichung | M |  | Sokrates | ruht |
 | 111 | `DESIGN-BLENDE.md` kürzen (nach 24.6) | B Abläufe | K |  | Ideen | Idee |
 | 133 | Wahlen im Spiel: vier Charisma-Wahlen in Kapitel 2 (Chef 19.10. ja) | G Story | K | 1,12 $ | Tom, Jerry | nach Meilenstein |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | E Figuren | K | 1,06 $ | Tom | aufgeteilt |
@@ -110,9 +110,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 357 | Puppe beim Drehen nicht fein (Chef 24.10.) | E Figuren | K | – | Team Tom | ruht |
 | 344.2 | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | E Kampf | K | – | Team Jerry | offen |
 | 366 | bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Chef 25.10., 18:39) | M Markt | M | –; +25,65 $ | Sokrates | offen |
-| 386 | GitHub verlangt Zwei-Faktor-Anmeldung bis 11.12.2026 (Chef 27.10., 21:02) | B Werkzeuge | M | – | Perikles | wartet auf Chef |
+| 386 | GitHub verlangt Zwei-Faktor-Anmeldung bis 11.12.2026 (Chef 27.10., 21:02) | B Werkzeuge | M | – | Perikles | erledigt |
 | 391 | Zweit-Repo dauerhaft in den Sitzungen, ohne Ablehnung (Chef 28.10., 09:21) | B Werkzeuge | M | – | Sokrates | wartet auf Chef |
-| 394 | Eigene Namen für Zusatzentwickler statt „Tom 2“ (Chef 28.10., 10:21) | B Betrieb | M | – | Sokrates | wartet auf Chef |
+| 394 | Eigene Namen für Zusatzentwickler statt „Tom 2“ (Chef 28.10., 10:21) | B Betrieb | M | – | Perikles | startbar |
 | 393 | Zweiter Tom oder Jerry wegen der Fülle, z. B. für 385? (Chef 28.10., 10:09) | B Betrieb | M | – | Sokrates | erledigt |
 | 392 | Alt-Fassung: Schalter „Atmen aus“ schätzen, nicht bauen (Chef 28.10., 09:50) | A Technik | M | – | Team Tom | startbar |
 | 384 | Kosten: alle Sitzungen gebucht? Lücken und Buchungen ohne Kennung (Chef 27.10., 20:06) | B Werkzeuge | M | – | Perikles | gebaut |

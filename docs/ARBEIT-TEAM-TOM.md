@@ -11,7 +11,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film; 1 Sitzung, 2 Läufe, sonst Befund | startbar |
 | 392 | M | **von Sokrates (Chef 09:50):** Alt: „Atmen aus“ nur schätzen | startbar |
 | 390 | M | **von Perikles (28.10.):** zwischen Blättern beim Chef Funktionen ohne Bild bauen (`LISTE-UMZUG-348.md`): Englisch, Gespräche und Quests, Tagesablauf, Laden, Rast | startbar: Englisch, Gespräche, Tagesablauf gebaut (Test: 390a); offen Held, Laden, Rast | `claude/tom-390-englisch` |
-| 390a | M | Rückfrage: Tests ohne Bild von 389 ausnehmen? | wartet auf Chef: Chefsache 390a | – |
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101 lädt) | `claude/tom-348-12i-verschluesseln` |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | startbar: Zugang da (Chef 09:54); Halszacken, Formen, Editor | `claude/tom-376-1-figuren` |
 | 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | Chef: Dorftiere ansehen (3486-dorftiere); Befunde behoben c9c7363c0 | `claude/tom-348-fundament` |
