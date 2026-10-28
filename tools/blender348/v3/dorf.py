@@ -420,48 +420,16 @@ def turned(M, fn, *a):
     for P, k in ((DORF, n[0]), (GLAS, n[1])):
         for i in range(k, len(P.V)): P.V[i] = M @ P.V[i]
     for l in LIGHTS[n[2]:]: l['pos'] = list(M @ Vector(l['pos']))
-def dachhoehe_bvh():
-    """348.6 Häuser: Strahlbaum ueber das, was bisher in DORF steht (Dach des Bausatzhauses), fuer das Blech am Turmfuss"""
-    from mathutils.bvhtree import BVHTree
-    return BVHTree.FromPolygons(DORF.V, DORF.F)
-def turmblech(bvh, tcx, ym, hw, z_von):
-    # 348.6 Häuser (Helfer 23:5x: Turmfuss auf den Ziegeln gezackt): Blech rund um den Fuss, 18 cm breit. Lauf 1 (Helfer 01:3x: flache
-    # graue Flaeche ohne Linie wie ein Loch, Unterkante saegezahnig): je Seite eine Ebene durch die Ziegelhoehen (kleinste Quadrate),
-    # um die groesste Abweichung angehoben, damit keine Welle durchsticht; 6 cm stark mit Aussenkante (Tusche findet eine Kante),
-    # Schiefer dunkel wie die Turmhaube
-    breit, n = 18.0, 8
-    def hoch(x, y):
-        h = bvh.ray_cast(Vector((x, y, z_von)), Vector((0, 0, -1)))[0]
-        return h.z if h is not None else None
-    def lage(seite, u, d):
-        return [(tcx + u, ym - d), (tcx + d, ym + u), (tcx - u, ym + d), (tcx - d, ym - u)][seite]
-    farbe = lambda p, nn: sc(lin(0x585C62), 1.6 * (0.85 + 0.15 * vn(p.x / 30, p.y / 30, 91)))
-    with use('schiefer'):
-        for seite, (u0, u1) in [(sx, hb) for sx in range(4) for hb in (((-hw - breit, 0.0), (0.0, hw + breit)) if sx % 2 == 0 else ((-hw, 0.0), (0.0, hw)))]:   # je Haelfte (ueber den First knickt das Dach); Ecken nur einmal
-            A, z = [], []
-            for k in range(n + 1):
-                u = u0 + (u1 - u0) * k / n
-                for d in (hw + 1, hw + breit / 2, hw + breit):
-                    x, y = lage(seite, u, d); h = hoch(x, y)
-                    if h is not None: A.append((1.0, u, d)); z.append(h)
-            if len(z) < 6: continue
-            A, z = np.array(A), np.array(z)
-            c_, *_ = np.linalg.lstsq(A, z, rcond=None)
-            heb = max(0.0, float((z - A @ c_).max())) + 2.0
-            print('BLECH Seite %d %.0f..%.0f angehoben %.1f cm' % (seite, u0, u1, heb))
-            def eb(u, d, dz=0.0): x, y = lage(seite, u, d); return Vector((x, y, c_[0] + c_[1] * u + c_[2] * d + heb + dz))
-            add_face(DORF, [eb(u0, hw + 1, 6), eb(u0, hw + breit, 6), eb(u1, hw + breit, 6), eb(u1, hw + 1, 6)], farbe)
-            add_face(DORF, [eb(u0, hw + breit, 6), eb(u0, hw + breit, -heb - 8), eb(u1, hw + breit, -heb - 8), eb(u1, hw + breit, 6)], lambda p, nn: sc(farbe(p, nn), 0.7))
-def glockenturm(x1, ym, ridge, eave, blech=None):
+def glockenturm(x1, ym, ridge, eave):
     # Glockenturm wie MapTownIso.kt: quadratisch aus Feldstein, 1,125 Kacheln vom Ostende auf dem First,
     # oben Schallloecher, Gesims, spitze Haube aus Schiefer (Turm 1,6 m ueber dem First, Haube 0,9 m)
     tcx = x1 + 6 - 1.125 * TS; hw = 0.525 * TS; top = ridge + 160
-    if blech is not None: turmblech(blech, tcx, ym, hw, ridge + 100)
     with use('feldstein'):
         box(DORF, (tcx - hw, ym - hw, eave - 20), (tcx + hw, ym + hw, top), lambda p, n: sc(stone_tint(p, n), 1.05), sub=(2, 2, 6))
         box(DORF, (tcx - hw - 7, ym - hw - 7, top - 7), (tcx + hw + 7, ym + hw + 7, top + 3), lambda p, n: sc(W1, 0.7))
         # Kragen am Turmfuss: Stufe ueber dem First, damit die Tusche dort eine Kante findet (Helfer 25.10.: Linie fehlte)
-        box(DORF, (tcx - hw - 4, ym - hw - 4, ridge - hw), (tcx + hw + 4, ym + hw + 4, ridge + 14), lambda p, n: sc(stone_tint(p, n), 0.85))
+        # Lauf 3: reicht bis ins Dach (Schiefer 54 Grad: an der Seite 1,4 x so tief wie breit), sonst schwebt die Stufe
+        box(DORF, (tcx - hw - 4, ym - hw - 4, ridge - 1.45 * (hw + 4)), (tcx + hw + 4, ym + hw + 4, ridge + 14), lambda p, n: sc(stone_tint(p, n), 0.85))
     with use('weiss'):
         for (ax_, sgn) in ((0, -1), (0, 1), (1, -1), (1, 1)):
             lo, hi = [tcx - 0.24 * 2 * hw, ym - 0.24 * 2 * hw, top - 100], [tcx + 0.24 * 2 * hw, ym + 0.24 * 2 * hw, top - 38]
@@ -496,8 +464,10 @@ def markise(x0, x1, yf, dz=0.0, aus=0.7):
             for j in range(3):                                                        # Saum
                 xm = xa + (xb - xa) * j / 3; xn = xa + (xb - xa) * (j + 1) / 3; dl = 10 + 8 * h1(k * 3 + j, 4, 62)
                 add_face(DORF, [Vector((xm, yf - out, 177 + dz)), Vector((xm, yf - out, 177 + dz - dl)), Vector((xn, yf - out, 177 + dz - dl)), Vector((xn, yf - out, 177 + dz))], sc(col, 0.8))
+    # 348.6 Lauf 3 (Helfer 01:51: Stangenspitzen ragten in den Stoff): Stange 6 cm hinter dem Saum, endet am Tuch
+    zt = 177 + dz + 45 * 6 / out
     with use('holz'):
-        for xs in (a0 + 6, a1 - 6): box(DORF, (xs - 3, yf - out - 3, 0), (xs + 3, yf - out + 3, 175 + dz), lin(0x2E2218))   # 348.6: unter dem Saum (Helfer: Stange ragte in den Stoff)
+        for xs in (a0 + 6, a1 - 6): box(DORF, (xs - 3, yf - out + 3, 0), (xs + 3, yf - out + 9, zt - 2), lin(0x2E2218))
 def wirtsschild(sx, yf, dz=0.0):
     # Wirtshausschild wie MapTownIso.kt: Eisenarm aus der Front 1,15 Kacheln rechts der Tuer, Brett mit Krug darunter
     with use('weiss'):
@@ -834,6 +804,40 @@ def wand_plan(L, oeffnungen, tuer=None):
         elif g > 0.005: m_, b_ = m_ - g / 2, b_ + g              # am Wandanfang: dieses Teil wird breiter
         if k_: out.append((m_, b_, k_)); x = m_ + b_ / 2
     return out
+def schieferdach(M, yl):
+    """348.6 Lauf 3 (Helfer 01:51: Blech am Turmfuss schwarz wie ein Loch, unten gezackt): der Tempel traegt Schiefer wie im alten
+    Spiel (Story.kt: SLATE) als glattes Dach in der Form des Bausatzdachs (Roof_RoundTiles: Traufe +-2,757 m auf -0,1 m, Reihenkanten
+    54 Grad, First 3,7 m; gemessen), so schneidet der Turm eine gerade Linie. Masse in Metern des Bausatzes, M wie fuer das Teil"""
+    xe, k, th = 2.757, 1.365, 0.12
+    def z(x): return 3.70 - k * abs(x)
+    def W(x, y, dz=0.0): return M @ Vector((x * 100, y * 100, (z(x) + dz) * 100))
+    hang = math.hypot(1.0, k)
+    def tint(p, n): return mixc(W1, (0.75, 0.95, 0.55), 0.3 * ss(0.5, 0.75, vn(p.x / 70, p.y / 50 + p.z / 40, 22)))
+    nu, nv = 16, 6
+    with use('schiefer'):
+        su, sv = M.to_scale()[1], M.to_scale()[0]               # Laenge gestreckt (L / lang), quer s
+        for sg in (-1, 1):
+            nach_aussen = M.to_3x3() @ Vector((sg * k, 0, 1))
+            for i in range(nu):
+                for j in range(nv):
+                    y0, y1 = -yl + 2 * yl * i / nu, -yl + 2 * yl * (i + 1) / nu
+                    x0, x1 = sg * xe * (1 - j / nv), sg * xe * (1 - (j + 1) / nv)
+                    kq = [(x0, y0), (x0, y1), (x1, y1), (x1, y0)]
+                    q = [W(x, y) for x, y in kq]
+                    if (q[1] - q[0]).cross(q[-1] - q[0]).dot(nach_aussen) < 0: kq = kq[::-1]; q = q[::-1]
+                    uvs = [(y * 100 * su / 200, (xe - abs(x)) * hang * 100 * sv / 200) for x, y in kq]   # Reihen parallel zur Traufe
+                    add_face(DORF, q, tint, uvs)
+            # Traufkante und Unterseite (Dicke 12 cm)
+            for (ya, yb) in ((-yl + 2 * yl * i / nu, -yl + 2 * yl * (i + 1) / nu) for i in range(nu)):
+                e = [W(sg * xe, ya), W(sg * xe, yb), W(sg * xe, yb, -th), W(sg * xe, ya, -th)]
+                add_face(DORF, facing(e, M.to_3x3() @ Vector((sg, 0, 0))), lambda p, n: sc(tint(p, n), 0.55))
+            for y_, sy in ((-yl, -1), (yl, 1)):                 # Ortgang an den Giebeln
+                e = [W(sg * xe, y_), W(0, y_), W(0, y_, -th), W(sg * xe, y_, -th)]
+                add_face(DORF, facing(e, M.to_3x3() @ Vector((0, sy, 0))), lambda p, n: sc(tint(p, n), 0.5))
+            u = [W(sg * xe, -yl, -th), W(sg * xe, yl, -th), W(0, yl, -th), W(0, -yl, -th)]
+            add_face(DORF, facing(u, Vector((0, 0, -1))), lambda p, n: sc(tint(p, n), 0.35))
+        # Firstleiste
+        box(DORF, (-12, -yl * 100, 362), (12, yl * 100, 378), lambda p, n: sc(tint(p, n), 0.75), sub=(1, 8, 1), M=M)
 def kithaus(cells, style):
     roof, walls, li, feat = style; lk = LOOKS[li]
     temple = feat == 'BELL_TOWER'
@@ -899,7 +903,8 @@ def kithaus(cells, style):
             if knie > 0: kit_teil(ecke, at(L / 2 * sgn, 2 * e, 3.0, 0, 1, 1, knie / 3.0), tint, mat)
     lang = float(os.environ.get('KIT_DACH', '6' if L < 7.0 else '8'))   # KIT_DACH=6: immer das Dach 4x6 wie Gwenna, gestreckt
     basis = 'Roof_RoundTiles_4x%d' % lang
-    kit_teil(basis, at(0, 0, zd, 90, 1, L / lang), tint, mat)
+    if temple: schieferdach(at(0, 0, zd, 90, 1, L / lang), 4.84 if lang == 8 else 3.79)
+    else: kit_teil(basis, at(0, 0, zd, 90, 1, L / lang), tint, mat)
     first = (zd + 3.72) * 100 * s
     herd = [(i - 0.5) / (w - 2) for i in range(1, w - 1) if nord[i] == 'Z']
     if herd and not temple:                                     # Kamin ueber der Feuerstelle, hinten am Dach
@@ -907,15 +912,15 @@ def kithaus(cells, style):
         kz = zd + (3.72 - (3.72 + 0.52) * yc / 2.76) + 1.0 - 3.0
         kit_teil('Prop_Chimney2', at(u, yc, kz, 0), tint, mat)
         LIGHTS.append(dict(art='rauch', pos=[cx + u * 100 * s, cy + yc * 100 * s, (kz + 3.0) * 100 * s]))
-    if temple:
-        blech = dachhoehe_bvh()                                 # vor dem Turm: nur das Dach trifft
-        glockenturm(cx + L / 2 * 100 * s, cy, first, zd * 100 * s, blech)
+    if temple: glockenturm(cx + L / 2 * 100 * s, cy, first, zd * 100 * s)
     if feat == 'AWNING':                                        # Bausatzdach reicht 0,57 m vor bis 1,87 m: Tuch kuerzer statt tiefer (Helfer 23:09: auf Kopfhoehe)
         # 348.6 Häuser (Helfer 23:5x: die Markise verdeckt die Tuer oben, hoeher stoesst sie ans Dach): je ein Tuch links und rechts
         # der Tuer, die Tuer bleibt frei (Tuerteil 1,2 m breit; markise zieht 0,15 Kacheln Rand ab). Lauf 1 (Helfer 01:3x: Stange und Saum
         # standen in der Schraegsicht vor der Tuer): die Vorderkante liegt 0,5 Kacheln vor der Wand und wandert schraeg gesehen so weit
         # zur Seite; frei = halbe Tuer plus Auskragung
-        xt = cx + ud * 100 * s; frei = 0.6 * 100 * s + 0.5 * TS
+        # Lauf 3 (Helfer 01:51: von Westen stand eine Stange vor der linken Tuerkante): die Haeuser stehen 3 bis 8 Grad gedreht, die
+        # Ansicht von Suedwesten trifft die Front bis 53 Grad schraeg; frei = halbe Tuer plus 1,6 Auskragungen plus Stange
+        xt = cx + ud * 100 * s; frei = 0.6 * 100 * s + 1.6 * 0.5 * TS + 9
         if xt - frei - x0 > 0.6 * TS: markise(x0, xt - frei + 0.15 * TS, yf, 0, 0.5)
         if x1 - xt - frei > 0.6 * TS: markise(xt + frei - 0.15 * TS, x1, yf, 0, 0.5)
     if feat == 'INN_SIGN':                                      # Bausatzdach: Arm unter der Traufe; links der Tuer auf der glatten Wand
@@ -1511,19 +1516,23 @@ def dinge_mehr():
     for c, r in nb:
         if ch(c, r) != 'T' or h1(c, r, 501) > 0.25: continue
         if any(ch(c + i, r + j) == '~' for i in (-1, 0, 1) for j in (-1, 0, 1)): continue
-        p = tile_c(c, r); st = STAMM.get((c, r))
-        weg = (p - st) if st is not None else (mitte - p)
-        weg.z = 0
-        if weg.length < 8: weg = mitte - p; weg.z = 0
-        if weg.length < 1: continue
-        g = 0.12 + 0.05 * h1(c, r, 502)                          # 39 bis 55 cm breit
-        q = p + weg.normalized() * 34
+        # Lauf 3 (Helfer 01:51: in der Grundansicht meist hinter Stamm oder Krone): vor den Stamm zur Kamera der Grundansicht
+        # (Suedost), 20 bis 40 Grad seitlich, in der Kachel; die Krone liegt dann hinter dem Felsen
+        p = tile_c(c, r); st = STAMM.get((c, r)) or p
+        w = math.radians((1 if h1(c, r, 505) < 0.5 else -1) * (20 + 20 * h1(c, r, 506)))
+        kam = Vector((ZUR_KAMERA[0], -ZUR_KAMERA[1], 0)); kam.rotate(Matrix.Rotation(w, 3, 'Z'))
+        g = 0.13 + 0.05 * h1(c, r, 502)                          # 42 bis 58 cm breit
+        q = st + kam * 52
+        q.x = min(max(q.x, p.x - 46), p.x + 46); q.y = min(max(q.y, p.y - 46), p.y + 46); q.z = 0
         fremd_teil('Rock_Medium_%d' % (1 + int(h1(c, r, 503) * 3)), Matrix.Translation(q + Vector((0, 0, -4)))
                    @ Matrix.Rotation(h1(c, r, 504) * 6.283, 4, 'Z') @ Matrix.Scale(g, 4), farbe=stein)
     # Kisten neben jedem Fass, in der Ecke der Fasskachel zu zwei begehbaren Nachbarn (nicht an der Hauswand), jede zweite mit
     # einer zweiten obenauf. Lauf 1 (Helfer: Kiste an der Hausecke wie ein Teil des Hauses, mit dem Fass verschmolzen): heller als
     # Balken und Fass
-    kist = dict(balken=lambda p, n: sc(ratio(0x8A6E4A, 0x3E2E22), 1.0), putz=W1)
+    # Lauf 3 (Helfer 01:51: Kisten so dunkel wie Fass und Balken, die linke verschmolz mit dem Fass): helles Holz (Textur holz statt
+    # balken, wie frisch gesaegte Kiefer), Beschlaege dunkel wie bisher
+    kist = dict(holz=lambda p, n: (1.95, 1.75, 1.45), balken=lambda p, n: sc(ratio(0x8A6E4A, 0x3E2E22), 1.0), putz=W1)
+    kmat = dict(KIT_MAT, MI_WoodTrim='holz', MI_WoodTrim_Wear='holz')
     for c, r in nb:
         if ch(c, r) != 'b': continue
         ecken = [(i, j) for i in (-1, 1) for j in (-1, 1) if ch(c + i, r) in WALK and ch(c, r - j) in WALK]
@@ -1532,8 +1541,8 @@ def dinge_mehr():
         p = tile_c(c, r) + Vector((38 * i, 38 * j, 0))
         a = math.radians(-12 + 24 * h1(c, r, 511))
         M = Matrix.Translation(p) @ Matrix.Rotation(a, 4, 'Z') @ Matrix.Scale(0.34, 4)
-        kit_teil('Prop_Crate', M, kist)
-        if h1(c, r, 512) < 0.5: kit_teil('Prop_Crate', M @ Matrix.Translation((0.05 * 100, 0, 1.06 * 100)) @ Matrix.Rotation(0.3, 4, 'Z'), kist)
+        kit_teil('Prop_Crate', M, kist, kmat)
+        if h1(c, r, 512) < 0.5: kit_teil('Prop_Crate', M @ Matrix.Translation((0.05 * 100, 0, 1.06 * 100)) @ Matrix.Rotation(0.3, 4, 'Z'), kist, kmat)
 if os.environ.get('DINGE', '1') != '0' and os.environ.get('KARTE', 'village') == 'village': dinge_mehr()
 # Sonderlaternen (MapTownIso.BRIDGE_LANTERN, KAEL_LANTERN; Licht wie MapLight.kt:104-105)
 if os.environ.get('KARTE', 'village') == 'village':
