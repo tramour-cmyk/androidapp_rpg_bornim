@@ -37,6 +37,7 @@ PROBE = re.compile(r"\bPROBE=(" + NR + r")\b")
 GODOT_LAUF = re.compile(r"xvfb-run[^\n|;&]*godot[^\n|;&]*|\bgodot(?:\.\S+)?\s[^\n|;&]*--path[^\n|;&]*")
 SKRIPT = re.compile(r"tools/pruef348/(?!rechner\.sh)[\w.-]+\.sh|\b\w+_lauf\.sh")
 PUSH = re.compile(r"\bgit\s+(?:-C\s+(\S+)\s+)?push\b([^\n|;&]*)")
+COMMIT = re.compile(r"\bgit\s+(?:-C\s+\S+\s+)?commit\b[^\n]*?\s-[a-zA-Z]*m\s*(.+)", re.S)
 CI_ZWEIG = re.compile(r"claude/(?:tom|jerry)-348-[\w./-]+")
 CI_PFADE = ("godot/", "tools/blender348/", "core/src/main/", ".github/workflows/godot.yml")
 
@@ -119,11 +120,17 @@ def push_lauf(befehl, cwd):
     if not CI_ZWEIG.fullmatch(zweig):
         return None
     oben = git("rev-parse", "--verify", "-q", f"origin/{zweig}", cwd=wo).stdout.strip()
-    nachricht = git("log", "-1", "--format=%B", "HEAD", cwd=wo).stdout
+    # Commit im selben Befehl vor dem Push (PreToolUse sieht ihn noch nicht): Nachricht aus -m, Pfade aus dem Arbeitsbaum
+    neu = COMMIT.search(befehl[:m.start()])
+    nachricht = re.sub(r"^\s*[\"']?(?:\$\(cat\s*<<-?\s*['\"]?\w+['\"]?\s*)?", "", neu.group(1)) if neu else \
+        git("log", "-1", "--format=%B", "HEAD", cwd=wo).stdout
     if "[skip ci]" in nachricht or "[ci skip]" in nachricht:
         return None
     if oben:
         pfade = git("diff", "--name-only", f"{oben}..HEAD", cwd=wo).stdout.split()
+        if neu:
+            pfade += git("diff", "--name-only", "HEAD", cwd=wo).stdout.split()
+            pfade += git("ls-files", "--others", "--exclude-standard", cwd=wo).stdout.split()
         if not pfade or not any(p.startswith(CI_PFADE) for p in pfade):
             return None
     nr = re.match(r"\s*(?:\w+:\s*)?(" + NR + r")\b", nachricht)
