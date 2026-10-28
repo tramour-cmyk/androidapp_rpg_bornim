@@ -381,7 +381,13 @@ func kampf_im_wald(zurueck: Vector2i) -> void:
 	# 399.2a (Chef 14:19 „a“): Wolf mit 1–2 Jungwölfen wie im alten Spiel
 	klang("spiele_szene", ["BATTLE"])   # 399.3 (Jerry): Kampfmusik wie alt (300 ms)
 	klang("effekt", ["encounter"])   # 399.3 (Jerry): Game.kt Kampfbeginn
-	var gestartet: bool = aufruf.starte("RUDEL", hw, null, "wald", tageszeit(), zustand.anzahl("potion"))
+	# 399.2 (Jerry 3b9fb3116): Ausruestung als Beute nach einem Sieg wie Battle.finishWin (Loot.drops, einmal je Kampf, Gebietsstufe)
+	var beute := func() -> Array:
+		var w := KotlinZufall.new(randi())
+		var ilvl := int(Karte.lade("forest").daten.get("stufe", 1))
+		var st: Dictionary = Heldwerte.lade()["seltenheiten"]
+		return Beute.beute(hw, w, ilvl, false, false, zustand.neue_uid).map(func(g): return {"gear": g, "name": Beute.name(g), "rarity": Sprache.t(st[String(g["rarity"])]["name"])})
+	var gestartet: bool = aufruf.starte("RUDEL", hw, null, "wald", tageszeit(), zustand.anzahl("potion"), -1, -1, -1, beute)
 	zustand.satt = false   # 399.1: Battle.wellFed endet mit dem Kampfbeginn; den Bonus +1 kennt der Kampfort noch nicht (an Jerry)
 	if gestartet:
 		for we in umgebung: we.environment = null
@@ -424,6 +430,7 @@ func kampf_im_wald(zurueck: Vector2i) -> void:
 	if not lohn.is_empty():
 		zustand.gold += int(lohn.get("gold", 0))
 		for d in lohn.get("items", []): zustand.dazu(String(d))   # Beute (Felle, Zaehne)
+		for g in lohn.get("gear", []): zustand.ausruestung_dazu(g)   # 399.2 Ausruestung aus dem Kampflohn
 		hw.ep_dazu(int(lohn.get("xp", 0)))   # Hero.gainXp: Stufe hoeher heilt ganz
 	held.setze(zurueck, "DOWN")
 	kamera.springe()
