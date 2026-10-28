@@ -653,7 +653,7 @@ func system() -> void:
 	zeile("So einstellen, dass das Zeichen gerade noch zu sehen ist. Die Höhle bleibt dunkel." if de else "Adjust until the sign is barely visible. The cave stays dark.", 13, Stil.DIM)
 	luecke(8)
 	luecke(8)
-	zeile(("Siege: " if de else "Victories: ") + str(z.siege), 13, Stil.DIM)
+	zeile(("Schritte: %d · Siege: %d" if de else "Steps: %d · Victories: %d") % [z.schritte, z.siege], 13, Stil.DIM)
 
 # BrightnessSign: ein Ring mit Flammenstrich in 10 von 255 auf reinem Schwarz, so dunkel wie der Umriss einer Hoehle
 class Probezeichen extends Control:

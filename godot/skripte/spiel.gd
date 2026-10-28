@@ -216,6 +216,7 @@ func _steht_auf(t: Vector2i) -> void:
 
 # 390: der Held tritt auf eine Kachel (Trigger der Karte)
 func _betritt(t: Vector2i) -> void:
+	zustand.schritte += 1   # 399.1: GameState.steps, je betretene Kachel (System „Schritte“)
 	_steht_auf(t)
 	if not ui.spricht(): spiele(Geschichte.ausloeser(karte.id, t, zustand))
 
@@ -427,6 +428,7 @@ func kampf_im_wald(zurueck: Vector2i) -> void:
 		ui.sage([{"text": Sprache.t({"de": "Du erwachst an einem sicheren Ort … Der Heimweg hat Stunden gedauert.", "en": "You wake up somewhere safe… The way home took hours."})}])
 		return
 	hw.tp = clampi(tp_nach, 1, hw.max_tp())
+	if ende[0] == "WON": zustand.siege += 1   # 399.1: GameState.battlesWon (System „Siege“, Thessas Ware); zaehlte bisher nie
 	if not lohn.is_empty():
 		zustand.gold += int(lohn.get("gold", 0))
 		for d in lohn.get("items", []): zustand.dazu(String(d))   # Beute (Felle, Zaehne)
