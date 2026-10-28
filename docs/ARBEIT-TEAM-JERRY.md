@@ -8,8 +8,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | startbar: Test 132 (Chef 16:10, Archiv): Kampf gut; Wolf läuft durch Wolf beheben | `claude/jerry-348-kampf` |
-| 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | startbar: ja (Chef 15:32, Archiv): Jungwölfe 50 % je Runde; Knurrtext bei Homer | – |
+| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | in Arbeit: Wolf durch Wolf b90a32225 im Lauf (Umweg wie Heldin; umweg_399 vorher/nachher) | `claude/jerry-348-kampf` |
+| 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | in Arbeit: Jungwölfe 50 % b90a32225 im Lauf (mars_regeln); Knurrtext von Homer fehlt noch | – |
 | 399.3 | M | **von Chef (28.10., 16:42):** Klang in die Spielfassung (Umzug „Musik, Klang“) | startbar | – |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: Tusche passt (Chef 12:31); im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK, CI 158 grün | `claude/jerry-348-kampf` |
