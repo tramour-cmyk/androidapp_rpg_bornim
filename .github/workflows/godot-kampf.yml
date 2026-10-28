@@ -413,6 +413,7 @@ jobs:
           ls -l $P
       # 348.12 Grak (1d6618d74, im APK seit 399.2): Bewegungen mit Ortswechsel im Kampfort wie die Kauftiere (Chef 27.10., 18:01), mit dem
       # Spiel-Grak aus „Modelle bauen“ (verschlüsselt, derselbe Schlüssel): Anlauf, Stehen, Hieb, Treffer, Platzwechsel, Tod
+      # Dritter Lauf (Chef 28.10., 14:42, Archiv) zusammen mit 348.7b und Fledermaus in einem Lauf; Lauf 163 scheiterte am Grak-Bau (f5ed4ee0f)
       - name: 348.12 Probe Grak im Kampfort (nur bei Commits mit „348.12 Grak Film“)
         if: contains(github.event.head_commit.message, '348.12 Grak Film')
         run: |
@@ -425,7 +426,7 @@ jobs:
           ffmpeg -loglevel error -y -i $P/348.12-grak-film.mp4 -vf "fps=8/$d,scale=270:-2,tile=8x1" -frames:v 1 $P/348.12-grak-blatt.png || true
           ls -l $P
       # 348.7b r4 (Chef 28.10., 10:43 „b“): Zauberbahn mit dem längeren Seitenschritt, Aufstellung wie r3 (Magier als Söldner, Wölfe);
-      # Lauf 161 kam nicht bis hier (Modellbau, bd950c6b2)
+      # Lauf 161 kam nicht bis hier (Modellbau, bd950c6b2), Lauf 164 abgebrochen; dritter Lauf mit Grak und Fledermaus (Chef 28.10., 14:42)
       - name: 348.7b Probe Zauberbahn (nur bei Commits mit „348.7b Film“)
         if: contains(github.event.head_commit.message, '348.7b Film')
         run: |
@@ -437,7 +438,7 @@ jobs:
           ls -l $P
       # 348.7 Fledermaus r5 (Chef 28.10., 10:06 zu 4d „gleichmäßiger Tuscherand?“: 4d hatte die alte Tusche): Modell wie 4d, Tusche
       # nach Licht (348.13a), Bewegungen mit Ortswechsel wie die Kauftiere (Chef 27.10., 18:01); die Fledermaus fährt noch nicht im APK;
-      # Lauf 162 kam nicht bis hier (Modellbau, bd950c6b2)
+      # Lauf 162 kam nicht bis hier (Modellbau, bd950c6b2), Lauf 165 abgebrochen; dritter Lauf mit Grak und Zauberbahn (Chef 28.10., 14:42)
       - name: 348.7 Probe Fledermaus (nur bei Commits mit „348.7 Fledermaus Film“)
         if: contains(github.event.head_commit.message, '348.7 Fledermaus Film')
         run: |
