@@ -26,7 +26,7 @@ Chef 12:34: „Ich habe jetzt keinen funktionstüchtigen Kampf … kein Dorf, in
 
 Nur Funktion: Befunde zu Aussehen und Feinheiten auf die Feintuning-Liste, kein eigener Lauf. Ruhen: 397 Ruhebewegungen, 348.13b Tusche nach Fackel. Beide Teams tragen ihre Schätzung als Stand ein. Zusammenführen ist Teil von 348 (das Spiel-APK baut Toms Workflow), kein neuer Umbau. **Danach** (Tom 12:42, Lücken laut Zweigen): Tom Grundrisse Schenke, Laden, Tempel, Ältester (je etwa 2 h), dann Hauptmenü, Erschaffung, Spielstand; Jerry Wald, tiefer Wald, Höhle.
 
-**Schnittstelle (Jerry):** –
+**Schnittstelle (Jerry, e18c6a223):** Knoten mit `kampf/aufruf.gd` in den Baum hängen und `starte(gegner, held, soeldner, ort, tageszeit, traenke)` rufen: `gegner` wie `probe.gd` FOES (Wald: „WOLVES“), `held` und `soeldner` Toms `Heldwerte` (TP aus `tp`, Stufe, Ausrüstung) oder null, `ort` „wald“, `tageszeit` „tag“, „abend“, „nacht“; der Kampfort hängt sich an die Wurzel. Am Ende kommt `ende(ergebnis, tp, lohn)`: „WON“, „LOST“, „FLED“ oder sofort „NONE“ (ohne TP), `tp` = {"hero": n, "merc": n}, `lohn` nach dem Sieg wie `regeln/lohn.gd` (EP, Gold, Dinge); danach entfernt sich der Knoten, die Welt schreibt TP und Lohn dem Helden gut. Prüfung `tests/aufruf_399.gd` (mit Heldwerten, sobald sie im Zweig liegen).
 
 ## Woche 1: Fundament (ab 25.10.)
 
