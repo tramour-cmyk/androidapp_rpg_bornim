@@ -22,7 +22,7 @@ Nichts offen.
 |---|---|---|---|
 | [348.12](ansehen/34812-grak-film.md) | Grak bewegt sich im Kampfort, Runde 2 | – | 29.10., 00:05 |
 | [399.1](ansehen/3991-ausruestung.md) | Menü: Benutzen und Ausrüstung wie alt | Tom | 28.10., 17:15 |
-| [399.5](ansehen/3995-innenraeume.md) | Innenräume wie alt, erster Stand | Tom | 28.10., 23:55 |
+| [399.5](ansehen/3995-innenraeume.md) | Innenräume wie alt, zweiter Stand | Tom | 29.10. |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
