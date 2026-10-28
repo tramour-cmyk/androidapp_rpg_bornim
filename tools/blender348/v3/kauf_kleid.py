@@ -237,6 +237,7 @@ rr = np.clip((np.linalg.norm(VK2[:, :2] - np.array([0.0, hals_y]), axis=1) - 0.0
 fz = 1.0 + vorn * rr * (f - 1.0)
 neu_z = np.where(z > basis, basis + (z - basis) * fz, z)
 print('KRAGEN gestaucht', int((np.abs(neu_z - z) > 0.002).sum()), 'Ecken, Kinn %.3f, Halsansatz %.3f, oben %.3f, Faktor vorn %.2f' % (KINN_Z, basis, oben, f))
+VK2_VOR = VK2.copy()   # 376.1 Halszacken: Lage vor Stauchen und Hinausschieben, zum Messen gekippter Flaechen (unten)
 VK2[:, 2] = neu_z
 # ---------------------------------------------------------------- 6. was noch im fremden Koerper liegt, hinaus
 raus = 0
@@ -253,6 +254,13 @@ print('KLEIDUNG HINAUS', raus, 'von', len(VK2))
 kme = kleid.data
 KF = [tuple(p.vertices) for p in kme.polygons]
 kbvh = BVHTree.FromPolygons([Vector(v) for v in VK2], KF)
+# 376.1 Halszacken (Helfer: graue Zacken vorn am Hals, Vorderseiten): Flaechen am Hals, die Stauchen (5) und Hinausschieben (6)
+# umgedreht haben (Normale gegen vorher < 0), und solche, deren Ecken mehr als 1 cm auseinander geschoben wurden
+def _nrm(P, f): return np.cross(P[f[1]] - P[f[0]], P[f[2]] - P[f[0]])
+_hals = [f_ for f_ in KF if len(f_) >= 3 and all(np.linalg.norm(VK2_VOR[j, :2] - np.array([0.0, hals_y])) < 0.13 and VK2_VOR[j, 2] > basis for j in f_)]
+_kipp = sum(1 for f_ in _hals if np.dot(_nrm(VK2_VOR, f_), _nrm(VK2, f_)) < 0)
+_weit = sum(1 for f_ in _hals if max(np.linalg.norm(VK2[j] - VK2_VOR[j]) for j in f_) - min(np.linalg.norm(VK2[j] - VK2_VOR[j]) for j in f_) > 0.01)
+print('KRAGEN GEKIPPT %d von %d Flaechen am Hals, verzogen %d' % (_kipp, len(_hals), _weit))
 qn = np.array([v.normal for v in qkoerper.evaluated_get(dg).to_mesh().vertices]); qkoerper.evaluated_get(dg).to_mesh_clear()
 # Normalen in Weltlage (Armature-Modifikator dreht sie mit; to_mesh liefert sie schon verformt)
 verdeckt = np.zeros(len(QV), dtype=bool)
