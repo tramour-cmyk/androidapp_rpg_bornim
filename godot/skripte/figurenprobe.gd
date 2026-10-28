@@ -539,6 +539,16 @@ func koepfe() -> void:
 		var img := spiel.get_viewport().get_texture().get_image()
 		var sp: Vector2 = kam.unproject_position(kopf)
 		img.get_region(Rect2i(int(sp.x) - 400, int(sp.y) - 470, 800, 940)).save_png(aus + "/kopf_%s.png" % k)
+		# 376.1 Halszacken: dasselbe Bild mit Rueckseiten magenta (messen) und mit Rueckseiten im Schatten (Abhilfe), Hals als Ausschnitt
+		for rs in [1, 2]:
+			for x in mats[k]: (x as ShaderMaterial).set_shader_parameter("rueckseite", float(rs))
+			await RenderingServer.frame_post_draw
+			await RenderingServer.frame_post_draw
+			img = spiel.get_viewport().get_texture().get_image()
+			img.get_region(Rect2i(int(sp.x) - 400, int(sp.y) - 470, 800, 940)).save_png(aus + "/kopf_%s_r%d.png" % [k, rs])
+		for x in mats[k]: (x as ShaderMaterial).set_shader_parameter("rueckseite", 0.0)
+		var hals := kam.unproject_position(knochen_pos(k, "neck_01"))
+		protokoll.append("HALS kopf_%s %d %d" % [k, int(hals.x - sp.x + 400), int(hals.y - sp.y + 470)])
 		protokoll.append("BILD kopf_%s Kopf %s Neigung Bewegung %.1f Grad, gehoben %.1f" % [k, kopf, heber[k].vorher, heber[k].gehoben])
 	kam.neigung = -30.0
 	var sr := SPIELREIHE.filter(func(k): return k in figuren)
