@@ -2,6 +2,8 @@
 
 B Umzug · Tom und Jerry · 28.10., 13:56 · APK: [Lauf 130](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40688776644/artifacts/12817701661) (Kennung de.bornim.game.godot neben dem alten Spiel; Kaufmodelle verschlüsselt, im APK geprüft). Nur Funktion (399): Aussehen und Feinheiten auf die Feintuning-Liste.
 
+**Vor dem Installieren:** die alte Godot-Probe (Kennung de.bornim.game.godot, nicht das alte Spiel) deinstallieren; 130 trägt einen neuen Schlüssel, Android lehnt sonst ab. Einmalig: alle weiteren Builds der Spielfassung tragen denselben.
+
 Ein Weg: Hauptmenü, neuer Held; Start am Brunnen; Dorf, Schenke, Laden, Tempel, Ältester; über Jorin und den Schlagbaum nach Norden in den Wald; Kampf; zurück; App schließen und fortsetzen.
 
 | # | Team | Nr. | Wo und wie | Richtig | Falsch |
