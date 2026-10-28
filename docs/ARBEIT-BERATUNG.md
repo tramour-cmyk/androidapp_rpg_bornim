@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (28.10., 09:09, `session_01Hmoj79ZsETXpaLqBGFYboU`):** Stellungnahme in Chefsache 348.13b (dritter Lauf: ja, einmal, Einzelfall). Kosten auf: 348.13b. Nachfolger: Sokrates – 142.3 Tester-Aufruf
+**Übergabe (28.10., 10:08, `session_01Hmoj773t8Z2RLDMEAZaZin`):** Stellungnahme in Chefsache 390a (A, eng, Haken prüft selbst). Kosten auf: 390a. Nachfolger: Sokrates – 142.3 Tester-Aufruf
 
 ## Zeilen
 
