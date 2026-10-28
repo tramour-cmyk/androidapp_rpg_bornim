@@ -63,7 +63,8 @@ func _ready() -> void:
 		ebene.add_child(menue)
 		var w: Dictionary = await menue.fertig
 		ebene.queue_free()
-		var stand := Spielstand.lade() if w.get("laden", false) else {}
+		Spielstand.platz = maxi(1, int(w.get("platz", 1)))   # 399.1: vier Plaetze wie alt; gespeichert wird in diesen
+		var stand := Spielstand.lade(Spielstand.platz) if w.get("laden", false) else {}
 		if not stand.is_empty():
 			zustand = Zustand.aus_daten(stand["zustand"])
 			werte = Heldwerte.aus_daten(stand["held"])

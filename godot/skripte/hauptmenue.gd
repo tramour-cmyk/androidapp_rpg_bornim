@@ -1,12 +1,13 @@
 class_name Hauptmenue
 extends Control
 # 399 (Chef 28.10., 12:34: spielbar zuerst): Hauptmenue (292) und Erschaffung. Fortsetzen, wenn ein Spielstand liegt; Neues Spiel fuehrt
-# in die Erschaffung (erschaffung.gd). Ende: Signal fertig({"laden": true}) oder fertig({"name", "volk", "klasse", "werte"}).
+# in die Erschaffung (erschaffung.gd), „Spielstände“ zu den vier Plaetzen (spielstaende.gd). Ende: Signal fertig({"laden": true,
+# "platz"}) oder fertig({"name", "volk", "klasse", "werte", "platz"}).
 # 399.1 (Test 130, Chef 14:38: „Einfach mal das alte Spiel nehmen … so soll es im neuen halt auch schon“; 14:39 „an die
 # Designvorgaben halten“): Aussehen wie App.kt MainMenuColumn (292.3, Entwurf A): schwarz, Titel gross in gesperrten Versalien, Zier,
 # Kapitelzeile, das Bild der vier im warmen Lichtkegel (assets/menu/hauptmenue.jpg, im Bau kopiert), Hauptweg golden umrandet,
 # Knoepfe schwarz mit duennem Rand, Sprache als kleines rundes Zeichen, Firmenzeichen und Versionszeile unten; Masse in dp wie alt.
-# Liegt ueber allem (eigene Ebene), ohne die Probeknoepfe des Dorfs. Noch nicht wie alt: Spielstaende, Ueber, Musik und Klang.
+# Liegt ueber allem (eigene Ebene), ohne die Probeknoepfe des Dorfs. Noch nicht wie alt: Ueber, Musik und Klang.
 
 signal fertig(wahl: Dictionary)
 
@@ -153,16 +154,23 @@ func titel() -> void:
 	abstand(18)
 	bild(BILD, 330)
 	abstand(22)
-	var stand := Spielstand.lade()
+	var stand := Spielstand.lade()   # 399.1: der zuletzt gespeicherte der vier Plaetze
 	if not stand.is_empty():
 		var h: Dictionary = stand.get("held", {})
 		var ort := String(stand.get("ort", {}).get("karte", ""))
 		var alle = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json"))
 		if alle is Dictionary and alle["karten"].has(ort): ort = Sprache.t(alle["karten"][ort]["name"])
+		var p := int(stand["platz"])
 		hauptknopf("Weiter" if Sprache.aktiv() == "de" else "Continue", "%s · %s %d · %s" % [h.get("name", ""), Sprache.u("level"), int(h.get("stufe", 1)), ort],
-			func(): fertig.emit({"laden": true}))
+			func(): fertig.emit({"laden": true, "platz": p}))
 		abstand(12)
-	knopf(Sprache.u("newGame"), erschaffung)
+	# wie alt: „Neues Spiel“ und, wenn es einen Spielstand gibt, „Spielstände“ nebeneinander, 280 dp breit
+	var reihe := HBoxContainer.new()
+	reihe.custom_minimum_size.x = 280 * DP
+	reihe.add_theme_constant_override("separation", int(10 * DP))
+	reihe.add_child(Erschaffung.knopf(Sprache.u("newGame"), erschaffung))
+	if not stand.is_empty(): reihe.add_child(Erschaffung.knopf("Spielstände" if Sprache.aktiv() == "de" else "Saved games", spielstaende))
+	mittig(reihe)
 	abstand(18)
 	rundzeichen("DE" if Sprache.aktiv() == "de" else "EN", func(): Sprache.wechsle(); titel())
 	abstand(22)
@@ -172,9 +180,19 @@ func titel() -> void:
 	var vz := zeile(("v%s · " % v if v != "" else "") + "SRD 5.1 · CC BY 4.0", 12, Color(Stil.DIM, 0.75), 0.5)
 	vz.autowrap_mode = TextServer.AUTOWRAP_OFF
 
-# 399.1 Erschaffung wie alt (erschaffung.gd): eine Seite ueber dem Menue; Zurueck fuehrt ins Hauptmenue
-func erschaffung() -> void:
+# 399.1 Erschaffung wie alt (erschaffung.gd): eine Seite ueber dem Menue; Zurueck fuehrt ins Hauptmenue. ziel: Platz aus den
+# Spielstaenden, sonst der erste freie
+func erschaffung(ziel: int = 0) -> void:
 	var e := Erschaffung.new()
+	e.ziel = ziel
 	add_child(e)
 	e.zurueck.connect(func(): e.queue_free(); titel())
 	e.fertig.connect(func(w): fertig.emit(w))
+
+# 399.1 Spielstaende wie alt (spielstaende.gd)
+func spielstaende() -> void:
+	var s := Spielstaende.new()
+	add_child(s)
+	s.zurueck.connect(func(): s.queue_free(); titel())
+	s.laden.connect(func(p): fertig.emit({"laden": true, "platz": p}))
+	s.neu.connect(func(p): s.queue_free(); erschaffung(p))

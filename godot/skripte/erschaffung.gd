@@ -5,8 +5,8 @@ extends Control
 # dreht, daneben Name, Volk, Klasse, TP, RK, ZP und die sechs Werte; darunter rollend Name, Volk mit Beschreibung, Bonus und Merkmal,
 # Klasse mit Beschreibung, Trefferwuerfel, Hauptattribut, Ruestung und den Faehigkeiten der Stufe 1, dann der Punktekauf mit
 # Vorschlag; unten fest Zurueck und Abenteuer beginnen. Masse in dp/sp wie alt (Theme.kt Txt, VeilHead, Panel, PixelButton).
-# Noch nicht wie alt: Aussehen (Geschlecht, Statur, Haut, Haar), bis der Held Varianten hat; Wahl des Spielstands.
-# Ende: Signal fertig({"name", "volk", "klasse", "werte"}) oder zurueck.
+# Noch nicht wie alt: Aussehen (Geschlecht, Statur, Haut, Haar), bis der Held Varianten hat.
+# Ende: Signal fertig({"name", "volk", "klasse", "werte", "platz"}) oder zurueck.
 
 signal fertig(wahl: Dictionary)
 signal zurueck
@@ -19,6 +19,7 @@ const HELD := "res://daten/held.bin"
 var name_ := ""
 var volk := "HUMAN"
 var klasse := "FIGHTER"
+var ziel := 0                         # Platz aus den Spielstaenden („Neues Spiel“ bei einem leeren), sonst der erste freie
 var gekauft := {}                     # Punktekauf vor dem Volksbonus (Hero.suggestedScores, dann + und −)
 var rolle: ScrollContainer
 var inhalt: VBoxContainer
@@ -71,8 +72,7 @@ func _ready() -> void:
 	var z := knopf(Sprache.u("back"), func(): zurueck.emit())
 	z.size_flags_stretch_ratio = 1.0
 	unten.add_child(z)
-	var los := knopf(Sprache.u("start"), func(): fertig.emit({"name": name_.strip_edges() if name_.strip_edges() != "" else Sprache.u("defaultName"),
-		"volk": volk, "klasse": klasse, "werte": gekauft.duplicate()}))
+	var los := knopf(Sprache.u("start"), beginne)
 	los.size_flags_stretch_ratio = 2.0
 	unten.add_child(los)
 	baue()
@@ -127,6 +127,45 @@ func baue() -> void:
 	# die Rolle bleibt, wo sie war (sonst springt sie bei jeder Wahl nach oben)
 	await get_tree().process_frame
 	rolle.scroll_vertical = y
+
+# Abenteuer beginnen: in den gewaehlten oder den ersten freien Platz; sind alle belegt, waehlt der Spieler, wen der Neue ersetzt (alt)
+func beginne(p: int = 0) -> void:
+	if p == 0: p = ziel if ziel > 0 else Spielstand.frei()
+	if p == 0:
+		platzwahl()
+		return
+	fertig.emit({"name": name_.strip_edges() if name_.strip_edges() != "" else Sprache.u("defaultName"),
+		"volk": volk, "klasse": klasse, "werte": gekauft.duplicate(), "platz": p})
+
+# SlotChooser: alle Plaetze belegt; der gewaehlte Spielstand geht verloren
+func platzwahl() -> void:
+	var de := Sprache.aktiv() == "de"
+	var schleier := ColorRect.new()
+	schleier.color = Color(0, 0, 0, 0.82)
+	schleier.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	schleier.gui_input.connect(func(e): if e is InputEventMouseButton and e.pressed: schleier.queue_free())
+	add_child(schleier)
+	var rand := MarginContainer.new()
+	rand.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	for s in ["left", "right", "top", "bottom"]: rand.add_theme_constant_override("margin_" + s, int(16 * DP))
+	rand.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	schleier.add_child(rand)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", int(8 * DP))
+	var k := kasten(v)
+	k.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	rand.add_child(k)
+	v.add_child(txt("Alle Spielstand-Plätze sind belegt" if de else "All save slots are taken", 19))
+	v.add_child(txt("Welchen Helden soll der neue ersetzen? Der gewählte Spielstand geht dabei verloren." if de
+		else "Which hero should the new one replace? That saved game will be lost.", 14, Stil.WARN))
+	for d in Spielstand.liste():
+		if d.is_empty(): continue
+		var n := int(d["platz"])
+		var karte := Spielstaende.karte(d)   # antippen waehlt
+		karte.mouse_filter = Control.MOUSE_FILTER_STOP
+		karte.gui_input.connect(func(e): if e is InputEventMouseButton and e.pressed: schleier.queue_free(); beginne(n))
+		v.add_child(karte)
+	v.add_child(knopf("Abbrechen" if de else "Cancel", func(): schleier.queue_free()))
 
 func held() -> Heldwerte:
 	return Heldwerte.erschaffe(name_ if name_.strip_edges() != "" else "?", volk, klasse, gekauft)
@@ -285,27 +324,27 @@ func vorschau() -> Control:
 
 # ---------------------------------------------------------------- Bausteine wie Theme.kt im schwarzen Look
 
-func kurz(a: String) -> String: return Sprache.t(Heldwerte.lade()["attribute"][a]["kurz"])
+static func kurz(a: String) -> String: return Sprache.t(Heldwerte.lade()["attribute"][a]["kurz"])
 static func vorzeichen(n: int) -> String: return "+%d" % n if n >= 0 else str(n)
 
 # Txt auf Schwarz: Alegreya, 0,95 der Groesse, nie kleiner als 13,7 sp, leicht gesperrt
-func txt(t: String, groesse_sp: float, farbe := Stil.TEXT) -> Label:
+static func txt(t: String, groesse_sp: float, farbe := Stil.TEXT) -> Label:
 	var l := Stil.zeile(t, maxf(groesse_sp, 13.7) * 0.95, farbe, 0.2)
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	return l
 
 # VeilHead: klein, gesperrte Versalien in Gold
-func kopfzeile(t: String) -> Label:
+static func kopfzeile(t: String) -> Label:
 	return Stil.zeile(t.to_upper(), 12, Stil.GOLD, 3.0)
 
-func luecke(hoch_dp: float, breit_dp := 0.0) -> Control:
+static func luecke(hoch_dp: float, breit_dp := 0.0) -> Control:
 	var c := Control.new()
 	c.custom_minimum_size = Vector2(breit_dp, hoch_dp) * DP
 	return c
 
 # Panel auf Schwarz: Rand 1 dp Veil.line, innen 14 dp seitlich, 10 dp oben und unten
-func kasten(innen: Control) -> PanelContainer:
+static func kasten(innen: Control) -> PanelContainer:
 	var p := PanelContainer.new()
 	var s := Stil.kasten(Color.BLACK, Stil.LINE, 1.0)
 	s.content_margin_left = 14 * DP; s.content_margin_right = 14 * DP
@@ -316,7 +355,7 @@ func kasten(innen: Control) -> PanelContainer:
 	return p
 
 # PixelButton auf Schwarz: 48 dp, Versalien 13 sp gesperrt 1,2 sp; gewaehlt Veil.raised mit 1,5 dp Veil.bright; gesperrt blass
-func knopf(t: String, was: Callable, gewaehlt := false) -> Button:
+static func knopf(t: String, was: Callable, gewaehlt := false) -> Button:
 	var b := Button.new()
 	b.text = t.to_upper()
 	b.custom_minimum_size = Vector2(0, 48 * DP)
