@@ -575,10 +575,12 @@ func _ort() -> void:
 	lb.add_theme_constant_override("outline_size", int(vs.x / 90.0))
 	cl.add_child(lb)
 	var titel := OS.get_environment("SCHAU_TITEL")
-	var rat = fig_of("wolf1")
+	# 348.12 Grak (Chef 27.10., 18:01 „mit Ortswechsel“ gilt für jedes Modell): ORT_ID=grak spielt diesen Gegner statt wolf1
+	var oid := OS.get_environment("ORT_ID") if OS.get_environment("ORT_ID") != "" else "wolf1"
+	var rat = fig_of(oid)
 	var held = fig_of("hero")
 	for id in fight.figures:     # die übrigen Gegner sehen zu (Gegner 1 steht sonst hinter ihnen)
-		if fight.figures[id].fighter.monster != null and id != "wolf1":
+		if fight.figures[id].fighter.monster != null and id != oid:
 			fight.figures[id].aim = held
 	var h0: Vector3 = rat.home
 	var mess := OS.get_environment("SCHAU_MESS") != ""
@@ -637,6 +639,21 @@ func _ort() -> void:
 		rat._play("Fressen", 0.2)
 		await warte.call(minf(rat.anim.get_animation("Fressen").length, 4.0) if rat.anim and rat.anim.has_animation("Fressen") else 1.0)
 		rat._idle()
+		await _ort_rest(rat, held, h0, zeig, warte)
+		return
+	if rat.anim and not rat.anim.has_animation("Biss") and rat.anim.has_animation("Hieb"):     # 348.12 Grak: Zweibeiner ohne Sprung und Ausweichen
+		zeig.call("Stehen")
+		await warte.call(2.0)
+		zeig.call("Hieb")
+		rat.announce(null, held)
+		await warte.call(0.4)
+		var mh: int = rat.strike(held, {"spell": null})
+		held.hurt(int(mh * 0.42), false)
+		await warte.call(rat.busy_ms / 1000.0 + 0.6)
+		zeig.call("Treffer")
+		mh = held.strike(rat, {"spell": null})
+		rat.hurt(int(mh * 0.42), false)
+		await warte.call(held.busy_ms / 1000.0 + 0.6)
 		await _ort_rest(rat, held, h0, zeig, warte)
 		return
 	zeig.call("Biss")
