@@ -4,7 +4,7 @@
 
 **Morgenblatt.** Das ist der Stand nach den zwei erlaubten Probeläufen (389). Ein Lauf zeigt den Kobold, der zweite sollte Grak zeigen. Der Kobold auf dem CC0-Gerüst ist noch nicht fertig. Ich lege ihn vor, weil die Grenze erreicht ist, nicht weil er gut ist.
 
-**Bitte nur ansehen.** Antworte „ja“, wenn ich die Befunde unten beheben soll, oder sag, was anders sein soll.
+**Bitte nur ansehen.** Antworte „Kobold ja“, wenn ich die Befunde unten beheben soll, oder sag, was anders sein soll.
 
 [Film](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/pruefung/348.12-kobold-cc0-film.mp4), 5 s: links wie bisher, rechts CC0; Stehen, Gehen, Hieb.
 
