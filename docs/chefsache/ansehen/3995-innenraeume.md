@@ -21,4 +21,6 @@ Seit dem ersten Stand nach den Befunden des Prüfers geändert:
 
 Vierter und fünfter Stand: Im Raum lief die blaue Nachtstimmung von draußen mit; jetzt bleibt die Stimmung im Raum wie im alten Spiel gleich, und die Nacht ist auf das alte Maß eingestellt (gemessen neu 55–65 % des Tags, alt 44–64 %). Dazu nach dem Prüfer: Teppich rot mit Borte, gedreht verschwinden Kamin und Altar mit ihrer Wand, Fass, Kisten, Truhe und Bett stehen frei von der Wand, Waage kräftiger, Lehnen heller, Kerzenlicht reicht bis auf den Boden. Tempel bei Tag noch etwas dunkler als alt (42 zu 51).
 
+Befund des Prüfers zum fünften Stand (nach dem Versand, offen): gedreht weiße Fenster am hellsten; rosa Lichtkeil scharf auf dem Teppich (Schenke, Ältester); nachts runde, hart umrandete Lichtscheibe an der linken Wand (Schenke), Tempelfenster nachts hell cremefarben, große Flächen sehr dunkel mit hellen Kanten; Teppich ohne Muster; Waage von vorn wie eine Stange; Fass in der Ladentheke, graues Ding in der Vorderwand (Ältester); gedreht bleibt der Kaminboden mit grauer Scheibe; keine Lichtinseln am Boden um die Tischkerzen; Bänke nachts fast schwarz.
+
 **Was du sagen sollst:** nichts nötig; ich baue weiter, dann neue Bilder, dann der Build mit 376.1.
