@@ -144,9 +144,12 @@ class Fighter:
 	var has_hit := false
 	## 296.2: came running in the fight (Grak's call): worth nothing at the end, as in the old fight that had none
 	var called_in := false
+	## 399.2a: the leader this one follows (a young wolf its wolf, Packs.kt); it flees when the leader falls
+	var follows := ""
+	var fled := false
 
 	func standing() -> bool:
-		return hp > 0
+		return hp > 0 and not fled
 
 	func ac() -> int:
 		var slow := 2 if status.has("SLOW") else 0
@@ -258,7 +261,8 @@ func _init(party: Array, foes: Array, tables: Dictionary, p_dice, p_words, p_lan
 	all = party + foes
 	var kinds := {}
 	for f in foes:
-		var k = f.monster.id if f.monster != null else null
+		# 399.2a: nach Art und Name, damit Wolf und Jungwölfe (beide „wolf“) je für sich zählen; sonst gleich wie nach Art
+		var k = (str(f.monster.id) + "|" + str(f.monster.de)) if f.monster != null else null
 		if not kinds.has(k):
 			kinds[k] = []
 		kinds[k].append(f)
@@ -1473,6 +1477,7 @@ func _hurt(t: Fighter, full: int, by: String, text: String, roll = null, wound :
 	if t.side == "FOES":
 		intents.erase(t.id)
 		_say(fmt(wolf(t, "MSG279_WOLFFALLS", "MSG72_FALLS"), lang, [t.name(lang)]), null, t.id, 0, null, false, false, "FOE_FALLS")
+		_pack_flees(t)
 	elif t == all[0]:
 		_say(fmt(pick("MSG72_HEROFALLS"), lang, [t.name(lang)]), null, t.id, 0, null, false, false, "HERO_FALLS")
 		outcome = "LOST"
@@ -1482,6 +1487,16 @@ func _hurt(t: Fighter, full: int, by: String, text: String, roll = null, wound :
 		_say(fmt(pick("MSG72_KNOCKEDOUT"), lang, [t.name(lang)]), null, t.id, 0, null, false, false, "KNOCKED_OUT")
 	if not all.any(func(x): return x.side == "FOES" and x.standing()):
 		outcome = "WON"
+
+
+## 399.2a: when [leader] falls, those who follow it run (Packs.kt flee: one line for all, as in the old fight)
+func _pack_flees(leader: Fighter) -> void:
+	var first := true
+	for f in all.filter(func(x): return x.side == "FOES" and x.standing() and x.follows == leader.id):
+		f.fled = true
+		intents.erase(f.id)
+		_say(str(f.monster.flee[lang]) if first and f.monster.has("flee") else "", null, f.id, 0, null, false, false, "FOE_FLEES")
+		first = false
 
 
 ## One message with the state right after it, for the screen (SkirmishEvent).

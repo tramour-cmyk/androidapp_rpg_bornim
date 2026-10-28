@@ -150,10 +150,13 @@ jobs:
           cp $RUNNER_TEMP/kw/kaufwolf-info.json $D/
           # 399.2 Grak, soweit fertig (348.12 Gestalt mit Gehen, Hieb, Treffer, Tod, 1d6618d74): Quaternius-Teile (CC0, cc0_laden.sh von
           # Toms Zweig), Tod aus der gekauften UAL Pro (Death02), darum auch verschlüsselt; ohne Kaufdateien Death01
+          # Lauf 160–162: e457d6d8b fehlte im flachen Checkout (fatal: invalid object name); erst holen wie im Schritt 348.12
+          git fetch -q --depth 1 origin e457d6d8b9ea1ec8a5d7ebc2a7a87be08d6ad73d || git fetch -q origin claude/tom-376-1-figuren
           git show e457d6d8b:tools/blender348/v3/cc0_laden.sh > $RUNNER_TEMP/cc0_laden.sh
           bash $RUNNER_TEMP/cc0_laden.sh $RUNNER_TEMP/cc0 > cc0.log 2>&1 || { tail -5 cc0.log; exit 1; }
           PRO=$(find $RUNNER_TEMP/kaufroh -path '*Unreal-Godot/UAL1.glb' | head -1)
-          OUT=$RUNNER_TEMP/grak CC0=$RUNNER_TEMP/cc0 WAFFEN=$OUT UAL=$PRO TOD_QUELLE=$([ -n "$PRO" ] && echo Death02 || echo Death01) \
+          # Lauf 163: WAFFEN=$OUT las schon das neue OUT (bash setzt Vorab-Zuweisungen der Reihe nach), die Axt liegt in out/
+          OUT=$RUNNER_TEMP/grak CC0=$RUNNER_TEMP/cc0 WAFFEN=$RUNNER_TEMP/out UAL=$PRO TOD_QUELLE=$([ -n "$PRO" ] && echo Death02 || echo Death01) \
             timeout 1500 bl/bin/python -I tools/blender348/grak_gestalt.py > grak.log 2>&1 || (tail -40 grak.log; exit 1)
           grep -E "^(ZWEIHAND|BEWEGUNG|TOD)" grak.log | cut -c1-200 || true
           cp $RUNNER_TEMP/grak/grak-gestalt.glb $D/hobgoblin_captain-hauptmann.bin
@@ -421,8 +424,35 @@ jobs:
           d=$(ffmpeg -i $P/348.12-grak-film.mp4 2>&1 | grep -oE 'Duration: [0-9:.]+' | awk -F'[: ]' '{print $3*3600+$4*60+$5}')
           ffmpeg -loglevel error -y -i $P/348.12-grak-film.mp4 -vf "fps=8/$d,scale=270:-2,tile=8x1" -frames:v 1 $P/348.12-grak-blatt.png || true
           ls -l $P
+      # 348.7b r4 (Chef 28.10., 10:43 „b“): Zauberbahn mit dem längeren Seitenschritt, Aufstellung wie r3 (Magier als Söldner, Wölfe);
+      # Lauf 161 kam nicht bis hier (Modellbau, bd950c6b2)
+      - name: 348.7b Probe Zauberbahn (nur bei Commits mit „348.7b Film“)
+        if: contains(github.event.head_commit.message, '348.7b Film')
+        run: |
+          P=$GITHUB_WORKSPACE/grakprobe; mkdir -p $P
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
+          (cd godot && GEGNER=WOLVES SOELDNER=WIZARD SCHRITT_DEBUG=1 ZAUBER=FIRE_BOLT,MISSILES,FIREBALL,BURNING_HANDS timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/zb.avi --fixed-fps 30 -- --bild=$P/zb.png > $P/zauberbahn.log 2>&1) || true
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/zb.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $P/348.7b-zauberbahn-r4.mp4 || true
+          grep -E "SCRIPT ERROR|^ +at: |^Seitenschritt" $P/zauberbahn.log | head -20 || true
+          ls -l $P
+      # 348.7 Fledermaus r5 (Chef 28.10., 10:06 zu 4d „gleichmäßiger Tuscherand?“: 4d hatte die alte Tusche): Modell wie 4d, Tusche
+      # nach Licht (348.13a), Bewegungen mit Ortswechsel wie die Kauftiere (Chef 27.10., 18:01); die Fledermaus fährt noch nicht im APK;
+      # Lauf 162 kam nicht bis hier (Modellbau, bd950c6b2)
+      - name: 348.7 Probe Fledermaus (nur bei Commits mit „348.7 Fledermaus Film“)
+        if: contains(github.event.head_commit.message, '348.7 Fledermaus Film')
+        run: |
+          P=$GITHUB_WORKSPACE/grakprobe; mkdir -p $P; D=godot/kampf/daten
+          OUT=$RUNNER_TEMP/fm timeout 900 bl/bin/python -I tools/blender348/fledermaus.py > $P/fledermaus-bau.log 2>&1 || (tail -40 $P/fledermaus-bau.log; exit 1)
+          for f in braun schwarz grau; do cp $RUNNER_TEMP/fm/giant_bat-$f.glb $D/giant_bat-$f.bin; done
+          cp $RUNNER_TEMP/fm/giant_bat-info.json $D/
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
+          (cd godot && GEGNER=BATS OHNEUI=1 SCHAU=ort SCHAU_TITEL=Fledermaus timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/fm.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/fledermaus-ort.log 2>&1) || true
+          ffmpeg -loglevel error -y -ss 1.25 -i $RUNNER_TEMP/fm.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $P/348.7-fledermaus-r5.mp4 || true
+          (cd godot && GEGNER=BATS OHNEUI=1 timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 -- --bild=$P/348.7-fledermaus-r5.png > $P/fledermaus-bild.log 2>&1) || true
+          grep -E "SCRIPT ERROR|^ +at: |^Ort " $P/fledermaus-ort.log | head -20 || true
+          ls -l $P
       - uses: actions/upload-artifact@v4
-        if: contains(github.event.head_commit.message, '348.12 Grak Film')
+        if: contains(github.event.head_commit.message, '348.12 Grak Film') || contains(github.event.head_commit.message, '348.7b Film') || contains(github.event.head_commit.message, '348.7 Fledermaus Film')
         with:
           name: grakprobe
           path: grakprobe

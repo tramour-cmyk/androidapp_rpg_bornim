@@ -39,12 +39,14 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 		"SHAMANS": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["gob2", Mars.CALLED, Vector2i(0, 1)], ["gob3", Mars.CALLED, Vector2i(1, 0)]],
 		# 348.7: drei Kobolde im Aussehen (goblin.py ART=kobold), Regeln noch die des Goblins (Kobold in MARS fehlt)
 		"KOBOLDS": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["gob2", Mars.CALLED, Vector2i(0, 1)], ["gob3", Mars.CALLED, Vector2i(1, 0)]],
-	}[foe]
+	}.get(foe, [])
 	Figur.ersatz_art = {"RATS": "giant_rat", "BATS": "giant_bat", "SHAMANS": Figur.SHAMAN, "KOBOLDS": Figur.KOBOLD}.get(foe, "")
 	# 348.12f eingebaut (Chef 28.10., 11:50: Kaufwolf abgenommen, Archiv 27.10., 21:51: „eigener entfällt“): Wölfe sind der gekaufte
 	# Wolf, sobald er gebaut beiliegt (godot-kampf.yml „Modelle bauen“); ERSATZ geht weiter vor
-	if foe in ["WOLVES", "GRIMM", "SPIDER"] and FileAccess.file_exists("res://kampf/daten/kaufwolf-info.json"):
+	if foe in ["WOLVES", "GRIMM", "SPIDER", "RUDEL"] and FileAccess.file_exists("res://kampf/daten/kaufwolf-info.json"):
 		Figur.ersatz_art = "kaufwolf"
+	if foe == "RUDEL":
+		return rudel(monsters, dice)
 	for e in lineup:
 		var m: Dictionary = monsters[e[1]]
 		if e[0] == Figur.GRIMM:     # Name aus den Regeln (Monsters.kt dire_wolf)
@@ -68,6 +70,32 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 			m.de = "Goblin-Schamane"
 			m.en = "Goblin Shaman"
 		foes.append(Mars.monster_fighter(e[0], e[2], m, dice.roll_expr(m.hp)))
+	return foes
+
+
+## 399.2a (Chef 28.10., 14:19, Archiv: „Wolf mit 1 bis 2 Jungwölfen“, der Held allein): der Waldkampf wie im alten Spiel
+## (Packs.kt cubs): vorn der Wolf, dazu 1–2 Jungwölfe, halb so groß (scale 0,55), Biss 1W3, Angriff −1; neu, weil MARS
+## Trefferpunkte braucht: halb so viele wie ein Wolf; sie folgen dem Wolf und fliehen, wenn er fällt (mars.gd follows);
+## Erfahrung wie alt über lohn.gd (Leitwolf, je Jungwolf 0,3 dazu)
+const JUNGWOLF := {"de": "Jungwolf", "en": "Young wolf", "scale": 0.55, "atk_shift": -1, "dmg": [1, 3, 0], "hp_share": 0.5,
+	"flee": ["Mit eingezogenem Schwanz fliehen die Jungwölfe ins Unterholz!", "Tails tucked, the young wolves flee into the undergrowth!"]}
+
+static func rudel(monsters: Dictionary, dice) -> Array:
+	var wolf: Dictionary = monsters[Mars.WOLF]
+	var foes := [Mars.monster_fighter("wolf1", Vector2i(0, 0), wolf, dice.roll_expr(wolf.hp))]
+	var jung: Dictionary = wolf.duplicate(true)
+	jung.de = JUNGWOLF.de
+	jung.en = JUNGWOLF.en
+	jung.scale = JUNGWOLF.scale
+	jung.atk = int(wolf.atk) + int(JUNGWOLF.atk_shift)
+	jung.dmg = JUNGWOLF.dmg
+	jung.xp = 0     # lohn.gd zählt sie als Rudel des Wolfs (xpShare), nicht einzeln
+	jung.flee = JUNGWOLF.flee
+	var n: int = dice.roll_expr([1, 2, 0])
+	for i in n:
+		var f = Mars.monster_fighter("cub%d" % (i + 1), [Vector2i(0, 1), Vector2i(1, 0)][i], jung, maxi(1, int(dice.roll_expr(wolf.hp) * float(JUNGWOLF.hp_share))))
+		f.follows = "wolf1"
+		foes.append(f)
 	return foes
 
 

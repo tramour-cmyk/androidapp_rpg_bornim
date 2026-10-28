@@ -32,6 +32,11 @@ func _init() -> void:
 	_rewards()
 	# 249: the halt as a blow lands (HitWeight.kt)
 	_weights()
+	# 348.7b (Chef 28.10., 10:43: „brennende Hände gehen ja auf eine Reihe … da dürften ja auch theoretisch dann mehr getroffen sein“)
+	_row_spell("BURNING_HANDS")
+	_row_spell("FIREBALL")
+	# 399.2a (Chef 14:19 „Wolf mit 1 bis 2 Jungwölfen“): fällt der Wolf, fliehen die Jungwölfe, der Kampf ist gewonnen
+	_pack_flees()
 	print("MARS Regeln: %d abweichend" % failed)
 	quit(1 if failed > 0 else 0)
 
@@ -279,3 +284,102 @@ func _weights() -> void:
 	_check_s("Wucht: ohne LP-Höchstwert nie hart", Wucht.of(false, 5, 0), "NORMAL")
 	_check_s("Wucht: Ruck nur kritisch und tödlich", "%s %s %s" % [Wucht.jolt_dp("HARD"), Wucht.jolt_dp("CRIT"), Wucht.jolt_dp("KILL")], "0.0 4.0 7.0")
 	_check_s("Wucht: Ruck hin und zurück", "%.2f %.2f %.2f" % [Wucht.jolt(0.0), Wucht.jolt(0.5), Wucht.jolt(1.0)], "0.00 1.00 0.00")
+
+
+## 348.7b: a row spell rolls a save for every standing foe in the target's row and none in the other row (Skirmish.kt:726).
+func _row_spell(spell: String) -> void:
+	var sheet: Dictionary = tables.probe.WIZARD.hero.hero.duplicate(true)
+	if not spell in sheet.skills:
+		sheet.skills.append(spell)
+	sheet.level = maxi(int(sheet.level), 5)
+	var skills := {}
+	for s in tables.skills:
+		skills[s.id] = s
+	var wolf: Dictionary
+	for m in tables.monsters:
+		if m.id == "wolf":
+			wolf = m
+	var hero := Mars.hero_fighter("hero", "PARTY", Vector2i(Mars.FRONT, 0), sheet, 999, sheet.second, skills)
+	var foes := [Mars.monster_fighter("w1", Vector2i(Mars.FRONT, 0), wolf, 999), Mars.monster_fighter("w2", Vector2i(Mars.FRONT, 1), wolf, 999),
+		Mars.monster_fighter("w3", Vector2i(Mars.BACK, 0), wolf, 999)]
+	var mars = Mars.new([hero], foes, tables, Wuerfel.new(7), Wuerfel.new(7))
+	var heard := []
+	mars.listener = func(e): heard.append(e)
+	mars.start()
+	assert(mars.current() == hero)
+	var why = mars.blocked(hero, spell)
+	if why != null:
+		failed += 1
+		print("FEHLER %s gesperrt: %s" % [spell, why])
+		return
+	# die Wölfe ziehen vor dem Helden und tauschen dabei Plätze: Ziel ist ein Wolf, dessen Reihe zwei Stehende hat
+	var t = null
+	var want := []
+	for w in foes:
+		var row := foes.filter(func(x): return x.standing() and x.place.x == w.place.x).map(func(x): return x.id)
+		if row.size() >= 2:
+			t = w
+			want = row
+			break
+	if t == null:
+		failed += 1
+		print("FEHLER %s: keine Reihe mit zwei stehenden Wölfen" % spell)
+		return
+	want.sort()
+	heard.clear()
+	mars.act(["use", spell, t.id])
+	var hit := {}
+	for e in heard:
+		if e.actor == "hero" and e.roll != null and e.roll[0] == "SAVE":
+			hit[e.target] = true
+		elif e.actor != "hero" and not hit.is_empty():
+			break
+	var keys := hit.keys()
+	keys.sort()
+	var got := ",".join(PackedStringArray(keys))
+	var soll := ",".join(PackedStringArray(want))
+	if got != soll:
+		failed += 1
+		print("FEHLER %s auf %s: Rettungswürfe %s statt %s (ganze Reihe, die andere nicht)" % [spell, t.id, got, soll])
+	else:
+		print("gleich %s auf %s: Rettungswürfe %s (ganze Reihe, die andere nicht)" % [spell, t.id, got])
+
+
+## 399.2a: the wolf with its young (aufruf.gd rudel): they follow it, flee when it falls, the fight is won; the reward counts
+## them as its pack (lohn.gd, xpShare 0,3 each), as in the old fight
+func _pack_flees() -> void:
+	var monsters := {}
+	for m in tables.monsters:
+		monsters[m.id] = m
+	var Aufruf = load("res://kampf/aufruf.gd")
+	var foes: Array = Aufruf.rudel(monsters, Wuerfel.new(3))
+	var cubs := foes.filter(func(f): return f.follows == "wolf1")
+	if foes[0].id != "wolf1" or cubs.size() < 1 or cubs.size() > 2 or cubs.any(func(c): return int(c.monster.atk) != int(foes[0].monster.atk) - 1):
+		failed += 1
+		print("FEHLER Rudel: Aufstellung %s" % [foes.map(func(f): return [f.id, f.follows, f.monster.atk, f.max_hp])])
+		return
+	var sheet: Dictionary = tables.probe.FIGHTER.hero.hero.duplicate(true)
+	var skills := {}
+	for s in tables.skills:
+		skills[s.id] = s
+	var hero := Mars.hero_fighter("hero", "PARTY", Vector2i(Mars.FRONT, 0), sheet, 999, sheet.second, skills)
+	var mars = Mars.new([hero], foes, tables, Wuerfel.new(7), Wuerfel.new(7))
+	var heard := []
+	mars.listener = func(e): heard.append(e)
+	mars.start()
+	var wolf = mars.find("wolf1")
+	# die Wölfe tauschen Plätze (Einkreisen), der Wolf steht oft hinten: der Fall direkt, wie ein tödlicher Treffer
+	mars._hurt(wolf, wolf.hp, "hero", "Probe: Wolf fällt")
+	var names := foes.map(func(f): return f.name(0))
+	var flohen := heard.filter(func(e): return e.cue == "FOE_FLEES").size()
+	var ok: bool = not wolf.standing() and cubs.all(func(c): return c.fled and c.hp > 0) and flohen == cubs.size() and mars.outcome == "WON"
+	if ok:
+		var r: Dictionary = Lohn.reward(mars, 0, Wuerfel.new(1))
+		var soll := int(int(wolf.monster.xp) * (1.0 + 0.3 * cubs.size()))
+		ok = int(r.xp) == soll
+		ok = ok and names[0] == "Wolf" and (names[1] == "Jungwolf" if cubs.size() == 1 else names[1] == "Jungwolf 1")
+		print(("gleich" if ok else "FEHLER") + " Rudel: Wolf fällt, %d Jungwölfe fliehen, gewonnen, Erfahrung %d (soll %d), Namen %s" % [cubs.size(), int(r.xp), soll, names])
+	else:
+		print("FEHLER Rudel: Wolf steht %s, geflohen %s, Meldungen %d, Ausgang %s" % [wolf.standing(), cubs.map(func(c): return c.fled), flohen, mars.outcome])
+	if not ok:
+		failed += 1
