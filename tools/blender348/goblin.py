@@ -136,6 +136,17 @@ def treiber():
             # Runde 3 (Chef 20:29 „cc0 Gehen nachbessern“): der Gang (ual_lauer.py Goblin_Pirsch_Loop) trägt den Oberkörper der Lauer;
             # die Leute-Werte des Gehens (Rumpf halb aufgerichtet, Arme zur Ruhe) zögen ihn wieder auseinander; Hieb (Goblin_Hieb)
             # wie das Stehen
+            if KOB:
+                # Runde 2b (Prüfer Probe 1: beim Hieb zieht das Fell mit dem Arm): gemessen nahm das Lendentuch 6–7 % Unterarm (die Hand
+                # hängt in der Ruhelage an der Hüfte) und verzog sich im Hieb um 19–22 cm; Lendentuch, Wams, Gürtel ohne Armgewichte
+                a_ = "    M /= np.maximum(M.sum(1, keepdims=True), 1e-9)\n"
+                assert g.count(a_) == 1, 'geruest.py: Glätten geändert'
+                g = g.replace(a_, a_ + "    if 'teil' in me.attributes and os.path.exists(OUT + '/teile.json'):\n"
+                              "        tn_ = json.load(open(OUT + '/teile.json')); tl_ = np.zeros(len(me.vertices), np.int32); me.attributes['teil'].data.foreach_get('value', tl_)\n"
+                              "        lo_ = np.isin(tl_, [tn_.index(x) for x in ('loin', 'tabard', 'belt') if x in tn_])\n"
+                              "        am_ = np.array([n.startswith(('upperarm', 'lowerarm', 'hand')) for n in NG])\n"
+                              "        M[np.ix_(lo_, am_)] = 0.0; M[lo_ & (M.sum(1) < 1e-6), gi['pelvis']] = 1.0\n"
+                              "        M /= np.maximum(M.sum(1, keepdims=True), 1e-9); print('KOBOLD LENDENTUCH ohne Arm', int(lo_.sum()))\n")
             a_ = "GEHEN = dict(eng_arm=0.45, vor=0.5, schulter=0.3)"
             assert g.count(a_) == 1, 'geruest.py: GEHEN nicht gefunden'
             g = g.replace(a_, "GEHEN = dict(eng_arm=0, vor=1.0, schulter=0.3)")
@@ -260,16 +271,22 @@ def treiber():
         assert src.count(a9) == 1, 'rig.py: fest geändert'
         if ART == 'goblin_shaman':   # Runde 3: der bemalte Kopf (2400 Dreiecke, Zähne) bleibt ganz, siehe Abschnitt 4
             src = src.replace(a9, "    if o.name.startswith(('eye', 'head')): o.vertex_groups.new(name='fest')")
+        a8 = "    elif n == 'handR': RIGID[n] = 'foR-wrR'\n"
+        if GERUEST == 'cc0':   # 348.12: Toms rig.py (e457d6d8b) hängt Hand und Handgelenk zusammen an HANDR
+            a8 = "    elif n in ('handR', 'wristR'): RIGID[n] = 'HANDR' if GERUEST == 'cc0' else 'foR-wrR'"
+        assert src.count(a8) == 1, 'rig.py: Hände geändert'
         if KOB:
             src = src.replace(a9, "    if o.name.startswith(('eye', 'head_zahn', 'head_horn', 'head_maul', 'head_kamm', 'head_kragen')): o.vertex_groups.new(name='fest')")
+            # Kobold: der Schwanz hängt starr am Becken (pelvis-hipR hängt an der Wurzel, nicht am Rumpf, der sich vorbeugt)
+            # Runde 2b (Prüfer Probe 1: Schwanz im Spiel waagerecht): seit b252a3de2 stand diese Zeile unter „if GRAK“, der Schwanz
+            # des Kobolds nahm die nächsten Glieder (Oberschenkel); wieder beim Kobold
+            src = src.replace(a8, "    elif n.startswith('schwanz'): RIGID[n] = 'pelvis-hipR'\n" + a8)
         if GRAK:
             src = src.replace(a9, "    if o.name.startswith(('eye', 'head_zahn', 'schulter')): o.vertex_groups.new(name='fest')")
-            # Kobold: der Schwanz hängt starr am Becken (pelvis-hipR hängt an der Wurzel, nicht am Rumpf, der sich vorbeugt)
-            a8 = "    elif n == 'handR': RIGID[n] = 'foR-wrR'\n"
-            if GERUEST == 'cc0':   # 348.12: Toms rig.py (e457d6d8b) hängt Hand und Handgelenk zusammen an HANDR
-                a8 = "    elif n in ('handR', 'wristR'): RIGID[n] = 'HANDR' if GERUEST == 'cc0' else 'foR-wrR'"
-            assert src.count(a8) == 1, 'rig.py: Hände geändert'
-            src = src.replace(a8, "    elif n.startswith('schwanz'): RIGID[n] = 'pelvis-hipR'\n" + a8)
+            # Runde 2b (Prüfer Probe 1: beim Aufschlag das linke Schulterstück als Halbmond vor der Brust): gemessen nahm jede Ecke
+            # die nächsten Glieder (Oberarm 45 %, Rumpf 36 %, Schlüsselbein 19 %), im Hieb verbog sich das Stück um bis zu 10 cm;
+            # jetzt starr am Oberarm (wie ein festgeschnallter Schulterschutz)
+            src = src.replace(a8, "    elif n.startswith('schulter'): RIGID[n] = 'upR-elR' if np.mean([(o.matrix_world @ v.co).x for v in o.data.vertices]) < 0 else 'upL-elL'\n" + a8)
         if ART in ('goblin_archer', 'goblin_shaman', 'kobold'):
             # Späher Runde 3b, Schamane Runde 2b (Prüfer: an der freien Hand ragt ein schwarz gestreifter Kamm ins Leere, an der
             # Stabhand Striche über den Stab, an der Hüfte ein losgelöster Fleck): in der Ruhelage hängen die Unterarme neben der
@@ -500,6 +517,13 @@ def nach():
         if nm in bpy.data.materials:
             for n in bpy.data.materials[nm].node_tree.nodes:
                 if n.type == 'RGB': n.outputs[0].default_value = lin(rgb)
+    # Runde 2b (Prüfer Probe 1: Füße sandbeige trotz schwarzer Stiefel): gemessen im Atlas (194 Flächen unter 22 cm) #72583E statt
+    # schwarz; held3.finish legt Schlamm #7A6448 bis 20–75 cm über Stiefel, Stulpen und Hose. Bei Grak der Schlamm dunkel
+    for nm in (('boots', 'cuff', 'pants') if GRAK else ()):
+        if nm in bpy.data.materials:
+            for n in bpy.data.materials[nm].node_tree.nodes:
+                if n.type == 'MIX' and not n.inputs['B'].links and abs(n.inputs['B'].default_value[0] - lin(0x7A6448)[0]) < 1e-3:
+                    n.inputs['B'].default_value = lin(0x2C2620)
 
     def world_apply(objs, fn):
         """fn(Nx3 Weltpunkte) -> Nx3; auf die Ecken der Objekte anwenden (wie held3.deform)."""
@@ -1085,7 +1109,9 @@ def nach():
             # ausgeschnitten, hinten tief; ein abgesetzter Rand in dunklerem Leder
             # Runde 3d (Prüfer 3c: zotteliger Klumpen wie eine Perücke; die Schale nahm die Schuppenbuckel und die Platten des
             # Kamms mit): Kante zum flacheren Schädel tiefer, stärker geglättet, Leder heller als das Horn (beide 0x2C2218)
-            kalotte('helm_kappe', 0.035, 0.19, 0.5, mat('kkappe', 0x3A2C20, grain=0.1, blot=0.4), 0.03, glatt=20)   # Runde 1d (Prüfer 1c: hellster Fleck im Bild)
+            # 348.12 Runde 2b (Prüfer Probe 1: Kappe unsichtbar): gemessen lagen 43 % der Ecken der Kappe nach dem Glätten und dem
+            # Abbau im Kopf oder auf ihm (im Mittel 0,5 cm außen); doppelt so weit vom Schädel
+            kalotte('helm_kappe', 0.07, 0.19, 0.5, mat('kkappe', 0x3A2C20, grain=0.1, blot=0.4), 0.03, glatt=20)   # Runde 1d (Prüfer 1c: hellster Fleck im Bild)
             # Runde 3e (Prüfer 3d: quer liegende Rolle über dem Auge wie ein Verband): ohne abgesetzten Rand
         else:
             kalotte('helm_kappe', 0.035, 0.05, 0.35, M['kappe'], 0.03)

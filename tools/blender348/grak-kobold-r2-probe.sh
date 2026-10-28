@@ -23,14 +23,18 @@ export OHNEUI=1 SCHAU_LISTE=Stehen,Gehen,Hieb
 export GEGNER=GRAK
 bild grak-ort
 for h in Stehen= Gehen=Gehen:0.25 Aus=Hieb:0.33 Ab=Hieb:0.50 Auf=Hieb:0.62; do NUR=grak HALTUNG=${h#*=} bild st-grak-${h%%=*}; done
-film grak grak
+NAH=grak NUR=grak bild nah-grak
+# Runde 2b (Prüfer Probe 1: Film Hieb Bild 1 Axt kopfüber; in Blender kippt die Axt in keinem Bild): je Bild Griff und Achse der Axt
+SCHAU_MESS=1 film grak grak
 # ---- Kobolde
 export GEGNER=KOBOLDS
 bild kobold-ort
 for h in Stehen= Gehen=Gehen:0.25 Aus=Hieb:0.22 Auf=Hieb:0.43; do for g in 1 2 3; do NUR=gob$g HALTUNG=${h#*=} bild st-cc0-${h%%=*}-$g; done; done
+for g in 1 2 3; do NAH=gob$g NUR=gob$g bild nah-kob$g; done   # Runde 2b: Strich durch Kopf und Hals, Kappe (Prüfer Probe 1)
 film kobold kobold
 grep -E "Schirm|Zweihand|SCRIPT ERROR|^ +at: res" $P/grak-ort.log | head -20
 for h in Stehen Aus Ab Auf; do grep -E "Zweihand" $P/st-grak-$h.log | head -1 | sed "s/^/$h: /"; done
+grep -E "^Mess Hieb" $P/grak-film.log | grep -oE "^Mess Hieb +[0-9]+|Achse \([^)]*\)" | paste - - | head -40
 grep -E "Schirm|SCRIPT ERROR|^ +at: " $P/kobold-ort.log | head -12
 python3 - "$P" <<'EOF'
 import sys, re
