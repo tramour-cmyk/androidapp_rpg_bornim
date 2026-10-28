@@ -34,10 +34,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 24, Muss 14, startbar 4
+**Tom** – offen 25, Muss 15, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf (LISTE-UMZUG | startbar |
 | 385 | M | von Sokrates („jetzt“ 28.10., 10:00, Archiv): Zauberer-Set auf Kaufkörper, Film | ruht |
 | 398 | M | von Perikles: 398-Zeilen schätzen (LISTE-UMZUG-348.md) | startbar |
 | 390 | M | von Perikles: zwischen Chef-Blättern Funktionen ohne Bild (LISTE-UMZUG-348.md) | wartet auf Test/Build (gebaut) |
@@ -46,9 +47,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | startbar |
 | 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | wartet auf 348.6 (startbar) |
 | 372 | M | von Perikles (338a B, Chef 27.10., 09:36, Archiv): Feinschliff Held: Kettenhemd, Helm, Kra | ruht |
-| 397 | M | von Chef (28.10., 11:15): Held, Leute: mind. drei Ruhebewegungen wie alt (LISTE-UMZUG-348. | startbar |
+| 397 | M | von Chef (28.10., 11:15): Held, Leute: mind. drei Ruhebewegungen wie alt (LISTE-UMZUG-348. | ruht |
 | 348.13 | M | von Sokrates (Chef 26.10., Archiv): Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Sc | wartet auf Jerry |
-| 348.13b | M | von Sokrates (Chef 08:09, Archiv): Tusche nach Fackel, Feuer, Fenster; Dorf zuerst, Kosten | startbar |
+| 348.13b | M | von Sokrates (Chef 08:09, Archiv): Tusche nach Fackel, Feuer, Fenster; Dorf zuerst, Kosten | ruht |
 | 267 | M | von Chef (20.10., 21:46, B48, Tablet): „Das Game laggt ziemlich auf dem Tablet...“ | ruht |
 | 302.3 | M | von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3): Intro und Outro mit Tusche, etwas | ruht |
 | 302.2 | K | von Chef über Sokrates (22.10., 23:50): Tusche auf der Gebietskarte | ruht |
@@ -63,20 +64,21 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 31, Muss 20, startbar 8
+**Jerry** – offen 32, Muss 21, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 399.2 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv): Kampfort aufrufbar (LISTE-UMZUG-348.md „Spie | startbar |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | startbar |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | startbar |
 | 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | startbar |
 | 348.13a | M | von Team Tom (Chef 08:09, Archiv: r9 ja): Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13 | wartet auf Test/Build (gebaut) |
-| 397 | M | von Chef (28.10., 11:15): Tiere, Monster: mind. drei Ruhebewegungen wie alt (LISTE-UMZUG-3 | startbar |
+| 397 | M | von Chef (28.10., 11:15): Tiere, Monster: mind. drei Ruhebewegungen wie alt (LISTE-UMZUG-3 | ruht |
 | 348.12c | M | von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv): Wiedergänger, Grabhund, Riesenegel, Säur | ruht |
 | 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 348.7b | M | Zauberbahn nach Chef „D“ | startbar |
 | 398 | M | von Perikles: 398-Zeilen schätzen (LISTE-UMZUG-348.md) | startbar |
-| 390 | M | von Perikles: zwischen Chef-Blättern Funktionen ohne Bild (LISTE-UMZUG-348.md) | startbar |
+| 390 | M | von Perikles: Funktionen ohne Bild (LISTE-UMZUG-348.md) | startbar |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, Test B46): App „hängt“, ging dann weiter (Zu 257) | ruht |
 | 211.14 | M | von Sokrates (20.10.): Rest 211.13: Leistung am A56 messen (M), Rest Kür | ruht |
@@ -99,11 +101,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 14, Muss 12, startbar 1
+**Perikles** – offen 14, Muss 12, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 399 | M | von Chef über Sokrates („jetzt“ 28.10., 12:34, Archiv): Vorrang neu: erst eine Godot-Fassu | startbar |
+| 399 | M | von Chef über Sokrates („jetzt“ 28.10., 12:34, Archiv): Vorrang neu: erst eine Godot-Fassu | wartet auf Tom |
 | 398 | M | von Sokrates (Chef 28.10., 11:22): Termine je Block nachrechnen mit der Schätzung der 15 Z | wartet auf Tom |
 | 384 | M | von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“): Kosten aller Si | wartet auf Test/Build (gebaut) |
 | 383.3 | M | von Sokrates (Chef 19:55): Vorlage zurück beim Team sofort aus der Chefsache | wartet auf Test/Build (gebaut) |
