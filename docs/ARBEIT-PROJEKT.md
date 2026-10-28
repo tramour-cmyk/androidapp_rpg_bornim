@@ -3,13 +3,12 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 28.10., 08:20
+**Gelesen bis:** `origin/main` 28.10., 11:04
 
-**Übergabe (28.10., 08:2x, `session_01Hmoj77rS6KFgtSKa45L74n`):** 338.1 Stand 28.10. gesetzt und gemeldet; 338b (Block K rot) in der Chefsache; 390 an Tom und Jerry; 389 Haken zählt Commit und Push im selben Befehl (27e846c5f, Meldung Tom). Kosten auf: 338.1, 338b, 390, 389. Nachfolger: keiner
+**Übergabe (28.10., 11:1x, `session_01Hmoj76kqDZ5MjqaSWsoJcZ`):** 396 umgesetzt: Bild und Film sofort an den Chef, Helferbefund höchstens danach als Text; Text weiter vorher fremd geprüft (CLAUDE.md, ROLLE-ENTWICKLUNG, LISTE-BAUEN-TESTEN Treppe 4, ROLLE-PRUEFUNG Stichprobe 373). Kosten auf: 396. Nachfolger: Perikles – 390a
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 396 | M | **von Sokrates (Chef 11:01, Archiv):** Fertiges sofort senden (338.2) | startbar |
 | 390a | M | **von Sokrates (Chef 10:26):** `probelauf.py`: Tests frei (Archiv) | startbar |
 | 394 | M | **von Sokrates (Chef 10:26):** Spike, Tuffy in die Werkzeuge (Archiv) | startbar |
 | 384 | M | **von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“):** Kosten aller Sitzungen gegen Buchungsverzeichnis; Ursache der Lücken im Werkzeug beheben (Zu 384) | gebaut 27.10., 20:1x: --kosten nur mit Kennung, Ford holt Kosten frisch (Zu 384) |

@@ -22,7 +22,7 @@ Android-Rollenspiel (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module: `cor
 
 Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Diogenes schlägt in der Wochenzählung vor, Perikles trägt ein (347).
 - Nie die Uhrzeit schätzen oder weiterrechnen; stattdessen die Zeile „Uhr:“ (Haken, `tools/notiz.sh`) oder `TZ=Europe/Berlin date`; den Stempel am Anfang der Antwort prüft der Stop-Haken.
-- Nie vorlegen, was der Helfer bemängelt hat, ohne den Befund zu nennen; beim Aussehen nach einer Fehlerrunde vorlegen, urteilen tut nur der Chef (320 Grak: „eher ein Stoß“ verschwiegen; 362, 371, 373).
+- Nie einen Helferbefund verschweigen; stattdessen als Text nachsenden, urteilen tut nur der Chef (320, 362, 373, 396).
 - Nie eine Probe nach anderer Methode vorlegen, als später gebaut wird; stattdessen gleich so, wie es aussehen soll (302.3 Tusche als Filter).
 - Nie Inhalte oder einen Stand aus dem Gedächtnis übernehmen; stattdessen in der Quelle nachsehen, beim Stand Vorrat und Archiv (Durchspielbogen: Kampf am Schlagbaum, den es nicht gibt; 13e Höhle als offen geführt).
 - Nie ein Urteil des Chefs umformulieren oder durch ein Helferurteil ersetzen; stattdessen Wortlaut mit Zeit stehen lassen, bis der Chef es abnimmt (t78: Gesicht oval, Ohren, Nase über drei Tom-Übergaben verloren).
@@ -68,7 +68,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 8. **Rückfragen sind Holschuld des Chefs:** **eine Rückfrage gilt nur mit Datei in `docs/chefsache/entscheiden/`** (Nummer = Dateiname); ohne Datei wartet keiner. Im Chat einmal die Nummer, beim Start ein Satz mit Link, sonst nie wiederholen (außer „Vorrat leer, auf Chefsache n offen von mir“). Auf „Hast du Rückfragen?“ alle eigenen im Wortlaut. Aufträge anderer Sitzungen einmal mit Stellungnahme einbringen. „Kritisch: <Nr.>, weil …“ nur, wenn die Arbeit steht, einmal je Gespräch.
 9. **Melden:** Telegram ist das Protokoll: `/home/user/bornim-main/tools/meldung.sh <Name> "<Nr>: <Stand>"` (nie die Kopie im Arbeitszweig).
    - so ausführlich wie nötig, aber nur, was der Chef entscheiden, tun oder prüfen kann; je Thema ein Absatz (`\n`); höchstens 4096 Zeichen, mit `--bild` 1024 (sonst sendet `meldung.sh` nicht); Chefsache als Sprungmarke `[72o.1](cs:72o1)`; lautlos, `--laut` nur, wenn der Chef dran ist;
-   - Standbilder als PNG mit `--bild` (Pixelprüfung `--datei`), Bewegung nur als Film mit `--film` (MP4 bis 50 MB, Standbild höchstens dazu; 381), nie im eigenen Gespräch ansehen: das tut ein Helfer (Auftrag mit Wortlaut, zurück nur Text; 300); jede Vorlage an den Chef, auch Text, prüft vorher ein fremder Helfer auf Fehler (338.2); etwa alle 5 Minuten eine Standzeile;
+   - Standbilder als PNG mit `--bild` (Pixelprüfung `--datei`), Bewegung nur als Film mit `--film` (MP4 bis 50 MB, Standbild höchstens dazu; 381), nie im eigenen Gespräch ansehen: das tut ein Helfer (Auftrag mit Wortlaut, zurück nur Text; 300); Bild und Film, sobald fertig, sofort an den Chef, Helferbefund höchstens danach (396); Text vorher fremd prüfen (338.2); etwa alle 5 Minuten eine Standzeile;
    - im Chat erst Rückmeldungen beantworten; Neustart genau „Weiter in <Titel>: <Link>“; Vorrat leer: eine Zeile; zu Prüfendes fett, nie nur kursiv.
 
 ## Notizen nur auf `main`
