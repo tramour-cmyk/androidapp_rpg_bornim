@@ -25,6 +25,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **Von Jerry (28.10., 03:3x), 389:** `probelauf.py` zählte zwei Läufe nicht: lokale Probe 348.12 (02:3x, Vorgänger) und Push 387 r3 (Workflow heißt `godot-kampf.yml`, der Haken prüft `godot.yml`). Ich zähle selbst mit.
 - **Zu 384 (Prüfung 27.10., 20:1x; `list_sessions` 100 Sitzungen ab 26.10., 20:35, `get_session` je Lücke):** 18 archivierte Sitzungen ohne Zeile in `KOSTEN-GEBUCHT.tsv`. Nachgebucht mit Kennung: Ford `01Hmoj76zG` 9,17 und `01Hmoj78hR` 7,28 auf Betrieb, Tom `01Hmoj76zw` +3,18 auf 348.13a (Ford buchte 3,13 von 6,31). Ohne Kennung schon gebucht, Kennung nachgetragen: Sokrates `01Hmoj78Yk` 6,75 (10:30, 7 × 0,96), `01Hmoj77Kr` 8,78 (12:08, 3 × 2,93). **Nachprüfung (Chef 21:02, „Prüf die 79 Euro trotzdem nach“):** je Commit Kostenspalte gegen Verzeichnis, 26.10., 20:00 bis 27.10., 14:00: nachts jede Buchung mit Kennung, Sammelbuchung 09:23 = acht andere Sitzungen; die Annahme „ohne Kennung gebucht“ war falsch, auch `01An8v` (22:42 war `01Egtx`). Darum 21:0x elf Sitzungen nachgebucht, 90,59 $ (je Titel auf 348.6, 348.13, 348.12f; Einzelbeträge in `KOSTEN-GEBUCHT.tsv`). Jerry `01Hmoj77Zu`, `01Hmoj79qo` abgestürzt, ohne Kostenangabe. Ursachen: Ford gab archivierte Sitzungen nicht mit Kosten an `lauf.py`, Kurzform mit veraltetem Betrag.
 
 - **Von Jerry (17:58), 381.1:** jsDelivr: neue Filme aus `bilder` 403 „Package size exceeded … 50 MB“.
