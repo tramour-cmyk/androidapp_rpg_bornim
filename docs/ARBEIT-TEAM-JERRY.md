@@ -10,7 +10,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | Chef: r2 an Chef (ansehen/387-kauftiere-r2, ein Film, sechs Tiere, Befunde offen); danach Befunde beheben |
+| 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | Chef: r3 an Chef (ansehen/387-kauftiere-r3, ein Film, Frage Richtung je Tier offen); Befunde offen (Huhn Fleck, Kaninchen sitzt, Rind Tod, Hundertfüßer); 1 von 2 Probeläufen nach Vorlage 00:40 verbraucht (CI 387 r3) |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | Chef: Drehen auf der Stelle (Ratte, Kaufwolf) an Chef (ansehen/34812f-drehen), Frage Schnauze näher; Ausweichen Kaufwolf ja (Archiv 22:54) | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | Chef: r2 an Chef (ansehen/34812-grak-r2, 34812-kobold-r2; zwei Probeläufe verbraucht), Befunde offen; Achsdreh- und Vorzeichenfix (88a565584) erst in der nächsten Probe sichtbar | `claude/jerry-348-kampf` |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht bis Kauf: Werte, Listen ja (Archiv), dann einbauen; erst Größe prüfen | – |
