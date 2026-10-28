@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [399.2c](entscheiden/3992c-dritter-lauf.md) | **Muss** | E Kampf | 28.10., 17:19 | ein dritter Probelauf für 399.2, sonst bleibt die Korrektur ungeprüft liegen | Jerry |
 
 ## Zu billigen
 
