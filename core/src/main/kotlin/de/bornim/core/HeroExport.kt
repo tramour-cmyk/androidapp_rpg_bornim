@@ -199,6 +199,7 @@ object HeroExport {
         put("seltenheiten", j(Rarity.entries.associate { it.name to mapOf("name" to it.title, "affixe" to it.affixes) }))
         put("affixdaten", j(Affix.entries.associate { it.name to mapOf("name" to it.title, "vor_de" to it.prefixDe, "vor_en" to it.prefixEn,
             "nach_de" to it.suffixDe, "nach_en" to it.suffixEn, "prozent" to it.percent) }))
+        put("vorsilbe_fuer", j(Gear.PREFIX_FOR.entries.associate { (k, t) -> "${k.first}:${k.second.name}" to t }))   // 399.1 Grundform:Affix
         put("endungen", j(Gender.entries.associate { it.name to it.ending }))
         put("namen", j(mapOf("episch1" to Gear.epicFirst, "episch2" to Gear.epicSecond, "goetter" to Gear.gods)))
         put("plaetze", j(GearSlot.entries.associate { it.name to it.title }))

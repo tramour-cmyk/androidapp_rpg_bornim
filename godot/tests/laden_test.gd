@@ -95,5 +95,9 @@ func _init() -> void:
 	pruefe("gewoehnliche", [l2.verkaufe_gewoehnliches(a, h), a.beutel.size(), String(a.beutel[0]["rarity"])], [2, 1, "UNCOMMON"])
 	# gespeichert und geladen gleich
 	pruefe("Spielstand", JSON.stringify(Zustand.aus_daten(JSON.parse_string(JSON.stringify(a.als_daten()))).als_daten()) == JSON.stringify(a.als_daten()), true)
+	# 399.1 (Homer): „Geweihtes Heiligensymbol“ wie Gear.PREFIX_FOR; Beute fuer die Klasse wie Loot.suits
+	var hs := {"base": "holy_symbol", "rarity": "RARE", "rolls": [["SPELL", 1], ["WIS", 1]], "name_seed": 1}
+	pruefe("Heiligensymbol", [Beute.name(hs, "de"), Beute.name(hs, "en")], ["Geweihtes Heiligensymbol der Eule", "Hallowed Holy Symbol of the Owl"])
+	pruefe("Fokus je Klasse", [Beute.passt("CLERIC", "holy_symbol"), Beute.passt("WIZARD", "holy_symbol"), Beute.passt("WIZARD", "orb"), Beute.passt("CLERIC", "tome")], [true, false, true, false])
 	print("LADEN %s: %d Fehler" % ["OK" if fehler == 0 else "FALSCH", fehler])
 	quit(1 if fehler else 0)
