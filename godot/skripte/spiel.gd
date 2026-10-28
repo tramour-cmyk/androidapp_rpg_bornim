@@ -269,13 +269,102 @@ func geh_hinaus(a: Dictionary) -> void:
 		return
 	var alle: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json"))
 	var name := Sprache.t(alle["karten"][id]["name"]) if alle["karten"].has(id) else id
-	var zurueck := Vector2i(int(a["x"]), int(a["y"]) + 1)
-	for r in alle["karten"].get(id, {}).get("ausgaenge", []):
-		if String(r["ziel"]["karte"]) == karte.id: zurueck = Vector2i(int(r["ziel"]["x"]), int(r["ziel"]["y"]))
+	var zurueck := vor_tuer(alle, id, a)
+	if id in WALD and FileAccess.file_exists("res://kampf/kampfort.gd"):   # 399.1: Wald noch nicht gebaut, dort wartet der Kampf
+		await kampf_im_wald(zurueck)
+		return
 	held.setze(zurueck, "DOWN")
 	kamera.springe()
 	await abblenden(0.0)
 	ui.sage([{"text": "%s: Grundriss folgt im Umzug (348)." % name}])
+
+# das Feld vor dem Ausgang a dieser Karte nach id (wie der Rueckweg aus id)
+func vor_tuer(alle: Dictionary, id: String, a: Dictionary) -> Vector2i:
+	var zurueck := Vector2i(int(a["x"]), int(a["y"]) + 1)
+	for r in alle["karten"].get(id, {}).get("ausgaenge", []):
+		if String(r["ziel"]["karte"]) == karte.id: zurueck = Vector2i(int(r["ziel"]["x"]), int(r["ziel"]["y"]))
+	return zurueck
+
+# ---------------------------------------------------------------- Kampf (399.1, Chef 28.10., 12:34: im Dorf herumlaufen, in einen Kampf kommen)
+# Der Weg in den Wald fuehrt in den Kampfort von Jerry (kampf/kampfort.gd, MARS) gegen ein Wolfsrudel, bis Wald und tiefer Wald als
+# Gebietskarten stehen; danach zurueck vor den Ausgang, die Trefferpunkte bleiben. Verloren: wie Game.kt (154) vier Stunden vergehen,
+# der Held erwacht ganz geheilt am Wiederkehrort (steht dieser Grundriss noch nicht, vor dessen Tuer im Dorf). Kampfwerte vorerst die
+# des Probehelden (Kaempfer, regeln/tabellen.json „probe“) mit den Trefferpunkten des Helden, bis 399.2 die Heldwerte uebergibt.
+const WALD := ["forest", "deep_forest"]
+const KampfortS = preload("res://kampf/kampfort.gd")
+const MarsS = preload("res://regeln/mars.gd")
+const WuerfelS = preload("res://regeln/wuerfel.gd")
+const FigurS = preload("res://kampf/figur.gd")
+var kampf: Node
+
+func kampf_im_wald(zurueck: Vector2i) -> void:
+	var tab: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var hw := held_werte()
+	var skills := {}
+	for x in tab.skills: skills[x.id] = x
+	var monster := {}
+	for m in tab.monsters: monster[m.id] = m
+	var hs: Dictionary = tab.probe["FIGHTER"].hero
+	var sheet: Dictionary = hs.hero.duplicate(true)
+	sheet.name = zustand.name
+	var held_f = MarsS.hero_fighter("hero", "PARTY", Vector2i(MarsS.FRONT, 0), sheet, hw.max_tp(), sheet.second, skills)
+	held_f.hp = clampi(hw.tp, 1, hw.max_tp())
+	var w := WuerfelS.new(null)
+	var foes := []
+	for e in [["wolf1", Vector2i(0, 0)], ["wolf2", Vector2i(0, 1)], ["wolf3", Vector2i(1, 0)]]:
+		var m: Dictionary = monster[MarsS.WOLF]
+		foes.append(MarsS.monster_fighter(e[0], e[1], m, w.roll_expr(m.hp)))
+	if FileAccess.file_exists("res://kampf/daten/kaufwolf-info.json"): FigurS.ersatz_art = "kaufwolf"   # wie kampf/probe.gd
+	kampf = KampfortS.new()
+	var erg := {"ende": "", "lohn": {}, "rest": zustand.anzahl("potion")}
+	var am_ende := func(o):   # Kampfort.finish: vor queue_free, der Kampfort geht danach selbst
+		erg["ende"] = String(o)
+		if kampf and kampf.mars:
+			erg["lohn"] = kampf.reward
+			erg["rest"] = int(kampf.mars.potions.get("potion", 0))
+	if not kampf.setup([held_f], foes, tab, {"potion": zustand.anzahl("potion")}, am_ende, -1, {"xp": hw.ep}):
+		kampf.free(); kampf = null
+		held.setze(zurueck, "DOWN"); kamera.springe(); await abblenden(0.0)
+		return
+	held.halt(); held.richtung = Vector3.ZERO
+	# die Welt ruht unsichtbar; Kamera und Umgebung des Kampforts gelten (sonst zeichnet unsere Kamera, unsere Umgebung zuerst)
+	var umgebung: Array = find_children("*", "WorldEnvironment", true, false)
+	var env_alt := umgebung.map(func(we): return we.environment)
+	for we in umgebung: we.environment = null
+	visible = false; ui.visible = false
+	get_tree().root.add_child(kampf)
+	await get_tree().process_frame
+	if kampf.cam: kampf.cam.make_current()
+	while erg["ende"] == "": await get_tree().process_frame
+	kampf = null
+	for k in umgebung.size(): umgebung[k].environment = env_alt[k]
+	kamera.make_current()
+	visible = true; ui.visible = true
+	if int(erg["rest"]) < zustand.anzahl("potion"): zustand.weg("potion", zustand.anzahl("potion") - int(erg["rest"]))   # getrunken
+	var tp_nach: int = held_f.hp
+	var lohn: Dictionary = erg["lohn"]
+	var ende := [String(erg["ende"])]
+	if ende[0] == "LOST":
+		Rast.vergeht(zustand, 4 * 60)   # Game.DEATH_HOURS
+		hw.tp = hw.max_tp()
+		var wk: Dictionary = zustand.wiederkehr
+		var alle: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json"))
+		if String(wk["karte"]) == karte.id: held.setze(Vector2i(int(wk["x"]), int(wk["y"])), String(wk["blick"]))
+		else:
+			var tuer := zurueck
+			for a in alle["karten"][karte.id].get("ausgaenge", []):
+				if String(a["ziel"]["karte"]) == String(wk["karte"]): tuer = vor_tuer(alle, String(wk["karte"]), a)
+			held.setze(tuer, "DOWN")
+		kamera.springe(); await abblenden(0.0)
+		ui.sage([{"text": Sprache.t({"de": "Du erwachst an einem sicheren Ort … Der Heimweg hat Stunden gedauert.", "en": "You wake up somewhere safe… The way home took hours."})}])
+		return
+	hw.tp = clampi(tp_nach, 1, hw.max_tp())
+	if not lohn.is_empty():
+		zustand.gold += int(lohn.get("gold", 0))
+		hw.ep += int(lohn.get("xp", 0))
+	held.setze(zurueck, "DOWN")
+	kamera.springe()
+	await abblenden(0.0)
 
 func abblenden(ziel: float) -> void:
 	var tw := create_tween()
