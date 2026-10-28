@@ -62,6 +62,7 @@ func _ready() -> void:
 		add_child(ebene)
 		var menue := Hauptmenue.new(ui)
 		ebene.add_child(menue)
+		Klang.spiele_szene("TITLE")   # 399.3 (Jerry): Titelmusik wie alt
 		var w: Dictionary = await menue.fertig
 		ebene.queue_free()
 		Spielstand.platz = maxi(1, int(w.get("platz", 1)))   # 399.1: vier Plaetze wie alt; gespeichert wird in diesen
@@ -112,6 +113,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	gebiet.kamera = kamera
 	kamera.springe()
 	ui.ort.text = karte.name()
+	Klang.ort(karte, held)   # 399.3 (Jerry): Ortsmusik, Schritte nach dem Boden
 	_nacht(licht.nacht)
 	_steht_auf(t)
 	spiele(Geschichte.betreten(id, zustand))   # 390: MapDef.onEnter
@@ -308,6 +310,7 @@ func geh_hinaus(a: Dictionary) -> void:
 	var z: Dictionary = a["ziel"]
 	var id := String(z["karte"])
 	ui.biete_an("")
+	Klang.effekt("door")   # 399.3 (Jerry): Game.kt DOOR
 	await abblenden(1.0)
 	if FileAccess.file_exists("res://daten/" + Gebiet.datei(id) + ".bin") and id != karte.id:
 		betrete(id, Vector2i(int(z["x"]), int(z["y"])), String(z["blick"]))
@@ -361,6 +364,7 @@ func kampf_im_wald(zurueck: Vector2i) -> void:
 	var umgebung: Array = find_children("*", "WorldEnvironment", true, false)
 	var env_alt := umgebung.map(func(we): return we.environment)
 	# 399.2a (Chef 14:19 „a“): Wolf mit 1–2 Jungwölfen wie im alten Spiel
+	Klang.spiele_szene("BATTLE")   # 399.3 (Jerry): Kampfmusik wie alt (300 ms)
 	var gestartet: bool = aufruf.starte("RUDEL", hw, null, "wald", tageszeit(), zustand.anzahl("potion"))
 	if gestartet:
 		for we in umgebung: we.environment = null
@@ -376,6 +380,7 @@ func kampf_im_wald(zurueck: Vector2i) -> void:
 	if int(erg["rest"]) < zustand.anzahl("potion"): zustand.weg("potion", zustand.anzahl("potion") - int(erg["rest"]))   # getrunken
 	var lohn: Dictionary = erg["lohn"]
 	var ende := [String(erg["ende"])]
+	Klang.nach_kampf(ende[0] == "WON", karte)   # 399.3 (Jerry): Sieg mit sieg_, sonst Ortsmusik nach 10 s
 	if ende[0] == "NONE":
 		held.setze(zurueck, "DOWN"); kamera.springe(); await abblenden(0.0)
 		return

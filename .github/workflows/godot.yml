@@ -172,6 +172,14 @@ jobs:
         with:
           path: ~/godot
           key: godot-${{ env.GODOT }}
+      # 399.3 (Jerry; 398, Chef 28.10., 11:38: Klang wiederverwenden): Musik und Effekte des alten Spiels unverändert nach
+      # daten/klang, liste.json mit den Namen je Ordner für klang.gd
+      - name: Klang (399.3)
+        run: |
+          D=godot/daten/klang; mkdir -p $D
+          cp -r app/src/main/assets/music app/src/main/assets/sfx $D/
+          python3 -c "import json, os; d='$D'; json.dump({o: sorted(f[:-4] for f in os.listdir(os.path.join(d, o)) if f.endswith('.ogg')) for o in ('music', 'sfx')}, open(os.path.join(d, 'liste.json'), 'w'))"
+          python3 -c "import json; j=json.load(open('$D/liste.json')); print('Klang:', {k: len(v) for k, v in j.items()})"
       - name: Godot und Exportvorlagen
         run: |
           mkdir -p ~/godot && cd ~/godot
@@ -187,6 +195,7 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . --quit-after 300 2>&1 | tee check.log | tail -20
           ! grep -E "SCRIPT ERROR|Parse Error|Failed to load|ERROR:" check.log
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/skripte_pruefen.gd 2>&1 | grep -E "SKRIPTE|FALSCH"   # 399.1 Test 130
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_test.gd 2>&1 | grep -E "^(gut|FALSCH)|KLANG|SCRIPT ERROR"   # 399.3
       # fester Schluessel ueber alle Laeufe, sonst lehnt Android das Update ab (348.5, Build 9). 399.1a (Chef 28.10., 14:41): der Cache
       # eines Zweigs galt nur dort (Build 130 bekam einen neuen); jetzt nur lesen, angelegt wird er auf main (godot-schluessel.yml)
       - uses: actions/cache/restore@v4

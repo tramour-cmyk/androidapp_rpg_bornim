@@ -6,6 +6,11 @@ config/name="Chroniken von Bornim"
 run/main_scene="res://spiel.tscn"
 config/features=PackedStringArray("4.7", "Mobile")
 
+[autoload]
+
+; 399.3 (Jerry): Musik und Klang wie im alten Spiel (klang/klang.gd)
+Klang="*res://klang/klang.gd"
+
 [display]
 window/size/viewport_width=1080
 window/size/viewport_height=2340
