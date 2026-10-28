@@ -9,7 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf (`LISTE-UMZUG-348.md` „Spielfassung“) | zu testen: Build 133 (t133): Erschaffung, Spielstände, Über, Leiste, Menü Held/Tasche, Erwachen im Wiederkehrort; danach Menü Ausrüstung, Karte, Chronik, System, Dinge benutzen | `claude/tom-399-spielfassung` |
-| 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | startbar: 385.1 zurück (Chef 16:16): Film zu klein, fehlt in bilder; neu je Bewegung groß, mit Link |
+| 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | in Arbeit: 385.1 je Bewegung ein großer Film, Actions-Lauf 134 (add_repo gesperrt, Kaufteile über KAUF_TOKEN); Zweig claude/tom-348-385-film |
 | 390 | M | **von Perikles:** zwischen Chef-Blättern Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | gebaut: Laden, Rast, Held, Tagesablauf, Gespräche, Englisch (64a6e5a80; Test 390a) | `claude/tom-390-englisch` |
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101 lädt) | `claude/tom-348-12i-verschluesseln` |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | ruht (Chef 12:34, 399) | `claude/tom-376-1-figuren` |
