@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (28.10., 23:1x, `session_01Hmoj79nWVmRQA1o9PdAa2y`):** 376.1 vier Klassen auf `claude/tom-376-1-figuren` (enthält 399 bis 554cf01d9; 928fe95a0), Vorlage Chefsache 3761-klassen (Lauf 2, Probeläufe 376 verbraucht); 403 an Jerry. 399.5 auf diesem Zweig weiterbauen, damit der nächste Build beides hat. Rechner: `bash tools/pruef348/rechner.sh`, Kaufpakete per `add_repo`. Nachfolger: Tom – 399.5 Innenräume.
+**Übergabe (28.10., 23:1x, `session_01Hmoj79nWVmRQA1o9PdAa2y`):** 376.1 vier Klassen auf `claude/tom-376-1-figuren` (enthält 399 bis 554cf01d9; 928fe95a0), Bilder Lauf 1, 2 beim Chef (Urteil im Archiv); 403 an Jerry. 399.5 danach auf diesem Zweig (nächster Build hat beides). Rechner: `tools/pruef348/rechner.sh`. Nachfolger: Tom – 376.1 Köpfe, Haut, Robe.
 
 ## Zeilen
 
@@ -10,7 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 |---|---|---|---|---|
 | 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf | gebaut: alle t139-Fehler bis 554cf01d9; Build 141 zurückgezogen (Chef 22:0x: nächster Build erst mit 376.1 und 399.5) | `claude/tom-399-spielfassung` |
 | 399.4 | M | **von Chef (21:4x, Archiv):** oben Rand für die Kamera wie alt | gebaut cb351a959, fährt im nächsten Build (Kampfort ohne, Jerry) | – |
-| 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | gebaut 928fe95a0 (vier Klassen, Aussehen, Grundausrüstung auf dem Rücken); vorgelegt 23:06 Chefsache 3761-klassen, wartet auf Urteil; fährt mit 399.5 im nächsten Build | `claude/tom-376-1-figuren` |
+| 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | startbar: Chef 23:0x (Archiv „Klassenentwürfe“): sechs Beispielköpfe auf die Helden, Haut dunkler und lebendig, Magier lange Robe, Klassenmerkmale wie Dress.kt (Kleriker Sonne); Prüfer Lauf 2 Telegram 23:1x; dann Bilder, dann 399.5 | `claude/tom-376-1-figuren` |
 | 399.5 | M | **von Chef („jetzt“ 28.10., 21:5x, Archiv):** Innenräume wie alt: Lichtquellen, Licht und Schatten, Einrichtung mit Liebe zum Detail; Fenster und Türen außen wie innen | startbar nach 376.1; Standbilder je Raum; dann erst Build (Archiv) | – |
 | 399.3.1 | M | **von Team Jerry (16:5x):** Klang: Haken in `spiel.gd` (Jerry, `claude/jerry-348-klang`) übernehmen; Menü System: Regler wie SoundSettings über `Klang.stelle` | zu testen: Build 139 (t139.2) | – |
 | 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | startbar: 385.1 ja (Archiv); Feuer an Jerry (385.2) |
@@ -68,7 +68,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 376.2:** `medieval.market.asset.pack.zip` (privat, .blend 2.79), Farben gemalt (Modellregel 6).
 - **Zu 356.2:** `STORY-K1-HANDLUNG.md` „Sammelaufträge (356)“, Marken `[356.…]`.
 - **Zu 302.1, 302.3** (Chef 23.10., Git): Figur dreht rund; Tusche im Zeichner, nur Schattenseite, dort dicker, kein Filter; Lichtspalt, Fenster hell; dann Hauptmenü.
-- **Zu 267** (Git): SM-X210 Blende 11,2 s, Pause 55 ms; Gefühl des Chefs fehlt.
 - **Zu 292.4** (Git): `TITLECAMP=1`; nur Gold, Feuer, Magie glänzen (Homer).
 - **Zu 292.2, Stufe 2** (Chef 22.10., 11:43; Wortlaut in Git): je Held eine seltene, gute Signatur-Bewegung, Waffenhaltung je Klasse verschieden (`DESIGN-BLENDE.md` 8); gilt auch für Entwurf B 292.3.
 - **Zu 145** (Git): [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn), `KARTENMAPPE=1`.
