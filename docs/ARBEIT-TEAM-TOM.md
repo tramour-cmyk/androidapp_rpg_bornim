@@ -8,8 +8,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf | startbar: Build 141 (t141) zu testen (t139 Aktionsknopf, Anleitung, neues Spiel, Testmenü); offen 139.10 An-/Ablegen, Gerät mit Messwerten (Archiv); Held gleich: 376.1 | `claude/tom-399-spielfassung` |
-| 399.4 | M | **von Chef (21:4x, Archiv):** oben Rand für die Kamera wie alt | startbar | – |
+| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf | zu testen: Build 141 (t141); gebaut fürs nächste: 139.10 Anlegen, Gerät mit Messwerten; Held gleich: 376.1 | `claude/tom-399-spielfassung` |
+| 399.4 | M | **von Chef (21:4x, Archiv):** oben Rand für die Kamera wie alt | gebaut cb351a959, fährt im nächsten Build (Kampfort ohne, Jerry) | – |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | startbar (Chef 22:0x „B“, Archiv): vor 399.5; Klassen auf Kaufkörper, Kaufkopf, Aussehen wählbar, Ausrüstung sichtbar | `claude/tom-376-1-figuren` |
 | 399.5 | M | **von Chef („jetzt“ 28.10., 21:5x, Archiv):** Innenräume wie alt: Lichtquellen, Licht und Schatten, Einrichtung mit Liebe zum Detail; Fenster und Türen außen wie innen | startbar nach 376.1; Standbilder je Raum; dann erst Build (Archiv) | – |
 | 399.3.1 | M | **von Team Jerry (16:5x):** Klang: Haken in `spiel.gd` (Jerry, `claude/jerry-348-klang`) übernehmen; Menü System: Regler wie SoundSettings über `Klang.stelle` | zu testen: Build 139 (t139.2) | – |
