@@ -28,6 +28,7 @@ var rast_notiz := ""
 var rast_zweites := false
 var laden: Laden                                 # 390 (Mode.Shop): offen, bis „Schließen“
 var laden_notiz := ""
+var laden_menge := {}                            # 390 (59.5): ein Ding mit Menge {id, kaufen, n}; leer = Liste
 
 func _ready() -> void:
 	licht = Licht.new()
@@ -461,17 +462,21 @@ func raste(art: String) -> void:
 	for t in r["zeilen"]: zeilen_.append({"text": t})
 	zeige_zeilen(zeilen_)
 
-# ---------------------------------------------------------------- Laden (390, ShopScreen.kt): Dinge kaufen (je Tippen eines),
+# ---------------------------------------------------------------- Laden (390, ShopScreen.kt): Dinge kaufen (Menge waehlen, 59.5),
 # Verkaeufliches aus der Tasche verkaufen, die letzten fuenf Verkaeufe zurueckkaufen, bei Morwen brauen; Ausruestung bei Thessa
 # kaufen (Tragbares zuerst, 59.2), ueberall verkaufen (Seltenes zuerst), Gewoehnliches auf einmal.
 func oeffne_laden(waren: Array, brauen: bool) -> void:
 	laden = Laden.new(waren, brauen)
 	laden_notiz = ""
+	laden_menge = {}
 	held.halt()
 	held.richtung = Vector3.ZERO
 	zeige_laden()
 
 func zeige_laden() -> void:
+	if not laden_menge.is_empty():
+		zeige_menge()
+		return
 	var h := held_werte()
 	var z := zustand
 	var k: Array = [{"kopf": Sprache.t(Laden.VORRAETE)}]
@@ -493,7 +498,7 @@ func zeige_laden() -> void:
 		for g in nicht: k.append(_ware_zeile(h, g, true))
 	var verk := z.taschen.keys().filter(func(id): return Laden.verkaeuflich(String(id)))
 	if not verk.is_empty(): k.append({"kopf": Sprache.u("sell")})
-	for id in verk:   # je Tippen eines; in Klammern, wie viele er hat
+	for id in verk:   # Tippen waehlt die Menge (59.5); in Klammern, wie viele er hat
 		k.append({"text": "%s (%d) · %s" % [Laden.name(String(id)), z.anzahl(String(id)), Sprache.u("price", [Laden.verkaufspreis(h, String(id))])],
 			"id": "verk:" + String(id)})
 	if not z.beutel.is_empty():
@@ -522,6 +527,43 @@ func zeige_laden() -> void:
 	if not laden.brauen: zeilen_.append(Sprache.t(Laden.NEUE_WARE))
 	ui.zeige_wahl(kopf, zeilen_, k, Sprache.u("close"), laden_notiz)
 
+# 59.5, 349 (supplyDialog): ein Ding kaufen oder verkaufen, eins weniger, eins mehr, ×1, ×5, beim Verkauf auch alle; der Preis folgt
+func zeige_menge() -> void:
+	var h := held_werte()
+	var z := zustand
+	var id := String(laden_menge["id"])
+	var kaufen := bool(laden_menge["kaufen"])
+	var stueck := Laden.kaufpreis(h, id) if kaufen else Laden.verkaufspreis(h, id)
+	var most := Laden.kann_kaufen(z, h, id) if kaufen else z.anzahl(id)
+	var n := clampi(int(laden_menge["n"]), 1, maxi(1, most))
+	laden_menge["n"] = n
+	var preis := stueck * n
+	var zeilen_: Array = [Sprache.t(Laden.ding(id).get("info", "")), "%s: %d" % [Sprache.t(Laden.MENGE), n],
+		Sprache.t(Laden.BESITZ) + "%d → %d" % [z.anzahl(id), z.anzahl(id) + (n if kaufen else -n)],
+		"%s: %d → %d" % [Sprache.u("gold"), z.gold, z.gold - preis if kaufen else z.gold + preis]]
+	if most < 1: zeilen_.append(Sprache.u("notEnoughGold") if kaufen else Sprache.u("nothing"))
+	var k: Array = [{"text": "−", "an": n > 1, "id": "m:-"}, {"text": "+", "an": n < most, "id": "m:+"},
+		{"text": "×1", "an": most >= 1, "id": "m:1"}, {"text": "×5", "an": most >= 5, "id": "m:5"}]
+	if not kaufen: k.append({"text": Sprache.t(Laden.ALLE), "an": most >= 1, "id": "m:alle"})
+	k.append({"text": "%s%s · %s" % [Sprache.u("buy") if kaufen else Sprache.u("sell"), " ×%d" % n if n > 1 else "", Sprache.u("price", [preis])],
+		"an": most >= 1, "id": "m:ok"})
+	ui.zeige_wahl(Laden.name(id), zeilen_, k, Sprache.u("back"), laden_notiz)
+
+func _menge_wahl(was: String) -> void:
+	var h := held_werte()
+	var id := String(laden_menge["id"])
+	var kaufen := bool(laden_menge["kaufen"])
+	var most := Laden.kann_kaufen(zustand, h, id) if kaufen else zustand.anzahl(id)
+	match was:
+		"-": laden_menge["n"] = int(laden_menge["n"]) - 1
+		"+": laden_menge["n"] = int(laden_menge["n"]) + 1
+		"1", "5": laden_menge["n"] = int(was)
+		"alle": laden_menge["n"] = most
+		"ok":
+			var n := clampi(int(laden_menge["n"]), 1, maxi(1, most))
+			laden_notiz = laden.kaufe(zustand, h, id, n) if kaufen else laden.verkaufe(zustand, h, id, n)
+			laden_menge = {}
+
 # ein Stueck Ausruestung: Name · Preis, darunter Seltenheit und Gear.listLine; [i] Platz in der Tasche beim Verkauf
 func _ware_zeile(h: Heldwerte, g: Dictionary, kaufen: bool, i: int = -1) -> Dictionary:
 	var p := Laden.kaufpreis_von(h, g) if kaufen else Laden.verkaufspreis_von(h, g)
@@ -533,6 +575,10 @@ func _ware_zeile(h: Heldwerte, g: Dictionary, kaufen: bool, i: int = -1) -> Dict
 func _laden_wahl(id: String) -> void:
 	if laden == null: return
 	var h := held_werte()
+	if id == "" and not laden_menge.is_empty():   # „Zurück“ aus der Menge in die Liste
+		laden_menge = {}
+		zeige_laden()
+		return
 	if id == "":
 		laden = null
 		ui.schliesse_wahl()
@@ -541,8 +587,9 @@ func _laden_wahl(id: String) -> void:
 		return
 	var teil := id.split(":")
 	match teil[0]:
-		"kauf": laden_notiz = laden.kaufe(zustand, h, teil[1])
-		"verk": laden_notiz = laden.verkaufe(zustand, h, teil[1])
+		"kauf": laden_menge = {"id": teil[1], "kaufen": true, "n": 1}
+		"verk": laden_menge = {"id": teil[1], "kaufen": false, "n": 1}
+		"m": _menge_wahl(teil[1])
 		"zur": laden_notiz = laden.zurueck(zustand, int(teil[1]))
 		"ag":
 			for g in Laden.ware(zustand, h):
@@ -1104,8 +1151,12 @@ func rast_probe() -> void:
 	spiele([{"art": "laden", "waren": ["potion", "remedy"], "brauen": true}, {"art": "sagen", "text": {"de": "Nach dem Laden.", "en": "After the shop."}}])
 	log.call("Laden")
 	ui.gewaehlt.emit("kauf:potion")
-	log.call("Heiltrank gekauft")
+	log.call("Menge Heiltrank")
+	ui.gewaehlt.emit("m:+")
+	ui.gewaehlt.emit("m:ok")
+	log.call("zwei Heiltraenke gekauft")
 	ui.gewaehlt.emit("verk:herbs")
+	ui.gewaehlt.emit("m:ok")
 	log.call("Kraut verkauft")
 	ui.gewaehlt.emit("zur:0")
 	log.call("zurueck")
@@ -1113,4 +1164,14 @@ func rast_probe() -> void:
 	log.call("gebraut")
 	ui.gewaehlt.emit("")
 	log.call("Laden zu")
+	ui.naechste()
+	zustand.gold = 200
+	spiele([{"art": "laden", "waren": ["potion"]}])
+	log.call("Thessa")
+	ui.gewaehlt.emit("ag:-1")
+	log.call("Ausruestung gekauft")
+	ui.gewaehlt.emit("vg:0")
+	log.call("Ausruestung verkauft")
+	ui.gewaehlt.emit("")
+	log.call("Thessa zu")
 	get_tree().quit()

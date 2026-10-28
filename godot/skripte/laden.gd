@@ -18,6 +18,9 @@ const AUSRUESTUNG := {"de": "Ausrüstung", "en": "Equipment"}
 const NICHT_TRAGBAR := {"de": "Nicht tragbar", "en": "Can't wear"}
 const NEUE_WARE := {"de": "Neue Ware nach jeweils 8 Siegen.", "en": "New stock every 8 victories."}
 const GEWOEHNLICHE := {"de": "Gewöhnliche verkaufen", "en": "Sell common items"}
+const MENGE := {"de": "Menge", "en": "Quantity"}
+const BESITZ := {"de": "Im Besitz: ", "en": "Owned: "}
+const ALLE := {"de": "Alle", "en": "All"}
 const GEWOEHNLICHE_WEG := {"de": "%d gewöhnliche Gegenstände verkauft.", "en": "Sold %d common items."}
 
 var waren: Array = []                  # Kennungen der Dinge im Angebot (Story.shopStock, HERBALIST_STOCK)
