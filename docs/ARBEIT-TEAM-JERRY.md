@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben.
 
-**Übergabe (28.10., 06:35, `session_01Hmoj79A1YeyWdR5ENs3tjE`):** 348.7b r2 gebaut (80170c532). Nachfolger: „Jerry – 348.7b nach Urteil des Chefs“
+**Übergabe (28.10., 10:05, `session_01Hmoj77md7GMEmSxB5fAwJq`):** Vorgelegt: 348.7b r3, 387 r5, 348.12f r8 (Zweig bis 421662dbd); 348.13a gemischt. Nachfolger: „Jerry – 348.12 Gestalt Grak und Kobolde“
 
 ## Zeilen
 
@@ -10,10 +10,10 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 |---|---|---|---|---|
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | wartet auf Chef: r5 (ansehen/387-kauftiere, Film), Frage je Tier; Fleck beim Drehen im Code (Pfotenhalt), nicht gefilmt |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | wartet auf Chef: r8 (ansehen/34812f-biss, Film), Frage Biss so oder etwa 12 cm zurück; Pfotenfleck beim Drehen im Code behoben (Pfotenhalt), nicht gefilmt; offen Ratte Heimweg, Gleiten, Beine | `claude/jerry-348-kampf` |
-| 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: Chef 08:09 (Archiv): Grak „sieht gar nicht gut aus“, Kobolde „wie ‚das Ding‘ aus einem John-Carpenter-Film“; **erst die Gestalt, dann Bewegung** (Chef 08:10, Archiv): Hieb, Gehen ruhen; Gestalt nachbessern, dann ein Film: beide nah, Augenhöhe, ganzer Körper, drehend; dazu welches Modell, welche Texturen | `claude/jerry-348-kampf` |
-| 348.13a | M | **von Team Tom (Chef 08:09, Archiv: r9 ja):** Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13a) | startbar | `claude/jerry-348-kampf` |
+| 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: erst Gestalt, Hieb und Gehen ruhen; dann ein Film Grak und Kobolde nah, Augenhöhe, ganzer Körper, drehend, mit Modell und Texturen (Chef 08:09/08:10, Wortlaut Archiv) | `claude/jerry-348-kampf` |
+| 348.13a | M | **von Team Tom (Chef 08:09, Archiv: r9 ja):** Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13a) | gebaut (421662dbd): Toms Probe gemischt, Tusche nach Licht Vorgabe, Linie 1,3, Sonne −45,55; Aufhellen der Goblins verworfen (Abstand zum Weg 42→36); offen Säbel | `claude/jerry-348-kampf` |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht bis Kauf: Werte, Listen ja (Archiv), dann einbauen; erst Größe prüfen | – |
-| 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | wartet auf 348.7b (Zauberbahn nach Chef „D“); danach Fledermaus r4d und Wildschwein r3 neu vorlegen; Kobold mit 348.12; Treffer: Ansage zuerst (Archiv) | `claude/jerry-348-kampf` |
+| 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | wartet auf 348.7b (r3 beim Chef); danach Fledermaus r4d, Wildschwein r3 neu vorlegen; Kobold mit 348.12; Treffer: Ansage zuerst (Archiv) | `claude/jerry-348-kampf` |
 | 348.7b | M | Zauberbahn nach Chef „D“ | wartet auf Chef: r3 (ansehen/3487b-zauberbahn, Film r3), Frage Start vor der Heldin: so lassen oder Schritt etwa 1,7 m; Feuerklumpen behoben (ab434b384), Regel in LISTE-UMZUG-348 | `claude/jerry-348-kampf` |
 | 390 | M | **von Perikles (28.10.):** zwischen Blättern beim Chef Funktionen ohne Bild bauen (`LISTE-UMZUG-348.md`): Regeln, Pechsträhne, klassischer Kampf, Gegner auf der Karte | startbar | `claude/jerry-348-kampf` |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel); ändern nur auf Wort des Chefs | – |
