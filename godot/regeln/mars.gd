@@ -98,6 +98,8 @@ var I_STAB := _intent("stab", "Stich", "Stab", "STRIKE", null, false, false)
 ## 348.12 (Chef 27.10., 09:49; Homer [210T.hieb]): Goblin mit Krummsäbel oder Beil sagt „Hieb“ an; gewollte Abweichung vom alten MARS
 var I_SLASH := _intent("slash", "Hieb", "Slash", "STRIKE", null, false, false)
 var I_POUNCE := _intent("pounce", "Anspringen", "Pounce", "STRIKE", null, false, false, false, "POUNCE")
+## 399.2b: ein Jungwolf knurrt nur, kein Angriff (Name von Homer, bis dahin ohne Wort)
+var I_GROWL := _intent("growl", "", "", "WAIT", null, false, false, false, "GROWL")
 var I_CIRCLE := _intent("circle", "Einkreisen", "Circle", "GATHER", null, false, false, false, "CIRCLE", true)
 var I_VENOM := _intent("venom", "Gift sammeln", "Gather venom", "STRIKE", [2, 6, 0], true, false, true)
 var I_WEB := _intent("web", "Netz werfen", "Cast web", "STRIKE", null, false, true, false, "WEB")
@@ -1128,6 +1130,12 @@ func _foe_turn(foe: Fighter, react: Callable) -> void:
 	var intent: Dictionary = plan[0]
 	var aimed: Array = plan[1]
 	foe.hidden = false
+	if intent.effect == "GROWL":     # 399.2b: knurrt nur (Text von Homer; solange er fehlt, keine Zeile)
+		var growl = foe.monster.get("growl")
+		_say(str(growl[lang]) if growl != null else "", foe.id, null, 0, null, false, false, "GROWLS")
+		announce(foe)
+		_say_announce(foe)
+		return
 	var cue := ""
 	if intent.effect == "CIRCLE":
 		cue = "CIRCLE"
@@ -1313,6 +1321,13 @@ func _perfect_answer(t: Fighter, foe: Fighter, info: Array) -> void:
 func announce(foe: Fighter) -> void:
 	if not foe.standing() or outcome != "ONGOING":
 		return
+	# 399.2b (Chef 28.10., 15:32, Archiv: Jungwölfe beißen wie im alten Spiel nur zu 50 % je Runde; Packs.kt chance; Chefsache 3992b
+	# „knurrt nur und kündigt keinen Biss an“): wer einem Leittier folgt, sagt nur mit seiner Chance einen Angriff an, sonst Knurren
+	if foe.follows != "" and foe.monster.has("chance") and not dice.chance(float(foe.monster.chance)):
+		foe.taken_since_announce = 0
+		intents[foe.id] = [I_GROWL, []]
+		retargeted.erase(foe.id)
+		return
 	var intent := _pick_intent(foe)
 	var r := _covered() if intent.effect == "BREAKTHROUGH" or intent.effect == "FLANK" else targets(foe)
 	var aimed := []
@@ -1415,6 +1430,8 @@ func _say_announce(foe: Fighter) -> void:
 	if not intents.has(foe.id):
 		return
 	var intent: Dictionary = intents[foe.id][0]
+	if intent.effect == "GROWL":
+		return
 	var aimed: Array = intents[foe.id][1]
 	var target: String = by_id(aimed[0]).name(lang) if not aimed.is_empty() else ""
 	var nm: String = intent.name[lang]

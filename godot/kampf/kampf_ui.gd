@@ -174,7 +174,12 @@ func _ready() -> void:
 		log_line(t("Nahkampf erreicht nur die vordere Reihe.", "Melee reaches only the front row."))
 
 
+## 399.2 (Test 133, Chef 16:4x: Schalter Position und Schaden „gehen nicht“): ein Tippen kommt als Berührung und als
+## nachgebildete Maus (am Rechner umgekehrt, emulate_touch_from_mouse); beide zählten, der Schalter sprang hin und zurück.
+## Nur das echte Ereignis zählt, das nachgebildete trägt DEVICE_ID_EMULATION.
 func _pressed(ev) -> bool:
+	if ev.device == InputEvent.DEVICE_ID_EMULATION:
+		return false
 	return (ev is InputEventMouseButton and ev.pressed and ev.button_index == MOUSE_BUTTON_LEFT) or (ev is InputEventScreenTouch and ev.pressed)
 
 
@@ -1357,6 +1362,8 @@ func _draw_intents(sr: Rect2) -> void:
 				mark = "»"
 			"GATHER":
 				mark = "!" if intent.get("effect") == "CIRCLE" else "+"
+			"WAIT":
+				mark = "…"     # 399.2b: Jungwolf knurrt nur, kein Angriff
 		var tg = m.find(plan[1][0]) if not plan[1].is_empty() else null
 		var fc: Color = _friend_color(tg) if tg != null else GOLD
 		var border: Color = WARN if intent.strong else fc

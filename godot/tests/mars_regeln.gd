@@ -37,6 +37,8 @@ func _init() -> void:
 	_row_spell("FIREBALL")
 	# 399.2a (Chef 14:19 „Wolf mit 1 bis 2 Jungwölfen“): fällt der Wolf, fliehen die Jungwölfe, der Kampf ist gewonnen
 	_pack_flees()
+	# 399.2b (Chef 15:32 „Jungwölfe beißen wie im alten Spiel nur zu 50 % je Runde“)
+	_cub_chance()
 	print("MARS Regeln: %d abweichend" % failed)
 	quit(1 if failed > 0 else 0)
 
@@ -381,5 +383,48 @@ func _pack_flees() -> void:
 		print(("gleich" if ok else "FEHLER") + " Rudel: Wolf fällt, %d Jungwölfe fliehen, gewonnen, Erfahrung %d (soll %d), Namen %s" % [cubs.size(), int(r.xp), soll, names])
 	else:
 		print("FEHLER Rudel: Wolf steht %s, geflohen %s, Meldungen %d, Ausgang %s" % [wolf.standing(), cubs.map(func(c): return c.fled), flohen, mars.outcome])
+	if not ok:
+		failed += 1
+
+
+## 399.2b: a young wolf bites in about half of its turns (Packs.kt cubs chance 0,5), otherwise it growls (cue GROWLS)
+func _cub_chance() -> void:
+	var monsters := {}
+	for m in tables.monsters:
+		monsters[m.id] = m
+	var Aufruf = load("res://kampf/aufruf.gd")
+	var foes: Array = Aufruf.rudel(monsters, Wuerfel.new(3))
+	var sheet: Dictionary = tables.probe.FIGHTER.hero.hero.duplicate(true)
+	var skills := {}
+	for s in tables.skills:
+		skills[s.id] = s
+	var hero := Mars.hero_fighter("hero", "PARTY", Vector2i(Mars.FRONT, 0), sheet, 9999, sheet.second, skills)
+	var mars = Mars.new([hero], foes, tables, Wuerfel.new(11), Wuerfel.new(7))
+	var heard := []
+	mars.listener = func(e): heard.append(e)
+	mars.start()
+	var cub = mars.find(foes[1].id)
+	var turns := 0
+	var growls := 0
+	var angesagt_geknurrt := 0
+	for i in 400:
+		mars.intents.erase(cub.id)
+		mars.announce(cub)
+		var eff: String = String(mars.intents[cub.id][0].effect)
+		if eff == "CIRCLE":
+			continue
+		var knurrt := eff == "GROWL"
+		heard.clear()
+		hero.hp = 9999
+		mars._foe_turn(cub, Callable())
+		turns += 1
+		var g := heard.filter(func(e): return e.cue == "GROWLS" and e.actor == cub.id).size()
+		growls += g
+		# kündigt keinen Biss an, wenn er nur knurrt: keine Ansage, kein Angriffswurf
+		if knurrt and (g != 1 or heard.any(func(e): return e.actor == cub.id and e.roll != null)):
+			angesagt_geknurrt += 1
+	var share := float(growls) / maxi(turns, 1)
+	var ok := turns >= 100 and share > 0.4 and share < 0.6 and angesagt_geknurrt == 0
+	print(("gleich" if ok else "FEHLER") + " Jungwolf knurrt statt zu beißen: %d von %d Zügen (%.0f %%, soll etwa 50), Knurren mit Biss %d" % [growls, turns, share * 100.0, angesagt_geknurrt])
 	if not ok:
 		failed += 1
