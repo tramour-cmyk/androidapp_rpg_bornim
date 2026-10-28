@@ -53,6 +53,14 @@ object TextExport {
         putJsonObject("rast") { for ((k, t) in rast()) put(k, text(t)) }
         putJsonObject("laden") { for ((k, t) in laden()) put(k, text(t)) }
         putJsonObject("benutzen") { for ((k, t) in benutzen()) put(k, text(t)) }
+        // 399.1 (Chronik): die Eintraege „Bisher geschehen“ und die Auftraege neben dem Hauptauftrag, wortgleich aus [Chronicle];
+        // wann sie gelten, sagt Godot je Kennung (chronik.gd)
+        putJsonArray("chronik") {
+            for (e in Chronicle.entries) addJsonObject { put("id", e.id); put("neben", e.side); put("titel", text(e.title)); put("text", text(e.text)) }
+        }
+        putJsonArray("chronik_auftraege") {
+            for (t in Chronicle.tasks) addJsonObject { put("id", t.id); put("titel", text(t.title)); put("text", text(t.text)) }
+        }
         // 390 (Laden): dazu Preis und Art je Ding, und Morwens Rezepte (Recipes)
         putJsonObject("dinge") {
             for (i in Items.all) putJsonObject(i.id) { put("name", text(i.name)); put("info", text(i.desc)); put("preis", i.price); put("art", i.kind.name)

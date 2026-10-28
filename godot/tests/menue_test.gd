@@ -109,7 +109,25 @@ func _lauf() -> void:
 	else:
 		sk[0].pressed.emit(); sk[2].pressed.emit()
 		if gesendet != ["speichern", "hauptmenue"] or not m.meldung_.visible: fehler += 1; print("FEHLER System sendet ", gesendet)
-	if m.leiste.get_child_count() != 4: fehler += 1; print("FEHLER %d Reiter" % m.leiste.get_child_count())
+	if m.leiste.get_child_count() != 5: fehler += 1; print("FEHLER %d Reiter" % m.leiste.get_child_count())
+	# Chronik: Hauptauftrag, Auftrag der Geschichte, Bisher geschehen (das Neueste oben), Stern bis zum Lesen
+	z.setze(Geschichte.QUEST_STARTED); z.setze(Geschichte.KROGG_HINT)
+	m.reiter = "held"; m.baue()
+	await process_frame
+	if not Chronik.frisch(z): fehler += 1; print("FEHLER Chronik nicht frisch")
+	m.reiter = "chronik"; m.baue()
+	await process_frame; await process_frame
+	t = texte(m)
+	print("Chronik: ", t.substr(0, 300))
+	for soll in [Sprache.t(Geschichte.ziel(z)), Sprache.t(Chronik.auftraege()[0]["titel"])]:
+		if not t.contains(soll): fehler += 1; print("FEHLER Chronik ohne ", soll)
+	if Chronik.frisch(z): fehler += 1; print("FEHLER Chronik nach dem Lesen noch frisch")
+	m.bisher = true; m.baue()
+	await process_frame; await process_frame
+	t = texte(m)
+	var e: Array = Chronik.eintraege()
+	if not t.contains(Sprache.t(e[1]["titel"])) or t.find(Sprache.t(e[1]["titel"])) > t.find(Sprache.t(e[0]["titel"])) or t.contains("{name}"):
+		fehler += 1; print("FEHLER Bisher: ", t.substr(0, 300))
 	# Satt wird gespeichert
 	z.satt = true
 	if not Zustand.aus_daten(z.als_daten()).satt: fehler += 1; print("FEHLER satt nicht gespeichert")

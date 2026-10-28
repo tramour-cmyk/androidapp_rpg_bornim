@@ -45,6 +45,14 @@ class TextExportTest {
     }
 
     @Test
+    fun chronicleForGodot() {
+        val c = j["chronik"]!!.jsonArray
+        assertEquals(Chronicle.entries.map { it.id }, c.map { it.jsonObject["id"]!!.jsonPrimitive.content })
+        assertEquals("Der Auftrag", c[1].jsonObject["titel"]!!.jsonObject["de"]!!.jsonPrimitive.content)
+        assertEquals(listOf("rauch", "lager"), j["chronik_auftraege"]!!.jsonArray.map { it.jsonObject["id"]!!.jsonPrimitive.content })
+    }
+
+    @Test
     fun shopDataForGodot() {
         val dinge = j["dinge"]!!.jsonObject
         assertEquals("25", dinge["potion"]!!.jsonObject["preis"]!!.jsonPrimitive.content)

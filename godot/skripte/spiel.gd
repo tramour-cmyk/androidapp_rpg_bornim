@@ -91,6 +91,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	if held: held.queue_free()
 	if leute: leute.queue_free()
 	karte = Karte.lade(id, zustand.flaggen)   # 390: Schlagbaum, Tor, Ausgaenge und Wege lesen den Spielstand
+	zustand.setze("besucht:" + id)   # 399.1 Chronik „Die Blutzahnhöhle“ (alt GameState.explored)
 	licht.innen = String(karte.daten.get("art", "")) == "INTERIOR"   # 399.1 Grundriss
 	licht.stelle(licht.nacht)
 	gebiet = Gebiet.new(karte)

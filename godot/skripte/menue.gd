@@ -12,7 +12,8 @@ extends Control
 # - Ausruestung (GearTab): Plaetze links und rechts des Helden (PaperDoll), Antippen legt ab, wechselt oder waehlt aus der Tasche,
 #   was passt (die Nebenhand nimmt auch Einhandwaffen); darunter die Kampfwerte.
 # - System (SystemSigns), soweit es die Welt schon kann: Speichern, Sprache, Hauptmenue; Siege.
-# Noch nicht wie alt: Karte, Chronik; im System Kampf, Bedienung, Klang und Licht, Version, Geraeteangaben; Bilder der Dinge; Vergleich mit dem Getragenen (GearCompare); Fackel im Dunkeln;
+# - Chronik (ChronicleTab): Hauptauftrag in Gold, Auftraege der Geschichte, Erledigt zum Aufklappen, „Bisher geschehen“.
+# Noch nicht wie alt: Karte; in der Chronik Nebenauftraege (Anschlagbrett), Ankunft und Morgenandacht ansehen; im System Kampf, Bedienung, Klang und Licht, Version, Geraeteangaben; Bilder der Dinge; Vergleich mit dem Getragenen (GearCompare); Fackel im Dunkeln;
 # Erklaerung der Attribute beim Antippen (Perks).
 
 signal zu
@@ -33,6 +34,8 @@ var kopf: Label
 var leiste: HBoxContainer
 var inhalt: VBoxContainer
 var rolle: ScrollContainer
+var bisher := false               # Chronik: „Bisher geschehen“ statt Auftraege
+var erledigt_auf := false
 var meldung_: Label                # 399.1: was Benutzen, Anlegen, Wegwerfen sagt (alt vm.toast), drei Sekunden
 var wuerfel := func(n: int, w: int) -> int:
 	var t := 0
@@ -81,13 +84,14 @@ func _ready() -> void:
 
 func baue() -> void:
 	var y := rolle.scroll_vertical
-	kopf.text = Sprache.u(WORT[reiter]).to_upper()
+	kopf.text = (Sprache.t(CHRONIK) if reiter == "chronik" else Sprache.u(WORT[reiter])).to_upper()
 	for c in leiste.get_children():
 		leiste.remove_child(c)
 		c.queue_free()
 	# 399.1: Reiter als Zeichen wie alt (TabSign, 60j); Woerter passten zu viert nicht in die Breite
-	for r in ["held", "tasche", "ausruestung", "system"]:
-		leiste.add_child(Reiterzeichen.knopf(r, Sprache.u(WORT[r]), func(): reiter = r; geplant.clear(); baue(), r == reiter, r == "held" and hw.offen > 0))
+	for r in ["held", "tasche", "ausruestung", "chronik", "system"]:
+		var stern: bool = (r == "held" and hw.offen > 0) or (r == "chronik" and reiter != "chronik" and Chronik.frisch(z))
+		leiste.add_child(Reiterzeichen.knopf(r, Sprache.t(CHRONIK) if r == "chronik" else Sprache.u(WORT[r]), func(): reiter = r; geplant.clear(); baue(), r == reiter, stern))
 	for c in inhalt.get_children():
 		inhalt.remove_child(c)
 		c.queue_free()
@@ -95,10 +99,12 @@ func baue() -> void:
 		"held": held()
 		"tasche": tasche()
 		"ausruestung": ausruestung()
+		"chronik": chronik()
 		_: system()
 	await get_tree().process_frame
 	rolle.scroll_vertical = y
 
+const CHRONIK := {"de": "Chronik", "en": "Chronicle"}   # MenuScreen.kt labels
 const WORT := {"held": "hero", "tasche": "bag", "ausruestung": "equipment", "system": "system"}
 
 func meldung(t: String) -> void:
@@ -584,3 +590,42 @@ func system() -> void:
 		luecke(8)
 	luecke(8)
 	zeile(("Siege: " if de else "Victories: ") + str(z.siege), 13, Stil.DIM)
+
+# ---------------------------------------------------------------- Chronik (ChronicleTab)
+func kaestchen(zeilen: Array) -> void:
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 0)
+	for c in zeilen: v.add_child(c)
+	var p := PanelContainer.new()
+	var st := Stil.kasten(Color.BLACK, Stil.RIM, 1.0)
+	st.content_margin_left = 12 * DP; st.content_margin_right = 12 * DP; st.content_margin_top = 8 * DP; st.content_margin_bottom = 8 * DP
+	p.add_theme_stylebox_override("panel", st)
+	p.add_child(v)
+	inhalt.add_child(p)
+
+func chronik() -> void:
+	var de := Sprache.aktiv() == "de"
+	Chronik.gelesen(z)
+	var r := HBoxContainer.new()
+	r.add_theme_constant_override("separation", int(6 * DP))
+	r.add_child(Erschaffung.knopf("Aufträge" if de else "Quests", func(): bisher = false; baue(), not bisher))
+	r.add_child(Erschaffung.knopf("Bisher geschehen" if de else "Story so far", func(): bisher = true; baue(), bisher))
+	inhalt.add_child(r)
+	luecke(10)
+	if bisher:
+		var l := Chronik.bisher(z)
+		for i in l.size():
+			if i > 0: luecke(12)
+			zeile(Sprache.t(l[i]["titel"]), 17, Stil.BRIGHT if i == 0 else Stil.GOLD)
+			zeile(Sprache.t(l[i]["text"]).replace("{name}", hw.name), 15, Stil.TEXT if i == 0 else Stil.DIM)
+		return
+	kaestchen([Erschaffung.txt("Hauptauftrag" if de else "Main quest", 13, Stil.GOLD), Erschaffung.txt(Sprache.t(Geschichte.ziel(z)), 16, Stil.BRIGHT)])
+	for t in Chronik.offen(z):
+		luecke(8)
+		kaestchen([Erschaffung.txt(Sprache.t(t["titel"]), 16), Erschaffung.txt(Sprache.t(t["text"]).replace("{name}", hw.name), 14)])
+	var fertig := Chronik.fertig(z)
+	if not fertig.is_empty():
+		luecke(12)
+		inhalt.add_child(Erschaffung.knopf(("Erledigt (%d)" if de else "Done (%d)") % fertig.size() + (" ▴" if erledigt_auf else " ▾"), func(): erledigt_auf = not erledigt_auf; baue()))
+		if erledigt_auf:
+			for t in fertig: zeile("✓ " + Sprache.t(t["titel"]), 14, Stil.DIM)
