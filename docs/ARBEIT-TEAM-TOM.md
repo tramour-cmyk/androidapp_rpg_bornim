@@ -10,7 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 |---|---|---|---|---|
 | 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf (`LISTE-UMZUG-348.md` „Spielfassung“) | startbar: Test 132 (Chef 16:09) „erstmal freigegeben“: 1–3 gut; 4 unklar; 5 erwacht vor Tempel statt Schenke, Uhr fehlt; 6 nicht prüfbar ohne Menü/Leiste; 133 gebaut: Erschaffung, Spielstände, Über | `claude/tom-399-spielfassung` |
 | 399a | M | **von Tom (Chef 16:09 „erstmal freigegeben“):** 13b97af52 auf `main`? | wartet auf Chef: Chefsache 399a | – |
-| 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | wartet auf Chef: Film 385.1 (Chefsache 385.1), je Feld ja/nein, weitere Käufe; Zweig claude/tom-385-1-grundbewegungen |
+| 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | startbar: 385.1 zurück (Chef 16:16): Film zu klein, fehlt in bilder; neu je Bewegung groß, mit Link |
 | 390 | M | **von Perikles:** zwischen Chef-Blättern Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | gebaut: Laden, Rast, Held, Tagesablauf, Gespräche, Englisch (64a6e5a80; Test 390a) | `claude/tom-390-englisch` |
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101 lädt) | `claude/tom-348-12i-verschluesseln` |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | ruht (Chef 12:34, 399) | `claude/tom-376-1-figuren` |
