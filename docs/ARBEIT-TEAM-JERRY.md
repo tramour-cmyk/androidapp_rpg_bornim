@@ -9,7 +9,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | gebaut: Tusche nach Licht an allen Kauftieren (Vorgabe 348.13a); Film r6 läuft (a10864e80, Lauf 1 von 2), dann Vorlage |
-| 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut: b (Nase am Rand) und Schatten Ratte (Pfotenfleck ein Drittel, Bodenschatten); Film läuft (672293948, Lauf 1 von 2), dann Vorlage | `claude/jerry-348-kampf` |
+| 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | wartet auf Chef: r9 letzte Runde (ansehen/34812f-r9, Film): b, Schatten Ratte; Prüferbefund folgt als Text | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: Grak Gestalt ja (Chef 10:57, Archiv): animieren, Axthalt und Stiel durch Schulter beheben; Kobolde auf dieselbe Art | `claude/jerry-348-kampf` |
 | 348.13a | M | **von Team Tom (Chef 08:09, Archiv: r9 ja):** Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13a) | gebaut (421662dbd): Toms Probe gemischt, Tusche nach Licht Vorgabe, Linie 1,3, Sonne −45,55; Aufhellen der Goblins verworfen (Abstand zum Weg 42→36); offen Säbel | `claude/jerry-348-kampf` |
 | 397 | M | **von Chef (28.10., 11:15):** Tiere, Monster: mind. drei Ruhebewegungen wie alt (`LISTE-UMZUG-348.md`) | startbar | – |
