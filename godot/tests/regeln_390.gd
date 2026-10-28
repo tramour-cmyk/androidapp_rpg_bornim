@@ -1,4 +1,5 @@
-# 390: Pechsträhne, Ausdauer, Talente und Zustände nach GDScript, mit den Testfällen aus core (MissStreakTest, StaminaTest, PerksTest).
+# 390: Pechsträhne, Ausdauer, Talente, Zustände und Spuren nach GDScript, mit den Testfällen aus core (MissStreakTest, StaminaTest,
+# PerksTest, TracksTest).
 # Run: godot --headless --path godot -s res://tests/regeln_390.gd   (exit code 0 = wie im alten Spiel)
 extends SceneTree
 
@@ -6,6 +7,7 @@ const Pech = preload("res://regeln/pechstraehne.gd")
 const Ausdauer = preload("res://regeln/ausdauer.gd")
 const Talente = preload("res://regeln/talente.gd")
 const Zustaende = preload("res://regeln/zustaende.gd")
+const Spuren = preload("res://regeln/spuren.gd")
 
 var failed := 0
 
@@ -26,6 +28,7 @@ func _init() -> void:
 	_ausdauer()
 	_talente()
 	_zustaende()
+	_spuren()
 	print("regeln_390: ", "alles gut" if failed == 0 else "%d Fehler" % failed)
 	quit(1 if failed > 0 else 0)
 
@@ -179,3 +182,108 @@ func _zustaende() -> void:
 	_check("Brand endet", Zustaende.lingers("BURN"), false)
 	_check("Brand schadet", Zustaende.damaging("BURN"), true)
 	_check("Betäubt schadet nicht", Zustaende.damaging("STUN"), false)
+
+
+## Geht [tiles] Felder nach unten ab (5,5; 5,5) auf [ground], 0,05 Felder je Bild von 16 ms (TracksTest.walk).
+func _walk(tr, tiles: float, ground: String, outdoors := true, running := false, map := "forest", t0 := 0) -> int:
+	var t := t0
+	var y := 5.5
+	tr.walked(map, 5.5, y, 0.0, ground, outdoors, running, t)
+	while y < 5.5 + tiles:
+		y += 0.05
+		t += 16
+		tr.walked(map, 5.5, y, 0.0, ground, outdoors, running, t)
+	return t
+
+
+func _spuren() -> void:
+	# nothingWithoutTheSwitch
+	Spuren.draft = false
+	var tr = Spuren.new()
+	tr.settle(1.0)
+	_walk(tr, 4.0, "GRASS")
+	tr.blood("forest", 3.5, 3.5, 0, 1)
+	_check("ohne Schalter nichts", tr.marks.is_empty(), true)
+	Spuren.draft = true
+	# dryGrassKeepsNoPrintsWetGrassDoesLeftAndRight
+	var dry = Spuren.new()
+	_walk(dry, 4.0, "GRASS")
+	_check("trockenes Gras ohne Spur", dry.marks.filter(func(m): return m.kind == Spuren.PRINT).is_empty(), true)
+	var wet = Spuren.new()
+	wet.settle(1.0)
+	_walk(wet, 4.0, "GRASS")
+	var prints: Array = wet.marks.filter(func(m): return m.kind == Spuren.PRINT)
+	_check("nasses Gras 8–10 Spuren", prints.size() >= 8 and prints.size() <= 10, true)
+	var wechsel := true
+	for i in prints.size() - 1:
+		wechsel = wechsel and prints[i].left != prints[i + 1].left
+	_check("Füße wechseln", wechsel, true)
+	_check("neben der Linie", prints.all(func(m): return absf(m.x - 5.5) >= 0.05 and absf(m.x - 5.5) <= 0.09), true)
+	# theGroundDriesSlowlyAfterTheRain
+	tr = Spuren.new()
+	tr.weather(1.0, 1000)
+	_check("nass", tr.wet, 1.0)
+	tr.weather(0.0, int(Spuren.DRY_MS / 2))
+	_check("halb trocken", tr.wet >= 0.45 and tr.wet <= 0.55, true)
+	tr.weather(0.0, int(Spuren.DRY_MS))
+	_check("trocken", tr.wet, 0.0)
+	# muddyBootsLeaveAFewFadingPrintsIndoors
+	tr = Spuren.new()
+	tr.settle(1.0)
+	var t := _walk(tr, 1.0, "GRASS")
+	_check("Schlamm an den Stiefeln", tr.mud(), Spuren.MUD_STEPS)
+	tr.settle(0.0)
+	_walk(tr, 6.0, "WOOD_FLOOR", false, false, "inn", t)
+	var inside: Array = tr.marks.filter(func(m): return m.map == "inn")
+	_check("drinnen so viele wie Schlamm", inside.size(), Spuren.MUD_STEPS)
+	var blasser := true
+	for i in inside.size() - 1:
+		blasser = blasser and inside[i + 1].strength < inside[i].strength
+	_check("drinnen immer blasser", blasser, true)
+	_check("erste höchstens CARRIED", inside[0].strength <= Spuren.CARRIED + 0.0001, true)
+	_check("Schlamm aufgebraucht", tr.mud(), 0)
+	# dustOnlyRunningOnADryWay
+	var walk = Spuren.new()
+	_walk(walk, 4.0, "PATH")
+	_check("Gehen ohne Staub", walk.marks.is_empty(), true)
+	var run = Spuren.new()
+	_walk(run, 4.0, "PATH", true, true)
+	_check("Rennen staubt", run.marks.filter(func(m): return m.kind == Spuren.DUST).size() >= 3, true)
+	var nass = Spuren.new()
+	nass.settle(1.0)
+	_walk(nass, 4.0, "PATH", true, true)
+	_check("nass kein Staub", nass.marks.filter(func(m): return m.kind == Spuren.DUST).is_empty(), true)
+	var gras = Spuren.new()
+	_walk(gras, 4.0, "GRASS", true, true)
+	_check("Gras kein Staub", gras.marks.is_empty(), true)
+	# bloodStaysAWhileThenFades
+	tr = Spuren.new()
+	tr.blood("forest", 3.5, 3.5, 0, 7)
+	var on: Array = tr.on("forest", 1000)
+	_check("Blut da", on.size(), 1)
+	_check("Blut voll", on[0].alpha(1000), 1.0)
+	_check("Blut halb", on[0].alpha(int(Spuren.BLOOD_MS * 0.5)), 1.0)
+	var a90: float = on[0].alpha(int(Spuren.BLOOD_MS * 0.9))
+	_check("Blut verblasst", a90 >= 0.1 and a90 <= 0.5, true)
+	_check("Blut vergangen", tr.on("forest", Spuren.BLOOD_MS).is_empty(), true)
+	_check("Blut nur im Wald", tr.on("village", 1000).is_empty(), true)
+	# keepsAtMostMaxAndBloodLongest
+	tr = Spuren.new()
+	tr.blood("forest", 3.5, 3.5, 0, 7)
+	tr.settle(1.0)
+	_walk(tr, 200.0, "GRASS")
+	_check("höchstens MAX", tr.marks.size() <= Spuren.MAX, true)
+	_check("Blut bleibt", tr.marks.any(func(m): return m.kind == Spuren.BLOOD), true)
+	# villagersLeavePrintsOfTheirOwn (61)
+	tr = Spuren.new()
+	tr.settle(1.0)
+	t = 0
+	var y := 5.5
+	while y < 9.5:
+		tr.walked("village", 5.5, y, 0.0, "GRASS", true, false, t)
+		tr.walked("village", 8.5, y + 0.2, 0.0, "GRASS", true, false, t, "bram")
+		y += 0.05
+		t += 16
+	var held: Array = tr.marks.filter(func(m): return m.kind == Spuren.PRINT and absf(m.x - 5.5) < 0.2)
+	var bram: Array = tr.marks.filter(func(m): return m.kind == Spuren.PRINT and absf(m.x - 8.5) < 0.2)
+	_check("Held und Bram je eigene Spuren", held.size() >= 8 and bram.size() >= 8, true)
