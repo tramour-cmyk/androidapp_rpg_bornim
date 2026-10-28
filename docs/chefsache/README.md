@@ -20,6 +20,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [348.12](ansehen/34812-grak-r1.md) | Grak auf dem CC0-Gerüst, erster Entwurf: noch nicht fertig | – | 28.10., 01:50 |
 | [348.12](ansehen/34812-kobold-cc0.md) | Kobold auf dem CC0-Gerüst, Stand nach zwei Probeläufen: noch nicht fertig | – | 28.10., 01:45 |
 | [348.12f](ansehen/34812f-drehen.md) | Ratte und Kaufwolf drehen sich auf der Stelle mit Schritten | – | 28.10., 00:50 |
 | [348.13a](ansehen/34813a-tusche-kampf-r9.md) | Tusche im Kampf, Runde 9: Langschwert nicht mehr schwarz | Tom | 28.10., 00:59 |
