@@ -39,7 +39,9 @@ TIERE = {
                'laenge': 1.5,
                # Prüfer: Gehen kaum vom Stehen zu unterscheiden (die Beine schieben 0,05–0,07 m/s): Gehen schneller abgespielt bis zu diesem
                # Tempo, Rennen = Gehen doppelt so schnell (der Kauf hat kein Rennen)
-               'tempo_ziel': {'Gehen': 0.35}, 'rennen_aus_gehen': 2.0,
+               # Runde 5 (Chef 28.10., 08:09: „vor allem Centipede muss schneller bewegen, da lässt sich ja keiner angreifen bei dem Speed“):
+               # Gehen 0,8 statt 0,35 m/s, Rennen 2,5-fach (2,0 statt 0,7 m/s); die Beine bleiben bei höchstens 3,5-fach (tempo_max)
+               'tempo_ziel': {'Gehen': 0.8}, 'rennen_aus_gehen': 2.5,
                # Runde 4 (Prüfer r3: wackelt beim Platzwechsel auf der Stelle; gemessen: Gehen lief 7,1-fach, Rennen 14,3-fach, eine Schleife
                # in 4 bzw. 2 Bildern, das Bild springt zwischen Beinstellungen): Bewegung höchstens 3,5-fach (8,6 Bilder je Schleife), den
                # Rest des Tempos trägt der Wurzelweg (die Beine gleiten; bei 30 kurzen Beinen kaum zu sehen)
@@ -51,8 +53,10 @@ TIERE = {
     'huhn': {'rig': 'Chicken_Rig.fbx', 'anim': 'Chicken_%s.fbx', 'tex': 'chicken_col14*',
              'namen': {'Stehen': 'Idle', 'Gehen': 'Walk', 'Rennen': 'Run', 'Fressen': 'Eat', 'Tod': 'Die'},
              # Runde 2 (Prüfer: reinweiß, Kamm, Schnabel, Auge unsichtbar): braun, hell, schwarz; Kamm und Schnabel aus dem Kauf
-             'felle': {'braun': (0x8A5A30, 0x4A2A14, 0xB08050), 'hell': (0xC8BCA0, 0x8C806A, 0xDAD2BE), 'schwarz': (0x34322C, 0x181814, 0x4E4A40)},
-             'behalten': 0.35},
+             # Runde 5 (Chef 28.10., 08:09: „Hühner etwas größer“, Vorschlag kräftiger braun mit sichtbarem Kamm): 1,2-fach (0,59 -> 0,71 m),
+             # braun satter; Kamm, Kehllappen, Schnabel in der Farbe des Kaufs ohne Abdunkeln und kräftiger (kamm)
+             'felle': {'braun': (0x8C4A1C, 0x46200A, 0xB4703A), 'hell': (0xC8BCA0, 0x8C806A, 0xDAD2BE), 'schwarz': (0x34322C, 0x181814, 0x4E4A40)},
+             'behalten': 0.35, 'groesser': 1.2, 'kamm': 1.35},
     'schwein': {'rig': 'iron_age_pig_rig_exp.FBX', 'anim': 'iron_age_pig_%s_anim.FBX', 'tex': 'iron_age_pig_col_unity*',
                 'namen': {'Stehen': 'idle', 'Gehen': 'walk', 'Fressen': 'eat', 'Tod': 'die'}, 'felle': {'natur': None}},
     'gans': {'rig': 'swan_goose_rig_exp.FBX', 'anim': 'swan_goose_%s_anim.FBX', 'tex': 'swan_goose_col*',
@@ -64,7 +68,12 @@ TIERE = {
                   'behalten': 0.45,
                   # Runde 4 (Prüfer r3: sitzt beim Laufen aufrecht, auch im Anlauf; gemessen in der Quelle: im Rennen hebt sich der Kopf von
                   # 0,19 auf 0,35 m, das Hinterteil sinkt 0,09 m in den Boden): Rennen = Gehen (Hoppeln, Kopf 0,19–0,31 m, über dem Boden) 1,3-fach
-                  'rennen_aus_gehen': 1.3,
+                  # Runde 5 (Chef 28.10., 08:09, Vorschlag „eigene Hoppelbewegung“; r4: von hinten aufrecht und gleitend): Rennen aus dem
+                  # Rennen des Kaufs (Hinterläufe stoßen gemeinsam ab), Neigung auf ein Drittel gedämpft (Kauf bis 39° Kopf hoch, Hinterteil
+                  # 0,11 m im Boden), im Boden gehalten und im Sprung gehoben (Wurzel im Hoch des Kaufs bis 0,07 m höher: in der Luft)
+                  'hoppeln': {'neigung': 0.33, 'hub': 0.07},
+                  # gemessen 0,58 m/s, langsamer als das Gehen (0,59): schneller abgespielt bis 0,9 m/s (rund vier Sprünge je Sekunde)
+                  'tempo_ziel': {'Rennen': 0.9},
                   # Runde 4 (Prüfer r3: kippt im Tod kopfüber und schwebt; gemessen in der Quelle: der Rücken neigt sich 34° nach vorn, der Kopf
                   # liegt 0,26 m unter dem Boden, Boden halten hob alles um 0,32 m): Rücken waagerecht, erst dann den Boden halten
                   'waagerecht': {'Tod': ('ROOTSHJnt', 'Spine_TopSHJnt')}},
@@ -127,7 +136,14 @@ def bemalung(src, fell, farben, bel, striche, behalten=None):
         sat = (mx - mn) / np.maximum(mx, 1e-3)
         m = (sat > behalten) & (mx > 0.2)
         ln = np.where(s <= 0.04045, s / 12.92, ((s + 0.055) / 1.055) ** 2.4)
-        farbe = np.where(m[..., None], ln * DUNKLER, farbe)
+        alt = ln * DUNKLER
+        if T.get('kamm'):     # Runde 5: Rotes (Kamm, Kehllappen) nicht abgedunkelt, Sättigung kamm-fach
+            rot = (s[..., 0] > 0.45) & (s[..., 0] > 1.6 * s[..., 1]) & (s[..., 0] > 1.6 * s[..., 2])
+            g = (0.2126 * ln[..., 0] + 0.7152 * ln[..., 1] + 0.0722 * ln[..., 2])[..., None]
+            satt = np.clip(g + (ln - g) * T['kamm'], 0.0, 1.0)
+            alt = np.where(rot[..., None], satt, alt)
+            print('KAMM %s %s: %.1f %% der Fläche rot, kräftiger' % (TIER, fell, 100.0 * float((rot & bel).sum()) / max(int(bel.sum()), 1)))
+        farbe = np.where(m[..., None], alt, farbe)
         print('BEHALTEN %s %s: %.1f %% der Fläche in der Farbe des Kaufs' % (TIER, fell, 100.0 * float((m & bel).sum()) / max(int(bel.sum()), 1)))
     farbe = np.where(bel[..., None], farbe, np.median(farbe[bel], axis=0))
     print('BEMALUNG %s %s: Quelle Helligkeit p5 %.3f p95 %.3f, neu Mittel %.3f' % (TIER, fell, p5, p95, float(farbe[bel].mean())))
@@ -207,7 +223,7 @@ def boden_halten(rig, a, meshes):
     print('BODEN HALTEN %s: bis %.2f m gehoben (Bild %d)' % (a.name, max(hub.values()), max(hub, key=hub.get)))
 
 
-def waagerecht(rig, a, kw, kv):
+def waagerecht(rig, a, kw, kv, rest=0.0):
     """Runde 4 (Kaninchen im Tod kopfüber): je Bild den Knochen kw so drehen, dass die Strecke kw -> kv so steil steht wie im ersten Bild
     (Richtung zur Seite bleibt, nur die Neigung nach vorn oder hinten geht weg); Schlüssel je Bild auf Ort und Drehung von kw"""
     setze(rig, a)
@@ -225,7 +241,8 @@ def waagerecht(rig, a, kw, kv):
         fl = Vector((v.x, v.y, 0.0))
         if fl.length < 1e-6:
             continue
-        soll = (fl.normalized() * math.sqrt(max(0.0, 1.0 - st0 * st0)) + Vector((0.0, 0.0, st0))) * v.length
+        st = st0 + (v.z / v.length - st0) * rest     # Runde 5: rest = Anteil der Neigung, der bleibt (Hoppeln)
+        soll = (fl.normalized() * math.sqrt(max(0.0, 1.0 - st * st)) + Vector((0.0, 0.0, st))) * v.length
         q = (W3.inverted() @ v).rotation_difference(W3.inverted() @ soll)     # im Raum des Gerüsts
         h = pw.head.copy()
         M = Matrix.Translation(h) @ q.to_matrix().to_4x4() @ Matrix.Translation(-h) @ pw.matrix
@@ -238,6 +255,35 @@ def waagerecht(rig, a, kw, kv):
         pw.keyframe_insert('location', frame=f)
         pw.keyframe_insert('rotation_quaternion' if pw.rotation_mode == 'QUATERNION' else 'rotation_euler', frame=f)
     print('WAAGERECHT %s %s: Neigung bis %.0f° weggenommen (Bild %d)' % (TIER, a.name, max(wink), a0 + int(np.argmax(wink))))
+
+
+def hub(rig, a, h):
+    """Runde 5 (Hoppeln): die Wurzel im oberen Teil ihres Wegs um bis zu h (m, Welt) heben, so liegt das Tier im Hoch des Sprungs in der
+    Luft; Schlüssel je Bild auf den Ortskurven des Hauptknochens"""
+    setze(rig, a)
+    wurzel = next(b for b in rig.data.bones if b.parent is None)
+    pw = rig.pose.bones[wurzel.name]
+    kw = next(b for b in rig.pose.bones if b.name.endswith('ROOTSHJnt'))
+    a0, a1 = int(a.frame_range[0]), int(a.frame_range[1])
+    z = {}
+    for f in range(a0, a1 + 1):
+        bpy.context.scene.frame_set(f); z[f] = (rig.matrix_world @ kw.head).z
+    lo, hi = min(z.values()), max(z.values())
+    inv = (rig.matrix_world.to_3x3() @ wurzel.matrix_local.to_3x3()).inverted()
+    pfad = 'pose.bones["%s"].location' % wurzel.name
+    fcs = {fc.array_index: fc for fc in kurven(a) if fc.data_path == pfad}
+    if len(fcs) < 3 or hi - lo < 1e-3:
+        print('HUB: keine Ortskurven oder kein Weg', wurzel.name); return
+    neu = {}
+    for f in range(a0, a1 + 1):
+        u = ((z[f] - lo) / (hi - lo)) ** 1.5
+        neu[f] = [fcs[i].evaluate(f) + (inv @ Vector((0.0, 0.0, h * u)))[i] for i in range(3)]
+    for f, w in neu.items():
+        for i in range(3):
+            fcs[i].keyframe_points.insert(f, w[i], options={'FAST'})
+    for fc in fcs.values():
+        fc.update()
+    print('HUB %s %s: Wurzel %.2f-%.2f m, im Hoch bis %.2f m gehoben' % (TIER, a.name, lo, hi, h))
 
 
 def baue(fell):
@@ -293,7 +339,7 @@ def baue(fell):
     aussen.rotation_euler = (0, 0, dreh)
     bpy.context.view_layer.update()
     P = welt_netz(meshes, f0); lo, hi = P.min(0), P.max(0)
-    k = T['laenge'] / float(hi[1] - lo[1]) if 'laenge' in T else 1.0
+    k = (T['laenge'] / float(hi[1] - lo[1]) if 'laenge' in T else 1.0) * T.get('groesser', 1.0)
     aussen.scale = (k, k, k)
     aussen.location = (-(lo[0] + hi[0]) / 2 * k, -(lo[1] + hi[1]) / 2 * k, -lo[2] * k)
     bpy.context.view_layer.update()
@@ -305,6 +351,18 @@ def baue(fell):
             waagerecht(rig, akt[nm], kw, kv)
     if 'Tod' in akt:
         boden_halten(rig, akt['Tod'], meshes)
+    if 'hoppeln' in T and 'Rennen' in akt:     # Runde 5: eigenes Hoppeln aus dem Rennen des Kaufs
+        hp = T['hoppeln']; kw, kv = T['waagerecht']['Tod']
+        waagerecht(rig, akt['Rennen'], kw, kv, hp['neigung'])
+        boden_halten(rig, akt['Rennen'], meshes)
+        hub(rig, akt['Rennen'], hp['hub'])
+        setze(rig, akt['Rennen']); a0, a1 = (int(x) for x in akt['Rennen'].frame_range)
+        pk = next(b for b in rig.pose.bones if b.name.endswith(kv)); pr = next(b for b in rig.pose.bones if b.name.endswith(kw))
+        zeile = []
+        for f in range(a0, a1 + 1):
+            bpy.context.scene.frame_set(f); v = rig.matrix_world.to_3x3() @ (pk.head - pr.head)
+            zeile.append('%d %.0f° %.3f' % (f, math.degrees(math.atan2(v.z, Vector((v.x, v.y)).length)), welt_netz(meshes, f)[:, 2].min()))
+        print('HOPPELN %s: Bild Neigung Boden | %s' % (TIER, ' | '.join(zeile)))
     for nm in ('Tod', 'Gehen', 'Rennen'):     # Prüfwert: Boden je Bewegung (Tod: Anfang und Ende)
         if nm in akt:
             setze(rig, akt[nm]); a0, a1 = (int(x) for x in akt[nm].frame_range)
@@ -318,8 +376,8 @@ def baue(fell):
     for nm in ('Gehen', 'Rennen'):
         if nm in akt:
             v = am_boden(rig, akt[nm], meshes, beine)
-            if nm == 'Gehen' and 'tempo_ziel' in T and v > 0.0:
-                tempo[nm] = round(max(1.0, T['tempo_ziel']['Gehen'] / v), 2)
+            if nm in T.get('tempo_ziel', {}) and v > 0.0:
+                tempo[nm] = round(max(1.0, T['tempo_ziel'][nm] / v), 2)
             if nm == 'Rennen' and akt['Rennen'] is akt.get('Gehen'):
                 tempo[nm] = round(roh.get('Gehen', 1.0) * T['rennen_aus_gehen'], 2)
             roh[nm] = tempo.get(nm, 1.0)
