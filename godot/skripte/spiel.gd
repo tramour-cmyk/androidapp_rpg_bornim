@@ -26,6 +26,8 @@ var werte: Heldwerte                             # 390 (Rast): TP und ZP des Hel
 var rast_ort := ""                               # 390 (Mode.Rest): Feld offen an "feuer", "schenke" oder "zimmer"
 var rast_notiz := ""
 var rast_zweites := false
+var laden: Laden                                 # 390 (Mode.Shop): offen, bis „Schließen“
+var laden_notiz := ""
 
 func _ready() -> void:
 	licht = Licht.new()
@@ -48,6 +50,7 @@ func _ready() -> void:
 	ui.windrose.zurueck.connect(kamera.nach_norden)
 	ui.gelesen.connect(weiter)
 	ui.gewaehlt.connect(_rast_wahl)
+	ui.gewaehlt.connect(_laden_wahl)
 	licht.nacht_geaendert.connect(_nacht)
 	Leute.uhr = func(): return zustand.minuten   # 390 Tagesablauf
 	betrete(START, START_KACHEL, "DOWN")
@@ -357,6 +360,9 @@ func weiter() -> void:
 				return
 			"rast": Rast.heilen(zustand, held_werte(), platz())   # Cmd.Rest (Tempel): dazu der Wiederkehrort
 			"heilen": Rast.heilen(zustand, held_werte())
+			"laden":   # Cmd.OpenShop: Thessa oder Morwen; die Szene geht weiter, wenn der Laden zu ist
+				oeffne_laden(c["waren"], bool(c.get("brauen", false)))
+				return
 			"schenke":   # Cmd.Tavern: Rowenas Theke; die Szene geht weiter, wenn das Feld zu ist (Game.advance)
 				oeffne_rast("schenke")
 				return
@@ -455,6 +461,60 @@ func raste(art: String) -> void:
 	for t in r["zeilen"]: zeilen_.append({"text": t})
 	zeige_zeilen(zeilen_)
 
+# ---------------------------------------------------------------- Laden (390, ShopScreen.kt): Dinge kaufen (je Tippen eines),
+# Verkaeufliches aus der Tasche verkaufen, die letzten fuenf Verkaeufe zurueckkaufen, bei Morwen brauen. Ausruestung folgt.
+func oeffne_laden(waren: Array, brauen: bool) -> void:
+	laden = Laden.new(waren, brauen)
+	laden_notiz = ""
+	held.halt()
+	held.richtung = Vector3.ZERO
+	zeige_laden()
+
+func zeige_laden() -> void:
+	var h := held_werte()
+	var z := zustand
+	var k: Array = [{"kopf": Sprache.t(Laden.VORRAETE)}]
+	for id in laden.waren:
+		var p := Laden.kaufpreis(h, String(id))
+		k.append({"text": "%s · %s" % [Laden.name(String(id)), Sprache.u("price", [p])], "info": Sprache.t(Laden.ding(String(id)).get("info", "")),
+			"an": z.gold >= p, "id": "kauf:" + String(id)})
+	if laden.brauen:
+		k.append({"kopf": Sprache.t(Laden.REZEPTE)})
+		var rz := Laden.rezepte()
+		for i in rz.size():
+			k.append({"text": Laden.name(String(rz[i]["ergebnis"])), "info": Laden.kosten(rz[i]), "an": Laden.bezahlbar(z, rz[i]), "id": "brau:%d" % i})
+	var verk := z.taschen.keys().filter(func(id): return Laden.verkaeuflich(String(id)))
+	if not verk.is_empty(): k.append({"kopf": Sprache.u("sell")})
+	for id in verk:   # je Tippen eines; in Klammern, wie viele er hat
+		k.append({"text": "%s (%d) · %s" % [Laden.name(String(id)), z.anzahl(String(id)), Sprache.u("price", [Laden.verkaufspreis(h, String(id))])],
+			"id": "verk:" + String(id)})
+	if not laden.rueckkauf.is_empty(): k.append({"kopf": Sprache.t(Laden.ZURUECK)})
+	for i in laden.rueckkauf.size():
+		var r: Dictionary = laden.rueckkauf[i]
+		k.append({"text": "%s · %s" % [Laden.mit_anzahl(String(r["ding"]), int(r["anzahl"])), Sprache.u("price", [int(r["preis"])])],
+			"an": z.gold >= int(r["preis"]), "id": "zur:%d" % i})
+	var kopf := Sprache.t(Laden.HUETTE) if laden.brauen else Sprache.u("shop")
+	var zeilen_: Array = ["%s: %d" % [Sprache.u("gold"), z.gold]]
+	if laden.brauen: zeilen_.append(Sprache.t(Laden.KRAEUTER))
+	ui.zeige_wahl(kopf, zeilen_, k, Sprache.u("close"), laden_notiz)
+
+func _laden_wahl(id: String) -> void:
+	if laden == null: return
+	var h := held_werte()
+	if id == "":
+		laden = null
+		ui.schliesse_wahl()
+		weiter()
+		_steht_auf(held.kachel)
+		return
+	var teil := id.split(":")
+	match teil[0]:
+		"kauf": laden_notiz = laden.kaufe(zustand, h, teil[1])
+		"verk": laden_notiz = laden.verkaufe(zustand, h, teil[1])
+		"zur": laden_notiz = laden.zurueck(zustand, int(teil[1]))
+		"brau": laden_notiz = laden.braue(zustand, h, Laden.rezepte()[int(teil[1])])
+	zeige_laden()
+
 func zeige_zeilen(z: Array) -> void:
 	held.halt()
 	held.richtung = Vector3.ZERO
@@ -499,7 +559,7 @@ func _process(dt: float) -> void:
 			held.rotation.y = atan2(float(s.x - held.kachel.x), float(s.y - held.kachel.y))
 			if karte.tuer(s) or zeichen_lesbar(s) or rast_kachel(s) != "": ui.biete_an.callv(angebot(held.kachel))
 			else: _stoesst(s)
-	if rast_ort == "": zustand.uhr(dt)   # 390: waehrend der Rast steht die Uhr; die Rast stellt sie selbst weiter
+	if rast_ort == "" and laden == null: zustand.uhr(dt)   # 390: in Rast und Laden steht die Uhr; die Rast stellt sie selbst weiter
 	kamera.folge(minf(1.0, dt * 5.0))
 	ui.windrose.richte(kamera.nord_winkel())
 	gebiet.nah(kamera.nah, held.position)
@@ -970,8 +1030,9 @@ func rast_probe() -> void:
 	var h := held_werte()
 	var log := func(was: String) -> void:
 		var knoepfe := ui.wahl_box.get_children().filter(func(c): return c is Button).map(func(b): return "%s%s" % [b.text, "" if not b.disabled else " (aus)"])
-		print("RASTPROBE %s | Feld %s %s | Text %s '%s' | Tag %d %02d:%02d | TP %d/%d | Gold %d | Met %d | Nacht %s" % [was, ui.waehlt(), knoepfe,
-			ui.spricht(), ui.text.text, zustand.tag, zustand.minuten / 60, zustand.minuten % 60, h.tp, h.max_tp(), zustand.gold, zustand.met, licht.ziel > 0.5])
+		print("RASTPROBE %s | Feld %s %s | Text %s '%s' | Tag %d %02d:%02d | TP %d/%d | Gold %d | Met %d | Nacht %s | Laden '%s' %s" % [was, ui.waehlt(), knoepfe,
+			ui.spricht(), ui.text.text, zustand.tag, zustand.minuten / 60, zustand.minuten % 60, h.tp, h.max_tp(), zustand.gold, zustand.met, licht.ziel > 0.5,
+			laden_notiz, zustand.taschen])
 	h.tp = 1
 	zustand.minuten = 20 * 60
 	oeffne_rast("feuer")
@@ -1000,4 +1061,19 @@ func rast_probe() -> void:
 	log.call("Zimmer heute")
 	ui.gewaehlt.emit("")
 	log.call("Theke zu")
+	ui.naechste()
+	zustand.gold = 60
+	zustand.dazu("herbs", 3)
+	spiele([{"art": "laden", "waren": ["potion", "remedy"], "brauen": true}, {"art": "sagen", "text": {"de": "Nach dem Laden.", "en": "After the shop."}}])
+	log.call("Laden")
+	ui.gewaehlt.emit("kauf:potion")
+	log.call("Heiltrank gekauft")
+	ui.gewaehlt.emit("verk:herbs")
+	log.call("Kraut verkauft")
+	ui.gewaehlt.emit("zur:0")
+	log.call("zurueck")
+	ui.gewaehlt.emit("brau:0")
+	log.call("gebraut")
+	ui.gewaehlt.emit("")
+	log.call("Laden zu")
 	get_tree().quit()

@@ -1,5 +1,6 @@
 package de.bornim.core
 
+import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlin.test.Test
@@ -32,6 +33,17 @@ class TextExportTest {
         assertEquals("Your spark has faded.", rast["sparkFaded"]!!.jsonObject["en"]!!.jsonPrimitive.content)
         assertTrue(rast["roasted"]!!.jsonObject["de"]!!.jsonPrimitive.content.contains("{0}"))
         assertTrue(rast.size >= 25, "nur ${rast.size} Texte")
+    }
+
+    @Test
+    fun shopDataForGodot() {
+        val dinge = j["dinge"]!!.jsonObject
+        assertEquals("25", dinge["potion"]!!.jsonObject["preis"]!!.jsonPrimitive.content)
+        assertEquals("KEY", dinge.values.first { it.jsonObject["art"]!!.jsonPrimitive.content == "KEY" }.jsonObject["art"]!!.jsonPrimitive.content)
+        val rezepte = j["rezepte"]!!.jsonArray
+        assertEquals(Recipes.all.size, rezepte.size)
+        assertEquals("2", rezepte[0].jsonObject["zutaten"]!!.jsonObject["herbs"]!!.jsonPrimitive.content)
+        assertEquals(setOf("brewed", "brewedTwo", "missing"), j["laden"]!!.jsonObject.keys)
     }
 
     @Test

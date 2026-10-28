@@ -43,6 +43,13 @@ static func r(schluessel: String, werte: Array = []) -> String:
 	for i in werte.size(): s = s.replace("{%d}" % i, str(werte[i]))
 	return s
 
+# 390 (Laden): Morwens Saetze beim Brauen (Game.Msgs brewed, brewedTwo, missing)
+static func l(schluessel: String, werte: Array = []) -> String:
+	lade()
+	var s := t(texte.get("laden", {}).get(schluessel, schluessel))
+	for i in werte.size(): s = s.replace("{%d}" % i, str(werte[i]))
+	return s
+
 # Name eines Dings fuer "Erhalten: …" wie Game.runQueue (Cmd.Give): Einzelstueck mit Seltenheit, sonst Anzahl und Name
 static func ding(id: String, anzahl: int = 1) -> String:
 	lade()

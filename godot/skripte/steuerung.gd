@@ -38,6 +38,8 @@ var ring_lauf := false
 var windrose: Windrose
 var wahl_grund: ColorRect               # 390 (RestScreen): die Welt gedimmt dahinter, nicht zu beruehren
 var wahl_box: VBoxContainer
+var wahl_rolle: ScrollContainer
+const WAHL_HOEHE := 1500.0
 var oben: VBoxContainer                 # Probeknoepfe (Tag/Nacht, Nah/Fern, Drehen): gibt es im alten Spiel nicht, in Vergleichsbildern aus
 
 func _ready() -> void:
@@ -120,9 +122,13 @@ func _ready() -> void:
 	wahlfeld.grow_vertical = Control.GROW_DIRECTION_BEGIN
 	wahlfeld.add_theme_stylebox_override("panel", rahmen())
 	wahl_grund.add_child(wahlfeld)
+	wahl_rolle = ScrollContainer.new()     # 390 (Laden): lange Listen rollen, hoechstens WAHL_HOEHE hoch
+	wahl_rolle.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	wahlfeld.add_child(wahl_rolle)
 	wahl_box = VBoxContainer.new()
 	wahl_box.add_theme_constant_override("separation", 14)
-	wahlfeld.add_child(wahl_box)
+	wahl_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	wahl_rolle.add_child(wahl_box)
 	text = Label.new()
 	text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	text.add_theme_font_size_override("font_size", 36)
@@ -202,6 +208,13 @@ func zeige_wahl(titel: String, zeilen_: Array, knoepfe: Array, weiter_text: Stri
 		l.add_theme_color_override("font_color", Color(0.93, 0.88, 0.76))
 		wahl_box.add_child(l)
 	for k in knoepfe + [{"text": weiter_text, "id": ""}]:
+		if k.has("kopf"):   # Ueberschrift eines Teils (Laden: Vorraete, Brauen, Verkaufen, Zurueckkaufen)
+			var kl := Label.new()
+			kl.text = String(k["kopf"])
+			kl.add_theme_font_size_override("font_size", 34)
+			kl.add_theme_color_override("font_color", GOLD)
+			wahl_box.add_child(kl)
+			continue
 		var b := knopf_neu(String(k["text"]), Vector2(0, 96), 32)
 		b.disabled = not bool(k.get("an", true))
 		var id := String(k["id"])
@@ -222,6 +235,10 @@ func zeige_wahl(titel: String, zeilen_: Array, knoepfe: Array, weiter_text: Stri
 	wahl_grund.visible = true
 	aktion_knopf.visible = false
 	ort_schild.visible = false
+	_wahl_hoehe.call_deferred()
+
+func _wahl_hoehe() -> void:
+	wahl_rolle.custom_minimum_size.y = minf(wahl_box.get_combined_minimum_size().y, WAHL_HOEHE)
 
 func schliesse_wahl() -> void: wahl_grund.visible = false
 func waehlt() -> bool: return wahl_grund.visible

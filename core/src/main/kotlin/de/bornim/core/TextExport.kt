@@ -5,6 +5,8 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import kotlinx.serialization.json.putJsonObject
+import kotlinx.serialization.json.putJsonArray
+import kotlinx.serialization.json.addJsonObject
 import java.io.File
 
 /**
@@ -30,11 +32,27 @@ object TextExport {
         return felder(Resting) + ("sparkFaded" to Light.sparkFaded) + ("roasted" to felder(msgs).getValue("roasted"))
     }
 
+    /** 390 (Laden): Morwen's brewing lines (Game's Msgs: brewed, brewedTwo, missing). */
+    fun laden(): Map<String, T> {
+        val msgs = Class.forName("de.bornim.core.Game\$Msgs").getDeclaredField("INSTANCE").apply { isAccessible = true }.get(null)
+        return felder(msgs).filterKeys { it in setOf("brewed", "brewedTwo", "missing") }
+    }
+
     fun json(): JsonObject = buildJsonObject {
         put("version", VERSION)
         putJsonObject("ui") { for ((k, t) in ui()) put(k, text(t)) }
         putJsonObject("rast") { for ((k, t) in rast()) put(k, text(t)) }
-        putJsonObject("dinge") { for (i in Items.all) putJsonObject(i.id) { put("name", text(i.name)); put("info", text(i.desc)) } }
+        putJsonObject("laden") { for ((k, t) in laden()) put(k, text(t)) }
+        // 390 (Laden): dazu Preis und Art je Ding, und Morwens Rezepte (Recipes)
+        putJsonObject("dinge") {
+            for (i in Items.all) putJsonObject(i.id) { put("name", text(i.name)); put("info", text(i.desc)); put("preis", i.price); put("art", i.kind.name) }
+        }
+        putJsonArray("rezepte") {
+            for (r in Recipes.all) addJsonObject {
+                put("ergebnis", r.output); put("gold", r.gold)
+                putJsonObject("zutaten") { for ((id, n) in r.ingredients) put(id, n) }
+            }
+        }
         putJsonObject("einzelstuecke") {
             for (id in Uniques.ids) putJsonObject(id) { put("name", text(Uniques.name(id))); put("seltenheit", text(Uniques.rarity(id).title)) }
         }
