@@ -1511,8 +1511,9 @@ def dinge_mehr():
     # Felsen an jeder vierten Baumkachel, nicht am Wasser. Lauf 1 (Helfer 01:3x: Felsen weiss-mint wie Kristall, steckten im Stamm,
     # Pilze nirgends zu sehen): Farbe Feldstein mit Moos am Fuss statt der hellen Bausatztextur; auf der Seite der Kachel, die vom
     # Stamm abgewandt ist (sonst zur Dorfmitte); keine Pilze (zu klein, 880 Dreiecke je Stueck)
-    # Lauf 4 (Helfer 03:13: Moos fast schwarz): Moos heller und gruener, Seiten weniger abgedunkelt
-    stein = lambda p, nn: sc(mixc(lin(0x7A766C), lin(0x6E7A40), ss(30, 0, p.z) * (0.5 + 0.5 * vn(p.x / 25, p.y / 25, 92))),
+    # Lauf 4 (Helfer 03:13: Moos fast schwarz; 03:5x: kaum oliv, hebt sich vom Gras nicht ab): Moos hell gelbgruen bis 40 cm hoch,
+    # Seiten weniger abgedunkelt
+    stein = lambda p, nn: sc(mixc(lin(0x7A766C), lin(0x8E9A4A), ss(40, 5, p.z) * (0.55 + 0.45 * vn(p.x / 25, p.y / 25, 92))),
                              (0.85 + 0.3 * vn(p.x / 18 + p.z / 18, p.y / 18, 93)) * (0.85 + 0.3 * max(0.0, nn.z)))
     from mathutils.bvhtree import BVHTree
     SV, SF = [], []                                               # alles bis hier: Boden, Baeume, Zaeune und die Gruppen (Haeuser, Staende)
@@ -1520,15 +1521,19 @@ def dinge_mehr():
         n0 = len(SV); SV += P_.V; SF += [tuple(n0 + i for i in f) for f in P_.F]
     sicht = BVHTree.FromPolygons(SV, SF)
     blick = Vector((ZUR_KAMERA[0], -ZUR_KAMERA[1], 0)) * math.cos(math.radians(30)) + Vector((0, 0, math.sin(math.radians(30))))
-    for c, r in nb:
+    # Lauf 4, zweiter Lauf (Helfer 03:5x: ein Fels ohne Baum, an einer Kachel mit niedrigem Bewuchs statt Baum; am Suedrand vorn im Bild
+    # stehen die Baeume des Waldrings ausserhalb der Karte, dort lag keiner): nur wo ein Stamm steht, auch im ganzen Waldring
+    rand = [(c, r) for c, r in STAMM if not (C0 <= c <= C1 and R0 <= r <= R1) and max(C0 - c, c - C1, R0 - r, r - R1) <= 9]
+    for c, r in nb + rand:
+        if (c, r) not in STAMM: continue
         # Lauf 4 (Helfer 03:13: Fels nie sichtbar am Stamm; nachgemessen mit Strahlen zur Kamera der Grundansicht, 30 Grad aus Suedost:
         # 64 von 72 Felsen und fast alle Stammfuesse lagen hinter Kronen und Daechern 2 bis 5 m davor). Jetzt: an jeder zweiten
         # Baumkachel (einzeln stehend: jeder) die erste freie Lage um den Stamm, zur Kamera und bis 75 Grad seitlich; keine frei: kein Fels
-        if ch(c, r) != 'T': continue
+        if C0 <= c <= C1 and R0 <= r <= R1 and ch(c, r) != 'T': continue
         allein = sum(ch(c + i, r + j) == 'T' for i in (-1, 0, 1) for j in (-1, 0, 1)) <= 3
         if not allein and h1(c, r, 501) > 0.5: continue
-        if any(ch(c + i, r + j) == '~' for i in (-1, 0, 1) for j in (-1, 0, 1)): continue
-        p = tile_c(c, r); st = STAMM.get((c, r)) or p
+        if any(chk(c + i, r + j) == '~' for i in (-1, 0, 1) for j in (-1, 0, 1)): continue   # chk: Fluss am Rand fortgesetzt
+        p = tile_c(c, r); st = STAMM[(c, r)]
         sg = 1 if h1(c, r, 505) < 0.5 else -1
         g = 0.13 + 0.05 * h1(c, r, 502)                          # 42 bis 58 cm breit
         q = None
@@ -1571,7 +1576,7 @@ def dinge_mehr():
             for k in range(1 + int(h1(c * 4 + i + 2, r * 4 + j + 2, 523) * 3)):
                 u = rnd.uniform(-44, 44); d = TS / 2 - rnd.uniform(4, 14)
                 q = tile_c(c, r) + Vector((i * d + j * u, -j * d + i * u, -1))   # Zeile +1 = Blender -y
-                fremd_teil(('Pebble_Round_%d' if rnd.random() < 0.6 else 'Pebble_Square_%d') % rnd.randint(1, 5),
+                fremd_teil('Pebble_Round_%d' % rnd.randint(1, 5),       # Helfer 03:5x: die eckigen wirkten wie Platten
                            Matrix.Translation(q) @ Matrix.Rotation(rnd.uniform(0, 6.283), 4, 'Z') @ Matrix.Scale(rnd.uniform(0.32, 0.45), 4), farbe=kies)
                 n_kies += 1
     print('KIESEL %d' % n_kies)
