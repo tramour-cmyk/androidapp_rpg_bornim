@@ -12,7 +12,8 @@ lade() {   # <spiel> : freier Download ohne Konto (wie der Knopf „No thanks, j
     local U; U=$(curl -sS -m 30 -c $J -b $J -X POST --data-urlencode "csrf_token=$T" "$B/file/$ID?source=game_download" | python3 -c 'import json,sys;print(json.load(sys.stdin)["url"])')
     curl -sS -L -m 900 "$U" -o "$O/$1.zip"
     mkdir -p "$O/$1" && unzip -q -o "$O/$1.zip" -d "$O/$1" && rm "$O/$1.zip"
-    grep -l "CC0 1.0" "$O/$1"/*/License*.txt > /dev/null || { echo "Lizenz nicht CC0: $1"; exit 1; }
+    # Lizenzdatei im Paket oder eine Ebene tiefer (Naturbausatz: oben)
+    grep -l "CC0 1.0" "$O/$1"/License*.txt "$O/$1"/*/License*.txt 2>/dev/null | grep -q . || { echo "Lizenz nicht CC0: $1"; exit 1; }
   done
   rm -f $J
 }

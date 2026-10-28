@@ -47,12 +47,14 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: ~/cc0
-          key: cc0-quaternius-2
+          key: cc0-quaternius-3
       - name: CC0-Pakete (Quaternius)
         run: |
           [ -n "$(find ~/cc0 -name UAL1_Standard.glb 2>/dev/null)" ] || bash tools/blender348/v3/cc0_laden.sh ~/cc0
           # 376 (Chef 22:14, 22:16 „376 A2“): Gwennas Haus aus dem Dorfbausatz (dorf.py PROBEHAUS, Vorgabe 3,12)
           [ -d ~/cc0/medieval-village-megakit ] || PAKETE=medieval-village-megakit bash tools/blender348/v3/cc0_laden.sh ~/cc0
+          # 348.6 (Chef 28.10., 00:07 „weitere Objekte platzieren“; 376: Felsen, Pilze ja): Naturbausatz fuer dorf.py dinge_mehr
+          [ -d ~/cc0/stylized-nature-megakit ] || PAKETE=stylized-nature-megakit bash tools/blender348/v3/cc0_laden.sh ~/cc0
       - name: Modelle bauen (Held, Dorf)
         run: |
           export OUT=$RUNNER_TEMP/out KARTEN=$GITHUB_WORKSPACE/godot/daten/karten.json
