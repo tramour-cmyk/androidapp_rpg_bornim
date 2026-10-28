@@ -39,6 +39,8 @@ func _init() -> void:
 	_pack_flees()
 	# 399.2b (Chef 15:32 „Jungwölfe beißen wie im alten Spiel nur zu 50 % je Runde“)
 	_cub_chance()
+	# 399.2 (Tom 17:15): satt in den Kampf: +1 auf Angriff und Schaden des Helden (Battle.fedBonus), mit Zeile zu Beginn
+	_fed()
 	print("MARS Regeln: %d abweichend" % failed)
 	quit(1 if failed > 0 else 0)
 
@@ -436,5 +438,30 @@ func _cub_chance() -> void:
 	var share := float(growls) / maxi(turns, 1)
 	var ok := turns >= 100 and share > 0.4 and share < 0.6 and angesagt_geknurrt == 0 and stumm == 0
 	print(("gleich" if ok else "FEHLER") + " Jungwolf knurrt statt zu beißen: %d von %d Zügen (%.0f %%, soll etwa 50), Knurren mit Biss %d, ohne Zeile %d" % [growls, turns, share * 100.0, angesagt_geknurrt, stumm])
+	if not ok:
+		failed += 1
+
+
+func _fed() -> void:
+	var sheet: Dictionary = tables.probe.FIGHTER.hero.hero.duplicate(true)
+	var loss := []
+	var bonus := []
+	var said := []
+	for fed in [false, true]:
+		var m = _fight(sheet, ["wolf"], [15, 4, 4, 4, 4])
+		m.fed = fed
+		var heard := []
+		m.listener = func(e): heard.append(e)
+		m.start()
+		_tape(m, [15, 4, 4, 4, 4])
+		var foe = m.all.filter(func(f): return f.side == "FOES")[0]
+		var hp0: int = foe.hp
+		m._weapon_attack(m.lead(), foe)
+		loss.append(hp0 - foe.hp)
+		var att := heard.filter(func(e): return e.roll != null and e.roll[0] == "ATTACK")
+		bonus.append(int(att[-1].roll[2]) if not att.is_empty() else -99)
+		said.append(heard.any(func(e): return String(e.text).contains("gestärkt") or String(e.text).contains("well fed")))
+	var ok: bool = loss[1] == loss[0] + 1 and bonus[1] == bonus[0] + 1 and said == [false, true]
+	print(("gleich" if ok else "FEHLER") + " satt: Schaden %s, Angriff %s, Zeile %s" % [loss, bonus, said])
 	if not ok:
 		failed += 1

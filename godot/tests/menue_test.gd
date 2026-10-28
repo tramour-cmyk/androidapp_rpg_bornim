@@ -105,7 +105,7 @@ func _lauf() -> void:
 	await process_frame; await process_frame
 	var sk: Array = m.inhalt.find_children("*", "Button", true, false)
 	print("System: ", texte(m).substr(0, 300))
-	var bedienung := 6 if Bedienung.klassisch else 8   # Rückfragen, Steuerung, (Joystick, Rennen,) Aktion, Karte, Rütteln
+	var bedienung := (6 if Bedienung.klassisch else 8) + 3   # Rückfragen, Steuerung, (Joystick, Rennen,) Aktion, Karte, Rütteln; 399.2 Blut, Tempo, Kampftext
 	if sk.size() != (5 if root.has_node("Klang") else 4) + 2 + bedienung - 1: fehler += 1; print("FEHLER System: %d Knöpfe" % sk.size())   # mit Klang dazu Schritte; Anleitung, Über; Gerät zeigen
 	# 352 Anleitung: Absaetze der eigenen Klasse, fette Eroeffnung als Ueberschrift, keine Sternchen
 	var teile := Menue.anleitung_teile("WIZARD")

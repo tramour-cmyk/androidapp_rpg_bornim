@@ -1202,7 +1202,7 @@ func _draw_blood() -> void:
 	if bleeding.is_empty():
 		return
 	var k = kampfort
-	var level: int = k.BLOOD_LEVEL
+	var level: int = k.blood_level()
 	var p: float = (k.clock_ms - bleeding.t0) / (1300.0 if level >= 2 else 750.0)
 	if level <= 0 or p >= 1.0 or not k.figures.has(bleeding.on):
 		if p >= 1.0:

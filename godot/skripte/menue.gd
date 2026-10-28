@@ -848,7 +848,7 @@ func anleitung() -> void:
 		v.add_child(absatz)
 	spalte.add_child(Erschaffung.knopf(Sprache.u("back"), func(): seite.queue_free()))
 
-# 399.1 wie alt (SystemSigns): „Kampf“ mit Rückfragen (Blut, Tempo, Kampftext folgen mit dem Kampfort, Jerry), dann „Bedienung“:
+# 399.1 wie alt (SystemSigns): „Kampf“ mit Blut, Tempo, Kampftext (399.2, Jerry) und Rückfragen, dann „Bedienung“:
 # Steuerung, Joystick und Rennen nur beim Wischen, Aktion, Karte, Rütteln; Antippen wechselt, gespeichert in Bedienung.gd
 func bedienung() -> void:
 	var de := Sprache.aktiv() == "de"
@@ -861,6 +861,19 @@ func bedienung() -> void:
 	luecke(4)
 	zeile(("Kampf" if de else "Combat").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))
 	luecke(6)
+	var blut := ["Aus", "Dezent", "Deutlich"] if de else ["Off", "Subtle", "Strong"]
+	var tempo := ["Ruhig", "Normal", "Schnell"] if de else ["Calm", "Normal", "Fast"]
+	var text := ["Antippen", "Von selbst"] if de else ["Tap", "Auto"]
+	eintrag.call("Blut" if de else "Blood", blut[Bedienung.blut],
+		"Wie viel Blut Treffer zeigen. Antippen wechselt: Aus, Dezent, Deutlich." if de else "How much blood hits show. Tap to change: off, subtle, strong.",
+		Bedienung.blut > 0, func(): Bedienung.blut = (Bedienung.blut + 1) % 3)
+	eintrag.call("Tempo" if de else "Pace", tempo[Bedienung.tempo],
+		"Wie schnell Züge und Zeilen im Kampf ablaufen. Antippen wechselt: Ruhig, Normal, Schnell." if de
+		else "How fast turns and text play out in battle. Tap to change: calm, normal, fast.", false, func(): Bedienung.tempo = (Bedienung.tempo + 1) % 3)
+	eintrag.call("Kampftext" if de else "Battle text", text[1 if Bedienung.kampftext else 0],
+		"Ob die Zeilen im Kampf auf dein Antippen warten oder nach einer Lesepause von selbst weiterlaufen." if de
+		else "Whether the lines in a fight wait for your tap or advance automatically after a pause for reading.", false,
+		func(): Bedienung.kampftext = not Bedienung.kampftext)
 	eintrag.call("Rückfragen" if de else "Confirmations", an.call(Bedienung.rueckfragen), Sprache.u("confirmHint"), Bedienung.rueckfragen,
 		func(): Bedienung.rueckfragen = not Bedienung.rueckfragen)
 	luecke(4)

@@ -51,7 +51,6 @@ const PERFECT_MS := 90
 const GOOD_MS := 260
 ## 249: Blut wie im alten Spiel, Stufe 1 (wenige kleine Tropfen) ist dort die Vorgabe; 0 aus, 2 mehr mit Flecken am Boden.
 ## Der Schalter im Menü kommt mit Toms Systemmenü.
-const BLOOD_LEVEL := 1
 
 var mars
 var tables: Dictionary
@@ -98,7 +97,9 @@ func setup(party: Array, foes: Array, p_tables: Dictionary, potions: Dictionary,
 		return false
 	var dice = Wuerfel.new(null if seed < 0 else seed)
 	var words = Wuerfel.new(null if seed < 0 else seed + 279)
-	mars = Mars.new(party, foes, tables, dice, words, lang, false)
+	# 399.2: aus der Welt atemlos (Skirmish winded: Initiative mit Nachteil) und satt (+1 auf Angriffe und Schaden)
+	mars = Mars.new(party, foes, tables, dice, words, lang, bool(p_progress.get("atemlos", false)))
+	mars.fed = bool(p_progress.get("satt", false))
 	for k in potions:
 		mars.potions[k] = int(potions[k])
 	mars.listener = func(e): _post({"say": e})
@@ -804,7 +805,7 @@ func _play_say(e: Dictionary) -> void:
 		var crit := _crit(e)
 		var w := Wucht.of(crit, e.damage, tg.max_hp, e.hp.get(target, 1) <= 0)
 		var gore := 1.0 - float(e.hp.get(target, 0)) / maxi(tg.max_hp, 1)
-		var wound: bool = e.wound and BLOOD_LEVEL > 0
+		var wound: bool = e.wound and blood_level() > 0
 		get_tree().create_timer(lands / 1000.0).timeout.connect(func():
 			if Wucht.jolt_dp(w) > 0.0:
 				hit = {"by": actor, "on": target, "w": w, "t0": clock_ms}
@@ -914,3 +915,8 @@ func finish() -> void:
 	if on_end.is_valid():
 		on_end.call(mars.outcome)
 	queue_free()
+
+
+## 399.2: wie viel Blut (Menü System „Blut“: Aus, Dezent, Deutlich; MarsLayout bloodLevel)
+func blood_level() -> int:
+	return Bedienung.blut_stufe()
