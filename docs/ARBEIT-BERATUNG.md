@@ -4,12 +4,14 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (28.10., 00:10, `session_01Hmoj79NGUpegjwGyVmjQax`):** Chefrunde 27.10. abends: 383.1–383.3, 389, 142.3 A und C, 109 vorgelegt, 385 (Zauberer-Set gekauft), 387, 388 (Play-Test), 348.7b D, 348.12f, 348.13a 1,3, 376 A2, 376.1, 348.6, Maßstab Umzug (Archiv). Chef 00:01: Sokrates führt die Nacht (Archiv „Nacht 27./28.10.“). Offen bis 28.10.: 142.3 Aufruftexte, Forenregeln, Organisationskonto. Kosten auf: 383, 142.3, 385, 348.12c, 109. Nachfolger: Sokrates – 142.3 Tester-Aufruf
+**Übergabe (28.10., 10:08, `session_01Hmoj773t8Z2RLDMEAZaZin`):** Stellungnahme in Chefsache 390a (A, eng, Haken prüft selbst). Kosten auf: 390a. Nachfolger: Sokrates – 142.3 Tester-Aufruf
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 398 | M | **von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr ganz grundlegende Dinge fehlen?“):** Grundsätze DESIGN-* gegen Umzugsliste und Godot-Zweige | wartet auf Perikles: 15 Lücken in LISTE-UMZUG-348.md „398“, Chef 11:3x informiert |
+| 391 | M | **von Chef (28.10., 09:21):** Repos dauerhaft ohne Ablehnung | ruht: kein Repo-Feld in der Umgebung (Bild Chef 10:29), Repo-Wahl am Eingabefeld gilt nur für Sitzungen von Hand; Fords Starts nehmen ein Repo; add_repo geht durch, wenn die Aufgabe die Kaufmodelle braucht |
 | 383.2 | M | **von Chef (27.10., 19:24, „wo steckt jetzt hier wieder die Wahrheit? Und wer hat damit geprüft?“):** dieselbe Aufgabe frisch gegen groß messen; ja 19:30 („nimm den Vergleich dort mit auf“, Archiv) | frühestens 31.10. |
 | 383 | M | **von Chef (27.10., 17:44, „Sollen wir einfach aufhören damit?“; 17:47 Vorschlag „nicht griffig“):** Chef räumt nur hinter allen her | frühestens 31.10.: Größe gemessen 18:15, keine Größenregel (Zu 383); Bau Wartewächter bei Perikles; nachmessen mit 347 |
 | 376 | M | **von Chef (27.10., 12:00):** Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Tom: Häuser so lassen (19:08, Archiv); Bausätze bewertet im Chat 19:1x (Leute aus Trachten, Tierpaket, Hundertfüßer, Markt; Zu 376); Markt 376.2 bei Tom |
@@ -36,7 +38,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 142.3 | M | **von Chef (27.10., 19:32):** Tester öffentlich suchen | in Arbeit (Sokrates 20:0x), A und C (Archiv): bis 28.10. C Organisationskonto klären; A Forenregeln, Aufruf de/en, Abspann, Datenschutz; Aufruf nach 109; dann Tom |
 | 142 | M | Pflichttest Play Store (von Perikles); Store-Text „jede Entscheidung zählt“ prüfen (72a) | wartet auf 142.3: Tester; Chef meldet Gewerbeschein (tun/142); bis 15.11. (Zu 142, Stand) |
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (Gewerbeschein); 45a/45c, 72g–72j entschieden ([Artefakt](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj), vertraulich); offen: Preis endgültig mit 142 (ab Gewerbeschein), bis 30.11.; iOS-Schätzung Tom nach Kapitel 2 |
-| 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | wartet auf Chef: entscheiden/109 (Votum A) |
+| 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | ruht bis Gewerbeschein (Chef 28.10., 10:26; 142); dann Chefsache neu |
 
 - **Zu 383, Sitzungsgröße (gemessen 27.10., 18:15; 99 Sitzungen 26.10., 17:48 bis 27.10., 18:11, `get_session` usage; Helfer rechnete nach):** 96 mit Kosten, 787 $ in 24 h. Großes Modell je Million Ausgabetokens nach Kontext am Ende: 100–200k 103 $ (n 14), 200–300k 101 $ (n 61), 300–500k 92 $ (n 17); Kein Hinweis, dass große Sitzungen je Arbeit teurer sind; Beleg schwach (nur Endstand, kein Vergleich gleicher Aufgabe). Jeder Start mindestens etwa 125k Kontext, kleinste Sitzung 1,25 $. Treiber: Runden (44 %). Früher: 99h (Perikles 17.10., Ford), 185 (Messung 20.10.), 99h.6 (Teams, Zu 163.1 in Git 22.10.), D40.1. Wiederholen mit 347 und 383.2 am 31.10.
 - **Zu 376:** Chef 12:09–12:10: 20 $ „super gerne“, wenn Größe und Form anpassbar und Tusche darauf geht; „dann hätten die vielleicht auch mal einen richtigen Kopf“; nah sichtbar in Ausrüstung, Charaktererstellung, Kartenzoom; 12:12 „Universal Base Characters“ als Alternative zum Selbstbau.
@@ -52,7 +54,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 142.3 C (20:1x, Netz):** Organisationskonto braucht D-U-N-S (D&B, kostenlos, 5–30 Tage), neues Konto 25 $; App per Übertragung umziehen, Testgruppen ziehen nicht mit; testfrei nur gefolgert.
 - **Zu 347:** Gegenprüfung Diogenes (347.1) 16:4x mit drei Änderungen (A Messweg ohne stündliches `list_events`, B Stempelprüfung, C Pause), „Zu 347.1“ in `ARBEIT-PROJEKT.md`; 347.2: Zähler, Stempelprüfung, Kernregelzeile, kein Längenhaken. Befund 24.10.: Chefsache-Haken 63 hält oft fälschlich an (Bogen 26 siebenmal; 18:4x bei Versionsnummer „5.2“ und bei Ankündigungen).
 - **Zu 348, Chef 25.10., 21:13:** „Wieso braucht man alleine dafür vier Versuche. Es gibt doch eine Vorlage … Bei den Ratten >10“ → im Chat 21:1x beantwortet; Chef 21:21 „a ja, b prüfen“ (Archiv 348.11, 348.12).
-- **Zu 348, Chef 25.10., 12:16:** Arbeit für den Umzug auf alle verteilen („Tom und Jerry bauen lustig vor sich hin und der Rest legt die Füße auf den Tisch“; Diogenes heute nicht gesehen). Vorschlag 12:2x im Chat: (1) Diogenes Abgleich alt/neu je Vergleichsblatt vor dem Chef, gemessen (Rollenänderung); (2) Homer Stimmungsvorschlag je Ort und Tageszeit, Chef billigt, dann Messlatte; Modellentwürfe vor dem Chef; (3) Perikles Tagesziele je Team aus der Bestandsliste. Chef 12:18: Perikles Meilenstein und Checkliste für den Umzug, „damit wir nichts vergessen“; erst alle Modelle bauen (Leute, Monster, Dinge, Hütten), dann daraus ableiten; Eindruck „nicht sehr geplant und koordiniert“. Chef 12:24 ja (348.9, Archiv); Zeilen bei Homer, Diogenes; Perikles über Ford (Vorrat voll). Helfer 24.10., 23:05 fand schon „Farben übersättigt, Licht flach (dämpfen)“ (Git), blieb liegen.
+- **Zu 348, Chef 25.10., 12:16–12:24:** Umzugsarbeit auf alle verteilt, entschieden als 348.9 (Archiv); Wortlaut und Vorschlag in Git.
 - **Zu 348, Chef 25.10., 00:59:** Portierung, alle machen mit, Maß ist das alte Aussehen (Wortlaut in Git vor „Sokrates: 377.1“).
 - **Zu 296** (Chef 22.10., 07:50, an Sokrates, Wortlaut): Checkliste je großem System, MARS zuerst: umgesetzt, offen, je Punkt Vorgangsnummer oder ein Satz (Wortlaut in Git vor 23.10., 09:35). Befund 07:5x: Sterbeanimationen in MARS nirgends als Vorgang (nur 249: Gefallener hält den Platz bis Sinken und Verblassen); Sturz klassisch = 295 (Jerry).
 - **Zu 253, Namenssuche (Sprachgespräch 20.10., abends):** Wirestorm verwechselbar (Play Store); Name jetzt BornWire TCS (Zeile 253), Verlauf in Git vor `2e6ab39a`, Einzelheiten im Fahrplan-Dokument. Gewerbeschein ist auf „Wirestorm TCS“ beantragt.
@@ -63,3 +65,4 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 167.6:** offen nur der Morgenbericht; Wiedervorlage war Mo 26.10. (`trig_01YC96AwHsxL7EUA8R4vPghp`); Wortlaut 167 im Vorgangsarchiv.
 - **Zu 142** (17.–20.10. in Git): Fahrplan im vertraulichen [Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM); offen: Anschrift vor dem Zahlungsprofil
 
+- **Von Diogenes (374, 28.10.):** Stichprobe 373: Chefwort 376.1 vom 27.10., 15:23 steht bei Tom („Von Sokrates“) nur sinngemäß; Wortlaut mit Zeit nachtragen (373 d).

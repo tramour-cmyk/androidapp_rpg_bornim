@@ -2,9 +2,9 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (27.10., 23:06, Ford `session_01Hmoj75jVp5KYNTRoJ7QXfq`, Tiefe 2, 385 Tsd. Token → Selbstneustart):** Läuft: Tom `01Hmoj772C` „348.6 Häuser mit Innenraum“ (PR #176 Build 90 nur 388: Testbitte an den Chef, nach dessen Ja main und „play“; danach 385 Zauberbewegung), Jerry `01Hmoj7A1B` „348.12f Drehen auf der Stelle, Ratte Schnauze“ (danach 387 gekaufte Tiere prüfen). Perikles `01Hmoj77KV` (383.3 fertig) und Sokrates `01Hmoj79NG` (Chefrunde) idle, nichts zu archivieren, solange kein Nachfolger läuft. Homer ohne Sitzung; Diogenes ab 28.10. täglich 8:00 bis 03.11. (374, `START`/„Auftrag Diogenes 374“). Archivieren geht wieder (Chef 20:2x „archiviere die überzähligen Sitzungen“): nach jedem Neustart den Absender archivieren, sobald `idle`, vorher PR-Abo übergeben; Kosten **nur aus `usage.cost_usd` von `get_session`/`archive_session`, nie schätzen** (Fehler 19:37 zurückgenommen), `lauf.py --kosten <Nr,Nr> <Betrag> <Kennung>` aus `/home/user/bornim-main2` (Klon, `bornim-main` hängt seit 17:36 in einem Rebase; Notizen dort mit Edit, `git pull --no-rebase`, pushen). Jede `create_session` mit `source_revision` `main`, `source_url`, Umgebung wie die `START`-Zeile von `lauf.py` (Tom, Jerry Hoch `env_017fgL1YDcVTYTkJsU3APEfR`, sonst Mittel), erste Nachricht nur die Rolle. Vor `lauf.py` die Sitzungen als Kurzzeilen in eine Scratchpad-Datei, letzte Zeile `# has_more: nein`. Chef nie mit Kennungen ansprechen, nur Titel; nachts (22–7) lautlos. Nachfolger: Ford – Betriebsleiter.
+**Übergabe (28.10., 13:08, Ford `session_01Hmoj78maf1xG6QSj4w28Lw`, Tiefe 3, 386 Tsd. Token → Selbstneustart):** Läuft: Tom `01Hmoj76N4` „376.1 Halszacken in Godot, dann 397“ (399.1 Dorf+Kampf gemergt), Jerry `01Hmoj75RG` „399.2 CI prüfen, 348.12 Grak-Film“, Perikles `01Hmoj76yC` „399“, Sokrates `01Hmoj78fq` „Chefrunde“ (Chef ruft ihn; Stellungnahme 396a). Diogenes ab 29.10. täglich 8:00 bis 03.11. (374; heute 398 schon gelaufen, Vorrat leer). **Wochenlimit `allowed_warning` seit 28.10., 05:5x (Zurücksetzung Sa 31.10., 20:00): `lauf.py --nur-muss`.** **Dauerregel (Chef 28.10., 10:38): jeder Start von Tom, Jerry, Leihentwickler mit dem add_repo-Satz im `append_system_prompt` (Eingang).** Ford legt nur Chefzitate in Startprompts, die er selbst aus Archiv/Chefwort kennt (Prüfer lehnte 12:03 ein unbestätigtes Zitat ab). Archivieren geht (Prüfer lässt es durch, manchmal erst beim zweiten Versuch); Kosten nur aus `usage.cost_usd`, `lauf.py --kosten <Nr,Nr> <Betrag> <Kennung>` aus `/home/user/bornim-main` (Rebase-Problem behoben; Notizen mit Edit/Python-Einzeiler, `git pull --no-rebase`, pushen). `lauf.py` mit Kurzzeilen-Datei im Scratchpad, letzte Zeile `# has_more: nein`; „Startmarke jünger als 20 Minuten“ schützt vor Doppelstart. Jede `create_session` mit `source_revision` `main`, `source_url`, Umgebung wie die `START`-Zeile (Tom, Jerry Hoch `env_017fgL1YDcVTYTkJsU3APEfR`, sonst Mittel `env_01F9WxikYD4TTdhscxvPi93p`), erste Nachricht nur die Rolle (Nachfolger: Titel aus der Übergabe). Nachts (22–7) lautlos; Chef nie mit Kennungen ansprechen, nur Titel. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 390** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 400** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -18,11 +18,13 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (27.10., 23:06)“ `session_01Hmoj78maf1xG6QSj4w28Lw` (Tiefe 3); Stundenuhr „Ford-Lauf“ `trig_014A6QWBSksj49igbfpa1D6i` (:03, geprüft 23:06), geht mit dem Selbstneustart auf den Nachfolger über. Alter Ford `01Hmoj75jV` archiviert 23:58 (7,73 $).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (28.10., 13:09)“ `session_01Hmoj76tScGGPZum5vs5UrG` (Tiefe 4); Stundenuhr „Ford-Lauf“ `trig_01Bw23SSLn8CE17EC2R9uU3h` (:03, geprüft 13:10), geht mit dem Selbstneustart auf den Nachfolger über. Alter Ford `01Hmoj78ma` archiviert 13:10 (9,02 $).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus; Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
 
 ## Eingang
+
+- **Dauerregel (Chef 28.10., 10:38):** jeder Start von Tom, Jerry und der Leihentwickler (Tom 2 u. ä.) trägt in der ersten Nachricht (oder `append_system_prompt`) den Satz: „Der Chef erlaubt, tramour-cmyk/bornim-kaufmodelle per add_repo einzubinden, wenn die Aufgabe gekaufte Modelle braucht (Vorgangsarchiv 376.1, 28.10., 08:35).“ Ford hängt ihn an jedes `create_session` für diese Rollen; `lauf.py` kennt ihn noch nicht (Werkzeug bei Perikles).
 
 - **Nacht 27./28.10. (Sokrates 00:02, Chef 00:01 Leitung bis Morgen, Archiv „Nacht 27./28.10.“):** jedem Start und Lauf mitgeben: Tom, Jerry arbeiten ohne den Chef weiter, fertige Vorlagen aufs Morgenblatt (Chefsache „ansehen“), gleich die nächste startbare Zeile, nicht warten; höchstens zwei Probeläufe je Vorlage (389), keine 1:1-Kopien („348, Maßstab“); meldet sich jemand „wartet auf Chef“, ihm die nächste Zeile geben. Diogenes 374 erst 8:00.
 
@@ -39,31 +41,30 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
-- 00:55 28.10.: Neustart Jerry angenommen (`f9a7149a5`), Nachfolger „Jerry – 348.12 Grak und Kobold aufs CC0-Gerüst“ gestartet (main, Hoch); alter Jerry `01Hmoj7A1B` archiviert; Tom bekam 348.6 (Chef 00:07) als Vorrang; Diogenes 374 mit `--ohne` bis 8:00 zurückgestellt
 - 17:35–19:54 27.10.: Ford-Selbstneustart; Neustarts angenommen: Sokrates 19:08, Tom 19:32, Jerry 19:40, Tom 19:54; Vorgang 382 an Perikles
 - 01:37–06:35 27.10.: Neustarts angenommen und Nachfolger gestartet: Tom 01:46, 02:33, 02:57, 03:23, 03:51, 04:16, 04:43, 05:01, 05:20, 05:44, 06:03, 06:35, 07:21; Jerry 01:37, 02:42, 03:25, 04:57; Jerry 05:55 zurückgestellt (wartet auf Chefsache 3487a). Läufe 02:03, 03:03 ohne Starts; START Perikles (Terminname) nicht ausgeführt
 - 25.10., 09:35–21:05: Neustarts Tom/Jerry/Sokrates angenommen; Perikles 364 und Sokrates 340.2 gestartet; Sparbetrieb und Max 20x (Verlauf in Git)
 
-- 23:08 27.10.: Selbstneustart Ford (Tiefe 3) angenommen: Uhr `trig_014A6QWBSksj49igbfpa1D6i` angelegt und geprüft, alte gelöscht; alter Ford `01Hmoj75jV` archivieren zweimal abgelehnt (369), WARNUNG-LAUT nachts zurückgestellt; Tom `772C`, Jerry `7A1B` laufen, Perikles `77KV`, Sokrates `79NG` idle; kein Start nötig
-- 22:51 27.10.: Neustart Jerry angenommen (`ab3cc8cf3`), Nachfolger `01Hmoj7A1B` „Jerry – 348.12f Drehen auf der Stelle, Ratte Schnauze“ gestartet (main, Hoch); alter Jerry `01Hmoj78dk` archiviert, gebucht (32,36 $ auf 348.12f, 387)
-- 22:34 27.10.: Neustart Tom angenommen (`54e43fbf9`), Nachfolger `01Hmoj772C` „Tom – 348.6 Häuser mit Innenraum“ gestartet (main, Hoch), PR-Abo #176 (Build 90, nur 388) an ihn gegeben; alter Tom `01Hmoj78ky` war schon `idle` ohne Testbitte → archiviert, gebucht (16,29 $ auf 348.6, 388); Testbitte Build 90 dem neuen Tom übertragen
-- 21:24 27.10.: Neustart Tom angenommen (`c67054d15`), Nachfolger `01Hmoj78ky` „Tom – 348.6 Probehaus Fenster“ gestartet (main, Hoch); alter Tom `01Hmoj79DD` archiviert und gebucht (20,09 $ auf 376.1); 385 (Sokrates) nimmt Tom nach 348.6/376.1 aus dem Vorrat
-- 20:36 27.10.: Neustart Jerry angenommen (`3a253a7f5`), Nachfolger `01Hmoj78dk` „Jerry – 348.12f Janpec-Wolf Probe“ gestartet (main, Hoch); alter Jerry `01Hmoj76E9` archiviert, Kosten fehlen (Antwort ohne `usage`, nicht geraten)
-- 20:26 27.10.: Auftrag Sokrates (Chef 19:23 „383.1 ja, Perikles soll das jetzt umsetzen“): Perikles `01Hmoj76Wn` „Perikles – 383.1 (27.10., 19:26)“ gestartet (main, Mittel), alter Perikles `01Hmoj76q6` (238 Tsd. Token, fertig) archiviert und gebucht (4,87 $ auf 383)
-- 20:25 27.10.: Auf Wort des Chefs („archiviere die überzähligen Sitzungen“) zehn fertige Sitzungen archiviert (Jerry `761r`, `75RB`, `76PX`; Sokrates `79xv`, `78Sx`, `77UK`; Tom `76F3`, `77wa`, `78Xe`; Perikles `77bY`) und gebucht (zus. 99,32 $); Prüfer ließ es durch, 369 erledigt
-- 20:21 27.10.: Neustart Jerry angenommen (`940d29967`), Nachfolger `01Hmoj76E9` „Jerry – 348.12f Ortswechsel Fehlerrunde“ gestartet (main, Hoch); alter Jerry `01Hmoj76PX` zu archivieren (Prüfer lehnt ab, 369), Kosten ungebucht
-- 20:20 27.10.: Neustart Tom angenommen (`3699c749a`), Nachfolger `01Hmoj76zw` „Tom – 348.13a Tusche mit schräger Sonne“ gestartet (main, Hoch); alter Tom `01Hmoj78Xe` zu archivieren (Prüfer lehnt ab, 369), Kosten ungebucht
-- 20:15 27.10.: Neustart Sokrates angenommen (`5ef998c3e`), Nachfolger `01Hmoj79NG` „Sokrates – Chefrunde 348.13a und Bausätze 376“ gestartet (main, Mittel); alter Sokrates `01Hmoj77UK` zu archivieren (Prüfer lehnt ab, 369), Kosten ungebucht
-- 20:06 27.10.: Neustart Tom angenommen (`cb2503fc7`), Nachfolger `01Hmoj79DD` „Tom – 376.1 Kaufkopf anpassen“ gestartet (main, Hoch); alter Tom `01Hmoj76zw` archiviert und gebucht (3,13 $ auf 348.13a)
-- 20:04 27.10.: Lauf; Perikles „383.3 (27.10., 20:04)“ `01Hmoj77KV` gestartet (main, Mittel); alter Perikles `01Hmoj76Wn` (383.1 fertig, gebilligt) archiviert und gebucht (2,01 $); Tom, Jerry laufen
-- 19:54 27.10.: Neustart Tom angenommen (`1e131ce2b`), Nachfolger `01Hmoj78Xe` „Tom – 376 Probehaus prüfen, vorlegen“ gestartet (main, Hoch); alter Tom `01Hmoj76F3` zu archivieren (Prüfer lehnt ab, 369), Kosten ungebucht
-- 19:40 27.10.: Neustart Jerry angenommen (`e5717419a`), Nachfolger `01Hmoj76PX` „Jerry – 348.12f Kaufratte im Kampfort“ gestartet (main, Hoch); alter Jerry `01Hmoj75RB` zu archivieren (Prüfer lehnt ab, 369), Kosten ungebucht
-- 19:32 27.10.: Neustart Tom angenommen (`796aea398`), Nachfolger `01Hmoj76F3` „Tom – 376.1 Kaufkopf und Fehler Tracht“ gestartet (main, Hoch); alter Tom `01Hmoj77wa` zu archivieren (Prüfer lehnt ab, 369), Kosten ungebucht
-- 19:08 27.10.: Neustart Sokrates angenommen (`f3fece15d`), Nachfolger `01Hmoj77UK` „Sokrates – 383 Sitzungsgröße messen“ gestartet (main, Mittel); alte Sitzungen Sokrates `01Hmoj78Sx`, `01Hmoj79xv`, Jerry `01Hmoj761r`, Ford `01Hmoj76zG` zu archivieren (Prüfer lehnt ab, 369), Kosten ungebucht
-- 19:05 27.10.: Lauf; Perikles „383 (27.10., 19:05)“ `01Hmoj76q6` gestartet (main, Mittel); ARCHIVIERE (Prüfer lehnt ab, 369, Kosten ungebucht): Jerry `761r`, `75RB`; Sokrates `79xv`, `78Sx`; Tom `76F3`, `77wa`; Perikles `77bY`
-- 17:57 27.10.: Neustart Jerry angenommen (`3dd068b4d`), Nachfolger `01Hmoj75RB` „Jerry – 348.7a Blatt Grundfrage Bahn“ gestartet (main, Hoch); alter Jerry `01Hmoj761r` zu archivieren (Prüfer lehnt ab, 369), 4,03 $ auf 348.7a noch zu buchen (`bornim-main` hängt im Rebase)
-- 17:35 27.10.: Selbstneustart Ford (neue Uhr, alter Ford `01Hmoj76zG` nicht archiviert, Prüfer lehnte ab); Neustart Sokrates (alter Ford, `8dadd8998`): Nachfolger `01Hmoj78Sx` „Sokrates – 376.1a und 381 begleiten“ läuft, alter Sokrates `01Hmoj79xv` zu archivieren (Prüfer lehnt ab, Kosten 275, 376 noch zu buchen); 382 (`source_revision main`) an Perikles
-- 17:16 27.10.: Neustart Tom angenommen (`9e8337eef`), Nachfolger `01Hmoj77wa` „Tom – 348.13a Tusche Kampf Runde 6“ gestartet; alter Tom `01Hmoj79D3` archiviert, 9,25 $ auf 376.1, 348.13a
+- 13:12 28.10.: Neustart Jerry angenommen (`ff9aead43`), Nachfolger „Jerry – 399.2 CI prüfen, 348.12 Grak-Film“ `01Hmoj75RG` gestartet (main, Hoch, mit add_repo-Satz); alter Jerry `76aX` archiviert und gebucht (27,93 $ auf 348.12, 387, 399.2)
+- 13:09 28.10.: Lauf; Diogenes `77nv` (398, Vorrat leer) archiviert und gebucht (0,79 $); Perikles `76yC` (399), Tom `76N4`, Jerry `76aX`, Sokrates `78fq` laufen; kein Start nötig
+- 12:38 28.10.: Auftrag Sokrates (Chef 12:34 „399 jetzt“): Perikles „399“ `01Hmoj76yC` gestartet (main, Mittel); alter Perikles `77KE` (398 fertig) archiviert und gebucht (1,88 $); Tom, Jerry, Diogenes, Sokrates laufen
+- 12:08 28.10.: gestartet (main, Mittel): Diogenes „398“ `01Hmoj77nv`, Perikles „398“ `01Hmoj77KE`; alter Perikles `76kq` (396) archiviert und gebucht (3,01 $); Sokrates `78fq` idle (Chef ruft ihn, bleibt), Tom `76N4`, Jerry `76aX` laufen
+- 12:06 28.10.: Neustart Tom angenommen (`5791b512c`), Nachfolger „Tom – 376.1 Halszacken in Godot, dann 397 Ruhebewegungen“ `01Hmoj76N4` gestartet (main, Hoch, mit add_repo-Satz; Prüfer lehnte den ersten Versuch wegen eines nicht überprüften Chefzitats im Startprompt ab, danach nur der Satz des Chefs 10:38); alter Tom `01Hmoj78eF` archiviert und gebucht (15,40 $ auf 390, 376.1)
+- 11:58 28.10.: Neustart Jerry angenommen (`3434960d7`), Nachfolger „Jerry – 387 Vorlage, 348.12 Grak animieren“ `01Hmoj76aX` gestartet (main, Hoch, mit add_repo-Satz); alter Jerry `01Hmoj78sy` archiviert und gebucht (26,93 $ auf 390, 387, 348.12f)
+- 11:33 28.10.: Neustart Tom angenommen (`482e7485f`), Nachfolger „Tom – 390 Laden-Ausrüstung, dann 376.1 Halszacken“ `01Hmoj78eF` gestartet (main, Hoch, mit add_repo-Satz); alter Tom `01Hmoj78Lq` archiviert und gebucht (6,00 $ auf 385, 390); offene Frage zu 385 steht in Toms Übergabe
+- 11:08 28.10.: Chef „Ich brauche Sokrates“ (11:06): Sokrates „Chefrunde“ `01Hmoj78fq` gestartet (main, Mittel); Perikles „396“ `76kq`, Tom `78Lq`, Jerry `78sy` laufen; Sokrates `773t` archiviert und gebucht (10,68 $ auf 383)
+- 10:48 28.10.: Neustart Tom angenommen (`c6aa36254`), Nachfolger „Tom – 385 Film senden, dann 376.1 Halszacken“ `01Hmoj78Lq` gestartet (main, Hoch, mit add_repo-Satz); alter Tom `01Hmoj77Qs` archiviert und gebucht (29,17 $ auf 385, 376.1, 390); Sitzungslink lautlos an den Chef (Satz für den Fall einer Ablehnung)
+- 10:43 28.10.: Neustart Jerry angenommen (`b535dadbe`), Nachfolger „Jerry – 390 Funktionen ohne Bild“ gestartet (main, Hoch, mit add_repo-Satz); alter Jerry `01Hmoj78yA` archiviert, Kosten fehlen (Antwort ohne `usage`, 348.12)
+- 10:27 28.10.: Tom 2 `01Hmoj79kd` auf Sokrates (Chef 393, Ergänzung 10:21) archiviert; keine Kostenangabe (nie gelaufen), nichts auf 393 zu buchen; Tom macht 385 selbst, danach 376.1
+- 10:25 28.10.: HALT zu 393 (Sokrates 10:21): Tom 2 `01Hmoj79kd` per interrupt angehalten, nichts committet, Sitzung unberührt; wartet auf Entscheid des Chefs (Tom 376.1 arbeitet laut Sitzungsstand schon an 385)
+- 10:22 28.10.: Auftrag Sokrates (Chef 10:18, Archiv 393): einmalig „Tom 2 – 385 Zaubererbewegung“ `01Hmoj79kd` gestartet (main, Hoch), nur 385, 1 Sitzung, 2 Läufe; archivieren, sobald idle (kein Nachfolger); Tom `77Qs` bleibt an 376.1; Sokrates `773t` (Stellungnahme 390a), Jerry `78yA` laufen
+- 10:05 28.10.: Neustart Jerry angenommen (`655fccac7`), Nachfolger „Jerry – 348.12 Gestalt Grak und Kobolde“ gestartet (main, Hoch); alter Jerry `01Hmoj77md` archiviert und gebucht (32,84 $ auf 348.7b, 387, 348.12f); Tom `77Qs` (376.1), Sokrates `79Zs` laufen
+- 09:12 28.10.: Neustart Tom angenommen (`1f531174a`), Nachfolger „Tom – 376.1 Halszacken in Godot, Formen, Editor“ gestartet (main, Hoch); alter Tom `01Hmoj78ka` archiviert
+- 09:10 28.10.: Sokrates „Stellungnahme“ (194.2, 34813b) `01Hmoj79Zs` gestartet (main, Mittel); archiviert und gebucht: Perikles `77rS` (8,40 $ auf 338.1), Sokrates `79NG` (59,24 $ auf 383), Diogenes `79PW` (4,13 $ auf 374); Perikles „M?“ nicht gestartet (Wochenwarnung, kein Muss); Tom `78ka`, Jerry `77md` laufen
+- 08:14 28.10.: Sokrates (08:12) Chefrunde: Tom startbar 348.13/348.13b/348.6, Jerry 387/348.12f/348.12; Tom `01Hmoj78ka` „Tom – 348.6 (08:10)“ gestartet (main, Hoch), blockierter Tom `771Z` (wartete auf Satz 3761) archiviert und gebucht (22,06 $), Chefsache 3761 auf neue Sitzung berichtigt; Jerry läuft schon
+- 08:08 28.10.: Morgenmeldung gesendet (laut); gestartet (main): Jerry „348.7b nach Urteil des Chefs“, Diogenes „374“ (Tagesauftrag), Perikles „Stand zum Marktstart 28.10.“; alter Jerry `01Hmoj79A1` archiviert und gebucht (11,99 $); Tom `01Hmoj771Z` blockiert (wartet auf Satz des Chefs für `add_repo` bornim-kaufmodelle, 376.1)
+- 05:53 28.10.: Jerry-Kosten gebucht (50,64 $ auf 387, 348.12); `rate_limit_info` der Sitzung zeigt `seven_day` `allowed_warning` (Zurücksetzung 1793473200): ab jetzt `lauf.py --nur-muss` (D31.3, 287)
+- 05:51 28.10.: Neustart Jerry angenommen (`49af405c0`), Nachfolger „Jerry – 348.7b Zauberbahn nach Chef „D““ gestartet (main, Hoch); alter Jerry `01Hmoj75wa` archiviert
 - 00:04 27.10.: Startsperre 00:04 Start Perikles (lauf.py)
 - 00:04 27.10.: Marke Stellungnahme Sokrates 27.10. (lauf.py)
 - 00:04 27.10.: Nachfolger-Warnung Homer (Übergabe 26.10., 21:09) (lauf.py)
@@ -108,3 +109,28 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:05 28.10.: Marke Abgleich Vorentscheid 348.7 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 00:05 28.10.: Marke Abgleich Vorentscheid 348.7 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 00:05 28.10.: Marke Abgleich Vorentscheid 348.7 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
+- 03:04 28.10.: Marke Wächter 389 27.10. 23:55 (lauf.py)
+- 04:04 28.10.: Startsperre 04:04 Start Perikles (lauf.py)
+- 05:04 28.10.: Startsperre 05:04 Start Perikles (lauf.py)
+- 05:04 28.10.: Marke Archiv session_01Hmoj76mW9cxhS7viQ9cfW9 (lauf.py)
+- 06:04 28.10.: Startsperre 06:04 Start Perikles (lauf.py)
+- 07:05 28.10.: Startsperre 07:05 Start Perikles (lauf.py)
+- 07:05 28.10.: Nachfolger-Warnung Jerry (Übergabe 28.10., 06:35) (lauf.py)
+- 08:05 28.10.: Startsperre 08:05 Start Jerry, Diogenes, Perikles (lauf.py)
+- 08:05 28.10.: Marke Tagesbericht 28.10. (lauf.py)
+- 08:05 28.10.: Marke Archiv session_01Hmoj79A1YeyWdR5ENs3tjE (lauf.py)
+- 08:10 28.10.: Startsperre 08:10 Start Tom (lauf.py)
+- 08:10 28.10.: Marke Archiv session_01Hmoj771ZUzrnCjb3oTBsyP (lauf.py)
+- 09:05 28.10.: Startsperre 09:05 Start Perikles (lauf.py)
+- 09:05 28.10.: Marke Stellungnahme Sokrates 28.10. (lauf.py)
+- 09:05 28.10.: Marke Archiv session_01Hmoj77rS6KFgtSKa45L74n (lauf.py)
+- 09:05 28.10.: Nachfolger-Warnung Diogenes (Übergabe 28.10., 08:39) (lauf.py)
+- 10:05 28.10.: Marke Stellungnahme Sokrates 28.10. (lauf.py)
+- 11:04 28.10.: Startsperre 11:04 Start Perikles (lauf.py)
+- 12:04 28.10.: Startsperre 12:04 Start Diogenes, Perikles (lauf.py)
+- 12:04 28.10.: Marke Archiv session_01Hmoj76kqDZ5MjqaSWsoJcZ (lauf.py)
+- 12:36 28.10.: Startsperre 12:36 Start Perikles (lauf.py)
+- 13:11 28.10.: Nachfolger-Warnung Diogenes (Übergabe 28.10., 12:19) (lauf.py)
+- 14:01 28.10.: Neustart Tom 971fcda1a → Nachfolger „Tom – 399.1 Test 130 begleiten“ `01Hmoj76hw` gestartet; alter Tom `01Hmoj76N4` archiviert 14:16 (30,41 $ auf 399.1,390,397).
+- 14:43 28.10.: Neustart Jerry cf599b056 geprüft; Nachfolger „Jerry – Filme Grak …“ nicht gestartet (nichts startbar, 348.12 wartet auf Chef, Wochenlimit); alter Jerry `01Hmoj75RG` bleibt idle stehen (19,06 $), Start sobald Chef antwortet.
+- 14:46 28.10.: Neustart Jerry cf599b056 nach Chefantwort 348.12: Nachfolger `01Hmoj75aY` gestartet, alter Jerry `01Hmoj75RG` archiviert (19,91 $ auf 399.2, 348.12).

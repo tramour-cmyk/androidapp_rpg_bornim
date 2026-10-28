@@ -3,28 +3,29 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 28.10., 00:02
+**Gelesen bis:** `origin/main` 28.10., 12:36
 
-**Übergabe (28.10., 00:0x, `session_01Hmoj76mW9cxhS7viQ9cfW9`):** 389 gebaut: Haken `probelauf.py`, Regel in `ROLLE-ENTWICKLUNG.md`, Zeilen 389 an Tom und Jerry. Kosten auf: 389. Nachfolger: keiner
+**Übergabe (28.10., 12:4x):** 399 verteilt: 399.1 Tom (Spielfassung, Zweig von 390, Jerrys Kampf hinein), 399.2 Jerry (Kampfort aufrufbar), beide zuerst; 397, 348.13b ruhen. Kosten auf: 399. Nachfolger: keiner (399 wartet auf Tom, Jerry)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 386 | M | **von Chef (27.10., 21:02, GitHub-Mail „will soon require 2FA“, „Ist das für uns ein Problem?“):** Zwei-Faktor bis 11.12.2026 (Chefsache tun/386) | wartet auf Chef: tun/386 |
-| 384 | M | **von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“):** Kosten aller Sitzungen gegen Buchungsverzeichnis; Ursache der Lücken im Werkzeug beheben (Zu 384) | gebaut 27.10., 20:1x: drei nachgebucht, --kosten nur mit Kennung, Ford holt Kosten frisch; 79,23 $ Nachtbuchungen nicht nachweisbar (Zu 384) |
-| 389 | M | **von Sokrates (Chef 27.10., 23:53, „dafür habe ich kein Geld. Das muss einfach mal fertig werden“):** Tom 348.6: 4 Läufe für Dachziegel statt Vorlage; Grenze für Probeläufe je Vorlage, die greift; Chef 23:55 „389 ja, höchstens zwei Läufe“, „jetzt“ 27.10., 23:55 (Archiv) | gebaut 28.10., 00:0x (Haken probelauf.py) |
+| 399 | M | **von Chef über Sokrates („jetzt“ 28.10., 12:34, Archiv):** Vorrang neu: erst eine Godot-Fassung am Handy, in der der Chef im Dorf herumläuft und einen Kampf spielt; Feintuning ruht | wartet auf Tom, Jerry: 399.1 Spielfassung, 399.2 Kampfort aufrufbar (12:4x); Feinschliff 397, 348.13b ruht |
+| 398 | M | **von Sokrates (Chef 28.10., 11:22):** Termine je Block nachrechnen mit der Schätzung der 15 Zeilen 398 | wartet auf Tom, Jerry: Schätzung 398 in `LISTE-UMZUG-348.md` |
+| 384 | M | **von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“):** Kosten aller Sitzungen gegen Buchungsverzeichnis; Ursache der Lücken im Werkzeug beheben (Zu 384) | gebaut 27.10., 20:1x: --kosten nur mit Kennung, Ford holt Kosten frisch (Zu 384) |
 | 383.3 | M | **von Sokrates (Chef 19:55):** Vorlage zurück beim Team sofort aus der Chefsache | gebaut 27.10., 20:1x |
-| 383 | M | **von Sokrates (Chef 27.10., 17:53 „ja, 383“, Archiv):** Wartewächter in `lauf.py` (Zeitfeld zum „jetzt“, Protokollzeile in `meldung.sh`), Haken 63 verschärfen; Fälle 376.1 und Ford-Bitte 17:3x nachstellen | gebaut 27.10., 19:1x; Diogenes zählt ab 28.10. (Zu 383) |
-| 275 | M | **von Sokrates (Chef 27.10., 15:09 ja, 15:15 „jetzt loslegen“, Archiv):** Stufe 1 (Chefsache 275, Git); Statusfeld mit Wortliste; nur gezielte Suche, Token je Start messen (15:11); Besitzer schreiben selbst über `vorgang.py` (15:20) | frühestens 03.11.: Stufe 2, wenn Diogenes keinen Werkzeugfehler zählt; LEICHEN_START an seit 27.10., 17:2x; offen D46.3, D46.5, D47.2 (Zu 275) |
+| 383 | M | **von Sokrates (Chef 27.10., 17:53 „ja, 383“, Archiv):** Wartewächter in `lauf.py`, Haken 63 verschärfen (Zu 383) | gebaut 27.10., 19:1x; Diogenes zählt ab 28.10. (Zu 383) |
+| 275 | M | **von Sokrates (Chef 27.10., 15:09 ja, 15:15 „jetzt loslegen“, Archiv):** Stufe 1 (Chefsache 275 in Git, Zu 275) | frühestens 03.11.: Stufe 2, wenn Diogenes keinen Werkzeugfehler zählt; LEICHEN_START an seit 27.10., 17:2x; offen D46.3, D46.5, D47.2 (Zu 275) |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9):** Meilenstein „Kapitel 1 auf Godot mindestens so gut wie alt“ mit Checkliste aus der Bestandsliste 348.8 und Tagesziele je Team; `ROLLE-PRUEFUNG.md` für Diogenes (Arbeitsteilung 1, 3) | bis 02.11. Dauerzeile (Meilenstein Umzug): Tagesziele täglich im Stand zum Marktstart |
 | 347.2 | M | **von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347):** Paket Regeltreue umsetzen nach `tools/regeltreue/PLAN-347.md` (Punkte 1–7, 5a, 5b), mit Ford für `lauf.py` und Haken | gebaut 24.10., 16:5x mit A–H (Zu 347.2); beobachten bis 31.10., dann wertet Sokrates aus |
 | 276 | K | **von Sokrates (zu 274):** Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in `lauf.py` oder zu Perikles | ruht bis Meilenstein Umzug (Perikles 26.10., 11:5x, Zu 276); Zählung 149 da (Lauf 45: etwa 22 Abweichungen, fast alle Schritt 4, 12 Urteil, 8 Mechanik) |
 | 341 | M | **von Chef (23.10., 09:39):** Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | frühestens 06.11.: gebaut 23.10.; 06.11. Probe bewerten, Gerüst für alle Rollen vorlegen |
 | 339 | M | **von Sokrates (Chef 23.10., 09:08 „so eine Art Dashboard“, ja 09:53):** Dashboard „Stand zum Marktstart“, immer aktuell | bis 06.11. Dauerzeile: [Seite](https://claude.ai/artifact/5gdqbHNUUpbBUU9sBo4i7t), Ford erneuert jeden Lauf; 27.10. (378): Werkzeug richtig, Ford seit 08:07 säumig (Eingang Ford) |
-| 338.1 | M | **von Sokrates (Chef 23.10., 09:01/09:05):** „wird es mir nie vorgelegt, wie weit wir da eigentlich stehen“; „dazu brauche ich auch regelmäßige Feedback“. „Stand zum Marktstart“ in `LISTE-ABNAHME-KAPITEL1.md` | frühestens 28.10.: Dauerzeile bis Marktstart, zuletzt 27.10., 08:15 (gemeldet); täglich zur Morgenzeit neu (lauf.py startet), montags mit Schätzungen der Teams |
+| 338.1 | M | **von Sokrates (Chef 23.10., 09:01/09:05):** „wird es mir nie vorgelegt, wie weit wir da eigentlich stehen“; „dazu brauche ich auch regelmäßige Feedback“. „Stand zum Marktstart“ in `LISTE-ABNAHME-KAPITEL1.md` | frühestens 29.10.: Dauerzeile bis Marktstart, zuletzt 28.10., 08:15 (gemeldet); täglich zur Morgenzeit neu (lauf.py startet), montags mit Schätzungen der Teams |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 06.11.: behalten (Chef 26.10., 11:15, Archiv); Zahlen mit Zielvereinbarung 341 |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
 
 ## Einzelheiten
+
 
 - **Zu 384 (Prüfung 27.10., 20:1x; `list_sessions` 100 Sitzungen ab 26.10., 20:35, `get_session` je Lücke):** 18 archivierte Sitzungen ohne Zeile in `KOSTEN-GEBUCHT.tsv`. Nachgebucht mit Kennung: Ford `01Hmoj76zG` 9,17 und `01Hmoj78hR` 7,28 auf Betrieb, Tom `01Hmoj76zw` +3,18 auf 348.13a (Ford buchte 3,13 von 6,31). Ohne Kennung schon gebucht, Kennung nachgetragen: Sokrates `01Hmoj78Yk` 6,75 (10:30, 7 × 0,96), `01Hmoj77Kr` 8,78 (12:08, 3 × 2,93). **Nachprüfung (Chef 21:02, „Prüf die 79 Euro trotzdem nach“):** je Commit Kostenspalte gegen Verzeichnis, 26.10., 20:00 bis 27.10., 14:00: nachts jede Buchung mit Kennung, Sammelbuchung 09:23 = acht andere Sitzungen; die Annahme „ohne Kennung gebucht“ war falsch, auch `01An8v` (22:42 war `01Egtx`). Darum 21:0x elf Sitzungen nachgebucht, 90,59 $ (je Titel auf 348.6, 348.13, 348.12f; Einzelbeträge in `KOSTEN-GEBUCHT.tsv`). Jerry `01Hmoj77Zu`, `01Hmoj79qo` abgestürzt, ohne Kostenangabe. Ursachen: Ford gab archivierte Sitzungen nicht mit Kosten an `lauf.py`, Kurzform mit veraltetem Betrag.
 

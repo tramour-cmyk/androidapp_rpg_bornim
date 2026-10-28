@@ -465,3 +465,14 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 382 | `create_session` immer mit `source_revision` `main` (`lauf.py` START-Zeile, `LISTE-BETRIEB.md`; Befund Tom 376.1a, von Ford) | B Werkzeuge | M | – | Perikles | erledigt |
 | 383.1 | Kein Neustart nur wegen Warten auf den Chef (Chef 27.10., 19:19) | B Werkzeuge | M | 2,01 $ | Perikles | erledigt |
 | 388 | Alt-Fassung: Geräteangaben kopieren im Systemmenü, Ruckeln in Hütten auswerten (Chef 27.10., 21:58) | A Technik | M | 18,44 $ | Team Tom | erledigt |
+| 389 | Grenze für Probeläufe je Vorlage, die greift (Chef 27.10., 23:53) | B Abläufe | M | 3,78 $ | Perikles | erledigt |
+| 353a | Rückfrage: Loch in den Kronen vor dem Helden in den nächsten Build? | G Stil | M | – | Team Tom | erledigt (Archiv 353a; Anforderung in 348.8) |
+| 338b | Rückfrage: Umzug Block (K) rot, Termine nach den Kaufmodellen neu schätzen? | B Abläufe | M | – | Perikles | erledigt |
+| 385a | Rückfrage: Zauberer-Probe 385 jetzt als Muss vor dem Dorf? (Chef 28.10., 09:55) | E Figuren | M | – | Sokrates | erledigt |
+| 386 | GitHub verlangt Zwei-Faktor-Anmeldung bis 11.12.2026 (Chef 27.10., 21:02) | B Werkzeuge | M | – | Perikles | erledigt |
+| 395 | Hund und Katze fürs Dorf: welche Modelle? (Chef 28.10., 10:46) | E Figuren | M | – | Sokrates | erledigt |
+| 393 | Zweiter Tom oder Jerry wegen der Fülle, z. B. für 385? (Chef 28.10., 10:09) | B Betrieb | M | – | Sokrates | erledigt |
+| 392 | Alt-Fassung: Schalter „Atmen aus“ schätzen, nicht bauen (Chef 28.10., 09:50) | A Technik | M | – | Team Tom | erledigt |
+| 396 | Fertige Vorlagen sofort an den Chef, Prüfer nicht davor (Chef 28.10., 11:01) | B Betrieb | M | 3,01 $ | Perikles | erledigt |
+| 394 | Eigene Namen für Zusatzentwickler statt „Tom 2“ (Chef 28.10., 10:21) | B Betrieb | M | – | Perikles | erledigt |
+| 396a | Rückfrage: Textvorlagen auch sofort senden? (Perikles 28.10.) | B Betrieb | M | – | Perikles | erledigt |

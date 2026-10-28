@@ -7,6 +7,7 @@ Vorgang ohne Vorlage dazwischen hält der Haken den Befehl an (Exit 2), ohne Aus
 Probelauf heißt:
 - ein Bildlauf am Rechner: Godot mit Fenster (xvfb-run oder `godot --path` ohne `--import`) oder ein Laufskript aus
   `tools/pruef348/` (alle außer `rechner.sh`) oder `*_lauf.sh`; der Vorgang steht davor: `PROBE=<Nr> bash …`;
+  kein Probelauf: `godot --headless --path <dir> -s res://tests/<datei>.gd` ohne Bildbefehl in der Testdatei (390a);
 - ein Push auf `claude/tom-348-*` oder `claude/jerry-348-*`, der `godot.yml` auslöst (letzter Commit ohne „[skip ci]“, Änderung
   unter godot/, tools/blender348/, core/src/main/ oder am Workflow); der Vorgang ist die erste Nummer der Commit-Nachricht.
 Vorlage heißt: eine Meldung mit Bild, Film oder Datei zu dem Vorgang (Zeile im Zweig „meldungen“, schreibt `meldung.sh`, 383).
@@ -37,16 +38,36 @@ PROBE = re.compile(r"\bPROBE=(" + NR + r")\b")
 GODOT_LAUF = re.compile(r"xvfb-run[^\n|;&]*godot[^\n|;&]*|\bgodot(?:\.\S+)?\s[^\n|;&]*--path[^\n|;&]*")
 SKRIPT = re.compile(r"tools/pruef348/(?!rechner\.sh)[\w.-]+\.sh|\b\w+_lauf\.sh")
 PUSH = re.compile(r"\bgit\s+(?:-C\s+(\S+)\s+)?push\b([^\n|;&]*)")
+COMMIT = re.compile(r"\bgit\s+(?:-C\s+\S+\s+)?commit\b[^\n]*?\s-[a-zA-Z]*m\s*(.+)", re.S)
+TEST_SKRIPT = re.compile(r"(?:^|\s)-s\s+[\"']?res://tests/([\w./-]+\.gd)\b")
+BILDBEFEHL = re.compile(r"save_png|save_jpg|save_webp|save_exr|get_image\s*\(|get_texture\s*\(|MovieWriter|screenshot", re.I)
+CD = re.compile(r"\bcd\s+([^\s;&|]+)")
 CI_ZWEIG = re.compile(r"claude/(?:tom|jerry)-348-[\w./-]+")
-CI_PFADE = ("godot/", "tools/blender348/", "core/src/main/", ".github/workflows/godot.yml")
+CI_PFADE = ("godot/", "tools/blender348/", "core/src/main/", ".github/workflows/godot.yml", ".github/workflows/godot-kampf.yml")
 
 
 def jetzt():
     return datetime.datetime.now(BERLIN).strftime("%Y-%m-%d %H:%M:%S")  # Sekunden: Läufe derselben Minute zählen einzeln
 
 
-def bildlauf(befehl):
-    return SKRIPT.search(befehl) or any("--import" not in m.group(0) for m in GODOT_LAUF.finditer(befehl))
+def testlauf(lauf, befehl, cwd):
+    """390a (Chef 28.10., 10:26): Testprogramm aus godot/tests/ ist kein Probelauf, wenn eng: `--headless`, kein xvfb-run,
+    `-s res://tests/….gd`, und die Testdatei enthält keinen Bildbefehl. Datei nicht gefunden: zählt als Bildlauf."""
+    s = TEST_SKRIPT.search(lauf)
+    if "--headless" not in lauf or "xvfb-run" in lauf or "--write-movie" in lauf or not s:
+        return False
+    p = re.search(r"--path[=\s]+(\S+)", lauf)
+    pfad = os.path.expanduser(p.group(1).strip("\"'")) if p else "."
+    for basis in [cwd] + [os.path.join(cwd, os.path.expanduser(c)) for c in CD.findall(befehl)]:
+        datei = os.path.join(basis, pfad, "tests", s.group(1))
+        if os.path.isfile(datei):
+            return not BILDBEFEHL.search(open(datei, encoding="utf-8", errors="replace").read())
+    return False
+
+
+def bildlauf(befehl, cwd="."):
+    return SKRIPT.search(befehl) or any("--import" not in m.group(0) and not testlauf(m.group(0), befehl, cwd)
+                                        for m in GODOT_LAUF.finditer(befehl))
 
 
 def git(*args, cwd=REPO, timeout=8):
@@ -113,17 +134,24 @@ def push_lauf(befehl, cwd):
     m = PUSH.search(befehl)
     if not m:
         return None
-    wo = m.group(1) or cwd
+    cds = CD.findall(befehl[:m.start()])  # `cd ../bornim-main && git push`: Zweig des cd-Ziels (Jerry 12:05, 13:08)
+    wo = m.group(1) or (os.path.join(cwd, os.path.expanduser(cds[-1].strip("\"'"))) if cds else cwd)
     ziel = CI_ZWEIG.search(m.group(2))
     zweig = ziel.group(0).split(":")[-1] if ziel else git("rev-parse", "--abbrev-ref", "HEAD", cwd=wo).stdout.strip()
     if not CI_ZWEIG.fullmatch(zweig):
         return None
     oben = git("rev-parse", "--verify", "-q", f"origin/{zweig}", cwd=wo).stdout.strip()
-    nachricht = git("log", "-1", "--format=%B", "HEAD", cwd=wo).stdout
+    # Commit im selben Befehl vor dem Push (PreToolUse sieht ihn noch nicht): Nachricht aus -m, Pfade aus dem Arbeitsbaum
+    neu = COMMIT.search(befehl[:m.start()])
+    nachricht = re.sub(r"^\s*[\"']?(?:\$\(cat\s*<<-?\s*['\"]?\w+['\"]?\s*)?", "", neu.group(1)) if neu else \
+        git("log", "-1", "--format=%B", "HEAD", cwd=wo).stdout
     if "[skip ci]" in nachricht or "[ci skip]" in nachricht:
         return None
     if oben:
         pfade = git("diff", "--name-only", f"{oben}..HEAD", cwd=wo).stdout.split()
+        if neu:
+            pfade += git("diff", "--name-only", "HEAD", cwd=wo).stdout.split()
+            pfade += git("ls-files", "--others", "--exclude-standard", cwd=wo).stdout.split()
         if not pfade or not any(p.startswith(CI_PFADE) for p in pfade):
             return None
     nr = re.match(r"\s*(?:\w+:\s*)?(" + NR + r")\b", nachricht)
@@ -149,7 +177,7 @@ def main():
     cwd = d.get("cwd") or os.getcwd()
     wer = (d.get("session_id") or "?")[:20]
     try:
-        if bildlauf(befehl):
+        if bildlauf(befehl, cwd):
             m = PROBE.search(befehl)
             if not m:
                 anhalten("389 (Chef 27.10., 23:55, höchstens zwei Probeläufe je Vorlage): Bildlauf erkannt. "
@@ -166,7 +194,7 @@ def main():
         anhalten(f"389 (Chef 27.10., 23:55: „höchstens zwei Läufe und die Betonung hierbei liegt auf höchstens“): für {nr} "
                  f"schon {n} Probeläufe seit {'der Vorlage ' + vorlage if vorlage else 'Beginn der Zählung'}. Kein weiterer Lauf: "
                  f"jetzt vorlegen, was da ist (Datei in docs/chefsache/ansehen/, `meldung.sh --bild` oder `--film` mit „{nr}:“), "
-                 "Befund der Fehlerprüfung im Begleittext. Erst die Vorlage gibt zwei neue Läufe frei.")
+                 "Befund der Fehlerprüfung danach als Text (396). Erst die Vorlage gibt zwei neue Läufe frei.")
     zaehlen(nr, wer, art)
     print(json.dumps({"hookSpecificOutput": {"hookEventName": "PreToolUse",
                       "additionalContext": f"389: Probelauf {n + 1} von {GRENZE} für {nr}"
