@@ -14,7 +14,7 @@ extends Control
 # - System (SystemSigns), soweit es die Welt schon kann: Speichern, Sprache, Hauptmenue; Lautstaerke (399.3.1), Schritte, Helligkeit; Siege.
 # - Karte (MapTab, 62): kartenreiter.gd.
 # - Chronik (ChronicleTab): Hauptauftrag in Gold, Auftraege der Geschichte, Erledigt zum Aufklappen, „Bisher geschehen“.
-# Noch nicht wie alt: in der Chronik Nebenauftraege (Anschlagbrett), Ankunft und Morgenandacht ansehen; im System Kampf, Bedienung, Version, Geraeteangaben; Bilder der Dinge; Vergleich mit dem Getragenen (GearCompare); Fackel im Dunkeln;
+# Noch nicht wie alt: in der Chronik Nebenauftraege (Anschlagbrett), Ankunft und Morgenandacht ansehen; im System Kampf, Bedienung, Version, Geraeteangaben; Bilder der Dinge; Fackel im Dunkeln;
 # Erklaerung der Attribute beim Antippen (Perks).
 
 signal zu
@@ -301,7 +301,10 @@ func tasche() -> void:
 	if dinge.is_empty():
 		zeile("Besiege Monster und öffne Truhen, um Ausrüstung zu finden." if de else "Defeat monsters and open chests to find equipment.", 14, Stil.DIM)
 	for g in dinge:
-		var p := posten(Beute.name(g), Beute.kennwert(g), Color(SELTEN.get(String(g["rarity"]), "e6ddcb")))
+		# ▲ besser in allem, ▼ schlechter; nichts, wenn gemischt oder gleich (GearUi.kt upgradeVerdict)
+		var u = Vergleich.von(hw, g).urteil() if hw.kann_tragen(g) else null
+		var pfeil := "▲ " if u == 1 else ("▼ " if u == -1 else "")
+		var p := posten(Beute.name(g), pfeil + Beute.kennwert(g), Color(SELTEN.get(String(g["rarity"]), "e6ddcb")))
 		inhalt.add_child(p)
 		tippbar(p, func(): frage_stueck(g))
 
@@ -441,6 +444,15 @@ func stueck_zeilen(g: Dictionary) -> Array:
 		z_.append(Erschaffung.txt(t, 15))
 	if not hw.kann_tragen(g):
 		z_.append(Erschaffung.txt(("Als %s kannst du das nicht tragen." if de else "As a %s you cannot wear this.") % Sprache.t(d["klassen"][hw.klasse]["name"]), 13, Stil.DIM))
+	elif not hw.ausruestung.values().has(g):
+		# GearDetails: was dafuer abgelegt wird, das Urteil gleich sichtbar, darunter warum (GearCompare)
+		var v := Vergleich.von(hw, g)
+		if not v.ersetzt.is_empty():
+			var anderer := v.ersetzt.any(func(x): return String(Beute.grundform(String(x["base"]))["slot"]) != String(b["slot"]))
+			z_.append(Erschaffung.txt(("Ersetzt: " if de else "Replaces: ") + ", ".join(PackedStringArray(v.ersetzt.map(func(x): return Beute.name(x)))), 13, Stil.WARN if anderer else Stil.DIM))
+		z_.append(Erschaffung.txt(v.satz(), 14, {1: GRUEN, -1: Stil.WARN}.get(v.urteil(), Stil.TEXT)))
+		for r in v.zeilen:
+			z_.append(Erschaffung.txt("%s: %s → %s" % [r["wort"], r["vorher"], r["nachher"]], 13, {1: GRUEN, -1: Stil.WARN}.get(r["besser"], Stil.DIM)))
 	return z_
 
 func im_beutel(g: Dictionary) -> int:

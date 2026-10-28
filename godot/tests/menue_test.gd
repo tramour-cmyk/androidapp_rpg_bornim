@@ -196,6 +196,14 @@ func _lauf() -> void:
 		lb.tippe(lb.an(float(dorf["x"]), float(dorf["y"])))
 		await process_frame; await process_frame
 		if kr.uebersicht or kr.gezeigt != "village": fehler += 1; print("FEHLER Landkarte oeffnet das Dorf nicht")
+	# 399.1 Vergleich (GearCompare): ein besseres Schwert zeigt ▲, der Held bleibt, wie er ist
+	var hw2 := Heldwerte.erschaffe("Vera", "HUMAN", "FIGHTER", {}, z.neue_uid)
+	var rk_vor := hw2.rk()
+	var stueck: Dictionary = Beute.erzeuge_mit_uid(KotlinZufall.new(7), z.neue_uid, 5, "EPIC", "FIGHTER")
+	var vg := Vergleich.von(hw2, stueck)
+	print("Vergleich: ", vg.satz(), " ", vg.zeilen.map(func(r): return "%s %s→%s" % [r["wort"], r["vorher"], r["nachher"]]))
+	if vg.zeilen.is_empty() or vg.urteil() == null: fehler += 1; print("FEHLER Vergleich leer bei ", Beute.name(stueck))
+	if hw2.rk() != rk_vor or hw2.ausruestung.values().has(stueck): fehler += 1; print("FEHLER Vergleich aendert den Helden")
 	# Satt wird gespeichert
 	z.satt = true
 	if not Zustand.aus_daten(z.als_daten()).satt: fehler += 1; print("FEHLER satt nicht gespeichert")
