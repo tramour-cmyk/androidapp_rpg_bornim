@@ -39,6 +39,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 10:05 28.10.: Neustart Jerry angenommen (`655fccac7`), Nachfolger „Jerry – 348.12 Gestalt Grak und Kobolde“ gestartet (main, Hoch); alter Jerry `01Hmoj77md` archiviert und gebucht (32,84 $ auf 348.7b, 387, 348.12f); Tom `77Qs` (376.1), Sokrates `79Zs` laufen
 - 09:12 28.10.: Neustart Tom angenommen (`1f531174a`), Nachfolger „Tom – 376.1 Halszacken in Godot, Formen, Editor“ gestartet (main, Hoch); alter Tom `01Hmoj78ka` archiviert
 - 09:10 28.10.: Sokrates „Stellungnahme“ (194.2, 34813b) `01Hmoj79Zs` gestartet (main, Mittel); archiviert und gebucht: Perikles `77rS` (8,40 $ auf 338.1), Sokrates `79NG` (59,24 $ auf 383), Diogenes `79PW` (4,13 $ auf 374); Perikles „M?“ nicht gestartet (Wochenwarnung, kein Muss); Tom `78ka`, Jerry `77md` laufen
 - 17:35–19:54 27.10.: Ford-Selbstneustart; Neustarts angenommen: Sokrates 19:08, Tom 19:32, Jerry 19:40, Tom 19:54; Vorgang 382 an Perikles
