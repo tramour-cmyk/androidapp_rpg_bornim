@@ -67,6 +67,8 @@
 
 ## Lehren
 
+- Einen Umbau, den ich begleite, an den DESIGN-Grundsätzen messen, nicht nur am Bestand: beim Umzug 348 fehlten Ruhebewegungen, Klang, Niederlage, Grinden; gefunden hat es der Chef (28.10., 397, 398).
+
 - Auch eigene Vorschläge an den Chef erst durch einen fremden Prüfer (338.2), selbst im Gespräch unter Druck: drei Sperren vorgelegt, Prüfer verwarf zwei (27.10., 383).
 
 - Wortwahl der Vorlage nicht übernehmen, sondern gegen `CLAUDE.md` prüfen: „Heldin“ aus Jerrys Datei weitergegeben, Regel ist generisches Maskulinum („der Held“) (27.10., 3487-treffer).
