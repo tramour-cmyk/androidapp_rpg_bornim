@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (28.10., 23:1x, `session_01Hmoj79nWVmRQA1o9PdAa2y`):** 376.1 vier Klassen auf `claude/tom-376-1-figuren` (enthält 399 bis 554cf01d9; 928fe95a0), Bilder Lauf 1, 2 beim Chef (Urteil im Archiv); 403 an Jerry. 399.5 danach auf diesem Zweig (nächster Build hat beides). Rechner: `tools/pruef348/rechner.sh`. Nachfolger: Tom – 376.1 Köpfe, Haut, Robe.
+**Übergabe (28.10., 23:5x, `session_01Hmoj78mjLPT6PZaqKUninZ`):** 399.5 erster Stand 9a4f29830 auf `claude/tom-376-1-figuren`, Bilder beim Chef (Chefsache 3995). Nachfolger: Tom – 376.1 Köpfe, Haut, Robe.
 
 ## Zeilen
 
@@ -43,6 +43,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 399.1, von Sokrates (Chef 22:0x):** „schönen Blenden, wenn wir Maps wechseln … Gebietskarten und Grundrisse … Einmal ausführlich und … dann kürzer“: `ortsblende.gd` überall prüfen, eigener Punkt im nächsten Testbogen (wie Vorspann mit Klanglogo, nur mit Musik).
 - **Zu 399.1, von Homer (28.10., 19:2x; Prüferbefund „Arkanes Heiligensymbol“):** Name „Heiligensymbol“ bleibt; Fehler ist die Beute: `Loot.kt` 82 gibt jedem Zauberer jeden Fokus. Heiligensymbol nur für Kleriker, Zauberkugel und Foliant für Magier; Vorsilbe „Arkan“ (Affix SPELL) auf dem Heiligensymbol als „Geweiht“/„Hallowed“.
 
+- **Zu 399.5** (Tom 23:5x): `raum.py`, `raumlicht.gd`, Test `raeume_3995.gd`; Laufskript `raeume_` in `tools/pruef348` (alte Bilder in `<ablage>/alt`); Befunde Lauf 1: Chefsache 3995.
 - **Zu 376.1:** UAL Pro (`Unreal-Godot/UAL1.glb`, 120 Bewegungen): kein Stich, keine Schildabwehr, kein gehaltenes Ausholen (bleiben eigen); Probeblatt und Raster im Git-Verlauf dieser Zeile.
 - **Von Sokrates (Chef zu 376.1):** 14:44 „Köpfe gestalten? Bart, Farben, rundes Gesicht?“: Kopf schmal/rund, mit/ohne Bart. 15:23: eine Kauffigur in unserer Kleidung; Vorlage weg, bis neu. 18:06 „376.1 passt, funktioniert also. Dann kann es weiter gehen.“ 18:09 „Wieso unser Kopf? Ist der Gekaufte nicht modellierbar? Der sieht doch viel echter aus als unserer?!?“: gekauften Kopf nehmen und anpassen (Form, Bart, Haar), in die Fehlerrunde. Zugang: `add_repo` (Chef 28.10., 08:35, Archiv); Pakete am Release `stufe1` (`api.github.com/…/releases/assets/<id>`).
 - **Zu 376.1, Tracht offen:** nachts Kettenhemd fast weiß; Rock und Hemdärmel stechen in Bewegung durch den Umhang (`pruef_tracht.py`; Verlauf in Git).
