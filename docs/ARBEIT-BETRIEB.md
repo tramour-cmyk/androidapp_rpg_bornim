@@ -135,3 +135,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:43 28.10.: Neustart Jerry cf599b056 geprüft; Nachfolger „Jerry – Filme Grak …“ nicht gestartet (nichts startbar, 348.12 wartet auf Chef, Wochenlimit); alter Jerry `01Hmoj75RG` bleibt idle stehen (19,06 $), Start sobald Chef antwortet.
 - 14:46 28.10.: Neustart Jerry cf599b056 nach Chefantwort 348.12: Nachfolger `01Hmoj75aY` gestartet, alter Jerry `01Hmoj75RG` archiviert (19,91 $ auf 399.2, 348.12).
 - 15:49 28.10.: Neustart Tom a12e99b0d: Nachfolger `01Hmoj78yY` gestartet, alter Tom `01Hmoj76hw` archiviert (25,48 $ auf 399.1).
+- 16:35 28.10.: Neustart Sokrates 3872014e1: Nachfolger `01Hmoj78Ck` gestartet (Chef mitten in der Chefrunde); alter Sokrates `01Hmoj78fq` archivieren, sobald idle (22,13 $, Kosten auf 385,387,396a,397,398,399).
