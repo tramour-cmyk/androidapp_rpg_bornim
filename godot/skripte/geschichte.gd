@@ -193,6 +193,27 @@ static func counter(k: Skript, s: Zustand) -> void:
 	if s.anzahl("raw_meat") > 0: k.say(rowena, "Frisches Fleisch aus dem Wald? Gib her, daraus wird morgen der Eintopf im Greif.", "Fresh meat from the woods? Hand it over – it'll be tomorrow's stew at the Griffin.")
 	k.tavern()
 
+# wer zu sehen ist (Npc.visible in Story.kt); Lyras Abgang aus der Halle (Leave 10/7 -> LYRA_GONE) folgt mit der Hoehle
+static func sichtbar(id: String, s: Zustand) -> bool:
+	match id:
+		"lyra_temple": return s.has(LYRA_RESCUED)
+		"grimfang": return not s.has(GRIMFANG_DEFEATED)
+		"krogg": return not s.has(KROGG_DEFEATED)
+		"grak": return not s.has(GRAK_DEFEATED)
+		"lyra_cave": return not s.has(LYRA_GONE)
+	return true
+
+# das Gitter in der Hoehle (Game.gate): mit dem rostigen Schluessel auf, sonst verschlossen
+static func gitter(s: Zustand) -> Array:
+	var k := Skript.new()
+	if s.has(GATE_OPEN): pass
+	elif s.anzahl("rusty_key") > 0:
+		k.take("rusty_key")
+		k.flag(GATE_OPEN)
+		k.narrate("Du steckst den rostigen Schlüssel ins Schloss. Mit lautem Quietschen öffnet sich das Gitter.", "You put the rusty key into the lock. With a loud screech, the gate swings open.")
+	else: k.narrate("Ein schweres Eisengitter. Es ist verschlossen.", "A heavy iron gate. It's locked.")
+	return k.befehle
+
 static func wants_smoke(s: Zustand) -> bool: return s.has(HUNTER_MET) and not s.has(KROGG_DEFEATED) and not s.has(SMOKE_GIVEN)
 
 static func kapitel(s: Zustand) -> int: return 2 if s.has(CHAPTER2_STARTED) else 1

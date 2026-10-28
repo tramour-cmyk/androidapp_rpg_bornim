@@ -60,8 +60,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	if gebiet: gebiet.queue_free()
 	if held: held.queue_free()
 	if leute: leute.queue_free()
-	karte = Karte.lade(id)
-	karte.flaggen = zustand.flaggen   # 390: Schlagbaum, Tor und Ausgaenge lesen den Spielstand
+	karte = Karte.lade(id, zustand.flaggen)   # 390: Schlagbaum, Tor, Ausgaenge und Wege lesen den Spielstand
 	gebiet = Gebiet.new(karte)
 	add_child(gebiet)
 	held = Held.new(karte)
@@ -75,6 +74,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	for l in Leute.alle(karte, held): leute.add_child(l)
 	for l in Leute.dorftiere(karte, held): leute.add_child(l)   # 348.6 Dorftiere (Chefrunde 28.10., 08:09)
 	held.leute = leute.get_children()
+	sichtbar_neu()
 	kamera.ziel = held
 	gebiet.held = held
 	gebiet.kamera = kamera
@@ -105,6 +105,7 @@ func _knopf(was: String) -> void:
 # 390: Sprache umschalten; Ortsname und Schild am Knopf gleich neu, Gesagtes ab der naechsten Zeile
 func sprache_wechseln() -> void:
 	Sprache.wechsle()
+	ui.sprache_neu()
 	ui.ort.text = karte.name()
 	_steht_auf(held.kachel)
 
@@ -123,19 +124,21 @@ func tiere_an_aus() -> void:
 const NACHBARN := [Vector2i(0, -1), Vector2i(0, 1), Vector2i(1, 0), Vector2i(-1, 0)]
 
 func _tippen(sp: Vector2) -> void:
-	var p = kamera.boden(sp)
-	if p == null or held == null: return
-	var b := karte.pos_kachel(p)
+	if held == null: return
 	ziel_stoss = Vector2i(-1, -1)
 	ziel_person = null
-	# 390 (Ui.touchHint: "Tippe auf Personen …, um sie direkt anzusprechen"): hin und ansprechen
-	var wer := person_bei(p)
+	# 390 (Ui.touchHint: "Tippe auf Personen …, um sie direkt anzusprechen"): hin, neben sie, und ansprechen
+	var wer := person_bei(sp)
 	if wer:
 		if wer == person_nah(): sprich(wer)
 		else:
 			ziel_person = wer
-			held.geh_zu(wer.position)
+			var n := naechster_nachbar(wer.kachel)
+			held.geh_zu(karte.kachel_pos(n) if n.x >= 0 else wer.position)
 		return
+	var p = kamera.boden(sp)
+	if p == null: return
+	var b := karte.pos_kachel(p)
 	if karte.begehbar(b):
 		held.geh_zu(p)
 		return
@@ -183,20 +186,22 @@ func vor_ihm(t: Vector2i) -> Vector2i:
 
 # wie Navigation.actionAt: Ausgang und Tuer (auch verschlossen) ENTER, Schild READ; dazu actionPlace: wohin, wenn offen
 func angebot(t: Vector2i) -> Array:
-	if karte.ausgang(t).is_empty() and person_nah(): return ["TALK", ""]   # 390: Leute vor Dingen (actionTarget)
+	# 390 (actionTarget): Ausgang unter dem Helden zuerst; dann Person im Faecher vor Ding, Ding vor Person ausserhalb
+	var pv := person_vorn() if karte.ausgang(t).is_empty() else [null, false]
+	if pv[0] and pv[1]: return ["TALK", ""]
 	var z := vor_ihm(t)
-	if z.x < 0: return ["", ""]
+	if z.x < 0: return ["TALK", ""] if pv[0] else ["", ""]
 	if zeichen_lesbar(z): return ["READ", ""]
 	var a := karte.ausgang(z)
 	if bool(a["verschlossen"]): return ["ENTER", ""] if a.has("klopfen") else ["", ""]
 	return ["ENTER", Sprache.t(Karte.namen.get(String(a["ziel"]["karte"]), ""))]
 
 func _aktion() -> void:
-	var p: Leute = person_nah() if karte.ausgang(held.kachel).is_empty() else null
-	if p:
-		sprich(p)
-		return
+	var pv := person_vorn() if karte.ausgang(held.kachel).is_empty() else [null, false]
 	var z := vor_ihm(held.kachel)
+	if pv[0] and (pv[1] or z.x < 0):
+		sprich(pv[0])
+		return
 	if z.x < 0: return
 	if z != held.kachel: held.rotation.y = atan2(float(z.x - held.kachel.x), float(z.y - held.kachel.y))
 	if zeichen_lesbar(z):
@@ -215,6 +220,9 @@ func _aktion() -> void:
 func _stoesst(t: Vector2i) -> void:
 	if karte.zeichen(t) == "z" and not karte.flaggen.has("barrier_open"):
 		ui.sage([{"text": Sprache.t(karte.schlagbaum)}])
+		return
+	if karte.zeichen(t) == "L" and not karte.flaggen.has("gate_open"):   # 390: Game.gate
+		spiele(Geschichte.gitter(zustand))
 		return
 	var a := karte.sperrt(t)
 	if a.is_empty(): return
@@ -260,33 +268,47 @@ func abblenden(ziel: float) -> void:
 
 # ---------------------------------------------------------------- Gespraeche (390)
 const REICHWEITE := 1.3                          # Kacheln vom Helden zur Person (Navigation.ACTION_REACH)
+const TIPP_DP := 26.0                            # so nah (dp, etwa eine Fingerkuppe) am Bild der Person, Fuesse bis Kopf, trifft ein Tippen sie
 
 func spricht_was(l: Leute) -> bool:
 	return l.visible and not Geschichte.gespraech(String(l.daten.get("id", "")), zustand).is_empty()
 
-# wie Navigation.actionTarget: Personen in Reichweite, die im Faecher von 120 Grad vor dem Helden zuerst, dann die naehere
-func person_nah() -> Leute:
-	if leute == null or held == null: return null
+func leute_liste() -> Array:
+	if leute == null: return []
+	return leute.get_children().filter(func(l): return l is Leute and not l.is_queued_for_deletion() and l.visible)
+
+# wie Navigation.actionTarget: Personen in Reichweite; [Person, im Faecher von 120 Grad vor dem Helden], die im Faecher zuerst,
+# dann die naehere; [null, false] ohne
+func person_vorn() -> Array:
+	if held == null: return [null, false]
 	var vorn := Vector2(sin(held.rotation.y), cos(held.rotation.y))
 	var best: Leute = null
 	var best_w := INF
-	for l in leute.get_children():
-		if not (l is Leute) or l.is_queued_for_deletion() or not spricht_was(l): continue
+	var best_f := false
+	for l in leute_liste():
 		var d := Vector2(l.position.x - held.position.x, l.position.z - held.position.z) / Karte.TS
 		var n := d.length()
-		if n > REICHWEITE: continue
-		var w := n + (0.0 if n < 0.01 or d.normalized().dot(vorn) >= 0.5 else 10.0)
-		if w < best_w: best_w = w; best = l
-	return best
+		if n > REICHWEITE or not spricht_was(l): continue
+		var f := n < 0.01 or d.normalized().dot(vorn) >= 0.5
+		var w := n + (0.0 if f else 10.0)
+		if w < best_w: best_w = w; best = l; best_f = f
+	return [best, best_f]
 
-# angetippt: wer an dieser Stelle am Boden steht (eine Kachel um die Fuesse)
-func person_bei(p: Vector3) -> Leute:
+func person_nah() -> Leute: return person_vorn()[0]
+
+# angetippt: wessen Bild (Fuesse bis Kopf, 0–1,8 m) dem Finger am naechsten ist (Pruefer: ein Tippen auf den Kopf traf den
+# Boden 1–1,5 m hinter der Figur)
+func person_bei(sp: Vector2) -> Leute:
+	var cam := get_viewport().get_camera_3d()
+	if cam == null: return null
 	var best: Leute = null
-	var best_d := Karte.TS * 0.75
-	for l in leute.get_children():
-		if not (l is Leute) or l.is_queued_for_deletion() or not spricht_was(l): continue
-		var d := Vector2(l.position.x - p.x, l.position.z - p.z).length()
-		if d < best_d: best_d = d; best = l
+	var best_d := TIPP_DP * AktionsKnopf.DP
+	for l in leute_liste():
+		if cam.is_position_behind(l.position): continue
+		var a := cam.unproject_position(l.position)
+		var b := cam.unproject_position(l.position + Vector3(0, 1.8, 0))
+		var d := Geometry2D.get_closest_point_to_segment(sp, a, b).distance_to(sp)
+		if d < best_d and spricht_was(l): best_d = d; best = l
 	return best
 
 func sprich(l: Leute) -> void:
@@ -294,11 +316,12 @@ func sprich(l: Leute) -> void:
 	ui.biete_an("")
 	spiele(Geschichte.gespraech(String(l.daten["id"]), zustand))
 
-# wie Game.runQueue: Befehle der Reihe nach, bis einer auf den Spieler wartet (Text); der Rest nach dem Tippen
+# wie Game.enqueue: neue Befehle hinten an; laufen nur, wenn gerade kein Text offen ist (Mode.Explore)
 func spiele(befehle: Array) -> void:
 	szene.append_array(befehle)
-	weiter()
+	if not ui.spricht(): weiter()
 
+# wie Game.runQueue: Befehle der Reihe nach, bis einer auf den Spieler wartet (Text); der Rest nach dem Tippen
 func weiter() -> void:
 	while not szene.is_empty():
 		var c: Dictionary = szene.pop_front()
@@ -306,34 +329,56 @@ func weiter() -> void:
 			"sagen":
 				var e := {"text": Sprache.t(c["text"]).replace("{name}", zustand.name)}
 				if c.has("wer"): e["wer"] = Sprache.t(c["wer"]).replace("{name}", zustand.name)
-				ui.sage([e])
+				zeige(e)
 				return
-			"flagge": zustand.setze(String(c["flagge"]))
+			"flagge":
+				zustand.setze(String(c["flagge"]))
+				flaggen_neu()
 			"geben":
 				zustand.dazu(String(c["ding"]), int(c["anzahl"]))
-				ui.sage([{"text": Sprache.u("found", [Sprache.ding(String(c["ding"]), int(c["anzahl"]))])}])
+				zeige({"text": Sprache.u("found", [Sprache.ding(String(c["ding"]), int(c["anzahl"]))])})
 				return
 			"nehmen": zustand.weg(String(c["ding"]), int(c["anzahl"]))
 			"gold":
 				zustand.gold += int(c["anzahl"])
-				ui.sage([{"text": Sprache.u("foundGold", [int(c["anzahl"])])}])
+				zeige({"text": Sprache.u("foundGold", [int(c["anzahl"])])})
 				return
-			"kampf":
-				# Kampf kommt mit Jerrys Kampfort (348.7); bis dahin endet die Szene hier, ohne Sieg und ohne dessen Flagge
-				szene.clear()
+			"rast", "heilen":
+				pass   # TP, ZP, Ausdauer kommen mit dem Helden (390); Rast und Heilen warten in Kotlin auch nicht
 			_:
-				pass   # Laden, Rast, Heilen, Kapitelende, Tempel, Morgen, Schenke: folgen mit ihren Punkten (390)
+				# Kampf (Jerry 348.7), Laden, Schenke, Kapitelende, Tempelszene, Morgen: in Kotlin wartet die Szene dort; bis sie
+				# gebaut sind, endet sie hier, damit nichts danach (Flaggen, Saetze) ohne das Ereignis geschieht (Pruefer)
+				szene.clear()
 	if held: _steht_auf(held.kachel)
+
+# eine Zeile zeigen; der Held bleibt stehen wie in Mode.Dialog (Pruefer: lief mit dem Joystick weiter)
+func zeige(e: Dictionary) -> void:
+	held.halt()
+	held.richtung = Vector3.ZERO
+	ui.sage([e])
+
+# nach einer neuen Flagge: Wege (Schlagbaum, Tor) und wer zu sehen ist (Story.kt visible)
+func flaggen_neu() -> void:
+	karte.baue_wege()
+	sichtbar_neu()
+
+func sichtbar_neu() -> void:
+	if leute == null: return
+	for l in leute.get_children():
+		if l is Leute: l.zeige(Geschichte.sichtbar(String(l.daten.get("id", "")), zustand))
 
 # ---------------------------------------------------------------- Lauf
 func _process(dt: float) -> void:
 	if held == null: return
-	if ziel_person and is_instance_valid(ziel_person) and (not held.geht() or person_nah() == ziel_person):
-		var wer := ziel_person
-		ziel_person = null
-		if person_nah() == wer:
-			held.halt()
-			sprich(wer)
+	Leute.still = ui.spricht()   # 390: wer spricht, bleibt stehen (Mode.Dialog)
+	if is_instance_valid(ziel_person) and not ui.spricht():
+		var nah := person_nah()
+		if nah == ziel_person or not held.geht():
+			var wer := ziel_person
+			ziel_person = null
+			if nah == wer:
+				held.halt()
+				sprich(wer)
 	angebot_uhr -= dt
 	if angebot_uhr <= 0.0 and not ui.spricht():
 		angebot_uhr = 0.25

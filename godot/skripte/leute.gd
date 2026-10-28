@@ -36,6 +36,8 @@ var zufall := RandomNumberGenerator.new()
 var streifen_n := 0                    # Kacheln um heim (alt wander; mit Tagesplan der des Orts)
 var drinnen := false                   # 390 (5la): an der Tuer fuer die Nacht hineingegangen: nicht zu sehen, nicht im Weg
 static var uhr := Callable()           # 390: Minute des Tages (spiel.gd, Zustand.minuten)
+static var still := false              # 390: waehrend eines Gespraechs bleiben alle stehen (Mode.Dialog)
+var da := true                         # 390: nach der Geschichte zu sehen (Story.kt visible: besiegt, befreit)
 
 static func alle(k: Karte, h: Node3D) -> Array:
 	var r := []
@@ -142,6 +144,11 @@ func _init(k: Karte, d: Dictionary, h: Node3D) -> void:
 	kachel = heim
 	zufall.seed = hash(String(d["id"]))
 	warte = zufall.randf_range(0.5, 3.0)
+
+# 390: nach der Geschichte da oder nicht (Geschichte.sichtbar)
+func zeige(ja: bool) -> void:
+	da = ja
+	visible = da and not drinnen
 
 # der Ort des Tages jetzt: [ab, x, y, streifen, drinnen] wie VillageDay.stopAt, [] ohne Tagesplan
 func plan_jetzt() -> Array:
@@ -274,7 +281,7 @@ func nacht(k: float) -> void:
 
 # fuer Held.frei: steht hier jemand?
 func sperrt(p: Vector3) -> bool:
-	if drinnen: return false
+	if drinnen or not da: return false
 	return Vector2(p.x - position.x, p.z - position.z).length() < leib
 
 func held_kachel() -> Vector2i:
@@ -289,7 +296,7 @@ func frei_fuer_mich(t: Vector2i) -> bool:
 	if daten.has("tier") and not (Leute.tierboden_gross(karte, t) if leib > 0.7 else Leute.tierboden(karte, t)): return false
 	if t == held_kachel(): return false
 	for l in get_parent().get_children():
-		if l is Leute and l != self and not l.drinnen and (l.kachel == t or l.ziel == t): return false
+		if l is Leute and l != self and l.visible and (l.kachel == t or l.ziel == t): return false
 	return true
 
 func _process(dt: float) -> void:
@@ -300,6 +307,7 @@ func _process(dt: float) -> void:
 		anim.play(pause, 0.25)
 		anim.speed_scale = 1.0
 	rotation.y = drehe(rotation.y, blick, DREH_STEH * dt)
+	if still or not da: return
 	warte -= dt
 	if warte > 0: return
 	if tagesplan(): return
@@ -332,7 +340,7 @@ func tagesplan() -> bool:
 	heim = ort
 	streifen_n = int(st[3])
 	drinnen = bool(st[4]) and kachel == ort
-	visible = not drinnen
+	visible = da and not drinnen
 	if drinnen:
 		warte = 5.0
 		return true

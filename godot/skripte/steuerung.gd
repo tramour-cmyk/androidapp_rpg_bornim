@@ -172,15 +172,39 @@ func naechste() -> void:
 		if war: gelesen.emit()
 		return
 	var z: Dictionary = zeilen.pop_front()
+	# 390 (Pruefer): ein Finger, der schon lag (Joystick), laeuft nicht weiter und schaltet die Zeile nicht weiter
+	if not textfeld.visible and (unten or zieht):
+		unten = false; zieht = false; joy_v = Vector2.ZERO
+		joystick.emit(joy_v)
+		ring(false)
+		zeichner.queue_redraw()
+	if not textfeld.visible: druck_im_text = false
 	text.text = (String(z["wer"]) + ": " if z.has("wer") else "") + String(z["text"])
 	textfeld.visible = true
 	aktion_knopf.visible = false
 	ort_schild.visible = false
 	lauf_knopf.visible = false   # schien durch das Textfeld (Helferbefund 348.6)
 
+# 390 (Pruefer): ein Tippen kommt als Beruehrung und als nachgebildete Maus; nur Beruehrungen zaehlen, je Bild hoechstens eine,
+# und nur ein Druck, der bei offenem Textfeld begann
+var druck_im_text := false
+var letzter_tipp := -1
+
 func _text_tippen(e: InputEvent) -> void:
-	if (e is InputEventScreenTouch and not e.pressed) or (e is InputEventMouseButton and not e.pressed):
-		naechste()
+	if e is InputEventScreenTouch: _tipp_text(e as InputEventScreenTouch)
+
+func _tipp_text(t: InputEventScreenTouch) -> void:
+	if t.pressed:
+		druck_im_text = true
+		return
+	if not druck_im_text or Engine.get_process_frames() == letzter_tipp: return
+	druck_im_text = false
+	letzter_tipp = Engine.get_process_frames()
+	naechste()
+
+# 390: Aufschriften neu nach dem Sprachwechsel
+func sprache_neu() -> void:
+	lauf_knopf.text = "Rennen" if Sprache.aktiv() == "de" else "Run"
 
 # ---------------------------------------------------------------- Finger
 func _zeichne_joy() -> void:
@@ -191,7 +215,7 @@ func _zeichne_joy() -> void:
 
 func _unhandled_input(e: InputEvent) -> void:
 	if textfeld.visible:
-		if e is InputEventScreenTouch and not e.pressed: naechste()
+		if e is InputEventScreenTouch: _tipp_text(e as InputEventScreenTouch)
 		return
 	if e is InputEventScreenTouch:
 		var t := e as InputEventScreenTouch

@@ -46,5 +46,8 @@ static func ding(id: String, anzahl: int = 1) -> String:
 
 static func lade() -> void:
 	if texte.is_empty() and FileAccess.file_exists("res://daten/texte.json"):
-		texte = JSON.parse_string(FileAccess.get_file_as_string("res://daten/texte.json"))
-		ui = texte.get("ui", {})
+		var j = JSON.parse_string(FileAccess.get_file_as_string("res://daten/texte.json"))
+		if j is Dictionary:
+			texte = j
+			ui = texte.get("ui", {})
+	if texte.is_empty(): push_warning("390: daten/texte.json fehlt (./gradlew -p core exportTexts)")

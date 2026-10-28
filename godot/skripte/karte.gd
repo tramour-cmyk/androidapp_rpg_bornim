@@ -22,10 +22,12 @@ var laufen := 3.68                     # FreeWalk.RUN
 var busch_schritt := 1.5
 var schlagbaum := {}                   # Anstossen am Schlagbaum (Game.barrier), {de, en}
 
-static func lade(karte_id: String) -> Karte:
+# flaggen: der Spielstand (Zustand.flaggen, geteilt), vor dem Wegnetz, damit offene Schlagbaeume und Tore darin begehbar sind
+static func lade(karte_id: String, flaggen_: Dictionary = {}) -> Karte:
 	var alle: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json"))
 	var k := Karte.new()
 	k.id = karte_id
+	k.flaggen = flaggen_
 	k.kacheln = alle["kacheln"]
 	k.gehen = float(alle["gehen"]); k.laufen = float(alle["laufen"]); k.busch_schritt = float(alle["busch_schritt"])
 	k.schlagbaum = alle["schlagbaum"]

@@ -9,6 +9,7 @@ Plan und Regeln: `docs/LISTE-UMZUG-348.md` (auf `main`). Bau: `.github/workflows
 - `skripte/gebiet.gd`: Gebietskarte aus Blender (`daten/dorf.bin`) mit dem Look der Probe Build 11, Lampen, Gras, Falter, Rauch.
 - `skripte/held.gd`: Held (`daten/held.bin`), Gehen/Stehen, Fackel, Kollision, Tempo wie `FreeWalk`.
 - `skripte/kamera.gd`, `licht.gd`, `steuerung.gd`: Blick schräg von oben mit Tusche; Tag und Nacht; Tippen, Joystick, zwei Finger, Knöpfe, Textfeld.
+- `skripte/geschichte.gd`, `skript.gd`, `zustand.gd`, `sprache.gd` (390): Gespraeche und Auftraege wie `Story.kt` (Texte wortgleich, `tools/pruef348/story_texte.py`), Spielstand, Deutsch/Englisch.
 - `shader/`: `toon` (drei Lichtstufen), `tusche` (nach Licht), `boden`, `halm`, `wasser`; keiner stellt seine eigene Tusche ein.
 
 ## Maße
@@ -19,6 +20,7 @@ Plan und Regeln: `docs/LISTE-UMZUG-348.md` (auf `main`). Bau: `.github/workflows
 
 ```
 ./gradlew -p core exportMaps -Pout=$PWD/godot/daten/karten.json
+./gradlew -p core exportTexts -Pout=$PWD/godot/daten/texte.json   # 390: Oberflaeche, Dinge (Sprache.gd)
 OUT=/tmp/out KARTEN=$PWD/godot/daten/karten.json python -I tools/blender348/v3/{tex,held3,rig,dorf}.py   # je Skript ein Aufruf
 # Ausgaben nach godot/daten kopieren wie im Workflow (Schritt „Modelle bauen“)
 godot --path godot -- --bilder=/tmp/bilder   # Standbilder Tag, Gehen, Nacht, Tür, Schlagbaum
