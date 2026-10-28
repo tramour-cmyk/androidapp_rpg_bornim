@@ -23,6 +23,7 @@ signal speichern                   # 399.1 System: die Welt haelt den Stand fest
 signal sprache                     # die Welt wechselt die Sprache (spiel.gd sprache_wechseln)
 signal hauptmenue                  # speichern und zum Hauptmenue (spiel.gd)
 signal ueber                       # 399.1 „Über“: wie hauptmenue, dort gleich „Über das Spiel“
+signal ankunft                     # 399.1 Chronik: die Ankunft (Intro) noch einmal ansehen (spiel.gd zwischenbild)
 
 const DP := AktionsKnopf.DP
 const BLAU := Color("82aaf2")      # gearBlue auf Schwarz (Veil.of rare)
@@ -993,6 +994,13 @@ func chronik() -> void:
 			if i > 0: luecke(12)
 			zeile(Sprache.t(l[i]["titel"]), 17, Stil.BRIGHT if i == 0 else Stil.GOLD)
 			zeile(Sprache.t(l[i]["text"]).replace("{name}", hw.name), 15, Stil.TEXT if i == 0 else Stil.DIM)
+		# 69d: die Ankunft bei Nacht gehoert vor den ersten Eintrag; man kann sie wieder ansehen (ChronicleTab onIntro)
+		if Zwischenbild.da():
+			luecke(12)
+			var b := Erschaffung.knopf("Die Ankunft ansehen" if de else "Watch the arrival", func(): ankunft.emit())
+			b.custom_minimum_size.y = 36 * DP
+			b.add_theme_font_size_override("font_size", int(round(14 * Stil.SP)))
+			inhalt.add_child(b)
 		return
 	kaestchen([Erschaffung.txt("Hauptauftrag" if de else "Main quest", 13, Stil.GOLD), Erschaffung.txt(Sprache.t(Geschichte.ziel(z)), 16, Stil.BRIGHT)])
 	for t in Chronik.offen(z):

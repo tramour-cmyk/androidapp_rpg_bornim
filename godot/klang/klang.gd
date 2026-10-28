@@ -152,6 +152,18 @@ func spiele_szene(neu: String) -> void:
 	_stueck(neu, lauf, FIGHT_FADE_MS if kampf else ENTER_FADE_MS)
 
 
+## 399.1 Intro (Tom; Music.kt INTRO_LEVEL): die laufende Musik auf [k] ihres Pegels, in [ms]
+func musik_stufe(k: float, ms := PLACE_FADE_MS) -> void:
+	for p in _spieler:
+		if p.playing:
+			_blende(p, PEGEL * k, ms, false)
+
+
+## 399.1 Intro (Tom; IntroSoundUi.kt): eine Schleife [klang] unter [schluessel] sofort auf [pegel], 0 beendet sie
+func schleife_stellen(schluessel: String, klang: String, pegel: float) -> void:
+	_schleife(schluessel, klang, pegel, 1.0, 1.0, 1.0)
+
+
 ## Nach dem Kampf: gewonnen das Siegesstück, dann die Ortsmusik; sonst nach 10 s die Ortsmusik
 func nach_kampf(gewonnen: bool, karte) -> void:
 	var ort_szene := szene_von(String(karte.daten.get("art", ""))) if karte != null else "VILLAGE"
@@ -274,7 +286,7 @@ func _warte(s: float) -> void:
 # ---------------------------------------------------------------- Effekte (SfxPlayer)
 
 ## Ein Klang [id] (Sound-Name klein, z. B. "click", "door", "coins") mit einer zufälligen seiner Aufnahmen
-func effekt(id: String, pegel := 0.8, tempo := 1.0) -> void:
+func effekt(id: String, pegel := 0.8, tempo := 1.0, nr := -1) -> void:
 	if not effekte_an:
 		return
 	if not id in DURCH:
@@ -285,6 +297,8 @@ func effekt(id: String, pegel := 0.8, tempo := 1.0) -> void:
 	if takes.is_empty():
 		return
 	var take := String(takes[_zufall.randi_range(0, takes.size() - 1)])
+	if nr >= 0 and takes.has("%s_%d" % [id, nr + 1]):     # 399.1 Intro: eine bestimmte Aufnahme (IntroSound.Cue.take)
+		take = "%s_%d" % [id, nr + 1]
 	# Room.kt: im Raum die Fassung mit seinem Hall, wo es eine gibt (Umgebung, Schritte, Systemklänge haben keine, Room.affects)
 	var s: AudioStream = _strom("raum/%s/%s" % [raum, take]) if raum != "" and liste.get("raum", {}).get(raum, []).has(take) else null
 	if s == null:

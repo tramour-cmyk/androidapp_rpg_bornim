@@ -42,6 +42,13 @@ tasks.register<JavaExec>("exportTexts") {
     args((findProperty("out") as String?) ?: layout.buildDirectory.file("texte.json").get().asFile.path)
 }
 
+// 399.1: Intro und Tempelszene fuer Godot (IntroExport.kt)
+tasks.register<JavaExec>("exportIntro") {
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("de.bornim.core.IntroExport")
+    args((findProperty("out") as String?) ?: layout.buildDirectory.file("intro.json").get().asFile.path)
+}
+
 // 390: Regeln und Proben des Helden fuer Godot (HeroExport.kt)
 tasks.register<JavaExec>("exportHero") {
     classpath = sourceSets["main"].runtimeClasspath

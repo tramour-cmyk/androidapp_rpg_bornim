@@ -85,6 +85,13 @@ func _ready() -> void:
 			return
 		zustand.name = String(w.get("name", zustand.name))
 		werte = Heldwerte.erschaffe(zustand.name, String(w.get("volk", "HUMAN")), String(w.get("klasse", "FIGHTER")), w.get("werte", {}), zustand.neue_uid)   # 399.1 Punktekauf
+		# 399.1 wie alt (69, GameViewModel.newGame): einmal die Ankunft bei Nacht, dann erwacht der Held neben dem Bett der Schenke
+		# (Story.START), wo Rowena ihn weckt; vorher begann das neue Spiel am Brunnen
+		await zwischenbild("intro")
+		blende.color.a = 1.0
+		betrete(String(Rast.START["karte"]), Vector2i(int(Rast.START["x"]), int(Rast.START["y"])), String(Rast.START["blick"]))
+		abblenden(0.0)
+		return
 	betrete(START, START_KACHEL, "DOWN")
 	bilder()
 	gang_film()
@@ -648,6 +655,12 @@ func oeffne_menue() -> void:
 	m.dunkel = im_dunkeln()
 	ebene.add_child(m)
 	m.speichern.connect(speichere)
+	m.ankunft.connect(func():   # 399.1 Chronik „Die Ankunft ansehen“ (69d, vm.watchIntro)
+		m.zu.emit()
+		get_tree().paused = true
+		await zwischenbild("intro")
+		get_tree().paused = false
+		klang("ort", [karte, held]))
 	m.sprache.connect(sprache_wechseln)
 	m.ueber.connect(func():   # 399.1 System „Über“ wie alt: vm.toMenu, dann Screen.ABOUT
 		Hauptmenue.ueber_zuerst = true
@@ -665,6 +678,18 @@ func oeffne_menue() -> void:
 		fackel_neu()
 		kamera.fern_neu()
 		ui.leiste.zeige(held_werte(), zustand, licht.nacht > 0.65))
+
+# 399.1 Zwischensequenz (Zwischenbild, 69): ueber allem, laeuft auch, wenn das Spiel steht; ohne daten/intro.json gleich vorbei
+func zwischenbild(art: String) -> void:
+	if not Zwischenbild.da(): return
+	var ebene := CanvasLayer.new()
+	ebene.layer = 60
+	ebene.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(ebene)
+	var z := Zwischenbild.new(art, get_node_or_null("/root/Klang"))
+	ebene.add_child(z)
+	await z.fertig
+	ebene.queue_free()
 
 # 399.1 Game.heroInDark: nachts draussen, in der Hoehle immer
 func im_dunkeln() -> bool:
