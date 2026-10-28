@@ -115,7 +115,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 395 | Hund und Katze fürs Dorf: welche Modelle? (Chef 28.10., 10:46) | E Figuren | M | – | Sokrates | erledigt |
 | 394 | Eigene Namen für Zusatzentwickler statt „Tom 2“ (Chef 28.10., 10:21) | B Betrieb | M | – | Perikles | startbar |
 | 393 | Zweiter Tom oder Jerry wegen der Fülle, z. B. für 385? (Chef 28.10., 10:09) | B Betrieb | M | – | Sokrates | erledigt |
-| 392 | Alt-Fassung: Schalter „Atmen aus“ schätzen, nicht bauen (Chef 28.10., 09:50) | A Technik | M | – | Team Tom | Chef |
+| 392 | Alt-Fassung: Schalter „Atmen aus“ schätzen, nicht bauen (Chef 28.10., 09:50) | A Technik | M | – | Team Tom | erledigt |
 | 384 | Kosten: alle Sitzungen gebucht? Lücken und Buchungen ohne Kennung (Chef 27.10., 20:06) | B Werkzeuge | M | – | Perikles | gebaut |
 | 383.3 | Zurückgestellte Vorlagen sofort aus der Chefsache (Chef 27.10., 19:55) | B Werkzeuge | M | 7,30 $ | Perikles | gebaut |
 | 385 | Protofactor-Animsets (Zauberer u. a.) auf die Listen, Probe ob nutzbar (Chef 27.10., 20:59) | E Figuren | M | 9,72 $ | Team Tom | gebaut |
