@@ -36,6 +36,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Von Jerry (13:01), 399.1:** `kampf/aufruf.gd` (e18c6a223), Schnittstelle `LISTE-UMZUG-348.md`; Kaufmodelle in `kampf/daten/kauf.txt` verschlüsseln.
 - **Von Perikles (378):** Stände prüfen, `ARBEIT-PROJEKT.md` Zu 378.
 
 - **Zu 376.1:** neben dem heutigen Helden: Bauer, Kopf „Regular“, Haar, Toon, Tusche, Menü und Kartenzoom; auch Zwerg, Elf, Halbling, Halbork; Film als Raster, je Feld eine UAL-Bewegung für Kapitel 1 (Stehen, Gehen, Rennen, Sitzen, Gesten, Hieb, Stich, Ausweichen, Treffer, Tod), Chef je Feld ja/nein; 13 Figuren am A56. UAL Pro (`Unreal-Godot/UAL1.glb`, 120 Bewegungen, Liste in Git): kein Stich, keine Schildabwehr, kein gehaltenes Ausholen (bleiben eigen).
