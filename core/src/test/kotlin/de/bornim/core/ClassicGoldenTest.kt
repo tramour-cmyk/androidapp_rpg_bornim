@@ -72,6 +72,7 @@ class ClassicGoldenTest {
         "undead" to m.undead, "vulnerable" to m.vulnerable.map { it.name }, "resistant" to m.resistant.map { it.name },
         "immune" to m.immune.map { it.name }, "statusImmune" to Status.entries.filter { Status.immune(m, it) }.map { it.name },
         "special" to m.special.name, "potions" to m.potions, "boss" to m.boss, "cr" to m.cr, "fx" to m.attackFx.name, "poison" to dice(m.poison),
+        "ending" to m.gender.ending,
     )
 
     private fun pack(p: PackDef) = mapOf(
@@ -114,7 +115,8 @@ class ClassicGoldenTest {
         return out
     }
 
-    private data class Case(val name: String, val cls: CharClass, val race: Race, val foe: String, val seed: Int, val level: Int, val opening: Opening)
+    private data class Case(val name: String, val cls: CharClass, val race: Race, val foe: String, val seed: Int, val level: Int, val opening: Opening,
+        val elite: Boolean = false, val trait: EliteTrait? = null, val shiny: Boolean = false)
 
     private val cases: List<Case> = buildList {
         val classes = CharClass.entries
@@ -132,6 +134,16 @@ class ClassicGoldenTest {
         for (foe in listOf("skeleton", "zombie", "ghoul", "kobold", "wolf", "ochre_jelly")) for ((ci, cls) in classes.withIndex()) {
             add(Case("$foe-${cls.name.lowercase()}-5", cls, races[(n + ci) % races.size], foe, 3000 + n, 5, Opening.NORMAL))
             n++
+        }
+        // elites (each trait, stage 1 and 2 of their strength) and shimmering foes
+        for ((ti, tr) in (EliteTrait.entries + listOf<EliteTrait?>(null)).withIndex()) for ((ci, cls) in classes.withIndex()) {
+            val foe = listOf("wolf", "goblin", "giant_spider", "skeleton", "boar", "kobold", "giant_rat")[(ti + ci) % 7]
+            val level = if (ci % 2 == 0) 2 else 4
+            add(Case("$foe-${cls.name.lowercase()}-${tr?.name?.lowercase() ?: "elite"}", cls, races[(n + ci) % races.size], foe, 5000 + n, level, Opening.entries[n % 3], elite = true, trait = tr))
+            n++
+        }
+        for ((ci, cls) in classes.withIndex()) {
+            add(Case("wolf-${cls.name.lowercase()}-shiny", cls, races[ci % races.size], "wolf", 7000 + ci, 2, Opening.NORMAL, shiny = true))
         }
     }
 
@@ -160,7 +172,7 @@ class ClassicGoldenTest {
             "ailments" to state.ailments.toMap(), "drunk" to state.drunk, "wellFed" to state.wellFed, "winded" to state.winded,
             "mageArmorOn" to state.mageArmorOn, "inventory" to state.inventory.toMap(), "levelCap" to Story.levelCap(state),
         )
-        val b = Battle(state, m, Lang.DE, Dice(tape), c.level, false, area, look = look, opening = c.opening)
+        val b = Battle(state, m, Lang.DE, Dice(tape), c.level, c.elite, area, c.trait, c.shiny, look = look, opening = c.opening)
         val steps = mutableListOf<Map<String, Any?>>()
         steps += mapOf("do" to listOf("start"), "st" to b.start().map { step(it) })
         var guard = 0
@@ -180,6 +192,8 @@ class ClassicGoldenTest {
         val r = b.rewards
         return mapOf(
             "name" to c.name, "level" to c.level, "area" to area, "opening" to c.opening.name, "look" to c.seed,
+            "elite" to c.elite, "shiny" to c.shiny,
+            "trait" to c.trait?.let { mapOf("id" to it.name, "de" to it.adjective(Lang.DE, m.gender), "en" to it.adjective(Lang.EN, m.gender), "desc" to t(it.desc)) },
             "hero" to heroBefore, "state" to stateBefore, "monster" to monster(m), "pack" to b.pack?.let { pack(it) }, "packSize" to b.packSize,
             "kitAttack" to MonsterKits.of(m.id, look.seed)?.attack?.let { t(it) },
             "dice" to tape.log, "steps" to steps, "outcome" to b.outcome.name,

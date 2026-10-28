@@ -77,7 +77,8 @@ func _replay(c: Dictionary, tables: Dictionary) -> Dictionary:
 	k.gear_drops = c.gear
 	var st: Dictionary = c.state.duplicate(true)
 	st["gold"] = 0
-	k.setup(c.hero.duplicate(true), st, c.monster, d, int(c.level), int(c.area), c.opening, c.pack, int(c.packSize), c.kitAttack, tables)
+	k.setup(c.hero.duplicate(true), st, c.monster, d, int(c.level), int(c.area), c.opening, c.pack, int(c.packSize), c.kitAttack, tables,
+		bool(c.get("elite", false)), c.get("trait"), bool(c.get("shiny", false)))
 	var lines := 0
 	for step in c.steps:
 		var got: Array

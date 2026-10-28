@@ -2,8 +2,9 @@
 # Gleiche Regeln, gleiche Reihenfolge der Würfel, gleiche Zeilen: godot/tests/klassisch_golden.gd spielt die Kämpfe aus
 # core ClassicGoldenTest nach und vergleicht jeden Schritt. Der Held kommt als Bogen (seine abgeleiteten Zahlen, wie
 # ClassicGoldenTest.hero), der Spielstand als Wörterbuch (Leiden, Tasche, Stärkung, Rausch, Atem); was ein Sieg an
-# Ausrüstung bringt, gibt der Aufrufer ([gear_drops]), bis Toms Beute (Loot.kt) portiert ist. Noch nicht: Elite- und
-# schimmernde Gegner (EliteTrait, shiny). Die Kommentare nennen die Vorgänge wie in Battle.kt; die Gründe stehen dort.
+# Ausrüstung bringt, gibt der Aufrufer ([gear_drops]), bis Toms Beute (Loot.kt) portiert ist. Elite- und schimmernde
+# Gegner: [elite], [elite_trait] ({id, de, en, desc}, Adjektiv schon mit Endung), [shiny]. Die Kommentare nennen die Vorgänge
+# wie in Battle.kt; die Gründe stehen dort.
 extends RefCounted
 
 const Wuerfel = preload("res://regeln/wuerfel.gd")
@@ -81,6 +82,9 @@ const LOOT := ["Beute: {0}!", "Loot: {0}!"]
 const GEAR_LOOT := ["Beute: {0} ({1})!", "Loot: {0} ({1})!"]
 const AMBUSH := ["Hinterhalt! {0} springt aus dem Versteck!", "Ambush! {0} leaps out of hiding!"]
 const FIRST_STRIKE := ["{0} überrascht {1} von hinten – Erstschlag!", "{0} catches {1} from behind – first strike!"]
+const ELITE := ["Elite-{0}", "Elite {0}"]
+const ELITE_TRAIT := ["Ein Elite-Gegner! {0}", "An elite foe! {0}"]
+const SHINY := ["Er schimmert in seltsamen Farben … eine seltene Erscheinung!", "It shimmers in strange colors… a rare sight!"]
 const STILL_SURPRISED := ["{0} ist noch überrascht und kann nicht reagieren!", "{0} is still caught off guard and can't react!"]
 const GAINED := {
 	"POISON": ["{0} ist vergiftet!", "{0} is poisoned!"],
@@ -141,6 +145,11 @@ var kit_attack = null
 var level := 1
 var area_level := 1
 var opening := "NORMAL"
+var elite := false
+## {id, de, en, desc: {de, en}} oder null
+var elite_trait = null
+var shiny := false
+var elite_tier := 0
 ## was ein Sieg an Ausrüstung bringt: Callable(), das [{de, en, rarity, rarDe, rarEn}] gibt, oder die Liste selbst
 var gear_drops = []
 ## Höchstwerte nach einem Stufenaufstieg (Hero.restoreFully), bis Toms Held die Stufe rechnet: Callable(stufe) -> [maxHp, maxSp]
@@ -193,7 +202,8 @@ var steps: Array = []
 
 
 ## [h] Held, [s] Spielstand, [m] Monster wie ClassicGoldenTest; [d] Würfel (wuerfel.gd); [lvl] Stufe des Gegners, [area] des Orts.
-func setup(h: Dictionary, s: Dictionary, m: Dictionary, d, lvl := 1, area := -1, open := "NORMAL", p = null, p_size := 0, kit = null, t := {}) -> void:
+func setup(h: Dictionary, s: Dictionary, m: Dictionary, d, lvl := 1, area := -1, open := "NORMAL", p = null, p_size := 0, kit = null, t := {},
+		is_elite := false, tr = null, is_shiny := false) -> void:
 	hero = h
 	state = s
 	monster = m
@@ -205,13 +215,19 @@ func setup(h: Dictionary, s: Dictionary, m: Dictionary, d, lvl := 1, area := -1,
 	pack_size = p_size if p != null else 0
 	kit_attack = kit
 	tables = t
+	elite = is_elite
+	elite_trait = tr
+	shiny = is_shiny
 	over = maxi(level - area_level, 0)
-	base_enemy_ac = int(m.ac) + over / 2
+	# Elite wachsen über die ersten Stufen in ihre volle Stärke
+	elite_tier = 0 if not elite else (2 if level >= 4 else 1)
+	base_enemy_ac = int(m.ac) + over / 2 + (elite_tier if _trait_is("SWIFT") else 0)
 	first_level_ease = LEVEL_ONE_EASE if int(hero.level) == 1 else 0
-	enemy_attack = int(m.atk) + over * 2 / 3 - first_level_ease
-	enemy_damage_bonus = over
+	enemy_attack = int(m.atk) + over * 2 / 3 + elite_tier + (1 if shiny else 0) - first_level_ease
+	enemy_damage_bonus = over + elite_tier + (elite_tier if _trait_is("SAVAGE") else 0)
 	var per := BOSS_HP_PER_LEVEL if bool(m.boss) else HP_PER_LEVEL
-	enemy_max_hp = maxi(1, int(dice.roll_expr(m.hp) * (1 + per * over) * 1.0 * 1.0 * 1.0))
+	enemy_max_hp = maxi(1, int(dice.roll_expr(m.hp) * (1 + per * over) * (1.8 if elite_tier == 2 else (1.5 if elite else 1.0)) *
+		(1.3 if _trait_is("ANCIENT") else 1.0) * (1.3 if shiny else 1.0)))
 	enemy_hp = enemy_max_hp
 	mage_armor = bool(s.get("mageArmorOn", false))
 	well_fed = bool(s.get("wellFed", false))
@@ -306,8 +322,20 @@ func _name() -> String:
 	return str(hero.name)
 
 
+func _trait_is(id: String) -> bool:
+	return elite_trait != null and elite_trait.id == id
+
+
+## Elite und schimmernde tragen ein Adjektiv („Giftiger Wolf“).
 func foe_name() -> String:
-	return str(monster.en if lang == 1 else monster.de)
+	var nm := str(monster.en if lang == 1 else monster.de)
+	if shiny:
+		return ("Shimmering" if lang == 1 else "Schimmernd" + str(monster.get("ending", "er"))) + " " + nm
+	if elite_trait != null:
+		return _t(elite_trait) + " " + nm
+	if elite:
+		return fmt(ELITE, lang, [nm])
+	return nm
 
 
 func _weapon_null(w) -> bool:
@@ -340,7 +368,11 @@ func start() -> Array:
 			_say(fmt(FIRST_STRIKE, lang, [_name(), foe_name()]))
 		_:
 			_say(fmt(BOSS_APPEARS if bool(monster.boss) else APPEARS, lang, [foe_name()]))
+	if shiny:
+		_say(SHINY[lang])
 	_smoke_bundle()
+	if elite_trait != null:
+		_say(fmt(ELITE_TRAIT, lang, [_t(elite_trait.desc)]))
 	if pack != null and pack_size > 0:
 		_say(fmt([pack.intro.de, pack.intro.en], lang, [pack_size]))
 	if well_fed:
@@ -365,7 +397,7 @@ func start() -> Array:
 	# 86.3/72.11: außer Atem würfelt der Held die Initiative mit Nachteil
 	var hero_init: int = dice.d20(-1 if bool(state.get("winded", false)) else 0) + _mod("DEX") + elf
 	var foe_init: int = dice.d20() + int(monster.dex)
-	if foe_init > hero_init:
+	if foe_init > hero_init or (_trait_is("SWIFT") and elite_tier == 2):
 		_say(fmt(FOE_FASTER, lang, [foe_name()]))
 		_enemy_turn()
 		_hero_turn_start()
@@ -902,7 +934,7 @@ func _enemy_attack() -> void:
 		_say(fmt(UNCANNY, lang, [_name()]))
 	var first_hit := not enemy_has_hit
 	enemy_has_hit = true
-	_hit_hero(dmg, _fx(monster.fx, true, crit))
+	var dealt := _hit_hero(dmg, _fx(monster.fx, true, crit))
 	if not _ongoing():
 		return
 	# auch kritische Treffer der Monster verwunden
@@ -951,6 +983,20 @@ func _enemy_attack() -> void:
 				_say(fmt(ELF_IMMUNE, lang, [_name()]))
 			else:
 				_inflict(true, "STUN", 1, ["CON", 10])
+	if not _ongoing() or elite_trait == null:
+		return
+	# etwa jeder zweite Treffer; der Zustand tut den Rest
+	match elite_trait.id:
+		"VENOMOUS":
+			if _chance(0.5):
+				_inflict(true, "POISON", 2)
+		"BURNING":
+			if _chance(0.5):
+				_inflict(true, "BURN", 2)
+		"VAMPIRIC":
+			if enemy_hp < enemy_max_hp:
+				var heal := _heal_foe(maxi(1, dealt / 2))
+				_say(fmt(LIFESTEAL, lang, [foe_name(), heal]), "ENEMY_HEAL", null, _fx("DRAIN", false))
 
 
 # ---------------------------------------------------------------- statuses
@@ -1193,8 +1239,8 @@ func _finish_win(fled: bool) -> void:
 	var scale := 1 + 0.35 * over + 0.05 * over * over
 	var share: float = float(pack.xpShare) if pack != null else 0.0
 	var b: Dictionary = hero.get("bonus", {})
-	var xp := int(int(monster.xp) * scale * (1 + share * pack_size) * 1.0 * 1.0 * (1 + int(b.get("XP", 0)) / 100.0) * (1.0 + 0.03 * maxi(0, _mod("INT"))))
-	var gold := 0 if fled else int(dice.roll_expr(monster.gold) * (1 + over * 0.3) * 1.0 * 1.0 * (1 + int(b.get("GOLD_FIND", 0)) / 100.0))
+	var xp := int(int(monster.xp) * scale * (1 + share * pack_size) * (2.5 if elite else 1.0) * (2.0 if shiny else 1.0) * (1 + int(b.get("XP", 0)) / 100.0) * (1.0 + 0.03 * maxi(0, _mod("INT"))))
+	var gold := 0 if fled else int(dice.roll_expr(monster.gold) * (1 + over * 0.3) * (2.0 if elite else 1.0) * (3.0 if shiny else 1.0) * (1 + int(b.get("GOLD_FIND", 0)) / 100.0))
 	var fixed := []
 	if not fled:
 		for e in monster.get("loot", []):
