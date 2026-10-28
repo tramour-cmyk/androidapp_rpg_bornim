@@ -91,7 +91,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 348 | Fertige Spiel-Engine statt Selbstbau: Umzug nach Godot (Chef 24.10., 16:43) | E Technik | M | –; +115,14 $ | Sokrates | in Arbeit |
 | 348.1 | Vergleichsbild Gebietskarte alt/neu, 64 (heute) und 128 je Kachel (Chef 24.10., 16:51, „jetzt“ 16:54) | E Technik | M | – | Team Tom | raus |
 | 348.2 | Tusche nach Licht auch am Helden, Innenlinien an Bäumen: zweites Vergleichsbild jetzt (Chef 24.10., 17:30, 17:36) | E Technik | M | – | Team Tom | ruht |
-| 348.6 | Umzug Godot: Fundament, Dorf als erste Gebietskarte | E Technik | M | 601,02 $ | Team Tom | Chef |
+| 348.6 | Umzug Godot: Fundament, Dorf als erste Gebietskarte | E Technik | M | 623,08 $ | Team Tom | Chef |
 | 348.7 | Umzug Godot: Modellregel, Kampfort Wolfsrudel MARS | E Technik | M | –; +441,15 $ | Team Jerry | wartet |
 | 348.7a | Rückfrage: Geschosse flach oder in 3D | E Technik | M | 58,17 $ | Jerry | in Arbeit |
 | 348.7b | Rückfrage: Zauberbahn hoch über die Köpfe oder flach quer über Wolf 3 | E Kampf | M | 11,99 $ | Jerry | Chef |
@@ -104,7 +104,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 348.12i | Kaufmodelle mit `AESContext` verschlüsseln, Bedingung für Kauf Protofactor (Chef 26.10., 19:41, B) | E Technik | M | – | Tom | gebaut |
 | 348.13 | Tusche nach Licht wie entschieden (Chef 26.10.) | E Technik | M | 89,13 $ | Tom | Chef |
 | 348.13a | Rückfrage: Kampfort Tusche alt oder nach Licht | G Aussehen | M | 30,71 $ | Tom | startbar |
-| 348.13b | Rückfrage: Tusche auch nach Fackeln und Feuer (Chef 28.10., 07:59) | G Aussehen | M | – | Sokrates | Chef |
+| 348.13b | Tusche auch nach Fackeln, Feuer, Fenster; zuerst Dorf (Chef 28.10., 08:09 ja) | G Aussehen | M | – | Tom | startbar |
 | 355 | Kisten: zwei bis vier je Gebietskarte, gern versteckt (Chef 24.10., 17:17) | E Welt | K | – | Team Tom | ruht |
 | 356.2 | Sammelaufträge: Felle 3, Pelzumhang, Hauerdolch (356 b, Chef 24.10., 21:33) | G Balance | K | – | Team Tom | offen |
 | 357 | Puppe beim Drehen nicht fein (Chef 24.10.) | E Figuren | K | – | Team Tom | ruht |
@@ -115,5 +115,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 383.3 | Zurückgestellte Vorlagen sofort aus der Chefsache (Chef 27.10., 19:55) | B Werkzeuge | M | 7,30 $ | Perikles | gebaut |
 | 385 | Protofactor-Animsets (Zauberer u. a.) auf die Listen, Probe ob nutzbar (Chef 27.10., 20:59) | E Figuren | M? | – | Team Tom | Chef |
 | 387 | Gekaufte Tiere schnell auf Bewegungen und unsere Haut prüfen, vor Eigenbau (Chef 27.10., 21:27) | E Monster | M | 65,91 $ | Team Jerry | Chef |
+| 390 | Umzug: Punkte ohne Bilderrunde weiterbauen, solange Blätter beim Chef liegen (Perikles 28.10., Wochenziel 348) | E Technik | M | – | Team Tom, Team Jerry | startbar |
+| 338b | Rückfrage: Umzug Block (K) rot, Termine nach den Kaufmodellen neu schätzen? | B Abläufe | M | – | Perikles | Chef |
 | 383.2 | Kosten: dieselbe Aufgabe frisch gegen groß messen (Chef 27.10., 19:24) | B Werkzeuge | M | – | Sokrates | wartet |
 | 383 | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokrates) | B Werkzeuge | M | 12,91 $ | Perikles | wartet |

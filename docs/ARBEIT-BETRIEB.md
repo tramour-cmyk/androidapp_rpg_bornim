@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (27.10., 23:06, Ford `session_01Hmoj75jVp5KYNTRoJ7QXfq`, Tiefe 2, 385 Tsd. Token → Selbstneustart):** Läuft: Tom `01Hmoj772C` „348.6 Häuser mit Innenraum“ (PR #176 Build 90 nur 388: Testbitte an den Chef, nach dessen Ja main und „play“; danach 385 Zauberbewegung), Jerry `01Hmoj7A1B` „348.12f Drehen auf der Stelle, Ratte Schnauze“ (danach 387 gekaufte Tiere prüfen). Perikles `01Hmoj77KV` (383.3 fertig) und Sokrates `01Hmoj79NG` (Chefrunde) idle, nichts zu archivieren, solange kein Nachfolger läuft. Homer ohne Sitzung; Diogenes ab 28.10. täglich 8:00 bis 03.11. (374, `START`/„Auftrag Diogenes 374“). Archivieren geht wieder (Chef 20:2x „archiviere die überzähligen Sitzungen“): nach jedem Neustart den Absender archivieren, sobald `idle`, vorher PR-Abo übergeben; Kosten **nur aus `usage.cost_usd` von `get_session`/`archive_session`, nie schätzen** (Fehler 19:37 zurückgenommen), `lauf.py --kosten <Nr,Nr> <Betrag> <Kennung>` aus `/home/user/bornim-main2` (Klon, `bornim-main` hängt seit 17:36 in einem Rebase; Notizen dort mit Edit, `git pull --no-rebase`, pushen). Jede `create_session` mit `source_revision` `main`, `source_url`, Umgebung wie die `START`-Zeile von `lauf.py` (Tom, Jerry Hoch `env_017fgL1YDcVTYTkJsU3APEfR`, sonst Mittel), erste Nachricht nur die Rolle. Vor `lauf.py` die Sitzungen als Kurzzeilen in eine Scratchpad-Datei, letzte Zeile `# has_more: nein`. Chef nie mit Kennungen ansprechen, nur Titel; nachts (22–7) lautlos. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 390** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 391** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -39,11 +39,12 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
-- 08:08 28.10.: Morgenmeldung gesendet (laut); gestartet (main): Jerry „348.7b nach Urteil des Chefs“, Diogenes „374“ (Tagesauftrag), Perikles „Stand zum Marktstart 28.10.“; alter Jerry `01Hmoj79A1` archiviert und gebucht (11,99 $); Tom `01Hmoj771Z` blockiert (wartet auf Satz des Chefs für `add_repo` bornim-kaufmodelle, 376.1)
+- 08:14 28.10.: Sokrates (08:12) Chefrunde: Tom startbar 348.13/348.13b/348.6, Jerry 387/348.12f/348.12; Tom `01Hmoj78ka` „Tom – 348.6 (08:10)“ gestartet (main, Hoch), blockierter Tom `771Z` (wartete auf Satz 3761) archiviert und gebucht (22,06 $), Chefsache 3761 auf neue Sitzung berichtigt; Jerry läuft schon
 - 17:35–19:54 27.10.: Ford-Selbstneustart; Neustarts angenommen: Sokrates 19:08, Tom 19:32, Jerry 19:40, Tom 19:54; Vorgang 382 an Perikles
 - 01:37–06:35 27.10.: Neustarts angenommen und Nachfolger gestartet: Tom 01:46, 02:33, 02:57, 03:23, 03:51, 04:16, 04:43, 05:01, 05:20, 05:44, 06:03, 06:35, 07:21; Jerry 01:37, 02:42, 03:25, 04:57; Jerry 05:55 zurückgestellt (wartet auf Chefsache 3487a). Läufe 02:03, 03:03 ohne Starts; START Perikles (Terminname) nicht ausgeführt
 - 25.10., 09:35–21:05: Neustarts Tom/Jerry/Sokrates angenommen; Perikles 364 und Sokrates 340.2 gestartet; Sparbetrieb und Max 20x (Verlauf in Git)
 
+- 08:08 28.10.: Morgenmeldung gesendet (laut); gestartet (main): Jerry „348.7b nach Urteil des Chefs“, Diogenes „374“ (Tagesauftrag), Perikles „Stand zum Marktstart 28.10.“; alter Jerry `01Hmoj79A1` archiviert und gebucht (11,99 $); Tom `01Hmoj771Z` blockiert (wartet auf Satz des Chefs für `add_repo` bornim-kaufmodelle, 376.1)
 - 05:53 28.10.: Jerry-Kosten gebucht (50,64 $ auf 387, 348.12); `rate_limit_info` der Sitzung zeigt `seven_day` `allowed_warning` (Zurücksetzung 1793473200): ab jetzt `lauf.py --nur-muss` (D31.3, 287)
 - 05:51 28.10.: Neustart Jerry angenommen (`49af405c0`), Nachfolger „Jerry – 348.7b Zauberbahn nach Chef „D““ gestartet (main, Hoch); alter Jerry `01Hmoj75wa` archiviert
 - 04:22 28.10.: Neustart Jerry angenommen (`61baa45cf`), Nachfolger „Jerry – 387 Ursachen Huhn, Kaninchen, Rind, Hundertfüßer, dann 348.12 r3“ gestartet (main, Hoch); alter Jerry `01Hmoj79G6` archiviert
@@ -63,7 +64,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:15 27.10.: Neustart Sokrates angenommen (`5ef998c3e`), Nachfolger `01Hmoj79NG` „Sokrates – Chefrunde 348.13a und Bausätze 376“ gestartet (main, Mittel); alter Sokrates `01Hmoj77UK` zu archivieren (Prüfer lehnt ab, 369), Kosten ungebucht
 - 20:06 27.10.: Neustart Tom angenommen (`cb2503fc7`), Nachfolger `01Hmoj79DD` „Tom – 376.1 Kaufkopf anpassen“ gestartet (main, Hoch); alter Tom `01Hmoj76zw` archiviert und gebucht (3,13 $ auf 348.13a)
 - 20:04 27.10.: Lauf; Perikles „383.3 (27.10., 20:04)“ `01Hmoj77KV` gestartet (main, Mittel); alter Perikles `01Hmoj76Wn` (383.1 fertig, gebilligt) archiviert und gebucht (2,01 $); Tom, Jerry laufen
-- 19:54 27.10.: Neustart Tom angenommen (`1e131ce2b`), Nachfolger `01Hmoj78Xe` „Tom – 376 Probehaus prüfen, vorlegen“ gestartet (main, Hoch); alter Tom `01Hmoj76F3` zu archivieren (Prüfer lehnt ab, 369), Kosten ungebucht
 - 00:04 27.10.: Startsperre 00:04 Start Perikles (lauf.py)
 - 00:04 27.10.: Marke Stellungnahme Sokrates 27.10. (lauf.py)
 - 00:04 27.10.: Nachfolger-Warnung Homer (Übergabe 26.10., 21:09) (lauf.py)
@@ -118,3 +118,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:05 28.10.: Startsperre 08:05 Start Jerry, Diogenes, Perikles (lauf.py)
 - 08:05 28.10.: Marke Tagesbericht 28.10. (lauf.py)
 - 08:05 28.10.: Marke Archiv session_01Hmoj79A1YeyWdR5ENs3tjE (lauf.py)
+- 08:10 28.10.: Startsperre 08:10 Start Tom (lauf.py)
+- 08:10 28.10.: Marke Archiv session_01Hmoj771ZUzrnCjb3oTBsyP (lauf.py)

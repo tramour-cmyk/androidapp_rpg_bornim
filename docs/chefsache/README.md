@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [348.13b](entscheiden/34813b-tusche-fackeln.md) | **Muss** | G Aussehen | 28.10., 07:59 | Soll die Tusche außer der Sonne auch Fackeln, Lagerfeuer und Fenster berücksichtigen? | Sokrates |
+| [338b](entscheiden/338b-block-kampf.md) | **Muss** | B Abläufe | 28.10., 08:15 | Block (K) ist seit 28.10., 08:15 rot, weil Jerry an deinen Kaufmodell-Proben arbeitete und der Termin Mi 28.10. nicht hält. | Perikles |
 | [109](entscheiden/109-repo-privat.md) | **Muss** | M Veröffentlichung | 27.10., 19:58 | Repo vor dem Tester-Aufruf privat (A), nur Releases löschen (B) oder so lassen (C)? | Sokrates |
 
 ## Zu billigen
@@ -17,16 +17,7 @@ Nichts offen.
 
 ## Anzusehen
 
-**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
-
-| Nr. | Was | Wer | Seit |
-|---|---|---|---|
-| [348.12](ansehen/34812-grak-r3.md) | Grak auf dem CC0-Gerüst, Runde 3: noch nicht fertig | – | 28.10., 05:47 |
-| [348.12](ansehen/34812-kobold-r3.md) | Kobolde auf dem CC0-Gerüst, Runde 3: noch nicht fertig | – | 28.10., 05:47 |
-| [348.12f](ansehen/34812f-drehen.md) | Ratte und Kaufwolf drehen sich auf der Stelle mit Schritten | – | 28.10., 00:50 |
-| [348.13a](ansehen/34813a-tusche-kampf-r9.md) | Tusche im Kampf, Runde 9: Langschwert nicht mehr schwarz | Tom | 28.10., 00:59 |
-| [348.6](ansehen/3486-dorf-dinge.md) | Dorf: Turmfuß, Markise, Kisten (Runde 2); Felsen, Kiesel (Runde 3) | Tom | 28.10., 04:49 |
-| [387](ansehen/387-kauftiere-r4.md) | Sechs gekaufte Tiere, Runde 4: Ursachen gefunden, vieles liegt in den gekauften Bewegungen | – | 28.10., 05:45 |
+Nichts offen.
 
 ## Zu tun
 
@@ -50,17 +41,19 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 20, Muss 9, startbar 0
+**Tom** – offen 22, Muss 11, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 390 | M | von Perikles (28.10.): zwischen Blättern beim Chef Funktionen ohne Bild bauen (LISTE-UMZUG | startbar |
 | 348.12i | M | von Sokrates (Chef 19:41, „348.12i B“, Archiv): nur Kaufmodelle mit AESContext verschlüsse | wartet auf Test/Build (gebaut) |
 | 385 | M? | von Sokrates (Archiv): Zauberer-Set (Biped, LISTE-BESTAND) auf Kaufkörper, Film | Chef |
 | 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | Chef |
-| 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | Chef |
+| 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | startbar |
 | 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | wartet auf 348.6 (Chef) |
 | 372 | M | von Perikles (338a B, Chef 27.10., 09:36, Archiv): Feinschliff Held: Kettenhemd, Helm, Kra | ruht |
-| 348.13 | M | von Sokrates (Chef 26.10., Archiv): Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Sc | Chef |
+| 348.13 | M | von Sokrates (Chef 26.10., Archiv): Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Sc | startbar |
+| 348.13b | M | von Sokrates (Chef 08:09, Archiv): Tusche nach Fackel, Feuer, Fenster; Dorf zuerst, Kosten | startbar |
 | 267 | M | von Chef (20.10., 21:46, B48, Tablet): „Das Game laggt ziemlich auf dem Tablet...“ | ruht |
 | 302.3 | M | von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3): alle Bilder von Intro und Outro m | ruht |
 | 302.2 | K | von Chef über Sokrates (22.10., 23:50): Tusche auf der Gebietskarte | ruht |
@@ -75,16 +68,17 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 27, Muss 16, startbar 1
+**Jerry** – offen 28, Muss 17, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | Chef |
-| 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | Chef |
-| 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | Chef |
+| 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | startbar |
+| 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | startbar |
+| 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | startbar |
 | 348.12c | M | von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv): Wiedergänger, Grabhund, Riesenegel, Säur | ruht |
 | 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | wartet auf 348.7b (Chef) |
 | 348.7b | M | Zauberbahn nach Chef „D“ | startbar |
+| 390 | M | von Perikles (28.10.): zwischen Blättern beim Chef Funktionen ohne Bild bauen (LISTE-UMZUG | startbar |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, Test B46): App „hängt“, ging dann weiter (Zu 257) | ruht |
 | 211.14 | M | von Sokrates (20.10.): Rest 211.13: Leistung am A56 messen (M), Puppe aus Kamerawinkel, Wi | ruht |
@@ -107,10 +101,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 13, Muss 11, startbar 1
+**Perikles** – offen 14, Muss 12, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 338b | M | von Perikles (338.1, Z2): Block (K) rot, Termine neu | Chef (Datei in der Chefsache) |
 | 386 | M | von Chef (27.10., 21:02, GitHub-Mail „will soon require 2FA“, „Ist das für uns ein Problem | Chef |
 | 384 | M | von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“): Kosten aller Si | wartet auf Test/Build (gebaut) |
 | 383.3 | M | von Sokrates (Chef 19:55): Vorlage zurück beim Team sofort aus der Chefsache | wartet auf Test/Build (gebaut) |
@@ -121,20 +116,20 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | ruht |
 | 341 | M | von Chef (23.10., 09:39): Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | Termin 06.11. |
 | 339 | M | von Sokrates (Chef 23.10., 09:08 „so eine Art Dashboard“, ja 09:53): Dashboard „Stand zum | Dauerzeile bis 06.11. |
-| 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | startbar |
+| 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | Termin 29.10. |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
-**Diogenes** – offen 4, Muss 2, startbar 1
+**Diogenes** – offen 4, Muss 2, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 374 | M | von Sokrates (Chef 27.10., 11:58, Archiv 374): täglich 8 Uhr bis 03.11. Vorlagen des Vorta | startbar |
+| 374 | M | von Sokrates (Chef 27.10., 11:58, Archiv 374): täglich 8 Uhr bis 03.11. Vorlagen des Vorta | Termin 29.10. |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24): Umzug Godot: jedes Vergleichsblatt alt/neu messen, | wartet auf Eingang |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 28, Muss 20, startbar 3
+**Sokrates** – offen 27, Muss 19, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -165,7 +160,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 142 | M | Pflichttest Play Store (von Perikles); Store-Text „jede Entscheidung zählt“ prüfen (72a) | startbar |
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (wartet) |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | Chef (Datei in der Chefsache) |
-| 348.13b | M | von Chef (28.10., 07:59): Tusche nach Lichtquellen im Kampf und Dorf? | Chef (Datei in der Chefsache) |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
