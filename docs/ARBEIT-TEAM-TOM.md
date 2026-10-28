@@ -2,13 +2,13 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (28.10., 22:2x, `session_01Hmoj75YJs7P43H1asCCog9`):** auf `claude/tom-399-spielfassung`: t139 Aktionsknopf, Anleitung, neues Spiel, Testmenü; Build 141 an den Chef (t141). Danach für den nächsten Build: 139.10, Gerät mit Messwerten, 139.7, 399.4 (bis 554cf01d9). Godot am Rechner: `~/godot/godot`, Tests ohne Bild in `godot/tests/*_399.gd`. Nachfolger: Tom – 399.5 Innenräume wie alt.
+**Übergabe (28.10., 22:2x, `session_01Hmoj75YJs7P43H1asCCog9`):** auf `claude/tom-399-spielfassung`: t139 Aktionsknopf, Anleitung, neues Spiel, Testmenü; 139.10, Gerät mit Messwerten, 139.7, 399.4 (bis 554cf01d9); Build 141 lief, zurückgezogen (Archiv 22:0x, Prüfliste in Git). Godot am Rechner: `~/godot/godot`, Tests ohne Bild in `godot/tests/*_399.gd`. Nachfolger: Tom – 376.1 Held vier Klassen.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf | zu testen: Build 141 (t141); gebaut fürs nächste: 139.10 Anlegen, Gerät mit Messwerten; Held gleich: 376.1 | `claude/tom-399-spielfassung` |
+| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf | gebaut: alle t139-Fehler bis 554cf01d9; Build 141 zurückgezogen (Chef 22:0x: nächster Build erst mit 376.1 und 399.5) | `claude/tom-399-spielfassung` |
 | 399.4 | M | **von Chef (21:4x, Archiv):** oben Rand für die Kamera wie alt | gebaut cb351a959, fährt im nächsten Build (Kampfort ohne, Jerry) | – |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | startbar (Chef 22:0x „B“, Archiv): vor 399.5; Klassen auf Kaufkörper, Kaufkopf, Aussehen wählbar, Ausrüstung sichtbar | `claude/tom-376-1-figuren` |
 | 399.5 | M | **von Chef („jetzt“ 28.10., 21:5x, Archiv):** Innenräume wie alt: Lichtquellen, Licht und Schatten, Einrichtung mit Liebe zum Detail; Fenster und Türen außen wie innen | startbar nach 376.1; Standbilder je Raum; dann erst Build (Archiv) | – |
