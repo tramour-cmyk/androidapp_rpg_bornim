@@ -8,14 +8,13 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf (`LISTE-UMZUG-348.md` „Spielfassung“) | startbar: Test 132 (Chef 16:09) „erstmal freigegeben“: 1–3 gut; 4 unklar; 5 erwacht vor Tempel statt Schenke, Uhr fehlt; 6 nicht prüfbar ohne Menü/Leiste; 133 gebaut: Erschaffung, Spielstände, Über | `claude/tom-399-spielfassung` |
+| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf (`LISTE-UMZUG-348.md` „Spielfassung“) | gebaut: Build 133 läuft (2de55cf32): Erschaffung, Spielstände, Über, Leiste, Menü Held/Tasche, Erwachen im Wiederkehrort; Bilder ansehen/3991 | `claude/tom-399-spielfassung` |
 | 399a | M | **von Tom (Chef 16:09 „erstmal freigegeben“):** 13b97af52 auf `main`? | wartet auf Chef: Chefsache 399a | – |
 | 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | startbar: 385.1 zurück (Chef 16:16): Film zu klein, fehlt in bilder; neu je Bewegung groß, mit Link |
 | 390 | M | **von Perikles:** zwischen Chef-Blättern Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | gebaut: Laden, Rast, Held, Tagesablauf, Gespräche, Englisch (64a6e5a80; Test 390a) | `claude/tom-390-englisch` |
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101 lädt) | `claude/tom-348-12i-verschluesseln` |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | ruht (Chef 12:34, 399) | `claude/tom-376-1-figuren` |
-| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: Kuh südlich des Flusses weg, dort weniger Tiere, Durchgang frei (Chef 16:12, Archiv); Ausweichen wie alt; Hund, keine Katze (395a) | `claude/tom-348-fundament` |
-| 395a | M | **von Tom (zu 395):** Katze von MadeCG? | wartet auf Chef: Chefsache 395a | – |
+| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | gebaut: Kuh weg, eine Ziege im Süden, Ausweichen wie alt (1c2bf9cfd, Build 133); Hund nur frei und ohne Aufwand (395a) | `claude/tom-348-fundament` |
 | 376.2 | M | **von Perikles (Chef 12:37, `LISTE-CC0-MODELLE.md`):** RenderHub-Marktpaket: Brunnen und Stände als Form, unsere gemalten Farben | wartet auf 348.6 (Dorf nach Urteil Probehaus); Paket im Release stufe1 erreichbar (Chef 17:38) | – |
 | 372 | M | **von Perikles (338a B, Chef 27.10., 09:36, Archiv):** Feinschliff Held: Kettenhemd, Helm, Kragen (Zu 348.6, Hände) | ruht bis Ende des Umzugs | `claude/tom-348-fundament` |
 | 397 | M | **von Chef (28.10., 11:15):** Held, Leute: mind. drei Ruhebewegungen wie alt (`LISTE-UMZUG-348.md`) | gebaut: Held, Leute Stehen, Umsehen, Müde (UAL Pro), in 399.1 | `claude/tom-397-ruhe` |
