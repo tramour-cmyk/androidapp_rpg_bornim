@@ -48,3 +48,10 @@ tasks.register<JavaExec>("exportHero") {
     mainClass.set("de.bornim.core.HeroExport")
     args(listOfNotNull((findProperty("out") as String?) ?: layout.buildDirectory.file("held.json").get().asFile.path, findProperty("proben") as String?))
 }
+
+// 399.3: synthetische Klaenge als WAV und kampfklang.json fuer Godot (audio/KlangExport.kt)
+tasks.register<JavaExec>("exportKlang") {
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("de.bornim.core.audio.KlangExport")
+    args((findProperty("out") as String?) ?: layout.buildDirectory.dir("klang").get().asFile.path)
+}

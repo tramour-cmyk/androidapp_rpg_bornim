@@ -178,7 +178,9 @@ jobs:
         run: |
           D=godot/daten/klang; mkdir -p $D
           cp -r app/src/main/assets/music app/src/main/assets/sfx $D/
-          python3 -c "import json, os; d='$D'; json.dump({o: sorted(f[:-4] for f in os.listdir(os.path.join(d, o)) if f.endswith('.ogg')) for o in ('music', 'sfx')}, open(os.path.join(d, 'liste.json'), 'w'))"
+          # was das alte Spiel synthetisiert (Hiebe, Bisse, Pfeile, Schwung), aus demselben Kotlin-Code als .wav, dazu kampfklang.json
+          ./gradlew -p core exportKlang -Pout=$GITHUB_WORKSPACE/$D/sfx -q && mv $D/sfx/kampfklang.json $D/
+          python3 -c "import json, os; d='$D'; json.dump({o: sorted(f[:-4] for f in os.listdir(os.path.join(d, o)) if f.endswith(('.ogg', '.wav'))) for o in ('music', 'sfx')}, open(os.path.join(d, 'liste.json'), 'w'))"
           python3 -c "import json; j=json.load(open('$D/liste.json')); print('Klang:', {k: len(v) for k, v in j.items()})"
       - name: Godot und Exportvorlagen
         run: |

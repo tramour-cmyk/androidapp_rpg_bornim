@@ -40,6 +40,11 @@ func _alles() -> void:
 	_pruef("Schritt Pflaster", KlangS.schritt_klang("TOWN", "village", "COBBLE") == "step_cobble")
 	_pruef("Schritt Weg", KlangS.schritt_klang("TOWN", "village", "PATH") == "step_earth")
 	_pruef("Schritt Gras", KlangS.schritt_klang("TOWN", "village", "GRASS") == "step_grass")
+	# Kampfklang (MarsSound.kt): synthetische Klänge aus KlangExport.kt, Tabelle, Stimmen
+	_pruef("kampfklang.json", String(k.kampftabelle.get("monster_fx", {}).get("wolf", "")) == "BITE")
+	_pruef("Synthese lädt", k._strom("sfx/hit_slash_1") is AudioStream and k._strom("sfx/swing_heavy_3") is AudioStream)
+	_pruef("Klang je Effekt", k._fx_klang("BITE") == "bite" and k._fx_klang("SLASH", true) == "crit" and k._fx_klang("FIRE_BOLT") == "fire" and k._fx_klang("ARROW", true) == "arrow")
+	_pruef("Wolfsstimme", k.liste.get("sfx", []).has("wolf_angriff_1") and k.liste.get("sfx", []).has("wolf_tod_3"))
 	_pruef("Mischung", is_equal_approx(KlangS.gain(100, 50), 0.25) and is_equal_approx(KlangS.gain(50, 50), 0.0625))
 	# nie zweimal dasselbe Stück hintereinander
 	var l: Array = k._stuecke("FOREST")

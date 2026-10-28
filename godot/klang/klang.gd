@@ -3,8 +3,8 @@ extends Node
 # wiederverwenden“): Musik und Klang wie im alten Spiel, Zahlen aus Music.kt (MusicDirector), MusicPlayer.kt, SfxPlayer.kt,
 # Footsteps.kt, Mix (SoundSettings.kt). Die Aufnahmen kopiert godot.yml aus app/src/main/assets nach daten/klang, dazu
 # liste.json (Dateinamen ohne Endung je Ordner). Fehlen sie (Tests am Rechner), bleibt alles still.
-# Noch nicht hier (Folgeschritte 399.3): Ortsklang (Feuer, Fluss, Vögel …), Raumklang (raum/), Kampfklang (MarsSound, Synthese),
-# Bemerkgrenze (Threat), Schwarzblende (Hush).
+# Kampfklang nach MarsSound.kt; was das alte Spiel synthetisiert, rendert KlangExport.kt im Bau als .wav (nicht neu gebaut).
+# Noch nicht hier (Folgeschritte 399.3): Ortsklang (Feuer, Fluss, Vögel …), Raumklang (raum/), Bemerkgrenze (Threat), Schwarzblende (Hush).
 
 const ORDNER := "res://daten/klang/"
 
@@ -37,6 +37,7 @@ const VORSILBE := {"TITLE": "titel_", "VILLAGE": "dorf_", "FOREST": "wald_", "CA
 const SCHLEIFE := ["TITLE", "BATTLE", "BOSS"]
 
 var liste := {"music": [], "sfx": []}
+var kampftabelle := {}                           # kampfklang.json (KlangExport.kt): Angriff und Stimme je Monster, Klang je Effekt
 var szene := ""
 var musik_an := true
 var effekte_an := true
@@ -62,6 +63,10 @@ func _ready() -> void:
 		var j = JSON.parse_string(FileAccess.get_file_as_string(ORDNER + "liste.json"))
 		if j is Dictionary:
 			liste = j
+	if FileAccess.file_exists(ORDNER + "kampfklang.json"):
+		var t = JSON.parse_string(FileAccess.get_file_as_string(ORDNER + "kampfklang.json"))
+		if t is Dictionary:
+			kampftabelle = t
 	for bus in ["Musik", "Effekte"]:
 		if AudioServer.get_bus_index(bus) < 0:
 			AudioServer.add_bus()
@@ -222,7 +227,7 @@ func _warte(s: float) -> void:
 # ---------------------------------------------------------------- Effekte (SfxPlayer)
 
 ## Ein Klang [id] (Sound-Name klein, z. B. "click", "door", "coins") mit einer zufälligen seiner Aufnahmen
-func effekt(id: String, pegel := 0.8) -> void:
+func effekt(id: String, pegel := 0.8, tempo := 1.0) -> void:
 	if not effekte_an:
 		return
 	var takes: Array = liste.get("sfx", []).filter(func(n): return String(n).begins_with(id + "_") and String(n).substr(id.length() + 1).is_valid_int())
@@ -235,8 +240,106 @@ func effekt(id: String, pegel := 0.8) -> void:
 	_naechster = (_naechster + 1) % STROEME
 	p.stop()
 	p.stream = s
+	p.pitch_scale = tempo
 	p.volume_db = linear_to_db(maxf(pegel, 0.0001))
 	p.play()
+
+
+## SfxPlayer.voice: die Stimme des Monsters [id] („angriff“, „schmerz“, „tod“), tiefer für Grimmzahn und Elite (Recorded.voiceOf)
+func stimme(id: String, ruf: String, elite := false, pegel := 0.8) -> void:
+	var st: Dictionary = kampftabelle.get("stimme", {}).get(id, {})
+	if st.is_empty():
+		return
+	var tempo := float(st.get("tempo", 1.0)) * (float(kampftabelle.get("elite_tempo", 0.9)) if elite else 1.0)
+	effekt("%s_%s" % [st.stimme, ruf], pegel, tempo)
+
+
+# ---------------------------------------------------------------- Kampf (MarsSound.kt, wie im alten MARS)
+
+const LANDS_MS := 170                    # der Hieb landet nach dem halben Ausfall (SWING_IN_MS)
+const CRY_MS := LANDS_MS + 90            # der Schrei gleich nach dem Klang des Treffers, nie darüber
+const SCHWER := ["mace", "maul", "morningstar", "warhammer"]     # Icon.HAMMER, Icon.MACE
+
+## Die Klänge einer MARS-Meldung [e] (kampfort.gd _play_say) nach MarsSound.of: Hiebe nach Waffe oder Angriff des Gegners,
+## kritisch, Zauber nach Art, Heilung, Gift, Fallen; der Schwung der Gruppe vor dem Treffer, die Stimme des Gegners.
+## [treffer_ms]: wann der Treffer im Kampfort landet (Anlauf und Biss dauern dort länger als die 170 ms des alten Ausfalls);
+## Schwung und Schrei halten den alten Abstand dazu; -1: wie alt
+func kampf(e: Dictionary, mars, treffer_ms := -1) -> void:
+	var by = mars.find(e.actor) if e.actor != null else null
+	var tg = mars.find(e.target) if e.target != null else null
+	if e.cue != null:
+		match String(e.cue):
+			"FOE_STRIKES":
+				if by != null and by.monster != null:
+					_bald(0, func(): stimme(String(by.monster.id), "angriff", _elite(by)))
+			"CIRCLE": _bald(0, func(): effekt("howl"))
+			"HEAL", "DRINK": _bald(0, func(): effekt("heal"))
+			"GATHER": _bald(0, func(): effekt(_fx_klang("ENEMY_HEAL")))
+			"VENOM": _bald(0, func(): effekt("poison"))
+			"WEB": _bald(0, func(): effekt("throw"))
+			"FOE_FALLS": _bald(0, func(): effekt("enemy_down"))
+			"HERO_FALLS", "KNOCKED_OUT": _bald(0, func(): effekt("hero_down"))
+			"POUNCED": _bald(0, func(): effekt("hit_smash", 0.6))     # Rückläufer t53: zu Boden geworfen
+			"DUCKED": _bald(0, func(): effekt("arrow"))               # Rückläufer t58: der Pfeil zischt vorbei
+		return
+	var krit: bool = e.roll != null and e.roll[0] == "ATTACK" and e.roll[4] and e.roll[1] == 20
+	if e.spell != null:
+		if String(e.spell) in ["HEAL", "BLESS"] or (by != null and tg != null and by.side != tg.side):
+			_bald(0, func(): effekt(_fx_klang(String(e.spell), krit)))
+		return
+	if by == null or tg == null or by.side == tg.side or e.roll == null or e.roll[0] != "ATTACK":
+		return
+	var art := _angriff(by)
+	var ausfall := art != "ARROW"
+	var landet := (treffer_ms if treffer_ms >= 0 else LANDS_MS) if ausfall else 0
+	if by.side == "PARTY" and ausfall:
+		var w = by.weapon()
+		var schwer: bool = w != null and (bool(w.get("two", false)) or String(w.get("id", "")) in SCHWER)
+		_bald(maxi(0, landet - LANDS_MS), func(): effekt("swing_heavy" if schwer else "swing"))
+	if e.damage > 0:
+		_bald(landet, func(): effekt(_fx_klang(art, krit)))
+		if tg.monster != null:
+			var stirbt: bool = int(e.hp.get(tg.id, 1)) <= 0
+			_bald(landet + CRY_MS - LANDS_MS, func(): stimme(String(tg.monster.id), "tod" if stirbt else "schmerz", _elite(tg)))
+	elif art == "ARROW":
+		_bald(0, func(): effekt("arrow"))
+	else:
+		_bald(landet, func(): effekt("miss"))
+
+
+## MarsSound.music: das Bossstück nur gegen einen Boss
+func kampfmusik(mars) -> void:
+	spiele_szene("BOSS" if mars.all.any(func(f): return f.side == "FOES" and f.boss()) else "BATTLE")
+
+
+## Monster.attackFx, sonst Battle.weaponFx
+func _angriff(f) -> String:
+	if f.monster != null:
+		return String(kampftabelle.get("monster_fx", {}).get(String(f.monster.id), "SLASH"))
+	var w = f.weapon()
+	if w == null:
+		return "SMASH"
+	if bool(w.get("ranged", false)):
+		return "ARROW"
+	return {"SLASHING": "SLASH", "PIERCING": "PIERCE"}.get(String(w.get("type", "")), "SMASH")
+
+
+## FxSound.of
+func _fx_klang(art: String, krit := false) -> String:
+	if krit and art in ["SLASH", "PIERCE", "SMASH"]:
+		return "crit"
+	return String(kampftabelle.get("fx_klang", {}).get(art, "hit_smash"))
+
+
+func _elite(f) -> bool:
+	return f.get("elite") == true
+
+
+func _bald(ms: int, was: Callable) -> void:
+	if ms <= 0:
+		was.call()
+		return
+	get_tree().create_timer(ms / 1000.0, true).timeout.connect(was)
 
 
 ## Footsteps.sound: Boden unter dem Helden
@@ -322,8 +425,9 @@ func _mische() -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Effekte"), linear_to_db(maxf(e, 0.0001)))
 
 
+## Aufnahmen als .ogg, die synthetischen Klänge (KlangExport.kt) als .wav
 func _strom(pfad: String) -> AudioStream:
-	var p := ORDNER + pfad + ".ogg"
-	if not ResourceLoader.exists(p):
-		return null
-	return load(p) as AudioStream
+	for endung in [".ogg", ".wav"]:
+		if ResourceLoader.exists(ORDNER + pfad + endung):
+			return load(ORDNER + pfad + endung) as AudioStream
+	return null

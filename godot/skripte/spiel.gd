@@ -365,6 +365,7 @@ func kampf_im_wald(zurueck: Vector2i) -> void:
 	var env_alt := umgebung.map(func(we): return we.environment)
 	# 399.2a (Chef 14:19 „a“): Wolf mit 1–2 Jungwölfen wie im alten Spiel
 	Klang.spiele_szene("BATTLE")   # 399.3 (Jerry): Kampfmusik wie alt (300 ms)
+	Klang.effekt("encounter")   # 399.3 (Jerry): Game.kt Kampfbeginn
 	var gestartet: bool = aufruf.starte("RUDEL", hw, null, "wald", tageszeit(), zustand.anzahl("potion"))
 	if gestartet:
 		for we in umgebung: we.environment = null
