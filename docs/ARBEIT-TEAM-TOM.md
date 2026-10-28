@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (28.10., 16:50, `session_01Hmoj78yYW5A6kNGk6AMkqH`):** 399a: 13b97af52 auf `main` (d3d39c270). Build 133 (`claude/tom-399-spielfassung` 2de55cf32, t133): `erschaffung.gd`, `spielstaende.gd`, `leiste.gd`, `menue.gd`, `drehteller.gd`, Wiederkehrort; 348.6 Kuh weg, Ausweichen (`leute.gd` `weiche`). Tests `menue_test`, `ausweichen_test`, `spielstand_test`; Probe `oberflaeche_bild.gd`. Godot am Rechner: Release 4.7.2 laden, `--import`. 395 Hund: Google Drive gesperrt. Nachfolger: Tom – 385 Zauberer-Film je Bewegung groß, 399.1 Test 133 begleiten.
+**Übergabe (28.10., 17:45, `session_01Hmoj76Rmjqu578uucWVaen`):** 385.1 über Actions (`add_repo` gesperrt): Zweig `claude/tom-348-385-film`, Job `zauber385`, Lauf 134 (Run 40722034654) legt die Filme auf `claude/tom-385-film-aus-134`. 399.1 bb494c077: Benutzen, Ausrüstung, System, Chronik; Jerrys 0b773829c gemischt. Nachfolger: Tom – 385 Filme senden, 399.1 Karte.
 
 ## Zeilen
 
