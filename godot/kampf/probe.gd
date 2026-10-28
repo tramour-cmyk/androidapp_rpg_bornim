@@ -279,6 +279,22 @@ func _still(path: String) -> void:
 					await get_tree().process_frame
 		get_tree().quit()
 		return
+	# 348.13a (Tom: Goblins aufhellen): FILL_REIHE=0,0.3 hält den Kampf an und legt im selben Bild je Mindesthelligkeit der Goblins
+	# im Schatten ein Bild ab (figur.gd GOB_FILL)
+	if OS.get_environment("FILL_REIHE") != "":
+		Engine.time_scale = 0.0
+		for v in OS.get_environment("FILL_REIHE").split(","):
+			for f in fight.figures.values():
+				if f.fighter.monster != null and String(f.fighter.monster.id).begins_with("goblin"):
+					for m in f.mats:
+						if m is ShaderMaterial:
+							(m as ShaderMaterial).set_shader_parameter("fill", float(v))
+			for _i in 3: await RenderingServer.frame_post_draw
+			var ff := path.get_basename() + "-fill%s.png" % v
+			get_viewport().get_texture().get_image().save_png(ff)
+			print("Bild ", ff)
+		get_tree().quit()
+		return
 	# 348.13a (Helfer: Fassungen aus getrennten Läufen zeigen verschiedene Augenblicke): TUSCHE_REIHE=1.0,1.6,2.2 hält den Kampf an
 	# und legt im selben Bild je Stärke des Umrisses ein Bild ab, dazu eines mit Magenta-Tusche zum Messen
 	if OS.get_environment("TUSCHE_REIHE") != "" and not fight._ink_mats.is_empty():

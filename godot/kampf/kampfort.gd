@@ -160,8 +160,9 @@ func _setup_world() -> void:
 	# höher und von vorn als im Dorf (licht.gd -50, 25): sonst liegt der Schatten der Bäume auf der Lichtung (Lauf 11:
 	# Wölfe schwarz, grauer Wolf Helligkeit 8, ohne Baumschatten 43)
 	sun.rotation_degrees = Vector3(-65, 0, 0)
-	if OS.has_environment("KAMPF_SONNE"):     # 348.13a Probe (Tom): Sonne von vorn hat keine Lichtseite links/rechts; KAMPF_SONNE=<Höhe>,<seitlich>
-		var sv := OS.get_environment("KAMPF_SONNE").split(",")
+	if tusche() == "licht" or OS.has_environment("KAMPF_SONNE"):     # 348.13a Probe (Tom): Sonne von vorn hat keine Lichtseite links/rechts; KAMPF_SONNE=<Höhe>,<seitlich>
+		# Chef 28.10., 08:09 (r9 ja): mit Tusche nach Licht die Sonne −45,55
+		var sv := (OS.get_environment("KAMPF_SONNE") if OS.has_environment("KAMPF_SONNE") else "-45,55").split(",")
 		sun.rotation_degrees = Vector3(float(sv[0]), float(sv[1]), 0)
 	sun.shadow_enabled = true
 	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_ORTHOGONAL
@@ -184,7 +185,7 @@ func _setup_world() -> void:
 	var tu_held := Shader.new()
 	tu_held.code = tu.code.replace("stencil_mode read, compare_equal, 0;", "stencil_mode read, compare_equal, 2;")
 	_sun = sun
-	if OS.get_environment("TUSCHE") == "licht":     # 348.13 Probe (Tom): Tusche nach Licht wie kamera.gd
+	if tusche() == "licht":     # 348.13 Probe (Tom): Tusche nach Licht wie kamera.gd
 		tu = load("res://kampf/tusche_licht.gdshader")
 		tu_held = Shader.new()
 		tu_held.code = tu.code.replace("stencil_mode read, compare_equal, 0;", "stencil_mode read, compare_equal, 2;")
@@ -194,9 +195,9 @@ func _setup_world() -> void:
 		var tu_gegner := Shader.new()     # Runde 7: Gegner (figur.gd toon_gegner, Schablone 3) wie der Held statt mit der Welttusche
 		tu_gegner.code = tu.code.replace("stencil_mode read, compare_equal, 0;", "stencil_mode read, compare_equal, 3;")
 		_ink(tu_gegner, 0.8, 1.5)
-		var k := float(OS.get_environment("TUSCHE_DICK")) if OS.has_environment("TUSCHE_DICK") else 1.0     # Probe: Faktor auf den Umriss
+		var k := float(OS.get_environment("TUSCHE_DICK")) if OS.has_environment("TUSCHE_DICK") else 1.3     # Probe: Faktor auf den Umriss; Chef 28.10., 08:09 (r9 ja): 1,3
 		for m in _ink_mats: m.set_shader_parameter("umriss_dick", k)
-	elif OS.get_environment("TUSCHE") != "0":     # Prüflauf: TUSCHE=0 misst, was die Linie ausmacht
+	elif tusche() != "0":     # Prüflauf: TUSCHE=0 misst, was die Linie ausmacht
 		_ink(tu, 1.3, 1.25)
 		_ink(tu_held, 0.8, 1.0)
 
@@ -220,9 +221,12 @@ func _ink(sh: Shader, width: float, thick: float) -> void:
 	_ink_mats.append(tm)
 
 var _sun: DirectionalLight3D
+## 348.13a (Chef 28.10., 08:09, Archiv: r9 ja): Tusche nach Licht ist Vorgabe; TUSCHE=alt die alte Tusche, TUSCHE=0 ohne
+static func tusche() -> String:
+	return OS.get_environment("TUSCHE") if OS.has_environment("TUSCHE") else "licht"
 var _ink_mats: Array[ShaderMaterial] = []
 func _ink_licht() -> void:
-	if OS.get_environment("TUSCHE") != "licht" or _ink_mats.is_empty(): return
+	if tusche() != "licht" or _ink_mats.is_empty(): return
 	var bm := get_viewport().get_visible_rect().size.x / (120.0 * scene_rect().size.x / 412.0 / 1.75) * cam.size / base_size
 	if OS.get_environment("TUSCHE_DBG") != "" and Engine.get_process_frames() % 30 == 0:     # 348.13a: Sonne am Schirm (wie sl im Shader)
 		var lv := cam.global_transform.basis.inverse() * _sun.global_transform.basis.z
