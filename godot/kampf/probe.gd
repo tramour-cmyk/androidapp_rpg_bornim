@@ -428,6 +428,11 @@ func _ort() -> void:
 		_ort_schritt = nm
 		_ort_bild = 0
 		lb.text = (titel + ": " if titel != "" else "") + nm
+		# 387 r5 (Prüfer: „Hundertfüßer: Ausweichen zurü“ rechts abgeschnitten): wie in SCHAU=1 in 90 % der Breite
+		var fs := int(vs.x / 16.0)
+		while fs > 12 and lb.get_theme_font("font").get_string_size(lb.text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x > vs.x * 0.9:
+			fs -= 2
+		lb.add_theme_font_size_override("font_size", fs)
 		print("Ort %s ab %.0f ms" % [nm, fight.clock_ms])
 	# Start des Anlaufs 3 m hinter dem Platz, frei von den anderen (Prüfer Lauf 148: genau dahinter steckte das Hinterteil im Kopf der
 	# hinteren Ratte), schon vom ersten Bild an dort (Lauf 148: Sprung um 3 m beim Start des Anlaufs)

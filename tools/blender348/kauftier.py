@@ -55,7 +55,7 @@ TIERE = {
              # Runde 2 (Prüfer: reinweiß, Kamm, Schnabel, Auge unsichtbar): braun, hell, schwarz; Kamm und Schnabel aus dem Kauf
              # Runde 5 (Chef 28.10., 08:09: „Hühner etwas größer“, Vorschlag kräftiger braun mit sichtbarem Kamm): 1,2-fach (0,59 -> 0,71 m),
              # braun satter; Kamm, Kehllappen, Schnabel in der Farbe des Kaufs ohne Abdunkeln und kräftiger (kamm)
-             'felle': {'braun': (0x8C4A1C, 0x46200A, 0xB4703A), 'hell': (0xC8BCA0, 0x8C806A, 0xDAD2BE), 'schwarz': (0x34322C, 0x181814, 0x4E4A40)},
+             'felle': {'braun': (0x6E3A16, 0x381A08, 0x94602E), 'hell': (0xC8BCA0, 0x8C806A, 0xDAD2BE), 'schwarz': (0x34322C, 0x181814, 0x4E4A40)},
              'behalten': 0.35, 'groesser': 1.2, 'kamm': 1.35},
     'schwein': {'rig': 'iron_age_pig_rig_exp.FBX', 'anim': 'iron_age_pig_%s_anim.FBX', 'tex': 'iron_age_pig_col_unity*',
                 'namen': {'Stehen': 'idle', 'Gehen': 'walk', 'Fressen': 'eat', 'Tod': 'die'}, 'felle': {'natur': None}},
@@ -200,14 +200,16 @@ def am_boden(rig, a, meshes, beine):
     return float(np.median(v))
 
 
-def boden_halten(rig, a, meshes):
+def boden_halten(rig, a, meshes, kleben=False):
     """Runde 2 (Keiler: liegend steckt er 0,44 m im Boden): je Bild den Hauptknochen so weit heben, dass das Netz nicht unter den Boden
     reicht (Schlüssel je Bild auf seinem Ort)"""
     setze(rig, a)
     wurzel = next(b for b in rig.data.bones if b.parent is None)
     a0, a1 = int(a.frame_range[0]), int(a.frame_range[1])
     hub = {f: max(0.0, -float(welt_netz(meshes, f)[:, 2].min())) for f in range(a0, a1 + 1)}
-    if max(hub.values()) < 0.01:
+    if kleben:     # Runde 5 (Prüfer r4/r5: Huhn rennt bis 0,18 m über dem Schatten, Rind 0,20 m): auch senken, der tiefste Punkt am Boden
+        hub = {f: -float(welt_netz(meshes, f)[:, 2].min()) for f in range(a0, a1 + 1)}
+    if max(abs(v) for v in hub.values()) < 0.01:
         return
     inv = (rig.matrix_world.to_3x3() @ wurzel.matrix_local.to_3x3()).inverted()
     pfad = 'pose.bones["%s"].location' % wurzel.name
@@ -220,7 +222,7 @@ def boden_halten(rig, a, meshes):
             fcs[i].keyframe_points.insert(f, w[i], options={'FAST'})
     for fc in fcs.values():
         fc.update()
-    print('BODEN HALTEN %s: bis %.2f m gehoben (Bild %d)' % (a.name, max(hub.values()), max(hub, key=hub.get)))
+    print('BODEN HALTEN %s: bis %.2f m gehoben, bis %.2f m gesenkt' % (a.name, max(0.0, max(hub.values())), max(0.0, -min(hub.values()))))
 
 
 def waagerecht(rig, a, kw, kv, rest=0.0):
@@ -351,6 +353,14 @@ def baue(fell):
             waagerecht(rig, akt[nm], kw, kv)
     if 'Tod' in akt:
         boden_halten(rig, akt['Tod'], meshes)
+    # Runde 5 (Prüfer r4: Rind, Ziege, Keiler, Huhn schweben beim Laufen bis 0,13–0,20 m; Hundertfüßer 5 cm im Boden): Gehen und
+    # Rennen am Boden; nicht beim Hoppeln (dort gehört die Luft dazu)
+    for nm in ('Gehen', 'Rennen'):
+        if nm in akt and not ('hoppeln' in T and nm == 'Rennen') and not (nm == 'Rennen' and akt[nm] is akt.get('Gehen')):
+            boden_halten(rig, akt[nm], meshes, kleben=True)
+    for nm in ('Biss', 'Hauer', 'Stoss'):
+        if nm in akt:
+            boden_halten(rig, akt[nm], meshes)
     if 'hoppeln' in T and 'Rennen' in akt:     # Runde 5: eigenes Hoppeln aus dem Rennen des Kaufs
         hp = T['hoppeln']; kw, kv = T['waagerecht']['Tod']
         waagerecht(rig, akt['Rennen'], kw, kv, hp['neigung'])

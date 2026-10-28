@@ -102,6 +102,10 @@ const RUN_FROM := 1.2
 const BITE := {"Biss": [0.78, 0.5, -7.0], "Sprungbiss": [0.81, 0.6, -11.0]}
 ## dasselbe je Modell aus <art>-info.json „biss“ (kaufwolf.py misst es beim Bau), sonst BITE
 var bite := BITE
+## 348.12f (Chef 28.10., 08:09: „Schnauze näher“; Prüfer: Ratte und Kaufwolf beißen 14–16 cm vor der Heldin ins Leere): so viel
+## näher (m, Welt) tritt das Tier zum Biss heran
+static var PFOTEN_MESS := OS.get_environment("PFOTEN_MESS") != ""
+const SCHNAUZE_NAEHER := {"giant_rat": 0.10, "kaufwolf": 0.10}
 ## 387 Runde 2: so viel schneller spielt das Modell eine Bewegung (<art>-info.json „tempo“; Hundertfüßer: Gehen kaum sichtbar), der
 ## Wurzelweg gilt für Tempo 1; Maße am Boden („breite_m“, „laenge_m“) für Bodenschatten und Umriss der Kauftiere
 var tempo := {}
@@ -224,9 +228,20 @@ func _paw_shadow_update() -> void:
 		if pw.size() < 5:
 			var h0: float = tip.y - global_position.y
 			pw.append(g.origin.y - global_position.y if absf(h0) > 0.08 else INF)
+			# 348.12f r8 (Prüfer: schwarzer Fleck neben der Pfote des Kaufwolfs; 387 r5: zweite Ellipse neben dem Kaninchen): bei Janpec
+			# sitzt der Pfotenknochen schon am Ballen und zeigt waagerecht nach vorn, der Fleck lag 0,18 m (vorn) und 0,25 m (hinten) vor
+			# der Pfote (gemessen PFOTEN_MESS); zeigt der Knochen im Stehen fast waagerecht, liegt der Fleck unter seinem Ursprung
+			if absf(g.basis.y.normalized().y) < 0.3:     # eigener Wolf 0,52 (vorn), 0,93 (hinten); Janpec 0,0–0,03
+				pw[2] = 0.0
+				tip = g.origin
 		if pw[4] != INF:
 			tip = Vector3(g.origin.x, global_position.y + g.origin.y - global_position.y - pw[4], g.origin.z)
 		var h: float = tip.y - global_position.y
+		if PFOTEN_MESS:     # 348.12f r8 (Prüfer: schwarzer Fleck neben einer Pfote nach der Drehung): Fleck fern vom Knochen der Pfote
+			var echt: Vector3 = (sk.global_transform * sk.get_bone_global_pose(pw[1])).origin
+			var fern := Vector2(tip.x - echt.x, tip.z - echt.z).length()
+			if fern > 0.1 and h < 0.15:
+				print("Pfotenfleck %s %s %.0f ms: %.2f m neben dem Knochen, gehalten %s, Ursprung statt Sohle %s, Fleck %s Knochen %s" % [fighter.id, sk.get_bone_name(pw[1]), kampfort.clock_ms, fern, halt != null and halt.wirkt, pw[4] != INF, tip, echt])
 		var mi: MeshInstance3D = pw[3]
 		mi.global_transform = Transform3D(Basis(Vector3.UP, rotation.y), Vector3(tip.x, global_position.y + 0.025, tip.z))
 		mi.visible = not down and dead_at < 0
@@ -923,6 +938,7 @@ func _bite(other, leap: bool) -> int:
 	var dir := flat.normalized()
 	var nm := "Sprungbiss" if leap and anim and anim.has_animation("Sprungbiss") and weg.has("Sprungbiss") else "Biss"
 	var stand: float = other.body_r() + bite[nm][0] * model.scale.x     # Ursprung bis Mitte des Ziels beim Biss
+	stand -= float(SCHNAUZE_NAEHER.get(art(), 0.0))
 	var jump := _weg_len(nm) if nm == "Sprungbiss" else 0.0
 	var k := 1.0
 	var gap := flat.length() - stand
