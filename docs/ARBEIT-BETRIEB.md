@@ -141,3 +141,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17:08 28.10.: alter Sokrates `01Hmoj78fq` archiviert (23,05 $, Kosten auf 385,387,396a,397,398,399).
 - 17:28 28.10.: Neustart Jerry 8aefbb7b1: Nachfolger `01Hmoj77PX` gestartet; alter Jerry `01Hmoj79BF` archivieren, sobald idle (5,99 $ bisher, Kosten 399.2,399.2b,399.3).
 - 17:44 28.10.: Neustart Tom a29e7a4ee: Nachfolger `01Hmoj78DB` gestartet (alter Tom `01Hmoj76Rm` läuft noch, archivieren sobald idle, 8,44 $ bisher); alter Jerry `01Hmoj79BF` archiviert (16,86 $ auf 399.2,399.2b,399.3).
+- 18:06 28.10.: alter Tom `01Hmoj76Rm` archiviert (16,58 $ auf 385, 399.1).
