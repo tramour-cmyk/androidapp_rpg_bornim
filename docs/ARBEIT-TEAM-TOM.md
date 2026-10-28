@@ -10,7 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 |---|---|---|---|---|
 | 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf | gebaut: alle t139-Fehler bis 554cf01d9; Build 141 zurückgezogen (Chef 22:0x: nächster Build erst mit 376.1 und 399.5) | `claude/tom-399-spielfassung` |
 | 399.4 | M | **von Chef (21:4x, Archiv):** oben Rand für die Kamera wie alt | gebaut cb351a959, fährt im nächsten Build (Kampfort ohne, Jerry) | – |
-| 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | startbar (Chef 22:0x „B“, Archiv): vor 399.5; Klassen auf Kaufkörper, Kaufkopf, Aussehen wählbar, Ausrüstung sichtbar | `claude/tom-376-1-figuren` |
+| 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | startbar: Klassenentwürfe gut (Chef 23:0x, Archiv); sechs Beispielköpfe auf die Helden, Haut heller, Magier echte Robe; dann 399.5 | `claude/tom-376-1-figuren` |
 | 399.5 | M | **von Chef („jetzt“ 28.10., 21:5x, Archiv):** Innenräume wie alt: Lichtquellen, Licht und Schatten, Einrichtung mit Liebe zum Detail; Fenster und Türen außen wie innen | startbar nach 376.1; Standbilder je Raum; dann erst Build (Archiv) | – |
 | 399.3.1 | M | **von Team Jerry (16:5x):** Klang: Haken in `spiel.gd` (Jerry, `claude/jerry-348-klang`) übernehmen; Menü System: Regler wie SoundSettings über `Klang.stelle` | zu testen: Build 139 (t139.2) | – |
 | 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | startbar: 385.1 ja (Archiv); Feuer an Jerry (385.2) |
