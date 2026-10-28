@@ -8,7 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf (`LISTE-UMZUG-348.md` „Spielfassung“) | zu testen: Build 139 (t139); danach gebaut: 2H-Zeichen, Ruf ohne Worte, Intro und Start in der Schenke, Vorspann, Ortsworte in der Blende (bis 3b17961e9); Geste zum „!“ später als Feinschliff (399) | `claude/tom-399-spielfassung` |
+| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf (`LISTE-UMZUG-348.md` „Spielfassung“) | startbar: Test 139 erster Teil durchgefallen (Chef 21:3x, Archiv): Testmenü (7× Logo), neues Spiel erbt Ort, Aktionsknopf fehlt, Anleitung scrollt nicht; Rest folgt | `claude/tom-399-spielfassung` |
 | 399.3.1 | M | **von Team Jerry (16:5x):** Klang: Haken in `spiel.gd` (Jerry, `claude/jerry-348-klang`) übernehmen; Menü System: Regler wie SoundSettings über `Klang.stelle` | zu testen: Build 139 (t139.2) | – |
 | 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | startbar: 385.1 alle zwölf ja (Chef 19:1x, Archiv); Feuer aus dem Stab an Jerry (385.2); weitere Käufe nur mit Chefsache-Datei |
 | 390 | M | **von Perikles:** zwischen Chef-Blättern Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | gebaut: Laden, Rast, Held, Tagesablauf, Gespräche, Englisch (64a6e5a80; Test 390a) | `claude/tom-390-englisch` |
