@@ -17,7 +17,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: Dorftiere ja, Verhalten wie alt; Hund, Katze Quaternius (395) (Archiv) | `claude/tom-348-fundament` |
 | 376.2 | M | **von Perikles (Chef 12:37, `LISTE-CC0-MODELLE.md`):** RenderHub-Marktpaket: Brunnen und Stände als Form, unsere gemalten Farben | wartet auf 348.6 (Dorf nach Urteil Probehaus); Paket im Release stufe1 erreichbar (Chef 17:38) | – |
 | 372 | M | **von Perikles (338a B, Chef 27.10., 09:36, Archiv):** Feinschliff Held: Kettenhemd, Helm, Kragen (Zu 348.6, Hände) | ruht bis Ende des Umzugs | `claude/tom-348-fundament` |
-| 397 | M | **von Chef (28.10., 11:15):** Held, Leute: mind. drei Ruhebewegungen wie alt (`LISTE-UMZUG-348.md`) | ruht: Feinschliff, erst Spielfassung (399) | – |
+| 397 | M | **von Chef (28.10., 11:15):** Held, Leute: mind. drei Ruhebewegungen wie alt (`LISTE-UMZUG-348.md`) | gebaut: Held und Leute Stehen, Umsehen, Müde (UAL Pro), fährt im nächsten Godot-Build (c2b2831af, auf 390); Tiere und Monster bei Jerry | `claude/tom-397-ruhe` |
 | 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | wartet auf Jerry: übergeben 28.10. per Nachricht |
 | 348.13b | M | **von Sokrates (Chef 08:09, Archiv):** Tusche nach Fackel, Feuer, Fenster; Dorf zuerst, Kosten messen | ruht: Feinschliff, erst Spielfassung (399) | `claude/tom-34813-kampfprobe` |
 | 267 | M | **von Chef (20.10., 21:46, B48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | ruht: Gefühl am Tablet sagt der Chef beim nächsten Tablettest (77.7, Zu 267), ohne Rückfrage-Datei | – |
