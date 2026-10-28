@@ -14,7 +14,7 @@ extends Control
 # - System (SystemSigns), soweit es die Welt schon kann: Speichern, Sprache, Hauptmenue; Lautstaerke (399.3.1), Schritte, Helligkeit; Siege.
 # - Karte (MapTab, 62): kartenreiter.gd.
 # - Chronik (ChronicleTab): Hauptauftrag in Gold, Auftraege der Geschichte, Erledigt zum Aufklappen, „Bisher geschehen“.
-# Noch nicht wie alt: in der Chronik Nebenauftraege (Anschlagbrett), Ankunft und Morgenandacht ansehen; im System Kampf, Bedienung, Version, Geraeteangaben; Bilder der Dinge; Fackel im Dunkeln.
+# Noch nicht wie alt: in der Chronik Nebenauftraege (Anschlagbrett), Ankunft und Morgenandacht ansehen; im System Kampf, Bedienung; Bilder der Dinge; Fackel im Dunkeln.
 
 signal zu
 signal speichern                   # 399.1 System: die Welt haelt den Stand fest (spiel.gd speichere)
@@ -654,6 +654,34 @@ func system() -> void:
 	luecke(8)
 	luecke(8)
 	zeile(("Schritte: %d · Siege: %d" if de else "Steps: %d · Victories: %d") % [z.schritte, z.siege], 13, Stil.DIM)
+	# 388 (DeviceBox, Chef 27.10., 21:58): Geraeteangaben zum Kopieren, damit Tester sie schicken koennen, wenn das Spiel ruckelt
+	luecke(10)
+	var reihe := HBoxContainer.new()
+	reihe.add_theme_constant_override("separation", int(6 * DP))
+	reihe.add_child(Erschaffung.knopf(("Gerät schließen" if de else "Hide device info") if geraet_auf else ("Gerät zeigen …" if de else "Show device…"), func(): geraet_auf = not geraet_auf; baue()))
+	if geraet_auf:
+		var b := Erschaffung.knopf("Kopieren" if de else "Copy", func(): DisplayServer.clipboard_set(geraeteangaben()); meldung("Geräteangaben kopiert." if de else "Device details copied."))
+		b.size_flags_stretch_ratio = 0.5
+		reihe.add_child(b)
+	inhalt.add_child(reihe)
+	if geraet_auf: zeile(geraeteangaben(), 11, Stil.TEXT)
+
+var geraet_auf := false
+
+# DeviceInfo.lines: was Geraet, System und Grafik sind, dazu die Messwerte des Spiels
+static func geraeteangaben() -> String:
+	var gr := DisplayServer.screen_get_size()
+	var z_ := [
+		"Version: %s" % String(ProjectSettings.get_setting("application/config/version", "")),
+		"Gerät: %s" % OS.get_model_name(),
+		"System: %s %s" % [OS.get_name(), OS.get_version()],
+		"Grafik: %s (%s), %s" % [RenderingServer.get_video_adapter_name(), RenderingServer.get_video_adapter_vendor(), String(ProjectSettings.get_setting("rendering/renderer/rendering_method", ""))],
+		"Bildschirm: %d × %d, %d dpi" % [gr.x, gr.y, DisplayServer.screen_get_dpi()],
+		"Bilder je Sekunde: %d" % Engine.get_frames_per_second(),
+		"Speicher: %d MB" % int(OS.get_static_memory_usage() / 1048576),
+		"Prozessorkerne: %d" % OS.get_processor_count(),
+	]
+	return "\n".join(PackedStringArray(z_))
 
 # BrightnessSign: ein Ring mit Flammenstrich in 10 von 255 auf reinem Schwarz, so dunkel wie der Umriss einer Hoehle
 class Probezeichen extends Control:
