@@ -207,6 +207,7 @@ Was das alte Spiel kann, ohne eigenes Modell. Regeln mit denselben Testfällen w
 | Vorspann, Hauptmenü, Spielstände | `core/Prelude.kt`, `GameState.kt`; `ui/App.kt`, `SlotsScreen.kt` | Tom | – | 3 S, 2 R |
 | Intro, Zwischenbilder, Outro | `core/Intro.kt`, `Interlude.kt`; `ui/IntroScreen.kt`, `InterludeUi.kt` | Tom | – | 2 S, 1 R (Bilder aus dem alten Zeichner; neu in 3D +6 S, +5 R) |
 | Hilfe im Systemmenü | `core/Guide.kt`, `ui/GuideScreen.kt` | Tom | – | 1 S, 1 R |
+| **Neu:** Grafikstufen im Systemmenü (Niedrig/Mittel/Hoch, Automatisch; Bildrate, Schatten einzeln; Chef 28.10., 08:31, `LISTE-IDEEN.md` „Oberfläche“) | – (gibt es alt nicht) | Tom | – | nach Messung auf einem schwachen Gerät (A22, 388), dann schätzen |
 | Deutsch und Englisch | `core/I18n.kt` | Tom | – | 2 S, 0 R |
 | Klassischer Kampf | `core/Battle.kt`, `ui/BattleScreen.kt` | Jerry | – | 6 S, 3 R (Regeln mit Goldtests, Ansicht im Kampfort; Schalter 212) |
 | MARS | `core/Skirmish.kt`; `ui/SkirmishScreen.kt`, `MarsRules.kt`, `MarsTips.kt` | Jerry | Entwurf (348.7) | 8 S, 6 R (Wolfsrudel am Handy, Rest 296.2 mit Toms Held und Tasche, Zustandszeichen nach Ja; Kampforte Wald und Tiefer Wald, Tag und Nacht) |
