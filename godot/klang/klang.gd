@@ -589,6 +589,8 @@ func _ortsklang(dt_ms: float) -> void:
 		if ruhig:
 			effekt("drip", tropfen_pegel(feuer))
 		_tropfen_ms = _ort_ms + TROPFEN_MS[0] + _zufall.randf_range(0.0, TROPFEN_MS[1])
+	if ortsart == "OUTSIDE" and ruhig:
+		_tierlaute(dt_ms)
 	# Einzelklänge: Knarren im Holz der Häuser, ein Gast hustet (PlaceSound.events, gapMs 12–30 s)
 	if _ort_ms >= _ereignis_ms:
 		if ruhig:
@@ -597,6 +599,78 @@ func _ortsklang(dt_ms: float) -> void:
 				effekt(e, EREIGNIS)
 				_letztes = e
 		_ereignis_ms = _ort_ms + 12000.0 + _zufall.randf_range(0.0, 18000.0)
+
+
+# ---------------------------------------------------------------- Dorftiere (HenSound.kt, 83c; 401)
+
+# 401 (Chef 28.10., 22:0x: „die Geräusche für alle Tiere, die jetzt hier rumstehen, auch mindestens 3“): man hört nur, was ein Tier
+# gerade tut, und nur in seiner Nähe (HenSound: bis 6 Kacheln, ab 1,5 am lautesten); jedes Tier für sich, nie im Takt.
+# Beginnt es zu fressen: das Huhn gluckst oft und scharrt dabei, die Ziege rupft Gras, das Kaninchen knabbert. Von selbst ab und
+# zu: die Ziege meckert, das Huhn gluckst. Kommt der Held heran: das Huhn gackert mit Flügelschlag, das Kaninchen klopft, die Ziege
+# meckert. Laute aus tools/klang/huehner.py und dorftiere.py.
+const TIER_WEIT := 6.0                   # HenSound.FAR (Kacheln)
+const TIER_NAH := 1.5                    # HenSound.NEAR
+## je Tier und Anlass: [Klang, Pegel ganz nah]; „fressen“ mit dem Abstand der Wiederholung (ms), „ruf“ mit der Pause (ms)
+const TIERLAUT := {
+	"huhn": {"fressen": ["hen_scratch", 0.12, 700.0, 1600.0], "anfang": ["hen_cluck", 0.3], "ruf": ["hen_cluck", 0.25, 15000.0, 35000.0],
+		"held": [["hen_alarm", 0.45], ["hen_flap", 0.3]]},
+	"ziege": {"fressen": ["goat_graze", 0.25, 2500.0, 4500.0], "ruf": ["goat_bleat", 0.4, 20000.0, 45000.0], "held": [["goat_bleat", 0.5]]},
+	"kaninchen": {"fressen": ["rabbit_munch", 0.2, 2500.0, 4000.0], "held": [["rabbit_thump", 0.4]]},
+}
+var _tiere := {}                         # Tier (Knoten) -> {pause, nah, fressen_ms, ruf_ms}
+var _tiere_suche := 0.0
+
+
+## HenSound.smooth: Pegel nach Abstand [d] (Kacheln), weich von TIER_WEIT bis TIER_NAH
+static func tier_pegel(d: float, hoechst: float) -> float:
+	if d >= TIER_WEIT:
+		return 0.0
+	var t := clampf((TIER_WEIT - d) / (TIER_WEIT - TIER_NAH), 0.0, 1.0)
+	return hoechst * t * t * (3.0 - 2.0 * t)
+
+
+func _tierlaute(dt_ms: float) -> void:
+	_tiere_suche -= dt_ms
+	if _tiere_suche <= 0.0 or _tiere.keys().any(func(n): return not is_instance_valid(n)):
+		_tiere_suche = 2000.0
+		var neu := {}
+		for n in _held.get_parent().find_children("*", "Node3D", true, false):
+			var d = n.get("daten")
+			if d is Dictionary and TIERLAUT.has(String(d.get("tier", ""))):
+				neu[n] = _tiere.get(n, {"pause": String(n.get("pause")), "nah": true, "fressen_ms": 0.0,
+					"ruf_ms": _zufall.randf_range(3000.0, 30000.0)})
+		_tiere = neu
+	for n in _tiere:
+		if not is_instance_valid(n) or not n.is_visible_in_tree():
+			continue
+		var st: Dictionary = _tiere[n]
+		var art: Dictionary = TIERLAUT[String(n.daten["tier"])]
+		var d: float = Vector2(n.position.x - _held.position.x, n.position.z - _held.position.z).length() / 1.16     # Karte.TS
+		var nah: bool = n.nah_am_held(n.kachel)
+		if nah and not st.nah:
+			for l in art.held:
+				effekt(l[0], tier_pegel(d, l[1]))
+		st.nah = nah
+		var pause := String(n.pause)
+		if pause != st.pause:
+			st.pause = pause
+			if pause == "Fressen":
+				st.fressen_ms = 300.0
+				if art.has("anfang") and _zufall.randf() < 0.5:     # HenSound: jeder zweite Anfang mit Glucksen
+					effekt(art.anfang[0], tier_pegel(d, art.anfang[1]))
+		if pause == "Fressen" and n.get("ziel") is Vector2i and n.ziel.x < 0:
+			st.fressen_ms -= dt_ms
+			if st.fressen_ms <= 0.0:
+				var f: Array = art.fressen
+				effekt(f[0], tier_pegel(d, f[1]))
+				st.fressen_ms = _zufall.randf_range(f[2], f[3])
+		if art.has("ruf"):
+			st.ruf_ms -= dt_ms
+			if st.ruf_ms <= 0.0:
+				var r: Array = art.ruf
+				if pause != "Fressen" or r[0] != art.get("anfang", [""])[0]:
+					effekt(r[0], tier_pegel(d, r[1]))
+				st.ruf_ms = _zufall.randf_range(r[2], r[3])
 
 
 ## Eine Schleife [klang] zum Pegel [soll] führen; sie beginnt mit einer zufälligen Aufnahme und bleibt bei ihr, bis sie

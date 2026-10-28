@@ -80,6 +80,10 @@ for p in 557/557374_10443988 704/704174_6893335 170/170779_377731 170/170768_377
     f="fs_$(basename "$p" | cut -d_ -f1).mp3"
     [ -s "$f" ] || { curl -sSfL -m 120 -A "Mozilla/5.0" -o "$f" "https://cdn.freesound.org/previews/$p-hq.mp3"; sleep 3; }
 done
+# 401 Tierlaute im Dorf: Ziege (Meckern, Grasrupfen am Pferd), Kaninchen (Klopfen im Stall, Knabbern einer Ratte) (BigSoundBank, CC0)
+for n in 0279 0280 1380 1381 0990 1376 0185; do
+    get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"
+done
 for z in *.zip; do d="x_${z%.zip}"; [ -d "$d" ] || { mkdir -p "$d"; unzip -qo "$z" -d "$d"; }; done
 for z in *.7z; do d="x_${z%.7z}"; [ -d "$d" ] || { mkdir -p "$d"; python3 -I -m py7zr x "$z" "$d"; }; done
 echo "fertig: $D"

@@ -56,6 +56,37 @@ func _alles() -> void:
 		and luecken[0] <= KlangS.atem_ms(false) + 200 and range(luecken.size() - 1).all(func(i): return luecken[i + 1] >= luecken[i])
 		and range(atem.size() - 1).all(func(i): return atem[i + 1][1] <= atem[i][1]), str(atem))
 	_pruef("Atemzug Frau", KlangS.atem_ms(true) == 1600.0)
+	# Dorftiere (401): je Tier mindestens drei Aufnahmen, jede da; leiser mit dem Abstand, ab 6 Kacheln still
+	for tier in KlangS.TIERLAUT:
+		var a: Dictionary = KlangS.TIERLAUT[tier]
+		var ids: Array = [a.fressen[0]] + a.held.map(func(l): return l[0]) + ([a.ruf[0]] if a.has("ruf") else []) + ([a.anfang[0]] if a.has("anfang") else [])
+		var takes := {}
+		for id in ids:
+			for n in k.liste.get("sfx", []):
+				if String(n).begins_with(id + "_") and String(n).substr(String(id).length() + 1).is_valid_int(): takes[n] = true
+		_pruef("Laute " + tier, takes.size() >= 3 and ids.all(func(id): return takes.keys().any(func(n): return String(n).begins_with(id + "_"))), str(takes.keys()))
+	_pruef("Tiere nach Abstand", is_equal_approx(KlangS.tier_pegel(1.0, 0.4), 0.4) and KlangS.tier_pegel(6.0, 0.4) == 0.0
+		and KlangS.tier_pegel(3.0, 0.4) > KlangS.tier_pegel(4.5, 0.4))
+	# im Ablauf: eine Ziege 2 Kacheln vor dem Helden beginnt zu fressen (Grasrupfen), dann kommt er heran (Meckern)
+	var hof := Node3D.new()
+	root.add_child(hof)
+	var held := Node3D.new()
+	hof.add_child(held)
+	var ziege := _Probetier.new()
+	hof.add_child(ziege)
+	ziege.position = Vector3(2.32, 0, 0)
+	k._held = held
+	k._tierlaute(100.0)
+	var vorher: int = k._naechster
+	ziege.pause = "Fressen"
+	for i in 5: k._tierlaute(100.0)
+	var gerupft: int = k._naechster - vorher
+	ziege.nah = true
+	k._tierlaute(100.0)
+	_pruef("Ziege rupft und meckert", gerupft == 1 and k._naechster - vorher == 2 and String(k._effekte[(k._naechster + 7) % 8].stream.resource_path).get_file().begins_with("goat_bleat"),
+		"%d, %d" % [gerupft, k._naechster - vorher])
+	k._held = null
+	hof.queue_free()
 	# Kampfklang (MarsSound.kt): synthetische Klänge aus KlangExport.kt, Tabelle, Stimmen
 	_pruef("kampfklang.json", String(k.kampftabelle.get("monster_fx", {}).get("wolf", "")) == "BITE")
 	_pruef("Synthese lädt", k._strom("sfx/hit_slash_1") is AudioStream and k._strom("sfx/swing_heavy_3") is AudioStream)
@@ -129,3 +160,16 @@ class _Probekarte:
 
 	func zeichen(t: Vector2i) -> String:
 		return String(zeilen[t.y][t.x])
+
+
+
+## Ein Dorftier wie skripte/leute.gd (daten.tier, pause, kachel, ziel, nah_am_held) für _tierlaute
+class _Probetier extends Node3D:
+	var daten := {"tier": "ziege"}
+	var pause := "Stehen"
+	var kachel := Vector2i(2, 0)
+	var ziel := Vector2i(-1, -1)
+	var nah := false
+
+	func nah_am_held(_t: Vector2i) -> bool:
+		return nah

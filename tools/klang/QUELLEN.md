@@ -287,3 +287,15 @@ Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 19.10.2026; Freesound-Vorsch
 | `hail_woman_2` | Hmms various 1 (170767): 0,84–1,66 s | esperar, Freesound | https://freesound.org/people/esperar/sounds/170767/ |
 | `hail_woman_3` | Woman Clearing Throat FX (532425): 0,10–0,62 s | ZoshP, Freesound | https://freesound.org/people/ZoshP/sounds/532425/ |
 | `hail_child_1–3` | psst noise boy.girl (363584): 0,12–0,68 s; psst noise boy/girl (363585): 0,09–0,68 s, 0,97–1,42 s | SkyRaeVoicing, Freesound | https://freesound.org/people/SkyRaeVoicing/sounds/363584/ , https://freesound.org/people/SkyRaeVoicing/sounds/363585/ |
+
+## 401 Laute der Dorftiere (28.10., im Spiel: `goat_bleat_1–4`, `goat_graze_1–3`, `rabbit_munch_1–3`, `rabbit_thump_1–4`)
+
+Alle BigSoundBank, Urheber Joseph Sardin, CC0 1.0 („CC0 (public domain): Free and royalty-free“, Quellseiten geprüft 28.10.2026). Rezept `tools/klang/dorftiere.py`; die Hühner seit 83c (Runde 5).
+
+| Nr. | Titel | Verwendet für | Quelle |
+|---|---|---|---|
+| 0279, 0280 | Bleating goat #1, #2 | Meckern 1–2 | https://bigsoundbank.com/bleating-goat-1-s0279.html , https://bigsoundbank.com/bleating-goat-2-s0280.html |
+| 1380, 1381 | Goat #1, #2 | Meckern 3–4 | https://bigsoundbank.com/goat-1-s1380.html , https://bigsoundbank.com/goat-2-s1381.html |
+| 0990 | Horse eating grass #2 | Grasrupfen 1–3 (höher, dunkler) | https://bigsoundbank.com/horse-eating-grass-2-s0990.html |
+| 0185 | Rat nibbling | Knabbern 1–3 (dunkler) | https://bigsoundbank.com/rat-nibbling-s0185.html |
+| 1376 | Bunny hutch | Klopfen 1–4 (nur der dumpfe Tritt) | https://bigsoundbank.com/bunny-hutch-s1376.html |
