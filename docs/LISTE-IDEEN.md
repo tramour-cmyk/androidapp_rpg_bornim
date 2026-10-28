@@ -46,6 +46,8 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 
 ### Figuren
 
+- **Katze im Gasthaus** (Chef 28.10., 16:24, aus 395a): wie im alten Spiel (`MapCat.kt`: schläft am Herd, setzt sich auf, streckt sich); Farbe egal; Quaternius hat keine; die Siamkatze von MadeCG (RenderHub) gefällt dem Chef „eh nicht so gut“. Erst nach Leuten, Dorf und Klang.
+
 - **Rennbilder des Helden früher zeichnen** (Tom 23.10., aus 332): beim ersten Start nach dem Einspielen zeichnet der Held alle Bilder neu (A56: 23,9 s), Rennen zeigt bis dahin das Gehen; Rennbilder der Blickrichtung vor die übrigen Gehbilder ziehen.
 - **Feinschliff aller Figuren und Animationen** (Chef 23.10., 12:54: „genereller Merker für Figuren- und Animationsfeintuning (alle Monster!!! Und Helden)“): Griff, Haltung und Ablauf bei allen Monstern und Helden prüfen und glätten, möglichst zusammen mit der Tusche für Figuren (302.1). Erster Fall: Grak, schwerer Hieb (320, Bilder in Git vor 12:54): im Ausholen Arme vor dem Gesicht, Hände nicht wie beim Holzspalten, Stiel in der Szene zu flach, Doppelblatt im Seitenblick, Schurz kantig, kein Schatten beim Vorspringen. Bau Jerry (Monster) und Tom (Helden).
 
