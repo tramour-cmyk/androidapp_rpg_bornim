@@ -174,7 +174,12 @@ func _ready() -> void:
 		log_line(t("Nahkampf erreicht nur die vordere Reihe.", "Melee reaches only the front row."))
 
 
+## 399.2 (Test 133, Chef 16:4x: Schalter Position und Schaden „gehen nicht“): ein Tippen kommt als Berührung und als
+## nachgebildete Maus (am Rechner umgekehrt, emulate_touch_from_mouse); beide zählten, der Schalter sprang hin und zurück.
+## Nur das echte Ereignis zählt, das nachgebildete trägt DEVICE_ID_EMULATION.
 func _pressed(ev) -> bool:
+	if ev.device == InputEvent.DEVICE_ID_EMULATION:
+		return false
 	return (ev is InputEventMouseButton and ev.pressed and ev.button_index == MOUSE_BUTTON_LEFT) or (ev is InputEventScreenTouch and ev.pressed)
 
 

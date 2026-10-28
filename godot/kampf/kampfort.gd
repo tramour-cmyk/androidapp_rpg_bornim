@@ -658,6 +658,11 @@ func _react(t, intent) -> String:
 
 func _run(block: Callable) -> void:
 	busy = true
+	# 399.2 (Test 133, Chef 16:4x: „gar keine Option, eine Tasche oder Flucht oder Abwehr zu klicken … kann anscheinend nur noch
+	# kämpfen“; Foto: nur „WOLF 6/12“ und „ZURÜCK“): nach einem Befehl wieder die Hauptauswahl wie SkirmishScreen.order (pick =
+	# Pick.Main); bisher erst, wenn ein Gegner den Helden angriff (ring_open), sonst blieb die Zielwahl stehen
+	ui.pick = "main"
+	ui.pick_arg = null
 	ui.refresh()
 	if worker and worker.is_started():
 		worker.wait_to_finish()
