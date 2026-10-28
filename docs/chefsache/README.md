@@ -95,12 +95,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 14, Muss 12, startbar 2
+**Perikles** – offen 15, Muss 13, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 390a | M | von Sokrates (Chef 10:26, „390a A“, Archiv): probelauf.py: Tests aus godot/tests/ frei, en | startbar |
-| 394 | M | von Sokrates (Chef 10:26, Archiv): Rollen Spike (Tom), Tuffy (Jerry) in die Werkzeuge | startbar |
+| 396 | M | von Sokrates (Chef 11:01, Archiv): Fertiges sofort senden (338.2) | startbar |
+| 390a | M | von Sokrates (Chef 10:26): probelauf.py: Tests frei (Archiv) | startbar |
+| 394 | M | von Sokrates (Chef 10:26): Spike, Tuffy in die Werkzeuge (Archiv) | startbar |
 | 384 | M | von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“): Kosten aller Si | wartet auf Test/Build (gebaut) |
 | 383.3 | M | von Sokrates (Chef 19:55): Vorlage zurück beim Team sofort aus der Chefsache | wartet auf Test/Build (gebaut) |
 | 383 | M | von Sokrates (Chef 27.10., 17:53 „ja, 383“, Archiv): Wartewächter in lauf.py (Zeitfeld zum | wartet auf Test/Build (gebaut) |
