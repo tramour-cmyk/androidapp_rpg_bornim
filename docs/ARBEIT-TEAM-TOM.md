@@ -8,14 +8,15 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf | zu testen: Build 141 (t141): t139-Rückläufer Aktionsknopf, Anleitung, neues Spiel behoben; Testmenü (7× Logo, Reiter Test); Vorspann, Intro, Schenke, Ortsworte, Ruf | `claude/tom-399-spielfassung` |
+| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf | startbar: Build 141 (t141) zu testen (t139 Aktionsknopf, Anleitung, neues Spiel, Testmenü); offen 139.10 An-/Ablegen, Gerät mit Messwerten (Archiv); Held gleich: 376.1 | `claude/tom-399-spielfassung` |
 | 399.4 | M | **von Chef (21:4x, Archiv):** oben Rand für die Kamera wie alt | startbar | – |
+| 399.5 | M | **von Chef („jetzt“ 28.10., 21:5x, Archiv):** Innenräume wie alt: Lichtquellen, Licht und Schatten, Einrichtung mit Liebe zum Detail; Fenster und Türen außen wie innen | startbar | – |
 | 399.3.1 | M | **von Team Jerry (16:5x):** Klang: Haken in `spiel.gd` (Jerry, `claude/jerry-348-klang`) übernehmen; Menü System: Regler wie SoundSettings über `Klang.stelle` | zu testen: Build 139 (t139.2) | – |
-| 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | startbar: 385.1 alle zwölf ja (Chef 19:1x, Archiv); Feuer aus dem Stab an Jerry (385.2); weitere Käufe nur mit Chefsache-Datei |
+| 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | startbar: 385.1 ja (Archiv); Feuer an Jerry (385.2) |
 | 390 | M | **von Perikles:** zwischen Chef-Blättern Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | gebaut: Laden, Rast, Held, Tagesablauf, Gespräche, Englisch (64a6e5a80; Test 390a) | `claude/tom-390-englisch` |
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101 lädt) | `claude/tom-348-12i-verschluesseln` |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | ruht (Chef 12:34, 399) | `claude/tom-376-1-figuren` |
-| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: 139.7 wieder durchgefallen (Chef 21:3x, Archiv; zuvor 133.7): Leute und Tiere treten nicht zur Seite; Ursache erst am Gerätefall nachstellen | `claude/tom-348-fundament` |
+| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: 139.7 wieder durchgefallen (Archiv, zuvor 133.7); erst nachstellen | `claude/tom-348-fundament` |
 | 376.2 | M | **von Perikles (Chef 12:37, `LISTE-CC0-MODELLE.md`):** RenderHub-Marktpaket: Brunnen und Stände als Form, unsere gemalten Farben | wartet auf 348.6 (Dorf nach Urteil Probehaus); Paket im Release stufe1 erreichbar (Chef 17:38) | – |
 | 372 | M | **von Perikles (338a B, Chef 27.10., 09:36, Archiv):** Feinschliff Held: Kettenhemd, Helm, Kragen (Zu 348.6, Hände) | ruht bis Ende des Umzugs | `claude/tom-348-fundament` |
 | 397 | M | **von Chef (28.10., 11:15):** Held, Leute: mind. drei Ruhebewegungen wie alt (`LISTE-UMZUG-348.md`) | gebaut: Held, Leute Stehen, Umsehen, Müde (UAL Pro), in 399.1 | `claude/tom-397-ruhe` |
