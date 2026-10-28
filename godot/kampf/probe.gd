@@ -520,6 +520,7 @@ func _ort_mess(rat, ziel) -> void:
 		print("Ortlauf %s %3d %s %.2f Ort %.2f,%.2f Gier %.1f° tween %s" % [schritt, bild, rat.anim.current_animation if rat.anim else "-",
 			rat.anim.current_animation_position if rat.anim and rat.anim.current_animation != "" else 0.0, rat.position.x, rat.position.z,
 			rad_to_deg(rat.rotation.y), rat.tween != null and rat.tween.is_running()])
+		print("Hülle %s %3d %s Pfotenhalt %s" % [schritt, bild, _huelle(rat), "-" if rat.halt == null else "wirkt" if rat.halt.wirkt else "aus"])
 		return
 	var kopf: Vector3 = sk.global_transform * sk.get_bone_global_pose(kb).origin
 	var hals: Vector3 = sk.global_transform * sk.get_bone_global_pose(hb).origin
@@ -604,6 +605,54 @@ var _pf_sum := {}
 
 
 var _ort_nase := -1.0
+var _hu := {}     # 387 r4: Netz je MeshInstance3D für _huelle (Ecken, Knochen, Gewichte, Knochen je Bindung)
+
+
+## 387 r4 (Prüfer r3: Huhn ein heller Fleck ohne Kopf und Beine, Kaninchen sitzt beim Platzwechsel, Hundertfüßer wirkt 1 m lang; in
+## Blender sind dieselben Bewegungen richtig): Umriss des Netzes so, wie Godot es verformt (Haut auf der CPU nachgerechnet), in der
+## Figur (x breit, z lang, y hoch, m); dazu die Bindungen, deren Knochen fehlt
+func _huelle(rat) -> String:
+	var lo := Vector3(INF, INF, INF)
+	var hi := -lo
+	var fehlt := 0
+	var inv: Transform3D = rat.global_transform.affine_inverse()
+	for mi in rat.find_children("*", "MeshInstance3D", true, false):
+		if mi.skin == null or mi.mesh == null or not mi.visible:
+			continue
+		var sk := mi.get_node_or_null(mi.skeleton) as Skeleton3D
+		if sk == null:
+			continue
+		if not _hu.has(mi):
+			var a := mi.mesh.surface_get_arrays(0)
+			var kb: Array = []
+			for i in mi.skin.get_bind_count():
+				var b: int = mi.skin.get_bind_bone(i)
+				if b < 0:
+					b = sk.find_bone(mi.skin.get_bind_name(i))
+				kb.append(b)
+			_hu[mi] = [a[Mesh.ARRAY_VERTEX], a[Mesh.ARRAY_BONES], a[Mesh.ARRAY_WEIGHTS], kb]
+		var d: Array = _hu[mi]
+		var v: PackedVector3Array = d[0]
+		var nb: int = d[1].size() / maxi(v.size(), 1)
+		var m: Array = []
+		for i in mi.skin.get_bind_count():
+			if d[3][i] < 0:
+				fehlt += 1
+				m.append(Transform3D())
+			else:
+				m.append(inv * sk.global_transform * sk.get_bone_global_pose(d[3][i]) * mi.skin.get_bind_pose(i))
+		for k in range(0, v.size(), 2):
+			var p := Vector3.ZERO
+			for j in nb:
+				var w: float = d[2][k * nb + j]
+				if w > 0.0:
+					p += w * (m[d[1][k * nb + j]] * v[k])
+			lo = lo.min(p)
+			hi = hi.max(p)
+	if lo.x == INF:
+		return "-"
+	var e := hi - lo
+	return "breit %.2f lang %.2f hoch %.2f Boden %.2f vorn %.2f hinten %.2f%s" % [e.x, e.z, e.y, lo.y, hi.z, lo.z, " Bindungen ohne Knochen %d" % fehlt if fehlt else ""]
 var _ort_schritt := ""
 var _ort_bild := 0
 
