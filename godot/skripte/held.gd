@@ -85,6 +85,11 @@ func geh_zu(ziel: Vector3) -> bool:
 # 390: stehen bleiben (vor einer angetippten Person)
 func halt() -> void: weg.clear()
 
+func sperrer(p: Vector3) -> Leute:
+	for l in leute:
+		if is_instance_valid(l) and l.sperrt(p): return l
+	return null
+
 func frei(p: Vector3) -> bool:
 	if not karte.begehbar(karte.pos_kachel(p)): return false
 	for l in leute:
@@ -123,8 +128,24 @@ func _process(dt: float) -> void:
 			var step := d * minf(rest, 0.08)
 			rest -= step.length()
 			var np := position + step
-			if frei(np) and frei(np + d * RAND):
+			var vorn_frei := frei(np) and frei(np + d * RAND)
+			# Test 139.7: steht jemand vorn im Weg, ist er gemeint, auch wenn der Held schraeg an ihm entlang gleitet (die Kamera blickt
+			# schraeg, der Joystick zeigt selten genau entlang der Kacheln); spiel.gd _schiebt entscheidet, ob er zur Seite tritt
+			var gegen := false   # ungefaehr auf die Person zu (bis 60 Grad): er bleibt vor ihr stehen, statt um sie herumzugleiten
+			if not vorn_frei:
+				var wer := sperrer(np + d * RAND)
+				if wer == null: wer = sperrer(np)
+				if wer:
+					var zu := Vector3(wer.position.x - position.x, 0, wer.position.z - position.z)
+					gegen = zu.length() < 0.05 or d.dot(zu.normalized()) > 0.5
+					if wer.kachel != gestossen or zeit - stoss_zeit > 2.0:
+						gestossen = wer.kachel; stoss_zeit = zeit
+						stoesst.emit(wer.kachel)
+			if vorn_frei:
 				position = np
+			elif gegen:
+				weg.clear()
+				break
 			elif absf(step.x) > 1e-5 and frei(position + Vector3(step.x + signf(step.x) * RAND, 0, 0)):
 				position.x += step.x
 			elif absf(step.z) > 1e-5 and frei(position + Vector3(0, 0, step.z + signf(step.z) * RAND)):
@@ -132,6 +153,8 @@ func _process(dt: float) -> void:
 			else:
 				weg.clear()
 				var vor := karte.pos_kachel(position + d * (RAND + 0.05))
+				var wer := sperrer(np + d * RAND)   # vor einer breiten Person (Rind) stand der Held noch auf der eigenen Kachel
+				if wer: vor = wer.kachel
 				if vor != gestossen or zeit - stoss_zeit > 2.0:
 					gestossen = vor; stoss_zeit = zeit
 					stoesst.emit(vor)

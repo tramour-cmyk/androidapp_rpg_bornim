@@ -330,19 +330,29 @@ func _schiebt(t: Vector2i) -> bool:
 	for l in leute.get_children():
 		if l is Leute and l.weicht() and (l.kachel == t or l.ziel == t): wer = l
 	if wer == null: return false
-	var d := t - held.kachel
-	d = Vector2i(signi(d.x), 0) if absi(d.x) >= absi(d.y) else Vector2i(0, signi(d.y))
-	if d == Vector2i.ZERO: return true
 	if held.richtung.length() > 0.15:
-		# Test 133.7: weiter gedrueckt heisst weiter gegen ihn; abbrechen nur, wenn losgelassen, abgewandt oder weitergegangen
-		# (vorher held.geht(), das ist beim Druecken immer wahr, so wich nie jemand)
-		var von := held.kachel
+		# Test 133.7: weiter gedrueckt heisst weiter gegen ihn; abbrechen nur, wenn losgelassen, abgewandt oder vorbei
+		# Test 139.7: „gegen ihn“ heisst ungefaehr zu ihm hin (die Kamera blickt schraeg, der Joystick zeigt selten genau entlang
+		# der Kacheln, der Held gleitet an ihm entlang); vorher musste der Joystick genau auf seine Kachel zeigen, so wich fast nie jemand
 		await (Engine.get_main_loop() as SceneTree).create_timer(0.5).timeout
-		if not is_instance_valid(wer) or held.kachel != von or held.richtung.length() <= 0.15: return true
-		var r := held.richtung
-		if (Vector2i(int(signf(r.x)), 0) if absf(r.x) >= absf(r.z) else Vector2i(0, int(signf(r.z)))) != d: return true
+		if not is_instance_valid(wer) or not drueckt_gegen(wer): return true
+	var zu := wo_ist(wer) - Vector2(held.position.x, held.position.z)
+	if zu.length() < 0.05: zu = Vector2(held.richtung.x, held.richtung.z)
+	var d := Vector2i(int(signf(zu.x)), 0) if absf(zu.x) >= absf(zu.y) else Vector2i(0, int(signf(zu.y)))
+	if d == Vector2i.ZERO: return true
 	wer.weiche(d)
 	return true
+
+# der Held drueckt noch gegen [wer]: Joystick oder Kreuz gehalten, ungefaehr zu ihm hin (bis 60 Grad daneben), und noch an ihm dran
+func drueckt_gegen(wer: Leute) -> bool:
+	var r := Vector2(held.richtung.x, held.richtung.z)
+	var zu := wo_ist(wer) - Vector2(held.position.x, held.position.z)
+	if r.length() <= 0.15 or zu.length() > wer.leib + Held.RAND + 0.5: return false
+	return zu.length() < 0.05 or r.normalized().dot(zu.normalized()) > 0.5
+
+func wo_ist(l: Leute) -> Vector2:   # ausserhalb des Baums (Proben) die Mitte ihrer Kachel
+	var p := l.position if l.is_inside_tree() else held.karte.kachel_pos(l.kachel)
+	return Vector2(p.x, p.z)
 
 func zeilen(liste: Array) -> Array:
 	var r: Array = []
