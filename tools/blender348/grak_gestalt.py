@@ -591,6 +591,71 @@ for a_ in list(bpy.data.actions):
     if a_ is not akt: bpy.data.actions.remove(a_)
 sc.frame_set(0)
 bpy.context.view_layer.update()
+
+# ---------------------------------------------------------------- (8b) Großaxt in beiden Händen (Chef 28.10., 10:57: „hält er irgendwie
+# komisch und anscheinend geht der Stiel auch durch seine Schulter durch“; Liste „Grak“ 4: Großaxt in beiden Händen; grak_axtmess.py
+# Gestalt r2: Arme 566, Brustplatte 42, Körper 46 Paare). Haltung wie ual_lauer.py GRAK_HALT (Wache): rechte Faust vor der Brust
+# rechts unter dem Kopf der Axt, der Stiel steil hinab vor den Bauch, die linke Faust 38 cm tiefer am Stiel, die Schneide nach vorn;
+# Arme je Bild als zwei Glieder an die Griffe (zwei, griff, zweihand aus ual_lauer.py). ZWEIHAND=0: die alte Haltung (eine Hand)
+ZWEIHAND = os.environ.get('ZWEIHAND', '1') != '0'
+GRAK_HALT = ((-0.10, -0.34, 0.42), (-0.30, -0.12, 0.95), (-1.0, 0.4, -0.6), (1.0, 0.2, -0.8))
+AXT_LINKS, GRIFF, HANDFL = 0.38, 0.085, 0.03
+PB = ARM.pose.bones
+WARN = []
+
+
+def richte(b, ziel):     # Knochen b zum Punkt ziel drehen (kleinste Drehung, Rolle bleibt)
+    pb = PB[b]; m = pb.matrix.copy(); h = m.translation.copy()
+    q = m.col[1].xyz.normalized().rotation_difference((ziel - h).normalized())
+    pb.matrix = Matrix.Translation(h) @ q.to_matrix().to_4x4() @ m.to_3x3().to_4x4()
+    bpy.context.view_layer.update()
+
+
+def zwei(s_, T, pol):
+    S = PB['upperarm_' + s_].matrix.translation.copy(); a, b_ = PB['upperarm_' + s_].length, PB['lowerarm_' + s_].length
+    if (T - S).length > (a + b_) * 0.995: WARN.append('%s %.3f' % (s_, (T - S).length - a - b_))
+    d = min((T - S).length, (a + b_) * 0.995); u = (T - S).normalized()
+    x = (a * a - b_ * b_ + d * d) / (2 * d); hh = math.sqrt(max(a * a - x * x, 0.0))
+    p = Vector(pol); v = (p - u * p.dot(u)).normalized()
+    richte('upperarm_' + s_, S + u * x + v * hh); richte('lowerarm_' + s_, S + u * d)
+    pb = PB['hand_' + s_]; pb.matrix = Matrix.Translation(pb.matrix.translation) @ PB['lowerarm_' + s_].matrix.to_3x3().to_4x4()
+    bpy.context.view_layer.update()
+
+
+def griff(s_):     # Griffpunkt der Faust (Raum des Gerüsts)
+    pb = PB['hand_' + s_]; innen = Vector((1 if s_ == 'r' else -1, 0, 0))
+    return pb.matrix.translation + pb.matrix.col[1].xyz.normalized() * GRIFF + innen * HANDFL
+
+
+def zweihand(R, r, pol_r, pol_l):
+    r = Vector(r).normalized()
+    for _ in range(2):
+        zwei('r', R - (griff('r') - PB['hand_r'].matrix.translation), pol_r)
+    L = griff('r') - r * AXT_LINKS
+    for _ in range(2):
+        zwei('l', L - (griff('l') - PB['hand_l'].matrix.translation), pol_l)
+    return (griff('l') - L).length
+
+
+if ZWEIHAND:
+    ARME = [b + s for b in ('upperarm_', 'lowerarm_', 'hand_') for s in 'lr']
+    R_, r_, pr_, pl_ = GRAK_HALT
+    fehl = 0.0
+    for f in range(0, f1 - f0 + 1):
+        sc.frame_set(f)
+        bpy.context.view_layer.update()
+        fehl = max(fehl, zweihand(PB['pelvis'].matrix.translation + Vector(R_), r_, pr_, pl_))
+        for b in ARME:
+            PB[b].keyframe_insert('rotation_quaternion', frame=f)
+    print('ZWEIHAND linke Faust höchstens %.3f m neben dem Stiel, nicht erreicht: %s' % (fehl, ', '.join(sorted(set(WARN))) or 'keine'))
+    sc.frame_set(0)
+    bpy.context.view_layer.update()
+    r = Vector(r_).normalized()
+    e = Vector((0, -1, 0)); e = (e - r * e.dot(r)).normalized()     # Schneide nach vorn (Blick −Y)
+    M_axt = Matrix.Translation(ARM.matrix_world @ griff('r')) @ Matrix((e, r.cross(e), r)).transposed().to_4x4()
+    axt.parent = ARM; axt.parent_type = 'BONE'; axt.parent_bone = 'hand_r'
+    bpy.context.view_layer.update()
+    axt.matrix_world = M_axt
 # Axt an die rechte Hand: Griff (Ursprung der Waffe) in die Faust, Schaft senkrecht in der Haltung von Bild 0
 hb = ARM.pose.bones['hand_r']
 M_hand = ARM.matrix_world @ hb.matrix
@@ -600,10 +665,11 @@ faust = sum((ARM.matrix_world @ pb_[k].head for k in ('index_02_r', 'middle_02_r
 # Griff unter dem Kopf in der Faust, Stiel senkrecht neben dem Bein, Blatt in Schulterhöhe nach außen (+X der Waffe = −X der Welt,
 # rechts von Grak); r2: ohne Versatz (Prüfer r1: Faust neben dem Stiel)
 # r2 (gemessen: Stielende im Stiefelschaft): unten 8° nach außen gekippt
-M_axt = Matrix.Translation(faust) @ Matrix.Rotation(math.radians(8), 4, 'Y') @ Matrix.Rotation(math.pi, 4, 'Z')
-axt.parent = ARM; axt.parent_type = 'BONE'; axt.parent_bone = 'hand_r'
-bpy.context.view_layer.update()
-axt.matrix_world = M_axt
+if not ZWEIHAND:
+    M_axt = Matrix.Translation(faust) @ Matrix.Rotation(math.radians(8), 4, 'Y') @ Matrix.Rotation(math.pi, 4, 'Z')
+    axt.parent = ARM; axt.parent_type = 'BONE'; axt.parent_bone = 'hand_r'
+    bpy.context.view_layer.update()
+    axt.matrix_world = M_axt
 
 # ---------------------------------------------------------------- (9) Prüfen mit Zahlen und Ausgabe
 info = {'hoehe': round(scheitel(), 3), 'ohr_spitze': round(OHR_SPITZE * s_, 3), 'quellen': sorted(set(QUELLEN)),
