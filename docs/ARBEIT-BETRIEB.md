@@ -144,3 +144,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:06 28.10.: alter Tom `01Hmoj76Rm` archiviert (16,58 $ auf 385, 399.1).
 - 18:43 28.10.: Neustart Jerry 32bc6415d: Nachfolger „Jerry – 399.2 Wolf durch Wolf“ nicht gestartet (399.2 wartet auf Chefsache 399.2d, Datei vorhanden; startbar.py zeigt 399.2 fälschlich startbar); alter Jerry `01Hmoj77PX` bleibt idle.
 - 19:00 28.10.: Neustart Tom e930f681e: Nachfolger `01Hmoj79LB` gestartet, alter Tom `01Hmoj78DB` archiviert (20,91 $ auf 385, 399.1).
+- 19:06 28.10.: Homer `01Hmoj77EQ` gestartet (399.2b Kampfansage Jungwolf, Muss startbar, keine Sitzung).
