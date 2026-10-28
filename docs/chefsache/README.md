@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [399.2b](entscheiden/3992b-rudel-allein.md) | **Muss** | E Kampf | 28.10., 15:12 | Rudel allein, Stufe 1: Magier gewinnt 10 %, Kleriker 26 %; Jungwölfe wie alt nur halb so oft? | Jerry |
+Nichts offen.
 
 ## Zu billigen
 
@@ -30,10 +26,11 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 0, startbar 0
+**Homer** – offen 4, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 399.2b | M | von Sokrates (Chef 15:32, Archiv): Kampfansage, wenn ein Jungwolf nicht beißt, sondern nur | startbar |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
@@ -173,7 +170,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 186.3 (Pruefung)
 
-Ohne Datei: 275 (Projekt)
+Ohne Datei: 275 (Projekt), 26 (Team Tom)
 
 ## So geht's
 
