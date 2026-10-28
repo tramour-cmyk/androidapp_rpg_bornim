@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **399 Spielfassung (Test 132, Chef 16:09 „erstmal freigegeben“; 399a, 16:35 „Ja, mach das“; auf `main` als Merge d3d39c270 von 13b97af52):** das Godot-Spiel mit Dorf, Laden, Rast, Wald-Kampf gegen das Wolfsrudel, Hauptmenü, Alegreya und Gesprächsfenster wie alt; im alten Spiel der Brunnen auf 16/16, Waldrand und Bewuchs für den Export.
+
 - **389 (Chef 27.10., 23:55):** Haken `tools/probelauf.py` (PreToolUse, Bash): höchstens zwei Probeläufe je Vorgang bis zur nächsten Vorlage mit Bild oder Film; zählt Bildläufe am Rechner (`PROBE=<Nr>`) und Pushes mit Godot-Lauf, Zählung im Zweig `probelaeufe`.
 
 - **388 (Chef 27.10., 22:48, ohne Gerätetest, Test über den Play Store; auf `main` als Merge e370eae33, Build 90):** Geräteangaben mit Messwerten (Blende, Bildpausen, Speicher) auch im Systemmenü zum Kopieren, ganz unten wie im Testmenü, damit Tester sie schicken können, wenn es ruckelt.
