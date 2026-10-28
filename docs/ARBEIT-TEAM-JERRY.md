@@ -2,15 +2,15 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben.
 
-**Übergabe (28.10., 10:39, `session_01Hmoj78yASA4U4y6uWTCqF4`):** Vorgelegt: 348.12 Gestalt Grak r2 (Zweig bis 511fd7617, neu aus freien Quaternius-Teilen); Kobolde warten auf dieses Urteil. Nachfolger: „Jerry – 390 Funktionen ohne Bild“
+**Übergabe (28.10., 11:55, `session_01Hmoj78sytX4Qq4WnVpSnj2`):** 348.12f r9 abgenommen; 348.12 Grak Zweihand vorgelegt; 387 r6 gepusht; 390 sechs Regelteile gebaut. Nachfolger: „Jerry – 387 Vorlage, 348.12 Grak animieren“
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | gebaut: Tusche nach Licht an allen Kauftieren (Vorgabe 348.13a); Film r6 läuft (a10864e80, Lauf 1 von 2), dann Vorlage |
+| 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | gebaut: Tusche nach Licht an allen Kauftieren (Vorgabe 348.13a); Film r6 in CI-Lauf 40673317011 (a10864e80), Artefakt kaufprobe 387-kauftiere.mp4 vorlegen |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | startbar: r9 abgenommen (Chef 11:50, Archiv), keine Runde mehr; nur einbauen | `claude/jerry-348-kampf` |
-| 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | wartet auf Chef: Zweihandhaltung Stehen (ansehen/34812-grak-zweihand, Film), Axt frei außer Fäusten (grak_axtmess.py); danach Gehen, Hieb, Treffer, Tod, dann Kobolde | `claude/jerry-348-kampf` |
+| 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | wartet auf Chef: Zweihandhaltung Stehen (ansehen/34812-grak-zweihand, Film); Prüferbefund nach dem Senden noch offen (396); danach Gehen, Hieb, Treffer, Tod mit der Haltung, dann Kobolde | `claude/jerry-348-kampf` |
 | 348.13a | M | **von Team Tom (Chef 08:09, Archiv: r9 ja):** Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13a) | gebaut (421662dbd): Toms Probe gemischt, Tusche nach Licht Vorgabe, Linie 1,3, Sonne −45,55; Aufhellen der Goblins verworfen (Abstand zum Weg 42→36); offen Säbel | `claude/jerry-348-kampf` |
 | 397 | M | **von Chef (28.10., 11:15):** Tiere, Monster: mind. drei Ruhebewegungen wie alt (`LISTE-UMZUG-348.md`) | startbar | – |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht bis Kauf: Werte, Listen ja (Archiv), dann einbauen; erst Größe prüfen | – |
