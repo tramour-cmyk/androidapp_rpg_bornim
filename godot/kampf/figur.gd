@@ -107,9 +107,14 @@ const BITE := {"Biss": [0.78, 0.5, -7.0], "Sprungbiss": [0.81, 0.6, -11.0]}
 ## dasselbe je Modell aus <art>-info.json „biss“ (kaufwolf.py misst es beim Bau), sonst BITE
 var bite := BITE
 ## 348.12f (Chef 28.10., 08:09: „Schnauze näher“; Prüfer: Ratte und Kaufwolf beißen 14–16 cm vor der Heldin ins Leere): so viel
-## näher (m, Welt) tritt das Tier zum Biss heran
+## näher (m, Welt) tritt das Tier zum Biss heran. Chef 10:36 „b“: mit +0,10 steckte die Nase 11–13 cm im Rand (Ortmess r8), der Kopf
+## verschwand hinter dem Helden; jetzt endet sie am Rand (Ortmess „Nase-Rand“ etwa 0)
 static var PFOTEN_MESS := OS.get_environment("PFOTEN_MESS") != ""
-const SCHNAUZE_NAEHER := {"giant_rat": 0.10, "kaufwolf": 0.10}
+const SCHNAUZE_NAEHER := {"giant_rat": -0.02, "kaufwolf": -0.02}
+## 348.12f (Chef 10:36: Schatten der Ratte „wie schwarze Scheiben unter den Füßen“, bei den Wölfen passt er): Pfotenfleck im Verhältnis
+## zum Tier wie beim Wolf. Er wuchs mit _scale(), bei der Ratte (×2,0) 0,52 × 0,64 m je Pfote, beim Wolf (×1,32) 0,34 × 0,42 m; Kopfhöhe
+## Ratte 0,8 m, Wolf 1,64 m, also ein Drittel
+const PFOTENFLECK := {"giant_rat": 0.33}
 ## 387 Runde 2: so viel schneller spielt das Modell eine Bewegung (<art>-info.json „tempo“; Hundertfüßer: Gehen kaum sichtbar), der
 ## Wurzelweg gilt für Tempo 1; Maße am Boden („breite_m“, „laenge_m“) für Bodenschatten und Umriss der Kauftiere
 var tempo := {}
@@ -202,7 +207,7 @@ func _paw_shadows() -> void:
 			continue
 		var mi := MeshInstance3D.new()
 		var pm := PlaneMesh.new()
-		pm.size = Vector2(0.26, 0.32) * _scale()     # Runde 15: der Fleck direkt unter der Pfote ist von oben von ihr verdeckt; als Rand um sie herum sichtbar (0,11 × 0,14 rot gemessen: etwa 115 Bildpunkte je Pfote)
+		pm.size = Vector2(0.26, 0.32) * _scale() * float(PFOTENFLECK.get(art(), 1.0))     # Runde 15: der Fleck direkt unter der Pfote ist von oben von ihr verdeckt; als Rand um sie herum sichtbar (0,11 × 0,14 rot gemessen: etwa 115 Bildpunkte je Pfote)
 		mi.mesh = pm
 		var m := ShaderMaterial.new()
 		m.shader = shadow_shader
@@ -219,6 +224,7 @@ func _paw_shadows() -> void:
 
 
 func _paw_shadow_update() -> void:
+	var erstes: bool = not paws.is_empty() and paws[0].size() < 5
 	for pw in paws:
 		var sk: Skeleton3D = pw[0]
 		var g: Transform3D = sk.global_transform * sk.get_bone_global_pose(pw[1])
@@ -251,6 +257,37 @@ func _paw_shadow_update() -> void:
 		mi.visible = not down and dead_at < 0
 		if mi.material_override is ShaderMaterial:
 			(mi.material_override as ShaderMaterial).set_shader_parameter("dichte", 0.95 * clampf(1.0 - (h - 0.03) / 0.12, 0.0, 1.0))
+	if erstes:
+		_paws_in_blob()
+
+
+## 348.12f (Chef 10:36, Schatten der Ratte): beim Wolf stehen die Pfoten am weichen Rand des Bodenschattens (Runde 15), die Flecken
+## liegen darin. Steht eine Pfote im ersten Bild weiter außen, wird der Bodenschatten so breit (lang), dass sie am Rand steht, sonst
+## liegen die Flecken einzeln neben dem Körper (nur Arten in PFOTENFLECK). SCHAU_MESS=1: Maße und wohin der Schlagschatten der Sonne fällt
+func _paws_in_blob() -> void:
+	var sh := get_node_or_null("Bodenschatten") as MeshInstance3D
+	if sh == null:
+		return
+	var pm := sh.mesh as PlaneMesh
+	var bx := 0.0
+	var bz := 0.0
+	for pw in paws:
+		var lp: Vector3 = to_local((pw[3] as MeshInstance3D).global_position) - sh.position
+		bx = maxf(bx, absf(lp.x))
+		bz = maxf(bz, absf(lp.z))
+	var vorher := pm.size
+	# Rand: Ellipse mit Halbachsen size/2, weicher Rand ab 45 % (Shader), die Pfote soll bei 0,8 stehen wie beim Wolf; Wölfe bleiben
+	if PFOTENFLECK.has(art()):
+		pm.size = Vector2(maxf(pm.size.x, bx * 2.0 / 0.8), maxf(pm.size.y, bz * 2.0 / 0.8))
+	if OS.get_environment("SCHAU_MESS") != "":
+		var sun: DirectionalLight3D = kampfort._sun
+		var d: Vector3 = sun.global_transform.basis.z     # zur Sonne hin
+		var hoch: float = ERSATZ_KOPF.get(ersatz(), 1.24) * _scale() if fighter.monster != null else 1.8
+		var fall := Vector2(-d.x, -d.z).normalized() * hoch * Vector2(d.x, d.z).length() / maxf(d.y, 0.01)
+		print("Schattenmess %s %s: Bodenschatten %.2f × %.2f m (vorher %.2f × %.2f), Pfote außen %.2f/%.2f m, Fleck %.2f × %.2f m, Sonne %.0f° hoch, Schlagschatten des Kopfes %.2f m nach (%.2f, %.2f)" % [
+			fighter.id, art(), pm.size.x, pm.size.y, vorher.x, vorher.y, bx, bz,
+			((paws[0][3] as MeshInstance3D).mesh as PlaneMesh).size.x, ((paws[0][3] as MeshInstance3D).mesh as PlaneMesh).size.y,
+			rad_to_deg(asin(clampf(d.y, -1.0, 1.0))), fall.length(), fall.x, fall.y])
 
 
 func _scale() -> float:
