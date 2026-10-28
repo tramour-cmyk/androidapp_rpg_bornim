@@ -1,6 +1,6 @@
 # Tom · Build 141 · Godot 0.348.141 · 399 Spielfassung: Rückläufer t139, Testmenü, Vorspann, Intro, Start in der Schenke, Worte in der Blende · ohne PR
 
-B Umzug · Tom, Jerry · 28.10., 22:0x · APK: [Lauf 141](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40768078764) (Artefakt `bornim-godot-apk`, Kennung de.bornim.game.godot, installiert sich über 139). Enthält alles aus 139; was dort noch nicht getestet ist, kann hier weiter getestet werden. Nur die neuen Punkte:
+B Umzug · Tom, Jerry · 28.10., 22:0x · APK: [Lauf 141](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40768078764/artifacts/12852512541) (Kennung de.bornim.game.godot, installiert sich über 139). Enthält alles aus 139; was dort noch nicht getestet ist, kann hier weiter getestet werden. Nur die neuen Punkte:
 
 | # | Team | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|---|
