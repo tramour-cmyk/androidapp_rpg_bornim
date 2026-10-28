@@ -86,7 +86,7 @@ Alles Quaternius, CC0 (`License_Source.txt`/`License_Standard.txt` geprüft), Ge
 | Einzelteile je Tracht: Arms, Body, Legs, Feet; Knight: Body_Armor/Cloth, Head_Armet, Head_Horns, Pauldron(s)_Round/Spike, Scarf; Noble: Head_Crown, Gorget, Pauldron(_Lion); Ranger: Head_Hood, Pauldron(s), Feet_Boots | dasselbe Zip → `…/Modular Parts/` | privat | glTF |
 | Standardfassung (nur Peasant, Ranger) | `Modular.Character.Outfits.-.Fantasy.Standard.zip` (681370524) | privat, itch | glTF, FBX |
 
-**In Gebrauch** (348.12 Grak, Jerry 28.10., `grak_gestalt.py`, Abruf `cc0_laden.sh`): Superhero_Male_FullBody (nur Kopf, Hals, Brustansatz), Male_Ranger ohne Kapuze (Pauldron gespiegelt), Texturen T_Superhero_Male_Dark, T_Regular_Male_Dark_BaseColor, T_Ranger_BaseColor, T_Eye_Brown (umgefärbt); UAL Standard Idle_Loop als „Stehen“.
+**In Gebrauch** (348.12 Grak, Jerry 28.10., `grak_gestalt.py`, Abruf `cc0_laden.sh`): Superhero_Male_FullBody (nur Kopf, Hals, Brustansatz), Male_Ranger ohne Kapuze (Pauldron gespiegelt), Texturen T_Superhero_Male_Dark, T_Regular_Male_Dark_BaseColor, T_Ranger_BaseColor, T_Eye_Brown (umgefärbt); UAL Standard Idle_Loop „Stehen“, Walk_Loop „Gehen“, Hit_Chest „Treffer“; UAL Pro Death02 „Tod“ (`UAL=`).
 
 ## Tiere und Monster
 
