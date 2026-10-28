@@ -150,3 +150,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:45 28.10.: Neustart Tom fb048b94a: Nachfolger `01Hmoj78eP` gestartet, alter Tom `01Hmoj79LB` archiviert (28,01 $ auf 399.1).
 - 21:33 28.10.: Neustart Tom 9eabc83d1: Nachfolger `01Hmoj75YJ` gestartet, alter Tom `01Hmoj78eP` archiviert (13,76 $ auf 399.1).
 - 21:41 28.10.: Jerry `01Hmoj775u` gestartet (399.3 Keuchen auf Zuruf Sokrates/Chef), alter Jerry `01Hmoj77PX` archiviert (14,85 $ auf 399.3, 399.2); Tom `01Hmoj75YJ` mit Aktionsknopf-Hinweis angestoßen.
+- 22:07 28.10.: Perikles `01Hmoj77Hj` gestartet (400, Chef über Sokrates), alter Perikles `01Hmoj76yC` archiviert (3,05 $ auf 399). Ford-Lücke: Homer 399.2b (Sokrates-Zeile 15:32) startbar, aber erst 19:06 gestartet; ab jetzt jeden Lauf startbar.py gegen laufende Sitzungen prüfen, nicht nur auf Meldungen warten.
