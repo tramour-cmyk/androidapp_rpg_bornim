@@ -16,7 +16,6 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [348.12f](ansehen/34812f-biss.md) | Ratte und Kaufwolf beißen näher; der Kopf verschwindet dabei hinter der Heldin | – | 28.10., 10:00 |
 | [348.6](ansehen/3486-dorftiere.md) | Dorftiere: Hühner am Heu, Rind und Ziegen auf der Südwiese, Kaninchen am Waldrand | Tom | 28.10., 09:06 |
 | [348.7b](ansehen/3487b-zauberbahn.md) | Zauberbahn Runde 3: kein Feuerklumpen mehr; der Start liegt im Bild noch immer vor der Heldin | – | 28.10., 08:35 |
 | [387](ansehen/387-kauftiere.md) | Gekaufte Tiere Runde 5: Hundertfüßer schneller, Huhn größer, Kaninchen hoppelt | – | 28.10., 10:05 |
@@ -69,12 +68,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 29, Muss 18, startbar 3
+**Jerry** – offen 29, Muss 18, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | Chef |
-| 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | Chef |
+| 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | startbar |
 | 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | startbar |
 | 348.13a | M | von Team Tom (Chef 08:09, Archiv: r9 ja): Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13 | wartet auf Test/Build (gebaut) |
 | 348.12c | M | von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv): Wiedergänger, Grabhund, Riesenegel, Säur | ruht |
