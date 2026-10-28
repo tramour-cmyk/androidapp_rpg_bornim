@@ -2,19 +2,18 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (28.10., 15:49, `session_01Hmoj76hwb6a47VizaygRUo`):** 399.1 Build 132 (`claude/tom-399-spielfassung` 13b97af52, t132): Wald-Kampf (`ResourceLoader.exists`, Wächter in `skripte_pruefen.gd`), Rudel, Hauptmenü (`hauptmenue.gd`), `stil.gd`, Alegreya, Textkasten; Probe `tests/oberflaeche_bild.gd`. 399.1a Schlüssel auf `main` (`godot-schluessel.yml`, 4E:1E…). 385.1 Film an den Chef (ansehen/3851; `claude/tom-385-1-grundbewegungen`, `tools/pruef348/zauber_lauf.sh`). 398 geschätzt. Nachfolger: Tom – 399.1 Test 132 begleiten, dann Erschaffung wie alt.
+**Übergabe (28.10., 16:50, `session_01Hmoj78yYW5A6kNGk6AMkqH`):** 399a: 13b97af52 auf `main` (d3d39c270). Build 133 (`claude/tom-399-spielfassung` 2de55cf32, t133): `erschaffung.gd`, `spielstaende.gd`, `leiste.gd`, `menue.gd`, `drehteller.gd`, Wiederkehrort; 348.6 Kuh weg, Ausweichen (`leute.gd` `weiche`). Tests `menue_test`, `ausweichen_test`, `spielstand_test`; Probe `oberflaeche_bild.gd`. Godot am Rechner: Release 4.7.2 laden, `--import`. 395 Hund: Google Drive gesperrt. Nachfolger: Tom – 385 Zauberer-Film je Bewegung groß, 399.1 Test 133 begleiten.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf (`LISTE-UMZUG-348.md` „Spielfassung“) | startbar: Proben 3991 gut (Chef 16:36, Archiv), weiter: Aussehen, Reiter Ausrüstung, Karte, Chronik, System, Dinge benutzen; Build 133 läuft (2de55cf32) | `claude/tom-399-spielfassung` |
-| 399a | M | **von Tom (Chef 16:09 „erstmal freigegeben“):** 13b97af52 auf `main`? | startbar: A (Chef 16:35, Archiv): Merge 13b97af52 nach main, Kerntests vorher | – |
+| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf (`LISTE-UMZUG-348.md` „Spielfassung“) | zu testen: Build 133 (t133): Erschaffung, Spielstände, Über, Leiste, Menü Held/Tasche, Erwachen im Wiederkehrort; danach Menü Ausrüstung, Karte, Chronik, System, Dinge benutzen | `claude/tom-399-spielfassung` |
 | 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | startbar: 385.1 zurück (Chef 16:16): Film zu klein, fehlt in bilder; neu je Bewegung groß, mit Link |
 | 390 | M | **von Perikles:** zwischen Chef-Blättern Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | gebaut: Laden, Rast, Held, Tagesablauf, Gespräche, Englisch (64a6e5a80; Test 390a) | `claude/tom-390-englisch` |
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101 lädt) | `claude/tom-348-12i-verschluesseln` |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | ruht (Chef 12:34, 399) | `claude/tom-376-1-figuren` |
-| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | gebaut: Kuh weg, eine Ziege im Süden, Ausweichen wie alt (1c2bf9cfd, Build 133); Hund nur frei und ohne Aufwand (395a) | `claude/tom-348-fundament` |
+| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | zu testen: Build 133 (t133.7): Kuh weg, eine Ziege im Süden, Ausweichen wie alt; Hund nur frei und ohne Aufwand (395a) | `claude/tom-348-fundament` |
 | 376.2 | M | **von Perikles (Chef 12:37, `LISTE-CC0-MODELLE.md`):** RenderHub-Marktpaket: Brunnen und Stände als Form, unsere gemalten Farben | wartet auf 348.6 (Dorf nach Urteil Probehaus); Paket im Release stufe1 erreichbar (Chef 17:38) | – |
 | 372 | M | **von Perikles (338a B, Chef 27.10., 09:36, Archiv):** Feinschliff Held: Kettenhemd, Helm, Kragen (Zu 348.6, Hände) | ruht bis Ende des Umzugs | `claude/tom-348-fundament` |
 | 397 | M | **von Chef (28.10., 11:15):** Held, Leute: mind. drei Ruhebewegungen wie alt (`LISTE-UMZUG-348.md`) | gebaut: Held, Leute Stehen, Umsehen, Müde (UAL Pro), in 399.1 | `claude/tom-397-ruhe` |
