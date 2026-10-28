@@ -18,7 +18,7 @@ for d in sorted(os.listdir(FILM)):
     nr, rest = d.split('_', 1)
     fig, bew = rest.rsplit('_', 1)
     bilder = sorted(os.path.join(p, f) for f in os.listdir(p) if f.endswith('.png'))
-    schleife = bew in ('Stehen', 'Gehen', 'Rennen', 'Sitzen', 'Gesten', 'Kampfstehen')
+    schleife = bew in ('Stehen', 'Gehen', 'Rennen', 'Sitzen', 'Gesten', 'Kampfstehen', 'Zauberstehen')   # 385
     quelle = zeilen.get(nr, '').split(': ', 1)[-1].split(',')[0] if bilder else 'keine Bewegung in der UAL'
     felder.append((nr, fig, bew, bilder, schleife, quelle))
 n = max((len(f[3]) for f in felder), default=1)
@@ -33,13 +33,14 @@ cache = {}
 # Helfer Film 14:58: Schleifen ruckten beim Neubeginn jedes Durchlaufs (Laenge 50, 75, 81 statt 90): Schleifen zaehlen ueber den ganzen
 # Film weiter (j), Einzelbewegungen beginnen je Durchlauf neu und halten vorher kurz das Ende; Leiste oben sagt Echtzeit oder Zeitlupe
 HALT = 15
+DL = int(os.environ.get('DURCHLAEUFE', '2')); LUPE = int(os.environ.get('LUPE', '4'))   # 385: Kurzvideo 5-15 s (Modellregel 9)
 folge = []   # (Bild der Einzelbewegung i, Schleifenzaehler in Bildern, Leiste)
 # Helfer 15:37: len(folge) in der Listenbildung blieb je Durchlauf gleich, Schleifen standen in Echtzeit still; Zaehler laufend
-for d in range(2):
-    for i in range(n): folge.append((i, float(len(folge)), 'Echtzeit, Durchlauf %d von 2' % (d + 1)))
+for d in range(DL):
+    for i in range(n): folge.append((i, float(len(folge)), 'Echtzeit, Durchlauf %d von %d' % (d + 1, DL)))
     for _ in range(HALT): folge.append((n - 1, float(len(folge)), 'Echtzeit, Pause'))
 z0 = len(folge)
-for i in range(4 * n): folge.append((i // 4, z0 + i / 4.0, 'Zeitlupe, vierfach langsamer'))
+for i in range(LUPE * n): folge.append((i // LUPE, z0 + i / float(LUPE), 'Zeitlupe, %dfach langsamer' % LUPE))
 for fnr, (i, jz, leiste) in enumerate(folge):
     bild = Image.new('RGB', (SP * W, LEISTE + ZL * (H + KOPF)), (12, 10, 8))
     dr = ImageDraw.Draw(bild)
@@ -62,6 +63,6 @@ for fnr, (i, jz, leiste) in enumerate(folge):
     bild.save(os.path.join(tmp, 'f%05d.png' % fnr))
 # als Bildfolge mit fester Rate (Helfer: concat mit Dauern liess je 6 Bilder eines aus)
 subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-framerate', '30', '-i', os.path.join(tmp, 'f%05d.png'), '-vf', 'format=yuv420p',
-                '-c:v', 'libx264', '-crf', '18', '-g', '60', '-movflags', '+faststart', ZIEL], check=True)
+                '-c:v', 'libx264', '-crf', os.environ.get('CRF', '18'), '-g', '60', '-movflags', '+faststart', ZIEL], check=True)
 Image.open(os.path.join(tmp, 'f%05d.png' % (n // 2))).save(ZIEL.rsplit('.', 1)[0] + '_mitte.png')
 print('FILM', ZIEL, n, 'Bilder je Durchlauf,', len(felder), 'Felder')

@@ -25,6 +25,9 @@ const UAL := {
 	"Hieb": ["Sword_Attack_Standing", "Sword_Attack"], "Stich": [],
 	"Ausweichen": ["Dodge_Left", "Roll"], "Treffer": ["Hit_Chest"], "Tod": ["Death02", "Death01"],
 	"Kampfstehen": ["Sword_Idle"],
+	# 385 Protofactor-Zauberer (zauber385.py): Stehen, schneller Stoss nach vorn, beide Haende hoch, mittlerer Zauber
+	"Zauberstehen": ["Zauber_IdleWizard"], "Zauber kurz": ["Zauber_CastSpell6Wizard"], "Zauber gross": ["Zauber_CastSpell4Wizard"],
+	"Zauber mittel": ["Zauber_CastSpell13Wizard"],
 }
 const KAMPF := ["Hieb", "Stich", "Ausweichen", "Treffer", "Tod", "Kampfstehen"]
 # Raster: [Figur, Bewegung]; "held" = unser Held (Runde 7), sonst Kennung aus quaternius.py
@@ -33,6 +36,8 @@ const FELDER := [
 	["q_held", "Hieb"], ["held", "Hieb"], ["held", "Stich"], ["q_held", "Ausweichen"], ["held", "Ausweichen"],
 	["q_held", "Treffer"], ["held", "Treffer"], ["q_held", "Tod"], ["held", "Tod"], ["q_held", "Kampfstehen"],
 ]
+# 385: Film der Zauberbewegungen am Kaufkoerper (Chef 27.10., 21:04; „jetzt“ 28.10., 10:00)
+const FELDER_ZAUBER := [["q_held", "Zauberstehen"], ["q_held", "Zauber kurz"], ["q_held", "Zauber mittel"], ["q_held", "Zauber gross"]]
 const REIHE := ["held", "q_held", "q_bauer", "q_baeuerin", "q_zwerg", "q_elf", "q_halbling", "q_halbork"]
 # Chef 15:23: eine Kauffigur in unserer Kleidung (kauf_kleid.py); 14:44 Koepfe: schmal/rund, ohne/mit Bart
 const TRACHT := ["held", "q_tracht", "q_held"]
@@ -71,6 +76,7 @@ var spiel: Node3D
 var aus := ""
 var quelle := ""
 var ual_pfad := ""
+var ual2: PackedStringArray = []         # 385: weitere Bewegungen auf demselben Geruest (zauber385.py), neben die UAL
 var teil := ""
 var nur: Array[int] = []                   # --nur=6,13: nur diese Felder des Films (Probe einzelner Felder)
 var ual_lib: AnimationLibrary
@@ -92,6 +98,7 @@ func _init(s: Node3D) -> void:
 		if a.begins_with("--figuren="): aus = a.substr(10)
 		elif a.begins_with("--quelle="): quelle = a.substr(9)
 		elif a.begins_with("--ual="): ual_pfad = a.substr(6)
+		elif a.begins_with("--ual2="): ual2 = a.substr(7).split(",")
 		elif a.begins_with("--teil="): teil = a.substr(7)
 		elif a.begins_with("--nur="):
 			for x in a.substr(6).split(","): nur.append(int(x))
@@ -113,6 +120,7 @@ func _ready() -> void:
 	if teil == "tracht": await tracht()
 	if teil == "trachtfilm": await film(FELDER_TRACHT)
 	if teil == "koepfe": await koepfe()
+	if teil == "zauber": await film(FELDER_ZAUBER)
 	var f := FileAccess.open(aus + "/probe.txt", FileAccess.WRITE)
 	f.store_string("\n".join(protokoll) + "\n")
 	get_tree().quit()
@@ -127,6 +135,13 @@ func lade_ual() -> void:
 		ual_lib.add_animation(n, ap.get_animation(n).duplicate(true))
 	protokoll.append("UAL %s: %d Bewegungen" % [ual_pfad.get_file(), ap.get_animation_list().size()])
 	sc.free()
+	for p in ual2:
+		var sc2 := Gebiet.lade_glb(p)
+		var ap2 := Gebiet.finde(sc2, "AnimationPlayer") as AnimationPlayer
+		for n in ap2.get_animation_list():
+			if not ual_lib.has_animation(n): ual_lib.add_animation(n, ap2.get_animation(n).duplicate(true))
+		protokoll.append("UAL2 %s: %s" % [p.get_file(), ", ".join(ap2.get_animation_list())])
+		sc2.free()
 
 func ual_name(bew: String) -> String:
 	for n in UAL.get(bew, []):
@@ -171,7 +186,7 @@ func lade_figur(k: String) -> void:
 	m.add_child(ap)
 	ap.root_node = ap.get_path_to(m)
 	ap.add_animation_library("", lib)
-	for n in ["Idle_Loop", "Walk_Loop", "Jog_Fwd_Loop", "Sitting_Idle_Loop", "Idle_Talking_Loop", "Sword_Idle"]:
+	for n in ["Idle_Loop", "Walk_Loop", "Jog_Fwd_Loop", "Sitting_Idle_Loop", "Idle_Talking_Loop", "Sword_Idle", "Zauber_IdleWizard"]:
 		if lib.has_animation(n): lib.get_animation(n).loop_mode = Animation.LOOP_LINEAR
 	ap.play("Idle_Loop")
 	figuren[k] = w
