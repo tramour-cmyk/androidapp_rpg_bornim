@@ -8,6 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf (`LISTE-UMZUG-348.md` „Spielfassung“) | startbar: zuerst | `claude/tom-399-spielfassung` |
 | 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | startbar: Lauf 2 passt (Chef 12:31, Archiv); 385.1 Grundbewegungen; übrige der 14 Zauber zurückgestellt |
 | 398 | M | **von Perikles:** 398-Zeilen schätzen (`LISTE-UMZUG-348.md`) | startbar | – |
 | 390 | M | **von Perikles:** zwischen Chef-Blättern Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | gebaut: Laden, Rast, Held, Tagesablauf, Gespräche, Englisch (64a6e5a80; Test 390a) | `claude/tom-390-englisch` |
@@ -16,9 +17,9 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: Dorftiere ja, Verhalten wie alt; Hund, Katze Quaternius (395) (Archiv) | `claude/tom-348-fundament` |
 | 376.2 | M | **von Perikles (Chef 12:37, `LISTE-CC0-MODELLE.md`):** RenderHub-Marktpaket: Brunnen und Stände als Form, unsere gemalten Farben | wartet auf 348.6 (Dorf nach Urteil Probehaus); Paket im Release stufe1 erreichbar (Chef 17:38) | – |
 | 372 | M | **von Perikles (338a B, Chef 27.10., 09:36, Archiv):** Feinschliff Held: Kettenhemd, Helm, Kragen (Zu 348.6, Hände) | ruht bis Ende des Umzugs | `claude/tom-348-fundament` |
-| 397 | M | **von Chef (28.10., 11:15):** Held, Leute: mind. drei Ruhebewegungen wie alt (`LISTE-UMZUG-348.md`) | startbar | – |
+| 397 | M | **von Chef (28.10., 11:15):** Held, Leute: mind. drei Ruhebewegungen wie alt (`LISTE-UMZUG-348.md`) | ruht: Feinschliff, erst Spielfassung (399) | – |
 | 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | wartet auf Jerry: übergeben 28.10. per Nachricht |
-| 348.13b | M | **von Sokrates (Chef 08:09, Archiv):** Tusche nach Fackel, Feuer, Fenster; Dorf zuerst, Kosten messen | startbar: dritter Lauf frei (Chef 09:17, Archiv), Einzelfall, danach vorlegen, kein vierter | `claude/tom-34813-kampfprobe` |
+| 348.13b | M | **von Sokrates (Chef 08:09, Archiv):** Tusche nach Fackel, Feuer, Fenster; Dorf zuerst, Kosten messen | ruht: Feinschliff, erst Spielfassung (399) | `claude/tom-34813-kampfprobe` |
 | 267 | M | **von Chef (20.10., 21:46, B48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | ruht: Gefühl am Tablet sagt der Chef beim nächsten Tablettest (77.7, Zu 267), ohne Rückfrage-Datei | – |
 | 302.3 | M | **von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3):** Intro und Outro mit Tusche, etwas kräftiger als Intro 4 | ruht bis Ende Umzug 348; dann von c8cc89dd ausgehen | claude/tom-3023-kraeftiger |
 | 302.2 | K | **von Chef über Sokrates (22.10., 23:50):** Tusche auf der Gebietskarte | ruht bis Ende Umzug 348; Probe a478e244 ist Filterart | claude/tom-3022-tuschebild |
@@ -36,8 +37,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 ## Einzelheiten
 
 - **Von Perikles (378):** Stände prüfen, `ARBEIT-PROJEKT.md` Zu 378.
-
-- **Von Perikles (27.10., 10:1x, 338a B):** Termine neu (`LISTE-ABNAHME-KAPITEL1.md`): D So 01.11. früh, W So mittags, R Mo 02.11. früh. Huhn und Vögel erst nach Jerrys Fledermaus.
 
 - **Zu 376.1:** neben dem heutigen Helden: Bauer, Kopf „Regular“, Haar, Toon, Tusche, Menü und Kartenzoom; auch Zwerg, Elf, Halbling, Halbork; Film als Raster, je Feld eine UAL-Bewegung für Kapitel 1 (Stehen, Gehen, Rennen, Sitzen, Gesten, Hieb, Stich, Ausweichen, Treffer, Tod), Chef je Feld ja/nein; 13 Figuren am A56. UAL Pro (`Unreal-Godot/UAL1.glb`, 120 Bewegungen, Liste in Git): kein Stich, keine Schildabwehr, kein gehaltenes Ausholen (bleiben eigen).
 - **Von Sokrates (Chef zu 376.1):** 14:44 „Köpfe gestalten? Bart, Farben, rundes Gesicht?“: Kopf schmal/rund, mit/ohne Bart. 15:23: eine Kauffigur in unserer Kleidung; Vorlage weg, bis neu. 18:06 „376.1 passt, funktioniert also. Dann kann es weiter gehen.“ 18:09 „Wieso unser Kopf? Ist der Gekaufte nicht modellierbar? Der sieht doch viel echter aus als unserer?!?“: gekauften Kopf nehmen und anpassen (Form, Bart, Haar), in die Fehlerrunde. Zugang: `add_repo` (Chef 28.10., 08:35, Archiv); Pakete am Release `stufe1` (`api.github.com/…/releases/assets/<id>`).

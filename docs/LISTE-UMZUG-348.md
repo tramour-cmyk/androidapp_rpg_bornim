@@ -15,6 +15,19 @@ Entschieden 25.10., 00:30–01:04 (Vorgangsarchiv „348, Umstieg“, „348, Um
 - **Abgleich:** je Ort und Figur ein Vergleichsbild alt/neu; was fehlt (ein Ort, ein Weg, eine Figur, eine Funktion) oder im Grundton schlechter ist, ist ein Fehler.
 - **Der Chef sieht mit** (Chef 25.10., 07:46: „wäre es nicht gut, wenn ich als Mensch zumindest mal irgendwo einen Blick auf ein paar Entwürfe werfen könnte, um zu sagen, ah, ja, nein, vielleicht“): jedes Modell (Held, Leute, Tiere, Monster, Häuser, Dinge; Chef 07:47 „betrifft … auch andere Modelle“) zuerst als grober Entwurf neben dem alten Bild, bevor es verfeinert wird; dazu spätestens alle zwei Stunden und nach jedem Abschnitt ein Vergleichsbild alt/neu, alles auf Telegram (`meldung.sh --bild`); über Aussehen und Bewegung urteilt nur der Chef, davor genau eine Fehlerprüfung mit Zahlen, Befund im Begleittext (373, `ROLLE-ENTWICKLUNG.md` „Aussehen urteilt nur der Chef“; ersetzt 371 (1)); das Zwei-Stunden-Bild geht immer zum Chef (Chef 25.10., 13:26). Wartet ein Blatt auf ihn, arbeitet das Team weiter; Perikles führt die offenen Blätter in Vorrangfolge unter „Heute für dich“, „Ansehen“ (`LISTE-ABNAHME-KAPITEL1.md`). **Schläft der Chef** (21 bis 7 Uhr): nur Technik, Aussehensfragen aufs Morgenblatt für den Chef (371); Sokrates urteilt nicht mehr an seiner Stelle (373 ersetzt 362).
 
+## Spielfassung (399, Perikles 28.10., 12:4x; vor allem anderen)
+
+Chef 12:34: „Ich habe jetzt keinen funktionstüchtigen Kampf … kein Dorf, in dem ich rumlaufen kann“. Heute: zwei getrennte Godot-Projekte, Dorf auf `claude/tom-390-englisch` (Hauptszene `spiel.tscn`), Kampf auf `claude/jerry-348-kampf` (Hauptszene `kampf/probe.tscn`).
+
+| Nr. | Wer | Was | fertig, wenn |
+|---|---|---|---|
+| 399.2 | Jerry | Kampfort aus einem Aufruf startbar, ohne Probe-Schalter: Gegnergruppe, Kampfort, Tageszeit, Heldwerte (Toms `heldwerte.gd`) rein; Ende (Sieg, Niederlage, Flucht) als Signal mit Trefferpunkten raus; Wolfsrudel in MARS bis zum Ende spielbar; Ratte r9, Grak einhängen, soweit fertig. Schnittstelle in zwei Sätzen hier unten eintragen | Tom kann den Kampf aus dem Dorf starten |
+| 399.1 | Tom | Zweig `claude/tom-399-spielfassung` von `claude/tom-390-englisch`, Jerrys Zweig hineinmergen (Probe 12:4x: 9 add/add-Konflikte; `godot/.gitignore`, `export_presets.cfg`, `project.godot` zusammenlegen; `tools/blender348/v3/` `dorf.py`, `held3.py`, `leute.json`, `rig.py`, `tex.py` Toms Fassung; `godot/kampf`, `regeln`, `tests` von Jerry unverändert). Weg aus dem Dorf in den Wald löst den Kampf aus, danach zurück an den Ausgang, Trefferpunkte bleiben. Danach holt Jerry seine Arbeit aus diesem Zweig | APK am Handy des Chefs: Start im Dorf, herumlaufen, Laden, Rast, Wald, Kampf, zurück; Testbitte mit diesen Schritten |
+
+Nur Funktion: Befunde zu Aussehen und Feinheiten auf die Feintuning-Liste, kein eigener Lauf. Ruhen: 397 Ruhebewegungen, 348.13b Tusche nach Fackel. Beide Teams tragen ihre Schätzung als Stand ein.
+
+**Schnittstelle (Jerry):** –
+
 ## Woche 1: Fundament (ab 25.10.)
 
 | Nr. | Wer | Was | fertig, wenn |
