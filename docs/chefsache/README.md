@@ -50,8 +50,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 |---|---|---|---|
 | 390 | M | von Perikles (28.10.): zwischen Blättern beim Chef Funktionen ohne Bild bauen (LISTE-UMZUG | startbar |
 | 348.12i | M | von Sokrates (Chef 19:41, „348.12i B“, Archiv): nur Kaufmodelle mit AESContext verschlüsse | wartet auf Test/Build (gebaut) |
-| 385 | M? | von Sokrates (Archiv): Zauberer-Set (Biped, LISTE-BESTAND) auf Kaufkörper, Film | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
-| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
+| 385 | M? | von Sokrates (Archiv): Zauberer-Set (Biped, LISTE-BESTAND) auf Kaufkörper, Film | startbar |
+| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | startbar |
 | 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | startbar |
 | 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | wartet auf 348.6 (in Arbeit) |
 | 372 | M | von Perikles (338a B, Chef 27.10., 09:36, Archiv): Feinschliff Held: Kettenhemd, Helm, Kra | ruht |
@@ -167,9 +167,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung), 385 (Team Tom), 376.1 (Team Tom)
+Nicht gestellt: 186.3 (Pruefung)
 
-Ohne Datei: 275 (Projekt), 3761 (Team Tom)
+Ohne Datei: 275 (Projekt)
 
 ## So geht's
 
