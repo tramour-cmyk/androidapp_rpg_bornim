@@ -89,6 +89,7 @@ func _ready() -> void:
 	dorftiere_blatt()
 	tusche_nacht()
 	rast_probe()
+	raeume_bilder()
 	if FigurenProbe.an(): add_child(FigurenProbe.new(self))   # 376.1 Probeblatt Quaternius-Figuren (figurenprobe.gd)
 
 # 399: Spielbeginn aus dem Hauptmenue: geladen an den gespeicherten Ort, sonst ein neues Spiel mit frischem Zustand (Test 139: das neue
@@ -1593,6 +1594,38 @@ func knips(p: String) -> void:
 	print("ZEICHNEN ", RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_DRAW_CALLS_IN_FRAME), " Aufrufe ", RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_PRIMITIVES_IN_FRAME), " Dreiecke")
 	if leute: print("LEUTE ", leute.get_children().map(func(l): return "%s %s %s" % [l.daten["id"], l.kachel, l.anim.current_animation if l.anim else "-"]))
 	print("BILD ", p, " Held ", held.kachel, " ", held.position, " Kamera ", kamera.position, " Text ", ui.textfeld.visible, " '", ui.text.text, "' Knopf ", ui.aktion_knopf.visible, " ", ui.aktion_knopf.zeichen, " '", ui.ort_schild.text, "' durchsichtig ", gebiet.gruppen.keys().filter(func(k): return gebiet.gruppen[k]["a"] < 1.0))
+
+# 399.5 Grundrisse am Rechner: --raeume=<ordner> knipst je Grundriss aus der Grundansicht wie die alten Vergleichsbilder (Held wie
+# HELDORT inn:4:6, sonst 4:4, Blick nach oben) Tag und Nacht, dazu um 180 Grad gedreht (die Waende vor dem Raum werden zur Bruestung)
+func raeume_bilder() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--raeume="): dir = a.substr(9)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	ui.leiste.visible = false
+	for r in [["inn", Vector2i(4, 6)], ["shop", Vector2i(4, 4)], ["elder", Vector2i(4, 4)], ["temple", Vector2i(4, 4)]]:
+		licht.ziel = 0.0
+		licht.stelle(0.0)
+		betrete(r[0], r[1], "UP")
+		await get_tree().create_timer(1.5).timeout
+		ui.sage([])
+		ui.textfeld.visible = false   # Gruss beim Eintreten und Tipps: nicht ueber dem Raum
+		await knips(dir + "/%s_tag.png" % r[0])
+		licht.ziel = 1.0
+		licht.stelle(1.0)
+		await get_tree().create_timer(1.0).timeout
+		await knips(dir + "/%s_nacht.png" % r[0])
+		licht.ziel = 0.0
+		licht.stelle(0.0)
+		kamera.drehe(180.0)
+		await get_tree().create_timer(2.5).timeout
+		await knips(dir + "/%s_gedreht.png" % r[0])
+		kamera.nach_norden()
+		await get_tree().create_timer(2.5).timeout
+	get_tree().quit()
 
 # 390 (Rast) am Rechner: --rastprobe oeffnet das Feuer und die Theke, waehlt und schreibt den Stand je Schritt (ohne Bild);
 # Ende mit quit. Gegenprobe der Regeln: tests/rast_test.gd

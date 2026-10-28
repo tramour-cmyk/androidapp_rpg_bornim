@@ -24,6 +24,8 @@ const NACHT_UMGEBUNG := 0.75
 const NACHT_KONTRAST := 0.96   # unter 1 hebt das Schwarz an
 const TIEF_UMGEBUNG := 1.1     # Morgen, Abend: Fronten im Schatten, Himmel traegt mehr
 const DAEMMERUNG_UMGEBUNG := 0.18
+const INNEN_TAG := 0.34        # 399.5 Grundriss: Umgebung am Tag und nachts
+const INNEN_NACHT := 0.16
 const ALT := [[Vector2(-1.0, -0.2), 1.2], [Vector2(0.15, 1.0), 0.35], [Vector2(1.0, -0.2), 1.2]]
 const NATUR := [[Vector2(-1.0, -0.3), 1.2], [Vector2(0.35, -1.0), 0.6], [Vector2(1.0, -0.3), 1.2]]
 static var bahn := NATUR   # Chef 25.10., 12:25 (3486-sonne): wie in der Natur
@@ -117,8 +119,11 @@ func stelle(k: float) -> void:
 	env.adjustment_saturation = lerpf(TAG_SAETTIGUNG, 0.45, k) + 0.1 * daemmerung   # nachts blasser und blau wie alt
 	env.background_color = Color(0.36, 0.42, 0.34).lerp(Color(0.03, 0.04, 0.08), k)
 	if innen:
-		sonne.light_energy *= 0.3
-		env.ambient_light_energy *= 0.7
+		# 399.5 wie alt (MapLight ambient INTERIOR, mit Herd 0,13 nachts bis 0,31 am Tag): kein Himmel ueber dem Raum, nur ein
+		# warmer Rest; hell wird es durch Kamin, Kerzen und das Tageslicht der Fenster (raumlicht.gd)
+		sonne.light_energy = 0.0
+		env.ambient_light_color = Color(0.62, 0.56, 0.5).lerp(Color(0.4, 0.42, 0.55), k)
+		env.ambient_light_energy = lerpf(INNEN_TAG, INNEN_NACHT, k)
 		env.background_color = Color(0.0, 0.0, 0.0)
 	toene(1.0 - k)
 	nacht_geaendert.emit(k)

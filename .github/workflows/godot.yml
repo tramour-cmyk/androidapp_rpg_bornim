@@ -61,7 +61,7 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: ~/cc0
-          key: cc0-quaternius-3
+          key: cc0-quaternius-4
       - name: CC0-Pakete (Quaternius)
         run: |
           [ -n "$(find ~/cc0 -name UAL1_Standard.glb 2>/dev/null)" ] || bash tools/blender348/v3/cc0_laden.sh ~/cc0
@@ -69,6 +69,8 @@ jobs:
           [ -d ~/cc0/medieval-village-megakit ] || PAKETE=medieval-village-megakit bash tools/blender348/v3/cc0_laden.sh ~/cc0
           # 348.6 (Chef 28.10., 00:07 „weitere Objekte platzieren“; 376: Felsen, Pilze ja): Naturbausatz fuer dorf.py dinge_mehr
           [ -d ~/cc0/stylized-nature-megakit ] || PAKETE=stylized-nature-megakit bash tools/blender348/v3/cc0_laden.sh ~/cc0
+          # 399.5 (Chef 28.10., 21:5x): Einrichtung der Grundrisse aus dem freien Moebelbausatz (raum.py)
+          [ -d ~/cc0/fantasy-props-megakit ] || PAKETE=fantasy-props-megakit bash tools/blender348/v3/cc0_laden.sh ~/cc0
       - name: Modelle bauen (Held, Dorf)
         run: |
           export OUT=$RUNNER_TEMP/out KARTEN=$GITHUB_WORKSPACE/godot/daten/karten.json
