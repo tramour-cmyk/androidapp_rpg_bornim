@@ -84,6 +84,7 @@ var dead_at := -1
 var down := false
 var mats: Array = []
 var tween: Tween
+var gang := ""        # 399.2 umweg_399: in welchem Teil des Schlags (hin, zurück, heim)
 var aim = null          # Figur, die das Tier laut Ansage angreift; Kopf und Rumpf zeigen dorthin
 var neck = null         # kopfdreh.gd am Skelett
 var halt = null         # pfotenhalt.gd am Skelett (Tiere mit Wurzelweg): Pfoten bleiben beim Drehen auf der Stelle am Boden
@@ -1050,6 +1051,7 @@ func _bite(other, leap: bool) -> int:
 	tween = create_tween()
 	var t_run := 0.0
 	anlauf_ms = 0
+	gang = "anlauf"
 	var run := start.distance_to(position)
 	if run > 0.15:
 		# 399.2 (Chef 28.10., 16:10: „dann läuft der hintere Wolf durch den vorderen“): um die anderen herum wie die Heldin
@@ -1092,7 +1094,7 @@ func _bite(other, leap: bool) -> int:
 		tween.tween_callback(func(): anim.play("Gehen", 0.1, -float(tempo.get("Gehen", 1.0))))
 		tween.tween_property(self, "position", ende, tz)
 		t_back = tz
-	tween.tween_callback(func(): _walk_home(other))
+	tween.tween_callback(func(): gang = "heim"; _walk_home(other))
 	# bis daheim, damit keiner zu einem Ort schlägt, an dem es nicht mehr steht (399.2: mit Umweg)
 	var vh := _detour(ende, home, other)
 	var heim := Vector2(home.x - ende.x, home.z - ende.z).length() if vh == ende else ende.distance_to(vh) + vh.distance_to(home)
@@ -1163,14 +1165,16 @@ func strike(other, e: Dictionary) -> int:
 		hold = ms * (STEP_BACK - STEP_HOLD) / 1000.0
 		back = clampf(reach.length() / HERO_BACK_MPS, HERO_BACK_S, HERO_BACK_MAX_S)
 	var there := position + reach
+	gang = "hin"
 	_face(to - position)
 	_play("Sprung" if leap else ("Biss" if fighter.monster != null else "Hieb"), 0.05)
 	if tween and tween.is_running():
 		tween.kill()
 	tween = create_tween()
 	var out := ms * STEP_HOLD / 1000.0
+	anlauf_ms = 0 if hero else int(out * 1000.0)     # 399.2: wer mit dem Tier den Platz tauscht, geht erst, wenn es am Ziel ist
 	# auch hin um die anderen herum (PFAD=1: Hinweg 0,2–0,3 m im Umriss des Nachbarn)
-	var via_out: Vector3 = _detour(position, there, other) if hero else position
+	var via_out: Vector3 = _detour(position, there, other)     # 399.2: auch ein Tier ohne Wurzelweg
 	if hero and OS.get_environment("PFAD") != "":
 		print("Umweg hin ", position, " -> ", via_out, " -> ", there, " Luft gerade %.2f, mit Umweg %.2f" % [_seg_gap(position, there, other), minf(_seg_gap(position, via_out, other), _seg_gap(via_out, there, other))])
 	if via_out != position:
@@ -1186,9 +1190,7 @@ func strike(other, e: Dictionary) -> int:
 		tween.tween_callback(func(): _back_home(back, other))
 		busy_ms = int(ms * STEP_BACK + back * 1000.0)
 		return ms
-	tween.tween_callback(func(): _face(home - position))
-	tween.tween_property(self, "position", home, back).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_callback(func(): _face(); _idle())
+	tween.tween_callback(func(): _tier_heim(back, other))
 	if leap:
 		pouncing = false
 	busy_ms = ms
@@ -1212,6 +1214,25 @@ func _back_home(back: float, skip) -> void:
 	else:
 		tween.tween_property(self, "position", home, back).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_callback(func(): _guard(false); _face(); _idle())
+
+
+## 399.2 (umweg_399: ohne Wurzelweg lief das Tier nach dem Biss gerade heim, durch den stehenden Nachbarn, bis −0,92 m): heim um
+## die anderen herum wie die Heldin, den Umweg erst beim Losgehen gerechnet
+func _tier_heim(back: float, skip) -> void:
+	gang = "zurück"
+	var from := position
+	var via := _detour(from, home, skip)
+	tween = create_tween()
+	if via != from:
+		var b1 := from.distance_to(via) / (from.distance_to(via) + via.distance_to(home)) * back
+		_face(via - from)
+		tween.tween_property(self, "position", via, b1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+		tween.tween_callback(func(): _face(home - position))
+		tween.tween_property(self, "position", home, back - b1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	else:
+		_face(home - from)
+		tween.tween_property(self, "position", home, back).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_callback(func(): _face(); _idle())
 
 
 ## 348.7b (Chef 27.10., 19:36 „D“): wo ein Zauber oder Pfeil die Figur verlässt (Welt): die Spitze eines Stabs, sonst die Faust
