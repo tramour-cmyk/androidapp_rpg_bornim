@@ -16,7 +16,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [348.12](ansehen/34812-grak-zweihand.md) | Grak hält die Axt jetzt mit beiden Händen | – | 28.10., 11:53 |
 
 ## Zu tun
 
@@ -24,7 +28,6 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [376.1](tun/3761-kaufmodelle-zugang.md) | **Muss** | E Figuren | 28.10., 11:49 | Zugang zu den Kaufmodellen freigeben | Tom |
 | [142](tun/142-pflichttest.md) | **Muss** | M Veröffentlichung | 27.10., 20:07 | Pflichttest Play Store: Gewerbeschein melden | Sokrates |
 
 ## Offen je Rolle
@@ -39,14 +42,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 23, Muss 13, startbar 4
+**Tom** – offen 23, Muss 13, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 385 | M | von Sokrates („jetzt“ 28.10., 10:00, Archiv): Zauberer-Set auf Kaufkörper, Film | startbar |
 | 390 | M | von Perikles (28.10.): zwischen Blättern beim Chef Funktionen ohne Bild bauen (LISTE-UMZUG | wartet auf Test/Build (gebaut) |
 | 348.12i | M | von Sokrates (Chef 19:41, „348.12i B“, Archiv): nur Kaufmodelle mit AESContext verschlüsse | wartet auf Test/Build (gebaut) |
-| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | Chef |
+| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | startbar |
 | 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | startbar |
 | 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | wartet auf 348.6 (startbar) |
 | 372 | M | von Perikles (338a B, Chef 27.10., 09:36, Archiv): Feinschliff Held: Kettenhemd, Helm, Kra | ruht |
