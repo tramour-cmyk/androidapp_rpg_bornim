@@ -420,10 +420,35 @@ def turned(M, fn, *a):
     for P, k in ((DORF, n[0]), (GLAS, n[1])):
         for i in range(k, len(P.V)): P.V[i] = M @ P.V[i]
     for l in LIGHTS[n[2]:]: l['pos'] = list(M @ Vector(l['pos']))
-def glockenturm(x1, ym, ridge, eave):
+def dachhoehe_bvh():
+    """348.6 Häuser: Strahlbaum ueber das, was bisher in DORF steht (Dach des Bausatzhauses), fuer das Blech am Turmfuss"""
+    from mathutils.bvhtree import BVHTree
+    return BVHTree.FromPolygons(DORF.V, DORF.F)
+def turmblech(bvh, tcx, ym, hw, z_von):
+    # 348.6 Häuser (Helfer 23:5x: Turmfuss auf den Ziegeln gezackt): Bleiblech rund um den Fuss, 18 cm breit, auf der hoechsten
+    # Ziegelwelle je Stueck (drei Strahlen quer), damit die Rundziegel nicht in Zacken an den Turm stossen
+    breit, n = 18.0, 8
+    def hoch(x, y):
+        zs = [bvh.ray_cast(Vector((x, y, z_von)), Vector((0, 0, -1)))[0] for _ in (0,)]
+        return zs[0].z if zs[0] is not None else None
+    with use('weiss'):
+        for seite in range(4):
+            for k in range(n):
+                q = []
+                for t in (k / n, (k + 1) / n):
+                    u = -hw - breit + (2 * hw + 2 * breit) * t
+                    for d in (hw + 1, hw + breit):
+                        x, y = [(tcx + u, ym - d), (tcx + d, ym + u), (tcx - u, ym + d), (tcx - d, ym - u)][seite]
+                        zz = [hoch(x + dx, y + dy) for dx in (-4, 0, 4) for dy in (-4, 0, 4)]
+                        zz = [z for z in zz if z is not None]
+                        q.append(Vector((x, y, max(zz) + 2)) if zz else None)
+                if None in q: continue
+                add_face(DORF, [q[0], q[1], q[3], q[2]], lin(0x4A4E52))
+def glockenturm(x1, ym, ridge, eave, blech=None):
     # Glockenturm wie MapTownIso.kt: quadratisch aus Feldstein, 1,125 Kacheln vom Ostende auf dem First,
     # oben Schallloecher, Gesims, spitze Haube aus Schiefer (Turm 1,6 m ueber dem First, Haube 0,9 m)
     tcx = x1 + 6 - 1.125 * TS; hw = 0.525 * TS; top = ridge + 160
+    if blech is not None: turmblech(blech, tcx, ym, hw, ridge + 100)
     with use('feldstein'):
         box(DORF, (tcx - hw, ym - hw, eave - 20), (tcx + hw, ym + hw, top), lambda p, n: sc(stone_tint(p, n), 1.05), sub=(2, 2, 6))
         box(DORF, (tcx - hw - 7, ym - hw - 7, top - 7), (tcx + hw + 7, ym + hw + 7, top + 3), lambda p, n: sc(W1, 0.7))
@@ -859,9 +884,11 @@ def kithaus(cells, style):
     wand(wand_plan(4.0, anteile(west)), L / 2, -90, True)
     for sgn in (-1, 1):
         kit_teil('Roof_Front_Brick4', at(L / 2 * sgn, 0, zd, 90 * sgn), tint, mat)
+        # 348.6 Häuser (Helfer 23:5x: Holzecken am Tempel wie ein Wohnhaus): Steinhaus mit Steinecken
+        ecke = 'Corner_Exterior_Brick' if stein else 'Corner_Exterior_Wood'
         for e in (-1, 1):
-            kit_teil('Corner_Exterior_Wood', at(L / 2 * sgn, 2 * e, 0, 0), tint, mat)
-            if knie > 0: kit_teil('Corner_Exterior_Wood', at(L / 2 * sgn, 2 * e, 3.0, 0, 1, 1, knie / 3.0), tint, mat)
+            kit_teil(ecke, at(L / 2 * sgn, 2 * e, 0, 0), tint, mat)
+            if knie > 0: kit_teil(ecke, at(L / 2 * sgn, 2 * e, 3.0, 0, 1, 1, knie / 3.0), tint, mat)
     lang = float(os.environ.get('KIT_DACH', '6' if L < 7.0 else '8'))   # KIT_DACH=6: immer das Dach 4x6 wie Gwenna, gestreckt
     basis = 'Roof_RoundTiles_4x%d' % lang
     kit_teil(basis, at(0, 0, zd, 90, 1, L / lang), tint, mat)
@@ -872,8 +899,15 @@ def kithaus(cells, style):
         kz = zd + (3.72 - (3.72 + 0.52) * yc / 2.76) + 1.0 - 3.0
         kit_teil('Prop_Chimney2', at(u, yc, kz, 0), tint, mat)
         LIGHTS.append(dict(art='rauch', pos=[cx + u * 100 * s, cy + yc * 100 * s, (kz + 3.0) * 100 * s]))
-    if temple: glockenturm(cx + L / 2 * 100 * s, cy, first, zd * 100 * s)
-    if feat == 'AWNING': markise(x0, x1, yf, 0, 0.5)            # Bausatzdach reicht 0,57 m vor bis 1,87 m: Tuch kuerzer statt tiefer (Helfer 23:09: auf Kopfhoehe)
+    if temple:
+        blech = dachhoehe_bvh()                                 # vor dem Turm: nur das Dach trifft
+        glockenturm(cx + L / 2 * 100 * s, cy, first, zd * 100 * s, blech)
+    if feat == 'AWNING':                                        # Bausatzdach reicht 0,57 m vor bis 1,87 m: Tuch kuerzer statt tiefer (Helfer 23:09: auf Kopfhoehe)
+        # 348.6 Häuser (Helfer 23:5x: die Markise verdeckt die Tuer oben, hoeher stoesst sie ans Dach): je ein Tuch links und rechts
+        # der Tuer, die Tuer bleibt frei (Tuerteil 1,2 m breit; markise zieht 0,15 Kacheln Rand ab)
+        xt = cx + ud * 100 * s; frei = 0.6 * 100 * s
+        if xt - frei - x0 > 0.6 * TS: markise(x0, xt - frei + 0.15 * TS, yf, 0, 0.5)
+        if x1 - xt - frei > 0.6 * TS: markise(xt + frei - 0.15 * TS, x1, yf, 0, 0.5)
     if feat == 'INN_SIGN':                                      # Bausatzdach: Arm unter der Traufe; links der Tuer auf der glatten Wand
         u = next((u for u, b, k in vorn[::-1] if k == '#' and u < ud), ud - 1.5)   # (Helfer 23:09: rechts verdeckte es von Suedost die Tuer)
         wirtsschild(cx + u * 100 * s, yf, -42)
@@ -1414,6 +1448,71 @@ for r in range(R0, R1 + 1):
         elif t == 'y': hay(c, r)
         elif t == 'p': yard(c, r)
 if qq: washline(qq)
+
+# ---------------------------------------------------------------- 348.6 weitere Dinge (Chef 28.10., 00:07: „weitere Objekte platzieren“)
+# Bestand geprueft (LISTE-BESTAND.md): Kisten aus dem Dorfbausatz (Prop_Crate), Felsen und Pilze aus dem Naturbausatz (376: Felsen,
+# Kiesel, Pilze, Farn ja; Baeume nein). Nur auf Kacheln, die man nicht betritt (Fass, Stand, Baum), Kollision bleibt wie sie ist.
+# DINGE=0: ohne
+def fremd_teil(name, M, k=1.0):
+    """Teil des Naturbausatzes (Meter, glTF): Farbe aus seiner Textur je Ecke in die Eckfarbe, Material weiss (keine Kachelung)"""
+    import glob
+    d = glob.glob(glob.escape(os.path.expanduser(os.environ.get('CC0', '~/cc0'))) + '/stylized-nature-megakit/glTF')[0]
+    vor = set(bpy.data.objects)
+    bpy.ops.import_scene.gltf(filepath=d + '/' + name + '.gltf')
+    neu = [o for o in bpy.data.objects if o not in vor]
+    for o in neu:
+        if o.type != 'MESH': continue
+        me = o.data; W = M @ Matrix.Scale(100.0, 4) @ o.matrix_world
+        uvl = me.uv_layers.active.data if me.uv_layers.active else None
+        for poly in me.polygons:
+            bild = None
+            if me.materials:
+                nt = me.materials[poly.material_index].node_tree
+                bild = next((n.image for n in nt.nodes if n.type == 'TEX_IMAGE' and n.image), None) if nt else None
+            pts, cols = [], []
+            for li in poly.loop_indices:
+                pts.append(W @ me.vertices[me.loops[li].vertex_index].co)
+                c = (0.5, 0.5, 0.5)
+                if bild is not None and uvl is not None:
+                    if bild.name not in PIX:
+                        PIX[bild.name] = np.array(bild.pixels[:]).reshape(bild.size[1], bild.size[0], bild.channels)
+                    px = PIX[bild.name]; u, v = uvl[li].uv
+                    c = tuple(px[int((v % 1.0) * (px.shape[0] - 1)), int((u % 1.0) * (px.shape[1] - 1)), :3])
+                cols.append(sc(c, k))
+            with use('weiss'):
+                n0 = len(DORF.V); add_face(DORF, pts, W1)
+                DORF.C[n0:] = cols
+            if poly.use_smooth: DORF.S.add(len(DORF.F) - 1)
+    for o in neu: bpy.data.objects.remove(o, do_unlink=True)
+PIX = {}
+def dinge_mehr():
+    hoch = lambda c, r: ch(c, r) in 'T'
+    nb = [(c, r) for r in range(R0, R1 + 1) for c in range(C0, C1 + 1)]
+    mitte = Vector((tx((C0 + C1) / 2), ty((R0 + R1) / 2), 0))
+    # Felsen am Fuss jeder vierten Baumkachel, zur Dorfmitte hin (nicht am Wasser), verschieden gross und gedreht
+    for c, r in nb:
+        if not hoch(c, r) or h1(c, r, 501) > 0.25: continue
+        p = tile_c(c, r); zu = (mitte - p); zu.z = 0
+        if zu.length < 1: continue
+        if any(ch(c + i, r + j) == '~' for i in (-1, 0, 1) for j in (-1, 0, 1)): continue
+        q = p + zu.normalized() * 22 + Vector((rnd.uniform(-12, 12), rnd.uniform(-12, 12), 0))
+        g = 0.14 + 0.06 * h1(c, r, 502)
+        fremd_teil('Rock_Medium_%d' % (1 + int(h1(c, r, 503) * 3)), Matrix.Translation(q + Vector((0, 0, -4)))
+                   @ Matrix.Rotation(h1(c, r, 504) * 6.283, 4, 'Z') @ Matrix.Scale(g, 4), 0.85)
+        if h1(c, r, 505) < 0.25:                             # ein paar Pilze daneben, im Schatten des Felsens
+            fremd_teil('Mushroom_Common', Matrix.Translation(q + zu.normalized().cross(Vector((0, 0, 1))) * 26)
+                       @ Matrix.Rotation(h1(c, r, 506) * 6.283, 4, 'Z') @ Matrix.Scale(0.4, 4))
+    # Kisten neben jedem Fass (jede zweite mit einer zweiten obenauf), in der Ecke der Fasskachel; Holz wie die Haeuser, etwas verdreht
+    kist = dict(balken=lambda p, n: sc(ratio(0x6A5238, 0x3E2E22), 0.9), putz=W1)
+    for c, r in nb:
+        t = ch(c, r)
+        if t == 'b':
+            p = tile_c(c, r) + Vector((-38, -38, 0))
+            a = math.radians(-12 + 24 * h1(c, r, 511))
+            M = Matrix.Translation(p) @ Matrix.Rotation(a, 4, 'Z') @ Matrix.Scale(0.34, 4)
+            kit_teil('Prop_Crate', M, kist)
+            if h1(c, r, 512) < 0.5: kit_teil('Prop_Crate', M @ Matrix.Translation((0.05 * 100, 0, 1.06 * 100)) @ Matrix.Rotation(0.3, 4, 'Z'), kist)
+if os.environ.get('DINGE', '1') != '0' and os.environ.get('KARTE', 'village') == 'village': dinge_mehr()
 # Sonderlaternen (MapTownIso.BRIDGE_LANTERN, KAEL_LANTERN; Licht wie MapLight.kt:104-105)
 if os.environ.get('KARTE', 'village') == 'village':
     # Runde 11 (Urteil Chef 12:11: Laternenpfahl am Steg reichte bis ins Wasser): Pfahl steht auf dem Steg
