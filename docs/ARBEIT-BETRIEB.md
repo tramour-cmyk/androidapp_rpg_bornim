@@ -39,7 +39,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
-- 01:56 28.10.: Neustart Tom angenommen (`2916a3231`), Nachfolger „Tom – 348.6 Dorf Lauf 3“ gestartet (main, Hoch); alter Tom `01Hmoj79S6` archiviert
+- 01:56 28.10.: Neustart Tom angenommen (`2916a3231`), Nachfolger „Tom – 348.6 Dorf Lauf 3“ gestartet (main, Hoch); alter Tom `01Hmoj79S6` archiviert, Kosten fehlen (Antwort ohne `usage`)
 - 01:50 28.10.: Neustart Jerry angenommen (`e66f04f37`), Nachfolger „Jerry – 348.12 Befunde Kobold und Grak, dann 387“ gestartet (main, Hoch); alter Jerry `01Hmoj79cL` archiviert
 - 17:35–19:54 27.10.: Ford-Selbstneustart; Neustarts angenommen: Sokrates 19:08, Tom 19:32, Jerry 19:40, Tom 19:54; Vorgang 382 an Perikles
 - 01:37–06:35 27.10.: Neustarts angenommen und Nachfolger gestartet: Tom 01:46, 02:33, 02:57, 03:23, 03:51, 04:16, 04:43, 05:01, 05:20, 05:44, 06:03, 06:35, 07:21; Jerry 01:37, 02:42, 03:25, 04:57; Jerry 05:55 zurückgestellt (wartet auf Chefsache 3487a). Läufe 02:03, 03:03 ohne Starts; START Perikles (Terminname) nicht ausgeführt
