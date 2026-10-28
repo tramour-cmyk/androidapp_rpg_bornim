@@ -199,6 +199,36 @@ Gebilligt (Chef 25.10., 23:33, 348.11 b): übrige Monster aus Kapitel 1. Für al
 4. **Farbe:** schlammbraun, kränklich gelbgrau oder dunkel ocker; nirgends rosa (Beulen auf dem Rücken und Perlen an der Zunge in Hautfarbe übermalt); Schleim nass, nicht grell.
 5. **Haltung:** sehr langsam, hebt den Kopf, bevor sie zustößt; schwer verwundet flacher.
 
+**Dorftiere, gekauft (387)** (Homer 28.10. nach Diogenes 374; schreibt den Stand fest, den der Chef abgenommen hat: „passen … ist alles gut so“, 28.10., 10:51, Vorgangsarchiv 387; Keiler gilt als Wildschwein, Hundertfüßer oben; Schwein und Gans nicht genommen). Für alle: Augen matt; Tusche nach Licht wie die Monster (Chef 10:51); laufen nie durch Büsche, Häuser, Leute.
+
+**Rind**
+1. **Größe:** wie abgenommen (Kauf, Runde 5); größtes Tier im Dorf, Rücken über der Hüfte des Helden.
+2. **Umriss:** altes, kleines Hausrind: tiefer Rumpf, gerader Rücken, kurze Hörner.
+3. **Merkmal:** Hörner, Euter, Schwanz mit Quaste.
+4. **Farbe:** Fell des Kaufs (ein Fell).
+5. **Haltung:** steht ruhig oder frisst, Kopf meist unten.
+
+**Ziege**
+1. **Größe:** wie abgenommen; Rücken etwa auf Kniehöhe bis Oberschenkel des Helden.
+2. **Umriss:** schlank, hochbeinig, Kopf hoch getragen.
+3. **Merkmal:** nach hinten gebogene Hörner, Bart, kurzer aufgestellter Schwanz.
+4. **Farbe:** Fell des Kaufs (ein Fell).
+5. **Haltung:** wach, wechselt zwischen Stehen, Umsehen und Fressen.
+
+**Huhn**
+1. **Größe:** 0,71 m bis zum Kamm (1,2-fach, Chef 28.10., 08:09 „etwas größer“); bewusst größer als echt.
+2. **Umriss:** runder Rumpf, Schwanz hoch, kleiner Kopf auf kurzem Hals.
+3. **Merkmal:** roter Kamm und Kehllappen von vorn und von der Seite sichtbar, gelber Schnabel; von vorn als Huhn erkennbar (nie wie eine Katze).
+4. **Farbe:** drei Gefieder auf einen Blick verschieden: kräftig braun, hell, schwarz; nie blass beige.
+5. **Haltung:** pickt, scharrt, sieht auf; läuft weg, wenn der Held nahe kommt (wie bisher `MapHen.kt`).
+
+**Kaninchen**
+1. **Größe:** sitzend etwa 0,2 m bis zum Kopf, kleinstes Tier im Dorf.
+2. **Umriss:** rund, geduckt, lange Ohren.
+3. **Merkmal:** lange Ohren, große Hinterläufe, heller Bauch und weißer Schwanz.
+4. **Farbe:** drei Wildfelle: graubraun, braun, grau, je mit hellem Bauch; nie fast schwarz.
+5. **Haltung:** sitzt und frisst; bewegt sich nur hoppelnd (Hinterläufe stoßen gemeinsam ab), nie gleitend.
+
 Wolf und Grimmzahn ohne Liste: sie stehen nach Wort des Chefs. Wiedergänger, Grabhund, Riesenegel, Säureschnecke: Homer 26.10. nach Chefsache 34812c-monsterwahl (Git, `6d3ffeb9b^`), gebilligt (Chef 27.10., 10:04, Vorgangsarchiv 348.12c Listen; beim ersten Standbild zuerst Größe prüfen). Neue Monster (ab Kapitel 2) bekommen ihre Liste vor Entwurfsrunde 1 (Homer).
 
 Fundstellen übrige Monster: Chefsache 34811b-monsterlisten (Git, `929f19051^`). Fundstellen: Goblin: `Doll.kt` :65–70, :102, :879–935; `FoeArt.kt` :86; `MonsterKit.kt` :14–16, :33–38. Wildschwein: `Beast.kt` :267–368; `BeastArt.kt` :36–45, :213. Held: `Doll.kt` :65–70, :724–725. Leute: `MapFolk.kt` :40–98.

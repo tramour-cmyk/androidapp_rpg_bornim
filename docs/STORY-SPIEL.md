@@ -354,6 +354,16 @@ EN: Circle: every wolf bites the same figure at once. Helps: any hit on the wolf
 `[210T.circle.eingebung]` Der eine führt das Rudel. Den treffen, egal wie leicht.
 EN: That one leads the pack. Hit it, however lightly.
 
+`[210T.growl]` (399.2b, Chef 28.10., 15:32: Jungwölfe beißen wie alt nur zu 50 % je Runde; Ansagezeichen „…“) Knurren: der Jungwolf greift diese Runde nicht an. Hilft: Zeit für einen Schlag auf den großen Wolf.
+EN: Growl: the young wolf does not attack this round. Helps: time to strike at the big wolf.
+`[210T.growl.eingebung]` Der Junge traut sich nicht. Erst der Große.
+EN: The young one holds back. The big one first.
+
+`[399.2b.knurrt]` Zeile im Zug, eine der drei nach Zufall; {0} = Name mit Artikel wie in `mars_texte.gd`:
+- {0} knurrt, wagt aber keinen Biss. / EN: {0} snarls but dares no bite.
+- {0} duckt sich und fletscht die Zähne, kommt aber nicht heran. / EN: {0} crouches and bares its teeth, but does not come in.
+- {0} knurrt und hält Abstand. / EN: {0} growls and keeps its distance.
+
 **Riesenspinne**
 
 `[210T.venom]` Gift sammeln: der nächste Biss hat 2W6 mehr Schaden, ohne Ring. Hilft: ein Fünftel ihrer Lebenspunkte vorher, dann versiegt das Gift; sonst Abwehr.
