@@ -10,7 +10,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 389 | M | **von Perikles (Chef 27.10., 23:55, Archiv):** `main` in den Arbeitszweig mergen (Haken `probelauf.py` in `.claude/settings.json`); Push mit Godot-Lauf zählt, Commit-Nachricht beginnt mit der Nr.; höchstens zwei je Vorlage (`ROLLE-ENTWICKLUNG.md`) | neu | – |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | Chef: r2 an Chef (ansehen/387-kauftiere-r2, ein Film, sechs Tiere, Befunde offen); danach Befunde beheben |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | Chef: Drehen auf der Stelle (Ratte, Kaufwolf) an Chef (ansehen/34812f-drehen), Frage Schnauze näher; Ausweichen Kaufwolf ja (Archiv 22:54) | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: Grak, Kobold aufs CC0-Gerüst (Hieb ab 17:57; Zombie-Platz = Kauf-Wiedergänger, Archiv 26.10.) | `claude/jerry-348-kampf` |
