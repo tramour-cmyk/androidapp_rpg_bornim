@@ -308,6 +308,27 @@ Chef 27.10., 12:42 „376 ja“: aus dem Dorfbausatz nur ein Probehaus (Tom), Na
 
 **Anker's Assets „Low Poly Medieval Weapons“** (Chef 28.10., 23:1x, [itch.io](https://ankersassets.itch.io/low-poly-medieval-weapons); Sokrates): „Creative Commons Zero v1.0 Universal“, „Completely free to use, personal or commercial.“; „No generative AI was used“. Frei (Preis nach Wahl). „over 60 meshes“: Schwerter, Äxte, Hämmer, Speere, Streitkolben, Schilde, Bogen, Magie (zwei Bilder), Bauerngerät, Belagerungsgerät; FBX, Zip 1,5 MB, also sehr wenige Dreiecke, vermutlich Flächenfarben („Colorful“). Eignung: frei, darum laden und neben Omie prüfen; Gefahr spielzeughaft wie Quaternius' Waffen; Magie-Teile könnten Kugel, Stab, Zauberstab füllen.
 
+### Ausrüstung genau (348.12h, Chef 28.10., 23:1x; Helfer 23:2x, Lizenzen auf den Seiten gelesen)
+
+**Lizenzrahmen:** Unity Asset Store nein (2.2.1 verbietet Assets „as inputs for artificial intelligence or machine learning model programs“; fällt wie Synty); Fab nur ohne NoAI-Kennzeichen, EULA vor Kauf im Browser prüfen; CGTrader „Royalty Free“ ja, „Royalty Free, No AI“ nein; RenderHub „perpetual, unless terminated“.
+
+| Paket | Lizenz | Preis | Deckt | Urteil |
+|---|---|---|---|---|
+| System G6 „Medieval Weapon Pack“ (opengameart) | CC0 | frei | 14 Teile, 36–198 Dreiecke, Textur 512: Langschwert, Bastardschwert, Dolch, Doppelaxt, Handaxt, großer Hammer, Morgenstern (Stachelkugel), Heater-Schild mit Adler, Bogen, Armbrust, Stab, Grimoire, Kristallstab, Zauberstab | gut, Stil dunkel, glaubwürdig (Vorschau) |
+| Avramania „Weapons & Shields“ frei (itch) | CC0 | frei | 19: Schwert, Kurzschwert, Dolch, Handaxt, Streitkolben, Speer, Stab, Kurzbogen, Armbrust, Rund-, Faustschild; 166–1.156, glb, Griffpunkt | gut |
+| Avramania Premium | „Royalty-free licence“, Nennung, KI offen | 7,99 $ | 73 (Rapier, Zweihänder, Kugel, Turmschild …) | nein: Händler 20 Tage alt, Netze teils KI (Tripo), Lizenz dünn |
+| PolyMech „Medieval Pack Low Poly Shields“ (itch) | CC0 | frei | 9 Schilde (Kite, Heater, Rund, Faust) | gut |
+| Hetchler „19 Low-Poly Fantasy Weapons“ (opengameart 32331) | CC0 | frei | Rapier, Zweihänder, Krummschwert, Hellebarde, Streitaxt, Kriegshammer, Bogen; .blend | mit Umbau, Stil ungeprüft |
+| Tedium „Melee Weapons“ | CC0 | frei | 12, schlicht | mit Umbau |
+| mrleap „Low Poly Weapon Pack“ | CC0 | frei | 20, 30–200 Dreiecke, Textur 8×8 | Notlösung |
+| Lucian Pavel (opengameart) | CC0 | frei | Kite, Rund, Zweihänder, Morgenstern, Topfhelm | mit Umbau |
+| Omie, Anker (oben) | CC0 | 1,99 $; frei | Waffen, Schilde, Magie | prüfen |
+| Polytope Modular Armors, Panchenko Helme, quin-gs Knights, JustCreate3D, CH0SAN | – | – | – | nein (Skelett, Dreiecke, Chibi, KI-Verbot, keine Lizenz) |
+
+**Rüstung:** keine freie oder käufliche Quelle passt aufs Quaternius-Gerüst außer Quaternius selbst; „Modular Character Outfits – Fantasy“ Source haben wir (Bestand 681373666): Robe, Leder, Kapuze, Krone, Platte, Handschuhe, Armschienen, Stiefel, Hose, Umhang. Beschlagenes Leder, Kette, Schuppe, Schiene: gleiches Netz, neue Textur; Lederkappe, Helm, Topfhelm, Kettenbeinlinge, Beinschienen, Wickel, Mantel: Eigenbau auf UAL.
+
+**Folgerung (Sokrates):** Waffen, Schilde, Nebenhand zu etwa 90 % CC0 (G6, Avramania frei, PolyMech, Hetchler; Omie für 1,99 $ als Ergänzung); Einzelstücke, Heiligensymbol, Kugel, Turmschild Eigenbau; Rüstung aus dem Bestand plus Eigenbau; Kauf nur Omie. **Stärkstes Gegenargument:** vier Quellen, vier Stile; Ausweg: Jerry gleicht alles mit einer Palette und unserer Tusche an, und G6 (dunkel, texturiert) ist das Maß; reicht das nicht, Waffen ganz selbst bauen (unter 1.500 Dreiecke, schnell).
+
 **RenderHub „Asset Pack Vol 10 – Modular Dungeon Interior“** (JuanChee, 7 $, Extended Use; Chef 27.10., 12:34 „checken“): 40 Teile, 18 fertige Hallen, 16.686 Dreiecke gesamt, 4096-px-Atlas PBR (fotografisch abgenutzt), glTF dabei. Gemauert (Quader, Holz, Eisen), Rundbogentüren, Gittertür, Doppeltor, Treppen, Säulen, Fackel und Kerze mit Bildfolge; Fässer, Truhen, Kisten, Säcke, Tisch, Bank, Hocker, Spinnennetz, Trümmer. Kein Naturfels, also nicht für die Blutzahnhöhle; gemauerte Verliese hat Kapitel 1 nicht (48 Dungeons nach dem Meilenstein). Votum noch nicht: Requisiten erst gegen 348.12h (CC0) abgleichen; Fototexturen gegen „Farbe gemalt“ (Modellregel 6).
 
 **RenderHub „Medieval Market Asset Pack“** (MagicCGIStudios, frei, Extended Use; Chef 27.10., 12:37 „check“): 100 Dinge, 127.056 Polygone gesamt (im Mittel etwa 1.300), nur .blend (Blender 2.79), Texturen 2K/1K PBR, realistisch gerendert. Brunnen offen in der Mitte, Satteldach auf zwei Pfosten, Kurbelwalze; 4 Marktstände, Dach auf vier Eckpfosten mit Streben (beides Chefbefund 25.10., 18:06); Kisten mit Obst und Gemüse, 16 Holzfässer, Körbe, Heu- und Fasswagen, Tische mit Käse, Brot, Fleisch, Flaschen, Holzstapel, Strohballen. Gegen: Fototexturen, Stoffe bunt wie Jahrmarkt. Votum ja: Chef lädt (Anmeldung nötig) ins private Repo; Tom nimmt Brunnen und Stände als Form, unsere gemalten Farben.
