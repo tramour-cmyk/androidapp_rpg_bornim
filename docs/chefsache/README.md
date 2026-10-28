@@ -12,11 +12,7 @@ Nichts offen.
 
 ## Anzusehen
 
-**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
-
-| Folge | Version | Build | Was | Wer | Seit |
-|---|---|---|---|---|---|
-| 1 | [–](ansehen/t130-spielfassung.md) | [Build 130](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40688776644/artifacts/12817701661) | Godot 0.1 | Tom und Jerry | 28.10., 13:56 |
+Nichts offen.
 
 ## Zu tun
 
@@ -169,8 +165,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
-
-Format (Muster: „So geht's“ unten): t130-spielfassung.md: Version 0.1.<Laufnummer> (Godot 0.348.<Laufnummer>) fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
 
 Nicht gestellt: 186.3 (Pruefung)
 
