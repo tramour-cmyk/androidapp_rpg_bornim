@@ -34,6 +34,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [399.2d](tun/3992d-godot-am-rechner.md) | **Muss** | E Kampf | 28.10. | der Auto-Modus lehnte den Download von Godot 4.7.2 ab; frühere Jerry-Sitzungen testeten damit am Rechner | Jerry |
 | [142](tun/142-pflichttest.md) | **Muss** | M Veröffentlichung | 27.10., 20:07 | Pflichttest Play Store: Gewerbeschein melden | Sokrates |
 
 ## Offen je Rolle
