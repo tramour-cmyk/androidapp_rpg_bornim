@@ -21,6 +21,9 @@ object KlangExport {
     /** The sounds that are synthesized in the game: no recording, not recorded-only. */
     fun synthesized(): List<Sound> = Sound.entries.filter { it !in Recorded.TAKES && it !in Sfx.RECORDED_ONLY }
 
+    /** The synthesized sounds that take on the room [k] (Room.soundsFor). */
+    fun roomSynthesized(k: PlaceSound.Kind): List<Sound> = Room.soundsFor(k).filter { it in synthesized() }
+
     fun wav(pcm: ShortArray): ByteArray {
         val data = ByteBuffer.allocate(44 + pcm.size * 2).order(ByteOrder.LITTLE_ENDIAN)
         data.put("RIFF".toByteArray()).putInt(36 + pcm.size * 2).put("WAVE".toByteArray())
@@ -50,7 +53,16 @@ object KlangExport {
             File(dir, "${s.name.lowercase()}_${v + 1}.wav").writeBytes(wav(Sfx.render(s, v)))
             n++
         }
+        // the room versions of the same (Room.kt, as SfxPlayer.loadRoom renders them), next to the recorded ones in raum/<kind>/
+        var r = 0
+        for (k in Room.ROOMS) {
+            val rd = File(dir.parentFile, "raum/${k.name.lowercase()}").also { it.mkdirs() }
+            for (s in roomSynthesized(k)) for (v in 0 until Sfx.variants(s)) {
+                File(rd, "${s.name.lowercase()}_${v + 1}.wav").writeBytes(wav(Room.apply(Sfx.render(s, v), Synth.SAMPLE_RATE, k)))
+                r++
+            }
+        }
         File(dir, "kampfklang.json").writeText(table().toString())
-        println("KlangExport: $n Aufnahmen aus ${synthesized().size} synthetischen Klängen, kampfklang.json")
+        println("KlangExport: $n Aufnahmen aus ${synthesized().size} synthetischen Klängen, $r Raumfassungen, kampfklang.json")
     }
 }

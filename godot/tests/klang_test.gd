@@ -46,6 +46,22 @@ func _alles() -> void:
 	_pruef("Klang je Effekt", k._fx_klang("BITE") == "bite" and k._fx_klang("SLASH", true) == "crit" and k._fx_klang("FIRE_BOLT") == "fire" and k._fx_klang("ARROW", true) == "arrow")
 	_pruef("Wolfsstimme", k.liste.get("sfx", []).has("wolf_angriff_1") and k.liste.get("sfx", []).has("wolf_tod_3"))
 	_pruef("Mischung", is_equal_approx(KlangS.gain(100, 50), 0.25) and is_equal_approx(KlangS.gain(50, 50), 0.0625))
+	# Ortsklang (PlaceSound.kt, Ambience.kt, RiverSound.kt) und Raumklang (Room.kt)
+	_pruef("Ortsart", KlangS.ortsart_von("TOWN", "village") == "OUTSIDE" and KlangS.ortsart_von("INTERIOR", "inn") == "TAVERN"
+		and KlangS.ortsart_von("INTERIOR", "temple") == "HALL" and KlangS.ortsart_von("INTERIOR", "smithy") == "ROOM" and KlangS.ortsart_von("CAVE", "cave") == "CAVE")
+	_pruef("Knistern", KlangS.ziel(null, 6.0, 1.0, 0.5) == 0.0 and is_equal_approx(KlangS.ziel(1.0, 6.0, 1.0, 0.5), 0.5) and is_equal_approx(KlangS.ziel(3.5, 6.0, 1.0, 0.5), 0.25))
+	_pruef("nie ein Sprung", is_equal_approx(KlangS.naeher(0.0, 0.5, 0.5, 100.0, 1000.0), 0.05))
+	_pruef("Husten nur mit Gast", KlangS.ereignisse("TAVERN", ["innkeeper"]) == [["creak", 2]] and KlangS.ereignisse("TAVERN", ["innkeeper", "farmer"]).size() == 2
+		and KlangS.ereignisse("OUTSIDE", ["farmer"]).is_empty())
+	var kf := {"kacheln": {".": {"name": "FLOOR"}, "#": {"name": "WALL"}, "f": {"name": "HEARTH"}}, "daten": {"art": "INTERIOR"}, "breite": 7, "hoehe": 3,
+		"zeilen": ["f.#....", "..#....", "......."]}
+	var karte := _Probekarte.new(kf)
+	# die Wand dazwischen: unten herum 5 gerade Schritte und einer schräg (schräg nie an der Wand vorbei), drinnen 1,5-mal so weit getragen
+	var um = KlangS.feuer_weit(karte, Vector2i(3, 0))
+	_pruef("Feuer um die Wand", um != null and is_equal_approx(float(um), (5.0 + sqrt(2.0)) / 1.5), str(um))
+	_pruef("Feuer zu weit", KlangS.feuer_weit(_Probekarte.new({"kacheln": kf.kacheln, "daten": {"art": "TOWN"}, "breite": 7, "hoehe": 3, "zeilen": kf.zeilen}), Vector2i(3, 0)) == null)
+	_pruef("Raumfassungen", k.liste.get("raum", {}).get("tavern", []).has("creak_1") and k.liste.get("raum", {}).get("cave", []).has("hit_slash_1")
+		and not k.liste.get("raum", {}).get("cave", []).has("drip_1"))
 	# nie zweimal dasselbe Stück hintereinander
 	var l: Array = k._stuecke("FOREST")
 	var zweimal := false
@@ -70,3 +86,23 @@ func _alles() -> void:
 	_pruef("Kampfmusik nach 0,8 s in Schleife", schleife and String(kampf[0].stream.resource_path).get_file().begins_with("kampf_"))
 	print("KLANG %d Fehler" % fehler)
 	quit(1 if fehler else 0)
+
+
+## Eine kleine Karte wie skripte/karte.gd (zeichen, kacheln, daten, breite, hoehe) für feuer_weit
+class _Probekarte:
+	var kacheln: Dictionary
+	var daten: Dictionary
+	var breite: int
+	var hoehe: int
+	var zeilen: Array
+	var id := "probe"
+
+	func _init(d: Dictionary) -> void:
+		kacheln = d.kacheln
+		daten = d.daten
+		breite = d.breite
+		hoehe = d.hoehe
+		zeilen = d.zeilen
+
+	func zeichen(t: Vector2i) -> String:
+		return String(zeilen[t.y][t.x])

@@ -4,7 +4,10 @@ extends Node
 # Footsteps.kt, Mix (SoundSettings.kt). Die Aufnahmen kopiert godot.yml aus app/src/main/assets nach daten/klang, dazu
 # liste.json (Dateinamen ohne Endung je Ordner). Fehlen sie (Tests am Rechner), bleibt alles still.
 # Kampfklang nach MarsSound.kt; was das alte Spiel synthetisiert, rendert KlangExport.kt im Bau als .wav (nicht neu gebaut).
-# Noch nicht hier (Folgeschritte 399.3): Ortsklang (Feuer, Fluss, Vögel …), Raumklang (raum/), Bemerkgrenze (Threat), Schwarzblende (Hush).
+# Ortsklang wie PlaceSound.kt, Ambience.kt, RiverSound.kt (WorldScreen.kt: Wind, Halle, Feuer, Fluss, Tropfen, Knarren, Husten);
+# Raumklang wie Room.kt: die Fassungen aus app/src/main/assets/raum (Vorschau RAUMKLANG=spiel), die synthetischen aus KlangExport.kt.
+# Noch nicht hier (Folgeschritte 399.3): Leute (Tassen, Stühle, D1.10), Teich, Hühner, Vögel, Regen (gibt es in Godot noch nicht),
+# Bemerkgrenze (Threat), Schwarzblende (Hush).
 
 const ORDNER := "res://daten/klang/"
 
@@ -54,6 +57,20 @@ var _zufall := RandomNumberGenerator.new()
 var _held: Node3D
 var _karte
 var _phase := -1.0
+# Ortsklang (PlaceSound.Kind): OUTSIDE, TAVERN, HALL, ROOM, CAVE; Raum = Ordner der Raumfassungen (leer draußen)
+var ortsart := ""
+var raum := ""
+var _schleifen := {}                             # Schlüssel -> {"p": AudioStreamPlayer, "v": Pegel}
+var _ort_ms := 0.0                               # Uhr des Orts, seit er betreten wurde
+var _ort_takt := 0.0
+var _ereignis_ms := 0.0
+var _tropfen_ms := 0.0
+var _letztes := ""
+var _feuer_bei := Vector2i(-99999, -99999)       # Kachel, für die _feuer_weit gilt (neu nur, wenn der Held weitergeht)
+var _feuer_weit = null
+var _fluss_bei := Vector2i(-99999, -99999)
+var _fluss_weit = null
+var _fluss := {}                                 # Karte -> fließendes Wasser (RiverSound.running)
 
 
 func _ready() -> void:
@@ -96,9 +113,12 @@ static func szene_von(art: String) -> String:
 
 ## Ort betreten: Musik des Orts, Schritte nach seinem Boden
 func ort(karte, held: Node3D) -> void:
+	var neu: bool = _karte == null or _karte.id != karte.id
 	_karte = karte
 	_held = held
 	_phase = -1.0
+	if neu:
+		_ort_betreten()
 	spiele_szene(szene_von(String(karte.daten.get("art", ""))))
 
 
@@ -233,7 +253,11 @@ func effekt(id: String, pegel := 0.8, tempo := 1.0) -> void:
 	var takes: Array = liste.get("sfx", []).filter(func(n): return String(n).begins_with(id + "_") and String(n).substr(id.length() + 1).is_valid_int())
 	if takes.is_empty():
 		return
-	var s := _strom("sfx/" + String(takes[_zufall.randi_range(0, takes.size() - 1)]))
+	var take := String(takes[_zufall.randi_range(0, takes.size() - 1)])
+	# Room.kt: im Raum die Fassung mit seinem Hall, wo es eine gibt (Umgebung, Schritte, Systemklänge haben keine, Room.affects)
+	var s: AudioStream = _strom("raum/%s/%s" % [raum, take]) if raum != "" and liste.get("raum", {}).get(raum, []).has(take) else null
+	if s == null:
+		s = _strom("sfx/" + take)
 	if s == null:
 		return
 	var p := _effekte[_naechster]
@@ -355,7 +379,11 @@ static func schritt_klang(art: String, karte_id: String, kachel: String) -> Stri
 	return "step_grass"
 
 
-func _process(_dt: float) -> void:
+func _process(dt: float) -> void:
+	_ort_takt += dt
+	if _ort_takt >= ORT_TAKT_S:     # WorldScreen.kt: alle 100 ms
+		_ortsklang(_ort_takt * 1000.0)
+		_ort_takt = 0.0
 	# Footsteps.Feet: ein Schritt, wenn ein Fuß aufsetzt; Gehen und Rennen beginnen mit dem rechten Fuß vorn (held.gd), also bei
 	# 0 und der Hälfte der Runde
 	if _held == null or not is_instance_valid(_held) or _karte == null or not schritte_an or not effekte_an:
@@ -374,6 +402,273 @@ func _process(_dt: float) -> void:
 		effekt(schritt_klang(String(_karte.daten.get("art", "")), _karte.id, boden),
 			(SCHRITT_RENNEN if rennt else SCHRITT) * (SCHRITT_TEPPICH if boden == "RUG" else 1.0))
 	_phase = f
+
+
+# ---------------------------------------------------------------- Ortsklang (PlaceSound, Ambience, RiverSound; WorldScreen.kt)
+
+const ORT_TAKT_S := 0.1
+# PlaceSound.kt
+const BETT := 0.3                        # BED_VOLUME
+const BETT_FADE_MS := 2000.0
+const VERLASSEN_MS := 600                # LEAVE_FADE_MS: die Schleifen klingen aus, statt abzubrechen
+const EREIGNIS := 0.35                   # EVENT_VOLUME
+const WIRT := "innkeeper"                # HOST: wer Gast ist, hustet
+# Ambience.kt
+const FEUER_WEIT := 6.0
+const FEUER_NAH := 1.0
+const DRINNEN_TRAGEN := 1.5              # INDOOR_CARRY: drinnen füllt der Herd den Raum
+const FEUER_MAX := 0.5
+const FADE_MS := 1000.0
+const TROPFEN_MS := [4000.0, 6000.0]     # DRIP_MIN_MS, DRIP_SPAN_MS
+const TROPFEN := 0.45
+const WAENDE := ["WALL", "CAVE_WALL", "CRYSTAL", "TORCH", "WINDOW", "ROOF", "ROOF_BLUE"]
+# RiverSound.kt
+const FLUSS_WEIT := 8.0
+const FLUSS_NAH := 1.0
+const FLUSS_MAX := 0.25
+
+
+## PlaceSound.kindOf
+static func ortsart_von(art: String, karte_id: String) -> String:
+	if art in ["TOWN", "FOREST"]:
+		return "OUTSIDE"
+	if art == "CAVE":
+		return "CAVE"
+	return {"inn": "TAVERN", "temple": "HALL"}.get(karte_id, "ROOM")
+
+
+## Room.file: die Raumfassungen je Ort (raum/cave, hall, tavern, room), draußen keine
+static func raum_von(ortsart_: String) -> String:
+	return "" if ortsart_ == "OUTSIDE" else ortsart_.to_lower()
+
+
+## Ambience.fireTarget, RiverSound.target: still in der Ferne, sanft lauter zum Feuer, zum Ufer hin
+static func ziel(weit, fern: float, nah: float, hoechst: float) -> float:
+	if weit == null or float(weit) >= fern:
+		return 0.0
+	var t := clampf((fern - float(weit)) / (fern - nah), 0.0, 1.0)
+	return hoechst * t * t * (3.0 - 2.0 * t)
+
+
+## approach: höchstens ein ganzes An- oder Abschwellen je [fade_ms], nie ein Sprung
+static func naeher(jetzt: float, soll: float, hoechst: float, dt_ms: float, fade_ms: float) -> float:
+	var schritt := hoechst * dt_ms / fade_ms
+	return minf(soll, jetzt + schritt) if soll > jetzt else maxf(soll, jetzt - schritt)
+
+
+## Ambience.dripVolume: Tropfen etwas leiser, je lauter das Feuer
+static func tropfen_pegel(feuer: float) -> float:
+	return TROPFEN * (1.0 - 0.6 * feuer / FEUER_MAX)
+
+
+## Neuer Ort: die Schleifen des alten klingen aus (600 ms), der erste Einzelklang bald, noch unter der Blende (firstMs)
+func _ort_betreten() -> void:
+	for k in _schleifen.keys():
+		var p: AudioStreamPlayer = _schleifen[k].p
+		_blende(p, 0.0, VERLASSEN_MS, true)
+		get_tree().create_timer(VERLASSEN_MS / 1000.0 + 0.1, true).timeout.connect(p.queue_free)
+	_schleifen.clear()
+	ortsart = ortsart_von(String(_karte.daten.get("art", "")), String(_karte.id))
+	raum = raum_von(ortsart)
+	_ort_ms = 0.0
+	_ereignis_ms = 600.0 + _zufall.randf_range(0.0, 1500.0 if ortsart == "TAVERN" else 4000.0)
+	_tropfen_ms = 300.0 + _zufall.randf_range(0.0, 500.0)
+	_letztes = ""
+	_feuer_bei = Vector2i(-99999, -99999)
+	_fluss_bei = Vector2i(-99999, -99999)
+
+
+## Ruhig: auf der Karte, nicht im Kampf, kein Menü (WorldScreen.kt calm: Mode.Explore und kein Menü)
+func _ruhig() -> bool:
+	return _karte != null and _held != null and is_instance_valid(_held) and _held.is_visible_in_tree() \
+		and not szene in ["BATTLE", "BOSS"] and not get_tree().paused
+
+
+func _ortsklang(dt_ms: float) -> void:
+	if _karte == null or ortsart == "":
+		return
+	_ort_ms += dt_ms
+	var ruhig := _ruhig()
+	var t: Vector2i = _karte.pos_kachel(_held.position) if ruhig else _feuer_bei
+	# was unter allem liegt: Wind draußen, die Halle im Tempel (PlaceSound.bed)
+	var bett := {"OUTSIDE": "wind", "HALL": "hall"}.get(ortsart, "")
+	if bett != "":
+		_schleife("bett", bett, BETT if ruhig else 0.0, BETT, dt_ms, BETT_FADE_MS)
+	# das Knistern von Lagerfeuer und Herd, lauter zum Feuer hin, um Wände herum (Ambience.nearestFire)
+	if ruhig and t != _feuer_bei:
+		_feuer_bei = t
+		_feuer_weit = feuer_weit(_karte, t)
+	var feuer := _schleife("feuer", "crackle", ziel(_feuer_weit, FEUER_WEIT, FEUER_NAH, FEUER_MAX) if ruhig else 0.0, FEUER_MAX, dt_ms, FADE_MS)
+	# fließendes Wasser rauscht, am lautesten am Ufer und auf der Brücke (RiverSound)
+	if ortsart == "OUTSIDE":
+		if ruhig and t != _fluss_bei:
+			_fluss_bei = t
+			_fluss_weit = fluss_weit(_karte, t)
+		_schleife("fluss", "river", ziel(_fluss_weit, FLUSS_WEIT, FLUSS_NAH, FLUSS_MAX) if ruhig else 0.0, FLUSS_MAX, dt_ms, FADE_MS)
+	# Tropfen in der Höhle, von selbst, der erste gleich
+	if ortsart == "CAVE" and _ort_ms >= _tropfen_ms:
+		if ruhig:
+			effekt("drip", tropfen_pegel(feuer))
+		_tropfen_ms = _ort_ms + TROPFEN_MS[0] + _zufall.randf_range(0.0, TROPFEN_MS[1])
+	# Einzelklänge: Knarren im Holz der Häuser, ein Gast hustet (PlaceSound.events, gapMs 12–30 s)
+	if _ort_ms >= _ereignis_ms:
+		if ruhig:
+			var e := waehle_ereignis(ereignisse(ortsart, _anwesend()), _letztes, _zufall)
+			if e != "":
+				effekt(e, EREIGNIS)
+				_letztes = e
+		_ereignis_ms = _ort_ms + 12000.0 + _zufall.randf_range(0.0, 18000.0)
+
+
+## Eine Schleife [klang] zum Pegel [soll] führen; sie beginnt mit einer zufälligen Aufnahme und bleibt bei ihr, bis sie
+## verklungen ist (18k); gibt den Pegel zurück
+func _schleife(schluessel: String, klang: String, soll: float, hoechst: float, dt_ms: float, fade_ms: float) -> float:
+	var s = _schleifen.get(schluessel)
+	var v := naeher(float(s.v) if s != null else 0.0, soll, hoechst, dt_ms, fade_ms)
+	if not effekte_an:
+		v = 0.0
+	if v > 0.0 and s == null:
+		var takes: Array = liste.get("sfx", []).filter(func(n): return String(n).begins_with(klang + "_") and String(n).substr(klang.length() + 1).is_valid_int())
+		if takes.is_empty():
+			return 0.0
+		var st = _strom("sfx/" + String(takes[_zufall.randi_range(0, takes.size() - 1)]))
+		if not st is AudioStreamOggVorbis:
+			return 0.0
+		st = st.duplicate()     # die geladene Aufnahme spielt anderswo einmal, hier in Schleife
+		st.loop = true
+		var p := AudioStreamPlayer.new()
+		p.bus = "Effekte"
+		p.stream = st
+		p.volume_db = linear_to_db(v)
+		add_child(p)
+		p.play()
+		_schleifen[schluessel] = {"p": p, "v": v}
+	elif s != null and v <= 0.0:
+		s.p.queue_free()
+		_schleifen.erase(schluessel)
+	elif s != null:
+		s.p.volume_db = linear_to_db(v)
+		s.v = v
+	return v
+
+
+## Ambience.nearestFire: Abstand in Kacheln zum nächsten Lagerfeuer oder Herd auf offenem Weg, um Wände herum, nie hindurch;
+## schräg nur, wo keine Seite Wand ist; drinnen zählt der Weg kürzer; null, wenn keins in Reichweite
+static func feuer_weit(k, von: Vector2i):
+	var tragen := DRINNEN_TRAGEN if String(k.daten.get("art", "")) == "INTERIOR" else 1.0
+	var fern := FEUER_WEIT * tragen
+	var r := int(fern) + 1
+	var offen := func(q: Vector2i) -> bool:
+		return q.x >= 0 and q.y >= 0 and q.x < k.breite and q.y < k.hoehe and not _kachel(k, q) in WAENDE
+	var dist := {von: 0.0}
+	var offen_liste := [von]
+	while not offen_liste.is_empty():
+		var bi := 0
+		for i in offen_liste.size():
+			if dist[offen_liste[i]] < dist[offen_liste[bi]]:
+				bi = i
+		var c: Vector2i = offen_liste[bi]
+		offen_liste.remove_at(bi)
+		var d: float = dist[c]
+		if d >= fern:
+			continue
+		if _kachel(k, c) in ["CAMPFIRE", "HEARTH"]:
+			return d / tragen
+		# das Feuer steht dem Gehen im Weg, nicht dem Klang
+		for dy in [-1, 0, 1]:
+			for dx in [-1, 0, 1]:
+				if dx == 0 and dy == 0:
+					continue
+				var n := c + Vector2i(dx, dy)
+				if absi(n.x - von.x) > r or absi(n.y - von.y) > r or not offen.call(n):
+					continue
+				if dx != 0 and dy != 0 and (not offen.call(Vector2i(c.x + dx, c.y)) or not offen.call(Vector2i(c.x, c.y + dy))):
+					continue
+				var nd := d + (sqrt(2.0) if dx != 0 and dy != 0 else 1.0)
+				if nd < float(dist.get(n, INF)):
+					if not dist.has(n):
+						offen_liste.append(n)
+					dist[n] = nd
+	return null
+
+
+static func _kachel(k, t: Vector2i) -> String:
+	return String(k.kacheln.get(k.zeichen(t), {}).get("name", ""))
+
+
+## RiverSound.running: Wasser, das mit dem Wasser am Kartenrand zusammenhängt (ein Teich liegt still und hat seine Frösche)
+func fluss(k) -> Array:
+	if _fluss.has(k.id):
+		return _fluss[k.id]
+	var gesehen := {}
+	var schlange := []
+	for y in k.hoehe:
+		for x in k.breite:
+			var q := Vector2i(x, y)
+			if (x == 0 or y == 0 or x == k.breite - 1 or y == k.hoehe - 1) and _kachel(k, q) == "WATER":
+				gesehen[q] = true
+				schlange.append(q)
+	var aus := []
+	var i := 0
+	while i < schlange.size():
+		var q: Vector2i = schlange[i]
+		i += 1
+		aus.append(q)
+		for d in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+			var n: Vector2i = q + d
+			if n.x >= 0 and n.y >= 0 and n.x < k.breite and n.y < k.hoehe and not gesehen.has(n) and _kachel(k, n) == "WATER":
+				gesehen[n] = true
+				schlange.append(n)
+	_fluss[k.id] = aus
+	return aus
+
+
+## RiverSound.nearest: Abstand zum nächsten fließenden Wasser, null jenseits von FLUSS_WEIT
+func fluss_weit(k, t: Vector2i):
+	var best := INF
+	for q in fluss(k):
+		best = minf(best, Vector2(q - t).length())
+	return best if best < FLUSS_WEIT else null
+
+
+## PlaceSound.events: [Klang, Gewicht]; Husten nur, wo außer der Wirtin ein Gast ist
+static func ereignisse(ortsart_: String, anwesend: Array) -> Array:
+	var aus := []
+	if ortsart_ == "TAVERN" and anwesend.any(func(a): return a != WIRT):
+		aus.append(["cough", 1])
+	if ortsart_ in ["TAVERN", "ROOM"]:
+		aus.append(["creak", 2])
+	return aus
+
+
+## PlaceSound.pick: nach Gewicht, nie zweimal derselbe, wenn es eine Wahl gibt
+static func waehle_ereignis(e: Array, letztes: String, zufall: RandomNumberGenerator) -> String:
+	var pool := e.filter(func(x): return x[0] != letztes)
+	if pool.is_empty():
+		pool = e
+	var summe := 0
+	for x in pool:
+		summe += int(x[1])
+	if summe <= 0:
+		return ""
+	var r := zufall.randi_range(0, summe - 1)
+	for x in pool:
+		if r < int(x[1]):
+			return String(x[0])
+		r -= int(x[1])
+	return String(pool[-1][0])
+
+
+## PlaceSound.present: das Aussehen der Leute, die auf der Karte zu sehen sind
+func _anwesend() -> Array:
+	var aus := []
+	if _held == null or _held.get_parent() == null:
+		return aus
+	for n in _held.get_parent().find_children("*", "Node3D", true, false):
+		var d = n.get("daten")
+		if d is Dictionary and d.has("aussehen") and n.is_visible_in_tree():
+			aus.append(String(d["aussehen"]))
+	return aus
 
 
 ## LocalClick: jeder Knopf klickt leise
