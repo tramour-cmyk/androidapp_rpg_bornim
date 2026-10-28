@@ -1,4 +1,4 @@
-# 399.1 · Erschaffung wie im alten Spiel · Tom · 28.10., 15:56
+# 399.1 · Erschaffung wie im alten Spiel · Tom · 28.10., 16:13
 
 Kurz: Erschaffung als eine Seite wie im alten Spiel (Probe am Rechner)
 
