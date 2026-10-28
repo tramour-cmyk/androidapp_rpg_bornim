@@ -31,6 +31,7 @@ var ort_schild: Label                  # wohin der Ausgang fuehrt, neben dem Kno
 var lauf_knopf: AktionsKnopf             # 399.1 wie alt ActionButton(RUN, 58 dp): Stiefel, matt, solange er nicht rennt
 var kreuz_leiste: ColorRect              # 399.1 Klassisch (ClassicControls): Leiste unten, Steuerkreuz und Knoepfe
 var kreuz: Steuerkreuz
+var ausdauer_balken: Ausdauer.Balken      # 399.1 StaminaBar
 var ort: Label
 var mess: Label
 var textfeld: PanelContainer
@@ -139,6 +140,8 @@ func _ready() -> void:
 	textfeld.visible = false
 	textfeld.gui_input.connect(_text_tippen)
 	add_child(textfeld)
+	ausdauer_balken = Ausdauer.Balken.new()
+	add_child(ausdauer_balken)
 	# 399.1 Klassisch (ClassicControls): ueber der Welt, unter den Knoepfen und dem Textfeld; das Wahlfeld liegt darueber
 	kreuz_leiste = ColorRect.new()
 	kreuz_leiste.color = NACHTLICHT

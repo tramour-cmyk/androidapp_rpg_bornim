@@ -29,6 +29,7 @@ var rast_zweites := false
 var laden: Laden                                 # 390 (Mode.Shop): offen, bis „Schließen“
 var laden_notiz := ""
 var laden_menge := {}                            # 390 (59.5): ein Ding mit Menge {id, kaufen, n}; leer = Liste
+var laufen_will := false                        # 399.1 Ring oder Renntaste (Stamina.step run)
 var brett_offen := false                        # 399.1 Anschlagbrett (Mode.Board)
 var laden_stueck := ""                           # 399.1 (gearDialog): das Stueck Ausruestung im Kasten vor Kauf oder Verkauf
 var laden_frage := ""                            # 399.1 (59e, Rückfragen): die Wahl, die noch einmal fragt; "" = keine
@@ -48,7 +49,7 @@ func _ready() -> void:
 	ui.tippen.connect(_tippen)
 	ui.joystick.connect(func(v): if held: held.richtung = kamera.richtung(v))
 	ui.kneifen.connect(func(f, w): kamera.kneifen(f); kamera.drehe(w))
-	ui.laufen.connect(func(an): if held: held.laeuft = an)
+	ui.laufen.connect(func(an): laufen_will = an)   # 399.1 ob er rennt, entscheidet der Atem (Ausdauer.schritt)
 	ui.aktion.connect(_aktion)
 	ui.knopf.connect(_knopf)
 	ui.windrose.zurueck.connect(kamera.nach_norden)
@@ -936,6 +937,8 @@ func sichtbar_neu() -> void:
 # ---------------------------------------------------------------- Lauf
 func _process(dt: float) -> void:
 	if held == null: return
+	held.laeuft = Ausdauer.schritt(zustand, held_werte(), dt * 1000.0, held.geht(), laufen_will)   # 399.1 Stamina.step
+	ui.ausdauer_balken.z = zustand
 	Leute.still = ui.spricht()   # 390: wer spricht, bleibt stehen (Mode.Dialog)
 	if is_instance_valid(ziel_person) and not ui.spricht():
 		var nah := person_nah()
@@ -1197,14 +1200,14 @@ func held_film() -> void:
 			await get_tree().create_timer(2.5).timeout
 		var tag := "nacht" if nacht else "tag"
 		held.setze(Vector2i(6, 8), "RIGHT")            # Strasse im Norden: frei, nichts wird durchsichtig
-		held.laeuft = false
+		laufen_will = false
 		kamera.springe()
 		await get_tree().create_timer(1.0).timeout
 		await knips(dir + "/%s_stehen.png" % tag)
 		held.richtung = Vector3(1, 0, 0)
 		await get_tree().create_timer(1.0).timeout
 		await knips(dir + "/%s_gehen.png" % tag)
-		held.laeuft = true
+		laufen_will = true
 		for f in (20 if not nacht else 0):
 			await knips(dir + "/wechsel_%02d.png" % f)
 			await get_tree().create_timer(1.0 / 15.0).timeout
@@ -1213,7 +1216,7 @@ func held_film() -> void:
 		held.richtung = Vector3.ZERO
 	kamera.nah_fern()                               # nah, nachts: Fackel im Stehen, dann Rennen (ein Doppelschritt)
 	held.setze(Vector2i(6, 8), "RIGHT")
-	held.laeuft = false
+	laufen_will = false
 	kamera.springe()
 	await get_tree().create_timer(1.0).timeout
 	await knips(dir + "/nacht_nah_stehen.png")
@@ -1223,7 +1226,7 @@ func held_film() -> void:
 			await get_tree().create_timer(2.5).timeout
 		held.setze(Vector2i(6, 8), "RIGHT")
 		held.richtung = Vector3(1, 0, 0)
-		held.laeuft = true
+		laufen_will = true
 		await get_tree().create_timer(1.5).timeout
 		for f in 10:
 			await knips(dir + "/rennen_nah_%s_%02d.png" % ["nacht" if nacht else "tag", f])
