@@ -26,6 +26,15 @@ class TextExportTest {
     }
 
     @Test
+    fun restTextsForGodot() {
+        val rast = j["rast"]!!.jsonObject
+        assertEquals("Rasten?", rast["ask"]!!.jsonObject["de"]!!.jsonPrimitive.content)
+        assertEquals("Your spark has faded.", rast["sparkFaded"]!!.jsonObject["en"]!!.jsonPrimitive.content)
+        assertTrue(rast["roasted"]!!.jsonObject["de"]!!.jsonPrimitive.content.contains("{0}"))
+        assertTrue(rast.size >= 25, "nur ${rast.size} Texte")
+    }
+
+    @Test
     fun everyStoryGiftHasAName() {
         val dinge = j["dinge"]!!.jsonObject
         val einzel = j["einzelstuecke"]!!.jsonObject

@@ -22,6 +22,10 @@ var zustand := Zustand.new()                     # 390: Flaggen, Taschen, Gold (
 var szene: Array = []                            # 390: Befehle, die noch laufen (Game.queue)
 var ziel_person: Leute                           # 390: angetippte Person: beim Ankommen ansprechen
 var angebot_uhr := 0.0                           # 390: Knopf neu, wenn Leute herankommen oder gehen
+var werte: Heldwerte                             # 390 (Rast): TP und ZP des Helden (Hero), bis die Erschaffung ihn uebergibt
+var rast_ort := ""                               # 390 (Mode.Rest): Feld offen an "feuer", "schenke" oder "zimmer"
+var rast_notiz := ""
+var rast_zweites := false
 
 func _ready() -> void:
 	licht = Licht.new()
@@ -43,6 +47,7 @@ func _ready() -> void:
 	ui.knopf.connect(_knopf)
 	ui.windrose.zurueck.connect(kamera.nach_norden)
 	ui.gelesen.connect(weiter)
+	ui.gewaehlt.connect(_rast_wahl)
 	licht.nacht_geaendert.connect(_nacht)
 	Leute.uhr = func(): return zustand.minuten   # 390 Tagesablauf
 	betrete(START, START_KACHEL, "DOWN")
@@ -55,6 +60,7 @@ func _ready() -> void:
 	haeuser_blatt()
 	dorftiere_blatt()
 	tusche_nacht()
+	rast_probe()
 
 func betrete(id: String, t: Vector2i, blick: String) -> void:
 	if gebiet: gebiet.queue_free()
@@ -181,7 +187,7 @@ func vor_ihm(t: Vector2i) -> Vector2i:
 	if not karte.ausgang(t).is_empty(): return t
 	var vorn := Vector2i(roundi(sin(held.rotation.y)), roundi(cos(held.rotation.y)))
 	for d in [vorn] + NACHBARN:
-		if karte.tuer(t + d) or zeichen_lesbar(t + d): return t + d
+		if karte.tuer(t + d) or zeichen_lesbar(t + d) or rast_kachel(t + d) != "": return t + d
 	return Vector2i(-1, -1)
 
 # wie Navigation.actionAt: Ausgang und Tuer (auch verschlossen) ENTER, Schild READ; dazu actionPlace: wohin, wenn offen
@@ -192,6 +198,8 @@ func angebot(t: Vector2i) -> Array:
 	var z := vor_ihm(t)
 	if z.x < 0: return ["TALK", ""] if pv[0] else ["", ""]
 	if zeichen_lesbar(z): return ["READ", ""]
+	var rk := rast_kachel(z)
+	if rk != "": return ["REST" if rk in ["feuer", "zimmer"] else "LOOK", ""]
 	var a := karte.ausgang(z)
 	if bool(a["verschlossen"]): return ["ENTER", ""] if a.has("klopfen") else ["", ""]
 	return ["ENTER", Sprache.t(Karte.namen.get(String(a["ziel"]["karte"]), ""))]
@@ -207,6 +215,10 @@ func _aktion() -> void:
 	if zeichen_lesbar(z):
 		ui.sage([{"text": schild(z)}])
 		return
+	match rast_kachel(z):
+		"feuer", "zimmer": oeffne_rast(rast_kachel(z)); return
+		"hoehle": ui.sage([{"text": Sprache.t(Rast.FEUER_HOEHLE)}]); return
+		"bett": ui.sage([{"text": Sprache.t(Rast.FREMDES_BETT)}]); return
 	var a := karte.ausgang(z)
 	if bool(a["verschlossen"]):
 		var nachts := licht.nacht > 0.5
@@ -343,13 +355,110 @@ func weiter() -> void:
 				zustand.gold += int(c["anzahl"])
 				zeige({"text": Sprache.u("foundGold", [int(c["anzahl"])])})
 				return
-			"rast", "heilen":
-				pass   # TP, ZP, Ausdauer kommen mit dem Helden (390); Rast und Heilen warten in Kotlin auch nicht
+			"rast": Rast.heilen(zustand, held_werte(), platz())   # Cmd.Rest (Tempel): dazu der Wiederkehrort
+			"heilen": Rast.heilen(zustand, held_werte())
+			"schenke":   # Cmd.Tavern: Rowenas Theke; die Szene geht weiter, wenn das Feld zu ist (Game.advance)
+				oeffne_rast("schenke")
+				return
 			_:
 				# Kampf (Jerry 348.7), Laden, Schenke, Kapitelende, Tempelszene, Morgen: in Kotlin wartet die Szene dort; bis sie
 				# gebaut sind, endet sie hier, damit nichts danach (Flaggen, Saetze) ohne das Ereignis geschieht (Pruefer)
 				szene.clear()
 	if held: _steht_auf(held.kachel)
+
+# ---------------------------------------------------------------- Rast (390, RestScreen.kt, Game.rest)
+# was an Kachel t zu tun ist: Lagerfeuer (in der Hoehle nur ansehen), Bett der Schenke (anderswo fremd), sonst ""
+func rast_kachel(t: Vector2i) -> String:
+	match karte.zeichen(t):
+		"F": return "hoehle" if String(karte.daten.get("art", "")) == "CAVE" else "feuer"
+		"B": return "zimmer" if karte.id == "inn" else "bett"
+	return ""
+
+func held_werte() -> Heldwerte:
+	if werte == null: werte = Heldwerte.erschaffe(zustand.name, "HUMAN", "FIGHTER")
+	return werte
+
+func platz() -> Dictionary:
+	return {"karte": karte.id, "x": held.kachel.x, "y": held.kachel.y, "blick": held.blick()}
+
+func oeffne_rast(ort: String) -> void:
+	rast_ort = ort
+	rast_notiz = ""
+	rast_zweites = randf() < 0.5   # Rowena sagt das eine oder das andere
+	held.halt()
+	held.richtung = Vector3.ZERO
+	zeige_rast()
+
+# RestBody: Feuer kurz und lang; Theke Met und Zimmer; Bett Zimmer. Fleisch an Rowena verkaufen kommt mit dem Laden (Preis)
+func zeige_rast() -> void:
+	var z := zustand
+	var lang_ok := Rast.lange_erlaubt(z)
+	var titel := Sprache.r({"feuer": "ask", "schenke": "tavern", "zimmer": "room"}[rast_ort])
+	var zeilen_: Array = []
+	if rast_ort != "feuer": zeilen_.append("%s: %d" % [Sprache.u("gold"), z.gold])
+	if rast_ort == "schenke": zeilen_.append(Rast.rowena_sagt(z, held_werte().name, rast_zweites))
+	var k: Array = []
+	if rast_ort == "feuer":
+		k.append({"text": Sprache.r("short"), "info": Sprache.r("shortDoes"), "id": "kurz"})
+		k.append({"text": Sprache.r("long"), "info": Sprache.r("longDoes" if lang_ok else "longDone"), "an": lang_ok, "id": "lang"})
+	else:
+		if rast_ort == "schenke" and not z.betrunken():
+			var preis := Rast.met_preis(z)
+			k.append({"text": Sprache.r("meadBuy", [preis]), "info": Sprache.r("meadDoes"), "an": z.gold >= preis, "id": "met"})
+		k.append({"text": Sprache.r("roomBuy", [Rast.ZIMMER_PREIS]), "info": Sprache.r("roomDoes" if lang_ok else "longDone"),
+			"an": lang_ok and z.gold >= Rast.ZIMMER_PREIS, "id": "lang"})
+	ui.zeige_wahl(titel, zeilen_, k, Sprache.r("leave"), rast_notiz)
+
+func _rast_wahl(id: String) -> void:
+	if rast_ort == "": return
+	match id:
+		"":
+			rast_ort = ""
+			ui.schliesse_wahl()
+			weiter()
+			_steht_auf(held.kachel)
+		"met":
+			rast_notiz = Rast.met_trinken(zustand, held_werte().name)
+			zeige_rast()
+		"kurz", "lang":
+			await raste(id)
+
+# die Welt wird schwarz, die Zeit vergeht (Satz in Gold), dann die Welt zur neuen Stunde mit dem Satz der Rast
+func raste(art: String) -> void:
+	var ort := rast_ort
+	ui.schliesse_wahl()
+	await abblenden(1.0)
+	var satz := Label.new()
+	satz.text = Sprache.r("hourGone" if art == "kurz" else "hoursGone")
+	satz.add_theme_font_size_override("font_size", 40)
+	satz.add_theme_color_override("font_color", Steuerung.GOLD)
+	satz.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	satz.grow_horizontal = Control.GROW_DIRECTION_BOTH; satz.grow_vertical = Control.GROW_DIRECTION_BOTH
+	blende.add_child(satz)
+	await get_tree().create_timer(1.3).timeout
+	satz.queue_free()
+	var r := Rast.rasten(zustand, held_werte(), art, ort, platz())
+	if r.has("nein"):
+		rast_notiz = String(r["nein"])
+		await abblenden(0.0)
+		zeige_rast()
+		return
+	rast_ort = ""
+	var neu: Dictionary = r.get("ort", {})
+	if not neu.is_empty() and String(neu["karte"]) == karte.id: held.setze(Vector2i(int(neu["x"]), int(neu["y"])), String(neu["blick"]))
+	# Licht zur neuen Stunde (bis die Uhr das Licht fuehrt: Nacht 21-5 wie LISTE-UMZUG-348 „Stimmung“)
+	var nachts := zustand.minuten >= 21 * 60 or zustand.minuten < 5 * 60
+	if (licht.ziel > 0.5) != nachts: licht.umschalten()
+	kamera.springe()
+	await abblenden(0.0)
+	var zeilen_: Array = []
+	for t in r["zeilen"]: zeilen_.append({"text": t})
+	zeige_zeilen(zeilen_)
+
+func zeige_zeilen(z: Array) -> void:
+	held.halt()
+	held.richtung = Vector3.ZERO
+	ui.sage(z)
 
 # eine Zeile zeigen; der Held bleibt stehen wie in Mode.Dialog (Pruefer: lief mit dem Joystick weiter)
 func zeige(e: Dictionary) -> void:
@@ -388,9 +497,9 @@ func _process(dt: float) -> void:
 		ziel_stoss = Vector2i(-1, -1)
 		if (s - held.kachel).length_squared() == 1:
 			held.rotation.y = atan2(float(s.x - held.kachel.x), float(s.y - held.kachel.y))
-			if karte.tuer(s) or zeichen_lesbar(s): ui.biete_an.callv(angebot(held.kachel))
+			if karte.tuer(s) or zeichen_lesbar(s) or rast_kachel(s) != "": ui.biete_an.callv(angebot(held.kachel))
 			else: _stoesst(s)
-	zustand.uhr(dt)
+	if rast_ort == "": zustand.uhr(dt)   # 390: waehrend der Rast steht die Uhr; die Rast stellt sie selbst weiter
 	kamera.folge(minf(1.0, dt * 5.0))
 	ui.windrose.richte(kamera.nord_winkel())
 	gebiet.nah(kamera.nah, held.position)
@@ -852,3 +961,43 @@ func knips(p: String) -> void:
 	print("ZEICHNEN ", RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_DRAW_CALLS_IN_FRAME), " Aufrufe ", RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_PRIMITIVES_IN_FRAME), " Dreiecke")
 	if leute: print("LEUTE ", leute.get_children().map(func(l): return "%s %s %s" % [l.daten["id"], l.kachel, l.anim.current_animation if l.anim else "-"]))
 	print("BILD ", p, " Held ", held.kachel, " ", held.position, " Kamera ", kamera.position, " Text ", ui.textfeld.visible, " '", ui.text.text, "' Knopf ", ui.aktion_knopf.visible, " ", ui.aktion_knopf.zeichen, " '", ui.ort_schild.text, "' durchsichtig ", gebiet.gruppen.keys().filter(func(k): return gebiet.gruppen[k]["a"] < 1.0))
+
+# 390 (Rast) am Rechner: --rastprobe oeffnet das Feuer und die Theke, waehlt und schreibt den Stand je Schritt (ohne Bild);
+# Ende mit quit. Gegenprobe der Regeln: tests/rast_test.gd
+func rast_probe() -> void:
+	if not "--rastprobe" in OS.get_cmdline_user_args(): return
+	await get_tree().create_timer(0.5).timeout
+	var h := held_werte()
+	var log := func(was: String) -> void:
+		var knoepfe := ui.wahl_box.get_children().filter(func(c): return c is Button).map(func(b): return "%s%s" % [b.text, "" if not b.disabled else " (aus)"])
+		print("RASTPROBE %s | Feld %s %s | Text %s '%s' | Tag %d %02d:%02d | TP %d/%d | Gold %d | Met %d | Nacht %s" % [was, ui.waehlt(), knoepfe,
+			ui.spricht(), ui.text.text, zustand.tag, zustand.minuten / 60, zustand.minuten % 60, h.tp, h.max_tp(), zustand.gold, zustand.met, licht.ziel > 0.5])
+	h.tp = 1
+	zustand.minuten = 20 * 60
+	oeffne_rast("feuer")
+	log.call("Feuer offen")
+	ui.gewaehlt.emit("kurz")
+	await get_tree().create_timer(3.0).timeout
+	log.call("nach kurz")
+	ui.naechste()
+	log.call("Zeile weg")
+	oeffne_rast("feuer")
+	ui.gewaehlt.emit("lang")
+	await get_tree().create_timer(3.0).timeout
+	log.call("nach lang")
+	ui.naechste()
+	oeffne_rast("feuer")
+	log.call("Feuer wieder")
+	ui.gewaehlt.emit("")
+	log.call("Weiter")
+	zustand.gold = 12
+	spiele([{"art": "schenke"}, {"art": "sagen", "text": {"de": "Nach der Theke.", "en": "After the counter."}}])
+	log.call("Theke")
+	for i in 5: ui.gewaehlt.emit("met")
+	log.call("fuenf Met")
+	ui.gewaehlt.emit("lang")
+	await get_tree().create_timer(3.0).timeout
+	log.call("Zimmer heute")
+	ui.gewaehlt.emit("")
+	log.call("Theke zu")
+	get_tree().quit()

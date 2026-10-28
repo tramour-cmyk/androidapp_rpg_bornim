@@ -36,6 +36,13 @@ static func u(schluessel: String, werte: Array = []) -> String:
 	for i in werte.size(): s = s.replace("{%d}" % i, str(werte[i]))
 	return s
 
+# 390 (Rast): Text der Rast nach Schluessel (Resting.shortRested -> "shortRested"), Platzhalter wie u
+static func r(schluessel: String, werte: Array = []) -> String:
+	lade()
+	var s := t(texte.get("rast", {}).get(schluessel, schluessel))
+	for i in werte.size(): s = s.replace("{%d}" % i, str(werte[i]))
+	return s
+
 # Name eines Dings fuer "Erhalten: …" wie Game.runQueue (Cmd.Give): Einzelstueck mit Seltenheit, sonst Anzahl und Name
 static func ding(id: String, anzahl: int = 1) -> String:
 	lade()

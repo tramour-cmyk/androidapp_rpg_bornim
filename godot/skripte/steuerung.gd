@@ -11,6 +11,7 @@ signal aktion
 signal laufen(an: bool)
 signal knopf(was: String)
 signal gelesen                          # 390: Textfeld zu, die Szene geht weiter (Game.advance)
+signal gewaehlt(id: String)             # 390 (Rast): Knopf im Wahlfeld, "" = Weiter
 
 const GOLD := Color(0.86, 0.68, 0.32)
 const JOY := 94.0 * AktionsKnopf.DP          # 131 (alt StickFeel.runAt, mittel): im Ring gehen, darueber hinaus laufen
@@ -35,6 +36,8 @@ var zeilen: Array = []
 var lauf_an := false
 var ring_lauf := false
 var windrose: Windrose
+var wahl_grund: ColorRect               # 390 (RestScreen): die Welt gedimmt dahinter, nicht zu beruehren
+var wahl_box: VBoxContainer
 var oben: VBoxContainer                 # Probeknoepfe (Tag/Nacht, Nah/Fern, Drehen): gibt es im alten Spiel nicht, in Vergleichsbildern aus
 
 func _ready() -> void:
@@ -105,6 +108,21 @@ func _ready() -> void:
 	textfeld.visible = false
 	textfeld.gui_input.connect(_text_tippen)
 	add_child(textfeld)
+	wahl_grund = ColorRect.new()
+	wahl_grund.color = Color(0, 0, 0, 0.6)                      # alt 0x99000000
+	wahl_grund.set_anchors_preset(Control.PRESET_FULL_RECT)
+	wahl_grund.mouse_filter = Control.MOUSE_FILTER_STOP
+	wahl_grund.visible = false
+	add_child(wahl_grund)
+	var wahlfeld := PanelContainer.new()
+	wahlfeld.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+	wahlfeld.offset_left = 30; wahlfeld.offset_right = -30; wahlfeld.offset_bottom = -60
+	wahlfeld.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	wahlfeld.add_theme_stylebox_override("panel", rahmen())
+	wahl_grund.add_child(wahlfeld)
+	wahl_box = VBoxContainer.new()
+	wahl_box.add_theme_constant_override("separation", 14)
+	wahlfeld.add_child(wahl_box)
 	text = Label.new()
 	text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	text.add_theme_font_size_override("font_size", 36)
@@ -153,7 +171,7 @@ func rahmen_knopf(a: float) -> StyleBoxFlat:
 # z: Zeichen wie ActionKind (ENTER, READ, LOOK, TALK, OPEN), "" = nichts; wohin: Name des Ziels oder ""
 func biete_an(z: String, wohin: String = "") -> void:
 	aktion_knopf.setze(z)
-	aktion_knopf.visible = z != "" and not textfeld.visible
+	aktion_knopf.visible = z != "" and not textfeld.visible and not wahl_grund.visible
 	ort_schild.text = wohin
 	ort_schild.visible = wohin != "" and aktion_knopf.visible
 
@@ -163,6 +181,50 @@ func sage(neu: Array) -> void:
 	naechste()
 
 func spricht() -> bool: return textfeld.visible
+
+# ---------------------------------------------------------------- Wahlfeld (390, RestScreen): Titel gold, Zeilen darunter,
+# je Wahl ein Knopf und darunter matt, was sie tut oder warum nicht; unten „Weiter“
+# knoepfe: [{text, info, an, id}]; notiz: Antwort auf die letzte Wahl (Met, kein Gold)
+func zeige_wahl(titel: String, zeilen_: Array, knoepfe: Array, weiter_text: String, notiz: String = "") -> void:
+	for c in wahl_box.get_children():
+		wahl_box.remove_child(c)
+		c.queue_free()
+	var t := Label.new()
+	t.text = titel
+	t.add_theme_font_size_override("font_size", 44)
+	t.add_theme_color_override("font_color", GOLD)
+	wahl_box.add_child(t)
+	for z in zeilen_ + ([notiz] if notiz != "" else []):
+		var l := Label.new()
+		l.text = String(z)
+		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		l.add_theme_font_size_override("font_size", 30)
+		l.add_theme_color_override("font_color", Color(0.93, 0.88, 0.76))
+		wahl_box.add_child(l)
+	for k in knoepfe + [{"text": weiter_text, "id": ""}]:
+		var b := knopf_neu(String(k["text"]), Vector2(0, 96), 32)
+		b.disabled = not bool(k.get("an", true))
+		var id := String(k["id"])
+		b.pressed.connect(func(): gewaehlt.emit(id))
+		wahl_box.add_child(b)
+		if k.has("info"):
+			var l := Label.new()
+			l.text = String(k["info"])
+			l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			l.add_theme_font_size_override("font_size", 26)
+			l.add_theme_color_override("font_color", Color(0.62, 0.58, 0.50))   # Colors.textDim
+			wahl_box.add_child(l)
+	if unten or zieht:
+		unten = false; zieht = false; joy_v = Vector2.ZERO
+		joystick.emit(joy_v)
+		ring(false)
+		zeichner.queue_redraw()
+	wahl_grund.visible = true
+	aktion_knopf.visible = false
+	ort_schild.visible = false
+
+func schliesse_wahl() -> void: wahl_grund.visible = false
+func waehlt() -> bool: return wahl_grund.visible
 
 func naechste() -> void:
 	if zeilen.is_empty():
@@ -214,6 +276,7 @@ func _zeichne_joy() -> void:
 	zeichner.draw_circle(joy_von + joy_v * JOY * 1.15, 46, Color(GOLD, 0.55))
 
 func _unhandled_input(e: InputEvent) -> void:
+	if wahl_grund.visible: return
 	if textfeld.visible:
 		if e is InputEventScreenTouch: _tipp_text(e as InputEventScreenTouch)
 		return

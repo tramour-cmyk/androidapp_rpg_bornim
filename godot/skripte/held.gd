@@ -63,6 +63,13 @@ func setze(t: Vector2i, blick := "DOWN") -> void:
 	kachel = t
 	steht_auf.emit(t)
 
+# 390 (Rast: Wiederkehrort wie Place.facing): die naechste der vier Richtungen von setze
+func blick() -> String:
+	var w := wrapf(rotation.y, -PI, PI)
+	if absf(w) <= PI / 4: return "DOWN"
+	if absf(w) >= 3 * PI / 4: return "UP"
+	return "RIGHT" if w > 0 else "LEFT"
+
 func geh_zu(ziel: Vector3) -> void:
 	var b := karte.pos_kachel(ziel)
 	var ids := karte.weg(karte.pos_kachel(position), b)

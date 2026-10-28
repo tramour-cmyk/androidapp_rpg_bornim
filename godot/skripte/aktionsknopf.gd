@@ -79,6 +79,23 @@ func _draw() -> void:
 			draw_style_box(sb, b)
 			zug.call([Vector2(11, 16), Vector2(7, 20.5), Vector2(8, 16)])
 			for x in [8.0, 12.0, 16.0]: punkt.call(x, 10, 0.9)
+		"REST":
+			# 390 (ActionSigns.REST): eine Flamme ueber zwei gekreuzten Scheiten
+			var qb := func(p0: Vector2, p1: Vector2, p2: Vector2) -> Array:
+				var pts: Array = []
+				for i in range(1, 13):
+					var t := i / 12.0
+					pts.append(p0.lerp(p1, t).lerp(p1.lerp(p2, t), t))
+				return pts
+			var flamme: Array = [Vector2(12, 3)]
+			flamme.append_array(qb.call(Vector2(12, 3), Vector2(18, 10), Vector2(12, 15.5)))
+			flamme.append_array(qb.call(Vector2(12, 15.5), Vector2(6, 10), Vector2(12, 3)))
+			zug.call(flamme)
+			var kern: Array = [Vector2(12, 8.5)]
+			kern.append_array(qb.call(Vector2(12, 8.5), Vector2(14.5, 12), Vector2(12, 14)))
+			kern.append_array(qb.call(Vector2(12, 14), Vector2(9.5, 12), Vector2(12, 8.5)))
+			zug.call(kern, false, duenn)
+			l.call(5, 20.5, 19, 16.5); l.call(5, 16.5, 19, 20.5)
 		"OPEN":
 			# eine Truhe: Kasten, gewoelbter Deckel, Baender, Schloss
 			zug.call([Vector2(3, 11.5), Vector2(21, 11.5), Vector2(21, 20.5), Vector2(3, 20.5)], true)
