@@ -1,12 +1,14 @@
 # 385.1 am Rechner (nach rechner.sh, add_repo bornim-kaufmodelle): Grundbewegungen des Protofactor-Zauberer-Sets auf den Kaufkoerper
 # (zauber385.py, gemeinsame Ruhelage aus dem Stehen), Stab (stab385.py), Figuren und Dorf wie figuren_lauf.sh, Zauberfeuer aus Jerrys
 # kampf/ (zauber.gd, tafel.gd), Film figurenprobe.gd --teil=zauber2 und figuren_film.py.
-# Aufruf: bash zauber_lauf.sh [ablage]  -> <ablage>/aus/385-zauberer-grund.mp4
+# Aufruf: bash zauber_lauf.sh [ablage]  -> <ablage>/aus/385-zauberer-grund.mp4, <ablage>/aus/einzeln/385-<nr>-<bewegung>.mp4 (385.1, je Bewegung gross)
+# Actions (godot.yml, Zweig claude/tom-348-385-film): KAUF=<kauf_laden.sh-Ziel> REPO=<checkout> BL=<python mit bpy>, ohne gh api
 set -e
 A=${1:-/home/user/q376}
 K=$A/kauf; S=$A/aus; O=$A/out; G=$A/godot; Z=$A/zauber
-R=/home/user/t385; B=~/bl/bin/python
+R=${REPO:-/home/user/t385}; B=${BL:-~/bl/bin/python}
 mkdir -p $K/src $S $O $Z/glb
+if [ -n "${KAUF:-}" ]; then SRC=$KAUF/anhang; WIZ=$KAUF/anhang; else SRC=$K/src; WIZ=$Z/wiz
 # Universal Base Characters Source, Modular Character Outfits Source, UAL Pro, Zauberer-Set
 for id in 681384045 681373666 678371987; do
   [ -f $K/$id.ok ] || { gh api -H "Accept: application/octet-stream" repos/tramour-cmyk/bornim-kaufmodelle/releases/assets/$id > $K/$id.zip \
@@ -30,21 +32,24 @@ for g, b in inhalt.items():
 PY
   : > $Z/wiz.unitypackage && touch $Z/wiz.ok
 fi
-UAL=$(find $K/src/678371987 -path "*Unreal-Godot/UAL1.glb" | head -1)
-RU=$(find $Z/wiz -name "Humanoid@IdleWizard.fbx" | head -1)
+fi
+UAL=$(find $SRC -path "*Unreal-Godot/UAL1.glb" | sort | head -1)
+RU=$(find $WIZ -name "Humanoid@IdleWizard.fbx" | head -1)
+[ -n "$UAL" ] && [ -n "$RU" ] || { echo "Kaufteile fehlen: UAL=$UAL RU=$RU"; exit 1; }
 NAMEN="IdleWizard IdleLookAroundWizard WalkForwardWizard CrouchIdleWizard DodgeLeftWizard GetHitFrontHeavyWizard DeathBackWizard GetBackUpBackWizard CastSpell4Wizard CastSpell6Wizard"
 for n in $NAMEN; do
-  [ -f $Z/glb/Zauber_$n.glb ] || { Q=$(find $Z/wiz -name "Humanoid@$n.fbx" | head -1)
+  [ -f $Z/glb/Zauber_$n.glb ] || { Q=$(find $WIZ -name "Humanoid@$n.fbx" | head -1)
     RUHE="$RU" QUELLE="$Q" ZIEL=$UAL NAME=Zauber_$n OUT=$Z/glb/Zauber_$n.glb $B -I $R/tools/blender348/v3/zauber385.py 2>&1 | grep -E "ABWEICHUNG|ZAUBER385" & }
 done
 wait
-[ -f $Z/stab.glb ] || QUELLE="$(find $Z/wiz -name SM_WizardStaffProp.fbx | head -1)" OUT=$Z/stab.glb $B -I $R/tools/blender348/v3/stab385.py | grep STAB385
-[ -d $A/fig ] || Q=~/cc0 KAUF=$K/src OUT=$A/fig $B -I $R/tools/blender348/v3/quaternius.py | grep -E "FIGUR|FEHLT|OK"
+[ -f $Z/stab.glb ] || QUELLE="$(find $WIZ -name SM_WizardStaffProp.fbx | head -1)" OUT=$Z/stab.glb $B -I $R/tools/blender348/v3/stab385.py | grep STAB385
+[ -d $A/fig ] || Q=~/cc0 KAUF=$SRC OUT=$A/fig $B -I $R/tools/blender348/v3/quaternius.py | grep -E "FIGUR|FEHLT|OK"
 cd $R
 [ -f $O/karten.json ] || ./gradlew -p core exportMaps -Pout=$O/karten.json -q
 export KARTEN=$O/karten.json
 for s in tex held3 rig dorf; do [ -f $O/.$s ] || { OUT=$O $B -I tools/blender348/v3/$s.py > $O/$s.log 2>&1 && touch $O/.$s; } || { tail -30 $O/$s.log; exit 1; }; done
 rm -rf $G && mkdir -p $G && cp -r $R/godot/. $G/ && D=$G/daten && mkdir -p $D/waffen $G/kampf
+git rev-parse -q --verify origin/claude/jerry-348-kampf > /dev/null || git fetch -q origin claude/jerry-348-kampf:refs/remotes/origin/claude/jerry-348-kampf
 for f in zauber.gd tafel.gd tafel.gdshader; do git show origin/claude/jerry-348-kampf:godot/kampf/$f > $G/kampf/$f; done
 cp $O/karten.json $D/; cp $O/held.glb $D/held.bin; cp $O/held-info.json $D/
 cp $O/dorf.glb $D/dorf.bin; cp $O/dorf-info.json $D/
@@ -61,3 +66,4 @@ VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 2400 xvfb-run -a -
 grep -h "SCRIPT ERROR\|ERROR" $A/godot_zauber2.log | head -5 || true
 grep -E "ZAUBER|STAB|^[0-9]{2} " $A/bild_zauber2/probe.txt || true
 DURCHLAEUFE=1 LUPE=2 python3 -I $R/tools/pruef348/figuren_film.py $A/bild_zauber2/film $S/385-zauberer-grund.mp4
+EINZELN=1 python3 -I $R/tools/pruef348/figuren_film.py $A/bild_zauber2/film $S/einzeln

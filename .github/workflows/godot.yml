@@ -10,6 +10,8 @@ on:
 
 jobs:
   apk:
+    # 385.1: auf dem Filmzweig nur der Film (Job zauber385), kein APK
+    if: github.ref_name != 'claude/tom-348-385-film'
     runs-on: ubuntu-24.04
     env:
       GODOT: "4.7.2"
@@ -148,3 +150,67 @@ jobs:
           name: bornim-godot-bilder
           path: bilder/
           if-no-files-found: ignore
+
+  # 385.1 (Chef 28.10., 16:16: Film zu klein, fehlt in bilder): Zauberer-Set je Bewegung als eigener grosser Film (zauber_lauf.sh);
+  # Kaufteile wie im APK-Job ueber KAUF_TOKEN (add_repo in der Sitzung gesperrt), nie als Artefakt; die Filme (gerendert, ohne
+  # Rohdateien) gehen auf einen eigenen Zweig claude/tom-385-film-aus-<lauf>, von dort legt meldung.sh sie in „bilder“ ab
+  zauber385:
+    if: github.ref_name == 'claude/tom-348-385-film'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    permissions:
+      contents: write
+    env:
+      GODOT: "4.7.2"
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Gekaufte Modelle (privat)
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+        run: |
+          echo "KAUF=$RUNNER_TEMP/kauf" >> $GITHUB_ENV
+          bash tools/blender348/kauf_laden.sh $RUNNER_TEMP/kauf
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/cache@v4
+        with:
+          path: bl
+          key: bpy-5.2.3-${{ runner.os }}
+      - name: Blender als Python-Modul, Vulkan in Software
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libsm6 libxkbcommon0 mesa-vulkan-drivers xvfb ffmpeg > /dev/null
+          [ -x bl/bin/python ] || { python -m venv bl && bl/bin/pip -q install bpy==5.2.3 numpy pillow; }
+          python3 -m pip -q install pillow
+      - uses: actions/cache@v4
+        with:
+          path: ~/cc0
+          key: cc0-quaternius-1
+      - name: CC0-Pakete (Quaternius)
+        run: |
+          [ -n "$(find ~/cc0 -name UAL1_Standard.glb 2>/dev/null)" ] || bash tools/blender348/v3/cc0_laden.sh ~/cc0
+      - uses: actions/cache@v4
+        with:
+          path: ~/godot
+          key: godot-${{ env.GODOT }}
+      - name: Godot
+        run: |
+          mkdir -p ~/godot && cd ~/godot
+          [ -f godot ] || { curl -sSL -o g.zip https://github.com/godotengine/godot/releases/download/$GODOT-stable/Godot_v$GODOT-stable_linux.x86_64.zip && unzip -q g.zip && mv Godot_v$GODOT-stable_linux.x86_64 godot && rm g.zip; }
+      - name: Zauberer-Film je Bewegung
+        run: |
+          [ -n "$(ls $KAUF/anhang 2>/dev/null)" ] || { echo "keine Kaufteile (KAUF_TOKEN)"; exit 1; }
+          REPO=$GITHUB_WORKSPACE BL=$GITHUB_WORKSPACE/bl/bin/python bash tools/pruef348/zauber_lauf.sh $RUNNER_TEMP/q
+          cat $RUNNER_TEMP/q/bild_zauber2/probe.txt || true
+          ls -l $RUNNER_TEMP/q/aus $RUNNER_TEMP/q/aus/einzeln
+      - name: Filme auf eigenen Zweig
+        run: |
+          cd $RUNNER_TEMP/q/aus && mkdir -p ab && cp einzeln/*.mp4 ab/ && cp 385-zauberer-grund_mitte.png ab/ 2>/dev/null || true
+          cd ab && git init -q && git checkout -q -b f && git add . \
+            && git -c user.name=tramour -c user.email=tramour@gmail.com commit -qm "385.1 Filme je Bewegung (Lauf $GITHUB_RUN_NUMBER)" \
+            && git push -q https://x-access-token:${{ github.token }}@github.com/${{ github.repository }} f:refs/heads/claude/tom-385-film-aus-$GITHUB_RUN_NUMBER

@@ -40,6 +40,43 @@ except OSError:
     font = klein = ImageFont.load_default()
 tmp = tempfile.mkdtemp()
 cache = {}
+
+# 385.1 (Chef 28.10., 16:16: Film zu klein): EINZELN=1 -> ZIEL ist ein Ordner, je Feld ein eigener Film in voller Feldgroesse
+# (680 x 1040, Zauber 1080 breit), zweimal Echtzeit, dann zweifach langsamer; jeder unter 20 MB, damit meldung.sh ihn in „bilder“ ablegt
+def einzeln():
+    HALT = 15
+    os.makedirs(ZIEL, exist_ok=True)
+    for nr, fig, bew, bilder, schleife, quelle in felder:
+        if not bilder: print('FEHLT', nr, bew); continue
+        q0 = Image.open(bilder[0])
+        bw, bh = q0.width + q0.width % 2, q0.height + q0.height % 2
+        m = len(bilder)
+        folge = []
+        for d in range(2):
+            for i in range(m): folge.append((i, 'Echtzeit, Durchlauf %d von 2' % (d + 1)))
+            if not schleife:
+                for _ in range(HALT): folge.append((m - 1, 'Echtzeit, Pause'))
+        for i in range(2 * m): folge.append((i // 2, 'Zeitlupe, zweifach langsamer'))
+        if not schleife:
+            for _ in range(HALT): folge.append((m - 1, 'Zeitlupe, Ende'))
+        d = tempfile.mkdtemp()
+        for fnr, (i, leiste) in enumerate(folge):
+            bild = Image.new('RGB', (bw, LEISTE + KOPF + bh), (12, 10, 8))
+            dr = ImageDraw.Draw(bild)
+            dr.text((10, 8), leiste, font=font, fill=(214, 178, 92))
+            dr.rectangle([0, LEISTE, bw - 1, LEISTE + KOPF - 1], fill=(0, 0, 0))
+            dr.text((6, LEISTE + 3), '%s  %s' % (int(nr), bew), font=font, fill=(214, 178, 92))
+            dr.text((6, LEISTE + 24), '%s · %s' % (NAMEN.get(fig, fig), quelle), font=klein, fill=(220, 214, 200))
+            bild.paste(Image.open(bilder[i]).convert('RGB'), (0, LEISTE + KOPF))
+            bild.save(os.path.join(d, 'f%05d.png' % fnr))
+        z = os.path.join(ZIEL, '%s-%02d-%s.mp4' % (os.environ.get('VORGANG', '385'), int(nr), bew.lower()))
+        subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-framerate', '30', '-i', os.path.join(d, 'f%05d.png'), '-vf', 'format=yuv420p',
+                        '-c:v', 'libx264', '-crf', os.environ.get('CRF', '20'), '-g', '60', '-movflags', '+faststart', z], check=True)
+        print('FILM', z, len(folge), 'Bilder,', os.path.getsize(z) // 1024, 'KB')
+
+if os.environ.get('EINZELN'):
+    einzeln()
+    sys.exit(0)
 # Helfer Film 14:58: Schleifen ruckten beim Neubeginn jedes Durchlaufs (Laenge 50, 75, 81 statt 90): Schleifen zaehlen ueber den ganzen
 # Film weiter (j), Einzelbewegungen beginnen je Durchlauf neu und halten vorher kurz das Ende; Leiste oben sagt Echtzeit oder Zeitlupe
 HALT = 15
