@@ -8,7 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | gebaut 0b773829c, 3b9fb3116: Kampfmenü (Test 133), Wolf durch Wolf, Beute; Testpunkte in Toms nächstem Testbogen; Chefsache 399.2c, 399.2d | `claude/jerry-348-kampf` |
+| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | in Arbeit: Menü 0b773829c, Beute 3b9fb3116; Wolf durch Wolf offen (Tom 17:42: −0,92 m auch ohne Kaufwolf); Ursache braucht Godot, Chefsache 399.2d | `claude/jerry-348-kampf` |
 | 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | wartet auf Homer: Text fürs Knurren (Vorrat Kreativ 399.2b); 50 % und Knurren ohne Ansage gebaut e5c207b71, in Toms Testfassung | – |
 | 399.3 | M | **von Chef (28.10., 16:42):** Klang in die Spielfassung (Umzug „Musik, Klang“) | in Arbeit: Lauf 135 rot, behoben a0b137208; Stufe 3 Orts-, Raumklang 356d1b5f2; zweiter Lauf läuft | `claude/jerry-348-klang` |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: Tusche passt (Chef 12:31); im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
