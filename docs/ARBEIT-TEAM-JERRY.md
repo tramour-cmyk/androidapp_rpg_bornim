@@ -8,7 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | in Arbeit: r5 gebaut (43b379b2e), Fehlerprüfung läuft, dann Vorlage |
+| 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | wartet auf Chef: r5 (ansehen/387-kauftiere, Film), Frage je Tier; Fleck beim Drehen im Code (Pfotenhalt), nicht gefilmt |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | wartet auf Chef: r8 (ansehen/34812f-biss, Film), Frage Biss so oder etwa 12 cm zurück; Pfotenfleck beim Drehen im Code behoben (Pfotenhalt), nicht gefilmt; offen Ratte Heimweg, Gleiten, Beine | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: Chef 08:09 (Archiv): Grak „sieht gar nicht gut aus“, Kobolde „wie ‚das Ding‘ aus einem John-Carpenter-Film“; **erst die Gestalt, dann Bewegung** (Chef 08:10, Archiv): Hieb, Gehen ruhen; Gestalt nachbessern, dann ein Film: beide nah, Augenhöhe, ganzer Körper, drehend; dazu welches Modell, welche Texturen | `claude/jerry-348-kampf` |
 | 348.13a | M | **von Team Tom (Chef 08:09, Archiv: r9 ja):** Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13a) | startbar | `claude/jerry-348-kampf` |
