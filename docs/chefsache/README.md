@@ -29,6 +29,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [391](tun/391-repo-umgebung.md) | **Muss** | B Werkzeuge | 28.10. | Zweit-Repo fest in die Umgebung „WireStorm Hoch“ eintragen | Sokrates |
 | [386](tun/386-github-2fa.md) | **Muss** | B Werkzeuge | 27.10., 21:05 | GitHub: Zwei-Faktor-Anmeldung einschalten (bis 11.12.2026) | Perikles |
 | [142](tun/142-pflichttest.md) | **Muss** | M Veröffentlichung | 27.10., 20:07 | Pflichttest Play Store: Gewerbeschein melden | Sokrates |
 
@@ -131,10 +132,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 27, Muss 19, startbar 3
+**Sokrates** – offen 28, Muss 20, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 391 | M | von Chef (28.10., 09:21): Repos dauerhaft ohne Ablehnung | Chef |
 | 383.2 | M | von Chef (27.10., 19:24, „wo steckt jetzt hier wieder die Wahrheit? Und wer hat damit gepr | Termin 31.10. |
 | 383 | M | von Chef (27.10., 17:44, „Sollen wir einfach aufhören damit?“; 17:47 Vorschlag „nicht grif | Termin 31.10. |
 | 376 | M | von Chef (27.10., 12:00): Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Tom |
