@@ -150,6 +150,8 @@ jobs:
           cp $RUNNER_TEMP/kw/kaufwolf-info.json $D/
           # 399.2 Grak, soweit fertig (348.12 Gestalt mit Gehen, Hieb, Treffer, Tod, 1d6618d74): Quaternius-Teile (CC0, cc0_laden.sh von
           # Toms Zweig), Tod aus der gekauften UAL Pro (Death02), darum auch verschlüsselt; ohne Kaufdateien Death01
+          # Lauf 160–162: e457d6d8b fehlte im flachen Checkout (fatal: invalid object name); erst holen wie im Schritt 348.12
+          git fetch -q --depth 1 origin e457d6d8b9ea1ec8a5d7ebc2a7a87be08d6ad73d || git fetch -q origin claude/tom-376-1-figuren
           git show e457d6d8b:tools/blender348/v3/cc0_laden.sh > $RUNNER_TEMP/cc0_laden.sh
           bash $RUNNER_TEMP/cc0_laden.sh $RUNNER_TEMP/cc0 > cc0.log 2>&1 || { tail -5 cc0.log; exit 1; }
           PRO=$(find $RUNNER_TEMP/kaufroh -path '*Unreal-Godot/UAL1.glb' | head -1)
