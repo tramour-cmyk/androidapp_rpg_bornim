@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (28.10., 17:45, `session_01Hmoj76Rmjqu578uucWVaen`):** 385.1 über Actions (`add_repo` gesperrt): Zweig `claude/tom-348-385-film`, Job `zauber385`, Lauf 134 (Run 40722034654) legt die Filme auf `claude/tom-385-film-aus-134`. 399.1 bb494c077: Benutzen, Ausrüstung, System, Chronik; Jerrys 0b773829c gemischt. Nachfolger: Tom – 385 Filme senden, 399.1 Karte.
+**Übergabe (28.10., 18:57, `session_01Hmoj78DBWYJa6zFir6Su8N`):** 385.1 zwölf Filme gesendet (Chefsache 3851, Prüferbefund: kein Feuer in 8, 9). Build 137 (t137) mit Karte, Klang, Reglern, 133.7. Danach auf `claude/tom-399-spielfassung` bis 7359b3107: Schritte, Helligkeit, Vergleich ▲▼, Attribut-Erklärung, Beute, Siege, Geräteangaben. Nachfolger: Tom – 399.1 Rest (System Bedienung), Urteile 385.1 und t137.
 
 ## Zeilen
 
