@@ -47,26 +47,26 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:37–06:35 27.10.: Neustarts angenommen und Nachfolger gestartet: Tom 01:46, 02:33, 02:57, 03:23, 03:51, 04:16, 04:43, 05:01, 05:20, 05:44, 06:03, 06:35, 07:21; Jerry 01:37, 02:42, 03:25, 04:57; Jerry 05:55 zurückgestellt (wartet auf Chefsache 3487a). Läufe 02:03, 03:03 ohne Starts; START Perikles (Terminname) nicht ausgeführt
 - 25.10., 09:35–21:05: Neustarts Tom/Jerry/Sokrates angenommen; Perikles 364 und Sokrates 340.2 gestartet; Sparbetrieb und Max 20x (Verlauf in Git)
 
+- 22:07 28.10.: Perikles `01Hmoj77Hj` gestartet (400, Chef über Sokrates), alter Perikles `01Hmoj76yC` archiviert (3,05 $ auf 399). Ford-Lücke: Homer 399.2b (Sokrates-Zeile 15:32) startbar, aber erst 19:06 gestartet; ab jetzt jeden Lauf startbar.py gegen laufende Sitzungen prüfen, nicht nur auf Meldungen warten.
+- 21:41 28.10.: Jerry `01Hmoj775u` gestartet (399.3 Keuchen auf Zuruf Sokrates/Chef), alter Jerry `01Hmoj77PX` archiviert (14,85 $ auf 399.3, 399.2); Tom `01Hmoj75YJ` mit Aktionsknopf-Hinweis angestoßen.
+- 21:33 28.10.: Neustart Tom 9eabc83d1: Nachfolger `01Hmoj75YJ` gestartet, alter Tom `01Hmoj78eP` archiviert (13,76 $ auf 399.1).
+- 20:45 28.10.: Neustart Tom fb048b94a: Nachfolger `01Hmoj78eP` gestartet, alter Tom `01Hmoj79LB` archiviert (28,01 $ auf 399.1).
+- 19:06 28.10.: Homer `01Hmoj77EQ` gestartet (399.2b Kampfansage Jungwolf, Muss startbar, keine Sitzung).
+- 19:00 28.10.: Neustart Tom e930f681e: Nachfolger `01Hmoj79LB` gestartet, alter Tom `01Hmoj78DB` archiviert (20,91 $ auf 385, 399.1).
+- 18:43 28.10.: Neustart Jerry 32bc6415d: Nachfolger „Jerry – 399.2 Wolf durch Wolf“ nicht gestartet (399.2 wartet auf Chefsache 399.2d, Datei vorhanden; startbar.py zeigt 399.2 fälschlich startbar); alter Jerry `01Hmoj77PX` bleibt idle.
+- 18:06 28.10.: alter Tom `01Hmoj76Rm` archiviert (16,58 $ auf 385, 399.1).
+- 17:44 28.10.: Neustart Tom a29e7a4ee: Nachfolger `01Hmoj78DB` gestartet (alter Tom `01Hmoj76Rm` läuft noch, archivieren sobald idle, 8,44 $ bisher); alter Jerry `01Hmoj79BF` archiviert (16,86 $ auf 399.2,399.2b,399.3).
+- 17:28 28.10.: Neustart Jerry 8aefbb7b1: Nachfolger `01Hmoj77PX` gestartet; alter Jerry `01Hmoj79BF` archivieren, sobald idle (5,99 $ bisher, Kosten 399.2,399.2b,399.3).
+- 17:08 28.10.: alter Sokrates `01Hmoj78fq` archiviert (23,05 $, Kosten auf 385,387,396a,397,398,399).
+- 16:52 28.10.: Neustart Tom bc486f1d9: Nachfolger `01Hmoj76Rm` gestartet, alter Tom `01Hmoj78yY` archiviert (25,48 $ auf 399.1, 399a, 395a).
+- 16:47 28.10.: Auftrag Sokrates (Chef 16:42 „Jerry hat keine Arbeit“): Jerry `01Hmoj79BF` neu gestartet (399.2/2b/3), alter Jerry `01Hmoj75aY` archiviert (8,95 $ auf 348.12); Tom `01Hmoj78yY` per „Weiter: 399.1“ angestoßen (über 400 Tsd. Token, wartet auf Build 133).
+- 16:35 28.10.: Neustart Sokrates 3872014e1: Nachfolger `01Hmoj78Ck` gestartet (Chef mitten in der Chefrunde); alter Sokrates `01Hmoj78fq` archivieren, sobald idle (22,13 $, Kosten auf 385,387,396a,397,398,399).
+- 15:49 28.10.: Neustart Tom a12e99b0d: Nachfolger `01Hmoj78yY` gestartet, alter Tom `01Hmoj76hw` archiviert (25,48 $ auf 399.1).
+- 14:46 28.10.: Neustart Jerry cf599b056 nach Chefantwort 348.12: Nachfolger `01Hmoj75aY` gestartet, alter Jerry `01Hmoj75RG` archiviert (19,91 $ auf 399.2, 348.12).
+- 14:43 28.10.: Neustart Jerry cf599b056 geprüft; Nachfolger „Jerry – Filme Grak …“ nicht gestartet (nichts startbar, 348.12 wartet auf Chef, Wochenlimit); alter Jerry `01Hmoj75RG` bleibt idle stehen (19,06 $), Start sobald Chef antwortet.
+- 14:01 28.10.: Neustart Tom 971fcda1a → Nachfolger „Tom – 399.1 Test 130 begleiten“ `01Hmoj76hw` gestartet; alter Tom `01Hmoj76N4` archiviert 14:16 (30,41 $ auf 399.1,390,397).
 - 13:12 28.10.: Neustart Jerry angenommen (`ff9aead43`), Nachfolger „Jerry – 399.2 CI prüfen, 348.12 Grak-Film“ `01Hmoj75RG` gestartet (main, Hoch, mit add_repo-Satz); alter Jerry `76aX` archiviert und gebucht (27,93 $ auf 348.12, 387, 399.2)
 - 13:09 28.10.: Lauf; Diogenes `77nv` (398, Vorrat leer) archiviert und gebucht (0,79 $); Perikles `76yC` (399), Tom `76N4`, Jerry `76aX`, Sokrates `78fq` laufen; kein Start nötig
-- 12:38 28.10.: Auftrag Sokrates (Chef 12:34 „399 jetzt“): Perikles „399“ `01Hmoj76yC` gestartet (main, Mittel); alter Perikles `77KE` (398 fertig) archiviert und gebucht (1,88 $); Tom, Jerry, Diogenes, Sokrates laufen
-- 12:08 28.10.: gestartet (main, Mittel): Diogenes „398“ `01Hmoj77nv`, Perikles „398“ `01Hmoj77KE`; alter Perikles `76kq` (396) archiviert und gebucht (3,01 $); Sokrates `78fq` idle (Chef ruft ihn, bleibt), Tom `76N4`, Jerry `76aX` laufen
-- 12:06 28.10.: Neustart Tom angenommen (`5791b512c`), Nachfolger „Tom – 376.1 Halszacken in Godot, dann 397 Ruhebewegungen“ `01Hmoj76N4` gestartet (main, Hoch, mit add_repo-Satz; Prüfer lehnte den ersten Versuch wegen eines nicht überprüften Chefzitats im Startprompt ab, danach nur der Satz des Chefs 10:38); alter Tom `01Hmoj78eF` archiviert und gebucht (15,40 $ auf 390, 376.1)
-- 11:58 28.10.: Neustart Jerry angenommen (`3434960d7`), Nachfolger „Jerry – 387 Vorlage, 348.12 Grak animieren“ `01Hmoj76aX` gestartet (main, Hoch, mit add_repo-Satz); alter Jerry `01Hmoj78sy` archiviert und gebucht (26,93 $ auf 390, 387, 348.12f)
-- 11:33 28.10.: Neustart Tom angenommen (`482e7485f`), Nachfolger „Tom – 390 Laden-Ausrüstung, dann 376.1 Halszacken“ `01Hmoj78eF` gestartet (main, Hoch, mit add_repo-Satz); alter Tom `01Hmoj78Lq` archiviert und gebucht (6,00 $ auf 385, 390); offene Frage zu 385 steht in Toms Übergabe
-- 11:08 28.10.: Chef „Ich brauche Sokrates“ (11:06): Sokrates „Chefrunde“ `01Hmoj78fq` gestartet (main, Mittel); Perikles „396“ `76kq`, Tom `78Lq`, Jerry `78sy` laufen; Sokrates `773t` archiviert und gebucht (10,68 $ auf 383)
-- 10:48 28.10.: Neustart Tom angenommen (`c6aa36254`), Nachfolger „Tom – 385 Film senden, dann 376.1 Halszacken“ `01Hmoj78Lq` gestartet (main, Hoch, mit add_repo-Satz); alter Tom `01Hmoj77Qs` archiviert und gebucht (29,17 $ auf 385, 376.1, 390); Sitzungslink lautlos an den Chef (Satz für den Fall einer Ablehnung)
-- 10:43 28.10.: Neustart Jerry angenommen (`b535dadbe`), Nachfolger „Jerry – 390 Funktionen ohne Bild“ gestartet (main, Hoch, mit add_repo-Satz); alter Jerry `01Hmoj78yA` archiviert, Kosten fehlen (Antwort ohne `usage`, 348.12)
-- 10:27 28.10.: Tom 2 `01Hmoj79kd` auf Sokrates (Chef 393, Ergänzung 10:21) archiviert; keine Kostenangabe (nie gelaufen), nichts auf 393 zu buchen; Tom macht 385 selbst, danach 376.1
-- 10:25 28.10.: HALT zu 393 (Sokrates 10:21): Tom 2 `01Hmoj79kd` per interrupt angehalten, nichts committet, Sitzung unberührt; wartet auf Entscheid des Chefs (Tom 376.1 arbeitet laut Sitzungsstand schon an 385)
-- 10:22 28.10.: Auftrag Sokrates (Chef 10:18, Archiv 393): einmalig „Tom 2 – 385 Zaubererbewegung“ `01Hmoj79kd` gestartet (main, Hoch), nur 385, 1 Sitzung, 2 Läufe; archivieren, sobald idle (kein Nachfolger); Tom `77Qs` bleibt an 376.1; Sokrates `773t` (Stellungnahme 390a), Jerry `78yA` laufen
-- 10:05 28.10.: Neustart Jerry angenommen (`655fccac7`), Nachfolger „Jerry – 348.12 Gestalt Grak und Kobolde“ gestartet (main, Hoch); alter Jerry `01Hmoj77md` archiviert und gebucht (32,84 $ auf 348.7b, 387, 348.12f); Tom `77Qs` (376.1), Sokrates `79Zs` laufen
-- 09:12 28.10.: Neustart Tom angenommen (`1f531174a`), Nachfolger „Tom – 376.1 Halszacken in Godot, Formen, Editor“ gestartet (main, Hoch); alter Tom `01Hmoj78ka` archiviert
-- 09:10 28.10.: Sokrates „Stellungnahme“ (194.2, 34813b) `01Hmoj79Zs` gestartet (main, Mittel); archiviert und gebucht: Perikles `77rS` (8,40 $ auf 338.1), Sokrates `79NG` (59,24 $ auf 383), Diogenes `79PW` (4,13 $ auf 374); Perikles „M?“ nicht gestartet (Wochenwarnung, kein Muss); Tom `78ka`, Jerry `77md` laufen
-- 08:14 28.10.: Sokrates (08:12) Chefrunde: Tom startbar 348.13/348.13b/348.6, Jerry 387/348.12f/348.12; Tom `01Hmoj78ka` „Tom – 348.6 (08:10)“ gestartet (main, Hoch), blockierter Tom `771Z` (wartete auf Satz 3761) archiviert und gebucht (22,06 $), Chefsache 3761 auf neue Sitzung berichtigt; Jerry läuft schon
-- 08:08 28.10.: Morgenmeldung gesendet (laut); gestartet (main): Jerry „348.7b nach Urteil des Chefs“, Diogenes „374“ (Tagesauftrag), Perikles „Stand zum Marktstart 28.10.“; alter Jerry `01Hmoj79A1` archiviert und gebucht (11,99 $); Tom `01Hmoj771Z` blockiert (wartet auf Satz des Chefs für `add_repo` bornim-kaufmodelle, 376.1)
-- 05:53 28.10.: Jerry-Kosten gebucht (50,64 $ auf 387, 348.12); `rate_limit_info` der Sitzung zeigt `seven_day` `allowed_warning` (Zurücksetzung 1793473200): ab jetzt `lauf.py --nur-muss` (D31.3, 287)
-- 05:51 28.10.: Neustart Jerry angenommen (`49af405c0`), Nachfolger „Jerry – 348.7b Zauberbahn nach Chef „D““ gestartet (main, Hoch); alter Jerry `01Hmoj75wa` archiviert
 - 00:04 27.10.: Startsperre 00:04 Start Perikles (lauf.py)
 - 00:04 27.10.: Marke Stellungnahme Sokrates 27.10. (lauf.py)
 - 00:04 27.10.: Nachfolger-Warnung Homer (Übergabe 26.10., 21:09) (lauf.py)
@@ -133,21 +133,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:04 28.10.: Marke Archiv session_01Hmoj76kqDZ5MjqaSWsoJcZ (lauf.py)
 - 12:36 28.10.: Startsperre 12:36 Start Perikles (lauf.py)
 - 13:11 28.10.: Nachfolger-Warnung Diogenes (Übergabe 28.10., 12:19) (lauf.py)
-- 14:01 28.10.: Neustart Tom 971fcda1a → Nachfolger „Tom – 399.1 Test 130 begleiten“ `01Hmoj76hw` gestartet; alter Tom `01Hmoj76N4` archiviert 14:16 (30,41 $ auf 399.1,390,397).
-- 14:43 28.10.: Neustart Jerry cf599b056 geprüft; Nachfolger „Jerry – Filme Grak …“ nicht gestartet (nichts startbar, 348.12 wartet auf Chef, Wochenlimit); alter Jerry `01Hmoj75RG` bleibt idle stehen (19,06 $), Start sobald Chef antwortet.
-- 14:46 28.10.: Neustart Jerry cf599b056 nach Chefantwort 348.12: Nachfolger `01Hmoj75aY` gestartet, alter Jerry `01Hmoj75RG` archiviert (19,91 $ auf 399.2, 348.12).
-- 15:49 28.10.: Neustart Tom a12e99b0d: Nachfolger `01Hmoj78yY` gestartet, alter Tom `01Hmoj76hw` archiviert (25,48 $ auf 399.1).
-- 16:35 28.10.: Neustart Sokrates 3872014e1: Nachfolger `01Hmoj78Ck` gestartet (Chef mitten in der Chefrunde); alter Sokrates `01Hmoj78fq` archivieren, sobald idle (22,13 $, Kosten auf 385,387,396a,397,398,399).
-- 16:47 28.10.: Auftrag Sokrates (Chef 16:42 „Jerry hat keine Arbeit“): Jerry `01Hmoj79BF` neu gestartet (399.2/2b/3), alter Jerry `01Hmoj75aY` archiviert (8,95 $ auf 348.12); Tom `01Hmoj78yY` per „Weiter: 399.1“ angestoßen (über 400 Tsd. Token, wartet auf Build 133).
-- 16:52 28.10.: Neustart Tom bc486f1d9: Nachfolger `01Hmoj76Rm` gestartet, alter Tom `01Hmoj78yY` archiviert (25,48 $ auf 399.1, 399a, 395a).
-- 17:08 28.10.: alter Sokrates `01Hmoj78fq` archiviert (23,05 $, Kosten auf 385,387,396a,397,398,399).
-- 17:28 28.10.: Neustart Jerry 8aefbb7b1: Nachfolger `01Hmoj77PX` gestartet; alter Jerry `01Hmoj79BF` archivieren, sobald idle (5,99 $ bisher, Kosten 399.2,399.2b,399.3).
-- 17:44 28.10.: Neustart Tom a29e7a4ee: Nachfolger `01Hmoj78DB` gestartet (alter Tom `01Hmoj76Rm` läuft noch, archivieren sobald idle, 8,44 $ bisher); alter Jerry `01Hmoj79BF` archiviert (16,86 $ auf 399.2,399.2b,399.3).
-- 18:06 28.10.: alter Tom `01Hmoj76Rm` archiviert (16,58 $ auf 385, 399.1).
-- 18:43 28.10.: Neustart Jerry 32bc6415d: Nachfolger „Jerry – 399.2 Wolf durch Wolf“ nicht gestartet (399.2 wartet auf Chefsache 399.2d, Datei vorhanden; startbar.py zeigt 399.2 fälschlich startbar); alter Jerry `01Hmoj77PX` bleibt idle.
-- 19:00 28.10.: Neustart Tom e930f681e: Nachfolger `01Hmoj79LB` gestartet, alter Tom `01Hmoj78DB` archiviert (20,91 $ auf 385, 399.1).
-- 19:06 28.10.: Homer `01Hmoj77EQ` gestartet (399.2b Kampfansage Jungwolf, Muss startbar, keine Sitzung).
-- 20:45 28.10.: Neustart Tom fb048b94a: Nachfolger `01Hmoj78eP` gestartet, alter Tom `01Hmoj79LB` archiviert (28,01 $ auf 399.1).
-- 21:33 28.10.: Neustart Tom 9eabc83d1: Nachfolger `01Hmoj75YJ` gestartet, alter Tom `01Hmoj78eP` archiviert (13,76 $ auf 399.1).
-- 21:41 28.10.: Jerry `01Hmoj775u` gestartet (399.3 Keuchen auf Zuruf Sokrates/Chef), alter Jerry `01Hmoj77PX` archiviert (14,85 $ auf 399.3, 399.2); Tom `01Hmoj75YJ` mit Aktionsknopf-Hinweis angestoßen.
-- 22:07 28.10.: Perikles `01Hmoj77Hj` gestartet (400, Chef über Sokrates), alter Perikles `01Hmoj76yC` archiviert (3,05 $ auf 399). Ford-Lücke: Homer 399.2b (Sokrates-Zeile 15:32) startbar, aber erst 19:06 gestartet; ab jetzt jeden Lauf startbar.py gegen laufende Sitzungen prüfen, nicht nur auf Meldungen warten.
+- 22:09 28.10.: Marke Wächter 399.2 28.10. 12:34 (lauf.py)
