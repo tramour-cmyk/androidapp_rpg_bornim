@@ -38,7 +38,7 @@ class TextExportTest {
     @Test
     fun useTextsAndHealForGodot() {
         val b = j["benutzen"]!!.jsonObject
-        for (k in listOf("ate", "alreadyFed", "cured", "sparkDrunk", "sparkAlready", "healed")) assertTrue(b.containsKey(k), k)
+        for (k in listOf("ate", "alreadyFed", "cured", "sparkDrunk", "sparkAlready", "healed", "torchLit", "torchSnuffed")) assertTrue(b.containsKey(k), k)
         val dinge = j["dinge"]!!.jsonObject
         assertEquals(listOf("2", "4", "2"), dinge["potion"]!!.jsonObject["heilt"]!!.jsonArray.map { it.jsonPrimitive.content })
         assertEquals("true", dinge["remedy"]!!.jsonObject["heilt_leiden"]!!.jsonPrimitive.content)

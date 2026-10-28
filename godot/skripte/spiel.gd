@@ -109,6 +109,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	held = Held.new(karte)
 	add_child(held)
 	held.setze(t, blick)
+	fackel_neu()   # 399.1 Light.burns
 	held.steht_auf.connect(_betritt)
 	held.stoesst.connect(_stoesst)
 	leute = Node3D.new()
@@ -637,6 +638,7 @@ func oeffne_menue() -> void:
 	add_child(ebene)
 	var m := Menue.new(held_werte(), zustand)
 	m.ort = platz()
+	m.dunkel = im_dunkeln()
 	ebene.add_child(m)
 	m.speichern.connect(speichere)
 	m.sprache.connect(sprache_wechseln)
@@ -653,8 +655,17 @@ func oeffne_menue() -> void:
 		ebene.queue_free()
 		speichere()
 		ui.richte_ein()      # 399.1 Bedienung aus dem Menue System
+		fackel_neu()
 		kamera.fern_neu()
 		ui.leiste.zeige(held_werte(), zustand, licht.nacht > 0.65))
+
+# 399.1 Game.heroInDark: nachts draussen, in der Hoehle immer
+func im_dunkeln() -> bool:
+	var art := String(karte.daten.get("art", ""))
+	return (licht.nacht > 0.5 and art != "INTERIOR") or art == "CAVE"
+
+func fackel_neu() -> void:
+	if held: held.fackel_neu(Menue.fackel(held_werte()), String(karte.daten.get("art", "")) == "INTERIOR")
 
 func held_werte() -> Heldwerte:
 	if werte == null: werte = Heldwerte.erschaffe(zustand.name, "HUMAN", "FIGHTER")
@@ -1003,6 +1014,7 @@ func bilder() -> void:
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--bilder="): dir = a.substr(9)
 	if dir == "": return
+	held.fackel_neu(true, false)   # 399.1: Probe wie bisher mit Fackel (im Spiel nur in der Nebenhand)
 	DirAccess.make_dir_recursive_absolute(dir)
 	ui.mess.visible = false
 	ui.oben.visible = false   # 348.6 (Befund 7): Probeknoepfe standen vor der Turmspitze
@@ -1199,6 +1211,7 @@ func held_film() -> void:
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--held="): dir = a.substr(7)
 	if dir == "": return
+	held.fackel_neu(true, false)   # 399.1: Probe wie bisher mit Fackel (im Spiel nur in der Nebenhand)
 	DirAccess.make_dir_recursive_absolute(dir)
 	ui.mess.visible = false
 	ui.oben.visible = false
@@ -1422,6 +1435,7 @@ func tusche_nacht() -> void:
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--tuschenacht="): dir = a.substr(14)
 	if dir == "": return
+	held.fackel_neu(true, false)   # 399.1: Probe wie bisher mit Fackel (im Spiel nur in der Nebenhand)
 	DirAccess.make_dir_recursive_absolute(dir)
 	ui.mess.visible = false
 	ui.oben.visible = false

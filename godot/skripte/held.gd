@@ -149,7 +149,7 @@ func _process(dt: float) -> void:
 			var r := Gebiet.ruhe_naechste(anim, ruhe, ruhe_zufall)
 			ruhe = r[0]; ruhe_bis = zeit + float(r[1])
 		var want := ("Rennen" if rennt else "Gehen") if moving else ruhe
-		if fackel and fackel.visible:
+		if fackel and traegt_fackel:
 			if anim.has_animation(want + "_Fackel"): want += "_Fackel"
 			elif not moving: want = "Stehen_Fackel" if anim.has_animation("Stehen_Fackel") else "Stehen"   # Fackel bleibt in der Hand
 		var cur := anim.current_animation
@@ -169,25 +169,34 @@ func _process(dt: float) -> void:
 	if flamme:
 		var innen := flamme.get_child(1) as Node3D
 		innen.scale = Vector3.ONE * (0.85 + 0.2 * sin(zeit * 17.0 + 1.3))
-	if fackel and fackel.visible: richte_fackel()   # Runde 5b: erst nach dem Schritt (vorher blieb die Fackel ein Bild zurueck)
+	if fackel and traegt_fackel: richte_fackel()   # Runde 5b: erst nach dem Schritt (vorher blieb die Fackel ein Bild zurueck)
 
 func geht() -> bool:
 	return weg.size() > 0 or richtung.length() > 0.15
 
 # ---------------------------------------------------------------- Fackel (nachts), in der linken Hand
 var fackel_kraft := 0.0
+var traegt_fackel := false   # 399.1 Light.torch: nur mit einer Fackel in der Nebenhand (vorher nachts immer)
+var im_raum := false         # Light.burns (344.1, Chef 23.10.): in Haeusern, Schenke, Laden, Tempel ohne Flamme gehalten
+var nacht_k := 0.0
+
+# 344.1: die Fackel brennt ueberall ausser in einem Raum, Tag und Nacht; ihr Licht zaehlt nur im Dunkeln (Staerke nach der Nacht)
+func fackel_neu(traegt: bool, raum: bool) -> void:
+	traegt_fackel = traegt; im_raum = raum
+	nacht(nacht_k)
 
 var mats: Array = []   # Held im Schatten nicht nur Umriss (Probe Build 11), nachts nicht (sonst leuchtet er)
 
 func nacht(k: float) -> void:
+	nacht_k = k
 	fackel_kraft = 2.2 * k
 	for m in mats:
 		(m as ShaderMaterial).set_shader_parameter("fill", 0.42 * (1.0 - k))
 		(m as ShaderMaterial).set_shader_parameter("kette_umgebung", lerpf(1.0, 0.7, k))
-	if fackel:   # ganze Fackel weg am Tag (Helfer Runde 3: Stiel blieb in der Hand, wirkte wie ein Knueppel)
-		(fackel.get_parent() as Node3D).visible = k > 0.02
-		fackel.visible = k > 0.02
-		flamme.visible = k > 0.02
+	if fackel:
+		(fackel.get_parent() as Node3D).visible = traegt_fackel
+		flamme.visible = traegt_fackel and not im_raum
+		fackel.visible = traegt_fackel and not im_raum and k > 0.02
 
 func baue_fackel() -> void:
 	var sk := Gebiet.finde(modell, "Skeleton3D") as Skeleton3D

@@ -491,13 +491,27 @@ func im_beutel(g: Dictionary) -> int:
 func lege_an(g: Dictionary, neben := false) -> String:
 	var i := im_beutel(g)
 	if i < 0 or not hw.kann_tragen(g): return ""
+	var war := Menue.fackel(hw)
 	z.beutel.remove_at(i)
 	for x in (hw.anlegen_nebenhand(g) if neben else hw.anlegen(g)): z.beutel.append(x)
-	return "%s: %s" % [Beute.name(g), Sprache.u("equipped")]
+	var f := fackel_satz(war)
+	return f if f != "" else "%s: %s" % [Beute.name(g), Sprache.u("equipped")]
 
 func lege_ab(platz: String) -> void:
+	var war := Menue.fackel(hw)
 	var g = hw.ablegen(platz)
 	if g != null: z.beutel.append(g)
+	meldung(fackel_satz(war))
+
+# 399.1 Light.torch: eine Fackel in der Nebenhand; torchChange: nur im Dunkeln (nachts draussen, in der Hoehle) sagt es etwas
+var dunkel := false
+static func fackel(h: Heldwerte) -> bool:
+	var g = h.ding("OFF_HAND")
+	return g != null and String(Beute.grundform(String(g["base"]))["art"]) == "LIGHT"
+
+func fackel_satz(war: bool) -> String:
+	if not dunkel or Menue.fackel(hw) == war: return ""
+	return Sprache.t(Sprache.texte.get("benutzen", {}).get("torchLit" if Menue.fackel(hw) else "torchSnuffed", ""))
 
 func frage_stueck(g: Dictionary) -> void:
 	var de := Sprache.aktiv() == "de"

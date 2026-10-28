@@ -44,5 +44,23 @@ func _lauf() -> void:
 	pruefe("im Stehen voll", is_equal_approx(z.ausdauer, 1.0), true)
 	z.met = Rast.BETRUNKEN
 	pruefe("betrunken rennt nicht", Ausdauer.schritt(z, hw, 100.0, true, true), false)
+	# 399.1 Fackel (Light.torch, torchChange): nur in der Nebenhand; im Dunkeln sagt An- und Ablegen etwas, sonst wie immer
+	Sprache.setze("de")
+	var zf := Zustand.new()
+	var hf := Heldwerte.erschaffe("Mira", "HUMAN", "FIGHTER", {}, zf.neue_uid)
+	var m := Menue.new(hf, zf)
+	root.add_child(m)
+	await process_frame
+	var f := Beute.fackel(zf.neue_uid())
+	zf.beutel.append(f)
+	pruefe("ohne Fackel", Menue.fackel(hf), false)
+	m.dunkel = true
+	pruefe("angezuendet", m.lege_an(f, true), "Du zündest die Fackel an.")
+	pruefe("traegt Fackel", Menue.fackel(hf), true)
+	m.lege_ab("OFF_HAND")
+	pruefe("ausgedrueckt", [Menue.fackel(hf), m.meldung_.text], [false, "Du drückst die Fackel aus. Das Dunkel rückt heran."])
+	m.dunkel = false
+	pruefe("am Tag nur angelegt", m.lege_an(f, true).ends_with(": angelegt"), true)
+	m.free()
 	print("AUSDAUER %d Fehler" % fehler)
 	quit(1 if fehler > 0 else 0)

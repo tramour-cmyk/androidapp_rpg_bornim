@@ -44,6 +44,7 @@ object TextExport {
         val msgs = Class.forName("de.bornim.core.Game\$Msgs").getDeclaredField("INSTANCE").apply { isAccessible = true }.get(null)
         return felder(msgs).filterKeys { it in setOf("ate", "alreadyFed", "cured") } +
             ("sparkDrunk" to Light.sparkDrunk) + ("sparkAlready" to Light.sparkAlready) +
+            ("torchLit" to Light.torchLit) + ("torchSnuffed" to Light.torchSnuffed) +   // 399.1 [84.1.an], [84.1.aus]
             ("healed" to T("{0} heilt {1} TP.", "{0} recovers {1} HP."))
     }
 
