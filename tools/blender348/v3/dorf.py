@@ -1511,24 +1511,34 @@ def dinge_mehr():
     # Felsen an jeder vierten Baumkachel, nicht am Wasser. Lauf 1 (Helfer 01:3x: Felsen weiss-mint wie Kristall, steckten im Stamm,
     # Pilze nirgends zu sehen): Farbe Feldstein mit Moos am Fuss statt der hellen Bausatztextur; auf der Seite der Kachel, die vom
     # Stamm abgewandt ist (sonst zur Dorfmitte); keine Pilze (zu klein, 880 Dreiecke je Stueck)
-    stein = lambda p, nn: sc(mixc(lin(0x6A665E), lin(0x4E5636), ss(30, 0, p.z) * (0.5 + 0.5 * vn(p.x / 25, p.y / 25, 92))),
-                             (0.75 + 0.35 * vn(p.x / 18 + p.z / 18, p.y / 18, 93)) * (0.7 + 0.45 * max(0.0, nn.z)))
+    # Lauf 4 (Helfer 03:13: Moos fast schwarz): Moos heller und gruener, Seiten weniger abgedunkelt
+    stein = lambda p, nn: sc(mixc(lin(0x7A766C), lin(0x6E7A40), ss(30, 0, p.z) * (0.5 + 0.5 * vn(p.x / 25, p.y / 25, 92))),
+                             (0.85 + 0.3 * vn(p.x / 18 + p.z / 18, p.y / 18, 93)) * (0.85 + 0.3 * max(0.0, nn.z)))
+    from mathutils.bvhtree import BVHTree
+    SV, SF = [], []                                               # alles bis hier: Boden, Baeume, Zaeune und die Gruppen (Haeuser, Staende)
+    for P_ in [DORF] + [g[1] for g in GRUPPEN]:
+        n0 = len(SV); SV += P_.V; SF += [tuple(n0 + i for i in f) for f in P_.F]
+    sicht = BVHTree.FromPolygons(SV, SF)
+    blick = Vector((ZUR_KAMERA[0], -ZUR_KAMERA[1], 0)) * math.cos(math.radians(30)) + Vector((0, 0, math.sin(math.radians(30))))
     for c, r in nb:
-        # Lauf 3, Zweiter (Helfer 02:4x: in der Grundansicht kein Fels; jeder vierte traf nur Randbaeume): jeder einzeln stehende Baum
-        # (hoechstens zwei Baumnachbarn) bekommt einen, am Waldrand weiter jeder vierte
+        # Lauf 4 (Helfer 03:13: Fels nie sichtbar am Stamm; nachgemessen mit Strahlen zur Kamera der Grundansicht, 30 Grad aus Suedost:
+        # 64 von 72 Felsen und fast alle Stammfuesse lagen hinter Kronen und Daechern 2 bis 5 m davor). Jetzt: an jeder zweiten
+        # Baumkachel (einzeln stehend: jeder) die erste freie Lage um den Stamm, zur Kamera und bis 75 Grad seitlich; keine frei: kein Fels
         if ch(c, r) != 'T': continue
         allein = sum(ch(c + i, r + j) == 'T' for i in (-1, 0, 1) for j in (-1, 0, 1)) <= 3
-        if not allein and h1(c, r, 501) > 0.25: continue
+        if not allein and h1(c, r, 501) > 0.5: continue
         if any(ch(c + i, r + j) == '~' for i in (-1, 0, 1) for j in (-1, 0, 1)): continue
-        # Lauf 3 (Helfer 01:51: in der Grundansicht meist hinter Stamm oder Krone): vor den Stamm zur Kamera der Grundansicht
-        # (Suedost), 20 bis 40 Grad seitlich, in der Kachel; die Krone liegt dann hinter dem Felsen
         p = tile_c(c, r); st = STAMM.get((c, r)) or p
-        w = math.radians((1 if h1(c, r, 505) < 0.5 else -1) * (20 + 20 * h1(c, r, 506)))
-        kam = Vector((ZUR_KAMERA[0], -ZUR_KAMERA[1], 0)); kam.rotate(Matrix.Rotation(w, 3, 'Z'))
+        sg = 1 if h1(c, r, 505) < 0.5 else -1
         g = 0.13 + 0.05 * h1(c, r, 502)                          # 42 bis 58 cm breit
-        q = st + kam * 52
-        q.x = min(max(q.x, p.x - 46), p.x + 46); q.y = min(max(q.y, p.y - 46), p.y + 46); q.z = 0
-        print('FELS %d,%d bei %.0f,%.0f%s' % (c, r, q.x, q.y, ' allein' if allein else ''))
+        q = None
+        for w in (35, -35, 55, -55, 75, -75, 15, -15):
+            kam = Vector((ZUR_KAMERA[0], -ZUR_KAMERA[1], 0)); kam.rotate(Matrix.Rotation(math.radians(sg * w), 3, 'Z'))
+            k = st + kam * 50
+            k.x = min(max(k.x, p.x - 46), p.x + 46); k.y = min(max(k.y, p.y - 46), p.y + 46); k.z = 0
+            if sicht.ray_cast(k + Vector((0, 0, 22)) + blick * 30, blick, 1500.0)[0] is None: q = k; break
+        if q is None: continue
+        print('FELS %d,%d bei %.0f,%.0f Stamm %.0f,%.0f Winkel %d%s' % (c, r, q.x, q.y, st.x, st.y, sg * w, ' allein' if allein else ''))
         fremd_teil('Rock_Medium_%d' % (1 + int(h1(c, r, 503) * 3)), Matrix.Translation(q + Vector((0, 0, -4)))
                    @ Matrix.Rotation(h1(c, r, 504) * 6.283, 4, 'Z') @ Matrix.Scale(g, 4), farbe=stein)
     # Kisten neben jedem Fass, in der Ecke der Fasskachel zu zwei begehbaren Nachbarn (nicht an der Hauswand), jede zweite mit
@@ -1549,7 +1559,22 @@ def dinge_mehr():
         M = Matrix.Translation(p) @ Matrix.Rotation(a, 4, 'Z') @ Matrix.Scale(0.34, 4)
         kit_teil('Prop_Crate', M, kist, kmat)
         if h1(c, r, 512) < 0.5: kit_teil('Prop_Crate', M @ Matrix.Translation((0.05 * 100, 0, 1.06 * 100)) @ Matrix.Rotation(0.3, 4, 'Z'), kist, kmat)
-if os.environ.get('DINGE', '1') != '0' and os.environ.get('KARTE', 'village') == 'village': dinge_mehr()
+    # Lauf 4 (Vorschlag Tom 03:17 zu „weitere Objekte“): Kiesel (Naturbausatz Pebble_*, 376) am Rand der Wege zur Wiese, an jeder dritten
+    # Wegkachel ein bis drei, 15 bis 22 cm, grau-braun; liegen flach, die Begehbarkeit bleibt (Efeu nicht: Prop_Vine sind Blattkarten mit
+    # Alphatextur, unsere Materialien zeichnen sie als volle Flaechen)
+    kies = lambda p, nn: sc(mixc(lin(0x8E877A), lin(0x6E6656), vn(p.x / 9, p.y / 9, 521)), (0.85 + 0.25 * vn(p.x / 5, p.y / 5, 522)) * (0.8 + 0.3 * max(0.0, nn.z)))
+    n_kies = 0
+    for c, r in nb:
+        if ch(c, r) != '=' or h1(c, r, 520) > 0.34: continue
+        for i, j in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            if ch(c + i, r + j) != '.': continue
+            for k in range(1 + int(h1(c * 4 + i + 2, r * 4 + j + 2, 523) * 3)):
+                u = rnd.uniform(-44, 44); d = TS / 2 - rnd.uniform(4, 14)
+                q = tile_c(c, r) + Vector((i * d + j * u, -j * d + i * u, -1))   # Zeile +1 = Blender -y
+                fremd_teil(('Pebble_Round_%d' if rnd.random() < 0.6 else 'Pebble_Square_%d') % rnd.randint(1, 5),
+                           Matrix.Translation(q) @ Matrix.Rotation(rnd.uniform(0, 6.283), 4, 'Z') @ Matrix.Scale(rnd.uniform(0.32, 0.45), 4), farbe=kies)
+                n_kies += 1
+    print('KIESEL %d' % n_kies)
 # Sonderlaternen (MapTownIso.BRIDGE_LANTERN, KAEL_LANTERN; Licht wie MapLight.kt:104-105)
 if os.environ.get('KARTE', 'village') == 'village':
     # Runde 11 (Urteil Chef 12:11: Laternenpfahl am Steg reichte bis ins Wasser): Pfahl steht auf dem Steg
@@ -1603,6 +1628,8 @@ for r in range(R0, R1 + 1):
         elif t == 'c':
             LIGHTS.append(dict(art='korn', pos=[p.x, p.y, 0]))
 
+# 348.6 Lauf 4: Dinge zuletzt, damit der Sichttest der Felsen alles davor kennt
+if os.environ.get('DINGE', '1') != '0' and os.environ.get('KARTE', 'village') == 'village': dinge_mehr()
 # Fussschatten der Saecke weich in den Schattenkanal der Bodenmaske (16 Punkte je Kachel, im Shader bis 42 % dunkler), zur Mitte dunkel
 if SACKSCHATTEN:
     for (sx, sy), br in SACKSCHATTEN:
