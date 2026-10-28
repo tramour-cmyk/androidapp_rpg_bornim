@@ -8,7 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | wartet auf Chef: r6 Tusche nach Licht an allen Kauftieren vorgelegt 12:05 (ansehen/387-kauftiere, Film); Prüferbefund folgt; nach „ja“ einbauen |
+| 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | wartet auf Chef: r6 Tusche nach Licht vorgelegt 12:05 (ansehen/387-kauftiere); Prüfer: Rind 78 s Fleck, 150°-Sprung, beim Einbau ansehen; nach „ja“ einbauen |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | startbar: r9 abgenommen (Chef 11:50, Archiv), keine Runde mehr; nur einbauen | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | wartet auf Chef: Zweihand Stehen (ansehen/34812-grak-zweihand); Prüferbefund 12:00 gesendet; in Arbeit Gehen, Hieb, Treffer, Tod, dann Kobolde | `claude/jerry-348-kampf` |
 | 348.13a | M | **von Team Tom (Chef 08:09, Archiv: r9 ja):** Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13a) | gebaut (421662dbd): Toms Probe gemischt, Tusche nach Licht Vorgabe, Linie 1,3, Sonne −45,55; Aufhellen der Goblins verworfen (Abstand zum Weg 42→36); offen Säbel | `claude/jerry-348-kampf` |
