@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [394](entscheiden/394-namen-zusatzentwickler.md) | **Muss** | B Betrieb | 28.10., 10:25 | Zusatzentwickler heißen Spike (zu Team Tom) und Tuffy (zu Team Jerry) (A), oder ein anderes Paar (B)? | Sokrates |
 | [390a](entscheiden/390a-logiktests-godot.md) | **Muss** | E Technik | 28.10., 09:46 | Testprogramme aus `godot/tests/` nicht als Probelauf zählen (A) oder so lassen (B)? | Tom |
 | [109](entscheiden/109-repo-privat.md) | **Muss** | M Veröffentlichung | 27.10., 19:58 | Repo vor dem Tester-Aufruf privat (A), nur Releases löschen (B) oder so lassen (C)? | Sokrates |
 
@@ -138,10 +139,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 28, Muss 20, startbar 3
+**Sokrates** – offen 29, Muss 21, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 394 | M | von Chef (28.10., 10:21, „lasst uns aber trotzdem Zusatzentwickler anders nennen, dann bin | Chef (Datei in der Chefsache) |
 | 391 | M | von Chef (28.10., 09:21): Repos dauerhaft ohne Ablehnung | Chef |
 | 383.2 | M | von Chef (27.10., 19:24, „wo steckt jetzt hier wieder die Wahrheit? Und wer hat damit gepr | Termin 31.10. |
 | 383 | M | von Chef (27.10., 17:44, „Sollen wir einfach aufhören damit?“; 17:47 Vorschlag „nicht grif | Termin 31.10. |
