@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (28.10., 00:10, `session_01Hmoj79NGUpegjwGyVmjQax`):** Chefrunde 27.10. abends (Archiv), Nacht geführt. Kosten auf: 383, 142.3, 385, 348.12c, 109. Nachfolger: Sokrates – 142.3 Tester-Aufruf
+**Übergabe (28.10., 09:09, `session_01Hmoj79ZsETXpaLqBGFYboU`):** Stellungnahme in Chefsache 348.13b (dritter Lauf: ja, einmal, Einzelfall). Kosten auf: 348.13b. Nachfolger: Sokrates – 142.3 Tester-Aufruf
 
 ## Zeilen
 
