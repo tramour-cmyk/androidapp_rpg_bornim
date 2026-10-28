@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [348.13b](entscheiden/34813b-tusche-fackeln.md) | **Muss** | G Aussehen | 28.10., 07:59 | Soll die Tusche außer der Sonne auch Fackeln, Lagerfeuer und Fenster berücksichtigen? | Sokrates |
 | [109](entscheiden/109-repo-privat.md) | **Muss** | M Veröffentlichung | 27.10., 19:58 | Repo vor dem Tester-Aufruf privat (A), nur Releases löschen (B) oder so lassen (C)? | Sokrates |
 
 ## Zu billigen
@@ -133,7 +134,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 27, Muss 19, startbar 3
+**Sokrates** – offen 28, Muss 20, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -164,11 +165,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 142 | M | Pflichttest Play Store (von Perikles); Store-Text „jede Entscheidung zählt“ prüfen (72a) | startbar |
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (wartet) |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | Chef (Datei in der Chefsache) |
+| 348.13b | M | von Chef (28.10., 07:59): Tusche nach Lichtquellen im Kampf und Dorf? | Chef (Datei in der Chefsache) |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung), 348.13 (Team Tom)
+Nicht gestellt: 186.3 (Pruefung)
 
 Ohne Datei: 275 (Projekt)
 
