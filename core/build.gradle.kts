@@ -55,3 +55,10 @@ tasks.register<JavaExec>("exportMapSheets") {
     mainClass.set("de.bornim.core.MapSheetExport")
     args((findProperty("out") as String?) ?: layout.buildDirectory.dir("kartenblatt").get().asFile.path)
 }
+
+// 399.3: synthetische Klaenge als WAV und kampfklang.json fuer Godot (audio/KlangExport.kt)
+tasks.register<JavaExec>("exportKlang") {
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("de.bornim.core.audio.KlangExport")
+    args((findProperty("out") as String?) ?: layout.buildDirectory.dir("klang").get().asFile.path)
+}

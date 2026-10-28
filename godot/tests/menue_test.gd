@@ -110,6 +110,25 @@ func _lauf() -> void:
 		sk[0].pressed.emit(); sk[2].pressed.emit()
 		if gesendet != ["speichern", "hauptmenue"] or not m.meldung_.visible: fehler += 1; print("FEHLER System sendet ", gesendet)
 	if m.leiste.get_child_count() != 6: fehler += 1; print("FEHLER %d Reiter" % m.leiste.get_child_count())
+	# 399.3.1 Lautstaerke: drei Regler, Antippen in der Mitte stellt Musik auf 50 % (Klang.stelle)
+	var kl: Node = root.get_node_or_null("Klang")   # der Autoload, gibt es ihn mit -s nicht, ein eigener
+	var eigener := kl == null
+	if eigener:
+		kl = load("res://klang/klang.gd").new()
+		kl.name = "Klang"
+		root.add_child(kl)
+	m.reiter = "system"; m.baue()
+	await process_frame; await process_frame
+	var regler: Array = m.inhalt.find_children("*", "", true, false).filter(func(n): return n is Menue.Regler)
+	if regler.size() != 3: fehler += 1; print("FEHLER %d Regler" % regler.size())
+	else:
+		var tipp := InputEventScreenTouch.new()
+		tipp.position = Vector2(regler[1].linie.size.x * 0.5, 10); tipp.pressed = true
+		regler[1]._eingabe(tipp)
+		if int(kl.lautstaerke["music"]) != 50 or regler[1].zahl.text != "50 %": fehler += 1; print("FEHLER Musik ", kl.lautstaerke["music"], " ", regler[1].zahl.text)
+		kl.stelle("music", 100)
+	if eigener: kl.queue_free()
+	await process_frame
 	# Chronik: Hauptauftrag, Auftrag der Geschichte, Bisher geschehen (das Neueste oben), Stern bis zum Lesen
 	z.setze(Geschichte.QUEST_STARTED); z.setze(Geschichte.KROGG_HINT)
 	m.reiter = "held"; m.baue()

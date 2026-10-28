@@ -11,10 +11,10 @@ extends Control
 #   Nebenhand, wegwerfen (mit Rueckfrage und Haendlerpreis).
 # - Ausruestung (GearTab): Plaetze links und rechts des Helden (PaperDoll), Antippen legt ab, wechselt oder waehlt aus der Tasche,
 #   was passt (die Nebenhand nimmt auch Einhandwaffen); darunter die Kampfwerte.
-# - System (SystemSigns), soweit es die Welt schon kann: Speichern, Sprache, Hauptmenue; Siege.
+# - System (SystemSigns), soweit es die Welt schon kann: Speichern, Sprache, Hauptmenue; Lautstaerke (399.3.1); Siege.
 # - Karte (MapTab, 62): kartenreiter.gd.
 # - Chronik (ChronicleTab): Hauptauftrag in Gold, Auftraege der Geschichte, Erledigt zum Aufklappen, „Bisher geschehen“.
-# Noch nicht wie alt: in der Chronik Nebenauftraege (Anschlagbrett), Ankunft und Morgenandacht ansehen; im System Kampf, Bedienung, Klang und Licht, Version, Geraeteangaben; Bilder der Dinge; Vergleich mit dem Getragenen (GearCompare); Fackel im Dunkeln;
+# Noch nicht wie alt: in der Chronik Nebenauftraege (Anschlagbrett), Ankunft und Morgenandacht ansehen; im System Kampf, Bedienung, Helligkeit, Version, Geraeteangaben; Bilder der Dinge; Vergleich mit dem Getragenen (GearCompare); Fackel im Dunkeln;
 # Erklaerung der Attribute beim Antippen (Perks).
 
 signal zu
@@ -599,8 +599,74 @@ func system() -> void:
 		inhalt.add_child(Erschaffung.knopf(String(k[0]), k[2]))
 		zeile(String(k[1]), 13, Stil.DIM)
 		luecke(8)
+	# 399.3.1 Lautstaerke wie alt (SoundSettings.kt SoundAndLight, 40): Gesamt, Musik, Effekte und Ortsklang, in Schritten zu 5 (Mix.STEP);
+	# Loslassen bei Gesamt und Effekten klickt einmal, so hoert man, wie laut es nun ist (40a)
+	var k := get_node_or_null("/root/Klang")   # ueber den Knoten wie spiel.gd klang(): mit -s gibt es den Autoload nicht
+	if k:
+		zeile("Lautstärke" if de else "Volume", 15, Stil.TEXT)
+		for r in [["all", "Gesamt" if de else "Overall", true], ["music", "Musik" if de else "Music", false], ["fx", "Effekte und Ortsklang" if de else "Effects and ambience", true]]:
+			var an: bool = k.musik_an if r[0] == "music" else (k.effekte_an if r[0] == "fx" else true)
+			inhalt.add_child(Regler.new(String(r[1]), int(k.lautstaerke[r[0]]) if an else 0, "Aus" if de else "Off",
+				func(v: int): k.stelle(r[0], v), (func(): k.effekt("click", 0.35)) if r[2] else Callable()))
+		luecke(8)
 	luecke(8)
 	zeile(("Siege: " if de else "Victories: ") + str(z.siege), 13, Stil.DIM)
+
+# GoldSlider (SoundSettings.kt): Name und Wert darueber, eine Goldlinie darunter; Antippen oder Ziehen, in Schritten zu 5
+class Regler extends VBoxContainer:
+	var wert := 0
+	var aus := ""
+	var aendert: Callable
+	var fertig: Callable
+	var zahl: Label
+	var linie: Control
+
+	func _init(name_: String, w: int, aus_: String, aendert_: Callable, fertig_: Callable) -> void:
+		wert = w; aus = aus_; aendert = aendert_; fertig = fertig_
+		size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		var kopf := HBoxContainer.new()
+		add_child(kopf)
+		var n := Erschaffung.txt(name_, 14)
+		kopf.add_child(n)
+		zahl = Stil.zeile("", 14 * 0.95, Stil.BRIGHT, 0.2)
+		kopf.add_child(zahl)
+		linie = Control.new()
+		linie.custom_minimum_size = Vector2(0, 36 * AktionsKnopf.DP)
+		linie.mouse_filter = Control.MOUSE_FILTER_STOP
+		linie.draw.connect(_zeichne)
+		linie.gui_input.connect(_eingabe)
+		add_child(linie)
+		zeige()
+
+	func zeige() -> void:
+		zahl.text = aus if wert == 0 else "%d %%" % wert
+		linie.queue_redraw()
+
+	static func stufe(p: int) -> int: return ((clampi(p, 0, 100) + 2) / 5) * 5   # Mix.clamp
+
+	func _eingabe(e: InputEvent) -> void:
+		var x := -1.0
+		if e is InputEventScreenTouch or e is InputEventScreenDrag: x = e.position.x
+		elif e is InputEventMouseButton and e.button_index == MOUSE_BUTTON_LEFT and e.device != InputEvent.DEVICE_ID_EMULATION: x = e.position.x
+		if x < 0: return
+		var neu := stufe(roundi(x / linie.size.x * 100))
+		if neu != wert:
+			wert = neu
+			aendert.call(wert)
+			zeige()
+		if e is InputEventScreenTouch and not e.pressed and fertig.is_valid(): fertig.call()
+		linie.accept_event()
+
+	func _zeichne() -> void:
+		var dp := AktionsKnopf.DP
+		var y := linie.size.y / 2
+		var knopf := 7 * dp
+		var x := knopf + (linie.size.x - 2 * knopf) * wert / 100.0
+		linie.draw_line(Vector2(knopf, y), Vector2(linie.size.x - knopf, y), Stil.RIM, 2 * dp)
+		linie.draw_line(Vector2(knopf, y), Vector2(x, y), Stil.GOLD, 3 * dp)
+		var r := Rect2(x - knopf, y - knopf * 1.6, knopf * 2, knopf * 3.2)
+		linie.draw_rect(r, Color.BLACK)
+		linie.draw_rect(r, Stil.BRIGHT, false, 1.5 * dp)
 
 # ---------------------------------------------------------------- Chronik (ChronicleTab)
 func kaestchen(zeilen: Array) -> void:
