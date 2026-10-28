@@ -78,6 +78,13 @@ object TextExport {
         putJsonObject("einzelstuecke") {
             for (id in Uniques.ids) putJsonObject(id) { put("name", text(Uniques.name(id))); put("seltenheit", text(Uniques.rarity(id).title)) }
         }
+        // 399.1 Menue System: die Anleitung wortgleich aus [Guide] (Homer [352.…]); „nur“ = die Klasse, die den Absatz allein liest
+        putJsonObject("anleitung") {
+            put("titel", text(Guide.title)); put("zeichen", text(Guide.sign)); put("hinweis", text(Guide.signHint))
+            putJsonArray("teile") {
+                for (p in Guide.parts) addJsonObject { put("de", p.de); put("en", p.en); p.only?.let { put("nur", it.name) } }
+            }
+        }
     }
 
     private fun text(t: T) = buildJsonObject { put("de", t.de); put("en", t.en) }

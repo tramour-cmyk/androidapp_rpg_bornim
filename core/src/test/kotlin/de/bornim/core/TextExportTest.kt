@@ -73,4 +73,15 @@ class TextExportTest {
         val story = java.io.File("src/main/kotlin/de/bornim/core/Story.kt").readText()
         for (m in Regex("""(?:give|take)\("(\w+)"""").findAll(story)) assertTrue(m.groupValues[1] in dinge || m.groupValues[1] in einzel, m.groupValues[1])
     }
+
+    @Test
+    fun theGuideIsWordForWord() {
+        val a = j["anleitung"]!!.jsonObject
+        val teile = a["teile"]!!.jsonArray
+        assertEquals(Guide.parts.size, teile.size)
+        assertEquals(Guide.parts[1].de, teile[1].jsonObject["de"]!!.jsonPrimitive.content)
+        assertEquals("Guide", a["titel"]!!.jsonObject["en"]!!.jsonPrimitive.content)
+        // Absaetze nur fuer eine Klasse tragen deren Namen
+        assertEquals(Guide.parts.count { it.only != null }, teile.count { "nur" in it.jsonObject })
+    }
 }

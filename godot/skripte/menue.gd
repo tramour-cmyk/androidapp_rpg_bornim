@@ -21,6 +21,7 @@ signal zu
 signal speichern                   # 399.1 System: die Welt haelt den Stand fest (spiel.gd speichere)
 signal sprache                     # die Welt wechselt die Sprache (spiel.gd sprache_wechseln)
 signal hauptmenue                  # speichern und zum Hauptmenue (spiel.gd)
+signal ueber                       # 399.1 „Über“: wie hauptmenue, dort gleich „Über das Spiel“
 
 const DP := AktionsKnopf.DP
 const BLAU := Color("82aaf2")      # gearBlue auf Schwarz (Veil.of rare)
@@ -638,6 +639,13 @@ func system() -> void:
 		inhalt.add_child(Erschaffung.knopf(String(k[0]), k[2]))
 		zeile(String(k[1]), 13, Stil.DIM)
 		luecke(8)
+	# 352: die Anleitung; „Über“ (Wer das Spiel macht …); die MARS-Probe folgt mit dem Kampfort (Jerry)
+	var a: Dictionary = Sprache.texte.get("anleitung", {})
+	for k in [[Sprache.t(a.get("zeichen", {"de": "Anleitung", "en": "Guide"})), Sprache.t(a.get("hinweis", "")), anleitung],
+		["Über" if de else "About", "Wer das Spiel macht und worauf seine Regeln beruhen." if de else "Who makes the game and what its rules are based on.", func(): ueber.emit()]]:
+		inhalt.add_child(Erschaffung.knopf(String(k[0]), k[2]))
+		zeile(String(k[1]), 13, Stil.DIM)
+		luecke(8)
 	bedienung()
 	# 399.3.1 Lautstaerke wie alt (SoundSettings.kt SoundAndLight, 40): Gesamt, Musik, Effekte und Ortsklang, in Schritten zu 5 (Mix.STEP);
 	# Loslassen bei Gesamt und Effekten klickt einmal, so hoert man, wie laut es nun ist (40a)
@@ -676,6 +684,85 @@ func system() -> void:
 	if geraet_auf: zeile(geraeteangaben(), 11, Stil.TEXT)
 
 var geraet_auf := false
+
+# 352 GuideScreen wie alt: schwarz, ein Kasten, oben der Titel, je Absatz die fette Eroeffnung als Ueberschrift in Gold (16 sp),
+# der Rest 15 sp, fette Woerter (Knoepfe) halbfett in Gold; nur die Faehigkeiten der eigenen Klasse; unten „Zurück“
+static func anleitung_teile(klasse: String) -> Array:
+	var r := []
+	for p in Sprache.texte.get("anleitung", {}).get("teile", []):
+		if not p.has("nur") or String(p["nur"]) == klasse: r.append(Sprache.t(p))
+	return r
+
+# (Text, fett) der Reihe nach, wie Guide.pieces
+static func stuecke(t: String) -> Array:
+	var r := []
+	var s := t.split("**")
+	for i in s.size():
+		if s[i] != "": r.append([s[i], i % 2 == 1])
+	return r
+
+func anleitung() -> void:
+	var seite := Control.new()
+	seite.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	add_child(seite)
+	var bg := ColorRect.new()
+	bg.color = Color.BLACK
+	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	seite.add_child(bg)
+	var rand := MarginContainer.new()
+	rand.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	for r in ["left", "right", "top", "bottom"]: rand.add_theme_constant_override("margin_" + r, int(16 * DP))
+	seite.add_child(rand)
+	var spalte := VBoxContainer.new()
+	spalte.add_theme_constant_override("separation", int(12 * DP))
+	rand.add_child(spalte)
+	var rolle_ := ScrollContainer.new()
+	rolle_.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	rolle_.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
+	var k := Erschaffung.kasten(rolle_)
+	k.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	spalte.add_child(k)
+	var v := VBoxContainer.new()
+	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	v.add_theme_constant_override("separation", int(10 * DP))
+	rolle_.add_child(v)
+	v.add_child(Stil.zeile(Sprache.t(Sprache.texte.get("anleitung", {}).get("titel", "")).to_upper(), 12, Stil.BRIGHT, 3.0))
+	var halbfett := FontVariation.new()
+	halbfett.base_font = Stil.schrift()
+	halbfett.variation_embolden = 0.5   # nur der gerade Schnitt; Compose setzt SemiBold kuenstlich
+	halbfett.spacing_glyph = int(round(0.2 * Stil.SP))
+	var gerade := Stil.variante(0.2)
+	for t in anleitung_teile(hw.klasse):
+		var st := stuecke(t)
+		var absatz := VBoxContainer.new()
+		absatz.add_theme_constant_override("separation", 0)
+		if not st.is_empty() and st[0][1]:
+			var h := Stil.zeile(String(st[0][0]).strip_edges(), 16, Stil.GOLD)
+			h.add_theme_font_override("font", halbfett)
+			absatz.add_child(h)
+			st = st.slice(1)
+		var rt := RichTextLabel.new()
+		rt.bbcode_enabled = true
+		rt.fit_content = true
+		rt.scroll_active = false
+		rt.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		rt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		rt.add_theme_font_override("normal_font", gerade)
+		rt.add_theme_font_override("bold_font", halbfett)
+		rt.add_theme_font_size_override("normal_font_size", int(round(15 * 0.95 * Stil.SP)))
+		rt.add_theme_font_size_override("bold_font_size", int(round(15 * 0.95 * Stil.SP)))
+		rt.add_theme_constant_override("line_separation", int(round(15 * 0.35 * Stil.SP)))
+		rt.add_theme_color_override("default_color", Stil.TEXT)
+		var b := ""
+		for i in st.size():
+			var s := String(st[i][0])
+			if i == 0: s = s.lstrip(" ")
+			s = s.replace("[", "[lb]")
+			b += ("[b][color=#%s]%s[/color][/b]" % [Stil.GOLD.to_html(false), s]) if st[i][1] else s
+		rt.text = b
+		absatz.add_child(rt)
+		v.add_child(absatz)
+	spalte.add_child(Erschaffung.knopf(Sprache.u("back"), func(): seite.queue_free()))
 
 # 399.1 wie alt (SystemSigns): „Kampf“ mit Rückfragen (Blut, Tempo, Kampftext folgen mit dem Kampfort, Jerry), dann „Bedienung“:
 # Steuerung, Joystick und Rennen nur beim Wischen, Aktion, Karte, Rütteln; Antippen wechselt, gespeichert in Bedienung.gd

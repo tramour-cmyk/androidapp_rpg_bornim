@@ -560,6 +560,9 @@ func oeffne_menue() -> void:
 	ebene.add_child(m)
 	m.speichern.connect(speichere)
 	m.sprache.connect(sprache_wechseln)
+	m.ueber.connect(func():   # 399.1 System „Über“ wie alt: vm.toMenu, dann Screen.ABOUT
+		Hauptmenue.ueber_zuerst = true
+		m.hauptmenue.emit())
 	m.hauptmenue.connect(func():   # 399.1: wie alt vm.toMenu: speichern, dann von vorn mit dem Hauptmenue
 		speichere()
 		get_tree().paused = false

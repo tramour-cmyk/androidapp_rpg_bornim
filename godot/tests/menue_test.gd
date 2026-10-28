@@ -106,7 +106,23 @@ func _lauf() -> void:
 	var sk: Array = m.inhalt.find_children("*", "Button", true, false)
 	print("System: ", texte(m).substr(0, 300))
 	var bedienung := 6 if Bedienung.klassisch else 8   # Rückfragen, Steuerung, (Joystick, Rennen,) Aktion, Karte, Rütteln
-	if sk.size() != (5 if root.has_node("Klang") else 4) + bedienung - 1: fehler += 1; print("FEHLER System: %d Knöpfe" % sk.size())   # mit Klang dazu Schritte; Gerät zeigen
+	if sk.size() != (5 if root.has_node("Klang") else 4) + 2 + bedienung - 1: fehler += 1; print("FEHLER System: %d Knöpfe" % sk.size())   # mit Klang dazu Schritte; Anleitung, Über; Gerät zeigen
+	# 352 Anleitung: Absaetze der eigenen Klasse, fette Eroeffnung als Ueberschrift, keine Sternchen
+	var teile := Menue.anleitung_teile("WIZARD")
+	var alle: Array = Sprache.texte["anleitung"]["teile"]
+	if teile.size() != alle.filter(func(p): return not p.has("nur") or p["nur"] == "WIZARD").size() or teile.size() < 10: fehler += 1; print("FEHLER Anleitung %d Absätze" % teile.size())
+	var ueber_ := [0]
+	m.ueber.connect(func(): ueber_[0] += 1)
+	for b in sk:
+		if b.text == "ÜBER" or b.text == "ABOUT": b.pressed.emit()
+		if b.text == "ANLEITUNG" or b.text == "GUIDE": b.pressed.emit()
+	await process_frame
+	if ueber_[0] != 1: fehler += 1; print("FEHLER Über sendet nicht")
+	var rts: Array = m.find_children("*", "RichTextLabel", true, false)
+	if rts.size() != teile.size() or rts.any(func(r): return r.get_parsed_text().contains("**")): fehler += 1; print("FEHLER Anleitung zeigt %d Absätze" % rts.size())
+	else: print("Anleitung: ", rts[1].get_parsed_text().substr(0, 80))
+	for c in m.get_children():
+		if c.find_children("*", "RichTextLabel", true, false).size() > 0: c.free()
 	if not Menue.geraeteangaben().contains("Version:"): fehler += 1; print("FEHLER Geräteangaben")
 	else:
 		sk[0].pressed.emit(); sk[2].pressed.emit()

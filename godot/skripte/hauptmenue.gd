@@ -56,6 +56,11 @@ func _ready() -> void:
 	box.add_theme_constant_override("separation", 0)
 	mitte.add_child(box)
 	titel()
+	if ueber_zuerst:   # 399.1 System „Über“ wie alt (vm.toMenu, Screen.ABOUT): speichern, ins Hauptmenue, gleich die Seite
+		ueber_zuerst = false
+		ueber()
+
+static var ueber_zuerst := false
 
 func leer() -> void:
 	for c in box.get_children():
