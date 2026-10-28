@@ -618,6 +618,7 @@ func rufe_neu() -> void:
 			if d > r + 2: rufe.erase(id)
 		elif d <= r and id != spricht_mit:
 			rufe[id] = jetzt if Ruf.neu(zustand, id) else -1
+			if int(rufe[id]) >= 0: l.ruft_bis = jetzt + Ruf.WIEDER_MS + Ruf.ZEIGT_MS   # 306 Hail.calms
 		l.rufe(rufe.has(id) and int(rufe[id]) >= 0 and Ruf.zeigt(jetzt - int(rufe[id])) and not ui.spricht())
 
 # ---------------------------------------------------------------- Rast (390, RestScreen.kt, Game.rest)

@@ -4,7 +4,8 @@ extends RefCounted
 # Aushang zum Abgeben), zeigt ein goldenes „!“ ueber dem Kopf, sobald der Held ihn bemerkt (Reichweite wie die der Monster:
 # Perks.noticeRange), kurz, und nach 3,2 s noch einmal; wieder erst, wenn der Held zwei Kacheln weiter weg war. Was „neu“ ist,
 # folgt nur aus dem Spielstand: je Person die Fingerabdruecke der letzten Gespraeche (Zustand.gehoert, GameState.heard).
-# Noch nicht wie alt: die Geste dazu (134.2), der Ruf ohne Worte (134.3, Klang), das Stillhalten (306).
+# Wer ruft, haelt still, bis das zweite Zeichen vorbei ist (306, leute.gd ruft_bis).
+# Noch nicht wie alt: die Geste dazu (134.2), der Ruf ohne Worte (134.3, Klang).
 
 const ZEIGT_MS := 1400
 const WIEDER_MS := 3200

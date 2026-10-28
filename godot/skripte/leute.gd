@@ -152,6 +152,7 @@ func _init(k: Karte, d: Dictionary, h: Node3D) -> void:
 # 390: nach der Geschichte da oder nicht (Geschichte.sichtbar)
 # 399.1 Ruf (134.1): ein goldenes „!“ mit dunklem Rand ueber dem Kopf, durch alles sichtbar, immer zur Kamera
 var ruf_zeichen: Label3D
+var ruft_bis := 0                       # ms (Hail.calms)
 
 func rufe(an: bool) -> void:
 	if not an and ruf_zeichen == null: return
@@ -365,6 +366,7 @@ func _process(dt: float) -> void:
 		anim.speed_scale = 1.0
 	rotation.y = drehe(rotation.y, blick, DREH_STEH * dt)
 	if still or not da: return
+	if Time.get_ticks_msec() < ruft_bis: return   # 399.1 (306): wer ruft, haelt still, bis das zweite Zeichen vorbei ist
 	warte -= dt
 	if warte > 0: return
 	if tagesplan(): return
