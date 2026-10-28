@@ -1071,6 +1071,7 @@ func _process(dt: float) -> void:
 	if held == null: return
 	held.laeuft = Ausdauer.schritt(zustand, held_werte(), dt * 1000.0, held.geht(), laufen_will)   # 399.1 Stamina.step
 	ui.ausdauer_balken.z = zustand
+	klang("atme", [zustand.atemlos and kampf == null, zustand.ausdauer])   # 399.3 (Jerry): atemlos keucht er (Panting.kt)
 	rufe_neu()
 	Leute.still = ui.spricht()   # 390: wer spricht, bleibt stehen (Mode.Dialog)
 	if is_instance_valid(ziel_person) and not ui.spricht():
