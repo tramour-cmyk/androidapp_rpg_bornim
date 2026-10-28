@@ -17,7 +17,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 397 | M | **von Chef (28.10., 11:15):** Tiere, Monster: mind. drei Ruhebewegungen wie alt (`LISTE-UMZUG-348.md`) | ruht (399) | – |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht bis Kauf: Werte, Listen ja (Archiv), dann einbauen; erst Größe prüfen | – |
 | 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | startbar: Fledermaus r5 passt (Chef 15:27, Archiv); weiter Wildschwein, Kobold mit 348.12 | `claude/jerry-348-kampf` |
-| 348.7b | M | Zauberbahn nach Chef „D“ | gebaut: r4 passt (Chef 15:27, Archiv); Prüferbefund Feintuning | `claude/jerry-348-kampf` |
+| 348.7b | M | Zauberbahn nach Chef „D“ | gebaut: r4 passt, Befunde bleiben so (Chef 15:28, Archiv) | `claude/jerry-348-kampf` |
 | 390 | M | **von Perikles:** Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | wartet auf 399.1: Regeln samt Elite golden gleich; offen Ansicht klassisch, Gegner auf der Karte (Elitewurf) | `claude/jerry-348-kampf` |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: beantwortet (Konter nur nach Fehlschlag); ändern nur auf Wort des Chefs | – |
 | 257 | M | **von Chef (20.10., 17:17, Test B46):** App „hängt“, ging dann weiter (Zu 257) | ruht: Hänger-Wächter (Tom) seit Build 49; bis zum nächsten Hänger mit Absturzbericht | – |
