@@ -204,6 +204,10 @@ func _lauf() -> void:
 	print("Vergleich: ", vg.satz(), " ", vg.zeilen.map(func(r): return "%s %s→%s" % [r["wort"], r["vorher"], r["nachher"]]))
 	if vg.zeilen.is_empty() or vg.urteil() == null: fehler += 1; print("FEHLER Vergleich leer bei ", Beute.name(stueck))
 	if hw2.rk() != rk_vor or hw2.ausruestung.values().has(stueck): fehler += 1; print("FEHLER Vergleich aendert den Helden")
+	# 399.1 Antippen eines Attributs (Perks.describe): bei der Magierin INT mit der Zeile der Klasse
+	var erk := Menue.erklaerung(hw, "INT")
+	print("Erklärung INT: ", erk)
+	if erk.size() < 4 or not (erk[1].contains("Magier") or erk[1].contains("Wizard")): fehler += 1; print("FEHLER Erklärung INT")
 	# Satt wird gespeichert
 	z.satt = true
 	if not Zustand.aus_daten(z.als_daten()).satt: fehler += 1; print("FEHLER satt nicht gespeichert")

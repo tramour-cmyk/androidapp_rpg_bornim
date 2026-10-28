@@ -14,8 +14,7 @@ extends Control
 # - System (SystemSigns), soweit es die Welt schon kann: Speichern, Sprache, Hauptmenue; Lautstaerke (399.3.1), Schritte, Helligkeit; Siege.
 # - Karte (MapTab, 62): kartenreiter.gd.
 # - Chronik (ChronicleTab): Hauptauftrag in Gold, Auftraege der Geschichte, Erledigt zum Aufklappen, „Bisher geschehen“.
-# Noch nicht wie alt: in der Chronik Nebenauftraege (Anschlagbrett), Ankunft und Morgenandacht ansehen; im System Kampf, Bedienung, Version, Geraeteangaben; Bilder der Dinge; Fackel im Dunkeln;
-# Erklaerung der Attribute beim Antippen (Perks).
+# Noch nicht wie alt: in der Chronik Nebenauftraege (Anschlagbrett), Ankunft und Morgenandacht ansehen; im System Kampf, Bedienung, Version, Geraeteangaben; Bilder der Dinge; Fackel im Dunkeln.
 
 signal zu
 signal speichern                   # 399.1 System: die Welt haelt den Stand fest (spiel.gd speichere)
@@ -186,6 +185,7 @@ func held() -> void:
 	var verplant := 0
 	for a in geplant: verplant += int(geplant[a])
 	if hw.offen > 0: zeile(Sprache.u("points", [hw.offen - verplant]), 15, Stil.WARN)
+	zeile("Tippe auf ein Attribut, um zu sehen, was es bringt." if de else "Tap an ability to see what it does.", 12, Stil.DIM)
 	var blau := false
 	for a in Heldwerte.ATTRIBUTE:
 		var plus := int(geplant.get(a, 0))
@@ -196,6 +196,7 @@ func held() -> void:
 		n.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		n.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		r.add_child(n)
+		tippbar(n, func(): erklaere(a))
 		var w := hw.wert(a) + plus
 		var aus := hw.ausruestungs_bonus(a)
 		if aus != 0: blau = true
@@ -249,6 +250,24 @@ func held() -> void:
 		zeile(Sprache.t(fd["text"]), 13, Stil.DIM)
 
 # ConfirmDialog „Punkte verteilen?“: je Attribut alt → neu, „Das kann nicht rückgängig gemacht werden.“
+# Perks.describe (Ausfuhr held.json „erklaerung“): Wert und Modifikator, die Zeile der Klasse, dann was der Modifikator bringt
+static func erklaerung(h: Heldwerte, a: String) -> Array:
+	var de := Sprache.aktiv() == "de"
+	var d := Heldwerte.lade()
+	var m := clampi(h.mod(a), -5, 10)
+	var l := "de" if de else "en"
+	var out := [("Wert %d, Modifikator %s" if de else "Score %d, modifier %s") % [h.wert(a), Erschaffung.vorzeichen(h.mod(a))]]
+	out.append_array(d.get("erklaerung_klasse", {}).get("%s:%s" % [h.klasse, a], {}).get(l, []))
+	out.append_array(d.get("erklaerung", {}).get(a, {}).get(str(m), {}).get(l, []))
+	return out
+
+func erklaere(a: String) -> void:
+	var z_ := []
+	for i in erklaerung(hw, a).size():
+		var t := Erschaffung.txt(erklaerung(hw, a)[i], 15 if i == 0 else 14)
+		z_.append(t)
+	dialog(Sprache.t(Heldwerte.lade()["attribute"][a]["name"]), Stil.GOLD, z_, [["OK", func(): pass]])
+
 func frage_verteilen() -> void:
 	var de := Sprache.aktiv() == "de"
 	var d := Heldwerte.lade()

@@ -104,6 +104,14 @@ object HeroExport {
         return s
     }
 
+    /** Perks.describe for a hero of [cls] whose [a] has the modifier [m]. */
+    private fun perks(cls: CharClass, a: Ability, m: Int, lang: Lang): List<String> {
+        val h = Hero.create("Probe", Race.HUMAN, cls, newUid = { 1L })
+        h.base[a] = 10 + 2 * m - (h.score(a) - h.base.getValue(a))   // ohne Volksbonus genau dieser Modifikator
+        check(h.mod(a) == m) { "${a.name} $m: ${h.mod(a)}" }
+        return Perks.describe(a, h, lang)
+    }
+
     private fun sampleHero(name: String, cls: CharClass, lvl: Int, extra: Boolean): Hero {
         var uid = 1L
         val h = Hero.create(name, Race.entries[cls.ordinal % Race.entries.size], cls, newUid = { uid++ })
@@ -167,6 +175,22 @@ object HeroExport {
         put("klassen", j(CharClass.entries.associate { c -> c.name to mapOf("name" to c.title, "trefferwuerfel" to c.hitDie, "haupt" to c.primary,
             "reihenfolge" to c.priority, "ruestung" to c.armor, "schilde" to c.shields, "waffen" to c.weapons?.toList(), "start" to c.startItems,
             "startgold" to c.startGold, "zauberer" to c.caster, "text" to c.desc) }))
+        // 399.1 (HeroTab: Antippen eines Attributs, Perks.describe): was ein Attribut bringt, je Modifikator -5 bis +10 ohne die erste
+        // Zeile (Wert und Modifikator rechnet Godot); die Zeile der Klasse (Magier INT, Kleriker WIS) fuer sich
+        put("erklaerung", buildJsonObject {
+            for (a in Ability.entries) put(a.name, buildJsonObject {
+                for (m in -5..10) put(m.toString(), buildJsonObject {
+                    for (lang in Lang.entries) put(lang.name.lowercase(), JsonArray(perks(CharClass.FIGHTER, a, m, lang).drop(1).map { JsonPrimitive(it) }))
+                })
+            })
+        })
+        put("erklaerung_klasse", buildJsonObject {
+            for (c in CharClass.entries) for (a in Ability.entries) {
+                val extra = Lang.entries.associateWith { l -> perks(c, a, 0, l).drop(1) - perks(CharClass.FIGHTER, a, 0, l).drop(1).toSet() }
+                if (extra.values.all { it.isEmpty() }) continue
+                put("${c.name}:${a.name}", buildJsonObject { for ((l, xs) in extra) put(l.name.lowercase(), JsonArray(xs.map { JsonPrimitive(it) })) })
+            }
+        })
         put("faehigkeiten", j(Skill.entries.associate { it.name to mapOf("klasse" to it.cls, "stufe" to it.level, "name" to it.title, "text" to it.desc, "mars" to it.mars, "kosten" to it.cost) }))
         put("grundformen", j(GearBases.all.associate { it.id to base(it) }))
         put("affixe", j(Affix.entries.map { it.name }))
