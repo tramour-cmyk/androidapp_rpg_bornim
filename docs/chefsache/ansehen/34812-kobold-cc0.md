@@ -6,7 +6,7 @@
 
 **Bitte nur ansehen.** Antworte „ja“, wenn ich die Befunde unten beheben soll, oder sag, was anders sein soll.
 
-[Film](bilder:pruefung/348.12-kobold-cc0-film.mp4), 5 s: links wie bisher, rechts CC0; Stehen, Gehen, Hieb.
+[Film](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/pruefung/348.12-kobold-cc0-film.mp4), 5 s: links wie bisher, rechts CC0; Stehen, Gehen, Hieb.
 
 **Was gebaut ist:**
 - Die Kobolde stehen jetzt auf demselben Gerüst wie Goblin und Leute, mit eigener Lauer, eigenem Gang und dem Hieb.
