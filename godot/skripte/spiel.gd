@@ -30,7 +30,10 @@ var laden: Laden                                 # 390 (Mode.Shop): offen, bis â
 var laden_notiz := ""
 var laden_menge := {}                            # 390 (59.5): ein Ding mit Menge {id, kaufen, n}; leer = Liste
 var laufen_will := false                        # 399.1 Ring oder Renntaste (Stamina.step run)
-var brett_offen := false                        # 399.1 Anschlagbrett (Mode.Board)
+var brett_offen := false
+var rufe := {}                                   # 399.1 Ruf: Person -> seit wann (ms) sie ruft, -1 = bemerkt, nichts Neues
+var rufe_karte := ""
+var spricht_mit := ""                            # bis das Gespraech vorbei ist, dann gilt gehoert (Game.talkingTo)                        # 399.1 Anschlagbrett (Mode.Board)
 var laden_stueck := ""                           # 399.1 (gearDialog): das Stueck Ausruestung im Kasten vor Kauf oder Verkauf
 var laden_frage := ""                            # 399.1 (59e, RÃ¼ckfragen): die Wahl, die noch einmal fragt; "" = keine
 
@@ -505,6 +508,9 @@ func sprich(l: Leute) -> void:
 	held.rotation.y = atan2(l.position.x - held.position.x, l.position.z - held.position.z)
 	ui.biete_an("")
 	zustand.setze("met_" + String(l.daten["id"]))   # 399.1 Karte: wen der Held kennt (MapMarks.met, Game.talk)
+	Ruf.gehoert(zustand, String(l.daten["id"]), false)   # 399.1 Hail.heard vor dem Gespraech
+	spricht_mit = String(l.daten["id"])
+	rufe.erase(spricht_mit)
 	var abgabe := Auftraege.abgabe(zustand, String(l.daten["id"]))   # 399.1 Game.talk: Jobs.handIn vor dem Gespraech
 	spiele(abgabe if not abgabe.is_empty() else Geschichte.gespraech(String(l.daten["id"]), zustand))
 
@@ -550,6 +556,9 @@ func weiter() -> void:
 				# Kampf (Jerry 348.7), Laden, Schenke, Kapitelende, Tempelszene, Morgen: in Kotlin wartet die Szene dort; bis sie
 				# gebaut sind, endet sie hier, damit nichts danach (Flaggen, Saetze) ohne das Ereignis geschieht (Pruefer)
 				szene.clear()
+	if spricht_mit != "" and not ui.spricht():   # Hail.heard nach dem Gespraech
+		Ruf.gehoert(zustand, spricht_mit, true)
+		spricht_mit = ""
 	if held: _steht_auf(held.kachel)
 
 # Loot.generate mit Mindestseltenheit (rarityFor special, floor) und Platz, Stufe wie maxOf(areaLevel, hero.level)
@@ -593,6 +602,22 @@ func _brett_wahl(id: String) -> void:
 	brett_offen = false
 	ui.schliesse_wahl()
 	weiter()
+
+# 399.1 Game.updateHails: wer den Helden bemerkt (Reichweite, sichtbar), ruft einmal, wenn er Neues hat; wieder erst, wenn der Held
+# zwei Kacheln weiter weg war; ein neuer Ort zaehlt als neu herankommen
+func rufe_neu() -> void:
+	if karte.id != rufe_karte:
+		rufe.clear(); rufe_karte = karte.id
+	var jetzt := Time.get_ticks_msec()
+	var r := Ruf.reichweite(held_werte())
+	for l in leute_liste():
+		var id := String(l.daten.get("id", ""))
+		var d := absi(l.kachel.x - held.kachel.x) + absi(l.kachel.y - held.kachel.y)
+		if rufe.has(id):
+			if d > r + 2: rufe.erase(id)
+		elif d <= r and id != spricht_mit:
+			rufe[id] = jetzt if Ruf.neu(zustand, id) else -1
+		l.rufe(rufe.has(id) and int(rufe[id]) >= 0 and Ruf.zeigt(jetzt - int(rufe[id])) and not ui.spricht())
 
 # ---------------------------------------------------------------- Rast (390, RestScreen.kt, Game.rest)
 # was an Kachel t zu tun ist: Lagerfeuer (in der Hoehle nur ansehen), Bett der Schenke (anderswo fremd), sonst ""
@@ -939,6 +964,7 @@ func _process(dt: float) -> void:
 	if held == null: return
 	held.laeuft = Ausdauer.schritt(zustand, held_werte(), dt * 1000.0, held.geht(), laufen_will)   # 399.1 Stamina.step
 	ui.ausdauer_balken.z = zustand
+	rufe_neu()
 	Leute.still = ui.spricht()   # 390: wer spricht, bleibt stehen (Mode.Dialog)
 	if is_instance_valid(ziel_person) and not ui.spricht():
 		var nah := person_nah()

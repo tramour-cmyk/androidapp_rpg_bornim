@@ -26,6 +26,7 @@ var beutel: Array = []
 var siege := 0
 var schritte := 0                 # 399.1 GameState.steps
 var laden_verkauft := {}               # "Satz:uid" -> true
+var gehoert := {}                      # 399.1 Person -> Fingerabdruecke der letzten Gespraeche (GameState.heard, Ruf.gd)
 var uid_zaehler := 0                   # GameState.uidCounter
 
 func has(f: String) -> bool: return flaggen.has(f)
@@ -73,7 +74,7 @@ func als_daten() -> Dictionary:
 	return {"name": name, "stufe": stufe_held, "gold": gold, "taschen": taschen.duplicate(), "flaggen": flaggen.keys(), "minuten": minuten, "tag": tag,
 		"ausdauer": ausdauer, "atemlos": atemlos, "ausdauer_trank": ausdauer_trank, "funke": funke, "satt": satt, "lange_rast_tag": lange_rast_tag,
 		"met": met, "leiden": leiden.duplicate(), "wiederkehr": wiederkehr.duplicate(), "beutel": beutel.duplicate(true), "siege": siege, "schritte": schritte,
-		"laden_verkauft": laden_verkauft.keys(), "uid_zaehler": uid_zaehler}
+		"laden_verkauft": laden_verkauft.keys(), "uid_zaehler": uid_zaehler, "gehoert": gehoert.duplicate(true)}
 
 static func aus_daten(d: Dictionary) -> Zustand:
 	var z := Zustand.new()
@@ -90,4 +91,5 @@ static func aus_daten(d: Dictionary) -> Zustand:
 	for g in d.get("beutel", []): z.beutel.append(stueck(g))
 	z.siege = int(d.get("siege", 0)); z.schritte = int(d.get("schritte", 0)); z.uid_zaehler = int(d.get("uid_zaehler", 0))
 	for k in d.get("laden_verkauft", []): z.laden_verkauft[String(k)] = true
+	for k in d.get("gehoert", {}): z.gehoert[String(k)] = (d["gehoert"][k] as Array).map(func(x): return int(x))
 	return z

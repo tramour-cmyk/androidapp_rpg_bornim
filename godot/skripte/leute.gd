@@ -150,6 +150,37 @@ func _init(k: Karte, d: Dictionary, h: Node3D) -> void:
 	warte = zufall.randf_range(0.5, 3.0)
 
 # 390: nach der Geschichte da oder nicht (Geschichte.sichtbar)
+# 399.1 Ruf (134.1): ein goldenes „!“ mit dunklem Rand ueber dem Kopf, durch alles sichtbar, immer zur Kamera
+var ruf_zeichen: Label3D
+
+func rufe(an: bool) -> void:
+	if not an and ruf_zeichen == null: return
+	if ruf_zeichen == null:
+		ruf_zeichen = Label3D.new()
+		ruf_zeichen.text = "!"
+		ruf_zeichen.font = Stil.schrift()
+		ruf_zeichen.font_size = 96
+		ruf_zeichen.outline_size = 18
+		ruf_zeichen.modulate = Color("f0c850")
+		ruf_zeichen.outline_modulate = Color("201408b0")
+		ruf_zeichen.pixel_size = 0.004
+		ruf_zeichen.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+		ruf_zeichen.no_depth_test = true
+		ruf_zeichen.shaded = false
+		ruf_zeichen.position = Vector3(0, kopfhoehe() + 0.35, 0)
+		add_child(ruf_zeichen)
+	ruf_zeichen.visible = an
+
+# Scheitel ueber den Fuessen: aus den Netzen der Figur, sonst 1,75 m
+func kopfhoehe() -> float:
+	var oben := 0.0
+	if modell:
+		for m in modell.find_children("*", "MeshInstance3D", true, false):
+			var bb: AABB = (m as MeshInstance3D).get_aabb()
+			var t: Transform3D = global_transform.affine_inverse() * (m as MeshInstance3D).global_transform if m.is_inside_tree() and is_inside_tree() else Transform3D()
+			oben = maxf(oben, (t * bb).end.y)
+	return oben if oben > 0.5 else 1.75
+
 func zeige(ja: bool) -> void:
 	da = ja
 	visible = da and not drinnen
