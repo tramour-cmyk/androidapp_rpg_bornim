@@ -123,10 +123,14 @@ class ClassicGoldenTest {
             "stirge", "giant_centipede", "ghoul", "ochre_jelly", "hobgoblin_captain", "dire_wolf", "bugbear")
         var n = 0
         for ((fi, foe) in foes.withIndex()) for ((ci, cls) in classes.withIndex()) {
-            if ((fi + ci) % 2 == 1 && foe !in listOf("bugbear", "hobgoblin_captain", "dire_wolf")) continue
             val m = Monsters[foe]
             val level = if (m.boss) 3 + (ci % 2) else 1 + (n % 3)
             add(Case("$foe-${cls.name.lowercase()}", cls, races[n % races.size], foe, 1000 + n, level, Opening.entries[n % 3]))
+            n++
+        }
+        // stage 5: Destroy Undead, Spirit Guardians, Fireball, Extra Attack, Uncanny Dodge, the level cap
+        for (foe in listOf("skeleton", "zombie", "ghoul", "kobold", "wolf", "ochre_jelly")) for ((ci, cls) in classes.withIndex()) {
+            add(Case("$foe-${cls.name.lowercase()}-5", cls, races[(n + ci) % races.size], foe, 3000 + n, 5, Opening.NORMAL))
             n++
         }
     }
@@ -146,6 +150,8 @@ class ClassicGoldenTest {
         if (c.seed % 7 == 3) state.mead = Resting.DRUNK
         if (c.seed % 6 == 4) state.ailments["POISON"] = 2
         if (c.seed % 9 == 5) state.winded = true
+        if (c.seed % 4 == 3) { state.hero.base[Ability.CHA] = 16; state.hero.base[Ability.INT] = 14 }
+        if (c.cls == CharClass.WIZARD && c.seed % 3 == 1) state.mageArmorUntil = state.clock + Battle.MAGE_ARMOR_MINUTES
         val m = Monsters[c.foe]
         val area = if (m.boss) c.level - 1 else c.level
         val look = MonsterLook(c.seed)
@@ -160,8 +166,14 @@ class ClassicGoldenTest {
         var guard = 0
         while (b.outcome == Outcome.ONGOING && guard++ < 120) {
             val all = choices(b, state)
-            // one in many: fleeing is tried, may be refused (a boss) or fail
-            val a = if (policy.nextInt(16) == 0) Action.Flee else all[policy.nextInt(all.size)]
+            // one in many: fleeing is tried, may be refused (a boss) or fail; now and then a move that is not open (refused)
+            val skills = b.hero.cls.skills()
+            val a = when (policy.nextInt(16)) {
+                0 -> Action.Flee
+                1 -> Action.UseSkill(skills[policy.nextInt(skills.size)])
+                2 -> Action.UseItem(listOf("potion", "holy_water", "raw_meat")[policy.nextInt(3)])
+                else -> all[policy.nextInt(all.size)]
+            }
             steps += mapOf("do" to action(a), "st" to b.act(a).map { step(it) })
         }
         if (b.outcome == Outcome.ONGOING) steps += mapOf("do" to listOf("testEnd", true), "st" to b.testEnd(true).map { step(it) })

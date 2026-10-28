@@ -47,6 +47,12 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/regeln_390.gd > regeln390.log 2>&1 || true
           cat regeln390.log
           grep -q "regeln_390: alles gut" regeln390.log
+      - name: Klassischer Kampf gegen Kotlin (390, golden)
+        run: |
+          cd godot
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/klassisch_golden.gd > klassisch.log 2>&1 || true
+          grep -E "ABWEICHUNG|golden|SCRIPT ERROR" klassisch.log | head -20
+          grep -q " 0 abweichend" klassisch.log
       - name: Kampfort selbst ablaufen lassen (alle Probekämpfe)
         run: |
           cd godot
