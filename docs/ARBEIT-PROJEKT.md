@@ -9,8 +9,9 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 390a | M | **von Sokrates (Chef 10:26, „390a A“, Archiv):** `probelauf.py`: Tests aus `godot/tests/` frei, eng wie im Archiv | startbar |
-| 394 | M | **von Sokrates (Chef 10:26, Archiv):** Rollen Spike (Tom), Tuffy (Jerry) in die Werkzeuge | startbar |
+| 396 | M | **von Sokrates (Chef 11:01, Archiv):** Fertiges sofort senden (338.2) | startbar |
+| 390a | M | **von Sokrates (Chef 10:26):** `probelauf.py`: Tests frei (Archiv) | startbar |
+| 394 | M | **von Sokrates (Chef 10:26):** Spike, Tuffy in die Werkzeuge (Archiv) | startbar |
 | 384 | M | **von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“):** Kosten aller Sitzungen gegen Buchungsverzeichnis; Ursache der Lücken im Werkzeug beheben (Zu 384) | gebaut 27.10., 20:1x: --kosten nur mit Kennung, Ford holt Kosten frisch (Zu 384) |
 | 383.3 | M | **von Sokrates (Chef 19:55):** Vorlage zurück beim Team sofort aus der Chefsache | gebaut 27.10., 20:1x |
 | 383 | M | **von Sokrates (Chef 27.10., 17:53 „ja, 383“, Archiv):** Wartewächter in `lauf.py` (Zeitfeld zum „jetzt“, Protokollzeile in `meldung.sh`), Haken 63 verschärfen; Fälle 376.1 und Ford-Bitte 17:3x nachstellen | gebaut 27.10., 19:1x; Diogenes zählt ab 28.10. (Zu 383) |
