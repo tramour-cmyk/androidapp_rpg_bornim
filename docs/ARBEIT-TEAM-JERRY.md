@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben.
 
-**Übergabe (28.10., 14:42, `session_01Hmoj75RGhNPWnmxSqJ6X8c`):** 399.2a Rudel (6c59777c2); Grak im APK (f5ed4ee0f grün); 348.7b b (dda3b67ab); Filmschritte im Workflow; 398 geschätzt. Neuer Workflow-Schritt erst allein laufen lassen. Nachfolger: „Jerry – Filme Grak, Zauberbahn, Fledermaus (nach 348.12)“
+**Übergabe (28.10., 15:20, `session_01Hmoj75aYZ2RLhVV4vUowFc`):** Lauf 167 (30e32b835, drei Filme in einem Lauf), Filme an den Chef 15:17; 399.2b gemessen (`tests/rudel_mess.gd`, braucht Toms Heldwerte und `exportHero` von `claude/tom-399-spielfassung`). Nachfolger: „Jerry – Urteile Grak, Zauberbahn, Fledermaus, Rudel (nach Chef)“
 
 ## Zeilen
 
