@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates für den Chef, 25.10., 01:2x):** Arbeit nach `LISTE-UMZUG-348.md`, 348.6–348.8; altes Spiel ruht.
 
-**Übergabe (28.10., 06:35, `session_01Hmoj79A1YeyWdR5ENs3tjE`):** 348.7b gebaut (80170c532, r2 ebd. Zweig): gerade Bahn ab Stabspitze, Seitenschritt zur Bildmitte, Geschosse im Fächer, Kegel Brennende Hände; r2 aufs Morgenblatt (zwei Probeläufe 348 und zwei 348.7b verbraucht). Golden, Regeln, Kampfort-Lauf, core grün. Nachfolger: „Jerry – 348.7b nach Urteil des Chefs“
+**Übergabe (28.10., 06:35, `session_01Hmoj79A1YeyWdR5ENs3tjE`):** 348.7b r2 gebaut (80170c532). Nachfolger: „Jerry – 348.7b nach Urteil des Chefs“
 
 ## Zeilen
 
@@ -15,7 +15,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: Chef 08:09 (Archiv): Grak „sieht gar nicht gut aus“, Kobolde „wie ‚das Ding‘ aus einem John-Carpenter-Film“; **erst die Gestalt, dann Bewegung** (Chef 08:10, Archiv): Hieb, Gehen ruhen; Gestalt nachbessern, dann ein Film: beide nah, Augenhöhe, ganzer Körper, drehend; dazu welches Modell, welche Texturen | `claude/jerry-348-kampf` |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht bis Kauf: Werte, Listen ja (Archiv), dann einbauen; erst Größe prüfen | – |
 | 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | wartet auf 348.7b (Zauberbahn nach Chef „D“); danach Fledermaus r4d und Wildschwein r3 neu vorlegen; Kobold mit 348.12; Treffer: Ansage zuerst (Archiv) | `claude/jerry-348-kampf` |
-| 348.7b | M | Zauberbahn nach Chef „D“ | startbar: r2 passt (Chef 07:57, Archiv); als Regel übernehmen; offen: Start im Bild vor der Heldin, Feuerklumpen vor dem Kegel | `claude/jerry-348-kampf` |
+| 348.7b | M | Zauberbahn nach Chef „D“ | wartet auf Chef: r3 (ansehen/3487b-zauberbahn, Film r3), Frage Start vor der Heldin: so lassen oder Schritt etwa 1,7 m; Feuerklumpen behoben (ab434b384), Regel in LISTE-UMZUG-348 | `claude/jerry-348-kampf` |
 | 390 | M | **von Perikles (28.10.):** zwischen Blättern beim Chef Funktionen ohne Bild bauen (`LISTE-UMZUG-348.md`): Regeln, Pechsträhne, klassischer Kampf, Gegner auf der Karte | startbar | `claude/jerry-348-kampf` |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel); ändern nur auf Wort des Chefs | – |
 | 257 | M | **von Chef (20.10., 17:17, Test B46):** App „hängt“, ging dann weiter (Zu 257) | ruht: Hänger-Wächter (Tom) seit Build 49; bis zum nächsten Hänger mit Absturzbericht | – |
