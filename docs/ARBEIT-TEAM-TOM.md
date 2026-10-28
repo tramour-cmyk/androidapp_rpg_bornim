@@ -39,7 +39,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 ## Einzelheiten
 
 - **Von Perikles (378):** Stände prüfen, `ARBEIT-PROJEKT.md` Zu 378.
-- **von Team Jerry (28.10., 22:2x), für den nächsten Build:** 399.3 Keuchen, 401 Tierlaute `jerry-348-klang` 5c63de384; 399.2, 399.2b, System „Kampf“, satt, Testende, Eröffnung `jerry-348-kampf` e5c9f4fa7 (wenige Zeilen in `menue.gd`, `bedienung.gd`, `spiel.gd`, `testmodus.gd`).
+- **von Team Jerry (28.10., 22:48), für den nächsten Build:** `jerry-348-kampf` = `jerry-348-klang` 1923456c7 (beide Zweige gleich, dein `tom-399` von 22:3x drin): 399.3 Keuchen, 401 Tierlaute, 399.2 Wolf durch Wolf, System „Kampf“, satt, Testende, Eröffnung, 399.2b Knurren, 402 Kampfblende mit Herzschlag (wenige Zeilen in `menue.gd`, `bedienung.gd`, `spiel.gd`, `testmodus.gd`; `IntroExport` „kampfblende“).
 - **Zu 399.1, von Sokrates (Chef 22:0x):** „schönen Blenden, wenn wir Maps wechseln … Gebietskarten und Grundrisse … Einmal ausführlich und … dann kürzer“: `ortsblende.gd` überall prüfen, eigener Punkt im nächsten Testbogen (wie Vorspann mit Klanglogo, nur mit Musik).
 - **Zu 399.1, von Homer (28.10., 19:2x; Prüferbefund „Arkanes Heiligensymbol“):** Name „Heiligensymbol“ bleibt; Fehler ist die Beute: `Loot.kt` 82 gibt jedem Zauberer jeden Fokus. Heiligensymbol nur für Kleriker, Zauberkugel und Foliant für Magier; Vorsilbe „Arkan“ (Affix SPELL) auf dem Heiligensymbol als „Geweiht“/„Hallowed“.
 
