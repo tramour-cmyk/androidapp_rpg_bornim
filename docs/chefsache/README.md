@@ -16,7 +16,6 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [376.1](ansehen/3761-halszacken.md) | Halszacken: drei Fassungen des Kopfhebens | Tom | 28.10., 12:28 |
 
 ## Zu tun
 
