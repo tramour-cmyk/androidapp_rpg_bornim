@@ -96,9 +96,32 @@ jobs:
             for f in godot/tiere/*.glb; do n=$(basename $f .glb); cp $f godot/daten/tiere/$n.bin; [ -f godot/tiere/$n-info.json ] && cp godot/tiere/$n-info.json godot/daten/tiere/; done
             ls -l godot/daten/tiere
           fi
+      # 348.6 Dorftiere (Chefrunde 28.10., 08:09: „lieber ein paar Tiere zuerst ‚Platzieren‘“): die gekauften Tiere aus 387, gebaut mit
+      # Jerrys kauftier.py (Tiere = 387 Bereich Jerry; liegt das Skript noch nicht in diesem Zweig, von seinem Zweig wie waffen.py);
+      # Huhn, Rind, Ziege, Kaninchen (Leute.dorftiere stellt sie auf); ohne Kauf (KAUF_TOKEN) keine Dorftiere
+      - name: Dorftiere bauen (387, gekauft)
+        run: |
+          [ -n "$(find $KAUF -name '*_Rig.fbx' 2>/dev/null | head -1)" ] || { echo "ohne Kauf keine Dorftiere"; exit 0; }
+          S=tools/blender348
+          if [ ! -f $S/kauftier.py ]; then
+            git fetch -q --depth 1 origin claude/jerry-348-kampf
+            S=$RUNNER_TEMP/jerry; mkdir -p $S
+            for f in kauftier kaufratte glbquat; do git show FETCH_HEAD:tools/blender348/$f.py > $S/$f.py; done
+          fi
+          export S
+          bau() { OUT=$RUNNER_TEMP/dorftiere TIER=$1 timeout 900 bl/bin/python -I $S/kauftier.py > $RUNNER_TEMP/dorftier-$1.log 2>&1 || { echo "$1 fehlt"; tail -20 $RUNNER_TEMP/dorftier-$1.log; }
+            grep -E "MASS|TEMPO|FEHLT|FERTIG" $RUNNER_TEMP/dorftier-$1.log | cut -c1-200; }
+          export -f bau
+          echo huhn rind ziege kaninchen | tr ' ' '\n' | xargs -P 4 -I{} bash -c 'bau {}'
+          D=godot/daten/dorftiere; mkdir -p $D
+          for f in $RUNNER_TEMP/dorftiere/kauf_*.glb; do [ -f "$f" ] && cp $f $D/$(basename $f .glb).bin; done
+          cp $RUNNER_TEMP/dorftiere/kauf_*-info.json $D/ 2>/dev/null || true
+          ls -l $D
+          # 348.12i: gekauft, also nur verschluesselt ins APK
+          (cd godot && ls daten/dorftiere/*.bin 2>/dev/null >> daten/kauf.txt) || true
       # 348.12i (Chef 26.10., 19:41, „348.12i B“): gekaufte Modelle nur verschluesselt ins APK, Schluessel je Lauf neu, steht nur im
       # Programm (schluessel.gd), nie im Protokoll. Wer ein Kaufmodell nach godot/daten legt, traegt den Pfad in godot/daten/kauf.txt ein.
-      # Probe bis zum ersten Kaufmodell im Spiel: der Held (Geraetetest, sonst fehlt er)
+      # Erste Kaufmodelle im Spiel: die Dorftiere (Geraetetest, sonst fehlen sie)
       - name: Kaufmodelle verschluesseln (348.12i)
         run: |
           K=$(openssl rand -hex 32)
@@ -106,7 +129,6 @@ jobs:
           sed -i "s/^const KAUF := \"\"/const KAUF := \"$K\"/" godot/skripte/schluessel.gd
           grep -q "$K" godot/skripte/schluessel.gd || { echo "Schluessel nicht gesetzt"; exit 1; }
           touch godot/daten/kauf.txt
-          echo daten/held.bin >> godot/daten/kauf.txt
           cd godot && sort -u daten/kauf.txt | xargs -r bash ../tools/blender348/verschluesseln.sh $K
       - uses: actions/cache@v4
         with:
@@ -159,6 +181,22 @@ jobs:
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --bilder=$GITHUB_WORKSPACE/bilder 2>&1 | grep -E "Vulkan|SCRIPT ERROR" || true
           ls -l $GITHUB_WORKSPACE/bilder
+      # 348.6 Dorftiere: Grundansicht und nah an jedem Ort, nachts, dazu ein Film (Tiere bewegen sich), nur bei Commits mit „Dorftiere“
+      - name: Dorftiere Bilder und Film
+        if: contains(github.event.head_commit.message, 'Dorftiere')
+        continue-on-error: true
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/bilder/dorftiere
+          cd godot
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --dorftiere=$GITHUB_WORKSPACE/bilder/dorftiere 2>&1 | grep -E "SCRIPT ERROR|^BILD|^LEUTE|^DORFTIERE" | cut -c1-400 || true
+          # Film wie Jerrys Kampffilme mit opengl3 (lavapipe zu langsam fuer 30 Bilder je Sekunde); ffmpeg statisch aus imageio-ffmpeg
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
+          sudo apt-get install -y -qq libgl1-mesa-dri > /dev/null || true
+          timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
+            ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/dorftiere.avi --fixed-fps 30 -- --dorftierfilm 2>&1 | grep -E "SCRIPT ERROR|^DORFTIERE" || true
+          ffmpeg -loglevel error -y -ss 1.5 -i $RUNNER_TEMP/dorftiere.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $GITHUB_WORKSPACE/bilder/dorftiere/dorftiere.mp4 || true
+          ls -l $GITHUB_WORKSPACE/bilder/dorftiere
       - uses: actions/upload-artifact@v4
         with:
           name: bornim-godot-bilder

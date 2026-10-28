@@ -29,6 +29,8 @@ var weg: Array[Vector2i] = []          # Runde: Weg zum naechsten Punkt
 var bein := 0                          # Runde: Index des Punkts, zu dem sie geht (Walker.leg)
 var warte := 0.0
 var blick := 0.0
+var leib := LEIB
+var pause := "Stehen"                  # Dorftiere: Stehen oder Fressen in der Pause
 var zufall := RandomNumberGenerator.new()
 
 static func alle(k: Karte, h: Node3D) -> Array:
@@ -59,6 +61,59 @@ static func tiere(k: Karte, h: Node3D) -> Array:
 		r.append(Leute.new(k, {"id": namen[i], "x": t.x, "y": t.y, "blick": "DOWN", "streifen": 3, "datei": "res://daten/tiere/%s.bin" % namen[i]}, h))
 	return r
 
+# 348.6 Dorftiere (Chefrunde 28.10., 08:09: „lieber ein paar Tiere zuerst ‚Platzieren‘“): die gekauften Tiere aus 387 (Jerrys
+# kauftier.py, daten/dorftiere/kauf_<tier>-<fell>.bin, kauf_<tier>-info.json je Fell). Huehner wie alt zwei an jedem Heuballen auf
+# der freien Seite (MapHen.find: westlich, noerdlich, nordwestlich, oestlich nur, wenn sonst nichts frei ist); neu Rind und Ziegen
+# auf der Wiese suedlich des Flusses beim Kornfeld, Kaninchen am Waldrand. Tiere bleiben auf Wiese und Blumen (TIERBODEN)
+const DORFTIERE := {"village": [["rind", 27, 27], ["ziege", 24, 28], ["ziege", 30, 27], ["ziege", 14, 29], ["kaninchen", 33, 11], ["kaninchen", 2, 10]]}
+const HUHN_PLATZ := [Vector2i(-1, 0), Vector2i(0, -1), Vector2i(-1, -1), Vector2i(1, 0), Vector2i(0, 1)]
+const TIERBODEN := ".f,"
+# Pause zwischen zwei Schritten (s) und Anteil Fressen statt Stehen: Huehner picken oft, das Rind grast lange
+const TIERPAUSE := {"huhn": [1.0, 3.5, 0.6], "rind": [5.0, 12.0, 0.7], "ziege": [3.0, 8.0, 0.6], "kaninchen": [2.0, 6.0, 0.5]}
+
+static func dorftiere(k: Karte, h: Node3D) -> Array:
+	var r := []
+	if not DirAccess.dir_exists_absolute("res://daten/dorftiere"): return r
+	var felle := {}                    # Tier -> Felle, nach Namen sortiert
+	for f in DirAccess.get_files_at("res://daten/dorftiere"):
+		if not f.ends_with(".bin"): continue
+		var n := f.get_basename()
+		var t := n.get_slice("-", 0).trim_prefix("kauf_")
+		if not felle.has(t): felle[t] = []
+		felle[t].append(n.get_slice("-", 1))
+	for t in felle: felle[t].sort()
+	var plaetze := []                  # [Tier, Kachel]
+	var belegt := {}
+	if felle.has("huhn"):
+		for y in k.hoehe:
+			for x in k.breite:
+				if k.zeichen(Vector2i(x, y)) != "y": continue
+				var frei := HUHN_PLATZ.filter(func(d): return Leute.tierboden(k, Vector2i(x, y) + d) and not belegt.has(Vector2i(x, y) + d))
+				var offen := frei.filter(func(d): return d != Vector2i(1, 0))
+				if offen.is_empty(): offen = frei
+				for d in offen.slice(0, 2):
+					belegt[Vector2i(x, y) + d] = true
+					plaetze.append(["huhn", Vector2i(x, y) + d])
+	for p in DORFTIERE.get(k.id, []):
+		var t := Vector2i(int(p[1]), int(p[2]))
+		if felle.has(p[0]) and Leute.tierboden(k, t) and not belegt.has(t):
+			belegt[t] = true
+			plaetze.append([p[0], t])
+	var zahl := {}
+	for p in plaetze:
+		var tier: String = p[0]
+		var i: int = zahl.get(tier, 0)
+		zahl[tier] = i + 1
+		var fell: String = felle[tier][i % felle[tier].size()]
+		var blicke := ["DOWN", "LEFT", "UP", "RIGHT"]
+		r.append(Leute.new(k, {"id": "%s%d" % [tier, i + 1], "x": p[1].x, "y": p[1].y, "blick": blicke[(i + p[1].x) % 4], "streifen": 2,
+			"tier": tier, "fell": fell, "datei": "res://daten/dorftiere/kauf_%s-%s.bin" % [tier, fell],
+			"info": "res://daten/dorftiere/kauf_%s-info.json" % tier}, h))
+	return r
+
+static func tierboden(k: Karte, t: Vector2i) -> bool:
+	return k.begehbar(t) and k.ausgang(t).is_empty() and TIERBODEN.contains(k.zeichen(t))
+
 func _init(k: Karte, d: Dictionary, h: Node3D) -> void:
 	karte = k
 	daten = d
@@ -75,12 +130,19 @@ func _ready() -> void:
 	add_child(modell)
 	Gebiet.male(modell, null, 2, mats)
 	var p := datei.get_basename() + "-info.json"
-	if FileAccess.file_exists(p):
+	if daten.has("info") and FileAccess.file_exists(String(daten["info"])):
+		# Dorftiere (kauftier.py): je Fell ein Eintrag; Tempo ohne Gleiten aus dem Wurzelweg des Gehens (Weg fuer Tempo 1)
+		var alle: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(String(daten["info"])))
+		var info: Dictionary = alle.get(String(daten["fell"]), {})
+		var w: Array = info.get("weg", {}).get("Gehen", [])
+		if w.size() > 1 and float(info.get("Gehen", 0.0)) > 0.0: gang = float(w[w.size() - 1][1]) / float(info["Gehen"])
+		leib = clampf(maxf(float(info.get("laenge_m", 1.0)), float(info.get("breite_m", 0.5))) * 0.4, 0.2, 1.0)
+	elif FileAccess.file_exists(p):
 		var info: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(p))
 		gang = float(info.get("gehen_m_je_s", gang))
 		baue_ding(info)
 	anim = Gebiet.finde(modell, "AnimationPlayer") as AnimationPlayer
-	if anim: Gebiet.bewegungen(anim, ["Gehen", "Stehen"])
+	if anim: Gebiet.bewegungen(anim, ["Gehen", "Stehen", "Fressen"])
 	if anim:
 		anim.play("Stehen")
 		anim.seek(zufall.randf() * 2.0, true)   # nicht alle im selben Atemzug
@@ -182,7 +244,7 @@ func nacht(k: float) -> void:
 
 # fuer Held.frei: steht hier jemand?
 func sperrt(p: Vector3) -> bool:
-	return Vector2(p.x - position.x, p.z - position.z).length() < LEIB
+	return Vector2(p.x - position.x, p.z - position.z).length() < leib
 
 func held_kachel() -> Vector2i:
 	return karte.pos_kachel(held.position) if held else Vector2i(-99, -99)
@@ -193,6 +255,7 @@ func nah_am_held(t: Vector2i) -> bool:
 
 func frei_fuer_mich(t: Vector2i) -> bool:
 	if not karte.begehbar(t) or not karte.ausgang(t).is_empty(): return false
+	if daten.has("tier") and not Leute.tierboden(karte, t): return false
 	if t == held_kachel(): return false
 	for l in get_parent().get_children():
 		if l is Leute and l != self and (l.kachel == t or l.ziel == t): return false
@@ -202,8 +265,8 @@ func _process(dt: float) -> void:
 	if ziel.x >= 0:
 		laufe(dt)
 		return
-	if anim and anim.current_animation != "Stehen":
-		anim.play("Stehen", 0.25)
+	if anim and anim.current_animation != pause:
+		anim.play(pause, 0.25)
 		anim.speed_scale = 1.0
 	rotation.y = drehe(rotation.y, blick, DREH_STEH * dt)
 	warte -= dt
@@ -216,6 +279,10 @@ func _process(dt: float) -> void:
 
 func streife() -> void:
 	warte = zufall.randf_range(1.5, 4.0)
+	if daten.has("tier"):
+		var tp: Array = TIERPAUSE.get(String(daten["tier"]), [1.5, 4.0, 0.5])
+		warte = zufall.randf_range(tp[0], tp[1])
+		pause = "Fressen" if anim and anim.has_animation("Fressen") and zufall.randf() < tp[2] else "Stehen"
 	var d := Vector2i(zufall.randi_range(-1, 1), zufall.randi_range(-1, 1))
 	if d == Vector2i.ZERO: return
 	var n := kachel + d

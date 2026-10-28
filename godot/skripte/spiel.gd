@@ -47,6 +47,7 @@ func _ready() -> void:
 	tusche_blatt()
 	probe_blatt()
 	haeuser_blatt()
+	dorftiere_blatt()
 
 func betrete(id: String, t: Vector2i, blick: String) -> void:
 	if gebiet: gebiet.queue_free()
@@ -64,6 +65,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	leute.name = "Leute"
 	add_child(leute)
 	for l in Leute.alle(karte, held): leute.add_child(l)
+	for l in Leute.dorftiere(karte, held): leute.add_child(l)   # 348.6 Dorftiere (Chefrunde 28.10., 08:09)
 	held.leute = leute.get_children()
 	kamera.ziel = held
 	gebiet.held = held
@@ -89,7 +91,7 @@ func _knopf(was: String) -> void:
 
 # 348.6: Tiere zum Anschauen (Chef 16:52), nur im Test-APK; gehen wie die Leute, der Held geht nicht durch sie
 func tiere_an_aus() -> void:
-	var da := leute.get_children().filter(func(l): return l.daten.has("datei"))
+	var da := leute.get_children().filter(func(l): return String(l.daten.get("datei", "")).begins_with("res://daten/tiere/"))
 	if da.is_empty():
 		for t in Leute.tiere(karte, held):
 			leute.add_child(t)
@@ -324,6 +326,9 @@ func gang_film() -> void:
 	ui.mess.visible = false
 	ui.oben.visible = false
 	held.setze(Vector2i(25, 9), "DOWN")
+	for l in leute.get_children():   # nur die Leute
+		if l.daten.has("tier"): l.free()
+	held.leute = leute.get_children()
 	var quer: Vector3 = kamera.global_basis.x
 	quer.y = 0
 	quer = quer.normalized()
@@ -601,6 +606,43 @@ func haeuser_blatt() -> void:
 		kamera.springe()
 		await get_tree().create_timer(1.0).timeout
 		await knips(dir + "/%s_mittag_nah.png" % n)
+	get_tree().quit()
+
+# 348.6 Dorftiere (Chefrunde 28.10., 08:09): --dorftiere=<ordner> legt die Grundansicht an jedem Ort der Tiere ab (Wiese suedlich
+# des Flusses mit Rind, Ziegen, Huehnern; Heuballen im Westen; Kaninchen am Waldrand), nah bei den Huehnern, nachts;
+# --dorftierfilm (mit --write-movie) zeigt sie in Bewegung: Wiese, Huehner nah, Westen, je einige Sekunden
+const TIERORTE := [[Vector2i(29, 28), "wiese", false], [Vector2i(33, 30), "huehner_nah", true], [Vector2i(13, 28), "west", false],
+	[Vector2i(34, 10), "kaninchen_ost", false], [Vector2i(3, 9), "kaninchen_west", false]]
+
+func dorftiere_blatt() -> void:
+	var dir := ""
+	var film := false
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--dorftiere="): dir = a.substr(12)
+		if a == "--dorftierfilm": film = true
+	if dir == "" and not film: return
+	if dir != "": DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	for l in leute.get_children():
+		if l.daten.has("tier"):
+			print("DORFTIERE %s %s %s Fell %s Gang %.2f m/s Leib %.2f m Bewegungen %s" % [l.daten["id"], l.kachel, l.daten["tier"], l.daten["fell"], l.gang, l.leib, l.anim.get_animation_list() if l.anim else []])
+	var orte: Array = TIERORTE if not film else [TIERORTE[0], TIERORTE[1], TIERORTE[2]]
+	for o in orte:
+		held.setze(o[0], "UP")
+		kamera.zoom = Kamera.NAH if o[2] else Kamera.FERN
+		kamera.nah = o[2]
+		kamera.springe()
+		await get_tree().create_timer(6.0 if film else 3.0).timeout
+		if not film: await knips(dir + "/%s.png" % o[1])
+	if not film:
+		held.setze(TIERORTE[0][0], "UP")
+		kamera.zoom = Kamera.FERN
+		kamera.nah = false
+		kamera.springe()
+		licht.umschalten()
+		await get_tree().create_timer(2.5).timeout
+		await knips(dir + "/wiese_nacht.png")
 	get_tree().quit()
 
 func knips(p: String) -> void:
