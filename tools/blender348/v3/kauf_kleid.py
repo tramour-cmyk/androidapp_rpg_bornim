@@ -238,6 +238,13 @@ fz = 1.0 + vorn * rr * (f - 1.0)
 neu_z = np.where(z > basis, basis + (z - basis) * fz, z)
 print('KRAGEN gestaucht', int((np.abs(neu_z - z) > 0.002).sum()), 'Ecken, Kinn %.3f, Halsansatz %.3f, oben %.3f, Faktor vorn %.2f' % (KINN_Z, basis, oben, f))
 VK2_VOR = VK2.copy()   # 376.1 Halszacken: Lage vor Stauchen und Hinausschieben, zum Messen gekippter Flaechen (unten)
+if os.environ.get('KANTE_DBG'):   # 376.1 Halszacken: Stauchen an der Oberkante je Winkel (Stufe bei +-50 Grad, kante.py)
+    _w = np.degrees(np.arctan2(VK2[:, 0], -(VK2[:, 1] - hals_y)))
+    for a0 in range(-70, 71, 5):
+        q = nahe & (np.abs(_w - a0) < 2.5) & (z > basis)
+        if q.any():
+            i = np.where(q)[0][np.argmax(z[q])]
+            print('KANTE_DBG %+d z %.0f -> %.0f mm, vorn %.2f rr %.2f fz %.2f, Abstand %.0f mm' % (a0, (z[i] - basis) * 1000, (neu_z[i] - basis) * 1000, vorn[i], rr[i], fz[i], np.linalg.norm(VK2[i, :2] - np.array([0.0, hals_y])) * 1000))
 VK2[:, 2] = neu_z
 # ---------------------------------------------------------------- 6. was noch im fremden Koerper liegt, hinaus
 raus = 0
@@ -422,6 +429,6 @@ json.dump(info, open(os.path.join(ZIEL, KENNUNG + '.json'), 'w'), indent=1, ensu
 bpy.ops.object.select_all(action='DESELECT')
 for o in [qa, kleid] + qnetze: o.select_set(True)
 bpy.ops.export_scene.gltf(filepath=os.path.join(ZIEL, KENNUNG + '.glb'), export_format='GLB', use_selection=True,
-                          export_animations=False, export_apply=False, export_skins=True)
+                          export_animations=False, export_apply=False, export_skins=True, export_vertex_color='ACTIVE')   # 376.1: Kettenmarke (alpha) in COLOR_0 wie rig.py; sonst zweite Schicht, Godot liest COLOR nur aus der ersten
 print('KAUFKLEID OK', KENNUNG, info)
 bpy.ops.wm.save_as_mainfile(filepath=os.path.join(ZIEL, KENNUNG + '.blend'))   # fuer pruef_tracht.py (Kennung 'teil')
