@@ -129,9 +129,10 @@ W1 = (1.0, 1.0, 1.0)
 KITC = {}
 TEXNAMEN = {}
 MAXTRI = 1900                                        # Modellregel 7: Ding hoechstens 2000 Dreiecke
-def kit_lesen(d, name):
-    """Flaechen eines Bausatzteils in Bausatz-Metern: [(Punkte, uv, Farben, Material des Bausatzes, Bild)], unten, oben"""
-    key = (d, name)
+def kit_lesen(d, name, klein_gesetzt=False):
+    """Flaechen eines Bausatzteils in Bausatz-Metern: [(Punkte, uv, Farben, Material des Bausatzes, Bild)], unten, oben;
+    klein_gesetzt: verkleinert gesetzt (Kiste im Regal), dann wie Kleinkram hoechstens 320 Dreiecke (Laden: 54 Tsd. im Regal)"""
+    key = (d, name, klein_gesetzt)
     if key in KITC: return KITC[key]
     vor = set(bpy.data.objects)
     bpy.ops.import_scene.gltf(filepath=os.path.join(d, name + '.gltf'))
@@ -142,7 +143,7 @@ def kit_lesen(d, name):
         tris = sum(len(p.vertices) - 2 for p in o.data.polygons)
         bb = [o.matrix_world @ Vector(v) for v in o.bound_box]
         gross = max(max(q[i] for q in bb) - min(q[i] for q in bb) for i in range(3))
-        grenze = MAXTRI if gross > 0.45 else 320            # Kleinkram (Krug, Flasche, Kerze): aus der Naehe genug, spart Speicher
+        grenze = MAXTRI if gross > 0.45 and not klein_gesetzt else 320   # Kleinkram (Krug, Flasche, Kerze): aus der Naehe genug, spart Speicher
         if tris > grenze:
             mo = o.modifiers.new('weniger', 'DECIMATE'); mo.ratio = grenze / tris
         dg = bpy.context.evaluated_depsgraph_get(); dg.update()
@@ -189,9 +190,9 @@ def kit_textur(pfad, kmat):
 
 # Toenung der Bausatzbilder auf unsere Palette (Moebel wie alt dunkle Eiche, MapRoomIso m(0x…))
 KIT_TON = {'kit_furniture': (0.66, 0.6, 0.56), 'kit_metal': (0.8, 0.78, 0.76), 'kit_cloth': (0.9, 0.86, 0.8), 'kit_props': (0.9, 0.86, 0.82)}
-def stueck_setzen(P, name, M, ton=None, d=None, farbe=None):
+def stueck_setzen(P, name, M, ton=None, d=None, farbe=None, klein_gesetzt=False):
     """ein Teil des Bausatzes Fantasy Props (d=PDIR) mit M (cm, Bausatz-Meter * 100 vorher) in P, eigene Bilder des Bausatzes"""
-    fl, lo, hi = kit_lesen(d or PDIR, name)
+    fl, lo, hi = kit_lesen(d or PDIR, name, klein_gesetzt)
     W = M @ Matrix.Scale(100.0, 4)
     for pts, uv, cols, mn, bild, glatt in fl:
         m = kit_textur(bild, mn) if bild else 'weiss'
@@ -206,10 +207,11 @@ def stelle(P, name, pos, a=0.0, s=1.0, z=0.0, ton=None, boden=True, farbe=None):
     """Teil auf den Boden (oder z) bei pos (cm), um a Grad gedreht (Front des Bausatzes nach -Y), Massstab s (Zahl oder (x, y, z))"""
     fl, lo, hi = kit_lesen(PDIR, name)
     sv = (s, s, s) if isinstance(s, (int, float)) else s
-    if max((hi - lo)[i] * 100 * abs(sv[i]) for i in range(3)) < 40: P = klein(P)
+    kl = max((hi - lo)[i] * 100 * abs(sv[i]) for i in range(3)) < 40
+    if kl: P = klein(P)
     M = (Matrix.Translation((pos.x, pos.y, (pos.z if hasattr(pos, 'z') else 0) + z)) @ Matrix.Rotation(math.radians(a), 4, 'Z')
          @ Matrix.Diagonal((sv[0], sv[1], sv[2], 1)) @ Matrix.Translation((0, 0, -lo.z * 100 if boden else 0)))
-    stueck_setzen(P, name, M, ton, farbe=farbe)
+    stueck_setzen(P, name, M, ton, farbe=farbe, klein_gesetzt=kl)
     return M
 
 def masse(name):
