@@ -1,4 +1,4 @@
-# 399.5 · Innenräume wie alt, achter Stand · Tom · 29.10., 04:0x
+# 399.5 · Innenräume wie alt, neunter Stand · Tom · 29.10., 04:2x
 
 Probe am Rechner, noch kein Build. Je Raum v. l. n. r.: alt Tag, neu Tag, alt Nacht, neu Nacht, neu um 180° gedreht. Ohne Leute (in der Probe nicht gebaut).
 
@@ -41,6 +41,10 @@ Achter Stand, nach dem Prüfer zum siebten:
 - Licht durch die Tür ohne Schatten der Türöffnung: kein scharfer Keil mehr, nur ein weicher Schein.
 - Truhe beim Ältesten weiter im Raum (der Deckel lag noch in der Mauerkappe); hohes Regal neben dem Ladenfenster schmaler (verdeckte eine Ecke der Scheibe); Kistenstapel in der Schenke greift nicht mehr ineinander; Bänke heller.
 
-Bleibt so (Befund, kein Fehler): im Laden der Schatten an der Rückwand kommt vom Kaminlicht hinter dem Fass; Fenster sind gedreht die größte helle Fläche (Tageslicht von draußen).
+Neunter Stand, nach dem Prüfer zum achten: die niedrigen Mauern schließen an den Ecken (dort war eine Fuge, gedreht schaute beim Ältesten der Bettpfosten durch); das Fass im Laden steht frei von der Theke; Tempel ohne Herd mit mehr Grundlicht.
+
+Bleibt so (Befund, kein Fehler): im Laden der Schatten an der Rückwand kommt vom Kaminlicht hinter dem Fass; Fenster sind gedreht die größte helle Fläche (Tageslicht von draußen); gedreht verschwindet der Betthimmel des Ältesten mit seiner Wand wie die Altarsonne (sonst verdeckt er den Raum).
+
+Gemessen (Mittel, Tag/Nacht, alt → neu): Schenke 28/17 → 31/20, Laden 32/19 → 31/19, Ältester 26/12 → 30/17, Tempel 51/33 → 44/29. Der Tempel bleibt etwas dunkler; mehr Grundlicht hebt ihn kaum, weil er im alten Spiel vom Tageslicht hell war.
 
 **Was du sagen sollst:** nichts nötig; ich baue das Offene weiter, dann der Build mit 376.1.
