@@ -21,11 +21,8 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [348.12](ansehen/34812-grak-film.md) | Grak bewegt sich im Kampfort, Runde 2 | – | 29.10., 00:05 |
-| [376.1](ansehen/3761-klassen.md) | Held in vier Klassen: Köpfe, Haut, Robe | Tom | 29.10., 02:10 |
 | [399.1](ansehen/3991-ausruestung.md) | Menü: Benutzen und Ausrüstung wie alt | Tom | 28.10., 17:15 |
 | [399.5](ansehen/3995-innenraeume.md) | Innenräume wie alt, neunter Stand | Tom | 29.10. |
-| [402](ansehen/402-hoerprobe.md) | Hörprobe: Herzschlag beim Hinterhalt, Kaninchen-Klopfen | Jerry | 29.10., 00:21 |
-| [406](ansehen/406-kleriker-schild.md) | Rundschild des Klerikers, erstes Stück der Ausrüstung | Jerry | 29.10., 07:54 |
 
 ## Zu tun
 
@@ -49,13 +46,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 27, Muss 17, startbar 0
+**Tom** – offen 27, Muss 17, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf | Chef |
 | 399.4 | M | von Chef (21:4x, Archiv): oben Rand für die Kamera wie alt | wartet auf Test/Build (gebaut) |
-| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | Chef |
+| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | startbar |
 | 399.5 | M | von Chef („jetzt“ 28.10., 21:5x, Archiv): Innenräume wie alt: Lichtquellen, Licht und Scha | Chef |
 | 399.3.1 | M | von Team Jerry (16:5x): Klang: Haken in spiel.gd (Jerry, claude/jerry-348-klang) übernehme | wartet auf Test/Build |
 | 385 | M | von Sokrates („jetzt“ 28.10., 10:00, Archiv): Zauberer-Set auf Kaufkörper, Film | Chef |
@@ -81,17 +78,17 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 38, Muss 27, startbar 0
+**Jerry** – offen 38, Muss 27, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 399.2 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv): Kampfort aufrufbar | wartet auf Test/Build (gebaut) |
 | 399.2b | M | von Team Tom (15:05): Rudel allein zu stark | wartet auf Test/Build (gebaut) |
-| 399.3 | M | von Chef über Sokrates (16:42): Klang in die Spielfassung | wartet auf Test/Build (gebaut) |
-| 402 | M | von Sokrates (Chef 22:2x, Archiv): Blende vor dem Kampf wie alt; Herzschlag beim Hinterhal | Chef |
+| 399.3 | M | von Chef über Sokrates (16:42): Klang in die Spielfassung | startbar |
+| 402 | M | von Sokrates (Chef 22:2x, Archiv): Blende vor dem Kampf wie alt; Herzschlag beim Hinterhal | startbar |
 | 403 | M | von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler): Kampfort: Held | Chef |
-| 406 | M | von Team Tom (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe): Ausrüstung der Helden je | Chef |
-| 401 | M | von Chef über Sokrates (Archiv): Tierlaute, mind. 3 je Tier | Chef |
+| 406 | M | von Team Tom (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe): Ausrüstung der Helden je | startbar |
+| 401 | M | von Chef über Sokrates (Archiv): Tierlaute, mind. 3 je Tier | startbar |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | wartet auf Test/Build (gebaut) |
 | 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | Chef |
@@ -191,9 +188,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung), 401 (Team Jerry)
+Nicht gestellt: 186.3 (Pruefung)
 
-Ohne Datei: 275 (Projekt)
+Ohne Datei: 275 (Projekt), 3761 (Team Tom)
 
 ## So geht's
 
