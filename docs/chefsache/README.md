@@ -117,7 +117,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 408 | M | von Sokrates (Chef 11:15, Archiv): Bestand vor Eigenbau: Kaufmodelle sichten, zur Wahl vor | startbar |
+| 408 | M | von Sokrates (Chef 11:15, Archiv): Bestand vor Eigenbau: Bedarf in der Bibliothek suchen, | startbar |
 | 407 | M | von Chef über Sokrates („jetzt“ 29.10., 10:05): Probelauf-Grenze 389 so, dass sie greift: | startbar |
 | 399 | M | von Chef über Sokrates („jetzt“ 28.10., 12:34, Archiv): Vorrang neu: erst eine Godot-Fassu | wartet auf Tom |
 | 398 | M | von Sokrates (Chef 28.10., 11:22): Termine je Block nachrechnen mit der Schätzung der 15 Z | Termin 02.11. |
