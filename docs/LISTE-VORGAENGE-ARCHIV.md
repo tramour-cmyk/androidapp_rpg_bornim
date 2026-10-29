@@ -479,3 +479,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 395a | Katze fürs Gasthaus: Quaternius hat keine, MadeCG kaufen? | E Figuren | M | 8,49 $ | Team Tom | erledigt |
 | 399a | Spielfassung 13b97af52 nach Test 132 auf main? | B Umzug | M | 8,49 $ | Team Tom | erledigt |
 | 400 | Hinweise an volle Vorräte bleiben liegen; Stand beim Empfänger immer setzen (Chef 28.10., 21:5x) | B Werkzeuge | M | 1,55 $ | Perikles | erledigt |
+| 405 | Texte der Erschaffung „Aussehen“ (376.1): Frisur „Zurück“ heißt wie der Knopf unten; „Filzlocken“, „Kamm“ passen nicht zum Bild (Prüfer Lauf 2) | C Inhalt | M | 0,89 $ | Homer | erledigt |
