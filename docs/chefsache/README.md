@@ -20,7 +20,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [376.1](ansehen/3761-wegstecken.md) | Waffen wegstecken, nachgebessert | Tom | 29.10., 11:50 |
+| [410](ansehen/3761-wegstecken.md) | Waffen wegstecken, nachgebessert (aus 376.1) | Tom | 29.10., 11:50 |
 | [402](ansehen/402-herzschlag-dumpf.md) | Hörprobe: Herzschlag tiefer und dumpfer | Jerry | 29.10., 11:53 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
@@ -194,7 +194,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung), 410 (Team Tom)
+Nicht gestellt: 186.3 (Pruefung)
 
 Ohne Datei: 275 (Projekt), 403 (Team Jerry), 26 (Team Tom)
 
