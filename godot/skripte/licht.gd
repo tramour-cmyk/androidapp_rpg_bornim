@@ -28,6 +28,7 @@ const DAEMMERUNG_UMGEBUNG := 0.18
 const INNEN_TAG := 0.34        # 399.5 Grundriss: Umgebung am Tag und nachts
 const INNEN_NACHT_KONTRAST := 0.93   # Lauf 5 (Nacht in % des Tags, alt 44–64): Kontrast 0,87 → 78–84, 0,96 mit Umgebung 0,16 → 40–56
 const INNEN_TAG_OHNE_HERD := 0.55   # wie alt MapLight ambient: ohne Feuer am Tag doppelt so hell (Tempel Lauf 2: Mittel 34, alt 51)
+const INNEN_NACHT_OHNE_HERD := 0.34   # Pruefer Lauf 7 (Tempel nachts: Baenke 19-26, alt 25-48; ohne Feuer kein Licht in der Raummitte)
 const INNEN_NACHT := 0.24      # Lauf 4 misst neu (Stimmung innen jetzt wie alt). Lauf 1: nachts 37–48 % des Tags (alt 44–64 %), Waende fast schwarz; Lauf 3 Stufen 0,34/0,45/0,6: 44/47/50 %
 const ALT := [[Vector2(-1.0, -0.2), 1.2], [Vector2(0.15, 1.0), 0.35], [Vector2(1.0, -0.2), 1.2]]
 const NATUR := [[Vector2(-1.0, -0.3), 1.2], [Vector2(0.35, -1.0), 0.6], [Vector2(1.0, -0.3), 1.2]]
@@ -126,7 +127,7 @@ func stelle(k: float) -> void:
 		# warmer Rest; hell wird es durch Kamin, Kerzen und das Tageslicht der Fenster (raumlicht.gd)
 		sonne.light_energy = 0.0
 		env.ambient_light_color = Color(0.62, 0.56, 0.5).lerp(Color(0.4, 0.42, 0.55), k)
-		env.ambient_light_energy = lerpf(INNEN_TAG if herd else INNEN_TAG_OHNE_HERD, INNEN_NACHT, k)
+		env.ambient_light_energy = lerpf(INNEN_TAG if herd else INNEN_TAG_OHNE_HERD, INNEN_NACHT if herd else INNEN_NACHT_OHNE_HERD, k)
 		env.background_color = Color(0.0, 0.0, 0.0)
 		# alt MapGrade.of INTERIOR: die Stimmung im Raum haengt nicht an der Uhr (mit Herd warm FFE8C8 0,45, ohne F0EAE0 0,35, Rand
 		# 0,2); Saettigung bleibt wie am Tag, der Kontrast steigt nachts nur bis INNEN_NACHT_KONTRAST. Lauf 3: die Nacht von draussen (blau, Rand 0,32, Saettigung 0,45)

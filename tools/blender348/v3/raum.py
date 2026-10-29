@@ -749,11 +749,18 @@ def regal(c, r):
     # Flaschen (Pruefer Lauf 1: alt hohes Regal mit vier, fuenf Brettern voller Kruege und Flaschen, neu nur ein Schrank)
     k = max(1, round(L / 150)); ms = masse('Bookcase_2'); bw = L / k
     hz = bretter_hoehen('Bookcase_2')
+    # Pruefer Lauf 7: das Regal verdeckte das Fenster halb (Laden): liegt ein Fenster hinter dem Regal, je Kachel ein Regal und das
+    # vor dem Fenster nur bis unter die Fensterbank
+    dd = SEITEN[s][0] if s else (0, 0)
+    fenster = [ch(cc + dd[0], r + dd[1]) == 'W' for cc in range(c0, c1 + 1)] if abs(n.y) > 0.5 else []
+    if any(fenster): k = c1 - c0 + 1; bw = L / k
     for i in range(k):
         q = wand + n * (ms.y / 2 + 2) + Vector((-L / 2 + bw * (i + 0.5), 0, 0)) * (1 if abs(n.y) > 0.5 else 0)
-        sx = (bw - 4) / ms.x; szz = 215 / ms.z
+        nieder = bool(fenster) and fenster[i]
+        sx = (bw - 4) / ms.x; szz = (100 if nieder else 215) / ms.z
         stelle(P, 'Bookcase_2', q, a, (sx, 0.9, szz), ton=(0.85, 0.8, 0.78))
         for j, h in enumerate(hz):
+            if nieder and h * szz > 70: continue
             nt = 3 if AELTESTER else 4   # Laden, Schenke: dicht wie alt (Pruefer Lauf 1: leer; Lauf 2: fuenf kleine wie Schlieren)
             for t in range(nt):
                 x_ = -bw / 2 + 20 + t * (bw - 40) / (nt - 1)
@@ -826,7 +833,8 @@ def truhe(c, r):
     n, s = an_wand(c, r); a = dreh(n)
     ms = masse('Chest_Wood')
     sk = 80 / ms.x
-    p = weg_von_wand(c, r, mitte(c, r) - n * (TS / 2 - ms.y * sk / 2 - 6), 12.0)   # Lauf 3: ragte in die Wand
+    # Lauf 3: ragte in die Wand; Lauf 7: der offene Deckel kippt nach hinten und lag in der Mauerkante (Aeltester vorn rechts)
+    p = weg_von_wand(c, r, mitte(c, r) - n * (TS / 2 - ms.y * sk / 2 - 6), 34.0)
     stelle(P, 'Chest_Wood', p, a, sk, farbe=lin(0xa07a50))   # Pruefer Lauf 1: ohne Bild des Bausatzes weiss
     # kein Leuchter mehr auf der Truhe: der Deckel des Bausatzes steht offen, die Kerze stand auf seiner Kante (Pruefer Lauf 3)
 
@@ -867,7 +875,10 @@ def altar(c, r):
     c0, c1 = lauf_x(c, r, 'A')
     if c != c0: return
     n_a, s_a = an_wand(c, r)
-    P = wand_teil(c0, r, s_a, 'Ding_' + stueck((c0 + c1) / 2, r))   # Pruefer Lauf 3: gedreht ragte der Altar ueber die Bruestung
+    # Pruefer Lauf 7: gedreht fehlte der ganze Altar; jetzt bleibt er stehen, nur die hohe Sonne auf ihrem Staender geht mit der Wand
+    # (Lauf 3: gedreht ragte sie ueber die Bruestung)
+    P = part('Ding_' + stueck((c0 + c1) / 2, r))
+    PS = wand_teil(c0, r, s_a, 'Ding_' + stueck((c0 + c1) / 2, r))
     x0, x1 = tx(c0) + 6, tx(c1 + 1) - 6
     yc = ty(r) - TS / 2
     def quader(p, n_):   # Werkstein, Fugen alle 30 cm (alt ashlar)
@@ -886,16 +897,16 @@ def altar(c, r):
     stelle(P, 'Chalice', Vector(((x0 + x1) / 2, yc - 14, 101.5)), 0, 1.0)
     # die Sonne des Morgenlichts auf ihrem Staender hinten in der Mitte (alt altar; Pruefer Lauf 1: fehlte)
     sm = Vector(((x0 + x1) / 2, yc + 22, 101.5))
-    zylinder(P, sm, 7, 2, 10, MESSING, 'weiss', r2=5)
-    zylinder(P, sm, 2.0, 40, 6, MESSING, 'weiss')
+    zylinder(PS, sm, 7, 2, 10, MESSING, 'weiss', r2=5)
+    zylinder(PS, sm, 2.0, 40, 6, MESSING, 'weiss')
     sz = sm + Vector((0, 1, 62))   # Pruefer Lauf 2: viel kleiner als alt; Scheibe 40 cm mit Strahlen
-    zylinder(P, sz, 20, 3.0, 24, lin(0xc9a24a), 'weiss', achse=Vector((0, -1, 0)))
-    zylinder(P, sz + Vector((0, -3, 0)), 9, 1.5, 18, lin(0xe8c870), 'weiss', achse=Vector((0, -1, 0)))
+    zylinder(PS, sz, 20, 3.0, 24, lin(0xc9a24a), 'weiss', achse=Vector((0, -1, 0)))
+    zylinder(PS, sz + Vector((0, -3, 0)), 9, 1.5, 18, lin(0xe8c870), 'weiss', achse=Vector((0, -1, 0)))
     for k in range(12):
         an = k * math.pi / 6; rv = Vector((math.cos(an), 0, math.sin(an)))
-        zylinder(P, sz + rv * 19 + Vector((0, -1.5, 0)), 2.6, 12 if k % 2 else 18, 4, lin(0xc9a24a), 'weiss', r2=0.4, achse=rv)
+        zylinder(PS, sz + rv * 19 + Vector((0, -1.5, 0)), 2.6, 12 if k % 2 else 18, 4, lin(0xc9a24a), 'weiss', r2=0.4, achse=rv)
     stelle(P, 'Book_7', Vector(((x0 + x1) / 2 + 40, yc - 6, 101.5)), 15, 1.0)
-    kerze_licht(Vector(((x0 + x1) / 2, yc - 30, 150)), 3.2, 0.75, fl, wand=WAND_VON.get((c0, r, s_a)))
+    kerze_licht(Vector(((x0 + x1) / 2, yc - 30, 150)), 3.2, 0.75, fl)
 
 def kerzen(c, r):
     P = part('Ding_' + stueck(c, r))

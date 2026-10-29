@@ -19,8 +19,9 @@ var nacht_k := 0.0
 static var flamme_shader: Shader
 const KERZE_WEIT := 2.0       # Lauf 6 (Lauf 1-5: Reichweite 1, Abfall 1)
 const KERZE_ABFALL := 2.0
-const SCHEIBE_TAG := 0.45     # Lauf 1-5: 0,85
-const SCHEIBE_TAG_TON := 0.6
+const SCHEIBE_TAG := 0.3      # Lauf 1-5: 0,85; Lauf 6: 0,45, Lauf 7 (gedreht noch die groesste helle Flaeche)
+const SCHEIBE_TAG_TON := 0.5
+const TUER_ANTEIL := 0.6      # Licht durch die offene Tuer (Lauf 7: scharfer heller Keil ueber Teppich und Boden)
 
 static func baue(g: Node3D, info: Dictionary, netz: Node3D) -> Raumlicht:
 	var r := Raumlicht.new()
@@ -85,11 +86,11 @@ func licht(l: Dictionary) -> void:
 		s.spot_angle = 30.0 if art == "tageslicht" else 26.0
 		s.spot_attenuation = 0.6
 		# Pruefer Lauf 6: rosa Lichtkeil mit scharfer Kante auf dem roten Teppich: Rand des Kegels weicher, Schatten weicher
-		s.spot_angle_attenuation = 0.6
-		s.shadow_blur = 2.5
+		s.spot_angle_attenuation = 0.6 if art == "tageslicht" else 0.35   # Lauf 7: gedreht durch die Tuer noch ein scharfer Keil
+		s.shadow_blur = 2.5 if art == "tageslicht" else 4.0
 		s.shadow_enabled = true
 		s.shadow_bias = 0.05
-		fenster.append([s, float(l.get("kraft", 0.55)), art == "tuer"])
+		fenster.append([s, float(l.get("kraft", 0.55)) * (1.0 if art == "tageslicht" else TUER_ANTEIL), art == "tuer"])
 
 func flamme(p: Vector3, gross: float, kamin: bool) -> Node3D:
 	if flamme_shader == null: flamme_shader = load("res://shader/flamme.gdshader")
