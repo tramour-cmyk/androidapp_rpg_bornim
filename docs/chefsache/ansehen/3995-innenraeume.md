@@ -1,4 +1,4 @@
-# 399.5 · Innenräume wie alt, siebter Stand · Tom · 29.10., 03:4x
+# 399.5 · Innenräume wie alt, achter Stand · Tom · 29.10., 04:0x
 
 Probe am Rechner, noch kein Build. Je Raum v. l. n. r.: alt Tag, neu Tag, alt Nacht, neu Nacht, neu um 180° gedreht. Ohne Leute (in der Probe nicht gebaut).
 
@@ -36,6 +36,11 @@ Siebter Stand, nach dem Prüfer zum sechsten:
 - Licht durch die offene Tür schwächer und weicher (gedreht lag ein scharfer heller Keil über Teppich und Boden); Fensterglas tags noch etwas gedämpfter.
 - Tempel nachts heller (ohne Herd mehr Grundlicht; Bänke waren dunkler als alt); gemessen Nacht 67 % des Tags.
 
-Noch offen: nachts dünne helle Linien an den Mauerkanten; im Laden ein dunkler Schatten an der Rückwand hinter dem Fass.
+Achter Stand, nach dem Prüfer zum siebten:
+- Nachts keine hellen Linien mehr an den Mauerkanten: die Tuschelinie hatte eine feste Farbe und war nachts heller als die dunklen Flächen; im Raum ist sie jetzt höchstens halb so hell wie die Fläche darunter (am Tag unverändert).
+- Licht durch die Tür ohne Schatten der Türöffnung: kein scharfer Keil mehr, nur ein weicher Schein.
+- Truhe beim Ältesten weiter im Raum (der Deckel lag noch in der Mauerkappe); hohes Regal neben dem Ladenfenster schmaler (verdeckte eine Ecke der Scheibe); Kistenstapel in der Schenke greift nicht mehr ineinander; Bänke heller.
+
+Bleibt so (Befund, kein Fehler): im Laden der Schatten an der Rückwand kommt vom Kaminlicht hinter dem Fass; Fenster sind gedreht die größte helle Fläche (Tageslicht von draußen).
 
 **Was du sagen sollst:** nichts nötig; ich baue das Offene weiter, dann der Build mit 376.1.
