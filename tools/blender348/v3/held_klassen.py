@@ -10,7 +10,7 @@
 # Waffen und Schild nicht hier: Godot haengt die angelegte Ausruestung an (waffen.py).
 # Aufruf: OUT=<ordner mit held3-rig.blend> ZIEL=<ordner> Q=<cc0> KAUF=<kaufpakete> [KLASSEN=FIGHTER,WIZARD] bl/bin/python -I held_klassen.py
 #   -> <ZIEL>/held_<KLASSE>.glb, haare.glb, held-klassen.json
-import bpy, os, sys, json, subprocess
+import bpy, os, sys, json, subprocess, shutil
 import numpy as np
 from mathutils import Vector
 
@@ -34,8 +34,12 @@ KLASSEN = {
     'CLERIC': {'kleid': 'Male_Knight_Cloth', 'ohne': ['Horns'], 'stahl': False,   # Pruefer Lauf 1: Arme mit STAHL schwarz (Bild 0,20/0,13/0,08)
                'sonne': 'Body_Cloth', 'entgruen': ['Legs_Armor', 'Feet_Armor', 'Arms']},   # Lauf 1: Handschuhe gruenlich (118/124/109)
 }
-# Maennerhaar und Baerte (Hairstyles/Rigged to Head Bone/Male); „Long“, „Bob“ und „Buns“ sitzen nur auf dem Frauenkopf
-HAARE = ['Hair_SimpleParted', 'Hair_Buzzed', 'Hair_SlickBack', 'Hair_Ponytail', 'Hair_Balding', 'Hair_Dreads', 'Hair_Mohawk']
+# Maennerhaar und Baerte (Hairstyles/Rigged to Head Bone/Male); dazu das Frauenhaar (376.1, Chef 29.10., 10:52: „gibt es noch andere
+# Frisuren“), auf den Maennerkopf umgelegt (FRAUENHAAR)
+HAARE = ['Hair_SimpleParted', 'Hair_Buzzed', 'Hair_SlickBack', 'Hair_Ponytail', 'Hair_Balding', 'Hair_Dreads', 'Hair_Mohawk',
+         'Hair_Long', 'Hair_LongDreads', 'Hair_Ponytail_2', 'Hair_Bob', 'Hair_Buns']
+FRAUENHAAR = {'Hair_Long', 'Hair_LongDreads', 'Hair_Ponytail_2', 'Hair_Bob', 'Hair_Buns'}
+FRAUENKOPF = 'Regular_Female_OnlyHead'
 BAERTE = ['Hair_Beard', 'Hair_Moustache', 'Hair_MuttonChops']
 FORMEN = [k for k, f in KO.FORMEN.items() if f]
 # Haare: „Rigged to Head Bone“ (Godot) vor „Origin at 0“ (wie kauf_kleid.py; quaternius.py nimmt die erste nach Namen)
@@ -304,10 +308,44 @@ def bildfarbe(netze, wahl=lambda o, W: np.ones(len(W), bool)):
     return [round(float(x), 4) for x in np.median(np.array(werte), axis=0)] if werte else [1.0, 1.0, 1.0]
 
 
+def schaedel(netz, kz):
+    # Mitte und Masse des Schaedels: Ecken der Kopfhaut ueber dem Kopfknochen (Welt)
+    W = np.array([tuple(netz.matrix_world @ v.co) for v in netz.data.vertices])
+    W = W[W[:, 2] > kz]
+    lo, hi = W.min(0), W.max(0)
+    return (lo + hi) / 2, hi - lo
+
+
+def frauenkopf():
+    # Schaedel des Frauenkopfs (Regular_Female_OnlyHead): Frauenhaar sitzt auf ihm; Mitte und Masse fuer das Umlegen
+    vorher = set(bpy.data.objects)
+    _, p = QT.datei(FRAUENKOPF)
+    if not p: return None
+    objs = QT.importiere(p)
+    arm = next(o for o in objs if o.type == 'ARMATURE')
+    netz = next(o for o in objs if o.type == 'MESH' and o.name.startswith('Female_Regular'))
+    s = schaedel(netz, QT.kopf_pos(arm).z)
+    for o in [o for o in bpy.data.objects if o not in vorher]: bpy.data.objects.remove(o)
+    return s
+
+
+def umlegen(objs, von, nach):
+    # Frauenhaar auf den Maennerkopf: je Achse von Schaedelmitte und -mass des Frauenkopfs auf die des Maennerkopfs (Masse fast gleich:
+    # 0,178 x 0,225 x 0,215 m gegen 0,182 x 0,221 x 0,21 m; der Kopfknochen allein liess die Stirn 9 mm durch den Pony stechen)
+    f = nach[1] / von[1]
+    for o in objs:
+        if o.type != 'MESH': continue
+        M = o.matrix_world; Mi = M.inverted()
+        for v in o.data.vertices:
+            w = np.array(tuple(M @ v.co))
+            v.co = Mi @ Vector(tuple(nach[0] + (w - von[0]) * f))
+
+
 def haare():
     # Bezugsfigur: Kaufkoerper; jedes Haar und jeder Bart „Rigged to Head Bone“ an ihren Kopf (wie kauf_kleid.py), Formschluessel
     # mit ihren Merkpunkten, dann ohne Geruest in der Ruhelage
     bpy.ops.wm.read_factory_settings(use_empty=True)
+    frau = frauenkopf()
     kn, kp = QT.datei(KOERPER)
     objs = QT.importiere(kp)
     arm = next(o for o in objs if o.type == 'ARMATURE')
@@ -324,6 +362,10 @@ def haare():
         a2 = next((o for o in ho if o.type == 'ARMATURE'), None)
         vs = (kopf - QT.kopf_pos(a2)) if a2 and 'Head' in a2.data.bones else Vector()
         neu = [o for o in ho if o.type == 'MESH']
+        if n in FRAUENHAAR:
+            if not frau: print('FEHLT', FRAUENKOPF); continue
+            bpy.context.view_layer.update()
+            umlegen(neu, frau, schaedel(haut, kopf.z)); vs = Vector()
         QT.an_geruest(ho, arm, vs)
         for o in neu:
             o.name = n
@@ -396,6 +438,12 @@ for k, f in KLASSEN.items():
     info['klassen'][k] = {'kleid': f.get('kleid') or f['tracht'], 'kopf': godot(QT.kopf_pos(arm)), 'dreiecke': dreiecke(netze),
                           'netze': sorted(o.name for o in netze)}
     print('KLASSE', k, info['klassen'][k]['dreiecke'], 'Dreiecke', info['klassen'][k]['kleid'])
+# Scheide fuer Klingen am Guertel (376.1 Wegstecken): Avramania „Weapons & Shields“ Free (CC0, Bestand, Release stufe1), unveraendert
+for wurzel in (QT.Q, os.environ.get('KAUF', '')):
+    for wo, _, fs in sorted(os.walk(wurzel)) if wurzel else ():
+        if 'mdvl_weapons_scabbard_01.glb' in fs and not os.path.exists(os.path.join(ZIEL, 'scheide.glb')):
+            shutil.copy(os.path.join(wo, 'mdvl_weapons_scabbard_01.glb'), os.path.join(ZIEL, 'scheide.glb'))
+print('SCHEIDE', 'da' if os.path.exists(os.path.join(ZIEL, 'scheide.glb')) else 'FEHLT')
 info.update(haare())
 info.update(bewegungen())
 json.dump(info, open(os.path.join(ZIEL, 'held-klassen.json'), 'w'), indent=1, ensure_ascii=False)

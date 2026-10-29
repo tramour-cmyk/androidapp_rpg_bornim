@@ -4,7 +4,8 @@ extends RefCounted
 # doch auch Einfluss nehmen … die jeweiligen Klassen ihre Standard-Grundausruestung kriegen, sichtbar“): der Held je Klasse auf dem
 # Kaufkoerper (tools/blender348/v3/held_klassen.py: daten/held_<KLASSE>.bin, haare.bin, bewegungen.bin, held-klassen.json).
 # Aussehen (Erschaffung, Zustand.aussehen): Kopfform als Formschluessel, Haar und Bart am Kopfknochen, Haar- und Hautfarbe getoent;
-# die angelegte Waffe und der Schild haengen unterwegs auf dem Ruecken (DESIGN-STIL „Ausruestung unterwegs“).
+# unterwegs ist die Waffe weggesteckt (DESIGN-STIL „Ausruestung unterwegs“, Chef 29.10., 10:52): mit Schild unter dem Schild auf dem
+# Ruecken, nur der Griff schaut heraus; ohne Schild Stab auf dem Ruecken, Klinge in der Scheide am Guertel.
 # Fehlen die Dateien (Bau ohne Kaufmodelle), bleibt der bisherige Held (daten/held.bin).
 
 const INFO := "res://daten/held-klassen.json"
@@ -41,6 +42,9 @@ const WORTE := {
 	"frisur:": ["Kahl", "Bald"], "frisur:Hair_SimpleParted": ["Scheitel", "Parted"], "frisur:Hair_Buzzed": ["Kurz", "Buzzed"],
 	"frisur:Hair_SlickBack": ["Zerzaust", "Tousled"], "frisur:Hair_Ponytail": ["Zopf", "Ponytail"], "frisur:Hair_Balding": ["Halbglatze", "Balding"],
 	"frisur:Hair_Dreads": ["Locken", "Curls"], "frisur:Hair_Mohawk": ["Schopf", "Forelock"],
+	# Frauenhaar auf dem Maennerkopf (376.1, Chef 29.10., 10:52 „gibt es noch andere Frisuren“); Woerter vorlaeufig, Homer prueft
+	"frisur:Hair_Long": ["Lang", "Long"], "frisur:Hair_LongDreads": ["Lange Locken", "Long curls"],
+	"frisur:Hair_Ponytail_2": ["Hoher Zopf", "High ponytail"], "frisur:Hair_Bob": ["Pagenkopf", "Bob"], "frisur:Hair_Buns": ["Knoten", "Buns"],
 	"bart:": ["Ohne", "None"], "bart:Hair_Beard": ["Vollbart", "Full beard"], "bart:Hair_Moustache": ["Schnurrbart", "Moustache"],
 	"bart:Hair_MuttonChops": ["Koteletten", "Mutton chops"],
 }
@@ -252,36 +256,159 @@ static func faust(sk: Skeleton3D, s: String) -> Dictionary:
 	var kf := hr * sk.get_bone_global_rest(p).origin
 	return {"knochen": "hand_" + s, "griff": (zf + kf) * 0.5, "achse": (zf - kf).normalized()}
 
-# ---------------------------------------------------------------- Ausruestung unterwegs: Schild und Waffe auf dem Ruecken
+# ---------------------------------------------------------------- Ausruestung unterwegs: weggesteckt
+# Chef 29.10., 10:52: „wenn denn der Held ein Schild hat, kommt die Waffe auf den Rücken unter das Schild … dann schaut nur noch der
+# Griff raus. Wenn der Held aber kein Schild hat, dann die Waffe nach hinten wegstecken, in der Halterung, das Ding kann ich einfach
+# schweben … bei Stäben zum Beispiel, oder … beim Schwert oder Dolch … in eine Scheide am Gürtel.“
+# Chef 11:17: „bedenke halt alle Ausrüstungsgegenstände, die man … kaufen oder erwerben oder finden kann“ (Gear.kt weapon()):
+# Ruecken: Stangen, Zweihaender, Boegen (STANGE, Kopf oder Spitze oben; Zweihaender Griff oben); Guertel: Klingen in der Scheide,
+# Beil, Kolben, Hammer, Zauberstab in der Schlaufe (alles Uebrige)
+const STANGE := ["quarterstaff", "staff", "spear", "halberd", "greataxe", "maul", "shortbow", "longbow", "light_crossbow"]
+const ZWEIHAENDER := ["greatsword"]
+const LANG := STANGE + ZWEIHAENDER
+const KLINGE := ["dagger", "shortsword", "longsword", "rapier", "scimitar"]
+
 static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
-	for alt in sk.find_children("Ruecken*", "", false, false): alt.free()
+	for alt in sk.get_children():
+		if String(alt.name).begins_with("Ruecken") or String(alt.name).begins_with("Guertel"): alt.free()
 	var bi := sk.find_bone("spine_03")
 	if bi < 0: return
 	var brust := im_raum(m, sk) * sk.get_bone_global_rest(bi)
-	var schild := _modell(aus.get("OFF_HAND"))
+	var links := _modell(aus.get("OFF_HAND"))
+	var schild := links if links.contains("shield") else ""
+	var zweit := "" if schild != "" else links   # Dolch in der Nebenhand
 	var waffe := _modell(aus.get("MAIN_HAND"))
 	# Ruhelage: die Figur blickt nach +Z, ihre linke Seite ist +X. Schild auf dem Ruecken (Vorderseite nach hinten), geneigt wie der
-	# Ruecken zwischen Schulterblatt und Kreuz (Pruefer Lauf 1: unten 5-7 cm Spalt); die Waffe schraeg, Griff ueber der rechten
-	# Schulter, hinter allem, was hinten am weitesten absteht (Lauf 1: Schwert hinter dem Schild verdeckt, Parierstange im Umhang)
+	# Ruecken zwischen Schulterblatt und Kreuz (Pruefer Lauf 1: unten 5-7 cm Spalt)
 	var y := brust.origin.y
 	var r := ruecken(m, y - 0.63, y + 0.1)   # [z oben, z unten, hinterste z]: Ruecken an Ober- und Unterkante des Schilds
-	var aussen: float = r[2]
+	var art := ""
 	if schild != "":
 		# Pruefer Lauf 2 (Kaempfer: Schild ragt von vorn ueber die Schultern; Schild 0,72 m, Oberkante 1,54 m, Schultern 1,46 m):
-		# Mitte 29 cm unter spine_03, Oberkante etwa 1,32 m (376.1 Lauf 1: bei 1,42 m von schraeg oben noch ueber den Schultern)
-		var oben := Vector3(0, y - 0.05, float(r[0]) - 0.03)
-		var unten := Vector3(0, y - 0.53, float(r[1]) - 0.03)
+		# Mitte 29 cm unter spine_03, Oberkante etwa 1,32 m. Mit Waffe darunter 6,5 statt 3 cm vom Ruecken: die Waffe liegt dazwischen
+		var luft := 0.065 if waffe != "" else 0.03
+		var oben := Vector3(0, y - 0.05, float(r[0]) - luft)
+		var unten := Vector3(0, y - 0.53, float(r[1]) - luft)
 		var hoch := (oben - unten).normalized()
 		var t := Transform3D(Basis(Vector3.LEFT, hoch, Vector3.LEFT.cross(hoch)), (oben + unten) * 0.5)
-		_haenge(m, sk, bi, brust, schild, t, "RueckenSchild")
-		aussen = minf(aussen, (oben.z + unten.z) * 0.5) - 0.10   # Schild mit Buckel (376.1 Lauf 2: bei 7 cm durchdrang der Buckel das Schwert)
-	if waffe != "":
-		var lang := waffe in ["quarterstaff", "staff", "spear", "greataxe"]
-		var achse := Vector3(0.42, -1.0, 0.0).normalized() if not lang else Vector3(0.62, -1.0, 0.0).normalized()   # Klinge zur linken Huefte
-		var griff := Vector3(-0.17, y + 0.22, aussen - 0.03) if not lang else Vector3(-0.05, y + 0.05, aussen - 0.03)
+		var d := _haenge(m, sk, bi, brust, schild, t, "RueckenSchild")
+		if waffe != "" and d:
+			# parallel zum Schild, halbwegs zum Ruecken; Klinge: Parierstange 2 cm unter der Oberkante, Griff und Knauf darueber,
+			# leicht schraeg (Griff ueber dem rechten Schulterblatt); Stab: quer unter dem Schild, die Enden schauen heraus
+			var kante := _oben(d, t)
+			var mitte := (oben + unten) * 0.5 + Vector3(0, 0, luft * 0.5)
+			var lang := waffe in LANG
+			var achse := (hoch - Vector3(0.62, 0, 0)).normalized() if lang else (-hoch + Vector3(0.10, 0, 0)).normalized()
+			var p := mitte - achse * (float(_klinge(waffe)["spitze"]) - float(_klinge(waffe)["laenge"]) * 0.5)   # Stange: Mitte unterm Schild
+			if not lang:
+				var g := _klinge(waffe)
+				var ziel := kante - 0.02 + float(g["parier"]) * absf(achse.y)   # Griff so hoch, dass die Parierstange unter der Kante liegt
+				p = mitte + hoch * ((ziel - mitte.y) / hoch.y) + Vector3(-0.06, 0, 0)
+			var quer := Vector3.LEFT.cross(hoch)   # Klinge flach zum Ruecken
+			_haenge(m, sk, bi, brust, waffe, Transform3D(Basis(achse.cross(quer).normalized(), achse, quer), p), "RueckenWaffe")
+			art = "unter_schild"
+	elif waffe in LANG or (waffe != "" and waffe not in KLINGE and _klinge(waffe)["laenge"] > 0.9):
+		# schraeg auf dem Ruecken, hinter allem, was hinten am weitesten absteht (Lauf 1: Parierstange im Umhang); schwebt (Chef:
+		# „das Ding kann ich einfach schweben“). Mitte der Waffe auf dem Ruecken; Kopf oder Spitze ueber der rechten Schulter
+		# (+Y der Waffe nach oben), beim Zweihaender der Griff
+		var g := _klinge(waffe)
+		var achse := Vector3(0.62, -1.0, 0.0).normalized() if waffe in ZWEIHAENDER or waffe in KLINGE else Vector3(-0.62, 1.0, 0.0).normalized()
+		var mitte := Vector3(-0.03, y - 0.05, float(r[2]) - 0.03 - float(g["dicke"]))
+		var griff := mitte - achse * (float(g["spitze"]) - float(g["laenge"]) * 0.5)
 		var quer := Vector3.FORWARD
-		var t := Transform3D(Basis(achse.cross(quer).normalized(), achse, quer), griff)
-		_haenge(m, sk, bi, brust, waffe, t, "RueckenWaffe")
+		_haenge(m, sk, bi, brust, waffe, Transform3D(Basis(achse.cross(quer).normalized(), achse, quer), griff), "RueckenWaffe")
+		art = "ruecken"
+	elif waffe != "":
+		art = "scheide" if waffe in KLINGE else "schlaufe"   # Beil, Kolben, Morgenstern, Hammer, Zauberstab
+		_guertel(m, sk, waffe, 1.0, "GuertelWaffe")
+	if zweit != "": _guertel(m, sk, zweit, -1.0, "GuertelZweit")
+	m.set_meta("weggesteckt", art)
+
+# Am Guertel (seite 1: links, -1: rechts): Klinge in der Scheide, Griff nach vorn oben, Spitze nach hinten unten; Schlagwaffe (Keule,
+# Axt) in der Schlaufe, Kopf oben. Hoehe: Becken; seitlich: aeusserste Huefte des Rumpfs (Ruhelage T-Pose: die Arme stoeren nicht)
+static func _guertel(m: Node3D, sk: Skeleton3D, was: String, seite: float, nm: String) -> void:
+	var bi := sk.find_bone("pelvis")
+	if bi < 0: return
+	var becken := im_raum(m, sk) * sk.get_bone_global_rest(bi)
+	var gy := becken.origin.y + 0.06
+	var hx := huefte(m, gy) * seite
+	var g := _klinge(was)
+	var t: Transform3D
+	if was in KLINGE:
+		var achse := Vector3(0.06 * seite, -1.0, -0.75).normalized()   # etwa 37 Grad nach hinten
+		var mund := Vector3(hx + 0.035 * seite, gy + 0.02, 0.03)        # Scheidenmund am Guertel, vor der Hueftmitte
+		var p := mund - achse * float(g["parier"])                       # Griff ueber dem Mund
+		t = Transform3D(_flach(achse, seite), p)
+	else:
+		# Kopf oben, knapp ueber dem Guertel; der Stiel haengt durch die Schlaufe (Kopf = breiteste Stelle, _klinge parier)
+		var achse := Vector3(0.0, 1.0, 0.12).normalized()
+		t = Transform3D(_flach(achse, seite), Vector3(hx + 0.04 * seite, gy + 0.03 - float(g["parier"]) * achse.y, 0.0))
+	var d := _haenge(m, sk, bi, becken, was, t, nm, false)
+	if d == null: return
+	if was in KLINGE:
+		var sch := scheide(g)
+		if sch: d.add_child(sch)
+	Gebiet.male(d, null, 2, [])
+
+# Lage am Guertel: Waffe entlang achse (+Y), Klinge flach an der Huefte (Dicke, +Z der Waffe, zur Seite), Breite (+X) vorn-hinten
+static func _flach(achse: Vector3, seite: float) -> Basis:
+	var x := Vector3(seite, 0, 0)
+	var z := (x - achse * achse.dot(x)).normalized()
+	return Basis(achse.cross(z).normalized(), achse, z)
+
+# aeusserste Seite des Rumpfs (x, Ruhelage) auf Guertelhoehe: Netze mit Haut, nahe der Mitte (keine Haende, T-Pose)
+static func huefte(m: Node3D, gy: float) -> float:
+	var x := 0.0
+	for mi in m.find_children("*", "MeshInstance3D", true, false):
+		if not (mi as MeshInstance3D).skin: continue
+		var t := im_raum(m, mi)
+		var me := (mi as MeshInstance3D).mesh
+		for s in me.get_surface_count():
+			for v in me.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]:
+				var p: Vector3 = t * v
+				if absf(p.y - gy) < 0.03 and absf(p.x) < 0.3: x = maxf(x, absf(p.x))
+	return x if x > 0.05 else 0.17
+
+# Mass einer Waffe (waffen.py: Griff im Ursprung, Klinge entlang +Y): Parierstange (breiteste Stelle), Spitze, halbe Klingenbreite
+# und -dicke, Laenge
+static var klingen := {}
+static func _klinge(was: String) -> Dictionary:
+	if klingen.has(was): return klingen[was]
+	var g := {"parier": 0.05, "spitze": 0.5, "breite": 0.02, "dicke": 0.006, "laenge": 0.6}
+	var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % was)
+	if d:
+		var pkt: Array = []
+		for mi in d.find_children("*", "MeshInstance3D", true, false):
+			var t := im_raum(d, mi)
+			var me := (mi as MeshInstance3D).mesh
+			for s in me.get_surface_count():
+				for v in me.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]: pkt.append(t * v)
+		d.free()
+		if not pkt.is_empty():
+			var y0 := 9.0; var y1 := -9.0; var px := 0.0; var py := 0.0
+			for p in pkt:
+				y0 = minf(y0, p.y); y1 = maxf(y1, p.y)
+				if p.y > 0.0 and absf(p.x) > px: px = absf(p.x); py = p.y
+			var bx := 0.0; var bz := 0.0
+			for p in pkt:
+				if p.y > py + 0.02: bx = maxf(bx, absf(p.x)); bz = maxf(bz, absf(p.z))
+			g = {"parier": py, "spitze": y1, "breite": bx, "dicke": bz, "laenge": y1 - y0}
+	klingen[was] = g
+	return g
+
+# Scheide um die Klinge (im Raum der Waffe): Avramania „Weapons & Shields“ (CC0, Bestand; held_klassen.py -> daten/scheide.bin),
+# kein Eigenbau (408, Chef 29.10., 11:20). Im Modell Mund oben bei y 0, Spitze bei -0,84 m, Breite x 4,6 cm, Dicke z 2,3 cm:
+# umgedreht (Spitze entlang +Y wie die Klinge) und auf Klingenlaenge gestreckt, nie schmaler als gekauft
+const SCHEIDE := "res://daten/scheide.bin"
+static func scheide(g: Dictionary) -> Node3D:
+	if not FileAccess.file_exists(SCHEIDE): return null
+	var d := Gebiet.lade_glb(SCHEIDE)
+	if d == null: return null
+	d.name = "Scheide"
+	var lang := float(g["spitze"]) - float(g["parier"]) + 0.02
+	var mass := Vector3(maxf(1.0, (2.0 * float(g["breite"]) + 0.008) / 0.046), lang / 0.844, maxf(1.0, (2.0 * float(g["dicke"]) + 0.01) / 0.023))
+	d.transform = Transform3D(Basis(Vector3.BACK, PI) * Basis.from_scale(mass), Vector3(0, float(g["parier"]) + 0.004, 0))
+	return d
 
 # hinterste Stelle des Rumpfs (z, Ruhelage) auf Hoehe des Schulterblatts (y1 - 0,15) und des Kreuzes (y0 + 0,1), dazu die hinterste
 # zwischen y0 und y1; nur die Mitte (|x| < 0,12), alle Netze mit Haut (Koerper, Kleidung, Umhang)
@@ -301,18 +428,29 @@ static func ruecken(m: Node3D, y0: float, y1: float) -> Array:
 	if ganz > 8.0: ganz = -0.15
 	return [oben if oben < 8.0 else ganz, unten if unten < 8.0 else ganz, ganz]
 
+# Oberkante (y, Ruhelage der Figur) eines angehaengten Modells d mit Lage t
+static func _oben(d: Node3D, t: Transform3D) -> float:
+	var y := -9.0
+	for mi in d.find_children("*", "MeshInstance3D", true, false):
+		var tm := t * im_raum(d, mi)
+		var me := (mi as MeshInstance3D).mesh
+		for s in me.get_surface_count():
+			for v in me.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]: y = maxf(y, (tm * v).y)
+	return y
+
 static func _modell(g) -> String:
 	if not g is Dictionary: return ""
 	var b := String(g.get("base", ""))
 	return b if FileAccess.file_exists("res://daten/waffen/%s.bin" % b) else ""
 
-static func _haenge(m: Node3D, sk: Skeleton3D, bi: int, brust: Transform3D, was: String, t: Transform3D, nm: String) -> void:
+static func _haenge(m: Node3D, sk: Skeleton3D, bi: int, ruhe: Transform3D, was: String, t: Transform3D, nm: String, malen := true) -> Node3D:
 	var ba := BoneAttachment3D.new()
 	ba.name = nm
 	ba.bone_name = sk.get_bone_name(bi)
 	sk.add_child(ba)
 	var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % was)
-	if d == null: return
-	d.transform = brust.affine_inverse() * t
+	if d == null: return null
+	d.transform = ruhe.affine_inverse() * t
 	ba.add_child(d)
-	Gebiet.male(d, null, 2, [])
+	if malen: Gebiet.male(d, null, 2, [])
+	return d

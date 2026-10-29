@@ -31,17 +31,26 @@ def stapel(bilder, quer=False, rand=8):
 
 k = stapel([lade('klassen_vorn.png'), lade('klassen_hinten.png')])
 if k: k.save(os.path.join(AUS, '3761-klassen.jpg'), quality=88)
+# Wegstecken (376.1): Gruppe A (Guertel, unter dem Schild) und B (Ruecken), je vorn, links, hinten
+for gr in ('A', 'B'):
+    w = stapel([lade('waffen_%s_%s.png' % (gr, s)) for s in ('vorn', 'links', 'hinten')])
+    if w: w.save(os.path.join(AUS, '3761-waffen-%s.jpg' % gr.lower()), quality=88)
 koepfe = [lade('aussehen_ak_%d.png' % i) for i in range(20)]
 koepfe = [x for x in koepfe if x]
+hinten = [x for x in (lade('aussehen_ak_%d_h.png' % i) for i in range(20)) if x]
 if koepfe:
-    reihen = [stapel(koepfe[i:i + 5], quer=True) for i in range(0, len(koepfe), 5)]
+    # je Reihe sechs Koepfe von halb vorn, darunter dieselben von halb hinten (376.1 Frisuren)
+    reihen = []
+    for i in range(0, len(koepfe), 6):
+        reihen.append(stapel(koepfe[i:i + 6], quer=True))
+        if hinten[i:i + 6]: reihen.append(stapel(hinten[i:i + 6], quer=True))
     stapel(reihen).save(os.path.join(AUS, '3761-aussehen.jpg'), quality=88)
 e = stapel([lade('erschaffung_oben.png'), lade('erschaffung_aussehen.png')], quer=True)
 if e: e.save(os.path.join(AUS, '3761-erschaffung.jpg'), quality=88)
 # Wange: der Kopf steht in jedem Ausschnitt bei (400, 470) (Kopfknochen + 8 cm); Wange 60-120 Punkte darunter, 40-90 seitlich.
 # ak_5 bis ak_8: die vier Hauttoene des Menschen (figurenprobe.gd AUSSEHEN_PROBE) gegen ihr Farbfeld (Appearance.kt); Vorschlag
 # Eichung je Kanal (linear, Median der vier), mit der heldfigur.gd HAUT_EICHUNG malnehmen
-FELD = {5: 0xEACBAE, 6: 0xD4A27C, 7: 0xA8764F, 8: 0x6E4632}
+FELD = {}   # Hauttoene abgenommen (Chef 29.10., 10:55); die Reihe ak_5 bis ak_8 zeigt seither Frisuren (Feld im Git-Verlauf)
 lin = lambda c: np.where(c <= 0.04045, c / 12.92, ((c + 0.055) / 1.055) ** 2.4)
 with open(os.path.join(AUS, 'haut.txt'), 'w') as f:
     eich = []

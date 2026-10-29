@@ -99,6 +99,7 @@ jobs:
           for f in $RUNNER_TEMP/klassen/held_*.glb; do n=$(basename $f .glb); cp $f $D/$n.bin; echo daten/$n.bin >> $D/kauf.txt; done
           cp $RUNNER_TEMP/klassen/haare.glb $D/haare.bin && cp $RUNNER_TEMP/klassen/bewegungen.glb $D/bewegungen.bin && cp $RUNNER_TEMP/klassen/held-klassen.json $D/
           printf 'daten/haare.bin\ndaten/bewegungen.bin\n' >> $D/kauf.txt
+          [ -f $RUNNER_TEMP/klassen/scheide.glb ] && cp $RUNNER_TEMP/klassen/scheide.glb $D/scheide.bin   # 376.1 Scheide (CC0, unverschluesselt)
           ls -l $D/held_*.bin $D/haare.bin $D/bewegungen.bin
       - name: Leute bauen (Dorf)
         run: |

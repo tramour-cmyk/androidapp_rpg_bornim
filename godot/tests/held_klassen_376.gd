@@ -55,11 +55,44 @@ func _init() -> void:
 				var t = (x as ShaderMaterial).get_shader_parameter("toenung")
 				if t is Vector3 and (t as Vector3).distance_to(Vector3.ONE) > 0.01: getoent += 1
 			pruefe(getoent >= 2, "%s %s: nur %d Materialien getoent" % [k, a, getoent])
-			# Grundausruestung sichtbar: Waffe (und Schild) auf dem Ruecken
+			# Grundausruestung sichtbar und weggesteckt (Chef 29.10., 10:52): mit Schild die Waffe darunter, ohne Schild der Stab auf dem
+			# Ruecken, die Klinge in der Scheide am Guertel
 			var waffe := sk.find_children("RueckenWaffe", "", false, false).size()
+			var guertel := sk.find_children("GuertelWaffe", "", false, false).size()
 			var schild := sk.find_children("RueckenSchild", "", false, false).size()
-			pruefe(waffe == 1, "%s: Waffe auf dem Ruecken %d" % [k, waffe])
+			var soll_art: String = {"FIGHTER": "unter_schild", "CLERIC": "unter_schild", "WIZARD": "ruecken", "ROGUE": "scheide"}[k]
+			pruefe(String(m.get_meta("weggesteckt", "")) == soll_art, "%s: weggesteckt %s statt %s" % [k, m.get_meta("weggesteckt", ""), soll_art])
+			pruefe(waffe + guertel == 1, "%s: Waffe %d auf dem Ruecken, %d am Guertel" % [k, waffe, guertel])
 			pruefe(schild == (1 if k in ["FIGHTER", "CLERIC"] else 0), "%s: Schild auf dem Ruecken %d" % [k, schild])
+			if soll_art == "scheide":
+				var sch := m.find_child("Scheide", true, false) as Node3D
+				pruefe(sch != null or not FileAccess.file_exists(HeldFigur.SCHEIDE), "%s: Scheide fehlt" % k)
+				if sch:   # am Guertel, an der linken Seite (+X), um die Beckenhoehe; Ruhelage: Beckenknochen statt BoneAttachment (ohne Bild nicht bewegt)
+					var becken := HeldFigur.im_raum(m, sk) * sk.get_bone_global_rest(sk.find_bone("pelvis"))
+					var ba := sk.find_child("GuertelWaffe", false, false)
+					var box := AABB()
+					var erst := true
+					for mi in sch.find_children("*", "MeshInstance3D", true, false):
+						var x := becken * HeldFigur.im_raum(ba, mi) * (mi as MeshInstance3D).get_aabb()
+						box = x if erst else box.merge(x)
+						erst = false
+					var bk := becken.origin
+					pruefe(box.get_center().x > 0.1 and box.end.y > bk.y and box.position.y < bk.y, "%s: Scheide bei %s (Becken %s)" % [k, box, bk])
+			if soll_art == "unter_schild":
+				# Waffe zwischen Ruecken und Schild; ihr Griff (Ursprung) ueber der Schildkante, die Parierstange darunter
+				var wn := sk.find_child("RueckenWaffe", false, false).get_child(0) as Node3D
+				var sn := sk.find_child("RueckenSchild", false, false).get_child(0) as Node3D
+				var wt := HeldFigur.im_raum(m, wn)
+				var st := HeldFigur.im_raum(m, sn)
+				var kante := -9.0
+				for mi in sn.find_children("*", "MeshInstance3D", true, false):
+					var sa := st * HeldFigur.im_raum(sn, mi) * (mi as MeshInstance3D).get_aabb()
+					kante = maxf(kante, sa.end.y)
+				pruefe(wt.origin.z > st.origin.z, "%s: Waffe (z %.3f) nicht unter dem Schild (z %.3f)" % [k, wt.origin.z, st.origin.z])
+				if k == "FIGHTER":
+					var g := HeldFigur._klinge("longsword")
+					var parier := (wt * Vector3(0, float(g["parier"]), 0)).y
+					pruefe(wt.origin.y > kante and parier < kante, "%s: Griff %.2f, Parierstange %.2f, Schildkante %.2f" % [k, wt.origin.y, parier, kante])
 			# steht auf dem Boden, aufrecht, etwa menschengross
 			ap.play("Stehen")
 			ap.seek(0.0, true)

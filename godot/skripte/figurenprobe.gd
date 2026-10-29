@@ -717,18 +717,27 @@ const KLASSEN_REIHE := ["FIGHTER", "CLERIC", "ROGUE", "WIZARD"]
 # (HeldFigur.KLASSEN_VORGABE), wie ein neuer Held sie traegt
 # Kopfblatt: erste Reihe die fuenf Gesichter mit gleicher Frisur (Pruefer Lauf 1: Formen sahen gleich aus), zweite Reihe die
 # Hauttoene und eine Frisur mit Bart
+# 376.1 (Chef 29.10., 10:52: „gibt es noch andere Frisuren“): Kopfblatt mit allen Frisuren (HeldFigur.frisuren, mit dem umgelegten
+# Frauenhaar), je von halb vorn und halb hinten; Hauttoene abgenommen (Chef 10:55), ihre Reihe steht im Git-Verlauf
 const AUSSEHEN_PROBE := [
-	{"form": "", "frisur": "Hair_Buzzed", "bart": "", "haarfarbe": 0, "haut": 1},
-	{"form": "schmal", "frisur": "Hair_Buzzed", "bart": "", "haarfarbe": 0, "haut": 1},
-	{"form": "rund", "frisur": "Hair_Buzzed", "bart": "", "haarfarbe": 0, "haut": 1},
-	{"form": "kantig", "frisur": "Hair_Buzzed", "bart": "", "haarfarbe": 0, "haut": 1},
-	{"form": "hager", "frisur": "Hair_Buzzed", "bart": "", "haarfarbe": 0, "haut": 1},
-	# Chef 23:0x („klinisch tot“): die vier Hauttoene des Menschen ohne Bart (klassen_blatt.py misst die Wange gegen das Farbfeld)
-	{"form": "", "frisur": "Hair_SimpleParted", "bart": "", "haarfarbe": 0, "haut": 0},
-	{"form": "", "frisur": "Hair_SimpleParted", "bart": "", "haarfarbe": 2, "haut": 1},
-	{"form": "", "frisur": "Hair_SimpleParted", "bart": "", "haarfarbe": 3, "haut": 2},
-	{"form": "", "frisur": "Hair_SimpleParted", "bart": "", "haarfarbe": 1, "haut": 3},
-	{"form": "rund", "frisur": "Hair_Mohawk", "bart": "Hair_MuttonChops", "haarfarbe": 3, "haut": 2},
+	{"form": "", "frisur": "Hair_SimpleParted", "bart": "", "haarfarbe": 0, "haut": 1},
+	{"form": "", "frisur": "Hair_Buzzed", "bart": "", "haarfarbe": 2, "haut": 2},
+	{"form": "", "frisur": "Hair_SlickBack", "bart": "", "haarfarbe": 1, "haut": 1},
+	{"form": "", "frisur": "Hair_Ponytail", "bart": "", "haarfarbe": 3, "haut": 2},
+	{"form": "", "frisur": "Hair_Balding", "bart": "", "haarfarbe": 2, "haut": 1},
+	{"form": "", "frisur": "Hair_Dreads", "bart": "", "haarfarbe": 0, "haut": 3},
+	{"form": "", "frisur": "Hair_Mohawk", "bart": "", "haarfarbe": 3, "haut": 1},
+	{"form": "", "frisur": "Hair_Long", "bart": "", "haarfarbe": 1, "haut": 2},
+	{"form": "", "frisur": "Hair_LongDreads", "bart": "", "haarfarbe": 0, "haut": 3},
+	{"form": "", "frisur": "Hair_Ponytail_2", "bart": "", "haarfarbe": 2, "haut": 1},
+	{"form": "", "frisur": "Hair_Bob", "bart": "", "haarfarbe": 3, "haut": 2},
+	{"form": "", "frisur": "Hair_Buns", "bart": "", "haarfarbe": 1, "haut": 1},
+]
+# 376.1 Wegstecken (Chef 29.10., 10:52 und 11:17 „alle Ausrüstungsgegenstände“): je Art eine Figur; Gruppe A am Guertel und unter
+# dem Schild, Gruppe B auf dem Ruecken. spear und greataxe: Modelle der Gegner (spear-rost, greataxe-grak, Klassenlauf)
+const WAFFEN_PROBE := [
+	["A", "FIGHTER", "handaxe", "shield"], ["A", "FIGHTER", "scimitar", ""], ["A", "ROGUE", "shortsword", "dagger"],
+	["A", "FIGHTER", "handaxe", ""], ["B", "FIGHTER", "greataxe", ""], ["B", "FIGHTER", "shortbow", ""], ["B", "FIGHTER", "spear", ""],
 ]
 func klasse_figur(kennung: String, w: Dictionary) -> void:
 	var ms := []
@@ -753,6 +762,11 @@ func klassen() -> void:
 	for i in AUSSEHEN_PROBE.size():
 		var hw := Heldwerte.erschaffe("Probe", "HUMAN", "FIGHTER")
 		klasse_figur("ak_%d" % i, {"klasse": "FIGHTER", "volk": "HUMAN", "aussehen": AUSSEHEN_PROBE[i], "ausruestung": hw.ausruestung})
+	for i in WAFFEN_PROBE.size():
+		var wp: Array = WAFFEN_PROBE[i]
+		var au := {"MAIN_HAND": {"base": wp[2]}}
+		if wp[3] != "": au["OFF_HAND"] = {"base": wp[3]}
+		klasse_figur("wf_%d" % i, {"klasse": wp[1], "volk": "HUMAN", "aussehen": HeldFigur.vorgabe(wp[1]), "ausruestung": au})
 	await get_tree().create_timer(1.0).timeout
 	var kam: Kamera = spiel.kamera
 	var li := kam.global_basis.x; li.y = 0
@@ -785,6 +799,23 @@ func klassen() -> void:
 				for hand in ["hand_l", "hand_r"]:
 					var hp: Vector2 = kam.unproject_position(knochen_pos(k, hand))
 					protokoll.append("FAUST %s %s %d %d" % [k, hand, int(hp.x), int(hp.y) - o])
+	# Wegstecken: je Gruppe von vorn, von links (Guertel links) und von hinten
+	for gr in ["A", "B"]:
+		var ws: Array = []
+		for i in WAFFEN_PROBE.size():
+			if WAFFEN_PROBE[i][0] == gr: ws.append("wf_%d" % i)
+		for blick in [["vorn", 0.0], ["links", -PI * 0.5], ["hinten", PI]]:
+			stelle(ws, 0.8, mitte)
+			for k in ws: figuren[k].rotation.y += float(blick[1])
+			kam.springe()
+			await get_tree().create_timer(0.8).timeout
+			await RenderingServer.frame_post_draw
+			var img := spiel.get_viewport().get_texture().get_image()
+			var fuss: Vector2 = kam.unproject_position(mitte)
+			var kopf: Vector2 = kam.unproject_position(mitte + Vector3(0, 2.0, 0))
+			var o := clampi(int(kopf.y) - 60, 0, img.get_height() - 10)
+			img.get_region(Rect2i(0, o, img.get_width(), clampi(int(fuss.y) + 80 - o, 10, img.get_height() - o))).save_png(aus + "/waffen_%s_%s.png" % [gr, blick[0]])
+			protokoll.append("BILD waffen_%s_%s %s" % [gr, blick[0], ws.map(func(k): return figuren[k].get_child(0).get_meta("weggesteckt", ""))])
 	# Aussehen: sechs Koepfe des Kaempfers halb von vorn auf Gesichtshoehe (wie koepfe())
 	var aks: Array = []
 	for i in AUSSEHEN_PROBE.size(): aks.append("ak_%d" % i)
@@ -792,17 +823,18 @@ func klassen() -> void:
 	kam.zoom = 0.62
 	kam.neigung = -8.0
 	for k in aks:
-		stelle([k], 0.0, mitte)
-		figuren[k].rotation.y -= deg_to_rad(20.0)
-		await get_tree().create_timer(0.5).timeout
-		var kp := knochen_pos(k, "Head") + Vector3(0, 0.08, 0)
-		z.position = kp
-		kam.springe()
-		await RenderingServer.frame_post_draw
-		var img := spiel.get_viewport().get_texture().get_image()
-		var sp: Vector2 = kam.unproject_position(kp)
-		img.get_region(Rect2i(int(sp.x) - 400, int(sp.y) - 470, 800, 940)).save_png(aus + "/aussehen_%s.png" % k)
-		protokoll.append("BILD aussehen_%s" % k)
+		for blick in [["", -20.0], ["_h", 200.0]]:   # halb vorn, halb hinten (Zopf, Knoten, langes Haar)
+			stelle([k], 0.0, mitte)
+			figuren[k].rotation.y -= deg_to_rad(float(blick[1]))
+			await get_tree().create_timer(0.5).timeout
+			var kp := knochen_pos(k, "Head") + Vector3(0, 0.08, 0)
+			z.position = kp
+			kam.springe()
+			await RenderingServer.frame_post_draw
+			var img := spiel.get_viewport().get_texture().get_image()
+			var sp: Vector2 = kam.unproject_position(kp)
+			img.get_region(Rect2i(int(sp.x) - 400, int(sp.y) - 470, 800, 940)).save_png(aus + "/aussehen_%s%s.png" % [k, blick[0]])
+			protokoll.append("BILD aussehen_%s%s" % [k, blick[0]])
 	kam.neigung = -30.0
 	for k in figuren: figuren[k].visible = false
 	# Erschaffung wie im Spiel: oben der Held im Drehteller, dann bis „Aussehen“ gerollt
