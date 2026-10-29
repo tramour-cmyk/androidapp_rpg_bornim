@@ -51,7 +51,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 ## Einzelheiten
 
-- **Zu 406, von Sokrates (Chef 11:13: „ob wir jetzt nicht wieder viel Energie in irgendein lustiges Klerikerschild gesteckt haben … jetzt haben wir das Paket runtergeladen, wo vielleicht ein geiles Schild schon drin ist“):** vor jeder weiteren Runde Omie „Round Shield“ (LISTE-BESTAND, Godot-fertig, Normalkarte) als Grundlage nehmen, Sonne und Tusche darauf; ein Blatt alt gegen Omie.
+- **Zu 406, von Sokrates (Chef 11:13: „ob wir jetzt nicht wieder viel Energie in irgendein lustiges Klerikerschild gesteckt haben … jetzt haben wir das Paket runtergeladen, wo vielleicht ein geiles Schild schon drin ist“):** nicht weiterbauen; erst alle Schilde der Bibliothek (LISTE-BESTAND „Waffen und Schilde“, mit dem bisherigen) drehend in einem Film vorlegen, Chef wählt (11:19, 408).
 - **Zu 406 (Jerry 10:5x):** `waffen.py` (Shield_Wooden, `SONNE=b`, Messung je Teil im Kommentar); Probe `SCHILD=…` in `probe.gd` zeigt Nahaufnahmen mit Wechsel auf Perspektive, fov 9: Tusche dort prüfen (Chef: nicht erkennbar), Wölbung im Licht zu flach. Kaufdateien nur im Workflow: `add_repo` lehnte die Rechteprüfung um 07:5x wieder ab.
 
 - **Zu 348.12f, Kaufwolf und 387:** `kaufwolf.py` (Probe `ERSATZ=kaufwolf`, Workflow „Kaufwolf“), `kauftier.py` (Workflow „387 r“); `pfotenhalt.gd`; Artefakt per `gh api …/artifacts/<id>/zip`. **387 r4:** Offenes im Blatt r4.
