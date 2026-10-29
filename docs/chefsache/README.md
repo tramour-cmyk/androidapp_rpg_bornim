@@ -25,6 +25,7 @@ Nichts offen.
 | [399.1](ansehen/3991-ausruestung.md) | Menü: Benutzen und Ausrüstung wie alt | Tom | 28.10., 17:15 |
 | [399.5](ansehen/3995-innenraeume.md) | Innenräume wie alt, neunter Stand | Tom | 29.10. |
 | [402](ansehen/402-hoerprobe.md) | Hörprobe: Herzschlag beim Hinterhalt, Kaninchen-Klopfen | Jerry | 29.10., 00:21 |
+| [406](ansehen/406-kleriker-schild.md) | Rundschild des Klerikers, erstes Stück der Ausrüstung | Jerry | 29.10., 07:39 |
 
 ## Zu tun
 
