@@ -38,6 +38,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **von Perikles (29.10., 01:1x):** Testbögen t133, t139 stehen noch unter „Builds“ in der Chefsache, obwohl getestet; was beantwortet ist, löschen.
+
 - **Von Perikles (378):** Stände prüfen, `ARBEIT-PROJEKT.md` Zu 378.
 - **von Team Jerry (28.10., 22:48), für den nächsten Build:** `jerry-348-kampf` = `jerry-348-klang` 1923456c7 (beide Zweige gleich, dein `tom-399` von 22:3x drin): 399.3 Keuchen, 401 Tierlaute, 399.2 Wolf durch Wolf, System „Kampf“, satt, Testende, Eröffnung, 399.2b Knurren, 402 Kampfblende mit Herzschlag (wenige Zeilen in `menue.gd`, `bedienung.gd`, `spiel.gd`, `testmodus.gd`; `IntroExport` „kampfblende“).
 - **Zu 399.1, von Sokrates (Chef 22:0x):** „schönen Blenden, wenn wir Maps wechseln … Gebietskarten und Grundrisse … Einmal ausführlich und … dann kürzer“: `ortsblende.gd` überall prüfen, eigener Punkt im nächsten Testbogen (wie Vorspann mit Klanglogo, nur mit Musik).
