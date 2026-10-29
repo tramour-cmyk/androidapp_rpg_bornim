@@ -87,8 +87,9 @@ func licht(l: Dictionary) -> void:
 		s.spot_attenuation = 0.6
 		# Pruefer Lauf 6: rosa Lichtkeil mit scharfer Kante auf dem roten Teppich: Rand des Kegels weicher, Schatten weicher
 		s.spot_angle_attenuation = 0.6 if art == "tageslicht" else 0.35   # Lauf 7: gedreht durch die Tuer noch ein scharfer Keil
-		s.shadow_blur = 2.5 if art == "tageslicht" else 4.0
-		s.shadow_enabled = true
+		s.shadow_blur = 2.5
+		# Lauf 8: durch die Tuer warf die Oeffnung einen scharfen Keil (auch mit weichem Schatten): Tuerlicht ohne Schatten, nur weicher Kegel
+		s.shadow_enabled = art == "tageslicht"
 		s.shadow_bias = 0.05
 		fenster.append([s, float(l.get("kraft", 0.55)) * (1.0 if art == "tageslicht" else TUER_ANTEIL), art == "tuer"])
 

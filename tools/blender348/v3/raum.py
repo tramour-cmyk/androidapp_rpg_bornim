@@ -684,7 +684,7 @@ def bank(c, r):
     L = (c1 - c0 + 1) * TS - 10
     ms = masse('Bench')
     pm = Vector(((tx(c0) + tx(c1 + 1)) / 2, ty(r) - TS / 2, 0))
-    stelle(P, 'Bench', pm, 0, (L / ms.x, 1.0, 0.85), ton=(1.3, 1.3, 1.3))   # Pruefer Lauf 6: nachts fast schwarz
+    stelle(P, 'Bench', pm, 0, (L / ms.x, 1.0, 0.85), ton=(1.5, 1.5, 1.5))   # Pruefer Lauf 6, 8: nachts fast schwarz, dunkler als der Boden
     # Lehne auf der Seite vom Tisch bzw. Altar weg (alt bench back; Pruefer Lauf 1: in der Schenke fehlte sie). Tisch im Norden
     # (Blender +y): Lehne im Sueden, sonst im Norden
     tisch_n = any(ch(cc, r - 1) in 'YA' for cc in range(c0, c1 + 1)) or TEMPEL
@@ -757,7 +757,11 @@ def regal(c, r):
     for i in range(k):
         q = wand + n * (ms.y / 2 + 2) + Vector((-L / 2 + bw * (i + 0.5), 0, 0)) * (1 if abs(n.y) > 0.5 else 0)
         nieder = bool(fenster) and fenster[i]
-        sx = (bw - 4) / ms.x; szz = (100 if nieder else 215) / ms.z
+        # Lauf 8: das Fenster ist breiter als eine Kachel, das hohe Regal daneben verdeckte eine Ecke: dort schmaler, vom Fenster weg
+        li = 22.0 if fenster and not nieder and i > 0 and fenster[i - 1] else 0.0
+        re = 22.0 if fenster and not nieder and i < k - 1 and fenster[i + 1] else 0.0
+        q = q + Vector(((li - re) / 2, 0, 0))
+        sx = (bw - 4 - li - re) / ms.x; szz = (100 if nieder else 215) / ms.z
         stelle(P, 'Bookcase_2', q, a, (sx, 0.9, szz), ton=(0.85, 0.8, 0.78))
         for j, h in enumerate(hz):
             if nieder and h * szz > 70: continue
@@ -824,9 +828,12 @@ def kisten(c, r):
         stelle(P, 'FarmCrate_Carrot', p + Vector((-8, 10, 0)), 10, 0.85)
         stelle(P, 'FarmCrate_Apple', p + Vector((10, -18, 0)), -8, 0.85)
         return
-    stelle(P, 'Crate_Wooden', p + Vector((-10, 6, 0)), hsh(c, r, 3) % 30 - 15, 0.62, ton=(0.9, 0.85, 0.8))
-    stelle(P, 'Crate_Wooden', p + Vector((22, -22, 0)), 20 + hsh(c, r, 4) % 30, 0.45, ton=(0.8, 0.75, 0.72))
-    if hsh(c, r, 5) % 2: stelle(P, 'Crate_Wooden', p + Vector((-10, 6, 0)), 35, 0.4, z=masse('Crate_Wooden').z * 0.62)
+    # Pruefer Lauf 8: die kleine Kiste schnitt in die grosse; Abstand nach den Massen des Bausatzes, wenig gedreht
+    g = masse('Crate_Wooden').x * 0.55 / 2; k_ = masse('Crate_Wooden').x * 0.4 / 2
+    a0 = Vector((-10, 10, 0)); a1 = a0 + Vector((g + k_ + 8, -(g + k_ + 8) * 0.6, 0))
+    stelle(P, 'Crate_Wooden', p + a0, hsh(c, r, 3) % 16 - 8, 0.55, ton=(0.9, 0.85, 0.8))
+    stelle(P, 'Crate_Wooden', p + a1, 6 + hsh(c, r, 4) % 10, 0.4, ton=(0.8, 0.75, 0.72))
+    if hsh(c, r, 5) % 2: stelle(P, 'Crate_Wooden', p + a0, 25, 0.36, z=masse('Crate_Wooden').z * 0.55)
 
 def truhe(c, r):
     P = part('Ding_' + stueck(c, r))
@@ -834,7 +841,7 @@ def truhe(c, r):
     ms = masse('Chest_Wood')
     sk = 80 / ms.x
     # Lauf 3: ragte in die Wand; Lauf 7: der offene Deckel kippt nach hinten und lag in der Mauerkante (Aeltester vorn rechts)
-    p = weg_von_wand(c, r, mitte(c, r) - n * (TS / 2 - ms.y * sk / 2 - 6), 34.0)
+    p = weg_von_wand(c, r, mitte(c, r) - n * (TS / 2 - ms.y * sk / 2 - 6), 60.0)   # Lauf 8: bei 34 cm noch in der Kappe
     stelle(P, 'Chest_Wood', p, a, sk, farbe=lin(0xa07a50))   # Pruefer Lauf 1: ohne Bild des Bausatzes weiss
     # kein Leuchter mehr auf der Truhe: der Deckel des Bausatzes steht offen, die Kerze stand auf seiner Kante (Pruefer Lauf 3)
 

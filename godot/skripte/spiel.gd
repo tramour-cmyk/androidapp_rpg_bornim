@@ -126,6 +126,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	karte = Karte.lade(id, zustand.flaggen)   # 390: Schlagbaum, Tor, Ausgaenge und Wege lesen den Spielstand
 	zustand.setze("besucht:" + id)   # 399.1 Chronik „Die Blutzahnhöhle“ (alt GameState.explored)
 	licht.innen = String(karte.daten.get("art", "")) == "INTERIOR"   # 399.1 Grundriss
+	for m in kamera.tusche_mats: m.set_shader_parameter("relativ", 1.0 if licht.innen else 0.0)   # 399.5: Tusche nie heller als die Flaeche
 	licht.herd = "".join(karte.zeilen).contains("Z")   # 399.5 wie alt hasHearth
 	licht.stelle(licht.nacht)
 	gebiet = Gebiet.new(karte)
