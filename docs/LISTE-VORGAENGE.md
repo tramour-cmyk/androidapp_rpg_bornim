@@ -81,7 +81,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 376 | Quaternius-Bausätze (Dorf, Natur, Dungeon, Outfits) und gedrehte Häuser prüfen (Chef 27.10., 12:00) | E Welt | M | 38,96 $ | Sokrates | wartet |
 | 376.1 | Probeblatt Quaternius-Figuren mit Bewegungsraster als Film (Chef kaufte 27.10., 12:20) | E Figuren | M | 160,52 $ | Team Tom | Chef |
 | 376.2 | RenderHub-Marktpaket: Brunnen, Stände als Form (Chef 27.10., 12:37) | E Welt | M | – | Team Tom | wartet |
-| 374 | Wer prüft regelmäßig, dass alle 373 einhalten? (Chef 27.10., 11:54) | B Abläufe | M | 8,58 $ | Perikles, Diogenes, Sokrates | offen |
+| 374 | Wer prüft regelmäßig, dass alle 373 einhalten? (Chef 27.10., 11:54) | B Abläufe | M | 11,70 $ | Perikles, Diogenes, Sokrates | offen |
 | 372 | Feinschliff Held am Ende des Umzugs: Kettenhemd, Helm, Kragen (aus 338a B, Chef 27.10., 09:36) | E Figuren | M | – | Team Tom | ruht |
 | 341 | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug und Diogenes (Chef 23.10., 09:39) | B Abläufe | M | – | Perikles | Dauer |
 | 304 | Klassischer Kampf: Konter nach Abwehr, obwohl getroffen, regeltechnisch richtig? (Chef 22.10., 13:22) | E Kampf | M | – | Team Jerry | Chef |
@@ -131,7 +131,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 387 | Gekaufte Tiere schnell auf Bewegungen und unsere Haut prüfen, vor Eigenbau (Chef 27.10., 21:27) | E Monster | M | 98,99 $ | Team Jerry | ruht |
 | 403 | Kampfort: Held je Klasse auf dem Kaufkörper (heldfigur.gd aus 376.1) statt held.bin, Kampfbewegungen aus der UAL | E Kampf | M | – | Team Jerry | Chef |
 | 404 | Fehlende Sitzungskosten (3 archivierte Sitzungen ohne usage) schätzen oder „fehlt“ lassen (Ford 28.10., Chefsache) | B Werkzeuge | K | 0,67 $ | Ford | wartet auf Chef |
-| 406 | Ausrüstung der Helden je Stück als eigenes Modell mit Abnahme, „noch steril“ (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe); zuerst Rundschild des Klerikers hell mit goldener Sonne wie alt | E Kampf | M | – | Team Jerry | startbar |
+| 406 | Ausrüstung der Helden je Stück als eigenes Modell mit Abnahme, „noch steril“ (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe); zuerst Rundschild des Klerikers hell mit goldener Sonne wie alt | E Kampf | M | 23,36 $ | Team Jerry | startbar |
 | 407 | Probelauf-Grenze 389 greift nicht: neue Runde erst nach Urteil des Chefs, jeder Zweig zählt („jetzt“ 29.10., 10:05) | B Abläufe | M | – | Perikles | startbar |
 | 390 | Umzug: Punkte ohne Bilderrunde weiterbauen, solange Blätter beim Chef liegen (Perikles 28.10., Wochenziel 348) | E Technik | M | 39,54 $ | Team Tom, Team Jerry | wartet |
 | 383.2 | Kosten: dieselbe Aufgabe frisch gegen groß messen (Chef 27.10., 19:24) | B Werkzeuge | M | – | Sokrates | wartet |
