@@ -5,7 +5,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 **Pause bis 31.10., 20:00 Uhr** (Chef 29.10., 11:15).
 
 
-**Übergabe (29.10., 00:1x, `session_01Hmoj76vRfh2Apaay4BMFvb`):** Stellungnahme in 404 geschrieben. Kosten auf: 404. Nachfolger: Sokrates – Chefrunde (29.10., 00:1x)
+**Übergabe (29.10., 11:1x, `session_01Hmoj78Njjgz8uAoS6RUQKN`):** Chefrunde: Urteile 376.1, 399.1, 399.5, 348.12, 401/402/399.3, 406, 403 eingetragen (Archiv); 407, 408 an Perikles; 348.12h inventarisiert (LISTE-BESTAND); Pause aller Rollen bis 31.10., 20:00, Zeitpläne Ford aus, Wecker „Ende Pause Sa 20:05“ an Ford. Kosten auf: 407, 408, 348.12h, 399.5, 376.1. Nachfolger: Sokrates – Chefrunde (nach der Pause)
 
 ## Zeilen
 
