@@ -29,7 +29,7 @@ KOPF = 'Regular_Male_OnlyHead'
 KLASSEN = {
     # Pruefer 376.1 Lauf 1 (29.10.): unsere Stiefel wie Holzpfloecke, im rechten ein Loch: Stiefel aus den Kauftrachten
     'FIGHTER': {'tracht': 'unsere', 'fuesse': 'Male_Ranger_Feet_Boots'},
-    'WIZARD': {'tracht': 'held_wizard', 'fuesse': 'Male_Wizard_Feet'},   # Chef 28.10., 23:0x: „trägt keine Robe … Kasperlanzug“: lange Robe aus held3 (trachten.json)
+    'WIZARD': {'tracht': 'held_wizard', 'fuesse': 'Male_Ranger_Feet_Boots'},   # Lauf 2: Wizard_Feet schraeg wie Clownsschuhe   # Chef 28.10., 23:0x: „trägt keine Robe … Kasperlanzug“: lange Robe aus held3 (trachten.json)
     'ROGUE': {'kleid': 'Male_Ranger', 'ohne': ['Hood']},
     'CLERIC': {'kleid': 'Male_Knight_Cloth', 'ohne': ['Horns'], 'stahl': False,   # Pruefer Lauf 1: Arme mit STAHL schwarz (Bild 0,20/0,13/0,08)
                'sonne': 'Body_Cloth', 'entgruen': ['Legs_Armor', 'Feet_Armor', 'Arms']},   # Lauf 1: Handschuhe gruenlich (118/124/109)
@@ -210,17 +210,17 @@ def sonne(o, arm):
     mw = arm.matrix_world
     gz = (mw @ arm.data.bones['spine_01'].head_local).z
     sz = (mw @ arm.data.bones['upperarm_l'].head_local).z
-    mz = gz + (sz - gz) * 0.58
+    mz = gz + (sz - gz) * 0.68   # Lauf 2 (Pruefer): bei 0,58 unten hinter dem Guertel
     h = (mw @ arm.data.bones['Head'].head_local).z / 0.9 * SONNE_GROESSE   # Koerperhoehe (Kopfknochen bei etwa 90 %), mal Mass
     P = KO._welt(o)
     me = o.data; me.calc_loop_triangles()
     uv = me.uv_layers.active.data
-    n = 0
+    n = 0; F = []; G = []
     for t in me.loop_triangles:
         a, b, c = (P[i] for i in t.vertices)
         mitte = (a + b + c) / 3
         nrm = np.cross(b - a, c - a)
-        if abs(mitte[0]) > 0.04 * h or abs(mitte[2] - mz) > 0.04 * h or abs(nrm[1]) < 0.3 * np.linalg.norm(nrm): continue
+        if abs(mitte[0]) > 0.06 * h or abs(mitte[2] - mz) > 0.06 * h or abs(nrm[1]) < 0.3 * np.linalg.norm(nrm): continue
         U = np.array([uv[l].uv[:] for l in t.loops]) * (W, H)
         x0, y0 = np.floor(U.min(0)).astype(int); x1, y1 = np.ceil(U.max(0)).astype(int)
         xs, ys = np.meshgrid(np.arange(x0, x1 + 1) + 0.5, np.arange(y0, y1 + 1) + 0.5)
@@ -234,10 +234,21 @@ def sonne(o, arm):
         dx, dz = Q[:, 0], Q[:, 2] - mz
         rr = np.hypot(dx, dz)
         strahl = np.abs((np.arctan2(dz, dx) / (2 * np.pi) * 8 + 0.5) % 1.0 - 0.5) * rr
-        gold = (rr < 0.012 * h) | (np.abs(rr - 0.021 * h) < 0.0045 * h) | ((rr >= 0.021 * h) & (rr <= 0.034 * h) & (strahl < 0.005 * h))
-        if not gold.any(): continue
-        X = (xs.ravel()[drin][gold]).astype(int) % W; Y = (ys.ravel()[drin][gold]).astype(int) % H
-        px[Y, X, :3] = SONNE_GOLD; n += len(X)
+        # Lauf 2 (Pruefer: Zahnrad, darueber das rotgoldene Kreuz des Kaufkleids): erst das Feld in Stofffarbe, dann Strahlen laenger
+        feld = rr < 0.05 * h
+        gold = (rr < 0.012 * h) | (np.abs(rr - 0.021 * h) < 0.0045 * h) | ((rr >= 0.021 * h) & (rr <= 0.044 * h) & (strahl < 0.005 * h))
+        X = (xs.ravel()[drin]).astype(int) % W; Y = (ys.ravel()[drin]).astype(int) % H
+        F.append((X[feld], Y[feld])); G.append((X[gold], Y[gold]))
+    if F:
+        fx = np.concatenate([a for a, _ in F]); fy = np.concatenate([b for _, b in F])
+        # Stofffarbe: Median des Rings knapp ausserhalb des Felds ist nicht ohne Lage zu haben; Median der Feldpunkte ohne Gold und Rot
+        c = px[fy, fx, :3]
+        ist = (np.abs(c[:, 0] - c[:, 1]) < 0.06) & (np.abs(c[:, 1] - c[:, 2]) < 0.06)
+        stoff = c[ist]
+        if len(stoff): px[fy[~ist], fx[~ist], :3] = np.median(stoff, axis=0)   # nur das Zeichen (bunt), Falten des Stoffs bleiben
+        print('SONNE FELD', len(fx), 'Punkte, Stoff', len(stoff), np.round(np.median(stoff, axis=0), 3) if len(stoff) else '-')
+    for gx, gy in G:
+        px[gy, gx, :3] = SONNE_GOLD; n += len(gx)
     zurueck_ins_bild(im, px)
     print('SONNE', o.name, n, 'Punkte, Mitte', round(mz, 3), 'm, Mass', round(h, 3))
 
