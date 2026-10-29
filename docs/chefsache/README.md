@@ -16,7 +16,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [0.348.143](ansehen/t143-spielfassung.md) | [Build 143](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40854808649/artifacts/12888959558) | 399 Spielfassung: Held in vier Klassen, Innenräume, Kampf und Klang | Tom und Jerry | 29.10., 11:28 |
 
 ## Zu tun
 
@@ -30,28 +34,30 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 0, startbar 0, PAUSE bis 31.10., 20:00 Uhr
+**Homer** – offen 4, Muss 1, startbar 1, PAUSE bis 31.10., 20:00 Uhr
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 409 | M | von Team Tom (Chef 29.10., 10:52, Archiv 376.1, „gibt es noch andere Frisuren“): Wörter de | startbar |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 27, Muss 17, startbar 2
+**Tom** – offen 28, Muss 18, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf | wartet auf Test/Build |
-| 399.4 | M | von Chef (21:4x, Archiv): oben Rand für die Kamera wie alt | wartet auf Test/Build (gebaut) |
-| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
-| 399.5 | M | von Chef („jetzt“ 28.10., 21:5x, Archiv): Innenräume wie alt: Lichtquellen, Licht und Scha | wartet auf Test/Build |
-| 399.3.1 | M | von Team Jerry (16:5x): Klang: Haken in spiel.gd (Jerry, claude/jerry-348-klang) übernehme | wartet auf Test/Build |
+| 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf | wartet auf Test (Build) |
+| 399.4 | M | von Chef (21:4x, Archiv): oben Rand für die Kamera wie alt | wartet auf Test (Build) |
+| 410 | M | von Sokrates (Chef 29.10., 10:52, 11:40; aus 376.1): Waffen am Körper wegstecken, alle Waf | startbar |
+| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | wartet auf Test (Build) |
+| 399.5 | M | von Chef („jetzt“ 28.10., 21:5x, Archiv): Innenräume wie alt: Lichtquellen, Licht und Scha | wartet auf Test (Build) |
+| 399.3.1 | M | von Team Jerry (16:5x): Klang: Haken in spiel.gd (Jerry, claude/jerry-348-klang) übernehme | wartet auf Test (Build) |
 | 385 | M | von Sokrates („jetzt“ 28.10., 10:00, Archiv): Zauberer-Set auf Kaufkörper, Film | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 390 | M | von Perikles: zwischen Chef-Blättern Funktionen ohne Bild (LISTE-UMZUG-348.md) | wartet auf Test/Build (gebaut) |
 | 348.12i | M | von Sokrates (Chef 19:41, „348.12i B“, Archiv): nur Kaufmodelle mit AESContext verschlüsse | wartet auf Test/Build (gebaut) |
-| 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | wartet auf Test/Build |
-| 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | wartet auf 348.6 (wartet) |
+| 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | wartet auf Test (Build) |
+| 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | wartet auf 348.6 (zu testen) |
 | 372 | M | von Perikles (338a B, Chef 27.10., 09:36, Archiv): Feinschliff Held: Kettenhemd, Helm, Kra | ruht |
 | 397 | M | von Chef (28.10., 11:15): Held, Leute: mind. drei Ruhebewegungen wie alt (LISTE-UMZUG-348. | wartet auf Test/Build (gebaut) |
 | 348.13 | M | von Sokrates (Chef 26.10., Archiv): Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Sc | wartet auf Jerry |
@@ -70,13 +76,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 38, Muss 27, startbar 6
+**Jerry** – offen 37, Muss 26, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 399.2 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv): Kampfort aufrufbar | wartet auf Test/Build (gebaut) |
 | 399.2b | M | von Team Tom (15:05): Rudel allein zu stark | wartet auf Test/Build (gebaut) |
-| 399.3 | M | von Chef über Sokrates (16:42): Klang in die Spielfassung | startbar |
 | 402 | M | von Sokrates (Chef 22:2x, Archiv): Blende vor dem Kampf wie alt; Herzschlag beim Hinterhal | startbar |
 | 403 | M | von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler): Kampfort: Held | startbar |
 | 406 | M | von Team Tom (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe): Ausrüstung der Helden je | startbar |
@@ -113,10 +118,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 16, Muss 14, startbar 2, PAUSE bis 31.10., 20:00 Uhr
+**Perikles** – offen 17, Muss 15, startbar 3, PAUSE bis 31.10., 20:00 Uhr
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 412 | M | von Sokrates (Chef 11:43, Archiv): je Thema ein Vorgang, nichts Fremdes unter eine Nummer | startbar |
 | 408 | M | von Sokrates (Chef 11:15, Archiv): Bestand vor Eigenbau: Bedarf in der Bibliothek suchen, | startbar |
 | 407 | M | von Chef über Sokrates („jetzt“ 29.10., 10:05): Probelauf-Grenze 389 so, dass sie greift: | startbar |
 | 399 | M | von Chef über Sokrates („jetzt“ 28.10., 12:34, Archiv): Vorrang neu: erst eine Godot-Fassu | wartet auf Tom |
@@ -181,7 +187,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung), 376.1 (Team Tom)
+Nicht gestellt: 186.3 (Pruefung)
 
 Ohne Datei: 275 (Projekt), 403 (Team Jerry), 403 (Team Tom), 26 (Team Tom)
 
