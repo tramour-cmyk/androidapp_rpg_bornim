@@ -2,6 +2,8 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben.
 
+**Pause bis 31.10., 20:00 Uhr** (von Sokrates, Chef 11:15). Nie „Heldin“, immer „der Held“ (Chef: „Jerry immer noch gendert“).
+
 **Übergabe (29.10., 10:5x, `session_01Hmoj79A1…`):** 406 Runde 3 vorgelegt, Urteil 10:52. 348.12: nur Gang, schreitend (Chef 10:55). Nachfolger: „Jerry – 402 Herzschlag, 406 Schild Tiefe“
 
 ## Zeilen

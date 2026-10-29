@@ -2,6 +2,8 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
+**Pause bis 31.10., 20:00 Uhr** (von Sokrates, Chef 11:15; Build 143 noch fertig).
+
 **Übergabe (29.10., 10:5x, `session_01Hmoj76AiNuPotPAPenNqcQ`):** 399.5 Stand 6–9 vorgelegt (Chefsache 3995, Zweig `claude/tom-376-1-figuren` ab8da463e); t133, t139 gelöscht; add_repo abgelehnt (Chefsache 403). **Halt (Chef 29.10., 10:05, über Sokrates): „stoppe weitere Durchläufe, weil wir gesagt haben, nach 2 ist maximal Schluss … Ich habe noch nichts geguckt und freigegeben. Also, warten, bis ich gucke.“** 399.5 bleibt gestoppt bis zum Urteil; 376.1 abgenommen 10:52, frei für Waffen wegstecken und Frisuren (Zu 376.1, braucht Kaufpakete). Nachfolger: Tom – 376.1 Waffen und Frisuren.
 
 ## Zeilen

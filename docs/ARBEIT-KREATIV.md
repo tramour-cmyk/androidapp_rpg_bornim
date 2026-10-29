@@ -2,6 +2,7 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
+**Pause bis 31.10., 20:00 Uhr** (Chef 29.10., 11:15, über Sokrates).
 
 **Gelesen bis:** `8700379b0` (29.10., 01:06)
 
