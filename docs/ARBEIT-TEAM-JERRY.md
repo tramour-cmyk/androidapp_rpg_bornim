@@ -17,7 +17,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 401 | M | **von Chef über Sokrates (Archiv):** Tierlaute, mind. 3 je Tier | startbar: Klopfen raus, Ziege gut (Chef 10:52, Zu 402) | – |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK | `claude/jerry-348-kampf` |
-| 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | wartet auf Chef: Runde 2 (ansehen/34812-grak-film, f5f269856); Prüferbefund nachbauen braucht Kaufmodelle (tun/403-kaufmodelle-zugang) | `claude/jerry-348-kampf` |
+| 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: Grak gut, Gang schreiten (Chef 10:55, Zu 402) | `claude/jerry-348-kampf` |
 | 385.2 | M | **von Chef (Archiv 385.1):** Feuer aus dem Stab | wartet auf 403 (Magier mit Stab im Kampfort) | – |
 | 348.13a | M | **von Team Tom (Chef 08:09, Archiv: r9 ja):** Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13a) | gebaut 421662dbd: Tusche nach Licht Vorgabe, Linie 1,3; offen Säbel (Tom) | `claude/jerry-348-kampf` |
 | 397 | M | **von Chef (28.10., 11:15):** Tiere, Monster: mind. drei Ruhebewegungen wie alt (`LISTE-UMZUG-348.md`) | ruht (399) | – |
