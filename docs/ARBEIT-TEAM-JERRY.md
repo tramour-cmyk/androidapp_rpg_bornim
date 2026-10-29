@@ -12,7 +12,7 @@ von Sokrates (Chef 11:19): nach Build 143 weiter bis Guthaben leer. Nie „Heldi
 |---|---|---|---|---|
 | 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | gebaut 1923456c7: Wolf durch Wolf, System Kampf, satt, Testende; an Tom | `claude/jerry-348-kampf` |
 | 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | gebaut 0eda4bb3e: Knurren mit Text, an Tom für den Build; Hilfe, Eingebung mit 390 | – |
-| 402 | M | **von Sokrates (Chef 22:2x, Archiv):** Blende vor dem Kampf wie alt; Herzschlag beim Hinterhalt stärker | startbar: Fassung 2 tiefer, dumpfer, beklemmend (Chef 11:23, Archiv); Ultraschall verworfen | – |
+| 402 | M | **von Sokrates (Chef 22:2x, Archiv):** Blende vor dem Kampf wie alt; Herzschlag beim Hinterhalt stärker | Chef: Hörprobe 2, 2a, 2b (ansehen/402-herzschlag-dumpf, 94a4696a0) | – |
 | 403 | M | **von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler):** Kampfort: Held je Klasse wie im Dorf (`HeldFigur.baue`) statt `kampf/daten/held.bin`; Hieb, Stich, Treffer, Tod, Ausweichen aus der UAL Pro | startbar: Zugang erteilt (Chef 29.10., 11:12, Archiv) | – |
 | 406 | M | **von Team Tom (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe):** Ausrüstung der Helden je Stück aufwerten („steril“), zuerst Rundschild des Klerikers hell mit goldener Sonne (`Dress.kt`); Wappenrock-Sonne macht Tom | startbar: Tiefe und Tusche nach Licht fehlen (Chef 10:52, Zu 402) | `claude/jerry-406-schild` |
 | 401 | M | **von Chef über Sokrates (Archiv):** Tierlaute, mind. 3 je Tier | gebaut 473fbe768: Klopfen raus, Ziege, Knabbern bleiben; fährt im nächsten Build | – |
