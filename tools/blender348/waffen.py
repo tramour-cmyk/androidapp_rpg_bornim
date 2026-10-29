@@ -238,10 +238,13 @@ def build_round_shield_cc0(P):
         if 'Metal' in m and len(teil) == 22 and abs(math.hypot(c.x, c.z) - 0.083) < 0.01:
             nieten.append((c, min(v.y for v in vs), max(v.y for v in vs)))
             bmesh.ops.delete(bm, geom=teil, context='FACES'); continue
-        k = 2 if 'Furniture' in m else (3 if 'Props' in m else (0 if math.hypot(c.x, c.z) < 0.155 and c.y < -0.09 else 1))
+        # Runde 4 (Prüfer 07:58: Klammern als goldene Keile, graue Splitter an den Spitzen): nur Buckel und Platte golden, Klammern Eisen
+        k = 2 if 'Furniture' in m else (3 if 'Props' in m else (0 if math.hypot(c.x, c.z) < 0.11 and c.y < -0.09 else 1))
         for g in teil: g[tl] = k
-    # je Teil die Grenze in Dreiecken (gold 1.0: Buckel, Platte, Klammern bleiben, wie sie sind)
-    anteil = {0: 1.0, 1: 0.72, 3: 0.4}
+    # je Teil der Anteil der Dreiecke, das Holz bekommt den Rest bis 790
+    # Runde 4: Anteile nach Messung gegen den Bausatz (Abstand der Oberflächen, höchstens: Holz 5,0 mm, Eisen 2,7, Gold 2,9; Runde 3: Holz 8,0
+    # unten links, wo der Prüfer den Keil rohes Holz sah, Eisen 6,8 am Rand hinten, wo der Spalt war); A_GOLD, A_EISEN, A_LEDER zum Messen
+    anteil = {0: float(os.environ.get('A_GOLD', '0.6')), 1: float(os.environ.get('A_EISEN', '0.85')), 3: float(os.environ.get('A_LEDER', '0.3'))}
     fl = []
     gruppen = {k: [f for f in bm.faces if f[tl] == k] for k in range(4)}
     n_ = {k: sum(len(f.verts) - 2 for f in v) for k, v in gruppen.items()}
@@ -269,9 +272,9 @@ def build_round_shield_cc0(P):
             fl.append(([me.vertices[v].co.copy() for v in p.vertices], TEILE[k], p.normal.copy()))
         o2.evaluated_get(dg).to_mesh_clear(); bpy.data.objects.remove(o2, do_unlink=True)
     bm.free()
-    for c, y0, y1 in nieten:     # eigene Nieten: sechseckige Kuppen, 2,2 cm breit, 0,9 cm über der Platte (Runde 3: vorher winzig)
-        ring = [Vector((c.x + math.cos(t) * 0.011, y0 + 0.0075, c.z + math.sin(t) * 0.011)) for t in (2 * math.pi * i / 6 for i in range(6))]
-        top = Vector((c.x, y0 - 0.0015, c.z))
+    for c, y0, y1 in nieten:     # eigene Nieten: flache sechseckige Kuppen, 2,4 cm breit, 0,6 cm über der Platte (Runde 3: winzig; 4: wie Dellen)
+        ring = [Vector((c.x + math.cos(t) * 0.012, y0 + 0.0075, c.z + math.sin(t) * 0.012)) for t in (2 * math.pi * i / 6 for i in range(6))]
+        top = Vector((c.x, y0 + 0.0015, c.z))
         for i in range(6):
             q = [ring[i], ring[(i + 1) % 6], top]
             fl.append((q, 'gold', (q[1] - q[0]).cross(q[2] - q[0]).normalized()))
@@ -281,9 +284,10 @@ def build_round_shield_cc0(P):
     P.UV = []; P.TEX = 'schild_kleriker'
     for pts, m, n in fl:
         pts = [Vector((p.x, p.y + dy, p.z)) for p in pts]
-        feld = {'gold': (0.5, 0.0), 'eisen': (0.0, 0.0), 'leder': (0.75, 0.0)}.get(m) or ((0.0, 0.5) if n.y < -0.5 else (0.5, 0.5))
+        # Runde 4 (Prüfer: Keil rohes Holz vorn): jede nach vorn geneigte Fläche des Holzes ist bemalt
+        feld = {'gold': (0.5, 0.0), 'eisen': (0.0, 0.0), 'leder': (0.75, 0.0)}.get(m) or ((0.0, 0.5) if n.y < -0.2 else (0.5, 0.5))
         ax = max(range(3), key=lambda i: abs(n[i]))   # Projektion längs der Hauptrichtung der Fläche
-        if m == 'holz' and abs(n.y) > 0.5: ax = 1     # Runde 3 (Prüfer: Goldsplitter am Rand): steile Flächen der Wölbung auch von vorn
+        if m == 'holz' and abs(n.y) > 0.2: ax = 1     # Runde 3 (Prüfer: Goldsplitter am Rand): steile Flächen der Wölbung auch von vorn
         uv = []
         for p in pts:
             a_, b_ = (p.x, p.z) if ax == 1 else ((p.y, p.z) if ax == 0 else (p.x, p.y))
