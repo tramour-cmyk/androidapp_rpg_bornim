@@ -1619,11 +1619,13 @@ func raeume_bilder() -> void:
 		ui.textfeld.visible = false   # Gruss beim Eintreten und Tipps: nicht ueber dem Raum
 		ui.textfeld.visible = false   # Lauf 1: der Gruss kam nach dem Ausblenden wieder (Textkasten unten im Bild)
 		await knips(dir + "/%s_tag.png" % r[0])
+		if "--kerzenprobe" in OS.get_cmdline_user_args(): await kerzen_probe(dir, r[0] + "_tag")
 		licht.ziel = 1.0
 		licht.stelle(1.0)
 		await get_tree().create_timer(1.0).timeout
 		ui.textfeld.visible = false
 		await knips(dir + "/%s_nacht.png" % r[0])
+		if "--kerzenprobe" in OS.get_cmdline_user_args(): await kerzen_probe(dir, r[0] + "_nacht")
 		for v in stufen:   # Probe: Umgebung nachts in Stufen „Umgebung[:Kontrast[:Mondfaktor]]“, ein Lauf fuer mehrere Messungen
 			var t := String(v).split(":")
 			licht.env.ambient_light_energy = float(t[0])
@@ -1642,6 +1644,23 @@ func raeume_bilder() -> void:
 		kamera.nach_norden()
 		await get_tree().create_timer(2.5).timeout
 	get_tree().quit()
+
+# 399.5 Lichtinseln (Pruefer Lauf 6: keine um die Tischkerzen): dasselbe Bild ohne Kerzenlicht und die Kerzen am Schirm, damit
+# raeume_blatt.py den Anteil der Kerzen am Boden misst (ohne Ansehen)
+func kerzen_probe(dir: String, name: String) -> void:
+	var aus: Array = []
+	for f in gebiet.raumlicht.feuer:
+		var o: OmniLight3D = f[0]
+		if o.get_meta("art", "") == "kerze" and o.visible:
+			var q := kamera.get_viewport().get_camera_3d().unproject_position(o.global_position)
+			var b := kamera.get_viewport().get_camera_3d().unproject_position(o.global_position - Vector3(0, o.global_position.y, 0))
+			print("KERZE %s %d %d %d %d %.2f %.2f" % [name, q.x, q.y, b.x, b.y, o.omni_range, o.global_position.y])
+			o.visible = false
+			aus.append(o)
+	await get_tree().create_timer(0.3).timeout
+	await knips(dir + "/%s_ohnekerzen.png" % name)
+	for o in aus: (o as OmniLight3D).visible = true
+	await get_tree().create_timer(0.3).timeout
 
 # 390 (Rast) am Rechner: --rastprobe oeffnet das Feuer und die Theke, waehlt und schreibt den Stand je Schritt (ohne Bild);
 # Ende mit quit. Gegenprobe der Regeln: tests/rast_test.gd

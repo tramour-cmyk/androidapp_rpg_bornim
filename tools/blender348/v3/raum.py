@@ -74,7 +74,8 @@ NAMEN = {}
 def klein(P):
     """Kleinkram eines Stuecks (Krug, Kerze, Buch …) in eigenes Netz Klein_…: wirft keinen Schatten (raumlicht.gd, spart Schattenlaeufe)"""
     n = NAMEN.get(id(P), '')
-    return part('Klein_' + n.split('_', 1)[1]) if n.startswith(('Ding_', 'Wand_', 'Herd_')) else P
+    # Herd: Kessel und Kram bleiben im Feuerloch-Netz, das mit seiner Wand geht (Pruefer Lauf 6: gedreht blieb der Kesseldeckel als graue Scheibe)
+    return part('Klein_' + n.split('_', 1)[1]) if n.startswith(('Ding_', 'Wand_')) else P
 def stueck(c, r): return '%d_%d' % (int(c) // 3, int(r) // 3)
 LICHTER = []
 WANDLISTE = []
@@ -249,18 +250,31 @@ def stumpf(P, pos, h):
 
 def waage(P, pos):
     """Kraemerwaage (alt shopTop 0): Fuss, Saeule, Balken ein wenig schief, zwei Schalen an Schnueren, Gewicht in der einen"""
+    # Pruefer Lauf 6: von vorn wie eine Stange (Schalen flach, Schnuere unsichtbar): Brett als Fuss, Saeule mit Knauf, Zeiger nach
+    # oben, tiefe Schalen an je drei Ketten, in der einen Schale Muenzen, in der anderen ein Gewicht
     P = klein(P)
-    zylinder(P, pos, 5.0, 2.0, 12, MESSING, 'weiss', r2=4.0)
-    zylinder(P, pos, 1.3, 34, 6, MESSING, 'weiss')
-    links = pos + Vector((-22, 0, 34.5)); rechts = pos + Vector((22, 0, 32.0))
-    zylinder(P, links, 1.6, (rechts - links).length, 6, MESSING, 'weiss', achse=rechts - links)   # Lauf 3: als schwarzer Strich gelesen
-    for end, tief in ((links, 16.0), (rechts, 14.0)):
+    box(P, (pos.x - 16, pos.y - 9, pos.z), (pos.x + 16, pos.y + 9, pos.z + 3), lambda q, n_: sc(lin(0x6a4a30), 0.9 + 0.2 * vn(q.x / 8, 0, 4)), 'holz')
+    zylinder(P, pos + Vector((0, 0, 3)), 4.0, 3.0, 12, MESSING, 'weiss', r2=3.0)
+    zylinder(P, pos + Vector((0, 0, 3)), 1.6, 38, 8, MESSING, 'weiss')
+    zylinder(P, pos + Vector((0, 0, 42)), 3.0, 4, 10, MESSING, 'weiss', r2=1.0)
+    links = pos + Vector((-24, 0, 38.5)); rechts = pos + Vector((24, 0, 35.5))
+    zylinder(P, links, 1.8, (rechts - links).length, 8, MESSING, 'weiss', achse=rechts - links)   # Lauf 3: als schwarzer Strich gelesen
+    zeig = pos + Vector((0.6, 0, 37.0))
+    zylinder(P, zeig, 1.0, 14, 4, MESSING, 'weiss', r2=0.3, achse=Vector((0.1, 0, 1)))
+    for end, tief, last in ((links, 20.0, 'muenzen'), (rechts, 16.0, 'gewicht')):
         schale = end - Vector((0, 0, tief))
-        for dx in (-5, 5):
-            q = schale + Vector((dx, 0, 1.2))
-            zylinder(P, q, 0.25, (end - q).length, 4, lin(0x4a3a20), 'weiss', achse=end - q)
-        zylinder(P, schale, 4.0, 2.0, 14, MESSING, 'weiss', r2=8.0)
-    zylinder(P, links - Vector((0, 0, 14.0)), 2.2, 3.0, 8, lin(0x9a5a30), 'weiss')
+        for k in range(3):
+            an = k * 2 * math.pi / 3 + 0.5
+            q = schale + Vector((9 * math.cos(an), 9 * math.sin(an), 4.5))
+            zylinder(P, q, 0.5, (end - q).length, 4, lin(0x6a5a38), 'weiss', achse=end - q)
+        zylinder(P, schale, 5.0, 5.0, 16, MESSING, 'weiss', r2=11.0, deckel=False)
+        zylinder(P, schale, 5.0, 0.4, 16, sc(MESSING, 0.7), 'weiss')
+        zylinder(P, schale + Vector((0, 0, 4.6)), 11.0, 0.8, 16, sc(MESSING, 1.15), 'weiss', r2=11.6, deckel=False)
+        if last == 'muenzen':
+            for i in range(5):
+                zylinder(P, schale + Vector((-3 + 2 * (i % 3), -2 + 2 * (i // 3), 0.5 + 0.7 * i)), 2.4, 0.6, 10, GOLD, 'weiss')
+        else:
+            zylinder(P, schale + Vector((0, 0, 0.5)), 3.2, 5.0, 8, lin(0x5a5652), 'weiss', r2=2.4)
 
 def tuchballen(P, pos, s, schere=True):
     """Tuchballen auf der Theke, halb abgerollt, daneben eine eiserne Schere (alt shopTop 2)"""
@@ -311,12 +325,11 @@ if rs:
     P = part('Ding_' + stueck((c0 + c1) / 2, (r0 + r1) / 2))
     x0, x1 = tx(c0) + 12, tx(c1 + 1) - 12; y0, y1 = ty(r1 + 1) + 14, ty(r0) - 14
     # rot mit hellbrauner Borte wie alt MapRoom RUG/RUG_B, auch beim Aeltesten (Pruefer Lauf 1: alt roter Teppich, neu blau)
-    grund = lin(0x7a3a2e); borte = lin(0x8a7650)
+    grund = lin(0x5e2c24); borte = lin(0x8a7650); raute = lin(0x9a4a36)
     def teppich(p, n):
         rand = min(p.x - x0, x1 - p.x, p.y - y0, y1 - p.y)
         if rand < 15: return sc(borte, (0.8 if rand < 7 else 1.0) * (0.9 + 0.15 * vn(p.x / 20, p.y / 20, 8)))
-        d = abs((p.x - x0) % 40 - 20) + abs((p.y - y0) % 40 - 20)   # Rauten wie alt
-        return sc(grund, (1.2 if 11 < d < 14 else 1.0) * (0.9 + 0.15 * vn(p.x / 40, p.y / 40, 8)))
+        return sc(grund, 0.9 + 0.15 * vn(p.x / 40, p.y / 40, 8))
     # oben als Raster zu 5 cm: die Farbe sitzt an den Ecken, mit nur vier Ecken war der ganze Teppich Borte (Pruefer Lauf 3: beige)
     nx = max(1, int((x1 - x0) / 5)); ny = max(1, int((y1 - y0) / 5))
     for i in range(nx):
@@ -329,6 +342,16 @@ if rs:
               [Vector((x0, y1, 0)), Vector((x0, y0, 0)), Vector((x0, y0, 1)), Vector((x0, y1, 1))],
               [Vector((x1, y0, 0)), Vector((x1, y1, 0)), Vector((x1, y1, 1)), Vector((x1, y0, 1))]):
         add_face(P, q, sc(borte, 0.8), 'weiss')
+    # Rauten wie alt MapRoom RUG (je Kachel eine, helles Rot auf dunklem Feld, Mitte in Borte) als eigene Streifen: im 5-cm-Raster
+    # traf keine Ecke die schmale Linie (Pruefer Lauf 6: Teppich ohne Muster)
+    for (c, r) in rs:
+        m_ = mitte(c, r) + Vector((0, 0, 1.3)); rr = 34.0; b2 = 3.5
+        ecken = [m_ + Vector(v) * rr for v in ((1, 0, 0), (0, 1, 0), (-1, 0, 0), (0, -1, 0))]
+        for i in range(4):
+            a_, b_ = ecken[i], ecken[(i + 1) % 4]
+            q_ = Vector((-(b_ - a_).y, (b_ - a_).x, 0)).normalized() * b2
+            add_face(P, [a_ - q_, b_ - q_, b_ + q_, a_ + q_], raute, 'weiss')
+        add_face(P, [m_ + Vector(v) * 7 for v in ((1, 0, 0), (0, 1, 0), (-1, 0, 0), (0, -1, 0))], borte, 'weiss')
     for x in range(int(x0) + 3, int(x1) - 2, 6):   # Fransen an den Schmalseiten
         for y_, d_ in ((y0, -1), (y1, 1)):
             box(P, (x, min(y_, y_ + d_ * 7), 0), (x + 2, max(y_, y_ + d_ * 7), 0.6), lin(0xc8b48c), 'stoff')
@@ -567,10 +590,11 @@ def wand_teil(c, r, s, sonst):
     weg wie alt 5h.1 (Pruefer Lauf 1: gedreht zeigten Regale an der Vorderwand ihre Rueckseite ueber der Bruestung)"""
     return part(WAND_VON[(c, r, s)]) if (c, r, s) in WAND_VON else part(sonst)
 def weg_von_wand(c, r, p, d=18.0):
-    """p um d cm von jeder angrenzenden Wand weg (Wandstaerke und Eckbalken ragen in die Kachel; Pruefer Lauf 3)"""
+    """p um d cm von jeder angrenzenden Wand weg (Wandstaerke und Eckbalken ragen in die Kachel; Pruefer Lauf 3), ebenso von Theke
+    und Altar daneben; zwischen Wand und Theke bleibt es in der Mitte (Pruefer Lauf 6: Fass in der Ladentheke)"""
     for s in 'NWOS':
         dd, _, n, a, e = SEITEN[s]
-        if ch(c + dd[0], r + dd[1]) in WAENDE: p = p + n * d
+        if ch(c + dd[0], r + dd[1]) in WAENDE or ch(c + dd[0], r + dd[1]) in 'KA': p = p + n * d
     return p
 def an_wand(c, r):
     """Richtung in den Raum (Blender) von der naechsten Wand: N, W, O, S der Reihe nach"""
@@ -614,7 +638,7 @@ def theke(c, r):
         p = Vector((tx(cc) + TS / 2, yc - 4, 105))
         w = hsh(cc, r, 2) % 3
         if LADEN:   # alt shopTop: Waage mit Muenzen, Kontobuch mit Feder, Tuchballen mit Schere; je Feld ein Kerzenstumpf
-            [lambda: (waage(P, p + Vector((-6, -12, 0))), stelle(P, 'Coin_Pile', p + Vector((26, -14, 0)), 20)),
+            [lambda: (waage(P, p + Vector((-6, -12, 0))), stelle(P, 'Coin_Pile', p + Vector((42, -20, 0)), 20)),
              lambda: (stelle(P, 'Book_5', p + Vector((-16, 0, 0)), 15), stelle(P, 'Scroll_2', p + Vector((18, 8, 0)), 70)),
              lambda: (tuchballen(P, p + Vector((-12, 4, 0)), hsh(cc, r, 5)), stelle(P, 'Pouch_Large', p + Vector((24, -2, 0)), -30))][w]()
         else:
@@ -658,7 +682,7 @@ def bank(c, r):
     L = (c1 - c0 + 1) * TS - 10
     ms = masse('Bench')
     pm = Vector(((tx(c0) + tx(c1 + 1)) / 2, ty(r) - TS / 2, 0))
-    stelle(P, 'Bench', pm, 0, (L / ms.x, 1.0, 0.85), ton=(0.9, 0.85, 0.8))
+    stelle(P, 'Bench', pm, 0, (L / ms.x, 1.0, 0.85), ton=(1.3, 1.3, 1.3))   # Pruefer Lauf 6: nachts fast schwarz
     # Lehne auf der Seite vom Tisch bzw. Altar weg (alt bench back; Pruefer Lauf 1: in der Schenke fehlte sie). Tisch im Norden
     # (Blender +y): Lehne im Sueden, sonst im Norden
     tisch_n = any(ch(cc, r - 1) in 'YA' for cc in range(c0, c1 + 1)) or TEMPEL

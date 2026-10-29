@@ -25,7 +25,8 @@ cp $O/boden-maske.png $D/boden-maske.bild
 (cd $G && ~/godot/godot --headless --import --path . > $A/import.log 2>&1 || true)
 rm -rf $A/bild && mkdir -p $A/bild
 (cd $G && VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 1500 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --path . \
-  --rendering-driver vulkan --rendering-method mobile --resolution 1080x2340 -- --raeume=$A/bild ${NACHTSTUFEN:+--nachtstufen=$NACHTSTUFEN} > $A/godot.log 2>&1 || true)
+  --rendering-driver vulkan --rendering-method mobile --resolution 1080x2340 -- --raeume=$A/bild ${NACHTSTUFEN:+--nachtstufen=$NACHTSTUFEN} ${KERZENPROBE:+--kerzenprobe} > $A/godot.log 2>&1 || true)
 grep -E "SCRIPT ERROR|SHADER ERROR|^BILD|^ZEICHNEN" $A/godot.log | cut -c1-200 | head -40
+[ -n "$KERZENPROBE" ] && python3 -I $R/tools/pruef348/kerzen_mass.py $A/bild $A/godot.log
 python3 -I $R/tools/pruef348/raeume_blatt.py $A/alt $A/bild $S/3995-raeume
 ls -l $S

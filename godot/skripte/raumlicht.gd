@@ -17,6 +17,10 @@ var waende: Array = []       # [hoch, tief, glas, innen (Godot, waagrecht), was 
 var zeit := 0.0
 var nacht_k := 0.0
 static var flamme_shader: Shader
+const KERZE_WEIT := 2.0       # Lauf 6 (Lauf 1-5: Reichweite 1, Abfall 1)
+const KERZE_ABFALL := 2.0
+const SCHEIBE_TAG := 0.45     # Lauf 1-5: 0,85
+const SCHEIBE_TAG_TON := 0.6
 
 static func baue(g: Node3D, info: Dictionary, netz: Node3D) -> Raumlicht:
 	var r := Raumlicht.new()
@@ -53,19 +57,21 @@ func licht(l: Dictionary) -> void:
 		var o := OmniLight3D.new()
 		o.position = gpos(l["pos"])
 		# Kerze: kraeftiger, Licht tief ueber dem Tisch, damit der Boden darum hell wird (Pruefer Lauf 2, 3: keine Inseln am Boden)
-		o.omni_range = float(l.get("reich", 2.0)) * ts
+		# Pruefer Lauf 6: an der Wand hinter der Theke eine runde Scheibe mit hartem Rand (Ende der kurzen Reichweite): Kerzen jetzt
+		# mit doppelter Reichweite und Abfall wie im Quadrat, bei 1 m gleich hell, am Rand nichts mehr
+		o.omni_range = float(l.get("reich", 2.0)) * ts * (1.0 if art == "kamin" else KERZE_WEIT)
 		var k := float(l.get("kraft", 0.6))
 		var kraft := k * (3.2 if art == "kamin" else 4.0)
 		o.light_energy = kraft
 		o.light_color = Color(1.0, 0.56, 0.26) if art == "kamin" else Color(1.0, 0.72, 0.42)
 		# Kerzen: Lichtinsel um den Tisch (Pruefer Lauf 1: keine Inseln), steiler abfallend als der Kamin
-		o.omni_attenuation = 1.2 if art == "kamin" else 1.0   # Lauf 3: bei 1,9 und kurzer Reichweite kam kein Licht am Boden an
+		o.omni_attenuation = 1.2 if art == "kamin" else KERZE_ABFALL   # Lauf 3: bei 1,9 und kurzer Reichweite kam kein Licht am Boden an
 		o.shadow_enabled = art == "kamin"
 		o.shadow_bias = 0.06
 		add_child(o)
 		feuer.append([o, kraft, randf() * 10.0])
 		o.add_to_group("tuschelicht")   # 348.13b: Tusche nach dem Licht
-		o.set_meta("reich", o.omni_range); o.set_meta("kraft", k)
+		o.set_meta("reich", o.omni_range); o.set_meta("kraft", k); o.set_meta("art", art)
 		var teile: Array = [o]
 		for f in l.get("flammen", []):
 			teile.append(flamme(gpos(f), 2.0 if art == "kamin" else 0.32, art == "kamin"))
@@ -78,6 +84,9 @@ func licht(l: Dictionary) -> void:
 		s.spot_range = von.distance_to(zu) * 1.8
 		s.spot_angle = 30.0 if art == "tageslicht" else 26.0
 		s.spot_attenuation = 0.6
+		# Pruefer Lauf 6: rosa Lichtkeil mit scharfer Kante auf dem roten Teppich: Rand des Kegels weicher, Schatten weicher
+		s.spot_angle_attenuation = 0.6
+		s.shadow_blur = 2.5
 		s.shadow_enabled = true
 		s.shadow_bias = 0.05
 		fenster.append([s, float(l.get("kraft", 0.55)), art == "tuer"])
@@ -134,11 +143,15 @@ func nacht(k: float) -> void:
 		var tag := 1.0 - k
 		# MapLight WINDOW/DOOR: Tageslicht nur am Tag (grau-weiss); nachts Mond kuehl und schwach (MOON_RGB, 0,5)
 		s.light_energy = f[1] * (5.0 * tag + 2.0 * k)
-		s.light_color = Color(0.92, 0.95, 1.0).lerp(Color(0.64, 0.71, 0.9), k)
+		s.light_color = Color(1.0, 0.95, 0.86).lerp(Color(0.64, 0.71, 0.9), k)   # Lauf 6: blaeuliches Weiss auf Rot las sich rosa
 		s.visible = s.light_energy > 0.02
+	# Pruefer Lauf 6: gedreht die Fenster fast reines Weiss (hellster Fleck im Bild), nachts im Tempel cremefarben (Altarlicht auf dem
+	# hellen Glas): tags gedaempft, nachts das Glas selbst dunkel, nur ein schwacher blauer Schein
 	for m in scheiben:
-		m.set_shader_parameter("glow", 0.85 * (1.0 - k) + 0.3 * k)
-		m.set_shader_parameter("glow_col", Color(0.86, 0.9, 0.96).lerp(Color(0.2, 0.26, 0.45), k))
+		m.set_shader_parameter("glow", SCHEIBE_TAG * (1.0 - k) + 0.3 * k)
+		m.set_shader_parameter("glow_col", Color(0.8, 0.84, 0.9).lerp(Color(0.2, 0.26, 0.45), k))
+		var t := lerpf(SCHEIBE_TAG_TON, 0.15, k)
+		m.set_shader_parameter("toenung", Vector3(t, t, t))
 
 func _process(dt: float) -> void:
 	zeit += dt
