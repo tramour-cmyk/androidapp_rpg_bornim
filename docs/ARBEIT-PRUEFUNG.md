@@ -5,7 +5,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41: 274 Schritt 1–3, nur Notizen und Werkzeug-Verweise) · vorher `98ba4b9b` (Lauf 40: 261.5; frühere Stände in Git); nächste Nummer D48 (Lauf 45: 149/156, Lauf 46: 275 Werkzeuge an Kopie, `4fec9890`; Lauf 47: Nachprüfung D46, `e5b790d3`).
 
-**Übergabe (29.10., 08:4x, „Diogenes – 374 Stichprobe 373 (29.10., 08:07)“):** 374 für 28.10. gezählt (Zu 374, 29.10.), Abweichungen bei Tom und Sokrates eingetragen. Messweise Kobold gilt weiter (in Git, Übergabe 27.10., 17:0x). Nachfolger: „Diogenes – 348.9 Blätter messen 11“ (nächstes Blatt auf Zweig `bilder`; 30.10., 08:00 Zeile 374).
+**Übergabe (29.10., 08:1x, „Diogenes – 374 Stichprobe 373 (29.10., 08:07)“):** 374 für 28.10. gezählt (Zu 374, 29.10.), Abweichungen bei Tom und Sokrates eingetragen. Messweise Kobold gilt weiter (in Git, Übergabe 27.10., 17:0x). Nachfolger: „Diogenes – 348.9 Blätter messen 11“ (nächstes Blatt auf Zweig `bilder`; 30.10., 08:00 Zeile 374).
 
 
 ## Zeilen
