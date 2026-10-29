@@ -392,7 +392,7 @@ func _schild(path: String) -> void:
 		zeig = neu
 		var vorn: Vector3 = neu.global_basis.z.normalized()
 		var mitte: Vector3 = neu.global_position + vorn * 0.06
-		for seite in [["kamera", blick], ["vorn", (vorn + Vector3.UP * 0.25).normalized()], ["hinten", (-vorn + Vector3.UP * 0.25).normalized()]]:
+		for seite in [["kamera", blick], ["vorn", vorn], ["hinten", -vorn]]:     # gerade von vorn: schräg verschob die Wölbung die Sonne gegen den Rand (Prüfer 07:51)
 			if seite[0] != "kamera":     # von vorn und hinten nur der Schild: Gegner, Söldner und der Leib der Heldin aus
 				for id in fight.figures:
 					if id != "hero":

@@ -136,8 +136,9 @@ def build_round_shield(P, board=0x7A5634):
 # mit derselben Sonne in Eckfarben.
 CC0 = os.environ.get('CC0', os.path.expanduser('~/cc0'))
 SONNE = os.environ.get('SONNE', 'a')
-PALE, GOLD, SUNEDGE = 0xBDB49C, 0xB8904A, 0x6A5028       # Dress.kt: worn(0xE4DCC4, 0.15), gold, dunkler Rand der Farbe
+PALE, GOLD, SUNEDGE = 0x9C9480, 0x8E6A30, 0x4A3418       # Dress.kt: worn(0xE4DCC4, 0.15), gold, dunkler Rand der Farbe
 # Runde 2 (Prüfer 07:43: Fläche fast weiß, Rand wie Schnee): in der Sonne des Kampforts heller als im alten Bild, also dunkler gemalt
+# Runde 3 (Prüfer 07:51: in der Sonne weiß wie Papier, Gold blass wie Butter): die Sonne hellt etwa 1,5-fach auf, darum noch dunkler
 def sonne(x, z):
     """Abstand (m, < 0 innen) zum Rand der gemalten Sonne an (x, z) der Vorderseite; Buckelplatte bis 11,5 cm"""
     import numpy as np
@@ -176,7 +177,7 @@ def schild_textur(path, fugen=()):
         return np.clip(rgb(c)[None, None, :] * (1 + kraft * rausch(fx, fz))[:, :, None], 0, 1)
     # Vorderseite: Farbe über Holz, die Maserung schimmert durch (Bretter längs x), Flecken, am Rand abgerieben bis aufs Holz
     holz = feld(0x6E4A2C, 0.13, 3, 40)
-    vorn = feld(PALE, 0.03, 2, 2) * (1 + 0.035 * rausch(4, 60, 3))[:, :, None]
+    vorn = feld(PALE, 0.03, 2, 2) * (1 + 0.06 * rausch(4, 60, 3))[:, :, None]
     r = np.hypot(X, Z)
     ab = np.clip((r - 0.235) / 0.04, 0, 1) * np.clip(0.5 + 0.4 * rausch(14, 14, 3), 0, 1)
     kratz = np.zeros((N, N))
@@ -188,8 +189,8 @@ def schild_textur(path, fugen=()):
         kratz = np.maximum(kratz, np.clip(1 - dist / 0.0012, 0, 1) * 0.35)
     ab = np.maximum(ab, kratz)
     for zf in fugen:                                     # Runde 2 (Prüfer: keine Bretter zu sehen): Fugen dunkel durch die Farbe
-        ab = np.maximum(ab, np.clip(1 - np.abs(Z - zf) / 0.0018, 0, 1) * 0.8)
-    vorn = vorn * (1 - ab[:, :, None] * 0.75) + holz * (ab[:, :, None] * 0.75)
+        ab = np.maximum(ab, np.clip(1.5 - np.abs(Z - zf) / 0.0025, 0, 1) * 0.95)
+    vorn = vorn * (1 - ab[:, :, None] * 0.8) + holz * 0.7 * (ab[:, :, None] * 0.8)
     d = sonne(X, Z); px = 0.64 / N
     gold = feld(GOLD, 0.05, 6, 6) * (1 + 0.1 * np.clip(0.18 - r, 0, 1))[:, :, None]
     gold = gold * (1 - 0.1 * np.clip(rausch(30, 30, 2) - 1, 0, 1))[:, :, None]   # abgeblätterte Stellen etwas matter
@@ -198,7 +199,7 @@ def schild_textur(path, fugen=()):
     vorn = vorn * (1 - rand * 0.7) + rgb(SUNEDGE)[None, None, :] * rand * 0.7
     vorn = vorn * (1 - innen) + gold * innen
     hinten = holz * (1 - 0.1 * np.clip(rausch(1.5, 1.5, 2), 0, 2))[:, :, None]
-    eisen = feld(0x5C6068, 0.06, 30, 30) * (1 - 0.08 * np.clip(rausch(5, 5, 3), 0, 2))[:, :, None]
+    eisen = feld(0x484C52, 0.07, 60, 60)     # Runde 3 (Prüfer: Rand wie Stein oder Zinn): dunkler, feines Korn statt Wolken
     goldf = feld(GOLD, 0.06, 20, 20)
     leder = feld(0x3E2C22, 0.08, 25, 60)
     oben = np.concatenate([vorn, hinten], 1)
@@ -220,6 +221,10 @@ def build_round_shield_cc0(P):
     # Teile (der Bausatz trennt sie an den Nähten der Textur): Nieten (22 Flächen bei r = 8,3 cm) durch eigene ersetzen
     # Runde 2 (Prüfer 07:43: Buckel zerrissen, Nieten weg, Löcher am Rand): erst Nähte schließen, dann nur Holz, Rand, Bänder und
     # Griff vereinfachen; Buckel, Platte und Klammern bleiben, wie sie sind (höchstens 790 Dreiecke, Modellregel 7: 800)
+    # Runde 3 (Prüfer 07:51: Zacken und Kerben zwischen Holz und Rand, Klammern halb grau): jedes Teil für sich vereinfacht, die Ränder
+    # der Teile bleiben (Gruppe „rand“ mit invert), nie über zwei Teile hinweg; Teile ganz nach ihrer Mitte eingeteilt
+    tl = bm.faces.layers.int.new('teil')
+    TEILE = ['gold', 'eisen', 'holz', 'leder']
     bm.faces.ensure_lookup_table(); frei = set(bm.faces); nieten = []; kanten = set()
     while frei:
         f = frei.pop(); teil = [f]; st = [f]
@@ -227,40 +232,46 @@ def build_round_shield_cc0(P):
             for e in st.pop().edges:
                 for g in e.link_faces:
                     if g in frei: frei.discard(g); teil.append(g); st.append(g)
-        vs = [v.co for g in teil for v in g.verts]; c = sum(vs, Vector()) / len(vs)
-        if 'Furniture' in mats[teil[0].material_index]:     # Bretter längs x: ihre Kanten in z sind die Fugen
+        vs = [v.co for g in teil for v in g.verts]; c = sum(vs, Vector()) / len(vs); m = mats[teil[0].material_index]
+        if 'Furniture' in m:     # Bretter längs x: ihre Kanten in z sind die Fugen
             kanten |= {round(min(v.z for v in vs) * 200) / 200, round(max(v.z for v in vs) * 200) / 200}
-        if 'Metal' in mats[teil[0].material_index] and len(teil) == 22 and abs(math.hypot(c.x, c.z) - 0.083) < 0.01:
+        if 'Metal' in m and len(teil) == 22 and abs(math.hypot(c.x, c.z) - 0.083) < 0.01:
             nieten.append((c, min(v.y for v in vs), max(v.y for v in vs)))
-            bmesh.ops.delete(bm, geom=teil, context='FACES')
-    bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=0.0002)
-    def gold(f):
-        c = f.calc_center_median()
-        return 'Metal' in mats[f.material_index] and math.hypot(c.x, c.z) < 0.155 and c.y < -0.09
+            bmesh.ops.delete(bm, geom=teil, context='FACES'); continue
+        k = 2 if 'Furniture' in m else (3 if 'Props' in m else (0 if math.hypot(c.x, c.z) < 0.155 and c.y < -0.09 else 1))
+        for g in teil: g[tl] = k
+    # je Teil die Grenze in Dreiecken (gold 1.0: Buckel, Platte, Klammern bleiben, wie sie sind)
+    anteil = {0: 1.0, 1: 0.72, 3: 0.4}
     fl = []
-    teile = [[f for f in bm.faces if gold(f)], [f for f in bm.faces if not gold(f)]]
-    ng = sum(len(f.verts) - 2 for f in teile[0])
-    nr = sum(len(f.verts) - 2 for f in teile[1])
-    for k, flist in enumerate(teile):
+    gruppen = {k: [f for f in bm.faces if f[tl] == k] for k in range(4)}
+    n_ = {k: sum(len(f.verts) - 2 for f in v) for k, v in gruppen.items()}
+    anteil[2] = (790 - 6 * len(nieten) - sum(n_[k] * anteil[k] for k in (0, 1, 3))) / n_[2]
+    for k, flist in gruppen.items():
         b2 = bmesh.new(); vm = {}
         for f in flist:
             for v in f.verts:
                 if v not in vm: vm[v] = b2.verts.new(v.co)
-            g = b2.faces.new([vm[v] for v in f.verts]); g.material_index = f.material_index
+            try: g = b2.faces.new([vm[v] for v in f.verts]); g.material_index = f.material_index
+            except ValueError: pass
+        bmesh.ops.remove_doubles(b2, verts=b2.verts, dist=0.0002)
+        rand_ = [v.index for v in b2.verts if v.is_boundary]; alle = len(b2.verts)
         me2 = bpy.data.meshes.new('teil'); b2.to_mesh(me2); b2.free()
         for m in mats: me2.materials.append(bpy.data.materials.get(m) or bpy.data.materials.new(m))
         o2 = bpy.data.objects.new('teil', me2); bpy.context.scene.collection.objects.link(o2)
-        if k == 1: o2.modifiers.new('weniger', 'DECIMATE').ratio = min(1.0, (790 - ng - 6 * len(nieten)) / nr)
+        vg = o2.vertex_groups.new(name='rand'); vg.add(rand_, 1.0, 'REPLACE'); vg.add([i for i in range(alle) if i not in set(rand_)], 0.0, 'REPLACE')
+        if anteil[k] < 1.0:
+            d = o2.modifiers.new('weniger', 'DECIMATE'); d.ratio = anteil[k]; d.vertex_group = 'rand'; d.invert_vertex_group = True
+            d.vertex_group_factor = 1000.0
         o2.modifiers.new('dreiecke', 'TRIANGULATE')
         dg = bpy.context.evaluated_depsgraph_get(); me = o2.evaluated_get(dg).to_mesh()
+        print('406: Teil %s %d -> %d Dreiecke' % (TEILE[k], n_[k], len(me.polygons)))
         for p in me.polygons:
-            m = mats[p.material_index]
-            fl.append(([me.vertices[v].co.copy() for v in p.vertices], 'gold' if k == 0 else ('eisen' if 'Metal' in m else ('holz' if 'Furniture' in m else 'leder')), p.normal.copy()))
+            fl.append(([me.vertices[v].co.copy() for v in p.vertices], TEILE[k], p.normal.copy()))
         o2.evaluated_get(dg).to_mesh_clear(); bpy.data.objects.remove(o2, do_unlink=True)
     bm.free()
-    for c, y0, y1 in nieten:     # eigene Nieten: flache sechseckige Kuppen, 1,9 cm breit, auf der Platte
-        ring = [Vector((c.x + math.cos(t) * 0.0095, y1 - 0.001, c.z + math.sin(t) * 0.0095)) for t in (2 * math.pi * i / 6 for i in range(6))]
-        top = Vector((c.x, y0, c.z))
+    for c, y0, y1 in nieten:     # eigene Nieten: sechseckige Kuppen, 2,2 cm breit, 0,9 cm über der Platte (Runde 3: vorher winzig)
+        ring = [Vector((c.x + math.cos(t) * 0.011, y0 + 0.0075, c.z + math.sin(t) * 0.011)) for t in (2 * math.pi * i / 6 for i in range(6))]
+        top = Vector((c.x, y0 - 0.0015, c.z))
         for i in range(6):
             q = [ring[i], ring[(i + 1) % 6], top]
             fl.append((q, 'gold', (q[1] - q[0]).cross(q[2] - q[0]).normalized()))
@@ -272,6 +283,7 @@ def build_round_shield_cc0(P):
         pts = [Vector((p.x, p.y + dy, p.z)) for p in pts]
         feld = {'gold': (0.5, 0.0), 'eisen': (0.0, 0.0), 'leder': (0.75, 0.0)}.get(m) or ((0.0, 0.5) if n.y < -0.5 else (0.5, 0.5))
         ax = max(range(3), key=lambda i: abs(n[i]))   # Projektion längs der Hauptrichtung der Fläche
+        if m == 'holz' and abs(n.y) > 0.5: ax = 1     # Runde 3 (Prüfer: Goldsplitter am Rand): steile Flächen der Wölbung auch von vorn
         uv = []
         for p in pts:
             a_, b_ = (p.x, p.z) if ax == 1 else ((p.y, p.z) if ax == 0 else (p.x, p.y))
