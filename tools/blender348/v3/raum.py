@@ -488,7 +488,10 @@ for nr_, (s, lauf) in enumerate(laeufe()):
         M = Matrix.Translation(p0) @ Matrix.Rotation(math.radians(a), 4, 'Z')
         Lc = (p1 - p0).length
         sx = -1 if e.dot(Matrix.Rotation(math.radians(a), 3, 'Z') @ Vector((1, 0, 0))) < 0 else 1
-        lo_x, hi_x = (0, Lc) if sx > 0 else (-Lc, 0)
+        # Pruefer Lauf 9: an der Aussenecke zweier Bruestungen eine Fuge (gedreht schaute der Bettpfosten durch): am Ende des Laufs
+        # um die Wandstaerke weiter
+        ext0 = 28.0 if abs(u0 + Lk / 2) < 1e-6 else 0.0; ext1 = 28.0 if abs(u1 - Lk / 2) < 1e-6 else 0.0
+        lo_x, hi_x = sorted((sx * -ext0, sx * (Lc + ext1)))
         box(PT, (lo_x, -26, 0), (hi_x, 0, 30), stein_ton, 'feldstein', M)
         box(PT, (lo_x, -24, 30), (hi_x, -2, TIEF_H - 6), putz_ton, 'putz', M)
         box(PT, (lo_x, -28, TIEF_H - 6), (hi_x, 2, TIEF_H), lambda p_, n_: sc(BALKEN_T, 0.75), 'balken', M)
@@ -596,7 +599,8 @@ def weg_von_wand(c, r, p, d=18.0):
     und Altar daneben; zwischen Wand und Theke bleibt es in der Mitte (Pruefer Lauf 6: Fass in der Ladentheke)"""
     for s in 'NWOS':
         dd, _, n, a, e = SEITEN[s]
-        if ch(c + dd[0], r + dd[1]) in WAENDE or ch(c + dd[0], r + dd[1]) in 'KA': p = p + n * d
+        if ch(c + dd[0], r + dd[1]) in WAENDE: p = p + n * d
+        elif ch(c + dd[0], r + dd[1]) in 'KA': p = p + n * (d + 14)   # Lauf 9: Fass beruehrte noch die Thekenstirn
     return p
 def an_wand(c, r):
     """Richtung in den Raum (Blender) von der naechsten Wand: N, W, O, S der Reihe nach"""
