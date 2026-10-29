@@ -1,4 +1,4 @@
-# 399.5 · Innenräume wie alt, sechster Stand · Tom · 29.10., 03:2x
+# 399.5 · Innenräume wie alt, siebter Stand · Tom · 29.10., 03:4x
 
 Probe am Rechner, noch kein Build. Je Raum v. l. n. r.: alt Tag, neu Tag, alt Nacht, neu Nacht, neu um 180° gedreht. Ohne Leute (in der Probe nicht gebaut).
 
@@ -29,6 +29,13 @@ Sechster Stand, nach dem Prüfer zum fünften:
 - Waage auf einem Brett, mit Zeiger, tiefen Schalen an Ketten, Münzen in der einen, Gewicht in der anderen Schale; vorher von vorn nur eine Stange.
 - Fass steht nicht mehr in der Ladentheke; Kesseldeckel verschwindet gedreht mit dem Kamin; Bänke heller.
 
-Noch offen: Tempel nachts links sehr dunkel, Mauerkanten hell wie Linien; graues Teil vorn rechts beim Ältesten (Ursache noch nicht gefunden).
+Siebter Stand, nach dem Prüfer zum sechsten:
+- Tempel gedreht: der Altar bleibt stehen, nur die hohe Sonne auf ihrem Ständer verschwindet mit der Wand (vorher fehlte der ganze Altar).
+- Ältester vorn rechts: das graue Teil war eine offene Truhe, deren Deckel in der Mauerkante lag; sie steht jetzt weiter im Raum.
+- Laden: das Regal vor dem Fenster reicht nur noch bis unter die Fensterbank.
+- Licht durch die offene Tür schwächer und weicher (gedreht lag ein scharfer heller Keil über Teppich und Boden); Fensterglas tags noch etwas gedämpfter.
+- Tempel nachts heller (ohne Herd mehr Grundlicht; Bänke waren dunkler als alt); gemessen Nacht 67 % des Tags.
+
+Noch offen: nachts dünne helle Linien an den Mauerkanten; im Laden ein dunkler Schatten an der Rückwand hinter dem Fass.
 
 **Was du sagen sollst:** nichts nötig; ich baue das Offene weiter, dann der Build mit 376.1.
