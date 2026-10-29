@@ -48,7 +48,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 27, Muss 17, startbar 2
+**Tom** – offen 27, Muss 17, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -57,11 +57,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „star
 | 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | Chef |
 | 399.5 | M | von Chef („jetzt“ 28.10., 21:5x, Archiv): Innenräume wie alt: Lichtquellen, Licht und Scha | Chef |
 | 399.3.1 | M | von Team Jerry (16:5x): Klang: Haken in spiel.gd (Jerry, claude/jerry-348-klang) übernehme | wartet auf Test/Build |
-| 385 | M | von Sokrates („jetzt“ 28.10., 10:00, Archiv): Zauberer-Set auf Kaufkörper, Film | startbar |
+| 385 | M | von Sokrates („jetzt“ 28.10., 10:00, Archiv): Zauberer-Set auf Kaufkörper, Film | Chef |
 | 390 | M | von Perikles: zwischen Chef-Blättern Funktionen ohne Bild (LISTE-UMZUG-348.md) | wartet auf Test/Build (gebaut) |
 | 348.12i | M | von Sokrates (Chef 19:41, „348.12i B“, Archiv): nur Kaufmodelle mit AESContext verschlüsse | wartet auf Test/Build (gebaut) |
-| 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | startbar |
-| 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | wartet auf 348.6 (zu testen) |
+| 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | wartet auf Test/Build |
+| 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | wartet auf 348.6 (wartet) |
 | 372 | M | von Perikles (338a B, Chef 27.10., 09:36, Archiv): Feinschliff Held: Kettenhemd, Helm, Kra | ruht |
 | 397 | M | von Chef (28.10., 11:15): Held, Leute: mind. drei Ruhebewegungen wie alt (LISTE-UMZUG-348. | wartet auf Test/Build (gebaut) |
 | 348.13 | M | von Sokrates (Chef 26.10., Archiv): Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Sc | wartet auf Jerry |
