@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 von Sokrates (Chef 11:27): erst Build 143 und Testbitte, dann Ford-Lauf an, weiter bis Guthaben leer.
 
-**Übergabe (29.10., 11:3x, `session_01Hmoj76AiNuPotPAPenNqcQ`):** Build 143 ausgeliefert (Lauf 40854808649, Zweig `claude/tom-399-spielfassung` ee1b14c68: 399.1, 399.5, 376.1, 348.6, Jerrys Kampf und Klang), Testbitte t143 laut; danach auf dem Zweig 379b49875 (Drehteller ganz und gleich groß, Reiterzeichen; Chef 11:10), Eigenbau Scheide zurückgenommen (bdf73b1f3, 408). **Chef 11:27 über Sokrates: „Der Tom soll jetzt auch nicht irgendwelche Waffen und Frisuren machen, sondern nur dafür Sorge tragen, dass der [Build] läuft.“** Nachfolger: Tom – nach Sokrates (11:27) weiter bis Guthaben leer; Waffen, Frisuren nur aus der Bibliothek (408).
+**Übergabe (29.10., 11:57, `session_01Hmoj79vdf3C8wtR4JL21TF`):** Kaufzugang (add_repo). 376.1: fünf Frisuren mehr, abgenommen 11:43 (Wörter Homer 409). 410 auf `claude/tom-376-1-wegstecken` (5016d189b, Scheide Avramania CC0), vorgelegt 11:50, Prüferbefund per Telegram; nicht im Build. 385 ruht. Chef 11:27 über Sokrates: „Der Tom soll jetzt auch nicht irgendwelche Waffen und Frisuren machen, sondern nur dafür Sorge tragen, dass der [Build] läuft.“ Nachfolger: Tom – 410 nach Urteil des Chefs.
 
 ## Zeilen
 
