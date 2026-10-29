@@ -2,6 +2,7 @@
 
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
+**Pause bis 31.10., 20:00 Uhr** (Chef 29.10., 11:15, über Sokrates).
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41: 274 Schritt 1–3, nur Notizen und Werkzeug-Verweise) · vorher `98ba4b9b` (Lauf 40: 261.5; frühere Stände in Git); nächste Nummer D48 (Lauf 45: 149/156, Lauf 46: 275 Werkzeuge an Kopie, `4fec9890`; Lauf 47: Nachprüfung D46, `e5b790d3`).
 

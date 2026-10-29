@@ -2,6 +2,8 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben.
 
+von Sokrates (Chef 11:19): nach Build 143 weiter bis Guthaben leer. Nie „Heldin“, immer „der Held“ (Chef: „Jerry immer noch gendert“).
+
 **Übergabe (29.10., 10:5x, `session_01Hmoj79A1…`):** 406 Runde 3 vorgelegt, Urteil 10:52. 348.12: nur Gang, schreitend (Chef 10:55). Nachfolger: „Jerry – 402 Herzschlag, 406 Schild Tiefe“
 
 ## Zeilen
@@ -10,9 +12,9 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 |---|---|---|---|---|
 | 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | gebaut 1923456c7: Wolf durch Wolf, System Kampf, satt, Testende; an Tom | `claude/jerry-348-kampf` |
 | 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | gebaut 0eda4bb3e: Knurren mit Text, an Tom für den Build; Hilfe, Eingebung mit 390 | – |
-| 399.3 | M | **von Chef über Sokrates (16:42):** Klang in die Spielfassung | Chef: Keuchen der Heldin liegt seit 16.10. im Spiel, Hörprobe (ansehen/402-hoerprobe, 11:20) | `claude/jerry-348-klang` |
+| 399.3 | M | **von Chef über Sokrates (16:42):** Klang in die Spielfassung | Chef: weibliches Keuchen liegt seit 16.10. im Spiel, Hörprobe (ansehen/402-hoerprobe, 11:20) | `claude/jerry-348-klang` |
 | 402 | M | **von Sokrates (Chef 22:2x, Archiv):** Blende vor dem Kampf wie alt; Herzschlag beim Hinterhalt stärker | Chef: Ultraschall 1–3 (ansehen/402-hoerprobe); im Spiel vorerst Fassung 2 (473fbe768) | – |
-| 403 | M | **von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler):** Kampfort: Held je Klasse wie im Dorf (`HeldFigur.baue`) statt `kampf/daten/held.bin`; Hieb, Stich, Treffer, Tod, Ausweichen aus der UAL Pro | startbar: Kaufmodelle per add_repo da (Chef 11:14), Release stufe1 | – |
+| 403 | M | **von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler):** Kampfort: Held je Klasse wie im Dorf (`HeldFigur.baue`) statt `kampf/daten/held.bin`; Hieb, Stich, Treffer, Tod, Ausweichen aus der UAL Pro | startbar: Zugang erteilt (Chef 11:12, Archiv), Kaufmodelle per add_repo da (11:14), Release stufe1 | – |
 | 406 | M | **von Team Tom (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe):** Ausrüstung der Helden je Stück aufwerten („steril“), zuerst Rundschild des Klerikers hell mit goldener Sonne (`Dress.kt`); Wappenrock-Sonne macht Tom | startbar: Tiefe und Tusche nach Licht fehlen (Chef 10:52, Zu 402) | `claude/jerry-406-schild` |
 | 401 | M | **von Chef über Sokrates (Archiv):** Tierlaute, mind. 3 je Tier | gebaut 473fbe768: Klopfen raus, Ziege, Knabbern bleiben; fährt im nächsten Build | – |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
@@ -49,6 +51,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 ## Einzelheiten
 
+- **Zu 406, von Sokrates (Chef 11:13: „ob wir jetzt nicht wieder viel Energie in irgendein lustiges Klerikerschild gesteckt haben … jetzt haben wir das Paket runtergeladen, wo vielleicht ein geiles Schild schon drin ist“):** nicht weiterbauen; erst alle Schilde der Bibliothek (LISTE-BESTAND „Waffen und Schilde“, mit dem bisherigen) drehend in einem Film vorlegen, Chef wählt (11:19, 408).
 - **Zu 406 (Jerry 10:5x):** `waffen.py` (Shield_Wooden, `SONNE=b`, Messung je Teil im Kommentar); Probe `SCHILD=…` in `probe.gd` zeigt Nahaufnahmen mit Wechsel auf Perspektive, fov 9: Tusche dort prüfen (Chef: nicht erkennbar), Wölbung im Licht zu flach. Kaufdateien nur im Workflow: `add_repo` lehnte die Rechteprüfung um 07:5x wieder ab.
 
 - **Zu 348.12f, Kaufwolf und 387:** `kaufwolf.py` (Probe `ERSATZ=kaufwolf`, Workflow „Kaufwolf“), `kauftier.py` (Workflow „387 r“); `pfotenhalt.gd`; Artefakt per `gh api …/artifacts/<id>/zip`. **387 r4:** Offenes im Blatt r4.
