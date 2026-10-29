@@ -282,40 +282,58 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 	# Ruecken zwischen Schulterblatt und Kreuz (Pruefer Lauf 1: unten 5-7 cm Spalt)
 	var y := brust.origin.y
 	var r := ruecken(m, y - 0.63, y + 0.1)   # [z oben, z unten, hinterste z]: Ruecken an Ober- und Unterkante des Schilds
+	# Schulterhoehe (Oberarmknochen): Chef 29.10., 11:40 „das Schild jetzt ewig weit unten auf dem Rücken“ (Oberkante 1,33 m bei
+	# Schultern 1,46 m); Oberkante jetzt 3 cm unter der Schulter
+	var ua := sk.find_bone("upperarm_r")
+	var schulter := (im_raum(m, sk) * sk.get_bone_global_rest(ua)).origin.y if ua >= 0 else y + 0.15
 	var art := ""
 	if schild != "":
-		# Pruefer Lauf 2 (Kaempfer: Schild ragt von vorn ueber die Schultern; Schild 0,72 m, Oberkante 1,54 m, Schultern 1,46 m):
-		# Mitte 29 cm unter spine_03, Oberkante etwa 1,32 m. Mit Waffe darunter 6,5 statt 3 cm vom Ruecken: die Waffe liegt dazwischen
+		# Mit Waffe darunter 6,5 statt 3 cm vom Ruecken: die Waffe liegt dazwischen
 		var luft := 0.065 if waffe != "" else 0.03
 		var oben := Vector3(0, y - 0.05, float(r[0]) - luft)
 		var unten := Vector3(0, y - 0.53, float(r[1]) - luft)
 		var hoch := (oben - unten).normalized()
 		var t := Transform3D(Basis(Vector3.LEFT, hoch, Vector3.LEFT.cross(hoch)), (oben + unten) * 0.5)
 		var d := _haenge(m, sk, bi, brust, schild, t, "RueckenSchild")
+		if d:
+			# hoeher bis zur Schulter, der Ruecken dort neu gemessen (Schild folgt seiner Neigung)
+			var dy := schulter - 0.03 - _oben(d, t)
+			r = ruecken(m, y - 0.63 + dy, y + 0.1 + dy)
+			oben = Vector3(0, y - 0.05 + dy, float(r[0]) - luft)
+			unten = Vector3(0, y - 0.53 + dy, float(r[1]) - luft)
+			hoch = (oben - unten).normalized()
+			t = Transform3D(Basis(Vector3.LEFT, hoch, Vector3.LEFT.cross(hoch)), (oben + unten) * 0.5)
+			d.transform = brust.affine_inverse() * t
 		if waffe != "" and d:
-			# parallel zum Schild, halbwegs zum Ruecken; Klinge: Parierstange 2 cm unter der Oberkante, Griff und Knauf darueber,
-			# leicht schraeg (Griff ueber dem rechten Schulterblatt); Stab: quer unter dem Schild, die Enden schauen heraus
+			# parallel zum Schild, halbwegs zum Ruecken. Klinge: Chef 11:40 „das Schwert sieht man keinen Griff rausgucken … der käme
+			# ja überhaupt nicht an sein Schwert“: Parierstange 3 cm ueber der Oberkante, Griff ueber der rechten Schulter. Beil, Kolben:
+			# Griffende schaut heraus, Kopf unter dem Schild (Pruefer: Stiel stand ueber dem Hinterkopf). Stab: steil unter dem Schild
+			# (Chef 11:40: „spießt anscheinend durch die Schulter“), die Enden schauen heraus
 			var kante := _oben(d, t)
 			var mitte := (oben + unten) * 0.5 + Vector3(0, 0, luft * 0.5)
 			var lang := waffe in LANG
-			var achse := (hoch - Vector3(0.62, 0, 0)).normalized() if lang else (-hoch + Vector3(0.10, 0, 0)).normalized()
-			var p := mitte - achse * (float(_klinge(waffe)["spitze"]) - float(_klinge(waffe)["laenge"]) * 0.5)   # Stange: Mitte unterm Schild
+			var g := _klinge(waffe)
+			var achse := (hoch - Vector3(0.35, 0, 0)).normalized() if lang else (-hoch + Vector3(0.22, 0, 0)).normalized()
+			var p := mitte - achse * (float(g["spitze"]) - float(g["laenge"]) * 0.5) + Vector3(-0.03, 0, 0)   # Stange: Mitte unterm Schild
 			if not lang:
-				var g := _klinge(waffe)
-				var ziel := kante - 0.02 + float(g["parier"]) * absf(achse.y)   # Griff so hoch, dass die Parierstange unter der Kante liegt
-				p = mitte + hoch * ((ziel - mitte.y) / hoch.y) + Vector3(-0.06, 0, 0)
+				var ziel := kante + 0.03 + float(g["parier"]) * absf(achse.y) if waffe in KLINGE else kante + 0.01
+				p = mitte + hoch * ((ziel - mitte.y) / hoch.y) + Vector3(-0.10, 0, 0)
 			var quer := Vector3.LEFT.cross(hoch)   # Klinge flach zum Ruecken
 			_haenge(m, sk, bi, brust, waffe, Transform3D(Basis(achse.cross(quer).normalized(), achse, quer), p), "RueckenWaffe")
 			art = "unter_schild"
 	elif waffe in LANG or (waffe != "" and waffe not in KLINGE and _klinge(waffe)["laenge"] > 0.9):
-		# schraeg auf dem Ruecken, hinter allem, was hinten am weitesten absteht (Lauf 1: Parierstange im Umhang); schwebt (Chef:
-		# „das Ding kann ich einfach schweben“). Mitte der Waffe auf dem Ruecken; Kopf oder Spitze ueber der rechten Schulter
-		# (+Y der Waffe nach oben), beim Zweihaender der Griff
+		# schraeg auf dem Ruecken; schwebt (Chef: „das Ding kann ich einfach schweben“), folgt aber der Neigung des Rueckens mit Umhang
+		# (Pruefer 11:4x: unten bis 100 Bildpunkte vom Ruecken ab). Kopf oder Spitze ueber der rechten Schulter, beim Zweihaender der Griff
 		var g := _klinge(waffe)
-		var achse := Vector3(0.62, -1.0, 0.0).normalized() if waffe in ZWEIHAENDER or waffe in KLINGE else Vector3(-0.62, 1.0, 0.0).normalized()
-		var mitte := Vector3(-0.03, y - 0.05, float(r[2]) - 0.03 - float(g["dicke"]))
+		var spalt := 0.03 + float(g["dicke"])
+		var rr := ruecken(m, y - 0.55, y + 0.2)
+		var oben := Vector3(0, y + 0.05, float(rr[0]) - spalt)
+		var unten := Vector3(0, y - 0.45, float(rr[1]) - spalt)
+		var hoch := (oben - unten).normalized()
+		var achse := (-hoch + Vector3(0.62, 0, 0)).normalized() if waffe in ZWEIHAENDER or waffe in KLINGE else (hoch - Vector3(0.62, 0, 0)).normalized()
+		var mitte := (oben + unten) * 0.5 + Vector3(-0.03, 0, 0)
 		var griff := mitte - achse * (float(g["spitze"]) - float(g["laenge"]) * 0.5)
-		var quer := Vector3.FORWARD
+		var quer := Vector3.LEFT.cross(hoch)
 		_haenge(m, sk, bi, brust, waffe, Transform3D(Basis(achse.cross(quer).normalized(), achse, quer), griff), "RueckenWaffe")
 		art = "ruecken"
 	elif waffe != "":
@@ -388,7 +406,11 @@ static func _klinge(was: String) -> Dictionary:
 			var y0 := 9.0; var y1 := -9.0; var px := 0.0; var py := 0.0
 			for p in pkt:
 				y0 = minf(y0, p.y); y1 = maxf(y1, p.y)
-				if p.y > 0.0 and absf(p.x) > px: px = absf(p.x); py = p.y
+			# Parierstange bzw. Kopf: breiteste Stelle; bei Klingen nur in den ersten 15 cm (Pruefer 11:4x: der Krummsaebel ist an der
+			# gebogenen Spitze breiter, die Scheide fehlte, der Griff stand auf Kinnhoehe)
+			var bis := 0.15 if was in KLINGE else 9.0
+			for p in pkt:
+				if p.y > 0.0 and p.y < bis and absf(p.x) > px: px = absf(p.x); py = p.y
 			var bx := 0.0; var bz := 0.0
 			for p in pkt:
 				if p.y > py + 0.02: bx = maxf(bx, absf(p.x)); bz = maxf(bz, absf(p.z))
@@ -413,7 +435,7 @@ static func scheide(g: Dictionary) -> Node3D:
 # hinterste Stelle des Rumpfs (z, Ruhelage) auf Hoehe des Schulterblatts (y1 - 0,15) und des Kreuzes (y0 + 0,1), dazu die hinterste
 # zwischen y0 und y1; nur die Mitte (|x| < 0,12), alle Netze mit Haut (Koerper, Kleidung, Umhang)
 static func ruecken(m: Node3D, y0: float, y1: float) -> Array:
-	var oben := 9.0; var unten := 9.0; var ganz := 9.0
+	var oben := 9.0; var unten := 9.0; var ganz := 9.0; var oben2 := 9.0; var unten2 := 9.0
 	for mi in m.find_children("*", "MeshInstance3D", true, false):
 		if not (mi as MeshInstance3D).skin: continue
 		var t := im_raum(m, mi)
@@ -425,7 +447,12 @@ static func ruecken(m: Node3D, y0: float, y1: float) -> Array:
 				ganz = minf(ganz, p.z)
 				if absf(p.y - (y1 - 0.15)) < 0.04: oben = minf(oben, p.z)
 				if absf(p.y - (y0 + 0.1)) < 0.04: unten = minf(unten, p.z)
+				if absf(p.y - (y1 - 0.15)) < 0.12: oben2 = minf(oben2, p.z)
+				if absf(p.y - (y0 + 0.1)) < 0.12: unten2 = minf(unten2, p.z)
 	if ganz > 8.0: ganz = -0.15
+	# duenn vernetzte Robe (Zauberer): im schmalen Band fehlt die Rueckseite, dann waere die Vorderseite das Hinterste (z > 0)
+	if oben > ganz + 0.08: oben = oben2 if oben2 < ganz + 0.08 else 9.0
+	if unten > ganz + 0.08: unten = unten2 if unten2 < ganz + 0.08 else 9.0
 	return [oben if oben < 8.0 else ganz, unten if unten < 8.0 else ganz, ganz]
 
 # Oberkante (y, Ruhelage der Figur) eines angehaengten Modells d mit Lage t

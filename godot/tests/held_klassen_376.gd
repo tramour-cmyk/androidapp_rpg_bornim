@@ -92,7 +92,9 @@ func _init() -> void:
 				if k == "FIGHTER":
 					var g := HeldFigur._klinge("longsword")
 					var parier := (wt * Vector3(0, float(g["parier"]), 0)).y
-					pruefe(wt.origin.y > kante and parier < kante, "%s: Griff %.2f, Parierstange %.2f, Schildkante %.2f" % [k, wt.origin.y, parier, kante])
+					var spitze := (wt * Vector3(0, float(g["spitze"]), 0)).y
+					# Chef 11:40 („der käme ja überhaupt nicht an sein Schwert“): Griff und Parierstange ueber der Kante, Klinge darunter
+					pruefe(parier > kante and spitze < kante - 0.3, "%s: Parierstange %.2f, Spitze %.2f, Schildkante %.2f" % [k, parier, spitze, kante])
 			# steht auf dem Boden, aufrecht, etwa menschengross
 			ap.play("Stehen")
 			ap.seek(0.0, true)
