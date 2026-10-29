@@ -10,11 +10,11 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 |---|---|---|---|---|
 | 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | gebaut 1923456c7: Wolf durch Wolf, System Kampf, satt, Testende; an Tom | `claude/jerry-348-kampf` |
 | 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | gebaut 0eda4bb3e: Knurren mit Text, an Tom für den Build; Hilfe, Eingebung mit 390 | – |
-| 399.3 | M | **von Chef über Sokrates (16:42):** Klang in die Spielfassung | startbar: weibliches Keuchen suchen (Chef 10:52, Zu 402) | `claude/jerry-348-klang` |
-| 402 | M | **von Sokrates (Chef 22:2x, Archiv):** Blende vor dem Kampf wie alt; Herzschlag beim Hinterhalt stärker | startbar: Herzschlag wie Ultraschall (Chef 10:52, Zu 402); Blende gebaut 1923456c7 | – |
-| 403 | M | **von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler):** Kampfort: Held je Klasse wie im Dorf (`HeldFigur.baue`) statt `kampf/daten/held.bin`; Hieb, Stich, Treffer, Tod, Ausweichen aus der UAL Pro | wartet auf Chef: Zugang Kaufmodelle (tun/403-kaufmodelle-zugang), add_repo abgelehnt 29.10., 00:2x | – |
+| 399.3 | M | **von Chef über Sokrates (16:42):** Klang in die Spielfassung | Chef: Keuchen der Heldin liegt seit 16.10. im Spiel, Hörprobe (ansehen/402-hoerprobe, 11:20) | `claude/jerry-348-klang` |
+| 402 | M | **von Sokrates (Chef 22:2x, Archiv):** Blende vor dem Kampf wie alt; Herzschlag beim Hinterhalt stärker | Chef: Ultraschall 1–3 (ansehen/402-hoerprobe); im Spiel vorerst Fassung 2 (473fbe768) | – |
+| 403 | M | **von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler):** Kampfort: Held je Klasse wie im Dorf (`HeldFigur.baue`) statt `kampf/daten/held.bin`; Hieb, Stich, Treffer, Tod, Ausweichen aus der UAL Pro | startbar: Kaufmodelle per add_repo da (Chef 11:14), Release stufe1 | – |
 | 406 | M | **von Team Tom (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe):** Ausrüstung der Helden je Stück aufwerten („steril“), zuerst Rundschild des Klerikers hell mit goldener Sonne (`Dress.kt`); Wappenrock-Sonne macht Tom | startbar: Tiefe und Tusche nach Licht fehlen (Chef 10:52, Zu 402) | `claude/jerry-406-schild` |
-| 401 | M | **von Chef über Sokrates (Archiv):** Tierlaute, mind. 3 je Tier | startbar: Klopfen raus, Ziege gut (Chef 10:52, Zu 402) | – |
+| 401 | M | **von Chef über Sokrates (Archiv):** Tierlaute, mind. 3 je Tier | gebaut 473fbe768: Klopfen raus, Ziege, Knabbern bleiben; fährt im nächsten Build | – |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: Grak gut, Gang schreiten (Chef 10:55, Zu 402) | `claude/jerry-348-kampf` |
