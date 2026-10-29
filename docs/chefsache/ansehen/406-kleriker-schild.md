@@ -11,6 +11,8 @@ Wie alt (`Dress.kt`): helles Holz, goldene Sonne, Buckel vergoldet. Neu gegen �
 
 Nicht von diesem Stück: im Kampf tragen Heldin und Söldner noch den alten roten Schild auf dem Rücken (altes Kampfmodell der Heldin, ersetzt mit 403); aus Sicht der Kampfkamera zeigt der Schild seine Rückseite, die Sonne sieht man im Dorf und im Menü.
 
+Prüferbefund 07:58, noch nicht behoben (Technik, kommt mit deiner Wahl neu): Klammern als goldene Keile mit grauen Splittern, Buckel fast flach, Nieten wie Dellen, Außenrand eckig, innen Kerben, hinten Spalt zwischen Holz und Rand, unten links ein Keil rohes Holz vorn. Schild und Sonne stehen in der Hand um etwa 30° gedreht (folgt dem Unterarm).
+
 Bestand geprüft: Fantasy Props MegaKit, Shield_Wooden genommen.
 
 **Was du sagen sollst:** A oder B, oder was anders sein soll.
