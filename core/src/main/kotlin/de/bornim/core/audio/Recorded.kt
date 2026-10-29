@@ -25,6 +25,7 @@ object Recorded {
         Sound.ALARM_BELL to 3, Sound.FAR_SHOUT to 3, Sound.FAR_SCREAM to 3,
         // the village hens (83c; scratching: the straw broom, chosen by the user)
         Sound.HEN_CLUCK to 3, Sound.HEN_SCRATCH to 4, Sound.HEN_ALARM to 4, Sound.HEN_FLAP to 3,
+        Sound.GOAT_BLEAT to 4, Sound.GOAT_GRAZE to 3, Sound.RABBIT_MUNCH to 3, Sound.RABBIT_THUMP to 4, Sound.HEARTBEAT_STRONG to 3,
         // the hero's steps (74, all five chosen by the user)
         Sound.STEP_GRASS to 3, Sound.STEP_EARTH to 3, Sound.STEP_COBBLE to 3, Sound.STEP_WOOD to 3, Sound.STEP_STONE to 3,
         // the hero out of breath (95)

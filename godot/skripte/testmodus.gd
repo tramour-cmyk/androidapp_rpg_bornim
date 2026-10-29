@@ -34,14 +34,15 @@ static func ist_an() -> bool:
 # ---------------------------------------------------------------- Reiter „Test“ (TestTab.kt), soweit die neue Welt es traegt
 # Wie alt in Gruppen: Anzeigen und Messwerte, Held, Welt, Teleport, Kampf beschwoeren, MARS-Probekampf, Beute erzeugen. Was in die Welt
 # greift (Teleport, Kapitelende, Kampf), sagt das Menue der Welt mit Menue.test; der Rest aendert Held und Zustand gleich.
-# Noch nicht wie alt: Regen, Kartenzoom, Monster auf der Karte, Sichtlinie, Bosse (es gibt Wald und Hoehle noch nicht); Varianten,
-# Eroeffnung, Kampfhilfen und Absturzbericht (Kampfort, Jerry).
+# Noch nicht wie alt: Regen, Kartenzoom, Monster auf der Karte, Sichtlinie, Bosse (es gibt Wald und Hoehle noch nicht); Varianten
+# (MARS kennt noch keine Elite, 390), Kampfhilfen (wirkten alt nur im klassischen Kampf) und Absturzbericht.
 
 const STUFEN_PROBE := [3, 5, 6, 8, 11]          # Skirmish.PROBE_LEVEL und die Stufen aus 259
 const NEBENHAND := ["", "shield", "round_shield", "dagger"]   # cheatOffHand
 const KLASSEN := ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]
 
 static var waffen_auf := false
+static var eroeffnung := "NORMAL"       # 399.2 (Jerry, TestTab.kt opening): wer zuerst handelt im beschworenen Kampf
 static var probe_gegner := "GRAK"
 static var probe_stufe := 3
 
@@ -162,6 +163,11 @@ static func reiter(m: Menue) -> void:
 	var fs := feinde()
 	if not fs.is_empty():
 		kopf.call(t.call("Monster/Kampf beschwören", "Summon monster/fight"))
+		var eroeffnungen := {"NORMAL": t.call("Normal", "Normal"), "AMBUSHED": t.call("Hinterhalt (Gegner zuerst)", "Ambush (foe first)"),
+			"HERO_FIRST": t.call("Held zuerst", "Hero first")}
+		reihe.call([[t.call("Eröffnung", "Opening") + ": " + String(eroeffnungen[eroeffnung]) + "  ›", func():
+			var e: Array = eroeffnungen.keys()
+			eroeffnung = String(e[(e.find(eroeffnung) + 1) % e.size()]); m.baue()]])
 		var ids: Array = fs.keys()
 		for i in range(0, ids.size(), 2):
 			reihe.call(ids.slice(i, i + 2).map(func(id): return [String(fs[id]), func(): m.test.emit("kampf", [id])]))

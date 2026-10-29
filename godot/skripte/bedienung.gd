@@ -16,6 +16,9 @@ static var links := false               # leftHanded
 static var karte_nah := false           # mapNear
 static var ruetteln := true             # haptics
 static var rueckfragen := true          # confirmations
+static var blut := 1                    # bloodLevel: Aus, Dezent, Deutlich (399.2, Jerry: der Kampfort zeigt so viel Blut)
+static var tempo := 1                   # battleTempo: Ruhig, Normal, Schnell (alt nur im klassischen Kampf, BattlePace)
+static var kampftext := false           # battleAuto: Zeilen laufen von selbst (alt nur im klassischen Kampf)
 
 static func lade() -> void:
 	if geladen: return
@@ -29,10 +32,13 @@ static func lade() -> void:
 	karte_nah = bool(c.get_value("bedienung", "karte_nah", false))
 	ruetteln = bool(c.get_value("bedienung", "ruetteln", true))
 	rueckfragen = bool(c.get_value("bedienung", "rueckfragen", true))
+	blut = clampi(int(c.get_value("bedienung", "blut", 1)), 0, 2)
+	tempo = clampi(int(c.get_value("bedienung", "tempo", 1)), 0, 2)
+	kampftext = bool(c.get_value("bedienung", "kampftext", false))
 
 static func speichere() -> void:
 	var c := ConfigFile.new()
-	for k in ["klassisch", "ring", "lauf_taste", "links", "karte_nah", "ruetteln", "rueckfragen"]:
+	for k in ["klassisch", "ring", "lauf_taste", "links", "karte_nah", "ruetteln", "rueckfragen", "blut", "tempo", "kampftext"]:
 		c.set_value("bedienung", k, _wert(k))
 	c.save(DATEI)
 
@@ -44,7 +50,14 @@ static func _wert(k: String) -> Variant:
 		"links": return links
 		"karte_nah": return karte_nah
 		"ruetteln": return ruetteln
+		"blut": return blut
+		"tempo": return tempo
+		"kampftext": return kampftext
 	return rueckfragen
+
+static func blut_stufe() -> int:
+	lade()
+	return blut
 
 static func ring_dp() -> float:
 	lade()

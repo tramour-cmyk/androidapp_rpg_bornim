@@ -9,7 +9,13 @@ const Wuerfel = preload("res://regeln/wuerfel.gd")
 const X = preload("res://regeln/mars_texte.gd")
 const Zustaende = preload("res://regeln/zustaende.gd")
 ## The lines by name, for the ones picked in several wordings.
-var TX: Dictionary = load("res://regeln/mars_texte.gd").get_script_constant_map()
+## 399.2b (Homer [399.2b.knurrt]): die Zeile im Zug, wenn ein Jungwolf nur knurrt; gibt es im alten MARS nicht, darum nicht in mars_texte.gd
+## Battle.kt Msg.fed (399.2, satt)
+const MSG399_FED := ["{0} ist gut gestärkt: +1 auf Angriffe und Schaden.", "{0} is well fed: +1 to attacks and damage."]
+const MSG399_GROWLS := [["{0} knurrt, wagt aber keinen Biss.", "{0} snarls but dares no bite."],
+	["{0} duckt sich und fletscht die Zähne, kommt aber nicht heran.", "{0} crouches and bares its teeth, but does not come in."],
+	["{0} knurrt und hält Abstand.", "{0} growls and keeps its distance."]]
+var TX: Dictionary = load("res://regeln/mars_texte.gd").get_script_constant_map().merged({"MSG399_GROWLS": MSG399_GROWLS})
 
 const FRONT := 0
 const BACK := 1
@@ -98,8 +104,8 @@ var I_STAB := _intent("stab", "Stich", "Stab", "STRIKE", null, false, false)
 ## 348.12 (Chef 27.10., 09:49; Homer [210T.hieb]): Goblin mit Krummsäbel oder Beil sagt „Hieb“ an; gewollte Abweichung vom alten MARS
 var I_SLASH := _intent("slash", "Hieb", "Slash", "STRIKE", null, false, false)
 var I_POUNCE := _intent("pounce", "Anspringen", "Pounce", "STRIKE", null, false, false, false, "POUNCE")
-## 399.2b: ein Jungwolf knurrt nur, kein Angriff (Name von Homer, bis dahin ohne Wort)
-var I_GROWL := _intent("growl", "", "", "WAIT", null, false, false, false, "GROWL")
+## 399.2b: ein Jungwolf knurrt nur, kein Angriff (Homer [210T.growl])
+var I_GROWL := _intent("growl", "Knurren", "Growl", "WAIT", null, false, false, false, "GROWL")
 var I_CIRCLE := _intent("circle", "Einkreisen", "Circle", "GATHER", null, false, false, false, "CIRCLE", true)
 var I_VENOM := _intent("venom", "Gift sammeln", "Gather venom", "STRIKE", [2, 6, 0], true, false, true)
 var I_WEB := _intent("web", "Netz werfen", "Cast web", "STRIKE", null, false, true, false, "WEB")
@@ -205,6 +211,9 @@ var lang := 0
 var dice
 var words
 var winded := false
+## 399.2 (Tom 17:15): satt vom Essen (Zustand.satt, GameState.wellFed): +1 auf Angriffe und Schaden des Helden in diesem Kampf
+## (Battle.fedBonus, Items roast_meat „Stärkt für den nächsten Kampf: +1 auf Angriffe und Schaden“; im alten MARS fehlte es)
+var fed := false
 var monsters := {}
 var items := {}
 var skills := {}
@@ -650,6 +659,8 @@ func _opening() -> void:
 	started = true
 	if winded:
 		_say(fmt(X.MSG72_WINDED, lang, [lead().name(lang)]))
+	if fed:
+		_say(fmt(MSG399_FED, lang, [lead().name(lang)]))
 	for foe in intents.keys():
 		_say_announce(by_id(foe))
 
@@ -876,17 +887,22 @@ func _bless(f: Fighter) -> int:
 	return dice.roll(1, 4) if f.blessed else 0
 
 
+## Battle.fedBonus: +1, wenn der Held satt in den Kampf ging (nur der Held, nicht der Söldner)
+func _fed(f: Fighter) -> int:
+	return 1 if fed and f == lead() else 0
+
+
 func _spell_attack(f: Fighter, t: Fighter, dmg: Array) -> void:
 	var mode := _row_mode(f, t, false)
 	var r: int = dice.d20(mode)
-	var bonus: int = int(f.hero.spellAtk) + _bless(f)
+	var bonus: int = int(f.hero.spellAtk) + _bless(f) + _fed(f)
 	var crit := r == 20
 	var hit := r != 1 and (crit or r + bonus >= t.ac())
 	var info := ["ATTACK", r, bonus, t.ac(), hit, mode, false]
 	if not hit:
 		_say(fmt(wolf(f, "MSG279_WOLFMISSES", "MSG72_MISSES"), lang, [f.name(lang), t.name(lang)]), f.id, t.id, 0, info)
 		return
-	var n := maxi(1, dice.roll_expr([dmg[0] * 2, dmg[1], dmg[2]] if crit else dmg))
+	var n := maxi(1, dice.roll_expr([dmg[0] * 2, dmg[1], dmg[2]] if crit else dmg) + _fed(f))
 	_hurt(t, n, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), n]), info)
 
 
@@ -976,7 +992,7 @@ func _weapon_attack(f: Fighter, t: Fighter, advantage := false, cover := true, w
 	var crit := r >= int(f.hero.crit)
 	var w = with_weapon if with_weapon != null else f.weapon()
 	var wsheet: Dictionary = w if w != null else f.hero.main
-	var bonus: int = int(wsheet.atk) + _bless(f) - _penalty(f)
+	var bonus: int = int(wsheet.atk) + _bless(f) - _penalty(f) + _fed(f)
 	var hit := r != 1 and (crit or r + bonus >= t.ac())
 	var info := ["ATTACK", r, bonus, t.ac(), hit, mode, cover and from_back(f)]
 	if not hit:
@@ -987,7 +1003,7 @@ func _weapon_attack(f: Fighter, t: Fighter, advantage := false, cover := true, w
 	if f.has("SNEAK_ATTACK") and (advantage or not f.sneaked):
 		dmg += dice.roll(maxi(1, f.level() / 2), 6)
 	f.sneaked = true
-	dmg = maxi(1, dmg - _weakness(f))
+	dmg = maxi(1, dmg - _weakness(f) + _fed(f))
 	_hurt(t, dmg, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), dmg]), info, true)
 	if not statuses or outcome != "ONGOING" or not t.standing():
 		return
@@ -1130,9 +1146,8 @@ func _foe_turn(foe: Fighter, react: Callable) -> void:
 	var intent: Dictionary = plan[0]
 	var aimed: Array = plan[1]
 	foe.hidden = false
-	if intent.effect == "GROWL":     # 399.2b: knurrt nur (Text von Homer; solange er fehlt, keine Zeile)
-		var growl = foe.monster.get("growl")
-		_say(str(growl[lang]) if growl != null else "", foe.id, null, 0, null, false, false, "GROWLS")
+	if intent.effect == "GROWL":     # 399.2b: knurrt nur (Homer [399.2b.knurrt])
+		_say(fmt(pick("MSG399_GROWLS"), lang, [foe.name(lang)]), foe.id, null, 0, null, false, false, "GROWLS")
 		announce(foe)
 		_say_announce(foe)
 		return

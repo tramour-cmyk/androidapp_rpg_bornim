@@ -59,6 +59,16 @@ object IntroExport {
                 }
             }
         }
+        // 402 (Jerry): die Blende vor dem Kampf (InterludeClock FIGHT, FIGHT_SHORT, AMBUSH, BOSS; Interlude.openings, foes)
+        putJsonObject("kampfblende") {
+            putJsonObject("arten") {
+                for (k in listOf(InterludeClock.Kind.FIGHT, InterludeClock.Kind.FIGHT_SHORT, InterludeClock.Kind.AMBUSH, InterludeClock.Kind.BOSS)) putJsonObject(k.name) {
+                    put("ein_ms", k.wordsInMs); put("mind_ms", k.leastMs); put("aus_ms", k.wordsOutMs); put("schleier_aus_ms", k.veilOutMs)
+                }
+            }
+            putJsonObject("eroeffnungen") { for ((st, lines) in Interlude.openings) putJsonArray(st.name) { for (t in lines) add(text(t)) } }
+            putJsonObject("gegner") { for ((id, lines) in Interlude.foes) putJsonArray(id) { for (t in lines) add(text(t)) } }
+        }
         put("intro", reel(Intro))
         put("tempel", reel(TempleScene))
         putJsonObject("klang") {

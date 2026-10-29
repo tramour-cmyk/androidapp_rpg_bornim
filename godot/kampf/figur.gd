@@ -84,6 +84,7 @@ var dead_at := -1
 var down := false
 var mats: Array = []
 var tween: Tween
+var gang := ""        # 399.2 umweg_399: in welchem Teil des Schlags (hin, zurück, heim)
 var aim = null          # Figur, die das Tier laut Ansage angreift; Kopf und Rumpf zeigen dorthin
 var neck = null         # kopfdreh.gd am Skelett
 var halt = null         # pfotenhalt.gd am Skelett (Tiere mit Wurzelweg): Pfoten bleiben beim Drehen auf der Stelle am Boden
@@ -120,6 +121,11 @@ const PFOTENFLECK := {"giant_rat": 0.33}
 ## Wurzelweg gilt für Tempo 1; Maße am Boden („breite_m“, „laenge_m“) für Bodenschatten und Umriss der Kauftiere
 var tempo := {}
 var mass := {}
+## 348.12 nachbessern (Chef 28.10., 15:23, Archiv: „Der Axthieb trifft auch nicht“): Aufschlag des Hiebs eines Zweibeiners aus
+## <art>-info.json „hieb“ (grak_gestalt.py): Abstand Ursprung–Schneide (Modellmeter), Zeit (s), Drehung (Grad, + links), Höhe (m)
+var hieb := []
+## so weit (m) liegt die Schneide beim Aufschlag im Rand des Ziels
+const AXT_IM_RAND := 0.12
 
 
 func setup(f, k) -> void:
@@ -365,7 +371,7 @@ func _load_model() -> Node3D:
 			_paint(n)
 			anim = _find(n, "AnimationPlayer") as AnimationPlayer
 			if anim:
-				for a in ["Stehen", "Gehen", "Hocke", "Rennen"]:
+				for a in ["Stehen", "Gehen", "Hocke", "Rennen", "Zurück"]:
 					if anim.has_animation(a):
 						anim.get_animation(a).loop_mode = Animation.LOOP_LINEAR
 			return n
@@ -403,6 +409,11 @@ func _arm() -> void:
 	var off: String = OFF_HAND.get(fighter.hero.get("cls", ""), "")
 	if off != "":
 		_hold(sk, "L", off)
+
+
+## Goblin, Späher, Grak: Zweibeiner auf dem Gerüst aus goblin.py oder grak_gestalt.py
+func _zweibeiner() -> bool:
+	return fighter.monster != null and fighter.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK]
 
 
 ## Goblin, Späher oder (Probe „Schamanen“) Schamane: Kennung der Modelle und der info.json
@@ -767,15 +778,20 @@ func glide_to(p: Vector3) -> void:
 
 func _weg() -> Dictionary:
 	var p := _model_path()
-	var ip := "res://kampf/daten/%s-info.json" % art()
-	if fighter.monster == null or art() == "" or not FileAccess.file_exists(ip):
+	if fighter.monster == null:
+		return {}
+	var ia := _gob_art() if _zweibeiner() else art()     # 348.12: Grak (grak_gestalt.py) hat seinen Weg in hobgoblin_captain-info.json
+	var ip := "res://kampf/daten/%s-info.json" % ia
+	if ia == "" or not FileAccess.file_exists(ip):
 		return {}
 	var j = JSON.parse_string(FileAccess.get_file_as_string(ip))
 	var fell := p.get_file().get_basename().get_slice("-", 1)
-	if j is Dictionary and j.get(fell) is Dictionary and j[fell].get("weg") is Dictionary:
+	if j is Dictionary and j.get(fell) is Dictionary and j[fell].get("weg") is Dictionary and not j[fell].weg.is_empty():
 		weg_fps = float(j[fell].get("fps", 30.0))
 		if j[fell].get("biss") is Array:
 			bite = {"Biss": j[fell].biss}
+		if j[fell].get("hieb") is Array:
+			hieb = j[fell].hieb
 		if j[fell].get("tempo") is Dictionary:
 			tempo = j[fell].tempo
 		for k in ["breite_m", "laenge_m"]:
@@ -1050,6 +1066,7 @@ func _bite(other, leap: bool) -> int:
 	tween = create_tween()
 	var t_run := 0.0
 	anlauf_ms = 0
+	gang = "anlauf"
 	var run := start.distance_to(position)
 	if run > 0.15:
 		# 399.2 (Chef 28.10., 16:10: „dann läuft der hintere Wolf durch den vorderen“): um die anderen herum wie die Heldin
@@ -1092,7 +1109,7 @@ func _bite(other, leap: bool) -> int:
 		tween.tween_callback(func(): anim.play("Gehen", 0.1, -float(tempo.get("Gehen", 1.0))))
 		tween.tween_property(self, "position", ende, tz)
 		t_back = tz
-	tween.tween_callback(func(): _walk_home(other))
+	tween.tween_callback(func(): gang = "heim"; _walk_home(other))
 	# bis daheim, damit keiner zu einem Ort schlägt, an dem es nicht mehr steht (399.2: mit Umweg)
 	var vh := _detour(ende, home, other)
 	var heim := Vector2(home.x - ende.x, home.z - ende.z).length() if vh == ende else ende.distance_to(vh) + vh.distance_to(home)
@@ -1102,6 +1119,95 @@ func _bite(other, leap: bool) -> int:
 	busy_ms = int((t_run + bl + t_back + t_heim) * 1000.0)
 	anlauf_ms = int(t_run * 1000.0)
 	return int((t_run + bite[nm][1]) * 1000.0 / 0.42)
+
+
+## Hängt an [tw] eine Drehung von [von] auf [nach] an, im Tempo TURN_DPS, mit [nm] (kleine Winkel sofort); gibt Dauer und Ziel zurück
+func _dreh(tw: Tween, von: float, nach: float, nm: String) -> Array:
+	var dw := wrapf(nach - von, -PI, PI)
+	if absf(rad_to_deg(dw)) < TURN_STILL:
+		tw.tween_callback(func(): rotation.y = von + dw)
+		return [0.0, von + dw]
+	var t := absf(rad_to_deg(dw)) / TURN_DPS
+	tw.tween_callback(func():
+		rotation.y = von
+		if nm != "":
+			_play(nm, 0.1))
+	tw.tween_property(self, "rotation:y", von + dw, t)
+	return [t, von + dw]
+
+
+## 348.12 nachbessern (Chef 28.10., 15:23, Archiv: „warum läuft der dann nicht mit einer Animation, sondern wird wieder über den Platz
+## geschoben? … Der Axthieb trifft auch nicht“): ein Zweibeiner mit Wurzelweg (Grak) geht mit den Schritten der Quelle (weiter als
+## RUN_FROM: rennt) bis vor das Ziel, so weit und so gedreht, dass die Schneide beim Aufschlag (info „hieb“) AXT_IM_RAND im Rand
+## des Ziels liegt, und schlägt dort; dann zurück, das Gesicht zum Ziel (Zurück, sonst Gehen rückwärts), daheim zur Blickrichtung.
+## Gibt wie strike() die Zeit bis zum Aufschlag / 0,42 zurück (ms).
+func _hieb(other) -> int:
+	var flat := Vector3(other.position.x - position.x, 0.0, other.position.z - position.z)
+	if flat.length() < 0.01:
+		flat = basis.z
+	var dir := flat.normalized()
+	var stand: float = other.body_r() - AXT_IM_RAND + float(hieb[0]) * model.scale.x     # Ursprung bis Mitte des Ziels beim Aufschlag
+	var start := position + dir * (flat.length() - stand)
+	var schlag := atan2(dir.x, dir.z) + deg_to_rad(float(hieb[2]))     # die Schneide, nicht die Körperachse zum Ziel
+	if tween and tween.is_running():
+		tween.kill()
+	tween = create_tween()
+	gang = "anlauf"
+	var yaw := rotation.y
+	var t_run := 0.0
+	var run := start.distance_to(position)
+	if run > 0.12 and flat.length() > stand:
+		# 399.2: um die anderen herum wie die Heldin
+		var via := _detour(position, start, other)
+		var pts := [start] if via == position else [via, start]
+		var way := run if via == position else position.distance_to(via) + via.distance_to(start)
+		var gn := "Rennen" if way > RUN_FROM and weg.has("Rennen") else "Gehen"
+		var von := position
+		for q in pts:
+			var a: Vector3 = q - von
+			var d: Array = _dreh(tween, yaw, atan2(a.x, a.z), "Gehen")
+			yaw = d[1]
+			t_run += d[0]
+			var t: float = von.distance_to(q) / _mps(gn)
+			tween.tween_callback(func(): _play(gn, 0.12))
+			tween.tween_property(self, "position", q, t)
+			t_run += t
+			von = q
+	elif run > 0.12:     # zu nah: rückwärts bis auf Reichweite, das Gesicht zum Ziel
+		var d: Array = _dreh(tween, yaw, atan2(dir.x, dir.z), "Gehen")
+		yaw = d[1]
+		var t: float = run / _mps("Gehen")
+		tween.tween_callback(func(): anim.play("Gehen", 0.1, -1.0))
+		tween.tween_property(self, "position", start, t)
+		t_run = d[0] + t
+	var d2: Array = _dreh(tween, yaw, schlag, "Stehen")
+	t_run += d2[0]
+	var bl: float = anim.get_animation("Hieb").length if anim and anim.has_animation("Hieb") else 0.9
+	tween.tween_callback(func(): gang = "hieb"; _play("Hieb", 0.08))
+	tween.tween_interval(bl)
+	# zurück, das Gesicht zum Ziel, um die anderen herum
+	var vh := _detour(start, home, other)
+	var back := [home] if vh == start else [vh, home]
+	var weit := start.distance_to(home) if vh == start else start.distance_to(vh) + vh.distance_to(home)
+	var t_back := 0.0
+	if weit > 0.12:
+		var rn := "Zurück" if weg.has("Zurück") and anim.has_animation("Zurück") and weit > 0.3 else "Gehen"
+		var v := _mps(rn) if rn == "Zurück" else _mps("Gehen")
+		var von := start
+		var y := float(d2[1])
+		tween.tween_callback(func(): gang = "zurück"; anim.play(rn, 0.15, 1.0 if rn == "Zurück" else -1.0))
+		for q in back:
+			var a: Vector3 = von - q     # rückwärts: das Gesicht weg vom Ziel des Schritts
+			var d: Array = _dreh(tween, y, atan2(a.x, a.z), "")
+			y = d[1]
+			var t: float = von.distance_to(q) / v
+			tween.tween_property(self, "position", q, t)
+			t_back += d[0] + t
+			von = q
+	tween.tween_callback(func(): gang = "heim"; _turn_home())
+	busy_ms = int((t_run + bl + t_back + 180.0 / TURN_DPS) * 1000.0)
+	anlauf_ms = int(t_run * 1000.0)
+	return int((t_run + float(hieb[1])) * 1000.0 / 0.42)
 
 
 ## Ground under the figure where no grass grows (halm.gdshader spots): x, z, radius.
@@ -1145,6 +1251,8 @@ func strike(other, e: Dictionary) -> int:
 		busy_ms = 700
 		return 700
 	var leap: bool = fighter.monster != null and pouncing and fighter.monster.id == Mars.WOLF
+	if _zweibeiner() and weg.has("Gehen") and hieb.size() >= 3:
+		return _hieb(other)
 	if fighter.monster != null and weg.has("Gehen"):
 		if leap:
 			pouncing = false
@@ -1163,14 +1271,16 @@ func strike(other, e: Dictionary) -> int:
 		hold = ms * (STEP_BACK - STEP_HOLD) / 1000.0
 		back = clampf(reach.length() / HERO_BACK_MPS, HERO_BACK_S, HERO_BACK_MAX_S)
 	var there := position + reach
+	gang = "hin"
 	_face(to - position)
 	_play("Sprung" if leap else ("Biss" if fighter.monster != null else "Hieb"), 0.05)
 	if tween and tween.is_running():
 		tween.kill()
 	tween = create_tween()
 	var out := ms * STEP_HOLD / 1000.0
+	anlauf_ms = 0 if hero else int(out * 1000.0)     # 399.2: wer mit dem Tier den Platz tauscht, geht erst, wenn es am Ziel ist
 	# auch hin um die anderen herum (PFAD=1: Hinweg 0,2–0,3 m im Umriss des Nachbarn)
-	var via_out: Vector3 = _detour(position, there, other) if hero else position
+	var via_out: Vector3 = _detour(position, there, other)     # 399.2: auch ein Tier ohne Wurzelweg
 	if hero and OS.get_environment("PFAD") != "":
 		print("Umweg hin ", position, " -> ", via_out, " -> ", there, " Luft gerade %.2f, mit Umweg %.2f" % [_seg_gap(position, there, other), minf(_seg_gap(position, via_out, other), _seg_gap(via_out, there, other))])
 	if via_out != position:
@@ -1186,9 +1296,7 @@ func strike(other, e: Dictionary) -> int:
 		tween.tween_callback(func(): _back_home(back, other))
 		busy_ms = int(ms * STEP_BACK + back * 1000.0)
 		return ms
-	tween.tween_callback(func(): _face(home - position))
-	tween.tween_property(self, "position", home, back).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_callback(func(): _face(); _idle())
+	tween.tween_callback(func(): _tier_heim(back, other))
 	if leap:
 		pouncing = false
 	busy_ms = ms
@@ -1212,6 +1320,25 @@ func _back_home(back: float, skip) -> void:
 	else:
 		tween.tween_property(self, "position", home, back).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_callback(func(): _guard(false); _face(); _idle())
+
+
+## 399.2 (umweg_399: ohne Wurzelweg lief das Tier nach dem Biss gerade heim, durch den stehenden Nachbarn, bis −0,92 m): heim um
+## die anderen herum wie die Heldin, den Umweg erst beim Losgehen gerechnet
+func _tier_heim(back: float, skip) -> void:
+	gang = "zurück"
+	var from := position
+	var via := _detour(from, home, skip)
+	tween = create_tween()
+	if via != from:
+		var b1 := from.distance_to(via) / (from.distance_to(via) + via.distance_to(home)) * back
+		_face(via - from)
+		tween.tween_property(self, "position", via, b1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+		tween.tween_callback(func(): _face(home - position))
+		tween.tween_property(self, "position", home, back - b1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	else:
+		_face(home - from)
+		tween.tween_property(self, "position", home, back).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_callback(func(): _face(); _idle())
 
 
 ## 348.7b (Chef 27.10., 19:36 „D“): wo ein Zauber oder Pfeil die Figur verlässt (Welt): die Spitze eines Stabs, sonst die Faust
@@ -1399,10 +1526,13 @@ func dodge(after_ms: int, nm := "") -> void:
 	await get_tree().create_timer(after_ms / 1000.0).timeout
 	# 348.12f: mit Wurzelweg zur Seite oder zurück, wie die Quelle (Ausweichen links nicht: Kopf unter den Vorderbeinen, Prüfer r7),
 	# dann heim; [nm] wählt (Probe SCHAU=ort), sonst der Zufall
+	if nm == "" and weg.has("Ausweichen links"):
+		nm = _ausweich_seite()
 	if nm == "":
 		nm = "Ausweichen zurück" if weg.has("Ausweichen zurück") and randf() < 0.5 else "Ausweichen"
 	if weg.has(nm) and anim and anim.has_animation(nm) and not down and not lunging():
-		_play(nm, 0.05)
+		# 348.12: Graks Ausweichen (Seitenlauf der UAL Pro) beginnt mitten im Schritt; aus dem Stehen weicher hinein
+		_play(nm, 0.2 if _zweibeiner() else 0.05)
 		var o := position
 		var b := basis
 		var bl: float = anim.get_animation(nm).length
@@ -1447,6 +1577,22 @@ func dodge(after_ms: int, nm := "") -> void:
 	get_tree().create_timer(0.45).timeout.connect(_idle)
 
 
+## 348.12 (Chef 15:23: „Animation … beim Ausweichen“): Grak setzt zur Seite (Seitenlauf der UAL Pro, 1,7 m); zu der, deren Weg von den
+## anderen am freiesten ist, bei gleich viel Luft zur Mitte des Kampforts hin
+func _ausweich_seite() -> String:
+	var best := "Ausweichen"
+	var wert := -INF
+	for nm in ["Ausweichen", "Ausweichen links"]:
+		if not weg.has(nm):
+			continue
+		var ende := _weg_at(position, basis, nm, (weg[nm].size() - 1) / weg_fps)
+		var w := minf(_seg_gap(position, ende, null), 0.3) - ende.length() * 0.01
+		if w > wert:
+			wert = w
+			best = nm
+	return best
+
+
 ## nach dem Biss ohne „Ausweichen zurück“ der Quelle so weit (Modellmeter) rückwärts, bevor es sich umdreht (Kopf bleibt vor der Heldin)
 const ABSETZEN := 0.6
 
@@ -1466,7 +1612,9 @@ func die() -> void:
 	else:
 		var t := create_tween()
 		t.tween_property(model, "rotation:z", deg_to_rad(80), FALL_MS / 1000.0)
-	if fighter.side == "FOES":
+	# 348.12 (Chef 28.10., 15:23: „Krag ist ein Hauptheld, der muss fulminant sterben am Schluss. Nicht einfach ausgeblendet werden,
+	# wir brauchen einen Zusammenbruch“): Grak bricht zusammen (Tod aus Death02: in die Knie, dann vornüber) und bleibt liegen
+	if fighter.side == "FOES" and fighter.monster.id != Mars.GRAK:
 		# MARS: eigene Sterbebilder, dann ausgeblendet (LISTE-MARS.md); Körper und Bodenschatten zusammen (Helfer Lauf 126: der
 		# Schatten lag noch allein auf dem Weg)
 		await get_tree().create_timer(FALL_MS / 1000.0).timeout

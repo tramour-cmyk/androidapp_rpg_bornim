@@ -27,6 +27,12 @@ class IntroExportTest {
         val orte = j["blende"]!!.jsonObject["orte"]!!.jsonObject
         assertEquals(Interlude.places.keys, orte.keys)
         assertEquals(Interlude.places.getValue("village").map { it.text.de }, orte["village"]!!.jsonArray.map { it.jsonObject["de"]!!.jsonPrimitive.content })
+        // 402: the black screen before a fight, its four kinds and the lines by start and by foe
+        val kb = j["kampfblende"]!!.jsonObject
+        assertEquals(setOf("FIGHT", "FIGHT_SHORT", "AMBUSH", "BOSS"), kb["arten"]!!.jsonObject.keys)
+        assertEquals(0L, kb["arten"]!!.jsonObject["AMBUSH"]!!.jsonObject["ein_ms"]!!.jsonPrimitive.content.toLong())
+        assertEquals(Interlude.openings.keys.map { it.name }.toSet(), kb["eroeffnungen"]!!.jsonObject.keys)
+        assertEquals(Interlude.foes.getValue("wolf").map { it.de }, kb["gegner"]!!.jsonObject["wolf"]!!.jsonArray.map { it.jsonObject["de"]!!.jsonPrimitive.content })
         val v = j["vorspann"]!!.jsonObject
         assertEquals(Prelude.nameStart, v["name_ms"]!!.jsonPrimitive.content.toLong())
         assertEquals(Prelude.end, v["ende_ms"]!!.jsonPrimitive.content.toLong())
