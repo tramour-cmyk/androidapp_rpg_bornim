@@ -26,13 +26,6 @@ Nichts offen.
 | [399.5](ansehen/3995-innenraeume.md) | Innenräume wie alt, sechster Stand | Tom | 29.10. |
 | [402](ansehen/402-hoerprobe.md) | Hörprobe: Herzschlag beim Hinterhalt, Kaninchen-Klopfen | Jerry | 29.10., 00:21 |
 
-**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
-
-| Folge | Version | Build | Was | Wer | Seit |
-|---|---|---|---|---|---|
-| 1 | [0.348.133](ansehen/t133-spielfassung.md) | [Build 133](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40716450882/artifacts/12828143859) | 399 Spielfassung: Erschaffung, Spielstände, Leiste, Menü; Dorf | Tom | 28.10., 16:49 |
-| 2 | [0.348.139](ansehen/t139-spielfassung.md) | [Build 139](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40751357273/artifacts/12844293709) | 399 Spielfassung: alles aus 137, dazu System fertig, Anschlagbrett, Laden-Kasten, Ausdauer, Ruf, Fackel, Bilder der Dinge | Tom | 28.10., 20:41 |
-
 ## Zu tun
 
 Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen.
