@@ -87,7 +87,7 @@ Alles Quaternius, CC0 (`License_Source.txt`/`License_Standard.txt` geprüft), Ge
 | Einzelteile je Tracht: Arms, Body, Legs, Feet; Knight: Body_Armor/Cloth, Head_Armet, Head_Horns, Pauldron(s)_Round/Spike, Scarf; Noble: Head_Crown, Gorget, Pauldron(_Lion); Ranger: Head_Hood, Pauldron(s), Feet_Boots | dasselbe Zip → `…/Modular Parts/` | privat | glTF |
 | Standardfassung (nur Peasant, Ranger) | `Modular.Character.Outfits.-.Fantasy.Standard.zip` (681370524) | privat, itch | glTF, FBX |
 
-**In Gebrauch** (348.12 Grak, Jerry 28.10., `grak_gestalt.py`, Abruf `cc0_laden.sh`): Superhero_Male_FullBody (nur Kopf, Hals, Brustansatz), Male_Ranger ohne Kapuze (Pauldron gespiegelt), Texturen T_Superhero_Male_Dark, T_Regular_Male_Dark_BaseColor, T_Ranger_BaseColor, T_Eye_Brown (umgefärbt); UAL Standard Idle_Loop „Stehen“, Walk_Loop „Gehen“, Hit_Chest „Treffer“; UAL Pro Death02 „Tod“ (`UAL=`).
+**In Gebrauch** (348.12 Grak, Jerry 28.10., `grak_gestalt.py`, Abruf `cc0_laden.sh`): Superhero_Male_FullBody (nur Kopf, Hals, Brustansatz), Male_Ranger ohne Kapuze (Pauldron gespiegelt), Texturen T_Superhero_Male_Dark, T_Regular_Male_Dark_BaseColor, T_Ranger_BaseColor, T_Eye_Brown (umgefärbt); UAL Standard Idle_Loop „Stehen“, Walk_Loop „Gehen“, Hit_Chest „Treffer“; UAL Pro Death02 „Tod“, Jog_Fwd_Loop „Rennen“, Jog_Bwd_Loop „Zurück“, Jog_Right/Left_Loop „Ausweichen“ (9 Bilder), Weg am Boden aus `UAL1_RM.glb` (`UAL=`; 29.10.).
 
 ## Tiere und Monster
 
@@ -164,6 +164,8 @@ Quaternius, itch, CC0 (`License_Standard.txt`), glTF/FBX/OBJ; laut 376 herunterg
 
 **Stylized Nature MegaKit [Standard]** (Chef: Felsen, Kiesel, Pilze, Farn ja; Bäume nein): Rock_Medium (3), Pebble_Round (5)/_Square (6), RockPath_Round/Square_Small/Thin/Wide; Mushroom_Common, Mushroom_Laetiporus; Fern, Clover (2), Plant (2), Plant_1_Big, Plant_7_Big, Bush_Common(_Flowers), Grass_Common/Wispy_Short/Tall, Flower_3/4_Single/Group, Petal (5); Bäume (nicht verwenden): CommonTree, DeadTree, Pine, TwistedTree je 5. Lizenzdatei oben im Paket. **In Gebrauch** (348.6, `dorf.py` `dinge_mehr`, Tom 28.10.): Rock_Medium 1–3, Mushroom_Common im Dorf; aus dem Dorfbausatz Prop_Crate neben den Fässern.
 
+**Fantasy Props MegaKit [Standard]** (Quaternius, itch `fantasy-props-megakit`, CC0, `License_Standard.txt` geprüft 28.10.; `cc0_laden.sh`, im Bau `godot.yml`), glTF mit vier Bildern (Trim Furniture, Metal, Cloth, Props, 2048 px): Anvil(_Log), Axe_Bronze, Bag, Banner_1/2(_Cloth), Barrel(_Apples, _Holder), Bed_Twin1/2, Bench, BookGroup_Medium/Small 1–3, BookStand, Book_5/7, Book_Simplified_Single, Book_Stack_1/2, Bookcase_2, Bottle_1, Bucket_Metal/Wooden_1, Cabinet, Cage_Small, CandleStick(_Stand, _Triple), Candle_1/2, Carrot, Cauldron, Chain_Coil, Chair_1, Chalice, Chandelier, Chest_Wood, Coin(_Pile, _Pile_2), Crate_Metal/Wooden, Dummy, FarmCrate_Apple/Carrot/Empty, Key_Gold/Metal, Lantern_Wall, Mug, Nightstand_Shelf, Peg_Rack, Pickaxe_Bronze, Pot_1(_Lid), Potion_1/2/4, Pouch_Large, Rope_1–3, Scroll_1/2, Shelf_Arch/Simple/Small_Bottles, Shield_Wooden, SmallBottle(s_1), Stall_Cart_Empty, Stall_Empty, Stool, Sword_Bronze, Table_Fork/Knife/Large/Plate/Spoon, Torch_Metal, Vase_2/4, Vase_Rubble_Medium, WeaponStand, Whetstone, Workbench(_Drawers). **In Gebrauch** (399.5, `raum.py`, Tom 28.10.): Einrichtung der vier Grundrisse; dazu aus dem Dorfbausatz die Wand-, Fenster- und Türteile innen wie außen. Shield_Wooden: Rundschild des Klerikers (406, `waffen.py`, Jerry 29.10.), eigene Bemalung.
+
 Ebenfalls geprüft, **nicht verwenden** (Chef 27.10., 12:42 „nein“): 150 Lowpoly Nature Models; Lowpoly Modular Dungeon Pack (höchstens Fackel, Gitter, Truhe als Rohform nach dem Meilenstein).
 
 Dungeon: kein fremder Bausatz im Bestand.
@@ -176,7 +178,6 @@ Dungeon: kein fremder Bausatz im Bestand.
 
 | Teil | Befund |
 |---|---|
-| Quaternius Fantasy Props MegaKit (Standard) | Dreiecke laut `LISTE-CC0-MODELLE.md` „aus den OBJ gezählt“, also einmal geladen; nirgends abgelegt, nicht in Gebrauch |
-| Kenney Survival Kit | ebenso („aus den OBJ gezählt“); nirgends abgelegt |
+| Kenney Survival Kit | Dreiecke laut `LISTE-CC0-MODELLE.md` „aus den OBJ gezählt“; nirgends abgelegt |
 | RenderHub „Asset Pack Vol 10 – Modular Dungeon Interior“ (JuanChee, 7 $) | Chef „checken“, Votum offen; nicht im privaten Repo, Kauf nicht belegt |
 | Universal Animation Library 2 | CC0 laut Seite, nicht geladen |

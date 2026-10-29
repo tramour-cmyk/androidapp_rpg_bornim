@@ -476,3 +476,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 396 | Fertige Vorlagen sofort an den Chef, Prüfer nicht davor (Chef 28.10., 11:01) | B Betrieb | M | 3,01 $ | Perikles | erledigt |
 | 394 | Eigene Namen für Zusatzentwickler statt „Tom 2“ (Chef 28.10., 10:21) | B Betrieb | M | – | Perikles | erledigt |
 | 396a | Rückfrage: Textvorlagen auch sofort senden? (Perikles 28.10.) | B Betrieb | M | 3,84 $ | Perikles | erledigt |
+| 395a | Katze fürs Gasthaus: Quaternius hat keine, MadeCG kaufen? | E Figuren | M | 8,49 $ | Team Tom | erledigt |
+| 399a | Spielfassung 13b97af52 nach Test 132 auf main? | B Umzug | M | 8,49 $ | Team Tom | erledigt |
+| 400 | Hinweise an volle Vorräte bleiben liegen; Stand beim Empfänger immer setzen (Chef 28.10., 21:5x) | B Werkzeuge | M | 1,55 $ | Perikles | erledigt |
+| 405 | Texte der Erschaffung „Aussehen“ (376.1): Frisur „Zurück“ heißt wie der Knopf unten; „Filzlocken“, „Kamm“ passen nicht zum Bild (Prüfer Lauf 2) | C Inhalt | M | 0,89 $ | Homer | erledigt |

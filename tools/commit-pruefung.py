@@ -3,7 +3,7 @@
 Hält an (Exit 1): Uhrzeit von heute mehr als 5 Minuten nach jetzt in einer neuen Zeile; gelöschte Chefsache-Datei ohne
 Änderung an VORGANGSARCHIV.md (Ausweg: BORNIM_ZURUECK=1 für zurückgezogene Fragen des Absenders); neue Vorratszeile mit Nummer ohne
 Zeile in LISTE-VORGAENGE.md (D- und Unternummern über die Oberzeile); Vorrat über 15000 Bytes, den der Commit vergrößert
-(ARBEIT-BETRIEB.md ausgenommen: Fords Startsperre muss dorthin, kürzen ist Fords Zeile); neue Antwort im Vorgangsarchiv, deren Vorlage
+(Hinweis eines anderen mit „von <Absender>“ in jeder neuen Zeile ausgenommen, 400; ARBEIT-BETRIEB.md ausgenommen: Fords Startsperre muss dorthin, kürzen ist Fords Zeile); neue Antwort im Vorgangsarchiv, deren Vorlage
 in entscheiden/, ansehen/ oder billigen/ stehen bleibt (383.3: wer die Antwort einträgt, löscht die Datei im selben Commit; bleibt die
 Frage trotz Antwort offen, setzt er die Zeit in Zeile 1 oder 2 der Datei neu). Eine beantwortete Vorlage darf ohne Archivänderung weg.
 Warnt (Exit 0): Modellnamen, Zeilen über 1500 Zeichen. Fasst nur Notizen an; sonst Exit 0. Jeder Fehler im Haken lässt durch."""
@@ -12,6 +12,17 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 def git(*a):
     return subprocess.run(["git"] + list(a), capture_output=True, text=True).stdout
+
+BESITZER = {"KREATIV": "Homer", "TEAM-TOM": "Tom", "TEAM-JERRY": "Jerry", "PROJEKT": "Perikles", "PRUEFUNG": "Diogenes", "BERATUNG": "Sokrates"}
+NAMEN = ("Homer", "Tom", "Jerry", "Perikles", "Diogenes", "Sokrates", "Ford")
+
+def fremd_hinweis(p):
+    """400: Hinweis eines anderen in einen vollen Vorrat geht durch, wenn jede neue Zeile einen Absender nennt, der nicht der Besitzer ist;
+    kürzen bleibt Sache des Besitzers (regelcheck meldet die Größe weiter). Sonst blieb der Hinweis beim Absender liegen."""
+    eig = BESITZER.get(re.match(r"docs/ARBEIT-(.*)\.md$", p).group(1))
+    zeilen = [z[1:] for z in git("diff", "--cached", "-U0", "--", p).splitlines() if z.startswith("+") and not z.startswith("+++") and z[1:].strip()]
+    andere = "|".join(n for n in NAMEN if n != eig)
+    return bool(zeilen) and all(re.search(r"\bvon (Team |Chef über )?(%s)\b" % andere, z) for z in zeilen)
 
 def main():
     ge = git("diff", "--cached", "--name-status", "--no-renames").splitlines()
@@ -59,8 +70,8 @@ def main():
             stop.append("%s gelöscht ohne Eintrag im Vorgangsarchiv (zurückgezogen: BORNIM_ZURUECK=1)" % p)
         if re.match(r"docs/ARBEIT-(KREATIV|TEAM-TOM|TEAM-JERRY|PROJEKT|PRUEFUNG|BERATUNG)\.md$", p) and s != "D":
             neu_b = len(git("show", ":" + p).encode()); alt = git("show", "HEAD:" + p)
-            if neu_b > 15000 and neu_b > len(alt.encode()):
-                stop.append("%s hat %d Bytes (über 15000) und wächst; erst kürzen" % (p, neu_b))
+            if neu_b > 15000 and neu_b > len(alt.encode()) and not fremd_hinweis(p):
+                stop.append("%s hat %d Bytes (über 15000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)" % (p, neu_b))
     code = [p for s, p in dat if s != "D" and re.match(r"(core|app|tools/preview)/.*\.(kt|kts)$", p)]
     if code:  # 192.3: Kerntest-Marke aus tools/t logik (voller Lauf, Exit 0) muss neuer sein als der Code
         marke = os.path.join(git("rev-parse", "--git-common-dir").strip(), "kerntest-ok")

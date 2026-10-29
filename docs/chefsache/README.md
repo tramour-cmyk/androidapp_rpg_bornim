@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [404](entscheiden/404-kosten-schaetzung.md) | Kür | B Werkzeuge |  | 404: Fehlende Sitzungskosten schätzen? |  |
 
 ## Zu billigen
 
@@ -16,14 +20,10 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [348.12](ansehen/34812-grak-film.md) | Grak bewegt sich im Kampfort, Runde 2 | – | 29.10., 00:05 |
+| [376.1](ansehen/3761-klassen.md) | Hauttöne des Menschen | Tom | 29.10., 02:10 |
 | [399.1](ansehen/3991-ausruestung.md) | Menü: Benutzen und Ausrüstung wie alt | Tom | 28.10., 17:15 |
-
-**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
-
-| Folge | Version | Build | Was | Wer | Seit |
-|---|---|---|---|---|---|
-| 1 | [0.348.133](ansehen/t133-spielfassung.md) | [Build 133](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40716450882/artifacts/12828143859) | 399 Spielfassung: Erschaffung, Spielstände, Leiste, Menü; Dorf | Tom | 28.10., 16:49 |
-| 2 | [0.348.139](ansehen/t139-spielfassung.md) | [Build 139](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40751357273/artifacts/12844293709) | 399 Spielfassung: alles aus 137, dazu System fertig, Anschlagbrett, Laden-Kasten, Ausdauer, Ruf, Fackel, Bilder der Dinge | Tom | 28.10., 20:41 |
+| [399.5](ansehen/3995-innenraeume.md) | Innenräume wie alt, neunter Stand | Tom | 29.10. |
 
 ## Zu tun
 
@@ -31,11 +31,13 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [403](tun/403-kaufmodelle-zugang.md) | **Muss** | E Kampf | 29.10., 00:27 | Zugang zu den Kaufmodellen in Jerrys Sitzung freigeben | Jerry |
+| [348.12h](tun/34812h-ausruestung-laden.md) | **Muss** | M Geld | 28.10. | Ausrüstung: ein Paket kaufen, drei kostenlose laden | Sokrates |
 | [142](tun/142-pflichttest.md) | **Muss** | M Veröffentlichung | 27.10., 20:07 | Pflichttest Play Store: Gewerbeschein melden | Sokrates |
 
 ## Offen je Rolle
 
-Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
+Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
 **Homer** – offen 3, Muss 0, startbar 0
 
@@ -45,19 +47,20 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 26, Muss 16, startbar 5
+**Tom** – offen 27, Muss 17, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf | startbar |
-| 399.4 | M | von Chef (21:4x, Archiv): oben Rand für die Kamera wie alt | startbar |
-| 399.3.1 | M | von Team Jerry (16:5x): Klang: Haken in spiel.gd (Jerry, claude/jerry-348-klang) übernehme | startbar |
-| 385 | M | von Sokrates („jetzt“ 28.10., 10:00, Archiv): Zauberer-Set auf Kaufkörper, Film | startbar |
+| 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf | wartet auf Test/Build |
+| 399.4 | M | von Chef (21:4x, Archiv): oben Rand für die Kamera wie alt | wartet auf Test/Build (gebaut) |
+| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | startbar |
+| 399.5 | M | von Chef („jetzt“ 28.10., 21:5x, Archiv): Innenräume wie alt: Lichtquellen, Licht und Scha | Chef |
+| 399.3.1 | M | von Team Jerry (16:5x): Klang: Haken in spiel.gd (Jerry, claude/jerry-348-klang) übernehme | wartet auf Test/Build |
+| 385 | M | von Sokrates („jetzt“ 28.10., 10:00, Archiv): Zauberer-Set auf Kaufkörper, Film | Chef |
 | 390 | M | von Perikles: zwischen Chef-Blättern Funktionen ohne Bild (LISTE-UMZUG-348.md) | wartet auf Test/Build (gebaut) |
 | 348.12i | M | von Sokrates (Chef 19:41, „348.12i B“, Archiv): nur Kaufmodelle mit AESContext verschlüsse | wartet auf Test/Build (gebaut) |
-| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | ruht |
-| 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | startbar |
-| 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | wartet auf 348.6 (startbar) |
+| 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | wartet auf Test/Build |
+| 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | wartet auf 348.6 (wartet) |
 | 372 | M | von Perikles (338a B, Chef 27.10., 09:36, Archiv): Feinschliff Held: Kettenhemd, Helm, Kra | ruht |
 | 397 | M | von Chef (28.10., 11:15): Held, Leute: mind. drei Ruhebewegungen wie alt (LISTE-UMZUG-348. | wartet auf Test/Build (gebaut) |
 | 348.13 | M | von Sokrates (Chef 26.10., Archiv): Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Sc | wartet auf Jerry |
@@ -76,21 +79,25 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 34, Muss 23, startbar 6
+**Jerry** – offen 38, Muss 27, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 399.2 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv): Kampfort aufrufbar | startbar |
-| 399.2b | M | von Team Tom (15:05): Rudel allein zu stark | startbar |
-| 399.3 | M | von Chef (28.10., 16:42): Klang in die Spielfassung | startbar |
+| 399.2 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv): Kampfort aufrufbar | wartet auf Test/Build (gebaut) |
+| 399.2b | M | von Team Tom (15:05): Rudel allein zu stark | wartet auf Test/Build (gebaut) |
+| 399.3 | M | von Chef über Sokrates (16:42): Klang in die Spielfassung | startbar |
+| 402 | M | von Sokrates (Chef 22:2x, Archiv): Blende vor dem Kampf wie alt; Herzschlag beim Hinterhal | startbar |
+| 403 | M | von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler): Kampfort: Held | Chef |
+| 406 | M | von Team Tom (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe): Ausrüstung der Helden je | startbar |
+| 401 | M | von Chef über Sokrates (Archiv): Tierlaute, mind. 3 je Tier | startbar |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | wartet auf Test/Build (gebaut) |
-| 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | startbar |
-| 385.2 | M | von Chef (Archiv 385.1): Feuer aus dem Stab | startbar |
+| 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | Chef |
+| 385.2 | M | von Chef (Archiv 385.1): Feuer aus dem Stab | wartet auf 403 (Chef) |
 | 348.13a | M | von Team Tom (Chef 08:09, Archiv: r9 ja): Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13 | wartet auf Test/Build (gebaut) |
 | 397 | M | von Chef (28.10., 11:15): Tiere, Monster: mind. drei Ruhebewegungen wie alt (LISTE-UMZUG-3 | ruht |
 | 348.12c | M | von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv): Wiedergänger, Grabhund, Riesenegel, Säur | ruht |
-| 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | startbar |
+| 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | wartet auf 403 (Chef) |
 | 348.7b | M | Zauberbahn nach Chef „D“ | wartet auf Test/Build (gebaut) |
 | 390 | M | von Perikles: Funktionen ohne Bild (LISTE-UMZUG-348.md) | wartet auf 399 (wartet) |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
@@ -119,9 +126,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 400 | M | von Chef über Sokrates (28.10., 21:5x, „das liegt seit 2 Stunden bei ihm rum. Krass“): Hin | startbar |
+| 407 | M | von Chef über Sokrates („jetzt“ 29.10., 10:05): Probelauf-Grenze 389 so, dass sie greift: | startbar |
 | 399 | M | von Chef über Sokrates („jetzt“ 28.10., 12:34, Archiv): Vorrang neu: erst eine Godot-Fassu | wartet auf Tom |
-| 398 | M | von Sokrates (Chef 28.10., 11:22): Termine je Block nachrechnen mit der Schätzung der 15 Z | wartet auf Tom |
+| 398 | M | von Sokrates (Chef 28.10., 11:22): Termine je Block nachrechnen mit der Schätzung der 15 Z | Termin 02.11. |
 | 384 | M | von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“): Kosten aller Si | wartet auf Test/Build (gebaut) |
 | 383.3 | M | von Sokrates (Chef 19:55): Vorlage zurück beim Team sofort aus der Chefsache | wartet auf Test/Build (gebaut) |
 | 383 | M | von Sokrates (Chef 27.10., 17:53 „ja, 383“, Archiv): Wartewächter in lauf.py, Haken 63 ver | wartet auf Test/Build (gebaut) |
@@ -131,7 +138,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | ruht |
 | 341 | M | von Chef (23.10., 09:39): Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | Termin 06.11. |
 | 339 | M | von Sokrates (Chef 23.10., 09:08 „so eine Art Dashboard“, ja 09:53): Dashboard „Stand zum | Dauerzeile bis 06.11. |
-| 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | Termin 29.10. |
+| 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | Termin 30.10. |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
@@ -140,12 +147,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 398 | M | von Sokrates: vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (39 | Termin 02.11. |
-| 374 | M | von Sokrates (Chef 27.10., 11:58, Archiv 374): täglich 8 Uhr bis 03.11. Vorlagen des Vorta | Termin 29.10. |
+| 374 | M | von Sokrates (Chef 27.10., 11:58, Archiv 374): täglich 8 Uhr bis 03.11. Vorlagen des Vorta | Termin 30.10. |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24): Umzug Godot: jedes Vergleichsblatt alt/neu messen, | wartet auf Eingang |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 29, Muss 21, startbar 3
+**Sokrates** – offen 29, Muss 21, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -157,7 +164,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.10.; „star
 | 374 | M | von Chef (27.10., 11:54): wer prüft 373? | Termin 31.10. |
 | 348.12c | M | von Chef (26.10., 11:59): Modellpaket auch gegen Geld (Quaternius und andere), Verkauf im | ruht |
 | 348.12 | M | von Chef (25.10., 21:21, „b prüfen“): fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit | wartet auf Jerry |
-| 348.12h | M | von Chef (26.10., 16:16; ja 16:19, Archiv): fertige Dinge, Möbel, Waffen suchen | wartet auf Jerry |
+| 348.12h | M | von Chef (26.10., 16:16; ja 16:19, Archiv): fertige Dinge, Möbel, Waffen suchen | startbar |
 | 340.2 | M | von Chef (25.10., 10:16, Vorgangsarchiv 340): tools/rollenspiegel.sh <Rolle> zeigt nur Fra | wartet auf Test/Build (gebaut) |
 | 348 | M | von Chef (24.10., 16:43; „jetzt“ 16:54): fertige Spiel-Engine statt Selbstbau? | ruht |
 | 26.1 | M | von Chef (24.10., 16:56): Durchspielbogen auswerten (Rest von 26) | wartet auf 348 (in Arbeit) |
@@ -184,7 +191,9 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 186.3 (Pruefung)
 
-Ohne Datei: 275 (Projekt), 26 (Team Tom)
+Beantwortet, Datei noch da (383.3: der Absender löscht sofort): ansehen/3761-klassen.md (Antwort 376.1, 29.10., 10:52)
+
+Ohne Datei: 275 (Projekt)
 
 ## So geht's
 

@@ -3,15 +3,15 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 28.10., 12:36
+**Gelesen bis:** `origin/main` 29.10., 01:04
 
-**Übergabe (28.10., 12:4x):** 399 verteilt: 399.1 Tom (Spielfassung, Zweig von 390, Jerrys Kampf hinein), 399.2 Jerry (Kampfort aufrufbar), beide zuerst; 397, 348.13b ruhen. Kosten auf: 399. Nachfolger: keiner (399 wartet auf Tom, Jerry)
+**Übergabe (29.10., 01:15):** Stand zum Marktstart 29.10. geschrieben (vor dem Stillstand gegen 6:45; Marke für lauf.py gesetzt), fremd geprüft, gemeldet; Zählung jetzt je Zeile der Umzugsliste (80, gestern gleich gezählt 64). Jerry auf erneutes add_repo angestoßen (403). 398 auf 02.11. Kosten auf: 338.1. Nachfolger: keiner (338.1 frühestens 30.10.)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 400 | M | **von Chef über Sokrates (28.10., 21:5x, „das liegt seit 2 Stunden bei ihm rum. Krass“):** Hinweise an volle Vorräte bleiben liegen (Homer 399.2b, 374; Archiv) | startbar |
+| 407 | M | **von Chef über Sokrates („jetzt“ 29.10., 10:05):** Probelauf-Grenze 389 so, dass sie greift: nach zwei Läufen keine weitere Runde, bis der Chef geurteilt hat (Zu 407) | startbar |
 | 399 | M | **von Chef über Sokrates („jetzt“ 28.10., 12:34, Archiv):** Vorrang neu: erst eine Godot-Fassung am Handy, in der der Chef im Dorf herumläuft und einen Kampf spielt; Feintuning ruht | wartet auf Tom, Jerry: 399.1 Spielfassung, 399.2 Kampfort aufrufbar (12:4x); Feinschliff 397, 348.13b ruht |
-| 398 | M | **von Sokrates (Chef 28.10., 11:22):** Termine je Block nachrechnen mit der Schätzung der 15 Zeilen 398 | wartet auf Tom, Jerry: Schätzung 398 in `LISTE-UMZUG-348.md` |
+| 398 | M | **von Sokrates (Chef 28.10., 11:22):** Termine je Block nachrechnen mit der Schätzung der 15 Zeilen 398 | frühestens 02.11.: Schätzungen da (Tom 28.10., 15:37; Jerry 13:16); Termine ruhen mit der Spielfassung 399, nachrechnen mit Wochenziel 2 |
 | 384 | M | **von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“):** Kosten aller Sitzungen gegen Buchungsverzeichnis; Ursache der Lücken im Werkzeug beheben (Zu 384) | gebaut 27.10., 20:1x: --kosten nur mit Kennung, Ford holt Kosten frisch (Zu 384) |
 | 383.3 | M | **von Sokrates (Chef 19:55):** Vorlage zurück beim Team sofort aus der Chefsache | gebaut 27.10., 20:1x |
 | 383 | M | **von Sokrates (Chef 27.10., 17:53 „ja, 383“, Archiv):** Wartewächter in `lauf.py`, Haken 63 verschärfen (Zu 383) | gebaut 27.10., 19:1x; Diogenes zählt ab 28.10. (Zu 383) |
@@ -21,13 +21,14 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 276 | K | **von Sokrates (zu 274):** Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in `lauf.py` oder zu Perikles | ruht bis Meilenstein Umzug (Perikles 26.10., 11:5x, Zu 276); Zählung 149 da (Lauf 45: etwa 22 Abweichungen, fast alle Schritt 4, 12 Urteil, 8 Mechanik) |
 | 341 | M | **von Chef (23.10., 09:39):** Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | frühestens 06.11.: gebaut 23.10.; 06.11. Probe bewerten, Gerüst für alle Rollen vorlegen |
 | 339 | M | **von Sokrates (Chef 23.10., 09:08 „so eine Art Dashboard“, ja 09:53):** Dashboard „Stand zum Marktstart“, immer aktuell | bis 06.11. Dauerzeile: [Seite](https://claude.ai/artifact/5gdqbHNUUpbBUU9sBo4i7t), Ford erneuert jeden Lauf; 27.10. (378): Werkzeug richtig, Ford seit 08:07 säumig (Eingang Ford) |
-| 338.1 | M | **von Sokrates (Chef 23.10., 09:01/09:05):** „wird es mir nie vorgelegt, wie weit wir da eigentlich stehen“; „dazu brauche ich auch regelmäßige Feedback“. „Stand zum Marktstart“ in `LISTE-ABNAHME-KAPITEL1.md` | frühestens 29.10.: Dauerzeile bis Marktstart, zuletzt 28.10., 08:15 (gemeldet); täglich zur Morgenzeit neu (lauf.py startet), montags mit Schätzungen der Teams |
+| 338.1 | M | **von Sokrates (Chef 23.10., 09:01/09:05):** „wird es mir nie vorgelegt, wie weit wir da eigentlich stehen“; „dazu brauche ich auch regelmäßige Feedback“. „Stand zum Marktstart“ in `LISTE-ABNAHME-KAPITEL1.md` | frühestens 30.10.: Dauerzeile bis Marktstart, zuletzt 29.10., 01:05 (gemeldet); täglich zur Morgenzeit neu (lauf.py startet), montags mit Schätzungen der Teams |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 06.11.: behalten (Chef 26.10., 11:15, Archiv); Zahlen mit Zielvereinbarung 341 |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
 
 ## Einzelheiten
 
 
+- **Zu 407, von Sokrates (Chef 10:05):** „stoppe weitere Durchläufe, weil wir gesagt haben, nach 2 ist maximal Schluss und da sind manche schon wieder auf Stufe 5 … Ich habe noch nichts geguckt und freigegeben. Also, warten, bis ich gucke.“ 399.5 im neunten Stand, `probelauf.py` zählt 0: Haken zählt nur `claude/*-348-*`, jede Vorlage gibt zwei neue Läufe frei. Soll: nach zwei Läufen Halt bis Urteil des Chefs, jeder Zweig.
 - **Zu 384 (Prüfung 27.10., 20:1x; `list_sessions` 100 Sitzungen ab 26.10., 20:35, `get_session` je Lücke):** 18 archivierte Sitzungen ohne Zeile in `KOSTEN-GEBUCHT.tsv`. Nachgebucht mit Kennung: Ford `01Hmoj76zG` 9,17 und `01Hmoj78hR` 7,28 auf Betrieb, Tom `01Hmoj76zw` +3,18 auf 348.13a (Ford buchte 3,13 von 6,31). Ohne Kennung schon gebucht, Kennung nachgetragen: Sokrates `01Hmoj78Yk` 6,75 (10:30, 7 × 0,96), `01Hmoj77Kr` 8,78 (12:08, 3 × 2,93). **Nachprüfung (Chef 21:02, „Prüf die 79 Euro trotzdem nach“):** je Commit Kostenspalte gegen Verzeichnis, 26.10., 20:00 bis 27.10., 14:00: nachts jede Buchung mit Kennung, Sammelbuchung 09:23 = acht andere Sitzungen; die Annahme „ohne Kennung gebucht“ war falsch, auch `01An8v` (22:42 war `01Egtx`). Darum 21:0x elf Sitzungen nachgebucht, 90,59 $ (je Titel auf 348.6, 348.13, 348.12f; Einzelbeträge in `KOSTEN-GEBUCHT.tsv`). Jerry `01Hmoj77Zu`, `01Hmoj79qo` abgestürzt, ohne Kostenangabe. Ursachen: Ford gab archivierte Sitzungen nicht mit Kosten an `lauf.py`, Kurzform mit veraltetem Betrag.
 
 - **Von Jerry (17:58), 381.1:** jsDelivr: neue Filme aus `bilder` 403 „Package size exceeded … 50 MB“.

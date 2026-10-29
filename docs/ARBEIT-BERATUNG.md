@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (28.10., 16:35, `session_01Hmoj78fqdVY4ga5UUvDw1v`):** Chefrunde ab 11:07: 385, 387, 348.12, 348.12f, 348.7, 348.7b, 396a, 399.2a/b, 395a eingetragen; 397, 398 (Gegenprobe, 15 Lücken), 399 (erst spielbar) angelegt; Tests 130 und 132 an Tom; Ideen Katze, Leopard. Offen beim Chef: 399a, 399.1, 142. Kosten auf: 385, 397, 398, 399. Nachfolger: Sokrates – Chefrunde (28.10., 16:35)
+**Übergabe (29.10., 00:1x, `session_01Hmoj76vRfh2Apaay4BMFvb`):** Stellungnahme in 404 geschrieben. Kosten auf: 404. Nachfolger: Sokrates – Chefrunde (29.10., 00:1x)
 
 ## Zeilen
 
@@ -18,7 +18,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 374 | M | **von Chef (27.10., 11:54):** wer prüft 373? | frühestens 31.10.: auswerten mit 347 (Archiv) |
 | 348.12c | M | **von Chef (26.10., 11:59):** Modellpaket auch gegen Geld (Quaternius und andere), Verkauf im Spiel erlaubt; Monster dürfen von D&D abweichen; „schönen Vorschlag und ein schönes Paket“; 27.10., 20:10/20:12: Forest Pack, Protofactor checken | ruht: Warenkorb 134 $ zurückgestellt, bis 387 (Bestand) durchgetestet (Chef 21:33, Archiv); Forest Pack ebenso |
 | 348.12 | M | **von Chef (25.10., 21:21, „b prüfen“):** fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit Skelett) prüfen, nichts bauen | wartet auf Jerry: Goblin CC0 entschieden 27.10., 09:49 (Archiv), Hieb nachbessern, dann Grak, Kobold, Zombie |
-| 348.12h | M | **von Chef (26.10., 16:16; ja 16:19, Archiv):** fertige Dinge, Möbel, Waffen suchen | wartet auf Jerry: gesucht (`LISTE-CC0-MODELLE.md`, CC0 etwa 40/74); nach Rattenprobe Probeblatt vorschlagen |
+| 348.12h | M | **von Chef (26.10., 16:16; ja 16:19, Archiv):** fertige Dinge, Möbel, Waffen suchen | Chef: Kauf Omie, drei Pakete laden (Chefsache tun/34812h, für 29.10.); Übersicht LISTE-CC0-MODELLE.md „Ausrüstung genau“ |
 | 340.2 | M | **von Chef (25.10., 10:16, Vorgangsarchiv 340):** `tools/rollenspiegel.sh <Rolle>` zeigt nur Fragen und eigene Vorwochenantwort, hängt die neue an; ersetzt „erst antworten, dann lesen“ | gebaut 25.10.; prüfen 30.10. (Zu 340.2) |
 | 348 | M | **von Chef (24.10., 16:43; „jetzt“ 16:54):** fertige Spiel-Engine statt Selbstbau? | ruht bis Zuruf: begleiten nach `LISTE-UMZUG-348.md` (Nachturteil 362 gestrichen, außer der Chef ermächtigt, Archiv 373a); entschieden: Umzug nach Godot (Vorgangsarchiv) |
 | 26.1 | M | **von Chef (24.10., 16:56):** Durchspielbogen auswerten (Rest von 26) | nach 348.7: Gegenprobe je Klasse und neuer Bogen (38: nach dem Umzug in MARS neu messen; nächstes Durchspiel auf Godot) (Zu 26.1) |
