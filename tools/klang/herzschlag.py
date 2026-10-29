@@ -12,6 +12,11 @@ Schlag stark angezerrt, nur 200–1400 Hz, so drückt er auch aus dem kleinen La
 
 Aufnahmen (tools/klang/holen.sh): OpenGameArt bart „Heartbeat sounds“ (heartbeat_slow_0.wav), qubodup „Heartbeat single sound“
 (heartbeat.mp3_.flac).
+Chef 29.10., 10:52: „Da nehmen wir die Fassung 2 … Das Einfachste wäre nämlich so wie von einem Ultraschall … dumm, dumm, dumm“:
+im Spiel vorerst nur Fassung 2 (heartbeat_strong_1); als Hörprobe drei Fassungen wie Ultraschall (ultraschall_1–3) aus zwei
+Doppler-Aufnahmen (Freesound, CC0): SignatureSoundsOrg „Foetal Heartbeat Through Doppler Machine“ (fs_871122.mp3), TRP
+„Ultrasound heartbeat fetus“ (fs_574849.mp3). Ein Doppler gibt den Schlag als Rauschen um 350–1500 Hz wieder, genau dort, wo der
+Handylautsprecher spielt; tiefer gestimmt wird aus dem Kinderherz (140/min) ein erwachsenes, aufgeregtes (110–120/min).
 """
 import sys, os, subprocess, numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from klang import *
@@ -42,17 +47,30 @@ S = {"heartbeat_strong": [
     mix((paar(einzeln, -4, 4), 0.0, 0.7), (schlag(lubdub, -3, 5), 0.60, 0.9), (paar(einzeln, -4, 6), 1.12, 1.0)),
 ]}
 
+# Ultraschall: ein Stück der Aufnahme am Stück (der Doppler hat keinen einzelnen Schlag, jeder Schlag ist ein Doppelgeräusch der
+# Klappen), tiefer gestimmt und damit langsamer; 1,6–1,8 s unter der Blende (AMBUSH 1,2 s), dann ausgeblendet
+def doppler(f, a, semis, lang, bass=0.0):
+    x = pitch(highpass(L(f), 120, 2)[int(a * SR):int((a + lang * 2 ** (semis / 12)) * SR) + SR // 10], semis)
+    x = lowpass(x, 3200, 2)
+    if bass: x = shelf_low(x, bass, 160)
+    return cut(x, 0.0, lang, 0.03, 0.35)
+U = {"ultraschall": [
+    doppler("fs_871122.mp3", 5.75, 0, 1.6),            # wie aufgenommen, 140/min: dumm-dumm-dumm, hell
+    doppler("fs_871122.mp3", 5.75, -4, 1.8, 6),        # 4 Halbtöne tiefer, 110/min, unten voller
+    doppler("fs_574849.mp3", 3.85, -3, 1.8, 6),        # die andere Aufnahme: trockener, härter, 3 Halbtöne tiefer
+]}
+
 def finish(x): return norm(trim(x, -60), -0.5, -15)
 
 if OUT == "--spiel":
     sfx = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "app", "src", "main", "assets", "sfx")
-    for name, takes in S.items():
+    for name, takes in {"heartbeat_strong": [S["heartbeat_strong"][1]]}.items():   # vorerst nur Fassung 2 (Chef 29.10., 10:52)
         for i, x in enumerate(takes):
             tmp = os.path.join(sfx, "_tmp.wav"); write(tmp, finish(x))
             subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", tmp, "-ac", "1", "-ar", "44100", "-c:a", "libvorbis", "-q:a", "5",
                             "-map_metadata", "-1", os.path.join(sfx, f"{name}_{i + 1}.ogg")], check=True)
             os.remove(tmp)
     print("Herzschlag nach", os.path.normpath(sfx)); sys.exit(0)
-for name, takes in S.items():
+for name, takes in (S | U).items():
     for i, x in enumerate(takes): write(os.path.join(OUT, f"{name}_{i + 1}.wav"), finish(x))
 print("Proben:", OUT)

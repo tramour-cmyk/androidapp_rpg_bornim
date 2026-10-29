@@ -24,7 +24,7 @@ enum class Sound {
     // the village hens (83c): quiet clucking while pecking, a claw raking the ground, alarm and wings when they run off
     HEN_CLUCK, HEN_SCRATCH, HEN_ALARM, HEN_FLAP,
     // 401 the other village animals (tools/klang/dorftiere.py), 402 the heartbeat under the black screen of an ambush (herzschlag.py)
-    GOAT_BLEAT, GOAT_GRAZE, RABBIT_MUNCH, RABBIT_THUMP, HEARTBEAT_STRONG,
+    GOAT_BLEAT, GOAT_GRAZE, RABBIT_MUNCH, HEARTBEAT_STRONG,
     // the hero's steps (74): grass, earth, cobbles, wooden boards, the cave's stone
     STEP_GRASS, STEP_EARTH, STEP_COBBLE, STEP_WOOD, STEP_STONE,
     // the hero out of breath (95): one breath, out and in, of a man or a woman
@@ -71,7 +71,7 @@ object Sfx {
     val RECORDED_ONLY = setOf(Sound.BRAND, Sound.WIND, Sound.HALL, Sound.CREAK, Sound.HEARTBEAT, Sound.CUP, Sound.POUR, Sound.WIPE, Sound.CHAIR, Sound.COUGH, Sound.FROG, Sound.FROG_CHORUS, Sound.DRAGONFLY, Sound.RIVER,
         Sound.ALARM_BELL, Sound.FAR_SHOUT, Sound.FAR_SCREAM,
         Sound.HEN_CLUCK, Sound.HEN_SCRATCH, Sound.HEN_ALARM, Sound.HEN_FLAP,
-        Sound.GOAT_BLEAT, Sound.GOAT_GRAZE, Sound.RABBIT_MUNCH, Sound.RABBIT_THUMP, Sound.HEARTBEAT_STRONG,
+        Sound.GOAT_BLEAT, Sound.GOAT_GRAZE, Sound.RABBIT_MUNCH, Sound.HEARTBEAT_STRONG,
         Sound.STEP_GRASS, Sound.STEP_EARTH, Sound.STEP_COBBLE, Sound.STEP_WOOD, Sound.STEP_STONE, Sound.PANT_MAN, Sound.PANT_WOMAN,
         Sound.WOLF_FAR, Sound.RUMBLE, Sound.BIRD_FLAP, Sound.BIRD_SCRATCH, Sound.RAIN, Sound.HOWL,
         Sound.HAIL_MAN, Sound.HAIL_WOMAN, Sound.HAIL_CHILD, Sound.KNOCK) + MonsterIdle.SOUNDS
@@ -943,7 +943,7 @@ object Sfx {
         // the sound of a place (24.8) comes only from recordings
         Sound.WIND, Sound.HALL, Sound.CREAK, Sound.HEARTBEAT, Sound.CUP, Sound.POUR, Sound.WIPE, Sound.CHAIR, Sound.COUGH,
         Sound.FROG, Sound.FROG_CHORUS, Sound.DRAGONFLY, Sound.RIVER, Sound.ALARM_BELL, Sound.FAR_SHOUT, Sound.FAR_SCREAM, Sound.HEN_CLUCK, Sound.HEN_SCRATCH, Sound.HEN_ALARM, Sound.HEN_FLAP,
-        Sound.GOAT_BLEAT, Sound.GOAT_GRAZE, Sound.RABBIT_MUNCH, Sound.RABBIT_THUMP, Sound.HEARTBEAT_STRONG,
+        Sound.GOAT_BLEAT, Sound.GOAT_GRAZE, Sound.RABBIT_MUNCH, Sound.HEARTBEAT_STRONG,
         Sound.STEP_GRASS, Sound.STEP_EARTH, Sound.STEP_COBBLE, Sound.STEP_WOOD, Sound.STEP_STONE, Sound.PANT_MAN, Sound.PANT_WOMAN,
         Sound.WOLF_FAR, Sound.RUMBLE, Sound.BIRD_FLAP, Sound.BIRD_SCRATCH, Sound.RAIN, Sound.HOWL, Sound.HAIL_MAN, Sound.HAIL_WOMAN, Sound.HAIL_CHILD, Sound.KNOCK, Sound.BRAND,
         Sound.IDLE_WOLF, Sound.IDLE_BOAR, Sound.IDLE_GOBLIN, Sound.IDLE_KOBOLD, Sound.IDLE_GIANT_RAT, Sound.IDLE_GIANT_BAT, Sound.IDLE_STIRGE,

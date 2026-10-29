@@ -606,8 +606,8 @@ func _ortsklang(dt_ms: float) -> void:
 # 401 (Chef 28.10., 22:0x: „die Geräusche für alle Tiere, die jetzt hier rumstehen, auch mindestens 3“): man hört nur, was ein Tier
 # gerade tut, und nur in seiner Nähe (HenSound: bis 6 Kacheln, ab 1,5 am lautesten); jedes Tier für sich, nie im Takt.
 # Beginnt es zu fressen: das Huhn gluckst oft und scharrt dabei, die Ziege rupft Gras, das Kaninchen knabbert. Von selbst ab und
-# zu: die Ziege meckert, das Huhn gluckst. Kommt der Held heran: das Huhn gackert mit Flügelschlag, das Kaninchen klopft, die Ziege
-# meckert. Laute aus tools/klang/huehner.py und dorftiere.py.
+# zu: die Ziege meckert, das Huhn gluckst. Kommt der Held heran: das Huhn gackert mit Flügelschlag, die Ziege meckert (das Klopfen
+# des Kaninchens ist raus, Chef 29.10., 10:52: „nicht tauglich“). Laute aus tools/klang/huehner.py und dorftiere.py.
 const TIER_WEIT := 6.0                   # HenSound.FAR (Kacheln)
 const TIER_NAH := 1.5                    # HenSound.NEAR
 ## je Tier und Anlass: [Klang, Pegel ganz nah]; „fressen“ mit dem Abstand der Wiederholung (ms), „ruf“ mit der Pause (ms)
@@ -615,7 +615,7 @@ const TIERLAUT := {
 	"huhn": {"fressen": ["hen_scratch", 0.12, 700.0, 1600.0], "anfang": ["hen_cluck", 0.3], "ruf": ["hen_cluck", 0.25, 15000.0, 35000.0],
 		"held": [["hen_alarm", 0.45], ["hen_flap", 0.3]]},
 	"ziege": {"fressen": ["goat_graze", 0.25, 2500.0, 4500.0], "ruf": ["goat_bleat", 0.4, 20000.0, 45000.0], "held": [["goat_bleat", 0.5]]},
-	"kaninchen": {"fressen": ["rabbit_munch", 0.2, 2500.0, 4000.0], "held": [["rabbit_thump", 0.4]]},
+	"kaninchen": {"fressen": ["rabbit_munch", 0.2, 2500.0, 4000.0], "held": []},
 }
 var _tiere := {}                         # Tier (Knoten) -> {pause, nah, fressen_ms, ruf_ms}
 var _tiere_suche := 0.0

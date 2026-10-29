@@ -48,7 +48,7 @@ object Room {
     private val UNTOUCHED = setOf(
         Sound.WIND, Sound.HALL, Sound.DRIP, Sound.CRACKLE, Sound.BIRD, Sound.CRICKET, Sound.OWL, Sound.THUNDER, Sound.HEARTBEAT,
         Sound.FROG, Sound.FROG_CHORUS, Sound.DRAGONFLY, Sound.HEN_CLUCK, Sound.HEN_SCRATCH, Sound.HEN_ALARM, Sound.HEN_FLAP,
-        Sound.GOAT_BLEAT, Sound.GOAT_GRAZE, Sound.RABBIT_MUNCH, Sound.RABBIT_THUMP, Sound.HEARTBEAT_STRONG,
+        Sound.GOAT_BLEAT, Sound.GOAT_GRAZE, Sound.RABBIT_MUNCH, Sound.HEARTBEAT_STRONG,
         Sound.STEP_GRASS, Sound.STEP_EARTH, Sound.STEP_COBBLE, Sound.STEP_WOOD, Sound.STEP_STONE,
         Sound.HOWL,
         // the rain's loop (D3.10) and the monsters' idle sounds on the map (D3.9): dry, as tested in builds 9 and 10
