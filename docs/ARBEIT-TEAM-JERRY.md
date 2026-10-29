@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben.
 
-**Übergabe (29.10., 10:5x, `session_01Hmoj79A1…`):** 406 Runde 3 vorgelegt, Urteil 10:52 (Tiefe, Tusche, Rückenschild). 348.12 Grak gestoppt bis zum Urteil (Chef 10:05). Nachfolger: „Jerry – 402 Herzschlag, 406 Schild Tiefe“
+**Übergabe (29.10., 10:5x, `session_01Hmoj79A1…`):** 406 Runde 3 vorgelegt, Urteil 10:52. 348.12: nur Gang, schreitend (Chef 10:55). Nachfolger: „Jerry – 402 Herzschlag, 406 Schild Tiefe“
 
 ## Zeilen
 
