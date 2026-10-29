@@ -25,7 +25,6 @@ Nichts offen.
 | [399.1](ansehen/3991-ausruestung.md) | Menü: Benutzen und Ausrüstung wie alt | Tom | 28.10., 17:15 |
 | [399.5](ansehen/3995-innenraeume.md) | Innenräume wie alt, neunter Stand | Tom | 29.10. |
 | [402](ansehen/402-hoerprobe.md) | Hörprobe: Herzschlag beim Hinterhalt, Kaninchen-Klopfen | Jerry | 29.10., 00:21 |
-| [406](ansehen/406-kleriker-schild.md) | Rundschild des Klerikers, erstes Stück der Ausrüstung | Jerry | 29.10., 07:47 |
 
 ## Zu tun
 
@@ -81,7 +80,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 38, Muss 27, startbar 1
+**Jerry** – offen 38, Muss 27, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -90,7 +89,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „star
 | 399.3 | M | von Chef über Sokrates (16:42): Klang in die Spielfassung | wartet auf Test/Build (gebaut) |
 | 402 | M | von Sokrates (Chef 22:2x, Archiv): Blende vor dem Kampf wie alt; Herzschlag beim Hinterhal | Chef |
 | 403 | M | von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler): Kampfort: Held | Chef |
-| 406 | M | von Team Tom (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe): Ausrüstung der Helden je | Chef |
+| 406 | M | von Team Tom (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe): Ausrüstung der Helden je | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 401 | M | von Chef über Sokrates (Archiv): Tierlaute, mind. 3 je Tier | Chef |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | wartet auf Test/Build (gebaut) |
