@@ -135,7 +135,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 407 | Probelauf-Grenze 389 greift nicht: neue Runde erst nach Urteil des Chefs, jeder Zweig zählt („jetzt“ 29.10., 10:05) | B Abläufe | M | – | Perikles | startbar |
 | 408 | Bestand vor Eigenbau: gekaufte Modelle sichten und zur Wahl vorlegen, dann erst bauen (Chef 29.10., 11:15) | B Abläufe | M | – | Perikles | startbar |
 | 409 | Wörter der Erschaffung für fünf neue Frisuren (376.1, Chef 29.10., 10:52 „gibt es noch andere Frisuren“) | C Texte | M | – | Homer | wartet |
-| 410 | Waffen am Körper wegstecken, alle Waffenarten (aus 376.1, Chef 29.10., 10:52, 11:40) | E Figuren | M | – | Team Tom | startbar |
+| 410 | Waffen am Körper wegstecken, alle Waffenarten (aus 376.1, Chef 29.10., 10:52, 11:40) | E Figuren | M | – | Team Tom | Chef |
 | 411 | Mehr Frisuren als Seitenscheitel (aus 376.1, Chef 29.10., 10:52) | E Figuren | M | – | Team Tom | erledigt |
 | 412 | Je Thema ein eigener Vorgang, nichts thematisch Fremdes unter eine Nummer (Chef 29.10., 11:4x) | B Abläufe | M | – | Perikles | startbar |
 | 390 | Umzug: Punkte ohne Bilderrunde weiterbauen, solange Blätter beim Chef liegen (Perikles 28.10., Wochenziel 348) | E Technik | M | 39,54 $ | Team Tom, Team Jerry | wartet |
