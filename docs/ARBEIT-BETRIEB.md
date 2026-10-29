@@ -64,3 +64,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:05 29.10.: Marke Stellungnahme Sokrates 29.10. (lauf.py)
 - 00:05 29.10.: Marke Stellungnahme Sokrates 29.10. (lauf.py)
 - 00:05 29.10.: Marke Abgleich Vorentscheid 383.1 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
+- 01:04 29.10.: Startsperre 01:04 Start Homer, Perikles (lauf.py)
+- 01:04 29.10.: Marke Archiv session_01Hmoj78CkDLhCvXmQHdzaYa (lauf.py)
+- 01:04 29.10.: Marke Archiv session_01Hmoj76BK5vdJyc6arYtcYr (lauf.py)
+- 01:04 29.10.: Marke Archiv session_01Hmoj77EQQWjq6C98Pf9qhb (lauf.py)
+- 01:04 29.10.: Marke Archiv session_01Hmoj76y2gSrrvMTYAnBSWJ (lauf.py)
