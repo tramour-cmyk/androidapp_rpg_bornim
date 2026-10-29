@@ -30,7 +30,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 0, startbar 0
+**Homer** – offen 3, Muss 0, startbar 0, PAUSE bis 31.10., 20:00 Uhr
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -38,7 +38,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 27, Muss 17, startbar 2
+**Tom** – offen 27, Muss 17, startbar 2, PAUSE bis 31.10., 20:00 Uhr
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -70,7 +70,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 38, Muss 27, startbar 6
+**Jerry** – offen 38, Muss 27, startbar 6, PAUSE bis 31.10., 20:00 Uhr
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -113,10 +113,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 15, Muss 13, startbar 1
+**Perikles** – offen 16, Muss 14, startbar 2, PAUSE bis 31.10., 20:00 Uhr
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 408 | M | von Sokrates (Chef 11:15, Archiv): Bestand vor Eigenbau: Kaufmodelle sichten, zur Wahl vor | startbar |
 | 407 | M | von Chef über Sokrates („jetzt“ 29.10., 10:05): Probelauf-Grenze 389 so, dass sie greift: | startbar |
 | 399 | M | von Chef über Sokrates („jetzt“ 28.10., 12:34, Archiv): Vorrang neu: erst eine Godot-Fassu | wartet auf Tom |
 | 398 | M | von Sokrates (Chef 28.10., 11:22): Termine je Block nachrechnen mit der Schätzung der 15 Z | Termin 02.11. |
@@ -133,7 +134,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „star
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
-**Diogenes** – offen 5, Muss 3, startbar 0
+**Diogenes** – offen 5, Muss 3, startbar 0, PAUSE bis 31.10., 20:00 Uhr
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -143,7 +144,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 29, Muss 21, startbar 4
+**Sokrates** – offen 29, Muss 21, startbar 4, PAUSE bis 31.10., 20:00 Uhr
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
