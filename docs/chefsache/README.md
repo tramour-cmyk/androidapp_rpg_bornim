@@ -23,7 +23,7 @@ Nichts offen.
 | [348.12](ansehen/34812-grak-film.md) | Grak bewegt sich im Kampfort, Runde 2 | – | 29.10., 00:05 |
 | [376.1](ansehen/3761-klassen.md) | Held in vier Klassen: Köpfe, Haut, Robe | Tom | 29.10., 02:10 |
 | [399.1](ansehen/3991-ausruestung.md) | Menü: Benutzen und Ausrüstung wie alt | Tom | 28.10., 17:15 |
-| [399.5](ansehen/3995-innenraeume.md) | Innenräume wie alt, siebter Stand | Tom | 29.10. |
+| [399.5](ansehen/3995-innenraeume.md) | Innenräume wie alt, achter Stand | Tom | 29.10. |
 | [402](ansehen/402-hoerprobe.md) | Hörprobe: Herzschlag beim Hinterhalt, Kaninchen-Klopfen | Jerry | 29.10., 00:21 |
 
 ## Zu tun
