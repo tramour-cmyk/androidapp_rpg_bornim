@@ -11,6 +11,18 @@ const INFO := "res://daten/held-klassen.json"
 # form: Formschluessel (leer: wie gekauft); frisur, bart: Netz in haare.bin (leer: ohne); haut, haarfarbe: Nummer im Volk (held.json
 # voelker.<VOLK>.haut/haar, Appearance.kt wie die alte Erschaffung)
 const VORGABE := {"form": "", "frisur": "Hair_SimpleParted", "bart": "", "haarfarbe": 0, "haut": 0}
+# Chef 28.10., 23:0x („die 6 Beispielköpfe … auf Helden drauf basteln“; Haut „klinisch tot“, „normale Hautfarbe oder eine
+# klassentypische“): je Klasse ein fertiger Beispielkopf als Vorgabe, keiner mit „Hell“; in der Erschaffung frei aenderbar
+const KLASSEN_VORGABE := {
+	"FIGHTER": {"form": "kantig", "frisur": "Hair_Buzzed", "bart": "Hair_Beard", "haarfarbe": 0, "haut": 1},
+	"CLERIC": {"form": "rund", "frisur": "Hair_Balding", "bart": "Hair_Beard", "haarfarbe": 2, "haut": 2},
+	"ROGUE": {"form": "schmal", "frisur": "Hair_Ponytail", "bart": "", "haarfarbe": 3, "haut": 1},
+	"WIZARD": {"form": "hager", "frisur": "Hair_SlickBack", "bart": "Hair_Moustache", "haarfarbe": 1, "haut": 3},
+}
+# Haut im Bild wie das Farbfeld der Erschaffung (Chef 23:0x): Licht, Umgebung und Stimmung (licht.gd) bleichten das Gesicht aus;
+# je Kanal geeicht an der Wange (Klassenlauf, haut.txt: Wange gegen Farbfeld), dazu ein Teil der Farbschwankung des Bildes
+const HAUT_EICHUNG := Vector3(1.0, 1.0, 1.0)
+const HAUT_FARBE := 0.5
 # Bewegungen, die sich wiederholen (wie held.gd Gebiet.bewegungen)
 const SCHLEIFEN := ["Stehen", "Gehen", "Rennen", "Stehen_2", "Stehen_3", "Sitzen", "Gesten"]
 
@@ -20,14 +32,14 @@ static var bew_lib: AnimationLibrary = null
 static var bew_becken := 1.0
 
 # Woerter der Erschaffung (376.1; Homer prueft sie, Vorgang 376.1 bei Homer): Gesicht nach den Formen des Kopfblatts (Chef 27.10.,
-# 21:41 „Gefällt mir gut“), Frisur und Bart nach den Netzen des Pakets
+# 21:41 „Gefällt mir gut“), Frisur und Bart nach den Netzen des Pakets; Frisuren nach dem Bild (Homer 405, STORY-SPIEL [405.frisur])
 const WORTE := {
 	"form": ["Gesicht", "Face"], "frisur": ["Frisur", "Hairstyle"], "bart": ["Bart", "Beard"],
 	"form:": ["Oval", "Oval"], "form:schmal": ["Schmal", "Narrow"], "form:rund": ["Rund", "Round"], "form:kantig": ["Kantig", "Angular"],
 	"form:hager": ["Hager", "Gaunt"],
 	"frisur:": ["Kahl", "Bald"], "frisur:Hair_SimpleParted": ["Scheitel", "Parted"], "frisur:Hair_Buzzed": ["Kurz", "Buzzed"],
-	"frisur:Hair_SlickBack": ["Zurück", "Slicked"], "frisur:Hair_Ponytail": ["Zopf", "Ponytail"], "frisur:Hair_Balding": ["Halbglatze", "Balding"],
-	"frisur:Hair_Dreads": ["Filzlocken", "Dreads"], "frisur:Hair_Mohawk": ["Kamm", "Mohawk"],
+	"frisur:Hair_SlickBack": ["Zerzaust", "Tousled"], "frisur:Hair_Ponytail": ["Zopf", "Ponytail"], "frisur:Hair_Balding": ["Halbglatze", "Balding"],
+	"frisur:Hair_Dreads": ["Locken", "Curls"], "frisur:Hair_Mohawk": ["Schopf", "Forelock"],
 	"bart:": ["Ohne", "None"], "bart:Hair_Beard": ["Vollbart", "Full beard"], "bart:Hair_Moustache": ["Schnurrbart", "Moustache"],
 	"bart:Hair_MuttonChops": ["Koteletten", "Mutton chops"],
 }
@@ -55,8 +67,11 @@ static func wahl(w: Heldwerte, z: Zustand) -> Dictionary:
 	return {"klasse": w.klasse if w else "FIGHTER", "volk": w.volk if w else "HUMAN", "aussehen": z.aussehen if z else {},
 		"ausruestung": w.ausruestung if w else {}}
 
-static func aussehen_voll(a: Dictionary) -> Dictionary:
-	var v := VORGABE.duplicate()
+static func vorgabe(klasse: String) -> Dictionary:
+	return (KLASSEN_VORGABE.get(klasse, VORGABE) as Dictionary).duplicate()
+
+static func aussehen_voll(a: Dictionary, klasse := "") -> Dictionary:
+	var v := vorgabe(klasse)
 	for k in a: v[k] = a[k]
 	return v
 
@@ -65,7 +80,7 @@ static func aussehen_voll(a: Dictionary) -> Dictionary:
 static func baue(w: Dictionary, mats: Array) -> Node3D:
 	var k := String(w.get("klasse", "FIGHTER"))
 	if not da(k): return null
-	var a := aussehen_voll(w.get("aussehen", {}))
+	var a := aussehen_voll(w.get("aussehen", {}), k)
 	var m := Gebiet.lade_glb("res://daten/held_%s.bin" % k)
 	if m == null: return null
 	m.name = "Held_" + k
@@ -172,6 +187,7 @@ static func toene(m: Node3D, a: Dictionary, volk: String) -> void:
 	var haar := ton(volk, "haar", int(a.get("haarfarbe", 0)))
 	var hb := _hell(info.get("haut_bild", [1, 1, 1]))
 	var hh := _hell(info.get("haar_bild", [1, 1, 1]))
+	var hbild := _lin(info.get("haut_bild", [1, 1, 1]))
 	for mi in m.find_children("*", "MeshInstance3D", true, false):
 		var me := (mi as MeshInstance3D).mesh
 		for i in me.get_surface_count():
@@ -181,12 +197,35 @@ static func toene(m: Node3D, a: Dictionary, volk: String) -> void:
 			if sm == null: continue
 			var z := Color(-1, 0, 0)
 			var b := 0.0
-			if rn.contains("Regular") or rn.contains("Superhero"): z = haut; b = hb
+			var ist_haut := rn.contains("Regular") or rn.contains("Superhero")
+			if ist_haut: z = haut; b = hb
 			elif rn.contains("Hair"): z = haar; b = hh
 			if z.r < 0.0: continue
 			var l := z.srgb_to_linear()
-			sm.set_shader_parameter("toenung", Vector3(l.r, l.g, l.b))
+			var t := Vector3(l.r, l.g, l.b)
+			if ist_haut:
+				t *= haut_eichung()
+				sm.set_shader_parameter("toen_bild", hbild)
+				sm.set_shader_parameter("toen_farbe", haut_farbe())
+			sm.set_shader_parameter("toenung", t)
 			sm.set_shader_parameter("toen_hell", b)
+
+# Probe am Rechner (Klassenlauf): --hauteichung=r,g,b und --hautfarbe=x ersetzen die Konstanten
+static func haut_eichung() -> Vector3:
+	for x in OS.get_cmdline_user_args():
+		if x.begins_with("--hauteichung="):
+			var p := x.substr(14).split(",")
+			return Vector3(float(p[0]), float(p[1]), float(p[2]))
+	return HAUT_EICHUNG
+
+static func haut_farbe() -> float:
+	for x in OS.get_cmdline_user_args():
+		if x.begins_with("--hautfarbe="): return float(x.substr(12))
+	return HAUT_FARBE
+
+static func _lin(c: Array) -> Vector3:
+	var l := Color(float(c[0]), float(c[1]), float(c[2])).srgb_to_linear()
+	return Vector3(l.r, l.g, l.b)
 
 static func _hell(c: Array) -> float:
 	var l := Color(float(c[0]), float(c[1]), float(c[2])).srgb_to_linear()
@@ -227,8 +266,10 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 	var r := ruecken(m, y - 0.4, y + 0.3)   # [z oben, z unten, hinterste z]
 	var aussen: float = r[2]
 	if schild != "":
-		var oben := Vector3(0, y + 0.15, float(r[0]) - 0.03)
-		var unten := Vector3(0, y - 0.3, float(r[1]) - 0.03)
+		# Pruefer Lauf 2 (Kaempfer: Schild ragt von vorn ueber die Schultern; Schild 0,72 m, Oberkante 1,54 m, Schultern 1,46 m):
+		# Mitte 19 cm unter spine_03, Oberkante unter der Schulterlinie
+		var oben := Vector3(0, y + 0.05, float(r[0]) - 0.03)
+		var unten := Vector3(0, y - 0.43, float(r[1]) - 0.03)
 		var hoch := (oben - unten).normalized()
 		var t := Transform3D(Basis(Vector3.LEFT, hoch, Vector3.LEFT.cross(hoch)), (oben + unten) * 0.5)
 		_haenge(m, sk, bi, brust, schild, t, "RueckenSchild")

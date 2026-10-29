@@ -2,7 +2,8 @@
 # doch auch Einfluss nehmen … die jeweiligen Klassen ihre Standard-Grundausruestung kriegen, sichtbar“): der Held je Klasse auf dem
 # gekauften Koerper mit gekauftem Kopf (Quaternius Universal Base Characters, Regular), ohne Bewegungen (Godot nimmt die der UAL).
 #   FIGHTER: unsere Tracht (Kettenhemd, Wappenrock, Umhang; kauf_kleid.py, Chef 27.10., 18:06 „passt“)
-#   WIZARD, ROGUE, CLERIC: Quaternius' Trachten Wizard, Ranger (ohne Kapuze), Knight_Cloth (ohne Hoerner), Kopf Regular_Male_OnlyHead
+#   WIZARD: lange Robe wie im alten Spiel (held3.py mit trachten.json held_wizard, dann kauf_kleid.py wie beim Kaempfer)
+#   ROGUE, CLERIC: Quaternius' Trachten Ranger (ohne Kapuze), Knight_Cloth (ohne Hoerner), Kopf Regular_Male_OnlyHead
 # Kopfformen (kopf.FORMEN) als Formschluessel an Haut, Augen, Brauen und an jedem Haar und Bart: Godot waehlt sie (Erschaffung).
 # Haare und Baerte liegen einzeln in haare.glb (ohne Geruest, Ruhelage der Bezugsfigur); Godot haengt sie an den Kopfknochen.
 # Haut stoppelfrei, Haar und Brauen ungetoent (hellgrau): Godot toent Haut und Haar (toon.gdshader toenung).
@@ -27,9 +28,10 @@ KOERPER = 'Regular_Male_FullBody'
 KOPF = 'Regular_Male_OnlyHead'
 KLASSEN = {
     'FIGHTER': {'tracht': 'unsere'},
-    'WIZARD': {'kleid': 'Male_Wizard'},
+    'WIZARD': {'tracht': 'held_wizard'},   # Chef 28.10., 23:0x: „trägt keine Robe … Kasperlanzug“: lange Robe aus held3 (trachten.json)
     'ROGUE': {'kleid': 'Male_Ranger', 'ohne': ['Hood']},
-    'CLERIC': {'kleid': 'Male_Knight_Cloth', 'ohne': ['Horns'], 'stahl': False},   # Pruefer Lauf 1: Arme mit STAHL schwarz (Bild 0,20/0,13/0,08)
+    'CLERIC': {'kleid': 'Male_Knight_Cloth', 'ohne': ['Horns'], 'stahl': False,   # Pruefer Lauf 1: Arme mit STAHL schwarz (Bild 0,20/0,13/0,08)
+               'sonne': 'Body_Cloth', 'entgruen': ['Legs_Armor', 'Feet_Armor']},
 }
 # Maennerhaar und Baerte (Hairstyles/Rigged to Head Bone/Male); „Long“, „Bob“ und „Buns“ sitzen nur auf dem Frauenkopf
 HAARE = ['Hair_SimpleParted', 'Hair_Buzzed', 'Hair_SlickBack', 'Hair_Ponytail', 'Hair_Balding', 'Hair_Dreads', 'Hair_Mohawk']
@@ -121,11 +123,26 @@ def beine_weg(o):
     print('BEINE WEG', len(weg), 'Ecken')
 
 
-def kaempfer(k):
-    # unsere Tracht auf dem Kaufkoerper (kauf_kleid.py), dann Formschluessel am Kopf
+def held3_tracht(figur):
+    # Tracht einer Klasse aus held3.py und rig.py (FIGUR aus trachten.json) in einem eigenen Ordner; Texturen und Karten aus OUT
+    o = os.path.join(ZIEL, 'roh_' + figur); os.makedirs(o, exist_ok=True)
+    if not os.path.exists(os.path.join(o, 'tex')): os.symlink(os.path.join(OUT, 'tex'), os.path.join(o, 'tex'))
+    env = dict(os.environ, OUT=o, FIGUR=figur, LEUTE=os.path.join(HIER, 'trachten.json'))
+    env.setdefault('KARTEN', os.path.join(OUT, 'karten.json'))
+    for s in ('held3', 'rig'):
+        r = subprocess.run([sys.executable, '-I', os.path.join(HIER, s + '.py')], env=env, capture_output=True, text=True)
+        if r.returncode: print(r.stdout[-3000:], r.stderr[-3000:]); raise SystemExit('%s.py %s %d' % (s, figur, r.returncode))
+    return o
+
+
+def kaempfer(k, figur=''):
+    # unsere Tracht auf dem Kaufkoerper (kauf_kleid.py), dann Formschluessel am Kopf; figur: andere Tracht aus trachten.json
     roh = os.path.join(ZIEL, 'roh'); os.makedirs(roh, exist_ok=True)
     env = dict(os.environ, KOERPER=KOERPER, KOPF='', HAAR='', BART='', FARBE='keine', STOPPELN='0', HAUT='mittel', FORM='',
                KENNUNG='held_' + k, ZIEL=roh)
+    if figur:
+        env['OUT'] = held3_tracht(figur)
+        env['OHNE_TEIL'] = ','.join(json.load(open(os.path.join(HIER, 'trachten.json')))[figur].get('ohne', []))
     r = subprocess.run([sys.executable, '-I', os.path.join(HIER, 'kauf_kleid.py')], env=env, capture_output=True, text=True)
     print('\n'.join(l for l in r.stdout.splitlines() if l.startswith(('KAUFKLEID', 'KLEIDUNG', 'HALS', 'UMHANG'))))
     if r.returncode: print(r.stdout[-3000:], r.stderr[-3000:]); raise SystemExit('kauf_kleid.py %d' % r.returncode)
@@ -138,6 +155,79 @@ def kaempfer(k):
     schluessel([haut, augen] + brauen if augen else [haut] + brauen, p, augen)
     exportiere(os.path.join(ZIEL, 'held_%s.glb' % k), [arm] + netze, farbe=True)
     return arm, netze
+
+
+def eigenes_bild(o, gross=1024):
+    # eigene Kopie von Material und Bild fuer dieses Netz (das Bild teilen sich alle Teile der Tracht), hoechstens gross Punkte
+    m = o.data.materials[0]
+    m2 = m.copy(); m2.name = m.name + '_' + o.name; o.data.materials[0] = m2
+    tn = QT.basisbild(m2)
+    im = tn.image.copy(); im.name = o.name + '_bild'; tn.image = im
+    if max(im.size) > gross:
+        fk = gross / max(im.size); im.scale(max(1, int(im.size[0] * fk)), max(1, int(im.size[1] * fk)))
+    W, H = im.size
+    px = np.empty(W * H * 4, dtype=np.float32); im.pixels.foreach_get(px)
+    return im, px.reshape(H, W, 4)
+
+
+def zurueck_ins_bild(im, px):
+    im.pixels.foreach_set(px.ravel()); im.update(); im.pack()
+
+
+def entgruen(o):
+    # Pruefer Lauf 2 (Kleriker): Beinplatten mintgruen. Gruenstich (Gruen ueber Rot) zu Stahl: Helligkeit mal STAHL, Stoff bleibt
+    im, px = eigenes_bild(o)
+    c = px[..., :3]
+    l = (0.2126 * c[..., 0] + 0.7152 * c[..., 1] + 0.0722 * c[..., 2])[..., None]
+    g = np.clip((c[..., 1] - c[..., 0] - 0.01) / 0.05, 0, 1)[..., None]
+    px[..., :3] = c * (1 - g) + l * np.array(QT.STAHL, dtype=np.float32) * 1.15 * g
+    zurueck_ins_bild(im, px)
+    print('ENTGRUEN', o.name, int((g > 0.5).sum()), 'Punkte')
+
+
+SONNE_GOLD = np.array((0.72, 0.565, 0.29), dtype=np.float32)   # Gold wie alt (Dress.kt gold B8904A)
+SONNE_GROESSE = float(os.environ.get('SONNE_GROESSE', '1.25'))  # Mass von Dress.kt; groesser, weil die Figur klein im Bild steht
+
+
+def sonne(o, arm):
+    # Chef 28.10., 23:0x (Kleriker „wegen seiner Verbundenheit zu seiner Göttin“), Dress.kt tabard: goldene Sonne auf Brust und
+    # Ruecken, Scheibe, Ring und acht Strahlen; Mitte bei Guertel + 0,58 (Schulter - Guertel). Ins Bild des Netzes gemalt: je
+    # Dreieck vorn bzw. hinten die Bildpunkte, deren Lage auf dem Koerper in der Sonne liegt
+    im, px = eigenes_bild(o)
+    H, W = px.shape[:2]
+    mw = arm.matrix_world
+    gz = (mw @ arm.data.bones['spine_01'].head_local).z
+    sz = (mw @ arm.data.bones['upperarm_l'].head_local).z
+    mz = gz + (sz - gz) * 0.58
+    h = (mw @ arm.data.bones['Head'].head_local).z / 0.9 * SONNE_GROESSE   # Koerperhoehe (Kopfknochen bei etwa 90 %), mal Mass
+    P = KO._welt(o)
+    me = o.data; me.calc_loop_triangles()
+    uv = me.uv_layers.active.data
+    n = 0
+    for t in me.loop_triangles:
+        a, b, c = (P[i] for i in t.vertices)
+        mitte = (a + b + c) / 3
+        nrm = np.cross(b - a, c - a)
+        if abs(mitte[0]) > 0.04 * h or abs(mitte[2] - mz) > 0.04 * h or abs(nrm[1]) < 0.3 * np.linalg.norm(nrm): continue
+        U = np.array([uv[l].uv[:] for l in t.loops]) * (W, H)
+        x0, y0 = np.floor(U.min(0)).astype(int); x1, y1 = np.ceil(U.max(0)).astype(int)
+        xs, ys = np.meshgrid(np.arange(x0, x1 + 1) + 0.5, np.arange(y0, y1 + 1) + 0.5)
+        T = np.array([[U[1, 0] - U[0, 0], U[2, 0] - U[0, 0]], [U[1, 1] - U[0, 1], U[2, 1] - U[0, 1]]])
+        if abs(np.linalg.det(T)) < 1e-9: continue
+        l12 = np.linalg.solve(T, np.stack([xs.ravel() - U[0, 0], ys.ravel() - U[0, 1]]))
+        l0 = 1 - l12[0] - l12[1]
+        drin = (l0 >= -0.01) & (l12[0] >= -0.01) & (l12[1] >= -0.01)
+        if not drin.any(): continue
+        Q = l0[drin, None] * a + l12[0][drin, None] * b + l12[1][drin, None] * c
+        dx, dz = Q[:, 0], Q[:, 2] - mz
+        rr = np.hypot(dx, dz)
+        strahl = np.abs((np.arctan2(dz, dx) / (2 * np.pi) * 8 + 0.5) % 1.0 - 0.5) * rr
+        gold = (rr < 0.012 * h) | (np.abs(rr - 0.021 * h) < 0.0045 * h) | ((rr >= 0.021 * h) & (rr <= 0.034 * h) & (strahl < 0.005 * h))
+        if not gold.any(): continue
+        X = (xs.ravel()[drin][gold]).astype(int) % W; Y = (ys.ravel()[drin][gold]).astype(int) % H
+        px[Y, X, :3] = SONNE_GOLD; n += len(X)
+    zurueck_ins_bild(im, px)
+    print('SONNE', o.name, n, 'Punkte, Mitte', round(mz, 3), 'm, Mass', round(h, 3))
 
 
 def tracht(k, f):
@@ -161,6 +251,9 @@ def tracht(k, f):
     for o in netze:   # wie quaternius.py: Schulterstueck Leder, Ritterplatten Stahl (Helfer 13:45)
         if 'Pauldron' in o.name: QT.toene(o, lambda n: True, QT.LEDER)
         elif o.name.startswith(('Male_Knight', 'Female_Knight')) and f.get('stahl', True): QT.toene(o, lambda n: n.startswith('MI_Knight'), QT.STAHL)
+    for o in netze:
+        if any(w in o.name for w in f.get('entgruen', [])): entgruen(o)
+        if f.get('sonne') and f['sonne'] in o.name: sonne(o, arm)
     haut, augen, brauen = kopfnetze(netze)
     p = KO.merkpunkte(haut, augen)
     KO.toene_haut(haut, p, (1.0, 1.0, 1.0), 0.0, mat=lambda n: 'Regular' in n)   # glatt rasiert; Bart als Netz (haare.glb)
@@ -276,8 +369,8 @@ info = {'formen': FORMEN, 'haut': {k: list(v) for k, v in KO.HAUT.items()}, 'haa
         'klassen': {}}
 for k, f in KLASSEN.items():
     if NUR and k not in NUR: continue
-    arm, netze = kaempfer(k) if f.get('tracht') == 'unsere' else tracht(k, f)
-    info['klassen'][k] = {'kleid': f.get('kleid', 'unsere'), 'kopf': godot(QT.kopf_pos(arm)), 'dreiecke': dreiecke(netze),
+    arm, netze = tracht(k, f) if 'kleid' in f else kaempfer(k, '' if f['tracht'] == 'unsere' else f['tracht'])
+    info['klassen'][k] = {'kleid': f.get('kleid') or f['tracht'], 'kopf': godot(QT.kopf_pos(arm)), 'dreiecke': dreiecke(netze),
                           'netze': sorted(o.name for o in netze)}
     print('KLASSE', k, info['klassen'][k]['dreiecke'], 'Dreiecke', info['klassen'][k]['kleid'])
 info.update(haare())

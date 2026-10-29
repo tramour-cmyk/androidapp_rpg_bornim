@@ -1,0 +1,4 @@
+{
+  "_liesmich": "376.1 Trachten der Klassen (held_klassen.py: held3.py und rig.py mit LEUTE=trachten.json FIGUR=<kennung>, dann kauf_kleid.py auf den Kaufkoerper). Felder wie leute.json; Farben wie das alte Spiel (CharacterArt.heroLook: cloth, clothDark, pants; Umhang cloakColor gewoehnlich). Kopf, Haut und Haar kommen vom Kaufkopf. ohne: Teile, die kauf_kleid.py weglaesst (OHNE_TEIL).",
+  "held_wizard": {"sex": "m", "statur": "mittel", "haut": "D4A27C", "haar": "5E3C26", "kopf": "haar", "hemd": "kittel", "rock": "robe", "umhang": "5A4A3A", "tabard": "3858C0", "sleeve": "203888", "pants": "283070", "groesse": 1.0, "ohne": ["pants"]}
+}

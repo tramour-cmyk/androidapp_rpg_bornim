@@ -13,8 +13,9 @@ FORMEN = {   # Pruefer 20:2x/20:33: schmal = hager = gekauft, kantig einseitig g
     'gekauft': {},
     'schmal':  {'breite': -0.15, 'kiefer': -0.20, 'laenge': 0.05, 'wangen': -0.004},
     'rund':    {'breite': 0.12, 'kiefer': 0.18, 'laenge': -0.08, 'kinn': -0.006, 'wangen': 0.006, 'nase': -0.15, 'brauen': -0.002},
-    'kantig':  {'breite': -0.03, 'kiefer': 0.32, 'laenge': 0.03, 'kinn': 0.010, 'brauen': 0.008, 'nase': 0.12},
-    'hager':   {'breite': -0.02, 'kiefer': -0.08, 'laenge': 0.18, 'kinn': 0.008, 'wangen': 0.012, 'brauen': 0.007, 'nase': 0.30},
+    # Pruefer Lauf 2 (28.10., 23:1x): „kantig“ beult an der Wange (Kiefer weniger, Kinn mehr), „hager“ wie „oval“ (laenger, schmaler)
+    'kantig':  {'breite': -0.03, 'kiefer': 0.24, 'laenge': 0.03, 'kinn': 0.013, 'brauen': 0.008, 'nase': 0.12},
+    'hager':   {'breite': -0.08, 'kiefer': -0.14, 'laenge': 0.26, 'kinn': 0.008, 'wangen': 0.012, 'brauen': 0.007, 'nase': 0.30},
 }
 # Haut (Faktor auf das Bild): die Textur ist hell-rosig
 HAUT = {'hell': (1.22, 1.16, 1.10), 'mittel': (1.0, 1.0, 1.0), 'warm': (0.98, 0.90, 0.80), 'gebraeunt': (0.80, 0.68, 0.56),

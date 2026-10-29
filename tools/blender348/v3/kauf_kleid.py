@@ -29,7 +29,7 @@ STOPPELN = float(os.environ.get('STOPPELN', '1.0'))   # 0: glatt rasiert (Helfer
 os.makedirs(ZIEL, exist_ok=True)
 
 # Teile unseres Helden, die Kleidung sind (Helm, Schild, Schwert, Scheide nicht: Kleidung, kein Geraet)
-KLEID = {'belt', 'buckle', 'boots', 'chain', 'cuff', 'clasp', 'cloak', 'pants', 'sleeves', 'tabard'}
+KLEID = {'belt', 'buckle', 'boots', 'chain', 'cuff', 'clasp', 'cloak', 'pants', 'sleeves', 'tabard', 'robe'}   # robe: Magier (trachten.json)
 # eng anliegend: Gewichte vom fremden Koerper darunter (bewegt sich wie er; mit unseren Gewichten stach er in jeder Haltung ausser
 # der Probe durch, pruef_tracht.py); Wappenrock und Umhang behalten unsere (folgen den Oberschenkeln nur zum Teil)
 ENG = {'belt', 'buckle', 'boots', 'chain', 'cuff', 'clasp', 'pants', 'sleeves'}
@@ -337,7 +337,7 @@ WKq[:, iHals] += WKq[:, iKopf]; WKq[:, iKopf] = 0.0
 # und Umhang haben unsere Gewichte, das Kettenhemd die des Koerpers, in Bewegung laufen sie auseinander. Ueber der Huefte folgen sie
 # darum der Lage darunter (deren Gewichte an der Stelle, die der Strahl nach innen trifft), darunter gleitend die eigenen (Saum frei)
 FOLGT_AB = float(os.environ.get('FOLGT_AB', '0.05')); FOLGT_BREIT = float(os.environ.get('FOLGT_BREIT', '0.17'))
-FOLGT = [('tabard', ('chain', 'sleeves')), ('cloak', ('tabard', 'chain', 'belt', 'buckle', 'sleeves', 'clasp'))]
+FOLGT = [('tabard', ('chain', 'sleeves')), ('robe', ('chain', 'sleeves')), ('cloak', ('tabard', 'robe', 'chain', 'belt', 'buckle', 'sleeves', 'clasp'))]
 LTk = tl[ist_kleid]; TID = {n: i for i, n in enumerate(TEILNAMEN)}
 kme.vertices.foreach_set('co', VK2.ravel()); kme.update()
 NK2 = np.empty(len(VK2) * 3); kme.vertices.foreach_get('normal', NK2); NK2 = NK2.reshape(-1, 3)
@@ -417,10 +417,12 @@ for j, n in enumerate(Q_KN):
 for m in list(kleid.modifiers): kleid.modifiers.remove(m)
 kleid.parent = qa
 md = kleid.modifiers.new('Armature', 'ARMATURE'); md.object = qa
-if os.environ.get('OHNE_TEIL') in TEILNAMEN:
+# 376.1 Magier: OHNE_TEIL=pants (Liste mit Komma; trachten.json „ohne“): unter der Robe stach die Hose im Lauf durch (pruef_tracht.py Jog 36)
+ohne = [t for t in os.environ.get('OHNE_TEIL', '').split(',') if t in TEILNAMEN]
+if ohne:
     bm = bmesh.new(); bm.from_mesh(kme); bm.verts.ensure_lookup_table()
-    bmesh.ops.delete(bm, geom=[bm.verts[i] for i in np.where(LT == TEILNAMEN.index(os.environ['OHNE_TEIL']))[0]], context='VERTS')
-    bm.to_mesh(kme); bm.free(); print('OHNE', os.environ['OHNE_TEIL'])
+    bmesh.ops.delete(bm, geom=[bm.verts[i] for i in np.where(np.isin(LT, [TEILNAMEN.index(t) for t in ohne]))[0]], context='VERTS')
+    bm.to_mesh(kme); bm.free(); print('OHNE', ohne)
 
 dr = sum(len(o.data.polygons) for o in qnetze + [kleid])
 info = {'kennung': KENNUNG, 'koerper': KOERPER, 'kopf': KOPF or KOERPER, 'haar': HAAR, 'bart': BART, 'form': KO.form_aus(FORM), 'haut': HAUT, 'stoppeln': STOPPELN, 'farbe': FARBE,

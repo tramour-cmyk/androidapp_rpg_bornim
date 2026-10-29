@@ -20,6 +20,8 @@ func _init() -> void:
 		pruefe(HeldFigur.da(k), k + " fehlt")
 		if not HeldFigur.da(k): continue
 		var hw := Heldwerte.erschaffe("Test", "HUMAN", k)
+		# Beispielkopf je Klasse (Chef 23:0x): eigene Vorgabe, Haut nicht „Hell“
+		pruefe(int(HeldFigur.vorgabe(k)["haut"]) > 0, "%s: Vorgabe Haut Hell" % k)
 		for a in [{}, {"form": "rund", "frisur": "Hair_Buzzed", "bart": "Hair_Beard", "haut": 3, "haarfarbe": 2}, {"form": "hager", "frisur": "", "bart": ""}]:
 			var mats := []
 			var w := {"klasse": k, "volk": "HUMAN", "aussehen": a, "ausruestung": hw.ausruestung}
@@ -33,10 +35,10 @@ func _init() -> void:
 			pruefe((m.get_meta("faust_L") as Dictionary).has("knochen"), "%s: linke Faust fehlt" % k)
 			var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
 			var haare := sk.find_children("Haar_*", "BoneAttachment3D", false, false).size()
-			var soll := int(String(HeldFigur.aussehen_voll(a)["frisur"]) != "") + int(String(HeldFigur.aussehen_voll(a)["bart"]) != "")
+			var soll := int(String(HeldFigur.aussehen_voll(a, k)["frisur"]) != "") + int(String(HeldFigur.aussehen_voll(a, k)["bart"]) != "")
 			pruefe(haare == soll, "%s %s: %d Haarteile statt %d" % [k, a, haare, soll])
 			# Formschluessel: die gewaehlte Form steht auf 1 an Haut und Haar
-			var form := String(HeldFigur.aussehen_voll(a)["form"])
+			var form := String(HeldFigur.aussehen_voll(a, k)["form"])
 			var gesetzt := 0
 			var mit_form := 0
 			for mi in m.find_children("*", "MeshInstance3D", true, false):
@@ -64,7 +66,19 @@ func _init() -> void:
 			var fuss := sk.get_bone_global_pose(sk.find_bone("foot_l")).origin
 			var kopf := sk.get_bone_global_pose(sk.find_bone("Head")).origin
 			pruefe(absf(fuss.y) < 0.2 and kopf.y > 1.4 and kopf.y < 1.9, "%s: Fuss %.2f, Kopf %.2f m" % [k, fuss.y, kopf.y])
+			# Chef 23:0x („trägt keine Robe“): die Robe des Magiers faellt zwischen den Beinen bis unter die Waden
+			if k == "WIZARD" and a.is_empty():
+				var tief := 9.0
+				for mi in m.find_children("*", "MeshInstance3D", true, false):
+					if not String(mi.name).begins_with("Kleid"): continue
+					for v in ((mi as MeshInstance3D).mesh as ArrayMesh).surface_get_arrays(0)[Mesh.ARRAY_VERTEX]:
+						var p: Vector3 = HeldFigur.im_raum(m, mi) * v
+						if absf(p.x) < 0.05: tief = minf(tief, p.y)
+				pruefe(tief < 0.35, "WIZARD: Robe endet zwischen den Beinen bei %.2f m" % tief)
 			print("%s %s: Gehen %.2f m/s, Kopf %.2f m, %d Netze mit Form, %d getoent" % [k, a, m.get_meta("gehen_m_je_s"), kopf.y, mit_form, getoent])
 			m.free()
+	var v := {}
+	for k in HeldFigur.KLASSEN_VORGABE: v[str(HeldFigur.KLASSEN_VORGABE[k])] = k
+	pruefe(v.size() == 4, "Vorgaben der Klassen nicht verschieden")
 	print("HELDKLASSEN gut" if falsch == 0 else "HELDKLASSEN %d FALSCH" % falsch)
 	quit(0 if falsch == 0 else 1)

@@ -25,6 +25,8 @@ uniform float rueckseite = 0.0;    // 376.1 Halszacken (Helfer 22:3x: Innenseite
 uniform float kette_aus = 0.0;     // nur zum Messen (376.1 Halszacken): Kette (Eckfarbe alpha 0,25-0,7) so viele Meter laengs der Normale hinaus
 uniform vec3 toenung = vec3(1.0);   // 376.1 Held: Haut und Haar getoent (heldfigur.gd): Zielton linear
 uniform float toen_hell = 0.0;     // > 0: Helligkeit des Bildes am Zielton (Bildhelligkeit / toen_hell), sonst Faktor toenung
+uniform vec3 toen_bild = vec3(1.0); // 376.1 Haut (Chef 28.10., 23:0x „klinisch tot“): Bildfarbe am Zielton (linear); toen_farbe davon
+uniform float toen_farbe = 0.0;    // Anteil der eigenen Farbschwankung des Bildes (Wangen, Lippen roeter) um den Zielton
 uniform float teil = 0.0;          // nur zum Messen (held.gd --teilfarbe): Eisen gruen, Kette rot, Haut (rig.py TEILMASKE) blau, Rest schwarz
 varying vec3 wpos;
 varying float v_eisen;
@@ -66,7 +68,11 @@ void fragment() {
 	if (loch > 0.5 && !IN_SHADOW_PASS) discard;
 #endif
 	ALBEDO = texture(tex, UV).rgb * COLOR.rgb;
-	if (toen_hell > 0.0) ALBEDO = toenung * dot(ALBEDO, vec3(0.2126, 0.7152, 0.0722)) / toen_hell;   // 376.1: Zeichnung des Bildes, Farbe des Tons
+	if (toen_hell > 0.0) {   // 376.1: Zeichnung des Bildes, Farbe des Tons, dazu ein Teil der Farbschwankung des Bildes (toen_farbe)
+		float hl = dot(ALBEDO, vec3(0.2126, 0.7152, 0.0722));
+		vec3 rel = (ALBEDO / max(hl, 0.001)) / max(toen_bild / toen_hell, vec3(0.001));
+		ALBEDO = toenung * hl / toen_hell * mix(vec3(1.0), rel, toen_farbe);
+	}
 	else ALBEDO *= toenung;
 	if (kontur > 0.0) {
 		float rim = 1.0 - abs(dot(NORMAL, VIEW));

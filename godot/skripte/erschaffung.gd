@@ -24,7 +24,8 @@ var gekauft := {}                     # Punktekauf vor dem Volksbonus (Hero.sugg
 var rolle: ScrollContainer
 var inhalt: VBoxContainer
 var kopf: VBoxContainer               # Zusammenfassung neben dem Helden
-var aussehen := HeldFigur.VORGABE.duplicate()   # 376.1
+var aussehen := HeldFigur.vorgabe("FIGHTER")   # 376.1; Beispielkopf der Klasse (Chef 28.10., 23:0x), bis der Spieler selbst waehlt
+var aussehen_eigen := false
 var teller: Drehteller
 var teller_wahl := ""                 # zuletzt gezeigte Wahl (Punktekauf baut die Seite neu, den Helden nicht)
 
@@ -91,7 +92,7 @@ func baue() -> void:
 	inhalt.add_child(kopfzeile(Sprache.u("yourName")))
 	inhalt.add_child(namensfeld())
 	inhalt.add_child(kopfzeile(Sprache.u("chooseRace")))
-	inhalt.add_child(wahl(VOELKER, volk, func(v): return Sprache.t(d["voelker"][v]["name"]), func(v): volk = v; aussehen["haut"] = 0; aussehen["haarfarbe"] = 0; baue()))
+	inhalt.add_child(wahl(VOELKER, volk, func(v): return Sprache.t(d["voelker"][v]["name"]), func(v): volk = v; aussehen["haut"] = int(HeldFigur.vorgabe(klasse)["haut"]); aussehen["haarfarbe"] = int(HeldFigur.vorgabe(klasse)["haarfarbe"]); baue()))
 	var vk := VBoxContainer.new()
 	vk.add_theme_constant_override("separation", 0)
 	var vd: Dictionary = d["voelker"][volk]
@@ -105,7 +106,7 @@ func baue() -> void:
 	inhalt.add_child(kasten(vk))
 	if HeldFigur.da(klasse): aussehen_wahl()
 	inhalt.add_child(kopfzeile(Sprache.u("chooseClass")))
-	inhalt.add_child(wahl(KLASSEN, klasse, func(k): return Sprache.t(d["klassen"][k]["name"]), func(k): klasse = k; gekauft = Heldwerte.vorschlag(k); baue()))
+	inhalt.add_child(wahl(KLASSEN, klasse, func(k): return Sprache.t(d["klassen"][k]["name"]), klasse_waehlen))
 	var kk := VBoxContainer.new()
 	kk.add_theme_constant_override("separation", 0)
 	var kd: Dictionary = d["klassen"][klasse]
@@ -281,9 +282,15 @@ func punktekauf() -> void:
 
 # HeroTurntable (drehteller.gd); 376.1 mit Klasse, Aussehen und Grundausruestung
 func vorschau() -> Control:
-	teller = Drehteller.new(wahl_jetzt())
+	teller = Drehteller.new(wahl_jetzt(), 0.9)
 	teller_wahl = str(wahl_jetzt())
 	return teller
+
+func klasse_waehlen(k: String) -> void:
+	klasse = k
+	gekauft = Heldwerte.vorschlag(k)
+	if not aussehen_eigen: aussehen = HeldFigur.vorgabe(k)   # Beispielkopf der Klasse, solange der Spieler nichts gewaehlt hat
+	baue()
 
 func wahl_jetzt() -> Dictionary:
 	return {"klasse": klasse, "volk": volk, "aussehen": aussehen.duplicate(), "ausruestung": held().ausruestung}
@@ -306,7 +313,7 @@ func aussehen_wahl() -> void:
 	for teil in [["form", HeldFigur.formen()], ["frisur", HeldFigur.frisuren()], ["bart", HeldFigur.baerte()]]:
 		inhalt.add_child(txt(HeldFigur.wort(teil[0]), 14))
 		inhalt.add_child(wahl(teil[1], String(aussehen.get(teil[0], "")), func(x): return HeldFigur.wort(teil[0] + ":" + x),
-			func(x): aussehen[teil[0]] = x; baue()))
+			func(x): aussehen[teil[0]] = x; aussehen_eigen = true; baue()))
 
 # ToneChoices: Beschriftung, dann je Ton ein Feld mit Namen darunter; das gewaehlte mit Goldrand
 func toene(wort: String, liste: Array, schluessel: String) -> Control:
@@ -336,7 +343,7 @@ func toene(wort: String, liste: Array, schluessel: String) -> Control:
 		sp.add_child(n)
 		var nr := i
 		sp.mouse_filter = Control.MOUSE_FILTER_STOP
-		sp.gui_input.connect(func(e): if e is InputEventMouseButton and e.pressed: aussehen[schluessel] = nr; baue())
+		sp.gui_input.connect(func(e): if e is InputEventMouseButton and e.pressed: aussehen[schluessel] = nr; aussehen_eigen = true; baue())
 		r.add_child(sp)
 	return r
 

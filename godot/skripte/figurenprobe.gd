@@ -713,26 +713,22 @@ func zackenzahl(img: Image, hals: Vector2) -> Array:
 # Bilder sehen“): die vier Klassen mit ihrer Grundausruestung (heldfigur.gd, wie im Spiel) auf dem Dorfplatz von vorn, von hinten
 # (Waffe, Schild auf dem Ruecken) und in der Spielansicht; der Kaempfer in sechs Aussehen (Kopf nah); die Erschaffung mit „Aussehen“.
 const KLASSEN_REIHE := ["FIGHTER", "CLERIC", "ROGUE", "WIZARD"]
-# Lauf 2 (Pruefer Lauf 1: „wie Klone“, alle mit Vorgabe): je Klasse ein anderes Aussehen
-const KLASSEN_AUSSEHEN := [
-	{"form": "", "frisur": "Hair_SimpleParted", "bart": "", "haarfarbe": 0, "haut": 0},
-	{"form": "rund", "frisur": "Hair_Balding", "bart": "Hair_Beard", "haarfarbe": 2, "haut": 2},
-	{"form": "schmal", "frisur": "Hair_Ponytail", "bart": "", "haarfarbe": 3, "haut": 1},
-	{"form": "hager", "frisur": "Hair_Buzzed", "bart": "Hair_Moustache", "haarfarbe": 1, "haut": 3},
-]
-# Kopfblatt: erste Reihe die fuenf Gesichter mit gleicher Frisur (Pruefer Lauf 1: Formen sahen gleich aus), zweite Reihe Frisur,
-# Bart, Farben
+# Lauf 2 (Pruefer Lauf 1: „wie Klone“): je Klasse ein anderes Aussehen; seit Chef 28.10., 23:0x die Beispielkoepfe der Klassen
+# (HeldFigur.KLASSEN_VORGABE), wie ein neuer Held sie traegt
+# Kopfblatt: erste Reihe die fuenf Gesichter mit gleicher Frisur (Pruefer Lauf 1: Formen sahen gleich aus), zweite Reihe die
+# Hauttoene und eine Frisur mit Bart
 const AUSSEHEN_PROBE := [
-	{"form": "", "frisur": "Hair_Buzzed", "bart": "", "haarfarbe": 0, "haut": 0},
-	{"form": "schmal", "frisur": "Hair_Buzzed", "bart": "", "haarfarbe": 0, "haut": 0},
-	{"form": "rund", "frisur": "Hair_Buzzed", "bart": "", "haarfarbe": 0, "haut": 0},
-	{"form": "kantig", "frisur": "Hair_Buzzed", "bart": "", "haarfarbe": 0, "haut": 0},
-	{"form": "hager", "frisur": "Hair_Buzzed", "bart": "", "haarfarbe": 0, "haut": 0},
-	{"form": "rund", "frisur": "Hair_SlickBack", "bart": "Hair_Beard", "haarfarbe": 2, "haut": 3},
-	{"form": "kantig", "frisur": "Hair_Dreads", "bart": "Hair_MuttonChops", "haarfarbe": 3, "haut": 1},
-	{"form": "schmal", "frisur": "Hair_Mohawk", "bart": "", "haarfarbe": 1, "haut": 0},
-	{"form": "hager", "frisur": "Hair_Balding", "bart": "Hair_Moustache", "haarfarbe": 0, "haut": 2},
-	{"form": "", "frisur": "", "bart": "Hair_Beard", "haarfarbe": 3, "haut": 1},
+	{"form": "", "frisur": "Hair_Buzzed", "bart": "", "haarfarbe": 0, "haut": 1},
+	{"form": "schmal", "frisur": "Hair_Buzzed", "bart": "", "haarfarbe": 0, "haut": 1},
+	{"form": "rund", "frisur": "Hair_Buzzed", "bart": "", "haarfarbe": 0, "haut": 1},
+	{"form": "kantig", "frisur": "Hair_Buzzed", "bart": "", "haarfarbe": 0, "haut": 1},
+	{"form": "hager", "frisur": "Hair_Buzzed", "bart": "", "haarfarbe": 0, "haut": 1},
+	# Chef 23:0x („klinisch tot“): die vier Hauttoene des Menschen ohne Bart (klassen_blatt.py misst die Wange gegen das Farbfeld)
+	{"form": "", "frisur": "Hair_SimpleParted", "bart": "", "haarfarbe": 0, "haut": 0},
+	{"form": "", "frisur": "Hair_SimpleParted", "bart": "", "haarfarbe": 2, "haut": 1},
+	{"form": "", "frisur": "Hair_SimpleParted", "bart": "", "haarfarbe": 3, "haut": 2},
+	{"form": "", "frisur": "Hair_SimpleParted", "bart": "", "haarfarbe": 1, "haut": 3},
+	{"form": "rund", "frisur": "Hair_Mohawk", "bart": "Hair_MuttonChops", "haarfarbe": 3, "haut": 2},
 ]
 func klasse_figur(kennung: String, w: Dictionary) -> void:
 	var ms := []
@@ -753,7 +749,7 @@ func klassen() -> void:
 	for i in KLASSEN_REIHE.size():
 		var k: String = KLASSEN_REIHE[i]
 		var hw := Heldwerte.erschaffe("Probe", "HUMAN", k)
-		klasse_figur("kl_" + k, {"klasse": k, "volk": "HUMAN", "aussehen": KLASSEN_AUSSEHEN[i], "ausruestung": hw.ausruestung})
+		klasse_figur("kl_" + k, {"klasse": k, "volk": "HUMAN", "aussehen": HeldFigur.vorgabe(k), "ausruestung": hw.ausruestung})
 	for i in AUSSEHEN_PROBE.size():
 		var hw := Heldwerte.erschaffe("Probe", "HUMAN", "FIGHTER")
 		klasse_figur("ak_%d" % i, {"klasse": "FIGHTER", "volk": "HUMAN", "aussehen": AUSSEHEN_PROBE[i], "ausruestung": hw.ausruestung})
@@ -784,6 +780,11 @@ func klassen() -> void:
 		var o := clampi(int(kopf.y) - 60, 0, img.get_height() - 10)
 		img.get_region(Rect2i(0, o, img.get_width(), clampi(int(fuss.y) + 80 - o, 10, img.get_height() - o))).save_png(aus + "/klassen_%s.png" % seite)
 		protokoll.append("BILD klassen_%s" % seite)
+		if seite == "vorn":   # Pruefer Lauf 2 („Fäuste fast weiß“): Lage der Faeuste im Bild, klassen_blatt.py misst dort die Farbe
+			for k in ks:
+				for hand in ["hand_l", "hand_r"]:
+					var hp: Vector2 = kam.unproject_position(knochen_pos(k, hand))
+					protokoll.append("FAUST %s %s %d %d" % [k, hand, int(hp.x), int(hp.y) - o])
 	# Aussehen: sechs Koepfe des Kaempfers halb von vorn auf Gesichtshoehe (wie koepfe())
 	var aks: Array = []
 	for i in AUSSEHEN_PROBE.size(): aks.append("ak_%d" % i)
@@ -809,7 +810,7 @@ func klassen() -> void:
 	spiel.get_tree().root.add_child(e)
 	await get_tree().create_timer(1.5).timeout
 	await knips(aus + "/erschaffung_oben.png")
-	e.klasse = "ROGUE"; e.gekauft = Heldwerte.vorschlag("ROGUE"); e.aussehen = KLASSEN_AUSSEHEN[2].duplicate(); e.baue()
+	e.klasse = "ROGUE"; e.gekauft = Heldwerte.vorschlag("ROGUE"); e.aussehen = HeldFigur.vorgabe("ROGUE"); e.baue()
 	await get_tree().create_timer(1.5).timeout
 	var ziel_y := 0
 	for c in e.inhalt.get_children():

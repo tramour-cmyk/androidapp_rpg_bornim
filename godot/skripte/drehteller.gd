@@ -10,10 +10,11 @@ var teller: Node3D
 var sonne: DirectionalLight3D
 var wahl := {}
 
-func _init(w: Dictionary = {}) -> void:
+# gross: Kastengroesse (Menue 0,62 wie alt); Erschaffung groesser (Pruefer 376.1 Lauf 2: Held zu klein fuer Gesicht und Bart)
+func _init(w: Dictionary = {}, gross := 0.62) -> void:
 	wahl = w
 	stretch = true
-	custom_minimum_size = Vector2(150, 230) * 0.62 * DP
+	custom_minimum_size = Vector2(150, 230) * gross * DP
 	size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	if not FileAccess.file_exists(HELD): return
 	var v := SubViewport.new()

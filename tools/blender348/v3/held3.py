@@ -40,6 +40,7 @@ COL = {
     'wood': hx(0x6E4A2C), 'eye': hx(0x2A2018), 'lip': hx(0xA8644E),
 }
 # 348.6 Leute: FIGUR=<kennung> baut statt des Helden eine Figur aus leute.json (Abweichungen vom Helden; ohne FIGUR der Held wie bisher)
+# 376.1: LEUTE=<datei> nimmt die Figur aus einer anderen Liste (trachten.json: Trachten der Klassen fuer held_klassen.py)
 FIGUR = os.environ.get('FIGUR', 'held')
 FG = dict(sex='m', statur='mittel', groesse=1.0, kind=False, kopf='helm', hemd='kette', rock='wappen', umhang='held', bart=False, lang=False,
           schuerze=None, reif=False, sonne=False, schwert=True, schild=True)
@@ -48,7 +49,7 @@ FG = dict(sex='m', statur='mittel', groesse=1.0, kind=False, kopf='helm', hemd='
 if FIGUR == 'held': FG['kopf'] = os.environ.get('KOPF', FG['kopf'])
 if FIGUR != 'held':
     FG.update(schwert=False, schild=False, umhang=None)
-    FG.update(json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'leute.json')))[FIGUR])
+    FG.update(json.load(open(os.environ.get('LEUTE', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'leute.json'))))[FIGUR])
     _h = lambda k: int(FG[k], 16)
     COL['skin'] = hx(_h('haut')); COL['hair'] = hx(_h('haar'))
     COL['lip'] = mix(_h('haut'), 0x8A3A34 if FG['sex'] == 'w' else 0x4A2620, 0.4)
