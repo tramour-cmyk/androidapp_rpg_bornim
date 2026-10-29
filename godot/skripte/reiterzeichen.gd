@@ -39,8 +39,11 @@ func _draw() -> void:
 			draw_rect(Rect2(o.call(11, 14.5), Vector2(2, 2.5) * u), c, false, d)
 			draw_arc(o.call(12, 8.5), 5 * u, PI, TAU, 16, c, d, true)
 		"ausruestung":   # ein Dreieckschild, ein Schwert darueber
+			# Chef 29.10., 11:10 (Archiv „399.1, Menü Ausrüstung“): Schwert klarer durch den Schild, wirkte verschoben (alt lagen
+			# Parierstange und Griff gut eine Einheit neben der Klinge); jetzt Klinge, Parierstange und Griff auf einer Achse
 			linie.call([[5, 5], [15, 5], [15, 11], [14, 15], [10, 19], [6, 15], [5, 11]], w, true)
-			linie.call([[8, 21.5], [20.5, 3]], w); linie.call([[9.2, 15.5], [14.5, 19]], w); linie.call([[10.2, 20.6], [7.6, 22.5]], d)
+			linie.call([[19.5, 3.5], [10.5, 17]], w); linie.call([[7.84, 15.22], [13.16, 18.78]], w); linie.call([[10.5, 17], [8.5, 20]], w)
+			draw_circle(o.call(8.06, 20.66), 0.9 * u, c)
 		"karte":   # dreifach gefaltet, ein gepunkteter Weg und ein Kreuz
 			linie.call([[3, 6], [9, 4], [15, 6], [21, 4], [21, 18], [15, 20], [9, 18], [3, 20]], w, true)
 			linie.call([[9, 4], [9, 18]], d); linie.call([[15, 6], [15, 20]], d)

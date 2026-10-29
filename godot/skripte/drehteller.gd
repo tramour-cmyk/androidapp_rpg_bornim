@@ -9,6 +9,8 @@ const HELD := "res://daten/held.bin"
 var teller: Node3D
 var sonne: DirectionalLight3D
 var wahl := {}
+const HOEHE := 1.8            # Meter: jede Figur so hoch im Teller
+const RAND := 1.14            # Bildhoehe zu Figurhoehe (oben und unten 7 %)
 
 # gross: Kastengroesse (Menue 0,62 wie alt); Erschaffung groesser (Pruefer 376.1 Lauf 2: Held zu klein fuer Gesicht und Bart)
 func _init(w: Dictionary = {}, gross := 0.62) -> void:
@@ -32,11 +34,10 @@ func _init(w: Dictionary = {}, gross := 0.62) -> void:
 	sonne.rotation_degrees = Vector3(-40, -30, 0)
 	v.add_child(sonne)
 	var kam := Camera3D.new()
-	# Erschaffung (376.1 Lauf 1, Pruefer: Gesicht und Bart nicht zu erkennen): von den Knien bis ueber den Kopf; Menue ganz wie alt
-	kam.fov = 19.0 if gross > 0.8 else 26.0
-	# Lauf 2 (Pruefer: Kopf oben abgeschnitten): die Neigung -4 Grad senkt die Bildmitte um 0,31 m; Mitte auf 1,15 m (Knie bis Scheitel)
-	kam.position = Vector3(0, 1.46, 4.4) if gross > 0.8 else Vector3(0, 1.0, 4.4)
-	kam.rotation_degrees.x = -4.0
+	# Chef 29.10., 11:10 (Archiv „399.1, Menü Ausrüstung“): der Held nie oben oder unten abgeschnitten, immer gleich gross wie alt
+	# (HeroDollUi): ganz im Bild, waagrecht von vorn; zeige() bringt jede Figur auf HOEHE (Halbling wie Mensch)
+	kam.fov = 26.0
+	kam.position = Vector3(0, HOEHE / 2.0, HOEHE * RAND / 2.0 / tan(deg_to_rad(kam.fov) / 2.0))
 	v.add_child(kam)
 	teller = Node3D.new()
 	v.add_child(teller)
@@ -53,6 +54,11 @@ func zeige(w: Dictionary) -> void:
 		if modell == null: return
 		Gebiet.male(modell, null, 2, mats)
 	teller.add_child(modell)
+	var box := huelle(modell, Transform3D.IDENTITY)
+	if box.size.y > 0.01:   # auf HOEHE, Fuesse auf 0, Mitte auf der Drehachse
+		var s := HOEHE / box.size.y
+		modell.scale = Vector3.ONE * s
+		modell.position = Vector3(-box.get_center().x * s, -box.position.y * s, -box.get_center().z * s)
 	for m in mats:
 		(m as ShaderMaterial).set_shader_parameter("metall", 1.0)
 		(m as ShaderMaterial).set_shader_parameter("licht_dir", Basis.from_euler(sonne.rotation).z)   # zur Sonne wie Licht.richtung
@@ -60,6 +66,19 @@ func zeige(w: Dictionary) -> void:
 	if anim:
 		Gebiet.bewegungen(anim, ["Stehen"])
 		if anim.has_animation("Stehen"): anim.play("Stehen")
+
+# Umriss aller Netze im Raum von n (Ruhehaltung)
+func huelle(n: Node, t: Transform3D) -> AABB:
+	var box := AABB()
+	var leer := true
+	var tt := t * (n as Node3D).transform if n is Node3D else t
+	if n is MeshInstance3D and (n as MeshInstance3D).mesh:
+		box = tt * (n as MeshInstance3D).get_aabb(); leer = false
+	for c in n.get_children():
+		var b := huelle(c, tt)
+		if b.size.length() > 0.0:
+			box = b if leer else box.merge(b); leer = false
+	return box
 
 func _process(dt: float) -> void:
 	if teller: teller.rotation.y += dt * TAU / 6.0
