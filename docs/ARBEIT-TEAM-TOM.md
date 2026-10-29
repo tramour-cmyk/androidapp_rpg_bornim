@@ -2,7 +2,9 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (29.10., 11:3x, `session_01Hmoj76AiNuPotPAPenNqcQ`):** Build 143 ausgeliefert (Lauf 40854808649, Zweig `claude/tom-399-spielfassung` ee1b14c68: 399.1, 399.5, 376.1, 348.6, Jerrys Kampf und Klang), Testbitte t143 laut; danach auf dem Zweig 379b49875 (Drehteller ganz und gleich groß, Reiterzeichen; Chef 11:10), Eigenbau Scheide zurückgenommen (bdf73b1f3, 408). **Chef 11:27 über Sokrates: „Der Tom soll jetzt auch nicht irgendwelche Waffen und Frisuren machen, sondern nur dafür Sorge tragen, dass der [Build] läuft.“** Nachfolger: Tom – Test 143 abwarten (nichts Neues bauen bis zum Wort des Chefs).
+von Sokrates (Chef 11:27): erst Build 143 und Testbitte, dann Ford-Lauf an, weiter bis Guthaben leer.
+
+**Übergabe (29.10., 11:3x, `session_01Hmoj76AiNuPotPAPenNqcQ`):** Build 143 ausgeliefert (Lauf 40854808649, Zweig `claude/tom-399-spielfassung` ee1b14c68: 399.1, 399.5, 376.1, 348.6, Jerrys Kampf und Klang), Testbitte t143 laut; danach auf dem Zweig 379b49875 (Drehteller ganz und gleich groß, Reiterzeichen; Chef 11:10), Eigenbau Scheide zurückgenommen (bdf73b1f3, 408). **Chef 11:27 über Sokrates: „Der Tom soll jetzt auch nicht irgendwelche Waffen und Frisuren machen, sondern nur dafür Sorge tragen, dass der [Build] läuft.“** Nachfolger: Tom – nach Sokrates (11:27) weiter bis Guthaben leer; Waffen, Frisuren nur aus der Bibliothek (408).
 
 ## Zeilen
 
