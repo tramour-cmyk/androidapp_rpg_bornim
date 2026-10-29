@@ -8,7 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf | gebaut: alle t139-Fehler bis 554cf01d9; Build 141 zurückgezogen (Chef 22:0x: nächster Build erst mit 376.1 und 399.5) | `claude/tom-399-spielfassung` |
+| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf | wartet auf Chef: alle t139-Fehler gebaut bis 554cf01d9; nächster Build erst mit 376.1 (Urteil Chefsache 3761) und 399.5 (Chef 22:0x, Archiv) | `claude/tom-399-spielfassung` |
 | 399.4 | M | **von Chef (21:4x, Archiv):** oben Rand für die Kamera wie alt | gebaut cb351a959, fährt im nächsten Build (Kampfort ohne, Jerry) | – |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | wartet auf Chef: Köpfe, Haut, Robe vorgelegt 02:10 (Chefsache 3761, Zweig 3e6c8b910); Technik ohne Bild braucht Kaufpakete, add_repo in Tom 29.10. 03:4x vom Automatikmodus abgelehnt; Kleriker-Schild an Jerry (406); fährt mit 399.5 im nächsten Build | `claude/tom-376-1-figuren` |
 | 399.5 | M | **von Chef („jetzt“ 28.10., 21:5x, Archiv):** Innenräume wie alt: Lichtquellen, Licht und Schatten, Einrichtung mit Liebe zum Detail; Fenster und Türen außen wie innen | wartet auf Chef: neunter Stand vorgelegt 04:2x (Chefsache 3995, Zweig claude/tom-376-1-figuren ab8da463e); Tempel tags etwas dunkler als alt; fährt mit 376.1 im nächsten Build | – |
