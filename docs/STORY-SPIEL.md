@@ -616,3 +616,10 @@ EN: You thrust the burning torch: 1 fire damage. A beast that cannot stand the f
 `[344.2.weicht]` (Rettungswurf misslungen, verängstigt) 1 {0} scheut das Feuer und weicht zurück. / EN: {0} shies from the fire and backs off. · 2 {0} zuckt vor der Flamme zurück. / EN: {0} flinches back from the flame. · 3 {0} weicht vor dem Feuer zurück, den Blick auf der Flamme. / EN: {0} backs away from the fire, eyes on the flame.
 
 `[344.2.haelt]` (Rettungswurf geschafft) 1 {0} hält dem Feuer stand. / EN: {0} stands up to the fire. · 2 {0} lässt sich von der Flamme nicht vertreiben. / EN: {0} will not be driven off by the flame. · 3 {0} weicht trotz des Feuers nicht. / EN: {0} holds its ground despite the fire.
+
+## Erschaffung: Frisuren (405, zu 376.1)
+
+`[405.frisur]` Wörter nach dem Bild (Prüfer Lauf 2), Schlüssel in `heldfigur.gd` WORTE; die übrigen Wörter bleiben:
+- `frisur:Hair_SlickBack` Zerzaust / EN: Tousled (statt „Zurück“: hieß wie der Knopf unten, das Haar wirkt strubbelig). Glättet Team Tom das Haar nach hinten, dann: Glatt zurück / EN: Slicked back.
+- `frisur:Hair_Dreads` Locken / EN: Curls (statt „Filzlocken“, im Bild Locken).
+- `frisur:Hair_Mohawk` Schopf / EN: Forelock (statt „Kamm“, liegt nur über der Stirn).

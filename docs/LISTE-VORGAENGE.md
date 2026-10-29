@@ -131,7 +131,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 387 | Gekaufte Tiere schnell auf Bewegungen und unsere Haut prüfen, vor Eigenbau (Chef 27.10., 21:27) | E Monster | M | 98,99 $ | Team Jerry | ruht |
 | 403 | Kampfort: Held je Klasse auf dem Kaufkörper (heldfigur.gd aus 376.1) statt held.bin, Kampfbewegungen aus der UAL | E Kampf | M | – | Team Jerry | Chef |
 | 404 | Fehlende Sitzungskosten (3 archivierte Sitzungen ohne usage) schätzen oder „fehlt“ lassen (Ford 28.10., Chefsache) | B Werkzeuge | K | – | Ford | wartet auf Chef |
-| 405 | Texte der Erschaffung „Aussehen“ (376.1): Frisur „Zurück“ heißt wie der Knopf unten; „Filzlocken“, „Kamm“ passen nicht zum Bild (Prüfer Lauf 2) | C Inhalt | M | – | Homer | startbar |
+| 405 | Texte der Erschaffung „Aussehen“ (376.1): Frisur „Zurück“ heißt wie der Knopf unten; „Filzlocken“, „Kamm“ passen nicht zum Bild (Prüfer Lauf 2) | C Inhalt | M | – | Homer | erledigt |
 | 390 | Umzug: Punkte ohne Bilderrunde weiterbauen, solange Blätter beim Chef liegen (Perikles 28.10., Wochenziel 348) | E Technik | M | 39,54 $ | Team Tom, Team Jerry | wartet |
 | 383.2 | Kosten: dieselbe Aufgabe frisch gegen groß messen (Chef 27.10., 19:24) | B Werkzeuge | M | – | Sokrates | wartet |
 | 383 | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokrates) | B Werkzeuge | M | 99,45 $ | Perikles | wartet |

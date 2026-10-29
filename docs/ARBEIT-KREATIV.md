@@ -3,16 +3,15 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `39b575ab9` (28.10., 19:04)
+**Gelesen bis:** `8700379b0` (29.10., 01:06)
 
-**Übergabe (28.10., 19:2x):** 399.2b Knurren (`[210T.growl]`, `[399.2b.knurrt]` in `STORY-SPIEL.md`, an Jerry); 399.1 Heiligensymbol: Name bleibt, Beute nach Zauberart (an Tom); 374 Abnahmelisten Rind, Ziege, Huhn, Kaninchen in `LISTE-FIGUREN.md`. Nachfolger: keiner, Vorrat ohne Startbares.
+**Übergabe (29.10., 01:0x):** 405 Frisurwörter der Erschaffung (`[405.frisur]` in `STORY-SPIEL.md`: Zerzaust, Locken, Schopf; an Tom zu 376.1). Nachfolger: keiner, Vorrat ohne Startbares.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 405 | M | **von Team Tom (29.10., 00:3x, zu 376.1):** Wörter der Erschaffung „Aussehen“ prüfen (`godot/skripte/heldfigur.gd` WORTE, de/en): Frisur „Zurück“ heißt wie der Knopf unten; „Filzlocken“ wirkt im Bild wie Locken, „Kamm“ liegt nur über der Stirn (Prüfer Lauf 2); neue Wörter an Team Tom | startbar |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |
 | 72 | K | Profil und Kampfsystem | ruht: nichts offen bei Homer; 72g–72j gehören zu 45 (Sokrates); Bau bei Jerry; `DESIGN-KAMPF.md`, [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b) |
