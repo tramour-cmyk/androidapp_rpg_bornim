@@ -8,7 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf | wartet auf Build: Build 143 läuft (Lauf 40854808649) mit 376.1, 399.5 und Jerrys Kampf und Klang | `claude/tom-399-spielfassung` |
+| 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf | wartet auf Build: Build 143 läuft (Lauf 40854808649); danach gebaut 379b49875: Held im Drehteller ganz und gleich groß, Reiterzeichen Ausrüstung (Chef 11:10), fährt im übernächsten Build | `claude/tom-399-spielfassung` |
 | 399.4 | M | **von Chef (21:4x, Archiv):** oben Rand für die Kamera wie alt | gebaut cb351a959, fährt im nächsten Build (Kampfort ohne, Jerry) | – |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | wartet auf Chef: Kaufpakete, add_repo in Tom 29.10., 10:55 erneut abgelehnt (Chefsache 403); Urteil 10:52 abgenommen, dann Waffen wegstecken, mehr Frisuren (Zu 376.1) | `claude/tom-376-1-figuren` |
 | 399.5 | M | **von Chef („jetzt“ 28.10., 21:5x, Archiv):** Innenräume wie alt: Lichtquellen, Licht und Schatten, Einrichtung mit Liebe zum Detail; Fenster und Türen außen wie innen | wartet auf Build: abgenommen 10:54; Build 143 läuft (Lauf 40854808649, Zweig claude/tom-399-spielfassung ee1b14c68) | – |
