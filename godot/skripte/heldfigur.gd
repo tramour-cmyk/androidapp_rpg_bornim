@@ -266,16 +266,6 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 	var y := brust.origin.y
 	var r := ruecken(m, y - 0.63, y + 0.1)   # [z oben, z unten, hinterste z]: Ruecken an Ober- und Unterkante des Schilds
 	var aussen: float = r[2]
-	var lang := waffe in LANG
-	# Chef 29.10., 10:52 (Archiv „376.1, Klassen und Köpfe“): mit Schild die Waffe auf den Ruecken unter den Schild, nur der Griff
-	# schaut heraus; ohne Schild lange Waffen (Stab) hinten in einer Halterung, nicht schwebend; Schwert, Dolch in der Scheide am Guertel
-	if schild != "" and waffe != "":
-		var zw := (float(r[0]) + float(r[1])) * 0.5 - 0.04   # Waffe am Ruecken, der Schild darueber
-		var achse := Vector3(0.12, -1.0, 0.0).normalized()
-		var griff := Vector3(-0.04, y + 0.09, zw)
-		_haenge(m, sk, bi, brust, waffe, Transform3D(Basis(achse.cross(Vector3.FORWARD).normalized(), achse, Vector3.FORWARD), griff), "RueckenWaffe")
-		r[0] = float(r[0]) - 0.07; r[1] = float(r[1]) - 0.07
-		waffe = ""
 	if schild != "":
 		# Pruefer Lauf 2 (Kaempfer: Schild ragt von vorn ueber die Schultern; Schild 0,72 m, Oberkante 1,54 m, Schultern 1,46 m):
 		# Mitte 29 cm unter spine_03, Oberkante etwa 1,32 m (376.1 Lauf 1: bei 1,42 m von schraeg oben noch ueber den Schultern)
@@ -285,63 +275,13 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 		var t := Transform3D(Basis(Vector3.LEFT, hoch, Vector3.LEFT.cross(hoch)), (oben + unten) * 0.5)
 		_haenge(m, sk, bi, brust, schild, t, "RueckenSchild")
 		aussen = minf(aussen, (oben.z + unten.z) * 0.5) - 0.10   # Schild mit Buckel (376.1 Lauf 2: bei 7 cm durchdrang der Buckel das Schwert)
-	if waffe != "" and not lang:   # am Guertel links, Griff vorn oben, Spitze nach hinten unten; Klingen in der Scheide
-		var bp := sk.find_bone("pelvis")
-		var hy := (im_raum(m, sk) * sk.get_bone_global_rest(bp)).origin.y if bp >= 0 else y - 0.45
-		var achse := Vector3(0.06, -1.0, -0.6).normalized()
-		var griff := Vector3(0.21, hy + 0.1, 0.06)
-		var d := _haenge(m, sk, bi, brust, waffe, Transform3D(Basis(achse.cross(Vector3.FORWARD).normalized(), achse, Vector3.FORWARD), griff), "RueckenWaffe")
-		if d and waffe in KLINGEN: _scheide(d)
-		waffe = ""
 	if waffe != "":
+		var lang := waffe in ["quarterstaff", "staff", "spear", "greataxe"]
 		var achse := Vector3(0.42, -1.0, 0.0).normalized() if not lang else Vector3(0.62, -1.0, 0.0).normalized()   # Klinge zur linken Huefte
 		var griff := Vector3(-0.17, y + 0.22, aussen - 0.03) if not lang else Vector3(-0.05, y + 0.05, aussen - 0.03)
 		var quer := Vector3.FORWARD
 		var t := Transform3D(Basis(achse.cross(quer).normalized(), achse, quer), griff)
-		var d := _haenge(m, sk, bi, brust, waffe, t, "RueckenWaffe")
-		if d: _halterung(d)
-
-const LANG := ["quarterstaff", "staff", "spear", "greataxe", "greatsword", "battleaxe", "warhammer"]
-const KLINGEN := ["dagger", "shortsword", "longsword", "rapier", "scimitar"]
-const LEDER := Color(0.24, 0.15, 0.09)
-
-# Umriss einer geladenen Waffe in ihrem Raum (Griff im Ursprung, Klinge laengs +Y)
-static func _umriss(n: Node, t: Transform3D) -> AABB:
-	var box := AABB(); var leer := true
-	var tt := t * (n as Node3D).transform if n is Node3D else t
-	if n is MeshInstance3D and (n as MeshInstance3D).mesh: box = tt * (n as MeshInstance3D).get_aabb(); leer = false
-	for c in n.get_children():
-		var b := _umriss(c, tt)
-		if b.size.length() > 0.0:
-			box = b if leer else box.merge(b); leer = false
-	return box
-
-static func _leder(groesse: Vector3, wo: Transform3D) -> MeshInstance3D:
-	var mi := MeshInstance3D.new()
-	var bm := BoxMesh.new(); bm.size = groesse
-	mi.mesh = bm
-	var mat := StandardMaterial3D.new(); mat.albedo_color = LEDER; mat.roughness = 1.0
-	mi.material_override = mat
-	mi.transform = wo
-	return mi
-
-# Scheide ueber der Klinge: vom Ende des Griffs (ein Fuenftel) bis zur Spitze, flach, aus Leder mit Ortband
-static func _scheide(d: Node3D) -> void:
-	var b := _umriss(d, Transform3D.IDENTITY)
-	if b.size.y < 0.05: return
-	var y0 := b.position.y + b.size.y * 0.24; var y1 := b.end.y + 0.02
-	var dick := maxf(b.size.z, 0.02) + 0.02; var breit := minf(b.size.x, 0.09) * 0.6 + 0.03
-	d.add_child(_leder(Vector3(breit, y1 - y0, dick), Transform3D(Basis(), Vector3(0, (y0 + y1) * 0.5, 0))))
-	d.add_child(_leder(Vector3(breit + 0.012, 0.04, dick + 0.012), Transform3D(Basis(), Vector3(0, y1 - 0.02, 0))))
-
-# Halterung am Ruecken fuer Stab und Speer: zwei Lederschlaufen um den Schaft, je mit Riemen zum Koerper
-static func _halterung(d: Node3D) -> void:
-	var b := _umriss(d, Transform3D.IDENTITY)
-	if b.size.y < 0.2: return
-	for f in [0.3, 0.68]:
-		var yy: float = b.position.y + b.size.y * float(f)
-		d.add_child(_leder(Vector3(0.07, 0.035, 0.07), Transform3D(Basis(), Vector3(0, yy, 0))))
-		d.add_child(_leder(Vector3(0.05, 0.03, 0.09), Transform3D(Basis(), Vector3(0, yy, 0.06))))
+		_haenge(m, sk, bi, brust, waffe, t, "RueckenWaffe")
 
 # hinterste Stelle des Rumpfs (z, Ruhelage) auf Hoehe des Schulterblatts (y1 - 0,15) und des Kreuzes (y0 + 0,1), dazu die hinterste
 # zwischen y0 und y1; nur die Mitte (|x| < 0,12), alle Netze mit Haut (Koerper, Kleidung, Umhang)
@@ -366,14 +306,13 @@ static func _modell(g) -> String:
 	var b := String(g.get("base", ""))
 	return b if FileAccess.file_exists("res://daten/waffen/%s.bin" % b) else ""
 
-static func _haenge(m: Node3D, sk: Skeleton3D, bi: int, brust: Transform3D, was: String, t: Transform3D, nm: String) -> Node3D:
+static func _haenge(m: Node3D, sk: Skeleton3D, bi: int, brust: Transform3D, was: String, t: Transform3D, nm: String) -> void:
 	var ba := BoneAttachment3D.new()
 	ba.name = nm
 	ba.bone_name = sk.get_bone_name(bi)
 	sk.add_child(ba)
 	var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % was)
-	if d == null: return null
+	if d == null: return
 	d.transform = brust.affine_inverse() * t
 	ba.add_child(d)
 	Gebiet.male(d, null, 2, [])
-	return d
