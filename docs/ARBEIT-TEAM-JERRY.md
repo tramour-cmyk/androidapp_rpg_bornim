@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben.
 
-**Übergabe (29.10., 07:5x, `session_01Hmoj79A1…`):** 406 Kleriker-Schild Runde 2 gebaut (78a14dab8), vorgelegt. Nachfolger: „Jerry – 406 Ausrüstung“
+**Übergabe (29.10., 07:5x, `session_01Hmoj79A1…`):** 406 Kleriker-Schild Runde 3 gebaut (6c6cb0b51), vorgelegt. Nachfolger: „Jerry – 406 Ausrüstung“
 
 ## Zeilen
 
@@ -13,7 +13,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 399.3 | M | **von Chef über Sokrates (16:42):** Klang in die Spielfassung | gebaut 5c63de384: Keuchen gut (Chef 23:0x), an Tom | `claude/jerry-348-klang` |
 | 402 | M | **von Sokrates (Chef 22:2x, Archiv):** Blende vor dem Kampf wie alt; Herzschlag beim Hinterhalt stärker | wartet auf Chef: Hörprobe 29.10., 00:21 (ansehen/402-hoerprobe), ec182e930: Mittelschicht, im Handy −14 bis −17 dB; Blende gebaut 1923456c7 | – |
 | 403 | M | **von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler):** Kampfort: Held je Klasse wie im Dorf (`HeldFigur.baue`) statt `kampf/daten/held.bin`; Hieb, Stich, Treffer, Tod, Ausweichen aus der UAL Pro | wartet auf Chef: Zugang Kaufmodelle (tun/403-kaufmodelle-zugang), add_repo abgelehnt 29.10., 00:2x | – |
-| 406 | M | **von Team Tom (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe):** Ausrüstung der Helden je Stück aufwerten („steril“), zuerst Rundschild des Klerikers hell mit goldener Sonne (`Dress.kt`); Wappenrock-Sonne macht Tom | wartet auf Chef: Runde 2 (ansehen/406-kleriker-schild, 07:47), A oder B (78a14dab8) | `claude/jerry-406-schild` |
+| 406 | M | **von Team Tom (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe):** Ausrüstung der Helden je Stück aufwerten („steril“), zuerst Rundschild des Klerikers hell mit goldener Sonne (`Dress.kt`); Wappenrock-Sonne macht Tom | wartet auf Chef: Runde 3 (ansehen/406-kleriker-schild, 07:54), A oder B | `claude/jerry-406-schild` |
 | 401 | M | **von Chef über Sokrates (Archiv):** Tierlaute, mind. 3 je Tier | wartet auf Chef: Chefsache 402 (Hörprobe), Klopfen neu auf Erde (ec182e930); Ziege, Knabbern gut (23:0x) | – |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK | `claude/jerry-348-kampf` |
