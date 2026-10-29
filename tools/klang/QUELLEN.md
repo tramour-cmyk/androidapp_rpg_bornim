@@ -301,11 +301,4 @@ BigSoundBank, Urheber Joseph Sardin, CC0 1.0 („CC0 (public domain): Free and r
 
 ## 402 Herzschlag beim Hinterhalt (28.10., im Spiel: `heartbeat_strong_1`)
 
-Aus den Aufnahmen von `heartbeat` (24.8, oben): bart „Heartbeat sounds“ (heartbeat_slow_0.wav) und qubodup „Heartbeat single sound“ (heartbeat.mp3_.flac), OpenGameArt, CC0 1.0 (Quellseiten geprüft 28.10.2026). Rezept `tools/klang/herzschlag.py`: drei Schläge (Fassung 1 und 3 als Doppelschlag bumm-bumm), tiefer, Brust voller, leicht angezerrt, schneller werdend; seit 29.10. mit Mittelschicht (derselbe Schlag hart angezerrt, 200–1400 Hz), damit er im Handylautsprecher hörbar ist (Chef 23:0x „völlig unauffällig“). Seit 29.10. (Chef 10:52: „Da nehmen wir die Fassung 2“) im Spiel nur Fassung 2 (`heartbeat_strong_1`).
-
-Hörprobe „wie Ultraschall“ (Chef 29.10., 10:52: „so wie von einem Ultraschall … dumm, dumm, dumm“; noch nicht im Spiel), Freesound, CC0 1.0 (Quellseiten geprüft 29.10.2026), Vorschau 128 kbit/s:
-
-| Datei | Titel | Verwendet für | Quelle |
-|---|---|---|---|
-| fs_871122.mp3 | Foetal_Heartbeat_Through_Doppler_Machine (SignatureSoundsOrg) | Ultraschall 1 (wie aufgenommen) und 2 (4 Halbtöne tiefer), ab 5,75 s | https://freesound.org/people/SignatureSoundsOrg/sounds/871122/ |
-| fs_574849.mp3 | Ultrasound heartbeat fetus microcassette Spring 04 (TRP) | Ultraschall 3 (3 Halbtöne tiefer), ab 3,85 s | https://freesound.org/people/TRP/sounds/574849/ |
+Aus den Aufnahmen von `heartbeat` (24.8, oben): bart „Heartbeat sounds“ (heartbeat_slow_0.wav) und qubodup „Heartbeat single sound“ (heartbeat.mp3_.flac), OpenGameArt, CC0 1.0 (Quellseiten geprüft 28.10.2026). Rezept `tools/klang/herzschlag.py`: drei Schläge (Fassung 1 und 3 als Doppelschlag bumm-bumm), tiefer, Brust voller, leicht angezerrt, schneller werdend; seit 29.10. mit Mittelschicht (derselbe Schlag hart angezerrt, 200–1400 Hz), damit er im Handylautsprecher hörbar ist (Chef 23:0x „völlig unauffällig“). Seit 29.10. (Chef 10:52: „Da nehmen wir die Fassung 2“) im Spiel nur Fassung 2 (`heartbeat_strong_1`). Ultraschall verworfen (Chef 11:2x); Hörprobe Fassung 2 tiefer und dumpfer (2a, 2b), aus derselben Aufnahme.
