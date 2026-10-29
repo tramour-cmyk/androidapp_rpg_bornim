@@ -19,9 +19,10 @@ const KLASSEN_VORGABE := {
 	"ROGUE": {"form": "schmal", "frisur": "Hair_Ponytail", "bart": "", "haarfarbe": 3, "haut": 1},
 	"WIZARD": {"form": "hager", "frisur": "Hair_SlickBack", "bart": "Hair_Moustache", "haarfarbe": 1, "haut": 3},
 }
-# Haut im Bild wie das Farbfeld der Erschaffung (Chef 23:0x): Licht, Umgebung und Stimmung (licht.gd) bleichten das Gesicht aus;
-# je Kanal geeicht an der Wange (Klassenlauf, haut.txt: Wange gegen Farbfeld), dazu ein Teil der Farbschwankung des Bildes
-const HAUT_EICHUNG := Vector3(1.0, 1.0, 1.0)
+# Haut lebendig (Chef 23:0x „klinisch tot“): Licht, Umgebung und Stimmung (licht.gd) nehmen der Haut Farbe (Lauf 1, haut.txt: Wange
+# „Warm“ 166/137/104 statt Feld 212/162/124, „Hell“ grau 180/165/141); je Kanal geeicht auf die Farbe des Felds bei gleicher
+# Helligkeit (Eichung 1,66/1,39/1,40 durch ihre Helligkeit; nicht heller: Chef „dunkler“), dazu ein Teil der Farbschwankung des Bildes
+const HAUT_EICHUNG := Vector3(1.145, 0.96, 0.97)
 const HAUT_FARBE := 0.5
 # Bewegungen, die sich wiederholen (wie held.gd Gebiet.bewegungen)
 const SCHLEIFEN := ["Stehen", "Gehen", "Rennen", "Stehen_2", "Stehen_3", "Sitzen", "Gesten"]
@@ -263,13 +264,13 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 	# Ruecken zwischen Schulterblatt und Kreuz (Pruefer Lauf 1: unten 5-7 cm Spalt); die Waffe schraeg, Griff ueber der rechten
 	# Schulter, hinter allem, was hinten am weitesten absteht (Lauf 1: Schwert hinter dem Schild verdeckt, Parierstange im Umhang)
 	var y := brust.origin.y
-	var r := ruecken(m, y - 0.4, y + 0.3)   # [z oben, z unten, hinterste z]
+	var r := ruecken(m, y - 0.63, y + 0.1)   # [z oben, z unten, hinterste z]: Ruecken an Ober- und Unterkante des Schilds
 	var aussen: float = r[2]
 	if schild != "":
 		# Pruefer Lauf 2 (Kaempfer: Schild ragt von vorn ueber die Schultern; Schild 0,72 m, Oberkante 1,54 m, Schultern 1,46 m):
-		# Mitte 19 cm unter spine_03, Oberkante unter der Schulterlinie
-		var oben := Vector3(0, y + 0.05, float(r[0]) - 0.03)
-		var unten := Vector3(0, y - 0.43, float(r[1]) - 0.03)
+		# Mitte 29 cm unter spine_03, Oberkante etwa 1,32 m (376.1 Lauf 1: bei 1,42 m von schraeg oben noch ueber den Schultern)
+		var oben := Vector3(0, y - 0.05, float(r[0]) - 0.03)
+		var unten := Vector3(0, y - 0.53, float(r[1]) - 0.03)
 		var hoch := (oben - unten).normalized()
 		var t := Transform3D(Basis(Vector3.LEFT, hoch, Vector3.LEFT.cross(hoch)), (oben + unten) * 0.5)
 		_haenge(m, sk, bi, brust, schild, t, "RueckenSchild")

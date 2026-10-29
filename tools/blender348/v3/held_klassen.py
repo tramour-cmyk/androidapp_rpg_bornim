@@ -27,11 +27,12 @@ import kopf as KO
 KOERPER = 'Regular_Male_FullBody'
 KOPF = 'Regular_Male_OnlyHead'
 KLASSEN = {
-    'FIGHTER': {'tracht': 'unsere'},
-    'WIZARD': {'tracht': 'held_wizard'},   # Chef 28.10., 23:0x: „trägt keine Robe … Kasperlanzug“: lange Robe aus held3 (trachten.json)
+    # Pruefer 376.1 Lauf 1 (29.10.): unsere Stiefel wie Holzpfloecke, im rechten ein Loch: Stiefel aus den Kauftrachten
+    'FIGHTER': {'tracht': 'unsere', 'fuesse': 'Male_Ranger_Feet_Boots'},
+    'WIZARD': {'tracht': 'held_wizard', 'fuesse': 'Male_Wizard_Feet'},   # Chef 28.10., 23:0x: „trägt keine Robe … Kasperlanzug“: lange Robe aus held3 (trachten.json)
     'ROGUE': {'kleid': 'Male_Ranger', 'ohne': ['Hood']},
     'CLERIC': {'kleid': 'Male_Knight_Cloth', 'ohne': ['Horns'], 'stahl': False,   # Pruefer Lauf 1: Arme mit STAHL schwarz (Bild 0,20/0,13/0,08)
-               'sonne': 'Body_Cloth', 'entgruen': ['Legs_Armor', 'Feet_Armor']},
+               'sonne': 'Body_Cloth', 'entgruen': ['Legs_Armor', 'Feet_Armor', 'Arms']},   # Lauf 1: Handschuhe gruenlich (118/124/109)
 }
 # Maennerhaar und Baerte (Hairstyles/Rigged to Head Bone/Male); „Long“, „Bob“ und „Buns“ sitzen nur auf dem Frauenkopf
 HAARE = ['Hair_SimpleParted', 'Hair_Buzzed', 'Hair_SlickBack', 'Hair_Ponytail', 'Hair_Balding', 'Hair_Dreads', 'Hair_Mohawk']
@@ -135,20 +136,31 @@ def held3_tracht(figur):
     return o
 
 
-def kaempfer(k, figur=''):
-    # unsere Tracht auf dem Kaufkoerper (kauf_kleid.py), dann Formschluessel am Kopf; figur: andere Tracht aus trachten.json
+def kaempfer(k, figur='', fuesse=''):
+    # unsere Tracht auf dem Kaufkoerper (kauf_kleid.py), dann Formschluessel am Kopf; figur: andere Tracht aus trachten.json;
+    # fuesse: Stiefel aus den Kauftrachten statt unserer
     roh = os.path.join(ZIEL, 'roh'); os.makedirs(roh, exist_ok=True)
     env = dict(os.environ, KOERPER=KOERPER, KOPF='', HAAR='', BART='', FARBE='keine', STOPPELN='0', HAUT='mittel', FORM='',
                KENNUNG='held_' + k, ZIEL=roh)
+    ohne = []
     if figur:
         env['OUT'] = held3_tracht(figur)
-        env['OHNE_TEIL'] = ','.join(json.load(open(os.path.join(HIER, 'trachten.json')))[figur].get('ohne', []))
+        ohne = json.load(open(os.path.join(HIER, 'trachten.json')))[figur].get('ohne', [])
+    if fuesse: ohne = ohne + ['boots']
+    env['OHNE_TEIL'] = ','.join(ohne)
     r = subprocess.run([sys.executable, '-I', os.path.join(HIER, 'kauf_kleid.py')], env=env, capture_output=True, text=True)
     print('\n'.join(l for l in r.stdout.splitlines() if l.startswith(('KAUFKLEID', 'KLEIDUNG', 'HALS', 'UMHANG'))))
     if r.returncode: print(r.stdout[-3000:], r.stderr[-3000:]); raise SystemExit('kauf_kleid.py %d' % r.returncode)
     bpy.ops.wm.open_mainfile(filepath=os.path.join(roh, 'held_%s.blend' % k))
     arm = next(o for o in bpy.data.objects if o.type == 'ARMATURE')
     netze = [o for o in bpy.data.objects if o.type == 'MESH' and any(m.type == 'ARMATURE' and m.object == arm for m in o.modifiers)]
+    if fuesse:
+        fn, fp = QT.datei(fuesse)
+        if not fp or fn != fuesse: raise SystemExit('FEHLT %s (gekauft, KAUF=)' % fuesse)
+        fo = [o for o in QT.importiere(fp)]
+        fm = [o for o in fo if o.type == 'MESH']
+        QT.an_geruest(fo, arm)   # entfernt das Geruest des Imports
+        netze += fm
     haut, augen, brauen = kopfnetze(netze)
     beine_weg(haut)
     p = KO.merkpunkte(haut, augen)
@@ -179,21 +191,21 @@ def entgruen(o):
     im, px = eigenes_bild(o)
     c = px[..., :3]
     l = (0.2126 * c[..., 0] + 0.7152 * c[..., 1] + 0.0722 * c[..., 2])[..., None]
-    g = np.clip((c[..., 1] - c[..., 0] - 0.01) / 0.05, 0, 1)[..., None]
+    g = np.clip((np.maximum(c[..., 1], c[..., 2]) - c[..., 0] + 0.005) / 0.035, 0, 1)[..., None]   # Lauf 1: noch mintgruen
     px[..., :3] = c * (1 - g) + l * np.array(QT.STAHL, dtype=np.float32) * 1.15 * g
     zurueck_ins_bild(im, px)
     print('ENTGRUEN', o.name, int((g > 0.5).sum()), 'Punkte')
 
 
 SONNE_GOLD = np.array((0.72, 0.565, 0.29), dtype=np.float32)   # Gold wie alt (Dress.kt gold B8904A)
-SONNE_GROESSE = float(os.environ.get('SONNE_GROESSE', '1.25'))  # Mass von Dress.kt; groesser, weil die Figur klein im Bild steht
+SONNE_GROESSE = float(os.environ.get('SONNE_GROESSE', '1.7'))   # Mass von Dress.kt; groesser (Lauf 1: wie Kleeblattkreuz gelesen)
 
 
 def sonne(o, arm):
     # Chef 28.10., 23:0x (Kleriker „wegen seiner Verbundenheit zu seiner Göttin“), Dress.kt tabard: goldene Sonne auf Brust und
     # Ruecken, Scheibe, Ring und acht Strahlen; Mitte bei Guertel + 0,58 (Schulter - Guertel). Ins Bild des Netzes gemalt: je
     # Dreieck vorn bzw. hinten die Bildpunkte, deren Lage auf dem Koerper in der Sonne liegt
-    im, px = eigenes_bild(o)
+    im, px = eigenes_bild(o, 2048)   # Lauf 1: bei 1024 zu grob, Strahlen verschwammen
     H, W = px.shape[:2]
     mw = arm.matrix_world
     gz = (mw @ arm.data.bones['spine_01'].head_local).z
@@ -369,7 +381,7 @@ info = {'formen': FORMEN, 'haut': {k: list(v) for k, v in KO.HAUT.items()}, 'haa
         'klassen': {}}
 for k, f in KLASSEN.items():
     if NUR and k not in NUR: continue
-    arm, netze = tracht(k, f) if 'kleid' in f else kaempfer(k, '' if f['tracht'] == 'unsere' else f['tracht'])
+    arm, netze = tracht(k, f) if 'kleid' in f else kaempfer(k, '' if f['tracht'] == 'unsere' else f['tracht'], f.get('fuesse', ''))
     info['klassen'][k] = {'kleid': f.get('kleid') or f['tracht'], 'kopf': godot(QT.kopf_pos(arm)), 'dreiecke': dreiecke(netze),
                           'netze': sorted(o.name for o in netze)}
     print('KLASSE', k, info['klassen'][k]['dreiecke'], 'Dreiecke', info['klassen'][k]['kleid'])

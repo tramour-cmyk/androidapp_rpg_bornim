@@ -32,8 +32,9 @@ func _init(w: Dictionary = {}, gross := 0.62) -> void:
 	sonne.rotation_degrees = Vector3(-40, -30, 0)
 	v.add_child(sonne)
 	var kam := Camera3D.new()
-	kam.fov = 26.0
-	kam.position = Vector3(0, 1.0, 4.4)
+	# Erschaffung (376.1 Lauf 1, Pruefer: Gesicht und Bart nicht zu erkennen): von den Knien bis ueber den Kopf; Menue ganz wie alt
+	kam.fov = 19.0 if gross > 0.8 else 26.0
+	kam.position = Vector3(0, 1.2, 4.4) if gross > 0.8 else Vector3(0, 1.0, 4.4)
 	kam.rotation_degrees.x = -4.0
 	v.add_child(kam)
 	teller = Node3D.new()
