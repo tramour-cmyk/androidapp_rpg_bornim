@@ -16,6 +16,12 @@ Nichts offen.
 
 ## Anzusehen
 
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [376.1](ansehen/3761-wegstecken.md) | Waffen wegstecken, nachgebessert | Tom | 29.10., 11:50 |
+
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
 | Folge | Version | Build | Was | Wer | Seit |
@@ -50,7 +56,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „star
 | 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf | wartet auf Test (Build) |
 | 399.4 | M | von Chef (21:4x, Archiv): oben Rand für die Kamera wie alt | wartet auf Test (Build) |
 | 410 | M | von Sokrates (Chef 29.10., 10:52, 11:40; aus 376.1): Waffen am Körper wegstecken, alle Waf | startbar |
-| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | wartet auf Test (Build) |
+| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | Chef |
 | 399.5 | M | von Chef („jetzt“ 28.10., 21:5x, Archiv): Innenräume wie alt: Lichtquellen, Licht und Scha | wartet auf Test (Build) |
 | 399.3.1 | M | von Team Jerry (16:5x): Klang: Haken in spiel.gd (Jerry, claude/jerry-348-klang) übernehme | wartet auf Test (Build) |
 | 385 | M | von Sokrates („jetzt“ 28.10., 10:00, Archiv): Zauberer-Set auf Kaufkörper, Film | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
