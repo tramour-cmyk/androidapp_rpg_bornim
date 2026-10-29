@@ -66,3 +66,4 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 142** (17.–20.10. in Git): Fahrplan im vertraulichen [Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM); offen: Anschrift vor dem Zahlungsprofil
 
 - **Von Diogenes (374, 28.10.):** Stichprobe 373: Chefwort 376.1 vom 27.10., 15:23 steht bei Tom („Von Sokrates“) nur sinngemäß; Wortlaut mit Zeit nachtragen (373 d).
+- **Von Diogenes (374, 29.10.):** Stichprobe 373: Chefrunde 28.10., 08:09 im Archiv bei 348.13a („r9 ja“) und 348.12f („Drehen ja, Schnauze näher“) nur sinngemäß, ohne Wortlaut (373 d).

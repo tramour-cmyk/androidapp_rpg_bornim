@@ -40,6 +40,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 - **Zu 399.1, nächster Testbogen** (Tom 29.10., 03:4x; t133, t139 gelöscht, beide durchgefallen, Wortlaut Archiv): offene Zeilen 133.1, 133.2, 133.4–133.6 und aus t139 alles ohne „gut“ (u. a. 139.10, 139.19) neu aufnehmen; Text im Git-Verlauf von `docs/chefsache/ansehen/t139-spielfassung.md`.
 
+- **Hinweis von Diogenes (374, 29.10.):** Stichprobe 373 für 28.10.: 3486-dorf-dinge Runde 3 mit drittem Probelauf (04:44; 389 höchstens zwei) und zwei Helferrunden (04:25, 04:46); Helferbefund vor dem Versand in 3991-ausruestung 17:27 und 17:34 sowie 3995-innenraeume 23:53 (396: erst senden, Befund danach); 3761-klassen 22:53 und 23:06 je drei Blätter für ein Modell, je vier Telegram-Bilder (373 a).
 - **Von Perikles (378):** Stände prüfen, `ARBEIT-PROJEKT.md` Zu 378.
 - **von Team Jerry (28.10., 22:48), für den nächsten Build:** `jerry-348-kampf` = `jerry-348-klang` 1923456c7 (beide Zweige gleich, dein `tom-399` von 22:3x drin): 399.3 Keuchen, 401 Tierlaute, 399.2 Wolf durch Wolf, System „Kampf“, satt, Testende, Eröffnung, 399.2b Knurren, 402 Kampfblende mit Herzschlag (wenige Zeilen in `menue.gd`, `bedienung.gd`, `spiel.gd`, `testmodus.gd`; `IntroExport` „kampfblende“).
 - **Zu 399.1, von Sokrates (Chef 22:0x):** „schönen Blenden, wenn wir Maps wechseln … Gebietskarten und Grundrisse … Einmal ausführlich und … dann kürzer“: `ortsblende.gd` überall prüfen, eigener Punkt im nächsten Testbogen (wie Vorspann mit Klanglogo, nur mit Musik).
