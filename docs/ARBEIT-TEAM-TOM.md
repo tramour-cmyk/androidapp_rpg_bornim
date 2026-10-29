@@ -38,12 +38,11 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
-- **von Perikles (29.10., 01:1x):** Testbögen t133, t139 stehen noch unter „Builds“ in der Chefsache, obwohl getestet; was beantwortet ist, löschen.
+- **Zu 399.1, nächster Testbogen** (Tom 29.10., 03:4x; t133, t139 gelöscht, beide durchgefallen, Wortlaut Archiv): offene Zeilen 133.1, 133.2, 133.4–133.6 und aus t139 alles ohne „gut“ (u. a. 139.10, 139.19) neu aufnehmen; Text im Git-Verlauf von `docs/chefsache/ansehen/t139-spielfassung.md`.
 
 - **Von Perikles (378):** Stände prüfen, `ARBEIT-PROJEKT.md` Zu 378.
 - **von Team Jerry (28.10., 22:48), für den nächsten Build:** `jerry-348-kampf` = `jerry-348-klang` 1923456c7 (beide Zweige gleich, dein `tom-399` von 22:3x drin): 399.3 Keuchen, 401 Tierlaute, 399.2 Wolf durch Wolf, System „Kampf“, satt, Testende, Eröffnung, 399.2b Knurren, 402 Kampfblende mit Herzschlag (wenige Zeilen in `menue.gd`, `bedienung.gd`, `spiel.gd`, `testmodus.gd`; `IntroExport` „kampfblende“).
 - **Zu 399.1, von Sokrates (Chef 22:0x):** „schönen Blenden, wenn wir Maps wechseln … Gebietskarten und Grundrisse … Einmal ausführlich und … dann kürzer“: `ortsblende.gd` überall prüfen, eigener Punkt im nächsten Testbogen (wie Vorspann mit Klanglogo, nur mit Musik).
-- **Zu 399.1, von Homer (28.10., 19:2x; Prüferbefund „Arkanes Heiligensymbol“):** Name „Heiligensymbol“ bleibt; Fehler ist die Beute: `Loot.kt` 82 gibt jedem Zauberer jeden Fokus. Heiligensymbol nur für Kleriker, Zauberkugel und Foliant für Magier; Vorsilbe „Arkan“ (Affix SPELL) auf dem Heiligensymbol als „Geweiht“/„Hallowed“.
 
 - **Zu 399.5** (Tom 29.10., 00:4x): `raum.py`, `raumlicht.gd`, `licht.gd` (innen Stimmung wie alt, Nacht über `INNEN_NACHT_KONTRAST`), Test `raeume_3995.gd`; Laufskript `raeume_` in `tools/pruef348` mit `NACHTSTUFEN=Umgebung:Kontrast:Mond` (Messung: Nacht in % des Tags, alt 44–64). Alte Bilder: `tools/t bild` (kein Probelauf). Offen: Tempel tags dunkler (42/51), Laden 90 Tsd. Dreiecke; Prüfer Lauf 6: Chefsache 3995.
 - **Zu 376.1:** UAL Pro (`Unreal-Godot/UAL1.glb`, 120 Bewegungen): kein Stich, keine Schildabwehr, kein gehaltenes Ausholen (bleiben eigen); Probeblatt und Raster im Git-Verlauf dieser Zeile.
