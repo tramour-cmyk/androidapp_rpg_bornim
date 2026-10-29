@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 407 | M | **von Chef über Sokrates („jetzt“ 29.10., 10:05):** Probelauf-Grenze 389 so, dass sie greift: nach zwei Läufen keine weitere Runde, bis der Chef geurteilt hat (Zu 407) | startbar |
 | 399 | M | **von Chef über Sokrates („jetzt“ 28.10., 12:34, Archiv):** Vorrang neu: erst eine Godot-Fassung am Handy, in der der Chef im Dorf herumläuft und einen Kampf spielt; Feintuning ruht | wartet auf Tom, Jerry: 399.1 Spielfassung, 399.2 Kampfort aufrufbar (12:4x); Feinschliff 397, 348.13b ruht |
 | 398 | M | **von Sokrates (Chef 28.10., 11:22):** Termine je Block nachrechnen mit der Schätzung der 15 Zeilen 398 | frühestens 02.11.: Schätzungen da (Tom 28.10., 15:37; Jerry 13:16); Termine ruhen mit der Spielfassung 399, nachrechnen mit Wochenziel 2 |
 | 384 | M | **von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“):** Kosten aller Sitzungen gegen Buchungsverzeichnis; Ursache der Lücken im Werkzeug beheben (Zu 384) | gebaut 27.10., 20:1x: --kosten nur mit Kennung, Ford holt Kosten frisch (Zu 384) |
@@ -27,6 +28,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 ## Einzelheiten
 
 
+- **Zu 407, von Sokrates (Chef 10:05):** „stoppe weitere Durchläufe, weil wir gesagt haben, nach 2 ist maximal Schluss und da sind manche schon wieder auf Stufe 5 … Ich habe noch nichts geguckt und freigegeben. Also, warten, bis ich gucke.“ 399.5 im neunten Stand, `probelauf.py` zählt 0: Haken zählt nur `claude/*-348-*`, jede Vorlage gibt zwei neue Läufe frei. Soll: nach zwei Läufen Halt bis Urteil des Chefs, jeder Zweig.
 - **Zu 384 (Prüfung 27.10., 20:1x; `list_sessions` 100 Sitzungen ab 26.10., 20:35, `get_session` je Lücke):** 18 archivierte Sitzungen ohne Zeile in `KOSTEN-GEBUCHT.tsv`. Nachgebucht mit Kennung: Ford `01Hmoj76zG` 9,17 und `01Hmoj78hR` 7,28 auf Betrieb, Tom `01Hmoj76zw` +3,18 auf 348.13a (Ford buchte 3,13 von 6,31). Ohne Kennung schon gebucht, Kennung nachgetragen: Sokrates `01Hmoj78Yk` 6,75 (10:30, 7 × 0,96), `01Hmoj77Kr` 8,78 (12:08, 3 × 2,93). **Nachprüfung (Chef 21:02, „Prüf die 79 Euro trotzdem nach“):** je Commit Kostenspalte gegen Verzeichnis, 26.10., 20:00 bis 27.10., 14:00: nachts jede Buchung mit Kennung, Sammelbuchung 09:23 = acht andere Sitzungen; die Annahme „ohne Kennung gebucht“ war falsch, auch `01An8v` (22:42 war `01Egtx`). Darum 21:0x elf Sitzungen nachgebucht, 90,59 $ (je Titel auf 348.6, 348.13, 348.12f; Einzelbeträge in `KOSTEN-GEBUCHT.tsv`). Jerry `01Hmoj77Zu`, `01Hmoj79qo` abgestürzt, ohne Kostenangabe. Ursachen: Ford gab archivierte Sitzungen nicht mit Kosten an `lauf.py`, Kurzform mit veraltetem Betrag.
 
 - **Von Jerry (17:58), 381.1:** jsDelivr: neue Filme aus `bilder` 403 „Package size exceeded … 50 MB“.
