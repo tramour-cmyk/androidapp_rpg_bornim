@@ -1,4 +1,4 @@
-# 376.1 · Waffen wegstecken, nachgebessert · Tom · 29.10., 11:50
+# 410 · Waffen wegstecken, nachgebessert (aus 376.1) · Tom · 29.10., 11:50
 
 ![376.1 Klassen](../bilder/3761-klassen.webp)
 
