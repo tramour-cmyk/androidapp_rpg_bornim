@@ -13,7 +13,7 @@ von Sokrates (Chef 11:27): erst Build 143 und Testbitte, dann Ford-Lauf an, weit
 | 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf | wartet auf Test: Build 143 (t143) | `claude/tom-399-spielfassung` |
 | 399.4 | M | **von Chef (21:4x, Archiv):** oben Rand für die Kamera wie alt | wartet auf Test: Build 143 (t143) | – |
 | 410 | M | **von Sokrates (Chef 29.10., 10:52, 11:40; aus 376.1):** Waffen am Körper wegstecken, alle Waffenarten (Zu 410) | startbar: Urteil 11:40 nachbessern | `claude/tom-376-1-wegstecken` |
-| 411 | M | **von Sokrates (Chef 29.10., 10:52; aus 376.1):** mehr Frisuren als Seitenscheitel (Zu 411; Wörter 409 Homer) | startbar: 12 Frisuren lagen in 3761-wegstecken, Chef urteilte 11:40 nur zum Wegstecken; als eigene Chefsache 411 vorlegen | `claude/tom-376-1-wegstecken` |
+| 411 | M | **von Sokrates (Chef 29.10., 10:52; aus 376.1):** mehr Frisuren als Seitenscheitel (Zu 411; Wörter 409 Homer) | fertig: alle zwölf abgenommen (Chef 11:43, Archiv) | `claude/tom-376-1-wegstecken` |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | wartet auf Test 143: Klassen, Köpfe, Hauttöne abgenommen; Wegstecken 410, Frisuren 411 | `claude/tom-376-1-figuren` |
 | 399.5 | M | **von Chef („jetzt“ 28.10., 21:5x, Archiv):** Innenräume wie alt: Lichtquellen, Licht und Schatten, Einrichtung mit Liebe zum Detail; Fenster und Türen außen wie innen | wartet auf Test: Build 143 (t143) | – |
 | 399.3.1 | M | **von Team Jerry (16:5x):** Klang: Haken in `spiel.gd` (Jerry, `claude/jerry-348-klang`) übernehmen; Menü System: Regler wie SoundSettings über `Klang.stelle` | wartet auf Test: Build 143 (t143) | – |
