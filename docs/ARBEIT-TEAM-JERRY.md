@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben.
 
-**Übergabe (29.10., 10:0x, `session_01Hmoj79A1…`):** 406 Runde 3 vorgelegt. **Chef 10:05 (Sokrates): 348.12, 402, 406 keine Runde, kein Probelauf bis zum Urteil.** Nachfolger: „Jerry – 406 Ausrüstung“
+**Übergabe (29.10., 10:5x, `session_01Hmoj79A1…`):** 406 Runde 3 vorgelegt, Urteil 10:52 (Tiefe, Tusche, Rückenschild). 348.12 Grak gestoppt bis zum Urteil (Chef 10:05). Nachfolger: „Jerry – 402 Herzschlag, 406 Schild Tiefe“
 
 ## Zeilen
 
@@ -49,12 +49,10 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 ## Einzelheiten
 
-- **Zu 406:** Probe `SCHILD=round_shield,round_shield-b` (`probe.tscn`); nach Urteil Schild des Kämpfers, dann Waffen.
+- **Zu 406 (Jerry 10:5x):** `waffen.py` (Shield_Wooden, `SONNE=b`, Messung je Teil im Kommentar); Probe `SCHILD=…` in `probe.gd` zeigt Nahaufnahmen mit Wechsel auf Perspektive, fov 9: Tusche dort prüfen (Chef: nicht erkennbar), Wölbung im Licht zu flach. Kaufdateien nur im Workflow: `add_repo` lehnte die Rechteprüfung um 07:5x wieder ab.
 
-- **von Team Tom (00:47), zu 403:** `add_repo` bornim-kaufmodelle ging bei Tom neu durch; erneut versuchen (Abruf `gh api`, nicht `gh release`).
-
-- **Zu 348.12f, Kaufwolf und 387:** `kaufwolf.py` (Probe `ERSATZ=kaufwolf`, Workflow „Kaufwolf“), `kauftier.py` (Workflow „387 r“); `pfotenhalt.gd`; Artefakt per `gh api …/artifacts/<id>/zip`. An Tom: Heldin tritt in `SCHAU=1` alle 3 s. **387 r4:** Probe druckt „Hülle“ je Bild (Godot = Blender); Offenes im Blatt r4.
-- **Zu 348.12f, Ort:** Wurzelweg `weg` in `giant_rat-info.json` (`kaufratte.py`), `figur.gd` `_bite`, `BITE`, `_walk_home`, `dodge(ms, nm)`; Probe `GEGNER=RATS OHNEUI=1 SCHAU=ort SCHAU_MESS=1` („Ortmess“), Film `348.12f-ort.mp4`; Rute `RUTE_MESS=1`. Kauf (`add_repo` bornim-kaufmodelle) `gh api …/releases/assets/<id>` (Ratte 678372860, Janpec 678515204); Aufruf im Kopf von `kaufratte.py`.
+- **Zu 348.12f, Kaufwolf und 387:** `kaufwolf.py` (Probe `ERSATZ=kaufwolf`, Workflow „Kaufwolf“), `kauftier.py` (Workflow „387 r“); `pfotenhalt.gd`; Artefakt per `gh api …/artifacts/<id>/zip`. **387 r4:** Offenes im Blatt r4.
+- **Zu 348.12f, Ort:** Wurzelweg `weg` in `giant_rat-info.json` (`kaufratte.py`), `figur.gd` `_bite`, `BITE`, `_walk_home`, `dodge(ms, nm)`; Probe `GEGNER=RATS OHNEUI=1 SCHAU=ort SCHAU_MESS=1` („Ortmess“), Film `348.12f-ort.mp4`; Rute `RUTE_MESS=1`. Kauf `gh api …/releases/assets/<id>` (Ratte 678372860, Janpec 678515204).
 - **Zu 348.12 (Chef 27.10., 17:19):** „ob das Modell trifft … muss man halt nachjustieren, das kann kein Kriterium sein“.
 - **Zu 348.7 (Chef 25.10., 19:05):** Kampfort-Hintergrund mehr wie die Welt: „keine schnurgeraden Wege, sondern das ein bisschen ausfransen. Bisschen mehr richtige Wiese“ (`kampfort_wald.py`).
 - **Zu 348.7 (Chef 21:21, 23:33, Archiv):** jedes Modell nur gegen seine Abnahmeliste (`LISTE-FIGUREN.md`), auch Goblin ab Runde 5. **Von Homer (23:4x):** Listen aller übrigen Monster K1 dort eingetragen (348.11 b: echte Größe im Kampf, Leuchten nur Schamane und Skelett, Kits am Umriss verschieden).
@@ -79,7 +77,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 - **Zu 249** (Vorgangsarchiv 249): MARS-Texte decken sich mit der Bewegung, sonst Text über Homer; Zoom, Blut, Erschütterung, Zaubereffekte gemeinsam genutzt (212); Zustände erst mit Zustandsregeln für MARS.
 - **Zu 211.13/211.14** (Werte Vorgangsarchiv 211.13): beim Bau Ansagen und Namen nach Kamerapositionen, verdeckte Gegner sicher wählbar (48 dp), hintereinander Luft zum linken Rand.
 - **Zu 168.1** (Vorgangsarchiv 168): Kapitel 2 Garrick fest, Söldner ab Kapitel 3; fällt Garrick, nur kurzer Ausfall statt 72.8; MARS-Probe behält den Söldner.
-- **Zu 72u.1** (Vorgangsarchiv 72u): Kampfort aus der Karte, Zoom 8 (`KAMPFORT=forest:7:14:8,12`); vor dem Bau zweites Standbild mit Menü, Absicht, Ring, Nacht, Söldner. Ortsklang im Kampf halb so laut, Vögel und Frösche verstummen (D3a).
-- **Zu 38:** Befund Chef und Messung: Chefsache 38. Chef 22:40: seine Ausrüstung dort; damit Grak nachmessen. **Chef 22:46 (von Sokrates):** „Zu 38: 1 ja“ (Empfehlung 1). Messen: `SIM=1 ./gradlew -p core test --tests '*ChapterSimTest*' --rerun` (Schalter `SIM_DW`, `SIM_POT`; ohne `--rerun` alter Stand).
-- **Zu 39:** Faktor Leicht ×0,8, Schwer ×1,2 (39.1 A); Wortlaut `STORY-BLENDE.md` „Einstellungen“, Marken `[39.2.…]`. Nachmessung 18.10.: Normal 78, Leicht +14, Schwer −18 Sieg-Punkte. Nach 38: main einmischen, neu messen, Build, Prüfliste aus PR #107.
-- **Zu 399.2, von Tom (28.10., 13:23):** `goblin.py` patcht `v3/rig.py` als Text, erkennt Toms Fassung nicht; `godot.yml` baut Goblins mit `v3_kampf/` (Stand 12:12); umstellen auf Toms `v3`, bevor Goblins in die Spielfassung kommen (Höhle). Toms `rig.py` fehlen Anker `a3`, `a2`/`b2`; Aussehen ändert sich mit (neue Runde).
+- **Zu 72u.1** (Vorgangsarchiv 72u): Kampfort aus der Karte, Zoom 8; vorher Standbild mit Menü, Absicht, Ring, Nacht, Söldner; Ortsklang halb, Vögel und Frösche still (D3a).
+- **Zu 38:** Chefsache 38 (Git); Chef 22:46 „Zu 38: 1 ja“. Messen: `SIM=1 ./gradlew -p core test --tests '*ChapterSimTest*' --rerun` (Schalter `SIM_DW`, `SIM_POT`; ohne `--rerun` alter Stand).
+- **Zu 39:** Faktor Leicht ×0,8, Schwer ×1,2 (39.1 A); Texte `[39.2.…]`. Nach 38: main einmischen, neu messen, Build, Prüfliste PR #107.
+- **Zu 399.2, von Tom (28.10., 13:23):** `goblin.py` patcht `v3/rig.py` als Text, erkennt Toms Fassung nicht; `godot.yml` baut Goblins mit `v3_kampf/` (Stand 12:12); vor der Höhle auf Toms `v3` umstellen (dort fehlen Anker `a3`, `a2`/`b2`).
