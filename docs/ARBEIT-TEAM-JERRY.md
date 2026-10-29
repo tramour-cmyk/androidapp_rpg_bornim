@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben.
 
-**Übergabe (29.10., 07:5x, `session_01Hmoj79A1…`):** 406 Kleriker-Schild Runde 3 gebaut (6c6cb0b51), vorgelegt. Nachfolger: „Jerry – 406 Ausrüstung“
+**Übergabe (29.10., 10:0x, `session_01Hmoj79A1…`):** 406 Runde 3 vorgelegt. **Chef 10:05 (Sokrates): 348.12, 402, 406 keine Runde, kein Probelauf bis zum Urteil.** Nachfolger: „Jerry – 406 Ausrüstung“
 
 ## Zeilen
 
@@ -13,7 +13,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 399.3 | M | **von Chef über Sokrates (16:42):** Klang in die Spielfassung | gebaut 5c63de384: Keuchen gut (Chef 23:0x), an Tom | `claude/jerry-348-klang` |
 | 402 | M | **von Sokrates (Chef 22:2x, Archiv):** Blende vor dem Kampf wie alt; Herzschlag beim Hinterhalt stärker | wartet auf Chef: Hörprobe 29.10., 00:21 (ansehen/402-hoerprobe), ec182e930: Mittelschicht, im Handy −14 bis −17 dB; Blende gebaut 1923456c7 | – |
 | 403 | M | **von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler):** Kampfort: Held je Klasse wie im Dorf (`HeldFigur.baue`) statt `kampf/daten/held.bin`; Hieb, Stich, Treffer, Tod, Ausweichen aus der UAL Pro | wartet auf Chef: Zugang Kaufmodelle (tun/403-kaufmodelle-zugang), add_repo abgelehnt 29.10., 00:2x | – |
-| 406 | M | **von Team Tom (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe):** Ausrüstung der Helden je Stück aufwerten („steril“), zuerst Rundschild des Klerikers hell mit goldener Sonne (`Dress.kt`); Wappenrock-Sonne macht Tom | wartet auf Chef: A oder B (ansehen/406-kleriker-schild, 07:54); Technik nach Befund 07:58 gebaut f03259b42, Bild mit der Wahl | `claude/jerry-406-schild` |
+| 406 | M | **von Team Tom (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe):** Ausrüstung der Helden je Stück aufwerten („steril“), zuerst Rundschild des Klerikers hell mit goldener Sonne (`Dress.kt`); Wappenrock-Sonne macht Tom | wartet auf Chef: A oder B (ansehen/406-kleriker-schild); Technik r4 f03259b42 | `claude/jerry-406-schild` |
 | 401 | M | **von Chef über Sokrates (Archiv):** Tierlaute, mind. 3 je Tier | wartet auf Chef: Chefsache 402 (Hörprobe), Klopfen neu auf Erde (ec182e930); Ziege, Knabbern gut (23:0x) | – |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK | `claude/jerry-348-kampf` |
@@ -22,7 +22,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 348.13a | M | **von Team Tom (Chef 08:09, Archiv: r9 ja):** Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13a) | gebaut 421662dbd: Tusche nach Licht Vorgabe, Linie 1,3; offen Säbel (Tom) | `claude/jerry-348-kampf` |
 | 397 | M | **von Chef (28.10., 11:15):** Tiere, Monster: mind. drei Ruhebewegungen wie alt (`LISTE-UMZUG-348.md`) | ruht (399) | – |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht bis Kauf: Werte, Listen ja (Archiv), dann einbauen; erst Größe prüfen | – |
-| 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | wartet auf 403 (Kaufzugang, Chefsache 403): Keiler (Kauf, kauftier.py) im Kampfort braucht Treffer, Ausweichen, Hocke wie kaufwolf.py, ohne Kaufdateien am Rechner nicht baubar; Kobold mit 348.12 | `claude/jerry-348-kampf` |
+| 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | wartet auf 403 (Chefsache 403): Keiler im Kampfort ohne Kaufdateien nicht baubar; Kobold mit 348.12 | `claude/jerry-348-kampf` |
 | 348.7b | M | Zauberbahn nach Chef „D“ | gebaut: r4 passt, Befunde bleiben so (Chef 15:28, Archiv) | `claude/jerry-348-kampf` |
 | 390 | M | **von Perikles:** Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | wartet auf 399.1: Regeln samt Elite golden gleich; offen Ansicht klassisch, Gegner auf der Karte (Elitewurf) | `claude/jerry-348-kampf` |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: beantwortet (Konter nur nach Fehlschlag); ändern nur auf Wort des Chefs | – |
