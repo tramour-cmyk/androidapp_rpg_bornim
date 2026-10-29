@@ -1,4 +1,4 @@
-# 399.5 · Innenräume wie alt, fünfter Stand · Tom · 29.10., 00:4x
+# 399.5 · Innenräume wie alt, sechster Stand · Tom · 29.10., 03:2x
 
 Probe am Rechner, noch kein Build. Je Raum v. l. n. r.: alt Tag, neu Tag, alt Nacht, neu Nacht, neu um 180° gedreht. Ohne Leute (in der Probe nicht gebaut).
 
@@ -21,6 +21,14 @@ Seit dem ersten Stand nach den Befunden des Prüfers geändert:
 
 Vierter und fünfter Stand: Im Raum lief die blaue Nachtstimmung von draußen mit; jetzt bleibt die Stimmung im Raum wie im alten Spiel gleich, und die Nacht ist auf das alte Maß eingestellt (gemessen neu 55–65 % des Tags, alt 44–64 %). Dazu nach dem Prüfer: Teppich rot mit Borte, gedreht verschwinden Kamin und Altar mit ihrer Wand, Fass, Kisten, Truhe und Bett stehen frei von der Wand, Waage kräftiger, Lehnen heller, Kerzenlicht reicht bis auf den Boden. Tempel bei Tag noch etwas dunkler als alt (42 zu 51).
 
-Befund des Prüfers zum fünften Stand (nach dem Versand, offen): gedreht weiße Fenster am hellsten; rosa Lichtkeil scharf auf dem Teppich (Schenke, Ältester); nachts runde, hart umrandete Lichtscheibe an der linken Wand (Schenke), Tempelfenster nachts hell cremefarben, große Flächen sehr dunkel mit hellen Kanten; Teppich ohne Muster; Waage von vorn wie eine Stange; Fass in der Ladentheke, graues Ding in der Vorderwand (Ältester); gedreht bleibt der Kaminboden mit grauer Scheibe; keine Lichtinseln am Boden um die Tischkerzen; Bänke nachts fast schwarz.
+Sechster Stand, nach dem Prüfer zum fünften:
+- Kerzen leuchten weiter und fallen weich ab: keine runde Lichtscheibe mit hartem Rand mehr an der Wand hinter der Theke; um die Tischkerzen eine Lichtinsel am Boden (gemessen: Schenke nachts neben dem Tisch dreimal so hell wie ohne Kerze, am Tag gut halb so hell dazu).
+- Licht durchs Fenster warm statt bläulich, mit weichem Rand: vorher ein scharfer rosa Keil auf dem roten Teppich.
+- Fensterglas tags gedämpft (gedreht war es der hellste Fleck), nachts dunkel (im Tempel war es cremefarben).
+- Teppich mit Rautenmuster wie alt (hellrot auf dunklem Rot, Mitte in Borte); vorher einfarbig.
+- Waage auf einem Brett, mit Zeiger, tiefen Schalen an Ketten, Münzen in der einen, Gewicht in der anderen Schale; vorher von vorn nur eine Stange.
+- Fass steht nicht mehr in der Ladentheke; Kesseldeckel verschwindet gedreht mit dem Kamin; Bänke heller.
 
-**Was du sagen sollst:** nichts nötig; ich baue weiter, dann neue Bilder, dann der Build mit 376.1.
+Noch offen: Tempel nachts links sehr dunkel, Mauerkanten hell wie Linien; graues Teil vorn rechts beim Ältesten (Ursache noch nicht gefunden).
+
+**Was du sagen sollst:** nichts nötig; ich baue das Offene weiter, dann der Build mit 376.1.
