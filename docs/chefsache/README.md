@@ -29,7 +29,6 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [403](tun/403-kaufmodelle-zugang.md) | **Muss** | E Kampf | 29.10., 00:27 | Zugang zu den Kaufmodellen in Jerrys Sitzung freigeben | Jerry |
-| [348.12h](tun/34812h-ausruestung-laden.md) | **Muss** | M Geld | 28.10. | Ausrüstung: ein Paket kaufen, drei kostenlose laden | Sokrates |
 | [142](tun/142-pflichttest.md) | **Muss** | M Veröffentlichung | 27.10., 20:07 | Pflichttest Play Store: Gewerbeschein melden | Sokrates |
 
 ## Offen je Rolle
@@ -161,7 +160,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „star
 | 374 | M | von Chef (27.10., 11:54): wer prüft 373? | Termin 31.10. |
 | 348.12c | M | von Chef (26.10., 11:59): Modellpaket auch gegen Geld (Quaternius und andere), Verkauf im | ruht |
 | 348.12 | M | von Chef (25.10., 21:21, „b prüfen“): fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit | wartet auf Jerry |
-| 348.12h | M | von Chef (26.10., 16:16; ja 16:19, Archiv): fertige Dinge, Möbel, Waffen suchen | startbar |
+| 348.12h | M | von Chef (26.10., 16:16; ja 16:19, Archiv): fertige Dinge, Möbel, Waffen suchen | Leiche: in LISTE-VORGAENGE.md „erledigt“, Zeile noch im Vorrat |
 | 340.2 | M | von Chef (25.10., 10:16, Vorgangsarchiv 340): tools/rollenspiegel.sh <Rolle> zeigt nur Fra | wartet auf Test/Build (gebaut) |
 | 348 | M | von Chef (24.10., 16:43; „jetzt“ 16:54): fertige Spiel-Engine statt Selbstbau? | ruht |
 | 26.1 | M | von Chef (24.10., 16:56): Durchspielbogen auswerten (Rest von 26) | wartet auf 348 (in Arbeit) |
