@@ -10,7 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 |---|---|---|---|---|
 | 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf | wartet auf Build: Fehler aus Test 139 gebaut bis 554cf01d9; nächster Build mit 376.1 (abgenommen 10:52) und 399.5 (Urteil offen; Chef 22:0x, Archiv) | `claude/tom-399-spielfassung` |
 | 399.4 | M | **von Chef (21:4x, Archiv):** oben Rand für die Kamera wie alt | gebaut cb351a959, fährt im nächsten Build (Kampfort ohne, Jerry) | – |
-| 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | startbar: Urteil 29.10., 10:52 (Archiv): abgenommen; Waffen wegstecken, mehr Frisuren (Zu 376.1) | `claude/tom-376-1-figuren` |
+| 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | wartet auf Chef: Kaufpakete, add_repo in Tom 29.10., 10:55 erneut abgelehnt (Chefsache 403); Urteil 10:52 abgenommen, dann Waffen wegstecken, mehr Frisuren (Zu 376.1) | `claude/tom-376-1-figuren` |
 | 399.5 | M | **von Chef („jetzt“ 28.10., 21:5x, Archiv):** Innenräume wie alt: Lichtquellen, Licht und Schatten, Einrichtung mit Liebe zum Detail; Fenster und Türen außen wie innen | fertig: abgenommen 10:54, jetzt Build (Zu 399.5) | – |
 | 399.3.1 | M | **von Team Jerry (16:5x):** Klang: Haken in `spiel.gd` (Jerry, `claude/jerry-348-klang`) übernehmen; Menü System: Regler wie SoundSettings über `Klang.stelle` | wartet auf Build: 139.2 im Test 139 ohne Urteil, Zeile in den nächsten Testbogen (Zu 399.1) | – |
 | 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | wartet auf Chef: Kaufpakete nötig, Freigabe wie Chefsache 403 (add_repo in Tom 29.10., 03:4x abgelehnt); 385.1 ja (Archiv); Feuer an Jerry (385.2) |
