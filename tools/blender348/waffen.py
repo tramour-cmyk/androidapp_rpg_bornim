@@ -20,7 +20,7 @@ LEATHER, BRASS, WOOD = lin(0x3A2A20), lin(0xA8884A), lin(0x6A4A2E)
 PAINT, STRIPE, IRON = lin(0x6E2E24), lin(0xC8BCA0), lin(0x4A4C50)
 
 class Part:
-    def __init__(self): self.V = []; self.F = []; self.C = []
+    def __init__(self): self.V = []; self.F = []; self.C = []; self.UV = None; self.TEX = None   # UV je Fläche, Bild in OUT/tex (406)
 def face(P, pts, col):
     n0 = len(P.V); P.V += [Vector(p) for p in pts]; P.F.append(tuple(range(n0, n0 + len(pts)))); P.C += [col] * len(pts)
 
@@ -127,6 +127,176 @@ def build_round_shield(P, board=0x7A5634):
     # Rundschild (Kleriker, Goblin, Kobold, Skelett): 60 cm Durchmesser, Holz mit eisernem Rand
     pts = [(math.cos(2 * math.pi * k / 24) * 30, math.sin(2 * math.pi * k / 24) * 30) for k in range(24)]
     shield_board(P, list(reversed(pts)), 2.0, lin(board))
+# 406 (Chef 28.10., 23:0x, Archiv 376.1: Ausrüstung „noch steril“; der Schild des Klerikers „speziell … wegen seiner Verbundenheit zu
+# seiner Göttin“): Rundschild des Klerikers wie alt (Dress.kt 949: hell, goldene Sonne, Buckel vergoldet) auf dem Rundschild des
+# freien Bausatzes Fantasy Props MegaKit (Quaternius, CC0, Shield_Wooden: gewölbte Bretter, Buckel mit Platte, acht Nieten und vier
+# Klammern, eiserner Rand, Griff; docs/LISTE-BESTAND.md); die Bemalung ist unsere eigene Textur (Modellregel 6): hell gestrichene
+# Bretter mit Maserung und Abrieb, Sonne aus Ring und acht Strahlen auf den Nieten (SONNE=b: dazu acht kurze, gewellte), Buckel,
+# Platte, Nieten und Klammern golden; Rückseite rohes Holz, Rand und Bänder Eisen, Griff Leder. Ohne Bausatz der eigene Rundschild
+# mit derselben Sonne in Eckfarben.
+CC0 = os.environ.get('CC0', os.path.expanduser('~/cc0'))
+SONNE = os.environ.get('SONNE', 'a')
+PALE, GOLD, SUNEDGE = 0xBDB49C, 0xB8904A, 0x6A5028       # Dress.kt: worn(0xE4DCC4, 0.15), gold, dunkler Rand der Farbe
+# Runde 2 (Prüfer 07:43: Fläche fast weiß, Rand wie Schnee): in der Sonne des Kampforts heller als im alten Bild, also dunkler gemalt
+def sonne(x, z):
+    """Abstand (m, < 0 innen) zum Rand der gemalten Sonne an (x, z) der Vorderseite; Buckelplatte bis 11,5 cm"""
+    import numpy as np
+    r = np.hypot(x, z); th = np.arctan2(z, x)
+    d = np.abs(r - 0.125) - 0.011                         # Ring um die Platte (alt: 0,07 h = 12,6 cm)
+    k = 2 * math.pi / 8
+    off = (th + k / 2) % k - k / 2                        # Winkel zum nächsten Strahl (0°, 45° … auf den Nieten)
+    t = np.clip((r - 0.125) / 0.11, 0, 1)
+    w = 0.019 * (1 - t) ** 0.85 + 0.0015                  # Strahl spitz zulaufend, an der Wurzel 3,8 cm breit, bis 25 cm
+    ray = np.maximum(np.abs(off) * r - w, np.maximum(0.125 - r, r - 0.235))   # Runde 2: Spitzen frei vor dem Rand (27 cm)
+    d = np.minimum(d, ray)
+    if SONNE == 'b':                                     # Fassung b: dazwischen acht kurze, gewellte Strahlen bis 20 cm
+        off2 = (th % k) - k / 2 + 0.012 * np.sin((r - 0.13) * 70) / np.maximum(r, 0.05)
+        t2 = np.clip((r - 0.125) / 0.075, 0, 1)
+        w2 = 0.011 * (1 - t2) ** 0.9 + 0.001
+        d = np.minimum(d, np.maximum(np.abs(off2) * r - w2, np.maximum(0.125 - r, r - 0.2)))
+    return d
+def schild_textur(path, fugen=()):
+    """1024 px, 8 px/cm, vier Felder je 64 cm: oben links Vorderseite (bemalt), oben rechts Rückseite (rohes Holz), unten links
+    Eisen, unten rechts Gold (links) und Leder (rechts); Feld (Spalte, Zeile) ↔ x = Spalte/512 · 0,64 − 0,32, z = 0,32 − Zeile/512 · 0,64"""
+    import numpy as np
+    from PIL import Image
+    rng = np.random.default_rng(406)
+    N = 512; a = (np.arange(N) + 0.5) / N * 0.64 - 0.32
+    X, Z = np.meshgrid(a, -a)
+    def rgb(h): return np.array([(h >> 16) & 255, (h >> 8) & 255, h & 255], float) / 255
+    def rausch(fx, fz, n=4):
+        """glattes Rauschen, Mittel 0, Streuung 1 (höchstens ±2,5), Frequenz fx, fz je Meter (Maserung: längs gestreckt)"""
+        out = np.zeros((N, N)); amp = 1.0
+        for o in range(n):
+            gx, gz = int(fx * 0.64 * 2 ** o) + 2, int(fz * 0.64 * 2 ** o) + 2
+            g = rng.standard_normal((gz, gx)).astype(np.float32)
+            out += np.asarray(Image.fromarray(g, mode='F').resize((N, N), Image.BICUBIC), float) * amp; amp *= 0.5
+        return np.clip((out - out.mean()) / (out.std() + 1e-9), -2.5, 2.5)
+    def feld(c, kraft, fx, fz):
+        return np.clip(rgb(c)[None, None, :] * (1 + kraft * rausch(fx, fz))[:, :, None], 0, 1)
+    # Vorderseite: Farbe über Holz, die Maserung schimmert durch (Bretter längs x), Flecken, am Rand abgerieben bis aufs Holz
+    holz = feld(0x6E4A2C, 0.13, 3, 40)
+    vorn = feld(PALE, 0.03, 2, 2) * (1 + 0.035 * rausch(4, 60, 3))[:, :, None]
+    r = np.hypot(X, Z)
+    ab = np.clip((r - 0.235) / 0.04, 0, 1) * np.clip(0.5 + 0.4 * rausch(14, 14, 3), 0, 1)
+    kratz = np.zeros((N, N))
+    for _ in range(6):                                   # Kratzer: kurze Striche, darin das Holz (Runde 2: wenige, kurz, längs der Bretter)
+        x0, z0 = rng.uniform(-0.22, 0.22, 2); ang = rng.uniform(-0.25, 0.25); L = rng.uniform(0.01, 0.03)
+        dx, dz = math.cos(ang), math.sin(ang)
+        s = np.clip(((X - x0) * dx + (Z - z0) * dz) / L, 0, 1)
+        dist = np.hypot(X - (x0 + s * L * dx), Z - (z0 + s * L * dz))
+        kratz = np.maximum(kratz, np.clip(1 - dist / 0.0012, 0, 1) * 0.35)
+    ab = np.maximum(ab, kratz)
+    for zf in fugen:                                     # Runde 2 (Prüfer: keine Bretter zu sehen): Fugen dunkel durch die Farbe
+        ab = np.maximum(ab, np.clip(1 - np.abs(Z - zf) / 0.0018, 0, 1) * 0.8)
+    vorn = vorn * (1 - ab[:, :, None] * 0.75) + holz * (ab[:, :, None] * 0.75)
+    d = sonne(X, Z); px = 0.64 / N
+    gold = feld(GOLD, 0.05, 6, 6) * (1 + 0.1 * np.clip(0.18 - r, 0, 1))[:, :, None]
+    gold = gold * (1 - 0.1 * np.clip(rausch(30, 30, 2) - 1, 0, 1))[:, :, None]   # abgeblätterte Stellen etwas matter
+    innen = np.clip(0.5 - d / px, 0, 1)[:, :, None]
+    rand = (np.clip(0.5 - (d - 1.6 * px) / px, 0, 1)[:, :, None]) * (1 - innen)
+    vorn = vorn * (1 - rand * 0.7) + rgb(SUNEDGE)[None, None, :] * rand * 0.7
+    vorn = vorn * (1 - innen) + gold * innen
+    hinten = holz * (1 - 0.1 * np.clip(rausch(1.5, 1.5, 2), 0, 2))[:, :, None]
+    eisen = feld(0x5C6068, 0.06, 30, 30) * (1 - 0.08 * np.clip(rausch(5, 5, 3), 0, 2))[:, :, None]
+    goldf = feld(GOLD, 0.06, 20, 20)
+    leder = feld(0x3E2C22, 0.08, 25, 60)
+    oben = np.concatenate([vorn, hinten], 1)
+    unten = np.concatenate([eisen, np.concatenate([goldf[:, :N // 2], leder[:, N // 2:]], 1)], 1)
+    img = np.concatenate([oben, unten], 0)
+    Image.fromarray((img * 255).round().astype(np.uint8)).save(path)
+def build_round_shield_cc0(P):
+    import glob
+    src = glob.glob(os.path.join(CC0, 'fantasy-props-megakit', '*', 'glTF', 'Shield_Wooden.gltf'))
+    if not src:
+        print('406: Bausatz fehlt unter', CC0, '- eigener Rundschild'); return build_round_shield_eigen(P)
+    vor = set(bpy.data.objects)
+    bpy.ops.import_scene.gltf(filepath=src[0])
+    o = [x for x in bpy.data.objects if x not in vor and x.type == 'MESH'][0]
+    mats = [m.name.split('.')[0] for m in o.data.materials]
+    bm = bmesh.new(); bm.from_mesh(o.data); bpy.data.objects.remove(o, do_unlink=True)
+    # Griff quer wie unsere Fessel (Bausatz: senkrecht), also 90° um die Blickachse
+    bm.transform(Matrix.Rotation(math.radians(90), 4, 'Y'))
+    # Teile (der Bausatz trennt sie an den Nähten der Textur): Nieten (22 Flächen bei r = 8,3 cm) durch eigene ersetzen
+    # Runde 2 (Prüfer 07:43: Buckel zerrissen, Nieten weg, Löcher am Rand): erst Nähte schließen, dann nur Holz, Rand, Bänder und
+    # Griff vereinfachen; Buckel, Platte und Klammern bleiben, wie sie sind (höchstens 790 Dreiecke, Modellregel 7: 800)
+    bm.faces.ensure_lookup_table(); frei = set(bm.faces); nieten = []; kanten = set()
+    while frei:
+        f = frei.pop(); teil = [f]; st = [f]
+        while st:
+            for e in st.pop().edges:
+                for g in e.link_faces:
+                    if g in frei: frei.discard(g); teil.append(g); st.append(g)
+        vs = [v.co for g in teil for v in g.verts]; c = sum(vs, Vector()) / len(vs)
+        if 'Furniture' in mats[teil[0].material_index]:     # Bretter längs x: ihre Kanten in z sind die Fugen
+            kanten |= {round(min(v.z for v in vs) * 200) / 200, round(max(v.z for v in vs) * 200) / 200}
+        if 'Metal' in mats[teil[0].material_index] and len(teil) == 22 and abs(math.hypot(c.x, c.z) - 0.083) < 0.01:
+            nieten.append((c, min(v.y for v in vs), max(v.y for v in vs)))
+            bmesh.ops.delete(bm, geom=teil, context='FACES')
+    bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=0.0002)
+    def gold(f):
+        c = f.calc_center_median()
+        return 'Metal' in mats[f.material_index] and math.hypot(c.x, c.z) < 0.155 and c.y < -0.09
+    fl = []
+    teile = [[f for f in bm.faces if gold(f)], [f for f in bm.faces if not gold(f)]]
+    ng = sum(len(f.verts) - 2 for f in teile[0])
+    nr = sum(len(f.verts) - 2 for f in teile[1])
+    for k, flist in enumerate(teile):
+        b2 = bmesh.new(); vm = {}
+        for f in flist:
+            for v in f.verts:
+                if v not in vm: vm[v] = b2.verts.new(v.co)
+            g = b2.faces.new([vm[v] for v in f.verts]); g.material_index = f.material_index
+        me2 = bpy.data.meshes.new('teil'); b2.to_mesh(me2); b2.free()
+        for m in mats: me2.materials.append(bpy.data.materials.get(m) or bpy.data.materials.new(m))
+        o2 = bpy.data.objects.new('teil', me2); bpy.context.scene.collection.objects.link(o2)
+        if k == 1: o2.modifiers.new('weniger', 'DECIMATE').ratio = min(1.0, (790 - ng - 6 * len(nieten)) / nr)
+        o2.modifiers.new('dreiecke', 'TRIANGULATE')
+        dg = bpy.context.evaluated_depsgraph_get(); me = o2.evaluated_get(dg).to_mesh()
+        for p in me.polygons:
+            m = mats[p.material_index]
+            fl.append(([me.vertices[v].co.copy() for v in p.vertices], 'gold' if k == 0 else ('eisen' if 'Metal' in m else ('holz' if 'Furniture' in m else 'leder')), p.normal.copy()))
+        o2.evaluated_get(dg).to_mesh_clear(); bpy.data.objects.remove(o2, do_unlink=True)
+    bm.free()
+    for c, y0, y1 in nieten:     # eigene Nieten: flache sechseckige Kuppen, 1,9 cm breit, auf der Platte
+        ring = [Vector((c.x + math.cos(t) * 0.0095, y1 - 0.001, c.z + math.sin(t) * 0.0095)) for t in (2 * math.pi * i / 6 for i in range(6))]
+        top = Vector((c.x, y0, c.z))
+        for i in range(6):
+            q = [ring[i], ring[(i + 1) % 6], top]
+            fl.append((q, 'gold', (q[1] - q[0]).cross(q[2] - q[0]).normalized()))
+    # Ursprung an der Fessel wie unsere Schilde: Rückseite der Bretter in der Mitte bei y = 0, Vorderseite nach -y
+    hinten = [p.y for pts, m, n in fl if m == 'holz' and n.y > 0.5 for p in pts if math.hypot(p.x, p.z) < 0.1]
+    dy = -max(hinten)
+    P.UV = []; P.TEX = 'schild_kleriker'
+    for pts, m, n in fl:
+        pts = [Vector((p.x, p.y + dy, p.z)) for p in pts]
+        feld = {'gold': (0.5, 0.0), 'eisen': (0.0, 0.0), 'leder': (0.75, 0.0)}.get(m) or ((0.0, 0.5) if n.y < -0.5 else (0.5, 0.5))
+        ax = max(range(3), key=lambda i: abs(n[i]))   # Projektion längs der Hauptrichtung der Fläche
+        uv = []
+        for p in pts:
+            a_, b_ = (p.x, p.z) if ax == 1 else ((p.y, p.z) if ax == 0 else (p.x, p.y))
+            if m in ('gold', 'leder'): a_ = a_ * 0.5 - 0.16      # Gold und Leder: je eine Hälfte des Feldes
+            uv.append((feld[0] + (a_ + 0.32) / 0.64 * 0.5, feld[1] + (b_ + 0.32) / 0.64 * 0.5))
+        face(P, pts, (1.0, 1.0, 1.0))
+        P.UV.append(uv)
+    fugen = []
+    for z in sorted(z for z in kanten if abs(z) < 0.26):     # beide Kanten eines Spalts (5 mm) sind eine Fuge
+        if fugen and z - fugen[-1][-1] < 0.012: fugen[-1].append(z)
+        else: fugen.append([z])
+    fugen = [round(sum(g) / len(g), 4) for g in fugen]
+    os.makedirs(os.path.join(OUT, 'tex'), exist_ok=True)
+    schild_textur(os.path.join(OUT, 'tex', P.TEX + '.png'), fugen)
+    print('406: Fugen bei z =', fugen)
+def build_round_shield_eigen(P):
+    build_round_shield(P, PALE)
+    # Sonne in Eckfarben 0,5 mm vor der Vorderseite: Ring aus 24 Vierecken, acht spitze Strahlen
+    y = -0.0205; g = lin(GOLD)
+    for k in range(24):
+        a0, a1 = 2 * math.pi * k / 24, 2 * math.pi * (k + 1) / 24
+        face(P, [Vector((math.cos(a) * r_, y, math.sin(a) * r_)) for a, r_ in ((a0, 0.114), (a1, 0.114), (a1, 0.136), (a0, 0.136))], g)
+    for k in range(8):
+        a = 2 * math.pi * k / 8; d = Vector((math.cos(a), 0, math.sin(a))); q = Vector((-d.z, 0, d.x))
+        face(P, [d * 0.13 + q * 0.019 + Vector((0, y, 0)), d * 0.25 + Vector((0, y, 0)), d * 0.13 - q * 0.019 + Vector((0, y, 0))], g)
 def build_crude_shield_r5(P, board=0x6E5844):   # heller als Dress 0x5A4632: im Kampfbild las er sich schwarz
     # Runde 4 (Prüfer Goblin Runde 3, Chef 21:33: „so schwarz“, von vorn ein Oval ohne Rand und Buckel): wie Dress.kt crude,
     # rohe Bretter mit dunklen Fugen alle 6 cm, ein eisernes Band quer über dem Buckel, eiserner Rand
@@ -329,7 +499,7 @@ def build_staff_shaman(P):
         face(P, [a_ + side * 0.3, a_ - side * 0.3, b_ - side, b_ + side], col)
 
 KINDS = {'dagger': build_dagger, 'shortsword': build_shortsword, 'longsword': build_longsword,
-         'quarterstaff': build_quarterstaff, 'shield': build_shield, 'round_shield': build_round_shield,
+         'quarterstaff': build_quarterstaff, 'shield': build_shield, 'round_shield': build_round_shield_cc0,
          'scimitar': build_scimitar, 'handaxe': build_handaxe,
          # Goblins (MonsterKits rusty, crude): altes Eisen braun gefleckt, roher Schild aus grauen Brettern (Dress.kt)
          'scimitar-rost': build_scimitar, 'handaxe-rost': build_handaxe_gob, 'dagger-rost': build_dagger_gob, 'dagger-kobold': build_dagger_kobold,
@@ -348,16 +518,26 @@ def export(name):
     P = Part(); KINDS[name](P)
     me = bpy.data.meshes.new(name); me.from_pydata([tuple(v) for v in P.V], [], P.F)
     ca = me.color_attributes.new('albedo', 'FLOAT_COLOR', 'CORNER')
-    for poly in me.polygons:
+    uvl = me.uv_layers.new(name='UVMap') if P.UV else None
+    for k, poly in enumerate(me.polygons):
         poly.use_smooth = name == 'shortbow'     # Späher Runde 3: Kanten des Bogens lasen sich als Streifen
-        for li in poly.loop_indices:
+        for j, li in enumerate(poly.loop_indices):
             c = P.C[me.loops[li].vertex_index]; ca.data[li].color = (c[0], c[1], c[2], c[3] if len(c) > 3 else 1.0)   # Alpha 0: glimmt
+            if uvl: uvl.data[li].uv = P.UV[k][j]
     mat = bpy.data.materials.get('waffe') or bpy.data.materials.new('waffe')
+    if P.TEX:     # 406: gemalte Textur (toon.gdshader: Bild mal Eckfarbe)
+        mat = bpy.data.materials.new(P.TEX); mat.use_nodes = True; nt = mat.node_tree
+        tn = nt.nodes.new('ShaderNodeTexImage'); tn.image = bpy.data.images.load(os.path.join(OUT, 'tex', P.TEX + '.png'))
+        nt.links.new(tn.outputs['Color'], nt.nodes['Principled BSDF'].inputs['Base Color'])
     me.materials.append(mat)
     ob = bpy.data.objects.new(name, me); bpy.context.scene.collection.objects.link(ob)
     bpy.ops.object.select_all(action='DESELECT'); ob.select_set(True)
+    if P.TEX:     # gewölbtes Brett und Buckel weich, Kanten des Randes und der Bretter hart (face() legt je Fläche eigene Ecken an)
+        bm = bmesh.new(); bm.from_mesh(me); bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=0.0005); bm.to_mesh(me); bm.free()
+        bpy.context.view_layer.objects.active = ob; bpy.ops.object.shade_smooth_by_angle(angle=math.radians(40))
     path = os.path.join(OUT, name + '.glb')
-    bpy.ops.export_scene.gltf(filepath=path, export_format='GLB', use_selection=True, export_vertex_color='ACTIVE', export_yup=True)
+    bpy.ops.export_scene.gltf(filepath=path, export_format='GLB', use_selection=True, export_vertex_color='ACTIVE', export_yup=True,
+                              export_image_format='JPEG', export_jpeg_quality=88)
     tris = sum(len(f) - 2 for f in P.F)
     print('GLB', path, os.path.getsize(path), tris, 'Dreiecke')
     assert tris <= 800, name + ': mehr als 800 Dreiecke (Modellregel 7)'

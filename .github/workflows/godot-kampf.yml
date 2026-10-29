@@ -92,10 +92,12 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: ~/cc0
-          key: cc0-quaternius-3
+          key: cc0-quaternius-4
       - name: CC0-Pakete (Quaternius)
         run: |
           [ -n "$(find ~/cc0 -name UAL1_Standard.glb 2>/dev/null)" ] || bash tools/blender348/v3/cc0_laden.sh ~/cc0
+          # 406: Rundschild des Klerikers auf Shield_Wooden aus dem Fantasy Props MegaKit (waffen.py), Schluessel wie godot.yml
+          [ -d ~/cc0/fantasy-props-megakit ] || PAKETE=fantasy-props-megakit bash tools/blender348/v3/cc0_laden.sh ~/cc0
       - name: Modelle bauen (Held, Wolf, Grimmzahn, Ratte, Goblin, Späher, Wald)
         env:
           GH_TOKEN: ${{ secrets.KAUF_TOKEN }}

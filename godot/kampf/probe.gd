@@ -356,7 +356,63 @@ func _still(path: String) -> void:
 	await RenderingServer.frame_post_draw
 	get_viewport().get_texture().get_image().save_png(path)
 	print("Bild ", path)
+	if OS.get_environment("SCHILD") != "":
+		await _schild(path)
 	get_tree().quit()
+
+
+## 406: SCHILD=round_shield,round_shield-b: je Kennung (kampf/daten/<k>.bin) der Schild der Heldin getauscht, dann drei Bilder mit
+## der Kampfkamera (Tusche, Licht wie im Kampf): aus ihrer Richtung, von vorn auf die Fläche, von hinten (<bild>-<k>-kamera.png …)
+func _schild(path: String) -> void:
+	var held = fig_of("hero")
+	var alt: Node3D = held.find_child("Schild", true, false)
+	if alt == null:
+		print("Schild: keiner an der Heldin")
+		return
+	if fight.ui != null:
+		fight.ui.visible = false
+	var cam: Camera3D = fight.cam
+	var blick: Vector3 = cam.global_basis.z.normalized()
+	cam.projection = Camera3D.PROJECTION_PERSPECTIVE
+	cam.keep_aspect = Camera3D.KEEP_WIDTH
+	cam.fov = 9.0
+	var zeig: Node3D = alt
+	for k in OS.get_environment("SCHILD").split(","):
+		var p := "res://kampf/daten/%s.bin" % k
+		var doc := GLTFDocument.new()
+		var st := GLTFState.new()
+		if not FileAccess.file_exists(p) or doc.append_from_buffer(Figur.lade_bin(p), "", st) != OK:
+			print("Schild fehlt ", p)
+			continue
+		var neu := doc.generate_scene(st) as Node3D
+		held._paint(neu)
+		neu.transform = alt.transform
+		alt.get_parent().add_child(neu)
+		zeig.visible = false
+		zeig = neu
+		var vorn: Vector3 = neu.global_basis.z.normalized()
+		var mitte: Vector3 = neu.global_position + vorn * 0.06
+		for seite in [["kamera", blick], ["vorn", (vorn + Vector3.UP * 0.25).normalized()], ["hinten", (-vorn + Vector3.UP * 0.25).normalized()]]:
+			if seite[0] != "kamera":     # von vorn und hinten nur der Schild: Gegner, Söldner und der Leib der Heldin aus
+				for id in fight.figures:
+					if id != "hero":
+						fig_of(id).visible = false
+				for mi in held.find_children("*", "MeshInstance3D", true, false):
+					mi.visible = neu.is_ancestor_of(mi)
+			else:
+				for id in fight.figures:
+					fig_of(id).visible = true
+				for mi in held.find_children("*", "MeshInstance3D", true, false):
+					mi.visible = true
+			# was zwischen Kamera und Schild steht (Bäume am Rand), schneidet die nahe Grenze weg; aus Richtung der Kampfkamera wie im Spiel
+			cam.near = 0.1 if seite[0] == "kamera" else 4.15
+			cam.global_position = mitte + seite[1] * 4.6
+			cam.look_at(mitte)
+			for _i in 3:
+				await RenderingServer.frame_post_draw
+			var f := path.get_basename() + "-%s-%s.png" % [k, seite[0]]
+			get_viewport().get_texture().get_image().save_png(f)
+			print("Bild ", f, " Schild ", mitte.snapped(Vector3.ONE * 0.01), " vorn ", vorn.snapped(Vector3.ONE * 0.01))
 
 
 ## 348.12f, 368 (Chef 26.10., 16:23: Bewegungen als Kurzvideo): SCHAU=1 hält den Kampf an und spielt allen Gegnern dieselbe
