@@ -46,6 +46,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 399.1, von Sokrates (Chef 22:0x):** „schönen Blenden, wenn wir Maps wechseln … Gebietskarten und Grundrisse … Einmal ausführlich und … dann kürzer“: `ortsblende.gd` überall prüfen, eigener Punkt im nächsten Testbogen (wie Vorspann mit Klanglogo, nur mit Musik).
 
 - **Zu 399.5, von Sokrates (Chef 10:54, Archiv):** abgenommen, nicht weiter verbessern, keine Ecken; jetzt Build (Guthaben gleich rum).
+- **Zu 399.1, von Sokrates (Chef 11:10, Archiv „399.1, Menü Ausrüstung“):** passt; Held in Erschaffung und Ausrüstung nie oben oder unten abgeschnitten, immer gleich groß (Halbling auf volle Größe) wie alt; Ausrüstung wie alt (antippen, Liste zum Blättern, Vergleichswerte, Bilder), prüft Chef im nächsten Build; Reitersymbol Ausrüstung: Schwert klarer durch den Schild, wirkt verschoben.
 - **Zu 399.5** (Tom 29.10., 04:2x): `raum.py`, `raumlicht.gd`, `licht.gd`; Laufskript `raeume_` in `tools/pruef348`, `NACHTSTUFEN`, `KERZENPROBE=1` (`kerzen_mass.py`); alte Bilder `tools/t bild` (kein Probelauf). Offen: Tempel tags 44 zu alt 51.
 - **Zu 376.1, von Sokrates (Chef 10:52, Archiv):** abgenommen; Waffen wegstecken (mit Schild auf den Rücken darunter, Griff sichtbar; sonst Stab hinten in Halterung, Schwert, Dolch in Gürtelscheide); mehr Frisuren.
 - **Zu 376.1:** UAL Pro (`Unreal-Godot/UAL1.glb`, 120 Bewegungen): kein Stich, keine Schildabwehr, kein gehaltenes Ausholen (bleiben eigen); Probeblatt und Raster im Git-Verlauf dieser Zeile.
