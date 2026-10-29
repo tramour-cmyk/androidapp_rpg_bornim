@@ -69,3 +69,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:04 29.10.: Marke Archiv session_01Hmoj76BK5vdJyc6arYtcYr (lauf.py)
 - 01:04 29.10.: Marke Archiv session_01Hmoj77EQQWjq6C98Pf9qhb (lauf.py)
 - 01:04 29.10.: Marke Archiv session_01Hmoj76y2gSrrvMTYAnBSWJ (lauf.py)
+- 07:06 29.10.: Startsperre 07:06 Start Jerry (lauf.py)
+- 07:06 29.10.: Marke Archiv session_01Hmoj76ki21kJDZKro2ad6K (lauf.py)
+- 07:06 29.10.: Nachfolger-Warnung Tom (Übergabe 29.10., 04:29) (lauf.py)
+- 07:06 29.10.: Nachfolger-Warnung Jerry (Übergabe 29.10., 00:19) (lauf.py)
