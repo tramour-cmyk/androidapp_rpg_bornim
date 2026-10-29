@@ -29,7 +29,7 @@ KOPF = 'Regular_Male_OnlyHead'
 KLASSEN = {
     # Pruefer 376.1 Lauf 1 (29.10.): unsere Stiefel wie Holzpfloecke, im rechten ein Loch: Stiefel aus den Kauftrachten
     'FIGHTER': {'tracht': 'unsere', 'fuesse': 'Male_Ranger_Feet_Boots'},
-    'WIZARD': {'tracht': 'held_wizard', 'fuesse': 'Male_Ranger_Feet_Boots'},   # Lauf 2: Wizard_Feet schraeg wie Clownsschuhe   # Chef 28.10., 23:0x: „trägt keine Robe … Kasperlanzug“: lange Robe aus held3 (trachten.json)
+    'WIZARD': {'tracht': 'held_wizard', 'fuesse': 'Male_Ranger_Feet_Boots', 'stiefel_eng': 0.28},   # Lauf 2: Wizard_Feet schraeg wie Clownsschuhe   # Chef 28.10., 23:0x: „trägt keine Robe … Kasperlanzug“: lange Robe aus held3 (trachten.json)
     'ROGUE': {'kleid': 'Male_Ranger', 'ohne': ['Hood']},
     'CLERIC': {'kleid': 'Male_Knight_Cloth', 'ohne': ['Horns'], 'stahl': False,   # Pruefer Lauf 1: Arme mit STAHL schwarz (Bild 0,20/0,13/0,08)
                'sonne': 'Body_Cloth', 'entgruen': ['Legs_Armor', 'Feet_Armor', 'Arms']},   # Lauf 1: Handschuhe gruenlich (118/124/109)
@@ -140,9 +140,26 @@ def held3_tracht(figur):
     return o
 
 
-def kaempfer(k, figur='', fuesse=''):
+def stiefel_eng(o, ab, f=0.75):
+    # Chef 29.10., 11:40 („da schauen witzigerweise seine Knie durch die Robe durch“): die Ranger-Stiefel reichen bis 0,56 m, ueber
+    # das Knie; die Robe ist dort grob vernetzt (bei 0,3-0,4 m keine Ecke). Schaft oberhalb ab je Bein zur Beinmitte enger (Ruhelage)
+    M = o.matrix_world; Mi = M.inverted()
+    W = np.array([tuple(M @ v.co) for v in o.data.vertices])
+    for s in (W[:, 0] < 0, W[:, 0] >= 0):
+        oben = s & (W[:, 2] > ab)
+        if not oben.any(): continue
+        mx, my = W[oben, 0].mean(), W[oben, 1].mean()
+        t = np.clip((W[:, 2] - ab) / 0.08, 0, 1)   # weich ueber 8 cm
+        k = 1 - (1 - f) * t
+        W[oben, 0] = mx + (W[oben, 0] - mx) * k[oben]
+        W[oben, 1] = my + (W[oben, 1] - my) * k[oben]
+    for v, w in zip(o.data.vertices, W): v.co = Mi @ Vector(tuple(w))
+    print('STIEFEL ENG ab %.2f m' % ab)
+
+
+def kaempfer(k, figur='', fuesse='', eng=0.0):
     # unsere Tracht auf dem Kaufkoerper (kauf_kleid.py), dann Formschluessel am Kopf; figur: andere Tracht aus trachten.json;
-    # fuesse: Stiefel aus den Kauftrachten statt unserer
+    # fuesse: Stiefel aus den Kauftrachten statt unserer; eng: Stiefelschaft ab dieser Hoehe enger (unter der Robe)
     roh = os.path.join(ZIEL, 'roh'); os.makedirs(roh, exist_ok=True)
     env = dict(os.environ, KOERPER=KOERPER, KOPF='', HAAR='', BART='', FARBE='keine', STOPPELN='0', HAUT='mittel', FORM='',
                KENNUNG='held_' + k, ZIEL=roh)
@@ -164,6 +181,8 @@ def kaempfer(k, figur='', fuesse=''):
         fo = [o for o in QT.importiere(fp)]
         fm = [o for o in fo if o.type == 'MESH']
         QT.an_geruest(fo, arm)   # entfernt das Geruest des Imports
+        if eng:
+            for o in fm: stiefel_eng(o, eng)
         netze += fm
     haut, augen, brauen = kopfnetze(netze)
     beine_weg(haut)
@@ -434,7 +453,8 @@ info = {'formen': FORMEN, 'haut': {k: list(v) for k, v in KO.HAUT.items()}, 'haa
         'klassen': {}}
 for k, f in KLASSEN.items():
     if NUR and k not in NUR: continue
-    arm, netze = tracht(k, f) if 'kleid' in f else kaempfer(k, '' if f['tracht'] == 'unsere' else f['tracht'], f.get('fuesse', ''))
+    arm, netze = tracht(k, f) if 'kleid' in f else kaempfer(k, '' if f['tracht'] == 'unsere' else f['tracht'], f.get('fuesse', ''),
+                                                          f.get('stiefel_eng', 0.0))
     info['klassen'][k] = {'kleid': f.get('kleid') or f['tracht'], 'kopf': godot(QT.kopf_pos(arm)), 'dreiecke': dreiecke(netze),
                           'netze': sorted(o.name for o in netze)}
     print('KLASSE', k, info['klassen'][k]['dreiecke'], 'Dreiecke', info['klassen'][k]['kleid'])
