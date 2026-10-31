@@ -25,6 +25,19 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 50 · Auftrag 429 Doppelpack zu 424 und 412 (`main` `a005a27f3`; 31.10., 21:4x; Text fremd geprüft)
+
+**Ergebnis:** 412 in `CLAUDE.md` „Nummern“ trifft den Wortlaut im Archiv 412. Der Wächter 424 arbeitet wie beschrieben, hält heute aber kaum eine Zeile von selbst an: Von 17 Treffern in den Vorräten treffen 14 nur, weil ihr Stand schon „ruht: altes SRD-System“ lautet (nachgestellt mit `ALTES_SYSTEM` über alle Tabellenzeilen).
+
+**Befunde**
+
+- **D50.1 Wortliste zu eng:** Nicht erkannt (nachgestellt mit `altes_system()`): „Klasse“, „Kleriker“, „Kämpfer“, „Schurke“, „Rüstungsklasse“/„RK“, „Übungsbonus“, „Zauberplatz“ (nur die Mehrzahl trifft), „d20“, „Talente“ (nur `talente.gd`). Startbar sind so Jerry 403 „Held je Klasse“, Jerry 406 „Rundschild des Klerikers“, Tom 376.1 „Klassen abgenommen“. Ob das Figuren- statt Regelarbeit ist, entscheidet der Besitzer; der Wächter sieht es nicht.
+- **D50.2 Freigabe zu weit:** `ALT_FREI` gibt jede Zeile mit „2.0“ frei, auch in „142.0“ („Build 142.0 SRD-Hinweis“ → frei), ebenso „ersetz“ in jedem Sinn („ersetzt den alten Kampf SRD“ → frei). Vorschlag: `Spielsystem 2\.0|\b2\.0\b`.
+- **D50.3 Abnahmeliste gegen ruhende Muss:** Block M verlangt 212, 249, 38, 39; in Jerrys Vorrat ruhen alle vier („altes SRD-System“). Für den Bau der Regeln 2.0 (Block G, Kampf ohne W20) gibt es keinen Vorgang bei Tom oder Jerry (`LISTE-VORGAENGE.md` „2.0“: nur 413, 418–420, 422, 427). Die Teams haben für G und M nichts Startbares, bis Perikles Zeilen anlegt.
+- **D50.4 Archiv fehlt:** 424 hat keinen Eintrag mit dem Chefwortlaut („keine Energie mehr in das alte SRD-System stecken“) im Vorgangsarchiv; er steht nur im Vorrat, in `startbar.py` und in der Umzugsliste.
+
+**Nicht geprüft:** jede Zeile der Umzugsliste einzeln; `lauf.py` im Lauf (nur, dass es `startbar` einbindet).
+
 ## Lauf 49 · Auftrag 419 Prüfung 418 und 421 (`main` `6185da179`; 31.10., 21:4x; Text fremd geprüft)
 
 **Ergebnis:** Die Direktive in `CLAUDE.md` stimmt Zeichen für Zeichen mit dem Wortlaut im Vorgangsarchiv „418“ überein, ebenso die Abschrift oben in `LISTE-ABNAHME-KAPITEL1.md`. Jedes Wort der Direktive hat einen Block in der Abnahmeliste (T, A, K, M, G, W; S für „marktreif“). Die Abnahmeliste erbt aber drei Fehler aus Spielsystem 2.0 (Lauf 48), und zwei Teile fehlen.
