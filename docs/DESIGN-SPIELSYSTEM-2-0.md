@@ -1542,3 +1542,34 @@ Folge für die Fertigkeiten: Reiten fällt aus der ersten Liste (68 statt 69), b
 - **W2:** Namen: Weg, Berufung, Meisterform; Wegnamen Bewahrer, Kämpe, Schattengänger, Waldgänger, Adept, Heilkundiger (oder über Homer)?
 - **W3:** Scharfschütze als eigener Zweig unter Wildnis (13 Berufungen) oder im Waldläufer (12)?
 - **W4:** Paladin als Kreuzung, die Schutz und Heilung verlangt?
+
+### 10. Die Fertigkeiten: meine Meinung (Chef 31.10.2026, 20:5x: „was hältst du denn jetzt überhaupt von unseren Fähigkeiten?“)
+
+**Kurz:** Die Idee trägt, die Liste nicht. 68 Fertigkeiten sind zu viele und zu fein für ein Handyspiel, und viele lassen sich in unserem Spiel gar nicht „durch Tun“ steigern.
+
+**Prüfregel (Vorschlag):** Eine Fertigkeit gibt es nur, wenn sie (1) eine Handlung im Spiel hat, die sie übt, und (2) eine Wirkung, die man merkt. Sonst verspricht sie „du wirst besser durch Tun“ und hält es nicht.
+
+**Was daran scheitert**
+- **Keine Handlung im Spiel:** Schwimmen, Klettern, Angeln, Wetterkunde, Orientierung, Sprachen, Geschichte (in den Regeln und Skripten der Godot-Fassung keine Fundstelle für Schwimmen, Klettern, Angeln; geprüft 31.10.2026).
+- **Doppelt zu einem Grundwert:** Ausdauer (= Zähigkeit), Konzentration (= Wille), Aufmerksamkeit (= Wahrnehmung), Abhärtung (= Zähigkeit). Der Grundwert macht das schon.
+- **Zu fein geteilt:** Schleichen, Verstecken, Hinterhalt sind eine Handlung. Ausweichen und Akrobatik ebenso. Schmieden, Rüstungsbau, Reparieren, Gerben teilen Werkort und Material. Alchemie und Gifte mischen ebenso. Überreden und Täuschen ebenso. Nekromantie ist eine Form der Beschwörung (wie bei den Berufungen).
+- **Lieber Perk als Fertigkeit:** Zweiwaffenkampf und Parieren sind Handlungen innerhalb einer Waffenfertigkeit (Perks des Duellanten).
+
+**Vorschlag: etwa 34 Fertigkeiten in acht Gruppen**
+
+| Gruppe | Fertigkeiten | Geübt durch |
+| --- | --- | --- |
+| Waffen (10) | Einhänder, Zweihänder, Stangenwaffen, Stumpfe Waffen, Dolche, Faustkampf, Schild, Bogen, Armbrust, Wurfwaffen | Treffen im Kampf |
+| Rüstung (4) | Leichte, Mittlere, Schwere Rüstung, Ausweichen | getroffen werden, ausweichen |
+| Schatten (3) | Schleichen (mit Verstecken und Hinterhalt), Schlösser knacken, Fallen entschärfen | anschleichen, Truhen |
+| Magie (5) | Evokation, Schutzmagie, Heilmagie, Illusion, Beschwörung (mit Nekromantie) | Zaubern; Zauberwirken als Grundlage steckt im Grundwert Wille |
+| Wildnis (2) | Jagd und Fährtenlesen, Tiere zähmen | Tiere, Spuren |
+| Gesellschaft (3) | Überreden (mit Täuschen), Einschüchtern, Handeln | Gespräche, Läden |
+| Sammeln (2) | Kräuterkunde, Bergbau | ernten |
+| Meisterschaften (5) | Schmieden (mit Rüstungsbau, Gerben, Reparieren), Alchemie (mit Giften), Kochen, Runenkunde (Verzaubern), Heilkunde | herstellen, verbinden |
+
+Nach oben offen: kommt eine neue Handlung ins Spiel (Reittiere, Wasser, Klettern), kommt die Fertigkeit dazu. Die Berufungen aus Abschnitt 9 bleiben gültig; ihre Fertigkeiten werden auf diese Liste umgeschrieben (zum Beispiel Duellant: Einhänder, Ausweichen, Leichte Rüstung).
+
+*Stärkstes Gegenargument:* Entscheidung 38 sagt „alle 69“. Weniger Fertigkeiten heißt weniger Breite und weniger kleine Erfolge. Meine Antwort: Jede der 34 ist spürbar, und die 69 waren als Bibliothek gedacht; Fertigkeiten ohne Handlung wären Zahlen, die nie steigen. Das ist die Rücksprache mit BornWire, die du bei Frage 8 wolltest.
+
+**Frage an den Chef:** **F1:** Prüfregel (Handlung und Wirkung) und die Liste mit etwa 34 Fertigkeiten statt 68?
