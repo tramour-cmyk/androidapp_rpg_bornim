@@ -1,10 +1,10 @@
 # Vorrat Team Jerry
 
-Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben.
+Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
-von Sokrates (Chef 11:19): nach Build 143 weiter bis Guthaben leer. Nie „Heldin“, immer „der Held“ (Chef: „Jerry immer noch gendert“).
+Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert“).
 
-**Übergabe (29.10., 11:3x, `session_01Hmoj76fq…`):** Kaufmodelle per add_repo (Release `stufe1`). 473fbe768 auf `jerry-348-klang`: Herzschlag Fassung 2, Kaninchen-Klopfen raus. Nachfolger: „Jerry – 402 Herzschlag 2b als Paare, 406 Schild aus Bestand“
+**Übergabe (31.10., 22:4x):** 416.5 (597bd140d), 402 (daa514bcd), 403 und 406 auf `claude/jerry-403-held-kampf` (ohne Build; Probeläufe je 2/2, erst nach Versand auf einen `-348-`-Zweig). Kaufpakete: `add_repo`, curl auf die Anhänge. Nachfolger: „Jerry – Morgenblätter 403 und 406 senden, gemeinsamer Build“
 
 ## Zeilen
 
@@ -12,12 +12,12 @@ von Sokrates (Chef 11:19): nach Build 143 weiter bis Guthaben leer. Nie „Heldi
 |---|---|---|---|---|
 | 416.5 | M | **von Sokrates (Chef 31.10., 20:4x, Build 143):** im Kampf Details des Kampflogs aufrufen, dann nicht mehr schließbar (Taste reagiert nicht); beheben | gebaut 597bd140d auf `claude/jerry-416-5-kampflog`: Tipp überall schließt, Wischen blättert; Ursache Text fing Tipps, einmalige Verbindung (Test kampfbericht_test.gd); fährt im nächsten Build | – |
 | 416.6 | K | **von Sokrates (Chef 31.10., 20:4x):** Spuren des Helden fehlen (Fußspuren; bei Regen eigene Spuren); `core/Tracks.kt` laut `LISTE-UMZUG-348.md` Zeile „Spuren“ bei Jerry. Perikles: M oder K? | frei | – |
-| 415 | K | **von Sokrates (Chef 31.10., 20:3x „Ja, Probe mit dem Beams-Sample an Jerry geben“):** Handyprobe `reeboolabs.itch.io/godot-beams-lasers-free-sample` (gratis; 3 Strahlen Laser, Feuerstrom, Blitzbogen; 2D und 3D; Godot 4.3+). Messen auf dem Handy: läuft es, FPS, Optik; Renderer Mobile und Compatibility. Nur Zahlen und Befund als Text, kein Urteil über Aussehen (373); nichts kaufen; Lizenz je Datei notieren | frei, nach den Mussen | – |
+| 415 | K | **von Sokrates (Chef 31.10., 20:3x „Ja, Probe mit dem Beams-Sample an Jerry geben“):** Handyprobe Godot-Beams (gratis, itch.io reeboolabs): läuft es, FPS, Renderer Mobile und Compatibility; nur Zahlen, kein Urteil über Aussehen (373), nichts kaufen, Lizenz je Datei | frei, nach den Mussen | – |
 | 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | gebaut 1923456c7: Wolf durch Wolf, System Kampf, satt, Testende; an Tom | `claude/jerry-348-kampf` |
 | 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | gebaut 0eda4bb3e: Knurren mit Text, an Tom für den Build; Hilfe, Eingebung mit 390 | – |
 | 402 | M | **von Sokrates (Chef 22:2x, Archiv):** Blende vor dem Kampf wie alt; Herzschlag beim Hinterhalt stärker | gebaut daa514bcd auf `claude/jerry-348-klang`: 2b als Paare, drei Paare alle 0,55 s (vier passen nicht in die 1,67 s der Blende); fährt im nächsten Build; Blende wie alt abgenommen | – |
 | 403 | M | **von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler):** Kampfort: Held je Klasse wie im Dorf (`HeldFigur.baue`) statt `kampf/daten/held.bin`; Hieb, Stich, Treffer, Tod, Ausweichen aus der UAL Pro | gebaut 98482c53e (`claude/jerry-348-held-kampf`): Kaufheld je Klasse, Bewegungen umgerechnet, kein Gleiten; Film ansehen/403 | – |
-| 406 | M | **von Team Tom (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe):** Ausrüstung der Helden je Stück aufwerten („steril“), zuerst Rundschild des Klerikers hell mit goldener Sonne (`Dress.kt`); Wappenrock-Sonne macht Tom | startbar: Tiefe und Tusche nach Licht fehlen (Chef 10:52, Zu 402) | `claude/jerry-406-schild` |
+| 406 | M | **von Team Tom (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe):** Ausrüstung der Helden je Stück aufwerten („steril“), zuerst Rundschild des Klerikers hell mit goldener Sonne (`Dress.kt`); Wappenrock-Sonne macht Tom | wartet auf Chef: Drehfilm 21 Schilde (ansehen/406-schilde.md, Morgenblatt), Chef wählt (Archiv 408) | `claude/jerry-406-schild` |
 | 401 | M | **von Chef über Sokrates (Archiv):** Tierlaute, mind. 3 je Tier | gebaut 473fbe768: Klopfen raus, Ziege, Knabbern bleiben; fährt im nächsten Build | – |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK | `claude/jerry-348-kampf` |
@@ -53,9 +53,7 @@ von Sokrates (Chef 11:19): nach Build 143 weiter bis Guthaben leer. Nie „Heldi
 
 ## Einzelheiten
 
-- **Zu 406, von Diogenes (374, 31.10.):** 29.10. drei Fassungen in 14 Minuten an den Chef (07:40, 07:47, 07:54), je nach einem Prüferbefund; erlaubt ist höchstens eine Fehlerrunde (373, 396).
 - **Zu 406, von Sokrates (Chef 11:13, Archiv 408):** nicht weiterbauen; erst alle Schilde der Bibliothek (LISTE-BESTAND „Waffen und Schilde“) drehend in einem Film vorlegen, Chef wählt.
-- **Zu 406 (Jerry 10:5x):** `waffen.py` (Shield_Wooden, `SONNE=b`, Messung je Teil im Kommentar); Probe `SCHILD=…` in `probe.gd` zeigt Nahaufnahmen mit Wechsel auf Perspektive, fov 9: Tusche dort prüfen (Chef: nicht erkennbar), Wölbung im Licht zu flach. Kaufdateien nur im Workflow: `add_repo` lehnte die Rechteprüfung um 07:5x wieder ab.
 
 - **Zu 348.12f, Kaufwolf und 387:** `kaufwolf.py` (Probe `ERSATZ=kaufwolf`, Workflow „Kaufwolf“), `kauftier.py` (Workflow „387 r“); `pfotenhalt.gd`; Artefakt per `gh api …/artifacts/<id>/zip`. **387 r4:** Offenes im Blatt r4.
 - **Zu 348.12f, Ort:** Wurzelweg `weg` in `giant_rat-info.json` (`kaufratte.py`), `figur.gd` `_bite`, `BITE`, `_walk_home`, `dodge(ms, nm)`; Probe `GEGNER=RATS OHNEUI=1 SCHAU=ort SCHAU_MESS=1` („Ortmess“), Film `348.12f-ort.mp4`; Rute `RUTE_MESS=1`. Kauf `gh api …/releases/assets/<id>` (Ratte 678372860, Janpec 678515204).
@@ -63,21 +61,21 @@ von Sokrates (Chef 11:19): nach Build 143 weiter bis Guthaben leer. Nie „Heldi
 - **Zu 348.7 (Chef 25.10., 19:05):** Kampfort-Hintergrund mehr wie die Welt: „keine schnurgeraden Wege, sondern das ein bisschen ausfransen. Bisschen mehr richtige Wiese“ (`kampfort_wald.py`).
 - **Zu 348.7 (Chef 21:21, 23:33, Archiv):** jedes Modell nur gegen seine Abnahmeliste (`LISTE-FIGUREN.md`), auch Goblin ab Runde 5. **Von Homer (23:4x):** Listen aller übrigen Monster K1 dort eingetragen (348.11 b: echte Größe im Kampf, Leuchten nur Schamane und Skelett, Kits am Umriss verschieden).
 - **Zu 348.7, stehen (Feinschliff nur auf Wort des Chefs):** Wolf r10 (04269eb1d), Grimmzahn Schulter 1,3 m (`wolf.py ART=dire_wolf`, `GEGNER=GRIMM`), Boden nach Chef 22:00, Schamane r4c (0e2c5ff96; `ART=goblin_shaman`, `GEGNER=SHAMANS`, `NAH=gob1`), Späher r4b (85daf3a5d; `ART=goblin_archer`, `GEGNER=SCOUTS`); Probe-Schalter `OHNEUI=1` (Blatt), alt `FOEDRAFT=<art>`.
-- **Zu 348.7 Treffer (26.10.):** f64b301fa; Probe `EFFEKT=KILL|CRIT`. Zauber `zauber.gd`, Probe `ZAUBER=`; Klang seit 399.3. **Offen (Prüfer 4b):** Heilige Flamme nicht erkennbar blasser (gering); Fußring über Wolfskopf (alt); „Er duckt sich“ bei Ratte (Probe, Wolfsregeln). **Offen mit 403:** Heldin und Söldner gleich, Magier mit Schild und Speer, Hand neben dem Speer mit orangen Flecken.
+- **Zu 348.7 Treffer (26.10.):** f64b301fa; Probe `EFFEKT=KILL|CRIT`. Zauber `zauber.gd`, Probe `ZAUBER=`; Klang seit 399.3. **Offen (Prüfer 4b):** Heilige Flamme nicht erkennbar blasser (gering); Fußring über Wolfskopf (alt); „Er duckt sich“ bei Ratte (Probe, Wolfsregeln).
 - **Zu 348.12 Grak (29.10., f5f269856):** Bau `OUT=~/grakg CC0=~/cc0 WAFFEN=~/basis UAL=<Pro>/UAL1.glb TOD_QUELLE=Death02 ~/bl/bin/python -I tools/blender348/grak_gestalt.py`. Prüfen ohne Bild `tests/grak_348.gd`, Axt `grak_axtmess.py <blend>`; Film nur mit `res://kampf/probe.tscn`. Dodge mit Großaxt geht nicht, darum Seitenlauf. Prüferbefund nachprüfen: Axt 5,95 s ein Bild weg, Axt fliegt im Tod 150 px, Umhang steif, Platzwechsel am Rand.
 - **Zu 402, von Sokrates (Chef 31.10., 21:07, Archiv):** „Fassung 2b“ der Hörprobe, aber der Herzschlag besteht aus zwei kurzen Schlägen (Systole, Diastole), dann Pause, wieder zwei, wieder zwei: „Bubum. Bubum. Bubum. Bubum.“; die Hörprobe mit fünf einzelnen Schlägen „haut nicht hin“. Anzahl Paare nach der Blende (1,2 s) wählt Jerry; dann Hörprobe nicht nötig, außer Chef verlangt sie.
-- **Zu 406, von Sokrates (Chef 29.10., 10:52 und 11:2x, Archiv):** 406: A/B offen, Schild ohne Tiefe, Tusche nach Licht fehlt; roter Rückenschild im Kampf zusätzlich zum Handschild ist Fehler (403). 348.12 Grak (10:55): gut, aber Gang schreitend statt kurzer Sprint.
-- **Zu 390:** gebaut: pechstraehne, ausdauer, talente, zustaende, spuren, klassisch (`ClassicGoldenTest`); offen Ansicht, Gegner auf der Karte. An Tom: `HeroShelfTest.newLoot…` wackelt.
+- **Zu 406, von Sokrates (Chef 29.10., 10:52, Archiv):** Schild ohne Tiefe, Tusche nach Licht fehlt; roter Rückenschild im Kampf zusätzlich zum Handschild ist Fehler (403, behoben mit 403). 348.12 Grak (10:55): gut, aber Gang schreitend statt kurzer Sprint. Alter Eigenbau `waffen.py` Shield_Wooden ruht (408).
+- **Zu 390:** gebaut: pechstraehne, ausdauer, talente, zustaende, spuren, klassisch (`ClassicGoldenTest`); offen Ansicht, Gegner auf der Karte.
 - **Zu 348.7 Goblin:** Runde 6 steht (Sokrates, billigen/3487-goblin-r6); Feinschliff laut Chefsache, Beil-Goblin sagt „Stich“ an; Lendentuch nimmt wie beim Späher Unterarm-Gewichte (Fix nur für Späher und Schamane, 8bfec7d13). Probe `GEGNER=GOBLINS`, alt `FOEDRAFT=goblin`, Blatt `FIGUR=gob vergleichsblatt.py`.
 - **Zu 348.7, von Sokrates (Chef 25.10., 08:58 und 09:04, Zustandszeichen):** Textschilder „nichts“; Vorschlag Chef: sprechende Symbole in den Farben aus `Status.kt`, alte Zustandsanimationen mitnutzen, Einzelheiten durch Antippen. Empfehlung Sokrates: Einzelheiten per langem Druck (`whoIs`). **Bauen erst nach Ja.**
 - **Zu 348.7, Fledermaus (4ed188d7c):** r5 abgenommen (Archiv 15:27); Aufruf, Eichung im Kopf von `fledermaus.py`, Probe `GEGNER=BATS`.
 - **Zu 348.7b:** Regel `LISTE-UMZUG-348.md` „Zauberbahn“; Code `kampf_ui.gd` `_draw_spells`, `_step_aside`, Pinsel `tafel.gd`; Proben `BAHN_PRUEF=1`, `SCHRITT_DEBUG=1`.
 - **Zu 348.13a (Tom 08:27):** offen r9: Säbel liest sich als Bogen; Schwert, Schild, Scheide bei Tom (372).
-- **Zu 348.7 (Chef 25.10., 13:11):** „Gradmesser ist Leitbild 1 ‚Düster, erwachsen, glaubwürdig‘; ‚quietschehell passt nicht‘. Nie heller als alt.“
+- **Zu 348.7 (Chef 25.10., 13:11):** „Gradmesser ist Leitbild 1 …; ‚quietschehell passt nicht‘. Nie heller als alt.“
 - **Zu 348.7, nach Runde 16 offen** (Gründe in Git): Kampfort (4ad3ecb86): Lebensbalken und Zustände an der Ansage; offen: Gelb des halben Lebens gleicht „Betäubt“ (Farben wie alt).
-- **Zu 348.7, Lohn:** wie `Battle.finishWin`, Beute 3b9fb3116; fehlt Elite, Boni.
+- **Zu 348.7, Lohn:** fehlt Elite, Boni (sonst wie `Battle.finishWin`).
 
-- **Zu 296.2, Test 89.2 (Chef über Sokrates 25.10., 07:39):** durchgefallen: (a) drei MARS-Kämpfe gegen Wölfe verloren; (b) neuer Kampf mit totem Helden, `OutOfMemoryError`; (c) zwei Waffen, eine greift an; (d) Wolfsfleisch „trinken“; (e) Tasche gesperrt; (f) Waffenwechsel nur Fernkampf. Godot: (b), (c) gebaut (`mars_regeln.gd`); (d)–(f) mit Toms Tasche; (a) Balance mit echtem Helden.
+- **Zu 296.2, Test 89.2 (Chef über Sokrates 25.10., 07:39):** durchgefallen: (a) drei MARS-Kämpfe gegen Wölfe verloren; (b) neuer Kampf mit totem Helden, Speicherfehler; (c) zwei Waffen, eine greift an; (d) Wolfsfleisch „trinken“; (e) Tasche gesperrt; (f) Waffenwechsel nur Fernkampf. Godot: (b), (c) gebaut; (d)–(f) mit Toms Tasche; (a) Balance.
 
 - **Zu 344.2** (Auftrag Chef 23.10., 18:27, Vorgangsarchiv 344): Fäuste oder Fackel; Fackel 1 Feuerschaden, Ziel Weisheitsrettungswurf SG 10, sonst verängstigt bis zu seinem Zug und weicht zurück; Liste „scheut Feuer“ und Texte von Homer (`[344.2.…]` in `STORY-SPIEL.md`). Gebaut im alten Spiel (Commit 5ab41dbd); Bewegung fehlt.
 - **Zu 249** (Vorgangsarchiv 249): MARS-Texte decken sich mit der Bewegung, sonst Text über Homer; Zoom, Blut, Erschütterung, Zaubereffekte gemeinsam genutzt (212); Zustände erst mit Zustandsregeln für MARS.
