@@ -4,12 +4,13 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (29.10., 11:1x, `session_01Hmoj78Njjgz8uAoS6RUQKN`):** Chefrunde 29.10. (Archiv); 407, 408 an Perikles; 348.12h inventarisiert. Kosten auf: 407, 408, 348.12h, 399.5, 376.1. Nachfolger: Sokrates – Chefrunde (nach der Pause)
+**Übergabe (31.10., 00:1x, `session_01Hmoj76r9gzqmymitAPFRzM`, Desktop-Sitzung auf Sonnet, Kontext 380 Tsd.):** Rückmeldungen des Chefs als Aufträge, 142 GewA 1 korrigiert, 404, 413 S3, 441 an Diogenes, 442 Modellfrage. Offen: 422 Abgleich D48/D49 (Abschnitte 2–6), 427 Bestiarium, 413a A1 und 418 beim Chef. Kosten auf: 404, 414, 415, 417, 425, 426, 436, 413, 142. Nachfolger: Sokrates – 422 Nachschlagewerk abgleichen, 427 Bestiarium (Opus, Ford startet)
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 442 | M | **von Chef (31.10., 23:52, „warum ihr alle auf dem kleinen Rechenmodell lauft“):** Modellzuordnung vorlegen | wartet auf Chef: Chefsache 442 (Befund: 11 von 12 gestarteten Sitzungen Opus; Sonnet: Ford, diese Desktop-Sitzung) |
 | 427 | M | **von Chef (31.10., 21:3x):** Bestiarium `LISTE-BESTIARIUM.md` | startbar: Gerüst LISTE-BESTIARIUM.md steht, Werte nach Spielsystem 2.0 füllen |
 | 422 | M | **von Chef (31.10., 21:2x, „dass es sich liest wie eine gute Anleitung. Und ein Nachschlagewerk“):** Spielsystem 2.0 eindampfen; Verlauf getrennt; Befund Diogenes 420 einarbeiten | startbar: Abschnitte 7 und 13 auf 73–75 nachgezogen; weiter: Rest der Befunde D48/D49 in Abschnitten 2 bis 6 abgleichen, dann Diogenes 441, dann Chefsache zur Abnahme |
 | 413 | M | **von Chef (31.10., 20:1x):** Spielsystem 2.0 (`DESIGN-SPIELSYSTEM-2-0.md`), Meilensteine | wartet auf Chef: A1 (Chefsache 413a); S3 Profil entschieden 31.10., 23:51 (E 76) |
@@ -44,7 +45,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 - **Zu 422, von Diogenes (31.10., 21:3x):** Befund 420 steht in `PRUEFBERICHT.md` Lauf 48 (D48.1–D48.5 und Liste veralteter Stellen zum Eindampfen).
 - **Zu 413 (A1), von Perikles (31.10., 21:3x):** `CLAUDE.md` mit der neuen Direktive (418) 15,3 KB, über der Grenze; beim A1-Entwurf mitkürzen (auch Kopfzeile „Regeln nach SRD 5.1“, E 61). Chefsache 418 fragt den Umfang von 2.0 in Kapitel 1 (Votum A, nur Kern).
-- **Zu 383, Sitzungsgröße (gemessen 27.10., 18:15; 99 Sitzungen 26.10., 17:48 bis 27.10., 18:11, `get_session` usage; Helfer rechnete nach):** 96 mit Kosten, 787 $ in 24 h. Je Million Ausgabetokens nach Kontext: 100–300k 101–103 $, 300–500k 92 $; kein Hinweis, dass große Sitzungen teurer sind (Beleg schwach). Jeder Start mindestens etwa 125k Kontext, kleinste Sitzung 1,25 $. Treiber: Runden (44 %). Früher: 99h, 185, 99h.6, D40.1 (Git). Wiederholen mit 347 und 383.2 am 31.10.
+- **Zu 383, Sitzungsgröße (27.10., 99 Sitzungen):** 787 $ in 24 h; je Million Ausgabetokens 92–103 $ nach Kontext, kein Hinweis, dass große Sitzungen teurer sind (Beleg schwach). Jeder Start etwa 125k Kontext, kleinste Sitzung 1,25 $. Treiber: Runden (44 %). Wiederholen mit 347 und 383.2 am 31.10.
 - **Zu 376:** Chef 12:09–12:10: 20 $ „super gerne“, wenn Größe und Form anpassbar und Tusche darauf geht; „dann hätten die vielleicht auch mal einen richtigen Kopf“; nah sichtbar in Ausrüstung, Charaktererstellung, Kartenzoom; 12:12 „Universal Base Characters“ als Alternative zum Selbstbau.
 - **Von Team Tom (27.10., 13:4x, zu 376.3):** UAL Pro gesichtet (Liste: `ARBEIT-TEAM-TOM.md` Zu 376.1): hat Ausweichen (`Dodge_Left/Right`, `Roll`), Treffer (`Hit_*`), Tod, Schwerthieb, `Counter_*`; hat **keinen** Stich, keine Schildabwehr, kein gehaltenes Ausholen; Zauber in Pro nicht vermerkt (frei nur `Spell_Simple_*`). Lücke also Block und Stich, nicht Ausweichen und Treffer.
 - **Zu 348.12c:** Bericht `LISTE-CC0-MODELLE.md` „Gegen Geld“; Protofactor-EULA: Verkauf ja, „protected form“, „ONE individual“. Protofactor per Mail: unverschlüsselt kein Ja („Encryption would be best“), KI-Sitzungen ok; Rabatt je Warenkorb.
@@ -53,10 +54,10 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 340.2:** `LISTE-ROLLENSPIEGEL.md` „Wie“, Freitagshinweis in `lauf.py`; prüfen 30.10.: 0 Hinweise „mitgelesen“; B wieder vorlegen, wenn Pflegefehler am 01.11. länger als einen Tag stehen.
 - **Zu 142, Stand:** AAB 142.1 im internen Test (Chef 25.10., 12:38 erledigt); Konto geprüft, App angelegt 25.10. (Zu 142, Konto); Entwickler-E-Mail info@bornwire.de bestätigt (25.10., 12:51); Datenschutz-URL für den Store `https://bornwire.de/datenschutz.html` (252 online 25.10., 13:12; Godot-Fassung mit INTERNET-Recht: Datenschutz vorher anpassen).
 - **Zu 26.1:** Diktat 17:20 in `LISTE-DURCHSPIELBOGEN.md` (26 selbst erledigt, Liste Archiv). Chef 22:00: Warum kämpfen Leute am Handy? Er sieht Taktik oder Schauwert, sonst „Taste spammen“. Antwort im Chat: dazu Fortschritt, Einsatz, Meisterung, Entspannung; Empfehlung: jeder Kampf stellt eine Frage, leichte abkürzbar (Entscheidung Chef mit Homer).
-- **Zu 142, Konto:** 25 $ bezahlt 23.10. (Beleg 263); Ausweis und Telefon geprüft, App angelegt 25.10., 08:36 (`de.bornim.game`, kostenlos, Spiel, de-DE, automatischer Schutz an); privat, BornWire TCS, Konto-Mail bornwire@famibos.de; sobald `play@bornwire.de` steht, Entwickler-E-Mail in der Play Console umstellen (Einstellungen → Kontodetails). Play-Upload: Dienstkonto als Secret, Action, interner Test, AAB; erstes Mal von Hand.
+- **Zu 142, Konto:** 25 $ bezahlt 23.10. (Beleg 263); App angelegt 25.10. (`de.bornim.game`, kostenlos); Konto-Mail bornwire@famibos.de; sobald `play@bornwire.de` steht, Entwickler-E-Mail in der Play Console umstellen (Einstellungen → Kontodetails). Play-Upload: Dienstkonto als Secret, Action, interner Test, AAB; erstes Mal von Hand.
 - **Zu 142:** vor Marktstart Klangmarken DPMA/EUIPO suchen (292.1).
 - **Zu 142.3 C (20:1x, Netz):** Organisationskonto braucht D-U-N-S (D&B, kostenlos, 5–30 Tage), neues Konto 25 $; App per Übertragung umziehen, Testgruppen ziehen nicht mit; testfrei nur gefolgert.
-- **Zu 347:** Gegenprüfung Diogenes (347.1) 16:4x mit drei Änderungen (A Messweg ohne stündliches `list_events`, B Stempelprüfung, C Pause), „Zu 347.1“ in `ARBEIT-PROJEKT.md`; 347.2: Zähler, Stempelprüfung, Kernregelzeile, kein Längenhaken. Befund 24.10.: Chefsache-Haken 63 hält oft fälschlich an (Bogen 26 siebenmal; 18:4x bei Versionsnummer „5.2“ und bei Ankündigungen).
+- **Zu 347:** Gegenprüfung Diogenes (347.1) 16:4x mit drei Änderungen (Messweg, Stempelprüfung, Pause), „Zu 347.1“ in `ARBEIT-PROJEKT.md`. Befund 24.10.: Chefsache-Haken 63 hält oft fälschlich an (Versionsnummern, Ankündigungen).
 - **Zu 348, Chef 25.10., 21:13:** „Wieso braucht man alleine dafür vier Versuche. Es gibt doch eine Vorlage … Bei den Ratten >10“ → im Chat 21:1x beantwortet; Chef 21:21 „a ja, b prüfen“ (Archiv 348.11, 348.12).
 - **Zu 348, Chef 25.10., 12:16–12:24:** Umzugsarbeit auf alle verteilt, entschieden als 348.9 (Archiv); Wortlaut und Vorschlag in Git.
 - **Zu 348, Chef 25.10., 00:59:** Portierung, alle machen mit, Maß ist das alte Aussehen (Wortlaut in Git vor „Sokrates: 377.1“).
