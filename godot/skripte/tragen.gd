@@ -15,13 +15,16 @@ const ARTEN := {"quarterstaff": "stab", "staff": "stab", "greataxe": "schulter",
 # je Tragart: Seite; Faust gegen das Schultergelenk in Metern (aussen, vorn, oben; Brustrahmen); Anteil des Armschwungs (vorn-hinten)
 const LAGE := {
 	"stab": {"seite": "r", "faust": Vector3(0.10, 0.24, -0.34), "schwung": 0.25},
-	"schulter": {"seite": "r", "faust": Vector3(0.03, 0.22, -0.26), "schwung": 0.12},
-	"bogen": {"seite": "l", "faust": Vector3(0.10, 0.06, -0.47), "schwung": 0.45},
+	"schulter": {"seite": "r", "faust": Vector3(0.06, 0.35, -0.12), "schwung": 0.12},
+	"bogen": {"seite": "l", "faust": Vector3(0.10, 0.06, -0.43), "schwung": 0.45},
 }
 const STAB_VOR := 0.16        # m: so weit geht die Faust im Gehen ueber den stehenden Stabfuss hinaus, dann wird er umgesetzt
 const STAB_SETZ := 0.24       # s: Umsetzen
 const STAB_SETZ_VOR := 0.16   # m: so weit vor der Faust setzt er auf
 const STAB_AUSSEN := 0.04     # m: Fuss des Stabs aussen von der Faust
+# Axt am Stielende gefasst (m unter dem Ursprung von waffen.py): in der Mitte gefasst stiess das untere Ende in jedem Schritt in den
+# Oberschenkel (Messung 417: 5 cm in 26 von 40 Bildern)
+const AXT_GRIFF := 0.40
 
 var art := ""
 var seite := "r"
@@ -40,6 +43,9 @@ var zuletzt := ""             # Bewegung und Stelle im letzten Bild: die Uhr ist
 var stelle := 0.0
 var faust_welt := Vector3.ZERO   # fuer die Messung
 var schaft_welt := Vector3.UP
+var merken := false             # Messung (tests/tragen_417.gd): Posen aller Knochen am Ende jeder Aenderung, Skelettraum;
+var posen: Array[Transform3D] = []   # ausserhalb der Aenderung liefert get_bone_global_pose die Pose ohne diesen Knoten
+var faust_weite := 0.0          # m: Knoechel bis Mittelglieder quer zum Schaft (geschlossene Faust: etwa Schaftdicke plus Finger)
 var fehl := 0.0                  # m: so weit liegt die Faust nach dem Stellen neben dem Ziel (Arm zu kurz)
 
 static func art_von(base: String) -> String: return String(ARTEN.get(base, ""))
@@ -96,7 +102,7 @@ func _process_modification() -> void:
 	match art:
 		"stab":
 			if rennt:
-				d = (oc + vc * 0.45 + ac * 0.06).normalized()
+				d = (oc + vc * 0.30 - ac * 0.08).normalized()   # unten etwas nach aussen (+0,06: 0,6 cm am Oberschenkel, +0,14: 5 cm im Becken); Pruefer 417: bei 0,45 „wie eine Lanze, eher Angriff als Tragen“
 				stab_fuss = Vector3.INF
 			else:
 				d = _stab(G, P, vorn, ac, geht, dt)
@@ -107,25 +113,33 @@ func _process_modification() -> void:
 			# der Unterarm haengt senkrecht ueber der Faust: ein senkrechter Bogen liefe mit dem oberen Wurfarm durch ihn (Messung 417:
 			# 4,8 cm im Unterarm); wie man ihn traegt: vorn oben, hinten unten, quer zum Unterarm
 			d = (oc * 0.6 + vc * 0.8 + ac * 0.08).normalized()
+			if rennt: d = (oc * 0.35 + vc * 0.94 + ac * 0.08).normalized()   # Messung 417: im Rennen schwingt der Unterarm vor, 5 cm im Bogen
 	_arm(sk, iu, il, ih, P, d, vc, oc, ac)
+	var mitte := _faust_zu(sk, ih, d)
 	# Waffe an die Faust
 	var hg := sk.get_bone_global_pose(ih)
 	var pf := hg * griff
 	faust_welt = G * pf
 	fehl = pf.distance_to(P)
+	if merken:
+		posen.resize(sk.get_bone_count())
+		for i in sk.get_bone_count(): posen[i] = sk.get_bone_global_pose(i)
 	var dw := (G.basis * d).normalized()
 	schaft_welt = dw
 	if waffe == null: return
 	var x: Vector3
 	match art:
 		"bogen": x = G.basis * -vc              # Ruecken des Bogens nach hinten, die Sehne vorn (hinten schnitt sie den Unterarm, Messung 417)
+		"schulter": x = G.basis * oc             # Blatt laengs des Koerpers, Schneide oben: von der Seite als Blatt zu sehen (Pruefer 417:
+		                                          # nach aussen sah man von der Seite nur die Kante, „wie ein Speer“)
 		_: x = G.basis * ac                      # Schneide, Blatt nach aussen
 	x = (x - dw * x.dot(dw)).normalized()
 	waffe.global_basis = Basis(x, dw, x.cross(dw))
-	var o := faust_welt
+	var o := G * mitte   # Mitte der geschlossenen Faust (Pruefer 417: an den Knoecheln lag die Hand nur auf)
 	if art == "stab":
 		if stab_fuss != Vector3.INF: o = stab_fuss + dw * unten   # der Schaft laeuft durch die Faust, der Fuss steht
-		else: o = faust_welt + dw * 0.18                          # im Rennen unter der Mitte gefasst
+		else: o = G * mitte + dw * 0.18                           # im Rennen unter der Mitte gefasst
+	elif art == "schulter": o = G * mitte + dw * AXT_GRIFF
 	waffe.global_position = o
 
 # Wanderstab: Fuss am Boden (Welt), im Gehen umgesetzt, wenn die Faust STAB_VOR darueber hinaus ist; Ergebnis Richtung im Skelettraum
@@ -175,6 +189,57 @@ func _arm(sk: Skeleton3D, iu: int, il: int, ih: int, P: Vector3, d: Vector3, vc:
 		hb = sk.get_bone_global_pose(ih).basis.orthonormalized()
 		hz = _richte(hb, (hb * achse).normalized(), d)
 		sk.set_bone_pose_rotation(ih, (hp.inverse() * hz).get_rotation_quaternion())
+
+# Finger um den Schaft schliessen (die UAL laesst die Hand im Gehen offen): je Finger die drei Glieder um die Achse des Schafts
+# gebeugt, zusammen FAUST_BEUGE, die Richtung, die die Fingerspitze naeher an den Schaft bringt; Ergebnis die Mitte der Faust
+# (zwischen Knoecheln und Mittelgliedern, quer zum Schaft), Skelettraum
+const FINGER := ["index", "middle", "ring", "pinky"]
+const FAUST_BEUGE := 120.0   # Grad ueber drei Glieder (200: Mittelglieder 1,4 cm vor den Knoecheln, zu eng fuer den Schaft)
+func _faust_zu(sk: Skeleton3D, ih: int, d: Vector3) -> Vector3:
+	var hg := sk.get_bone_global_pose(ih)
+	var k := hg * griff   # zwischen den Knoecheln
+	var summe := Vector3.ZERO
+	var n := 0
+	for f in FINGER:
+		var kette: Array[int] = []
+		for g in ["_01_", "_02_", "_03_"]:
+			var i := sk.find_bone(f + g + seite)
+			if i >= 0: kette.append(i)
+		if kette.size() < 2: continue
+		for i in kette: sk.set_bone_pose_rotation(i, sk.get_bone_rest(i).basis.get_rotation_quaternion())   # von der Ruhe aus, nicht vom Schwung der Bewegung
+		var spitze := func() -> Vector3:
+			var l := kette[-1]
+			var ch := sk.get_bone_children(l)
+			var gl := sk.get_bone_global_pose(l)
+			return sk.get_bone_global_pose(ch[0]).origin if ch.size() > 0 else gl * (sk.get_bone_rest(l).origin * 0.8 + Vector3(0, 0.02, 0))
+		# Richtung der Beugung: die, bei der die Spitze nach einem kleinen Probeschritt naeher an der Schaftlinie liegt
+		var vorher: Vector3 = spitze.call()
+		_beuge(sk, kette[0], d, 10.0)
+		var plus: Vector3 = spitze.call()
+		_beuge(sk, kette[0], d, -20.0)
+		var minus: Vector3 = spitze.call()
+		_beuge(sk, kette[0], d, 10.0)
+		var ab := func(q: Vector3) -> float:
+			var r := q - k
+			return (r - d * r.dot(d)).length()
+		var vz := 1.0 if ab.call(plus) < ab.call(minus) else -1.0
+		for i in kette: _beuge(sk, i, d, vz * FAUST_BEUGE / kette.size())
+		if kette.size() >= 2:
+			summe += sk.get_bone_global_pose(kette[1]).origin
+			n += 1
+	if n == 0: return k
+	var q := summe / n - k
+	faust_weite = (q - d * q.dot(d)).length()
+	var m := (k + summe / n) * 0.5
+	return k + (m - k) - d * (m - k).dot(d)   # nur quer zum Schaft verschoben, laengs bleibt der Griff
+
+# Knochen i um die Achse a (Skelettraum) um w Grad drehen, Kinder folgen
+static func _beuge(sk: Skeleton3D, i: int, a: Vector3, w: float) -> void:
+	var g := sk.get_bone_global_pose(i)
+	var nb := Basis(a.normalized(), deg_to_rad(w)) * g.basis.orthonormalized()
+	var p := sk.get_bone_parent(i)
+	var pb := sk.get_bone_global_pose(p).basis.orthonormalized() if p >= 0 else Basis.IDENTITY
+	sk.set_bone_pose_rotation(i, (pb.inverse() * nb).get_rotation_quaternion())
 
 # kleinste Drehung von b, die den Vektor von (Bild von b) auf nach dreht
 static func _richte(b: Basis, von: Vector3, nach: Vector3) -> Basis:

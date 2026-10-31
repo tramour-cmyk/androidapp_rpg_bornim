@@ -59,16 +59,17 @@ func standbilder() -> void:
 		var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
 		for bew in ["Gehen", "Rennen"]:
 			ap.play(bew)
+			await fp.get_tree().process_frame   # eine neue Bewegung muss ein Bild lang laufen; sofort angehalten blieb die alte Pose stehen
 			var lang := ap.get_animation(bew).length
 			var v: float = m.get_meta("gehen_m_je_s" if bew == "Gehen" else "rennen_m_je_s")
 			w.rotation.y = 0.0
 			var n := int(round(lang * FPS))
 			for f in 3 * n:
 				var t := f / FPS
+				ap.pause()   # erst anhalten, dann springen (umgekehrt wirkt seek nicht, die Figur stand)
 				ap.seek(fmod(t, lang), true)
-				ap.pause()
 				w.position = ort + Vector3(0, 0, 1) * v * t
-				await sk.skeleton_updated
+				await fp.get_tree().process_frame   # angehalten wirkt seek erst im naechsten Bild
 				var ph := f - 2 * n
 				if ph in [0, n / 4, n / 2, (3 * n) / 4]:
 					for a in ANSICHTEN:
@@ -93,15 +94,16 @@ func standbilder() -> void:
 		w.rotation.y = 0.0
 		for bew in ["Gehen", "Rennen"]:
 			ap.play(bew)
+			await fp.get_tree().process_frame   # eine neue Bewegung muss ein Bild lang laufen; sofort angehalten blieb die alte Pose stehen
 			var lang := ap.get_animation(bew).length
 			var v: float = m.get_meta("gehen_m_je_s" if bew == "Gehen" else "rennen_m_je_s")
 			for f in int(round(2.0 * lang * FPS)):
+				ap.pause()   # erst anhalten, dann springen (umgekehrt wirkt seek nicht, die Figur stand)
 				ap.seek(fmod(f / FPS, lang), true)
-				ap.pause()
 				p += Vector3(0, 0, 1) * v / FPS
 				w.position = p
 				stelle_kamera(w, seite)
-				await sk.skeleton_updated
+				await fp.get_tree().process_frame
 				await RenderingServer.frame_post_draw
 				fp.spiel.get_viewport().get_texture().get_image().save_png(ordner + "/%03d.png" % nr)
 				nr += 1
@@ -163,7 +165,7 @@ static func netze_von(m: Node3D) -> Array:
 
 # Abstand jedes Waffenpunkts zum naechsten Dreieck des verformten Koerpers (bis 2 Zellen weit), Vorzeichen nach der Normalen am
 # naechsten Punkt (unter 0: im Koerper); Dreiecke der tragenden Hand zaehlen nicht (die Faust umschliesst den Griff)
-static func abstand(netze: Array, sk: Skeleton3D, ohne: PackedStringArray, w: Node3D, pkt: PackedVector3Array) -> Dictionary:
+static func abstand(netze: Array, sk: Skeleton3D, ohne: PackedStringArray, w: Node3D, pkt: PackedVector3Array, posen: Array[Transform3D] = []) -> Dictionary:
 	var gitter := {}
 	var P := PackedVector3Array(); var N := PackedVector3Array(); var T := PackedStringArray()
 	var D := PackedInt32Array()   # Dreiecke: je drei Ecken (Nummern in P)
@@ -180,7 +182,7 @@ static func abstand(netze: Array, sk: Skeleton3D, ohne: PackedStringArray, w: No
 		for b in skin.get_bind_count():
 			var bn := skin.get_bind_name(b)
 			var bi := sk.find_bone(bn) if bn != "" else skin.get_bind_bone(b)
-			mats.append(sk.global_transform * sk.get_bone_global_pose(bi) * skin.get_bind_pose(b))
+			mats.append(sk.global_transform * (posen[bi] if bi < posen.size() else sk.get_bone_global_pose(bi)) * skin.get_bind_pose(b))
 			namen.append(sk.get_bone_name(bi))
 		var V: PackedVector3Array = nz["V"]; var NN: PackedVector3Array = nz["N"]
 		var B: PackedInt32Array = nz["B"]; var W: PackedFloat32Array = nz["W"]; var I: PackedInt32Array = nz["I"]

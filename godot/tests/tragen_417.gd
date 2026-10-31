@@ -6,7 +6,7 @@ extends SceneTree
 const FIGUREN := [["WIZARD", "quarterstaff"], ["FIGHTER", "greataxe"], ["ROGUE", "shortbow"]]
 const FPS := 30.0
 const INNEN_ERLAUBT := 0.01     # m: tiefer darf kein Punkt der Waffe im Koerper stecken
-const FAUST_ERLAUBT := 0.03     # m: so weit darf die Faust neben ihrem Ziel liegen
+const FAUST_ERLAUBT := 0.04     # m: so weit darf die Faust neben ihrem Ziel liegen (die Waffe folgt der echten Faust; mehr hiesse: Arm ueberstreckt)
 
 var fehler := 0
 
@@ -22,7 +22,7 @@ func _initialize() -> void:
 		return
 	var welt := Node3D.new()
 	root.add_child(welt)
-	for e in FIGUREN:
+	for e in FIGUREN.slice(0, 1 if OS.get_cmdline_user_args().has("--knie") else 3):
 		if not HeldFigur.da(e[0]) or not FileAccess.file_exists("res://daten/waffen/%s.bin" % e[1]):
 			print("TRAGEN ohne %s oder %s" % e)
 			continue
@@ -37,12 +37,19 @@ func _initialize() -> void:
 		pruefe(tl.size() == 1, "%s %s: keine Tragart" % e)
 		if tl.is_empty(): continue
 		var tr := tl[0] as Tragen
+		tr.merken = true
 		pruefe(sk.find_children("Ruecken*", "", false, false).is_empty(), "%s: Waffe zusaetzlich auf dem Ruecken" % e[0])
+		# vor dem ersten Bild zwei Bilder laufen lassen: vorher wendet der AnimationPlayer nichts an (Probe 1: die Messung lief in
+		# der Ruhelage, Knie in jedem Bild gleich)
+		ap.play("Stehen")
+		await process_frame
+		await process_frame
 		var pkt := TragProbe.proben(tr.waffe)
 		var ohne := TragProbe.hand_knochen(sk, tr.seite)
 		var netze := TragProbe.netze_von(m)
 		for bew in ["Gehen", "Rennen"]:
 			ap.play(bew)
+			await process_frame   # eine neue Bewegung muss ein Bild lang laufen; sofort angehalten blieb die alte Pose stehen
 			var lang := ap.get_animation(bew).length
 			var v: float = m.get_meta("gehen_m_je_s" if bew == "Gehen" else "rennen_m_je_s")
 			var n := int(round(lang * FPS))
@@ -54,18 +61,27 @@ func _initialize() -> void:
 			var war_t := 1.0
 			var tiefst := 9.0
 			var tiefst_bild := ""
+			var knie0 := Vector3.ZERO
+			var weite_min := 9.0
+			var weite_max := 0.0
 			for f in 3 * n:
 				var t := f / FPS
+				ap.pause()   # erst anhalten, dann springen (umgekehrt wirkt seek nicht, die Figur stand)
 				ap.seek(fmod(t, lang), true)
-				ap.pause()
 				w.position = Vector3(0, 0, 1) * v * t
-				await sk.skeleton_updated   # erst danach gelten die Posen samt tragen.gd (nach process_frame steht wieder die Ruhe da)
+				# angehalten wendet seek die Bewegung erst im naechsten Bild an; gelesen wird im Bild danach waehrend der Aktualisierung
+				# des Skeletts (dann gelten die Posen samt tragen.gd)
+				await process_frame   # tragen.gd merkt sich dabei die Posen samt Arm (tr.posen)
+				if OS.get_cmdline_user_args().has("--knie") and f < 4: print("KNIE ", e[0], " ", bew, " ", f, " ", tr.posen[sk.find_bone("calf_l")].origin, " pos ", ap.current_animation_position, " ", ap.assigned_animation, " spielt ", ap.is_playing(), " faust ", sk.global_transform * (tr.posen[sk.find_bone("hand_r")] * tr.griff), " soll ", tr.faust_welt)
 				if f < 2 * n: continue
-				var r := TragProbe.abstand(netze, sk, ohne, tr.waffe, pkt)
+				if f == 2 * n: knie0 = tr.posen[sk.find_bone("calf_l")].origin
+				elif f == 2 * n + n / 2: pruefe(knie0.distance_to(tr.posen[sk.find_bone("calf_l")].origin) > 0.05, "%s %s: Bewegung steht (Knie in einem halben Umlauf nicht bewegt)" % [e[0], bew])
+				var r := TragProbe.abstand(netze, sk, ohne, tr.waffe, pkt, tr.posen)
 				for teil in r["teile"]: tief[teil] = minf(float(tief.get(teil, 9.0)), float(r["teile"][teil]))
 				if float(r["min"]) < -INNEN_ERLAUBT: innen_bilder += 1
 				if float(r["min"]) < tiefst: tiefst = float(r["min"]); tiefst_bild = "%.2f s %s" % [fmod(t, lang), r["schlimm"] if OS.get_cmdline_user_args().has("--genau") else ""]
 				faust = maxf(faust, tr.fehl)
+				weite_min = minf(weite_min, tr.faust_weite); weite_max = maxf(weite_max, tr.faust_weite)
 				if tr.art == "stab" and tr.stab_fuss != Vector3.INF:
 					if tr.stab_t >= 1.0: fuss_hoch = maxf(fuss_hoch, absf(tr.stab_fuss.y - w.global_position.y))
 					if tr.stab_t < 1.0 and war_t >= 1.0: setzen += 1
@@ -74,10 +90,11 @@ func _initialize() -> void:
 			teile.sort_custom(func(a, b): return tief[a] < tief[b])
 			var s := PackedStringArray()
 			for teil in teile.slice(0, 4): s.append("%s %.1f" % [teil, tief[teil] * 100.0])
-			print("MESS %s %s %s: naechste Teile (cm) %s; tiefster Punkt %.1f cm bei %s; Bilder im Koerper %d von %d; Faust neben Ziel %.1f cm%s" % [
-				e[0], e[1], bew, ", ".join(s), tiefst * 100.0, tiefst_bild, innen_bilder, n, faust * 100.0,
+			print("MESS %s %s %s: naechste Teile (cm) %s; tiefster Punkt %.1f cm bei %s; Bilder im Koerper %d von %d; Faust neben Ziel %.1f cm, Faust weit %.1f bis %.1f cm%s" % [
+				e[0], e[1], bew, ", ".join(s), tiefst * 100.0, tiefst_bild, innen_bilder, n, faust * 100.0, weite_min * 100.0, weite_max * 100.0,
 				("; Stab umgesetzt %d mal, Fuss stehend hoechstens %.1f cm ueber dem Boden" % [setzen, fuss_hoch * 100.0]) if tr.art == "stab" and bew == "Gehen" else ""])
 			pruefe(innen_bilder == 0, "%s %s %s: Waffe in %d Bildern tiefer als %.0f cm im Koerper" % [e[0], e[1], bew, innen_bilder, INNEN_ERLAUBT * 100.0])
+			pruefe(weite_min > 0.025 and weite_max < 0.06, "%s %s: Faust %.1f bis %.1f cm weit (um den Schaft 2,5 bis 6)" % [e[0], bew, weite_min * 100.0, weite_max * 100.0])
 			pruefe(faust <= FAUST_ERLAUBT, "%s %s: Faust %.1f cm neben dem Ziel" % [e[0], bew, faust * 100.0])
 			if tr.art == "stab" and bew == "Gehen":
 				pruefe(setzen >= 1, "%s: Stab im Gehen nie umgesetzt" % e[0])
