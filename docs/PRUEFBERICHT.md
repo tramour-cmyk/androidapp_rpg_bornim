@@ -25,6 +25,24 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 49 · Auftrag 419 Prüfung 418 und 421 (`main` `6185da179`; 31.10., 21:4x; Text fremd geprüft)
+
+**Ergebnis:** Die Direktive in `CLAUDE.md` stimmt Zeichen für Zeichen mit dem Wortlaut im Vorgangsarchiv „418“ überein, ebenso die Abschrift oben in `LISTE-ABNAHME-KAPITEL1.md`. Jedes Wort der Direktive hat einen Block in der Abnahmeliste (T, A, K, M, G, W; S für „marktreif“). Die Abnahmeliste erbt aber drei Fehler aus Spielsystem 2.0 (Lauf 48), und zwei Teile fehlen.
+
+**Die fünf wichtigsten**
+
+- **D49.1 Werdegänge ohne Handlung im Kern (G gegen Chefsache 418, Votum A):** G verlangt die Werdegänge (E 28, 29, 45), dazu gehören Kräuterkundiger (Kräuterkunde, Alchemie) und Schmiedegeselle (Schmieden, Bergbau). Votum A lässt Sammeln und Alchemie aus Kapitel 1 heraus (erst B), Schmieden steht in keiner Option. Auch der Heiler startet mit Kräuterkunde. Mit A starten drei von sechs Werdegängen mit Fertigkeiten, die es in Kapitel 1 nicht zu tun gibt. M verlangt außerdem: „jeder Werdegang schafft die Bosse in vergleichbarem Maß“.
+- **D49.2 Truhen und Fallen ohne Entdecken (G gegen Option C):** Kern A enthält „Fallen und Truhen“ (E 55). Fallen entdeckt man nach Abschnitt 10 (zu E 57) über Spähen, das Option C erst später bringt. Ohne Spähen fehlt im Kern das Entdecken, oder es gilt eine ältere Fassung (Grundwert Wahrnehmung, Abschnitt 10; „Fallen entschärfen erkennt und entschärft“, Truhen-Abschnitt); entschieden ist das nicht (Lauf 48, Liste „veraltet“).
+- **D49.3 Monsterwerte und Messung fehlen (M, W gegen Spielsystem 2.0 Abschnitt 5 und 6 „M1“, Abschnitt 11):** Sokrates' M1 nennt „neue Monsterwerte Kapitel 1“ und die Prüfung „Simulation Zeit bis Stufe“. „Messen statt raten“ (Abschnitt 11) ist der Weg, den Preis der SRD-Abkehr zu zahlen. Beides steht nicht in der Abnahmeliste. M nennt „Kampf ohne W20 nach Stufen (E 7)“, der Stufenfaktor ist aber offen (Frage 3, S1).
+- **D49.4 G übernimmt Ungeklärtes aus 2.0:** „ab 1, 18 Punkte, jeder Wert 3 bis 8“ (E 64) ist rechnerisch gleich „Start 3, 6 Punkte frei“, das Beispiel braucht 21 Punkte (D48.1). „Niveau je Kapitel begrenzt“ (E 20) hat keine gültige Regel, und mit den Entwurfszahlen gibt es in Kapitel 1 keinen Weg (D48.2), G verlangt aber „Wege sichtbar“. Die Liste der 37 ist nicht auf Werdegänge und Wege umgeschrieben (D48.4).
+- **D49.5 421 ohne Archiv, Rest der Liste veraltet:** Die Regel „im Doppelpack“ steht in `ROLLE-PROJEKT.md` und `ROLLE-PRUEFUNG.md` (Chefzitat nur dort), im Vorgangsarchiv gibt es keinen Eintrag 421 („Entschiedenes im Vorgangsarchiv“). In `ROLLE-PRUEFUNG.md` ersetzt der Zusatz „nicht mehr jeden Ablaufentwurf“ (Regelbilanz erfüllt), in `ROLLE-PROJEKT.md` kommt er dazu, ohne etwas zu streichen. In `LISTE-ABNAHME-KAPITEL1.md` stehen unter der neuen Liste weiter „Stand 29.10., 01:05“ (Stillstand bis 31.10., 20:00, Jerry steht seit 00:27), das Wochenziel 2 mit festen Tagen (02.11. „gebaut“, 03.11. gemessen) gegen „es gibt keinen Termin“, und „Reihenfolge“ Schritt 1–2 (Umzug Woche 1).
+
+**Dazu (Helfer):** Chefsache 418 will nach der Wahl Termine setzen und Wochenziel 2 auf den 02.11. rechnen; der Satz „es gibt keinen Termin“ der Direktive verlangt eine Klärung, ob Wochenziele mit Tagen weiter gelten.
+
+**Außerhalb von 418, offen nach 61:** `CLAUDE.md` Kopf „Kotlin, Jetpack Compose, Regeln nach SRD 5.1“ und `DESIGN-LEITBILD.md` Punkt 4 („Das Regelwerk wird nicht gewechselt … Stufe 20“) widersprechen der neuen Direktive; nach E 61 kommt erst ein Entwurf an den Chef. Alte Direktive noch in `tools/regeltreue/stufe2/CLAUDE.md` (Testvorlage?).
+
+**Nicht geprüft:** ob die Blöcke T, A, K, W alle Pflichten der alten Liste abdecken (nicht abgeglichen), Code, Schätzbarkeit der Blöcke.
+
 ## Lauf 48 · Auftrag 420 Spielsystem 2.0 (`DESIGN-SPIELSYSTEM-2-0.md`, Stand `3d64e00`, Entscheidungen 1–65, Abschnitte 1–12; 31.10., 21:3x; Text fremd geprüft)
 
 **Ergebnis:** Die Entscheidungen sind fortlaufend 1–65, die Liste der 37 Fertigkeiten zählt richtig (10+4+4+5+1+3+4+6), 13 Berufungen und die alten Summen (69 Fertigkeiten, 19+4=23, Werdegänge je 6 Punkte) stimmen. Fünf Befunde tragen, dazu veraltete Stellen.
