@@ -245,7 +245,7 @@ Folklore-Wesen (Goblin, Kobold, Skelett, Zombie, Ghul) und Tiere behalten ihre N
 ## 13. Offen
 
 - Neue Monsterwerte für Kapitel 1 und die Messung „Zeit bis Stufe“ in der Simulation (Befund D49.3); Rechenmodell D ist entschieden (73–75).
-- Taten, Chronik, Ätherdichte, Ruf mit Gedächtnis (Entwurf C).
+- Profil (Entwurf C) ist entschieden (Entscheidung 76); offen bleibt nur die Reihenfolge der Bausteine über Taten und Chronik hinaus.
 - Name „Pfad“ statt „Berufung“ bestätigen.
 - Magie und Rüstung: Sperre nur für Evokation, Illusion, Beschwörung (Abschnitt 5).
 - Umfang der Prüfungsquests beim Lehrmeister.
