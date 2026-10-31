@@ -149,6 +149,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 416.6 | Spuren des Helden, auch bei Regen (Chef 31.10., 20:4x) | B Umzug | K | – | Team Jerry | frei |
 | 417 | Prüfung: Waffen und Schild beim Gehen und Rennen in der Hand statt auf dem Rücken (zu 410, Chef 31.10., 21:1x) | E Figuren | M | – | Team Tom | frei |
 | 418 | Oberste Direktive neu in `CLAUDE.md`, Abnahmeliste Kapitel 1 darauf und auf Spielsystem 2.0 umschreiben („jetzt“ 31.10., 21:21) | B Abläufe | M | – | Perikles | startbar |
+| 419 | Prüfung 418: Direktive in `CLAUDE.md` und neue Abnahmeliste gegen Wortlaut und Spielsystem 2.0 (Chef 31.10., 21:2x) | B Abläufe | M | – | Diogenes | wartet |
+| 420 | Prüfung Spielsystem 2.0: Ideen und Entscheidungen in `DESIGN-SPIELSYSTEM-2-0.md` auf Widersprüche und Lücken (Chef 31.10., 21:2x) | D Design | M | – | Diogenes | startbar |
+| 421 | Regel: was Perikles an Regeln und Abläufen ändert, prüft Diogenes („im Doppelpack“, Chef 31.10., 21:2x) | B Abläufe | M | – | Perikles | startbar |
 | 416.7 | Aktionsknopf am Tresen in Schenke und Laden (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | frei |
 | 416.8 | NPC dreht sich zum Helden, nach etwa 10 s Leerlauf (Chef 31.10., 20:5x) | B Umzug | M? | – | Team Tom | frei |
 | 390 | Umzug: Punkte ohne Bilderrunde weiterbauen, solange Blätter beim Chef liegen (Perikles 28.10., Wochenziel 348) | E Technik | M | 39,54 $ | Team Tom, Team Jerry | wartet |

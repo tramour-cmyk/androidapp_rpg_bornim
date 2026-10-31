@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 421 | M | **von Sokrates (Chef 31.10., 21:2x):** Regel „im Doppelpack“: jede Änderung von Perikles an Regeln und Abläufen prüft Diogenes (erste: 419 zu 418) | startbar |
 | 418 | M | **von Sokrates („jetzt“ 31.10., 21:21, Archiv):** oberste Direktive in `CLAUDE.md` durch den Wortlaut im Archiv ersetzen; Abnahmeliste Kapitel 1 darauf und auf Spielsystem 2.0 umschreiben, Chef nimmt ab | startbar |
 | 412 | M | **von Sokrates (Chef 11:43, Archiv):** je Thema ein Vorgang, nichts Fremdes unter eine Nummer | startbar |
 | 408 | M | **von Sokrates (Chef 11:15, Archiv):** Bestand vor Eigenbau: Bedarf in der Bibliothek suchen, alle Kandidaten drehend im Film vorlegen, Chef wählt, dann erst anpassen | startbar: Reihenfolge Bibliothek, frei im Netz, Kaufvorschlag, Eigenbau (Chef 11:26, Archiv) |

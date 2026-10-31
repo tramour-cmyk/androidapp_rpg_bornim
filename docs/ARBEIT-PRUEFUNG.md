@@ -2,7 +2,6 @@
 
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
-**Pause bis 31.10., 20:00 Uhr** (Chef 29.10., 11:15, über Sokrates).
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41: 274 Schritt 1–3, nur Notizen und Werkzeug-Verweise) · vorher `98ba4b9b` (Lauf 40: 261.5; frühere Stände in Git); nächste Nummer D48 (Lauf 45: 149/156, Lauf 46: 275 Werkzeuge an Kopie, `4fec9890`; Lauf 47: Nachprüfung D46, `e5b790d3`).
 
@@ -13,6 +12,8 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
+| 420 | M | **von Sokrates (Chef 31.10., 21:2x: „dass der auch bitte unsere Ideen dann nochmal überprüft“):** `DESIGN-SPIELSYSTEM-2-0.md` prüfen: Entscheidungen 1–65 untereinander und gegen die Auseinandersetzung (Abschnitte 1–12) auf Widersprüche, Zählfehler, Lücken; Befund als Text an den Chef und an Sokrates | startbar |
+| 419 | M | **von Sokrates (Chef 31.10., 21:2x: „irgendwer muss dann wieder prüfen, was Perikles macht … im Doppelpack mit Diogenes“):** 418 prüfen: Direktive in `CLAUDE.md` wörtlich wie im Vorgangsarchiv „418“, neue Abnahmeliste deckt Direktive und Spielsystem 2.0 | wartet auf Perikles (418) |
 | 398 | M | **von Sokrates:** vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (397), dazu 15 Lücken (398); in der Wochenzählung als Chef-Erstfund zählen | frühestens 02.11. (mit Zeile „Woche“; Start 28.10., 12:04 zu früh, Bedingung ohne Termin-Wort) |
 | 374 | M | **von Sokrates (Chef 27.10., 11:58, Archiv 374):** täglich 8 Uhr bis 03.11. Vorlagen des Vortags an den Chef zählen: mit Fassungsblatt, genau einer Fehlerrunde, Chefwortlaut im Vorgang, Vorgabe Homer (373 a, c, d); eine Zeile Morgenmeldung, Abweichung in den Vorrat des Verursachers | erst wieder ab 30.10., 08:00 (29.10. gezählt: Zu 374); sauber bis 03.11. → nur montags |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24):** Umzug Godot: jedes Vergleichsblatt alt/neu messen, Hinweis an den Chef, kein Tor (373); gedrehte Ansichten gegen Regeln (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 3, 5) | wartet auf nächstes Blatt; gemessen 17:0x Ratte r7, Goblin-Hieb r7; 3761 neu ohne altes Bild (Zu 348.9, 17:0x) |
