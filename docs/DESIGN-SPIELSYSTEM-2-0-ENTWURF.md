@@ -300,7 +300,7 @@ Anforderung des Chefs (31.10., 21:3x): Ein kleiner Held gegen ein starkes Monste
 | Schaden | (Waffe + Grundwert) × (1 + Fertigkeit / 100) × (1 + D / 10), Stufenfaktor nie unter 0; danach minus Rüstung, nie unter 0. Fertigkeit 50 heißt anderthalbfacher Schaden, 100 doppelter |
 | Trefferchance | 70 % + (Angriffsfertigkeit − Abwehrfertigkeit des Gegners) × 0,5 %, begrenzt auf 5 bis 95 % |
 | Glückstreffer | 1 von 100 Treffern rechnet mit Stufenfaktor 1; gilt für beide Seiten |
-| Erfahrung | Stufe über dem Gegner (D > 0): × (1 − D / 10), null ab D ≥ 10; Stufe unter dem Gegner (D < 0): × (1 − D / 10), höchstens doppelt |
+| Erfahrung | Stufe über dem Gegner (D > 0): × (1 − D / 9), null ab D ≥ 9; Stufe unter dem Gegner (D < 0): × (1 − D / 10), höchstens doppelt |
 
 **Monster braucht:** Stufe, Leben, Rüstung, Grundschaden je Angriff, Angriffsfertigkeit, Abwehrfertigkeit, Wachsamkeit gegen Schleichen.
 
@@ -318,9 +318,7 @@ Anforderung des Chefs (31.10., 21:3x): Ein kleiner Held gegen ein starkes Monste
 - Bei gleicher Stufe entscheidet das Können: Üben zahlt sich sofort aus.
 - Der „kaum zu tötende Handwerker“ entfällt: Er nimmt zwar wenig Schaden je Treffer, wird aber fast immer getroffen und trifft selbst selten.
 
-**Zwei offene Punkte im Modell:**
-- Der Glückstreffer macht Schaden, aber keinen Sieg. Soll der kleine Held wirklich einmal in hundert Kämpfen gewinnen können, braucht es eine andere Regel (etwa ein seltener entscheidender Treffer).
-- Stufe 10 gegen Stufe 1 ist D = 9 und gibt noch ein Zehntel. Soll es dort schon null sein, beginnt die Null bei D ≥ 9.
+**Entschieden (Chef 31.10., 22:2x):** Modell D. Der Glückstreffer bleibt ein Kratzer („Kratzer reicht“). Stufe 10 gegen Stufe 1 gibt keine Erfahrung mehr (Null ab D ≥ 9). In den Beispielen oben heißt „Erfahrung × 0,1“ damit 0.
 
 - **Votum Sokrates: D.** Es erfüllt alle drei Anforderungen und hält die Rollen klar: Stufe für die Größe, Fertigkeit für das Können. *Gegenargument:* Die Fertigkeit wirkt jetzt doppelt (Treffer und Schaden). Darum ist ihr Schadensanteil mit 1 % je Punkt bewusst mäßig; die Simulation zeigt, ob er passt.
 - **Stärkstes Gegenargument:** zwei Formeln statt einer (Schaden und Trefferchance), und alle Werte sind Startwerte ohne Messung. Ohne Simulation kann der Kampf zu lang oder zu kurz werden.

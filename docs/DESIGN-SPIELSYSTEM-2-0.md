@@ -78,6 +78,7 @@ Ideensammlung, Stand 31.10.2026. Hier schreiben wir alles zusammen, was das Spie
 | 70 | Völker mit Bonus und Malus | Es heißt **Volk**, nicht Rasse. Je Volk kleiner Bonus und Malus (±1 auf Grundwerte) und ein spürbares Merkmal; Vorschlag Sokrates im Chat 22:03 (Tabelle) als Grundlage. Chef 31.10.2026, 22:0x. |
 | 71 | Volk wirkt in der Welt | NPCs reagieren auf das Volk (etwa anfängliches Misstrauen gegen Orkblütige), „weil wir wollen ja eine lebendige Welt“; Texte über Homer. Chef 31.10.2026, 22:0x. |
 | 72 | Völker, Werte | Fünf Völker; unterm Strich je +1: Mensch +1 frei (Wandelbar: eine zusätzliche Startfertigkeit); Elf Gewandtheit +1, Wahrnehmung +1, Zähigkeit −1 (Wachsame Sinne); Zwerg Zähigkeit +1, Verstand +1, Gewandtheit −1 (Steinblut); Hügelvolk Gewandtheit +1, Wille +1, Kraft −1 (Glückskind); Orkblütiger Kraft +1, Zähigkeit +1, Wille −1 (Letzter Atemzug). Eigenes sechstes Volk aus Bornim später prüfen (432). Chef 31.10.2026, 22:0x. |
+| 73 | Rechenmodell Kampf (S1, Frage 3) | Modell D „Trennung“ (Nachschlagewerk Entwurf A): Stufe für die Größenordnung, Fertigkeit für Treffer und Schaden; Glückstreffer 1 von 100 nur als Kratzer („Kratzer reicht“); Erfahrung null ab 9 Stufen über dem Gegner („bei Stufe 10 gegen 1 null Erfahrung“). Zahlen Startwerte für die Simulation. Chef 31.10.2026, 22:2x. |
 
 **Rückfragen zu den Antworten vom 31.10.2026, abends:** R1 gestrichen, R2 und R3 beantwortet (Entscheidungen 33, 36), R4 wird zur Aussprache über die Titel (Abschnitt 8).
 
