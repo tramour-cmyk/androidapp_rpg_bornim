@@ -12,6 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 426 | M | **von Sokrates (Chef 31.10., 21:30, „mit in das Design rübergeben“):** Grundsatz in `DESIGN-STIL.md`: Menüs und Testmenü mit Icons statt Textwänden, wie in der alten Fassung (Beleg Menü „System“ alt gegen Build 143); gehört zu 425 (Tom) | frei |
 | 423 | M | **von Sokrates (Chef 31.10., 21:2x: „irgendwer muss dann auch einfach eine Anleitung schreiben, wo die wesentlichen Dinge für den Spieler erklärt werden“):** Spielerhandbuch Spielsystem 2.0 aus dem Nachschlagewerk (422), unser Ton, DE/EN | wartet auf Sokrates (422) |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |
