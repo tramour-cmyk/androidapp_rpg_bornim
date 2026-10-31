@@ -2,9 +2,20 @@
 
 Entwurf (Vorgang 422, Sokrates, 31.10.2026). Hier steht nur, was gilt, und am Ende, was noch offen ist. Verlauf und Begründungen stehen in [`DESIGN-SPIELSYSTEM-2-0.md`](DESIGN-SPIELSYSTEM-2-0.md). Alle Zahlen sind Startwerte; sie werden mit einer Simulation in der Godot-Fassung gemessen und angepasst.
 
+## Auf einen Blick
+
+Vier Dinge machen den Helden aus. Mehr muss man nicht wissen, um zu spielen.
+
+| | Was es ist | Wie es wächst |
+| --- | --- | --- |
+| **Werdegang** | wie deine Geschichte anfängt: eine Herkunft (Wachsoldat, Jägerkind …) oder keine (Wanderer) | gar nicht; einmal bei der Erschaffung gewählt, freiwillig |
+| **Fertigkeiten** | was du kannst: 37 Stück, von Einhänder bis Angeln | **durch Tun.** Am Ende jedes Rangs wartet eine **Prüfung**, erst danach geht es weiter |
+| **Pfad** | wohin du dich spezialisierst: Wächter, Paladin, Waldläufer … (genau einer); dazu beliebig viele Handwerke (Meisterschaften) | ein **Lehrmeister** bietet ihn dir an, sobald du passende Fertigkeiten übst; dann drei Prüfungen bei ihm |
+| **Heldenstufe** | wie stark du insgesamt bist | durch **Erfahrung** aus Kämpfen, Quests, Geschichte, bestandenen Prüfungen und Fertigkeitsaufstiegen; jedes Kapitel setzt eine Grenze |
+
 ## 1. Die Grundidee
 
-**Du wirst, was du tust.** Es gibt keine Klasse, die man am Anfang wählt. Wer viel mit dem Bogen schießt, wird ein besserer Schütze. Wer zaubert, wird ein besserer Zauberer. Wer schleicht und Dolche führt, steht irgendwann auf dem Weg des Schattens.
+**Du wirst, was du tust.** Es gibt keine Klasse, die man am Anfang wählt. Wer viel mit dem Bogen schießt, wird ein besserer Schütze. Wer zaubert, wird ein besserer Zauberer. Wer schleicht und Dolche führt, bekommt irgendwann Besuch von einem Lehrmeister, der ihm einen Pfad anbietet.
 
 - **Alles geht, nichts muss.** Kampf, Handwerk, Sammeln: jeder Weg bringt den Helden voran, keiner ist Pflicht.
 - **Eigenes Regelwerk.** Das Spiel folgt nicht mehr dem SRD 5.1. Es gibt keinen W20; der Zufall ist nur Würze. Eigene Namen ersetzen alle Begriffe mit D&D-, WotC- oder SRD-Bezug (Abschnitt 12).
@@ -28,23 +39,20 @@ Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit und 
 
 ### Heldenerschaffung
 
-- Jeder Grundwert beginnt bei **1**. Der Spieler verteilt **18 Punkte**. Danach liegt jeder Wert zwischen **3 und 8** (Startwerte, versuchsweise).
-- Dazu ein **Volk** (Mensch, Elf, Zwerg, Hügelvolk, Orkblütiger) mit kleinem Bonus und einem Volksmerkmal.
-- **Werdegang als Starthilfe:** Wer schon weiß, wohin er will, wählt einen Werdegang. Er verteilt die Punkte vor, gibt zwei bis drei Startfertigkeiten und passende Ausrüstung. Er bindet nicht: der Spieler kann die Punkte ändern, und der Held wächst danach mit dem, was er tut.
+- Jeder Grundwert beginnt bei **1**. Der Spieler verteilt **21 Punkte**; danach liegt jeder Wert zwischen **3 und 8**. Beispiel Zauberlehrling: Wille 8, Verstand 6, Zähigkeit 4, Wahrnehmung 3, Gewandtheit 3, Kraft 3 (zusammen 27). *Berichtigt:* mit den bisher genannten 18 Punkten blieben nach der Untergrenze 3 nur 6 frei, das Beispiel ging nicht auf (Befund Diogenes D48.1).
+- Dazu ein **Volk** (Mensch, Elf, Zwerg, Hügelvolk, Orkblütiger) mit einem Volksmerkmal und +1 auf zwei Werte; der Volksbonus darf die 8 überschreiten.
+- **Werdegang (Herkunft), freiwillig:** Er verteilt die Punkte vor, gibt zwei bis drei Startfertigkeiten und passende Ausrüstung. Die Punkte kann man ändern. Wer keinen will, ist **Wanderer** und verteilt selbst.
 
-Die Startfertigkeiten sind auf die neue Liste der 37 Fertigkeiten umgeschrieben; das ist **Vorschlag, noch nicht entschieden**. Ebenso die Umrechnung der Punkte auf 18.
-
-| Werdegang | Richtung | Startfertigkeiten | führt zum Weg |
-| --- | --- | --- | --- |
-| Schildträger | Schutz | Schild, Mittlere Rüstung, Einhänder | Schutz |
-| Schütze | Fernkampf | Bogen, Wurfwaffen, Spähen | Wildnis |
-| Zauberer | Magie | Evokation, Schutzmagie | Magie |
-| Heiler | Heilung | Heilmagie, Heilkunde, Kräuterkunde | Heilung |
-| Kräuterkundiger | Sammeln, Alchemie | Kräuterkunde, Alchemie, Spähen | Meisterschaft Alchemist |
-| Schmiedegeselle | Schmieden, Reparatur | Schmieden, Bergbau | Meisterschaft Schmied |
-| Frei | selbst gewählt | selbst gewählt | – |
-
-Die Punktverteilung je Werdegang wird auf das Verteilen von 18 Punkten umgerechnet.
+| Werdegang | Startfertigkeiten | führt meist zu |
+| --- | --- | --- |
+| Wachsoldat | Schild, Mittlere Rüstung, Einhänder | Wächter, Paladin |
+| Jägerkind | Bogen, Wurfwaffen, Spähen | Waldläufer, Scharfschütze |
+| Zauberlehrling | Evokation, Schutzmagie | Magier, Kriegsmagier |
+| Klosterschüler | Heilmagie, Heilkunde, Kräuterkunde | Heiler, Paladin |
+| Kräutersammler | Kräuterkunde, Alchemie, Spähen | Meisterschaft Alchemist |
+| Schmiedelehrling | Schmieden, Bergbau | Meisterschaft Schmied |
+| Herumtreiber | Schleichen, Spähen, Dolche | Assassine, Schatzjäger |
+| Wanderer | selbst gewählt | – |
 
 ## 3. Fertigkeiten
 
@@ -66,8 +74,11 @@ Die Punktverteilung je Werdegang wird auf das Verteilen von 18 Punkten umgerechn
 ### Wie Fertigkeiten wachsen
 
 - **Durch Tun.** Jede Benutzung gegen ein passendes Ziel bringt Übung. Zu leichte Ziele bringen kaum etwas. Je höher die Fertigkeit, desto mehr Übung braucht der nächste Schritt.
-- **Ränge:** Anfänger (bis 25), Geselle (bis 50), Meister (bis 75), Großmeister (bis 100), danach weitere Ränge, die mit neuen Kapiteln kommen.
-- **Grenze je Kapitel.** Jede Fertigkeit kann im Kapitel nur bis zu einem Wert steigen; die Grenze wächst mit der Stufengrenze des Kapitels. Weiter geht es mit einem Lehrer oder einer Quest im nächsten Kapitel. Am Limit wird Übung bis zu einem Rangschritt gespeichert und nach der Freischaltung angerechnet.
+- **Wert und Ränge:** Jede Fertigkeit hat einen Wert von 0 bis 100. Die Ränge sind Abschnitte dieses Werts: Anfänger (0–24), Geselle (25–49), Meister (50–74), Großmeister (75–100). Bei 100 ist die Fertigkeit fertig.
+- **Prüfung am Ende jedes Rangs.** Üben hebt den Wert bis zum Ende des Rangs (zum Beispiel 49). Dann bleibt er stehen, bis eine Prüfung bestanden ist; erst dann steigt er weiter. Was man in der Zwischenzeit übt, wird bis zu einem kleinen Puffer gemerkt.
+  - **Fertigkeiten deines Pfads** prüft dein Lehrmeister (Abschnitt 5). Eine Prüfung öffnet den nächsten Rang für alle Kernfertigkeiten des Pfads.
+  - **Alle anderen Fertigkeiten:** eine **Bewährungsprobe** in der Welt, die im Heldenblatt erscheint (etwa „drei Gegner deiner Stufe nur mit dem Schwert, ohne Heiltrank“, „einen Fisch über 3 kg fangen“). Ohne Pfad oder Meisterschaft endet eine Fertigkeit bei Meister; Großmeister gibt es nur im eigenen Pfad oder in der eigenen Meisterschaft.
+- **Kapitel als Takt:** Welche Prüfungen und Proben es gibt, hängt am Kapitel (Tabelle in Abschnitt 5). So ersetzt die Prüfung die bisherige unsichtbare Grenze je Kapitel.
 - **Rückmeldung:** Ein kurzer Hinweis im Augenblick des Aufstiegs („Bogen ↑“).
 - **Sichtbar wird nur, was man getan hat.** Eine Fertigkeit erscheint im Heldenblatt beim ersten Gebrauch („Neue Fertigkeit: Schleichen“). Das Handbuch beschreibt alle Fertigkeiten und wie man sie entwickelt.
 
@@ -77,7 +88,8 @@ Die **Heldenstufe** wächst über Erfahrung. Sie bestimmt Leben, die Stärke im 
 
 | Quelle | Wann |
 | --- | --- |
-| Fertigkeitsaufstieg | einmal bei jedem Aufstieg, nicht für bloßes Üben |
+| Fertigkeitsaufstieg | bei jedem Aufstieg des Fertigkeitswerts um einen Schritt (Startwert: je 5 Punkte), nicht für bloßes Üben |
+| Prüfung und Bewährungsprobe | beim Bestehen, als Tat; Prüfungen beim Lehrmeister geben viel |
 | Kampf | beim Sieg; Gegner weit unter der eigenen Stufe (etwa 10 Stufen) geben nichts |
 | Nebenquests | beim Abschluss, nach Schwierigkeit und Gebiet |
 | Hauptquest | in größeren Blöcken, einmalig |
@@ -88,26 +100,44 @@ Die **Heldenstufe** wächst über Erfahrung. Sie bestimmt Leben, die Stärke im 
 - **Baseline:** Sind alle Quests erledigt und alle Gegner einmal besiegt, hat der Held die Erfahrung des Kapitels ausgeschöpft.
 - **Erfahrungstopf je Gebiet:** Zufallsbegegnungen schöpfen aus einem Topf (die Erfahrung aller Gegner des Gebiets einmal). Ist er leer, gibt es nur noch einen kleinen Anteil. Wiedergekehrte Gegner geben kaum Erfahrung, aber weiter Beute.
 
-## 5. Wege, Berufungen, Meisterformen
+## 5. Der Pfad und der Lehrmeister
 
-Der Held beginnt als **Wanderer**. Was er tut, führt ihn auf Wege; dort wählt er einmal bewusst seine Berufung.
+**Pfad** ist der neue Name für das, was bisher Berufung hieß (Vorschlag Chef 31.10., 21:5x; noch zu bestätigen). Jeder Held hat höchstens einen Pfad.
 
-| Ebene | Wie man sie erreicht | Auflagen |
-| --- | --- | --- |
-| **Weg** | von selbst: zwei Kernfertigkeiten des Wegs auf Geselle; ein kleiner Perk, ein Eintrag in der Chronik | keine; mehrere Wege zugleich möglich |
-| **Berufung** | beim Lehrmeister: Fertigkeiten der Berufung auf Meister, Prüfungsquest, Ruf beim Lehrmeister | ja; genau eine Berufung |
-| **Meisterform** | in späteren Kapiteln beim Lehrmeister (etwa Wächter → Bollwerk) | wie die Berufung |
+**So läuft es:**
+1. Du übst Fertigkeiten. Sobald **zwei Kernfertigkeiten** eines Pfads Geselle erreicht haben (zum Beispiel Schild und Heilmagie), spricht dich ein **Lehrmeister** an: „Willst du Paladin werden?“
+2. Sagst du ja, bist du **Anwärter**. Der Lehrmeister begleitet dich, gibt Hinweise und Aufgaben.
+3. Drei **Prüfungen** beim Lehrmeister, jede eine Quest mit einer passenden Tat:
 
-**Der Lehrmeister** begleitet den Helden auf seinem Weg, bringt ihm Dinge bei und prüft ihn: **Zwischenprüfung, Gesellenprüfung, Meisterprüfung**. Kapitel 1 zeigt die Wege; Berufungen gibt es ab Kapitel 2.
+| Prüfung | Voraussetzung | Danach bist du | Bekommst | Ab Kapitel (Startwert) |
+| --- | --- | --- | --- | --- |
+| Zwischenprüfung | Kernfertigkeiten am Ende von Geselle (49) | Eingeweihter | Rang Meister für die Kernfertigkeiten, erste Handlung | 2 |
+| Gesellenprüfung | Kernfertigkeiten am Ende von Meister (74) | Titelträger, z. B. „Paladin“ | Rang Großmeister, stärkere Handlung; ab hier gelten die Auflagen | 4 |
+| Meisterprüfung | Kernfertigkeiten bei 100 | Meister, z. B. „Hoher Paladin“ | stärkste Handlung | 6 |
 
-**Was eine Berufung bringt:** neue Handlungen im Kampf und in der Welt, die besser sind als die bisherigen (Riposte, Tierbegleiter, Waffenzauber), keine großen Zahlenaufschläge. Die Kraft bleibt in den Fertigkeiten.
+**Kapitel als Takt für alle Fertigkeiten (Startwerte):**
 
-**Wechseln** geht beim Lehrmeister mit Abschlägen: Die Handlungen der alten Berufung gehen verloren, ihre Kernfertigkeiten sinken um einen Rang.
+| Kapitel | höchster Rang ohne Prüfung beim Lehrmeister | Bewährungsproben verfügbar | Lehrmeister |
+| --- | --- | --- | --- |
+| 1 | Geselle (bis 49) | zum Gesellen | spricht an, Anwärter möglich |
+| 2–3 | Meister nur im Pfad | zum Gesellen | Zwischenprüfung |
+| 4–5 | Großmeister nur im Pfad | zum Meister | Gesellenprüfung |
+| 6–7 | | | Meisterprüfung |
 
-| Weg (wer ihn geht) | Kernfertigkeiten | Berufung | braucht auf Meister | Handlungen (Beispiele) | Auflagen |
+So zeigt Kapitel 1 schon die ersten Lehrmeister und Anwärter, der erste Titel kommt in Kapitel 2 (behebt D48.2).
+
+**Was ein Pfad bringt:** neue Handlungen im Kampf und in der Welt, jede besser als die vorige (Riposte, Tierbegleiter, Waffenzauber), keine großen Zahlenaufschläge. Die Kraft bleibt in den Fertigkeiten.
+
+**Wechseln** geht beim Lehrmeister mit Abschlägen: Die Handlungen des alten Pfads gehen verloren, seine Kernfertigkeiten sinken um einen Rang.
+
+**Magie und Rüstung (Vorschlag zur Entscheidung, Befund D48.3):** Die Sperre kommt daher, dass Metall die Aufnahme der Magiepartikel aus der Umgebung stört. Sie gilt darum für die Schulen, die aus der Umgebung schöpfen: **Evokation, Illusion, Beschwörung**. **Heil- und Schutzmagie** schöpfen aus dem eigenen Willen und gehen auch in Rüstung. So zaubern Paladin und Heiler ohne Ausnahmeregel; der Kriegsmagier bleibt die eine Ausnahme bei Evokation (leichte Rüstung).
+
+Die sechs Gruppen ordnen die Pfade; sie sind keine eigene Stufe:
+
+| Gruppe | typische Fertigkeiten | Pfad | Kernfertigkeiten (Einladung, Prüfungen) | Handlungen (Beispiele) | Auflagen ab Gesellenprüfung |
 | --- | --- | --- | --- | --- | --- |
 | Schutz (Bewahrer) | Schild, Mittlere und Schwere Rüstung, Ausweichen | Wächter | Schild, Schwere Rüstung | Gegner binden, Gefährten decken | langsam, wenig eigener Schaden |
-| | | Paladin (braucht auch den Weg Heilung) | Schild, Einhänder, Heilmagie | Heilende Hand, Schutzaura | nicht Beschwörer; Ruf muss hoch bleiben |
+| | | Paladin (Kernfertigkeiten aus Schutz und Heilung) | Schild, Einhänder, Heilmagie | Heilende Hand, Schutzaura | nicht Beschwörer; Ruf muss hoch bleiben |
 | Kampf (Kämpe) | Einhänder, Zweihänder, Faustkampf, Ausweichen | Berserker | Zweihänder, Stumpfe Waffen | Raserei | kein Schild, keine Zauber |
 | | | Duellant | Einhänder, Ausweichen, Leichte Rüstung | Riposte, Doppelschlag | höchstens leichte Rüstung, kein Schild |
 | | | Mönch | Faustkampf, Ausweichen | waffenlose Schläge, Betäuben | keine Rüstung, keine Waffen |
@@ -121,11 +151,11 @@ Der Held beginnt als **Wanderer**. Was er tut, führt ihn auf Wege; dort wählt 
 | Heilung (Heilkundiger) | Heilmagie, Heilkunde, Kräuterkunde | Heiler | Heilmagie, Schutzmagie, Heilkunde | Wiederbeleben, Seuchen heilen | höchstens leichte Rüstung |
 | | | Paladin (siehe Schutz) | | | |
 
-Die Spalten „braucht auf Meister“ sind auf die 37 Fertigkeiten umgeschrieben; Feinschliff beim Ausarbeiten der Prüfungen.
+Alle Kernfertigkeiten stammen aus der Liste der 37 (behebt D48.4). Die Einladung kommt, wenn zwei davon Geselle sind; die Prüfungen verlangen alle am jeweiligen Rangende.
 
 ## 6. Meisterschaften
 
-Handwerk läuft neben der Berufung, ohne Kampfauflagen. Man kann jede Meisterschaft machen, muss aber keine, und darf mehrere haben.
+Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, aber ohne Auflagen. Man kann jede Meisterschaft machen, muss aber keine, und darf mehrere haben.
 
 | Meisterschaft | Fertigkeit | Stellt her |
 | --- | --- | --- |
@@ -140,7 +170,7 @@ Handwerk läuft neben der Berufung, ohne Kampfauflagen. Man kann jede Meistersch
 - **Die Stufe entscheidet viel.** Der Unterschied der Stufen zwischen Angreifer und Verteidiger bestimmt, wie viel Schaden ankommt. Ein Held der Stufe 50 erledigt ein Monster der Stufe 1 mühelos, und es kann ihm nicht schaden. Fertigkeiten, Waffen und Grundwerte geben den Rest. Das genaue Rechenmodell ist noch offen (Entwurf A).
 - **Zufall nur als Würze:** kleine Streuung statt W20; kritische Treffer und Ausweichen hängen an Gewandtheit und Fertigkeit.
 - **Schleichen und Hinterhalt:** Mit der Schleichtaste nähert sich der Held. Bleibt er unbemerkt (Schleichen gegen die Wachsamkeit des Gegners, ohne Würfel), greift er als Erster an und bekommt den Vorteil des Hinterhalts. Mehr Gegner sind schwerer zu überlisten. **Bosse** sind wachsamer, ihr Hinterhalt-Bonus ist gedeckelt.
-- **Ausschlüsse sind hart.** Magier tragen ab der Berufung keine Rüstung, weil Metall die Aufnahme der Magiepartikel aus der Umgebung stört; der Kriegsmagier darf nur leichte Rüstung tragen. In schwerer Rüstung geht Schleichen nicht („Deine Rüstung klirrt“). Zweihänder und Schild schließen sich aus. Jeder Held hat genau eine Berufung.
+- **Ausschlüsse sind hart.** Magier tragen ab der Gesellenprüfung keine Rüstung, weil Metall die Aufnahme der Magiepartikel aus der Umgebung stört; der Kriegsmagier darf nur leichte Rüstung tragen (welche Schulen das betrifft: Vorschlag in Abschnitt 5). In schwerer Rüstung geht Schleichen nicht („Deine Rüstung klirrt“). Zweihänder und Schild schließen sich aus. Jeder Held hat höchstens einen Pfad.
 - **Gegner gehören zu Gebieten**, damit niemand zu früh in zu hohe Stufen läuft. Höhere Gebiete sind betretbar; die Karte zeigt ihr Stufenband.
 
 ## 8. Die Welt
@@ -149,7 +179,7 @@ Handwerk läuft neben der Berufung, ohne Kampfauflagen. Man kann jede Meistersch
 - **Fallen** stehen an Truhen und frei in Höhlen und Verliesen. Erst entdecken (Wahrnehmung, Spähen), dann entschärfen (Fallen entschärfen). Ohne die Fertigkeit löst die Falle aus.
 - **Truhen und Schlösser:** Jede Truhe hat eine Schlossstufe, die zum Gebiet passt. Dietriche gibt es zu kaufen und vom Schmied, in Güteklassen; ein besserer Dietrich hilft, ein schlechter kann brechen. Ohne Schlüssel knackt man das Schloss oder bricht es mit Kraft auf (laut, kann zerbrechliche Beute beschädigen). Besondere Truhen öffnen Schlüssel oder Quests. Truhen in Häusern von NPCs bleiben zu; Stehlen gibt es nicht.
 - **Tiere beruhigen:** Ein feindliches Tier lässt sich vor dem Kampf beruhigen; gelingt es, dreht es ab, und der Held bekommt Erfahrung wie für einen Sieg. Je höher der Rang, desto stärkere Tiere.
-- **Tierbegleiter:** Nur der Waldläufer bekommt mit seiner Berufung ein Tier, das ihn begleitet und auf dem Platz eines Gefährten mitkämpft. Tiere werden weder verkauft noch in den Beutel gepackt.
+- **Tierbegleiter:** Nur der Waldläufer bekommt mit seinem Pfad ein Tier, das ihn begleitet und auf dem Platz eines Gefährten mitkämpft. Tiere werden weder verkauft noch in den Beutel gepackt.
 
 ## 9. Ruf
 
@@ -207,7 +237,7 @@ Ernten ist eine kurze Handlung ohne Minispiel. Fundorte wachsen nach einer Zeit 
 | Rüstungsklasse, Übungsbonus, Rettungswurf, Vorteil/Nachteil | Schutzwert, Fertigkeitsbonus, Abwehrprobe, Gunst/Ungunst |
 | Zauberpunkte, Zauberplatz | Mana |
 | Kurze Rast, Lange Rast | Kurze Erholung (2 Stunden), Langes Ausruhen (9 Stunden) |
-| Klassen Kämpfer, Schurke, Magier, Kleriker | entfallen; dafür Wege und Berufungen |
+| Klassen Kämpfer, Schurke, Magier, Kleriker | entfallen; dafür Pfade |
 
 Folklore-Wesen (Goblin, Kobold, Skelett, Zombie, Ghul) und Tiere behalten ihre Namen. Gestrichen sind Barde, Gaukler, Taschendiebstahl, Reiter, Kaufmann und Hauptmann. Der Hinweis „SRD 5.1 · CC BY 4.0“ bleibt stehen, bis alles SRD-Abgeleitete ersetzt ist, auch die Monsterwerte und Zaubertexte.
 
@@ -215,11 +245,12 @@ Folklore-Wesen (Goblin, Kobold, Skelett, Zombie, Ghul) und Tiere behalten ihre N
 
 - Rechenmodell für den Kampf (Entwurf A, Empfehlung Modell D).
 - Taten, Chronik, Ätherdichte, Ruf mit Gedächtnis (Entwurf C).
-- Werdegänge für die Wege Kampf und Schatten (Entwurf D).
-- Wie Zwischen-, Gesellen- und Meisterprüfung auf Berufung und Meisterform verteilt sind; Umfang der Prüfungsquests.
-- Wie die Grundwerte durch Fertigkeiten wachsen (Anteile je Haupt- und Nebenwert).
-- Rufstufen, Gefährten ohne Klassen, Niederlage, Übernahme alter Spielstände, Reparaturverlust.
-- Namensdopplung: Werdegang „Heiler“ und Berufung „Heiler“.
+- Name „Pfad“ statt „Berufung“ bestätigen.
+- Magie und Rüstung: Sperre nur für Evokation, Illusion, Beschwörung (Abschnitt 5).
+- Umfang der Prüfungsquests beim Lehrmeister.
+- Wie die Grundwerte durch Fertigkeiten wachsen; Haupt- und Nebenwert für Spähen, Tiere beruhigen, Lederarbeit.
+- Rufstufen, Gefährten ohne Klassen, Niederlage, Übernahme alter Spielstände, Reparaturverlust, Abnutzungsrate.
+- Kapitel 1: welche Fertigkeiten es dort schon zu tun gibt (Schmieden, Alchemie, Spähen), damit jeder Werdegang in Kapitel 1 etwas zu üben hat (Befund D49.1).
 - Alle Zahlen: nach der Simulation.
 
 ---
@@ -305,7 +336,7 @@ Neu gefasst nach Entwurf F (Chef 31.10., 21:4x: „das irgendwie erklärt sich m
 | Heldenstufe | Leben, Größenordnung im Kampf, Zugang zu Gebieten | 1, 2, 3 …; jedes Kapitel setzt eine Grenze (weich, bis zwei darüber) | Erfahrung aus Kampf, Quests, Story und Fertigkeitsaufstiegen |
 | Grundwerte (6) | Begabung: Kraft, Gewandtheit, Zähigkeit, Verstand, Wille, Wahrnehmung | Start 3 bis 8 | wachsen langsam mit den Fertigkeiten |
 | Fertigkeiten (37) | Können im Einzelnen, auch Sammeln wie Kräuterkunde und Handwerk wie Schmieden | Wert 0 bis 100 in vier Rängen: Anfänger, Geselle, Meister, Großmeister; bei 100 fertig | durch Tun bis zur Rangdecke; der nächste Rang braucht eine Prüfung (Entwurf F) |
-| Berufung oder Meisterschaft | Rolle des Helden: eine Berufung (Kampf und Lebensweg, mit Auflagen), dazu beliebig viele Meisterschaften (Handwerk, ohne Auflagen) | Anwärter → Eingeweihter → Titelträger → Meister | Lehrmeister: Zusage, dann Zwischen-, Gesellen-, Meisterprüfung (Entwurf F) |
+| Pfad oder Meisterschaft | Rolle des Helden: ein Pfad (Kampf und Lebensweg, mit Auflagen), dazu beliebig viele Meisterschaften (Handwerk, ohne Auflagen) | Anwärter → Eingeweihter → Titelträger → Meister | Lehrmeister: Zusage, dann Zwischen-, Gesellen-, Meisterprüfung (Entwurf F) |
 
 Wie das zusammenhängt: Kräuterkunde ist eine **Fertigkeit** (Sammeln). Sie gehört zu den Kernfertigkeiten der **Meisterschaft** Alchemist, so wie Schild zur **Berufung** Paladin gehört. Meisterschaften laufen genauso wie Berufungen (Lehrmeister, Prüfungen), nur ohne Auflagen und ohne Grenze der Anzahl. Ein eigener „Meisterschaftsrang“ entfällt; es ist die Stufe in der Meisterschaft.
 
@@ -328,7 +359,7 @@ Abnutzung und Reparatur: Reparieren ist keine eigene Fertigkeit mehr; Metall rep
 ## Entwurf C zur Entscheidung: das eigene Profil
 
 - **Taten:** benannte Leistungen, die die Welt bemerkt. Sie bringen etwas Erfahrung, Ruf und sind Voraussetzung für Prüfungen. Beispiele: „Den Wolfsbau ohne Fackel geräumt“; „Grak ohne Heiltrank besiegt“.
-- **Die Chronik schreibt mit:** Wege, Prüfungen, Berufungen und Taten werden Einträge in unserem Tusche-Stil. Beispiele: „Am dritten Tag betrat der Held den Weg des Schattens.“; „Morwen nannte ihn zum ersten Mal Freund.“
+- **Die Chronik schreibt mit:** Prüfungen, Pfade und Taten werden Einträge in unserem Tusche-Stil. Beispiele: „Am dritten Tag bot ihm der alte Jäger den Pfad des Waldläufers an.“; „Morwen nannte ihn zum ersten Mal Freund.“
 - **Ätherdichte:** Jeder Ort hat eine Magiestärke; Mana erholt sich und Zauber wirken danach. Beispiele: Im Wald und in Ruinen wirkt die Glutkugel stärker; in der Schmiede und in der Stadt erholt sich Mana langsamer. Start: eine Zahl je Gebiet und Kampfort.
 - **Ruf mit Gedächtnis:** NPCs sprechen den Helden auf seine Taten an. Beispiele: „Du bist der, der die Wölfe vom Hof vertrieben hat.“; der Wirt gibt nach der Tat „Ratten im Keller“ einen Hinweis, den er Fremden nicht gibt. Texte über Homer.
 - **Votum:** Taten und Chronik zuerst; Ätherdichte und Ruf mit Gedächtnis danach.
