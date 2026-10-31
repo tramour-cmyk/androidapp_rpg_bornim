@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (28.10., 23:58, Ford `session_01Hmoj76tScGGPZum5vs5UrG`, Tiefe 4, 400 Tsd. Token → Selbstneustart):** Läuft: Tom `01Hmoj76BK` „376.1 Köpfe, Haut, Robe“ (alter Tom `01Hmoj78mj` noch working, nach Neustart-Meldung 3ffad41ab: archivieren sobald idle, Kosten 376.1,399.5), Jerry `01Hmoj77So` „348.12 Grak nachbessern“, Perikles `01Hmoj77Hj` „400“, Sokrates `01Hmoj78Ck` „Chefrunde“ (idle), Homer `01Hmoj77EQ` (idle, Vorrat leer). Diogenes ab 29.10. täglich 8:00 bis 03.11. (374). Wochenlimit `allowed_warning` (bis Sa 31.10., 20:00): `lauf.py --nur-muss`. Arbeitsweise im Eingang. Nachfolger: Ford – Betriebsleiter.
+**Übergabe (01.11., 00:06, Ford `session_01Hmoj7996yJhuNe5DcYpoqk`, Tiefe 5, 406 Tsd. Token → Selbstneustart):** Läuft: Tom `01Hmoj7A2b` „417 Waffen in der Hand, 416.3 Befunde“, Spike `01Hmoj77yq` „425“ und Tuffy `01Hmoj76Mh` „403“ (beide warten auf Urteil des Chefs), Sokrates `01Hmoj7725` „422, 427“ (Opus); Sokrates-Desktop `01Hmoj76r9` (Sonnet) nie archivieren, das tut der Chef. Offen: Jerry-Nachfolger „Jerry – Morgenblätter 403 und 406 senden, gemeinsamer Build“ im Lauf ab 7:00 starten (Eingang); Diogenes 374 täglich 8:00 bis 03.11. (`lauf.py` mit `--ohne 374:…` vor 8:00 ausschließen); ab Tiefe 6 gilt: einmal `--laut` „Chef: Ford bitte von Hand starten (Tiefe 6)“ vor dem nächsten Neustart. Namensform nach 436 („Rolle – Vorgang: Thema (Zeit)“) bei neuen Sitzungen anwenden, sobald Perikles die Regel in CLAUDE.md hat. Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 443** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
