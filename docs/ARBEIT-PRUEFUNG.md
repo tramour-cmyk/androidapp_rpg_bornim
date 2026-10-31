@@ -3,9 +3,9 @@
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
 
-**Geprüft bis:** `51707abf` (21.10., Lauf 41: 274 Schritt 1–3, nur Notizen und Werkzeug-Verweise) · vorher `98ba4b9b` (Lauf 40: 261.5; frühere Stände in Git); nächste Nummer D50 (Lauf 45: 149/156, Lauf 46: 275 Werkzeuge an Kopie, `4fec9890`; Lauf 47: Nachprüfung D46, `e5b790d3`; Lauf 48: 420 Spielsystem 2.0, `3d64e00`; Lauf 49: 419 Prüfung 418/421, `6185da179`).
+**Geprüft bis:** `51707abf` (21.10., Lauf 41: 274 Schritt 1–3, nur Notizen und Werkzeug-Verweise) · vorher `98ba4b9b` (Lauf 40: 261.5; frühere Stände in Git); nächste Nummer D51 (Lauf 45: 149/156, Lauf 46: 275 Werkzeuge an Kopie, `4fec9890`; Lauf 47: Nachprüfung D46, `e5b790d3`; Lauf 48: 420 Spielsystem 2.0, `3d64e00`; Lauf 49: 419 Prüfung 418/421, `6185da179`; Lauf 50: 429 zu 424/412, `a005a27f3`).
 
-**Übergabe (31.10., 21:4x, „Diogenes – 420 Spielsystem 2.0“):** 420 und 419 geprüft (Lauf 48, 49), an Chef (Telegram), Sokrates (Zu 422) und Perikles (Zu 418, 421); 374 für 29. und 30.10. gezählt. Nachfolger: „Diogenes – 374 Stichprobe“ ab 01.11., 08:00.
+**Übergabe (31.10., 21:4x, „Diogenes – 420 Spielsystem 2.0“):** 420, 419 und 429 geprüft (Lauf 48–50), an Chef (Telegram), Sokrates (Zu 422) und Perikles (Zu 418, 421, 424, 412); 374 für 29. und 30.10. gezählt. Nachfolger: „Diogenes – 374 Stichprobe“ ab 01.11., 08:00.
 
 
 ## Zeilen
