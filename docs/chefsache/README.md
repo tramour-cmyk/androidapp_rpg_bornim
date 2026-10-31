@@ -10,6 +10,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 |---|---|---|---|---|---|
 | [418](entscheiden/418-abnahmeliste-kapitel1.md) | **Muss** | B Abläufe | 31.10., 21:33 | Abnahmeliste Kapitel 1 nach der neuen Direktive: abnehmen und Umfang von 2.0 festlegen | Perikles |
 | [413a](entscheiden/413a-spielsystem-rueckfragen.md) | **Muss** | D Design | 31.10. | Spielsystem 2.0: offene Entwürfe | Sokrates |
+| [442](entscheiden/442-modell-sitzungen.md) | **Muss** | B Abläufe | 31.10. | Welches Modell läuft in welcher Sitzung? | Sokrates |
 
 ## Zu billigen
 
@@ -175,10 +176,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 31, Muss 23, startbar 11
+**Sokrates** – offen 32, Muss 24, startbar 11
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 442 | M | von Chef (31.10., 23:52, „warum ihr alle auf dem kleinen Rechenmodell lauft“): Modellzuord | Chef (Datei in der Chefsache) |
 | 427 | M | von Chef (31.10., 21:3x): Bestiarium LISTE-BESTIARIUM.md | startbar |
 | 422 | M | von Chef (31.10., 21:2x, „dass es sich liest wie eine gute Anleitung. Und ein Nachschlagew | startbar |
 | 413 | M | von Chef (31.10., 20:1x): Spielsystem 2.0 (DESIGN-SPIELSYSTEM-2-0.md), Meilensteine | Chef |
