@@ -25,6 +25,51 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 49 · Auftrag 419 Prüfung 418 und 421 (`main` `6185da179`; 31.10., 21:4x; Text fremd geprüft)
+
+**Ergebnis:** Die Direktive in `CLAUDE.md` stimmt Zeichen für Zeichen mit dem Wortlaut im Vorgangsarchiv „418“ überein, ebenso die Abschrift oben in `LISTE-ABNAHME-KAPITEL1.md`. Jedes Wort der Direktive hat einen Block in der Abnahmeliste (T, A, K, M, G, W; S für „marktreif“). Die Abnahmeliste erbt aber drei Fehler aus Spielsystem 2.0 (Lauf 48), und zwei Teile fehlen.
+
+**Die fünf wichtigsten**
+
+- **D49.1 Werdegänge ohne Handlung im Kern (G gegen Chefsache 418, Votum A):** G verlangt die Werdegänge (E 28, 29, 45), dazu gehören Kräuterkundiger (Kräuterkunde, Alchemie) und Schmiedegeselle (Schmieden, Bergbau). Votum A lässt Sammeln und Alchemie aus Kapitel 1 heraus (erst B), Schmieden steht in keiner Option. Auch der Heiler startet mit Kräuterkunde. Mit A starten drei von sechs Werdegängen mit Fertigkeiten, die es in Kapitel 1 nicht zu tun gibt. M verlangt außerdem: „jeder Werdegang schafft die Bosse in vergleichbarem Maß“.
+- **D49.2 Truhen und Fallen ohne Entdecken (G gegen Option C):** Kern A enthält „Fallen und Truhen“ (E 55). Fallen entdeckt man nach Abschnitt 10 (zu E 57) über Spähen, das Option C erst später bringt. Ohne Spähen fehlt im Kern das Entdecken, oder es gilt eine ältere Fassung (Grundwert Wahrnehmung, Abschnitt 10; „Fallen entschärfen erkennt und entschärft“, Truhen-Abschnitt); entschieden ist das nicht (Lauf 48, Liste „veraltet“).
+- **D49.3 Monsterwerte und Messung fehlen (M, W gegen Spielsystem 2.0 Abschnitt 5 und 6 „M1“, Abschnitt 11):** Sokrates' M1 nennt „neue Monsterwerte Kapitel 1“ und die Prüfung „Simulation Zeit bis Stufe“. „Messen statt raten“ (Abschnitt 11) ist der Weg, den Preis der SRD-Abkehr zu zahlen. Beides steht nicht in der Abnahmeliste. M nennt „Kampf ohne W20 nach Stufen (E 7)“, der Stufenfaktor ist aber offen (Frage 3, S1).
+- **D49.4 G übernimmt Ungeklärtes aus 2.0:** „ab 1, 18 Punkte, jeder Wert 3 bis 8“ (E 64) ist rechnerisch gleich „Start 3, 6 Punkte frei“, das Beispiel braucht 21 Punkte (D48.1). „Niveau je Kapitel begrenzt“ (E 20) hat keine gültige Regel, und mit den Entwurfszahlen gibt es in Kapitel 1 keinen Weg (D48.2), G verlangt aber „Wege sichtbar“. Die Liste der 37 ist nicht auf Werdegänge und Wege umgeschrieben (D48.4).
+- **D49.5 421 ohne Archiv, Rest der Liste veraltet:** Die Regel „im Doppelpack“ steht in `ROLLE-PROJEKT.md` und `ROLLE-PRUEFUNG.md` (Chefzitat nur dort), im Vorgangsarchiv gibt es keinen Eintrag 421 („Entschiedenes im Vorgangsarchiv“). In `ROLLE-PRUEFUNG.md` ersetzt der Zusatz „nicht mehr jeden Ablaufentwurf“ (Regelbilanz erfüllt), in `ROLLE-PROJEKT.md` kommt er dazu, ohne etwas zu streichen. In `LISTE-ABNAHME-KAPITEL1.md` stehen unter der neuen Liste weiter „Stand 29.10., 01:05“ (Stillstand bis 31.10., 20:00, Jerry steht seit 00:27), das Wochenziel 2 mit festen Tagen (02.11. „gebaut“, 03.11. gemessen) gegen „es gibt keinen Termin“, und „Reihenfolge“ Schritt 1–2 (Umzug Woche 1).
+
+**Dazu (Helfer):** Chefsache 418 will nach der Wahl Termine setzen und Wochenziel 2 auf den 02.11. rechnen; der Satz „es gibt keinen Termin“ der Direktive verlangt eine Klärung, ob Wochenziele mit Tagen weiter gelten.
+
+**Außerhalb von 418, offen nach 61:** `CLAUDE.md` Kopf „Kotlin, Jetpack Compose, Regeln nach SRD 5.1“ und `DESIGN-LEITBILD.md` Punkt 4 („Das Regelwerk wird nicht gewechselt … Stufe 20“) widersprechen der neuen Direktive; nach E 61 kommt erst ein Entwurf an den Chef. Alte Direktive noch in `tools/regeltreue/stufe2/CLAUDE.md` (Testvorlage?).
+
+**Nicht geprüft:** ob die Blöcke T, A, K, W alle Pflichten der alten Liste abdecken (nicht abgeglichen), Code, Schätzbarkeit der Blöcke.
+
+## Lauf 48 · Auftrag 420 Spielsystem 2.0 (`DESIGN-SPIELSYSTEM-2-0.md`, Stand `3d64e00`, Entscheidungen 1–65, Abschnitte 1–12; 31.10., 21:3x; Text fremd geprüft)
+
+**Ergebnis:** Die Entscheidungen sind fortlaufend 1–65, die Liste der 37 Fertigkeiten zählt richtig (10+4+4+5+1+3+4+6), 13 Berufungen und die alten Summen (69 Fertigkeiten, 19+4=23, Werdegänge je 6 Punkte) stimmen. Fünf Befunde tragen, dazu veraltete Stellen.
+
+**Die fünf wichtigsten**
+
+- **D48.1 Rechenfehler Startwerte (64, Abschnitt 12):** Start 1 je Wert (6) plus 18 Punkte = 24. Das Beispiel Magier 8/6/4/3/3/3 ergibt 27, braucht also 21 Punkte. Mit 18 Punkten und Untergrenze 3 sind 18 von 24 fest verteilt, frei bleiben nur 6: ein Wert höchstens 8, die übrigen fast alle 3 (etwa 8/4/3/3/3/3). Das entspricht „Start 3, 6 Punkte frei“. Volksbonus +1 auf zwei Werte (Werdegang-Abschnitt) kann die Obergrenze 8 überschreiten; ungeregelt.
+- **D48.2 Fertigkeitsgrenze je Kapitel ohne gültige Regel (20, 35, 44, 51, 65 gegen Block 5):** Die Formel in Block 5 (Grenze = 100 × Stufengrenze ÷ Höchststufe) braucht eine Höchststufe, die es nach 35 nicht gibt; die Skala 0–100 mit Großmeister in Kapitel 7 widerspricht 65 (Ränge offen). Frage 19 steht als beantwortet (Stand-Zeile unter den Fragen), 35 beantwortet aber nur die Heldenstufe. Folge mit den Entwurfszahlen: Weg verlangt zwei Fertigkeiten auf Geselle (über 25), Kapitel 1 hat Grenze 15 (Entwurf) – dann gibt es in Kapitel 1 keinen Weg, gegen 51 („Kapitel 1 zeigt die Wege“). Berufung verlangt Meisterrang (über 50), Kapitel 2 hat Grenze 30 (Entwurf) oder 40 (Formel Block 5) – mit beiden Tabellen keine Berufung in Kapitel 2, gegen 51 („Berufungen ab Kapitel 2“). Für die Grenzen stehen drei verschiedene Tabellen im Text (Fertigkeitsniveau 15/30/40/…, Block 5 30/40/50/…, Frage 19). Die Stufengrenze von Kapitel 1 als Zahl fehlt ebenfalls (Code heute 6).
+- **D48.3 Magie in Rüstung (10, 33 gegen Abschnitt 9):** Grund laut 10: Metall stört die Magiepartikel; 33: harter Ausschluss, Ausnahme nur Kriegsmagier mit leichter Rüstung. Abschnitt 9 lässt den Paladin (Heilmagie, Weg Schutz mit Schwerer Rüstung) und den Heiler (höchstens leichte Rüstung) in Rüstung zaubern. Entweder sind Paladin und Heiler weitere Ausnahmen, oder Heilmagie fällt nicht unter die Sperre; beides steht nirgends.
+- **D48.4 Liste der 37 (59) nicht durchgezogen:** (a) Werdegänge nennen gestrichene Fertigkeiten: Abhärtung (Schildträger), Aufmerksamkeit (Schütze, Kräuterkundiger), Zauberwirken und Konzentration (Zauberer behält nur Evokation), Reparieren (Schmiedegeselle). (b) Abschnitt 9: Schatzjäger braucht Klettern, das 55 streicht; Weg Magie braucht zwei Kernfertigkeiten aus Zauberwirken, Konzentration und einer Schule, nach 59 bleibt nur die Schule; Assassine braucht Gifte mischen, das jetzt in Alchemie (Meisterschaft) steckt; Waldläufer braucht Tiere zähmen und Fallen stellen (beide weg); ebenso fehlen Athletik, Parieren, Zweiwaffenkampf, Akrobatik, Ausdauer, Lager und Feuer, Rituale, Nekromantie, sodass die Wege Kampf, Wildnis und Magie nach der Liste nicht erfüllbar sind (Abschnitt 10 kündigt das Umschreiben an, es fehlt noch). (c) Reparieren ist nach 15 und 43 eine Fertigkeit mit vier Rängen, nach 59 nur Teil von Schmieden (Metall); wer Leder und Stoff repariert, ist offen. (d) Spähen, Tiere beruhigen und Lederarbeit haben keinen Haupt- und Nebenwert (die „bestätigte“ Zuordnung gilt den 69). (e) M1 enthält „sechs Werdegänge“, Schmiedegeselle (Schmieden) und Kräuterkundiger (Alchemie) starten aber mit Handwerk, das erst M3 bringt. (f) „Möglicher Titel später“ der Werdegänge nennt Hauptmann (gestrichen, 49), Pfadfinder (aufgeteilt) und Schmiedemeister (jetzt Meisterschaft Schmied, 50).
+- **D48.5 Kernfrage und Offenes ohne Liste:** Der Widerspruch aus Abschnitt 2 (2 und 48 „aufsteigen durch Tun“ gegen 7 „die Heldenstufe entscheidet den Kampf“) ist mit S1 und Frage 3 (Stufenfaktor) weiter offen; M1 braucht beides. Die Zeile „Stand 31.10.2026, abends“ unter den Fragen ist veraltet. Ohne Nummer und Frage stehen: Gefährten, Monsterwerte, Niederlage, Spielstände (Abschnitt 5), die Übersicht der Stufen und Ränge (65), die Abnutzungsrate (Frage 11, Rest). Tatsächlich offen sind nach meiner Zählung: 3, 11a, S1, S3, T5, G2, Umfang des Lehrmeister-Wegs (63), Rest von T1, dazu diese sechs Lücken.
+
+**Veraltet oder widersprüchlich im Text (für das Eindampfen, 422)**
+- Glossar Regelbegriffe: „Zauberpunkte (ZP) … Bleiben“ gegen zweite Runde „ZP → Mana“ (27).
+- Vorlage zu Frage 18: „Entscheidung: offen“ (entschieden 44). Entscheidung 22: „offen (Frage 20)“ (35). 34 „alle 22 Titel“ ohne Vermerk „ersetzt durch 49“. Abschnitt 8 „gestrichen oder verschoben“ (49: gestrichen, nicht verschoben). Abschnitt 10 „jede der 34“, F1 „etwa 34“ (gültig 37).
+- 56 „fünf Meisterschaften“ gegen Gruppe „Meisterschaften (6)“ mit Heilkunde und Kochen (Meisterschaft heißt Feldkoch); Heilkunde ist zugleich Kern von Weg Heilung und Berufung Heiler.
+- Heimtücke und Ausschlüsse: „schwere Rüstung senkt Schleichen“ gegen 33 (gesperrt).
+- Fallen entdecken: Abschnitt 10 über Grundwert Wahrnehmung, Abschnitt 10 F3 und 57 über Spähen.
+- Startwerte 5 plus 6 Punkte (Grundwerte-Steigerung, Werdegang) gegen 64.
+- Lehrer „neun Angebote, nicht 72“ (69, jetzt 37 in acht Gruppen); Frage 8 „10 bis 15“ gegen Block 8 (23) und 59 (37).
+- Glossar: Kämpfer, Schurke, Kleriker „werden Titel“, es gibt keine solche Berufung.
+- Name Heiler zweimal: Werdegang und Berufung.
+- Vorschlag Erfahrung: Story soll „ohne Nebenwege an die Grenze“ bringen, hat in der Beispielverteilung aber nur 10–15 %.
+- Abschnitt 9 Magier „keine Rüstung (Entscheidung 33)“: steht in 10, nicht in 33. M0 nennt noch R1–R4, 69 Fertigkeiten, 22 Titel.
+
+**Nicht geprüft:** Code und Godot-Fassung (Fundstellen wie `Story.levelCap`, `Resting.kt`), Quellen im Netz, die Chefsache 413a, Spielgefühl und Balance der Zahlen (nur Rechnung).
+
 ## Lauf 47 · Auftrag 275 Nachprüfung D46.1, D46.2, D46.4 (`main` `e5b790d3`, an einer Kopie; 27.10., 17:0x)
 
 **Ergebnis:** D46.1, D46.2 und D46.4 sind behoben. `LEICHEN_START` darf eingeschaltet werden, sobald die falsche Leiche Sokrates 26 geklärt ist. Ist der Schalter an, solange 26 ungeklärt ist, startet Ford Sokrates, um einen Stand zu berichtigen, der stimmt.

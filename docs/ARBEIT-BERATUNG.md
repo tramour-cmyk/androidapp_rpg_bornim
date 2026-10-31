@@ -4,12 +4,15 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (29.10., 00:1x, `session_01Hmoj76vRfh2Apaay4BMFvb`):** Stellungnahme in 404 geschrieben. Kosten auf: 404. Nachfolger: Sokrates – Chefrunde (29.10., 00:1x)
+**Übergabe (29.10., 11:1x, `session_01Hmoj78Njjgz8uAoS6RUQKN`):** Chefrunde 29.10. (Archiv); 407, 408 an Perikles; 348.12h inventarisiert. Kosten auf: 407, 408, 348.12h, 399.5, 376.1. Nachfolger: Sokrates – Chefrunde (nach der Pause)
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 427 | M | **von Chef (31.10., 21:3x):** Bestiarium `LISTE-BESTIARIUM.md` | wartet auf Chef: Werte nach S1 (422) |
+| 422 | M | **von Chef (31.10., 21:2x, „dass es sich liest wie eine gute Anleitung. Und ein Nachschlagewerk“):** Spielsystem 2.0 eindampfen; Verlauf getrennt; Befund Diogenes 420 einarbeiten | wartet auf Chef: Entwurf |
+| 413 | M | **von Chef (31.10., 20:1x):** Spielsystem 2.0 (`DESIGN-SPIELSYSTEM-2-0.md`), Meilensteine | wartet auf Chef: Chefsache 413a |
 | 398 | M | **von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr ganz grundlegende Dinge fehlen?“):** Grundsätze DESIGN-* gegen Umzugsliste und Godot-Zweige | wartet auf Perikles: 15 Lücken in LISTE-UMZUG-348.md „398“, Chef 11:3x informiert |
 | 391 | M | **von Chef (28.10., 09:21):** Repos dauerhaft ohne Ablehnung | ruht: kein Repo-Feld in der Umgebung (Bild Chef 10:29), Repo-Wahl am Eingabefeld gilt nur für Sitzungen von Hand; Fords Starts nehmen ein Repo; add_repo geht durch, wenn die Aufgabe die Kaufmodelle braucht |
 | 383.2 | M | **von Chef (27.10., 19:24, „wo steckt jetzt hier wieder die Wahrheit? Und wer hat damit geprüft?“):** dieselbe Aufgabe frisch gegen groß messen; ja 19:30 („nimm den Vergleich dort mit auf“, Archiv) | frühestens 31.10. |
@@ -18,7 +21,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 374 | M | **von Chef (27.10., 11:54):** wer prüft 373? | frühestens 31.10.: auswerten mit 347 (Archiv) |
 | 348.12c | M | **von Chef (26.10., 11:59):** Modellpaket auch gegen Geld (Quaternius und andere), Verkauf im Spiel erlaubt; Monster dürfen von D&D abweichen; „schönen Vorschlag und ein schönes Paket“; 27.10., 20:10/20:12: Forest Pack, Protofactor checken | ruht: Warenkorb 134 $ zurückgestellt, bis 387 (Bestand) durchgetestet (Chef 21:33, Archiv); Forest Pack ebenso |
 | 348.12 | M | **von Chef (25.10., 21:21, „b prüfen“):** fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit Skelett) prüfen, nichts bauen | wartet auf Jerry: Goblin CC0 entschieden 27.10., 09:49 (Archiv), Hieb nachbessern, dann Grak, Kobold, Zombie |
-| 348.12h | M | **von Chef (26.10., 16:16; ja 16:19, Archiv):** fertige Dinge, Möbel, Waffen suchen | Chef: Kauf Omie, drei Pakete laden (Chefsache tun/34812h, für 29.10.); Übersicht LISTE-CC0-MODELLE.md „Ausrüstung genau“ |
+| 348.12h | M | **von Chef (26.10., 16:16; ja 16:19, Archiv):** fertige Dinge, Möbel, Waffen suchen | fertig: geladen 29.10., Inventur LISTE-BESTAND „Waffen und Schilde“; Einbau Jerry (406) |
 | 340.2 | M | **von Chef (25.10., 10:16, Vorgangsarchiv 340):** `tools/rollenspiegel.sh <Rolle>` zeigt nur Fragen und eigene Vorwochenantwort, hängt die neue an; ersetzt „erst antworten, dann lesen“ | gebaut 25.10.; prüfen 30.10. (Zu 340.2) |
 | 348 | M | **von Chef (24.10., 16:43; „jetzt“ 16:54):** fertige Spiel-Engine statt Selbstbau? | ruht bis Zuruf: begleiten nach `LISTE-UMZUG-348.md` (Nachturteil 362 gestrichen, außer der Chef ermächtigt, Archiv 373a); entschieden: Umzug nach Godot (Vorgangsarchiv) |
 | 26.1 | M | **von Chef (24.10., 16:56):** Durchspielbogen auswerten (Rest von 26) | nach 348.7: Gegenprobe je Klasse und neuer Bogen (38: nach dem Umzug in MARS neu messen; nächstes Durchspiel auf Godot) (Zu 26.1) |
@@ -32,15 +35,17 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 366 | M | **von Chef (25.10., 18:39):** bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Vorgangsarchiv 366) | wartet auf Godot-Fassung im Test: Tester gebaut 25.10., 23:1x (`inhalt/tester.*.html`, Helfer ohne Befund), offline bis zur Godot-Fassung im Test (142.2 ja, 23:33): dann `TESTER_ONLINE = True` in `bauen.py`; Stand mit Godot-Bildern, sobald sie taugen (Zu 366) |
 | 365 | M | **von Chef (25.10., 12:36):** bringt Aufwand „Hoch“ statt „Mittel“ einem Beschäftigten etwas, was kostet es? | frühestens 31.10.: Probe auswerten mit 318 und 347 (Zu 365) |
 | 262 | K | **von Chef (20.10.):** monatliche API-Credits im Plan, was damit anfangen? | ruht, bis der Chef den Betrag nennt; Empfehlung: Routine auf kleines Modell, nie ins Spiel |
-| 253 | K | **von Chef (20.10.):** „BornWire“ = Firmensachen in eigener Sitzung (Archiv 253) | ruht bis Gewerbeschein: Gewerbe ummelden, Google-Konto (Fahrplan-Dokument) |
+| 253 | K | **von Chef (20.10.):** „BornWire“ = Firmensachen in eigener Sitzung (Archiv 253) | ruht bis Gewerbeschein: Neuanmeldung BornWire TCS statt Ummeldung (Chef 31.10., 21:3x: Online-Anmeldung auf Wirestorm nie angekommen), GewA 1 geprüft, Chefsache tun/142 |
 | 72c | K | **von Chef (19.10., 12:55):** Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunden); Wortlaut Vorgangsarchiv 72c | nach dem Meilenstein (Chef 20.10.); vorher einseitige Vorlage Sokrates |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | frühestens 31.10.: mit 347 prüfen, ob der Tagesbericht ihn ersetzt (Wiedervorlage 26.10. verpasst; Morgenbericht 19.10. in Git) |
 | 142.3 | M | **von Chef (27.10., 19:32):** Tester öffentlich suchen | in Arbeit (Sokrates 20:0x), A und C (Archiv): bis 28.10. C Organisationskonto klären; A Forenregeln, Aufruf de/en, Abspann, Datenschutz; Aufruf nach 109; dann Tom |
-| 142 | M | Pflichttest Play Store (von Perikles); Store-Text „jede Entscheidung zählt“ prüfen (72a) | wartet auf 142.3: Tester; Chef meldet Gewerbeschein (tun/142); bis 15.11. (Zu 142, Stand) |
+| 142 | M | Pflichttest Play Store (von Perikles); Store-Text „jede Entscheidung zählt“ prüfen (72a) | wartet auf Chef: GewA 1 BornWire TCS prüfen, unterschreiben, senden (tun/142); dann Gewerbeschein; Tester bis 15.11. |
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (Gewerbeschein); 45a/45c, 72g–72j entschieden ([Artefakt](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj), vertraulich); offen: Preis endgültig mit 142 (ab Gewerbeschein), bis 30.11.; iOS-Schätzung Tom nach Kapitel 2 |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | ruht bis Gewerbeschein (Chef 28.10., 10:26; 142); dann Chefsache neu |
 
-- **Zu 383, Sitzungsgröße (gemessen 27.10., 18:15; 99 Sitzungen 26.10., 17:48 bis 27.10., 18:11, `get_session` usage; Helfer rechnete nach):** 96 mit Kosten, 787 $ in 24 h. Großes Modell je Million Ausgabetokens nach Kontext am Ende: 100–200k 103 $ (n 14), 200–300k 101 $ (n 61), 300–500k 92 $ (n 17); Kein Hinweis, dass große Sitzungen je Arbeit teurer sind; Beleg schwach (nur Endstand, kein Vergleich gleicher Aufgabe). Jeder Start mindestens etwa 125k Kontext, kleinste Sitzung 1,25 $. Treiber: Runden (44 %). Früher: 99h (Perikles 17.10., Ford), 185 (Messung 20.10.), 99h.6 (Teams, Zu 163.1 in Git 22.10.), D40.1. Wiederholen mit 347 und 383.2 am 31.10.
+- **Zu 422, von Diogenes (31.10., 21:3x):** Befund 420 steht in `PRUEFBERICHT.md` Lauf 48 (D48.1–D48.5 und Liste veralteter Stellen zum Eindampfen).
+- **Zu 413 (A1), von Perikles (31.10., 21:3x):** `CLAUDE.md` mit der neuen Direktive (418) 15,3 KB, über der Grenze; beim A1-Entwurf mitkürzen (auch Kopfzeile „Regeln nach SRD 5.1“, E 61). Chefsache 418 fragt den Umfang von 2.0 in Kapitel 1 (Votum A, nur Kern).
+- **Zu 383, Sitzungsgröße (gemessen 27.10., 18:15; 99 Sitzungen 26.10., 17:48 bis 27.10., 18:11, `get_session` usage; Helfer rechnete nach):** 96 mit Kosten, 787 $ in 24 h. Je Million Ausgabetokens nach Kontext: 100–300k 101–103 $, 300–500k 92 $; kein Hinweis, dass große Sitzungen teurer sind (Beleg schwach). Jeder Start mindestens etwa 125k Kontext, kleinste Sitzung 1,25 $. Treiber: Runden (44 %). Früher: 99h, 185, 99h.6, D40.1 (Git). Wiederholen mit 347 und 383.2 am 31.10.
 - **Zu 376:** Chef 12:09–12:10: 20 $ „super gerne“, wenn Größe und Form anpassbar und Tusche darauf geht; „dann hätten die vielleicht auch mal einen richtigen Kopf“; nah sichtbar in Ausrüstung, Charaktererstellung, Kartenzoom; 12:12 „Universal Base Characters“ als Alternative zum Selbstbau.
 - **Von Team Tom (27.10., 13:4x, zu 376.3):** UAL Pro gesichtet (Liste: `ARBEIT-TEAM-TOM.md` Zu 376.1): hat Ausweichen (`Dodge_Left/Right`, `Roll`), Treffer (`Hit_*`), Tod, Schwerthieb, `Counter_*`; hat **keinen** Stich, keine Schildabwehr, kein gehaltenes Ausholen; Zauber in Pro nicht vermerkt (frei nur `Spell_Simple_*`). Lücke also Block und Stich, nicht Ausweichen und Treffer.
 - **Zu 348.12c:** Bericht `LISTE-CC0-MODELLE.md` „Gegen Geld“; Protofactor-EULA: Verkauf ja, „protected form“, „ONE individual“. Protofactor per Mail: unverschlüsselt kein Ja („Encryption would be best“), KI-Sitzungen ok; Rabatt je Warenkorb.
@@ -60,9 +65,8 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 253, Namenssuche (Sprachgespräch 20.10., abends):** Wirestorm verwechselbar (Play Store); Name jetzt BornWire TCS (Zeile 253), Verlauf in Git vor `2e6ab39a`, Einzelheiten im Fahrplan-Dokument. Gewerbeschein ist auf „Wirestorm TCS“ beantragt.
 - **Zu 72c** (Chef 20.10., abends, Sprachmodus, zu Wunden als Strafe): „Deswegen sollte der Spieler einfach weise entscheiden. Und nicht blindlings irgendwo reinlaufen, wo er auf die Mütze kriegt.“ Einwand Sokrates: fair nur, wenn die Gefahr vorher lesbar ist (Gegnerstufe, Hinweise in der Welt). Verband und Tempel: Vorgangsarchiv 72c.
 - **Zu 45, Abo** (Chef 22.10., 14:06): lieber auf Max 5x bleiben, 20x möglich; Kapitel 2 mit fertigen Abläufen billiger (Wortlaut in Git). Guthaben: Antwort Perikles in `ARBEIT-PROJEKT.md` „Zu Guthaben“ (308, 14:3x).
-- **Zu 318, erster Befund** (Chef 22.10., 22:12: Jerrys Meldung „22:07“ lesen, „das ist kurz und bündig?“): Jerry-Sitzung 21:57 gestartet, also mit Stil „Knapp“; trotzdem 9 Zeilen statt 3: Technik („nach der Uhr“), Bericht über Kerntests und fehlendes SDK, Vermutung mit Herleitung, „behoben“ obwohl Überblendung bleibt (319); Stempel 22:07 um 20:05 UTC (+2 min), nächster 22:12 um 20:05 (+7 min). Stil allein reicht nicht; in die Messung 23.10.
+- **Zu 318, erster Befund** (Chef 22.10., 22:12): Jerry-Meldung trotz Stil „Knapp“ 9 Zeilen statt 3, „behoben“ obwohl Überblendung bleibt (319); Stempel gingen 2 und 7 min falsch. Stil allein reicht nicht.
 - **Zu 318, Befund 25.10., 10:2x** (Durchsicht für den Chef, je Sitzung letzte 100 Ereignisse): Stempel trotz Stop-Haken 5–6 min vor (Tom 16 „10:24“ um 10:19, Jerry 17 „10:31“ um 10:26), Haken greift nicht; Zwischenstände („Warte auf Prüfbefund“) weiter im Chat; Bitten an den Chef ohne Chefsache (Tom Windrose 10:17, AAB 09:33; gemeldet).
 - **Zu 167.6:** offen nur der Morgenbericht; Wiedervorlage war Mo 26.10. (`trig_01YC96AwHsxL7EUA8R4vPghp`); Wortlaut 167 im Vorgangsarchiv.
 - **Zu 142** (17.–20.10. in Git): Fahrplan im vertraulichen [Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM); offen: Anschrift vor dem Zahlungsprofil
 
-- **Von Diogenes (374, 28.10.):** Stichprobe 373: Chefwort 376.1 vom 27.10., 15:23 steht bei Tom („Von Sokrates“) nur sinngemäß; Wortlaut mit Zeit nachtragen (373 d).

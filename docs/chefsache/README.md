@@ -8,7 +8,8 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [404](entscheiden/404-kosten-schaetzung.md) | Kür | B Werkzeuge |  | 404: Fehlende Sitzungskosten schätzen? |  |
+| [418](entscheiden/418-abnahmeliste-kapitel1.md) | **Muss** | B Abläufe | 31.10., 21:33 | Abnahmeliste Kapitel 1 nach der neuen Direktive: abnehmen und Umfang von 2.0 festlegen | Perikles |
+| [413a](entscheiden/413a-spielsystem-rueckfragen.md) | **Muss** | D Design | 31.10. | Spielsystem 2.0: offene Fragen (Chefrunde) | Sokrates |
 
 ## Zu billigen
 
@@ -16,14 +17,11 @@ Nichts offen.
 
 ## Anzusehen
 
-**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
-| Nr. | Was | Wer | Seit |
-|---|---|---|---|
-| [348.12](ansehen/34812-grak-film.md) | Grak bewegt sich im Kampfort, Runde 2 | – | 29.10., 00:05 |
-| [376.1](ansehen/3761-klassen.md) | Hauttöne des Menschen | Tom | 29.10., 02:10 |
-| [399.1](ansehen/3991-ausruestung.md) | Menü: Benutzen und Ausrüstung wie alt | Tom | 28.10., 17:15 |
-| [399.5](ansehen/3995-innenraeume.md) | Innenräume wie alt, neunter Stand | Tom | 29.10. |
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [0.348.143](ansehen/t143-spielfassung.md) | [Build 143](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40854808649/artifacts/12888959558) | 399 Spielfassung: Held in vier Klassen, Innenräume, Kampf und Klang | Tom und Jerry | 29.10., 11:28 |
 
 ## Zu tun
 
@@ -31,36 +29,46 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [403](tun/403-kaufmodelle-zugang.md) | **Muss** | E Kampf | 29.10., 00:27 | Zugang zu den Kaufmodellen in Jerrys Sitzung freigeben | Jerry |
-| [348.12h](tun/34812h-ausruestung-laden.md) | **Muss** | M Geld | 28.10. | Ausrüstung: ein Paket kaufen, drei kostenlose laden | Sokrates |
 | [142](tun/142-pflichttest.md) | **Muss** | M Veröffentlichung | 27.10., 20:07 | Pflichttest Play Store: Gewerbeschein melden | Sokrates |
 
 ## Offen je Rolle
 
-Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
+Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 0, startbar 0
+**Homer** – offen 6, Muss 3, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 428 | M | von Sokrates (Chef 31.10., 21:3x, „bisschen Hintergrundgeschichte vielleicht“): Bestiarium | wartet auf Sokrates |
+| 426 | M | von Sokrates (Chef 31.10., 21:30, „mit in das Design rübergeben“): Grundsatz in DESIGN-STI | startbar |
+| 423 | M | von Sokrates (Chef 31.10., 21:2x: „irgendwer muss dann auch einfach eine Anleitung schreib | wartet auf Sokrates |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 27, Muss 17, startbar 1
+**Tom** – offen 36, Muss 25, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf | wartet auf Test/Build |
-| 399.4 | M | von Chef (21:4x, Archiv): oben Rand für die Kamera wie alt | wartet auf Test/Build (gebaut) |
+| 417 | M | von Sokrates („jetzt“ 31.10., 21:12, Chef: „diese Rückfrage hat auch Priorität“; Prüfauftr | startbar |
+| 425 | M | von Sokrates (Chef 31.10., 21:30, Build 143): Menüs (Menü „System“, Testmenü): in der alte | startbar |
+| 416.7 | M | von Sokrates (Chef 31.10., 20:5x, für den nächsten Build): am Tresen in Schenke und Laden | startbar |
+| 416.8 | M? | von Sokrates (Chef 31.10., 20:5x, allgemeiner Hinweis): NPC dreht sich bei Interaktion zum | startbar |
+| 416.1 | M | von Sokrates (Chef 31.10., 20:4x, Build 143): Tasten reagieren schlecht (Bartform, Kopffor | wartet auf Test/Build (gebaut) |
+| 416.2 | M | von Sokrates (Chef 31.10., 20:4x): gegen Dorfbewohner und Tiere laufen: Platzwechsel statt | startbar |
+| 416.3 | M | von Sokrates (Chef 31.10., 20:4x): Anschlagbrett und Laden (Kaufen, Verkaufen) nur etwa dr | startbar |
+| 416.4 | M | von Sokrates (Chef 31.10., 20:4x): Rennen des Helden wirkt „als würde er Hochsprung machen | startbar |
+| 399.4 | M | von Chef (21:4x, Archiv); zurück Chef 31.10., 20:4x: oben Rand für die Kamera wie alt: im | startbar |
+| 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf | wartet auf Test (Build) |
+| 410 | M | von Sokrates (Chef 29.10., 10:52, 11:40; aus 376.1): Waffen am Körper wegstecken, alle Waf | ruht |
 | 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | startbar |
-| 399.5 | M | von Chef („jetzt“ 28.10., 21:5x, Archiv): Innenräume wie alt: Lichtquellen, Licht und Scha | Chef |
-| 399.3.1 | M | von Team Jerry (16:5x): Klang: Haken in spiel.gd (Jerry, claude/jerry-348-klang) übernehme | wartet auf Test/Build |
-| 385 | M | von Sokrates („jetzt“ 28.10., 10:00, Archiv): Zauberer-Set auf Kaufkörper, Film | Chef |
+| 399.5 | M | von Chef („jetzt“ 28.10., 21:5x, Archiv): Innenräume wie alt: Lichtquellen, Licht und Scha | wartet auf Test (Build) |
+| 399.3.1 | M | von Team Jerry (16:5x): Klang: Haken in spiel.gd (Jerry, claude/jerry-348-klang) übernehme | wartet auf Test (Build) |
+| 385 | M | von Sokrates („jetzt“ 28.10., 10:00, Archiv): Zauberer-Set auf Kaufkörper, Film | ruht |
 | 390 | M | von Perikles: zwischen Chef-Blättern Funktionen ohne Bild (LISTE-UMZUG-348.md) | wartet auf Test/Build (gebaut) |
 | 348.12i | M | von Sokrates (Chef 19:41, „348.12i B“, Archiv): nur Kaufmodelle mit AESContext verschlüsse | wartet auf Test/Build (gebaut) |
-| 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | wartet auf Test/Build |
-| 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | wartet auf 348.6 (wartet) |
+| 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Dorf (LISTE-UMZUG-348.md) | wartet auf Test (Build) |
+| 376.2 | M | von Perikles (Chef 12:37, LISTE-CC0-MODELLE.md): RenderHub-Marktpaket: Brunnen und Stände | wartet auf 348.6 (zu testen) |
 | 372 | M | von Perikles (338a B, Chef 27.10., 09:36, Archiv): Feinschliff Held: Kettenhemd, Helm, Kra | ruht |
 | 397 | M | von Chef (28.10., 11:15): Held, Leute: mind. drei Ruhebewegungen wie alt (LISTE-UMZUG-348. | wartet auf Test/Build (gebaut) |
 | 348.13 | M | von Sokrates (Chef 26.10., Archiv): Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Sc | wartet auf Jerry |
@@ -76,30 +84,32 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „star
 | 357 | K | von Perikles (Chef 24.10., Chefsache 26, „okay“): Puppe in der Charaktererstellung sieht b | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
-| 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
+| 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 38, Muss 27, startbar 4
+**Jerry** – offen 40, Muss 27, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 416.5 | M | von Sokrates (Chef 31.10., 20:4x, Build 143): im Kampf Details des Kampflogs aufrufen, dan | wartet auf Test/Build (gebaut) |
+| 416.6 | K | von Sokrates (Chef 31.10., 20:4x): Spuren des Helden fehlen (Fußspuren; bei Regen eigene S | startbar |
+| 415 | K | von Sokrates (Chef 31.10., 20:3x „Ja, Probe mit dem Beams-Sample an Jerry geben“): Handypr | startbar |
 | 399.2 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv): Kampfort aufrufbar | wartet auf Test/Build (gebaut) |
 | 399.2b | M | von Team Tom (15:05): Rudel allein zu stark | wartet auf Test/Build (gebaut) |
-| 399.3 | M | von Chef über Sokrates (16:42): Klang in die Spielfassung | startbar |
-| 402 | M | von Sokrates (Chef 22:2x, Archiv): Blende vor dem Kampf wie alt; Herzschlag beim Hinterhal | startbar |
-| 403 | M | von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler): Kampfort: Held | Chef |
+| 402 | M | von Sokrates (Chef 22:2x, Archiv): Blende vor dem Kampf wie alt; Herzschlag beim Hinterhal | wartet auf Test/Build (gebaut) |
+| 403 | M | von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler): Kampfort: Held | startbar |
 | 406 | M | von Team Tom (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe): Ausrüstung der Helden je | startbar |
-| 401 | M | von Chef über Sokrates (Archiv): Tierlaute, mind. 3 je Tier | startbar |
+| 401 | M | von Chef über Sokrates (Archiv): Tierlaute, mind. 3 je Tier | wartet auf Test/Build (gebaut) |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | wartet auf Test/Build (gebaut) |
-| 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | Chef |
-| 385.2 | M | von Chef (Archiv 385.1): Feuer aus dem Stab | wartet auf 403 (Chef) |
+| 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | startbar |
+| 385.2 | M | von Chef (Archiv 385.1): Feuer aus dem Stab | wartet auf 403 (startbar) |
 | 348.13a | M | von Team Tom (Chef 08:09, Archiv: r9 ja): Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13 | wartet auf Test/Build (gebaut) |
 | 397 | M | von Chef (28.10., 11:15): Tiere, Monster: mind. drei Ruhebewegungen wie alt (LISTE-UMZUG-3 | ruht |
 | 348.12c | M | von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv): Wiedergänger, Grabhund, Riesenegel, Säur | ruht |
-| 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | wartet auf 403 (Chef) |
+| 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | ruht |
 | 348.7b | M | Zauberbahn nach Chef „D“ | wartet auf Test/Build (gebaut) |
-| 390 | M | von Perikles: Funktionen ohne Bild (LISTE-UMZUG-348.md) | wartet auf 399 (wartet) |
+| 390 | M | von Perikles: Funktionen ohne Bild (LISTE-UMZUG-348.md) | ruht |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, Test B46): App „hängt“, ging dann weiter (Zu 257) | ruht |
 | 211.14 | M | von Sokrates (20.10.): Rest 211.13: Leistung am A56 messen (M), Rest Kür | ruht |
@@ -110,22 +120,24 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „star
 | 296.2 | M | von Sokrates (Chef 23.10., 18:25, Vorgangsarchiv 341.1a): MARS spielnötig (Vorgangsarchiv | ruht |
 | 296.3 | K | von Sokrates (Chef 23.10., 18:25): MARS-Schmuck: Todesschrei, Flucht vor heiligem Licht/Ze | ruht |
 | 344.2 | K | von Sokrates (Chef 23.10., Archiv 344): Kampf mit der Fackel in beiden Systemen (Zu 344.2) | ruht |
-| 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 (Zu 168.1) | wartet auf 38 (offen) |
+| 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 (Zu 168.1) | wartet auf 38 (ruht) |
 | D23.3 | M | Diogenes Lauf 23: Magier und Kleriker sterben oft; Kleriker Stufe 1 vor dem Meilenstein (A | ruht |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) (Zu 72u.1) | ruht |
-| 133 | K | Umsetzung 133: Charisma-Proben und Erfahrung für gelöste Konflikte | wartet auf 38 (offen) |
+| 133 | K | Umsetzung 133: Charisma-Proben und Erfahrung für gelöste Konflikte | ruht |
 | 212 | M | Umsetzung 212: Schalter „Kampf: MARS oder klassisch“, jederzeit wechselbar; neue Regeln nu | ruht |
-| 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen (Zu 86) | wartet auf 38 (offen) |
-| 38 | M | Balance: Kapitel 1 gemessen (Zu 38) | wartet auf 348 (in Arbeit) |
-| 39 | M | Schwierigkeitsgrad im Menü (Zu 39) | wartet auf 38 (offen) |
-| 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | wartet auf 39 (wartet) |
+| 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen (Zu 86) | ruht |
+| 38 | M | Balance: Kapitel 1 gemessen (Zu 38) | ruht |
+| 39 | M | Schwierigkeitsgrad im Menü (Zu 39) | ruht |
+| 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | ruht |
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 15, Muss 13, startbar 1
+**Perikles** – offen 17, Muss 15, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 424 | M | von Sokrates („jetzt“ 31.10., 21:3x, Chef: „keine Energie mehr in das alte SRD-System stec | wartet auf Test/Build (gebaut) |
+| 418 | M | von Sokrates („jetzt“ 31.10., 21:21, Archiv): oberste Direktive in CLAUDE.md durch den Wor | Chef (Datei in der Chefsache) |
 | 407 | M | von Chef über Sokrates („jetzt“ 29.10., 10:05): Probelauf-Grenze 389 so, dass sie greift: | startbar |
 | 399 | M | von Chef über Sokrates („jetzt“ 28.10., 12:34, Archiv): Vorrang neu: erst eine Godot-Fassu | wartet auf Tom |
 | 398 | M | von Sokrates (Chef 28.10., 11:22): Termine je Block nachrechnen mit der Schätzung der 15 Z | Termin 02.11. |
@@ -138,62 +150,64 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 29.10.; „star
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | ruht |
 | 341 | M | von Chef (23.10., 09:39): Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | Termin 06.11. |
 | 339 | M | von Sokrates (Chef 23.10., 09:08 „so eine Art Dashboard“, ja 09:53): Dashboard „Stand zum | Dauerzeile bis 06.11. |
-| 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | Termin 30.10. |
+| 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | startbar |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
-**Diogenes** – offen 5, Muss 3, startbar 0
+**Diogenes** – offen 6, Muss 4, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 429 | M | von Perikles (421, 31.10., 21:5x): prüfen 424 (LISTE-UMZUG-348.md „Funktionen“ ruht für al | startbar |
 | 398 | M | von Sokrates: vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (39 | Termin 02.11. |
-| 374 | M | von Sokrates (Chef 27.10., 11:58, Archiv 374): täglich 8 Uhr bis 03.11. Vorlagen des Vorta | Termin 30.10. |
+| 374 | M | von Sokrates (Chef 27.10., 11:58, Archiv 374): täglich 8 Uhr bis 03.11. Vorlagen des Vorta | Termin 01.11. |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24): Umzug Godot: jedes Vergleichsblatt alt/neu messen, | wartet auf Eingang |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 29, Muss 21, startbar 4
+**Sokrates** – offen 32, Muss 24, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 427 | M | von Chef (31.10., 21:3x): Bestiarium LISTE-BESTIARIUM.md | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
+| 422 | M | von Chef (31.10., 21:2x, „dass es sich liest wie eine gute Anleitung. Und ein Nachschlagew | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
+| 413 | M | von Chef (31.10., 20:1x): Spielsystem 2.0 (DESIGN-SPIELSYSTEM-2-0.md), Meilensteine | Chef |
 | 398 | M | von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr g | wartet auf Perikles |
 | 391 | M | von Chef (28.10., 09:21): Repos dauerhaft ohne Ablehnung | ruht |
-| 383.2 | M | von Chef (27.10., 19:24, „wo steckt jetzt hier wieder die Wahrheit? Und wer hat damit gepr | Termin 31.10. |
-| 383 | M | von Chef (27.10., 17:44, „Sollen wir einfach aufhören damit?“; 17:47 Vorschlag „nicht grif | Termin 31.10. |
+| 383.2 | M | von Chef (27.10., 19:24, „wo steckt jetzt hier wieder die Wahrheit? Und wer hat damit gepr | startbar |
+| 383 | M | von Chef (27.10., 17:44, „Sollen wir einfach aufhören damit?“; 17:47 Vorschlag „nicht grif | startbar |
 | 376 | M | von Chef (27.10., 12:00): Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Tom |
-| 374 | M | von Chef (27.10., 11:54): wer prüft 373? | Termin 31.10. |
+| 374 | M | von Chef (27.10., 11:54): wer prüft 373? | startbar |
 | 348.12c | M | von Chef (26.10., 11:59): Modellpaket auch gegen Geld (Quaternius und andere), Verkauf im | ruht |
 | 348.12 | M | von Chef (25.10., 21:21, „b prüfen“): fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit | wartet auf Jerry |
-| 348.12h | M | von Chef (26.10., 16:16; ja 16:19, Archiv): fertige Dinge, Möbel, Waffen suchen | startbar |
+| 348.12h | M | von Chef (26.10., 16:16; ja 16:19, Archiv): fertige Dinge, Möbel, Waffen suchen | Leiche: in LISTE-VORGAENGE.md „erledigt“, Zeile noch im Vorrat |
 | 340.2 | M | von Chef (25.10., 10:16, Vorgangsarchiv 340): tools/rollenspiegel.sh <Rolle> zeigt nur Fra | wartet auf Test/Build (gebaut) |
 | 348 | M | von Chef (24.10., 16:43; „jetzt“ 16:54): fertige Spiel-Engine statt Selbstbau? | ruht |
 | 26.1 | M | von Chef (24.10., 16:56): Durchspielbogen auswerten (Rest von 26) | wartet auf 348 (in Arbeit) |
 | 327 | K | von Chef (23.10., 00:08): Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraul | nach dem Meilenstein |
-| 347 | M | von Chef (24.10., 16:20; ja 16:30): Paket Regeltreue | Termin 31.10. |
-| 318 | M | von Chef (22.10., 21:34): Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett | Termin 31.10. |
+| 347 | M | von Chef (24.10., 16:20; ja 16:30): Paket Regeltreue | startbar |
+| 318 | M | von Chef (22.10., 21:34): Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett | startbar |
 | 246.1 | K | von Perikles (Übernahme 22.10., 17:50): Rest übrige Artefakte: Originale löschen, Kartenma | nach dem Meilenstein |
 | 296 | K | von Chef (22.10., 07:50): Checkliste je großem System, MARS zuerst (Zu 296) | ruht |
 | 264 | K | von Chef (20.10.): Arbeitsorte neben GitHub (NAS, Proxmox, ALL-INKL)? | ruht |
 | 263 | K | von Chef (20.10.): feste Rolle für Finanzen, EÜR, Geschäftszimmer? | Termin 01.11. |
 | 366 | M | von Chef (25.10., 18:39): bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Vorgangsarc | startbar |
-| 365 | M | von Chef (25.10., 12:36): bringt Aufwand „Hoch“ statt „Mittel“ einem Beschäftigten etwas, | Termin 31.10. |
+| 365 | M | von Chef (25.10., 12:36): bringt Aufwand „Hoch“ statt „Mittel“ einem Beschäftigten etwas, | startbar |
 | 262 | K | von Chef (20.10.): monatliche API-Credits im Plan, was damit anfangen? | ruht |
 | 253 | K | von Chef (20.10.): „BornWire“ = Firmensachen in eigener Sitzung (Archiv 253) | ruht |
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
-| 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 31.10. |
+| 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | startbar |
 | 142.3 | M | von Chef (27.10., 19:32): Tester öffentlich suchen | startbar |
-| 142 | M | Pflichttest Play Store (von Perikles); Store-Text „jede Entscheidung zählt“ prüfen (72a) | startbar |
-| 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (wartet) |
+| 142 | M | Pflichttest Play Store (von Perikles); Store-Text „jede Entscheidung zählt“ prüfen (72a) | Chef |
+| 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (Chef) |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | ruht |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung)
+Nicht gestellt: 427 (Beratung), 422 (Beratung), 413 (Beratung), 186.3 (Pruefung)
 
-Beantwortet, Datei noch da (383.3: der Absender löscht sofort): ansehen/3761-klassen.md (Antwort 376.1, 29.10., 10:52)
-
-Ohne Datei: 275 (Projekt)
+Ohne Datei: 275 (Projekt), 26 (Team Tom)
 
 ## So geht's
 

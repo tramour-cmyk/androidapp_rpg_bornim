@@ -13,8 +13,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | E Oberfläche | K |  | Jerry (Inhalt; Technik Tom erledigt) | ruht |
 | 26.1 | Durchspielbogen auswerten, Rest von 26: Gegenprobe je Klasse, neuer Bogen auf Godot (Chef 24.10., 16:56) | Q QS | M | – | Sokrates | wartet |
 | 30 | Abstürze beim Testen | Q QS | K |  | Tom (Jerry: Klang-Fäden) | ruht |
-| 38 | Balance-Langzeitplan (`DESIGN-BALANCE.md`) | G Balance | M | 11,51 $ | Jerry | offen |
-| 39 | Schwierigkeitsgrad im Menü | E Kampf | M | 3,80 $ | Jerry (Menü mit Tom) | wartet |
+| 38 | Balance-Langzeitplan (`DESIGN-BALANCE.md`) | G Balance | M | 11,51 $ | Jerry | ruht |
+| 39 | Schwierigkeitsgrad im Menü | E Kampf | M | 3,80 $ | Jerry (Menü mit Tom) | ruht |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | G Story | K | 4,27 $ | Homer mit Chef | nach Meilenstein |
 | 41.2 | Ansel fährt nach N3 auch nachts (Prüfpunkt 6.4) | G Story | K |  | Homer | Chef |
 | 45 | Geschäftsmodell und Umsetzung (Play Store) | M Veröffentlichung | M | 4,68 $ | Sokrates mit Nutzer | ruht |
@@ -26,14 +26,14 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 72 | Profil und Marktvergleich | E Kampf | K | 0,72; +0,61 $ | Homer, Jerry | Chef |
 | 79 | Kampfhintergründe wie Diagonalwelt | E Kampf | K |  | Ideen | Idee |
 | 84.4 | Lauschen beim Stehen: Welle zur Quelle | G Balance | K |  | Ideenspeicher | später |
-| 86 | Bewegung und Übersicht: Ausdauer, Rennen, Rast, Kartenzeichen | E Kampf | K | 0,72; 1,21 $; +1,81 $ | Jerry | wartet |
+| 86 | Bewegung und Übersicht: Ausdauer, Rennen, Rast, Kartenzeichen | E Kampf | K | 0,72; 1,21 $; +1,81 $ | Jerry | ruht |
 | 99 | Zwei Niederlassungen | B Steuerung | K | 7,25 $ | Perikles | ruht |
 | 102 | Dokumente BornWire TCS nachziehen | B Abläufe | K |  | Ideen | Idee |
 | 109 | Repo öffentlich | M Veröffentlichung | M |  | Sokrates | ruht |
 | 111 | `DESIGN-BLENDE.md` kürzen (nach 24.6) | B Abläufe | K |  | Ideen | Idee |
-| 133 | Wahlen im Spiel: vier Charisma-Wahlen in Kapitel 2 (Chef 19.10. ja) | G Story | K | 1,12 $ | Tom, Jerry | nach Meilenstein |
+| 133 | Wahlen im Spiel: vier Charisma-Wahlen in Kapitel 2 (Chef 19.10. ja) | G Story | K | 1,12 $ | Tom, Jerry | ruht |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | E Figuren | K | 1,06 $ | Tom | aufgeteilt |
-| 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | M Veröffentlichung | M | 12,30 $ | Sokrates | wartet |
+| 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | M Veröffentlichung | M | 12,30 $ | Sokrates | Chef |
 | 142.2 | Pflichttest erst mit Bekannten, Webseite später (Chefsache) | M Veröffentlichung | M |  | Sokrates | wartet |
 | 142.3 | Tester öffentlich suchen (Chef 27.10., 19:32) | M Veröffentlichung | M | – | Sokrates | in Arbeit |
 | D23.3 | Magier und Kleriker sterben oft (Lauf 23) | G Balance | M |  | Jerry | ruht |
@@ -43,13 +43,13 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 168.1 | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | G Story | K |  | Jerry | nach Meilenstein |
 | 72u.1 | Umsetzung 72u: Kampfort aus der Karte (Standbild 2, Bau) | E Kampf | K | 2,38 $ | Jerry | ruht |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Q Qualität | K |  | Diogenes | wartet |
-| 212 | Kampfsystem wählbar: MARS oder klassisch, Schalter in den Einstellungen (Chef 19.10. A) | G Balance | M | 0,61 $ | Jerry | wartet |
+| 212 | Kampfsystem wählbar: MARS oder klassisch, Schalter in den Einstellungen (Chef 19.10. A) | G Balance | M | 0,61 $ | Jerry | ruht |
 | 217 | Wölfe (Grimmzahn, Rudelwolf) beißen im Kampf teils in die Luft, nach Süden am Helden vorbei (Chef 19.10.) | E Kampf | M | 3,24 $ | Jerry | ruht |
 | 211.14 | Rest 211.13: Leistung A56, Puppen-Gegner im Kamerawinkel, Winkel je Platz, Wechsel als Gang | E Kampf | M? | – | Jerry | ruht |
 | 246 | Dokumente grundsätzlich ins Repo statt als Artefakt; Wochenplan aktualisiert (Chef 20.10.) | Q Ablauf | K | –; +7,03 $ | Sokrates | entschieden |
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | Q Ablauf | K | – | Sokrates | offen |
-| 249 | MARS wie der klassische Kampf: Gleiten, Hiebe, Zoom, Blut, Effekte, Zustände (Chef 20.10.) | E Kampf | M | –; +33,41 $ | Jerry | offen |
-| 253 | BornWire (vorher WireStorm): Firmensachen BornWire TCS in eigener Sitzung, Kosten hierauf (Chef 20.10.) | M Markt | K | – | Sokrates | Dauer |
+| 249 | MARS wie der klassische Kampf: Gleiten, Hiebe, Zoom, Blut, Effekte, Zustände (Chef 20.10.) | E Kampf | M | –; +33,41 $ | Jerry | ruht |
+| 253 | BornWire (vorher WireStorm): Firmensachen BornWire TCS in eigener Sitzung, Kosten hierauf (Chef 20.10.) | M Markt | K | – | Sokrates | ruht |
 | 257 | Build 46: Meldung „App reagiert nicht“, warten oder schließen, läuft dann weiter (Chef 20.10.) | E Technik | M | – | Jerry | offen |
 | 262 | API-Credits im Plan: wofür nutzen? (Chef 20.10.) | B Betrieb | K | – | Sokrates | ruht |
 | 263 | Rolle für Finanzen und Geschäftszimmer? (Chef 20.10.) | B Betrieb | K | – | Sokrates | Dauer |
@@ -66,7 +66,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 292.4 | Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (aus 292.3 zurückgestellt, Chef 22.10., 15:10) | G Stil | K | – | Team Tom | ruht |
 | 296 | Checkliste je großem System (MARS zuerst): umgesetzt, offen, was zwischen klassisch und MARS fehlt (Chef 22.10., 07:50) | B Abläufe | M | –; +2,98 $ | Sokrates | Vorlage |
 | 296.1 | Erste Fassung Checkliste MARS (`LISTE-MARS.md`) gegen den Code prüfen und pflegen | E Kampf | K | – | Team Jerry | neu |
-| 296.2 | MARS spielnötig: Beute/Erfahrung, Fliehen, Eröffnung, Zustände, eigene Ausrüstung, Schalter (Chef 23.10., 18:25) | E Kampf | M | –; +12,97 $ | Team Jerry | gebaut |
+| 296.2 | MARS spielnötig: Beute/Erfahrung, Fliehen, Eröffnung, Zustände, eigene Ausrüstung, Schalter (Chef 23.10., 18:25) | E Kampf | M | –; +12,97 $ | Team Jerry | ruht |
 | 296.3 | MARS-Schmuck: Todesschrei, Flucht/Zerfall, Zustände gezeichnet, Siegerpose (Chef 23.10., 18:25) | E Kampf | K | – | Team Jerry | ruht |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | G Stil | K | –; +3,98 $ | Homer | wartet |
 | 302.1 | Tuschelinie für Menschengestalten (Chef 22.10., 20:25, über Sokrates); jetzt nicht (Chef 23:37); M seit 338 (b), Charaktererstellung | G Stil | M | – | Team Tom | ruht |
@@ -79,28 +79,27 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 340.2 | Rollenspiegel C: `tools/rollenspiegel.sh`, eigene Antwort ohne fremde | B Abläufe | M | –; +6,35 $ | Sokrates | gebaut |
 | 338.1 | Stand zum Marktstart: jeden Montag eine Seite für den Chef, Ampel je Block (Chef 23.10., 09:01: Stand wird ihm nie vorgelegt) | B Abläufe | M | 13,47 $ | Perikles | wartet |
 | 376 | Quaternius-Bausätze (Dorf, Natur, Dungeon, Outfits) und gedrehte Häuser prüfen (Chef 27.10., 12:00) | E Welt | M | 38,96 $ | Sokrates | wartet |
-| 376.1 | Probeblatt Quaternius-Figuren mit Bewegungsraster als Film (Chef kaufte 27.10., 12:20) | E Figuren | M | 160,52 $ | Team Tom | startbar |
+| 376.1 | Probeblatt Quaternius-Figuren mit Bewegungsraster als Film (Chef kaufte 27.10., 12:20) | E Figuren | M | 176,98 $ | Team Tom | startbar |
 | 376.2 | RenderHub-Marktpaket: Brunnen, Stände als Form (Chef 27.10., 12:37) | E Welt | M | – | Team Tom | wartet |
-| 374 | Wer prüft regelmäßig, dass alle 373 einhalten? (Chef 27.10., 11:54) | B Abläufe | M | 8,58 $ | Perikles, Diogenes, Sokrates | offen |
+| 374 | Wer prüft regelmäßig, dass alle 373 einhalten? (Chef 27.10., 11:54) | B Abläufe | M | 11,70 $ | Perikles, Diogenes, Sokrates | wartet |
 | 372 | Feinschliff Held am Ende des Umzugs: Kettenhemd, Helm, Kragen (aus 338a B, Chef 27.10., 09:36) | E Figuren | M | – | Team Tom | ruht |
 | 341 | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug und Diogenes (Chef 23.10., 09:39) | B Abläufe | M | – | Perikles | Dauer |
-| 304 | Klassischer Kampf: Konter nach Abwehr, obwohl getroffen, regeltechnisch richtig? (Chef 22.10., 13:22) | E Kampf | M | – | Team Jerry | Chef |
+| 304 | Klassischer Kampf: Konter nach Abwehr, obwohl getroffen, regeltechnisch richtig? (Chef 22.10., 13:22) | E Kampf | M | – | Team Jerry | ruht |
 | 344 | Fackel: brennt überall außer in hellen Grundrissen; Kampf mit der Fackel nach SRD (Chef 23.10., 16:05) | E Welt | M | – | Sokrates | entschieden |
 | 347 | Paket „Regeltreue erhöhen, Kosten senken“ (Zähler, Kernregeln, kleiner Start) prüfen und umsetzen (Chef 24.10., 16:20) | B Abläufe | M | –; +15,42 $ | Sokrates | entschieden |
 | 347.2 | Umsetzung Plan 347 nach Gegenprüfung (Chef 24.10., 16:30) | B Abläufe | M | – | Perikles | gebaut |
 | 348 | Fertige Spiel-Engine statt Selbstbau: Umzug nach Godot (Chef 24.10., 16:43) | E Technik | M | –; +115,14 $ | Sokrates | in Arbeit |
 | 348.1 | Vergleichsbild Gebietskarte alt/neu, 64 (heute) und 128 je Kachel (Chef 24.10., 16:51, „jetzt“ 16:54) | E Technik | M | – | Team Tom | raus |
 | 348.2 | Tusche nach Licht auch am Helden, Innenlinien an Bäumen: zweites Vergleichsbild jetzt (Chef 24.10., 17:30, 17:36) | E Technik | M | – | Team Tom | ruht |
-| 348.6 | Umzug Godot: Fundament, Dorf als erste Gebietskarte | E Technik | M | 640,45 $ | Team Tom | wartet |
-| 348.7 | Umzug Godot: Modellregel, Kampfort Wolfsrudel MARS | E Technik | M | –; +441,15 $ | Team Jerry | wartet |
+| 348.6 | Umzug Godot: Fundament, Dorf als erste Gebietskarte | E Technik | M | 640,45 $ | Team Tom | zu testen |
+| 348.7 | Umzug Godot: Modellregel, Kampfort Wolfsrudel MARS | E Technik | M | –; +441,15 $ | Team Jerry | ruht |
 | 348.7a | Rückfrage: Geschosse flach oder in 3D | E Technik | M | 58,17 $ | Jerry | in Arbeit |
 | 348.7b | Rückfrage: Zauberbahn hoch über die Köpfe oder flach quer über Wolf 3 | E Kampf | M | 22,94 $ | Jerry | gebaut |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | B Abläufe | M | 119,56 $ | Perikles, Diogenes | wartet |
-| 348.12 | Fertige CC0-Grundmodelle prüfen, Probe Mensch (Chef 25.10., 21:21, 21:36) | E Technik | M | 148,02 $ | Sokrates, Jerry | Chef |
+| 348.12 | Fertige CC0-Grundmodelle prüfen, Probe Mensch (Chef 25.10., 21:21, 21:36) | E Technik | M | 148,02 $ | Sokrates, Jerry | startbar |
 | 348.12c | Modellpaket auch gegen Geld (Quaternius QAL, Dungeon Monsters Kit, andere), Vorschlag mit Preisen (Chef 26.10., 11:59) | G Geld | M | –; +9,24 $ | Sokrates | ruht |
 | 348.12f | Probe gekaufte Riesenratte in unserem Look | E Technik | M | 199,50 $ | Jerry | gebaut |
 | 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | G Story | M | 4,29 $ | Homer | entschieden |
-| 348.12h | Fertige Dinge, Möbel, Waffen suchen (CC0 zuerst, sonst gekauft; Chef 26.10., 16:16) | G Geld | M | – | Sokrates | Chef |
 | 348.12i | Kaufmodelle mit `AESContext` verschlüsseln, Bedingung für Kauf Protofactor (Chef 26.10., 19:41, B) | E Technik | M | – | Tom | gebaut |
 | 348.13 | Tusche nach Licht wie entschieden (Chef 26.10.) | E Technik | M | 89,13 $ | Tom | wartet |
 | 348.13a | Rückfrage: Kampfort Tusche alt oder nach Licht | G Aussehen | M | 30,71 $ | Tom | gebaut |
@@ -108,31 +107,56 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 355 | Kisten: zwei bis vier je Gebietskarte, gern versteckt (Chef 24.10., 17:17) | E Welt | K | – | Team Tom | ruht |
 | 356.2 | Sammelaufträge: Felle 3, Pelzumhang, Hauerdolch (356 b, Chef 24.10., 21:33) | G Balance | K | – | Team Tom | offen |
 | 357 | Puppe beim Drehen nicht fein (Chef 24.10.) | E Figuren | K | – | Team Tom | ruht |
-| 344.2 | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | E Kampf | K | – | Team Jerry | offen |
+| 344.2 | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | E Kampf | K | – | Team Jerry | ruht |
 | 366 | bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Chef 25.10., 18:39) | M Markt | M | –; +25,65 $ | Sokrates | offen |
 | 391 | Zweit-Repo dauerhaft in den Sitzungen, ohne Ablehnung (Chef 28.10., 09:21) | B Werkzeuge | M | – | Sokrates | ruht |
 | 397 | Ruhebewegungen wie im alten Spiel, mindestens drei je Figur, für alle (Chef 28.10., 11:15) | E Figuren | M | 19,54 $ | Team Tom, Team Jerry | gebaut |
 | 398 | Gegenprobe: Grundsätze aus DESIGN-Dateien, die im Umzug nach Godot fehlen (Chef 28.10., 11:22) | B Umzug | M | 12,07 $ | Sokrates | wartet |
 | 399 | Spielbare Godot-Fassung zuerst: Dorf begehbar, Kampf spielbar; Feintuning ruht (Chef 28.10., 12:34) | B Umzug | M | 12,45 $ | Perikles, Team Tom, Team Jerry | wartet |
-| 399.1 | Spielfassung: eine APK mit Dorf, Laden, Rast, Weg in den Wald, Kampf, zurück (aus 399) | B Umzug | M | 124,12 $ | Team Tom | wartet |
-| 399.4 | Oben Rand für die Kamera freilassen wie im alten Spiel (Chef 28.10., 21:4x) | B Umzug | M | – | Team Tom | gebaut |
-| 399.5 | Innenräume wie alt: Lichtquellen, Licht und Schatten, Einrichtung; Fenster außen wie innen (Chef „jetzt“ 28.10., 21:5x) | B Umzug | M | 16,83 $ | Team Tom | erledigt |
+| 399.1 | Spielfassung: eine APK mit Dorf, Laden, Rast, Weg in den Wald, Kampf, zurück (aus 399) | B Umzug | M | 124,12 $ | Team Tom | zu testen |
+| 399.4 | Oben Rand für die Kamera freilassen wie im alten Spiel (Chef 28.10., 21:4x) | B Umzug | M | – | Team Tom | zurück |
+| 399.5 | Innenräume wie alt: Lichtquellen, Licht und Schatten, Einrichtung; Fenster außen wie innen (Chef „jetzt“ 28.10., 21:5x) | B Umzug | M | 51,75 $ | Team Tom | zu testen |
 | 399.2 | Kampfort als aufrufbare Szene für die Spielfassung 399.1 (aus 399) | B Umzug | M | 40,83 $ | Team Jerry | gebaut |
 | 399.2b | Rudel allein: drei von vier Klassen verlieren; Ursache prüfen, Balance an Chef (aus 399.2a) | E Kampf | M | 16,00 $ | Team Jerry | gebaut |
 | 399.2d | Godot am Rechner freigeben (Auto-Modus lehnte Download ab), Tests ohne CI-Lauf (aus 399.2) | E Kampf | M | – | Team Jerry | wartet |
-| 399.3 | Klang in die Spielfassung: Musik, Ortsklang, Schritte, Kampfklang aus dem alten Spiel (aus 399; Chef 28.10., 16:42) | B Umzug | M | 21,56 $ | Team Jerry | startbar |
-| 402 | Blende vor dem Kampf wie alt (Hinterhalt, Erstschlag, normal, Boss); Herzschlag beim Hinterhalt stärker (Chef 28.10., 22:2x) | E Kampf | M | 12,39 $ | Team Jerry | startbar |
-| 401 | Lebendige Welt: Laute für jedes Tier im Dorf, mindestens drei je Tier (Chef 28.10., 22:0x) | E Klang | M | 2,67 $ | Team Jerry | startbar |
-| 399.3.1 | Klang: Haken in spiel.gd übernehmen, Klangregler im Menü System (aus 399.3) | B Umzug | M | – | Team Tom | wartet |
+| 402 | Blende vor dem Kampf wie alt (Hinterhalt, Erstschlag, normal, Boss); Herzschlag beim Hinterhalt stärker (Chef 28.10., 22:2x) | E Kampf | M | 16,58 $ | Team Jerry | gebaut |
+| 401 | Lebendige Welt: Laute für jedes Tier im Dorf, mindestens drei je Tier (Chef 28.10., 22:0x) | E Klang | M | 2,67 $ | Team Jerry | gebaut |
+| 399.3.1 | Klang: Haken in spiel.gd übernehmen, Klangregler im Menü System (aus 399.3) | B Umzug | M | – | Team Tom | zu testen |
 | 384 | Kosten: alle Sitzungen gebucht? Lücken und Buchungen ohne Kennung (Chef 27.10., 20:06) | B Werkzeuge | M | – | Perikles | gebaut |
 | 383.3 | Zurückgestellte Vorlagen sofort aus der Chefsache (Chef 27.10., 19:55) | B Werkzeuge | M | 7,30 $ | Perikles | gebaut |
-| 385 | Protofactor-Animsets (Zauberer u. a.) auf die Listen, Probe ob nutzbar (Chef 27.10., 20:59) | E Figuren | M | 40,87 $ | Team Tom | Chef |
+| 385 | Protofactor-Animsets (Zauberer u. a.) auf die Listen, Probe ob nutzbar (Chef 27.10., 20:59) | E Figuren | M | 40,87 $ | Team Tom | ruht |
 | 385.2 | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball (aus 385.1, Chef 28.10., 19:1x) | E Kampf | M | – | Team Jerry | wartet |
 | 387 | Gekaufte Tiere schnell auf Bewegungen und unsere Haut prüfen, vor Eigenbau (Chef 27.10., 21:27) | E Monster | M | 98,99 $ | Team Jerry | ruht |
-| 403 | Kampfort: Held je Klasse auf dem Kaufkörper (heldfigur.gd aus 376.1) statt held.bin, Kampfbewegungen aus der UAL | E Kampf | M | – | Team Jerry | Chef |
-| 404 | Fehlende Sitzungskosten (3 archivierte Sitzungen ohne usage) schätzen oder „fehlt“ lassen (Ford 28.10., Chefsache) | B Werkzeuge | K | 0,67 $ | Ford | wartet auf Chef |
-| 406 | Ausrüstung der Helden je Stück als eigenes Modell mit Abnahme, „noch steril“ (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe); zuerst Rundschild des Klerikers hell mit goldener Sonne wie alt | E Kampf | M | – | Team Jerry | startbar |
+| 403 | Kampfort: Held je Klasse auf dem Kaufkörper (heldfigur.gd aus 376.1) statt held.bin, Kampfbewegungen aus der UAL | E Kampf | M | – | Team Jerry | in Arbeit |
+| 406 | Ausrüstung der Helden je Stück als eigenes Modell mit Abnahme, „noch steril“ (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe); zuerst Rundschild des Klerikers hell mit goldener Sonne wie alt | E Kampf | M | 27,55 $ | Team Jerry | startbar |
 | 407 | Probelauf-Grenze 389 greift nicht: neue Runde erst nach Urteil des Chefs, jeder Zweig zählt („jetzt“ 29.10., 10:05) | B Abläufe | M | – | Perikles | startbar |
-| 390 | Umzug: Punkte ohne Bilderrunde weiterbauen, solange Blätter beim Chef liegen (Perikles 28.10., Wochenziel 348) | E Technik | M | 39,54 $ | Team Tom, Team Jerry | wartet |
+| 408 | Bestand vor Eigenbau: gekaufte Modelle sichten und zur Wahl vorlegen, dann erst bauen (Chef 29.10., 11:15) | B Abläufe | M | – | Perikles | erledigt |
+| 409 | Wörter der Erschaffung für fünf neue Frisuren (376.1, Chef 29.10., 10:52 „gibt es noch andere Frisuren“) | C Texte | M | – | Homer | erledigt |
+| 410 | Waffen am Körper wegstecken, alle Waffenarten (aus 376.1, Chef 29.10., 10:52, 11:40) | E Figuren | M | – | Team Tom | ruht |
+| 412 | Je Thema ein eigener Vorgang, nichts thematisch Fremdes unter eine Nummer (Chef 29.10., 11:4x) | B Abläufe | M | – | Perikles | erledigt |
+| 413 | Spielsystem 2.0: Entwurf `DESIGN-SPIELSYSTEM-2-0.md`, Auseinandersetzung, Meilensteine (Chef 31.10., 20:1x) | D Design | M | – | Sokrates | wartet |
+| 415 | Handyprobe Beams-Free-Sample (aus 414, Chef 31.10., 20:3x) | C Kampf | K | – | Team Jerry | frei |
+| 416.1 | Tasten reagieren schlecht (Charaktererstellung, überall; Build 143, Chef 31.10., 20:4x) | B Umzug | M | – | Team Tom | gebaut |
+| 416.2 | Platzwechsel mit Dorfbewohnern und Tieren, nicht stecken bleiben (Chef 31.10., 20:4x) | B Umzug | M | – | Team Tom | frei |
+| 416.3 | Anschlagbrett und Laden bildschirmfüllend, Design wie alt (Chef 31.10., 20:4x) | B Umzug | M | – | Team Tom | frei |
+| 416.4 | Rennen des Helden wirkt wie Hochsprung (Chef 31.10., 20:4x) | B Umzug | M | – | Team Tom | frei |
+| 416.5 | Kampflog-Details nicht mehr schließbar (Chef 31.10., 20:4x) | B Umzug | M | – | Team Jerry | gebaut |
+| 416.6 | Spuren des Helden, auch bei Regen (Chef 31.10., 20:4x) | B Umzug | K | – | Team Jerry | frei |
+| 417 | Prüfung: Waffen und Schild beim Gehen und Rennen in der Hand statt auf dem Rücken (zu 410, Chef 31.10., 21:1x) | E Figuren | M | – | Team Tom | startbar |
+| 418 | Oberste Direktive neu in `CLAUDE.md`, Abnahmeliste Kapitel 1 darauf und auf Spielsystem 2.0 umschreiben („jetzt“ 31.10., 21:21) | B Abläufe | M | – | Perikles | Chef |
+| 419 | Prüfung 418: Direktive in `CLAUDE.md` und neue Abnahmeliste gegen Wortlaut und Spielsystem 2.0 (Chef 31.10., 21:2x) | B Abläufe | M | – | Diogenes | erledigt |
+| 420 | Prüfung Spielsystem 2.0: Ideen und Entscheidungen in `DESIGN-SPIELSYSTEM-2-0.md` auf Widersprüche und Lücken (Chef 31.10., 21:2x) | D Design | M | – | Diogenes | erledigt |
+| 421 | Regel: was Perikles an Regeln und Abläufen ändert, prüft Diogenes („im Doppelpack“, Chef 31.10., 21:2x) | B Abläufe | M | – | Perikles | erledigt |
+| 422 | Spielsystem 2.0 als Anleitung und Nachschlagewerk: Dokument eindampfen, liest sich wie eine Anleitung, Verlauf der Entscheidungen getrennt (Chef 31.10., 21:2x) | D Design | M | – | Sokrates | Chef |
+| 423 | Spielerhandbuch aus dem Nachschlagewerk 422: was der Spieler wissen muss, in unserem Ton, Deutsch und Englisch (Chef 31.10., 21:2x) | C Texte | M | – | Homer | wartet |
+| 424 | Umzugsliste und Vorräte frei von Arbeit am alten SRD-System: Regelzeilen in `LISTE-UMZUG-348.md` ruhen, Wächter in `startbar.py`/`lauf.py` („jetzt“ 31.10., 21:3x) | B Abläufe | M | – | Perikles | gebaut |
+| 425 | Menüs und Testmenü mit Icons wie in der alten Fassung statt viel Text (Build 143, Chef 31.10., 21:30) | B Umzug | M | – | Team Tom | frei |
+| 426 | Design-Grundsatz Icons statt Text in Menüs (zu 425, Chef 31.10., 21:30) | D Design | M | – | Homer | frei |
+| 427 | Bestiarium: je Monsterart Name, Gebiet und Stufenband, Verhalten, Angriffe und Waffen, Werte für Spielsystem 2.0, Beute; Aussehen verweist auf `LISTE-FIGUREN.md` (Chef 31.10., 21:3x) | D Design | M | – | Sokrates | startbar |
+| 428 | Bestiarium: kurze Hintergrundgeschichte je Monsterart (zu 427, Chef 31.10., 21:3x) | C Texte | M | – | Homer | wartet |
+| 429 | Prüfung im Doppelpack (421): 424 Umzugsliste und Wächter `startbar.py`, 412 Regel in `CLAUDE.md` | B Abläufe | M | – | Diogenes | startbar |
+| 416.7 | Aktionsknopf am Tresen in Schenke und Laden (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | gebaut |
+| 416.8 | NPC dreht sich zum Helden, nach etwa 10 s Leerlauf (Chef 31.10., 20:5x) | B Umzug | M? | – | Team Tom | frei |
+| 390 | Umzug: Punkte ohne Bilderrunde weiterbauen, solange Blätter beim Chef liegen (Perikles 28.10., Wochenziel 348) | E Technik | M | 39,54 $ | Team Tom, Team Jerry | gebaut |
 | 383.2 | Kosten: dieselbe Aufgabe frisch gegen groß messen (Chef 27.10., 19:24) | B Werkzeuge | M | – | Sokrates | wartet |
 | 383 | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokrates) | B Werkzeuge | M | 99,45 $ | Perikles | wartet |

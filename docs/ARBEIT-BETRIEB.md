@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (28.10., 23:58, Ford `session_01Hmoj76tScGGPZum5vs5UrG`, Tiefe 4, 400 Tsd. Token → Selbstneustart):** Läuft: Tom `01Hmoj76BK` „376.1 Köpfe, Haut, Robe“ (alter Tom `01Hmoj78mj` noch working, nach Neustart-Meldung 3ffad41ab: archivieren sobald idle, Kosten 376.1,399.5), Jerry `01Hmoj77So` „348.12 Grak nachbessern“, Perikles `01Hmoj77Hj` „400“, Sokrates `01Hmoj78Ck` „Chefrunde“ (idle), Homer `01Hmoj77EQ` (idle, Vorrat leer). Diogenes ab 29.10. täglich 8:00 bis 03.11. (374). Wochenlimit `allowed_warning` (bis Sa 31.10., 20:00): `lauf.py --nur-muss`. Arbeitsweise im Eingang. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 408** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 430** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -32,7 +32,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
-- **404 (wartet auf Chef, `chefsache/entscheiden/404-kosten-schaetzung.md`):** schätzen oder „fehlt“ lassen. **Fehlende Kosten (28.10.):** Tom 2 „385 Zaubererbewegung“ `01Hmoj79kd` (Ordner 385), Jerry „348.12 Gestalt Grak und Kobolde“ `01Hmoj78yA` (348.12), Tom „348.13 Tusche Runde 8“ `01Hmoj79S6` (348.13): archiviert ohne Kostenangabe, `usage` im archivierten Datensatz leer; Kosten bleiben „fehlt“.
+- **Zu 404 (Chef 31.10., Archiv): geschätzte Kosten, nie gebucht, nie in `KOSTEN-GEBUCHT.tsv`.** Drei archivierte Sitzungen vom 28.10. ohne `usage`; Schätzung = Mittel gebuchter Sitzungen derselben Rolle vom selben Tag (Tom 16 Sitzungen Mittel 20,40 $, Median 20,20, Spanne 6,00–30,41; Jerry 14, Mittel 22,43, Median 19,88, Spanne 8,95–50,64): Tom 2 „385 Zaubererbewegung“ `01Hmoj79kd` (385) **~20 $**; Tom „348.13 Tusche Runde 8“ `01Hmoj79S6` (348.13) **~20 $**; Jerry „348.12 Gestalt Grak und Kobolde“ `01Hmoj78yA` (348.12) **~22 $**; zusammen ~62 $ (grobe Spanne 20–110 $; bei Einzelsitzungen ±60 %).
 - **374 (Sokrates 27.10., 12:00, Chef „374 ja“):** Diogenes täglich 8:00 vom 28.10. bis 03.11. starten (zählt die Vorlagen des Vortags, Zeile oben in `ARBEIT-PRUEFUNG.md`); im ersten Lauf ab 8 Uhr „Auftrag Diogenes 374“ wie `START`. Nach dem 03.11. Zeile streichen. Übergabe von Diogenes nennt „348.9 Blätter messen“ (nicht startbar, wartet auf Eingang): Perikles/Diogenes anpassen.
 - **Von Sokrates (27.10., 09:3x):** Vorräte nennen „beim Chef“ ohne Datei (gilt nach Regel 8 nicht): Jerry „Boden r6, Grimmzahn“, „Wildschwein r3“; Tom „Dorf r13b“; Homer wartet auf Chefsache 348.12c. Bitte an Tom, Jerry, Homer zum Bereinigen.
 - **369:** Chef 26.10., 18:46 „nein, Regel steht schon“: Der Auto-Modus-Prüfer lehnt `archive_session` manchmal ab (dann einmal neu versuchen); Abgelehntes bleibt WARNUNG-LAUT an den Chef (`ARBEIT-PROJEKT.md` „Zu 369“).
@@ -49,32 +49,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 
 - 23:30 28.10.: Chef „Räum auf und buche Kosten“: Protokoll und Eingang gekürzt (Datei 18 → unter 15 KB), alter Ford 9,02 $ gebucht; drei Sitzungen ohne Kosten (Eingang).
 - 22:07 28.10.: Perikles `01Hmoj77Hj` gestartet (400, Chef über Sokrates), alter Perikles `76yC` archiviert (3,05 $ auf 399). Ford-Lücke: Homer 399.2b (startbar seit 15:32, gestartet 19:06); jeden Lauf `startbar.py` gegen laufende Sitzungen prüfen.
-- 00:05 28.10.: Marke Abgleich Vorentscheid 348.7 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
-- 00:05 28.10.: Marke Abgleich Vorentscheid 348.6 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
-- 03:04 28.10.: Marke Wächter 389 27.10. 23:55 (lauf.py)
-- 07:05 28.10.: Nachfolger-Warnung Jerry (Übergabe 28.10., 06:35) (lauf.py)
-- 08:05 28.10.: Marke Tagesbericht 28.10. (lauf.py)
-- 09:05 28.10.: Marke Stellungnahme Sokrates 28.10. (lauf.py)
-- 10:05 28.10.: Marke Stellungnahme Sokrates 28.10. (lauf.py)
-- 12:36 28.10.: Startsperre 12:36 Start Perikles (lauf.py)
-- 13:11 28.10.: Nachfolger-Warnung Diogenes (Übergabe 28.10., 12:19) (lauf.py)
-- 22:09 28.10.: Marke Wächter 399.2 28.10. 12:34 (lauf.py)
-- 23:57 28.10.: Startsperre 23:57 Start Perikles (lauf.py)
-- 23:57 28.10.: Marke Archiv session_01Hmoj78mjLPT6PZaqKUninZ (lauf.py)
-- 23:57 28.10.: Marke Archiv session_01Hmoj77Hj5um3BFGBKYLTet (lauf.py)
-- 00:05 29.10.: Startsperre 00:05 Start Diogenes (lauf.py)
-- 00:05 29.10.: Marke Stellungnahme Sokrates 29.10. (lauf.py)
-- 00:05 29.10.: Marke Stellungnahme Sokrates 29.10. (lauf.py)
-- 00:05 29.10.: Marke Abgleich Vorentscheid 383.1 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
-- 01:04 29.10.: Startsperre 01:04 Start Homer, Perikles (lauf.py)
-- 01:04 29.10.: Marke Archiv session_01Hmoj78CkDLhCvXmQHdzaYa (lauf.py)
-- 01:04 29.10.: Marke Archiv session_01Hmoj76BK5vdJyc6arYtcYr (lauf.py)
-- 01:04 29.10.: Marke Archiv session_01Hmoj77EQQWjq6C98Pf9qhb (lauf.py)
-- 01:04 29.10.: Marke Archiv session_01Hmoj76y2gSrrvMTYAnBSWJ (lauf.py)
-- 07:06 29.10.: Startsperre 07:06 Start Jerry (lauf.py)
-- 07:06 29.10.: Marke Archiv session_01Hmoj76ki21kJDZKro2ad6K (lauf.py)
-- 07:06 29.10.: Nachfolger-Warnung Tom (Übergabe 29.10., 04:29) (lauf.py)
-- 07:06 29.10.: Nachfolger-Warnung Jerry (Übergabe 29.10., 00:19) (lauf.py)
-- 08:06 29.10.: Startsperre 08:06 Start Diogenes (lauf.py)
-- 09:04 29.10.: Nachfolger-Warnung Jerry (Übergabe 29.10., 07:59) (lauf.py)
-- 09:04 29.10.: Nachfolger-Warnung Diogenes (Übergabe 29.10., 08:19) (lauf.py)
+- 21:27 31.10.: Startsperre 21:27 Start Tom, Jerry, Diogenes, Homer, Perikles (lauf.py)
+- 21:27 31.10.: Marke Tagesbericht 31.10. (lauf.py)
+- 21:27 31.10.: Marke Wächter 407 29.10. 10:05 (lauf.py)
+- 21:27 31.10.: Nachfolger-Warnung Tom (Übergabe 29.10., 11:57) (lauf.py)

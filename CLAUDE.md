@@ -5,7 +5,7 @@ Android-Rollenspiel (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module: `cor
 ## Wer wir sind
 
 - **BornWire TCS**, kleine, aufstrebende Software-Schmiede; wir bauen „Chroniken von Bornim“ fürs Handy. Chef = Nutzer; alle anderen sind Sitzungen mit fester Rolle. **Wie in einer Firma** (Chef 21.10.): jeden Mitarbeiter gibt es genau einmal, keine Klone; wer Arbeit hat, kommt ins Büro, sonst ist er auf Abruf (Ford ruft ihn); wer geht, übergibt an seinen Nachfolger und ist dann weg.
-- **Oberste Direktive (Chef 18.10.): Fehler ausmerzen und Kapitel 1 spielerfreundlich fertigstellen; geht jeder Kür und jedem Neuen vor.**
+- **Oberste Direktive (Chef 31.10.):** Kapitel 1 in der Godot-Fassung mit Spielsystem 2.0 fertigstellen: ohne technische Fehler, gut aussehend, nach unserer Signatur, düster, professionell und immersiv durch Klang, Musik, Kampfsystem und die Möglichkeiten des Spielers. Qualität vor Quantität und vor Eile; es gibt keinen Termin. Fertig ist, was die Abnahmeliste erfüllt. Geht jeder Kür und jedem Neuen vor.
 - Spiel: Rollenspiel und taktischer Kampf in Balance; Grinden darf man, muss man nie; Kampf nie langweilig, echte Wahl (`DESIGN-LEITBILD.md`). Eigener Look (schwarz-gold, farbige gezeichnete Welt), Geschichte über sieben Kapitel. Nie Werbung, Beutekisten, Wartezeiten gegen Geld.
 - Betrieb: die meiste Zeit ins Spiel, wenig in Abläufe; mit dem Guthaben auskommen; je Rolle eine Kennzahl, Wochenziel mit Meilenstein.
 
@@ -81,7 +81,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 
 - **Jeder Schritt:** vor jedem Code-Commit Kerntests mit Exit-Code · nach jedem Push, der baut, ein Weckruf · kein Code auf `main` ohne Test des Chefs (Kleinigkeit ohne Spiellogik: Push ohne Gerätetest vorschlagen, nur nach seinem Ja) · nie APK oder Hörprobe in den Chat.
 - **Umgang:** Deutsch, Berliner Zeit. Generisches Maskulinum („der Nachfolger“, „die Tester“), nie gegenderte Formen.
-- **Nummern:** jeder Vorgang eine Nummer aus dem Zähler oben in `ARBEIT-BETRIEB.md` und eine Zeile in `LISTE-VORGAENGE.md` (Bereich, Klasse); Vorschläge 7.1 …, Rückfragen 7a …; erst eintragen und pushen, dann nennen; die Nummer bleibt fest.
+- **Nummern:** je Thema ein Vorgang, nie Fremdes unter eine Nummer (412); jeder Vorgang eine Nummer aus dem Zähler oben in `ARBEIT-BETRIEB.md` und eine Zeile in `LISTE-VORGAENGE.md` (Bereich, Klasse); Vorschläge 7.1 …, Rückfragen 7a …; erst eintragen und pushen, dann nennen; die Nummer bleibt fest.
 - **Jeder Text an einem Ort:** Stand im Vorrat; wer woran in der Besetzung; Entschiedenes im Vorgangsarchiv (kurz, Verweis statt Abschrift); Begründung in der Rollendatei dessen, der empfiehlt; Umgesetztes in `CHANGELOG.md` („## Unveröffentlicht“); Verlauf in Git. Der Text zu einem Vorgang wandert mit seiner Zeile.
 - **Vorräte klein halten:**
   - je Vorrat höchstens etwa 15 KB; Tabellenzeile = Nr., Kl., Titel (ein Satz), Stand (erstes Wort wie bei `startbar.py`), Zweig, höchstens 400 Zeichen;
