@@ -17,6 +17,12 @@ Nichts offen.
 
 ## Anzusehen
 
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [416.3](ansehen/4163-laden-brett.md) | Laden und Anschlagbrett bildschirmfüllend wie alt | – | 31.10., 22:07 |
+
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
 | Folge | Version | Build | Was | Wer | Seit |
