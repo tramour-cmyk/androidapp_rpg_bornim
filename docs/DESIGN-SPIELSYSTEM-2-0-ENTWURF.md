@@ -187,7 +187,7 @@ Ernten ist eine kurze Handlung ohne Minispiel. Fundorte wachsen nach einer Zeit 
 
 ## 11. Abnutzung und Reparatur
 
-- Ausrüstung hat einen **Zustand**: Gut, Abgenutzt, Beschädigt, Defekt. Mit sinkendem Zustand sinkt die Leistung. Das Spiel warnt rechtzeitig.
+- Ausrüstung hat einen **Zustand**: Makellos (neu gekauft, frisch hergestellt oder voll repariert), Benutzt, Beschädigt, Defekt (Vorschlag Chef 31.10., 21:5x). Mit sinkendem Zustand sinkt die Leistung. Das Spiel warnt rechtzeitig.
 - **Defekt statt zerstört:** Ein defekter Gegenstand wirkt nicht mehr, verschwindet aber nicht.
 - Gegen viel schwächere Gegner nutzt sich Ausrüstung kaum ab.
 - **Drei Wege:** beim NPC-Handwerker reparieren lassen (Gold, mit gutem Ruf günstiger; er kann nur bis zu seiner eigenen Stufe), selbst reparieren (Material, Werkort, Rang), Notreparatur unterwegs mit Reparaturset (nur teilweise).
@@ -321,7 +321,7 @@ Wie das zusammenhängt: Kräuterkunde ist eine **Fertigkeit** (Sammeln). Sie geh
 | Was | Wofür | Stufen | Wie man aufsteigt |
 | --- | --- | --- | --- |
 | Gegenstandsstufe und Güte | Stärke und Mindeststufe zum Tragen; Güte Normal, Gut, Meisterhaft | Stufe wie die Heldenstufe | Fund, Händler, Herstellen (Material und Rang der Handwerksfertigkeit) |
-| Zustand (Abnutzung) | wie gut ein Gegenstand noch wirkt | Gut, Abgenutzt, Beschädigt, Defekt (wirkt nicht mehr, geht aber nicht verloren) | sinkt beim Gebrauch; Reparatur beim NPC oder selbst |
+| Zustand (Abnutzung) | wie gut ein Gegenstand noch wirkt | Makellos, Benutzt, Beschädigt, Defekt (wirkt nicht mehr, geht aber nicht verloren) | sinkt beim Gebrauch; Reparatur beim NPC oder selbst |
 
 Abnutzung und Reparatur: Reparieren ist keine eigene Fertigkeit mehr; Metall repariert die Fertigkeit **Schmieden**, Leder und Stoff die **Lederarbeit**. Ihr Rang bestimmt, was man reparieren kann (Anfänger: Werkzeug und Einfaches; Geselle: Metallwaffen, mittlere Rüstung, Schilde, Bögen; Meister: schwere Rüstung, Meisterstücke; Großmeister: magische Stücke mit Runenkunde). Für alle gibt es „Alles reparieren“ beim Handwerker.
 
