@@ -29,6 +29,8 @@ var ziel := Vector2i(-1, -1)           # Kachel, auf die sie gerade geht
 var weg: Array[Vector2i] = []          # Runde: Weg zum naechsten Punkt
 var bein := 0                          # Runde: Index des Punkts, zu dem sie geht (Walker.leg)
 var warte := 0.0
+const DURCH_MS := 1800                  # 416.2: so lange nach einem Platzwechsel sperrt sie den Helden nicht (ein Schritt etwa 1 s)
+var durch_bis := 0                      # Time.get_ticks_msec() bis dahin
 var blick := 0.0
 var leib := LEIB
 var pause := "Stehen"                  # Dorftiere: Stehen oder Fressen in der Pause
@@ -317,7 +319,7 @@ func nacht(k: float) -> void:
 
 # fuer Held.frei: steht hier jemand?
 func sperrt(p: Vector3) -> bool:
-	if drinnen or not da: return false
+	if drinnen or not da or Time.get_ticks_msec() < durch_bis: return false
 	return Vector2(p.x - position.x, p.z - position.z).length() < leib
 
 # 348.6 Ausweichen wie alt (Game.makeWay, 92; Chef 16:12: „man kann ja auch noch keine NPCs oder Tiere … schieben“): wer vom Helden
@@ -334,6 +336,16 @@ func weiche(d: Vector2i) -> bool:
 			ziel = n
 			warte = 4.0
 			return true
+	# 416.2 (Chef 31.10.: „Platzwechsel statt nur Schieben … teils kein Weiterkommen“): wie alt makeWay (sonst p.x to p.y) tauscht,
+	# wer nicht zur Seite kann, mit dem Helden den Platz; solange gehen beide durcheinander hindurch
+	var h := held_kachel()
+	var u := h - kachel
+	var nachbar := absi(u.x) + absi(u.y) == 1 or (absi(u.x) == 1 and absi(u.y) == 1 and karte.begehbar(kachel + Vector2i(u.x, 0)) and karte.begehbar(kachel + Vector2i(0, u.y)))
+	if nachbar and frei_fuer_mich(h, true):
+		ziel = h
+		warte = 4.0
+		durch_bis = Time.get_ticks_msec() + DURCH_MS
+		return true
 	return false
 
 func held_kachel() -> Vector2i:
@@ -343,10 +355,11 @@ func nah_am_held(t: Vector2i) -> bool:
 	var h := held_kachel()
 	return absi(t.x - h.x) + absi(t.y - h.y) <= 1
 
-func frei_fuer_mich(t: Vector2i) -> bool:
+func frei_fuer_mich(t: Vector2i, held_da := false) -> bool:
 	if not karte.begehbar(t) or not karte.ausgang(t).is_empty(): return false
-	if daten.has("tier") and not (Leute.tierboden_gross(karte, t) if leib > 0.7 else Leute.tierboden(karte, t)): return false
-	if t == held_kachel(): return false
+	# beim Platzwechsel (held_da) darf ein Tier kurz auf den Weg des Helden; zurueck auf seinen Boden streift es von selbst
+	if daten.has("tier") and not held_da and not (Leute.tierboden_gross(karte, t) if leib > 0.7 else Leute.tierboden(karte, t)): return false
+	if t == held_kachel() and not held_da: return false
 	for l in get_parent().get_children():
 		if l is Leute and l != self and l.visible and (l.kachel == t or l.ziel == t): return false
 	return true
