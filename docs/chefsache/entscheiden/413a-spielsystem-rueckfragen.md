@@ -5,6 +5,9 @@ Alles im Zusammenhang: [`DESIGN-SPIELSYSTEM-2-0.md`](../../DESIGN-SPIELSYSTEM-2-
 
 Berufungsbaum W1 bis W4 entschieden (Entscheidungen 51 bis 54), T6 damit beantwortet.
 
+**Fertigkeiten** (Abschnitt 10)
+- **F1:** Prüfregel „Handlung im Spiel und spürbare Wirkung“, dazu etwa 34 Fertigkeiten in acht Gruppen statt 68 (ja).
+
 **Titel** (Abschnitt 8; Votum Sokrates in Klammern)
 - **T3 bis T5:** Perks als neue Handlungen statt großer Zahlen; Weg zur Berufung über Fertigkeitsrang, Tat und Ruf beim Lehrmeister; Wechsel erlaubt (ja).
 
