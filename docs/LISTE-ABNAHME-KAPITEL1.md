@@ -6,7 +6,7 @@
 
 ## Abnahmeliste Kapitel 1 (418; Entwurf Perikles 31.10., Chef nimmt ab: Chefsache 418)
 
-Zahlen in Klammern = Entscheidung in `DESIGN-SPIELSYSTEM-2-0.md` („E 7“) oder Vorgang. Gilt nur, was entschieden ist; offene Fragen dort (413a) gehen hier ein, sobald entschieden.
+Zahlen in Klammern = Entscheidung in `DESIGN-SPIELSYSTEM-2-0.md` („E 7“) oder Vorgang. Gilt nur, was entschieden ist; offene Fragen dort (413a) gehen hier ein, sobald entschieden. Wo eine Zahl oder Regel noch nicht stimmt (Prüfbericht Lauf 48, D48.1–D48.4: Startpunkte, Niveau je Kapitel, Liste der 37 je Werdegang), ist der Punkt erst abhakbar, wenn Sokrates sie im Nachschlagewerk (422) bereinigt hat. Termine gibt es keine; Wochenziele nennen Reihenfolge und Schätzung, keine Tage je Punkt.
 
 **T Ohne technische Fehler**
 - [ ] Kein Absturz, kein Hängenbleiben, kein Ruckeln auf den Testgeräten des Chefs (Handy und Tablet, 267); Spielstände halten über Updates.
@@ -26,14 +26,16 @@ Zahlen in Klammern = Entscheidung in `DESIGN-SPIELSYSTEM-2-0.md` („E 7“) ode
 **M Kampfsystem**
 - [ ] MARS und klassischer Kampf (212 A, 249) rund auf den Regeln 2.0: Kampf ohne W20 nach Stufen (E 7), jeder Angriff sichtbar, Ansage harter Schläge, Pechsträhne.
 - [ ] Kampf nie langweilig, echte Wahl (`DESIGN-LEITBILD.md`); Schwierigkeitsgrade (39).
-- [ ] Ausgleich: jeder Werdegang schafft die Bosse in vergleichbarem Maß; Zielwert mit dem Chef festlegen (38, bisher je Klasse).
+- [ ] Neue Monsterwerte für Kapitel 1 nach 2.0; Stufenfaktor des Kampfs entschieden (Frage 3, S1 offen).
+- [ ] Ausgleich gemessen, nicht geschätzt: Simulation „Zeit bis Stufe“ und Kapitelsimulation auf den Regeln 2.0; jeder Werdegang schafft die Bosse in vergleichbarem Maß; Zielwert mit dem Chef festlegen (38, bisher je Klasse).
 
 **G Spielsystem 2.0, Kern in Kapitel 1** (E 60)
 - [ ] Ohne Klassen (E 1): Erschaffung mit sechs Grundwerten ab 1, 18 Punkte, jeder Wert 3 bis 8 (E 6, E 64); Werdegänge als Starthilfe (E 28, E 29, E 45).
 - [ ] Fertigkeiten steigen durch Benutzung (E 2) mit Niveau je Kapitel begrenzt (E 20), am Limit hart mit Puffer (E 44); Prüfregel und Liste (E 59).
 - [ ] Heldenstufe aus Erfahrung (E 16), höchstens 40 % aus Fertigkeiten (E 17); weiche Kapitelgrenze (E 18, E 35); Erfahrungstopf je Gebiet, Wiederkehrer geben kaum Erfahrung, aber Beute (E 19, E 21).
 - [ ] Wege sichtbar, Berufungen erst ab Kapitel 2 (E 51, E 52); Heldenblatt zeigt nur Getanes (E 65).
-- [ ] Schleichen mit Schleichtaste und Hinterhalt, Bosse wachsamer (E 55, E 47); Fallen und Truhen mit Dietrich, Truhen in Häusern der Leute zu (E 55, E 46); schwere Rüstung sperrt Schleichen (E 33); kein Stehlen, kein Barde (E 30, E 31).
+- [ ] Jeder Werdegang hat in Kapitel 1 etwas zu tun (Kräuterkundiger und Heiler: Kräuter sammeln; Schmiedegeselle: offen mit G2, Sokrates).
+- [ ] Schleichen mit Schleichtaste und Hinterhalt, Bosse wachsamer (E 55, E 47); Fallen entdecken durch Spähen (E 57), dann entschärfen; Truhen mit Dietrich, Truhen in Häusern der Leute zu (E 55, E 46); schwere Rüstung sperrt Schleichen (E 33); kein Stehlen, kein Barde (E 30, E 31).
 - [ ] Kurze Erholung 2 h, Langes Ausruhen 9 h (E 26); Tragkraft mit Nimmersatt-Beutel, darüber langsamer (E 41).
 - [ ] Namen nach dem Glossar, keine SRD-Begriffe im Spiel (E 24, E 25, E 27).
 
@@ -123,6 +125,8 @@ Dazu, ohne Vorgang (Perikles vergibt Nummern mit der neuen Schätzung nach Woche
 **Guthaben:** Max seit 25.10. in der größeren Stufe, Woche ab 0 % (25.10., 11:05). Es gilt 287 (Chef 22.10.): nicht sparen; ab 80 % Woche `lauf.py --nur-muss` (Ford), ab 95 % keine neuen Starts außer Rückläufer des Chefs, ab 100 % Stillstand bis Sa 31.10., 20:00; nichts nachkaufen.
 
 ## Wochenziel 2: 02.–08.11. (Perikles, vorab gesetzt 26.10., 17:15 nach der Schätzung 348.14; Montag 02.11. mit der Wochenzählung geprüft)
+
+**Überholt seit 418 (31.10.):** die Tage unten widersprechen „es gibt keinen Termin“ und rechnen mit dem alten System; Perikles setzt Wochenziel 2 am 02.11. neu auf die Abnahmeliste, nach deiner Antwort zu Chefsache 418, mit Reihenfolge und Schätzung statt Tagen.
 
 **Umzug fertig zum Durchspielen: jeder Punkt der Checkliste ist bis Mo 02.11. „gebaut“ (hält nur, wenn du etwa 28 Blätter am Tag ansiehst, 373) und bis Di 03.11. von Diogenes gemessen (Hinweis, keine Bedingung für deine Abnahme); die Kerntests laufen als GDScript-Tests grün, der Zufallsspieler spielt Kapitel 1 im neuen Spiel durch; dann spielst du Kapitel 1 in Godot einmal ganz durch, und deine Fehler sind Muss.** Abnahme der Punkte nach deinem Wort, Feinschliff danach. Das Guthaben ab Sa 31.10., 20:00 reicht beim jetzigen Takt bis etwa Mi 04.11.; was dann offen ist, geht nach dem Stillstand ab Sa 07.11., 20:00 weiter. Messen, GDScript-Tests und Zufallsspieler sind nicht geschätzt. Stärkstes Gegenargument: wird es der späte Termin (seit 338a „B“ Di 03.11., früh; dann hält das Wochenziel nicht), bleibt für deine Fehler aus dem Durchspielen kaum Guthaben in dieser Woche.
 
