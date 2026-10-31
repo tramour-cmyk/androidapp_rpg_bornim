@@ -12,6 +12,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
+| 434 | M | **von Sokrates (Chef 31.10., 22:1x: „gib das Diogenes so mit, ja“):** bei der täglichen Zählung (374) zusätzlich: hat jede Vorlage zu einem Eigenbau (Modell, Bewegung, Ding, Textur, Klang) die Zeile „Bestand geprüft: … genommen“ oder „… fehlt im Bestand“ (`ROLLE-ENTWICKLUNG.md`, 377, 408)? Fehlt sie: Hinweis in den Vorrat des Teams und an den Chef | startbar: ab der nächsten Zählung, dauerhaft |
 | 398 | M | **von Sokrates:** vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (397), dazu 15 Lücken (398); in der Wochenzählung als Chef-Erstfund zählen | frühestens 02.11. (mit Zeile „Woche“; Start 28.10., 12:04 zu früh, Bedingung ohne Termin-Wort) |
 | 374 | M | **von Sokrates (Chef 27.10., 11:58, Archiv 374):** täglich 8 Uhr bis 03.11. Vorlagen des Vortags an den Chef zählen: mit Fassungsblatt, genau einer Fehlerrunde, Chefwortlaut im Vorgang, Vorgabe Homer (373 a, c, d); eine Zeile Morgenmeldung, Abweichung in den Vorrat des Verursachers | erst wieder ab 01.11., 08:00 (29. und 30.10. gezählt 31.10., 21:4x: Zu 374) |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24):** Umzug Godot: jedes Vergleichsblatt alt/neu messen, Hinweis an den Chef, kein Tor (373); gedrehte Ansichten gegen Regeln (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 3, 5) | wartet auf nächstes Blatt; gemessen 17:0x Ratte r7, Goblin-Hieb r7; 3761 neu ohne altes Bild (Zu 348.9, 17:0x) |
