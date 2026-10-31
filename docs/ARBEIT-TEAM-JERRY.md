@@ -10,6 +10,7 @@ von Sokrates (Chef 11:19): nach Build 143 weiter bis Guthaben leer. Nie „Heldi
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 415 | K | **von Sokrates (Chef 31.10., 20:3x „Ja, Probe mit dem Beams-Sample an Jerry geben“):** Handyprobe `reeboolabs.itch.io/godot-beams-lasers-free-sample` (gratis; 3 Strahlen Laser, Feuerstrom, Blitzbogen; 2D und 3D; Godot 4.3+). Messen auf dem Handy: läuft es, FPS, Optik; Renderer Mobile und Compatibility. Nur Zahlen und Befund als Text, kein Urteil über Aussehen (373); nichts kaufen; Lizenz je Datei notieren | frei, nach den Mussen | – |
 | 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | gebaut 1923456c7: Wolf durch Wolf, System Kampf, satt, Testende; an Tom | `claude/jerry-348-kampf` |
 | 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | gebaut 0eda4bb3e: Knurren mit Text, an Tom für den Build; Hilfe, Eingebung mit 390 | – |
 | 402 | M | **von Sokrates (Chef 22:2x, Archiv):** Blende vor dem Kampf wie alt; Herzschlag beim Hinterhalt stärker | Chef: Hörprobe 2, 2a, 2b (ansehen/402-herzschlag-dumpf, 94a4696a0) | – |
