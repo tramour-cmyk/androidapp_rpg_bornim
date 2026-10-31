@@ -299,7 +299,7 @@ Anforderung des Chefs (31.10., 21:3x): Ein kleiner Held gegen ein starkes Monste
 | --- | --- |
 | Schaden | (Waffe + Grundwert) × (1 + Fertigkeit / 100) × (1 + D / 10), Stufenfaktor nie unter 0; danach minus Abzug, nie unter 0. Fertigkeit 50 heißt anderthalbfacher Schaden, 100 doppelter |
 | Abzug (Abwehr) | Rüstungswert des Gegenstands × (1 + Fertigkeit / 100); Fertigkeit = Schild beim Block mit Schild, sonst die Rüstungsfertigkeit der getragenen Rüstung. Fertigkeit 100 heißt doppelter Abzug (Chef 31.10., 22:2x) |
-| Trefferchance | 70 % + (Angriffsfertigkeit − Abwehrfertigkeit des Gegners) × 0,5 %, begrenzt auf 5 bis 95 % |
+| Trefferchance | 70 % + (Angriffsfertigkeit − Abwehrwert des Gegners) × 0,5 %, begrenzt auf 5 bis 95 %. Abwehrwert = der beste von: Schild, Ausweichen, halbe Fertigkeit der Nahkampfwaffe in der Hand (Parieren, nur gegen Nahkampf). Rüstung senkt die Trefferchance nicht, nur den Schaden (Chef 31.10., 22:2x) |
 | Glückstreffer | 1 von 100 Treffern rechnet mit Stufenfaktor 1; gilt für beide Seiten |
 | Erfahrung | Stufe über dem Gegner (D > 0): × (1 − D / 9), null ab D ≥ 9; Stufe unter dem Gegner (D < 0): × (1 − D / 10), höchstens doppelt |
 
