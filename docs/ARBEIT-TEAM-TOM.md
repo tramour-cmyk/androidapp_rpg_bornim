@@ -4,24 +4,24 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 von Sokrates (Chef 11:27): erst Build 143 und Testbitte, dann Ford-Lauf an, weiter bis Guthaben leer.
 
-**Übergabe (29.10., 11:57, `session_01Hmoj79vdf3C8wtR4JL21TF`):** 410 auf `claude/tom-376-1-wegstecken` (5016d189b, Scheide Avramania CC0), vorgelegt 11:50, Prüferbefund per Telegram; nicht im Build. 385 ruht. Nachfolger: Tom – 410 nach Urteil des Chefs.
+**Übergabe (31.10., 22:1x, `session_01Hmoj78BV4ica1wnHJPJbi4`):** auf `claude/tom-416-befunde` (von 399-Spielfassung): 416.7, 416.2, 416.1 (Farbfelder, Zurück-Taste von Jerry), 416.3 (Laden, Brett; Bild beim Chef, Prüferbefund per Telegram, beheben), 399.4 (Messung). Kaufpakete: `add_repo` bornim-kaufmodelle, Anhänge per `curl -H 'Accept: application/octet-stream' api.github.com/repos/…/releases/assets/<id>`. Nachfolger: Tom – 417 Waffen in der Hand, 416.3 Befunde.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 417 | M | **von Sokrates („jetzt“ 31.10., 21:12, Chef: „diese Rückfrage hat auch Priorität“; Prüfauftrag zu 410; 21:27 „so machen“):** Tragart je Waffenklasse (Zu 417), zuerst Stab, Axt, Bogen: Probe Gehen und Rennen, Seite und Porträt; Zahlen (Waffe durch Körper, Abstand), Aussehen urteilt der Chef | startbar: Kaufpakete hier nicht erreichbar (add_repo abgelehnt 21:31) | – |
+| 417 | M | **von Sokrates („jetzt“ 31.10., 21:12, Chef: „diese Rückfrage hat auch Priorität“; Prüfauftrag zu 410; 21:27 „so machen“):** Tragart je Waffenklasse (Zu 417), zuerst Stab, Axt, Bogen: Probe Gehen und Rennen, Seite und Porträt; Zahlen (Waffe durch Körper, Abstand), Aussehen urteilt der Chef | startbar: Kaufpakete per add_repo erreichbar (Chef 22:08) | – |
 | 425 | M | **von Sokrates (Chef 31.10., 21:30, Build 143):** Menüs (Menü „System“, Testmenü): in der alten Fassung mit Icons „super klasse“, neu „viel zu viel Text“; alte Menüs möglichst eins zu eins übernehmen, Icons statt Text | frei | – |
-| 416.7 | M | **von Sokrates (Chef 31.10., 20:5x, für den nächsten Build):** am Tresen in Schenke und Laden geht der Aktionsknopf nicht, Kaufen und Kauf mit den zwei NPCs dort nicht möglich; Reichweite erweitern | gebaut: Knopf über den Tresen wie alt, Tippen führt vor den Tresen (ad3be5952, claude/tom-416-befunde) | – |
+| 416.7 | M | **von Sokrates (Chef 31.10., 20:5x, für den nächsten Build):** am Tresen in Schenke und Laden geht der Aktionsknopf nicht, Kaufen und Kauf mit den zwei NPCs dort nicht möglich; Reichweite erweitern | gebaut: Tresen wie alt (ad3be5952) | – |
 | 416.8 | M? | **von Sokrates (Chef 31.10., 20:5x, allgemeiner Hinweis):** NPC dreht sich bei Interaktion zum Helden, nach etwa 10 s ignoriert er ihn wieder und spielt Leerlauf; Perikles: M oder K? | frei | – |
-| 416.1 | M | **von Sokrates (Chef 31.10., 20:4x, Build 143):** Tasten reagieren schlecht (Bartform, Kopfform, Farbe in „Neues Spiel“; „auch in anderen Bereichen“, „grundsätzliches großes Problem“): Ursache nachstellen, überall prüfen | gebaut: Farbfelder schluckten das Tippen (behoben); Knöpfe im Test ohne Befund, Gerät misst „Erschaffung Tipp“ (94c545da9) | – |
-| 416.2 | M | **von Sokrates (Chef 31.10., 20:4x):** gegen Dorfbewohner und Tiere laufen: Platzwechsel statt nur Schieben; sie stehen im Weg, teils kein Weiterkommen, vor allem rechts unten bei Feld, Ziege, Hühnern | gebaut: ohne Ausweg tauscht er den Platz wie alt (makeWay), beide gehen hindurch (c231f6859, claude/tom-416-befunde) | – |
-| 416.3 | M | **von Sokrates (Chef 31.10., 20:4x):** Anschlagbrett und Laden (Kaufen, Verkaufen) nur etwa drei Viertel des Schirms; bildschirmfüllend, Design mit der alten Fassung abgleichen („das war wirklich ganz toll“) | frei | – |
+| 416.1 | M | **von Sokrates (Chef 31.10., 20:4x, Build 143):** Tasten reagieren schlecht (Bartform, Kopfform, Farbe in „Neues Spiel“; „auch in anderen Bereichen“, „grundsätzliches großes Problem“): Ursache nachstellen, überall prüfen | gebaut: Farbfelder, Zurück-Taste (0dce53667) | – |
+| 416.2 | M | **von Sokrates (Chef 31.10., 20:4x):** gegen Dorfbewohner und Tiere laufen: Platzwechsel statt nur Schieben; sie stehen im Weg, teils kein Weiterkommen, vor allem rechts unten bei Feld, Ziege, Hühnern | gebaut: Platzwechsel wie alt (c231f6859) | – |
+| 416.3 | M | **von Sokrates (Chef 31.10., 20:4x):** Anschlagbrett und Laden (Kaufen, Verkaufen) nur etwa drei Viertel des Schirms; bildschirmfüllend, Design mit der alten Fassung abgleichen („das war wirklich ganz toll“) | wartet auf Chef: ansehen/4163-laden-brett | – |
 | 416.4 | M | **von Sokrates (Chef 31.10., 20:4x):** Rennen des Helden wirkt „als würde er Hochsprung machen“, nicht rennen; Bewegung ändern (Aussehen urteilt der Chef, 373) | frei | – |
-| 399.4 | M | **von Chef (21:4x, Archiv); zurück Chef 31.10., 20:4x:** oben Rand für die Kamera wie alt: im Build 143 fehlt er, Handykamera im Bild (im Kampf gesehen; alle Schirme prüfen) | zurück: Chef 20:4x, noch offen | – |
+| 399.4 | M | **von Chef (21:4x, Archiv); zurück Chef 31.10., 20:4x:** oben Rand für die Kamera wie alt: im Build 143 fehlt er, Handykamera im Bild (im Kampf gesehen; alle Schirme prüfen) | gebaut: Messung unter Gerät (fccf4b5d8) | – |
 | 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf | wartet auf Test: Build 143 (t143) | `claude/tom-399-spielfassung` |
 | 410 | M | **von Sokrates (Chef 29.10., 10:52, 11:40; aus 376.1):** Waffen am Körper wegstecken, alle Waffenarten (Zu 410) | ruht: Chef 21:1x will Waffen in der Hand statt auf dem Rücken, Prüfung 417; nichts weiterbauen | `claude/tom-376-1-wegstecken` |
-| 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | startbar: Frisuren, Hauttöne, Klassen abgenommen (Archiv); Waffentragen in 417; offen Zu 376.1 (Frauen, Völkerkörper, Statur, Fäustepose …) | `claude/tom-376-1-figuren` |
+| 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | startbar: Rest in Zu 376.1; Waffen in 417 | `claude/tom-376-1-figuren` |
 | 399.5 | M | **von Chef („jetzt“ 28.10., 21:5x, Archiv):** Innenräume wie alt: Lichtquellen, Licht und Schatten, Einrichtung mit Liebe zum Detail; Fenster und Türen außen wie innen | wartet auf Test: Build 143 (t143) | – |
 | 399.3.1 | M | **von Team Jerry (16:5x):** Klang: Haken in `spiel.gd` (Jerry, `claude/jerry-348-klang`) übernehmen; Menü System: Regler wie SoundSettings über `Klang.stelle` | wartet auf Test: Build 143 (t143) | – |
 | 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | ruht: 385.1 abgenommen (12 Bewegungen auf Kaufkörper, Archiv 28.10., 19:1x); Frage nach weiteren Zauberbewegungen zurückgestellt (Chef 28.10., 12:31); Feuer und Einbau im Kampfort bei Jerry (385.2, 403); Kaufzugang da (Tom 29.10., 11:11) |
@@ -49,7 +49,6 @@ von Sokrates (Chef 11:27): erst Build 143 und Testbitte, dann Ford-Lauf an, weit
 
 ## Einzelheiten
 
-- **von Team Jerry (31.10., 21:4x), Verdacht, am Gerät nicht geprüft:** `godot/project.godot` setzt `application/config/quit_on_go_back` nicht (Godot-Vorgabe `true`), kein Skript fängt `NOTIFICATION_WM_GO_BACK_REQUEST`: die Android-Zurück-Taste oder -Geste beendet das Spiel, statt Fenster (Tasche, Kampfbericht, Menü) zu schließen. Gehört zu 416.1 oder eigenem Vorgang.
 
 - **Zu 399.1, nächster Testbogen** (Tom 29.10., 03:4x; t133, t139 gelöscht, beide durchgefallen, Wortlaut Archiv): offene Zeilen 133.1, 133.2, 133.4–133.6 und aus t139 alles ohne „gut“ neu aufnehmen (Text im Git-Verlauf `t139-spielfassung.md`).
 
