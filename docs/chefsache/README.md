@@ -132,13 +132,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 19, Muss 17, startbar 4
+**Perikles** – offen 18, Muss 16, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 424 | M | von Sokrates („jetzt“ 31.10., 21:3x, Chef: „keine Energie mehr in das alte SRD-System stec | wartet auf Test/Build (gebaut) |
 | 418 | M | von Sokrates („jetzt“ 31.10., 21:21, Archiv): oberste Direktive in CLAUDE.md durch den Wor | Chef (Datei in der Chefsache) |
-| 412 | M | von Sokrates (Chef 11:43, Archiv): je Thema ein Vorgang, nichts Fremdes unter eine Nummer | startbar |
 | 408 | M | von Sokrates (Chef 11:15, Archiv): Bestand vor Eigenbau: Bedarf in der Bibliothek suchen, | startbar |
 | 407 | M | von Chef über Sokrates („jetzt“ 29.10., 10:05): Probelauf-Grenze 389 so, dass sie greift: | startbar |
 | 399 | M | von Chef über Sokrates („jetzt“ 28.10., 12:34, Archiv): Vorrang neu: erst eine Godot-Fassu | wartet auf Tom |
@@ -156,10 +155,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „star
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
-**Diogenes** – offen 5, Muss 3, startbar 0
+**Diogenes** – offen 6, Muss 4, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 429 | M | von Perikles (421, 31.10., 21:5x): prüfen 424 (LISTE-UMZUG-348.md „Funktionen“ ruht für al | startbar |
 | 398 | M | von Sokrates: vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (39 | Termin 02.11. |
 | 374 | M | von Sokrates (Chef 27.10., 11:58, Archiv 374): täglich 8 Uhr bis 03.11. Vorlagen des Vorta | Termin 01.11. |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24): Umzug Godot: jedes Vergleichsblatt alt/neu messen, | wartet auf Eingang |

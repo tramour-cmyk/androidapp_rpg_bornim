@@ -81,7 +81,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 
 - **Jeder Schritt:** vor jedem Code-Commit Kerntests mit Exit-Code · nach jedem Push, der baut, ein Weckruf · kein Code auf `main` ohne Test des Chefs (Kleinigkeit ohne Spiellogik: Push ohne Gerätetest vorschlagen, nur nach seinem Ja) · nie APK oder Hörprobe in den Chat.
 - **Umgang:** Deutsch, Berliner Zeit. Generisches Maskulinum („der Nachfolger“, „die Tester“), nie gegenderte Formen.
-- **Nummern:** jeder Vorgang eine Nummer aus dem Zähler oben in `ARBEIT-BETRIEB.md` und eine Zeile in `LISTE-VORGAENGE.md` (Bereich, Klasse); Vorschläge 7.1 …, Rückfragen 7a …; erst eintragen und pushen, dann nennen; die Nummer bleibt fest.
+- **Nummern:** je Thema ein Vorgang, nie Fremdes unter eine Nummer (412); jeder Vorgang eine Nummer aus dem Zähler oben in `ARBEIT-BETRIEB.md` und eine Zeile in `LISTE-VORGAENGE.md` (Bereich, Klasse); Vorschläge 7.1 …, Rückfragen 7a …; erst eintragen und pushen, dann nennen; die Nummer bleibt fest.
 - **Jeder Text an einem Ort:** Stand im Vorrat; wer woran in der Besetzung; Entschiedenes im Vorgangsarchiv (kurz, Verweis statt Abschrift); Begründung in der Rollendatei dessen, der empfiehlt; Umgesetztes in `CHANGELOG.md` („## Unveröffentlicht“); Verlauf in Git. Der Text zu einem Vorgang wandert mit seiner Zeile.
 - **Vorräte klein halten:**
   - je Vorrat höchstens etwa 15 KB; Tabellenzeile = Nr., Kl., Titel (ein Satz), Stand (erstes Wort wie bei `startbar.py`), Zweig, höchstens 400 Zeichen;

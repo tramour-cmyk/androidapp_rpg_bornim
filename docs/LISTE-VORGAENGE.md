@@ -133,7 +133,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 408 | Bestand vor Eigenbau: gekaufte Modelle sichten und zur Wahl vorlegen, dann erst bauen (Chef 29.10., 11:15) | B Abläufe | M | – | Perikles | startbar |
 | 409 | Wörter der Erschaffung für fünf neue Frisuren (376.1, Chef 29.10., 10:52 „gibt es noch andere Frisuren“) | C Texte | M | – | Homer | erledigt |
 | 410 | Waffen am Körper wegstecken, alle Waffenarten (aus 376.1, Chef 29.10., 10:52, 11:40) | E Figuren | M | – | Team Tom | ruht |
-| 412 | Je Thema ein eigener Vorgang, nichts thematisch Fremdes unter eine Nummer (Chef 29.10., 11:4x) | B Abläufe | M | – | Perikles | startbar |
+| 412 | Je Thema ein eigener Vorgang, nichts thematisch Fremdes unter eine Nummer (Chef 29.10., 11:4x) | B Abläufe | M | – | Perikles | erledigt |
 | 413 | Spielsystem 2.0: Entwurf `DESIGN-SPIELSYSTEM-2-0.md`, Auseinandersetzung, Meilensteine (Chef 31.10., 20:1x) | D Design | M | – | Sokrates | wartet |
 | 415 | Handyprobe Beams-Free-Sample (aus 414, Chef 31.10., 20:3x) | C Kampf | K | – | Team Jerry | frei |
 | 416.1 | Tasten reagieren schlecht (Charaktererstellung, überall; Build 143, Chef 31.10., 20:4x) | B Umzug | M | – | Team Tom | frei |
@@ -154,6 +154,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 426 | Design-Grundsatz Icons statt Text in Menüs (zu 425, Chef 31.10., 21:30) | D Design | M | – | Homer | frei |
 | 427 | Bestiarium: je Monsterart Name, Gebiet und Stufenband, Verhalten, Angriffe und Waffen, Werte für Spielsystem 2.0, Beute; Aussehen verweist auf `LISTE-FIGUREN.md` (Chef 31.10., 21:3x) | D Design | M | – | Sokrates | startbar |
 | 428 | Bestiarium: kurze Hintergrundgeschichte je Monsterart (zu 427, Chef 31.10., 21:3x) | C Texte | M | – | Homer | wartet |
+| 429 | Prüfung im Doppelpack (421): 424 Umzugsliste und Wächter `startbar.py`, 412 Regel in `CLAUDE.md` | B Abläufe | M | – | Diogenes | startbar |
 | 416.7 | Aktionsknopf am Tresen in Schenke und Laden (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | frei |
 | 416.8 | NPC dreht sich zum Helden, nach etwa 10 s Leerlauf (Chef 31.10., 20:5x) | B Umzug | M? | – | Team Tom | frei |
 | 390 | Umzug: Punkte ohne Bilderrunde weiterbauen, solange Blätter beim Chef liegen (Perikles 28.10., Wochenziel 348) | E Technik | M | 39,54 $ | Team Tom, Team Jerry | gebaut |
