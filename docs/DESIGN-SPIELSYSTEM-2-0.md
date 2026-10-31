@@ -56,6 +56,10 @@ Ideensammlung, Stand 31.10.2026. Hier schreiben wir alles zusammen, was das Spie
 | 48 | Richtung | „Weg von WotC/SRD, hin zu einer offenen Welt, in der du aufsteigst dadurch, dass du Sachen machst. Hin zu einem offenen und einzigartigen Spielsystem.“ Chef 31.10.2026. |
 | 49 | Titel zusammenlegen (T2) | Ja zu Berufungen statt 22 Titel. Reiter, Kaufmann und Hauptmann sind gestrichen, nicht verschoben („wir wollen hier keinen Siedler spielen“). Gibt es später Reittiere, kommt eine Fertigkeit Reiten dazu, aber kein Titel. Chef 31.10.2026, 20:4x. |
 | 50 | Meisterschaften (T1, Teil) | Schmied, Alchemist, Runenmeister und Feldkoch werden als Meisterschaften ausgegliedert: frei, kann man machen, muss man nicht. Chef 31.10.2026, 20:4x („sehr gute Idee“). |
+| 51 | Berufungsbaum (W1) | Weg (von selbst durch Tun, mehrere, ohne Auflagen) → Berufung (eine, beim Lehrmeister, mit Auflagen) → Meisterform (später). Kapitel 1 zeigt die Wege, Berufungen ab Kapitel 2 (beantwortet damit T6). Abschnitt 9. Chef 31.10.2026, 20:5x. |
+| 52 | Namen (W2) | Ebenen Weg, Berufung, Meisterform; Wege Bewahrer (Schutz), Kämpe (Kampf), Schattengänger (Schatten), Waldgänger (Wildnis), Adept (Magie), Heilkundiger (Heilung). Chef 31.10.2026, 20:5x. |
+| 53 | Scharfschütze (W3) | eigener Zweig unter Wildnis; damit 13 Berufungen. Chef 31.10.2026, 20:5x. |
+| 54 | Paladin (W4) | Kreuzung, verlangt die Wege Schutz und Heilung. Chef 31.10.2026, 20:5x. |
 
 **Rückfragen zu den Antworten vom 31.10.2026, abends:** R1 gestrichen, R2 und R3 beantwortet (Entscheidungen 33, 36), R4 wird zur Aussprache über die Titel (Abschnitt 8).
 
