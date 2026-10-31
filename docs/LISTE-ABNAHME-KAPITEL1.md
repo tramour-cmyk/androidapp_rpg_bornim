@@ -1,6 +1,50 @@
 # Abnahme Kapitel 1: Meilenstein und Wochenziel
 
-**Meilenstein „marktreif“** (338, Chef 23.10., 09:05; ersetzt 26 vom 11.10.; **ohne Datum seit 25.10., 01:02:** „Es gibt keinen Release-Termin. Wir arbeiten so lange, bis das Produkt … gut ist“): Kapitel 1 öffentlich im Play Store in Marktqualität; Maß ist Qualität, nicht ein Termin. **Zuerst Umzug des heutigen Spiels nach Godot (348, „jetzt“), alle machen mit.** Was in die Blöcke (a) bis (f) unten fällt, ist Muss; Kapitel 2, Gruppenkämpfe, Dungeons, weitere Klassen, Schmied erst nach dem Marktstart. Wer einen Punkt erledigt, hakt ihn hier ab. Liest Ford beim Start (Wochenziel); sonst nur bei Anlass.
+**Oberste Direktive (Chef 31.10., Archiv 418):** Kapitel 1 in der Godot-Fassung mit Spielsystem 2.0 fertigstellen: ohne technische Fehler, gut aussehend, nach unserer Signatur, düster, professionell und immersiv durch Klang, Musik, Kampfsystem und die Möglichkeiten des Spielers. Qualität vor Quantität und vor Eile; es gibt keinen Termin. Fertig ist, was die Abnahmeliste erfüllt. Geht jeder Kür und jedem Neuen vor.
+
+**Meilenstein „Kapitel 1 fertig“** = jeder Punkt der Abnahmeliste unten abgehakt; danach **„marktreif“** (338): Kapitel 1 öffentlich im Play Store (Block S). Was unter die Abnahmeliste fällt, ist Muss; Kapitel 2, Berufungen, Gruppenkämpfe, Dungeons erst danach. Abhaken darf nur, wer in der Zeile als Prüfer steht; „Chef“ heißt: erst nach seinem Wort. Liest Ford beim Start (Wochenziel); sonst nur bei Anlass.
+
+## Abnahmeliste Kapitel 1 (418; Entwurf Perikles 31.10., Chef nimmt ab: Chefsache 418)
+
+Zahlen in Klammern = Entscheidung in `DESIGN-SPIELSYSTEM-2-0.md` („E 7“) oder Vorgang. Gilt nur, was entschieden ist; offene Fragen dort (413a) gehen hier ein, sobald entschieden.
+
+**T Ohne technische Fehler**
+- [ ] Kein Absturz, kein Hängenbleiben, kein Ruckeln auf den Testgeräten des Chefs (Handy und Tablet, 267); Spielstände halten über Updates.
+- [ ] Kollision und Sprungtest 0 in jedem Ort; kein Schweben nach Start und Kartenwechsel (24); Tippen trifft, was gezeichnet ist.
+- [ ] Kerntests der Regeln 2.0 als GDScript-Tests grün; Zufallsspieler spielt Kapitel 1 im neuen Spiel durch (26).
+- [ ] Jeder Fehler aus den Tests des Chefs behoben (Prüfer: Chef).
+
+**A Aussehen und Signatur**
+- [ ] Jeder Ort „Ort fertig“ nach `DESIGN-ABNAHME.md`, sinngemäß in Godot: Dorf, Räume, Flüsterwald, Tiefer Flüsterwald, Blutzahnhöhle.
+- [ ] Jede Figur, jedes Haus, jedes Ding in `LISTE-UMZUG-348.md` auf „abgenommen“ (Prüfer: Chef; Diogenes misst nebenher, 373).
+- [ ] Signatur nach `DESIGN-STIL.md`: schwarz-gold, Tusche, düster und lesbar; Hauptmenü, Erschaffung, Menüs, Vorspann und Zwischenbilder im selben Look (Prüfer: Chef).
+
+**K Klang und Musik**
+- [ ] Musik je Ort, Tageszeit und Kampf; Umgebung aus echten Aufnahmen je Ort.
+- [ ] Schritte je Untergrund (74), Raumklang in Innenräumen und Höhle (119), Stimmen der Gegner (18); bisher „wenn Zeit ist“, jetzt Muss, weil die Direktive Klang nennt (Prüfer: Chef).
+
+**M Kampfsystem**
+- [ ] MARS und klassischer Kampf (212 A, 249) rund auf den Regeln 2.0: Kampf ohne W20 nach Stufen (E 7), jeder Angriff sichtbar, Ansage harter Schläge, Pechsträhne.
+- [ ] Kampf nie langweilig, echte Wahl (`DESIGN-LEITBILD.md`); Schwierigkeitsgrade (39).
+- [ ] Ausgleich: jeder Werdegang schafft die Bosse in vergleichbarem Maß; Zielwert mit dem Chef festlegen (38, bisher je Klasse).
+
+**G Spielsystem 2.0, Kern in Kapitel 1** (E 60)
+- [ ] Ohne Klassen (E 1): Erschaffung mit sechs Grundwerten ab 1, 18 Punkte, jeder Wert 3 bis 8 (E 6, E 64); Werdegänge als Starthilfe (E 28, E 29, E 45).
+- [ ] Fertigkeiten steigen durch Benutzung (E 2) mit Niveau je Kapitel begrenzt (E 20), am Limit hart mit Puffer (E 44); Prüfregel und Liste (E 59).
+- [ ] Heldenstufe aus Erfahrung (E 16), höchstens 40 % aus Fertigkeiten (E 17); weiche Kapitelgrenze (E 18, E 35); Erfahrungstopf je Gebiet, Wiederkehrer geben kaum Erfahrung, aber Beute (E 19, E 21).
+- [ ] Wege sichtbar, Berufungen erst ab Kapitel 2 (E 51, E 52); Heldenblatt zeigt nur Getanes (E 65).
+- [ ] Schleichen mit Schleichtaste und Hinterhalt, Bosse wachsamer (E 55, E 47); Fallen und Truhen mit Dietrich, Truhen in Häusern der Leute zu (E 55, E 46); schwere Rüstung sperrt Schleichen (E 33); kein Stehlen, kein Barde (E 30, E 31).
+- [ ] Kurze Erholung 2 h, Langes Ausruhen 9 h (E 26); Tragkraft mit Nimmersatt-Beutel, darüber langsamer (E 41).
+- [ ] Namen nach dem Glossar, keine SRD-Begriffe im Spiel (E 24, E 25, E 27).
+
+**W Möglichkeiten des Spielers**
+- [ ] Jeder Ort, jede Hauptquest und Nebenquest, jedes Gespräch, Laden, Anschlagbrett, Tagesablauf, Hilfe aus dem alten Spiel geht in Godot mindestens so (`LISTE-UMZUG-348.md`, 348.9), außer was 2.0 ersetzt.
+- [ ] Englisch durchgehend (Homer, Tom).
+- [ ] Spielerfreundlich (`DESIGN-LEITBILD.md` 3): auf „Normal“ ohne Grinden schaffbar.
+- [ ] **Durchgespielt:** der Chef spielt Kapitel 1 einmal ganz durch und sagt „gut“ (Prüfer: Chef).
+
+**S Store (danach, für „marktreif“)**
+- [ ] Store-Seite, Texte und Bilder (Homer, Sokrates); Impressum (Datenschutzseite online, 252); Gewerbeschein und Preis (142, 45); Repo privat (109); 12 Tester, geschlossener Test 14 Tage, Prüfung durch Google.
 
 ## Stand zum Marktstart (338.1; Perikles: montags ganz, täglich neu; als Seite: [Dashboard](https://claude.ai/artifact/5gdqbHNUUpbBUU9sBo4i7t), 339)
 
@@ -53,39 +97,13 @@ Dazu, ohne Vorgang (Perikles vergibt Nummern mit der neuen Schätzung nach Woche
 | 3 | Fehler und Glätten; Englisch, Geräte, Spielstände; Store-Seite, Datenschutz, Impressum; Tester bereit |
 | 4 | Chef: „gut“; geschlossener Test 14 Tage (falls nicht schon mit der alten App gelaufen), Antrag, Prüfung durch Google, Marktstart |
 
-## Meilenstein Umzug: „Kapitel 1 auf Godot mindestens so gut wie alt“ (348.9, Chef 25.10., 12:24)
+## Meilenstein Umzug: „Kapitel 1 auf Godot mindestens so gut wie alt“ (348.9, Chef 25.10., 12:24; seit 418 Teil von Block W der Abnahmeliste)
 
 **Erreicht, wenn** jeder Punkt der Checkliste „abgenommen“ ist, die Kerntests aus `core` als GDScript-Tests grün sind und der Zufallsspieler Kapitel 1 im neuen Spiel durchspielt; danach ersetzt das neue Spiel nach dem Test des Chefs das alte auf `main`. **Checkliste** = Bestandsliste 348.8 samt Funktionen in `LISTE-UMZUG-348.md` (Stand-Wörter dort: –, Entwurf, gebaut, gemessen, abgenommen). Reihenfolge: zuerst das Licht (3486-sonne), dann je Bauart ein Grundmodell (Mensch, Vierbeiner, Vogel, Insekt, Spinne), daraus alle Figuren; Häuser und Dinge parallel; sonst so, wie Kapitel 1 gespielt wird. Jedes Vergleichsblatt misst Diogenes nebenher, als Hinweis an den Chef, kein Tor (373, `ROLLE-PRUEFUNG.md`).
 
 **Stand 29.10., 01:05:** steht oben unter „0. Meilenstein Umzug“ (Zählung je Zeile der Spalte „Modell“). Die 15 Punkte der Gegenprobe 398 sind geschätzt (Tom 28.10., 15:37; Jerry 13:16, 16,5 Sitzungen), gerechnet wird mit der neuen Schätzung Mo 02.11.
 
-**Tagesziele** (Perikles setzt sie täglich neu; jedes Bild geht nach einer Fehlerprüfung zum Chef, urteilen tut nur er, 373):
-
-| Tag | Tom | Jerry |
-|---|---|---|
-| So 25.10. | Dorf Runde 11 mit Sonne aus Süden und gedämpftem Tag (Urteil 12:11, 3486-sonne, Reusen, Windrose rechts oben); das Licht als gemeinsame Vorlage für Jerry ablegen; Vergleichsblatt an den Chef | Wölfe Runde 12: grüne Pixel an der Hinterpfote, Scharren sichtbar, Blick des grauen Wolfs zum Helden, Naht am Bauch; Vergleichsblatt Kampf an den Chef |
-| Mo 26.10. | 348.6 fertig: Dorf-APK am Handy; Grundmodell Mensch (mit dem Skelett aus `rig.py`), erster Entwurf Wache Jorin neben dem alten Bild; Schätzung Bereich Tom je Punkt der Checkliste | 348.7 fertig: Wolfskampf-APK am Handy mit Toms Licht; Grundmodell Vierbeiner aus dem Wolf, Entwürfe Wildschwein und Riesenratte; Schätzung Bereich Jerry je Punkt |
-| Mo 26.10. (Stand 07:10) | Dorf-APK lief schon So am Handy (dein Urteil 25.10., 18:06–18:28); offen: deine Testbitte Held Runde 5, Schätzung (jetzt 348.14, zuerst), Jorin, Borin, Bram nach Feinschliff | Riesenratte steht (25.10.), Wildschwein Runde 3 beim Chef; offen: Kampf am Handy, Schätzung (348.14, zuerst) |
-| Di 27.10. | 348.14 fertig (falls Mo nicht); Feinschliff der Leute (Jorin, Borin, Bram, Osric) abschließen; Liste „Modell“ nachtragen | 348.14 fertig (falls Mo nicht); Kampf gegen das Wolfsrudel als APK am Handy mit Vergleichsblatt an den Chef; Liste „Modell“ nachtragen |
-| Di 27.10. (Stand 08:15) | 348.14 ✓; Leute nicht abgeschlossen; nachts nur Held (Kopf, Hände, Kettenhemd, Helm, Kragen) und Tusche (348.13, zwei Fragen beim Chef); Rest des Tages: zuerst Kampfbewegungen des Helden für Jerry (Hieb, Stich, Ausholen, Treffer, Ausweichen, Abwehr, Tod), dann nach dem Wort des Chefs zu 338a | 348.14 ✓; Riesenratte, Goblin, Späher, Schamane gebaut; Kampf-APK noch nicht beim Chef; steht seit 05:55 (348.7a beim Chef); bis zur Antwort Riesenfledermaus mit Vogelskelett, danach 348.7a und Kampf-APK |
-| Di 27.10. (Stand 10:1x, 338a „B“) | Kampfbewegungen Runde 2 (die Fehler aus Runde 1 beheben), dann an Jerry; dann deine drei Kopfpunkte (Gesicht oval, Ohren, Nase), höchstens 3 Sitzungen, Fassungen auf einem Blatt an dich (371); dann das Dorf (Block D); Kettenhemd, Helm, Kragen ruhen bis zum Ende des Umzugs (372) | unverändert |
-| Mi 28.10. | Block (D): Dorf-Fehler Brunnen und Marktstand (Runde 13b), dann Häuser von innen (Greif, Kramladen, Ältester, Tempel); ab 80 % Wochenguthaben (etwa 12 Uhr) nur Muss | Block (K) weiter: Kobold, Wildschwein, Kampf-APK am Handy mit Vergleichsblatt; dann Regeln, klassischer Kampf, Gegner auf der Karte (alle noch „–“) |
-| Mi 28.10. (Stand 08:15) | gestern Kampfbewegungen (Runden 2–7, gebaut, kein Urteil), Kaufkopf und Tracht (376.1), Probehaus und Dorfdinge (348.6), Tusche Runde 9 (ja, 08:09); heute: Dorftiere platzieren (348.6, Chef 08:09: „lieber ein paar Tiere zuerst“), Tusche nach Fackel, Feuer, Fenster im Dorf mit Kostenmessung (348.13b); nach deinem Zugang die gekauften Figuren (376.1); dazwischen 390 (Englisch, Gespräche und Quests, Tagesablauf, Laden, Rast) | gestern Geschosse und Zauberbahn, Kaufratte, Kaufwolf, Grak und Kobold auf dem CC0-Gerüst, Kauftiere (387); heute 348.7b als Regel, Kauftiere nach deinem Ja (387, Hundertfüßer schneller), Ratte Schnauze (348.12f), Tusche nach Licht 1,3 (348.13a), Grak und Kobolde als ruhendes Modell (348.12); dazwischen 390 (Regeln, Pechsträhne, klassischer Kampf, Gegner auf der Karte); Kampf-APK am Handy bleibt offen |
-| Do 29.10. (Stand 01:05) | gestern die Spielfassung (399.1): Dorf und Kampf in einem Spiel, Builds 130–139 bei dir, Grundrisse betretbar; heute bis zum Stillstand gegen 6:45: Köpfe, Haut, Robe (376.1) und Innenräume (399.5) fertig, dann der Build für deinen Test; ab Sa 20:00 deine Antworten | gestern Kampf aus dem Wald aufrufbar (399.2), Rudel, Klang, Kampfblende, Grak Runde 2; heute: mit den gekauften Dateien (403) der Held je Klasse mit Hieben im Kampf, Grak nachbessern; ohne sie steht Jerry bis Sa 20:00 |
-
-**Termine je Block** (Vorgang 338, nach der Schätzung 348.14; Perikles 26.10., 17:15). Blöcke folgen dem Weg durch Kapitel 1; innerhalb eines Blocks wählt das Team die Folge. S = Sitzungen bis „gebaut“ laut Schätzung; Termin = „gebaut“ (gemessen und abgenommen folgen), gerechnet ohne Puffer. Rechnung: je Team bisher 1,3–1,4 Sitzungen je Stunde (Tom 40 in 31 h, Jerry 50 in 35 h), angesetzt 1,2; das Wochenguthaben reicht beim jetzigen Takt (1,1 % je Stunde) bis Do 29.10.: ab ~02:10 keine neuen Starts (95 %), ab ~06:45 Stillstand (100 %; dein Bild 27.10., 09:47) bis Sa 31.10., 20:00 (Regel 287, nichts nachkaufen). „Spätestens“ gilt, wenn Punkte wie bisher mehr als die vereinbarten 10 Bilderrunden brauchen (Bilderrunde = Vergleichsblatt über Diogenes an dich; dann Tom 110 S, Jerry 125 S).
-
-| Block | Team | Inhalt (`LISTE-UMZUG-348.md`) | S | Termin | spätestens |
-|---|---|---|---|---|---|
-| D Dorf spielbar | Tom | Bornim, Greif, Kramladen, Ältester, Tempel; Leute und Held; Dorftiere (Huhn und Vögel erst nach Jerrys Fledermaus mit dem Vogelskelett); Dinge und Möbel; Gehen, Uhr und Sonne, Tagesablauf, Gespräche und Quests, Laden, Anschlagbrett, Rast, Menü, Tränke, Truhen und Türen | 57 + 5 | Mo 02.11., früh | Di 03.11., früh |
-| W Wald | Tom | Flüsterwald, Tiefer Flüsterwald mit Morwens Hütte | 7 | Mo 02.11., mittags | Di 03.11., vormittags |
-| R Rahmen | Tom | Gegenstände, Oberfläche, Charaktererstellung, Vorspann und Hauptmenü, Intro und Zwischenbilder, Hilfe, Englisch | 15 | Di 03.11., früh | Mi 04.11., früh |
-| K Kampf im Wald | Jerry | Regeln, MARS, Gegner auf der Karte, klassischer Kampf, Kampfeffekte, Pechsträhne, Spuren; Wolf, Grimmzahn, Wildschwein, Ratte, Goblin mit Späher und Schamane, Kobold; Riesenfledermaus (vorgezogen: ihr Vogelskelett braucht Tom für Huhn und Vögel); Ausrüstung | 48,5 | So 01.11., abends | Mo 02.11., vormittags |
-| H Höhle, übrige Gegner, Kleintiere, Klang | Jerry | Blutzahnhöhle mit Kampforten, Gitter; Skelett, Zombie, Ghul, Krogg, Grak, Spinne, Hundertfüßer, Stirge, Gallerte; Kleintiere; Musik und Klang | 44,5 | Di 03.11., vormittags | Mi 04.11., mittags |
-
-**Neu gesetzt 28.10., 08:4x (338b „B“, Chef 08:26):** Seit dem Plan kam kein Punkt auf „gebaut“, darum zählen alle Sitzungen der Schätzung ab 28.10., 08:15, mit 1,2 Sitzungen je Stunde und Team. Bis zur Sperre (Do 29.10., gegen 2 Uhr) bleiben je Team etwa 21 Sitzungen, der Rest läuft ab Sa 31.10., 20:00. Umzug „gebaut“ also etwa **Di 03.11., vormittags**, spätestens Mi 04.11., mittags. Berichtigt gegenüber 338b: dort hatte ich für (D) alle 84 Sitzungen von Tom gerechnet statt der 62 des Dorfs; (D) ist darum Mo 02.11. früh fertig, nicht erst Di. Die Zeit, die Blätter beim Chef liegen, und die Kaufmodelle sind nicht gerechnet; neu geschätzt wird Mo 02.11. mit Wochenziel 2.
-
-**Tom neu gerechnet (Perikles 27.10., 10:1x, nach 338a „B“):** seit dem Plan kam in D, W, R kein Punkt auf „gebaut“, darum ab 27.10., 10:00 mit den vollen 79 S. Dazu vor dem Dorf 5 S (spätestens 6): Kampfbewegungen noch 2 Runden zu je 1 Sitzung (Runde 1 brauchte eine, der Prüfer fand 10 Fehler; Spanne 1–3), Kopf höchstens 3. Wochenguthaben nach deinem Bild 09:47 (51 %, 1,09 % je Stunde): 95 % Do 29.10. gegen 2 Uhr, also bleiben Tom bis dahin etwa 48 S; der Rest von D läuft nach dem Stillstand ab Sa 31.10., 20:00. Nicht gerechnet: Toms Tusche (348.13a, Muss), die nebenher Sitzungen braucht. Jerrys Zeilen sind unverändert und ergeben 93 S, sein Absatz „Schätzung 348.14“ nennt 95 (Monster 35,5 statt 33,5); Jerry gleicht ab. Umzug „gebaut“ also **Mo 02.11., früh** (bisher So 01.11.), spätestens **Di 03.11., früh** (bisher Mo 02.11.); spätestens hält Wochenziel 2 („gebaut bis Mo 02.11.“) damit nicht, Messen rückt auf Mi 04.11. Nicht geschätzt sind Messen (Diogenes), Kerntests als GDScript-Tests und der Zufallsspieler. **Seit 373 (27.10., 11:35: über Aussehen und Bewegung urteilst nur du):** die geschätzten Sitzungen bleiben, die Vorrunden bei Diogenes und Homer entfallen und sparen Guthaben. Der Engpass ist jetzt deine Zeit: die Schätzung rechnet mit rund 138 Bilderrunden (Tom 59, Jerry 79), höchstens ein Blatt je Modell und Runde, nachts urteilt keiner mehr. Die Termine oben halten nur, wenn du bis Mo 02.11. etwa 28 Blätter am Tag ansiehst; bei 10 am Tag dauert es etwa 14 Tage, Umzug „gebaut“ dann etwa Di 10.11. Darum: jedes Team arbeitet am nächsten Punkt weiter, während ein Blatt bei dir liegt; offene Blätter stehen in Vorrangfolge oben unter „Heute für dich“, „Ansehen“; Tagesziele nach diesen Blöcken. Stärkstes Gegenargument: in der Sperre Do 29.10. bis Sa 31.10. entstehen kaum Blätter, danach kommen sie gehäuft; an diesen Tagen brauchst du mehr als 28.
+**Tagesziele** (Perikles setzt sie täglich neu; jedes Bild geht nach einer Fehlerprüfung zum Chef, urteilen tut nur er, 373): bis 29.10. und die Termine je Block (338, 348.14) in Git, Stand vor „Perikles: 418“; sie ruhen mit der Spielfassung 399 und werden mit Wochenziel 2 auf die Abnahmeliste neu gerechnet (398).
 
 ## Wochenziel 26.10.–01.11. (Perikles, gesetzt 25.10., 02:10; Umzug Woche 1 beginnt schon 25.10.; Wochenziel 18.–24.10. in Git)
 
@@ -100,7 +118,7 @@ Dazu, ohne Vorgang (Perikles vergibt Nummern mit der neuen Schätzung nach Woche
 | 348.14 neue Schätzung | Tom, Jerry, dann Perikles | je Punkt der Checkliste im eigenen Bereich: Sitzungen und erwartete Bilderrunden bis „gebaut“, in `LISTE-UMZUG-348.md`; ✓ 26.10. (Tom 79 S, Jerry 95 S); Termine je Block oben, Wochenziel 2 unten |
 | 142 Store-Vorbereitung | Chef, Sokrates | Ausweis- und Telefonprüfung; vom Ruhen ausgenommen |
 
-**Oberste Direktive (179): Fehler ausmerzen, Kapitel 1 spielerfreundlich.** Im Umzug heißt das: was im alten Spiel geht, muss im neuen mindestens so gehen; jede Abweichung am Vergleichsbild ist ein Fehler und Muss. Neue Fehler des Chefs kommen als Muss dazu. Build 89 (alter Code) nur, wenn der Chef ihn testet.
+**Oberste Direktive:** seit 31.10. die neue (oben, 418); was im alten Spiel geht, muss im neuen mindestens so gehen (Block W), außer was Spielsystem 2.0 ersetzt. Neue Fehler des Chefs kommen als Muss dazu.
 
 **Guthaben:** Max seit 25.10. in der größeren Stufe, Woche ab 0 % (25.10., 11:05). Es gilt 287 (Chef 22.10.): nicht sparen; ab 80 % Woche `lauf.py --nur-muss` (Ford), ab 95 % keine neuen Starts außer Rückläufer des Chefs, ab 100 % Stillstand bis Sa 31.10., 20:00; nichts nachkaufen.
 
@@ -108,13 +126,4 @@ Dazu, ohne Vorgang (Perikles vergibt Nummern mit der neuen Schätzung nach Woche
 
 **Umzug fertig zum Durchspielen: jeder Punkt der Checkliste ist bis Mo 02.11. „gebaut“ (hält nur, wenn du etwa 28 Blätter am Tag ansiehst, 373) und bis Di 03.11. von Diogenes gemessen (Hinweis, keine Bedingung für deine Abnahme); die Kerntests laufen als GDScript-Tests grün, der Zufallsspieler spielt Kapitel 1 im neuen Spiel durch; dann spielst du Kapitel 1 in Godot einmal ganz durch, und deine Fehler sind Muss.** Abnahme der Punkte nach deinem Wort, Feinschliff danach. Das Guthaben ab Sa 31.10., 20:00 reicht beim jetzigen Takt bis etwa Mi 04.11.; was dann offen ist, geht nach dem Stillstand ab Sa 07.11., 20:00 weiter. Messen, GDScript-Tests und Zufallsspieler sind nicht geschätzt. Stärkstes Gegenargument: wird es der späte Termin (seit 338a „B“ Di 03.11., früh; dann hält das Wochenziel nicht), bleibt für deine Fehler aus dem Durchspielen kaum Guthaben in dieser Woche.
 
-## Pflicht in Block (a) Kapitel 1 rund
-
-- [x] **Alle Orte „Ort fertig“** (`DESIGN-ABNAHME.md`): Dorf (5), Räume (13), Wald (27), Höhle (13e, seit 17.10.) erledigt; offen nur Mondlicht und Schacht nachts (D3.14 mit Fackel 84.1, Kür). Prüft das Team, nicht der Chef.
-- [ ] **Läuft rund:** kein Schweben nach Start und Kartenwechsel, Zwischenbild (24; 24.6 wartet auf den Kampfort 72u); Sprungtest und Kollisionsprüfung 0; „Bewegungen unrund“ (19e) geklärt.
-- [ ] **Ausgleich:** alle vier Klassen schaffen die Bosse in vergleichbarem Maß (Magier gegen Grak 44–62 %); Zielwert mit dem Chef festlegen (38).
-- [ ] **Durchgespielt:** der Chef spielt Kapitel 1 einmal ganz durch; Zufallsspieler (`PlayerSimTest`) grün (26).
-
-Erledigt (Verlauf in Git): alte Ansicht ausgebaut (13t), Gegner im neuen Stil (9i), Musik neu (28), Nebenquests (29), Kartenansicht (62), Tagesablauf (5la).
-
-**Wenn Zeit ist (kein Hindernis für den Test):** Stimmen der Gegner (18), Schritte je Untergrund (74), Raumklang (119).
+Die alte Pflichtliste „Block (a) Kapitel 1 rund“ (altes Spiel) ist seit 418 in der Abnahmeliste oben aufgegangen; Wortlaut in Git, Stand vor „Perikles: 418“.
