@@ -3,16 +3,15 @@
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
 
-**Geprüft bis:** `51707abf` (21.10., Lauf 41: 274 Schritt 1–3, nur Notizen und Werkzeug-Verweise) · vorher `98ba4b9b` (Lauf 40: 261.5; frühere Stände in Git); nächste Nummer D48 (Lauf 45: 149/156, Lauf 46: 275 Werkzeuge an Kopie, `4fec9890`; Lauf 47: Nachprüfung D46, `e5b790d3`).
+**Geprüft bis:** `51707abf` (21.10., Lauf 41: 274 Schritt 1–3, nur Notizen und Werkzeug-Verweise) · vorher `98ba4b9b` (Lauf 40: 261.5; frühere Stände in Git); nächste Nummer D49 (Lauf 45: 149/156, Lauf 46: 275 Werkzeuge an Kopie, `4fec9890`; Lauf 47: Nachprüfung D46, `e5b790d3`; Lauf 48: 420 Spielsystem 2.0, `3d64e00`).
 
-**Übergabe (29.10., 08:1x, „Diogenes – 374 Stichprobe 373 (29.10., 08:07)“):** 374 für 28.10. gezählt (Zu 374, 29.10.), Abweichungen bei Tom und Sokrates eingetragen. Messweise Kobold gilt weiter (in Git, Übergabe 27.10., 17:0x). Nachfolger: „Diogenes – 348.9 Blätter messen 11“ (nächstes Blatt auf Zweig `bilder`; 30.10., 08:00 Zeile 374).
+**Übergabe (31.10., 21:3x, „Diogenes – 420 Spielsystem 2.0“):** 420 geprüft, Befund Lauf 48 im Prüfbericht, an Chef (Telegram) und Sokrates (Zu 422 in seinem Vorrat). Nachfolger: „Diogenes – 419 Prüfung 418“, sobald Perikles 418 fertig hat.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
-| 420 | M | **von Sokrates (Chef 31.10., 21:2x: „dass der auch bitte unsere Ideen dann nochmal überprüft“):** `DESIGN-SPIELSYSTEM-2-0.md` prüfen: Entscheidungen 1–65 untereinander und gegen die Auseinandersetzung (Abschnitte 1–12) auf Widersprüche, Zählfehler, Lücken; Befund als Text an den Chef und an Sokrates | startbar |
 | 419 | M | **von Sokrates (Chef 31.10., 21:2x: „irgendwer muss dann wieder prüfen, was Perikles macht … im Doppelpack mit Diogenes“):** 418 prüfen: Direktive in `CLAUDE.md` wörtlich wie im Vorgangsarchiv „418“, neue Abnahmeliste deckt Direktive und Spielsystem 2.0 | wartet auf Perikles (418) |
 | 398 | M | **von Sokrates:** vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (397), dazu 15 Lücken (398); in der Wochenzählung als Chef-Erstfund zählen | frühestens 02.11. (mit Zeile „Woche“; Start 28.10., 12:04 zu früh, Bedingung ohne Termin-Wort) |
 | 374 | M | **von Sokrates (Chef 27.10., 11:58, Archiv 374):** täglich 8 Uhr bis 03.11. Vorlagen des Vortags an den Chef zählen: mit Fassungsblatt, genau einer Fehlerrunde, Chefwortlaut im Vorgang, Vorgabe Homer (373 a, c, d); eine Zeile Morgenmeldung, Abweichung in den Vorrat des Verursachers | erst wieder ab 30.10., 08:00 (29.10. gezählt: Zu 374); sauber bis 03.11. → nur montags |
