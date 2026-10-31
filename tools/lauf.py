@@ -219,9 +219,10 @@ def warnungen_bekannt():
 
 def nummer_aus_titel(t):
     m = re.search(r"–\s*([0-9][0-9a-zA-Z.]*)", t)
-    if m: return m.group(1).rstrip(".")
+    if m and not re.fullmatch(r"\d\d\.\d\d\.(\d{2,4})?", m.group(1)): return m.group(1).rstrip(".")  # D52.1: Datum „02.11.“ ist kein Vorgang
     # 261.2: Nummer auch mitten im Titel („Tom – Umriss prüfen 216.3“); Uhrzeiten in Klammern und „Build 40“ zählen nicht
     s = re.sub(r"\([^)]*\)", " ", t)
+    s = re.sub(r"\b\d\d\.\d\d\.(\d{2,4})?", " ", s)  # D52.1
     s = re.sub(r"\bBuilds?\s+\d+(\s+und\s+\d+)?", " ", s)
     s = re.sub(r"\b(Godot|Runde|Lauf|Brücke)\s+\d+[a-z]?\b", " ", s)  # „Tom – Umzug Godot 12“ buchte auf Vorgang 12 (Ford 25.10.)
     m = re.search(r"(?<![\d.:])(\d{2,3}[a-zA-Z]?(?:\.\d+[a-z]?)*)(?!\d|:\d)", s)
@@ -232,6 +233,7 @@ def nummern_aus_titel(t):
     erste = nummer_aus_titel(t)
     if not erste: return ""
     s = re.sub(r"\([^)]*\)", " ", t.split("–", 1)[-1])
+    s = re.sub(r"\b\d\d\.\d\d\.(\d{2,4})?", " ", s)  # D52.1
     s = re.sub(r"\bBuilds?\s+\d+(\s+und\s+\d+)?", " ", s)
     s = re.sub(r"\b(Godot|Runde|Lauf|Brücke)\s+\d+[a-z]?\b", " ", s)
     alle = [erste] + [m.rstrip(".") for m in re.findall(r"(?<![\d.:\w])(\d{2,3}[a-zA-Z]?(?:\.\d+[a-z]?)*)(?!\d|:\d)", s)]
