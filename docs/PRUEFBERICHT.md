@@ -37,6 +37,10 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **Nicht geprüft:** ob Ford die laufenden Sitzungen umbenannt hat; `lauf.py --sperre` im echten Lauf.
 
+**Nachprüfung 443.1 (`main` `13ad5b26b`; 01.11., 00:1x; 14 Titel nachgestellt):** D52.1 ist behoben: Ein Datum zählt nicht mehr als Vorgang („Wochenziel: 02.11.“ ergibt jetzt keinen Vorgang, also „Betrieb“; „338.1: Wochenziel 02.11.“ ergibt 338.1). D52.2 ist behoben (`ROLLE-BERATUNG.md` „Sokrates – 253: BornWire“). Zu 436 gibt es einen Eintrag im Vorgangsarchiv, die Ausnahme Ford steht dort als offen (443a). 416.3, 403/406, 348.12f, 13e und 216.3 werden weiter richtig gelesen.
+- **D53.1 `lauf.py` gibt selbst noch Titel in alter Form aus:** Z. 570 „Perikles – Stand zum Marktstart TT.MM.“, Z. 574 „Perikles – Wochenziel TT.MM.“, Z. 575 „Diogenes – Wochenzählung TT.MM.“, Z. 595 „Sokrates – Stellungnahme (…)“. Ford legt die Sitzungen mit diesen Titeln an, also ohne Vorgang und ohne „:“ (gegen 436 und `ROLLE-PROJEKT.md` „338.1: …“). Folge seit dem Datumsfilter: Diese Sitzungen buchen auf „Betrieb“ statt auf 338.1. Vorher gingen ihre Kosten ganz verloren („01.11“).
+- **D53.2 (klein):** Ein Vorgang mit zwei Zahlen und Punkt am Ende wird jetzt für ein Datum gehalten: „Tom – Nachtrag zu 72.10.“ ergibt keinen Vorgang. In der Form 436 („72.10: …“) kommt das nicht vor.
+
 ## Lauf 51 · Auftrag 435 Doppelpack zu 433 (`main` `68de4970f`; 31.10., 22:2x; an einer Kopie nachgestellt)
 
 **Ergebnis:** Die Startsperre mit mehreren Namen („Start Tom, Jerry, …“) sperrt jetzt jeden Namen; vorher nur den ersten (Protokoll 21:27 hatte fünf). Spike läuft auf seiner Zeile „in Arbeit bei Spike“ weiter, Tom nimmt sie nicht, ein zweiter Spike startet nicht. Kopf `ROLLE-ENTWICKLUNG.md` trifft den Code.
