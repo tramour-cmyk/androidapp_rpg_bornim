@@ -644,7 +644,7 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		var edge := (fwd - ax * fwd.dot(ax)).normalized()
 		b = Basis(edge, ax, edge.cross(ax))
 		o = Vector3(0, grip, 0) + inward * palm
-	elif not faust.is_empty() and not what.contains("bow"):
+	elif not faust.is_empty() and not what.contains("bow") and what not in STAFFS:
 		# 403 Kaufkörper: Griff im Faustloch, Klinge (Stab) längs des Faustlochs zum Daumen hin, Schneide in der Ebene mit dem Handknochen
 		var ax: Vector3 = (faust["achse"] as Vector3).normalized()
 		var edge := Vector3.UP - ax * Vector3.UP.dot(ax)
@@ -652,9 +652,10 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		b = Basis(edge, ax, edge.cross(ax))
 		o = faust["griff"]
 	elif what in STAFFS:
-		# Stab senkrecht neben dem Körper, in der Mitte gefasst
+		# Stab senkrecht neben dem Körper, in der Mitte gefasst; 403 Kaufkörper: im Faustloch (Prüfer Film 403: längs des Faustlochs
+		# zeigte der Stab in Kampfstehen waagerecht auf den Nachbarn und lief durch die Beine)
 		b = Basis(fwd, -down, fwd.cross(-down))
-		o = Vector3(0, grip, 0) + inward * palm
+		o = faust["griff"] if not faust.is_empty() else Vector3(0, grip, 0) + inward * palm
 	else:
 		# Klinge wie die alte Bereitschaft (HeroFigure.READY weapon = 0,2 außen, 0,85 oben, 0,45 vorn), Schneide vorn und hinten;
 		# nie waagerecht nach vorn auf Hüfthöhe (DESIGN-ABNAHME, Silhouetten)
@@ -806,7 +807,7 @@ func _play(name: String, blend := 0.15) -> void:
 func _idle() -> void:
 	if down:
 		return
-	if kauf and anim and anim.has_animation("Kampfstehen"):
+	if kauf and anim and anim.has_animation("Kampfstehen") and not _stab():
 		# 403: die Klinge liegt im Faustloch wie in kampf.py; in Stehen (UAL) zeigte sie waagerecht nach vorn auf Hüfthöhe
 		# (DESIGN-ABNAHME Silhouetten); Kampfstehen ist das erste und letzte Bild jeder Kampfbewegung
 		_play("Kampfstehen")
@@ -1408,6 +1409,11 @@ func strike(other, e: Dictionary) -> int:
 ## HELD_AUFSCHLAG) und geht rückwärts heim (_back_home); vorher glitt er während des Hiebs bis zu zwei Meter ohne Schritt heran.
 const HELD_AUFSCHLAG := 0.37     # kampf.py Hieb: Aufschlag 0,37 s
 const HELD_ZURUECK := 2.0        # rückwärts Gehen im doppelten Schritttempo
+
+## Führt der Held einen Stab? Dann ruht er in Stehen, den Stab senkrecht (kampf.py hat Kampfstehen für die Klinge gebaut)
+func _stab() -> bool:
+	return fighter.monster == null and fighter.hero.has("main") and not fighter.hero.main.ranged and String(fighter.hero.main.id) in STAFFS
+
 
 func _held_mps(nm: String) -> float:
 	var v: float = float(model.get_meta("rennen_m_je_s" if nm == "Rennen" else "gehen_m_je_s", 0.0))

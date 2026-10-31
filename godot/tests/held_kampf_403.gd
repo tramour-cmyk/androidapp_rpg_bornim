@@ -53,6 +53,9 @@ func _run() -> void:
 			var soll: Vector3 = hand * (fr["griff"] as Vector3)
 			var d := waffe.global_position.distance_to(soll) if waffe else 9.0
 			_check(d < 0.005, "%s: %s im Faustloch (%.3f m daneben)" % [k, fig.fighter.hero.main.id, d])
+			if String(fig.fighter.hero.main.id) in ["quarterstaff", "staff"]:     # Prüfer Film 403: Stab waagerecht auf den Nachbarn
+				var oben: float = (waffe.global_transform.basis.y.normalized()).dot(Vector3.UP)
+				_check(absf(oben) > 0.8, "%s: Stab in Ruhe senkrecht (%.2f)" % [k, oben])
 		var schild: Node = fig.model.find_child("Schild", true, false)
 		_check((schild != null) == (k in ["FIGHTER", "CLERIC"]), "%s: Schild nur bei Kämpfer und Kleriker (%s)" % [k, "da" if schild else "keiner"])
 		# kein zweiter Schild oder Waffe auf dem Rücken (Unterwegs-Ausrüstung von HeldFigur.bewaffne; Chef 29.10.: Fehler)
