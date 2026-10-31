@@ -32,6 +32,8 @@ Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit und 
 - Dazu ein **Volk** (Mensch, Elf, Zwerg, Hügelvolk, Orkblütiger) mit kleinem Bonus und einem Volksmerkmal.
 - **Werdegang als Starthilfe:** Wer schon weiß, wohin er will, wählt einen Werdegang. Er verteilt die Punkte vor, gibt zwei bis drei Startfertigkeiten und passende Ausrüstung. Er bindet nicht: der Spieler kann die Punkte ändern, und der Held wächst danach mit dem, was er tut.
 
+Die Startfertigkeiten sind auf die neue Liste der 37 Fertigkeiten umgeschrieben; das ist **Vorschlag, noch nicht entschieden**. Ebenso die Umrechnung der Punkte auf 18.
+
 | Werdegang | Richtung | Startfertigkeiten | führt zum Weg |
 | --- | --- | --- | --- |
 | Schildträger | Schutz | Schild, Mittlere Rüstung, Einhänder | Schutz |
