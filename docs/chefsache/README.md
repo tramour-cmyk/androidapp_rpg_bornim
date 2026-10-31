@@ -141,7 +141,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 437 | M | von Ford („jetzt“ 31.10., 23:12, Chef: „Keine Bilder auf Telegram von aktuellen Vorgängen“ | startbar |
+| 437 | M | von Spike (Chef 31.10., 23:3x, widerruft Ford 23:12): „auf Telegram immer Bilder und Filme | startbar |
 | 436 | M | von Sokrates („jetzt“ 31.10., 22:58, Chef: „Die Sitzungen bitte wieder strukturiert benenn | startbar |
 | 433 | M | von Sokrates („jetzt“ 31.10., 22:1x, Zu 433): unabhängige Zeilen von Tom und Jerry an Spik | wartet auf Test/Build (gebaut) |
 | 424 | M | von Sokrates („jetzt“ 31.10., 21:3x, Chef: „keine Energie mehr in das alte SRD-System stec | wartet auf Test/Build (gebaut) |
