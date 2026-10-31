@@ -1,15 +1,15 @@
 # 406 (Chef 29.10., 11:13, Archiv 408): alle Schilde der Bibliothek drehend in einem Film, Chef wählt. Liest die Schilde aus
 # kampf/daten/schilde/ (tools/blender348/schilde_bestand.py, Kaufdateien, nie im Repository) und zeichnet sie wie im Kampf (Toon wie
 # Held und Söldner, figur.gd _toon: Partei, Tusche nach Licht; Farbe aus der Textur, sonst aus der Grundfarbe des Pakets),
-# 7 × 3 nebeneinander, jeder dreht sich in DREH_S einmal ganz, darunter Nummer und Paket.
-# Nur als Probelauf (389) mit --write-movie: PROBE=406 xvfb-run godot --path godot --resolution 1280x720 --write-movie <datei>.avi
+# 3 × 7 (hochkant), jeder dreht sich in DREH_S einmal ganz, darunter Nummer und Paket.
+# Nur als Probelauf (389) mit --write-movie: PROBE=406 xvfb-run godot --path godot --write-movie <datei>.avi
 # --fixed-fps 30 -s res://tests/schilde_film.gd
 extends SceneTree
 
 const Figur = preload("res://kampf/figur.gd")
 const ORDNER := "res://kampf/daten/schilde/"
 const DREH_S := 8.0
-const SPALTEN := 7
+const SPALTEN := 3     # hochkant wie das Handy (Prüfer Lauf 1: 7 Spalten passten nicht ins Hochformat)
 const ABSTAND := 0.85
 
 

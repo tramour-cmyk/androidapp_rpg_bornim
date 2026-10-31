@@ -70,9 +70,10 @@ for kenn, paket, datei in LISTE:
     if dick != 1:     # Dicke auf Y (Blender: vorn -Y)
         R = Matrix.Rotation(1.5708, 3, 'Z') if dick == 0 else Matrix.Rotation(1.5708, 3, 'X')
     o.data.transform((R.to_4x4() @ Matrix.Translation(-(lo + hi) / 2)))
-    ecken = [Vector(c) for c in o.bound_box]
-    h = max(c.z for c in ecken) - min(c.z for c in ecken)
-    s = HOEHE / max(h, 1e-6) if h > 0.05 else HOEHE / max(max(c.x for c in ecken) - min(c.x for c in ecken), 1e-6)
+    # Groesse aus den Ecken selbst (Lauf 1: bound_box war nach transform noch alt, drei runde PolyMech-Schilde 8-fach)
+    vs = [v.co for v in o.data.vertices]
+    h = max(v.z for v in vs) - min(v.z for v in vs); b_ = max(v.x for v in vs) - min(v.x for v in vs)
+    s = HOEHE / max(h, b_, 1e-6)
     o.data.transform(Matrix.Scale(s, 4))
     o.name = kenn
     dr = sum(len(pg.vertices) - 2 for pg in o.data.polygons)
