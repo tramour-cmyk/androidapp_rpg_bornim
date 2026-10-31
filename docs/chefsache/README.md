@@ -21,7 +21,6 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [410](ansehen/3761-wegstecken.md) | Waffen wegstecken, nachgebessert (aus 376.1) | Tom | 29.10., 11:50 |
-| [402](ansehen/402-herzschlag-dumpf.md) | Hörprobe: Herzschlag tiefer und dumpfer | Jerry | 29.10., 11:53 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
