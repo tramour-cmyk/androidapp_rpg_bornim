@@ -339,6 +339,19 @@ Abnutzung und Reparatur: Reparieren ist keine eigene Fertigkeit mehr; Metall rep
 - **Kampf** bleibt ohne eigenen Werdegang, weil der Schildträger den Nahkampf abdeckt und der Haudegen gestrichen ist; über den freien Werdegang erreichbar.
 - **Votum:** Späher ja; Kampf ohne eigenen Werdegang.
 
+**Neu (Chef 31.10., 21:4x, Verwechslung Werdegang „Heiler“ und Berufung „Heiler“): Werdegänge heißen nach der Herkunft, nicht nach der Rolle.** Der Werdegang ist nur, was der Held **vor** dem Spiel war (vorverteilte Punkte, zwei bis drei Startfertigkeiten, Ausrüstung). Die Berufung ist, was er **im** Spiel wird. Mit Herkunftsnamen kann beides nie gleich heißen:
+
+| bisher | neu (Vorschlag) | Startfertigkeiten | führt meist zu |
+| --- | --- | --- | --- |
+| Schildträger | Wachsoldat | Schild, Mittlere Rüstung, Einhänder | Wächter, Paladin |
+| Schütze | Jägerkind | Bogen, Wurfwaffen, Spähen | Waldläufer, Scharfschütze |
+| Zauberer | Zauberlehrling | Evokation, Schutzmagie | Magier, Kriegsmagier |
+| Heiler | Klosterschüler | Heilmagie, Heilkunde, Kräuterkunde | Heiler, Paladin |
+| Kräuterkundiger | Kräutersammler | Kräuterkunde, Alchemie, Spähen | Meisterschaft Alchemist |
+| Schmiedegeselle | Schmiedelehrling | Schmieden, Bergbau | Meisterschaft Schmied |
+| Späher (neu) | Herumtreiber | Schleichen, Spähen, Dolche | Assassine, Schatzjäger |
+| Frei | Ohne Herkunft | selbst gewählt | – |
+
 ## Entwurf E zur Entscheidung: neuer Wortlaut für Leitbild und `CLAUDE.md`
 
 Nur Vorschlag; geändert wird erst nach deinem Ja.
