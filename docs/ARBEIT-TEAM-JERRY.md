@@ -16,7 +16,7 @@ von Sokrates (Chef 11:19): nach Build 143 weiter bis Guthaben leer. Nie „Heldi
 | 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | gebaut 1923456c7: Wolf durch Wolf, System Kampf, satt, Testende; an Tom | `claude/jerry-348-kampf` |
 | 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | gebaut 0eda4bb3e: Knurren mit Text, an Tom für den Build; Hilfe, Eingebung mit 390 | – |
 | 402 | M | **von Sokrates (Chef 22:2x, Archiv):** Blende vor dem Kampf wie alt; Herzschlag beim Hinterhalt stärker | startbar: Herzschlag Fassung 2b, aber als Paare (Chef 21:07, Zu 402); Blende wie alt abgenommen | – |
-| 403 | M | **von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler):** Kampfort: Held je Klasse wie im Dorf (`HeldFigur.baue`) statt `kampf/daten/held.bin`; Hieb, Stich, Treffer, Tod, Ausweichen aus der UAL Pro | startbar: Zugang erteilt (Chef 29.10., 11:12, Archiv) | – |
+| 403 | M | **von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler):** Kampfort: Held je Klasse wie im Dorf (`HeldFigur.baue`) statt `kampf/daten/held.bin`; Hieb, Stich, Treffer, Tod, Ausweichen aus der UAL Pro | startbar: nur Modell und Bewegungen, keine alten Klassenregeln (Chef 31.10.) | – |
 | 406 | M | **von Team Tom (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe):** Ausrüstung der Helden je Stück aufwerten („steril“), zuerst Rundschild des Klerikers hell mit goldener Sonne (`Dress.kt`); Wappenrock-Sonne macht Tom | startbar: Tiefe und Tusche nach Licht fehlen (Chef 10:52, Zu 402) | `claude/jerry-406-schild` |
 | 401 | M | **von Chef über Sokrates (Archiv):** Tierlaute, mind. 3 je Tier | gebaut 473fbe768: Klopfen raus, Ziege, Knabbern bleiben; fährt im nächsten Build | – |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
@@ -25,34 +25,35 @@ von Sokrates (Chef 11:19): nach Build 143 weiter bis Guthaben leer. Nie „Heldi
 | 385.2 | M | **von Chef (Archiv 385.1):** Feuer aus dem Stab | wartet auf 403 (Magier mit Stab im Kampfort) | – |
 | 348.13a | M | **von Team Tom (Chef 08:09, Archiv: r9 ja):** Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13a) | gebaut 421662dbd: Tusche nach Licht Vorgabe, Linie 1,3; offen Säbel (Tom) | `claude/jerry-348-kampf` |
 | 397 | M | **von Chef (28.10., 11:15):** Tiere, Monster: mind. drei Ruhebewegungen wie alt (`LISTE-UMZUG-348.md`) | ruht (399) | – |
-| 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht bis Kauf: Werte, Listen ja (Archiv), dann einbauen; erst Größe prüfen | – |
-| 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | wartet auf 403 (Chefsache 403): Keiler im Kampfort ohne Kaufdateien nicht baubar; Kobold mit 348.12 | `claude/jerry-348-kampf` |
+| 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht: altes SRD-System (Chef 31.10.) | – |
+| 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | ruht: altes SRD-System (Chef 31.10.) | `claude/jerry-348-kampf` |
 | 348.7b | M | Zauberbahn nach Chef „D“ | gebaut: r4 passt, Befunde bleiben so (Chef 15:28, Archiv) | `claude/jerry-348-kampf` |
-| 390 | M | **von Perikles:** Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | wartet auf 399.1: Regeln samt Elite golden gleich; offen Ansicht klassisch, Gegner auf der Karte (Elitewurf) | `claude/jerry-348-kampf` |
-| 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: beantwortet (Konter nur nach Fehlschlag); ändern nur auf Wort des Chefs | – |
+| 390 | M | **von Perikles:** Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | ruht: altes SRD-System (Chef 31.10.) | `claude/jerry-348-kampf` |
+| 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: altes SRD-System (Chef 31.10.) | – |
 | 257 | M | **von Chef (20.10., 17:17, Test B46):** App „hängt“, ging dann weiter (Zu 257) | ruht: Hänger-Wächter (Tom) seit Build 49; bis zum nächsten Hänger mit Absturzbericht | – |
 | 211.14 | M | **von Sokrates (20.10.):** Rest 211.13: Leistung am A56 messen (M), Rest Kür | ruht bis 348.7: Messung am A56; Kür-Teil mit 348.7 | – |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Vorgangsarchiv 217) | ruht bis 348.7 (Kampf in Godot; Urteil 348 gefallen 25.10.) | – |
-| 249 | M | **von Chef (20.10., 14:41):** MARS sieht und fühlt sich an wie der klassische Kampf (Zu 249) | ruht: gebaut bis auf Zustände (mit 212) und Fliehen (`LISTE-MARS.md`) | – |
+| 249 | M | **von Chef (20.10., 14:41):** MARS sieht und fühlt sich an wie der klassische Kampf (Zu 249) | ruht: altes SRD-System (Chef 31.10.) | – |
 | 289 | K | **von Chef (21.10., 20:11):** MARS: verfügbare Züge im Kästchen zeigen (Zu 289) | ruht: Chef 21.10., 20:59 „stellen wir mal zurück“ | – |
 | 296.1 | K | **von Sokrates (22.10.):** `LISTE-MARS.md` gegen den Code prüfen, je Build pflegen | ruht bis zum nächsten zusammengeführten Build; gepflegt bis B81 | – |
-| 296.2 | M | **von Sokrates (Chef 23.10., 18:25, Vorgangsarchiv 341.1a):** MARS spielnötig (Vorgangsarchiv 341.1a, Zu 296.2) | ruht: 89.2 durchgefallen; Befund als Anforderung für 348.7 (Zu 296.2) | `claude/build-89` |
+| 296.2 | M | **von Sokrates (Chef 23.10., 18:25, Vorgangsarchiv 341.1a):** MARS spielnötig (Vorgangsarchiv 341.1a, Zu 296.2) | ruht: altes SRD-System (Chef 31.10.) | `claude/build-89` |
 | 296.3 | K | **von Sokrates (Chef 23.10., 18:25):** MARS-Schmuck: Todesschrei, Flucht vor heiligem Licht/Zerfallen, Zustände am Gegner gezeichnet, Siegerpose | ruht bis 348.7 (Kampf in Godot; Urteil 348 gefallen 25.10.) | – |
-| 344.2 | K | **von Sokrates (Chef 23.10., Archiv 344):** Kampf mit der Fackel in beiden Systemen (Zu 344.2) | ruht: zieht nach Godot um; Regeln gebaut, Texte Homer da, Bewegung fehlt (Zu 344.2) | `claude/jerry-344-2-fackel` |
+| 344.2 | K | **von Sokrates (Chef 23.10., Archiv 344):** Kampf mit der Fackel in beiden Systemen (Zu 344.2) | ruht: altes SRD-System (Chef 31.10.) | `claude/jerry-344-2-fackel` |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 (Zu 168.1) | wartet auf 38, dann Bau Kapitel 2; Texte Homer (41) | – |
 | D23.3 | M | Diogenes Lauf 23: Magier und Kleriker sterben oft; Kleriker Stufe 1 vor dem Meilenstein (Archiv 38) | ruht bis Ende Umzug 348.7 (Archiv 38: danach in MARS messen) | `claude/diogenes-d41-messung` |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) (Zu 72u.1) | ruht bis 348.7 (Kampfort in Godot); Kür hinter dem Meilenstein (Chef 19.10.) | `claude/jerry-72u-standbild-2` |
-| 133 | K | Umsetzung 133: Charisma-Proben und Erfahrung für gelöste Konflikte | wartet auf 38, dann Bau Kapitel 2 | – |
-| 212 | M | Umsetzung 212: Schalter „Kampf: MARS oder klassisch“, jederzeit wechselbar; neue Regeln nur in MARS; 338 (e) | ruht: Schalter in Godot mit dem Umzug; alt gebaut mit 296.2 (Build 89) | – |
-| 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen (Zu 86) | wartet auf 38 (86.11 mit 72b/38; `Stamina.RUN_NOISE` im Test eichen); sonst auf `main`, PR #111 | – |
-| 38 | M | Balance: Kapitel 1 gemessen (Zu 38) | wartet auf 348.7: danach in MARS messen (Archiv 25.10.); Bosse, Stufe 3+ bleiben | – |
-| 39 | M | Schwierigkeitsgrad im Menü (Zu 39) | wartet auf 38; PR #107 (Entwurf), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
-| 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
-| 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht bis 348.7 (Kampf in Godot; Urteil 348 gefallen 25.10.) | – |
+| 133 | K | Umsetzung 133: Charisma-Proben und Erfahrung für gelöste Konflikte | ruht: altes SRD-System (Chef 31.10.) | – |
+| 212 | M | Umsetzung 212: Schalter „Kampf: MARS oder klassisch“, jederzeit wechselbar; neue Regeln nur in MARS; 338 (e) | ruht: altes SRD-System (Chef 31.10.) | – |
+| 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen (Zu 86) | ruht: altes SRD-System (Chef 31.10.) | – |
+| 38 | M | Balance: Kapitel 1 gemessen (Zu 38) | ruht: altes SRD-System (Chef 31.10.) | – |
+| 39 | M | Schwierigkeitsgrad im Menü (Zu 39) | ruht: altes SRD-System (Chef 31.10.) | `claude/jerry-39-schwierigkeit` |
+| 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | ruht: altes SRD-System (Chef 31.10.) | `claude/jerry-59e-haendlervorrat` |
+| 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht: altes SRD-System (Chef 31.10.) | – |
 | D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm | ruht: Klang zieht nach Godot; Rest `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
 
 ## Einzelheiten
 
+- **Zu 406, von Diogenes (374, 31.10.):** 29.10. drei Fassungen in 14 Minuten an den Chef (07:40, 07:47, 07:54), je nach einem Prüferbefund; erlaubt ist höchstens eine Fehlerrunde (373, 396).
 - **Zu 406, von Sokrates (Chef 11:13, Archiv 408):** nicht weiterbauen; erst alle Schilde der Bibliothek (LISTE-BESTAND „Waffen und Schilde“) drehend in einem Film vorlegen, Chef wählt.
 - **Zu 406 (Jerry 10:5x):** `waffen.py` (Shield_Wooden, `SONNE=b`, Messung je Teil im Kommentar); Probe `SCHILD=…` in `probe.gd` zeigt Nahaufnahmen mit Wechsel auf Perspektive, fov 9: Tusche dort prüfen (Chef: nicht erkennbar), Wölbung im Licht zu flach. Kaufdateien nur im Workflow: `add_repo` lehnte die Rechteprüfung um 07:5x wieder ab.
 

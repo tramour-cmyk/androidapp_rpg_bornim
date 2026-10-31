@@ -623,3 +623,10 @@ EN: You thrust the burning torch: 1 fire damage. A beast that cannot stand the f
 - `frisur:Hair_SlickBack` Zerzaust / EN: Tousled (statt „Zurück“: hieß wie der Knopf unten, das Haar wirkt strubbelig). Glättet Team Tom das Haar nach hinten, dann: Glatt zurück / EN: Slicked back.
 - `frisur:Hair_Dreads` Locken / EN: Curls (statt „Filzlocken“, im Bild Locken).
 - `frisur:Hair_Mohawk` Schopf / EN: Forelock (statt „Kamm“, liegt nur über der Stirn).
+
+`[409.frisur]` Fünf weitere Frisuren (409, Chef 29.10., 10:52 „gibt es noch andere Frisuren“), Wörter nach Bild `3761-aussehen` (Zeile 3, Spalte 2–6; Prüfer 31.10.):
+- `frisur:Hair_Long` Schulterlang / EN: Shoulder-length (statt „Lang“: endet auf der Schulter, kaum länger als der Pagenkopf).
+- `frisur:Hair_LongDreads` Mähne / EN: Mane (statt „Lange Locken“: dicke, abstehende Filzsträhnen bis zum Nacken; weder lang noch wie „Locken“).
+- `frisur:Hair_Ponytail_2` Hoher Zopf / EN: High ponytail (bleibt).
+- `frisur:Hair_Bob` Pagenkopf / EN: Bob (bleibt; kinnlang, hinten gerade Kante).
+- `frisur:Hair_Buns` Zwei Knoten / EN: Twin buns (statt „Knoten“: zwei Knoten oben links und rechts).

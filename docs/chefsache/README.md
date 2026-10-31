@@ -35,21 +35,23 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 2, startbar 1
+**Homer** – offen 6, Muss 3, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 428 | M | von Sokrates (Chef 31.10., 21:3x, „bisschen Hintergrundgeschichte vielleicht“): Bestiarium | wartet auf Sokrates |
+| 426 | M | von Sokrates (Chef 31.10., 21:30, „mit in das Design rübergeben“): Grundsatz in DESIGN-STI | startbar |
 | 423 | M | von Sokrates (Chef 31.10., 21:2x: „irgendwer muss dann auch einfach eine Anleitung schreib | wartet auf Sokrates |
-| 409 | M | von Team Tom (Chef 29.10., 10:52, Archiv 376.1, „gibt es noch andere Frisuren“): Wörter de | startbar |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 35, Muss 24, startbar 9
+**Tom** – offen 36, Muss 25, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 417 | M | von Sokrates („jetzt“ 31.10., 21:12, Chef: „diese Rückfrage hat auch Priorität“; Prüfauftr | startbar |
+| 425 | M | von Sokrates (Chef 31.10., 21:30, Build 143): Menüs (Menü „System“, Testmenü): in der alte | startbar |
 | 416.7 | M | von Sokrates (Chef 31.10., 20:5x, für den nächsten Build): am Tresen in Schenke und Laden | startbar |
 | 416.8 | M? | von Sokrates (Chef 31.10., 20:5x, allgemeiner Hinweis): NPC dreht sich bei Interaktion zum | startbar |
 | 416.1 | M | von Sokrates (Chef 31.10., 20:4x, Build 143): Tasten reagieren schlecht (Bartform, Kopffor | startbar |
@@ -59,7 +61,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „star
 | 399.4 | M | von Chef (21:4x, Archiv); zurück Chef 31.10., 20:4x: oben Rand für die Kamera wie alt: im | startbar |
 | 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf | wartet auf Test (Build) |
 | 410 | M | von Sokrates (Chef 29.10., 10:52, 11:40; aus 376.1): Waffen am Körper wegstecken, alle Waf | ruht |
-| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
+| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | startbar |
 | 399.5 | M | von Chef („jetzt“ 28.10., 21:5x, Archiv): Innenräume wie alt: Lichtquellen, Licht und Scha | wartet auf Test (Build) |
 | 399.3.1 | M | von Team Jerry (16:5x): Klang: Haken in spiel.gd (Jerry, claude/jerry-348-klang) übernehme | wartet auf Test (Build) |
 | 385 | M | von Sokrates („jetzt“ 28.10., 10:00, Archiv): Zauberer-Set auf Kaufkörper, Film | ruht |
@@ -82,7 +84,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „star
 | 357 | K | von Perikles (Chef 24.10., Chefsache 26, „okay“): Puppe in der Charaktererstellung sieht b | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
-| 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
+| 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
 **Jerry** – offen 40, Muss 27, startbar 7
@@ -105,9 +107,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „star
 | 348.13a | M | von Team Tom (Chef 08:09, Archiv: r9 ja): Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13 | wartet auf Test/Build (gebaut) |
 | 397 | M | von Chef (28.10., 11:15): Tiere, Monster: mind. drei Ruhebewegungen wie alt (LISTE-UMZUG-3 | ruht |
 | 348.12c | M | von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv): Wiedergänger, Grabhund, Riesenegel, Säur | ruht |
-| 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | wartet auf 403 (startbar) |
+| 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | ruht |
 | 348.7b | M | Zauberbahn nach Chef „D“ | wartet auf Test/Build (gebaut) |
-| 390 | M | von Perikles: Funktionen ohne Bild (LISTE-UMZUG-348.md) | wartet auf 399 (wartet) |
+| 390 | M | von Perikles: Funktionen ohne Bild (LISTE-UMZUG-348.md) | ruht |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, Test B46): App „hängt“, ging dann weiter (Zu 257) | ruht |
 | 211.14 | M | von Sokrates (20.10.): Rest 211.13: Leistung am A56 messen (M), Rest Kür | ruht |
@@ -118,22 +120,23 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „star
 | 296.2 | M | von Sokrates (Chef 23.10., 18:25, Vorgangsarchiv 341.1a): MARS spielnötig (Vorgangsarchiv | ruht |
 | 296.3 | K | von Sokrates (Chef 23.10., 18:25): MARS-Schmuck: Todesschrei, Flucht vor heiligem Licht/Ze | ruht |
 | 344.2 | K | von Sokrates (Chef 23.10., Archiv 344): Kampf mit der Fackel in beiden Systemen (Zu 344.2) | ruht |
-| 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 (Zu 168.1) | wartet auf 38 (offen) |
+| 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 (Zu 168.1) | wartet auf 38 (ruht) |
 | D23.3 | M | Diogenes Lauf 23: Magier und Kleriker sterben oft; Kleriker Stufe 1 vor dem Meilenstein (A | ruht |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) (Zu 72u.1) | ruht |
-| 133 | K | Umsetzung 133: Charisma-Proben und Erfahrung für gelöste Konflikte | wartet auf 38 (offen) |
+| 133 | K | Umsetzung 133: Charisma-Proben und Erfahrung für gelöste Konflikte | ruht |
 | 212 | M | Umsetzung 212: Schalter „Kampf: MARS oder klassisch“, jederzeit wechselbar; neue Regeln nu | ruht |
-| 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen (Zu 86) | wartet auf 38 (offen) |
-| 38 | M | Balance: Kapitel 1 gemessen (Zu 38) | wartet auf 348 (in Arbeit) |
-| 39 | M | Schwierigkeitsgrad im Menü (Zu 39) | wartet auf 38 (offen) |
-| 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | wartet auf 39 (wartet) |
+| 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen (Zu 86) | ruht |
+| 38 | M | Balance: Kapitel 1 gemessen (Zu 38) | ruht |
+| 39 | M | Schwierigkeitsgrad im Menü (Zu 39) | ruht |
+| 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | ruht |
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 19, Muss 17, startbar 4
+**Perikles** – offen 20, Muss 18, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 424 | M | von Sokrates („jetzt“ 31.10., 21:3x, Chef: „keine Energie mehr in das alte SRD-System stec | startbar |
 | 421 | M | von Sokrates (Chef 31.10., 21:2x): Regel „im Doppelpack“: jede Änderung von Perikles an Re | wartet auf Test/Build (gebaut) |
 | 418 | M | von Sokrates („jetzt“ 31.10., 21:21, Archiv): oberste Direktive in CLAUDE.md durch den Wor | Chef (Datei in der Chefsache) |
 | 412 | M | von Sokrates (Chef 11:43, Archiv): je Thema ein Vorgang, nichts Fremdes unter eine Nummer | startbar |
@@ -154,23 +157,23 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „star
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
-**Diogenes** – offen 7, Muss 5, startbar 3
+**Diogenes** – offen 6, Muss 4, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 420 | M | von Sokrates (Chef 31.10., 21:2x: „dass der auch bitte unsere Ideen dann nochmal überprüft | startbar |
 | 419 | M | von Sokrates (Chef 31.10., 21:2x: „irgendwer muss dann wieder prüfen, was Perikles macht … | startbar |
 | 398 | M | von Sokrates: vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (39 | Termin 02.11. |
-| 374 | M | von Sokrates (Chef 27.10., 11:58, Archiv 374): täglich 8 Uhr bis 03.11. Vorlagen des Vorta | startbar |
+| 374 | M | von Sokrates (Chef 27.10., 11:58, Archiv 374): täglich 8 Uhr bis 03.11. Vorlagen des Vorta | Termin 01.11. |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24): Umzug Godot: jedes Vergleichsblatt alt/neu messen, | wartet auf Eingang |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 31, Muss 23, startbar 12
+**Sokrates** – offen 32, Muss 24, startbar 13
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 422 | M | von Chef (31.10., 21:2x, „dass es sich liest wie eine gute Anleitung. Und ein Nachschlagew | startbar |
+| 427 | M | von Chef (31.10., 21:3x): Bestiarium LISTE-BESTIARIUM.md | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
+| 422 | M | von Chef (31.10., 21:2x, „dass es sich liest wie eine gute Anleitung. Und ein Nachschlagew | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 413 | M | von Chef (31.10., 20:1x): Spielsystem 2.0 (DESIGN-SPIELSYSTEM-2-0.md), Meilensteine | Chef |
 | 398 | M | von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr g | wartet auf Perikles |
 | 391 | M | von Chef (28.10., 09:21): Repos dauerhaft ohne Ablehnung | ruht |
@@ -205,9 +208,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 413 (Beratung), 186.3 (Pruefung)
+Nicht gestellt: 427 (Beratung), 422 (Beratung), 413 (Beratung), 186.3 (Pruefung)
 
-Ohne Datei: 275 (Projekt), 403 (Team Jerry), 26 (Team Tom)
+Ohne Datei: 275 (Projekt), 26 (Team Tom)
 
 ## So geht's
 

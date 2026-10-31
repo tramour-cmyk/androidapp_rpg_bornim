@@ -10,7 +10,8 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 422 | M | **von Chef (31.10., 21:2x, „dass es sich liest wie eine gute Anleitung. Und ein Nachschlagewerk“):** Spielsystem 2.0 eindampfen; Verlauf getrennt; Befund Diogenes 420 einarbeiten | startbar |
+| 427 | M | **von Chef (31.10., 21:3x):** Bestiarium `LISTE-BESTIARIUM.md` | wartet auf Chef: Werte nach S1 (422) |
+| 422 | M | **von Chef (31.10., 21:2x, „dass es sich liest wie eine gute Anleitung. Und ein Nachschlagewerk“):** Spielsystem 2.0 eindampfen; Verlauf getrennt; Befund Diogenes 420 einarbeiten | wartet auf Chef: Entwurf |
 | 413 | M | **von Chef (31.10., 20:1x):** Spielsystem 2.0 (`DESIGN-SPIELSYSTEM-2-0.md`), Meilensteine | wartet auf Chef: Chefsache 413a |
 | 398 | M | **von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr ganz grundlegende Dinge fehlen?“):** Grundsätze DESIGN-* gegen Umzugsliste und Godot-Zweige | wartet auf Perikles: 15 Lücken in LISTE-UMZUG-348.md „398“, Chef 11:3x informiert |
 | 391 | M | **von Chef (28.10., 09:21):** Repos dauerhaft ohne Ablehnung | ruht: kein Repo-Feld in der Umgebung (Bild Chef 10:29), Repo-Wahl am Eingabefeld gilt nur für Sitzungen von Hand; Fords Starts nehmen ein Repo; add_repo geht durch, wenn die Aufgabe die Kaufmodelle braucht |
@@ -42,6 +43,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (Gewerbeschein); 45a/45c, 72g–72j entschieden ([Artefakt](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj), vertraulich); offen: Preis endgültig mit 142 (ab Gewerbeschein), bis 30.11.; iOS-Schätzung Tom nach Kapitel 2 |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | ruht bis Gewerbeschein (Chef 28.10., 10:26; 142); dann Chefsache neu |
 
+- **Zu 422, von Diogenes (31.10., 21:3x):** Befund 420 steht in `PRUEFBERICHT.md` Lauf 48 (D48.1–D48.5 und Liste veralteter Stellen zum Eindampfen).
 - **Zu 413 (A1), von Perikles (31.10., 21:3x):** `CLAUDE.md` mit der neuen Direktive (418) 15,3 KB, über der Grenze; beim A1-Entwurf mitkürzen (auch Kopfzeile „Regeln nach SRD 5.1“, E 61). Chefsache 418 fragt den Umfang von 2.0 in Kapitel 1 (Votum A, nur Kern).
 - **Zu 383, Sitzungsgröße (gemessen 27.10., 18:15; 99 Sitzungen 26.10., 17:48 bis 27.10., 18:11, `get_session` usage; Helfer rechnete nach):** 96 mit Kosten, 787 $ in 24 h. Großes Modell je Million Ausgabetokens nach Kontext am Ende: 100–200k 103 $ (n 14), 200–300k 101 $ (n 61), 300–500k 92 $ (n 17); Kein Hinweis, dass große Sitzungen je Arbeit teurer sind; Beleg schwach (nur Endstand, kein Vergleich gleicher Aufgabe). Jeder Start mindestens etwa 125k Kontext, kleinste Sitzung 1,25 $. Treiber: Runden (44 %). Früher: 99h, 185, 99h.6, D40.1 (Git). Wiederholen mit 347 und 383.2 am 31.10.
 - **Zu 376:** Chef 12:09–12:10: 20 $ „super gerne“, wenn Größe und Form anpassbar und Tusche darauf geht; „dann hätten die vielleicht auch mal einen richtigen Kopf“; nah sichtbar in Ausrüstung, Charaktererstellung, Kartenzoom; 12:12 „Universal Base Characters“ als Alternative zum Selbstbau.
@@ -68,4 +70,3 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 167.6:** offen nur der Morgenbericht; Wiedervorlage war Mo 26.10. (`trig_01YC96AwHsxL7EUA8R4vPghp`); Wortlaut 167 im Vorgangsarchiv.
 - **Zu 142** (17.–20.10. in Git): Fahrplan im vertraulichen [Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM); offen: Anschrift vor dem Zahlungsprofil
 
-- **Von Diogenes (374, 28.10.):** Stichprobe 373: Chefwort 376.1 vom 27.10., 15:23 steht bei Tom („Von Sokrates“) nur sinngemäß; Wortlaut mit Zeit nachtragen (373 d).

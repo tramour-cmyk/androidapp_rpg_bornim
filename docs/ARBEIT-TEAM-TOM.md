@@ -10,7 +10,8 @@ von Sokrates (Chef 11:27): erst Build 143 und Testbitte, dann Ford-Lauf an, weit
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 417 | M | **von Sokrates („jetzt“ 31.10., 21:12, Chef: „diese Rückfrage hat auch Priorität“; Prüfauftrag zu 410):** Waffen und Schild in Hand und Arm beim Gehen und Rennen statt auf dem Rücken. Je Klasse Probe Gehen und Rennen, Seite und Porträt; Zahlen (Waffe durch Körper, Handabstand), Aussehen urteilt der Chef. Befund zuerst (Zu 417) | frei | – |
+| 417 | M | **von Sokrates („jetzt“ 31.10., 21:12, Chef: „diese Rückfrage hat auch Priorität“; Prüfauftrag zu 410; 21:27 „so machen“):** Tragart je Waffenklasse (Zu 417), zuerst Stab, Axt, Bogen: Probe Gehen und Rennen, Seite und Porträt; Zahlen (Waffe durch Körper, Abstand), Aussehen urteilt der Chef | startbar: Kaufpakete hier nicht erreichbar (add_repo abgelehnt 21:31) | – |
+| 425 | M | **von Sokrates (Chef 31.10., 21:30, Build 143):** Menüs (Menü „System“, Testmenü): in der alten Fassung mit Icons „super klasse“, neu „viel zu viel Text“; alte Menüs möglichst eins zu eins übernehmen, Icons statt Text | frei | – |
 | 416.7 | M | **von Sokrates (Chef 31.10., 20:5x, für den nächsten Build):** am Tresen in Schenke und Laden geht der Aktionsknopf nicht, Kaufen und Kauf mit den zwei NPCs dort nicht möglich; Reichweite erweitern | frei | – |
 | 416.8 | M? | **von Sokrates (Chef 31.10., 20:5x, allgemeiner Hinweis):** NPC dreht sich bei Interaktion zum Helden, nach etwa 10 s ignoriert er ihn wieder und spielt Leerlauf; Perikles: M oder K? | frei | – |
 | 416.1 | M | **von Sokrates (Chef 31.10., 20:4x, Build 143):** Tasten reagieren schlecht (Bartform, Kopfform, Farbe in „Neues Spiel“; „auch in anderen Bereichen“, „grundsätzliches großes Problem“): Ursache nachstellen, überall prüfen | frei | – |
@@ -20,7 +21,7 @@ von Sokrates (Chef 11:27): erst Build 143 und Testbitte, dann Ford-Lauf an, weit
 | 399.4 | M | **von Chef (21:4x, Archiv); zurück Chef 31.10., 20:4x:** oben Rand für die Kamera wie alt: im Build 143 fehlt er, Handykamera im Bild (im Kampf gesehen; alle Schirme prüfen) | zurück: Chef 20:4x, noch offen | – |
 | 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf | wartet auf Test: Build 143 (t143) | `claude/tom-399-spielfassung` |
 | 410 | M | **von Sokrates (Chef 29.10., 10:52, 11:40; aus 376.1):** Waffen am Körper wegstecken, alle Waffenarten (Zu 410) | ruht: Chef 21:1x will Waffen in der Hand statt auf dem Rücken, Prüfung 417; nichts weiterbauen | `claude/tom-376-1-wegstecken` |
-| 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | wartet auf Chef: Frisuren abgenommen 11:43; Wegstecken als 410 vorgelegt | `claude/tom-376-1-figuren` |
+| 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | startbar: Frisuren, Hauttöne, Klassen abgenommen (Archiv); Waffentragen in 417; offen Zu 376.1 (Frauen, Völkerkörper, Statur, Fäustepose …) | `claude/tom-376-1-figuren` |
 | 399.5 | M | **von Chef („jetzt“ 28.10., 21:5x, Archiv):** Innenräume wie alt: Lichtquellen, Licht und Schatten, Einrichtung mit Liebe zum Detail; Fenster und Türen außen wie innen | wartet auf Test: Build 143 (t143) | – |
 | 399.3.1 | M | **von Team Jerry (16:5x):** Klang: Haken in `spiel.gd` (Jerry, `claude/jerry-348-klang`) übernehmen; Menü System: Regler wie SoundSettings über `Klang.stelle` | wartet auf Test: Build 143 (t143) | – |
 | 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | ruht: 385.1 abgenommen (12 Bewegungen auf Kaufkörper, Archiv 28.10., 19:1x); Frage nach weiteren Zauberbewegungen zurückgestellt (Chef 28.10., 12:31); Feuer und Einbau im Kampfort bei Jerry (385.2, 403); Kaufzugang da (Tom 29.10., 11:11) |
@@ -36,14 +37,14 @@ von Sokrates (Chef 11:27): erst Build 143 und Testbitte, dann Ford-Lauf an, weit
 | 302.3 | M | **von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3):** Intro und Outro mit Tusche, etwas kräftiger als Intro 4 | ruht bis Ende Umzug 348; dann von c8cc89dd ausgehen | claude/tom-3023-kraeftiger |
 | 302.2 | K | **von Chef über Sokrates (22.10., 23:50):** Tusche auf der Gebietskarte | ruht bis Ende Umzug 348; Probe a478e244 ist Filterart | claude/tom-3022-tuschebild |
 | 302.1 | M | **von Sokrates (Vorgangsarchiv 302.1; 338 b):** Tuschelinie für Menschengestalten (Zu 302.1) | ruht bis Ende Umzug 348; danach große Figuren zuerst, Termin 15.11. neu schätzen | claude/tom-3021-tusche |
-| 292.2 | K | **von Chef (21.10., 22:28):** Hauptmenü: seltene, gute Bewegung je Klasse (Zu 292.2) | ruht bis Ende Umzug 348 | – |
+| 292.2 | K | **von Chef (21.10., 22:28):** Hauptmenü: seltene, gute Bewegung je Klasse (Zu 292.2) | ruht: altes SRD-System (Chef 31.10.) | – |
 | 292.4 | K | **aus 292.3:** Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (Zu 292.4) | ruht bis Ende Umzug 348 | claude/tom-2923-titelmodus |
 | 355 | K | **von Perikles (Chef 24.10., 17:17, Chefsache 26, „gut“):** Kisten: zwei bis vier je Gebietskarte, gern versteckt, kleiner Inhalt genügt; Bestand zählen, fehlende ergänzen (Höhle mit Jerry) | ruht (348): gebaut 59c1b45, geprüft (Zu 355) | `claude/tom-355-kisten` |
 | 356.2 | K | **von Perikles (Chef über Sokrates 24.10., 21:33, „356b … Folge der Empfehlung“; Anschlagbrett 29 bei Tom):** Sammelaufträge: Felle 3 statt 5 plus Pelzumhang, Hauer plus Hauerdolch; Werte wie ungewöhnliche Umhänge und Dolche | ruht bis Läden in Godot; offen Texte, Mengen, Lohn | – |
 | 357 | K | **von Perikles (Chef 24.10., Chefsache 26, „okay“):** Puppe in der Charaktererstellung sieht beim Drehen „nicht sonderlich fein“ aus; mit 302.1 | ruht bis Ende Umzug 348; dann mit 302.1 | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2 (Zu 145) | claude/tom-145-kartenmappe |
-| 133 | K | Charisma-Wahlen Kapitel 2 (`STORY-WAHLEN.md`) | wartet auf 41 (Kapitel 2 nicht im Spiel) und 49 (ruht); geprüft 19.10. | – |
+| 133 | K | Charisma-Wahlen Kapitel 2 (`STORY-WAHLEN.md`) | ruht: altes SRD-System (Chef 31.10.) | – |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (Kapitel 2 nicht im Spiel) | – |
 
 ## Einzelheiten
@@ -61,14 +62,14 @@ von Sokrates (Chef 11:27): erst Build 143 und Testbitte, dann Ford-Lauf an, weit
 - **Zu 410, von Sokrates (Chef 10:52, Archiv 376.1):** Rückenlösung ruht seit 31.10. (Zu 417); Befunde 11:40 im Archiv.
 - **Zu 417, von Sokrates (Chef 31.10., 21:1x):** „von der Seite … schweben die Waffen“; lassen sie sich in der Hand tragen, „dann soll er es in der Hand behalten … schenken wir uns das Wegstecken. Das war ja nur eine Notlösung im alten System“; „Wenn wir unsere Waffen einfach tragen können. Beim Rennen. Und beim Gehen.“ (21:12). Bestand (Sokrates): Waffe am Handknochen im Kampf (`kampf/figur.gd`), Fackel bleibt beim Gehen in der Hand (`held.gd`, `_Fackel`), Armschwung 0,6. Tragart je Waffenklasse (Chef 21:17: technisch entscheidet ihr, es muss stimmig sein): Vorschlag `ROLLE-BERATUNG.md` „Tragart“; zuerst Stab, Axt, Bogen.
 - **Zu 411, von Chef an Tom (29.10., 11:12):** 411 Frisuren abgenommen (Archiv). **Zu 410, 11:17:** „bedenke halt alle Ausrüstungsgegenstände … auch eine Axt … muss ja theoretisch dann irgendwo weggesteckt werden“.
-- **Zu 376.1, Technik** (Verlauf in Git): UAL Pro ohne Stich, Schildabwehr, gehaltenes Ausholen. `held_klassen.py` → `held_<KLASSE>.glb`; Godot `heldfigur.gd`, Test `held_klassen_376.gd`. Offen: Frauen, Völkerkörper, Statur, Fackelhaltung, Kampfort (403), Tracht nachts, Halszacken (ruht), 8a86ac552, Fäustepose.
+- **von Homer (409, 31.10.):** zu 376.1 Frisurwörter `[409.frisur]` in `STORY-SPIEL.md` in WORTE übernehmen.
+- **Zu 376.1, Technik** (Verlauf in Git): UAL Pro ohne Stich, Schildabwehr, gehaltenes Ausholen. `held_klassen.py` → `held_<KLASSE>.glb`; Godot `heldfigur.gd`, Test `held_klassen_376.gd`. Offen: Frauen, Völkerkörper, Statur, Kampfort (403), Tracht nachts.
 - **Zu 348.13** (Tom, Verlauf in Git): **Chef 20:24:** „nicht vergessen, dass wir zoomen können und insofern näher ran (mehr Details) und weiter weg“. Rechner `--tusche=<o>`, messen `tools/pruef348/tusche_breite.py`; Schalter und Offenes in Git (8523fbca6).
 - **Zu 348.6, Kampf** (Tom 27.10.): Werkzeuge `v3/LIESMICH.md`. **An Jerry, `figur.gd`:** Ruhe `Kampfstehen`; Waffe nach `faust_R`; `_guard` fängt nur `upperarm_*`; `Stich`, `Abwehr` ungespielt.
 - **Zu 348.6, Kopf, Hände, Glanz** (Tom, bis 54417f926, 1a75b7914; Einzelheiten im Git-Verlauf dieser Zeile): Held mit Helm ohne Ohren; offene Helferbefunde ruhen bis Urteil 376.1.
 
 - **Zu 348.6 (Chefrunde 25.10., Archiv):** Grundansicht wie alt (`Kamera.NORD` 45), Held südlich der Häuser; `licht.gd` auf Homers Tafel eichen. **Chef 21:33:** Leute tragen Speer, Stab, Hammer, Krug wie alt (`MapFolk.kt` `carry`).
-- **Zu 348.6, Urteil Chef 12:11** (Archiv): „echt stark“. Offen (Runde 11): Büsche über Dachfirsten, Laternenpfahl am Steg, Lichtstreifen nachts, Buschreihe am Kornfeld, Korn „wie eine Gestrüppwiese“, Schatten ohne Werfer, Flimmern; Südrand ohne Abschluss. Alte Bilder: `HELDORT=…;village:15:24:u`.
-- **Zu 348.6, CC0** (von Team Jerry 25.10., 23:5x, Telegram 23:55): Held und Leute aufs CC0-Gerüst (Modellregel 4, 5), Körper und Kleidung aus `held3.py`, Haltungen und Gang aus `rig.py` entfallen. Einzelheiten `tools/blender348/v3/LIESMICH.md`; Knochen `hand_l`/`hand_r`, Griffe in `held-info.json`.
+- **Zu 348.6, Urteil Chef 12:11** (Archiv): „echt stark“. Offen (Runde 11): Büsche über Dachfirsten, Laternenpfahl am Steg, Lichtstreifen nachts, Korn „wie eine Gestrüppwiese“, Schatten ohne Werfer, Flimmern; Südrand ohne Abschluss.
 - **Zu 348.6, CC0 offen (362, mittel):** Schild von der Seite mit Spalt, wie Flosse (kein Gurt); Umhang beim Rennen steif; Flamme der Fackel vor dem Gesicht (alt); Gwennas Unterarm, Morwen 90° (Homer). Gering: Kettenhemd am Hals, Osric dünner Hals, Gwenna nachts.
 - **Zu 348.6, Leute Runde 4b–4d** (Tom 31–33; Git): **An Jerry:** `spear` (Jorin), `maul` (Borin), `longbow` (Garrick) in `waffen.py`; Prüfblatt `pb_alle.sh`.
 - **Zu 348.6, Leute** (Tom 23, c94bb4067): `held3.py` mit `FIGUR=<kennung>` aus `leute.json`; Einzelheiten im Git-Verlauf dieser Zeile.
