@@ -350,7 +350,7 @@ Abnutzung und Reparatur: Reparieren ist keine eigene Fertigkeit mehr; Metall rep
 | Kräuterkundiger | Kräutersammler | Kräuterkunde, Alchemie, Spähen | Meisterschaft Alchemist |
 | Schmiedegeselle | Schmiedelehrling | Schmieden, Bergbau | Meisterschaft Schmied |
 | Späher (neu) | Herumtreiber | Schleichen, Spähen, Dolche | Assassine, Schatzjäger |
-| Frei | Ohne Herkunft | selbst gewählt | – |
+| Frei | Wanderer (keine Herkunft; du verteilst die 18 Punkte selbst und wählst Startfertigkeiten frei) | selbst gewählt | – |
 
 ## Entwurf E zur Entscheidung: neuer Wortlaut für Leitbild und `CLAUDE.md`
 
