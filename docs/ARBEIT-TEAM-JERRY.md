@@ -17,7 +17,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert
 | 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | gebaut 0eda4bb3e: Knurren mit Text, an Tom für den Build; Hilfe, Eingebung mit 390 | – |
 | 402 | M | **von Sokrates (Chef 22:2x, Archiv):** Blende vor dem Kampf wie alt; Herzschlag beim Hinterhalt stärker | gebaut daa514bcd auf `claude/jerry-348-klang`: 2b als Paare, drei Paare alle 0,55 s (vier passen nicht in die 1,67 s der Blende); fährt im nächsten Build; Blende wie alt abgenommen | – |
 | 403 | M | **von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler):** Kampfort: Held je Klasse wie im Dorf (`HeldFigur.baue`) statt `kampf/daten/held.bin`; Hieb, Stich, Treffer, Tod, Ausweichen aus der UAL Pro | gebaut 98482c53e: Kaufheld je Klasse, Bewegungen umgerechnet, kein Gleiten; Film ansehen/403; UAL Pro im Kampf: 70a812275 (Tuffy) | – |
-| 406 | M | **von Team Tom (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe):** Ausrüstung der Helden je Stück aufwerten („steril“), zuerst Rundschild des Klerikers hell mit goldener Sonne (`Dress.kt`); Wappenrock-Sonne macht Tom | wartet auf Chef: Drehfilm 21 Schilde (ansehen/406-schilde.md, Morgenblatt), Chef wählt (Archiv 408) | `claude/jerry-406-schild` |
+| 406 | M | **von Team Tom (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe):** Ausrüstung der Helden je Stück aufwerten („steril“), zuerst Rundschild des Klerikers hell mit goldener Sonne (`Dress.kt`); Wappenrock-Sonne macht Tom | startbar: Chef 23:22 wählt Schild 2 und 15 (Zu 406), Einbau; „neues System!!!“ | `claude/jerry-406-schild` |
 | 401 | M | **von Chef über Sokrates (Archiv):** Tierlaute, mind. 3 je Tier | gebaut 473fbe768: Klopfen raus, Ziege, Knabbern bleiben; fährt im nächsten Build | – |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK | `claude/jerry-348-kampf` |
@@ -53,7 +53,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert
 
 ## Einzelheiten
 
-- **Zu 406, von Sokrates (Chef 11:13, Archiv 408):** nicht weiterbauen; erst alle Schilde der Bibliothek (LISTE-BESTAND „Waffen und Schilde“) drehend in einem Film vorlegen, Chef wählt.
+- **Zu 406, von Sokrates (Chef 11:13, Archiv 408):** Film mit 21 Schilden vorgelegt; **Chef 31.10., 23:22: „Schild 2 für ehemaligen Kleriker (neues System!!!) und 15 für Krieger (neues System)“.** Nummern nach `ansehen/406-schilde` (gelöscht, in Git): 2 = Omie Drachenschild, 15 = PolyMech zweiter offener runder; prüfen im Film. Im neuen System entfallen Klassen, also Namen nur als Titel (`DESIGN-SPIELSYSTEM-2-0.md`).
 
 - **Zu 348.12f, Kaufwolf und 387:** `kaufwolf.py` (Probe `ERSATZ=kaufwolf`, Workflow „Kaufwolf“), `kauftier.py` (Workflow „387 r“); `pfotenhalt.gd`; Artefakt per `gh api …/artifacts/<id>/zip`. **387 r4:** Offenes im Blatt r4.
 - **Zu 348.12f, Ort:** Wurzelweg `weg` in `giant_rat-info.json` (`kaufratte.py`), `figur.gd` `_bite`, `BITE`, `_walk_home`, `dodge(ms, nm)`; Probe `GEGNER=RATS OHNEUI=1 SCHAU=ort SCHAU_MESS=1` („Ortmess“), Film `348.12f-ort.mp4`; Rute `RUTE_MESS=1`. Kauf `gh api …/releases/assets/<id>` (Ratte 678372860, Janpec 678515204).
