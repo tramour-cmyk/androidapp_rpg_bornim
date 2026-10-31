@@ -136,9 +136,10 @@ def zeilen(inhalt, unles=None):
 # 424 (Chef 31.10., 21:3x: „keine Energie mehr in das alte SRD-System stecken“): eine sonst startbare Zeile,
 # die Regeln des alten Systems nennt, ruht; frei bleiben Zeilen zur Ablösung (Ersatznamen, Glossar, Lizenz)
 # und zu Spielsystem 2.0. Absicht des Chefs für Altes: „Chef erlaubt alt“ in die Zeile schreiben.
-ALTES_SYSTEM = re.compile(r"\bSRD\b|\bW20\b|Rettungsw[uü]rf|Trefferw[uü]rfel|Zauberpl[aä]tze|\bCharisma\b|vier Klassen"
-                          r"|talente\.gd|klassisch\.gd|core/Rules\.kt|Monsters\.kt")
-ALT_FREI = re.compile(r"2\.0|^424\b|Ersatz|ersetz|Ablösung|ablösen|ohne SRD|Glossar|Lizenz|Chef erlaubt alt")
+ALTES_SYSTEM = re.compile(r"\bSRD\b|\b[WwDd]20\b|Rettungsw[uü]rf|Trefferw[uü]rfel|Zauberpl[aä]tz|\bCharisma\b|vier Klassen"
+                          r"|Rüstungsklasse|Übungsbonus|\bTalente\b"  # nicht „Kleriker“, „Klasse“: sperrte Aussehen (Schild 406)
+                          r"|talente\.gd|klassisch\.gd|core/Rules\.kt|Monsters\.kt")  # D50: Wortliste erweitert (Diogenes Lauf 50)
+ALT_FREI = re.compile(r"Spielsystem 2\.0|(?<![\d.])2\.0\b|^424\b|Ersatz|Ablösung|ablösen|ohne SRD|Glossar|Lizenz|Chef erlaubt alt")  # D50: „142.0“, „ersetz“ gaben zu weit frei
 
 def altes_system(thema, rest, nr=""):
     t = nr + " " + thema + " " + rest
