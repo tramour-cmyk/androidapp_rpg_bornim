@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (01.11., 00:06, Ford `session_01Hmoj7996yJhuNe5DcYpoqk`, Tiefe 5, 406 Tsd. Token → Selbstneustart):** Läuft: Tom `01Hmoj7A2b` „417 Waffen in der Hand, 416.3 Befunde“, Spike `01Hmoj77yq` „425“ und Tuffy `01Hmoj76Mh` „403“ (beide warten auf Urteil des Chefs), Sokrates `01Hmoj7725` „422, 427“ (Opus); Sokrates-Desktop `01Hmoj76r9` (Sonnet) nie archivieren, das tut der Chef. Offen: Jerry-Nachfolger „Jerry – Morgenblätter 403 und 406 senden, gemeinsamer Build“ im Lauf ab 7:00 starten (Eingang); Diogenes 374 täglich 8:00 bis 03.11. (`lauf.py` mit `--ohne 374:…` vor 8:00 ausschließen); ab Tiefe 6 gilt: einmal `--laut` „Chef: Ford bitte von Hand starten (Tiefe 6)“ vor dem nächsten Neustart. Namensform nach 436 („Rolle – Vorgang: Thema (Zeit)“) bei neuen Sitzungen anwenden, sobald Perikles die Regel in CLAUDE.md hat. Nachfolger: Ford – Betriebsleiter.
+**Übergabe (01.11., 00:08, Ford `session_01Hmoj77RMy1UJJcbtymKPss`, Tiefe 6; Vorgänger archiviert, Uhr umgestellt; Chefsache 110 und `--laut` raus):** Läuft: Tom `01Hmoj7A2b` „417 Waffen in der Hand, 416.3 Befunde“, Spike `01Hmoj77yq` „425“ und Tuffy `01Hmoj76Mh` „403“ (beide warten auf Urteil des Chefs), Sokrates `01Hmoj7725` „422, 427“ (Opus); Sokrates-Desktop `01Hmoj76r9` (Sonnet) nie archivieren, das tut der Chef. Offen: Jerry-Nachfolger „Jerry – Morgenblätter 403 und 406 senden, gemeinsamer Build“ im Lauf ab 7:00 starten (Eingang); Diogenes 374 täglich 8:00 bis 03.11. (`lauf.py` mit `--ohne 374:…` vor 8:00 ausschließen); Namensform nach 436 („Rolle – Vorgang: Thema (Zeit)“) bei neuen Sitzungen anwenden, sobald Perikles die Regel in CLAUDE.md hat. Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 443** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (28.10., 23:59)“ `session_01Hmoj7996yJhuNe5DcYpoqk` (Tiefe 5); Stundenuhr „Ford-Lauf“ `trig_01Kf2sLW1chKJPA2mLCU4Uay` (:03, geprüft 23:56), geht mit dem Selbstneustart auf den Nachfolger über. Alter Ford `01Hmoj76tS` archiviert 23:56.
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (01.11., 00:06)“ `session_01Hmoj77RMy1UJJcbtymKPss` (Tiefe 6, Chefsache 110: von Hand neu starten); Stundenuhr „Ford-Lauf“ `trig_019KHsKov6qePqTjqK14p2Dh` (:03, geprüft 01.11., 00:07), geht mit dem Selbstneustart auf den Nachfolger über. Alter Ford `01Hmoj7996` archiviert 00:07, 11,16 $ auf Betrieb gebucht.
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus; Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
 
