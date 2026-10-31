@@ -63,3 +63,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:18 31.10.: Startsperre 22:18 Start Spike, Tuffy (lauf.py)
 - 22:18 31.10.: Marke Stellungnahme Sokrates 31.10. (lauf.py)
 - 22:18 31.10.: Marke Mehrfach Tom (lauf.py)
+- 00:06 01.11.: Startsperre 00:06 Start Jerry, Diogenes, Homer, Perikles, Spike (lauf.py)
+- 00:06 01.11.: Marke Archiv session_01Hmoj76r9gzqmymitAPFRzM (lauf.py)
+- 00:06 01.11.: Marke Archiv session_01Hmoj77yqKwPjqdoMNY7bUX (lauf.py)
