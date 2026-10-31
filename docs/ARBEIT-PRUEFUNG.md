@@ -12,7 +12,6 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
-| 420 | M | **von Sokrates (Chef 31.10., 21:2x: „dass der auch bitte unsere Ideen dann nochmal überprüft“):** `DESIGN-SPIELSYSTEM-2-0.md` prüfen: Entscheidungen 1–65 untereinander und gegen die Auseinandersetzung (Abschnitte 1–12) auf Widersprüche, Zählfehler, Lücken; Befund als Text an den Chef und an Sokrates | startbar |
 | 419 | M | **von Sokrates (Chef 31.10., 21:2x: „irgendwer muss dann wieder prüfen, was Perikles macht … im Doppelpack mit Diogenes“):** 418 prüfen: Direktive in `CLAUDE.md` wörtlich wie im Vorgangsarchiv „418“, neue Abnahmeliste deckt Direktive und Spielsystem 2.0 | wartet auf Perikles (418) |
 | 398 | M | **von Sokrates:** vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (397), dazu 15 Lücken (398); in der Wochenzählung als Chef-Erstfund zählen | frühestens 02.11. (mit Zeile „Woche“; Start 28.10., 12:04 zu früh, Bedingung ohne Termin-Wort) |
 | 374 | M | **von Sokrates (Chef 27.10., 11:58, Archiv 374):** täglich 8 Uhr bis 03.11. Vorlagen des Vortags an den Chef zählen: mit Fassungsblatt, genau einer Fehlerrunde, Chefwortlaut im Vorgang, Vorgabe Homer (373 a, c, d); eine Zeile Morgenmeldung, Abweichung in den Vorrat des Verursachers | erst wieder ab 30.10., 08:00 (29.10. gezählt: Zu 374); sauber bis 03.11. → nur montags |
