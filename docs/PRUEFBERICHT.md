@@ -25,6 +25,18 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 52 · Auftrag 443 Doppelpack zu 436 (`main` `88415f87b`; 01.11., 00:1x; `lauf.py` mit 16 Titeln nachgestellt)
+
+**Ergebnis:** Die Namensform steht in `CLAUDE.md` Start 2 und in allen Rollendateien außer Ford. `lauf.py` liest „416.3:“ als 416.3 und „403, 406:“ als 403,406. Uhrzeiten zählt es weiter nicht mit („12:30“, „um 9:30“).
+
+**Befunde**
+
+- **D52.1 Wochenziel bucht ins Leere:** `ROLLE-PROJEKT.md` schreibt „Perikles – Wochenziel: TT.MM. (…)“ vor. `nummer_aus_titel` macht aus „Wochenziel: 02.11.“ den Vorgang „02.11“. Diese Zeile gibt es nicht, also druckt `_buchen` nur „WARNUNG Kosten“. `KOSTEN-GEBUCHT.tsv` führt die Sitzung trotzdem als gebucht, die Kosten fehlen also in jeder Vorgangszeile. Den Fehler gab es schon vor 436 („Wochenziel 02.11.“ ergibt ebenfalls 02.11), 436 hat ihn übernommen. „338.1: Stand zum Marktstart“ ist dagegen behoben (vorher „01.11.“ → 01.11).
+- **D52.2 eine alte Form übrig:** `ROLLE-BERATUNG.md` Zeile 36 „Sokrates – BornWire (TT.MM., HH:MM)“, ohne Vorgang.
+- **D52.3 Ausnahme Ford ohne Chefwort:** Chef 31.10., 22:58: „Gilt für alle Beschäftigten!“. Perikles nimmt Ford aus („Ford – Betriebsleiter“, Eingang Betrieb), ebenso die „Ford-Wache“. Fürs Werkzeug gleich (Ford bucht auf Betrieb); ob die Ausnahme gilt, entscheidet der Chef. Im Vorgangsarchiv fehlt ein Eintrag zu 436; der Wortlaut steht nur in `ARBEIT-PROJEKT.md` „Zu 436“.
+
+**Nicht geprüft:** ob Ford die laufenden Sitzungen umbenannt hat; `lauf.py --sperre` im echten Lauf.
+
 ## Lauf 51 · Auftrag 435 Doppelpack zu 433 (`main` `68de4970f`; 31.10., 22:2x; an einer Kopie nachgestellt)
 
 **Ergebnis:** Die Startsperre mit mehreren Namen („Start Tom, Jerry, …“) sperrt jetzt jeden Namen; vorher nur den ersten (Protokoll 21:27 hatte fünf). Spike läuft auf seiner Zeile „in Arbeit bei Spike“ weiter, Tom nimmt sie nicht, ein zweiter Spike startet nicht. Kopf `ROLLE-ENTWICKLUNG.md` trifft den Code.

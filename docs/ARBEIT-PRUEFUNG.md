@@ -3,16 +3,15 @@
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
 
-**Geprüft bis:** `51707abf` (21.10., Lauf 41: 274 Schritt 1–3, nur Notizen und Werkzeug-Verweise) · vorher `98ba4b9b` (Lauf 40: 261.5; frühere Stände in Git); nächste Nummer D52 (Lauf 51: 435 zu 433, `68de4970f`; Lauf 45: 149/156, Lauf 46: 275 Werkzeuge an Kopie, `4fec9890`; Lauf 47: Nachprüfung D46, `e5b790d3`; Lauf 48: 420 Spielsystem 2.0, `3d64e00`; Lauf 49: 419 Prüfung 418/421, `6185da179`; Lauf 50: 429 zu 424/412, `a005a27f3`).
+**Geprüft bis:** `51707abf` (21.10., Lauf 41: 274 Schritt 1–3, nur Notizen und Werkzeug-Verweise) · vorher `98ba4b9b` (Lauf 40: 261.5; frühere Stände in Git); nächste Nummer D53 (Lauf 52: 443 zu 436, `88415f87b`; Lauf 51: 435 zu 433, `68de4970f`; Lauf 45: 149/156, Lauf 46: 275 Werkzeuge an Kopie, `4fec9890`; Lauf 47: Nachprüfung D46, `e5b790d3`; Lauf 48: 420 Spielsystem 2.0, `3d64e00`; Lauf 49: 419 Prüfung 418/421, `6185da179`; Lauf 50: 429 zu 424/412, `a005a27f3`).
 
-**Übergabe (31.10., 22:2x, „Diogenes – 434 Bestandszeile“):** 434 in die Zählung 374 eingereiht (Zu 434); 435 geprüft (Lauf 51), an Perikles (Zu 433) und Chef. Nachfolger: „Diogenes – 374 Stichprobe“ ab 01.11., 08:00, mit 434.
+**Übergabe (01.11., 00:1x, „Diogenes – 443: Namensform 436“):** 443 geprüft (Lauf 52), Befunde D52.1–3 an Perikles (Zu 436) und Chef. Nachfolger: „Diogenes – 374: Stichprobe“ heute ab 8 Uhr, mit 434.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
-| 443 | M | **von Perikles (436, Doppelpack 421, 01.11., 00:2x):** Namensform „<Rolle> – <Vorgang>: <Thema> (TT.MM., HH:MM)“ in `CLAUDE.md` Start 2 und `ROLLE-*.md` prüfen (vollständig, nichts Altes übrig); `lauf.py` `nummer_aus_titel`/`nummern_aus_titel` lesen Nummern vor „:“ (vorher „416.3:“ → 416, „403, 406:“ → nur 403), Uhrzeiten weiter nicht; Commit siehe „Perikles: 436“ | startbar |
 | 441 | M | **von Sokrates (Chef 31.10., 23:40, „gründlich von Diogenes quergelesen“):** `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md` (Anleitung und Nachschlagewerk, Entscheidungen bis 75) auf Widersprüche, Lücken, veraltete Stellen und Zahlen prüfen; Befunde von Lauf 48 und 49 als erledigt oder offen abgleichen | wartet auf Sokrates (422: Abgleich D48/D49 in Abschnitten 2 bis 6) |
 | 434 | M | **von Sokrates (Chef 31.10., 22:1x):** bei jeder Zählung 374 zusätzlich die Zeile „Bestand geprüft“ je Vorlage zu einem Eigenbau prüfen (Zu 434) | erst ab 01.11., 08:00 mit 374 (Zu 434) |
 | 398 | M | **von Sokrates:** vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (397), dazu 15 Lücken (398); in der Wochenzählung als Chef-Erstfund zählen | frühestens 02.11. (mit Zeile „Woche“; Start 28.10., 12:04 zu früh, Bedingung ohne Termin-Wort) |
