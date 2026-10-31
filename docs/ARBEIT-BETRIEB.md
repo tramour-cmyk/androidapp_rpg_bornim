@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (28.10., 23:58, Ford `session_01Hmoj76tScGGPZum5vs5UrG`, Tiefe 4, 400 Tsd. Token → Selbstneustart):** Läuft: Tom `01Hmoj76BK` „376.1 Köpfe, Haut, Robe“ (alter Tom `01Hmoj78mj` noch working, nach Neustart-Meldung 3ffad41ab: archivieren sobald idle, Kosten 376.1,399.5), Jerry `01Hmoj77So` „348.12 Grak nachbessern“, Perikles `01Hmoj77Hj` „400“, Sokrates `01Hmoj78Ck` „Chefrunde“ (idle), Homer `01Hmoj77EQ` (idle, Vorrat leer). Diogenes ab 29.10. täglich 8:00 bis 03.11. (374). Wochenlimit `allowed_warning` (bis Sa 31.10., 20:00): `lauf.py --nur-muss`. Arbeitsweise im Eingang. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 413** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 414** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 

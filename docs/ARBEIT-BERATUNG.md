@@ -2,15 +2,15 @@
 
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
-**Pause bis 31.10., 20:00 Uhr** (Chef 29.10., 11:15).
 
 
-**Übergabe (29.10., 11:1x, `session_01Hmoj78Njjgz8uAoS6RUQKN`):** Chefrunde: Urteile 376.1, 399.1, 399.5, 348.12, 401/402/399.3, 406, 403 eingetragen (Archiv); 407, 408 an Perikles; 348.12h inventarisiert (LISTE-BESTAND); Pause aller Rollen bis 31.10., 20:00, Zeitpläne Ford aus, Wecker „Ende Pause Sa 20:05“ an Ford. Kosten auf: 407, 408, 348.12h, 399.5, 376.1. Nachfolger: Sokrates – Chefrunde (nach der Pause)
+**Übergabe (29.10., 11:1x, `session_01Hmoj78Njjgz8uAoS6RUQKN`):** Chefrunde 29.10. (Archiv); 407, 408 an Perikles; 348.12h inventarisiert. Kosten auf: 407, 408, 348.12h, 399.5, 376.1. Nachfolger: Sokrates – Chefrunde (nach der Pause)
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 413 | M | **von Chef (31.10., 20:1x):** Spielsystem 2.0 (`DESIGN-SPIELSYSTEM-2-0.md`), Meilensteine | wartet auf Chef: Chefsache 413a |
 | 398 | M | **von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr ganz grundlegende Dinge fehlen?“):** Grundsätze DESIGN-* gegen Umzugsliste und Godot-Zweige | wartet auf Perikles: 15 Lücken in LISTE-UMZUG-348.md „398“, Chef 11:3x informiert |
 | 391 | M | **von Chef (28.10., 09:21):** Repos dauerhaft ohne Ablehnung | ruht: kein Repo-Feld in der Umgebung (Bild Chef 10:29), Repo-Wahl am Eingabefeld gilt nur für Sitzungen von Hand; Fords Starts nehmen ein Repo; add_repo geht durch, wenn die Aufgabe die Kaufmodelle braucht |
 | 383.2 | M | **von Chef (27.10., 19:24, „wo steckt jetzt hier wieder die Wahrheit? Und wer hat damit geprüft?“):** dieselbe Aufgabe frisch gegen groß messen; ja 19:30 („nimm den Vergleich dort mit auf“, Archiv) | frühestens 31.10. |

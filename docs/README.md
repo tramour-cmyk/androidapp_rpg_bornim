@@ -21,7 +21,7 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 - [Leitbild](DESIGN-LEITBILD.md): roter Faden, gilt bei Widerspruch
 - [Stil](DESIGN-STIL.md): Aussehen, Klang, Spielgefühl
 - [Abnahme](DESIGN-ABNAHME.md): „Ort fertig“, selbst prüfen
-- [Kampf](DESIGN-KAMPF.md), [Balance](DESIGN-BALANCE.md), [Heldenbau](DESIGN-HELDENBAU.md), [Blende](DESIGN-BLENDE.md)
+- [Kampf](DESIGN-KAMPF.md), [Balance](DESIGN-BALANCE.md), [Heldenbau](DESIGN-HELDENBAU.md), [Blende](DESIGN-BLENDE.md), [Spielsystem 2.0](DESIGN-SPIELSYSTEM-2-0.md) (Entwurf, 413)
 - [Storyplan](STORY-PLAN.md): Plot und Figuren je Kapitel, Kapitel 2 mit Karte und [Textentwurf](STORY-K2-ENTWURF.md)
 - [Story-Verzeichnis](STORY-REGELN.md): alle Spieltexte mit Marken; Kapitel 1 [Handlung](STORY-K1-HANDLUNG.md) und [Welt](STORY-K1-WELT.md), [Blende](STORY-BLENDE.md)
 - Aus Artefakten übernommen (246.1): [Roter Faden](STORY-ROTER-FADEN.md), [Chronik-Texte Kapitel 1](STORY-CHRONIK-TEXTE-K1.md), [Kapitel-2-Landkarte](STORY-K2-LANDKARTE.md), [Spielanleitung MARS 72.10a](DESIGN-KAMPF-SPIELANLEITUNG-72-10A.md), [MARS-Aufstellung](DESIGN-MARS-AUFSTELLUNG.md), [Prüfbogen Tester](LISTE-PRUEFBOGEN-TESTER.md)
