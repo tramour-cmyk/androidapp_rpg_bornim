@@ -115,17 +115,17 @@ func _lauf() -> void:
 	# Menue zeigt Bedienung; Antippen wechselt und speichert
 	m.reiter = "system"; m.baue()
 	await process_frame
-	var aktion: Array = m.inhalt.find_children("*", "Button", true, false).filter(func(b): return b.text.begins_with("AKTION"))
+	var aktion: Array = m.inhalt.find_children("*", "Zeichenknopf", true, false).filter(func(b): return b.wort == "Aktion")   # 425: Zeichen wie alt
 	pruefe("Menue Aktion", aktion.size(), 1)
 	if aktion.size() == 1:
-		aktion[0].pressed.emit()
+		aktion[0].tat.call()
 		pruefe("Menue Aktion wechselt", Bedienung.links, false)
 		Bedienung.geladen = false
 		Bedienung.links = true
 		Bedienung.lade()
 		pruefe("gespeichert", Bedienung.links, false)
-	var steuer: Array = m.inhalt.find_children("*", "Button", true, false).filter(func(b): return b.text.begins_with("STEUERUNG"))
-	pruefe("Menue Klassisch ohne Joystick", [steuer.size(), m.inhalt.find_children("*", "Button", true, false).filter(func(b): return b.text.begins_with("JOYSTICK")).size()], [1, 0])
+	var zk: Array = m.inhalt.find_children("*", "Zeichenknopf", true, false)
+	pruefe("Menue Klassisch ohne Joystick", [zk.filter(func(b): return b.wort == "Steuerung").size(), zk.filter(func(b): return b.wort == "Joystick").size()], [1, 0])
 	m.free()
 	# Laden (416.3: ladenschirm.gd wie ShopScreen.kt): Seltenes verkaufen fragt noch einmal; „Abbrechen“ laesst es, „Verkaufen“ verkauft
 	Bedienung.rueckfragen = true

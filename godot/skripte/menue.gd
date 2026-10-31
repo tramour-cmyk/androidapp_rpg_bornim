@@ -11,12 +11,12 @@ extends Control
 #   Nebenhand, wegwerfen (mit Rueckfrage und Haendlerpreis).
 # - Ausruestung (GearTab): Plaetze links und rechts des Helden (PaperDoll), Antippen legt ab, wechselt oder waehlt aus der Tasche,
 #   was passt (die Nebenhand nimmt auch Einhandwaffen); darunter die Kampfwerte.
-# - System (SystemSigns), soweit es die Welt schon kann: Speichern, Sprache, Hauptmenue; Rückfragen, Bedienung; Lautstaerke (399.3.1),
-#   Schritte, Helligkeit; Siege, Geraet.
+# - System (SystemSigns, 425): Zeichen wie alt, Gedrueckthalten erklaert; Spiel, Kampf, Bedienung; Lautstaerke (399.3.1), Helligkeit;
+#   Siege, Geraet.
 # - Karte (MapTab, 62): kartenreiter.gd.
 # - Test (TestTab, nur im Testmodus, 399.1): testmodus.gd.
 # - Chronik (ChronicleTab): Hauptauftrag in Gold, Auftraege der Geschichte, Nebenauftraege vom Brett, Erledigt zum Aufklappen, „Bisher geschehen“.
-# Noch nicht wie alt: in der Chronik Ankunft und Morgenandacht ansehen; im System Blut, Tempo, Kampftext, MARS-Probe (Jerry); Bilder der Dinge;
+# Noch nicht wie alt: in der Chronik Ankunft und Morgenandacht ansehen; im System die MARS-Probe (Jerry); Bilder der Dinge;
 # Fackel im Dunkeln.
 
 signal zu
@@ -100,7 +100,7 @@ func baue() -> void:
 	# 399.1: Reiter als Zeichen wie alt (TabSign, 60j); Woerter passten zu viert nicht in die Breite
 	for r in ["held", "tasche", "ausruestung", "karte", "chronik", "system"] + (["test"] if Testmodus.ist_an() else []):   # 399.1 wie alt Tab.TEST
 		var stern: bool = (r == "held" and hw.offen > 0) or (r == "chronik" and reiter != "chronik" and Chronik.frisch(z))
-		leiste.add_child(Reiterzeichen.knopf(r, wort(r), func(): reiter = r; geplant.clear(); baue(), r == reiter, stern))
+		leiste.add_child(Reiterzeichen.knopf(r, wort(r), func(): reiter = r; geplant.clear(); schliesse_erklaerung(); baue(), r == reiter, stern))
 	for c in inhalt.get_children():
 		inhalt.remove_child(c)
 		c.queue_free()
@@ -713,63 +713,212 @@ func tippe_fach(platz: String) -> void:
 	k.append([Sprache.u("close"), func(): pass])
 	dialog(Beute.name(g), farbe_von(g), stueck_zeilen(g), k)
 
-# ---------------------------------------------------------------- System (SystemSigns), Teil „Spiel“
+# ---------------------------------------------------------------- System (SystemSigns)
+# 425 (Chef 31.10., 21:30 zu Build 143: alte Menues mit Zeichen „super klasse“, neue „viel zu viel Text“) wie alt (MenuSigns.kt
+# SystemSigns, 326): oben die Version, dann vier Gruppen von Zeichen statt Knoepfen mit Saetzen: „Spiel“ (Speichern, Sprache,
+# Hauptmenü; Anleitung, Über), „Kampf“ (Blut, Tempo, Kampftext, Rückfragen), „Bedienung“ (Steuerung, Joystick und Rennen nur beim
+# Wischen, Aktion; Karte, Rütteln, Schritte). Antippen wechselt, Gedrueckthalten erklaert (erklaere_zeichen); Regler fuer Klang und
+# Licht bleiben; unten Schritte und Siege, Geraet. Die MARS-Probe (alt „M“) folgt mit ihrem Schirm (Jerry).
+const HINWEIS := {"de": "Halte ein Zeichen gedrückt, und es erklärt sich.", "en": "Press and hold a sign to see what it does."}
+
 func system() -> void:
 	var de := Sprache.aktiv() == "de"
-	zeile(("Spiel" if de else "Game").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))
+	Bedienung.lade()
+	if not Bedienung.zeichen_gesehen:   # alt signHintSeen: der Hinweis wartet auf das erste Oeffnen
+		Bedienung.zeichen_gesehen = true
+		Bedienung.speichere()
+		meldung(Sprache.t(HINWEIS))
+	var t := func(d: String, e: String) -> String: return d if de else e
+	var an := func(b: bool) -> String: return t.call("An", "On") if b else t.call("Aus", "Off")
+	var ver := String(ProjectSettings.get_setting("application/config/version", ""))
 	luecke(6)
-	for k in [["Speichern" if de else "Save", "Hält deinen Stand jetzt fest. Beim Verlassen des Spiels und auf dem Weg ins Hauptmenü speichert es ohnehin." if de
-			else "Saves your progress now. The game also saves when you leave it or go to the main menu.", func(): speichern.emit(); meldung(Sprache.u("saved"))],
-		[("Sprache" if de else "Language") + " · " + Sprache.aktiv().to_upper(), "Wechselt zwischen Deutsch und Englisch." if de else "Switches between German and English.", func(): sprache.emit(); baue()],
-		["Hauptmenü" if de else "Main menu", "Speichert und kehrt zum Hauptmenü zurück." if de else "Saves and returns to the main menu.", func(): hauptmenue.emit()]]:
-		inhalt.add_child(Erschaffung.knopf(String(k[0]), k[2]))
-		zeile(String(k[1]), 13, Stil.DIM)
-		luecke(8)
-	# 352: die Anleitung; „Über“ (Wer das Spiel macht …); die MARS-Probe folgt mit dem Kampfort (Jerry)
+	zeile("Version %s (Build %s)" % [ver, ver.get_slice(".", ver.get_slice_count(".") - 1)] if ver != "" else "Version –", 13, Stil.DIM)
+	luecke(10)
+	var z_ := func(name_: String, wert, satz: String, tut: Callable, an_ := true, zeichen_ := "", buchstabe := "") -> Zeichenknopf:
+		return Zeichenknopf.new(name_, wert, satz, func(): _tue(tut), erklaere_zeichen, an_, zeichen_, buchstabe)
+	var spar := func(tut: Callable) -> Callable: return func(): tut.call(); Bedienung.speichere()
+	gruppe(t.call("Spiel", "Game"))
+	zeichenreihe([z_.call(t.call("Speichern", "Save"), null, t.call("Hält deinen Stand jetzt fest. Beim Verlassen des Spiels und auf dem Weg ins Hauptmenü speichert es ohnehin.",
+			"Saves your progress now. The game also saves when you leave it or go to the main menu."), func(): speichern.emit(); meldung(Sprache.u("saved")), true, "SAVE"),
+		z_.call(t.call("Sprache", "Language"), null, t.call("Wechselt zwischen Deutsch und Englisch.", "Switches between German and English."), func(): sprache.emit(), true, "",
+			"DE" if de else "EN"),
+		z_.call(t.call("Hauptmenü", "Main menu"), null, t.call("Speichert und kehrt zum Hauptmenü zurück.", "Saves and returns to the main menu."), func(): hauptmenue.emit(), true, "MENU")])
+	# 352: was zu lesen ist, in einer eigenen Reihe
 	var a: Dictionary = Sprache.texte.get("anleitung", {})
-	for k in [[Sprache.t(a.get("zeichen", {"de": "Anleitung", "en": "Guide"})), Sprache.t(a.get("hinweis", "")), anleitung],
-		["Über" if de else "About", "Wer das Spiel macht und worauf seine Regeln beruhen." if de else "Who makes the game and what its rules are based on.", func(): ueber.emit()]]:
-		inhalt.add_child(Erschaffung.knopf(String(k[0]), k[2]))
-		zeile(String(k[1]), 13, Stil.DIM)
-		luecke(8)
-	bedienung()
+	zeichenreihe([z_.call(Sprache.t(a.get("zeichen", {"de": "Anleitung", "en": "Guide"})), null, Sprache.t(a.get("hinweis", "")), anleitung, true, "RULES"),
+		z_.call(t.call("Über", "About"), null, t.call("Wer das Spiel macht und worauf seine Regeln beruhen.", "Who makes the game and what its rules are based on."), func(): ueber.emit(), true, "ABOUT")])
+	luecke(4)
+	gruppe(t.call("Kampf", "Combat"))
+	var blut := ["Aus", "Dezent", "Deutlich"] if de else ["Off", "Subtle", "Strong"]
+	var tempo := ["Ruhig", "Normal", "Schnell"] if de else ["Calm", "Normal", "Fast"]
+	var text := ["Antippen", "Von selbst"] if de else ["Tap", "Auto"]
+	zeichenreihe([z_.call(t.call("Blut", "Blood"), blut[Bedienung.blut], t.call("Wie viel Blut Treffer zeigen. Antippen wechselt: Aus, Dezent, Deutlich.",
+			"How much blood hits show. Tap to change: off, subtle, strong."), spar.call(func(): Bedienung.blut = (Bedienung.blut + 1) % 3), Bedienung.blut > 0, "BLOOD"),
+		z_.call(t.call("Tempo", "Pace"), tempo[Bedienung.tempo], t.call("Wie schnell Züge und Zeilen im Kampf ablaufen. Antippen wechselt: Ruhig, Normal, Schnell.",
+			"How fast turns and text play out in battle. Tap to change: calm, normal, fast."), spar.call(func(): Bedienung.tempo = (Bedienung.tempo + 1) % 3), true, "TEMPO"),
+		z_.call(t.call("Kampftext", "Battle text"), text[1 if Bedienung.kampftext else 0], t.call("Ob die Zeilen im Kampf auf dein Antippen warten oder nach einer Lesepause von selbst weiterlaufen.",
+			"Whether the lines in a fight wait for your tap or advance automatically after a pause for reading."), spar.call(func(): Bedienung.kampftext = not Bedienung.kampftext), true, "TEXT"),
+		z_.call(t.call("Rückfragen", "Confirmations"), an.call(Bedienung.rueckfragen), Sprache.u("confirmHint"), spar.call(func(): Bedienung.rueckfragen = not Bedienung.rueckfragen),
+			Bedienung.rueckfragen, "", "?")])
+	luecke(4)
+	gruppe(t.call("Bedienung", "Input"))   # Homer [326.abschnitt.bedienung]: so steht „Steuerung“ nicht zweimal
+	var r1 := [z_.call(t.call("Steuerung", "Controls"), t.call("Klassisch", "Classic") if Bedienung.klassisch else t.call("Wischen", "Swipe"),
+		t.call("Wischen: Finger ziehen zum Laufen, weit ziehen zum Rennen, tippen zum Hinlaufen. Klassisch: Steuerkreuz und ein großer Knopf zum Handeln.",
+			"Swipe: drag to walk, drag far to run, tap to walk there. Classic: a D-pad and a big button to act."), spar.call(func(): Bedienung.klassisch = not Bedienung.klassisch), true, "CONTROLS")]
+	if not Bedienung.klassisch:   # 86.4, 131: Joystick und Renntaste nur beim Wischen
+		var gefuehl := ["Fein", "Normal", "Ruhig"] if de else ["Fine", "Normal", "Calm"]
+		r1.append(z_.call("Joystick", gefuehl[Bedienung.ring], t.call("Im Kreis geht man, über den Ring hinaus rennt man. Fein: kleiner Ring. Ruhig: großer Ring.",
+			"Inside the ring you walk; beyond it you run. Fine: small ring. Calm: large ring."), spar.call(func(): Bedienung.ring = (Bedienung.ring + 1) % 3), true, "STICK"))
+		r1.append(z_.call(t.call("Rennen", "Run"), t.call("Taste", "Button") if Bedienung.lauf_taste else "Ring", t.call("Wie du rennst. Ring: über den Ring des Joysticks hinausziehen. Taste: dazu ein eigener Knopf zum Rennen.",
+			"How you run. Ring: push past the joystick's ring. Button: adds a separate run button."), spar.call(func(): Bedienung.lauf_taste = not Bedienung.lauf_taste), true, "RUN"))
+	r1.append(z_.call(t.call("Aktion", "Action"), t.call("Links", "Left") if Bedienung.links else t.call("Rechts", "Right"), t.call("Auf welcher Seite der Aktionsknopf steht: rechts, oder links für Linkshänder.",
+		"Which side the action button sits on: right, or left for left-handed players."), spar.call(func(): Bedienung.links = not Bedienung.links), true, "HAND"))
+	zeichenreihe(r1)
+	var r2 := [z_.call(t.call("Karte", "Map"), t.call("Näher", "Close") if Bedienung.karte_nah else "Normal", t.call("Wie nah die Karte ist. Näher zeigt weniger Umgebung, dafür größer.",
+			"Map zoom. Close shows less of your surroundings, but larger."), spar.call(func(): Bedienung.karte_nah = not Bedienung.karte_nah), true, "MAP"),
+		z_.call(t.call("Rütteln", "Haptics"), an.call(Bedienung.ruetteln), t.call("Das Handy zittert kurz, wenn vor dir etwas zu tun ist oder ein Weg nicht geht.",
+			"The phone buzzes briefly when there is something to do ahead of you or a path is blocked."), spar.call(func(): Bedienung.ruetteln = not Bedienung.ruetteln), Bedienung.ruetteln, "BUZZ")]
+	var k := get_node_or_null("/root/Klang")   # ueber den Knoten wie spiel.gd klang(): mit -s gibt es den Autoload nicht
+	if k:   # Schritte an oder aus wie alt (vm.toggleSteps); gespeichert mit den Reglern
+		r2.append(z_.call(t.call("Schritte", "Steps"), an.call(k.schritte_an), t.call("Die Schritte deines Helden hörbar oder still; alle anderen Geräusche bleiben.",
+			"Your hero's footsteps audible or silent; all other sounds stay."), func(): k.schritte_an = not k.schritte_an; k.stelle("all", int(k.lautstaerke["all"])), k.schritte_an, "STEPS"))
+	zeichenreihe(r2)
+	luecke(14)
 	# 399.3.1 Lautstaerke wie alt (SoundSettings.kt SoundAndLight, 40): Gesamt, Musik, Effekte und Ortsklang, in Schritten zu 5 (Mix.STEP);
 	# Loslassen bei Gesamt und Effekten klickt einmal, so hoert man, wie laut es nun ist (40a)
-	var k := get_node_or_null("/root/Klang")   # ueber den Knoten wie spiel.gd klang(): mit -s gibt es den Autoload nicht
 	if k:
-		zeile("Lautstärke" if de else "Volume", 15, Stil.TEXT)
-		for r in [["all", "Gesamt" if de else "Overall", true], ["music", "Musik" if de else "Music", false], ["fx", "Effekte und Ortsklang" if de else "Effects and ambience", true]]:
-			var an: bool = k.musik_an if r[0] == "music" else (k.effekte_an if r[0] == "fx" else true)
-			inhalt.add_child(Regler.new(String(r[1]), int(k.lautstaerke[r[0]]) if an else 0, "Aus" if de else "Off",
+		zeile(t.call("Lautstärke", "Volume"), 15, Stil.TEXT)
+		for r in [["all", t.call("Gesamt", "Overall"), true], ["music", t.call("Musik", "Music"), false], ["fx", t.call("Effekte und Ortsklang", "Effects and ambience"), true]]:
+			var an_: bool = k.musik_an if r[0] == "music" else (k.effekte_an if r[0] == "fx" else true)
+			inhalt.add_child(Regler.new(String(r[1]), int(k.lautstaerke[r[0]]) if an_ else 0, t.call("Aus", "Off"),
 				func(v: int): k.stelle(r[0], v), (func(): k.effekt("click", 0.35)) if r[2] else Callable()))
-		luecke(8)
-		# Schritte an oder aus wie alt (MenuSigns.kt Sign „Schritte“, vm.toggleSteps); gespeichert mit den Reglern
-		inhalt.add_child(Erschaffung.knopf(("Schritte" if de else "Steps") + " · " + (("An" if de else "On") if k.schritte_an else ("Aus" if de else "Off")),
-			func(): k.schritte_an = not k.schritte_an; k.stelle("all", int(k.lautstaerke["all"])); baue(), k.schritte_an))
-		zeile("Die Schritte deines Helden hörbar oder still; alle anderen Geräusche bleiben." if de else "Your hero's footsteps audible or silent; all other sounds stay.", 13, Stil.DIM)
-		luecke(8)
+		luecke(4)
 	# Helligkeit wie alt (SoundAndLight, 13e.6): „Dunkle Töne“ hebt das Schwarz, das Probezeichen liegt mit unter der Hebung
-	zeile("Helligkeit" if de else "Brightness", 15, Stil.TEXT)
-	inhalt.add_child(Regler.new("Dunkle Töne" if de else "Shadows", Helligkeit.lade(), "Aus" if de else "Off", func(v: int): Helligkeit.setze(v), Callable()))
-	var zeichen := Probezeichen.new()
-	inhalt.add_child(zeichen)
-	zeile("So einstellen, dass das Zeichen gerade noch zu sehen ist. Die Höhle bleibt dunkel." if de else "Adjust until the sign is barely visible. The cave stays dark.", 13, Stil.DIM)
-	luecke(8)
-	luecke(8)
-	zeile(("Schritte: %d · Siege: %d" if de else "Steps: %d · Victories: %d") % [z.schritte, z.siege], 13, Stil.DIM)
+	zeile(t.call("Helligkeit", "Brightness"), 15, Stil.TEXT)
+	inhalt.add_child(Regler.new(t.call("Dunkle Töne", "Shadows"), Helligkeit.lade(), t.call("Aus", "Off"), func(v: int): Helligkeit.setze(v), Callable()))
+	inhalt.add_child(Probezeichen.new())
+	zeile(t.call("So einstellen, dass das Zeichen gerade noch zu sehen ist. Die Höhle bleibt dunkel.", "Adjust until the sign is barely visible. The cave stays dark."), 13, Stil.DIM)
+	luecke(16)
+	zeile(t.call("Schritte: %d · Siege: %d", "Steps: %d · Victories: %d") % [z.schritte, z.siege], 13, Stil.DIM)
 	# 388 (DeviceBox, Chef 27.10., 21:58): Geraeteangaben zum Kopieren, damit Tester sie schicken koennen, wenn das Spiel ruckelt
 	luecke(10)
-	var reihe := HBoxContainer.new()
-	reihe.add_theme_constant_override("separation", int(6 * DP))
-	reihe.add_child(Erschaffung.knopf(("Gerät schließen" if de else "Hide device info") if geraet_auf else ("Gerät zeigen …" if de else "Show device…"), func(): geraet_auf = not geraet_auf; baue()))
+	geraet_box()
+
+# ein Zeichen getippt: tun, dann neu aufbauen, wenn das Menue noch steht (Hauptmenü und Über laden die Szene neu)
+func _tue(tut: Callable) -> void:
+	tut.call()
+	if is_inside_tree() and not is_queued_for_deletion(): baue()
+
+# MenuHead: Ueberschrift einer Gruppe, gesperrte Goldversalien wie der Titel des Hauptmenues, kleiner
+func gruppe(w: String) -> void:
+	zeile(w.to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))
+	luecke(10)
+
+# SignRow: die Zeichen gleichmaessig ueber die Breite verteilt (Arrangement.SpaceEvenly), oben buendig
+func zeichenreihe(zeichen: Array) -> void:
+	var r := HBoxContainer.new()
+	r.add_theme_constant_override("separation", 0)
+	r.alignment = BoxContainer.ALIGNMENT_CENTER
+	for zk in zeichen:
+		var l := Control.new(); l.size_flags_horizontal = Control.SIZE_EXPAND_FILL; l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		r.add_child(l)
+		(zk as Control).size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+		r.add_child(zk)
+	var l2 := Control.new(); l2.size_flags_horizontal = Control.SIZE_EXPAND_FILL; l2.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	r.add_child(l2)
+	inhalt.add_child(r)
+	luecke(10)
+
+# MenuExplainWindow: das Fenster des Gedrueckthaltens liegt ueber dem unteren Teil des Menues, ueber „Schließen“; darunter bewegt sich
+# nichts. Oben ein Schatten, dann schwarz, darin erhaben mit Goldrand: Name als Ueberschrift, der Satz; Antippen schliesst es.
+var erklaer_fenster: Control
+
+func erklaere_zeichen(name_: String, satz: String) -> void:
+	schliesse_erklaerung()
+	Zeichenknopf.offen = name_
+	_zeichen_neu()
+	var f := VBoxContainer.new()
+	f.add_theme_constant_override("separation", 0)
+	f.anchor_left = 0; f.anchor_right = 1; f.anchor_top = 1; f.anchor_bottom = 1
+	f.offset_left = 10 * DP; f.offset_right = -10 * DP; f.offset_bottom = -72 * DP
+	f.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	f.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var schatten := TextureRect.new()
+	var gt := GradientTexture2D.new()
+	var gr := Gradient.new()
+	gr.set_offset(0, 0.0); gr.set_color(0, Color(0, 0, 0, 0))
+	gr.set_offset(1, 0.6); gr.set_color(1, Color.BLACK)
+	gr.add_point(1.0, Color.BLACK)
+	gt.gradient = gr
+	gt.fill_from = Vector2(0, 0); gt.fill_to = Vector2(0, 1)
+	gt.width = 4; gt.height = 64
+	schatten.texture = gt
+	schatten.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	schatten.stretch_mode = TextureRect.STRETCH_SCALE
+	schatten.custom_minimum_size = Vector2(0, 28 * DP)
+	schatten.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	f.add_child(schatten)
+	var aussen := PanelContainer.new()
+	var sa := StyleBoxFlat.new()
+	sa.bg_color = Color.BLACK
+	sa.content_margin_left = 6 * DP; sa.content_margin_right = 6 * DP; sa.content_margin_bottom = 6 * DP
+	aussen.add_theme_stylebox_override("panel", sa)
+	aussen.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	f.add_child(aussen)
+	var innen := PanelContainer.new()
+	var si := Stil.kasten(Stil.RAISED, Stil.GOLD, 1.0)
+	si.content_margin_left = 12 * DP; si.content_margin_right = 12 * DP; si.content_margin_top = 9 * DP; si.content_margin_bottom = 9 * DP
+	innen.add_theme_stylebox_override("panel", si)
+	innen.mouse_filter = Control.MOUSE_FILTER_STOP
+	innen.gui_input.connect(func(e: InputEvent):
+		if (e is InputEventMouseButton and e.button_index == MOUSE_BUTTON_LEFT and not e.pressed) or (e is InputEventScreenTouch and not e.pressed):
+			schliesse_erklaerung())
+	aussen.add_child(innen)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", int(4 * DP))
+	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	innen.add_child(v)
+	var kopf_ := Stil.zeile(name_.to_upper(), 14, Stil.GOLD, 3.0)
+	kopf_.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	v.add_child(kopf_)
+	if satz != "":
+		var s := Stil.zeile(satz, 14, Stil.TEXT)
+		s.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		s.add_theme_constant_override("line_spacing", int(round(2 * Stil.SP)))   # lineHeight 19 sp
+		s.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		v.add_child(s)
+	add_child(f)
+	erklaer_fenster = f
+	Zurueck.melde(f, schliesse_erklaerung)   # alt back: erst das Fenster, dann das Menue
+
+func schliesse_erklaerung() -> void:
+	if is_instance_valid(erklaer_fenster): erklaer_fenster.queue_free()
+	erklaer_fenster = null
+	if Zeichenknopf.offen != "":
+		Zeichenknopf.offen = ""
+		_zeichen_neu()
+
+func _zeichen_neu() -> void:
+	for c in inhalt.find_children("*", "Zeichenknopf", true, false): (c as Zeichenknopf).neu_zeichnen()
+
+func _exit_tree() -> void:
+	Zeichenknopf.offen = ""   # DisposableEffect: MenuExplain.shown = null
+
+# DeviceBox: „Gerät zeigen …“ klappt die Geraeteangaben mit den Messwerten auf, „Kopieren“ legt sie in die Ablage
+func geraet_box() -> void:
+	var de := Sprache.aktiv() == "de"
+	var reihe_ := HBoxContainer.new()
+	reihe_.add_theme_constant_override("separation", int(6 * DP))
+	reihe_.add_child(Erschaffung.knopf(("Gerät schließen" if de else "Hide device info") if geraet_auf else ("Gerät zeigen …" if de else "Show device…"), func(): geraet_auf = not geraet_auf; baue()))
 	if geraet_auf:
 		var b := Erschaffung.knopf("Kopieren" if de else "Copy", func(): DisplayServer.clipboard_set(geraeteangaben()); meldung("Geräteangaben kopiert." if de else "Device details copied."))
 		b.size_flags_stretch_ratio = 0.5
-		reihe.add_child(b)
-	inhalt.add_child(reihe)
+		reihe_.add_child(b)
+	inhalt.add_child(reihe_)
 	if geraet_auf: zeile(geraeteangaben(), 11, Stil.TEXT)
 
 var geraet_auf := false
+
 
 # 352 GuideScreen wie alt: schwarz, ein Kasten, oben der Titel, je Absatz die fette Eroeffnung als Ueberschrift in Gold (16 sp),
 # der Rest 15 sp, fette Woerter (Knoepfe) halbfett in Gold; nur die Faehigkeiten der eigenen Klasse; unten „Zurück“
@@ -850,58 +999,6 @@ func anleitung() -> void:
 		absatz.add_child(rt)
 		v.add_child(absatz)
 	spalte.add_child(Erschaffung.knopf(Sprache.u("back"), func(): seite.queue_free()))
-
-# 399.1 wie alt (SystemSigns): „Kampf“ mit Blut, Tempo, Kampftext (399.2, Jerry) und Rückfragen, dann „Bedienung“:
-# Steuerung, Joystick und Rennen nur beim Wischen, Aktion, Karte, Rütteln; Antippen wechselt, gespeichert in Bedienung.gd
-func bedienung() -> void:
-	var de := Sprache.aktiv() == "de"
-	Bedienung.lade()
-	var an := func(b: bool) -> String: return ("An" if de else "On") if b else ("Aus" if de else "Off")
-	var eintrag := func(name_: String, wert: String, hinweis: String, an_: bool, tut: Callable) -> void:
-		inhalt.add_child(Erschaffung.knopf(name_ + " · " + wert, func(): tut.call(); Bedienung.speichere(); baue(), an_))
-		zeile(hinweis, 13, Stil.DIM)
-		luecke(8)
-	luecke(4)
-	zeile(("Kampf" if de else "Combat").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))
-	luecke(6)
-	var blut := ["Aus", "Dezent", "Deutlich"] if de else ["Off", "Subtle", "Strong"]
-	var tempo := ["Ruhig", "Normal", "Schnell"] if de else ["Calm", "Normal", "Fast"]
-	var text := ["Antippen", "Von selbst"] if de else ["Tap", "Auto"]
-	eintrag.call("Blut" if de else "Blood", blut[Bedienung.blut],
-		"Wie viel Blut Treffer zeigen. Antippen wechselt: Aus, Dezent, Deutlich." if de else "How much blood hits show. Tap to change: off, subtle, strong.",
-		Bedienung.blut > 0, func(): Bedienung.blut = (Bedienung.blut + 1) % 3)
-	eintrag.call("Tempo" if de else "Pace", tempo[Bedienung.tempo],
-		"Wie schnell Züge und Zeilen im Kampf ablaufen. Antippen wechselt: Ruhig, Normal, Schnell." if de
-		else "How fast turns and text play out in battle. Tap to change: calm, normal, fast.", false, func(): Bedienung.tempo = (Bedienung.tempo + 1) % 3)
-	eintrag.call("Kampftext" if de else "Battle text", text[1 if Bedienung.kampftext else 0],
-		"Ob die Zeilen im Kampf auf dein Antippen warten oder nach einer Lesepause von selbst weiterlaufen." if de
-		else "Whether the lines in a fight wait for your tap or advance automatically after a pause for reading.", false,
-		func(): Bedienung.kampftext = not Bedienung.kampftext)
-	eintrag.call("Rückfragen" if de else "Confirmations", an.call(Bedienung.rueckfragen), Sprache.u("confirmHint"), Bedienung.rueckfragen,
-		func(): Bedienung.rueckfragen = not Bedienung.rueckfragen)
-	luecke(4)
-	zeile(("Bedienung" if de else "Input").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))   # Homer [326.abschnitt.bedienung]
-	luecke(6)
-	eintrag.call("Steuerung" if de else "Controls", ("Klassisch" if de else "Classic") if Bedienung.klassisch else ("Wischen" if de else "Swipe"),
-		"Wischen: Finger ziehen zum Laufen, weit ziehen zum Rennen, tippen zum Hinlaufen. Klassisch: Steuerkreuz und ein großer Knopf zum Handeln." if de
-		else "Swipe: drag to walk, drag far to run, tap to walk there. Classic: a D-pad and a big button to act.", false,
-		func(): Bedienung.klassisch = not Bedienung.klassisch)
-	if not Bedienung.klassisch:   # 86.4, 131: Joystick und Renntaste nur beim Wischen
-		var gefuehl := ["Fein", "Normal", "Ruhig"] if de else ["Fine", "Normal", "Calm"]
-		eintrag.call("Joystick", gefuehl[Bedienung.ring], "Im Kreis geht man, über den Ring hinaus rennt man. Fein: kleiner Ring. Ruhig: großer Ring." if de
-			else "Inside the ring you walk; beyond it you run. Fine: small ring. Calm: large ring.", false, func(): Bedienung.ring = (Bedienung.ring + 1) % 3)
-		eintrag.call("Rennen" if de else "Run", ("Taste" if de else "Button") if Bedienung.lauf_taste else "Ring",
-			"Wie du rennst. Ring: über den Ring des Joysticks hinausziehen. Taste: dazu ein eigener Knopf zum Rennen." if de
-			else "How you run. Ring: push past the joystick's ring. Button: adds a separate run button.", false, func(): Bedienung.lauf_taste = not Bedienung.lauf_taste)
-	eintrag.call("Aktion" if de else "Action", ("Links" if de else "Left") if Bedienung.links else ("Rechts" if de else "Right"),
-		"Auf welcher Seite der Aktionsknopf steht: rechts, oder links für Linkshänder." if de else "Which side the action button sits on: right, or left for left-handed players.",
-		false, func(): Bedienung.links = not Bedienung.links)
-	eintrag.call("Karte" if de else "Map", ("Näher" if de else "Close") if Bedienung.karte_nah else "Normal",
-		"Wie nah die Karte ist. Näher zeigt weniger Umgebung, dafür größer." if de else "Map zoom. Close shows less of your surroundings, but larger.",
-		false, func(): Bedienung.karte_nah = not Bedienung.karte_nah)
-	eintrag.call("Rütteln" if de else "Haptics", an.call(Bedienung.ruetteln),
-		"Das Handy zittert kurz, wenn vor dir etwas zu tun ist oder ein Weg nicht geht." if de else "The phone buzzes briefly when there is something to do ahead of you or a path is blocked.",
-		Bedienung.ruetteln, func(): Bedienung.ruetteln = not Bedienung.ruetteln)
 
 # DeviceInfo.lines: was Geraet, System und Grafik sind, dazu die Messwerte des Spiels
 static func geraeteangaben() -> String:

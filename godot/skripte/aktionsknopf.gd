@@ -114,15 +114,23 @@ func _draw() -> void:
 			zug.call([Vector2(6, 6), Vector2(12, 12), Vector2(6, 18)])
 			zug.call([Vector2(12, 6), Vector2(18, 12), Vector2(12, 18)])
 		"RUN":
-			# ActionSign.RUN: ein Stiefel, Schaft und Sohle, drei Striche Tempo dahinter
-			var stiefel: Array = [Vector2(10, 3), Vector2(16, 3), Vector2(16, 11.5)]
-			for i in range(1, 9):
-				var t := i / 8.0
-				stiefel.append(Vector2(16, 11.5).lerp(Vector2(21, 12.5), t).lerp(Vector2(21, 12.5).lerp(Vector2(21.5, 17), t), t))
-			stiefel.append_array([Vector2(21.5, 19.5), Vector2(10, 19.5)])
-			for i in range(1, 9):
-				var t := i / 8.0
-				stiefel.append(Vector2(10, 19.5).lerp(Vector2(8.5, 19), t).lerp(Vector2(8.5, 19).lerp(Vector2(9, 16.5), t), t))
-			zug.call(stiefel, true)
-			l.call(10, 6.5, 16, 6.5, duenn); l.call(9.5, 17, 21.5, 17, duenn)
-			l.call(2.5, 8, 6.5, 8); l.call(1.5, 12, 6.5, 12); l.call(2.5, 16, 6, 16)
+			AktionsKnopf.stiefel(self, o, u, c)
+
+# ActionSign.RUN: ein Stiefel, Schaft und Sohle, drei Striche Tempo dahinter; auch im Menue „System“ (425, Zeichenknopf „Rennen“)
+static func stiefel(ci: CanvasItem, o: Vector2, u: float, c: Color) -> void:
+	var P := func(x: float, y: float) -> Vector2: return o + Vector2(x, y) * u
+	var l := func(x1: float, y1: float, x2: float, y2: float, w: float) -> void: ci.draw_line(P.call(x1, y1), P.call(x2, y2), c, w, true)
+	var stiefel: Array = [Vector2(10, 3), Vector2(16, 3), Vector2(16, 11.5)]
+	for i in range(1, 9):
+		var t := i / 8.0
+		stiefel.append(Vector2(16, 11.5).lerp(Vector2(21, 12.5), t).lerp(Vector2(21, 12.5).lerp(Vector2(21.5, 17), t), t))
+	stiefel.append_array([Vector2(21.5, 19.5), Vector2(10, 19.5)])
+	for i in range(1, 9):
+		var t := i / 8.0
+		stiefel.append(Vector2(10, 19.5).lerp(Vector2(8.5, 19), t).lerp(Vector2(8.5, 19).lerp(Vector2(9, 16.5), t), t))
+	var q := PackedVector2Array()
+	for p in stiefel: q.append(P.call(p.x, p.y))
+	q.append(q[0])
+	ci.draw_polyline(q, c, 1.6 * u, true)
+	l.call(10, 6.5, 16, 6.5, 1.1 * u); l.call(9.5, 17, 21.5, 17, 1.1 * u)
+	l.call(2.5, 8, 6.5, 8, 1.6 * u); l.call(1.5, 12, 6.5, 12, 1.6 * u); l.call(2.5, 16, 6, 16, 1.6 * u)

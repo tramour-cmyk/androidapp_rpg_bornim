@@ -34,7 +34,7 @@ static func ist_an() -> bool:
 # ---------------------------------------------------------------- Reiter „Test“ (TestTab.kt), soweit die neue Welt es traegt
 # Wie alt in Gruppen: Anzeigen und Messwerte, Held, Welt, Teleport, Kampf beschwoeren, MARS-Probekampf, Beute erzeugen. Was in die Welt
 # greift (Teleport, Kapitelende, Kampf), sagt das Menue der Welt mit Menue.test; der Rest aendert Held und Zustand gleich.
-# Noch nicht wie alt: Regen, Kartenzoom, Monster auf der Karte, Sichtlinie, Bosse (es gibt Wald und Hoehle noch nicht); Varianten
+# Noch nicht wie alt: Wald und Hoehle im Teleport, Regen, Kartenzoom, Monster auf der Karte, Sichtlinie, Bosse (es gibt Wald und Hoehle noch nicht); Varianten
 # (MARS kennt noch keine Elite, 390), Kampfhilfen (wirkten alt nur im klassischen Kampf) und Absturzbericht.
 
 const STUFEN_PROBE := [3, 5, 6, 8, 11]          # Skirmish.PROBE_LEVEL und die Stufen aus 259
@@ -120,7 +120,11 @@ static func reiter(m: Menue) -> void:
 		m.luecke(4)
 	m.zeile(t.call("Testmodus", "Test mode"), 18, Stil.BRIGHT)
 	kopf.call(t.call("Anzeigen und Messwerte", "Displays and readings"))
-	m.zeile(Menue.geraeteangaben(), 11, Stil.DIM)
+	# 425 wie alt (TestTab.kt): nur die Messwerte offen, Geraet, System und Grafik erst hinter „Gerät zeigen …“ (DeviceBox)
+	var ml := Engine.get_main_loop()
+	for r in Messung.zeilen(ml.root if ml is SceneTree else null): m.zeile(String(r), 13, Stil.TEXT)
+	m.luecke(6)
+	m.geraet_box()
 	m.luecke(6)
 	reihe.call([[t.call("Bildrate anzeigen: ", "Show frame rate: ") + an_aus.call(bildrate), func(): bildrate = not bildrate; m.baue()]])
 	reihe.call([[t.call("Standort anzeigen: ", "Show position: ") + an_aus.call(standort), func(): standort = not standort; m.baue()]])
@@ -157,8 +161,6 @@ static func reiter(m: Menue) -> void:
 		m.baue()]])
 	kopf.call("Teleport")
 	reihe.call([[t.call("Dorf", "Village"), func(): m.test.emit("teleport", ["village", 11, 7, "DOWN"])]])
-	m.zeile(t.call("Wald und Höhle folgen, sobald man dort gehen kann.", "Forest and cave follow once they can be walked."), 13, Stil.DIM)
-	m.luecke(6)
 	reihe.call([[t.call("Kapitel 1 bis kurz vor Ende", "Chapter 1 to just before its end"), func(): m.test.emit("kapitelende", [])]])
 	var fs := feinde()
 	if not fs.is_empty():
