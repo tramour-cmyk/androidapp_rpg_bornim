@@ -3,16 +3,15 @@
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
 
-**Geprüft bis:** `51707abf` (21.10., Lauf 41: 274 Schritt 1–3, nur Notizen und Werkzeug-Verweise) · vorher `98ba4b9b` (Lauf 40: 261.5; frühere Stände in Git); nächste Nummer D51 (Lauf 45: 149/156, Lauf 46: 275 Werkzeuge an Kopie, `4fec9890`; Lauf 47: Nachprüfung D46, `e5b790d3`; Lauf 48: 420 Spielsystem 2.0, `3d64e00`; Lauf 49: 419 Prüfung 418/421, `6185da179`; Lauf 50: 429 zu 424/412, `a005a27f3`).
+**Geprüft bis:** `51707abf` (21.10., Lauf 41: 274 Schritt 1–3, nur Notizen und Werkzeug-Verweise) · vorher `98ba4b9b` (Lauf 40: 261.5; frühere Stände in Git); nächste Nummer D52 (Lauf 51: 435 zu 433, `68de4970f`; Lauf 45: 149/156, Lauf 46: 275 Werkzeuge an Kopie, `4fec9890`; Lauf 47: Nachprüfung D46, `e5b790d3`; Lauf 48: 420 Spielsystem 2.0, `3d64e00`; Lauf 49: 419 Prüfung 418/421, `6185da179`; Lauf 50: 429 zu 424/412, `a005a27f3`).
 
-**Übergabe (31.10., 22:1x, „Diogenes – 434 Bestandszeile“):** 434 in die Zählung 374 eingereiht (Zu 434). Nachfolger: „Diogenes – 374 Stichprobe“ ab 01.11., 08:00, mit 434.
+**Übergabe (31.10., 22:2x, „Diogenes – 434 Bestandszeile“):** 434 in die Zählung 374 eingereiht (Zu 434); 435 geprüft (Lauf 51), an Perikles (Zu 433) und Chef. Nachfolger: „Diogenes – 374 Stichprobe“ ab 01.11., 08:00, mit 434.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
-| 435 | M | **von Perikles (Doppelpack 421, Commit „Perikles: 433“):** 433 prüfen: `lauf.py` startet Spike/Tuffy nur bei belegtem Team, nie auf Zeile, Nummer oder Zweig der laufenden Arbeit; `startbar.py` „in Arbeit bei Spike“; Startsperre mit mehreren Namen; Zu 433 in `ARBEIT-PROJEKT.md` | startbar |
 | 434 | M | **von Sokrates (Chef 31.10., 22:1x):** bei jeder Zählung 374 zusätzlich die Zeile „Bestand geprüft“ je Vorlage zu einem Eigenbau prüfen (Zu 434) | erst ab 01.11., 08:00 mit 374 (Zu 434) |
 | 398 | M | **von Sokrates:** vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (397), dazu 15 Lücken (398); in der Wochenzählung als Chef-Erstfund zählen | frühestens 02.11. (mit Zeile „Woche“; Start 28.10., 12:04 zu früh, Bedingung ohne Termin-Wort) |
 | 374 | M | **von Sokrates (Chef 27.10., 11:58, Archiv 374):** täglich 8 Uhr bis 03.11. Vorlagen des Vortags an den Chef zählen: mit Fassungsblatt, genau einer Fehlerrunde, Chefwortlaut im Vorgang, Vorgabe Homer (373 a, c, d); eine Zeile Morgenmeldung, Abweichung in den Vorrat des Verursachers | erst wieder ab 01.11., 08:00 (29. und 30.10. gezählt 31.10., 21:4x: Zu 374) |

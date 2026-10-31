@@ -25,6 +25,18 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 51 · Auftrag 435 Doppelpack zu 433 (`main` `68de4970f`; 31.10., 22:2x; an einer Kopie nachgestellt)
+
+**Ergebnis:** Die Startsperre mit mehreren Namen („Start Tom, Jerry, …“) sperrt jetzt jeden Namen; vorher nur den ersten (Protokoll 21:27 hatte fünf). Spike läuft auf seiner Zeile „in Arbeit bei Spike“ weiter, Tom nimmt sie nicht, ein zweiter Spike startet nicht. Kopf `ROLLE-ENTWICKLUNG.md` trifft den Code.
+
+**Befunde**
+
+- **D51.1 Doppelarbeit bei Titel ohne Nummer:** Tom arbeitet an 417 unter „Tom – Tragart Stab Axt Bogen“ → `lauf.py` startet Spike auf 417, dieselbe Zeile. Ursache: `besetzt == {"Nachfolger"} or not besetzt and not team_s` greift nur ohne laufende Sitzung; mit laufender Sitzung ohne Nummer nimmt Spike die erste Muss-Zeile. Ebenso Perikles' Probe „Tom – Leichen“ → Spike 417. Gemeint ist wohl `not besetzt` allein.
+- **D51.2 hängende Zeile (aus dem Code, nicht nachgestellt):** Endet Spike ohne neuen Stand und hat Tom sonst nichts Startbares, gilt „Tom frei, macht es selbst“, aber `startbar.py` sperrt die Zeile für Tom („in Arbeit bei Spike“): keiner nimmt sie.
+- **D51.3 „notfalls“:** Chef 22:1x: „Leiharbeiter, die wir notfalls starten können. Oder halt intern Arbeit umschichten“. Gebaut ist: in jedem Lauf, sobald Tom (Jerry) belegt ist oder startet und ein zweites Muss mit anderem Zweig da ist. Nachgestellt mit Tom auf 417 und Jerry auf 402: Spike 417, Tuffy 403; heute also fast immer vier Entwicklersitzungen. Ob das „notfalls“ ist, entscheidet der Chef.
+
+**Nicht geprüft:** `lauf.py --sperre` im echten Lauf; Fords Start einer Spike-Sitzung (`ROLLE-BETRIEB.md`); Zusammenführen zweier Zweige eines Teams auf `main`.
+
 ## Lauf 50 · Auftrag 429 Doppelpack zu 424 und 412 (`main` `a005a27f3`; 31.10., 21:4x; Text fremd geprüft)
 
 **Ergebnis:** 412 in `CLAUDE.md` „Nummern“ trifft den Wortlaut im Archiv 412. 408 in `ROLLE-ENTWICKLUNG.md` „Bestand zuerst“ (Commit `281753354`) trifft das Archiv 408 und die Reihenfolge 11:22–11:26 (Bestand, frei, Kauf, Eigenbau; mehrere Stücke drehend im Film, Chef wählt); das frühere „es muss nichts mehr gekauft werden“ (11:20) ist durch 11:2x überholt. Der Wächter 424 arbeitet wie beschrieben, hält heute aber kaum eine Zeile von selbst an: Von 17 Treffern in den Vorräten treffen 14 nur, weil ihr Stand schon „ruht: altes SRD-System“ lautet (nachgestellt mit `ALTES_SYSTEM` über alle Tabellenzeilen).
