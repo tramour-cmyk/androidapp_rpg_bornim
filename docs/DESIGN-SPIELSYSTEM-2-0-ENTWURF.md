@@ -296,23 +296,34 @@ Anforderung des Chefs (31.10., 21:3x): Ein kleiner Held gegen ein starkes Monste
 
 ## Entwurf B zur Entscheidung: alle Stufen und Ränge auf einen Blick
 
-Eine Klassenstufe gibt es nicht mehr. Es gibt: Heldenstufe, Grundwerte, Fertigkeitsrang, Ebene im Baum (Weg, Berufung, Meisterform), Meisterschaftsrang, Rufstufe, Monsterstufe und Gebietsband, Gegenstandsstufe.
+Neu gefasst nach Entwurf F (Chef 31.10., 21:4x: „das irgendwie erklärt sich mir noch nicht so ganz … was ist mit Kräuterkunde? … was ist mit dem Kaputtgehen von Gegenständen?“). Eine Klassenstufe gibt es nicht. Es gibt **sieben Dinge mit Stufen**, in drei Gruppen.
+
+**Der Held**
 
 | Was | Wofür | Stufen | Wie man aufsteigt |
 | --- | --- | --- | --- |
-| Grundwerte | Grundlage des Helden | Start 3 bis 8, offen nach oben | wachsen mit den Fertigkeiten |
-| Fertigkeitsrang | wie gut der Held etwas kann | Anfänger, Geselle, Meister, Großmeister, weitere je Kapitel | durch Tun; Grenze je Kapitel, Lehrer als Tür |
-| Heldenstufe | Leben, Kampfstärke, Zugang | 1, 2, 3 … ohne feste Höchststufe | Erfahrung aus Aufstiegen, Kampf, Quests, Story |
-| Kapitelgrenze | Deckel der Heldenstufe je Kapitel | je Kapitel neu, weich bis zwei darüber | Kapitel abschließen |
-| Weg | Richtung, in die der Held wächst | sechs Wege, mehrere zugleich | von selbst: zwei Kernfertigkeiten auf Geselle |
-| Berufung | die eine bewusste Wahl | dreizehn Berufungen, eine je Held | beim Lehrmeister, ab Kapitel 2 |
-| Meisterform | stärkere Form der Berufung | je Berufung eine | spätere Kapitel, beim Lehrmeister |
-| Lehrmeister-Prüfung | Schritte auf dem Weg zur Berufung | Zwischenprüfung, Gesellenprüfung, Meisterprüfung | Quest beim Lehrmeister |
-| Meisterschaft | Handwerk neben der Berufung | fünf, beliebig viele | Rang der Handwerksfertigkeit |
-| Ruf | Ansehen bei einem NPC | Fremder, Bekannter, Vertrauter, Freund (Vorschlag) | Quests für diesen NPC |
-| Meisterschaftsrang | wie gut der Held ein Handwerk kann | Ränge der Handwerksfertigkeit (Anfänger bis Großmeister) | herstellen |
-| Monsterstufe und Gebietsband | Stärke eines Gegners; Stufenbereich eines Gebiets | Monster eine Stufe; Gebiet etwa Grenze − 5 bis Grenze + 2 | fest je Monster und Gebiet |
-| Gegenstandsstufe | Stärke und Mindeststufe eines Gegenstands | wie die Heldenstufe | Fund, Händler, Herstellen nach Material und Rang |
+| Heldenstufe | Leben, Größenordnung im Kampf, Zugang zu Gebieten | 1, 2, 3 …; jedes Kapitel setzt eine Grenze (weich, bis zwei darüber) | Erfahrung aus Kampf, Quests, Story und Fertigkeitsaufstiegen |
+| Grundwerte (6) | Begabung: Kraft, Gewandtheit, Zähigkeit, Verstand, Wille, Wahrnehmung | Start 3 bis 8 | wachsen langsam mit den Fertigkeiten |
+| Fertigkeiten (37) | Können im Einzelnen, auch Sammeln wie Kräuterkunde und Handwerk wie Schmieden | Wert 0 bis 100 in vier Rängen: Anfänger, Geselle, Meister, Großmeister; bei 100 fertig | durch Tun bis zur Rangdecke; der nächste Rang braucht eine Prüfung (Entwurf F) |
+| Berufung oder Meisterschaft | Rolle des Helden: eine Berufung (Kampf und Lebensweg, mit Auflagen), dazu beliebig viele Meisterschaften (Handwerk, ohne Auflagen) | Anwärter → Eingeweihter → Titelträger → Meister | Lehrmeister: Zusage, dann Zwischen-, Gesellen-, Meisterprüfung (Entwurf F) |
+
+Wie das zusammenhängt: Kräuterkunde ist eine **Fertigkeit** (Sammeln). Sie gehört zu den Kernfertigkeiten der **Meisterschaft** Alchemist, so wie Schild zur **Berufung** Paladin gehört. Meisterschaften laufen genauso wie Berufungen (Lehrmeister, Prüfungen), nur ohne Auflagen und ohne Grenze der Anzahl. Ein eigener „Meisterschaftsrang“ entfällt; es ist die Stufe in der Meisterschaft.
+
+**Die Welt**
+
+| Was | Wofür | Stufen | Wie man aufsteigt |
+| --- | --- | --- | --- |
+| Ruf je NPC | Preise, Auskünfte, Lehrstunden, Quests | Fremder, Bekannter, Vertrauter, Freund (Vorschlag) | Quests und Taten für diesen NPC; sinkt bei wenigen Anlässen |
+| Monsterstufe und Gebietsband | wie stark Gegner sind | Monster eine Stufe; ein Gebiet etwa Kapitelgrenze − 5 bis + 2 | fest |
+
+**Die Gegenstände**
+
+| Was | Wofür | Stufen | Wie man aufsteigt |
+| --- | --- | --- | --- |
+| Gegenstandsstufe und Güte | Stärke und Mindeststufe zum Tragen; Güte Normal, Gut, Meisterhaft | Stufe wie die Heldenstufe | Fund, Händler, Herstellen (Material und Rang der Handwerksfertigkeit) |
+| Zustand (Abnutzung) | wie gut ein Gegenstand noch wirkt | Gut, Abgenutzt, Beschädigt, Defekt (wirkt nicht mehr, geht aber nicht verloren) | sinkt beim Gebrauch; Reparatur beim NPC oder selbst |
+
+Abnutzung und Reparatur: Reparieren ist keine eigene Fertigkeit mehr; Metall repariert die Fertigkeit **Schmieden**, Leder und Stoff die **Lederarbeit**. Ihr Rang bestimmt, was man reparieren kann (Anfänger: Werkzeug und Einfaches; Geselle: Metallwaffen, mittlere Rüstung, Schilde, Bögen; Meister: schwere Rüstung, Meisterstücke; Großmeister: magische Stücke mit Runenkunde). Für alle gibt es „Alles reparieren“ beim Handwerker.
 
 ## Entwurf C zur Entscheidung: das eigene Profil
 
