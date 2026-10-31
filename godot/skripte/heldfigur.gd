@@ -275,6 +275,20 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 		var t := Transform3D(Basis(Vector3.LEFT, hoch, Vector3.LEFT.cross(hoch)), (oben + unten) * 0.5)
 		_haenge(m, sk, bi, brust, schild, t, "RueckenSchild")
 		aussen = minf(aussen, (oben.z + unten.z) * 0.5) - 0.10   # Schild mit Buckel (376.1 Lauf 2: bei 7 cm durchdrang der Buckel das Schwert)
+	for alt in m.find_children("Getragen", "", false, false): alt.free()
+	for alt in sk.find_children("Tragen", "", false, false): alt.free()
+	var art := Tragen.art_von(waffe)
+	if art != "":   # 417: Stab, Axt, Bogen unterwegs in der Hand (tragen.gd)
+		var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % waffe)
+		if d == null: return
+		d.name = "Getragen"
+		d.top_level = true
+		m.add_child(d)
+		Gebiet.male(d, null, 2, [])
+		var t := Tragen.new(art, d, m, faust(sk, String(Tragen.LAGE[art]["seite"])))
+		t.anim = Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
+		sk.add_child(t)
+		return
 	if waffe != "":
 		var lang := waffe in ["quarterstaff", "staff", "spear", "greataxe"]
 		var achse := Vector3(0.42, -1.0, 0.0).normalized() if not lang else Vector3(0.62, -1.0, 0.0).normalized()   # Klinge zur linken Huefte

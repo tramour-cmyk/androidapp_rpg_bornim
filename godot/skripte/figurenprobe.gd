@@ -116,8 +116,10 @@ func _ready() -> void:
 	DirAccess.make_dir_recursive_absolute(aus)
 	spiel.ui.visible = false
 	if spiel.leute: spiel.leute.visible = false
-	if teil == "klassen":   # 376.1 Held je Klasse (heldfigur.gd): ohne UAL-Datei und Probefiguren
-		await klassen()
+	if teil in ["klassen", "tragen", "tragenfilm"]:   # 376.1 Held je Klasse (heldfigur.gd), 417 Tragart: ohne UAL-Datei und Probefiguren
+		if teil == "klassen": await klassen()
+		elif teil == "tragen": await TragProbe.new(self).standbilder()
+		else: await TragProbe.new(self).standbilder()
 		FileAccess.open(aus + "/probe.txt", FileAccess.WRITE).store_string("\n".join(protokoll) + "\n")
 		get_tree().quit()
 		return

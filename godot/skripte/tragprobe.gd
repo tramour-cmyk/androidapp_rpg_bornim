@@ -1,0 +1,276 @@
+class_name TragProbe
+extends RefCounted
+# 417 Probe Tragart (tragen.gd): Stab (Magier), Kriegsaxt (Kaempfer), Bogen (Schurke) im Gehen und Rennen.
+# Am Rechner: godot --path godot --resolution 900x1200 -- --figuren=<ausgabe> --teil=tragen      Standbilder und Messung
+#             godot --path godot --resolution 720x960 --write-movie <x.avi> --fixed-fps 30 -- --figuren=<ausgabe> --teil=tragenfilm
+#   Standbilder: <ausgabe>/tragen/<figur>_<Bewegung>_<phase>_<ansicht>.png (rechts, links, vorn, hinten), Kamera auf Brusthoehe
+#   Messung: je Bild der Abstand der Waffe zum Koerper (verformtes Netz, ohne die tragende Hand): unter 0 steckt sie im Koerper
+const FIGUREN := [["WIZARD", "quarterstaff"], ["FIGHTER", "greataxe"], ["ROGUE", "shortbow"]]
+# Spielkamera (kamera.gd: senkrecht, Tusche): Gieren, Neigung, Bildbreite in m; die Figur blickt nach +Z, ihre Rechte ist -X
+const ANSICHTEN := {"rechts": [-90.0, -6.0, 2.6], "links": [90.0, -6.0, 2.6], "vorn": [0.0, -6.0, 2.6], "hinten": [180.0, -6.0, 2.6],
+	"spiel": [Kamera.NORD, -30.0, Kamera.NAH]}
+const FPS := 30.0
+const ZELLE := 0.06
+const NAH := 0.45     # m: Knochen weiter von der Waffe zaehlen nicht
+const TIEF := 0.05    # m: tiefer gilt nicht als innen
+
+var fp: FigurenProbe
+var cam: Camera3D
+
+func _init(p: FigurenProbe) -> void: fp = p
+
+func figuren_bauen() -> void:
+	fp.freie_wiese()
+	fp.spiel.held.visible = false
+	for e in FIGUREN:
+		fp.klasse_figur("tr_" + e[0], {"klasse": e[0], "volk": "HUMAN", "aussehen": HeldFigur.vorgabe(e[0]),
+			"ausruestung": {"MAIN_HAND": {"base": e[1]}}})
+	cam = fp.spiel.kamera
+
+func modell(k: String) -> Node3D: return fp.figuren[k].get_child(0) as Node3D
+
+func zeige_nur(k: String) -> void:
+	for x in fp.figuren: fp.figuren[x].visible = x == k
+
+func stelle_kamera(w: Node3D, ansicht: String) -> void:
+	var a: Array = ANSICHTEN[ansicht]
+	var kam := cam as Kamera
+	kam.ziel = w
+	kam.nah = true
+	kam.gieren_ziel = a[0]
+	kam.neigung = a[1]
+	kam.zoom = a[2]
+	kam.springe()
+
+# ---------------------------------------------------------------- Standbilder und Film (die Messung macht tests/tragen_417.gd)
+# je Figur und Bewegung nach zwei Umlaeufen Vorlauf (der Stabfuss setzt sich) vier Phasen aus vier Richtungen; danach der Film:
+# je Figur von der Seite der Waffe zwei Umlaeufe Gehen, zwei Rennen, Bild fuer Bild (30 je s), die Kamera folgt
+func standbilder() -> void:
+	await figuren_bauen()
+	await fp.get_tree().create_timer(1.0).timeout
+	var ort: Vector3 = fp.spiel.karte.kachel_pos(FigurenProbe.FILM_ORT)
+	DirAccess.make_dir_recursive_absolute(fp.aus + "/tragen")
+	for e in FIGUREN:
+		var k: String = "tr_" + e[0]
+		zeige_nur(k)
+		var w: Node3D = fp.figuren[k]
+		var m := modell(k)
+		var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
+		var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
+		for bew in ["Gehen", "Rennen"]:
+			ap.play(bew)
+			var lang := ap.get_animation(bew).length
+			var v: float = m.get_meta("gehen_m_je_s" if bew == "Gehen" else "rennen_m_je_s")
+			w.rotation.y = 0.0
+			var n := int(round(lang * FPS))
+			for f in 3 * n:
+				var t := f / FPS
+				ap.seek(fmod(t, lang), true)
+				ap.pause()
+				w.position = ort + Vector3(0, 0, 1) * v * t
+				await sk.skeleton_updated
+				var ph := f - 2 * n
+				if ph in [0, n / 4, n / 2, (3 * n) / 4]:
+					for a in ANSICHTEN:
+						stelle_kamera(w, a)
+						await RenderingServer.frame_post_draw
+						await RenderingServer.frame_post_draw
+						fp.spiel.get_viewport().get_texture().get_image().save_png(fp.aus + "/tragen/%s_%s_%d_%s.png" % [e[0], bew, int(4.0 * ph / n), a])
+		fp.protokoll.append("BILDER %s %s" % e)
+		print(fp.protokoll[-1])
+	for e in FIGUREN:
+		var k: String = "tr_" + e[0]
+		zeige_nur(k)
+		var w: Node3D = fp.figuren[k]
+		var m := modell(k)
+		var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
+		var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
+		var seite := "links" if e[1] == "shortbow" else "rechts"
+		var ordner: String = fp.aus + "/film/" + String(e[0])
+		DirAccess.make_dir_recursive_absolute(ordner)
+		var nr := 0
+		var p := ort
+		w.rotation.y = 0.0
+		for bew in ["Gehen", "Rennen"]:
+			ap.play(bew)
+			var lang := ap.get_animation(bew).length
+			var v: float = m.get_meta("gehen_m_je_s" if bew == "Gehen" else "rennen_m_je_s")
+			for f in int(round(2.0 * lang * FPS)):
+				ap.seek(fmod(f / FPS, lang), true)
+				ap.pause()
+				p += Vector3(0, 0, 1) * v / FPS
+				w.position = p
+				stelle_kamera(w, seite)
+				await sk.skeleton_updated
+				await RenderingServer.frame_post_draw
+				fp.spiel.get_viewport().get_texture().get_image().save_png(ordner + "/%03d.png" % nr)
+				nr += 1
+		fp.protokoll.append("FILM %s %s von %s, %d Bilder" % [e[0], e[1], seite, nr])
+		print(fp.protokoll[-1])
+
+# ---------------------------------------------------------------- Messung
+# Punkte auf den Dreiecken der Waffe (etwa alle 2 cm), im Raum der Waffe
+static func proben(w: Node3D) -> PackedVector3Array:
+	var r := PackedVector3Array()
+	for mi in w.find_children("*", "MeshInstance3D", true, false):
+		var t := Transform3D.IDENTITY
+		var x: Node = mi
+		while x != w:
+			t = (x as Node3D).transform * t
+			x = x.get_parent()
+		var me := (mi as MeshInstance3D).mesh
+		for s in me.get_surface_count():
+			var a := me.surface_get_arrays(s)
+			var V: PackedVector3Array = a[Mesh.ARRAY_VERTEX]
+			var I: PackedInt32Array = a[Mesh.ARRAY_INDEX] if a[Mesh.ARRAY_INDEX] != null else PackedInt32Array(range(V.size()))
+			for j in range(0, I.size() - 2, 3):
+				var p0 := t * V[I[j]]; var p1 := t * V[I[j + 1]]; var p2 := t * V[I[j + 2]]
+				var st := clampi(int(ceil(maxf(p0.distance_to(p1), maxf(p1.distance_to(p2), p2.distance_to(p0))) / 0.02)), 1, 60)
+				for u in st + 1:
+					for vv in st + 1 - u:
+						var a1 := float(u) / st; var a2 := float(vv) / st
+						r.append(p0 + (p1 - p0) * a1 + (p2 - p0) * a2)
+	return r
+
+static func hand_knochen(sk: Skeleton3D, s: String) -> PackedStringArray:
+	var r := PackedStringArray()
+	for i in sk.get_bone_count():
+		var n := sk.get_bone_name(i)
+		if n.ends_with("_" + s) and (n.begins_with("hand") or n.begins_with("index") or n.begins_with("middle") or n.begins_with("ring")
+			or n.begins_with("pinky") or n.begins_with("thumb")):
+			r.append(n)
+	return r
+
+# je verformtem Netz: Ecken, Normalen, Knochen, Gewichte (einmal gelesen)
+static func netze_von(m: Node3D) -> Array:
+	var r := []
+	for mi in m.find_children("*", "MeshInstance3D", true, false):
+		var mm := mi as MeshInstance3D
+		if mm.skin == null or not mm.is_visible_in_tree(): continue
+		for s in mm.mesh.get_surface_count():
+			var a := mm.mesh.surface_get_arrays(s)
+			var V: PackedVector3Array = a[Mesh.ARRAY_VERTEX]
+			var I: PackedInt32Array = a[Mesh.ARRAY_INDEX] if a[Mesh.ARRAY_INDEX] != null else PackedInt32Array(range(V.size()))
+			var B: PackedInt32Array = a[Mesh.ARRAY_BONES]; var W: PackedFloat32Array = a[Mesh.ARRAY_WEIGHTS]
+			var nb := B.size() / maxi(1, V.size())
+			var dom := PackedInt32Array(); dom.resize(V.size())
+			for i in V.size():
+				var best := -1.0
+				for j in nb:
+					if W[i * nb + j] > best: best = W[i * nb + j]; dom[i] = B[i * nb + j]
+			r.append({"skin": mm.skin, "V": V, "N": a[Mesh.ARRAY_NORMAL], "B": B, "W": W, "I": I, "dom": dom})
+	return r
+
+# Abstand jedes Waffenpunkts zum naechsten Dreieck des verformten Koerpers (bis 2 Zellen weit), Vorzeichen nach der Normalen am
+# naechsten Punkt (unter 0: im Koerper); Dreiecke der tragenden Hand zaehlen nicht (die Faust umschliesst den Griff)
+static func abstand(netze: Array, sk: Skeleton3D, ohne: PackedStringArray, w: Node3D, pkt: PackedVector3Array) -> Dictionary:
+	var gitter := {}
+	var P := PackedVector3Array(); var N := PackedVector3Array(); var T := PackedStringArray()
+	var D := PackedInt32Array()   # Dreiecke: je drei Ecken (Nummern in P)
+	# nur Ecken, deren Hauptknochen hoechstens NAH von der Waffe liegt (Rechenzeit)
+	var wt := w.global_transform
+	var lo3 := Vector3(INF, INF, INF); var hi3 := -lo3
+	for q0 in pkt:
+		var q := wt * q0
+		lo3 = lo3.min(q); hi3 = hi3.max(q)
+	var box := AABB(lo3, hi3 - lo3).grow(NAH)
+	for nz in netze:
+		var skin: Skin = nz["skin"]
+		var mats := []; var namen := []
+		for b in skin.get_bind_count():
+			var bn := skin.get_bind_name(b)
+			var bi := sk.find_bone(bn) if bn != "" else skin.get_bind_bone(b)
+			mats.append(sk.global_transform * sk.get_bone_global_pose(bi) * skin.get_bind_pose(b))
+			namen.append(sk.get_bone_name(bi))
+		var V: PackedVector3Array = nz["V"]; var NN: PackedVector3Array = nz["N"]
+		var B: PackedInt32Array = nz["B"]; var W: PackedFloat32Array = nz["W"]; var I: PackedInt32Array = nz["I"]
+		var nb := B.size() / maxi(1, V.size())
+		var o := P.size()
+		var dom: PackedInt32Array = nz["dom"]
+		var nah := PackedByteArray(); nah.resize(mats.size())
+		for b in mats.size(): nah[b] = 1 if box.has_point((mats[b] as Transform3D) * (skin.get_bind_pose(b).affine_inverse().origin)) else 0
+		var weg := PackedByteArray(); weg.resize(V.size())
+		for i in V.size():
+			if nah[dom[i]] == 0:
+				weg[i] = 1; P.append(Vector3.ZERO); N.append(Vector3.UP); T.append("")
+				continue
+			var p := Vector3.ZERO; var n := Vector3.ZERO; var best := -1.0; var bb := 0
+			for j in nb:
+				var g := W[i * nb + j]
+				if g <= 0.0: continue
+				var t: Transform3D = mats[B[i * nb + j]]
+				p += (t * V[i]) * g; n += (t.basis * NN[i]) * g
+				if g > best: best = g; bb = B[i * nb + j]
+			weg[i] = 1 if namen[bb] in ohne else 0
+			P.append(p); N.append(n.normalized()); T.append(namen[bb])
+		for j in range(0, I.size() - 2, 3):
+			if weg[I[j]] + weg[I[j + 1]] + weg[I[j + 2]] > 0: continue
+			var a := P[o + I[j]]; var b2 := P[o + I[j + 1]]; var c2 := P[o + I[j + 2]]
+			var nr := D.size() / 3
+			D.append(o + I[j]); D.append(o + I[j + 1]); D.append(o + I[j + 2])
+			var lo := Vector3i((a.min(b2).min(c2) / ZELLE).floor()); var hi := Vector3i((a.max(b2).max(c2) / ZELLE).floor())
+			for x in range(lo.x, hi.x + 1):
+				for y in range(lo.y, hi.y + 1):
+					for z in range(lo.z, hi.z + 1):
+						var k := Vector3i(x, y, z)
+						if not gitter.has(k): gitter[k] = PackedInt32Array()
+						gitter[k].append(nr)
+	var teile := {}
+	var innen := 0
+	var mn := 9.0
+	var schlimm := {}
+	for q0 in pkt:
+		var q := wt * q0
+		var c := Vector3i((q / ZELLE).floor())
+		var bd := 9.0; var bt := -1; var bc := Vector3.ZERO; var bw := Vector3.ZERO
+		var gesehen := {}
+		for dx in [-1, 0, 1]:
+			for dy in [-1, 0, 1]:
+				for dz in [-1, 0, 1]:
+					var l = gitter.get(c + Vector3i(dx, dy, dz))
+					if l == null: continue
+					for t in l:
+						if gesehen.has(t): continue
+						gesehen[t] = true
+						var bz := _naechst(q, P[D[3 * t]], P[D[3 * t + 1]], P[D[3 * t + 2]])
+						var cp: Vector3 = P[D[3 * t]] * bz.x + P[D[3 * t + 1]] * bz.y + P[D[3 * t + 2]] * bz.z
+						var d := q.distance_squared_to(cp)
+						if d < bd: bd = d; bt = t; bc = cp; bw = bz
+		if bt < 0: continue
+		var nrm: Vector3 = N[D[3 * bt]] * bw.x + N[D[3 * bt + 1]] * bw.y + N[D[3 * bt + 2]] * bw.z
+		var teil: String = T[D[3 * bt + (0 if bw.x >= bw.y and bw.x >= bw.z else (1 if bw.y >= bw.z else 2))]]
+		var d := sqrt(bd)
+		# unter 0 nur dicht unter der Flaeche: tiefer liegt ein Punkt nur scheinbar „innen“ (einlagige Stoffe wie Umhang und Wappenrock
+		# haben keine Innenseite); eine Waffe, die wirklich eindringt, hat an der Flaeche Punkte knapp darunter (Punkte alle 2 cm)
+		if (q - bc).dot(nrm) < 0.0 and d < TIEF: d = -d; innen += 1
+		teile[teil] = minf(float(teile.get(teil, 9.0)), d)
+		if d < mn: schlimm = {"waffe": q0, "welt": q, "punkt": bc, "teil": teil}
+		mn = minf(mn, d)
+	return {"teile": teile, "innen": innen, "min": mn, "schlimm": schlimm}
+
+# naechster Punkt des Dreiecks abc zu p als Schwerpunktkoordinaten (Ericson, Real-Time Collision Detection 5.1.5)
+static func _naechst(p: Vector3, a: Vector3, b: Vector3, c: Vector3) -> Vector3:
+	var ab := b - a; var ac := c - a; var ap := p - a
+	var d1 := ab.dot(ap); var d2 := ac.dot(ap)
+	if d1 <= 0.0 and d2 <= 0.0: return Vector3(1, 0, 0)
+	var bp := p - b
+	var d3 := ab.dot(bp); var d4 := ac.dot(bp)
+	if d3 >= 0.0 and d4 <= d3: return Vector3(0, 1, 0)
+	var vc := d1 * d4 - d3 * d2
+	if vc <= 0.0 and d1 >= 0.0 and d3 <= 0.0:
+		var v := d1 / (d1 - d3)
+		return Vector3(1.0 - v, v, 0)
+	var cpv := p - c
+	var d5 := ab.dot(cpv); var d6 := ac.dot(cpv)
+	if d6 >= 0.0 and d5 <= d6: return Vector3(0, 0, 1)
+	var vb := d5 * d2 - d1 * d6
+	if vb <= 0.0 and d2 >= 0.0 and d6 <= 0.0:
+		var w2 := d2 / (d2 - d6)
+		return Vector3(1.0 - w2, 0, w2)
+	var va := d3 * d6 - d5 * d4
+	if va <= 0.0 and (d4 - d3) >= 0.0 and (d5 - d6) >= 0.0:
+		var w3 := (d4 - d3) / ((d4 - d3) + (d5 - d6))
+		return Vector3(0, 1.0 - w3, w3)
+	var den := 1.0 / (va + vb + vc)
+	var v2 := vb * den; var w4 := vc * den
+	return Vector3(1.0 - v2 - w4, v2, w4)
