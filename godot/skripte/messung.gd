@@ -64,7 +64,8 @@ static func zeilen(vp: Viewport = null) -> Array:
 	z.append("Kampfort bereit nach: %s" % ("–" if kampf_ms < 0.0 else "%.1f s" % (kampf_ms / 1000.0)))
 	z.append("Grafikspeicher: %.0f MB, Zeichenaufrufe: %d, Dreiecke: %dk" % [Performance.get_monitor(Performance.RENDER_VIDEO_MEM_USED) / 1048576.0,
 		int(Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME)), int(Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME) / 1000.0)])
-	if vp: z.append("Rand oben (Kamera): %.0f" % Rand.oben(vp))
+	if vp: z.append("Rand oben (Kamera): %.0f, beim Start %.0f; sichere Fläche %s, Fenster %s, Ausschnitt %s" % [Rand.oben(vp), Rand.beim_start,
+		DisplayServer.get_display_safe_area(), DisplayServer.window_get_size(), DisplayServer.get_display_cutouts()])   # 399.4: warum fehlt er (t143)?
 	var fe := fehler()
 	z.append("Letzte Fehlermeldungen: " + ("keine" if fe.is_empty() else ""))
 	for x in fe: z.append("  " + x)

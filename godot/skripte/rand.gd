@@ -7,6 +7,7 @@ extends RefCounted
 
 const EBENE := 119                      # unter der Helligkeit (120), ueber Menue, Hauptmenue, Zwischenbild
 static var test_oben := -1.0            # Tests ohne Geraet: so hoch statt der sicheren Flaeche
+static var beim_start := -1.0           # 399.4 (t143: Rand fehlte): was oben() beim Aufbau der Welt gab, fuer „Gerät“
 
 # Hoehe des Randes oben in Einheiten der Oberflaeche (1080 breit, canvas_items)
 static func oben(vp: Viewport) -> float:
