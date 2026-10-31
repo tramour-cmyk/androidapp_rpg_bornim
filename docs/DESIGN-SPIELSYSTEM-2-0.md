@@ -38,10 +38,10 @@ Ideensammlung, Stand 31.10.2026. Hier schreiben wir alles zusammen, was das Spie
 | 30 | Diebstahl raus, Heimtücke bleibt | Das Stehlen (Taschendiebstahl) und der Titel Dieb werden entfernt, weil das Gleichgewicht dadurch nicht kippt (von Claude geprüft) und die Diebesrolle noch nicht festgelegt war. Heimtücke bleibt: sich an Gegner heranschleichen und als Erster angreifen. Schlösser knacken wird über Truhen gelöst. Entschieden am 31.10.2026. Korrektur am 31.10.2026: Mit „Clown“ war das Wort „klauen“ gemeint (Diktierfehler). Barde, Musizieren und Erzählen sind deshalb wieder drin; ob du sie willst, steht in Frage 27. |
 | 31 | Barde, Gaukler und dergleichen raus | Gaukler, Barde, Musizieren und Erzählen waren vom Nutzer nicht vorgesehen und werden entfernt. Entschieden am 31.10.2026. |
 | 32 | Umbau (Frage 4) | B: neues Regelmodul parallel, das alte später löschen. Chef 31.10.2026, 20:1x. |
-| 33 | Ausschlüsse (Frage 5a) | „harter Ausschluss“. Reichweite (auch Schleichen in schwerer Rüstung?) siehe Rückfrage R2. Chef 31.10.2026. |
-| 34 | Spezialklassen (Frage 5b) | C: alle 22 Titel. Ob sofort oder je Kapitel freigeschaltet, siehe Rückfrage R4. Chef 31.10.2026. |
+| 33 | Ausschlüsse (Frage 5a) | „harter Ausschluss“. Schleichen in schwerer Rüstung ist gesperrt. Der Kriegsmagier darf nur leichte Rüstung tragen („dafür hat er ja diese spezielle Schule … gewählt“). Chef 31.10.2026, 20:3x. |
+| 34 | Spezialklassen (Frage 5b) | C: alle 22 Titel. Zurückgestellt: erst Aussprache über die Titel selbst (Chef 20:3x: „was du überhaupt von der Idee hältst, von den Titeln. Bevor wir entscheiden, ob alle schon da sein sollen“), siehe Abschnitt 8 der Auseinandersetzung. |
 | 35 | Stufengrenzen, Kapitel, Höchststufe (Fragen 5c, 15, 19, 20) | „Bisschen wie World of Warcraft oder Pokémon: Wenn es neue Kapitel/Gebiete gibt, dann gibt es neues Levelcap.“ Also keine feste Höchststufe; jedes neue Kapitel oder Gebiet hebt die Grenze. Chef 31.10.2026. |
-| 36 | Ruf sinkt (Frage 6) | B: sinkt bei wenigen klaren Anlässen; Chef nennt dazu „zB Kaufen, Infos von NPC“ (Bedeutung siehe Rückfrage R3). Chef 31.10.2026. |
+| 36 | Ruf sinkt (Frage 6) | B: sinkt bei wenigen klaren Anlässen. „Kaufen, Infos von NPC“ sind Wirkungen eines guten Rufs, keine Anlässe zum Sinken: „wenn ich einen guten Ruf habe, dann kann ich eben günstiger Sachen kaufen oder ich bekomme in manchen Dialogen mehr Infos … Und komme damit weiter in der Quest“. Chef 31.10.2026, 20:3x. |
 | 37 | Ortsruf (Frage 7) | B: gewichtet, Schlüssel-NPCs zählen mehr. Chef 31.10.2026. |
 | 38 | Zahl der Fertigkeiten (Frage 8) | A: alle 69, „nach Rücksprache mit BornWire“ (Stellungnahme Sokrates unten, Abschnitt 6). Chef 31.10.2026. |
 | 39 | Werkort (Frage 9) | C: gestaffelt, einfache Rezepte überall, höhere am Werkort. Chef 31.10.2026. |
@@ -49,17 +49,13 @@ Ideensammlung, Stand 31.10.2026. Hier schreiben wir alles zusammen, was das Spie
 | 41 | Tragkraft (Frage 12) | Tragkraft bleibt; früh im Spiel ein „Nimmersatt-Beutel“, der die Tragkraft stark erhöht; darüber hinaus Malus auf die Geschwindigkeit (weich, kein Aufnahmestopp). Chef 31.10.2026. |
 | 42 | Erste Rezeptgruppe (Frage 13) | Empfehlung: Alchemie zuerst, Rüstungsbau danach. Chef 31.10.2026. Prüfauftrag: [Godot Inventory & Crafting Kit](https://juliusschmidt.itch.io/godot-inventory-crafting-kit) als Anhalt (Prüfung Abschnitt 7 unten). |
 | 43 | Abnutzung, Reparatur (Fragen 11, 11b) | Defekt statt zerstört; vier Ränge für Reparieren und „Alles reparieren“. Frage 11a (Reparaturverlust) ohne Antwort, Empfehlung war „vorerst nicht“. Chef 31.10.2026. |
-| 44 | Üben am Fertigkeitslimit (Frage 18) | A: hart mit Puffer. Chef 31.10.2026 (eine zweite Nennung „18 B“ siehe Rückfrage R1). |
+| 44 | Üben am Fertigkeitslimit (Frage 18) | A: hart mit Puffer. Chef 31.10.2026 (die zweite Nennung „18 B“ und „13 A“ bleibt ungeklärt; Rückfrage R1 gestrichen, Chef 20:3x). |
 | 45 | Werdegänge (Frage 24) | Ohne Haudegen. Chef 31.10.2026. |
 | 46 | Truhen in NPC-Häusern (Frage 25) | A: nicht öffnen. Chef 31.10.2026. |
 | 47 | Bosse und Heimtücke (Frage 26) | B: Bosse wachsamer, Bonus gedeckelt. Chef 31.10.2026. |
 | 48 | Richtung | „Weg von WotC/SRD, hin zu einer offenen Welt, in der du aufsteigst dadurch, dass du Sachen machst. Hin zu einem offenen und einzigartigen Spielsystem.“ Chef 31.10.2026. |
 
-**Rückfragen zu den Antworten vom 31.10.2026, abends** (Chefsache [413a](chefsache/entscheiden/413a-spielsystem-rueckfragen.md)):
-- **R1:** Die Antworten nennen „18 B“ (am Anfang) und „18 A“ (später) sowie „13 A“ und „13 Empfehlung“. Eingetragen sind 18 A und 13 Empfehlung. War das erste Paar für andere Fragen gemeint, etwa „3 B“ (Stufenfaktor flacher, Null erst bei 20 Stufen Unterschied)?
-- **R2:** „Harter Ausschluss“ für alle Fälle, also auch Schleichen in schwerer Rüstung gesperrt statt erschwert? Bleibt die Ausnahme Kriegsmagier (leichte Rüstung, niedrigerer Magierang)?
-- **R3:** Frage 6, „zB Kaufen, Infos von NPC“: Sind das Anlässe, bei denen der Ruf sinkt, oder Wirkungen des Rufs (Preise, Auskünfte)?
-- **R4:** Frage 5b, alle 22 Titel: alle von Anfang an im Spiel, oder alle 22 fest geplant und je Kapitel freigeschaltet (wie die Stufengrenze in Entscheidung 35)?
+**Rückfragen zu den Antworten vom 31.10.2026, abends:** R1 gestrichen, R2 und R3 beantwortet (Entscheidungen 33, 36), R4 wird zur Aussprache über die Titel (Abschnitt 8).
 
 ## Ausgangslage im Code (gelesen am 30.10.2026)
 
@@ -1398,3 +1394,65 @@ Gelesen auf der [Seite](https://juliusschmidt.itch.io/godot-inventory-crafting-k
 4. **Speicherform als Wörterbuch** je Behälter, passend zum Spielstand der Godot-Fassung.
 
 Nicht übernehmen: Rasterinventar mit Ziehen (auf dem Handy mühsam; unser Inventar ist eine Liste wie im alten Spiel, 399.1) und Herstellzeit mit Balken (Warten ohne Spielwert). Grund gegen den Kauf: Die Ideen sind einfach, der Code brächte ein zweites Inventar neben unserem, ist für Touch nicht getestet, und der Einbau kostete mehr als das Nachbauen der vier Ideen in unserem Bestand.
+
+### 8. Die Titel: was ich davon halte (Chef 31.10.2026, 20:3x: „was du überhaupt von der Idee hältst, von den Titeln … Deine Auseinandersetzung fehlt mir da so ein bisschen“)
+
+**Kurz:** Titel ja, aber weniger und stärker als 22, in zwei getrennten Arten, verdient über Taten und Lehrmeister, und gestaffelt über die Kapitel.
+
+**Was für Titel spricht**
+- **Ziel auf lange Sicht.** Ohne Klassen fehlt dem Spieler sonst die Antwort auf „was werde ich?“. Ein Titel ist ein Versprechen, auf das man hinspielt.
+- **Inhalt mit Sinn.** Lehrmeister, Prüfungsquest und Ruf verbinden Geschichte und System. Der Titel holt den Spieler zu Menschen in der Welt.
+- **Bremse gegen den Allroundkiller, die sich richtig anfühlt.** Die Auflage (keine Rüstung, kein Schild) ist der Preis einer Wahl, nicht eine Strafe.
+- **Profil am Markt.** „Du wählst keine Klasse, du verdienst dir deinen Titel“ ist ein Satz für Store und Webseite.
+
+**Was dagegen spricht (die stärksten Einwände)**
+1. **Klassen durch die Hintertür.** Sind die Meisterperks des Titels das Stärkste im Spiel, plant jeder Spieler ab Stunde eins auf einen Titel hin. Dann ist die freie Phase nur noch der Weg zur Klasse, und das Versprechen „du wirst, was du tust“ gilt nur bis zum Lehrmeister.
+2. **22 Titel lassen sich nicht unterscheidbar machen.** Viele liegen eng beieinander: Waldläufer und Scharfschütze, Wächter und Paladin, Magier, Runenmeister, Beschwörer und Illusionist (alle mit derselben Rüstungssperre). Spieler sehen dann Namen statt Unterschiede, und jeder Titel braucht Lehrmeister, Prüfungsquest, Perks, Texte und Balance. Das ist der teuerste Teil von 2.0.
+3. **„Ein Titel pro Held“ trifft das Handwerk.** Wer Schmiedemeister wird, verzichtet nach dem Entwurf auf Wächter oder Waldläufer. Das widerspricht „alles geht, nichts muss“: Handwerk würde gegen Kampf ausgespielt.
+4. **Manche Titel haben keinen Boden im Spiel.** Der Reiter braucht Reittiere, die es im Code nicht gibt (geprüft: keine Fundstelle in den Regeln). Der Kaufmann ist eher eine Wirkung von Ruf und Handeln als ein Lebensweg. Der Hauptmann wirkt nur, wenn Gefährten im Kampf viel ausmachen.
+
+**Mein Vorschlag**
+
+*T1, zwei Arten von Titeln.*
+- **Berufung** (Kampf- und Lebensweg): genau eine je Held, mit Auflagen. Sie prägt, wie man kämpft.
+- **Meisterschaft** (Handwerk): je Handwerk eine, ohne Kampfauflagen, beliebig viele neben der Berufung, gebunden an Werkort und Material. So steht Handwerk nicht gegen Kampf.
+
+*T2, weniger, dafür klar verschieden.* Ein Vorschlag zum Zusammenlegen (Namen vorläufig):
+
+| Berufung | Rolle | Kern | Aus dem Entwurf |
+| --- | --- | --- | --- |
+| Wächter | Tank | Schild, schwere Rüstung, Gegner binden | Wächter |
+| Paladin | Tank und Heilung | Schild, Heilmagie, Ruf muss hoch bleiben | Paladin |
+| Berserker | Nahkampf | Zweihänder, Raserei, kein Schild, keine Magie | Berserker |
+| Duellant | Nahkampf beweglich | Einhänder, Parieren, leichte Rüstung | Duellant |
+| Waldläufer | Fernkampf und Wildnis | Bogen, Armbrust, Fährten, Tierbegleiter | Waldläufer, Scharfschütze, Pfadfinder |
+| Assassine | Heimtücke | Schleichen, Dolch, Gift, Erstschlag | Assassine |
+| Schatzjäger | Truhen und Fallen | Schlösser, Fallen, versteckte Kammern | Schatzjäger |
+| Magier | Zauber | stärkste Zauber, keine Rüstung | Magier, Illusionist |
+| Kriegsmagier | Zauber und Waffe | leichte Rüstung, Waffenzauber, Magie gedeckelt | Kriegsmagier |
+| Heiler | Heilung | Heilmagie, Heilkunde, Wiederbeleben | Heiler |
+| Beschwörer | Diener | beschworene und untote Helfer, Ruf leidet bei Nekromantie | Beschwörer, Nekromant |
+| Mönch | waffenlos | Faustkampf, Ausdauer, keine Rüstung | Mönch |
+
+| Meisterschaft | Kern | Aus dem Entwurf |
+| --- | --- | --- |
+| Schmiedemeister | Waffen, Rüstung, Reparatur | Schmiedemeister |
+| Alchemist | Tränke, Gifte, Elixiere | Alchemist |
+| Runenmeister | Gegenstände verzaubern, Runen | Runenmeister |
+| Feldkoch (vorläufig) | Mahlzeiten mit Bonus, Lager | Teil von Pfadfinder |
+
+Gestrichen oder verschoben: Reiter (bis es Reittiere gibt), Kaufmann (wird Perk von Ruf und Handeln), Hauptmann (bis Gefährten das tragen). Das sind 12 Berufungen und 4 Meisterschaften statt 22 Titel. Jede Fertigkeit führt weiter irgendwohin, entweder in eine Berufung, eine Meisterschaft oder zu den eigenen Rangperks der Fertigkeit (Regel 8). Nicht jede Fertigkeit braucht einen Titel.
+
+*T3, Titel ändern, wie man spielt, nicht nur Zahlen.* Meisterperks sind neue Handlungen (Riposte, Tierbegleiter, Waffenzauber), keine großen Zahlenaufschläge. Die Kraft bleibt in den Fertigkeiten (passt zu S1). Das entschärft Einwand 1: Wer keinen Titel nimmt, ist nicht schwächer, nur weniger spezialisiert.
+
+*T4, verdient über Taten und Lehrmeister* (passt zu S3a): Voraussetzung ist Fertigkeitsrang plus eine passende Tat plus Ruf beim Lehrmeister. Der Weg zum Titel erzählt so die Geschichte des Helden.
+
+*T5, Wechsel erlaubt.* Beim Lehrmeister gegen Gold und eine kleine Quest. Ohne Wechsel wird der Titel doch wieder eine Klasse, die man bereut.
+
+*T6, Staffelung über die Kapitel (Antwort auf R4).* Alle Titel werden jetzt auf dem Papier vollständig entworfen. Im Spiel kommen sie in Stufen, wie die Stufengrenze (Entscheidung 35): Kapitel 1 ohne Titel (der Held lernt die Grundlagen, die Fertigkeitsgrenze ist niedrig), ab Kapitel 2 die Grundform jeder Berufung, in späteren Kapiteln eine Meisterform (zum Beispiel Wächter → Bollwerk). So bringt jedes Kapitel Neues, ohne dass die Zahl der Titel wächst. *Gegenargument:* Kapitel 1 ohne Titel heißt, der Tester sieht dieses Merkmal nicht. Alternative: ein einziger Titel in Kapitel 1 als Ausblick, etwa über eine Nebenquest.
+
+**Fragen an den Chef dazu**
+- **T1:** Zwei Arten, Berufung (eine) und Meisterschaft (mehrere)?
+- **T2:** Zusammenlegen auf etwa 12 Berufungen und 4 Meisterschaften, oder alle 22 behalten?
+- **T3 bis T5:** Perks als Handlungen statt Zahlen, Weg über Taten und Lehrmeister, Wechsel erlaubt?
+- **T6:** Staffelung je Kapitel: Kapitel 1 ohne Titel oder mit einem Titel als Ausblick?
