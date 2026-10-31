@@ -17,7 +17,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [425](ansehen/425-menue-zeichen.md) | Menü „System“ und Testmenü wie alt, Zeichen statt Text | – | 31.10., 22:37 |
 
 ## Zu tun
 
