@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [430](entscheiden/430-voelker-abnahmelisten.md) | **Muss** | D Design | 01.11. | Wie sehen Elf, Zwerg, Hügelvolk und Orkblütiger aus? | Homer |
 | [418](entscheiden/418-abnahmeliste-kapitel1.md) | **Muss** | B Abläufe | 31.10., 21:33 | Abnahmeliste Kapitel 1 nach der neuen Direktive: abnehmen und Umfang von 2.0 festlegen | Perikles |
 | [413a](entscheiden/413a-spielsystem-rueckfragen.md) | **Muss** | D Design | 31.10. | Spielsystem 2.0: offene Entwürfe | Sokrates |
 | [442](entscheiden/442-modell-sitzungen.md) | **Muss** | B Abläufe | 31.10. | Welches Modell läuft in welcher Sitzung? | Sokrates |
@@ -38,11 +39,11 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 7, Muss 3, startbar 2
+**Homer** – offen 7, Muss 3, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 430 | M | von Sokrates (Chef 31.10., 22:0x: „Das Design der einzelnen Völker kann aber längst starte | startbar |
+| 430 | M | von Sokrates (Chef 31.10., 22:0x: „Das Design der einzelnen Völker kann aber längst starte | Chef (Datei in der Chefsache) |
 | 428 | M | von Sokrates (Chef 31.10., 21:3x, „bisschen Hintergrundgeschichte vielleicht“): Bestiarium | startbar |
 | 432 | K | von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt | nach dem Meilenstein |
 | 423 | M | von Sokrates (Chef 31.10., 21:2x: „irgendwer muss dann auch einfach eine Anleitung schreib | wartet auf Sokrates |
@@ -165,10 +166,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „star
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
-**Diogenes** – offen 7, Muss 5, startbar 0
+**Diogenes** – offen 8, Muss 6, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 443 | M | von Perikles (436, Doppelpack 421, 01.11., 00:2x): Namensform „<Rolle> – <Vorgang>: <Thema | startbar |
 | 441 | M | von Sokrates (Chef 31.10., 23:40, „gründlich von Diogenes quergelesen“): DESIGN-SPIELSYSTE | wartet auf Sokrates |
 | 434 | M | von Sokrates (Chef 31.10., 22:1x): bei jeder Zählung 374 zusätzlich die Zeile „Bestand gep | Termin 01.11. |
 | 398 | M | von Sokrates: vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (39 | Termin 02.11. |

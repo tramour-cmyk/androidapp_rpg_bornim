@@ -5,14 +5,14 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `8700379b0` (29.10., 01:06)
 
-**Übergabe (31.10., 22:0x):** 409 Frisurwörter (`[409.frisur]` in `STORY-SPIEL.md`, an Tom zu 376.1); 426 Grundsatz „Zeichen statt Textwände“ in `DESIGN-STIL.md` (Oberfläche, Tafel). Nachfolger: keiner, 423 und 428 warten auf Sokrates (422, 427).
+**Übergabe (01.11., 00:2x):** 430 Abnahmelisten Elf, Zwerg, Hügelvolk, Orkblütiger in `LISTE-FIGUREN.md` „Völker“, Chefsache 430; Hinweis an Tom (431). Nachfolger: Homer – 428 Bestiarium.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 430 | M | **von Sokrates (Chef 31.10., 22:0x: „Das Design der einzelnen Völker kann aber längst starten an den Modellen, oder?“):** Abnahmelisten Elf, Zwerg, Hügelvolk, Orkblütiger in `LISTE-FIGUREN.md` (fünf Punkte wie 348.11), dann an Tom (431) | startbar |
+| 430 | M | **von Sokrates (Chef 31.10., 22:0x: „Das Design der einzelnen Völker kann aber längst starten an den Modellen, oder?“):** Abnahmelisten Elf, Zwerg, Hügelvolk, Orkblütiger in `LISTE-FIGUREN.md` (fünf Punkte wie 348.11), dann an Tom (431) | wartet auf Chef (Chefsache 430): vier Listen in `LISTE-FIGUREN.md` „Völker“, 01.11. |
 | 428 | M | **von Sokrates (Chef 31.10., 21:3x, „bisschen Hintergrundgeschichte vielleicht“):** Bestiarium (427): je Monsterart zwei bis drei Sätze Herkunft und Wesen, DE/EN | startbar: Gerüst `LISTE-BESTIARIUM.md` steht |
 | 432 | K | **von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt mir sehr gut“):** eigenes Volk prüfen, mit der Geschichte ab Kapitel 2 | nach dem Meilenstein |
 | 423 | M | **von Sokrates (Chef 31.10., 21:2x: „irgendwer muss dann auch einfach eine Anleitung schreiben, wo die wesentlichen Dinge für den Spieler erklärt werden“):** Spielerhandbuch Spielsystem 2.0 aus dem Nachschlagewerk (422), unser Ton, DE/EN | wartet auf Sokrates (422) |

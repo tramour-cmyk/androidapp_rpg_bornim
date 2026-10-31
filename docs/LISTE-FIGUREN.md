@@ -94,6 +94,36 @@ Gebilligt (Chef 25.10., 22:00):
 4. **Farbe:** Kleidung je Person in der Farbe wie bisher (z. B. Lyra weiße Robe, Jorin das Blau des Dorfes, Thessa Rost-Ocker); nie heller als bisher.
 5. **Haltung und Gesicht:** jede steht oder sitzt anders (Borin am Tisch); Augen, Brauen, Mund wie bisher.
 
+**Völker** (Homer 01.11., 430; Billigung offen, Chefsache 430; für Tom 431). Gelten für Held, Leute und Söldner eines Volkes, Mensch = Liste „Held“; Namen und Werte nach `DESIGN-SPIELSYSTEM-2-0.md` (24, 72). Maße aus `Doll.kt` :64–92, :515–583, Hauttöne aus `Appearance.kt`; Frauen 7 % kleiner. „Neu“ = bisher nicht so gezeichnet. Für alle: am Schattenriss ohne Ausrüstung erkennbar, welches Volk; Kleidung und Ausrüstung wie beim Menschen.
+
+**Elf**
+1. **Größe:** 172 cm, fast so groß wie der Mensch.
+2. **Umriss:** schlank und lang: Kopf ein Achtel der Körperhöhe, Beine länger als beim Menschen (gut die Hälfte der Höhe), schmale Schultern und Hüften, feine Hände und Füße.
+3. **Merkmal:** lange spitze Ohren, schräg nach hinten oben, über den Scheitel hinaus sichtbar; schmales Gesicht mit schmalem Kinn und feiner Nase; langes Haar auch bei Männern (bis über die Schultern), nie Bart.
+4. **Farbe:** Haut blass, hell, kupfer oder bronze; Haar silberblond, kupfer, schwarz oder weißgrau; Augen grün.
+5. **Haltung:** aufrecht, leicht und ruhig, Kopf hoch.
+
+**Zwerg**
+1. **Größe:** 135 cm, reicht dem Menschen bis knapp unter die Schulter.
+2. **Umriss:** breit und gedrungen: Kopf ein Fünftel der Körperhöhe, kurze Beine (gut ein Drittel der Höhe), Schultern breiter als beim Menschen, kurzer Hals, Kopf tief zwischen den Schultern, große Hände.
+3. **Merkmal:** Männer voller Bart über Kinn und Brust bis auf das Brustbein, mit Schnauzbart; Frauen zwei Zöpfe von den Schläfen bis auf die Brust, kein Bart (Bart bei Frauen nur auf Wunsch des Chefs); breite, kräftige Nase, schwere Brauen, breiter Kiefer.
+4. **Farbe:** Haut rosig, gebräunt, braun oder dunkel; Haar rot, braun, schwarz oder grau; Augen braun.
+5. **Haltung:** breitbeinig, standfest, Gewicht tief (neu).
+
+**Hügelvolk**
+1. **Größe:** 105 cm, reicht dem Menschen etwa bis zum Gürtel; kleinstes Volk.
+2. **Umriss:** wie ein kleiner Erwachsener, nie wie ein Kind: Kopf ein Sechstel der Körperhöhe (Kind und Goblin größer), Beine knapp die Hälfte der Höhe, rundlich, nicht breit wie der Zwerg; große Füße.
+3. **Merkmal:** kleine, kurz zugespitzte Ohren (halb so lang wie beim Elf); große Füße; rundes, erwachsenes Gesicht; Männer höchstens kurzer Bart.
+4. **Farbe:** Haut hell, rotwangig, gebräunt oder dunkel; Haar braun, blond, schwarz oder rot; nie grünlich (Unterschied zum Goblin bei gleicher Größe).
+5. **Haltung:** aufrecht, locker, nie geduckt (Unterschied zum Goblin).
+
+**Orkblütiger**
+1. **Größe:** 185 cm, größtes Volk, gut eine Handbreit über dem Menschen.
+2. **Umriss:** massig: Rumpf breiter und tiefer als beim Menschen, breite Schultern, kurzer, dicker Hals, große Hände; Kopf wie beim Menschen ein Siebtel der Körperhöhe.
+3. **Merkmal:** zwei kurze Hauer aus dem Unterkiefer über die Oberlippe; schwerer Brauenwulst; breiter, eckiger Kiefer; breite, flache Nase; kurz zugespitzte Ohren; Augen bernsteinbraun, nie gelb leuchtend.
+4. **Farbe:** Haut graugrün, oliv, aschgrau oder moosgrün, nie hellgrün und nie rot (Unterschied zu Goblin und Hobgoblin); Haar schwarz, dunkelbraun, grau oder rostbraun.
+5. **Haltung:** aufrecht, Schultern leicht vorgeschoben (neu); kein Raubtier, kein Monster.
+
 Gebilligt (Chef 25.10., 23:33, 348.11 b): übrige Monster aus Kapitel 1. Für alle gilt:
 - **Echte Größe:** die Maße gelten auch im Kampfort, ohne die bisherige Vergrößerung (Gegner 1,3-fach, Bosse 1,5-fach).
 - **Leuchten** nur, wo eine sichtbare Quelle ist: Schamane (Fluch) und Skelett (Untod), dazu Grimmzahn (Faden der Geschichte); alle anderen Augen matt, grelle Farben gedämpft.
@@ -236,5 +266,7 @@ Fundstellen übrige Monster: Chefsache 34811b-monsterlisten (Git, `929f19051^`).
 ## Verwechslungsgefahr
 
 Lange Stangen tragen Aldric (quer auf der Schulter), Jorin (Speer mit Spitze), Ansel (senkrecht, viel länger) und Kael (Stock, gebeugt, mit Decke und Laterne). Am ersten Standbild prüfen; reicht es nicht, bekommt Ansel statt des Stakstocks eine Reuse.
+
+Hügelvolk und Goblin (105 und 108 cm): Kopfgröße, Hautfarbe, Haltung am ersten gemeinsamen Standbild prüfen (430).
 
 Vierbeiner im nächtlichen Wald: Wolf, Grimmzahn (fast schwarz, Narbe) und Grabhund (größer, schwarze Mähne über fahler nackter Haut) am ersten gemeinsamen Standbild prüfen.

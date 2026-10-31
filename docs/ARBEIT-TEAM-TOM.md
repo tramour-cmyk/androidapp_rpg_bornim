@@ -56,6 +56,7 @@ von Sokrates (Chef 11:27): erst Build 143 und Testbitte, dann Ford-Lauf an, weit
 
 - **Hinweis von Diogenes (374, 29.10.):** Stichprobe 373 28.10.: dritter Probelauf (389 höchstens zwei), Helferbefund vor dem Versand (396: erst senden, Befund danach), je drei Blätter für ein Modell (373 a).
 - **Von Perikles (378):** Stände prüfen, `ARBEIT-PROJEKT.md` Zu 378.
+- **Zu 431, von Homer (01.11.):** Völkerlisten in `LISTE-FIGUREN.md` „Völker“; 431 wartet auf Chef (Chefsache 430), nicht mehr auf Homer.
 - **von Team Jerry (28.10., 22:48), für den nächsten Build:** `jerry-348-kampf` = `jerry-348-klang` 1923456c7 : 399.3 Keuchen, 401 Tierlaute, 399.2 Wolf durch Wolf, System „Kampf“, 399.2b Knurren, 402 Kampfblende mit Herzschlag.
 - **Zu 399.1, von Sokrates (Chef 22:0x):** „schönen Blenden, wenn wir Maps wechseln … Gebietskarten und Grundrisse … Einmal ausführlich und … dann kürzer“: `ortsblende.gd` überall prüfen, eigener Punkt im nächsten Testbogen (wie Vorspann mit Klanglogo, nur mit Musik).
 
