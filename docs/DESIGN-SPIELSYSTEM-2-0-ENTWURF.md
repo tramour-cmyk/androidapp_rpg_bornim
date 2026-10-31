@@ -262,13 +262,13 @@ Zu A bis C: A ist am einfachsten, aber Üben zählt im Kampf kaum, und der Handw
 
 Anforderung des Chefs (31.10., 21:3x): Ein kleiner Held gegen ein starkes Monster muss verlieren, mit vielleicht einem Glückstreffer von 1 zu 100; umgekehrt gibt Stufe 10 gegen Stufe 1 keine Erfahrung.
 
-**Die Idee:** Die **Stufe** bestimmt die Größenordnung (Schaden und Leben). Die **Fertigkeit** bestimmt das Können (ob man trifft und welche Handlungen man hat). D ist der Stufenunterschied: Stufe des Angreifers minus Stufe des Verteidigers.
+**Die Idee:** Die **Stufe** bestimmt die Größenordnung (Schaden und Leben). Die **Fertigkeit** bestimmt das Können: wie oft man trifft, wie hart man trifft und welche Handlungen man hat. Wer das Schwert tausendmal geführt hat, trifft öfter und härter (Nachfrage Chef 31.10., 21:4x: „wo taucht denn das in deiner Berechnung des Schadens auf?“). D ist der Stufenunterschied: Stufe des Angreifers minus Stufe des Verteidigers.
 
 | Regel | Formel (Startwerte) |
 | --- | --- |
-| Schaden | (Waffe + Grundwert) × (1 + D / 10), nie unter 0; danach minus Rüstung, nie unter 0 |
+| Schaden | (Waffe + Grundwert) × (1 + Fertigkeit / 100) × (1 + D / 10), Stufenfaktor nie unter 0; danach minus Rüstung, nie unter 0. Fertigkeit 50 heißt anderthalbfacher Schaden, 100 doppelter |
 | Trefferchance | 70 % + (Angriffsfertigkeit − Abwehrfertigkeit des Gegners) × 0,5 %, begrenzt auf 5 bis 95 % |
-| Glückstreffer | 1 von 100 Treffern rechnet mit Faktor 1 statt mit dem Stufenfaktor; gilt für beide Seiten |
+| Glückstreffer | 1 von 100 Treffern rechnet mit Stufenfaktor 1; gilt für beide Seiten |
 | Erfahrung | Stufe über dem Gegner (D > 0): × (1 − D / 10), null ab D ≥ 10; Stufe unter dem Gegner (D < 0): × (1 − D / 10), höchstens doppelt |
 
 **Monster braucht:** Stufe, Leben, Rüstung, Grundschaden je Angriff, Angriffsfertigkeit, Abwehrfertigkeit, Wachsamkeit gegen Schleichen.
@@ -277,9 +277,9 @@ Anforderung des Chefs (31.10., 21:3x): Ein kleiner Held gegen ein starkes Monste
 
 | Fall | Werte | Held trifft | Gegner trifft | Ausgang |
 | --- | --- | --- | --- | --- |
-| **Held Stufe 1 gegen Monster Stufe 10** | Held: Grundschaden 8, Leben 20, Rüstung 2, Fertigkeit 10. Monster: Grundschaden 10, Leben 120, Rüstung 4, Angriff 50, Abwehr 40. D = −9 | Chance 70 − 15 = 55 %; Schaden 8 × 0,1 = 0,8 − 4 → 0. Glückstreffer: 8 − 4 = 4 | Chance 70 + 20 = 90 %; Schaden 10 × 1,9 = 19 − 2 = 17 | Held fällt nach zwei Treffern. Der Glückstreffer kratzt, rettet aber nicht. Erfahrung bei einem Sieg wäre × 1,9 |
-| **Held Stufe 10 gegen Monster Stufe 1** | Held: Grundschaden 8, Fertigkeit 40. Monster: Grundschaden 5, Leben 12, Rüstung 4, Angriff 10, Abwehr 5. D = +9 | Chance 70 + 17,5 = 87,5 %; Schaden 8 × 1,9 = 15 − 4 = 11, das Monster fällt nach zwei Treffern | Schaden 5 × 0,1 = 0,5 − Rüstung → 0. Glückstreffer: 5 − 2 = 3 | Held gewinnt mühelos. Erfahrung × 0,1 |
-| **Zwei gleich Starke, Stufe 5** | beide Grundschaden 10, Leben 50, Rüstung 2. Einer Geselle (Fertigkeit 40), einer Anfänger (20). D = 0 | Geselle: Chance 80 %, Schaden 8, braucht 7 Treffer | Anfänger: Chance 60 %, Schaden 8, braucht 7 Treffer | Der Geselle gewinnt deutlich öfter, weil er öfter trifft. Die genaue Quote misst die Simulation |
+| **Held Stufe 1 gegen Monster Stufe 10** | Held: Grundschaden 8, Leben 20, Rüstung 2, Fertigkeit 10. Monster: Grundschaden 10, Leben 120, Rüstung 4, Angriff 50, Abwehr 40. D = −9 | Chance 70 − 15 = 55 %; Schaden 8 × 1,1 × 0,1 = 0,9 − 4 → 0. Glückstreffer: 8,8 − 4 = 5 | Chance 70 + 20 = 90 %; Schaden 10 × 1,5 × 1,9 = 28 − 2 = 26 | Held fällt nach einem Treffer. Der Glückstreffer kratzt, rettet aber nicht. Erfahrung bei einem Sieg wäre × 1,9 |
+| **Held Stufe 10 gegen Monster Stufe 1** | Held: Grundschaden 8, Fertigkeit 40. Monster: Grundschaden 5, Leben 12, Rüstung 4, Angriff 10, Abwehr 5. D = +9 | Chance 70 + 17,5 = 87,5 %; Schaden 8 × 1,4 × 1,9 = 21 − 4 = 17, das Monster fällt nach einem Treffer | Schaden 5 × 1,1 × 0,1 = 0,6 − Rüstung → 0. Glückstreffer: 5,5 − 2 = 3 | Held gewinnt mühelos. Erfahrung × 0,1 |
+| **Zwei gleich Starke, Stufe 5** | beide Grundschaden 10, Leben 50, Rüstung 2. Einer Geselle (Fertigkeit 40), einer Anfänger (20). D = 0 | Geselle: Chance 80 %, Schaden 10 × 1,4 − 2 = 12, braucht 5 Treffer | Anfänger: Chance 60 %, Schaden 10 × 1,2 − 2 = 10, braucht 5 Treffer | Der Geselle gewinnt deutlich öfter, weil er öfter und härter trifft. Die genaue Quote misst die Simulation |
 
 **Was das Modell leistet:**
 - Ein kleiner Held verliert gegen ein starkes Monster, auch mit Glückstreffer.
@@ -291,7 +291,7 @@ Anforderung des Chefs (31.10., 21:3x): Ein kleiner Held gegen ein starkes Monste
 - Der Glückstreffer macht Schaden, aber keinen Sieg. Soll der kleine Held wirklich einmal in hundert Kämpfen gewinnen können, braucht es eine andere Regel (etwa ein seltener entscheidender Treffer).
 - Stufe 10 gegen Stufe 1 ist D = 9 und gibt noch ein Zehntel. Soll es dort schon null sein, beginnt die Null bei D ≥ 9.
 
-- **Votum Sokrates: D.** Es erfüllt alle drei Anforderungen und hält die Rollen klar: Stufe für die Größe, Fertigkeit für das Können.
+- **Votum Sokrates: D.** Es erfüllt alle drei Anforderungen und hält die Rollen klar: Stufe für die Größe, Fertigkeit für das Können. *Gegenargument:* Die Fertigkeit wirkt jetzt doppelt (Treffer und Schaden). Darum ist ihr Schadensanteil mit 1 % je Punkt bewusst mäßig; die Simulation zeigt, ob er passt.
 - **Stärkstes Gegenargument:** zwei Formeln statt einer (Schaden und Trefferchance), und alle Werte sind Startwerte ohne Messung. Ohne Simulation kann der Kampf zu lang oder zu kurz werden.
 
 ## Entwurf B zur Entscheidung: alle Stufen und Ränge auf einen Blick
