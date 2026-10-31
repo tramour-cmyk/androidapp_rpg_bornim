@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 31.10., 21:4x
+**Gelesen bis:** `origin/main` 31.10., 22:2x
 
-**Übergabe (31.10., 22:0x):** 418 neue Direktive in `CLAUDE.md`, Abnahmeliste Kapitel 1 neu, Befunde Diogenes (Lauf 49) eingearbeitet, Chefsache 418 (abnehmen, Umfang 2.0 A/B/C) gemeldet; 421 erledigt; 424 Umzugsliste ruht für alte Regeln, Wächter in `startbar.py`; 412 in `CLAUDE.md`; 408 in `ROLLE-ENTWICKLUNG.md`; 407 Probelauf-Haken; Diogenes prüft 424, 412, 408, 407 (429, Ford angestoßen). Nachfolger: Perikles – Stand zum Marktstart 01.11. (338.1, Morgenzeit)
+**Übergabe (31.10., 22:2x):** 433 Spike/Tuffy in `lauf.py` und `startbar.py` gebaut, Diogenes prüft (435, Ford angestoßen); M? 416.8 auf M; Vorrat gekürzt. Nachfolger: Perikles – Stand zum Marktstart 01.11. (338.1, Morgenzeit)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
