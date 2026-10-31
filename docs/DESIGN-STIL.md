@@ -20,6 +20,7 @@ Diese Datei ist das Stilhandbuch: jede gültige Design-Regel steht hier oder hat
 | Gegner, Figuren | drei Varianten, düster, nie niedlich, keine Figur starr | – | „Abwechslung“, „Lebendige Welt“ |
 | Karte, Räume | Sichtbarkeit, Maßstab, Karte und Kampfort gehören zusammen | 43, 77e.3 | „Karte und Räume“ |
 | Bedienung | frei, wenige Schritte, bekannte Muster | 33 | „Spielerfreundlich“ |
+| Menüs | Zeichen statt Textwände, wie die alte Fassung; Maß sind die alten Menüs | 426, 425 | „Oberfläche“ |
 | Klang | echte Aufnahmen, drei Varianten, Systemklänge einmal | 18 | „Klang“ |
 | Musik | orchestral, keine E-Gitarre, kein Rock; Dorf mittelalterlich | 28, 281 | „Klang“ |
 | Klanglogo | Probe 5: Harfe da-da … daa, Glocke; orchestral, höchstens 1,5 s, auf Bild 1 des Vorspanns mit dem Logo; Probe 15 bleibt Variante für später | 292.1 | Vorgangsarchiv 292.1 (Chef 22.10., 17:07: „5 ist unser Erkennungston“) |
@@ -93,6 +94,7 @@ Im Vorschlag an den Nutzer stehen die vier Antworten kurz neben dem Abgleich mit
 - **Eine Schrift überall** (292.3, Chef 22.10., 16:43: „292.3 ja“): Alegreya (mitgeliefert, OFL) für alles, Titel und Knöpfe in gesperrten Versalien. Cinzel nicht mehr (löst 60f ab). Keine Pixelschrift, auch nicht im Kampf (löst 60i ab): Lebens- und Zauberpunkte, Würfelzeile und Zahlen in MARS und im klassischen Kampf in Alegreya mit gleich breiten Ziffern, mindestens 13 sp. Ausnahmen: Ortsnamen auf den Karten bleiben in Handschrift (62g, Chef 14:02); der Schriftzug im Firmenzeichen ist Teil des Logos.
 - **Kästen im Kampf** (292.3): deckend schwarz mit dünnem Rand wie der Textkasten; wer am Zug ist, golden umrandet, wenn Held, rot, wenn Gegner.
 - Farben, die auf Schwarz stehen (Seltenheit, Warnung), hell genug zum Lesen.
+- **Zeichen statt Textwände** (426, Chef 31.10., 21:30 zu Build 143: alte Menüs mit Icons „super klasse“, neue „viel zu viel Text“): Menüs, auch Menü „System“ und Testmenü, zeigen jeden Eintrag als Zeichen mit kurzer Beschriftung (ein bis zwei Wörter), nie als Satz oder Absatz; Erklärung nur, wenn der Spieler sie aufruft. Maß sind die Menüs der alten Fassung: was dort mit Zeichen ging, übernimmt die neue möglichst eins zu eins (425, Tom). Neue Zeichen nach „Zeichen“ unten.
 
 ### Zeichen (326; Muster: Reiterzeichen, `MenuTabs.kt` `glyph()`)
 

@@ -5,7 +5,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `8700379b0` (29.10., 01:06)
 
-**Übergabe (31.10., 21:3x):** 409 Frisurwörter (`[409.frisur]` in `STORY-SPIEL.md`: Schulterlang, Mähne, Hoher Zopf, Pagenkopf, Zwei Knoten; an Tom zu 376.1). Nachfolger: keiner, 423 wartet auf Sokrates (422).
+**Übergabe (31.10., 22:0x):** 409 Frisurwörter (`[409.frisur]` in `STORY-SPIEL.md`, an Tom zu 376.1); 426 Grundsatz „Zeichen statt Textwände“ in `DESIGN-STIL.md` (Oberfläche, Tafel). Nachfolger: keiner, 423 und 428 warten auf Sokrates (422, 427).
 
 
 ## Zeilen
@@ -13,7 +13,6 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 428 | M | **von Sokrates (Chef 31.10., 21:3x, „bisschen Hintergrundgeschichte vielleicht“):** Bestiarium (427): je Monsterart zwei bis drei Sätze Herkunft und Wesen, DE/EN | wartet auf Sokrates (427, Gerüst) |
-| 426 | M | **von Sokrates (Chef 31.10., 21:30, „mit in das Design rübergeben“):** Grundsatz in `DESIGN-STIL.md`: Menüs und Testmenü mit Icons statt Textwänden, wie in der alten Fassung (Beleg Menü „System“ alt gegen Build 143); gehört zu 425 (Tom) | frei |
 | 423 | M | **von Sokrates (Chef 31.10., 21:2x: „irgendwer muss dann auch einfach eine Anleitung schreiben, wo die wesentlichen Dinge für den Spieler erklärt werden“):** Spielerhandbuch Spielsystem 2.0 aus dem Nachschlagewerk (422), unser Ton, DE/EN | wartet auf Sokrates (422) |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |
