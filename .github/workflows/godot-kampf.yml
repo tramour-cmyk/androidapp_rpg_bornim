@@ -67,6 +67,10 @@ jobs:
           grep -E "^(endet|FEHLER|Aufruf|Heldwerte)|SCRIPT ERROR|^ +at: " aufruf.log | head -40
           grep -q " 0 ohne richtiges Ende" aufruf.log
           ! grep -q "SCRIPT ERROR" aufruf.log
+      - name: Kampfbericht öffnen und schließen (416.5)
+        run: |
+          cd godot
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/kampfbericht_test.gd 2>&1 | grep -E "^(ok|FEHLER|Kampfbericht)|SCRIPT ERROR"
 
   apk:
     needs: regeln

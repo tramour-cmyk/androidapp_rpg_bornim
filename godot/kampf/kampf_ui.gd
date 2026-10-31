@@ -169,6 +169,8 @@ func _ready() -> void:
 	full_log.set_anchors_preset(Control.PRESET_FULL_RECT)
 	full_log.add_theme_stylebox_override("panel", _box(Color.BLACK, GOLD, 10, 10, 1.0))
 	full_log.visible = false
+	full_log.mouse_filter = Control.MOUSE_FILTER_STOP
+	full_log.gui_input.connect(_full_log_input)
 	root.add_child(full_log)
 	if not kampfort.mars.lead().hero.get("seen_rows", false):
 		log_line(t("Nahkampf erreicht nur die vordere Reihe.", "Melee reaches only the front row."))
@@ -288,35 +290,70 @@ func _draw_log() -> void:
 		log_area.draw_string(font, Vector2(w - lw, h - fs2 * 0.3), label, HORIZONTAL_ALIGNMENT_LEFT, -1, fs2, GOLD)
 
 
+## 416.5 (Chef 31.10., Build 143: „nicht mehr schließbar“): der Text fing jeden Tipp ab, und die einmalige Verbindung
+## löste schon die erste Fingerbewegung. Jetzt schließt ein Tipp überall (Loslassen nah am Druck), Wischen blättert.
+var full_log_opened_ms := 0
+var full_log_press := Vector2.INF
+
+
 func _show_full_log(on: bool) -> void:
 	for c in full_log.get_children():
 		c.queue_free()
 	full_log.visible = on
+	full_log_press = Vector2.INF
 	if not on:
 		return
+	full_log_opened_ms = Time.get_ticks_msec()
 	var v := VBoxContainer.new()
+	v.mouse_filter = Control.MOUSE_FILTER_PASS
 	full_log.add_child(v)
 	var h := Label.new()
 	h.text = t("Kampfbericht", "Battle log")
 	h.add_theme_color_override("font_color", GOLD)
 	h.add_theme_font_size_override("font_size", sp(16))
 	v.add_child(h)
+	var sc := ScrollContainer.new()
+	sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	sc.mouse_filter = Control.MOUSE_FILTER_PASS
+	v.add_child(sc)
 	var r := RichTextLabel.new()
-	r.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	r.scroll_following = true
+	r.fit_content = true
+	r.scroll_active = false
+	r.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	r.mouse_filter = Control.MOUSE_FILTER_PASS
 	r.add_theme_color_override("default_color", TEXT)
 	r.add_theme_font_override("normal_font", font)
 	r.add_theme_font_size_override("normal_font_size", sp(15 * 0.95))
 	r.text = "\n".join(lines)
-	v.add_child(r)
+	sc.add_child(r)
 	var close := Label.new()
 	close.text = t("Tippen schließt", "Tap to close")
 	close.add_theme_color_override("font_color", DIM)
 	close.add_theme_font_size_override("font_size", sp(13))
 	v.add_child(close)
-	full_log.gui_input.connect(func(ev):
-		if _pressed(ev):
-			_show_full_log(false), CONNECT_ONE_SHOT)
+	# newest at the bottom, as in the small log
+	await get_tree().process_frame
+	await get_tree().process_frame
+	if is_instance_valid(sc):
+		sc.scroll_vertical = int(sc.get_v_scroll_bar().max_value)
+
+
+## Druck merken, beim Loslassen nah am Druck schließen; Maus und Finger kommen am Handy doppelt (emulate_mouse_from_touch),
+## darum zählt der Druck, der den Bericht geöffnet hat, nicht als Schließen (250 ms).
+func _full_log_input(ev) -> void:
+	if not full_log.visible:
+		return
+	var down: bool = _pressed(ev)
+	var up: bool = (ev is InputEventMouseButton and not ev.pressed and ev.button_index == MOUSE_BUTTON_LEFT) or (ev is InputEventScreenTouch and not ev.pressed)
+	if down:
+		if Time.get_ticks_msec() - full_log_opened_ms >= 250:
+			full_log_press = ev.position
+	elif up and full_log_press != Vector2.INF:
+		var far: bool = ev.position.distance_to(full_log_press) > 12.0 * dp
+		full_log_press = Vector2.INF
+		if not far:
+			_show_full_log(false)
 
 
 # ---------------------------------------------------------------- party boxes and orders
