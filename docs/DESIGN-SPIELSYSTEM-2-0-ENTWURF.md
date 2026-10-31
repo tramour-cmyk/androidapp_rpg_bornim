@@ -167,8 +167,9 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 
 ## 7. Kampf
 
-- **Die Stufe entscheidet viel.** Der Unterschied der Stufen zwischen Angreifer und Verteidiger bestimmt, wie viel Schaden ankommt. Ein Held der Stufe 50 erledigt ein Monster der Stufe 1 mühelos, und es kann ihm nicht schaden. Fertigkeiten, Waffen und Grundwerte geben den Rest. Das genaue Rechenmodell ist noch offen (Entwurf A).
-- **Zufall nur als Würze:** kleine Streuung statt W20; kritische Treffer und Ausweichen hängen an Gewandtheit und Fertigkeit.
+- **Die Stufe entscheidet viel.** Der Unterschied der Stufen zwischen Angreifer und Verteidiger bestimmt, wie viel Schaden ankommt. Ein Held der Stufe 50 erledigt ein Monster der Stufe 1 mühelos, und es kann ihm nicht schaden. Fertigkeiten, Waffen und Grundwerte geben den Rest. **Rechenmodell D „Trennung“ gilt (Entscheidung 73):** die Stufe bestimmt die Größenordnung, die Fertigkeit Treffer und Schaden; Zahlen sind Startwerte für die Simulation.
+- **Zufall nur als Würze:** kleine Streuung statt W20; ein Glückstreffer (1 von 100) ist nur ein Kratzer („Kratzer reicht“); kritische Treffer und Ausweichen hängen an Gewandtheit und Fertigkeit. Gegen Gegner, die 9 Stufen und mehr unter dem Helden stehen, gibt es keine Erfahrung (Entscheidung 73).
+- **Abwehr:** Die Schildfertigkeit und die Rüstungsfertigkeit erhöhen den Schadensabzug: Abzug = Rüstungswert × (1 + Fertigkeit / 100); die Rüstungsfertigkeit senkt nur den Schaden, nicht die Trefferchance (Entscheidung 74). **Parieren:** Für die Trefferchance zählt als Abwehr der beste von Schild, Ausweichen und halber Fertigkeit der Nahkampfwaffe, nur gegen Nahkampf; gegen Pfeile und Zauber gelten nur Schild und Ausweichen. Riposte bleibt Handlung des Duellanten (Entscheidung 75).
 - **Schleichen und Hinterhalt:** Mit der Schleichtaste nähert sich der Held. Bleibt er unbemerkt (Schleichen gegen die Wachsamkeit des Gegners, ohne Würfel), greift er als Erster an und bekommt den Vorteil des Hinterhalts. Mehr Gegner sind schwerer zu überlisten. **Bosse** sind wachsamer, ihr Hinterhalt-Bonus ist gedeckelt.
 - **Ausschlüsse sind hart.** Magier tragen ab der Gesellenprüfung keine Rüstung, weil Metall die Aufnahme der Magiepartikel aus der Umgebung stört; der Kriegsmagier darf nur leichte Rüstung tragen (welche Schulen das betrifft: Vorschlag in Abschnitt 5). In schwerer Rüstung geht Schleichen nicht („Deine Rüstung klirrt“). Zweihänder und Schild schließen sich aus. Jeder Held hat höchstens einen Pfad.
 - **Gegner gehören zu Gebieten**, damit niemand zu früh in zu hohe Stufen läuft. Höhere Gebiete sind betretbar; die Karte zeigt ihr Stufenband.
@@ -243,7 +244,7 @@ Folklore-Wesen (Goblin, Kobold, Skelett, Zombie, Ghul) und Tiere behalten ihre N
 
 ## 13. Offen
 
-- Rechenmodell für den Kampf (Entwurf A, Empfehlung Modell D).
+- Neue Monsterwerte für Kapitel 1 und die Messung „Zeit bis Stufe“ in der Simulation (Befund D49.3); Rechenmodell D ist entschieden (73–75).
 - Taten, Chronik, Ätherdichte, Ruf mit Gedächtnis (Entwurf C).
 - Name „Pfad“ statt „Berufung“ bestätigen.
 - Magie und Rüstung: Sperre nur für Evokation, Illusion, Beschwörung (Abschnitt 5).
