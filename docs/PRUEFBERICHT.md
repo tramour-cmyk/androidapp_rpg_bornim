@@ -27,7 +27,7 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 ## Lauf 50 · Auftrag 429 Doppelpack zu 424 und 412 (`main` `a005a27f3`; 31.10., 21:4x; Text fremd geprüft)
 
-**Ergebnis:** 412 in `CLAUDE.md` „Nummern“ trifft den Wortlaut im Archiv 412. Der Wächter 424 arbeitet wie beschrieben, hält heute aber kaum eine Zeile von selbst an: Von 17 Treffern in den Vorräten treffen 14 nur, weil ihr Stand schon „ruht: altes SRD-System“ lautet (nachgestellt mit `ALTES_SYSTEM` über alle Tabellenzeilen).
+**Ergebnis:** 412 in `CLAUDE.md` „Nummern“ trifft den Wortlaut im Archiv 412. 408 in `ROLLE-ENTWICKLUNG.md` „Bestand zuerst“ (Commit `281753354`) trifft das Archiv 408 und die Reihenfolge 11:22–11:26 (Bestand, frei, Kauf, Eigenbau; mehrere Stücke drehend im Film, Chef wählt); das frühere „es muss nichts mehr gekauft werden“ (11:20) ist durch 11:2x überholt. Der Wächter 424 arbeitet wie beschrieben, hält heute aber kaum eine Zeile von selbst an: Von 17 Treffern in den Vorräten treffen 14 nur, weil ihr Stand schon „ruht: altes SRD-System“ lautet (nachgestellt mit `ALTES_SYSTEM` über alle Tabellenzeilen).
 
 **Befunde**
 
