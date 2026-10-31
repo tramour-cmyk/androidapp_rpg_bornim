@@ -395,4 +395,4 @@ Anlass (Chef 31.10., 21:4x): „Anfänger, Geselle, Meister, Großmeister … ab
 
 *Stärkstes Gegenargument:* Prüfungen an jeder Rangdecke können sich wie Wände anfühlen, wenn man gerade gut im Üben ist. Gegenmittel: Der Puffer merkt das Weiterüben, das Spiel zeigt die nahe Prüfung früh an („Dein Lehrmeister erwartet dich“), und Lehrstunden außerhalb der Berufung sind kurz.
 
-**Frage an den Chef:** Eine Leiter mit Prüfungen als Tür, Neigung statt Weg, Anwärter → Zwischen-, Gesellen-, Meisterprüfung, Fertigkeiten fertig bei 100?
+**Entschieden** (Chef 31.10., 21:5x: „F ja, Werdegänge nach Herkunft auch ja“), mit Bewährungsprobe und Großmeister nur in eigener Berufung. Die Abschnitte 2, 3 und 5 oben werden beim nächsten Durchgang darauf umgeschrieben.
