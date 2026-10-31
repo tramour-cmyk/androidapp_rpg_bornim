@@ -134,7 +134,9 @@ func setup(f, k) -> void:
 	model = _load_model()
 	add_child(model)
 	model.scale = Vector3.ONE * _scale() / ART_GROESSE.get(art(), 1.0)
-	if fighter.monster == null:
+	if fighter.monster == null and kauf:
+		_arm_kauf()
+	elif fighter.monster == null:
 		_arm()
 	elif fighter.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK]:
 		_arm_goblin()
@@ -359,7 +361,62 @@ static func _kauf_felle(a: String) -> Array:
 	return j.keys() if j is Dictionary else []
 
 
+## 403 (von Team Tom zu 376.1; Chef 31.10.: nur Modell und Bewegungen): der Held je Klasse auf dem Kaufkörper wie im Dorf
+## (HeldFigur.baue: Tracht, Kopf, Haar, Haut), ohne die Ausrüstung unterwegs (die Waffe hält er hier in der Hand, _arm_kauf); dazu
+## die Kampfbewegungen aus kampf-bewegungen.bin (held_kampf.py: unsere aus kampf.py, auf das Gerüst der UAL umgerechnet, und die
+## Kandidaten „Pro_…“ aus der UAL Pro), übertragen wie HeldFigur.bewegungen. Fehlen die Dateien (Bau ohne Kaufmodelle) oder
+## steht ALTHELD=1, bleibt der bisherige Held (held.bin).
+const KAMPF_BEW := "res://daten/kampf-bewegungen.bin"
+const KAMPF_SCHLEIFEN := ["Kampfstehen", "Pro_Sword_Idle"]
+var kauf := false
+static var kampf_bew: Array = []     # [Animation, Name] je Bewegung, einmal geladen
+
+func _kaufheld() -> Node3D:
+	if fighter.monster != null or OS.get_environment("ALTHELD") != "" or not FileAccess.file_exists(KAMPF_BEW):
+		return null
+	var k := String(fighter.hero.get("cls", "FIGHTER"))
+	if not HeldFigur.da(k):
+		return null
+	var w := {"klasse": k, "volk": String(fighter.hero.get("race", "HUMAN")), "aussehen": fighter.hero.get("look", {}), "ausruestung": {}}
+	var m := HeldFigur.baue(w, mats)
+	if m == null:
+		return null
+	anim = _find(m, "AnimationPlayer") as AnimationPlayer
+	var sk := _find(m, "Skeleton3D") as Skeleton3D
+	if anim == null or sk == null:
+		return m
+	if kampf_bew.is_empty():
+		var sc := Gebiet.lade_glb(KAMPF_BEW)
+		var ap0 := _find(sc, "AnimationPlayer") as AnimationPlayer
+		if ap0:
+			for n in ap0.get_animation_list():
+				kampf_bew.append([ap0.get_animation(n).duplicate(true), String(n)])
+		sc.free()
+	var f := sk.get_bone_rest(sk.find_bone("pelvis")).origin.length() / HeldFigur.bew_becken
+	var pfad := str(HeldFigur._pfad(m, sk))
+	var lib := anim.get_animation_library("")
+	for e in kampf_bew:
+		var an := (e[0] as Animation).duplicate(true) as Animation
+		for t in range(an.get_track_count() - 1, -1, -1):
+			var bn := String(an.track_get_path(t)).get_slice(":", 1)
+			an.track_set_path(t, NodePath("%s:%s" % [pfad, bn]))
+			var ty := an.track_get_type(t)
+			if ty == Animation.TYPE_SCALE_3D or (ty == Animation.TYPE_POSITION_3D and bn not in ["pelvis", "root"]) or sk.find_bone(bn) < 0:
+				an.remove_track(t)
+			elif ty == Animation.TYPE_POSITION_3D:
+				for i in an.track_get_key_count(t): an.track_set_key_value(t, i, an.track_get_key_value(t, i) * f)
+		an.loop_mode = Animation.LOOP_LINEAR if e[1] in KAMPF_SCHLEIFEN else Animation.LOOP_NONE
+		if lib.has_animation(e[1]):
+			lib.remove_animation(e[1])
+		lib.add_animation(e[1], an)
+	kauf = true
+	return m
+
+
 func _load_model() -> Node3D:
+	var kh := _kaufheld()
+	if kh != null:
+		return kh
 	var p := _model_path()
 	if FileAccess.file_exists(p):
 		var doc := GLTFDocument.new()
@@ -416,6 +473,35 @@ func _zweibeiner() -> bool:
 	return fighter.monster != null and fighter.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK]
 
 
+## 403: Waffe und Schild am Kaufkörper. Der Kaufkörper ruht in der T-Pose, darum wie beim Goblin nach der Haltung in Stehen
+## ausgerichtet (erst im Baum); die Klinge liegt längs des Faustlochs (HeldFigur.faust: zwischen den Knöcheln von Zeige- und
+## Kleinfinger), wie kampf.py die Bewegungen gebaut hat (faust_R), die Schneide in der Ebene aus Faustloch und Handknochen
+func _arm_kauf() -> void:
+	var sk := _find(model, "Skeleton3D") as Skeleton3D
+	if sk == null:
+		return
+	if not is_inside_tree():
+		await tree_entered
+	var halt := "Ruhelage" if anim and anim.has_animation("Ruhelage") else "Stehen"
+	if anim and anim.has_animation(halt):
+		# in unserer Ruhelage (Arme hängend, held_kampf.py) wie der alte Held vor dem Einhängen: so hat kampf.py den Schild gebaut.
+		# Prüfer Film 403: der Schild stand quer in Kopfhöhe; im ersten Bild im Baum galt noch die T-Pose, erst ein Bild später die Haltung
+		anim.play(halt)
+		anim.seek(0.0, true)
+		await get_tree().process_frame
+		anim.seek(0.0, true)
+		sk.force_update_all_bone_transforms()
+	var main: String = fighter.hero.main.id if fighter.hero.has("main") and not fighter.hero.main.ranged else ""
+	if main != "":
+		var fr := HeldFigur.faust(sk, "r")
+		_hold(sk, "R", main, GRIP_CM * CM, PALM_CM * CM, 1.0, {}, fr)
+	var off: String = OFF_HAND.get(fighter.hero.get("cls", ""), "")
+	if off != "":
+		_hold(sk, "L", off)
+	if anim:
+		_idle()
+
+
 ## Goblin, Späher oder (Probe „Schamanen“) Schamane: Kennung der Modelle und der info.json
 func _gob_art() -> String:
 	if fighter.monster.id == Mars.CALLED and ersatz() in [SHAMAN, KOBOLD]:
@@ -470,7 +556,7 @@ func _arm_goblin() -> void:
 ## Hangs [what] (a .glb in metres, grip at its origin) on the forearm of [side]; the model is in metres too (held.glb, goblin-*.glb).
 ## [grip] from the forearm joint to the middle of the hand, [palm] half the hand's thickness (metres).
 ## [axt] (348.12 Grak Runde 2, goblin.py/grak_arme.py): Lage der Axt im Skelett in Stehen, Bild 0 (Griff, Achse, Schneide, linke Faust)
-func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, palm := PALM_CM * CM, size := 1.0, axt := {}) -> void:
+func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, palm := PALM_CM * CM, size := 1.0, axt := {}, faust := {}) -> void:
 	var p := "res://kampf/daten/%s.bin" % what
 	var bi := sk.find_bone("fo%s-wr%s" % [side, side])
 	if bi < 0:     # 348.12 CC0-Gerüst: Handknochen vom Handgelenk in Richtung des Unterarms (geruest.py lage)
@@ -558,6 +644,13 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		var edge := (fwd - ax * fwd.dot(ax)).normalized()
 		b = Basis(edge, ax, edge.cross(ax))
 		o = Vector3(0, grip, 0) + inward * palm
+	elif not faust.is_empty() and not what.contains("bow"):
+		# 403 Kaufkörper: Griff im Faustloch, Klinge (Stab) längs des Faustlochs zum Daumen hin, Schneide in der Ebene mit dem Handknochen
+		var ax: Vector3 = (faust["achse"] as Vector3).normalized()
+		var edge := Vector3.UP - ax * Vector3.UP.dot(ax)
+		edge = edge.normalized() if edge.length() > 0.01 else ax.cross(Vector3.RIGHT).normalized()
+		b = Basis(edge, ax, edge.cross(ax))
+		o = faust["griff"]
 	elif what in STAFFS:
 		# Stab senkrecht neben dem Körper, in der Mitte gefasst
 		b = Basis(fwd, -down, fwd.cross(-down))
@@ -712,6 +805,11 @@ func _play(name: String, blend := 0.15) -> void:
 
 func _idle() -> void:
 	if down:
+		return
+	if kauf and anim and anim.has_animation("Kampfstehen"):
+		# 403: die Klinge liegt im Faustloch wie in kampf.py; in Stehen (UAL) zeigte sie waagerecht nach vorn auf Hüfthöhe
+		# (DESIGN-ABNAHME Silhouetten); Kampfstehen ist das erste und letzte Bild jeder Kampfbewegung
+		_play("Kampfstehen")
 		return
 	_play("Hocke" if pouncing else "Stehen")
 
@@ -1251,6 +1349,8 @@ func strike(other, e: Dictionary) -> int:
 		busy_ms = 700
 		return 700
 	var leap: bool = fighter.monster != null and pouncing and fighter.monster.id == Mars.WOLF
+	if kauf:
+		return _held_schlag(other)
 	if _zweibeiner() and weg.has("Gehen") and hieb.size() >= 3:
 		return _hieb(other)
 	if fighter.monster != null and weg.has("Gehen"):
@@ -1303,6 +1403,52 @@ func strike(other, e: Dictionary) -> int:
 	return ms
 
 
+## 403 (M Perikles: „Held gleitet im Kampf, Fehler“): der Kaufheld geht (weiter als RUN_FROM: rennt) im Tempo seiner Schritte bis
+## in Waffenreichweite vor den Rand des Ziels (HeldFigur: gehen_m_je_s, rennen_m_je_s), schlägt dort im Stand (Hieb, Aufschlag bei
+## HELD_AUFSCHLAG) und geht rückwärts heim (_back_home); vorher glitt er während des Hiebs bis zu zwei Meter ohne Schritt heran.
+const HELD_AUFSCHLAG := 0.37     # kampf.py Hieb: Aufschlag 0,37 s
+const HELD_ZURUECK := 2.0        # rückwärts Gehen im doppelten Schritttempo
+
+func _held_mps(nm: String) -> float:
+	var v: float = float(model.get_meta("rennen_m_je_s" if nm == "Rennen" else "gehen_m_je_s", 0.0))
+	return v if v > 0.1 else (WALK_MPS * 2.0 if nm == "Rennen" else WALK_MPS)
+
+
+func _held_schlag(other) -> int:
+	var to: Vector3 = other.position
+	var flat := Vector3(to.x - position.x, 0.0, to.z - position.z)
+	var stand: float = HERO_R + other.body_r() + HERO_REACH
+	var start := position + flat.normalized() * maxf(0.0, flat.length() - stand) if flat.length() > 0.01 else position
+	if tween and tween.is_running():
+		tween.kill()
+	tween = create_tween()
+	gang = "hin"
+	var t_run := 0.0
+	var run := position.distance_to(start)
+	if run > 0.12:
+		var via := _detour(position, start, other)
+		var pts := [start] if via == position else [via, start]
+		var way := run if via == position else position.distance_to(via) + via.distance_to(start)
+		var gn := "Rennen" if way > RUN_FROM and anim.has_animation("Rennen") else "Gehen"
+		var von := position
+		for q in pts:
+			var a: Vector3 = q - von
+			tween.tween_callback(func(): _face(a); _play(gn, 0.12))
+			var t: float = von.distance_to(q) / _held_mps(gn)
+			tween.tween_property(self, "position", q, t)
+			t_run += t
+			von = q
+	var bl: float = anim.get_animation("Hieb").length if anim.has_animation("Hieb") else BLOW_MS / 1000.0
+	tween.tween_callback(func(): gang = "hieb"; _face(to - start); _play("Hieb", 0.08))
+	tween.tween_interval(bl)
+	var heim := start.distance_to(home)
+	var back := maxf(HERO_BACK_S, heim / (_held_mps("Gehen") * HELD_ZURUECK))
+	tween.tween_callback(func(): _back_home(back, other))
+	busy_ms = int((t_run + bl + back) * 1000.0)
+	anlauf_ms = 0
+	return int((t_run + HELD_AUFSCHLAG) * 1000.0 / 0.42)
+
+
 ## Rückweg der Heldin: rückwärts, ohne Umdrehen (beim Umdrehen sah man Brust und Schildinnenseite: „andere Ausrüstung“, Helfer
 ## Lauf 126), mit Gehen rückwärts statt Gleiten (Prüfer Runde 3b), um die anderen herum
 func _back_home(back: float, skip) -> void:
@@ -1311,7 +1457,7 @@ func _back_home(back: float, skip) -> void:
 	var way := from.distance_to(via) + via.distance_to(home) if via != from else from.distance_to(home)
 	if anim and anim.has_animation("Gehen") and way > 0.2:
 		_guard(true)
-		anim.play("Gehen", 0.12, -clampf(way / back / WALK_MPS, 1.0, WALK_MAX))
+		anim.play("Gehen", 0.12, -clampf(way / back / (_held_mps("Gehen") if kauf else WALK_MPS), 1.0, WALK_MAX))
 	tween = create_tween()
 	if via != from:
 		var b1 := from.distance_to(via) / way * back
