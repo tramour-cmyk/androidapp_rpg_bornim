@@ -10,6 +10,7 @@ von Sokrates (Chef 11:27): erst Build 143 und Testbitte, dann Ford-Lauf an, weit
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 431 | M | **von Sokrates (Chef 31.10., 22:0x):** Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film, dann Körperbau je Volk | wartet auf Homer (430, Abnahmelisten) | – |
 | 417 | M | **von Sokrates („jetzt“ 31.10., 21:12, Chef: „diese Rückfrage hat auch Priorität“; Prüfauftrag zu 410; 21:27 „so machen“):** Tragart je Waffenklasse (Zu 417), zuerst Stab, Axt, Bogen: Probe Gehen und Rennen, Seite und Porträt; Zahlen (Waffe durch Körper, Abstand), Aussehen urteilt der Chef | startbar: Kaufpakete hier nicht erreichbar (add_repo abgelehnt 21:31) | – |
 | 425 | M | **von Sokrates (Chef 31.10., 21:30, Build 143):** Menüs (Menü „System“, Testmenü): in der alten Fassung mit Icons „super klasse“, neu „viel zu viel Text“; alte Menüs möglichst eins zu eins übernehmen, Icons statt Text | frei | – |
 | 416.7 | M | **von Sokrates (Chef 31.10., 20:5x, für den nächsten Build):** am Tresen in Schenke und Laden geht der Aktionsknopf nicht, Kaufen und Kauf mit den zwei NPCs dort nicht möglich; Reichweite erweitern | gebaut: Knopf über den Tresen wie alt, Tippen führt vor den Tresen (ad3be5952, claude/tom-416-befunde) | – |
