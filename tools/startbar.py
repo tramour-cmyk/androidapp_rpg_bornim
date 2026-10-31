@@ -158,6 +158,8 @@ def _blocker(nr, rest, chef, thema=""):
     if re.match(r"(erledigt\b|auf main\s*(\(|–|$))", b, re.I): return "ERLEDIGT"
     if re.match(r"(\w+ )?Teil erledigt", b): return "Teil erledigt, Rest wartet"
     if re.match(r"gebaut\b", b, re.I): return "wartet auf Test/Build (gebaut)"  # 190.1
+    m = re.match(r"in Arbeit bei (Spike|Tuffy)\b", b)
+    if m: return "in Arbeit bei " + m.group(1)  # 433: das Team nimmt die Zeile nicht, lauf.py startet den Zusatzentwickler darauf wieder
     if re.match(r"(mit \S+,? bis \d\d\.\d\d\.|ab Fords erstem Start|bis \d\d\.\d\d\.)", b):
         d = datum_nach(b, "bis") or datum_nach(b, "nach dem")
         return "Dauerzeile" + (" bis " + d if d else "")

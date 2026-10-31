@@ -90,11 +90,11 @@ def startmarken():
     """Rolle → letzter Startzeitpunkt aus „Startsperre HH:MM Start <Name>“ im Protokoll (Datum: heute, sonst gestern)."""
     aus = {}
     for l in lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")).splitlines():
-        m = re.search(r"Startsperre (\d\d):(\d\d) Start (Ford 2|\w+)", l)
+        m = re.search(r"Startsperre (\d\d):(\d\d) Start ((?:Ford 2|\w+)(?:, (?:Ford 2|\w+))*)", l)
         if not m: continue
         d = JETZT.replace(hour=int(m.group(1)), minute=int(m.group(2)), second=0, microsecond=0)
         if d > JETZT: d -= datetime.timedelta(days=1)
-        aus[m.group(3)] = d
+        for name in m.group(3).split(", "): aus[name] = d  # 433: „Start Tom, Spike“ sperrt beide, nicht nur den ersten
     return aus
 
 def chefdateien_je_rolle():
@@ -490,6 +490,41 @@ def main():
         if JETZT.weekday() == 4: msg += " Freitag: am Ende der Sitzung Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340)."
         ausgabe.append("START %s | %s | %s | %s | %s | %s | %s" % (r, MODELL[r], UMGEBUNG.get(r, MITTEL), REPO, REVISION, titel, msg.replace("\n", "\\n")))
         vorgaenger(r); sperren.append(r)
+    # 433 (Chef 31.10., 22:1x: „Da muss doch nicht jetzt Tom drei Wochen auf Tom warten“): arbeitet Tom (Jerry), startet Spike (Tuffy)
+    # die nächste startbare Muss-Zeile des Teams, die von der laufenden Arbeit unabhängig ist: andere Nummer, anderer Zweig, nicht „nur Tom“.
+    # Nur Muss (Leiharbeiter „notfalls“). Spike setzt zuerst „in Arbeit bei Spike“, dann nimmt das Team die Zeile nicht (startbar.py);
+    # endete Spike ohne neuen Stand, startet er auf dieser Zeile wieder, sobald Tom belegt ist.
+    def laeuft(rr): return [s for s in je_rolle.get(rr, []) if s["id"] not in archiviert and (s["_info"][1] or s["_info"][2] < SPERRE_MIN)]
+    for team, zusatz in (("Tom", "Spike"), ("Jerry", "Tuffy")):
+        team_s = laeuft(team); zus_s = laeuft(zusatz)
+        team_start = [l for l in ausgabe if l.startswith("START %s " % team) or (l.startswith("WEITER ") and " | %s | " % team in l)]
+        if not team_s and not team_start: ausgabe.append("NICHTS %s: %s frei, macht es selbst" % (zusatz, team)); continue
+        if zus_s: ausgabe.append("NICHTS %s: belegt durch %s" % (zusatz, zus_s[0].get("title", zus_s[0]["id"]))); continue
+        if zusatz in marken and (JETZT - marken[zusatz]).total_seconds() < SPERRE_MIN * 60:
+            ausgabe.append("NICHTS %s: Startmarke %s jünger als %d Minuten" % (zusatz, marken[zusatz].strftime("%H:%M"), SPERRE_MIN)); continue
+        besetzt = set()
+        for s in team_s: besetzt.update(x for x in nummern_aus_titel(s.get("title", "")).split(",") if x)
+        for l in team_start:
+            m = re.search(r"Vorgang (\S+) \(|^WEITER \S+ \| \w+ \| (\S+) \|", l) if not l.startswith("START") or "Nachfolger laut" not in l else None
+            if m: besetzt.add(m.group(1) or m.group(2))
+            elif l.startswith("START"): besetzt.add("Nachfolger")  # Nachfolger: Thema aus dem Titel
+        alle_m = st.get(team, ([], [], None, []))[0]
+        def zweig(x): return x[3].split("|")[-1].strip()
+        zweige = {zweig(x) for x in alle_m if any(gleich(x[0], b) for b in besetzt)} - {"–", "-", ""}
+        frei = [x for x in alle_m if x[0] not in ausschluss and x[0] != "Leichen" and not any(gleich(x[0], b) for b in besetzt)
+                and zweig(x) not in zweige and not re.search(r"nur %s\b" % team, x[2] + x[3])]
+        if besetzt == {"Nachfolger"} or not besetzt and not team_s:
+            ausgabe.append("NICHTS %s: Arbeit von %s unbekannt (Nachfolger oder Titel ohne Nummer)" % (zusatz, team)); continue
+        eigen = [n for n, g in GESPERRT.get(team, {}).items() if g == "in Arbeit bei " + zusatz]
+        if eigen: frei = [(eigen[0], "M", "", "")]
+        if not frei: ausgabe.append("NICHTS %s: kein zweites unabhängiges Muss bei %s" % (zusatz, team)); continue
+        nr, kl, thema, _ = frei[0]
+        titel = "%s – %s (%s)" % (zusatz, nr, berlin(JETZT))
+        msg = ("%s\n\nArbeite Vorgang %s (Muss) aus dem Vorrat %s als Zusatzentwickler von Team %s (433, ROLLE-ENTWICKLUNG.md); %s arbeitet an %s, das fasst du nicht an. "
+               "Zuerst Start nach der Rollendatei, dann sofort `python3 tools/vorgang.py stand %s 'in Arbeit bei %s'` und pushen (sonst nimmt %s die Zeile auch), dann den Vorgang lesen; eigener Zweig; fertig: Stand setzen, keine Übergabe im Vorrat, kein Nachfolger."
+               % (zusatz, nr, VORRAT[zusatz], team, team, ", ".join(sorted(besetzt - {"Nachfolger"})) or "Betrieb", nr, zusatz, team))
+        ausgabe.append("START %s | %s | %s | %s | %s | %s | %s" % (zusatz, MODELL[team], UMGEBUNG.get(team, MITTEL), REPO, REVISION, titel, msg.replace("\n", "\\n")))
+        vorgaenger(zusatz); sperren.append(zusatz)
     vorentscheid_marken = []
     try:
         import abgleich

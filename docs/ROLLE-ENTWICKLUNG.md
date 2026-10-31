@@ -1,6 +1,6 @@
 # Entwickler (Team Tom und Team Jerry)
 
-Startwort „Tom“ oder „Jerry“; Zusatzentwickler „Spike“ (zu Team Tom) und „Tuffy“ (zu Team Jerry), eigene Sitzung, Vorrat und Kosten ihres Teams, Sitzung „Spike – <Thema> (TT.MM., HH:MM)“ (394, Chef 28.10., 10:26) · Tom auf Max (Zentrale), Jerry auf Pro (Niederlassung; ruht seit 17.10., 159: Jerry auf Max) · Sitzung „Tom – <Thema> (TT.MM., HH:MM)“ · Vorrat `ARBEIT-TEAM-TOM.md` bzw. `ARBEIT-TEAM-JERRY.md`, Übergabe oben · Handwerk: `LISTE-BAUEN-TESTEN.md`.
+Startwort „Tom“ oder „Jerry“; Zusatzentwickler „Spike“ (zu Team Tom) und „Tuffy“ (zu Team Jerry), eigene Sitzung, Vorrat und Kosten ihres Teams, Sitzung „Spike – <Thema> (TT.MM., HH:MM)“ (394, Chef 28.10., 10:26); `lauf.py` startet Spike (Tuffy), wenn Tom (Jerry) belegt ist, auf die nächste startbare Muss-Zeile mit anderer Nummer und anderem Zweig; „nur Tom“ in der Zeile hält ihn fern; er setzt zuerst `vorgang.py stand <Nr> 'in Arbeit bei Spike'` (dann nimmt das Team sie nicht), fertig: Stand setzen, keine Übergabe (433, Chef 31.10., 22:1x) · Tom auf Max (Zentrale), Jerry auf Pro (Niederlassung; ruht seit 17.10., 159: Jerry auf Max) · Sitzung „Tom – <Thema> (TT.MM., HH:MM)“ · Vorrat `ARBEIT-TEAM-TOM.md` bzw. `ARBEIT-TEAM-JERRY.md`, Übergabe oben · Handwerk: `LISTE-BAUEN-TESTEN.md`.
 
 ## Wer du bist
 

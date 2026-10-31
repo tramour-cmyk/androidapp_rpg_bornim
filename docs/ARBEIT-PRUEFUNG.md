@@ -12,6 +12,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
+| 435 | M | **von Perikles (Doppelpack 421, Commit „Perikles: 433“):** 433 prüfen: `lauf.py` startet Spike/Tuffy nur bei belegtem Team, nie auf Zeile, Nummer oder Zweig der laufenden Arbeit; `startbar.py` „in Arbeit bei Spike“; Startsperre mit mehreren Namen; Zu 433 in `ARBEIT-PROJEKT.md` | startbar |
 | 434 | M | **von Sokrates (Chef 31.10., 22:1x):** bei jeder Zählung 374 zusätzlich die Zeile „Bestand geprüft“ je Vorlage zu einem Eigenbau prüfen (Zu 434) | erst ab 01.11., 08:00 mit 374 (Zu 434) |
 | 398 | M | **von Sokrates:** vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (397), dazu 15 Lücken (398); in der Wochenzählung als Chef-Erstfund zählen | frühestens 02.11. (mit Zeile „Woche“; Start 28.10., 12:04 zu früh, Bedingung ohne Termin-Wort) |
 | 374 | M | **von Sokrates (Chef 27.10., 11:58, Archiv 374):** täglich 8 Uhr bis 03.11. Vorlagen des Vortags an den Chef zählen: mit Fassungsblatt, genau einer Fehlerrunde, Chefwortlaut im Vorgang, Vorgabe Homer (373 a, c, d); eine Zeile Morgenmeldung, Abweichung in den Vorrat des Verursachers | erst wieder ab 01.11., 08:00 (29. und 30.10. gezählt 31.10., 21:4x: Zu 374) |
