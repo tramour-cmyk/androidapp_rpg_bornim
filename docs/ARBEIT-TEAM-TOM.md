@@ -49,6 +49,8 @@ von Sokrates (Chef 11:27): erst Build 143 und Testbitte, dann Ford-Lauf an, weit
 
 ## Einzelheiten
 
+- **von Team Jerry (31.10., 21:4x), Verdacht, am Gerät nicht geprüft:** `godot/project.godot` setzt `application/config/quit_on_go_back` nicht (Godot-Vorgabe `true`), kein Skript fängt `NOTIFICATION_WM_GO_BACK_REQUEST`: die Android-Zurück-Taste oder -Geste beendet das Spiel, statt Fenster (Tasche, Kampfbericht, Menü) zu schließen. Gehört zu 416.1 oder eigenem Vorgang.
+
 - **Zu 399.1, nächster Testbogen** (Tom 29.10., 03:4x; t133, t139 gelöscht, beide durchgefallen, Wortlaut Archiv): offene Zeilen 133.1, 133.2, 133.4–133.6 und aus t139 alles ohne „gut“ neu aufnehmen (Text im Git-Verlauf `t139-spielfassung.md`).
 
 - **Hinweis von Diogenes (374, 29.10.):** Stichprobe 373 28.10.: dritter Probelauf (389 höchstens zwei), Helferbefund vor dem Versand (396: erst senden, Befund danach), je drei Blätter für ein Modell (373 a).
