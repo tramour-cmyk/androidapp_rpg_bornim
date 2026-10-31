@@ -121,7 +121,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 399.2b | Rudel allein: drei von vier Klassen verlieren; Ursache prüfen, Balance an Chef (aus 399.2a) | E Kampf | M | 16,00 $ | Team Jerry | gebaut |
 | 399.2d | Godot am Rechner freigeben (Auto-Modus lehnte Download ab), Tests ohne CI-Lauf (aus 399.2) | E Kampf | M | – | Team Jerry | wartet |
 | 399.3 | Klang in die Spielfassung: Musik, Ortsklang, Schritte, Kampfklang aus dem alten Spiel (aus 399; Chef 28.10., 16:42) | B Umzug | M | 21,56 $ | Team Jerry | erledigt |
-| 402 | Blende vor dem Kampf wie alt (Hinterhalt, Erstschlag, normal, Boss); Herzschlag beim Hinterhalt stärker (Chef 28.10., 22:2x) | E Kampf | M | 16,58 $ | Team Jerry | Chef |
+| 402 | Blende vor dem Kampf wie alt (Hinterhalt, Erstschlag, normal, Boss); Herzschlag beim Hinterhalt stärker (Chef 28.10., 22:2x) | E Kampf | M | 16,58 $ | Team Jerry | startbar |
 | 401 | Lebendige Welt: Laute für jedes Tier im Dorf, mindestens drei je Tier (Chef 28.10., 22:0x) | E Klang | M | 2,67 $ | Team Jerry | gebaut |
 | 399.3.1 | Klang: Haken in spiel.gd übernehmen, Klangregler im Menü System (aus 399.3) | B Umzug | M | – | Team Tom | zu testen |
 | 384 | Kosten: alle Sitzungen gebucht? Lücken und Buchungen ohne Kennung (Chef 27.10., 20:06) | B Werkzeuge | M | – | Perikles | gebaut |
