@@ -60,6 +60,10 @@ Ideensammlung, Stand 31.10.2026. Hier schreiben wir alles zusammen, was das Spie
 | 52 | Namen (W2) | Ebenen Weg, Berufung, Meisterform; Wege Bewahrer (Schutz), Kämpe (Kampf), Schattengänger (Schatten), Waldgänger (Wildnis), Adept (Magie), Heilkundiger (Heilung). Chef 31.10.2026, 20:5x. |
 | 53 | Scharfschütze (W3) | eigener Zweig unter Wildnis; damit 13 Berufungen. Chef 31.10.2026, 20:5x. |
 | 54 | Paladin (W4) | Kreuzung, verlangt die Wege Schutz und Heilung. Chef 31.10.2026, 20:5x. |
+| 55 | Angeln, Schleichen, Fallen | Angeln bleibt (Fanggüte nach Rang, Angel, Gebiet; Zutat für Kochen und Alchemie). Schwimmen, Klettern, Wetterkunde, Orientierung, Sprachen, Geschichte entfallen. Schleichen ist eine Fertigkeit mit Schleichtaste, unbemerkt gibt es den Vorteil des Hinterhalts. Fallen auch frei in Höhlen und Verliesen: entdecken, dann entschärfen; Dietriche kaufen oder herstellen, in Güteklassen. Chef 31.10.2026, 20:5x. Abschnitt 10. |
+| 56 | Tierprodukte (F2) | Jagd mit Zerlegen und Fährten unter Sammeln; Meisterschaft Lederarbeit (Gerben, Schneidern) neu, damit fünf Meisterschaften. Chef 31.10.2026, 21:0x. |
+| 57 | Spähen (F3) | Fertigkeit Spähen: Umsehen von selbst beim Stehenbleiben (ohne Taste), steigt nur bei echten Funden; im Rennen kaum Wahrnehmung. Chef 31.10.2026, 21:0x. |
+| 58 | Tiere (F4) | „Tiere beruhigen“ statt freiem Zähmen; ein Tierbegleiter nur mit der Berufung Waldläufer; Tiere weder verkaufen noch in den Beutel. Chef 31.10.2026, 21:0x. |
 
 **Rückfragen zu den Antworten vom 31.10.2026, abends:** R1 gestrichen, R2 und R3 beantwortet (Entscheidungen 33, 36), R4 wird zur Aussprache über die Titel (Abschnitt 8).
 
