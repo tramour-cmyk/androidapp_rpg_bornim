@@ -41,7 +41,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 4, Muss 1, startbar 1, PAUSE bis 31.10., 20:00 Uhr
+**Homer** – offen 4, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -134,7 +134,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 17, Muss 15, startbar 4, PAUSE bis 31.10., 20:00 Uhr
+**Perikles** – offen 17, Muss 15, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -156,7 +156,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „star
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
-**Diogenes** – offen 5, Muss 3, startbar 1, PAUSE bis 31.10., 20:00 Uhr
+**Diogenes** – offen 5, Muss 3, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
