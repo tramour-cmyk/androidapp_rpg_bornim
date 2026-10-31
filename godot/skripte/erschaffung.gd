@@ -32,6 +32,8 @@ var teller_wahl := ""                 # zuletzt gezeigte Wahl (Punktekauf baut d
 func _init() -> void:
 	name = "Erschaffung"
 
+func _process(dt: float) -> void: Messung.bild(dt, "Erschaffung")   # 416.1: laengste Bildpause auch hier
+
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	name_ = Sprache.u("defaultName")
@@ -84,6 +86,7 @@ func _ready() -> void:
 
 func baue() -> void:
 	var y := rolle.scroll_vertical
+	var t0 := Time.get_ticks_usec()   # 416.1 (Chef: Tasten reagieren schlecht): Dauer des Neuaufbaus je Tipp, unter „Gerät“ (Ladezeit)
 	for c in inhalt.get_children():
 		inhalt.remove_child(c)
 		c.queue_free()
@@ -126,6 +129,8 @@ func baue() -> void:
 	inhalt.add_child(kasten(kk))
 	punktekauf()
 	zeige_held()
+	var ms := (Time.get_ticks_usec() - t0) / 1000.0
+	Messung.geladen("Erschaffung Tipp", maxf(ms, float(Messung.laden.get("Erschaffung Tipp", 0.0))))
 	# die Rolle bleibt, wo sie war (sonst springt sie bei jeder Wahl nach oben)
 	await get_tree().process_frame
 	rolle.scroll_vertical = y
@@ -333,6 +338,7 @@ func toene(wort: String, liste: Array, schluessel: String) -> Control:
 		var feld := Panel.new()
 		feld.custom_minimum_size = Vector2(34, 34) * DP
 		feld.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		feld.mouse_filter = Control.MOUSE_FILTER_IGNORE   # 416.1: ein Panel faengt das Tippen sonst selbst ab (nur der Name darunter wirkte)
 		var sb := Stil.kasten(Color.html(String(t["rgb"])), Stil.GOLD if i == gewaehlt else Stil.RIM, 3.0 if i == gewaehlt else 1.0)
 		sb.set_corner_radius_all(int(6 * DP))
 		feld.add_theme_stylebox_override("panel", sb)
