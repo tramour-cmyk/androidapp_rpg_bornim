@@ -53,6 +53,7 @@ von Sokrates (Chef 11:19): nach Build 143 weiter bis Guthaben leer. Nie „Heldi
 
 ## Einzelheiten
 
+- **Zu 406, von Diogenes (374, 31.10.):** 29.10. drei Fassungen in 14 Minuten an den Chef (07:40, 07:47, 07:54), je nach einem Prüferbefund; erlaubt ist höchstens eine Fehlerrunde (373, 396).
 - **Zu 406, von Sokrates (Chef 11:13, Archiv 408):** nicht weiterbauen; erst alle Schilde der Bibliothek (LISTE-BESTAND „Waffen und Schilde“) drehend in einem Film vorlegen, Chef wählt.
 - **Zu 406 (Jerry 10:5x):** `waffen.py` (Shield_Wooden, `SONNE=b`, Messung je Teil im Kommentar); Probe `SCHILD=…` in `probe.gd` zeigt Nahaufnahmen mit Wechsel auf Perspektive, fov 9: Tusche dort prüfen (Chef: nicht erkennbar), Wölbung im Licht zu flach. Kaufdateien nur im Workflow: `add_repo` lehnte die Rechteprüfung um 07:5x wieder ab.
 
