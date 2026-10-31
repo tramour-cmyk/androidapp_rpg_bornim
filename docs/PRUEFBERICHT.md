@@ -36,7 +36,9 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 - **D50.3 Abnahmeliste gegen ruhende Muss:** Block M verlangt 212, 249, 38, 39; in Jerrys Vorrat ruhen alle vier („altes SRD-System“). Für den Bau der Regeln 2.0 (Block G, Kampf ohne W20) gibt es keinen Vorgang bei Tom oder Jerry (`LISTE-VORGAENGE.md` „2.0“: nur 413, 418–420, 422, 427). Die Teams haben für G und M nichts Startbares, bis Perikles Zeilen anlegt.
 - **D50.4 Archiv fehlt:** 424 hat keinen Eintrag mit dem Chefwortlaut („keine Energie mehr in das alte SRD-System stecken“) im Vorgangsarchiv; er steht nur im Vorrat, in `startbar.py` und in der Umzugsliste.
 
-**Nicht geprüft:** jede Zeile der Umzugsliste einzeln; `lauf.py` im Lauf (nur, dass es `startbar` einbindet).
+- **D50.5 407 `urteil()` (Nachtrag, `17b7725bc`), nachgestellt am Archiv:** (a) zu eng: Urteile in Unterpunkten einer Chefrunde (eingerückt, ohne eigene Zeit, z. B. „348.6, Netz“, „142.1, Zielversion 36“; 6 Stück) erkennt die Kopfzeilen-Regel nicht, sie geben keine Läufe frei; 16 von 568 Köpfen haben keine Zeit in der Form „(TT.MM., HH:MM“. (b) zu weit: jeder Archiveintrag mit der Nummer gibt frei, auch ein Vorentscheid von Perikles, Homer oder Sokrates (18 Köpfe mit „Vorentscheid“, z. B. 383.1, 19:29), der kein Urteil des Chefs ist. (c) „21:1x“ zählt als 21:10: Läufe zwischen 21:10 und dem echten Urteil gelten als danach. Richtig erkannt: 348.12f gegen 348.12, D1.14 gegen 1.14.
+
+**Nicht geprüft:** jede Zeile der Umzugsliste einzeln; `lauf.py` im Lauf (nur, dass es `startbar` einbindet); `probelauf.py` als Haken im echten Lauf.
 
 ## Lauf 49 · Auftrag 419 Prüfung 418 und 421 (`main` `6185da179`; 31.10., 21:4x; Text fremd geprüft)
 
