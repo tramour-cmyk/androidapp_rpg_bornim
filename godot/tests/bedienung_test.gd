@@ -127,72 +127,73 @@ func _lauf() -> void:
 	var steuer: Array = m.inhalt.find_children("*", "Button", true, false).filter(func(b): return b.text.begins_with("STEUERUNG"))
 	pruefe("Menue Klassisch ohne Joystick", [steuer.size(), m.inhalt.find_children("*", "Button", true, false).filter(func(b): return b.text.begins_with("JOYSTICK")).size()], [1, 0])
 	m.free()
-	# Laden: Seltenes verkaufen fragt noch einmal; „Abbrechen“ laesst es, „Verkaufen“ verkauft
+	# Laden (416.3: ladenschirm.gd wie ShopScreen.kt): Seltenes verkaufen fragt noch einmal; „Abbrechen“ laesst es, „Verkaufen“ verkauft
 	Bedienung.rueckfragen = true
-	var spiel = load("res://skripte/spiel.gd").new()
-	spiel.ui = ui
-	spiel.zustand = z
-	spiel.werte = hw
 	z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(7), z.neue_uid, 3, "RARE", "WIZARD"))
 	z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(8), z.neue_uid, 3, "COMMON", "WIZARD"))
 	z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(9), z.neue_uid, 3, "COMMON", "WIZARD"))
-	spiel.laden = Laden.new(["potion"], false)
+	var ls := LadenSchirm.new(hw, z, Laden.new(["potion"], false))
+	root.add_child(ls)
+	await process_frame
+	pruefe("Laden ganzer Schirm", ls.get_global_rect().size.y >= root.get_visible_rect().size.y * 0.9, true)
+	for sw in ["verkaufen", "kaufen"]:
+		ls.seite = sw; ls.baue(); await process_frame
 	# Kaufen: ohne Gold matt; mit Gold nach dem Kasten gekauft
 	z.gold = 0
 	var ware: Array = Laden.ware(z, hw)
 	if ware.is_empty(): fehler += 1; print("FALSCH keine Ware")
 	else:
-		spiel._laden_wahl("ag:%d" % int(ware[0]["uid"]))
-		var ok: Array = ui.wahl_box.get_children().filter(func(b): return b is Button and b.text.begins_with("Kaufen"))
+		ls.stueck(ware[0], true)
+		var ok: Array = kasten(ls).filter(func(b): return b.text.begins_with("KAUFEN"))
 		pruefe("Kaufen matt ohne Gold", [ok.size(), ok[0].disabled if ok.size() > 0 else false], [1, true])
-		spiel._laden_wahl("")
+		await druecke(ls, "ABBRECHEN")
 		z.gold = 100000
 		var n0 := z.beutel.size()
-		spiel._laden_wahl("ag:%d" % int(ware[0]["uid"]))
+		ls.stueck(ware[0], true)
 		pruefe("noch nicht gekauft", z.beutel.size(), n0)
-		spiel._laden_wahl("ok")
+		await druecke(ls, "KAUFEN")
 		pruefe("gekauft", z.beutel.size(), n0 + 1)
 		z.beutel.remove_at(z.beutel.size() - 1)
-	var i_selten := z.beutel.find(z.beutel.filter(func(x): return String(x["rarity"]) == "RARE")[0])
+	var g_selten: Dictionary = z.beutel.filter(func(x): return String(x["rarity"]) == "RARE")[0]
 	# erst der Kasten mit dem Stueck (gearDialog), „Verkaufen“ darin fragt bei Seltenem noch einmal
-	spiel._laden_wahl("vg:%d" % i_selten)
-	pruefe("Laden Kasten", [spiel.laden_stueck, spiel.laden_frage, z.beutel.size()], ["vg:%d" % i_selten, "", 3])
-	spiel._laden_wahl("")
-	pruefe("Kasten Abbrechen", [spiel.laden_stueck, z.beutel.size(), spiel.laden != null], ["", 3, true])
-	spiel._laden_wahl("vg:%d" % i_selten)
-	spiel._laden_wahl("ok")
-	pruefe("Laden fragt", [spiel.laden_frage, z.beutel.size()], ["vg:%d" % i_selten, 3])
-	spiel._laden_wahl("")
-	pruefe("Abbrechen", [spiel.laden_frage, z.beutel.size(), spiel.laden != null], ["", 3, true])
-	spiel._laden_wahl("vg:%d" % i_selten)
-	spiel._laden_wahl("ok")
-	spiel._laden_wahl("ja")
-	pruefe("Verkaufen nach Frage", [z.beutel.size(), spiel.laden_stueck, spiel.laden_frage], [2, "", ""])
+	ls.stueck(g_selten, false)
+	pruefe("Laden Kasten", [kasten(ls).size(), z.beutel.size()], [2, 3])
+	await druecke(ls, "ABBRECHEN")
+	pruefe("Kasten Abbrechen", [kasten(ls).size(), z.beutel.size()], [0, 3])
+	ls.stueck(g_selten, false)
+	await druecke(ls, "VERKAUFEN")
+	pruefe("Laden fragt", [kopf_offen(ls), z.beutel.size()], ["WIRKLICH VERKAUFEN?" if Sprache.aktiv() == "de" else "REALLY SELL?", 3])
+	await druecke(ls, "ABBRECHEN")
+	pruefe("Abbrechen", [kasten(ls).size(), z.beutel.size()], [0, 3])
+	ls.stueck(g_selten, false)
+	await druecke(ls, "VERKAUFEN")
+	await druecke(ls, "VERKAUFEN")
+	pruefe("Verkaufen nach Frage", [z.beutel.size(), kasten(ls).size()], [2, 0])
 	# Gewoehnliches: Kasten, dann sofort verkauft
-	var i_gew := z.beutel.find(z.beutel.filter(func(x): return String(x["rarity"]) == "COMMON")[0])
 	var gold0 := z.gold
-	spiel._laden_wahl("vg:%d" % i_gew)
-	spiel._laden_wahl("ok")
-	pruefe("Gewöhnliches nach Kasten", [z.beutel.size(), z.gold > gold0, spiel.laden_frage], [1, true, ""])
+	ls.stueck(z.beutel.filter(func(x): return String(x["rarity"]) == "COMMON")[0], false)
+	await druecke(ls, "VERKAUFEN")
+	pruefe("Gewöhnliches nach Kasten", [z.beutel.size(), z.gold > gold0, kasten(ls).size()], [1, true, 0])
 	z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(10), z.neue_uid, 3, "COMMON", "WIZARD"))
-	spiel._laden_wahl("alle")
-	pruefe("Gewöhnliche fragt", [spiel.laden_frage, z.beutel.size()], ["alle", 2])
-	spiel._laden_wahl("ja")
+	ls.alle_gewoehnlichen(z.beutel.filter(func(x): return String(x["rarity"]) == "COMMON"))
+	pruefe("Gewöhnliche fragt", [kasten(ls).size() > 0, z.beutel.size()], [true, 2])
+	await druecke(ls, "VERKAUFEN")
 	pruefe("Gewöhnliche verkauft", z.beutel.size(), 0)
 	z.dazu("wolf_pelt", 3)
-	spiel._laden_wahl("verk:wolf_pelt")
-	spiel._laden_wahl("m:alle")
-	spiel._laden_wahl("m:ok")
-	pruefe("Alle Felle fragt", [spiel.laden_frage, z.anzahl("wolf_pelt")], ["m:ok", 3])
-	spiel._laden_wahl("ja")
+	ls.menge("wolf_pelt", false, 1)
+	await druecke(ls, "ALLE")
+	await druecke(ls, "VERKAUFEN")
+	pruefe("Alle Felle fragt", [kasten(ls).size() > 0, z.anzahl("wolf_pelt")], [true, 3])
+	await druecke(ls, "VERKAUFEN")
 	pruefe("Alle Felle verkauft", z.anzahl("wolf_pelt"), 0)
 	z.dazu("wolf_pelt", 3)
 	Bedienung.rueckfragen = false
-	spiel._laden_wahl("verk:wolf_pelt")
-	spiel._laden_wahl("m:alle")
-	spiel._laden_wahl("m:ok")
-	pruefe("Rückfragen aus: sofort", [spiel.laden_frage, z.anzahl("wolf_pelt")], ["", 0])
-	spiel.free()
+	ls.menge("wolf_pelt", false, 1)
+	await druecke(ls, "ALLE")
+	await druecke(ls, "VERKAUFEN")
+	pruefe("Rückfragen aus: sofort", [kasten(ls).size(), z.anzahl("wolf_pelt")], [0, 0])
+	pruefe("Notiz unten", ls.notiz.text != "", true)
+	ls.queue_free()
 	for kk in vorher:
 		match kk:
 			"klassisch": Bedienung.klassisch = vorher[kk]
@@ -205,3 +206,27 @@ func _lauf() -> void:
 	Bedienung.speichere()
 	print("BEDIENUNG %d Fehler" % fehler)
 	quit(1 if fehler > 0 else 0)
+
+# 416.3: die Knoepfe des obersten offenen Kastens (Menue.dialog: Schleier 0,82) im Ladenschirm
+func kasten(m: Node) -> Array:
+	var r: Array = []
+	for c in m.get_children():
+		if c is ColorRect and not c.is_queued_for_deletion() and c.color.a > 0.5 and c.color.a < 0.9:
+			r = c.find_children("*", "Button", true, false)
+	return r
+
+func kopf_offen(m: Node) -> String:
+	for c in m.get_children():
+		if c is ColorRect and not c.is_queued_for_deletion() and c.color.a > 0.5 and c.color.a < 0.9:
+			var l: Array = c.find_children("*", "Label", true, false)
+			if not l.is_empty(): return (l[0] as Label).text
+	return ""
+
+func druecke(m: Node, anfang: String) -> void:
+	var b: Array = kasten(m).filter(func(x): return x.text.begins_with(anfang) and not x.disabled)
+	if b.is_empty():
+		fehler += 1
+		print("FALSCH kein Knopf %s in %s" % [anfang, kasten(m).map(func(x): return x.text)])
+		return
+	b[0].pressed.emit()
+	await process_frame

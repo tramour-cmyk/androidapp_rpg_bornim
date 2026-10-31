@@ -27,16 +27,14 @@ var rast_ort := ""                               # 390 (Mode.Rest): Feld offen a
 var rast_notiz := ""
 var rast_zweites := false
 var laden: Laden                                 # 390 (Mode.Shop): offen, bis „Schließen“
-var laden_notiz := ""
-var laden_menge := {}                            # 390 (59.5): ein Ding mit Menge {id, kaufen, n}; leer = Liste
+var laden_schirm: LadenSchirm                    # 416.3
 var laufen_will := false                        # 399.1 Ring oder Renntaste (Stamina.step run)
 var brett_offen := false
+var brett_schirm: BrettSchirm                    # 416.3
 var rufe := {}                                   # 399.1 Ruf: Person -> seit wann (ms) sie ruft, -1 = bemerkt, nichts Neues
 var rufe_karte := ""
 var naechster_ruf := 0                           # 134.3 Game.nextCallAt: vorher ruft kein anderer
 var spricht_mit := ""                            # bis das Gespraech vorbei ist, dann gilt gehoert (Game.talkingTo)                        # 399.1 Anschlagbrett (Mode.Board)
-var laden_stueck := ""                           # 399.1 (gearDialog): das Stueck Ausruestung im Kasten vor Kauf oder Verkauf
-var laden_frage := ""                            # 399.1 (59e, Rückfragen): die Wahl, die noch einmal fragt; "" = keine
 
 func _ready() -> void:
 	licht = Licht.new()
@@ -60,8 +58,6 @@ func _ready() -> void:
 	ui.leiste.menue.connect(oeffne_menue)
 	ui.gelesen.connect(weiter)
 	ui.gewaehlt.connect(_rast_wahl)
-	ui.gewaehlt.connect(_laden_wahl)
-	ui.gewaehlt.connect(_brett_wahl)
 	licht.nacht_geaendert.connect(_nacht)
 	Leute.uhr = func(): return zustand.minuten   # 390 Tagesablauf
 	add_child(Rand.band(Rand.oben(get_viewport())))   # 399.4: schwarz, was die Kamera des Handys verdeckt
@@ -639,34 +635,29 @@ func gear_gabe(was: String) -> String:
 
 # ---------------------------------------------------------------- Anschlagbrett (399.1, BoardScreen.kt): was haengt, mit Aushang
 # und Lohn, je einer „Annehmen“ (angenommen: grau); nichts: verblichene Naegel; „Zurück“ schliesst (Game.advance)
+# 416.3: bildschirmfuellend wie alt (brettschirm.gd)
 func oeffne_brett() -> void:
 	Auftraege.lies(zustand)
 	brett_offen = true
 	held.halt()
 	held.richtung = Vector3.ZERO
-	zeige_brett()
-
-func zeige_brett() -> void:
-	var de := Sprache.aktiv() == "de"
-	var k: Array = []
-	for j in Auftraege.am_brett(zustand):
-		var an := Auftraege.angenommen(zustand, j)
-		k.append({"kopf": Sprache.t(j["titel"])})
-		k.append({"zeile": Sprache.t(j["aushang"])})
-		k.append({"zeile": ("Lohn: " if de else "Reward: ") + Sprache.t(j["lohn"]), "matt": true})
-		k.append({"text": ("Angenommen" if de else "Accepted") if an else ("Annehmen" if de else "Accept"), "an": not an, "id": "nimm:" + String(j["id"])})
-	var leer := ["Nur verblichene Nägel und Papierfetzen. Kein Aushang." if de else "Only faded nails and scraps of paper. No notices."] if k.is_empty() else []
-	ui.zeige_wahl("Anschlagbrett" if de else "Notice board", leer, k, "Zurück" if de else "Back")
+	var ebene := CanvasLayer.new()
+	ebene.layer = 40
+	add_child(ebene)
+	brett_schirm = BrettSchirm.new(zustand)
+	ebene.add_child(brett_schirm)
+	brett_schirm.wahl.connect(_brett_wahl)
 
 func _brett_wahl(id: String) -> void:
 	if not brett_offen: return
 	if id.begins_with("nimm:"):
 		Auftraege.nimm(zustand, Auftraege.von(id.trim_prefix("nimm:")))
 		speichere()
-		zeige_brett()
+		brett_schirm.baue()
 		return
 	brett_offen = false
-	ui.schliesse_wahl()
+	brett_schirm.get_parent().queue_free()
+	brett_schirm = null
 	weiter()
 
 # 399.1 Game.updateHails: wer den Helden bemerkt (Reichweite, sichtbar), ruft einmal, wenn er Neues hat; wieder erst, wenn der Held
@@ -890,203 +881,22 @@ func raste(art: String) -> void:
 # ---------------------------------------------------------------- Laden (390, ShopScreen.kt): Dinge kaufen (Menge waehlen, 59.5),
 # Verkaeufliches aus der Tasche verkaufen, die letzten fuenf Verkaeufe zurueckkaufen, bei Morwen brauen; Ausruestung bei Thessa
 # kaufen (Tragbares zuerst, 59.2), ueberall verkaufen (Seltenes zuerst), Gewoehnliches auf einmal.
+# 416.3 (Chef 31.10.): bildschirmfuellend wie alt (ladenschirm.gd, ShopScreen.kt); zu: die Szene geht weiter (Game.advance)
 func oeffne_laden(waren: Array, brauen: bool) -> void:
 	laden = Laden.new(waren, brauen)
-	laden_notiz = ""
-	laden_menge = {}
-	laden_frage = ""
-	laden_stueck = ""
 	held.halt()
 	held.richtung = Vector3.ZERO
-	zeige_laden()
-
-func zeige_laden() -> void:
-	if not laden_menge.is_empty():
-		zeige_menge()
-		return
-	var h := held_werte()
-	var z := zustand
-	var k: Array = [{"kopf": Sprache.t(Laden.VORRAETE)}]
-	for id in laden.waren:
-		var p := Laden.kaufpreis(h, String(id))
-		k.append({"text": "%s · %s" % [Laden.name(String(id)), Sprache.u("price", [p])], "info": Sprache.t(Laden.ding(String(id)).get("info", "")),
-			"an": z.gold >= p, "id": "kauf:" + String(id), "bild": "ding-" + String(id)})
-	if laden.brauen:
-		k.append({"kopf": Sprache.t(Laden.REZEPTE)})
-		var rz := Laden.rezepte()
-		for i in rz.size():
-			k.append({"text": Laden.name(String(rz[i]["ergebnis"])), "info": Laden.kosten(rz[i]), "an": Laden.bezahlbar(z, rz[i]), "id": "brau:%d" % i})
-	if not laden.brauen:   # Morwen handelt nur mit Kraeutern und Traenken
-		var ware := Laden.ware(z, h)
-		k.append({"kopf": "%s (%d)" % [Sprache.t(Laden.AUSRUESTUNG), ware.size()]})
-		var nicht := ware.filter(func(g): return not h.kann_tragen(g))
-		for g in ware.filter(func(g): return h.kann_tragen(g)): k.append(_ware_zeile(h, g, true))
-		if not nicht.is_empty(): k.append({"kopf": "%s (%d)" % [Sprache.t(Laden.NICHT_TRAGBAR), nicht.size()]})
-		for g in nicht: k.append(_ware_zeile(h, g, true))
-	var verk := z.taschen.keys().filter(func(id): return Laden.verkaeuflich(String(id)))
-	if not verk.is_empty(): k.append({"kopf": Sprache.u("sell")})
-	for id in verk:   # Tippen waehlt die Menge (59.5); in Klammern, wie viele er hat
-		k.append({"text": "%s (%d) · %s" % [Laden.name(String(id)), z.anzahl(String(id)), Sprache.u("price", [Laden.verkaufspreis(h, String(id))])],
-			"id": "verk:" + String(id), "bild": "ding-" + String(id)})
-	if not z.beutel.is_empty():
-		k.append({"kopf": "%s: %s (%d)" % [Sprache.u("sell"), Sprache.t(Laden.AUSRUESTUNG), z.beutel.size()]})
-		if z.beutel.any(func(g): return String(g["rarity"]) == "COMMON"): k.append({"text": Sprache.t(Laden.GEWOEHNLICHE), "id": "alle"})
-		# Seltenes zuerst, dann nach Platz (ShopScreen: rarity absteigend, slot)
-		var reihe := range(z.beutel.size())
-		reihe.sort_custom(func(a, b):
-			var ga: Dictionary = z.beutel[a]
-			var gb: Dictionary = z.beutel[b]
-			var ra := Beute.stufe_von(String(ga["rarity"]))
-			var rb := Beute.stufe_von(String(gb["rarity"]))
-			if ra != rb: return ra > rb
-			var sa := Beute.PLAETZE.find(String(Beute.grundform(String(ga["base"]))["slot"]))
-			var sb := Beute.PLAETZE.find(String(Beute.grundform(String(gb["base"]))["slot"]))
-			return sa < sb if sa != sb else a < b)
-		for i in reihe: k.append(_ware_zeile(h, z.beutel[i], false, i))
-	if not laden.rueckkauf.is_empty(): k.append({"kopf": Sprache.t(Laden.ZURUECK)})
-	for i in laden.rueckkauf.size():
-		var r: Dictionary = laden.rueckkauf[i]
-		k.append({"text": "%s · %s" % [Laden.verkauft_name(r), Sprache.u("price", [int(r["preis"])])],
-			"an": z.gold >= int(r["preis"]), "id": "zur:%d" % i})
-	var kopf := Sprache.t(Laden.HUETTE) if laden.brauen else Sprache.u("shop")
-	var zeilen_: Array = ["%s: %d" % [Sprache.u("gold"), z.gold]]
-	if laden.brauen: zeilen_.append(Sprache.t(Laden.KRAEUTER))
-	if not laden.brauen: zeilen_.append(Sprache.t(Laden.NEUE_WARE))
-	ui.zeige_wahl(kopf, zeilen_, k, Sprache.u("close"), laden_notiz)
-
-# 59.5, 349 (supplyDialog): ein Ding kaufen oder verkaufen, eins weniger, eins mehr, ×1, ×5, beim Verkauf auch alle; der Preis folgt
-func zeige_menge() -> void:
-	var h := held_werte()
-	var z := zustand
-	var id := String(laden_menge["id"])
-	var kaufen := bool(laden_menge["kaufen"])
-	var stueck := Laden.kaufpreis(h, id) if kaufen else Laden.verkaufspreis(h, id)
-	var most := Laden.kann_kaufen(z, h, id) if kaufen else z.anzahl(id)
-	var n := clampi(int(laden_menge["n"]), 1, maxi(1, most))
-	laden_menge["n"] = n
-	var preis := stueck * n
-	var zeilen_: Array = [Sprache.t(Laden.ding(id).get("info", "")), "%s: %d" % [Sprache.t(Laden.MENGE), n],
-		Sprache.t(Laden.BESITZ) + "%d → %d" % [z.anzahl(id), z.anzahl(id) + (n if kaufen else -n)],
-		"%s: %d → %d" % [Sprache.u("gold"), z.gold, z.gold - preis if kaufen else z.gold + preis]]
-	if most < 1: zeilen_.append(Sprache.u("notEnoughGold") if kaufen else Sprache.u("nothing"))
-	var k: Array = [{"text": "−", "an": n > 1, "id": "m:-"}, {"text": "+", "an": n < most, "id": "m:+"},
-		{"text": "×1", "an": most >= 1, "id": "m:1"}, {"text": "×5", "an": most >= 5, "id": "m:5"}]
-	if not kaufen: k.append({"text": Sprache.t(Laden.ALLE), "an": most >= 1, "id": "m:alle"})
-	k.append({"text": "%s%s · %s" % [Sprache.u("buy") if kaufen else Sprache.u("sell"), " ×%d" % n if n > 1 else "", Sprache.u("price", [preis])],
-		"an": most >= 1, "id": "m:ok"})
-	ui.zeige_wahl(Laden.name(id), zeilen_, k, Sprache.u("back"), laden_notiz)
-
-# 399.1 gearDialog (ShopScreen): Name, GearDetails, Gold vorher → nachher, „Kaufen · Preis“ (ohne Gold matt) oder „Verkaufen · Preis“
-func zeige_stueck(id: String, g: Dictionary, kaufen: bool) -> void:
-	var h := held_werte()
-	var p := Laden.kaufpreis_von(h, g) if kaufen else Laden.verkaufspreis_von(h, g)
-	laden_stueck = id
-	var zeilen_: Array = Menue.stueck_zeilen_von(h, g)
-	zeilen_.append("%s: %d → %d" % [Sprache.u("gold"), zustand.gold, zustand.gold - p if kaufen else zustand.gold + p])
-	if kaufen and zustand.gold < p: zeilen_.append(Sprache.u("notEnoughGold"))
-	ui.zeige_wahl(Beute.name(g), zeilen_, [{"text": "%s · %s" % [Sprache.u("buy") if kaufen else Sprache.u("sell"), Sprache.u("price", [p])],
-		"an": not kaufen or zustand.gold >= p, "id": "ok"}], "Abbrechen" if _de() else "Cancel")
-
-# 399.1 (59e, ShopScreen): noch einmal fragen, mit Titel, Zeilen und dem Knopf, der es tut; „Abbrechen“ zurueck
-func _frage(id: String, titel: String, zeilen_: Array, knopf: String) -> void:
-	laden_frage = id
-	ui.zeige_wahl(titel, zeilen_, [{"text": knopf, "id": "ja"}], "Abbrechen" if _de() else "Cancel")
-
-func _de() -> bool: return Sprache.aktiv() == "de"
-
-# 59e: alles von einem Ding verkaufen (mit „Alle“ gewaehlt, mindestens zwei) fragt noch einmal
-func _frage_menge(id: String, was: String) -> bool:
-	if was != "ok" or bool(laden_menge["kaufen"]) or not bool(laden_menge.get("alle", false)) or not Bedienung.rueckfragen: return false
-	var ding := String(laden_menge["id"])
-	var n := mini(int(laden_menge["n"]), zustand.anzahl(ding))
-	if n < 2: return false
-	_frage(id, "Alle verkaufen?" if _de() else "Sell all?", ["%s ×%d" % [Laden.name(ding), n]],
-		"%s ×%d · %s" % [Sprache.u("sell"), n, Sprache.u("price", [Laden.verkaufspreis(held_werte(), ding) * n])])
-	return true
-
-func _menge_wahl(was: String) -> void:
-	var h := held_werte()
-	var id := String(laden_menge["id"])
-	var kaufen := bool(laden_menge["kaufen"])
-	var most := Laden.kann_kaufen(zustand, h, id) if kaufen else zustand.anzahl(id)
-	laden_menge["alle"] = was == "alle" or (was == "ok" and bool(laden_menge.get("alle", false)))   # alt amount == Int.MAX_VALUE
-	match was:
-		"-": laden_menge["n"] = int(laden_menge["n"]) - 1
-		"+": laden_menge["n"] = int(laden_menge["n"]) + 1
-		"1", "5": laden_menge["n"] = int(was)
-		"alle": laden_menge["n"] = most
-		"ok":
-			var n := clampi(int(laden_menge["n"]), 1, maxi(1, most))
-			laden_notiz = laden.kaufe(zustand, h, id, n) if kaufen else laden.verkaufe(zustand, h, id, n)
-			laden_menge = {}
-
-# ein Stueck Ausruestung: Name · Preis, darunter Seltenheit und Gear.listLine; [i] Platz in der Tasche beim Verkauf
-func _ware_zeile(h: Heldwerte, g: Dictionary, kaufen: bool, i: int = -1) -> Dictionary:
-	var p := Laden.kaufpreis_von(h, g) if kaufen else Laden.verkaufspreis_von(h, g)
-	var selten := Sprache.t(Beute.d_()["seltenheiten"][String(g["rarity"])]["name"])
-	var zeile := Beute.listen_zeile(g)
-	return {"text": "%s · %s" % [Beute.name(g), Sprache.u("price", [p])], "info": selten.left(1).to_upper() + selten.substr(1) + (" · " + zeile if zeile != "" else ""),
-		"an": zustand.gold >= p if kaufen else true, "id": ("ag:%d" % int(g["uid"])) if kaufen else ("vg:%d" % i), "bild": "stueck-%s-%s" % [g["base"], g["rarity"]]}
-
-func _laden_wahl(id: String, ja := false, gesehen := false) -> void:
-	if laden == null: return
-	if laden_frage != "":   # „Verkaufen“ fuehrt die Wahl aus, „Abbrechen“ zurueck in die Liste
-		var war := laden_frage
-		laden_frage = ""
-		if id == "ja": _laden_wahl(war, true, true)
-		else: zeige_laden()
-		return
-	if laden_stueck != "":   # „Kaufen“/„Verkaufen“ im Kasten fuehrt aus (Seltenes fragt dann noch einmal), „Abbrechen“ zurueck
-		var st := laden_stueck
-		laden_stueck = ""
-		if id == "ok": _laden_wahl(st, false, true)
-		else: zeige_laden()
-		return
-	var h := held_werte()
-	if id == "" and not laden_menge.is_empty():   # „Zurück“ aus der Menge in die Liste
-		laden_menge = {}
-		zeige_laden()
-		return
-	if id == "":
+	var ebene := CanvasLayer.new()
+	ebene.layer = 40
+	add_child(ebene)
+	laden_schirm = LadenSchirm.new(held_werte(), zustand, laden)
+	ebene.add_child(laden_schirm)
+	laden_schirm.zu.connect(func():
+		ebene.queue_free()
 		laden = null
-		ui.schliesse_wahl()
+		laden_schirm = null
 		weiter()
-		_steht_auf(held.kachel)
-		return
-	var teil := id.split(":")
-	match teil[0]:
-		"kauf": laden_menge = {"id": teil[1], "kaufen": true, "n": 1}
-		"verk": laden_menge = {"id": teil[1], "kaufen": false, "n": 1}
-		"m":
-			if not ja and _frage_menge(id, teil[1]): return
-			_menge_wahl(teil[1])
-		"zur": laden_notiz = laden.zurueck(zustand, int(teil[1]))
-		"ag":
-			for g in Laden.ware(zustand, h):
-				if int(g["uid"]) != int(teil[1]): continue
-				if not gesehen: zeige_stueck(id, g, true); return
-				laden_notiz = laden.kaufe_ausruestung(zustand, h, g); break
-		"vg":
-			var g: Dictionary = zustand.beutel[int(teil[1])]
-			if not gesehen: zeige_stueck(id, g, false); return
-			if not ja and Bedienung.rueckfragen and Beute.stufe_von(String(g["rarity"])) >= Beute.stufe_von("RARE"):
-				var p := Laden.verkaufspreis_von(h, g)
-				_frage(id, "Wirklich verkaufen?" if _de() else "Really sell?", ["%s (%s)" % [Beute.name(g), Sprache.t(Beute.d_()["seltenheiten"][String(g["rarity"])]["name"])]],
-					"%s · %s" % [Sprache.u("sell"), Sprache.u("price", [p])])
-				return
-			laden_notiz = laden.verkaufe_ausruestung(zustand, h, int(teil[1]))
-		"alle":
-			if not ja and Bedienung.rueckfragen:
-				var gew := zustand.beutel.filter(func(g): return String(g["rarity"]) == "COMMON")
-				var summe := 0
-				for g in gew: summe += Laden.verkaufspreis_von(h, g)
-				_frage(id, "Alle gewöhnlichen verkaufen?" if _de() else "Sell all common items?",
-					[("%d Gegenstände:" if _de() else "%d items:") % gew.size(), ", ".join(PackedStringArray(gew.map(func(g): return Beute.name(g))))],
-					("Verkaufen · " if _de() else "Sell · ") + Sprache.u("price", [summe]))
-				return
-			laden_notiz = Sprache.t(Laden.GEWOEHNLICHE_WEG) % laden.verkaufe_gewoehnliches(zustand, h)
-		"brau": laden_notiz = laden.braue(zustand, h, Laden.rezepte()[int(teil[1])])
-	zeige_laden()
+		_steht_auf(held.kachel))
 
 func zeige_zeilen(z: Array) -> void:
 	held.halt()
@@ -1691,9 +1501,9 @@ func rast_probe() -> void:
 	var h := held_werte()
 	var log := func(was: String) -> void:
 		var knoepfe := ui.wahl_box.get_children().filter(func(c): return c is Button).map(func(b): return "%s%s" % [b.text, "" if not b.disabled else " (aus)"])
-		print("RASTPROBE %s | Feld %s %s | Text %s '%s' | Tag %d %02d:%02d | TP %d/%d | Gold %d | Met %d | Nacht %s | Laden '%s' %s" % [was, ui.waehlt(), knoepfe,
+		print("RASTPROBE %s | Feld %s %s | Text %s '%s' | Tag %d %02d:%02d | TP %d/%d | Gold %d | Met %d | Nacht %s | %s" % [was, ui.waehlt(), knoepfe,
 			ui.spricht(), ui.text.text, zustand.tag, zustand.minuten / 60, zustand.minuten % 60, h.tp, h.max_tp(), zustand.gold, zustand.met, licht.ziel > 0.5,
-			laden_notiz, zustand.taschen])
+			zustand.taschen])
 	h.tp = 1
 	zustand.minuten = 20 * 60
 	oeffne_rast("feuer")
@@ -1723,32 +1533,5 @@ func rast_probe() -> void:
 	ui.gewaehlt.emit("")
 	log.call("Theke zu")
 	ui.naechste()
-	zustand.gold = 60
-	zustand.dazu("herbs", 3)
-	spiele([{"art": "laden", "waren": ["potion", "remedy"], "brauen": true}, {"art": "sagen", "text": {"de": "Nach dem Laden.", "en": "After the shop."}}])
-	log.call("Laden")
-	ui.gewaehlt.emit("kauf:potion")
-	log.call("Menge Heiltrank")
-	ui.gewaehlt.emit("m:+")
-	ui.gewaehlt.emit("m:ok")
-	log.call("zwei Heiltraenke gekauft")
-	ui.gewaehlt.emit("verk:herbs")
-	ui.gewaehlt.emit("m:ok")
-	log.call("Kraut verkauft")
-	ui.gewaehlt.emit("zur:0")
-	log.call("zurueck")
-	ui.gewaehlt.emit("brau:0")
-	log.call("gebraut")
-	ui.gewaehlt.emit("")
-	log.call("Laden zu")
-	ui.naechste()
-	zustand.gold = 200
-	spiele([{"art": "laden", "waren": ["potion"]}])
-	log.call("Thessa")
-	ui.gewaehlt.emit("ag:-1")
-	log.call("Ausruestung gekauft")
-	ui.gewaehlt.emit("vg:0")
-	log.call("Ausruestung verkauft")
-	ui.gewaehlt.emit("")
-	log.call("Thessa zu")
+	# Laden: tests/laden_test.gd (Regeln) und tests/bedienung_test.gd (ladenschirm.gd, 416.3)
 	get_tree().quit()

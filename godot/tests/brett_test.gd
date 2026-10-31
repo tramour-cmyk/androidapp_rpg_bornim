@@ -70,13 +70,20 @@ func _lauf() -> void:
 	spiel.ui = ui; spiel.zustand = z; spiel.werte = hw; spiel.karte = k; spiel.held = h
 	pruefe("Brett vor dem Helden", [spiel.brett(Vector2i(4, 7)), spiel.vor_ihm(Vector2i(4, 8)), spiel.angebot(Vector2i(4, 8))[0]], [true, Vector2i(4, 7), "READ"])
 	spiel.oeffne_brett()
-	pruefe("Brett offen", [spiel.brett_offen, ui.waehlt()], [true, true])
-	var knoepfe: Array = ui.wahl_box.get_children().filter(func(b): return b is Button).map(func(b): return b.text)
-	pruefe("Knoepfe", knoepfe.slice(0, 2), ["Angenommen", "Annehmen"])
+	# 416.3: das Brett ist ein eigener Schirm (brettschirm.gd); hier haengt das Spiel nicht im Baum, also den Schirm einhaengen
+	var ebene: Node = spiel.brett_schirm.get_parent()
+	spiel.remove_child(ebene)
+	root.add_child(ebene)
+	await process_frame
+	pruefe("Brett offen", [spiel.brett_offen, spiel.brett_schirm.is_visible_in_tree(), ui.waehlt()], [true, true, false])
+	var knoepfe: Array = spiel.brett_schirm.liste.find_children("*", "Button", true, false).map(func(b): return [b.text, b.disabled])
+	pruefe("Knoepfe", knoepfe.slice(0, 2), [["ANGENOMMEN", true], ["ANNEHMEN", false]])
+	var schirm: BrettSchirm = spiel.brett_schirm
 	spiel._brett_wahl("nimm:stones")
 	pruefe("Jorin angenommen", Auftraege.angenommen(z, Auftraege.von("stones")), true)
 	spiel._brett_wahl("")
-	pruefe("Brett zu", [spiel.brett_offen, ui.waehlt()], [false, false])
+	await process_frame
+	pruefe("Brett zu", [spiel.brett_offen, is_instance_valid(schirm)], [false, false])
 	var vorher := z.beutel.size()
 	var n: String = spiel.gear_gabe("@gear:UNCOMMON:HEAD")
 	var g: Dictionary = z.beutel[z.beutel.size() - 1]
