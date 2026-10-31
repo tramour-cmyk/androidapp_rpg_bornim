@@ -20,6 +20,5 @@ Alles im Zusammenhang: [`DESIGN-SPIELSYSTEM-2-0.md`](../../DESIGN-SPIELSYSTEM-2-
 - **S2:** Fertigkeitsränge nach oben offen wie die Heldenstufe (ja).
 - **S3:** Taten, Chronik, Ätherdichte, Ruf mit Gedächtnis (Taten und Chronik zuerst).
 - **S4:** Fertigkeiten erscheinen beim ersten Gebrauch (ja).
-- **S5:** Kapitel 1 mit dem Kern von 2.0 oder auf dem alten System (Kern von 2.0, erste Welle).
 
 Erledigt: Antworten in die Entscheidungen, Datei löschen (Sokrates).

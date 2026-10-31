@@ -65,6 +65,7 @@ Ideensammlung, Stand 31.10.2026. Hier schreiben wir alles zusammen, was das Spie
 | 57 | Spähen (F3) | Fertigkeit Spähen: Umsehen von selbst beim Stehenbleiben (ohne Taste), steigt nur bei echten Funden; im Rennen kaum Wahrnehmung. Chef 31.10.2026, 21:0x. |
 | 58 | Tiere (F4) | „Tiere beruhigen“ statt freiem Zähmen; ein Tierbegleiter nur mit der Berufung Waldläufer; Tiere weder verkaufen noch in den Beutel. Chef 31.10.2026, 21:0x. |
 | 59 | Fertigkeiten (F1) | Prüfregel: eine Fertigkeit nur mit Handlung im Spiel und spürbarer Wirkung. Gültig sind 37 Fertigkeiten: Waffen 10, Rüstung 4, Schatten 4 (mit Spähen), Magie 5, Wildnis 1 (Tiere beruhigen), Gesellschaft 3, Sammeln 4 (mit Angeln und Jagd), Meisterschaften 6 (mit Lederarbeit). Liste nach oben offen. Ersetzt Entscheidung 38 (alle 69). Chef 31.10.2026, 20:5x („finde ich deine Vorschläge gut. Ist auch deutlich eingedampft“), Zählung nach F2 bis F4. |
+| 60 | Kapitel 1 mit 2.0 (S5) | Kapitel 1 bekommt den Kern von Spielsystem 2.0: „das Umstellen macht aus meiner Sicht tatsächlich jetzt am meisten Sinn. Wo wir eh mit der neuen Engine arbeiten.“ Kein Zeitdruck: „Qualität vor Quantität und vor Eile.“ Neufassung der obersten Direktive in Arbeit (Chefrunde). Chef 31.10.2026, 21:1x. |
 
 **Rückfragen zu den Antworten vom 31.10.2026, abends:** R1 gestrichen, R2 und R3 beantwortet (Entscheidungen 33, 36), R4 wird zur Aussprache über die Titel (Abschnitt 8).
 
