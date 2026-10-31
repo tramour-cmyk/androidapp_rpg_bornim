@@ -23,12 +23,6 @@ Nichts offen.
 |---|---|---|---|
 | [416.3](ansehen/4163-laden-brett.md) | Laden und Anschlagbrett bildschirmfüllend wie alt | – | 31.10., 22:07 |
 
-**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
-
-| Folge | Version | Build | Was | Wer | Seit |
-|---|---|---|---|---|---|
-| 1 | [0.348.143](ansehen/t143-spielfassung.md) | [Build 143](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40854808649/artifacts/12888959558) | 399 Spielfassung: Held in vier Klassen, Innenräume, Kampf und Klang | Tom und Jerry | 29.10., 11:28 |
-
 ## Zu tun
 
 Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen.
