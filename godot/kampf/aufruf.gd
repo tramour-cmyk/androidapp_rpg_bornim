@@ -15,6 +15,8 @@ signal ende(ergebnis: String, tp: Dictionary, lohn: Dictionary)
 
 var kampf: Node
 var tabellen: Dictionary
+## 403: HeldFigur.wahl je Kämpfer („hero“, „merc“) aus der Welt; fehlt sie, nimmt figur.gd Klasse und Volk des Blatts
+var held_wahl := {}
 
 
 ## Die Gegner einer Gruppe (Aufstellung, Namen und Aussehen wie im Probekampf; probe.gd ruft das auch)
@@ -171,6 +173,7 @@ func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := 
 	kampf = Kampfort.new()
 	kampf.tageszeit = tageszeit
 	kampf.ort = ort
+	kampf.held_wahl = held_wahl
 	# Erfahrung für den Lohn: der Held bringt seine mit, ein Blatt steht am Anfang seiner Stufe (wie die Probe, 296.2)
 	var xp: int = int(tabellen.xpForLevel[int(held.level)]) if held is Dictionary else int(held.ep)
 	if not kampf.setup(party, foes, tabellen, {"potion": traenke}, _fertig, seed, {"xp": xp, "beute": beute, "atemlos": bool(lage.get("atemlos", false)), "satt": bool(lage.get("satt", false)), "eroeffnung": String(lage.get("eroeffnung", "NORMAL")), "blende": bool(lage.get("blende", false))}):

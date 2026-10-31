@@ -69,6 +69,8 @@ var reward := {}
 ## 399.2 (aufruf.gd): Kampfort und Tageszeit aus dem Aufruf; heute gibt es nur den Wald, die Tageszeit dämpft das Licht
 var ort := "wald"
 var tageszeit := "tag"
+## 403: Aussehen der Gruppe wie in der Welt (HeldFigur.wahl je Kämpfer, „hero“), figur.gd baut den Kaufhelden danach
+var held_wahl := {}
 var lang := 0
 
 # the rules' thread and its beats (ProbeRun)

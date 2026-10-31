@@ -180,6 +180,11 @@ jobs:
             KAUF=$KAUF OUT=$RUNNER_TEMP/kw timeout 1200 bl/bin/python -I tools/blender348/kaufwolf.py > kaufwolf.log 2>&1 || { tail -60 kaufwolf.log; exit 1; }
             for f in grau dunkel rost asche; do cp $RUNNER_TEMP/kw/kaufwolf-$f.glb $D/kaufwolf-$f.bin; done; cp $RUNNER_TEMP/kw/kaufwolf-info.json $D/
             (cd godot && ls kampf/daten/giant_rat-*.bin kampf/daten/kaufwolf-*.bin > kampf/daten/kauf.txt)
+            # 403: Kampfbewegungen der Kaufheldin aus der UAL Pro (figur.gd _kampf_bewegungen), gekauft, also verschluesselt
+            KAUF=$KAUF OUT=$RUNNER_TEMP/hk timeout 600 bl/bin/python -I tools/blender348/held_kampf_pro.py > held_kampf.log 2>&1 || { tail -40 held_kampf.log; exit 1; }
+            grep "HELD KAMPF" held_kampf.log
+            cp $RUNNER_TEMP/hk/held-kampf.glb $D/held-kampf.bin && cp $RUNNER_TEMP/hk/held-kampf-info.json $D/
+            echo kampf/daten/held-kampf.bin >> $D/kauf.txt
           fi
           grep -q '^RUHE aus' rig.log && echo kampf/daten/held.bin >> $D/kauf.txt || true   # 397: Held mit Pro-Ruhe
           ls -l $D | wc -l

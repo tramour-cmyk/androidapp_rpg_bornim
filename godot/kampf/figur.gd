@@ -128,13 +128,34 @@ var hieb := []
 const AXT_IM_RAND := 0.12
 
 
+## 403 (Team Tom zu 376.1; Perikles: „Held gleitet im Kampf“, Fehler): Held und Söldner wie im Dorf auf dem Kaufkörper
+## (HeldFigur.baue: Klasse, Aussehen), die Kampfbewegungen aus der UAL Pro (tools/blender348/held_kampf_pro.py: Kampfstehen, Hieb,
+## drei Treffer, zwei Tode, Ausweichen nach beiden Seiten mit dem Wurzelweg der Quelle, Ausholen); Gehen und Rennen der Figur im
+## Schritt ihrer Beine (gehen_m_je_s), so gleitet nichts: Platzwechsel, Anlauf zum Hieb und Rückweg wie Grak (_walk_home, _hieb).
+## Fehlen Kaufkörper oder Bewegungen (Bau ohne Kaufmodelle), bleibt der bisherige Held (held.bin)
+const KAMPF_BEW := "res://kampf/daten/held-kampf.bin"
+const KAMPF_INFO := "res://kampf/daten/held-kampf-info.json"
+## Satz zur Seite: die Quelle springt 2,0 m, im Kampfort 1,2 m (Grak: Seitenlauf 1,7 m)
+const AUSWEICH_K := 0.6
+## Klinge bis zur Stelle, die beim Aufschlag im Rand des Ziels liegt (Anteil der Waffenlänge)
+const KLINGE_TRIFFT := 0.6
+## Stab (waffen.py: 85 cm vor und hinter der Mitte): so weit (m) vor der Faust liegt seine Mitte, sonst fährt das hintere Ende im Hieb
+## durch Rumpf und linkes Bein (held_kampf_pro_403: Mitte in der Faust 2 von 24 Bildern)
+const STAB_VOR := 0.45
+var kauf_held := false
+static var kampf_lib: AnimationLibrary = null
+static var kampf_becken := 1.0
+
+
 func setup(f, k) -> void:
 	fighter = f
 	kampfort = k
 	model = _load_model()
 	add_child(model)
 	model.scale = Vector3.ONE * _scale() / ART_GROESSE.get(art(), 1.0)
-	if fighter.monster == null:
+	if kauf_held:
+		_arm_kauf()
+	elif fighter.monster == null:
 		_arm()
 	elif fighter.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK]:
 		_arm_goblin()
@@ -360,6 +381,10 @@ static func _kauf_felle(a: String) -> Array:
 
 
 func _load_model() -> Node3D:
+	if fighter.monster == null:
+		var kh := _kauf_modell()
+		if kh != null:
+			return kh
 	var p := _model_path()
 	if FileAccess.file_exists(p):
 		var doc := GLTFDocument.new()
@@ -409,6 +434,196 @@ func _arm() -> void:
 	var off: String = OFF_HAND.get(fighter.hero.get("cls", ""), "")
 	if off != "":
 		_hold(sk, "L", off)
+
+
+## 403: Wahl wie in der Welt (spiel.gd gibt dem Kampfort held.wahl); sonst (Probekampf, Söldner) Klasse und Volk des Blatts mit
+## dem Beispielkopf der Klasse. Ohne Ausrüstung: die Waffen kommen in die Hände (_arm_kauf), nicht auf den Rücken
+func _held_wahl() -> Dictionary:
+	var w: Dictionary = {}
+	if kampfort != null and "held_wahl" in kampfort and kampfort.held_wahl is Dictionary:
+		w = (kampfort.held_wahl as Dictionary).get(fighter.id, {})
+	w = w.duplicate()
+	if not w.has("klasse"):
+		w["klasse"] = String(fighter.hero.get("cls", "FIGHTER"))
+	if not w.has("volk"):
+		w["volk"] = String(fighter.hero.get("race", "HUMAN"))
+	if not w.has("aussehen"):
+		w["aussehen"] = {}
+	w["ausruestung"] = {}
+	return w
+
+
+func _kauf_modell() -> Node3D:
+	if fighter.hero == null or not FileAccess.file_exists(KAMPF_BEW) or not FileAccess.file_exists(KAMPF_INFO):
+		return null
+	var w := _held_wahl()
+	if not HeldFigur.da(String(w.klasse)):
+		return null
+	var m := HeldFigur.baue(w, mats)
+	if m == null:
+		return null
+	anim = m.get_node_or_null("AnimationPlayer") as AnimationPlayer
+	if anim == null or not _kampf_bewegungen(m):
+		m.free()
+		mats.clear()
+		anim = null
+		return null
+	# wie held.gd: Glanz an Kette und Helm, im Schatten aufgehellt wie die übrigen Figuren der Gruppe (_toon: fill 0,42)
+	for x in mats:
+		(x as ShaderMaterial).set_shader_parameter("metall", 1.0)
+		(x as ShaderMaterial).set_shader_parameter("kette_lampe", 0.35)
+		(x as ShaderMaterial).set_shader_parameter("fill", 0.42)
+	kauf_held = true
+	return m
+
+
+## Die Kampfbewegungen auf die Figur, wie HeldFigur.bewegungen (nur Drehungen, Becken im Verhältnis der Beckenhöhe); Kampfstehen
+## ersetzt das Stehen der Welt
+func _kampf_bewegungen(m: Node3D) -> bool:
+	var sk := _find(m, "Skeleton3D") as Skeleton3D
+	if sk == null or sk.find_bone("pelvis") < 0:
+		return false
+	if kampf_lib == null:
+		var sc := Gebiet.lade_glb(KAMPF_BEW)
+		if sc == null:
+			return false
+		var ap0 := _find(sc, "AnimationPlayer") as AnimationPlayer
+		var sk0 := _find(sc, "Skeleton3D") as Skeleton3D
+		if ap0 == null or sk0 == null:
+			sc.free()
+			return false
+		kampf_becken = maxf(0.01, sk0.get_bone_rest(sk0.find_bone("pelvis")).origin.length())
+		kampf_lib = AnimationLibrary.new()
+		for n in ap0.get_animation_list():
+			kampf_lib.add_animation(n, ap0.get_animation(n).duplicate(true))
+		sc.free()
+	var f := sk.get_bone_rest(sk.find_bone("pelvis")).origin.length() / kampf_becken
+	var pfad := String(HeldFigur._pfad(m, sk))
+	var lib := anim.get_animation_library("")
+	for n in kampf_lib.get_animation_list():
+		var an := kampf_lib.get_animation(n).duplicate(true) as Animation
+		for t in range(an.get_track_count() - 1, -1, -1):
+			var bn := String(an.track_get_path(t)).get_slice(":", 1)
+			an.track_set_path(t, NodePath("%s:%s" % [pfad, bn]))
+			var ty := an.track_get_type(t)
+			if ty == Animation.TYPE_SCALE_3D or (ty == Animation.TYPE_POSITION_3D and bn not in ["pelvis", "root"]) or sk.find_bone(bn) < 0:
+				an.remove_track(t)
+			elif ty == Animation.TYPE_POSITION_3D:
+				for i in an.track_get_key_count(t):
+					an.track_set_key_value(t, i, an.track_get_key_value(t, i) * f)
+		var ziel: String = "Stehen" if n == "Kampfstehen" else String(n)
+		an.loop_mode = Animation.LOOP_LINEAR if ziel == "Stehen" else Animation.LOOP_NONE
+		if lib.has_animation(ziel):
+			lib.remove_animation(ziel)
+		lib.add_animation(ziel, an)
+	return lib.has_animation("Hieb") and lib.has_animation("Stehen") and lib.has_animation("Gehen")
+
+
+## Wege der Kaufheldin (+Z vorn, Meter, Bilder je s wie die Quelle): Ausweichen aus dem Wurzelweg der UAL Pro (AUSWEICH_K), Gehen und
+## Rennen gerade im Schritt der Beine (HeldFigur: gehen_m_je_s, rennen_m_je_s); dazu hieb (wie Grak) und das Tempo des Hiebs:
+## Aufschlag bei 0,42 des Hiebs (Schwert 0,8 s, Stich 0,6 s, DESIGN-ABNAHME); die UAL Pro hat keinen Stich, er nimmt den Hieb
+func _held_weg() -> Dictionary:
+	var j = JSON.parse_string(FileAccess.get_file_as_string(KAMPF_INFO))
+	if not j is Dictionary:
+		return {}
+	weg_fps = float(j.get("fps", 24.0))
+	var w := {}
+	for nm in (j.get("weg", {}) as Dictionary):
+		var pts: Array = []
+		for p in j.weg[nm]:
+			pts.append([float(p[0]) * AUSWEICH_K, float(p[1]) * AUSWEICH_K])
+		w[nm] = pts
+	var n := int(weg_fps)
+	for lauf in [["Gehen", float(model.get_meta("gehen_m_je_s", 0.0))], ["Rennen", float(model.get_meta("rennen_m_je_s", 0.0))]]:
+		if lauf[1] <= 0.05 or not anim.has_animation(lauf[0]):
+			continue
+		var pts: Array = []
+		for i in n + 1:
+			pts.append([0.0, lauf[1] * i / n])
+		w[lauf[0]] = pts
+	if not w.has("Gehen"):     # ohne Schritttempo: 1,08 m/s wie HeldFigur
+		var pts: Array = []
+		for i in n + 1:
+			pts.append([0.0, 1.08 * i / n])
+		w["Gehen"] = pts
+	var stich: bool = String(fighter.hero.get("main", {}).get("type", "")) == "PIERCING" if fighter.hero.get("main") is Dictionary else false
+	var ms := STAB_MS if stich else BLOW_MS
+	var hs := float(j.get("hieb_s", 0.42))
+	tempo["Hieb"] = hs / (ms * STEP_HOLD / 1000.0)
+	hieb = [float(j.get("hieb_vorn", 0.79)) + HERO_R, ms * STEP_HOLD / 1000.0, 0.0, 1.2]
+	return w
+
+
+## 403: Waffe und Schild in die Fäuste der Kaufheldin, nach der Haltung in Stehen (Kampfstehen, Bild 0) wie beim Goblin
+func _arm_kauf() -> void:
+	var sk := _find(model, "Skeleton3D") as Skeleton3D
+	if sk == null:
+		return
+	if not is_inside_tree():
+		await tree_entered
+	if anim and anim.has_animation("Stehen"):
+		anim.play("Stehen")
+		anim.seek(0.0, true)
+		sk.force_update_all_bone_transforms()
+	var main: String = fighter.hero.main.id if fighter.hero.has("main") and not fighter.hero.main.ranged else ""
+	if main != "":
+		_faust_halt(sk, "r", main)
+	var off: String = OFF_HAND.get(fighter.hero.get("cls", ""), "")
+	if off != "":
+		_faust_halt(sk, "l", off)
+	# Reichweite des Hiebs: Faust vor dem Becken beim Aufschlag, dazu die Klinge bis KLINGE_TRIFFT
+	var wf := model.find_child("Waffe", true, false) as Node3D
+	if wf != null and hieb.size() >= 3:
+		hieb[0] = float(hieb[0]) - HERO_R + _laenge(wf) * KLINGE_TRIFFT
+
+
+## Länge eines Dings längs seiner Achse (+Y der .glb, Griff am Ursprung)
+func _laenge(n: Node3D) -> float:
+	var hoch := 0.0
+	for mi in n.find_children("*", "MeshInstance3D", true, false):
+		var bb := (mi as MeshInstance3D).get_aabb()
+		var t := HeldFigur.im_raum(n, mi)
+		for i in 8:
+			hoch = maxf(hoch, (t * bb.get_endpoint(i)).y)
+	return hoch * n.scale.y if n.scale.y > 0.0 else hoch
+
+
+## Griff in der Faust der Kaufhand: Mitte zwischen den Knöcheln (index_01, pinky_01) und den eingerollten Fingerspitzen (index_03,
+## pinky_03), so liegt er im Loch der Faust; Achse die Knöchellinie zum Zeigefinger (dort tritt die Klinge aus), die Schneide zu den
+## Fingern (der Stab in der Mitte gefasst wie gebaut, waffen.py); Schilde wie beim bisherigen Helden nach der Haltung (_hold)
+func _faust_halt(sk: Skeleton3D, s: String, what: String) -> void:
+	var hb := sk.find_bone("hand_" + s)
+	var bz := ["index_01_", "pinky_01_", "index_03_", "pinky_03_"].map(func(b): return sk.find_bone(b + s))
+	if hb < 0 or bz.has(-1):
+		return
+	var inv := sk.get_bone_global_pose(hb).affine_inverse()
+	var p: Array = bz.map(func(b): return inv * sk.get_bone_global_pose(b).origin)
+	var griff: Vector3 = (p[0] + p[1] + p[2] + p[3]) * 0.25
+	if what.contains("shield"):
+		_hold(sk, s.to_upper(), what, griff.y, 0.0)
+		return
+	var datei := "res://kampf/daten/%s.bin" % what
+	if not FileAccess.file_exists(datei):
+		return
+	var doc := GLTFDocument.new()
+	var st := GLTFState.new()
+	if doc.append_from_buffer(lade_bin(datei), "", st) != OK:
+		return
+	var w := doc.generate_scene(st) as Node3D
+	_paint(w)
+	var at := BoneAttachment3D.new()
+	at.bone_name = sk.get_bone_name(hb)
+	sk.add_child(at)
+	at.add_child(w)
+	var achse: Vector3 = (p[0] - p[1]).normalized()
+	var finger: Vector3 = (p[0] + p[1]) * 0.5
+	var schneide := (finger - achse * finger.dot(achse)).normalized()
+	var vor := STAB_VOR if what in STAFFS else 0.0
+	if OS.has_environment("STAB_VOR") and what in STAFFS:
+		vor = float(OS.get_environment("STAB_VOR"))
+	w.transform = Transform3D(Basis(schneide, achse, schneide.cross(achse)), griff + achse * vor)
+	w.name = "Waffe" if s == "r" else "Schild"
+	w.set_meta("stab", what in STAFFS)     # 348.7b: Zauber ab der Stabspitze (cast_point)
 
 
 ## Goblin, Späher, Grak: Zweibeiner auf dem Gerüst aus goblin.py oder grak_gestalt.py
@@ -779,7 +994,7 @@ func glide_to(p: Vector3) -> void:
 func _weg() -> Dictionary:
 	var p := _model_path()
 	if fighter.monster == null:
-		return {}
+		return _held_weg() if kauf_held else {}
 	var ia := _gob_art() if _zweibeiner() else art()     # 348.12: Grak (grak_gestalt.py) hat seinen Weg in hobgoblin_captain-info.json
 	var ip := "res://kampf/daten/%s-info.json" % ia
 	if ia == "" or not FileAccess.file_exists(ip):
@@ -1183,6 +1398,8 @@ func _hieb(other) -> int:
 	var d2: Array = _dreh(tween, yaw, schlag, "Stehen")
 	t_run += d2[0]
 	var bl: float = anim.get_animation("Hieb").length if anim and anim.has_animation("Hieb") else 0.9
+	if kauf_held:     # 403: der Hieb der UAL Pro schneller (tempo, _held_weg)
+		bl /= float(tempo.get("Hieb", 1.0))
 	tween.tween_callback(func(): gang = "hieb"; _play("Hieb", 0.08))
 	tween.tween_interval(bl)
 	# zurück, das Gesicht zum Ziel, um die anderen herum
@@ -1251,7 +1468,7 @@ func strike(other, e: Dictionary) -> int:
 		busy_ms = 700
 		return 700
 	var leap: bool = fighter.monster != null and pouncing and fighter.monster.id == Mars.WOLF
-	if _zweibeiner() and weg.has("Gehen") and hieb.size() >= 3:
+	if (_zweibeiner() or kauf_held) and weg.has("Gehen") and hieb.size() >= 3:     # 403: die Kaufheldin geht und schlägt wie Grak
 		return _hieb(other)
 	if fighter.monster != null and weg.has("Gehen"):
 		if leap:
@@ -1518,8 +1735,17 @@ func hurt(after_ms: int, dies: bool) -> void:
 	if dies:
 		die()
 	else:
-		_play("Treffer", 0.05)
+		_play(_variante("Treffer"), 0.05)
 		get_tree().create_timer(0.45).timeout.connect(_idle)
+
+
+## 403: eine der Fassungen (Treffer, Treffer_2, Treffer_3 …) zufällig, wo die Figur mehrere hat (Kaufheldin)
+func _variante(nm: String) -> String:
+	var l: Array = [nm]
+	for i in range(2, 5):
+		if anim and anim.has_animation("%s_%d" % [nm, i]):
+			l.append("%s_%d" % [nm, i])
+	return l[randi() % l.size()]
 
 
 func dodge(after_ms: int, nm := "") -> void:
@@ -1532,7 +1758,7 @@ func dodge(after_ms: int, nm := "") -> void:
 		nm = "Ausweichen zurück" if weg.has("Ausweichen zurück") and randf() < 0.5 else "Ausweichen"
 	if weg.has(nm) and anim and anim.has_animation(nm) and not down and not lunging():
 		# 348.12: Graks Ausweichen (Seitenlauf der UAL Pro) beginnt mitten im Schritt; aus dem Stehen weicher hinein
-		_play(nm, 0.2 if _zweibeiner() else 0.05)
+		_play(nm, 0.2 if _zweibeiner() or kauf_held else 0.05)     # 403: Dodge der UAL Pro beginnt in der Hocke
 		var o := position
 		var b := basis
 		var bl: float = anim.get_animation(nm).length
@@ -1608,7 +1834,7 @@ func die() -> void:
 		tween.kill()     # 348.12f: im Lauf getroffen, liegt es, wo es fällt
 	dead_at = int(kampfort.clock_ms)
 	if anim and anim.has_animation("Tod"):
-		anim.play("Tod", 0.05)
+		anim.play(_variante("Tod"), 0.05)
 	else:
 		var t := create_tween()
 		t.tween_property(model, "rotation:z", deg_to_rad(80), FALL_MS / 1000.0)

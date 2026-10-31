@@ -427,6 +427,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = []) -> v
 	var soeldner = null if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
 	var erg := {"ende": "", "tp": {}, "lohn": {}, "rest": zustand.anzahl("potion")}
 	var aufruf := AufrufS.new()
+	if probe.is_empty() and held: aufruf.held_wahl = {"hero": held.wahl}   # 403 (Jerry): der Held im Kampf wie in der Welt
 	add_child(aufruf)
 	aufruf.ende.connect(func(o, tp, lohn):
 		erg["tp"] = tp; erg["lohn"] = lohn
