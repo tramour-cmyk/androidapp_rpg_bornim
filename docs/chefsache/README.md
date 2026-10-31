@@ -9,8 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [413a](entscheiden/413a-spielsystem-rueckfragen.md) | **Muss** | D Design | 31.10. | Spielsystem 2.0: offene Fragen aus der Auseinandersetzung | Sokrates |
-| [404](entscheiden/404-kosten-schaetzung.md) | Kür | B Werkzeuge |  | 404: Fehlende Sitzungskosten schätzen? |  |
-| [416a](entscheiden/416a-haeuser-betreten.md) | – | – |  | 416a: Häuser betreten: besser oder schlechter als die erste Fassung? |  |
 
 ## Zu billigen
 
@@ -52,10 +50,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 32, Muss 22, startbar 5
+**Tom** – offen 34, Muss 23, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 416.7 | M | von Sokrates (Chef 31.10., 20:5x, für den nächsten Build): am Tresen in Schenke und Laden | startbar |
+| 416.8 | M? | von Sokrates (Chef 31.10., 20:5x, allgemeiner Hinweis): NPC dreht sich bei Interaktion zum | startbar |
 | 416.1 | M | von Sokrates (Chef 31.10., 20:4x, Build 143): Tasten reagieren schlecht (Bartform, Kopffor | startbar |
 | 416.2 | M | von Sokrates (Chef 31.10., 20:4x): gegen Dorfbewohner und Tiere laufen: Platzwechsel statt | startbar |
 | 416.3 | M | von Sokrates (Chef 31.10., 20:4x): Anschlagbrett und Laden (Kaufen, Verkaufen) nur etwa dr | startbar |
