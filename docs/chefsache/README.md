@@ -27,6 +27,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [403](ansehen/403-kampfheld.md) | Held im Kampfort wie im Dorf | Jerry | 31.10., 22:45 |
+| [416.9](ansehen/4169-laden.md) | Laden: alle Plätze bei „Angelegt“, nicht Tragbares, Vergleich, Bild bei Menge | – | 01.11., 00:23 |
 | [417](ansehen/417-tragart.md) | Waffen in der Hand beim Gehen und Rennen: Stab, Kriegsaxt, Bogen | Tom | 31.10., 23:45 |
 
 ## Zu tun
