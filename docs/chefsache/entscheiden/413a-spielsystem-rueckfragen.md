@@ -9,6 +9,7 @@ Berufungsbaum W1 bis W4 entschieden (Entscheidungen 51 bis 54), T6 damit beantwo
 - **F1:** Prüfregel „Handlung im Spiel und spürbare Wirkung“, dazu etwa 36 Fertigkeiten in acht Gruppen statt 68 (ja; Angeln und Schleichtaste schon eingetragen).
 - **F2:** Meisterschaft Lederarbeit (Gerben, Schneidern) neu dazu, Jagd mit Zerlegen und Fährten unter Sammeln (ja).
 - **F3:** Fertigkeit Spähen: Umsehen von selbst beim Stehenbleiben (ohne Taste), steigt nur bei echten Funden; im Rennen kaum Wahrnehmung (ja).
+- **F4:** „Tiere beruhigen“ statt freiem Zähmen; ein Tierbegleiter nur mit der Berufung Waldläufer; Tiere weder verkaufen noch in den Beutel (ja).
 
 **Titel** (Abschnitt 8; Votum Sokrates in Klammern)
 - **T3 bis T5:** Perks als neue Handlungen statt großer Zahlen; Weg zur Berufung über Fertigkeitsrang, Tat und Ruf beim Lehrmeister; Wechsel erlaubt (ja).

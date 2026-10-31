@@ -1603,3 +1603,16 @@ Meinung Sokrates: Die Idee ist gut und gibt der Wahrnehmung, was ihr bisher fehl
 *Gegenargument:* Ohne Taste merkt der Spieler vielleicht nicht, dass Stehenbleiben etwas bringt. Gegenmittel: einmal im Spiel erklären (Spielführer oder ein Gefährte sagt „Bleib mal stehen und schau dich um“). Eine Taste wäre die Alternative, kostet aber Platz.
 
 **Frage F3:** Fertigkeit Spähen mit Umsehen beim Stehenbleiben (ohne Taste), Steigen nur bei echten Funden?
+
+**Tiere zähmen (Chef 31.10.2026, 21:0x):** „wie wollen wir Tiere zähmen und was machen wir mit den gezähmten Tieren? … cool wäre es ja grundsätzlich schon, wenn wir so eine Art Pet System hätten, oder kann man das gezähmte Tier dann auch irgendwie verkaufen … oder kann man das in seinen Nimmersattbeutel packen? Oder sollten wir Tiere zähmen auch erstmal rauslassen? … es muss sich ja auswirken, es muss sichtbar sein“.
+
+Meinung Sokrates: Ein freies Zähmen jedes Tiers ist eines der teuersten Teile überhaupt. Jedes zähmbare Tier braucht Folgen in der Welt, Wegfindung, Bewegungen beim Mitlaufen, einen Platz im Kampf (MARS), Speichern, Füttern oder Pflege. Verkaufen und in den Beutel packen würde ich ausschließen: Ein lebendes Tier im Beutel bricht die Welt, und ein Tierhandel zieht Preise, Händler und Missbrauch (zähmen, verkaufen, wiederholen) nach sich. Rauslassen müssen wir es aber nicht ganz. Vorschlag in zwei Stufen:
+
+1. **Jetzt: Fertigkeit „Tiere beruhigen“** statt „Tiere zähmen“. Handlung: Ein feindliches Tier (Wolf, Keiler, Ratte) lässt sich vor dem Kampf beruhigen; gelingt es, zieht es ab, der Kampf entfällt. Wirkung: sichtbar sofort (das Tier dreht ab), spart Kämpfe, Erfahrung wie für einen Sieg über den Erfahrungstopf (Entscheidung 21). Je höher der Rang, desto stärkere Tiere. Billig, weil kein Tier mitläuft. Besteht die Prüfregel.
+2. **Mit der Berufung Waldläufer: ein Tierbegleiter.** Bei der Prüfungsquest wählt der Waldläufer ein Tier (Wolf, später weitere), das ihn begleitet und im Kampf auf dem Platz eines Gefährten mitkämpft. Wir haben schon Gefährten im Kampf (`godot/kampf/`) und gekaufte Tiere mit Bewegungen (Kaufwolf, 348.12f), also vorhandene Bausteine. Eines statt vieler hält den Aufwand klein, und es ist ein echter Grund, Waldläufer zu werden.
+
+Später möglich, nicht jetzt: ein Haustier ohne Kampf, das im Dorf wartet (Hund, Katze; Idee Katze steht in `LISTE-IDEEN.md`).
+
+*Gegenargument:* Begleittiere ziehen Spieler stark an, und mit Stufe 2 bekommt nur der Waldläufer eins. Wer das will, muss Waldläufer werden. Das ist gewollt (Berufung als Wahl), kann aber Spieler anderer Wege enttäuschen. Alternative: Tierbegleiter als Perk, den auch andere Berufungen beim Rang Meister in „Tiere beruhigen“ bekommen.
+
+**Frage F4:** „Tiere beruhigen“ als Fertigkeit jetzt, ein Tierbegleiter nur für den Waldläufer, kein Verkaufen und kein Beutel?
