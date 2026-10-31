@@ -2,7 +2,7 @@
 
 ![21 Schilde](../bilder/406-schilde.webp)
 
-[Film](bilder:pruefung/406-schilde.mp4), 8 s: alle 21 Schilde aus den gekauften Paketen, jeder dreht sich einmal ganz, gezeichnet wie Held und Söldner im Kampf (Archiv 408: „Chef wählt“). Gleich hoch gezeigt (60 cm); im Spiel bekommt der gewählte die Größe des Rundschilds.
+[Film](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/pruefung/406-schilde.mp4), 8 s: alle 21 Schilde aus den gekauften Paketen, jeder dreht sich einmal ganz, gezeichnet wie Held und Söldner im Kampf (Archiv 408: „Chef wählt“). Gleich hoch gezeigt (60 cm); im Spiel bekommt der gewählte die Größe des Rundschilds.
 
 - 1–3 Omie (Rund-, Drachen-, Faustschild), 4–9 Anker (A–F), 10–12 Avramania (Rund-, Holz-, Faustschild), 13–21 PolyMech (Drachen, zwei offene runde, rund Holz, rund Metallrand, Holz mit Rahmen, Eisen lang, Löwenherz lang und klein).
 - Im ersten Bild zeigen manche die Innenseite (Pakete verschieden ausgerichtet); in der Drehung sieht man beide Seiten.

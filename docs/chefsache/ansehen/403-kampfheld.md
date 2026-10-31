@@ -2,7 +2,7 @@
 
 ![Held im Kampfort](../bilder/403-kampfheld.webp)
 
-[Film](bilder:pruefung/403-kampfheld.mp4), 44 s am Rechner, noch kein Build: erst Kämpfer als Held (Begleiter Kleriker), ab 0:22 Kleriker als Held (Begleiter Kämpfer), gegen das Wolfsrudel, Autopilot.
+[Film](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/pruefung/403-kampfheld.mp4), 44 s am Rechner, noch kein Build: erst Kämpfer als Held (Begleiter Kleriker), ab 0:22 Kleriker als Held (Begleiter Kämpfer), gegen das Wolfsrudel, Autopilot.
 
 - Held und Begleiter im Kampf sind jetzt das Modell aus dem Dorf (Klasse, Tracht, Kopf, Haar, Haut); im Film Kämpfer und Kleriker, Schurke und Magier laufen im Test mit.
 - Bewegungen: noch die bisherigen (Hieb, Stich, Treffer, Ausweichen, Abwehr, Tod), auf das neue Modell übertragen. Die Bewegungen aus der gekauften Bibliothek (UAL Pro: Hieb, Treffer, Tod, Ausweichen) liegen eingebaut bereit, aber noch nicht im Kampf; Vergleich folgt als eigenes Blatt.
