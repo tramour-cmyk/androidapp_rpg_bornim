@@ -89,11 +89,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 42, Muss 29, startbar 7
+**Jerry** – offen 43, Muss 30, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403, „ja, die Animation der Avatare sieht gut aus. | startbar |
+| 440 | M | von Sokrates (Chef 31.10., 23:34, Film 403): „Der Wolf war einfach weg. Da fehlt die Sterb | startbar |
 | 439 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Ablauf im Kampf: Neuformation der Wölfe begin | startbar |
 | 416.5 | M | von Sokrates (Chef 31.10., 20:4x, Build 143): im Kampf Details des Kampflogs aufrufen, dan | wartet auf Test/Build (gebaut) |
 | 416.6 | K | von Sokrates (Chef 31.10., 20:4x): Spuren des Helden fehlen (Fußspuren; bei Regen eigene S | startbar |
