@@ -2,7 +2,6 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Pause bis 31.10., 20:00 Uhr** (Chef 29.10., 11:15, über Sokrates).
 
 **Gelesen bis:** `8700379b0` (29.10., 01:06)
 
@@ -13,6 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 423 | M | **von Sokrates (Chef 31.10., 21:2x: „irgendwer muss dann auch einfach eine Anleitung schreiben, wo die wesentlichen Dinge für den Spieler erklärt werden“):** Spielerhandbuch Spielsystem 2.0 aus dem Nachschlagewerk (422), unser Ton, DE/EN | wartet auf Sokrates (422) |
 | 409 | M | **von Team Tom (Chef 29.10., 10:52, Archiv 376.1, „gibt es noch andere Frisuren“):** Wörter der Erschaffung für fünf Frauenfrisuren auf dem Männerkopf; vorläufig in `heldfigur.gd` WORTE: Lang, Lange Locken, Hoher Zopf, Pagenkopf, Knoten (EN Long, Long curls, High ponytail, Bob, Buns); Bild `3761-aussehen` | wartet auf Pause bis 31.10., 20:00 |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |
