@@ -139,6 +139,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 411 | Mehr Frisuren als Seitenscheitel (aus 376.1, Chef 29.10., 10:52) | E Figuren | M | – | Team Tom | erledigt |
 | 412 | Je Thema ein eigener Vorgang, nichts thematisch Fremdes unter eine Nummer (Chef 29.10., 11:4x) | B Abläufe | M | – | Perikles | startbar |
 | 413 | Spielsystem 2.0: Entwurf `DESIGN-SPIELSYSTEM-2-0.md`, Auseinandersetzung, Meilensteine (Chef 31.10., 20:1x) | D Design | M | – | Sokrates | wartet |
+| 414 | 14 itch.io-Godot-Pakete auf Tauglichkeit prüfen (Chef 31.10., 20:2x) | D Design | K | – | Sokrates | wartet |
 | 390 | Umzug: Punkte ohne Bilderrunde weiterbauen, solange Blätter beim Chef liegen (Perikles 28.10., Wochenziel 348) | E Technik | M | 39,54 $ | Team Tom, Team Jerry | wartet |
 | 383.2 | Kosten: dieselbe Aufgabe frisch gegen groß messen (Chef 27.10., 19:24) | B Werkzeuge | M | – | Sokrates | wartet |
 | 383 | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokrates) | B Werkzeuge | M | 99,45 $ | Perikles | wartet |
