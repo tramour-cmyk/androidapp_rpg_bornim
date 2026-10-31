@@ -339,3 +339,35 @@ Nur Vorschlag; geändert wird erst nach deinem Ja.
 **`CLAUDE.md`, erster Absatz (ersetzt „Regeln nach SRD 5.1“):**
 
 > … Regeln nach unserem eigenen Spielsystem 2.0 (`DESIGN-SPIELSYSTEM-2-0-ENTWURF.md`); der Hinweis „SRD 5.1 · CC BY 4.0“ bleibt, bis alles SRD-Abgeleitete ersetzt ist.
+
+## Entwurf F zur Entscheidung: Fertigkeiten, Prüfungen und Berufung aus einem Guss
+
+Anlass (Chef 31.10., 21:4x): „Anfänger, Geselle, Meister, Großmeister … aber weiter soll es dann auch nicht gehen … dann ist aber eine Fertigkeit einfach fertig. Und für jeden Aufstieg im Fertigkeitsrang wäre … eine Quest erforderlich oder eine Art Prüfung beim Lehrmeister … allein um den Weg zu beschreiten, … muss ich doch erstmal einen Lehrmeister haben. Der sagt, hey, willst du Paladin werden? … wenn ich jetzt schon ganz viele Fertigkeiten gemacht habe …, dann bin ich ja vielleicht sozusagen schon Meister, ohne was gemacht zu haben.“
+
+**Das Problem:** Bisher gab es zwei Leitern nebeneinander: Fertigkeiten steigen durch Tun, und Weg, Berufung, Meisterform sitzen obendrauf. Wer viel geübt hat, hätte beim ersten Lehrmeister alles auf einmal bekommen. Und „Weg“ als eigene Stufe ist schwer zu verstehen.
+
+**Vorschlag: eine Leiter, eine Tür.** Üben füllt, die Prüfung öffnet.
+
+1. **Fertigkeiten enden bei 100.** Vier Ränge: Anfänger (0–24), Geselle (25–49), Meister (50–74), Großmeister (75–100). Danach ist die Fertigkeit fertig. Das ersetzt „nach oben offen“.
+2. **Üben füllt nur bis zur Rangdecke.** Durch Tun steigt der Wert bis zum Ende des Rangs (zum Beispiel 49). Weiter geht es erst nach einer **Prüfung**. Was man darüber hinaus übt, wird bis zu einem kleinen Puffer gemerkt (wie schon entschieden: „hart mit Puffer“). So kann keiner „schon Meister sein, ohne was gemacht zu haben“: Ohne Prüfung bleibt jeder am Ende seines Rangs stehen.
+3. **Wo die Prüfung stattfindet:**
+   - **Fertigkeiten der eigenen Berufung** prüft der eigene Lehrmeister, gebündelt in drei Prüfungen (unten). Eine Prüfung öffnet den nächsten Rang für alle Kernfertigkeiten der Berufung zugleich.
+   - **Alle anderen Fertigkeiten:** eine kurze **Lehrstunde** bei einem Lehrer des Fachs (Gold, kleine Probe, Ruf hilft). Keine große Quest, sonst wären es über hundert Quests.
+4. **Die Berufung beginnt beim Lehrmeister.** Statt eines „Wegs“ als eigener Stufe gibt es die **Neigung**: Das Spiel merkt, was du tust (zum Beispiel Schild und Heilmagie auf Geselle). Dann spricht dich ein Lehrmeister an: „Willst du Paladin werden?“ Du sagst ja, nein oder später. Mit Ja bist du **Anwärter**.
+5. **Drei Prüfungen der Berufung**, jede eine Quest beim Lehrmeister, mit einer passenden Tat:
+
+| Stufe in der Berufung | Prüfung | Voraussetzung | Öffnet | Bekommt |
+| --- | --- | --- | --- | --- |
+| Anwärter | Zusage beim Lehrmeister | Neigung: zwei Kernfertigkeiten auf Geselle | – | Lehrmeister begleitet dich, erste Hinweise |
+| Eingeweihter | Zwischenprüfung | Kernfertigkeiten am Ende von Geselle | Rang Meister für die Kernfertigkeiten | erste Handlung der Berufung |
+| Titelträger, z. B. „Paladin“ | Gesellenprüfung | Kernfertigkeiten am Ende von Meister | Rang Großmeister | zweite, stärkere Handlung; Auflagen gelten ab hier |
+| Meister, z. B. „Hoher Paladin“ | Meisterprüfung | Kernfertigkeiten bei 100 | – (Fertigkeiten fertig) | stärkste Handlung |
+
+6. **Kapitel als Takt:** Welche Prüfungen ein Lehrmeister abnimmt, hängt am Kapitel (Zwischenprüfung ab Kapitel 2, Gesellenprüfung später, Meisterprüfung spät). Das ist die bisherige Fertigkeitsgrenze je Kapitel, nur als Tür beim Lehrmeister statt als unsichtbare Decke.
+7. **Wer schon viel geübt hat,** steht bei allen Kernfertigkeiten an der Rangdecke und kann die Prüfungen zügig nacheinander ablegen, aber er muss sie ablegen. Die Prüfung ist das Tun.
+
+**Was sich gegenüber den Entscheidungen ändert:** „Weg“ als eigene Ebene entfällt und wird zur Neigung, die den Lehrmeister einlädt (bisher Weg → Berufung → Meisterform). Die sechs Gruppen (Schutz, Kampf, Schatten, Wildnis, Magie, Heilung) bleiben als Ordnung der Berufungen. Fertigkeitsränge enden bei 100 statt „nach oben offen“.
+
+*Stärkstes Gegenargument:* Prüfungen an jeder Rangdecke können sich wie Wände anfühlen, wenn man gerade gut im Üben ist. Gegenmittel: Der Puffer merkt das Weiterüben, das Spiel zeigt die nahe Prüfung früh an („Dein Lehrmeister erwartet dich“), und Lehrstunden außerhalb der Berufung sind kurz.
+
+**Frage an den Chef:** Eine Leiter mit Prüfungen als Tür, Neigung statt Weg, Anwärter → Zwischen-, Gesellen-, Meisterprüfung, Fertigkeiten fertig bei 100?
