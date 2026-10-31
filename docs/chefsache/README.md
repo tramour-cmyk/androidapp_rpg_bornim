@@ -167,10 +167,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „star
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
-**Diogenes** – offen 8, Muss 6, startbar 0
+**Diogenes** – offen 9, Muss 7, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 443.1 | M | von Perikles (D52.1, D52.2 behoben 01.11., 00:1x, Doppelpack 421): lauf.py nummer_aus_tite | startbar |
 | 443a | M | Rückfrage an den Chef (D52.3): Ausnahme Ford von der Namensform 436, Chefsache entscheiden | Chef (Datei in der Chefsache) |
 | 441 | M | von Sokrates (Chef 31.10., 23:40, „gründlich von Diogenes quergelesen“): DESIGN-SPIELSYSTE | wartet auf Sokrates |
 | 434 | M | von Sokrates (Chef 31.10., 22:1x): bei jeder Zählung 374 zusätzlich die Zeile „Bestand gep | Termin 01.11. |
