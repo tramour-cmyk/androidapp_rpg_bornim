@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [418](entscheiden/418-abnahmeliste-kapitel1.md) | **Muss** | B Abläufe | 31.10., 21:33 | Abnahmeliste Kapitel 1 nach der neuen Direktive: abnehmen und Umfang von 2.0 festlegen | Perikles |
 | [413a](entscheiden/413a-spielsystem-rueckfragen.md) | **Muss** | D Design | 31.10. | Spielsystem 2.0: offene Fragen (Chefrunde) | Sokrates |
 
 ## Zu billigen
@@ -130,13 +131,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 20, Muss 18, startbar 7
+**Perikles** – offen 20, Muss 18, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 424 | M | von Sokrates („jetzt“ 31.10., 21:3x, Chef: „keine Energie mehr in das alte SRD-System stec | startbar |
-| 421 | M | von Sokrates (Chef 31.10., 21:2x): Regel „im Doppelpack“: jede Änderung von Perikles an Re | startbar |
-| 418 | M | von Sokrates („jetzt“ 31.10., 21:21, Archiv): oberste Direktive in CLAUDE.md durch den Wor | startbar |
+| 421 | M | von Sokrates (Chef 31.10., 21:2x): Regel „im Doppelpack“: jede Änderung von Perikles an Re | wartet auf Test/Build (gebaut) |
+| 418 | M | von Sokrates („jetzt“ 31.10., 21:21, Archiv): oberste Direktive in CLAUDE.md durch den Wor | Chef (Datei in der Chefsache) |
 | 412 | M | von Sokrates (Chef 11:43, Archiv): je Thema ein Vorgang, nichts Fremdes unter eine Nummer | startbar |
 | 408 | M | von Sokrates (Chef 11:15, Archiv): Bestand vor Eigenbau: Bedarf in der Bibliothek suchen, | startbar |
 | 407 | M | von Chef über Sokrates („jetzt“ 29.10., 10:05): Probelauf-Grenze 389 so, dass sie greift: | startbar |
@@ -155,11 +156,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „star
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
-**Diogenes** – offen 6, Muss 4, startbar 1
+**Diogenes** – offen 6, Muss 4, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 419 | M | von Sokrates (Chef 31.10., 21:2x: „irgendwer muss dann wieder prüfen, was Perikles macht … | wartet auf Perikles |
+| 419 | M | von Sokrates (Chef 31.10., 21:2x: „irgendwer muss dann wieder prüfen, was Perikles macht … | startbar |
 | 398 | M | von Sokrates: vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (39 | Termin 02.11. |
 | 374 | M | von Sokrates (Chef 27.10., 11:58, Archiv 374): täglich 8 Uhr bis 03.11. Vorlagen des Vorta | startbar |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24): Umzug Godot: jedes Vergleichsblatt alt/neu messen, | wartet auf Eingang |
