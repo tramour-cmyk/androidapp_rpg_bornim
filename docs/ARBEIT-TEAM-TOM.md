@@ -10,6 +10,8 @@ von Sokrates (Chef 11:27): erst Build 143 und Testbitte, dann Ford-Lauf an, weit
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 416.7 | M | **von Sokrates (Chef 31.10., 20:5x, für den nächsten Build):** am Tresen in Schenke und Laden geht der Aktionsknopf nicht, Kaufen und Kauf mit den zwei NPCs dort nicht möglich; Reichweite erweitern | frei | – |
+| 416.8 | M? | **von Sokrates (Chef 31.10., 20:5x, allgemeiner Hinweis):** NPC dreht sich bei Interaktion zum Helden, nach etwa 10 s ignoriert er ihn wieder und spielt Leerlauf; Perikles: M oder K? | frei | – |
 | 416.1 | M | **von Sokrates (Chef 31.10., 20:4x, Build 143):** Tasten reagieren schlecht (Bartform, Kopfform, Farbe in „Neues Spiel“; „auch in anderen Bereichen“, „grundsätzliches großes Problem“): Ursache nachstellen, überall prüfen | frei | – |
 | 416.2 | M | **von Sokrates (Chef 31.10., 20:4x):** gegen Dorfbewohner und Tiere laufen: Platzwechsel statt nur Schieben; sie stehen im Weg, teils kein Weiterkommen, vor allem rechts unten bei Feld, Ziege, Hühnern | frei | – |
 | 416.3 | M | **von Sokrates (Chef 31.10., 20:4x):** Anschlagbrett und Laden (Kaufen, Verkaufen) nur etwa drei Viertel des Schirms; bildschirmfüllend, Design mit der alten Fassung abgleichen („das war wirklich ganz toll“) | frei | – |
@@ -45,18 +47,18 @@ von Sokrates (Chef 11:27): erst Build 143 und Testbitte, dann Ford-Lauf an, weit
 
 ## Einzelheiten
 
-- **Zu 399.1, nächster Testbogen** (Tom 29.10., 03:4x; t133, t139 gelöscht, beide durchgefallen, Wortlaut Archiv): offene Zeilen 133.1, 133.2, 133.4–133.6 und aus t139 alles ohne „gut“ (u. a. 139.10, 139.19) neu aufnehmen; Text im Git-Verlauf von `docs/chefsache/ansehen/t139-spielfassung.md`.
+- **Zu 399.1, nächster Testbogen** (Tom 29.10., 03:4x; t133, t139 gelöscht, beide durchgefallen, Wortlaut Archiv): offene Zeilen 133.1, 133.2, 133.4–133.6 und aus t139 alles ohne „gut“ neu aufnehmen (Text im Git-Verlauf `t139-spielfassung.md`).
 
-- **Hinweis von Diogenes (374, 29.10.):** Stichprobe 373 für 28.10.: 3486-dorf-dinge Runde 3 mit drittem Probelauf (04:44; 389 höchstens zwei) und zwei Helferrunden (04:25, 04:46); Helferbefund vor dem Versand in 3991-ausruestung 17:27 und 17:34 sowie 3995-innenraeume 23:53 (396: erst senden, Befund danach); 3761-klassen 22:53 und 23:06 je drei Blätter für ein Modell, je vier Telegram-Bilder (373 a).
+- **Hinweis von Diogenes (374, 29.10.):** Stichprobe 373 28.10.: dritter Probelauf (389 höchstens zwei), Helferbefund vor dem Versand (396: erst senden, Befund danach), je drei Blätter für ein Modell (373 a).
 - **Von Perikles (378):** Stände prüfen, `ARBEIT-PROJEKT.md` Zu 378.
-- **von Team Jerry (28.10., 22:48), für den nächsten Build:** `jerry-348-kampf` = `jerry-348-klang` 1923456c7 (beide Zweige gleich, dein `tom-399` von 22:3x drin): 399.3 Keuchen, 401 Tierlaute, 399.2 Wolf durch Wolf, System „Kampf“, satt, Testende, Eröffnung, 399.2b Knurren, 402 Kampfblende mit Herzschlag (wenige Zeilen in `menue.gd`, `bedienung.gd`, `spiel.gd`, `testmodus.gd`; `IntroExport` „kampfblende“).
+- **von Team Jerry (28.10., 22:48), für den nächsten Build:** `jerry-348-kampf` = `jerry-348-klang` 1923456c7 (beide Zweige gleich, dein `tom-399` von 22:3x drin): 399.3 Keuchen, 401 Tierlaute, 399.2 Wolf durch Wolf, System „Kampf“, satt, Testende, Eröffnung, 399.2b Knurren, 402 Kampfblende mit Herzschlag.
 - **Zu 399.1, von Sokrates (Chef 22:0x):** „schönen Blenden, wenn wir Maps wechseln … Gebietskarten und Grundrisse … Einmal ausführlich und … dann kürzer“: `ortsblende.gd` überall prüfen, eigener Punkt im nächsten Testbogen (wie Vorspann mit Klanglogo, nur mit Musik).
 
 - **Zu 399.5, von Sokrates (Chef 10:54, Archiv):** abgenommen, nicht weiter verbessern, keine Ecken; jetzt Build (Guthaben gleich rum).
 - **Zu 399.1, von Sokrates (Chef 11:10, Archiv „399.1, Menü Ausrüstung“):** passt; Held in Erschaffung und Ausrüstung nie oben oder unten abgeschnitten, immer gleich groß (Halbling auf volle Größe) wie alt; Ausrüstung wie alt (antippen, Liste zum Blättern, Vergleichswerte, Bilder), prüft Chef im nächsten Build; Reitersymbol Ausrüstung: Schwert klarer durch den Schild, wirkt verschoben.
 - **Zu 399.5** (Tom 29.10., 04:2x): `raum.py`, `raumlicht.gd`, `licht.gd`; Laufskript `raeume_` in `tools/pruef348`, `NACHTSTUFEN`, `KERZENPROBE=1` (`kerzen_mass.py`); alte Bilder `tools/t bild` (kein Probelauf). Offen: Tempel tags 44 zu alt 51.
 - **Zu 410, von Sokrates (Chef 10:52, Archiv 376.1):** mit Schild auf den Rücken darunter, Griff sichtbar; sonst Stab hinten in Halterung, Schwert, Dolch in Gürtelscheide. **11:40 (Archiv):** Schild bei Kämpfer und Kleriker viel zu tief; Kleriker-Stab spießt durch die Schulter; Magier-Knie durch die Robe; Kämpfer-Schwertgriff muss sichtbar herausragen (greifbar); Schurke mit zwei Waffen: zwei Scheiden?
-- **Zu 411, von Chef an Tom (29.10., 11:12):** 411 Frisuren abgenommen (Archiv). **Zu 410, 11:17:** „bedenke halt alle Ausrüstungsgegenstände … auch eine Axt … muss ja theoretisch dann irgendwo weggesteckt werden“; Frage wegstecken/Hand mit dem Blatt.
+- **Zu 411, von Chef an Tom (29.10., 11:12):** 411 Frisuren abgenommen (Archiv). **Zu 410, 11:17:** „bedenke halt alle Ausrüstungsgegenstände … auch eine Axt … muss ja theoretisch dann irgendwo weggesteckt werden“.
 - **Zu 376.1, Technik** (Verlauf in Git): UAL Pro ohne Stich, Schildabwehr, gehaltenes Ausholen. `held_klassen.py` → `held_<KLASSE>.glb`; Godot `heldfigur.gd`, Test `held_klassen_376.gd`. Offen: Frauen, Völkerkörper, Statur, Fackelhaltung, Kampfort (403), Tracht nachts, Halszacken (ruht), 8a86ac552, Fäustepose.
 - **Zu 348.13** (Tom, Verlauf in Git): **Chef 20:24:** „nicht vergessen, dass wir zoomen können und insofern näher ran (mehr Details) und weiter weg“. Rechner `--tusche=<o>`, messen `tools/pruef348/tusche_breite.py`; Schalter und Offenes in Git (8523fbca6).
 - **Zu 348.6, Kampf** (Tom 27.10., bis 7ca5c1811): Werkzeuge `v3/LIESMICH.md` (Einzelheiten im Git-Verlauf dieser Zeile). **Aussehen beim Chef:** Stuhl, Wappenrock als Brett, Zipfel (Prüfer 5). **An Jerry, `figur.gd`:** Ruhe `Kampfstehen`; Waffe nach `faust_R`, `GRIP_CM` jenseits der Finger; `_guard` fängt nur `upperarm_*`; `Stich`, `Abwehr` ungespielt.
