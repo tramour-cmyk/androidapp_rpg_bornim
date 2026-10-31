@@ -153,11 +153,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „star
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
-**Diogenes** – offen 7, Muss 5, startbar 1
+**Diogenes** – offen 6, Muss 4, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 435 | M | von Perikles (Doppelpack 421, Commit „Perikles: 433“): 433 prüfen: lauf.py startet Spike/T | startbar |
 | 434 | M | von Sokrates (Chef 31.10., 22:1x): bei jeder Zählung 374 zusätzlich die Zeile „Bestand gep | Termin 01.11. |
 | 398 | M | von Sokrates: vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (39 | Termin 02.11. |
 | 374 | M | von Sokrates (Chef 27.10., 11:58, Archiv 374): täglich 8 Uhr bis 03.11. Vorlagen des Vorta | Termin 01.11. |
