@@ -1565,7 +1565,7 @@ Folge für die Fertigkeiten: Reiten fällt aus der ersten Liste (68 statt 69), b
 | Magie (5) | Evokation, Schutzmagie, Heilmagie, Illusion, Beschwörung (mit Nekromantie) | Zaubern; Zauberwirken als Grundlage steckt im Grundwert Wille |
 | Wildnis (2) | Jagd und Fährtenlesen, Tiere zähmen | Tiere, Spuren |
 | Gesellschaft (3) | Überreden (mit Täuschen), Einschüchtern, Handeln | Gespräche, Läden |
-| Sammeln (2) | Kräuterkunde, Bergbau | ernten |
+| Sammeln (3) | Kräuterkunde, Bergbau, Angeln | ernten, angeln |
 | Meisterschaften (5) | Schmieden (mit Rüstungsbau, Gerben, Reparieren), Alchemie (mit Giften), Kochen, Runenkunde (Verzaubern), Heilkunde | herstellen, verbinden |
 
 Nach oben offen: kommt eine neue Handlung ins Spiel (Reittiere, Wasser, Klettern), kommt die Fertigkeit dazu. Die Berufungen aus Abschnitt 9 bleiben gültig; ihre Fertigkeiten werden auf diese Liste umgeschrieben (zum Beispiel Duellant: Einhänder, Ausweichen, Leichte Rüstung).
@@ -1573,3 +1573,5 @@ Nach oben offen: kommt eine neue Handlung ins Spiel (Reittiere, Wasser, Klettern
 *Stärkstes Gegenargument:* Entscheidung 38 sagt „alle 69“. Weniger Fertigkeiten heißt weniger Breite und weniger kleine Erfolge. Meine Antwort: Jede der 34 ist spürbar, und die 69 waren als Bibliothek gedacht; Fertigkeiten ohne Handlung wären Zahlen, die nie steigen. Das ist die Rücksprache mit BornWire, die du bei Frage 8 wolltest.
 
 **Frage an den Chef:** **F1:** Prüfregel (Handlung und Wirkung) und die Liste mit etwa 34 Fertigkeiten statt 68?
+
+**Erste Antworten des Chefs (31.10.2026, 20:5x):** Schwimmen, Klettern, Wetterkunde, Orientierung, Sprachen und Geschichte entfallen. **Angeln bleibt** als neue Handlung: „angeln kann, an einem Teich oder Fluss … je öfter, desto besser. Und je höherwertig die Ausrüstung, umso höherwertig vielleicht das Ergebnis. Natürlich auch ein bisschen vom Gebiet abhängig. Dass es im Anfängergebiet halt noch nicht die Turbofische gibt … um daraus Nahrung herzustellen oder spezielle Tränke … also in der Alchemie auch zu verwenden.“ Damit 35 Fertigkeiten; Angeln liefert Zutaten für Kochen und Alchemie, Fanggüte nach Rang, Angel und Gebiet. **Schleichen** als eine Fertigkeit mit Schleichtaste: „wenn ich mich am Monster anschleiche, die entdeckt mich nicht und ich kriege halt dann aufgrund des Schleichens den Vorteil des Hinterhalts“ (passt zu Heimtücke und Entscheidung 47). Der Rest der Liste ist noch in Prüfung beim Chef.
