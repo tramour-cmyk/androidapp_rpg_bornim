@@ -1,18 +1,22 @@
-# 413a · Spielsystem 2.0: offene Fragen aus der Auseinandersetzung
-Sokrates · 31.10., 20:4x (neu gefasst 20:5x) · D Design
+# 413a · Spielsystem 2.0: offene Fragen (Chefrunde)
+Sokrates · 31.10., 21:1x · D Design
 
-Alles im Zusammenhang: [`DESIGN-SPIELSYSTEM-2-0.md`](../../DESIGN-SPIELSYSTEM-2-0.md), Abschnitt „Auseinandersetzung Sokrates“. Entschieden: T2 (Entscheidung 49), T1 zum Teil (Meisterschaften, Entscheidung 50).
+Alles im Zusammenhang: [`DESIGN-SPIELSYSTEM-2-0.md`](../../DESIGN-SPIELSYSTEM-2-0.md). Hier steht nur, was noch offen ist; Votum Sokrates in Klammern.
 
-Berufungsbaum W1 bis W4 entschieden (Entscheidungen 51 bis 54), T6 damit beantwortet.
+**Abkehr vom SRD** (Abschnitt 11)
+- **A1:** Abkehr freigeben; dann Leitbild Punkt 4 und `CLAUDE.md` („Regeln nach SRD 5.1“) anpassen (ja).
 
-**Fertigkeiten** (Abschnitt 10)
-- F1 bis F4 entschieden (Entscheidungen 56 bis 59; gültig 37 Fertigkeiten).
+**Berufungen** (Abschnitt 8)
+- **T3:** Eine Berufung gibt neue Handlungen (Riposte, Tierbegleiter, Waffenzauber), keine großen Zahlenaufschläge (ja).
+- **T4:** Man verdient sie mit Fertigkeiten auf Meister, einer passenden Tat und Ruf beim Lehrmeister (ja).
+- **T5:** Wechsel beim Lehrmeister gegen Gold und eine kleine Quest; die Fertigkeiten bleiben, die Handlungen der alten Berufung gehen (ja).
 
-**Titel** (Abschnitt 8; Votum Sokrates in Klammern)
-- **T3 bis T5:** Perks als neue Handlungen statt großer Zahlen; Weg zur Berufung über Fertigkeitsrang, Tat und Ruf beim Lehrmeister; Wechsel erlaubt (ja).
+**Startwerte** (Abschnitt 12)
+- **G1:** Grundwerte beginnen bei 1, 18 Punkte zu verteilen, danach jeder Wert zwischen 3 und 8 (ja).
+- **G2:** Werdegang Späher für den Weg Schatten; Haudegen zurück für Kampf? (Späher ja, Haudegen nein)
 
 **Weitere** (Abschnitte 2 bis 6)
-- **S1:** Kampfstufe aus Heldenstufe und benutzter Fertigkeit im Stufenfaktor (ja).
+- **S1:** Im Kampf zählt eine Kampfstufe aus Heldenstufe und benutzter Fertigkeit (ja).
 - **S2:** Fertigkeitsränge nach oben offen wie die Heldenstufe (ja).
 - **S3:** Taten, Chronik, Ätherdichte, Ruf mit Gedächtnis (Taten und Chronik zuerst).
 - **S4:** Fertigkeiten erscheinen beim ersten Gebrauch (ja).

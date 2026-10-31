@@ -1621,3 +1621,43 @@ Später möglich, nicht jetzt: ein Haustier ohne Kampf, das im Dorf wartet (Hund
 *Gegenargument:* Begleittiere ziehen Spieler stark an, und mit Stufe 2 bekommt nur der Waldläufer eins. Wer das will, muss Waldläufer werden. Das ist gewollt (Berufung als Wahl), kann aber Spieler anderer Wege enttäuschen. Alternative: Tierbegleiter als Perk, den auch andere Berufungen beim Rang Meister in „Tiere beruhigen“ bekommen.
 
 **Frage F4:** „Tiere beruhigen“ als Fertigkeit jetzt, ein Tierbegleiter nur für den Waldläufer, kein Verkaufen und kein Beutel?
+
+### 11. Abkehr vom SRD: meine Haltung (Chef 31.10.2026, 21:1x: „fehlt mir aber immer noch von dir eine Aussage eigentlich, was du von der Abkehr hältst“)
+
+**Kurz: Ja zur Abkehr. Der Preis ist die Balance, und den müssen wir bewusst zahlen.**
+
+**Was dafür spricht**
+1. **Das SRD ist für Klassen gebaut.** Trefferwürfel, Klassenfertigkeiten, Übungsbonus und Zauberplätze hängen an der Klasse. Ein klassenloses „du wirst, was du tust“ auf das SRD zu setzen hieße, gegen das Gerüst zu bauen; jede Abweichung erzeugt Folgefehler. Ein eigenes System passt zur Idee, statt sie zu verbiegen.
+2. **Profil am Markt.** Spiele nach D&D-Regeln gibt es viele. „Du wählst keine Klasse, du wirst, was du tust“ ist ein Satz, der uns unterscheidet; mit SRD sind wir eines unter vielen.
+3. **Würfelglück auf dem Handy.** Unser Leitbild federt den W20 schon ab (Punkt 4, 18, sichtbare Chancen). Ein System aus Stufen und Fertigkeiten ist von sich aus durchschaubarer; das Abfedern wird überflüssig.
+4. **Der Zeitpunkt ist günstig.** Die Godot-Fassung baut den Kampf ohnehin neu (`godot/regeln/`, 348.7). Einmal neu bauen ist billiger als zweimal.
+5. **Unabhängigkeit.** Wizards of the Coast wollte 2023 die alte offene Lizenz (OGL 1.0a) zurückziehen und hat danach das SRD 5.1 unter CC BY 4.0 gestellt (aus meinem Wissen, nicht nachgeprüft). CC BY ist nicht widerrufbar; das Risiko ist klein. Ein eigenes System macht uns aber ganz unabhängig, und der Hinweis „SRD 5.1 · CC BY 4.0“ entfällt.
+
+**Was dagegen spricht (die stärksten Einwände)**
+1. **Erprobte Balance geht verloren.** Das SRD ist über Jahrzehnte von Millionen Spielern geprüft. Unser System prüft niemand außer uns. Jede Zahl (Stufenfaktor, Ertrag, Grenzen) ist zunächst geraten. Das ist das größte Risiko des ganzen Vorhabens.
+2. **Kosten und Zeit.** Monsterwerte, Zauber, Texte, Tests: vieles muss neu. Das Guthaben war am 29.10. knapp, und die oberste Direktive heißt Kapitel 1 fertig.
+3. **Vertrautheit verkauft.** Viele Rollenspieler kennen D&D-Regeln und finden sich sofort zurecht (der Erfolg von Baldur’s Gate 3 zeigt die Zugkraft). Ein eigenes System müssen wir erklären.
+
+**Wie wir den Preis zahlen**
+- **Messen statt raten:** Bevor Zahlen festgeschrieben werden, eine Simulation „Spielzeit bis Stufe“ und „Kampfdauer je Gegner“ in der Godot-Fassung, wie heute `BalanceTest` und `ChapterSimTest`.
+- **In Wellen:** Kern zuerst (M1), Rest je Kapitel (Abschnitt 6).
+- **Erklären durch Tun:** Fertigkeiten erscheinen beim ersten Gebrauch (S4), die Chronik zeigt Aufstiege. Der Spieler muss das System nicht lesen, er erlebt es.
+
+Deine Einschätzung (21:1x) teile ich: „dass ein Spieler Freude daran hat, das einfach machen kann … und auch nicht in vorgefertigte Korsetts gepresst wird … ich spiele eigentlich gern Magier … dann übe ich Magier sein und dann wird das was werden.“ Das ist der Kern, und das SRD kann ihn nicht liefern.
+
+**Folge:** `DESIGN-LEITBILD.md` Punkt 4 („Das Regelwerk wird nicht gewechselt … Stufe 20 ist das Höchste“) und `CLAUDE.md` („Regeln nach SRD 5.1“) müssen geändert werden, sobald du die Abkehr freigibst (Leitbild: Homer, `CLAUDE.md`: Perikles).
+
+### 12. Startwerte der Grundwerte (Chef 31.10.2026, 21:1x: „Warum starten wir eigentlich als Level 1 nicht bei 1? … Grundwert 1 und … 6 Punkte zum Beispiel extra zu vergeben … oder halt in eine vorgefertigte Richtung auswählen können … der mir hilft bei der Punkteverteilung“)
+
+**Meinung Sokrates:** Die Zahl selbst ist Darstellung; entscheidend sind zwei Dinge: **wie schwach der schwächste Wert sein darf** und **wie weit die Werte auseinanderliegen**.
+- **Bei 1 plus 6 Punkten** hat ein Magier mit Wille 7 überall sonst 1. Zähigkeit 1 heißt kaum Leben, Gewandtheit 1 kaum Ausweichen. Der Held fällt beim ersten Wolf. Das Verhältnis 7 zu 1 ist zu steil.
+- **Bei 5 plus 6 Punkten** liegt der Magier bei Wille 11 gegen 5. Spielbar, aber der Unterschied ist klein (etwa ein Fünftel), und der Spieler spürt seine Wahl kaum.
+- **Dein Gefühl** „ich fange klein an und baue mich auf“ ist richtig und wichtig: Ein Wachstum von 1 auf 10 fühlt sich größer an als von 5 auf 10.
+
+**Vorschlag G1:** Grundwerte beginnen bei **1**. Der Spieler verteilt **18 Punkte**; nach dem Verteilen ist **kein Wert unter 3 und keiner über 8**. Ergebnis zum Beispiel beim Magier: Wille 8, Verstand 6, Zähigkeit 4, Wahrnehmung 3, Gewandtheit 3, Kraft 3. So gilt dein „Stufe 1, Grundwert 1“ als Ausgangspunkt, der Held bleibt spielbar, und die Wahl ist deutlich sichtbar (8 gegen 3). Alle Zahlen sind Startwerte für die Simulation.
+
+**Die Hilfe beim Verteilen gibt es schon:** die Werdegänge (Entscheidungen 28, 45). Wer „Zauberer“ wählt, bekommt die Punkte vorverteilt und kann sie ändern; wer frei spielen will, verteilt selbst. Die Werdegänge werden auf das neue Verteilen umgerechnet.
+
+**Lücke G2:** Die Wege Kampf und Schatten haben keinen Werdegang (Haudegen gestrichen). Vorschlag: ein Werdegang **Späher** für Schatten (Gewandtheit, Wahrnehmung; Schleichen, Spähen, Dolche). Kampf bleibt ohne eigenen Werdegang, weil der Schildträger den Nahkampf schon abdeckt; oder der Haudegen kommt doch zurück.
+
+**Fragen an den Chef:** **G1** (Start bei 1, 18 Punkte, Spanne 3 bis 8), **G2** (Werdegang Späher; Haudegen zurück?), **A1** (Abkehr vom SRD freigeben, Leitbild und `CLAUDE.md` anpassen).
