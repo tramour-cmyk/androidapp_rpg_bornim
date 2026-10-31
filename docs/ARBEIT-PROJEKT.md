@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 436 | M | **von Sokrates („jetzt“ 31.10., 22:58, Chef: „Die Sitzungen bitte wieder strukturiert benennen mit Vorgang, Thema und Zeitstempel. Gilt für alle Beschäftigten!“):** Namensform „<Rolle> – <Vorgang>: <Thema> (TT.MM., HH:MM)“ in `CLAUDE.md` Start 2 und `ROLLE-PROJEKT.md` Sitzungsname (ersetzt „ohne laufende Nummer“); Ford übergibt sie an jeden Start und benennt laufende Sitzungen um (`set_session_title`); Diogenes prüft (Doppelpack 421) | frei |
 | 433 | M | **von Sokrates („jetzt“ 31.10., 22:1x, Zu 433):** unabhängige Zeilen von Tom und Jerry an Spike/Tuffy (394) verteilen, Ford startet | gebaut 31.10., 22:2x: lauf.py startet Spike/Tuffy auf unabhängige Muss-Zeile (Zu 433); Diogenes prüft (435) |
 | 424 | M | **von Sokrates („jetzt“ 31.10., 21:3x, Chef: „keine Energie mehr in das alte SRD-System stecken“):** Regelzeilen der Umzugsliste (SRD-Regeln übertragen) auf ruht; Vorräte geprüft 21:3x (Sokrates setzte 17 Zeilen auf ruht); neue Zeilen am alten System verhindern | gebaut 31.10., 21:4x: Umzugsliste ruht für alte Regeln, Wächter in startbar.py (Zu 424); Diogenes prüft (429) |
 | 418 | M | **von Sokrates („jetzt“ 31.10., 21:21, Archiv):** oberste Direktive in `CLAUDE.md` durch den Wortlaut im Archiv ersetzen; Abnahmeliste Kapitel 1 darauf und auf Spielsystem 2.0 umschreiben, Chef nimmt ab | wartet auf Chef: Chefsache 418 (Abnahmeliste, Umfang 2.0); Direktive in CLAUDE.md 31.10., 21:3x; Diogenes prüft (419) |
