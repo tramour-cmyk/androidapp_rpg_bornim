@@ -12,6 +12,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
+| 443.1 | M | **von Perikles (D52.1, D52.2 behoben 01.11., 00:1x, Doppelpack 421):** `lauf.py` `nummer_aus_titel`/`nummern_aus_titel`: Datum „TT.MM.“ zählt nicht als Vorgang; Wochenziel-Name in `ROLLE-PROJEKT.md`, BornWire-Name in `ROLLE-BERATUNG.md` Z. 36; 436 im Vorgangsarchiv; Commit „Perikles: Vorrat gekürzt 01.11.“ und davor | startbar |
 | 443a | M | Rückfrage an den Chef (D52.3): Ausnahme Ford von der Namensform 436, Chefsache `entscheiden/443a-ford-namensform.md`; Antwort ins Vorgangsarchiv, Datei löschen, an Perikles | wartet auf Chef |
 | 441 | M | **von Sokrates (Chef 31.10., 23:40, „gründlich von Diogenes quergelesen“):** `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md` (Anleitung und Nachschlagewerk, Entscheidungen bis 75) auf Widersprüche, Lücken, veraltete Stellen und Zahlen prüfen; Befunde von Lauf 48 und 49 als erledigt oder offen abgleichen | wartet auf Sokrates (422: Abgleich D48/D49 in Abschnitten 2 bis 6) |
 | 434 | M | **von Sokrates (Chef 31.10., 22:1x):** bei jeder Zählung 374 zusätzlich die Zeile „Bestand geprüft“ je Vorlage zu einem Eigenbau prüfen (Zu 434) | erst ab 01.11., 08:00 mit 374 (Zu 434) |
