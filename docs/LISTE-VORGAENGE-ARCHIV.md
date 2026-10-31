@@ -485,3 +485,11 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 404 | Fehlende Sitzungskosten (3 archivierte Sitzungen ohne usage) schätzen oder „fehlt“ lassen (Ford 28.10., Chefsache) | B Werkzeuge | K | 0,67 $ | Ford | erledigt |
 | 411 | Mehr Frisuren als Seitenscheitel (aus 376.1, Chef 29.10., 10:52) | E Figuren | M | – | Team Tom | erledigt |
 | 414 | 14 itch.io-Godot-Pakete auf Tauglichkeit prüfen (Chef 31.10., 20:2x) | D Design | K | – | Sokrates | erledigt |
+| 408 | Bestand vor Eigenbau: gekaufte Modelle sichten und zur Wahl vorlegen, dann erst bauen (Chef 29.10., 11:15) | B Abläufe | M | – | Perikles | erledigt |
+| 409 | Wörter der Erschaffung für fünf neue Frisuren (376.1, Chef 29.10., 10:52 „gibt es noch andere Frisuren“) | C Texte | M | – | Homer | erledigt |
+| 412 | Je Thema ein eigener Vorgang, nichts thematisch Fremdes unter eine Nummer (Chef 29.10., 11:4x) | B Abläufe | M | – | Perikles | erledigt |
+| 419 | Prüfung 418: Direktive in `CLAUDE.md` und neue Abnahmeliste gegen Wortlaut und Spielsystem 2.0 (Chef 31.10., 21:2x) | B Abläufe | M | 3,32 $ | Diogenes | erledigt |
+| 420 | Prüfung Spielsystem 2.0: Ideen und Entscheidungen in `DESIGN-SPIELSYSTEM-2-0.md` auf Widersprüche und Lücken (Chef 31.10., 21:2x) | D Design | M | 3,32 $ | Diogenes | erledigt |
+| 421 | Regel: was Perikles an Regeln und Abläufen ändert, prüft Diogenes („im Doppelpack“, Chef 31.10., 21:2x) | B Abläufe | M | 3,43 $ | Perikles | erledigt |
+| 426 | Design-Grundsatz Icons statt Text in Menüs (zu 425, Chef 31.10., 21:30) | D Design | M | – | Homer | erledigt |
+| 429 | Prüfung im Doppelpack (421): 424 Umzugsliste und Wächter `startbar.py`, 412 Regel in `CLAUDE.md` | B Abläufe | M | 3,32 $ | Diogenes | erledigt |

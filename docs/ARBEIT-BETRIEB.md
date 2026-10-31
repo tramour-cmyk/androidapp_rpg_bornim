@@ -53,3 +53,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:27 31.10.: Marke Tagesbericht 31.10. (lauf.py)
 - 21:27 31.10.: Marke Wächter 407 29.10. 10:05 (lauf.py)
 - 21:27 31.10.: Nachfolger-Warnung Tom (Übergabe 29.10., 11:57) (lauf.py)
+- 22:12 31.10.: Startsperre 22:12 Start Perikles (lauf.py)
+- 22:12 31.10.: Marke Wächter 399.2 28.10. 12:34 (lauf.py)
+- 22:12 31.10.: Nachfolger-Warnung Diogenes (Übergabe 31.10., 21:49) (lauf.py)
