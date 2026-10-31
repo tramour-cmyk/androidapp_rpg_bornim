@@ -1590,3 +1590,16 @@ Vorschlag Sokrates, die Kette vom Tier zum Gegenstand:
 Damit 36 Fertigkeiten: Jagd wechselt von Wildnis zu Sammeln, Lederarbeit kommt als Meisterschaft dazu. *Gegenargument:* eine weitere Meisterschaft heißt weitere Rezepte und Werkort (Gerberei). Ohne sie müsste Schmieden auch Leder können, was weniger Sinn ergibt.
 
 **Frage F2:** Meisterschaft Lederarbeit dazu (dann fünf Meisterschaften: Schmied, Lederarbeit, Alchemist, Runenmeister, Feldkoch), und Jagd mit Zerlegen unter Sammeln?
+
+**Wahrnehmung durch Verweilen (Chef 31.10.2026, 21:0x):** „gerade der Bereich der Wahrnehmung … auch wenn ich dann an einem Ort stehen bleibe und mir die Zeit nehme … zu gucken. Also das Verweilen an sich, dass auch was bringen kann … ob man dann gezielt eine Aktionstaste hat nach dem Motto, umgucken … Aber wenn halt einer nur durchläuft wie blöd, dann kriegt er halt auch nichts mit … allein durch aktives Stehen … gesteigert werden kann. Was meinst du?“
+
+Meinung Sokrates: Die Idee ist gut und gibt der Wahrnehmung, was ihr bisher fehlte, eine eigene Handlung. Damit besteht sie die Prüfregel. Vorschlag:
+1. **Fertigkeit Spähen** (zurück in die Liste; vorher als Doppel zu Wahrnehmung gestrichen, jetzt mit Handlung). Der Grundwert Wahrnehmung hilft, die Fertigkeit wächst durch Tun. Damit 37 Fertigkeiten, Gruppe Schatten (4).
+2. **Verweilen ohne Taste:** Bleibt der Held etwa zwei Sekunden stehen, schaut er sich um. Ein Ring breitet sich aus und zeigt, was er im Umkreis entdeckt: Fallen, Kräuter, Spuren, versteckte Truhen, lauernde Gegner. Je höher Spähen, desto größer der Ring und desto besser Verstecktes. Keine zusätzliche Taste auf dem kleinen Schirm; das Verweilen selbst ist die Handlung.
+3. **Wer rennt, sieht wenig:** Im Gehen gibt es einen kleinen Umkreis von selbst, im Rennen fast keinen. Genau dein „wer durchläuft wie blöd, kriegt nichts mit“.
+4. **Kein Grinden durch Stehen:** Spähen steigt nur, wenn beim Umsehen wirklich etwas Neues entdeckt wird, nicht durch die Zeit allein. Sonst stellt man das Handy hin und wartet. Das hält das Prinzip „Steigern durch Benutzung“ ehrlich.
+5. **Zusammenspiel:** Entdeckte Fallen kann man entschärfen, entdeckte Gegner per Schleichen umgehen oder aus dem Hinterhalt angreifen. Spähen, Schleichen und Fallen entschärfen bilden so den Weg des Schattens; Spähen hilft auch dem Waldgänger (Spuren) und dem Sammler (Kräuter).
+
+*Gegenargument:* Ohne Taste merkt der Spieler vielleicht nicht, dass Stehenbleiben etwas bringt. Gegenmittel: einmal im Spiel erklären (Spielführer oder ein Gefährte sagt „Bleib mal stehen und schau dich um“). Eine Taste wäre die Alternative, kostet aber Platz.
+
+**Frage F3:** Fertigkeit Spähen mit Umsehen beim Stehenbleiben (ohne Taste), Steigen nur bei echten Funden?
