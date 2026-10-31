@@ -71,6 +71,7 @@ Ideensammlung, Stand 31.10.2026. Hier schreiben wir alles zusammen, was das Spie
 | 63 | Weg zur Berufung (T4) | Richtung ja, mit Quest beim Lehrmeister: „der Lehrmeister sollte einen auch grundsätzlich begleiten können. Und einem Dinge beibringen … dann gibt es so eine Art Zwischenprüfung und dann eine Gesellenprüfung und eine Meisterprüfung“. Umfang offen. Chef 31.10.2026, 21:2x. |
 | 64 | Startwerte (G1) | Versuchsweise: Grundwerte beginnen bei 1, 18 Punkte, danach jeder Wert 3 bis 8. G2 (Werdegänge für Kampf und Schatten) später genauer. Chef 31.10.2026, 21:2x. |
 | 65 | Ränge offen, Liste wächst (S2, S4) | Fertigkeitsränge nach oben offen; Übersicht aller Stufen und Ränge (Heldenstufe, Ränge, Ebenen) folgt. Im Heldenblatt erscheinen nur Fertigkeiten, die man getan hat; das Handbuch beschreibt alle und wie man sie entwickelt. Chef 31.10.2026, 21:2x. |
+| 66 | Berufung wechseln (T5) | C: Wechsel beim Lehrmeister mit Abschlägen: die Handlungen der alten Berufung gehen, ihre Kernfertigkeiten sinken um einen Rang. „im Zweifelsfall fangen die Spieler ja eh einen neuen Spielstand an … und dann gibt es vielleicht die Möglichkeit, mit gewissen Abschlägen das auch im laufenden Spiel zu machen“. Chef 31.10.2026, 21:3x. |
 
 **Rückfragen zu den Antworten vom 31.10.2026, abends:** R1 gestrichen, R2 und R3 beantwortet (Entscheidungen 33, 36), R4 wird zur Aussprache über die Titel (Abschnitt 8).
 
