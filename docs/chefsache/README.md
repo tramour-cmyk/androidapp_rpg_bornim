@@ -132,13 +132,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 17, Muss 15, startbar 2
+**Perikles** – offen 17, Muss 15, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 424 | M | von Sokrates („jetzt“ 31.10., 21:3x, Chef: „keine Energie mehr in das alte SRD-System stec | wartet auf Test/Build (gebaut) |
 | 418 | M | von Sokrates („jetzt“ 31.10., 21:21, Archiv): oberste Direktive in CLAUDE.md durch den Wor | Chef (Datei in der Chefsache) |
-| 407 | M | von Chef über Sokrates („jetzt“ 29.10., 10:05): Probelauf-Grenze 389 so, dass sie greift: | startbar |
+| 407 | M | von Chef über Sokrates („jetzt“ 29.10., 10:05): Probelauf-Grenze 389 so, dass sie greift: | wartet auf Test/Build (gebaut) |
 | 399 | M | von Chef über Sokrates („jetzt“ 28.10., 12:34, Archiv): Vorrang neu: erst eine Godot-Fassu | wartet auf Tom |
 | 398 | M | von Sokrates (Chef 28.10., 11:22): Termine je Block nachrechnen mit der Schätzung der 15 Z | Termin 02.11. |
 | 384 | M | von Chef (27.10., 20:06, „prüf mal bitte, ob alle Kosten gebucht wurden“): Kosten aller Si | wartet auf Test/Build (gebaut) |
@@ -150,7 +150,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „star
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | ruht |
 | 341 | M | von Chef (23.10., 09:39): Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | Termin 06.11. |
 | 339 | M | von Sokrates (Chef 23.10., 09:08 „so eine Art Dashboard“, ja 09:53): Dashboard „Stand zum | Dauerzeile bis 06.11. |
-| 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | startbar |
+| 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | Termin 01.11. |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
