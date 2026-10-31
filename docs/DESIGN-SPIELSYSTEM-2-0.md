@@ -1563,10 +1563,10 @@ Folge für die Fertigkeiten: Reiten fällt aus der ersten Liste (68 statt 69), b
 | Rüstung (4) | Leichte, Mittlere, Schwere Rüstung, Ausweichen | getroffen werden, ausweichen |
 | Schatten (3) | Schleichen (mit Verstecken und Hinterhalt), Schlösser knacken, Fallen entschärfen | anschleichen, Truhen |
 | Magie (5) | Evokation, Schutzmagie, Heilmagie, Illusion, Beschwörung (mit Nekromantie) | Zaubern; Zauberwirken als Grundlage steckt im Grundwert Wille |
-| Wildnis (2) | Jagd und Fährtenlesen, Tiere zähmen | Tiere, Spuren |
+| Wildnis (1) | Tiere zähmen | Tiere beruhigen, Begleiter |
 | Gesellschaft (3) | Überreden (mit Täuschen), Einschüchtern, Handeln | Gespräche, Läden |
-| Sammeln (3) | Kräuterkunde, Bergbau, Angeln | ernten, angeln |
-| Meisterschaften (5) | Schmieden (mit Rüstungsbau, Gerben, Reparieren), Alchemie (mit Giften), Kochen, Runenkunde (Verzaubern), Heilkunde | herstellen, verbinden |
+| Sammeln (4) | Kräuterkunde, Bergbau, Angeln, Jagd (Zerlegen und Fährten) | ernten, angeln, erlegte Tiere zerlegen |
+| Meisterschaften (6) | Schmieden (Metall: Waffen, Rüstung, Reparieren, Dietriche), Lederarbeit (Gerben, Schneidern: Leder- und Stoffrüstung, Taschen), Alchemie (mit Giften), Kochen, Runenkunde (Verzaubern), Heilkunde | herstellen, verbinden |
 
 Nach oben offen: kommt eine neue Handlung ins Spiel (Reittiere, Wasser, Klettern), kommt die Fertigkeit dazu. Die Berufungen aus Abschnitt 9 bleiben gültig; ihre Fertigkeiten werden auf diese Liste umgeschrieben (zum Beispiel Duellant: Einhänder, Ausweichen, Leichte Rüstung).
 
@@ -1577,3 +1577,16 @@ Nach oben offen: kommt eine neue Handlung ins Spiel (Reittiere, Wasser, Klettern
 **Erste Antworten des Chefs (31.10.2026, 20:5x):** Schwimmen, Klettern, Wetterkunde, Orientierung, Sprachen und Geschichte entfallen. **Angeln bleibt** als neue Handlung: „angeln kann, an einem Teich oder Fluss … je öfter, desto besser. Und je höherwertig die Ausrüstung, umso höherwertig vielleicht das Ergebnis. Natürlich auch ein bisschen vom Gebiet abhängig. Dass es im Anfängergebiet halt noch nicht die Turbofische gibt … um daraus Nahrung herzustellen oder spezielle Tränke … also in der Alchemie auch zu verwenden.“ Damit 35 Fertigkeiten; Angeln liefert Zutaten für Kochen und Alchemie, Fanggüte nach Rang, Angel und Gebiet. **Schleichen** als eine Fertigkeit mit Schleichtaste: „wenn ich mich am Monster anschleiche, die entdeckt mich nicht und ich kriege halt dann aufgrund des Schleichens den Vorteil des Hinterhalts“ (passt zu Heimtücke und Entscheidung 47). Der Rest der Liste ist noch in Prüfung beim Chef.
 
 **Fallen und Schlösser (Chef 31.10.2026, 20:5x):** „in Höhlen später oder in Verliese … Fallen positionieren, die halt dann auch durch Fähigkeiten und Fertigkeiten entdeckt werden können. Und erstens entdeckt und zweitens auch entschärft werden können … Schlösser knacken passt ja da auch hinein. Dass man Dietriche oder sowas kaufen kann oder sich selber herstellen später und dass es da höherwertige gibt und dass man, wenn man nicht den passenden Schlüssel hat, unter Umständen auch ein …“ (Satz bricht ab). Gelesen: Fallen stehen nicht nur an Truhen, sondern auch frei in Höhlen und Verliesen. Zwei Schritte: **entdecken** über den Grundwert Wahrnehmung, **entschärfen** über die Fertigkeit Fallen entschärfen. Dietriche als Ware und später als Herstellung (Meisterschaft Schmied), in Güteklassen; die Güte des Dietrichs hilft beim Schlösserknacken wie die Angel beim Angeln. Ohne Schlüssel: Schloss knacken oder aufbrechen (Kraft), wie im Abschnitt „Truhen, Schlösser und Fallen“.
+
+**Tierprodukte (Chef 31.10.2026, 20:5x):** „Was ist denn jetzt mit den ganzen Tieren, die ich erlege? Die Felle … sowas wie Gerben … die Tiere droppen ja auch einiges an Fleisch. Auch das muss ja vielleicht zubereitet werden … gibt es dann auch so eine Art Sammeln von Fleisch und sonstigen Produkten der Tierwelt?“
+
+Vorschlag Sokrates, die Kette vom Tier zum Gegenstand:
+1. **Sammeln: Jagd.** Nach dem Sieg über ein Tier gibt es die Handlung **Zerlegen**. Die Fertigkeit Jagd bestimmt Menge und Güte: Fleisch, Fell oder Leder roh, Knochen, Sehnen, Zähne. Ohne Jagd gibt es weniger und schlechtere Teile, nie nichts (alles geht, nichts muss). Fährten sind Teil der Jagd: Spuren zeigen auf der Karte, wo Wild ist. So erfüllt Jagd die Prüfregel (Handlung: zerlegen, Spuren folgen; Wirkung: mehr und bessere Teile).
+2. **Meisterschaft Kochen** macht aus Fleisch und Fisch Mahlzeiten mit kleinem Bonus.
+3. **Meisterschaft Lederarbeit (neu)** gerbt Felle zu Leder und näht daraus leichte Rüstung, Taschen und Köcher. Bisher steckte Gerben im Schmieden; Metall und Leder sind aber verschiedene Werkstätten. Leichte Rüstung braucht der Duellant, Assassine, Schatzjäger, Kriegsmagier und Heiler (Abschnitt 9), also viele. Der Nimmersatt-Beutel (Entscheidung 41) kann später ein Stück der Lederarbeit sein.
+4. **Alchemie** nimmt Teile wie Zähne, Gift­drüsen oder seltene Fische als Zutat.
+5. **Händler** kaufen alles davon, für den, der nicht herstellen will.
+
+Damit 36 Fertigkeiten: Jagd wechselt von Wildnis zu Sammeln, Lederarbeit kommt als Meisterschaft dazu. *Gegenargument:* eine weitere Meisterschaft heißt weitere Rezepte und Werkort (Gerberei). Ohne sie müsste Schmieden auch Leder können, was weniger Sinn ergibt.
+
+**Frage F2:** Meisterschaft Lederarbeit dazu (dann fünf Meisterschaften: Schmied, Lederarbeit, Alchemist, Runenmeister, Feldkoch), und Jagd mit Zerlegen unter Sammeln?
