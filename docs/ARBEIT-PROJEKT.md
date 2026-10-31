@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 433 | M | **von Sokrates („jetzt“ 31.10., 22:1x, Chef: „dafür haben wir noch unsere Leiharbeiter, die wir notfalls starten können. Oder halt intern Arbeit umschichten … Da muss doch nicht jetzt Tom drei Wochen auf Tom warten“):** unabhängige Zeilen (z. B. Tom 431 Völker, 416.x, 417) an Spike/Tuffy (394) verteilen, Ford startet | startbar |
 | 424 | M | **von Sokrates („jetzt“ 31.10., 21:3x, Chef: „keine Energie mehr in das alte SRD-System stecken“):** Regelzeilen der Umzugsliste (SRD-Regeln übertragen) auf ruht; Vorräte geprüft 21:3x (Sokrates setzte 17 Zeilen auf ruht); neue Zeilen am alten System verhindern | gebaut 31.10., 21:4x: Umzugsliste ruht für alte Regeln, Wächter in startbar.py (Zu 424); Diogenes prüft (429) |
 | 418 | M | **von Sokrates („jetzt“ 31.10., 21:21, Archiv):** oberste Direktive in `CLAUDE.md` durch den Wortlaut im Archiv ersetzen; Abnahmeliste Kapitel 1 darauf und auf Spielsystem 2.0 umschreiben, Chef nimmt ab | wartet auf Chef: Chefsache 418 (Abnahmeliste, Umfang 2.0); Direktive in CLAUDE.md 31.10., 21:3x; Diogenes prüft (419) |
 | 407 | M | **von Chef über Sokrates („jetzt“ 29.10., 10:05):** Probelauf-Grenze 389 so, dass sie greift: nach zwei Läufen keine weitere Runde, bis der Chef geurteilt hat (Zu 407) | gebaut 31.10., 22:0x: Urteil statt Vorlage gibt Läufe frei, jeder Zweig (Zu 407); Diogenes prüft (429) |
