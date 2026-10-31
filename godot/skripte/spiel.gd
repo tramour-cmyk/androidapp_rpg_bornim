@@ -158,6 +158,8 @@ func speichere() -> void:
 
 func _notification(what: int) -> void:   # 399: auch beim Verlassen der App (alt: onPause)
 	if what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_WM_CLOSE_REQUEST: speichere()
+	# 416.1: Android-Zurück schliesst das oberste Fenster (zurueck.gd); ohne Fenster nichts (vorher beendete es das Spiel)
+	if what == NOTIFICATION_WM_GO_BACK_REQUEST: Zurueck.taste(get_tree())
 
 func _nacht(k: float) -> void:
 	kamera.nacht = k   # 348.13b: Tusche nach Laterne, Fenster, Fackel

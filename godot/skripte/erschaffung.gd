@@ -36,6 +36,7 @@ func _process(dt: float) -> void: Messung.bild(dt, "Erschaffung")   # 416.1: lae
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	Zurueck.melde(self, func(): zurueck.emit())   # 416.1: Android-Zurück wie „Zurück“
 	name_ = Sprache.u("defaultName")
 	gekauft = Heldwerte.vorschlag(klasse)
 	var bg := ColorRect.new()

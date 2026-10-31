@@ -17,6 +17,7 @@ func _init() -> void:
 	name = "Spielstaende"
 
 func _ready() -> void:
+	Zurueck.melde(self, func(): zurueck.emit())   # 416.1: Android-Zurück wie „Zurück“
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var de := Sprache.aktiv() == "de"
 	var bg := ColorRect.new()

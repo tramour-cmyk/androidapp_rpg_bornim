@@ -20,6 +20,7 @@ func _init(h: Heldwerte, zu_: Zustand, l: Laden) -> void:
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	Rand.ruecke(self, Rand.oben(get_viewport()))   # 399.4: unter der Kamera des Handys
+	Zurueck.melde(self, func(): zu.emit())   # 416.1
 	var bg := ColorRect.new()
 	bg.color = Color.BLACK
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)

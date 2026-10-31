@@ -125,5 +125,22 @@ func _lauf() -> void:
 	root.add_child(sp)
 	await process_frame
 	schlucker(sp, "Spielstaende")
+	sp.queue_free()
+	await process_frame
+	# Android-Zurück (Hinweis Team Jerry): erst der Kasten, dann das Menue; ohne Fenster nimmt niemand die Taste
+	var m2 := Menue.new(hw, z)
+	var zu_ := [false]
+	m2.zu.connect(func(): zu_[0] = true; m2.queue_free())
+	root.add_child(m2)
+	await process_frame
+	m2.dialog("Probe", Stil.GOLD, [], [["OK", func(): pass]])
+	await process_frame
+	pruefe(Zurueck.taste(self), "Zurück nimmt der Kasten")
+	await process_frame
+	pruefe(not zu_[0] and is_instance_valid(m2), "Menue bleibt nach dem ersten Zurück offen")
+	pruefe(Zurueck.taste(self) and zu_[0], "zweites Zurück schliesst das Menue")
+	await process_frame
+	pruefe(not Zurueck.taste(self), "ohne Fenster nimmt niemand die Taste")
+	pruefe(ProjectSettings.get_setting("application/config/quit_on_go_back", true) == false, "Zurück beendet das Spiel nicht")
 	print("TASTEN %d Fehler" % fehler)
 	quit(1 if fehler else 0)

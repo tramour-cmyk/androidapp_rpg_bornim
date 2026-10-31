@@ -19,6 +19,7 @@ func _init(zu_: Zustand) -> void:
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	Rand.ruecke(self, Rand.oben(get_viewport()))   # 399.4: unter der Kamera des Handys
+	Zurueck.melde(self, func(): wahl.emit(""))   # 416.1: wie „Zurück“
 	var bg := ColorRect.new()
 	bg.color = Color.BLACK
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)

@@ -56,6 +56,7 @@ func _init(h: Heldwerte, zu_: Zustand) -> void:
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	Rand.ruecke(self, Rand.oben(get_viewport()))   # 399.4: unter der Kamera des Handys
+	Zurueck.melde(self, func(): zu.emit())   # 416.1: Android-Zurück wie „Schließen“
 	var bg := ColorRect.new()
 	bg.color = Color.BLACK
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -284,6 +285,7 @@ func frage_verteilen() -> void:
 	schleier.color = Color(0, 0, 0, 0.82)
 	schleier.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(schleier)
+	Zurueck.melde(schleier, func(): schleier.queue_free())   # 416.1: Android-Zurück wie „Abbrechen“
 	var mitte := CenterContainer.new()
 	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	schleier.add_child(mitte)
@@ -376,6 +378,7 @@ func dialog(titel: String, farbe: Color, zeilen: Array, knoepfe: Array) -> Contr
 	schleier.color = Color(0, 0, 0, 0.82)
 	schleier.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(schleier)
+	Zurueck.melde(schleier, func(): schleier.queue_free())   # 416.1: Android-Zurück wie „Abbrechen“
 	var mitte := CenterContainer.new()
 	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	schleier.add_child(mitte)
