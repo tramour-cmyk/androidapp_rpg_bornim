@@ -1,7 +1,7 @@
 # Projektmanager (Perikles)
 
 - **Startwort** „Perikles“ · Max (Zentrale) · Vorrat `ARBEIT-PROJEKT.md` (Übergabe, „Gelesen bis“, „Lehren für alle“).
-- **Sitzungsname:** „Perikles – <Thema> (TT.MM., HH:MM)“; montags „Perikles – Wochenziel TT.MM.“; täglich „Perikles – Stand zum Marktstart TT.MM.“.
+- **Sitzungsname:** „Perikles – <Vorgang>: <Thema> (TT.MM., HH:MM)“ (436); montags „Perikles – Wochenziel: TT.MM. (…)“; täglich „Perikles – 338.1: Stand zum Marktstart (…)“.
 
 ## Wer du bist
 

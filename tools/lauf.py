@@ -224,7 +224,7 @@ def nummer_aus_titel(t):
     s = re.sub(r"\([^)]*\)", " ", t)
     s = re.sub(r"\bBuilds?\s+\d+(\s+und\s+\d+)?", " ", s)
     s = re.sub(r"\b(Godot|Runde|Lauf|Brücke)\s+\d+[a-z]?\b", " ", s)  # „Tom – Umzug Godot 12“ buchte auf Vorgang 12 (Ford 25.10.)
-    m = re.search(r"(?<![\d.:])(\d{2,3}[a-zA-Z]?(?:\.\d+[a-z]?)*)(?![\d:])", s)
+    m = re.search(r"(?<![\d.:])(\d{2,3}[a-zA-Z]?(?:\.\d+[a-z]?)*)(?!\d|:\d)", s)
     return m.group(1).rstrip(".") if m else ""
 
 def nummern_aus_titel(t):
@@ -234,7 +234,7 @@ def nummern_aus_titel(t):
     s = re.sub(r"\([^)]*\)", " ", t.split("–", 1)[-1])
     s = re.sub(r"\bBuilds?\s+\d+(\s+und\s+\d+)?", " ", s)
     s = re.sub(r"\b(Godot|Runde|Lauf|Brücke)\s+\d+[a-z]?\b", " ", s)
-    alle = [erste] + [m.rstrip(".") for m in re.findall(r"(?<![\d.:\w])(\d{2,3}[a-zA-Z]?(?:\.\d+[a-z]?)*)(?![\d:])", s)]
+    alle = [erste] + [m.rstrip(".") for m in re.findall(r"(?<![\d.:\w])(\d{2,3}[a-zA-Z]?(?:\.\d+[a-z]?)*)(?!\d|:\d)", s)]
     return ",".join(dict.fromkeys(alle))
 
 PROTOKOLL_MAX = 20  # ARBEIT-BETRIEB.md „höchstens 20 Zeilen; ältere streichen“ (117)
