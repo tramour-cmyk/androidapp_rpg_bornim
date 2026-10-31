@@ -33,7 +33,7 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 - **D51.1 Doppelarbeit bei Titel ohne Nummer:** Tom arbeitet an 417 unter „Tom – Tragart Stab Axt Bogen“ → `lauf.py` startet Spike auf 417, dieselbe Zeile. Ursache: `besetzt == {"Nachfolger"} or not besetzt and not team_s` greift nur ohne laufende Sitzung; mit laufender Sitzung ohne Nummer nimmt Spike die erste Muss-Zeile. Ebenso Perikles' Probe „Tom – Leichen“ → Spike 417. Gemeint ist wohl `not besetzt` allein.
 - **D51.2 hängende Zeile (aus dem Code, nicht nachgestellt):** Endet Spike ohne neuen Stand und hat Tom sonst nichts Startbares, gilt „Tom frei, macht es selbst“, aber `startbar.py` sperrt die Zeile für Tom („in Arbeit bei Spike“): keiner nimmt sie.
-- **D51.3 „notfalls“:** Chef 22:1x: „Leiharbeiter, die wir notfalls starten können. Oder halt intern Arbeit umschichten“. Gebaut ist: in jedem Lauf, sobald Tom (Jerry) belegt ist oder startet und ein zweites Muss mit anderem Zweig da ist. Nachgestellt mit Tom auf 417 und Jerry auf 402: Spike 417, Tuffy 403; heute also fast immer vier Entwicklersitzungen. Ob das „notfalls“ ist, entscheidet der Chef.
+- **D51.3 „notfalls“:** Chef 22:1x: „Leiharbeiter, die wir notfalls starten können. Oder halt intern Arbeit umschichten“. Gebaut ist: in jedem Lauf, sobald Tom (Jerry) belegt ist oder startet und ein zweites Muss mit anderem Zweig da ist. Nachgestellt mit Tom auf 417 und Jerry auf 402: Spike 417, Tuffy 403; heute also fast immer vier Entwicklersitzungen. Ob das „notfalls“ ist, entscheidet der Chef. **Chef 31.10., 22:53: „So lassen“.**
 
 **Nicht geprüft:** `lauf.py --sperre` im echten Lauf; Fords Start einer Spike-Sitzung (`ROLLE-BETRIEB.md`); Zusammenführen zweier Zweige eines Teams auf `main`.
 
