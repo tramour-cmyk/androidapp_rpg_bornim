@@ -1,13 +1,17 @@
 # 413a · Spielsystem 2.0: offene Fragen aus der Auseinandersetzung
-Sokrates · 31.10., 20:4x (neu gefasst 20:4x) · D Design
+Sokrates · 31.10., 20:4x (neu gefasst 20:5x) · D Design
 
-Alles im Zusammenhang: [`DESIGN-SPIELSYSTEM-2-0.md`](../../DESIGN-SPIELSYSTEM-2-0.md), Abschnitt „Auseinandersetzung Sokrates“. R1 gestrichen, R2 und R3 beantwortet (Entscheidungen 33, 36), R4 wird zu den Titelfragen T.
+Alles im Zusammenhang: [`DESIGN-SPIELSYSTEM-2-0.md`](../../DESIGN-SPIELSYSTEM-2-0.md), Abschnitt „Auseinandersetzung Sokrates“. Entschieden: T2 (Entscheidung 49), T1 zum Teil (Meisterschaften, Entscheidung 50).
 
-**Titel** (Abschnitt 8; Votum Sokrates in Klammern)
-- **T1:** Zwei Arten: Berufung (genau eine, mit Auflagen) und Meisterschaft im Handwerk (mehrere, ohne Kampfauflagen) (ja).
-- **T2:** Zusammenlegen auf etwa 12 Berufungen und 4 Meisterschaften statt 22 Titel (ja).
-- **T3 bis T5:** Perks als neue Handlungen statt großer Zahlen; Weg über Fertigkeitsrang, Tat und Ruf beim Lehrmeister; Wechsel beim Lehrmeister erlaubt (ja).
-- **T6:** Titel je Kapitel gestaffelt, Kapitel 1 ohne Titel oder mit einem als Ausblick (ohne, Ausblick als Alternative).
+**Berufungsbaum** (Abschnitt 9; Votum Sokrates in Klammern)
+- **W1:** Weg (von selbst durch Tun, mehrere, ohne Auflagen) → Berufung (eine, beim Lehrmeister, mit Auflagen) → Meisterform (später) (ja).
+- **W2:** Namen Weg, Berufung, Meisterform; Wege Bewahrer, Kämpe, Schattengänger, Waldgänger, Adept, Heilkundiger (ja, Feinschliff über Homer).
+- **W3:** Scharfschütze eigener Zweig unter Wildnis (13 Berufungen) oder im Waldläufer (12) (eigener Zweig).
+- **W4:** Paladin als Kreuzung aus Schutz und Heilung (ja).
+
+**Titel** (Abschnitt 8)
+- **T3 bis T5:** Perks als neue Handlungen statt großer Zahlen; Weg zur Berufung über Fertigkeitsrang, Tat und Ruf beim Lehrmeister; Wechsel erlaubt (ja).
+- **T6:** mit W1 beantwortet, falls ja: Kapitel 1 zeigt die Wege, Berufungen ab Kapitel 2.
 
 **Weitere** (Abschnitte 2 bis 6)
 - **S1:** Kampfstufe aus Heldenstufe und benutzter Fertigkeit im Stufenfaktor (ja).

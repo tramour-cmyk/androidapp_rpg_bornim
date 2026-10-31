@@ -54,6 +54,8 @@ Ideensammlung, Stand 31.10.2026. Hier schreiben wir alles zusammen, was das Spie
 | 46 | Truhen in NPC-Häusern (Frage 25) | A: nicht öffnen. Chef 31.10.2026. |
 | 47 | Bosse und Heimtücke (Frage 26) | B: Bosse wachsamer, Bonus gedeckelt. Chef 31.10.2026. |
 | 48 | Richtung | „Weg von WotC/SRD, hin zu einer offenen Welt, in der du aufsteigst dadurch, dass du Sachen machst. Hin zu einem offenen und einzigartigen Spielsystem.“ Chef 31.10.2026. |
+| 49 | Titel zusammenlegen (T2) | Ja zu Berufungen statt 22 Titel. Reiter, Kaufmann und Hauptmann sind gestrichen, nicht verschoben („wir wollen hier keinen Siedler spielen“). Gibt es später Reittiere, kommt eine Fertigkeit Reiten dazu, aber kein Titel. Chef 31.10.2026, 20:4x. |
+| 50 | Meisterschaften (T1, Teil) | Schmied, Alchemist, Runenmeister und Feldkoch werden als Meisterschaften ausgegliedert: frei, kann man machen, muss man nicht. Chef 31.10.2026, 20:4x („sehr gute Idee“). |
 
 **Rückfragen zu den Antworten vom 31.10.2026, abends:** R1 gestrichen, R2 und R3 beantwortet (Entscheidungen 33, 36), R4 wird zur Aussprache über die Titel (Abschnitt 8).
 
@@ -1456,3 +1458,83 @@ Gestrichen oder verschoben: Reiter (bis es Reittiere gibt), Kaufmann (wird Perk 
 - **T2:** Zusammenlegen auf etwa 12 Berufungen und 4 Meisterschaften, oder alle 22 behalten?
 - **T3 bis T5:** Perks als Handlungen statt Zahlen, Weg über Taten und Lehrmeister, Wechsel erlaubt?
 - **T6:** Staffelung je Kapitel: Kapitel 1 ohne Titel oder mit einem Titel als Ausblick?
+
+### 9. Berufungen als Baum aus den Fertigkeiten (Chef 31.10.2026, 20:4x)
+
+Auftrag: „deine Berufungen … in Einklang bringen mit den Fähigkeiten, die man halt durch Tun steigern kann … wäre es auch eine Idee …, wenn am Anfang bin ich nichts und dann gehe ich in eine Richtung. Und werde da besser … Stufe 1 … Und auf Ebene 2 … geht der Pfad dann eben dann nochmal auseinander, um sich dann genauer zu spezialisieren … eine aktualisierte Tabelle … gegenüberstellen, was hatte ich vorher entworfen“.
+
+**Meine Meinung zur Idee:** Sie ist besser als mein Vorschlag aus Abschnitt 8, weil sie das Grundversprechen bis zum Titel durchhält. Der Spieler wählt nichts, er wird erkannt: Wer viel schleicht und Dolche führt, steht irgendwann auf dem Weg des Schattens, ohne ein Menü zu öffnen. Erst bei der Abzweigung wählt er bewusst. Und Kapitel 1 bekommt damit sichtbare Ergebnisse (die Wege), ohne dass schon Titel nötig sind. Das beantwortet T6.
+
+**Der Baum in drei Ebenen**
+
+| Ebene | Name (Vorschlag) | Wie man sie erreicht | Wirkung | Auflagen |
+| --- | --- | --- | --- | --- |
+| 0 | ohne Weg („Wanderer“ auf dem Heldenblatt) | Spielbeginn | keine | keine |
+| 1 | **Weg** | von selbst durch Tun: zwei Kernfertigkeiten des Wegs auf Geselle | ein kleiner Perk je Weg, Chronikeintrag („Du gehst den Weg des Schattens“) | keine; mehrere Wege gleichzeitig möglich |
+| 2 | **Berufung** | beim Lehrmeister: Meisterrang in den Fertigkeiten der Berufung, eine passende Tat, Ruf beim Lehrmeister | neue Handlungen (Meisterperks, T3) | ja; genau eine Berufung je Held, Wechsel beim Lehrmeister (T5) |
+| 3 | **Meisterform** (spätere Kapitel) | Quest beim Lehrmeister, höhere Kapitelgrenze | stärkere Form derselben Handlungen (zum Beispiel Wächter → Bollwerk) | wie Ebene 2 |
+
+Begriffe: Die Ränge der Fertigkeiten heißen schon Anfänger, Geselle, Meister, Großmeister. Darum heißen die Ebenen nicht so, sondern **Weg, Berufung, Meisterform**. Weitere schöne Namen gern über Homer.
+
+**Sechs Wege, dreizehn Berufungen**
+
+| Weg (Ebene 1) | Wer ihn geht (Vorschlag) | Kernfertigkeiten, zwei davon auf Geselle | Berufungen (Ebene 2) | Fertigkeiten der Berufung (auf Meister) | Meisterperks (Beispiele) | Auflagen |
+| --- | --- | --- | --- | --- | --- | --- |
+| Schutz | Bewahrer | Schild, Mittlere Rüstung, Schwere Rüstung, Abhärtung, Parieren | **Wächter** | Schild, Schwere Rüstung, Abhärtung | Gegner an sich binden, Gefährten mit dem Schild decken | langsam, wenig eigener Schaden |
+| | | | **Paladin** (Kreuzung mit Heilung, beide Wege nötig) | Schild, Einhänder, Heilmagie | Heilende Hand, Schutzaura | kein Beschwörer, Ruf muss hoch bleiben |
+| Kampf | Kämpe | Einhänder, Zweihänder, Faustkampf, Athletik, Ausweichen | **Berserker** | Zweihänder, Stumpfe Waffen, Abhärtung | Raserei | kein Schild, keine Zauber |
+| | | | **Duellant** | Einhänder, Zweiwaffenkampf, Parieren, Akrobatik | Riposte, Doppelschlag | höchstens leichte Rüstung, kein Schild |
+| | | | **Mönch** | Faustkampf, Ausdauer, Konzentration, Ausweichen | waffenlose Schläge, Betäuben | keine Rüstung, keine Waffen |
+| Schatten | Schattengänger | Schleichen, Verstecken, Dolche, Aufmerksamkeit | **Assassine** | Hinterhalt, Dolche, Gifte mischen | Meucheln, Giftklinge | höchstens leichte Rüstung, kein Schild |
+| | | | **Schatzjäger** | Schlösser knacken, Fallen entschärfen, Klettern | schwerste Schlösser, versteckte Kammern | höchstens leichte Rüstung |
+| Wildnis | Waldgänger | Bogen, Armbrust, Jagd und Fährtenlesen, Aufmerksamkeit, Lager und Feuer | **Waldläufer** | Bogen, Tiere zähmen, Fallen stellen | Tierbegleiter, Mehrfachschuss | höchstens mittlere Rüstung |
+| | | | **Scharfschütze** | Armbrust oder Bogen, Wurfwaffen, Aufmerksamkeit | Zielschuss, Durchschlagen | höchstens mittlere Rüstung, schwach im Nahkampf |
+| Magie | Adept | Zauberwirken, Konzentration, eine Schule (Evokation, Schutzmagie, Illusion, Beschwörung) | **Magier** | zwei Schulen, Zauberwirken | stärkste Zauber, große Manareserve | keine Rüstung (Entscheidung 33) |
+| | | | **Kriegsmagier** | Evokation, Einhänder oder Zweihänder, Leichte Rüstung | Waffenzauber | nur leichte Rüstung, Magie gedeckelt (Entscheidung 33) |
+| | | | **Beschwörer** | Beschwörung, Rituale, Nekromantie | Diener beschwören, Untote | keine Rüstung; Ruf sinkt bei Nekromantie; nicht Paladin, nicht Heiler |
+| Heilung | Heilkundiger | Heilmagie, Heilkunde, Kräuterkunde | **Heiler** | Heilmagie, Schutzmagie, Heilkunde | Wiederbeleben, Seuchen heilen | höchstens leichte Rüstung |
+| | | | **Paladin** (siehe Schutz) | | | |
+
+Regeln dazu:
+- **Wege kommen von selbst**, ohne Lehrer und ohne Auflagen. Wer Bogen und Schleichen übt, kann auf zwei Wegen zugleich stehen. Das ist das offene Spiel.
+- **Die Berufung ist die eine bewusste Wahl.** Erst hier greifen die Auflagen. Der Magier darf also bis Ebene 1 noch Rüstung tragen; die Sperre kommt mit der Berufung. Das passt zu Entscheidung 10 („ab einer bestimmten Stufe“).
+- **Kreuzungen** wie der Paladin brauchen zwei Wege. Das belohnt Spieler, die breit üben, ohne den Allroundkiller zu erlauben (eine Berufung).
+- **Meisterschaften** (Schmied, Alchemist, Runenmeister, Feldkoch) laufen daneben, nach demselben Muster ohne Auflagen.
+- **Werdegänge** führen auf einen Weg: Schildträger zu Schutz, Schütze zu Wildnis, Zauberer zu Magie, Heiler zu Heilung, Kräuterkundiger und Schmiedegeselle zu den Meisterschaften. Kampf und Schatten haben keinen Werdegang (Haudegen gestrichen, Entscheidung 45); sie sind über den freien Werdegang erreichbar.
+
+**Gegenüberstellung: dein Entwurf (22 Titel) und jetzt**
+
+| Bisher (Entwurf) | Jetzt | Bemerkung |
+| --- | --- | --- |
+| Wächter | Berufung Wächter (Weg Schutz) | |
+| Paladin | Berufung Paladin (Kreuzung Schutz und Heilung) | |
+| Berserker | Berufung Berserker (Weg Kampf) | |
+| Duellant | Berufung Duellant (Weg Kampf) | |
+| Mönch | Berufung Mönch (Weg Kampf) | |
+| Assassine | Berufung Assassine (Weg Schatten) | |
+| Schatzjäger | Berufung Schatzjäger (Weg Schatten) | |
+| Waldläufer | Berufung Waldläufer (Weg Wildnis) | |
+| Scharfschütze | Berufung Scharfschütze (Weg Wildnis) | in Abschnitt 8 in den Waldläufer gelegt; im Baum wieder eigener Zweig, sonst hätte Wildnis nur einen (Frage W3) |
+| Pfadfinder | aufgeteilt | Wildnisfertigkeiten im Weg Wildnis, Lager und Kochen in der Meisterschaft Feldkoch |
+| Magier | Berufung Magier (Weg Magie) | |
+| Illusionist | in Magier | Illusion ist eine Schule des Magiers |
+| Kriegsmagier | Berufung Kriegsmagier (Weg Magie) | |
+| Beschwörer | Berufung Beschwörer (Weg Magie) | |
+| Nekromant | in Beschwörer | Nekromantie als Teil der Beschwörung, mit Rufverlust |
+| Heiler | Berufung Heiler (Weg Heilung) | |
+| Schmiedemeister | Meisterschaft Schmied | Entscheidung 50 |
+| Alchemist | Meisterschaft Alchemist | Entscheidung 50 |
+| Runenmeister | Meisterschaft Runenmeister | Entscheidung 50 |
+| Kaufmann | gestrichen | Entscheidung 49; Preise über Ruf und Handeln |
+| Hauptmann | gestrichen | Entscheidung 49 |
+| Reiter | gestrichen | Entscheidung 49; Fertigkeit Reiten erst mit Reittieren |
+
+Folge für die Fertigkeiten: Reiten fällt aus der ersten Liste (68 statt 69), bis es Reittiere gibt. Führen und Einschüchtern bleiben Fertigkeiten mit eigenen Rangperks, auch ohne Hauptmann.
+
+*Stärkstes Gegenargument gegen den Baum:* Wege, die von selbst kommen, kann ein Spieler übersehen; dann wirkt der Baum unsichtbar. Gegenmittel: Das Heldenblatt zeigt je Weg den Fortschritt („Weg des Schattens: Schleichen Geselle, Dolche 18 von 25“), und die Chronik vermerkt jeden erreichten Weg.
+
+**Fragen an den Chef dazu**
+- **W1:** Baum mit Weg (von selbst, mehrere, ohne Auflagen), Berufung (eine, beim Lehrmeister, mit Auflagen), Meisterform (später)?
+- **W2:** Namen: Weg, Berufung, Meisterform; Wegnamen Bewahrer, Kämpe, Schattengänger, Waldgänger, Adept, Heilkundiger (oder über Homer)?
+- **W3:** Scharfschütze als eigener Zweig unter Wildnis (13 Berufungen) oder im Waldläufer (12)?
+- **W4:** Paladin als Kreuzung, die Schutz und Heilung verlangt?
