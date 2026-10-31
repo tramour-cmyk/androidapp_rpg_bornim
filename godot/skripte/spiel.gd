@@ -234,10 +234,13 @@ func naechster_nachbar(b: Vector2i) -> Vector2i:
 	var best_n := 1 << 30
 	for d in NACHBARN:
 		var n: Vector2i = b + d
+		var tresen := karte.zeichen(n) == "K"
+		if tresen: n += d   # 416.7 (Navigation.route): wer hinter dem Tresen steht, wird von davor angesprochen, nicht von hinten
 		if not karte.begehbar(n): continue
 		var w := karte.weg(held.kachel, n)
 		if w.is_empty() and n != held.kachel: continue
-		if w.size() < best_n: best_n = w.size(); best = n
+		var wn := w.size() - (1000 if tresen else 0)
+		if wn < best_n: best_n = wn; best = n
 	return best
 
 func zeichen_lesbar(t: Vector2i) -> bool:
@@ -530,6 +533,14 @@ func person_vorn() -> Array:
 	for l in leute_liste():
 		var d := Vector2(l.position.x - held.position.x, l.position.z - held.position.z) / Karte.TS
 		var n := d.length()
+		if n > REICHWEITE:
+			# 416.7 (Chef 31.10.: am Tresen in Schenke und Laden ging der Knopf nicht): wie actionTarget ueber den Tresen, gerade
+			# hinueber; die Reichweite zaehlt bis zur Mitte der Tresenkachel
+			var k := tresen_kachel(held.kachel, l.kachel)
+			if k.x < 0: continue
+			var kp := karte.kachel_pos(k)
+			d = Vector2(kp.x - held.position.x, kp.z - held.position.z) / Karte.TS
+			n = d.length()
 		if n > REICHWEITE or not spricht_was(l): continue
 		var f := n < 0.01 or d.normalized().dot(vorn) >= 0.5
 		var w := n + (0.0 if f else 10.0)
@@ -537,6 +548,12 @@ func person_vorn() -> Array:
 	return [best, best_f]
 
 func person_nah() -> Leute: return person_vorn()[0]
+
+# 416.7: die Tresenkachel zwischen a und b, wenn b gerade zwei Kacheln hinter einem Tresen (Tile.COUNTER) liegt; sonst (-1, -1)
+func tresen_kachel(a: Vector2i, b: Vector2i) -> Vector2i:
+	for o in NACHBARN:
+		if b - a == o * 2 and karte.zeichen(a + o) == "K": return a + o
+	return Vector2i(-1, -1)
 
 # angetippt: wessen Bild (Fuesse bis Kopf, 0–1,8 m) dem Finger am naechsten ist (Pruefer: ein Tippen auf den Kopf traf den
 # Boden 1–1,5 m hinter der Figur)
