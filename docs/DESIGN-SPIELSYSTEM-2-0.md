@@ -1390,3 +1390,11 @@ Gelesen auf der [Seite](https://juliusschmidt.itch.io/godot-inventory-crafting-k
 - **Als Einbau schwach:** Inventar und Ausrüstung haben wir schon; die Ausrüstung wie alt wurde am 29.10. für 399.1 gebaut. Das Kit brächte ein zweites Inventar, nur sechs Plätze statt unserer, und Touch-Bedienung ist ungetestet. Wir würden vor allem die Rezeptlogik übernehmen.
 - **Lizenz:** Für den Kauf verlangt unsere Regel „ohne Nennung, unbefristet“. Das lässt sich erst mit `LICENSE.txt` sicher sagen. Der KI-Hinweis betrifft nur die Herkunft des Codes, nicht das Recht, ihn zu nutzen; er ist kein Ausschlussgrund nach unserer Regel.
 - **Reihenfolge nach Grundsatz 408:** erst unsere Bibliothek (keine Rezeptlogik vorhanden), dann frei im Netz (nicht geprüft), dann Kauf. Für 1,79 Dollar ist der Kauf als Vorlage vertretbar, wenn die Lizenzdatei keine Nennung verlangt. Kaufen kann nur der Chef.
+
+**Abschluss (Chef 31.10.2026, 20:3x: „das solltest du dir nur anschauen, ob die Idee, die da drin steckt für uns, sinnvoll ist … kaufen wollte ich es eigentlich nicht, außer du sagst, wir können es brauchen“):** Nicht kaufen. Wir übernehmen vier Ideen in unseren Bau:
+1. **Rezepte als Daten**, je Rezept eine Godot-Ressource (Zutaten, Fertigkeit und Rang, Werkort, Ergebnis). Neue Rezepte ohne Code, prüfbar in Tests.
+2. **Ein Behälter für alles:** Tasche, Truhe, Werkort-Ablage und Händlerware sind dasselbe Bauteil mit Stapeln und Teilen. Tragkraft und Nimmersatt-Beutel (Entscheidung 41) hängen am Behälter Tasche.
+3. **Rezeptliste mit drei Zuständen:** herstellbar, fehlt eine Zutat, gesperrt. Das ist unser Entwurf („zeigt, was gerade herstellbar ist“).
+4. **Speicherform als Wörterbuch** je Behälter, passend zum Spielstand der Godot-Fassung.
+
+Nicht übernehmen: Rasterinventar mit Ziehen (auf dem Handy mühsam; unser Inventar ist eine Liste wie im alten Spiel, 399.1) und Herstellzeit mit Balken (Warten ohne Spielwert). Grund gegen den Kauf: Die Ideen sind einfach, der Code brächte ein zweites Inventar neben unserem, ist für Touch nicht getestet, und der Einbau kostete mehr als das Nachbauen der vier Ideen in unserem Bestand.

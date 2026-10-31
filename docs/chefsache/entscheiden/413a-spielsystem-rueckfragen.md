@@ -16,6 +16,4 @@ Alles im Zusammenhang: [`DESIGN-SPIELSYSTEM-2-0.md`](../../DESIGN-SPIELSYSTEM-2-
 - **S4:** Heldenblatt zeigt nur, was der Held schon getan hat; Fertigkeiten erscheinen beim ersten Gebrauch (ja).
 - **S5:** Kapitel 1 schon mit dem Kern von 2.0 oder auf dem alten System (Kern von 2.0, nur erste Welle; Gegenargument: verschiebt die Tester).
 
-**Prüfung Crafting-Kit** (Abschnitt 7): als Vorlage für Rezepte brauchbar, kein Einbau; Kauf für 1,79 Dollar nur, wenn `LICENSE.txt` keine Nennung verlangt.
-
 Erledigt: Antworten in die Entscheidungen, Datei löschen (Sokrates).
