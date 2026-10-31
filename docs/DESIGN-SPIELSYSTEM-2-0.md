@@ -64,6 +64,7 @@ Ideensammlung, Stand 31.10.2026. Hier schreiben wir alles zusammen, was das Spie
 | 56 | Tierprodukte (F2) | Jagd mit Zerlegen und Fährten unter Sammeln; Meisterschaft Lederarbeit (Gerben, Schneidern) neu, damit fünf Meisterschaften. Chef 31.10.2026, 21:0x. |
 | 57 | Spähen (F3) | Fertigkeit Spähen: Umsehen von selbst beim Stehenbleiben (ohne Taste), steigt nur bei echten Funden; im Rennen kaum Wahrnehmung. Chef 31.10.2026, 21:0x. |
 | 58 | Tiere (F4) | „Tiere beruhigen“ statt freiem Zähmen; ein Tierbegleiter nur mit der Berufung Waldläufer; Tiere weder verkaufen noch in den Beutel. Chef 31.10.2026, 21:0x. |
+| 59 | Fertigkeiten (F1) | Prüfregel: eine Fertigkeit nur mit Handlung im Spiel und spürbarer Wirkung. Gültig sind 37 Fertigkeiten: Waffen 10, Rüstung 4, Schatten 4 (mit Spähen), Magie 5, Wildnis 1 (Tiere beruhigen), Gesellschaft 3, Sammeln 4 (mit Angeln und Jagd), Meisterschaften 6 (mit Lederarbeit). Liste nach oben offen. Ersetzt Entscheidung 38 (alle 69). Chef 31.10.2026, 20:5x („finde ich deine Vorschläge gut. Ist auch deutlich eingedampft“), Zählung nach F2 bis F4. |
 
 **Rückfragen zu den Antworten vom 31.10.2026, abends:** R1 gestrichen, R2 und R3 beantwortet (Entscheidungen 33, 36), R4 wird zur Aussprache über die Titel (Abschnitt 8).
 
@@ -1559,15 +1560,15 @@ Folge für die Fertigkeiten: Reiten fällt aus der ersten Liste (68 statt 69), b
 - **Zu fein geteilt:** Schleichen, Verstecken, Hinterhalt sind eine Handlung. Ausweichen und Akrobatik ebenso. Schmieden, Rüstungsbau, Reparieren, Gerben teilen Werkort und Material. Alchemie und Gifte mischen ebenso. Überreden und Täuschen ebenso. Nekromantie ist eine Form der Beschwörung (wie bei den Berufungen).
 - **Lieber Perk als Fertigkeit:** Zweiwaffenkampf und Parieren sind Handlungen innerhalb einer Waffenfertigkeit (Perks des Duellanten).
 
-**Vorschlag: etwa 34 Fertigkeiten in acht Gruppen**
+**Gültige Liste: 37 Fertigkeiten in acht Gruppen** (Entscheidung 59; Tabelle auf Stand der Entscheidungen 55 bis 58 nachgezogen; Zwischenstände 34, 35, 36 unten sind überholt)
 
 | Gruppe | Fertigkeiten | Geübt durch |
 | --- | --- | --- |
 | Waffen (10) | Einhänder, Zweihänder, Stangenwaffen, Stumpfe Waffen, Dolche, Faustkampf, Schild, Bogen, Armbrust, Wurfwaffen | Treffen im Kampf |
 | Rüstung (4) | Leichte, Mittlere, Schwere Rüstung, Ausweichen | getroffen werden, ausweichen |
-| Schatten (3) | Schleichen (mit Verstecken und Hinterhalt), Schlösser knacken, Fallen entschärfen | anschleichen, Truhen |
+| Schatten (4) | Schleichen (mit Verstecken und Hinterhalt), Spähen, Schlösser knacken, Fallen entschärfen | anschleichen, stehen bleiben und umsehen, Truhen und Fallen |
 | Magie (5) | Evokation, Schutzmagie, Heilmagie, Illusion, Beschwörung (mit Nekromantie) | Zaubern; Zauberwirken als Grundlage steckt im Grundwert Wille |
-| Wildnis (1) | Tiere zähmen | Tiere beruhigen, Begleiter |
+| Wildnis (1) | Tiere beruhigen (Entscheidung 58) | feindliche Tiere vor dem Kampf beruhigen |
 | Gesellschaft (3) | Überreden (mit Täuschen), Einschüchtern, Handeln | Gespräche, Läden |
 | Sammeln (4) | Kräuterkunde, Bergbau, Angeln, Jagd (Zerlegen und Fährten) | ernten, angeln, erlegte Tiere zerlegen |
 | Meisterschaften (6) | Schmieden (Metall: Waffen, Rüstung, Reparieren, Dietriche), Lederarbeit (Gerben, Schneidern: Leder- und Stoffrüstung, Taschen), Alchemie (mit Giften), Kochen, Runenkunde (Verzaubern), Heilkunde | herstellen, verbinden |
