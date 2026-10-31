@@ -53,7 +53,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 37, Muss 26, startbar 5
+**Tom** – offen 37, Muss 27, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -61,7 +61,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „star
 | 417 | M | von Sokrates („jetzt“ 31.10., 21:12, Chef: „diese Rückfrage hat auch Priorität“; Prüfauftr | startbar |
 | 425 | M | von Sokrates (Chef 31.10., 21:30, Build 143): Menüs (Menü „System“, Testmenü): in der alte | startbar |
 | 416.7 | M | von Sokrates (Chef 31.10., 20:5x, für den nächsten Build): am Tresen in Schenke und Laden | wartet auf Test/Build (gebaut) |
-| 416.8 | M? | von Sokrates (Chef 31.10., 20:5x, allgemeiner Hinweis): NPC dreht sich bei Interaktion zum | startbar |
+| 416.8 | M | von Sokrates (Chef 31.10., 20:5x, allgemeiner Hinweis): NPC dreht sich bei Interaktion zum | startbar |
 | 416.1 | M | von Sokrates (Chef 31.10., 20:4x, Build 143): Tasten reagieren schlecht (Bartform, Kopffor | wartet auf Test/Build (gebaut) |
 | 416.2 | M | von Sokrates (Chef 31.10., 20:4x): gegen Dorfbewohner und Tiere laufen: Platzwechsel statt | wartet auf Test/Build (gebaut) |
 | 416.3 | M | von Sokrates (Chef 31.10., 20:4x): Anschlagbrett und Laden (Kaufen, Verkaufen) nur etwa dr | Chef |
@@ -140,11 +140,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 18, Muss 16, startbar 1
+**Perikles** – offen 18, Muss 16, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 433 | M | von Sokrates („jetzt“ 31.10., 22:1x, Chef: „dafür haben wir noch unsere Leiharbeiter, die | startbar |
+| 433 | M | von Sokrates („jetzt“ 31.10., 22:1x, Zu 433): unabhängige Zeilen von Tom und Jerry an Spik | wartet auf Test/Build (gebaut) |
 | 424 | M | von Sokrates („jetzt“ 31.10., 21:3x, Chef: „keine Energie mehr in das alte SRD-System stec | wartet auf Test/Build (gebaut) |
 | 418 | M | von Sokrates („jetzt“ 31.10., 21:21, Archiv): oberste Direktive in CLAUDE.md durch den Wor | Chef (Datei in der Chefsache) |
 | 407 | M | von Chef über Sokrates („jetzt“ 29.10., 10:05): Probelauf-Grenze 389 so, dass sie greift: | wartet auf Test/Build (gebaut) |
@@ -163,10 +163,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 31.10.; „star
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
-**Diogenes** – offen 6, Muss 4, startbar 0
+**Diogenes** – offen 7, Muss 5, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 435 | M | von Perikles (Doppelpack 421, Commit „Perikles: 433“): 433 prüfen: lauf.py startet Spike/T | startbar |
 | 434 | M | von Sokrates (Chef 31.10., 22:1x): bei jeder Zählung 374 zusätzlich die Zeile „Bestand gep | Termin 01.11. |
 | 398 | M | von Sokrates: vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (39 | Termin 02.11. |
 | 374 | M | von Sokrates (Chef 27.10., 11:58, Archiv 374): täglich 8 Uhr bis 03.11. Vorlagen des Vorta | Termin 01.11. |
