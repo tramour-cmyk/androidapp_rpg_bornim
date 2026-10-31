@@ -10,6 +10,8 @@ von Sokrates (Chef 11:19): nach Build 143 weiter bis Guthaben leer. Nie „Heldi
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 416.5 | M | **von Sokrates (Chef 31.10., 20:4x, Build 143):** im Kampf Details des Kampflogs aufrufen, dann nicht mehr schließbar (Taste reagiert nicht); beheben | frei | – |
+| 416.6 | K | **von Sokrates (Chef 31.10., 20:4x):** Spuren des Helden fehlen (Fußspuren; bei Regen eigene Spuren); `core/Tracks.kt` laut `LISTE-UMZUG-348.md` Zeile „Spuren“ bei Jerry. Perikles: M oder K? | frei | – |
 | 415 | K | **von Sokrates (Chef 31.10., 20:3x „Ja, Probe mit dem Beams-Sample an Jerry geben“):** Handyprobe `reeboolabs.itch.io/godot-beams-lasers-free-sample` (gratis; 3 Strahlen Laser, Feuerstrom, Blitzbogen; 2D und 3D; Godot 4.3+). Messen auf dem Handy: läuft es, FPS, Optik; Renderer Mobile und Compatibility. Nur Zahlen und Befund als Text, kein Urteil über Aussehen (373); nichts kaufen; Lizenz je Datei notieren | frei, nach den Mussen | – |
 | 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | gebaut 1923456c7: Wolf durch Wolf, System Kampf, satt, Testende; an Tom | `claude/jerry-348-kampf` |
 | 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | gebaut 0eda4bb3e: Knurren mit Text, an Tom für den Build; Hilfe, Eingebung mit 390 | – |
