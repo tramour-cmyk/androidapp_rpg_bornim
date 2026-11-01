@@ -20,7 +20,7 @@ Zahlen in Klammern = Entscheidung in `DESIGN-SPIELSYSTEM-2-0.md` („E 7“) ode
 - [ ] **2.3** M · MARS und klassischer Kampf (212 A, 249) rund auf den Regeln des BRS: Kampf ohne W20 nach Stufen (E 7), jeder Angriff sichtbar, Ansage harter Schläge, Pechsträhne.
 - [ ] **2.4** M · Kampf nie langweilig, echte Wahl (`DESIGN-LEITBILD.md`); Schwierigkeitsgrade (39).
 - [ ] **2.5** M · Ausgleich gemessen, nicht geschätzt: Simulation „Zeit bis Stufe“ und Kapitelsimulation auf den Regeln des BRS (444); jede Herkunft und der Wanderer schaffen die Bosse in vergleichbarem Maß; Zielwert mit dem Chef festlegen (38).
-- [ ] **2.6** G · Lehrmeister spricht an, sobald zwei Kernfertigkeiten eines Pfads Geselle sind; Anwärter möglich (E 63, E 79; Takt NW 5); erste Prüfung siehe 3.1.
+- [ ] **2.6** G · Lehrmeister spricht an, sobald zwei Kernfertigkeiten eines Pfads Geselle sind; Anwärter möglich (E 63, E 79; Takt NW 5); Bewährungsprobe zum Gesellen siehe 3.1.
 - [ ] **2.7** G · Jede Herkunft hat in Kapitel 1 eine Handlung (Chef 01.11., 09:43): Wachsoldat, Jägerkind, Zauberlehrling, Klosterschüler, Herumtreiber im Kampf und mit Schleichen und Spähen; Kräutersammler: Kräuter sammeln und ein Rezept Heiltrank; Schmiedelehrling: Reparieren bei Borin.
 - [ ] **2.8** G · Schleichen mit Schleichtaste und Hinterhalt, Bosse wachsamer (E 55, E 47); Spähen durch Verweilen findet Fallen, Kräuter, Truhen, Wahrnehmung verstärkt (E 57, E 83), dann entschärfen; Truhen mit Dietrich, Truhen in Häusern der Leute zu (E 55, E 46); schwere Rüstung sperrt Schleichen, Metall sperrt Evokation, Illusion, Beschwörung (E 33, E 80); kein Stehlen, kein Barde (E 30, E 31).
 - [ ] **2.9** G · Kurze Erholung 2 h, Langes Ausruhen 9 h (E 26); Tragkraft mit Nimmersatt-Beutel, darüber langsamer (E 41).
@@ -29,8 +29,8 @@ Zahlen in Klammern = Entscheidung in `DESIGN-SPIELSYSTEM-2-0.md` („E 7“) ode
 - [ ] **2.12** W · Spielerfreundlich (`DESIGN-LEITBILD.md` 3): auf „Normal“ ohne Grinden schaffbar.
 
 **Stufe 3 · Alle Systeme angelegt** (447 „mit K2b“, Chef 01.11.: „alle Elemente grundsätzlich drin … die Anlagen sollen schon erkennbar sein“; je System ein kleiner, ganzer Kreislauf mit spürbarer Wirkung, kein leerer Knopf. Prüfung: je Punkt ein Spieltest „merkt man, was das kann?“; 444 rechnet Gold, Reparatur und Tränke mit)
-- [ ] **3.1** G · Pfad und Lehrmeister: Einladung und erste Prüfung je Pfad, den Kapitel 1 trägt (NW 5; Abgleich mit E 79 „Prüfungen erst ab Kapitel 2“ bei Sokrates, 447.1).
-- [ ] **3.2** G · Meisterschaften: Einladung zu allen fünf; Alchemie (Kräuter → Heiltrank) und Schmieden (Reparatur, Dietrich) ganz, Leder, Runen, Kochen je ein Rezept (NW 6; Texte der Einladungen Homer).
+- [ ] **3.1** G · Pfad und Lehrmeister: Einladung, Anwärter, Hinweise und Aufgaben des Lehrmeisters, Bewährungsprobe zum Gesellen je Pfad, den Kapitel 1 trägt (Jorin Wächter, Osric Heiler und Paladin, Garrick Waldläufer und Scharfschütze, Thessa Schatzjäger, Morwen Magier und Kriegsmagier; NW 5, E 79, Archiv 447.4a); Zwischenprüfung ab Kapitel 2 (447.5).
+- [ ] **3.2** G · Meisterschaften: Einladung zu dreien (Alchemist Morwen, Lederarbeit Garrick, Feldkoch Rowena); Schmied und Runenmeister laden ab Kapitel 2 ein, Schmieden und Runenkunde üben und benutzen geht in Kapitel 1 (Archiv 447.4a); Alchemie (Kräuter → Heiltrank) und Schmieden (Reparatur, Dietrich) ganz, Leder, Runen, Kochen je ein Rezept (NW 6; Texte der Einladungen Homer).
 - [ ] **3.3** G · Ruf bei den Leuten im Dorf; Wirkung sichtbar: Preis bei Borin und Händler, eine Auskunft mehr (NW 9; Ruf-Gespräche Homer).
 - [ ] **3.4** G · Herstellen und Sammeln: Kräuter, Fisch, Jagd mit Zerlegen; Rezepte am Lagerfeuer und an Werkorten im Dorf; kein Bergbau (Chef 01.11., 11:55: „Erze brauchen wir doch noch gar nicht“), Erz für Schmieden und Runen nur kaufen oder finden (NW 10).
 - [ ] **3.5** G · Abnutzung und Reparatur: Zustand, Borin repariert, „Alles reparieren“ (NW 11).
