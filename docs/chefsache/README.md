@@ -26,6 +26,7 @@ Nichts offen.
 | [431](ansehen/431-voelker.md) | Völker, Runde 3: Grundkörper je Volk im Spiel-Look | – | 01.11. |
 | [438a](ansehen/438a-sturz-sichtung.md) | Hinfallen und Aufstehen des Helden: Sichtung aus dem Bestand | Jerry | 01.11., 14:20 |
 | [453.1](ansehen/4531-helden-atem.md) | Helden atmen ruhiger, jeder im eigenen Takt | Tuffy | 01.11., 14:19 |
+| [453](ansehen/453-wolf-ruhe.md) | Wölfe atmen ohne Pause, jeder im eigenen Takt; Gesten größer, nie zugleich begonnen (r2) | Jerry | 01.11., 15:40 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
