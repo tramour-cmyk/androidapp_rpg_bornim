@@ -3,13 +3,12 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 01.11., 10:5x
+**Gelesen bis:** `origin/main` 01.11., 11:4x
 
-**Übergabe (01.11., 11:0x):** 449 erledigt (`commit-pruefung.py` gegen Kaufdateien), 450 erledigt (`meldung.sh` trägt Bildlink ins Blatt, `zug-index.py` meldet fehlende), beide im Probe-Repo geprüft. 448.1 erledigt: erster Tagesbericht in `ARBEIT-TAGESBERICHT.md` (Zählung mit Git-Vergleich der Liste, Werkzeug folgt nach 448), per Telegram 11:1x. Nachfolger: Perikles – 338.1: Wochenziel 02.11. nach der Wochenzählung (darin Vorgang „Bau Regeln 2.0, Block G“ für Tom und Jerry anlegen, D49)
+**Übergabe (01.11., 11:4x):** 449, 450, 448.1 (erster Tagesbericht) und 448.2 erledigt: `tools/tagesbericht.py` zählt die zehn Zeilen in `ARBEIT-TAGESBERICHT.md`, `lauf.py` startet „Perikles – 448: Tagesbericht“ und meldet ab 10 Uhr (Sa, So 12 Uhr), wenn er fehlt; Rolle, `LISTE-BETRIEB.md` 11, `regelcheck` Z1 nachgezogen; Dashboard ruht; Doppelpack an Diogenes (456). Nachfolger: Perikles – 338.1: Wochenziel 02.11. nach der Wochenzählung (darin Vorgang „Bau Regeln 2.0, Block G“ für Tom und Jerry anlegen, D49)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 448.2 | M | **von Sokrates (Chef 01.11., 11:09, „448 mach es so“, Archiv):** Tagesbericht nach Chefsache 448 dauerhaft: Werkzeug zählt die zehn Zeilen, Stand je Punkt in der Abnahmeliste, ersetzt Stand zum Marktstart (`ROLLE-PROJEKT.md`, `LISTE-BETRIEB.md` 11), Meldung durch Ford, wenn er um 10 Uhr (Sa, So 12 Uhr) fehlt; Link in `docs/README.md` | startbar |
 | 436 | M | **von Sokrates („jetzt“ 31.10., 22:58):** Sitzungsnamen mit Vorgang, Thema und Zeit für alle (Zu 436) | gebaut 01.11., 00:1x: Regel, Rollen, lauf.py (Zu 436); Ford benennt um; Diogenes prüft (443) |
 | 433 | M | **von Sokrates („jetzt“ 31.10., 22:1x, Zu 433):** unabhängige Zeilen von Tom und Jerry an Spike/Tuffy (394) verteilen, Ford startet | gebaut 31.10., 22:2x: lauf.py startet Spike/Tuffy auf unabhängige Muss-Zeile (Zu 433); Diogenes prüft (435) |
 | 424 | M | **von Sokrates („jetzt“ 31.10., 21:3x, Chef: „keine Energie mehr in das alte SRD-System stecken“):** Regelzeilen der Umzugsliste (SRD-Regeln übertragen) auf ruht; Vorräte geprüft 21:3x (Sokrates setzte 17 Zeilen auf ruht); neue Zeilen am alten System verhindern | gebaut 31.10., 21:4x: Umzugsliste ruht für alte Regeln, Wächter in startbar.py (Zu 424); Diogenes prüft (429) |
@@ -31,7 +30,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
-- **Zu 448.1, von Sokrates (Chef an Sokrates 01.11.):** 10:59 „Dann in dem Bericht, den ich da kriegen soll. Den ich dann bitte jetzt endlich auch mal kriege, hoffe ich. Da müssen auch die Meilensteine rein“; 11:01 „ich brauche nicht 50 Berichte, aber in der Früh einmal einen … was ist erledigt was ist offen bei wem wo können wir Prioritäten setzen wo stehen wir insgesamt bei der Entwicklung welche Bereiche hinken hinterher … Kennzahlen … was ist unsere Roadmap was sind die Meilensteine wie ist das Projekt aufgebaut das will ich jetzt nochmal wirklich klipp und klar sehen oder du gibst mir einen Link zu einer Datei. Weil nicht, dass wir da wieder aneinander vorbeiarbeiten.“ Er nannte es auch „Dashboard“ (339, `tools/dashboard.py`) und „Management-Bericht“. Ein Bericht am Morgen ersetzt Stand zum Marktstart und Dashboard, nicht zusätzlich; Link im Notizen-Inhalt `docs/README.md` (452, Sokrates).
+- **Zu 448 (Tagesbericht):** Inhalt nach Chef 01.11., 11:01: erledigt, offen bei wem, Prioritäten, Stand der Entwicklung, wer hinkt, Kennzahlen, Roadmap, Meilensteine, Aufbau des Projekts; Wortlaut 10:59 und 11:01: Git, Stand vor „Perikles: 448.2 erledigt“.
 - **Zu 422, von Sokrates (Chef 01.11., 09:24, Archiv):** beim Bau der Regeln 2.0 (Vorgang fehlt noch, D49) kommt jede Zahl aus einer Datendatei, damit Simulation 444 nur Tabellenzeilen ändert.
 - **Zu 445, von Sokrates (Chef 01.11., 09:24–09:32):** Vorschlag für `CLAUDE.md` „Wie wir zusammenarbeiten“ 4 und `docs/chefsache/README.md`: „Auswertung mit stärkstem Gegenargument“ ersetzen durch „… und dem Weg, es zu entkräften (ins Votum)“; ersetzt, fügt keine Regel hinzu. Perikles entscheidet.
 - **Zu 433, von Diogenes (Lauf 51, 435, 31.10., 22:2x):** D51.1 Tom ohne Nummer im Titel (z. B. „Tom – Tragart …“ auf 417) → Spike startet auf dieselbe Zeile (Bedingung `not besetzt and not team_s`, nachgestellt); D51.2 Spike endet ohne Stand, Tom sonst nichts startbar → Zeile hängt; D51.3 Chef „notfalls“ gegen Start in jedem Lauf (fast immer vier Entwicklersitzungen). Einzelheiten `PRUEFBERICHT.md` Lauf 51. **Chef 31.10., 22:53 zu D51.3: „So lassen“** (Start in jedem Lauf bleibt; ins Vorgangsarchiv 433). D51.1 und D51.2 bleiben offen.
