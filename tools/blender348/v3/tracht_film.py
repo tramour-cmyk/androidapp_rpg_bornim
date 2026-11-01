@@ -7,6 +7,7 @@ from PIL import Image, ImageDraw, ImageFont
 QUELLE, SCHRIFT, ZIEL = sys.argv[1:4]
 os.makedirs(ZIEL, exist_ok=True)
 lage = json.load(open(os.path.join(QUELLE, 'lage.json')))
+ANSICHT = lage.pop('_ansicht', None)   # Spike 01.11. (455.1 Lauf 41321140618): Lage in Ansichtspunkten (3510 x 2340), nicht in Bildpunkten
 GOLD, WEISS, GRUND = (212, 174, 92), (237, 230, 214), (10, 9, 8)
 f_titel = ImageFont.truetype(SCHRIFT, 32)
 f_name = ImageFont.truetype(SCHRIFT, 24)
@@ -37,7 +38,7 @@ def streifen(bild, name, h):
     c = Image.new('RGB', (BREITE, h + UNTER), GRUND)
     c.paste(b, (0, 0))
     d = ImageDraw.Draw(c)
-    f = BREITE / bild.width
+    f = BREITE / (ANSICHT[0] if ANSICHT else bild.width)   # Pruefer 376.1: Beschriftung falsch
     for p in lage.get(name, []):
         z = zeilen(p['eintrag'])
         for i, t in enumerate(z[:2]):

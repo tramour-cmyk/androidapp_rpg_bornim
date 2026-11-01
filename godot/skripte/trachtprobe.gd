@@ -126,5 +126,7 @@ func _laufen(namen: Array, sek: float) -> void:
 					l.append({"x": cam.unproject_position(w.global_position).x, "boden_y": cam.unproject_position(w.global_position).y,
 						"eintrag": streifen[t][2][k]})
 				lage[t] = l
+				var vr := fp.spiel.get_viewport().get_visible_rect().size   # Lage in Ansichtspunkten, das Bild hat --resolution (455.1)
+				lage["_ansicht"] = [vr.x, vr.y]
 	fp.protokoll.append("TEIL %s %d Bilder" % [", ".join(PackedStringArray(namen)), n])
 	print(fp.protokoll[-1])
