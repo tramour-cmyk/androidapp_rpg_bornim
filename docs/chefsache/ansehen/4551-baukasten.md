@@ -11,4 +11,6 @@ Großbild: Telegram 01.11., 17:01. Wie im Spiel gezeichnet (Toon-Licht, Tusche, 
 - **Wie gebaut:** das Netz bleibt, nur das Farbbild wechselt (ein Bild je Gegenstand, 1024 Punkte); so würde jeder Gegenstand später gebaut. Netzliste je Platz: `LISTE-NETZE.md` (455.2).
 - **Stärkstes Gegenargument:** in der Spielansicht (weiter weg als hier) lesen sich Borte und Runen kaum; dort tragen nur Umriss und Farbe.
 
+**Prüferbefund (17:02, nach dem Versand):** Borte und Runen in allen 48 Zellen an der richtigen Stelle, nichts abgeschnitten, Beschriftung stimmt. Hoch: bei der Robe wechselt nur der Rock, Oberteil und Ärmel bleiben blau (eigene Teile im Netz; nachbessern: mitbemalen). Robe: orange Flecken auf Kniehöhe und Splitter an der Hüfte (Beine durch den Rock, wie 376.1), Frau mit schwarzem Dreieck auf der Brust (wie 376.1); Kette auf der Robe mit Moiré und senkrechter Naht. Umhang: Streifen und ein graues Dreieck von innen durch den Umhang, in allen Spalten gleich (Ausrüstung darunter). Arme: Armschienen und Handschuhe färben mit, bei der Frau ein zweites Band am oberen Rand der Armschiene. Leder- und Fellborte dunkel auf dunkel, kaum zu sehen.
+
 **Zu sagen:** „passt“ oder was anders sein soll (Material, Farbe, Borte, Runen); welche Materialien fehlen (Schuppe, Platte).
