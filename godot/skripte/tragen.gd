@@ -58,7 +58,6 @@ static func art_von(base: String) -> String: return String(ARTEN.get(base, ""))
 # 417 Runde 4 (Chef 01.11., 12:21, Axt Runde 3 „schwebt“; 348.12c): Gehen und Rennen je Waffe aus den Protofactor-Paketen
 # (waffengang.py, bewegungen.bin „Gehen_<gang>“, „Rennen_<gang>“). Die Bewegung fuehrt Arm und Hand; dieser Knoten stellt nur die Waffe
 # in die Faust (Schaft laengs Kleinfinger-Zeigefinger der Hand, wie die Bewegung sie haelt). Stab bleibt beim Wanderstab (Runde 2 passt).
-const SCHILD_AB := 0.07   # m: Schildmitte vor dem Unterarm (Griff und Polster)
 const GANG_ZWEI :=["greatsword", "greataxe", "maul", "halberd"]
 const GANG_BOGEN := ["shortbow", "longbow", "light_crossbow"]
 static func gang_von(base: String, schild: bool) -> String:
@@ -165,43 +164,65 @@ func _process_modification() -> void:
 	elif art == "schulter": o = G * mitte + dw * axt_griff
 	waffe.global_position = o
 
-# 417 Runde 4: Waffe in die Faust der Paketbewegung. Schaft laengs achse der Hand (zum Zeigefinger: Klinge, Kopf), Blatt oder Schneide
-# zu den Knoecheln hin (Handgelenk -> Mittelfinger), beim Bogen die Sehne zum Handgelenk; die Finger schliesst _faust_zu um den Schaft
+# 417 Runde 5 (Pruefer 13:3x: Schwert durch Schild, Schild vor Brust und Gesicht, Bogen im Becken): die Waffe so in der Hand, wie die
+# Hersteller der Pakete sie in ihren Unity-Prefabs an die Hand haengen (Messung 3f, griff417b.py, Lauf 41310719427), umgerechnet in den
+# Rahmen der Hand: x Handgelenk -> Mittelfinger, y quer ueber die Knoechel (Kleinfinger -> Zeigefinger), z = x kreuz y; Laengen in
+# Handlaengen (Handgelenk bis Mittelfinger). Den Rahmen gleicht zauber385.py zwischen Paket und Kaufkoerper ab, darum gilt die Lage hier.
+# Befund: Zweihaender, Keule und Schwert liegen alle drei gleich, Achse (0,26, 0,96, 0,02), also laengs der Knoechel, etwas zu den Fingern
+# geneigt; der Schaft laeuft 0,33 Handlaengen innen (Handflaeche) durch die Faust. Bogen links ebenso laengs der Knoechel; der Schild
+# links liegt mit der Flaeche am Handruecken (Normale -z), Mitte am Handgelenk.
+const GRIFF_ACHSE := Vector3(0.26, 0.96, 0.02)          # Waffe rechts, zur Spitze (Modell +Y)
+const GRIFF_PUNKT := Vector3(0.99, -0.09, -0.33)        # Griff (Modell-Ursprung) rechts
+const BOGEN_ACHSE := Vector3(-0.44, -0.90, 0.05)        # Bogen links, Wurfarme (Modell +Y)
+const BOGEN_PUNKT := Vector3(0.99, -0.09, 0.33)         # links ist der Rahmen gespiegelt: innen ist +z
+const SCHILD_NORMALE := Vector3(0.22, -0.07, -0.97)     # Schild links, Vorderseite (Modell +Z)
+const SCHILD_PUNKT := Vector3(-0.18, -0.06, -0.35)      # Fessel (Modell-Ursprung) am Handgelenk, am Handruecken
+
+# Rahmen der Hand im Skelettraum: Basis aus x, y, z je mal Handlaenge, Ursprung am Handgelenk (wie zauber385.py rahmen)
+static func hand_rahmen(sk: Skeleton3D, s: String) -> Transform3D:
+	var ih := sk.find_bone("hand_" + s); var im := sk.find_bone("middle_01_" + s)
+	var ii := sk.find_bone("index_01_" + s); var ip := sk.find_bone("pinky_01_" + s)
+	if ih < 0 or im < 0 or ii < 0 or ip < 0: return Transform3D()
+	var h := sk.get_bone_global_pose(ih).origin
+	var d := sk.get_bone_global_pose(im).origin - h
+	var x := d.normalized()
+	var z := x.cross(sk.get_bone_global_pose(ii).origin - sk.get_bone_global_pose(ip).origin).normalized()
+	var y := z.cross(x)
+	var l := d.length()
+	return Transform3D(Basis(x * l, y * l, z * l), h)
+
+# Waffe in die Faust: Y laengs der gemessenen Achse, X (Schneide, beim Bogen der Ruecken zum Ziel) zu den Fingern hin, quer zur Achse
 func _paket(sk: Skeleton3D, ih: int) -> void:
 	var G := sk.global_transform
-	var hg := sk.get_bone_global_pose(ih)
-	var d := (hg.basis * achse).normalized()
-	var mitte := _faust_zu(sk, ih, d)
-	hg = sk.get_bone_global_pose(ih)
-	var im := sk.find_bone("middle_01_" + seite)
-	var kn := ((sk.get_bone_global_pose(im).origin if im >= 0 else hg * Vector3(0, 0.08, 0)) - hg.origin).normalized()
+	var R := hand_rahmen(sk, seite)
+	var bogen := gang == "bogen"
+	var d := (R.basis * (BOGEN_ACHSE if bogen else GRIFF_ACHSE)).normalized()
+	_faust_zu(sk, ih, d)
+	R = hand_rahmen(sk, seite)
+	var p := R * (BOGEN_PUNKT if bogen else GRIFF_PUNKT)
 	var dw := (G.basis * d).normalized()
 	schaft_welt = dw
-	faust_welt = G * mitte
+	faust_welt = G * p
 	if merken:
 		posen.resize(sk.get_bone_count())
 		for i in sk.get_bone_count(): posen[i] = sk.get_bone_global_pose(i)
 	if waffe == null: return
-	var x := G.basis * (-kn if gang == "bogen" else kn)
+	var x := (G.basis * R.basis.x).normalized()
 	x = (x - dw * x.dot(dw)).normalized()
 	waffe.global_basis = Basis(x, dw, x.cross(dw))
-	waffe.global_position = G * mitte
+	waffe.global_position = G * p
 
-# 417 Runde 4, Schwert und Schild: der Schild am linken Unterarm (Mitte), Vorderseite nach vorn links (wie die Paketbewegung den Arm
-# vor den Leib haelt), aufrecht; Kaufschilde wie heldfigur.gd bewaffne: +Z Vorderseite, +Y oben
+# Schild links am Handruecken (Messung 3f): Vorderseite SCHILD_NORMALE, oben quer ueber die Knoechel (Rahmen y), Fessel am Handgelenk
 func _schildarm(sk: Skeleton3D) -> void:
-	var il := sk.find_bone("lowerarm_l"); var ih := sk.find_bone("hand_l")
-	if il < 0 or ih < 0 or waffe == null: return
+	if waffe == null: return
 	var G := sk.global_transform
-	var mi := G.affine_inverse() * modell.global_transform
-	var vorn := (mi.basis * Vector3.BACK).normalized(); var links := (mi.basis * Vector3.RIGHT).normalized()
-	var a := sk.get_bone_global_pose(il).origin; var h := sk.get_bone_global_pose(ih).origin
-	var z := (G.basis * (vorn * 0.8 + links * 0.6)).normalized()
-	var y := (G.basis * (mi.basis * Vector3.UP)).normalized()
+	var R := hand_rahmen(sk, "l")
+	var z := (G.basis * (R.basis * SCHILD_NORMALE)).normalized()
+	var y := (G.basis * R.basis.y).normalized()
 	y = (y - z * y.dot(z)).normalized()
 	waffe.global_basis = Basis(y.cross(z), y, z)
-	waffe.global_position = G * ((a + h) * 0.5) + z * SCHILD_AB
-	faust_welt = G * h; schaft_welt = y
+	waffe.global_position = G * (R * SCHILD_PUNKT)
+	faust_welt = G * R.origin; schaft_welt = y
 
 # Wanderstab: Fuss am Boden (Welt), im Gehen umgesetzt, wenn die Faust STAB_VOR darueber hinaus ist; Ergebnis Richtung im Skelettraum
 func _stab(G: Transform3D, P: Vector3, vorn: Vector3, ac: Vector3, geht: bool, dt: float) -> Vector3:
