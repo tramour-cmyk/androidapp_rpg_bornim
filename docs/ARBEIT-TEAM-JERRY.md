@@ -13,7 +13,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 438 | M | **von Sokrates (Chef 31.10., 23:31, Film 403):** Wölfe gleiten (Angriff, Tempo, aneinander vorbei); echte Schritte, Zahlen (Zu 438) | gebaut: passt (Archiv 438, 01.11., 11:45), fährt im nächsten Build | `claude/jerry-438-wolf-kampf` |
-| 458.2 | M | **von Sokrates (Chef 01.11., 13:1x, Archiv 458):** Gegenstandskatalog: Werte, Preise, Beute je Monster in die Datendatei (aus 444); das Spiel liest nur sie | startbar: 458.2a 1 (Archiv): alte Preise und Stufen eintragen, Spiel liest den Katalog | – |
+| 458.2 | M | **von Sokrates (Chef 01.11., 13:1x, Archiv 458):** Gegenstandskatalog: Werte, Preise, Beute je Monster in die Datendatei (aus 444); das Spiel liest nur sie | in Arbeit bei Tuffy | – |
 | 457.2 | M | **von Perikles (Chef 01.11., 11:49, „unsere Signatur muss sich wiederfinden“):** eigene Probeskripte zeichnen standardmäßig mit Toon-Licht, Tusche, Schatten; ohne nur mit Schalter (Zu 457.2) | gebaut e87815dc8, fährt mit den nächsten Filmen | `claude/jerry-457-2-signatur` |
 | 453.1 | M | **von Sokrates (Chef 01.11., 13:0x):** Helden im Kampf atmen gleich und zu heftig („hechelt“): Atmen ruhiger, je Figur eigener Takt, nach Angriff oder Abwehr schneller, dann abklingend (Zu 453.1) | startbar: passt (Archiv 453.1), Atmen etwas deutlicher beim vorderen Helden; mit Vergleich 403 (Zu 453, Urteil r2) | `claude/tuffy-453-1-held-atem` |
 | 453 | M | **von Sokrates (Chef 01.11., 11:05):** Wölfe brauchen Ruhebewegungen: atmen, scharren, umblicken, knurren (Zu 453) | startbar: r2 passt (Archiv 453 r2), r3 mit Bild; Helden wie 403 (Zu 453, Urteil r2) | – |
