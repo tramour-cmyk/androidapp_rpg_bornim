@@ -1,5 +1,7 @@
 # 461.1 · Grundstand: Dorf-Film des Helden · Spike (Team Tom) · 01.11., 22:5x
 
+[Film von 01.11., 22:55](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-2255-461.1-Spike.mp4) (eingetragen von meldung.sh, Spike)
+
 Film per Telegram (80 s), wie im Spiel gezeichnet (spiel.tscn, Spielshader, Spielkamera, Leute, Dorftiere), auf dem gemeinsamen Zweig `claude/grundstand-461` (c5614eab3); Ablauf `godot.yml` von Hand mit `dorf=ja`, Lauf 155 (41349312822); noch kein Build. Erst der Kämpfer (Mann), dann die Klerikerin (Frau), je: Dorfplatz nah stehen; Straße Stehen, Gehen, Rennen, Loslassen, Stehen; Rennen zu einem Ziel wie nach Tippen; Gehen bei den Hühnern. Titel oben im Bild.
 
 **Grundstand 461, selbst geprüft** (Messzeilen im Lauf, je 0,1 s):
