@@ -16,3 +16,11 @@ Film per Telegram (36 s, Hochformat), noch kein Build. Ablauf auf GitHub (`tom-p
 Nicht Teil dieser Probe: Toon-Licht und Tusche (unbearbeitet aus der Bibliothek), Kleidung.
 
 **Prüferbefund (10:38, nach dem Versand):** Haare, Bärte, Brauen weißgrau (so in der Bibliothek; im Spiel färbt Godot sie nach der Erschaffung). Maßstab irreführend: Erwachsene etwa 4 cm im Boden, Jugend 10 cm darüber, weil die Beckenhöhe der Bewegung zur Puppe der Bibliothek passte; behoben in `probe/bibliothek.gd` (Fuß jetzt am Boden, gemessen), gilt ab dem nächsten Film. Gering: Loch im Haar am Nacken (BuzzedFemale), Zopfspitzen unter dem Kinn (Buns, Ponytail 2), harte Fleckschatten auf der Brust, letzte Haarseite nur ein Feld.
+
+## Stellungnahme Sokrates (01.11., 11:3x, auf Frage des Chefs 11:33: „Auch mit Blick auf die Beschreibung von Homer … Ist das gegengeprüft?“)
+
+- **Gegengeprüft gegen Homer (430, `LISTE-FIGUREN.md` „Völker“) nur Punkt 1, die Größe:** die goldenen Linien. Punkt 2 (Umriss: Kopfanteil Elf 1/8, Zwerg 1/5, Hügelvolk 1/6, Ork 1/7; Beinlänge; Schulterbreite), 3 (Ohren, Hauer, Bart), 5 (Haltung) sind nicht gemessen; die Probe zeigt Grundkörper, keine Völker. Ohren und Hauer fehlen im Bestand.
+- **Votum: alle vier Völker auf Regulär, Breite und Kopf über Knochen**, nicht Zwerg und Ork auf Superheld. Gründe: (a) unsere Köpfe sind auf den Regulär-Kopf gebaut (376.1), Superheld hat keinen eigenen Kopf; (b) der Baukasten 455 braucht einen Körper, auf dem alle Trachten sitzen; ein zweiter Körper verdoppelt die Prüfung jeder Tracht; (c) Homers Zwerg ist gedrungen mit Kopf 1/5, das gibt Superheld nicht her, Knochen müssen es so oder so machen.
+- *Stärkstes Gegenargument:* Regulär ist schmal; Ork „massig, Rumpf breiter und tiefer“ nur über Knochen gestreckt kann aufgeblasen wirken, Superheld hat die Masse im Netz. *Prüfung:* im Größenfilm 455.2 Ork auf Regulär (verbreitert) neben Superheld; gewinnt Superheld deutlich, nur der Ork darauf.
+- Jugend nicht (wie Tom): Hügelvolk „nie wie ein Kind“.
+- **Folge:** nächste Runde je Volk Mann und Frau, Punkte 1–3 und 5 aus Homers Liste mit Zahlen (Kopfanteil, Beinanteil, Schulterbreite gegen Mensch), Hügelvolk neben Goblin (Verwechslung, `LISTE-FIGUREN.md`); Ohren und Hauer nach 408 suchen. Das sechste Volk, Aschgeborene (432), fehlt in Homers Liste; erst sein Text, dann die Figur.
