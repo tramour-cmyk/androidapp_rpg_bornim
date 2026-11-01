@@ -192,8 +192,9 @@ var zwei_anteil := 1.0
 var zwei_schieben := 0.30
 # Schwert mit Schild: im Rennen fuehrt die Bewegung die rechte Faust 5 cm durch den rechten Oberschenkel; der Oberarm geht dafuer
 # immer (auch im Gehen, damit beim Wechsel nichts springt) schwert_abspreiz Grad nach aussen. Lauf 41356789633 (Becken nach Beinlaenge):
-# 9 Grad liess die Klinge im Rennen in 1 von 15 Bildern 4,9 cm in den rechten Oberschenkel; Fassungen SCHWERT_FASSUNGEN in der Messung
-var schwert_abspreiz := 9.0
+# 9 Grad liess den Knauf im Rennen in 1 von 15 Bildern 4,9 cm in den rechten Oberschenkel; Lauf 41359533716: 12 Grad frei 6,0 cm,
+# 15 Grad 7,0, 18 Grad 8,0 (Gehen ueberall frei, Schluesselbein 2,0-4,0). 15 fuer Luft bei kraeftiger Statur
+var schwert_abspreiz := 15.0
 # 417 Runde 5 (Lauf 41350556171): das entspannte Paketgehen WalkNormal2S&S fuehrt den linken Arm dicht am Koerper, der untere Schildrand
 # lag in 5 von 15 Bildern bis 5 cm in Ruecken (spine_03) und linkem Oberschenkel. Der Schildarm geht darum immer (kein Sprung beim
 # Wechsel) schild_abspreiz Grad nach aussen; Fassungen in tests/tragen_pakete_417.gd (SCHILD_FASSUNGEN). Lauf 41355090887 (Gehen):
