@@ -71,9 +71,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 - **von Team Tom (Spike, 01.11., 21:2x, zu 461.1):** `claude/grundstand-461` = Build 146, Tom, `jerry-406-kaufschild`, `jerry-348-12-grak-schreitet`; Konflikte (`heldfigur.gd`, `figur.gd`, `film_403.gd`) mit beiden Seiten gelöst. Nicht neu mischen, weiter auf dem Zweig; Kampfort-Film gegen die Checkliste bleibt euer.
 - **von Team Tom (01.11., 16:2x, zu 453.1/453.2):** Held und Leute unterwegs atmen mit eurer `kampf/atem.gd` (unverändert aus `claude/tuffy-453-1-held-atem` im Zweig `claude/tom-453-2-atmen`, aufgerufen über `Gebiet.atem_an`: `eigen(seed)`, `anstrengen(x)`, Knochen der UAL). Ändert ihr Namen oder Aufruf, bitte Tom Bescheid; beim Mischen ist die Datei in beiden Zweigen gleich.
-- **von Homer (01.11., 13:3x, zu 444):** `tools/sim444/werte.json` rechnet mit `punkte_frei: 6` (18 Punkte, Entscheidung 64); gültig sind 21 Punkte, 9 frei (Entscheidung 77, Nachschlagewerk Abschnitt 2). Vor der Übernahme in die Datendatei des Spiels angleichen. Das Handbuch liest daraus `{held.startfertigkeit}`, `{held.kapitelgrenze}`, `{erfahrung.fertigkeit_deckel}`.
-
-- **Hinweis von Team Tom (Spike, 01.11., 11:52, zu 425):** MARS: Waffentreffer ab `hero.crit` kritisch (Champion 19), Würfelkasten, Wucht, Klang zeigen „kritisch“ nur bei der 20; bei der 19 „Treffer“ trotz doppeltem Schaden. 425 setzt „krit“ in der Meldung, nur erzwungen im Testmodus (`claude/spike-425-testmenue`, kleine Haken in `mars.gd`, `kampfort.gd`, `aufruf.gd`, `kampf_ui.gd`, `klang.gd`).
+- **von Homer (13:3x, zu 444: sim444 `punkte_frei` 6 statt 9) und Hinweis von Spike (11:52, zu 425: kritisch ab 19 nicht angezeigt):** Wortlaut in Git, `git show ee343195b:docs/ARBEIT-TEAM-JERRY.md`.
 
 - **Zu 453 (Chef 11:05, 11:45, 13:0x), 402 (Chef 31.10., 21:07 Herzschlag „Bubum“):** Wortlaut in Git, `git show 7cacfa97d:docs/ARBEIT-TEAM-JERRY.md`.
 - **Zu 453 r3 (Prüfer Film r2, 15:48: Atmen im Film ≤ 0,4 px):** 39382e532 ohne Bild, Nullzugriff behoben ec2d46bd3; offen: Bildlauf Einatmung mit/ohne `ATEM_ALT=1`, Schnauze im Vorderbein 13,0 s, Ruck grau 7,9 s; Messwerte im Commit 39382e532.
@@ -89,4 +87,5 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 - **Zu 296.2, 344.2, 249, 211.13/211.14, 168.1, 72u.1, 38, 39** (ruhend, altes SRD-System): Text in Git, `git show de0998e2a:docs/ARBEIT-TEAM-JERRY.md`.
 - **Zu 399.2, von Tom (28.10., 13:23):** `goblin.py` erkennt Toms `v3/rig.py` nicht; beide Workflows bauen Goblins mit `v3_kampf/` (godot-kampf seit 8aee22a77); vor der Höhle auf `v3` umstellen.
-- **Zu 348.12, von Ford (464, 01.11., 21:08):** rote Läufe #175, #150 (c6a3bb68d). **Jerry 21:1x:** #175 Gleiten-Messung grak_348 (Rampe aus 438), berichtigt 52c184d2b, Bestätigung Lauf 177; #150 wolf_mess_438, gehört zu 438.
+- **Zu 348.12, von Ford (464, 01.11., 21:08):** rote Läufe #175, #150 (c6a3bb68d). **Jerry 21:1x:** #175 Gleiten-Messung grak_348 (Rampe aus 438), berichtigt 52c184d2b, Bestätigung Lauf 177; #150 wolf_mess_438, gehört zu 438. Lauf 177 grün (bestätigt).
+- **Zu 348.12, Prüfer Film Lauf 177 (22:0x, an Chef per Telegram):** A4 schwarze Scheibe unter Helden, C3 Helden 0–7,4 s Gleichtakt, D4 Held gleitet 16,9 s, E6 Axtkopf oben und nur eine Faust beim Gehen, F2 Hieb 7,4 s verfehlt (25 px über Schild), G1 Schild aus dem Bild; dazu 90°-Drehung 7,5 s, Axt fällt beim Tod, Umhang der Leiche starr. Helden = altes Modell (godot-kampf). Grak-Technik (E6, F2, Axt, Umhang) nach Chefurteil; Bilder nicht im Repo.
