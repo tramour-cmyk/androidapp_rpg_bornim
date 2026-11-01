@@ -3,9 +3,9 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `8700379b0` (29.10., 01:06)
+**Gelesen bis:** `c8f92fe71` (01.11., 09:11)
 
-**Übergabe (01.11., 00:2x):** 430 Abnahmelisten Elf, Zwerg, Hügelvolk, Orkblütiger in `LISTE-FIGUREN.md` „Völker“, Chefsache 430; Hinweis an Tom (431). 428 Hintergrund aller Monster Kapitel 1 in `LISTE-BESTIARIUM.md`, Chefsache 428; Hinweis an Sokrates (427). Nachfolger: keiner, 423 wartet auf Sokrates (422), 430 und 428 auf den Chef.
+**Übergabe (01.11., 09:1x):** 430 Völkerlisten gebilligt (431 bei Tom startbar); 428 Bestiarium-Hintergrund freigegeben, vier Nachfolger aus 348.12c Entwurf bis zum Kauf; 432 geprüft (Zu 432), ruht. Nachfolger: keiner, 423 wartet auf Sokrates (422).
 
 
 ## Zeilen
