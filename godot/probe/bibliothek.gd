@@ -23,8 +23,25 @@ static func _sammle(d: String, endung: String, aus: Array) -> void:
 		if not u.begins_with("."): _sammle(d.path_join(u), endung, aus)
 
 
+# 457.1 (Chef 01.11., 11:49: „unsere Signatur muss sich wiederfinden“): jedes geladene Modell standardmaessig mit dem Toon-Zeichner des
+# Spiels (Gebiet.male, Schablone 2 wie der Held: feinere Tusche, Licht nach Licht.richtung); ohne nur mit --ohnetoon oder toon=false
+static func spielbild(n: Node3D) -> Node3D:
+	if n == null or "--ohnetoon" in OS.get_cmdline_user_args(): return n
+	var mats := []
+	Gebiet.male(n, null, 2, mats)
+	for m in mats:
+		(m as ShaderMaterial).set_shader_parameter("metall", 1.0)
+		(m as ShaderMaterial).set_shader_parameter("licht_dir", Licht.richtung())
+	return n
+
+
 # wurzel: Paketordner, in dem die Bilder gesucht werden
-static func lade(pfad: String, wurzel: String) -> Node3D:
+static func lade(pfad: String, wurzel: String, toon := true) -> Node3D:
+	var n := _lade(pfad, wurzel)
+	return spielbild(n) if toon else n
+
+
+static func _lade(pfad: String, wurzel: String) -> Node3D:
 	var d := GLTFDocument.new()
 	var s := GLTFState.new()
 	if pfad.ends_with(".glb"):

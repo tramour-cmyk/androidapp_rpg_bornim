@@ -34,24 +34,35 @@ var ual: Node3D
 var ual_ap: AnimationPlayer
 var zeit := 0.0
 var ablauf := []              # [ab Sekunde, Callable]
+# 457.1 (Chef 01.11., 11:49: „unsere Signatur muss sich wiederfinden“): standardmaessig wie im Spiel gezeichnet: Licht und Schatten aus
+# licht.gd (Sonne, Umgebung, Tonwerte), Figuren mit dem Toon-Zeichner (bibliothek.gd spielbild), Tusche nach Licht je Feld (shader/tusche.gdshader
+# wie kamera.gd: Welt Schablone 0, Figuren Schablone 2, feiner); --ohnetoon: wie vorher, nur mit Schalter
+var spielbild := "--ohnetoon" not in OS.get_cmdline_user_args()
+var licht: Licht
+var tusche_mats := []   # je Flaeche [Material, Kamera, Feldgroesse]
 
 
 func _ready() -> void:
 	schrift.load_dynamic_font("res://kampf/schrift/alegreya_regular.ttf")
-	var welt := WorldEnvironment.new()
-	var env := Environment.new()
-	env.background_mode = Environment.BG_COLOR
-	env.background_color = Color(0.05, 0.045, 0.04)
-	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-	env.ambient_light_color = Color(0.55, 0.5, 0.45)
-	env.ambient_light_energy = 0.6
-	welt.environment = env
-	add_child(welt)
-	var sonne := DirectionalLight3D.new()
-	sonne.rotation_degrees = Vector3(-40, -35, 0)
-	sonne.light_color = Color(1.0, 0.92, 0.8)
-	sonne.shadow_enabled = true
-	add_child(sonne)
+	if spielbild:
+		licht = Licht.new()
+		add_child(licht)
+		licht.env.background_color = Color(0.05, 0.045, 0.04)
+	else:
+		var welt := WorldEnvironment.new()
+		var env := Environment.new()
+		env.background_mode = Environment.BG_COLOR
+		env.background_color = Color(0.05, 0.045, 0.04)
+		env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+		env.ambient_light_color = Color(0.55, 0.5, 0.45)
+		env.ambient_light_energy = 0.6
+		welt.environment = env
+		add_child(welt)
+		var sonne := DirectionalLight3D.new()
+		sonne.rotation_degrees = Vector3(-40, -35, 0)
+		sonne.light_color = Color(1.0, 0.92, 0.8)
+		sonne.shadow_enabled = true
+		add_child(sonne)
 	var leer := Camera3D.new()   # die Hauptansicht zeigt nur den Grund, gezeichnet wird in den Feldern
 	leer.cull_mask = 0
 	add_child(leer)
@@ -66,7 +77,7 @@ func _ready() -> void:
 	_stil(titel, 34)
 	ebene.add_child(titel)
 	var ual_pfad := _erste(B.dateien([cc0, kauf], ".glb").filter(func(p): return p.get_file() == "UAL1_Standard.glb"))
-	ual = B.lade(ual_pfad, "") if ual_pfad != "" else null
+	ual = B.lade(ual_pfad, "", false) if ual_pfad != "" else null
 	if ual == null: print("FILM FEHLER: UAL1_Standard.glb fehlt unter CC0/KAUF"); get_tree().quit(1); return
 	ual_ap = B.spieler(ual)
 	ual.visible = false
@@ -85,6 +96,15 @@ func _ready() -> void:
 
 func _process(dt: float) -> void:
 	zeit += dt
+	for e in tusche_mats:
+		if not is_instance_valid(e[1]): continue
+		var m: ShaderMaterial = e[0]
+		var cam: Camera3D = e[1]
+		m.set_shader_parameter("licht_dir", Licht.richtung())
+		# Bildbreite in Metern wie Kamera.size im Spiel: senkrecht gestellt (ortho) oder in der Entfernung des Blickpunkts
+		var r: Vector2 = e[2]
+		var hoch := cam.size if cam.projection == Camera3D.PROJECTION_ORTHOGONAL else 2.0 * tan(deg_to_rad(cam.fov) / 2.0) * maxf(0.5, cam.global_position.length())
+		m.set_shader_parameter("breite_m", hoch * r.x / maxf(1.0, r.y))
 	ablauf.sort_custom(func(a, b): return a[0] < b[0])
 	while not ablauf.is_empty() and zeit >= ablauf[0][0]:
 		var schritt: Array = ablauf.pop_front()
@@ -133,6 +153,7 @@ func _feld(r: Rect2, ortho := 0.0) -> Array:
 		cam.projection = Camera3D.PROJECTION_ORTHOGONAL
 		cam.size = ortho          # senkrechte Ausdehnung in Metern
 	v.add_child(cam)
+	if spielbild: _tusche(cam, r.size)
 	c.add_child(v)
 	ebene.add_child(c)
 	var o := Control.new()
@@ -150,6 +171,30 @@ func _feld(r: Rect2, ortho := 0.0) -> Array:
 	felder.append_array([c, o])
 	cam.current = true
 	return [cam, o]
+
+
+# 457.1: Tusche wie kamera.gd tusche_flaeche (Welt 1,3/1,7, Figuren 0,8/1,5, nach Licht)
+func _tusche(cam: Camera3D, groesse: Vector2) -> void:
+	var tu: Shader = load("res://shader/tusche.gdshader")
+	var tu_fig := Shader.new()
+	tu_fig.code = tu.code.replace("stencil_mode read, compare_equal, 0;", "stencil_mode read, compare_equal, 2;")
+	for e in [[tu, 1.3, 1.7], [tu_fig, 0.8, 1.5]]:
+		var q := MeshInstance3D.new()
+		var qm := QuadMesh.new()
+		qm.size = Vector2(2, 2)
+		q.mesh = qm
+		q.extra_cull_margin = 16384.0
+		q.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		var m := ShaderMaterial.new()
+		m.shader = e[0]
+		m.render_priority = 127
+		m.set_shader_parameter("px", e[1])
+		m.set_shader_parameter("dick", e[2])
+		m.set_shader_parameter("richtung", 1.0)
+		q.material_override = m
+		q.position = Vector3(0, 0, -1)
+		cam.add_child(q)
+		tusche_mats.append([m, cam, groesse])
 
 
 func _stil(l: Label, groesse: int, farbe := GOLD) -> void:
