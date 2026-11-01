@@ -19,6 +19,11 @@ const VON := "Wolf_Spine_01SHJnt"
 
 var _rippen := []
 var _halten := -1
+## 453 r3 (gemessen tests/atem_netz_453.gd): Spine_04 und alles darunter (Schultern, Vorderläufe, Hals, Kopf) der Reihe nach von oben
+## zurück auf die Pose vor dem Atem. Nur Spine_04 genügte nicht: die Weitung quer zum Rumpf liegt nicht genau in den Achsen der
+## Knochen, set_bone_pose zerlegt sie in Drehung und Maßstab und verliert die Scherung; der Rest ging bis in die Vorderpfoten (5 mm je
+## Atemzug) und den Kopf (1 mm).
+var _kinder := PackedInt32Array()
 var _von := -1
 
 
@@ -43,6 +48,12 @@ func _process_modification_with_delta(delta: float) -> void:
 			_rippen.append(sk.find_bone(r[0]))
 		_halten = sk.find_bone(HALTEN)
 		_von = sk.find_bone(VON)
+		if _halten >= 0:
+			var offen := [_halten]
+			while not offen.is_empty():
+				var k: int = offen.pop_front()
+				_kinder.append(k)
+				offen.append_array(Array(sk.get_bone_children(k)))
 	if _halten < 0 or _von < 0:
 		return
 	tiefe = welle(phase) * (1.0 + TIEFER * anstrengung)
@@ -59,6 +70,9 @@ func _process_modification_with_delta(delta: float) -> void:
 	var m_je_einheit: float = sk.global_basis.get_scale().y
 	var heben: Vector3 = oben * (HEBEN_M * tiefe / maxf(m_je_einheit, 1e-6))
 	var halten := sk.get_bone_global_pose(_halten)
+	var kinder := []
+	for k in _kinder:
+		kinder.append(sk.get_bone_global_pose(k))
 	var achsen := Basis(quer, oben, laengs)
 	var vorher := []     # erst alle lesen: nach dem Setzen enthielte der Kindknochen die Weitung des Elternknochens schon
 	for b in _rippen:
@@ -73,4 +87,5 @@ func _process_modification_with_delta(delta: float) -> void:
 		g.basis = weit * g.basis
 		g.origin += heben * RIPPEN[i][1]
 		sk.set_bone_global_pose(b, g)
-	sk.set_bone_global_pose(_halten, halten)
+	for i in _kinder.size():
+		sk.set_bone_global_pose(_kinder[i], kinder[i])

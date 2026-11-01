@@ -40,7 +40,7 @@ func _run() -> void:
 	kf.add_child(ebene)
 	if not Signatur.wache(kf, self, "Film 453"):     # 457.2: Toon-Licht, Tusche nach Licht, Schatten wie im Spiel
 		return
-	titel.text = "453 r2 · Ruhe, Kampfkamera"
+	titel.text = "453 r3 · Ruhe, Kampfkamera"
 	for i in _env("RUHE_MS", 8000) * 30 / 1000:
 		await process_frame
 	var nah := Camera3D.new()
@@ -51,7 +51,7 @@ func _run() -> void:
 	var ui_war: bool = kf.ui.visible if kf.ui != null else false
 	if kf.ui != null:
 		kf.ui.visible = false
-	titel.text = "453 r2 · Ruhe, nah"
+	titel.text = "453 r3 · Ruhe, nah"
 	if not Signatur.wache(kf, self, "Film 453 nah"):     # 457.2: die Nahkamera zeichnet mit breiter Linie
 		return
 	for i in _env("NAH_MS", 10000) * 30 / 1000:
@@ -60,7 +60,7 @@ func _run() -> void:
 	kf.cam.make_current()
 	if kf.ui != null:
 		kf.ui.visible = ui_war
-	titel.text = "453 r2 · Kampf, Kampfkamera"
+	titel.text = "453 r3 · Kampf, Kampfkamera"
 	kf.mars.find("merc").auto = true
 	kf.mars.set_autopilot(true)
 	if not kf.busy:
@@ -80,6 +80,12 @@ func _run() -> void:
 ## Mitte der lebenden Wölfe daheim (ihr Platz, nicht der Sprung), weich nachgeführt
 var _mitte := Vector3.INF
 
+## Tangens des halben Blickwinkels quer (fov gilt in der Höhe, der Schirm steht hochkant)
+func _halb_quer(kf, cam: Camera3D) -> float:
+	var g: Vector2 = Vector2(kf.get_viewport().get_visible_rect().size)
+	return tan(deg_to_rad(cam.fov) * 0.5) * g.x / maxf(g.y, 1.0)
+
+
 func _nah(kf, cam: Camera3D) -> void:
 	var s := Vector3.ZERO
 	var z := 0
@@ -89,10 +95,29 @@ func _nah(kf, cam: Camera3D) -> void:
 			z += 1
 	if z == 0:
 		return
-	var m: Vector3 = s / z + Vector3(0, 0.6, 0)
-	_mitte = m if _mitte == Vector3.INF else _mitte.lerp(m, 0.03)
-	var weit: float = float(OS.get_environment("NAHE")) if OS.get_environment("NAHE") != "" else 3.2
-	cam.position = _mitte + (kf.cam.global_position - _mitte).normalized() * weit
+	# 453 r3 (Prüfer Film r2: Kopf des schwarzen Wolfs füllt das halbe Bild, meist nur ein Wolf; gemessen: wer angreift, läuft auf die
+	# Kamera zu): von der Seite, quer zur Richtung Wölfe → Helden, so weit, dass das ganze Rudel ins Bild passt; fest, ohne Nachführen
+	if _mitte != Vector3.INF:
+		return
+	_mitte = s / z + Vector3(0, 0.6, 0)
+	var zu: Vector3 = kf.cam.global_position - _mitte
+	zu.y = 0.0
+	var seite: Vector3 = zu.normalized().cross(Vector3.UP)
+	# aus der Richtung, in der das Rudel schmaler im Bild steht (seitlich oder schräg von vorn, über den Helden hinweg)
+	var beste := Vector3.ZERO
+	var beste_weit := INF
+	for r in [seite, (seite + zu.normalized()).normalized(), (zu.normalized() - seite).normalized(), -seite]:
+		var quer: Vector3 = r.cross(Vector3.UP)
+		var breit := 0.0
+		for f in kf.figures.values():
+			if f != null and is_instance_valid(f) and f.fighter != null and f.fighter.monster != null and not f.down:
+				breit = maxf(breit, absf((f.home - _mitte).dot(quer)))
+		var w: float = (breit + 0.8) / _halb_quer(kf, cam)
+		if w < beste_weit:
+			beste_weit = w
+			beste = r
+	var weit: float = float(OS.get_environment("NAHE")) if OS.get_environment("NAHE") != "" else maxf(3.2, beste_weit)
+	cam.position = _mitte + beste * weit + Vector3(0, 0.5, 0)
 	cam.look_at(_mitte)
 
 

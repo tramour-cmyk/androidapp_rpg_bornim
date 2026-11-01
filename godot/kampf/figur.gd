@@ -872,6 +872,8 @@ func _idle_wenn_frei() -> void:
 		_idle()
 
 
+var _schleifen := 0     # 453 r3: wie oft die Grundschleife neu begann (Versatz je Wolf, für Prüfläufe fest)
+
 func _idle() -> void:
 	if down:
 		return
@@ -884,6 +886,15 @@ func _idle() -> void:
 	# 453 r2: Hocke ↔ Stehen und aus einer Ruhebewegung weich (RUHE_BLENDE), alles andere wie bisher
 	var von: String = anim.current_animation if anim else ""
 	_play(grund, RUHE_BLENDE if (von in RUHE or von in RUHE_GESTEN) else 0.15)
+	# 453 r3 (Prüfer Film r2: Umblicken und Knurren im selben Bild; gemessen tests/atem_bild_453.gd: alle Wölfe in Hocke bei 1,13 s
+	# ihrer Schleife): die Grundschleife selbst blickt um (Stehen = IdleA) oder wendet den Kopf (Hocke = IdleC); beginnt sie neu, dann
+	# je Wolf an anderer Stelle, sonst wendet das Rudel im Gleichtakt
+	if fighter.monster != null and von != grund and anim.has_animation(grund):
+		var lang: float = anim.get_animation(grund).length
+		var z := RandomNumberGenerator.new()
+		z.seed = hash("%s/%s/%d" % [fighter.id, grund, _schleifen])
+		_schleifen += 1
+		anim.seek(z.randf() * lang, true)
 
 
 # Prüfer Runde 25: Blick und Rumpf wurden nur bei der Ansage gerichtet; rückte das Ziel danach auf seinen Platz, sah der Wolf
