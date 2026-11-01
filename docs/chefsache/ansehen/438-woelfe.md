@@ -1,15 +1,14 @@
-# 438, 439, 440 · Wölfe im Kampfort: Schritte statt Gleiten, Reihenfolge, Tod · Jerry · 01.11., 08:09
+# 438, 439, 440 · Wölfe im Kampfort: nicht mehr ineinander, Kopf nicht im Helden, Tod knickt ein · Jerry · 01.11., 09:45
 
-![Wölfe im Kampfort](../bilder/438-woelfe.webp)
+![Wölfe im Kampfort](../bilder/438-woelfe-r2.webp)
 
-[Film](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/pruefung/438-woelfe.mp4), 48 s am Rechner, noch kein Build: Kleriker als Held, Kämpfer als Begleiter, gegen das Wolfsrudel, Autopilot, Echtzeit.
+[Film](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/pruefung/438-woelfe-r2.mp4), 48 s am Rechner mit Kaufwolf und Kaufheld, noch kein Build: Kleriker als Held, Kämpfer als Begleiter, gegen das Wolfsrudel, Autopilot, Echtzeit, dieselben Würfel wie im ersten Film.
 
-- **Ursache des Gleitens (438):** Die Bewegungen des gekauften Wolfs lagen falsch auf dem Modell; im Gehen hoben sich alle vier Pfoten zugleich, der Wolf schwebte. Jetzt wie in der Quelle: immer zwei Pfoten am Boden.
-- Dazu: Wölfe fahren an und bremsen, die Schritte laufen im Tempo des Körpers, aufgesetzte Pfoten bleiben am Boden. Nach dem Biss geht der Wolf rückwärts heim, das Gesicht zum Helden, statt sich zweimal auf der Stelle umzudrehen. Einer vorn und einer hinten stehen schräg versetzt statt ineinander.
-- **Reihenfolge (439):** Der Held stürzt erst, wenn der springende Wolf ihn trifft (vorher fiel er, als der Wolf schon wieder daheim stand). Fällt ein Wolf, rücken die anderen erst nach, wenn er liegt.
-- **Tod (440):** Der Wolf fällt ganz (1,7 s), liegt gut eine Sekunde und verblasst dann; vorher war er nach 1,5 s weg. Im Film etwa ab 0:37.
-- Gemessen ohne Bild (beide Kämpfe, je 90 s): Wolf in Wolf vorher 2519 Bilder, jetzt 25 (höchstens 0,24 m, beim Ausweichen); Drehen ohne Schritt vorher bis 20° je Bild, jetzt höchstens 8° mit Tritten.
-- **Prüfer nach Versand (08:18):** die Messung war zu grob; im Film laufen Wölfe noch durcheinander (0:18,6; 0:42,2; 0:44,6), Köpfe stecken beim Biss im Helden, Würfelzeile und Schaden kommen vor dem Sprung, der Tod fällt gestreckt. Wird technisch nachgebaut; Einzelheiten in Telegram.
-- Bekannt, nicht neu: beim Biss steckt die Schnauze bis 0,3 m im Umriss des Klerikers (Schild und Waffe zählen mit); Ausweichen bleibt ein schneller Satz im Bogen.
+- **Wölfe ineinander:** Hauptursache war der Umriss des gekauften Helden in der Grundhaltung mit ausgestreckten Armen (1,8 m breit); jeder Wolf nahe der Gruppe stand so schon daheim „im“ Helden und nahm den am wenigsten schlechten Weg. Dazu galt der lange Wolf als Kreis, und ein Wolf drehte sich daheim in den Anlauf eines anderen. Gemessen (vier Kämpfe): vorher 72 Bilder über 10 cm ineinander, jetzt 0.
+- **Kopf im Helden:** der Wolf beißt 6 cm weiter vorn ab, der Held bleibt beim Hieb 0,3 m vor dem Wolf; gemessen an den Knochen von Held und Söldner: 0.
+- **Reihenfolge:** Würfelzeile, Schaden und Lebensleiste erst, wenn der Biss trifft; „… bricht zusammen“ steht in der Zeile, wenn er fällt; wer Platz macht, geht erst nach dem Biss.
+- **Tod:** der Wolf knickt erst in den Läufen ein, dann fällt er (gleich lang wie bisher), liegt, verblasst.
+- Drehsprünge der Wölfe und das ruckartige Heranzoomen der Kamera bei einem zweiten Schlag sind behoben.
+- **Offen:** Der gekaufte Held hat kein Hinfallen und Aufstehen (Frage [438a](../entscheiden/438a-sturz-held.md)); Ansage und Leiste neben Wolf 1, Streifen unten: der Prüferbefund folgt in Telegram.
 
 **Zu sagen:** „passt“ (fährt im nächsten Build mit) oder was nicht stimmt.
