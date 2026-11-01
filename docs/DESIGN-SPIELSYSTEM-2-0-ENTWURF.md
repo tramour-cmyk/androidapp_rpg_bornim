@@ -1,6 +1,6 @@
 # Spielsystem 2.0 – Anleitung und Nachschlagewerk
 
-Entwurf (Vorgang 422, Sokrates, 31.10.2026). Hier steht nur, was gilt, und am Ende, was noch offen ist. Verlauf und Begründungen stehen in [`DESIGN-SPIELSYSTEM-2-0.md`](DESIGN-SPIELSYSTEM-2-0.md). Alle Zahlen sind Startwerte; sie werden mit einer Simulation in der Godot-Fassung gemessen und angepasst.
+Gültige Fassung (Vorgang 422, abgenommen vom Chef 01.11.2026; Zahlen erst nach der Rechensimulation 444). Hier steht nur, was gilt, und am Ende, was noch offen ist. Verlauf und Begründungen stehen in [`DESIGN-SPIELSYSTEM-2-0.md`](DESIGN-SPIELSYSTEM-2-0.md). Alle Zahlen sind Startwerte; sie werden mit einer Simulation in der Godot-Fassung gemessen und angepasst.
 
 ## Auf einen Blick
 
@@ -33,13 +33,13 @@ Vier Dinge machen den Helden aus. Mehr muss man nicht wissen, um zu spielen.
 | Zähigkeit | Leben, Rüstung tragen, Widerstand gegen Gift, Krankheit, Kälte |
 | Verstand | Wissen, Handwerk, Alchemie, Lerntempo |
 | Wille | Mana, Zauberstärke, Konzentration, Furchtresistenz, Überzeugungskraft |
-| Wahrnehmung | Verstecktes und Fallen entdecken, Fernkampf-Treffgenauigkeit, Hinterhalte bemerken, Fährten |
+| Wahrnehmung | verstärkt Spähen beim Entdecken von Verstecktem und Fallen (Entscheidung 83), Fernkampf-Treffgenauigkeit, Hinterhalte bemerken, Fährten |
 
 Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit und Wille, **Mana** aus Wille. Charisma gibt es nicht; die soziale Wirkung kommt aus Ruf und Gesellschaftsfertigkeiten.
 
 ### Heldenerschaffung
 
-- Jeder Grundwert beginnt bei **1**. Der Spieler verteilt **18 Punkte** (versuchsweise, Entscheidung 64); danach liegt jeder Wert zwischen **3 und 8**. Damit sind 12 Punkte für die Untergrenze 3 gebunden und **6 frei**, etwa Wille 8, Verstand 4, sonst 3. *Vorschlag (offen, Abschnitt 13):* 21 Punkte, also 9 frei, etwa Wille 8, Verstand 6, Zähigkeit 4, sonst 3 (Befund D48.1).
+- Jeder Grundwert beginnt bei **1**. Der Spieler verteilt **21 Punkte** (Entscheidung 77, ersetzt die 18 aus 64); danach liegt jeder Wert zwischen **3 und 8**. Damit sind 12 Punkte für die Untergrenze 3 gebunden und **9 frei**, etwa Wille 8, Verstand 6, Zähigkeit 4, sonst 3.
 - Dazu ein **Volk** mit kleinem Bonus und Malus und einem spürbaren Merkmal (Entscheidung 70, 72):
 
 | Volk | Grundwerte | Merkmal |
@@ -50,7 +50,7 @@ Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit und 
 | Hügelvolk | Gewandtheit +1, Wille +1, Kraft −1 | Glückskind |
 | Orkblütiger | Kraft +1, Zähigkeit +1, Wille −1 | Letzter Atemzug |
 
-  Ob das Volk die Spanne 3 bis 8 überschreiten darf (9 oder 2), ist offen (Abschnitt 13). Leute in der Welt reagieren auf das Volk (Entscheidung 71).
+  Das Volk darf einen Wert auf 9 heben, aber nie unter 3 senken (Entscheidung 78). Leute in der Welt reagieren auf das Volk (Entscheidung 71).
 - **Herkunft, freiwillig** (Entscheidung 68, 69): Sie verteilt die Punkte vor, gibt zwei bis drei Startfertigkeiten und passende Ausrüstung; ein Satz bei der Erschaffung sagt, wohin sie lenkt. Die Punkte kann man ändern. Wer keine will, ist **Wanderer** und verteilt selbst; er wählt zwei Startfertigkeiten. Jede Startfertigkeit beginnt bei **10** (Startwert, Vorschlag).
 
 | Herkunft | Startfertigkeiten | führt meist zu |
@@ -127,7 +127,7 @@ Die Ätherdichte (Entscheidung 76) ist noch ohne Zahl.
 
 ## 5. Der Pfad und der Lehrmeister
 
-**Pfad** ist der neue Name für das, was bisher Berufung hieß (Vorschlag Chef 31.10., 21:5x; noch zu bestätigen). Jeder Held hat höchstens einen Pfad.
+**Pfad** ist der Name für das, was bisher Berufung hieß (Entscheidung 79). Jeder Held hat höchstens einen Pfad.
 
 **So läuft es:**
 1. Du übst Fertigkeiten. Sobald **zwei Kernfertigkeiten** eines Pfads Geselle erreicht haben (zum Beispiel Schild und Heilmagie), spricht dich ein **Lehrmeister** an: „Willst du Paladin werden?“
@@ -155,7 +155,7 @@ So zeigt Kapitel 1 die ersten Lehrmeister und Anwärter. Die Berufung beginnt in
 
 **Wechseln** geht beim Lehrmeister mit Abschlägen: Die Handlungen des alten Pfads gehen verloren, seine Kernfertigkeiten sinken um einen Rang.
 
-**Magie und Rüstung (Vorschlag zur Entscheidung, Befund D48.3):** Die Sperre kommt daher, dass Metall die Aufnahme der Magiepartikel aus der Umgebung stört. Sie gilt darum für die Schulen, die aus der Umgebung schöpfen: **Evokation, Illusion, Beschwörung**. **Heil- und Schutzmagie** schöpfen aus dem eigenen Willen und gehen auch in Rüstung. So zaubern Paladin und Heiler ohne Ausnahmeregel; der Kriegsmagier bleibt die eine Ausnahme bei Evokation (leichte Rüstung).
+**Magie und Rüstung (Entscheidung 80):** Die Sperre kommt daher, dass Metall die Aufnahme der Magiepartikel aus der Umgebung stört. Sie gilt darum für jeden, der aus der Umgebung schöpft: **Evokation, Illusion, Beschwörung** gehen nur ohne Metall (Stoff oder Leder). **Heil- und Schutzmagie** schöpfen aus dem eigenen Willen und gehen auch in Rüstung. So zaubern Paladin und Heiler ohne Ausnahmeregel; der Kriegsmagier bleibt die eine Ausnahme bei Evokation (leichte Rüstung).
 
 Die sechs Gruppen ordnen die Pfade; sie sind keine eigene Stufe:
 
@@ -172,7 +172,7 @@ Die sechs Gruppen ordnen die Pfade; sie sind keine eigene Stufe:
 | | | Scharfschütze | Armbrust oder Bogen, Wurfwaffen, Spähen | Zielschuss, Durchschlagen | höchstens mittlere Rüstung |
 | Magie (Adept) | eine Schule: Evokation, Schutzmagie, Illusion oder Beschwörung | Magier | zwei Schulen | stärkste Zauber, große Manareserve | keine Rüstung |
 | | | Kriegsmagier | Evokation, Einhänder oder Zweihänder, Leichte Rüstung | Waffenzauber | nur leichte Rüstung, Magie gedeckelt |
-| | | Beschwörer | Beschwörung, eine zweite Schule (Vorschlag; mit nur einer Kernfertigkeit käme die Einladung nie) | Diener beschwören, Untote | keine Rüstung; Ruf sinkt bei Nekromantie; keine Heilmagie |
+| | | Beschwörer | Beschwörung, eine zweite Schule (Entscheidung 82) | Diener beschwören, Untote | keine Rüstung; Ruf sinkt bei Nekromantie; keine Heilmagie |
 | Heilung (Heilkundiger) | Heilmagie, Heilkunde, Kräuterkunde | Heiler | Heilmagie, Schutzmagie, Heilkunde | Wiederbeleben, Seuchen heilen | höchstens leichte Rüstung |
 | | | Paladin (siehe Schutz) | | | |
 
@@ -180,9 +180,9 @@ Alle Kernfertigkeiten stammen aus der Liste der 37 (behebt D48.4). Die Einladung
 
 ## 6. Meisterschaften
 
-Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, aber ohne Auflagen. Man kann jede Meisterschaft machen, muss aber keine, und darf mehrere haben. Es gibt **fünf** Meisterschaften (Entscheidung 56). **Einladung (Vorschlag, D54.4):** Hauptfertigkeit und Zulieferfertigkeit auf Geselle, wie beim Pfad zwei Fertigkeiten.
+Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, aber ohne Auflagen. Man kann jede Meisterschaft machen, muss aber keine, und darf mehrere haben. Es gibt **fünf** Meisterschaften (Entscheidung 56). **Einladung (Entscheidung 81):** Hauptfertigkeit und Zulieferfertigkeit auf Geselle, wie beim Pfad zwei Fertigkeiten.
 
-| Meisterschaft | Hauptfertigkeit | Zulieferfertigkeit (Vorschlag) | Stellt her |
+| Meisterschaft | Hauptfertigkeit | Zulieferfertigkeit | Stellt her |
 | --- | --- | --- | --- |
 | Schmied | Schmieden | Bergbau | Waffen, Metallrüstung, Dietriche, Reparatur von Metall |
 | Lederarbeit | Lederarbeit | Jagd | Leder, leichte Rüstung, Taschen, Köcher, Reparatur von Leder und Stoff |
@@ -198,7 +198,7 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 - **Zufall nur als Würze:** kleine Streuung statt W20; ein Glückstreffer (1 von 100) ist nur ein Kratzer („Kratzer reicht“); kritische Treffer und Ausweichen hängen an Gewandtheit und Fertigkeit. Gegen Gegner, die 9 Stufen und mehr unter dem Helden stehen, gibt es keine Erfahrung (Entscheidung 73).
 - **Abwehr:** Die Schildfertigkeit und die Rüstungsfertigkeit erhöhen den Schadensabzug: Abzug = Rüstungswert × (1 + Fertigkeit / 100); die Rüstungsfertigkeit senkt nur den Schaden, nicht die Trefferchance (Entscheidung 74). **Parieren:** Für die Trefferchance zählt als Abwehr der beste von Schild, Ausweichen und halber Fertigkeit der Nahkampfwaffe, nur gegen Nahkampf; gegen Pfeile und Zauber gelten nur Schild und Ausweichen. Riposte bleibt Handlung des Duellanten (Entscheidung 75).
 - **Schleichen und Hinterhalt:** Mit der Schleichtaste nähert sich der Held. Bleibt er unbemerkt (Schleichen gegen die Wachsamkeit des Gegners, ohne Würfel), greift er als Erster an und bekommt den Vorteil des Hinterhalts. Mehr Gegner sind schwerer zu überlisten. **Bosse** sind wachsamer, ihr Hinterhalt-Bonus ist gedeckelt.
-- **Ausschlüsse sind hart.** Metall stört die Aufnahme der Magiepartikel aus der Umgebung (Entscheidung 10, 33). Gültig ist: der Magier trägt ab der Gesellenprüfung keine Rüstung, der Kriegsmagier nur leichte. *Vorschlag (offen, D48.3, D54.3):* die Sperre hängt an der Schule, nicht am Pfad: Evokation, Illusion und Beschwörung gehen für jeden nur ohne Metall, also in Stoff oder Leder (leichte Rüstung); Heil- und Schutzmagie auch in Metall (Abschnitt 5). In schwerer Rüstung geht Schleichen nicht („Deine Rüstung klirrt“). Zweihänder und Schild schließen sich aus. Jeder Held hat höchstens einen Pfad.
+- **Ausschlüsse sind hart.** Metall stört die Aufnahme der Magiepartikel aus der Umgebung (Entscheidung 10, 33). Die Sperre hängt an der Schule, nicht am Pfad (Entscheidung 80): Evokation, Illusion und Beschwörung gehen für jeden nur ohne Metall, also in Stoff oder Leder; Heil- und Schutzmagie auch in Metall. Dazu trägt der Magier ab der Gesellenprüfung keine Rüstung, der Kriegsmagier nur leichte. In schwerer Rüstung geht Schleichen nicht („Deine Rüstung klirrt“). Zweihänder und Schild schließen sich aus. Jeder Held hat höchstens einen Pfad.
 - **Gegner gehören zu Gebieten**, damit niemand zu früh in zu hohe Stufen läuft. Höhere Gebiete sind betretbar; die Karte zeigt ihr Stufenband.
 
 ## 8. Die Welt
@@ -274,18 +274,11 @@ Folklore-Wesen (Goblin, Kobold, Skelett, Zombie, Ghul) und Tiere behalten ihre N
 
 - Neue Monsterwerte für Kapitel 1 und die Messung „Zeit bis Stufe“ in der Simulation (Befund D49.3); Rechenmodell D ist entschieden (73–75).
 - Profil (Entwurf C) ist entschieden (Entscheidung 76); offen bleibt nur die Reihenfolge der Bausteine über Taten und Chronik hinaus.
-- Name „Pfad“ statt „Berufung“ bestätigen.
-- Magie und Rüstung: Sperre nur für Evokation, Illusion, Beschwörung (Abschnitt 5).
 - Umfang der Prüfungsquests beim Lehrmeister.
 - Wie die Grundwerte durch Fertigkeiten wachsen; Haupt- und Nebenwert für Spähen, Tiere beruhigen, Lederarbeit.
 - Rufstufen, Gefährten ohne Klassen, Niederlage, Übernahme alter Spielstände, Reparaturverlust, Abnutzungsrate.
-- Kapitel 1: welche Fertigkeiten es dort schon zu tun gibt (Schmieden, Alchemie, Spähen), damit jede Herkunft in Kapitel 1 etwas zu üben hat (Befund D49.1; Umfang beim Chef, Chefsache 418).
-- Startpunkte: 18 (Entscheidung 64) oder 21 (Abschnitt 2, D48.1); darf das Volk die Spanne 3 bis 8 überschreiten?
-- Fallen und Verstecktes entdecken: Vorschlag, Spähen findet (Entscheidung 57), Wahrnehmung verstärkt; bisher nennt beides der Text (D49.2).
-- Beschwörer: zweite Kernfertigkeit (Abschnitt 5); Einladung der Meisterschaften über eine Zulieferfertigkeit (Abschnitt 6).
-- Magie und Rüstung: gilt die Sperre je Schule für jeden oder nur im Pfad Magier (Abschnitt 7, D54.3)?
-- Ruf und Lehrmeister (Abschnitt 9, D54.5); Zahlen für die Simulation (Abschnitt 4) bestätigen oder ändern.
-- Alle Zahlen: nach der Simulation.
+- Ruf und Lehrmeister (Abschnitt 9, D54.5).
+- Alle Zahlen (Abschnitt 4, Bestiarium): nach der Rechensimulation 444, dann gemessen zum Chef.
 
 ---
 
