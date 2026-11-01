@@ -4,12 +4,14 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (29.10., 00:1x, `session_01Hmoj76vRfh2Apaay4BMFvb`):** Stellungnahme in 404 geschrieben. Kosten auf: 404. Nachfolger: Sokrates – Chefrunde (29.10., 00:1x)
+**Übergabe (29.10., 11:1x, `session_01Hmoj78Njjgz8uAoS6RUQKN`):** Chefrunde 29.10. (Archiv); 407, 408 an Perikles; 348.12h inventarisiert. Kosten auf: 407, 408, 348.12h, 399.5, 376.1. Nachfolger: Sokrates – Chefrunde (nach der Pause)
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 422 | M | **von Chef (31.10., 21:2x, „dass es sich liest wie eine gute Anleitung. Und ein Nachschlagewerk“):** Spielsystem 2.0 eindampfen; Verlauf getrennt; Befund Diogenes 420 einarbeiten | startbar |
+| 413 | M | **von Chef (31.10., 20:1x):** Spielsystem 2.0 (`DESIGN-SPIELSYSTEM-2-0.md`), Meilensteine | wartet auf Chef: Chefsache 413a |
 | 398 | M | **von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr ganz grundlegende Dinge fehlen?“):** Grundsätze DESIGN-* gegen Umzugsliste und Godot-Zweige | wartet auf Perikles: 15 Lücken in LISTE-UMZUG-348.md „398“, Chef 11:3x informiert |
 | 391 | M | **von Chef (28.10., 09:21):** Repos dauerhaft ohne Ablehnung | ruht: kein Repo-Feld in der Umgebung (Bild Chef 10:29), Repo-Wahl am Eingabefeld gilt nur für Sitzungen von Hand; Fords Starts nehmen ein Repo; add_repo geht durch, wenn die Aufgabe die Kaufmodelle braucht |
 | 383.2 | M | **von Chef (27.10., 19:24, „wo steckt jetzt hier wieder die Wahrheit? Und wer hat damit geprüft?“):** dieselbe Aufgabe frisch gegen groß messen; ja 19:30 („nimm den Vergleich dort mit auf“, Archiv) | frühestens 31.10. |
@@ -18,7 +20,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 374 | M | **von Chef (27.10., 11:54):** wer prüft 373? | frühestens 31.10.: auswerten mit 347 (Archiv) |
 | 348.12c | M | **von Chef (26.10., 11:59):** Modellpaket auch gegen Geld (Quaternius und andere), Verkauf im Spiel erlaubt; Monster dürfen von D&D abweichen; „schönen Vorschlag und ein schönes Paket“; 27.10., 20:10/20:12: Forest Pack, Protofactor checken | ruht: Warenkorb 134 $ zurückgestellt, bis 387 (Bestand) durchgetestet (Chef 21:33, Archiv); Forest Pack ebenso |
 | 348.12 | M | **von Chef (25.10., 21:21, „b prüfen“):** fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit Skelett) prüfen, nichts bauen | wartet auf Jerry: Goblin CC0 entschieden 27.10., 09:49 (Archiv), Hieb nachbessern, dann Grak, Kobold, Zombie |
-| 348.12h | M | **von Chef (26.10., 16:16; ja 16:19, Archiv):** fertige Dinge, Möbel, Waffen suchen | Chef: Kauf Omie, drei Pakete laden (Chefsache tun/34812h, für 29.10.); Übersicht LISTE-CC0-MODELLE.md „Ausrüstung genau“ |
+| 348.12h | M | **von Chef (26.10., 16:16; ja 16:19, Archiv):** fertige Dinge, Möbel, Waffen suchen | fertig: geladen 29.10., Inventur LISTE-BESTAND „Waffen und Schilde“; Einbau Jerry (406) |
 | 340.2 | M | **von Chef (25.10., 10:16, Vorgangsarchiv 340):** `tools/rollenspiegel.sh <Rolle>` zeigt nur Fragen und eigene Vorwochenantwort, hängt die neue an; ersetzt „erst antworten, dann lesen“ | gebaut 25.10.; prüfen 30.10. (Zu 340.2) |
 | 348 | M | **von Chef (24.10., 16:43; „jetzt“ 16:54):** fertige Spiel-Engine statt Selbstbau? | ruht bis Zuruf: begleiten nach `LISTE-UMZUG-348.md` (Nachturteil 362 gestrichen, außer der Chef ermächtigt, Archiv 373a); entschieden: Umzug nach Godot (Vorgangsarchiv) |
 | 26.1 | M | **von Chef (24.10., 16:56):** Durchspielbogen auswerten (Rest von 26) | nach 348.7: Gegenprobe je Klasse und neuer Bogen (38: nach dem Umzug in MARS neu messen; nächstes Durchspiel auf Godot) (Zu 26.1) |
@@ -40,7 +42,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (Gewerbeschein); 45a/45c, 72g–72j entschieden ([Artefakt](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj), vertraulich); offen: Preis endgültig mit 142 (ab Gewerbeschein), bis 30.11.; iOS-Schätzung Tom nach Kapitel 2 |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | ruht bis Gewerbeschein (Chef 28.10., 10:26; 142); dann Chefsache neu |
 
-- **Zu 383, Sitzungsgröße (gemessen 27.10., 18:15; 99 Sitzungen 26.10., 17:48 bis 27.10., 18:11, `get_session` usage; Helfer rechnete nach):** 96 mit Kosten, 787 $ in 24 h. Großes Modell je Million Ausgabetokens nach Kontext am Ende: 100–200k 103 $ (n 14), 200–300k 101 $ (n 61), 300–500k 92 $ (n 17); Kein Hinweis, dass große Sitzungen je Arbeit teurer sind; Beleg schwach (nur Endstand, kein Vergleich gleicher Aufgabe). Jeder Start mindestens etwa 125k Kontext, kleinste Sitzung 1,25 $. Treiber: Runden (44 %). Früher: 99h (Perikles 17.10., Ford), 185 (Messung 20.10.), 99h.6 (Teams, Zu 163.1 in Git 22.10.), D40.1. Wiederholen mit 347 und 383.2 am 31.10.
+- **Zu 383, Sitzungsgröße (gemessen 27.10., 18:15; 99 Sitzungen 26.10., 17:48 bis 27.10., 18:11, `get_session` usage; Helfer rechnete nach):** 96 mit Kosten, 787 $ in 24 h. Großes Modell je Million Ausgabetokens nach Kontext am Ende: 100–200k 103 $ (n 14), 200–300k 101 $ (n 61), 300–500k 92 $ (n 17); Kein Hinweis, dass große Sitzungen je Arbeit teurer sind; Beleg schwach (nur Endstand, kein Vergleich gleicher Aufgabe). Jeder Start mindestens etwa 125k Kontext, kleinste Sitzung 1,25 $. Treiber: Runden (44 %). Früher: 99h, 185, 99h.6, D40.1 (Git). Wiederholen mit 347 und 383.2 am 31.10.
 - **Zu 376:** Chef 12:09–12:10: 20 $ „super gerne“, wenn Größe und Form anpassbar und Tusche darauf geht; „dann hätten die vielleicht auch mal einen richtigen Kopf“; nah sichtbar in Ausrüstung, Charaktererstellung, Kartenzoom; 12:12 „Universal Base Characters“ als Alternative zum Selbstbau.
 - **Von Team Tom (27.10., 13:4x, zu 376.3):** UAL Pro gesichtet (Liste: `ARBEIT-TEAM-TOM.md` Zu 376.1): hat Ausweichen (`Dodge_Left/Right`, `Roll`), Treffer (`Hit_*`), Tod, Schwerthieb, `Counter_*`; hat **keinen** Stich, keine Schildabwehr, kein gehaltenes Ausholen; Zauber in Pro nicht vermerkt (frei nur `Spell_Simple_*`). Lücke also Block und Stich, nicht Ausweichen und Treffer.
 - **Zu 348.12c:** Bericht `LISTE-CC0-MODELLE.md` „Gegen Geld“; Protofactor-EULA: Verkauf ja, „protected form“, „ONE individual“. Protofactor per Mail: unverschlüsselt kein Ja („Encryption would be best“), KI-Sitzungen ok; Rabatt je Warenkorb.

@@ -480,3 +480,8 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 399a | Spielfassung 13b97af52 nach Test 132 auf main? | B Umzug | M | 8,49 $ | Team Tom | erledigt |
 | 400 | Hinweise an volle Vorräte bleiben liegen; Stand beim Empfänger immer setzen (Chef 28.10., 21:5x) | B Werkzeuge | M | 1,55 $ | Perikles | erledigt |
 | 405 | Texte der Erschaffung „Aussehen“ (376.1): Frisur „Zurück“ heißt wie der Knopf unten; „Filzlocken“, „Kamm“ passen nicht zum Bild (Prüfer Lauf 2) | C Inhalt | M | 0,89 $ | Homer | erledigt |
+| 348.12h | Fertige Dinge, Möbel, Waffen suchen (CC0 zuerst, sonst gekauft; Chef 26.10., 16:16) | G Geld | M | – | Sokrates | erledigt |
+| 399.3 | Klang in die Spielfassung: Musik, Ortsklang, Schritte, Kampfklang aus dem alten Spiel (aus 399; Chef 28.10., 16:42) | B Umzug | M | 21,56 $ | Team Jerry | erledigt |
+| 404 | Fehlende Sitzungskosten (3 archivierte Sitzungen ohne usage) schätzen oder „fehlt“ lassen (Ford 28.10., Chefsache) | B Werkzeuge | K | 0,67 $ | Ford | erledigt |
+| 411 | Mehr Frisuren als Seitenscheitel (aus 376.1, Chef 29.10., 10:52) | E Figuren | M | – | Team Tom | erledigt |
+| 414 | 14 itch.io-Godot-Pakete auf Tauglichkeit prüfen (Chef 31.10., 20:2x) | D Design | K | – | Sokrates | erledigt |
