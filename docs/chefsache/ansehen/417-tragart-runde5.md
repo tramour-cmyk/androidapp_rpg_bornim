@@ -39,3 +39,10 @@ Alle: Tempo auf das Spiel umgetaktet, Oberkörper aufgerichtet (Gehen 6,5–9,7 
 - Schild-Durchdringung im Film nicht zu sehen (Schild auf der Kameraseite).
 - **Rennen: Füße erreichen den Boden nie, 7–16 Bildpunkte darüber (Figuren schweben)**; Langschwert Rennen Verdacht Rutschen.
 - Axtblatt stößt im Rennen an den Feldrand; Beschriftung nur Kennungen ohne „Gehen“, „Rennen“.
+
+**Prüferbefund zum Film 23:54 (nach dem Versand, 00:0x; Bildpunkte im Feld, dazu unsere Messung):**
+- Rennen am Boden: Einhand, Schild, Bogen 0 Bildpunkte über dem Gehen, Axt 4–6 (vorher 7–16).
+- Neu gesehen: Axt beim Gehen beidfüßig 12–16 Bildpunkte in der Luft (2,0, 2,8, 3,6 s), Einhand 8–9; gemessen tiefster Ballen Gehen Axt 2,8 cm, Einhand 4,7 (Stehen 1,5).
+- Schwert beim Rennen mit Schild sichtbar im Oberschenkel, etwa 7 von 15 Bildern je Schritt (ab 4,73 s), Knauf hinten; gemessen 1 Bild tiefer als 1 cm (4,9 cm). Behebung wird gemessen.
+- Rennen mit Schild stark vorgebeugt, Kopf vor der Schulter; Stillstand 0–0,97 s gebeugt, dann Sprung der Pose; Axt im Stand nur eine Hand.
+- Schild nicht im Körper. Axtblatt am Feldrand abgeschnitten; Beschriftung nur Kennungen.
