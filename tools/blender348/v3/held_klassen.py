@@ -46,8 +46,8 @@ TRACHTEN = {
     'WACHE': {'tracht': 'unsere', 'fuesse': True},   # Kettenhemd, Wappenrock, Umhang (kauf_kleid.py, Chef 27.10., 18:06 „passt“)
     # Lauf 2: Wizard_Feet schraeg wie Clownsschuhe; Chef 28.10., 23:0x: „trägt keine Robe … Kasperlanzug“: lange Robe aus held3 (trachten.json)
     # 376.1 Urteil Tracht (Chef 01.11., 20:2x: „Knie durch“): die Waldlaeuferstiefel reichen bis unters Knie und stachen im Gehen 3-5 cm
-    # vorn durch die Robe (pruef_flecken.py, Strahl von vorn: Stiefel vor der Robe auf 0,40-0,48 m). Unter der Robe nur der Fuss: Schaft ab stiefel_bis (m) weg
-    'ROBE': {'tracht': 'held_wizard', 'fuesse': True, 'stiefel_bis': 0.28},
+    # vorn durch die Robe (pruef_flecken.py, Strahl von vorn: Stiefel vor der Robe auf 0,40-0,48 m). Unter der Robe nur der Fuss: Schaft ab stiefel_bis (m) weg; Pruefer Film 22:18: Schaft mit Schnallen hinten im Gehen durch die Robe, darum 0,18 statt 0,28
+    'ROBE': {'tracht': 'held_wizard', 'fuesse': True, 'stiefel_bis': 0.18},
     'KLOSTER': {'kleid': '{v}_Knight_Cloth', 'ohne': ['Horns'], 'stahl': False,   # Pruefer Lauf 1: Arme mit STAHL schwarz (Bild 0,20/0,13/0,08)
                 'sonne': 'Body_Cloth', 'entgruen': ['Legs_Armor', 'Feet_Armor', 'Arms']},   # Lauf 1: Handschuhe gruenlich (118/124/109)
     'WALD': {'kleid': '{v}_Ranger'},   # Kapuze (Head_Hood) bleibt als eigenes Netz: Godot zeigt sie je Herkunft
