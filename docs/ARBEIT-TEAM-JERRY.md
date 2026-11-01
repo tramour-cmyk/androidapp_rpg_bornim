@@ -62,6 +62,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 39 | M | Schwierigkeitsgrad im Menü | ruht: altes SRD-System (Chef 31.10.) | `claude/jerry-39-schwierigkeit` |
 | 59e | K | Händler: Vorrat je Laden | ruht: altes SRD-System (Chef 31.10.) | `claude/jerry-59e-haendlervorrat` |
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht: altes SRD-System (Chef 31.10.) | – |
+| 467 | M? | **von Sokrates (Chef 01.11., 21:52, Frage „Wie steigert sich die Ausdauer?“):** `godot/regeln/ausdauer.gd` rechnet noch nach SRD (Konstitution 10, Modifikator, Stärke 13); BRS: Ausdauer aus Zähigkeit, Wille, Stufe (Abschnitt 2); Formel kommt mit 427 zum Chef, dann umstellen | wartet auf Chef: Formel (427, Sokrates) | – |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht: Klang zieht nach Godot; Rest `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
 
 ## Einzelheiten

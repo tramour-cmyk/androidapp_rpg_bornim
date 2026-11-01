@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (01.11., 15:18, Ford `session_01Hmoj77A5CsKKbJvo69Vgyi`, Tiefe 0; Chef 09:36: archivieren erlaubt, Kosten buchen):** Läuft: Tom 417/416.4 (`78Xw7`), Jerry 453 (`76B1U`), Spike 376.1 (`76h41`), Tuffy 406 (`77i7Y`); Homer, Diogenes, Perikles warten (idle). Alter Sokrates `7725k` (Gespräch 447/448) nie ohne Wort des Chefs archivieren; Sokrates 452 `788UE` hat die Leitung, Chef ab 13:2x einige Stunden weg, Hängendes an ihn. Neue Sitzungen immer mit Thema im Titel; vor Spike/Tuffy prüfen, dass die Zeile nicht in der Übergabe des laufenden Tom/Jerry steht (431 lief doppelt). Lauf-Kurzliste vor `lauf.py` frisch aus `list_sessions` bauen, nie alte Datei. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 467** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 468** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
