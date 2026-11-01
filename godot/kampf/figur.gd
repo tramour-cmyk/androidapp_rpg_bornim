@@ -1157,6 +1157,12 @@ func _mps(nm: String) -> float:
 	return _weg_len(nm) / maxf((weg[nm].size() - 1) / weg_fps, 0.1) * float(tempo.get(nm, 1.0))
 
 
+## 348.12 (Chef 29.10., 10:55: Grak „gut, aber Gang schreitend statt kurzer Sprint“): weiter als RUN_FROM rennt ein Tier
+## (Rennen), ein Zweibeiner mit Wurzelweg (Grak) schreitet immer (Gehen); Ausweichen bleibt ein Satz im Lauf.
+func _gangart(way: float) -> String:
+	return "Rennen" if way > RUN_FROM and weg.has("Rennen") and not _zweibeiner() else "Gehen"
+
+
 ## 348.12f: geht (weiter als RUN_FROM: rennt) heim im Tempo des Wurzelwegs, die Pfoten gleiten nicht; dort wieder zum Ziel.
 ## Ortmess Lauf 148: vor dem Loslaufen und nach der Ankunft drehte es in einem Bild (bis 178°); jetzt dreht es mit Schritten
 ## (Gehen) mit TURN_DPS; r3: auf dem Pfad von _heimweg() ohne Drehen auf der Stelle. Gibt die Dauer (s) zurück.
@@ -1189,7 +1195,7 @@ func _walk_home(skip = null) -> float:
 				tr += _lauf(tween, via, home, "Gehen", RUECK_TEMPO)
 			tween.tween_callback(_turn_home)
 			return tr
-		var nm := "Rennen" if way > RUN_FROM and weg.has("Rennen") else "Gehen"
+		var nm := _gangart(way)
 		var first := via - position if via != position else d
 		var tt := _turn(tween, atan2(first.x, first.z), false)
 		tween.tween_callback(func(): _play(nm, 0.15))
@@ -1650,7 +1656,7 @@ func _hieb(other) -> int:
 		var via := _detour(position, start, other)
 		var pts := [start] if via == position else [via, start]
 		var way := run if via == position else position.distance_to(via) + via.distance_to(start)
-		var gn := "Rennen" if way > RUN_FROM and weg.has("Rennen") else "Gehen"
+		var gn := _gangart(way)
 		var von := position
 		for q in pts:
 			var a: Vector3 = q - von
@@ -1680,11 +1686,11 @@ func _hieb(other) -> int:
 	var weit := start.distance_to(home) if vh == start else start.distance_to(vh) + vh.distance_to(home)
 	var t_back := 0.0
 	if weit > 0.12:
-		var rn := "Zurück" if weg.has("Zurück") and anim.has_animation("Zurück") and weit > 0.3 else "Gehen"
+		var rn := "Zurück" if weg.has("Zurück") and anim.has_animation("Zurück") and weit > 0.3 and not _zweibeiner() else "Gehen"     # 348.12: Grak schreitet rückwärts
 		var v := _mps(rn) if rn == "Zurück" else _mps("Gehen")
 		var von := start
 		var y := float(d2[1])
-		tween.tween_callback(func(): gang = "zurück"; anim.play(rn, 0.15, 1.0 if rn == "Zurück" else -1.0))
+		tween.tween_callback(func(): gang = "zurück"; anim.play(rn, 0.15, 1.0 if rn == "Zurück" else -float(tempo.get("Gehen", 1.0))))     # 348.12: im Tempo von _mps
 		for q in back:
 			var a: Vector3 = von - q     # rückwärts: das Gesicht weg vom Ziel des Schritts
 			var d: Array = _dreh(tween, y, atan2(a.x, a.z), "")

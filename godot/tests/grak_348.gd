@@ -1,7 +1,7 @@
 # 348.12 nachbessern (Chef 28.10., 15:23, Archiv: „warum läuft der dann nicht mit einer Animation, sondern wird wieder über den Platz
 # geschoben? … Animation beim Bewegen, beim Ausweichen … Der Axthieb trifft auch nicht … wir brauchen einen Zusammenbruch“): Grak im
 # echten Kampfort, ohne Bild, die Regeln angehalten. Geprüft je Bild:
-#  - Platzwechsel: solange er sich bewegt, spielt er Gehen oder Rennen, im Tempo des Wurzelwegs (Füße gleiten nicht);
+#  - Platzwechsel: solange er sich bewegt, schreitet er (Gehen, nie Rennen; Chef 29.10., 10:55), im Tempo des Wurzelwegs;
 #  - Hieb: beim Aufschlag liegt die Axt im Rand der Heldin (nicht davor, nicht durch sie hindurch), auf Körperhöhe;
 #  - Ausweichen zu beiden Seiten mit der Bewegung der Quelle und Ortswechsel, danach wieder daheim;
 #  - Tod: er bricht zusammen (Becken unten) und bleibt sichtbar liegen, nichts ausgeblendet.
@@ -58,7 +58,7 @@ func _all() -> void:
 	for f in k.figures.values():     # die anderen stehen still daheim
 		if f != grak and f != held and f.fighter.side == "FOES":
 			f.visible = false
-	# ---- Platzwechsel hin und zurück: Gehen (kurz) und Rennen (weit)
+	# ---- Platzwechsel hin und zurück, kurz und weit: immer Gehen (348.12, Chef 29.10., 10:55: „Gang schreitend statt kurzer Sprint“)
 	var h0: Vector3 = grak.home
 	for ziel in [h0 + k.facing(true) * -0.9, h0, h0 + k.facing(true) * -2.4, h0]:
 		grak.glide_to(ziel)
@@ -81,14 +81,14 @@ func _all() -> void:
 				continue
 			bilder += 1
 			var nm := String(grak.anim.current_animation)
-			if nm not in ["Gehen", "Rennen"]:
+			if nm != "Gehen":
 				falsch += 1
 				continue
 			var s: Array = strecke.get(nm, [0.0, 0.0])
 			strecke[nm] = [s[0] + v.length(), s[1] + dt]
 		for nm in strecke:
 			gleit = maxf(gleit, absf(strecke[nm][0] / maxf(strecke[nm][1] / 1000.0, 0.001) / grak._mps(nm) - 1.0))
-		_gut(bilder > 3 and falsch == 0, "Platzwechsel %.1f m: %d Bilder unterwegs, %d ohne Gehen oder Rennen" % [ziel.distance_to(h0) if ziel != h0 else 0.0, bilder, falsch])
+		_gut(bilder > 3 and falsch == 0, "Platzwechsel %.1f m: %d Bilder unterwegs, %d ohne Gehen" % [ziel.distance_to(h0) if ziel != h0 else 0.0, bilder, falsch])
 		_gut(gleit < GLEIT or bilder <= 3, "Platzwechsel: Tempo am Boden weicht höchstens %.0f %% vom Wurzelweg ab" % (gleit * 100.0))
 		_gut(grak.position.distance_to(ziel) < 0.05, "Platzwechsel: am Ziel (%.2f m daneben)" % grak.position.distance_to(ziel))
 	# ---- Hieb aus zwei Entfernungen: Axt beim Aufschlag im Rand der Heldin
@@ -118,6 +118,8 @@ func _all() -> void:
 		while grak.tween and grak.tween.is_running() and Time.get_ticks_msec() - t0 < 10000:
 			halt.call()
 			await process_frame
+			anims[String(grak.anim.current_animation)] = true
+		_gut(not anims.has("Rennen") and not anims.has("Zurück"), "Hieb: hin und zurück geschritten, kein Lauf (Bewegungen %s)" % ", ".join(anims.keys()))
 		for i in 20:
 			halt.call()
 			await process_frame
