@@ -5,6 +5,32 @@ Sokrates · 01.11., 10:5x (neu, ersetzt den Vorschlag von 09:5x) · B Abläufe
 **Votum Sokrates:** ja; zuerst besprechen (Chef 01.11., 10:46: „darüber müssen wir uns wirklich nochmal ausgiebiger unterhalten“).
 **Berührt:** `LISTE-ABNAHME-KAPITEL1.md` (Perikles ordnet die 27 Punkte den Stufen zu), Wochenziele, Tagesbericht (448), Tom, Jerry, Homer.
 
+## Änderung nach Chef 01.11., 11:52
+
+Chef: „447 ja, wenn das bedeutet, dass ich grundsätzlich eine Umsetzung des neuen Spielsystems habe … in Kapitel 1, wenn wir damit auf den Markt gehen, möchte ich alle Elemente grundsätzlich drin haben … die Anlagen sollen schon erkennbar sein … Und dafür lassen wir uns dann die Zeit, die wir brauchen.“
+
+**Das bedeutet der Plan unten noch nicht.** Er folgt 418 (Umfang A, nur Kern): Ruf, Meisterschaften, Herstellen, Abnutzung, Angeln, Jagd, Tiere beruhigen, Profil kommen erst nach dem Marktstart (W1, W2). Dein Wunsch hebt 418 Umfang A auf. **Neue Frage:** W1 und W2 als **Anlage** vor den Marktstart?
+
+**Votum Sokrates: ja, als neue Stufe K2b „Alle Systeme angelegt“** zwischen K2 und K3. „Angelegt“ heißt: jedes System hat in Kapitel 1 einen kleinen, aber ganzen Kreislauf mit spürbarer Wirkung, nicht einen leeren Knopf.
+
+| Teil (Nachschlagewerk) | Anlage in Kapitel 1 |
+| --- | --- |
+| Pfad und Lehrmeister (5) | Einladung und erste Prüfung je Pfad, den Kapitel 1 trägt (heute G4) |
+| Meisterschaften (6) | Einladung zu allen fünf; Alchemie (Kräuter → Heiltrank) und Schmieden (Reparatur, Dietrich) ganz, Leder, Runen, Kochen je ein Rezept |
+| Ruf (9) | Ruf bei den Leuten im Dorf; Wirkung sichtbar: Preis bei Borin und Händler, eine Auskunft mehr |
+| Herstellen und Sammeln (10) | Kräuter, Erz, Fisch, Jagd mit Zerlegen; Rezepte am Lagerfeuer und an Werkorten im Dorf |
+| Abnutzung und Reparatur (11) | Zustand, Borin repariert, „Alles reparieren“ |
+| Welt (8) | Tiere beruhigen an Wölfen und Wildschwein; Tierbegleiter erst mit dem Pfad Waldläufer |
+| Profil (Entwurf C) | Taten und Chronik |
+
+W3 (SRD im Code ablösen) bleibt nach dem Marktstart: der Spieler sieht es nicht.
+
+*Stärkstes Gegenargument:* Der Umfang bis zum Markt wächst stark (geschätzt etwa die Hälfte mehr Bauzeit als bisher bis K3, nicht gemessen), und viele dünn angelegte Systeme können halbfertig wirken, gegen „Qualität vor Quantität“. *Wie es zu entkräften ist:* (a) je System nur der kleinste ganze Kreislauf, aber der fertig und gut: lieber ein Rezept, das sich lohnt, als zehn leere; (b) die Abnahme je Teil ist ein Spieltest „merkt man, was das kann?“; (c) die Rechensimulation 444 rechnet Gold, Reparatur und Tränke mit, damit Handwerk sich lohnt und Grinden nie nötig wird (Leitbild). Du hast die Zeit freigegeben; ein Termin hängt nicht daran.
+
+*Zweites:* Die Datenfelder aus 418 (Ruf, Rezept, Zustand leer anlegen) reichen dann nicht; sie werden gefüllt. Das ist kein Rückbau, die Felder tragen genau das.
+
+**Mit „447 ja, mit K2b“:** 418 Umfang A gilt nicht mehr; Perikles ordnet die Punkte neu (Block G bekommt Ruf, Meisterschaften, Herstellen, Abnutzung, Tiere beruhigen, Profil); Homer schreibt Texte für Lehrmeister-Einladungen und Ruf-Gespräche; Jerry nimmt Tiere beruhigen und Zerlegen in 444 auf.
+
 ## Warum neu
 
 - „Kapitel 1 fertig“ ist richtig als Ziel, aber als einziger Meilenstein zu groß: 27 Punkte, alle offen, alle Blöcke gelb. Du siehst nicht, ob wir näher kommen, und wir merken spät, wenn etwas nicht trägt.

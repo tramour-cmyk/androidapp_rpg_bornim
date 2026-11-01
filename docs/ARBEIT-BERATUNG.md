@@ -10,7 +10,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 447 | M | **von Chef (01.11., 09:51, „Was sind denn aktuell die Meilensteine? Habe ich die gebilligt?“; 10:46 „komm mit einem vernünftigen neuen Vorschlag um die Ecke“):** Meilensteine neu | wartet auf Chef: Chefsache 447, Gespräch gewünscht |
+| 447 | M | **von Chef (01.11., 09:51, „Was sind denn aktuell die Meilensteine? Habe ich die gebilligt?“; 10:46 „komm mit einem vernünftigen neuen Vorschlag um die Ecke“):** Meilensteine neu | wartet auf Chef: Chefsache 447 mit K2b (alle Systeme angelegt), Chef 11:52 |
 | 451 | M | **von Chef (01.11., 10:59, „müssen wir unser Spielsystem auch irgendeinen Namen geben … Bitte mal Vorschläge dafür“):** Name des Spielsystems | wartet auf Chef: Chefsache 451 |
 | 452 | M | **von Chef (01.11., 10:59, 11:00):** ein gebündeltes Dokument; Notizen-Übersicht `docs/README.md` aktualisieren (Zu 452) | wartet auf Chef: Übersicht aktualisiert 11:1x (toter Tagesbericht ersetzt, Nachschlagewerk gilt, Handbuch, Umzug, Archive ergänzt); Bündel = Spielerhandbuch 423 vorgeschlagen |
 | 427 | M | **von Chef (31.10., 21:3x):** Bestiarium `LISTE-BESTIARIUM.md` | wartet auf Jerry: Startwerte gehen in die Simulation 444, dann gemessen zum Chef (Archiv 422, 444) |
