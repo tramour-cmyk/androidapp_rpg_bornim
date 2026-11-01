@@ -214,9 +214,9 @@ static func glyphe(ci: CanvasItem, g: String, o: Vector2, u: float, c: Color, an
 			p += _kubisch(Vector2(4.5, 14), Vector2(4.5, 21), Vector2(17.5, 21), Vector2(17.5, 14))
 			p += _quad(Vector2(17.5, 14), Vector2(17.5, 10), Vector2(12.5, 7.5))
 			zug.call(p); linie.call(6, 14, 16, 14)
-		"SWORD":   # ein Schwert schraeg, Spitze oben rechts
-			linie.call(19, 3, 8, 14); linie.call(19, 3, 15.5, 3.8); linie.call(19, 3, 18.2, 6.5)
-			linie.call(5, 11, 11, 17); linie.call(8, 14, 4, 18); punkt.call(Vector2(3.3, 18.7), 1.3)
+		"SWORD":   # ein Schwert schraeg, Spitze oben rechts; 425 (Pruefer 01.11.: „zu klein“): Klinge als Umriss ueber die ganze Diagonale
+			zug.call([Vector2(9.4, 14.4), Vector2(19.1, 4.7), Vector2(20.4, 1.6), Vector2(17.3, 2.9), Vector2(7.6, 12.6)])
+			linie.call(4.5, 9.5, 12.5, 17.5); linie.call(8.5, 13.5, 4, 18); punkt.call(Vector2(3, 19), 1.5)
 		"SHIELD":   # ein Wappenschild
 			var p: Array = [Vector2(4, 4), Vector2(18, 4), Vector2(18, 10)]
 			p += _quad(Vector2(18, 10), Vector2(18, 17), Vector2(11, 20))

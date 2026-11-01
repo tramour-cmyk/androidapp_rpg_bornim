@@ -91,8 +91,13 @@ func _ready() -> void:
 	spalte.add_child(Erschaffung.knopf(Sprache.u("close"), func(): zu.emit()))
 	baue()
 
+var _gebaut := ""   # der Reiter, den baue() zuletzt zeigte
+
 func baue() -> void:
-	var y := rolle.scroll_vertical
+	# 425 (Pruefer 01.11.: Bildrate und Standort oben abgeschnitten): ein anderer Reiter beginnt oben wie alt (je Tab ein eigener
+	# Rollzustand); nur derselbe Reiter behaelt nach Antippen seine Stelle
+	var y := rolle.scroll_vertical if reiter == _gebaut else 0
+	_gebaut = reiter
 	kopf.text = wort(reiter).to_upper()
 	for c in leiste.get_children():
 		leiste.remove_child(c)

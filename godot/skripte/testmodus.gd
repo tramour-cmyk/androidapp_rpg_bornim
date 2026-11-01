@@ -98,6 +98,10 @@ static func waffe(hw: Heldwerte, z: Zustand, base: String, neben := false) -> vo
 	var weg: Array = hw.anlegen_nebenhand(g) if neben and Beute.ist_waffe(Beute.grundform(base)) else hw.anlegen(g)
 	for x in weg: z.beutel.append(x)
 
+# 425 (Pruefer 01.11.: „Sehr Selten“): nur der erste Buchstabe gross, String.capitalize schreibt jedes Wort gross
+static func gross_anfang(w: String) -> String:
+	return w.left(1).to_upper() + w.substr(1)
+
 static func name_von(base: String) -> String:
 	var g := Beute.grundform(base)
 	return String(g["de"] if Sprache.aktiv() == "de" else g["en"])
@@ -116,7 +120,11 @@ static func reiter(m: Menue) -> void:
 	var reihe := func(knoepfe: Array) -> void:
 		var r := HBoxContainer.new()
 		r.add_theme_constant_override("separation", int(6 * Menue.DP))
-		for k in knoepfe: r.add_child(Erschaffung.knopf(String(k[0]), k[1]))
+		for k in knoepfe:
+			var b := Erschaffung.knopf(String(k[0]), k[1])
+			b.clip_text = false   # 425 (Pruefer 01.11.: „Wolf mit Jungwölfen“ am Rand abgeschnitten): lange Namen brechen um
+			b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			r.add_child(b)
 		m.inhalt.add_child(r)
 		m.luecke(6)
 	m.zeile(t.call("Testmodus", "Test mode"), 18, Stil.BRIGHT)
@@ -132,10 +140,10 @@ static func reiter(m: Menue) -> void:
 			func(): standort = not standort, "PIN", "", standort)])
 	m.geraet_box()
 	m.luecke(6)
-	m.gruppe(t.call("Held", "Hero"))
+	m.gruppe(t.call("Held · Stufe %d", "Hero · level %d") % hw.stufe)   # 425 (Pruefer 01.11.): die Stufe einmal, nicht unter „+1“
 	var stufe_satz: String = t.call("Stufe des Helden ändern; danach voll geheilt. Hinab mit Stufe, Erfahrung und Punkten wie bei einem, der so weit kam.",
 		"Change the hero's level, then fully healed. Down sets level, experience and points as for one who got that far.")
-	m.zeichenreihe([-5, -1, 1, 5].map(func(d): return zk.call(t.call("Stufe", "Level"), str(hw.stufe) if d == 1 else null, stufe_satz,
+	m.zeichenreihe([-5, -1, 1, 5].map(func(d): return zk.call(t.call("Stufe", "Level"), null, stufe_satz,
 		func(): stufe_setzen(hw, z, hw.stufe + d), "", ("+%d" % d) if d > 0 else ("−%d" % -d))))
 	m.zeichenreihe([zk.call("Gold", str(z.gold), t.call("Gibt 1000 Gold.", "Gives 1000 gold."), func(): z.gold += 1000, "COIN"),
 		zk.call(t.call("Heilen", "Heal"), "%d/%d" % [hw.tp, hw.max_tp()], t.call("Trefferpunkte und Zauberplätze voll.", "Hit points and spell slots full."),
@@ -188,7 +196,7 @@ static func reiter(m: Menue) -> void:
 		if not fs.has(probe_gegner): probe_gegner = String(ids[0])
 		m.zeichenreihe([zk.call(t.call("Gegner", "Foes"), String(fs[probe_gegner]), t.call("Wechselt die Gegner des Probekampfs.", "Changes the foes of the trial fight."),
 				func(): probe_gegner = String(ids[(ids.find(probe_gegner) + 1) % ids.size()]), "SKULL"),
-			zk.call(t.call("Stufe", "Level"), str(probe_stufe), t.call("Stufe von Held und Söldner im Probekampf.", "Level of hero and mercenary in the trial fight."),
+			zk.call(t.call("Stufe", "Level"), null, t.call("Stufe von Held und Söldner im Probekampf; die Zahl im Kreis.", "Level of hero and mercenary in the trial fight; the number in the circle."),
 				func(): probe_stufe = STUFEN_PROBE[(STUFEN_PROBE.find(probe_stufe) + 1) % STUFEN_PROBE.size()], "", str(probe_stufe))])
 		m.zeile(t.call("Starten als:", "Start as:"), 13, Stil.DIM)
 		m.luecke(4)
@@ -197,7 +205,7 @@ static func reiter(m: Menue) -> void:
 	var st: Dictionary = Heldwerte.lade()["seltenheiten"]
 	var sel: Array = st.keys()
 	for i in range(0, sel.size(), 4):
-		m.zeichenreihe(sel.slice(i, i + 4).map(func(r): return zk.call(Sprache.t(st[r]["name"]).capitalize(), null,
+		m.zeichenreihe(sel.slice(i, i + 4).map(func(r): return zk.call(gross_anfang(Sprache.t(st[r]["name"])), null,
 			t.call("Erzeugt ein Stück dieser Seltenheit auf der Stufe des Helden, passend zur Klasse.", "Creates an item of this rarity at the hero's level, suited to the class."),
 			func():   # Game.cheatLoot
 				var g := z.ausruestung_dazu(Beute.erzeuge(KotlinZufall.new(randi()), z.neue_uid(), hw.stufe, String(r), hw.klasse))
