@@ -10,7 +10,7 @@ Vier Dinge machen den Helden aus. Mehr muss man nicht wissen, um zu spielen.
 | --- | --- | --- |
 | **Herkunft** | wie deine Geschichte anfängt: eine Herkunft (Wachsoldat, Jägerkind …) oder keine (Wanderer) | gar nicht; einmal bei der Erschaffung gewählt, freiwillig |
 | **Fertigkeiten** | was du kannst: 37 Stück, von Einhänder bis Angeln | **durch Tun.** Am Ende jedes Rangs wartet eine **Prüfung**, erst danach geht es weiter |
-| **Pfad** | wohin du dich spezialisierst: Wächter, Paladin, Waldläufer … (genau einer); dazu beliebig viele Handwerke (Meisterschaften) | ein **Lehrmeister** bietet ihn dir an, sobald du passende Fertigkeiten übst; dann drei Prüfungen bei ihm |
+| **Pfad** | wohin du dich spezialisierst: Wächter, Paladin, Waldläufer … (höchstens einer); dazu beliebig viele Handwerke (Meisterschaften) | ein **Lehrmeister** bietet ihn dir an, sobald du passende Fertigkeiten übst; dann drei Prüfungen bei ihm |
 | **Heldenstufe** | wie stark du insgesamt bist | durch **Erfahrung** aus Kämpfen, Quests, Geschichte, bestandenen Prüfungen und Fertigkeitsaufstiegen; jedes Kapitel setzt eine Grenze |
 
 ## 1. Die Grundidee
@@ -51,7 +51,7 @@ Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit und 
 | Orkblütiger | Kraft +1, Zähigkeit +1, Wille −1 | Letzter Atemzug |
 
   Ob das Volk die Spanne 3 bis 8 überschreiten darf (9 oder 2), ist offen (Abschnitt 13). Leute in der Welt reagieren auf das Volk (Entscheidung 71).
-- **Herkunft, freiwillig** (Entscheidung 68, 69): Sie verteilt die Punkte vor, gibt zwei bis drei Startfertigkeiten und passende Ausrüstung; ein Satz bei der Erschaffung sagt, wohin sie lenkt. Die Punkte kann man ändern. Wer keine will, ist **Wanderer** und verteilt selbst.
+- **Herkunft, freiwillig** (Entscheidung 68, 69): Sie verteilt die Punkte vor, gibt zwei bis drei Startfertigkeiten und passende Ausrüstung; ein Satz bei der Erschaffung sagt, wohin sie lenkt. Die Punkte kann man ändern. Wer keine will, ist **Wanderer** und verteilt selbst; er wählt zwei Startfertigkeiten. Jede Startfertigkeit beginnt bei **10** (Startwert, Vorschlag).
 
 | Herkunft | Startfertigkeiten | führt meist zu |
 | --- | --- | --- |
@@ -110,6 +110,21 @@ Die **Heldenstufe** wächst über Erfahrung. Sie bestimmt Leben, die Stärke im 
 - **Baseline:** Sind alle Quests erledigt und alle Gegner einmal besiegt, hat der Held die Erfahrung des Kapitels ausgeschöpft.
 - **Erfahrungstopf je Gebiet:** Zufallsbegegnungen schöpfen aus einem Topf (die Erfahrung aller Gegner des Gebiets einmal). Ist er leer, gibt es nur noch einen kleinen Anteil. Wiedergekehrte Gegner geben kaum Erfahrung, aber weiter Beute.
 
+**Zahlen für die Simulation (Startwerte, Vorschlag; Befund D54.2):**
+
+| Größe | Startwert |
+| --- | --- |
+| Erfahrung je Gegner | 10 × Stufe² (Stufe 1: 10, Stufe 2: 40, Stufe 6: 360), Boss × 3; dann Faktor aus Modell D |
+| Erfahrung bis zur nächsten Heldenstufe | 100 × jetzige Stufe (Kapitel 1 bis Stufe 6: zusammen 1500) |
+| Leben des Helden | 10 + 5 × Stufe + 2 × Zähigkeit |
+| Grundschaden der Waffe | Faustkampf 2, Dolch und Wurfwaffe 4, Einhänder, Stumpfe Waffe und Bogen 6, Stangenwaffe und Armbrust 8, Zweihänder 10 |
+| Grundwert im Schaden | Kraft im Nahkampf, Gewandtheit bei Dolch, Bogen und Wurfwaffe, keiner bei der Armbrust |
+| Gewandtheit | Abwehr beim Ausweichen + 2 je Punkt; kritischer Treffer (anderthalbfach) Gewandtheit in Prozent |
+| Wahrnehmung | Trefferchance im Fernkampf + 1 Prozentpunkt je Punkt |
+| Zauber | Schaden wie Waffe mit Grundschaden des Zaubers, Grundwert Wille, Fertigkeit = Schule; Mana 10 + 5 × Wille |
+
+Die Ätherdichte (Entscheidung 76) ist noch ohne Zahl.
+
 ## 5. Der Pfad und der Lehrmeister
 
 **Pfad** ist der neue Name für das, was bisher Berufung hieß (Vorschlag Chef 31.10., 21:5x; noch zu bestätigen). Jeder Held hat höchstens einen Pfad.
@@ -127,14 +142,14 @@ Die **Heldenstufe** wächst über Erfahrung. Sie bestimmt Leben, die Stärke im 
 
 **Kapitel als Takt für alle Fertigkeiten (Startwerte):**
 
-| Kapitel | höchster Rang ohne Prüfung beim Lehrmeister | Bewährungsproben verfügbar | Lehrmeister |
-| --- | --- | --- | --- |
-| 1 | Geselle (bis 49) | zum Gesellen | spricht an, Anwärter möglich |
-| 2–3 | Meister nur im Pfad | zum Gesellen | Zwischenprüfung |
-| 4–5 | Großmeister nur im Pfad | zum Meister | Gesellenprüfung |
-| 6–7 | | | Meisterprüfung |
+| Kapitel | höchster Rang im Pfad oder in der Meisterschaft | höchster Rang sonst | Bewährungsproben verfügbar | Lehrmeister |
+| --- | --- | --- | --- | --- |
+| 1 | Geselle (bis 49) | Geselle (bis 49) | zum Gesellen | spricht an, Anwärter möglich |
+| 2–3 | Meister (nach der Zwischenprüfung) | Geselle | zum Gesellen | Zwischenprüfung |
+| 4–5 | Großmeister (nach der Gesellenprüfung) | Meister | zum Meister | Gesellenprüfung |
+| 6–7 | Großmeister bis 100 | Meister | zum Meister | Meisterprüfung |
 
-So zeigt Kapitel 1 schon die ersten Lehrmeister und Anwärter, der erste Titel kommt in Kapitel 2 (behebt D48.2).
+So zeigt Kapitel 1 die ersten Lehrmeister und Anwärter. Die Berufung beginnt in Kapitel 2 mit der Zwischenprüfung (Eingeweihter, Entscheidung 51); den Titel („Paladin“) bringt die Gesellenprüfung ab Kapitel 4 (behebt D48.2, D54.1).
 
 **Was ein Pfad bringt:** neue Handlungen im Kampf und in der Welt, jede besser als die vorige (Riposte, Tierbegleiter, Waffenzauber), keine großen Zahlenaufschläge. Die Kraft bleibt in den Fertigkeiten.
 
@@ -147,7 +162,7 @@ Die sechs Gruppen ordnen die Pfade; sie sind keine eigene Stufe:
 | Gruppe | typische Fertigkeiten | Pfad | Kernfertigkeiten (Einladung, Prüfungen) | Handlungen (Beispiele) | Auflagen ab Gesellenprüfung |
 | --- | --- | --- | --- | --- | --- |
 | Schutz (Bewahrer) | Schild, Mittlere und Schwere Rüstung, Ausweichen | Wächter | Schild, Schwere Rüstung | Gegner binden, Gefährten decken | langsam, wenig eigener Schaden |
-| | | Paladin (Kernfertigkeiten aus Schutz und Heilung) | Schild, Einhänder, Heilmagie | Heilende Hand, Schutzaura | nicht Beschwörer; Ruf muss hoch bleiben |
+| | | Paladin (Kernfertigkeiten aus Schutz und Heilung) | Schild, Einhänder, Heilmagie | Heilende Hand, Schutzaura | keine Nekromantie; Ruf muss hoch bleiben |
 | Kampf (Kämpe) | Einhänder, Zweihänder, Faustkampf, Ausweichen | Berserker | Zweihänder, Stumpfe Waffen | Raserei | kein Schild, keine Zauber |
 | | | Duellant | Einhänder, Ausweichen, Leichte Rüstung | Riposte, Doppelschlag | höchstens leichte Rüstung, kein Schild |
 | | | Mönch | Faustkampf, Ausweichen | waffenlose Schläge, Betäuben | keine Rüstung, keine Waffen |
@@ -157,7 +172,7 @@ Die sechs Gruppen ordnen die Pfade; sie sind keine eigene Stufe:
 | | | Scharfschütze | Armbrust oder Bogen, Wurfwaffen, Spähen | Zielschuss, Durchschlagen | höchstens mittlere Rüstung |
 | Magie (Adept) | eine Schule: Evokation, Schutzmagie, Illusion oder Beschwörung | Magier | zwei Schulen | stärkste Zauber, große Manareserve | keine Rüstung |
 | | | Kriegsmagier | Evokation, Einhänder oder Zweihänder, Leichte Rüstung | Waffenzauber | nur leichte Rüstung, Magie gedeckelt |
-| | | Beschwörer | Beschwörung, eine zweite Schule (Vorschlag; mit nur einer Kernfertigkeit käme die Einladung nie) | Diener beschwören, Untote | keine Rüstung; Ruf sinkt bei Nekromantie; nicht Paladin, nicht Heiler |
+| | | Beschwörer | Beschwörung, eine zweite Schule (Vorschlag; mit nur einer Kernfertigkeit käme die Einladung nie) | Diener beschwören, Untote | keine Rüstung; Ruf sinkt bei Nekromantie; keine Heilmagie |
 | Heilung (Heilkundiger) | Heilmagie, Heilkunde, Kräuterkunde | Heiler | Heilmagie, Schutzmagie, Heilkunde | Wiederbeleben, Seuchen heilen | höchstens leichte Rüstung |
 | | | Paladin (siehe Schutz) | | | |
 
@@ -165,16 +180,17 @@ Alle Kernfertigkeiten stammen aus der Liste der 37 (behebt D48.4). Die Einladung
 
 ## 6. Meisterschaften
 
-Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, aber ohne Auflagen. Man kann jede Meisterschaft machen, muss aber keine, und darf mehrere haben.
+Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, aber ohne Auflagen. Man kann jede Meisterschaft machen, muss aber keine, und darf mehrere haben. Es gibt **fünf** Meisterschaften (Entscheidung 56). **Einladung (Vorschlag, D54.4):** Hauptfertigkeit und Zulieferfertigkeit auf Geselle, wie beim Pfad zwei Fertigkeiten.
 
-| Meisterschaft | Fertigkeit | Stellt her |
-| --- | --- | --- |
-| Schmied | Schmieden | Waffen, Metallrüstung, Dietriche, Reparatur von Metall |
-| Lederarbeit | Lederarbeit | Leder, leichte Rüstung, Taschen, Köcher, Reparatur von Leder und Stoff |
-| Heilkunde (Name offen) | Heilkunde | Verbände, Salben; Wunden nach dem Kampf versorgen |
-| Alchemist | Alchemie | Tränke, Gegengifte, Gifte, Elixiere |
-| Runenmeister | Runenkunde | Verzauberungen, Runen auf Ausrüstung |
-| Feldkoch | Kochen | Mahlzeiten mit kleinem Bonus |
+| Meisterschaft | Hauptfertigkeit | Zulieferfertigkeit (Vorschlag) | Stellt her |
+| --- | --- | --- | --- |
+| Schmied | Schmieden | Bergbau | Waffen, Metallrüstung, Dietriche, Reparatur von Metall |
+| Lederarbeit | Lederarbeit | Jagd | Leder, leichte Rüstung, Taschen, Köcher, Reparatur von Leder und Stoff |
+| Alchemist | Alchemie | Kräuterkunde | Tränke, Gegengifte, Gifte, Elixiere |
+| Runenmeister | Runenkunde | Bergbau | Verzauberungen, Runen auf Ausrüstung |
+| Feldkoch | Kochen | Angeln oder Jagd | Mahlzeiten mit kleinem Bonus |
+
+**Heilkunde** steht in der Gruppe Meisterschaften (Entscheidung 59: Verbände, Wunden versorgen), ist aber keine eigene Meisterschaft; über Meister hinaus steigt sie nur im Pfad Heiler.
 
 ## 7. Kampf
 
@@ -182,7 +198,7 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 - **Zufall nur als Würze:** kleine Streuung statt W20; ein Glückstreffer (1 von 100) ist nur ein Kratzer („Kratzer reicht“); kritische Treffer und Ausweichen hängen an Gewandtheit und Fertigkeit. Gegen Gegner, die 9 Stufen und mehr unter dem Helden stehen, gibt es keine Erfahrung (Entscheidung 73).
 - **Abwehr:** Die Schildfertigkeit und die Rüstungsfertigkeit erhöhen den Schadensabzug: Abzug = Rüstungswert × (1 + Fertigkeit / 100); die Rüstungsfertigkeit senkt nur den Schaden, nicht die Trefferchance (Entscheidung 74). **Parieren:** Für die Trefferchance zählt als Abwehr der beste von Schild, Ausweichen und halber Fertigkeit der Nahkampfwaffe, nur gegen Nahkampf; gegen Pfeile und Zauber gelten nur Schild und Ausweichen. Riposte bleibt Handlung des Duellanten (Entscheidung 75).
 - **Schleichen und Hinterhalt:** Mit der Schleichtaste nähert sich der Held. Bleibt er unbemerkt (Schleichen gegen die Wachsamkeit des Gegners, ohne Würfel), greift er als Erster an und bekommt den Vorteil des Hinterhalts. Mehr Gegner sind schwerer zu überlisten. **Bosse** sind wachsamer, ihr Hinterhalt-Bonus ist gedeckelt.
-- **Ausschlüsse sind hart.** Magier tragen ab der Gesellenprüfung keine Rüstung, weil Metall die Aufnahme der Magiepartikel aus der Umgebung stört; der Kriegsmagier darf nur leichte Rüstung tragen (welche Schulen das betrifft: Vorschlag in Abschnitt 5). In schwerer Rüstung geht Schleichen nicht („Deine Rüstung klirrt“). Zweihänder und Schild schließen sich aus. Jeder Held hat höchstens einen Pfad.
+- **Ausschlüsse sind hart.** Metall stört die Aufnahme der Magiepartikel aus der Umgebung (Entscheidung 10, 33). Gültig ist: der Magier trägt ab der Gesellenprüfung keine Rüstung, der Kriegsmagier nur leichte. *Vorschlag (offen, D48.3, D54.3):* die Sperre hängt an der Schule, nicht am Pfad: Evokation, Illusion und Beschwörung gehen für jeden nur ohne Metall, also in Stoff oder Leder (leichte Rüstung); Heil- und Schutzmagie auch in Metall (Abschnitt 5). In schwerer Rüstung geht Schleichen nicht („Deine Rüstung klirrt“). Zweihänder und Schild schließen sich aus. Jeder Held hat höchstens einen Pfad.
 - **Gegner gehören zu Gebieten**, damit niemand zu früh in zu hohe Stufen läuft. Höhere Gebiete sind betretbar; die Karte zeigt ihr Stufenband.
 
 ## 8. Die Welt
@@ -196,7 +212,8 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 ## 9. Ruf
 
 - **Ruf je NPC.** Wer für jemanden Quests erledigt, steigt in dessen Achtung. Fraktionen gibt es nicht.
-- **Wirkungen eines guten Rufs:** günstigere Preise, mehr Auskünfte in Gesprächen, die in Quests weiterhelfen, Sonderwaren, günstigere Lehrer, frühere Prüfungen.
+- **Wirkungen eines guten Rufs:** günstigere Preise, mehr Auskünfte in Gesprächen, die in Quests weiterhelfen, Sonderwaren. Ob der Ruf beim Lehrmeister etwas bewirkt, ist offen: Lehrstunden gibt es nicht (Entwurf F), Prüfungen folgen dem Kapitel-Takt (D54.5).
+- **Profil** (Entscheidung 76): Taten und Chronik zuerst, dann Ätherdichte und Ruf mit Gedächtnis (Entwurf C).
 - **Ortsruf** ergibt sich aus dem Ruf der NPCs eines Ortes; wichtige NPCs (etwa Wirt, Schmied, Ortsvorsteher) zählen mehr. Er wirkt auf Wachen und die Stimmung im Ort.
 - **Der Ruf sinkt** nur bei wenigen klaren, angekündigten Anlässen, etwa bei einer abgebrochenen Quest oder Verrat, und lässt sich durch Quests wieder aufbauen.
 - **Anzeige:** eine Liste „Bekannte Personen“ mit Rufstufe und aktuellen Vorteilen.
@@ -265,10 +282,14 @@ Folklore-Wesen (Goblin, Kobold, Skelett, Zombie, Ghul) und Tiere behalten ihre N
 - Kapitel 1: welche Fertigkeiten es dort schon zu tun gibt (Schmieden, Alchemie, Spähen), damit jede Herkunft in Kapitel 1 etwas zu üben hat (Befund D49.1; Umfang beim Chef, Chefsache 418).
 - Startpunkte: 18 (Entscheidung 64) oder 21 (Abschnitt 2, D48.1); darf das Volk die Spanne 3 bis 8 überschreiten?
 - Fallen und Verstecktes entdecken: Vorschlag, Spähen findet (Entscheidung 57), Wahrnehmung verstärkt; bisher nennt beides der Text (D49.2).
-- Beschwörer: zweite Kernfertigkeit (Abschnitt 5); Name der Meisterschaft Heilkunde (Abschnitt 6).
+- Beschwörer: zweite Kernfertigkeit (Abschnitt 5); Einladung der Meisterschaften über eine Zulieferfertigkeit (Abschnitt 6).
+- Magie und Rüstung: gilt die Sperre je Schule für jeden oder nur im Pfad Magier (Abschnitt 7, D54.3)?
+- Ruf und Lehrmeister (Abschnitt 9, D54.5); Zahlen für die Simulation (Abschnitt 4) bestätigen oder ändern.
 - Alle Zahlen: nach der Simulation.
 
 ---
+
+*Die Entwürfe A bis F unten stehen nur zum Nachlesen. Entschieden sind A (Modell D, Entscheidung 73), C (76), D (68), F (67); was gilt, steht in den Abschnitten 1 bis 12. Ältere Wörter dort (Werdegang, Späher, Weg, Lehrstunde) gelten nicht mehr.*
 
 ## Entwurf A zur Entscheidung: Rechenmodelle für den Kampf
 
@@ -318,14 +339,14 @@ Anforderung des Chefs (31.10., 21:3x): Ein kleiner Held gegen ein starkes Monste
 | Glückstreffer | 1 von 100 Treffern rechnet mit Stufenfaktor 1; gilt für beide Seiten |
 | Erfahrung | Stufe über dem Gegner (D > 0): × (1 − D / 9), null ab D ≥ 9; Stufe unter dem Gegner (D < 0): × (1 − D / 10), höchstens doppelt |
 
-**Monster braucht:** Stufe, Leben, Rüstung, Grundschaden je Angriff, Angriffsfertigkeit, Abwehrfertigkeit, Wachsamkeit gegen Schleichen.
+**Monster braucht:** Stufe, Leben, Rüstung, Grundschaden je Angriff, Angriffsfertigkeit (zählt bei Monstern zugleich als Fertigkeit im Schaden), Abwehrfertigkeit, Wachsamkeit gegen Schleichen. Monster haben keine Rüstungsfertigkeit: ihr Abzug ist der bloße Rüstungswert. Die Beispiele unten rechnen vereinfacht mit der vollen Abwehr; gültig ist Entscheidung 75 (halbe Waffenfertigkeit beim Parieren).
 
 **Beispiele** (alle Zahlen Beispiel):
 
 | Fall | Werte | Held trifft | Gegner trifft | Ausgang |
 | --- | --- | --- | --- | --- |
 | **Held Stufe 1 gegen Monster Stufe 10** | Held: Grundschaden 8, Leben 20, Rüstung 2, Fertigkeit 10. Monster: Grundschaden 10, Leben 120, Rüstung 4, Angriff 50, Abwehr 40. D = −9 | Chance 70 − 15 = 55 %; Schaden 8 × 1,1 × 0,1 = 0,9 − 4 → 0. Glückstreffer: 8,8 − 4 = 5 | Chance 70 + 20 = 90 %; Schaden 10 × 1,5 × 1,9 = 28 − 2 = 26 | Held fällt nach einem Treffer. Der Glückstreffer kratzt, rettet aber nicht. Erfahrung bei einem Sieg wäre × 1,9 |
-| **Held Stufe 10 gegen Monster Stufe 1** | Held: Grundschaden 8, Fertigkeit 40. Monster: Grundschaden 5, Leben 12, Rüstung 4, Angriff 10, Abwehr 5. D = +9 | Chance 70 + 17,5 = 87,5 %; Schaden 8 × 1,4 × 1,9 = 21 − 4 = 17, das Monster fällt nach einem Treffer | Schaden 5 × 1,1 × 0,1 = 0,6 − Rüstung → 0. Glückstreffer: 5,5 − 2 = 3 | Held gewinnt mühelos. Erfahrung × 0,1 |
+| **Held Stufe 10 gegen Monster Stufe 1** | Held: Grundschaden 8, Fertigkeit 40. Monster: Grundschaden 5, Leben 12, Rüstung 4, Angriff 10, Abwehr 5. D = +9 | Chance 70 + 17,5 = 87,5 %; Schaden 8 × 1,4 × 1,9 = 21 − 4 = 17, das Monster fällt nach einem Treffer | Schaden 5 × 1,1 × 0,1 = 0,6 − Rüstung → 0. Glückstreffer: 5,5 − 2 = 3 | Held gewinnt mühelos. Erfahrung 0 (Entscheidung 73) |
 | **Zwei gleich Starke, Stufe 5** | beide Grundschaden 10, Leben 50, Rüstung 2. Einer Geselle (Fertigkeit 40), einer Anfänger (20). D = 0 | Geselle: Chance 80 %, Schaden 10 × 1,4 − 2 = 12, braucht 5 Treffer | Anfänger: Chance 60 %, Schaden 10 × 1,2 − 2 = 10, braucht 5 Treffer | Der Geselle gewinnt deutlich öfter, weil er öfter und härter trifft. Die genaue Quote misst die Simulation |
 
 **Was das Modell leistet:**
