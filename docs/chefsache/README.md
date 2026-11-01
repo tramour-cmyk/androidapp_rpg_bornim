@@ -151,10 +151,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 18, Muss 16, startbar 0
+**Perikles** – offen 19, Muss 16, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 456.1 | M? | von Diogenes (Doppelpack 421, Lauf 54, 01.11., 11:4x): Befunde D55.1–5 zu 448.2 und 449 na | startbar |
 | 436 | M | von Sokrates („jetzt“ 31.10., 22:58): Sitzungsnamen mit Vorgang, Thema und Zeit für alle ( | wartet auf Test/Build (gebaut) |
 | 433 | M | von Sokrates („jetzt“ 31.10., 22:1x, Zu 433): unabhängige Zeilen von Tom und Jerry an Spik | wartet auf Test/Build (gebaut) |
 | 424 | M | von Sokrates („jetzt“ 31.10., 21:3x, Chef: „keine Energie mehr in das alte SRD-System stec | wartet auf Test/Build (gebaut) |
@@ -174,11 +175,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
-**Diogenes** – offen 7, Muss 5, startbar 1
+**Diogenes** – offen 6, Muss 4, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 456 | M | von Perikles (Doppelpack 421, 01.11., 11:4x): prüfen 448.2 (tools/tagesbericht.py, lauf.py | startbar |
 | 434 | M | von Sokrates (Chef 31.10., 22:1x): bei jeder Zählung 374 zusätzlich die Zeile „Bestand gep | Termin 02.11. |
 | 398 | M | von Sokrates: vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (39 | Termin 02.11. |
 | 374 | M | von Sokrates (Chef 27.10., 11:58, Archiv 374): täglich 8 Uhr bis 03.11. Vorlagen des Vorta | Termin 02.11. |
