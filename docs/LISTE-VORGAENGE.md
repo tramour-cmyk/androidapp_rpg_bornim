@@ -137,7 +137,6 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 416.5 | Kampflog-Details nicht mehr schließbar (Chef 31.10., 20:4x) | B Umzug | M | 5,66 $ | Team Jerry | zu testen |
 | 416.6 | Spuren des Helden, auch bei Regen (Chef 31.10., 20:4x) | B Umzug | K | – | Team Jerry | frei |
 | 417 | Prüfung: Waffen und Schild beim Gehen und Rennen in der Hand statt auf dem Rücken (zu 410, Chef 31.10., 21:1x) | E Figuren | M | 27,82 $ | Team Tom | startbar |
-| 423 | Spielerhandbuch aus dem Nachschlagewerk 422: was der Spieler wissen muss, in unserem Ton, Deutsch und Englisch (Chef 31.10., 21:2x) | C Texte | M | 4,14 $ | Homer | erledigt |
 | 423.1 | Spielerhandbuch BRS als Seite im Spiel, Platzhalter aus der Datendatei (Archiv 423) | A Technik | M? | – | Team Tom | wartet |
 | 424 | Umzugsliste und Vorräte frei von Arbeit am alten SRD-System: Regelzeilen in `LISTE-UMZUG-348.md` ruhen, Wächter in `startbar.py`/`lauf.py` („jetzt“ 31.10., 21:3x) | B Abläufe | M | 3,43 $ | Perikles | gebaut |
 | 425 | Menüs und Testmenü mit Icons wie in der alten Fassung statt viel Text (Build 143, Chef 31.10., 21:30) | B Umzug | M | 36,83 $ | Team Tom | gebaut |
@@ -153,17 +152,12 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 453 | Wölfe im Kampfort: Ruhebewegungen (atmen, scharren, umblicken, knurren) (Chef 01.11., 11:05) | E Kampf | M | 10,08 $ | Team Jerry | startbar |
 | 453.1 | Helden im Kampf: Atmen ruhiger, je Figur eigener Takt, nach Aktion schneller und abklingend (Chef 01.11., 13:0x) | E Kampf | M | – | Team Jerry | in Arbeit |
 | 453.2 | Atmen-Schicht für Held unterwegs, Söldner, Leute in Dorf und Innenräumen (Chef 01.11., 13:0x, ganzes Spiel) | E Figuren | M | – | Team Tom | startbar |
-| 453.3 | Grundsatz „lebende Figuren atmen immer“ in `DESIGN-STIL.md` (Chef 01.11., 13:0x) | G Stil | M | – | Homer | erledigt |
 | 454 | Wolfsbiss: Achse des Wolfs zielt rechts neben den Helden? messen (Chef 01.11., 11:05) | E Kampf | M | 10,78 $ | Team Jerry | gebaut |
 | 455.1 | Probeblatt Baukasten: Roben, Umhänge, Stiefel je Netz × Material × Zeichen (Chef 01.11., 11:24) | E Figuren | M | – | Team Tom | startbar |
 | 455.2 | Netzliste je sichtbarem Platz, Eigenbau geschätzt, Größenfilm der Völker (Chef 01.11., 11:27, 455 ja) | E Figuren | M | – | Team Tom | startbar |
-| 451.1 | Name „Bornimer Rollenspielsystem“ in CLAUDE.md, Leitbild, Rollendateien, Werkzeugtexten (Chef 01.11., 451) | B Abläufe | M | – | Perikles | erledigt |
-| 451.2 | Name „Bornimer Rollenspielsystem“ im Handbuch 423 und in Spieltexten (Chef 01.11., 451) | C Texte | M | – | Homer | erledigt |
-| 458.1 | Gegenstandskatalog: Datendatei festlegen, Werkzeug für `LISTE-GEGENSTAENDE.md` (Chef 01.11., 458 ja) | B Abläufe | M | – | Perikles | erledigt |
 | 458.2 | Gegenstandskatalog: Werte, Preise, Beute (Chef 01.11., 458) | D Design | M | – | Team Jerry | startbar |
 | 458.3 | Gegenstandskatalog: Netze, Modelle, Läden (Chef 01.11., 458) | E Figuren | M | – | Team Tom | startbar |
 | 458.4 | Gegenstandskatalog: Namen und Kurztexte (Chef 01.11., 458) | C Texte | M | – | Homer | startbar |
-| 447.1 | Abnahmeliste auf Stufen 1–6 umstellen, Block G erweitern, Schätzung je Stufe (Chef 01.11., 447 ja mit K2b) | B Abläufe | M | – | Perikles | erledigt |
 | 447.2 | Schätzung je Stufe, Bereich Tom (447) | B Abläufe | M | – | Team Tom | startbar |
 | 447.3 | Schätzung je Stufe, Bereich Jerry; Stufe 3 in Simulation 444 (447) | B Abläufe | M | – | Team Jerry | startbar |
 | 447.4 | Texte Lehrmeister-Einladungen und Ruf-Gespräche für Stufe 3 (447) | C Texte | M | – | Homer | startbar |
