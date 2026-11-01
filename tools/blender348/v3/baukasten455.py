@@ -25,7 +25,8 @@ os.makedirs(ZIEL, exist_ok=True)
 
 ZEICHEN = ['borte', 'runen']
 NETZE = [
-    {'netz': 'robe', 'name': 'Robe', 'tracht': 'ROBE', 'teil': ['robe'], 'mats': ['stoff', 'leder', 'kette'], 'band': 'saum', 'ansicht': 'vorn'},
+    # Pruefer 455.1 Lauf 2: mit nur 'robe' wechselte allein der Rock, Oberteil und Aermel blieben blau: alle Stoffteile der Tracht
+    {'netz': 'robe', 'name': 'Robe', 'tracht': 'ROBE', 'teil': ['*'], 'teil_ohne': ['belt', 'buckle', 'clasp', 'boots', 'cloak'], 'mats': ['stoff', 'leder', 'kette'], 'band': 'saum', 'ansicht': 'vorn'},
     {'netz': 'umhang', 'name': 'Umhang', 'tracht': 'WACHE', 'teil': ['cloak'], 'mats': ['stoff', 'leder', 'fell'], 'band': 'saum',
      'ansicht': 'hinten'},
     {'netz': 'beine', 'name': 'Beine mit Stiefeln', 'tracht': 'WALD', 'objekte': ['Legs', 'Feet'], 'mats': ['stoff', 'leder', 'kette'],
@@ -203,7 +204,9 @@ for spec in NETZE:
             for o in objs:
                 if 'teil' not in o.data.attributes: continue
                 tl = np.zeros(len(o.data.vertices), dtype=int); o.data.attributes['teil'].data.foreach_get('value', tl)
-                will = np.isin(tl, [namen.index(t) for t in spec['teil'] if t in namen])
+                wahl = [t for t in namen if t not in spec.get('teil_ohne', [])] if spec['teil'] == ['*'] else [t for t in spec['teil'] if t in namen]
+                print('TEILE %s: %s' % (k, ', '.join(wahl)))
+                will = np.isin(tl, [namen.index(t) for t in wahl])
                 tv = dreiecke(o)[0]
                 sel[o.name] = will[tv].all(1)
                 print('TEIL %s %s: %d von %d Dreiecken' % (k, o.name, int(sel[o.name].sum()), len(tv)))
