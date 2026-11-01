@@ -10,6 +10,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 376.1 | M | **von Chef (Chefrunde 01.11.):** Kettenhemd der Heldin; Rest 417, 455.2, 348.12b, Build 146 | wartet auf Chef: entscheiden/3761-kettenhemd-heldin, 34812b; ansehen/417, 4552, t146 (Empfehlungen im Chat 20:46) |
 | 427 | M | **von Chef (31.10., 21:3x):** Bestiarium `LISTE-BESTIARIUM.md` | wartet auf Jerry: Startwerte gehen in die Simulation 444, dann gemessen zum Chef (Archiv 422, 444) |
 | 398 | M | **von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr ganz grundlegende Dinge fehlen?“):** Grundsätze DESIGN-* gegen Umzugsliste und Godot-Zweige | wartet auf Perikles: 15 Lücken in LISTE-UMZUG-348.md „398“, Chef 11:3x informiert |
 | 391 | M | **von Chef (28.10., 09:21):** Repos dauerhaft ohne Ablehnung | ruht: kein Repo-Feld in der Umgebung (Bild Chef 10:29), Repo-Wahl am Eingabefeld gilt nur für Sitzungen von Hand; Fords Starts nehmen ein Repo; add_repo geht durch, wenn die Aufgabe die Kaufmodelle braucht |
