@@ -24,3 +24,14 @@ Alle: Tempo auf das Spiel umgetaktet, Oberkörper aufgerichtet (Gehen 6,5–9,7 
 **Stärkstes Gegenargument:** Rennen mit Schwert und mit Schild neigt den Oberkörper im Mittel 37 Grad vor (Paket so; Axt 30, Bogen 15); wirkt das wie Sprint statt Laufen, kommt es aus den Paketen, nicht aus unserer Stellung.
 
 **Zu sagen:** je Waffe „passt“ oder was anders sein soll; Schild: Haltung am Arm so richtig (Durchdringung wird behoben)?
+
+**Prüferbefund (nach dem Versand, 23:0x; Zahlen in Bildpunkten, mit unserer Messung):**
+- Stillstand 0–0,9 s und ab 7,9 s; dort Kämpfer stark vorgebeugt, Bogenschützin aufrecht.
+- Rundschild als schwarze Scheibe ohne Zeichnung.
+- Axt: beide Fäuste am Schaft (Gehen, Rennen); 4,75–5,75 s obere Hand mit gespreiztem Daumen und Fingern; im Stand nur eine Hand am Schaftende.
+- Rennen mit Schild: Kopf stark gesenkt, Blick zu Boden.
+- Verdacht Schwert über der Schulter durch den Hals (1,75–3,0 s); gemessen nächster Abstand Schlüsselbein 2,0 cm, Hals 3,1 cm, also frei.
+- Verdacht Bogenarm durchs Bein im Rennen; gemessen 2,4 cm frei.
+- Schild-Durchdringung im Film nicht zu sehen (Schild auf der Kameraseite).
+- **Rennen: Füße erreichen den Boden nie, 7–16 Bildpunkte darüber (Figuren schweben)**; Langschwert Rennen Verdacht Rutschen.
+- Axtblatt stößt im Rennen an den Feldrand; Beschriftung nur Kennungen ohne „Gehen“, „Rennen“.
