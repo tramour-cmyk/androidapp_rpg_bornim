@@ -9,9 +9,13 @@ extends "res://kampf/atem.gd"
 ## Ruhe: ein Atemzug in Sekunden (wachsam im Kampf, 25 je Minute)
 const TIER_RUHE_S := 2.4
 ## bei voller Einatmung in Ruhe: Flanke breiter (Anteil), Bauch tiefer (Anteil), Rücken höher (Meter)
+## 453 r3 (Prüfer Film r3, 01.11., 23:2x: Rücken im Film 0,3–0,5 px): kein Bildfehler, die Schicht kommt im Bild an (atem_render_453:
+## Rücken bis 3,7 px, wie gerechnet), aber zu klein: Rücken 15 mm auf 37 cm Länge, 1,7–2,4 px aus der Kampfkamera (11–15 m), der Bauch
+## ging nicht mit (−0,5 mm: Heben und Weiten hoben sich auf). Jetzt Rücken 22 mm, Bauch −18 mm (atem_ruecken_453), Pfoten und Kopf
+## wie bisher still (atem_netz_453); vorher BAUCH 0,05, HEBEN 0,014
 const BREITER := 0.09
-const TIEFER_BAUCH := 0.05
-const HEBEN_M := 0.014
+const TIEFER_BAUCH := 0.12
+const HEBEN_M := 0.010
 ## [Knochen, Anteil]: Spine_02 über der Flanke voll, Spine_03 über der Brust etwas weniger
 const RIPPEN := [["Wolf_Spine_02SHJnt", 1.0], ["Wolf_Spine_03SHJnt", 0.8]]
 const HALTEN := "Wolf_Spine_04SHJnt"
