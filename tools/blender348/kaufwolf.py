@@ -54,7 +54,7 @@ TMAX = float(os.environ.get('TMAX', '0.5'))
 HELL = {'grau': 0.9, 'dunkel': 1.0, 'rost': 0.75, 'asche': 0.9}
 # Biss nachgemessen (probe.gd SCHAU=ort SCHAU_MESS=1, lokal 27.10.): mit Schnauze am weitesten vorn minus 0,07 m blieb die Nase
 # 0,04–0,08 m vor dem Rand der Heldin, zugebissen 0,77–1,03 s, Winkel +2 bis +5°: Abstand −0,06 m (Modell), Zeit, Winkel −4°
-BISS_KORR = (-0.03, 0.8, -4.0)     # Prüfer r1: Kopf verschwindet am Rumpf der Heldin; Nase dort 0,01–0,05 m im Rand: 3 cm zurück
+BISS_KORR = (-0.03, 0.8, 0.0)     # Prüfer r1: Kopf verschwindet am Rumpf der Heldin; Nase dort 0,01–0,05 m im Rand: 3 cm zurück
 KOPF_KNOCHEN = ('neck_top', 'head', 'jaw', 'tongue', 'ear')
 # Augen nach Lage im Netz (Ruhe, Quelle): erster Lauf färbte nach Farbe 4,9 % der Textur als Auge (das Fell der Quelle ist braun
 # gesättigt); gemessen: Iris um (±0,047, −0,832, 0,890) m, Radius 0,010; darum ein weißer Ring (Lid, bis 0,019), wird dunkel
@@ -173,6 +173,34 @@ def haltung(rig, a, fn):
         for n in alle | {COM, HALS}:
             pb[n].keyframe_insert('location', frame=f); pb[n].keyframe_insert('rotation_quaternion', frame=f)
     print('HALTUNG', a.name, a0, a1, 'Pfote höchstens %.3f m verrückt' % gross)
+
+
+def gerade(rig, a):
+    """454 (Chef 01.11., 11:05: „wenn ich seine Achse betrachte, dass die gar nicht auf dem Helden geht … rechts daneben“): der Biss
+    der Quelle schlägt den Kopf seitlich (gemessen, Schnauze quer zur Achse: erst 0,11 m nach rechts, dann 0,18 m nach links; figur.gd
+    drehte den Rumpf 8,5° weg, damit die Schnauze im Augenblick des Zubeißens traf, danach wischte sie links am Ziel vorbei). Kopie von
+    `a`, je Bild den Hals um die Hochachse durch seinen Ansatz so gedreht, dass die Schnauze auf der Achse des Rumpfs bleibt; Nicken
+    und Strecken der Quelle bleiben."""
+    g = a.copy(); g.name = a.name + '_gerade'; g.use_fake_user = True
+    setze(rig, g)
+    a0, a1 = int(g.frame_range[0]), int(g.frame_range[1])
+    W = rig.matrix_world
+    hoch = (W.to_3x3().inverted() @ Vector((0, 0, 1))).normalized()
+    pb = rig.pose.bones; vl = bpy.context.view_layer
+    hals, maul = pb[HALS], pb[J('Head_JawEnd')]
+    vor = nach = 0.0
+    for f in range(a0, a1 + 1):
+        bpy.context.scene.frame_set(f)
+        h, s = W @ hals.head, W @ maul.head
+        w = math.atan2(s.x - h.x, -(s.y - h.y))     # + = Schnauze links der Achse (Blick -Y, links +X)
+        vor = max(vor, abs(s.x))
+        hp = hals.head.copy()
+        hals.matrix = Matrix.Translation(hp) @ Matrix.Rotation(-w, 4, hoch) @ Matrix.Translation(-hp) @ hals.matrix.copy()
+        vl.update()
+        nach = max(nach, abs((W @ maul.head).x))
+        hals.keyframe_insert('location', frame=f); hals.keyframe_insert('rotation_quaternion', frame=f)
+    print('GERADE %s: Schnauze quer höchstens %.3f, danach %.3f (Quelle, Einheiten der Quelle)' % (a.name, vor, nach))
+    return g
 
 
 def stoss(t, an=0.22):
@@ -302,6 +330,7 @@ def baue(fell):
         hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2], widerrist, rumpf_y, s))
     # ------------------------------------------------ Tempo der Pfoten (vor dem Ableiten), Biss: Zeitpunkt und Reichweite
     v_geh, v_renn = tempo(rig, akt['Walk']), tempo(rig, akt['Run'])
+    akt['Attack'] = gerade(rig, akt['Attack'])     # 454: Biss und Sprung ohne Seitenschlag des Kopfs
     setze(rig, akt['Attack'])
     a0, a1 = int(akt['Attack'].frame_range[0]), int(akt['Attack'].frame_range[1])
     zb = []
