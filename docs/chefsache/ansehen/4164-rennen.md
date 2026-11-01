@@ -1,5 +1,7 @@
 # 416.4 · Rennen: heute, A, B am Helden, wie er im Spiel läuft · Tom (Team Tom) · 01.11., 13:0x
 
+[Film von 01.11., 13:02](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-1302-416.4-Tom.mp4) (eingetragen von meldung.sh, Tom)
+
 ![Drei Felder untereinander: heute, A, B](../bilder/4164-rennen.webp)
 
 Film per Telegram (16 s, Hochformat): drei Felder untereinander, oben heute, darunter A und B. Erst die Spielansicht, dann von der Seite, dann von der Seite in halber Geschwindigkeit; Stehen, Gehen, Anlaufen, Rennen im Tempo des Spiels. Kämpfer auf dem Kaufkörper ohne Waffen. Noch kein Build; Zweig `claude/tom-416-4-rennen`, Ablauf `tom-probe-4164.yml`.
