@@ -11,4 +11,13 @@
 - Drehsprünge der Wölfe und das ruckartige Heranzoomen der Kamera bei einem zweiten Schlag sind behoben.
 - **Offen:** Der gekaufte Held hat kein Hinfallen und Aufstehen (Frage [438a](../entscheiden/438a-sturz-held.md)); Ansage und Leiste neben Wolf 1, Streifen unten: der Prüferbefund folgt in Telegram.
 
-**Zu sagen:** „passt“ (fährt im nächsten Build mit) oder was nicht stimmt.
+**Nachtrag 01.11., 10:55 (ohne neuen Film: die zwei Probeläufe bis zu deinem Urteil sind verbraucht):** die Prüferbefunde zum Film r2 sind behoben, gemessen mit `wolf_mess_438.gd` (vier Klassen, je 90 s, Handyformat; Commit 25408fbdd):
+- „prallt gegen Ansgar“ steht mit dem Biss (vorher 3,7 s später); „sackt zusammen“ 0,4 s bevor er liegt (vorher 1 s danach).
+- Sprung durch Bertrams Kopf: die Sprungbahn muss frei sein, sonst ein kurzer Satz aus der Nähe.
+- Schnauze in Schild, Brust, Klinge: vorher bis 10 cm, jetzt 0, außer wenn der Held ausweicht (Stab bis 16 cm, 0,2 s).
+- Wolf aus dem Bild: vorher bis 175 px; der Umweg bleibt im Bild, sonst geht die Linse weich ein Stück zurück; Rest 57 px für 0,7 s.
+- Dreiecke verschwinden nur noch, wo eine Figur wirklich davorsteht; Ansagen und Leisten gleiten statt zu springen.
+- Klinge durch den Wolf ohne Treffer: daneben bleibt der Held weiter weg, der Wolf weicht vor dem Hieb aus.
+- Offen: einmal Wolf in Wolf 0,12 m (Schurke, 0,4 s). Neu zu entscheiden: [438b](../entscheiden/438b-ansagen-tempo.md) (Pausen bei den Ansagen), [438c](../entscheiden/438c-wolfsgroesse.md) (Größe der Wölfe).
+
+**Zu sagen:** „passt“ (fährt im nächsten Build mit) oder was nicht stimmt; erst danach entsteht ein neuer Film (r3).
