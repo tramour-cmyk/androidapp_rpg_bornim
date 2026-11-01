@@ -1,5 +1,7 @@
 # 416.9 · Laden, Runde 2: Leiste fest, Leerzeile weg, Vergleich wie alt · Tom (Team Tom) · 01.11., 12:4x
 
+[Bild von 01.11., 12:40](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/01-1240-416.9-Tom.png) (eingetragen von meldung.sh, Tom)
+
 ![Verkaufen oben und unten, Stück angetippt, Kasten Menge](../bilder/4169-laden.webp)
 
 Von links: Verkaufen, Verkaufen nach unten gerollt, ein Stück angetippt, Kasten „Menge“ beim Kaufen. Gleicher Held wie in Runde 1 (Elfenmagierin). Bild aus dem Spiel auf GitHub (Lauf `tom-probe-4169.yml`), noch kein Build; Zweig `claude/spike-416-9-laden`, fährt im nächsten Build mit. Tests grün: Laden, Tasten, Bedienung, Skripte.
