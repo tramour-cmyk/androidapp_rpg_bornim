@@ -51,6 +51,8 @@ TRACHTEN = {
     'WALD': {'kleid': '{v}_Ranger'},   # Kapuze (Head_Hood) bleibt als eigenes Netz: Godot zeigt sie je Herkunft
     'BAUER': {'kleid': '{v}_Peasant'},
 }
+# 455.2 Groessenfilm (Platte): Ritter in Platte (Quaternius Knight ohne Hoerner), nur mit MIT_RITTER=1, nicht im Spiel
+if os.environ.get('MIT_RITTER') == '1': TRACHTEN['RITTER'] = {'kleid': '{v}_Knight', 'ohne': ['Horns']}
 # Herkunft (Spielsystem 2.0, Entscheidung 68; Archiv 376.1 „Tracht der Heldin“, Stellungnahme Sokrates) -> Tracht; Schuerze fuer den
 # Schmiedelehrling gibt es im Bestand nicht (Modular Character Outfits: Knight, Knight_Cloth, Noble, Peasant, Ranger, Wizard)
 HERKUENFTE = {

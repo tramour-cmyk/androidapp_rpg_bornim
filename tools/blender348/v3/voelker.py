@@ -244,14 +244,15 @@ def baue(volk, frau):
     return r, m2
 
 
-aus = []
-for frau in (False, True):
-    # der Mensch zuerst: Bezug fuer die Schulter
-    r, m = baue('mensch', frau)
-    MENSCH[frau] = m
-    aus.append(r)
-    for v in ('elf', 'zwerg', 'huegel', 'ork'):
-        if NUR and v not in NUR: continue
-        aus.append(baue(v, frau)[0])
-json.dump({'voelker': aus, 'frau': FRAU}, open(os.path.join(ZIEL, 'voelker.json'), 'w'), indent=1, ensure_ascii=False)
-print('VOELKER OK', len(aus))
+if __name__ == '__main__':   # 455.2 volk_tracht.py holt nur die Hilfen
+    aus = []
+    for frau in (False, True):
+        # der Mensch zuerst: Bezug fuer die Schulter
+        r, m = baue('mensch', frau)
+        MENSCH[frau] = m
+        aus.append(r)
+        for v in ('elf', 'zwerg', 'huegel', 'ork'):
+            if NUR and v not in NUR: continue
+            aus.append(baue(v, frau)[0])
+    json.dump({'voelker': aus, 'frau': FRAU}, open(os.path.join(ZIEL, 'voelker.json'), 'w'), indent=1, ensure_ascii=False)
+    print('VOELKER OK', len(aus))
