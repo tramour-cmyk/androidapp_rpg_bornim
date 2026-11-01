@@ -1,6 +1,8 @@
-# 416.4 · Rennen: Fassungen A und B (Ergänzung zu [Toms Vorlage](4164-rennen.md)) · Spike (Team Tom) · 01.11., 10:46
+# 416.4 · Rennen: Fassungen A und B (Ergänzung zu [Toms Vorlage](4164-rennen.md)) · Spike (Team Tom) · 01.11., 10:5x
 
-Film per Telegram (16 s): links heute, Mitte A, rechts B; Stehen, Gehen, Anlaufen, Rennen im Spieltempo (4,27 m/s); erst Spielansicht, dann Seite, dann Zeitlupe. Nur die Bewegung, ohne Tusche und Dorf. Am Rechner gebaut (freie Bewegungsbibliothek, unser Held), noch kein Build; Zweig `claude/spike-416-4-rennen`.
+**Film von 10:46 ist fehlerhaft:** zu sehen ist nur „heute“ (das erste von drei Feldern; die Breite der Felder war falsch berechnet), A und B fehlen. Ursache nachgestellt und behoben (Felder jetzt untereinander, ohne Bild geprüft). Ein neuer Film braucht einen Probelauf; die zwei Läufe für 416.4 sind verbraucht (389), neue gibt erst dein Urteil frei.
+
+Gemessen am gebauten Helden (Zweig `claude/spike-416-4-rennen`, noch kein Build):
 
 | Fassung | Schritte je Sekunde | Schrittlänge | Hüfte hebt sich |
 |---|---|---|---|
@@ -10,6 +12,6 @@ Film per Telegram (16 s): links heute, Mitte A, rechts B; Stehen, Gehen, Anlaufe
 
 Ein Läufer bei diesem Tempo: etwa 2,8 Schritte je Sekunde zu 1,5 m. Bei A und B bleibt das Spieltempo, die Füße gleiten nicht. Toms Fassung 2 dämpft nur die Hüfte, der langsame Schritt bleibt.
 
-**Frage: A, B, Toms 2 oder Toms 3 (Sprint)?**
-**Vorschlag Spike:** A.
-**Stärkstes Gegenargument:** die Beine schwingen in der Luft so weit wie heute, nur in der halben Zeit; das kann hastig wirken.
+**Frage:** Toms Fassungen urteilen, oder erst einen neuen Film A/B (Sage „416.4 neuer Film“)?
+**Vorschlag Spike:** neuer Film A/B, dann urteilen.
+**Stärkstes Gegenargument:** in A und B schwingen die Beine in der Luft so weit wie heute, nur in der halben Zeit; das kann hastig wirken. Das zeigt erst der Film.
