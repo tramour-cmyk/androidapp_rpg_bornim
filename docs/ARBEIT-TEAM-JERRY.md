@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert“).
 
-**Übergabe (01.11., 16:40):** 453 r3 ohne Bild gebaut auf `claude/jerry-453-wolf-ruhe-r3` (39382e532, von r2): Pfoten und Kopf atmen nicht mehr mit, Grundschleifen versetzt, Nahkamera; Messwerkzeuge `atem_netz_453.gd`, `atem_bild_453.gd` (Zu 453 r3). Lokal: `add_repo` bornim-kaufmodelle, Asset 678515204 per `gh api -H "Accept: application/octet-stream"`, entpacken mit dem Python-Teil aus `kauf_laden.sh`, dann `kaufwolf.py`. 438a, 458.2a, 453 warten auf den Chef. Nachfolger: „Jerry – 453: Bildprobe Wolfsatem (r3)“ nach Urteil Film r2.
+**Übergabe (01.11., 16:40):** 453 r3 ohne Bild gebaut auf `claude/jerry-453-wolf-ruhe-r3` (39382e532, Zu 453 r3). Lokal: `add_repo` bornim-kaufmodelle, Asset per `gh api -H "Accept: application/octet-stream"`, entpacken wie `kauf_laden.sh`, dann `kaufwolf.py`. 438a, 458.2a, 453 warten auf den Chef. Nachfolger: „Jerry – 348.12: Grak schreitet“
 
 ## Zeilen
 
