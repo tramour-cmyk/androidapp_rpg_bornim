@@ -16,6 +16,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [417](ansehen/417-tragart.md) | Tragart, Runde 4: Gehen und Rennen aus den gekauften Paketen | – | 01.11. |
 | [431](ansehen/431-voelker.md) | Völker, Runde 3: Grundkörper je Volk im Spiel-Look | – | 01.11. |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
