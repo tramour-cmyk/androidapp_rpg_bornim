@@ -23,6 +23,7 @@ Nichts offen.
 |---|---|---|---|
 | [376.1](ansehen/3761-tracht.md) | Tracht je Herkunft, Heldin, Statur | Spike | 01.11., 15:25 |
 | [416.4](ansehen/4164-uebergaenge.md) | Weiche Übergänge Stehen, Gehen, Rennen | – | 01.11. |
+| [417](ansehen/417-tragart.md) | Tragart je Waffe, Runde 5 | – | 01.11., 16:02 |
 | [431](ansehen/431-voelker.md) | Völker, Runde 3: Grundkörper je Volk im Spiel-Look | – | 01.11. |
 | [438a](ansehen/438a-sturz-sichtung.md) | Hinfallen und Aufstehen des Helden: Sichtung aus dem Bestand | Jerry | 01.11., 14:20 |
 | [453 r2](ansehen/453-wolf-ruhe.md) | Wölfe atmen ohne Pause, jeder im eigenen Takt | Jerry | 01.11., 15:40 |
