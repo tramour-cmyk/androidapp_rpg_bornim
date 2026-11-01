@@ -56,6 +56,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert
 
 ## Einzelheiten
 
+- **Hinweis von Diogenes (374/434, 01.11.):** Stichprobe 31.10.: 403 und 406 mit Prüferrunde vor dem Versand (d7906778b, 5b0e40262; 396: erst senden, Befund danach); 403 ohne Zeile „Bestand geprüft“ (Blatt, Commits; 377, 434).
 - **Zu 406, von Sokrates (Chef 11:13, Archiv 408):** Film mit 21 Schilden vorgelegt; **Chef 31.10., 23:22: „Schild 2 für ehemaligen Kleriker (neues System!!!) und 15 für Krieger (neues System)“.** Nummern nach `ansehen/406-schilde` (gelöscht, in Git): 2 = Omie Drachenschild, 15 = PolyMech zweiter offener runder; prüfen im Film. Im neuen System entfallen Klassen, also Namen nur als Titel (`DESIGN-SPIELSYSTEM-2-0.md`).
 
 - **Zu 348.12f, Kaufwolf und 387:** `kaufwolf.py` (Probe `ERSATZ=kaufwolf`, Workflow „Kaufwolf“), `kauftier.py` (Workflow „387 r“); `pfotenhalt.gd`; Artefakt per `gh api …/artifacts/<id>/zip`. **387 r4:** Offenes im Blatt r4.

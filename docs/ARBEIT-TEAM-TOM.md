@@ -53,6 +53,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 416.4** (Tom 01.11., `rennen_4164.gd`): Rennen = `Jog_Fwd_Loop`, Sprunglauf (Becken 24 cm Hub, 76 % ohne Boden, 5,7 m/s), im Spiel 0,75-fach. `Sprint_Loop` 14 cm, Neigung 39° (Tempo in `held_klassen.py` falsch gemessen: 0,73). Film (Jog, Jog gedämpft, Sprint) braucht Kaufmodelle; `add_repo` abgelehnt.
 
 - **Hinweis von Diogenes (374, 29.10.):** Stichprobe 373 28.10.: dritter Probelauf (389 höchstens zwei), Helferbefund vor dem Versand (396: erst senden, Befund danach), je drei Blätter für ein Modell (373 a).
+- **Hinweis von Diogenes (434, 01.11.):** Stichprobe 31.10.: Vorlage 417 (Tragart, Bewegung) ohne Zeile „Bestand geprüft: … genommen/fehlt“ (Blatt, 18d13193f; 377); der Inhalt steht im Blatt („Bibliothek hat kein Gehen mit Waffe“), die Zeile fehlt.
 - **Von Perikles (378):** Stände prüfen, `ARBEIT-PROJEKT.md` Zu 378.
 - **Zu 431, von Homer (01.11.):** Völkerlisten in `LISTE-FIGUREN.md` „Völker“; 431 wartet auf Chef (Chefsache 430), nicht mehr auf Homer.
 - **Zu 399.1, von Sokrates (Chef 22:0x):** „schönen Blenden, wenn wir Maps wechseln … Gebietskarten und Grundrisse … Einmal ausführlich und … dann kürzer“: `ortsblende.gd` überall prüfen, eigener Punkt im nächsten Testbogen (wie Vorspann mit Klanglogo, nur mit Musik).
