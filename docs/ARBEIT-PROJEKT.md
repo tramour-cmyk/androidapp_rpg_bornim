@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 462 | M | **von Ford („jetzt“ 01.11., 20:34, Chef: „Du kannst mal alle anderen auch hier mal wieder einen Zeitstempel ausgeben, wenn du was machst. Ich kann überhaupt nicht einschätzen, wann hier was passiert ist. Doch klar geregelt.“):** Regel steht (CLAUDE.md „Wie wir zusammenarbeiten“ 7: jede Nachricht beginnt mit Name und Zeitstempel), wird nicht befolgt; Ursache finden (Haken je Rolle, Startnachricht, Stop-Haken) und durchsetzen, Prüfung durch Diogenes | startbar |
 | 461 | M | **von Sokrates („jetzt“ 01.11., 20:3x, Chef: „das mal alles zusammenführt … auf ein Niveau kriegen, dass wir von da aus alle weiteren Vorlagen machen und nicht jedes Mal ich irgendwelche Sachen sehe, wo ich mir denke, das hat man doch schon 100 Mal entschieden“):** Grundstand Figuren und Kampf: Checkliste `LISTE-GRUNDSTAND-461.md` (Entwurf Sokrates) prüfen und pflegen, Prüfer prüft jede Vorlage dagegen, Verstoß = Film geht nicht raus; Zusammenführen bei Tom, Jerry (461.1) | startbar |
 | 436 | M | **von Sokrates („jetzt“ 31.10., 22:58):** Sitzungsnamen mit Vorgang, Thema und Zeit für alle (Zu 436) | gebaut 01.11., 00:1x: Regel, Rollen, lauf.py (Zu 436); Ford benennt um; Diogenes prüft (443) |
 | 433 | M | **von Sokrates („jetzt“ 31.10., 22:1x, Zu 433):** unabhängige Zeilen von Tom und Jerry an Spike/Tuffy (394) verteilen, Ford startet | gebaut 31.10., 22:2x: lauf.py startet Spike/Tuffy auf unabhängige Muss-Zeile (Zu 433); Diogenes prüft (435) |
