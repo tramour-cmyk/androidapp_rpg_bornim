@@ -9,6 +9,10 @@ on:
     branches: ["claude/tom-416-4-**"]
     paths: ["godot/skripte/heldfigur.gd", "godot/tests/rennen_*", ".github/workflows/tom-probe-4164.yml"]
   workflow_dispatch:
+    inputs:
+      film:
+        description: "Film drehen (ja/nein; nein: nur Messung ohne Bild, kein Probelauf)"
+        default: "ja"
 
 jobs:
   probe:
@@ -95,9 +99,11 @@ jobs:
           timeout 300 ~/godot/godot --headless --import --path . > import.log 2>&1 || true
           timeout 120 ~/godot/godot --headless --path . -s res://tests/skripte_pruefen.gd 2>&1 | grep -E "SKRIPTE|FALSCH|SCRIPT ERROR|Parse Error" | tee $GITHUB_WORKSPACE/probe/skripte.log || true
           set -o pipefail
-          timeout 300 ~/godot/godot --headless --path . -s res://tests/rennen_kauf_4164.gd 2>&1 | grep -E "^(RENNEN|FEHLER)|SCRIPT ERROR|^ +at: " | cut -c1-600 | tee $GITHUB_WORKSPACE/probe/messung.log
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/rennen_kauf_4164.gd 2>&1 | grep -E "^(RENNEN|FEHLER)|SCRIPT ERROR|^ +at: " | cut -c1-600 | tee $GITHUB_WORKSPACE/probe/messung.log || true
+          # Pruefer 15:1x: Rennen -> Gehen springt; je Bild Neigung und groesste Knochendrehung um den Wechsel
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/rennen_wechsel_4164.gd 2>&1 | grep -E "^(WECHSEL|SCHLEIFE|BILD|FEHLER)|SCRIPT ERROR|^ +at: " | cut -c1-600 | tee $GITHUB_WORKSPACE/probe/wechsel.log
       - name: Film
-        if: always()
+        if: always() && inputs.film != 'nein'
         run: |
           sudo apt-get install -y -qq xvfb libgl1-mesa-dri > /dev/null
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; }
