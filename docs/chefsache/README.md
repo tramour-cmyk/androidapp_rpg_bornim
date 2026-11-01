@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [458.2a](entscheiden/458.2a-stufe-preis.md) | – | G Balance | 01.11., 14:24 | Stufe und Preis im Gegenstandskatalog: woher die ersten Zahlen? | Jerry |
 | [447.4a](entscheiden/4474a-lehrmeister-k1.md) | – | – | 01.11. | Wer in Bornim Lehrmeister ist | Homer |
 
 ## Zu billigen
@@ -106,7 +107,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Wölfe gleiten (Angriff, Tempo, aneinander vor | wartet auf Test/Build (gebaut) |
-| 458.2 | M | von Sokrates (Chef 01.11., 13:1x, Archiv 458): Gegenstandskatalog: Werte, Preise und Beute | startbar |
+| 458.2 | M | von Sokrates (Chef 01.11., 13:1x, Archiv 458): Gegenstandskatalog: Werte, Preise und Beute | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 447.3 | M | von Perikles (Chef 01.11., Archiv 447): Schätzung je Stufe 1–6 der Abnahmeliste (Punkte „N | startbar |
 | 457.2 | M | von Perikles (Chef 01.11., 11:49, „unsere Signatur muss sich wiederfinden“): eigene Probes | startbar |
 | 453.1 | M | von Sokrates (Chef 01.11., 13:0x): Helden im Kampf atmen gleich und zu heftig („hechelt“): | wartet auf Test/Build (gebaut) |
