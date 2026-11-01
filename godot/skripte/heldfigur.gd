@@ -6,11 +6,19 @@ extends RefCounted
 # Aussehen (Erschaffung, Zustand.aussehen): Kopfform als Formschluessel, Haar und Bart am Kopfknochen, Haar- und Hautfarbe getoent;
 # die angelegte Waffe und der Schild haengen unterwegs auf dem Ruecken (DESIGN-STIL „Ausruestung unterwegs“).
 # Fehlen die Dateien (Bau ohne Kaufmodelle), bleibt der bisherige Held (daten/held.bin).
+# 376.1 Tracht je Herkunft (Chef 01.11., 11:19 „wie Sokrates“, Archiv): Modell je Tracht und Geschlecht (daten/held_<TRACHT>_<M|W>.bin),
+# welche Herkunft welche Tracht traegt, sagt held-klassen.json (herkuenfte); bis die Erschaffung Herkuenfte kennt, gilt die der Klasse
+# (klasse_herkunft). Kapuze nur, wenn die Herkunft sie traegt; unter ihr kein Haar (langes Haar verborgen). Geschlecht und Statur wie
+# alt (CreateScreen.kt, Appearance.kt Sex, Build): aussehen.geschlecht „m“/„w“, aussehen.statur „schlank“/„normal“/„kraeftig“.
 
 const INFO := "res://daten/held-klassen.json"
 # form: Formschluessel (leer: wie gekauft); frisur, bart: Netz in haare.bin (leer: ohne); haut, haarfarbe: Nummer im Volk (held.json
 # voelker.<VOLK>.haut/haar, Appearance.kt wie die alte Erschaffung)
-const VORGABE := {"form": "", "frisur": "Hair_SimpleParted", "bart": "", "haarfarbe": 0, "haut": 0}
+const VORGABE := {"form": "", "frisur": "Hair_SimpleParted", "bart": "", "haarfarbe": 0, "haut": 0, "geschlecht": "m", "statur": "normal"}
+# Heldin: eigene Frisur je Klasse, ohne Bart (Gesicht, Haut, Haar wie beim Mann der Klasse)
+const FRAU_FRISUR := {"FIGHTER": "Hair_Ponytail_2", "CLERIC": "Hair_Buns", "ROGUE": "Hair_Bob", "WIZARD": "Hair_Long"}
+const GESCHLECHTER := ["m", "w"]
+const STATUREN := ["schlank", "normal", "kraeftig"]
 # Chef 28.10., 23:0x („die 6 Beispielköpfe … auf Helden drauf basteln“; Haut „klinisch tot“, „normale Hautfarbe oder eine
 # klassentypische“): je Klasse ein fertiger Beispielkopf als Vorgabe, keiner mit „Hell“; in der Erschaffung frei aenderbar
 const KLASSEN_VORGABE := {
@@ -28,7 +36,7 @@ const HAUT_FARBE := 0.5
 const SCHLEIFEN := ["Stehen", "Gehen", "Rennen", "Stehen_2", "Stehen_3", "Sitzen", "Gesten"]
 
 static var info := {}
-static var haare_szene: Node3D = null
+static var haare_szenen := {}   # Geschlecht -> haare.bin (m), haare_w.bin
 static var bew_lib: AnimationLibrary = null
 static var bew_becken := 1.0
 
@@ -43,6 +51,12 @@ const WORTE := {
 	"frisur:Hair_Dreads": ["Locken", "Curls"], "frisur:Hair_Mohawk": ["Schopf", "Forelock"],
 	"bart:": ["Ohne", "None"], "bart:Hair_Beard": ["Vollbart", "Full beard"], "bart:Hair_Moustache": ["Schnurrbart", "Moustache"],
 	"bart:Hair_MuttonChops": ["Koteletten", "Mutton chops"],
+	# Frauenhaar (Archiv 376.1 Frisuren, Chef 29.10., 11:43 „Alle bleiben“; Woerter Homer STORY-SPIEL [409.frisur])
+	"frisur:Hair_Long": ["Schulterlang", "Shoulder-length"], "frisur:Hair_LongDreads": ["Mähne", "Mane"],
+	"frisur:Hair_Ponytail_2": ["Hoher Zopf", "High ponytail"], "frisur:Hair_Bob": ["Pagenkopf", "Bob"], "frisur:Hair_Buns": ["Zwei Knoten", "Twin buns"],
+	# wie alt (Appearance.kt Sex, Build)
+	"geschlecht:m": ["Männlich", "Male"], "geschlecht:w": ["Weiblich", "Female"],
+	"statur:schlank": ["Schlank", "Slim"], "statur:normal": ["Normal", "Average"], "statur:kraeftig": ["Kräftig", "Sturdy"],
 }
 
 static func wort(k: String) -> String:
@@ -50,8 +64,25 @@ static func wort(k: String) -> String:
 	return String(w[0] if Sprache.aktiv() == "de" else w[1])
 
 static func formen() -> Array: return [""] + Array(lade_info().get("formen", []))
-static func frisuren() -> Array: return Array(lade_info().get("haare", [])) + [""]
-static func baerte() -> Array: return [""] + Array(lade_info().get("baerte", []))
+static func frisuren(g := "m") -> Array: return Array(geschlecht_info(g).get("haare", [])) + [""]
+static func baerte(g := "m") -> Array: return [""] + Array(geschlecht_info(g).get("baerte", []))
+
+# Angaben zum Kopf des Geschlechts (held_klassen.py haare): kopf, haut_bild, haar_bild, haare, baerte; ohne „geschlechter“ wie bisher oben
+static func geschlecht_info(g: String) -> Dictionary:
+	var gs: Dictionary = lade_info().get("geschlechter", {})
+	return gs.get(g.to_upper(), gs.get("M", info))
+
+# Herkunft (Spielsystem 2.0) der Wahl: eigene, sonst die der alten Klasse
+static func herkunft(w: Dictionary) -> String:
+	var h := String(w.get("herkunft", ""))
+	if h != "": return h
+	return String(lade_info().get("klasse_herkunft", {}).get(String(w.get("klasse", "FIGHTER")), "WACHSOLDAT"))
+
+# Modell der Wahl: Tracht der Herkunft und Geschlecht, z. B. „WACHE_W“; kapuze: ob die Herkunft die Kapuze traegt
+static func tracht(w: Dictionary) -> Dictionary:
+	var h: Dictionary = lade_info().get("herkuenfte", {}).get(herkunft(w), {})
+	var g := String((w.get("aussehen", {}) as Dictionary).get("geschlecht", "m")).to_upper()
+	return {"modell": "%s_%s" % [String(h.get("tracht", "WACHE")), g], "kapuze": bool(h.get("kapuze", false)), "geschlecht": g}
 
 static func lade_info() -> Dictionary:
 	if info.is_empty() and FileAccess.file_exists(INFO):
@@ -59,8 +90,9 @@ static func lade_info() -> Dictionary:
 		if j is Dictionary: info = j
 	return info
 
-static func da(klasse: String) -> bool:
-	return lade_info().get("klassen", {}).has(klasse) and FileAccess.file_exists("res://daten/held_%s.bin" % klasse) \
+static func da(klasse: String, geschlecht := "m") -> bool:
+	var t := tracht({"klasse": klasse, "aussehen": {"geschlecht": geschlecht}})
+	return lade_info().get("trachten", {}).has(t["modell"]) and FileAccess.file_exists("res://daten/held_%s.bin" % t["modell"]) \
 		and FileAccess.file_exists("res://daten/bewegungen.bin")
 
 # Auswahl aus dem Spielstand
@@ -68,11 +100,16 @@ static func wahl(w: Heldwerte, z: Zustand) -> Dictionary:
 	return {"klasse": w.klasse if w else "FIGHTER", "volk": w.volk if w else "HUMAN", "aussehen": z.aussehen if z else {},
 		"ausruestung": w.ausruestung if w else {}}
 
-static func vorgabe(klasse: String) -> Dictionary:
-	return (KLASSEN_VORGABE.get(klasse, VORGABE) as Dictionary).duplicate()
+static func vorgabe(klasse: String, geschlecht := "m") -> Dictionary:
+	var v := VORGABE.duplicate()
+	v.merge(KLASSEN_VORGABE.get(klasse, {}), true)
+	v["geschlecht"] = geschlecht
+	if geschlecht == "w":
+		v["frisur"] = String(FRAU_FRISUR.get(klasse, "Hair_Long")); v["bart"] = ""
+	return v
 
 static func aussehen_voll(a: Dictionary, klasse := "") -> Dictionary:
-	var v := vorgabe(klasse)
+	var v := vorgabe(klasse, String(a.get("geschlecht", "m")))
 	for k in a: v[k] = a[k]
 	return v
 
@@ -80,16 +117,21 @@ static func aussehen_voll(a: Dictionary, klasse := "") -> Dictionary:
 # Toon-Materialien (held.gd: fill, Nacht). Ergebnis in meta: „gehen_m_je_s“, „rennen_m_je_s“, „faust_L“ (Knochen, Griff, Achse)
 static func baue(w: Dictionary, mats: Array) -> Node3D:
 	var k := String(w.get("klasse", "FIGHTER"))
-	if not da(k): return null
 	var a := aussehen_voll(w.get("aussehen", {}), k)
-	var m := Gebiet.lade_glb("res://daten/held_%s.bin" % k)
+	var t := tracht({"klasse": k, "herkunft": w.get("herkunft", ""), "aussehen": a})
+	if not FileAccess.file_exists("res://daten/held_%s.bin" % t["modell"]) or not FileAccess.file_exists("res://daten/bewegungen.bin"): return null
+	var m := Gebiet.lade_glb("res://daten/held_%s.bin" % t["modell"])
 	if m == null: return null
 	m.name = "Held_" + k
+	m.set_meta("tracht", t["modell"])
+	kapuze(m, t["kapuze"])
+	if t["kapuze"]: a["frisur"] = ""   # langes Haar unter der Kapuze verborgen (Archiv 376.1)
 	var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
 	if "--ohneheben" not in OS.get_cmdline_user_args(): sk.add_child(FigurenProbe.KopfHeben.new())   # UAL senkt den Kopf (Helfer 20:2x)
 	Gebiet.male(m, null, 2, mats)
-	haare(m, sk, k, a, mats)
+	haare(m, sk, String(t["modell"]), a, mats)
 	form(m, String(a["form"]))
+	statur(m, String(a.get("statur", "normal")))
 	toene(m, a, String(w.get("volk", "HUMAN")))
 	var f := bewegungen(m, sk)
 	m.set_meta("gehen_m_je_s", float(info.get("gehen_m_je_s", 1.08)) * f)
@@ -149,25 +191,42 @@ static func _pfad(m: Node, n: Node) -> NodePath:
 
 # ---------------------------------------------------------------- Kopf: Form, Haar, Bart, Farben
 static func form(m: Node3D, f: String) -> void:
+	_schluessel(m, formen(), f)
+
+# Statur (376.1): Formschluessel „statur_schlank“, „statur_kraeftig“ an jedem Netz (held_klassen.py statur); „normal“: keiner
+static func statur(m: Node3D, s: String) -> void:
+	_schluessel(m, STATUREN.map(func(x): return "statur_" + x), "statur_" + s)
+
+# aus der Gruppe namen genau den Schluessel n an, die anderen der Gruppe aus (andere Schluessel bleiben)
+static func _schluessel(m: Node3D, namen: Array, n: String) -> void:
 	for mi in m.find_children("*", "MeshInstance3D", true, false):
 		var me := (mi as MeshInstance3D).mesh as ArrayMesh
 		if me == null: continue
 		for i in me.get_blend_shape_count():
-			(mi as MeshInstance3D).set_blend_shape_value(i, 1.0 if String(me.get_blend_shape_name(i)) == f else 0.0)
+			var bn := String(me.get_blend_shape_name(i))
+			if bn in namen: (mi as MeshInstance3D).set_blend_shape_value(i, 1.0 if bn == n else 0.0)
+
+# Kapuze der Waldtracht (Head_Hood) nur, wenn die Herkunft sie traegt (Jaegerkind ja, Herumtreiber nein)
+static func kapuze(m: Node3D, an: bool) -> void:
+	for mi in m.find_children("*", "MeshInstance3D", true, false):
+		if String(mi.name).contains("Head_Hood"): (mi as MeshInstance3D).visible = an
 
 static func haare(m: Node3D, sk: Skeleton3D, k: String, a: Dictionary, mats: Array) -> void:
-	if not FileAccess.file_exists("res://daten/haare.bin"): return
-	if haare_szene == null: haare_szene = Gebiet.lade_glb("res://daten/haare.bin")
+	var g := String(a.get("geschlecht", "m")).to_lower()
+	var datei := "res://daten/haare.bin" if g == "m" else "res://daten/haare_%s.bin" % g
+	if not FileAccess.file_exists(datei): return
+	if not haare_szenen.has(g): haare_szenen[g] = Gebiet.lade_glb(datei)
+	var hs: Node3D = haare_szenen[g]
 	var kb := sk.find_bone("Head")
-	if haare_szene == null or kb < 0: return
-	# Haare liegen in der Ruhelage der Bezugsfigur (Kopfknochen bei info.kopf); an diesen Kopf nur verschoben
-	var ref: Array = info.get("kopf", [0, 0, 0])
-	var ich: Array = info["klassen"][k].get("kopf", ref)
+	if hs == null or kb < 0: return
+	# Haare liegen in der Ruhelage der Bezugsfigur des Geschlechts (Kopfknochen bei kopf); an diesen Kopf nur verschoben
+	var ref: Array = geschlecht_info(g).get("kopf", [0, 0, 0])
+	var ich: Array = info.get("trachten", {}).get(k, {}).get("kopf", ref)
 	var vers := Vector3(ich[0] - ref[0], ich[1] - ref[1], ich[2] - ref[2])
 	var ruhe := im_raum(m, sk) * sk.get_bone_global_rest(kb)
 	for n in [String(a.get("frisur", "")), String(a.get("bart", ""))]:
 		if n == "": continue
-		var q := haare_szene.find_child(n, true, false) as MeshInstance3D
+		var q := hs.find_child(n, true, false) as MeshInstance3D
 		if q == null: continue
 		var ba := BoneAttachment3D.new()
 		ba.name = "Haar_" + n
@@ -176,7 +235,7 @@ static func haare(m: Node3D, sk: Skeleton3D, k: String, a: Dictionary, mats: Arr
 		var mi := MeshInstance3D.new()
 		mi.name = n
 		mi.mesh = q.mesh
-		mi.transform = ruhe.affine_inverse() * Transform3D(Basis(), vers) * im_raum(haare_szene, q)
+		mi.transform = ruhe.affine_inverse() * Transform3D(Basis(), vers) * im_raum(hs, q)
 		ba.add_child(mi)
 		Gebiet.male(mi, null, 2, mats)
 
@@ -186,9 +245,10 @@ static func haare(m: Node3D, sk: Skeleton3D, k: String, a: Dictionary, mats: Arr
 static func toene(m: Node3D, a: Dictionary, volk: String) -> void:
 	var haut := ton(volk, "haut", int(a.get("haut", 0)))
 	var haar := ton(volk, "haar", int(a.get("haarfarbe", 0)))
-	var hb := _hell(info.get("haut_bild", [1, 1, 1]))
-	var hh := _hell(info.get("haar_bild", [1, 1, 1]))
-	var hbild := _lin(info.get("haut_bild", [1, 1, 1]))
+	var gi := geschlecht_info(String(a.get("geschlecht", "m")))
+	var hb := _hell(gi.get("haut_bild", [1, 1, 1]))
+	var hh := _hell(gi.get("haar_bild", [1, 1, 1]))
+	var hbild := _lin(gi.get("haut_bild", [1, 1, 1]))
 	for mi in m.find_children("*", "MeshInstance3D", true, false):
 		var me := (mi as MeshInstance3D).mesh
 		for i in me.get_surface_count():

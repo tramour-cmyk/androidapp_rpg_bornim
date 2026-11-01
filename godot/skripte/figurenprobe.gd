@@ -122,6 +122,11 @@ func _ready() -> void:
 		FileAccess.open(aus + "/probe.txt", FileAccess.WRITE).store_string("\n".join(protokoll) + "\n")
 		get_tree().quit()
 		return
+	if teil == "trachten":   # 376.1 Tracht je Herkunft, Heldin, Statur (trachtprobe.gd): ohne UAL-Datei und Probefiguren
+		await TrachtProbe.new(self).film()
+		FileAccess.open(aus + "/probe.txt", FileAccess.WRITE).store_string("\n".join(protokoll) + "\n")
+		get_tree().quit()
+		return
 	lade_ual()
 	var ks: Array = REIHE + TRACHT + KOEPFE
 	if teil == "koepfe":   # Kopfblatt: alle q_k*.glb der Quelle (koepfe_lauf.sh)

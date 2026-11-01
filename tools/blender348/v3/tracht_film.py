@@ -1,0 +1,79 @@
+# 376.1 Tracht je Herkunft: Bilder aus trachtprobe.gd zum Film im Hochformat (1080 x 2340) zusammensetzen: Titel, drei Streifen
+# untereinander, unter jeder Figur Herkunft, Statur, Bewegung. Wie voelker_film.py (431).
+# Aufruf: python tracht_film.py <ausgabe/trachten> <schrift.ttf> <ziel-ordner>  ->  <ziel>/%04d.png
+import json, os, sys
+from PIL import Image, ImageDraw, ImageFont
+
+QUELLE, SCHRIFT, ZIEL = sys.argv[1:4]
+os.makedirs(ZIEL, exist_ok=True)
+lage = json.load(open(os.path.join(QUELLE, 'lage.json')))
+ANSICHT = lage.pop('_ansicht', None)   # Spike 01.11. (455.1 Lauf 41321140618): Lage in Ansichtspunkten (3510 x 2340), nicht in Bildpunkten
+GOLD, WEISS, GRUND = (212, 174, 92), (237, 230, 214), (10, 9, 8)
+f_titel = ImageFont.truetype(SCHRIFT, 32)
+f_name = ImageFont.truetype(SCHRIFT, 24)
+BREITE, HOEHE, OBEN, UNTER = 1080, 2340, 120, 62
+HERKUNFT = {'WACHSOLDAT': 'Wachsoldat', 'ZAUBERLEHRLING': 'Zauberlehrling', 'KLOSTERSCHUELER': 'Klosterschüler', 'JAEGERKIND': 'Jägerkind',
+            'HERUMTREIBER': 'Herumtreiber', 'WANDERER': 'Wanderer, Kräutersammler,', 'KRAEUTERSAMMLER': 'Kräutersammler',
+            'SCHMIEDELEHRLING': 'Schmiedelehrling'}
+STATUR = {'schlank': 'Schlank', 'normal': '', 'kraeftig': 'Kräftig'}
+TITEL = {
+    'mann': '376.1 · Tracht je Herkunft, Mann, wie im Spiel (ohne Waffen). Unten die Statur: Schlank, Normal, Kräftig',
+    'frau': '376.1 · Tracht je Herkunft, Frau: Kettenhemd und lange Robe an den Frauenkörper angepasst, langes Haar unter der Kapuze '
+            'verborgen. Unten die Statur',
+    'bewegung': '376.1 · In Bewegung: oben Frau beim Gehen, Mitte Mann beim Gehen, unten Rennen',
+}
+
+
+def zeilen(e):
+    a = [HERKUNFT.get(e['herkunft'], e['herkunft'])]
+    if e['herkunft'] == 'WANDERER': a.append('Schmiedelehrling')
+    zu = [x for x in (STATUR.get(e['statur'], ''), '' if e['bewegung'] == 'Stehen' else e['bewegung']) if x]
+    if zu: a.append(', '.join(zu))
+    return a
+
+
+def streifen(bild, name, h):
+    b = bild.resize((BREITE, int(bild.height * BREITE / bild.width)))
+    b = b.crop((0, max(0, (b.height - h) // 2), BREITE, max(0, (b.height - h) // 2) + h))
+    c = Image.new('RGB', (BREITE, h + UNTER), GRUND)
+    c.paste(b, (0, 0))
+    d = ImageDraw.Draw(c)
+    f = BREITE / (ANSICHT[0] if ANSICHT else bild.width)   # Pruefer 376.1: Beschriftung falsch
+    for p in lage.get(name, []):
+        z = zeilen(p['eintrag'])
+        for i, t in enumerate(z[:2]):
+            d.text((p['x'] * f, h + 4 + i * 28), t, font=f_name, fill=GOLD if i == 0 else WEISS, anchor='ma')
+    d.rectangle([0, 0, c.width - 1, c.height - 1], outline=(110, 90, 50), width=2)
+    return c
+
+
+def seite(titel, teile):
+    c = Image.new('RGB', (BREITE, HOEHE), GRUND)
+    d = ImageDraw.Draw(c)
+    worte, zeile, y = titel.split(), '', 12
+    for w in worte:
+        if d.textlength(zeile + ' ' + w, font=f_titel) > BREITE - 40:
+            d.text((20, y), zeile, font=f_titel, fill=GOLD); y += 38; zeile = w
+        else:
+            zeile = (zeile + ' ' + w).strip()
+    d.text((20, y), zeile, font=f_titel, fill=GOLD)
+    h = (HOEHE - OBEN) // len(teile) - UNTER
+    y = OBEN
+    for bild, name in teile:
+        c.paste(streifen(bild, name, h), (0, y)); y += h + UNTER
+    return c
+
+
+def bilder(name):
+    o = os.path.join(QUELLE, name)
+    return sorted(os.path.join(o, f) for f in os.listdir(o) if f.endswith('.png')) if os.path.isdir(o) else []
+
+
+nr = 0
+for s in ('mann', 'frau', 'bewegung'):
+    namen = sorted(n for n in lage if n.startswith(s + '_'))
+    reihen = [bilder(n) for n in namen]
+    for gleich in zip(*reihen):
+        seite(TITEL[s], [(Image.open(p).convert('RGB'), n) for p, n in zip(gleich, namen)]).save(os.path.join(ZIEL, '%04d.png' % nr))
+        nr += 1
+print('TRACHT FILM', nr, 'Bilder')
