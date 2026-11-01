@@ -39,6 +39,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [438](tun/438-kaufmodelle-zugang.md) | **Muss** | E Kampf | 01.11., 22:31 | Zugang zu den Kaufmodellen in Jerrys Sitzung freigeben | Jerry |
 | [464](tun/464-godot-setup.md) | **Muss** | M Abläufe | 01.11., 20:51 | Godot in jeder Sitzung: Zeile im Setup-Skript der Umgebung | Perikles |
 | [142](tun/142-pflichttest.md) | **Muss** | M Veröffentlichung | 27.10., 20:07 | Pflichttest Play Store: Gewerbeschein melden | Sokrates |
 
@@ -107,11 +108,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 53, Muss 40, startbar 10
+**Jerry** – offen 53, Muss 40, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Wölfe gleiten (Angriff, Tempo, aneinander vor | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
+| 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Wölfe gleiten (Angriff, Tempo, aneinander vor | Chef |
 | 458.2 | M | von Sokrates (Chef 01.11., 13:1x, Archiv 458): Gegenstandskatalog: Werte, Preise, Beute je | wartet auf Test/Build (gebaut) |
 | 457.2 | M | von Perikles (Chef 01.11., 11:49, „unsere Signatur muss sich wiederfinden“): eigene Probes | wartet auf Test/Build (gebaut) |
 | 453.1 | M | von Sokrates (Chef 01.11., 13:0x): Helden im Kampf atmen gleich und zu heftig („hechelt“): | in Arbeit bei Tuffy |
@@ -251,7 +252,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Format (Muster: „So geht's“ unten): t146-befunde.md: 8 Vorgänge, höchstens 6 je Build (317)
 
-Nicht gestellt: 186.3 (Pruefung), 438 (Team Jerry), 467 (Team Jerry)
+Nicht gestellt: 186.3 (Pruefung), 467 (Team Jerry)
 
 Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/4474-lehrmeister-texte.md
 
