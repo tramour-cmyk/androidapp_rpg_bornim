@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert“).
 
-**Übergabe (01.11., 14:55):** 457.2 gebaut auf `claude/jerry-457-2-signatur` (von 438a, e87815dc8; Zu 457.2): `kampf/signatur.gd`, Wache vor jedem Probebild, Nahaufnahmen mit breiter Linie; Telegram an den Chef. Godot 4.7.2 lokal unter `~/godot/godot` (wie `godot-kampf.yml`). Jeder Film ab jetzt von einem Zweig mit 457.2 (406 und 453.1 zuerst zusammenführen). 438a und 458.2a warten auf den Chef, nicht neu starten. Nachfolger: „Jerry – 453: Wölfe atmen als Schicht, eigener Takt (r2)“
+**Übergabe (01.11., 15:45):** 453 r2 gebaut auf `claude/jerry-453-wolf-ruhe-r2` (13e2b7544, mit 457.2 und 453.1 zusammengeführt): Wolfsatem `kampf/atem_tier.gd`, Gesten größer, Rudel versetzt; Film an den Chef (ansehen/453). Lokal: Kaufdateien per `gh api …/releases/assets/<id>` (GraphQL gesperrt), Modelle wie `godot-kampf.yml`. 438a, 458.2a, 453 warten auf den Chef. Nachfolger: „Jerry – 348.12: Grak schreitet statt Sprint“
 
 ## Zeilen
 
