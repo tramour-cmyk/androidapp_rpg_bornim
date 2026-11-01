@@ -96,6 +96,11 @@ static func baue(w: Dictionary, mats: Array) -> Node3D:
 	m.set_meta("rennen_m_je_s", float(info.get("rennen_m_je_s", 0.0)) * f)
 	m.set_meta("faust_L", faust(sk, "l"))
 	bewaffne(m, sk, w.get("ausruestung", {}))
+	# 417 Runde 4: mit Paketbewegung („gang“) Tempo ohne Gleiten aus held-klassen.json gang.<art> (held_klassen.py)
+	var g: Dictionary = info.get("gang", {}).get(String(m.get_meta("gang", "")), {})
+	if not g.is_empty():
+		m.set_meta("gang_gehen_m_je_s", float(g.get("gehen_m_je_s", 0.0)) * f)
+		m.set_meta("gang_rennen_m_je_s", float(g.get("rennen_m_je_s", 0.0)) * f)
 	return m
 
 # Transform des Knotens n im Raum der Wurzel m (ohne Baum: Figur noch nicht eingehaengt)
@@ -130,7 +135,7 @@ static func bewegungen(m: Node3D, sk: Skeleton3D) -> float:
 				an.remove_track(t)
 			elif ty == Animation.TYPE_POSITION_3D:
 				for i in an.track_get_key_count(t): an.track_set_key_value(t, i, an.track_get_key_value(t, i) * f)
-		if n in SCHLEIFEN: an.loop_mode = Animation.LOOP_LINEAR
+		if n in SCHLEIFEN or n.begins_with("Gehen_") or n.begins_with("Rennen_"): an.loop_mode = Animation.LOOP_LINEAR   # 417 Pakete
 		lib.add_animation(n, an)
 	var ap := AnimationPlayer.new()
 	ap.name = "AnimationPlayer"
@@ -275,9 +280,27 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 		var t := Transform3D(Basis(Vector3.LEFT, hoch, Vector3.LEFT.cross(hoch)), (oben + unten) * 0.5)
 		_haenge(m, sk, bi, brust, schild, t, "RueckenSchild")
 		aussen = minf(aussen, (oben.z + unten.z) * 0.5) - 0.10   # Schild mit Buckel (376.1 Lauf 2: bei 7 cm durchdrang der Buckel das Schwert)
-	for alt in m.find_children("Getragen", "", false, false): alt.free()
-	for alt in sk.find_children("Tragen", "", false, false): alt.free()
+	for alt in m.find_children("Getragen*", "", false, false): alt.free()
+	for alt in sk.find_children("Tragen*", "", false, false): alt.free()
 	var art := Tragen.art_von(waffe)
+	var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
+	var gang := Tragen.gang_von(waffe, schild != "")
+	if gang != "" and ap and ap.has_animation("Gehen_" + gang):   # 417 Runde 4: Paketbewegung fuehrt den Arm, Waffe (und Schild) in der Hand
+		for alt in sk.find_children("Ruecken*", "", false, false): alt.free()
+		var paare := [[waffe, gang, "r"]] + ([[schild, "schildarm", "l"]] if gang == "schild" else [])
+		if gang == "bogen": paare[0][2] = "l"
+		for p in paare:
+			var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % p[0])
+			if d == null: continue
+			d.name = "Getragen"
+			d.top_level = true
+			m.add_child(d)
+			Gebiet.male(d, null, 2, [])
+			var t := Tragen.new("", d, m, faust(sk, String(p[2])))
+			t.gang = String(p[1]); t.seite = String(p[2]); t.anim = ap
+			sk.add_child(t)
+		m.set_meta("gang", gang)
+		return
 	if art != "":   # 417: Stab, Axt, Bogen unterwegs in der Hand (tragen.gd)
 		var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % waffe)
 		if d == null: return

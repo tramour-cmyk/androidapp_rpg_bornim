@@ -29,6 +29,7 @@ const STAB_AUSSEN := 0.04     # m: Fuss des Stabs aussen von der Faust
 const AXT_GRIFF := 0.15
 
 var art := ""
+var gang := ""                # 417 Runde 4: Paketbewegung (gang_von); leer: Tragart von Hand wie Runde 3
 var seite := "r"
 var waffe: Node3D             # top_level, wird je Bild gestellt
 var modell: Node3D            # Wurzel der Figur (+Z vorn, +X links, wie heldfigur.gd)
@@ -54,6 +55,18 @@ var axt_haengt := true            # Blatt nach unten (Runde 3); false: Schneide 
 
 static func art_von(base: String) -> String: return String(ARTEN.get(base, ""))
 
+# 417 Runde 4 (Chef 01.11., 12:21, Axt Runde 3 „schwebt“; 348.12c): Gehen und Rennen je Waffe aus den Protofactor-Paketen
+# (waffengang.py, bewegungen.bin „Gehen_<gang>“, „Rennen_<gang>“). Die Bewegung fuehrt Arm und Hand; dieser Knoten stellt nur die Waffe
+# in die Faust (Schaft laengs Kleinfinger-Zeigefinger der Hand, wie die Bewegung sie haelt). Stab bleibt beim Wanderstab (Runde 2 passt).
+const SCHILD_AB := 0.07   # m: Schildmitte vor dem Unterarm (Griff und Polster)
+const GANG_ZWEI :=["greatsword", "greataxe", "maul", "halberd"]
+const GANG_BOGEN := ["shortbow", "longbow", "light_crossbow"]
+static func gang_von(base: String, schild: bool) -> String:
+	if base == "" or ARTEN.get(base, "") == "stab": return ""
+	if base in GANG_BOGEN: return "bogen"
+	if base in GANG_ZWEI or (base == "spear" and not schild): return "axt"
+	return "schild" if schild else "einhand"
+
 func _init(a := "", w: Node3D = null, m: Node3D = null, f := {}) -> void:
 	art = a; waffe = w; modell = m
 	seite = String(LAGE.get(a, {}).get("seite", "r"))
@@ -65,13 +78,19 @@ func _init(a := "", w: Node3D = null, m: Node3D = null, f := {}) -> void:
 
 func _process_modification() -> void:
 	var sk := get_skeleton()
-	if sk == null or modell == null or art == "": return
+	if sk == null or modell == null or (art == "" and gang == ""): return
+	if gang == "schildarm":
+		_schildarm(sk)
+		return
 	var iu := sk.find_bone("upperarm_" + seite)
 	var il := sk.find_bone("lowerarm_" + seite)
 	var ih := sk.find_bone("hand_" + seite)
 	var ic := sk.find_bone("spine_03")
 	if iu < 0 or il < 0 or ih < 0 or ic < 0: return
 	var bew: String = anim.assigned_animation if anim else ""
+	if gang != "":
+		_paket(sk, ih)
+		return
 	var pos: float = anim.current_animation_position if anim and bew != "" else 0.0
 	var dt := 0.0
 	if bew == zuletzt and anim and bew != "":
@@ -145,6 +164,44 @@ func _process_modification() -> void:
 		else: o = G * mitte + dw * 0.18                           # im Rennen unter der Mitte gefasst
 	elif art == "schulter": o = G * mitte + dw * axt_griff
 	waffe.global_position = o
+
+# 417 Runde 4: Waffe in die Faust der Paketbewegung. Schaft laengs achse der Hand (zum Zeigefinger: Klinge, Kopf), Blatt oder Schneide
+# zu den Knoecheln hin (Handgelenk -> Mittelfinger), beim Bogen die Sehne zum Handgelenk; die Finger schliesst _faust_zu um den Schaft
+func _paket(sk: Skeleton3D, ih: int) -> void:
+	var G := sk.global_transform
+	var hg := sk.get_bone_global_pose(ih)
+	var d := (hg.basis * achse).normalized()
+	var mitte := _faust_zu(sk, ih, d)
+	hg = sk.get_bone_global_pose(ih)
+	var im := sk.find_bone("middle_01_" + seite)
+	var kn := ((sk.get_bone_global_pose(im).origin if im >= 0 else hg * Vector3(0, 0.08, 0)) - hg.origin).normalized()
+	var dw := (G.basis * d).normalized()
+	schaft_welt = dw
+	faust_welt = G * mitte
+	if merken:
+		posen.resize(sk.get_bone_count())
+		for i in sk.get_bone_count(): posen[i] = sk.get_bone_global_pose(i)
+	if waffe == null: return
+	var x := G.basis * (-kn if gang == "bogen" else kn)
+	x = (x - dw * x.dot(dw)).normalized()
+	waffe.global_basis = Basis(x, dw, x.cross(dw))
+	waffe.global_position = G * mitte
+
+# 417 Runde 4, Schwert und Schild: der Schild am linken Unterarm (Mitte), Vorderseite nach vorn links (wie die Paketbewegung den Arm
+# vor den Leib haelt), aufrecht; Kaufschilde wie heldfigur.gd bewaffne: +Z Vorderseite, +Y oben
+func _schildarm(sk: Skeleton3D) -> void:
+	var il := sk.find_bone("lowerarm_l"); var ih := sk.find_bone("hand_l")
+	if il < 0 or ih < 0 or waffe == null: return
+	var G := sk.global_transform
+	var mi := G.affine_inverse() * modell.global_transform
+	var vorn := (mi.basis * Vector3.BACK).normalized(); var links := (mi.basis * Vector3.RIGHT).normalized()
+	var a := sk.get_bone_global_pose(il).origin; var h := sk.get_bone_global_pose(ih).origin
+	var z := (G.basis * (vorn * 0.8 + links * 0.6)).normalized()
+	var y := (G.basis * (mi.basis * Vector3.UP)).normalized()
+	y = (y - z * y.dot(z)).normalized()
+	waffe.global_basis = Basis(y.cross(z), y, z)
+	waffe.global_position = G * ((a + h) * 0.5) + z * SCHILD_AB
+	faust_welt = G * h; schaft_welt = y
 
 # Wanderstab: Fuss am Boden (Welt), im Gehen umgesetzt, wenn die Faust STAB_VOR darueber hinaus ist; Ergebnis Richtung im Skelettraum
 func _stab(G: Transform3D, P: Vector3, vorn: Vector3, ac: Vector3, geht: bool, dt: float) -> Vector3:

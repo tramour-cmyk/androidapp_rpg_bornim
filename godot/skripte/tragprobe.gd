@@ -10,6 +10,13 @@ const FIGUREN := [["WIZARD", "quarterstaff"], ["FIGHTER", "greataxe"], ["ROGUE",
 # Runde 3 (--teil=tragenaxt, Chef 01.11., 11:32: Stab, Bogen passen; „der Axtkopf muss nach unten“, „ein bisschen weiter nach vorne
 # ziehen“): nur die Kriegsaxt in drei Fassungen nebeneinander: Name, Griff unter dem Ursprung (m, Kopf 0,80 darueber), Blatt haengt
 const AXT_FASSUNGEN := [["bisher", 0.40, false], ["A", 0.15, true], ["B", 0.0, true]]
+# Runde 4 (--teil=tragenpakete, Chef 01.11., 12:21: Axt Runde 3 „schwebt“; 348.12c Pakete): Gehen und Rennen je Waffe aus den
+# Protofactor-Paketen (bewegungen.bin Gehen_<gang>, Rennen_<gang>), Waffe in der Faust (tragen.gd _paket); im Tempo des Spiels
+# (held.gd: Gehen 1,84, Rennen 3,68 Kacheln/s, speed_scale wie dort), damit man sieht, wie es im Spiel aussieht
+const PAKET_FIGUREN := [["axt", "FIGHTER", {"MAIN_HAND": {"base": "greataxe"}}], ["einhand", "FIGHTER", {"MAIN_HAND": {"base": "longsword"}}],
+	["schild", "FIGHTER", {"MAIN_HAND": {"base": "longsword"}, "OFF_HAND": {"base": "round_shield"}}], ["bogen", "ROGUE", {"MAIN_HAND": {"base": "shortbow"}}]]
+const SPIEL_GEHEN := 1.84 * Karte.TS
+const SPIEL_RENNEN := 3.68 * Karte.TS
 # Spielkamera (kamera.gd: senkrecht, Tusche): Gieren, Neigung, Bildbreite in m; die Figur blickt nach +Z, ihre Rechte ist -X
 const ANSICHTEN := {"rechts": [-90.0, -6.0, 2.6], "links": [90.0, -6.0, 2.6], "vorn": [0.0, -6.0, 2.6], "hinten": [180.0, -6.0, 2.6],
 	"spiel": [Kamera.NORD, -30.0, Kamera.NAH]}
@@ -24,10 +31,21 @@ var liste: Array = []   # je Figur [Kennung, Dateiname, Klasse, Waffe]
 
 func _init(p: FigurenProbe) -> void: fp = p
 
-func figuren_bauen(axt := false) -> void:
+func figuren_bauen(axt := false, pakete := false) -> void:
 	fp.freie_wiese()
 	fp.spiel.held.visible = false
 	liste = []
+	if pakete:
+		for e in PAKET_FIGUREN:
+			liste.append(["pk_" + e[0], e[1] + "_" + e[0], e[1], String(e[2]["MAIN_HAND"]["base"]), e[0]])
+			fp.klasse_figur("pk_" + e[0], {"klasse": e[1], "volk": "HUMAN", "aussehen": HeldFigur.vorgabe(e[1]), "ausruestung": e[2]})
+			if fp.figuren.has("pk_" + e[0]):
+				var mm := modell("pk_" + e[0])
+				fp.protokoll.append("GANG %s: %s, Tempo %.2f / %.2f m/s" % [e[0], mm.get_meta("gang", "FEHLT"), float(mm.get_meta("gang_gehen_m_je_s", 0.0)),
+					float(mm.get_meta("gang_rennen_m_je_s", 0.0))])
+				print(fp.protokoll[-1])
+		cam = fp.spiel.kamera
+		return
 	if axt:
 		for a in AXT_FASSUNGEN: liste.append(["ax_" + a[0], "FIGHTER_" + a[0], "FIGHTER", "greataxe"])
 	else:
@@ -62,8 +80,8 @@ func stelle_kamera(w: Node3D, ansicht: String) -> void:
 # ---------------------------------------------------------------- Standbilder und Film (die Messung macht tests/tragen_417.gd)
 # je Figur und Bewegung nach zwei Umlaeufen Vorlauf (der Stabfuss setzt sich) vier Phasen aus vier Richtungen; danach der Film:
 # je Figur von der Seite der Waffe zwei Umlaeufe Gehen, zwei Rennen, Bild fuer Bild (30 je s), die Kamera folgt
-func standbilder(axt := false) -> void:
-	await figuren_bauen(axt)
+func standbilder(axt := false, pakete := false) -> void:
+	await figuren_bauen(axt, pakete)
 	await fp.get_tree().create_timer(1.0).timeout
 	var ort: Vector3 = fp.spiel.karte.kachel_pos(FigurenProbe.FILM_ORT)
 	DirAccess.make_dir_recursive_absolute(fp.aus + "/tragen")
@@ -75,17 +93,23 @@ func standbilder(axt := false) -> void:
 		var m := modell(k)
 		var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
 		var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
-		for bew in ["Gehen", "Rennen"]:
+		for b0 in ["Gehen", "Rennen"]:
+			var bew: String = b0 + ("_" + String(e[4]) if e.size() > 4 else "")
 			ap.play(bew)
 			await fp.get_tree().process_frame   # eine neue Bewegung muss ein Bild lang laufen; sofort angehalten blieb die alte Pose stehen
 			var lang := ap.get_animation(bew).length
-			var v: float = m.get_meta("gehen_m_je_s" if bew == "Gehen" else "rennen_m_je_s")
+			var v: float = m.get_meta("gehen_m_je_s" if b0 == "Gehen" else "rennen_m_je_s")
+			var zeit := 1.0   # Pakete: Tempo des Spiels, die Bewegung laeuft speed_scale-fach (held.gd)
+			if e.size() > 4:
+				var vb: float = m.get_meta("gang_gehen_m_je_s" if b0 == "Gehen" else "gang_rennen_m_je_s", v)
+				v = SPIEL_GEHEN if b0 == "Gehen" else SPIEL_RENNEN
+				zeit = v / maxf(0.01, vb)
 			w.rotation.y = 0.0
-			var n := int(round(lang * FPS))
+			var n := maxi(8, int(round(lang / zeit * FPS)))
 			for f in 3 * n:
 				var t := f / FPS
 				ap.pause()   # erst anhalten, dann springen (umgekehrt wirkt seek nicht, die Figur stand)
-				ap.seek(fmod(t, lang), true)
+				ap.seek(fmod(t * zeit, lang), true)
 				w.position = ort + Vector3(0, 0, 1) * v * t
 				await fp.get_tree().process_frame   # angehalten wirkt seek erst im naechsten Bild
 				var ph := f - 2 * n
@@ -94,7 +118,7 @@ func standbilder(axt := false) -> void:
 						stelle_kamera(w, a)
 						await RenderingServer.frame_post_draw
 						await RenderingServer.frame_post_draw
-						fp.spiel.get_viewport().get_texture().get_image().save_png(fp.aus + "/tragen/%s_%s_%d_%s.png" % [e[1], bew, int(4.0 * ph / n), a])
+						fp.spiel.get_viewport().get_texture().get_image().save_png(fp.aus + "/tragen/%s_%s_%d_%s.png" % [e[1], b0, int(4.0 * ph / n), a])
 		fp.protokoll.append("BILDER %s %s" % [e[1], e[3]])
 		print(fp.protokoll[-1])
 	for e in liste:
@@ -105,20 +129,26 @@ func standbilder(axt := false) -> void:
 		var m := modell(k)
 		var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
 		var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
-		var seite := "links" if e[3] == "shortbow" else "rechts"
+		var seite := "links" if e[3] == "shortbow" or (e.size() > 4 and e[4] == "schild") else "rechts"
 		var ordner: String = fp.aus + "/film/" + String(e[1])
 		DirAccess.make_dir_recursive_absolute(ordner)
 		var nr := 0
 		var p := ort
 		w.rotation.y = 0.0
-		for bew in ["Gehen", "Rennen"]:
+		for b0 in ["Gehen", "Rennen"]:
+			var bew: String = b0 + ("_" + String(e[4]) if e.size() > 4 else "")
 			ap.play(bew)
 			await fp.get_tree().process_frame   # eine neue Bewegung muss ein Bild lang laufen; sofort angehalten blieb die alte Pose stehen
 			var lang := ap.get_animation(bew).length
-			var v: float = m.get_meta("gehen_m_je_s" if bew == "Gehen" else "rennen_m_je_s")
-			for f in int(round(2.0 * lang * FPS)):
+			var v: float = m.get_meta("gehen_m_je_s" if b0 == "Gehen" else "rennen_m_je_s")
+			var zeit := 1.0   # Pakete: Tempo des Spiels, die Bewegung laeuft speed_scale-fach (held.gd)
+			if e.size() > 4:
+				var vb: float = m.get_meta("gang_gehen_m_je_s" if b0 == "Gehen" else "gang_rennen_m_je_s", v)
+				v = SPIEL_GEHEN if b0 == "Gehen" else SPIEL_RENNEN
+				zeit = v / maxf(0.01, vb)
+			for f in int(round(maxf(2.0 * lang / zeit, 2.5) * FPS)):
 				ap.pause()   # erst anhalten, dann springen (umgekehrt wirkt seek nicht, die Figur stand)
-				ap.seek(fmod(f / FPS, lang), true)
+				ap.seek(fmod(f / FPS * zeit, lang), true)
 				p += Vector3(0, 0, 1) * v / FPS
 				w.position = p
 				stelle_kamera(w, seite)

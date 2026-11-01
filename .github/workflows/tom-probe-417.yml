@@ -1,5 +1,9 @@
 name: Tom Probe Tragart (417)
 
+# Runde 4 (Chef 01.11., 12:21: Axt Runde 3 „schwebt“; 348.12c Pakete): Gehen und Rennen je Waffe aus den Protofactor-Paketen
+# (waffengang.py), Kaempfer mit Kriegsaxt, Langschwert, Langschwert und Rundschild, Schurke mit Kurzbogen, im Tempo des Spiels
+# (tragprobe --teil=tragenpakete). Runde 3 (Axt in drei Fassungen) bleibt im Verlauf.
+
 # 417 Runde 3 (Chef 01.11., 11:32: „der Axtkopf muss nach unten“, „ein bisschen weiter nach vorne ziehen“): die Kriegsaxt in drei
 # Fassungen (tragprobe.gd AXT_FASSUNGEN) als Film von der Seite und Blatt, dazu die Messung tests/tragen_417.gd. Kaufmodelle nur ueber
 # einen Ablauf auf GitHub, nie in eine Sitzung (Chefsache 416.4a); gekaufte Dateien bleiben auf dem Runner, ins Artefakt gehen nur
@@ -7,7 +11,7 @@ name: Tom Probe Tragart (417)
 on:
   push:
     branches: ["claude/tom-417-**"]
-    paths: ["godot/skripte/tragen.gd", "godot/skripte/tragprobe.gd", "godot/tests/tragen_417.gd", ".github/workflows/tom-probe-417.yml"]
+    paths: ["godot/skripte/tragen.gd", "godot/skripte/tragprobe.gd", "godot/skripte/heldfigur.gd", "godot/tests/tragen_417.gd", ".github/workflows/tom-probe-417.yml"]
   workflow_dispatch:
 
 jobs:
@@ -76,9 +80,14 @@ jobs:
           cp $OUT/dorf.glb $D/dorf.bin && cp $OUT/dorf-info.json $D/
           for t in gras erde pflaster halme korn weiss; do cp $OUT/tex/$t.png $D/$t.bild; done
           cp $OUT/boden-maske.png $D/boden-maske.bild
-      - name: Kaempfer (376.1, gekauft) und Kriegsaxt
+      - name: Waffengang aus den Paketen (417 Runde 4)
         run: |
-          OUT=$RUNNER_TEMP/out ZIEL=$RUNNER_TEMP/klassen Q=~/cc0 KLASSEN=FIGHTER bl/bin/python -I tools/blender348/v3/held_klassen.py > klassen.log 2>&1 || { tail -40 klassen.log; exit 1; }
+          Z=$(find $KAUF -path '*Unreal-Godot*' -name UAL1.glb | sort | head -1); [ -n "$Z" ] || Z=$(find ~/cc0 -name UAL1_Standard.glb | sort | head -1)
+          KAUF=$KAUF ZIEL=$Z OUT=$RUNNER_TEMP/gang BL=$GITHUB_WORKSPACE/bl/bin/python bl/bin/python -I tools/blender348/v3/waffengang.py > gang.log 2>&1 || { tail -30 gang.log; exit 1; }
+          grep -E "^(GANG|FEHLT|MESS|WAFFENGANG)" gang.log | sed "s|$KAUF/||g" | cut -c1-300
+      - name: Kaempfer und Schurke (376.1, gekauft), Waffen
+        run: |
+          GANG=$RUNNER_TEMP/gang OUT=$RUNNER_TEMP/out ZIEL=$RUNNER_TEMP/klassen Q=~/cc0 KLASSEN=FIGHTER,ROGUE bl/bin/python -I tools/blender348/v3/held_klassen.py > klassen.log 2>&1 || { tail -40 klassen.log; exit 1; }
           grep -E "^KLASSE|HELD KLASSEN|FEHLT" klassen.log || true
           D=godot/daten
           for f in $RUNNER_TEMP/klassen/held_*.glb; do cp $f $D/$(basename $f .glb).bin; done
@@ -86,6 +95,9 @@ jobs:
           mkdir -p $D/waffen
           OUT=$RUNNER_TEMP/waffen WAFFE=greataxe-grak bl/bin/python -I tools/blender348/waffen.py > waffe.log 2>&1 || { tail -30 waffe.log; exit 1; }
           cp $RUNNER_TEMP/waffen/greataxe-grak.glb $D/waffen/greataxe.bin   # Kriegsaxt = Graks Axt aus waffen.py (Farben neu)
+          for w in longsword round_shield shortbow; do
+            OUT=$RUNNER_TEMP/waffen WAFFE=$w bl/bin/python -I tools/blender348/waffen.py > waffe-$w.log 2>&1 && cp $RUNNER_TEMP/waffen/$w.glb $D/waffen/$w.bin || echo "keine Waffe $w"
+          done
           ls -l $D/held_*.bin $D/waffen
       - uses: actions/cache@v4
         with:
@@ -104,7 +116,7 @@ jobs:
           timeout 300 ~/godot/godot --headless --import --path . > import.log 2>&1 || true
           set -o pipefail
           timeout 120 ~/godot/godot --headless --path . -s res://tests/skripte_pruefen.gd 2>&1 | grep -E "SKRIPTE|FALSCH|SCRIPT ERROR|Parse Error" | tee $GITHUB_WORKSPACE/probe/skripte.log || true
-          timeout 900 ~/godot/godot --headless --path . -s res://tests/tragen_417.gd -- --fassungen 2>&1 | grep -E "^(MESS|FEHLER|FASSUNG|TRAGEN)|SCRIPT ERROR|^ +at: " | cut -c1-600 | tee $GITHUB_WORKSPACE/probe/messung.log
+          timeout 900 ~/godot/godot --headless --path . -s res://tests/tragen_417.gd -- --fassungen 2>&1 | grep -E "^(MESS|FEHLER|FASSUNG|TRAGEN)|SCRIPT ERROR|^ +at: " | cut -c1-600 | tee $GITHUB_WORKSPACE/probe/messung.log || true   # Runde 3, mit Paketen nur zur Kenntnis
       - name: Bilder und Film
         if: always()
         run: |
@@ -112,30 +124,30 @@ jobs:
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; }
           export PATH=~/ffbin:$PATH
           A=$RUNNER_TEMP/aus; mkdir -p $A $GITHUB_WORKSPACE/probe
+          cp $GITHUB_WORKSPACE/gang.log $GITHUB_WORKSPACE/probe/ 2>/dev/null && sed -i "s|$KAUF/||g" $GITHUB_WORKSPACE/probe/gang.log || true
           cd godot
           timeout 1500 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 600x800 \
-            -- --figuren=$A --teil=tragenaxt > $GITHUB_WORKSPACE/probe/probe.log 2>&1 || true
-          grep -E "^(FASSUNG|BILDER|FILM|KLASSE|FEHLT)|SCRIPT ERROR|^ +at: " $GITHUB_WORKSPACE/probe/probe.log | cut -c1-400 | head -60
+            -- --figuren=$A --teil=tragenpakete > $GITHUB_WORKSPACE/probe/probe.log 2>&1 || true
+          grep -E "^(GANG|BILDER|FILM|KLASSE|FEHLT)|SCRIPT ERROR|^ +at: " $GITHUB_WORKSPACE/probe/probe.log | cut -c1-400 | head -60
           cp $A/probe.txt $GITHUB_WORKSPACE/probe/ 2>/dev/null || true
           cd $A
-          F="bisher A B"
-          # Blatt: je Fassung eine Zeile; Spalten rechts Gehen (zwei Phasen), rechts Rennen, hinten Gehen, Spielansicht Gehen
+          F="FIGHTER_axt FIGHTER_einhand FIGHTER_schild ROGUE_bogen"
+          # Blatt: je Waffe eine Zeile: Gehen von der Seite (zwei Phasen), Rennen von der Seite (zwei Phasen), Rennen von hinten, Spielansicht
           for f in $F; do
-            montage -label "$f · rechts, Gehen" tragen/FIGHTER_${f}_Gehen_0_rechts.png -label "rechts, Gehen" tragen/FIGHTER_${f}_Gehen_2_rechts.png \
-              -label "rechts, Rennen" tragen/FIGHTER_${f}_Rennen_0_rechts.png -label "hinten, Gehen" tragen/FIGHTER_${f}_Gehen_0_hinten.png \
-              -label "Spielansicht" tragen/FIGHTER_${f}_Gehen_0_spiel.png \
-              -tile 5x1 -geometry 300x400+3+3 -background black -fill '#d4af37' -pointsize 18 zeile_$f.png
+            montage -label "$f · Gehen" tragen/${f}_Gehen_0_rechts.png -label "Gehen" tragen/${f}_Gehen_2_rechts.png \
+              -label "Rennen" tragen/${f}_Rennen_0_rechts.png -label "Rennen" tragen/${f}_Rennen_2_rechts.png -label "Rennen, hinten" tragen/${f}_Rennen_0_hinten.png \
+              -label "Spielansicht" tragen/${f}_Rennen_0_spiel.png \
+              -tile 6x1 -geometry 300x400+3+3 -background black -fill '#d4af37' -pointsize 18 zeile_$f.png
           done
-          montage zeile_bisher.png zeile_A.png zeile_B.png -tile 1x3 -geometry +0+0 -background black $GITHUB_WORKSPACE/probe/417-axt-blatt.png
-          # Film: drei Fassungen nebeneinander, Bild fuer Bild
-          mkdir -p film/neben
-          n=$(ls film/FIGHTER_A | wc -l)
+          montage $(for f in $F; do echo zeile_$f.png; done) -tile 1x4 -geometry +0+0 -background black $GITHUB_WORKSPACE/probe/417-pakete-blatt.png
+          # Film: vier Waffen im Raster 2x2, Bild fuer Bild (Gehen, dann Rennen; kuerzere Felder stehen am Ende still)
+          mkdir -p film/raster
+          n=0; for f in $F; do c=$(ls film/$f | wc -l); [ $c -gt $n ] && n=$c; done
           for i in $(seq -f "%03g" 0 $((n - 1))); do
-            montage -label "bisher" film/FIGHTER_bisher/$i.png -label "A" film/FIGHTER_A/$i.png -label "B" film/FIGHTER_B/$i.png \
-              -tile 3x1 -geometry 600x800+2+0 -background black -fill '#d4af37' -pointsize 30 film/neben/$i.png
+            args=""; for f in $F; do b=film/$f/$i.png; [ -f $b ] || b=$(ls film/$f/*.png | tail -1); args="$args -label $f $b"; done
+            montage $args -tile 2x2 -geometry 540x720+2+2 -background black -fill '#d4af37' -pointsize 26 film/raster/$i.png
           done
-          ffmpeg -loglevel error -y -framerate 30 -i film/neben/%03d.png -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2" -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast -movflags +faststart $GITHUB_WORKSPACE/probe/417-axt.mp4
-          cp tragen/FIGHTER_*_spiel.png $GITHUB_WORKSPACE/probe/ 2>/dev/null || true
+          ffmpeg -loglevel error -y -framerate 30 -i film/raster/%03d.png -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2" -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast -movflags +faststart $GITHUB_WORKSPACE/probe/417-pakete.mp4
           ls -l $GITHUB_WORKSPACE/probe
           ! grep -q "SCRIPT ERROR" $GITHUB_WORKSPACE/probe/probe.log
       - uses: actions/upload-artifact@v4
