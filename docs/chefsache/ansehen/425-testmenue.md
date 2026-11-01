@@ -8,6 +8,11 @@ Bild per Telegram, am Rechner, noch kein Build.
 - Neue Zeichen: Tacho (Bildrate), Stecknadel (Standort), Münzen (Gold), Kreuz (Heilen), Flasche (Vorräte), Schwert (Waffe), Schild (andere Hand), Uhr, Haus (Dorf), Fahne (Kapitelende), Würfel (Eröffnung), Schädel (Gegner), Edelstein (Beute je Seltenheit). Stufe −5, −1, +1, +5 als Zahlen im Kreis.
 - Listen bleiben Knöpfe mit Namen, weil der Name dort der Inhalt ist: Waffen, Gegner zum Beschwören, Klasse beim Probekampf.
 
+**Nach dem Bild behoben** (01.11., 01:3x, Befund eines Prüfers; noch ohne neues Bild, das kommt nach deinem Urteil):
+- Bildrate und Standort lagen oben verdeckt: ein Reiter öffnete an der Rollstelle des vorigen. Jetzt beginnt jeder Reiter oben, wie alt; im selben Reiter bleibt die Stelle beim Antippen.
+- Schwert größer; Stufe des Helden einmal in der Überschrift („Held · Stufe 3“) statt nur unter „+1“; Stufe im Probekampf nur als Zahl im Kreis; „Sehr selten“ statt „Sehr Selten“; lange Gegnernamen brechen im Knopf um.
+- Offen, Geschmack: Zeichenreihen ungleich lang (4, 3, 2), wie im Menü „System“ und alt.
+
 **Was fehlt gegenüber der alten Fassung** (Vorschlag Tom, je Punkt „ja“ oder „nein“):
 
 | Nr. | Eintrag | wofür | Votum |
