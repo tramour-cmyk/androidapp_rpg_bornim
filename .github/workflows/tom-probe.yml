@@ -65,8 +65,8 @@ jobs:
           cd godot
           timeout 300 ~/godot/godot --headless --import --path . > import.log 2>&1 || true
           export CC0=$HOME/cc0
-          timeout 900 xvfb-run -a -s "-screen 0 1280x720x24" ~/godot/godot --rendering-driver opengl3 --path . res://probe/drehfilm.tscn \
-            --resolution 1280x720 --write-movie $RUNNER_TEMP/film.avi --fixed-fps 30 -- --film=$FILM > $GITHUB_WORKSPACE/filme/film-$FILM.log 2>&1 || true
+          timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . res://probe/drehfilm.tscn \
+            --resolution 1080x2340 --write-movie $RUNNER_TEMP/film.avi --fixed-fps 30 -- --film=$FILM > $GITHUB_WORKSPACE/filme/film-$FILM.log 2>&1 || true
           grep -E "^FILM|SCRIPT ERROR|^ +at: " $GITHUB_WORKSPACE/filme/film-$FILM.log | cut -c1-400 | head -80
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/film.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast -movflags +faststart $GITHUB_WORKSPACE/filme/$FILM-probe.mp4
           ls -l $GITHUB_WORKSPACE/filme
