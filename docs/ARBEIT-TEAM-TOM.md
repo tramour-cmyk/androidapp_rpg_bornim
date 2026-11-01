@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (01.11., 16:4x, `session_01Hmoj77EpCx5H39cKijFtwq`):** 417 Runde 6 gemessen (Zu 417); 453.2 gebaut; 458.3 Händler geprüft. Nachfolger: Tom – 417 Runde 6: Waffe im Körper beim Rennen (Lauf 41322461393 auswerten).
+**Übergabe (01.11., 16:5x, `session_01Hmoj77EpCx5H39cKijFtwq`):** 417 Runde 6 gemessen (Zu 417); 453.2 gebaut; 458.3 Film vorgelegt. Nachfolger: Tom – 417 Runde 6: Waffe im Körper beim Rennen.
 
 ## Zeilen
 
