@@ -4,12 +4,13 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (01.11., 11:0x, `session_01Hmoj7725k4VV8sYVQzbjEf`):** 422 Nachschlagewerk gilt (E 77–84), 427 Startwerte an 444, Stellungnahmen 194.2 und Neubewertung 445, 413a/413b/418/432/442/443a/110 entschieden und archiviert, 416.4a berichtigt (Delta), Chefsache 447 Meilensteine, 448 Tagesbericht, 451 Name; Filmlinks in fünf Blättern; Aufträge 448.1, 449, 450 an Perikles, 444 an Jerry. Kosten auf: 422, 427, 445, 447, 448, 451, 413, 442. Nachfolger: Sokrates – 452: Notizen-Übersicht und gebündeltes Dokument; Gespräch 447, 448 mit dem Chef
+**Übergabe (01.11., 20:4x, `session_01Hmoj788UEt1EncKDVd6Bom`):** Chefrunde 01.11.: entschieden und archiviert 376.1, 403-Folgen, 406, 406.1, 416.4, 416.9, 417 (Runden 2–4, aufrecht), 423, 425, 431, 438–440, 438a, 438c, 447 (Stufen 1–6), 447.4a, 447.5, 451 (BRS, Markenrecherche), 453, 453.1, 454, 455, 455.1, 458, 458.2a, 458.3, 348.12a, 348.12c (fünf Pakete gekauft, Bestand), 415 jetzt; neu 460 Kamerafahrten, 461 Grundstand (`LISTE-GRUNDSTAND-461.md`), 463 Umhang/Robe, 464 rote Läufe; Leitung 13:30–19:40. Kosten auf: 452, 376.1, 406, 416.4, 417, 431, 438a, 447, 451, 453, 455, 458, 461. Nachfolger: Sokrates – Chefrunde: Rest 417, 455.2, Build 146, Kettenhemd Heldin
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 376.1 | M | **von Chef (Chefrunde 01.11.):** Kettenhemd der Heldin; Rest 348.12b, Build 146 | wartet auf Chef: ansehen/3761-kettenhemd-heldin (neu 20:57), entscheiden/34812b, ansehen/t146 |
 | 427 | M | **von Chef (31.10., 21:3x):** Bestiarium `LISTE-BESTIARIUM.md` | wartet auf Jerry: Startwerte gehen in die Simulation 444, dann gemessen zum Chef (Archiv 422, 444) |
 | 398 | M | **von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr ganz grundlegende Dinge fehlen?“):** Grundsätze DESIGN-* gegen Umzugsliste und Godot-Zweige | wartet auf Perikles: 15 Lücken in LISTE-UMZUG-348.md „398“, Chef 11:3x informiert |
 | 391 | M | **von Chef (28.10., 09:21):** Repos dauerhaft ohne Ablehnung | ruht: kein Repo-Feld in der Umgebung (Bild Chef 10:29), Repo-Wahl am Eingabefeld gilt nur für Sitzungen von Hand; Fords Starts nehmen ein Repo; add_repo geht durch, wenn die Aufgabe die Kaufmodelle braucht |

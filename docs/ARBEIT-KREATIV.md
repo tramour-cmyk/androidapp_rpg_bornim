@@ -3,16 +3,16 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `1bda541e5` (01.11., 13:4x)
+**Gelesen bis:** `60b50725f` (01.11., 20:29)
 
-**Übergabe (01.11., 13:4x):** 451.2 Name „Bornimer Rollenspielsystem“ (BRS) im Handbuch 423 Teile 1–3, Leitsatz an `[423.idee]`, Englisch in `[423.namen]`; 453.3 Atmen und weiche Übergänge in `DESIGN-STIL.md` („Lebendige Welt“); 423 Platzhalter gesetzt (Liste „Für Tom“ in Teil 1), fremd gegen Nachschlagewerk geprüft, Bau als 423.1 bei Tom; 458.4 Texte aller 88 Gegenstände in `gegenstaende.json`, fremd geprüft (Zu 458.4); 447.4 Chefsache 4474a (Besetzung der Lehrmeister), fremd geprüft. Nachfolger: keiner; 447.4 wartet auf Chef (4474a).
+**Übergabe (01.11., 21:0x):** 447.4 Texte als Entwurf: Pfade in `STORY-LEHRMEISTER-K1.md`, Meisterschaften und Ruf in `STORY-RUF-K1.md` (DE/EN), fremd geprüft (28 Befunde eingearbeitet), Chefsache `ansehen/4474-lehrmeister-texte.md`; Fragen an Perikles (Rezept beim Ja) und Sokrates (Wechsel als Anwärter) in deren Vorrat. Nachfolger: keiner; 447.4 wartet auf Chef.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 447.4 | M | **von Perikles (Chef 01.11., Archiv 447):** Texte für Stufe 3 der Abnahmeliste: Einladungen der Lehrmeister zu Pfad und den fünf Meisterschaften (3.1, 3.2) und Ruf-Gespräche im Dorf (3.3), DE/EN | startbar: Besetzung entschieden (Archiv 447.4a): Einladungen und Ruf-Gespräche als Entwurf in STORY-LEHRMEISTER-K1.md |
+| 447.4 | M | **von Perikles (Chef 01.11., Archiv 447):** Texte für Stufe 3 der Abnahmeliste: Einladungen der Lehrmeister zu Pfad und den fünf Meisterschaften (3.1, 3.2) und Ruf-Gespräche im Dorf (3.3), DE/EN | wartet auf Chef: Entwurf in STORY-LEHRMEISTER-K1.md und STORY-RUF-K1.md, Chefsache ansehen/4474 |
 | 432 | K | **von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt mir sehr gut“):** eigenes Volk prüfen, mit der Geschichte ab Kapitel 2 | nach dem Meilenstein: Weg A (Archiv); Kult-Antwort und Abgleich mit Kapitel 2 im Storyplan (Aschgeborene, 01.11.), zwei offene Punkte; als Chefsache erst nach dem Meilenstein, vor dem Bau |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |

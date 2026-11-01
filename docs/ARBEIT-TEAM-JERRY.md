@@ -12,8 +12,8 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 438 | M | **von Sokrates (Chef 31.10., 23:31, Film 403):** Wölfe gleiten (Angriff, Tempo, aneinander vorbei); echte Schritte, Zahlen (Zu 438) | gebaut: passt (Archiv 438, 01.11., 11:45), fährt im nächsten Build | `claude/jerry-438-wolf-kampf` |
-| 458.2 | M | **von Sokrates (Chef 01.11., 13:1x, Archiv 458):** Gegenstandskatalog: Werte, Preise, Beute je Monster in die Datendatei (aus 444); das Spiel liest nur sie | in Arbeit bei Tuffy | – |
+| 438 | M | **von Sokrates (Chef 31.10., 23:31, Film 403):** Wölfe gleiten (Angriff, Tempo, aneinander vorbei); echte Schritte, Zahlen (Zu 438) | gebaut: passt (Archiv 438), aber wolf_mess_438 im Godot-Lauf rot (5 Befunde, Lauf 41338055305: Wolf in Schild/Stab bis 6 cm, Bildrand, Ansage springt); vor dem Build beheben | `claude/jerry-438-wolf-kampf` |
+| 458.2 | M | **von Sokrates (Chef 01.11., 13:1x, Archiv 458):** Gegenstandskatalog: Werte, Preise, Beute je Monster in die Datendatei (aus 444); das Spiel liest nur sie | gebaut 67eb82d09: Katalog voll (Stufe, Preis, Zustand nach 458.2a), Spiel liest ihn (katalog.gd), Einzelstücke unverkäuflich; fährt im nächsten Build (Laden: Preise wie bisher) | `claude/tuffy-458-2-katalog` |
 | 457.2 | M | **von Perikles (Chef 01.11., 11:49, „unsere Signatur muss sich wiederfinden“):** eigene Probeskripte zeichnen standardmäßig mit Toon-Licht, Tusche, Schatten; ohne nur mit Schalter (Zu 457.2) | gebaut e87815dc8, fährt mit den nächsten Filmen | `claude/jerry-457-2-signatur` |
 | 453.1 | M | **von Sokrates (Chef 01.11., 13:0x):** Helden im Kampf atmen gleich und zu heftig („hechelt“): Atmen ruhiger, je Figur eigener Takt, nach Angriff oder Abwehr schneller, dann abklingend (Zu 453.1) | startbar: passt (Archiv 453.1), Atmen etwas deutlicher beim vorderen Helden; mit Vergleich 403 (Zu 453, Urteil r2) | `claude/tuffy-453-1-held-atem` |
 | 453 | M | **von Sokrates (Chef 01.11., 11:05):** Wölfe brauchen Ruhebewegungen: atmen, scharren, umblicken, knurren (Zu 453) | startbar: r2 passt (Archiv 453 r2), r3 mit Bild; Helden wie 403 (Zu 453, Urteil r2) | – |
@@ -35,7 +35,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 401 | M | **von Chef über Sokrates (Archiv):** Tierlaute, mind. 3 je Tier | wartet auf Test: Build 146 (t146) | – |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK | `claude/jerry-348-kampf` |
-| 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | wartet auf Chef: 348.12b (entscheiden/34812b-film-lauf); Lauf 175: Gang „nur Gehen“ grün, Film übersprungen | `claude/jerry-348-kampf` |
+| 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | startbar: 348.12b ja 20:5x, ein Lauf auf grundstand-461 (Archiv); Rückfrage B2 | `claude/jerry-348-kampf` |
 | 385.2 | M | **von Chef (Archiv 385.1):** Feuer aus dem Stab | wartet auf 403 (Magier mit Stab im Kampfort) | – |
 | 348.13a | M | **von Team Tom (Chef 08:09, Archiv: r9 ja):** Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13a) | gebaut 421662dbd: Tusche nach Licht Vorgabe, Linie 1,3; offen Säbel (Tom) | `claude/jerry-348-kampf` |
 | 397 | M | von Chef: Tiere, Monster mind. drei Ruhebewegungen | ruht (399) | – |
@@ -66,6 +66,9 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 ## Einzelheiten
 
+- **Zu 464, von Perikles (01.11., 20:49; Chef 20:4x: „brutal viele Fehler … fast 20 E-Mails“):** 7 von 14 roten Läufen seit 14:30 auf `claude/jerry-348-12-grak-schreitet`: jeder Push löst `godot.yml` und `godot-kampf.yml` aus, beide rot. `godot.yml` „Skripte pruefen“ scheitert dreimal gleich an `wolf_mess_438.gd` (5 Befunde, Dauerzustand des Zweigs, nicht des Commits); dazu `figur.gd:892` Nullzugriff (d832791), Blende AMBUSH 14 ms (04b8f33), `goblin.py:296` (366a923), Platzwechsel-Tempo (c6a3bb6). Bitte: Dauerbefund beheben oder aus dem Pflichtschritt nehmen; ein Workflow je Push; Tests des Jobs „regeln“ vor dem Push lokal. Neu seit 20:49: Push-Haken hält bei GDScript-Parsefehlern an (Godot unter `~/godot/godot`).
+
+- **von Team Tom (Spike, 01.11., 21:2x, zu 461.1):** `claude/grundstand-461` = Build 146, Tom, `jerry-406-kaufschild`, `jerry-348-12-grak-schreitet`; Konflikte (`heldfigur.gd`, `figur.gd`, `film_403.gd`) mit beiden Seiten gelöst. Nicht neu mischen, weiter auf dem Zweig; Kampfort-Film gegen die Checkliste bleibt euer.
 - **von Team Tom (01.11., 16:2x, zu 453.1/453.2):** Held und Leute unterwegs atmen mit eurer `kampf/atem.gd` (unverändert aus `claude/tuffy-453-1-held-atem` im Zweig `claude/tom-453-2-atmen`, aufgerufen über `Gebiet.atem_an`: `eigen(seed)`, `anstrengen(x)`, Knochen der UAL). Ändert ihr Namen oder Aufruf, bitte Tom Bescheid; beim Mischen ist die Datei in beiden Zweigen gleich.
 - **von Homer (01.11., 13:3x, zu 444):** `tools/sim444/werte.json` rechnet mit `punkte_frei: 6` (18 Punkte, Entscheidung 64); gültig sind 21 Punkte, 9 frei (Entscheidung 77, Nachschlagewerk Abschnitt 2). Vor der Übernahme in die Datendatei des Spiels angleichen. Das Handbuch liest daraus `{held.startfertigkeit}`, `{held.kapitelgrenze}`, `{erfahrung.fertigkeit_deckel}`.
 
@@ -87,3 +90,4 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 - **Zu 296.2, 344.2, 249, 211.13/211.14, 168.1, 72u.1, 38, 39** (ruhend, altes SRD-System): Text in Git, `git show de0998e2a:docs/ARBEIT-TEAM-JERRY.md`.
 - **Zu 399.2, von Tom (28.10., 13:23):** `goblin.py` erkennt Toms `v3/rig.py` nicht; beide Workflows bauen Goblins mit `v3_kampf/` (godot-kampf seit 8aee22a77); vor der Höhle auf `v3` umstellen.
+- **Zu 348.12, von Ford (464, 01.11., 21:08):** zwei rote Läufe auf `claude/jerry-348-12-grak-schreitet`, Commit c6a3bb68d: „Godot Kampf (348.7)“ #175 https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41338055279 und „Godot (Umzug 348)“ #150 https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41338055305 (20:43–21:12 Berliner Zeit); Ursache finden.

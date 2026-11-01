@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (01.11., 15:18, Ford `session_01Hmoj77A5CsKKbJvo69Vgyi`, Tiefe 0; Chef 09:36: archivieren erlaubt, Kosten buchen):** Läuft: Tom 417/416.4 (`78Xw7`), Jerry 453 (`76B1U`), Spike 376.1 (`76h41`), Tuffy 406 (`77i7Y`); Homer, Diogenes, Perikles warten (idle). Alter Sokrates `7725k` (Gespräch 447/448) nie ohne Wort des Chefs archivieren; Sokrates 452 `788UE` hat die Leitung, Chef ab 13:2x einige Stunden weg, Hängendes an ihn. Neue Sitzungen immer mit Thema im Titel; vor Spike/Tuffy prüfen, dass die Zeile nicht in der Übergabe des laufenden Tom/Jerry steht (431 lief doppelt). Lauf-Kurzliste vor `lauf.py` frisch aus `list_sessions` bauen, nie alte Datei. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 462** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 466** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -117,3 +117,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:29 01.11.: Marke Archiv session_01Hmoj79GPmpMxp1gC8dnHVY (lauf.py)
 - 20:29 01.11.: Marke Archiv session_01Hmoj77VfBGxi3P8W9AxMeP (lauf.py)
 - 20:29 01.11.: Marke Archiv session_01Hmoj77i7Y1xgebTmsmw7jo (lauf.py)
+- 20:37 01.11.: Startsperre 20:37 Start Diogenes (lauf.py)
+- 20:37 01.11.: Marke Archiv session_01Hmoj767cb5Yb7YgHPHEP1m (lauf.py)
+- 21:04 01.11.: Startsperre 21:04 Start Jerry, Spike (lauf.py)
+- 21:04 01.11.: Marke Archiv session_01Hmoj781ACpGwfwWp4ERY6K (lauf.py)
+- 21:04 01.11.: Marke Archiv session_01Hmoj76tN9ZGtrauFQscNtm (lauf.py)
