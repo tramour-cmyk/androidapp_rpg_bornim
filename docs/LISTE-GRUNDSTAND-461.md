@@ -51,7 +51,7 @@ Chef 01.11., 20:3x: „das mal alles zusammenführt … auf ein Niveau kriegen, 
 |---|---|---|
 | D1 | Übergänge Stehen, Gehen, Rennen bei jeder Figur weich; Anlaufen zügig; Abbremsen in Stufen (Sprint, Rennen, langsamer, Gehen) und länger als Beschleunigen; Stehenbleiben aus dem Sprint geht | 416.4 (01.11., 13:1x, 20:3x) |
 | D2 | Rennen ohne Waffe Fassung A; mit Waffe Gehen und Rennen aus dem Waffenpaket, nie von Hand gestellt | 416.4, 348.12c, 417 (01.11.) |
-| D3 | Gehen langsamer als in Runde 4 (Zahl schlägt Tom vor); kein Schweben, kein Staksen, kein Hoppeln | 417 (12:21, 13:4x), 406 (20:2x) |
+| D3 | Gehen langsamer als in Runde 4 (Zahl schlägt Tom vor), Oberkörper aufrecht, nicht vorgeneigt; kein Schweben, kein Staksen, kein Hoppeln | 417 (12:21, 13:4x; Nachtrag Archiv 20:4x), 406 (20:2x) |
 | D4 | Ortswechsel immer mit Laufbewegung, nie geschoben; Füße gleiten nicht | 348.12 (28.10.), 438 (31.10.) |
 | D5 | Boss schreitet statt zu sprinten | 348.12 (29.10.) |
 | D6 | Figuren gehen nicht durcheinander (Wolf durch Wolf) | Test 133 (28.10.) |
@@ -87,4 +87,4 @@ Chef 01.11., 20:3x: „das mal alles zusammenführt … auf ein Niveau kriegen, 
 | G2 | Keine fremden Bilder an den Schnitten | 406 (20:2x, d) |
 | G3 | Text der Vorlage im generischen Maskulinum („Held“, nie „Heldin“) | 348.12f (28.10.), 408 (29.10.) |
 
-Gestrichen aus dem Entwurf: „Gehen aufrecht“ (im Archiv nicht belegt; 417 sagt nur „langsamer“).
+„Gehen aufrecht“ wieder aufgenommen (Chef 13:4x zu 417, im Archiv nachgetragen 20:4x).
