@@ -52,6 +52,7 @@ var faust_weite := 0.0          # m: Knoechel bis Mittelglieder quer zum Schaft 
 var fehl := 0.0                  # m: so weit liegt die Faust nach dem Stellen neben dem Ziel (Arm zu kurz)
 var axt_griff := AXT_GRIFF        # Probe 417 Runde 3 (tragprobe.gd): Fassungen nebeneinander
 var axt_haengt := true            # Blatt nach unten (Runde 3); false: Schneide oben wie Runde 2
+var zwei_winkel := 0.0            # Messung: Grad zwischen Schaft durch beide Faeuste und der Achse der rechten Hand
 
 static func art_von(base: String) -> String: return String(ARTEN.get(base, ""))
 
@@ -177,6 +178,14 @@ const BOGEN_ACHSE := Vector3(-0.44, -0.90, 0.05)        # Bogen links, Wurfarme 
 const BOGEN_PUNKT := Vector3(0.99, -0.09, 0.33)         # links ist der Rahmen gespiegelt: innen ist +z
 const SCHILD_NORMALE := Vector3(0.22, -0.07, -0.97)     # Schild links, Vorderseite (Modell +Z)
 const SCHILD_PUNKT := Vector3(-0.18, -0.06, -0.35)      # Fessel (Modell-Ursprung) am Handgelenk, am Handruecken
+# 417 Runde 6 (Lauf 41322461393): Zweihaender im Rennen mit dem Stielende 4,9 cm in der linken Wade, die linke Faust 6,5 cm neben dem
+# Schaft: die Bewegung fuehrt den Schaft mit beiden Haenden, die Achse der rechten Hand allein trifft die linke nicht. Der Schaft laeuft
+# darum durch beide Faeuste (links wie der Bogen: innen +z), hoechstens ZWEI_HOECHST Grad von der Achse der rechten Hand.
+const ZWEI_LINKS := Vector3(0.99, -0.09, 0.33)
+const ZWEI_HOECHST := 30.0
+# Schwert mit Schild: im Rennen fuehrt die Bewegung die rechte Faust 5 cm durch den rechten Oberschenkel; der Oberarm geht dafuer
+# immer (auch im Gehen, damit beim Wechsel nichts springt) SCHILD_ABSPREIZ Grad nach aussen
+const SCHILD_ABSPREIZ := 9.0
 
 # Rahmen der Hand im Skelettraum: Basis aus x, y, z je mal Handlaenge, Ursprung am Handgelenk (wie zauber385.py rahmen)
 static func hand_rahmen(sk: Skeleton3D, s: String) -> Transform3D:
@@ -196,7 +205,19 @@ func _paket(sk: Skeleton3D, ih: int) -> void:
 	var G := sk.global_transform
 	var R := hand_rahmen(sk, seite)
 	var bogen := gang == "bogen"
+	if gang == "schild": _abspreizen(sk, ih)
+	R = hand_rahmen(sk, seite)
 	var d := (R.basis * (BOGEN_ACHSE if bogen else GRIFF_ACHSE)).normalized()
+	zwei_winkel = 0.0
+	if gang == "axt" and seite == "r":
+		var RL := hand_rahmen(sk, "l")
+		var v := RL * ZWEI_LINKS - R * GRIFF_PUNKT
+		if v.length() > 0.08:
+			var dn := v.normalized() * signf(v.dot(d))
+			var w := rad_to_deg(d.angle_to(dn))
+			if w > ZWEI_HOECHST: dn = d.slerp(dn, ZWEI_HOECHST / w).normalized()
+			zwei_winkel = minf(w, ZWEI_HOECHST)
+			d = dn
 	var _mitte := _faust_zu(sk, ih, d)
 	R = hand_rahmen(sk, seite)
 	var p := R * (BOGEN_PUNKT if bogen else GRIFF_PUNKT)
@@ -211,6 +232,21 @@ func _paket(sk: Skeleton3D, ih: int) -> void:
 	x = (x - dw * x.dot(dw)).normalized()
 	waffe.global_basis = Basis(x, dw, x.cross(dw))
 	waffe.global_position = G * p
+
+# Oberarm um die Vorwaertsachse der Figur nach aussen, die Faust weg vom Bein (SCHILD_ABSPREIZ)
+func _abspreizen(sk: Skeleton3D, ih: int) -> void:
+	var iu := sk.find_bone("upperarm_" + seite)
+	if iu < 0 or modell == null: return
+	var mi := sk.global_transform.affine_inverse() * modell.global_transform
+	var vorn := (mi.basis * Vector3.BACK).normalized()
+	var aussen := (mi.basis * (Vector3.LEFT if seite == "r" else Vector3.RIGHT)).normalized()
+	var g := sk.get_bone_global_pose(iu)
+	var r := sk.get_bone_global_pose(ih).origin - g.origin
+	var w := deg_to_rad(SCHILD_ABSPREIZ) * signf(vorn.cross(r).dot(aussen))
+	var nb := Basis(vorn, w) * g.basis.orthonormalized()
+	var p := sk.get_bone_parent(iu)
+	var pb := sk.get_bone_global_pose(p).basis.orthonormalized() if p >= 0 else Basis.IDENTITY
+	sk.set_bone_pose_rotation(iu, (pb.inverse() * nb).get_rotation_quaternion())
 
 # Schild links am Handruecken (Messung 3f): Vorderseite SCHILD_NORMALE, oben quer ueber die Knoechel (Rahmen y), Fessel am Handgelenk
 func _schildarm(sk: Skeleton3D) -> void:

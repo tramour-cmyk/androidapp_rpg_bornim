@@ -59,6 +59,7 @@ func _initialize() -> void:
 				var innen := 0
 				var tiefst := 9.0
 				var links := 0.0
+				var zw := 0.0
 				var tiefbild := {}
 				var iy := Vector2(INF, -INF)
 				for f in 2 * n:
@@ -76,7 +77,8 @@ func _initialize() -> void:
 					tiefst = minf(tiefst, float(r["min"]))
 					if gang == "axt":
 						var R := Tragen.hand_rahmen(sk, "l")
-						var fl := sk.global_transform * (R * Vector3(0.99, -0.09, 0.0))
+						var fl := sk.global_transform * (R * Tragen.ZWEI_LINKS)   # Runde 6: die Stelle, durch die tragen.gd den Schaft legt (innen in der Faust)
+						zw = maxf(zw, tr.zwei_winkel)
 						var o := tr.waffe.global_position; var a := tr.waffe.global_basis.y.normalized()
 						var q := fl - o
 						links = maxf(links, (q - a * q.dot(a)).length())
@@ -86,7 +88,7 @@ func _initialize() -> void:
 				for teil in teile.slice(0, 4): s.append("%s %.1f" % [teil, tief[teil] * 100.0])
 				var was := "Schild" if tr.gang == "schildarm" else String(e[2]["MAIN_HAND"]["base"])
 				print("MESS %s %s %s: naechste Teile (cm) %s; tiefster Punkt %.1f cm; Bilder im Koerper %d von %d%s" % [e[1], was, bew,
-					", ".join(s), tiefst * 100.0, innen, n, ("; linke Faust hoechstens %.1f cm neben dem Schaft" % (links * 100.0)) if gang == "axt" else ""])
+					", ".join(s), tiefst * 100.0, innen, n, ("; linke Faust hoechstens %.1f cm neben dem Schaft, Schaft bis %.1f Grad gegen die rechte Hand gedreht" % [links * 100.0, zw]) if gang == "axt" else ""])
 				# wo an der Waffe (Waffenraum, m; Laenge laeuft auf y) und wann: Klinge, Parierstange, Knauf oder Wurfarm?
 				if not tiefbild.is_empty() and tiefst < 0.0:
 					var wp: Vector3 = tiefbild["waffe"]
