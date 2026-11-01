@@ -12,6 +12,8 @@ Was „weich“ ändert (gilt für Held, Leute und Tiere):
 
 Gehen ↔ Rennen blieb, wie du es zu 417 genannt hast („Rennen und Übergang passen“).
 
+**Prüferbefund (15:1x, nach dem Versand), Fehler, die Tom behebt:** Rennen → Gehen springt in beiden Feldern in einem Bild in die aufrechte Haltung (Film 4,6 s, 11,6 s, 23,3 s); ist es auch im Spiel so, stimmt dein „Übergang passt“ zu 417 nur für Gehen → Rennen. Füße gleiten beim Anlaufen (unten wie oben gut 20 Bildpunkte), beim Wechsel Gehen → Rennen (Tempo schon voll, Beine noch im Gehtakt) und nach dem Anhalten (Stiefel rutscht 20–27 Bildpunkte). Unten deutlich weicher: das Anhalten (oben springt das Tempo von voll auf null und die Haltung schnappt in den Stand); Anlaufen unten nur im Tempo weicher.
+
 **Frage:** Sind die Übergänge so weich genug?
 **Stärkstes Gegenargument:** Anlaufen und Bremsen machen die Steuerung träger: der Held kommt etwa 0,15 s später an als vorher, und wer schnell tippt, merkt das vielleicht. Wenn es zu träge wirkt, wird das Anlaufen kürzer, ohne den Ruck zurückzubringen.
 
