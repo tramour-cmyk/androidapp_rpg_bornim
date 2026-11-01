@@ -34,7 +34,10 @@ var reihe := []       # 439: [Bild, Text] Verstöße gegen Angriff, Treffer, Tod
 var tote := {}        # k -> [Bild bis Ende des Liegens]
 ## 438 Prüfer Film 08:18: Drehsprünge in jeder Bewegung, Kopf im Helden, Würfelzeile vor dem Treffer
 const DREH_BILD_GRAD := 16.0     # TURN_DPS 450°/s bei 30 Bildern: 15° je Bild
-const KOPF_M := 0.10
+const KOPF_M := -0.04
+const WOLF_KOPF := ["kopf", "Wolf_Head_TopSHJnt", "Wolf_Head_JawEndSHJnt"]
+const KOERPER := [["pelvis", "spine_03", 0.17], ["spine_03", "neck_01", 0.14], ["neck_01", "Head", 0.08], ["Head", "Head", 0.11],
+	["thigh_l", "calf_l", 0.08], ["thigh_r", "calf_r", 0.08]]
 const WW_M := 0.10
 var dreh_max := {}     # anim -> [Bilder über DREH_BILD_GRAD, größte Grad]
 var kopf := {}         # wolf→held -> [Bilder, tiefste m, erstes Bild]
@@ -179,22 +182,29 @@ func _bild(kf, n: int, k: String) -> void:
 		roll_vor = kf.ui.roll_at
 		if kf.ui.roll_shown != null and int(kf.shown.get("damage", 0)) > 0:
 			wurf.append([n, "%s/%s" % [k, kf.ui.roll_shown[0]], int(kf.shown.damage), String(kf.shown.get("text", ""))])
-	# 438: Kopf (Knochen „kopf“) des Wolfs im Umriss von Held und Söldner
+	# 438: Kopf des Wolfs (Knochen kopf, Schädeldach, Kieferspitze) im Körper von Held und Söldner, gemessen gegen Kapseln um
+	# deren Knochen in der jetzigen Haltung (Becken–Brust 0,17 m, Brust–Kopf 0,12 m, Kopf 0,11 m, Beine 0,08 m); der Umriss
+	# footprint() taugt dafür nicht (Kaufkörper in T-Haltung: Arme 1,8 m breit)
 	for a in figs:
 		if not _wolf(a) or not a.visible or a.down:
 			continue
 		var sk := a._find(a.model, "Skeleton3D") as Skeleton3D
-		var kb := sk.find_bone("kopf") if sk else -1
-		if kb < 0:
+		if sk == null:
 			continue
-		var kq: Vector3 = sk.global_transform * sk.get_bone_global_pose(kb).origin
+		var pts := []
+		for bn in WOLF_KOPF:
+			var bi := sk.find_bone(bn)
+			if bi >= 0:
+				pts.append(sk.global_transform * sk.get_bone_global_pose(bi).origin)
 		for b in figs:
 			if _wolf(b) or not b.visible or b.down:
 				continue
-			var t: float = -b.clearance(kq)
+			var t := -INF
+			for q in pts:
+				t = maxf(t, _im_koerper(b, q))
 			if t > KOPF_M:
 				var key := "%s/%s→%s/%s" % [k, a.fighter.id, k, b.fighter.id]
-				var e: Array = kopf.get(key, [0, 0.0, n])
+				var e: Array = kopf.get(key, [0, -INF, n])
 				kopf[key] = [e[0] + 1, maxf(e[1], t), e[2]]
 	# Durchdringung: Punkte entlang der Längsachse jedes Wolfs gegen den Umriss der anderen (stehend oder nicht)
 	for a in figs:
@@ -215,6 +225,27 @@ func _bild(kf, n: int, k: String) -> void:
 					tief = minf(tief, b.clearance(q))
 			if tief < -DURCH_M:
 				durch.append([n, "%s/%s" % [k, a.fighter.id], "%s/%s" % [k, b.fighter.id], -tief, a.anim.current_animation if a.anim else ""])
+
+
+## 438: wie tief [q] (Welt) in einer Kapsel um die Knochen von [f] liegt (m, < 0: so weit draußen)
+func _im_koerper(f, q: Vector3) -> float:
+	var sk := f._find(f.model, "Skeleton3D") as Skeleton3D
+	if sk == null:
+		return -INF
+	var t := -INF
+	for c in KOERPER:
+		var i0 := sk.find_bone(c[0])
+		var i1 := sk.find_bone(c[1])
+		if i0 < 0 or i1 < 0:
+			continue
+		var a: Vector3 = sk.global_transform * sk.get_bone_global_pose(i0).origin
+		var b: Vector3 = sk.global_transform * sk.get_bone_global_pose(i1).origin
+		if c[0] == "Head":
+			a += sk.global_basis.y.normalized() * 0.1     # Kopfmitte über dem Gelenk
+			b = a
+		var p := Geometry3D.get_closest_point_to_segment(q, a, b)
+		t = maxf(t, float(c[2]) - q.distance_to(p))
+	return t
 
 
 ## Je Bild die langsamste der vier Pfoten (m, waagerecht): wer Schritte macht, hat immer eine Pfote fest am Boden (nahe 0); rutschen
@@ -292,7 +323,7 @@ func _bilanz() -> void:
 	if ww_tief > 0:
 		befund += 1
 		print("    Befund: Wölfe laufen durcheinander")
-	print("— 438 Kopf im Helden oder Söldner (Knochen kopf, tiefer als %.2f m): %d Paare" % [KOPF_M, kopf.size()])
+	print("— 438 Kopf des Wolfs im Körper von Held oder Söldner (tiefer als %.2f m): %d Paare" % [KOPF_M, kopf.size()])
 	for key in kopf:
 		print("  %s: ab Bild %d, %d Bilder, tiefste %.2f m" % [key, kopf[key][2], kopf[key][0], kopf[key][1]])
 	if not kopf.is_empty():
