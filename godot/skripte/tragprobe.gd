@@ -15,7 +15,10 @@ const AXT_FASSUNGEN := [["bisher", 0.40, false], ["A", 0.15, true], ["B", 0.0, t
 # (held.gd: Gehen 1,84, Rennen 3,68 Kacheln/s, speed_scale wie dort), damit man sieht, wie es im Spiel aussieht
 const PAKET_FIGUREN := [["axt", "FIGHTER", {"MAIN_HAND": {"base": "greataxe"}}], ["einhand", "FIGHTER", {"MAIN_HAND": {"base": "longsword"}}],
 	["schild", "FIGHTER", {"MAIN_HAND": {"base": "longsword"}, "OFF_HAND": {"base": "round_shield"}}], ["bogen", "ROGUE", {"MAIN_HAND": {"base": "shortbow"}}]]
-const SPIEL_GEHEN := 1.84 * Karte.TS
+# Runde 6 (Chef 01.11., 13:4x: „Das Gehen muss langsamer sein … eher ein Staxen, ein schnelles Staxen“): Gehtempo im Spiel senken statt
+# die Pakete schneller abzuspielen; Vorschlag 1,5 m/s (Mensch etwa 1,3-1,5; heute 1,84 Kacheln/s = 2,13 m/s). Film und Standbilder mit dem
+# Vorschlag, GEHEN_M_S=<m/s> setzt einen anderen (2.13 wie heute)
+static var SPIEL_GEHEN := float(OS.get_environment("GEHEN_M_S")) if OS.has_environment("GEHEN_M_S") else 1.5
 const SPIEL_RENNEN := 3.68 * Karte.TS
 # Spielkamera (kamera.gd: senkrecht, Tusche): Gieren, Neigung, Bildbreite in m; die Figur blickt nach +Z, ihre Rechte ist -X
 const ANSICHTEN := {"rechts": [-90.0, -6.0, 2.6], "links": [90.0, -6.0, 2.6], "vorn": [0.0, -6.0, 2.6], "hinten": [180.0, -6.0, 2.6],
