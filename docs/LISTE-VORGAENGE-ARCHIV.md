@@ -498,3 +498,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 437 | Keine Bilder auf Telegram von aktuellen Vorgängen (Chef 31.10., 23:12), Regel in CLAUDE.md „Melden“ | B Abläufe | M | 27,96 $ | Perikles | erledigt |
 | 443 | Prüfung im Doppelpack (421): 436 Namensform in CLAUDE.md, Rollendateien und `lauf.py` (Nummer vor „:“) | B Abläufe | M | 2,68 $ | Diogenes | erledigt |
 | 443.1 | Nachprüfung D52.1, D52.2 (Datum im Titel, Namen in Rollendateien) | B Abläufe | M | – | Diogenes | erledigt |
+| 348.7b | Rückfrage: Zauberbahn hoch über die Köpfe oder flach quer über Wolf 3 | E Kampf | M | 22,94 $ | Jerry | erledigt |
+| 428 | Bestiarium: kurze Hintergrundgeschichte je Monsterart (zu 427, Chef 31.10., 21:3x) | C Texte | M | – | Homer | erledigt |
+| 430 | Abnahmelisten für Elf, Zwerg, Hügelvolk, Orkblütiger (Größe, Umriss, Merkmal, Farbe, Haltung) in `LISTE-FIGUREN.md` (Chef 31.10., 22:0x) | D Design | M | – | Homer | erledigt |
+| 441 | Prüfung im Doppelpack: Nachschlagewerk Spielsystem 2.0 (Entscheidungen bis 75) quergelesen (Chef 31.10., 23:40) | D Design | M | – | Diogenes | erledigt |

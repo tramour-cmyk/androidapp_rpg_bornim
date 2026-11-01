@@ -47,7 +47,6 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
 - 08:21 01.11.: Neustart Jerry 0df217a41 angenommen: Nachfolger `01Hmoj77wY` „438 Prüferbefunde Wölfe“; alter Jerry `79d2` archiviert, 20,94 $ auf 403,406,438; Diogenes 374/434 `76ve` 08:05 gestartet; Sokrates (`7725`) per Nachricht auf 416.4a-Stellungnahme und D54 (422/427)
-
 - 01:20 01.11.: Neustart Tom 8d9d896b5 angenommen: Nachfolger `01Hmoj76iH` „425 Testmenü Befunde“; alter Tom `7A2b` archiviert, Kosten **fehlen** (usage 0,30 $ unverändert seit 23:05, unplausibel für 3 h); Spike 425 `79S3` (01:04) sofort archiviert, Tom hatte 425 schon fertig (Lauf-Fehler: Stand „Chef“ kam erst 01:18 auf main) · Kosten **geschätzt 20 $** (Chef 01.11., 08:59: „Buche die Schätzung von 20 $“; Mittel Tom-Sitzungen 28.10., 404), gebucht auf 417 und 416.3 je 10 $; `usage` der Sitzung zeigte nur 0,30 $ (zählt nach Neustart des Arbeiters ab 0)
 - 01:08 01.11.: Diogenes 443/443.1 (Perikles) gestartet und archiviert 2,68 $; Spike 416.9 archiviert 5,26 $, Spike 425 neu; Sokrates Stellungnahme 194.2 per Nachricht an die laufende Sitzung; Jerry-Nachfolger und Diogenes 374 weiter zurückgehalten (7:00/8:00)
 - 00:08 01.11.: Selbstneustart Ford (Tiefe 6, Chefsache 110 `--laut` gesendet); Homer `01Hmoj771H` „430“, Perikles `01Hmoj76JN` „Stand zum Marktstart“, Spike `01Hmoj763K` „416.9“ gestartet; alter Spike `77yq` archiviert 9,21 $ auf 425; Jerry-Nachfolger bis 7:00 und Diogenes 374 bis 8:00 zurückgehalten; Sokrates-Desktop nicht archiviert
@@ -60,3 +59,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:04 01.11.: Marke Stellungnahme Sokrates 01.11. (lauf.py)
 - 02:04 01.11.: Marke Wächter 436 31.10. 22:58 (lauf.py)
 - 07:03 01.11.: Marke Stellungnahme Sokrates 01.11. (lauf.py)
+- 09:35 01.11.: Startsperre 09:35 Start Tom, Tuffy (lauf.py)
+- 09:35 01.11.: Marke Archiv session_01Hmoj76r9gzqmymitAPFRzM (lauf.py)
+- 09:35 01.11.: Marke Archiv session_01Hmoj76iHvA7sdceAF7G8xu (lauf.py)
+- 09:35 01.11.: Marke Archiv session_01Hmoj76MhRcxfR5wtQBUWvM (lauf.py)
+- 09:35 01.11.: Nachfolger-Warnung Diogenes (Übergabe 01.11., 08:19) (lauf.py)
