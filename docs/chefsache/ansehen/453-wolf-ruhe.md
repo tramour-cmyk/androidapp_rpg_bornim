@@ -11,4 +11,6 @@ Film 34 s am Rechner (Lauf 154, `claude/grundstand-461`), Kampfort mit dem gekau
 - Noch offen aus dem Prüferbefund r2, im Film zu prüfen: Schnauze im Vorderbein (r2 bei 13,0 s), Ruck des grauen Wolfs (r2 bei 7,9 s).
 - Bestand geprüft: Janpec Wolf IdleA, IdleC genommen wie r1.
 
+**Prüferbefund nach dem Versand (01.11., 23:2x), wichtig:** Das Atmen der Wölfe ist im Bild weiter kaum zu sehen: Rücken links 0,3–0,5 px aus der Kampfkamera, 1,5 px nah (gerechnet 2–3 und 4–5 px), rechts 0,2–0,6 px. Der braune Wolf links steht 4,6–5,6 s ganz still. Der sichtbare Unterschied zwischen links und rechts sind die Helden: rechts (alte Ruhebewegung) wippen sie 15–19 px, links fast gar nicht. Ruck des grauen Wolfs bei 7,9 s besteht weiter (Dreiviertel- in Vorderansicht in 2 Bildern), nah dreht er sich bei 12,7 s in 0,27 s um etwa 180°. Nah sind 47 % des Bildes Himmel, der schwarze Wolf ist 8–17 s am rechten Rand angeschnitten. Erste 2 Bilder: Kamera springt. Kein Gleichtakt der Wölfe (Gesten mindestens 0,3 s auseinander), Schnauze im Vorderbein kein Befund. Ursache wird gesucht (Technik, kein Geschmack).
+
 **Zu sagen:** „passt“ (fährt im nächsten gemeinsamen Build mit) oder was am Atmen anders sein soll (deutlicher, ruhiger).
