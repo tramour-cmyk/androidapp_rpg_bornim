@@ -2,13 +2,16 @@
 """Probelauf-Haken (389; Chef 27.10., 23:55: „389 ja, höchstens zwei Läufe und die Betonung hierbei liegt auf höchstens.“).
 
 PreToolUse-Haken für Bash, alle Rollen. Je Vorlage höchstens zwei Probeläufe, dann vorlegen: beim dritten Lauf für denselben
-Vorgang ohne Vorlage dazwischen hält der Haken den Befehl an (Exit 2), ohne Ausweg.
+Vorgang hält der Haken den Befehl an (Exit 2), ohne Ausweg. Seit 407 (Chef 29.10., 10:05: „nach 2 ist maximal Schluss …
+Ich habe noch nichts geguckt und freigegeben. Also, warten, bis ich gucke.“) gibt erst das Urteil des Chefs zwei neue Läufe frei,
+nicht schon die Vorlage: Urteil = Eintrag im Vorgangsarchiv (`origin/main`), dessen fette Kopfzeile die Nummer nennt, mit Datum
+nach dem letzten gezählten Lauf; gilt für jeden Zweig `claude/tom-…` und `claude/jerry-…`.
 
 Probelauf heißt:
 - ein Bildlauf am Rechner: Godot mit Fenster (xvfb-run oder `godot --path` ohne `--import`) oder ein Laufskript aus
   `tools/pruef348/` (alle außer `rechner.sh`) oder `*_lauf.sh`; der Vorgang steht davor: `PROBE=<Nr> bash …`;
   kein Probelauf: `godot --headless --path <dir> -s res://tests/<datei>.gd` ohne Bildbefehl in der Testdatei (390a);
-- ein Push auf `claude/tom-348-*` oder `claude/jerry-348-*`, der `godot.yml` auslöst (letzter Commit ohne „[skip ci]“, Änderung
+- ein Push auf `claude/tom-*` oder `claude/jerry-*`, der `godot.yml` auslöst (letzter Commit ohne „[skip ci]“, Änderung
   unter godot/, tools/blender348/, core/src/main/ oder am Workflow); der Vorgang ist die erste Nummer der Commit-Nachricht.
 Vorlage heißt: eine Meldung mit Bild, Film oder Datei zu dem Vorgang (Zeile im Zweig „meldungen“, schreibt `meldung.sh`, 383).
 Jeder Lauf wird gezählt, auch einer, der abbricht. Die Zählung steht im Zweig „probelaeufe“ in `probelaeufe.tsv` (überlebt den
@@ -42,7 +45,8 @@ COMMIT = re.compile(r"\bgit\s+(?:-C\s+\S+\s+)?commit\b[^\n]*?\s-[a-zA-Z]*m\s*(.+
 TEST_SKRIPT = re.compile(r"(?:^|\s)-s\s+[\"']?res://tests/([\w./-]+\.gd)\b")
 BILDBEFEHL = re.compile(r"save_png|save_jpg|save_webp|save_exr|get_image\s*\(|get_texture\s*\(|MovieWriter|screenshot", re.I)
 CD = re.compile(r"\bcd\s+([^\s;&|]+)")
-CI_ZWEIG = re.compile(r"claude/(?:tom|jerry)-348-[\w./-]+")
+CI_ZWEIG = re.compile(r"claude/(?:tom|jerry)-[\w./-]+")  # 407: jeder Zweig der Teams, nicht nur 348
+ARCHIV_KOPF = re.compile(r"^- \*\*([^*]+)\*\*\s*\((\d\d)\.(\d\d)\.,\s*(\d\d):(\d)([\dx])", re.M)
 CI_PFADE = ("godot/", "tools/blender348/", "core/src/main/", ".github/workflows/godot.yml", ".github/workflows/godot-kampf.yml")
 
 
@@ -86,20 +90,34 @@ def zeilen(text):
     return [z.split("\t") for z in text.splitlines() if z.count("\t") >= 2]
 
 
+def urteil(nr):
+    """407: Zeit des jüngsten Archiveintrags zu nr (fette Kopfzeile nennt die Nummer), sonst None; „21:1x“ zählt als 21:10."""
+    _, archiv = zweig_lesen("docs/VORGANGSARCHIV.md", "main")
+    if not archiv:
+        p = os.path.join(REPO, "docs", "VORGANGSARCHIV.md")
+        archiv = open(p, encoding="utf-8").read() if os.path.exists(p) else ""
+    heute = datetime.datetime.now(BERLIN)
+    beste = None
+    for m in ARCHIV_KOPF.finditer(archiv):
+        if not re.search(r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)", m.group(1)):
+            continue
+        tag, monat, std = int(m.group(2)), int(m.group(3)), m.group(4)
+        jahr = heute.year if (monat, tag) <= (heute.month, heute.day) else heute.year - 1
+        zeit = f"{jahr}-{monat:02d}-{tag:02d} {std}:{m.group(5)}{'0' if m.group(6) == 'x' else m.group(6)}:00"
+        beste = max(beste or "", zeit)
+    return beste
+
+
 def stand(nr):
-    """(Läufe seit der letzten Vorlage zu nr, Zeit der Vorlage oder None)."""
+    """(Läufe seit dem letzten Urteil des Chefs zu nr, Zeit des Urteils oder None); 407: eine Vorlage allein gibt nichts frei."""
     _, laeufe = zweig_lesen(DATEI)
-    _, meld = zweig_lesen("meldungen.tsv", "meldungen")
     lokal = open(LOKAL, encoding="utf-8").read() if os.path.exists(LOKAL) else ""
-    vorlage = None
-    for z in zeilen(meld):
-        if z[3:4] and z[3] in ("photo", "video", "document") and nr in z[1].split(","):
-            vorlage = max(vorlage or "", z[0])
+    frei = urteil(nr)
     gesehen = set()
     for z in zeilen(laeufe) + zeilen(lokal):
-        if z[1] == nr and (vorlage is None or z[0] > vorlage):
+        if z[1] == nr and (frei is None or z[0] > frei):
             gesehen.add(tuple(z[:5]))
-    return len(gesehen), vorlage
+    return len(gesehen), frei
 
 
 def zaehlen(nr, wer, art):
@@ -167,7 +185,7 @@ def main():
     if sys.argv[1:2] == ["--stand"]:
         for nr in sys.argv[2:]:
             n, v = stand(nr)
-            print(f"{nr}: {n} von {GRENZE} Probeläufen seit {'Vorlage ' + v if v else 'Beginn der Zählung'}")
+            print(f"{nr}: {n} von {GRENZE} Probeläufen seit {'Urteil ' + v if v else 'Beginn der Zählung'}")
         return
     try:
         d = json.load(sys.stdin)
@@ -192,9 +210,10 @@ def main():
         return
     if n >= GRENZE:
         anhalten(f"389 (Chef 27.10., 23:55: „höchstens zwei Läufe und die Betonung hierbei liegt auf höchstens“): für {nr} "
-                 f"schon {n} Probeläufe seit {'der Vorlage ' + vorlage if vorlage else 'Beginn der Zählung'}. Kein weiterer Lauf: "
+                 f"schon {n} Probeläufe seit {'deinem Urteil ' + vorlage if vorlage else 'Beginn der Zählung'}. Kein weiterer Lauf: "
                  f"jetzt vorlegen, was da ist (Datei in docs/chefsache/ansehen/, `meldung.sh --bild` oder `--film` mit „{nr}:“), "
-                 "Befund der Fehlerprüfung danach als Text (396). Erst die Vorlage gibt zwei neue Läufe frei.")
+                 "Befund der Fehlerprüfung danach als Text (396). Erst das Urteil des Chefs (Eintrag im Vorgangsarchiv) gibt zwei neue "
+                 "Läufe frei (407); bis dahin an einem anderen Vorgang weiter.")
     zaehlen(nr, wer, art)
     print(json.dumps({"hookSpecificOutput": {"hookEventName": "PreToolUse",
                       "additionalContext": f"389: Probelauf {n + 1} von {GRENZE} für {nr}"

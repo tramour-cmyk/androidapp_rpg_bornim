@@ -485,3 +485,16 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 404 | Fehlende Sitzungskosten (3 archivierte Sitzungen ohne usage) schätzen oder „fehlt“ lassen (Ford 28.10., Chefsache) | B Werkzeuge | K | 0,67 $ | Ford | erledigt |
 | 411 | Mehr Frisuren als Seitenscheitel (aus 376.1, Chef 29.10., 10:52) | E Figuren | M | – | Team Tom | erledigt |
 | 414 | 14 itch.io-Godot-Pakete auf Tauglichkeit prüfen (Chef 31.10., 20:2x) | D Design | K | – | Sokrates | erledigt |
+| 408 | Bestand vor Eigenbau: gekaufte Modelle sichten und zur Wahl vorlegen, dann erst bauen (Chef 29.10., 11:15) | B Abläufe | M | – | Perikles | erledigt |
+| 409 | Wörter der Erschaffung für fünf neue Frisuren (376.1, Chef 29.10., 10:52 „gibt es noch andere Frisuren“) | C Texte | M | 1,85 $ | Homer | erledigt |
+| 412 | Je Thema ein eigener Vorgang, nichts thematisch Fremdes unter eine Nummer (Chef 29.10., 11:4x) | B Abläufe | M | – | Perikles | erledigt |
+| 419 | Prüfung 418: Direktive in `CLAUDE.md` und neue Abnahmeliste gegen Wortlaut und Spielsystem 2.0 (Chef 31.10., 21:2x) | B Abläufe | M | 3,32 $ | Diogenes | erledigt |
+| 420 | Prüfung Spielsystem 2.0: Ideen und Entscheidungen in `DESIGN-SPIELSYSTEM-2-0.md` auf Widersprüche und Lücken (Chef 31.10., 21:2x) | D Design | M | 3,32 $ | Diogenes | erledigt |
+| 421 | Regel: was Perikles an Regeln und Abläufen ändert, prüft Diogenes („im Doppelpack“, Chef 31.10., 21:2x) | B Abläufe | M | 3,43 $ | Perikles | erledigt |
+| 426 | Design-Grundsatz Icons statt Text in Menüs (zu 425, Chef 31.10., 21:30) | D Design | M | – | Homer | erledigt |
+| 429 | Prüfung im Doppelpack (421): 424 Umzugsliste und Wächter `startbar.py`, 412 Regel in `CLAUDE.md` | B Abläufe | M | 3,32 $ | Diogenes | erledigt |
+| 416.3 | Anschlagbrett und Laden bildschirmfüllend, Design wie alt (Chef 31.10., 20:4x) | B Umzug | M | – | Team Tom | erledigt |
+| 435 | Prüfung im Doppelpack (421): 433 Start von Spike und Tuffy in `lauf.py` und `startbar.py` | B Abläufe | M | 1,09 $ | Diogenes | erledigt |
+| 437 | Keine Bilder auf Telegram von aktuellen Vorgängen (Chef 31.10., 23:12), Regel in CLAUDE.md „Melden“ | B Abläufe | M | 27,96 $ | Perikles | erledigt |
+| 443 | Prüfung im Doppelpack (421): 436 Namensform in CLAUDE.md, Rollendateien und `lauf.py` (Nummer vor „:“) | B Abläufe | M | 2,68 $ | Diogenes | erledigt |
+| 443.1 | Nachprüfung D52.1, D52.2 (Datum im Titel, Namen in Rollendateien) | B Abläufe | M | – | Diogenes | erledigt |

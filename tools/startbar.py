@@ -133,7 +133,25 @@ def zeilen(inhalt, unles=None):
         aus.append((t[0], t[1], t[2], " | ".join(t[3:])))
     return aus
 
+# 424 (Chef 31.10., 21:3x: „keine Energie mehr in das alte SRD-System stecken“): eine sonst startbare Zeile,
+# die Regeln des alten Systems nennt, ruht; frei bleiben Zeilen zur Ablösung (Ersatznamen, Glossar, Lizenz)
+# und zu Spielsystem 2.0. Absicht des Chefs für Altes: „Chef erlaubt alt“ in die Zeile schreiben.
+ALTES_SYSTEM = re.compile(r"\bSRD\b|\b[WwDd]20\b|Rettungsw[uü]rf|Trefferw[uü]rfel|Zauberpl[aä]tz|\bCharisma\b|vier Klassen"
+                          r"|Rüstungsklasse|Übungsbonus|\bTalente\b"  # nicht „Kleriker“, „Klasse“: sperrte Aussehen (Schild 406)
+                          r"|talente\.gd|klassisch\.gd|core/Rules\.kt|Monsters\.kt")  # D50: Wortliste erweitert (Diogenes Lauf 50)
+ALT_FREI = re.compile(r"Spielsystem 2\.0|(?<![\d.])2\.0\b|^424\b|Ersatz|Ablösung|ablösen|ohne SRD|Glossar|Lizenz|Chef erlaubt alt")  # D50: „142.0“, „ersetz“ gaben zu weit frei
+
+def altes_system(thema, rest, nr=""):
+    t = nr + " " + thema + " " + rest
+    return bool(ALTES_SYSTEM.search(t)) and not ALT_FREI.search(t)
+
 def blocker(nr, rest, chef, thema=""):
+    """Grund, warum die Zeile nicht startbar ist, sonst None; Wächter 424 nur für sonst startbare Zeilen."""
+    b = _blocker(nr, rest, chef, thema)
+    if b is None and altes_system(thema, rest, nr): return "ruht (424: altes SRD-System)"
+    return b
+
+def _blocker(nr, rest, chef, thema=""):
     """Grund, warum die Zeile nicht startbar ist, sonst None."""
     pre = nr.replace(".", "")
     b = blank(rest)
@@ -141,6 +159,8 @@ def blocker(nr, rest, chef, thema=""):
     if re.match(r"(erledigt\b|auf main\s*(\(|–|$))", b, re.I): return "ERLEDIGT"
     if re.match(r"(\w+ )?Teil erledigt", b): return "Teil erledigt, Rest wartet"
     if re.match(r"gebaut\b", b, re.I): return "wartet auf Test/Build (gebaut)"  # 190.1
+    m = re.match(r"in Arbeit bei (Spike|Tuffy)\b", b)
+    if m: return "in Arbeit bei " + m.group(1)  # 433: das Team nimmt die Zeile nicht, lauf.py startet den Zusatzentwickler darauf wieder
     if re.match(r"(mit \S+,? bis \d\d\.\d\d\.|ab Fords erstem Start|bis \d\d\.\d\d\.)", b):
         d = datum_nach(b, "bis") or datum_nach(b, "nach dem")
         return "Dauerzeile" + (" bis " + d if d else "")
