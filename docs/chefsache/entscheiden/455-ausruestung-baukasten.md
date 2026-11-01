@@ -23,6 +23,26 @@ Sokrates · 01.11., 11:3x · D Design
 
 *Zweites:* Plätze ohne Netz (Armschienen) fühlen sich unsichtbar an. *Lösung:* das Bild im Inventar und ein Wert, der im Kampf spürbar ist; viele Handyspiele machen es so. Willst du sie doch sehen, kommen sie später als Netz dazu, der Baukasten trägt das.
 
+## Plätze einzeln (Chef 01.11., 11:24: „Ring sehe ich definitiv nicht … Handschuhe … kann ich schon sehen … Armschienen sehe ich eigentlich schon“)
+
+Neue Plätze gibt es nicht; es sind die neun aus der alten Fassung, in Godot übernommen (`beute.gd`). Handschuhe und Armschienen teilen sich „Arme“, Stiefel und Beinkleider „Beine“. Aufwand geschätzt, nicht gemessen.
+
+| Platz | Gegenstände heute | sichtbar? | Bestand | Aufwand |
+|---|---|---|---|---|
+| Kopf | Helme, Kapuzen | ja, prägt den Umriss | Plattenhelm, Hörner, Krone, Kapuze | mittel: Topf- und Lederhelm Eigenbau |
+| Oberkörper | Wams bis Platte | ja, größte Fläche | sechs Trachten; Schulterstücke, Halsberge gehören hierher | mittel: Kettenhemd, lange Robe für die Frau anpassen (376.1) |
+| Arme | Armwickel, Lederhandschuhe, Armschienen, Panzerhandschuhe | **ja (Wechsel)**: Farbe und Form der Hände liest man | Arme je Tracht (Stoff bis Platte) | gering: Teil tauschen plus Material |
+| Beine | Beinkleider, Lederstiefel, Kettenbeinlinge, Beinschienen | ja | Beine und Füße je Tracht, Stiefel der Waldläufer | gering bis mittel: Kettenbeinlinge Eigenbau |
+| Umhang | Umhänge | ja, von hinten das Erste, was man sieht | eigener Umhang (Kämpfer) | mittel: Faltenwurf beim Rennen |
+| Amulett | Amulette | nein: wenige Bildpunkte; einmalige Stücke höchstens schwaches Glimmen | – | keiner |
+| Ring | Ringe | nein | – | keiner |
+| Haupthand | Waffen | ja | Waffen im Bestand, 417 | vorhanden |
+| Nebenhand | Schild, Fackel, Zweitwaffe | ja | Kaufschilde (406) | vorhanden |
+
+Damit ändert sich mein Votum: sieben Plätze sichtbar, nur Amulett und Ring nicht. Arme und Beine sind billig, weil die Trachten sie schon zerlegt mitbringen.
+
+**Probeblatt 455.1** (Tom, nur Bestand, kein Eigenbau): je ein Netz Robe, Umhang, Beine mit Stiefeln, Arme, in drei Materialien und zwei Zeichen, Mann und Frau, als Bild.
+
 ## Größen der Völker (Chef 01.11., 11:21: „einen riesen Ork … und einen kleinen Halbling … Das kriegen wir dann auch alles abgedeckt damit. Oder brauchen wir da wieder spezielle Modelle?“)
 
 - **Grundsätzlich ja, ohne eigene Modelle:** Alle Völker teilen ein Gerüst (65 Knochen); ihr Körper entsteht aus dem Grundkörper über Knochenlängen (`LISTE-UMZUG-348.md` Punkt 4). Die Ausrüstungsteile hängen an denselben Knochen und wachsen und schrumpfen mit. Ein Kettenhemd für alle Völker, nicht eines je Volk.
