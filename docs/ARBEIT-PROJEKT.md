@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 01.11., 11:4x
+**Gelesen bis:** `origin/main` 01.11., 13:4x (`0cb1606af`)
 
-**Übergabe (01.11., 11:4x):** 449, 450, 448.1 (erster Tagesbericht) und 448.2 erledigt: `tools/tagesbericht.py` zählt die zehn Zeilen in `ARBEIT-TAGESBERICHT.md`, `lauf.py` startet „Perikles – 448: Tagesbericht“ und meldet ab 10 Uhr (Sa, So 12 Uhr), wenn er fehlt; Rolle, `LISTE-BETRIEB.md` 11, `regelcheck` Z1 nachgezogen; Dashboard ruht; Doppelpack an Diogenes (456). Nachfolger: Perikles – 338.1: Wochenziel 02.11. nach der Wochenzählung (darin Vorgang „Bau Regeln 2.0, Block G“ für Tom und Jerry anlegen, D49)
+**Übergabe (01.11., 13:4x):** 458.1 (Gegenstandskatalog: `tools/gegenstaende/gegenstaende.json` mit 88 Einträgen, `tools/gegenstaende.py`, `LISTE-GEGENSTAENDE.md`), 451.1 (BRS), 447.1 (Abnahmeliste Stufen 1–6, 36 Punkte „N.M“, Tagesbericht je Stufe) erledigt, 457 gebaut; verteilt 458.2–4, 447.2–5, 457.1–2; Doppelpack 459 an Diogenes. Nachfolger: Perikles – 338.1: Wochenziel 02.11. nach der Wochenzählung (mit Schätzungen 447.2, 447.3; Vorgang „Bau BRS“ je Stufe für Tom und Jerry, D49); davor 456.1 (M?)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
@@ -37,7 +37,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 - **Zu 445, von Sokrates (Chef 01.11., 09:24–09:32):** Vorschlag für `CLAUDE.md` „Wie wir zusammenarbeiten“ 4 und `docs/chefsache/README.md`: „Auswertung mit stärkstem Gegenargument“ ersetzen durch „… und dem Weg, es zu entkräften (ins Votum)“; ersetzt, fügt keine Regel hinzu. Perikles entscheidet.
 - **Zu 433, von Diogenes (Lauf 51, 435, 31.10., 22:2x):** D51.1 Tom ohne Nummer im Titel (z. B. „Tom – Tragart …“ auf 417) → Spike startet auf dieselbe Zeile (Bedingung `not besetzt and not team_s`, nachgestellt); D51.2 Spike endet ohne Stand, Tom sonst nichts startbar → Zeile hängt; D51.3 Chef „notfalls“ gegen Start in jedem Lauf (fast immer vier Entwicklersitzungen). Einzelheiten `PRUEFBERICHT.md` Lauf 51. **Chef 31.10., 22:53 zu D51.3: „So lassen“** (Start in jedem Lauf bleibt; ins Vorgangsarchiv 433). D51.1 und D51.2 bleiben offen.
 
-- **Zu 424, gebaut (31.10., 21:4x):** `LISTE-UMZUG-348.md` „Funktionen“: Satz „ruht für alte Regeln“, Zeilen Charaktererstellung, klassischer Kampf (Regeln), Regeln Würfel bis Ausdauer, Preise nach Charisma, Balance-Abgleich mit Kotlin, Werte der Monster und Ausrüstung auf ruht. Wächter `startbar.py` `altes_system()` (gilt in `lauf.py` mit): eine sonst startbare Zeile mit SRD, W20, Rettungswurf, Trefferwürfel, Zauberplätze, Charisma, vier Klassen, `talente.gd`, `klassisch.gd`, `core/Rules.kt`, `Monsters.kt` ruht, außer sie nennt 2.0, Ersatz, Ablösung, Glossar, Lizenz oder „Chef erlaubt alt“. Heute trifft er keine Zeile (Sokrates hatte 17 schon auf ruht). Gegenargument: Wortliste kann Neues am alten Wort sperren; dann „Chef erlaubt alt“ oder 2.0 in die Zeile.
+- **Zu 424, gebaut (31.10., 21:4x):** Wächter `startbar.py` `altes_system()`: Zeile mit SRD-Wörtern ruht, außer sie nennt BRS, 2.0, Ersatz, Ablösung, Glossar, Lizenz oder „Chef erlaubt alt“; Einzelheiten Git, Stand vor „Perikles: Übergabe 458.1“.
 - **Zu 407, von Diogenes (429, 31.10., 21:5x):** `urteil()` (Lauf 50, D50.5): Urteile in eingerückten Unterpunkten einer Chefrunde geben nichts frei (zu eng); jeder Vorentscheid mit der Nummer gibt frei (zu weit); „HH:Mx“ zählt als HH:M0.
 - Zu 424, 412, 408 (Diogenes 429, Wächter 424 behoben 31.10., 22:2x; offen: 424 ohne Archiv-Eintrag): Git, Stand vor „Perikles: Übergabe 448.1“.
 - **Zu 418 (31.10., 21:3x):** Abnahmeliste neu (Blöcke T, A, K, M, G, W, S); Tagesziele, Termine je Block und alte Pflichtliste (a) in Git, Stand vor „Perikles: 418“. `tools/regeltreue/stufe2/CLAUDE.md` trägt noch die alte Direktive (bei Stufe 2 nachziehen). `CLAUDE.md` 15,3 KB, an Sokrates (A1).
