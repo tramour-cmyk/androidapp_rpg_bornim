@@ -2325,7 +2325,7 @@ func _detour(a: Vector3, b: Vector3, skip = null) -> Vector3:
 			for at in [0.5, 0.35, 0.65]:
 				for sg in [1.0, -1.0]:
 					var via: Vector3 = a + d * (n * at) + side * (off * sg)
-					if im_bild and (not _im_bild(via, via - a) or not _im_bild(via, b - via)):
+					if im_bild and not _im_bild_dreh(via, via - a, b - via):
 						continue
 					var g := minf(_seg_gap(a, via, skip), _seg_gap(via, b, skip))
 					if g >= AIR:
@@ -2338,10 +2338,26 @@ func _detour(a: Vector3, b: Vector3, skip = null) -> Vector3:
 	return best
 
 
+## 438 (wolf_mess_438: Wolf 1 drehte am Umweg um 120° auf der Stelle und schwang mit dem Kopf 45 px aus dem Bild): an der Ecke
+## [p] eines Umwegs dreht die Figur von [von] nach [nach]; im Bild nur, wenn jede Lage dazwischen im Bild bleibt
+func _im_bild_dreh(p: Vector3, von: Vector3, nach: Vector3) -> bool:
+	var w0 := atan2(von.x, von.z)
+	var dw := wrapf(atan2(nach.x, nach.z) - w0, -PI, PI)
+	var n := maxi(1, int(ceilf(absf(dw) / deg_to_rad(30.0))))
+	for i in n + 1:
+		var w := w0 + dw * i / n
+		if not _im_bild(p, Vector3(sin(w), 0.0, cos(w))):
+			return false
+	return true
+
+
 ## 438: steht die Figur an [p] mit Blick [blick] (waagerecht) ganz in der Szene, über dem Bedienfeld, 8 dp Rand?
+## 438 (wolf_mess_438: Wolf 1 am Umweg 32 px draußen, obwohl sein Kasten in Ruhe mit 8 dp Rand im Bild war): im Lauf streckt er
+## Läufe und Kopf über den Kasten der Ruhe hinaus; darum mehr Rand
+const IM_BILD_DP := 20.0
 func _im_bild(p: Vector3, blick: Vector3) -> bool:
 	var sr: Rect2 = kampfort.scene_rect()
-	var rand: float = 8.0 * sr.size.x / 412.0
+	var rand: float = IM_BILD_DP * sr.size.x / 412.0
 	var box := footprint()
 	var b := Basis(Vector3.UP, atan2(blick.x, blick.z)) if Vector2(blick.x, blick.z).length() > 0.01 else basis
 	var hoch: float = kampfort.screen_of(position).y - kampfort.screen_of(head()).y

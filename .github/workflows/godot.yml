@@ -349,6 +349,8 @@ jobs:
           cd godot
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
           sudo apt-get install -y -qq libgl1-mesa-dri xvfb fonts-dejavu-core ffmpeg > /dev/null || true     # ffprobe für die Längen
+          # Lauf 154: das ffmpeg im PATH kannte drawtext nicht, die Montagen fehlten; Titel mit dem ffmpeg aus apt
+          FT=ffmpeg; /usr/bin/ffmpeg -hide_banner -filters 2>/dev/null | grep -q drawtext && FT=/usr/bin/ffmpeg
           film() { n=$1; sk=$2; shift 2
             env SEED=7 "$@" timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
               --write-movie $RUNNER_TEMP/$n.avi --fixed-fps 30 -s res://tests/$sk.gd > $B/$n.log 2>&1 || true
@@ -361,7 +363,7 @@ jobs:
           film wolf453-r3 film_453
           film wolf453-ohne film_453 ATEM_ALT=1
           L=$(for v in wolf453-r3 wolf453-ohne; do dauer $B/$v.mp4; done | sort -n | tail -1)
-          ffmpeg -loglevel error -y -i $B/wolf453-r3.mp4 -i $B/wolf453-ohne.mp4 -filter_complex \
+          $FT -loglevel error -y -i $B/wolf453-r3.mp4 -i $B/wolf453-ohne.mp4 -filter_complex \
             "[0]$(titel 'r3 Atemschicht' 540 30),tpad=stop_mode=clone:stop_duration=60[a];[1]$(titel 'ohne Atemschicht' 540 30),tpad=stop_mode=clone:stop_duration=60[b];[a][b]hstack=inputs=2,trim=duration=$L" \
             -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $B/453-r3-film.mp4 || true
           # 453.1: Helden wie Film 403 gegen heute, je ein Kandidat einzeln
@@ -376,7 +378,7 @@ jobs:
           for v in $V; do
             case $v in held-wie403) t="1 wie Film 403";; held-heute) t="2 heute";; held-atem) t="3 nur Atem neu";; held-ss) t="4 nur SS neu";; *) t="5 nur Signatur neu";; esac
             IN="$IN -i $B/$v.mp4"; FC="$FC[$i]$(titel "$t" 360 22),tpad=stop_mode=clone:stop_duration=90,trim=duration=$L,setpts=PTS-STARTPTS[v$i];"; i=$((i+1)); done
-          ffmpeg -loglevel error -y $IN -f lavfi -i color=c=black:s=360x780:d=$L -filter_complex \
+          $FT -loglevel error -y $IN -f lavfi -i color=c=black:s=360x780:d=$L -filter_complex \
             "${FC}[v0][v1][v2][v3][v4][5]xstack=inputs=6:layout=0_0|w0_0|w0+w1_0|0_h0|w0_h0|w0+w1_h0" -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $B/4531-helden-vergleich.mp4 || true
           ls -l $B
       - uses: actions/upload-artifact@v4

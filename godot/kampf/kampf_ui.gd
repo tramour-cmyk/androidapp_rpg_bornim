@@ -53,6 +53,7 @@ var sign_wahl := {}       # 438: Platz der Ansage im letzten Bild je Gegner [Pla
 var glatt := {}           # 438: gezeigter Ort je Ansage und Balken [Ort, Zeit]
 var bar_unten := {}       # 438: Balken unter den Pfoten [ja, seit wann der andere Platz besser wäre]
 const GLATT_MS := 120.0
+const GLATT_DP_MS := 1.0      # 438: höchstens 33 dp je Bild bei 30 Bildern/s (Messung: Sprung ab 40 dp)
 var dp := 2.6
 var font: Font
 var font_px := 38
@@ -1582,6 +1583,11 @@ func _gleiten(key: String, ziel: Vector2) -> Vector2:
 		glatt[key] = [ziel, now]
 		return ziel
 	var p: Vector2 = (g[0] as Vector2).lerp(ziel, 1.0 - exp(-(now - g[1]) / GLATT_MS))
+	# 438 (wolf_mess_438, Lauf 153: Ansage von Wolf 3 wechselte von oben links nach unten rechts, gut 200 dp; ein Viertel davon
+	# im ersten Bild sind 47 dp): ein weiter Weg wird mit höchstens GLATT_DP_MS je ms gefahren, nie gesprungen
+	var cap: float = GLATT_DP_MS * dp * maxf(now - g[1], 0.0)
+	if p.distance_to(g[0]) > cap:
+		p = (g[0] as Vector2) + ((p - g[0]) as Vector2).normalized() * cap
 	glatt[key] = [p, now]
 	return p
 

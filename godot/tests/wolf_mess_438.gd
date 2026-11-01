@@ -423,7 +423,7 @@ func _r2(kf, n: int, k: String, figs: Array) -> void:
 					hi = hi.max(kf.screen_of(q))
 			print("Rand %s: %s bis %s, Szene %s, Fenster %s" % [f.fighter.id, lo, hi, sr, kf.get_viewport().get_visible_rect()])
 		if raus > 6.0 and OS.get_environment("SCHAU_RAND") != "":
-			print("Rand Bild %d %s %.0f px: %s bei %s, Zoom %.2f, Treffer %s, Zeile %s" % [n, f.fighter.id, raus, f.anim.current_animation if f.anim else "", f.global_position, kf.cam_z, kf.hit.get("on", "-"), str(kf.shown.get("text", ""))])
+			print("Rand Bild %d %s %.0f px: %s bei %s, Zoom %.2f rand_z %.3f gang %s rot %.0f heim %s platz %s, Zeile %s" % [n, f.fighter.id, raus, f.anim.current_animation if f.anim else "", f.global_position, kf.cam_z, kf.rand_z, f.gang, rad_to_deg(f.rotation.y), f.home, str(kf.shown.places), str(kf.shown.get("text", ""))])
 		if raus > 6.0:
 			var id := "%s/%s" % [k, f.fighter.id]
 			var e: Array = rand.get(id, [0, n, 0.0])
