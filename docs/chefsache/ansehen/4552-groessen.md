@@ -1,5 +1,7 @@
 # 455.2 · Größen: Hügelvolk und Orkblütiger in Kette, Platte, Robe · Spike · 01.11., 17:25
 
+[Film von 01.11., 17:24](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-1724-455.2-Spike.mp4) (eingetragen von meldung.sh, Spike)
+
 Film per Telegram (10 s, Hochformat), wie im Spiel gezeichnet (Toon-Licht, Tusche, Wiese), drehend in der Ruhebewegung, Goldlinie = Zielgröße; ohne Haare und Waffen; noch kein Build. Ablauf `spike-probe-4552.yml`, Lauf 41324116889, Zweig `claude/spike-455-2-groesse`.
 
 - **Frage** (Chef 11:21: „einen riesen Ork … und einen kleinen Halbling … Oder brauchen wir da wieder spezielle Modelle?“): je Reihe Mensch, Hügelvolk, Orkblütiger, links Mann, rechts Frau; oben Kette (Wachsoldat), Mitte Platte (Ritter, gekauft), unten Robe (Zauberlehrling). Die Kleidung ist dieselbe wie beim Menschen und wächst über die Knochenlängen mit (wie die Völker in 431), kein eigenes Netz je Volk.
