@@ -10,7 +10,7 @@ Entwurf Sokrates aus dem Vorgangsarchiv (01.11.); Perikles prüft gegen das Arch
 | 2 | Held auf dem Kaufkörper wie Film 403; Tracht je Herkunft; Völkerkörper | 403, 376.1, 431 |
 | 3 | Jede lebende Figur atmet als eigene Schicht, eigener Takt, nach Anstrengung schneller und abklingend; kein Gleichtakt, kein Stillstand über 1 s | 453, 453.1, 453.2 |
 | 4 | Ruhebewegungen wechseln (Pakete); Wölfe mit Gesten; zwei Figuren nie im Gleichtakt | 453, 406 |
-| 5 | Übergänge Stehen, Gehen, Rennen weich; Rennen Fassung A; Gehen langsamer und aufrecht | 416.4, 417 |
+| 5 | Übergänge Stehen, Gehen, Rennen weich; Anlaufen zügig, Abbremsen in Stufen (Sprint, Rennen, langsamer, Gehen), Stehenbleiben aus dem Sprint geht; Rennen Fassung A; Gehen langsamer und aufrecht | 416.4, 417 |
 | 6 | Waffe in der Hand mit Bewegungen aus ihrem Waffenpaket, angesteckt nach Paketvorlage; Angriffe, Abwehr, Hinfallen und Aufstehen aus dem Waffenpaket; Injured nur ohne Waffe | 417, 438a, 406 |
 | 7 | Nichts durch Körper, Kleidung oder Boden (höchstens 2 cm, gemessen); Kleidung geschlossen, nichts scheint durch (Umhang, Robe) | 376.1, 406, 438a |
 | 8 | Schild oben, Abwehr vor dem Biss; Wolfsbiss aufs Ziel; Wölfe ohne Gleiten; Reihenfolge Angriff, Treffer, Tod, Neuformation | 454, 406, 438, 439, 440 |
