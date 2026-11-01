@@ -1,5 +1,7 @@
 # 431 · Völker: Bibliothek gesichtet, Grundkörper je Volk wählen · Tom · 01.11., 10:30
 
+[Film](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-1029-431-Tom.mp4) (Link nachgetragen von Sokrates, 01.11.)
+
 Film per Telegram (36 s, Hochformat), noch kein Build. Ablauf auf GitHub (`tom-probe.yml`, Lauf 41292516474); die gekauften Dateien bleiben dort.
 
 - **Teil 1 (12 s):** alle sechs Grundkörper der gekauften Universal Base Characters (Quaternius, Bestand 681384045), drehend in der Ruhebewegung der UAL; links Mann, rechts Frau, alle Felder im gleichen Maßstab. Goldene Linien: Größe je Volk nach `LISTE-FIGUREN.md` „Völker“ (430): Hügelvolk 105, Zwerg 135, Elf 172, Orkblütiger 185 cm; bei der Frau 7 % tiefer.

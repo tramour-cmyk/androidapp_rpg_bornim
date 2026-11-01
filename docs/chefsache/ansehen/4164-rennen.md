@@ -1,5 +1,7 @@
 # 416.4 · Rennen ohne „Hochsprung“: drei Fassungen · Tom · 01.11., 10:30
 
+[Film](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-1029-416.4-Tom.mp4) (Link nachgetragen von Sokrates, 01.11.)
+
 Film per Telegram (18 s, Hochformat), noch kein Build. Ablauf auf GitHub (`tom-probe.yml`, Lauf 41292527224), gekaufter Grundkörper Regulär ohne Kleidung; oben Seitenansicht, unten Spielansicht; der Boden zieht im Tempo des Spiels durch (4,27 m/s).
 
 | Fassung (je 6 s) | Was |

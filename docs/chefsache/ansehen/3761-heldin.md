@@ -1,5 +1,7 @@
 # 376.1 · Heldin: Frauentrachten der Bibliothek · Tom · 01.11., 10:50
 
+[Film](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-1049-376.1-Tom.mp4) (Link nachgetragen von Sokrates, 01.11.)
+
 Film per Telegram (14 s, Hochformat), noch kein Build. Ablauf auf GitHub (`tom-probe.yml`, Lauf 41294128158). Bisher ist der Held je Klasse nur ein Mann (`held_klassen.py`); die Heldin fehlt (Rest 376.1).
 
 - Alle sechs Frauentrachten der gekauften Modular Character Outfits (Quaternius, Bestand 681373666): Ritterin Platte (Knight, mit Helm), Ritterin Stoff (Knight_Cloth, mit Hörnern), Adlige (Noble, Krone), Bäuerin (Peasant), Waldläuferin (Ranger, Kapuze), Magierin (Wizard); jeweils mit dem Kaufkopf Regulär Frau und Zopf (Ponytail 2), drehend in der Ruhebewegung, gleicher Maßstab.
