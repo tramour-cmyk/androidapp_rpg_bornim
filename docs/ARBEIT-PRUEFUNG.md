@@ -12,6 +12,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
+| 465 | M | **von Perikles (Doppelpack 421, Commits `e19090336`, `34581a559`):** 465 Uhrzeit „Seit“ in der Chefsache-Übersicht (nach dem nächsten Lauf von `zug-index.yml`); 462.1 Nachprüfung D59.1–3 (Spalten `texte_im_zug`, `ohne_kopf`; Kopf nur mit Name) | startbar |
 | 464 | M | **von Perikles (Doppelpack 421, Commit `fcf9ab215` und folgender):** rote Läufe 464: Push-Haken in `probelauf.py` (Parsefehler hält an, kein Fehlalarm, kein Zählen eines angehaltenen Pushes, Arbeitsbaum unverändert); Ford-Schritt in `ROLLE-BETRIEB.md` tut es; ab 02.11. rote Läufe je Tag gegen 01.11. (14) | startbar |
 | 434 | M | **von Sokrates (Chef 31.10., 22:1x):** bei jeder Zählung 374 zusätzlich die Zeile „Bestand geprüft“ je Vorlage zu einem Eigenbau prüfen (Zu 434) | erst wieder ab 02.11., 08:00 mit 374 (01.11. für 31.10. gezählt: Zu 374) |
 | 398 | M | **von Sokrates:** vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (397), dazu 15 Lücken (398); in der Wochenzählung als Chef-Erstfund zählen | frühestens 02.11. (mit Zeile „Woche“; Start 28.10., 12:04 zu früh, Bedingung ohne Termin-Wort) |
