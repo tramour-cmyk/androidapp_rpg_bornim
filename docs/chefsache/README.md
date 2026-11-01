@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [444a](entscheiden/444a-simulator-main.md) | **Muss** | E Kampf | 01.11., 09:48 | Werkzeug der Simulation 2.0 ohne Gerätetest auf `main` | Tuffy (Team Jerry) |
 | [413b](entscheiden/413b-leitbild-kopf.md) | **Muss** | D Design | 01.11. | Leitbild und CLAUDE.md: zwei Reste der alten Grundlage | Sokrates |
 | [422](entscheiden/422-nachschlagewerk.md) | **Muss** | D Design | 01.11. | Spielsystem 2.0: Regeln im Nachschlagewerk abnehmen | Sokrates |
 | [442](entscheiden/442-modell-sitzungen.md) | **Muss** | B Abläufe | 31.10. | Welches Modell läuft in welcher Sitzung? | Sokrates |
