@@ -7,7 +7,7 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 - [Chefsache](chefsache/): was der Chef entscheiden oder ansehen soll
 - [Wochenplan](LISTE-WOCHENPLAN.md): Termine und Routinen, wer meldet wann wohin
 - [Besetzung](ARBEIT-BESETZUNG.md): wer gerade woran
-- [Tagesbericht](ARBEIT-TAGESBERICHT.md): eine Seite am Tag, was du tun musst, Wochenziel, was hakt
+- [Tagesbericht](ARBEIT-TAGESBERICHT.md): ein Bericht am Morgen: zehn Kennzahlen, Roadmap und Meilensteine, je Rolle offen und erledigt, wer hinkt (448.1)
 - [Betrieb](ARBEIT-BETRIEB.md): Guthaben, Protokoll der Läufe
 - [Vorgangsarchiv](VORGANGSARCHIV.md): was entschieden ist, neueste oben
 - [Prüfbericht](PRUEFBERICHT.md): offene Befunde von Diogenes und Kennzahlen der Woche; erledigte Läufe im [Archiv](PRUEFBERICHT-ARCHIV.md)

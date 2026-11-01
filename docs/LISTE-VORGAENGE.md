@@ -152,7 +152,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 444 | Rechensimulation Spielsystem 2.0 am Rechner (ohne Godot): Herkunft × Monsterart × Stufe 1–6, Zahlen aus einer Tabelle (Chef 01.11., 09:24) | E Kampf | M | – | Team Jerry | gebaut |
 | 447 | Meilensteine neu: Stufen K1–K4 bis marktreif, W1–W3 danach (Chef 01.11., 09:51, 10:46) | B Abläufe | M | – | Sokrates | Chef |
 | 448 | Tagesbericht mit Zahlen statt Ampeln (Chef 01.11., 10:46) | B Abläufe | M | – | Sokrates | Chef |
-| 448.1 | Erster Tagesbericht jetzt, mit Zahlen und den Meilensteinen (Chef 01.11., 10:59, „jetzt“) | B Abläufe | M | – | Perikles | startbar |
+| 448.1 | Erster Tagesbericht jetzt, mit Zahlen und den Meilensteinen (Chef 01.11., 10:59, „jetzt“) | B Abläufe | M | – | Perikles | erledigt |
 | 451 | Name für das Spielsystem statt „2.0“ (Chef 01.11., 10:59) | D Design | M | – | Sokrates | Chef |
 | 452 | Notizen-Übersicht `docs/README.md` aktualisieren, gebündeltes Dokument für den Chef (Chef 01.11., 10:59, 11:00) | B Abläufe | M | – | Sokrates | startbar |
 | 416.7 | Aktionsknopf am Tresen in Schenke und Laden (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | zu testen |
