@@ -500,7 +500,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 443.1 | Nachprüfung D52.1, D52.2 (Datum im Titel, Namen in Rollendateien) | B Abläufe | M | – | Diogenes | erledigt |
 | 348.7b | Rückfrage: Zauberbahn hoch über die Köpfe oder flach quer über Wolf 3 | E Kampf | M | 22,94 $ | Jerry | erledigt |
 | 428 | Bestiarium: kurze Hintergrundgeschichte je Monsterart (zu 427, Chef 31.10., 21:3x) | C Texte | M | – | Homer | erledigt |
-| 430 | Abnahmelisten für Elf, Zwerg, Hügelvolk, Orkblütiger (Größe, Umriss, Merkmal, Farbe, Haltung) in `LISTE-FIGUREN.md` (Chef 31.10., 22:0x) | D Design | M | – | Homer | erledigt |
+| 430 | Abnahmelisten für Elf, Zwerg, Hügelvolk, Orkblütiger (Größe, Umriss, Merkmal, Farbe, Haltung) in `LISTE-FIGUREN.md` (Chef 31.10., 22:0x) | D Design | M | 5,42 $ | Homer | erledigt |
 | 441 | Prüfung im Doppelpack: Nachschlagewerk Spielsystem 2.0 (Entscheidungen bis 75) quergelesen (Chef 31.10., 23:40) | D Design | M | – | Diogenes | erledigt |
 | 413 | Spielsystem 2.0: Entwurf `DESIGN-SPIELSYSTEM-2-0.md`, Auseinandersetzung, Meilensteine (Chef 31.10., 20:1x) | D Design | M | 1,17 $ | Sokrates | erledigt |
 | 418 | Oberste Direktive neu in `CLAUDE.md`, Abnahmeliste Kapitel 1 darauf und auf Spielsystem 2.0 umschreiben („jetzt“ 31.10., 21:21) | B Abläufe | M | 3,43 $ | Perikles | erledigt |
