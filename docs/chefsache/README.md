@@ -23,6 +23,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [406](ansehen/406-kaufschilde.md) | Gewählte Schilde am Helden: 2 beim Kleriker, 15 beim Kämpfer | Jerry | 01.11., 11:55 |
+| [453](ansehen/453-wolf-ruhe.md) | Ruhebewegungen der Wölfe im Kampf: atmen, umblicken, knurren, hecheln, scharren | Tuffy (Jerry) | 01.11., 12:06 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
