@@ -1,5 +1,7 @@
 # 417 · Kriegsaxt in der Hand: Kopf nach unten, weiter vorn gefasst · Tom · 01.11., 12:08 (Runde 3)
 
+[Bild von 01.11., 12:06](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/01-1206-417-Tom.png) (eingetragen von meldung.sh, Tom)
+
 [Film von 01.11., 12:06](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-1206-417-Tom.mp4) (eingetragen von meldung.sh, Tom)
 
 ![Kriegsaxt bisher, A, B: Seite Gehen, Seite Rennen, hinten, Spielansicht](../bilder/417-tragart.webp)
