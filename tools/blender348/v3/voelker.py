@@ -101,12 +101,16 @@ def knochen_formen(arm, netze, e):
     D = {n: M[n] @ R[n].inverted() for n in M}
     for o in netze:
         gname = {g.index: g.name for g in o.vertex_groups}
+        keys = list(o.data.shape_keys.key_blocks) if o.data.shape_keys else []   # Formschluessel mitziehen, sonst gilt die alte Basis
         for v in o.data.vertices:
-            acc = mathutils.Vector((0, 0, 0)); w = 0.0
+            acc = mathutils.Matrix(((0, 0, 0, 0), (0, 0, 0, 0), (0, 0, 0, 0), (0, 0, 0, 0))); w = 0.0
             for g in v.groups:
                 n = gname.get(g.group)
-                if n in D and g.weight > 0: acc += g.weight * (D[n] @ v.co); w += g.weight
-            if w > 0: v.co = acc / w
+                if n in D and g.weight > 0: acc += D[n] * g.weight; w += g.weight
+            if w <= 0: continue
+            Mv = acc * (1.0 / w)
+            v.co = Mv @ v.co
+            for kb in keys: kb.data[v.index].co = Mv @ kb.data[v.index].co
     bpy.context.view_layer.objects.active = arm
     bpy.ops.object.mode_set(mode='EDIT')
     laengen = {eb.name: eb.length for eb in ad.edit_bones}
@@ -196,6 +200,8 @@ def baue(volk, frau):
     m2 = messen(arm, netze)
     for o in alle:
         if o.type == 'MESH': o.data.name = o.name
+    for o in alle:   # zum Export wieder ans Geruest (Lage bleibt, das Geruest liegt im Ursprung ohne Drehung)
+        mw = o.matrix_world.copy(); o.parent = arm; o.matrix_world = mw
     name = 'volk_%s_%s' % (volk, 'frau' if frau else 'mann')
     bpy.ops.object.select_all(action='DESELECT')
     for o in [arm] + alle: o.select_set(True)

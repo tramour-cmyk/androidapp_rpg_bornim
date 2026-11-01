@@ -449,13 +449,13 @@ func _volk_figur(e: Dictionary, wo: Vector3) -> Node3D:
 
 func _ziel_text(e: Dictionary) -> String:
 	var z: Dictionary = e["ziel"]
-	var t := "%s %d cm" % [e["volk"], int(round(float(e["groesse_m"]) * 100))]
-	t += "\nKopf 1/%s" % _m1(float(e["kopf_1_durch"])) + (" (1/%s)" % _m1(1.0 / float(z["kopf"])) if z.has("kopf") else "")
+	var t := "%s\n%d cm" % [e["volk"], int(round(float(e["groesse_m"]) * 100))]
+	t += "\nKopf 1/%s" % _m1(float(e["kopf_1_durch"])) + (" (%s)" % _m1(1.0 / float(z["kopf"])) if z.has("kopf") else "")
 	t += "\nBeine %s" % _m(float(e["bein_anteil"])) + (" (%s)" % _m(float(z["bein"])) if z.has("bein") else "")
-	if z.has("schulter"):
-		var s: Array = z["schulter"]
-		t += "\nSchulter %s× (%s× %s)" % [_m(float(e["schulter_gegen_mensch"] if s[0] == "abs" else e["schulter_rel_gegen_mensch"])),
-			_m(float(s[1])), "Mensch" if s[0] == "abs" else "zur Größe"]
+	if z.has("schulter"):   # absolut gegen den Menschen („abs“) oder im Verhältnis zur Größe („rel“), wie Homers Satz es meint
+		var sz: Array = z["schulter"]
+		t += "\nSchulter %s (%s)%s" % [_m(float(e["schulter_gegen_mensch"] if sz[0] == "abs" else e["schulter_rel_gegen_mensch"])), _m(float(sz[1])),
+			"" if sz[0] == "abs" else "*"]
 	return t
 
 
@@ -465,13 +465,13 @@ func _m1(x: float) -> String:
 
 # eine Reihe Figuren in einem Feld (gleicher Maßstab), darunter die Zahlen, darüber je eine Goldlinie in Homers Größe
 func _reihe(r: Rect2, liste: Array, x0: float, dreh: float, zahlen := true, titel_feld := "") -> Array:
-	var abstand := 0.95
+	var abstand := 0.75
 	var breite := abstand * liste.size()
 	var hoch := maxf(breite * r.size.y / r.size.x, 2.6)
 	var feld := _feld(r, hoch)
 	var cam: Camera3D = feld[0]
 	var mitte := x0 + (liste.size() - 1) * abstand / 2.0
-	cam.position = Vector3(mitte, hoch / 2.0 - (0.75 if zahlen else 0.3), 8.0)
+	cam.position = Vector3(mitte, hoch / 2.0 - 0.15, 8.0)
 	_boden(Vector3(mitte, 0, 0), breite + 1.0, 1.6)
 	var figuren := []
 	for i in liste.size():
@@ -483,12 +483,14 @@ func _reihe(r: Rect2, liste: Array, x0: float, dreh: float, zahlen := true, tite
 		figuren.append(f)
 		var h := _hoehe(f)
 		var soll: float = float(e["ziel"]["h"]) * (0.93 if e["frau"] else 1.0)
-		_linie(Vector3(x - 0.3, soll, -0.5), Vector3(x + 0.3, soll, -0.5), GOLD.darkened(0.2))
-		if zahlen:
+		_linie(Vector3(x - 0.25, soll, -0.5), Vector3(x + 0.25, soll, -0.5), GOLD.darkened(0.2))
+		if zahlen:   # Zahlen über den Figuren (über 1,9 m frei)
 			var l := _text(feld[1], _ziel_text(e), Vector2.ZERO, 19)
 			l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-			l.size = Vector2(r.size.x / liste.size(), 120)
-			l.position = Vector2(cam.unproject_position(Vector3(x, 0, 0)).x - l.size.x / 2.0, cam.unproject_position(Vector3(x, -0.08, 0)).y)
+			l.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
+			l.size = Vector2(r.size.x / liste.size(), 150)
+			var unten := cam.unproject_position(Vector3(x, 1.97, 0))
+			l.position = Vector2(unten.x - l.size.x / 2.0, unten.y - l.size.y)
 		rahmen.append([cam, f, h, String(e["datei"])])
 	if titel_feld != "": _text(feld[1], titel_feld, Vector2(14, 8), 26, GOLD)
 	return figuren
@@ -499,7 +501,7 @@ func _liste(geschlecht: String) -> Array:
 
 
 func _reihe_431v() -> void:
-	_neuer_teil("431 · Völker Runde 3: Grundkörper je Volk (Ork auf Superheld, übrige Regulär), gemessen; in Klammern Homers Ziel · Goldstrich = Größe")
+	_neuer_teil("431 · Völker Runde 3: Grundkörper je Volk (Ork auf Superheld, übrige Regulär), gemessen; in Klammern Homers Ziel · Schulter gegen Mensch, * im Verhältnis zur Größe · Goldstrich = Größe")
 	var h := (HOEHE - OBEN) / 2.0
 	_reihe(Rect2(Vector2(0, OBEN), Vector2(BREITE, h)), _liste("mann"), 0.0, 1.0 / 14.0, true, "Männer")
 	_reihe(Rect2(Vector2(0, OBEN + h), Vector2(BREITE, h)), _liste("frau"), 20.0, 1.0 / 14.0, true, "Frauen (7 % kleiner)")
@@ -540,15 +542,10 @@ func _riss_431v() -> void:
 		for f in figs:
 			if z == 1: (f as Node3D).rotation_degrees.y = 90
 			for m in (f as Node3D).find_children("*", "MeshInstance3D", true, false): (m as MeshInstance3D).material_override = schwarz
-	for c in felder:   # heller Grund hinter den Rissen
-		if c is SubViewportContainer:
-			var v := (c as SubViewportContainer).get_child(0) as SubViewport
-			var we := WorldEnvironment.new()
-			var env := Environment.new()
-			env.background_mode = Environment.BG_COLOR
-			env.background_color = Color(0.78, 0.74, 0.66)
-			we.environment = env
-			v.add_child(we)
+	var env := Environment.new()   # heller Grund hinter den Rissen, nur in diesen Kameras
+	env.background_mode = Environment.BG_COLOR
+	env.background_color = Color(0.78, 0.74, 0.66)
+	for r in rahmen: (r[0] as Camera3D).environment = env
 
 
 # 416.4 ----------------------------------------------------------------------------------------------------------------------------
