@@ -571,6 +571,7 @@ func person_bei(sp: Vector2) -> Leute:
 
 func sprich(l: Leute) -> void:
 	held.rotation.y = atan2(l.position.x - held.position.x, l.position.z - held.position.z)
+	l.wende_zu()   # 416.8
 	ui.biete_an("")
 	zustand.setze("met_" + String(l.daten["id"]))   # 399.1 Karte: wen der Held kennt (MapMarks.met, Game.talk)
 	Ruf.gehoert(zustand, String(l.daten["id"]), false)   # 399.1 Hail.heard vor dem Gespraech
