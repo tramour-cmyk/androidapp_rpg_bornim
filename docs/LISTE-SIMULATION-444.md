@@ -295,8 +295,8 @@ Siegquote % · Züge bis Sieg, Heldenstufe = Gegnerstufe; Spalte „21“ = Mitt
 **Befund (Jerry, 01.11., 14:3x; nur Zahlen, Einstellen bei Sokrates; neu rechnen: `python3 tools/sim444/sim.py --nur-wirtschaft`):**
 
 1. **Einnahmen Kapitel 1: 155 bis 180 Gold** je Lauf bis Stufe 6 (ohne Quests; alte Aufträge brachten 40–60 Gold je Auftrag). Davon Beute-Gold rund 70 %, Zerlegen 25–27 %, Verkauf von Beute 4 %.
-2. **Gold am Ende: Median 74 (Herumtreiber) bis 163 (Wachsoldat)**, bei 10 % der Läufe unter 18 bis 119. Gegen die alten Preise: ein Kettenpanzer (75) oder Langbogen (50) ist drin, die Brustplatte (400, Stufe 4) nicht.
-3. **Reparatur kostet fast nichts:** 0 bis 13 Gold je Kapitel (höchstens 8 % der Einnahmen), kein Kampf mit Warnung oder Defekt, weil der Held alle 8 Kämpfe ins Dorf geht. Mit dreifacher Abnutzung (Probelauf) 0 bis 42 Gold, Wachsoldat 31 % seines Endgolds. Für „spürbare Wirkung“ (Stufe 3.5) sind die Abnutzungszahlen der Hebel.
+2. **Gold am Ende: Median 68 (Herumtreiber, beruhigt) bis 163 (Wachsoldat)**, bei 10 % der Läufe unter 11 bis 119. Gegen die alten Preise: ein Langbogen (50) ist für alle drin, ein Kettenpanzer (75) für alle außer dem Herumtreiber, die Brustplatte (400, Stufe 4) für keinen.
+3. **Reparatur kostet fast nichts:** 0 bis 14 Gold je Kapitel (höchstens 8 % der Einnahmen), kein Kampf mit Warnung oder Defekt, weil der Held alle 8 Kämpfe ins Dorf geht. Mit dreifacher Abnutzung (Probelauf) 0 bis 42 Gold, Wachsoldat 31 % seines Endgolds. Für „spürbare Wirkung“ (Stufe 3.5) sind die Abnutzungszahlen der Hebel.
 4. **Tränke sind der größte Posten:** 15 Gold (Wachsoldat, trinkt 0,4) bis 106 Gold (Herumtreiber, trinkt 5,8). Der Kräutersammler braut 6,4 Heiltränke (51 Gold), trinkt 8 und verliert trotzdem 10 % seiner Kämpfe.
 5. **Tiere beruhigen spielt in Kapitel 1 kaum mit:** rund 4 Versuche je Kapitel, 42 % gelingen, die Fertigkeit bleibt bei 1 (keine Herkunft beginnt damit); spart 1 bis 2 Kämpfe und kostet 5 bis 15 Gold Endgold (keine Beute, kein Zerlegen).
 6. **Jagd steigt nur auf 3 bis 4** (Start 0), Ausbeute damit 0,45 statt 0,4; die Fertigkeit merkt man in Kapitel 1 am Erlös kaum.
