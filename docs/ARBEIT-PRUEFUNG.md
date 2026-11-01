@@ -3,9 +3,9 @@
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
 
-**Geprüft bis:** `51707abf` (21.10., Lauf 41: 274 Schritt 1–3, nur Notizen und Werkzeug-Verweise) · vorher `98ba4b9b` (Lauf 40: 261.5; frühere Stände in Git); nächste Nummer D56 (Lauf 54: 456 zu 448.2/449/450, `d6274420c`; Lauf 53: 441, D54; Lauf 52: 443 zu 436, `88415f87b`, Nachprüfung 443.1 `13ad5b26b`; Lauf 51: 435 zu 433, `68de4970f`; Lauf 45: 149/156, Lauf 46: 275 Werkzeuge an Kopie, `4fec9890`; Lauf 47: Nachprüfung D46, `e5b790d3`; Lauf 48: 420 Spielsystem 2.0, `3d64e00`; Lauf 49: 419 Prüfung 418/421, `6185da179`; Lauf 50: 429 zu 424/412, `a005a27f3`).
+**Geprüft bis:** `51707abf` (21.10., Lauf 41: 274 Schritt 1–3, nur Notizen und Werkzeug-Verweise) · vorher `98ba4b9b` (Lauf 40: 261.5; frühere Stände in Git); nächste Nummer D57 (Lauf 55: 459 zu 458.1/451.1/447.1/457, Nachprüfung 456.1, `9d8e6fef5`; Lauf 54: 456 zu 448.2/449/450, `d6274420c`; Lauf 53: 441, D54; Lauf 52: 443 zu 436, `88415f87b`, Nachprüfung 443.1 `13ad5b26b`; Lauf 51: 435 zu 433, `68de4970f`; Lauf 45: 149/156, Lauf 46: 275 Werkzeuge an Kopie, `4fec9890`; Lauf 47: Nachprüfung D46, `e5b790d3`; Lauf 48: 420 Spielsystem 2.0, `3d64e00`; Lauf 49: 419 Prüfung 418/421, `6185da179`; Lauf 50: 429 zu 424/412, `a005a27f3`).
 
-**Übergabe (01.11., 11:4x, „Diogenes – 456: Doppelpack“):** 456 geprüft (Lauf 54), D55.1–5 an Perikles (456.1). Nachfolger: „Diogenes – 374: Stichprobe“ 02.11., 08:00, mit 434.
+**Übergabe (01.11., 13:4x, „Diogenes – 459: Doppelpack“):** 459 geprüft (Lauf 55) samt Nachprüfung 456.1, D56.1–4 an Perikles (459.1). Nachfolger: „Diogenes – 374: Stichprobe“ 02.11., 08:00, mit 434.
 
 
 ## Zeilen

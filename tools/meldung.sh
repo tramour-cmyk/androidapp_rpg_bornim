@@ -37,6 +37,10 @@ if [ "$art" = video ]; then  # 381: Telegram nimmt über die Bot-Schnittstelle h
   case "${bild,,}" in *.mp4) ;; *) echo "meldung: Film als MP4 (H.264), nichts gesendet (381)" >&2; exit 2 ;; esac
   [ "$(stat -c %s "$bild")" -le 52428800 ] || { echo "meldung: Film über 50 MB, nichts gesendet (kürzer oder kleiner rechnen; 381)" >&2; exit 2; }
 fi
+# 457 (Chef 01.11., 11:49: „unsere Signatur muss sich wiederfinden“): Bild oder Film einer Probe nie „ohne Toon/Tusche“
+if [ -n "$art" ] && ! printf '%s' "${rest[*]}" | grep -q 'Chef erlaubt ohne Signatur' && fehlt=$(python3 -c 'import sys; sys.path.insert(0, sys.argv[1]); import importlib; m = importlib.import_module("commit-pruefung"); r = m.ohne_signatur(sys.argv[2]); print(r or ""); sys.exit(0 if r else 1)' "$(dirname "$(realpath "$0")")" "${rest[*]}" 2>/dev/null); then
+  echo "meldung: Probe „$fehlt“, nichts gesendet; mit Toon-Licht und Tusche wie im Spiel neu zeichnen (457, D57.1; Ausnahme „Chef erlaubt ohne Signatur“)" >&2; exit 2
+fi
 [ -n "$art" ] && bild="$(realpath "$bild")"  # relativer Pfad: git -C "$repo" fand die Datei sonst nicht (Jerry 25.10.)
 if [ ${#rest[@]} -gt 2 ]; then echo "meldung: zu viele Angaben (Text in Anführungszeichen?), nichts gesendet" >&2; exit 2; fi
 name="${rest[0]}"; text="${rest[1]}"

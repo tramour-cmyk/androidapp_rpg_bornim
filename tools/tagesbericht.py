@@ -13,9 +13,9 @@ DOCS = os.path.join(ROOT, "docs")
 ZIEL = os.path.join(DOCS, "ARBEIT-TAGESBERICHT.md")
 JETZT = datetime.datetime.now(zoneinfo.ZoneInfo("Europe/Berlin"))
 GH = "https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/main/docs/"
-# Stufen nach Chefsache 447 (Vorschlag Sokrates); Kurzzeichen = Block und Reihenfolge in der Abnahmeliste
-STUFEN = [("K1 Kern spielbar", "G1 G2 G3 M3"), ("K2 Kapitel 1 durchspielbar", "T2 T3 W1 W3 G4 G5 G6 G7 G9 M1 M2 M4"),
-          ("K3 Kapitel 1 fertig", "T1 T4 A1 A2 A3 K1 K2 G8 W2 W4"), ("K4 marktreif", "S1")]
+# Stufen nach 447 (Chef 01.11., „447 ja, mit K2b … neu und vernünftig durch“): Punkt „N.M“ gehört zu Stufe N
+STUFEN = {1: "Stufe 1 Kern spielbar", 2: "Stufe 2 Kapitel 1 durchspielbar", 3: "Stufe 3 Alle Systeme angelegt",
+          4: "Stufe 4 Kapitel 1 fertig", 5: "Stufe 5 marktreif", 6: "Stufe 6 SRD im Code abgelöst"}
 SPIEL = "EGCD"  # Bereiche des Spiels (124: E Entwicklung, G Gestaltung; C Texte, D Design); Rest Betrieb, Prüfung, Markt
 
 def git(*a):
@@ -26,16 +26,14 @@ def lesen(p):
     except OSError: return ""
 
 def punkte(text):
-    """Kurzzeichen → Stand (offen, in Arbeit, gebaut, abgenommen) aus der Abnahmeliste."""
-    p, block, n = {}, None, 0
+    """Punkt „N.M“ → Stand (offen, in Arbeit, gebaut, abgenommen) aus der Abnahmeliste (447: Stufe.Punkt)."""
+    p = {}
     teil = re.split(r"(?m)^## ", text.split("## Abnahmeliste", 1)[-1])[0] if "## Abnahmeliste" in text else ""
     for z in teil.splitlines():
-        m = re.match(r"\*\*([A-Z]) ", z)
-        if m: block, n = m.group(1), 0; continue
-        m = re.match(r"- \[( |x)\] ", z)
-        if m and block:
-            n += 1; s = re.search(r"· Stand: (in Arbeit|gebaut)\s*$", z)
-            p["%s%d" % (block, n)] = "abgenommen" if m.group(1) == "x" else (s.group(1) if s else "offen")
+        m = re.match(r"- \[( |x)\] \*\*(\d+\.\d+)\*\*", z)
+        if m:
+            s = re.search(r"· Stand: (in Arbeit|gebaut)\s*$", z)
+            p[m.group(2)] = "abgenommen" if m.group(1) == "x" else (s.group(1) if s else "offen")
     return p
 
 def rev_vor(spec):
@@ -60,12 +58,12 @@ def chefsache():
         art = {"Zu entscheiden": "entscheiden", "Anzusehen": "ansehen", "Zu tun": "tun", "Zu billigen": "billigen"}.get(kopf)
         if not art: continue
         for z in tl.splitlines():
-            if not z.startswith("| [") : continue
+            if not re.match(r"\| (\d+ \| )?\[", z): continue  # D55.1: Build-Zeilen beginnen mit der Folge „| 1 | [0.348.146]“
             build = "/actions/" in z
             a = "Build" if build else art; n[a] = n.get(a, 0) + 1
             for d in re.findall(r"(\d\d)\.(\d\d)\.(?:, (\d\d:\d\d))?", z)[-1:]:
                 w = (d[1], d[0], d[2] or "00:00")
-                if a not in alt or w < alt[a][0]: alt[a] = (w, z.split("](")[0].lstrip("| ["))
+                if a not in alt or w < alt[a][0]: alt[a] = (w, re.sub(r"^\| (\d+ \| )?\[", "", z).split("](")[0])
     return n, alt
 
 def stand_rollen():
@@ -108,15 +106,13 @@ def rechnen():
     return dict(jetzt=jetzt, e1=e1, e7=e7, s1=spiel(e1), s7=spiel(e7), neu1=neu1, neu7=neu7, kost=kost, punkte=p_heute, seit=seit,
                 rollen=rollen, test=test, erl_rolle=erl_rolle, chef=chefsache(), ein=eingaben())
 
-def zahlen_md(d):
+def zeilen(d):
     p = d["punkte"]; z = collections.Counter(p.values())
-    vorschlag = any(f.startswith("447-") for f in os.listdir(os.path.join(DOCS, "chefsache", "entscheiden")))
     stufe = ""
-    for name, ks in STUFEN:
-        ks = ks.split(); c = collections.Counter(p.get(k, "offen") for k in ks)
-        if c["abgenommen"] < len(ks):
+    for nr, name in STUFEN.items():
+        ks = [k for k in p if k.split(".")[0] == str(nr)]; c = collections.Counter(p[k] for k in ks)
+        if ks and c["abgenommen"] < len(ks):
             stufe = "**%s**: %d von %d abgenommen, %d gebaut, %d in Arbeit" % (name, c["abgenommen"], len(ks), c["gebaut"], c["in Arbeit"]); break
-    stufe += " (Stufen nach Vorschlag 447, noch nicht gebilligt)" if vorschlag else ""
     n, alt = d["chef"]
     warte = ", ".join("**%d %s**" % (n[a], a) for a in ("entscheiden", "ansehen", "billigen", "Build", "tun") if n.get(a))
     aeltest = min(alt.values())[1] if alt else "–"
@@ -125,23 +121,27 @@ def zahlen_md(d):
     k = d["kost"]; ks = sum(k.values())
     t1, t2 = d["test"]
     ein = d["ein"]
-    zeilen = [
-        ("Stufe", stufe, "27 Punkte: %d abgenommen, %d gebaut, %d in Arbeit, %d offen" % (z["abgenommen"], z["gebaut"], z["in Arbeit"], z["offen"])),
+    return [
+        ("Stufe", stufe, "%d Punkte in 6 Stufen: %d abgenommen, %d gebaut, %d in Arbeit, %d offen" % (len(p), z["abgenommen"], z["gebaut"], z["in Arbeit"], z["offen"])),
         ("Seit gestern", "abgenommen **%d**, gebaut **%d**, von dir zurück **%d**" % (d["seit"]["abgenommen"], d["seit"]["gebaut"], d["seit"]["zurück"]),
          "Vorgänge erledigt 24 h / 7 Tage: %d / %d, davon Spiel (Entwicklung, Gestaltung, Texte, Design) %d / %d; neu %d / %d" % (len(d["e1"]), len(d["e7"]), d["s1"], d["s7"], d["neu1"], d["neu7"])),
         ("Rest geschätzt", ein.get("Rest geschätzt", "noch keine Schätzung"), "Sitzungen bis zur nächsten Stufe, Tom und Jerry, montags neu"),
         ("Wartet auf dich", warte or "nichts", "ältestes: %s; [Chefsache](chefsache/README.md)" % aeltest),
-        ("Builds", "Änderungen warten auf deinen Test: **%d** (Tom %d, Jerry %d)" % (t1 + t2, t1, t2), "höchstens 6 je Build (317)"),
-        ("Fehler", fehler(d["jetzt"]), "offene Vorgänge des Spiels mit Fehler, Befund oder Build im Titel"),
+        ("Builds", "Änderungen warten auf deinen Test: **%d** (Tom %d, Jerry %d)" % (t1 + t2, t1, t2),
+         "bei dir zum Testen: %s; höchstens 6 je Build (317)" % (", ".join(re.findall(r"\[(Build \d+)\]", lesen("chefsache/README.md"))) or "kein Build")),
+        ("Fehler", fehler(d["jetzt"]), "offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3)"),
         ("Geld", ("Woche **%s %%** (dein Bild %s, %s)" % (gut.group(3), gut.group(1), gut.group(2)) if gut else "Woche unbekannt") +
          "; gestern %d $ Rechenwert, Spiel %d %%" % (ks, 100 * k["Spiel"] / ks if ks else 0), "Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal)"),
         ("Von dir zuerst gefunden", ein.get("Von dir zuerst gefunden", "–"), "Woche, zählt Diogenes montags"),
         ("Größtes Risiko", ein.get("Größtes Risiko", "–"), ""),
         ("Ausführlich", "[Abnahmeliste und Stand](LISTE-ABNAHME-KAPITEL1.md)", ""),
     ]
+
+def zahlen_md(d):
+    zeilen_ = zeilen(d)
     md = ["**Stand %s, %s** (Werkzeug `tools/tagesbericht.py`)" % (JETZT.strftime("%d.%m."), JETZT.strftime("%H:%M")), "",
           "| # | Kennzahl | heute | Bemerkung |", "|---|---|---|---|"]
-    md += ["| %d | %s | %s | %s |" % (i + 1, a, b, c) for i, (a, b, c) in enumerate(zeilen)]
+    md += ["| %d | %s | %s | %s |" % (i + 1, a, b, c) for i, (a, b, c) in enumerate(zeilen_)]
     md += ["", "| Rolle | offen | davon Muss | startbar | erledigt 24 h | erledigt 7 Tage |", "|---|---|---|---|---|---|"]
     for r in ("Tom", "Jerry", "Homer", "Sokrates", "Perikles", "Diogenes"):
         o = d["rollen"].get(r, (0, 0, 0))
@@ -149,7 +149,7 @@ def zahlen_md(d):
     return "\n".join(md)
 
 def fehler(jetzt):
-    offen = [(n, v) for n, v in jetzt.items() if v["bereich"] in "E" and not fertig(v["stand"]) and v["stand"].split(" ")[0] not in ("ruht", "Idee")
+    offen = [(n, v) for n, v in jetzt.items() if (v["bereich"] in SPIEL or re.search(r"Build \d+", v["titel"])) and not fertig(v["stand"]) and v["stand"].split(" ")[0] not in ("ruht", "Idee")
              and re.search(r"Fehler|Befund|Build \d+", v["titel"])]
     alt = 0
     for n, v in offen:
@@ -161,12 +161,11 @@ def fehler(jetzt):
     return "**%d** offen, davon %d älter als drei Tage" % (len(offen), alt)
 
 def telegram(d):
-    n, _ = d["chef"]; p = collections.Counter(d["punkte"].values()); t1, t2 = d["test"]
-    return ("448: Tagesbericht %s: „Bericht“: %sARBEIT-TAGESBERICHT.md\nAbnahmeliste %d von 27 abgenommen, %d gebaut. Seit gestern abgenommen %d, gebaut %d.\n"
-            "Bei dir: %s; %d Änderungen warten auf deinen Test.\nRisiko: %s") % (
-        JETZT.strftime("%d.%m."), GH, p["abgenommen"], p["gebaut"], d["seit"]["abgenommen"], d["seit"]["gebaut"],
-        ", ".join("%d %s" % (n[a], a) for a in ("entscheiden", "ansehen", "billigen", "Build", "tun") if n.get(a)) or "nichts",
-        t1 + t2, d["ein"].get("Größtes Risiko", "–"))
+    """D55.2 (Chef 01.11., 11:09 zu 448: „zehn Zeilen per Telegram, jede mit einer Zahl“): dieselben zehn Zeilen wie der Bericht, ohne Bemerkung."""
+    zs = zeilen(d)
+    roh = lambda t: re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", t).replace("**", "")
+    return "448: Tagesbericht %s (%sARBEIT-TAGESBERICHT.md)\n" % (JETZT.strftime("%d.%m."), GH) + "\n".join(
+        "%d. %s: %s" % (i + 1, a, roh(b)) for i, (a, b, c) in enumerate(zs[:9])) + "\n10. Ausführlich: %sLISTE-ABNAHME-KAPITEL1.md" % GH
 
 def main():
     d = rechnen()
