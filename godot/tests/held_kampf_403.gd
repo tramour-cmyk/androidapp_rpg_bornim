@@ -49,7 +49,14 @@ func _run() -> void:
 		var hat_waffe: bool = fig.fighter.hero.has("main") and not fig.fighter.hero.main.ranged
 		if hat_waffe:
 			var fr := HeldFigur.faust(sk, "r")
-			var hand := sk.global_transform * sk.get_bone_global_pose(sk.find_bone("hand_r"))
+			# 453.1: die Hand so, wie man sie sieht (nach der Atemschicht), wie die Waffe am Knochen; sonst 2–3 cm daneben
+			var nach := {}
+			var merk := func(): nach["hand"] = sk.global_transform * sk.get_bone_global_pose(sk.find_bone("hand_r"))
+			sk.skeleton_updated.connect(merk)
+			await process_frame
+			await process_frame
+			sk.skeleton_updated.disconnect(merk)
+			var hand: Transform3D = nach.get("hand", sk.global_transform * sk.get_bone_global_pose(sk.find_bone("hand_r")))
 			var soll: Vector3 = hand * (fr["griff"] as Vector3)
 			var d := waffe.global_position.distance_to(soll) if waffe else 9.0
 			_check(d < 0.005, "%s: %s im Faustloch (%.3f m daneben)" % [k, fig.fighter.hero.main.id, d])
