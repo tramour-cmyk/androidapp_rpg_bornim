@@ -3,7 +3,7 @@ extends SceneTree
 # Stehen, Gehen, Anlaufen und Rennen wie held.gd (Tempo 2,13 und 4,27 m/s, 5 m/s², Überblendung 0,6 s im selben Schritt, speed_scale
 # aus held-info.json, damit die Füße nicht gleiten); erst Spielansicht (30° von oben, Nordwest), dann von der Seite, dann Zeitlupe.
 # Boden mit Kachellinien (1,16 m): daran sieht man Tempo und Gleiten. Am Rechner (Bildlauf, PROBE=416.4):
-#   HELDE="<Titel>|<Ordner mit held.glb, held-info.json>;…" xvfb-run -a godot --path godot --resolution 1200x900 \
+#   HELDE="<Titel>|<Ordner mit held.glb, held-info.json>;…" xvfb-run -a godot --path godot \
 #     --write-movie <x.avi> --fixed-fps 30 -s res://tests/rennen_film_4164.gd
 const GEHEN := 1.84 * Karte.TS
 const RENNEN := 3.68 * Karte.TS
@@ -22,25 +22,34 @@ func _initialize() -> void: _bau.call_deferred()
 
 func _bau() -> void:
 	var helde := OS.get_environment("HELDE").split(";", false)
-	var reihe := HBoxContainer.new()
-	reihe.set_anchors_preset(Control.PRESET_FULL_RECT)
-	reihe.add_theme_constant_override("separation", 4)
+	# Felder untereinander im Hochformat des Spiels (Fenster aus project.godot; Lauf 10:40: Breite aus get_visible_rect, die mit
+	# stretch „expand“ nicht das Bild ist: drei Felder zu 777 px in 1080, zu sehen war nur das erste)
+	var fenster := Vector2i(int(ProjectSettings.get_setting("display/window/size/viewport_width")),
+		int(ProjectSettings.get_setting("display/window/size/viewport_height")))
+	var reihe := VBoxContainer.new()
+	reihe.position = Vector2.ZERO
+	reihe.size = Vector2(fenster)
+	reihe.add_theme_constant_override("separation", 6)
 	root.add_child(reihe)
-	var breite := int(root.get_visible_rect().size.x - 4 * (helde.size() - 1)) / helde.size()
-	var hoehe := int(root.get_visible_rect().size.y)
+	var oben := 70
+	var breite := fenster.x
+	var hoehe := (fenster.y - oben - 6 * helde.size()) / helde.size()
+	var rand := Control.new()
+	rand.custom_minimum_size = Vector2(0, oben - 6)
+	reihe.add_child(rand)
 	for e in helde:
 		var teil := e.split("|")
 		felder.append(_feld(reihe, teil[0], teil[1], Vector2i(breite, hoehe)))
 	kopf = Label.new()
-	kopf.position = Vector2(0, 8)
-	kopf.size = Vector2(root.get_visible_rect().size.x, 40)
+	kopf.position = Vector2(0, 12)
+	kopf.size = Vector2(fenster.x, 50)
 	kopf.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	kopf.add_theme_font_size_override("font_size", 26)
+	kopf.add_theme_font_size_override("font_size", 38)
 	kopf.add_theme_color_override("font_color", Color(0.93, 0.8, 0.45))
 	root.add_child(kopf)
 	process_frame.connect(_schritt)
 
-func _feld(reihe: HBoxContainer, titel: String, ordner: String, px: Vector2i) -> Dictionary:
+func _feld(reihe: VBoxContainer, titel: String, ordner: String, px: Vector2i) -> Dictionary:
 	var box := SubViewportContainer.new()
 	box.stretch = true
 	box.custom_minimum_size = Vector2(px)
@@ -86,14 +95,14 @@ func _feld(reihe: HBoxContainer, titel: String, ordner: String, px: Vector2i) ->
 	vp.add_child(cam)
 	var schild := Label.new()
 	schild.text = titel
-	schild.position = Vector2(0, px.y - 92)
-	schild.size = Vector2(px.x, 80)
-	schild.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	schild.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	schild.add_theme_font_size_override("font_size", 22)
+	schild.position = Vector2(24, 14)
+	schild.size = Vector2(px.x - 48, 60)
+	schild.add_theme_font_size_override("font_size", 36)
+	schild.add_theme_color_override("font_outline_color", Color(0, 0, 0))
+	schild.add_theme_constant_override("outline_size", 8)
 	schild.add_theme_color_override("font_color", Color(0.95, 0.93, 0.88))
 	box.add_child(schild)
-	return {"held": held, "anim": anim, "cam": cam, "gang": float(info["gehen_m_je_s"]), "renn": float(info["rennen_m_je_s"]),
+	return {"box": box, "vp": vp, "held": held, "anim": anim, "cam": cam, "gang": float(info["gehen_m_je_s"]), "renn": float(info["rennen_m_je_s"]),
 		"tempo": 0.0}
 
 func _boden() -> MeshInstance3D:
@@ -107,8 +116,8 @@ func _boden() -> MeshInstance3D:
 	m.albedo_texture = tex
 	m.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC
 	var mesh := PlaneMesh.new()
-	mesh.size = Vector2(400, 40)
-	m.uv1_scale = Vector3(400 / Karte.TS, 40 / Karte.TS, 1)
+	mesh.size = Vector2(400, 200)
+	m.uv1_scale = Vector3(400 / Karte.TS, 200 / Karte.TS, 1)
 	mesh.material = m
 	var mi := MeshInstance3D.new()
 	mi.mesh = mesh
@@ -125,6 +134,11 @@ func _teil(t: float) -> Array:
 func _schritt() -> void:
 	var t := bild / FPS
 	bild += 1
+	if bild == 5 and OS.has_environment("LAGE"):   # Prüfung ohne Bild: Lage der Felder, Kamera je Feld
+		for f in felder:
+			var vp: SubViewport = f["vp"]
+			print("FELD ", (f["box"] as Control).get_global_rect(), " vp ", vp.size, " kamera ", vp.get_camera_3d() == f["cam"], " held ", (f["held"] as Node3D).global_position)
+		print("FENSTER ", root.get_visible_rect(), " ", root.size)
 	var tl := _teil(t)
 	if tl.is_empty(): quit(); return
 	var e: Array = tl[0]
@@ -158,6 +172,6 @@ func _held(f: Dictionary, dt: float, ansicht: String) -> void:
 		cam.rotation_degrees = Vector3(-30, Kamera.NORD, 0)
 		cam.size = Kamera.NAH
 	else:
-		cam.rotation_degrees = Vector3(-4, 0, 0)
-		cam.size = 2.6
+		cam.rotation_degrees = Vector3(-12, 0, 0)
+		cam.size = Kamera.NAH
 	cam.position = ziel + cam.global_transform.basis.z * 20.0
