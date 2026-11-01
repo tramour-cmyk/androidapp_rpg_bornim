@@ -75,6 +75,38 @@ def importiere(fbx):
     return [o for o in bpy.data.objects if o.name not in vorher]
 
 
+def umtragen(rig, quelle, name):
+    """438 (Chef 31.10., 23:31: Wölfe „wie als ob sie wieder gleiten würden“): jede Bewegungsdatei der Quelle hat ihre eigene Ruhelage
+    (gemessen: Läufe bis 32°, Wurzel bis 2,9 cm anders als in Wolf_Rig.fbx); die Aktion, so wie sie ist, auf das Modell gelegt, hob im
+    Gehen alle vier Pfoten zugleich (bis 0,33 m), die Quelle hat stets zwei am Boden. Darum je Bild die Lage jedes Knochens im Raum des
+    Gerüsts aus der Quelle übernehmen und als Schlüssel des Modells setzen (beide Gerüste haben dieselbe Lage in der Welt)."""
+    a = quelle.animation_data.action
+    a0, a1 = int(a.frame_range[0]), int(a.frame_range[1])
+    neu = bpy.data.actions.new(name); neu.use_fake_user = True
+    rig.animation_data_create(); rig.animation_data.action = neu
+    pb = rig.pose.bones
+    for b in pb:
+        b.rotation_mode = 'QUATERNION'
+    reihe = [b for b in rig.data.bones]     # Eltern vor Kindern
+    reihe.sort(key=lambda b: len(b.parent_recursive))
+    scn = bpy.context.scene
+    for f in range(a0, a1 + 1):
+        scn.frame_set(f)
+        M = {b.name: quelle.pose.bones[b.name].matrix.copy() for b in reihe if b.name in quelle.pose.bones}
+        for b in reihe:
+            if b.name not in M:
+                continue
+            if b.parent is not None and b.parent.name in M:
+                basis = b.matrix_local.inverted() @ b.parent.matrix_local @ M[b.parent.name].inverted() @ M[b.name]
+            else:
+                basis = b.matrix_local.inverted() @ M[b.name]
+            loc, rot, _ = basis.decompose()
+            pb[b.name].location = loc; pb[b.name].rotation_quaternion = rot
+            pb[b.name].keyframe_insert('location', frame=f); pb[b.name].keyframe_insert('rotation_quaternion', frame=f)
+    rig.animation_data.action = None
+    return neu
+
+
 def setze(rig, a):
     rig.animation_data.action = a
     if slot(a) is not None: rig.animation_data.action_slot = slot(a)
@@ -248,7 +280,8 @@ def baue(fell):
         n = importiere(f); a = aktion_von(n)
         if a is None:
             print('KEINE BEWEGUNG in', os.path.basename(f)); entferne(n); continue
-        a.use_fake_user = True; a.name = 'q_' + q; akt[q] = a
+        qr = next(o for o in n if o.type == 'ARMATURE')
+        a = umtragen(rig, qr, 'q_' + q); akt[q] = a     # 438: in Lage im Raum, nicht die Aktion der fremden Ruhelage
         entferne(n)
         print('BEWEGUNG', q, 'Bilder', tuple(round(x, 1) for x in a.frame_range))
     rig.animation_data_create()

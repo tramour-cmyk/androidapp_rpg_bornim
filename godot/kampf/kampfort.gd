@@ -30,6 +30,8 @@ const BACK_GAP_A := 2.4          # 0,8 wie alt; der Wolf hinten stand im Rumpf d
 const BACK_GAP_B := -1.0
 # einer vorn, zwei hinten (Grimmzahn Runde 7): vorn 0,3 m nach rechts, hinten 1 m zurück, 0,45 m weiter auseinander und 0,85 m
 # nach links (Grimmzahn hinten rechts lief sonst über den Bildrand); gemessen: Deckung der Wache 36 % → 1 %
+const SOLO_BACK_A := 0.6       # 438: einer vorn, einer hinten: hinten 0,6 m weiter zurück und 1,3 m zur Seite
+const SOLO_BACK_B := -1.3
 const PAIR_FRONT_B := 0.3
 const PAIR_BACK_A := 1.0
 const PAIR_BACK_B := 0.45
@@ -602,6 +604,11 @@ func _spot_pos(f, spot: Vector2i) -> Vector3:
 	# (SkirmishScreen.kt BACK_GAP_A, BACK_GAP_B, Build 89)
 	if f.side == "FOES" and spot.x == Mars.BACK and alone and not _alone(null, Mars.FRONT, "FOES"):
 		ab = Vector2(ab.x + BACK_GAP_A, BACK_GAP_B)
+	# 438 (Chef 31.10., 23:31, Film 403: Wölfe „wieder aneinander vorbeigehen“; tests/wolf_mess_438.gd): einer allein vorn, einer
+	# allein hinten standen genau hintereinander, 1,5 m Mitte zu Mitte, der Kaufwolf ist 2,3 m lang: 0,5 m ineinander. Hinten
+	# dann schräg versetzt wie das Paar hinten (PAIR_BACK_*), um eine Wolfslänge
+	elif f.side == "FOES" and spot.x == Mars.BACK and alone and _count(Mars.FRONT, "FOES") == 1:
+		ab = Vector2(ab.x + SOLO_BACK_A, SOLO_BACK_B)
 	# 348.7 Grimmzahn Runde 7 (Prüfer Runde 6: „Wolf auf Wolf“, „zweiköpfiger Wolf“): einer allein vorn vor zweien hinten stand
 	# im Bild genau vor dem linken hinteren (37 % verdeckt); vorn ein Stück nach rechts, hinten weiter auseinander und zurück
 	if f.side == "FOES" and _alone(null, Mars.FRONT, "FOES") and not _alone(null, Mars.BACK, "FOES") and _count(Mars.FRONT, "FOES") == 1:
@@ -791,8 +798,20 @@ func _play_say(e: Dictionary) -> void:
 	for id in figures:
 		if not e.intents.has(id):
 			figures[id].announce(null)
+	# 439 (Chef 31.10., 23:31: „beim Helden einmal die Treffer-Animation, bevor der Angriff richtig da war“; tests/wolf_mess_438.gd):
+	# „wirft sich auf …“ (POUNCED) kommt als eigene Meldung nach dem Sprungbiss, wenn der Wolf schon wieder daheim steht; der Held fiel
+	# dann ohne Wolf. Jetzt fällt er beim Aufprall des Sprungs (mars.gd: ein Sprung, der trifft und ihn stehen lässt, wirft ihn um),
+	# und die Meldung danach zeigt nur noch den Text.
+	if lunge_ms > 0 and actor != null and target != null and figures[actor].letzter_sprung and e.damage > 0 \
+			and e.hp.get(target, 1) > 0 and figures.has(target):
+		var opfer = figures[target]
+		opfer.sturz_vorweg = true
+		get_tree().create_timer(int(lunge_ms * 0.42) / 1000.0).timeout.connect(func(): if is_instance_valid(opfer): opfer.knocked_down())
 	if e.cue == "POUNCED" and target != null:
-		figures[target].knocked_down()
+		if figures[target].sturz_vorweg:
+			figures[target].sturz_vorweg = false
+		else:
+			figures[target].knocked_down()
 	elif e.cue == "RISES" and actor != null:
 		figures[actor].rise()
 	elif e.cue == "CIRCLE" and actor != null:
@@ -834,6 +853,18 @@ func _play_say(e: Dictionary) -> void:
 	# durch den vorderen“; umweg_399 Lauf 168): greift einer von hinten an, tauscht er mit dem vorderen den Platz (mars.gd
 	# _leap_forward); beide liefen zugleich auf derselben Linie gegeneinander. Wer Platz macht, geht erst, wenn der Angreifer vorbei ist
 	var warte_ms: int = figures[actor].anlauf_ms if lunge_ms > 0 and actor != null and figures.has(actor) else 0
+	# 439 (Chef 31.10., 23:31: „Neuformation der Wölfe beginnt, bevor der getroffene Wolf stirbt“): fällt in dieser Meldung ein
+	# Gegner, rücken die anderen erst auf, wenn er gestürzt ist und gelegen hat (Figur.sterbe_ms, LIEGT_MS); erst Angriff, Treffer,
+	# Tod, dann die Neuformation. Die nächste Meldung wartet so lange.
+	var tot_ms := -1
+	for id in e.hp:
+		if figures.has(id) and e.hp[id] <= 0 and before.get(id, 1) > 0 and figures[id].fighter.side == "FOES":
+			tot_ms = maxi(tot_ms, lands + figures[id].sterbe_ms() + Figur.LIEGT_MS)
+	if tot_ms > 0:
+		ui.refresh()
+		ui.show_roll(e)
+		await get_tree().create_timer(tot_ms / 1000.0).timeout
+		warte_ms = 0
 	for f in mars.fighters():
 		if figures.has(f.id) and e.places.has(f.id) and not f.fled:     # 399.2a: wer flieht, kommt nicht an seinen Platz zurück
 			var ziel := _spot_pos(f, e.places[f.id])
@@ -841,6 +872,9 @@ func _play_say(e: Dictionary) -> void:
 				get_tree().create_timer(warte_ms / 1000.0).timeout.connect(figures[f.id].glide_to.bind(ziel))
 			else:
 				figures[f.id].glide_to(ziel)
+	if tot_ms > 0:
+		await get_tree().create_timer(maxi(SAY_MS, maxi(lunge_ms, busy_ms) - tot_ms) / 1000.0).timeout
+		return
 	ui.refresh()
 	ui.show_roll(e)
 	await get_tree().create_timer(maxi(SAY_MS, maxi(lunge_ms, busy_ms)) / 1000.0).timeout

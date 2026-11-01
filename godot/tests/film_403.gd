@@ -5,7 +5,7 @@ extends SceneTree
 
 const Probe = preload("res://kampf/probe.gd")
 const KLASSEN := ["FIGHTER", "CLERIC"]
-const DAUER_MS := 22000
+const DAUER_MS := 22000     # 438: DAUER_MS=<ms> und SEED=<n> wählen Länge und Würfel (wie tests/wolf_mess_438.gd, SEED=7)
 
 
 func _initialize() -> void:
@@ -20,7 +20,7 @@ func _run() -> void:
 		p.foe = "WOLVES"
 		root.add_child(p)
 		await process_frame
-		p._start()
+		p._start(int(OS.get_environment("SEED")) if OS.get_environment("SEED") != "" else -1)
 		for i in 4:
 			await process_frame
 		var kf = p.fight
@@ -30,7 +30,8 @@ func _run() -> void:
 			kf.go_on()
 		var t0 := Time.get_ticks_msec()
 		var n := 0
-		while n < DAUER_MS * 30 / 1000:     # Bilder bei --fixed-fps 30
+		var dauer := int(OS.get_environment("DAUER_MS")) if OS.get_environment("DAUER_MS") != "" else DAUER_MS
+		while n < dauer * 30 / 1000:     # Bilder bei --fixed-fps 30
 			await process_frame
 			n += 1
 			if kf.mars.outcome != "ONGOING" and not kf.busy and not kf.playing and kf.beats.is_empty():

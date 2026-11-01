@@ -87,6 +87,10 @@ var tween: Tween
 var gang := ""        # 399.2 umweg_399: in welchem Teil des Schlags (hin, zurück, heim)
 var aim = null          # Figur, die das Tier laut Ansage angreift; Kopf und Rumpf zeigen dorthin
 var neck = null         # kopfdreh.gd am Skelett
+var letzter_sprung := false     # 439: war der letzte Angriff ein Sprung (kampfort.gd: der Getroffene fällt beim Aufprall)
+var sprung_bereit := false     # 439: angesagter Sprung, die Ansage ist mit „Anspringen!“ schon weg
+var sturz_vorweg := false       # 439: schon beim Sprung gefallen, die Meldung „wirft sich auf“ zeigt nur den Text
+var tritt = null        # 438: trittfest.gd am Skelett (Tiere mit Wurzelweg): Pfoten im Gehen und Rennen fest am Boden
 var halt = null         # pfotenhalt.gd am Skelett (Tiere mit Wurzelweg): Pfoten bleiben beim Drehen auf der Stelle am Boden
 var fidget_at := 0      # Chef 08:57 (8): in Ruhe ab und zu Lefzen zeigen oder scharren (ms)
 var paws: Array = []    # Runde 14: Kontaktschatten je Pfote [Knochen, Länge, Fleck]
@@ -151,6 +155,9 @@ func setup(f, k) -> void:
 		halt = preload("res://kampf/pfotenhalt.gd").new()
 		halt.figur = self
 		skw.add_child(halt)
+		tritt = preload("res://kampf/trittfest.gd").new()     # 438: im Gehen und Rennen bleiben aufgesetzte Pfoten fest
+		tritt.figur = self
+		skw.add_child(tritt)
 	_face()
 	_idle()
 	_ground_shadow()
@@ -804,6 +811,12 @@ func _play(name: String, blend := 0.15) -> void:
 		anim.play(name, blend, float(tempo.get(name, 1.0)))
 
 
+## 438: Ruhe nach Treffer oder Ausweichen nur, wenn es nicht unterwegs ist (sonst glitt es in Stehen weiter)
+func _idle_wenn_frei() -> void:
+	if weg.is_empty() or not lunging():
+		_idle()
+
+
 func _idle() -> void:
 	if down:
 		return
@@ -821,8 +834,12 @@ func _process(_dt: float) -> void:
 	_shake()
 	if not paws.is_empty():
 		_paw_shadow_update()
+	_schritt_sync(_dt)
 	if aim != null and neck and not down and not (tween and tween.is_running()):
-		_face()
+		if halt != null:
+			_face_sanft()
+		else:
+			_face()
 	# Drehung abgebrochen (Biss tötet den tween); 387 r4 (Hülle Keiler r4: nach einem abgebrochenen Umdrehen hielt der Pfotenhalt die
 	# Pfoten 1,1 s lang im Rennen fest, der Körper lief weiter): auch, sobald das Tier etwas anderes spielt als Stehen
 	if halt and halt.drehen and (not (tween and tween.is_running()) or anim and anim.current_animation != "Stehen"):
@@ -862,10 +879,95 @@ func flee_off(away: Vector3) -> void:
 	get_tree().create_timer(3.0).timeout.connect(func(): visible = false)
 
 
+## 438 (Chef 31.10., 23:31, Film 403: die Wölfe „wie als ob sie wieder gleiten würden“; Messung tests/wolf_mess_438.gd): der Rumpf
+## fuhr mit vollem Tempo los und hielt schlagartig, während die Bewegung erst einblendete; alle vier Pfoten rutschten dann 16 cm je
+## Bild. Jetzt fährt jeder Lauf an und bremst (RAMPE_S), und Gehen und Rennen spielen in dem Tempo, in dem sich der Rumpf gerade
+## bewegt (_schritt_sync): die Pfoten bleiben am Boden.
+const RAMPE_S := 0.35
+## 438: so nah und hinter ihm geht ein Tier rückwärts heim, das Gesicht zum Gegner, statt zweimal 180° auf der Stelle zu drehen (m),
+## im RUECK_TEMPO seines Gehens
+const RUECK_M := 4.0
+const RUECK_TEMPO := 0.8
+var _sync_vor := Vector3.INF
+
+
+## Hängt an [tw] einen Lauf von [von] nach [nach] im Tempo von [nm] (mal [k]) an: anfahren, gleichmäßig, bremsen; gibt die Dauer zurück
+func _lauf(tw: Tween, von: Vector3, nach: Vector3, nm: String, k := 1.0) -> float:
+	var s := Vector2(nach.x - von.x, nach.z - von.z).length()
+	var v := maxf(_mps(nm) * k, 0.05)
+	if s < 0.01:
+		tw.tween_callback(func(): position = nach)
+		return 0.0
+	var r := minf(RAMPE_S, s / v)
+	var t := s / v + r
+	tw.tween_method(func(x: float): position = von.lerp(nach, _rampe(x, t, r)), 0.0, t, t)
+	return t
+
+
+## Anteil des Wegs nach [x] s, wenn über [r] s gleichmäßig angefahren und am Ende ebenso gebremst wird (Gesamtzeit [t])
+static func _rampe(x: float, t: float, r: float) -> float:
+	var v := 1.0 / maxf(t - r, 1e-4)
+	if x <= r:
+		return 0.5 * v / r * x * x
+	if x >= t - r:
+		var y := t - x
+		return 1.0 - 0.5 * v / r * y * y
+	return 0.5 * v * r + v * (x - r)
+
+
+## 438: Gehen und Rennen im Tempo des Rumpfs (Tempo der Bewegung = Weg je Sekunde / Weg der Schleife), sonst Tempo 1
+func _schritt_sync(dt: float) -> void:
+	if anim == null or weg.is_empty() or down or dt <= 0.0:
+		return
+	var cur := String(anim.current_animation)
+	if cur in ["Gehen", "Rennen"] and weg.has(cur) and _sync_vor != Vector3.INF:
+		var v := Vector2(position.x - _sync_vor.x, position.z - _sync_vor.z).length() / dt
+		var base := _mps(cur) / float(tempo.get(cur, 1.0))
+		var custom := absf(anim.get_playing_speed() / anim.speed_scale) if anim.speed_scale != 0.0 else 1.0
+		anim.speed_scale = clampf(v / maxf(base, 0.05) / maxf(custom, 0.05), 0.15, 1.6)
+	elif anim.speed_scale != 1.0:
+		anim.speed_scale = 1.0
+	_sync_vor = position
+
+
+## 438 (Messung: der Rumpf sprang in Ruhe bis 20° in einem Bild, wenn das Ziel wechselte): in Ruhe dreht ein Tier mit Pfotenhalt
+## mit Tritten zur Blickrichtung von _face(), kleine Winkel nach und nach
+const DREH_RUHE := 8.0
+func _face_sanft() -> void:
+	var r0 := rotation.y
+	_face()
+	var dw := wrapf(rotation.y - r0, -PI, PI)
+	rotation.y = r0
+	if absf(rad_to_deg(dw)) < 0.5:
+		rotation.y = r0 + dw
+	elif absf(rad_to_deg(dw)) >= DREH_RUHE:
+		gang = "dreh"
+		tween = create_tween()
+		tween.tween_callback(func(): halt.an())
+		tween.tween_property(self, "rotation:y", r0 + dw, absf(rad_to_deg(dw)) / TURN_DPS_TRITT)
+		tween.tween_callback(func(): halt.los(true); gang = "")
+	else:
+		rotation.y = r0 + clampf(dw, -deg_to_rad(40.0) * get_process_delta_time(), deg_to_rad(40.0) * get_process_delta_time())
+
+
+## Läuft gerade nur das Ausrichten in Ruhe? Dann darf jeder andere Auftrag es abbrechen
+func _nur_dreh() -> bool:
+	return gang == "dreh" and tween != null and tween.is_running()
+
+
+func _dreh_ab() -> void:
+	if _nur_dreh():
+		tween.kill()
+		if halt:
+			halt.los(false)
+		gang = ""
+
+
 func glide_to(p: Vector3) -> void:
 	if p.is_equal_approx(home):
 		return
 	home = p
+	_dreh_ab()
 	if tween and tween.is_running():
 		return     # a lunge brings it back to its new home
 	if weg.has("Gehen") and not down:
@@ -934,26 +1036,59 @@ func _walk_home(skip = null) -> float:
 		# 399.2 (Chef 28.10., 16:10: „dann läuft der hintere Wolf durch den vorderen“): um die anderen herum wie die Heldin
 		var via := _detour(position, home, skip)
 		var way := d.length() if via == position else position.distance_to(via) + via.distance_to(home)
-		var nm := "Rennen" if way > RUN_FROM and weg.has("Rennen") else "Gehen"
-		var tg := way / _mps(nm)
+		_dreh_ab()
 		tween = create_tween()
+		if _rueckwaerts(position, home, way):
+			# 438: rückwärts heim, das Gesicht zum Gegner; statt Kehrtwende, Lauf und zweiter Kehrtwende
+			gang = "heim"
+			tween.tween_callback(func(): anim.play("Gehen", 0.15, -float(tempo.get("Gehen", 1.0))))
+			var tr := _lauf(tween, position, via if via != position else home, "Gehen", RUECK_TEMPO)
+			if via != position:
+				tr += _lauf(tween, via, home, "Gehen", RUECK_TEMPO)
+			tween.tween_callback(_turn_home)
+			return tr
+		var nm := "Rennen" if way > RUN_FROM and weg.has("Rennen") else "Gehen"
 		var first := via - position if via != position else d
 		var tt := _turn(tween, atan2(first.x, first.z), false)
 		tween.tween_callback(func(): _play(nm, 0.15))
+		var tg := 0.0
 		if via != position:
-			var t1 := position.distance_to(via) / _mps(nm)
 			var rest := home - via
-			tween.tween_property(self, "position", via, t1)
-			tween.tween_callback(func(): rotation.y = atan2(rest.x, rest.z))
-			tween.tween_property(self, "position", home, tg - t1)
+			tg = _lauf(tween, position, via, nm)
+			# 438: am Umweg mit Tritten weiterdrehen, nicht in einem Bild (vorher sprang die Richtung hier)
+			var r1 := atan2(first.x, first.z)
+			var r2 := atan2(rest.x, rest.z)
+			var dw := wrapf(r2 - r1, -PI, PI)
+			var td := absf(rad_to_deg(dw)) / _turn_dps()
+			tween.tween_property(self, "rotation:y", r1 + dw, td)
+			tween.tween_callback(func(): _play(nm, 0.1))
+			tg += td + _lauf(tween, via, home, nm)
 		else:
-			tween.tween_property(self, "position", home, tg)
+			tg = _lauf(tween, position, home, nm)
 		tween.tween_callback(_turn_home)
 		return tt + tg
 	var pfad := _heimweg()
 	var t := _pfad_fahren(pfad, false)
 	tween.tween_callback(_turn_home)
 	return t
+
+
+## 438: geht es nach dem Biss (am Ort [von], Blick [dir] zum Ziel) rückwärts heim? Wie _rueckwaerts mit dem Umweg um die anderen
+func _rueckwaerts_von(von: Vector3, dir: Vector3, skip) -> bool:
+	if fighter.monster == null or _zweibeiner() or not weg.has("Gehen"):
+		return false
+	var vh := _detour(von, home, skip)
+	var way := Vector2(home.x - von.x, home.z - von.z).length() if vh == von else von.distance_to(vh) + vh.distance_to(home)
+	var d := Vector3(home.x - von.x, 0.0, home.z - von.z)
+	return way <= RUECK_M and d.length() > 0.12 and rad_to_deg(dir.angle_to(d)) > 110.0
+
+
+## 438: geht es rückwärts heim? Nur Tiere, nah genug (RUECK_M) und hinter ihm (mehr als 110° von der Blickrichtung)
+func _rueckwaerts(von: Vector3, nach: Vector3, way: float) -> bool:
+	if fighter.monster == null or _zweibeiner() or not weg.has("Gehen") or way > RUECK_M:
+		return false
+	var d := Vector3(nach.x - von.x, 0.0, nach.z - von.z)
+	return d.length() > 0.12 and rad_to_deg(Vector3(basis.z.x, 0.0, basis.z.z).angle_to(d)) > 110.0
 
 
 ## 348.12f r3 (Chef 27.10., 21:26, Archiv: offene Befunde der Ratte beheben; Prüfer Ratte r2 und Kaufwolf r1: beim Umdrehen auf
@@ -1104,6 +1239,7 @@ const TURN_DPS := 450.0
 const TURN_DPS_TRITT := 240.0
 ## unter diesem Winkel dreht es ohne Schritte
 const TURN_STILL := 15.0
+const TURN_KLEIN := 3.0
 
 
 func _turn_dps() -> float:
@@ -1114,7 +1250,7 @@ func _turn_dps() -> float:
 ## steht das Tier (Stehen) und die Pfoten treten nach; [stehen]: danach bleibt es stehen (die Pfoten treten nach), sonst läuft es los
 func _turn(tw: Tween, yaw: float, stehen: bool) -> float:
 	var dw := wrapf(yaw - rotation.y, -PI, PI)
-	if absf(rad_to_deg(dw)) < TURN_STILL:
+	if absf(rad_to_deg(dw)) < TURN_KLEIN:     # 438: vorher bis TURN_STILL (15°) in einem Bild, gemessen 13° daheim
 		tw.tween_callback(func(): rotation.y = yaw)
 		return 0.0
 	var t := absf(rad_to_deg(dw)) / _turn_dps()
@@ -1158,8 +1294,11 @@ func _bite(other, leap: bool) -> int:
 		k = maxf(gap, 0.2 * jump) / jump
 		jump *= k
 	var start := position + dir * maxf(0.0, gap - jump)
+	var r_alt := rotation.y
 	_face(flat)
 	rotation.y += deg_to_rad(bite[nm][2])     # die Schnauze, nicht die Körperachse zum Ziel
+	var schnauze := rotation.y
+	rotation.y = r_alt     # 438: erst mit Tritten zum Ziel drehen (vorher in einem Bild, gemessen bis 81°)
 	if tween and tween.is_running():
 		tween.kill()
 	tween = create_tween()
@@ -1172,20 +1311,25 @@ func _bite(other, leap: bool) -> int:
 		var via := _detour(position, start, other)
 		var way := run if via == position else position.distance_to(via) + via.distance_to(start)
 		var gn := "Rennen" if way > RUN_FROM and weg.has("Rennen") else "Gehen"
-		t_run = way / _mps(gn)
-		_play(gn, 0.1)
+		var auf := via - position
+		var erst := atan2(auf.x, auf.z) if via != position else schnauze
+		t_run = _turn(tween, erst, false)
+		tween.tween_callback(func(): _play(gn, 0.1))
+		# 438: anfahren und vor dem Biss abbremsen (_lauf), am Umweg mit Tritten drehen statt in einem Bild
 		if via != position:
-			var t1 := position.distance_to(via) / _mps(gn)
-			var auf := via - position
 			var ab := start - via
-			var schnauze := rotation.y
-			rotation.y = atan2(auf.x, auf.z)
-			tween.tween_property(self, "position", via, t1)
-			tween.tween_callback(func(): rotation.y = atan2(ab.x, ab.z))
-			tween.tween_property(self, "position", start, t_run - t1)
-			tween.tween_callback(func(): rotation.y = schnauze)
+			var d1 := wrapf(atan2(ab.x, ab.z) - erst, -PI, PI)
+			var d2 := wrapf(schnauze - atan2(ab.x, ab.z), -PI, PI)
+			t_run += _lauf(tween, position, via, gn)
+			tween.tween_property(self, "rotation:y", erst + d1, absf(rad_to_deg(d1)) / _turn_dps())
+			tween.tween_callback(func(): _play(gn, 0.1))
+			t_run += absf(rad_to_deg(d1)) / _turn_dps() + _lauf(tween, via, start, gn)
+			tween.tween_property(self, "rotation:y", erst + d1 + d2, absf(rad_to_deg(d2)) / _turn_dps())
+			t_run += absf(rad_to_deg(d2)) / _turn_dps()
 		else:
-			tween.tween_property(self, "position", start, t_run)
+			t_run += _lauf(tween, position, start, gn)
+	else:
+		t_run = _turn(tween, schnauze, true)
 	var bl: float = anim.get_animation(nm).length if anim and anim.has_animation(nm) else 0.8
 	var b := Basis(Vector3.UP, atan2(dir.x, dir.z))
 	tween.tween_callback(func(): _play(nm, 0.08))
@@ -1201,20 +1345,22 @@ func _bite(other, leap: bool) -> int:
 		tween.tween_method(func(x: float): position = _weg_at(ende, b, "Ausweichen zurück", x), 0.0, hb, hb)
 		t_back = hb
 		ende = _weg_at(ende, b, "Ausweichen zurück", hb)
-	elif weg.has("Gehen"):     # r5 (Prüfer r4: der Kaufwolf drehte am Ort des Bisses, der Kopf schwang durch die Heldin): erst rückwärts absetzen
+	elif weg.has("Gehen") and not _rueckwaerts_von(ende, dir, other):     # r5 (Prüfer r4: der Kaufwolf drehte am Ort des Bisses, der Kopf schwang durch die Heldin): erst rückwärts absetzen
 		var zurueck := ABSETZEN * _scale()
-		var tz := zurueck / maxf(_mps("Gehen"), 0.1)
+		var ab0 := ende
 		ende = ende - dir * zurueck
 		tween.tween_callback(func(): anim.play("Gehen", 0.1, -float(tempo.get("Gehen", 1.0))))
-		tween.tween_property(self, "position", ende, tz)
-		t_back = tz
+		t_back = _lauf(tween, ab0, ende, "Gehen", RUECK_TEMPO)
 	tween.tween_callback(func(): gang = "heim"; _walk_home(other))
 	# bis daheim, damit keiner zu einem Ort schlägt, an dem es nicht mehr steht (399.2: mit Umweg)
 	var vh := _detour(ende, home, other)
 	var heim := Vector2(home.x - ende.x, home.z - ende.z).length() if vh == ende else ende.distance_to(vh) + vh.distance_to(home)
 	# r3: Heimweg mit Bogen und Kurve statt Drehen (höchstens ein Halbkreis und ein Bogen daheim mehr als die Gerade)
-	var t_heim := 0.0 if heim < 0.12 else heim / _mps("Rennen" if heim > RUN_FROM and weg.has("Rennen") else "Gehen")
-	t_heim += 2.0 * PI * TURN_R * _scale() / (_mps("Gehen") * BOGEN_TEMPO) if HEIMWEG_BOGEN else 2.0 * 180.0 / _turn_dps()
+	var t_heim := 0.0 if heim < 0.12 else heim / _mps("Rennen" if heim > RUN_FROM and weg.has("Rennen") else "Gehen") + RAMPE_S
+	if _rueckwaerts_von(ende, dir, other):     # 438: rückwärts heim, daheim nur die letzte Drehung
+		t_heim = heim / (_mps("Gehen") * RUECK_TEMPO) + RAMPE_S + 40.0 / _turn_dps()
+	else:
+		t_heim += 2.0 * PI * TURN_R * _scale() / (_mps("Gehen") * BOGEN_TEMPO) if HEIMWEG_BOGEN else 2.0 * 180.0 / _turn_dps()
 	busy_ms = int((t_run + bl + t_back + t_heim) * 1000.0)
 	anlauf_ms = int(t_run * 1000.0)
 	return int((t_run + bite[nm][1]) * 1000.0 / 0.42)
@@ -1319,12 +1465,22 @@ func grass_spot() -> Vector3:
 ## Im Schlag unterwegs (Hin- und Rückweg): zählt beim Ausweichen der Ansagen nicht (Helfer Lauf 126: Ansagen sprangen um
 ## 300–400 px, während die Heldin zum Wolf und zurück lief)
 func lunging() -> bool:
-	return tween != null and tween.is_running()
+	return tween != null and tween.is_running() and gang != "dreh"
 
 
 func falling() -> bool:
 	# Spielzeit wie die Zeitgeber in die(): mit --write-movie lief die Wanduhr davon, die Ansage galt zu früh als ausgeblendet
-	return dead_at >= 0 and kampfort.clock_ms - dead_at < FALL_MS + FADE_MS
+	return dead_at >= 0 and kampfort.clock_ms - dead_at < sterbe_ms() + LIEGT_MS + FADE_MS
+
+
+## 440 (Chef 31.10., 23:34: „Der Wolf war einfach weg. Da fehlt die Sterbeanimation … Zu schnell weg.“): die Ausblendung begann
+## nach FALL_MS (0,9 s) mitten im Tod des Kaufwolfs (1,67 s), nach 1,5 s war er fort. Jetzt fällt er ganz (Länge seiner Bewegung
+## „Tod“), liegt LIEGT_MS und vergeht erst dann; so lange warten auch die anderen mit dem Aufrücken (kampfort.gd, 439).
+const LIEGT_MS := 1200
+func sterbe_ms() -> int:
+	if anim and anim.has_animation("Tod"):
+		return maxi(FALL_MS, int(anim.get_animation("Tod").length * 1000.0))     # die() spielt sie mit Tempo 1
+	return FALL_MS
 
 
 ## The announced intent (or none): a wolf about to pounce crouches.
@@ -1332,8 +1488,13 @@ func announce(intent, at = null) -> void:
 	var p: bool = intent != null and intent.effect == "POUNCE"
 	var turned: bool = at != aim
 	aim = at
-	if turned and not (tween and tween.is_running()):
+	if turned and not (tween and tween.is_running()) and halt == null:
 		_face()
+	# 439: „Anspringen!“ (FOE_STRIKES) nimmt die Ansage weg, der Biss folgt in der nächsten Meldung; so lange gilt der Sprung
+	if pouncing and not p:
+		sprung_bereit = intent == null
+	elif p:
+		sprung_bereit = false
 	if p != pouncing:
 		pouncing = p
 		_idle()
@@ -1341,6 +1502,7 @@ func announce(intent, at = null) -> void:
 
 ## A blow, bite, shot or spell at [other]; returns how long it takes (ms).
 func strike(other, e: Dictionary) -> int:
+	_dreh_ab()
 	var spell: bool = e.spell != null
 	var ranged: bool = fighter.ranged()
 	if spell or ranged:
@@ -1350,6 +1512,8 @@ func strike(other, e: Dictionary) -> int:
 		busy_ms = 700
 		return 700
 	var leap: bool = fighter.monster != null and pouncing and fighter.monster.id == Mars.WOLF
+	letzter_sprung = leap or (sprung_bereit and fighter.monster != null)
+	sprung_bereit = false
 	if kauf:
 		return _held_schlag(other)
 	if _zweibeiner() and weg.has("Gehen") and hieb.size() >= 3:
@@ -1669,13 +1833,16 @@ func hurt(after_ms: int, dies: bool) -> void:
 	hurt_at = kampfort.clock_ms
 	if dies:
 		die()
+	elif not weg.is_empty() and lunging():
+		pass     # 438: unterwegs nur das Zittern; vorher spielte es Treffer, dann Stehen und glitt so 1 m weiter
 	else:
 		_play("Treffer", 0.05)
-		get_tree().create_timer(0.45).timeout.connect(_idle)
+		get_tree().create_timer(0.45).timeout.connect(_idle_wenn_frei)
 
 
 func dodge(after_ms: int, nm := "") -> void:
 	await get_tree().create_timer(after_ms / 1000.0).timeout
+	_dreh_ab()
 	# 348.12f: mit Wurzelweg zur Seite oder zurück, wie die Quelle (Ausweichen links nicht: Kopf unter den Vorderbeinen, Prüfer r7),
 	# dann heim; [nm] wählt (Probe SCHAU=ort), sonst der Zufall
 	if nm == "" and weg.has("Ausweichen links"):
@@ -1722,11 +1889,11 @@ func dodge(after_ms: int, nm := "") -> void:
 		if not best.is_empty():
 			if OS.get_environment("SCHAU_MESS") != "":
 				print("Ausweichen %s Länge %.2f m" % [nm, best[best.size() - 1][1]])
-			_pfad_fahren(best, true)
+			_pfad_fahren(best, false)     # 438: Bögen im Schritt (im Lauf drehte er 28° je Bild), Geraden im Lauf
 			tween.tween_callback(_walk_home)
 			return
 	_play("Ausweichen", 0.05)
-	get_tree().create_timer(0.45).timeout.connect(_idle)
+	get_tree().create_timer(0.45).timeout.connect(_idle_wenn_frei)
 
 
 ## 348.12 (Chef 15:23: „Animation … beim Ausweichen“): Grak setzt zur Seite (Seitenlauf der UAL Pro, 1,7 m); zu der, deren Weg von den
@@ -1755,6 +1922,7 @@ const AUSWEICHEN := [1.0, 0.0, 0.5, 0.9, 90.0, 120.0]     # r3c: mit Blick gerad
 
 
 func die() -> void:
+	_dreh_ab()
 	down = true
 	if not weg.is_empty() and tween and tween.is_running():
 		tween.kill()     # 348.12f: im Lauf getroffen, liegt es, wo es fällt
@@ -1769,7 +1937,7 @@ func die() -> void:
 	if fighter.side == "FOES" and fighter.monster.id != Mars.GRAK:
 		# MARS: eigene Sterbebilder, dann ausgeblendet (LISTE-MARS.md); Körper und Bodenschatten zusammen (Helfer Lauf 126: der
 		# Schatten lag noch allein auf dem Weg)
-		await get_tree().create_timer(FALL_MS / 1000.0).timeout
+		await get_tree().create_timer((sterbe_ms() + LIEGT_MS) / 1000.0).timeout
 		var t := create_tween()
 		t.tween_method(_fade_out, 0.0, 1.0, FADE_MS / 1000.0)
 		await t.finished
