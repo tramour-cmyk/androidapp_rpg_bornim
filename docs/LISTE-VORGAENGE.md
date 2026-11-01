@@ -154,7 +154,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 448 | Tagesbericht mit Zahlen statt Ampeln (Chef 01.11., 10:46) | B Abläufe | M | – | Sokrates | Chef |
 | 448.1 | Erster Tagesbericht jetzt, mit Zahlen und den Meilensteinen (Chef 01.11., 10:59, „jetzt“) | B Abläufe | M | – | Perikles | erledigt |
 | 451 | Name für das Spielsystem statt „2.0“ (Chef 01.11., 10:59) | D Design | M | – | Sokrates | Chef |
-| 452 | Notizen-Übersicht `docs/README.md` aktualisieren, gebündeltes Dokument für den Chef (Chef 01.11., 10:59, 11:00) | B Abläufe | M | – | Sokrates | startbar |
+| 452 | Notizen-Übersicht `docs/README.md` aktualisieren, gebündeltes Dokument für den Chef (Chef 01.11., 10:59, 11:00) | B Abläufe | M | – | Sokrates | Chef |
+| 453 | Wölfe im Kampfort: Ruhebewegungen (atmen, scharren, umblicken, knurren) (Chef 01.11., 11:05) | E Kampf | M | – | Team Jerry | startbar |
+| 454 | Wolfsbiss: Achse des Wolfs zielt rechts neben den Helden? messen (Chef 01.11., 11:05) | E Kampf | M | – | Team Jerry | startbar |
 | 416.7 | Aktionsknopf am Tresen in Schenke und Laden (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | zu testen |
 | 416.8 | NPC dreht sich zum Helden, nach etwa 10 s Leerlauf (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | zu testen |
 | 416.9 | Laden Verkaufen: Reiter bei „angelegt“, Vergleichswerte, nicht tragbare Gegenstände, Icon bei Menge (aus 416.3, Chef 31.10., 22:20) | B Umzug | M | 5,26 $ | Team Tom | zu testen |
