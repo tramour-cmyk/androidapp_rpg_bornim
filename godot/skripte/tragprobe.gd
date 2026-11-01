@@ -63,7 +63,7 @@ func figuren_bauen(axt := false, pakete := false) -> void:
 			"ausruestung": {"MAIN_HAND": {"base": e[3]}}})
 		if axt and fp.figuren.has(e[0]):
 			var sk := Gebiet.finde(modell(e[0]), "Skeleton3D") as Skeleton3D
-			for t in sk.find_children("Tragen", "", false, false):
+			for t in sk.find_children("Tragen*", "", false, false):
 				(t as Tragen).axt_griff = AXT_FASSUNGEN[i][1]
 				(t as Tragen).axt_haengt = AXT_FASSUNGEN[i][2]
 				fp.protokoll.append("FASSUNG %s Griff %.2f haengt %s" % [e[1], AXT_FASSUNGEN[i][1], AXT_FASSUNGEN[i][2]])

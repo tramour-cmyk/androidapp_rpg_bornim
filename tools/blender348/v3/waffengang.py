@@ -176,12 +176,20 @@ for art, (paket, geh, _) in GAENGE.items():
     vor = messen(p)['neigung'][0]
     if vor <= ziel_n + 0.5: continue
     q, _ = finde(paket, geh)
-    subprocess.run([BL, '-I', os.path.join(HIER, 'zauber385.py')], env=dict(os.environ, QUELLE=q, ZIEL=ZIEL, NAME=n, OUT=p,
-                   AUFRICHTEN='%.2f' % (vor - ziel_n)), capture_output=True, text=True)
-    ergebnis[n]['aufgerichtet'] = round(vor - ziel_n, 1)
-    print('AUFRICHTEN %s: %.1f Grad zurueck (vorher im Mittel %.1f)' % (n, vor - ziel_n, vor))
+    # Lauf 41318025517: 2,7 Grad am starren Ruecken senken Becken -> Hals nur um 2,0 (schild 13,7 auf 11,7, Ziel 11,0);
+    # darum nachregeln: Wirkung messen, Winkel um den Rest geteilt durch die Wirkung erhoehen, hoechstens drei Durchgaenge
+    winkel, jetzt = vor - ziel_n, vor
+    for durchgang in range(3):
+        subprocess.run([BL, '-I', os.path.join(HIER, 'zauber385.py')], env=dict(os.environ, QUELLE=q, ZIEL=ZIEL, NAME=n, OUT=p,
+                       AUFRICHTEN='%.2f' % winkel), capture_output=True, text=True)
+        neu = messen(p)['neigung'][0]
+        print('AUFRICHTEN %s: %.1f Grad zurueck, Neigung %.1f -> %.1f (Ziel %.1f)' % (n, winkel, vor, neu, ziel_n))
+        if abs(neu - ziel_n) <= 0.3 or vor - neu < 0.1: break
+        winkel = min(winkel + (neu - ziel_n) * winkel / (vor - neu), 25.0)
+    ergebnis[n]['aufgerichtet'] = round(winkel, 1)
 
-RENN = 3.68 * 1.16; GEH = 1.84 * 1.16
+# Gehtempo im Spiel (417 Runde 6, Chef 01.11., 13:4x „schnelles Staxen“): GEHEN_M_S, sonst 1,5 m/s statt 2,13
+RENN = 3.68 * 1.16; GEH = float(os.environ.get('GEHEN_M_S', '1.5'))
 for n in sorted(ergebnis):
     p = ergebnis[n].get('datei') or os.path.join(OUT, n + '.glb')
     if not os.path.exists(p): continue
