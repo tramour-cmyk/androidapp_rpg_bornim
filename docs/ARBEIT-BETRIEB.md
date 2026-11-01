@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford“ (von Hand, Tiefe 0) `session_01Hmoj77A5CsKKbJvo69Vgyi`; Stundenuhr „Ford-Lauf“ `trig_01BJBnMZToouXYYqaBHpNz8P` (:03, angelegt 01.11., 09:35); alte Uhr `trig_019KHsKov6` gelöscht. Alter Ford `01Hmoj77RM` (Tiefe 6) idle, nicht archiviert (wartet auf den Archiv-Satz des Chefs).
+- **Ford lebt in einer Sitzung** „Ford“ (von Hand, Tiefe 1) `session_01Hmoj786VBGBqdYrYTm67mt`; Stundenuhr „Ford-Lauf“ `trig_01QLCGSbcbqiuxpah1RGHeLs` (:03, angelegt 01.11., 15:23); alte Uhr `trig_01BJBnMZTo` gelöscht. Alter Ford `01Hmoj77A5` (idle) nicht archiviert: Archivieren vom Klassifizierer abgelehnt (15:2x), Satz des Chefs fehlt.
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus; Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
 
