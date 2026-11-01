@@ -8,6 +8,8 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [438b](entscheiden/438b-ansagen-tempo.md) | **Muss** | E Kampf | 01.11., 10:55 | Wölfe: lange Pausen bei den Ansagen | Jerry |
+| [438c](entscheiden/438c-wolfsgroesse.md) | **Muss** | E Kampf | 01.11., 10:55 | Größe der Wölfe im Kampf | Jerry |
 | [438a](entscheiden/438a-sturz-held.md) | **Muss** | E Kampf | 01.11., 09:50 | Hinfallen und Aufstehen des gekauften Helden | Jerry |
 | [423](entscheiden/423-handbuch.md) | **Muss** | C Texte | 01.11. | Spielerhandbuch Spielsystem 2.0: Entwurf zum Lesen, drei Fragen | Homer |
 | [447](entscheiden/447-meilensteine.md) | **Muss** | B Abläufe | 01.11. | Meilensteine neu: vier Stufen bis „marktreif“, drei danach | Sokrates |
@@ -104,12 +106,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 44, Muss 31, startbar 6
+**Jerry** – offen 46, Muss 33, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Wölfe gleiten (Angriff, Tempo, aneinander vor | startbar |
+| 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Wölfe gleiten (Angriff, Tempo, aneinander vor | Chef |
 | 438a | M | Rückfrage: Hinfallen und Aufstehen des Kaufhelden, woher (Chefsache entscheiden/438a) | Chef (Datei in der Chefsache) |
+| 438b | M | Rückfrage: Pausen bei den Ansagen der Wölfe (Prüfer r2: 18 von 48 s Stillstand; Chefsache | Chef (Datei in der Chefsache) |
+| 438c | M | Rückfrage: Größe der Wölfe im Kampf (Prüfer r2: „pferdegroß“; Chefsache entscheiden/438c) | Chef (Datei in der Chefsache) |
 | 439 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Reihenfolge Angriff, Treffer, Tod, Neuformati | wartet auf Test/Build (gebaut) |
 | 440 | M | von Sokrates (Chef 31.10., 23:34, Film 403): Wolf-Tod zu schnell weg (Zu 438) | wartet auf Test/Build (gebaut) |
 | 444 | M | von Sokrates (Chef 01.11., 09:24, „Ja, so machen wir es“): Rechensimulation Spielsystem 2. | wartet auf Test/Build (gebaut) |
