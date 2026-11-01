@@ -469,7 +469,8 @@ func _dreh() -> void:
 	for id in fight.figures:
 		var fg = fight.figures[id]
 		fg.set_process(false)
-		if fg.fighter.monster != null:
+		# 406: DREH_HELD=1 dreht statt der Gegner Held und Söldner (Schild in der Hand)
+		if (fg.fighter.monster != null) != (OS.get_environment("DREH_HELD") != ""):
 			foes.append(fg)
 		fg.visible = false
 	var cam: Camera3D = fight.cam
@@ -524,6 +525,8 @@ func _dreh() -> void:
 		if fg == foes[0]:     # r2 (Prüfer r1: Sekunde 1 zeigte den Kampf): ab hier schneidet das Probeskript den Film
 			print("Dreh Start Bild %d" % Engine.get_frames_drawn())
 		for teil in [["ganz", hoch / 0.80, boden + hoch * 0.5 + 0.05 * hoch / 0.80], ["kopf", koerper * 0.36, boden + koerper * 0.86]]:
+			if teil[0] == "kopf" and OS.get_environment("DREH_HELD") != "":     # 406: nur die ganze Figur mit Schild
+				continue
 			var fov := 24.0
 			var weit: float = teil[1] / (2.0 * tan(deg_to_rad(fov / 2.0)))
 			var hz: float = auge if teil[0] == "ganz" else teil[2]

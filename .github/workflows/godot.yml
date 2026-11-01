@@ -128,6 +128,13 @@ jobs:
           for w in $dinge; do
             OUT=$RUNNER_TEMP/waffen WAFFE=$w bl/bin/python -I $W > $RUNNER_TEMP/waffe-$w.log 2>&1 && cp $RUNNER_TEMP/waffen/$w.glb godot/daten/waffen/$w.bin || echo "keine Waffe $w"
           done
+          # 406 (Chef 31.10., 23:22): Schild 2 (Omie Kite) für den ehemaligen Kleriker als round_shield, Schild 15 (PolyMech) für den
+          # Krieger als shield, aus den Kaufpaketen (kaufschild.py); gekauft, also verschlüsselt; ohne Kauf bleiben die aus waffen.py
+          if [ -n "${KAUF:-}" ] && [ -d "$KAUF" ]; then
+            KAUF=$KAUF OUT=$RUNNER_TEMP/kaufschild timeout 600 bl/bin/python -I tools/blender348/kaufschild.py > kaufschild.log 2>&1 || { tail -40 kaufschild.log; exit 1; }
+            grep -E "^(GLB|FEHLT|TEXTUR|FARBE|KAUFSCHILD)" kaufschild.log | cut -c1-300
+            for w in round_shield shield; do [ -f $RUNNER_TEMP/kaufschild/$w.glb ] && cp $RUNNER_TEMP/kaufschild/$w.glb godot/daten/waffen/$w.bin && echo daten/waffen/$w.bin >> godot/daten/kauf.txt; done
+          fi
           ls -l godot/daten/waffen
           # 348.6 Tiere zum Anschauen (Chef 16:52): Jerrys Modelle godot/tiere/<name>.glb (+ <name>-info.json), Knopf „Tiere“
           if ls godot/tiere/*.glb > /dev/null 2>&1; then
@@ -184,6 +191,7 @@ jobs:
             KAUF=$KAUF OUT=$RUNNER_TEMP/kw timeout 1200 bl/bin/python -I tools/blender348/kaufwolf.py > kaufwolf.log 2>&1 || { tail -60 kaufwolf.log; exit 1; }
             for f in grau dunkel rost asche; do cp $RUNNER_TEMP/kw/kaufwolf-$f.glb $D/kaufwolf-$f.bin; done; cp $RUNNER_TEMP/kw/kaufwolf-info.json $D/
             (cd godot && ls kampf/daten/giant_rat-*.bin kampf/daten/kaufwolf-*.bin > kampf/daten/kauf.txt)
+            for w in round_shield shield; do [ -f $RUNNER_TEMP/kaufschild/$w.glb ] && cp $RUNNER_TEMP/kaufschild/$w.glb $D/$w.bin && echo kampf/daten/$w.bin >> $D/kauf.txt; done   # 406
           fi
           grep -q '^RUHE aus' rig.log && echo kampf/daten/held.bin >> $D/kauf.txt || true   # 397: Held mit Pro-Ruhe
           ls -l $D | wc -l
@@ -259,6 +267,25 @@ jobs:
         with:
           name: bornim-godot-apk
           path: bornim-godot.apk
+      # 406 (Chef 31.10., 23:22): die gewaehlten Kaufschilde (kaufschild.py) im Kampfort am Kaufhelden: Mira (Kleriker, Schild 2)
+      # und der Soeldner (Kaempfer, Schild 15) drehen sich je einmal (probe.gd SCHAU=dreh DREH_HELD=1), Film und Standbilder
+      # 0, 45, 90, 180 Grad; nur bei Commits mit „406 Schilde“. Ins Artefakt nur Film, Bilder, Protokoll, keine Modelle (348.12c a)
+      - name: 406 Schilde im Kampfort
+        if: contains(github.event.head_commit.message, '406 Schilde')
+        continue-on-error: true
+        run: |
+          P=$GITHUB_WORKSPACE/bilder/406; mkdir -p $P
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
+          sudo apt-get install -y -qq xvfb libgl1-mesa-dri > /dev/null || true
+          grep -E "^(GLB|FEHLT|TEXTUR|FILMTEXTUR|FARBE|KAUFSCHILD)" kaufschild.log > $P/kaufschild.txt 2>/dev/null || true
+          cd godot
+          GEGNER=WOLVES OHNEUI=1 SCHAU=dreh DREH_HELD=1 DREH_S=8 DREH_BILDER=$P SCHAU_TITEL="406 Schilde" \
+            timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . res://kampf/probe.tscn \
+            --resolution 1080x2340 --write-movie $RUNNER_TEMP/schild.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/film.log 2>&1 || true
+          grep -E "^Dreh|SCRIPT ERROR|^ +at: " $P/film.log | head -30 || true
+          AB=$(grep -oE "^Dreh Start Bild [0-9]+" $P/film.log | grep -oE "[0-9]+$" | head -1)
+          ffmpeg -loglevel error -y -ss $(python3 -c "print(${AB:-0}/30)") -i $RUNNER_TEMP/schild.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast $P/406-schilde.mp4 || true
+          ls -l $P
       # Standbilder mit dem Mobile-Renderer (Vulkan in Software, lavapipe) zum Pruefen und fuer das Vergleichsbild
       - name: Standbilder
         continue-on-error: true
