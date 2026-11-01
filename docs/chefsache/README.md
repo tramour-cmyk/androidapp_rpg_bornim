@@ -228,7 +228,7 @@ Format (Muster: „So geht's“ unten): t146-befunde.md: 8 Vorgänge, höchstens
 
 Nicht gestellt: 452 (Beratung), 348.12c (Beratung), 186.3 (Pruefung)
 
-Ohne Datei: 275 (Projekt), 455 (Team Tom), 26 (Team Tom)
+Ohne Datei: 275 (Projekt), 455 (Team Tom)
 
 ## So geht's
 
