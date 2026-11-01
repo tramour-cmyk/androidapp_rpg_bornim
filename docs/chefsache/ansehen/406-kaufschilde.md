@@ -1,5 +1,7 @@
 # 406 · Kaufschilde mit Sword & Shield, neu vorgelegt · Tuffy · 01.11., 16:35
 
+[Film von 01.11., 16:35](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-1635-406-Tuffy.mp4) (eingetragen von meldung.sh, Tuffy)
+
 ![Kampfhaltung von vorn, Drehung, Kampf von der Wolfsseite](../bilder/406-sword-shield.webp)
 
 Film, 96 s am Rechner mit Kaufheld und Kaufwolf, noch kein Build, im Spiellicht mit Tusche und Schatten.
