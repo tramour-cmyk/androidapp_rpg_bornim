@@ -1,5 +1,7 @@
 # 406 · Gewählte Schilde am Helden: 2 beim Kleriker, 15 beim Kämpfer · Jerry · 01.11., 11:55
 
+[Film von 01.11., 11:54](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-1154-406-Jerry.mp4) (eingetragen von meldung.sh, Jerry)
+
 ![Kämpfer und Kleriker mit den Kaufschilden im Kampfort](../bilder/406-kaufschilde.webp)
 
 [Film](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/pruefung/406-kaufschilde.mp4), 32 s am Rechner mit Kaufheld und Kaufwolf, noch kein Build: erst der Kämpfer mit Schild 15, dann der Kleriker mit Schild 2, je 16 s gegen das Wolfsrudel, Autopilot, Echtzeit, gezeichnet wie im Spiel (Tusche nach Licht).
