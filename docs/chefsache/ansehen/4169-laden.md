@@ -11,6 +11,6 @@ Nach deinem Wort von 11:30 und 11:32 gebaut (eine Fehlerprüfung des Bildes folg
 - **Leerzeile unter Ausrüstung:** das war der Knopf „Gewöhnliche verkaufen“, auf 11 Pixel gequetscht und ohne Schrift. Jetzt in voller Höhe mit Schrift.
 - **Vergleich wie alt:** Tabelle „Vergleich | Angelegt | Neu“, Zugewinn grün, Verlust rot; das kurze Urteil bleibt darüber (Bild 3). Gilt auch in Tasche und Ausrüstung.
 
-**Prüferbefund (12:41, nach dem Versand):** Leiste steht in Bild 1 und 2 an derselben Stelle; „Gewöhnliche verkaufen“ lesbar, keine Leerzeile; Tabelle mit Urteil darüber, nichts abgeschnitten. Auffällig: das Verbotszeichen ragt über den Rand des Bildes und verdeckt die Stufenpunkte (Bild 2 unten, „Gierige Beinschienen“); „Stufe 9“, „Ersetzt: Kampfstab“ und die Kopfzeile „Angelegt“ schwach im Kontrast (Bild 3).
+**Prüferbefund (12:41, nach dem Versand):** Leiste steht in Bild 1 und 2 an derselben Stelle; „Gewöhnliche verkaufen“ lesbar, keine Leerzeile; Tabelle mit Urteil darüber, nichts abgeschnitten. Auffällig: das Verbotszeichen ragt über den Rand des Bildes und verdeckt die Stufenpunkte (Bild 2 unten, „Gierige Beinschienen“; Lage und Größe wie alt, `ShopScreen.kt` 16 dp bei 28/28, auf Wort kleiner oder höher); „Stufe 9“, „Ersetzt: Kampfstab“ und die Kopfzeile „Angelegt“ schwach im Kontrast (Bild 3).
 
 **Zu sagen:** „passt“ (dann in den nächsten Build) oder was anders sein soll.
