@@ -57,7 +57,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 43, Muss 32, startbar 4
+**Tom** – offen 43, Muss 32, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -79,7 +79,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 457.1 | M | von Perikles (Chef 01.11., 11:49, „unsere Signatur muss sich wiederfinden“): godot/probe/b | wartet auf Test/Build (gebaut) |
 | 423.1 | M? | von Homer (Archiv 423, 01.11.): Spielerhandbuch BRS (STORY-HANDBUCH-1.md bis -3.md) als Se | startbar |
 | 453.2 | M | von Sokrates (Chef 01.11., 13:0x, Archiv 453.1 „aufs ganze Spiel übertragen … als ob die L | startbar |
-| 455.2 | M | von Sokrates (Chef 01.11., 11:27, „455 ja, wie Sokrates“, Archiv): Netzliste je Platz (Bes | startbar |
+| 455.2 | M | von Sokrates (Chef 01.11., 11:27, „455 ja, wie Sokrates“, Archiv): Netzliste je Platz (Bes | in Arbeit bei Spike |
 | 399.5 | M | von Chef („jetzt“ 28.10., 21:5x, Archiv): Innenräume wie alt: Lichtquellen, Licht und Scha | wartet auf Test (Build) |
 | 399.3.1 | M | von Team Jerry (16:5x): Klang: Haken in spiel.gd (Jerry, claude/jerry-348-klang) übernehme | wartet auf Test (Build) |
 | 385 | M | von Sokrates („jetzt“ 28.10., 10:00, Archiv): Zauberer-Set auf Kaufkörper, Film | ruht |
