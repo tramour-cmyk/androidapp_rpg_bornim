@@ -58,7 +58,7 @@ Chef 01.11., 20:3x: „das mal alles zusammenführt … auf ein Niveau kriegen, 
 
 | Nr. | Prüfpunkt | Woher | Prüfer |
 |---|---|---|---|
-| E1 | Tragart je Waffenklasse: kurze Waffen am Gürtel, Stab in der Hand, lange Waffen und Bogen am Rücken mit Halter (innen ausgeblendet), Wechsel in der Kampfblende; im Kampf in der Hand | 410 (31.10., 21:17, 21:27) | ja |
+| E1 | Unterwegs (Stehen, Gehen, Rennen) jede Waffe in der Hand, Gang aus dem Paket der Waffe (Einhand, Zweihand, Schwert und Schild, Bogen); kein Gürtel, kein Rücken; innen ausgeblendet an der Schwelle. **Ersetzt** Gürtel und Rücken aus 410/417 vom 31.10., 21:17–21:27 (Kotlin-Zeit, ohne Pakete) | 417 (01.11., 13:4x „Richtung Pakete ja“; 20:4x Runde 5: Einhand, Bogen passen), 410 (31.10., 21:1x „lassen wir die doch bitte in der Hand“) | ja |
 | E2 | Waffe und Schild nach Paketvorlage angesteckt (`Protof-Actor@Sword&Shield.prefab`) | 438a (01.11., 20:1x) | ja |
 | E3 | Nichts durch Körper, Kopf, Kleidung oder Boden (Schild, Schwert, Faust, Stiel, Schulter am Schild); Richtwert von uns: höchstens 2 cm je Bild gemessen | 438a, 417, 406, 348.12 | ja, 2 cm Maß |
 | E4 | Angriffe und Schildaktionen aus Sword & Shield, auch mit Stab | 406 (20:2x) | ja |
