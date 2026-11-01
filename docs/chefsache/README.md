@@ -145,11 +145,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 22, Muss 19, startbar 4
+**Perikles** – offen 21, Muss 18, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 451.1 | M | von Sokrates (Chef 01.11., 13:1x, Archiv 451): „Spielsystem 2.0“ heißt jetzt „Bornimer Rol | startbar |
 | 447.1 | M | von Sokrates (Chef 01.11., 12:3x, „447 ja, mit K2b, aber nummeriere das Ganze doch neu und | startbar |
 | 457 | M | von Sokrates („jetzt“ 01.11., 11:49, Chef: „unsere Signatur muss sich wiederfinden. Warum | startbar |
 | 456.1 | M? | von Diogenes (Doppelpack 421, Lauf 54, 01.11., 11:4x): Befunde D55.1–5 zu 448.2 und 449 na | startbar |
