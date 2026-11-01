@@ -12,3 +12,5 @@ Film per Telegram (36 s, Hochformat), noch kein Build. Ablauf auf GitHub (`tom-p
 **Stärkstes Gegenargument:** Superheld ist sehr muskulös, vielleicht zu heldenhaft für unseren düsteren Stil; dann Zwerg und Orkblütiger auf Regulär, nur breiter gebaut.
 
 Nicht Teil dieser Probe: Toon-Licht und Tusche (unbearbeitet aus der Bibliothek), Kleidung.
+
+**Prüferbefund (10:38, nach dem Versand):** Haare, Bärte, Brauen weißgrau (so in der Bibliothek; im Spiel färbt Godot sie nach der Erschaffung). Maßstab irreführend: Erwachsene etwa 4 cm im Boden, Jugend 10 cm darüber, weil die Beckenhöhe der Bewegung zur Puppe der Bibliothek passte; behoben in `probe/bibliothek.gd` (Fuß jetzt am Boden, gemessen), gilt ab dem nächsten Film. Gering: Loch im Haar am Nacken (BuzzedFemale), Zopfspitzen unter dem Kinn (Buns, Ponytail 2), harte Fleckschatten auf der Brust, letzte Haarseite nur ein Feld.

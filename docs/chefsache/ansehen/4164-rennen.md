@@ -12,4 +12,6 @@ Film per Telegram (18 s, Hochformat), noch kein Build. Ablauf auf GitHub (`tom-p
 **Vorschlag Tom:** 2, denn der Eindruck des Hochsprungs kommt vom großen Auf und Ab.
 **Stärkstes Gegenargument:** 2 ist von Hand abgeschwächt; die Beine schwingen weiter so weit aus wie in Fassung 1. Gefällt keine: Lauf aus dem gekauften Zauberer-Paket (Bewegungserfassung, „Run“), dafür ist eine Übertragung auf unser Gerüst nötig.
 
+**Prüferbefund (10:38, nach dem Versand):** Sprint: Füße rutschen deutlich gegen den Boden (Boden im Spieltempo, der Sprint wäre schneller). Fassung 2 unterscheidet sich von 1 nur im Auf und Ab des Kopfes (21 gegen 10 cm), im Film kaum zu sehen; der vordere Fuß schwingt dicht über dem Boden. Schatten in der Spielansicht neben der Figur; Becken der Bibliothekspuppe (behoben wie bei 431).
+
 Danach: Übergang Gehen ↔ Rennen in Echtzeit prüfen (DESIGN-ABNAHME „Selbst prüfen“), dann in den nächsten Build.
