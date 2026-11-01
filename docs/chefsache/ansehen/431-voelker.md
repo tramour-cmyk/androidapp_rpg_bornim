@@ -18,4 +18,6 @@ Nach deinem Wort von 11:42 (Ork auf Superheld, die übrigen auf Regulär):
 
 Schultern gegen den Menschen: Elf 0,88, Zwerg 1,06, Hügelvolk 0,61, Ork 1,20. Aschgeborene sind nicht im Film (kein eigener Körperbau gebaut, Regulär wie der Mensch); Zwerg auf beiden Körpern kommt im Größenfilm 455.2.
 
+**Prüferbefund (13:3x, nach dem Versand):** alle Füße am Boden, keine Risse an Schultern, Hals, Hüfte, Händen, kein Zucken; Größen im Bild stimmen mit der Tabelle (Elf 0,98, Zwerg 0,78, Hügelvolk 0,60, Ork 1,06 des Menschen). Als Erstes fällt auf: die Beschriftung unten läuft rechts aus dem Bild, lesbar nur „Mensch“, die dritte Titelzeile halb abgeschnitten; die Höhenstriche schweben etwa 20 px über den Köpfen. Beim Zwerg die Unterschenkel von der Seite kantig, mit hartem Absatz am Knie.
+
 **Zu sagen:** „431 passt“ oder je Volk, was anders sein soll.
