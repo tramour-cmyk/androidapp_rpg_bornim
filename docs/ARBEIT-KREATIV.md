@@ -3,16 +3,16 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `47a4012ce` (01.11., 10:1x)
+**Gelesen bis:** `47a4012ce` (01.11., 10:5x)
 
-**Übergabe (01.11., 10:1x):** 423 Spielerhandbuch DE/EN als Entwurf (`STORY-HANDBUCH-1` bis `-3`), fremd gegen 422 geprüft, Chefsache 423 gestellt; 432 Antwort zum Kult intern in `STORY-PLAN.md`. Nachfolger: keiner, 423 wartet auf Chef.
+**Übergabe (01.11., 10:5x):** 432 Kult-Antwort gegen Kapitel 2 abgeglichen, zwei offene Punkte im Storyplan (Aschgeborene); Chefsache dazu erst nach dem Meilenstein. Nachfolger: keiner, 423 wartet auf Chef, 432 auf den Meilenstein.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 432 | K | **von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt mir sehr gut“):** eigenes Volk prüfen, mit der Geschichte ab Kapitel 2 | nach dem Meilenstein: Weg A (Archiv); Antwort zum Kult intern im Storyplan (STORY-PLAN.md, Aschgeborene, 01.11.), vor dem Bau mit dem Chef abstimmen |
+| 432 | K | **von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt mir sehr gut“):** eigenes Volk prüfen, mit der Geschichte ab Kapitel 2 | nach dem Meilenstein: Weg A (Archiv); Kult-Antwort und Abgleich mit Kapitel 2 im Storyplan (Aschgeborene, 01.11.), zwei offene Punkte; als Chefsache erst nach dem Meilenstein, vor dem Bau |
 | 423 | M | **von Sokrates (Chef 31.10., 21:2x: „irgendwer muss dann auch einfach eine Anleitung schreiben, wo die wesentlichen Dinge für den Spieler erklärt werden“):** Spielerhandbuch Spielsystem 2.0 aus dem Nachschlagewerk (422), unser Ton, DE/EN | wartet auf Chef (Chefsache 423: Ton, ohne Zahlen bis 444, Namen EN); Entwurf STORY-HANDBUCH-1 bis -3, fremd geprüft |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |
