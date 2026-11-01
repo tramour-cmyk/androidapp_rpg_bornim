@@ -3,6 +3,7 @@
 #  - eigener Takt: die beiden Atemzüge unterscheiden sich um mindestens 5 %, die Einatmungen fallen nicht zusammen (Gleichtakt)
 #  - nach Anstrengung schneller (in den ersten 3 s mindestens 1,35-mal so viele Atemzüge wie in Ruhe) und tiefer, nach 6 s wieder fast Ruhe (unter 1,15 der Ruhe)
 #  - die Ruhebewegung selbst atmet nicht mehr (Kampfstehen ein Schlüssel je Spur)
+#  - der fernere Held atmet so viel tiefer, wie er im Bild kleiner ist (höchstens 1,6; Chef 19:5x „etwas deutlicher“), Maße oben im Bild
 #  - der Kampf läuft auf Autopilot zu Ende ohne Skriptfehler
 # Ohne Kaufdateien „ohne Kauf“ und Ende 0.
 # Run: godot --headless --path godot --fixed-fps 30 -s res://tests/atem_4531.gd   (exit code 0 = alles richtig)
@@ -67,6 +68,10 @@ func _messe(s: Spur, t: float, ruhe: bool) -> void:
 		s.kopf.append(s.kopf_g)
 
 
+func _kamera_abstand(s: Spur) -> float:
+	return s.sk.get_viewport().get_camera_3d().global_position.distance_to(s.sk.global_position)
+
+
 static func _spanne(v: Array) -> float:
 	return (v.max() - v.min()) if not v.is_empty() else 0.0
 
@@ -124,8 +129,17 @@ func _run() -> void:
 			print("%s Züge %s" % [n, str(s.zuege)])
 		print("%s: Atemzug in Ruhe %.2f s (%d Züge), Takt %.2f s, Schulter %.1f cm, Kopf %.2f°" % [n, mittel, d.size(), s.fig.atem.takt, _spanne(s.schulter) * 100.0, _spanne(s.kopf)])
 		_check(mittel >= 3.5 and mittel <= 5.0, "%s: Atemzug in Ruhe 3,5–5 s (%.2f)" % [n, mittel])
-		_check(_spanne(s.schulter) >= 0.006 and _spanne(s.schulter) <= 0.016, "%s: Schulter hebt sich 0,6–1,6 cm (%.2f)" % [n, _spanne(s.schulter) * 100.0])
-		_check(_spanne(s.kopf) <= 1.5, "%s: Kopf neigt sich höchstens 1,5° (%.2f)" % [n, _spanne(s.kopf)])
+		# 453.1 Urteil 19:5x („etwas deutlicher“ beim vorderen): Maße im Bild, also geteilt durch den Ausgleich nach Kameraabstand
+		var si: float = s.fig.atem.sicht
+		print("%s: Ausgleich nach Kameraabstand %.2f, Abstand %.2f m" % [n, si, _kamera_abstand(s)])
+		_check(_spanne(s.schulter) / si >= 0.006 and _spanne(s.schulter) / si <= 0.016, "%s: Schulter hebt sich 0,6–1,6 cm im Bild (%.2f / %.2f)" % [n, _spanne(s.schulter) * 100.0, si])
+		_check(_spanne(s.kopf) / si <= 1.5, "%s: Kopf neigt sich höchstens 1,5° im Bild (%.2f / %.2f)" % [n, _spanne(s.kopf), si])
+	# 453.1: der weiter von der Kamera atmet um so viel tiefer, wie er im Bild kleiner ist (höchstens 1,6), der nähere wie bisher
+	var fern := sh if _kamera_abstand(sh) >= _kamera_abstand(ss) else ss
+	var nah := ss if fern == sh else sh
+	var soll: float = clampf(_kamera_abstand(fern) / _kamera_abstand(nah), 1.0, 1.6)
+	_check(absf(nah.fig.atem.sicht - 1.0) < 0.03, "der Kamera nähere Held atmet wie bisher (%.2f)" % nah.fig.atem.sicht)
+	_check(absf(fern.fig.atem.sicht - soll) < 0.05, "der fernere Held atmet tiefer nach Abstand (%.2f, soll %.2f)" % [fern.fig.atem.sicht, soll])
 	var r: float = sh.fig.atem.takt / ss.fig.atem.takt
 	_check(absf(r - 1.0) >= 0.05, "eigener Takt: Held %.2f s, Söldner %.2f s" % [sh.fig.atem.takt, ss.fig.atem.takt])
 	# Gleichtakt: Anteil der Bilder, in denen beide zugleich über halb eingeatmet haben, gegen den Zufall (etwa ein Viertel)

@@ -23,7 +23,16 @@ const EIN_ANTEIL := 0.42
 const KNOCHEN := [["spine_02", "zurück", 0.7], ["spine_03", "zurück", 1.1], ["clavicle_l", "heben", 3.2], ["clavicle_r", "heben", 3.2],
 	["neck_01", "blick", -0.6], ["Head", "blick", -0.5]]
 
+## 453.1 (Chef 01.11., 19:5x: „der näher am Wolf steht, bei dem ist die Atmung aber fast nicht mehr zu erkennen, deswegen etwas
+## deutlicher“): der vordere Held steht weiter von der Kampfkamera (kampfort.gd _stand: vorn = weiter weg), sein Atem ist im Bild
+## kleiner. Der Ausschlag wächst darum mit dem Abstand zur Kamera gegen den nächsten atmenden Helden (im Bild gleich groß),
+## höchstens SICHT_MAX, weich über SICHT_S
+const GRUPPE := "atem_held"
+const SICHT_MAX := 1.6
+const SICHT_S := 0.8
+
 var takt := RUHE_S
+var sicht := 1.0          # Ausgleich nach Kameraabstand, 1 = nächster Held
 var phase := 0.0          # 0..1 im Atemzug
 var anstrengung := 0.0    # 0..1
 var tiefe := 0.0          # zuletzt angewandte Einatmung 0..1 mal Tiefe (Prüflauf)
@@ -36,6 +45,31 @@ func eigen(seed: int) -> void:
 	rng.seed = seed
 	takt = RUHE_S * (1.0 + rng.randf_range(-TAKT_STREU, TAKT_STREU))
 	phase = rng.randf()
+
+
+func _enter_tree() -> void:
+	add_to_group(GRUPPE)
+
+
+## Abstand zur Kamera gegen den nächsten atmenden Helden: d / d_min, 1 .. SICHT_MAX
+static func sicht_ziel(d: float, d_min: float) -> float:
+	return clampf(d / maxf(d_min, 0.1), 1.0, SICHT_MAX)
+
+
+func _sicht_jetzt(sk: Skeleton3D) -> float:
+	var cam := sk.get_viewport().get_camera_3d() if sk.is_inside_tree() else null
+	if cam == null:
+		return 1.0
+	var c := cam.global_position
+	var d := c.distance_to(sk.global_position)
+	var d_min := d
+	for n in get_tree().get_nodes_in_group(GRUPPE):
+		if n == self or not n.active:
+			continue
+		var s2: Skeleton3D = n.get_skeleton()
+		if s2 != null and s2.is_inside_tree():
+			d_min = minf(d_min, c.distance_to(s2.global_position))
+	return sicht_ziel(d, d_min)
 
 
 func anstrengen(wie_sehr := 1.0) -> void:
@@ -63,7 +97,8 @@ func _process_modification_with_delta(delta: float) -> void:
 	if _idx.is_empty():
 		for k in KNOCHEN:
 			_idx.append(sk.find_bone(k[0]))
-	var tief := 1.0 + TIEFER * anstrengung
+	sicht = lerpf(sicht, _sicht_jetzt(sk), 1.0 - exp(-dt / SICHT_S))
+	var tief := (1.0 + TIEFER * anstrengung) * sicht
 	tiefe = welle(phase) * tief
 	if tiefe < 0.0005:
 		return
