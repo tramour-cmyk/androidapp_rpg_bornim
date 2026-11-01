@@ -231,8 +231,6 @@ Format (Muster: „So geht's“ unten): t146-befunde.md: 8 Vorgänge, höchstens
 
 Nicht gestellt: 186.3 (Pruefung)
 
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/3761-tracht.md
-
 Ohne Datei: 275 (Projekt)
 
 ## So geht's
