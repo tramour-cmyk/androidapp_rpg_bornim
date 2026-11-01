@@ -90,3 +90,4 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 - **Zu 296.2, 344.2, 249, 211.13/211.14, 168.1, 72u.1, 38, 39** (ruhend, altes SRD-System): Text in Git, `git show de0998e2a:docs/ARBEIT-TEAM-JERRY.md`.
 - **Zu 399.2, von Tom (28.10., 13:23):** `goblin.py` erkennt Toms `v3/rig.py` nicht; beide Workflows bauen Goblins mit `v3_kampf/` (godot-kampf seit 8aee22a77); vor der Höhle auf `v3` umstellen.
+- **Zu 348.12, von Ford (464, 01.11., 21:08):** zwei rote Läufe auf `claude/jerry-348-12-grak-schreitet`, Commit c6a3bb68d: „Godot Kampf (348.7)“ #175 https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41338055279 und „Godot (Umzug 348)“ #150 https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41338055305 (20:43–21:12 Berliner Zeit); Ursache finden.
