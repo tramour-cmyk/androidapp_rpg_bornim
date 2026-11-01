@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [438a](entscheiden/438a-sturz-held.md) | **Muss** | E Kampf | 01.11., 09:50 | Hinfallen und Aufstehen des gekauften Helden | Jerry |
 | [444a](entscheiden/444a-simulator-main.md) | **Muss** | E Kampf | 01.11., 09:48 | Werkzeug der Simulation 2.0 ohne Gerätetest auf `main` | Tuffy (Team Jerry) |
 | [413b](entscheiden/413b-leitbild-kopf.md) | **Muss** | D Design | 01.11. | Leitbild und CLAUDE.md: zwei Reste der alten Grundlage | Sokrates |
 | [416.4a](entscheiden/416.4a-kaufzugang-tom.md) | – | B Umzug | 01.11., 03:10 | Kaufmodelle für Tom: add_repo wird abgelehnt | Ford |
@@ -27,7 +28,7 @@ Nichts offen.
 | [416.9](ansehen/4169-laden.md) | Laden: alle Plätze bei „Angelegt“, nicht Tragbares, Vergleich, Bild bei Menge | – | 01.11., 00:23 |
 | [417](ansehen/417-tragart.md) | Waffen in der Hand beim Gehen und Rennen: Stab, Kriegsaxt, Bogen | Tom | 01.11., 01:05 |
 | [425](ansehen/425-testmenue.md) | Testmenü mit Zeichen | Tom | 01.11., 01:10 |
-| [438, 439, 440](ansehen/438-woelfe.md) | Wölfe im Kampfort: Schritte statt Gleiten, Reihenfolge, Tod | Jerry | 01.11., 08:09 |
+| [438, 439, 440](ansehen/438-woelfe.md) | Wölfe im Kampfort: nicht mehr ineinander, Kopf nicht im Helden, Tod knickt ein | Jerry | 01.11., 09:45 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -99,11 +100,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 43, Muss 30, startbar 6
+**Jerry** – offen 44, Muss 31, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Wölfe gleiten (Angriff, Tempo, aneinander vor | startbar |
+| 438a | M | Rückfrage: Hinfallen und Aufstehen des Kaufhelden, woher (Chefsache entscheiden/438a) | Chef (Datei in der Chefsache) |
 | 439 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Reihenfolge Angriff, Treffer, Tod, Neuformati | wartet auf Test/Build (gebaut) |
 | 440 | M | von Sokrates (Chef 31.10., 23:34, Film 403): Wolf-Tod zu schnell weg (Zu 438) | wartet auf Test/Build (gebaut) |
 | 444 | M | von Sokrates (Chef 01.11., 09:24, „Ja, so machen wir es“): Rechensimulation Spielsystem 2. | wartet auf Test/Build (gebaut) |
