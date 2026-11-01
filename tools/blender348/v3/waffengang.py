@@ -111,11 +111,11 @@ for art, (paket, geh, _) in GAENGE.items():
 
 
 # Messung je fertiger Bewegung auf dem UAL-Geruest (Blick -Y)
-def messen(p):
+def messen(p, aktion=None):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     bpy.ops.import_scene.gltf(filepath=p)
     arm = next(o for o in bpy.data.objects if o.type == 'ARMATURE')
-    a = next(iter(bpy.data.actions))
+    a = bpy.data.actions[aktion] if aktion else next(iter(bpy.data.actions))
     arm.animation_data_create(); arm.animation_data.action = a
     if hasattr(arm.animation_data, 'action_slot') and a.slots: arm.animation_data.action_slot = a.slots[0]
     f0, f1 = int(a.frame_range[0]), int(a.frame_range[1])
@@ -157,6 +157,25 @@ def messen(p):
             'neigung': [round(sum(nz) / len(nz), 1), round(max(nz), 1)] if (nz := [math.degrees(math.atan2(-(h - p).y, (h - p).z))
                          for p, h in zip(lage['pelvis'], lage['neck_01'])]) else [0, 0]}
 
+
+# 417 Neigung (Chef 01.11., 13:4x: „der Oberkoerper beim normalen Gehen zum Teil zu weit vorgeneigt“; Lauf 41311724715: Gehen axt 6,5,
+# einhand 7,7, bogen 9,7, schild 13,7 Grad): Gehen je Paket so weit aufrichten (zauber385.py AUFRICHTEN), dass die mittlere Neigung
+# der des Gehens ohne Waffe gleicht (UAL Walk_Loop im ZIEL, dem nicht widersprochen ist); NEIGUNG_ZIEL=<Grad> setzt sie von Hand
+try:
+    ziel_n = float(os.environ['NEIGUNG_ZIEL']) if os.environ.get('NEIGUNG_ZIEL') else messen(ZIEL, 'Walk_Loop')['neigung'][0]
+except Exception as e:
+    ziel_n = None; print('NEIGUNG Walk_Loop nicht messbar:', e)
+print('NEIGUNG Ziel (Gehen ohne Waffe):', ziel_n)
+for art, (paket, geh, _) in GAENGE.items():
+    n = 'Gehen_' + art; p = os.path.join(OUT, n + '.glb')
+    if ziel_n is None or not os.path.exists(p): continue
+    vor = messen(p)['neigung'][0]
+    if vor <= ziel_n + 0.5: continue
+    q, _ = finde(paket, geh)
+    subprocess.run([BL, '-I', os.path.join(HIER, 'zauber385.py')], env=dict(os.environ, QUELLE=q, ZIEL=ZIEL, NAME=n, OUT=p,
+                   AUFRICHTEN='%.2f' % (vor - ziel_n)), capture_output=True, text=True)
+    ergebnis[n]['aufgerichtet'] = round(vor - ziel_n, 1)
+    print('AUFRICHTEN %s: %.1f Grad zurueck (vorher im Mittel %.1f)' % (n, vor - ziel_n, vor))
 
 RENN = 3.68 * 1.16; GEH = 1.84 * 1.16
 for n in sorted(ergebnis):
