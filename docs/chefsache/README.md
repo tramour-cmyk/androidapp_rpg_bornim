@@ -71,7 +71,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 399.4 | M | von Chef (21:4x, Archiv); zurück Chef 31.10., 20:4x: oben Rand für die Kamera wie alt: im | wartet auf Test (Build) |
 | 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf | wartet auf Test (Build) |
 | 410 | M | von Sokrates (Chef 29.10., 10:52, 11:40; aus 376.1): Waffen am Körper wegstecken, alle Waf | ruht |
-| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | in Arbeit bei Spike |
+| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | Chef |
 | 455.1 | M | von Sokrates (Chef 01.11., 11:24, „Abzug von … unterschiedlichen Roben, Umhängen oder Stie | startbar |
 | 458.3 | M | von Sokrates (Chef 01.11., 13:1x, Archiv 458): Gegenstandskatalog: je Gegenstand Netz × Ma | startbar |
 | 447.2 | M | von Perikles (Chef 01.11., Archiv 447): Schätzung je Stufe 1–6 der Abnahmeliste (LISTE-ABN | startbar |
