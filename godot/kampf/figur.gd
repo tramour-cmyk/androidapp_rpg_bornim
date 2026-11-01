@@ -852,6 +852,7 @@ func _play(name: String, blend := 0.15) -> void:
 	if anim and name in ["Biss", "Hauer"] and not anim.has_animation(name) and anim.has_animation("Hieb"):
 		name = "Hieb"     # 348.12 Runde 3: Goblin auf dem CC0-Gerüst schlägt (sonst schnellt er nur vor)
 	if anim and anim.has_animation(name):
+		anim.clear_queue()     # 453: eine angehängte Grundhaltung (nach einer Ruhebewegung) gilt nicht mehr, sobald etwas anderes beginnt
 		anim.play(name, blend, float(tempo.get(name, 1.0)))
 
 
@@ -864,9 +865,20 @@ const ATEM_RUHE := ["Kampfstehen", "Stehen", "SS_IdleCombat"]
 var atem = null
 
 func _atem_an() -> void:
-	if not kauf or anim == null or OS.get_environment("ATEM_ALT") != "":     # Prüfschalter ATEM_ALT=1: wie vorher (Vergleichsfilm)
+	if anim == null or OS.get_environment("ATEM_ALT") != "":     # Prüfschalter ATEM_ALT=1: wie vorher (Vergleichsfilm)
 		return
 	var sk := _find(model, "Skeleton3D") as Skeleton3D
+	if fighter.monster != null:
+		# 453 r2: der Kaufwolf atmet als Schicht unter jeder Bewegung, je Wolf eigener Takt (atem_tier.gd)
+		var Tier = preload("res://kampf/atem_tier.gd")
+		if sk != null and Tier.passt(sk):
+			atem = Tier.new()
+			atem.name = "Atem"
+			atem.eigen(hash(String(fighter.id)))
+			sk.add_child(atem)
+		return
+	if not kauf:
+		return
 	if sk == null or sk.find_bone("spine_03") < 0:
 		return
 	for n in ATEM_RUHE:
@@ -913,6 +925,8 @@ func _gang_ss(nm: String) -> String:
 	return g if _ss() and anim.has_animation(g) else nm
 
 
+var _schleifen := 0     # 453 r3: wie oft die Grundschleife neu begann (Versatz je Wolf, für Prüfläufe fest)
+
 func _idle() -> void:
 	if down:
 		return
@@ -924,7 +938,19 @@ func _idle() -> void:
 		# (DESIGN-ABNAHME Silhouetten); Kampfstehen ist das erste und letzte Bild jeder Kampfbewegung
 		_play("Kampfstehen")
 		return
-	_play("Hocke" if pouncing else "Stehen")
+	var grund := "Hocke" if pouncing else "Stehen"
+	# 453 r2: Hocke ↔ Stehen und aus einer Ruhebewegung weich (RUHE_BLENDE), alles andere wie bisher
+	var von: String = anim.current_animation if anim else ""
+	_play(grund, RUHE_BLENDE if (von in RUHE or von in RUHE_GESTEN) else 0.15)
+	# 453 r3 (Prüfer Film r2: Umblicken und Knurren im selben Bild; gemessen tests/atem_bild_453.gd: alle Wölfe in Hocke bei 1,13 s
+	# ihrer Schleife): die Grundschleife selbst blickt um (Stehen = IdleA) oder wendet den Kopf (Hocke = IdleC); beginnt sie neu, dann
+	# je Wolf an anderer Stelle, sonst wendet das Rudel im Gleichtakt
+	if fighter.monster != null and von != grund and anim and anim.has_animation(grund):     # 348.12 Lauf 172: Figuren ohne Modell (Kampfort ohne Bild) haben kein anim
+		var lang: float = anim.get_animation(grund).length
+		var z := RandomNumberGenerator.new()
+		z.seed = hash("%s/%s/%d" % [fighter.id, grund, _schleifen])
+		_schleifen += 1
+		anim.seek(z.randf() * lang, true)
 
 
 # Prüfer Runde 25: Blick und Rumpf wurden nur bei der Ansage gerichtet; rückte das Ziel danach auf seinen Platz, sah der Wolf
@@ -943,14 +969,73 @@ func _process(_dt: float) -> void:
 	# Pfoten 1,1 s lang im Rennen fest, der Körper lief weiter): auch, sobald das Tier etwas anderes spielt als Stehen
 	if halt and halt.drehen and (not (tween and tween.is_running()) or anim and anim.current_animation != "Stehen"):
 		halt.los(false)
-	if anim and anim.has_animation("Lefzen") and not down and not pouncing and anim.current_animation == "Stehen":
-		var now := Time.get_ticks_msec()
-		if fidget_at == 0:
-			fidget_at = now + randi_range(4000, 9000)
-		elif now >= fidget_at:
-			fidget_at = 0
-			_play("Lefzen" if randf() < 0.5 else scharren_name(), 0.2)
-			anim.queue("Stehen")
+	_ruhebewegung()
+
+
+## 453 (Chef 01.11., 11:05: „Was mir aber völlig fehlt, sind diese Ruheanimationen. Also ich weiß nicht, ob die Wölfe atmen, ob die
+## mal ab und zu scharren oder sich umblicken oder knurren. Sozusagen, da muss mehr Leben rein.“; wolf_ruhe_453: die Wölfe ruhten zu
+## 96 % in Hocke, dort gab es keine): wer daheim ruht, spielt alle RUHE_MS eine Ruhebewegung seiner Grundhaltung, nie zweimal
+## dieselbe hintereinander; nach dem eigenen Angriff zuerst Hecheln. Knurren und Hecheln mit dem Ruhelaut des Wolfs (idle_wolf_2
+## Knurren, idle_wolf_3 Schnauben; tools/klang/ruhe.py), höchstens einer zugleich im Rudel (RUHE_LAUT_ABSTAND_MS wie MonsterIdle.GAP_MS).
+const RUHE := {"Stehen": ["Lefzen", "Scharren", "Knurren"], "Hocke": ["HockeKnurren", "HockeUmsehenL", "HockeUmsehenR"]}
+const RUHE_HECHELN := {"Stehen": "Hecheln", "Hocke": "HockeHecheln"}
+const RUHE_GESTEN := ["Lefzen", "Scharren", "ScharrenR", "Knurren", "Hecheln", "HockeKnurren", "HockeUmsehenL", "HockeUmsehenR", "HockeHecheln"]
+const RUHE_MS := [3000, 7000]
+const RUHE_LAUT := {"Knurren": [1, 0.4], "HockeKnurren": [1, 0.4], "Hecheln": [2, 0.3], "HockeHecheln": [2, 0.3]}
+const RUHE_LAUT_ABSTAND_MS := 1800
+static var ruhe_laut_ms := -100000
+## 453 r2 (Chef 01.11., 13:0x: „dass die Wölfe nicht im Gleichtakt Dinge tun“): nie zwei Ruhebewegungen im Rudel zugleich beginnend;
+## wer zu früh dran ist, wartet um RUHE_VERSATZ_MS weiter. Übergang Grundhaltung ↔ Geste und Hocke ↔ Stehen weich (Prüfer r1: 0,13 s ruckartig)
+const RUHE_ABSTAND_MS := 900
+const RUHE_VERSATZ_MS := [500, 1400]
+const RUHE_BLENDE := 0.4
+var ruhe_vor := ""
+var nach_biss := false      # 453: nach dem eigenen Angriff zuerst Hecheln
+
+
+func _ruhe_uhr() -> int:
+	return int(kampfort.clock_ms) if kampfort != null and "clock_ms" in kampfort else Time.get_ticks_msec()
+
+
+func _ruhebewegung() -> void:
+	if anim == null or down or not anim.has_animation("Lefzen"):
+		return
+	var grund: String = anim.current_animation
+	if not RUHE.has(grund) or grund != ("Hocke" if pouncing else "Stehen") or (tween and tween.is_running()):
+		return
+	var now := _ruhe_uhr()
+	var hecheln := nach_biss and anim.has_animation(RUHE_HECHELN[grund])
+	if hecheln and fidget_at == 0:
+		fidget_at = now + 300
+	elif fidget_at == 0:
+		fidget_at = now + randi_range(RUHE_MS[0], RUHE_MS[1])
+	if now < fidget_at:
+		return
+	var zuletzt: int = int(kampfort.get_meta("ruhe_beginn_ms", -100000)) if kampfort != null else -100000     # je Kampfort, nicht je Spiel
+	if now - zuletzt < RUHE_ABSTAND_MS:
+		fidget_at = now + randi_range(RUHE_VERSATZ_MS[0], RUHE_VERSATZ_MS[1])
+		return
+	fidget_at = 0
+	nach_biss = false
+	var wahl: String = RUHE_HECHELN[grund] if hecheln else ""
+	if wahl == "":
+		var liste: Array = RUHE[grund].filter(func(n): return n != ruhe_vor and anim.has_animation(n if n != "Scharren" else scharren_name()))
+		if liste.is_empty():
+			return
+		wahl = String(liste[randi_range(0, liste.size() - 1)])
+	ruhe_vor = wahl
+	if kampfort != null:
+		kampfort.set_meta("ruhe_beginn_ms", now)
+	if wahl == "Scharren":
+		wahl = scharren_name()
+	_play(wahl, RUHE_BLENDE)
+	anim.set_blend_time(wahl, grund, RUHE_BLENDE)
+	anim.queue(grund)
+	if RUHE_LAUT.has(wahl) and now - ruhe_laut_ms >= RUHE_LAUT_ABSTAND_MS:
+		var klang = get_node_or_null("/root/Klang")
+		if klang != null:
+			ruhe_laut_ms = now
+			klang.effekt("idle_wolf", float(RUHE_LAUT[wahl][1]), 1.0, int(RUHE_LAUT[wahl][0]))
 
 
 ## 249 (wie im alten MARS): der Getroffene zittert seitlich am Schirm, 4 dp, in 450 ms abklingend.
@@ -1128,6 +1213,12 @@ func _mps(nm: String) -> float:
 	return _weg_len(nm) / maxf((weg[nm].size() - 1) / weg_fps, 0.1) * float(tempo.get(nm, 1.0))
 
 
+## 348.12 (Chef 29.10., 10:55: Grak „gut, aber Gang schreitend statt kurzer Sprint“): weiter als RUN_FROM rennt ein Tier
+## (Rennen), ein Zweibeiner mit Wurzelweg (Grak) schreitet immer (Gehen); Ausweichen bleibt ein Satz im Lauf.
+func _gangart(way: float) -> String:
+	return "Rennen" if way > RUN_FROM and weg.has("Rennen") and not _zweibeiner() else "Gehen"
+
+
 ## 348.12f: geht (weiter als RUN_FROM: rennt) heim im Tempo des Wurzelwegs, die Pfoten gleiten nicht; dort wieder zum Ziel.
 ## Ortmess Lauf 148: vor dem Loslaufen und nach der Ankunft drehte es in einem Bild (bis 178°); jetzt dreht es mit Schritten
 ## (Gehen) mit TURN_DPS; r3: auf dem Pfad von _heimweg() ohne Drehen auf der Stelle. Gibt die Dauer (s) zurück.
@@ -1160,7 +1251,7 @@ func _walk_home(skip = null) -> float:
 				tr += _lauf(tween, via, home, "Gehen", RUECK_TEMPO)
 			tween.tween_callback(_turn_home)
 			return tr
-		var nm := "Rennen" if way > RUN_FROM and weg.has("Rennen") else "Gehen"
+		var nm := _gangart(way)
 		var first := via - position if via != position else d
 		var tt := _turn(tween, atan2(first.x, first.z), false)
 		tween.tween_callback(func(): _play(nm, 0.15))
@@ -1621,7 +1712,7 @@ func _hieb(other) -> int:
 		var via := _detour(position, start, other)
 		var pts := [start] if via == position else [via, start]
 		var way := run if via == position else position.distance_to(via) + via.distance_to(start)
-		var gn := "Rennen" if way > RUN_FROM and weg.has("Rennen") else "Gehen"
+		var gn := _gangart(way)
 		var von := position
 		for q in pts:
 			var a: Vector3 = q - von
@@ -1651,11 +1742,11 @@ func _hieb(other) -> int:
 	var weit := start.distance_to(home) if vh == start else start.distance_to(vh) + vh.distance_to(home)
 	var t_back := 0.0
 	if weit > 0.12:
-		var rn := "Zurück" if weg.has("Zurück") and anim.has_animation("Zurück") and weit > 0.3 else "Gehen"
+		var rn := "Zurück" if weg.has("Zurück") and anim.has_animation("Zurück") and weit > 0.3 and not _zweibeiner() else "Gehen"     # 348.12: Grak schreitet rückwärts
 		var v := _mps(rn) if rn == "Zurück" else _mps("Gehen")
 		var von := start
 		var y := float(d2[1])
-		tween.tween_callback(func(): gang = "zurück"; anim.play(rn, 0.15, 1.0 if rn == "Zurück" else -1.0))
+		tween.tween_callback(func(): gang = "zurück"; anim.play(rn, 0.15, 1.0 if rn == "Zurück" else -float(tempo.get("Gehen", 1.0))))     # 348.12: im Tempo von _mps
 		for q in back:
 			var a: Vector3 = von - q     # rückwärts: das Gesicht weg vom Ziel des Schritts
 			var d: Array = _dreh(tween, y, atan2(a.x, a.z), "")
@@ -1737,6 +1828,8 @@ func strike(other, e: Dictionary) -> int:
 	if _zweibeiner() and weg.has("Gehen") and hieb.size() >= 3:
 		return _hieb(other)
 	if fighter.monster != null and weg.has("Gehen"):
+		nach_biss = true     # 453: daheim zuerst Hecheln
+		_schnaufen(1.0)     # 453 r2: nach dem Biss schneller und tiefer atmen
 		if leap:
 			pouncing = false
 		# 438 (wolf_mess_438: beim Verfehlen wich der Held aus, sein Schild fuhr bis 6 cm um die Schnauze): daneben bleibt der Wolf weiter weg
