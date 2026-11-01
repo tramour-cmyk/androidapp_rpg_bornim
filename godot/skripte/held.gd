@@ -14,6 +14,9 @@ var modell: Node3D
 var anim: AnimationPlayer
 var gang := 1.08                       # m/s, mit denen „Gehen“ ohne Gleiten laeuft (held-info.json)
 var renn := 0.0                        # m/s, mit denen „Rennen“ ohne Gleiten laeuft (held-info.json; 0: altes Modell ohne Rennen)
+var waffengang := ""                   # 417 Runde 4: Gehen_<gang>, Rennen_<gang> aus den Paketen (heldfigur.gd bewaffne), leer: ohne
+var gang_w := 0.0                      # m/s ohne Gleiten der Paketbewegungen
+var renn_w := 0.0
 var tempo_jetzt := 0.0                 # Chef 25.10., 18:20: „Übergang von Gehen zu Rennen ist zu krass“: das Tempo steigt und faellt weich
 const BESCHL := 5.0                    # m/s²: von Gehen (2,1) auf Rennen (4,3) in gut 0,4 s
 var weg: Array[Vector3] = []
@@ -56,6 +59,8 @@ func _ready() -> void:
 		{"gehen_m_je_s": modell.get_meta("gehen_m_je_s"), "rennen_m_je_s": modell.get_meta("rennen_m_je_s"), "faust_L": modell.get_meta("faust_L")}
 	gang = float(info.get("gehen_m_je_s", gang))
 	renn = float(info.get("rennen_m_je_s", 0.0))
+	if kauf and modell.has_meta("gang_gehen_m_je_s"):
+		waffengang = String(modell.get_meta("gang", "")); gang_w = float(modell.get_meta("gang_gehen_m_je_s")); renn_w = float(modell.get_meta("gang_rennen_m_je_s"))
 	# 348.6 CC0-Geruest (348.12): Knochen der Faust und Griff stehen in held-info.json (geruest.py), sonst das alte Skelett
 	var fa: Dictionary = info.get("faust_L", {})
 	if fa.has("knochen"):
@@ -104,6 +109,18 @@ func frei(p: Vector3) -> bool:
 		if is_instance_valid(l) and l.sperrt(p): return false
 	return true
 
+# Tempo und Ueberblendung, auch fuer den Film der Tragprobe (tragprobe.gd, 417): aus dem Stand sofort im Gehtempo, schneller oder
+# langsamer werden mit BESCHL; anhalten sofort
+static func tempo_schritt(jetzt: float, soll: float, geh_t: float, dt: float) -> float:
+	if soll <= 0.0: return 0.0
+	return minf(soll, geh_t) if jetzt <= 0.0 else move_toward(jetzt, soll, BESCHL * dt)
+
+# Runde 5 (Helfer Runde 3: „Haltung springt beim Anlaufen in 0,1 s“): Gehen <-> Rennen 0,6 s (Rumpf neigt sich weich; 0,45: in 1/15 s
+# 9 Grad), aus dem Stehen 0,5 s, sonst 0,25 s (397: Ruhe in Ruhe weich)
+static func ueberblendung(cur: String, moving: bool) -> float:
+	if (cur.begins_with("Gehen") or cur.begins_with("Rennen")) and moving: return 0.6
+	return 0.5 if cur.begins_with("Stehen") else 0.25
+
 func _process(dt: float) -> void:
 	zeit += dt
 	var dir := Vector3.ZERO
@@ -126,7 +143,7 @@ func _process(dt: float) -> void:
 		tempo = kps * Karte.TS / karte.schritt(karte.pos_kachel(position)) * clampf(dir.length(), 0.5, 1.0)
 		# aus dem Stand sofort im Gehtempo, schneller oder langsamer werden weich
 		var geh_t := karte.gehen * Karte.TS / karte.schritt(karte.pos_kachel(position))
-		tempo_jetzt = minf(tempo, geh_t) if tempo_jetzt <= 0.0 else move_toward(tempo_jetzt, tempo, BESCHL * dt)
+		tempo_jetzt = tempo_schritt(tempo_jetzt, tempo, geh_t, dt)
 		tempo = tempo_jetzt
 		# in kleinen Stuecken, damit ein langes Bild (dt gross) nicht ueber Kanten springt oder zu frueh anstoesst
 		var d := dir.normalized()
@@ -180,6 +197,8 @@ func _process(dt: float) -> void:
 			var r := Gebiet.ruhe_naechste(anim, ruhe, ruhe_zufall)
 			ruhe = r[0]; ruhe_bis = zeit + float(r[1])
 		var want := ("Rennen" if rennt else "Gehen") if moving else ruhe
+		var mit := moving and waffengang != "" and anim.has_animation(want + "_" + waffengang) and (gang_w if not rennt else renn_w) > 0.01
+		if mit: want += "_" + waffengang
 		if fackel and traegt_fackel:
 			if anim.has_animation(want + "_Fackel"): want += "_Fackel"
 			elif not moving: want = "Stehen_Fackel" if anim.has_animation("Stehen_Fackel") else "Stehen"   # Fackel bleibt in der Hand
@@ -189,9 +208,9 @@ func _process(dt: float) -> void:
 			var phase := anim.current_animation_position / maxf(0.001, anim.current_animation_length) if cur != "" else 0.0
 			var schritt := cur.begins_with("Gehen") or cur.begins_with("Rennen")
 			# Runde 5 (Helfer Runde 3: „Haltung springt beim Anlaufen in 0,1 s“): Gehen <-> Rennen 0,6 s (Rumpf neigt sich weich; 0,45: in 1/15 s 9 Grad), aus dem Stehen 0,25 s
-			anim.play(want, 0.6 if schritt and moving else (0.5 if cur.begins_with("Stehen") else 0.25))   # 397: Ruhe in Ruhe weich
+			anim.play(want, ueberblendung(cur, moving))
 			if schritt and moving: anim.seek(phase * anim.get_animation(want).length)
-		anim.speed_scale = (tempo / (renn if rennt else gang)) if moving else 1.0
+		anim.speed_scale = (tempo / ((renn_w if rennt else gang_w) if mit else (renn if rennt else gang))) if moving else 1.0
 	var k := karte.pos_kachel(position)
 	if k != kachel:
 		kachel = k
