@@ -13,9 +13,9 @@ DOCS = os.path.join(ROOT, "docs")
 ZIEL = os.path.join(DOCS, "ARBEIT-TAGESBERICHT.md")
 JETZT = datetime.datetime.now(zoneinfo.ZoneInfo("Europe/Berlin"))
 GH = "https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/main/docs/"
-# Stufen nach Chefsache 447 (Vorschlag Sokrates); Kurzzeichen = Block und Reihenfolge in der Abnahmeliste
-STUFEN = [("K1 Kern spielbar", "G1 G2 G3 M3"), ("K2 Kapitel 1 durchspielbar", "T2 T3 W1 W3 G4 G5 G6 G7 G9 M1 M2 M4"),
-          ("K3 Kapitel 1 fertig", "T1 T4 A1 A2 A3 K1 K2 G8 W2 W4"), ("K4 marktreif", "S1")]
+# Stufen nach 447 (Chef 01.11., „447 ja, mit K2b … neu und vernünftig durch“): Punkt „N.M“ gehört zu Stufe N
+STUFEN = {1: "Stufe 1 Kern spielbar", 2: "Stufe 2 Kapitel 1 durchspielbar", 3: "Stufe 3 Alle Systeme angelegt",
+          4: "Stufe 4 Kapitel 1 fertig", 5: "Stufe 5 marktreif", 6: "Stufe 6 SRD im Code abgelöst"}
 SPIEL = "EGCD"  # Bereiche des Spiels (124: E Entwicklung, G Gestaltung; C Texte, D Design); Rest Betrieb, Prüfung, Markt
 
 def git(*a):
@@ -26,16 +26,14 @@ def lesen(p):
     except OSError: return ""
 
 def punkte(text):
-    """Kurzzeichen → Stand (offen, in Arbeit, gebaut, abgenommen) aus der Abnahmeliste."""
-    p, block, n = {}, None, 0
+    """Punkt „N.M“ → Stand (offen, in Arbeit, gebaut, abgenommen) aus der Abnahmeliste (447: Stufe.Punkt)."""
+    p = {}
     teil = re.split(r"(?m)^## ", text.split("## Abnahmeliste", 1)[-1])[0] if "## Abnahmeliste" in text else ""
     for z in teil.splitlines():
-        m = re.match(r"\*\*([A-Z]) ", z)
-        if m: block, n = m.group(1), 0; continue
-        m = re.match(r"- \[( |x)\] ", z)
-        if m and block:
-            n += 1; s = re.search(r"· Stand: (in Arbeit|gebaut)\s*$", z)
-            p["%s%d" % (block, n)] = "abgenommen" if m.group(1) == "x" else (s.group(1) if s else "offen")
+        m = re.match(r"- \[( |x)\] \*\*(\d+\.\d+)\*\*", z)
+        if m:
+            s = re.search(r"· Stand: (in Arbeit|gebaut)\s*$", z)
+            p[m.group(2)] = "abgenommen" if m.group(1) == "x" else (s.group(1) if s else "offen")
     return p
 
 def rev_vor(spec):
@@ -110,13 +108,11 @@ def rechnen():
 
 def zahlen_md(d):
     p = d["punkte"]; z = collections.Counter(p.values())
-    vorschlag = any(f.startswith("447-") for f in os.listdir(os.path.join(DOCS, "chefsache", "entscheiden")))
     stufe = ""
-    for name, ks in STUFEN:
-        ks = ks.split(); c = collections.Counter(p.get(k, "offen") for k in ks)
-        if c["abgenommen"] < len(ks):
+    for nr, name in STUFEN.items():
+        ks = [k for k in p if k.split(".")[0] == str(nr)]; c = collections.Counter(p[k] for k in ks)
+        if ks and c["abgenommen"] < len(ks):
             stufe = "**%s**: %d von %d abgenommen, %d gebaut, %d in Arbeit" % (name, c["abgenommen"], len(ks), c["gebaut"], c["in Arbeit"]); break
-    stufe += " (Stufen nach Vorschlag 447, noch nicht gebilligt)" if vorschlag else ""
     n, alt = d["chef"]
     warte = ", ".join("**%d %s**" % (n[a], a) for a in ("entscheiden", "ansehen", "billigen", "Build", "tun") if n.get(a))
     aeltest = min(alt.values())[1] if alt else "–"
@@ -126,7 +122,7 @@ def zahlen_md(d):
     t1, t2 = d["test"]
     ein = d["ein"]
     zeilen = [
-        ("Stufe", stufe, "27 Punkte: %d abgenommen, %d gebaut, %d in Arbeit, %d offen" % (z["abgenommen"], z["gebaut"], z["in Arbeit"], z["offen"])),
+        ("Stufe", stufe, "%d Punkte in 6 Stufen: %d abgenommen, %d gebaut, %d in Arbeit, %d offen" % (len(p), z["abgenommen"], z["gebaut"], z["in Arbeit"], z["offen"])),
         ("Seit gestern", "abgenommen **%d**, gebaut **%d**, von dir zurück **%d**" % (d["seit"]["abgenommen"], d["seit"]["gebaut"], d["seit"]["zurück"]),
          "Vorgänge erledigt 24 h / 7 Tage: %d / %d, davon Spiel (Entwicklung, Gestaltung, Texte, Design) %d / %d; neu %d / %d" % (len(d["e1"]), len(d["e7"]), d["s1"], d["s7"], d["neu1"], d["neu7"])),
         ("Rest geschätzt", ein.get("Rest geschätzt", "noch keine Schätzung"), "Sitzungen bis zur nächsten Stufe, Tom und Jerry, montags neu"),
