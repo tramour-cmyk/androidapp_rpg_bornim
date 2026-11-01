@@ -20,6 +20,8 @@ Nach deinem Wort von 12:21 („schwebt“) nicht mehr von Hand gestellt: Arm, Ha
 **Rennen anders als genannt:** Die genannten „Run…“ laufen von sich aus 1,3–2,7 m/s; im Spiel (4,27 m/s) hätten sie 4,8–8,5 Schritte je Sekunde gemacht. Genommen ist je Paket die Fassung, die von selbst etwa im Spieltempo läuft: 3,0–4,2 Schritte je Sekunde, Becken hebt sich 5–10 cm (heute 24 cm).
 **Gehen:** wie genannt, aber die Pakete gehen langsam (0,7–0,8 m/s); im Spieltempo (2,13 m/s) 3,8–4,7 Schritte je Sekunde, heute 3,4.
 
+**Prüferbefund (13:3x, nach dem Versand), Fehler, die Tom behebt:** bei 2,5 s springt die Pose von Gehen auf Rennen in einem Bild (im Film ohne Überblendung, im Spiel 0,6 s). Schwert und Schild: im Gehen keine Schwerthand zu sehen, die Klinge ragt hinter dem Kopf auf; im Rennen liegt die Klinge waagerecht und sticht durch Schild und Körper; der Schild schwebt vor Brust und Gesicht statt am Unterarm. Bogen: liegt waagerecht an der Hüfte, ein Ende im Becken. Axt: beide Hände am Schaft, Kopf vorn oben, Schaftende auf dem Oberschenkel. Ab 4,3 s endet der Boden (Weltrand im Bild).
+
 **Frage:** passt die Richtung (Pakete, Waffe in der Hand)?
 **Stärkstes Gegenargument:** Das Gehen der Pakete ist für unser Spieltempo zu langsam gemacht und wirkt im Film womöglich getrippelt. Abhilfe wäre ein langsameres Gehtempo im Spiel; das ist Spielgefühl und deine Entscheidung.
 
