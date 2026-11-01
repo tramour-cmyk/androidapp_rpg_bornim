@@ -25,6 +25,7 @@ Nichts offen.
 | [406](ansehen/406-kaufschilde.md) | Gewählte Schilde am Helden: 2 beim Kleriker, 15 beim Kämpfer | Jerry | 01.11., 11:55 |
 | [416.9](ansehen/4169-laden.md) | Laden, Runde 2: Leiste fest, Leerzeile weg, Vergleich wie alt | – | 01.11. |
 | [453](ansehen/453-wolf-ruhe.md) | Ruhebewegungen der Wölfe im Kampf | – | 01.11., 12:06 |
+| [454](ansehen/454-wolfsbiss.md) | Wolfsbiss: Achse und Schnauze aufs Ziel | Jerry | 01.11., 12:54 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
