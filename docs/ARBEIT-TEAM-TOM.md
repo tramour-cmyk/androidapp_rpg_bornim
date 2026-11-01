@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (01.11., 01:4x, `session_01Hmoj76iHvA7sdceAF7G8xu`):** 425 Befunde behoben (`claude/tom-425-testmenue`), 416.4 Ursache gemessen (`claude/tom-416-4-rennen`), Build 145 (`claude/build-145`: 416.1, 416.2, 416.7, 416.8, 416.9, 399.4, 425, Jerry 416.5, 401, 402, 399.2b) läuft, Prüfliste im Wecker. Nachfolger: Tom – 145 Testbitte, 417 nach Urteil.
+**Übergabe (01.11., 01:4x, `session_01Hmoj76iHvA7sdceAF7G8xu`):** 425 Befunde behoben (`claude/tom-425-testmenue`), 416.4 Ursache gemessen (`claude/tom-416-4-rennen`), Build 146 (`claude/build-146`: 416.1, 416.2, 416.7, 416.8, 416.9, 399.4, 425, Jerry 416.5, 401, 402, 399.2b; 145 rot, behoben 0856e0945) läuft, Prüfliste im Wecker. Nachfolger: Tom – 146 Testbitte, 417 nach Urteil.
 
 ## Zeilen
 
