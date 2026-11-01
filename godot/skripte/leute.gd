@@ -228,6 +228,7 @@ func _ready() -> void:
 	if anim:
 		anim.play("Stehen")
 		anim.seek(zufall.randf() * 2.0, true)   # nicht alle im selben Atemzug
+	Gebiet.atem_an(modell, anim, hash(String(daten.get("id", ""))) ^ 4532)   # 453.2: eigener Takt je Person (gebiet.gd)
 	position = karte.kachel_pos(kachel)
 	blick = {"UP": PI, "DOWN": 0.0, "LEFT": -PI / 2, "RIGHT": PI / 2}.get(String(daten.get("blick", "DOWN")), 0.0)
 	rotation.y = blick

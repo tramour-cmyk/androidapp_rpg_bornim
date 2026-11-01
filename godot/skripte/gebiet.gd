@@ -94,6 +94,30 @@ static func ruhe_naechste(anim: AnimationPlayer, jetzt: String, z: RandomNumberG
 	var n: String = da[z.randi_range(1, da.size() - 1)]
 	return [n, anim.get_animation(n).length]
 
+# 453.2 (Chef 01.11., 13:0x, Archiv 453.1: „aufs ganze Spiel übertragen … als ob die Leute halt wirklich leben“): Held und Leute atmen
+# als eigene Schicht wie Held und Soeldner im Kampfort (kampf/atem.gd, Tuffy 453.1, dieselbe Datei): ruhig, je Figur eigener Takt und
+# Versatz (seed), nach Anstrengung schneller und abklingend. Die Ruhe der UAL (Idle_Loop = Stehen) atmet selbst zweimal in 2,5 s und bei
+# allen im selben Takt: in ATEM_RUHE bleibt darum ihr erstes Bild stehen (wie figur.gd _ohne_atem), nur die Schicht atmet; Stehen_2,
+# Stehen_3 (Umsehen, Muede) bleiben. Ohne UAL-Geruest (Dorftiere, altes Modell) kein Atem, Rueckgabe null.
+const ATEM_RUHE := ["Stehen", "Stehen_Fackel"]
+static func atem_an(modell: Node3D, anim: AnimationPlayer, seed: int) -> Node:
+	var sk := finde(modell, "Skeleton3D") as Skeleton3D
+	if sk == null or anim == null or OS.get_environment("ATEM_ALT") != "": return null   # ATEM_ALT=1: wie vorher (Vergleich)
+	for k in ["spine_02", "spine_03", "clavicle_l", "clavicle_r", "upperarm_l", "upperarm_r"]:
+		if sk.find_bone(k) < 0: return null
+	for n in ATEM_RUHE:
+		if not anim.has_animation(n): continue
+		var a := anim.get_animation(n)
+		for t in a.get_track_count():
+			var ty := a.track_get_type(t)
+			if ty != Animation.TYPE_ROTATION_3D and ty != Animation.TYPE_POSITION_3D: continue
+			while a.track_get_key_count(t) > 1: a.track_remove_key(t, a.track_get_key_count(t) - 1)
+	var atem = load("res://kampf/atem.gd").new()
+	atem.name = "Atem"
+	atem.eigen(seed)
+	sk.add_child(atem)
+	return atem
+
 # 348.6 (Helfer: Held stand nachts nach dem Rennen gegraetscht; Chef 18:20 „glitscht … und zuckt“): beim Laden verwirft Godot
 # Spuren von Knochen, die in einer Bewegung ruhen (Stehen hat keine Beine); beim Wechsel blieben sie in der Pose der Bewegung
 # davor stehen. Jede Bewegung bekommt fuer jeden fehlenden Knochen eine Spur mit der Ruhepose, dazu Schleife

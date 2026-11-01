@@ -32,6 +32,11 @@ var ruhe_zufall := RandomNumberGenerator.new()
 var gestossen := Vector2i(-1, -1)
 var stoss_zeit := -9.0
 var leute: Array = []                  # Leute der Karte (spiel.gd): durch sie geht er nicht
+var atem = null                        # 453.2: kampf/atem.gd (null ohne UAL-Geruest)
+var renn_s := 0.0                      # 453.2: so lange rennt er schon (s); danach atmet er schneller und beruhigt sich
+# 453.2 (Chef 13:0x: „nach Rennen schneller und abklingend“): nach RENN_VOLL s Rennen volle Anstrengung, nach Gehen etwas
+const RENN_VOLL := 6.0
+const GEH_ANSTRENGUNG := 0.15
 
 var wahl := {}                         # 376.1 Klasse, Aussehen, Ausruestung (HeldFigur.wahl); leer: der bisherige Held
 
@@ -70,6 +75,7 @@ func _ready() -> void:
 	anim = Gebiet.finde(modell, "AnimationPlayer") as AnimationPlayer
 	if anim: Gebiet.bewegungen(anim, ["Gehen", "Stehen", "Rennen", "Gehen_Fackel", "Stehen_Fackel", "Rennen_Fackel", "Stehen_2", "Stehen_3", "Stehen_2_Fackel", "Stehen_3_Fackel"])
 	if anim: anim.play("Stehen")
+	atem = Gebiet.atem_an(modell, anim, 4532)   # 453.2: eigene Atemschicht (gebiet.gd atem_an)
 	baue_fackel()
 
 func setze(t: Vector2i, blick := "DOWN") -> void:
@@ -253,6 +259,10 @@ func _process(dt: float) -> void:
 		if not moving: tempo_jetzt = 0.0
 		var geh_t := karte.gehen * Karte.TS / karte.schritt(karte.pos_kachel(position))
 		var rennt := moving and renn > 0.0 and tempo > geh_t * 1.45
+		renn_s = renn_s + dt if rennt else 0.0
+		if atem != null:
+			if rennt: atem.anstrengen(minf(1.0, renn_s / RENN_VOLL))
+			elif moving: atem.anstrengen(GEH_ANSTRENGUNG)
 		if moving: ruhe = "Stehen"; ruhe_bis = -1.0
 		elif ruhe_bis < 0.0: ruhe_bis = zeit + anim.get_animation("Stehen").length * ruhe_zufall.randi_range(2, 4)
 		elif zeit >= ruhe_bis:
