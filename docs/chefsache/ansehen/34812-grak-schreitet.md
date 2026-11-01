@@ -8,6 +8,6 @@ Film 28 s im Kampfort (Telegram), Lauf 177 auf `claude/grundstand-461` (348.12b)
 
 - **Ablauf:** Anlauf, Stehen, Hieb, Ausweichen rechts und links, Treffer, Platzwechsel, Tod.
 - **Neu** (Chef 29.10., 10:55: „gut, aber Gang schreitend statt kurzer Sprint“): Grak geht bei jedem Ortswechsel, auch zum Hieb hin und zurück, kein Rennen mehr.
-- **Grundstand 461:** B2 Grak auf altem Körper (Ausnahme 348.12b, 20:5x); C1/C2 verletzt, weil Grak noch keine Atemschicht hat (bisher nur Helden und Wölfe), folgt nach deinem Urteil.
+- **Grundstand 461:** B2 verletzt: Grak noch auf altem Körper statt Superheld (deine Antwort dazu offen: [348.12b Körper](../entscheiden/34812b-grak-koerper.md)); C1/C2 verletzt, weil Grak noch keine Atemschicht hat (bisher nur Helden und Wölfe), folgt nach deinem Urteil.
 
 **Zu sagen:** „348.12 passt“ oder was anders sein soll.

@@ -36,6 +36,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | wartet auf Chef: Film Grak schreitet (Lauf 177 grün, ansehen/34812-grak-schreitet); danach Atemschicht Grak (C1) | `claude/jerry-348-kampf` |
+| 348.12j | M | Rückfrage: Graks Axt Kopf oben oder hängend (E6) | wartet auf Chef: entscheiden/34812j-grak-axt | – |
 | 385.2 | M | **von Chef (Archiv 385.1):** Feuer aus dem Stab | wartet auf 403 (Magier mit Stab im Kampfort) | – |
 | 348.13a | M | **von Team Tom (Chef 08:09, Archiv: r9 ja):** Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13a) | gebaut 421662dbd: Tusche nach Licht Vorgabe, Linie 1,3; offen Säbel (Tom) | `claude/jerry-348-kampf` |
 | 397 | M | von Chef: Tiere, Monster mind. drei Ruhebewegungen | ruht (399) | – |
@@ -88,4 +89,4 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 - **Zu 296.2, 344.2, 249, 211.13/211.14, 168.1, 72u.1, 38, 39** (ruhend, altes SRD-System): Text in Git, `git show de0998e2a:docs/ARBEIT-TEAM-JERRY.md`.
 - **Zu 399.2, von Tom (28.10., 13:23):** `goblin.py` erkennt Toms `v3/rig.py` nicht; beide Workflows bauen Goblins mit `v3_kampf/` (godot-kampf seit 8aee22a77); vor der Höhle auf `v3` umstellen.
 - **Zu 348.12, von Ford (464, 01.11., 21:08):** rote Läufe #175, #150 (c6a3bb68d). **Jerry 21:1x:** #175 Gleiten-Messung grak_348 (Rampe aus 438), berichtigt 52c184d2b, Bestätigung Lauf 177; #150 wolf_mess_438, gehört zu 438. Lauf 177 grün (bestätigt).
-- **Zu 348.12, Prüfer Film Lauf 177 (22:0x, an Chef per Telegram):** A4 schwarze Scheibe unter Helden, C3 Helden 0–7,4 s Gleichtakt, D4 Held gleitet 16,9 s, E6 Axtkopf oben und nur eine Faust beim Gehen, F2 Hieb 7,4 s verfehlt (25 px über Schild), G1 Schild aus dem Bild; dazu 90°-Drehung 7,5 s, Axt fällt beim Tod, Umhang der Leiche starr. Helden = altes Modell (godot-kampf). Grak-Technik (E6, F2, Axt, Umhang) nach Chefurteil; Bilder nicht im Repo.
+- **Zu 348.12, Prüfer Film Lauf 177 (22:0x, an Chef per Telegram):** Grak: eine Faust beim Gehen, Hieb 7,4 s verfehlt, Axt fällt beim Tod, Umhang der Leiche starr; Kopf oben (348.12j). Helden (altes Modell): A4, C3, D4, G1. Grak-Technik nach Chefurteil.
