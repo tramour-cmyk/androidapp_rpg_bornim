@@ -13,7 +13,10 @@ func pruefe(was: String, ist, soll) -> void:
 
 func knopf(n: Node, anfang: String) -> Button:
 	for b in n.find_children("*", "Button", true, false):
-		if b.is_visible_in_tree() and String(b.text).begins_with(anfang.to_upper()): return b
+		if not b.is_visible_in_tree(): continue
+		if String(b.text).begins_with(anfang.to_upper()): return b
+		# 425: Eintraege als Zeichen (zeichenknopf.gd): Name oder Buchstabe
+		if b is Zeichenknopf and (String(b.buchstabe) == anfang or String(b.wort).to_upper().begins_with(anfang.to_upper())): return b
 	print("FEHLER kein Knopf ", anfang)
 	fehler += 1
 	return null
@@ -64,24 +67,24 @@ func _lauf() -> void:
 	pruefe("Stufe +5", hw.stufe, 6)
 	await druecke(m, "−1")
 	pruefe("Stufe −1", [hw.stufe, hw.tp == hw.max_tp()], [5, true])
-	await druecke(m, "+1000")
+	await druecke(m, "Gold")
 	pruefe("Gold", z.gold, 1000)
-	await druecke(m, "Alle Vorräte")
+	await druecke(m, "Vorräte")
 	pruefe("Vorraete", [z.anzahl("potion") >= 10, z.beutel.filter(func(g): return g["base"] == "torch").size(), z.anzahl(Geschichte.SMOKE_BUNDLE)], [true, 2, 1])
-	await druecke(m, "Waffe des Helden")
+	await druecke(m, "Waffe")
 	await druecke(m, "Langschwert")
 	pruefe("Waffe", String(hw.ding("MAIN_HAND")["base"]) if hw.ding("MAIN_HAND") != null else "", "longsword")
 	var nb_vor := String(hw.ding("OFF_HAND")["base"]) if hw.ding("OFF_HAND") != null else ""
 	await druecke(m, "Andere Hand")
 	pruefe("Nebenhand", String(hw.ding("OFF_HAND")["base"]) if hw.ding("OFF_HAND") != null else "", Testmodus.NEBENHAND[(maxi(Testmodus.NEBENHAND.find(nb_vor), 0) + 1) % 4])
 	var uhr := z.minuten
-	await druecke(m, "Uhrzeit +3 h")
+	await druecke(m, "Uhrzeit")
 	pruefe("Uhr", z.minuten, (uhr + 180) % 1440)
 	var stuecke := z.beutel.size()
 	await druecke(m, "Selten")
 	pruefe("Beute selten", [z.beutel.size(), String(z.beutel[-1]["rarity"]) if z.beutel.size() > stuecke else ""], [stuecke + 1, "RARE"])
 	await druecke(m, "Dorf")
-	await druecke(m, "Kapitel 1")
+	await druecke(m, "Kapitelende")
 	await druecke(m, "Wolfsrudel")
 	await druecke(m, "Kämpfer")
 	pruefe("an die Welt", taten.map(func(x): return x[0]), ["teleport", "kapitelende", "kampf", "probe"])

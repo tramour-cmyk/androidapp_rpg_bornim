@@ -102,43 +102,57 @@ static func name_von(base: String) -> String:
 	var g := Beute.grundform(base)
 	return String(g["de"] if Sprache.aktiv() == "de" else g["en"])
 
+# 425 (Chef 31.10., 22:5x: „im Testmenü gerne auch sinnvolle Icons“; DESIGN-STIL „Zeichen statt Textwände“): jeder Eintrag ein Zeichen
+# wie im Menü „System“ (zeichenknopf.gd): Name, Wert in Gold, Antippen tut es, Gedrückthalten erklärt; Listen (Waffen, Gegner) bleiben
+# Knöpfe mit dem Namen, weil der Name dort der Inhalt ist
 static func reiter(m: Menue) -> void:
 	var de := Sprache.aktiv() == "de"
 	var t := func(d: String, e: String) -> String: return d if de else e
 	var an_aus := func(b: bool) -> String: return t.call("an", "on") if b else t.call("aus", "off")
 	var hw := m.hw
 	var z := m.z
+	var zk := func(name_: String, wert, satz: String, tut: Callable, zeichen := "", buchstabe := "", an_ := true) -> Zeichenknopf:
+		return Zeichenknopf.new(name_, wert, satz, func(): m._tue(tut), m.erklaere_zeichen, an_, zeichen, buchstabe)
 	var reihe := func(knoepfe: Array) -> void:
 		var r := HBoxContainer.new()
 		r.add_theme_constant_override("separation", int(6 * Menue.DP))
 		for k in knoepfe: r.add_child(Erschaffung.knopf(String(k[0]), k[1]))
 		m.inhalt.add_child(r)
 		m.luecke(6)
-	var kopf := func(w: String) -> void:
-		m.luecke(6)
-		m.zeile(w, 16, Stil.GOLD)
-		m.luecke(4)
 	m.zeile(t.call("Testmodus", "Test mode"), 18, Stil.BRIGHT)
-	kopf.call(t.call("Anzeigen und Messwerte", "Displays and readings"))
+	m.luecke(8)
+	m.gruppe(t.call("Anzeigen", "Displays"))
 	# 425 wie alt (TestTab.kt): nur die Messwerte offen, Geraet, System und Grafik erst hinter „Gerät zeigen …“ (DeviceBox)
 	var ml := Engine.get_main_loop()
 	for r in Messung.zeilen(ml.root if ml is SceneTree else null): m.zeile(String(r), 13, Stil.TEXT)
-	m.luecke(6)
+	m.luecke(8)
+	m.zeichenreihe([zk.call(t.call("Bildrate", "Frame rate"), an_aus.call(bildrate), t.call("Zeigt über der Welt die Bilder je Sekunde.", "Shows frames per second over the world."),
+			func(): bildrate = not bildrate, "FPS", "", bildrate),
+		zk.call(t.call("Standort", "Position"), an_aus.call(standort), t.call("Zeigt über der Welt Karte und Kachel des Helden.", "Shows the hero's map and tile over the world."),
+			func(): standort = not standort, "PIN", "", standort)])
 	m.geraet_box()
 	m.luecke(6)
-	reihe.call([[t.call("Bildrate anzeigen: ", "Show frame rate: ") + an_aus.call(bildrate), func(): bildrate = not bildrate; m.baue()]])
-	reihe.call([[t.call("Standort anzeigen: ", "Show position: ") + an_aus.call(standort), func(): standort = not standort; m.baue()]])
-	kopf.call(t.call("Held", "Hero"))
-	m.zeile(t.call("Stufe", "Level") + ": %d   ·   Gold: %d" % [hw.stufe, z.gold], 16)
-	reihe.call([-5, -1, 1, 5].map(func(d): return [("+%d" % d) if d > 0 else ("−%d" % -d), func(): stufe_setzen(hw, z, hw.stufe + d); m.baue()]))
-	reihe.call([["+1000 Gold", func(): z.gold += 1000; m.baue()], [t.call("Heilen", "Heal"), func(): heile(hw); m.baue()]])
-	reihe.call([[t.call("Alle Vorräte auf mindestens 10", "All supplies to at least 10"), func():
-		vorraete(hw, z)
-		m.baue()
-		m.meldung(t.call("Tränke, Flaschen, Essen und Zutaten aufgefüllt, zwei Fackeln und ein Rauchbündel dazu.", "Potions, flasks, food and ingredients refilled; two torches and a smoke bundle added."))]])
+	m.gruppe(t.call("Held", "Hero"))
+	var stufe_satz: String = t.call("Stufe des Helden ändern; danach voll geheilt. Hinab mit Stufe, Erfahrung und Punkten wie bei einem, der so weit kam.",
+		"Change the hero's level, then fully healed. Down sets level, experience and points as for one who got that far.")
+	m.zeichenreihe([-5, -1, 1, 5].map(func(d): return zk.call(t.call("Stufe", "Level"), str(hw.stufe) if d == 1 else null, stufe_satz,
+		func(): stufe_setzen(hw, z, hw.stufe + d), "", ("+%d" % d) if d > 0 else ("−%d" % -d))))
+	m.zeichenreihe([zk.call("Gold", str(z.gold), t.call("Gibt 1000 Gold.", "Gives 1000 gold."), func(): z.gold += 1000, "COIN"),
+		zk.call(t.call("Heilen", "Heal"), "%d/%d" % [hw.tp, hw.max_tp()], t.call("Trefferpunkte und Zauberplätze voll.", "Hit points and spell slots full."),
+			func(): heile(hw), "HEAL"),
+		zk.call(t.call("Vorräte", "Supplies"), "10", t.call("Jeder Vorrat auf mindestens 10, dazu zwei Fackeln und ein Rauchbündel.", "Every supply to at least 10, plus two torches and a smoke bundle."),
+			func():
+				vorraete(hw, z)
+				m.meldung(t.call("Tränke, Flaschen, Essen und Zutaten aufgefüllt, zwei Fackeln und ein Rauchbündel dazu.", "Potions, flasks, food and ingredients refilled; two torches and a smoke bundle added.")), "SUPPLY")])
 	var haupt = hw.ding("MAIN_HAND")
-	reihe.call([[t.call("Waffe des Helden", "Hero's weapon") + ": " + (name_von(String(haupt["base"])) if haupt != null else t.call("keine", "none")) + ("  ▾" if waffen_auf else "  ›"),
-		func(): waffen_auf = not waffen_auf; m.baue()]])
+	var neben = hw.ding("OFF_HAND")
+	var nb := String(neben["base"]) if neben != null else ""
+	m.zeichenreihe([zk.call(t.call("Waffe", "Weapon"), name_von(String(haupt["base"])) if haupt != null else t.call("keine", "none"),
+			t.call("Öffnet die Liste aller Waffen; was die Hand hielt, kommt in die Tasche.", "Opens the list of all weapons; what the hand held goes into the bag."),
+			func(): waffen_auf = not waffen_auf, "SWORD", "", true),
+		zk.call(t.call("Andere Hand", "Other hand"), name_von(nb) if nb != "" else t.call("leer", "empty"),
+			t.call("Wechselt die andere Hand: leer, Schild, Rundschild, Dolch.", "Cycles the other hand: empty, shield, round shield, dagger."),
+			func(): waffe(hw, z, NEBENHAND[(maxi(NEBENHAND.find(nb), 0) + 1) % NEBENHAND.size()] if NEBENHAND.has(nb) else "", true), "SHIELD")])
 	if waffen_auf:
 		var alle: Array = [""]
 		for id in Beute.grundformen():
@@ -149,46 +163,45 @@ static func reiter(m: Menue) -> void:
 				var zwei: bool = w != "" and bool(Beute.grundform(w)["zweihaendig"])
 				paar.append([(name_von(w) if w != "" else t.call("Ohne Waffe", "No weapon")) + (" ²" if zwei else ""), func(): waffe(hw, z, w); waffen_auf = false; m.baue()])
 			reihe.call(paar)
-	var neben = hw.ding("OFF_HAND")
-	var nb := String(neben["base"]) if neben != null else ""
-	reihe.call([[t.call("Andere Hand", "Other hand") + ": " + (name_von(nb) if nb != "" else t.call("leer", "empty")) + "  ›", func():
-		waffe(hw, z, NEBENHAND[(maxi(NEBENHAND.find(nb), 0) + 1) % NEBENHAND.size()] if NEBENHAND.has(nb) else "", true)
-		m.baue()]])
-	kopf.call(t.call("Welt", "World"))
-	reihe.call([[t.call("Uhrzeit +3 h", "Time +3 h") + "  (%02d:%02d)" % [z.minuten / 60, z.minuten % 60], func():
-		var alle_ := z.minuten + 3 * 60   # Game.cheatTime
-		z.tag += alle_ / (24 * 60); z.minuten = alle_ % (24 * 60)
-		m.baue()]])
-	kopf.call("Teleport")
-	reihe.call([[t.call("Dorf", "Village"), func(): m.test.emit("teleport", ["village", 11, 7, "DOWN"])]])
-	reihe.call([[t.call("Kapitel 1 bis kurz vor Ende", "Chapter 1 to just before its end"), func(): m.test.emit("kapitelende", [])]])
+	m.gruppe(t.call("Welt", "World"))
+	m.zeichenreihe([zk.call(t.call("Uhrzeit", "Time"), "%02d:%02d" % [z.minuten / 60, z.minuten % 60], t.call("Stellt die Uhr drei Stunden vor.", "Moves the clock three hours on."),
+			func():
+				var alle_ := z.minuten + 3 * 60   # Game.cheatTime
+				z.tag += alle_ / (24 * 60); z.minuten = alle_ % (24 * 60), "CLOCK"),
+		zk.call(t.call("Dorf", "Village"), null, t.call("Bringt den Helden auf den Dorfplatz.", "Takes the hero to the village square."),
+			func(): m.test.emit("teleport", ["village", 11, 7, "DOWN"]), "HOME"),
+		zk.call(t.call("Kapitelende", "Chapter end"), null, t.call("Kapitel 1 bis kurz vor Ende: Höhle geschafft, Lyra frei, Amulett in der Tasche; sprich mit Aldric.",
+			"Chapter 1 to just before its end: cave done, Lyra free, amulet in the bag; talk to Aldric."), func(): m.test.emit("kapitelende", []), "FLAG")])
 	var fs := feinde()
 	if not fs.is_empty():
-		kopf.call(t.call("Monster/Kampf beschwören", "Summon monster/fight"))
-		var eroeffnungen := {"NORMAL": t.call("Normal", "Normal"), "AMBUSHED": t.call("Hinterhalt (Gegner zuerst)", "Ambush (foe first)"),
-			"HERO_FIRST": t.call("Held zuerst", "Hero first")}
-		reihe.call([[t.call("Eröffnung", "Opening") + ": " + String(eroeffnungen[eroeffnung]) + "  ›", func():
-			var e: Array = eroeffnungen.keys()
-			eroeffnung = String(e[(e.find(eroeffnung) + 1) % e.size()]); m.baue()]])
+		m.gruppe(t.call("Kampf beschwören", "Summon a fight"))
+		var eroeffnungen := {"NORMAL": t.call("Normal", "Normal"), "AMBUSHED": t.call("Gegner zuerst", "Foe first"), "HERO_FIRST": t.call("Held zuerst", "Hero first")}
+		m.zeichenreihe([zk.call(t.call("Eröffnung", "Opening"), String(eroeffnungen[eroeffnung]), t.call("Wer im beschworenen Kampf zuerst handelt: wie im Spiel, Hinterhalt der Gegner, oder der Held.",
+			"Who acts first in a summoned fight: as in the game, a foe ambush, or the hero."), func():
+				var e: Array = eroeffnungen.keys()
+				eroeffnung = String(e[(e.find(eroeffnung) + 1) % e.size()]), "DICE")])
 		var ids: Array = fs.keys()
 		for i in range(0, ids.size(), 2):
 			reihe.call(ids.slice(i, i + 2).map(func(id): return [String(fs[id]), func(): m.test.emit("kampf", [id])]))
-		kopf.call(t.call("MARS-Probekampf", "MARS trial fight"))
+		m.luecke(6)
+		m.gruppe(t.call("MARS-Probekampf", "MARS trial fight"))
 		if not fs.has(probe_gegner): probe_gegner = String(ids[0])
-		m.zeile(t.call("MARS: Held und Söldner gegen ", "MARS: hero and mercenary against ") + String(fs[probe_gegner]), 14)
+		m.zeichenreihe([zk.call(t.call("Gegner", "Foes"), String(fs[probe_gegner]), t.call("Wechselt die Gegner des Probekampfs.", "Changes the foes of the trial fight."),
+				func(): probe_gegner = String(ids[(ids.find(probe_gegner) + 1) % ids.size()]), "SKULL"),
+			zk.call(t.call("Stufe", "Level"), str(probe_stufe), t.call("Stufe von Held und Söldner im Probekampf.", "Level of hero and mercenary in the trial fight."),
+				func(): probe_stufe = STUFEN_PROBE[(STUFEN_PROBE.find(probe_stufe) + 1) % STUFEN_PROBE.size()], "", str(probe_stufe))])
+		m.zeile(t.call("Starten als:", "Start as:"), 13, Stil.DIM)
 		m.luecke(4)
-		reihe.call([[t.call("Gegner wechseln  ›", "Change foes  ›"), func(): probe_gegner = String(ids[(ids.find(probe_gegner) + 1) % ids.size()]); m.baue()]])
-		reihe.call([[t.call("Stufe Held und Söldner: ", "Hero and mercenary level: ") + str(probe_stufe) + "  ›", func():
-			probe_stufe = STUFEN_PROBE[(STUFEN_PROBE.find(probe_stufe) + 1) % STUFEN_PROBE.size()]; m.baue()]])
 		reihe.call(KLASSEN.map(func(k): return [Sprache.t(Heldwerte.lade()["klassen"][k]["name"]), func(): m.test.emit("probe", [probe_gegner, k, probe_stufe])]))
-	kopf.call(t.call("Beute erzeugen", "Create loot"))
+	m.gruppe(t.call("Beute erzeugen", "Create loot"))
 	var st: Dictionary = Heldwerte.lade()["seltenheiten"]
 	var sel: Array = st.keys()
-	for i in range(0, sel.size(), 3):
-		reihe.call(sel.slice(i, i + 3).map(func(r): return [Sprache.t(st[r]["name"]).capitalize(), func():   # Game.cheatLoot
-			var g := z.ausruestung_dazu(Beute.erzeuge(KotlinZufall.new(randi()), z.neue_uid(), hw.stufe, String(r), hw.klasse))
-			m.baue()
-			m.meldung(t.call("Erhalten: ", "Received: ") + Beute.name(g))]))
+	for i in range(0, sel.size(), 4):
+		m.zeichenreihe(sel.slice(i, i + 4).map(func(r): return zk.call(Sprache.t(st[r]["name"]).capitalize(), null,
+			t.call("Erzeugt ein Stück dieser Seltenheit auf der Stufe des Helden, passend zur Klasse.", "Creates an item of this rarity at the hero's level, suited to the class."),
+			func():   # Game.cheatLoot
+				var g := z.ausruestung_dazu(Beute.erzeuge(KotlinZufall.new(randi()), z.neue_uid(), hw.stufe, String(r), hw.klasse))
+				m.meldung(t.call("Erhalten: ", "Received: ") + Beute.name(g)), "GEM")))
 
 # cheatChapterEnd: ein begehbares Feld neben Aldric im Haus des Aeltesten, mit Blick zu ihm: [Kachel, Blick]; [] ohne Aldric
 static func vor_aldric() -> Array:

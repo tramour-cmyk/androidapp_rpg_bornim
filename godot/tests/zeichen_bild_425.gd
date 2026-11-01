@@ -38,4 +38,8 @@ func _lauf() -> void:
 	m.reiter = "test"; m.baue()
 	m.rolle.scroll_vertical = 0
 	await _bild("test_oben")
+	m.rolle.scroll_vertical = 1100
+	await _bild("test_mitte")
+	m.rolle.scroll_vertical = 99999
+	await _bild("test_unten")
 	quit()

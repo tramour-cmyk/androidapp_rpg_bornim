@@ -187,6 +187,61 @@ static func glyphe(ci: CanvasItem, g: String, o: Vector2, u: float, c: Color, an
 				var q := PackedVector2Array()
 				for i in 24: q.append(P.call(ov[0].x + ov[1].x * cos(TAU * i / 24), ov[0].y + ov[1].y * sin(TAU * i / 24)))
 				ci.draw_colored_polygon(q, c)
+		# 425 Testmenue (Chef 31.10., 22:5x: „im Testmenü gerne auch sinnvolle Icons“), nach DESIGN-STIL „Zeichen“: Linie, nie gefuellt
+		# ausser Punkten
+		"FPS":   # ein Tacho: Bogen unten offen, Zeiger
+			ci.draw_arc(P.call(11, 13), 8 * u, deg_to_rad(150), deg_to_rad(390), 32, c, w, true)
+			linie.call(11, 13, 15.5, 7.5); punkt.call(Vector2(11, 13), 1.3)
+			for a in [150.0, 210.0, 270.0, 330.0, 390.0]:
+				var d := Vector2.from_angle(deg_to_rad(a))
+				linie.call(11 + d.x * 6, 13 + d.y * 6, 11 + d.x * 7.6, 13 + d.y * 7.6)
+		"PIN":   # eine Stecknadel auf der Karte
+			var p: Array = [Vector2(11, 20)]
+			p += _quad(Vector2(11, 20), Vector2(4, 12), Vector2(5, 8))
+			p += _kubisch(Vector2(5, 8), Vector2(6, 2), Vector2(16, 2), Vector2(17, 8))
+			p += _quad(Vector2(17, 8), Vector2(18, 12), Vector2(11, 20))
+			zug.call(p); ring.call(Vector2(11, 8), 2.5)
+		"COIN":   # zwei Muenzen, die vordere mit Rand
+			ring.call(Vector2(9, 12), 6.5); ring.call(Vector2(9, 12), 4)
+			ci.draw_arc(P.call(14, 9), 6.5 * u, deg_to_rad(-120), deg_to_rad(75), 24, c, w, true)
+		"HEAL":   # ein Kreuz im Umriss
+			zug.call([Vector2(8, 3), Vector2(14, 3), Vector2(14, 8), Vector2(19, 8), Vector2(19, 14), Vector2(14, 14), Vector2(14, 19),
+				Vector2(8, 19), Vector2(8, 14), Vector2(3, 14), Vector2(3, 8), Vector2(8, 8)], true)
+		"SUPPLY":   # eine Flasche mit Korken
+			zug.call([Vector2(9, 3), Vector2(13, 3)]); zug.call([Vector2(9.5, 3), Vector2(9.5, 7.5)]); zug.call([Vector2(12.5, 3), Vector2(12.5, 7.5)])
+			var p: Array = [Vector2(9.5, 7.5)]
+			p += _quad(Vector2(9.5, 7.5), Vector2(4.5, 10), Vector2(4.5, 14))
+			p += _kubisch(Vector2(4.5, 14), Vector2(4.5, 21), Vector2(17.5, 21), Vector2(17.5, 14))
+			p += _quad(Vector2(17.5, 14), Vector2(17.5, 10), Vector2(12.5, 7.5))
+			zug.call(p); linie.call(6, 14, 16, 14)
+		"SWORD":   # ein Schwert schraeg, Spitze oben rechts
+			linie.call(19, 3, 8, 14); linie.call(19, 3, 15.5, 3.8); linie.call(19, 3, 18.2, 6.5)
+			linie.call(5, 11, 11, 17); linie.call(8, 14, 4, 18); punkt.call(Vector2(3.3, 18.7), 1.3)
+		"SHIELD":   # ein Wappenschild
+			var p: Array = [Vector2(4, 4), Vector2(18, 4), Vector2(18, 10)]
+			p += _quad(Vector2(18, 10), Vector2(18, 17), Vector2(11, 20))
+			p += _quad(Vector2(11, 20), Vector2(4, 17), Vector2(4, 10))
+			zug.call(p, true); linie.call(11, 4, 11, 20)
+		"CLOCK":   # eine Uhr mit Zeigern
+			ring.call(Vector2(11, 11), 9); linie.call(11, 11, 11, 5.5); linie.call(11, 11, 15, 13); punkt.call(Vector2(11, 11), 1.1)
+		"HOME":   # ein Haus mit Giebel und Tuer
+			zug.call([Vector2(3, 11), Vector2(11, 3.5), Vector2(19, 11)]); zug.call([Vector2(5.5, 9), Vector2(5.5, 19.5), Vector2(16.5, 19.5), Vector2(16.5, 9)])
+			zug.call([Vector2(9, 19.5), Vector2(9, 14), Vector2(13, 14), Vector2(13, 19.5)])
+		"FLAG":   # eine Fahne am Ziel
+			linie.call(5, 3, 5, 20); zug.call([Vector2(5, 4), Vector2(17, 4), Vector2(14, 8), Vector2(17, 12), Vector2(5, 12)]); linie.call(2.5, 20, 9, 20)
+		"SKULL":   # ein Schaedel: Gegner
+			var p: Array = [Vector2(6, 16)]
+			p += _kubisch(Vector2(6, 16), Vector2(2, 12), Vector2(3, 3), Vector2(11, 3))
+			p += _kubisch(Vector2(11, 3), Vector2(19, 3), Vector2(20, 12), Vector2(16, 16))
+			p += [Vector2(16, 19.5), Vector2(6, 19.5), Vector2(6, 16)]
+			zug.call(p); ring.call(Vector2(8, 11), 2); ring.call(Vector2(14, 11), 2); linie.call(11, 15, 11, 17); linie.call(9, 17, 9, 19.5); linie.call(13, 17, 13, 19.5)
+		"GEM":   # ein geschliffener Stein: Beute
+			zug.call([Vector2(6, 4), Vector2(16, 4), Vector2(20, 9), Vector2(11, 20), Vector2(2, 9)], true)
+			linie.call(2, 9, 20, 9); zug.call([Vector2(6, 4), Vector2(8.5, 9), Vector2(11, 20)]); zug.call([Vector2(16, 4), Vector2(13.5, 9), Vector2(11, 20)])
+			linie.call(8.5, 9, 11, 4); linie.call(11, 4, 13.5, 9)
+		"DICE":   # ein Wuerfel mit drei Augen: Zufall, Eroeffnung
+			zug.call([Vector2(4, 4), Vector2(18, 4), Vector2(18, 18), Vector2(4, 18)], true)
+			punkt.call(Vector2(7.5, 7.5), 1.4); punkt.call(Vector2(11, 11), 1.4); punkt.call(Vector2(14.5, 14.5), 1.4)
 	if not an_: linie.call(3, 20, 19, 2)
 
 static func _quad(a: Vector2, b: Vector2, e: Vector2) -> Array:
