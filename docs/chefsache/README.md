@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [461d](entscheiden/461d-ein-ort.md) | **Muss** | B Abläufe | 01.11., 22:49 | Gültige Entscheidungen an einem Ort: in die DESIGN-Dateien statt eigener Liste? | Sokrates |
 | [348.12k](entscheiden/34812k-grak-film-helden.md) | **Muss** | E Kampf | 01.11., 22:47 | Grak-Film mit den alten Helden: Ursache und neuer Lauf | Sokrates |
 | [406.1](entscheiden/4061-schildstoss.md) | **Muss** | E Kampf | 01.11., 22:35 | Schildstoß: Block und Konter am Ring für jeden mit Schild, als Angriff erst für den Wächter? | Jerry |
 | [348.12j](entscheiden/34812j-grak-axt.md) | **Muss** | E Kampf | 01.11., 22:1x | Graks Axt: Kopf oben (wie abgenommen) oder hängend (Grundstand E6)? | Jerry |
@@ -167,11 +168,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 467 | M? | von Sokrates (Chef 01.11., 21:52, Frage „Wie steigert sich die Ausdauer?“): godot/regeln/a | wartet auf 427 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 
-**Perikles** – offen 29, Muss 23, startbar 4
+**Perikles** – offen 29, Muss 23, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 461d | M | von Sokrates (Chef 01.11., 22:48, „Ja, bitte Grundstand umbenennen.“, Archiv): git mv LIST | startbar |
+| 461d | M | von Sokrates (Chef 01.11., 22:48, „Ja, bitte Grundstand umbenennen.“, Archiv): git mv LIST | Chef (Datei in der Chefsache) |
 | 461b | M | von Sokrates (Chef 01.11., 22:26, „461b ja“, Archiv): nur Gültiges: Kopf Vorgangsarchiv st | startbar |
 | 465 | M | von Sokrates („jetzt“ 01.11., 20:50, Chef: „Warum ist eigentlich in der Chefsache zu entsc | wartet auf Test/Build (gebaut) |
 | 462 | M | von Ford („jetzt“ 01.11., 20:34, Wortlaut Zu 462): Name und Zeitstempel in jeder Nachricht | wartet auf Test/Build (gebaut) |
