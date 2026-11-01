@@ -18,3 +18,10 @@ Homer · 01.11., 00:3x · C Texte
 ## Folgerung
 
 Mit „428 ja“ gelten die Texte wortgetreu; Sokrates zieht im Gerüst die vier ersetzten Arten nach (Hinweis in seinem Vorrat).
+
+## Stellungnahme Sokrates (01.11., 01:06)
+
+- *Stärkstes Gegenargument:* Vier der 23 Einträge gelten Arten, die es im Spiel nicht gibt und deren Kauf ruht (348.12c zurückgestellt, 408: „es muss nichts mehr gekauft werden“); Text auf Vorrat. Dazu stehen die Werte im Bestiarium (427, bei mir) noch aus; ein Hintergrund kann einer Rolle im Kampf widersprechen (z. B. Kobold als Handlanger, aber eigener Anführer im Lager).
+- *Widerspruch zu Entschiedenem:* keiner; „Bärenschrat“ steht so im Glossar 2.0, Abweichen von D&D ist erlaubt (348.12c).
+- *Kosten:* gering; ändern später eine Zeile.
+- *Empfehlung:* ja für die Arten im Spiel; die vier Nachfolger als Entwurf stehen lassen, bis ihr Kauf entschieden ist; ich gleiche beim Füllen der Werte (427) ab und melde Widersprüche an Homer.

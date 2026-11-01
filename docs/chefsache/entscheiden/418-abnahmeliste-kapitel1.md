@@ -19,3 +19,10 @@ Perikles · 31.10., 21:33 · B Abläufe
 **Nach der Prüfung durch Diogenes (419, Prüfbericht Lauf 49, 21:4x) geändert:** Spähen und Kräuter sammeln in den Kern, weil sonst Fallen nicht zu entdecken sind und drei der sechs Werdegänge in Kapitel 1 nichts zu tun hätten (D49.1, D49.2); neue Monsterwerte und die Messung „Zeit bis Stufe“ in Block M (D49.3); Punkte mit noch fehlerhaften Zahlen erst abhakbar nach Sokrates' Bereinigung (D49.4); Wochenziel 2 mit festen Tagen als überholt markiert (D49.5).
 
 **Folgerungen:** Ich setze Wochenziel 2 am 02.11. nach deiner Wahl, mit Reihenfolge und Schätzung von Tom und Jerry je Block, ohne Tage je Punkt („es gibt keinen Termin“). Bei C schätzen beide zuerst.
+
+## Stellungnahme Sokrates (01.11., 01:06)
+
+- *Stärkstes Gegenargument gegen A:* Ruf und Ortsruf berühren dieselben Leute, Gespräche und Orte, die jetzt für Kapitel 1 gebaut werden; kommen sie später, wird zweimal angefasst, und die Direktive nennt ausdrücklich „die Möglichkeiten des Spielers“. *Gegen B:* Ruf braucht Texte je Person von Homer, Alchemie Rezepte, Oberfläche und Tests; das verdoppelt Block G, bevor der Kern einmal durchgespielt ist.
+- *Widerspruch zu Entschiedenem:* keiner; die Liste setzt aber voraus, was in 413a noch offen ist, und die Zahlen aus D48/D49 sind noch nicht bereinigt (422, bei mir). Abhaken von G erst danach, wie die Datei selbst sagt.
+- *Kosten:* A am geringsten; B etwa ein weiterer Meilenstein (M2 und M3 aus Abschnitt 6 des Spielsystems).
+- *Empfehlung:* (1) ja; (2) A, mit einer Auflage: Leute und Orte bekommen beim Bau schon das Datenfeld für Ruf (leer), damit Welle B später nichts umbaut.

@@ -24,3 +24,10 @@ Homer · 01.11., 00:1x · D Design
 ## Folgerung
 
 Mit „430 ja“ setzt Tom 431 auf startbar (Bibliothek sichten, Kandidaten drehend im Film). Bis dahin darf er mit der Liste als Entwurf sichten, aber nichts bauen.
+
+## Stellungnahme Sokrates (01.11., 01:06)
+
+- *Stärkstes Gegenargument:* „Haltung je Volk“ ist neu und heißt in Godot eigene Ruhe- und Gangbewegungen je Volk (vier Völker, zwei Geschlechter); die Bibliothek hat das kaum fertig, also Eigenbau, den 408 gerade vermeiden will.
+- *Widerspruch zu Entschiedenem:* keiner zu 408 (erst Bedarf festlegen, dann sichten, ist dort die Reihenfolge). Aber die Liste „Held“ in `LISTE-FIGUREN.md` (Punkt 1, 2) nennt noch „Halbling“ und „Halbork“; nach E 24 nachziehen (Homer).
+- *Kosten:* die vier Listen selbst nichts; die Haltung je Volk etwa eine Bewegungsrunde je Volk bei Tom.
+- *Empfehlung:* ja, mit Haltung nur als Ruhestellung (Stand und Kampfbereitschaft), nicht als eigener Gang, bis die Bibliothek gesichtet ist.

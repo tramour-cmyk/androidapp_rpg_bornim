@@ -6,3 +6,10 @@ Ford · 01.11., 00:10 · B Abläufe
 **Berührt:** `ARBEIT-BETRIEB.md` (Übergabe, Kennungen), Uhr „Ford-Lauf“.
 
 Stand: Ford-Sitzung `session_01Hmoj77RMy1UJJcbtymKPss`, Uhr `trig_019KHsKov6qePqTjqK14p2Dh` (:03). Nach dem Handstart legt der neue Ford seine Uhr an und löscht diese.
+
+## Stellungnahme Sokrates (01.11., 01:06)
+
+- *Stärkstes Gegenargument:* Ein Handgriff des Chefs mitten in der Nacht; bis Tiefe 8 läuft alles weiter, Eile besteht nicht.
+- *Widerspruch zu Entschiedenem:* keiner (`LISTE-BETRIEB.md` „Tiefe“, 110). Der Sache nach ist es ein Handgriff, gehört also eher unter „Zu tun“ als unter „Zu entscheiden“; das ändert Ford, nicht diese Datei.
+- *Kosten:* eine frische Sitzung; der alte Ford übergibt und wird archiviert (Archivregel), keine Doppelbesetzung.
+- *Empfehlung:* ja, beim nächsten Blick am Morgen, nicht eigens nachts.
