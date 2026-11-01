@@ -393,8 +393,12 @@ static func rennen_umformen(an0: Animation, sk: Skeleton3D, raum: Transform3D, f
 	var h := renn_hoehen(an0, sk, raum)
 	var zeit: Array = h["zeit"]
 	var tl: float = h["l"].min(); var tr: float = h["r"].min(); var bm: float = h["becken"].min()
-	# Becken: Heben ueber den Tiefstand auf hub gedaempft, im Raum der Figur senkrecht, zurueck in den Raum des Elternknochens
+	# Becken: Heben ueber den Tiefstand auf hub gedaempft, im Raum der Figur senkrecht, zurueck in den Raum des Elternknochens.
+	# Lauf 1 (01.11., 12:4x, rennen_kauf_4164: Ballen bei A 2,2 cm, bei B 3,0 cm unter dem Boden): das Becken senkte sich auch, wenn ein
+	# Fuss stand. Gesenkt wird hoechstens so weit, wie der tiefere Ballen ueber seinem Tiefstand ist (das Becken traegt beide Fuesse mit)
 	var pe := sk.find_bone("pelvis")
+	var bl := sk.find_bone("ball_l"); var br := sk.find_bone("ball_r")
+	if bl < 0 or br < 0: bl = sk.find_bone("foot_l"); br = sk.find_bone("foot_r")
 	if hub != 1.0 and sp.get("pelvis", {}).has("pos"):
 		var st: int = sp["pelvis"]["pos"]
 		var eltern := sk.get_bone_parent(pe)
@@ -402,7 +406,8 @@ static func rennen_umformen(an0: Animation, sk: Skeleton3D, raum: Transform3D, f
 			var t := an.track_get_key_time(st, k)
 			var y := knochen_lage(an0, sp, sk, raum, pe, t).origin.y
 			var b := knochen_lage(an0, sp, sk, raum, eltern, t).basis if eltern >= 0 else raum.basis
-			var d := b.inverse() * Vector3(0, -(1.0 - hub) * (y - bm), 0)
+			var frei := maxf(0.0, minf(knochen_lage(an0, sp, sk, raum, bl, t).origin.y - tl, knochen_lage(an0, sp, sk, raum, br, t).origin.y - tr))
+			var d := b.inverse() * Vector3(0, -minf((1.0 - hub) * (y - bm), frei), 0)
 			an.track_set_key_value(st, k, (an.track_get_key_value(st, k) as Vector3) + d)
 	# Zeit: Bilder ohne Fuss am Boden (2 cm ueber seinem Tiefstand) laufen flug-mal so schnell
 	if flug != 1.0:

@@ -28,13 +28,13 @@ func _lauf() -> void:
 		var tl: float = h["l"].min(); var tr: float = h["r"].min()
 		var tief := minf(tl, tr)
 		if art == "heute": boden0 = tief
-		var luft := 0
+		var luft := 0.0   # Anteil der Zeit (Lauf 1 zaehlte Bilder; nach dem Umformen sind die Bilder ohne Boden kuerzer)
 		for i in h["zeit"].size() - 1:
-			if h["l"][i] > tl + 0.02 and h["r"][i] > tr + 0.02: luft += 1
+			if h["l"][i] > tl + 0.02 and h["r"][i] > tr + 0.02: luft += float(h["zeit"][i + 1]) - float(h["zeit"][i])
 		var fach := RENN / maxf(0.001, float(m.get_meta("rennen_m_je_s")))
 		var sps := 2.0 / a.length * fach
 		var r := {"laenge": a.length, "sps": sps, "schritt": RENN / sps, "hub": (float(h["becken"].max()) - float(h["becken"].min())) * f,
-			"luft": luft * 100 / maxi(1, h["zeit"].size() - 1), "unter": (boden0 - tief) * f,
+			"luft": int(luft * 100.0 / maxf(0.001, float(h["zeit"][-1]))), "unter": (boden0 - tief) * f,
 			"sohle": maxf(float(h["l"].max()) - tl, float(h["r"].max()) - tr) * f}
 		print("RENNEN %s: Schleife %.2f s (%d Bilder), im Spiel %.2f-fach, %.1f Schritte/s zu %.2f m, Beckenhub %.1f cm, ohne Boden %d %%, Ballen hoechstens %.0f cm, unter dem Boden %.1f cm" % [
 			art, r["laenge"], h["zeit"].size() - 1, fach, r["sps"], r["schritt"], r["hub"] * 100, r["luft"], r["sohle"] * 100, r["unter"] * 100])
