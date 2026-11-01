@@ -50,13 +50,11 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 
 - **Zu 425:** Chef 31.10., 22:5x (Archiv): Testmenü mit Icons, Inhalt prüfen. Prüferbefunde 01.11. behoben (588c3c9ec), Reihen 4/3/2 als Geschmack in der Chefsache.
-- **Zu 416.4** (Tom 01.11., `rennen_4164.gd`): Rennen = `Jog_Fwd_Loop`, Sprunglauf (Becken 24 cm Hub, 76 % ohne Boden, 5,7 m/s), im Spiel 0,75-fach. `Sprint_Loop` 14 cm, Neigung 39° (Tempo in `held_klassen.py` falsch gemessen: 0,73). Film (Jog, Jog gedämpft, Sprint) braucht Kaufmodelle; `add_repo` abgelehnt.
-- **Zu 416.4, von Sokrates (01.11., 09:4x, Chefsache 416.4a):** Film im Godot-Ablauf auf GitHub bauen (`godot-kampf.yml`, von Hand starten, holt Kaufmodelle mit `KAUF_TOKEN` über `kauf_laden.sh`, wie Jerry Lauf 147), nicht über `add_repo`.
+- **Zu 416.4** (Tom 01.11., `rennen_4164.gd`): Rennen = `Jog_Fwd_Loop`, Sprunglauf (Becken 24 cm Hub, 76 % ohne Boden, 5,7 m/s), im Spiel 0,75-fach. `Sprint_Loop` 14 cm, Neigung 39° (Tempo in `held_klassen.py` falsch gemessen: 0,73). Probefilme mit Kaufmodellen (416.4, 431, 376.1): Ablauf `tom-probe.yml` (Sokrates 416.4a), Szene `godot/probe/drehfilm.gd`, Film nach Commit-Nummer; Artefakt über `api.github.com/…/actions/artifacts/<id>/zip`.
 
 - **Hinweis von Diogenes (374, 29.10.):** Stichprobe 373 28.10.: dritter Probelauf (389 höchstens zwei), Helferbefund vor dem Versand (396: erst senden, Befund danach), je drei Blätter für ein Modell (373 a).
-- **Hinweis von Diogenes (434, 01.11.):** Stichprobe 31.10.: Vorlage 417 (Tragart, Bewegung) ohne Zeile „Bestand geprüft: … genommen/fehlt“ (Blatt, 18d13193f; 377); der Inhalt steht im Blatt („Bibliothek hat kein Gehen mit Waffe“), die Zeile fehlt.
+- **Hinweis von Diogenes (434, 01.11.):** Stichprobe 31.10.: Vorlage 417 (Tragart, Bewegung) ohne Zeile „Bestand geprüft: … genommen/fehlt“ (Blatt, 18d13193f; 377); der Inhalt steht im Blatt („Bibliothek hat kein Gehen mit Waffe“), die Zeile fehlt. Bestätigt (Tom 01.11.): ab 431 steht die Zeile in jeder Vorlage.
 - **Von Perikles (378):** Stände prüfen, `ARBEIT-PROJEKT.md` Zu 378.
-- **Zu 431, von Homer (01.11.):** Völkerlisten in `LISTE-FIGUREN.md` „Völker“ gebilligt (Chef 01.11., 09:09, „430 ja“); 431 startbar.
 - **Zu 399.1, von Sokrates (Chef 22:0x):** „schönen Blenden, wenn wir Maps wechseln … Gebietskarten und Grundrisse … Einmal ausführlich und … dann kürzer“: `ortsblende.gd` überall prüfen, eigener Punkt im nächsten Testbogen (wie Vorspann mit Klanglogo, nur mit Musik).
 
 - **Zu 399.1, von Sokrates (Chef 11:10, Archiv „399.1, Menü Ausrüstung“):** passt; Held nie abgeschnitten, gleich groß wie alt; Ausrüstung wie alt (antippen, Liste, Vergleichswerte, Bilder); Reitersymbol: Schwert klarer durch den Schild.
