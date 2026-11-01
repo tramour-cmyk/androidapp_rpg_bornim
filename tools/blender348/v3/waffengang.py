@@ -4,7 +4,7 @@
 # Danach Messung ohne Bild: Bilder, Laenge, Tempo ohne Gleiten (wie held_klassen.py schritt_tempo), Beckenhub, Anteil ohne Fuss am Boden;
 # dazu die Knochen der Quelle, die nicht abgebildet sind (Waffen-, Prop-Knochen: wo die Waffe in der Hand sitzt).
 # Aufruf: KAUF=<kaufpakete> ZIEL=<UAL1.glb oder UAL Pro> OUT=<ordner> BL=<bl/bin/python> bl/bin/python -I waffengang.py
-import bpy, glob, json, os, subprocess, sys
+import bpy, glob, json, math, os, subprocess, sys
 
 KAUF = os.environ['KAUF']; ZIEL = os.environ['ZIEL']; OUT = os.environ['OUT']; BL = os.environ.get('BL', sys.executable)
 HIER = os.path.dirname(os.path.abspath(__file__))
@@ -111,16 +111,16 @@ for art, (paket, geh, _) in GAENGE.items():
 
 
 # Messung je fertiger Bewegung auf dem UAL-Geruest (Blick -Y)
-def messen(p):
+def messen(p, aktion=None):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     bpy.ops.import_scene.gltf(filepath=p)
     arm = next(o for o in bpy.data.objects if o.type == 'ARMATURE')
-    a = next(iter(bpy.data.actions))
+    a = bpy.data.actions[aktion] if aktion else next(iter(bpy.data.actions))
     arm.animation_data_create(); arm.animation_data.action = a
     if hasattr(arm.animation_data, 'action_slot') and a.slots: arm.animation_data.action_slot = a.slots[0]
     f0, f1 = int(a.frame_range[0]), int(a.frame_range[1])
     fps = bpy.context.scene.render.fps / bpy.context.scene.render.fps_base
-    lage = {k: [] for k in ('ball_l', 'ball_r', 'pelvis')}
+    lage = {k: [] for k in ('ball_l', 'ball_r', 'pelvis', 'neck_01')}
     for fr in range(f0, f1 + 1):
         bpy.context.scene.frame_set(fr)
         for k in lage: lage[k].append(arm.matrix_world @ arm.pose.bones[k].head)
@@ -151,10 +151,45 @@ def messen(p):
     b = [x.z for x in lage['pelvis']]
     vor = lage['pelvis'][-1].y - lage['pelvis'][0].y
     return {'bilder': f1 - f0 + 1, 's': round((f1 - f0) / fps, 3), 'tempo': round(v, 3), 'hub_cm': round((max(b) - min(b)) * 100, 1),
-            'luft_pct': int(100 * luft / len(b)), 'wurzelweg_m': round(-vor, 3), 'hand': hand}
+            'luft_pct': int(100 * luft / len(b)), 'wurzelweg_m': round(-vor, 3), 'hand': hand,
+            # Chef 01.11., 13:4x: „der Oberkoerper beim normalen Gehen zum Teil zu weit vorgeneigt“: Becken -> Hals gegen senkrecht, Grad
+            # (positiv nach vorn, Blick -Y), Mittel und Hoechstwert ueber den Umlauf
+            'neigung': [round(sum(nz) / len(nz), 1), round(max(nz), 1)] if (nz := [math.degrees(math.atan2(-(h - p).y, (h - p).z))
+                         for p, h in zip(lage['pelvis'], lage['neck_01'])]) else [0, 0]}
 
 
-RENN = 3.68 * 1.16; GEH = 1.84 * 1.16
+# 417 Neigung (Chef 01.11., 13:4x: „der Oberkoerper beim normalen Gehen zum Teil zu weit vorgeneigt“; Lauf 41311724715: Gehen axt 6,5,
+# einhand 7,7, bogen 9,7, schild 13,7 Grad): Gehen je Paket so weit aufrichten (zauber385.py AUFRICHTEN), dass die mittlere Neigung
+# dem Stehen (UAL Idle_Loop) plus NEIGUNG_GEHEN Grad gleicht (Lauf 41316709836: UAL Walk_Loop selbst 11,6 Grad, als Ziel zu weit vor;
+# Becken -> Hals misst auch die Kruemmung des Rueckens, darum gegen das Stehen); NEIGUNG_ZIEL=<Grad> setzt sie von Hand
+NEIGUNG_GEHEN = float(os.environ.get('NEIGUNG_GEHEN', '3'))
+try:
+    stehen_n = messen(ZIEL, 'Idle_Loop')['neigung'][0]
+    print('NEIGUNG Stehen (Idle_Loop): %.1f, Gehen ohne Waffe (Walk_Loop): %.1f' % (stehen_n, messen(ZIEL, 'Walk_Loop')['neigung'][0]))
+    ziel_n = float(os.environ['NEIGUNG_ZIEL']) if os.environ.get('NEIGUNG_ZIEL') else stehen_n + NEIGUNG_GEHEN
+except Exception as e:
+    ziel_n = None; print('NEIGUNG Idle_Loop nicht messbar:', e)
+print('NEIGUNG Ziel (Stehen + %.1f):' % NEIGUNG_GEHEN, ziel_n)
+for art, (paket, geh, _) in GAENGE.items():
+    n = 'Gehen_' + art; p = os.path.join(OUT, n + '.glb')
+    if ziel_n is None or not os.path.exists(p): continue
+    vor = messen(p)['neigung'][0]
+    if vor <= ziel_n + 0.5: continue
+    q, _ = finde(paket, geh)
+    # Lauf 41318025517: 2,7 Grad am starren Ruecken senken Becken -> Hals nur um 2,0 (schild 13,7 auf 11,7, Ziel 11,0);
+    # darum nachregeln: Wirkung messen, Winkel um den Rest geteilt durch die Wirkung erhoehen, hoechstens drei Durchgaenge
+    winkel, jetzt = vor - ziel_n, vor
+    for durchgang in range(3):
+        subprocess.run([BL, '-I', os.path.join(HIER, 'zauber385.py')], env=dict(os.environ, QUELLE=q, ZIEL=ZIEL, NAME=n, OUT=p,
+                       AUFRICHTEN='%.2f' % winkel), capture_output=True, text=True)
+        neu = messen(p)['neigung'][0]
+        print('AUFRICHTEN %s: %.1f Grad zurueck, Neigung %.1f -> %.1f (Ziel %.1f)' % (n, winkel, vor, neu, ziel_n))
+        if abs(neu - ziel_n) <= 0.3 or vor - neu < 0.1: break
+        winkel = min(winkel + (neu - ziel_n) * winkel / (vor - neu), 25.0)
+    ergebnis[n]['aufgerichtet'] = round(winkel, 1)
+
+# Gehtempo im Spiel (417 Runde 6, Chef 01.11., 13:4x „schnelles Staxen“): GEHEN_M_S, sonst 1,5 m/s statt 2,13
+RENN = 3.68 * 1.16; GEH = float(os.environ.get('GEHEN_M_S', '1.5'))
 for n in sorted(ergebnis):
     p = ergebnis[n].get('datei') or os.path.join(OUT, n + '.glb')
     if not os.path.exists(p): continue
@@ -162,6 +197,7 @@ for n in sorted(ergebnis):
     soll = RENN if (n.startswith('Rennen') or any(w in n.split('__')[-1] for w in ('Run', 'Sprint'))) else GEH
     fach = soll / m['tempo'] if m['tempo'] > 0.01 else 0.0
     sps = 2.0 / m['s'] * fach if m['s'] > 0 else 0.0
+    print('NEIGUNG %s: Oberkoerper im Mittel %.1f Grad vor, hoechstens %.1f' % (n, m['neigung'][0], m['neigung'][1]))
     print('MESS %s: %d Bilder, %.2f s, Tempo %.2f m/s (im Spiel %.2f-fach, %.1f Schritte/s), Beckenhub %.1f cm, ohne Boden %d %%, Wurzelweg %.2f m'
           % (n, m['bilder'], m['s'], m['tempo'], fach, sps, m['hub_cm'], m['luft_pct'], m['wurzelweg_m']))
     if '__' not in n:

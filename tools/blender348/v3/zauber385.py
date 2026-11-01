@@ -65,6 +65,13 @@ for s in ('l', 'r'):
         A[h] = (Fs @ Ft.inverted()).to_quaternion()
 
 hoehe = Pt0['pelvis'].z / max(Ps0[KARTE['pelvis']].z, 1e-3)
+# 417 (Chef 01.11., 13:4x: „der Oberkoerper beim normalen Gehen zum Teil zu weit vorgeneigt“): AUFRICHTEN=<Grad> dreht den Oberkoerper
+# starr um den Kopf von spine_01 zurueck (alle Knochen darueber, Arme und Waffe mit), Achse quer zum Blick (-Y), Schwung bleibt
+import math
+AUF = Quaternion((1.0, 0.0, 0.0), -math.radians(float(os.environ.get('AUFRICHTEN', '0') or 0)))
+oben = set()
+for b in tb:   # Eltern vor Kindern
+    if b.name == 'spine_01' or (b.parent and b.parent.name in oben): oben.add(b.name)
 TWq = dreh(TW)
 act = bpy.data.actions.new(NAME)
 T.animation_data_create(); T.animation_data.action = act
@@ -81,6 +88,7 @@ for f in range(f0, f1 + 1):
             s = KARTE[b.name]
             Rs = dreh(SW @ S.pose.bones[s].matrix)
             Q = (Rs @ Rs0[s].inverted()) @ A[b.name] @ Rt0[b.name]
+            if b.name in oben: Q = AUF @ Q
             qa = TWq.inverted() @ Q
             qb = dreh(Mp).inverted() @ qa
             if b.name == 'pelvis':
@@ -91,8 +99,7 @@ for f in range(f0, f1 + 1):
         pose[b.name] = Mp @ Matrix.Translation(loc) @ qb.to_matrix().to_4x4()
         pb.keyframe_insert('rotation_quaternion', frame=f - f0 + 1)
         if b.name == 'pelvis': pb.keyframe_insert('location', frame=f - f0 + 1)
-# Pruefung: Richtung der Knochen Ziel gegen Quelle (Grad, schlimmstes Bild)
-import math
+# Pruefung: Richtung der Knochen Ziel gegen Quelle (Grad, schlimmstes Bild; mit AUFRICHTEN am Ruecken um so viel mehr)
 schlimm = {}
 for f in range(f0, f1 + 1, 5):
     bpy.context.scene.frame_set(f)

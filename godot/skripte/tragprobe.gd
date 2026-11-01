@@ -15,7 +15,10 @@ const AXT_FASSUNGEN := [["bisher", 0.40, false], ["A", 0.15, true], ["B", 0.0, t
 # (held.gd: Gehen 1,84, Rennen 3,68 Kacheln/s, speed_scale wie dort), damit man sieht, wie es im Spiel aussieht
 const PAKET_FIGUREN := [["axt", "FIGHTER", {"MAIN_HAND": {"base": "greataxe"}}], ["einhand", "FIGHTER", {"MAIN_HAND": {"base": "longsword"}}],
 	["schild", "FIGHTER", {"MAIN_HAND": {"base": "longsword"}, "OFF_HAND": {"base": "round_shield"}}], ["bogen", "ROGUE", {"MAIN_HAND": {"base": "shortbow"}}]]
-const SPIEL_GEHEN := 1.84 * Karte.TS
+# Runde 6 (Chef 01.11., 13:4x: „Das Gehen muss langsamer sein … eher ein Staxen, ein schnelles Staxen“): Gehtempo im Spiel senken statt
+# die Pakete schneller abzuspielen; Vorschlag 1,5 m/s (Mensch etwa 1,3-1,5; heute 1,84 Kacheln/s = 2,13 m/s). Film und Standbilder mit dem
+# Vorschlag, GEHEN_M_S=<m/s> setzt einen anderen (2.13 wie heute)
+static var SPIEL_GEHEN := float(OS.get_environment("GEHEN_M_S")) if OS.has_environment("GEHEN_M_S") else 1.5
 const SPIEL_RENNEN := 3.68 * Karte.TS
 # Spielkamera (kamera.gd: senkrecht, Tusche): Gieren, Neigung, Bildbreite in m; die Figur blickt nach +Z, ihre Rechte ist -X
 const ANSICHTEN := {"rechts": [-90.0, -6.0, 2.6], "links": [90.0, -6.0, 2.6], "vorn": [0.0, -6.0, 2.6], "hinten": [180.0, -6.0, 2.6],
@@ -28,6 +31,7 @@ const FILM_START := -12.0
 const ZELLE := 0.06
 const NAH := 0.45     # m: Knochen weiter von der Waffe zaehlen nicht
 const TIEF := 0.05    # m: tiefer gilt nicht als innen
+const INNEN_WINKEL := 0.5   # innen nur, wenn der Weg zur Flaeche mindestens 60 Grad gegen die Normale steht (cos 60)
 
 var fp: FigurenProbe
 var cam: Camera3D
@@ -60,7 +64,7 @@ func figuren_bauen(axt := false, pakete := false) -> void:
 			"ausruestung": {"MAIN_HAND": {"base": e[3]}}})
 		if axt and fp.figuren.has(e[0]):
 			var sk := Gebiet.finde(modell(e[0]), "Skeleton3D") as Skeleton3D
-			for t in sk.find_children("Tragen", "", false, false):
+			for t in sk.get_children().filter(func(c): return c is Tragen):
 				(t as Tragen).axt_griff = AXT_FASSUNGEN[i][1]
 				(t as Tragen).axt_haengt = AXT_FASSUNGEN[i][2]
 				fp.protokoll.append("FASSUNG %s Griff %.2f haengt %s" % [e[1], AXT_FASSUNGEN[i][1], AXT_FASSUNGEN[i][2]])
@@ -149,11 +153,14 @@ func standbilder(axt := false, pakete := false) -> void:
 		ap.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 		ap.play("Stehen"); ap.advance(0.0)
 		var tempo := 0.0
-		for ab in FILM_FOLGE:
-			var b0: String = ab[0]
-			for f in int(round(float(ab[1]) * FPS)):
+		for ai in FILM_FOLGE.size():
+			var b0: String = FILM_FOLGE[ai][0]
+			var nf := int(round(float(FILM_FOLGE[ai][1]) * FPS))
+			var halt: bool = ai + 1 < FILM_FOLGE.size() and FILM_FOLGE[ai + 1][0] == "Stehen"   # 416.4: vor dem Halt bremsen wie am Ende eines Wegs
+			for f in nf:
 				var moving := b0 != "Stehen"
 				var soll := 0.0 if not moving else (SPIEL_GEHEN if b0 == "Gehen" else SPIEL_RENNEN)
+				if moving and halt: soll = Held.bremse(soll, float(nf - f) / FPS * SPIEL_GEHEN * Held.ANLAUF * 2.0, SPIEL_GEHEN)
 				tempo = Held.tempo_schritt(tempo, soll, SPIEL_GEHEN, 1.0 / FPS)
 				var want := b0
 				if moving and ap.has_animation(b0 + g) and float(m.get_meta("gang_" + ("gehen" if b0 == "Gehen" else "rennen") + "_m_je_s", 0.0)) > 0.01: want = b0 + g
@@ -286,6 +293,7 @@ static func abstand(netze: Array, sk: Skeleton3D, ohne: PackedStringArray, w: No
 	var innen := 0
 	var mn := 9.0
 	var schlimm := {}
+	var innen_y := Vector2(INF, -INF)   # 417 Runde 6: von wo bis wo laengs der Waffe (Modell-y, m) sie tiefer als 1 cm im Koerper liegt
 	for q0 in pkt:
 		var q := wt * q0
 		var c := Vector3i((q / ZELLE).floor())
@@ -309,11 +317,17 @@ static func abstand(netze: Array, sk: Skeleton3D, ohne: PackedStringArray, w: No
 		var d := sqrt(bd)
 		# unter 0 nur dicht unter der Flaeche: tiefer liegt ein Punkt nur scheinbar „innen“ (einlagige Stoffe wie Umhang und Wappenrock
 		# haben keine Innenseite); eine Waffe, die wirklich eindringt, hat an der Flaeche Punkte knapp darunter (Punkte alle 2 cm)
-		if (q - bc).dot(nrm) < 0.0 and d < TIEF: d = -d; innen += 1
+		# 417 Runde 6 (Lauf 41320044677: Langschwert und Bogen „-5,0 cm“ im Unterarm, Ort am Griff in der Faust): ohne die Hand hat das
+		# Netz am Handgelenk einen Rand; ein Punkt in der Faust liegt laengs des Arms vor diesem Rand, die Normale dort zeigt quer nach
+		# aussen, das Vorzeichen kippt schon bei kleinstem Winkel. Innen nur, wo der Weg zur Flaeche ueberwiegend gegen die Normale zeigt
+		if d > 1e-4 and (q - bc).dot(nrm) < -INNEN_WINKEL * d and d < TIEF:
+			d = -d; innen += 1
+			if d < -0.01: innen_y = Vector2(minf(innen_y.x, q0.y), maxf(innen_y.y, q0.y))
+		elif d <= 1e-4 and (q - bc).dot(nrm) < 0.0: innen += 1
 		teile[teil] = minf(float(teile.get(teil, 9.0)), d)
 		if d < mn: schlimm = {"waffe": q0, "welt": q, "punkt": bc, "teil": teil}
 		mn = minf(mn, d)
-	return {"teile": teile, "innen": innen, "min": mn, "schlimm": schlimm}
+	return {"teile": teile, "innen": innen, "min": mn, "schlimm": schlimm, "innen_y": innen_y}
 
 # naechster Punkt des Dreiecks abc zu p als Schwerpunktkoordinaten (Ericson, Real-Time Collision Detection 5.1.5)
 static func _naechst(p: Vector3, a: Vector3, b: Vector3, c: Vector3) -> Vector3:

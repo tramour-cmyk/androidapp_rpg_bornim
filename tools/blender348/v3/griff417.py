@@ -32,18 +32,35 @@ def guid(s):
     m = re.search(r'guid:\s*([0-9a-f]+)', s); return m.group(1) if m else ''
 
 
-metas = {}
+metas = {}       # guid -> Pfad
+metatext = {}    # guid -> Inhalt der .meta
+inhalt = {}      # guid -> Inhalt (nur Text: .prefab)
 for p in glob.glob(os.path.join(KAUF, '**', '*.meta'), recursive=True):
-    try: t = open(p, encoding='utf-8', errors='replace').read(4000)
+    try: t = open(p, encoding='utf-8', errors='replace').read()
     except OSError: continue
     g = feld(t, 'guid')
-    if g: metas[g] = p[:-5]
+    if g: metas[g] = p[:-5]; metatext[g] = t
+# Lauf 41309203353: kauf_laden.sh packt .unitypackage ohne .meta aus; hier aus dem Paket selbst (Ordner <guid>: pathname, asset.meta)
+import tarfile
+for z in glob.glob(os.path.join(KAUF, '**', '*.unitypackage'), recursive=True):
+    try:
+        with tarfile.open(z, 'r:*') as t:
+            for m in t:
+                teil = m.name.lstrip('./').split('/')
+                if len(teil) != 2 or not m.isfile(): continue
+                if teil[1] == 'pathname': metas[teil[0]] = t.extractfile(m).read().decode('utf-8', 'replace').splitlines()[0].strip()
+                elif teil[1] == 'asset.meta': metatext[teil[0]] = t.extractfile(m).read().decode('utf-8', 'replace')
+                elif teil[1] == 'asset' and m.size < 200000:
+                    b = t.extractfile(m).read()
+                    if b.startswith(b'%YAML'): inhalt[teil[0]] = b.decode('utf-8', 'replace')
+    except (OSError, tarfile.TarError) as e:
+        print('PAKET NICHT LESBAR', os.path.basename(z), e)
+print('GUIDS %d, meta %d, Prefab-Texte %d' % (len(metas), len(metatext), len(inhalt)))
 
 
 def fbx_namen(g):   # fileID -> Name aus internalIDToNameTable (bzw. fileIDToRecycleName) der .meta
-    p = metas.get(g)
-    if not p or not os.path.exists(p + '.meta'): return {}
-    t = open(p + '.meta', encoding='utf-8', errors='replace').read()
+    t = metatext.get(g, '')
+    if not t: return {}
     n = {}
     for m in re.finditer(r'first:\s*\n\s*\d+:\s*(-?\d+)\s*\n\s*second:\s*(.+)', t): n[m.group(1)] = m.group(2).strip()
     for m in re.finditer(r'^\s*(-?\d+):\s*(\S.*)$', t, re.M):
@@ -94,4 +111,24 @@ for paket in PAKETE:
         for i, b in B.items():
             if b['klasse'] == '4' and b['stripped']:
                 print('  STRIPPED %s = %s, Kinder %s' % (i, tname(i), feld(b['text'], 'm_PrefabInstance')))
+# die Prop-Prefabs selbst (verschachtelt): Aufbau und Lage ihrer Teile, Quelle (FBX) der Netze
+gesehen = set()
+for paket in PAKETE:
+    for g, t in inhalt.items():
+        name = os.path.basename(metas.get(g, g))
+        if g in gesehen or not re.search(r'Prop', name) or not name.endswith('.prefab'): continue
+        gesehen.add(g)
+        print('PROPPREFAB %s (%s) %s' % (name, g, metas.get(g, '')))
+        for z in t.splitlines()[2:80]:
+            if re.search(r'--- !u!|m_Name|m_Local(Position|Rotation|Scale)|m_Father|m_SourcePrefab|m_TransformParent|propertyPath|value:|target:|m_Mesh|m_CorrespondingSourceObject', z):
+                print('   ', z.rstrip()[:200])
+# Namen der Knochen, an denen die Props haengen (Figur 6f6eba35...)
+for g in sorted({g for g in metatext if re.search(r'Protof-?Actor', os.path.basename(metas.get(g, '')), re.I) and metas.get(g, '').lower().endswith('.fbx')}):
+    n = fbx_namen(g)
+    print('FIGUR %s (%s): %d Namen; %s' % (os.path.basename(metas[g]), g, len(n), ', '.join('%s=%s' % (k, n[k]) for k in
+          ('-7480972188250373298', '7884245643922716653', '-7830848555316311053') if k in n)))
+for g in ('6f6eba35b8edc7d46be2a84fcc3eb248', 'cfa3ea7c30952984bb27ffecc9dccdad', '902d4c0c5058e4443ab48894a1f72cc0', 'd37934c4af0405647944aa8c04b3c47a',
+          '92234b00789a7a64f9808fda309fd61a', 'db09ac67eae57b444b3154a5da349511', '8fa32a568eee9df4dbea1d984835078f'):
+    t = metatext.get(g, '')
+    print('GUID %s = %s, meta %d Zeichen%s' % (g, metas.get(g, '?'), len(t), ': ' + ' '.join(t.split())[:600] if g != '6f6eba35b8edc7d46be2a84fcc3eb248' else ''))
 print('GRIFF417 fertig')
