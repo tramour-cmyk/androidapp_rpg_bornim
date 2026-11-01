@@ -12,7 +12,6 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 |---|---|---|---|
 | 447 | M | **von Chef (01.11., 09:51, „Was sind denn aktuell die Meilensteine? Habe ich die gebilligt?“; 10:46 „komm mit einem vernünftigen neuen Vorschlag um die Ecke“):** Meilensteine neu | wartet auf Chef: Chefsache 447, Gespräch gewünscht |
 | 451 | M | **von Chef (01.11., 10:59, „müssen wir unser Spielsystem auch irgendeinen Namen geben … Bitte mal Vorschläge dafür“):** Name des Spielsystems | wartet auf Chef: Chefsache 451 |
-| 455 | M | **von Chef (01.11., 11:15, „wir werden ja noch von mir aus 100 andere Ausrüstungsgegenstände haben, die sie auch tragen muss“):** sichtbare Ausrüstung bei so vielen Gegenständen | wartet auf Chef: Chefsache 455 |
 | 452 | M | **von Chef (01.11., 10:59, 11:00):** ein gebündeltes Dokument; Notizen-Übersicht `docs/README.md` aktualisieren (Zu 452) | wartet auf Chef: Übersicht aktualisiert 11:1x (toter Tagesbericht ersetzt, Nachschlagewerk gilt, Handbuch, Umzug, Archive ergänzt); Bündel = Spielerhandbuch 423 vorgeschlagen |
 | 427 | M | **von Chef (31.10., 21:3x):** Bestiarium `LISTE-BESTIARIUM.md` | wartet auf Jerry: Startwerte gehen in die Simulation 444, dann gemessen zum Chef (Archiv 422, 444) |
 | 398 | M | **von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr ganz grundlegende Dinge fehlen?“):** Grundsätze DESIGN-* gegen Umzugsliste und Godot-Zweige | wartet auf Perikles: 15 Lücken in LISTE-UMZUG-348.md „398“, Chef 11:3x informiert |
