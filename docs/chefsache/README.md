@@ -172,7 +172,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 462 | M | von Ford („jetzt“ 01.11., 20:34, Wortlaut Zu 462): Name und Zeitstempel in jeder Nachricht | wartet auf Test/Build (gebaut) |
 | 464 | M | von Sokrates (Chef 01.11., 20:4x, Wortlaut Zu 464): rote Läufe senken: Haken vor jedem Pus | wartet auf Test/Build (gebaut) |
 | 461 | M | von Sokrates („jetzt“ 01.11., 20:3x, Wortlaut in der Liste): Grundstand Figuren und Kampf: | wartet auf Test/Build (gebaut) |
-| 464.1 | M? | von Diogenes (Doppelpack 421, Lauf 59, 01.11., 22:2x): Befunde D61.1–2 zu 464: Tageszahl r | startbar |
+| 464.1 | M? | von Diogenes (Doppelpack 421, Lauf 59, 01.11., 22:13): Befunde D61.1–2 zu 464: Tageszahl r | startbar |
 | 465.1 | M? | von Diogenes (Doppelpack 421, Lauf 58, 01.11., 22:07): Befund D60.1 zu 465: x-Zeiten bleib | startbar |
 | 462.1 | M? | von Diogenes (Doppelpack 421, Lauf 57, 01.11., 20:4x): Befunde D59.1–3 zu 462 (PRUEFBERICH | wartet auf Test/Build (gebaut) |
 | 461.2 | M? | von Diogenes (Doppelpack 421, Lauf 56, 01.11., 20:4x): Befunde D58.1–5 zum Grundstand (PRU | wartet auf Test/Build (gebaut) |
