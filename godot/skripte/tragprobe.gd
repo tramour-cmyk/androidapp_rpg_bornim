@@ -31,6 +31,7 @@ const FILM_START := -12.0
 const ZELLE := 0.06
 const NAH := 0.45     # m: Knochen weiter von der Waffe zaehlen nicht
 const TIEF := 0.05    # m: tiefer gilt nicht als innen
+const INNEN_WINKEL := 0.5   # innen nur, wenn der Weg zur Flaeche mindestens 60 Grad gegen die Normale steht (cos 60)
 
 var fp: FigurenProbe
 var cam: Camera3D
@@ -63,7 +64,7 @@ func figuren_bauen(axt := false, pakete := false) -> void:
 			"ausruestung": {"MAIN_HAND": {"base": e[3]}}})
 		if axt and fp.figuren.has(e[0]):
 			var sk := Gebiet.finde(modell(e[0]), "Skeleton3D") as Skeleton3D
-			for t in sk.find_children("Tragen*", "", false, false):
+			for t in sk.get_children().filter(func(c): return c is Tragen):
 				(t as Tragen).axt_griff = AXT_FASSUNGEN[i][1]
 				(t as Tragen).axt_haengt = AXT_FASSUNGEN[i][2]
 				fp.protokoll.append("FASSUNG %s Griff %.2f haengt %s" % [e[1], AXT_FASSUNGEN[i][1], AXT_FASSUNGEN[i][2]])
@@ -320,7 +321,11 @@ static func abstand(netze: Array, sk: Skeleton3D, ohne: PackedStringArray, w: No
 		var d := sqrt(bd)
 		# unter 0 nur dicht unter der Flaeche: tiefer liegt ein Punkt nur scheinbar „innen“ (einlagige Stoffe wie Umhang und Wappenrock
 		# haben keine Innenseite); eine Waffe, die wirklich eindringt, hat an der Flaeche Punkte knapp darunter (Punkte alle 2 cm)
-		if (q - bc).dot(nrm) < 0.0 and d < TIEF: d = -d; innen += 1
+		# 417 Runde 6 (Lauf 41320044677: Langschwert und Bogen „-5,0 cm“ im Unterarm, Ort am Griff in der Faust): ohne die Hand hat das
+		# Netz am Handgelenk einen Rand; ein Punkt in der Faust liegt laengs des Arms vor diesem Rand, die Normale dort zeigt quer nach
+		# aussen, das Vorzeichen kippt schon bei kleinstem Winkel. Innen nur, wo der Weg zur Flaeche ueberwiegend gegen die Normale zeigt
+		if d > 1e-4 and (q - bc).dot(nrm) < -INNEN_WINKEL * d and d < TIEF: d = -d; innen += 1
+		elif d <= 1e-4 and (q - bc).dot(nrm) < 0.0: innen += 1
 		teile[teil] = minf(float(teile.get(teil, 9.0)), d)
 		if d < mn: schlimm = {"waffe": q0, "welt": q, "punkt": bc, "teil": teil}
 		mn = minf(mn, d)

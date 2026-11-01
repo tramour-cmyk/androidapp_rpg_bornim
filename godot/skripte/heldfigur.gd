@@ -296,8 +296,12 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 		var t := Transform3D(Basis(Vector3.LEFT, hoch, Vector3.LEFT.cross(hoch)), (oben + unten) * 0.5)
 		_haenge(m, sk, bi, brust, schild, t, "RueckenSchild")
 		aussen = minf(aussen, (oben.z + unten.z) * 0.5) - 0.10   # Schild mit Buckel (376.1 Lauf 2: bei 7 cm durchdrang der Buckel das Schwert)
-	for alt in m.find_children("Getragen*", "", false, false): alt.free()
-	for alt in sk.find_children("Tragen*", "", false, false): alt.free()
+	# 417 Runde 6: Godot benennt den zweiten gleichnamigen Knoten „@Getragen@…“ bzw. „@Tragen@…“; „Getragen*“ fand ihn nicht, beim
+	# Wechsel der Ausruestung blieb der Schild der Paketbewegung in der Hand (Messung: zweiter Tragen-Knoten nie gefunden)
+	for alt in m.get_children():
+		if String(alt.name).contains("Getragen"): alt.free()
+	for alt in sk.get_children():
+		if alt is Tragen: alt.free()
 	var art := Tragen.art_von(waffe)
 	var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
 	var gang := Tragen.gang_von(waffe, schild != "")

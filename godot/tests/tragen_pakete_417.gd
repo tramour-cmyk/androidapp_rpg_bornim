@@ -32,7 +32,8 @@ func _initialize() -> void:
 		var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
 		var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
 		pruefe(String(m.get_meta("gang", "")) == gang, "%s: Gang %s statt %s" % [e[1], m.get_meta("gang", ""), gang])
-		var tl := sk.find_children("Tragen*", "", false, false)   # der zweite heisst „Tragen2“ (Lauf 41315361680: Schild nie gemessen)
+		# Lauf 41315361680 und 41320044677: der Schild wurde nie gemessen; Godot benennt den zweiten Knoten „@Tragen@…“ um, darum nach Typ
+		var tl: Array = sk.get_children().filter(func(c): return c is Tragen)
 		pruefe(tl.size() == (2 if gang == "schild" else 1), "%s %s: %d Tragen-Knoten" % [e[1], gang, tl.size()])
 		if tl.is_empty(): continue
 		for t in tl: (t as Tragen).merken = true
