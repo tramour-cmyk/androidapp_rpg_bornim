@@ -12,7 +12,7 @@
 | 4 | Wartet auf dich | **8 entscheiden** (7 Muss, ältestes 416.4a seit 03:10), **9 ansehen**, **1 Build**, **1 tun** (142 Gewerbeschein, seit 27.10.) | Liste: [Chefsache](chefsache/README.md) |
 | 5 | Änderungen warten auf deinen Test | **25** (Tom 14, Jerry 11) | ein Build fasst höchstens 6 Änderungen: mindestens 5 Builds |
 | 6 | Letzter Build | **146** (01.11., 02:56), von dir **noch nicht getestet** | [Testbogen 146](chefsache/ansehen/t146-befunde.md) |
-| 7 | Rechenwert der Sitzungen (24 h) | **310 $**: Abläufe 54 %, Entwicklung 38 %, Rest 8 % | was die Sitzungen nach Listenpreis kosten würden, kein echtes Geld (Max-Abo pauschal); wie viel vom Wochenkontingent verbraucht ist, wissen wir nicht, dein letztes Bild der Nutzung ist vom 27.10. |
+| 7 | Rechenwert der Sitzungen (24 h) | **310 $**: Abläufe 54 %, Entwicklung 38 %, Rest 8 % | was die Sitzungen nach Listenpreis kosten würden, kein echtes Geld (Max-Abo pauschal); Woche: **13 %** (dein Bild 11:25); bei diesem Tempo leer Do abend, Zurücksetzung Sa 07.11., 20:00; ab 80 % starten nur noch Muss (287) |
 | 8 | Von dir zuerst gefunden (Woche) | **–** | zählt Diogenes Mo 02.11. |
 | 9 | Größtes Risiko | Kern der Regeln 2.0 hat **keinen Bauvorgang**; niemand hat den Auftrag, ihn zu bauen (Befund Diogenes) | Gegenmittel: Mo 02.11. Vorgang „Bau Regeln 2.0“ für Tom und Jerry mit Wochenziel 2 (Perikles) |
 | 10 | Ausführlich | [Stand zum Marktstart](LISTE-ABNAHME-KAPITEL1.md) | bis 448 entschieden ist |
