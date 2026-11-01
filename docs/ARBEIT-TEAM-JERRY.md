@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert“).
 
-**Übergabe (01.11., 22:1x):** 348.12 Film und Prüferbefund beim Chef, 348.12j; Filme von Hand: godot-kampf.yml `film=grak`, godot.yml `kampf=ja`; 453.1 gebaut. Nachfolger: „Jerry – 438: wolf_mess_438 Befunde beheben“
+**Übergabe (01.11., 22:4x):** 438 Sturzzeile berichtigt (d7b9e9833); Chefsache tun/438, tun/415, entscheiden/4061 angelegt. Nachfolger: „Jerry – 385.2: Feuer aus dem Stab“
 
 ## Zeilen
 
@@ -81,7 +81,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 - **Zu 406, Urteil neu vorgelegt (Chef 20:2x, Nachbesserungen a–e), Zu 460 (Vorschlag Sokrates Probefilm), Zu 438a Grundsatz (Chef 20:1x, Waffenpakete):** Wortlaut in Git, `git show 907f307f2:docs/ARBEIT-TEAM-JERRY.md`.
 - **Zu 453.1:** Wortlaut, Weg und Grundsatz in Git, `git show da33d472c:docs/ARBEIT-TEAM-JERRY.md`.
 - **Zu 438a, Urteil Sichtung, von Sokrates (Chef 01.11., 20:1x, Archiv 438a):** Schild und Schwert durch Körper, Kopf, Boden; gut nur 1, 11D, 11F, 12B, 13, so lala 2 (Wortlaut je Stück, Werkzeuge `film_438a.gd`, `zauber385.py`: `git show dc386b2e8:docs/ARBEIT-TEAM-JERRY.md` und 7cacfa97d). Waffe und Schild nach Prefab des Pakets anstecken (`Protof-Actor@Sword&Shield.prefab`), Durchdringung je Bild messen (höchstens 2 cm), mit Tom (417) und 406.
-- **Zu 438, Jerry (01.11., 22:2x):** wolf_mess_438 auf `claude/grundstand-461` (Lauf 153): Sturzzeile +40 s war Messfehler (Schildtreffer 406 `SS_GetHit*` statt „Sturz“), berichtigt d7b9e9833. Offen: Rennen zu schnell 0,67 m (Grenze 0,5), Wolf in Wolf 56 Bilder bis 0,20 m, Schild/Klinge 4 cm, Wolf 1 am Bildrand 56 px (41 s), Ansage Wolf 3 springt 48 dp (64 s). Nachstellen nur mit Kaufwolf und Kaufheld; der eigene Wolf misst anderes (Lauf am Rechner: 440 Bilder Wolf in Wolf, andere Bewegungen). Ältere Werkzeuge und Messwege: `git show c30c827d0:docs/ARBEIT-TEAM-JERRY.md`.
+- **Zu 438, Jerry (01.11., 22:2x):** Lauf 153 (grundstand-461) offen: Rennen zu schnell 0,67 m, Wolf in Wolf 56 Bilder bis 0,20 m, Schild/Klinge 4 cm, Wolf 1 am Bildrand 56 px (41 s), Ansage Wolf 3 springt 48 dp (64 s); nur mit Kaufwolf nachstellbar. Ältere Messwege: `git show c30c827d0:docs/ARBEIT-TEAM-JERRY.md`.
 - **Zu 457.2 (Jerry 01.11., 14:5x):** `kampf/signatur.gd`, Wache vor jedem Probebild; Einzelheiten in Git, `git show de0998e2a:docs/ARBEIT-TEAM-JERRY.md`.
 - **Zu 348.12 (Chef 27.10., 17:19):** „ob das Modell trifft … muss man halt nachjustieren, das kann kein Kriterium sein“. Grak (Chef 29.10., 10:55): „gut, aber Gang schreitend statt kurzer Sprint“; Bau und Prüfwege `git show c30c827d0:docs/ARBEIT-TEAM-JERRY.md`.
 - **Zu 348.13a (Tom 08:27):** offen r9: Säbel liest sich als Bogen; Schwert, Schild, Scheide bei Tom (372).
