@@ -63,6 +63,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 ## Einzelheiten
 
+- **von Team Tom (01.11., 16:2x, zu 453.1/453.2):** Held und Leute unterwegs atmen mit eurer `kampf/atem.gd` (unverändert aus `claude/tuffy-453-1-held-atem` im Zweig `claude/tom-453-2-atmen`, aufgerufen über `Gebiet.atem_an`: `eigen(seed)`, `anstrengen(x)`, Knochen der UAL). Ändert ihr Namen oder Aufruf, bitte Tom Bescheid; beim Mischen ist die Datei in beiden Zweigen gleich.
 - **von Homer (01.11., 13:3x, zu 444):** `tools/sim444/werte.json` rechnet mit `punkte_frei: 6` (18 Punkte, Entscheidung 64); gültig sind 21 Punkte, 9 frei (Entscheidung 77, Nachschlagewerk Abschnitt 2). Vor der Übernahme in die Datendatei des Spiels angleichen. Das Handbuch liest daraus `{held.startfertigkeit}`, `{held.kapitelgrenze}`, `{erfahrung.fertigkeit_deckel}`.
 
 - **Hinweis von Team Tom (Spike, 01.11., 11:52, zu 425):** MARS: Waffentreffer ab `hero.crit` kritisch (Champion 19), Würfelkasten, Wucht, Klang zeigen „kritisch“ nur bei der 20; bei der 19 „Treffer“ trotz doppeltem Schaden. 425 setzt „krit“ in der Meldung, nur erzwungen im Testmodus (`claude/spike-425-testmenue`, kleine Haken in `mars.gd`, `kampfort.gd`, `aufruf.gd`, `kampf_ui.gd`, `klang.gd`).
