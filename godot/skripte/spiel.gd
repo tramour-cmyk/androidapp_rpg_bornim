@@ -390,7 +390,8 @@ func geh_hinaus(a: Dictionary) -> void:
 	var zurueck := vor_tuer(alle, id, a)
 	# 399.1: Wald noch nicht gebaut, dort wartet der Kampf. Test 130 (Chef 14:31, „Grundriss folgt“ statt Kampf): FileAccess.file_exists
 	# auf ein .gd ist im APK falsch (Skripte liegen dort uebersetzt), ResourceLoader.exists findet sie
-	if id in WALD and ResourceLoader.exists("res://kampf/kampfort.gd"):
+	# 425.2 Testmodus „Monster beachten mich nicht“ (Game.monstersIgnoreHero): der Kampf am Waldrand steht für die Wölfe des Walds, er bleibt aus
+	if id in WALD and ResourceLoader.exists("res://kampf/kampfort.gd") and not Testmodus.unbeachtet_gilt():
 		await kampf_im_wald(zurueck)
 		return
 	held.setze(zurueck, "DOWN")
@@ -453,6 +454,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = []) -> v
 	var k0 := Time.get_ticks_msec()
 	var lage := {"atemlos": zustand.atemlos, "satt": zustand.satt} if probe.is_empty() else {}   # 399.2 (Jerry): wie der Held kommt
 	if Testmodus.ist_an(): lage["eroeffnung"] = Testmodus.eroeffnung   # 399.2 (Jerry): Eröffnung aus dem Reiter Test
+	if Testmodus.ist_an(): lage.merge({"rettung_aus": Testmodus.rettung_aus, "krit_immer": Testmodus.krit_immer})   # 425.3
 	lage["blende"] = true   # 402 (Jerry): die Blende vor dem Kampf wie alt, auch im Probekampf
 	var gestartet: bool = aufruf.starte(gegner, hw, soeldner, "wald", tageszeit(), zustand.anzahl("potion") if probe.is_empty() else 2, -1, -1, -1, beute, lage)
 	if probe.is_empty(): zustand.satt = false   # 399.1: Battle.wellFed endet mit dem Kampfbeginn (der Kampfort gibt +1, 399.2)
@@ -707,6 +709,7 @@ func oeffne_menue() -> void:
 	var m := Menue.new(held_werte(), zustand)
 	m.ort = platz()
 	m.dunkel = im_dunkeln()
+	m.nacht = licht.ziel > 0.5   # 425.8
 	ebene.add_child(m)
 	m.speichern.connect(speichere)
 	m.ankunft.connect(func():   # 399.1 Chronik „Die Ankunft ansehen“ (69d, vm.watchIntro)
@@ -757,6 +760,13 @@ func test_tat(was: String, mit: Array) -> void:
 			betrete("elder", ziel[0], ziel[1])
 			await ortsworte(von, false)
 			ui.sage([{"text": Sprache.t({"de": "Höhle geschafft, Lyra frei, Amulett in der Tasche: sprich mit Aldric.", "en": "Cave cleared, Lyra free, the amulet in your bag: talk to Aldric."})}])
+		"tagnacht":   # 425.8: Tag oder Nacht sofort, ohne Übergang; die Uhr folgt wie beim Knopf „nacht“ (Tag mittags, Nacht 23 Uhr)
+			var nachts := licht.ziel <= 0.5
+			zustand.minuten = 23 * 60 if nachts else 12 * 60
+			licht.ziel = 1.0 if nachts else 0.0
+			licht.stelle(licht.ziel)
+			fackel_neu()
+			ui.leiste.zeige(held_werte(), zustand, licht.nacht > 0.65)
 		"kampf", "probe":
 			if not ResourceLoader.exists("res://kampf/kampfort.gd"): return
 			await abblenden(1.0)

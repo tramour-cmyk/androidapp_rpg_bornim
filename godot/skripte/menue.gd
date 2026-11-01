@@ -526,6 +526,7 @@ func lege_ab(platz: String) -> void:
 
 # 399.1 Light.torch: eine Fackel in der Nebenhand; torchChange: nur im Dunkeln (nachts draussen, in der Hoehle) sagt es etwas
 var dunkel := false
+var nacht := false                         # 425.8 Testmenü Tag/Nacht: das Licht steht auf Nacht (spiel.gd licht.ziel)
 static func fackel(h: Heldwerte) -> bool:
 	var g = h.ding("OFF_HAND")
 	return g != null and String(Beute.grundform(String(g["base"]))["art"]) == "LIGHT"

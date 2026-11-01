@@ -242,6 +242,44 @@ static func glyphe(ci: CanvasItem, g: String, o: Vector2, u: float, c: Color, an
 		"DICE":   # ein Wuerfel mit drei Augen: Zufall, Eroeffnung
 			zug.call([Vector2(4, 4), Vector2(18, 4), Vector2(18, 18), Vector2(4, 18)], true)
 			punkt.call(Vector2(7.5, 7.5), 1.4); punkt.call(Vector2(11, 11), 1.4); punkt.call(Vector2(14.5, 14.5), 1.4)
+		# 425.2, 425.3, 425.8 (Chef 01.11., 11:20: Testmenü 2, 3, 5, 8): Zeichen nach DESIGN-STIL „Zeichen“ auf 24 Einheiten, hier
+		# wie MENU mit k auf das Raster 22; Funke (ACT), Sonne, Mond, Flamme (REST) wie dort beschrieben
+		"UNSEEN":   # ein geschlossenes Auge mit vier Wimpern: Monster beachten mich nicht
+			var k := 22.0 / 24.0
+			var lid: Array = []
+			for i in 17:
+				var t := i / 16.0
+				lid.append(Vector2(3 + 18 * t, 10 + 16 * t * (1 - t)) * k)
+			zug.call(lid)
+			for t in [0.2, 0.4, 0.6, 0.8]:
+				var x: float = 3 + 18 * t
+				var y: float = 10 + 16 * t * (1 - t)
+				linie.call(x * k, y * k, (x + (x - 12) * 0.25) * k, (y + 3.5) * k)
+		"CRIT":   # der Funke (ActionSign.ACT): Treffer immer kritisch
+			var k := 22.0 / 24.0
+			zug.call([Vector2(12, 3), Vector2(14, 10), Vector2(21, 12), Vector2(14, 14), Vector2(12, 21), Vector2(10, 14), Vector2(3, 12), Vector2(10, 10)].map(func(q): return q * k), true)
+		"WARD":   # ein Schild mit Riss: Rettungswürfe misslingen
+			var p: Array = [Vector2(4, 4), Vector2(18, 4), Vector2(18, 10)]
+			p += _quad(Vector2(18, 10), Vector2(18, 17), Vector2(11, 20))
+			p += _quad(Vector2(11, 20), Vector2(4, 17), Vector2(4, 10))
+			zug.call(p, true); zug.call([Vector2(12, 4), Vector2(9.5, 9), Vector2(13, 12), Vector2(10, 16.5), Vector2(11, 20)])
+		"SUN":   # Kreis, acht Strahlen
+			var k := 22.0 / 24.0
+			ring.call(Vector2(12, 12) * k, 4.5 * k)
+			for i in 8:
+				var d := Vector2.from_angle(i * PI / 4)
+				linie.call((12 + 7.5 * d.x) * k, (12 + 7.5 * d.y) * k, (12 + 10 * d.x) * k, (12 + 10 * d.y) * k)
+		"MOON":   # die Sichel der Leiste (Leiste.sichel)
+			var k := 22.0 / 24.0
+			zug.call(Array(Leiste.sichel()).map(func(q): return q * k))
+		"TORCH":   # eine Fackel: Flamme über dem Kopf, Schaft
+			var k := 22.0 / 24.0
+			var f: Array = [Vector2(12, 2.5)]
+			f += _quad(Vector2(12, 2.5), Vector2(17, 7.5), Vector2(12, 11))
+			f += _quad(Vector2(12, 11), Vector2(7, 7.5), Vector2(12, 2.5))
+			zug.call(f.map(func(q): return q * k))
+			zug.call([Vector2(8.5, 12.5), Vector2(15.5, 12.5), Vector2(14, 15.5), Vector2(10, 15.5)].map(func(q): return q * k), true)
+			linie.call(12 * k, 15.5 * k, 12 * k, 22 * k)
 	if not an_: linie.call(3, 20, 19, 2)
 
 static func _quad(a: Vector2, b: Vector2, e: Vector2) -> Array:

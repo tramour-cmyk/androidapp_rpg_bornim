@@ -31,6 +31,29 @@ class Balken extends Control:
 		innen.size.x *= clampf(anteil, 0.0, 1.0)
 		draw_rect(innen, farbe)
 
+# 425: die Sichel des Monds auf 24 Einheiten, auch fuer das Zeichen „Tag oder Nacht“ im Testmenue (Zeichenknopf MOON)
+static func sichel() -> PackedVector2Array:
+	var m1 := Vector2(12, 12); var r1 := 8.0
+	var m2 := Vector2(15.5, 9.5); var r2 := 6.5
+	var d := m1.distance_to(m2)
+	var x := (d * d + r1 * r1 - r2 * r2) / (2 * d)
+	var h := sqrt(r1 * r1 - x * x)
+	var e := (m2 - m1) / d
+	var s1 := m1 + e * x + Vector2(-e.y, e.x) * h
+	var s2 := m1 + e * x - Vector2(-e.y, e.x) * h
+	var a1 := (s1 - m1).angle(); var a2 := (s2 - m1).angle()
+	var b1 := (s1 - m2).angle(); var b2 := (s2 - m2).angle()
+	if a2 < a1: a2 += TAU   # aussen den langen Weg vom ersten zum zweiten Schnittpunkt, weg vom Schnittkreis
+	var mitte := (a1 + a2) * 0.5
+	if Vector2.from_angle(mitte).dot(e) > 0: a2 -= TAU
+	if b1 < b2: b1 += TAU   # innen zurueck den kurzen Weg, durch den Mond hindurch
+	var p := PackedVector2Array()
+	for i in 33: p.append((m1 + Vector2.from_angle(lerpf(a1, a2, i / 32.0)) * r1))
+	var bm := (b2 + b1) * 0.5
+	if (m2 + Vector2.from_angle(bm) * r2).distance_to(m1) > r1: b1 -= TAU
+	for i in 33: p.append((m2 + Vector2.from_angle(lerpf(b2, b1, i / 32.0)) * r2))
+	return p
+
 # Sonne, Mond (ActionSigns.kt) und Tasche (MenuTabs.kt TabSign.BAG) auf 24 Einheiten
 class Zeichen extends Control:
 	var art := "sonne"
@@ -49,25 +72,8 @@ class Zeichen extends Control:
 					var a := i * PI / 4
 					draw_line(Vector2(12 + 7.5 * cos(a), 12 + 7.5 * sin(a)) * u, Vector2(12 + 10 * cos(a), 12 + 10 * sin(a)) * u, c, w, true)
 			"mond":   # Kreis (12|12, r 8) ohne den versetzten Kreis (15,5|9,5, r 6,5): die Sichel zwischen ihren Schnittpunkten
-				var m1 := Vector2(12, 12); var r1 := 8.0
-				var m2 := Vector2(15.5, 9.5); var r2 := 6.5
-				var d := m1.distance_to(m2)
-				var x := (d * d + r1 * r1 - r2 * r2) / (2 * d)
-				var h := sqrt(r1 * r1 - x * x)
-				var e := (m2 - m1) / d
-				var s1 := m1 + e * x + Vector2(-e.y, e.x) * h
-				var s2 := m1 + e * x - Vector2(-e.y, e.x) * h
-				var a1 := (s1 - m1).angle(); var a2 := (s2 - m1).angle()
-				var b1 := (s1 - m2).angle(); var b2 := (s2 - m2).angle()
-				if a2 < a1: a2 += TAU   # aussen den langen Weg vom ersten zum zweiten Schnittpunkt, weg vom Schnittkreis
-				var mitte := (a1 + a2) * 0.5
-				if Vector2.from_angle(mitte).dot(e) > 0: a2 -= TAU
-				if b1 < b2: b1 += TAU   # innen zurueck den kurzen Weg, durch den Mond hindurch
 				var p := PackedVector2Array()
-				for i in 33: p.append((m1 + Vector2.from_angle(lerpf(a1, a2, i / 32.0)) * r1) * u)
-				var bm := (b2 + b1) * 0.5
-				if (m2 + Vector2.from_angle(bm) * r2).distance_to(m1) > r1: b1 -= TAU
-				for i in 33: p.append((m2 + Vector2.from_angle(lerpf(b2, b1, i / 32.0)) * r2) * u)
+				for q in Leiste.sichel(): p.append(q * u)
 				draw_polyline(p, c, w, true)
 			"tasche":
 				var ecke := PackedVector2Array()   # Koerper mit runden Ecken (2,5), sonst liest er sich als Briefumschlag (Helfer)

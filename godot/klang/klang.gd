@@ -352,7 +352,7 @@ func kampf(e: Dictionary, mars, treffer_ms := -1) -> void:
 			"POUNCED": _bald(0, func(): effekt("hit_smash", 0.6))     # Rückläufer t53: zu Boden geworfen
 			"DUCKED": _bald(0, func(): effekt("arrow"))               # Rückläufer t58: der Pfeil zischt vorbei
 		return
-	var krit: bool = e.roll != null and e.roll[0] == "ATTACK" and e.roll[4] and e.roll[1] == 20
+	var krit: bool = e.roll != null and e.roll[0] == "ATTACK" and e.roll[4] and (e.roll[1] == 20 or bool(e.get("krit", false)))   # 425.3
 	if e.spell != null:
 		if String(e.spell) in ["HEAL", "BLESS"] or (by != null and tg != null and by.side != tg.side):
 			_bald(0, func(): effekt(_fx_klang(String(e.spell), krit)))

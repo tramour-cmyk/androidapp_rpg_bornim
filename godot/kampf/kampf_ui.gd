@@ -702,7 +702,7 @@ func ring_verdict(r: String) -> void:
 
 func show_roll(e: Dictionary) -> void:
 	if e.roll != null and e.target != null:
-		roll_shown = [e.target, e.roll, e.actor]
+		roll_shown = [e.target, e.roll, e.actor, bool(e.get("krit", false))]   # 425.3: kritisch ohne die 20
 		roll_at = Time.get_ticks_msec()
 
 
@@ -824,7 +824,7 @@ func _draw_overlay() -> void:
 	# the roll over the one struck (RollTag)
 	var age := Time.get_ticks_msec() - roll_at
 	if dice_on and roll_shown != null and age < ROLL_MS + ROLL_FADE_MS and k.figures.has(roll_shown[0]):
-		_roll_tag(sr, k.figures[roll_shown[0]], roll_shown[1], roll_shown[2], 1.0 - clampf(float(age - ROLL_MS) / ROLL_FADE_MS, 0, 1))
+		_roll_tag(sr, k.figures[roll_shown[0]], roll_shown[1], roll_shown[2], 1.0 - clampf(float(age - ROLL_MS) / ROLL_FADE_MS, 0, 1), roll_shown[3])
 	# the ring: a large ring closing on a small one round the one attacked (RingAround)
 	if ring_target != "" and k.figures.has(ring_target):
 		var fig = k.figures[ring_target]
@@ -1609,7 +1609,7 @@ func _seg_hits(a: Vector2, b: Vector2, box: Rect2) -> bool:
 
 
 ## Würfelkasten (RollTag) über dem Getroffenen: „12 + 5 = 17 gegen RK 16 · Treffer“, Gold, wenn es der Gruppe hilft.
-func _roll_tag(sr: Rect2, fig, r: Array, actor_id, alpha: float) -> void:
+func _roll_tag(sr: Rect2, fig, r: Array, actor_id, alpha: float, krit := false) -> void:
 	var fs := sp(13)
 	var total := int(r[1]) + int(r[2])
 	var hit: bool = r[4]
@@ -1626,7 +1626,7 @@ func _roll_tag(sr: Rect2, fig, r: Array, actor_id, alpha: float) -> void:
 			mode = t(" (Vorteil)", " (advantage)")
 		elif int(r[5]) < 0:
 			mode = t(" (Nachteil)", " (disadvantage)")
-		var res := t("kritisch", "critical") if int(r[1]) == 20 else (t("Treffer", "hit") if hit else t("daneben", "miss"))
+		var res := t("kritisch", "critical") if int(r[1]) == 20 or krit else (t("Treffer", "hit") if hit else t("daneben", "miss"))
 		txt = "%d%s %s = %d %s %d · %s" % [int(r[1]), mode, bonus, total, t("gegen RK", "vs AC"), int(r[3]), res]
 	else:
 		txt = "%s %d %s = %d %s %d · %s" % [t("RW", "Save"), int(r[1]), bonus, total, t("gegen SG", "vs DC"), int(r[3]),

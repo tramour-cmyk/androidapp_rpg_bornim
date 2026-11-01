@@ -102,6 +102,8 @@ func setup(party: Array, foes: Array, p_tables: Dictionary, potions: Dictionary,
 	# NORMAL, AMBUSHED Gegner zuerst, HERO_FIRST Held zuerst)
 	mars = Mars.new(party, foes, tables, dice, words, lang, bool(p_progress.get("atemlos", false)), String(p_progress.get("eroeffnung", "NORMAL")))
 	mars.fed = bool(p_progress.get("satt", false))
+	mars.foes_fail_saves = bool(p_progress.get("rettung_aus", false))   # 425.3 Testmodus
+	mars.hero_crits_always = bool(p_progress.get("krit_immer", false))
 	for k in potions:
 		mars.potions[k] = int(potions[k])
 	mars.listener = func(e): _post({"say": e})
@@ -874,9 +876,13 @@ func _missed(e: Dictionary) -> bool:
 	return not e.roll[4]
 
 
-## Kritisch nur bei einem Angriff mit der 20 (eine 20 beim Rettungswurf zählte bisher auch)
+## Kritisch nur bei einem Angriff mit der 20 (eine 20 beim Rettungswurf zählte bisher auch); 425.3: oder wenn MARS ihn als
+## kritisch meldet ("krit", erzwungen im Testmodus)
+static func krit(e: Dictionary) -> bool:
+	return e.roll != null and e.roll[0] == "ATTACK" and e.roll[4] and (e.roll[1] == 20 or bool(e.get("krit", false)))
+
 func _crit(e: Dictionary) -> bool:
-	return e.roll != null and e.roll[0] == "ATTACK" and e.roll[4] and e.roll[1] == 20
+	return krit(e)
 
 
 ## Welcher Effekt zu einer Meldung gehört (BattleFx.kt FLYING, Battle.kt weaponFx): der Zauber, der gerade wirkt, auf sein Ziel;

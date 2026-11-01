@@ -246,6 +246,13 @@ var srd_attacks := true
 ## 296.2: the statuses of the old fight (off for the replays of the Kotlin MARS on main, which has none).
 var statuses := true
 var potions := {}
+## 425.3 Testmodus wie alt (Battle.foesFailSaves, heroCritsAlways; aus dem Reiter Test über kampfort.gd): Gegner verfehlen jeden
+## Rettungswurf (gewürfelt wird trotzdem, die Würfelfolge bleibt), der Held trifft mit allem außer der 1 kritisch
+var foes_fail_saves := false
+var hero_crits_always := false
+## 425.3: ein im Testmodus erzwungener kritischer Waffentreffer traegt "krit" in seinen Meldungen, damit Wuerfelkasten, Wucht
+## und Klang ihn wie die 20 zeigen (kampfort.gd krit); sonst fehlt der Schluessel wie bisher
+var _krit_ohne_20 := false
 var aim_spot := {}
 var retargeted := {}
 var chosen := false
@@ -910,7 +917,7 @@ func _save_spell(f: Fighter, t: Fighter, amount: int, half: bool) -> void:
 	var dc: int = int(f.hero.spellDc)
 	var mod: int = int(t.hero.dex) if t.hero != null else int(t.monster.dex)
 	var r: int = dice.d20(1 if t.waited else 0)
-	var saved := r + mod >= dc
+	var saved := r + mod >= dc and not (foes_fail_saves and t.side == "FOES")
 	var info := ["SAVE", r, mod, dc, saved, 0, false]
 	if saved and not half:
 		_say(fmt(X.MSG72_DODGES, lang, [t.name(lang)]), f.id, t.id, 0, info)
@@ -989,7 +996,7 @@ func _off_hand_attack(f: Fighter, t: Fighter) -> void:
 func _weapon_attack(f: Fighter, t: Fighter, advantage := false, cover := true, with_weapon = null) -> void:
 	var mode := _row_mode(f, t, true, 1 if advantage else 0, cover)
 	var r: int = dice.d20(mode)
-	var crit := r >= int(f.hero.crit)
+	var crit := r >= int(f.hero.crit) or (hero_crits_always and r != 1 and f == lead())
 	var w = with_weapon if with_weapon != null else f.weapon()
 	var wsheet: Dictionary = w if w != null else f.hero.main
 	var bonus: int = int(wsheet.atk) + _bless(f) - _penalty(f) + _fed(f)
@@ -1000,11 +1007,13 @@ func _weapon_attack(f: Fighter, t: Fighter, advantage := false, cover := true, w
 		return
 	var base: Array = wsheet.dmg
 	var dmg: int = dice.roll_expr([int(base[0]) * 2, base[1], base[2]] if crit else base)
+	_krit_ohne_20 = crit and r < int(f.hero.crit)   # nur erzwungen; ab hero.crit (19 beim Champion) bleibt es wie bisher
 	if f.has("SNEAK_ATTACK") and (advantage or not f.sneaked):
 		dmg += dice.roll(maxi(1, f.level() / 2), 6)
 	f.sneaked = true
 	dmg = maxi(1, dmg - _weakness(f) + _fed(f))
 	_hurt(t, dmg, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), dmg]), info, true)
+	_krit_ohne_20 = false
 	if not statuses or outcome != "ONGOING" or not t.standing():
 		return
 	# 296.2: critical hits wound as in the old fight, blades make bleed, blunt weapons can stun; and the gear's own
@@ -1546,6 +1555,8 @@ func _say(text: String, actor = null, target = null, damage := 0, roll = null, a
 		"spell": casting, "cue": cue if cue != "" else null,
 		"status": _statuses(),
 	}
+	if _krit_ohne_20 and roll != null and roll[0] == "ATTACK":
+		e["krit"] = true
 	_log.append(e)
 	if not quick_run and listener.is_valid():
 		listener.call(e)

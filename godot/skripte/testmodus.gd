@@ -12,6 +12,10 @@ static var geladen := false
 static var an := false                  # prefs KEY_TEST
 static var bildrate := false            # FrameMeter.on: Bilder je Sekunde ueber der Welt
 static var standort := false            # PlaceMeter.on: Karte und Kachel des Helden ueber der Welt
+# 425 (Chef 01.11., 11:20, Testmenü Nr. 2 und 3) wie alt nur im Speicher, nicht in test.cfg; wirken nur bei an (unbeachtet_gilt, spiel.gd)
+static var unbeachtet := false          # 425.2 Game.monstersIgnoreHero
+static var rettung_aus := false         # 425.3 Battle.foesFailSaves
+static var krit_immer := false          # 425.3 Battle.heroCritsAlways
 
 static func lade() -> void:
 	if geladen: return
@@ -31,11 +35,16 @@ static func ist_an() -> bool:
 	lade()
 	return an
 
+static func unbeachtet_gilt() -> bool:
+	return unbeachtet and ist_an()
+
 # ---------------------------------------------------------------- Reiter „Test“ (TestTab.kt), soweit die neue Welt es traegt
 # Wie alt in Gruppen: Anzeigen und Messwerte, Held, Welt, Teleport, Kampf beschwoeren, MARS-Probekampf, Beute erzeugen. Was in die Welt
 # greift (Teleport, Kapitelende, Kampf), sagt das Menue der Welt mit Menue.test; der Rest aendert Held und Zustand gleich.
-# Noch nicht wie alt: Wald und Hoehle im Teleport, Regen, Kartenzoom, Monster auf der Karte, Sichtlinie, Bosse (es gibt Wald und Hoehle noch nicht); Varianten
-# (MARS kennt noch keine Elite, 390), Kampfhilfen (wirkten alt nur im klassischen Kampf) und Absturzbericht.
+# Noch nicht wie alt: Wald und Hoehle im Teleport, Regen, Kartenzoom, Monster auf der Karte (darum auch nicht „neben den Helden holen“,
+# 425 Nr. 5), Sichtlinie, Bosse (es gibt Wald und Hoehle noch nicht); Varianten (MARS kennt noch keine Elite, 390) und Absturzbericht.
+# 425 (Chef 01.11., 11:20): dazu „Monster beachten mich nicht“, „Gegner bestehen keine Rettungswürfe“, „Held trifft immer kritisch“
+# (alt Kampfhilfen, jetzt in MARS), neu Tag oder Nacht sofort und Fackel an oder aus.
 
 const STUFEN_PROBE := [3, 5, 6, 8, 11]          # Skirmish.PROBE_LEVEL und die Stufen aus 259
 const NEBENHAND := ["", "shield", "round_shield", "dagger"]   # cheatOffHand
@@ -97,6 +106,21 @@ static func waffe(hw: Heldwerte, z: Zustand, base: String, neben := false) -> vo
 	var g := schlicht(z, hw, base)
 	var weg: Array = hw.anlegen_nebenhand(g) if neben and Beute.ist_waffe(Beute.grundform(base)) else hw.anlegen(g)
 	for x in weg: z.beutel.append(x)
+
+# 425.8: Fackel an oder aus wie das Anlegen in der Tasche: an nimmt eine Fackel aus der Tasche (sonst eine neue) in die Nebenhand,
+# was dort war, kommt in die Tasche; aus legt sie in die Tasche
+static func fackel(hw: Heldwerte, z: Zustand) -> void:
+	if Menue.fackel(hw):
+		z.beutel.append(hw.ablegen("OFF_HAND"))
+		return
+	var g = null
+	for i in z.beutel.size():
+		if String(z.beutel[i]["base"]) == "torch":
+			g = z.beutel[i]
+			z.beutel.remove_at(i)
+			break
+	if g == null: g = Beute.fackel(z.neue_uid())
+	for x in hw.anlegen(g): z.beutel.append(x)
 
 # 425 (Pruefer 01.11.: „Sehr Selten“): nur der erste Buchstabe gross, String.capitalize schreibt jedes Wort gross
 static func gross_anfang(w: String) -> String:
@@ -180,6 +204,16 @@ static func reiter(m: Menue) -> void:
 			func(): m.test.emit("teleport", ["village", 11, 7, "DOWN"]), "HOME"),
 		zk.call(t.call("Kapitelende", "Chapter end"), null, t.call("Kapitel 1 bis kurz vor Ende: Höhle geschafft, Lyra frei, Amulett in der Tasche; sprich mit Aldric.",
 			"Chapter 1 to just before its end: cave done, Lyra free, amulet in the bag; talk to Aldric."), func(): m.test.emit("kapitelende", []), "FLAG")])
+	var war := Menue.fackel(hw)
+	m.zeichenreihe([zk.call(t.call("Tag/Nacht", "Day/night"), t.call("Nacht", "night") if m.nacht else t.call("Tag", "day"),
+			t.call("Wechselt sofort zwischen Tag (12 Uhr) und Nacht (23 Uhr), ohne Übergang; das Menü schließt.", "Switches at once between day (noon) and night (11 pm), no fade; the menu closes."),
+			func(): m.test.emit("tagnacht", []), "MOON" if m.nacht else "SUN"),
+		zk.call(t.call("Fackel", "Torch"), an_aus.call(war), t.call("Fackel in die andere Hand oder zurück in die Tasche; fehlt eine, kommt eine neue.", "Torch into the other hand or back into the bag; a new one if there is none."),
+			func():
+				fackel(hw, z)
+				m.meldung(m.fackel_satz(war)), "TORCH", "", war),
+		zk.call(t.call("Unbeachtet", "Unnoticed"), an_aus.call(unbeachtet), t.call("Monster beachten dich nicht; der Kampf am Waldrand bleibt aus.", "Monsters ignore you; no fight at the forest edge."),
+			func(): unbeachtet = not unbeachtet, "UNSEEN", "", unbeachtet)])
 	var fs := feinde()
 	if not fs.is_empty():
 		m.gruppe(t.call("Kampf beschwören", "Summon a fight"))
@@ -187,7 +221,13 @@ static func reiter(m: Menue) -> void:
 		m.zeichenreihe([zk.call(t.call("Eröffnung", "Opening"), String(eroeffnungen[eroeffnung]), t.call("Wer im beschworenen Kampf zuerst handelt: wie im Spiel, Hinterhalt der Gegner, oder der Held.",
 			"Who acts first in a summoned fight: as in the game, a foe ambush, or the hero."), func():
 				var e: Array = eroeffnungen.keys()
-				eroeffnung = String(e[(e.find(eroeffnung) + 1) % e.size()]), "DICE")])
+				eroeffnung = String(e[(e.find(eroeffnung) + 1) % e.size()]), "DICE"),
+			zk.call(t.call("Rettung", "Saves"), t.call("misslingt", "fail") if rettung_aus else t.call("normal", "normal"),
+				t.call("Gegner bestehen keine Rettungswürfe: Heilige Flamme und andere Zauber gegen Rettungswürfe wirken immer voll.", "Foes fail every save: Sacred Flame and other spells against saves always take full effect."),
+				func(): rettung_aus = not rettung_aus, "WARD", "", rettung_aus),
+			zk.call(t.call("Kritisch", "Critical"), t.call("immer", "always") if krit_immer else t.call("normal", "normal"),
+				t.call("Der Held trifft mit jeder Waffe kritisch, außer bei einer 1.", "The hero lands every weapon blow as critical, except on a 1."),
+				func(): krit_immer = not krit_immer, "CRIT", "", krit_immer)])
 		var ids: Array = fs.keys()
 		for i in range(0, ids.size(), 2):
 			reihe.call(ids.slice(i, i + 2).map(func(id): return [String(fs[id]), func(): m.test.emit("kampf", [id])]))
