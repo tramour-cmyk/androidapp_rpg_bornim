@@ -811,6 +811,7 @@ func _play(name: String, blend := 0.15) -> void:
 	if anim and name in ["Biss", "Hauer"] and not anim.has_animation(name) and anim.has_animation("Hieb"):
 		name = "Hieb"     # 348.12 Runde 3: Goblin auf dem CC0-Gerüst schlägt (sonst schnellt er nur vor)
 	if anim and anim.has_animation(name):
+		anim.clear_queue()     # 453: eine angehängte Grundhaltung (nach einer Ruhebewegung) gilt nicht mehr, sobald etwas anderes beginnt
 		anim.play(name, blend, float(tempo.get(name, 1.0)))
 
 
@@ -847,14 +848,60 @@ func _process(_dt: float) -> void:
 	# Pfoten 1,1 s lang im Rennen fest, der Körper lief weiter): auch, sobald das Tier etwas anderes spielt als Stehen
 	if halt and halt.drehen and (not (tween and tween.is_running()) or anim and anim.current_animation != "Stehen"):
 		halt.los(false)
-	if anim and anim.has_animation("Lefzen") and not down and not pouncing and anim.current_animation == "Stehen":
-		var now := Time.get_ticks_msec()
-		if fidget_at == 0:
-			fidget_at = now + randi_range(4000, 9000)
-		elif now >= fidget_at:
-			fidget_at = 0
-			_play("Lefzen" if randf() < 0.5 else scharren_name(), 0.2)
-			anim.queue("Stehen")
+	_ruhebewegung()
+
+
+## 453 (Chef 01.11., 11:05: „Was mir aber völlig fehlt, sind diese Ruheanimationen. Also ich weiß nicht, ob die Wölfe atmen, ob die
+## mal ab und zu scharren oder sich umblicken oder knurren. Sozusagen, da muss mehr Leben rein.“; wolf_ruhe_453: die Wölfe ruhten zu
+## 96 % in Hocke, dort gab es keine): wer daheim ruht, spielt alle RUHE_MS eine Ruhebewegung seiner Grundhaltung, nie zweimal
+## dieselbe hintereinander; nach dem eigenen Angriff zuerst Hecheln. Knurren und Hecheln mit dem Ruhelaut des Wolfs (idle_wolf_2
+## Knurren, idle_wolf_3 Schnauben; tools/klang/ruhe.py), höchstens einer zugleich im Rudel (RUHE_LAUT_ABSTAND_MS wie MonsterIdle.GAP_MS).
+const RUHE := {"Stehen": ["Lefzen", "Scharren", "Knurren"], "Hocke": ["HockeKnurren", "HockeUmsehenL", "HockeUmsehenR"]}
+const RUHE_HECHELN := {"Stehen": "Hecheln", "Hocke": "HockeHecheln"}
+const RUHE_MS := [3000, 7000]
+const RUHE_LAUT := {"Knurren": [1, 0.4], "HockeKnurren": [1, 0.4], "Hecheln": [2, 0.3], "HockeHecheln": [2, 0.3]}
+const RUHE_LAUT_ABSTAND_MS := 1800
+static var ruhe_laut_ms := -100000
+var ruhe_vor := ""
+var nach_biss := false      # 453: nach dem eigenen Angriff zuerst Hecheln
+
+
+func _ruhe_uhr() -> int:
+	return int(kampfort.clock_ms) if kampfort != null and "clock_ms" in kampfort else Time.get_ticks_msec()
+
+
+func _ruhebewegung() -> void:
+	if anim == null or down or not anim.has_animation("Lefzen"):
+		return
+	var grund: String = anim.current_animation
+	if not RUHE.has(grund) or grund != ("Hocke" if pouncing else "Stehen") or (tween and tween.is_running()):
+		return
+	var now := _ruhe_uhr()
+	var hecheln := nach_biss and anim.has_animation(RUHE_HECHELN[grund])
+	if hecheln and fidget_at == 0:
+		fidget_at = now + 300
+	elif fidget_at == 0:
+		fidget_at = now + randi_range(RUHE_MS[0], RUHE_MS[1])
+	if now < fidget_at:
+		return
+	fidget_at = 0
+	nach_biss = false
+	var wahl: String = RUHE_HECHELN[grund] if hecheln else ""
+	if wahl == "":
+		var liste: Array = RUHE[grund].filter(func(n): return n != ruhe_vor and anim.has_animation(n if n != "Scharren" else scharren_name()))
+		if liste.is_empty():
+			return
+		wahl = String(liste[randi_range(0, liste.size() - 1)])
+	ruhe_vor = wahl
+	if wahl == "Scharren":
+		wahl = scharren_name()
+	_play(wahl, 0.25)
+	anim.queue(grund)
+	if RUHE_LAUT.has(wahl) and now - ruhe_laut_ms >= RUHE_LAUT_ABSTAND_MS:
+		var klang = get_node_or_null("/root/Klang")
+		if klang != null:
+			ruhe_laut_ms = now
+			klang.effekt("idle_wolf", float(RUHE_LAUT[wahl][1]), 1.0, int(RUHE_LAUT[wahl][0]))
 
 
 ## 249 (wie im alten MARS): der Getroffene zittert seitlich am Schirm, 4 dp, in 450 ms abklingend.
@@ -1639,6 +1686,7 @@ func strike(other, e: Dictionary) -> int:
 	if _zweibeiner() and weg.has("Gehen") and hieb.size() >= 3:
 		return _hieb(other)
 	if fighter.monster != null and weg.has("Gehen"):
+		nach_biss = true     # 453: daheim zuerst Hecheln
 		if leap:
 			pouncing = false
 		# 438 (wolf_mess_438: beim Verfehlen wich der Held aus, sein Schild fuhr bis 6 cm um die Schnauze): daneben bleibt der Wolf weiter weg
