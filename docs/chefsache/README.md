@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [453a](entscheiden/453a-wolf-atem-sichtbar.md) | **Muss** | E Kampf | 02.11., 00:57 | Wolfsatem aus der Kampfkamera sichtbar: wie? | Tuffy (Zusatzentwickler Team Jerry) |
 | [406.1](entscheiden/4061-schildstoss.md) | **Muss** | E Kampf | 01.11., 22:35 | Schildstoß: Block und Konter am Ring für jeden mit Schild, als Angriff erst für den Wächter? | Jerry |
 | [348.12j](entscheiden/34812j-grak-axt.md) | **Muss** | E Kampf | 01.11., 22:1x | Graks Axt: Kopf oben (wie abgenommen) oder hängend (Grundstand E6)? | Jerry |
 | [431b](entscheiden/431b-ohren-hauer.md) | **Muss** | E Figuren | 01.11., 21:4x | Elfenohren und Hauer: kaufen oder selbst formen? | Tom |
@@ -115,7 +116,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 53, Muss 40, startbar 6
+**Jerry** – offen 54, Muss 41, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -124,6 +125,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 457.2 | M | von Perikles (Chef 01.11., 11:49, „unsere Signatur muss sich wiederfinden“): eigene Probes | wartet auf Test/Build (gebaut) |
 | 453.1 | M | von Sokrates (Chef 01.11., 13:0x): Helden im Kampf atmen gleich und zu heftig („hechelt“): | Chef |
 | 453 | M | von Sokrates (Chef 01.11., 11:05): Wölfe brauchen Ruhebewegungen: atmen, scharren, umblick | Chef |
+| 453a | M | Rückfrage: Wolfsatem sichtbar, A/B/C | Chef (Datei in der Chefsache) |
 | 454 | M | von Sokrates (Chef 01.11., 11:05): beim Biss zielt die Achse des Wolfs wohl rechts neben d | wartet auf Test/Build (gebaut) |
 | 438a | M | von Sokrates (Chef 01.11., 11:47, „nicht beurteilen, wenn ich es nicht gesehen habe … Viel | startbar |
 | 439 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Reihenfolge Angriff, Treffer, Tod, Neuformati | wartet auf Test/Build (gebaut) |
