@@ -17,6 +17,7 @@ var dir := OS.get_environment("VOELKER")
 var daten := {}
 var reihen := {}
 var lage := {}
+var _ansicht := Vector2.ZERO   # Lage in Ansichtspunkten; das Bild hat --resolution (455.1 Lauf 41321140618)
 
 func _init(p: FigurenProbe) -> void: fp = p
 
@@ -35,7 +36,7 @@ func film() -> void:
 		x += 7.5
 	await fp.get_tree().create_timer(1.0).timeout
 	for r in REIHEN: await _laufen(r)
-	FileAccess.open(fp.aus + "/groessen/lage.json", FileAccess.WRITE).store_string(JSON.stringify(lage, " "))
+	FileAccess.open(fp.aus + "/groessen/lage.json", FileAccess.WRITE).store_string(JSON.stringify({"lage": lage, "ansicht": [_ansicht.x, _ansicht.y]}, " "))
 
 
 func _reihe(r: String, t: String, x0: Vector3) -> void:
@@ -111,6 +112,7 @@ func _laufen(r: String) -> void:
 		await RenderingServer.frame_post_draw
 		fp.spiel.get_viewport().get_texture().get_image().save_png(fp.aus + "/groessen/%s/%04d.png" % [r, i])
 		if i == 0:
+			_ansicht = fp.spiel.get_viewport().get_visible_rect().size
 			var cam := fp.spiel.kamera as Camera3D
 			var l := []
 			for k in reihen[r][1].size():

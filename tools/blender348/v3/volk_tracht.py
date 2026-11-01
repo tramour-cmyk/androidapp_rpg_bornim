@@ -44,13 +44,18 @@ def laden(p):
     netze = [o for o in alle if o.vertex_groups]
     if os.path.basename(p) not in GESEHEN:
         GESEHEN.add(os.path.basename(p))
-        print('NETZE', os.path.basename(p), [(o.name, o.name.startswith(KOERPER)) for o in netze])
+        print('NETZE', os.path.basename(p), [(o.name, ist_koerper(o)) for o in netze])
     return arm, netze, alle
+
+
+def ist_koerper(o):
+    # Kaufkoerper: Name oder Material (MI_Regular_Male, wie HeldFigur.toene; Lauf 41321140618: Arme der Tracht tragen die Haut der Haende)
+    return o.name.startswith(KOERPER) or any(m and ('Regular' in m.name or 'Superhero' in m.name) for m in o.data.materials)
 
 
 def messen(arm, netze):
     # voelker.messen am Koerper allein; Sohle der ganzen Figur (Stiefel), damit sie auf dem Boden bleibt
-    k = [o for o in netze if o.name.startswith(KOERPER)] or netze
+    k = [o for o in netze if ist_koerper(o)] or netze
     m = VO.messen(arm, k)
     sohle = min(v.co.z for o in netze for v in o.data.vertices)
     m['sohle_figur'] = sohle

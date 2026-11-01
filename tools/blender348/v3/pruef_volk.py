@@ -27,7 +27,8 @@ def pruefe(p):
     for o in [o for o in bpy.data.objects if o not in alt]: bpy.data.objects.remove(o)
     akt = {a.name.split('|')[-1]: a for a in bpy.data.actions if a not in vorher}
     dg = bpy.context.evaluated_depsgraph_get()
-    namen = [('koerper' if o.name.startswith(KOERPER) else o.name) for o in netze]
+    namen = [('koerper' if o.name.startswith(KOERPER) or any(m and ('Regular' in m.name or 'Superhero' in m.name) for m in o.data.materials)
+              else o.name) for o in netze]
 
     def lage():
         dg.update()

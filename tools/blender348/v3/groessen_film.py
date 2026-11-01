@@ -6,7 +6,8 @@ from PIL import Image, ImageDraw, ImageFont
 
 QUELLE, SCHRIFT, ZIEL = sys.argv[1:4]
 os.makedirs(ZIEL, exist_ok=True)
-lage = json.load(open(os.path.join(QUELLE, 'lage.json')))
+daten = json.load(open(os.path.join(QUELLE, 'lage.json')))
+lage, ANSICHT = daten['lage'], daten.get('ansicht')
 GOLD, WEISS, GRUND = (212, 174, 92), (237, 230, 214), (10, 9, 8)
 f_titel = ImageFont.truetype(SCHRIFT, 32)
 f_reihe = ImageFont.truetype(SCHRIFT, 28)
@@ -25,7 +26,7 @@ def streifen(bild, name, titel, h):
     c.paste(b, (0, 0))
     d = ImageDraw.Draw(c)
     d.text((14, 8), titel, font=f_reihe, fill=GOLD)
-    f = BREITE / bild.width
+    f = BREITE / (ANSICHT[0] if ANSICHT and ANSICHT[0] else bild.width)   # Lage in Ansichtspunkten (455.1 Lauf 41321140618)
     for p in lage.get(name, []):
         e = p['eintrag']
         d.text((p['x'] * f, h + 4), e['volk'], font=f_name, fill=GOLD, anchor='ma')
