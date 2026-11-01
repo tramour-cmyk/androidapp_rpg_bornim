@@ -10,7 +10,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 438 | M | **von Sokrates (Chef 31.10., 23:31, Film 403):** Wölfe gleiten (Angriff, Tempo, aneinander vorbei); echte Schritte, Zahlen (Zu 438) | startbar: Prüferbefunde Film 08:18 beheben (Zu 438); gebaut ace228bd7 (fremde Ruhelage umgetragen, Anfahren, Tritthalt, rückwärts heim), Film ansehen/438-woelfe | `claude/jerry-438-wolf-kampf` |
+| 438 | M | **von Sokrates (Chef 31.10., 23:31, Film 403):** Wölfe gleiten (Angriff, Tempo, aneinander vorbei); echte Schritte, Zahlen (Zu 438) | in Arbeit: Technik gebaut 26cc90739 (Zu 438), Godot-Lauf 147 misst mit Kaufwolf; Film braucht Kaufpakete | `claude/jerry-438-wolf-kampf` |
 | 439 | M | **von Sokrates (Chef 31.10., 23:31, Film 403):** Reihenfolge Angriff, Treffer, Tod, Neuformation (Zu 438) | gebaut ace228bd7 mit 438: Sturz beim Aufprall, Aufrücken erst nach Tod und Liegen; Film ansehen/438-woelfe | `claude/jerry-438-wolf-kampf` |
 | 440 | M | **von Sokrates (Chef 31.10., 23:34, Film 403):** Wolf-Tod zu schnell weg (Zu 438) | gebaut ace228bd7 mit 438: Tod ganz (1,7 s), 1,2 s liegen, dann ausblenden; Film ansehen/438-woelfe | `claude/jerry-438-wolf-kampf` |
 | 416.5 | M | **von Sokrates (Chef 31.10., 20:4x, Build 143):** im Kampf Details des Kampflogs aufrufen, dann nicht mehr schließbar (Taste reagiert nicht); beheben | wartet auf Test: Build 146 (t146) | – |
