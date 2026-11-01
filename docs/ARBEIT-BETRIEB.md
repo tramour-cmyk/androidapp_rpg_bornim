@@ -46,6 +46,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 08:21 01.11.: Neustart Jerry 0df217a41 angenommen: Nachfolger `01Hmoj77wY` „438 Prüferbefunde Wölfe“; alter Jerry `79d2` archiviert, 20,94 $ auf 403,406,438; Diogenes 374/434 `76ve` 08:05 gestartet; Sokrates (`7725`) per Nachricht auf 416.4a-Stellungnahme und D54 (422/427)
 - 22:23–23:13 28.10.: Tom 7d5e21fac/f449ea4a9/e91b86781 Neustarts, Nachfolger `01Hmoj78mj` „376.1 Köpfe, Haut, Robe“ (Titel nach Korrekturen umgestellt); Jerry 96d840aae: Nachfolger `01Hmoj77So`; alte archiviert und gebucht: Tom `75YJ` 19,49 $ (399.1), Jerry `775u` 25,55 $ (399.2,399.2b,399.3), Tom `79nW` 19,45 $ (376.1)
 - 16:35–21:41 28.10.: Neustarts Sokrates (alter `78fq` 23,05 $ auf 385,387,396a,397,398,399), Tom 9eabc83d1/fb048b94a/a12e99b0d/bc486f1d9 (Nachfolger je gestartet, alte archiviert: 28,01 + 13,76 + 25,48 + 16,58 $ auf 399.1 u. a.), Jerry 8aefbb7b1 (`77PX` 14,85 $ auf 399.3,399.2); Homer `01Hmoj77EQ` 19:06 (399.2b)
 - 13:09–15:49 28.10.: Neustarts Jerry cf599b056 (alter `75RG` 19,91 $ auf 399.2,348.12; 14:43 zurückgestellt bis Chefantwort 348.12), Tom 971fcda1a (alter `76N4` 30,41 $ auf 399.1,390,397); Jerry `76aX` 27,93 $ (348.12,387,399.2); Diogenes `77nv` 0,79 $
