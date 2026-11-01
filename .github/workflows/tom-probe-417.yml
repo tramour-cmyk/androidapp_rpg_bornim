@@ -1,5 +1,7 @@
 name: Tom Probe Tragart (417)
 
+# Runde 5 (Pruefer 13:3x): Griff nach den Unity-Prefabs der Pakete (griff417b.py), Messung tests/tragen_pakete_417.gd, Film wie im Spiel
+# mit Anlaufen und Anhalten (416.4).
 # Runde 4 (Chef 01.11., 12:21: Axt Runde 3 „schwebt“; 348.12c Pakete): Gehen und Rennen je Waffe aus den Protofactor-Paketen
 # (waffengang.py), Kaempfer mit Kriegsaxt, Langschwert, Langschwert und Rundschild, Schurke mit Kurzbogen, im Tempo des Spiels
 # (tragprobe --teil=tragenpakete). Runde 3 (Axt in drei Fassungen) bleibt im Verlauf.
@@ -11,7 +13,7 @@ name: Tom Probe Tragart (417)
 on:
   push:
     branches: ["claude/tom-417-**"]
-    paths: ["godot/skripte/tragen.gd", "godot/skripte/tragprobe.gd", "godot/skripte/heldfigur.gd", "godot/tests/tragen_417.gd", ".github/workflows/tom-probe-417.yml"]
+    paths: ["godot/skripte/tragen.gd", "godot/skripte/tragprobe.gd", "godot/skripte/heldfigur.gd", "godot/tests/tragen_417.gd", "godot/tests/tragen_pakete_417.gd", ".github/workflows/tom-probe-417.yml"]
   workflow_dispatch:
 
 jobs:
@@ -116,7 +118,7 @@ jobs:
           timeout 300 ~/godot/godot --headless --import --path . > import.log 2>&1 || true
           set -o pipefail
           timeout 120 ~/godot/godot --headless --path . -s res://tests/skripte_pruefen.gd 2>&1 | grep -E "SKRIPTE|FALSCH|SCRIPT ERROR|Parse Error" | tee $GITHUB_WORKSPACE/probe/skripte.log || true
-          timeout 900 ~/godot/godot --headless --path . -s res://tests/tragen_417.gd -- --fassungen 2>&1 | grep -E "^(MESS|FEHLER|FASSUNG|TRAGEN)|SCRIPT ERROR|^ +at: " | cut -c1-600 | tee $GITHUB_WORKSPACE/probe/messung.log || true   # Runde 3, mit Paketen nur zur Kenntnis
+          timeout 900 ~/godot/godot --headless --path . -s res://tests/tragen_pakete_417.gd 2>&1 | grep -E "^(MESS|FEHLER|PAKETE)|SCRIPT ERROR|^ +at: " | cut -c1-600 | tee $GITHUB_WORKSPACE/probe/messung.log || true   # Runde 5: Waffen der Pakete
       - name: Bilder und Film
         if: always()
         run: |

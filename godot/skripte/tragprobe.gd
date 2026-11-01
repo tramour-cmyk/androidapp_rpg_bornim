@@ -149,11 +149,14 @@ func standbilder(axt := false, pakete := false) -> void:
 		ap.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 		ap.play("Stehen"); ap.advance(0.0)
 		var tempo := 0.0
-		for ab in FILM_FOLGE:
-			var b0: String = ab[0]
-			for f in int(round(float(ab[1]) * FPS)):
+		for ai in FILM_FOLGE.size():
+			var b0: String = FILM_FOLGE[ai][0]
+			var nf := int(round(float(FILM_FOLGE[ai][1]) * FPS))
+			var halt := ai + 1 < FILM_FOLGE.size() and FILM_FOLGE[ai + 1][0] == "Stehen"   # 416.4: vor dem Halt bremsen wie am Ende eines Wegs
+			for f in nf:
 				var moving := b0 != "Stehen"
 				var soll := 0.0 if not moving else (SPIEL_GEHEN if b0 == "Gehen" else SPIEL_RENNEN)
+				if moving and halt: soll = Held.bremse(soll, float(nf - f) / FPS * SPIEL_GEHEN * Held.ANLAUF * 2.0, SPIEL_GEHEN)
 				tempo = Held.tempo_schritt(tempo, soll, SPIEL_GEHEN, 1.0 / FPS)
 				var want := b0
 				if moving and ap.has_animation(b0 + g) and float(m.get_meta("gang_" + ("gehen" if b0 == "Gehen" else "rennen") + "_m_je_s", 0.0)) > 0.01: want = b0 + g

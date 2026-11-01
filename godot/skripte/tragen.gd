@@ -197,7 +197,7 @@ func _paket(sk: Skeleton3D, ih: int) -> void:
 	var R := hand_rahmen(sk, seite)
 	var bogen := gang == "bogen"
 	var d := (R.basis * (BOGEN_ACHSE if bogen else GRIFF_ACHSE)).normalized()
-	_faust_zu(sk, ih, d)
+	var _mitte := _faust_zu(sk, ih, d)
 	R = hand_rahmen(sk, seite)
 	var p := R * (BOGEN_PUNKT if bogen else GRIFF_PUNKT)
 	var dw := (G.basis * d).normalized()
@@ -214,6 +214,9 @@ func _paket(sk: Skeleton3D, ih: int) -> void:
 
 # Schild links am Handruecken (Messung 3f): Vorderseite SCHILD_NORMALE, oben quer ueber die Knoechel (Rahmen y), Fessel am Handgelenk
 func _schildarm(sk: Skeleton3D) -> void:
+	if merken:
+		posen.resize(sk.get_bone_count())
+		for i in sk.get_bone_count(): posen[i] = sk.get_bone_global_pose(i)
 	if waffe == null: return
 	var G := sk.global_transform
 	var R := hand_rahmen(sk, "l")
