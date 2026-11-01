@@ -2,7 +2,7 @@
 
 Chef 01.11., 20:3x: „das mal alles zusammenführt … auf ein Niveau kriegen, dass wir von da aus alle weiteren Vorlagen machen und nicht jedes Mal ich irgendwelche Sachen sehe, wo ich mir denke, das hat man doch schon 100 Mal entschieden.“
 
-**Wozu:** was der Chef zu Figuren, Bewegung und Kampfort schon entschieden hat, als Prüfpunkte (Entwurf Sokrates, Punkte 1–9; gegen das Vorgangsarchiv geprüft und ergänzt von Perikles, 01.11., 20:4x). Jede Probe und jeder Film baut auf dem gemeinsamen Zweig `claude/grundstand-461` (Tom, Jerry; 461.1).
+**Wozu:** was der Chef zu Figuren, Bewegung und Kampfort schon entschieden hat, als Prüfpunkte (Entwurf Sokrates, Punkte 1–9; gegen das Vorgangsarchiv geprüft und ergänzt von Perikles, 01.11., 20:3x). Jede Probe und jeder Film baut auf dem gemeinsamen Zweig `claude/grundstand-461` (Tom, Jerry; 461.1).
 
 **Wie geprüft wird** (Archiv 461; fügt sich in 373 und 396):
 - Wer vorlegt, hakt vor dem Versand jeden Punkt ab, der im Bild vorkommt, und schreibt in die Vorlage „Grundstand 461: geprüft“ oder „Punkt X verletzt, weil …“.

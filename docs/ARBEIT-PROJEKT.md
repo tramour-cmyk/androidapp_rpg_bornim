@@ -3,14 +3,14 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 01.11., 20:4x (`6805a7018`)
+**Gelesen bis:** `origin/main` 01.11., 20:3x (`6805a7018`)
 
-**Übergabe (01.11., 20:4x):** 461 gebaut (Grundstand-Liste geprüft, Prüfung vor dem Versand verankert, Zu 461); Doppelpack 461 an Diogenes. Nachfolger: Perikles – 338.1: Wochenziel 02.11. nach der Wochenzählung (mit Schätzungen 447.2, 447.3; Vorgang „Bau BRS“ je Stufe für Tom und Jerry, D49)
+**Übergabe (01.11., 20:3x):** 461 gebaut (Grundstand-Liste geprüft, Prüfung vor dem Versand verankert, Zu 461); Doppelpack 461 an Diogenes. Nachfolger: Perikles – 338.1: Wochenziel 02.11. nach der Wochenzählung (mit Schätzungen 447.2, 447.3; Vorgang „Bau BRS“ je Stufe für Tom und Jerry, D49)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
 | 462 | M | **von Ford („jetzt“ 01.11., 20:34, Chef: „Du kannst mal alle anderen auch hier mal wieder einen Zeitstempel ausgeben, wenn du was machst. Ich kann überhaupt nicht einschätzen, wann hier was passiert ist. Doch klar geregelt.“):** Regel steht (CLAUDE.md „Wie wir zusammenarbeiten“ 7: jede Nachricht beginnt mit Name und Zeitstempel), wird nicht befolgt; Ursache finden (Haken je Rolle, Startnachricht, Stop-Haken) und durchsetzen, Prüfung durch Diogenes | startbar |
-| 461 | M | **von Sokrates („jetzt“ 01.11., 20:3x, Wortlaut in der Liste):** Grundstand Figuren und Kampf: `LISTE-GRUNDSTAND-461.md` prüfen und pflegen, Prüfer prüft jede Vorlage dagegen (Zu 461) | gebaut 01.11., 20:4x: 39 Punkte A–G, Prüfung vor dem Versand verankert (Zu 461); Diogenes prüft (461) |
+| 461 | M | **von Sokrates („jetzt“ 01.11., 20:3x, Wortlaut in der Liste):** Grundstand Figuren und Kampf: `LISTE-GRUNDSTAND-461.md` prüfen und pflegen, Prüfer prüft jede Vorlage dagegen (Zu 461) | gebaut 01.11., 20:3x: 39 Punkte A–G, Prüfung vor dem Versand verankert (Zu 461); Diogenes prüft (461) |
 | 436 | M | **von Sokrates („jetzt“ 31.10., 22:58):** Sitzungsnamen mit Vorgang, Thema und Zeit für alle (Zu 436) | gebaut 01.11., 00:1x: Regel, Rollen, lauf.py (Zu 436); Ford benennt um; Diogenes prüft (443) |
 | 433 | M | **von Sokrates („jetzt“ 31.10., 22:1x, Zu 433):** unabhängige Zeilen von Tom und Jerry an Spike/Tuffy (394) verteilen, Ford startet | gebaut 31.10., 22:2x: lauf.py startet Spike/Tuffy auf unabhängige Muss-Zeile (Zu 433); Diogenes prüft (435) |
 | 424 | M | **von Sokrates („jetzt“ 31.10., 21:3x, Chef: „keine Energie mehr in das alte SRD-System stecken“):** Regelzeilen der Umzugsliste (SRD-Regeln übertragen) auf ruht; Vorräte geprüft 21:3x (Sokrates setzte 17 Zeilen auf ruht); neue Zeilen am alten System verhindern | gebaut 31.10., 21:4x: Umzugsliste ruht für alte Regeln, Wächter in startbar.py (Zu 424); Diogenes prüft (429) |
@@ -32,7 +32,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
-- **Zu 461 (Perikles, 01.11., 20:4x):** Entwurf Sokrates (9 Punkte) gegen das Vorgangsarchiv 27.10.–01.11. geprüft: 39 Punkte in A Signatur, B Gestalt, C Leben, D Bewegung, E Waffe und Schild, F Kampf, G Vorlage; „Gehen aufrecht“ ohne Beleg gestrichen. Verankert: Prüftreppe 4 (`LISTE-BAUEN-TESTEN.md`) und `ROLLE-ENTWICKLUNG.md` (Dein typischer Fehler; 373): Grundstand vor dem Versand, sonst bleibt 396. Engpass 389: zwei Läufe verbraucht, Punkt verletzt → Zeile statt Film an den Chef, sein Urteil gibt Läufe frei (407). Pflege: wer ins Archiv zu Figuren, Bewegung, Kampfort schreibt, ändert die Liste im selben Commit; Perikles gleicht montags ab. Nummern neu (A1 … statt 1–9).
+- **Zu 461 (Perikles, 01.11., 20:3x):** Entwurf Sokrates (9 Punkte) gegen das Vorgangsarchiv 27.10.–01.11. geprüft: 39 Punkte in A Signatur, B Gestalt, C Leben, D Bewegung, E Waffe und Schild, F Kampf, G Vorlage; „Gehen aufrecht“ ohne Beleg gestrichen. Verankert: Prüftreppe 4 (`LISTE-BAUEN-TESTEN.md`) und `ROLLE-ENTWICKLUNG.md` (Dein typischer Fehler; 373): Grundstand vor dem Versand, sonst bleibt 396. Engpass 389: zwei Läufe verbraucht, Punkt verletzt → Zeile statt Film an den Chef, sein Urteil gibt Läufe frei (407). Pflege: wer ins Archiv zu Figuren, Bewegung, Kampfort schreibt, ändert die Liste im selben Commit; Perikles gleicht montags ab. Nummern neu (A1 … statt 1–9).
 
 - **423.1, von Team Tom (01.11., 17:2x):** Handbuch als Seite im Spiel braucht das BRS im Spiel (Abnahme 2.2, 2.3); bitte M?/Stufe festlegen, bis dahin wartet es.
 
