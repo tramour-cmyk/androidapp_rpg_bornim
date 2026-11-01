@@ -150,7 +150,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 439 | Kampfablauf: Neuformation vor dem Tod, Treffer vor dem Angriff (Film 403, Chef 31.10., 23:31) | E Kampf | M | – | Team Jerry | gebaut |
 | 440 | Wolf verschwindet ohne sichtbare Sterbeanimation (Film 403, Chef 31.10., 23:34) | E Kampf | M | – | Team Jerry | gebaut |
 | 451 | Name für das Spielsystem statt „2.0“ (Chef 01.11., 10:59) | D Design | M | – | Sokrates | erledigt |
-| 458 | Katalog aller Gegenstände: eine Datendatei, Übersicht `LISTE-GEGENSTAENDE.md` daraus erzeugt (Chef 01.11., 13:0x) | D Design | M | – | Sokrates | Chef |
+| 458 | Katalog aller Gegenstände: eine Datendatei, Übersicht `LISTE-GEGENSTAENDE.md` daraus erzeugt (Chef 01.11., 13:0x) | D Design | M | – | Sokrates | erledigt |
 | 452 | Notizen-Übersicht `docs/README.md` aktualisieren, gebündeltes Dokument für den Chef (Chef 01.11., 10:59, 11:00) | B Abläufe | M | – | Sokrates | Chef |
 | 453 | Wölfe im Kampfort: Ruhebewegungen (atmen, scharren, umblicken, knurren) (Chef 01.11., 11:05) | E Kampf | M | – | Team Jerry | startbar |
 | 453.1 | Helden im Kampf: Atmen ruhiger, je Figur eigener Takt, nach Aktion schneller und abklingend (Chef 01.11., 13:0x) | E Kampf | M | – | Team Jerry | startbar |
@@ -161,6 +161,10 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 455.2 | Netzliste je sichtbarem Platz, Eigenbau geschätzt, Größenfilm der Völker (Chef 01.11., 11:27, 455 ja) | E Figuren | M | – | Team Tom | startbar |
 | 451.1 | Name „Bornimer Rollenspielsystem“ in CLAUDE.md, Leitbild, Rollendateien, Werkzeugtexten (Chef 01.11., 451) | B Abläufe | M | – | Perikles | startbar |
 | 451.2 | Name „Bornimer Rollenspielsystem“ im Handbuch 423 und in Spieltexten (Chef 01.11., 451) | C Texte | M | – | Homer | startbar |
+| 458.1 | Gegenstandskatalog: Datendatei festlegen, Werkzeug für `LISTE-GEGENSTAENDE.md` (Chef 01.11., 458 ja) | B Abläufe | M | – | Perikles | startbar |
+| 458.2 | Gegenstandskatalog: Werte, Preise, Beute (Chef 01.11., 458) | D Design | M | – | Team Jerry | wartet |
+| 458.3 | Gegenstandskatalog: Netze, Modelle, Läden (Chef 01.11., 458) | E Figuren | M | – | Team Tom | wartet |
+| 458.4 | Gegenstandskatalog: Namen und Kurztexte (Chef 01.11., 458) | C Texte | M | – | Homer | wartet |
 | 447.1 | Abnahmeliste auf Stufen 1–6 umstellen, Block G erweitern, Schätzung je Stufe (Chef 01.11., 447 ja mit K2b) | B Abläufe | M | – | Perikles | startbar |
 | 457 | Signatur in jeder Probe: Wächter für Vorlagen ohne Toon/Tusche, Probeskripte mit Spielshadern (Chef 01.11., 11:49) | B Abläufe | M | – | Perikles | startbar |
 | 416.7 | Aktionsknopf am Tresen in Schenke und Laden (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | zu testen |
