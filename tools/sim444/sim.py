@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Vorgang 444: Rechensimulation Spielsystem 2.0 am Rechner (ohne Godot).
+"""Vorgang 444: Rechensimulation Bornimer Rollenspielsystem (BRS) am Rechner (ohne Godot).
 
 Regeln: DESIGN-SPIELSYSTEM-2-0-ENTWURF.md (Modell D, Abschnitt 4), Monster: LISTE-BESTIARIUM.md
 "Werte 2.0". Jede Zahl steht in werte.json, keine im Code.
@@ -489,7 +489,7 @@ def bericht(W, ergebnisse, variante_ergebnisse, args):
     k = W["lauf"]["kaempfe_je_fall"] if args.kaempfe is None else args.kaempfe
     la = W["lauf"]["fortschritt_laeufe"] if args.laeufe is None else args.laeufe
     a = L.append
-    a("# Rechensimulation Spielsystem 2.0 (444)")
+    a("# Rechensimulation Bornimer Rollenspielsystem (BRS) (444)")
     a("")
     a(f"Tuffy (Team Jerry) für Sokrates. Werkzeug `tools/sim444/sim.py`, alle Zahlen in `tools/sim444/werte.json` "
       f"(Zweig `claude/tuffy-444-simulation`). Regeln: Nachschlagewerk Modell D und Abschnitt 4, Monster: Bestiarium „Werte 2.0“ (01.11.). "

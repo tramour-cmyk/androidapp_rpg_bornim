@@ -22,7 +22,7 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 - [Leitbild](DESIGN-LEITBILD.md): roter Faden, gilt bei Widerspruch
 - [Stil](DESIGN-STIL.md): Aussehen, Klang, Spielgefühl
 - [Abnahme](DESIGN-ABNAHME.md): „Ort fertig“, selbst prüfen
-- [Kampf](DESIGN-KAMPF.md), [Balance](DESIGN-BALANCE.md), [Heldenbau](DESIGN-HELDENBAU.md), [Blende](DESIGN-BLENDE.md), [Nachschlagewerk Spielsystem 2.0](DESIGN-SPIELSYSTEM-2-0-ENTWURF.md) (gilt seit 01.11., 422; Zahlen nach 444), [Verlauf und Begründungen](DESIGN-SPIELSYSTEM-2-0.md) (413)
+- [Kampf](DESIGN-KAMPF.md), [Balance](DESIGN-BALANCE.md), [Heldenbau](DESIGN-HELDENBAU.md), [Blende](DESIGN-BLENDE.md), [Nachschlagewerk Bornimer Rollenspielsystem (BRS)](DESIGN-SPIELSYSTEM-2-0-ENTWURF.md) (gilt seit 01.11., 422; Zahlen nach 444), [Verlauf und Begründungen](DESIGN-SPIELSYSTEM-2-0.md) (413)
 - [Spielerhandbuch](STORY-HANDBUCH-1.md) (Entwurf 423, Teile [2](STORY-HANDBUCH-2.md), [3](STORY-HANDBUCH-3.md)): das Spielsystem für den Spieler erklärt, das gebündelte Lesestück
 - [Storyplan](STORY-PLAN.md): Plot und Figuren je Kapitel, Kapitel 2 mit Karte und [Textentwurf](STORY-K2-ENTWURF.md)
 - [Story-Verzeichnis](STORY-REGELN.md): alle Spieltexte mit Marken; Kapitel 1 [Handlung](STORY-K1-HANDLUNG.md) und [Welt](STORY-K1-WELT.md), [Blende](STORY-BLENDE.md)
@@ -30,7 +30,7 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 - [Durchspielbogen](LISTE-DURCHSPIELBOGEN.md): Vorlage für Durchspiele (26); [Englisch-Korrekturliste](LISTE-ENGLISCH-338-1B.md) (338.1b, alte Fassung)
 - [Figuren](LISTE-FIGUREN.md): festes Aussehen wiederkehrender Leute und Monster
 - [Gegenstände](LISTE-GEGENSTAENDE.md): alles, was es gibt, nach Art und Bezugsweg; erzeugt aus `tools/gegenstaende/gegenstaende.json` mit `tools/gegenstaende.py` (458)
-- [Bestiarium](LISTE-BESTIARIUM.md): Monsterarten mit Angriffen, Beute, Werten für Spielsystem 2.0 (427)
+- [Bestiarium](LISTE-BESTIARIUM.md): Monsterarten mit Angriffen, Beute, Werten für das BRS (427)
 - [Simulation 2.0](LISTE-SIMULATION-444.md): Rechensimulation Herkunft × Art × Stufe, Fortschritt bis Stufe 6, Befund (444)
 - [Grafikweg](LISTE-GRAFIKWEG.md): Engine, Grafikkerne, Blender-Modelle, Baukästen (348)
 - [Bestand](LISTE-BESTAND.md): Inventur aller gekauften und geladenen Bewegungen, Figuren, Tiere, Dinge, Bauteile; vor jedem Eigenbau lesen (377)
