@@ -321,6 +321,12 @@ func _raster(i: int) -> Rect2:
 	return Rect2(Vector2((i % 2) * w, OBEN + (i / 2) * h), Vector2(w, h))
 
 
+# Ganzkörperfeld: leicht von oben (10°), damit der Boden mit Schatten sichtbar ist (Prüfer 376.1: waagrecht lag er unsichtbar auf Kante)
+func _ganz(cam: Camera3D, x: float) -> void:
+	cam.rotation_degrees.x = -10.0
+	cam.position = Vector3(x, 1.08, 0.0) + cam.basis.z * 8.0
+
+
 # Teil 1: Grundkörper, links Mann, rechts Frau, je Zeile eine Art (Regulär, Superheld, Jugend); gleicher Maßstab in allen Feldern;
 # Goldlinien in Völkergröße (Frau 7 % kleiner)
 func _koerper_431(koerper: Array) -> void:
@@ -339,7 +345,7 @@ func _koerper_431(koerper: Array) -> void:
 			var h := _hoehe(f)
 			var feld := _feld(_raster(z * 2 + s), 2.35)
 			var cam: Camera3D = feld[0]
-			cam.position = Vector3(x, 1.08, 8.0)
+			_ganz(cam, x)
 			_boden(Vector3(x, 0, 0), 1.8, 1.2)
 			var k := 1.0 if s == 0 else FRAU
 			for v in VOELKER:
@@ -404,7 +410,7 @@ func _trachten_3761(trachten: Array, kopf: String, haar: String) -> void:
 		var h := _hoehe(f)
 		var feld := _feld(_raster(i), 2.35)
 		var cam: Camera3D = feld[0]
-		cam.position = Vector3(x, 1.08, 8.0)
+		_ganz(cam, x)
 		_boden(Vector3(x, 0, 0), 1.8, 1.2)
 		var n := p.get_file().get_basename().trim_prefix("Female_")
 		_text(feld[1], "%s · %s" % [TRACHTEN.get(n, n), n], Vector2(12, 8), 26)
