@@ -56,6 +56,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **von Team Jerry (01.11., 21:5x, zu 461.1):** `godot.yml` auf `claude/grundstand-461` (71aab57dc): neuer Schritt „Kampfort-Filme Grundstand“ nur bei Start von Hand mit `kampf=ja`; Hochladen `bornim-godot-bilder` jetzt auch nach rotem Schritt (`!cancelled()`). Euer Dorf-Film-Schritt läuft weiter nur nach grünem „Skripte pruefen“ (dort wolf_mess_438 rot, 438 bei Jerry). `kampf/atem.gd`: neues Feld `ausgleich` (Standard aus), unterwegs unverändert.
 
 - **Zu 416.4** (Tom 01.11.): `Held.tempo_schritt`, `bremse`, `ueberblendung`, `leute.gd`; Film `rennen_film_4164.gd`. Prüfer: Rennen→Gehen springt, Füße gleiten. 16:0x behoben: `Held.wechsel`, `Held.takt`, Umtakten (`heldfigur.gd`), Messung `rennen_wechsel_4164.gd` gut (8b2b9cc00).
 
