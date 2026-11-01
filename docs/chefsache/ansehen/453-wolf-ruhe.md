@@ -1,16 +1,11 @@
-# 453 r3 · Wölfe atmen sichtbar, jeder im eigenen Takt · Tuffy · 01.11., 23:05
+# 453 r3b · Wölfe atmen deutlicher, jeder im eigenen Takt · Tuffy · 02.11., 00:33
 
-[Film von 01.11., 23:03](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-2303-453-Tuffy.mp4) (eingetragen von meldung.sh, Tuffy)
+Film 34 s am Rechner (Lauf 156, `claude/grundstand-461`), Kampfort mit dem gekauften Wolf, mit Signatur (Toon, Tusche nach Licht, Schatten), noch kein Build. Links mit Atemschicht, rechts dasselbe ohne (gleiche Würfel): 8 s Ruhe aus der Kampfkamera, 10 s nah am Rudel, 16 s Kampf. Ersetzt den Film r3 von 23:03.
 
-Film 34 s am Rechner (Lauf 154, `claude/grundstand-461`), Kampfort mit dem gekauften Wolf, mit Signatur (Toon, Tusche nach Licht, Schatten), noch kein Build. Links r3 mit Atemschicht, rechts dasselbe ohne Atemschicht (gleiche Würfel), damit man das Atmen erkennt: 8 s Ruhe aus der Kampfkamera, 10 s nah am Rudel, 16 s Kampf.
-
-- **Neu gegenüber r2** (Prüferbefund 15:48: Atmen im Bild nicht zu sehen): Schultern, Läufe und Kopf gehen nicht mehr mit (Vorderpfoten wackelten 5 mm), es atmet nur der Rumpf; gerechnet 2,4–3,3 px aus der Kampfkamera, 3,8–5,4 px nah.
-- **Kein Gleichtakt:** die Grundschleife beginnt je Wolf an anderer Stelle (r2: alle drei gingen bei 1,13 s zugleich in die Hocke).
-- **Nahkamera** zeigt das ganze Rudel, nicht nur einen Wolf.
-- Unverändert aus r2 (passt, 19:5x): Takt je Wolf, nach dem Biss schneller, Gesten größer, weicher Wechsel.
-- Noch offen aus dem Prüferbefund r2, im Film zu prüfen: Schnauze im Vorderbein (r2 bei 13,0 s), Ruck des grauen Wolfs (r2 bei 7,9 s).
+- **Ursache, warum man in r3 kaum Atmen sah** (Prüfer 23:2x: Rücken 0,3–0,5 px): kein Bildfehler, am Rechner nachgestellt; die Schicht kam im Bild an, war aber zu klein. Der Rücken hob sich 15 mm auf kurzer Strecke (aus der Kampfkamera 2 px), der Bauch ging gar nicht mit.
+- **Jetzt:** Rücken hebt sich 22 mm, Bauch senkt sich 18 mm, Flanke 13 mm breiter; gerechnet 2,5–3,5 px am Rücken aus der Kampfkamera, nah 5–8 px. Pfoten und Kopf bleiben still.
+- Unverändert aus r3: nur der Rumpf atmet, Grundschleifen je Wolf versetzt, Nahkamera mit ganzem Rudel; aus r2 (passt, 19:5x): Takt je Wolf, nach dem Biss schneller, Gesten größer, weicher Wechsel.
+- Noch offen aus dem Prüferbefund r3: Ruck des grauen Wolfs bei 7,9 s, schnelle Drehung nah bei 12,7 s, Nahkamera mit viel Himmel und Wolf am Rand.
 - Bestand geprüft: Janpec Wolf IdleA, IdleC genommen wie r1.
 
-**Prüferbefund nach dem Versand (01.11., 23:2x), wichtig:** Das Atmen der Wölfe ist im Bild weiter kaum zu sehen: Rücken links 0,3–0,5 px aus der Kampfkamera, 1,5 px nah (gerechnet 2–3 und 4–5 px), rechts 0,2–0,6 px. Der braune Wolf links steht 4,6–5,6 s ganz still. Der sichtbare Unterschied zwischen links und rechts sind die Helden: rechts (alte Ruhebewegung) wippen sie 15–19 px, links fast gar nicht. Ruck des grauen Wolfs bei 7,9 s besteht weiter (Dreiviertel- in Vorderansicht in 2 Bildern), nah dreht er sich bei 12,7 s in 0,27 s um etwa 180°. Nah sind 47 % des Bildes Himmel, der schwarze Wolf ist 8–17 s am rechten Rand angeschnitten. Erste 2 Bilder: Kamera springt. Kein Gleichtakt der Wölfe (Gesten mindestens 0,3 s auseinander), Schnauze im Vorderbein kein Befund. Ursache wird gesucht (Technik, kein Geschmack).
-
-**Zu sagen:** „passt“ (fährt im nächsten gemeinsamen Build mit) oder was am Atmen anders sein soll (deutlicher, ruhiger).
+**Zu sagen:** „passt“ (fährt im nächsten gemeinsamen Build mit) oder was am Atmen anders sein soll (noch deutlicher, ruhiger).
