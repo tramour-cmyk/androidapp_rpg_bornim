@@ -25,7 +25,7 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
-## Lauf 59 · Auftrag 464 Doppelpack zu den roten Läufen (`main` nach `8cb4400b6`; 01.11., 22:2x; `parse_pruefen()` mit Godot 4.7.2 (Scratch, nicht `~/godot`) an einem Probezweig aufgerufen; Ford-Commits `8fd2d5e82`, `525f87ff9`; Lauf 150 auf `claude/jerry-348-12-grak-schreitet` (Log))
+## Lauf 59 · Auftrag 464 Doppelpack zu den roten Läufen (`main` nach `8cb4400b6`; 01.11., 22:13; `parse_pruefen()` mit Godot 4.7.2 (Scratch, nicht `~/godot`) an einem Probezweig aufgerufen; Ford-Commits `8fd2d5e82`, `525f87ff9`; Lauf 150 auf `claude/jerry-348-12-grak-schreitet` (Log))
 
 **Ergebnis:** Der Haken tut, was er soll.
 - Ein eingebauter Parsefehler in `kampf/aufruf.gd` hält den Push an, mit Datei und Zeile, nach 8 s.
