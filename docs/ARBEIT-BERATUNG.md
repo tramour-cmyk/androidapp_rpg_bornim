@@ -10,7 +10,8 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 447 | M | **von Chef (01.11., 09:51, „Was sind denn aktuell die Meilensteine? Habe ich die gebilligt?“):** Meilensteine klären | wartet auf Chef: Chefsache 447 |
+| 447 | M | **von Chef (01.11., 09:51, „Was sind denn aktuell die Meilensteine? Habe ich die gebilligt?“; 10:46 „komm mit einem vernünftigen neuen Vorschlag um die Ecke“):** Meilensteine neu | wartet auf Chef: Chefsache 447, Gespräch gewünscht |
+| 448 | M | **von Chef (01.11., 10:46, „einen täglichen Bericht … der sinnvolle Werte enthält?“; 10:50 „Managementbericht“):** Tagesbericht mit Zahlen | wartet auf Chef: Chefsache 448, mit 447 |
 | 427 | M | **von Chef (31.10., 21:3x):** Bestiarium `LISTE-BESTIARIUM.md` | wartet auf Jerry: Startwerte gehen in die Simulation 444, dann gemessen zum Chef (Archiv 422, 444) |
 | 398 | M | **von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr ganz grundlegende Dinge fehlen?“):** Grundsätze DESIGN-* gegen Umzugsliste und Godot-Zweige | wartet auf Perikles: 15 Lücken in LISTE-UMZUG-348.md „398“, Chef 11:3x informiert |
 | 391 | M | **von Chef (28.10., 09:21):** Repos dauerhaft ohne Ablehnung | ruht: kein Repo-Feld in der Umgebung (Bild Chef 10:29), Repo-Wahl am Eingabefeld gilt nur für Sitzungen von Hand; Fords Starts nehmen ein Repo; add_repo geht durch, wenn die Aufgabe die Kaufmodelle braucht |

@@ -151,7 +151,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 439 | Kampfablauf: Neuformation vor dem Tod, Treffer vor dem Angriff (Film 403, Chef 31.10., 23:31) | E Kampf | M | – | Team Jerry | gebaut |
 | 440 | Wolf verschwindet ohne sichtbare Sterbeanimation (Film 403, Chef 31.10., 23:34) | E Kampf | M | – | Team Jerry | gebaut |
 | 444 | Rechensimulation Spielsystem 2.0 am Rechner (ohne Godot): Herkunft × Monsterart × Stufe 1–6, Zahlen aus einer Tabelle (Chef 01.11., 09:24) | E Kampf | M | – | Team Jerry | gebaut |
-| 447 | Meilensteine: M0–M4 aus Spielsystem 2.0 nie gebilligt, in die Abnahmeliste überführen (Chef 01.11., 09:51) | B Abläufe | M | – | Sokrates | Chef |
+| 447 | Meilensteine neu: Stufen K1–K4 bis marktreif, W1–W3 danach (Chef 01.11., 09:51, 10:46) | B Abläufe | M | – | Sokrates | Chef |
+| 448 | Tagesbericht mit Zahlen statt Ampeln (Chef 01.11., 10:46) | B Abläufe | M | – | Sokrates | Chef |
+| 449 | Commit-Haken weist gekaufte Rohdateien ab (aus 416.4a, 01.11.) | B Werkzeuge | M | – | Perikles | startbar |
 | 446 | Wächter Lizenzhinweis SRD: `regelcheck` meldet, solange SRD-Abgeleitetes im Spiel ist; Hinweis fällt erst bei leerer Inventur (Chef 01.11., 09:41, 413a) | B Werkzeuge | M | – | Perikles | erledigt |
 | 416.7 | Aktionsknopf am Tresen in Schenke und Laden (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | zu testen |
 | 416.8 | NPC dreht sich zum Helden, nach etwa 10 s Leerlauf (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | zu testen |
