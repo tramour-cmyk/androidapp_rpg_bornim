@@ -1,5 +1,7 @@
 # 455.1 · Baukasten: je ein Netz in drei Materialien × zwei Zeichen · Spike · 01.11., 17:01
 
+[Bild von 01.11., 17:00](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/01-1700-455.1-Spike.png) (eingetragen von meldung.sh, Spike)
+
 ![Probeblatt](../bilder/4551-baukasten.jpg)
 
 Großbild: Telegram 01.11., 17:01. Wie im Spiel gezeichnet (Toon-Licht, Tusche, Wiese), ohne Waffen; noch kein Build. Ablauf `spike-probe-4551.yml`, Lauf 41322602607, Zweig `claude/spike-455-1-baukasten`.
