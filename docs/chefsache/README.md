@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [348.12c](entscheiden/348.12c-bewegungspakete.md) | **Muss** | E Figuren | 01.11. | Bewegungspakete Protofactor: was wir kaufen sollten | Sokrates |
 | [423](entscheiden/423-handbuch.md) | **Muss** | C Texte | 01.11. | Spielerhandbuch Spielsystem 2.0: Entwurf zum Lesen, drei Fragen | Homer |
 | [447](entscheiden/447-meilensteine.md) | **Muss** | B Abläufe | 01.11. | Meilensteine neu: vier Stufen bis „marktreif“, drei danach | Sokrates |
 | [451](entscheiden/451-name-spielsystem.md) | **Muss** | D Design | 01.11. | Ein Name für unser Spielsystem | Sokrates |
@@ -24,6 +23,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [406](ansehen/406-kaufschilde.md) | Gewählte Schilde am Helden: 2 beim Kleriker, 15 beim Kämpfer | Jerry | 01.11., 11:55 |
+| [453](ansehen/453-wolf-ruhe.md) | Ruhebewegungen der Wölfe im Kampf | – | 01.11., 12:06 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -97,17 +97,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 46, Muss 33, startbar 6
+**Jerry** – offen 45, Muss 32, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Wölfe gleiten (Angriff, Tempo, aneinander vor | wartet auf Test/Build (gebaut) |
-| 453 | M | von Sokrates (Chef 01.11., 11:05): Wölfe brauchen Ruhebewegungen: atmen, scharren, umblick | in Arbeit bei Tuffy |
+| 453 | M | von Sokrates (Chef 01.11., 11:05): Wölfe brauchen Ruhebewegungen: atmen, scharren, umblick | wartet auf Test/Build (gebaut) |
 | 454 | M | von Sokrates (Chef 01.11., 11:05): beim Biss zielt die Achse des Wolfs wohl rechts neben d | startbar |
 | 438a | M | von Sokrates (Chef 01.11., 11:47, „nicht beurteilen, wenn ich es nicht gesehen habe … Viel | startbar |
 | 439 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Reihenfolge Angriff, Treffer, Tod, Neuformati | wartet auf Test/Build (gebaut) |
 | 440 | M | von Sokrates (Chef 31.10., 23:34, Film 403): Wolf-Tod zu schnell weg (Zu 438) | wartet auf Test/Build (gebaut) |
-| 444 | M | von Sokrates (Chef 01.11., 09:24, „Ja, so machen wir es“): Rechensimulation Spielsystem 2. | wartet auf Test/Build (gebaut) |
 | 416.5 | M | von Sokrates (Chef 31.10., 20:4x, Build 143): im Kampf Details des Kampflogs aufrufen, dan | wartet auf Test (Build) |
 | 416.6 | K | von Sokrates (Chef 31.10., 20:4x): Spuren des Helden fehlen (Fußspuren; bei Regen eigene S | startbar |
 | 415 | K | von Sokrates (Chef 31.10., 20:3x „Ja, Probe mit dem Beams-Sample an Jerry geben“): Handypr | startbar |
@@ -226,7 +225,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Format (Muster: „So geht's“ unten): t146-befunde.md: 8 Vorgänge, höchstens 6 je Build (317)
 
-Nicht gestellt: 452 (Beratung), 186.3 (Pruefung)
+Nicht gestellt: 452 (Beratung), 348.12c (Beratung), 186.3 (Pruefung)
 
 Ohne Datei: 275 (Projekt), 455 (Team Tom), 26 (Team Tom)
 

@@ -12,4 +12,6 @@
 - **Gemessen** (Ecken von Körper und Kleidung gegen die Schildfläche): im Kampf beim Kämpfer nie, beim Kleriker die Spitze unten beim Ausweichen bis 5 cm im Bein, 4 von 1600 Messbildern (vorher bis 6 cm in 9). Auf dem Rücken ragen Schulter und Oberarm bis 7–9 cm in die Oberkante (vorher 6,5–7 cm): Lage aus 376.1, an Tom gemeldet.
 - Bestand geprüft: `LISTE-BESTAND.md` „Waffen und Schilde“, Schilde 2 und 15 genommen.
 
+**Prüferbefund nach dem Versand (01.11., 12:0x), wichtig:** Der Film zeigt nicht, was er soll. Die Kamera steht hinter den Figuren, der Schild sitzt außen am linken Arm: man sieht nur seine Innenseite, den Rundschild 15 des Kämpfers gar nicht (verdeckt vom Körper), den Drachenschild 2 nur zur Hälfte (Spitze hinter der Hüfte), darum wirkt er eckig und klein (sichtbar etwa 52 cm). Sonst: Schild sitzt am Arm, folgt jeder Bewegung, geht durch nichts; Figur samt Schild springt bei 25,95 s in einem Bild in die Trefferhaltung; Wolfsschnauze 8–10 cm in Kopf und Schulter (8,8–9,4 s, 25,2–27,2 s; gehört zu 454). Vorschlag: neuer Film, beide Schilde von vorn und im Kampf von der Gegnerseite, im Spiellicht (Probeläufe 406 verbraucht, darum erst nach deinem Wort).
+
 **Zu sagen:** „passt“ (fährt im nächsten Build mit) oder was nicht stimmt.
