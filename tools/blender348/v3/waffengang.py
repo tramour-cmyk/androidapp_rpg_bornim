@@ -10,12 +10,17 @@ KAUF = os.environ['KAUF']; ZIEL = os.environ['ZIEL']; OUT = os.environ['OUT']; B
 HIER = os.path.dirname(os.path.abspath(__file__))
 os.makedirs(OUT, exist_ok=True)
 # Art (wie tragen.gd ARTEN): Paket, Gehen, Rennen (Archiv 417, 12:21; Sokrates aus den Dateinamen)
+# Rennen (Messung 2b, Lauf 41304653466; Spiel 4,27 m/s): die genannten Run* laufen 1,3-2,7 m/s, im Spiel 1,6- bis 2,65-fach
+# (4,8-8,5 Schritte/s, hastig). Genommen die Fassung jedes Pakets, die von selbst etwa im Spieltempo laeuft: Sprint2HandMelee 4,63 m/s
+# (0,92-fach, 3,7 Schritte/s), SprintHold1hMelee 5,20 (0,82, 3,9), RunFastNormalS&S 4,07 (1,05, 4,2), RunFastBow 3,98 (1,07, 3,0).
+# Gehen wie genannt: 0,7-0,8 m/s, im Spiel (2,13 m/s) 2,6- bis 3,1-fach, 3,8-4,7 Schritte/s (heute UAL Walk_Loop 2,2-fach)
 GAENGE = {
-    'axt': ('2.HANDED', 'WalkForwardNormal2HandMelee', 'RunNormal2HandMelee'),
-    'einhand': ('1.HANDED', 'WalkForwardHold1hMelee', 'RunHold1hMelee'),
-    'schild': ('SWORD.SHIELD', 'WalkForwardS&S', 'RunForwardS&S'),
-    'bogen': ('BOW.ARROW', 'WalkBow', 'RunBow'),
+    'axt': ('2.HANDED', 'WalkForwardNormal2HandMelee', 'Sprint2HandMelee'),
+    'einhand': ('1.HANDED', 'WalkForwardHold1hMelee', 'SprintHold1hMelee'),
+    'schild': ('SWORD.SHIELD', 'WalkForwardS&S', 'RunFastNormalS&S'),
+    'bogen': ('BOW.ARROW', 'WalkBow', 'RunFastBow'),
 }
+VERGLEICHEN = os.environ.get('VERGLEICH', '') == '1'   # Messung 2: alle Vorwaerts-Bewegungen je Paket dazu
 
 
 def finde(paket, name):
@@ -48,7 +53,7 @@ for art, (paket, geh, renn) in GAENGE.items():
 # alle Vorwaerts-Gehen, -Rennen und -Sprints je Paket (ohne Richtungen, Hocken, Wurzelweg) zum Vergleich nach probe/, nicht nach GANG
 VERGLEICH = os.path.join(OUT, 'probe')
 os.makedirs(VERGLEICH, exist_ok=True)
-for art, (paket, geh, renn) in GAENGE.items():
+for art, (paket, geh, renn) in (GAENGE.items() if VERGLEICHEN else []):
     _, alle = finde(paket, geh)
     namen = sorted({os.path.basename(p)[9:-4] for p in alle if os.path.basename(p).startswith('Humanoid@')
                     and any(w in os.path.basename(p) for w in ('Walk', 'Run', 'Sprint'))
