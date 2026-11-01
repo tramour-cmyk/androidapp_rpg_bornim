@@ -26,9 +26,11 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [403](ansehen/403-kampfheld.md) | Held im Kampfort wie im Dorf | Jerry | 31.10., 22:45 |
+| [416.4](ansehen/4164-rennen.md) | Rennen ohne „Hochsprung“: drei Fassungen | Tom | 01.11., 10:30 |
 | [416.9](ansehen/4169-laden.md) | Laden: alle Plätze bei „Angelegt“, nicht Tragbares, Vergleich, Bild bei Menge | – | 01.11., 00:23 |
 | [417](ansehen/417-tragart.md) | Waffen in der Hand beim Gehen und Rennen: Stab, Kriegsaxt, Bogen | Tom | 01.11., 01:05 |
 | [425](ansehen/425-testmenue.md) | Testmenü mit Zeichen | Tom | 01.11., 01:10 |
+| [431](ansehen/431-voelker.md) | Völker: Bibliothek gesichtet, Grundkörper je Volk wählen | Tom | 01.11., 10:30 |
 | [438, 439, 440](ansehen/438-woelfe.md) | Wölfe im Kampfort: nicht mehr ineinander, Kopf nicht im Helden, Tod knickt ein | Jerry | 01.11., 09:45 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
