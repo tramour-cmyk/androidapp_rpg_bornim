@@ -8,6 +8,7 @@ QUELLE, SCHRIFT, ZIEL = sys.argv[1:4]
 KLEIN = sys.argv[4] if len(sys.argv) > 4 else ''
 daten = json.load(open(os.path.join(QUELLE, 'lage.json')))
 lage, info = daten['lage'], daten['info']
+ANSICHT = daten.get('ansicht')   # Lauf 1: Lage in Ansichtspunkten, nicht in Bildpunkten
 WORT = info.get('worte', {})
 GOLD, WEISS, GRAU, GRUND = (212, 174, 92), (237, 230, 214), (150, 140, 120), (10, 9, 8)
 f_titel = ImageFont.truetype(SCHRIFT, 40)
@@ -23,7 +24,8 @@ def streifen(name):
     p = os.path.join(QUELLE, name + '.png')
     if not os.path.exists(p) or name not in lage: return None
     b = Image.open(p).convert('RGB')
-    l = lage[name]
+    k = b.width / ANSICHT[0] if ANSICHT and ANSICHT[0] else 1.0
+    l = [dict(e, x=e['x'] * k, kopf_y=e['kopf_y'] * k, boden_y=e['boden_y'] * k) for e in lage[name]]
     oben = max(0, int(min(e['kopf_y'] for e in l)) - KOPF)
     unten = min(b.height, int(max(e['boden_y'] for e in l)) + FUSS)
     zellen = []

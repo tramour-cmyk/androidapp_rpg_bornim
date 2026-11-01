@@ -8,7 +8,7 @@ extends RefCounted
 #   <ausgabe>/baukasten/<netz>_<g>.png, <ausgabe>/baukasten/lage.json
 const ABSTAND := 0.85      # m zwischen den Figuren
 const RAND := 0.4          # m links und rechts
-const MITTE_Y := 0.95
+const MITTE_Y := 0.1       # Kamera nah sieht auf diese Hoehe + 0,9 (Lauf 1 mit 0,95: Fuesse am unteren Rand)
 const HERKUNFT := {"ROBE": "ZAUBERLEHRLING", "WACHE": "WACHSOLDAT", "WALD": "HERUMTREIBER"}
 const KLASSE := {"ZAUBERLEHRLING": "WIZARD", "WACHSOLDAT": "FIGHTER", "HERUMTREIBER": "ROGUE"}
 const DREHUNG := {"vorn": 0.35, "hinten": PI - 0.35}   # Ansicht schraeg von vorn, Umhang schraeg von hinten
@@ -16,6 +16,7 @@ const DREHUNG := {"vorn": 0.35, "hinten": PI - 0.35}   # Ansicht schraeg von vor
 var fp: FigurenProbe
 var quelle := ""
 var lage := {}
+var _ansicht := Vector2.ZERO   # Lauf 1 (41321140618): Lage in Ansichtspunkten (3510 x 2340), das Bild hat 1440 x 960
 
 func _init(p: FigurenProbe) -> void:
 	fp = p
@@ -42,7 +43,7 @@ func blatt() -> void:
 				fp.protokoll.append("FEHLT %s %s" % [netz["netz"], g])
 				continue
 			await _streifen(netz, g, liste, ort)
-	FileAccess.open(fp.aus + "/baukasten/lage.json", FileAccess.WRITE).store_string(JSON.stringify({"lage": lage, "info": info}, " "))
+	FileAccess.open(fp.aus + "/baukasten/lage.json", FileAccess.WRITE).store_string(JSON.stringify({"lage": lage, "info": info, "ansicht": [_ansicht.x, _ansicht.y]}, " "))
 
 
 # Spalten: je Material und Zeichen (Reihenfolge wie baukasten.json); ein Eintrag je bemaltes Teil (Netz, Material im glb, Bild)
@@ -104,6 +105,7 @@ func _streifen(netz: Dictionary, g: String, liste: Array, ort: Vector3) -> void:
 	kam.springe()
 	for _j in 4: await RenderingServer.frame_post_draw
 	fp.spiel.get_viewport().get_texture().get_image().save_png(fp.aus + "/baukasten/%s.png" % name)
+	_ansicht = fp.spiel.get_viewport().get_visible_rect().size
 	var cam := fp.spiel.kamera as Camera3D
 	var l := []
 	for i in figs.size():
@@ -124,7 +126,7 @@ func _tausche(m: Node, teile: Array) -> int:
 	if m is MeshInstance3D:
 		var mi := m as MeshInstance3D
 		for e in teile:
-			if not String(mi.name).begins_with(String(e["netz"])): continue
+			if String(mi.name) != String(e["netz"]): continue   # Lauf 1: Arms passte auch auf Arms_Bracer
 			for i in mi.mesh.get_surface_count():
 				var src := mi.mesh.surface_get_material(i)
 				var rn := String(src.resource_name) if src else ""

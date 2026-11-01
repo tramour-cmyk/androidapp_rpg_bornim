@@ -110,10 +110,10 @@ jobs:
           grep -E "^(FIGUR|STREIFEN|FEHLT)|SCRIPT ERROR|^ +at: " $GITHUB_WORKSPACE/probe/probe.log | cut -c1-300 | head -80
           cp $A/probe.txt $A/baukasten/lage.json $GITHUB_WORKSPACE/probe/ 2>/dev/null || true
           cd $GITHUB_WORKSPACE
-          bl/bin/python -I tools/blender348/v3/baukasten_blatt.py $A/baukasten godot/kampf/schrift/alegreya_regular.ttf probe/4551-baukasten.png probe/4551-baukasten.jpg
           for f in $A/baukasten/*.png; do cp $f probe/streifen-$(basename $f); done
+          bl/bin/python -I tools/blender348/v3/baukasten_blatt.py $A/baukasten godot/kampf/schrift/alegreya_regular.ttf probe/4551-baukasten.png probe/4551-baukasten.jpg || echo "BLATT FEHLT"
           ls -l probe
-          ! grep -q "SCRIPT ERROR" probe/probe.log && ! grep -q "^FEHLT" probe/probe.txt
+          ! grep -q "SCRIPT ERROR" probe/probe.log && ! grep -q "^FEHLT" probe/probe.txt && [ -f probe/4551-baukasten.png ]
       - uses: actions/upload-artifact@v4
         if: always()
         with:
