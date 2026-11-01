@@ -10,7 +10,6 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 452 | M | **von Chef (01.11., 10:59, 11:00):** ein gebündeltes Dokument; Notizen-Übersicht `docs/README.md` aktualisieren (Zu 452) | wartet auf Chef: Übersicht aktualisiert 11:1x (toter Tagesbericht ersetzt, Nachschlagewerk gilt, Handbuch, Umzug, Archive ergänzt); Bündel = Spielerhandbuch 423 vorgeschlagen |
 | 427 | M | **von Chef (31.10., 21:3x):** Bestiarium `LISTE-BESTIARIUM.md` | wartet auf Jerry: Startwerte gehen in die Simulation 444, dann gemessen zum Chef (Archiv 422, 444) |
 | 398 | M | **von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr ganz grundlegende Dinge fehlen?“):** Grundsätze DESIGN-* gegen Umzugsliste und Godot-Zweige | wartet auf Perikles: 15 Lücken in LISTE-UMZUG-348.md „398“, Chef 11:3x informiert |
 | 391 | M | **von Chef (28.10., 09:21):** Repos dauerhaft ohne Ablehnung | ruht: kein Repo-Feld in der Umgebung (Bild Chef 10:29), Repo-Wahl am Eingabefeld gilt nur für Sitzungen von Hand; Fords Starts nehmen ein Repo; add_repo geht durch, wenn die Aufgabe die Kaufmodelle braucht |
@@ -18,7 +17,6 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 383 | M | **von Chef (27.10., 17:44, „Sollen wir einfach aufhören damit?“; 17:47 Vorschlag „nicht griffig“):** Chef räumt nur hinter allen her | frühestens 31.10.: Größe gemessen 18:15, keine Größenregel (Zu 383); Bau Wartewächter bei Perikles; nachmessen mit 347 |
 | 376 | M | **von Chef (27.10., 12:00):** Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Tom: Häuser so lassen (19:08, Archiv); Bausätze bewertet im Chat 19:1x (Leute aus Trachten, Tierpaket, Hundertfüßer, Markt; Zu 376); Markt 376.2 bei Tom |
 | 374 | M | **von Chef (27.10., 11:54):** wer prüft 373? | frühestens 31.10.: auswerten mit 347 (Archiv) |
-| 348.12c | M | **von Chef (26.10., 11:59):** Modellpaket auch gegen Geld (Quaternius und andere), Verkauf im Spiel erlaubt; Monster dürfen von D&D abweichen; „schönen Vorschlag und ein schönes Paket“; 27.10., 20:10/20:12: Forest Pack, Protofactor checken | wartet auf Chef: Kauf fünf Pakete (Archiv 01.11., 12:03), dann ins Kaufrepo |
 | 348.12 | M | **von Chef (25.10., 21:21, „b prüfen“):** fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit Skelett) prüfen, nichts bauen | wartet auf Jerry: Goblin CC0 entschieden 27.10., 09:49 (Archiv), Hieb nachbessern, dann Grak, Kobold, Zombie |
 | 340.2 | M | **von Chef (25.10., 10:16, Vorgangsarchiv 340):** `tools/rollenspiegel.sh <Rolle>` zeigt nur Fragen und eigene Vorwochenantwort, hängt die neue an; ersetzt „erst antworten, dann lesen“ | gebaut 25.10.; prüfen 30.10. (Zu 340.2) |
 | 348 | M | **von Chef (24.10., 16:43; „jetzt“ 16:54):** fertige Spiel-Engine statt Selbstbau? | ruht bis Zuruf: begleiten nach `LISTE-UMZUG-348.md` (Nachturteil 362 gestrichen, außer der Chef ermächtigt, Archiv 373a); entschieden: Umzug nach Godot (Vorgangsarchiv) |
