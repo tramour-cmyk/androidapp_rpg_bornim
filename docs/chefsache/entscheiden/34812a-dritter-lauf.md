@@ -10,7 +10,8 @@ Jerry · 01.11., 17:4x · E Kampf
 - Bau: Grak geht beim Platzwechsel, im Anlauf zum Hieb und auf dem Rückweg immer (Walk_Loop), statt ab 1,2 m zu rennen (Jog) und rückwärts im Laufschritt (Jog_Bwd) zurückzukehren; Ausweichen bleibt der kurze Seitenlauf; Wölfe unverändert. Zweig `claude/jerry-348-12-grak-schreitet` (d832791a6), Test `grak_348` prüft „nur Gehen“.
 - Lauf 1 (17:11): rot vor dem Grak-Teil, Nullzugriff aus 453 r3 (`figur.gd:892`, Wolfsruhe ohne Modell). Behoben ec2d46bd3.
 - Lauf 2 (17:29): rot vor dem Grak-Teil, Test `aufruf_399`: die Kampfblende zeigte nur „WOLF“, weil der Lauf „regeln“ die Sätze aus core (`intro.json`, 402) nie bekam. Am Rechner nachgestellt (`exportIntro` liefert sie), Workflow ergänzt (366a92335, läuft als Lauf von 402, ohne Film).
-- Keiner der beiden Fehler stammt aus 348.12; beide lagen in Zweigen, die bisher nur mit „[skip ci]“ gepusht waren.
+- Lauf 366a92335 (Lauf von 402, 17:36): Regeln jetzt grün (auch Blende), dann rot im Modellbau: `goblin.py` erkennt Toms geändertes `v3/rig.py` nicht („Eckfarben geändert“); `godot.yml` baut die Goblins darum längst mit `v3_kampf`, dieser Workflow nicht. Ergänzt (8aee22a77, ohne Lauf), statisch geprüft. Hinter dem Goblin kommen Kaufratte, Kaufwolf, Grak: ob dort noch etwas bricht, zeigt erst der dritte Lauf.
+- Keiner dieser Fehler stammt aus 348.12; beide lagen in Zweigen, die bisher nur mit „[skip ci]“ gepusht waren.
 
 ## Auswertung
 
