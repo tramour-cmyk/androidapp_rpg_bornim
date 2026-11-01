@@ -6,7 +6,7 @@ name: Tom Messung Waffengang (417)
 on:
   push:
     branches: ["claude/tom-417-**"]
-    paths: ["tools/blender348/v3/waffengang.py", "tools/blender348/v3/held_klassen.py", ".github/workflows/tom-mess-417.yml"]
+    paths: ["tools/blender348/v3/griff417.py", "tools/blender348/v3/waffengang.py", "tools/blender348/v3/held_klassen.py", ".github/workflows/tom-mess-417.yml"]
   workflow_dispatch:
 
 jobs:
@@ -31,6 +31,10 @@ jobs:
           timeout 1500 bash tools/blender348/kauf_laden.sh $RUNNER_TEMP/kauf > kauf.log 2>&1 || { tail -20 kauf.log; exit 1; }
           mkdir -p mess && grep -iE "ANIMSET\.(SWORD|1\.HANDED|2\.HANDED|BOW)" kauf.log | grep -iE "walk|run|prop|SK_" | grep -viE "_RM|bazooka" | head -150 > mess/kauf-gang.txt || true
           grep -c . mess/kauf-gang.txt || true
+      - name: Griff aus den Unity-Prefabs (417 Messung 3b, nur Text)
+        run: |
+          python3 -I tools/blender348/v3/griff417.py > mess/griff.log 2>&1 || true
+          sed "s|$KAUF/||g" -i mess/griff.log; cut -c1-400 mess/griff.log | head -400
       - uses: actions/setup-python@v5
         id: py
         with:
@@ -57,8 +61,8 @@ jobs:
         run: |
           Z=$(find $KAUF -path '*Unreal-Godot*' -name UAL1.glb | sort | head -1); [ -n "$Z" ] || Z=$(find ~/cc0 -name UAL1_Standard.glb | sort | head -1)
           echo "Ziel: ${Z#$KAUF/}"
-          VERGLEICH=1 KAUF=$KAUF ZIEL=$Z OUT=$RUNNER_TEMP/gang BL=$GITHUB_WORKSPACE/bl/bin/python bl/bin/python -I tools/blender348/v3/waffengang.py > mess/waffengang.log 2>&1 || true
-          grep -E "^(PAKET|FEHLT|GANG|KNOCHEN|  WAFFENKNOCHEN|PROP|MESS|WAFFENGANG)|^   |Traceback|Error" mess/waffengang.log | sed "s|$KAUF/||g" | cut -c1-500 | head -120
+          KAUF=$KAUF ZIEL=$Z OUT=$RUNNER_TEMP/gang BL=$GITHUB_WORKSPACE/bl/bin/python bl/bin/python -I tools/blender348/v3/waffengang.py > mess/waffengang.log 2>&1 || true
+          grep -E "^(PAKET|FEHLT|GANG|KNOCHEN|  WAFFENKNOCHEN|PROP|MESS|HAND|WAFFENGANG)|^   |Traceback|Error" mess/waffengang.log | sed "s|$KAUF/||g" | cut -c1-500 | head -120
           cp $RUNNER_TEMP/gang/waffengang.json mess/ 2>/dev/null || true
       - name: Kaempfer mit Waffengang in bewegungen.glb
         run: |

@@ -124,7 +124,7 @@ def messen(p):
     for fr in range(f0, f1 + 1):
         bpy.context.scene.frame_set(fr)
         for k in lage: lage[k].append(arm.matrix_world @ arm.pose.bones[k].head)
-    vs, luft = [], 0
+    vs, luft, hand = [], 0, []
     for k in ('ball_l', 'ball_r'):
         h = [v.z for v in lage[k]]; tief = min(h)
         for j in range(len(h) - 1):
@@ -132,12 +132,26 @@ def messen(p):
     tl = min(v.z for v in lage['ball_l']); tr = min(v.z for v in lage['ball_r'])
     for j in range(len(lage['pelvis'])):
         if lage['ball_l'][j].z > tl + 0.03 and lage['ball_r'][j].z > tr + 0.03: luft += 1
+    # Messung 3b (Pruefer 13:3x: Schwert durch Schild, Bogen im Becken): Faeuste je Viertel des Umlaufs, im Koerperraum (vor = -Y,
+    # links = +X, hoch = Z, ab Becken), dazu Knoechellinie (Kleinfinger -> Zeigefinger) und Handruecken (Handgelenk -> Mittelfinger)
+    def k(v): return '(%+.2f vor %+.2f li %+.2f hoch)' % (-v.y, v.x, v.z)
+    for q in range(4):
+        fr = f0 + (f1 - f0) * q // 4
+        bpy.context.scene.frame_set(fr)
+        P = arm.matrix_world @ arm.pose.bones['pelvis'].head
+        z, fa = [], []
+        for s in ('r', 'l'):
+            W = lambda n: arm.matrix_world @ arm.pose.bones[n + '_' + s].head
+            faust = (W('index_01') + W('pinky_01')) * 0.5; fa.append(faust)
+            z.append('%s Faust %s Knoechel %s Finger %s Unterarm %s' % (s, k(faust - P), k((W('index_01') - W('pinky_01')).normalized()),
+                     k((W('middle_01') - W('hand')).normalized()), k((W('hand') - W('lowerarm')).normalized())))
+        hand.append('%d/4: %s | %s | Faeuste %.2f m auseinander' % (q, z[0], z[1], (fa[0] - fa[1]).length))
     vs.sort()
     v = max(vs[len(vs) // 2], 0.0) if vs else 0.0
     b = [x.z for x in lage['pelvis']]
     vor = lage['pelvis'][-1].y - lage['pelvis'][0].y
     return {'bilder': f1 - f0 + 1, 's': round((f1 - f0) / fps, 3), 'tempo': round(v, 3), 'hub_cm': round((max(b) - min(b)) * 100, 1),
-            'luft_pct': int(100 * luft / len(b)), 'wurzelweg_m': round(-vor, 3)}
+            'luft_pct': int(100 * luft / len(b)), 'wurzelweg_m': round(-vor, 3), 'hand': hand}
 
 
 RENN = 3.68 * 1.16; GEH = 1.84 * 1.16
@@ -150,5 +164,7 @@ for n in sorted(ergebnis):
     sps = 2.0 / m['s'] * fach if m['s'] > 0 else 0.0
     print('MESS %s: %d Bilder, %.2f s, Tempo %.2f m/s (im Spiel %.2f-fach, %.1f Schritte/s), Beckenhub %.1f cm, ohne Boden %d %%, Wurzelweg %.2f m'
           % (n, m['bilder'], m['s'], m['tempo'], fach, sps, m['hub_cm'], m['luft_pct'], m['wurzelweg_m']))
+    if '__' not in n:
+        for h in m['hand']: print('HAND %s %s' % (n, h))
 json.dump(ergebnis, open(os.path.join(OUT, 'waffengang.json'), 'w'), indent=1, ensure_ascii=False)
 print('WAFFENGANG', sum(1 for e in ergebnis.values() if e.get('da')), 'von', 2 * len(GAENGE))
