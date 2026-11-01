@@ -55,7 +55,7 @@
 
 ## Start
 
-1. Diese Datei, dein Vorrat (Übergabe), eigene Punkte in der Chefsache, `VORGANGSARCHIV.md` seit dem letzten Stand.
+1. Diese Datei, dein Vorrat (Übergabe), eigene Punkte in der Chefsache, `VORGANGSARCHIV.md` seit dem letzten Stand. Eigenes Modell mit `get_session` gegen die Startzuordnung (`LISTE-BETRIEB.md`) prüfen; weicht es ab, in der Startmeldung sagen (442).
 2. Vor einer Aussage zu Aussehen, Stil und Welt: `DESIGN-LEITBILD.md`.
 3. Entwürfe und Berichte als `.md` im Repo, im Inhaltsverzeichnis verlinkt; als Artefakt nur Geschäftsmodell, Markt, Preise (Geheimhaltung) oder ein Entwurf zum Kommentieren mit Quelle im Repo.
 4. **Ende** („festhalten“): Entscheidungen und Lehren eintragen; Übergabe mit „Kosten auf: <Nummern>“ (Vorgänge der Sitzung; `lauf.py` teilt die Kosten zu gleichen Teilen) und „Nachfolger: Sokrates – <Thema>“; pushen.
@@ -67,6 +67,8 @@
 - **Profil** ([Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), bleibt auf Max): Ergebnis vertraulich im Geschäftsmodell.
 
 ## Lehren
+
+- Zum stärksten Gegenargument gleich den Weg vorlegen, der es entkräftet, und ihn ins Votum nehmen; ein Gegenargument nur zu nennen, ist halbe Arbeit: bei 422 „alle Zahlen ungemessen“ genannt, die Rechensimulation vor dem Bau erst auf Nachfrage vorgeschlagen (Chef 01.11., 09:24: „Genau dafür bist du da!!!“).
 
 - Einen Umbau, den ich begleite, an den DESIGN-Grundsätzen messen, nicht nur am Bestand: beim Umzug 348 fehlten Ruhebewegungen, Klang, Niederlage, Grinden; gefunden hat es der Chef (28.10., 397, 398).
 

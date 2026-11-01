@@ -20,9 +20,13 @@ func _lauf() -> void:
 	await process_frame
 	var ap: AnimationPlayer = szene.find_children("*", "AnimationPlayer", true, false)[0]
 	var sk: Skeleton3D = szene.find_children("*", "Skeleton3D", true, false)[0]
-	var namen := Array(ap.get_animation_list()).filter(func(n): return n.contains("Jog") or n.contains("Sprint") or n.contains("Run") or n.contains("Walk"))
+	var namen := Array(ap.get_animation_list()).filter(func(n): return (n.contains("Jog") or n.contains("Sprint") or n.contains("Run") or n.contains("Walk") or n in ["Gehen", "Rennen"]))
 	print("ALLE ", ", ".join(PackedStringArray(Array(ap.get_animation_list()).filter(func(n): return n.contains("Loop")))))
-	var fl := sk.find_bone("foot_l"); var fr := sk.find_bone("foot_r"); var pe := sk.find_bone("pelvis")
+	# Spike 01.11.: Bodenkontakt am Ballen (ball_l, ball_r), nicht am Knoechel: im Lauf hebt sich die Ferse im Stand, der Knoechel
+	# stieg dann ueber 2 cm und galt als Flug (gedaempfte Fassung: 88 % Flug, Tempo 9,5 m/s, am Ballen 56 %, 5,1 m/s)
+	var fl := sk.find_bone("ball_l" if "--knoechel" not in OS.get_cmdline_user_args() else "foot_l")
+	var fr := sk.find_bone("ball_r" if "--knoechel" not in OS.get_cmdline_user_args() else "foot_r")
+	var pe := sk.find_bone("pelvis")
 	var hals := sk.find_bone("neck_01")
 	for n in namen:
 		ap.play(n)
@@ -45,7 +49,7 @@ func _lauf() -> void:
 			var p: Array = fuesse[f]
 			var tief: float = p.map(func(q): return q.y).min()
 			for j in schritte:
-				if p[j].y < tief + 0.02 and p[j + 1].y < tief + 0.02: vs.append(absf(p[j].z - p[j + 1].z) / dt)
+				if p[j].y < tief + 0.04 and p[j + 1].y < tief + 0.04: vs.append(absf(p[j].z - p[j + 1].z) / dt)
 		for j in schritte:
 			var tl: float = fuesse[fl].map(func(q): return q.y).min(); var tr: float = fuesse[fr].map(func(q): return q.y).min()
 			if fuesse[fl][j].y > tl + 0.04 and fuesse[fr][j].y > tr + 0.04: luft += 1

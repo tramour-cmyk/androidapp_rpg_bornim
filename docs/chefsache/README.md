@@ -8,12 +8,10 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [428](entscheiden/428-bestiarium-hintergrund.md) | **Muss** | C Texte | 01.11. | Hintergrund der Monster: freigeben? | Homer |
-| [430](entscheiden/430-voelker-abnahmelisten.md) | **Muss** | D Design | 01.11. | Wie sehen Elf, Zwerg, Hügelvolk und Orkblütiger aus? | Homer |
-| [443a](entscheiden/443a-ford-namensform.md) | **Muss** | B Abläufe | 01.11. | Gilt die Namensform 436 auch für Ford? | Diogenes |
-| [418](entscheiden/418-abnahmeliste-kapitel1.md) | **Muss** | B Abläufe | 31.10., 21:33 | Abnahmeliste Kapitel 1 nach der neuen Direktive: abnehmen und Umfang von 2.0 festlegen | Perikles |
-| [413a](entscheiden/413a-spielsystem-rueckfragen.md) | **Muss** | D Design | 31.10. | Spielsystem 2.0: offene Entwürfe | Sokrates |
-| [442](entscheiden/442-modell-sitzungen.md) | **Muss** | B Abläufe | 31.10. | Welches Modell läuft in welcher Sitzung? | Sokrates |
+| [438a](entscheiden/438a-sturz-held.md) | **Muss** | E Kampf | 01.11., 09:50 | Hinfallen und Aufstehen des gekauften Helden | Jerry |
+| [444a](entscheiden/444a-simulator-main.md) | **Muss** | E Kampf | 01.11., 09:48 | Werkzeug der Simulation 2.0 ohne Gerätetest auf `main` | Tuffy (Team Jerry) |
+| [447](entscheiden/447-meilensteine.md) | **Muss** | B Abläufe | 01.11. | Meilensteine: eine Liste statt zwei | Sokrates |
+| [416.4a](entscheiden/416.4a-kaufzugang-tom.md) | – | B Umzug | 01.11., 03:10 | Kaufmodelle für Tom: add_repo wird abgelehnt | Ford |
 | [110](entscheiden/110-ford-von-hand-starten.md) | – | B Abläufe | 01.11., 00:10 | Ford bitte von Hand starten (Tiefe 6) | Ford |
 
 ## Zu billigen
@@ -30,6 +28,13 @@ Nichts offen.
 | [416.9](ansehen/4169-laden.md) | Laden: alle Plätze bei „Angelegt“, nicht Tragbares, Vergleich, Bild bei Menge | – | 01.11., 00:23 |
 | [417](ansehen/417-tragart.md) | Waffen in der Hand beim Gehen und Rennen: Stab, Kriegsaxt, Bogen | Tom | 01.11., 01:05 |
 | [425](ansehen/425-testmenue.md) | Testmenü mit Zeichen | Tom | 01.11., 01:10 |
+| [438, 439, 440](ansehen/438-woelfe.md) | Wölfe im Kampfort: nicht mehr ineinander, Kopf nicht im Helden, Tod knickt ein | Jerry | 01.11., 09:45 |
+
+**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [0.348.146](ansehen/t146-befunde.md) | [Build 146](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41260309540/artifacts/13065687340) | Befunde aus Build 143 | Tom und Jerry | 01.11., 02:56 |
 
 ## Zu tun
 
@@ -43,32 +48,30 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 7, Muss 3, startbar 0
+**Homer** – offen 5, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 430 | M | von Sokrates (Chef 31.10., 22:0x: „Das Design der einzelnen Völker kann aber längst starte | Chef (Datei in der Chefsache) |
-| 428 | M | von Sokrates (Chef 31.10., 21:3x, „bisschen Hintergrundgeschichte vielleicht“): Bestiarium | Chef (Datei in der Chefsache) |
 | 432 | K | von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt | nach dem Meilenstein |
-| 423 | M | von Sokrates (Chef 31.10., 21:2x: „irgendwer muss dann auch einfach eine Anleitung schreib | wartet auf Sokrates |
+| 423 | M | von Sokrates (Chef 31.10., 21:2x: „irgendwer muss dann auch einfach eine Anleitung schreib | startbar |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 37, Muss 27, startbar 4
+**Tom** – offen 37, Muss 27, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | wartet auf Homer |
+| 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | wartet auf Test/Build (gebaut) |
 | 417 | M | von Sokrates („jetzt“ 31.10., 21:12, Chef: „diese Rückfrage hat auch Priorität“; Prüfauftr | startbar |
-| 425 | M | von Sokrates (Chef 31.10., 21:30, Build 143): Menüs (Menü „System“, Testmenü): in der alte | startbar |
-| 416.9 | M | von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“): Laden, Verkaufen, Ansicht „angel | wartet auf Test/Build (gebaut) |
-| 416.7 | M | von Sokrates (Chef 31.10., 20:5x, für den nächsten Build): am Tresen in Schenke und Laden | wartet auf Test/Build (gebaut) |
-| 416.8 | M | von Sokrates (Chef 31.10., 20:5x, allgemeiner Hinweis): NPC dreht sich bei Interaktion zum | wartet auf Test/Build (gebaut) |
-| 416.1 | M | von Sokrates (Chef 31.10., 20:4x, Build 143): Tasten reagieren schlecht (Bartform, Kopffor | wartet auf Test/Build (gebaut) |
-| 416.2 | M | von Sokrates (Chef 31.10., 20:4x): gegen Dorfbewohner und Tiere laufen: Platzwechsel statt | wartet auf Test/Build (gebaut) |
-| 416.4 | M | von Sokrates (Chef 31.10., 20:4x): Rennen des Helden wirkt „als würde er Hochsprung machen | startbar |
-| 399.4 | M | von Chef (21:4x, Archiv); zurück Chef 31.10., 20:4x: oben Rand für die Kamera wie alt: im | wartet auf Test/Build (gebaut) |
+| 425 | M | von Sokrates (Chef 31.10., 21:30, Build 143): Menüs (Menü „System“, Testmenü): in der alte | wartet auf Test (Build) |
+| 416.9 | M | von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“): Laden, Verkaufen, Ansicht „angel | wartet auf Test (Build) |
+| 416.7 | M | von Sokrates (Chef 31.10., 20:5x, für den nächsten Build): am Tresen in Schenke und Laden | wartet auf Test (Build) |
+| 416.8 | M | von Sokrates (Chef 31.10., 20:5x, allgemeiner Hinweis): NPC dreht sich bei Interaktion zum | wartet auf Test (Build) |
+| 416.1 | M | von Sokrates (Chef 31.10., 20:4x, Build 143): Tasten reagieren schlecht (Bartform, Kopffor | wartet auf Test (Build) |
+| 416.2 | M | von Sokrates (Chef 31.10., 20:4x): gegen Dorfbewohner und Tiere laufen: Platzwechsel statt | wartet auf Test (Build) |
+| 416.4 | M | von Sokrates (Chef 31.10., 20:4x): Rennen des Helden wirkt „als würde er Hochsprung machen | in Arbeit bei Spike |
+| 399.4 | M | von Chef (21:4x, Archiv); zurück Chef 31.10., 20:4x: oben Rand für die Kamera wie alt: im | wartet auf Test (Build) |
 | 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf | wartet auf Test (Build) |
 | 410 | M | von Sokrates (Chef 29.10., 10:52, 11:40; aus 376.1): Waffen am Körper wegstecken, alle Waf | ruht |
 | 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | startbar |
@@ -97,22 +100,24 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 43, Muss 30, startbar 8
+**Jerry** – offen 44, Muss 31, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403, „ja, die Animation der Avatare sieht gut aus. | startbar |
-| 440 | M | von Sokrates (Chef 31.10., 23:34, Film 403): „Der Wolf war einfach weg. Da fehlt die Sterb | startbar |
-| 439 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Ablauf im Kampf: Neuformation der Wölfe begin | startbar |
-| 416.5 | M | von Sokrates (Chef 31.10., 20:4x, Build 143): im Kampf Details des Kampflogs aufrufen, dan | wartet auf Test/Build (gebaut) |
+| 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Wölfe gleiten (Angriff, Tempo, aneinander vor | startbar |
+| 438a | M | Rückfrage: Hinfallen und Aufstehen des Kaufhelden, woher (Chefsache entscheiden/438a) | Chef (Datei in der Chefsache) |
+| 439 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Reihenfolge Angriff, Treffer, Tod, Neuformati | wartet auf Test/Build (gebaut) |
+| 440 | M | von Sokrates (Chef 31.10., 23:34, Film 403): Wolf-Tod zu schnell weg (Zu 438) | wartet auf Test/Build (gebaut) |
+| 444 | M | von Sokrates (Chef 01.11., 09:24, „Ja, so machen wir es“): Rechensimulation Spielsystem 2. | wartet auf Test/Build (gebaut) |
+| 416.5 | M | von Sokrates (Chef 31.10., 20:4x, Build 143): im Kampf Details des Kampflogs aufrufen, dan | wartet auf Test (Build) |
 | 416.6 | K | von Sokrates (Chef 31.10., 20:4x): Spuren des Helden fehlen (Fußspuren; bei Regen eigene S | startbar |
 | 415 | K | von Sokrates (Chef 31.10., 20:3x „Ja, Probe mit dem Beams-Sample an Jerry geben“): Handypr | startbar |
 | 399.2 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv): Kampfort aufrufbar | wartet auf Test (Build) |
-| 399.2b | M | von Team Tom (15:05): Rudel allein zu stark | wartet auf Test/Build (gebaut) |
-| 402 | M | von Sokrates (Chef 22:2x, Archiv): Blende vor dem Kampf wie alt; Herzschlag beim Hinterhal | wartet auf Test/Build (gebaut) |
+| 399.2b | M | von Team Tom (15:05): Rudel allein zu stark | wartet auf Test (Build) |
+| 402 | M | von Sokrates (Chef 22:2x, Archiv): Blende vor dem Kampf wie alt; Herzschlag beim Hinterhal | wartet auf Test (Build) |
 | 403 | M | von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler): Kampfort: Held | wartet auf Test/Build (gebaut) |
 | 406 | M | von Team Tom (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe): Ausrüstung der Helden je | startbar |
-| 401 | M | von Chef über Sokrates (Archiv): Tierlaute, mind. 3 je Tier | wartet auf Test/Build (gebaut) |
+| 401 | M | von Chef über Sokrates (Archiv): Tierlaute, mind. 3 je Tier | wartet auf Test (Build) |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | wartet auf Test/Build (gebaut) |
 | 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | startbar |
@@ -121,7 +126,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 397 | M | von Chef (28.10., 11:15): Tiere, Monster: mind. drei Ruhebewegungen wie alt (LISTE-UMZUG-3 | ruht |
 | 348.12c | M | von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv): Wiedergänger, Grabhund, Riesenegel, Säur | ruht |
 | 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | ruht |
-| 348.7b | M | Zauberbahn nach Chef „D“ | wartet auf Test/Build (gebaut) |
 | 390 | M | von Perikles: Funktionen ohne Bild (LISTE-UMZUG-348.md) | ruht |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, Test B46): App „hängt“, ging dann weiter (Zu 257) | ruht |
@@ -145,14 +149,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 19, Muss 17, startbar 0
+**Perikles** – offen 20, Muss 18, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 446 | M | von Sokrates (Chef 01.11., 09:41, „413a wie Sokrates“, Archiv): Wächter Lizenzhinweis SRD | startbar |
 | 436 | M | von Sokrates („jetzt“ 31.10., 22:58): Sitzungsnamen mit Vorgang, Thema und Zeit für alle ( | wartet auf Test/Build (gebaut) |
 | 433 | M | von Sokrates („jetzt“ 31.10., 22:1x, Zu 433): unabhängige Zeilen von Tom und Jerry an Spik | wartet auf Test/Build (gebaut) |
 | 424 | M | von Sokrates („jetzt“ 31.10., 21:3x, Chef: „keine Energie mehr in das alte SRD-System stec | wartet auf Test/Build (gebaut) |
-| 418 | M | von Sokrates („jetzt“ 31.10., 21:21, Archiv): oberste Direktive in CLAUDE.md durch den Wor | Chef (Datei in der Chefsache) |
+| 418.1 | M | von Sokrates (Chef 01.11., 09:43, „418 wie Sokrates“, Archiv): Abnahmeliste nachziehen: Bl | startbar |
 | 407 | M | von Chef über Sokrates („jetzt“ 29.10., 10:05): Probelauf-Grenze 389 so, dass sie greift: | wartet auf Test/Build (gebaut) |
 | 399 | M | von Chef über Sokrates („jetzt“ 28.10., 12:34, Archiv): Vorrang neu: erst eine Godot-Fassu | wartet auf Tom |
 | 398 | M | von Sokrates (Chef 28.10., 11:22): Termine je Block nachrechnen mit der Schätzung der 15 Z | Termin 02.11. |
@@ -169,27 +174,23 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
-**Diogenes** – offen 8, Muss 6, startbar 3
+**Diogenes** – offen 6, Muss 4, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 443a | M | Rückfrage an den Chef (D52.3): Ausnahme Ford von der Namensform 436, Chefsache entscheiden | Chef (Datei in der Chefsache) |
-| 441 | M | von Sokrates (Chef 31.10., 23:40, „gründlich von Diogenes quergelesen“): DESIGN-SPIELSYSTE | startbar |
-| 434 | M | von Sokrates (Chef 31.10., 22:1x): bei jeder Zählung 374 zusätzlich die Zeile „Bestand gep | startbar |
+| 434 | M | von Sokrates (Chef 31.10., 22:1x): bei jeder Zählung 374 zusätzlich die Zeile „Bestand gep | Termin 02.11. |
 | 398 | M | von Sokrates: vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (39 | Termin 02.11. |
-| 374 | M | von Sokrates (Chef 27.10., 11:58, Archiv 374): täglich 8 Uhr bis 03.11. Vorlagen des Vorta | startbar |
+| 374 | M | von Sokrates (Chef 27.10., 11:58, Archiv 374): täglich 8 Uhr bis 03.11. Vorlagen des Vorta | Termin 02.11. |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24): Umzug Godot: jedes Vergleichsblatt alt/neu messen, | wartet auf Eingang |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 32, Muss 24, startbar 10
+**Sokrates** – offen 30, Muss 22, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 442 | M | von Chef (31.10., 23:52, „warum ihr alle auf dem kleinen Rechenmodell lauft“): Modellzuord | Chef (Datei in der Chefsache) |
-| 427 | M | von Chef (31.10., 21:3x): Bestiarium LISTE-BESTIARIUM.md | wartet auf Diogenes |
-| 422 | M | von Chef (31.10., 21:2x, „dass es sich liest wie eine gute Anleitung. Und ein Nachschlagew | wartet auf Diogenes |
-| 413 | M | von Chef (31.10., 20:1x): Spielsystem 2.0 (DESIGN-SPIELSYSTEM-2-0.md), Meilensteine | Chef |
+| 447 | M | von Chef (01.11., 09:51, „Was sind denn aktuell die Meilensteine? Habe ich die gebilligt?“ | Chef (Datei in der Chefsache) |
+| 427 | M | von Chef (31.10., 21:3x): Bestiarium LISTE-BESTIARIUM.md | wartet auf Jerry |
 | 398 | M | von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr g | wartet auf Perikles |
 | 391 | M | von Chef (28.10., 09:21): Repos dauerhaft ohne Ablehnung | ruht |
 | 383.2 | M | von Chef (27.10., 19:24, „wo steckt jetzt hier wieder die Wahrheit? Und wer hat damit gepr | startbar |
@@ -222,7 +223,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 413 (Beratung), 186.3 (Pruefung)
+Format (Muster: „So geht's“ unten): t146-befunde.md: 8 Vorgänge, höchstens 6 je Build (317)
+
+Nicht gestellt: 186.3 (Pruefung)
 
 Ohne Datei: 275 (Projekt), 26 (Team Tom)
 

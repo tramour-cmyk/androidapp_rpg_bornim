@@ -51,22 +51,23 @@ Stand der Spalten „Angriff“, „Beute“ und „Merkmal“: aus `core/src/ma
 
 Vorschlag Sokrates (01.11.2026), Startwerte für die Simulation „Zeit bis Stufe“ (M1); geändert wird nach Messung, nicht nach Gefühl. Umgerechnet aus den alten Werten, damit die Reihenfolge der Gefahr bleibt, die das Spiel heute hat:
 
-- **Stufe:** Kapitel 1 hat die Grenze 6. Flüsterwald 1–3, Tiefer Flüsterwald 2–4, Blutzahnhöhle 2–5, Bosse 4–6.
+- **Stufe:** Kapitel 1 hat die Grenze 6. Flüsterwald 1–3, Tiefer Flüsterwald 1–5, Blutzahnhöhle 1–6 (schwache Arten kommen überall vor, die Stärkeren nur tiefer).
 - **Leben** = alter Durchschnitt × 1,5. **Rüstung** = (alte Rüstungsklasse − 10) ÷ 2, abgerundet. **Grundschaden** = alter Durchschnittsschaden.
-- **Angriff** (Fertigkeit) = 5 × Stufe + 5 × (alter Angriffsbonus − 4) + 5. **Abwehr** = 5 × Stufe + 2 × (alte Rüstungsklasse − 12), nie unter 0.
+- **Angriff** (Fertigkeit, zählt auch im Schaden) = 5 × Stufe + 5 × (alter Angriffsbonus − 4) + 5. **Abwehr** = 5 × Stufe + 2 × (alte Rüstungsklasse − 12).
 - **Wachsamkeit** gegen Schleichen = 10 × Stufe + 10 × alter Weisheitswurf, Bosse +20. Der Held schleicht in Kapitel 1 höchstens mit 49 (Geselle).
-- Erfahrung folgt aus der Stufe (Modell D). Schwächen und Widerstände (Skelett gegen Stumpfes, Schleim gegen Klingen) bleiben als Merkmal, Zahl ±50 % Schaden.
+- **Rundung:** auf ganze Zahlen, halbe auf die gerade (4,5 → 4, 5,5 → 6); kein Wert unter 0.
+- **Erfahrung** = 10 × Stufe², Boss × 3, dann Faktor aus Modell D (Nachschlagewerk Abschnitt 4). Schwächen und Widerstände (Skelett gegen Stumpfes, Schleim gegen Klingen) bleiben als Merkmal, Zahl ±50 % Schaden.
 
 | Art | Gebiet | Stufe | Leben | Rüstung | Schaden | Angriff | Abwehr | Wachsamkeit |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Riesenratte | Wald, Höhle | 1 | 10 | 1 | 4 | 10 | 5 | 10 |
 | Kobold | Wald, Tiefer Wald | 1 | 12 | 1 | 4 | 10 | 5 | 0 |
-| Blutflügler | Wald, Tiefer Wald | 1 | 8 | 2 | 4 | 15 | 9 | 0 |
+| Blutflügler | Wald, Tiefer Wald | 1 | 9 | 2 | 4 | 15 | 9 | 0 |
 | Wolf | Wald, Tiefer Wald | 2 | 14 | 1 | 7 | 15 | 12 | 30 |
 | Wildschwein | Wald, Tiefer Wald | 2 | 16 | 0 | 4 | 10 | 8 | 10 |
 | Riesen-Hundertfüßer | Wald, Tiefer Wald | 2 | 12 | 1 | 4 | 15 | 12 | 0 |
 | Goblin | Wald, Tiefer Wald, Höhle | 2 | 10 | 2 | 6 | 15 | 16 | 10 |
-| Goblin-Späher | Wald, Tiefer Wald, Höhle | 2 | 13 | 1 | 6 | 15 | 12 | 20 |
+| Goblin-Späher | Wald, Tiefer Wald, Höhle | 2 | 12 | 1 | 6 | 15 | 12 | 20 |
 | Skelett | beide Wälder (Nacht), Höhle | 2 | 20 | 1 | 6 | 15 | 12 | 10 |
 | Zombie | beide Wälder (Nacht), Höhle | 2 | 34 | 0 | 4 | 10 | 2 | 0 |
 | Riesenfledermaus | beide Wälder (Nacht), Höhle | 3 | 33 | 1 | 6 | 20 | 17 | 40 |
@@ -84,7 +85,7 @@ Nachfolger nach der Monsterwahl (348.12c, 26.10.): Wiedergänger statt Zombie, G
 
 ## Hintergrund (428)
 
-Entwurf Homer, 01.11.; gilt erst nach Freigabe durch den Chef (Chefsache 428), dann wortgetreu übernehmen. Je Art Herkunft und Wesen, ohne Plot zu verraten: Die Toten im Flüsterwald und Grimmzahns Augen bleiben ungeklärt (Roter Faden, offene Fäden). Marke `[428.…]`. Weil der Kauf noch aussteht (348.12c, „noch nicht“), stehen Zombie, Ghul, Blutflügler, Ockerschleim und ihre Nachfolger Wiedergänger, Grabhund, Riesenegel, Säureschnecke beide da; es gilt, was im Spiel ist.
+Homer, 01.11.; **freigegeben** (Chef 01.11., 09:11, „428 ja, wie Sokrates“) für alle Arten im Spiel, wortgetreu übernehmen; Wiedergänger, Grabhund, Riesenegel, Säureschnecke bleiben Entwurf, bis ihr Kauf entschieden ist. Sokrates gleicht beim Füllen der Werte (427) ab und meldet Widersprüche an Homer. Je Art Herkunft und Wesen, ohne Plot zu verraten: Die Toten im Flüsterwald und Grimmzahns Augen bleiben ungeklärt (Roter Faden, offene Fäden). Marke `[428.…]`. Weil der Kauf noch aussteht (348.12c, „noch nicht“), stehen Zombie, Ghul, Blutflügler, Ockerschleim und ihre Nachfolger Wiedergänger, Grabhund, Riesenegel, Säureschnecke beide da; es gilt, was im Spiel ist.
 
 **Tiere**
 
