@@ -11,10 +11,10 @@
    "platz": "kopf",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Kapuze (Ranger Head_Hood)",
+   "material": "Stoff",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
    "bezug": [
     {
      "weg": "laden",
@@ -45,10 +45,10 @@
    "platz": "kopf",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Reif (Noble Head_Crown)",
+   "material": "Eisen",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
    "bezug": [
     {
      "weg": "laden",
@@ -79,10 +79,10 @@
    "platz": "kopf",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Kappe",
+   "material": "Leder",
+   "zeichen": "Farbe",
+   "modell": "Eigenbau, fehlt (LISTE-NETZE.md)",
    "bezug": [
     {
      "weg": "laden",
@@ -113,10 +113,10 @@
    "platz": "kopf",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Kappe",
+   "material": "Eisen",
+   "zeichen": "Farbe",
+   "modell": "Eigenbau, fehlt (LISTE-NETZE.md)",
    "bezug": [
     {
      "weg": "laden",
@@ -147,10 +147,10 @@
    "platz": "kopf",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Topfhelm (Knight Head_Armet)",
+   "material": "Platte",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
    "bezug": [
     {
      "weg": "laden",
@@ -181,10 +181,10 @@
    "platz": "oberkoerper",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Lange Robe (held_wizard)",
+   "material": "Stoff",
+   "zeichen": "Farbe, Borte",
+   "modell": "unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1)",
    "bezug": [
     {
      "weg": "laden",
@@ -215,10 +215,10 @@
    "platz": "oberkoerper",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Wams (Ranger Body)",
+   "material": "Leder",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
    "bezug": [
     {
      "weg": "laden",
@@ -249,10 +249,10 @@
    "platz": "oberkoerper",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Wams (Ranger Body)",
+   "material": "Leder",
+   "zeichen": "Nieten",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
    "bezug": [
     {
      "weg": "laden",
@@ -283,10 +283,10 @@
    "platz": "oberkoerper",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Kettenhemd (Wachsoldat)",
+   "material": "Kette",
+   "zeichen": "Farbe",
+   "modell": "unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1)",
    "bezug": [
     {
      "weg": "laden",
@@ -317,10 +317,10 @@
    "platz": "oberkoerper",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Kettenhemd (Wachsoldat)",
+   "material": "Schuppe",
+   "zeichen": "Farbe",
+   "modell": "unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1)",
    "bezug": [
     {
      "weg": "laden",
@@ -351,10 +351,10 @@
    "platz": "oberkoerper",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Brustplatte (Knight Body_Armor)",
+   "material": "Platte",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
    "bezug": [
     {
      "weg": "laden",
@@ -385,10 +385,10 @@
    "platz": "oberkoerper",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Plattenrüstung (Knight Body_Armor, Pauldron_Round)",
+   "material": "Platte",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
    "bezug": [
     {
      "weg": "laden",
@@ -419,10 +419,10 @@
    "platz": "oberkoerper",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Kettenhemd (Wachsoldat)",
+   "material": "Kette",
+   "zeichen": "Wappenrock",
+   "modell": "unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1)",
    "bezug": [
     {
      "weg": "laden",
@@ -453,10 +453,10 @@
    "platz": "oberkoerper",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Brustplatte (Knight Body_Armor)",
+   "material": "Schiene",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
    "bezug": [
     {
      "weg": "laden",
@@ -487,10 +487,10 @@
    "platz": "oberkoerper",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Plattenrüstung (Knight Body_Armor, Pauldrons_Round, Noble Gorget)",
+   "material": "Platte",
+   "zeichen": "Farbe, Borte",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
    "bezug": [
     {
      "weg": "laden",
@@ -521,10 +521,10 @@
    "platz": "arme",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Ärmel (Peasant Arms)",
+   "material": "Stoff",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
    "bezug": [
     {
      "weg": "laden",
@@ -555,10 +555,10 @@
    "platz": "arme",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Handschuh (Ranger Arms)",
+   "material": "Leder",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
    "bezug": [
     {
      "weg": "laden",
@@ -589,10 +589,10 @@
    "platz": "arme",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Armschiene (Knight_Cloth Arms)",
+   "material": "Leder mit Eisen",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
    "bezug": [
     {
      "weg": "laden",
@@ -623,10 +623,10 @@
    "platz": "arme",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Panzerhandschuh (Knight Arms)",
+   "material": "Platte",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
    "bezug": [
     {
      "weg": "laden",
@@ -657,10 +657,10 @@
    "platz": "beine",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Hose mit Schuh (Peasant Legs, Feet)",
+   "material": "Stoff",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
    "bezug": [
     {
      "weg": "laden",
@@ -691,10 +691,10 @@
    "platz": "beine",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Hose mit Stiefel (Ranger Legs, Feet_Boots)",
+   "material": "Leder",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
    "bezug": [
     {
      "weg": "laden",
@@ -725,10 +725,10 @@
    "platz": "beine",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Hose mit Stiefel (Ranger Legs, Feet_Boots)",
+   "material": "Kette",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren); Eigenbau, falls Kette dort nicht trägt (455.1)",
    "bezug": [
     {
      "weg": "laden",
@@ -759,10 +759,10 @@
    "platz": "beine",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Beinschiene (Knight Legs, Feet)",
+   "material": "Platte",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
    "bezug": [
     {
      "weg": "laden",
@@ -793,10 +793,10 @@
    "platz": "umhang",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Umhang (Wachsoldat)",
+   "material": "Stoff",
+   "zeichen": "Farbe",
+   "modell": "unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1)",
    "bezug": [
     {
      "weg": "laden",
@@ -827,10 +827,10 @@
    "platz": "umhang",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Mantel",
+   "material": "Wolle, Fell am Kragen",
+   "zeichen": "Farbe",
+   "modell": "Eigenbau, fehlt (LISTE-NETZE.md)",
    "bezug": [
     {
      "weg": "laden",
@@ -861,10 +861,10 @@
    "platz": "haupthand",
    "stufe": null,
    "preis": null,
-   "netz": null,
+   "netz": "waffen.py dagger",
    "material": null,
    "zeichen": null,
-   "modell": null,
+   "modell": "unser Netz (waffen.py, Jerry)",
    "bezug": [
     {
      "weg": "laden",
@@ -895,10 +895,10 @@
    "platz": "haupthand",
    "stufe": null,
    "preis": null,
-   "netz": null,
+   "netz": "waffen.py shortsword",
    "material": null,
    "zeichen": null,
-   "modell": null,
+   "modell": "unser Netz (waffen.py, Jerry)",
    "bezug": [
     {
      "weg": "laden",
@@ -929,10 +929,10 @@
    "platz": "haupthand",
    "stufe": null,
    "preis": null,
-   "netz": null,
+   "netz": "waffen.py scimitar",
    "material": null,
    "zeichen": null,
-   "modell": null,
+   "modell": "unser Netz (waffen.py, Jerry)",
    "bezug": [
     {
      "weg": "laden",
@@ -963,10 +963,10 @@
    "platz": "haupthand",
    "stufe": null,
    "preis": null,
-   "netz": null,
+   "netz": "waffen.py handaxe",
    "material": null,
    "zeichen": null,
-   "modell": null,
+   "modell": "unser Netz (waffen.py, Jerry)",
    "bezug": [
     {
      "weg": "laden",
@@ -1065,10 +1065,10 @@
    "platz": "haupthand",
    "stufe": null,
    "preis": null,
-   "netz": null,
+   "netz": "waffen.py quarterstaff",
    "material": null,
    "zeichen": null,
-   "modell": null,
+   "modell": "unser Netz (waffen.py, Jerry)",
    "bezug": [
     {
      "weg": "laden",
@@ -1133,10 +1133,10 @@
    "platz": "haupthand",
    "stufe": null,
    "preis": null,
-   "netz": null,
+   "netz": "waffen.py longsword",
    "material": null,
    "zeichen": null,
-   "modell": null,
+   "modell": "unser Netz (waffen.py, Jerry)",
    "bezug": [
     {
      "weg": "laden",
@@ -1473,10 +1473,10 @@
    "platz": "beide_haende",
    "stufe": null,
    "preis": null,
-   "netz": null,
+   "netz": "waffen.py shortbow",
    "material": null,
    "zeichen": null,
-   "modell": null,
+   "modell": "unser Netz (waffen.py, Jerry)",
    "bezug": [
     {
      "weg": "laden",
@@ -1575,10 +1575,10 @@
    "platz": "hals",
    "stufe": null,
    "preis": null,
-   "netz": null,
+   "netz": "keins: nur Bild im Inventar (455)",
    "material": null,
    "zeichen": null,
-   "modell": null,
+   "modell": "keins: nur Bild im Inventar (455)",
    "bezug": [
     {
      "weg": "laden",
@@ -1609,10 +1609,10 @@
    "platz": "hals",
    "stufe": null,
    "preis": null,
-   "netz": null,
+   "netz": "keins: nur Bild im Inventar (455)",
    "material": null,
    "zeichen": null,
-   "modell": null,
+   "modell": "keins: nur Bild im Inventar (455)",
    "bezug": [
     {
      "weg": "laden",
@@ -1643,10 +1643,10 @@
    "platz": "finger",
    "stufe": null,
    "preis": null,
-   "netz": null,
+   "netz": "keins: nur Bild im Inventar (455)",
    "material": null,
    "zeichen": null,
-   "modell": null,
+   "modell": "keins: nur Bild im Inventar (455)",
    "bezug": [
     {
      "weg": "laden",
@@ -1677,10 +1677,10 @@
    "platz": "finger",
    "stufe": null,
    "preis": null,
-   "netz": null,
+   "netz": "keins: nur Bild im Inventar (455)",
    "material": null,
    "zeichen": null,
-   "modell": null,
+   "modell": "keins: nur Bild im Inventar (455)",
    "bezug": [
     {
      "weg": "laden",
@@ -1711,10 +1711,10 @@
    "platz": "nebenhand",
    "stufe": null,
    "preis": null,
-   "netz": null,
+   "netz": "waffen.py shield",
    "material": null,
    "zeichen": null,
-   "modell": null,
+   "modell": "unser Netz (waffen.py, Jerry)",
    "bezug": [
     {
      "weg": "laden",
@@ -1745,10 +1745,10 @@
    "platz": "nebenhand",
    "stufe": null,
    "preis": null,
-   "netz": null,
+   "netz": "waffen.py round_shield",
    "material": null,
    "zeichen": null,
-   "modell": null,
+   "modell": "unser Netz (waffen.py, Jerry)",
    "bezug": [
     {
      "weg": "laden",
@@ -1949,10 +1949,10 @@
    "platz": "finger",
    "stufe": null,
    "preis": null,
-   "netz": null,
+   "netz": "keins: nur Bild im Inventar (455)",
    "material": null,
    "zeichen": null,
-   "modell": null,
+   "modell": "keins: nur Bild im Inventar (455)",
    "bezug": [
     {
      "weg": "fund"
@@ -1980,10 +1980,10 @@
    "platz": "arme",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Panzerhandschuh (Knight Arms)",
+   "material": "Platte",
+   "zeichen": "Runen",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
    "bezug": [
     {
      "weg": "beute",
@@ -2012,10 +2012,10 @@
    "platz": "beide_haende",
    "stufe": null,
    "preis": null,
-   "netz": null,
+   "netz": "waffen.py greataxe-grak",
    "material": null,
-   "zeichen": null,
-   "modell": null,
+   "zeichen": "Einzelstück",
+   "modell": "unser Netz (waffen.py, Jerry)",
    "bezug": [
     {
      "weg": "beute",
@@ -2168,10 +2168,10 @@
    "platz": "hals",
    "stufe": null,
    "preis": null,
-   "netz": null,
+   "netz": "keins: nur Bild im Inventar (455)",
    "material": null,
    "zeichen": null,
-   "modell": null,
+   "modell": "keins: nur Bild im Inventar (455)",
    "bezug": [
     {
      "weg": "beute",
@@ -2200,10 +2200,10 @@
    "platz": "umhang",
    "stufe": null,
    "preis": null,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "Umhang (Wachsoldat)",
+   "material": "Stoff",
+   "zeichen": "Runen",
+   "modell": "unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1)",
    "bezug": [
     {
      "weg": "beute",

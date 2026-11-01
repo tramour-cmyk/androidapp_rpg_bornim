@@ -10,15 +10,15 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 
 | Kennung | Name | Platz | Stufe | Preis | Modell | Bezug | offen |
 |---|---|---|---|---|---|---|---|
-| `dagger` | Dolch | haupthand | – (alt 1) | – (alt 2) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `shortsword` | Kurzschwert | haupthand | – (alt 1) | – (alt 10) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `scimitar` | Krummsäbel | haupthand | – (alt 1) | – (alt 25) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `handaxe` | Handbeil | haupthand | – (alt 1) | – (alt 5) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `dagger` | Dolch | haupthand | – (alt 1) | – (alt 2) | unser Netz (waffen.py, Jerry) | Laden Thessa; Beute | stufe, preis |
+| `shortsword` | Kurzschwert | haupthand | – (alt 1) | – (alt 10) | unser Netz (waffen.py, Jerry) | Laden Thessa; Beute | stufe, preis |
+| `scimitar` | Krummsäbel | haupthand | – (alt 1) | – (alt 25) | unser Netz (waffen.py, Jerry) | Laden Thessa; Beute | stufe, preis |
+| `handaxe` | Handbeil | haupthand | – (alt 1) | – (alt 5) | unser Netz (waffen.py, Jerry) | Laden Thessa; Beute | stufe, preis |
 | `mace` | Streitkolben | haupthand | – (alt 1) | – (alt 5) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
 | `spear` | Speer | haupthand | – (alt 1) | – (alt 1) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `quarterstaff` | Kampfstab | haupthand | – (alt 1) | – (alt 1) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `quarterstaff` | Kampfstab | haupthand | – (alt 1) | – (alt 1) | unser Netz (waffen.py, Jerry) | Laden Thessa; Beute | stufe, preis |
 | `rapier` | Rapier | haupthand | – (alt 2) | – (alt 25) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `longsword` | Langschwert | haupthand | – (alt 1) | – (alt 15) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `longsword` | Langschwert | haupthand | – (alt 1) | – (alt 15) | unser Netz (waffen.py, Jerry) | Laden Thessa; Beute | stufe, preis |
 | `battleaxe` | Streitaxt | haupthand | – (alt 1) | – (alt 10) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
 | `morningstar` | Morgenstern | haupthand | – (alt 3) | – (alt 15) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
 | `warhammer` | Kriegshammer | haupthand | – (alt 2) | – (alt 15) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
@@ -28,7 +28,7 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 | `maul` | Zweihandhammer | beide_haende | – (alt 4) | – (alt 10) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
 | `halberd` | Hellebarde | beide_haende | – (alt 2) | – (alt 20) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
 | `staff` | Magierstab | beide_haende | – (alt 2) | – (alt 40) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `shortbow` | Kurzbogen | beide_haende | – (alt 1) | – (alt 25) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `shortbow` | Kurzbogen | beide_haende | – (alt 1) | – (alt 25) | unser Netz (waffen.py, Jerry) | Laden Thessa; Beute | stufe, preis |
 | `longbow` | Langbogen | beide_haende | – (alt 3) | – (alt 50) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
 | `light_crossbow` | Armbrust | beide_haende | – (alt 2) | – (alt 25) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
 
@@ -36,48 +36,48 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 
 | Kennung | Name | Platz | Stufe | Preis | Modell | Bezug | offen |
 |---|---|---|---|---|---|---|---|
-| `shield` | Schild | nebenhand | – (alt 1) | – (alt 10) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `round_shield` | Rundschild | nebenhand | – (alt 1) | – (alt 10) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `shield` | Schild | nebenhand | – (alt 1) | – (alt 10) | unser Netz (waffen.py, Jerry) | Laden Thessa; Beute | stufe, preis |
+| `round_shield` | Rundschild | nebenhand | – (alt 1) | – (alt 10) | unser Netz (waffen.py, Jerry) | Laden Thessa; Beute | stufe, preis |
 | `tower_shield` | Turmschild | nebenhand | – (alt 5) | – (alt 60) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
 
 ### Rüstung (25)
 
 | Kennung | Name | Platz | Stufe | Preis | Modell | Bezug | offen |
 |---|---|---|---|---|---|---|---|
-| `hood` | Kapuze | kopf | – (alt 1) | – (alt 2) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `circlet` | Stirnreif | kopf | – (alt 2) | – (alt 15) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `leather_cap` | Lederkappe | kopf | – (alt 1) | – (alt 5) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `helmet` | Helm | kopf | – (alt 2) | – (alt 15) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `great_helm` | Topfhelm | kopf | – (alt 4) | – (alt 40) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `robe` | Robe | oberkoerper | – (alt 1) | – (alt 5) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `leather` | Lederrüstung | oberkoerper | – (alt 1) | – (alt 10) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `studded_leather` | Nietenleder | oberkoerper | – (alt 2) | – (alt 45) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `chain_shirt` | Kettenhemd | oberkoerper | – (alt 1) | – (alt 50) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `scale_mail` | Schuppenpanzer | oberkoerper | – (alt 2) | – (alt 50) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `breastplate` | Brustplatte | oberkoerper | – (alt 4) | – (alt 400) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `half_plate` | Halbplatte | oberkoerper | – (alt 6) | – (alt 750) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `chain_mail` | Kettenpanzer | oberkoerper | – (alt 2) | – (alt 75) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `splint` | Schienenpanzer | oberkoerper | – (alt 4) | – (alt 200) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `plate` | Plattenpanzer | oberkoerper | – (alt 7) | – (alt 1500) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `wraps` | Armwickel | arme | – (alt 1) | – (alt 2) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `gloves` | Lederhandschuhe | arme | – (alt 1) | – (alt 5) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `bracers` | Armschienen | arme | – (alt 2) | – (alt 20) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `gauntlets` | Panzerhandschuhe | arme | – (alt 3) | – (alt 40) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `leggings` | Beinkleider | beine | – (alt 1) | – (alt 2) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `boots` | Lederstiefel | beine | – (alt 1) | – (alt 5) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `chain_leggings` | Kettenbeinlinge | beine | – (alt 2) | – (alt 20) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `greaves` | Beinschienen | beine | – (alt 3) | – (alt 40) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `cloak` | Umhang | umhang | – (alt 1) | – (alt 5) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `mantle` | Mantel | umhang | – (alt 3) | – (alt 30) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `hood` | Kapuze | kopf | – (alt 1) | – (alt 2) | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Laden Thessa; Beute | stufe, preis |
+| `circlet` | Stirnreif | kopf | – (alt 2) | – (alt 15) | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Laden Thessa; Beute | stufe, preis |
+| `leather_cap` | Lederkappe | kopf | – (alt 1) | – (alt 5) | Eigenbau, fehlt (LISTE-NETZE.md) | Laden Thessa; Beute | stufe, preis |
+| `helmet` | Helm | kopf | – (alt 2) | – (alt 15) | Eigenbau, fehlt (LISTE-NETZE.md) | Laden Thessa; Beute | stufe, preis |
+| `great_helm` | Topfhelm | kopf | – (alt 4) | – (alt 40) | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Laden Thessa; Beute | stufe, preis |
+| `robe` | Robe | oberkoerper | – (alt 1) | – (alt 5) | unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1) | Laden Thessa; Beute | stufe, preis |
+| `leather` | Lederrüstung | oberkoerper | – (alt 1) | – (alt 10) | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Laden Thessa; Beute | stufe, preis |
+| `studded_leather` | Nietenleder | oberkoerper | – (alt 2) | – (alt 45) | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Laden Thessa; Beute | stufe, preis |
+| `chain_shirt` | Kettenhemd | oberkoerper | – (alt 1) | – (alt 50) | unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1) | Laden Thessa; Beute | stufe, preis |
+| `scale_mail` | Schuppenpanzer | oberkoerper | – (alt 2) | – (alt 50) | unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1) | Laden Thessa; Beute | stufe, preis |
+| `breastplate` | Brustplatte | oberkoerper | – (alt 4) | – (alt 400) | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Laden Thessa; Beute | stufe, preis |
+| `half_plate` | Halbplatte | oberkoerper | – (alt 6) | – (alt 750) | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Laden Thessa; Beute | stufe, preis |
+| `chain_mail` | Kettenpanzer | oberkoerper | – (alt 2) | – (alt 75) | unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1) | Laden Thessa; Beute | stufe, preis |
+| `splint` | Schienenpanzer | oberkoerper | – (alt 4) | – (alt 200) | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Laden Thessa; Beute | stufe, preis |
+| `plate` | Plattenpanzer | oberkoerper | – (alt 7) | – (alt 1500) | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Laden Thessa; Beute | stufe, preis |
+| `wraps` | Armwickel | arme | – (alt 1) | – (alt 2) | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Laden Thessa; Beute | stufe, preis |
+| `gloves` | Lederhandschuhe | arme | – (alt 1) | – (alt 5) | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Laden Thessa; Beute | stufe, preis |
+| `bracers` | Armschienen | arme | – (alt 2) | – (alt 20) | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Laden Thessa; Beute | stufe, preis |
+| `gauntlets` | Panzerhandschuhe | arme | – (alt 3) | – (alt 40) | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Laden Thessa; Beute | stufe, preis |
+| `leggings` | Beinkleider | beine | – (alt 1) | – (alt 2) | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Laden Thessa; Beute | stufe, preis |
+| `boots` | Lederstiefel | beine | – (alt 1) | – (alt 5) | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Laden Thessa; Beute | stufe, preis |
+| `chain_leggings` | Kettenbeinlinge | beine | – (alt 2) | – (alt 20) | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren); Eigenbau, falls Kette dort nicht trägt (455.1) | Laden Thessa; Beute | stufe, preis |
+| `greaves` | Beinschienen | beine | – (alt 3) | – (alt 40) | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Laden Thessa; Beute | stufe, preis |
+| `cloak` | Umhang | umhang | – (alt 1) | – (alt 5) | unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1) | Laden Thessa; Beute | stufe, preis |
+| `mantle` | Mantel | umhang | – (alt 3) | – (alt 30) | Eigenbau, fehlt (LISTE-NETZE.md) | Laden Thessa; Beute | stufe, preis |
 
 ### Schmuck (4)
 
 | Kennung | Name | Platz | Stufe | Preis | Modell | Bezug | offen |
 |---|---|---|---|---|---|---|---|
-| `amulet` | Amulett | hals | – (alt 1) | – (alt 25) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `talisman` | Talisman | hals | – (alt 3) | – (alt 60) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `ring` | Ring | finger | – (alt 1) | – (alt 25) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
-| `signet` | Siegelring | finger | – (alt 3) | – (alt 60) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `amulet` | Amulett | hals | – (alt 1) | – (alt 25) | keins: nur Bild im Inventar (455) | Laden Thessa; Beute | stufe, preis |
+| `talisman` | Talisman | hals | – (alt 3) | – (alt 60) | keins: nur Bild im Inventar (455) | Laden Thessa; Beute | stufe, preis |
+| `ring` | Ring | finger | – (alt 1) | – (alt 25) | keins: nur Bild im Inventar (455) | Laden Thessa; Beute | stufe, preis |
+| `signet` | Siegelring | finger | – (alt 3) | – (alt 60) | keins: nur Bild im Inventar (455) | Laden Thessa; Beute | stufe, preis |
 
 ### Zauberfokus (3)
 
@@ -97,15 +97,15 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 
 | Kennung | Name | Platz | Stufe | Preis | Modell | Bezug | offen |
 |---|---|---|---|---|---|---|---|
-| `ring_protection` | Ring des Ältesten (ring) | finger | – (alt –) | – (alt –) | – | Fund | stufe, preis, netz, modell, zustand |
-| `gauntlets_ogre` | Handschuhe der Ogerkraft (gloves) | arme | – (alt –) | – (alt –) | – | Beute Krogg | stufe, preis, netz, modell |
-| `greataxe_grak` | Graks Kriegsaxt (greataxe) | beide_haende | – (alt –) | – (alt –) | – | Beute Grak | stufe, preis, netz, modell |
+| `ring_protection` | Ring des Ältesten (ring) | finger | – (alt –) | – (alt –) | keins: nur Bild im Inventar (455) | Fund | stufe, preis, zustand |
+| `gauntlets_ogre` | Handschuhe der Ogerkraft (gloves) | arme | – (alt –) | – (alt –) | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Beute Krogg | stufe, preis |
+| `greataxe_grak` | Graks Kriegsaxt (greataxe) | beide_haende | – (alt –) | – (alt –) | unser Netz (waffen.py, Jerry) | Beute Grak | stufe, preis |
 | `longsword_oakford` | Klinge von Bornim (longsword) | haupthand | – (alt –) | – (alt –) | – | Fund | stufe, preis, netz, modell |
 | `staff_of_embers` | Glutstab (staff) | beide_haende | – (alt –) | – (alt –) | – | Fund | stufe, preis, netz, modell |
 | `rapier_whisper` | Flüsterklinge (rapier) | haupthand | – (alt –) | – (alt –) | – | Fund | stufe, preis, netz, modell |
 | `mace_of_dawn` | Morgenröte (mace) | haupthand | – (alt –) | – (alt –) | – | Fund | stufe, preis, netz, modell |
-| `amulet_grimfang` | Grimmzahns Fang (amulet) | hals | – (alt –) | – (alt –) | – | Beute Grimmzahn | stufe, preis, netz, modell, zustand |
-| `cloak_protection` | Umhang des Schutzes (cloak) | umhang | – (alt –) | – (alt –) | – | Beute Riesenspinne | stufe, preis, netz, modell |
+| `amulet_grimfang` | Grimmzahns Fang (amulet) | hals | – (alt –) | – (alt –) | keins: nur Bild im Inventar (455) | Beute Grimmzahn | stufe, preis, zustand |
+| `cloak_protection` | Umhang des Schutzes (cloak) | umhang | – (alt –) | – (alt –) | unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1) | Beute Riesenspinne | stufe, preis |
 
 ### Tränke (6)
 
