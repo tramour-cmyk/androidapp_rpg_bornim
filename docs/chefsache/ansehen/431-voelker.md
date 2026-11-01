@@ -1,0 +1,19 @@
+# 431 · Völker, Runde 3: Grundkörper je Volk im Spiel-Look · Tom (Team Tom) · 01.11., 13:3x
+
+![Standbild aus dem Film](../bilder/431-voelker.webp)
+
+Film per Telegram. Dritter Lauf, wie freigegeben (431a, 12:56); kommt so, wie er ausgefallen ist. Im Spiel gefilmt: Wiese, Toon-Licht, Tusche, Spielkamera, Ruhe wie der Held, drehend. Reihen: Männer, Frauen, Hügelvolk neben dem Menschen, Schattenriss von vorn und von der Seite. Noch kein Build; Zweig `claude/tom-431-voelker`.
+
+Nach deinem Wort von 11:42 (Ork auf Superheld, die übrigen auf Regulär):
+
+| Volk | Mann | Frau | Kopf : Körper |
+|---|---|---|---|
+| Mensch | 1,75 m | 1,63 m | 1 : 7,8 |
+| Elf | 1,72 m | 1,60 m | 1 : 8,1 |
+| Zwerg | 1,35 m | 1,26 m | 1 : 5,0 |
+| Hügelvolk | 1,05 m | 0,98 m | 1 : 6,0 |
+| Orkblütiger | 1,85 m | 1,72 m | 1 : 7,7 |
+
+Schultern gegen den Menschen: Elf 0,88, Zwerg 1,06, Hügelvolk 0,61, Ork 1,20. Aschgeborene sind nicht im Film (kein eigener Körperbau gebaut, Regulär wie der Mensch); Zwerg auf beiden Körpern kommt im Größenfilm 455.2.
+
+**Zu sagen:** „431 passt“ oder je Volk, was anders sein soll.
