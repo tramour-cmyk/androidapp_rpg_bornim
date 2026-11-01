@@ -44,7 +44,10 @@ UMBENENNEN = {HALS: 'hals', NACKEN: 'kopf', J('l_FrontLeg_Ball'): 'vpfoteL', J('
               J('l_HindLeg_Ball'): 'hpfoteL', J('r_HindLeg_Ball'): 'hpfoteR'}
 QUELLEN = ['IdleA', 'IdleC', 'Walk', 'Run', 'Attack', 'Die', 'Howl']
 # Tod: Die dauert 4,1 s, figur.gd blendet nach FALL_MS + FADE_MS = 1,5 s aus; die Quelle sinkt bei Bild 64–78 -> ab Bild 52
-TOD_AB, TOD_BIS = 60, 110     # Prüfer r1 (ab 52): Ausblenden begann noch im Fall, liegend nur 0,4 s; ab 60 fällt er bei 0,13–0,6 s
+# 438 (Prüfer Film 08:18: „Tod fällt gestreckt statt einzuknicken“; Wolf_Die gemessen, Läufe Hüfte–Knöchel gegen Stand: Bild 36–56
+# knicken sie ein, vorn bis 0,62, hinten bis 0,71, Rumpf 0,96–0,92; Bild 62–80 sinkt der Rumpf auf 0,30; ab 86 liegt er still): ab 40,
+# bis 90, gleich lang wie vorher (1,67 s); figur.gd lässt ihn danach LIEGT_MS liegen, erst dann aus (440)
+TOD_AB, TOD_BIS = 40, 90
 # Prüfer r1 (Blatt, Wolfspixel eigen/gekauft): grau 62/82, dunkel 44/73, rost 31/70, Unterbeine und Bauch fast weiß (Quelle dort
 # hell; Leitbild „nie heller als alt“): Zeichnung nur noch von Sattel bis Fell (TMAX), Bauchfarbe nicht mehr; je Fell HELL
 TMAX = float(os.environ.get('TMAX', '0.5'))
