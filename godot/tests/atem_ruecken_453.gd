@@ -138,5 +138,38 @@ func _bericht(e: Dictionary, cam: Camera3D) -> void:
 			bauch[0] += d.y
 			bauch[1] += 1
 		breit = maxf(breit, absf(d.dot(quer)))
+	_scheiben(e, vor, nach, s1, ax, lang, cam, bo, we, n_je, bind)
 	print("ATEMRUECKEN %s: Rumpf %.2f m lang, %.2f m hoch; Rückenlinie hebt sich im Mittel %.1f mm (höchstens %.1f, %d Punkte), Bauchlinie %.1f mm (%d Punkte), Flanke quer höchstens %.1f mm; Rückenlinie im Bild der Kampfkamera (1080 × 2340) im Mittel %.2f px, höchstens %.2f px; Blick der Kamera %.0f° nach unten, Abstand %.1f m" % [
 		e["f"].fighter.id, lang, hoch, 1000.0 * r[0] / maxf(r[3], 1), 1000.0 * r[1], r[3], 1000.0 * bauch[0] / maxf(bauch[1], 1), bauch[1], 1000.0 * breit, px[0] / maxf(px[2], 1), px[1], rad_to_deg(asin(-cam.global_basis.z.y)) * -1.0, cam.global_position.distance_to(s1)])
+
+
+## Rücken- und Bauchlinie in zehn Scheiben längs des Rumpfs (von Spine_01 nach vorn bis über Spine_04 hinaus): oberster und unterster
+## Hautpunkt je Scheibe, seine Hebung in mm, im Bild der Kampfkamera in px, und der Knochen, der ihn trägt
+func _scheiben(e, vor, nach, s1, ax, lang, cam, bo, we, n_je, bind) -> void:
+	var sk: Skeleton3D = e["sk"]
+	var z := []
+	for k in 12:
+		var t0 := -0.3 + k * 0.15
+		var oben := -1
+		var unten := -1
+		for i in vor.size():
+			var t: float = (vor[i] - s1).dot(ax) / lang
+			if t < t0 or t >= t0 + 0.15:
+				continue
+			if oben < 0 or vor[i].y > vor[oben].y:
+				oben = i
+			if vor[i].y > 0.12 and (unten < 0 or vor[i].y < vor[unten].y):
+				unten = i
+		if oben < 0:
+			continue
+		var tr := func(i):
+			var dom := 0
+			for j in n_je:
+				if we[i * n_je + j] > we[i * n_je + dom]:
+					dom = j
+			return sk.get_bone_name(bind[bo[i * n_je + dom]][0]).replace("Wolf_", "").replace("SHJnt", "")
+		var po: float = (cam.unproject_position(nach[oben]) - cam.unproject_position(vor[oben])).y
+		var pu: float = (cam.unproject_position(nach[unten]) - cam.unproject_position(vor[unten])).y if unten >= 0 else 0.0
+		z.append("%.2f: Rücken %+.0f mm %+.1f px (%s), Bauch %+.0f mm %+.1f px (%s)" % [t0, 1000.0 * (nach[oben].y - vor[oben].y), -po, tr.call(oben),
+			1000.0 * (nach[unten].y - vor[unten].y) if unten >= 0 else 0.0, -pu, tr.call(unten) if unten >= 0 else "-"])
+	print("ATEMSCHEIBEN %s %s:\n  %s" % [e["f"].fighter.id, e["f"].anim.current_animation, "\n  ".join(z)])

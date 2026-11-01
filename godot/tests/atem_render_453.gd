@@ -41,6 +41,14 @@ func _run() -> void:
 		if f.atem != null:
 			atem.append(f)
 	print("ATEMRENDER Figuren mit Atemschicht: %d" % atem.size())
+	if OS.get_environment("MASKE") != "":     # Umriss messen: Netz des Wolfs flach magenta (wie probe.gd MASKE)
+		var mm := StandardMaterial3D.new()
+		mm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		mm.albedo_color = Color(1, 0, 1)
+		for f in atem:
+			for mi in f.find_children("*", "MeshInstance3D", true, false):
+				if (mi as MeshInstance3D).skin != null:
+					mi.material_override = mm
 	Engine.time_scale = 0.0001
 	await _drei(kf, atem, kf.cam, "kampf")
 	var nah := Camera3D.new()
