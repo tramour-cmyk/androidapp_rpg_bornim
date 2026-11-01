@@ -531,3 +531,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 451.2 | Name „Bornimer Rollenspielsystem“ im Handbuch 423 und in Spieltexten (Chef 01.11., 451) | C Texte | M | – | Homer | erledigt |
 | 458.1 | Gegenstandskatalog: Datendatei festlegen, Werkzeug für `LISTE-GEGENSTAENDE.md` (Chef 01.11., 458 ja) | B Abläufe | M | – | Perikles | erledigt |
 | 447.1 | Abnahmeliste auf Stufen 1–6 umstellen, Block G erweitern, Schätzung je Stufe (Chef 01.11., 447 ja mit K2b) | B Abläufe | M | – | Perikles | erledigt |
+| 458.4 | Gegenstandskatalog: Namen und Kurztexte (Chef 01.11., 458) | C Texte | M | – | Homer | erledigt |
+| 447.1 | Abnahmeliste auf Stufen 1–6 umstellen, Block G erweitern, Schätzung je Stufe (Chef 01.11., 447 ja mit K2b) | B Abläufe | M | – | Perikles | erledigt |
+| 459 | Doppelpack 421: Prüfung 458.1, 451.1, 447.1, 457 (Perikles 01.11.) | B Abläufe | M | – | Diogenes | erledigt |
+| 459.1 | Befunde D56.1–4 nachbessern: Wächter 457, alter Plan im Tagesbericht, Katalog-Haken (Diogenes Lauf 55) | B Abläufe | M? | – | Perikles | erledigt |
