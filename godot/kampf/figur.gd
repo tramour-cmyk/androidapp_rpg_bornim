@@ -1037,6 +1037,7 @@ func _walk_home(skip = null) -> float:
 		var via := _detour(position, home, skip)
 		var way := d.length() if via == position else position.distance_to(via) + via.distance_to(home)
 		_dreh_ab()
+		bahn = [home] if via == position else [via, home]
 		tween = create_tween()
 		if _rueckwaerts(position, home, way):
 			# 438: rückwärts heim, das Gesicht zum Gegner; statt Kehrtwende, Lauf und zweiter Kehrtwende
@@ -1259,6 +1260,9 @@ func _turn(tw: Tween, yaw: float, stehen: bool) -> float:
 	else:
 		tw.tween_callback(func(): _play("Gehen", 0.1))
 	tw.tween_property(self, "rotation:y", rotation.y + dw, t)
+	# 438 (Prüfer Film 08:18: Wolf 2 dreht 0:29 und 0:34,9 je 45° in einem Bild): rotation.y + dw liegt oft 2π neben [yaw]; die
+	# folgende Drehung am Umweg (yaw + d1) lief dann einmal ganz herum in ihrer kurzen Zeit. Gleicher Winkel, ohne Sprung im Bild
+	tw.tween_callback(func(): rotation.y = yaw)
 	if halt:
 		tw.tween_callback(func(): halt.los(stehen))
 	return t
@@ -1266,6 +1270,7 @@ func _turn(tw: Tween, yaw: float, stehen: bool) -> float:
 
 ## Daheim zur Blickrichtung von _face() drehen, dann Ruhe; gibt die Dauer (s) zurück
 func _turn_home() -> float:
+	bahn = []
 	var r := rotation.y
 	_face()
 	var goal := rotation.y
@@ -1306,10 +1311,12 @@ func _bite(other, leap: bool) -> int:
 	anlauf_ms = 0
 	gang = "anlauf"
 	var run := start.distance_to(position)
+	bahn = [start, home]
 	if run > 0.15:
 		# 399.2 (Chef 28.10., 16:10: „dann läuft der hintere Wolf durch den vorderen“): um die anderen herum wie die Heldin
 		var via := _detour(position, start, other)
 		var way := run if via == position else position.distance_to(via) + via.distance_to(start)
+		bahn = [start, home] if via == position else [via, start, home]
 		var gn := "Rennen" if way > RUN_FROM and weg.has("Rennen") else "Gehen"
 		var auf := via - position
 		var erst := atan2(auf.x, auf.z) if via != position else schnauze
@@ -1766,10 +1773,13 @@ func footprint() -> AABB:
 	return _foot
 
 
-## Wie weit p (Welt) am Boden außerhalb des Umrisses liegt (< 0: darin)
-func clearance(p: Vector3) -> float:
+## Wie weit p (Welt) am Boden außerhalb des Umrisses liegt (< 0: darin); [bei]: so, als stünde die Figur dort (438)
+func clearance(p: Vector3, bei := Vector3.INF) -> float:
 	var box := footprint()
-	var loc := global_transform.affine_inverse() * p
+	var tr := global_transform
+	if bei != Vector3.INF:
+		tr.origin = Vector3(bei.x, tr.origin.y, bei.z)
+	var loc := tr.affine_inverse() * p
 	var dx := maxf(box.position.x - loc.x, loc.x - box.end.x)
 	var dz := maxf(box.position.z - loc.z, loc.z - box.end.z)
 	if dx <= 0.0 and dz <= 0.0:
@@ -1777,16 +1787,56 @@ func clearance(p: Vector3) -> float:
 	return Vector2(maxf(dx, 0.0), maxf(dz, 0.0)).length()
 
 
-## Kleinster Abstand der Strecke a → b zu einer stehenden anderen Figur (Rand der Heldin an Umriss), in 16 Schritten
+## Kleinster Abstand der Strecke a → b zu einer stehenden anderen Figur (Rand der Heldin an Umriss), in 16 Schritten.
+## 438 (Prüfer Film 08:18: Wölfe laufen durcheinander, 0:18,6, 0:19,2, 0:42,2, 0:44,6; _detour sah die anderen nur dort, wo sie
+## gerade stehen): wer unterwegs ist, zählt auch an den Punkten seiner Bahn bis zu seinem Platz
 func _seg_gap(a: Vector3, b: Vector3, skip = null) -> float:
 	var g := INF
 	var r := own_r()
 	for o in kampfort.figures.values():
 		if o == self or o == skip or not o.visible or o.down:
 			continue
-		for k in 17:
-			g = minf(g, o.clearance(a.lerp(b, k / 16.0)) - r)
+		var orte: Array = [Vector3.INF]
+		if o.unterwegs():
+			orte.append_array(o.bahn_punkte())
+		for at in orte:
+			g = minf(g, o.strecke_luft(a, b, at) - r)
 	return g
+
+
+## Kleinste clearance() der Strecke a → b in 16 Schritten, die Figur an [bei] (INF: wo sie steht); eine Umkehrung je Strecke
+func strecke_luft(a: Vector3, b: Vector3, bei := Vector3.INF) -> float:
+	var box := footprint()
+	var tr := global_transform
+	if bei != Vector3.INF:
+		tr.origin = Vector3(bei.x, tr.origin.y, bei.z)
+	var inv := tr.affine_inverse()
+	var la := inv * a
+	var lb := inv * b
+	var g := INF
+	for k in 17:
+		var loc := la.lerp(lb, k / 16.0)
+		var dx := maxf(box.position.x - loc.x, loc.x - box.end.x)
+		var dz := maxf(box.position.z - loc.z, loc.z - box.end.z)
+		g = minf(g, maxf(dx, dz) if dx <= 0.0 and dz <= 0.0 else Vector2(maxf(dx, 0.0), maxf(dz, 0.0)).length())
+	return g
+
+
+## 438: Wegpunkte (Welt) dieser Figur von hier bis zu ihrem Platz, solange sie läuft; je Abschnitt alle 0,5 m einer
+var bahn: Array = []
+func unterwegs() -> bool:
+	return tween != null and tween.is_running() and gang != "dreh" and not bahn.is_empty()
+
+
+func bahn_punkte() -> Array:
+	var out: Array = []
+	var von := position
+	for q in bahn:
+		var n := maxi(1, int(ceilf(Vector2(q.x - von.x, q.z - von.z).length() / 0.5)))
+		for i in range(1, n + 1):
+			out.append(von.lerp(q, float(i) / n))
+		von = q
+	return out
 
 
 ## Eigener Rand quer zum Weg: die Heldin HERO_R, ein Tier die halbe Breite seines Umrisses (399.2: Wölfe weichen jetzt auch aus)
@@ -1889,6 +1939,7 @@ func dodge(after_ms: int, nm := "") -> void:
 		if not best.is_empty():
 			if OS.get_environment("SCHAU_MESS") != "":
 				print("Ausweichen %s Länge %.2f m" % [nm, best[best.size() - 1][1]])
+			bahn = [best[best.size() - 1][0], home]
 			_pfad_fahren(best, false)     # 438: Bögen im Schritt (im Lauf drehte er 28° je Bild), Geraden im Lauf
 			tween.tween_callback(_walk_home)
 			return

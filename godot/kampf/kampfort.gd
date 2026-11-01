@@ -88,6 +88,8 @@ var ring_for := ""
 var clock_ms := 0.0
 ## 249: der kritische oder tödliche Schlag, der die Szene heranrückt und rucken lässt: {by, on, w, t0}
 var hit := {}
+var cam_z := 1.0                 # 438: Zoom und Mitte, wie _hit_camera sie zuletzt gesetzt hat (ein neuer Schlag beginnt dort)
+var cam_p := Vector2.ZERO
 var base_size := 1.0
 var base_off := Vector2.ZERO
 
@@ -487,6 +489,7 @@ func _hit_camera() -> void:
 		hit = {}
 		cam.size = base_size
 		cam.frustum_offset = base_off
+		cam_z = 1.0
 		return
 	var by = figures.get(hit.by, on)
 	var hz := 1.0
@@ -499,6 +502,13 @@ func _hit_camera() -> void:
 	if not hit.has("pivot"):
 		hit["pivot"] = _pivot(_near_of(on.position), 1.0 + (0.10 if kill else Wucht.zoom(w)) + 0.03)
 	var p: Vector2 = hit.pivot
+	var z0: float = hit.get("z0", 1.0)
+	if z0 > 1.0001 and el < t_in:     # 438: vom Stand des vorigen Schlags weich zum neuen
+		var s := _soft(el / t_in)
+		z = lerpf(z0, z, s)
+		p = (hit.p0 as Vector2).lerp(p, s)
+	cam_z = z
+	cam_p = p
 	cam.size = base_size / z
 	var off := p + (base_off - p) / z
 	# der Ruck: die Szene ein Stück vom Schlagenden zum Getroffenen hin (am Schirm, in dp)
@@ -780,8 +790,6 @@ func _play_say(e: Dictionary) -> void:
 			add_child(fig)
 			figures[f.id] = fig
 			fig.snap_to(_spot_pos(f, e.places[f.id]) + facing(true) * -3.0)
-	if e.text != "":
-		ui.log_line(e.text)
 	var actor = e.actor
 	var target = e.target
 	var by = mars.find(actor) if actor != null else null
@@ -825,6 +833,20 @@ func _play_say(e: Dictionary) -> void:
 		var step: float = ui.cast(fx, actor, target, _crit(e), _missed(e) or e.cue == "DUCKED")
 		lands = int(step + Zauber.arrives(fx))
 		busy_ms = maxi(busy_ms, figures[actor].busy_ms)     # 348.7b: Seitenschritt hin und zurück
+	# 438 (Prüfer Film 08:18: Würfelzeile, Schaden und Leiste 0:07,9, der Wolf trifft den Helden erst 0:09,7): Meldung, Würfel,
+	# Lebensleisten und Bedienfeld erst beim Aufschlag (DESIGN-ABNAHME: „Bewegung zuerst, dann eine einzige Textzeile mit Ausgang
+	# und Schaden“); bis dahin zeigt shown die Leben von vorher
+	var spaeter: bool = lands > 0 and (lunge_ms > 0 or fx != null)
+	if spaeter:
+		var vorher := e.duplicate()
+		vorher.hp = before
+		shown = vorher
+		get_tree().create_timer(lands / 1000.0).timeout.connect(func():
+			if is_same(shown, vorher):
+				shown = e
+			_zeigen(e))
+	else:
+		_zeigen(e)
 	# 399.3: Klang der Meldung wie MarsSound.kt, der Treffer, wenn er im Bild landet (nur mit dem Autoload Klang der Spielfassung)
 	var klang = get_node_or_null("/root/Klang")
 	if klang != null:
@@ -846,13 +868,17 @@ func _play_say(e: Dictionary) -> void:
 		var wound: bool = e.wound and blood_level() > 0
 		get_tree().create_timer(lands / 1000.0).timeout.connect(func():
 			if Wucht.jolt_dp(w) > 0.0:
-				hit = {"by": actor, "on": target, "w": w, "t0": clock_ms}
+				# 438 (Prüfer Film 08:18: Kamera zoomt 0:38 ruckartig): kam der Schlag, während der vorige noch heranrückte,
+				# sprang die Linse auf Grundstellung und von dort neu heran; jetzt beginnt er, wo die Linse gerade steht
+				hit = {"by": actor, "on": target, "w": w, "t0": clock_ms, "z0": cam_z, "p0": cam_p}
 			if wound:
 				ui.bleed(actor, target, w == Wucht.CRIT or (w == Wucht.KILL and crit), gore, tg.monster.id if tg.monster != null else ""))
 	# 399.2 (Chef 28.10., 16:10: „wenn nur noch zwei Wölfe da sind und die dann in einer Linie stehen, dann läuft der hintere Wolf
 	# durch den vorderen“; umweg_399 Lauf 168): greift einer von hinten an, tauscht er mit dem vorderen den Platz (mars.gd
 	# _leap_forward); beide liefen zugleich auf derselben Linie gegeneinander. Wer Platz macht, geht erst, wenn der Angreifer vorbei ist
-	var warte_ms: int = figures[actor].anlauf_ms if lunge_ms > 0 and actor != null and figures.has(actor) else 0
+	# 438 (Prüfer Film 08:18: Platztausch 1/3, während Wolf 3 angreift): wer Platz macht, geht erst nach dem Biss (Angriff, Treffer,
+	# dann Neuformation wie 439), nicht schon, wenn der Angreifer anläuft
+	var warte_ms: int = lands + 200 if lunge_ms > 0 and actor != null and figures.has(actor) else 0
 	# 439 (Chef 31.10., 23:31: „Neuformation der Wölfe beginnt, bevor der getroffene Wolf stirbt“): fällt in dieser Meldung ein
 	# Gegner, rücken die anderen erst auf, wenn er gestürzt ist und gelegen hat (Figur.sterbe_ms, LIEGT_MS); erst Angriff, Treffer,
 	# Tod, dann die Neuformation. Die nächste Meldung wartet so lange.
@@ -861,9 +887,15 @@ func _play_say(e: Dictionary) -> void:
 		if figures.has(id) and e.hp[id] <= 0 and before.get(id, 1) > 0 and figures[id].fighter.side == "FOES":
 			tot_ms = maxi(tot_ms, lands + figures[id].sterbe_ms() + Figur.LIEGT_MS)
 	if tot_ms > 0:
-		ui.refresh()
-		ui.show_roll(e)
-		await get_tree().create_timer(tot_ms / 1000.0).timeout
+		# 438 (Prüfer Film 08:18: Todesmeldung 0,7 s nach dem Verschwinden): „… bricht zusammen“ (FOE_FALLS, die nächste Meldung
+		# der Regeln) steht in der Zeile, sobald er gefallen ist, nicht erst nach Liegen und Ausblenden
+		var fall_ms := -1
+		for id in e.hp:
+			if figures.has(id) and e.hp[id] <= 0 and before.get(id, 1) > 0 and figures[id].fighter.side == "FOES":
+				fall_ms = maxi(fall_ms, lands + figures[id].sterbe_ms())
+		await get_tree().create_timer(fall_ms / 1000.0).timeout
+		_todesmeldung_vorweg(e)
+		await get_tree().create_timer(maxi(0, tot_ms - fall_ms) / 1000.0).timeout
 		warte_ms = 0
 	for f in mars.fighters():
 		if figures.has(f.id) and e.places.has(f.id) and not f.fled:     # 399.2a: wer flieht, kommt nicht an seinen Platz zurück
@@ -875,9 +907,26 @@ func _play_say(e: Dictionary) -> void:
 	if tot_ms > 0:
 		await get_tree().create_timer(maxi(SAY_MS, maxi(lunge_ms, busy_ms) - tot_ms) / 1000.0).timeout
 		return
+	await get_tree().create_timer(maxi(SAY_MS, maxi(lunge_ms, busy_ms)) / 1000.0).timeout
+
+
+## Zeile, Bedienfeld und Würfel einer Meldung (438: beim Aufschlag, sonst sofort); vorweg Gezeigtes nicht noch einmal
+func _zeigen(e: Dictionary) -> void:
+	if e.text != "" and not e.get("vorweg", false):
+		ui.log_line(e.text)
 	ui.refresh()
 	ui.show_roll(e)
-	await get_tree().create_timer(maxi(SAY_MS, maxi(lunge_ms, busy_ms)) / 1000.0).timeout
+
+
+## 438: die Meldung „fällt“ zu den Gegnern, die in [e] gefallen sind, wartet schon (die Regeln sagen sie gleich nach dem Schlag);
+## jetzt in die Zeile, ihr Schlag zeigt dann nur noch den Rest
+func _todesmeldung_vorweg(e: Dictionary) -> void:
+	beats_lock.lock()
+	for b in beats:
+		if b.has("say") and b.say.get("cue") == "FOE_FALLS" and e.hp.get(b.say.get("target"), 1) <= 0 and not b.say.get("vorweg", false):
+			b.say["vorweg"] = true
+			ui.log_line(b.say.text)
+	beats_lock.unlock()
 
 
 ## 348.7: warmes Licht am Ziel eines Feuerzaubers, ab seiner Ankunft, flackernd verlöschend

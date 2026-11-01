@@ -32,6 +32,16 @@ var heim := {}        # id -> letzter Platz (home)
 var held_anim := {}   # id -> letzte Bewegung des Helden/Söldners
 var reihe := []       # 439: [Bild, Text] Verstöße gegen Angriff, Treffer, Tod, Neuformation
 var tote := {}        # k -> [Bild bis Ende des Liegens]
+## 438 Prüfer Film 08:18: Drehsprünge in jeder Bewegung, Kopf im Helden, Würfelzeile vor dem Treffer
+const DREH_BILD_GRAD := 16.0     # TURN_DPS 450°/s bei 30 Bildern: 15° je Bild
+const KOPF_M := 0.10
+const WW_M := 0.10
+var dreh_max := {}     # anim -> [Bilder über DREH_BILD_GRAD, größte Grad]
+var kopf := {}         # wolf→held -> [Bilder, tiefste m, erstes Bild]
+var roll_vor := 0
+var wurf := []         # [Bild, Ziel, Schaden]
+var hurt_vor := {}
+var hurt_ab := {}      # id -> [Bilder, an denen der Getroffene zu zittern beginnt]
 
 
 func _initialize() -> void:
@@ -39,7 +49,7 @@ func _initialize() -> void:
 
 
 func _run() -> void:
-	if not FileAccess.file_exists("res://kampf/daten/kaufwolf-info.json"):
+	if not FileAccess.file_exists("res://kampf/daten/kaufwolf-info.json") and OS.get_environment("EIGENER_WOLF") == "":
 		print("Wolf 438: ohne Kaufwolf, nichts zu messen")
 		quit(0)
 		return
@@ -141,6 +151,11 @@ func _bild(kf, n: int, k: String) -> void:
 				if d > soll * 1.35 + 0.005:
 					var g2: Array = gleiten.get(nm + " zu schnell", [0, 0.0, 0.0])
 					gleiten[nm + " zu schnell"] = [g2[0] + 1, g2[1] + d - soll, maxf(g2[2], d - soll)]
+			if rad_to_deg(dg) > DREH_BILD_GRAD and nm != "Tod":
+				var dm: Array = dreh_max.get(nm, [0, 0.0])
+				dreh_max[nm] = [dm[0] + 1, maxf(dm[1], rad_to_deg(dg))]
+				if log_an:
+					print("Drehsprung Bild %d %s %s %.0f°" % [n, id, nm, rad_to_deg(dg)])
 			if dg > deg_to_rad(4.0) and not (nm in SCHRITTE) and d < 0.01 and not (f.halt != null and (f.halt.wirkt or f.halt.drehen)):
 				var g3: Array = gleiten.get("dreht auf der Stelle in " + nm, [0, 0.0, 0.0])
 				gleiten["dreht auf der Stelle in " + nm] = [g3[0] + 1, g3[1] + rad_to_deg(dg), maxf(g3[2], rad_to_deg(dg))]
@@ -154,6 +169,33 @@ func _bild(kf, n: int, k: String) -> void:
 			var fid: String = id.get_slice("/", 1)
 			if kf.figures.has(fid) and not kf.figures[fid].visible:
 				tod[id].weg = n
+	# 438: Würfelzeile und Schaden erst, wenn der Getroffene zittert (hurt)
+	for f in figs:
+		var hid := "%s/%s" % [k, f.fighter.id]
+		if f.hurt_at >= 0.0 and f.hurt_at != hurt_vor.get(hid, -1.0):
+			hurt_ab[hid] = hurt_ab.get(hid, []) + [n]
+		hurt_vor[hid] = f.hurt_at
+	if kf.ui.roll_at != roll_vor:
+		roll_vor = kf.ui.roll_at
+		if kf.ui.roll_shown != null and int(kf.shown.get("damage", 0)) > 0:
+			wurf.append([n, "%s/%s" % [k, kf.ui.roll_shown[0]], int(kf.shown.damage), String(kf.shown.get("text", ""))])
+	# 438: Kopf (Knochen „kopf“) des Wolfs im Umriss von Held und Söldner
+	for a in figs:
+		if not _wolf(a) or not a.visible or a.down:
+			continue
+		var sk := a._find(a.model, "Skeleton3D") as Skeleton3D
+		var kb := sk.find_bone("kopf") if sk else -1
+		if kb < 0:
+			continue
+		var kq: Vector3 = sk.global_transform * sk.get_bone_global_pose(kb).origin
+		for b in figs:
+			if _wolf(b) or not b.visible or b.down:
+				continue
+			var t: float = -b.clearance(kq)
+			if t > KOPF_M:
+				var key := "%s/%s→%s/%s" % [k, a.fighter.id, k, b.fighter.id]
+				var e: Array = kopf.get(key, [0, 0.0, n])
+				kopf[key] = [e[0] + 1, maxf(e[1], t), e[2]]
 	# Durchdringung: Punkte entlang der Längsachse jedes Wolfs gegen den Umriss der anderen (stehend oder nicht)
 	for a in figs:
 		if not _wolf(a) or not a.visible or a.down:
@@ -164,10 +206,13 @@ func _bild(kf, n: int, k: String) -> void:
 			if b == a or not b.visible or b.down:
 				continue
 			var tief := 0.0
-			for i in 5:
-				var z: float = lerpf(box.position.z + halb, box.end.z - halb, i / 4.0)
-				var q: Vector3 = a.global_transform * Vector3(0, 0, z)
-				tief = minf(tief, b.clearance(q) - halb)
+			# 438 (Prüfer: Achsenpunkte mit Rand gegen den Kasten zu grob): Raster über den ganzen Umriss, ohne Rand
+			for i in 7:
+				for j in 3:
+					var z: float = lerpf(box.position.z, box.end.z, i / 6.0)
+					var x: float = lerpf(box.position.x, box.end.x, j / 2.0)
+					var q: Vector3 = a.global_transform * Vector3(x, 0, z)
+					tief = minf(tief, b.clearance(q))
 			if tief < -DURCH_M:
 				durch.append([n, "%s/%s" % [k, a.fighter.id], "%s/%s" % [k, b.fighter.id], -tief, a.anim.current_animation if a.anim else ""])
 
@@ -239,6 +284,39 @@ func _bilanz() -> void:
 	if ww > DURCH_BILDER or tief > 0.3:     # 438: Wolf in Wolf; Wolf am Helden (Biss) nur zur Kenntnis
 		befund += 1
 		print("    Befund: Wolf in Wolf %d Bilder (Grenze %d), tiefste %.2f m (Grenze 0,30)" % [ww, DURCH_BILDER, tief])
+	var ww_tief := 0
+	for d in durch:
+		if not d[2].ends_with("/hero") and not d[2].ends_with("/merc") and d[3] > WW_M:
+			ww_tief += 1
+	print("— 438 Wolf in Wolf tiefer als %.2f m (Raster): %d Bilder" % [WW_M, ww_tief])
+	if ww_tief > 0:
+		befund += 1
+		print("    Befund: Wölfe laufen durcheinander")
+	print("— 438 Kopf im Helden oder Söldner (Knochen kopf, tiefer als %.2f m): %d Paare" % [KOPF_M, kopf.size()])
+	for key in kopf:
+		print("  %s: ab Bild %d, %d Bilder, tiefste %.2f m" % [key, kopf[key][2], kopf[key][0], kopf[key][1]])
+	if not kopf.is_empty():
+		befund += 1
+		print("    Befund: Kopf im Getroffenen")
+	print("— 438 Drehsprünge über %.0f° in einem Bild" % DREH_BILD_GRAD)
+	for nm in dreh_max:
+		print("  %s: %d Bilder, größte %.0f°" % [nm if nm != "" else "(keine)", dreh_max[nm][0], dreh_max[nm][1]])
+	if not dreh_max.is_empty():
+		befund += 1
+		print("    Befund: Drehsprung")
+	var frueh := 0
+	for w in wurf:
+		var ok := false
+		for b in hurt_ab.get(w[1], []):
+			if absi(b - w[0]) <= 3:
+				ok = true
+		if not ok:
+			frueh += 1
+			print("  Bild %d: Würfel und %d Schaden an %s ohne Treffer im Bild (±3 Bilder): %s" % [w[0], w[2], w[1], w[3]])
+	print("— 438 Würfelzeile mit Schaden ohne Treffer im selben Augenblick: %d von %d" % [frueh, wurf.size()])
+	if frueh > 0:
+		befund += 1
+		print("    Befund: Würfelzeile vor oder nach dem Treffer")
 	print("— 439 Reihenfolge (Angriff, Treffer, Tod, Neuformation): %d Verstöße" % reihe.size())
 	for r in reihe:
 		print("  Bild %d: %s" % [r[0], r[1]])
