@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [376.1](entscheiden/3761-kettenhemd-heldin.md) | **Muss** | E Figuren | 01.11., 20:45 | Kettenhemd der Heldin: so lassen, nachbessern oder Ritterin Platte? | Sokrates |
+| [376.1](entscheiden/3761-kettenhemd-heldin.md) | **Muss** | E Figuren | 01.11., 20:57 | Kettenhemd der Heldin: so lassen, nachbessern oder Ritterin Platte? | Sokrates |
 | [348.12b](entscheiden/34812b-film-lauf.md) | **Muss** | E Kampf | 01.11., 20:3x | Grak schreitet: noch ein Lauf für den Film? | Jerry |
 
 ## Zu billigen
