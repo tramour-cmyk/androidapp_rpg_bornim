@@ -24,7 +24,6 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [416.9](ansehen/4169-laden.md) | Laden: alle Plätze bei „Angelegt“, nicht Tragbares, Vergleich, Bild bei Menge | – | 01.11., 00:23 |
 | [417](ansehen/417-tragart.md) | Waffen in der Hand beim Gehen und Rennen: Stab, Kriegsaxt, Bogen | Tom | 01.11., 01:05 |
 | [431](ansehen/431-voelker.md) | Völker: Bibliothek gesichtet, Grundkörper je Volk wählen | Tom | 01.11., 10:30 |
 | [438, 439, 440](ansehen/438-woelfe.md) | Wölfe im Kampfort: nicht mehr ineinander, Kopf nicht im Helden, Tod knickt ein | Jerry | 01.11., 09:45 |
