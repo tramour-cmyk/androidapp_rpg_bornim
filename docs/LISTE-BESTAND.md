@@ -38,7 +38,7 @@ Namen aus `UAL1.glb` (Pro); `_Loop` weggelassen; **fett** = auch in Standard.
 |---|---|---|---|
 | `ANIMSET.WIZARD.unitypackage` (682733782, 170 MB) | privat | Unity Asset Store EULA | Unity-Paket (tar.gz, ohne Unity entpackbar); 105 FBX: `Humanoid@<Bewegung>Wizard.fbx`, dazu `SK_Protof-Actor.fbx` (Körper), `Protof-Actor@WizardAnimset.fbx` (alle in einer Datei), `SM_WizardStaffProp.fbx` (Zauberstab) |
 
-Bewegungserfassung (Motion Capture), Unity „Mecanim Humanoid“. Gerüst `SK_Protof-Actor` nach 3ds-Max-Biped-Art (Pelvis, Spine/Spine1/Spine2, Neck, Head, Clavicle, UpperArm, Forearm, Hand, Finger0–42, Thigh, Calf, Foot, Toe0; aus den Knochennamen gelesen 27.10.): auf unsere Körper (UAL-Gerüst, 65 Knochen) nur über Zuordnung je Knochen in Godot übertragbar, ungeprüft (Tom, 385). Ausgelesen aus den Dateinamen 27.10., 21:1x; „(+RM)“ = zusätzlich mit Wurzelweg.
+Bewegungserfassung (Motion Capture), Unity „Mecanim Humanoid“. Gerüst `SK_Protof-Actor` nach 3ds-Max-Biped-Art (Pelvis, Spine/Spine1/Spine2, Neck, Head, Clavicle, UpperArm, Forearm, Hand, Finger0–42, Thigh, Calf, Foot, Toe0; aus den Knochennamen gelesen 27.10.): auf unsere Körper (UAL-Gerüst, 65 Knochen) über Zuordnung je Knochen in Godot übertragbar, **geprüft: geht** (385, Chef 28.10., 11:09). Ausgelesen aus den Dateinamen 27.10., 21:1x; „(+RM)“ = zusätzlich mit Wurzelweg.
 
 | Gruppe | Bewegungen |
 |---|---|
@@ -50,14 +50,26 @@ Bewegungserfassung (Motion Capture), Unity „Mecanim Humanoid“. Gerüst `SK_P
 | Treffer | GetHit Front/Back/Left/Right je Light und Heavy, dazu FrontLight2, BackLight2 (Heavy +RM) |
 | Tod, Liegen, Aufstehen | Death Front/Back/Left/Right; Dead Front/Back/Left/Right (liegend); GetBackUp Front/Back/Left/Right |
 
-### Was wir mit Bewegungen abdecken (Stand 27.10., 21:1x)
+### Menschen: fünf weitere Protofactor-Animsets (348.12c, gekauft 01.11., 12:1x)
+
+Release `stufe1` im Kaufrepo: `ANIMSET.SWORD.SHIELD.unitypackage` (698119529), `ANIMSET.1.HANDED.MELEE.WEAPON.unitypackage` (698112571), `ANIMSET.2.HANDED.MELEE.WEAPON.unitypackage` (698114703), `ANIMSET.BOW.ARROW.unitypackage` (698122458), `ANIMSET.INJURED.unitypackage` (698117572); privat; Unity Asset Store EULA wie Wizard. Gleiches Gerüst `SK_Protof-Actor` wie Wizard, Übertragung also wie 385. Je Paket eine Waffe als Form (`SM_…Prop`). Ausgelesen aus den Dateinamen 01.11. (Sokrates); „_RM“-Fassungen mit Wurzelweg nicht mitgezählt.
+
+| Paket | Bewegungen (ohne _RM) |
+|---|---|
+| Sword & Shield | Stehen (Atmen, Umsehen, Kampfhaltung, Bereitmachen); **Gehen und Rennen mit Schwert und Schild** in 8 Richtungen, WalkNormal 1/2, RunNormal, RunFast; Hocken 8 Richtungen; Schwerthieb 1–3, Kombos 3/4 Schläge, Schild+Schwert-Kombos 1–3, **Schildstoß 1–3**, Tritt 1/2; **Abwehr leicht/mittel 1–2/schwer 1–2, Parade hoch 1–2/tief/links/rechts**; Treffer leicht/schwer je 4 Richtungen; Tod, Liegen, **Aufstehen** je 4 Richtungen; Waffen ziehen/wegstecken 1–2; Spott 1–3 |
+| 1 Handed Melee | Stehen, Umsehen, Kampfhaltung, **Abwehr gehalten**, „abgewehrt“; **Gehen mit Waffe gehalten (Hold)**, Gehen in Kampfhaltung 8 Richtungen, **Rennen mit Waffe (Hold), Sprint (Hold)**, Rennen 8 Richtungen; Hocken 8 Richtungen; Angriff A–D (auch vorwärts), Kombos; Treffer leicht/schwer je 4; Tod, Liegen, Aufstehen je 4; Sprung, Fallen, Landen leicht/mittel/schwer; Waffe ziehen/wegstecken |
+| 2 Handed Melee | Stehen (Atmen, Umsehen, Kampfhaltung A–C, Abwehr gehalten), Hocken mit Umsehen; **Gehen und Rennen normal mit großer Waffe**, Gehen/Rennen in Kampfhaltung 8 Richtungen, Sprint; Angriff A–G, Kombos 2/3, Sprungangriff; **Parade vorn/links/rechts**, Ausweichen vor/zurück; Treffer leicht/schwer je 4; Tod, Liegen, Aufstehen je 4; Sprung, Fallen, Landen; Waffe ziehen/wegstecken; Spott A/B |
+| Bow & Arrow | Stehen mit Bogen, gespannt, ohne Bogen, Umsehen; **Gehen und Rennen mit Bogen** (WalkBow, RunBow, RunFastBow, SprintBow), Gehen/Rennen gespannt und zielend 8 Richtungen; Hocken mit Bogen; Pfeil ziehen, Bogen ziehen, **Schießen** (Anfang, Ende, ganz), auch hockend; Treffer leicht/schwer gespannt und zielend je 4; Tod, Liegen, Aufstehen je 4. **Beigepackt: ganzes Bazooka-Set** (171 Dateien, für uns unbrauchbar) |
+| Injured | je 7 Arten (A–G): **in die Knie gehen**, verletzt knien, verletzt stehen, **verletzt gehen**, verletzt rennen, verletzt hinsetzen, verletzt sitzen, **vom Sitzen aufstehen** |
+
+### Was wir mit Bewegungen abdecken (Stand 27.10., 21:1x; Nachtrag 01.11.: Schwert, Schildabwehr, Bogen, Gehen mit Waffe, Aufstehen jetzt aus den fünf Paketen oben)
 
 | Bedarf | Quelle im Bestand | Lücke |
 |---|---|---|
 | Leute im Dorf: Stehen, Gehen, Reden, Sitzen, Theke, Trinken, Arbeiten | UAL | Gesten (Hüfte, Arme verschränkt), Frauen-Gang |
 | Rast, Lagerfeuer | UAL (GroundSit) | Feuer anzünden, Schlafen |
 | Held Schwert | UAL (ein Angriff) | Stich, Schildabwehr, gehaltenes Ausholen, mehrere Angriffe |
-| Held Zauber (Magier, Kleriker), Goblin-Schamane | Wizard (14 Zauber), UAL (Spell_Simple, Spell_Double) | – (Übertragung ungeprüft) |
+| Held Zauber (Magier, Kleriker), Goblin-Schamane | Wizard (14 Zauber; Übertragung auf den Kaufkörper geht seit 385, 28.10., `zauber385.py`), UAL (Spell_Simple, Spell_Double) | – |
 | Bogen (Späher, Waldläufer) | – | ganz |
 | Ausweichen, Treffer, Tod beim Menschen | Wizard (je Richtung), UAL (Hit, Death, Dodge) | – (Wizard ungeprüft) |
 | Ratte | Protofactor Ratte (18) | – |

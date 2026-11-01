@@ -1,0 +1,67 @@
+# Spielerhandbuch Bornimer Rollenspielsystem, Teil 2 (423)
+
+Entwurf Homer, 01.11.; Fortsetzung von `STORY-HANDBUCH-1.md` (dort „Für Tom“). Teil 2: Pfad, Meisterschaften, Kampf, Welt, Ruf. Weiter in `STORY-HANDBUCH-3.md`.
+
+## Der Pfad und der Lehrmeister
+
+`[423.pfad]` **Der Pfad** ist, wohin du dich spezialisierst. Du hast höchstens einen. Übst du zwei Fertigkeiten, die zu einem Pfad gehören, bis zum Gesellen, spricht dich ein **Lehrmeister** an, etwa: „Willst du Paladin werden?“ Sagst du ja, bist du sein **Anwärter**. Er begleitet dich, gibt dir Hinweise und Aufgaben.
+EN: **Your path** is where you specialise. You have one at most. Train two skills of a path to Journeyman and a **mentor** will seek you out: "Would you become a Paladin?" Say yes and you are his **aspirant**. He walks with you, gives you hints and tasks.
+
+`[423.pfad.pruefung]` **Drei Prüfungen** stehen dir bei ihm bevor, jede eine Quest mit einer Tat, die zum Pfad passt. Die **Zwischenprüfung** macht dich zum Eingeweihten und öffnet den Meister für deine Kernfertigkeiten. Die **Gesellenprüfung** gibt dir den Titel, etwa „Paladin“, und öffnet den Großmeister; von da an gelten die Auflagen des Pfads. Die **Meisterprüfung** macht dich zum Meister deines Pfads, etwa „Hoher Paladin“. Jede Prüfung verlangt alle Kernfertigkeiten am Ende ihres Rangs.
+EN: **Three trials** lie before you with him, each a quest with a deed that fits the path. The **First Trial** makes you an initiate and opens Master for your core skills. The **Journeyman's Trial** grants the title, such as "Paladin", and opens Grandmaster; from then on the path's vows apply. The **Master's Trial** makes you a master of your path, such as "High Paladin". Each trial asks for all core skills at the end of their rank.
+
+`[423.pfad.bringt]` **Was er dir gibt:** neue Handlungen im Kampf und in der Welt, jede besser als die vorige, etwa Riposte, ein Tierbegleiter, ein Waffenzauber. Große Zahlen gibt er nicht; die Kraft bleibt in deinen Fertigkeiten.
+EN: **What it gives you:** new actions in battle and in the world, each better than the last, such as riposte, a beast companion, a weapon spell. It gives no great numbers; the power stays in your skills.
+
+`[423.pfad.wechsel]` **Den Pfad wechseln** kannst du beim Lehrmeister, aber nicht umsonst: die Handlungen des alten Pfads gehen verloren, und seine Kernfertigkeiten fallen um einen Rang.
+EN: **Changing your path** is possible at your mentor's, but not for free: the old path's actions are lost, and its core skills fall by one rank.
+
+`[423.pfad.liste]` **Die Pfade** (Kernfertigkeiten; Auflagen ab der Gesellenprüfung). *Schutz:* **Wächter** (Schild, Schwere Rüstung; langsam, wenig eigener Schaden), **Paladin** (Schild, Einhänder, Heilmagie; keine Nekromantie, sein Ruf muss hoch bleiben). *Kampf:* **Berserker** (Zweihänder, Stumpfe Waffen; kein Schild, keine Zauber), **Duellant** (Einhänder, Ausweichen, Leichte Rüstung; höchstens leichte Rüstung, kein Schild), **Mönch** (Faustkampf, Ausweichen; keine Rüstung, keine Waffen). *Schatten:* **Assassine** (Schleichen, Dolche, Alchemie; höchstens leichte Rüstung, kein Schild), **Schatzjäger** (Schlösser knacken, Fallen entschärfen, Spähen; höchstens leichte Rüstung). *Wildnis:* **Waldläufer** (Bogen, Tiere beruhigen, Jagd; höchstens mittlere Rüstung), **Scharfschütze** (Armbrust oder Bogen, Wurfwaffen, Spähen; höchstens mittlere Rüstung). *Magie:* **Magier** (zwei Schulen; keine Rüstung), **Kriegsmagier** (Evokation, Einhänder oder Zweihänder, Leichte Rüstung; nur leichte Rüstung, seine Magie hat eine Obergrenze), **Beschwörer** (Beschwörung und eine zweite Schule; keine Rüstung, keine Heilmagie, Nekromantie kostet Ruf). *Heilung:* **Heiler** (Heilmagie, Schutzmagie, Heilkunde; höchstens leichte Rüstung).
+EN: **The paths** (core skills; vows from the Journeyman's Trial). *Protection:* **Warden** (Shield, Heavy Armour; slow, little damage of his own), **Paladin** (Shield, One-handed, Healing Magic; no necromancy, his reputation must stay high). *Battle:* **Berserker** (Two-handed, Blunt Weapons; no shield, no spells), **Duelist** (One-handed, Dodge, Light Armour; light armour at most, no shield), **Monk** (Brawling, Dodge; no armour, no weapons). *Shadow:* **Assassin** (Stealth, Daggers, Alchemy; light armour at most, no shield), **Treasure Hunter** (Lockpicking, Disarming Traps, Scouting; light armour at most). *Wilds:* **Ranger** (Bow, Calming Beasts, Hunting; medium armour at most), **Marksman** (Crossbow or Bow, Throwing, Scouting; medium armour at most). *Magic:* **Mage** (two schools; no armour), **Battlemage** (Evocation, One- or Two-handed, Light Armour; light armour only, his magic is capped), **Summoner** (Summoning and a second school; no armour, no healing magic, necromancy costs reputation). *Healing:* **Healer** (Healing Magic, Warding, Medicine; light armour at most).
+
+`[423.metall]` **Metall und Magie.** Metall stört, wie der Körper die Magie aus der Umgebung aufnimmt. Darum gelingen Evokation, Illusion und Beschwörung nur in Stoff oder Leder, für jeden; einzig der Kriegsmagier wirkt Evokation auch in leichter Rüstung. Heil- und Schutzmagie schöpfen aus dem eigenen Willen; sie gehen auch in Eisen.
+EN: **Metal and magic.** Metal disturbs how the body draws magic from its surroundings. So Evocation, Illusion and Summoning work only in cloth or leather, for everyone; only the Battlemage casts Evocation in light armour too. Healing and Warding draw on one's own will; they work in iron too.
+
+## Meisterschaften
+
+`[423.meister]` **Handwerk** gehst du neben dem Pfad, ebenso mit Lehrmeister und drei Prüfungen, aber ohne Auflagen. Du darfst mehrere Meisterschaften haben oder keine. Der Lehrmeister kommt, wenn Hauptfertigkeit und Zulieferfertigkeit Geselle sind. **Schmied** (Schmieden, Bergbau): Waffen, Metallrüstung, Dietriche. **Lederarbeit** (Lederarbeit, Jagd): Leder, leichte Rüstung, Taschen, Köcher. **Alchemist** (Alchemie, Kräuterkunde): Tränke, Gegengifte, Gifte, Elixiere. **Runenmeister** (Runenkunde, Bergbau): Runen und Verzauberungen auf Ausrüstung. **Feldkoch** (Kochen, Angeln oder Jagd): Mahlzeiten, die stärken. Das sind alle fünf. **Heilkunde**, das Verbinden von Wunden, ist keine eigene Meisterschaft; über den Meister hinaus wächst sie nur beim Heiler.
+EN: **Craft** you follow beside your path, likewise with a mentor and three trials, but without vows. You may hold several masteries, or none. The mentor comes when the main skill and the supplying skill are Journeyman. **Smith** (Smithing, Mining): weapons, metal armour, lockpicks. **Leatherworker** (Leatherwork, Hunting): leather, light armour, bags, quivers. **Alchemist** (Alchemy, Herbalism): potions, antidotes, poisons, elixirs. **Runemaster** (Runecraft, Mining): runes and enchantments on gear. **Field Cook** (Cooking, Fishing or Hunting): meals that strengthen. Those are all five. **Medicine**, the binding of wounds, is no mastery of its own; beyond Master it grows only for the Healer.
+
+## Kampf
+
+`[423.kampf]` **Die Stufe wiegt schwer.** Wie viel Schaden ankommt, entscheidet vor allem der Abstand der Stufen. Ein Gegner weit unter dir kann dir kaum schaden, und umgekehrt. Innerhalb dessen entscheiden Fertigkeit, Waffe und Grundwerte, ob du triffst und wie hart.
+EN: **Level weighs heavy.** How much damage lands is decided above all by the gap in levels. A foe far beneath you can hardly harm you, and the other way round. Within that, skill, weapon and attributes decide whether you hit and how hard.
+
+`[423.kampf.zufall]` **Glück** streut nur ein wenig. Ein Glückstreffer gegen dich, einmal in hundert, ist ein Kratzer, nie mehr. Kritische Treffer und Ausweichen hängen an Gewandtheit und Fertigkeit.
+EN: **Luck** scatters only a little. A lucky blow against you, one in a hundred, is a scratch, never more. Critical hits and dodging depend on Agility and skill.
+
+`[423.kampf.abwehr]` **Abwehr.** Ob ein Hieb dich trifft, entscheidet die beste deiner Abwehren: Schild, Ausweichen oder, gegen Nahkampf, die eigene Klinge, die halb so viel zählt wie ihre Fertigkeit. Gegen Pfeile und Zauber helfen nur Schild und Ausweichen. Trifft er, nimmt deine Rüstung ihm einen Teil; je besser du Schild und Rüstung führst, desto mehr.
+EN: **Defence.** Whether a blow strikes you is decided by the best of your defences: shield, dodge or, against melee, your own blade, counting half its skill. Against arrows and spells only shield and dodge help. If it lands, your armour takes part of it; the better you handle shield and armour, the more.
+
+`[423.kampf.schleichen]` **Aus dem Schatten.** Mit der Schleichtaste näherst du dich. Bleibst du unbemerkt, schlägst du zuerst und hast den Vorteil des Hinterhalts. Viele Gegner sind schwerer zu überlisten als einer; Bosse sind wachsam. In schwerer Rüstung schleicht niemand: sie klirrt.
+EN: **From the shadows.** With the sneak button you draw near. Stay unseen and you strike first, with the edge of the ambush. Many foes are harder to fool than one; bosses are watchful. No one sneaks in heavy armour: it clanks.
+
+`[423.kampf.grenzen]` **Was sich ausschließt,** schließt sich aus: Zweihänder und Schild nie zugleich, Metall und die Magie der Umgebung nie zugleich, nie zwei Pfade.
+EN: **What excludes itself** stays excluded: never two-hander and shield at once, never metal and the magic of the surroundings at once, never two paths.
+
+`[423.kampf.gebiet]` **Jedes Gebiet hat seine Gegner.** Du darfst weiter gehen, als du stark bist; die Karte zeigt dir, welche Stufen dort warten.
+EN: **Every land has its foes.** You may walk further than you are strong; the map shows which levels wait there.
+
+## Die Welt
+
+`[423.spaehen]` **Bleib stehen und sieh dich um.** Verweilst du einen Augenblick, schaust du dich um: ein Ring zeigt Fallen, Kräuter, Spuren, versteckte Truhen und lauernde Gegner. Je besser du spähst, desto weiter reicht er. Im Gehen siehst du wenig, im Rennen fast nichts. Spähen wächst nur, wenn du wirklich Neues entdeckst.
+EN: **Stand still and look around.** Linger a moment and you look about you: a ring shows traps, herbs, tracks, hidden chests and lurking foes. The better you scout, the further it reaches. Walking you see little, running almost nothing. Scouting grows only when you truly find something new.
+
+`[423.fallen]` **Fallen** liegen an Truhen und frei in Höhlen und Verliesen. Erst findest du sie, dann entschärfst du sie. Wer es nicht kann, löst sie aus.
+EN: **Traps** lie on chests and loose in caves and dungeons. First you find them, then you disarm them. Whoever cannot, sets them off.
+
+`[423.truhen]` **Truhen** haben Schlösser, die zum Gebiet passen. Ohne Schlüssel knackst du sie mit einem Dietrich; Dietriche gibt es beim Händler und vom Schmied, in Güteklassen: ein guter hilft, ein schlechter kann brechen. Oder du brichst die Truhe mit Kraft auf, laut, und Zerbrechliches kann leiden. Manche Truhen öffnet nur ein Schlüssel oder eine Quest. Was in fremden Häusern steht, bleibt zu: gestohlen wird nicht.
+EN: **Chests** have locks that fit their land. Without a key you pick them with a lockpick; lockpicks come from merchants and smiths, in grades: a good one helps, a poor one may break. Or you force the chest with strength, loudly, and fragile things may suffer. Some chests open only to a key or a quest. What stands in other people's houses stays shut: there is no stealing.
+
+`[423.tiere]` **Tiere beruhigen.** Ein feindliches Tier kannst du vor dem Kampf beruhigen. Gelingt es, zieht es ab, und du bekommst Erfahrung wie für einen Sieg. Je besser du es kannst, desto stärkere Tiere hören auf dich. Nur der Waldläufer gewinnt ein Tier, das ihm folgt und auf dem Platz eines Gefährten mitkämpft.
+EN: **Calming beasts.** You can calm a hostile beast before the fight. If you succeed it turns away, and you gain experience as for a victory. The better you are, the stronger the beasts that heed you. Only the Ranger gains a beast that follows him and fights in a companion's place.
+
+## Ruf
+
+`[423.ruf]` **Man erinnert sich an dich.** Wer für jemanden Quests erledigt, steigt in dessen Achtung: bessere Preise, mehr Auskunft, Waren, die nicht jeder bekommt. Aus dem Ruf bei den Leuten eines Ortes, bei dem die Wichtigen mehr zählen, wird der Ruf im Ort; Wachen und Stimmung richten sich danach. Er sinkt nur aus klarem Grund, etwa wenn du eine Quest abbrichst oder jemanden verrätst, und lässt sich wieder aufbauen. Wen du kennst und was er dir gibt, steht unter „Bekannte Personen“.
+EN: **They remember you.** Finish quests for someone and you rise in their regard: better prices, more they will tell you, wares not everyone gets. From your standing with a place's people, the important ones counting more, comes your standing in that place; guards and mood follow it. It falls only for clear cause, such as abandoning a quest or betraying someone, and can be rebuilt. Whom you know and what they offer you is listed under "Known People".

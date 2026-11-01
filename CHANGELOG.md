@@ -4,6 +4,10 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **447.3 (Perikles, Archiv 447; Werkzeug ohne Gerätetest auf `main` wie 444a):** Simulation 444 rechnet die Wirtschaft (Stufe 3): Gold und Beute, Zerlegen mit Jagd, Abnutzung und Reparatur, Tränke kaufen, brauen, trinken, Tiere beruhigen; Zahlen im Block `wirtschaft` von `werte.json`, Ergebnis und Befund in `docs/LISTE-SIMULATION-444.md` Abschnitt 5; Abschnitte 1–4 unverändert.
+
+- **444 (Chef 01.11., 09:24; 444a ja, 10:48; ohne Gerätetest auf `main` als Merge von b22181f08):** Werkzeug `tools/sim444/sim.py` rechnet Spielsystem 2.0 am Rechner (Herkunft × Art × Stufe 1–6, Fortschritt bis Stufe 6); alle Zahlen in `tools/sim444/werte.json`; Ergebnis `docs/LISTE-SIMULATION-444.md`. (Rückläufer: 0)
+
 - **399 Spielfassung (Test 132, Chef 16:09 „erstmal freigegeben“; 399a, 16:35 „Ja, mach das“; auf `main` als Merge d3d39c270 von 13b97af52):** das Godot-Spiel mit Dorf, Laden, Rast, Wald-Kampf gegen das Wolfsrudel, Hauptmenü, Alegreya und Gesprächsfenster wie alt; im alten Spiel der Brunnen auf 16/16, Waldrand und Bewuchs für den Export.
 
 - **389 (Chef 27.10., 23:55):** Haken `tools/probelauf.py` (PreToolUse, Bash): höchstens zwei Probeläufe je Vorgang bis zur nächsten Vorlage mit Bild oder Film; zählt Bildläufe am Rechner (`PROBE=<Nr>`) und Pushes mit Godot-Lauf, Zählung im Zweig `probelaeufe`.

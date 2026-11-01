@@ -37,6 +37,10 @@ if [ "$art" = video ]; then  # 381: Telegram nimmt über die Bot-Schnittstelle h
   case "${bild,,}" in *.mp4) ;; *) echo "meldung: Film als MP4 (H.264), nichts gesendet (381)" >&2; exit 2 ;; esac
   [ "$(stat -c %s "$bild")" -le 52428800 ] || { echo "meldung: Film über 50 MB, nichts gesendet (kürzer oder kleiner rechnen; 381)" >&2; exit 2; }
 fi
+# 457 (Chef 01.11., 11:49: „unsere Signatur muss sich wiederfinden“): Bild oder Film einer Probe nie „ohne Toon/Tusche“
+if [ -n "$art" ] && ! printf '%s' "${rest[*]}" | grep -q 'Chef erlaubt ohne Signatur' && fehlt=$(python3 -c 'import sys; sys.path.insert(0, sys.argv[1]); import importlib; m = importlib.import_module("commit-pruefung"); r = m.ohne_signatur(sys.argv[2]); print(r or ""); sys.exit(0 if r else 1)' "$(dirname "$(realpath "$0")")" "${rest[*]}" 2>/dev/null); then
+  echo "meldung: Probe „$fehlt“, nichts gesendet; mit Toon-Licht und Tusche wie im Spiel neu zeichnen (457, D57.1; Ausnahme „Chef erlaubt ohne Signatur“)" >&2; exit 2
+fi
 [ -n "$art" ] && bild="$(realpath "$bild")"  # relativer Pfad: git -C "$repo" fand die Datei sonst nicht (Jerry 25.10.)
 if [ ${#rest[@]} -gt 2 ]; then echo "meldung: zu viele Angaben (Text in Anführungszeichen?), nichts gesendet" >&2; exit 2; fi
 name="${rest[0]}"; text="${rest[1]}"
@@ -79,6 +83,38 @@ if [ -n "$art" ]; then
     if [ -n "$abgelegt" ] && [ "$art" = video ]; then text="$text\n[Film im Repo](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/$pfad)"  # 381.1: spielt im Browser ab
     elif [ -n "$abgelegt" ]; then text="$text\n[Bild im Repo](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/$pfad)"
     else echo "meldung: Ablage im Zweig bilder fehlgeschlagen, Bild nur auf Telegram" >&2; fi
+    # 450 (Chef 01.11., 10:55): Link selbst ins Blatt ansehen/<k>-….md auf main, unter Zeile 1, neuester oben; ohne Arbeitskopie
+    # (temporärer Index wie beim Zweig bilder), darum keine Störung offener Änderungen. Mehrere Blätter zur Nummer: das zuletzt geänderte.
+    if [ -n "$abgelegt" ]; then
+      wort=Bild; u="https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/$pfad"
+      [ "$art" = video ] && { wort=Film; u="https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/$pfad"; }
+      zeile_l="[$wort von $(TZ=Europe/Berlin date '+%d.%m., %H:%M')]($u) (eingetragen von meldung.sh, $name)"
+      eingetragen=""
+      for versuch in 1 2 3; do
+        git -C "$repo" fetch -q origin main 2>/dev/null || { sleep $versuch; continue; }
+        basis=$(git -C "$repo" rev-parse FETCH_HEAD); blatt=""; jung=0
+        for f in $(git -C "$repo" ls-tree --name-only "$basis" docs/chefsache/ansehen/); do
+          b=$(basename "$f" | tr 'A-Z' 'a-z'); case "$b" in "$k"-*.md) ;; *) continue ;; esac
+          t=$(git -C "$repo" log -1 --format=%ct "$basis" -- "$f"); [ "${t:-0}" -ge $jung ] && { jung=${t:-0}; blatt=$f; }
+        done
+        [ -n "$blatt" ] || { echo "meldung: Blatt zu $nr auf main nicht gefunden, Link nicht eingetragen (450)" >&2; break; }
+        inhalt=$(git -C "$repo" show "$basis:$blatt"; echo .)
+        case "$inhalt" in *"$u"*) eingetragen=1; break ;; esac
+        neu_b=$(printf '%s' "${inhalt%.}" | ZEILE="$zeile_l" python3 -c '
+import os, sys
+t = sys.stdin.read()
+k, _, r = t.partition("\n")
+sys.stdout.write(k + "\n\n" + os.environ["ZEILE"] + "\n\n" + r.lstrip("\n"))' | git -C "$repo" hash-object -w --stdin)
+        idx=$(mktemp); rm -f "$idx"
+        GIT_INDEX_FILE=$idx git -C "$repo" read-tree "$basis"
+        GIT_INDEX_FILE=$idx git -C "$repo" update-index --cacheinfo "100644,$neu_b,$blatt"
+        baum=$(GIT_INDEX_FILE=$idx git -C "$repo" write-tree); rm -f "$idx"
+        neu=$(git -C "$repo" commit-tree "$baum" -p "$basis" -m "meldung.sh: $wort $nr in $(basename "$blatt") ($name, 450)")
+        git -C "$repo" push -q origin "$neu:refs/heads/main" 2>/dev/null && { eingetragen=1; break; }
+        sleep $((versuch * 2))
+      done
+      [ -n "$eingetragen" ] || echo "meldung: Link nicht ins Blatt eingetragen; von Hand nachtragen (450)" >&2
+    fi
   fi
 fi
 # Aussehen (Nutzer 15.10.): Kopf fett in eigener Zeile; Zeilen, die mit „Name:“ oder „Nummer:“ beginnen, bis zum Doppelpunkt fett; **x** fett.

@@ -1,0 +1,306 @@
+{
+  "_info": "Vorgang 444: alle Zahlen der Rechensimulation Bornimer Rollenspielsystem (BRS). Quelle je Block in '_quelle': N = Nachschlagewerk DESIGN-SPIELSYSTEM-2-0-ENTWURF.md, B = LISTE-BESTIARIUM.md 'Werte 2.0', A = Annahme (im Nachschlagewerk ohne Zahl, hier gesetzt, damit gerechnet werden kann).",
+
+  "lauf": {
+    "_quelle": "Auftrag 444: je Fall 1000 Kaempfe; Fortschritt: Laeufe je Herkunft (A)",
+    "kaempfe_je_fall": 1000,
+    "fortschritt_laeufe": 400,
+    "stufen": [1, 2, 3, 4, 5, 6],
+    "zufallskeim": 444,
+    "max_runden": 60
+  },
+
+  "held": {
+    "_quelle": "N 2 und 4; Startwert Fertigkeit 10 (N 2); Punkte 18 (Entscheidung 64), 21 (Vorschlag 422 a)",
+    "grundwert_min": 3,
+    "grundwert_max": 8,
+    "punkte_frei": 6,
+    "punkte_frei_variante": 9,
+    "startfertigkeit": 10,
+    "leben_basis": 10,
+    "leben_je_stufe": 5,
+    "leben_je_zaehigkeit": 2,
+    "mana_basis": 10,
+    "mana_je_wille": 5,
+    "kapitelgrenze": 6,
+    "rangdecken_kapitel": [24, 49],
+    "_rangdecken": "Kapitel 1: Anfaenger bis 24, Bewaehrungsprobe, dann Geselle bis 49 (N 3, N 5 Tabelle 'Kapitel als Takt')"
+  },
+
+  "kampf": {
+    "_quelle": "Modell D (N Entwurf A) und N 4; Streuung und Erstschlag A",
+    "trefferchance_basis": 70,
+    "trefferchance_je_punkt": 0.5,
+    "trefferchance_min": 5,
+    "trefferchance_max": 95,
+    "stufenfaktor_je_stufe": 0.1,
+    "fertigkeit_im_schaden_je_punkt": 0.01,
+    "ruestungsfertigkeit_im_abzug_je_punkt": 0.01,
+    "glueckstreffer_anteil": 0.01,
+    "kritisch_faktor": 1.5,
+    "kritisch_prozent_je_gewandtheit": 1,
+    "ausweichen_je_gewandtheit": 2,
+    "fernkampf_treffer_je_wahrnehmung": 1,
+    "parieren_anteil_waffenfertigkeit": 0.5,
+    "streuung": 0.2,
+    "_streuung": "A: Schaden x gleichverteilt 0,8 bis 1,2 ('kleine Streuung')",
+    "held_schlaegt_zuerst": true,
+    "_erstschlag": "A: Held beginnt jede Runde; Hinterhalt (Schleichen) nicht gerechnet",
+    "schaden_runden": true
+  },
+
+  "erfahrung": {
+    "_quelle": "N 4 Tabelle 'Zahlen fuer die Simulation', Modell D; Fertigkeits- und Proben-Erfahrung A",
+    "je_gegner_faktor": 10,
+    "boss_faktor": 3,
+    "bis_naechste_stufe_je_stufe": 100,
+    "hoeher_null_ab": 9,
+    "tiefer_teiler": 10,
+    "tiefer_hoechstens": 2,
+    "fertigkeit_schritt": 5,
+    "fertigkeit_schritt_erfahrung_je_heldenstufe": 20,
+    "_fertigkeit_schritt": "A: je 5 Punkte Fertigkeitsaufstieg 20 x Heldenstufe Erfahrung (bei Stufe 1 also 20 von 100)",
+    "fertigkeit_deckel": 0.4,
+    "probe_erfahrung_je_heldenstufe": 25,
+    "_probe": "A: Bewaehrungsprobe bestanden = 25 x Heldenstufe Erfahrung (Tat)"
+  },
+
+  "ueben": {
+    "_quelle": "N 3 'Wie Fertigkeiten wachsen'; alle Zahlen A",
+    "uebung_je_benutzung": 1,
+    "bedarf_basis": 10,
+    "bedarf_teiler": 5,
+    "_bedarf": "Uebung fuer +1 Punkt = (Wert + 10) / 5: bei 10 sind es 4, bei 24 rund 7, bei 49 rund 12",
+    "leicht_teiler": 5,
+    "leicht_min": 0.2,
+    "leicht_max": 1.5,
+    "_leicht": "Uebung x (1 + (Gegnerstufe - Heldenstufe) / 5), begrenzt 0,2 bis 1,5 ('zu leichte Ziele bringen kaum etwas')",
+    "puffer_uebung": 15,
+    "_puffer": "an der Rangdecke werden bis zu 15 Uebung gemerkt",
+    "probe_siege": 3,
+    "_probe_siege": "Bewaehrungsprobe: 3 Siege gegen Gegner mindestens der eigenen Stufe, in denen die Fertigkeit benutzt wurde"
+  },
+
+  "waffen": {
+    "_quelle": "N 4: Grundschaden und Grundwert; Klingen fuer Schleim-Widerstand A",
+    "Faustkampf":   {"schaden": 2,  "grundwert": "kraft",       "art": "nah",  "typ": "stumpf"},
+    "Dolche":       {"schaden": 4,  "grundwert": "gewandtheit", "art": "nah",  "typ": "klinge"},
+    "Wurfwaffen":   {"schaden": 4,  "grundwert": "gewandtheit", "art": "fern", "typ": "klinge"},
+    "Einhänder":    {"schaden": 6,  "grundwert": "kraft",       "art": "nah",  "typ": "klinge"},
+    "Stumpfe Waffen": {"schaden": 6, "grundwert": "kraft",      "art": "nah",  "typ": "stumpf"},
+    "Bogen":        {"schaden": 6,  "grundwert": "gewandtheit", "art": "fern", "typ": "stich"},
+    "Stangenwaffen":{"schaden": 8,  "grundwert": "kraft",       "art": "nah",  "typ": "klinge"},
+    "Armbrust":     {"schaden": 8,  "grundwert": null,          "art": "fern", "typ": "stich"},
+    "Zweihänder":   {"schaden": 10, "grundwert": "kraft",       "art": "nah",  "typ": "klinge"}
+  },
+
+  "zauber": {
+    "_quelle": "N 4: Zauber wie Waffe, Grundwert Wille, Fertigkeit = Schule; Grundschaden, Kosten, Heilung A",
+    "Funkenpfeil": {"schule": "Evokation", "schaden": 6, "kosten": 4, "art": "zauber", "typ": "feuer"},
+    "Wundsegen":   {"schule": "Heilmagie", "heilung": 6, "kosten": 5, "heilen_unter": 0.5,
+                    "_heilung": "Heilung = (6 + Wille) x (1 + Heilmagie / 100), wenn Leben unter der Haelfte"},
+    "Bannschild":  {"schule": "Schutzmagie", "ruestung": 2, "kosten": 4,
+                    "_bannschild": "A: einmal je Kampf in Runde 1, Ruestung +2, Abzug mit Schutzmagie als Fertigkeit"}
+  },
+
+  "ruestungen": {
+    "_quelle": "A: Ruestungswerte nicht im Nachschlagewerk; Beispiel Modell D rechnet mit 2 und 3",
+    "keine":   {"wert": 0, "fertigkeit": null},
+    "Leichte Rüstung":  {"wert": 1, "fertigkeit": "Leichte Rüstung"},
+    "Mittlere Rüstung": {"wert": 3, "fertigkeit": "Mittlere Rüstung"},
+    "Schwere Rüstung":  {"wert": 5, "fertigkeit": "Schwere Rüstung"},
+    "schild_wert": 2,
+    "_schild": "A: Abzug = Ruestung x (1 + Ruestungsfertigkeit/100) + Schildwert x (1 + Schild/100)"
+  },
+
+  "herkuenfte": {
+    "_quelle": "Startfertigkeiten N 2; Punkteverteilung, Waffe, Ruestung A (die Herkunft verteilt die Punkte vor, N 2)",
+    "Wachsoldat": {
+      "fertigkeiten": ["Schild", "Mittlere Rüstung", "Einhänder"],
+      "plus": {"kraft": 3, "zaehigkeit": 3}, "plus_variante": {"gewandtheit": 1, "wille": 1, "wahrnehmung": 1},
+      "waffe": "Einhänder", "ruestung": "Mittlere Rüstung", "schild": true, "zauber": []
+    },
+    "Jägerkind": {
+      "fertigkeiten": ["Bogen", "Wurfwaffen", "Spähen"],
+      "plus": {"gewandtheit": 3, "wahrnehmung": 3}, "plus_variante": {"zaehigkeit": 2, "kraft": 1},
+      "waffe": "Bogen", "ruestung": "Leichte Rüstung", "schild": false, "zauber": []
+    },
+    "Zauberlehrling": {
+      "fertigkeiten": ["Evokation", "Schutzmagie"],
+      "plus": {"wille": 5, "verstand": 1}, "plus_variante": {"zaehigkeit": 2, "gewandtheit": 1},
+      "waffe": "Stumpfe Waffen", "ruestung": "keine", "schild": false, "zauber": ["Bannschild", "Funkenpfeil"]
+    },
+    "Klosterschüler": {
+      "fertigkeiten": ["Heilmagie", "Heilkunde", "Kräuterkunde"],
+      "plus": {"wille": 3, "zaehigkeit": 1, "verstand": 2}, "plus_variante": {"kraft": 2, "zaehigkeit": 1},
+      "waffe": "Stumpfe Waffen", "ruestung": "Leichte Rüstung", "schild": false, "zauber": ["Wundsegen"]
+    },
+    "Kräutersammler": {
+      "fertigkeiten": ["Kräuterkunde", "Alchemie", "Spähen"],
+      "plus": {"verstand": 3, "wahrnehmung": 3}, "plus_variante": {"gewandtheit": 2, "zaehigkeit": 1},
+      "waffe": "Dolche", "ruestung": "Leichte Rüstung", "schild": false, "zauber": []
+    },
+    "Schmiedelehrling": {
+      "fertigkeiten": ["Schmieden", "Bergbau"],
+      "plus": {"kraft": 3, "zaehigkeit": 1, "verstand": 2}, "plus_variante": {"zaehigkeit": 2, "gewandtheit": 1},
+      "waffe": "Stumpfe Waffen", "ruestung": "Leichte Rüstung", "schild": false, "zauber": []
+    },
+    "Herumtreiber": {
+      "fertigkeiten": ["Schleichen", "Spähen", "Dolche"],
+      "plus": {"gewandtheit": 4, "wahrnehmung": 2}, "plus_variante": {"zaehigkeit": 2, "kraft": 1},
+      "waffe": "Dolche", "ruestung": "Leichte Rüstung", "schild": false, "zauber": []
+    },
+    "Wanderer": {
+      "fertigkeiten": ["Einhänder", "Ausweichen"],
+      "plus": {"kraft": 4, "zaehigkeit": 2}, "plus_variante": {"gewandtheit": 2, "wahrnehmung": 1},
+      "waffe": "Einhänder", "ruestung": "Leichte Rüstung", "schild": false, "zauber": [],
+      "_wanderer": "A: der Wanderer waehlt selbst; gerechnet ist ein Kampfbau (Schwert, Ausweichen)"
+    }
+  },
+
+  "monster": {
+    "_quelle": "B 'Werte 2.0' (01.11.); art nah/fern/zauber und Schwaechen A nach B-Spalte 'Angriff' und Hinweis Schwaechen +-50 %",
+    "Riesenratte":        {"stufe": 1, "leben": 10, "ruestung": 1, "schaden": 4,  "angriff": 10, "abwehr": 5,  "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Höhle"]},
+    "Kobold":             {"stufe": 1, "leben": 12, "ruestung": 1, "schaden": 4,  "angriff": 10, "abwehr": 5,  "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald"]},
+    "Blutflügler":        {"stufe": 1, "leben": 9,  "ruestung": 2, "schaden": 4,  "angriff": 15, "abwehr": 9,  "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald"]},
+    "Wolf":               {"stufe": 2, "leben": 14, "ruestung": 1, "schaden": 7,  "angriff": 15, "abwehr": 12, "wachsamkeit": 30, "art": "nah", "gebiet": ["Wald", "Tiefer Wald"]},
+    "Wildschwein":        {"stufe": 2, "leben": 16, "ruestung": 0, "schaden": 4,  "angriff": 10, "abwehr": 8,  "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Tiefer Wald"]},
+    "Riesen-Hundertfüßer":{"stufe": 2, "leben": 12, "ruestung": 1, "schaden": 4,  "angriff": 15, "abwehr": 12, "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald"]},
+    "Goblin":             {"stufe": 2, "leben": 10, "ruestung": 2, "schaden": 6,  "angriff": 15, "abwehr": 16, "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"]},
+    "Goblin-Späher":      {"stufe": 2, "leben": 12, "ruestung": 1, "schaden": 6,  "angriff": 15, "abwehr": 12, "wachsamkeit": 20, "art": "fern", "gebiet": ["Wald", "Tiefer Wald", "Höhle"]},
+    "Skelett":            {"stufe": 2, "leben": 20, "ruestung": 1, "schaden": 6,  "angriff": 15, "abwehr": 12, "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"], "schwaeche": {"stumpf": 1.5}},
+    "Zombie":             {"stufe": 2, "leben": 34, "ruestung": 0, "schaden": 4,  "angriff": 10, "abwehr": 2,  "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"]},
+    "Riesenfledermaus":   {"stufe": 3, "leben": 33, "ruestung": 1, "schaden": 6,  "angriff": 20, "abwehr": 17, "wachsamkeit": 40, "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"]},
+    "Goblin-Schamane":    {"stufe": 3, "leben": 21, "ruestung": 1, "schaden": 4,  "angriff": 15, "abwehr": 15, "wachsamkeit": 50, "art": "zauber", "gebiet": ["Tiefer Wald", "Höhle"]},
+    "Riesenspinne":       {"stufe": 4, "leben": 39, "ruestung": 2, "schaden": 8,  "angriff": 30, "abwehr": 24, "wachsamkeit": 40, "art": "nah", "gebiet": ["Tiefer Wald", "Höhle"]},
+    "Ghul":               {"stufe": 4, "leben": 34, "ruestung": 1, "schaden": 7,  "angriff": 25, "abwehr": 20, "wachsamkeit": 40, "art": "nah", "gebiet": ["Tiefer Wald", "Höhle"]},
+    "Ockerschleim":       {"stufe": 5, "leben": 49, "ruestung": 0, "schaden": 6,  "angriff": 30, "abwehr": 17, "wachsamkeit": 10, "art": "nah", "gebiet": ["Höhle"], "schwaeche": {"klinge": 0.5}},
+    "Krogg":              {"stufe": 4, "leben": 41, "ruestung": 3, "schaden": 11, "angriff": 25, "abwehr": 28, "wachsamkeit": 60, "art": "nah", "gebiet": ["Höhle"], "boss": true},
+    "Grimmzahn":          {"stufe": 5, "leben": 39, "ruestung": 2, "schaden": 8,  "angriff": 30, "abwehr": 29, "wachsamkeit": 80, "art": "nah", "gebiet": ["Tiefer Wald"], "boss": true},
+    "Grak":               {"stufe": 6, "leben": 58, "ruestung": 3, "schaden": 8,  "angriff": 40, "abwehr": 38, "wachsamkeit": 90, "art": "nah", "gebiet": ["Höhle"], "boss": true}
+  },
+
+  "wirtschaft": {
+    "_quelle": "Stufe 3 (447.3): N 8 Tiere beruhigen, N 10 Zerlegen, N 11 Abnutzung und Reparatur; Gold, Beute, Preise, Startausruestung aus der alten Fassung (Monsters.kt, Items.kt, Rules.kt; Katalog 458 'alt'); alles Uebrige A",
+    "punkte_variante": true,
+    "_punkte": "gerechnet mit 21 Punkten (Entscheidung 77), also den Herkuenften mit plus_variante",
+    "startgold": 20,
+    "start_heiltraenke": 2,
+    "_start": "alt: 15 bis 25 Gold, 1 bis 3 Heiltraenke je Klasse; hier Mittel",
+    "verkauf_anteil": 0.5,
+    "_verkauf": "alt: Haendler zahlt den halben Ladenpreis (Game.kt sellPrice)",
+    "dorf_alle_kaempfe": 8,
+    "_dorf": "A: der Held geht alle 8 Kaempfe ins Dorf, frueher, sobald ein Stueck 'Beschaedigt' ist (Warnung, N 11); dort verkaufen, reparieren, Traenke kaufen",
+
+    "preise": {
+      "_quelle": "Ladenpreise alt (Katalog 458 'alt'); Teile ohne alten Preis A",
+      "Heiltrank": 25, "Großer Heiltrank": 75, "Alchemistenfeuer": 30, "Weihwasser": 25,
+      "Fleisch": 6, "Wolfsfell": 24, "Hauer": 20, "Spinnendrüse": 30, "Fledermausflügel": 16,
+      "Fell klein": 8, "Zähne": 10, "Schwarte": 12, "Giftdrüse": 20, "Panzerplatten": 10,
+      "Spinnseide": 20, "Knochen": 4, "Säure": 20
+    },
+
+    "beute": {
+      "_quelle": "alt Monsters.kt: Gold als Wuerfel (min, max), Beute mit Chance; Tierteile (Fleisch, Fell, Hauer, Druese, Fluegel) nur noch ueber Zerlegen",
+      "Riesenratte":         {"gold": [1, 4],  "dinge": [["Heiltrank", 0.08]]},
+      "Kobold":              {"gold": [2, 8],  "dinge": [["Heiltrank", 0.12], ["Alchemistenfeuer", 0.04]]},
+      "Blutflügler":         {"gold": [1, 3],  "dinge": [["Heiltrank", 0.06]]},
+      "Wolf":                {"gold": [1, 6],  "dinge": [["Heiltrank", 0.12]]},
+      "Wildschwein":         {"gold": [1, 3],  "dinge": [["Heiltrank", 0.08]]},
+      "Riesen-Hundertfüßer": {"gold": [1, 3],  "dinge": [["Heiltrank", 0.10]]},
+      "Goblin":              {"gold": [2, 12], "dinge": [["Heiltrank", 0.15], ["Alchemistenfeuer", 0.06]]},
+      "Goblin-Späher":       {"gold": [2, 16], "dinge": [["Heiltrank", 0.15], ["Alchemistenfeuer", 0.05]]},
+      "Skelett":             {"gold": [1, 8],  "dinge": [["Heiltrank", 0.08], ["Weihwasser", 0.04]]},
+      "Zombie":              {"gold": [1, 6],  "dinge": [["Heiltrank", 0.10], ["Weihwasser", 0.06]]},
+      "Riesenfledermaus":    {"gold": [1, 4],  "dinge": [["Heiltrank", 0.10]]},
+      "Goblin-Schamane":     {"gold": [3, 18], "dinge": [["Heiltrank", 0.25], ["Großer Heiltrank", 0.06]]},
+      "Riesenspinne":        {"gold": [2, 20], "dinge": [["Großer Heiltrank", 0.15]]},
+      "Ghul":                {"gold": [2, 16], "dinge": [["Großer Heiltrank", 0.15], ["Weihwasser", 0.06]]},
+      "Ockerschleim":        {"gold": [3, 30], "dinge": [["Großer Heiltrank", 0.20]]}
+    },
+
+    "zerlegen": {
+      "_quelle": "N 10, Teile nach Bestiarium 'Zerlegen (Vorschlag)'; Formel A: das erste Teil immer ('nie nichts'), jedes weitere mit Chance = Ausbeute; Erloes x Ausbeute (Guete); Ausbeute = min + (1 - min) x Jagd / jagd_voll",
+      "ausbeute_min": 0.4,
+      "jagd_voll": 49,
+      "teile": {
+        "Riesenratte": ["Fleisch", "Fell klein"],
+        "Wolf": ["Fleisch", "Wolfsfell", "Zähne"],
+        "Wildschwein": ["Fleisch", "Schwarte", "Hauer"],
+        "Riesen-Hundertfüßer": ["Giftdrüse", "Panzerplatten"],
+        "Riesenspinne": ["Spinnendrüse", "Spinnseide"],
+        "Riesenfledermaus": ["Fledermausflügel"],
+        "Skelett": ["Knochen"],
+        "Ockerschleim": ["Säure"]
+      }
+    },
+
+    "tiere_beruhigen": {
+      "_quelle": "N 8 und Entscheidung 58: vor dem Kampf, gelingt es, dreht das Tier ab, Erfahrung wie fuer einen Sieg; je hoeher der Rang, desto staerkere Tiere. Zahlen A: Chance wie Trefferchance mit Basis 50 gegen die Wachsamkeit des Tiers; misslingt es, schlaegt das Tier zuerst",
+      "arten": ["Riesenratte", "Wolf", "Wildschwein", "Riesenfledermaus"],
+      "chance_basis": 50,
+      "chance_je_punkt": 0.5,
+      "chance_min": 5,
+      "chance_max": 95,
+      "rang_bis_tierstufe": [[24, 2], [49, 4]],
+      "_rang": "Anfaenger (bis 24) beruhigt Tiere bis Stufe 2, Geselle (bis 49) bis Stufe 4"
+    },
+
+    "abnutzung": {
+      "_quelle": "N 11: Zustaende Makellos, Benutzt, Beschaedigt, Defekt; Leistung sinkt; defekt wirkt nicht; gegen viel schwaechere Gegner kaum Abnutzung. Zahlen A",
+      "zustand_ab": {"Makellos": 90, "Benutzt": 50, "Beschädigt": 1, "Defekt": 0},
+      "leistung": {"Makellos": 1.0, "Benutzt": 0.95, "Beschädigt": 0.75, "Defekt": 0.0},
+      "_leistung": "Faktor auf Grundschaden der Waffe bzw. Ruestungs- und Schildwert; Defekt: Faustkampf bzw. ohne Ruestung",
+      "waffe_je_treffer": 1.0,
+      "ruestung_je_treffer": 1.0,
+      "schild_je_abwehr": 1.0,
+      "_je": "Zustandspunkte (von 100) je eigenem Treffer (Waffe), je erlittenem Treffer (Ruestung, Schild), je Abwehr mit dem Schild",
+      "faktor_teiler": 5,
+      "faktor_min": 0.05,
+      "faktor_max": 1.5,
+      "_faktor": "x (1 + (Gegnerstufe - Heldenstufe) / 5), 0,05 bis 1,5"
+    },
+
+    "reparatur": {
+      "_quelle": "N 11: beim Handwerker gegen Gold (Ruf nicht gerechnet), selbst mit Material und Rang; Zahlen A",
+      "handwerker_anteil": 0.5,
+      "_handwerker": "von 0 auf 100 kostet die Haelfte des Ladenpreises, anteilig",
+      "selbst_anteil": 0.2,
+      "_selbst": "Material: ein Fuenftel des Ladenpreises, anteilig; braucht die Fertigkeit des Materials mit Rang wie N 11",
+      "rang_ab": {"Anfänger": 1, "Geselle": 25, "Meister": 50}
+    },
+
+    "ausruestung": {
+      "_quelle": "Startausruestung je Waffen- und Ruestungsart: Gegenstand, Ladenpreis alt (Katalog 458), Material und Reparaturrang nach N 11 (A)",
+      "Einhänder":        {"ding": "Langschwert", "preis": 15, "material": "Metall", "rang": "Geselle"},
+      "Bogen":            {"ding": "Kurzbogen", "preis": 25, "material": "Holz", "rang": "Geselle"},
+      "Dolche":           {"ding": "Dolch", "preis": 2, "material": "Metall", "rang": "Anfänger"},
+      "Stumpfe Waffen":   {"ding": "Streitkolben", "preis": 5, "material": "Metall", "rang": "Anfänger"},
+      "Mittlere Rüstung": {"ding": "Kettenhemd", "preis": 50, "material": "Metall", "rang": "Geselle"},
+      "Leichte Rüstung":  {"ding": "Lederrüstung", "preis": 10, "material": "Leder", "rang": "Anfänger"},
+      "Schild":           {"ding": "Schild", "preis": 10, "material": "Metall", "rang": "Geselle"},
+      "material_fertigkeit": {"Metall": "Schmieden", "Leder": "Lederarbeit", "Stoff": "Lederarbeit", "Holz": "Schmieden"},
+      "_holz": "A: Boegen repariert der Schmied (Geselle), N 11 nennt Boegen beim Gesellen ohne Werkstoff"
+    },
+
+    "traenke": {
+      "_quelle": "Wirkung im BRS ohne Zahl (A); alt heilt der Heiltrank 2W4+2, der grosse 4W4+4; Preis alt",
+      "Heiltrank": {"heilung": 12},
+      "Großer Heiltrank": {"heilung": 30},
+      "trinken_unter": 0.35,
+      "_trinken": "A: Held trinkt statt anzugreifen, wenn Leben unter 35 % (erst den kleinen, dann den grossen)",
+      "vorrat_ziel": 3,
+      "_vorrat": "A: im Dorf kauft er Heiltraenke bis 3 im Beutel, wenn das Gold reicht",
+      "brauen_kosten": 8,
+      "_brauen": "A: wer Alchemie hat, braut den Heiltrank selbst statt zu kaufen; Kraeuter fuer 8 Gold (2 x 'herbs' alt zum halben Preis), uebt Alchemie"
+    }
+  },
+
+  "fortschritt": {
+    "_quelle": "A: Held kaempft Zufallsbegegnungen seines Gebiets; Leben und Mana voll vor jedem Kampf; Niederlage ohne Erfahrung, er macht weiter; Erfahrungstopf, Quests, Hauptquest nicht gerechnet",
+    "gegner_band_unten": 2,
+    "gegner_band_oben": 1,
+    "_band": "Gegnerstufe von Heldenstufe - 2 bis Heldenstufe + 1, gleich verteilt ueber die Arten (ohne Bosse)",
+    "max_kaempfe": 2000
+  }
+}

@@ -1,15 +1,25 @@
-# 417 · Waffen in der Hand beim Gehen und Rennen: Stab, Kriegsaxt, Bogen · Tom · 01.11., 01:05 (Runde 2)
+# 417 · Tragart je Waffe, Runde 5 · Tom (Team Tom) · 01.11., 16:02
 
-![Stab, Kriegsaxt, Bogen im Gehen von der Seite](../bilder/417-tragart.webp)
+[Film von 01.11., 16:02](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-1602-417-Tom.mp4) (eingetragen von meldung.sh, Tom)
 
-Film und drei Blätter (je fünf Ansichten, Gehen und Rennen) per Telegram, am Rechner, noch kein Build. Runde 1 (23:45) gilt nicht mehr.
+Film per Telegram (16:02), vier Felder: Kämpfer mit Kriegsaxt, mit Langschwert, mit Langschwert und Rundschild, Schurke mit Kurzbogen; je Stehen, Anlaufen, Gehen, Rennen, zurück ins Gehen, Anhalten, von der Seite, im Tempo des Spiels. Noch kein Test-Build; Zweig `claude/tom-417-tragart`.
 
-- **Stab (Magier):** im Gehen Wanderstab in der rechten Faust, sein unteres Ende steht am Boden und wird bei jedem Schritt umgesetzt; im Rennen steiler als in Runde 1 in der Faust, unten etwas nach außen. Nirgends im Körper; nächster Abstand 3,9 cm (Gehen, Schulter), 5,9 cm (Rennen, Becken).
-- **Kriegsaxt (Kämpfer):** geschultert, am Stielende gefasst, die Faust vor der Brust, der Stiel liegt auf der rechten Schulter, das Blatt längs des Körpers mit der Schneide oben. Der Stiel liegt 0,9 cm tief auf der Schulter auf (schwebt nicht), sonst nirgends im Körper. In Runde 1 (in der Mitte gefasst) stieß das untere Ende bei jedem Schritt in den Oberschenkel.
-- **Bogen (Schurke):** linke Faust neben der Hüfte, schräg (vorn oben, hinten unten), im Rennen flacher. Nirgends im Körper; nächster Abstand 5,9 cm (Unterarm).
-- Bei allen dreien schließen sich die Finger jetzt um Griff oder Stiel (in Runde 1 lag die Hand nur auf).
-- Technik: die gekaufte Bewegungsbibliothek hat kein Gehen mit Waffe; der tragende Arm wird nach jeder Bewegung an die Waffe gestellt, vom Armschwung bleibt ein Teil. Gemessen am bewegten Körper über einen ganzen Umlauf (Test `tragen_417`; in Runde 1 lief die Messung versehentlich in einer stehenden Pose).
-- Nicht Teil dieser Probe: Stab ohne Kopf und Bogen dünn sind die bisherigen Modelle; Stiefel durch die Robe, helle Hände.
-- Noch nicht: Schwert, Dolch, Schild (Gürtel und Rücken laut Vorschlag), Fackel und Bogen zugleich (beide links), Innenräume, Wechsel in der Kampfblende.
+Was Runde 5 ändert (dein Urteil 13:4x zu Runde 4):
+- **Griff:** Waffe, Bogen und Schild sitzen so in der Hand, wie es der Hersteller der gekauften Bewegungen vorsieht (Lage aus seinen Vorlagen gemessen): Schwert und Axt längs der Knöchel, Bogen mit dem Rücken zu den Fingern (war verkehrt), Schild am Handrücken und am Handgelenk befestigt (hing vorher frei vor der Brust). Das ist die Antwort auf „die Faust schaut beim Schild durch“.
+- **Anlaufen und Anhalten** weich wie in 416.4.
 
-**Zu sagen:** „passt“ (dann die übrigen Waffen so, und in den nächsten Build) oder was anders sein soll, je Waffe.
+Im Code fertig, aber noch **nicht** in diesem Film (kommt in den nächsten):
+- **Gehtempo** 1,5 m/s statt 2,13 m/s („eher ein Staxen“).
+- **Oberkörper aufrechter** beim Gehen.
+- **Rennen → Gehen ohne Sprung** (416.4: Ursache gefunden, nachgemessen springt nichts mehr).
+
+**Messung im selben Lauf (Zahlen, kein Geschmack), Fehler, die Tom behebt:** Die Waffe steckt beim Gehen fast in jedem Bild im Körper (Axt, Langschwert, Bogen in 38 bis 40 von 40 Bildern, mehr als 1 cm), beim Rennen in 3 bis 21 Bildern; beim Rennen mit der Axt ist die linke Faust 6,5 cm neben dem Stiel; beim Schild ist ein Haltepunkt doppelt. Vorneigung beim Gehen: Axt 6,5°, Schwert 7,7°, Bogen 9,7°, Schild 13,7°.
+
+**Nachtrag 16:5x (Tom):** Die Zahlen oben „fast in jedem Bild im Körper“ waren großteils ein Fehler der Messung (Punkte in der Faust zählten als „im Arm“). Nachgemessen: beim Gehen steckt keine Waffe im Körper, Schild frei, Oberkörper Schild 11,0° statt 13,7°. Echt offen nur beim Rennen: Axt-Stielende in der linken Wade, mit Schild der Schwertgriff am rechten Oberschenkel; behebt Tom.
+
+**Nachtrag 17:5x (Tom):** Behoben und nachgemessen, ohne Bild: keine Waffe steckt mehr im Körper, weder beim Gehen noch beim Rennen. **Sichtbar anders, dein Urteil:** (a) Kriegsaxt: beide Fäuste liegen jetzt am Stiel, die Axt sitzt 30 cm weiter oben in der Hand, die Fäuste fassen also näher am Stielende (sonst stieß das Stielende beim Rennen in die Beine). (b) Schwert mit Schild: der rechte Arm geht 9° weiter nach außen (sonst lag die Faust beim Rennen im Oberschenkel). Beides zeigt der nächste Film nach deinem Wort.
+
+**Frage:** Stimmt die Richtung beim Griff (Waffe so in der Hand)?
+**Stärkstes Gegenargument:** Solange die Waffe im Körper steckt, ist das Bild nicht sauber; das Urteil über den Griff kann sich nach der Behebung noch verschieben.
+
+**Zu sagen:** „417 Griff passt“ oder was anders sein soll. Dein Wort gibt die nächsten zwei Probeläufe frei: Gehtempo, aufrecht, Übergang, Waffe nicht mehr im Körper.
