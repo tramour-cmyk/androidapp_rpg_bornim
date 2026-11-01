@@ -18,6 +18,12 @@ Der rote Faden heißt bisher: Ein Unbekannter, der **Graue Prophet**, sammelt Se
 
 **Das Sonnenamulett** schützt Bornim seit hundert Jahren vor der Finsternis und gehört in den Tempel des Morgenlichts.
 
+**Die Aschgeborenen (432, intern, nie im Spiel erklärt bis Kapitel 3; Entwurf Homer 01.11., vor dem Bau mit dem Chef abstimmen):** Volk aus den Nachfahren der Überlebenden von Aschfurt, Mensch mit aschgrauer Strähne und goldenem Ring um die Iris, nie leuchtend (Archiv 432).
+- *Warum der Kult sie sucht:* In der Nacht von Aschfurt wurde das Siegel mit dem Leben der Stadt geschlossen. Wer entkam, trug einen Rest davon im Blut fort; der goldene Ring ist das Siegel im Auge. Darum bricht der Stein nicht mit beliebigen Seelen: das Ritual in Kapitel 2 reißt ihn nur an (Station 6). Aus diesem Fehlschlag lernt der Kult, dass er Blut aus Aschfurt braucht, und jagt ab Kapitel 3 die Aschgeborenen; was mit ihnen bricht, kann nur mit ihnen auch wieder geschlossen werden.
+- *Bezug zum Titel:* Das offene graue Auge des Kults ist das Gegenbild zum Ring. „Ein Auge schließt sich, ein anderes öffnet sich“ meint auch, dass ein Siegel im Auge eines Aschgeborenen erlischt, wenn er dem Kult dient; ob der Prophet selbst einer ist, bleibt offen (Kapitel 3 oder 4).
+- *Für jeden Helden:* Der Faden trägt ohne das Volk: der Kult jagt Aschgeborene in Bornim (Kael ist Enkel eines Überlebenden). Wer das Volk wählt, ist selbst gesucht und weiß davon nicht mehr als andere; in Kapitel 1 und 2 erklärt niemand das Mal, die Leute bemerken es nur (Entscheidung 71).
+- *Offen, nicht gebaut:* ob Lyra eine ist (der Kult wollte in Kapitel 1 sie und das Amulett); das berührte ihr Modell in Kapitel 1, darum erst nach dem Meilenstein und nur auf Wort des Chefs.
+
 **Aussehen der Figuren:** maßgebend ist nur `docs/LISTE-FIGUREN.md` im Repo (70.5, Nutzer 14.10.). Die Spalte „Aussehen“ unten ist Entwurfsstand und wird nicht mehr gepflegt.
 
 | Figur | Rolle | Ort | Aussehen, eigene Handlung, Klang (Idee für den Bau) |
