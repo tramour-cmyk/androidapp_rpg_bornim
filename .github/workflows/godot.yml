@@ -4,7 +4,7 @@ name: Godot (Umzug 348)
 # Android-Export; APK als Artefakt "bornim-godot-apk". Zum Testen neben dem alten Spiel: Kennung de.bornim.game.godot.
 on:
   push:
-    branches: ["claude/tom-348-**", "claude/jerry-348-**", "claude/grundstand-461"]   # 461.1 gemeinsamer Grundstand (Tom, Jerry)
+    branches: ["claude/tom-348-**", "claude/jerry-348-**"]   # 461.1: Grundstand nur von Hand (wie godot-kampf.yml)
     paths: ["godot/**", "tools/blender348/**", "core/src/main/**", ".github/workflows/godot.yml"]
   workflow_dispatch:
 
