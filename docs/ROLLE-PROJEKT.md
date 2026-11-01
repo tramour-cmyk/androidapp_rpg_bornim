@@ -47,7 +47,7 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link: „Zielvereinb
 - **Tagesbericht** (448, Chef 01.11., 11:09; ersetzt Stand zum Marktstart 338.1 und Dashboard 339):
   - täglich 7:30 (Sa, So 9:30): Stand je Punkt der Abnahmeliste nach den Vorräten setzen („· Stand: in Arbeit|gebaut“), Abschnitt „Eingaben“ (Schätzung, Funde des Chefs, Risiko) in `ARBEIT-TAGESBERICHT.md`, dann `python3 tools/tagesbericht.py` (zehn Zeilen, je Rolle); Roadmap, Wer hinkt, Prioritäten von Hand mit Uhrzeit; fremd prüfen, pushen; Telegram mit Ton: `python3 tools/tagesbericht.py --telegram` als Text für `meldung.sh --laut`;
   - fehlt er um 10 Uhr (Sa, So 12 Uhr), meldet Ford und startet dich neu (`lauf.py`);
-  - Quellen: Vorräte, jede Zeile gegen `LISTE-VORGAENGE.md` und `-ARCHIV.md`, `startbar.py --stand`, Chefsache, Guthaben in `ARBEIT-BETRIEB.md`, `kosten.py`; vor dem Melden den eigenen Vorrat neu lesen und fremd prüfen lassen (338.2);
+  - Quellen: Vorräte, jede Zeile gegen `LISTE-VORGAENGE.md` und `-ARCHIV.md`, `startbar.py --stand`, Chefsache, Guthaben und rote Läufe des Vortags (Protokoll, 464) in `ARBEIT-BETRIEB.md`, `kosten.py`; vor dem Melden den eigenen Vorrat neu lesen und fremd prüfen lassen (338.2);
   - Schreibregeln: ganze deutsche Sätze, jede Nummer mit Sinn, jede Aussage belegt.
 
 ## Entscheidet selbst
