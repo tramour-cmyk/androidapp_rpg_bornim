@@ -94,7 +94,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 348.6 | Umzug Godot: Fundament, Dorf als erste Gebietskarte | E Technik | M | 640,45 $ | Team Tom | zu testen |
 | 348.7 | Umzug Godot: Modellregel, Kampfort Wolfsrudel MARS | E Technik | M | –; +441,15 $ | Team Jerry | ruht |
 | 348.7a | Rückfrage: Geschosse flach oder in 3D | E Technik | M | 58,17 $ | Jerry | in Arbeit |
-| 348.7b | Rückfrage: Zauberbahn hoch über die Köpfe oder flach quer über Wolf 3 | E Kampf | M | 22,94 $ | Jerry | gebaut |
+| 348.7b | Rückfrage: Zauberbahn hoch über die Köpfe oder flach quer über Wolf 3 | E Kampf | M | 22,94 $ | Jerry | erledigt |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | B Abläufe | M | 119,56 $ | Perikles, Diogenes | wartet |
 | 348.12 | Fertige CC0-Grundmodelle prüfen, Probe Mensch (Chef 25.10., 21:21, 21:36) | E Technik | M | 148,02 $ | Sokrates, Jerry | startbar |
 | 348.12c | Modellpaket auch gegen Geld (Quaternius QAL, Dungeon Monsters Kit, andere), Vorschlag mit Preisen (Chef 26.10., 11:59) | G Geld | M | –; +9,24 $ | Sokrates | ruht |
@@ -152,9 +152,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 433 | Arbeit verteilen: unabhängige Zeilen von Tom und Jerry an Spike und Tuffy oder intern umschichten, statt zu warten („jetzt“ 31.10., 22:1x) | B Abläufe | M | 31,61 $ | Perikles | gebaut |
 | 434 | Prüfung: jede Vorlage zu einem Eigenbau hat die Zeile „Bestand geprüft“ (377, 408); fehlt sie, an Team und Chef (Chef 31.10., 22:1x) | B Abläufe | M | 1,09 $ | Diogenes | wartet |
 | 436 | Sitzungsnamen „Rolle – Vorgang: Thema (Zeit)“ für alle Beschäftigten, Regel in CLAUDE.md, Ford benennt um (Chef 31.10., 22:58) | B Abläufe | M | – | Perikles | gebaut |
-| 438 | Wölfe im Kampf wirken gleitend: Angriff, Tempo, Vorbeigehen (Film 403, Chef 31.10., 23:31) | E Kampf | M | – | Team Jerry | frei |
-| 439 | Kampfablauf: Neuformation vor dem Tod, Treffer vor dem Angriff (Film 403, Chef 31.10., 23:31) | E Kampf | M | – | Team Jerry | frei |
-| 440 | Wolf verschwindet ohne sichtbare Sterbeanimation (Film 403, Chef 31.10., 23:34) | E Kampf | M | – | Team Jerry | frei |
+| 438 | Wölfe im Kampf wirken gleitend: Angriff, Tempo, Vorbeigehen (Film 403, Chef 31.10., 23:31) | E Kampf | M | – | Team Jerry | gebaut |
+| 439 | Kampfablauf: Neuformation vor dem Tod, Treffer vor dem Angriff (Film 403, Chef 31.10., 23:31) | E Kampf | M | – | Team Jerry | gebaut |
+| 440 | Wolf verschwindet ohne sichtbare Sterbeanimation (Film 403, Chef 31.10., 23:34) | E Kampf | M | – | Team Jerry | gebaut |
 | 441 | Prüfung im Doppelpack: Nachschlagewerk Spielsystem 2.0 (Entscheidungen bis 75) quergelesen (Chef 31.10., 23:40) | D Design | M | – | Diogenes | startbar |
 | 442 | Modellzuordnung der Sitzungen: Opus für alle außer Ford, Desktop-Sitzung auf Sonnet (Chef 31.10., 23:52) | B Abläufe | M | – | Sokrates | Chef |
 | 443a | Rückfrage: gilt die Namensform 436 auch für Ford (D52.3)? | B Abläufe | M | – | Diogenes | Chef |

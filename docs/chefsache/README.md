@@ -31,6 +31,7 @@ Nichts offen.
 | [416.9](ansehen/4169-laden.md) | Laden: alle Plätze bei „Angelegt“, nicht Tragbares, Vergleich, Bild bei Menge | – | 01.11., 00:23 |
 | [417](ansehen/417-tragart.md) | Waffen in der Hand beim Gehen und Rennen: Stab, Kriegsaxt, Bogen | Tom | 01.11., 01:05 |
 | [425](ansehen/425-testmenue.md) | Testmenü mit Zeichen | Tom | 01.11., 01:10 |
+| [438, 439, 440](ansehen/438-woelfe.md) | Wölfe im Kampfort: Schritte statt Gleiten, Reihenfolge, Tod | Jerry | 01.11., 08:09 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -104,13 +105,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 43, Muss 30, startbar 8
+**Jerry** – offen 42, Muss 29, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403, „ja, die Animation der Avatare sieht gut aus. | startbar |
-| 440 | M | von Sokrates (Chef 31.10., 23:34, Film 403): „Der Wolf war einfach weg. Da fehlt die Sterb | startbar |
-| 439 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Ablauf im Kampf: Neuformation der Wölfe begin | startbar |
+| 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Wölfe gleiten (Angriff, Tempo, aneinander vor | wartet auf Test/Build (gebaut) |
+| 439 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Reihenfolge Angriff, Treffer, Tod, Neuformati | wartet auf Test/Build (gebaut) |
+| 440 | M | von Sokrates (Chef 31.10., 23:34, Film 403): Wolf-Tod zu schnell weg (Zu 438) | wartet auf Test/Build (gebaut) |
 | 416.5 | M | von Sokrates (Chef 31.10., 20:4x, Build 143): im Kampf Details des Kampflogs aufrufen, dan | wartet auf Test (Build) |
 | 416.6 | K | von Sokrates (Chef 31.10., 20:4x): Spuren des Helden fehlen (Fußspuren; bei Regen eigene S | startbar |
 | 415 | K | von Sokrates (Chef 31.10., 20:3x „Ja, Probe mit dem Beams-Sample an Jerry geben“): Handypr | startbar |
@@ -128,7 +129,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 397 | M | von Chef (28.10., 11:15): Tiere, Monster: mind. drei Ruhebewegungen wie alt (LISTE-UMZUG-3 | ruht |
 | 348.12c | M | von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv): Wiedergänger, Grabhund, Riesenegel, Säur | ruht |
 | 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | ruht |
-| 348.7b | M | Zauberbahn nach Chef „D“ | wartet auf Test/Build (gebaut) |
 | 390 | M | von Perikles: Funktionen ohne Bild (LISTE-UMZUG-348.md) | ruht |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, Test B46): App „hängt“, ging dann weiter (Zu 257) | ruht |
