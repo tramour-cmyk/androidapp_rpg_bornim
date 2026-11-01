@@ -12,6 +12,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
+| 462 | M | **von Perikles (Doppelpack 421, Commit `b851fb635`):** Zeitstempel 462: Kopf „**Name** [TT.MM., HH:MM]“ aus `tools/neustart-haken.py` richtig für jede Rolle (auch Ford-Starts, „Tom 2“); ab 02.11. in der Zählung 374 Anteil der Nachrichten ohne Kopf (Spalte `stempel` in `~/.bornim-regeltreue.tsv` je Sitzung) | startbar |
 | 461 | M | **von Perikles (Doppelpack 421, Commit `6805a7018`):** Grundstand 461: jede Zeile der `LISTE-GRUNDSTAND-461.md` gegen ihr „Woher“ im Vorgangsarchiv (nichts erfunden, nichts umformuliert); Prüftreppe 4 und `ROLLE-ENTWICKLUNG.md` widerspruchsfrei zu 373, 389, 396 | startbar |
 | 434 | M | **von Sokrates (Chef 31.10., 22:1x):** bei jeder Zählung 374 zusätzlich die Zeile „Bestand geprüft“ je Vorlage zu einem Eigenbau prüfen (Zu 434) | erst wieder ab 02.11., 08:00 mit 374 (01.11. für 31.10. gezählt: Zu 374) |
 | 398 | M | **von Sokrates:** vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (397), dazu 15 Lücken (398); in der Wochenzählung als Chef-Erstfund zählen | frühestens 02.11. (mit Zeile „Woche“; Start 28.10., 12:04 zu früh, Bedingung ohne Termin-Wort) |

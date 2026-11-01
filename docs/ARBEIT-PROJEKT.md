@@ -9,7 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 462 | M | **von Ford („jetzt“ 01.11., 20:34, Chef: „Du kannst mal alle anderen auch hier mal wieder einen Zeitstempel ausgeben, wenn du was machst. Ich kann überhaupt nicht einschätzen, wann hier was passiert ist. Doch klar geregelt.“):** Regel steht (CLAUDE.md „Wie wir zusammenarbeiten“ 7: jede Nachricht beginnt mit Name und Zeitstempel), wird nicht befolgt; Ursache finden (Haken je Rolle, Startnachricht, Stop-Haken) und durchsetzen, Prüfung durch Diogenes | startbar |
+| 462 | M | **von Ford („jetzt“ 01.11., 20:34, Wortlaut Zu 462):** Name und Zeitstempel in jeder Nachricht (CLAUDE.md Zusammenarbeit 7) wird nicht befolgt; Ursache finden und durchsetzen, Prüfung durch Diogenes | gebaut 01.11., 20:39: Uhr-Haken gibt fertigen Kopf mit Name, Arbeitston verlangt ihn (Zu 462); Diogenes prüft (462) |
 | 464 | M | **von Sokrates (Chef 01.11., 20:4x: „irgendwer produziert hier abends brutal viele Fehler. Auf der Repo … schon fast 20 E-Mails gekriegt“):** rote Läufe: 14 seit 14:30 (7 Jerrys Grak-Zweig, je Push zwei Abläufe; dazu Probeläufe Tom, Spike); Haken vor jedem Push, der baut: `Skripte pruefen` und die Tests des Vorgangs lokal grün, sonst kein Push; Zählung roter Läufe in den Tagesbericht | startbar |
 | 461 | M | **von Sokrates („jetzt“ 01.11., 20:3x, Wortlaut in der Liste):** Grundstand Figuren und Kampf: `LISTE-GRUNDSTAND-461.md` prüfen und pflegen, Prüfer prüft jede Vorlage dagegen (Zu 461) | gebaut 01.11., 20:3x: 39 Punkte A–G, Prüfung vor dem Versand verankert (Zu 461); Diogenes prüft (461) |
 | 436 | M | **von Sokrates („jetzt“ 31.10., 22:58):** Sitzungsnamen mit Vorgang, Thema und Zeit für alle (Zu 436) | gebaut 01.11., 00:1x: Regel, Rollen, lauf.py (Zu 436); Ford benennt um; Diogenes prüft (443) |
@@ -33,7 +33,9 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
-- **Zu 461 (Perikles, 01.11., 20:3x):** Entwurf Sokrates (9 Punkte) gegen das Vorgangsarchiv 27.10.–01.11. geprüft: 39 Punkte in A Signatur, B Gestalt, C Leben, D Bewegung, E Waffe und Schild, F Kampf, G Vorlage; „Gehen aufrecht“ ohne Beleg gestrichen. Verankert: Prüftreppe 4 (`LISTE-BAUEN-TESTEN.md`) und `ROLLE-ENTWICKLUNG.md` (Dein typischer Fehler; 373): Grundstand vor dem Versand, sonst bleibt 396. Engpass 389: zwei Läufe verbraucht, Punkt verletzt → Zeile statt Film an den Chef, sein Urteil gibt Läufe frei (407). Pflege: wer ins Archiv zu Figuren, Bewegung, Kampfort schreibt, ändert die Liste im selben Commit; Perikles gleicht montags ab. Nummern neu (A1 … statt 1–9).
+- **Zu 462** (Chef 01.11., 20:34: „Du kannst mal alle anderen auch hier mal wieder einen Zeitstempel ausgeben, wenn du was machst. Ich kann überhaupt nicht einschätzen, wann hier was passiert ist. Doch klar geregelt.“). Ursache: weder Uhr-Haken noch Arbeitston verlangten den Kopf; Zwischenmeldungen blieben ohne; Stop-Haken zählt nur (Chef 24.10., 21:15). Behoben: `neustart-haken.py` gibt „**Name** [Zeit]“ fertig vor (sofort), `knapp.md` verlangt ihn (Zweige erst nach Merge).
+
+- **Zu 461 (Perikles, 01.11., 20:3x):** 39 Punkte A–G (Liste), „Gehen aufrecht“ ohne Beleg gestrichen, an den Chef zur Prüfung (Telegram 20:3x); verankert in Prüftreppe 4 und `ROLLE-ENTWICKLUNG.md`; montags Abgleich mit dem Archiv.
 
 - **423.1, von Team Tom (01.11., 17:2x):** Handbuch als Seite im Spiel braucht das BRS im Spiel (Abnahme 2.2, 2.3); bitte M?/Stufe festlegen, bis dahin wartet es.
 
@@ -48,12 +50,10 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 - Zu 378 (Durchsicht 27.10. für Tom und Jerry), Zu 338 (Termine 26.10., Wochenzählung 18.–24.10.), Jerry 381.1: Git, Stand vor „Perikles: 424“.
 
-- **Fehler 341** (Z3; Chef 25.10., 07:55: „Hat dich schon irgendwo entschieden?“): Chefsache 361 (Tempo, Guthaben) vorgelegt, obwohl 287 (22.10.) dasselbe entschieden hatte; dazu Tagesgrenze 11 % ohne Hebel (`--nur-muss` drosselt Muss nicht, Sokrates) und Kosten zu niedrig („rund 90 $“, belegt 107 $). Ursache: Vorgangsarchiv nicht nach „Guthaben“ durchsucht (Bekannte Fehler: Stand mit Archiv abgleichen). Behoben 07:5x: 361 zurückgezogen, 287 gilt überall. Gegenmittel: vor jeder Chefsache-Datei Archiv nach dem Stichwort durchsuchen; die Fremdprüfung (338.2) bekommt das Archiv als Quelle mit.
-- **Fehler 341** (Z3; Chef 25.10., 00:36: „bis zu deinem Urteil ruht die Tusche, Klammer, Block B? Sagt mir ja gar nichts.“): Stand zum Marktstart und Meldung in Hauskürzeln (Block, Tusche, Nummern ohne Inhalt). Behoben 00:4x: Satz und Zeile (b) in Klartext. Gegenmittel: im Stand jede Nummer mit dem, was sie bedeutet; nie nur Kürzel; bei der Fremdprüfung (338.2) auch fragen „versteht der Chef jeden Satz ohne Nachschlagen?“.
+- **Fehler 341** (Z3) 23.10., 10:14 (Höhle 13e), 25.10., 00:36 (Hauskürzel), 25.10., 07:55 (Chefsache 361 trotz 287), je mit Ursache und Gegenmittel: Git, Stand vor „Perikles: 462 Stand, Doppelpack Diogenes“ (gezählt Woche 19.–25.10.).
 - **Zu 347.2, offen:** Auswertung bei Sokrates (347 in seinem Vorrat); `tools/regeltreue/stufe2/LISTE-REGELN.md` trägt noch die alte Pause-Regel (bei Stufe 2 nachziehen).
 
 - **Zu 341** (Chef 23.10., 09:39: „Wie können wir beide eine Zielvereinbarung treffen, die für dich gegenprüfbar ist und nachhaltig?“; 09:53 ja, Probe bis 06.11.): Ziele Z1–Z6 in `ROLLE-PROJEKT.md` „Dein Maß“; Z1/Z2 prüft `regelcheck.py`, Z3–Z6 zählt Diogenes (`ROLLE-PRUEFUNG.md`). Gerüst für alle (Sokrates): je Rolle höchstens drei Ziele, Z3 und Z4 für alle, eins eigen; übernehmen, wenn bis 06.11. drei von sechs messbar laufen.
-- **Fehler 341** (Z3; was der Chef „Fehler“ nennt, mit Uhrzeit): 23.10., 10:14 Höhle 13e in `LISTE-ABNAHME-KAPITEL1.md` als offen geführt, seit 17.10. erledigt (Chef: „ist das wieder falsch vermerkt?“, über Sokrates). Ursache: Wochenziel-Tabelle seit 16.10. nicht gegen `LISTE-VORGAENGE` abgeglichen. Behoben 10:16 (13e, 112/68, Orte abgehakt, Fehlerliste mit Stand). Gegenmittel: „Quellen“ in `ROLLE-PROJEKT.md` um den Abgleich gegen `LISTE-VORGAENGE` ergänzt (keine neue Regel).
 
 Ältere Wortlaute und Befunde (234, 185, 261, 261 Kosten, Fehlerfall 251, 261.5 Neustart, 246.1, 298, 165 Tag 1–2 ausführlich): Git, Stand `b92df164` dieser Datei; Leichen-Durchsicht 22.10., Guthaben 22.10., M?-Entscheide 22.–23.10.: Stand `9b35656`; Zu 338.1 (Auftrag 09:06, Selbstprüfung 09:31, Nachtrag und Termine Tom 24./25.10.: Englisch, Tablets, Zielversion 36; überholt durch 348), Zu 338 vom 23.10., Testmenge 317 und Stempel doppelt (erledigt 24.10.): Stand `5a0736b71`; Schätzungen 348.14 Tom/Jerry, Zu 156, Zu 338 (25.10.), Zu 339, Zu 261.5: Stand vor „Perikles: 275 Stufe 1“.
 
