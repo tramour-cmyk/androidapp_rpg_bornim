@@ -15,6 +15,8 @@ Im Code fertig, aber noch **nicht** in diesem Film (kommt in den nächsten):
 
 **Messung im selben Lauf (Zahlen, kein Geschmack), Fehler, die Tom behebt:** Die Waffe steckt beim Gehen fast in jedem Bild im Körper (Axt, Langschwert, Bogen in 38 bis 40 von 40 Bildern, mehr als 1 cm), beim Rennen in 3 bis 21 Bildern; beim Rennen mit der Axt ist die linke Faust 6,5 cm neben dem Stiel; beim Schild ist ein Haltepunkt doppelt. Vorneigung beim Gehen: Axt 6,5°, Schwert 7,7°, Bogen 9,7°, Schild 13,7°.
 
+**Nachtrag 16:5x (Tom):** Die Zahlen oben „fast in jedem Bild im Körper“ waren großteils ein Fehler der Messung (Punkte in der Faust zählten als „im Arm“). Nachgemessen: beim Gehen steckt keine Waffe im Körper, Schild frei, Oberkörper Schild 11,0° statt 13,7°. Echt offen nur beim Rennen: Axt-Stielende in der linken Wade, mit Schild der Schwertgriff am rechten Oberschenkel; behebt Tom.
+
 **Frage:** Stimmt die Richtung beim Griff (Waffe so in der Hand)?
 **Stärkstes Gegenargument:** Solange die Waffe im Körper steckt, ist das Bild nicht sauber; das Urteil über den Griff kann sich nach der Behebung noch verschieben.
 
