@@ -69,7 +69,7 @@ Release `stufe1` im Kaufrepo: `ANIMSET.SWORD.SHIELD.unitypackage` (698119529), `
 | Leute im Dorf: Stehen, Gehen, Reden, Sitzen, Theke, Trinken, Arbeiten | UAL | Gesten (Hüfte, Arme verschränkt), Frauen-Gang |
 | Rast, Lagerfeuer | UAL (GroundSit) | Feuer anzünden, Schlafen |
 | Held Schwert | UAL (ein Angriff) | Stich, Schildabwehr, gehaltenes Ausholen, mehrere Angriffe |
-| Held Zauber (Magier, Kleriker), Goblin-Schamane | Wizard (14 Zauber), UAL (Spell_Simple, Spell_Double) | – (Übertragung ungeprüft) |
+| Held Zauber (Magier, Kleriker), Goblin-Schamane | Wizard (14 Zauber; Übertragung auf den Kaufkörper geht seit 385, 28.10., `zauber385.py`), UAL (Spell_Simple, Spell_Double) | – |
 | Bogen (Späher, Waldläufer) | – | ganz |
 | Ausweichen, Treffer, Tod beim Menschen | Wizard (je Richtung), UAL (Hit, Death, Dodge) | – (Wizard ungeprüft) |
 | Ratte | Protofactor Ratte (18) | – |
