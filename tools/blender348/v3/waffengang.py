@@ -78,6 +78,30 @@ for art, (paket, geh, _) in GAENGE.items():
                   [round(x, 3) for x in (b.parent.matrix_local.inverted() @ b.matrix_local).translation]))
     props = [os.path.basename(p) for p in alle if 'prop' in os.path.basename(p).lower()]
     print('PROP %s: %s' % (paket, ', '.join(props)))
+    # Messung 3: wo sitzt die Waffe in der Hand? Unity-Prefabs und Szenen des Pakets (Text): Eltern der Prop-Objekte, Lage, Drehung
+    wurzel = os.path.commonpath([p for p in alle]) if alle else KAUF
+    while wurzel != KAUF and os.path.basename(wurzel) != 'Assets' and os.path.dirname(wurzel) != wurzel: wurzel = os.path.dirname(wurzel)
+    yaml = [p for p in glob.glob(os.path.join(wurzel, '**', '*'), recursive=True) if p.endswith(('.prefab', '.unity'))]
+    print('UNITY %s: %s' % (paket, ', '.join(os.path.relpath(p, wurzel) for p in yaml)[:800]))
+    for p in yaml:
+        t = open(p, encoding='utf-8', errors='replace').read()
+        if 'Prop' not in t: continue
+        bloecke = t.split('--- !u!')
+        namen = {}
+        for b in bloecke:
+            kopf = b.split('\n', 1)[0]
+            if 'm_Name:' in b and kopf.startswith('1 '): namen[kopf.split('&')[-1].strip()] = b.split('m_Name:')[1].split('\n')[0].strip()
+        tf = {}   # Transform-Kennung -> Name des Objekts
+        for b in bloecke:
+            if b.startswith('4 ') and 'm_GameObject: {fileID:' in b:
+                tf[b.split('\n', 1)[0].split('&')[-1].strip()] = namen.get(b.split('m_GameObject: {fileID:')[1].split('}')[0].strip(), '?')
+        for b in bloecke:
+            if not b.startswith('4 ') or 'm_LocalRotation' not in b: continue
+            n = tf.get(b.split('\n', 1)[0].split('&')[-1].strip(), '?')
+            if 'Prop' in n or 'Weapon' in n:
+                z = lambda k: b.split(k)[1].split('\n')[0].strip() if k in b else '-'
+                va = z('m_Father: {fileID:').rstrip('}').strip()
+                print('  LAGE %s %s: pos %s rot %s an %s' % (os.path.basename(p), n, z('m_LocalPosition:'), z('m_LocalRotation:'), tf.get(va, va)))
 
 
 # Messung je fertiger Bewegung auf dem UAL-Geruest (Blick -Y)
