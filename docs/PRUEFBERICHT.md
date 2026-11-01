@@ -25,6 +25,16 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 58 · Auftrag 465 Doppelpack zu 465 und 462.1 (`main` `f26bc1db5`; 01.11., 22:07; Übersicht nach dem Lauf von `zug-index.yml` um 22:03 (`a2c8fd34d`) gegen die Zeit des Commits, der jede Datei anlegte; `seit_text()` und `texte_im_zug()` mit eigenen Eingaben aufgerufen)
+
+**Ergebnis:** 462.1 ist erfüllt. D59.1: `texte_im_zug` zählt Zwischenmeldungen und lässt Werkzeugergebnisse, Metatexte und Helfer aus. Probe mit 3 Texten, davon 2 ohne Kopf, ergibt (3, 2); diese Sitzung ergibt (1, 0). D59.2: Ein Kopf ohne Namen zählt nicht mehr. D59.3: Ohne erkannte Rolle steht kein „<Name>“ mehr im Kopf. Bei 465 rechnet das Werkzeug richtig, wenn die Minute passt: „22:0x“ wird 22:03, ein fehlendes Feld wird 22:03.
+
+**Befunde**
+
+- **D60.1 Im Lauf hat 465 noch keine „x“-Zeit ersetzt:** Alle vier x-Zeiten der Übersicht stehen unverändert da, weil die geschätzte Zeit nicht zur Anlage-Zeit passt. Das Werkzeug ersetzt nur, wenn die Commit-Zeit mit „22:1“ usw. beginnt; sonst bleibt der Text der Datei. 348.12j: Datei „22:1x“, angelegt 22:03; die Übersicht zeigte um 22:05 eine Zeit in der Zukunft. 431b: „21:4x“, angelegt 21:29. Ansehen 348.12: „21:5x“, angelegt 21:49. 447.4: „21:0x“, angelegt 20:51. Bei den anderen zwei „Zu entscheiden“ weicht die Minute ebenfalls ab: 348.12b steht auf 21:00, angelegt 20:58; 461a steht auf 20:56, angelegt 20:57. Ursache ist die geschätzte Uhrzeit in Zeile 1 oder 2 (Bekannte Fehler 1). Das Werkzeug vertraut ihr, statt die Git-Zeit zu nehmen.
+
+**Nicht geprüft:** ob der Lauf auf GitHub die Zeit wirklich aus dem vollen Verlauf holt (es gab keinen Fall, der zur Minute passte); Zählzeilen aus einem echten Stop (in dieser Sitzung gibt es noch keine `~/.bornim-regeltreue.tsv`).
+
 ## Lauf 57 · Auftrag 462 Doppelpack zum Zeitstempel (`main` nach `b851fb635`; 01.11., 20:4x; `name()` aus `neustart-haken.py` mit 14 gebauten Protokollen aufgerufen, Haken mit leerem Protokoll aufgerufen, `zug-haken.py` und eigene Zählzeile gelesen)
 
 **Ergebnis:** Für jede Sitzung, die Ford startet, ist der Kopf richtig. `lauf.py` beginnt jede erste Nachricht mit der Rolle (Z. 471, 491, 526, 597). Erkannt werden „Tom“, „Tom 2“, „Tom 2, weiter“, „Tom, mach …“, „**Jerry** …“, „Spike“ als Textliste und „Perikles – 338.1: …“. Bei „Tom 12 Uhr“ bleibt es richtig bei „Tom“, „Tomaten“ wird nicht erkannt. In dieser Sitzung stand „**Diogenes**“ ab dem ersten Haken.
