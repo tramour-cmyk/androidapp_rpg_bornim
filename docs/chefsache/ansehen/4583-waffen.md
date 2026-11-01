@@ -25,4 +25,6 @@ Nicht in den Paketen: Fackel (Props MegaKit `Torch_Metal`, nicht im Film), Rapie
 
 **Stärkstes Gegenargument:** drei Pakete, drei Stile (Omie mit Bildern und feinen Formen, Anker nur Grundfarben, Avramania Palette); gemischt wirkt die Ausrüstung uneinheitlich. Ausweg: je Waffenart aus einem Paket, möglichst Omie, Rest einheitlich umgefärbt.
 
+**Prüferbefund (17:05, nach dem Versand):** Beschriftung bei allen 62 richtig, nichts flackert, nichts quer. Weil alles auf 1 m gebracht ist, sind Dolch und Großschwert gleich lang; Bücher 1, 2 und Krug 62 sind die größten Dinge im Film und berühren den Titel. Keine Waffen: 57 Rammbock, 58 Mandoline, 61 Schriftrolle, 62 Krug. Anker-Klingen 41–47 und 59 rein weiß überstrahlt; 14, 16, 19, 60 nur dünne Striche. Avramania-Namen nach 18 Zeichen abgeschnitten.
+
 **Zu sagen:** je Gegenstand eine Nummer (z. B. „Streitkolben 31, Morgenstern 30 …“) oder „Omie, wo es geht“.
