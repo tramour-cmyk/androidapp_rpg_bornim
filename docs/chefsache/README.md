@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [461c](entscheiden/461c-widersprueche.md) | **Muss** | B Abläufe | 01.11., 22:33 | Drei Widersprüche, die nur du auflösen kannst | Sokrates |
 | [348.12j](entscheiden/34812j-grak-axt.md) | **Muss** | E Kampf | 01.11., 22:1x | Graks Axt: Kopf oben (wie abgenommen) oder hängend (Grundstand E6)? | Jerry |
 | [431b](entscheiden/431b-ohren-hauer.md) | **Muss** | E Figuren | 01.11., 21:4x | Elfenohren und Hauer: kaufen oder selbst formen? | Tom |
 | [348.12b](entscheiden/34812b-grak-koerper.md) | **Muss** | E Kampf | 01.11., 21:00 | Grak-Film vorab auf seinem alten Körper? | Sokrates |
@@ -252,7 +253,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Format (Muster: „So geht's“ unten): t146-befunde.md: 8 Vorgänge, höchstens 6 je Build (317)
 
-Nicht gestellt: 186.3 (Pruefung), 467 (Team Jerry)
+Nicht gestellt: 186.3 (Pruefung)
 
 Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/4474-lehrmeister-texte.md
 
