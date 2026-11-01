@@ -183,6 +183,11 @@ const SCHILD_PUNKT := Vector3(-0.18, -0.06, -0.35)      # Fessel (Modell-Ursprun
 # darum durch beide Faeuste (links wie der Bogen: innen +z), hoechstens ZWEI_HOECHST Grad von der Achse der rechten Hand.
 const ZWEI_LINKS := Vector3(0.99, -0.09, 0.33)
 const ZWEI_HOECHST := 30.0
+# Lauf 41324326151: ganz durch beide Faeuste (Anteil 1) steht der Stiel steiler, das Ende in 11 von 15 Bildern zwischen den Beinen
+# (vorher 3). Anteil der Drehung zur linken Faust und Verschieben der Axt laengs des Schafts zur Spitze (m: die Faeuste fassen naeher am
+# Stielende) misst tests/tragen_pakete_417.gd in Fassungen nebeneinander, bevor hier ein Wert steht
+var zwei_anteil := 1.0
+var zwei_schieben := 0.0
 # Schwert mit Schild: im Rennen fuehrt die Bewegung die rechte Faust 5 cm durch den rechten Oberschenkel; der Oberarm geht dafuer
 # immer (auch im Gehen, damit beim Wechsel nichts springt) SCHILD_ABSPREIZ Grad nach aussen
 const SCHILD_ABSPREIZ := 9.0
@@ -215,8 +220,9 @@ func _paket(sk: Skeleton3D, ih: int) -> void:
 		if v.length() > 0.08:
 			var dn := v.normalized() * signf(v.dot(d))
 			var w := rad_to_deg(d.angle_to(dn))
-			if w > ZWEI_HOECHST: dn = d.slerp(dn, ZWEI_HOECHST / w).normalized()
-			zwei_winkel = minf(w, ZWEI_HOECHST)
+			var wz := minf(w, ZWEI_HOECHST) * zwei_anteil
+			if w > 1e-3: dn = d.slerp(dn, wz / w).normalized()
+			zwei_winkel = wz
 			d = dn
 	var _mitte := _faust_zu(sk, ih, d)
 	R = hand_rahmen(sk, seite)
@@ -231,7 +237,7 @@ func _paket(sk: Skeleton3D, ih: int) -> void:
 	var x := (G.basis * R.basis.x).normalized()
 	x = (x - dw * x.dot(dw)).normalized()
 	waffe.global_basis = Basis(x, dw, x.cross(dw))
-	waffe.global_position = G * p
+	waffe.global_position = G * p + (dw * zwei_schieben if gang == "axt" else Vector3.ZERO)
 
 # Oberarm um die Vorwaertsachse der Figur nach aussen, die Faust weg vom Bein (SCHILD_ABSPREIZ)
 func _abspreizen(sk: Skeleton3D, ih: int) -> void:

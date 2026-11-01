@@ -6,6 +6,9 @@ extends SceneTree
 const FPS := 30.0
 const INNEN_ERLAUBT := 0.01     # m, wie tragen_417.gd
 const LINKS_ERLAUBT := 0.05     # m: linke Faust neben der Schaftlinie des Zweihaenders
+# Runde 6 (Lauf 41324326151): Zweihaender in Fassungen [Anteil der Drehung zur linken Faust, Verschieben zur Spitze in m]; Fehler zaehlt
+# nur die Fassung, die tragen.gd gerade nimmt, die uebrigen stehen als FASSUNG daneben
+const AXT_FASSUNGEN := [[0.0, 0.0], [0.5, 0.0], [1.0, 0.0], [0.0, 0.15], [0.5, 0.15], [1.0, 0.15], [0.5, 0.25], [1.0, 0.25]]
 
 var fehler := 0
 
@@ -49,8 +52,17 @@ func _initialize() -> void:
 			await process_frame
 			var lang := ap.get_animation(bew).length
 			var n := int(round(lang * FPS))
+			var laeufe := []
 			for t in tl:
-				var tr := t as Tragen
+				if gang == "axt":
+					for fa in AXT_FASSUNGEN: laeufe.append([t, fa])
+				laeufe.append([t, null])
+			for lf in laeufe:
+				var tr := lf[0] as Tragen
+				var fa = lf[1]
+				var a0 := tr.zwei_anteil; var s0 := tr.zwei_schieben
+				if fa != null:
+					tr.zwei_anteil = fa[0]; tr.zwei_schieben = fa[1]
 				var pkt := TragProbe.proben(tr.waffe)
 				var ohne := TragProbe.hand_knochen(sk, tr.seite)
 				if tr.gang == "schildarm": ohne.append("lowerarm_l")   # der Schild liegt am Unterarm an (Riemen)
@@ -87,6 +99,11 @@ func _initialize() -> void:
 				var s := PackedStringArray()
 				for teil in teile.slice(0, 4): s.append("%s %.1f" % [teil, tief[teil] * 100.0])
 				var was := "Schild" if tr.gang == "schildarm" else String(e[2]["MAIN_HAND"]["base"])
+				if fa != null:
+					print("FASSUNG %s Anteil %.1f, verschoben %.2f m: Bilder im Koerper %d von %d, tiefster Punkt %.1f cm (%s), linke Faust %.1f cm, gedreht %.1f Grad" % [bew,
+						fa[0], fa[1], innen, n, tiefst * 100.0, ", ".join(s), links * 100.0, zw])
+					tr.zwei_anteil = a0; tr.zwei_schieben = s0
+					continue
 				print("MESS %s %s %s: naechste Teile (cm) %s; tiefster Punkt %.1f cm; Bilder im Koerper %d von %d%s" % [e[1], was, bew,
 					", ".join(s), tiefst * 100.0, innen, n, ("; linke Faust hoechstens %.1f cm neben dem Schaft, Schaft bis %.1f Grad gegen die rechte Hand gedreht" % [links * 100.0, zw]) if gang == "axt" else ""])
 				# wo an der Waffe (Waffenraum, m; Laenge laeuft auf y) und wann: Klinge, Parierstange, Knauf oder Wurfarm?
