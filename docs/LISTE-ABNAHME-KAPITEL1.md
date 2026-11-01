@@ -4,9 +4,9 @@
 
 **Meilenstein „Kapitel 1 fertig“** = jeder Punkt der Abnahmeliste unten abgehakt; danach **„marktreif“** (338): Kapitel 1 öffentlich im Play Store (Block S). Was unter die Abnahmeliste fällt, ist Muss; Kapitel 2, Berufungen, Gruppenkämpfe, Dungeons erst danach. Abhaken darf nur, wer in der Zeile als Prüfer steht; „Chef“ heißt: erst nach seinem Wort. Liest Ford beim Start (Wochenziel); sonst nur bei Anlass.
 
-## Abnahmeliste Kapitel 1 (418; Entwurf Perikles 31.10., Chef nimmt ab: Chefsache 418)
+## Abnahmeliste Kapitel 1 (418; abgenommen vom Chef 01.11., 09:43, Umfang A mit zwei Zusätzen, Archiv 418)
 
-Zahlen in Klammern = Entscheidung in `DESIGN-SPIELSYSTEM-2-0.md` („E 7“) oder Vorgang. Gilt nur, was entschieden ist; offene Fragen dort (413a) gehen hier ein, sobald entschieden. Wo eine Zahl oder Regel noch nicht stimmt (Prüfbericht Lauf 48, D48.1–D48.4: Startpunkte, Niveau je Kapitel, Liste der 37 je Werdegang), ist der Punkt erst abhakbar, wenn Sokrates sie im Nachschlagewerk (422) bereinigt hat. Termine gibt es keine; Wochenziele nennen Reihenfolge und Schätzung, keine Tage je Punkt.
+Zahlen in Klammern = Entscheidung in `DESIGN-SPIELSYSTEM-2-0.md` („E 7“) oder Vorgang; was gilt, steht im Nachschlagewerk `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md` („NW 5“ = Abschnitt 5; E 84). Gilt nur, was entschieden ist; neue Entscheidungen gehen hier ein. Alle Zahlen sind Startwerte; abhakbar mit Zahlen erst nach der Rechensimulation (444). Termine gibt es keine; Wochenziele nennen Reihenfolge und Schätzung, keine Tage je Punkt.
 
 **T Ohne technische Fehler**
 - [ ] Kein Absturz, kein Hängenbleiben, kein Ruckeln auf den Testgeräten des Chefs (Handy und Tablet, 267); Spielstände halten über Updates.
@@ -26,18 +26,19 @@ Zahlen in Klammern = Entscheidung in `DESIGN-SPIELSYSTEM-2-0.md` („E 7“) ode
 **M Kampfsystem**
 - [ ] MARS und klassischer Kampf (212 A, 249) rund auf den Regeln 2.0: Kampf ohne W20 nach Stufen (E 7), jeder Angriff sichtbar, Ansage harter Schläge, Pechsträhne.
 - [ ] Kampf nie langweilig, echte Wahl (`DESIGN-LEITBILD.md`); Schwierigkeitsgrade (39).
-- [ ] Neue Monsterwerte für Kapitel 1 nach 2.0; Stufenfaktor des Kampfs entschieden (Frage 3, S1 offen).
-- [ ] Ausgleich gemessen, nicht geschätzt: Simulation „Zeit bis Stufe“ und Kapitelsimulation auf den Regeln 2.0; jeder Werdegang schafft die Bosse in vergleichbarem Maß; Zielwert mit dem Chef festlegen (38, bisher je Klasse).
+- [ ] Neue Monsterwerte für Kapitel 1 nach 2.0 auf Rechenmodell D (E 73–75, NW 7).
+- [ ] Ausgleich gemessen, nicht geschätzt: Simulation „Zeit bis Stufe“ und Kapitelsimulation auf den Regeln 2.0 (444); jede Herkunft und der Wanderer schaffen die Bosse in vergleichbarem Maß; Zielwert mit dem Chef festlegen (38).
 
-**G Spielsystem 2.0, Kern in Kapitel 1** (E 60)
-- [ ] Ohne Klassen (E 1): Erschaffung mit sechs Grundwerten ab 1, 18 Punkte, jeder Wert 3 bis 8 (E 6, E 64); Werdegänge als Starthilfe (E 28, E 29, E 45).
-- [ ] Fertigkeiten steigen durch Benutzung (E 2) mit Niveau je Kapitel begrenzt (E 20), am Limit hart mit Puffer (E 44); Prüfregel und Liste (E 59).
-- [ ] Heldenstufe aus Erfahrung (E 16), höchstens 40 % aus Fertigkeiten (E 17); weiche Kapitelgrenze (E 18, E 35); Erfahrungstopf je Gebiet, Wiederkehrer geben kaum Erfahrung, aber Beute (E 19, E 21).
-- [ ] Wege sichtbar, Berufungen erst ab Kapitel 2 (E 51, E 52); Heldenblatt zeigt nur Getanes (E 65).
-- [ ] Jeder Werdegang hat in Kapitel 1 etwas zu tun (Kräuterkundiger und Heiler: Kräuter sammeln; Schmiedegeselle: offen mit G2, Sokrates).
-- [ ] Schleichen mit Schleichtaste und Hinterhalt, Bosse wachsamer (E 55, E 47); Fallen entdecken durch Spähen (E 57), dann entschärfen; Truhen mit Dietrich, Truhen in Häusern der Leute zu (E 55, E 46); schwere Rüstung sperrt Schleichen (E 33); kein Stehlen, kein Barde (E 30, E 31).
+**G Spielsystem 2.0, Kern in Kapitel 1** (E 60; Umfang A, Chef 01.11., 09:43; Ruf, Alchemie als Handwerk, Abnutzung, Angeln, Jagd, Tiere beruhigen erst in späteren Wellen auf sein Wort)
+- [ ] Ohne Klassen (E 1): Erschaffung mit sechs Grundwerten ab 1, 21 Punkte, jeder Wert 3 bis 8 (E 77); fünf Völker mit Bonus, Malus und Merkmal, Volk hebt bis 9, nie unter 3 (E 70, 72, 78); Herkunft freiwillig oder Wanderer, Startfertigkeiten bei 10 (E 68, 69; NW 2).
+- [ ] Fertigkeiten steigen durch Tun, Wert 0–100 in vier Rängen, am Rangende Halt mit kleinem Puffer bis zur Prüfung (E 67, E 44); Kapitel 1 bis Geselle (49) mit Bewährungsproben zum Gesellen (Takt, NW 5); Prüfregel und die 37 (E 59); Hinweis beim Aufstieg, Heldenblatt zeigt nur Getanes (NW 3).
+- [ ] Heldenstufe aus Erfahrung (E 16), höchstens 40 % aus Fertigkeitsaufstiegen (E 17); Kapitelgrenze weich bis zwei Stufen darüber (E 18, E 35); Erfahrungstopf je Gebiet, Wiederkehrer geben kaum Erfahrung, aber Beute (E 19, E 21).
+- [ ] Lehrmeister spricht an, sobald zwei Kernfertigkeiten eines Pfads Geselle sind; Anwärter möglich, Prüfungen erst ab Kapitel 2 (E 63, E 79; Takt NW 5).
+- [ ] Jede Herkunft hat in Kapitel 1 eine Handlung (Chef 01.11., 09:43): Wachsoldat, Jägerkind, Zauberlehrling, Klosterschüler, Herumtreiber im Kampf und mit Schleichen und Spähen; Kräutersammler: Kräuter sammeln und ein Rezept Heiltrank; Schmiedelehrling: Reparieren bei Borin.
+- [ ] Schleichen mit Schleichtaste und Hinterhalt, Bosse wachsamer (E 55, E 47); Spähen durch Verweilen findet Fallen, Kräuter, Truhen, Wahrnehmung verstärkt (E 57, E 83), dann entschärfen; Truhen mit Dietrich, Truhen in Häusern der Leute zu (E 55, E 46); schwere Rüstung sperrt Schleichen, Metall sperrt Evokation, Illusion, Beschwörung (E 33, E 80); kein Stehlen, kein Barde (E 30, E 31).
 - [ ] Kurze Erholung 2 h, Langes Ausruhen 9 h (E 26); Tragkraft mit Nimmersatt-Beutel, darüber langsamer (E 41).
-- [ ] Namen nach dem Glossar, keine SRD-Begriffe im Spiel (E 24, E 25, E 27).
+- [ ] Namen nach dem Glossar, keine SRD-Begriffe im Spiel (E 24, E 25, E 27; NW 12; `regelcheck` zählt die Reste, 446).
+- [ ] **Bauweise für spätere Wellen** (Chef 01.11., 09:43): Leute, Orte und Gegenstände haben beim Bau leere Datenfelder für Ruf, Rezept und Zustand; jede Zahl steht in einer Datendatei, nicht im Code (422, 444).
 
 **W Möglichkeiten des Spielers**
 - [ ] Jeder Ort, jede Hauptquest und Nebenquest, jedes Gespräch, Laden, Anschlagbrett, Tagesablauf, Hilfe aus dem alten Spiel geht in Godot mindestens so (`LISTE-UMZUG-348.md`, 348.9), außer was 2.0 ersetzt.
@@ -64,7 +65,7 @@ Zahlen in Klammern = Entscheidung in `DESIGN-SPIELSYSTEM-2-0.md` („E 7“) ode
 | A Aussehen und Signatur | gelb | Bei dir zum Ansehen, jeweils nur „passt“ oder was anders sein soll: Held im Kampfort wie im Dorf (Film 403; Bewegung „gut“, 23:31), Waffen in der Hand beim Gehen (Probe Stab, Axt, Bogen, 417); zu entscheiden: Aussehen der Völker (430). Innenräume wie alt (399.5) sind in Build 143. Feinschliff der Tuschelinien ruht, bis das Spiel steht (348.13b). |
 | K Klang und Musik | gelb | Tierlaute (401), Blende und Herzschlag vor dem Kampf (402) sind gebaut und kommen mit dem nächsten Build. Musik je Ort und Tageszeit, Schritte je Untergrund, Raumklang: noch nicht begonnen. |
 | M Kampfsystem | gelb | Die Kampfbewegungen des Helden gefallen dir (403); offen aus deinem Film: Wölfe gleiten (438), Neuformation vor dem Tod (439), Wolf stirbt ohne Animation (440), alle bei Jerry. Kampf auf den Regeln 2.0 (Stufen statt W20) beginnt nach 413a. |
-| G Spielsystem 2.0 | gelb | Nachschlagewerk steht (Entscheidungen bis 75); offene Entwürfe bei dir (413a), Umfang für Kapitel 1 bei dir (418: nur Kern oder Kern mit Ruf und Alchemie). Gebaut ist davon noch nichts. |
+| G Spielsystem 2.0 | gelb | Nachschlagewerk gilt (Entscheidungen bis 84, 01.11.); Umfang für Kapitel 1 entschieden: nur der Kern, dazu leere Datenfelder für spätere Wellen und je Herkunft eine Handlung (418, 01.11., 09:43). Rechensimulation läuft (444). Gebaut ist davon noch nichts; der Bau wird mit Wochenziel 2 am Mo 02.11. auf Tom und Jerry verteilt. |
 | W Möglichkeiten des Spielers | gelb | Spielbar: Hauptmenü, Erschaffung, Spielstände, Dorf mit Schenke, Laden, Ältestem und Tempel, Anschlagbrett, Rast, Waldkampf gegen das Wolfsrudel; Laden „Verkaufen“ wird nachgebessert (416.9, Spike, der Zusatzentwickler bei Tom). Englisch durchgehend: offen. |
 | S Store | gelb | Konto und App angelegt, Datenschutzseite online (252). Der Weg zum Store: Gewerbeschein, dann das Repo auf privat stellen (109), dann der Aufruf für die 12 Tester (vorbereitet, 142.3), dann 14 Tage geschlossener Test. Bei dir: Gewerbe-Neuanmeldung korrigieren und absenden (Zu tun 142). |
 **2. Ausgaben**
@@ -125,7 +126,7 @@ Dazu, ohne Vorgang (Perikles vergibt Nummern mit Wochenziel 2): Englisch durchge
 
 ## Wochenziel 2: 02.–08.11. (Perikles, vorab gesetzt 26.10., 17:15 nach der Schätzung 348.14; Montag 02.11. mit der Wochenzählung geprüft)
 
-**Überholt seit 418 (31.10.):** die Tage unten widersprechen „es gibt keinen Termin“ und rechnen mit dem alten System; Perikles setzt Wochenziel 2 am 02.11. neu auf die Abnahmeliste, nach deiner Antwort zu Chefsache 418, mit Reihenfolge und Schätzung statt Tagen.
+**Überholt seit 418 (31.10.):** die Tage unten widersprechen „es gibt keinen Termin“ und rechnen mit dem alten System; Perikles setzt Wochenziel 2 am 02.11. neu auf die Abnahmeliste (Umfang A seit 01.11., 09:43), mit Reihenfolge und Schätzung statt Tagen.
 
 **Umzug fertig zum Durchspielen: jeder Punkt der Checkliste ist bis Mo 02.11. „gebaut“ (hält nur, wenn du etwa 28 Blätter am Tag ansiehst, 373) und bis Di 03.11. von Diogenes gemessen (Hinweis, keine Bedingung für deine Abnahme); die Kerntests laufen als GDScript-Tests grün, der Zufallsspieler spielt Kapitel 1 im neuen Spiel durch; dann spielst du Kapitel 1 in Godot einmal ganz durch, und deine Fehler sind Muss.** Abnahme der Punkte nach deinem Wort, Feinschliff danach. Das Guthaben ab Sa 31.10., 20:00 reicht beim jetzigen Takt bis etwa Mi 04.11.; was dann offen ist, geht nach dem Stillstand ab Sa 07.11., 20:00 weiter. Messen, GDScript-Tests und Zufallsspieler sind nicht geschätzt. Stärkstes Gegenargument: wird es der späte Termin (seit 338a „B“ Di 03.11., früh; dann hält das Wochenziel nicht), bleibt für deine Fehler aus dem Durchspielen kaum Guthaben in dieser Woche.
 
