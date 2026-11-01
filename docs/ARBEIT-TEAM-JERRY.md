@@ -11,7 +11,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 438 | M | **von Sokrates (Chef 31.10., 23:31, Film 403):** Wölfe gleiten (Angriff, Tempo, aneinander vorbei); echte Schritte, Zahlen (Zu 438) | wartet auf Chef: Urteil zu Film r2 und Nachtrag 10:55 (ansehen/438-woelfe), dann Film r3; Chef 11:05 zum Film r2 (Zu 453) | `claude/jerry-438-wolf-kampf` |
-| 453 | M | **von Sokrates (Chef 01.11., 11:05):** Wölfe brauchen Ruhebewegungen: atmen, scharren, umblicken, knurren (Zu 453) | startbar | – |
+| 453 | M | **von Sokrates (Chef 01.11., 11:05):** Wölfe brauchen Ruhebewegungen: atmen, scharren, umblicken, knurren (Zu 453) | in Arbeit bei Tuffy | – |
 | 454 | M | **von Sokrates (Chef 01.11., 11:05):** beim Biss zielt die Achse des Wolfs wohl rechts neben den Helden; erst messen, dann bauen (Zu 453) | startbar | – |
 | 438a | M | Rückfrage: Hinfallen und Aufstehen des Kaufhelden, woher (Chefsache entscheiden/438a) | wartet auf Chef | – |
 | 438c | M | Rückfrage: Größe der Wölfe im Kampf (Prüfer r2: „pferdegroß“; Chefsache entscheiden/438c) | wartet auf Chef | – |
