@@ -8,14 +8,14 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [428](entscheiden/428-bestiarium-hintergrund.md) | **Muss** | C Texte | 01.11. | Hintergrund der Monster: freigeben? | Homer |
-| [430](entscheiden/430-voelker-abnahmelisten.md) | **Muss** | D Design | 01.11. | Wie sehen Elf, Zwerg, Hügelvolk und Orkblütiger aus? | Homer |
+| [422](entscheiden/422-nachschlagewerk.md) | **Muss** | D Design | 01.11. | Spielsystem 2.0: Nachschlagewerk und Bestiarium abnehmen | Sokrates |
 | [443a](entscheiden/443a-ford-namensform.md) | **Muss** | B Abläufe | 01.11. | Gilt die Namensform 436 auch für Ford? | Diogenes |
 | [418](entscheiden/418-abnahmeliste-kapitel1.md) | **Muss** | B Abläufe | 31.10., 21:33 | Abnahmeliste Kapitel 1 nach der neuen Direktive: abnehmen und Umfang von 2.0 festlegen | Perikles |
 | [413a](entscheiden/413a-spielsystem-rueckfragen.md) | **Muss** | D Design | 31.10. | Spielsystem 2.0: offene Entwürfe | Sokrates |
 | [442](entscheiden/442-modell-sitzungen.md) | **Muss** | B Abläufe | 31.10. | Welches Modell läuft in welcher Sitzung? | Sokrates |
 | [416.4a](entscheiden/416.4a-kaufzugang-tom.md) | – | B Umzug | 01.11., 03:10 | Kaufmodelle für Tom: add_repo wird abgelehnt | Ford |
 | [110](entscheiden/110-ford-von-hand-starten.md) | – | B Abläufe | 01.11., 00:10 | Ford bitte von Hand starten (Tiefe 6) | Ford |
+| [432](entscheiden/432-eigenes-volk.md) | Kür | C Texte | 01.11. | Ein eigenes Volk aus Bornim: welcher Weg? | Homer |
 
 ## Zu billigen
 
@@ -51,23 +51,21 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 7, Muss 3, startbar 0
+**Homer** – offen 5, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 430 | M | von Sokrates (Chef 31.10., 22:0x: „Das Design der einzelnen Völker kann aber längst starte | Chef (Datei in der Chefsache) |
-| 428 | M | von Sokrates (Chef 31.10., 21:3x, „bisschen Hintergrundgeschichte vielleicht“): Bestiarium | Chef (Datei in der Chefsache) |
-| 432 | K | von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt | nach dem Meilenstein |
+| 432 | K | von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt | Chef |
 | 423 | M | von Sokrates (Chef 31.10., 21:2x: „irgendwer muss dann auch einfach eine Anleitung schreib | wartet auf Sokrates |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 37, Muss 27, startbar 3
+**Tom** – offen 37, Muss 27, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | wartet auf Homer |
+| 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | startbar |
 | 417 | M | von Sokrates („jetzt“ 31.10., 21:12, Chef: „diese Rückfrage hat auch Priorität“; Prüfauftr | startbar |
 | 425 | M | von Sokrates (Chef 31.10., 21:30, Build 143): Menüs (Menü „System“, Testmenü): in der alte | wartet auf Test (Build) |
 | 416.9 | M | von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“): Laden, Verkaufen, Ansicht „angel | wartet auf Test (Build) |
@@ -188,13 +186,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 32, Muss 24, startbar 10
+**Sokrates** – offen 33, Muss 24, startbar 11
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 432.1 | K | von Homer (Chef 01.11., 09:13: „432 Stellungnahme Sokrates fehlt“): Stellungnahme zu Chefs | startbar |
 | 442 | M | von Chef (31.10., 23:52, „warum ihr alle auf dem kleinen Rechenmodell lauft“): Modellzuord | Chef (Datei in der Chefsache) |
-| 427 | M | von Chef (31.10., 21:3x): Bestiarium LISTE-BESTIARIUM.md | wartet auf Diogenes |
-| 422 | M | von Chef (31.10., 21:2x, „dass es sich liest wie eine gute Anleitung. Und ein Nachschlagew | wartet auf Diogenes |
+| 427 | M | von Chef (31.10., 21:3x): Bestiarium LISTE-BESTIARIUM.md | Chef |
+| 422 | M | von Chef (31.10., 21:2x, „dass es sich liest wie eine gute Anleitung. Und ein Nachschlagew | Chef (Datei in der Chefsache) |
 | 413 | M | von Chef (31.10., 20:1x): Spielsystem 2.0 (DESIGN-SPIELSYSTEM-2-0.md), Meilensteine | Chef |
 | 398 | M | von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr g | wartet auf Perikles |
 | 391 | M | von Chef (28.10., 09:21): Repos dauerhaft ohne Ablehnung | ruht |
