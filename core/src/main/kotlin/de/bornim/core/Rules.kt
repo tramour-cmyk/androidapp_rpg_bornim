@@ -154,7 +154,7 @@ enum class CharClass(
         10, Ability.STR,
         listOf(Ability.STR, Ability.CON, Ability.DEX, Ability.WIS, Ability.CHA, Ability.INT),
         setOf(ArmorCategory.LIGHT, ArmorCategory.MEDIUM, ArmorCategory.HEAVY), true, null,
-        listOf("longsword", "chain_shirt", "shield", "potion", "potion"), 15, false,
+        listOf("longsword", "chain_shirt", "round_shield", "potion", "potion"), 15, false,   // 406: Rundschild (Kaufschild 15, Chef 31.10., 23:22)
     ),
     WIZARD(
         T("Magier", "Wizard"),
@@ -180,7 +180,7 @@ enum class CharClass(
         listOf(Ability.WIS, Ability.CON, Ability.STR, Ability.DEX, Ability.CHA, Ability.INT),
         setOf(ArmorCategory.LIGHT, ArmorCategory.MEDIUM), true,
         setOf("dagger", "handaxe", "mace", "spear", "quarterstaff", "light_crossbow", "shortbow", "wand", "staff"),
-        listOf("quarterstaff", "chain_shirt", "round_shield", "potion"), 15, true,
+        listOf("quarterstaff", "chain_shirt", "shield", "potion"), 15, true,   // 406: Drachenschild als „Schild“ (Kaufschild 2, Chef 31.10., 23:22)
     ),
     ;
 

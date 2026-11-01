@@ -137,7 +137,7 @@ static func blatt(h, zweite = null) -> Dictionary:
 		"sp": h.zp, "skills": faehig, "main": _waffe(h, h.waffe()), "second": _waffe(h, zweite) if zweite != null else null,
 		"off": _waffe(h, h.nebenwaffe(), true) if h.nebenwaffe() != null else null,
 		"con": h.mod("CON"), "prof": h.uebung(), "saves": RETTUNG.get(h.klasse, []),
-		"tenacity": h.standhaft(),
+		"tenacity": h.standhaft(), "schild": String(schild["base"]) if schild != null else "",   # 406: Modell in der Hand (figur.gd)
 		"hits": {"POISON": h.bonus("POISON_HIT"), "BLEED": h.bonus("BLEED_HIT"), "STUN": h.bonus("STUN_HIT")}}
 
 

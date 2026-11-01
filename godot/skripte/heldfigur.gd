@@ -273,8 +273,13 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 		var unten := Vector3(0, y - 0.53, float(r[1]) - 0.03)
 		var hoch := (oben - unten).normalized()
 		var t := Transform3D(Basis(Vector3.LEFT, hoch, Vector3.LEFT.cross(hoch)), (oben + unten) * 0.5)
+		# 406 (Jerry): gewölbte Kaufschilde reichen am Rand hinter die Fessel (Drachenschild 3,8 cm, rund 1,7 cm); so weit weiter
+		# vom Rücken, wie der Rand hinter ihr liegt (die eigenen aus waffen.py sind am Rand flach: 0), sonst ragten Schulter und
+		# Oberarm tiefer hinein als beim alten Schild (gemessen tests/schild_406.gd)
+		var weg := rand_hinten(schild)
+		t.origin += t.basis.z * weg
 		_haenge(m, sk, bi, brust, schild, t, "RueckenSchild")
-		aussen = minf(aussen, (oben.z + unten.z) * 0.5) - 0.10   # Schild mit Buckel (376.1 Lauf 2: bei 7 cm durchdrang der Buckel das Schwert)
+		aussen = minf(aussen, (oben.z + unten.z) * 0.5) - 0.10 - weg   # Schild mit Buckel (376.1 Lauf 2: bei 7 cm durchdrang der Buckel das Schwert)
 	if waffe != "":
 		var lang := waffe in ["quarterstaff", "staff", "spear", "greataxe"]
 		var achse := Vector3(0.42, -1.0, 0.0).normalized() if not lang else Vector3(0.62, -1.0, 0.0).normalized()   # Klinge zur linken Huefte
@@ -300,6 +305,21 @@ static func ruecken(m: Node3D, y0: float, y1: float) -> Array:
 				if absf(p.y - (y0 + 0.1)) < 0.04: unten = minf(unten, p.z)
 	if ganz > 8.0: ganz = -0.15
 	return [oben if oben < 8.0 else ganz, unten if unten < 8.0 else ganz, ganz]
+
+## 406: wie weit der Schild außerhalb der Mitte (mehr als 15 cm seitlich der Fessel) hinter die Fessel reicht (glTF: vorn +z), in m
+static func rand_hinten(was: String) -> float:
+	var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % was)
+	if d == null: return 0.0
+	var h := 0.0
+	for mi in d.find_children("*", "MeshInstance3D", true, false) + ([d] if d is MeshInstance3D else []):
+		var me := (mi as MeshInstance3D).mesh
+		var tr := im_raum(d, mi)
+		for s in me.get_surface_count():
+			for v in me.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]:
+				var p: Vector3 = tr * v
+				if absf(p.x) > 0.15: h = maxf(h, -p.z)
+	d.free()
+	return h
 
 static func _modell(g) -> String:
 	if not g is Dictionary: return ""

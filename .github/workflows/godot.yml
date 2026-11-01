@@ -184,6 +184,13 @@ jobs:
             KAUF=$KAUF OUT=$RUNNER_TEMP/kw timeout 1200 bl/bin/python -I tools/blender348/kaufwolf.py > kaufwolf.log 2>&1 || { tail -60 kaufwolf.log; exit 1; }
             for f in grau dunkel rost asche; do cp $RUNNER_TEMP/kw/kaufwolf-$f.glb $D/kaufwolf-$f.bin; done; cp $RUNNER_TEMP/kw/kaufwolf-info.json $D/
             (cd godot && ls kampf/daten/giant_rat-*.bin kampf/daten/kaufwolf-*.bin > kampf/daten/kauf.txt)
+            # 406 (Chef 31.10., 23:22): Kaufschilde 2 (Kleriker, „shield“) und 15 (Kaempfer, „round_shield“) statt der eigenen aus
+            # waffen.py, im Kampf und unterwegs auf dem Ruecken (daten/waffen); gekauft, also verschluesselt
+            KAUF=$KAUF OUT=$RUNNER_TEMP/ks timeout 600 bl/bin/python -I tools/blender348/kaufschild.py > kaufschild.log 2>&1 || { tail -40 kaufschild.log; exit 1; }
+            grep '^SCHILD' kaufschild.log
+            mkdir -p godot/daten/waffen
+            for w in shield round_shield; do cp $RUNNER_TEMP/ks/$w.glb $D/$w.bin; echo kampf/daten/$w.bin >> $D/kauf.txt
+              cp $RUNNER_TEMP/ks/$w.glb godot/daten/waffen/$w.bin; echo daten/waffen/$w.bin >> godot/daten/kauf.txt; done
           fi
           grep -q '^RUHE aus' rig.log && echo kampf/daten/held.bin >> $D/kauf.txt || true   # 397: Held mit Pro-Ruhe
           ls -l $D | wc -l

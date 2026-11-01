@@ -459,7 +459,9 @@ func _load_model() -> Node3D:
 # Waffe und Schild an den Händen (Modellregel 4): Startausrüstung je Klasse wie Hero.create; die Waffe aus dem Bogen
 # (main.id), sonst die der Klasse. Griff in der Handfläche (held3.py hand(): Handmitte 3,6 cm hinter dem Handgelenk,
 # Unterarmknochen fo-wr 12,1 cm, Finger um die Achse vorn-hinten gekrümmt), also liegt der Griff vorn-hinten in der Hand.
-const OFF_HAND := {"FIGHTER": "shield", "CLERIC": "round_shield"}
+## 406: der Schild, den der Held trägt (aufruf.gd blatt „schild“), sonst der der Startausrüstung (Rules.kt: Kämpfer Rundschild,
+## Kleriker Drachenschild als „Schild“; Kaufschilde 15 und 2, Chef 31.10., 23:22)
+const OFF_HAND := {"FIGHTER": "round_shield", "CLERIC": "shield"}
 const GRIP_CM := 15.7
 const PALM_CM := 2.4
 const CM := 0.01
@@ -472,7 +474,7 @@ func _arm() -> void:
 	var main: String = fighter.hero.main.id if fighter.hero.has("main") and not fighter.hero.main.ranged else ""
 	if main != "":
 		_hold(sk, "R", main)
-	var off: String = OFF_HAND.get(fighter.hero.get("cls", ""), "")
+	var off: String = _schild()
 	if off != "":
 		_hold(sk, "L", off)
 
@@ -504,11 +506,17 @@ func _arm_kauf() -> void:
 	if main != "":
 		var fr := HeldFigur.faust(sk, "r")
 		_hold(sk, "R", main, GRIP_CM * CM, PALM_CM * CM, 1.0, {}, fr)
-	var off: String = OFF_HAND.get(fighter.hero.get("cls", ""), "")
+	var off: String = _schild()
 	if off != "":
 		_hold(sk, "L", off)
 	if anim:
 		_idle()
+
+
+func _schild() -> String:
+	if fighter.hero.has("schild"):
+		return String(fighter.hero["schild"])
+	return OFF_HAND.get(fighter.hero.get("cls", ""), "")
 
 
 ## Goblin, Späher oder (Probe „Schamanen“) Schamane: Kennung der Modelle und der info.json
