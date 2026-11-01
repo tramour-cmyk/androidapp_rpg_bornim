@@ -1,5 +1,7 @@
 # 417 · Tragart je Waffe, Runde 5 · Tom (Team Tom) · 01.11., 16:02
 
+[Film von 01.11., 16:02](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-1602-417-Tom.mp4) (eingetragen von meldung.sh, Tom)
+
 Film per Telegram (16:02), vier Felder: Kämpfer mit Kriegsaxt, mit Langschwert, mit Langschwert und Rundschild, Schurke mit Kurzbogen; je Stehen, Anlaufen, Gehen, Rennen, zurück ins Gehen, Anhalten, von der Seite, im Tempo des Spiels. Noch kein Test-Build; Zweig `claude/tom-417-tragart`.
 
 Was Runde 5 ändert (dein Urteil 13:4x zu Runde 4):
