@@ -42,7 +42,6 @@ func _lauf() -> void:
 		var f: Font = b.get_theme_font("font")
 		var w := f.get_multiline_string_size(b.text, HORIZONTAL_ALIGNMENT_CENTER, b.size.x - 12 * Menue.DP, b.get_theme_font_size("font_size"),
 			-1, TextServer.BREAK_MANDATORY | TextServer.BREAK_WORD_BOUND if b.autowrap_mode != TextServer.AUTOWRAP_OFF else TextServer.BREAK_MANDATORY)
-		if String(b.text).contains("JUNG"): print("JUNG ", w, " ", b.size, " ", b.get_global_rect(), " root ", root.size, " inhalt ", m.inhalt.size)
 		pruefe("Knopftext", w.x <= b.size.x - 12 * Menue.DP + 1 and w.y <= b.size.y, "„%s“ %.0f×%.0f in %.0f×%.0f" % [b.text, w.x, w.y, b.size.x, b.size.y])
 	# Stufe nur einmal als Wert, Seltenheit klein weiter
 	var texte: Array = m.inhalt.find_children("*", "Label", true, false).map(func(l): return String(l.text))
