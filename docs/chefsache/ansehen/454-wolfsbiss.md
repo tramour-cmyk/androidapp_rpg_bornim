@@ -1,5 +1,7 @@
 # 454 · Wolfsbiss: Achse und Schnauze aufs Ziel · Jerry · 01.11., 12:54
 
+[Film von 01.11., 12:55](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-1254-454-Jerry.mp4) (eingetragen von meldung.sh, Jerry)
+
 ![Kontaktblatt: Kämpfer, dann Kleriker gegen das Wolfsrudel, alle 4 s ein Bild](../bilder/454-wolfsbiss.webp)
 
 Film, 44 s am Rechner mit Kaufheld und Kaufwolf, noch kein Build: erst der Kämpfer, dann der Kleriker, je 22 s gegen das Wolfsrudel, Autopilot, Echtzeit.
