@@ -39,7 +39,7 @@ static var renn_lib := {}               # Art -> umgeformtes „Rennen“
 # darum gleitet nichts, held.gd speed_scale bleibt); hub = Anteil, um den sich das Becken ueber seinen Tiefstand hebt. Werte wie
 # Spike am CC0-Helden (geruest.py RENNEN_ARTEN); hier am Kaufkoerper, wie er im Spiel laeuft. Urteil des Chefs: Vorgabe RENNEN.
 const RENNEN_ARTEN := {"heute": {}, "A": {"flug": 2.0, "hub": 0.35}, "B": {"flug": 2.5, "hub": 0.25}}
-const RENNEN := "heute"
+const RENNEN := "A"   # Chef 01.11., 13:1x (Archiv 416.4): „Wir nehmen tatsächlich A“; mit Waffe die Pakete (417)
 
 # Woerter der Erschaffung (376.1; Homer prueft sie, Vorgang 376.1 bei Homer): Gesicht nach den Formen des Kopfblatts (Chef 27.10.,
 # 21:41 „Gefällt mir gut“), Frisur und Bart nach den Netzen des Pakets; Frisuren nach dem Bild (Homer 405, STORY-SPIEL [405.frisur])
