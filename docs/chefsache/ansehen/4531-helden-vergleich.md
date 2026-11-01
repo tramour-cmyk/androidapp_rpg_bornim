@@ -1,5 +1,7 @@
 # 453.1 · Helden im Kampf: Stand Film 403 gegen heute · Tuffy · 01.11., 23:05
 
+[Film von 01.11., 23:03](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-2303-453.1-Tuffy.mp4) (eingetragen von meldung.sh, Tuffy)
+
 Film 44 s am Rechner (Lauf 154, `claude/grundstand-461`), Kämpfer und Kleriker gegen Wölfe, derselbe Kampf (gleiche Würfel) in fünf Fassungen nebeneinander, noch kein Build. Anlass: „die Helden sehe jetzt wieder ‚doof‘ aus. Waren wir da nicht schon weiter???“ (01.11., 19:5x). Seit Film 403 kamen drei Neuerungen dazu; jede Fassung schaltet sie einzeln, damit man sieht, welche schlechter macht:
 
 | Feld | Fassung | Atemschicht (453.1) | Sword-&-Shield-Bewegungen (406) | Signatur (457.2) |
