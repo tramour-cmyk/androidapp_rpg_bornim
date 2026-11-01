@@ -2,7 +2,7 @@
 Sokrates · 01.11., 11:1x · D Design
 
 **Frage:** „Spielsystem 2.0“ ist ein Arbeitstitel. Welcher Name soll es tragen, so wie D&D und das SRD ihre Namen tragen (Chef 01.11., 10:59)?
-**Votum Sokrates:** **Tatwerk** (englisch *Deedwork*), nach der Prüfung auf Marken.
+**Votum Sokrates:** **BRS, Bornimer Regelsystem** (englisch *Bornim Rule System*), nach der Prüfung auf Marken (vorher Tatwerk; geändert nach Vorschlag des Chefs 11:59).
 **Berührt:** Nachschlagewerk, Leitbild Punkt 4, `CLAUDE.md`, Handbuch (423, Homer), später Store-Seite und Webseite.
 
 ## Vorschläge
