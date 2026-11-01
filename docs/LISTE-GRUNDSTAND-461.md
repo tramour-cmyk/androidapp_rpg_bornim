@@ -65,7 +65,8 @@ Chef 01.11., 20:3x: „das mal alles zusammenführt … auf ein Niveau kriegen, 
 | E3 | Nichts durch Körper, Kopf, Kleidung oder Boden, höchstens 2 cm je Bild gemessen (Schild, Schwert, Faust, Stiel, Schulter am Schild) | 438a, 417, 406, 348.12 |
 | E4 | Angriffe und Schildaktionen aus Sword & Shield, auch mit Stab | 406 (20:2x) |
 | E5 | Hinfallen und Aufstehen aus dem Paket der Waffe (gewählt: Hinfallen 1, 11D, 11F; Aufstehen 1, 12B; Taumeln 13); Injured nur ohne Waffe in der Hand | 438a (20:1x) |
-| E6 | Kriegsaxt: Kopf hängt nach unten, Schwerpunkt etwas nach vorn | 417 (11:32) |
+| E6 | Kriegsaxt: Kopf hängt nach unten, Schwerpunkt etwas nach vorn; Zweihänder: beide Fäuste sichtbar um den Stiel, beim Gehen und Rennen | 417 (11:32; 20:4x) |
+| E8 | Schild beim Gehen an der Seite hängend wie im Stand, nicht vom Körper abgespreizt; Einhandwaffe und Bogen wie Runde 5 | 417 (01.11., 20:4x) |
 | E7 | Waffenformen aus dem Bestand nach Stufe, Seltenheit über Material und Zeichen, in unseren Farben | 458.3 (19:5x) |
 
 ## F Kampf
