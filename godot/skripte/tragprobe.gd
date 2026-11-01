@@ -298,6 +298,7 @@ static func abstand(netze: Array, sk: Skeleton3D, ohne: PackedStringArray, w: No
 	var innen := 0
 	var mn := 9.0
 	var schlimm := {}
+	var innen_y := Vector2(INF, -INF)   # 417 Runde 6: von wo bis wo laengs der Waffe (Modell-y, m) sie tiefer als 1 cm im Koerper liegt
 	for q0 in pkt:
 		var q := wt * q0
 		var c := Vector3i((q / ZELLE).floor())
@@ -324,12 +325,14 @@ static func abstand(netze: Array, sk: Skeleton3D, ohne: PackedStringArray, w: No
 		# 417 Runde 6 (Lauf 41320044677: Langschwert und Bogen „-5,0 cm“ im Unterarm, Ort am Griff in der Faust): ohne die Hand hat das
 		# Netz am Handgelenk einen Rand; ein Punkt in der Faust liegt laengs des Arms vor diesem Rand, die Normale dort zeigt quer nach
 		# aussen, das Vorzeichen kippt schon bei kleinstem Winkel. Innen nur, wo der Weg zur Flaeche ueberwiegend gegen die Normale zeigt
-		if d > 1e-4 and (q - bc).dot(nrm) < -INNEN_WINKEL * d and d < TIEF: d = -d; innen += 1
+		if d > 1e-4 and (q - bc).dot(nrm) < -INNEN_WINKEL * d and d < TIEF:
+			d = -d; innen += 1
+			if d < -0.01: innen_y = Vector2(minf(innen_y.x, q0.y), maxf(innen_y.y, q0.y))
 		elif d <= 1e-4 and (q - bc).dot(nrm) < 0.0: innen += 1
 		teile[teil] = minf(float(teile.get(teil, 9.0)), d)
 		if d < mn: schlimm = {"waffe": q0, "welt": q, "punkt": bc, "teil": teil}
 		mn = minf(mn, d)
-	return {"teile": teile, "innen": innen, "min": mn, "schlimm": schlimm}
+	return {"teile": teile, "innen": innen, "min": mn, "schlimm": schlimm, "innen_y": innen_y}
 
 # naechster Punkt des Dreiecks abc zu p als Schwerpunktkoordinaten (Ericson, Real-Time Collision Detection 5.1.5)
 static func _naechst(p: Vector3, a: Vector3, b: Vector3, c: Vector3) -> Vector3:

@@ -60,6 +60,7 @@ func _initialize() -> void:
 				var tiefst := 9.0
 				var links := 0.0
 				var tiefbild := {}
+				var iy := Vector2(INF, -INF)
 				for f in 2 * n:
 					ap.pause()
 					ap.seek(fmod(f / FPS, lang), true)
@@ -68,6 +69,8 @@ func _initialize() -> void:
 					var r := TragProbe.abstand(netze, sk, ohne, tr.waffe, pkt, tr.posen)
 					for teil in r["teile"]: tief[teil] = minf(float(tief.get(teil, 9.0)), float(r["teile"][teil]))
 					if float(r["min"]) < -INNEN_ERLAUBT: innen += 1
+					var ry: Vector2 = r["innen_y"]
+					iy = Vector2(minf(iy.x, ry.x), maxf(iy.y, ry.y))
 					if float(r["min"]) < tiefst and not r["schlimm"].is_empty():
 						tiefbild = {"t": fmod(f / FPS, lang), "teil": r["schlimm"]["teil"], "waffe": r["schlimm"]["waffe"]}
 					tiefst = minf(tiefst, float(r["min"]))
@@ -87,8 +90,8 @@ func _initialize() -> void:
 				# wo an der Waffe (Waffenraum, m; Laenge laeuft auf y) und wann: Klinge, Parierstange, Knauf oder Wurfarm?
 				if not tiefbild.is_empty() and tiefst < 0.0:
 					var wp: Vector3 = tiefbild["waffe"]
-					print("ORT %s %s %s: tiefster Punkt bei %.2f s an %s, Waffe (%.2f, %.2f, %.2f) m" % [e[1], was, bew, tiefbild["t"],
-						tiefbild["teil"], wp.x, wp.y, wp.z])
+					print("ORT %s %s %s: tiefster Punkt bei %.2f s an %s, Waffe (%.2f, %.2f, %.2f) m; tiefer als 1 cm laengs der Waffe y %.2f bis %.2f m" % [e[1], was, bew, tiefbild["t"],
+						tiefbild["teil"], wp.x, wp.y, wp.z, iy.x, iy.y])
 				pruefe(innen == 0, "%s %s %s: in %d Bildern tiefer als %.0f cm im Koerper" % [e[1], was, bew, innen, INNEN_ERLAUBT * 100.0])
 				if gang == "axt": pruefe(links < LINKS_ERLAUBT, "%s %s: linke Faust %.1f cm neben dem Schaft" % [e[1], bew, links * 100.0])
 		w.queue_free()
