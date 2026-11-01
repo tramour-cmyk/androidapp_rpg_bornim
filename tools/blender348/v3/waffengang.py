@@ -56,7 +56,8 @@ for art, (paket, geh, renn) in GAENGE.items():
     print('VORWAERTS %s: %s' % (paket, ', '.join(namen)))
     for n in namen:
         if n in (geh, renn): continue
-        q = next(p for p in alle if os.path.basename(p) == 'Humanoid@%s.fbx' % n)
+        q = next((p for p in alle if os.path.basename(p).lower() == ('humanoid@%s.fbx' % n).lower()), None)
+        if q is None or 'Bazooka' in n: continue   # Lauf 41303965919: beigepacktes Bazooka-Set, Name nicht eindeutig
         ziel = os.path.join(VERGLEICH, '%s__%s.glb' % (art, n))
         subprocess.run([BL, '-I', os.path.join(HIER, 'zauber385.py')], env=dict(os.environ, QUELLE=q, ZIEL=ZIEL, NAME=n, OUT=ziel), capture_output=True, text=True)
         ergebnis['%s__%s' % (art, n)] = {'quelle': os.path.relpath(q, KAUF), 'da': os.path.exists(ziel), 'datei': ziel}
