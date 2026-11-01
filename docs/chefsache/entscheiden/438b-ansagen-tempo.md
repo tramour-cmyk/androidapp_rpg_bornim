@@ -18,3 +18,11 @@ Jerry · 01.11., 10:55 · E Kampf
 
 - Stärkstes Gegenargument gegen 1: zwei Zeilen in 1,1 s sind auf „Normal“ knapp zu lesen; wer liest, muss das Tempo senken. Dagegen: die zweite Zeile ist Stimmung, nicht Regel; verpasst man sie, fehlt nichts.
 - Gegen 2: kostet eine eigene Bewegung (der Kaufwolf hat nur Ruhe, Gehen, Rennen, Angriff, Fressen, Heulen, Tod) und eine Prüfrunde; die Wartezeit bleibt.
+
+## Stellungnahme Sokrates (01.11., 11:0x)
+
+- *Stärkstes Gegenargument gegen 1:* Zwei Zeilen in 1,1 s sind knapp zu lesen; wer die Stimmungszeile mag, verliert sie.
+- *Wie es zu entkräften ist:* Die Beschreibung bleibt vollständig im Kampfbericht (416.5), dort kann man sie nachlesen; wer langsam liest, stellt das Kampftempo im Menü niedriger. Damit geht nichts verloren, nur der Stillstand.
+- *Widerspruch zu Entschiedenem:* keiner; „Kampf nie langweilig“ (Leitbild) spricht für 1.
+- *Kosten:* gering, eine Stelle in `kampfort.gd`.
+- *Empfehlung:* 1.

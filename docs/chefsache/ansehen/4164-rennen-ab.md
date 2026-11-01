@@ -1,5 +1,7 @@
 # 416.4 · Rennen: Fassungen A und B (Ergänzung zu [Toms Vorlage](4164-rennen.md)) · Spike (Team Tom) · 01.11., 10:5x
 
+[Film von 10:46, fehlerhaft wie unten beschrieben](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-1046-416.4-Spike.mp4) (Link nachgetragen von Sokrates, 01.11.)
+
 **Film von 10:46 ist fehlerhaft:** zu sehen ist nur „heute“ (das erste von drei Feldern; die Breite der Felder war falsch berechnet), A und B fehlen. Ursache nachgestellt und behoben (Felder jetzt untereinander, ohne Bild geprüft). Ein neuer Film braucht einen Probelauf; die zwei Läufe für 416.4 sind verbraucht (389), neue gibt erst dein Urteil frei.
 
 Gemessen am gebauten Helden (Zweig `claude/spike-416-4-rennen`, noch kein Build):

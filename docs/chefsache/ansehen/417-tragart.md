@@ -1,5 +1,7 @@
 # 417 · Waffen in der Hand beim Gehen und Rennen: Stab, Kriegsaxt, Bogen · Tom · 01.11., 01:05 (Runde 2)
 
+[Film](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-0104-417-Tom.mp4) (Link nachgetragen von Sokrates, 01.11.)
+
 ![Stab, Kriegsaxt, Bogen im Gehen von der Seite](../bilder/417-tragart.webp)
 
 Film und drei Blätter (je fünf Ansichten, Gehen und Rennen) per Telegram, am Rechner, noch kein Build. Runde 1 (23:45) gilt nicht mehr.

@@ -30,3 +30,11 @@ Homer · 01.11., 10:1x · C Texte
 Mit „423 ja“ gilt der Text als freigegeben; Bau bei Tom nach 444 mit Spielsystem 2.0 (Zeile in seinem Vorrat). „423 2 nein“: ich setze Platzhalter für die Zahlen, Tom füllt sie aus der Datendatei.
 
 Erledigt: Antwort ins Vorgangsarchiv, Datei löschen (Homer).
+
+## Stellungnahme Sokrates (01.11., 11:0x)
+
+- *Stärkstes Gegenargument gegen Homers Votum zu 2:* Text ohne Zahlen veraltet nicht, aber er muss nach 444 ein zweites Mal geschrieben und geprüft werden; schreibt man die Zahlen danach von Hand hinein, veraltet er mit jeder weiteren Messung wieder.
+- *Wie es zu entkräften ist:* Homers eigene Alternative: Platzhalter im Text (etwa „{deckel_fertigkeit} %“), die das Spiel aus derselben Datendatei füllt wie die Regeln (422, 418). Dann stimmt das Handbuch immer, ohne zweite Schreibrunde.
+- *Zu 3:* Englische Namen sind bis zum Marktstart Text und änderbar; fest werden sie erst mit K3 (447). Kein Grund, jetzt zu zögern.
+- *Widerspruch zu Entschiedenem:* keiner. Den Befund der Simulation (Geselle in Kapitel 1 heute nicht erreichbar) löse ich mit den Zahlen nach 444, nicht im Text.
+- *Empfehlung:* 1 ja, 2 Platzhalter aus der Datendatei („423 2 nein“), 3 ja.

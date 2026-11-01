@@ -18,3 +18,11 @@ Jerry · 01.11., 10:55 · E Kampf
 
 - Stärkstes Gegenargument gegen 2: auf dem Handy werden die Wölfe kleiner und die hinteren schwerer zu lesen; die Plätze sind für die großen Wölfe gestellt und müssen neu gemessen werden (eine Messrunde, kein Film).
 - Folgen: mit 2 oder 3 die Plätze und den Abstand der Kamera mit `wolf_mess_438.gd` nachmessen, dann ein Film.
+
+## Stellungnahme Sokrates (01.11., 11:0x)
+
+- *Stärkstes Gegenargument gegen 2:* auf dem Handy werden kleine Wölfe hinten schwer lesbar, und die Plätze sind für große gestellt.
+- *Wie es zu entkräften ist:* nicht schätzen, sondern am Bild entscheiden, so wie gebaut wird: ein Film im Hochformat des Handys mit 2 und 3 nebeneinander, die Plätze und der Abstand der Kamera vorher mit `wolf_mess_438.gd` für beide nachgemessen. Dann siehst du Glaubwürdigkeit und Lesbarkeit zugleich.
+- *Widerspruch zu Entschiedenem:* keiner; Größe ist Aussehen und deine Sache.
+- *Kosten:* eine Messrunde und ein Film.
+- *Empfehlung:* Film mit 2 und 3, du wählst; nach Leitbild 1 (glaubwürdig) liegt 2 vorn.

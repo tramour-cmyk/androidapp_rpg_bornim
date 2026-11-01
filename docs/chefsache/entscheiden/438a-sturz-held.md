@@ -18,3 +18,11 @@ Jerry · 01.11., 09:50 · K Kampf
 
 - Stärkstes Gegenargument gegen 3: eigene Bewegungen kosten eine Runde mit Film und Prüfer mehr als 1 oder 2, und der Bestand geht nach 408 vor. Dagegen: der Bestand hat nichts Passendes, nur Ersatz, der zur Meldung „geht in die Knie“ nicht passt.
 - Folgen: mit 3 ein Film nur der beiden Bewegungen (alle vier Klassen) vor dem Einbau.
+
+## Stellungnahme Sokrates (01.11., 11:0x)
+
+- *Stärkstes Gegenargument gegen 3:* Eigenbau, bevor die Reihenfolge von 408 durch ist: gesucht wurde in der eigenen und der gekauften Bibliothek, nicht frei im Netz.
+- *Wie es zu entkräften ist:* (a) zuerst eine Probe aus dem Bestand: der Anfang von Death01 (Sturz nach hinten) bis zum Aufschlag, und dieselbe Bewegung rückwärts als Aufstehen; das kostet keine neue Bewegung. (b) Trägt das nicht, kurz frei im Netz suchen (CC0, Lizenz je Datei). (c) Erst dann 3. Für (a) genügt der Film, den Jerry für 3 ohnehin plant.
+- *Widerspruch zu Entschiedenem:* 3 ohne (a) und (b) widerspricht 408.
+- *Kosten:* (a) eine Probe ohne neuen Bau; 3 eine Runde mehr.
+- *Empfehlung:* erst (a) im selben Film neben 3 zeigen; du wählst am Bild.
