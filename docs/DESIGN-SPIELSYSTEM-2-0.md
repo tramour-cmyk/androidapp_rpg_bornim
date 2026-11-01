@@ -82,6 +82,14 @@ Ideensammlung, Stand 31.10.2026. Hier schreiben wir alles zusammen, was das Spie
 | 74 | Abwehr im Schaden | Die Schildfertigkeit (und nach Vorschlag ebenso die Rüstungsfertigkeit) erhöht den Schadensabzug: Abzug = Rüstungswert × (1 + Fertigkeit / 100). Der Verteidiger wird seltener getroffen (Trefferchance) und nimmt weniger Schaden. Chef 31.10.2026, 22:2x („Ja, Schildfertigkeit so in den Schadensabzug aufnehmen“). Rüstungsfertigkeit senkt nur den Schaden, nicht die Trefferchance. |
 | 75 | Parieren | Für die Trefferchance zählt als Abwehr der beste von Schild, Ausweichen und halber Fertigkeit der Nahkampfwaffe (nur gegen Nahkampf; gegen Pfeile und Zauber nur Schild und Ausweichen). Riposte bleibt Handlung des Duellanten. Chef 31.10.2026, 22:2x („Parieren so aufnehmen, gefällt mir“). |
 | 76 | Eigenes Profil (S3, Entwurf C) | Das Profil kommt: Taten, Chronik, Ätherdichte, Ruf mit Gedächtnis. Chef 31.10.2026, 23:51 („413 ja, das Profil soll kommen“). Reihenfolge laut Votum Sokrates: Taten und Chronik zuerst, Ätherdichte und Ruf mit Gedächtnis danach (vom Chef nicht gesondert bestätigt). |
+| 77 | Startpunkte (422 a) | 21 Punkte statt 18 (ersetzt die Zahl aus 64): Start 1, danach jeder Wert 3 bis 8, 9 frei. Chef 01.11.2026, 09:48 („422 wie Sokrates“). |
+| 78 | Volk und Spanne (422 b) | Das Volk darf einen Wert auf 9 heben, aber nie unter 3 senken. Chef 01.11.2026, 09:48. |
+| 79 | Pfad (422 c) | „Pfad“ statt „Berufung“. Chef 01.11.2026, 09:48. |
+| 80 | Magie und Rüstung (422 d) | Sperre je Schule für jeden: Evokation, Illusion, Beschwörung nur ohne Metall; Heil- und Schutzmagie auch in Metall; dazu Magier ab Gesellenprüfung ohne Rüstung, Kriegsmagier leichte. Chef 01.11.2026, 09:48. |
+| 81 | Einladung zur Meisterschaft (422 e) | Hauptfertigkeit und Zulieferfertigkeit auf Geselle (Schmieden/Bergbau, Lederarbeit/Jagd, Alchemie/Kräuterkunde, Runenkunde/Bergbau, Kochen/Angeln oder Jagd). Chef 01.11.2026, 09:48. |
+| 82 | Beschwörer (422 f) | Kernfertigkeiten Beschwörung und eine zweite Schule. Chef 01.11.2026, 09:48. |
+| 83 | Fallen entdecken (422 g) | Spähen findet (57), Wahrnehmung verstärkt. Chef 01.11.2026, 09:48. |
+| 84 | Gültige Fassung (422) | Das Nachschlagewerk `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md` gilt; dieses Dokument ist Verlauf. Zahlen erst nach der Rechensimulation 444 (Archiv 422, 444). Chef 01.11.2026, 09:48. |
 
 **Rückfragen zu den Antworten vom 31.10.2026, abends:** R1 gestrichen, R2 und R3 beantwortet (Entscheidungen 33, 36), R4 wird zur Aussprache über die Titel (Abschnitt 8).
 

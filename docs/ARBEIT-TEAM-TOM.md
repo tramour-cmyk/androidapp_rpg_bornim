@@ -2,30 +2,28 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-von Sokrates (Chef 11:27): erst Build 143 und Testbitte, dann Ford-Lauf an, weiter bis Guthaben leer.
-
-**Übergabe (01.11., 01:2x, `session_01Hmoj7A2bL17itQc3EZn1KC`):** 417 Runde 1–2 auf `claude/tom-417-tragart` (Messung `tests/tragen_417.gd`, headless), 425 auf `claude/tom-425-testmenue`, 416.8 auf `claude/tom-416-8-zuwenden`. Nachfolger: Tom – 425 Testmenü Befunde, 417 nach Urteil.
+**Übergabe (01.11., 01:4x, `session_01Hmoj76iHvA7sdceAF7G8xu`):** 425 Befunde behoben (`claude/tom-425-testmenue`), 416.4 Ursache gemessen (`claude/tom-416-4-rennen`), Build 146 (`claude/build-146`: 416.1, 416.2, 416.7, 416.8, 416.9, 399.4, 425, Jerry 416.5, 401, 402, 399.2b; 145 rot, behoben 0856e0945) grün, Testbitte t146 gesendet. Nachfolger: Tom – 417 und 425 nach Urteil, 146 nach Test.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 431 | M | **von Sokrates (Chef 31.10., 22:0x):** Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film, dann Körperbau je Volk | wartet auf Homer (430, Abnahmelisten) | – |
+| 431 | M | **von Sokrates (Chef 31.10., 22:0x):** Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film, dann Körperbau je Volk | gebaut: Probefilm Bibliothek (Grundkörper, Haare drehend, Völkergrößen) im Ablauf tom-probe.yml, Lauf 1 von 2; danach Vorlage | `claude/tom-431-voelker` |
 | 417 | M | **von Sokrates („jetzt“ 31.10., 21:12, Chef: „diese Rückfrage hat auch Priorität“; Prüfauftrag zu 410; 21:27 „so machen“):** Tragart je Waffenklasse (Zu 417), zuerst Stab, Axt, Bogen: Probe Gehen und Rennen, Seite und Porträt; Zahlen (Waffe durch Körper, Abstand), Aussehen urteilt der Chef | Chef: ansehen/417 (Runde 2) | – |
-| 425 | M | **von Sokrates (Chef 31.10., 21:30, Build 143):** Menüs (Menü „System“, Testmenü): in der alten Fassung mit Icons „super klasse“, neu „viel zu viel Text“; alte Menüs möglichst eins zu eins übernehmen, Icons statt Text | Chef: ansehen/425; Befunde behoben 588c3c9ec, neues Bild nach Urteil (389) | – |
-| 416.9 | M | **von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“):** Laden, Verkaufen, Ansicht „angelegt“: alle Ausrüstungsslots anzeigen, auch leere, nicht nur zwei (Chef 22:28: „Lehren“ = die leeren Slots); Vergleichswerte beim Anklicken; nicht tragbare Gegenstände extra ausweisen; bei „neue Menge“ das Icon des Gegenstands dazu | gebaut; Bild beim Chef | – |
-| 416.7 | M | **von Sokrates (Chef 31.10., 20:5x, für den nächsten Build):** am Tresen in Schenke und Laden geht der Aktionsknopf nicht, Kaufen und Kauf mit den zwei NPCs dort nicht möglich; Reichweite erweitern | gebaut: Tresen wie alt (ad3be5952) | – |
-| 416.8 | M | **von Sokrates (Chef 31.10., 20:5x, allgemeiner Hinweis):** NPC dreht sich bei Interaktion zum Helden, nach etwa 10 s ignoriert er ihn wieder und spielt Leerlauf; M (Perikles 31.10., 22:2x: Befund aus dem Test des Chefs, Abnahme T, Direktive „immersiv“) | gebaut: Zuwenden, Zweig claude/tom-416-8-zuwenden (Test zuwenden_4168) | – |
-| 416.1 | M | **von Sokrates (Chef 31.10., 20:4x, Build 143):** Tasten reagieren schlecht (Bartform, Kopfform, Farbe in „Neues Spiel“; „auch in anderen Bereichen“, „grundsätzliches großes Problem“): Ursache nachstellen, überall prüfen | gebaut: Farbfelder, Zurück-Taste (0dce53667) | – |
-| 416.2 | M | **von Sokrates (Chef 31.10., 20:4x):** gegen Dorfbewohner und Tiere laufen: Platzwechsel statt nur Schieben; sie stehen im Weg, teils kein Weiterkommen, vor allem rechts unten bei Feld, Ziege, Hühnern | gebaut: Platzwechsel wie alt (c231f6859) | – |
-| 416.4 | M | **von Sokrates (Chef 31.10., 20:4x):** Rennen des Helden wirkt „als würde er Hochsprung machen“, nicht rennen; Bewegung ändern (Aussehen urteilt der Chef, 373) | frei | – |
-| 399.4 | M | **von Chef (21:4x, Archiv); zurück Chef 31.10., 20:4x:** oben Rand für die Kamera wie alt: im Build 143 fehlt er, Handykamera im Bild (im Kampf gesehen; alle Schirme prüfen) | gebaut: Messung unter Gerät (fccf4b5d8) | – |
+| 425 | M | **von Sokrates (Chef 31.10., 21:30, Build 143):** Menüs (Menü „System“, Testmenü): in der alten Fassung mit Icons „super klasse“, neu „viel zu viel Text“; alte Menüs möglichst eins zu eins übernehmen, Icons statt Text | wartet auf Test: Build 146 (t146) | – |
+| 416.9 | M | **von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“):** Laden, Verkaufen, Ansicht „angelegt“: alle Ausrüstungsslots anzeigen, auch leere, nicht nur zwei (Chef 22:28: „Lehren“ = die leeren Slots); Vergleichswerte beim Anklicken; nicht tragbare Gegenstände extra ausweisen; bei „neue Menge“ das Icon des Gegenstands dazu | wartet auf Test: Build 146 (t146) | – |
+| 416.7 | M | **von Sokrates (Chef 31.10., 20:5x, für den nächsten Build):** am Tresen in Schenke und Laden geht der Aktionsknopf nicht, Kaufen und Kauf mit den zwei NPCs dort nicht möglich; Reichweite erweitern | wartet auf Test: Build 146 (t146) | – |
+| 416.8 | M | **von Sokrates (Chef 31.10., 20:5x, allgemeiner Hinweis):** NPC dreht sich bei Interaktion zum Helden, nach etwa 10 s ignoriert er ihn wieder und spielt Leerlauf; M (Perikles 31.10., 22:2x: Befund aus dem Test des Chefs, Abnahme T, Direktive „immersiv“) | wartet auf Test: Build 146 (t146) | – |
+| 416.1 | M | **von Sokrates (Chef 31.10., 20:4x, Build 143):** Tasten reagieren schlecht (Bartform, Kopfform, Farbe in „Neues Spiel“; „auch in anderen Bereichen“, „grundsätzliches großes Problem“): Ursache nachstellen, überall prüfen | wartet auf Test: Build 146 (t146) | – |
+| 416.2 | M | **von Sokrates (Chef 31.10., 20:4x):** gegen Dorfbewohner und Tiere laufen: Platzwechsel statt nur Schieben; sie stehen im Weg, teils kein Weiterkommen, vor allem rechts unten bei Feld, Ziege, Hühnern | wartet auf Test: Build 146 (t146) | – |
+| 416.4 | M | **von Sokrates (Chef 31.10., 20:4x):** Rennen des Helden wirkt „als würde er Hochsprung machen“, nicht rennen; Bewegung ändern (Aussehen urteilt der Chef, 373) | in Arbeit bei Spike | – |
+| 399.4 | M | **von Chef (21:4x, Archiv); zurück Chef 31.10., 20:4x:** oben Rand für die Kamera wie alt: im Build 143 fehlt er, Handykamera im Bild (im Kampf gesehen; alle Schirme prüfen) | wartet auf Test: Build 146 (t146) | – |
 | 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf | wartet auf Test: Build 143 (t143) | `claude/tom-399-spielfassung` |
 | 410 | M | **von Sokrates (Chef 29.10., 10:52, 11:40; aus 376.1):** Waffen am Körper wegstecken, alle Waffenarten (Zu 410) | ruht: Chef 21:1x will Waffen in der Hand statt auf dem Rücken, Prüfung 417; nichts weiterbauen | `claude/tom-376-1-wegstecken` |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | startbar: Rest in Zu 376.1; Waffen in 417 | `claude/tom-376-1-figuren` |
 | 399.5 | M | **von Chef („jetzt“ 28.10., 21:5x, Archiv):** Innenräume wie alt: Lichtquellen, Licht und Schatten, Einrichtung mit Liebe zum Detail; Fenster und Türen außen wie innen | wartet auf Test: Build 143 (t143) | – |
 | 399.3.1 | M | **von Team Jerry (16:5x):** Klang: Haken in `spiel.gd` (Jerry, `claude/jerry-348-klang`) übernehmen; Menü System: Regler wie SoundSettings über `Klang.stelle` | wartet auf Test: Build 143 (t143) | – |
-| 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | ruht: 385.1 abgenommen (12 Bewegungen auf Kaufkörper, Archiv 28.10., 19:1x); Frage nach weiteren Zauberbewegungen zurückgestellt (Chef 28.10., 12:31); Feuer und Einbau im Kampfort bei Jerry (385.2, 403); Kaufzugang da (Tom 29.10., 11:11) |
+| 385 | M | **von Sokrates („jetzt“ 28.10., 10:00, Archiv):** Zauberer-Set auf Kaufkörper, Film | ruht: 385.1 abgenommen (Archiv 28.10.); weitere Zauberbewegungen zurückgestellt; Feuer, Kampfort bei Jerry (385.2, 403) |
 | 390 | M | **von Perikles:** zwischen Chef-Blättern Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | gebaut: Laden, Rast, Held, Tagesablauf, Gespräche, Englisch (64a6e5a80; Test 390a) | `claude/tom-390-englisch` |
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101 lädt) | `claude/tom-348-12i-verschluesseln` |
 | 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | wartet auf Test: Build 143 (t143) | `claude/tom-348-fundament` |
@@ -51,35 +49,31 @@ von Sokrates (Chef 11:27): erst Build 143 und Testbitte, dann Ford-Lauf an, weit
 ## Einzelheiten
 
 
-- **Zu 425:** Chef 31.10., 22:5x (Archiv): Testmenü mit Icons, Inhalt prüfen. Prüfer 01.11. (Telegram): Bildrate/Standort oben abgeschnitten, Schwert zu klein, Stufe nur unter +1 (MARS doppelt), „Sehr Selten“ (`capitalize`), Knopftext „Wolf mit Jungwölfen“ am Rand abgeschnitten, Reihen 4/3/2.
-- **Zu 399.1, nächster Testbogen** (Tom 29.10., 03:4x; t133, t139 gelöscht, beide durchgefallen, Wortlaut Archiv): offene Zeilen 133.1, 133.2, 133.4–133.6 und aus t139 alles ohne „gut“ neu aufnehmen (Text im Git-Verlauf `t139-spielfassung.md`).
+- **Zu 425:** Chef 31.10., 22:5x (Archiv): Testmenü mit Icons, Inhalt prüfen. Prüferbefunde 01.11. behoben (588c3c9ec), Reihen 4/3/2 als Geschmack in der Chefsache.
+- **Zu 416.4** (Tom 01.11., `rennen_4164.gd`): Rennen = `Jog_Fwd_Loop`, Sprunglauf (Becken 24 cm Hub, 76 % ohne Boden, 5,7 m/s), im Spiel 0,75-fach. `Sprint_Loop` 14 cm, Neigung 39° (Tempo in `held_klassen.py` falsch gemessen: 0,73). Film (Jog, Jog gedämpft, Sprint) braucht Kaufmodelle; `add_repo` abgelehnt.
+- **Zu 416.4, von Sokrates (01.11., 09:4x, Chefsache 416.4a):** Film im Godot-Ablauf auf GitHub bauen (`godot-kampf.yml`, von Hand starten, holt Kaufmodelle mit `KAUF_TOKEN` über `kauf_laden.sh`, wie Jerry Lauf 147), nicht über `add_repo`.
 
 - **Hinweis von Diogenes (374, 29.10.):** Stichprobe 373 28.10.: dritter Probelauf (389 höchstens zwei), Helferbefund vor dem Versand (396: erst senden, Befund danach), je drei Blätter für ein Modell (373 a).
+- **Hinweis von Diogenes (434, 01.11.):** Stichprobe 31.10.: Vorlage 417 (Tragart, Bewegung) ohne Zeile „Bestand geprüft: … genommen/fehlt“ (Blatt, 18d13193f; 377); der Inhalt steht im Blatt („Bibliothek hat kein Gehen mit Waffe“), die Zeile fehlt.
 - **Von Perikles (378):** Stände prüfen, `ARBEIT-PROJEKT.md` Zu 378.
-- **Zu 431, von Homer (01.11.):** Völkerlisten in `LISTE-FIGUREN.md` „Völker“; 431 wartet auf Chef (Chefsache 430), nicht mehr auf Homer.
-- **von Team Jerry (28.10., 22:48), für den nächsten Build:** `jerry-348-kampf` = `jerry-348-klang` 1923456c7 : 399.3 Keuchen, 401 Tierlaute, 399.2 Wolf durch Wolf, System „Kampf“, 399.2b Knurren, 402 Kampfblende mit Herzschlag.
+- **Zu 431, von Homer (01.11.):** Völkerlisten in `LISTE-FIGUREN.md` „Völker“ gebilligt (Chef 01.11., 09:09, „430 ja“); 431 startbar.
 - **Zu 399.1, von Sokrates (Chef 22:0x):** „schönen Blenden, wenn wir Maps wechseln … Gebietskarten und Grundrisse … Einmal ausführlich und … dann kürzer“: `ortsblende.gd` überall prüfen, eigener Punkt im nächsten Testbogen (wie Vorspann mit Klanglogo, nur mit Musik).
 
-- **Zu 399.5, von Sokrates (Chef 10:54, Archiv):** abgenommen, nicht weiter verbessern, keine Ecken; jetzt Build (Guthaben gleich rum).
 - **Zu 399.1, von Sokrates (Chef 11:10, Archiv „399.1, Menü Ausrüstung“):** passt; Held nie abgeschnitten, gleich groß wie alt; Ausrüstung wie alt (antippen, Liste, Vergleichswerte, Bilder); Reitersymbol: Schwert klarer durch den Schild.
 - **Zu 399.5** (Tom 29.10., 04:2x): `raum.py`, `raumlicht.gd`, `licht.gd`; Laufskript `raeume_` in `tools/pruef348`, `NACHTSTUFEN`, `KERZENPROBE=1` (`kerzen_mass.py`); alte Bilder `tools/t bild` (kein Probelauf). Offen: Tempel tags 44 zu alt 51.
-- **Zu 410, von Sokrates (Chef 10:52, Archiv 376.1):** Rückenlösung ruht seit 31.10. (Zu 417); Befunde 11:40 im Archiv.
 - **Zu 417, von Sokrates (Chef 31.10., 21:1x):** „von der Seite … schweben die Waffen“; lassen sie sich in der Hand tragen, „dann soll er es in der Hand behalten … schenken wir uns das Wegstecken. Das war ja nur eine Notlösung im alten System“; „Wenn wir unsere Waffen einfach tragen können. Beim Rennen. Und beim Gehen.“ (21:12). Bestand (Sokrates): Waffe am Handknochen im Kampf (`kampf/figur.gd`), Fackel bleibt beim Gehen in der Hand (`held.gd`, `_Fackel`), Armschwung 0,6. Tragart je Waffenklasse (Chef 21:17: technisch entscheidet ihr, es muss stimmig sein): Vorschlag `ROLLE-BERATUNG.md` „Tragart“; zuerst Stab, Axt, Bogen.
-- **Zu 411, von Chef an Tom (29.10., 11:12):** 411 Frisuren abgenommen (Archiv). **Zu 410, 11:17:** „bedenke halt alle Ausrüstungsgegenstände … auch eine Axt … muss ja theoretisch dann irgendwo weggesteckt werden“.
+- **Zu 410, Chef an Tom (29.10., 11:17):** „bedenke halt alle Ausrüstungsgegenstände … auch eine Axt … muss ja theoretisch dann irgendwo weggesteckt werden“.
 - **von Homer (409, 31.10.):** zu 376.1 Frisurwörter `[409.frisur]` in `STORY-SPIEL.md` in WORTE übernehmen.
 - **Zu 376.1, Technik** (Verlauf in Git): UAL Pro ohne Stich, Schildabwehr, gehaltenes Ausholen. `held_klassen.py` → `held_<KLASSE>.glb`; Godot `heldfigur.gd`, Test `held_klassen_376.gd`. Offen: Frauen, Völkerkörper, Statur, Kampfort (403), Tracht nachts.
 - **Zu 348.13** (Tom, Verlauf in Git): **Chef 20:24:** „nicht vergessen, dass wir zoomen können und insofern näher ran (mehr Details) und weiter weg“. Rechner `--tusche=<o>`, messen `tools/pruef348/tusche_breite.py`; Schalter und Offenes in Git (8523fbca6).
 - **Zu 348.6, Kampf** (Tom 27.10.): Werkzeuge `v3/LIESMICH.md`. **An Jerry, `figur.gd`:** Ruhe `Kampfstehen`; Waffe nach `faust_R`; `_guard` fängt nur `upperarm_*`; `Stich`, `Abwehr` ungespielt.
-- **Zu 348.6, Kopf, Hände, Glanz** (Tom, bis 54417f926, 1a75b7914; Einzelheiten im Git-Verlauf dieser Zeile): Held mit Helm ohne Ohren; offene Helferbefunde ruhen bis Urteil 376.1.
 
 - **Zu 348.6 (Chefrunde 25.10., Archiv):** Grundansicht wie alt (`Kamera.NORD` 45), Held südlich der Häuser; `licht.gd` auf Homers Tafel eichen. **Chef 21:33:** Leute tragen Speer, Stab, Hammer, Krug wie alt (`MapFolk.kt` `carry`).
 - **Zu 348.6, Urteil Chef 12:11** (Archiv): „echt stark“. Offen (Runde 11): Büsche über Dachfirsten, Laternenpfahl am Steg, Lichtstreifen nachts, Korn „wie eine Gestrüppwiese“, Schatten ohne Werfer, Flimmern; Südrand ohne Abschluss.
 - **Zu 348.6, CC0 offen (362, mittel):** Schild von der Seite mit Spalt, wie Flosse (kein Gurt); Umhang beim Rennen steif; Flamme der Fackel vor dem Gesicht (alt); Gwennas Unterarm, Morwen 90° (Homer). Gering: Kettenhemd am Hals, Osric dünner Hals, Gwenna nachts.
 - **Zu 348.6, Leute Runde 4b–4d** (Tom 31–33; Git): **An Jerry:** `spear` (Jorin), `maul` (Borin), `longbow` (Garrick) in `waffen.py`; Prüfblatt `pb_alle.sh`.
-- **Zu 348.6, Leute** (Tom 23, c94bb4067): `held3.py` mit `FIGUR=<kennung>` aus `leute.json`; Einzelheiten im Git-Verlauf dieser Zeile.
 - **Zu 348.6, Dorf:** Helferreste Runden 6–12 nur auf Wort des Chefs (Git). **376 ja** (12:42, Archiv): Häuser 3–8° drehen (`c2348f92e`, `HAUS_DREH`); Probehaus `medieval-village-megakit` (CC0; Teile im Git-Verlauf dieser Zeile).
 - **Zu 348.6, Held:** Chef 25.10. „völlige Klone“, 28.10. vier Klassen, Rücken (`LISTE-UMZUG-348.md` Held). Jerry (Zu 348.7): Heldin = Söldner, Magier mit Schild, Speer, ohne Hieb.
-- **Zu 348.6, Testbitte:** Dorftiere: Chef 19:09 (UMZUG). Tiere `godot/tiere/<name>.glb` + `-info.json`, Knopf „Tiere“ (Chef 16:52: bleiben im Dorf).
 - **Zu 348.6** (Tom 25.10., 02:17, 4ff8dbfc2): Bestand und Lauf am Rechner in `godot/LIESMICH.md` (Godot `~/godot`, `--bilder=<ordner>`, Artefakt `bornim-godot-bilder`); alte Bilder `tools/t bild KARTENZOOM=1 …` (Befehl im Git-Verlauf dieser Datei), Blatt `tools/vgl348.py`.
   - **Chef 18:06/18:20 (Dorf-APK):** Wortlaut `LISTE-UMZUG-348.md` „Urteil Chef Dorf-APK“ (Runde 4). Offen: Gesicht flach, „Bornim“ unleserlich.
 - **Zu 348.6, Häuser und Dinge (Chef 22:14, 23:48, 00:07; Archiv):** keine 1:1-Kopie, keine Ziegelläufe. `DINGE=0` ohne Dinge. Rechner: `rechner.sh`, `PROBE=348.6` mit `haeuser.sh` (Aufruf im Git-Verlauf dieser Zeile). Offen: Felsen oliv statt grau.

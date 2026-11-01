@@ -13,3 +13,5 @@ Stand: Ford-Sitzung `session_01Hmoj77RMy1UJJcbtymKPss`, Uhr `trig_019KHsKov6qePq
 - *Widerspruch zu Entschiedenem:* keiner (`LISTE-BETRIEB.md` „Tiefe“, 110). Der Sache nach ist es ein Handgriff, gehört also eher unter „Zu tun“ als unter „Zu entscheiden“; das ändert Ford, nicht diese Datei.
 - *Kosten:* eine frische Sitzung; der alte Ford übergibt und wird archiviert (Archivregel), keine Doppelbesetzung.
 - *Empfehlung:* ja, beim nächsten Blick am Morgen, nicht eigens nachts.
+
+**Nachtrag Sokrates (01.11., 09:4x, Lösung zum Gegenargument, 445):** Das Gegenargument war der Handgriff zur Unzeit. Entkräftet: die Bitte kommt ab Tiefe 6, und bis Tiefe 8 läuft alles weiter; Ford fragt künftig nur noch in der Morgenmeldung, nie nachts, und du startest ihn beim ersten Blick. Empfehlung bleibt ja.
