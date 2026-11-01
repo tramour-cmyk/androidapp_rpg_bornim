@@ -26,13 +26,14 @@ const KNOCHEN := [["spine_02", "zurück", 0.7], ["spine_03", "zurück", 1.1], ["
 ## 453.1 (Chef 01.11., 19:5x: „der näher am Wolf steht, bei dem ist die Atmung aber fast nicht mehr zu erkennen, deswegen etwas
 ## deutlicher“): der vordere Held steht weiter von der Kampfkamera (kampfort.gd _stand: vorn = weiter weg), sein Atem ist im Bild
 ## kleiner. Der Ausschlag wächst darum mit dem Abstand zur Kamera gegen den nächsten atmenden Helden (im Bild gleich groß),
-## höchstens SICHT_MAX, weich über SICHT_S
+## höchstens SICHT_MAX, weich über SICHT_S. Nur im Kampfort (figur.gd setzt ausgleich); unterwegs (Gebiet.atem_an, Tom) wie bisher
 const GRUPPE := "atem_held"
 const SICHT_MAX := 1.6
 const SICHT_S := 0.8
 
 var takt := RUHE_S
 var sicht := 1.0          # Ausgleich nach Kameraabstand, 1 = nächster Held
+var ausgleich := false    # nur im Kampfort
 var phase := 0.0          # 0..1 im Atemzug
 var anstrengung := 0.0    # 0..1
 var tiefe := 0.0          # zuletzt angewandte Einatmung 0..1 mal Tiefe (Prüflauf)
@@ -48,7 +49,8 @@ func eigen(seed: int) -> void:
 
 
 func _enter_tree() -> void:
-	add_to_group(GRUPPE)
+	if ausgleich:
+		add_to_group(GRUPPE)
 
 
 ## Abstand zur Kamera gegen den nächsten atmenden Helden: d / d_min, 1 .. SICHT_MAX
@@ -97,7 +99,8 @@ func _process_modification_with_delta(delta: float) -> void:
 	if _idx.is_empty():
 		for k in KNOCHEN:
 			_idx.append(sk.find_bone(k[0]))
-	sicht = lerpf(sicht, _sicht_jetzt(sk), 1.0 - exp(-dt / SICHT_S))
+	if ausgleich:
+		sicht = lerpf(sicht, _sicht_jetzt(sk), 1.0 - exp(-dt / SICHT_S))
 	var tief := (1.0 + TIEFER * anstrengung) * sicht
 	tiefe = welle(phase) * tief
 	if tiefe < 0.0005:

@@ -887,6 +887,7 @@ func _atem_an() -> void:
 	atem = preload("res://kampf/atem.gd").new()
 	atem.name = "Atem"
 	atem.eigen(hash(String(fighter.id)))
+	atem.ausgleich = true     # 453.1 (Chef 19:5x): der fernere Held atmet im Bild so deutlich wie der nähere
 	sk.add_child(atem)
 
 
