@@ -51,7 +51,7 @@ Chef 01.11., 20:3x: „das mal alles zusammenführt … auf ein Niveau kriegen, 
 | D2 | Rennen ohne Waffe Fassung A; mit Waffe Gehen und Rennen aus dem Waffenpaket, nie von Hand gestellt | 416.4, 348.12c, 417 (01.11.) | ja |
 | D3 | Gehen langsamer als in Runde 4 (Zahl schlägt Tom vor), Oberkörper aufrecht, nicht vorgeneigt; kein Schweben, kein Staksen, kein Hoppeln | 417 (12:21, 13:4x; Nachtrag Archiv 20:4x), 406 (20:2x) | – |
 | D4 | Ortswechsel immer mit Laufbewegung, nie geschoben; Füße gleiten nicht | 348.12 (28.10.), 438 (31.10.) | ja |
-| D5 | Boss schreitet statt zu sprinten | 348.12 (29.10.) | – |
+| D5 | Boss schreitet statt zu sprinten, beim Ortswechsel; nicht beim Ausweichen (F5) | 348.12 (29.10.; 01.11., 22:45) | – |
 | D6 | Figuren gehen nicht durcheinander (Wolf durch Wolf) | Test 133 (28.10.) | ja |
 
 ## E Waffe und Schild
@@ -75,7 +75,7 @@ Chef 01.11., 20:3x: „das mal alles zusammenführt … auf ein Niveau kriegen, 
 | F2 | Biss und Hieb treffen das Ziel | 454, 348.12 (28.10.) | ja |
 | F3 | Reihenfolge Angriff, Treffer, Tod, Neuformation | 439 (31.10.) | ja |
 | F4 | Tod sichtbar als Zusammenbruch, für alle (Helden, Gegner, Tiere): zusammenbrechen, kurz liegen, dann ausblenden, nicht zu schnell weg | 440 (31.10.), 348.12 (28.10.), 461c (01.11., 22:35) | ja |
-| F5 | Ausweichen mit Ortswechsel | 348.12f (27.10.) | ja |
+| F5 | Ausweichen mit Ortswechsel: rasch zur Seite oder zurück, nur auf einen Angriff hin, dann zurück auf den Platz | 348.12f (27.10.), 348.12 (01.11., 22:45) | ja |
 | F6 | Zauber: der Kegel kommt nicht aus dem Körper des Helden (Seitenschritt; ebenso Schüsse aus der zweiten Reihe); Arkanpfeil (früher „Magisches Geschoss“, BRS 12) ohne Schritt, durch den Helden abgenommen | 348.7b (27.10., 19:49; 28.10., 10:43, 15:28) | ja |
 
 ## G Film und Vorlage
