@@ -627,7 +627,7 @@ func _bilanz_r2() -> void:
 			continue
 		var best := 9999
 		for id in anim_ab:
-			for a in ["Sturz", "Treffer"]:
+			for a in ["Sturz", "Treffer", "SS_GetHitHeavyFront", "SS_GetHitLightFront"]:     # 406: mit Schild der Treffer des Satzes
 				for b in anim_ab[id].get(a, []):
 					if absi(b - z[0]) < absi(best):
 						best = b - z[0]
