@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [438a](entscheiden/438a-sturz-held.md) | **Muss** | E Kampf | 01.11., 09:50 | Hinfallen und Aufstehen des gekauften Helden | Jerry |
-| [444a](entscheiden/444a-simulator-main.md) | **Muss** | E Kampf | 01.11., 09:48 | Werkzeug der Simulation 2.0 ohne Gerätetest auf `main` | Tuffy (Team Jerry) |
 | [423](entscheiden/423-handbuch.md) | **Muss** | C Texte | 01.11. | Spielerhandbuch Spielsystem 2.0: Entwurf zum Lesen, drei Fragen | Homer |
 | [447](entscheiden/447-meilensteine.md) | **Muss** | B Abläufe | 01.11. | Meilensteine: eine Liste statt zwei | Sokrates |
 | [416.4a](entscheiden/416.4a-kaufzugang-tom.md) | – | B Umzug | 01.11., 03:10 | Kaufmodelle für Tom: add_repo wird abgelehnt | Ford |
@@ -25,7 +24,9 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [376.1](ansehen/3761-heldin.md) | Heldin: Frauentrachten der Bibliothek | Tom | 01.11., 10:50 |
 | [403](ansehen/403-kampfheld.md) | Held im Kampfort wie im Dorf | Jerry | 31.10., 22:45 |
+| [416.4](ansehen/4164-rennen-ab.md) | Rennen: Fassungen A und B (Ergänzung zu [Toms Vorlage](4164-rennen.md)) | – | 01.11., 10:46 |
 | [416.4](ansehen/4164-rennen.md) | Rennen ohne „Hochsprung“: drei Fassungen | Tom | 01.11., 10:30 |
 | [416.9](ansehen/4169-laden.md) | Laden: alle Plätze bei „Angelegt“, nicht Tragbares, Vergleich, Bild bei Menge | – | 01.11., 00:23 |
 | [417](ansehen/417-tragart.md) | Waffen in der Hand beim Gehen und Rennen: Stab, Kriegsaxt, Bogen | Tom | 01.11., 01:05 |
@@ -77,7 +78,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 399.4 | M | von Chef (21:4x, Archiv); zurück Chef 31.10., 20:4x: oben Rand für die Kamera wie alt: im | wartet auf Test (Build) |
 | 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf | wartet auf Test (Build) |
 | 410 | M | von Sokrates (Chef 29.10., 10:52, 11:40; aus 376.1): Waffen am Körper wegstecken, alle Waf | ruht |
-| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | wartet auf Test/Build (gebaut) |
+| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | Chef |
 | 399.5 | M | von Chef („jetzt“ 28.10., 21:5x, Archiv): Innenräume wie alt: Lichtquellen, Licht und Scha | wartet auf Test (Build) |
 | 399.3.1 | M | von Team Jerry (16:5x): Klang: Haken in spiel.gd (Jerry, claude/jerry-348-klang) übernehme | wartet auf Test (Build) |
 | 385 | M | von Sokrates („jetzt“ 28.10., 10:00, Archiv): Zauberer-Set auf Kaufkörper, Film | ruht |
