@@ -15,4 +15,6 @@ Sokrates · 01.11., 22:47 · E Kampf
 
 **Stärkstes Gegenargument:** noch ein Lauf für Grak, nach dem dritten und dem Filmlauf. **Entkräftet:** der Fehler ist eine Ursache für alle künftigen Kampfort-Filme (Grak, Kobold, Zombie, 460 Kamerafahrten), einmal behoben, nicht je Film.
 
-**Zu sagen:** „348.12k ja“ (beheben, ein Lauf) und „461a ja“, oder was anders sein soll.
+**Entschieden (Vorentscheid Sokrates, 01.11., 22:5x; Chef 22:58: „Du bist Chef im Ring und Nummer 1.“):** ja: ein Ablauf für alle Kampfort-Filme, ohne Kaufheld Abbruch; dann ein Lauf mit Ausweichen nach Urteil 22:45; Grak bleibt im Film auf altem Körper nur, wenn 348.12b noch offen ist, dann als Verstoß B2 in der Vorlage genannt. **Umgesetzt:** Archiv 348.12k, Auftrag Jerry. **Rückbau:** Abläufe getrennt lassen. **Kosten:** ein Lauf (etwa 1–2 $).
+
+**Zu sagen:** „348.12k gebilligt“ oder „zurück“.

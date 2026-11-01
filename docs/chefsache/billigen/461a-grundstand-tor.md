@@ -20,4 +20,6 @@ Perikles · 01.11., 20:56 · B Abläufe
 - „ja“: Perikles schreibt den Ablauf in Prüftreppe 4 und `ROLLE-ENTWICKLUNG.md` (Prüfung der Punkte vor dem Versand, Ausnahme zu 396) und in Diogenes' Zählung 373.
 - „nein“: bleibt wie jetzt, Befunde kommen nach dem Film.
 
-**Zu sagen:** „461a ja“ oder „461a nein“.
+**Entschieden (Vorentscheid Sokrates, 01.11., 22:5x; Chef 22:58: „Ich gehe jetzt ins Bett. Du bist Chef im Ring und Nummer 1.“):** ja, wie Votum Perikles. **Umgesetzt:** Archiv 461a; Bau Perikles (Vorrat). **Rückbau:** Tor wieder aussetzen, Befunde nach dem Film (396). **Kosten:** keine eigenen.
+
+**Zu sagen:** „461a gebilligt“ oder „461a zurück“.

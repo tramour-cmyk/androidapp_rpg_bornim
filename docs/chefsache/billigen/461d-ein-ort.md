@@ -21,4 +21,6 @@ Sokrates · 01.11., 22:49 · B Abläufe
 
 **Folgerungen:** „ja“: Perikles sortiert ein (statt Umbenennung), Homer prüft die Stil-Punkte; „nein“: Umbenennung wie 22:48.
 
-**Zu sagen:** „461d einsortieren“ oder „461d umbenennen“.
+**Entschieden (Vorentscheid Sokrates, 01.11., 22:5x; Chef 22:58: „Du bist Chef im Ring und Nummer 1.“):** einsortieren statt umbenennen. **Umgesetzt:** Archiv 461d, Auftrag Perikles. **Rückbau:** Liste wiederherstellen (Git) und umbenennen wie 22:48. **Kosten:** eine Sitzung Perikles.
+
+**Zu sagen:** „461d gebilligt“ oder „zurück“.
