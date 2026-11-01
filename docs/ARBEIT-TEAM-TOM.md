@@ -2,14 +2,15 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (01.11., 11:1x, `session_01Hmoj75aSrEfcUgJK1TdtXF`):** Chef 10:54 „Binde alle Repos ein …“: `bornim-kaufmodelle` eingebunden (Eingang Ford); Pakete als Release-Anhang holt nur ein Ablauf. 406 an Jerry zurück, mein Stand `claude/tom-348-406-schild` (e7cf1df0f). Nachfolger: Tom – 431, 416.4, 376.1, 417, 425 nach Urteil, 146 nach Test.
+**Übergabe (01.11., 12:3x, `session_01Hmoj793shiZHbpTprrFuEf`):** 417 Runde 3 vorgelegt; 431 Völkerkörper (`voelker.py`, Film im Spiel `voelkerprobe.gd`, `tom-probe-431.yml`) gebaut, Lauf nach 431a. Nachfolger: Tom – 416.4, 376.1, 455.1, 417 und 431 nach Urteil.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 431 | M | **von Sokrates (Chef 31.10., 22:0x):** Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film, dann Körperbau je Volk | in Arbeit: Runde 3 Völkerkörper gemessen (voelker.py), Film 431v Lauf 1 von 2 | `claude/tom-431-voelker` |
-| 417 | M | **von Sokrates („jetzt“ 31.10., 21:12, Chef: „diese Rückfrage hat auch Priorität“; Prüfauftrag zu 410; 21:27 „so machen“):** Tragart je Waffenklasse (Zu 417), zuerst Stab, Axt, Bogen: Probe Gehen und Rennen, Seite und Porträt; Zahlen (Waffe durch Körper, Abstand), Aussehen urteilt der Chef | wartet auf Chef: ansehen/417 Runde 3 (Axt A oder B) | `claude/tom-417-tragart` |
+| 431 | M | **von Sokrates (Chef 31.10., 22:0x):** Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film, dann Körperbau je Volk | wartet auf Chef: entscheiden/431a (dritter Lauf, Film im Spiel-Look gebaut) | `claude/tom-431-voelker` |
+| 431a | M | **von Tom (01.11.):** Rückfrage: dritten Probelauf für 431 freigeben (389) | wartet auf Chef: entscheiden/431a | – |
+| 417 | M | **von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“):** Tragart je Waffenklasse (Zu 417), zuerst Stab, Axt, Bogen; Zahlen messen, Aussehen urteilt der Chef | wartet auf Chef: ansehen/417 Runde 3 (Axt A oder B) | `claude/tom-417-tragart` |
 | 425 | M | **von Sokrates (Chef 31.10., 21:30, Build 143):** Menüs (Menü „System“, Testmenü): in der alten Fassung mit Icons „super klasse“, neu „viel zu viel Text“; alte Menüs möglichst eins zu eins übernehmen, Icons statt Text | gebaut, fährt im nächsten Build | `claude/spike-425-testmenue` |
 | 416.9 | M | **von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“):** Laden, Verkaufen, „angelegt“ mit allen Plätzen, Vergleichswerte, nicht Tragbares, Icon bei Menge | startbar: nachbessern (Archiv 416.9, 01.11.): Leiste fest, Leerzeile weg, Urteil bleiben, dazu Vergleich wie alt | – |
 | 416.7 | M | **von Sokrates (Chef 31.10., 20:5x, für den nächsten Build):** am Tresen in Schenke und Laden geht der Aktionsknopf nicht, Kaufen und Kauf mit den zwei NPCs dort nicht möglich; Reichweite erweitern | wartet auf Test: Build 146 (t146) | – |
@@ -55,8 +56,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 416.4** (Tom, Spike 01.11.): Ursache Takt: `Jog_Fwd_Loop` auf unserem Helden 1,7 Schritte/s zu 2,5 m, Becken 22 cm; Sprint 9 m/s (0,48-fach). Spike (`claude/spike-416-4-rennen`): `geruest.py` `flug`, `hub`, `RENNEN_ART=heute|A|B`, `rennen_4164.gd` am Ballen, lokal ohne Kaufmodelle; nach Urteil Vorgabe in `RENNEN_ARTEN`. Filme mit Kauf: `tom-probe.yml`, `godot/probe/drehfilm.gd`, Artefakt über `api.github.com/…/actions/artifacts/<id>/zip`.
 
 - **Hinweis von Diogenes (374, 29.10.):** Stichprobe 373 28.10.: dritter Probelauf (389 höchstens zwei), Helferbefund vor dem Versand (396: erst senden, Befund danach), je drei Blätter für ein Modell (373 a).
-- **Hinweis von Diogenes (434, 01.11.):** Stichprobe 31.10.: Vorlage 417 ohne Zeile „Bestand geprüft: … genommen/fehlt“ (377). Bestätigt (Tom 01.11.): ab 431 steht die Zeile in jeder Vorlage.
-- **Hinweis von Sokrates (01.11., 11:4x, Chef fragte 11:45 nach der Signatur):** Figurenproben 376.1, 431 „ohne Toon-Licht und Tusche“ widersprechen „Bekannte Fehler“ 3 (Probe wie gebaut); ab 455.1, 455.2 und nächster Runde 431 mit Toon-Licht, Tusche nach Licht, Schatten wie im Spiel. 348.13 steht „wartet auf Jerry“, Jerry hat 348.13a gebaut: Stand prüfen.
+- **Hinweis von Sokrates (01.11., 11:4x):** Figurenproben mit Toon-Licht, Tusche nach Licht, Schatten wie im Spiel (Bekannte Fehler 3), ab 455.1, 455.2, 431 (umgesetzt: `voelkerprobe.gd`). 348.13 steht „wartet auf Jerry“, Jerry hat 348.13a gebaut: Stand prüfen.
 - **Hinweis von Sokrates (01.11., 11:5x, 438a):** `LISTE-BESTAND.md` führt das Wizard-Set noch als „Übertragung ungeprüft (Tom, 385)“, seit 385 (28.10.) geht sie; darum suchte Jerry für Sturz und Aufstehen nur in der UAL. Zeile berichtigen.
 - **von Jerry (406, 01.11., 11:4x):** `heldfigur.gd` `bewaffne` geändert (Zweig `claude/jerry-406-kaufschild`, 1bd54b7c7): `rand_hinten()` rückt gewölbte Kaufschilde um ihren Rand vom Rücken; Startschilde getauscht (`Rules.kt`: Kämpfer `round_shield`, Kleriker `shield`). Befund Netzmessung `tests/schild_406.gd`: am Rücken ragen Schulter und Oberarm bis 7–9 cm in die Oberkante des Schilds (vorher mit den waffen.py-Schilden 6,5–7,2 cm); Ursache Lage aus 376.1, deins.
 - **Von Perikles (378):** Stände prüfen, `ARBEIT-PROJEKT.md` Zu 378.
@@ -64,7 +64,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 - **Zu 399.1, von Sokrates (Chef 11:10, Archiv „399.1, Menü Ausrüstung“):** passt; Held nie abgeschnitten, gleich groß wie alt; Ausrüstung wie alt (antippen, Liste, Vergleichswerte, Bilder); Reitersymbol: Schwert klarer durch den Schild.
 - **Zu 399.5** (Tom 29.10., 04:2x): `raum.py`, `raumlicht.gd`, `licht.gd`; Laufskript `raeume_` in `tools/pruef348`, `NACHTSTUFEN`, `KERZENPROBE=1` (`kerzen_mass.py`); alte Bilder `tools/t bild` (kein Probelauf). Offen: Tempel tags 44 zu alt 51.
-- **Zu 417, von Sokrates (Chef 31.10., 21:1x):** „von der Seite … schweben die Waffen“; lassen sie sich in der Hand tragen, „dann soll er es in der Hand behalten … schenken wir uns das Wegstecken. Das war ja nur eine Notlösung im alten System“; „Wenn wir unsere Waffen einfach tragen können. Beim Rennen. Und beim Gehen.“ (21:12). Bestand (Sokrates): Waffe am Handknochen im Kampf (`kampf/figur.gd`), Fackel bleibt beim Gehen in der Hand (`held.gd`, `_Fackel`), Armschwung 0,6. Tragart je Waffenklasse (Chef 21:17: technisch entscheidet ihr, es muss stimmig sein): Vorschlag `ROLLE-BERATUNG.md` „Tragart“; zuerst Stab, Axt, Bogen.
+- **Zu 417** (Archiv 410, 417): Waffen in der Hand statt Wegstecken, Tragart je Waffenklasse (`ROLLE-BERATUNG.md` „Tragart“). Runde 3 (Tom 01.11.): `tragen.gd` `axt_griff`, `axt_haengt`; Probe `tom-probe-417.yml` (`tragprobe --teil=tragenaxt`), nach Urteil Fassung als Vorgabe, dann übrige Waffen.
 - **Zu 410, Chef an Tom (29.10., 11:17):** „bedenke halt alle Ausrüstungsgegenstände … auch eine Axt … muss ja theoretisch dann irgendwo weggesteckt werden“.
 - **von Homer (409, 31.10.):** zu 376.1 Frisurwörter `[409.frisur]` in `STORY-SPIEL.md` in WORTE übernehmen.
 - **Zu 376.1** (Verlauf in Git): Tracht je Herkunft nach Stellungnahme Sokrates in `chefsache/ansehen/3761-heldin.md` (Git, gelöscht 01.11.; Chef 11:19 „wie Sokrates“). UAL Pro ohne Stich, Schildabwehr, gehaltenes Ausholen; `held_klassen.py` → `held_<KLASSE>.glb`, `heldfigur.gd`.
