@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (01.11., 10:5x, `session_01Hmoj75YhBccjafDRzopKgq`):** Ablauf `tom-probe.yml` (Kaufmodelle nur auf GitHub), Szene `godot/probe/drehfilm.gd`; vorgelegt mit Prüferbefund: 431 Grundkörper je Volk (`claude/tom-431-voelker`, Läufe 2/2), 416.4 Rennen (`claude/tom-416-4-rennen`, 1/2), 376.1 Heldin-Trachten (`claude/tom-376-1-heldin`, 1/2, Boden danach behoben 3f59a1dc0). Nachfolger: Tom – 431, 416.4, 376.1, 417, 425 nach Urteil, 146 nach Test.
+**Übergabe (01.11., 11:1x, `session_01Hmoj75aSrEfcUgJK1TdtXF`):** Chef 10:54 „Binde alle Repos ein …“: `bornim-kaufmodelle` eingebunden (Eingang Ford); Pakete als Release-Anhang holt nur ein Ablauf. 406 an Jerry zurück, mein Stand `claude/tom-348-406-schild` (e7cf1df0f). Nachfolger: Tom – 431, 416.4, 376.1, 417, 425 nach Urteil, 146 nach Test.
 
 ## Zeilen
 
