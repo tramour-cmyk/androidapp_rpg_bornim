@@ -116,8 +116,11 @@ def prompt(eingabe):
             wer = name(pfad, sitzung)
         except Exception:
             wer = ""
-        print("Jede Nachricht an den Chef, auch Zwischenmeldungen in diesem Zug, beginnt mit: **"
-              + (wer or "<Name>") + "** [" + uhr + "]")
+        if wer:
+            print("Jede Nachricht an den Chef, auch Zwischenmeldungen in diesem Zug, beginnt mit: **" + wer + "** [" + uhr + "]")
+        else:  # 462.1 (D59.3): Rolle nicht erkannt, kein wörtliches „<Name>“
+            print("Jede Nachricht an den Chef, auch Zwischenmeldungen in diesem Zug, beginnt mit deinem Rollennamen fett und ["
+                  + uhr + "], etwa „**Tom** [" + uhr + "]“")
     except Exception:
         pass
     kern(sitzung)
