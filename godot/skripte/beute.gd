@@ -93,7 +93,7 @@ static func passt(k: String, id: String) -> bool:
 			if k == "WIZARD": return String(b["gewicht"]) == "CLOTH"
 			return String(b["gewicht"]) != "CLOTH" and tragbar(k, b)
 		"SHIELD": return bool(kd["schilde"])
-		"FOCUS": return bool(kd["zauberer"])
+		"FOCUS": return bool(kd["zauberer"]) and (id == "holy_symbol") == (k == "CLERIC")   # 399.1 (Homer): Heiligensymbol nur Kleriker
 		"LIGHT": return false
 		"WEAPON": return geuebt(k, id) and (int(b["fokus"]) == 0 or bool(kd["zauberer"]))
 	return false
@@ -296,7 +296,9 @@ static func name(g: Dictionary, sprache: String = "") -> String:
 	var erster = d_()["affixdaten"][String(rolls[0][0])] if rolls.size() > 0 else null
 	var zweiter = d_()["affixdaten"][String(rolls[1][0])] if rolls.size() > 1 else null
 	var vor = null
-	if erster != null: vor = (String(erster["vor_de"]) + endung) if de else String(erster["vor_en"])
+	if erster != null:
+		var eigen = d_().get("vorsilbe_fuer", {}).get("%s:%s" % [g["base"], rolls[0][0]])   # 399.1 Gear.PREFIX_FOR: „Geweihtes Heiligensymbol“
+		vor = (String(eigen["de"] if eigen else erster["vor_de"]) + endung) if de else String(eigen["en"] if eigen else erster["vor_en"])
 	var nach_von = zweiter if zweiter != null else (null if String(g["rarity"]) == "UNCOMMON" else erster)
 	var nach = null
 	if nach_von != null: nach = String(nach_von["nach_de"] if de else nach_von["nach_en"])

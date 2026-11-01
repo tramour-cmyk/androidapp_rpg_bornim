@@ -17,6 +17,7 @@ var halme: ShaderMaterial
 var korn_mat: ShaderMaterial
 var insel_liste := PackedVector4Array()
 var lampen: Array[OmniLight3D] = []
+var raumlicht: Raumlicht   # 399.5 Grundriss
 var falter: Array = []
 var rauch: Array[CPUParticles3D] = []
 var gluehen: Array[CPUParticles3D] = []
@@ -50,7 +51,10 @@ func _ready() -> void:
 	wiese.layers = BODEN_SCHICHT
 	wiese.position = Vector3(karte.breite * Karte.TS / 2, -0.4, karte.hoehe * Karte.TS / 2)   # unter dem Flussbett (-0,34): auf -0,03 deckte sie das Wasser (-0,1) zu
 	add_child(wiese)
-	baue_lampen()
+	if info.get("innen", false):               # 399.5 Grundriss: Kamin, Kerzen, Tageslicht, Waende nach der Kamera (raumlicht.gd)
+		raumlicht = Raumlicht.baue(self, info, netz)
+		add_child(raumlicht)
+	else: baue_lampen()
 	baue_leben()
 
 # Blender-Datei je Karte; weitere Gebietskarten kommen nach der Bestandsliste (348.8)
@@ -202,6 +206,7 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 	for c in n.get_children(): male(c, g, mark, aus)
 
 func nacht(k: float) -> void:
+	if raumlicht: raumlicht.nacht(k)
 	# 348.9: nachts wie alt geeicht (Laternen, Fenster, Lichtinseln am Boden kleiner; alt p90 46)
 	for o in lampen: o.light_energy = 1.4 * k   # 348.6: alt nur ein kleiner Hof um die Laterne (Helfer: neu 4-mal zu hell, zu weit)
 	for m in glas: m.set_shader_parameter("glow", 0.5 * k)
@@ -340,18 +345,6 @@ func baue_lampen() -> void:
 	var inseln := PackedVector4Array()
 	for l in info["lichter"]:
 		var art: String = l["art"]
-		if art == "kamin" or art == "kerze":   # 399.1 Grundriss: Feuer im Kamin, Kerzen (raum.py)
-			var f := OmniLight3D.new()
-			f.position = gpos(l["pos"])
-			f.omni_range = float(l.get("reich", 2.0)) * Karte.TS
-			f.light_energy = float(l.get("kraft", 1.0)) * 1.6
-			f.light_color = Color(1.0, 0.62, 0.3)
-			f.omni_attenuation = 0.9
-			f.shadow_enabled = art == "kamin"
-			add_child(f)   # brennt Tag und Nacht (nicht in lampen, die nacht() nach der Tageszeit stellt)
-			f.set_meta("reich", f.omni_range); f.set_meta("kraft", float(l.get("kraft", 1.0)))
-			f.add_to_group("tuschelicht")
-			continue
 		if art != "laterne" and art != "fenster": continue
 		var q := gpos(l["pos"])
 		if art == "fenster":   # wie MapLight WINDOW: vor dem Haus auf den Boden, Reichweite 1,6 Kacheln, Staerke 0,7

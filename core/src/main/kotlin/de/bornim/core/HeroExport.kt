@@ -104,6 +104,14 @@ object HeroExport {
         return s
     }
 
+    /** Perks.describe for a hero of [cls] whose [a] has the modifier [m]. */
+    private fun perks(cls: CharClass, a: Ability, m: Int, lang: Lang): List<String> {
+        val h = Hero.create("Probe", Race.HUMAN, cls, newUid = { 1L })
+        h.base[a] = 10 + 2 * m - (h.score(a) - h.base.getValue(a))   // ohne Volksbonus genau dieser Modifikator
+        check(h.mod(a) == m) { "${a.name} $m: ${h.mod(a)}" }
+        return Perks.describe(a, h, lang)
+    }
+
     private fun sampleHero(name: String, cls: CharClass, lvl: Int, extra: Boolean): Hero {
         var uid = 1L
         val h = Hero.create(name, Race.entries[cls.ordinal % Race.entries.size], cls, newUid = { uid++ })
@@ -157,11 +165,36 @@ object HeroExport {
             // Obergrenze je Affix im Kapitel k: k + Wert; fehlt der Affix, keine Grenze (Rules.gearCap)
             "deckel" to Affix.entries.mapNotNull { a -> Rules.gearCap(a, 0)?.let { a.name to it } }.toMap(),
         )))
-        put("voelker", j(Race.entries.associate { it.name to mapOf("name" to it.title, "bonus" to it.bonus) }))
+        // 399.1 (Erschaffung wie alt, CreateScreen.kt): Beschreibung und Merkmal der Voelker, Beschreibung der Klassen und Faehigkeiten,
+        // Namen der Attribute und Ruestungsarten
+        // 376.1 (Aussehen wie alt, CreateScreen.kt ToneChoices): Haut- und Haarfarben je Volk (Appearance), Farbe als RGB-Hex
+        val toene = { l: List<Appearance.Tone> -> l.map { mapOf("name" to it.title, "rgb" to "%06x".format(it.rgb and 0xFFFFFF)) } }
+        put("voelker", j(Race.entries.associate { it.name to mapOf("name" to it.title, "bonus" to it.bonus, "text" to it.desc, "merkmal" to it.trait,
+            "haut" to toene(Appearance.skins(it)), "haar" to toene(Appearance.hairs(it))) }))
+        put("attribute", j(Ability.entries.associate { it.name to mapOf("kurz" to it.short, "name" to it.full) }))
+        put("ruestungsarten", j(ArmorCategory.entries.associate { it.name to it.title }))
+        // 399.1 (Leiste wie HudChip): Kurzname und Farbe der Zustaende (Status)
+        put("zustaende", j(Status.entries.associate { it.name to mapOf("kurz" to it.short, "farbe" to "%06x".format(it.color and 0xFFFFFF)) }))
         put("klassen", j(CharClass.entries.associate { c -> c.name to mapOf("name" to c.title, "trefferwuerfel" to c.hitDie, "haupt" to c.primary,
             "reihenfolge" to c.priority, "ruestung" to c.armor, "schilde" to c.shields, "waffen" to c.weapons?.toList(), "start" to c.startItems,
-            "startgold" to c.startGold, "zauberer" to c.caster) }))
-        put("faehigkeiten", j(Skill.entries.associate { it.name to mapOf("klasse" to it.cls, "stufe" to it.level, "name" to it.title) }))
+            "startgold" to c.startGold, "zauberer" to c.caster, "text" to c.desc) }))
+        // 399.1 (HeroTab: Antippen eines Attributs, Perks.describe): was ein Attribut bringt, je Modifikator -5 bis +10 ohne die erste
+        // Zeile (Wert und Modifikator rechnet Godot); die Zeile der Klasse (Magier INT, Kleriker WIS) fuer sich
+        put("erklaerung", buildJsonObject {
+            for (a in Ability.entries) put(a.name, buildJsonObject {
+                for (m in -5..10) put(m.toString(), buildJsonObject {
+                    for (lang in Lang.entries) put(lang.name.lowercase(), JsonArray(perks(CharClass.FIGHTER, a, m, lang).drop(1).map { JsonPrimitive(it) }))
+                })
+            })
+        })
+        put("erklaerung_klasse", buildJsonObject {
+            for (c in CharClass.entries) for (a in Ability.entries) {
+                val extra = Lang.entries.associateWith { l -> perks(c, a, 0, l).drop(1) - perks(CharClass.FIGHTER, a, 0, l).drop(1).toSet() }
+                if (extra.values.all { it.isEmpty() }) continue
+                put("${c.name}:${a.name}", buildJsonObject { for ((l, xs) in extra) put(l.name.lowercase(), JsonArray(xs.map { JsonPrimitive(it) })) })
+            }
+        })
+        put("faehigkeiten", j(Skill.entries.associate { it.name to mapOf("klasse" to it.cls, "stufe" to it.level, "name" to it.title, "text" to it.desc, "mars" to it.mars, "kosten" to it.cost) }))
         put("grundformen", j(GearBases.all.associate { it.id to base(it) }))
         put("affixe", j(Affix.entries.map { it.name }))
         // 390 (Laden, Beute): was Gear.name und Loot brauchen; Reihenfolge der Grundformen wie GearBases.all (Wuerfel waehlen daraus)
@@ -169,6 +202,7 @@ object HeroExport {
         put("seltenheiten", j(Rarity.entries.associate { it.name to mapOf("name" to it.title, "affixe" to it.affixes) }))
         put("affixdaten", j(Affix.entries.associate { it.name to mapOf("name" to it.title, "vor_de" to it.prefixDe, "vor_en" to it.prefixEn,
             "nach_de" to it.suffixDe, "nach_en" to it.suffixEn, "prozent" to it.percent) }))
+        put("vorsilbe_fuer", j(Gear.PREFIX_FOR.entries.associate { (k, t) -> "${k.first}:${k.second.name}" to t }))   // 399.1 Grundform:Affix
         put("endungen", j(Gender.entries.associate { it.name to it.ending }))
         put("namen", j(mapOf("episch1" to Gear.epicFirst, "episch2" to Gear.epicSecond, "goetter" to Gear.gods)))
         put("plaetze", j(GearSlot.entries.associate { it.name to it.title }))

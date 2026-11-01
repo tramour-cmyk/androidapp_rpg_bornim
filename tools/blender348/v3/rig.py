@@ -516,13 +516,13 @@ X = Vector((1, 0, 0)); Y = Vector((0, 1, 0)); Zx = Vector((0, 0, 1))
 # vor Grad vorgebeugt, huefte Grad Wiegen, hinken 0..1 auf der Seite "seite" (Fuss schleift, Koerper sackt beim Auftreten)
 GANG = dict(takt=32, schritt=1.0, knie=1.0, arm=1.0, vor=0.0, huefte=0.0, hinken=0.0, seite='L')
 if FIGUR != 'held':
-    GANG.update(json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'leute.json')))[FIGUR].get('gang', {}))
+    GANG.update(json.load(open(os.environ.get('LEUTE', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'leute.json'))))[FIGUR].get('gang', {}))
 # 348.6 Leute Runde 4b (Helfer: „alle stehen gleich“; Abnahmeliste Leute 5; Chef 25.10., 21:33: „Wieso tragen die … NPC nicht
 # Objekte“): Armhaltung je Seite aus leute.json "arme" {R, L}: haengen (wie bisher), schulter (Stab, Speer, Hammer aufrecht in der
 # Faust vor der Brust, Schaft an der Schulter; dazu "traegt"), huefte (Hand in die Seite), vorn (Haende vor dem Bauch), ruecken
 # (Haende hinter dem Ruecken), guertel (Daumen am Guertel), brust (Hand an der Brust). Zwei Knochen, Ziel des Handgelenks in der
 # Ruhelage (cm), Ellbogen zur Polrichtung; im Gehen bleiben schulter, vorn, ruecken, die uebrigen schwingen wie bisher.
-LP = {} if FIGUR == 'held' else json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'leute.json')))[FIGUR]
+LP = {} if FIGUR == 'held' else json.load(open(os.environ.get('LEUTE', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'leute.json'))))[FIGUR]
 ARME = dict(R='haengen', L='haengen'); ARME.update(LP.get('arme', {}))
 if LP.get('traegt') and ARME['R'] == 'haengen': ARME['R'] = 'stab' if LP['traegt'] == 'quarterstaff' else 'schulter'
 # Runde 4c (Helfer: Thessa Huefte und Guertel, Gwenna Brust, Bram und Borin Huefte nicht erreicht, die Hand schwebte vor dem Koerper):

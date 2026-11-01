@@ -12,6 +12,7 @@ const BRIGHT := Color("d9bc82")     # Veil.bright
 const RIM := Color("b59a6aaa")      # Veil.rim
 const LINE := Color("9a8155")       # Veil.line
 const RAISED := Color("17140f")     # Veil.raised
+const WARN := Color("d9785a")       # Veil.warn (399.1 Erschaffung: Punkte uebrig)
 const SP := AktionsKnopf.DP * 1.04  # sp mit TypeLook.scale fuer Alegreya (Theme.kt scales[2])
 
 static var _schrift: FontFile
@@ -28,6 +29,7 @@ static func variante(sperrung_sp: float, schraeg := false) -> FontVariation:
 		var v := FontVariation.new()
 		v.base_font = schrift()
 		v.spacing_glyph = int(round(sperrung_sp * SP))
+		v.opentype_features = {TextServerManager.get_primary_interface().name_to_tag("lnum"): 1}   # Ziffern auf der Linie wie alt (Theme.kt Txt „lnum“); Alegreya hat sonst Mediaevalziffern
 		if schraeg: v.variation_transform = Transform2D(Vector2(1, 0), Vector2(0.2, 1), Vector2.ZERO)
 		_varianten[k] = v
 	return _varianten[k]

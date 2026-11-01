@@ -36,6 +36,23 @@ class TextExportTest {
     }
 
     @Test
+    fun useTextsAndHealForGodot() {
+        val b = j["benutzen"]!!.jsonObject
+        for (k in listOf("ate", "alreadyFed", "cured", "sparkDrunk", "sparkAlready", "healed", "torchLit", "torchSnuffed")) assertTrue(b.containsKey(k), k)
+        val dinge = j["dinge"]!!.jsonObject
+        assertEquals(listOf("2", "4", "2"), dinge["potion"]!!.jsonObject["heilt"]!!.jsonArray.map { it.jsonPrimitive.content })
+        assertEquals("true", dinge["remedy"]!!.jsonObject["heilt_leiden"]!!.jsonPrimitive.content)
+    }
+
+    @Test
+    fun chronicleForGodot() {
+        val c = j["chronik"]!!.jsonArray
+        assertEquals(Chronicle.entries.map { it.id }, c.map { it.jsonObject["id"]!!.jsonPrimitive.content })
+        assertEquals("Der Auftrag", c[1].jsonObject["titel"]!!.jsonObject["de"]!!.jsonPrimitive.content)
+        assertEquals(listOf("rauch", "lager"), j["chronik_auftraege"]!!.jsonArray.map { it.jsonObject["id"]!!.jsonPrimitive.content })
+    }
+
+    @Test
     fun shopDataForGodot() {
         val dinge = j["dinge"]!!.jsonObject
         assertEquals("25", dinge["potion"]!!.jsonObject["preis"]!!.jsonPrimitive.content)
@@ -55,5 +72,27 @@ class TextExportTest {
         // was Story.kt gibt oder nimmt, steht in dinge oder einzelstuecke
         val story = java.io.File("src/main/kotlin/de/bornim/core/Story.kt").readText()
         for (m in Regex("""(?:give|take)\("(\w+)"""").findAll(story)) assertTrue(m.groupValues[1] in dinge || m.groupValues[1] in einzel, m.groupValues[1])
+    }
+
+    @Test
+    fun theNoticesAreWordForWord() {
+        val a = j["auftraege"]!!.jsonArray.map { it.jsonObject }
+        assertEquals(Jobs.all.map { it.id }, a.map { it["id"]!!.jsonPrimitive.content })
+        val stones = a.first { it["id"]!!.jsonPrimitive.content == "stones" }
+        assertEquals(Jobs["stones"].note.de, stones["aushang"]!!.jsonObject["de"]!!.jsonPrimitive.content)
+        assertEquals(Story.KROGG_DEFEATED, stones["nach"]!!.jsonPrimitive.content)
+        assertEquals("@gear:UNCOMMON:HEAD", stones["gaben"]!!.jsonArray[0].jsonObject["ding"]!!.jsonPrimitive.content)
+        assertTrue("nach" !in a.first { it["id"]!!.jsonPrimitive.content == "pelts" })
+    }
+
+    @Test
+    fun theGuideIsWordForWord() {
+        val a = j["anleitung"]!!.jsonObject
+        val teile = a["teile"]!!.jsonArray
+        assertEquals(Guide.parts.size, teile.size)
+        assertEquals(Guide.parts[1].de, teile[1].jsonObject["de"]!!.jsonPrimitive.content)
+        assertEquals("Guide", a["titel"]!!.jsonObject["en"]!!.jsonPrimitive.content)
+        // Absaetze nur fuer eine Klasse tragen deren Namen
+        assertEquals(Guide.parts.count { it.only != null }, teile.count { "nur" in it.jsonObject })
     }
 }

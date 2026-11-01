@@ -37,6 +37,10 @@ func _init() -> void:
 	_row_spell("FIREBALL")
 	# 399.2a (Chef 14:19 „Wolf mit 1 bis 2 Jungwölfen“): fällt der Wolf, fliehen die Jungwölfe, der Kampf ist gewonnen
 	_pack_flees()
+	# 399.2b (Chef 15:32 „Jungwölfe beißen wie im alten Spiel nur zu 50 % je Runde“)
+	_cub_chance()
+	# 399.2 (Tom 17:15): satt in den Kampf: +1 auf Angriff und Schaden des Helden (Battle.fedBonus), mit Zeile zu Beginn
+	_fed()
 	print("MARS Regeln: %d abweichend" % failed)
 	quit(1 if failed > 0 else 0)
 
@@ -274,6 +278,13 @@ func _rewards() -> void:
 	g.all[2].called_in = true
 	g.test_end(true)
 	_check_s("Grak mit Gerufenem: EP", str(Lohn.reward(g, 0, Wuerfel.new([1] + _ones())).xp), "450")
+	# 399.2: Ausrüstung, die die Welt gewürfelt hat (Loot.drops), nach den Dingen wie Battle.finishWin
+	var sheet: Dictionary = tables.probe.FIGHTER.hero.hero.duplicate(true)
+	var mg = _fight(sheet, ["wolf"], 1)
+	mg.test_end(true)
+	var ga := Lohn.reward(mg, 450, Wuerfel.new([4, 999, 999, 0]), 0, null, 1.0, 1.0, [{"gear": {"base": "shortsword"}, "name": "Kurzschwert", "rarity": "Ungewöhnlich"}])
+	_check_s("Ausrüstung: Zeilen", " | ".join(ga.lines), "Ansgar erhält 50 EP. | Du erbeutest 4 Gold. | Beute: Wolfsfell! | Beute: Kurzschwert (Ungewöhnlich)!")
+	_check_s("Ausrüstung: Lohn", str(ga.gear), "[{ \"base\": \"shortsword\" }]")
 
 
 func _weights() -> void:
@@ -381,5 +392,76 @@ func _pack_flees() -> void:
 		print(("gleich" if ok else "FEHLER") + " Rudel: Wolf fällt, %d Jungwölfe fliehen, gewonnen, Erfahrung %d (soll %d), Namen %s" % [cubs.size(), int(r.xp), soll, names])
 	else:
 		print("FEHLER Rudel: Wolf steht %s, geflohen %s, Meldungen %d, Ausgang %s" % [wolf.standing(), cubs.map(func(c): return c.fled), flohen, mars.outcome])
+	if not ok:
+		failed += 1
+
+
+## 399.2b: a young wolf bites in about half of its turns (Packs.kt cubs chance 0,5), otherwise it growls (cue GROWLS)
+func _cub_chance() -> void:
+	var monsters := {}
+	for m in tables.monsters:
+		monsters[m.id] = m
+	var Aufruf = load("res://kampf/aufruf.gd")
+	var foes: Array = Aufruf.rudel(monsters, Wuerfel.new(3))
+	var sheet: Dictionary = tables.probe.FIGHTER.hero.hero.duplicate(true)
+	var skills := {}
+	for s in tables.skills:
+		skills[s.id] = s
+	var hero := Mars.hero_fighter("hero", "PARTY", Vector2i(Mars.FRONT, 0), sheet, 9999, sheet.second, skills)
+	var mars = Mars.new([hero], foes, tables, Wuerfel.new(11), Wuerfel.new(7))
+	var heard := []
+	mars.listener = func(e): heard.append(e)
+	mars.start()
+	var cub = mars.find(foes[1].id)
+	var turns := 0
+	var growls := 0
+	var angesagt_geknurrt := 0
+	var stumm := 0
+	for i in 400:
+		mars.intents.erase(cub.id)
+		mars.announce(cub)
+		var eff: String = String(mars.intents[cub.id][0].effect)
+		if eff == "CIRCLE":
+			continue
+		var knurrt := eff == "GROWL"
+		heard.clear()
+		hero.hp = 9999
+		mars._foe_turn(cub, Callable())
+		turns += 1
+		var g := heard.filter(func(e): return e.cue == "GROWLS" and e.actor == cub.id).size()
+		growls += g
+		# Homer [399.2b.knurrt]: eine der drei Zeilen mit dem Namen
+		stumm += heard.filter(func(e): return e.cue == "GROWLS" and not String(e.text).begins_with(cub.name(mars.lang))).size()
+		# kündigt keinen Biss an, wenn er nur knurrt: keine Ansage, kein Angriffswurf
+		if knurrt and (g != 1 or heard.any(func(e): return e.actor == cub.id and e.roll != null)):
+			angesagt_geknurrt += 1
+	var share := float(growls) / maxi(turns, 1)
+	var ok := turns >= 100 and share > 0.4 and share < 0.6 and angesagt_geknurrt == 0 and stumm == 0
+	print(("gleich" if ok else "FEHLER") + " Jungwolf knurrt statt zu beißen: %d von %d Zügen (%.0f %%, soll etwa 50), Knurren mit Biss %d, ohne Zeile %d" % [growls, turns, share * 100.0, angesagt_geknurrt, stumm])
+	if not ok:
+		failed += 1
+
+
+func _fed() -> void:
+	var sheet: Dictionary = tables.probe.FIGHTER.hero.hero.duplicate(true)
+	var loss := []
+	var bonus := []
+	var said := []
+	for fed in [false, true]:
+		var m = _fight(sheet, ["wolf"], [15, 4, 4, 4, 4])
+		m.fed = fed
+		var heard := []
+		m.listener = func(e): heard.append(e)
+		m.start()
+		_tape(m, [15, 4, 4, 4, 4])
+		var foe = m.all.filter(func(f): return f.side == "FOES")[0]
+		var hp0: int = foe.hp
+		m._weapon_attack(m.lead(), foe)
+		loss.append(hp0 - foe.hp)
+		var att := heard.filter(func(e): return e.roll != null and e.roll[0] == "ATTACK")
+		bonus.append(int(att[-1].roll[2]) if not att.is_empty() else -99)
+		said.append(heard.any(func(e): return String(e.text).contains("gestärkt") or String(e.text).contains("well fed")))
+	var ok: bool = loss[1] == loss[0] + 1 and bonus[1] == bonus[0] + 1 and said == [false, true]
+	print(("gleich" if ok else "FEHLER") + " satt: Schaden %s, Angriff %s, Zeile %s" % [loss, bonus, said])
 	if not ok:
 		failed += 1

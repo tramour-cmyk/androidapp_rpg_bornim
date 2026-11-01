@@ -65,6 +65,8 @@ var spell_seed := 0
 var grid_on := false
 var dice_rect := Rect2()
 var grid_rect := Rect2()
+var win_rect := Rect2()        # 272 (Testmodus): Haken gewinnt, Kreuz verliert sofort
+var lose_rect := Rect2()
 
 
 func t(de: String, en: String) -> String:
@@ -169,12 +171,19 @@ func _ready() -> void:
 	full_log.set_anchors_preset(Control.PRESET_FULL_RECT)
 	full_log.add_theme_stylebox_override("panel", _box(Color.BLACK, GOLD, 10, 10, 1.0))
 	full_log.visible = false
+	full_log.mouse_filter = Control.MOUSE_FILTER_STOP
+	full_log.gui_input.connect(_full_log_input)
 	root.add_child(full_log)
 	if not kampfort.mars.lead().hero.get("seen_rows", false):
 		log_line(t("Nahkampf erreicht nur die vordere Reihe.", "Melee reaches only the front row."))
 
 
+## 399.2 (Test 133, Chef 16:4x: Schalter Position und Schaden „gehen nicht“): ein Tippen kommt als Berührung und als
+## nachgebildete Maus (am Rechner umgekehrt, emulate_touch_from_mouse); beide zählten, der Schalter sprang hin und zurück.
+## Nur das echte Ereignis zählt, das nachgebildete trägt DEVICE_ID_EMULATION.
 func _pressed(ev) -> bool:
+	if ev.device == InputEvent.DEVICE_ID_EMULATION:
+		return false
 	return (ev is InputEventMouseButton and ev.pressed and ev.button_index == MOUSE_BUTTON_LEFT) or (ev is InputEventScreenTouch and ev.pressed)
 
 
@@ -186,6 +195,10 @@ func _scene_input(ev) -> void:
 		dice_on = not dice_on
 	elif grid_rect.has_point(p):
 		grid_on = not grid_on
+	elif lose_rect.has_point(p):
+		kampfort.test_end(false)
+	elif win_rect.has_point(p):
+		kampfort.test_end(true)
 	else:
 		kampfort.tap()
 
@@ -288,35 +301,70 @@ func _draw_log() -> void:
 		log_area.draw_string(font, Vector2(w - lw, h - fs2 * 0.3), label, HORIZONTAL_ALIGNMENT_LEFT, -1, fs2, GOLD)
 
 
+## 416.5 (Chef 31.10., Build 143: „nicht mehr schließbar“): der Text fing jeden Tipp ab, und die einmalige Verbindung
+## löste schon die erste Fingerbewegung. Jetzt schließt ein Tipp überall (Loslassen nah am Druck), Wischen blättert.
+var full_log_opened_ms := 0
+var full_log_press := Vector2.INF
+
+
 func _show_full_log(on: bool) -> void:
 	for c in full_log.get_children():
 		c.queue_free()
 	full_log.visible = on
+	full_log_press = Vector2.INF
 	if not on:
 		return
+	full_log_opened_ms = Time.get_ticks_msec()
 	var v := VBoxContainer.new()
+	v.mouse_filter = Control.MOUSE_FILTER_PASS
 	full_log.add_child(v)
 	var h := Label.new()
 	h.text = t("Kampfbericht", "Battle log")
 	h.add_theme_color_override("font_color", GOLD)
 	h.add_theme_font_size_override("font_size", sp(16))
 	v.add_child(h)
+	var sc := ScrollContainer.new()
+	sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	sc.mouse_filter = Control.MOUSE_FILTER_PASS
+	v.add_child(sc)
 	var r := RichTextLabel.new()
-	r.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	r.scroll_following = true
+	r.fit_content = true
+	r.scroll_active = false
+	r.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	r.mouse_filter = Control.MOUSE_FILTER_PASS
 	r.add_theme_color_override("default_color", TEXT)
 	r.add_theme_font_override("normal_font", font)
 	r.add_theme_font_size_override("normal_font_size", sp(15 * 0.95))
 	r.text = "\n".join(lines)
-	v.add_child(r)
+	sc.add_child(r)
 	var close := Label.new()
 	close.text = t("Tippen schließt", "Tap to close")
 	close.add_theme_color_override("font_color", DIM)
 	close.add_theme_font_size_override("font_size", sp(13))
 	v.add_child(close)
-	full_log.gui_input.connect(func(ev):
-		if _pressed(ev):
-			_show_full_log(false), CONNECT_ONE_SHOT)
+	# newest at the bottom, as in the small log
+	await get_tree().process_frame
+	await get_tree().process_frame
+	if is_instance_valid(sc):
+		sc.scroll_vertical = int(sc.get_v_scroll_bar().max_value)
+
+
+## Druck merken, beim Loslassen nah am Druck schließen; Maus und Finger kommen am Handy doppelt (emulate_mouse_from_touch),
+## darum zählt der Druck, der den Bericht geöffnet hat, nicht als Schließen (250 ms).
+func _full_log_input(ev) -> void:
+	if not full_log.visible:
+		return
+	var down: bool = _pressed(ev)
+	var up: bool = (ev is InputEventMouseButton and not ev.pressed and ev.button_index == MOUSE_BUTTON_LEFT) or (ev is InputEventScreenTouch and not ev.pressed)
+	if down:
+		if Time.get_ticks_msec() - full_log_opened_ms >= 250:
+			full_log_press = ev.position
+	elif up and full_log_press != Vector2.INF:
+		var far: bool = ev.position.distance_to(full_log_press) > 12.0 * dp
+		full_log_press = Vector2.INF
+		if not far:
+			_show_full_log(false)
 
 
 # ---------------------------------------------------------------- party boxes and orders
@@ -805,6 +853,8 @@ func _draw_overlay() -> void:
 	if ended:
 		grid_rect = Rect2()
 		dice_rect = Rect2()
+		win_rect = Rect2()
+		lose_rect = Rect2()
 	else:
 		_draw_turns(sr)
 		_draw_switches(sr)
@@ -1197,7 +1247,7 @@ func _draw_blood() -> void:
 	if bleeding.is_empty():
 		return
 	var k = kampfort
-	var level: int = k.BLOOD_LEVEL
+	var level: int = k.blood_level()
 	var p: float = (k.clock_ms - bleeding.t0) / (1300.0 if level >= 2 else 750.0)
 	if level <= 0 or p >= 1.0 or not k.figures.has(bleeding.on):
 		if p >= 1.0:
@@ -1357,6 +1407,8 @@ func _draw_intents(sr: Rect2) -> void:
 				mark = "»"
 			"GATHER":
 				mark = "!" if intent.get("effect") == "CIRCLE" else "+"
+			"WAIT":
+				mark = "…"     # 399.2b: Jungwolf knurrt nur, kein Angriff
 		var tg = m.find(plan[1][0]) if not plan[1].is_empty() else null
 		var fc: Color = _friend_color(tg) if tg != null else GOLD
 		var border: Color = WARN if intent.strong else fc
@@ -1541,6 +1593,27 @@ func _draw_switches(sr: Rect2) -> void:
 	var o := sq.size.x * 0.27
 	for e in [Vector2.ZERO, Vector2(-o, -o), Vector2(o, -o), Vector2(-o, o), Vector2(o, o)]:
 		overlay.draw_circle(c + e, 1.8 * dp, dc)
+	# 272 (Chef 20.10., nur im Testmodus, TestEndUi.kt): links neben den Würfeln Kreuz (verlieren) und Haken (gewinnen), solange
+	# der Kampf läuft und kein Ring offen ist; das angetippte leuchtet, bis es gilt
+	win_rect = Rect2()
+	lose_rect = Rect2()
+	if not Testmodus.ist_an() or kampfort.mars.outcome != "ONGOING" or kampfort.ring_open:
+		return
+	win_rect = Rect2(sr.size.x - 100 * dp - 48 * dp, y, 48 * dp, 48 * dp)
+	lose_rect = Rect2(sr.size.x - 100 * dp - 96 * dp, y, 48 * dp, 48 * dp)
+	for win in [false, true]:
+		var r: Rect2 = win_rect if win else lose_rect
+		var on: bool = kampfort.end_asked != null and bool(kampfort.end_asked) == win
+		var b := Rect2(r.position + Vector2(4, 4) * dp, Vector2(s, s))
+		_chip(b, Color(0, 0, 0, 0.35), Color(GOLD, 0.9 if on else 0.4), 1.0)
+		var col := Color(GOLD if win else WARN, 1.0 if on else 0.7)
+		var q := b.grow(-10 * dp)
+		if win:
+			overlay.draw_line(q.position + Vector2(0, q.size.y * 0.55), q.position + Vector2(q.size.x * 0.38, q.size.y * 0.9), col, 2 * dp, true)
+			overlay.draw_line(q.position + Vector2(q.size.x * 0.38, q.size.y * 0.9), q.position + Vector2(q.size.x, q.size.y * 0.1), col, 2 * dp, true)
+		else:
+			overlay.draw_line(q.position, q.end, col, 2 * dp, true)
+			overlay.draw_line(Vector2(q.end.x, q.position.y), Vector2(q.position.x, q.end.y), col, 2 * dp, true)
 
 
 ## Where the stroke from a sign to its own head starts: from below when the sign is above, else from the near edge.

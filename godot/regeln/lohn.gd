@@ -10,6 +10,7 @@ const CAPPED := ["Höchststufe für Kapitel 1 erreicht – keine weiteren EP in 
 	"Highest level for chapter 1 reached – no further XP in this chapter. Loot and gear still drop."]
 const GAIN_GOLD := ["Du erbeutest {0} Gold.", "You got {0} gold."]
 const LOOT := ["Beute: {0}!", "Loot: {0}!"]
+const GEAR_LOOT := ["Beute: {0} ({1})!", "Loot: {0} ({1})!"]
 const LEVEL_UP := ["{0} erreicht Stufe {1}!", "{0} grew to level {1}!"]
 const NEW_SKILL := ["Neue Fähigkeit: {0}!", "New ability: {0}!"]
 const RESTORED := ["TP und ZP von {0} sind vollständig aufgefüllt!", "{0}'s HP and SP are fully restored!"]
@@ -21,8 +22,10 @@ const MAX_LEVEL := 20
 
 ## The reward of the won fight [mars] for its hero (the party's first): [xp] the hero's experience before, [over] how
 ## many levels the hero stands above the place (Battle.over), [cap] the highest level, null for the chapter's.
-## Returns {xp, gold, items, level, levels, xp_total, lines}; nothing is added anywhere, the caller does that.
-static func reward(mars, xp: int, dice, over := 0, cap = null, xp_factor := 1.0, gold_factor := 1.0) -> Dictionary:
+## [gear]: the gear the world rolled for this win (Loot.drops, 399.2: skripte/beute.gd), each {gear, name, rarity} with
+## names in the fight's language; told after the items, the rarest first (Battle.finishWin).
+## Returns {xp, gold, items, gear, level, levels, xp_total, lines}; nothing is added anywhere, the caller does that.
+static func reward(mars, xp: int, dice, over := 0, cap = null, xp_factor := 1.0, gold_factor := 1.0, gear := []) -> Dictionary:
 	assert(mars.outcome == "WON")
 	var tables_xp: Array = mars.xp_for_level
 	var top: int = int(mars.level_cap) if cap == null else int(cap)
@@ -67,6 +70,8 @@ static func reward(mars, xp: int, dice, over := 0, cap = null, xp_factor := 1.0,
 		lines.append(_f(GAIN_GOLD, lang, [gold]))
 	for it in items:
 		lines.append(_f(LOOT, lang, [[mars.items[it].de, mars.items[it].en][lang]]))
+	for g in gear:
+		lines.append(_f(GEAR_LOOT, lang, [g.name, g.rarity]))
 	for lvl in range(level + 1, target + 1):
 		lines.append(_f(LEVEL_UP, lang, [name, lvl]))
 		for s in mars.skills.values():
@@ -77,7 +82,7 @@ static func reward(mars, xp: int, dice, over := 0, cap = null, xp_factor := 1.0,
 		var points := 2 * (ABILITY_LEVELS.filter(func(a): return a <= target).size() - ABILITY_LEVELS.filter(func(a): return a <= level).size())
 		if points > 0:
 			lines.append(_f(POINTS, lang, [points]))
-	return {"xp": earned, "gold": gold, "items": items, "level": target, "levels": target - level, "xp_total": total, "lines": lines}
+	return {"xp": earned, "gold": gold, "items": items, "gear": gear.map(func(g): return g.gear), "level": target, "levels": target - level, "xp_total": total, "lines": lines}
 
 
 static func _f(t: Array, lang: int, args: Array) -> String:

@@ -11,9 +11,11 @@ var ziel: Node3D
 var gieren := NORD
 var gieren_ziel := NORD
 var zoom := FERN
+var fern := FERN                       # 399.1 Bedienung „Karte“: Normal oder Näher (MapZoom 6,75 oder 5,6 Kacheln quer)
 var nah := false
 var tusche: MeshInstance3D
 var tusche_mats: Array[ShaderMaterial] = []   # 348.13: bekommen die Sonnenrichtung (Tusche nach der Lichtrichtung)
+var neigung := -30.0     # 376.1 Kopfblatt (figurenprobe.gd): flacher auf Gesichtshoehe
 var hinten_fest := -1.0   # 348.13: --hintenheld=<m> haelt die Stufe am Helden fest (Versuch), sonst mit dem Zoom
 # 348.13b (Chef 28.10., 08:09): Tusche auch nach Laterne, Fenster, Fackel; Knoten der Gruppe „tuschelicht“ (Meta reich, kraft),
 # die naechsten zum Helden gehen an den Shader; nacht von spiel._nacht; --tuschelampen=0 schaltet es ab (Vergleich, Kosten)
@@ -25,6 +27,7 @@ func _ready() -> void:
 	name = "Kamera"
 	projection = PROJECTION_ORTHOGONAL
 	keep_aspect = KEEP_WIDTH
+	fern_neu()
 	size = zoom
 	near = 0.5
 	far = 120.0
@@ -113,7 +116,13 @@ func nord_winkel() -> float: return deg_to_rad(gieren)
 
 func nah_fern() -> void:
 	nah = not nah
-	zoom = NAH if nah else FERN
+	zoom = NAH if nah else fern
+
+func fern_neu() -> void:
+	Bedienung.lade()
+	var war := fern
+	fern = FERN * (Bedienung.NAEHER if Bedienung.karte_nah else 1.0)
+	if not nah and is_equal_approx(zoom, war): zoom = fern
 
 func kneifen(faktor: float) -> void:
 	zoom = clampf(zoom * faktor, NAH * 0.8, FERN * 1.6)
@@ -122,7 +131,7 @@ func kneifen(faktor: float) -> void:
 func folge(k: float) -> void:
 	if ziel == null: return
 	gieren = lerpf(gieren, gieren_ziel, minf(1.0, k * 1.6))
-	rotation_degrees = Vector3(-30, gieren, 0)
+	rotation_degrees = Vector3(neigung, gieren, 0)
 	var auf := ziel.position + Vector3(0, 0.9 if nah else 0.0, 0)
 	position = position.lerp(auf + global_basis.z * 40.0, k)
 	size = lerpf(size, zoom, k)

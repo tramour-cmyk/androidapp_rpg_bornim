@@ -79,7 +79,8 @@ object Loot {
             else -> b.weight != Weight.CLOTH && wearable(cls, b)
         }
         BaseKind.SHIELD -> cls.shields
-        BaseKind.FOCUS -> cls.caster
+        // 399.1 (Homer, Prüferbefund „Arkanes Heiligensymbol“): das Heiligensymbol nur für Kleriker, Kugel und Foliant für Magier
+        BaseKind.FOCUS -> cls.caster && (b.id == "holy_symbol") == (cls == CharClass.CLERIC)
         BaseKind.LIGHT -> false
         BaseKind.WEAPON -> proficient(cls, b) && (b.focus == 0 || cls.caster)
     }
