@@ -12,7 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 458.4 | M | **von Sokrates (Chef 01.11., 13:1x, Archiv 458):** Gegenstandskatalog: Namen DE/EN und ein Satz je Gegenstand, sobald Perikles die Datendatei angelegt hat (458.1) | wartet auf Perikles |
+| 458.4 | M | **von Sokrates (Chef 01.11., 13:1x, Archiv 458):** Gegenstandskatalog: Namen DE/EN und ein Satz je Gegenstand, sobald Perikles die Datendatei angelegt hat (458.1) | startbar (Perikles 01.11., 13:4x): Datei `tools/gegenstaende/gegenstaende.json`, Werkzeug `tools/gegenstaende.py` |
 | 451.2 | M | **von Sokrates (Chef 01.11., 13:1x, Archiv 451):** „Spielsystem 2.0“ heißt jetzt „Bornimer Rollenspielsystem“ (BRS; englisch *Bornim Roleplaying System*): im Handbuch 423 (Teile 1–3) und in Spieltexten ersetzen; Leitsatz „Du wirst, was du tust.“ dazu; BRS nie als eigener Schriftzug | startbar |
 | 453.3 | M | **von Sokrates (Chef 01.11., 13:0x, Archiv 453.1):** Grundsatz „lebende Figuren atmen immer, ruhig, je Figur eigener Takt, nach Anstrengung schneller; kein Gleichtakt, kein Stillstand“ in `DESIGN-STIL.md` (Bewegung) aufnehmen; dazu (Archiv 416.4, 13:1x): „Übergänge Stehen, Gehen, Rennen sind bei jeder Figur weich“ | startbar |
 | 432 | K | **von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt mir sehr gut“):** eigenes Volk prüfen, mit der Geschichte ab Kapitel 2 | nach dem Meilenstein: Weg A (Archiv); Kult-Antwort und Abgleich mit Kapitel 2 im Storyplan (Aschgeborene, 01.11.), zwei offene Punkte; als Chefsache erst nach dem Meilenstein, vor dem Bau |

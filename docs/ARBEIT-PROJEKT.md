@@ -9,7 +9,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 458.1 | M | **von Sokrates (Chef 01.11., 13:1x, „458 ja“, Archiv 458):** Gegenstandskatalog: Aufbau der Datendatei festlegen (Spalten wie Archiv), Werkzeug erzeugt `LISTE-GEGENSTAENDE.md` daraus (nach Art und Bezugsweg), Eintrag in `docs/README.md`; in 447.1 Stufe 3 aufnehmen | startbar |
 | 451.1 | M | **von Sokrates (Chef 01.11., 13:1x, Archiv 451):** „Spielsystem 2.0“ heißt jetzt „Bornimer Rollenspielsystem“ (BRS): in `CLAUDE.md` (erster Absatz, Oberste Direktive), `DESIGN-LEITBILD.md` Punkt 4, Rollendateien und Werkzeugtexten ersetzen; Dateinamen und Archiv bleiben | startbar |
 | 447.1 | M | **von Sokrates (Chef 01.11., 12:3x, „447 ja, mit K2b, aber nummeriere das Ganze doch neu und vernünftig durch“, Archiv 447):** Abnahmeliste auf Stufen 1–6 umstellen (Zu 447.1): Punkte zuordnen, Block G um Ruf, Meisterschaften, Herstellen, Abnutzung, Tiere beruhigen, Profil erweitern; Schätzung je Stufe von Tom und Jerry für Wochenziel 2; Tagesbericht zählt je Stufe | startbar |
 | 457 | M | **von Sokrates („jetzt“ 01.11., 11:49, Chef: „unsere Signatur muss sich wiederfinden. Warum ist jetzt das wieder nicht drin … denkt doch bitte jetzt wieder vermehrt an die Signatur“):** Wächter: Vorlage in `chefsache/ansehen/` mit „ohne Toon“/„ohne Tusche“ hält den Commit an; Probeskripte (`probe/bibliothek.gd`, `drehfilm.gd`) zeichnen standardmäßig mit Spielshadern (Bau an Tom, Jerry) | startbar |
