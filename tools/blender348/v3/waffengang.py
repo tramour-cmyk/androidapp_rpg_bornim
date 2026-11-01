@@ -160,12 +160,16 @@ def messen(p, aktion=None):
 
 # 417 Neigung (Chef 01.11., 13:4x: „der Oberkoerper beim normalen Gehen zum Teil zu weit vorgeneigt“; Lauf 41311724715: Gehen axt 6,5,
 # einhand 7,7, bogen 9,7, schild 13,7 Grad): Gehen je Paket so weit aufrichten (zauber385.py AUFRICHTEN), dass die mittlere Neigung
-# der des Gehens ohne Waffe gleicht (UAL Walk_Loop im ZIEL, dem nicht widersprochen ist); NEIGUNG_ZIEL=<Grad> setzt sie von Hand
+# dem Stehen (UAL Idle_Loop) plus NEIGUNG_GEHEN Grad gleicht (Lauf 41316709836: UAL Walk_Loop selbst 11,6 Grad, als Ziel zu weit vor;
+# Becken -> Hals misst auch die Kruemmung des Rueckens, darum gegen das Stehen); NEIGUNG_ZIEL=<Grad> setzt sie von Hand
+NEIGUNG_GEHEN = float(os.environ.get('NEIGUNG_GEHEN', '3'))
 try:
-    ziel_n = float(os.environ['NEIGUNG_ZIEL']) if os.environ.get('NEIGUNG_ZIEL') else messen(ZIEL, 'Walk_Loop')['neigung'][0]
+    stehen_n = messen(ZIEL, 'Idle_Loop')['neigung'][0]
+    print('NEIGUNG Stehen (Idle_Loop): %.1f, Gehen ohne Waffe (Walk_Loop): %.1f' % (stehen_n, messen(ZIEL, 'Walk_Loop')['neigung'][0]))
+    ziel_n = float(os.environ['NEIGUNG_ZIEL']) if os.environ.get('NEIGUNG_ZIEL') else stehen_n + NEIGUNG_GEHEN
 except Exception as e:
-    ziel_n = None; print('NEIGUNG Walk_Loop nicht messbar:', e)
-print('NEIGUNG Ziel (Gehen ohne Waffe):', ziel_n)
+    ziel_n = None; print('NEIGUNG Idle_Loop nicht messbar:', e)
+print('NEIGUNG Ziel (Stehen + %.1f):' % NEIGUNG_GEHEN, ziel_n)
 for art, (paket, geh, _) in GAENGE.items():
     n = 'Gehen_' + art; p = os.path.join(OUT, n + '.glb')
     if ziel_n is None or not os.path.exists(p): continue
