@@ -6,7 +6,7 @@ Zeile in LISTE-VORGAENGE.md (D- und Unternummern über die Oberzeile); Vorrat ü
 (Hinweis eines anderen mit „von <Absender>“ in jeder neuen Zeile ausgenommen, 400; ARBEIT-BETRIEB.md ausgenommen: Fords Startsperre muss dorthin, kürzen ist Fords Zeile); neue Antwort im Vorgangsarchiv, deren Vorlage
 in entscheiden/, ansehen/ oder billigen/ stehen bleibt (383.3: wer die Antwort einträgt, löscht die Datei im selben Commit; bleibt die
 Frage trotz Antwort offen, setzt er die Zeit in Zeile 1 oder 2 der Datei neu). Eine beantwortete Vorlage darf ohne Archivänderung weg.
-Hält immer an (auch im Code): gekaufte Rohdatei (449: Kaufordner, Endung eines Kaufpakets, Inhalt wie im geklonten Kaufrepo). Warnt (Exit 0): Modellnamen, Zeilen über 1500 Zeichen. Fasst nur Notizen an; sonst Exit 0. Jeder Fehler im Haken lässt durch."""
+Vorlage in docs/chefsache/ mit „ohne Toon“, „ohne Tusche“ (457; Ausnahme „Chef erlaubt ohne Signatur“). Hält immer an (auch im Code): gekaufte Rohdatei (449: Kaufordner, Endung eines Kaufpakets, Inhalt wie im geklonten Kaufrepo). Warnt (Exit 0): Modellnamen, Zeilen über 1500 Zeichen. Fasst nur Notizen an; sonst Exit 0. Jeder Fehler im Haken lässt durch."""
 import datetime, os, re, subprocess, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -29,6 +29,8 @@ def fremd_hinweis(p):
 KAUF_ORDNER = re.compile(r"(^|/)(kauf|kaufroh|anhang|bornim-kaufmodelle)/", re.I)
 KAUF_ENDUNG = (".fbx", ".blend", ".blend1", ".max", ".ma", ".mb", ".3ds", ".dae", ".obj", ".gltf", ".unitypackage", ".uasset", ".umap",
                ".rar", ".zip", ".7z", ".tga", ".psd", ".spp", ".sbsar", ".exr")
+# 457: Vorlage ohne Signatur (Chef 01.11., 11:49); „ohne Toon-Licht und Tusche“, „ohne Tusche“, „ohne Toon“
+OHNE_SIGNATUR = re.compile(r"ohne\s+(Toon|Tusche|Spielshader)[\w-]*", re.I)
 LEER = "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"  # leere Datei, kommt in beiden Repos vor
 
 def kaufdateien(dat):
@@ -82,6 +84,9 @@ def main():
                 stop.append("%s: Nummer %s ohne Zeile in LISTE-VORGAENGE.md" % (datei, nr))
         if re.search(r"\b(opus|sonnet|haiku|fable)\b", t, re.I) and not datei.endswith(("LISTE-BETRIEB.md", "PRUEFBERICHT-ARCHIV.md", "VORGANGSARCHIV.md", "PRUEFBERICHT.md")) and not datei.startswith("tools/"):
             warn.append("%s: Modellname in neuer Zeile" % datei)
+        if datei.startswith("docs/chefsache/") and OHNE_SIGNATUR.search(t) and "Chef erlaubt ohne Signatur" not in t:
+            stop.append("%s: Vorlage „%s“: jede Probe mit Toon-Licht und Tusche wie im Spiel (457, Chef 01.11., 11:49: „unsere Signatur muss "
+                        "sich wiederfinden“); neu zeichnen, Ausnahme nur mit „Chef erlaubt ohne Signatur“ in der Zeile" % (datei, OHNE_SIGNATUR.search(t).group(0)))
         if len(t) > 1500 and datei.startswith("docs/ARBEIT-"): warn.append("%s: Zeile über 1500 Zeichen" % datei)
     antwort = startbar.antworten(git("show", ":docs/VORGANGSARCHIV.md")) if arch else startbar.antworten()
     if arch:  # 383.3: neue Antwort im Archiv → Vorlage zur Nummer im selben Commit weg (oder Zeit neu, wenn die Frage offen bleibt)
