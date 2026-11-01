@@ -10,6 +10,8 @@ const LINKS_ERLAUBT := 0.05     # m: linke Faust neben der Schaftlinie des Zweih
 # nur die Fassung, die tragen.gd gerade nimmt, die uebrigen stehen als FASSUNG daneben
 # Schild (Lauf 41350556171: Gehen 5 von 15 Bildern bis 5 cm im Koerper): Schildarm um so viele Grad nach aussen (tragen.gd schild_abspreiz)
 const SCHILD_FASSUNGEN := [0.0, 5.0, 8.0, 12.0, 16.0]
+# Schwert mit Schild (Lauf 41356789633: Rennen 1 von 15 Bildern 4,9 cm im rechten Oberschenkel): rechter Oberarm so viele Grad nach aussen
+const SCHWERT_FASSUNGEN := [9.0, 12.0, 15.0, 18.0]
 const AXT_FASSUNGEN := [[0.0, 0.0], [0.5, 0.0], [1.0, 0.0], [0.0, 0.15], [0.5, 0.15], [1.0, 0.15], [0.5, 0.25], [1.0, 0.25], [1.0, 0.30]]
 
 var fehler := 0
@@ -60,12 +62,16 @@ func _initialize() -> void:
 					for fa in AXT_FASSUNGEN: laeufe.append([t, fa])
 				if (t as Tragen).gang == "schildarm":
 					for g in SCHILD_FASSUNGEN: laeufe.append([t, [g]])
+				if (t as Tragen).gang == "schild":
+					for g in SCHWERT_FASSUNGEN: laeufe.append([t, [g]])
 				laeufe.append([t, null])
 			for lf in laeufe:
 				var tr := lf[0] as Tragen
 				var fa = lf[1]
-				var a0 := tr.zwei_anteil; var s0 := tr.zwei_schieben; var g0 := tr.schild_abspreiz
-				if fa != null and fa.size() == 1: tr.schild_abspreiz = fa[0]
+				var a0 := tr.zwei_anteil; var s0 := tr.zwei_schieben; var g0 := tr.schild_abspreiz; var w0 := tr.schwert_abspreiz
+				if fa != null and fa.size() == 1:
+					if tr.gang == "schild": tr.schwert_abspreiz = fa[0]
+					else: tr.schild_abspreiz = fa[0]
 				elif fa != null:
 					tr.zwei_anteil = fa[0]; tr.zwei_schieben = fa[1]
 				var pkt := TragProbe.proben(tr.waffe)
@@ -105,8 +111,9 @@ func _initialize() -> void:
 				for teil in teile.slice(0, 4): s.append("%s %.1f" % [teil, tief[teil] * 100.0])
 				var was := "Schild" if tr.gang == "schildarm" else String(e[2]["MAIN_HAND"]["base"])
 				if fa != null and fa.size() == 1:
-					print("FASSUNG %s Schildarm %.0f Grad aussen: Bilder im Koerper %d von %d, tiefster Punkt %.1f cm (%s)" % [bew, fa[0], innen, n, tiefst * 100.0, ", ".join(s)])
-					tr.schild_abspreiz = g0
+					print("FASSUNG %s %s %.0f Grad aussen: Bilder im Koerper %d von %d, tiefster Punkt %.1f cm (%s)" % [bew, "Schwertarm" if tr.gang == "schild" else "Schildarm",
+						fa[0], innen, n, tiefst * 100.0, ", ".join(s)])
+					tr.schild_abspreiz = g0; tr.schwert_abspreiz = w0
 					continue
 				if fa != null:
 					print("FASSUNG %s Anteil %.1f, verschoben %.2f m: Bilder im Koerper %d von %d, tiefster Punkt %.1f cm (%s), linke Faust %.1f cm, gedreht %.1f Grad" % [bew,
