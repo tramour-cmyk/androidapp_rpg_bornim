@@ -89,10 +89,16 @@ jobs:
           ls -l $Z/*.glb | awk '{print $5, $9}'
           # Durchdringung unserer Trachten in Bewegung (pruef_tracht.py), Mann gegen Frau
           UAL=$(find ~/cc0 -name UAL1_Standard.glb | grep -i godot | head -1); [ -n "$UAL" ] || UAL=$(find ~/cc0 -name UAL1_Standard.glb | head -1)
-          for k in WACHE_M:$OUT WACHE_W:$Z/roh_held_w ROBE_M:$Z/roh_held_wizard_m ROBE_W:$Z/roh_held_wizard_w; do
+          for k in WACHE_M:$Z/roh_held_m WACHE_W:$Z/roh_held_w ROBE_M:$Z/roh_held_wizard_m ROBE_W:$Z/roh_held_wizard_w; do
             n=${k%%:*}; h=${k#*:}
             FIG=$Z/roh/held_$n.blend UAL=$UAL HELDOUT=$h/x timeout 900 bl/bin/python -I tools/blender348/v3/pruef_tracht.py > probe/durch-$n.log 2>&1 || echo "pruef_tracht $n $?"
             echo "== $n"; grep -E "^(DURCH|BEDECKT|FEHLT)" probe/durch-$n.log | cut -c1-220
+          done
+          # 376.1 Urteil Tracht (Chef 01.11., 20:2x): was die Kamera sieht, Flecken in Umhang und Robe (pruef_flecken.py), ringsum und von hinten
+          for k in WACHE_M:roh_held_m:cloak WACHE_W:roh_held_w:cloak ROBE_M:roh_held_wizard_m:robe,chain ROBE_W:roh_held_wizard_w:robe,chain; do
+            IFS=: read n r h <<< "$k"
+            GLB=$Z/held_$n.glb ROH=$Z/roh/held_$n.blend TEILE=$Z/$r/teile.json UAL=$UAL HUELLE=$h AUF=0.01 BILDER=4 timeout 900 bl/bin/python -I tools/blender348/v3/pruef_flecken.py > probe/flecken-$n.log 2>&1 || echo "pruef_flecken $n $?"
+            echo "== $n"; grep -E "^(FLECKEN|FEHLT)" probe/flecken-$n.log | cut -c1-300
           done
       - uses: actions/cache@v4
         with:

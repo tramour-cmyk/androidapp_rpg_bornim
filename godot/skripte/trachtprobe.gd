@@ -11,24 +11,22 @@ const ABSTAND := 1.0       # m zwischen den Figuren eines Streifens
 const BREITE := 3.3        # m Bildbreite (Kamera.zoom), 3 Figuren
 const MITTE_Y := 0.1
 # je Seite drei Streifen zu drei Figuren: [Herkunft, Geschlecht, Statur, Bewegung]
+# 376.1 Urteil Tracht (Chef 01.11., 20:2x: Tracht passt; Umhang des Wachsoldaten mit Farbstreifen, Robe des Zauberlehrlings mit Knie
+# und Flecken): zweite Runde nur Umhang und Robe, je oben Mann, Mitte Frau (Schlank, Normal, Kraeftig), unten Gehen. Ohne Rennen: das
+# Rennen A (416.4) kommt mit dem Grundstand 461; die Uebersicht aller Trachten in Git (Lauf 41311736346)
 const SEITEN := {
-	"mann": [
-		[["WACHSOLDAT", "m", "normal", "Stehen"], ["ZAUBERLEHRLING", "m", "normal", "Stehen"], ["KLOSTERSCHUELER", "m", "normal", "Stehen"]],
-		[["JAEGERKIND", "m", "normal", "Stehen"], ["HERUMTREIBER", "m", "normal", "Stehen"], ["WANDERER", "m", "normal", "Stehen"]],
+	"umhang": [
 		[["WACHSOLDAT", "m", "schlank", "Stehen"], ["WACHSOLDAT", "m", "normal", "Stehen"], ["WACHSOLDAT", "m", "kraeftig", "Stehen"]],
+		[["WACHSOLDAT", "w", "schlank", "Stehen"], ["WACHSOLDAT", "w", "normal", "Stehen"], ["WACHSOLDAT", "w", "kraeftig", "Stehen"]],
+		[["WACHSOLDAT", "m", "normal", "Gehen"], ["WACHSOLDAT", "w", "normal", "Gehen"], ["WACHSOLDAT", "m", "kraeftig", "Gehen"]],
 	],
-	"frau": [
-		[["WACHSOLDAT", "w", "normal", "Stehen"], ["ZAUBERLEHRLING", "w", "normal", "Stehen"], ["KLOSTERSCHUELER", "w", "normal", "Stehen"]],
-		[["JAEGERKIND", "w", "normal", "Stehen"], ["HERUMTREIBER", "w", "normal", "Stehen"], ["WANDERER", "w", "normal", "Stehen"]],
+	"robe": [
+		[["ZAUBERLEHRLING", "m", "schlank", "Stehen"], ["ZAUBERLEHRLING", "m", "normal", "Stehen"], ["ZAUBERLEHRLING", "m", "kraeftig", "Stehen"]],
 		[["ZAUBERLEHRLING", "w", "schlank", "Stehen"], ["ZAUBERLEHRLING", "w", "normal", "Stehen"], ["ZAUBERLEHRLING", "w", "kraeftig", "Stehen"]],
-	],
-	"bewegung": [
-		[["WACHSOLDAT", "w", "kraeftig", "Gehen"], ["ZAUBERLEHRLING", "w", "normal", "Gehen"], ["JAEGERKIND", "w", "schlank", "Gehen"]],
-		[["WACHSOLDAT", "m", "kraeftig", "Gehen"], ["ZAUBERLEHRLING", "m", "normal", "Gehen"], ["KLOSTERSCHUELER", "m", "schlank", "Gehen"]],
-		[["WACHSOLDAT", "w", "kraeftig", "Rennen"], ["ZAUBERLEHRLING", "w", "kraeftig", "Rennen"], ["WACHSOLDAT", "m", "kraeftig", "Rennen"]],
+		[["ZAUBERLEHRLING", "m", "normal", "Gehen"], ["ZAUBERLEHRLING", "w", "normal", "Gehen"], ["ZAUBERLEHRLING", "m", "kraeftig", "Gehen"]],
 	],
 }
-const DAUER := {"mann": 12.0, "frau": 12.0, "bewegung": 8.0}
+const DAUER := {"umhang": 12.0, "robe": 12.0}
 # Kopf je Herkunft: der Beispielkopf der Klasse, zu der sie gehoert (HeldFigur.KLASSEN_VORGABE); die Heldin mit langem Haar (zeigt,
 # dass es unter der Kapuze verschwindet)
 const KLASSE := {"WACHSOLDAT": "FIGHTER", "ZAUBERLEHRLING": "WIZARD", "KLOSTERSCHUELER": "CLERIC", "HERUMTREIBER": "ROGUE", "JAEGERKIND": "ROGUE"}

@@ -45,7 +45,9 @@ if FREI:
 TRACHTEN = {
     'WACHE': {'tracht': 'unsere', 'fuesse': True},   # Kettenhemd, Wappenrock, Umhang (kauf_kleid.py, Chef 27.10., 18:06 „passt“)
     # Lauf 2: Wizard_Feet schraeg wie Clownsschuhe; Chef 28.10., 23:0x: „trägt keine Robe … Kasperlanzug“: lange Robe aus held3 (trachten.json)
-    'ROBE': {'tracht': 'held_wizard', 'fuesse': True},
+    # 376.1 Urteil Tracht (Chef 01.11., 20:2x: „Knie durch“): die Waldlaeuferstiefel reichen bis unters Knie und stachen im Gehen 3-5 cm
+    # vorn durch die Robe (pruef_flecken.py, Strahl von vorn: Stiefel vor der Robe auf 0,40-0,48 m). Unter der Robe nur der Fuss: Schaft ab stiefel_bis (m) weg
+    'ROBE': {'tracht': 'held_wizard', 'fuesse': True, 'stiefel_bis': 0.28},
     'KLOSTER': {'kleid': '{v}_Knight_Cloth', 'ohne': ['Horns'], 'stahl': False,   # Pruefer Lauf 1: Arme mit STAHL schwarz (Bild 0,20/0,13/0,08)
                 'sonne': 'Body_Cloth', 'entgruen': ['Legs_Armor', 'Feet_Armor', 'Arms']},   # Lauf 1: Handschuhe gruenlich (118/124/109)
     'WALD': {'kleid': '{v}_Ranger'},   # Kapuze (Head_Hood) bleibt als eigenes Netz: Godot zeigt sie je Herkunft
@@ -224,6 +226,10 @@ def held3_tracht(figur, sex='m'):
     o = os.path.join(ZIEL, 'roh_%s_%s' % (figur, sex)); os.makedirs(o, exist_ok=True)
     if not os.path.exists(os.path.join(o, 'tex')): os.symlink(os.path.join(OUT, 'tex'), os.path.join(o, 'tex'))
     env = dict(os.environ, OUT=o, FIGUR=figur, LEUTE=os.path.join(HIER, 'trachten.json'), SEX=sex)
+    # 376.1 Urteil Tracht (Chef 01.11., 20:2x: Farbstreifen durch den Umhang, Flecken in der Robe): rig.py baute auf 6000 Dreiecke fuer die
+    # ganze alte Figur ab; der Kauffigur blieben Umhang 418, Robe 500 Dreiecke, die Lagen kreuzten sich (pruef_flecken.py). Hier ohne Abbau,
+    # Umhang, Robe und Wappenrock als Gitter ausgeduennt (rig.py GITTER): Umhang 3028, Robe 3600 Dreiecke, Figur 25 000 bis 34 000
+    env.setdefault('DREIECKE', '0'); env.setdefault('GITTER', 'cloak,robe,tabard')
     env.setdefault('KARTEN', os.path.join(OUT, 'karten.json'))
     for s in ('held3', 'rig'):
         r = subprocess.run([sys.executable, '-I', os.path.join(HIER, s + '.py')], env=env, capture_output=True, text=True)
@@ -231,7 +237,7 @@ def held3_tracht(figur, sex='m'):
     return o
 
 
-def kaempfer(k, g, figur='', fuesse=''):
+def kaempfer(k, g, figur='', fuesse='', stiefel_bis=0.0):
     # unsere Tracht auf dem Kaufkoerper (kauf_kleid.py), dann Formschluessel am Kopf; figur: andere Tracht aus trachten.json;
     # fuesse: Stiefel aus den Kauftrachten statt unserer; g: Geschlecht (GESCHLECHTER)
     G = GESCHLECHTER[g]
@@ -242,12 +248,12 @@ def kaempfer(k, g, figur='', fuesse=''):
     if figur:
         env['OUT'] = held3_tracht(figur, G['sex'])
         ohne = json.load(open(os.path.join(HIER, 'trachten.json')))[figur].get('ohne', [])
-    elif G['sex'] != 'm':
-        env['OUT'] = held3_tracht('held', G['sex'])   # unser Held auf dem Frauenkoerper
+    else:
+        env['OUT'] = held3_tracht('held', G['sex'])   # unser Held (Frau: auf dem Frauenkoerper); 376.1: auch der Mann eigens, ohne Abbau
     if fuesse: ohne = ohne + ['boots']
     env['OHNE_TEIL'] = ','.join(ohne)
     r = subprocess.run([sys.executable, '-I', os.path.join(HIER, 'kauf_kleid.py')], env=env, capture_output=True, text=True)
-    print('\n'.join(l for l in r.stdout.splitlines() if l.startswith(('KAUFKLEID', 'KLEIDUNG', 'HALS', 'UMHANG'))))
+    print('\n'.join(l for l in r.stdout.splitlines() if l.startswith(('KAUFKLEID', 'KLEIDUNG', 'HALS', 'UMHANG', 'SCHALE', 'RUECKBAHN', 'LAGEN'))))
     if r.returncode: print(r.stdout[-3000:], r.stderr[-3000:]); raise SystemExit('kauf_kleid.py %d' % r.returncode)
     bpy.ops.wm.open_mainfile(filepath=os.path.join(roh, 'held_%s.blend' % k))
     arm = next(o for o in bpy.data.objects if o.type == 'ARMATURE')
@@ -258,6 +264,13 @@ def kaempfer(k, g, figur='', fuesse=''):
         fo = [o for o in QT.importiere(fp)]
         fm = [o for o in fo if o.type == 'MESH']
         QT.an_geruest(fo, arm)   # entfernt das Geruest des Imports
+        if stiefel_bis > 0:
+            import bmesh
+            for o in fm:
+                bm = bmesh.new(); bm.from_mesh(o.data); mw = o.matrix_world
+                weg = [v for v in bm.verts if (mw @ v.co).z > stiefel_bis]
+                bmesh.ops.delete(bm, geom=weg, context='VERTS'); bm.to_mesh(o.data); bm.free()
+                print('STIEFEL BIS', stiefel_bis, 'm,', len(weg), 'Ecken weg')
         netze += fm
     haut, augen, brauen = kopfnetze(netze)
     beine_weg(haut)
@@ -545,7 +558,7 @@ for t, f in TRACHTEN.items():
         if NUR_G and g not in NUR_G: continue
         k = '%s_%s' % (t, g)
         fu = GESCHLECHTER[g]['fuesse'] if f.get('fuesse') else ''
-        arm, netze = tracht(k, g, f) if 'kleid' in f else kaempfer(k, g, '' if f['tracht'] == 'unsere' else f['tracht'], fu)
+        arm, netze = tracht(k, g, f) if 'kleid' in f else kaempfer(k, g, '' if f['tracht'] == 'unsere' else f['tracht'], fu, f.get('stiefel_bis', 0.0))
         info['trachten'][k] = {'kleid': (f.get('kleid') or f['tracht']).format(v=GESCHLECHTER[g]['v']), 'geschlecht': g,
                                'kopf': godot(QT.kopf_pos(arm)), 'dreiecke': dreiecke(netze), 'netze': sorted(o.name for o in netze)}
         print('TRACHT', k, info['trachten'][k]['dreiecke'], 'Dreiecke', info['trachten'][k]['kleid'])

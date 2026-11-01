@@ -16,11 +16,9 @@ HERKUNFT = {'WACHSOLDAT': 'Wachsoldat', 'ZAUBERLEHRLING': 'Zauberlehrling', 'KLO
             'HERUMTREIBER': 'Herumtreiber', 'WANDERER': 'Wanderer, Kräutersammler,', 'KRAEUTERSAMMLER': 'Kräutersammler',
             'SCHMIEDELEHRLING': 'Schmiedelehrling'}
 STATUR = {'schlank': 'Schlank', 'normal': '', 'kraeftig': 'Kräftig'}
-TITEL = {
-    'mann': '376.1 · Tracht je Herkunft, Mann, wie im Spiel (ohne Waffen). Unten die Statur: Schlank, Normal, Kräftig',
-    'frau': '376.1 · Tracht je Herkunft, Frau: Kettenhemd und lange Robe an den Frauenkörper angepasst, langes Haar unter der Kapuze '
-            'verborgen. Unten die Statur',
-    'bewegung': '376.1 · In Bewegung: oben Frau beim Gehen, Mitte Mann beim Gehen, unten Rennen',
+TITEL = {   # 376.1 Urteil Tracht (Chef 01.11., 20:2x): zweite Runde nur Umhang und Robe (trachtprobe.gd)
+    'umhang': '376.1 · Umhang des Wachsoldaten nachgebessert: oben Mann, Mitte Frau (Schlank, Normal, Kräftig), unten Gehen',
+    'robe': '376.1 · Robe des Zauberlehrlings nachgebessert: oben Mann, Mitte Frau (Schlank, Normal, Kräftig), unten Gehen',
 }
 
 
@@ -70,7 +68,7 @@ def bilder(name):
 
 
 nr = 0
-for s in ('mann', 'frau', 'bewegung'):
+for s in TITEL:
     namen = sorted(n for n in lage if n.startswith(s + '_'))
     reihen = [bilder(n) for n in namen]
     for gleich in zip(*reihen):

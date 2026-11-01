@@ -236,6 +236,20 @@ bpy.context.view_layer.objects.active = meshes[0]
 # (nur sie: mit Kopfrand blieb Blender ueber 6000, ein zweiter Gang ohne Gruppe zerstoerte Umhang und Helm; so rechts noch 0,6 cm innen, links mittig)
 for o in meshes:
     if o.name.startswith('eye'): o.vertex_groups.new(name='fest').add(list(range(len(o.data.vertices))), 1.0, 'REPLACE')
+# 376.1 Urteil Tracht (Chef 01.11., 20:2x: Farbstreifen durch den Umhang, Flecken in der Robe): der Abbau auf 6000 liess der Kauffigur
+# (held_klassen.py nimmt nur die Kleidung) Umhang 418 von 11756 Dreiecken, Robe 500 von 14400; beide Lagen jeder Schale fielen je
+# fuer sich, die innere stach durch die aeussere (pruef_flecken.py: Innenseite sichtbar in der Robe 94407 Punkte, ohne Abbau 1038).
+# GITTER=<teile>: diese Teile statt Zusammenfallen je Stufe auf ein Viertel ausduennen (Gitter bleibt Gitter, Lagen getrennt), dann fest
+GITTER = [t for t in os.environ.get('GITTER', '').split(',') if t]
+if GITTER:
+    import bmesh
+    for o in meshes:
+        if o.name.split('.')[0] not in GITTER: continue
+        bm_ = bmesh.new(); bm_.from_mesh(o.data); vor_ = len(bm_.faces)
+        bmesh.ops.unsubdivide(bm_, verts=bm_.verts, iterations=int(os.environ.get('GITTER_STUFE', '2')))
+        bm_.to_mesh(o.data); bm_.free(); o.data.update()
+        (o.vertex_groups.get('fest') or o.vertex_groups.new(name='fest')).add(list(range(len(o.data.vertices))), 1.0, 'REPLACE')
+        print('GITTER', o.name, vor_, '->', len(o.data.polygons), 'Flaechen')
 # Feinschliff 8 (Fremdpruefung Feinschliff 7: W-Keile und Zinnen am gebeugten Ellbogen; ohne Abbau weg): der Abbau liess binnen
 # ELL_R = 0,3 Oberarmlaengen um jeden Ellbogen 10 bis 16 Dreiecke (alle Lagen), lange Kanten liefen ueber das Gelenk. Dort wird
 # schwaecher abgebaut (Gewicht ELL_W in „fest“, Faktor 1000): 0,001 gibt 120 bis 270 (Helfer blind: Jorin, Bram, Borin besser,
