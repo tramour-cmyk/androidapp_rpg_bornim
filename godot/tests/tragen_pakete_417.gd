@@ -8,7 +8,7 @@ const INNEN_ERLAUBT := 0.01     # m, wie tragen_417.gd
 const LINKS_ERLAUBT := 0.05     # m: linke Faust neben der Schaftlinie des Zweihaenders
 # Runde 6 (Lauf 41324326151): Zweihaender in Fassungen [Anteil der Drehung zur linken Faust, Verschieben zur Spitze in m]; Fehler zaehlt
 # nur die Fassung, die tragen.gd gerade nimmt, die uebrigen stehen als FASSUNG daneben
-const AXT_FASSUNGEN := [[0.0, 0.0], [0.5, 0.0], [1.0, 0.0], [0.0, 0.15], [0.5, 0.15], [1.0, 0.15], [0.5, 0.25], [1.0, 0.25]]
+const AXT_FASSUNGEN := [[0.0, 0.0], [0.5, 0.0], [1.0, 0.0], [0.0, 0.15], [0.5, 0.15], [1.0, 0.15], [0.5, 0.25], [1.0, 0.25], [1.0, 0.30]]
 
 var fehler := 0
 
