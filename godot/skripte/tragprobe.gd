@@ -152,7 +152,7 @@ func standbilder(axt := false, pakete := false) -> void:
 		for ai in FILM_FOLGE.size():
 			var b0: String = FILM_FOLGE[ai][0]
 			var nf := int(round(float(FILM_FOLGE[ai][1]) * FPS))
-			var halt := ai + 1 < FILM_FOLGE.size() and FILM_FOLGE[ai + 1][0] == "Stehen"   # 416.4: vor dem Halt bremsen wie am Ende eines Wegs
+			var halt: bool = ai + 1 < FILM_FOLGE.size() and FILM_FOLGE[ai + 1][0] == "Stehen"   # 416.4: vor dem Halt bremsen wie am Ende eines Wegs
 			for f in nf:
 				var moving := b0 != "Stehen"
 				var soll := 0.0 if not moving else (SPIEL_GEHEN if b0 == "Gehen" else SPIEL_RENNEN)
