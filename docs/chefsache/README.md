@@ -46,7 +46,6 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [438a](tun/438a-kaufmodelle-zugang.md) | **Muss** | E Kampf | 02.11., 00:29 | Zugang zu den Kaufmodellen in der neuen Sitzung Jerry freigeben | Jerry |
 | [415](tun/415-beams-probe.md) | **Muss** | C Kampf | 01.11., 22:39 | Beams-Probe: fremden Code der Gratis-Probe in Jerrys Sitzung ausführen lassen | Jerry |
 | [464](tun/464-godot-setup.md) | **Muss** | M Abläufe | 01.11., 20:51 | Godot in jeder Sitzung: Zeile im Setup-Skript der Umgebung | Perikles |
 | [142](tun/142-pflichttest.md) | **Muss** | M Veröffentlichung | 27.10., 20:07 | Pflichttest Play Store: Gewerbeschein melden | Sokrates |
