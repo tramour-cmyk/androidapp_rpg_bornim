@@ -18,6 +18,8 @@ Gemessen im Spiel (Rennen 4,27 m/s):
 
 Kein Fuß unter dem Boden, kein Gleiten. Erster Lauf hatte bei A und B den Fuß 2–3 cm im Boden; behoben, bevor der Film zu dir kam.
 
+**Prüferbefund (13:1x, nach dem Versand):** kein Fuß im Boden, kein Gleiten gesehen; bei heute lange Flugphase (Füße über dem Schatten), A kürzer, B am flachsten. Als Erstes fällt der Saum des Wappenrocks auf: von der Seite eine harte dunkle Platte, die in Landung Knie und Oberschenkel durchsticht (alle drei Fassungen, Tracht des Kämpfers, nicht das Rennen). Bei heute in der Zeitlupe die Flugpose fast still, dann in zwei Bildern gelandet; bei 4,1 s dreht der Oberkörper in einem Bild, die Faust ist kurz orange.
+
 **Frage:** heute, A oder B?
 **Vorschlag Tom:** A. Ein Läufer bei diesem Tempo macht etwa 2,8 Schritte je Sekunde zu 1,5 m, das trifft A.
 **Stärkstes Gegenargument:** Mit 417 Runde 4 (gerade in Arbeit, deine Pakete von 12:03) läuft der Held mit Waffe nach den Bewegungen aus den Paketen; A oder B gilt dann nur, wenn er nichts in der Hand hat (Stab und Fackel; jede Klasse beginnt mit Waffe). Ein Rennen ohne Waffe haben die Pakete nicht.
