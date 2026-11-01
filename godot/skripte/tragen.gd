@@ -191,8 +191,9 @@ const ZWEI_HOECHST := 30.0
 var zwei_anteil := 1.0
 var zwei_schieben := 0.30
 # Schwert mit Schild: im Rennen fuehrt die Bewegung die rechte Faust 5 cm durch den rechten Oberschenkel; der Oberarm geht dafuer
-# immer (auch im Gehen, damit beim Wechsel nichts springt) SCHILD_ABSPREIZ Grad nach aussen
-const SCHILD_ABSPREIZ := 9.0
+# immer (auch im Gehen, damit beim Wechsel nichts springt) schwert_abspreiz Grad nach aussen. Lauf 41356789633 (Becken nach Beinlaenge):
+# 9 Grad liess die Klinge im Rennen in 1 von 15 Bildern 4,9 cm in den rechten Oberschenkel; Fassungen SCHWERT_FASSUNGEN in der Messung
+var schwert_abspreiz := 9.0
 # 417 Runde 5 (Lauf 41350556171): das entspannte Paketgehen WalkNormal2S&S fuehrt den linken Arm dicht am Koerper, der untere Schildrand
 # lag in 5 von 15 Bildern bis 5 cm in Ruecken (spine_03) und linkem Oberschenkel. Der Schildarm geht darum immer (kein Sprung beim
 # Wechsel) schild_abspreiz Grad nach aussen; Fassungen in tests/tragen_pakete_417.gd (SCHILD_FASSUNGEN). Lauf 41355090887 (Gehen):
@@ -218,7 +219,7 @@ func _paket(sk: Skeleton3D, ih: int) -> void:
 	var G := sk.global_transform
 	var R := hand_rahmen(sk, seite)
 	var bogen := gang == "bogen"
-	if gang == "schild": _abspreizen(sk, ih, SCHILD_ABSPREIZ)
+	if gang == "schild": _abspreizen(sk, ih, schwert_abspreiz)
 	R = hand_rahmen(sk, seite)
 	var d := (R.basis * (BOGEN_ACHSE if bogen else GRIFF_ACHSE)).normalized()
 	zwei_winkel = 0.0
@@ -247,7 +248,7 @@ func _paket(sk: Skeleton3D, ih: int) -> void:
 	waffe.global_basis = Basis(x, dw, x.cross(dw))
 	waffe.global_position = G * p + (dw * zwei_schieben if gang == "axt" else Vector3.ZERO)
 
-# Oberarm um die Vorwaertsachse der Figur nach aussen, die Faust weg vom Bein (SCHILD_ABSPREIZ, links schild_abspreiz)
+# Oberarm um die Vorwaertsachse der Figur nach aussen, die Faust weg vom Bein (rechts schwert_abspreiz, links schild_abspreiz)
 func _abspreizen(sk: Skeleton3D, ih: int, grad: float) -> void:
 	var iu := sk.find_bone("upperarm_" + seite)
 	if iu < 0 or modell == null: return
