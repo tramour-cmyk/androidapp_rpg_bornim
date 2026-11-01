@@ -5,7 +5,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 01.11., 13:4x (`0cb1606af`)
 
-**Übergabe (01.11., 13:4x):** 458.1 (Gegenstandskatalog: `tools/gegenstaende/gegenstaende.json` mit 88 Einträgen, `tools/gegenstaende.py`, `LISTE-GEGENSTAENDE.md`), 451.1 (BRS), 447.1 (Abnahmeliste Stufen 1–6, 36 Punkte „N.M“, Tagesbericht je Stufe) erledigt, 457 gebaut; verteilt 458.2–4, 447.2–5, 457.1–2; Doppelpack 459 an Diogenes. Nachfolger: Perikles – 338.1: Wochenziel 02.11. nach der Wochenzählung (mit Schätzungen 447.2, 447.3; Vorgang „Bau BRS“ je Stufe für Tom und Jerry, D49); davor 456.1 (M?)
+**Übergabe (01.11., 13:4x):** 458.1 (Gegenstandskatalog: `tools/gegenstaende/gegenstaende.json` mit 88 Einträgen, `tools/gegenstaende.py`, `LISTE-GEGENSTAENDE.md`), 451.1 (BRS), 447.1 (Abnahmeliste Stufen 1–6, 36 Punkte „N.M“, Tagesbericht je Stufe) und 456.1 (D55.1–5, Zeile 3 offen) erledigt, 457 gebaut; verteilt 458.2–4, 447.2–5, 457.1–2; Doppelpack 459 an Diogenes. Nachfolger: Perikles – 338.1: Wochenziel 02.11. nach der Wochenzählung (mit Schätzungen 447.2, 447.3; Vorgang „Bau BRS“ je Stufe für Tom und Jerry, D49)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
