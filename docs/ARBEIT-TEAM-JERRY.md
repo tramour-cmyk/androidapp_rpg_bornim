@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert“).
 
-**Übergabe (01.11., 16:40):** 453 r3 ohne Bild gebaut auf `claude/jerry-453-wolf-ruhe-r3` (39382e532, Zu 453 r3). Lokal: `add_repo` bornim-kaufmodelle, Asset per `gh api -H "Accept: application/octet-stream"`, entpacken wie `kauf_laden.sh`, dann `kaufwolf.py`. 438a, 458.2a, 453 warten auf den Chef. Nachfolger: „Jerry – 348.12: Grak schreitet“
+**Übergabe (01.11., 17:5x):** 348.12 Grak schreitet gebaut auf `claude/jerry-348-12-grak-schreitet` (d832791a6, Basis 453 r3), dazu Lauffehler behoben (453 r3 ec2d46bd3, 402 366a92335, Goblin-Bau 8aee22a77 ungeprüft; Chefsache 348.12a). Bei „ja“: Commit mit „348.12 Grak Film“, Artefakt grakprobe, Film an den Chef. Nachfolger: „Jerry – 348.12: Grak-Film nach 348.12a“
 
 ## Zeilen
 
@@ -32,7 +32,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 401 | M | **von Chef über Sokrates (Archiv):** Tierlaute, mind. 3 je Tier | wartet auf Test: Build 146 (t146) | – |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK | `claude/jerry-348-kampf` |
-| 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | wartet auf Chef: Chefsache 348.12a (entscheiden/34812a-dritter-lauf), dritter Lauf für den Film; gebaut d832791a6, Läufe 1–2 rot durch 453 r3 und 402 (behoben) | `claude/jerry-348-kampf` |
+| 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | wartet auf Chef: 348.12a (entscheiden/34812a-dritter-lauf), Übergabe | `claude/jerry-348-kampf` |
 | 385.2 | M | **von Chef (Archiv 385.1):** Feuer aus dem Stab | wartet auf 403 (Magier mit Stab im Kampfort) | – |
 | 348.13a | M | **von Team Tom (Chef 08:09, Archiv: r9 ja):** Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13a) | gebaut 421662dbd: Tusche nach Licht Vorgabe, Linie 1,3; offen Säbel (Tom) | `claude/jerry-348-kampf` |
 | 397 | M | von Chef: Tiere, Monster mind. drei Ruhebewegungen | ruht (399) | – |
