@@ -1,5 +1,7 @@
 # 376.1 · Tracht je Herkunft, Heldin, Statur · Spike · 01.11., 15:25
 
+[Film von 01.11., 15:25](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-1525-376.1-Spike.mp4) (eingetragen von meldung.sh, Spike)
+
 Film per Telegram (40 s, Hochformat), wie im Spiel gezeichnet (Toon-Licht, Tusche, Wiese), ohne Waffen; noch kein Build. Ablauf auf GitHub (`spike-probe-3761.yml`, Lauf 41311736346), Zweig `claude/spike-376-1-tracht`.
 
 - **Seite 1 Mann, Seite 2 Frau** (Archiv 376.1, Chef 01.11., 11:19 „wie Sokrates“): Wachsoldat (unser Kettenhemd, Wappenrock und Umhang), Zauberlehrling (lange Robe), Klosterschüler (Stofftracht des Ritters ohne Hörner), Jägerkind (Waldläufer mit Kapuze, Haar darunter verborgen), Herumtreiber (ohne Kapuze), Wanderer, Kräutersammler, Schmiedelehrling (Bauerntracht; eine Schürze gibt es im Bestand nicht). Unten die Statur: schlank, normal, kräftig (wie alt, `Appearance.kt`). Seite 3: Gehen und Rennen.
