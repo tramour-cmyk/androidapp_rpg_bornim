@@ -889,7 +889,7 @@ func _idle() -> void:
 	# 453 r3 (Prüfer Film r2: Umblicken und Knurren im selben Bild; gemessen tests/atem_bild_453.gd: alle Wölfe in Hocke bei 1,13 s
 	# ihrer Schleife): die Grundschleife selbst blickt um (Stehen = IdleA) oder wendet den Kopf (Hocke = IdleC); beginnt sie neu, dann
 	# je Wolf an anderer Stelle, sonst wendet das Rudel im Gleichtakt
-	if fighter.monster != null and von != grund and anim.has_animation(grund):
+	if fighter.monster != null and von != grund and anim and anim.has_animation(grund):     # 348.12 Lauf 172: Figuren ohne Modell (Kampfort ohne Bild) haben kein anim
 		var lang: float = anim.get_animation(grund).length
 		var z := RandomNumberGenerator.new()
 		z.seed = hash("%s/%s/%d" % [fighter.id, grund, _schleifen])
