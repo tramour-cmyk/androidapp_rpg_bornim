@@ -99,5 +99,21 @@ func _initialize() -> void:
 			if tr.art == "stab" and bew == "Gehen":
 				pruefe(setzen >= 1, "%s: Stab im Gehen nie umgesetzt" % e[0])
 				pruefe(fuss_hoch < 0.01, "%s: Stabfuss steht %.1f cm ueber dem Boden" % [e[0], fuss_hoch * 100.0])
+	# Sprung: nach einem Ortswechsel steht der Stabfuss wieder unter der Faust (Pruefer 417 Runde 2: im Film fehlte der Stab)
+	for e in FIGUREN.slice(0, 1):
+		var w := welt.get_child(0) as Node3D
+		var m := w.get_child(0) as Node3D
+		var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
+		var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
+		var tr := sk.find_children("Tragen", "", false, false)[0] as Tragen
+		ap.play("Gehen")
+		await process_frame
+		w.position += Vector3(7, 0, -9)
+		for f in 3:
+			ap.pause()
+			ap.seek(f / FPS, true)
+			await process_frame
+		var abst := Vector2(tr.stab_fuss.x - tr.faust_welt.x, tr.stab_fuss.z - tr.faust_welt.z).length()
+		pruefe(abst < 0.4, "%s: nach einem Sprung von 11 m steht der Stabfuss %.2f m von der Faust" % [e[0], abst])
 	print("TRAGEN gut" if fehler == 0 else "TRAGEN %d Fehler" % fehler)
 	quit(1 if fehler > 0 else 0)

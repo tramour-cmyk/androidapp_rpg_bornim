@@ -149,7 +149,9 @@ func _stab(G: Transform3D, P: Vector3, vorn: Vector3, ac: Vector3, geht: bool, d
 	var aw := (G.basis * ac); aw.y = 0; aw = aw.normalized()
 	var boden := modell.global_position.y
 	var ruhe := Vector3(pw.x, boden, pw.z) + aw * STAB_AUSSEN + vw * 0.03
-	if stab_fuss == Vector3.INF:
+	# Pruefer 417 Runde 2 (im Film fehlte der Stab im Gehen): nach einem Sprung der Figur (Ortswechsel, Probe) stand der Fuss am alten
+	# Ort, die Faust kam nie mehr ueber ihn hinaus; weiter als einen Meter weg setzt er neu an
+	if stab_fuss == Vector3.INF or Vector2(stab_fuss.x - ruhe.x, stab_fuss.z - ruhe.z).length() > 1.0:
 		stab_fuss = ruhe; stab_nach = ruhe; stab_t = 1.0
 	if stab_t >= 1.0:
 		var neu := Vector3.INF
