@@ -200,7 +200,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 447 | M | von Chef (01.11., 09:51, „Was sind denn aktuell die Meilensteine? Habe ich die gebilligt?“ | Chef (Datei in der Chefsache) |
 | 448 | M | von Chef (01.11., 10:46, „einen täglichen Bericht … der sinnvolle Werte enthält?“; 10:50 „ | Chef (Datei in der Chefsache) |
 | 451 | M | von Chef (01.11., 10:59, „müssen wir unser Spielsystem auch irgendeinen Namen geben … Bitt | Chef (Datei in der Chefsache) |
-| 452 | M | von Chef (01.11., 10:59, 11:00): ein gebündeltes Dokument; Notizen-Übersicht docs/README.m | startbar |
+| 452 | M | von Chef (01.11., 10:59, 11:00): ein gebündeltes Dokument; Notizen-Übersicht docs/README.m | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 427 | M | von Chef (31.10., 21:3x): Bestiarium LISTE-BESTIARIUM.md | wartet auf Jerry |
 | 398 | M | von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr g | wartet auf Perikles |
 | 391 | M | von Chef (28.10., 09:21): Repos dauerhaft ohne Ablehnung | ruht |
@@ -236,7 +236,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Format (Muster: „So geht's“ unten): t146-befunde.md: 8 Vorgänge, höchstens 6 je Build (317)
 
-Nicht gestellt: 186.3 (Pruefung)
+Nicht gestellt: 452 (Beratung), 186.3 (Pruefung)
 
 Ohne Datei: 275 (Projekt)
 
