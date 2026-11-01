@@ -1,5 +1,7 @@
 # 438a · Hinfallen und Aufstehen des Helden: Sichtung aus dem Bestand · Jerry · 01.11., 14:20
 
+[Film von 01.11., 14:20](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-1420-438a-Jerry.mp4) (eingetragen von meldung.sh, Jerry)
+
 Film 166 s am Rechner, noch kein Build: der gekaufte Held (Kämpfer mit Schwert und Schild) im Licht des Kampforts mit Tuschelinie und Schatten, ohne Ton. Je Stück oben Nummer und Quelle; zwischen den Stücken steht er 0,4 bis 0,6 s in Kampfhaltung, am Boden hält er 0,4 bis 0,6 s.
 
 | Nr. | Quelle (gekauft, außer 7) | Hinfallen | s | Aufstehen | s |
