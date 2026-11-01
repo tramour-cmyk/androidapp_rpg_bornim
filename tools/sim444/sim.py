@@ -16,6 +16,9 @@ Zwei Teile:
      Fertigkeitswerte beim Erreichen jeder Stufe.
   2. Kampfmatrix: je Herkunft, Heldenstufe 1-6 (mit den mittleren Fertigkeiten aus Teil 1) und
      Art/Boss je N Kaempfe; misst Siegquote, Zuege bis Sieg, Leben am Ende.
+  5. Wirtschaft (447.3, Stufe 3): Fortschritt wie 1 mit Gold, Beute, Zerlegen (Jagd), Abnutzung,
+     Reparatur (Handwerker oder selbst), Traenken (kaufen, brauen, trinken) und Tiere beruhigen;
+     Zahlen im Block "wirtschaft". Nur dieser Teil: --nur-wirtschaft.
 """
 import argparse
 import json
@@ -197,33 +200,38 @@ def endschaden(W, s, abzug):
     return round(s) if W["kampf"]["schaden_runden"] else s
 
 
-def held_abzug(W, held, extra_bannschild=0.0):
+def held_abzug(W, held, extra_bannschild=0.0, l_ruestung=1.0, l_schild=1.0):
+    """l_ruestung, l_schild: Leistung nach Zustand (Wirtschaft, N 11); ohne Wirtschaft 1."""
     k = W["kampf"]
     r = W["ruestungen"]
     rs = r[held.ruestung]
-    a = rs["wert"] * (1 + (held.f(rs["fertigkeit"]) if rs["fertigkeit"] else 0) * k["ruestungsfertigkeit_im_abzug_je_punkt"])
+    a = l_ruestung * rs["wert"] * (1 + (held.f(rs["fertigkeit"]) if rs["fertigkeit"] else 0) * k["ruestungsfertigkeit_im_abzug_je_punkt"])
     if held.schild:
-        a += r["schild_wert"] * (1 + held.f("Schild") * k["ruestungsfertigkeit_im_abzug_je_punkt"])
+        a += l_schild * r["schild_wert"] * (1 + held.f("Schild") * k["ruestungsfertigkeit_im_abzug_je_punkt"])
     if extra_bannschild:
         a += extra_bannschild
     return a
 
 
-def held_abwehr(W, held, art):
-    """Bester von Schild, Ausweichen (+2 je Gewandtheit), halber Nahkampfwaffe (nur gegen Nahkampf)."""
+def held_abwehr(W, held, art, waffe_name=None, schild=True):
+    """Bester von Schild, Ausweichen (+2 je Gewandtheit), halber Nahkampfwaffe (nur gegen Nahkampf).
+    waffe_name, schild: was der Held gerade fuehrt (Wirtschaft: defekt wirkt nicht)."""
     k = W["kampf"]
+    waffe_name = waffe_name or held.waffe
     wahl = [("Ausweichen", held.f("Ausweichen") + k["ausweichen_je_gewandtheit"] * held.werte["gewandtheit"])]
-    if held.schild:
+    if held.schild and schild:
         wahl.append(("Schild", held.f("Schild")))
-    waffe = W["waffen"][held.waffe]
+    waffe = W["waffen"][waffe_name]
     if art == "nah" and waffe["art"] == "nah":
-        wahl.append((held.waffe, held.f(held.waffe) * k["parieren_anteil_waffenfertigkeit"]))
+        wahl.append((waffe_name, held.f(waffe_name) * k["parieren_anteil_waffenfertigkeit"]))
     return max(wahl, key=lambda x: x[1])
 
 
 # ---------------------------------------------------------------- Kampf
 
-def kampf(W, held, mon, rng, lernen=False):
+def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False):
+    """wirt: Zustand, Traenke und Zaehler der Wirtschaft (Teil 5) oder None (Teile 1 bis 4 unveraendert).
+    tier_zuerst: misslungenes Beruhigen, das Tier handelt in Runde 1 vor dem Helden."""
     k = W["kampf"]
     z = W["zauber"]
     d_held = held.stufe - mon["stufe"]
@@ -233,20 +241,36 @@ def kampf(W, held, mon, rng, lernen=False):
     mleben = mon["leben"]
     bann = 0.0
     benutzt = set()
-    waffe = W["waffen"][held.waffe]
+    waffe_name = held.waffe
+    l_waffe = l_ruestung = l_schild = 1.0
+    if wirt is not None:
+        l_waffe = wirt.leistung("waffe")
+        l_ruestung = wirt.leistung("ruestung")
+        l_schild = wirt.leistung("schild")
+        if l_waffe <= 0:
+            waffe_name, l_waffe = "Faustkampf", 1.0
+    waffe = W["waffen"][waffe_name]
     schwaeche = mon.get("schwaeche", {})
     runde = 0
     while runde < W["lauf"]["max_runden"]:
         runde += 1
         # ---- Held handelt
         aktion = None
-        if "Bannschild" in held.zauber and runde == 1 and mana >= z["Bannschild"]["kosten"]:
+        if tier_zuerst and runde == 1:
+            aktion = "warten"
+        elif wirt is not None and leben < lmax * W["wirtschaft"]["traenke"]["trinken_unter"] and wirt.hat_trank():
+            aktion = "trank"
+        elif "Bannschild" in held.zauber and runde == 1 and mana >= z["Bannschild"]["kosten"]:
             aktion = "Bannschild"
         elif "Wundsegen" in held.zauber and leben < lmax * z["Wundsegen"]["heilen_unter"] and mana >= z["Wundsegen"]["kosten"]:
             aktion = "Wundsegen"
         elif "Funkenpfeil" in held.zauber and mana >= z["Funkenpfeil"]["kosten"]:
             aktion = "Funkenpfeil"
-        if aktion == "Bannschild":
+        if aktion == "warten":
+            pass
+        elif aktion == "trank":
+            leben = min(lmax, leben + wirt.trinke())
+        elif aktion == "Bannschild":
             zb = z["Bannschild"]
             mana -= zb["kosten"]
             bann = zb["ruestung"] * (1 + held.f(zb["schule"]) * k["ruestungsfertigkeit_im_abzug_je_punkt"])
@@ -270,9 +294,9 @@ def kampf(W, held, mon, rng, lernen=False):
                 bonus = 0.0
                 typ = zb["typ"]
             else:
-                fert_name = held.waffe
+                fert_name = waffe_name
                 gw = waffe["grundwert"]
-                grund = waffe["schaden"] + (held.werte[gw] if gw else 0)
+                grund = (waffe["schaden"] + (held.werte[gw] if gw else 0)) * l_waffe
                 bonus = k["fernkampf_treffer_je_wahrnehmung"] * held.werte["wahrnehmung"] if waffe["art"] == "fern" else 0.0
                 typ = waffe["typ"]
             fw = held.f(fert_name)
@@ -280,16 +304,21 @@ def kampf(W, held, mon, rng, lernen=False):
                 s = schaden_roh(W, grund, fw, d_held, rng, k["kritisch_prozent_je_gewandtheit"] * held.werte["gewandtheit"])
                 s *= schwaeche.get(typ, 1.0)
                 mleben -= endschaden(W, s, mon["ruestung"])
+                if wirt is not None and aktion is None and waffe_name == held.waffe:
+                    wirt.nutze("waffe", held, mon)
                 if lernen:
                     held.uebe(fert_name, mon["stufe"])
                     benutzt.add(fert_name)
             if mleben <= 0:
                 return {"sieg": True, "runden": runde, "leben": leben / lmax, "benutzt": benutzt}
         # ---- Monster handelt
-        abw_name, abw = held_abwehr(W, held, mon["art"])
+        abw_name, abw = held_abwehr(W, held, mon["art"], waffe_name, l_schild > 0)
         if rng.random() < trefferchance(W, mon["angriff"], abw):
             s = schaden_roh(W, mon["schaden"], mon["angriff"], -d_held, rng)
-            leben -= endschaden(W, s, held_abzug(W, held, bann))
+            leben -= endschaden(W, s, held_abzug(W, held, bann, l_ruestung, l_schild))
+            if wirt is not None:
+                wirt.nutze("ruestung", held, mon)
+                wirt.nutze("schild", held, mon)
             rs = W["ruestungen"][held.ruestung]["fertigkeit"]
             if lernen:
                 if rs:
@@ -298,9 +327,12 @@ def kampf(W, held, mon, rng, lernen=False):
                 if held.schild:
                     held.uebe("Schild", mon["stufe"])
                     benutzt.add("Schild")
-        elif lernen:
-            held.uebe(abw_name, mon["stufe"])
-            benutzt.add(abw_name)
+        else:
+            if wirt is not None and abw_name == "Schild":
+                wirt.nutze("schild", held, mon, W["wirtschaft"]["abnutzung"]["schild_je_abwehr"])
+            if lernen:
+                held.uebe(abw_name, mon["stufe"])
+                benutzt.add(abw_name)
         if leben <= 0:
             return {"sieg": False, "runden": runde, "leben": 0.0, "benutzt": benutzt}
     return {"sieg": False, "runden": runde, "leben": leben / lmax, "benutzt": benutzt, "remis": True}
@@ -425,6 +457,279 @@ def matrix(W, herkunft, fert_bei, kaempfe, rng, variante=False):
     return out
 
 
+# ---------------------------------------------------------------- Teil 5: Wirtschaft (Stufe 3, 447.3)
+
+def ist_tier(W, name):
+    return name in W["wirtschaft"]["tiere_beruhigen"]["arten"]
+
+
+def rang_von(W, wert):
+    """Rang nach Reparatur-Tabelle (N 11): hoechster Rang, dessen Untergrenze erreicht ist, sonst None."""
+    best = None
+    for rang, ab in W["wirtschaft"]["reparatur"]["rang_ab"].items():
+        if wert >= ab:
+            best = rang
+    return best
+
+
+def rang_reicht(W, wert, noetig):
+    raenge = list(W["wirtschaft"]["reparatur"]["rang_ab"])
+    r = rang_von(W, wert)
+    return r is not None and raenge.index(r) >= raenge.index(noetig)
+
+
+def ausbeute(W, jagd):
+    z = W["wirtschaft"]["zerlegen"]
+    return z["ausbeute_min"] + (1 - z["ausbeute_min"]) * min(1.0, jagd / z["jagd_voll"])
+
+
+def beruhigen_chance(W, wert, mon):
+    """None, wenn der Rang fuer dieses Tier nicht reicht; sonst Chance 0..1."""
+    t = W["wirtschaft"]["tiere_beruhigen"]
+    grenze = 0
+    for bis, tierstufe in t["rang_bis_tierstufe"]:
+        grenze = tierstufe
+        if wert <= bis:
+            break
+    if mon["stufe"] > grenze:
+        return None
+    c = t["chance_basis"] + (wert - mon["wachsamkeit"]) * t["chance_je_punkt"]
+    return max(t["chance_min"], min(t["chance_max"], c)) / 100.0
+
+
+def reparatur_kosten(W, held, slot_art, fehlend):
+    """(Kosten, selbst?) fuer 'fehlend' Zustandspunkte eines Stuecks der Art slot_art (Waffen-/Ruestungsart)."""
+    wi = W["wirtschaft"]
+    a = wi["ausruestung"][slot_art]
+    fert = wi["ausruestung"]["material_fertigkeit"][a["material"]]
+    if rang_reicht(W, held.f(fert), a["rang"]):
+        return a["preis"] * wi["reparatur"]["selbst_anteil"] * fehlend / 100.0, fert
+    return a["preis"] * wi["reparatur"]["handwerker_anteil"] * fehlend / 100.0, None
+
+
+class Wirt:
+    """Gold, Beutel, Zustand der Ausruestung und Zaehler eines Laufs."""
+
+    def __init__(self, W, held):
+        self.W = W
+        wi = W["wirtschaft"]
+        self.gold = float(wi["startgold"])
+        self.traenke = {"Heiltrank": wi["start_heiltraenke"], "Großer Heiltrank": 0}
+        self.ware = 0.0          # Verkaufswert im Beutel (Beute, Teile)
+        self.slots = {"waffe": held.waffe}
+        if held.ruestung in wi["ausruestung"]:
+            self.slots["ruestung"] = held.ruestung
+        if held.schild:
+            self.slots["schild"] = "Schild"
+        self.zustand = {s: 100.0 for s in self.slots}
+        self.held = held
+        self.mon = None
+        self.z = {k: 0.0 for k in ("gold_beute", "gold_verkauf", "gold_zerlegen", "aus_reparatur",
+                                   "aus_reparatur_selbst", "aus_traenke", "aus_brauen", "getrunken",
+                                   "gefunden", "gekauft", "gebraut", "beschaedigt_kaempfe", "dorf",
+                                   "defekt_kaempfe")}
+
+    # --- Zustand
+    def stufe_von(self, z):
+        ab = self.W["wirtschaft"]["abnutzung"]["zustand_ab"]
+        for name in ("Makellos", "Benutzt", "Beschädigt"):
+            if z >= ab[name]:
+                return name
+        return "Defekt"
+
+    def leistung(self, slot):
+        if slot not in self.zustand:
+            return 1.0
+        return self.W["wirtschaft"]["abnutzung"]["leistung"][self.stufe_von(self.zustand[slot])]
+
+    def nutze(self, slot, held, mon, menge=None):
+        if slot not in self.zustand:
+            return
+        a = self.W["wirtschaft"]["abnutzung"]
+        if menge is None:
+            menge = a["waffe_je_treffer"] if slot == "waffe" else a["ruestung_je_treffer"]
+        f = 1 + (mon["stufe"] - held.stufe) / a["faktor_teiler"]
+        f = max(a["faktor_min"], min(a["faktor_max"], f))
+        self.zustand[slot] = max(0.0, self.zustand[slot] - menge * f)
+
+    def warnung(self):
+        ab = self.W["wirtschaft"]["abnutzung"]["zustand_ab"]["Benutzt"]
+        return any(z < ab for z in self.zustand.values())
+
+    # --- Traenke
+    def hat_trank(self):
+        return self.traenke["Heiltrank"] > 0 or self.traenke["Großer Heiltrank"] > 0
+
+    def trinke(self):
+        t = self.W["wirtschaft"]["traenke"]
+        name = "Heiltrank" if self.traenke["Heiltrank"] > 0 else "Großer Heiltrank"
+        self.traenke[name] -= 1
+        self.z["getrunken"] += 1
+        return t[name]["heilung"]
+
+    # --- Beute, Zerlegen
+    def beute(self, name, mon, rng):
+        wi = self.W["wirtschaft"]
+        b = wi["beute"].get(name)
+        if b:
+            g = rng.randint(b["gold"][0], b["gold"][1])
+            self.gold += g
+            self.z["gold_beute"] += g
+            for ding, chance in b["dinge"]:
+                if rng.random() < chance:
+                    if ding in self.traenke:
+                        self.traenke[ding] += 1
+                        self.z["gefunden"] += 1
+                    else:
+                        self.ware += wi["preise"][ding] * wi["verkauf_anteil"]
+        teile = wi["zerlegen"]["teile"].get(name)
+        if teile:
+            q = ausbeute(self.W, self.held.f("Jagd"))
+            wert = 0.0
+            for i, t in enumerate(teile):
+                if i == 0 or rng.random() < q:
+                    wert += wi["preise"][t] * wi["verkauf_anteil"] * q
+            self.ware += wert
+            self.z["gold_zerlegen"] += wert
+            self.held.uebe("Jagd", mon["stufe"])
+            return True
+        return False
+
+    # --- Dorf
+    def dorf(self):
+        wi = self.W["wirtschaft"]
+        held = self.held
+        self.z["dorf"] += 1
+        # verkaufen (Zerlegtes zaehlt schon bei gold_zerlegen)
+        self.z["gold_verkauf"] += self.ware
+        self.gold += self.ware
+        self.ware = 0.0
+        # alles reparieren, so weit das Gold reicht
+        for slot, art in self.slots.items():
+            fehlend = 100.0 - self.zustand[slot]
+            if fehlend <= 0:
+                continue
+            kosten, fert = reparatur_kosten(self.W, held, art, fehlend)
+            if kosten > self.gold:
+                fehlend *= self.gold / kosten if kosten else 0
+                kosten = self.gold
+            self.gold -= kosten
+            self.zustand[slot] += fehlend
+            if fert:
+                self.z["aus_reparatur_selbst"] += kosten
+                held.uebe(fert, held.stufe, fehlend / 25.0)
+            else:
+                self.z["aus_reparatur"] += kosten
+        # Traenke bis zum Vorrat: brauen mit Alchemie, sonst kaufen
+        t = wi["traenke"]
+        brauen = held.f("Alchemie") > 0
+        preis = t["brauen_kosten"] if brauen else wi["preise"]["Heiltrank"]
+        while self.traenke["Heiltrank"] + self.traenke["Großer Heiltrank"] < t["vorrat_ziel"] and self.gold >= preis:
+            self.gold -= preis
+            self.traenke["Heiltrank"] += 1
+            if brauen:
+                self.z["aus_brauen"] += preis
+                self.z["gebraut"] += 1
+                held.uebe("Alchemie", held.stufe)
+            else:
+                self.z["aus_traenke"] += preis
+                self.z["gekauft"] += 1
+
+
+def fortschritt_wirtschaft(W, herkunft, rng, beruhigen=False):
+    wi = W["wirtschaft"]
+    variante = wi["punkte_variante"]
+    monster = {n: m for n, m in ohne_info(W["monster"]).items() if not m.get("boss")}
+    fs = W["fortschritt"]
+    grenze = W["held"]["kapitelgrenze"]
+    held = Held(W, herkunft, variante)
+    wirt = Wirt(W, held)
+    begegnungen = kaempfe = niederlagen = versuche = beruhigt = zerlegt = seit_dorf = 0
+    gold_bei = {}
+    while held.stufe < grenze and begegnungen < fs["max_kaempfe"]:
+        lo = held.stufe - fs["gegner_band_unten"]
+        hi = held.stufe + fs["gegner_band_oben"]
+        name, mon = rng.choice([(n, m) for n, m in monster.items() if lo <= m["stufe"] <= hi])
+        begegnungen += 1
+        tier_zuerst = False
+        if beruhigen and ist_tier(W, name):
+            c = beruhigen_chance(W, held.f("Tiere beruhigen"), mon)
+            if c is not None:
+                versuche += 1
+                held.uebe("Tiere beruhigen", mon["stufe"])
+                if rng.random() < c:
+                    beruhigt += 1
+                    held.gib_ep(ep_fuer(W, held, mon), "kampf")
+                    held.nach_sieg({"Tiere beruhigen"}, mon["stufe"])
+                    alt = held.stufe
+                    if held.stufe_auf():
+                        for s in range(alt + 1, held.stufe + 1):
+                            gold_bei[s] = wirt.gold + wirt.ware
+                    continue
+                tier_zuerst = True
+        kaempfe += 1
+        seit_dorf += 1
+        if wirt.warnung():
+            wirt.z["beschaedigt_kaempfe"] += 1
+        if any(wirt.leistung(sl) <= 0 for sl in wirt.zustand):
+            wirt.z["defekt_kaempfe"] += 1
+        r = kampf(W, held, mon, rng, lernen=True, wirt=wirt, tier_zuerst=tier_zuerst)
+        if r["sieg"]:
+            held.gib_ep(ep_fuer(W, held, mon), "kampf")
+            held.nach_sieg(r["benutzt"], mon["stufe"])
+            if wirt.beute(name, mon, rng):
+                zerlegt += 1
+        else:
+            niederlagen += 1
+        alt = held.stufe
+        if held.stufe_auf():
+            for s in range(alt + 1, held.stufe + 1):
+                gold_bei[s] = wirt.gold + wirt.ware
+        if seit_dorf >= wi["dorf_alle_kaempfe"] or wirt.warnung():
+            wirt.dorf()
+            seit_dorf = 0
+    wirt.dorf()
+    return {
+        "erreicht": held.stufe >= grenze, "begegnungen": begegnungen, "kaempfe": kaempfe,
+        "niederlagen": niederlagen, "versuche": versuche, "beruhigt": beruhigt, "zerlegt": zerlegt,
+        "gold_ende": wirt.gold, "gold_bei": gold_bei, "z": wirt.z,
+        "jagd": held.f("Jagd"), "beruhigen_wert": held.f("Tiere beruhigen"),
+        "schmieden": held.f("Schmieden"), "alchemie": held.f("Alchemie"),
+    }
+
+
+def wirtschaft_alle(W, herkunft, laeufe, rng, beruhigen=False):
+    res = [fortschritt_wirtschaft(W, herkunft, rng, beruhigen) for _ in range(laeufe)]
+    med = lambda xs: statistics.median(xs) if xs else None
+    mittel = lambda key: sum(r["z"][key] for r in res) / laeufe
+    kaempfe = sum(r["kaempfe"] for r in res)
+    out = {
+        "laeufe": laeufe,
+        "erreicht": sum(r["erreicht"] for r in res) / laeufe,
+        "begegnungen": med([r["begegnungen"] for r in res]),
+        "kaempfe": med([r["kaempfe"] for r in res]),
+        "niederlagen": sum(r["niederlagen"] for r in res) / kaempfe if kaempfe else 0,
+        "beruhigt_anteil": (sum(r["beruhigt"] for r in res) / sum(r["versuche"] for r in res)) if sum(r["versuche"] for r in res) else None,
+        "beruhigt": sum(r["beruhigt"] for r in res) / laeufe,
+        "zerlegt": sum(r["zerlegt"] for r in res) / laeufe,
+        "gold_ende": med([r["gold_ende"] for r in res]),
+        "gold_ende_p10": sorted(r["gold_ende"] for r in res)[laeufe // 10],
+        "gold_bei": {s: med([r["gold_bei"][s] for r in res if s in r["gold_bei"]]) for s in range(2, W["held"]["kapitelgrenze"] + 1)},
+        "beschaedigt_anteil": sum(r["z"]["beschaedigt_kaempfe"] for r in res) / kaempfe if kaempfe else 0,
+        "defekt_anteil": sum(r["z"]["defekt_kaempfe"] for r in res) / kaempfe if kaempfe else 0,
+        "jagd": med([r["jagd"] for r in res]),
+        "beruhigen_wert": med([r["beruhigen_wert"] for r in res]),
+        "schmieden": med([r["schmieden"] for r in res]),
+        "alchemie": med([r["alchemie"] for r in res]),
+    }
+    for key in ("gold_beute", "gold_verkauf", "gold_zerlegen", "aus_reparatur", "aus_reparatur_selbst",
+                "aus_traenke", "aus_brauen", "getrunken", "gefunden", "gekauft", "gebraut", "dorf"):
+        out[key] = mittel(key)
+    # gold_verkauf enthaelt das Zerlegte; getrennt ausweisen
+    out["gold_verkauf_beute"] = out["gold_verkauf"] - out["gold_zerlegen"]
+    return out
+
+
 # ---------------------------------------------------------------- Pruefen
 
 def pruefen(W):
@@ -463,6 +768,20 @@ def pruefen(W):
     ist("Erfahrung D=9", ep_fuer(W, h, {"stufe": 1}), 0)
     h.stufe = 1
     ist("Erfahrung D=-9 (Faktor 1,9)", ep_fuer(W, h, {"stufe": 10}), 10 * 100 * 1.9, tol=1)
+    # Wirtschaft (447.3): Formeln aus werte.json, Block wirtschaft
+    if "wirtschaft" in W:
+        mon = W["monster"]
+        ist("Ausbeute Jagd 0", ausbeute(W, 0), 0.4, tol=0.001)
+        ist("Ausbeute Jagd 49", ausbeute(W, 49), 1.0, tol=0.001)
+        ist("Beruhigen Wolf, Fertigkeit 0 (%)", beruhigen_chance(W, 0, mon["Wolf"]) * 100, 35, tol=0.01)
+        ist("Beruhigen Fledermaus Stufe 3 als Anfaenger gesperrt", 1 if beruhigen_chance(W, 24, mon["Riesenfledermaus"]) is None else 0, 1, tol=0)
+        ist("Beruhigen Fledermaus als Geselle (%)", beruhigen_chance(W, 30, mon["Riesenfledermaus"]) * 100, 45, tol=0.01)
+        hw = Held(W, "Wachsoldat")
+        ist("Reparatur Kettenhemd 40 Punkte beim Handwerker", reparatur_kosten(W, hw, "Mittlere Rüstung", 40)[0], 10, tol=0.001)
+        hs = Held(W, "Schmiedelehrling")
+        k, fert = reparatur_kosten(W, hs, "Stumpfe Waffen", 100)
+        ist("Reparatur Streitkolben selbst (Schmieden 10, Anfaenger)", k, 1, tol=0.001)
+        ist("Reparatur Kettenhemd selbst erst als Geselle", 1 if reparatur_kosten(W, hs, "Mittlere Rüstung", 100)[1] is None else 0, 1, tol=0)
     print("Ergebnis:", "in Ordnung" if fehler == 0 else f"{fehler} Fehler")
     return fehler
 
@@ -613,6 +932,70 @@ def bericht(W, ergebnisse, variante_ergebnisse, args):
     return "\n".join(L) + "\n"
 
 
+def bericht_wirtschaft(W, we, laeufe):
+    """Abschnitt 5: Wirtschaft (Stufe 3). we[(herkunft, beruhigen)] = wirtschaft_alle(...)."""
+    L = []
+    a = L.append
+    wi = W["wirtschaft"]
+    hk_namen = list(ohne_info(W["herkuenfte"]))
+    g = lambda x: zahl(x, 0)
+    a("## 5. Wirtschaft: Gold, Beute, Zerlegen, Abnutzung, Reparatur, Tränke, Tiere beruhigen (Stufe 3, 447.3)")
+    a("")
+    a(f"Fortschritt wie Abschnitt 1, aber mit 21 Punkten (Entscheidung 77), Gold und Beutel; {laeufe} Läufe je Herkunft und Spielweise. "
+      "„kämpft“: jede Begegnung wird gekämpft; „beruhigt“: bei Tieren (Riesenratte, Wolf, Wildschwein, Riesenfledermaus) erst Tiere beruhigen, "
+      "misslingt es, Kampf mit Erstschlag des Tiers. Gold: Mittel je Lauf bis Stufe 6, Gold am Ende: Median (10 % der Läufe haben weniger als „p10“).")
+    a("")
+    a("**Annahmen** (alle in `werte.json`, Block `wirtschaft`, Quelle je Zeile):")
+    a("")
+    a(f"- **Gold und Beute** wie in der alten Fassung (Gold als Würfelspanne, Tränke, Alchemistenfeuer, Weihwasser mit Chance); Tierteile nur noch über Zerlegen. "
+      f"Start {wi['startgold']} Gold und {wi['start_heiltraenke']} Heiltränke; Händler zahlt {round(100 * wi['verkauf_anteil'])} % des Ladenpreises.")
+    z = wi["zerlegen"]
+    a(f"- **Zerlegen** nach jedem Sieg über Tier, Kriechtier, Skelett, Schleim (Teile nach Bestiarium): erstes Teil immer, weitere mit Chance = Ausbeute, "
+      f"Erlös × Ausbeute; Ausbeute = {zahl(z['ausbeute_min'])} + {zahl(1 - z['ausbeute_min'])} × Jagd/{z['jagd_voll']}; übt Jagd (Start 0 bei allen Herkünften).")
+    t = wi["tiere_beruhigen"]
+    a(f"- **Tiere beruhigen:** Chance = {t['chance_basis']} % + (Fertigkeit − Wachsamkeit des Tiers) × {zahl(t['chance_je_punkt'])}, "
+      f"{t['chance_min']} bis {t['chance_max']} %; Anfänger bis Tierstufe 2, Geselle bis 4; gelungen: Erfahrung wie Sieg, keine Beute, kein Zerlegen, keine Abnutzung; "
+      "übt bei jedem Versuch.")
+    ab = wi["abnutzung"]
+    a(f"- **Abnutzung:** Zustand 100; −{zahl(ab['waffe_je_treffer'])} je eigenem Waffentreffer, −{zahl(ab['ruestung_je_treffer'])} je erlittenem Treffer (Rüstung und Schild), "
+      f"−{zahl(ab['schild_je_abwehr'])} je Abwehr mit dem Schild, × (1 + (Gegnerstufe − Heldenstufe)/{ab['faktor_teiler']}). "
+      f"Makellos ab {ab['zustand_ab']['Makellos']}, Benutzt ab {ab['zustand_ab']['Benutzt']} (Leistung {zahl(ab['leistung']['Benutzt'], 2)}), "
+      f"Beschädigt (Leistung {zahl(ab['leistung']['Beschädigt'], 2)}), Defekt bei 0 (wirkt nicht).")
+    r = wi["reparatur"]
+    a(f"- **Dorf und Reparatur:** alle {wi['dorf_alle_kaempfe']} Kämpfe ins Dorf, sofort nach dem Kampf, in dem ein Stück „Beschädigt“ wird; dort verkaufen, „Alles reparieren“, Tränke auffüllen. "
+      f"Handwerker: von 0 auf 100 kostet {round(100 * r['handwerker_anteil'])} % des Ladenpreises; selbst (Schmieden bzw. Lederarbeit mit Rang nach Abschnitt 11): "
+      f"{round(100 * r['selbst_anteil'])} % als Material. Ladenpreise alt: "
+      + ", ".join(f"{v['ding']} {v['preis']}" for k, v in wi["ausruestung"].items() if not k.startswith("_") and isinstance(v, dict) and "ding" in v) + ".")
+    tr = wi["traenke"]
+    a(f"- **Tränke:** Heiltrank heilt {tr['Heiltrank']['heilung']}, großer {tr['Großer Heiltrank']['heilung']} (Preis {wi['preise']['Heiltrank']} und {wi['preise']['Großer Heiltrank']}); "
+      f"getrunken statt Angriff unter {round(100 * tr['trinken_unter'])} % Leben; im Dorf bis {tr['vorrat_ziel']} im Beutel, wer Alchemie hat, braut für {tr['brauen_kosten']} Gold.")
+    a("")
+    a("### 5.1 Gold je Lauf bis Stufe 6")
+    a("")
+    a("| Herkunft | Spielweise | Kämpfe | Beute-Gold | Verkauf Beute | Zerlegen | Reparatur | davon selbst | Tränke | Gold am Ende (p10) | Gold bei Stufe 3 | Niederl. % |")
+    a("|---|---|---|---|---|---|---|---|---|---|---|---|")
+    for hk in hk_namen:
+        for ber in (False, True):
+            e = we[(hk, ber)]
+            rep = e["aus_reparatur"] + e["aus_reparatur_selbst"]
+            a(f"| {hk} | {'beruhigt' if ber else 'kämpft'} | {g(e['kaempfe'])} | {g(e['gold_beute'])} | {g(e['gold_verkauf_beute'])} | {g(e['gold_zerlegen'])} | "
+              f"{g(rep)} | {g(e['aus_reparatur_selbst'])} | {g(e['aus_traenke'] + e['aus_brauen'])} | {g(e['gold_ende'])} ({g(e['gold_ende_p10'])}) | "
+              f"{g(e['gold_bei'].get(3))} | {pz(e['niederlagen'])} |")
+    a("")
+    a("### 5.2 Tränke, Zustand, Fertigkeiten")
+    a("")
+    a("| Herkunft | Spielweise | getrunken | gefunden | gekauft | gebraut | Dorfbesuche | Kämpfe mit Warnung % | mit Defekt % | Jagd am Ende | zerlegt | Tiere beruhigt (gelungen %) | Tiere beruhigen am Ende |")
+    a("|---|---|---|---|---|---|---|---|---|---|---|---|---|")
+    for hk in hk_namen:
+        for ber in (False, True):
+            e = we[(hk, ber)]
+            a(f"| {hk} | {'beruhigt' if ber else 'kämpft'} | {zahl(e['getrunken'])} | {zahl(e['gefunden'])} | {zahl(e['gekauft'])} | {zahl(e['gebraut'])} | "
+              f"{zahl(e['dorf'])} | {pz(e['beschaedigt_anteil'])} | {pz(e['defekt_anteil'])} | {g(e['jagd'])} | {zahl(e['zerlegt'])} | "
+              f"{zahl(e['beruhigt']) if ber else '–'}{' (' + pz(e['beruhigt_anteil']) + ')' if ber else ''} | {g(e['beruhigen_wert']) if ber else '–'} |")
+    a("")
+    return "\n".join(L) + "\n"
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--werte", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "werte.json"))
@@ -622,12 +1005,32 @@ def main():
     p.add_argument("--ohne-variante", action="store_true", help="21-Punkte-Variante nicht rechnen")
     p.add_argument("--pruefen", action="store_true")
     p.add_argument("--json", help="Rohdaten zusaetzlich als JSON")
+    p.add_argument("--nur-wirtschaft", action="store_true", help="nur Abschnitt 5 (Wirtschaft) rechnen und ausgeben")
+    p.add_argument("--ohne-wirtschaft", action="store_true", help="Abschnitt 5 nicht rechnen")
     args = p.parse_args()
     W = lade(args.werte)
     if args.pruefen:
         sys.exit(1 if pruefen(W) else 0)
     kaempfe = args.kaempfe or W["lauf"]["kaempfe_je_fall"]
     laeufe = args.laeufe or W["lauf"]["fortschritt_laeufe"]
+
+    def rechne_wirtschaft():
+        rng = random.Random(W["lauf"]["zufallskeim"] + 5)
+        we = {}
+        for hk in ohne_info(W["herkuenfte"]):
+            for ber in (False, True):
+                we[(hk, ber)] = wirtschaft_alle(W, hk, laeufe, rng, ber)
+            print(f"  {hk} Wirtschaft fertig", file=sys.stderr)
+        return bericht_wirtschaft(W, we, laeufe)
+
+    if args.nur_wirtschaft:
+        text = rechne_wirtschaft()
+        if args.aus:
+            with open(args.aus, "w", encoding="utf-8") as f:
+                f.write(text)
+        else:
+            sys.stdout.write(text)
+        return
 
     def rechne(variante):
         rng = random.Random(W["lauf"]["zufallskeim"] + (1 if variante else 0))
@@ -642,6 +1045,8 @@ def main():
     erg = rechne(False)
     var = None if args.ohne_variante else rechne(True)
     text = bericht(W, erg, var, args)
+    if not args.ohne_wirtschaft:
+        text += "\n" + rechne_wirtschaft()
     if args.aus:
         with open(args.aus, "w", encoding="utf-8") as f:
             f.write(text)
