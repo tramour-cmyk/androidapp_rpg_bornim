@@ -20,7 +20,6 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [376.1](ansehen/3761-tracht.md) | Tracht je Herkunft, Heldin, Statur | Spike | 01.11., 15:25 |
 | [406](ansehen/406-kaufschilde.md) | Kaufschilde mit Sword & Shield, neu vorgelegt | Tuffy | 01.11., 16:35 |
 | [416.4](ansehen/4164-uebergaenge.md) | Weiche Übergänge Stehen, Gehen, Rennen | – | 01.11. |
 | [417](ansehen/417-tragart.md) | Tragart je Waffe, Runde 5 | – | 01.11., 16:02 |
@@ -56,7 +55,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 43, Muss 32, startbar 1
+**Tom** – offen 43, Muss 32, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -72,7 +71,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 399.4 | M | von Chef (21:4x, Archiv); zurück Chef 31.10., 20:4x: oben Rand für die Kamera wie alt: im | wartet auf Test (Build) |
 | 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf | wartet auf Test (Build) |
 | 410 | M | von Sokrates (Chef 29.10., 10:52, 11:40; aus 376.1): Waffen am Körper wegstecken, alle Waf | ruht |
-| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | Chef |
+| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | startbar |
 | 455.1 | M | von Sokrates (Chef 01.11., 11:24, „Abzug von … unterschiedlichen Roben, Umhängen oder Stie | Chef |
 | 458.3 | M | von Sokrates (Chef 01.11., 13:1x, Archiv 458): Gegenstandskatalog: je Gegenstand Netz × Ma | startbar |
 | 457.1 | M | von Perikles (Chef 01.11., 11:49, „unsere Signatur muss sich wiederfinden“): godot/probe/b | wartet auf Test/Build (gebaut) |
