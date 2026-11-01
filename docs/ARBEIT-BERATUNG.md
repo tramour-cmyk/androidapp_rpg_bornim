@@ -4,14 +4,16 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (31.10., 00:1x, `session_01Hmoj76r9gzqmymitAPFRzM`, Desktop-Sitzung auf Sonnet, Kontext 380 Tsd.):** Rückmeldungen des Chefs als Aufträge, 142 GewA 1 korrigiert, 404, 413 S3, 441 an Diogenes, 442 Modellfrage. Offen: 422 Abgleich D48/D49 (Abschnitte 2–6), 427 Bestiarium, 413a A1 und 418 beim Chef. Kosten auf: 404, 414, 415, 417, 425, 426, 436, 413, 142. Nachfolger: Sokrates – 422 Nachschlagewerk abgleichen, 427 Bestiarium (Opus, Ford startet)
+**Übergabe (01.11., 11:0x, `session_01Hmoj7725k4VV8sYVQzbjEf`):** 422 Nachschlagewerk gilt (E 77–84), 427 Startwerte an 444, Stellungnahmen 194.2 und Neubewertung 445, 413a/413b/418/432/442/443a/110 entschieden und archiviert, 416.4a berichtigt (Delta), Chefsache 447 Meilensteine, 448 Tagesbericht, 451 Name; Filmlinks in fünf Blättern; Aufträge 448.1, 449, 450 an Perikles, 444 an Jerry. Kosten auf: 422, 427, 445, 447, 448, 451, 413, 442. Nachfolger: Sokrates – 452: Notizen-Übersicht und gebündeltes Dokument; Gespräch 447, 448 mit dem Chef
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 447 | M | **von Chef (01.11., 09:51, „Was sind denn aktuell die Meilensteine? Habe ich die gebilligt?“; 10:46 „komm mit einem vernünftigen neuen Vorschlag um die Ecke“):** Meilensteine neu | wartet auf Chef: Chefsache 447, Gespräch gewünscht |
-| 448 | M | **von Chef (01.11., 10:46, „einen täglichen Bericht … der sinnvolle Werte enthält?“; 10:50 „Managementbericht“):** Tagesbericht mit Zahlen | wartet auf Chef: Chefsache 448, mit 447 |
+| 448 | M | **von Chef (01.11., 10:46, „einen täglichen Bericht … der sinnvolle Werte enthält?“; 10:50 „Managementbericht“):** Tagesbericht mit Zahlen | wartet auf Chef: Chefsache 448, mit 447; erster Bericht jetzt bei Perikles (448.1) |
+| 451 | M | **von Chef (01.11., 10:59, „müssen wir unser Spielsystem auch irgendeinen Namen geben … Bitte mal Vorschläge dafür“):** Name des Spielsystems | wartet auf Chef: Chefsache 451 |
+| 452 | M | **von Chef (01.11., 10:59, 11:00):** ein gebündeltes Dokument; Notizen-Übersicht `docs/README.md` aktualisieren (Zu 452) | startbar |
 | 427 | M | **von Chef (31.10., 21:3x):** Bestiarium `LISTE-BESTIARIUM.md` | wartet auf Jerry: Startwerte gehen in die Simulation 444, dann gemessen zum Chef (Archiv 422, 444) |
 | 398 | M | **von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr ganz grundlegende Dinge fehlen?“):** Grundsätze DESIGN-* gegen Umzugsliste und Godot-Zweige | wartet auf Perikles: 15 Lücken in LISTE-UMZUG-348.md „398“, Chef 11:3x informiert |
 | 391 | M | **von Chef (28.10., 09:21):** Repos dauerhaft ohne Ablehnung | ruht: kein Repo-Feld in der Umgebung (Bild Chef 10:29), Repo-Wahl am Eingabefeld gilt nur für Sitzungen von Hand; Fords Starts nehmen ein Repo; add_repo geht durch, wenn die Aufgabe die Kaufmodelle braucht |
@@ -42,6 +44,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (Gewerbeschein); 45a/45c, 72g–72j entschieden ([Artefakt](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj), vertraulich); offen: Preis endgültig mit 142 (ab Gewerbeschein), bis 30.11.; iOS-Schätzung Tom nach Kapitel 2 |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | ruht bis Gewerbeschein (Chef 28.10., 10:26; 142); dann Chefsache neu |
 
+- **Zu 452** (Chef 01.11., 10:59: „ein Dokument wo alles nochmal schön gebündelt drin steht für mich“; 11:00: „die Notizen vom Born war ja TCS-Seite. Die mal aktualisieren … Soll das der Tagesbericht sein?“): `docs/README.md` auf tote Links prüfen (Tagesbericht), Neues eintragen; Handbuch 423 als Bündel vorschlagen. Im Chat offen: wie die Heldenstufe steigt (Abschnitt 4); Völker und Steigen durch Tun sind K1 (447).
 - **Zu 427:** Regeln gelten (422, E 77–84); Startwerte gehen in Simulation 444 (Jerry), danach stelle ich die Zahlen ein und lege sie gemessen vor (Abschnitt 4 und Bestiarium).
 - **Zu 383, Sitzungsgröße (27.10., 99 Sitzungen):** 787 $ in 24 h; je Million Ausgabetokens 92–103 $ nach Kontext, kein Hinweis, dass große Sitzungen teurer sind (Beleg schwach). Jeder Start etwa 125k Kontext, kleinste Sitzung 1,25 $. Treiber: Runden (44 %). Wiederholen mit 347 und 383.2 am 31.10.
 - **Zu 376:** Chef 12:09–12:10: 20 $ „super gerne“, wenn Größe und Form anpassbar und Tusche darauf geht; „dann hätten die vielleicht auch mal einen richtigen Kopf“; nah sichtbar in Ausrüstung, Charaktererstellung, Kartenzoom; 12:12 „Universal Base Characters“ als Alternative zum Selbstbau.
@@ -52,7 +55,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 365:** Umgebung „WireStorm Hoch“ wirkt, rund +40 % Ausgabe-Token (25.10., 13:31).
 - **Zu 340.2:** `LISTE-ROLLENSPIEGEL.md` „Wie“, Freitagshinweis in `lauf.py`; prüfen 30.10.: 0 Hinweise „mitgelesen“; B wieder vorlegen, wenn Pflegefehler am 01.11. länger als einen Tag stehen.
 - **Zu 142, Stand:** AAB 142.1 im internen Test (Chef 25.10., 12:38 erledigt); Konto geprüft, App angelegt 25.10. (Zu 142, Konto); Entwickler-E-Mail info@bornwire.de bestätigt (25.10., 12:51); Datenschutz-URL für den Store `https://bornwire.de/datenschutz.html` (252 online 25.10., 13:12; Godot-Fassung mit INTERNET-Recht: Datenschutz vorher anpassen).
-- **Zu 26.1:** Diktat 17:20 in `LISTE-DURCHSPIELBOGEN.md` (26 selbst erledigt, Liste Archiv). Chef 22:00: Warum kämpfen Leute am Handy? Er sieht Taktik oder Schauwert, sonst „Taste spammen“. Antwort im Chat: dazu Fortschritt, Einsatz, Meisterung, Entspannung; Empfehlung: jeder Kampf stellt eine Frage, leichte abkürzbar (Entscheidung Chef mit Homer).
+- **Zu 26.1:** Diktat 17:20 in `LISTE-DURCHSPIELBOGEN.md` (26 selbst erledigt, Liste Archiv). Frage Chef 22:00 (warum kämpfen Leute am Handy) und Antwort in Git vor 01.11., 11:0x.
 - **Zu 142, Konto:** 25 $ bezahlt 23.10. (Beleg 263); App angelegt 25.10. (`de.bornim.game`, kostenlos); Konto-Mail bornwire@famibos.de; sobald `play@bornwire.de` steht, Entwickler-E-Mail in der Play Console umstellen (Einstellungen → Kontodetails). Play-Upload: Dienstkonto als Secret, Action, interner Test, AAB; erstes Mal von Hand.
 - **Zu 142:** vor Marktstart Klangmarken DPMA/EUIPO suchen (292.1).
 - **Zu 142.3 C (20:1x, Netz):** Organisationskonto braucht D-U-N-S (D&B, kostenlos, 5–30 Tage), neues Konto 25 $; App per Übertragung umziehen, Testgruppen ziehen nicht mit; testfrei nur gefolgert.
@@ -60,12 +63,11 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 348, Chef 25.10., 21:13:** „Wieso braucht man alleine dafür vier Versuche. Es gibt doch eine Vorlage … Bei den Ratten >10“ → im Chat 21:1x beantwortet; Chef 21:21 „a ja, b prüfen“ (Archiv 348.11, 348.12).
 - **Zu 348, Chef 25.10., 12:16–12:24:** Umzugsarbeit auf alle verteilt, entschieden als 348.9 (Archiv); Wortlaut und Vorschlag in Git.
 - **Zu 348, Chef 25.10., 00:59:** Portierung, alle machen mit, Maß ist das alte Aussehen (Wortlaut in Git vor „Sokrates: 377.1“).
-- **Zu 296** (Chef 22.10., 07:50, an Sokrates, Wortlaut): Checkliste je großem System, MARS zuerst: umgesetzt, offen, je Punkt Vorgangsnummer oder ein Satz (Wortlaut in Git vor 23.10., 09:35). Befund 07:5x: Sterbeanimationen in MARS nirgends als Vorgang (nur 249: Gefallener hält den Platz bis Sinken und Verblassen); Sturz klassisch = 295 (Jerry).
+- **Zu 296** (Chef 22.10., 07:50, an Sokrates, Wortlaut): Checkliste je großem System, MARS zuerst: umgesetzt, offen, je Punkt Vorgangsnummer oder ein Satz (Wortlaut und Befund 07:5x in Git vor 23.10., 09:35).
 - **Zu 253, Namenssuche (Sprachgespräch 20.10., abends):** Wirestorm verwechselbar (Play Store); Name jetzt BornWire TCS (Zeile 253), Verlauf in Git vor `2e6ab39a`, Einzelheiten im Fahrplan-Dokument. Gewerbeschein ist auf „Wirestorm TCS“ beantragt.
-- **Zu 72c** (Chef 20.10., abends, Sprachmodus, zu Wunden als Strafe): „Deswegen sollte der Spieler einfach weise entscheiden. Und nicht blindlings irgendwo reinlaufen, wo er auf die Mütze kriegt.“ Einwand Sokrates: fair nur, wenn die Gefahr vorher lesbar ist (Gegnerstufe, Hinweise in der Welt). Verband und Tempel: Vorgangsarchiv 72c.
+- **Zu 72c:** Wortlaut Chef 20.10. und Einwand Sokrates in Git vor 01.11., 11:0x; Verband und Tempel: Vorgangsarchiv 72c.
 - **Zu 45, Abo** (Chef 22.10., 14:06): lieber auf Max 5x bleiben, 20x möglich; Kapitel 2 mit fertigen Abläufen billiger (Wortlaut in Git). Guthaben: Antwort Perikles in `ARBEIT-PROJEKT.md` „Zu Guthaben“ (308, 14:3x).
-- **Zu 318, erster Befund** (Chef 22.10., 22:12): Jerry-Meldung trotz Stil „Knapp“ 9 Zeilen statt 3, „behoben“ obwohl Überblendung bleibt (319); Stempel gingen 2 und 7 min falsch. Stil allein reicht nicht.
-- **Zu 318, Befund 25.10., 10:2x** (Durchsicht für den Chef, je Sitzung letzte 100 Ereignisse): Stempel trotz Stop-Haken 5–6 min vor (Tom 16 „10:24“ um 10:19, Jerry 17 „10:31“ um 10:26), Haken greift nicht; Zwischenstände („Warte auf Prüfbefund“) weiter im Chat; Bitten an den Chef ohne Chefsache (Tom Windrose 10:17, AAB 09:33; gemeldet).
+- **Zu 318:** Befunde 22.10. (Chef 22:12: Stil allein reicht nicht) und 25.10., 10:2x (Stempel vor, Zwischenstände, Bitten ohne Chefsache) in Git vor 01.11., 11:0x.
 - **Zu 167.6:** offen nur der Morgenbericht; Wiedervorlage war Mo 26.10. (`trig_01YC96AwHsxL7EUA8R4vPghp`); Wortlaut 167 im Vorgangsarchiv.
 - **Zu 142** (17.–20.10. in Git): Fahrplan im vertraulichen [Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM); offen: Anschrift vor dem Zahlungsprofil
 
