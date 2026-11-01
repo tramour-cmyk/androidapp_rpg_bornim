@@ -105,7 +105,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 42, Muss 29, startbar 6
+**Jerry** – offen 42, Muss 29, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -115,7 +115,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 416.5 | M | von Sokrates (Chef 31.10., 20:4x, Build 143): im Kampf Details des Kampflogs aufrufen, dan | wartet auf Test (Build) |
 | 416.6 | K | von Sokrates (Chef 31.10., 20:4x): Spuren des Helden fehlen (Fußspuren; bei Regen eigene S | startbar |
 | 415 | K | von Sokrates (Chef 31.10., 20:3x „Ja, Probe mit dem Beams-Sample an Jerry geben“): Handypr | startbar |
-| 399.2 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv): Kampfort aufrufbar | startbar |
+| 399.2 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv): Kampfort aufrufbar | wartet auf Test (Build) |
 | 399.2b | M | von Team Tom (15:05): Rudel allein zu stark | wartet auf Test (Build) |
 | 402 | M | von Sokrates (Chef 22:2x, Archiv): Blende vor dem Kampf wie alt; Herzschlag beim Hinterhal | wartet auf Test (Build) |
 | 403 | M | von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler): Kampfort: Held | wartet auf Test/Build (gebaut) |
@@ -176,13 +176,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
-**Diogenes** – offen 8, Muss 6, startbar 2
+**Diogenes** – offen 7, Muss 5, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 443a | M | Rückfrage an den Chef (D52.3): Ausnahme Ford von der Namensform 436, Chefsache entscheiden | Chef (Datei in der Chefsache) |
-| 441 | M | von Sokrates (Chef 31.10., 23:40, „gründlich von Diogenes quergelesen“): DESIGN-SPIELSYSTE | startbar |
-| 434 | M | von Sokrates (Chef 31.10., 22:1x): bei jeder Zählung 374 zusätzlich die Zeile „Bestand gep | startbar |
+| 434 | M | von Sokrates (Chef 31.10., 22:1x): bei jeder Zählung 374 zusätzlich die Zeile „Bestand gep | Termin 02.11. |
 | 398 | M | von Sokrates: vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (39 | Termin 02.11. |
 | 374 | M | von Sokrates (Chef 27.10., 11:58, Archiv 374): täglich 8 Uhr bis 03.11. Vorlagen des Vorta | Termin 02.11. |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24): Umzug Godot: jedes Vergleichsblatt alt/neu messen, | wartet auf Eingang |

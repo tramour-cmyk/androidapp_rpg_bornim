@@ -25,6 +25,44 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 53 · Auftrag 441 Nachschlagewerk 2.0 querlesen (`DESIGN-SPIELSYSTEM-2-0-ENTWURF.md` und `LISTE-BESTIARIUM.md` „Werte 2.0“, `main` `8c5bf9877`; gegen E 1–76; 01.11., 08:1x; Text fremd geprüft)
+
+**Ergebnis:** Das Nachschlagewerk gibt die Entscheidungen 1–76 meist richtig wieder. Die Rechnungen stimmen: Startpunkte (18 Punkte: 6 frei, 21 Punkte: 9 frei), Völker je +1 unterm Strich, 13 Pfade, alle Kernfertigkeiten aus der Liste der 37. Die drei Beispiele zu Modell D ergeben die Zahlen der Tabelle. Im Bestiarium stimmen Angriff, Abwehr und Wachsamkeit bei allen 18 Arten mit der Formel und den Werten aus `Monsters.kt` überein, Rüstung bei 18 (unter 0 auf 0 gesetzt), Leben bei 16. Fünf Befunde tragen.
+
+**Die fünf wichtigsten**
+
+- **D54.1 Erster Titel: Kapitel 2 oder 4 (Abschnitt 5):** Laut Satz unter der Takt-Tabelle „kommt der erste Titel in Kapitel 2“. Laut Prüfungstabelle bringt aber erst die Gesellenprüfung den Titel („Titelträger, z. B. Paladin“), und die gibt es ab Kapitel 4; in Kapitel 2 wird man Eingeweihter. E 51 sagt „Berufungen ab Kapitel 2“. Dazu: Die Spalte „höchster Rang ohne Prüfung beim Lehrmeister“ nennt für Kapitel 2–5 Ränge, die gerade eine Prüfung beim Lehrmeister brauchen. Die Zeile für Kapitel 6–7 ist bis auf „Meisterprüfung“ leer.
+- **D54.2 Modell D reicht noch nicht für die Simulation (Abschnitt 2, 4, 7; D49.3 halb behoben):** Die Monsterwerte stehen jetzt im Bestiarium. Es fehlen aber Zahlen, ohne die „Zeit bis Stufe“ nicht rechenbar ist: die Erfahrung je Monsterstufe (Modell D gibt nur Faktoren), die Erfahrung je Heldenstufe, das Leben des Helden („aus Zähigkeit und Stufe“, ohne Formel) und Waffenwerte. Dazu kommen Wirkungen aus Abschnitt 2 ohne Regel in Modell D: Gewandtheit (Ausweichen, kritische Treffer), Wahrnehmung (Treffgenauigkeit im Fernkampf), Zauber (Schaden, Mana, Wille) und die Ätherdichte (E 76). Welcher Grundwert in „Waffe + Grundwert“ zählt, steht nur für den Nahkampf da (Kraft).
+- **D54.3 Magie und Rüstung in zwei Fassungen (Abschnitt 5 gegen Abschnitt 7; D48.3 offen):** Laut Vorschlag in Abschnitt 5 hängt die Sperre an der Schule (Evokation, Illusion, Beschwörung), gilt also für jeden, der so zaubert. Laut Abschnitt 7 trifft sie den Magier ab der Gesellenprüfung, also den Pfad; Abschnitt 7 verweist für die Schulen zwar auf Abschnitt 5, sagt aber nicht, ob die Sperre auch ohne Pfad gilt. Ein Held ohne Pfad zaubert nach Abschnitt 7 Evokation in Plattenrüstung, nach Abschnitt 5 nicht. Ebenso offen ist, ob Leder als Rüstung zählt, denn als Grund nennt der Text Metall.
+- **D54.4 Meisterschaften ohne Einladungsregel; Heilkunde ohne Chefwort (Abschnitt 6, Entwurf B):** Der Lehrmeister kommt, wenn „zwei Kernfertigkeiten Geselle“ sind. Jede Meisterschaft hat in Abschnitt 6 aber nur eine Fertigkeit; nach der Regel käme ihr Lehrmeister nie, gleiches Problem wie beim Beschwörer. Auch der Kapitel-Takt nennt Meister und Großmeister „nur im Pfad“, Abschnitt 3 dagegen „im eigenen Pfad oder in der eigenen Meisterschaft“; wann ein Lehrmeister der Meisterschaft prüft, steht nirgends. Entwurf B nennt dagegen Kräuterkunde „Kernfertigkeit der Meisterschaft Alchemist“. Heilkunde ist im Nachschlagewerk die sechste Meisterschaft; E 56 sagt „damit fünf Meisterschaften“, E 59 zählt nur sechs Fertigkeiten in der Gruppe. In Abschnitt 13 steht nur ihr Name als offen, nicht ob es sie gibt.
+- **D54.5 Ruf gegen Prüfungen (Abschnitt 9 gegen Abschnitt 5, E 67):** „Günstigere Lehrer, frühere Prüfungen“ als Wirkung des Rufs: Die Lehrstunde hat der Chef verworfen („kann ich mir aufstecken“, Entwurf F), Prüfungen hängen am Kapitel (Takt). Was „früher“ heißt, ist offen. Auch Entwurf B (Ruf → „Lehrstunden“) und Entwurf F („Lehrstunden außerhalb der Berufung sind kurz“) führen die Lehrstunde weiter.
+
+**Weitere (gering)**
+- „Auf einen Blick“ „Pfad … genau einer“ gegen Abschnitt 5 und 7 „höchstens einen“. Die Auflagen „nicht Beschwörer“ (Paladin) und „nicht Paladin, nicht Heiler“ (Beschwörer) wirken nicht, weil es nur einen Pfad gibt. Gemeint ist vielleicht: keine Nekromantie bzw. keine Heilmagie üben.
+- Namen: Die Gesellenprüfung öffnet Großmeister, die Meisterprüfung kommt bei 100. „Meister“ ist zugleich Rang, Stufe im Pfad und Wortteil von „Meisterschaft“. Für eine Anleitung schwer lesbar (Wortlaut Chef, E 63; nur Hinweis).
+- Modell D, Beispiele: Der Abzug wird mit der bloßen Rüstung gerechnet, ohne den Faktor (1 + Fertigkeit / 100) aus E 74. Monster haben kein Feld für die Rüstungsfertigkeit. In Beispiel 1 und 3 zählt als Abwehr die volle Waffenfertigkeit (90 %, 80 % und 60 % gehen nur mit Abwehr 10, 20 und 40), nach E 75 gilt die halbe, falls kein Schild und kein Ausweichen angegeben ist. Der Angriffswert des Monsters hebt in Beispiel 1 auch den Schaden (× 1,5); dass er zugleich Schadensfertigkeit ist, sagen weder „Monster braucht“ noch das Bestiarium. In Beispiel 2 steht „Erfahrung × 0,1“, richtig ist nach E 73 null (der Satz darunter berichtigt es).
+- Was entschieden ist, steht nur im Anhang: das Profil (E 76: Taten, Chronik, Ätherdichte, Ruf mit Gedächtnis) fehlt in Abschnitt 1–12. Die Anhänge sind zum Teil entschieden oder überholt: Entwurf A mit Modell D (E 73), C (E 76), F (E 67), D (E 68). Entwurf D nennt oben noch „Späher“ und „Werdegang“, gültig sind Herumtreiber und Herkunft (E 68, 69). Entwurf F kündigt an, die Abschnitte 2, 3, 5 umzuschreiben; das ist schon geschehen. Gegen Satz 3 des Kopfs: „Hier steht nur, was gilt“.
+- Entwurf E, Wortlaut für das Leitbild: „Wege kommen von selbst, eine Berufung verdient man“. Den Weg als eigene Ebene gibt es nicht mehr (E 67), „Pfad“ ist vorgeschlagen.
+- Startfertigkeiten (Herkunft, Mensch): mit welchem Wert man beginnt, steht nirgends; der Wanderer wählt „selbst“, aber ohne Zahl.
+
+**Bestiarium „Werte 2.0“ (gegen `core/.../Monsters.kt`)**
+- Leben nach der Formel falsch bei zwei Arten: Blutflügler 8 statt 9 (2W4+1, Mittel 6 × 1,5; wohl der Zuschlag +1 vergessen), Goblin-Späher 13 statt 12 (2W6+1, Mittel 8).
+- Stufe gegen Gebietsband: Blutzahnhöhle 2–5, Tiefer Flüsterwald 2–4, aber Riesenratte (Stufe 1) in der Höhle, Kobold und Blutflügler (Stufe 1) im Tiefen Wald.
+- Rundung nicht genannt: halbe Werte gehen auf die gerade Zahl (Schaden 4,5 → 4, 5,5 → 6, 7,5 → 8, 8,5 → 8; Leben Grak 58,5 → 58). Rüstung und Wachsamkeit werden still auf 0 gesetzt (Zombie, Ockerschleim −1; Kobold −10). Nur bei der Abwehr steht „nie unter 0“.
+- „Erfahrung folgt aus der Stufe“: eine Grundzahl je Stufe fehlt (D54.2).
+
+**Abgleich Lauf 48 und 49 (nur Spielsystem)**
+- D48.1 offen, jetzt richtig gerechnet und in Abschnitt 13 (18 oder 21, Volk über 8).
+- D48.2 behoben durch den Kapitel-Takt (E 67), Grenze Kapitel 1 = 6. Neu dazu D54.1.
+- D48.3 offen (Vorschlag Abschnitt 5), dazu D54.3.
+- D48.4 (a), (b), (c), (f) behoben (Herkunft, Kernfertigkeiten, Reparieren, Titel); (d) und (e) offen in Abschnitt 13.
+- D48.5 behoben (Modell D, E 73). Die Lücken stehen in Abschnitt 13, die Übersicht als Entwurf B; über Entwurf B ist noch nicht entschieden.
+- Liste „veraltet“: im Nachschlagewerk behoben bis auf „fünf Meisterschaften“ (D54.4) und „Lehrer“ (D54.5).
+- D49.1, D49.2 offen in Abschnitt 13; D49.3 halb (D54.2).
+- D49.4 offen in `LISTE-ABNAHME-KAPITEL1.md` (Perikles): Zeilen „18 Punkte“, „Werdegänge“ (E 28, 29, 45), „Niveau je Kapitel begrenzt“ (E 20), „Wege sichtbar, Berufungen erst ab Kapitel 2“ (E 51, 52), „Kräuterkundiger, Heiler, Schmiedegeselle“. Seit E 67–69 heißt es Herkunft, Kapitel-Takt, Lehrmeister.
+
+**Nicht geprüft:** Verlauf `DESIGN-SPIELSYSTEM-2-0.md` außer der Liste der Entscheidungen, Code der Godot-Fassung, Spielgefühl und Balance (nur Rechnung), Hintergrundtexte des Bestiariums (428), Merkmale und Beute.
+
 ## Lauf 52 · Auftrag 443 Doppelpack zu 436 (`main` `88415f87b`; 01.11., 00:1x; `lauf.py` mit 16 Titeln nachgestellt)
 
 **Ergebnis:** Die Namensform steht in `CLAUDE.md` Start 2 und in allen Rollendateien außer Ford. `lauf.py` liest „416.3:“ als 416.3 und „403, 406:“ als 403,406. Uhrzeiten zählt es weiter nicht mit („12:30“, „um 9:30“).
