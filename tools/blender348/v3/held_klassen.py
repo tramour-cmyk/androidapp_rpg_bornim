@@ -10,7 +10,7 @@
 # Waffen und Schild nicht hier: Godot haengt die angelegte Ausruestung an (waffen.py).
 # Aufruf: OUT=<ordner mit held3-rig.blend> ZIEL=<ordner> Q=<cc0> KAUF=<kaufpakete> [KLASSEN=FIGHTER,WIZARD] bl/bin/python -I held_klassen.py
 #   -> <ZIEL>/held_<KLASSE>.glb, haare.glb, held-klassen.json
-import bpy, os, sys, json, subprocess
+import bpy, glob, os, sys, json, subprocess
 import numpy as np
 from mathutils import Vector
 
@@ -379,12 +379,28 @@ def bewegungen():
     for a in list(bpy.data.actions):
         if a.name in namen: a.name = namen[a.name]; a.use_fake_user = True
         else: bpy.data.actions.remove(a)
+    # 417 Runde 4 (Chef 01.11., 12:21; 348.12c): Gehen und Rennen je Waffenart aus den Protofactor-Paketen (waffengang.py, GANG=<ordner>
+    # mit Gehen_<art>.glb, Rennen_<art>.glb auf demselben UAL-Geruest), Name wie die Datei
+    gang = sorted(glob.glob(os.path.join(os.environ.get('GANG', ''), '*_*.glb'))) if os.environ.get('GANG') else []
+    for p in gang:
+        n = os.path.basename(p)[:-4]
+        vorher = set(bpy.data.objects)
+        bpy.ops.import_scene.gltf(filepath=p)
+        neu = [a for a in bpy.data.actions if a.name not in namen.values() and not a.use_fake_user]
+        for o in [o for o in bpy.data.objects if o not in vorher]: bpy.data.objects.remove(o)
+        if neu: neu[0].name = n; neu[0].use_fake_user = True
+        for a in neu[1:]: bpy.data.actions.remove(a)
+        print('GANG', n, 'aufgenommen' if neu else 'FEHLT')
     tempo = {n: schritt_tempo(arm, bpy.data.actions[n]) for n in ('Gehen', 'Rennen') if n in bpy.data.actions}
+    for a in bpy.data.actions:
+        if a.name.startswith(('Gehen_', 'Rennen_')): tempo[a.name] = schritt_tempo(arm, a)
     if arm.animation_data: arm.animation_data.action = None
     bpy.ops.object.select_all(action='DESELECT'); arm.select_set(True)
     bpy.ops.export_scene.gltf(filepath=os.path.join(ZIEL, 'bewegungen.glb'), export_format='GLB', use_selection=True, export_animations=True,
                               export_animation_mode='ACTIONS', export_skins=True, export_force_sampling=True)
-    return {'gehen_m_je_s': tempo.get('Gehen', 0.0), 'rennen_m_je_s': tempo.get('Rennen', 0.0), 'becken_m': round(arm.data.bones['pelvis'].head_local.z, 4),
+    arten = sorted({n.split('_', 1)[1] for n in tempo if '_' in n})
+    return {'gang': {k: {'gehen_m_je_s': tempo.get('Gehen_' + k, 0.0), 'rennen_m_je_s': tempo.get('Rennen_' + k, 0.0)} for k in arten},
+            'gehen_m_je_s': tempo.get('Gehen', 0.0), 'rennen_m_je_s': tempo.get('Rennen', 0.0), 'becken_m': round(arm.data.bones['pelvis'].head_local.z, 4),
             'bewegungen': sorted(a.name for a in bpy.data.actions), 'ual': os.path.basename(pro) if pro else 'UAL1_Standard.glb', 'gekauft': bool(pro)}
 
 
