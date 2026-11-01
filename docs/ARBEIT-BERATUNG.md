@@ -11,7 +11,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 442 | M | **von Chef (31.10., 23:52, „warum ihr alle auf dem kleinen Rechenmodell lauft“):** Modellzuordnung vorlegen | wartet auf Chef: Chefsache 442 (Befund: 11 von 12 gestarteten Sitzungen Opus; Sonnet: Ford, diese Desktop-Sitzung) |
-| 427 | M | **von Chef (31.10., 21:3x):** Bestiarium `LISTE-BESTIARIUM.md` | startbar: Gerüst LISTE-BESTIARIUM.md steht, Werte nach Spielsystem 2.0 füllen |
+| 427 | M | **von Chef (31.10., 21:3x):** Bestiarium `LISTE-BESTIARIUM.md` | wartet auf Diogenes: Werte 2.0 als Startwerte eingetragen 01.11., 01:3x, Nachfolger 348.12c nachgezogen; Diogenes prüft mit 441, dann Chef mit 422 |
 | 422 | M | **von Chef (31.10., 21:2x, „dass es sich liest wie eine gute Anleitung. Und ein Nachschlagewerk“):** Spielsystem 2.0 eindampfen; Verlauf getrennt; Befund Diogenes 420 einarbeiten | wartet auf Diogenes: Abschnitte 2–6 abgeglichen 01.11., 01:1x (Zu 422); Diogenes 441 quer, dann Chefsache zur Abnahme |
 | 413 | M | **von Chef (31.10., 20:1x):** Spielsystem 2.0 (`DESIGN-SPIELSYSTEM-2-0.md`), Meilensteine | wartet auf Chef: A1 (Chefsache 413a); S3 Profil entschieden 31.10., 23:51 (E 76) |
 | 398 | M | **von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr ganz grundlegende Dinge fehlen?“):** Grundsätze DESIGN-* gegen Umzugsliste und Godot-Zweige | wartet auf Perikles: 15 Lücken in LISTE-UMZUG-348.md „398“, Chef 11:3x informiert |
@@ -43,7 +43,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (Gewerbeschein); 45a/45c, 72g–72j entschieden ([Artefakt](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj), vertraulich); offen: Preis endgültig mit 142 (ab Gewerbeschein), bis 30.11.; iOS-Schätzung Tom nach Kapitel 2 |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | ruht bis Gewerbeschein (Chef 28.10., 10:26; 142); dann Chefsache neu |
 
-- **Zu 427, von Homer (01.11.):** Gerüst nennt Zombie, Ghul, Blutflügler, Ockerschleim für Kapitel 1 und die vier Nachfolger unter „Später“ als Kapitel 2; laut 348.12c (Monsterwahl, 26.10.) ersetzen Wiedergänger, Grabhund, Riesenegel, Säureschnecke sie in Kapitel 1, Kauf „noch nicht“. Hintergrund 428 schreibt beide; Tabelle und „Später“ bitte nachziehen.
+- **Zu 427:** Hinweis Homer (Nachfolger 348.12c in Kapitel 1) nachgezogen 01.11., 01:3x.
 - **Zu 422:** Befunde `PRUEFBERICHT.md` Lauf 48, 49 (Diogenes); Abschnitte 2–6 abgeglichen 01.11., 01:1x (Herkunft, Völker E 72, 18 Punkte, Reparatur, Heilkunde, Beschwörer, E 73), Rest in Abschnitt 13.
 - **Zu 413 (A1), von Perikles (31.10., 21:3x):** `CLAUDE.md` mit der neuen Direktive (418) 15,3 KB, über der Grenze; beim A1-Entwurf mitkürzen (auch Kopfzeile „Regeln nach SRD 5.1“, E 61). Chefsache 418 fragt den Umfang von 2.0 in Kapitel 1 (Votum A, nur Kern).
 - **Zu 383, Sitzungsgröße (27.10., 99 Sitzungen):** 787 $ in 24 h; je Million Ausgabetokens 92–103 $ nach Kontext, kein Hinweis, dass große Sitzungen teurer sind (Beleg schwach). Jeder Start etwa 125k Kontext, kleinste Sitzung 1,25 $. Treiber: Runden (44 %). Wiederholen mit 347 und 383.2 am 31.10.

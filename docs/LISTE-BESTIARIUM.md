@@ -1,6 +1,6 @@
 # Bestiarium
 
-Nachschlagen (427, Chef 31.10.2026, 21:3x): je Monsterart, was man für Spiel, Kampf und Texte braucht. **Aussehen** steht nur in [`LISTE-FIGUREN.md`](LISTE-FIGUREN.md) (dort Abnahmelisten und einmalige Monster), hier nur der Verweis. **Werte** folgen dem Rechenmodell von Spielsystem 2.0 (Entwurf S1 in Vorgang 422) und werden eingetragen, sobald es entschieden ist. **Hintergrund** im Abschnitt unten (Homer, 428). Namen nach dem Glossar in [`DESIGN-SPIELSYSTEM-2-0.md`](DESIGN-SPIELSYSTEM-2-0.md).
+Nachschlagen (427, Chef 31.10.2026, 21:3x): je Monsterart, was man für Spiel, Kampf und Texte braucht. **Aussehen** steht nur in [`LISTE-FIGUREN.md`](LISTE-FIGUREN.md) (dort Abnahmelisten und einmalige Monster), hier nur der Verweis. **Werte** folgen dem Rechenmodell von Spielsystem 2.0 (Modell D, Entscheidung 73–75), Startwerte im Abschnitt „Werte 2.0“. **Hintergrund** im Abschnitt unten (Homer, 428). Namen nach dem Glossar in [`DESIGN-SPIELSYSTEM-2-0.md`](DESIGN-SPIELSYSTEM-2-0.md).
 
 Stand der Spalten „Angriff“, „Beute“ und „Merkmal“: aus `core/src/main/kotlin/de/bornim/core/Monsters.kt` gelesen am 31.10.2026 (alte Fassung). Merkmalsnamen sind Vorschlag Sokrates, ohne SRD-Begriffe.
 
@@ -23,29 +23,64 @@ Stand der Spalten „Angriff“, „Beute“ und „Merkmal“: aus `core/src/ma
 
 | Name | Gruppe | Angriff | Merkmal (Vorschlag) | Beute heute | Zerlegen (Vorschlag) | Werte 2.0 | Hintergrund |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Riesenratte | Tier | Biss | – | Heiltrank, Fleisch | Fleisch, Fell klein | nach S1 | Homer |
-| Wolf | Tier, Rudel | Biss | Umreißen (wirft zu Boden) | Heiltrank, Fleisch, Wolfsfell | Fleisch, Wolfsfell, Zähne | nach S1 | Homer |
-| Wildschwein | Tier | Hauer | Ansturm | Heiltrank, Fleisch, Hauer | Fleisch, Schwarte, Hauer | nach S1 | Homer |
-| Riesen-Hundertfüßer | Kriechtier | Biss | Gift | Heiltrank | Giftdrüse, Panzerplatten | nach S1 | Homer |
-| Riesenspinne | Kriechtier | Biss | Gift | großer Heiltrank, Spinnendrüse, Schutzumhang | Giftdrüse, Spinnseide | nach S1 | Homer |
-| Riesenfledermaus | Tier | Biss | Ausweichen | Heiltrank, Fledermausflügel | Flügelhaut | nach S1 | Homer |
-| Blutflügler (vorher Stirge) | Kriechtier | Rüssel | Blutsaugen | Heiltrank | – | nach S1 | Homer |
-| Goblin | Goblinvolk | Krummsäbel | – | Heiltrank, Alchemistenfeuer | – (Goblins werden nicht zerlegt) | nach S1 | Homer |
-| Goblin-Späher | Goblinvolk | Kurzbogen | – | Heiltrank, Alchemistenfeuer | – | nach S1 | Homer |
-| Goblin-Schamane | Goblinvolk | Stab | Zauber | Heiltrank, großer Heiltrank | – | nach S1 | Homer |
-| Kobold | Goblinvolk | Speer | Rudel (stärker in der Gruppe) | Heiltrank, Alchemistenfeuer | – | nach S1 | Homer |
-| Skelett | Untote | Kurzschwert | – | Heiltrank, Weihwasser | Knochen | nach S1 | Homer |
-| Zombie | Untote | Hieb | Zäher Tod (steht einmal wieder auf) | Heiltrank, Weihwasser | – | nach S1 | Homer |
-| Ghul | Untote | Klauen | Lähmung | großer Heiltrank, Weihwasser | – | nach S1 | Homer |
-| Ockerschleim (vorher Ockergallerte) | Schleim | Scheinfuß | Säure (greift Ausrüstung an) | großer Heiltrank | Säure als Zutat | nach S1 | Homer |
+| Riesenratte | Tier | Biss | – | Heiltrank, Fleisch | Fleisch, Fell klein | unten | Homer |
+| Wolf | Tier, Rudel | Biss | Umreißen (wirft zu Boden) | Heiltrank, Fleisch, Wolfsfell | Fleisch, Wolfsfell, Zähne | unten | Homer |
+| Wildschwein | Tier | Hauer | Ansturm | Heiltrank, Fleisch, Hauer | Fleisch, Schwarte, Hauer | unten | Homer |
+| Riesen-Hundertfüßer | Kriechtier | Biss | Gift | Heiltrank | Giftdrüse, Panzerplatten | unten | Homer |
+| Riesenspinne | Kriechtier | Biss | Gift | großer Heiltrank, Spinnendrüse, Schutzumhang | Giftdrüse, Spinnseide | unten | Homer |
+| Riesenfledermaus | Tier | Biss | Ausweichen | Heiltrank, Fledermausflügel | Flügelhaut | unten | Homer |
+| Blutflügler (vorher Stirge) | Kriechtier | Rüssel | Blutsaugen | Heiltrank | – | unten | Homer |
+| Goblin | Goblinvolk | Krummsäbel | – | Heiltrank, Alchemistenfeuer | – (Goblins werden nicht zerlegt) | unten | Homer |
+| Goblin-Späher | Goblinvolk | Kurzbogen | – | Heiltrank, Alchemistenfeuer | – | unten | Homer |
+| Goblin-Schamane | Goblinvolk | Stab | Zauber | Heiltrank, großer Heiltrank | – | unten | Homer |
+| Kobold | Goblinvolk | Speer | Rudel (stärker in der Gruppe) | Heiltrank, Alchemistenfeuer | – | unten | Homer |
+| Skelett | Untote | Kurzschwert | – | Heiltrank, Weihwasser | Knochen | unten | Homer |
+| Zombie | Untote | Hieb | Zäher Tod (steht einmal wieder auf) | Heiltrank, Weihwasser | – | unten | Homer |
+| Ghul | Untote | Klauen | Lähmung | großer Heiltrank, Weihwasser | – | unten | Homer |
+| Ockerschleim (vorher Ockergallerte) | Schleim | Scheinfuß | Säure (greift Ausrüstung an) | großer Heiltrank | Säure als Zutat | unten | Homer |
 
 ## Einzelgegner (einmalig)
 
 | Name | Gruppe | Angriff | Merkmal (Vorschlag) | Beute heute | Werte 2.0 | Aussehen |
 | --- | --- | --- | --- | --- | --- | --- |
-| Krogg der Grobian (Bärenschrat) | Goblinvolk | Morgenstern | Überfall | rostiger Schlüssel, Ogerhandschuhe | nach S1 | `LISTE-FIGUREN.md` „Einmalige Monster“ |
-| Grimmzahn, der Leitwolf | Tier | Reißzähne | Umreißen, führt das Rudel | Grimmzahn-Amulett, großer Heiltrank, Wolfsfell, Fleisch | nach S1 | ebenda |
-| Hauptmann Grak (Goblin-Hauptmann) | Goblinvolk | Kriegsaxt | Kampfgeschick (stärker neben Verbündeten) | Sonnenamulett, Brief des Propheten, Graks Schlüssel, Graks Kriegsaxt | nach S1 | ebenda |
+| Krogg der Grobian (Bärenschrat) | Goblinvolk | Morgenstern | Überfall | rostiger Schlüssel, Ogerhandschuhe | unten | `LISTE-FIGUREN.md` „Einmalige Monster“ |
+| Grimmzahn, der Leitwolf | Tier | Reißzähne | Umreißen, führt das Rudel | Grimmzahn-Amulett, großer Heiltrank, Wolfsfell, Fleisch | unten | ebenda |
+| Hauptmann Grak (Goblin-Hauptmann) | Goblinvolk | Kriegsaxt | Kampfgeschick (stärker neben Verbündeten) | Sonnenamulett, Brief des Propheten, Graks Schlüssel, Graks Kriegsaxt | unten | ebenda |
+
+## Werte 2.0 (Startwerte, 427)
+
+Vorschlag Sokrates (01.11.2026), Startwerte für die Simulation „Zeit bis Stufe“ (M1); geändert wird nach Messung, nicht nach Gefühl. Umgerechnet aus den alten Werten, damit die Reihenfolge der Gefahr bleibt, die das Spiel heute hat:
+
+- **Stufe:** Kapitel 1 hat die Grenze 6. Flüsterwald 1–3, Tiefer Flüsterwald 2–4, Blutzahnhöhle 2–5, Bosse 4–6.
+- **Leben** = alter Durchschnitt × 1,5. **Rüstung** = (alte Rüstungsklasse − 10) ÷ 2, abgerundet. **Grundschaden** = alter Durchschnittsschaden.
+- **Angriff** (Fertigkeit) = 5 × Stufe + 5 × (alter Angriffsbonus − 4) + 5. **Abwehr** = 5 × Stufe + 2 × (alte Rüstungsklasse − 12), nie unter 0.
+- **Wachsamkeit** gegen Schleichen = 10 × Stufe + 10 × alter Weisheitswurf, Bosse +20. Der Held schleicht in Kapitel 1 höchstens mit 49 (Geselle).
+- Erfahrung folgt aus der Stufe (Modell D). Schwächen und Widerstände (Skelett gegen Stumpfes, Schleim gegen Klingen) bleiben als Merkmal, Zahl ±50 % Schaden.
+
+| Art | Gebiet | Stufe | Leben | Rüstung | Schaden | Angriff | Abwehr | Wachsamkeit |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Riesenratte | Wald, Höhle | 1 | 10 | 1 | 4 | 10 | 5 | 10 |
+| Kobold | Wald, Tiefer Wald | 1 | 12 | 1 | 4 | 10 | 5 | 0 |
+| Blutflügler | Wald, Tiefer Wald | 1 | 8 | 2 | 4 | 15 | 9 | 0 |
+| Wolf | Wald, Tiefer Wald | 2 | 14 | 1 | 7 | 15 | 12 | 30 |
+| Wildschwein | Wald, Tiefer Wald | 2 | 16 | 0 | 4 | 10 | 8 | 10 |
+| Riesen-Hundertfüßer | Wald, Tiefer Wald | 2 | 12 | 1 | 4 | 15 | 12 | 0 |
+| Goblin | Wald, Tiefer Wald, Höhle | 2 | 10 | 2 | 6 | 15 | 16 | 10 |
+| Goblin-Späher | Wald, Tiefer Wald, Höhle | 2 | 13 | 1 | 6 | 15 | 12 | 20 |
+| Skelett | beide Wälder (Nacht), Höhle | 2 | 20 | 1 | 6 | 15 | 12 | 10 |
+| Zombie | beide Wälder (Nacht), Höhle | 2 | 34 | 0 | 4 | 10 | 2 | 0 |
+| Riesenfledermaus | beide Wälder (Nacht), Höhle | 3 | 33 | 1 | 6 | 20 | 17 | 40 |
+| Goblin-Schamane | Tiefer Wald, Höhle | 3 | 21 | 1 | 4 | 15 | 15 | 50 |
+| Riesenspinne | Tiefer Wald, Höhle | 4 | 39 | 2 | 8 | 30 | 24 | 40 |
+| Ghul | Tiefer Wald (Nacht), Höhle | 4 | 34 | 1 | 7 | 25 | 20 | 40 |
+| Ockerschleim | Höhle | 5 | 49 | 0 | 6 | 30 | 17 | 10 |
+| Krogg (Boss) | Höhle | 4 | 41 | 3 | 11 | 25 | 28 | 60 |
+| Grimmzahn (Boss) | Tiefer Wald | 5 | 39 | 2 | 8 | 30 | 29 | 80 |
+| Grak (Boss) | Höhle | 6 | 58 | 3 | 8 | 40 | 38 | 90 |
+
+Nachfolger nach der Monsterwahl (348.12c, 26.10.): Wiedergänger statt Zombie, Grabhund statt Ghul, Riesenegel statt Blutflügler, Säureschnecke statt Ockerschleim, je mit derselben Rolle und denselben Werten; der Kauf der Modelle ruht (348.12c). Bis dahin gelten die alten Arten.
+
+*Für die Simulation zu prüfen:* (1) Bosse haben nur das Leben ihrer alten Werte; der Kampf gegen Grak könnte mit vier Treffern zu kurz sein (Vorschlag dann Leben × 2). (2) Zombie und Fledermaus sind zäh für ihre Stufe, wie heute. (3) Gebiet aus `Story.kt` gelesen (Begegnungen), Krogg und Grimmzahn aus der Handlung.
 
 ## Hintergrund (428)
 
@@ -156,5 +191,5 @@ EN: A hobgoblin who united the cowardly Bloodfang tribe with his axe; whoever sp
 ## Später
 
 - Kaufmodelle mit eigener Art: Keiler (Wildschwein), Riesenratte gekauft, Kaufwolf (348.12f, 387) gehören zu den Arten oben; nur das Modell wechselt.
-- Kapitel 2: Arten aus `STORY-PLAN-K2.md` (Wiedergänger, Grabhund, Riesenegel, Säureschnecke; 348.12c) kommen mit dem Bau von Kapitel 2.
+- Wiedergänger, Grabhund, Riesenegel, Säureschnecke ersetzen in Kapitel 1 Zombie, Ghul, Blutflügler, Ockerschleim, sobald ihr Kauf entschieden ist (348.12c; Abschnitt „Werte 2.0“).
 - Im Spiel denkbar: ein Bestiarium in der Chronik, das sich füllt, wenn der Held einem Monster begegnet (passt zu S3, Vorschlag).
