@@ -9,7 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 450 | M | **von Sokrates (Chef 01.11., 10:55, „Was ist denn so schwer, bitte Bilder und Filme auf Telegram und hier im Vorgang zu verlinken?“; „jetzt“ 01.11., 10:55):** `meldung.sh` legt Bild und Film schon im Zweig `bilder` ab; neu trägt es den Link selbst in das Blatt der Chefsache zur Nummer ein (gibt es keins: Warnung), und `zug-index.py` meldet jedes Blatt in `ansehen/` ohne Link. Fünf Blätter am 01.11. von Hand nachgetragen | startbar |
+| 450 | M | **von Sokrates (Chef 01.11., 10:55, „Was ist denn so schwer, bitte Bilder und Filme auf Telegram und hier im Vorgang zu verlinken?“):** `meldung.sh` legt Bild und Film schon im Zweig `bilder` ab; neu trägt es den Link selbst in das Blatt der Chefsache zur Nummer ein (gibt es keins: Warnung), und `zug-index.py` meldet jedes Blatt in `ansehen/` ohne Link. Fünf Blätter am 01.11. von Hand nachgetragen | startbar |
 | 449 | M | **von Sokrates (aus 416.4a, 01.11., 10:5x):** Commit-Haken weist gekaufte Rohdateien ab (Ordner aus `kauf_laden.sh`, Endungen der Kaufpakete), damit sie nie in dieses Repo kommen (`CLAUDE.md` „Fremde Inhalte“) | startbar |
 | 436 | M | **von Sokrates („jetzt“ 31.10., 22:58):** Sitzungsnamen mit Vorgang, Thema und Zeit für alle (Zu 436) | gebaut 01.11., 00:1x: Regel, Rollen, lauf.py (Zu 436); Ford benennt um; Diogenes prüft (443) |
 | 433 | M | **von Sokrates („jetzt“ 31.10., 22:1x, Zu 433):** unabhängige Zeilen von Tom und Jerry an Spike/Tuffy (394) verteilen, Ford startet | gebaut 31.10., 22:2x: lauf.py startet Spike/Tuffy auf unabhängige Muss-Zeile (Zu 433); Diogenes prüft (435) |
