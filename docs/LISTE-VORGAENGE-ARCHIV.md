@@ -525,3 +525,9 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 451 | Name für das Spielsystem statt „2.0“ (Chef 01.11., 10:59) | D Design | M | – | Sokrates | erledigt |
 | 458 | Katalog aller Gegenstände: eine Datendatei, Übersicht `LISTE-GEGENSTAENDE.md` daraus erzeugt (Chef 01.11., 13:0x) | D Design | M | – | Sokrates | erledigt |
 | 452 | Notizen-Übersicht `docs/README.md` aktualisieren, gebündeltes Dokument für den Chef (Chef 01.11., 10:59, 11:00) | B Abläufe | M | – | Sokrates | erledigt |
+| 423 | Spielerhandbuch aus dem Nachschlagewerk 422: was der Spieler wissen muss, in unserem Ton, Deutsch und Englisch (Chef 31.10., 21:2x) | C Texte | M | 4,14 $ | Homer | erledigt |
+| 453.3 | Grundsatz „lebende Figuren atmen immer“ in `DESIGN-STIL.md` (Chef 01.11., 13:0x) | G Stil | M | – | Homer | erledigt |
+| 451.1 | Name „Bornimer Rollenspielsystem“ in CLAUDE.md, Leitbild, Rollendateien, Werkzeugtexten (Chef 01.11., 451) | B Abläufe | M | – | Perikles | erledigt |
+| 451.2 | Name „Bornimer Rollenspielsystem“ im Handbuch 423 und in Spieltexten (Chef 01.11., 451) | C Texte | M | – | Homer | erledigt |
+| 458.1 | Gegenstandskatalog: Datendatei festlegen, Werkzeug für `LISTE-GEGENSTAENDE.md` (Chef 01.11., 458 ja) | B Abläufe | M | – | Perikles | erledigt |
+| 447.1 | Abnahmeliste auf Stufen 1–6 umstellen, Block G erweitern, Schätzung je Stufe (Chef 01.11., 447 ja mit K2b) | B Abläufe | M | – | Perikles | erledigt |
