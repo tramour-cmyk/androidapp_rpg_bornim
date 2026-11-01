@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [348.12a](entscheiden/34812a-dritter-lauf.md) | **Muss** | E Kampf | 01.11. | Grak schreitet: dritten Probelauf freigeben? | Jerry |
 | [458.2a](entscheiden/4582a-stufe-preis.md) | – | G Balance | 01.11., 14:24 | Stufe und Preis im Gegenstandskatalog: woher die ersten Zahlen? | Jerry |
 | [447.4a](entscheiden/4474a-lehrmeister-k1.md) | – | – | 01.11. | Wer in Bornim Lehrmeister ist | Homer |
 
@@ -135,7 +134,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 401 | M | von Chef über Sokrates (Archiv): Tierlaute, mind. 3 je Tier | wartet auf Test (Build) |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | wartet auf Test/Build (gebaut) |
-| 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
+| 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | startbar |
 | 385.2 | M | von Chef (Archiv 385.1): Feuer aus dem Stab | startbar |
 | 348.13a | M | von Team Tom (Chef 08:09, Archiv: r9 ja): Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13 | wartet auf Test/Build (gebaut) |
 | 397 | M | von Chef: Tiere, Monster mind. drei Ruhebewegungen | ruht |
@@ -209,7 +208,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 383 | M | von Chef (27.10., 17:44, „Sollen wir einfach aufhören damit?“; 17:47 Vorschlag „nicht grif | startbar |
 | 376 | M | von Chef (27.10., 12:00): Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Tom |
 | 374 | M | von Chef (27.10., 11:54): wer prüft 373? | startbar |
-| 348.12 | M | von Chef (25.10., 21:21, „b prüfen“): fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
+| 348.12 | M | von Chef (25.10., 21:21, „b prüfen“): fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit | wartet auf Jerry |
 | 340.2 | M | von Chef (25.10., 10:16, Vorgangsarchiv 340): tools/rollenspiegel.sh <Rolle> zeigt nur Fra | wartet auf Test/Build (gebaut) |
 | 348 | M | von Chef (24.10., 16:43; „jetzt“ 16:54): fertige Spiel-Engine statt Selbstbau? | ruht |
 | 26.1 | M | von Chef (24.10., 16:56): Durchspielbogen auswerten (Rest von 26) | wartet auf 348 (in Arbeit) |
