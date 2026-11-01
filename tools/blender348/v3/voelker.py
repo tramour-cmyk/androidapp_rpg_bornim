@@ -102,6 +102,7 @@ def knochen_formen(arm, netze, e):
         h = R[b.name].translation if not b.parent else (M[b.parent.name] @ R[b.parent.name].inverted() @ R[b.name].translation)
         M[b.name] = mathutils.Matrix.Translation(h) @ rot @ S
     D = {n: M[n] @ R[n].inverted() for n in M}
+    sohle_alt = min(v.co.z for o in netze for v in o.data.vertices)
     for o in netze:
         gname = {g.index: g.name for g in o.vertex_groups}
         keys = list(o.data.shape_keys.key_blocks) if o.data.shape_keys else []   # Formschluessel mitziehen, sonst gilt die alte Basis
@@ -114,6 +115,14 @@ def knochen_formen(arm, netze, e):
             Mv = acc * (1.0 / w)
             v.co = Mv @ v.co
             for kb in keys: kb.data[v.index].co = Mv @ kb.data[v.index].co
+    # Sohlen zurueck auf den alten Boden: Netz und alle Knochen ausser der Wurzel senken (cc0.py; Lauf 41300277200: ohne das stand die
+    # Wurzel tiefer als der Ursprung, die Beckenlage der UAL passte nicht, Zwerg 50 cm im Boden, Elf 9 cm darueber)
+    tief = min(v.co.z for o in netze for v in o.data.vertices) - sohle_alt
+    for o in netze:
+        keys = list(o.data.shape_keys.key_blocks) if o.data.shape_keys else []
+        for v in o.data.vertices:
+            v.co.z -= tief
+            for kb in keys: kb.data[v.index].co.z -= tief
     bpy.context.view_layer.objects.active = arm
     bpy.ops.object.mode_set(mode='EDIT')
     laengen = {eb.name: eb.length for eb in ad.edit_bones}
@@ -122,6 +131,7 @@ def knochen_formen(arm, netze, e):
         el, q = mass(eb.name, e)
         roll = eb.roll
         k = M[eb.name].translation.copy()
+        if eb.name != 'root': k.z -= tief
         d = (R[eb.name].to_3x3() @ mathutils.Vector((0, 1, 0))) * (laengen[eb.name] * el)
         eb.head = k; eb.tail = k + d; eb.roll = roll
     bpy.ops.object.mode_set(mode='OBJECT')
@@ -174,7 +184,8 @@ def baue(volk, frau):
     h_soll = z['h'] * (FRAU if frau else 1.0)
     e = einstellung_start(z)
     m = None
-    for runde in range(5):
+    beste = None   # (groesste Abweichung, Einstellung): am Ende gilt die beste Runde (Lauf 41300277200: Schulter schwang sich auf)
+    for runde in range(7):
         arm, netze, alle = laden(z['koerper'], frau)
         knochen_formen(arm, netze, e)
         m = messen(arm, netze)
@@ -190,15 +201,25 @@ def baue(volk, frau):
             abw.append(abs(m['schulter'] * f / s_ziel - 1))
         print('RUNDE %s %s %d: Kopf 1/%.2f Bein %.3f Schulter %.3f m (nach Groesse %.3f) Abweichung %s' % (
             volk, 'frau' if frau else 'mann', runde, 1 / m['kopf'], m['bein'], m['schulter'], m['schulter'] * f, ['%.3f' % a for a in abw]))
-        if not abw or max(abw) < 0.015 or runde == 4: break
+        if abw and (beste is None or max(abw) < beste[0]): beste = (max(abw), dict(e))
+        if not abw or max(abw) < 0.015: break
+        if runde == 6:   # nicht eingelaufen: die beste Runde neu bauen
+            e = beste[1]
+            arm, netze, alle = laden(z['koerper'], frau)
+            knochen_formen(arm, netze, e)
+            m = messen(arm, netze)
+            print('BESTE %s %s: Abweichung %.3f' % (volk, 'frau' if frau else 'mann', beste[0]))
+            break
         # nachstellen: Kopf ueber die Kopfgroesse, Bein ueber die Beinlaenge (der Rumpf gleicht aus), Schulter ueber das Schluesselbein
         if 'kopf' in z:
             e['kopf'] = min(max(e['kopf'] * (z['kopf'] / m['kopf']) ** 1.15, 0.6), 2.2)
         if 'bein' in z:
             e['bein'] = min(max(e['bein'] * (z['bein'] / m['bein']) ** 1.6, 0.3), 1.6)
         if s_ziel:
-            e['schulter'] *= (s_ziel / (m['schulter'] * f)) ** 2.5
-            e['schulter'] = min(max(e['schulter'], 0.4), 3.0)
+            # Schulterbreite = Abstand der Oberarmkoepfe, waechst etwa wie die Laenge des Schluesselbeins (Lauf 41300277200: Elf
+            # 0,79-fach Schluesselbein gab 0,79-fach Breite; mit Hochzahl 2,5 schwang sie von Runde zu Runde weiter auf): Hochzahl 1
+            e['schulter'] *= (s_ziel / (m['schulter'] * f))
+            e['schulter'] = min(max(e['schulter'], 0.5), 2.2)
     auf_groesse(arm, alle, m['h'], m['sohle'], h_soll)
     m2 = messen(arm, netze)
     for o in alle:
