@@ -3,7 +3,7 @@
 
 Aufruf: python3 tools/regelcheck.py [--kurz] [--anlass SHA]   (--kurz: nur Pflegefehler der Vorräte, Teil 1 und 2; ruft notiz.sh beim Start)    (Ford ruft es im Morgenlauf, Ausgabe in die Morgenmeldung)
 Prüft: startbar.py (erledigte, nicht gestrichene, unlesbare Zeilen), Größen (Vorräte 15 KB, CLAUDE.md, LISTE-VORGAENGE.md),
-Zeilen über 1 500 Zeichen in Vorräten, Testbuilds am Tag (höchstens 6, 317), tote Verweise auf `Datei.md` / `tools/x` / `docs/…`, alte Dateinamen (notiz.sh).
+Zeilen über 1 500 Zeichen in Vorräten, Testbuilds am Tag (höchstens 6, 317), tote Verweise auf `Datei.md` / `tools/x` / `docs/…`, alte Dateinamen (notiz.sh), Lizenzhinweis SRD (446: Meldezeile, solange alte Namen im Spiel; Fund, wenn der Hinweis dann fehlt).
 --anlass SHA: nennt die Regeldateien (CLAUDE.md, ROLLE-*, LISTE-BETRIEB.md, VORGANGSARCHIV.md), die seit SHA geändert wurden;
 nur dann gehört die Zeile „Widersprüche prüfen“ in ARBEIT-PRUEFUNG.md (Anlass-Lauf Diogenes, einmal im Monat voller Lauf).
 Inhaltliche Widersprüche sieht das Skript nicht. Exit 1, wenn etwas gefunden wurde.
@@ -130,6 +130,38 @@ for z in lesen(os.path.join(DOCS, "LISTE-VORGAENGE.md")).splitlines():
 if falsch: fund.append("LISTE-VORGAENGE.md: Stand außerhalb der Wortliste (%s; 275), je Besitzer:" % WORTE[1:-3].replace("|", ", "))
 for wer, v in sorted(falsch.items()): fund.append("  %s: %s" % (wer, ", ".join(v)))
 
+# 4b. Lizenzhinweis SRD (446; Chef 01.11., 09:41, 413a): alte Namen aus Nachschlagewerk Abschnitt 12 („Alt“) im Godot-Spiel (ohne tests/).
+# Solange einer steht: Meldezeile (kein Fund); fehlt dann der Hinweis „SRD 5.1 · CC BY 4.0“ im Hauptmenü oder README: Fund (Lizenz).
+# Allgemeine Wörter (Schild, Vorteil, Nachteil) sieht die Suche nicht; Monsterwerte und Zaubertexte auch nicht: die prüft ein Mensch vor dem Wegfall.
+nw = os.path.join(DOCS, "DESIGN-SPIELSYSTEM-2-0-ENTWURF.md")
+abschnitt = lesen(nw).split("\n## 12. ")[1].split("\n## ")[0] if "\n## 12. " in lesen(nw) else ""
+srd = []
+for z in abschnitt.splitlines():
+    s = [x.strip() for x in z.split("|")]
+    if len(s) < 4 or s[1] in ("Alt", "---", ""): continue
+    for n in re.split(r"[,/]", re.sub(r"\s*\(.*?\)", "", s[1])):
+        n = re.sub(r"^Klassen\s+", "", n.strip())
+        if n and n not in ("Schild", "Vorteil", "Nachteil"): srd.append(n)
+srd_info = None
+if not srd:
+    fund.append("DESIGN-SPIELSYSTEM-2-0-ENTWURF.md: Abschnitt „12. Namen“ ohne Tabelle Alt/Neu, Wächter Lizenzhinweis blind (446)")
+else:
+    muster = re.compile(r"(?<!\w)(%s)(?!\w)" % "|".join(map(re.escape, srd)))
+    treffer = {}
+    for d, _, fs in os.walk(os.path.join(ROOT, "godot")):
+        if "tests" in os.path.relpath(d, ROOT).split(os.sep): continue
+        for f in fs:
+            if not f.endswith((".gd", ".tscn", ".tres", ".json", ".csv", ".txt", ".cfg")): continue
+            for m in muster.finditer(lesen(os.path.join(d, f))): treffer.setdefault(m.group(1), set()).add(f)
+    if treffer:
+        srd_info = "Lizenzhinweis SRD bleibt (446): %d alte Namen aus Nachschlagewerk 12 im Godot-Spiel, z. B. %s" % (
+            len(treffer), ", ".join("%s (%d)" % (n, len(fs)) for n, fs in sorted(treffer.items(), key=lambda x: -len(x[1]))[:6]))
+        for p in (os.path.join(ROOT, "godot", "skripte", "hauptmenue.gd"), os.path.join(ROOT, "README.md")):
+            if not os.path.exists(p) or "SRD 5.1" not in lesen(p):
+                fund.append("%s: Hinweis „SRD 5.1 · CC BY 4.0“ fehlt, aber SRD-Namen stehen noch im Spiel (Lizenz CC BY 4.0, 446)" % os.path.relpath(p, ROOT))
+    else:
+        srd_info = "Lizenzhinweis SRD (446): keine alten Namen aus Nachschlagewerk 12 mehr im Godot-Spiel; Monsterwerte, Zaubertexte, Schild/Vorteil/Nachteil von Hand prüfen, dann Chefsache: Hinweis darf fallen"
+
 # 5. Anlass
 if "--anlass" in sys.argv:
     sha = sys.argv[sys.argv.index("--anlass") + 1]
@@ -137,6 +169,7 @@ if "--anlass" in sys.argv:
                        capture_output=True, text=True).stdout.split()
     print("Anlass seit %s: %s" % (sha, ", ".join(o) if o else "keine Regeldatei geändert → kein Lauf Diogenes"))
 
+if srd_info: print(srd_info)
 print("Regelcheck: %s" % ("%d Fund(e)" % len(fund) if fund else "ohne Fund"))
 for z in fund: print("  - " + z)
 sys.exit(1 if fund else 0)

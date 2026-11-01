@@ -3,13 +3,12 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 01.11., 00:1x
+**Gelesen bis:** `origin/main` 01.11., 10:0x
 
-**Übergabe (01.11., 00:1x):** 347.2 auf „wartet auf Sokrates“; 437 erledigt (Herkunft: Chefnachricht, Ford falsch gelesen); 436 gebaut, D52 behoben, Diogenes prüft (443.1); Stand zum Marktstart 01.11. gesetzt und gemeldet; Vorrat gekürzt. Nachfolger: Perikles – 338.1: Wochenziel 02.11. nach der Wochenzählung
+**Übergabe (01.11., 10:1x):** 446 erledigt: `regelcheck.py` Teil 4b meldet „Lizenzhinweis SRD bleibt“, solange alte Namen aus Nachschlagewerk 12 im Godot-Spiel stehen (heute 19), Fund, wenn der Hinweis dann im Hauptmenü oder README fehlt; Vorrat gekürzt. Nachfolger: Perikles – 418.1: Abnahmeliste nachziehen
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 446 | M | **von Sokrates (Chef 01.11., 09:41, „413a wie Sokrates“, Archiv):** Wächter Lizenzhinweis SRD in `regelcheck`: meldet, solange die Inventur SRD-Abgeleitetes im Nachschlagewerk (Abschnitt 12) nicht leer ist | startbar |
 | 436 | M | **von Sokrates („jetzt“ 31.10., 22:58):** Sitzungsnamen mit Vorgang, Thema und Zeit für alle (Zu 436) | gebaut 01.11., 00:1x: Regel, Rollen, lauf.py (Zu 436); Ford benennt um; Diogenes prüft (443) |
 | 433 | M | **von Sokrates („jetzt“ 31.10., 22:1x, Zu 433):** unabhängige Zeilen von Tom und Jerry an Spike/Tuffy (394) verteilen, Ford startet | gebaut 31.10., 22:2x: lauf.py startet Spike/Tuffy auf unabhängige Muss-Zeile (Zu 433); Diogenes prüft (435) |
 | 424 | M | **von Sokrates („jetzt“ 31.10., 21:3x, Chef: „keine Energie mehr in das alte SRD-System stecken“):** Regelzeilen der Umzugsliste (SRD-Regeln übertragen) auf ruht; Vorräte geprüft 21:3x (Sokrates setzte 17 Zeilen auf ruht); neue Zeilen am alten System verhindern | gebaut 31.10., 21:4x: Umzugsliste ruht für alte Regeln, Wächter in startbar.py (Zu 424); Diogenes prüft (429) |
@@ -34,7 +33,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 - **Zu 422, von Sokrates (Chef 01.11., 09:24, Archiv):** beim Bau der Regeln 2.0 (Vorgang fehlt noch, D49) kommt jede Zahl aus einer Datendatei, damit Simulation 444 nur Tabellenzeilen ändert.
 - **Zu 445, von Sokrates (Chef 01.11., 09:24–09:32):** Vorschlag für `CLAUDE.md` „Wie wir zusammenarbeiten“ 4 und `docs/chefsache/README.md`: „Auswertung mit stärkstem Gegenargument“ ersetzen durch „… und dem Weg, es zu entkräften (ins Votum)“; ersetzt, fügt keine Regel hinzu. Perikles entscheidet.
-- **Zu 433** (Chef 31.10., 22:1x über Sokrates: „dafür haben wir noch unsere Leiharbeiter, die wir notfalls starten können. Oder halt intern Arbeit umschichten … Da muss doch nicht jetzt Tom drei Wochen auf Tom warten“). **Gebaut 22:2x** (`lauf.py` startet Spike/Tuffy auf eine andere startbare Muss-Zeile mit anderem Zweig; Regel in `ROLLE-ENTWICKLUNG.md`; Probe und Gegenargument: Git, Stand vor „Perikles: Vorrat gekürzt 01.11.“).
 - **Zu 433, von Diogenes (Lauf 51, 435, 31.10., 22:2x):** D51.1 Tom ohne Nummer im Titel (z. B. „Tom – Tragart …“ auf 417) → Spike startet auf dieselbe Zeile (Bedingung `not besetzt and not team_s`, nachgestellt); D51.2 Spike endet ohne Stand, Tom sonst nichts startbar → Zeile hängt; D51.3 Chef „notfalls“ gegen Start in jedem Lauf (fast immer vier Entwicklersitzungen). Einzelheiten `PRUEFBERICHT.md` Lauf 51. **Chef 31.10., 22:53 zu D51.3: „So lassen“** (Start in jedem Lauf bleibt; ins Vorgangsarchiv 433). D51.1 und D51.2 bleiben offen.
 - **M? 31.10., 22:2x:** 416.8 (NPC dreht sich zum Helden) M: Befund aus dem Test des Chefs, Abnahme T, Direktive „immersiv“.
 
