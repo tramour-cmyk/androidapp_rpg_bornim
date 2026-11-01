@@ -35,6 +35,16 @@ Tatwerk fällt: „Tat“ klingt im Deutschen nach Tatort und Tatwaffe. Mittelw�
 | Bornimer Handlungssystem | BHS | – | Kürzel heißt im Deutschen Büstenhalter |
 | Bornimer Spielsystem | BSS | – | „SS“ |
 
+## Markenrecherche (01.11., Chef mit Claude in Chrome: DPMAregister und TMview, Klassen 9, 28, 41, angemeldet oder eingetragen)
+
+- **Bornimer Rollenspielsystem:** frei, 0 Treffer in beiden Registern; nächster Anklang „BORNIMAGO“ (Kl. 28, nur China).
+- **Bornimer Abenteuersystem:** frei, 0 Treffer.
+- **BRS:** keine Spiele-Marke, aber die reine Wortmarke „BRS“ ist als Unionsmarke in Klasse 9 eingetragen (Tehalit, Elektro; Baobab, Versicherungssoftware, Anmeldung 2026).
+- **BAS:** keine Spiele-Marke in der EU, aber „BAS“ in Klasse 9 mehrfach (Fujifilm, Mercedes-Benz, ICAEW), in Tschechien „BAS Bohemia Air Soft“ mit Spielen.
+- Registerrecherche, keine Rechtsberatung.
+
+**Folgerung für das Votum:** Name ist der volle Name **„Bornimer Rollenspielsystem“** (frei); „BRS“ nur als Kürzel in unseren Dateien und im Handbuch-Fließtext, nie allein als Schriftzug, Logo oder auf der Store-Seite. Keine Anmeldung jetzt; erst wenn ein zweites Spiel darauf baut (327), dann den vollen Namen anmelden.
+
 ## Auswertung
 
 *Stärkstes Gegenargument:* Ein Name für das Regelwerk ist für den Spieler unsichtbar, solange es nur dieses Spiel gibt; er kostet Prüfung und Pflege, ohne dass jemand danach sucht. *Wie es zu entkräften ist:* Der Name dient zuerst uns (statt „2.0“ in jeder Datei) und kostet nur einen Satz im Handbuch; als Marke lohnt er erst, wenn ein zweites Spiel darauf baut (327). Darum vor dem Festlegen nur eine Suche bei DPMA und EUIPO nach Gleichem in Spielen (wie bei den Klangmarken, 142), keine Anmeldung.
@@ -43,6 +53,6 @@ Tatwerk fällt: „Tat“ klingt im Deutschen nach Tatort und Tatwaffe. Mittelw�
 
 ## Folgerung
 
-Mit „451 BRS“ (oder einem anderen) prüfe ich die Marken, dann ersetzen wir „Spielsystem 2.0“ in Leitbild, `CLAUDE.md`, Nachschlagewerk und Handbuch; die Dateinamen bleiben.
+Mit „451 Bornimer Rollenspielsystem“ (oder „… Abenteuersystem“) ersetzen wir „Spielsystem 2.0“ in Leitbild, `CLAUDE.md`, Nachschlagewerk und Handbuch; die Dateinamen bleiben.
 
 Erledigt: Antwort ins Vorgangsarchiv, Datei löschen (Sokrates).
