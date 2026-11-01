@@ -10,7 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 |---|---|---|---|---|
 | 431 | M | **von Sokrates (Chef 31.10., 22:0x):** Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film, dann Körperbau je Volk | startbar: Körper entschieden (Archiv 431, 01.11., 11:42); Runde mit Zahlen zu Homers Punkten, Zwerg im Film 455.2 | `claude/tom-431-voelker` |
 | 417 | M | **von Sokrates („jetzt“ 31.10., 21:12, Chef: „diese Rückfrage hat auch Priorität“; Prüfauftrag zu 410; 21:27 „so machen“):** Tragart je Waffenklasse (Zu 417), zuerst Stab, Axt, Bogen: Probe Gehen und Rennen, Seite und Porträt; Zahlen (Waffe durch Körper, Abstand), Aussehen urteilt der Chef | in Arbeit: Runde 3 Axt, Probeablauf Lauf 1 von 2 | `claude/tom-417-tragart` |
-| 425 | M | **von Sokrates (Chef 31.10., 21:30, Build 143):** Menüs (Menü „System“, Testmenü): in der alten Fassung mit Icons „super klasse“, neu „viel zu viel Text“; alte Menüs möglichst eins zu eins übernehmen, Icons statt Text | in Arbeit bei Spike | – |
+| 425 | M | **von Sokrates (Chef 31.10., 21:30, Build 143):** Menüs (Menü „System“, Testmenü): in der alten Fassung mit Icons „super klasse“, neu „viel zu viel Text“; alte Menüs möglichst eins zu eins übernehmen, Icons statt Text | gebaut, fährt im nächsten Build | `claude/spike-425-testmenue` |
 | 416.9 | M | **von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“):** Laden, Verkaufen, „angelegt“ mit allen Plätzen, Vergleichswerte, nicht Tragbares, Icon bei Menge | startbar: nachbessern (Archiv 416.9, 01.11.): Leiste fest, Leerzeile weg, Urteil bleiben, dazu Vergleich wie alt | – |
 | 416.7 | M | **von Sokrates (Chef 31.10., 20:5x, für den nächsten Build):** am Tresen in Schenke und Laden geht der Aktionsknopf nicht, Kaufen und Kauf mit den zwei NPCs dort nicht möglich; Reichweite erweitern | wartet auf Test: Build 146 (t146) | – |
 | 416.8 | M | **von Sokrates (Chef 31.10., 20:5x, allgemeiner Hinweis):** NPC dreht sich bei Interaktion zum Helden, nach etwa 10 s ignoriert er ihn wieder und spielt Leerlauf; M (Perikles 31.10., 22:2x: Befund aus dem Test des Chefs, Abnahme T, Direktive „immersiv“) | wartet auf Test: Build 146 (t146) | – |
@@ -51,7 +51,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 ## Einzelheiten
 
 
-- **Zu 425:** Zeichen abgenommen, Reihen 4/3/2 bleiben (Chef 01.11., 11:20; Liste 1–8 in `chefsache/ansehen/425-testmenue.md`, Git).
+- **Zu 425:** Archiv 01.11., 11:20. Spike: 2, 3, 8 gebaut, Zeichen ungesehen; 5 mit 1, 4, 6.
 - **Zu 416.4** (Tom, Spike 01.11.): Ursache Takt: `Jog_Fwd_Loop` auf unserem Helden 1,7 Schritte/s zu 2,5 m, Becken 22 cm; Sprint 9 m/s (0,48-fach). Spike (`claude/spike-416-4-rennen`): `geruest.py` `flug`, `hub`, `RENNEN_ART=heute|A|B`, `rennen_4164.gd` am Ballen, lokal ohne Kaufmodelle; nach Urteil Vorgabe in `RENNEN_ARTEN`. Filme mit Kauf: `tom-probe.yml`, `godot/probe/drehfilm.gd`, Artefakt über `api.github.com/…/actions/artifacts/<id>/zip`.
 
 - **Hinweis von Diogenes (374, 29.10.):** Stichprobe 373 28.10.: dritter Probelauf (389 höchstens zwei), Helferbefund vor dem Versand (396: erst senden, Befund danach), je drei Blätter für ein Modell (373 a).
