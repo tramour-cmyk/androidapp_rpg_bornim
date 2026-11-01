@@ -12,7 +12,6 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 430 | M | **von Sokrates (Chef 31.10., 22:0x: „Das Design der einzelnen Völker kann aber längst starten an den Modellen, oder?“):** Abnahmelisten Elf, Zwerg, Hügelvolk, Orkblütiger in `LISTE-FIGUREN.md` (fünf Punkte wie 348.11), dann an Tom (431) | wartet auf Chef (Chefsache 430): vier Listen in `LISTE-FIGUREN.md` „Völker“, 01.11. |
 | 428 | M | **von Sokrates (Chef 31.10., 21:3x, „bisschen Hintergrundgeschichte vielleicht“):** Bestiarium (427): je Monsterart zwei bis drei Sätze Herkunft und Wesen, DE/EN | wartet auf Chef (Chefsache 428): 23 Einträge in `LISTE-BESTIARIUM.md` „Hintergrund“, 01.11. |
 | 432 | K | **von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt mir sehr gut“):** eigenes Volk prüfen, mit der Geschichte ab Kapitel 2 | nach dem Meilenstein |
 | 423 | M | **von Sokrates (Chef 31.10., 21:2x: „irgendwer muss dann auch einfach eine Anleitung schreiben, wo die wesentlichen Dinge für den Spieler erklärt werden“):** Spielerhandbuch Spielsystem 2.0 aus dem Nachschlagewerk (422), unser Ton, DE/EN | wartet auf Sokrates (422) |
