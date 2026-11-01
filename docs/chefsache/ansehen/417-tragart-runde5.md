@@ -1,5 +1,7 @@
 # 417 · Tragart Runde 5/6: Schild an der Seite, Axt mit beiden Fäusten · Tom · 01.11., 22:5x
 
+[Film von 01.11., 23:54](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-2354-417-Tom.mp4) (eingetragen von meldung.sh, Tom)
+
 [Film von 01.11., 22:53](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-2253-417-Tom.mp4) (eingetragen von meldung.sh, Tom)
 
 Film per Telegram (8,7 s, Raster 2 × 2), wie im Spiel gezeichnet, auf dem Grundstand 461 (`claude/grundstand-461`, 878b15f9f); Ablauf `tom-probe-417.yml`, Lauf 41350556171; noch kein Build. Oben links Kriegsaxt, oben rechts Schwert, unten links Schwert und Schild, unten rechts Bogen; je erst Gehen, dann Rennen. Gehen im Film mit dem Vorschlag 1,5 m/s (heute im Spiel 2,13; Runde 4 „schnelles Staxen“).
