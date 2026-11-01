@@ -14,6 +14,7 @@ const Ui = preload("res://kampf/kampf_ui.gd")
 const Figur = preload("res://kampf/figur.gd")
 const Wucht = preload("res://regeln/trefferwucht.gd")
 const Zauber = preload("res://kampf/zauber.gd")
+const Signatur = preload("res://kampf/signatur.gd")
 
 # FightCamera.kt
 const PITCH := 25.0
@@ -182,21 +183,9 @@ func _setup_world() -> void:
 	add_child(we)
 	var sun := DirectionalLight3D.new()
 	# höher und von vorn als im Dorf (licht.gd -50, 25): sonst liegt der Schatten der Bäume auf der Lichtung (Lauf 11:
-	# Wölfe schwarz, grauer Wolf Helligkeit 8, ohne Baumschatten 43)
-	sun.rotation_degrees = Vector3(-65, 0, 0)
-	if tusche() == "licht" or OS.has_environment("KAMPF_SONNE"):     # 348.13a Probe (Tom): Sonne von vorn hat keine Lichtseite links/rechts; KAMPF_SONNE=<Höhe>,<seitlich>
-		# Chef 28.10., 08:09 (r9 ja): mit Tusche nach Licht die Sonne −45,55
-		var sv := (OS.get_environment("KAMPF_SONNE") if OS.has_environment("KAMPF_SONNE") else "-45,55").split(",")
-		sun.rotation_degrees = Vector3(float(sv[0]), float(sv[1]), 0)
-	sun.shadow_enabled = true
-	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_ORTHOGONAL
-	sun.directional_shadow_max_distance = 40.0
-	sun.shadow_blur = 1.5
-	# Schlagschatten nicht schwarz (Prüfer Stand 7: harte schwarze Schatten), Licht bleibt aus der Sonne
-	sun.shadow_opacity = 0.7
-	sun.shadow_normal_bias = 1.2
-	sun.light_energy = 1.3
-	sun.light_color = Color(1.0, 0.94, 0.82)
+	# Wölfe schwarz, grauer Wolf Helligkeit 8, ohne Baumschatten 43); mit Tusche nach Licht −45, 55 (Chef 28.10., 08:09, r9 ja);
+	# Schlagschatten weich, nicht schwarz (Prüfer Stand 7). 457.2: Werte in signatur.gd, damit Proben mit eigener Bühne gleich zeichnen
+	Signatur.sonne_wie_kampf(sun, tusche() == "licht")
 	if tageszeit == "abend":     # 399.2: nur Funktion, Feinschliff auf der Feintuning-Liste
 		sun.light_energy *= 0.75
 		sun.light_color = Color(1.0, 0.74, 0.52)
@@ -215,62 +204,42 @@ func _setup_world() -> void:
 	add_child(cam)
 	# Tusche wie Toms kamera.gd: Welt (Schablone 0) und Gruppe mit Waffen (Schablone 2, feiner; Probe Build 12)
 	var tu: Shader = load("res://kampf/tusche.gdshader")
-	var tu_held := Shader.new()
-	tu_held.code = tu.code.replace("stencil_mode read, compare_equal, 0;", "stencil_mode read, compare_equal, 2;")
+	var tu_held := Signatur.schablone(tu, 2)
 	_sun = sun
-	if tusche() == "licht":     # 348.13 Probe (Tom): Tusche nach Licht wie kamera.gd
-		tu = load("res://kampf/tusche_licht.gdshader")
-		tu_held = Shader.new()
-		tu_held.code = tu.code.replace("stencil_mode read, compare_equal, 0;", "stencil_mode read, compare_equal, 2;")
-		# 348.13a (Chef 27.10., 09:41): Schattenseite im Kampf kräftiger als im Dorf; Probe TUSCHE_DICK=<Faktor auf das Dorf>
-		_ink(tu, 1.3, 1.7)
-		_ink(tu_held, 0.8, 1.5)
-		var tu_gegner := Shader.new()     # Runde 7: Gegner (figur.gd toon_gegner, Schablone 3) wie der Held statt mit der Welttusche
-		tu_gegner.code = tu.code.replace("stencil_mode read, compare_equal, 0;", "stencil_mode read, compare_equal, 3;")
-		_ink(tu_gegner, 0.8, 1.5)
-		var k := float(OS.get_environment("TUSCHE_DICK")) if OS.has_environment("TUSCHE_DICK") else 1.3     # Probe: Faktor auf den Umriss; Chef 28.10., 08:09 (r9 ja): 1,3
-		for m in _ink_mats: m.set_shader_parameter("umriss_dick", k)
+	if tusche() == "licht":     # 348.13 Probe (Tom): Tusche nach Licht wie kamera.gd; Welt, Gruppe, Gegner (signatur.gd)
+		_ink_mats.append_array(Signatur.tusche_licht(cam))
 	elif tusche() != "0":     # Prüflauf: TUSCHE=0 misst, was die Linie ausmacht
 		_ink(tu, 1.3, 1.25)
 		_ink(tu_held, 0.8, 1.0)
 
 
 func _ink(sh: Shader, width: float, thick: float) -> void:
-	var q := MeshInstance3D.new()
-	var qm := QuadMesh.new()
-	qm.size = Vector2(2, 2)
-	q.mesh = qm
-	q.extra_cull_margin = 16384.0
-	q.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	var tm := ShaderMaterial.new()
-	tm.shader = sh
-	tm.set_shader_parameter("px", width)
-	tm.set_shader_parameter("dick", thick)
-	if OS.get_environment("TUSCHE_MAGENTA") != "":     # Messlauf: Breite der Linie zählen (tusche_breite.py)
-		tm.set_shader_parameter("ink", Color(1, 0, 1))
-	q.material_override = tm
-	q.position = Vector3(0, 0, -1)
-	cam.add_child(q)
-	_ink_mats.append(tm)
+	_ink_mats.append(Signatur.quad(cam, sh, width, thick))
 
 var _sun: DirectionalLight3D
 ## 348.13a (Chef 28.10., 08:09, Archiv: r9 ja): Tusche nach Licht ist Vorgabe; TUSCHE=alt die alte Tusche, TUSCHE=0 ohne
+## 457.2: OHNE_SIGNATUR=1 wie TUSCHE=0 (und ohne Schatten, signatur.gd)
 static func tusche() -> String:
+	if Signatur.aus():
+		return "0"
 	return OS.get_environment("TUSCHE") if OS.has_environment("TUSCHE") else "licht"
 var _ink_mats: Array[ShaderMaterial] = []
+## 457.2: Mitte des Bildinhalts für die Tusche (Welt) mit der Kamera, die gerade zeichnet; null = Kampfmitte mit [cam]; nur Proben (probe.gd NAH)
+var ink_ziel = null
 func _ink_licht() -> void:
 	if tusche() != "licht" or _ink_mats.is_empty(): return
-	var bm := get_viewport().get_visible_rect().size.x / (120.0 * scene_rect().size.x / 412.0 / 1.75) * cam.size / base_size
 	if OS.get_environment("TUSCHE_DBG") != "" and Engine.get_process_frames() % 30 == 0:     # 348.13a: Sonne am Schirm (wie sl im Shader)
 		var lv := cam.global_transform.basis.inverse() * _sun.global_transform.basis.z
 		print("Sonne Schirm ", Vector2(lv.x, -lv.y).normalized(), " Laenge ", Vector2(lv.x, lv.y).length())
-	for m in _ink_mats:
-		m.set_shader_parameter("licht_dir", _sun.global_transform.basis.z)
-		m.set_shader_parameter("breite_m", bm)
-		m.set_shader_parameter("nah_bis", d0 + 5.0)     # 348.13a: breite Linie nur auf der Lichtung (Helfer: Kronen oben als dicker Ast)
-		m.set_shader_parameter("nah_ab", d0 - 6.0)
-	for i in range(1, _ink_mats.size()):     # Held und (Runde 7) Gegner gleich; vorher nur der Held
-		_ink_mats[i].set_shader_parameter("hinten_ab", lerpf(0.05, 0.25, clampf((bm - 3.4) / (9.0 - 3.4), 0.0, 1.0)))
+	# 457.2: Bildbreite und Tiefe der breiten Linie aus der Kamera, die gerade zeichnet, und der Kampfmitte (im Spiel wie
+	# vorher: Tiefe d0, Breite mit dem Zoom); Proben mit eigener Kamera oder Nähe setzen [ink_ziel] auf ihr Bildziel
+	var c := cam
+	var wo: Vector3 = to_global(_ground(0, 0))
+	if ink_ziel != null:
+		wo = ink_ziel
+		if get_viewport().get_camera_3d() != null:
+			c = get_viewport().get_camera_3d()
+	Signatur.nachfuehren(_ink_mats, c, _sun, wo, get_viewport().get_visible_rect().size)
 
 
 ## Die Lichtung (tools/blender348/kampfort_wald.py): Bäume, Büsche, Steine, Boden mit Weg und Sonnentupfen, Grasbüschel.

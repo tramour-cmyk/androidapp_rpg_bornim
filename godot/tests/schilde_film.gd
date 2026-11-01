@@ -1,12 +1,14 @@
 # 406 (Chef 29.10., 11:13, Archiv 408): alle Schilde der Bibliothek drehend in einem Film, Chef wählt. Liest die Schilde aus
 # kampf/daten/schilde/ (tools/blender348/schilde_bestand.py, Kaufdateien, nie im Repository) und zeichnet sie wie im Kampf (Toon wie
-# Held und Söldner, figur.gd _toon: Partei, Tusche nach Licht; Farbe aus der Textur, sonst aus der Grundfarbe des Pakets),
+# Held und Söldner, figur.gd _toon: Partei, Tusche nach Licht und Sonne mit Schatten aus signatur.gd, 457.2; Farbe aus der Textur,
+# sonst aus der Grundfarbe des Pakets),
 # 3 × 7 (hochkant), jeder dreht sich in DREH_S einmal ganz, darunter Nummer und Paket.
 # Nur als Probelauf (389) mit --write-movie: PROBE=406 xvfb-run godot --path godot --write-movie <datei>.avi
 # --fixed-fps 30 -s res://tests/schilde_film.gd
 extends SceneTree
 
 const Figur = preload("res://kampf/figur.gd")
+const Signatur = preload("res://kampf/signatur.gd")
 const ORDNER := "res://kampf/daten/schilde/"
 const DREH_S := 8.0
 const SPALTEN := 3     # hochkant wie das Handy (Prüfer Lauf 1: 7 Spalten passten nicht ins Hochformat)
@@ -90,6 +92,12 @@ func _run() -> void:
 	cam.look_at_from_position(cam.position, Vector3(0, 0, 0))
 	welt.add_child(cam)
 	cam.current = true
+	# 457.2 (Chef 01.11., 11:49: „unsere Signatur muss sich wiederfinden“): Sonne mit Schatten, Tonwerte und Tusche nach Licht wie
+	# im Kampfort (signatur.gd), schwebend: breite Linie in jeder Höhe
+	Signatur.einrichten(welt, cam, Vector3.ZERO, env.environment, sonne, true)
+	await process_frame
+	if not Signatur.wache(welt, self, "Schilde-Film"):
+		return
 	var n := int(DREH_S * 30.0)
 	for k in n + 15:
 		for d in dreher:

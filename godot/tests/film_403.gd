@@ -4,6 +4,7 @@
 extends SceneTree
 
 const Probe = preload("res://kampf/probe.gd")
+const Signatur = preload("res://kampf/signatur.gd")
 const KLASSEN := ["FIGHTER", "CLERIC"]
 const DAUER_MS := 22000     # 438: DAUER_MS=<ms> und SEED=<n> wählen Länge und Würfel (wie tests/wolf_mess_438.gd, SEED=7)
 
@@ -24,6 +25,8 @@ func _run() -> void:
 		for i in 4:
 			await process_frame
 		var kf = p.fight
+		if not Signatur.wache(kf, self, "Film 403 " + k):     # 457.2: Toon-Licht, Tusche nach Licht, Schatten wie im Spiel
+			return
 		kf.mars.find("merc").auto = true
 		kf.mars.set_autopilot(true)
 		if not kf.busy:
