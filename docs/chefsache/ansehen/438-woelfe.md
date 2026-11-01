@@ -9,6 +9,7 @@
 - **Reihenfolge (439):** Der Held stürzt erst, wenn der springende Wolf ihn trifft (vorher fiel er, als der Wolf schon wieder daheim stand). Fällt ein Wolf, rücken die anderen erst nach, wenn er liegt.
 - **Tod (440):** Der Wolf fällt ganz (1,7 s), liegt gut eine Sekunde und verblasst dann; vorher war er nach 1,5 s weg. Im Film etwa ab 0:37.
 - Gemessen ohne Bild (beide Kämpfe, je 90 s): Wolf in Wolf vorher 2519 Bilder, jetzt 25 (höchstens 0,24 m, beim Ausweichen); Drehen ohne Schritt vorher bis 20° je Bild, jetzt höchstens 8° mit Tritten.
+- **Prüfer nach Versand (08:18):** die Messung war zu grob; im Film laufen Wölfe noch durcheinander (0:18,6; 0:42,2; 0:44,6), Köpfe stecken beim Biss im Helden, Würfelzeile und Schaden kommen vor dem Sprung, der Tod fällt gestreckt. Wird technisch nachgebaut; Einzelheiten in Telegram.
 - Bekannt, nicht neu: beim Biss steckt die Schnauze bis 0,3 m im Umriss des Klerikers (Schild und Waffe zählen mit); Ausweichen bleibt ein schneller Satz im Bogen.
 
 **Zu sagen:** „passt“ (fährt im nächsten Build mit) oder was nicht stimmt.
