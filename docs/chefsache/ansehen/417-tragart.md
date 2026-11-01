@@ -17,6 +17,8 @@ Im Code fertig, aber noch **nicht** in diesem Film (kommt in den nächsten):
 
 **Nachtrag 16:5x (Tom):** Die Zahlen oben „fast in jedem Bild im Körper“ waren großteils ein Fehler der Messung (Punkte in der Faust zählten als „im Arm“). Nachgemessen: beim Gehen steckt keine Waffe im Körper, Schild frei, Oberkörper Schild 11,0° statt 13,7°. Echt offen nur beim Rennen: Axt-Stielende in der linken Wade, mit Schild der Schwertgriff am rechten Oberschenkel; behebt Tom.
 
+**Nachtrag 17:5x (Tom):** Behoben und nachgemessen, ohne Bild: keine Waffe steckt mehr im Körper, weder beim Gehen noch beim Rennen. **Sichtbar anders, dein Urteil:** (a) Kriegsaxt: beide Fäuste liegen jetzt am Stiel, die Axt sitzt 30 cm weiter oben in der Hand, die Fäuste fassen also näher am Stielende (sonst stieß das Stielende beim Rennen in die Beine). (b) Schwert mit Schild: der rechte Arm geht 9° weiter nach außen (sonst lag die Faust beim Rennen im Oberschenkel). Beides zeigt der nächste Film nach deinem Wort.
+
 **Frage:** Stimmt die Richtung beim Griff (Waffe so in der Hand)?
 **Stärkstes Gegenargument:** Solange die Waffe im Körper steckt, ist das Bild nicht sauber; das Urteil über den Griff kann sich nach der Behebung noch verschieben.
 
