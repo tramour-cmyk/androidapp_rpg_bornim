@@ -157,12 +157,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 
-**Perikles** – offen 20, Muss 18, startbar 2
+**Perikles** – offen 20, Muss 18, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 462 | M | von Ford („jetzt“ 01.11., 20:34, Chef: „Du kannst mal alle anderen auch hier mal wieder ei | startbar |
-| 461 | M | von Sokrates („jetzt“ 01.11., 20:3x, Chef: „das mal alles zusammenführt … auf ein Niveau k | startbar |
+| 461 | M | von Sokrates („jetzt“ 01.11., 20:3x, Wortlaut in der Liste): Grundstand Figuren und Kampf: | wartet auf Test/Build (gebaut) |
 | 436 | M | von Sokrates („jetzt“ 31.10., 22:58): Sitzungsnamen mit Vorgang, Thema und Zeit für alle ( | wartet auf Test/Build (gebaut) |
 | 433 | M | von Sokrates („jetzt“ 31.10., 22:1x, Zu 433): unabhängige Zeilen von Tom und Jerry an Spik | wartet auf Test/Build (gebaut) |
 | 424 | M | von Sokrates („jetzt“ 31.10., 21:3x, Chef: „keine Energie mehr in das alte SRD-System stec | wartet auf Test/Build (gebaut) |
@@ -182,10 +182,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
-**Diogenes** – offen 6, Muss 4, startbar 0
+**Diogenes** – offen 7, Muss 5, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 461 | M | von Perikles (Doppelpack 421, Commit 6805a7018): Grundstand 461: jede Zeile der LISTE-GRUN | startbar |
 | 434 | M | von Sokrates (Chef 31.10., 22:1x): bei jeder Zählung 374 zusätzlich die Zeile „Bestand gep | Termin 02.11. |
 | 398 | M | von Sokrates: vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (39 | Termin 02.11. |
 | 374 | M | von Sokrates (Chef 27.10., 11:58, Archiv 374): täglich 8 Uhr bis 03.11. Vorlagen des Vorta | Termin 02.11. |
