@@ -157,7 +157,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 455.2 | Netzliste je sichtbarem Platz, Eigenbau geschätzt, Größenfilm der Völker (Chef 01.11., 11:27, 455 ja) | E Figuren | M | – | Team Tom | startbar |
 | 458.2 | Gegenstandskatalog: Werte, Preise, Beute (Chef 01.11., 458) | D Design | M | – | Team Jerry | startbar |
 | 458.3 | Gegenstandskatalog: Netze, Modelle, Läden (Chef 01.11., 458) | E Figuren | M | – | Team Tom | startbar |
-| 458.4 | Gegenstandskatalog: Namen und Kurztexte (Chef 01.11., 458) | C Texte | M | – | Homer | startbar |
+| 458.4 | Gegenstandskatalog: Namen und Kurztexte (Chef 01.11., 458) | C Texte | M | – | Homer | erledigt |
+| 447.1 | Abnahmeliste auf Stufen 1–6 umstellen, Block G erweitern, Schätzung je Stufe (Chef 01.11., 447 ja mit K2b) | B Abläufe | M | – | Perikles | erledigt |
 | 447.2 | Schätzung je Stufe, Bereich Tom (447) | B Abläufe | M | – | Team Tom | startbar |
 | 447.3 | Schätzung je Stufe, Bereich Jerry; Stufe 3 in Simulation 444 (447) | B Abläufe | M | – | Team Jerry | startbar |
 | 447.4 | Texte Lehrmeister-Einladungen und Ruf-Gespräche für Stufe 3 (447) | C Texte | M | – | Homer | startbar |

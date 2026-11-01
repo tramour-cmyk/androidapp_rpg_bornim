@@ -62,3 +62,4 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 - Zu 276 (Chef 21.10., 08:12: „Ja, Ford 2 aus der Startlektüre nehmen. Und dann den Rest halt zurückstellen“; ruht seit 26.10., Begründung): Git, Stand vor „Perikles: Vorrat gekürzt 01.11.“.
 - **Zum Wochenziel ab 26.10.** (Chef 20.10., 14:42, an Sokrates): „Ich habe jetzt 52 Jahre darauf gewartet, ein Spiel zu entwickeln. … ein paar Tage hin oder her, glaube ich, werden den Markt nicht völlig verändern.“ Sokrates: Termine nicht gegen Güte ausspielen; knapp sind Guthaben und Zeit des Chefs.
+- **von Homer (01.11., 13:4x, zu 458.1):** `ring_protection` hat in `gegenstaende.json` Bezug „fund“; Aldric gibt den Ring nach Graks Fall (`Story.kt:464`), also Bezug „handlung“.
