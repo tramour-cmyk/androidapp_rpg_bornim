@@ -1,0 +1,33 @@
+name: Tom Liste Waffennetze (458.3)
+
+# 458.3 (Chef 01.11., 13:1x, Archiv 458; 408 Bestand zuerst): welche Dateien die vier Waffenpakete im Bestand haben (LISTE-BESTAND.md
+# „Waffen und Schilde“: Omie, Anker, Avramania, PolyMech; dazu Fackel im Fantasy Props MegaKit). Nur Text, kein Bild: Dateinamen,
+# Ecken je Datei, Format. Kaufdateien bleiben auf dem Runner (348.12c a). Nur von Hand.
+on:
+  workflow_dispatch:
+
+jobs:
+  liste:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - name: Waffenpakete (privat)
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+          MUSTER: "Medieval.Weapon.Pack.Godot.zip Low.Poly.Medieval.Weapons.zip Weapons_Shields_Free.zip Shields.zip"
+        run: |
+          timeout 900 bash tools/blender348/kauf_laden.sh $RUNNER_TEMP/kauf > kauf.log 2>&1 || { tail -20 kauf.log; exit 1; }
+          cd $RUNNER_TEMP/kauf/anhang
+          for p in Medieval.Weapon.Pack.Godot Low.Poly.Medieval.Weapons Weapons_Shields_Free Shields; do
+            d=$(find . -maxdepth 2 -type d -name "$p" | head -1)
+            echo "PAKET $p: ${d:-fehlt}"
+            [ -n "$d" ] || continue
+            find "$d" -type f \( -iname '*.glb' -o -iname '*.gltf' -o -iname '*.fbx' -o -iname '*.obj' -o -iname '*.blend' -o -iname '*.tscn' -o -iname '*.dae' \) \
+              | sed "s|^$d/||" | sort | sed "s|^|DATEI $p: |"
+          done
+      - name: Fackel (Fantasy Props MegaKit, CC0)
+        run: |
+          bash tools/blender348/v3/cc0_laden.sh ~/cc0 > /dev/null 2>&1 || true
+          PAKETE=fantasy-props-megakit bash tools/blender348/v3/cc0_laden.sh ~/cc0 > /dev/null 2>&1 || true
+          find ~/cc0 -ipath '*props*' -iname '*torch*' | sed "s|$HOME/cc0/||" | sed 's|^|DATEI Props: |'
