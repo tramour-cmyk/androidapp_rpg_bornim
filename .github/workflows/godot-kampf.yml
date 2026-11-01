@@ -7,6 +7,10 @@ on:
     branches: ["claude/jerry-348-**", "claude/grundstand-461"]   # 461.1 gemeinsamer Grundstand (Tom, Jerry)
     paths: ["godot/**", "tools/blender348/**", ".github/workflows/godot-kampf.yml"]
   workflow_dispatch:
+    inputs:
+      film:
+        description: "Film ohne Commit-Wort, auch bei rotem Test (348.12b: grak)"
+        default: ""
 
 jobs:
   regeln:
@@ -88,6 +92,8 @@ jobs:
 
   apk:
     needs: regeln
+    # 348.12b (Chef 01.11., 20:5x, Archiv): Film auch bei rotem Test; nur mit Eingabe film beim Start von Hand
+    if: ${{ !cancelled() && (needs.regeln.result == 'success' || github.event.inputs.film != '') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 90     # 348.12f: Filme und Bau der Kaufratte; Lauf 112 lief in die alten 40 min
     env:
@@ -477,9 +483,10 @@ jobs:
       # 348.12 nachbessern: seit der Spielfassung (399, project.godot startet spiel.tscn) nennen alle Filme hier die Probe ausdrücklich
       # (res://kampf/probe.tscn); sonst lief das Spiel ohne Karten an und brach ab (am Rechner nachgestellt)
       - name: 348.12 Probe Grak im Kampfort (nur bei Commits mit „348.12 Grak Film“)
-        if: contains(github.event.head_commit.message, '348.12 Grak Film')
+        if: ${{ contains(github.event.head_commit.message, '348.12 Grak Film') || (!cancelled() && github.event.inputs.film == 'grak') }}
         run: |
           P=$GITHUB_WORKSPACE/grakprobe; mkdir -p $P
+          command -v xvfb-run > /dev/null || sudo apt-get install -y -qq xvfb libgl1-mesa-dri > /dev/null   # 348.12b: Vergleichsbild übersprungen bei rotem Test
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
           (cd godot && GEGNER=GRAK ORT_ID=grak OHNEUI=1 SCHAU=ort SCHAU_TITEL=Grak timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . res://kampf/probe.tscn --resolution 540x1170 --write-movie $RUNNER_TEMP/grak.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/grak-ort.log 2>&1) || true
           ffmpeg -loglevel error -y -ss 1.25 -i $RUNNER_TEMP/grak.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $P/348.12-grak-film.mp4 || true
@@ -515,7 +522,7 @@ jobs:
           grep -E "SCRIPT ERROR|^ +at: |^Ort " $P/fledermaus-ort.log | head -20 || true
           ls -l $P
       - uses: actions/upload-artifact@v4
-        if: contains(github.event.head_commit.message, '348.12 Grak Film') || contains(github.event.head_commit.message, '348.7b Film') || contains(github.event.head_commit.message, '348.7 Fledermaus Film')
+        if: ${{ contains(github.event.head_commit.message, '348.12 Grak Film') || contains(github.event.head_commit.message, '348.7b Film') || contains(github.event.head_commit.message, '348.7 Fledermaus Film') || (!cancelled() && github.event.inputs.film == 'grak') }}
         with:
           name: grakprobe
           path: grakprobe
