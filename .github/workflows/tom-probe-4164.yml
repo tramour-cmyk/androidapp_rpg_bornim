@@ -104,12 +104,12 @@ jobs:
           export PATH=~/ffbin:$PATH
           mkdir -p $GITHUB_WORKSPACE/probe
           cd godot
-          export HELDE="heute|kauf:heute;A · halb so lange in der Luft|kauf:A;B · noch flacher|kauf:B"
+          export HELDE="vorher|kauf:A|alt;weich (416.4)|kauf:A"   # 416.4 Uebergaenge (Chef 01.11., 13:1x), Rennen A
           timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 \
             --write-movie $RUNNER_TEMP/film.avi --fixed-fps 30 -s res://tests/rennen_film_4164.gd > $GITHUB_WORKSPACE/probe/film.log 2>&1 || true
           grep -E "^FILM|SCRIPT ERROR|^ +at: " $GITHUB_WORKSPACE/probe/film.log | cut -c1-400 | head -40
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/film.avi -vf "scale=720:-2" -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast -movflags +faststart $GITHUB_WORKSPACE/probe/4164-rennen.mp4
-          ffmpeg -loglevel error -y -ss 4 -i $GITHUB_WORKSPACE/probe/4164-rennen.mp4 -frames:v 1 $GITHUB_WORKSPACE/probe/4164-rennen.png
+          ffmpeg -loglevel error -y -ss 1 -i $GITHUB_WORKSPACE/probe/4164-rennen.mp4 -frames:v 1 $GITHUB_WORKSPACE/probe/4164-rennen.png
           ls -l $GITHUB_WORKSPACE/probe
           ! grep -qE "SCRIPT ERROR|FILM FEHLER" $GITHUB_WORKSPACE/probe/film.log
       - uses: actions/upload-artifact@v4
