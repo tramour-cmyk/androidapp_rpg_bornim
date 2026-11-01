@@ -1,5 +1,7 @@
 # 376.1 · Umhang und Robe nachgebessert · Tom · 01.11., 22:2x
 
+[Film von 01.11., 22:18](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-2218-376.1-Tom.mp4) (eingetragen von meldung.sh, Tom)
+
 Film per Telegram (24 s, Hochformat), wie im Spiel gezeichnet (Toon-Licht, Tusche, Wiese), ohne Waffen; noch kein Build. Ablauf `spike-probe-3761.yml`, Lauf 41346875230, Zweig `claude/spike-376-1-tracht`. Seite 1 Umhang des Wachsoldaten, Seite 2 Robe des Zauberlehrlings; je oben Mann, Mitte Frau (Schlank, Normal, Kräftig), unten Gehen. Ohne Rennen: Rennen A (416.4) kommt mit dem Grundstand 461.
 
 **Ursachen** (nachgestellt mit `pruef_flecken.py`: Strahlen von der Kamera auf die fertige Figur, sechs Bewegungen, neun Blickrichtungen; Zahlen Bildpunkte zu 1 cm, vorher → nachher):
