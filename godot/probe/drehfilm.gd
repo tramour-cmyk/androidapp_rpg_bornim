@@ -91,7 +91,8 @@ func _ready() -> void:
 		"416.4": _film_4164()
 		"376.1": _film_3761()
 		"431v": _film_431v()
-		_: print("FILM FEHLER: --film=431, 431v, 416.4 oder 376.1"); get_tree().quit(1)
+		"458": _film_458()
+		_: print("FILM FEHLER: --film=431, 431v, 416.4, 376.1 oder 458"); get_tree().quit(1)
 
 
 func _process(dt: float) -> void:
@@ -679,3 +680,183 @@ func _gedaempft(a: Animation, k: float) -> Animation:
 	ual_ap.stop()
 	print("FILM 416.4 Beckenhub %.1f cm -> %.1f cm" % [vorher * 100, nachher * 100])
 	return neu
+
+
+# 458.3 ----------------------------------------------------------------------------------------------------------------------------
+# (Chef 01.11., 13:1x, Archiv 458; 408 Bestand vor Eigenbau, „in einem Film … wenn es sich dreht“): je Gegenstand ohne Netz
+# (LISTE-NETZE.md „Haupthand, Nebenhand“) die Kandidaten aus dem Bestand nebeneinander drehend, im Spielbild; der Chef wählt.
+# Pakete (LISTE-BESTAND.md „Waffen und Schilde“): O Omie (OBJ), A Anker (FBX), V Avramania (glb), P PolyMech (FBX), Q Props MegaKit.
+# Je Feld die gemessene Länge (längste Seite); Netze stehen in ihrer Datei-Größe, nur eine Datei in Zentimetern wird auf Meter gebracht.
+const KANDIDATEN_458 := [
+	["Streitkolben (mace)", ["O:Mace/sm_mace.obj", "A:Maces/Mace.fbx", "A:Maces/Spiked Mace.fbx", "V:mdvl_weapons_mace_01.glb"]],
+	["Streitaxt (battleaxe)", ["O:Battle Axe/sm_battle_axe.obj", "A:Axes/Battle Axe.fbx", "A:Axes/Axe.fbx"]],
+	["Morgenstern (morningstar)", ["A:Maces/Spiked Club.fbx", "A:Maces/Spiked Mace.fbx", "O:Flail/sm_flail.obj", "A:Maces/Flail.fbx"]],
+	["Kriegshammer (warhammer)", ["O:War Hammer/sm_war_hammer.obj", "A:Hammers/Warhammer.fbx", "A:Hammers/Hammer.fbx", "O:War Pick/sm_war_pick.obj"]],
+	["Zweihänder (greatsword)", ["A:Swords/Greatsword.fbx", "A:Swords/Claymore.fbx", "A:Swords/Two-Handed Sword.fbx"]],
+	["Großaxt (greataxe)", ["O:Great Axe/sm_greataxe.obj", "A:Axes/Two handed Axe.fbx"]],
+	["Zweihandhammer (maul)", ["A:Hammers/Two-Handed Hammer.fbx"]],
+	["Hellebarde (halberd)", ["O:Halberd/sm_halberd.obj", "A:Axes/Halberd.fbx", "A:Axes/Bardiche.fbx", "A:Spears/Polearm.fbx"]],
+	["Magierstab (staff)", ["O:Staff Magic/sm_staff_magic.obj", "V:mdvl_weapons_staff_01.glb"]],
+	["Langbogen (longbow)", ["A:Bows/Long Bow.fbx", "A:Bows/Recurve Bow.fbx", "O:Bow/sm_bow.obj"]],
+	["Leichte Armbrust (light_crossbow)", ["O:CrossBow/sm_crossbow.obj", "A:Bows/Crossbow.fbx", "V:mdvl_weapons_crossbow_01.glb"]],
+	["Turmschild (tower_shield)", ["O:ShieldKite/sm_shield_kite.obj", "P:Iron_Long_shield.fbx", "P:Lionheart_Long_shield.fbx", "P:kite_Shield.fbx"]],
+	["Foliant (tome)", ["A:Magic/Spellbook.fbx", "A:Magic/Open Spellbook.fbx"]],
+	["Fackel (torch)", ["Q:Torch_Metal.gltf"]],
+]
+const PAKET_458 := {"O": "exported_meshes", "A": "Low Poly Medieval Weapons", "V": "Weapons_Shields/glTF", "P": "Shields", "Q": "fantasy-props-megakit/Exports/glTF"}
+const PAKET_NAME_458 := {"O": "Omie", "A": "Anker", "V": "Avramania", "P": "PolyMech", "Q": "Quaternius Props"}
+const SEITE_458 := 7.0     # Sekunden je Gegenstand (eine Drehung in 6 s)
+
+func _film_458() -> void:
+	var alle := []
+	for e in [".obj", ".fbx", ".glb", ".gltf"]: alle.append_array(B.dateien([kauf, cc0], e))
+	var n := 0
+	for i in KANDIDATEN_458.size():
+		var k: Array = KANDIDATEN_458[i]
+		var pfade := []
+		for c in k[1]:
+			var teil: PackedStringArray = String(c).split(":", true, 1)
+			var ende: String = PAKET_458[teil[0]] + "/" + teil[1]
+			var p := _erste(alle.filter(func(q): return String(q).ends_with(ende)))
+			print("FILM 458 %s: %s %s" % [k[0], c, "da" if p != "" else "FEHLT"])
+			if p != "": pfade.append([teil[0], p])
+		if pfade.is_empty(): continue
+		ablauf.append([n * SEITE_458, _seite_458.bind(k[0], pfade, n)])
+		n += 1
+	if n == 0: print("FILM FEHLER keine Kandidaten (KAUF/CC0)"); get_tree().quit(1); return
+	ablauf.append([n * SEITE_458, func(): get_tree().quit()])
+
+
+func _seite_458(name: String, pfade: Array, nr: int) -> void:
+	_neuer_teil("458.3 · Bestand: %s · Kandidaten drehend, im Spielbild" % name)
+	for i in mini(pfade.size(), 6):
+		var p: String = pfade[i][1]
+		var d := _ding_458(p)
+		if d == null: print("FILM FEHLER laden ", p); continue
+		var x := 400.0 + nr * 40.0 + i * 6.0
+		var halter := Node3D.new()
+		knoten.add_child(halter)
+		halter.position = Vector3(x, 0, 0)
+		halter.add_child(d)
+		halter.set_meta("dreh", 1.0 / 6.0)
+		# Größe messen, Zentimeter-Dateien auf Meter; längste Seite senkrecht (Klinge, Schaft stehen); mittig auf die Drehachse
+		var box := _box_458(d)
+		var lang := maxf(box.size.x, maxf(box.size.y, box.size.z))
+		if lang > 20.0:
+			d.scale = Vector3.ONE * 0.01
+			box = _box_458(d)
+			lang = maxf(box.size.x, maxf(box.size.y, box.size.z))
+		if box.size.x >= box.size.y and box.size.x >= box.size.z: d.rotation_degrees.z = 90
+		elif box.size.z > box.size.y: d.rotation_degrees.x = 90
+		box = _box_458(d)
+		d.position -= box.get_center() - halter.global_position
+		var feld := _feld(_raster(i), maxf(0.4, lang * 1.15))
+		var cam: Camera3D = feld[0]
+		cam.rotation_degrees.x = -12.0
+		cam.position = Vector3(x, 0, 0) + cam.basis.z * (lang * 2.0 + 2.0)
+		var paket: String = PAKET_NAME_458[pfade[i][0]]
+		_text(feld[1], "%s · %s" % [paket, p.get_file().get_basename()], Vector2(12, 8), 26)
+		_text(feld[1], "Länge %s m" % _m(lang), Vector2(12, 44), 22, GOLD)
+		print("FILM 458 %s: %s %s, Länge %.2f m" % [name, paket, p.get_file(), lang])
+
+
+func _box_458(n: Node3D) -> AABB:
+	var b := AABB()
+	var erst := true
+	for m in n.find_children("*", "MeshInstance3D", true, false):
+		var mi := m as MeshInstance3D
+		var a := mi.global_transform * mi.get_aabb()
+		if erst:
+			b = a
+			erst = false
+		else: b = b.merge(a)
+	return b
+
+
+# OBJ (Omie) und FBX (Anker, PolyMech) zur Laufzeit; glb/gltf über die Bibliothek
+func _ding_458(p: String) -> Node3D:
+	var n: Node3D = null
+	var e := p.get_extension().to_lower()
+	if e == "glb" or e == "gltf": return B.lade(p, p.get_base_dir())
+	if e == "fbx":
+		var d := FBXDocument.new()
+		var s := FBXState.new()
+		if d.append_from_file(p, s) == OK: n = d.generate_scene(s)
+	elif e == "obj": n = _obj_458(p)
+	return B.spielbild(n) if n else null
+
+
+# OBJ mit MTL: Ecken, Flächen (Vielecke als Fächer), Grundfarbe Kd und Bild map_Kd (TGA, PNG) je Material
+func _obj_458(p: String) -> Node3D:
+	var f := FileAccess.open(p, FileAccess.READ)
+	if f == null: return null
+	var v := PackedVector3Array()
+	var vt := PackedVector2Array()
+	var vn := PackedVector3Array()
+	var mats := {}
+	var teile := {}   # Material -> SurfaceTool
+	var jetzt := ""
+	while not f.eof_reached():
+		var z := f.get_line().strip_edges()
+		var a := z.split(" ", false)
+		if a.is_empty(): continue
+		match a[0]:
+			"v": v.append(Vector3(a[1].to_float(), a[2].to_float(), a[3].to_float()))
+			"vt": vt.append(Vector2(a[1].to_float(), 1.0 - a[2].to_float()))
+			"vn": vn.append(Vector3(a[1].to_float(), a[2].to_float(), a[3].to_float()))
+			"mtllib": mats.merge(_mtl_458(p.get_base_dir().path_join(z.substr(7).strip_edges())))
+			"usemtl": jetzt = z.substr(7).strip_edges()
+			"f":
+				if not teile.has(jetzt):
+					var neu := SurfaceTool.new()
+					neu.begin(Mesh.PRIMITIVE_TRIANGLES)
+					teile[jetzt] = neu
+				var st: SurfaceTool = teile[jetzt]
+				var ecken := a.slice(1)
+				for t in range(1, ecken.size() - 1):
+					for ec in [ecken[0], ecken[t + 1], ecken[t]]:
+						var ix := String(ec).split("/")
+						if ix.size() > 1 and ix[1] != "" and vt.size() > 0: st.set_uv(vt[ix[1].to_int() - 1])
+						if ix.size() > 2 and ix[2] != "" and vn.size() > 0: st.set_normal(vn[ix[2].to_int() - 1])
+						st.add_vertex(v[ix[0].to_int() - 1])
+	var am := ArrayMesh.new()
+	for k in teile:
+		var st: SurfaceTool = teile[k]
+		if vn.is_empty(): st.generate_normals()
+		st.commit(am)
+		am.surface_set_material(am.get_surface_count() - 1, mats.get(k, StandardMaterial3D.new()))
+	var mi := MeshInstance3D.new()
+	mi.mesh = am
+	var n := Node3D.new()
+	n.add_child(mi)
+	return n
+
+
+func _mtl_458(p: String) -> Dictionary:
+	var aus := {}
+	var f := FileAccess.open(p, FileAccess.READ)
+	if f == null: return aus
+	var m: StandardMaterial3D = null
+	while not f.eof_reached():
+		var z := f.get_line().strip_edges()
+		if z.begins_with("newmtl "):
+			m = StandardMaterial3D.new()
+			aus[z.substr(7).strip_edges()] = m
+		elif m and z.begins_with("Kd "):
+			var a := z.split(" ", false)
+			m.albedo_color = Color(a[1].to_float(), a[2].to_float(), a[3].to_float())
+		elif m and z.begins_with("map_Kd "):
+			var bild := p.get_base_dir().path_join(z.substr(7).strip_edges().replace("\\", "/"))
+			if not FileAccess.file_exists(bild):   # Omie: Bilder oft in einem anderen Ordner des Pakets
+				var name := bild.get_file().get_basename().to_lower()
+				var w := p.get_base_dir().get_base_dir().get_base_dir()
+				for e in [".tga", ".png", ".jpg"]:
+					var l := B.dateien([w], e).filter(func(q): return String(q).get_file().get_basename().to_lower() == name)
+					if not l.is_empty():
+						bild = l[0]
+						break
+			var im := Image.load_from_file(bild) if FileAccess.file_exists(bild) else null
+			if im:
+				m.albedo_texture = ImageTexture.create_from_image(im)
+				m.albedo_color = Color.WHITE
+	return aus
