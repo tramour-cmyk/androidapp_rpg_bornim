@@ -51,9 +51,9 @@ const WORTE := {
 	"frisur:Hair_Dreads": ["Locken", "Curls"], "frisur:Hair_Mohawk": ["Schopf", "Forelock"],
 	"bart:": ["Ohne", "None"], "bart:Hair_Beard": ["Vollbart", "Full beard"], "bart:Hair_Moustache": ["Schnurrbart", "Moustache"],
 	"bart:Hair_MuttonChops": ["Koteletten", "Mutton chops"],
-	# Frauenhaar (Archiv 376.1 Frisuren, Chef 29.10., 11:43 „Alle bleiben“; Woerter Homer 409)
-	"frisur:Hair_Long": ["Lang", "Long"], "frisur:Hair_LongDreads": ["Lange Locken", "Long curls"],
-	"frisur:Hair_Ponytail_2": ["Hoher Zopf", "High ponytail"], "frisur:Hair_Bob": ["Pagenkopf", "Bob"], "frisur:Hair_Buns": ["Knoten", "Buns"],
+	# Frauenhaar (Archiv 376.1 Frisuren, Chef 29.10., 11:43 „Alle bleiben“; Woerter Homer STORY-SPIEL [409.frisur])
+	"frisur:Hair_Long": ["Schulterlang", "Shoulder-length"], "frisur:Hair_LongDreads": ["Mähne", "Mane"],
+	"frisur:Hair_Ponytail_2": ["Hoher Zopf", "High ponytail"], "frisur:Hair_Bob": ["Pagenkopf", "Bob"], "frisur:Hair_Buns": ["Zwei Knoten", "Twin buns"],
 	# wie alt (Appearance.kt Sex, Build)
 	"geschlecht:m": ["Männlich", "Male"], "geschlecht:w": ["Weiblich", "Female"],
 	"statur:schlank": ["Schlank", "Slim"], "statur:normal": ["Normal", "Average"], "statur:kraeftig": ["Kräftig", "Sturdy"],
