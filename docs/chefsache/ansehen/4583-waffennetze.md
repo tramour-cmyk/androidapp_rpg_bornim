@@ -1,5 +1,7 @@
 # 458.3 · Waffen aus dem Bestand: Auswahl je Gegenstand · Tom (Team Tom) · 01.11., 16:5x
 
+[Film von 01.11., 16:55](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-1655-458.3-Tom.mp4) (eingetragen von meldung.sh, Tom)
+
 Film per Telegram: 14 Gegenstände, für die es noch kein Modell gibt, je eine Seite (7 s) mit allen passenden Stücken aus dem Bestand, drehend und in unserem Spielbild (Zeichner, Tusche, Licht wie im Spiel). Pakete: Omie, Anker, Avramania, PolyMech (gekauft bzw. CC0), Fackel aus dem Quaternius Props MegaKit (CC0). Erst Bestand, dann Eigenbau (408); du wählst, danach wird angepasst (Größe, Farbe, Griff).
 
 | Seite | Gegenstand | Kandidaten (Länge in der Datei) |
