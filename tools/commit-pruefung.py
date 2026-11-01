@@ -31,8 +31,14 @@ KAUF_ENDUNG = (".fbx", ".blend", ".blend1", ".max", ".ma", ".mb", ".3ds", ".dae"
                ".rar", ".zip", ".7z", ".tga", ".psd", ".spp", ".sbsar", ".exr")
 # 457: Vorlage ohne Signatur (Chef 01.11., 11:49); „ohne Toon-Licht und Tusche“, „ohne Tusche“, „ohne Toon“
 # D56.1: auch „kein Toon-Licht“, „Tusche fehlt“; D56.2: ein Vergleich „ohne … / mit Tusche“ in derselben Zeile geht durch
-OHNE_SIGNATUR = re.compile(r"(?:ohne|kein\w*)\s+(?:Toon|Tusche|Spielshader)[\w-]*|(?:Toon|Tusche|Spielshader)[\w-]*\s+(?:fehl\w*|aus\b|weg\b)", re.I)
-MIT_SIGNATUR = re.compile(r"\bmit\s+(?:Toon|Tusche|Spielshader)", re.I)
+OHNE_SIGNATUR = re.compile(r"(?:ohne|kein\w*)\s+(Toon|Tusche|Spielshader)[\w-]*|(Toon|Tusche|Spielshader)[\w-]*\s+(?:fehl\w*|aus\b|weg\b)|ungeschattet", re.I)
+
+def ohne_signatur(t):
+    """D57.1: frei nur, wenn jedes fehlende Teil in derselben Zeile auch „mit <Teil>“ steht (Vergleich), nicht eine halbe Signatur."""
+    for m in OHNE_SIGNATUR.finditer(t):
+        teil = m.group(1) or m.group(2)
+        if not teil or not re.search(r"\bmit\s+" + teil, t, re.I): return m.group(0)
+    return None
 LEER = "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"  # leere Datei, kommt in beiden Repos vor
 
 def kaufdateien(dat):
@@ -86,9 +92,9 @@ def main():
                 stop.append("%s: Nummer %s ohne Zeile in LISTE-VORGAENGE.md" % (datei, nr))
         if re.search(r"\b(opus|sonnet|haiku|fable)\b", t, re.I) and not datei.endswith(("LISTE-BETRIEB.md", "PRUEFBERICHT-ARCHIV.md", "VORGANGSARCHIV.md", "PRUEFBERICHT.md")) and not datei.startswith("tools/"):
             warn.append("%s: Modellname in neuer Zeile" % datei)
-        if datei.startswith("docs/chefsache/ansehen/") and OHNE_SIGNATUR.search(t) and not MIT_SIGNATUR.search(t) and "Chef erlaubt ohne Signatur" not in t:
+        if datei.startswith("docs/chefsache/ansehen/") and ohne_signatur(t) and "Chef erlaubt ohne Signatur" not in t:
             stop.append("%s: Vorlage „%s“: jede Probe mit Toon-Licht und Tusche wie im Spiel (457, Chef 01.11., 11:49: „unsere Signatur muss "
-                        "sich wiederfinden“); neu zeichnen, Ausnahme nur mit „Chef erlaubt ohne Signatur“ in der Zeile" % (datei, OHNE_SIGNATUR.search(t).group(0)))
+                        "sich wiederfinden“); neu zeichnen, Ausnahme nur mit „Chef erlaubt ohne Signatur“ in der Zeile" % (datei, ohne_signatur(t)))
         if len(t) > 1500 and datei.startswith("docs/ARBEIT-"): warn.append("%s: Zeile über 1500 Zeichen" % datei)
     antwort = startbar.antworten(git("show", ":docs/VORGANGSARCHIV.md")) if arch else startbar.antworten()
     if arch:  # 383.3: neue Antwort im Archiv → Vorlage zur Nummer im selben Commit weg (oder Zeit neu, wenn die Frage offen bleibt)
