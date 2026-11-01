@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 01.11., 20:3x (`6805a7018`)
+**Gelesen bis:** `origin/main` 01.11., 20:57 (`7994ed709`)
 
-**Übergabe (01.11., 20:3x):** 461 gebaut (Grundstand-Liste geprüft, Prüfung vor dem Versand verankert, Zu 461); Doppelpack 461 an Diogenes. Nachfolger: Perikles – 338.1: Wochenziel 02.11. nach der Wochenzählung (mit Schätzungen 447.2, 447.3; Vorgang „Bau BRS“ je Stufe für Tom und Jerry, D49)
+**Übergabe (01.11., 20:57):** 461, 461.2, 462, 462.1, 464, 465 gebaut; Doppelpack an Diogenes. Nachfolger: Perikles – 338.1: Wochenziel 02.11. nach der Wochenzählung (mit Schätzungen 447.2, 447.3; Vorgang „Bau BRS“ je Stufe für Tom und Jerry, D49)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
