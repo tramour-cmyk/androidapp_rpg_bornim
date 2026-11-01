@@ -45,6 +45,8 @@ Tatwerk fällt: „Tat“ klingt im Deutschen nach Tatort und Tatwaffe. Mittelw�
 
 **Folgerung für das Votum:** Name ist der volle Name **„Bornimer Rollenspielsystem“** (frei); „BRS“ nur als Kürzel in unseren Dateien und im Handbuch-Fließtext, nie allein als Schriftzug, Logo oder auf der Store-Seite. Keine Anmeldung jetzt; erst wenn ein zweites Spiel darauf baut (327), dann den vollen Namen anmelden.
 
+**Nachfrage Chef (13:1x, „SRD … kann ja auch nicht geschützt sein … mit drei Buchstaben … kann man nicht vorstellen, dass das so groß geschützt ist“):** stimmt im Kern. Eine Marke schützt nur für ihre Waren und Dienstleistungen und nur gegen Verwechslung; die eingetragenen „BRS“ sind Elektro-Installation und Versicherungssoftware, weit weg von einem Spiel. Und wir benutzen „BRS“ wie Wizards „SRD“: als Abkürzung für einen beschreibenden Namen, nicht als Marke für ein Produkt; geschützt hält Wizards „Dungeons & Dragons“, nicht „SRD“. Darum: „BRS“ darf auch im Spiel und im Handbuch stehen; nur nicht als eigener Schriftzug oder Logo, mit dem wir etwas verkaufen. Die Marke ist „Chroniken von Bornim“.
+
 ## Auswertung
 
 *Stärkstes Gegenargument:* Ein Name für das Regelwerk ist für den Spieler unsichtbar, solange es nur dieses Spiel gibt; er kostet Prüfung und Pflege, ohne dass jemand danach sucht. *Wie es zu entkräften ist:* Der Name dient zuerst uns (statt „2.0“ in jeder Datei) und kostet nur einen Satz im Handbuch; als Marke lohnt er erst, wenn ein zweites Spiel darauf baut (327). Darum vor dem Festlegen nur eine Suche bei DPMA und EUIPO nach Gleichem in Spielen (wie bei den Klangmarken, 142), keine Anmeldung.
