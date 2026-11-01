@@ -6,7 +6,7 @@ name: Tom Messung Waffengang (417)
 on:
   push:
     branches: ["claude/tom-417-**"]
-    paths: ["tools/blender348/v3/griff417.py", "tools/blender348/v3/waffengang.py", "tools/blender348/v3/held_klassen.py", ".github/workflows/tom-mess-417.yml"]
+    paths: ["tools/blender348/v3/griff417.py", "tools/blender348/v3/griff417b.py", "tools/blender348/v3/waffengang.py", "tools/blender348/v3/held_klassen.py", ".github/workflows/tom-mess-417.yml"]
   workflow_dispatch:
     inputs:
       nur_griff:
@@ -62,6 +62,10 @@ jobs:
           [ -d ~/cc0/medieval-village-megakit ] || PAKETE=medieval-village-megakit bash tools/blender348/v3/cc0_laden.sh ~/cc0
           [ -d ~/cc0/stylized-nature-megakit ] || PAKETE=stylized-nature-megakit bash tools/blender348/v3/cc0_laden.sh ~/cc0
           [ -d ~/cc0/fantasy-props-megakit ] || PAKETE=fantasy-props-megakit bash tools/blender348/v3/cc0_laden.sh ~/cc0
+      - name: Griff im Rahmen der Hand (417 Messung 3d, Blender, nur Text)
+        run: |
+          OUT=mess/griff417.json bl/bin/python -I tools/blender348/v3/griff417b.py > mess/griff-b.log 2>&1 || true
+          sed "s|$KAUF/||g" -i mess/griff-b.log; grep -E "^(PROP|GRIFF|FEHLT)|Traceback|Error" mess/griff-b.log | cut -c1-400 | head -150
       - name: Waffengang (Pakete auf das UAL-Geruest)
         if: inputs.nur_griff != 'ja'
         run: |
