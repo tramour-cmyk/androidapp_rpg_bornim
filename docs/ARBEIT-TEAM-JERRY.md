@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert“).
 
-**Übergabe (01.11., 17:5x):** 348.12 Grak schreitet gebaut auf `claude/jerry-348-12-grak-schreitet` (d832791a6, Basis 453 r3), dazu Lauffehler behoben (453 r3 ec2d46bd3, 402 366a92335, Goblin-Bau 8aee22a77 ungeprüft; Chefsache 348.12a). Bei „ja“: Commit mit „348.12 Grak Film“, Artefakt grakprobe, Film an den Chef. Nachfolger: „Jerry – 348.12: Grak-Film nach 348.12a“
+**Übergabe (01.11., 22:1x):** 348.12 Film und Prüferbefund beim Chef, 348.12j; Filme von Hand: godot-kampf.yml `film=grak`, godot.yml `kampf=ja`; 453.1 gebaut. Nachfolger: „Jerry – 438: wolf_mess_438 Befunde beheben“
 
 ## Zeilen
 
@@ -15,7 +15,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 438 | M | **von Sokrates (Chef 31.10., 23:31, Film 403):** Wölfe gleiten (Angriff, Tempo, aneinander vorbei); echte Schritte, Zahlen (Zu 438) | gebaut: passt (Archiv 438), aber wolf_mess_438 im Godot-Lauf rot (5 Befunde, Lauf 41338055305: Wolf in Schild/Stab bis 6 cm, Bildrand, Ansage springt); vor dem Build beheben | `claude/jerry-438-wolf-kampf` |
 | 458.2 | M | **von Sokrates (Chef 01.11., 13:1x, Archiv 458):** Gegenstandskatalog: Werte, Preise, Beute je Monster in die Datendatei (aus 444); das Spiel liest nur sie | gebaut 67eb82d09: Katalog voll (Stufe, Preis, Zustand nach 458.2a), Spiel liest ihn (katalog.gd), Einzelstücke unverkäuflich; fährt im nächsten Build (Laden: Preise wie bisher) | `claude/tuffy-458-2-katalog` |
 | 457.2 | M | **von Perikles (Chef 01.11., 11:49, „unsere Signatur muss sich wiederfinden“):** eigene Probeskripte zeichnen standardmäßig mit Toon-Licht, Tusche, Schatten; ohne nur mit Schalter (Zu 457.2) | gebaut e87815dc8, fährt mit den nächsten Filmen | `claude/jerry-457-2-signatur` |
-| 453.1 | M | **von Sokrates (Chef 01.11., 13:0x):** Helden im Kampf atmen gleich und zu heftig („hechelt“): Atmen ruhiger, je Figur eigener Takt, nach Angriff oder Abwehr schneller, dann abklingend (Zu 453.1) | gebaut 312284792 (grundstand-461): fernerer Held atmet deutlicher; offen Vergleich 403/r2 (Zu 453.1) | `claude/tuffy-453-1-held-atem` |
+| 453.1 | M | **von Sokrates (Chef 01.11., 13:0x):** Helden im Kampf atmen gleich und zu heftig („hechelt“): Atmen ruhiger, je Figur eigener Takt, nach Angriff oder Abwehr schneller, dann abklingend (Zu 453.1) | in Arbeit bei Tuffy: atem_4531 und Heldenvergleich in Lauf 154 (312284792, e4f40a44f) | `claude/tuffy-453-1-held-atem` |
 | 453 | M | **von Sokrates (Chef 01.11., 11:05):** Wölfe brauchen Ruhebewegungen: atmen, scharren, umblicken, knurren (Zu 453) | in Arbeit bei Tuffy | – |
 | 454 | M | **von Sokrates (Chef 01.11., 11:05):** beim Biss zielt die Achse des Wolfs wohl rechts neben den Helden; erst messen, dann bauen (Zu 453) | gebaut: passt (Archiv 454), fährt im nächsten Build; Schildreaktion in 406 | `claude/jerry-454-bissachse` |
 | 438a | M | **von Sokrates (Chef 01.11., 11:47, „nicht beurteilen, wenn ich es nicht gesehen habe … Vielleicht kann er auch so taumeln“):** Sichtungsfilm Hinfallen/Aufstehen auf Kaufheld aus dem Bestand, dann Wahl am Bild (Archiv 438a) | startbar: gewählt (Archiv 438a): 1, 11D, 11F / 1, 12B / 13; Waffe und Schild nach Paket, mit Tom 417 | `claude/jerry-438a-sturz` |
