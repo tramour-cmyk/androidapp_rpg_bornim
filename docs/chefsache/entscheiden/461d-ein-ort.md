@@ -1,5 +1,5 @@
 # 461d · Gültige Entscheidungen an einem Ort: in die DESIGN-Dateien statt eigener Liste?
-Sokrates · 01.11., 22:52 · B Abläufe
+Sokrates · 01.11., 22:49 · B Abläufe
 
 **Frage** (Chef 22:48): „die Ausschlüsse daraus, sind die nicht in den Designvorlagen, in den Kampfvorlagen … auch schon alle drin? Und wenn sich keiner dran hält, bringt sie wieder nichts. Dann haben wir jetzt die gleichen Sachen wieder an 50 verschiedenen Orten.“ Soll statt der Umbenennung (461d, 22:48) jeder Punkt der Liste in die DESIGN-Datei seines Themas wandern?
 **Votum Sokrates:** ja. Die Liste war meine Doppelung (gegen „jeder Text an einem Ort“).
