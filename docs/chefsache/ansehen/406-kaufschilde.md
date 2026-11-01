@@ -16,3 +16,13 @@ Film, 96 s am Rechner mit Kaufheld und Kaufwolf, noch kein Build, im Spiellicht 
 **Zu sagen:** „passt“ (fährt im nächsten Build mit) oder was nicht stimmt. Dazu zwei Fragen:
 1. Sollen Helden mit Schild auch mit den Schwerthieben von Sword & Shield angreifen (so im Film) statt mit unserem bisherigen Hieb?
 2. Schildstoß: als eigene Aktion, als Antwort nach gelungener Abwehr oder gar nicht? Unsere Regeln kennen ihn noch nicht, darum steht er nur in der Sichtung.
+
+**Prüferbefund nach dem Versand (01.11., 16:4x), wichtig:**
+- **Kampf des Kämpfers (0:44–1:09):** Kämpfer und Kleriker stehen von der Wolfsseite gesehen hintereinander und wirken wie eine Figur mit zwei Köpfen; die Kamera muss schräger stehen.
+- **An den Schnitten** blitzen fremde Bilder auf (0:00–0:01 Spielansicht mit Kampfleiste, 0:43, 1:09 graues Bild und Testmenü, ab 1:35,6 grau).
+- **Abwehr des Kämpfers zu spät:** der schwarze Wolf ist 0:59,8 da, der Schild kommt erst etwa 0,5–0,8 s später (beim Kleriker 1:18,7 und 1:27,7 richtig). Die Zeit des Bisses im Spiel ist geschätzt, nicht am Wolf gemessen; das ist zu beheben.
+- **Treffer aus Sword & Shield** (0:27, 0:28,5, 1:19): der Schild fliegt weit nach außen oder über den Kopf, beim schweren Treffer wie Jubeln; „Schild oben“ stimmt so nicht. Vorschlag: nur der leichte Treffer, kürzer.
+- **Schildstöße 1–3** (0:21–0:26): der Schild schwingt seitlich hochkant statt nach vorn.
+- Sonst: Wolf läuft durch Wolf (1:30–1:32, Jerrys Wölfe), Helden im Kampfteil klein, Sichtung hell, zweite Textzeile klein; Griffe, Größen, Abwehr des Klerikers in Ordnung.
+
+Das Nachbessern braucht dein Wort („nachbessern“); den letzten Probelauf zu 406 hebe ich dafür auf.
