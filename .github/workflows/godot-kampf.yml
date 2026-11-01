@@ -128,6 +128,8 @@ jobs:
           grep -E "^GLB" waffen.log
           bl/bin/python -I tools/blender348/ratte.py > ratte.log 2>&1 || (tail -40 ratte.log; exit 1)
           grep -E "^GLB" ratte.log | cut -c1-160
+          # 348.12 Lauf 174 (goblin.py: „rig.py: Eckfarben geändert“): Toms v3/rig.py hat sich geändert; wie godot.yml mit v3_kampf (LIESMICH)
+          export V3=tools/blender348/v3_kampf
           bl/bin/python -I tools/blender348/goblin.py > goblin.log 2>&1 || (tail -60 goblin.log; exit 1)
           grep -E "GOBLIN|GLB" goblin.log | cut -c1-160
           ART=goblin_archer bl/bin/python -I tools/blender348/goblin.py > spaeher.log 2>&1 || (tail -60 spaeher.log; exit 1)
