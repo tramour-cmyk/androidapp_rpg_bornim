@@ -84,8 +84,8 @@ jobs:
           for f in $RUNNER_TEMP/klassen/held_*.glb; do cp $f $D/$(basename $f .glb).bin; done
           cp $RUNNER_TEMP/klassen/haare.glb $D/haare.bin && cp $RUNNER_TEMP/klassen/bewegungen.glb $D/bewegungen.bin && cp $RUNNER_TEMP/klassen/held-klassen.json $D/
           mkdir -p $D/waffen
-          OUT=$RUNNER_TEMP/waffen WAFFE=greataxe bl/bin/python -I tools/blender348/waffen.py > waffe.log 2>&1 || { tail -30 waffe.log; exit 1; }
-          cp $RUNNER_TEMP/waffen/greataxe.glb $D/waffen/greataxe.bin
+          OUT=$RUNNER_TEMP/waffen WAFFE=greataxe-grak bl/bin/python -I tools/blender348/waffen.py > waffe.log 2>&1 || { tail -30 waffe.log; exit 1; }
+          cp $RUNNER_TEMP/waffen/greataxe-grak.glb $D/waffen/greataxe.bin   # Kriegsaxt = Graks Axt aus waffen.py (Farben neu)
           ls -l $D/held_*.bin $D/waffen
       - uses: actions/cache@v4
         with:
