@@ -1,0 +1,2745 @@
+{
+ "_aufbau": "Gegenstandskatalog 458: eine Zeile je Gegenstand; Spalten und Werte in tools/gegenstaende.py (AUFBAU); Uebersicht docs/LISTE-GEGENSTAENDE.md wird erzeugt (python3 tools/gegenstaende.py).",
+ "gegenstaende": [
+  {
+   "id": "hood",
+   "name": {
+    "de": "Kapuze",
+    "en": "Hood"
+   },
+   "art": "ruestung",
+   "platz": "kopf",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 2,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "circlet",
+   "name": {
+    "de": "Stirnreif",
+    "en": "Circlet"
+   },
+   "art": "ruestung",
+   "platz": "kopf",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 15,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "leather_cap",
+   "name": {
+    "de": "Lederkappe",
+    "en": "Leather Cap"
+   },
+   "art": "ruestung",
+   "platz": "kopf",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 5,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "helmet",
+   "name": {
+    "de": "Helm",
+    "en": "Helmet"
+   },
+   "art": "ruestung",
+   "platz": "kopf",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 15,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "great_helm",
+   "name": {
+    "de": "Topfhelm",
+    "en": "Great Helm"
+   },
+   "art": "ruestung",
+   "platz": "kopf",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 40,
+    "stufe": 4,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "robe",
+   "name": {
+    "de": "Robe",
+    "en": "Robe"
+   },
+   "art": "ruestung",
+   "platz": "oberkoerper",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 5,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "leather",
+   "name": {
+    "de": "Lederrüstung",
+    "en": "Leather Armor"
+   },
+   "art": "ruestung",
+   "platz": "oberkoerper",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 10,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "studded_leather",
+   "name": {
+    "de": "Nietenleder",
+    "en": "Studded Leather"
+   },
+   "art": "ruestung",
+   "platz": "oberkoerper",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 45,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "chain_shirt",
+   "name": {
+    "de": "Kettenhemd",
+    "en": "Chain Shirt"
+   },
+   "art": "ruestung",
+   "platz": "oberkoerper",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 50,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "scale_mail",
+   "name": {
+    "de": "Schuppenpanzer",
+    "en": "Scale Mail"
+   },
+   "art": "ruestung",
+   "platz": "oberkoerper",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 50,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "breastplate",
+   "name": {
+    "de": "Brustplatte",
+    "en": "Breastplate"
+   },
+   "art": "ruestung",
+   "platz": "oberkoerper",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 400,
+    "stufe": 4,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "half_plate",
+   "name": {
+    "de": "Halbplatte",
+    "en": "Half Plate"
+   },
+   "art": "ruestung",
+   "platz": "oberkoerper",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 750,
+    "stufe": 6,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "chain_mail",
+   "name": {
+    "de": "Kettenpanzer",
+    "en": "Chain Mail"
+   },
+   "art": "ruestung",
+   "platz": "oberkoerper",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 75,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "splint",
+   "name": {
+    "de": "Schienenpanzer",
+    "en": "Splint Armor"
+   },
+   "art": "ruestung",
+   "platz": "oberkoerper",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 200,
+    "stufe": 4,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "plate",
+   "name": {
+    "de": "Plattenpanzer",
+    "en": "Plate Armor"
+   },
+   "art": "ruestung",
+   "platz": "oberkoerper",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 1500,
+    "stufe": 7,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "wraps",
+   "name": {
+    "de": "Armwickel",
+    "en": "Arm Wraps"
+   },
+   "art": "ruestung",
+   "platz": "arme",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 2,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "gloves",
+   "name": {
+    "de": "Lederhandschuhe",
+    "en": "Leather Gloves"
+   },
+   "art": "ruestung",
+   "platz": "arme",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 5,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "bracers",
+   "name": {
+    "de": "Armschienen",
+    "en": "Bracers"
+   },
+   "art": "ruestung",
+   "platz": "arme",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 20,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "gauntlets",
+   "name": {
+    "de": "Panzerhandschuhe",
+    "en": "Gauntlets"
+   },
+   "art": "ruestung",
+   "platz": "arme",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 40,
+    "stufe": 3,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "leggings",
+   "name": {
+    "de": "Beinkleider",
+    "en": "Leggings"
+   },
+   "art": "ruestung",
+   "platz": "beine",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 2,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "boots",
+   "name": {
+    "de": "Lederstiefel",
+    "en": "Leather Boots"
+   },
+   "art": "ruestung",
+   "platz": "beine",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 5,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "chain_leggings",
+   "name": {
+    "de": "Kettenbeinlinge",
+    "en": "Chain Leggings"
+   },
+   "art": "ruestung",
+   "platz": "beine",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 20,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "greaves",
+   "name": {
+    "de": "Beinschienen",
+    "en": "Greaves"
+   },
+   "art": "ruestung",
+   "platz": "beine",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 40,
+    "stufe": 3,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "cloak",
+   "name": {
+    "de": "Umhang",
+    "en": "Cloak"
+   },
+   "art": "ruestung",
+   "platz": "umhang",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 5,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "mantle",
+   "name": {
+    "de": "Mantel",
+    "en": "Mantle"
+   },
+   "art": "ruestung",
+   "platz": "umhang",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 30,
+    "stufe": 3,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "dagger",
+   "name": {
+    "de": "Dolch",
+    "en": "Dagger"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 2,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "shortsword",
+   "name": {
+    "de": "Kurzschwert",
+    "en": "Shortsword"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 10,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "scimitar",
+   "name": {
+    "de": "Krummsäbel",
+    "en": "Scimitar"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 25,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "handaxe",
+   "name": {
+    "de": "Handbeil",
+    "en": "Handaxe"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 5,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "mace",
+   "name": {
+    "de": "Streitkolben",
+    "en": "Mace"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 5,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "spear",
+   "name": {
+    "de": "Speer",
+    "en": "Spear"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 1,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "quarterstaff",
+   "name": {
+    "de": "Kampfstab",
+    "en": "Quarterstaff"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 1,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "rapier",
+   "name": {
+    "de": "Rapier",
+    "en": "Rapier"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 25,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "longsword",
+   "name": {
+    "de": "Langschwert",
+    "en": "Longsword"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 15,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "battleaxe",
+   "name": {
+    "de": "Streitaxt",
+    "en": "Battleaxe"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 10,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "morningstar",
+   "name": {
+    "de": "Morgenstern",
+    "en": "Morningstar"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 15,
+    "stufe": 3,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "warhammer",
+   "name": {
+    "de": "Kriegshammer",
+    "en": "Warhammer"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 15,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "wand",
+   "name": {
+    "de": "Zauberstab",
+    "en": "Wand"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 30,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "greatsword",
+   "name": {
+    "de": "Zweihänder",
+    "en": "Greatsword"
+   },
+   "art": "waffe",
+   "platz": "beide_haende",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 50,
+    "stufe": 3,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "greataxe",
+   "name": {
+    "de": "Großaxt",
+    "en": "Greataxe"
+   },
+   "art": "waffe",
+   "platz": "beide_haende",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 30,
+    "stufe": 3,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "maul",
+   "name": {
+    "de": "Zweihandhammer",
+    "en": "Maul"
+   },
+   "art": "waffe",
+   "platz": "beide_haende",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 10,
+    "stufe": 4,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "halberd",
+   "name": {
+    "de": "Hellebarde",
+    "en": "Halberd"
+   },
+   "art": "waffe",
+   "platz": "beide_haende",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 20,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "staff",
+   "name": {
+    "de": "Magierstab",
+    "en": "Arcane Staff"
+   },
+   "art": "waffe",
+   "platz": "beide_haende",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 40,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "shortbow",
+   "name": {
+    "de": "Kurzbogen",
+    "en": "Shortbow"
+   },
+   "art": "waffe",
+   "platz": "beide_haende",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 25,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "longbow",
+   "name": {
+    "de": "Langbogen",
+    "en": "Longbow"
+   },
+   "art": "waffe",
+   "platz": "beide_haende",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 50,
+    "stufe": 3,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "light_crossbow",
+   "name": {
+    "de": "Armbrust",
+    "en": "Light Crossbow"
+   },
+   "art": "waffe",
+   "platz": "beide_haende",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 25,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "amulet",
+   "name": {
+    "de": "Amulett",
+    "en": "Amulet"
+   },
+   "art": "schmuck",
+   "platz": "hals",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 25,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "talisman",
+   "name": {
+    "de": "Talisman",
+    "en": "Talisman"
+   },
+   "art": "schmuck",
+   "platz": "hals",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 60,
+    "stufe": 3,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "ring",
+   "name": {
+    "de": "Ring",
+    "en": "Ring"
+   },
+   "art": "schmuck",
+   "platz": "finger",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 25,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "signet",
+   "name": {
+    "de": "Siegelring",
+    "en": "Signet Ring"
+   },
+   "art": "schmuck",
+   "platz": "finger",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 60,
+    "stufe": 3,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "shield",
+   "name": {
+    "de": "Schild",
+    "en": "Shield"
+   },
+   "art": "schild",
+   "platz": "nebenhand",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 10,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "round_shield",
+   "name": {
+    "de": "Rundschild",
+    "en": "Round Shield"
+   },
+   "art": "schild",
+   "platz": "nebenhand",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 10,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "tower_shield",
+   "name": {
+    "de": "Turmschild",
+    "en": "Tower Shield"
+   },
+   "art": "schild",
+   "platz": "nebenhand",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 60,
+    "stufe": 5,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "torch",
+   "name": {
+    "de": "Fackel",
+    "en": "Torch"
+   },
+   "art": "licht",
+   "platz": "nebenhand",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 2,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "orb",
+   "name": {
+    "de": "Zauberkugel",
+    "en": "Orb"
+   },
+   "art": "fokus",
+   "platz": "nebenhand",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 20,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "tome",
+   "name": {
+    "de": "Foliant",
+    "en": "Tome"
+   },
+   "art": "fokus",
+   "platz": "nebenhand",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 25,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "holy_symbol",
+   "name": {
+    "de": "Heiligensymbol",
+    "en": "Holy Symbol"
+   },
+   "art": "fokus",
+   "platz": "nebenhand",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": 5,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "ring_protection",
+   "name": {
+    "de": "Ring des Ältesten",
+    "en": "Elder's Ring"
+   },
+   "art": "einzelstueck",
+   "platz": "finger",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "fund"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": null,
+    "stufe": null,
+    "quelle": "Kotlin"
+   },
+   "grundform": "ring"
+  },
+  {
+   "id": "gauntlets_ogre",
+   "name": {
+    "de": "Handschuhe der Ogerkraft",
+    "en": "Gauntlets of Ogre Power"
+   },
+   "art": "einzelstueck",
+   "platz": "arme",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "fund"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": null,
+    "stufe": null,
+    "quelle": "Kotlin"
+   },
+   "grundform": "gloves"
+  },
+  {
+   "id": "greataxe_grak",
+   "name": {
+    "de": "Graks Kriegsaxt",
+    "en": "Grak's War Axe"
+   },
+   "art": "einzelstueck",
+   "platz": "beide_haende",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "fund"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": null,
+    "stufe": null,
+    "quelle": "Kotlin"
+   },
+   "grundform": "greataxe"
+  },
+  {
+   "id": "longsword_oakford",
+   "name": {
+    "de": "Klinge von Bornim",
+    "en": "Blade of Bornim"
+   },
+   "art": "einzelstueck",
+   "platz": "haupthand",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "fund"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": null,
+    "stufe": null,
+    "quelle": "Kotlin"
+   },
+   "grundform": "longsword"
+  },
+  {
+   "id": "staff_of_embers",
+   "name": {
+    "de": "Glutstab",
+    "en": "Staff of Embers"
+   },
+   "art": "einzelstueck",
+   "platz": "beide_haende",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "fund"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": null,
+    "stufe": null,
+    "quelle": "Kotlin"
+   },
+   "grundform": "staff"
+  },
+  {
+   "id": "rapier_whisper",
+   "name": {
+    "de": "Flüsterklinge",
+    "en": "Whisperblade"
+   },
+   "art": "einzelstueck",
+   "platz": "haupthand",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "fund"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": null,
+    "stufe": null,
+    "quelle": "Kotlin"
+   },
+   "grundform": "rapier"
+  },
+  {
+   "id": "mace_of_dawn",
+   "name": {
+    "de": "Morgenröte",
+    "en": "Dawnbringer"
+   },
+   "art": "einzelstueck",
+   "platz": "haupthand",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "fund"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": null,
+    "stufe": null,
+    "quelle": "Kotlin"
+   },
+   "grundform": "mace"
+  },
+  {
+   "id": "amulet_grimfang",
+   "name": {
+    "de": "Grimmzahns Fang",
+    "en": "Grimfang's Tooth"
+   },
+   "art": "einzelstueck",
+   "platz": "hals",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "fund"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": null,
+    "stufe": null,
+    "quelle": "Kotlin"
+   },
+   "grundform": "amulet"
+  },
+  {
+   "id": "cloak_protection",
+   "name": {
+    "de": "Umhang des Schutzes",
+    "en": "Cloak of Protection"
+   },
+   "art": "einzelstueck",
+   "platz": "umhang",
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "fund"
+    }
+   ],
+   "zustand": null,
+   "text": null,
+   "alt": {
+    "preis": null,
+    "stufe": null,
+    "quelle": "Kotlin"
+   },
+   "grundform": "cloak"
+  },
+  {
+   "id": "potion",
+   "name": {
+    "de": "Heiltrank",
+    "en": "Potion of Healing"
+   },
+   "art": "trank",
+   "platz": null,
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "laden",
+     "wo": "Morwen"
+    },
+    {
+     "weg": "herstellen",
+     "wo": "Morwen",
+     "rezept": {
+      "herbs": 2
+     }
+    }
+   ],
+   "zustand": null,
+   "text": {
+    "de": "Ein klassischer roter Heiltrank. Wirkt sofort, auch im Kampf.",
+    "en": "A classic red healing potion. Works at once, also in battle."
+   },
+   "alt": {
+    "preis": 25,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "greater_potion",
+   "name": {
+    "de": "Großer Heiltrank",
+    "en": "Potion of Greater Healing"
+   },
+   "art": "trank",
+   "platz": null,
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "laden",
+     "wo": "Morwen"
+    },
+    {
+     "weg": "herstellen",
+     "wo": "Morwen",
+     "rezept": {
+      "herbs": 3,
+      "bat_wing": 1
+     }
+    }
+   ],
+   "zustand": null,
+   "text": {
+    "de": "Doppelt so stark wie der einfache Heiltrank. Wirkt sofort, auch im Kampf.",
+    "en": "Twice as strong as the plain healing potion. Works at once, also in battle."
+   },
+   "alt": {
+    "preis": 75,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "superior_potion",
+   "name": {
+    "de": "Überragender Heiltrank",
+    "en": "Potion of Superior Healing"
+   },
+   "art": "trank",
+   "platz": null,
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    }
+   ],
+   "zustand": null,
+   "text": {
+    "de": "Ein seltenes Elixier für schwere Wunden. Wirkt sofort, auch im Kampf.",
+    "en": "A rare elixir for grave wounds. Works at once, also in battle."
+   },
+   "alt": {
+    "preis": 200,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "remedy",
+   "name": {
+    "de": "Kräutertrank",
+    "en": "Herbal Remedy"
+   },
+   "art": "trank",
+   "platz": null,
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "laden",
+     "wo": "Morwen"
+    },
+    {
+     "weg": "herstellen",
+     "wo": "Morwen",
+     "rezept": {
+      "herbs": 2
+     }
+    }
+   ],
+   "zustand": null,
+   "text": {
+    "de": "Heilt alle Zustände: Vergiftung, Brand, Blutung, Betäubung, Flüche. Auch mit vollen TP trinkbar.",
+    "en": "Cures every condition: poison, burning, bleeding, stun, curses. Can be drunk even at full HP."
+   },
+   "alt": {
+    "preis": 20,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "stamina_potion",
+   "name": {
+    "de": "Ausdauertrank",
+    "en": "Stamina Draught"
+   },
+   "art": "trank",
+   "platz": null,
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "laden",
+     "wo": "Morwen"
+    }
+   ],
+   "zustand": null,
+   "text": {
+    "de": "Bis zur nächsten Rast reicht der Atem beim Rennen doppelt so lange. Nicht im Kampf.",
+    "en": "Until the next rest, your breath for running lasts twice as long. Not in battle."
+   },
+   "alt": {
+    "preis": 25,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "spark_potion",
+   "name": {
+    "de": "Leuchtfunke",
+    "en": "Lightspark"
+   },
+   "art": "trank",
+   "platz": null,
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    }
+   ],
+   "zustand": null,
+   "text": {
+    "de": "Ein Fläschchen, von Morwen gebraut. Getrunken steigt ein Funke auf und leuchtet über dir bis zur nächsten Rast. Im Dunkeln siehst du weiter, aber Monster bemerken dich früher. Nicht im Kampf.",
+    "en": "A flask brewed by Morwen. Drink it, and a spark rises to glow above you until your next rest. In the dark you see further, but monsters notice you sooner. Not in battle."
+   },
+   "alt": {
+    "preis": 25,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "alchemist_fire",
+   "name": {
+    "de": "Alchemistenfeuer",
+    "en": "Alchemist's Fire"
+   },
+   "art": "wurf",
+   "platz": null,
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "herstellen",
+     "wo": "Morwen",
+     "rezept": {
+      "spider_gland": 1
+     }
+    }
+   ],
+   "zustand": null,
+   "text": {
+    "de": "Wurfgeschoss, trifft immer und setzt den Gegner in Brand.",
+    "en": "Thrown, always hits and sets the foe on fire."
+   },
+   "alt": {
+    "preis": 30,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "holy_water",
+   "name": {
+    "de": "Weihwasser",
+    "en": "Holy Water"
+   },
+   "art": "wurf",
+   "platz": null,
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "laden",
+     "wo": "Morwen"
+    }
+   ],
+   "zustand": null,
+   "text": {
+    "de": "Wurfgeschoss, trifft immer. Wirkt nur gegen Untote: 2W6 gleißender Schaden.",
+    "en": "Thrown, always hits. Only harms undead: 2d6 radiant damage."
+   },
+   "alt": {
+    "preis": 25,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "raw_meat",
+   "name": {
+    "de": "Rohes Fleisch",
+    "en": "Raw Meat"
+   },
+   "art": "rohstoff",
+   "platz": null,
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": {
+    "de": "Am Lagerfeuer lässt es sich braten. Oder man verkauft es.",
+    "en": "Can be roasted at a campfire. Or sold."
+   },
+   "alt": {
+    "preis": 6,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "roast_meat",
+   "name": {
+    "de": "Gebratenes Fleisch",
+    "en": "Roast Meat"
+   },
+   "art": "nahrung",
+   "platz": null,
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "herstellen",
+     "wo": "Lagerfeuer",
+     "rezept": {
+      "raw_meat": 1
+     }
+    }
+   ],
+   "zustand": null,
+   "text": {
+    "de": "Stärkt für den nächsten Kampf: +1 auf Angriffe und Schaden.",
+    "en": "Fortifies for the next fight: +1 to attacks and damage."
+   },
+   "alt": {
+    "preis": 16,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "herbs",
+   "name": {
+    "de": "Heilkräuter",
+    "en": "Healing Herbs"
+   },
+   "art": "rohstoff",
+   "platz": null,
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "sammeln"
+    }
+   ],
+   "zustand": null,
+   "text": {
+    "de": "Wachsen auf Blumenwiesen in der Wildnis. Morwen braut daraus Tränke.",
+    "en": "Grow in wild flower meadows. Morwen brews potions from them."
+   },
+   "alt": {
+    "preis": 8,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "wolf_pelt",
+   "name": {
+    "de": "Wolfsfell",
+    "en": "Wolf Pelt"
+   },
+   "art": "rohstoff",
+   "platz": null,
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": {
+    "de": "Ein dichtes graues Fell. Händler zahlen gut dafür.",
+    "en": "A thick gray pelt. Traders pay well for it."
+   },
+   "alt": {
+    "preis": 24,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "boar_tusk",
+   "name": {
+    "de": "Keilerhauer",
+    "en": "Boar Tusk"
+   },
+   "art": "rohstoff",
+   "platz": null,
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": {
+    "de": "Ein gebogener Hauer. Händler zahlen gut dafür.",
+    "en": "A curved tusk. Traders pay well for it."
+   },
+   "alt": {
+    "preis": 20,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "spider_gland",
+   "name": {
+    "de": "Giftdrüse",
+    "en": "Venom Gland"
+   },
+   "art": "rohstoff",
+   "platz": null,
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": {
+    "de": "Aus einer Riesenspinne. Morwen kann daraus Alchemistenfeuer mischen.",
+    "en": "From a giant spider. Morwen can mix alchemist's fire from it."
+   },
+   "alt": {
+    "preis": 30,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "bat_wing",
+   "name": {
+    "de": "Fledermausflügel",
+    "en": "Bat Wing"
+   },
+   "art": "rohstoff",
+   "platz": null,
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": null,
+   "text": {
+    "de": "Ledrig und zäh. Eine Zutat für starke Heiltränke.",
+    "en": "Leathery and tough. An ingredient for strong healing potions."
+   },
+   "alt": {
+    "preis": 16,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "gwenna_ring",
+   "name": {
+    "de": "Gwennas Ring",
+    "en": "Gwenna's Ring"
+   },
+   "art": "handlung",
+   "platz": null,
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "handlung"
+    }
+   ],
+   "zustand": null,
+   "text": {
+    "de": "Ein schmaler Ring aus angelaufenem Silber. Gwenna wartet am Fluss darauf.",
+    "en": "A slim ring of tarnished silver. Gwenna is waiting for it by the river."
+   },
+   "alt": {
+    "preis": 0,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "grey_rag",
+   "name": {
+    "de": "Grauer Fetzen",
+    "en": "Gray Rag"
+   },
+   "art": "handlung",
+   "platz": null,
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "handlung"
+    }
+   ],
+   "zustand": null,
+   "text": {
+    "de": "Grobes graues Tuch, ein offenes Auge hineingestickt. Jorin will es sehen.",
+    "en": "Coarse gray cloth, an open eye stitched into it. Jorin wants to see it."
+   },
+   "alt": {
+    "preis": 0,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "smoke_bundle",
+   "name": {
+    "de": "Rauchbündel",
+    "en": "Smoke Bundle"
+   },
+   "art": "handlung",
+   "platz": null,
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "handlung"
+    }
+   ],
+   "zustand": null,
+   "text": {
+    "de": "Ein Bündel beißender Kräuter von Morwen. Krogg vor die Füße werfen: Der Rauch nimmt ihm den ersten Hieb. Nur im Kampf.",
+    "en": "A bundle of acrid herbs from Morwen. Throw it at Krogg's feet: the smoke takes away his first blow. Only in battle."
+   },
+   "alt": {
+    "preis": 0,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "rusty_key",
+   "name": {
+    "de": "Rostiger Schlüssel",
+    "en": "Rusty Key"
+   },
+   "art": "handlung",
+   "platz": null,
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "handlung"
+    }
+   ],
+   "zustand": null,
+   "text": {
+    "de": "Er gehörte Krogg dem Grobian.",
+    "en": "It belonged to Krogg the Brute."
+   },
+   "alt": {
+    "preis": 0,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "grak_key",
+   "name": {
+    "de": "Graks Schlüssel",
+    "en": "Grak's Key"
+   },
+   "art": "handlung",
+   "platz": null,
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "handlung"
+    }
+   ],
+   "zustand": null,
+   "text": {
+    "de": "Ein kleiner, blanker Schlüssel. Er passt nicht zu den Türen.",
+    "en": "A small, bright key. It fits none of the doors."
+   },
+   "alt": {
+    "preis": 0,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "sun_amulet",
+   "name": {
+    "de": "Sonnenamulett",
+    "en": "Sun Amulet"
+   },
+   "art": "handlung",
+   "platz": null,
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "handlung"
+    }
+   ],
+   "zustand": null,
+   "text": {
+    "de": "Das heilige Amulett aus dem Tempel von Bornim. Es ist warm.",
+    "en": "The holy amulet of the Bornim temple. It feels warm."
+   },
+   "alt": {
+    "preis": 0,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "prophet_letter",
+   "name": {
+    "de": "Versiegelter Brief",
+    "en": "Sealed Letter"
+   },
+   "art": "handlung",
+   "platz": null,
+   "stufe": null,
+   "preis": null,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "handlung"
+    }
+   ],
+   "zustand": null,
+   "text": {
+    "de": "Gezeichnet mit einem grauen Auge.",
+    "en": "Marked with a gray eye."
+   },
+   "alt": {
+    "preis": 0,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  }
+ ]
+}

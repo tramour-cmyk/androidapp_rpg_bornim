@@ -20,4 +20,6 @@ Schultern gegen den Menschen: Elf 0,88, Zwerg 1,06, Hügelvolk 0,61, Ork 1,20. A
 
 **Prüferbefund (13:3x, nach dem Versand):** alle Füße am Boden, keine Risse an Schultern, Hals, Hüfte, Händen, kein Zucken; Größen im Bild stimmen mit der Tabelle (Elf 0,98, Zwerg 0,78, Hügelvolk 0,60, Ork 1,06 des Menschen). Als Erstes fällt auf: die Beschriftung unten läuft rechts aus dem Bild, lesbar nur „Mensch“, die dritte Titelzeile halb abgeschnitten; die Höhenstriche schweben etwa 20 px über den Köpfen. Beim Zwerg die Unterschenkel von der Seite kantig, mit hartem Absatz am Knie.
 
+Gegen Homers Ziel (430): Größe, Kopfanteil, Beinanteil (Elf 0,56, Zwerg 0,36, Hügelvolk 0,49) und Schulter je unter 1 % daneben (Hügelvolk-Schulter anteilig zur Größe 1,01). **Bestand geprüft:** Elfenohren und Hauer fehlen (Suche im Ablauf fand nur Speere); nächster Schritt nach 408 frei im Netz, dann Kaufvorschlag. (Spike, 13:4x; derselbe Film kam von Spike ein zweites Mal per Telegram.)
+
 **Zu sagen:** „431 passt“ oder je Volk, was anders sein soll.

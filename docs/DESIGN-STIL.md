@@ -58,6 +58,8 @@ Drei feste Zwänge, an denen man unser Bild wiedererkennt (Chef 22.10., 14:15: �
 
 Wunsch des Nutzers (09.10.): Wer auf der Karte steht, lebt. Jede Figur, auch der Held, atmet, verlagert ab und zu das Gewicht, schaut kurz zur Seite oder stützt die Hände in die Hüften (Baustein `MapRest`, bekommen neue Figuren automatisch). Figuren mit eigener Aufgabe bekommen eigene Handlungen obendrauf (Garrick: Hände am Feuer wärmen, in den Wald spähen).
 
+- **Atmen immer** (Grundsatz des Nutzers, 01.11., 13:0x, Archiv 453.1): Jede lebende Figur (Held, Söldner, Leute, Tiere, Monster) atmet immer, als eigene Schicht unter jeder anderen Bewegung; ruhig, je Figur eigener Takt, nach Anstrengung schneller und abklingend. Kein Gleichtakt, kein Stillstand: auch nicht für ein paar Sekunden zwischen zwei Ruhebewegungen („atmen kann man nicht aussetzen“).
+- **Übergänge immer weich** (Grundsatz des Nutzers, 01.11., 13:1x, Archiv 416.4): Stehen, Gehen und Rennen gehen bei jeder Figur weich ineinander über, in beide Richtungen („Egal, wer sich bewegt. Das muss immer weich sein.“).
 - Nie im Takt: Ob, wann, was und wie lange, entscheidet der Zufall, mit eigenem Startwert je Figur, damit zwei Figuren nebeneinander nie gleichzeitig dasselbe tun. Ein gleichmäßiger Rhythmus wirkt wie ein Roboter.
 - Figuren schauen den Helden an, wenn er nahe ist (bis 3 Felder), verlieren aber nach etwa 10 s Stillstand das Interesse (5la.3, Nutzer 13.10.).
 - Haltungen vorher in allen Blickrichtungen prüfen (vorn, schräg, Seite, hinten); was von einer Seite falsch aussieht, fliegt raus.
