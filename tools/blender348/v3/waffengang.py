@@ -4,7 +4,7 @@
 # Danach Messung ohne Bild: Bilder, Laenge, Tempo ohne Gleiten (wie held_klassen.py schritt_tempo), Beckenhub, Anteil ohne Fuss am Boden;
 # dazu die Knochen der Quelle, die nicht abgebildet sind (Waffen-, Prop-Knochen: wo die Waffe in der Hand sitzt).
 # Aufruf: KAUF=<kaufpakete> ZIEL=<UAL1.glb oder UAL Pro> OUT=<ordner> BL=<bl/bin/python> bl/bin/python -I waffengang.py
-import bpy, glob, json, os, subprocess, sys
+import bpy, glob, json, math, os, subprocess, sys
 
 KAUF = os.environ['KAUF']; ZIEL = os.environ['ZIEL']; OUT = os.environ['OUT']; BL = os.environ.get('BL', sys.executable)
 HIER = os.path.dirname(os.path.abspath(__file__))
@@ -120,7 +120,7 @@ def messen(p):
     if hasattr(arm.animation_data, 'action_slot') and a.slots: arm.animation_data.action_slot = a.slots[0]
     f0, f1 = int(a.frame_range[0]), int(a.frame_range[1])
     fps = bpy.context.scene.render.fps / bpy.context.scene.render.fps_base
-    lage = {k: [] for k in ('ball_l', 'ball_r', 'pelvis')}
+    lage = {k: [] for k in ('ball_l', 'ball_r', 'pelvis', 'neck_01')}
     for fr in range(f0, f1 + 1):
         bpy.context.scene.frame_set(fr)
         for k in lage: lage[k].append(arm.matrix_world @ arm.pose.bones[k].head)
@@ -151,7 +151,11 @@ def messen(p):
     b = [x.z for x in lage['pelvis']]
     vor = lage['pelvis'][-1].y - lage['pelvis'][0].y
     return {'bilder': f1 - f0 + 1, 's': round((f1 - f0) / fps, 3), 'tempo': round(v, 3), 'hub_cm': round((max(b) - min(b)) * 100, 1),
-            'luft_pct': int(100 * luft / len(b)), 'wurzelweg_m': round(-vor, 3), 'hand': hand}
+            'luft_pct': int(100 * luft / len(b)), 'wurzelweg_m': round(-vor, 3), 'hand': hand,
+            # Chef 01.11., 13:4x: „der Oberkoerper beim normalen Gehen zum Teil zu weit vorgeneigt“: Becken -> Hals gegen senkrecht, Grad
+            # (positiv nach vorn, Blick -Y), Mittel und Hoechstwert ueber den Umlauf
+            'neigung': [round(sum(nz) / len(nz), 1), round(max(nz), 1)] if (nz := [math.degrees(math.atan2(-(h - p).y, (h - p).z))
+                         for p, h in zip(lage['pelvis'], lage['neck_01'])]) else [0, 0]}
 
 
 RENN = 3.68 * 1.16; GEH = 1.84 * 1.16
@@ -162,6 +166,7 @@ for n in sorted(ergebnis):
     soll = RENN if (n.startswith('Rennen') or any(w in n.split('__')[-1] for w in ('Run', 'Sprint'))) else GEH
     fach = soll / m['tempo'] if m['tempo'] > 0.01 else 0.0
     sps = 2.0 / m['s'] * fach if m['s'] > 0 else 0.0
+    print('NEIGUNG %s: Oberkoerper im Mittel %.1f Grad vor, hoechstens %.1f' % (n, m['neigung'][0], m['neigung'][1]))
     print('MESS %s: %d Bilder, %.2f s, Tempo %.2f m/s (im Spiel %.2f-fach, %.1f Schritte/s), Beckenhub %.1f cm, ohne Boden %d %%, Wurzelweg %.2f m'
           % (n, m['bilder'], m['s'], m['tempo'], fach, sps, m['hub_cm'], m['luft_pct'], m['wurzelweg_m']))
     if '__' not in n:
