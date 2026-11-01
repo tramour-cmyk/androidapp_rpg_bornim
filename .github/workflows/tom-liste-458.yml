@@ -2,12 +2,16 @@ name: Tom Liste Waffennetze (458.3)
 
 # 458.3 (Chef 01.11., 13:1x, Archiv 458; 408 Bestand zuerst): welche Dateien die vier Waffenpakete im Bestand haben (LISTE-BESTAND.md
 # „Waffen und Schilde“: Omie, Anker, Avramania, PolyMech; dazu Fackel im Fantasy Props MegaKit). Nur Text, kein Bild: Dateinamen,
-# Ecken je Datei, Format. Kaufdateien bleiben auf dem Runner (348.12c a). Nur von Hand.
+# Format. Kaufdateien bleiben auf dem Runner (348.12c a). Bei Commits, die mit „458.3 Liste“ beginnen, oder von Hand.
 on:
+  push:
+    branches: ["claude/tom-458-3-**"]
+    paths: [".github/workflows/tom-liste-458.yml"]
   workflow_dispatch:
 
 jobs:
   liste:
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, '458.3 Liste')
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
