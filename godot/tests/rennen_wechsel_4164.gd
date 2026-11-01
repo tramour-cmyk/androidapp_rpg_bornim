@@ -69,14 +69,15 @@ func _lauf() -> void:
 			var want := ("Rennen" if rennt else "Gehen") if moving else "Stehen"
 			var cur := ap.current_animation
 			var wechsel := ""
-			var sp := (tempo / (renn if rennt else gang)) if moving else 1.0
+			var v := renn if rennt else gang
+			var sp := (tempo / v) if moving else 1.0
 			if cur != want:
 				var ph := Held.schritt_phase(ap.get_animation(cur), ap.current_animation_position) if cur != "" else 0.0
 				var vorher_t := ap.current_animation_position
 				Held.wechsel(ap, want, moving, sp)
 				wechsel = "%s->%s Phase %.2f (bei %.2f s) -> %.2f s" % [cur, want, ph, vorher_t, ap.current_animation_position]
 				seit = 0
-			ap.speed_scale = sp
+			ap.speed_scale = Held.takt(ap, tempo, v, DT) if moving else 1.0
 			ap.advance(DT)
 			var n1 := _neigung(sk, b, h)
 			var groesst := 0.0; var wer := ""

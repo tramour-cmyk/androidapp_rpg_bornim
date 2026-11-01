@@ -161,9 +161,8 @@ func standbilder(axt := false, pakete := false) -> void:
 				if moving:
 					var mit := want != b0
 					vb = float(m.get_meta(("gang_" if mit else "") + ("gehen" if b0 == "Gehen" else "rennen") + "_m_je_s", 1.0))
-				var sp := tempo / maxf(0.01, vb) if moving else 1.0
-				if ap.current_animation != want: Held.wechsel(ap, want, moving, sp)   # 416.4: Ueberblendung in echter Zeit, Schritt nach Tritten
-				ap.speed_scale = sp
+				if ap.current_animation != want: Held.wechsel(ap, want, moving, tempo / maxf(0.01, vb) if moving else 1.0)   # 416.4
+				ap.speed_scale = Held.takt(ap, tempo, vb, 1.0 / FPS) if moving else 1.0
 				ap.advance(1.0 / FPS)
 				p += Vector3(0, 0, 1) * tempo / FPS
 				w.position = p

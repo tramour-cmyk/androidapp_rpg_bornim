@@ -34,6 +34,8 @@ static var bew_becken := 1.0
 static var bew_sk: Skeleton3D = null    # Skelett von bewegungen.bin (Ruhelage fuer rennen_umformen)
 static var bew_raum := Transform3D.IDENTITY
 static var renn_lib := {}               # Art -> umgeformtes „Rennen“
+const TAKT_GEHEN := 1.84 * 1.16          # 416.4: m/s, auf die Gehen und Rennen umgetaktet werden (karte.gd gehen, laufen auf Gras)
+const TAKT_RENNEN := 3.68 * 1.16
 static var tritt_cache := {}             # 416.4: Bewegung|Art -> Vector2(Zeit rechter, linker Ballen setzt auf)
 # 416.4 (Chef 31.10., Build 143: Rennen wirkt „als würde er Hochsprung machen“; 01.11., 11:28 „neuer Film“ mit heute, A, B):
 # Jog_Fwd_Loop der UAL ist ein Sprunglauf. flug = Zeit, in der kein Fuss am Boden ist, so viel kuerzer (der Stand bleibt wie die Quelle,
@@ -86,6 +88,23 @@ static func aussehen_voll(a: Dictionary, klasse := "") -> Dictionary:
 	for k in a: v[k] = a[k]
 	return v
 
+# 416.4: Tempo ohne Gleiten der Bewegung n in der Bewegungsdatei (held-klassen.json; Pakete unter gang.<art>), vor dem Umtakten
+static func _eigen(n: String) -> float:
+	if n == "Gehen": return float(info.get("gehen_m_je_s", 1.08))
+	if n == "Rennen": return float(info.get("rennen_m_je_s", 0.0))
+	var g: Dictionary = info.get("gang", {}).get(n.get_slice("_", 1), {})
+	return float(g.get(("gehen" if n.begins_with("Gehen") else "rennen") + "_m_je_s", 0.0))
+
+# Zeit der Bewegung mal k (k < 1 schneller); Tritte mit
+static func umtakten(an: Animation, k: float) -> void:
+	if absf(k - 1.0) < 0.001: return
+	for t in an.get_track_count():
+		var nk := an.track_get_key_count(t)
+		for i in (range(nk - 1, -1, -1) if k > 1.0 else range(nk)): an.track_set_key_time(t, i, an.track_get_key_time(t, i) * k)
+	an.length *= k
+	if an.has_meta("tritt"): an.set_meta("tritt", (an.get_meta("tritt") as Vector2) * k)
+	an.set_meta("takt", k)
+
 # 416.4: Zeit, zu der der rechte und der linke Ballen aufsetzt (erstes Bild unter 2 cm ueber dem Tiefstand nach einem Bild darueber);
 # Vector2(-1, -1), wenn ein Fuss nie abhebt
 static func tritte(an: Animation, sk: Skeleton3D, raum: Transform3D) -> Vector2:
@@ -119,15 +138,16 @@ static func baue(w: Dictionary, mats: Array) -> Node3D:
 	form(m, String(a["form"]))
 	toene(m, a, String(w.get("volk", "HUMAN")))
 	var f := bewegungen(m, sk, String(w.get("rennen", RENNEN)))
-	m.set_meta("gehen_m_je_s", float(info.get("gehen_m_je_s", 1.08)) * f)
-	m.set_meta("rennen_m_je_s", float(info.get("rennen_m_je_s", 0.0)) * f)
+	m.set_meta("massstab", f)                 # Figur gegen die Bewegungsdatei (Becken)
+	m.set_meta("gehen_m_je_s", TAKT_GEHEN)   # 416.4: umgetaktet (bewegungen)
+	m.set_meta("rennen_m_je_s", TAKT_RENNEN if float(info.get("rennen_m_je_s", 0.0)) > 0.01 else 0.0)
 	m.set_meta("faust_L", faust(sk, "l"))
 	bewaffne(m, sk, w.get("ausruestung", {}))
 	# 417 Runde 4: mit Paketbewegung („gang“) Tempo ohne Gleiten aus held-klassen.json gang.<art> (held_klassen.py)
 	var g: Dictionary = info.get("gang", {}).get(String(m.get_meta("gang", "")), {})
 	if not g.is_empty():
-		m.set_meta("gang_gehen_m_je_s", float(g.get("gehen_m_je_s", 0.0)) * f)
-		m.set_meta("gang_rennen_m_je_s", float(g.get("rennen_m_je_s", 0.0)) * f)
+		m.set_meta("gang_gehen_m_je_s", TAKT_GEHEN if float(g.get("gehen_m_je_s", 0.0)) > 0.01 else 0.0)
+		m.set_meta("gang_rennen_m_je_s", TAKT_RENNEN if float(g.get("rennen_m_je_s", 0.0)) > 0.01 else 0.0)
 	return m
 
 # Transform des Knotens n im Raum der Wurzel m (ohne Baum: Figur noch nicht eingehaengt)
@@ -175,6 +195,12 @@ static func bewegungen(m: Node3D, sk: Skeleton3D, art := RENNEN) -> float:
 			if not tritt_cache.has(key):
 				tritt_cache[key] = tritte(renn_lib[art] if n == "Rennen" and renn_lib.has(art) else bew_lib.get_animation(n), bew_sk, bew_raum)
 			if tritt_cache[key].x >= 0.0: an.set_meta("tritt", tritt_cache[key])
+			# 416.4 Nachmessung (Lauf 41317137978): ein speed_scale fuer beide Bewegungen der Ueberblendung; Gehen (1,0 m/s) und Rennen
+			# (5,5 m/s) lagen 5,5-fach auseinander, im Wechsel lief das Rennen 2,9-fach (Beine 40-67 Grad je Bild). Umgetaktet auf das
+			# Spieltempo (TAKT_*), dann laufen beide bei speed_scale 1 ohne Gleiten und liegen nur 2-fach auseinander
+			var v := _eigen(n) * f
+			var ziel: float = TAKT_RENNEN if n.begins_with("Rennen") else TAKT_GEHEN
+			if v > 0.01: umtakten(an, v / ziel)
 		lib.add_animation(n, an)
 	var ap := AnimationPlayer.new()
 	ap.name = "AnimationPlayer"

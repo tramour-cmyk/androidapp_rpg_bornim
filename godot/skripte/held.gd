@@ -141,10 +141,23 @@ static func wechsel(ap: AnimationPlayer, want: String, moving: bool, sp: float) 
 	var bl := ueberblendung(cur, moving)
 	var ph := 0.0
 	if schritt:
-		bl *= maxf(1.0, sp)
 		ph = schritt_phase(ap.get_animation(cur), ap.current_animation_position)
+		if ap.has_meta("v"): ap.set_meta("blende", [0.0, bl, float(ap.get_meta("v"))])   # takt: Tempo gleitend
+		bl *= maxf(1.0, sp)
 	ap.play(want, bl)
 	if schritt: ap.seek(schritt_zeit(ap.get_animation(want), ph))
+
+# speed_scale fuer Tempo und Tempo ohne Gleiten v der laufenden Bewegung; waehrend der Ueberblendung Gehen <-> Rennen gleitet v von
+# der alten zur neuen (Nachmessung 416.4: ein speed_scale fuer beide, sonst laeuft die alte im Tempo der neuen)
+static func takt(ap: AnimationPlayer, tempo: float, v: float, dt: float) -> float:
+	ap.set_meta("v", v)
+	if ap.has_meta("blende"):
+		var b: Array = ap.get_meta("blende")
+		b[0] = float(b[0]) + dt
+		var w := clampf(float(b[0]) / maxf(0.01, float(b[1])), 0.0, 1.0)
+		if w >= 1.0: ap.remove_meta("blende")
+		else: v = lerpf(float(b[2]), v, w)
+	return tempo / maxf(0.01, v)
 
 # Schrittphase 0 bis 1: 0 rechter Ballen setzt auf, 0,5 linker; ohne Meta „tritt“ der Anteil der Zeit
 static func schritt_phase(a: Animation, t: float) -> float:
@@ -251,10 +264,10 @@ func _process(dt: float) -> void:
 		if fackel and traegt_fackel:
 			if anim.has_animation(want + "_Fackel"): want += "_Fackel"
 			elif not moving: want = "Stehen_Fackel" if anim.has_animation("Stehen_Fackel") else "Stehen"   # Fackel bleibt in der Hand
-		var sp := (tempo / ((renn_w if rennt else gang_w) if mit else (renn if rennt else gang))) if moving else 1.0
-		# Gehen <-> Rennen im selben Schritt, Ueberblendung in echter Zeit (416.4, wechsel)
-		if anim.current_animation != want: wechsel(anim, want, moving, sp)
-		anim.speed_scale = sp
+		var v := ((renn_w if rennt else gang_w) if mit else (renn if rennt else gang))
+		# Gehen <-> Rennen im selben Schritt, Ueberblendung in echter Zeit, Tempo gleitend (416.4, wechsel, takt)
+		if anim.current_animation != want: wechsel(anim, want, moving, tempo / maxf(0.01, v) if moving else 1.0)
+		anim.speed_scale = takt(anim, tempo, v, dt) if moving else 1.0
 	var k := karte.pos_kachel(position)
 	if k != kachel:
 		kachel = k

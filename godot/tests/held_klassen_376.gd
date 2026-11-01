@@ -31,7 +31,7 @@ func _init() -> void:
 			root.add_child(m)
 			var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
 			for b in ["Stehen", "Gehen", "Rennen"]: pruefe(ap != null and ap.has_animation(b), "%s: Bewegung %s fehlt" % [k, b])
-			pruefe(float(m.get_meta("gehen_m_je_s")) > 0.5 and float(m.get_meta("gehen_m_je_s")) < 2.0, "%s: Gehtempo %s" % [k, m.get_meta("gehen_m_je_s")])
+			pruefe(float(m.get_meta("gehen_m_je_s")) > 0.5 and float(m.get_meta("gehen_m_je_s")) < 2.5, "%s: Gehtempo %s" % [k, m.get_meta("gehen_m_je_s")])
 			pruefe((m.get_meta("faust_L") as Dictionary).has("knochen"), "%s: linke Faust fehlt" % k)
 			var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
 			var haare := sk.find_children("Haar_*", "BoneAttachment3D", false, false).size()
