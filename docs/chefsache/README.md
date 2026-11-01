@@ -21,7 +21,6 @@ Nichts offen.
 | [416.4](ansehen/4164-uebergaenge.md) | Weiche Übergänge Stehen, Gehen, Rennen | – | 01.11. |
 | [417](ansehen/417-tragart.md) | Tragart je Waffe, Runde 5 | – | 01.11., 16:02 |
 | [431](ansehen/431-voelker.md) | Völker, Runde 3: Grundkörper je Volk im Spiel-Look | – | 01.11. |
-| [438a](ansehen/438a-sturz-sichtung.md) | Hinfallen und Aufstehen des Helden: Sichtung aus dem Bestand | Jerry | 01.11., 14:20 |
 | [455.1](ansehen/4551-baukasten.md) | Baukasten: je ein Netz in drei Materialien × zwei Zeichen | Spike | 01.11., 17:01 |
 | [455.2](ansehen/4552-groessen.md) | Größen: Hügelvolk und Orkblütiger in Kette, Platte, Robe | Spike | 01.11., 17:25 |
 
@@ -101,7 +100,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 48, Muss 36, startbar 7
+**Jerry** – offen 48, Muss 36, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -111,7 +110,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 453.1 | M | von Sokrates (Chef 01.11., 13:0x): Helden im Kampf atmen gleich und zu heftig („hechelt“): | startbar |
 | 453 | M | von Sokrates (Chef 01.11., 11:05): Wölfe brauchen Ruhebewegungen: atmen, scharren, umblick | startbar |
 | 454 | M | von Sokrates (Chef 01.11., 11:05): beim Biss zielt die Achse des Wolfs wohl rechts neben d | wartet auf Test/Build (gebaut) |
-| 438a | M | von Sokrates (Chef 01.11., 11:47, „nicht beurteilen, wenn ich es nicht gesehen habe … Viel | Chef |
+| 438a | M | von Sokrates (Chef 01.11., 11:47, „nicht beurteilen, wenn ich es nicht gesehen habe … Viel | startbar |
 | 439 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Reihenfolge Angriff, Treffer, Tod, Neuformati | wartet auf Test/Build (gebaut) |
 | 440 | M | von Sokrates (Chef 31.10., 23:34, Film 403): Wolf-Tod zu schnell weg (Zu 438) | wartet auf Test/Build (gebaut) |
 | 416.5 | M | von Sokrates (Chef 31.10., 20:4x, Build 143): im Kampf Details des Kampflogs aufrufen, dan | wartet auf Test (Build) |
