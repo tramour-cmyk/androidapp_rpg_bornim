@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert“).
 
-**Übergabe (01.11., 17:5x):** 348.12 Grak schreitet gebaut auf `claude/jerry-348-12-grak-schreitet` (d832791a6, Basis 453 r3), dazu Lauffehler behoben (453 r3 ec2d46bd3, 402 366a92335, Goblin-Bau 8aee22a77 ungeprüft; Chefsache 348.12a). Bei „ja“: Commit mit „348.12 Grak Film“, Artefakt grakprobe, Film an den Chef. Nachfolger: „Jerry – 348.12: Grak-Film nach 348.12a“
+**Übergabe (01.11., 22:1x):** 348.12 Film und Prüferbefund beim Chef, 348.12j; Filme von Hand: godot-kampf.yml `film=grak`, godot.yml `kampf=ja`; 453.1 gebaut. Nachfolger: „Jerry – 438: wolf_mess_438 Befunde beheben“
 
 ## Zeilen
 
