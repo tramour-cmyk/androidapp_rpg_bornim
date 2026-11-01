@@ -134,7 +134,8 @@ def haltung(rig, a, fn):
     """Je Bild fn(t) -> (Versatz des Rumpfs in Welt-Metern (x links, y hinten, z oben), Nicken des Halses (Grad, + hebt den Kopf),
     Wenden des Halses (Grad, + nach links), Rollen des Rumpfs (Grad)[, mehr]); Pfoten bleiben, wo sie in `a` waren (Läufe neu gebeugt).
     453: `mehr` (dict) wahlweise 'pfote': {Lauf in BEINE: Versatz (Welt-Meter wie oben)} hebt oder schiebt eine Pfote (Scharren),
-    'kiefer': Grad (+ öffnet das Maul: Knurren, Hecheln)."""
+    'kiefer': Grad (+ öffnet das Maul: Knurren, Hecheln); 453 r2: 'gier': Grad (+ nach links) dreht den Rumpf um die Hochachse
+    (Umblicken mit dem Rumpf), die Pfoten bleiben stehen."""
     setze(rig, a)
     a0, a1 = int(a.frame_range[0]), int(a.frame_range[1])
     W = rig.matrix_world; W3i = W.to_3x3().inverted()
@@ -161,7 +162,8 @@ def haltung(rig, a, fn):
         hals.matrix = Matrix.Translation(h) @ R @ Matrix.Translation(-h) @ Q[HALS]
         c = Q[COM].to_translation()
         dv = (W3i @ Vector(d)) * 1.0
-        com.matrix = Matrix.Translation(dv) @ Matrix.Translation(c) @ Matrix.Rotation(math.radians(roll), 4, laengs) @ Matrix.Translation(-c) @ Q[COM]
+        gier = Matrix.Rotation(math.radians(mehr.get('gier', 0.0)), 4, hoch)
+        com.matrix = Matrix.Translation(dv) @ Matrix.Translation(c) @ Matrix.Rotation(math.radians(roll), 4, laengs) @ gier @ Matrix.Translation(-c) @ Q[COM]
         vl.update()
         for i, (o, m, u, p) in enumerate(BEINE):
             H0, K0, A0 = (Q[n].to_translation() for n in (o, m, u))
@@ -219,14 +221,15 @@ def atem(t, zuege, hub):
     return hub * 0.5 * (1 - math.cos(2 * math.pi * zuege * t))
 
 
-def scharr_pfote(t, zuege=2):
-    """453 Scharren: je Zug Pfote heben und vor (bis 0,3), über den Boden zurückziehen (bis 0,75), heben und heim; (y hinten, z oben)"""
+def scharr_pfote(t, zuege=3, vor=0.13, zurueck=0.20, hoch=0.10):
+    """453 Scharren: je Zug Pfote heben und vor (bis 0,3), über den Boden zurückziehen (bis 0,75), heben und heim; (y hinten, z oben).
+    r2 (Prüfer r1: Pfote 12–26 px, auf dem Handy 1–2 mm): drei lange Züge, 13 cm vor, 33 cm über den Boden zurück, 10 cm hoch"""
     s = (t * zuege) % 1.0 if t < 1.0 else 0.0
     if s < 0.3:
-        u = s / 0.3; return 0.0, -0.08 * (u * u * (3 - 2 * u)), 0.07 * math.sin(math.pi * u)
+        u = s / 0.3; return 0.0, -vor * (u * u * (3 - 2 * u)), hoch * math.sin(math.pi * u)
     if s < 0.75:
-        u = (s - 0.3) / 0.45; return 0.0, -0.08 + 0.20 * (u * u * (3 - 2 * u)), 0.006
-    u = (s - 0.75) / 0.25; return 0.0, 0.12 * (1 - u * u * (3 - 2 * u)), 0.006 + 0.04 * math.sin(math.pi * u)
+        u = (s - 0.3) / 0.45; return 0.0, -vor + (vor + zurueck) * (u * u * (3 - 2 * u)), 0.006
+    u = (s - 0.75) / 0.25; return 0.0, zurueck * (1 - u * u * (3 - 2 * u)), 0.006 + 0.6 * hoch * math.sin(math.pi * u)
 
 
 def gerade(rig, a):
@@ -395,29 +398,31 @@ def baue(fell):
     idle = akt['IdleA']
     # 453 (Chef 01.11., 11:05: „Was mir aber völlig fehlt, sind diese Ruheanimationen … ob die Wölfe atmen, ob die mal ab und zu
     # scharren oder sich umblicken oder knurren“; wolf_ruhe_453: 96 % der Ruhe in Hocke, die war ein gehaltenes Standbild): die Hocke
-    # ist IdleC der Quelle (7 s, Kopf tief, wendet langsam) tief geduckt, mit Atmen; Stehen (IdleA, blickt sich um) atmet sichtbar
+    # ist IdleC der Quelle (7 s, Kopf tief, wendet langsam) tief geduckt; Stehen ist IdleA (blickt sich um).
+    # r2 (Chef 01.11., 13:0x: „nicht im Gleichtakt … atmen kann man nicht aussetzen“): das Atmen nicht mehr hier eingebaut (sonst
+    # atmeten alle Wölfe im Takt der Schleife), sondern als Schicht im Spiel unter jeder Bewegung, je Wolf eigener Takt (atem_tier.gd)
     akt['Stehen'] = idle.copy(); akt['Stehen'].name = 'Stehen'; akt['Stehen'].use_fake_user = True
-    haltung(rig, akt['Stehen'], lambda t: ((0, 0, atem(t, 3, 0.012)), 1.5 * math.sin(2 * math.pi * 3 * t), 0.0, 0.0))
-    hocke = lambda t, z=4, h=0.014: ((0, 0.04, -0.11 + atem(t, z, h)), -8.0 + 1.5 * math.sin(2 * math.pi * z * t), 0.0, 0.0)
+    hocke = lambda t: ((0, 0.04, -0.11), -8.0, 0.0, 0.0)
     if 'IdleC' in akt:
         akt['Hocke'] = akt['IdleC'].copy(); akt['Hocke'].name = 'Hocke'; akt['Hocke'].use_fake_user = True
     else:
         akt['Hocke'] = gehalten(idle, 'Hocke', 211)
     haltung(rig, akt['Hocke'], hocke)
-    # Ruhebewegungen je Grundhaltung (stehend 0, geduckt 1): Knurren (tiefer, Kopf vor, Lefzen weg vom Zahn, zittert), Umblicken nach
-    # links und rechts (Kopf hoch, horcht), Hecheln (nach dem Angriff: Maul offen, schnelles Atmen), Scharren (nur stehend, Vorderpfote)
+    # Ruhebewegungen je Grundhaltung (stehend 0, geduckt 1): Knurren (tiefer, Kopf vor, Lefzen weg vom Zahn), Umblicken nach
+    # links und rechts (Kopf hoch, horcht), Hecheln (nach dem Angriff: Maul offen, schnelles Atmen), Scharren (nur stehend, Vorderpfote).
+    # r2 (Prüfer r1 aus der Kampfkamera: nur Umblicken rechts und Ducken erkennbar; Zittern wirkte als 1-px-Flimmern): alles größer,
+    # Knurren Kopf tief vor und Maul 25° ohne Zittern, Umblicken ±60° mit dem Rumpf
     for b, vor in ((0, ''), (1, 'Hocke')):
         g = lambda t, b=b: ((0, 0.04 * b, -0.11 * b), -8.0 * b) if b else ((0, 0, 0), 0.0)
         def knurr(t, g=g):
             (dx, dy, dz), nk = g(t); e = huelle(t, 0.18, 0.82)
-            zit = 0.003 * math.sin(2 * math.pi * 26 * t) * e
-            return ((dx, dy + 0.025 * e, dz - 0.05 * e + zit), nk - 14.0 * e, 0.0, 0.0, {'kiefer': (12.0 + 2.0 * math.sin(2 * math.pi * 9 * t)) * e})
+            return ((dx, dy + 0.06 * e, dz - 0.09 * e), nk - 24.0 * e, 0.0, 0.0, {'kiefer': 25.0 * e})
         akt[vor + 'Knurren'] = gehalten(idle, vor + 'Knurren', 70)     # 2,3 s
         haltung(rig, akt[vor + 'Knurren'], knurr)
         for sei, w in (('L', 1.0), ('R', -1.0)):
             def umsehen(t, g=g, w=w):
                 (dx, dy, dz), nk = g(t); e = huelle(t, 0.28, 0.72)
-                return ((dx, dy, dz + atem(t, 1, 0.01)), nk + 10.0 * e, 40.0 * w * e, -3.0 * w * e)
+                return ((dx, dy, dz), nk + 12.0 * e, 48.0 * w * e, -4.0 * w * e, {'gier': 12.0 * w * e})
             akt[vor + 'Umsehen' + sei] = gehalten(idle, vor + 'Umsehen' + sei, 75)     # 2,5 s
             haltung(rig, akt[vor + 'Umsehen' + sei], umsehen)
         def hecheln(t, g=g):
@@ -429,9 +434,9 @@ def baue(fell):
     # Rumpf weg von der Pfote und zurück, Kopf schaut auf den Boden
     for nm, i, w in (('Scharren', 0, 1.0), ('ScharrenR', 1, -1.0)):
         def scharr(t, i=i, w=w):
-            e = huelle(t, 0.15, 0.88); px, py, pz = scharr_pfote(t)
-            return ((-0.025 * w * e, 0.02 * e, -0.015 * e), -16.0 * e, 10.0 * w * e, 0.0, {'pfote': {i: (px, py, pz)}})
-        akt[nm] = gehalten(idle, nm, 55)
+            e = huelle(t, 0.1, 0.92); px, py, pz = scharr_pfote(t)
+            return ((-0.035 * w * e, 0.03 * e, -0.025 * e), -22.0 * e, 12.0 * w * e, 0.0, {'pfote': {i: (px, py, pz)}})
+        akt[nm] = gehalten(idle, nm, 84)     # r2: 2,8 s, drei Züge
         haltung(rig, akt[nm], scharr)
     akt['Treffer'] = gehalten(idle, 'Treffer', 15)     # 0,5 s: Ruck zurück, Kopf hoch und zur Seite
     haltung(rig, akt['Treffer'], lambda t: ((0, 0.07 * stoss(t), -0.04 * stoss(t)), 18.0 * stoss(t), -12.0 * stoss(t), 6.0 * stoss(t)))

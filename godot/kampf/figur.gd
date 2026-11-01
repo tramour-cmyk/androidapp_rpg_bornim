@@ -825,9 +825,20 @@ const ATEM_RUHE := ["Kampfstehen", "Stehen"]
 var atem = null
 
 func _atem_an() -> void:
-	if not kauf or anim == null or OS.get_environment("ATEM_ALT") != "":     # Prüfschalter ATEM_ALT=1: wie vorher (Vergleichsfilm)
+	if anim == null or OS.get_environment("ATEM_ALT") != "":     # Prüfschalter ATEM_ALT=1: wie vorher (Vergleichsfilm)
 		return
 	var sk := _find(model, "Skeleton3D") as Skeleton3D
+	if fighter.monster != null:
+		# 453 r2: der Kaufwolf atmet als Schicht unter jeder Bewegung, je Wolf eigener Takt (atem_tier.gd)
+		var Tier = preload("res://kampf/atem_tier.gd")
+		if sk != null and Tier.passt(sk):
+			atem = Tier.new()
+			atem.name = "Atem"
+			atem.eigen(hash(String(fighter.id)))
+			sk.add_child(atem)
+		return
+	if not kauf:
+		return
 	if sk == null or sk.find_bone("spine_03") < 0:
 		return
 	for n in ATEM_RUHE:
@@ -869,7 +880,10 @@ func _idle() -> void:
 		# (DESIGN-ABNAHME Silhouetten); Kampfstehen ist das erste und letzte Bild jeder Kampfbewegung
 		_play("Kampfstehen")
 		return
-	_play("Hocke" if pouncing else "Stehen")
+	var grund := "Hocke" if pouncing else "Stehen"
+	# 453 r2: Hocke ↔ Stehen und aus einer Ruhebewegung weich (RUHE_BLENDE), alles andere wie bisher
+	var von: String = anim.current_animation if anim else ""
+	_play(grund, RUHE_BLENDE if (von in RUHE or von in RUHE_GESTEN) else 0.15)
 
 
 # Prüfer Runde 25: Blick und Rumpf wurden nur bei der Ansage gerichtet; rückte das Ziel danach auf seinen Platz, sah der Wolf
@@ -898,10 +912,16 @@ func _process(_dt: float) -> void:
 ## Knurren, idle_wolf_3 Schnauben; tools/klang/ruhe.py), höchstens einer zugleich im Rudel (RUHE_LAUT_ABSTAND_MS wie MonsterIdle.GAP_MS).
 const RUHE := {"Stehen": ["Lefzen", "Scharren", "Knurren"], "Hocke": ["HockeKnurren", "HockeUmsehenL", "HockeUmsehenR"]}
 const RUHE_HECHELN := {"Stehen": "Hecheln", "Hocke": "HockeHecheln"}
+const RUHE_GESTEN := ["Lefzen", "Scharren", "ScharrenR", "Knurren", "Hecheln", "HockeKnurren", "HockeUmsehenL", "HockeUmsehenR", "HockeHecheln"]
 const RUHE_MS := [3000, 7000]
 const RUHE_LAUT := {"Knurren": [1, 0.4], "HockeKnurren": [1, 0.4], "Hecheln": [2, 0.3], "HockeHecheln": [2, 0.3]}
 const RUHE_LAUT_ABSTAND_MS := 1800
 static var ruhe_laut_ms := -100000
+## 453 r2 (Chef 01.11., 13:0x: „dass die Wölfe nicht im Gleichtakt Dinge tun“): nie zwei Ruhebewegungen im Rudel zugleich beginnend;
+## wer zu früh dran ist, wartet um RUHE_VERSATZ_MS weiter. Übergang Grundhaltung ↔ Geste und Hocke ↔ Stehen weich (Prüfer r1: 0,13 s ruckartig)
+const RUHE_ABSTAND_MS := 900
+const RUHE_VERSATZ_MS := [500, 1400]
+const RUHE_BLENDE := 0.4
 var ruhe_vor := ""
 var nach_biss := false      # 453: nach dem eigenen Angriff zuerst Hecheln
 
@@ -924,6 +944,10 @@ func _ruhebewegung() -> void:
 		fidget_at = now + randi_range(RUHE_MS[0], RUHE_MS[1])
 	if now < fidget_at:
 		return
+	var zuletzt: int = int(kampfort.get_meta("ruhe_beginn_ms", -100000)) if kampfort != null else -100000     # je Kampfort, nicht je Spiel
+	if now - zuletzt < RUHE_ABSTAND_MS:
+		fidget_at = now + randi_range(RUHE_VERSATZ_MS[0], RUHE_VERSATZ_MS[1])
+		return
 	fidget_at = 0
 	nach_biss = false
 	var wahl: String = RUHE_HECHELN[grund] if hecheln else ""
@@ -933,9 +957,12 @@ func _ruhebewegung() -> void:
 			return
 		wahl = String(liste[randi_range(0, liste.size() - 1)])
 	ruhe_vor = wahl
+	if kampfort != null:
+		kampfort.set_meta("ruhe_beginn_ms", now)
 	if wahl == "Scharren":
 		wahl = scharren_name()
-	_play(wahl, 0.25)
+	_play(wahl, RUHE_BLENDE)
+	anim.set_blend_time(wahl, grund, RUHE_BLENDE)
 	anim.queue(grund)
 	if RUHE_LAUT.has(wahl) and now - ruhe_laut_ms >= RUHE_LAUT_ABSTAND_MS:
 		var klang = get_node_or_null("/root/Klang")
@@ -1729,6 +1756,7 @@ func strike(other, e: Dictionary) -> int:
 		return _hieb(other)
 	if fighter.monster != null and weg.has("Gehen"):
 		nach_biss = true     # 453: daheim zuerst Hecheln
+		_schnaufen(1.0)     # 453 r2: nach dem Biss schneller und tiefer atmen
 		if leap:
 			pouncing = false
 		# 438 (wolf_mess_438: beim Verfehlen wich der Held aus, sein Schild fuhr bis 6 cm um die Schnauze): daneben bleibt der Wolf weiter weg
