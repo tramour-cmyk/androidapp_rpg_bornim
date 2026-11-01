@@ -11,7 +11,7 @@
 #   Kopfanteil = (Scheitel - Kinn) / Groesse; Kinn = tiefster Punkt vorn, der am Kopfknochen haengt
 #   Beinanteil = Hueftgelenk (Kopf des Oberschenkelknochens) / Groesse (Mensch etwa die Haelfte)
 #   Schulter   = Abstand der Schultergelenke (Kopf der Oberarmknochen), absolut und gegen den Menschen
-# Aufruf: Q=<cc0> KAUF=<kaufpakete> ZIEL=<ordner> [VOELKER=elf,zwerg] bl/bin/python -I voelker.py
+# Aufruf: Q=<cc0> KAUF=<kaufpakete> ZIEL=<ordner> [NUR_VOELKER=elf,zwerg] bl/bin/python -I voelker.py
 #   -> <ZIEL>/volk_<volk>_<mann|frau>.glb (ohne Bewegungen, Godot nimmt die der UAL), voelker.json (Masse, Ziele, Einstellungen)
 import bpy, os, sys, json
 import mathutils
@@ -20,22 +20,25 @@ HIER = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HIER)
 os.environ.setdefault('FIGUREN', 'keine')
 ZIEL = os.environ.get('ZIEL', '/tmp/voelker')
-NUR = [s for s in os.environ.get('VOELKER', '').split(',') if s]
+NUR = [s for s in os.environ.get('NUR_VOELKER', '').split(',') if s]   # nicht VOELKER: so heisst im Ablauf der Ordner (Lauf 41299824753)
 os.makedirs(ZIEL, exist_ok=True)
 import quaternius as QT
 
 FRAU = 0.93
 # Ziele nach Homer (430): Groesse Mann (m), Kopfanteil, Beinanteil (Hueftgelenk), Schulter: ('abs'|'rel', Faktor gegen den Menschen)
 # Mensch = Liste „Held“ (175 cm); die Anteile des Menschen sind die des Kaufkoerpers und werden nur gemessen
+# Lauf 41299824753 gemessen: Mensch Kopf 1/7,8, Hueftgelenk 0,54 der Groesse. Homers Kopfanteile gelten wie geschrieben; der Ork hat
+# den Kopf „wie beim Menschen“ (kein eigenes Ziel); die Beine nach Homers Vergleich: Elf laenger als der Mensch (0,56), Huegelvolk
+# „knapp die Haelfte“ (0,49), Zwerg „gut ein Drittel“ (0,36)
 ZIELE = {
     'mensch': {'koerper': 'Regular', 'h': 1.75},
-    'elf':    {'koerper': 'Regular', 'h': 1.72, 'kopf': 1 / 8, 'bein': 0.535, 'schulter': ('rel', 0.90),
+    'elf':    {'koerper': 'Regular', 'h': 1.72, 'kopf': 1 / 8, 'bein': 0.56, 'schulter': ('rel', 0.90),
                'dick': 0.90, 'hand': 0.92, 'fuss': 0.92},                                      # schlank, feine Haende und Fuesse
     'zwerg':  {'koerper': 'Regular', 'h': 1.35, 'kopf': 1 / 5, 'bein': 0.36, 'schulter': ('abs', 1.05),
                'dick': 1.35, 'hals': 0.55, 'hand': 1.25, 'fuss': 1.05},                        # gedrungen, kurzer Hals, grosse Haende
-    'huegel': {'koerper': 'Regular', 'h': 1.05, 'kopf': 1 / 6, 'bein': 0.47, 'schulter': ('rel', 1.00),
+    'huegel': {'koerper': 'Regular', 'h': 1.05, 'kopf': 1 / 6, 'bein': 0.49, 'schulter': ('rel', 1.00),
                'dick': 1.15, 'bauch': 1.2, 'hand': 1.0, 'fuss': 1.35},                         # rundlich, nicht breit; grosse Fuesse
-    'ork':    {'koerper': 'Superhero', 'h': 1.85, 'kopf': 1 / 7, 'schulter': ('abs', 1.20),
+    'ork':    {'koerper': 'Superhero', 'h': 1.85, 'schulter': ('abs', 1.20),
                'dick': 1.12, 'hals': 0.75, 'hand': 1.15},                                      # massig, kurzer dicker Hals
 }
 VOLKSNAME = {'mensch': 'Mensch', 'elf': 'Elf', 'zwerg': 'Zwerg', 'huegel': 'Hügelvolk', 'ork': 'Orkblütiger'}
@@ -190,9 +193,9 @@ def baue(volk, frau):
         if not abw or max(abw) < 0.015 or runde == 4: break
         # nachstellen: Kopf ueber die Kopfgroesse, Bein ueber die Beinlaenge (der Rumpf gleicht aus), Schulter ueber das Schluesselbein
         if 'kopf' in z:
-            e['kopf'] *= (z['kopf'] / m['kopf']) ** 1.15
+            e['kopf'] = min(max(e['kopf'] * (z['kopf'] / m['kopf']) ** 1.15, 0.6), 2.2)
         if 'bein' in z:
-            e['bein'] *= (z['bein'] / m['bein']) ** 1.6
+            e['bein'] = min(max(e['bein'] * (z['bein'] / m['bein']) ** 1.6, 0.3), 1.6)
         if s_ziel:
             e['schulter'] *= (s_ziel / (m['schulter'] * f)) ** 2.5
             e['schulter'] = min(max(e['schulter'], 0.4), 3.0)

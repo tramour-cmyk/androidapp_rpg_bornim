@@ -274,9 +274,10 @@ func _pruefe() -> void:
 		var h := sk.find_bone("hand_r")
 		var weg := (sk.get_bone_global_pose(h).origin - sk.get_bone_global_rest(h).origin).length() if h >= 0 else -1.0
 		var netze := sk.get_children().filter(func(c): return c is MeshInstance3D).map(func(c): return "%s%s" % [c.name, "" if c.get_node_or_null(c.skeleton) == sk else "(lose)"])
-		var tief := INF   # Ballen über dem Boden: in Ruhe etwa 3 cm; deutlich darunter steht die Figur im Boden, darüber schwebt sie
-		for b in ["ball_l", "ball_r"]: if sk.find_bone(b) >= 0: tief = minf(tief, (sk.global_transform * sk.get_bone_global_pose(sk.find_bone(b))).origin.y - f.global_position.y)
-		print("FILM Ballen %s: %.1f cm über dem Boden (Ruhe %.1f cm)" % [r[3], tief * 100, (sk.global_transform * sk.get_bone_global_rest(sk.find_bone("ball_l"))).origin.y * 100 - f.global_position.y * 100])
+		if sk.find_bone("ball_l") >= 0:   # Goblin (eigenes Geruest) hat keine Ballen
+			var tief := INF   # Ballen über dem Boden: in Ruhe etwa 3 cm; deutlich darunter steht die Figur im Boden, darüber schwebt sie
+			for b in ["ball_l", "ball_r"]: if sk.find_bone(b) >= 0: tief = minf(tief, (sk.global_transform * sk.get_bone_global_pose(sk.find_bone(b))).origin.y - f.global_position.y)
+			print("FILM Ballen %s: %.1f cm über dem Boden (Ruhe %.1f cm)" % [r[3], tief * 100, (sk.global_transform * sk.get_bone_global_rest(sk.find_bone("ball_l"))).origin.y * 100 - f.global_position.y * 100])
 		print("FILM Feld %s: Feld %dx%d, unten %s %s, Scheitel %s %s; Hand %.0f cm aus der Ruhelage; %s" % [r[3], gr.x, gr.y,
 			str(fuss.round()), "drin" if drin.call(fuss) else "DRAUSSEN", str(kopf.round()), "drin" if drin.call(kopf) else "DRAUSSEN",
 			weg * 100, ", ".join(PackedStringArray(netze))])
@@ -464,13 +465,13 @@ func _m1(x: float) -> String:
 
 
 # eine Reihe Figuren in einem Feld (gleicher Maßstab), darunter die Zahlen, darüber je eine Goldlinie in Homers Größe
-func _reihe(r: Rect2, liste: Array, x0: float, dreh: float, zahlen := true, titel_feld := "") -> Array:
+func _reihe(r: Rect2, liste: Array, x0: float, dreh: float, zahlen := true, titel_feld := "", frei := 0) -> Array:
 	var abstand := 0.75
-	var breite := abstand * liste.size()
+	var breite := abstand * (liste.size() + frei)   # frei: Plaetze rechts fuer Figuren ohne Eintrag (Goblin)
 	var hoch := maxf(breite * r.size.y / r.size.x, 2.6)
 	var feld := _feld(r, hoch)
 	var cam: Camera3D = feld[0]
-	var mitte := x0 + (liste.size() - 1) * abstand / 2.0
+	var mitte := x0 + (liste.size() + frei - 1) * abstand / 2.0
 	cam.position = Vector3(mitte, hoch / 2.0 - 0.15, 8.0)
 	_boden(Vector3(mitte, 0, 0), breite + 1.0, 1.6)
 	var figuren := []
@@ -488,7 +489,7 @@ func _reihe(r: Rect2, liste: Array, x0: float, dreh: float, zahlen := true, tite
 			var l := _text(feld[1], _ziel_text(e), Vector2.ZERO, 19)
 			l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			l.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
-			l.size = Vector2(r.size.x / liste.size(), 150)
+			l.size = Vector2(r.size.x / (liste.size() + frei), 150)
 			var unten := cam.unproject_position(Vector3(x, 1.97, 0))
 			l.position = Vector2(unten.x - l.size.x / 2.0, unten.y - l.size.y)
 		rahmen.append([cam, f, h, String(e["datei"])])
@@ -511,10 +512,10 @@ func _goblin_431v() -> void:
 	_neuer_teil("431 · Hügelvolk neben Goblin (Verwechslung bei gleicher Größe: Kopf, Haltung; Haut im Spiel getönt) und Mensch als Maßstab")
 	var liste := [voelker.get("Mensch/mann", {}), voelker.get("Hügelvolk/mann", {}), voelker.get("Hügelvolk/frau", {})].filter(func(e): return not e.is_empty())
 	var r := Rect2(Vector2(0, OBEN), Vector2(BREITE, HOEHE - OBEN))
-	var fig := _reihe(r, liste, 40.0, 1.0 / 8.0, true)
+	var fig := _reihe(r, liste, 40.0, 1.0 / 8.0, true, "", 1)
 	var gpfad := volk_dir.path_join("goblin.glb")
 	if FileAccess.file_exists(gpfad) and not fig.is_empty():
-		var x := 40.0 + liste.size() * 0.95
+		var x := 40.0 + liste.size() * 0.75
 		var g := _figur(gpfad, Vector3(x, 0, 0))
 		if g:
 			var gap := B.spieler(g)
@@ -523,8 +524,12 @@ func _goblin_431v() -> void:
 			var gh := _hoehe(g)
 			print("FILM 431v Goblin %.3f m" % gh)
 			var cam: Camera3D = rahmen[-1][0]
-			var l := _text(felder[-1], "Goblin %d cm" % int(round(gh * 100)), Vector2.ZERO, 19)
-			l.position = Vector2(cam.unproject_position(Vector3(x, 0, 0)).x - 60, cam.unproject_position(Vector3(x, -0.08, 0)).y)
+			var l := _text(felder[-1], "Goblin\n%d cm" % int(round(gh * 100)), Vector2.ZERO, 19)
+			l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			l.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
+			l.size = Vector2(BREITE / (liste.size() + 1), 150)
+			var unten := cam.unproject_position(Vector3(x, 1.97, 0))
+			l.position = Vector2(unten.x - l.size.x / 2.0, unten.y - l.size.y)
 			rahmen.append([cam, g, gh, "goblin"])
 	else:
 		print("FILM 431v ohne Goblin (goblin.glb fehlt)")
