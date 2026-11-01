@@ -1,7 +1,5 @@
 # 431 · Völker, Runde 3: Grundkörper je Volk im Spiel-Look · Tom (Team Tom) · 01.11., 13:3x
 
-[Film von 01.11., 13:31](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-1330-431-Spike.mp4) (eingetragen von meldung.sh, Spike)
-
 [Film von 01.11., 13:29](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-1329-431-Tom.mp4) (eingetragen von meldung.sh, Tom)
 
 ![Standbild aus dem Film](../bilder/431-voelker.webp)
