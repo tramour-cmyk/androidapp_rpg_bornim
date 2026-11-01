@@ -1,16 +1,16 @@
-name: Tom Probefilm (431, 416.4)
+name: Tom Probefilm (431, 416.4, 376.1)
 
 # 431, 416.4 (Tom 01.11.; Sokrates 01.11., Chefsache 416.4a: Kaufmodelle nur über einen Ablauf auf GitHub, nie in eine Sitzung):
 # Probefilm aus der Bibliothek (godot/probe/drehfilm.gd) ohne APK. Welcher Film: erste Nummer der Commit-Nachricht (431 oder 416.4)
 # oder Eingabe beim Start von Hand. Gekaufte Dateien bleiben auf dem Runner; ins Artefakt gehen nur Film und Protokoll (348.12c a).
 on:
   push:
-    branches: ["claude/tom-431-**", "claude/tom-416-4-**"]
+    branches: ["claude/tom-431-**", "claude/tom-416-4-**", "claude/tom-376-1-heldin"]
     paths: ["godot/probe/**", "godot/tests/drehfilm_431.gd", ".github/workflows/tom-probe.yml"]
   workflow_dispatch:
     inputs:
       film:
-        description: "431 oder 416.4"
+        description: "431, 416.4 oder 376.1"
         required: true
         default: "431"
 
@@ -28,8 +28,8 @@ jobs:
           EINGABE: ${{ github.event.inputs.film }}
         run: |
           F="$EINGABE"
-          [ -n "$F" ] || F=$(printf '%s' "$NACHRICHT" | grep -oE '^(416\.4|431)' | head -1)
-          [ -n "$F" ] || { echo "Commit beginnt nicht mit 431 oder 416.4"; exit 1; }
+          [ -n "$F" ] || F=$(printf '%s' "$NACHRICHT" | grep -oE '^(416\.4|431|376\.1)' | head -1)
+          [ -n "$F" ] || { echo "Commit beginnt nicht mit 431, 416.4 oder 376.1"; exit 1; }
           echo "FILM=$F" >> $GITHUB_ENV
       - uses: actions/cache@v4
         with:
@@ -49,10 +49,10 @@ jobs:
       - name: CC0-Pakete (Quaternius)
         run: |
           [ -n "$(find ~/cc0 -name UAL1_Standard.glb 2>/dev/null)" ] || bash tools/blender348/v3/cc0_laden.sh ~/cc0
-      - name: Gekaufte Grundkörper (privat, nur Universal Base Characters Source)
+      - name: Gekaufte Grundkörper und Trachten (privat, nur Quaternius Source)
         env:
           GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
-          MUSTER: "Universal.Base.Characters.Source.zip"
+          MUSTER: "Universal.Base.Characters.Source.zip Modular.Character.Outfits.-.Fantasy.Source.zip"
         run: |
           echo "KAUF=$RUNNER_TEMP/kauf" >> $GITHUB_ENV
           timeout 900 bash tools/blender348/kauf_laden.sh $RUNNER_TEMP/kauf > kauf.log 2>&1 || { tail -20 kauf.log; exit 1; }

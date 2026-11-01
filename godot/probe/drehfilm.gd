@@ -3,6 +3,9 @@ extends Node3D
 # dreht, wie es aus allen Perspektiven ausschaut“). Läuft im Ablauf tom-probe.yml mit --write-movie; gekaufte Dateien bleiben auf dem
 # Runner, ins Artefakt geht nur der Film (348.12c a).
 #   --film=431   Grundkörper, Haare und Bärte der Bibliothek drehend, mit den Größen der Völker (LISTE-FIGUREN.md „Völker“, 430)
+#   --film=431v  Völker Runde 3: Grundkörper je Volk aus tools/blender348/v3/voelker.py (Umgebung VOELKER=<ordner>), Mann und Frau,
+#                Kopf-, Beinanteil, Schulter gemessen gegen Homers Ziele; Hügelvolk neben Goblin; Schattenriss
+#   --film=376.1 Heldin: alle Frauentrachten der Bibliothek (Modular Character Outfits) mit dem Kaufkopf Regulär Frau, drehend
 #   --film=416.4 Rennen: Jog_Fwd wie im Spiel, Jog mit halbem Beckenhub, Sprint; von der Seite und aus der Spielansicht
 # Umgebung: KAUF=<gekaufte Pakete>, CC0=<freie Quaternius-Pakete> (cc0_laden.sh). Ende von selbst; Zeilen „FILM …“ ins Protokoll.
 # Hochformat wie das Spiel (1080 × 2340, Lauf 41291021273: der Film nimmt die Projektgröße, nicht --resolution): Felder mit je einer
@@ -75,7 +78,9 @@ func _ready() -> void:
 	match film:
 		"431": _film_431()
 		"416.4": _film_4164()
-		_: print("FILM FEHLER: --film=431 oder --film=416.4"); get_tree().quit(1)
+		"376.1": _film_3761()
+		"431v": _film_431v()
+		_: print("FILM FEHLER: --film=431, 431v, 416.4 oder 376.1"); get_tree().quit(1)
 
 
 func _process(dt: float) -> void:
@@ -221,7 +226,7 @@ func _paket(pfad: String) -> String:   # Paketordner „Universal Base Character
 func _bewegt(f: Node3D, namen: Array) -> AnimationPlayer:
 	var q := {}
 	for n in namen: if ual_ap.has_animation(n): q[n] = ual_ap.get_animation(n)
-	var ap := B.bewegung(f, q)
+	var ap := B.bewegung(f, q, B.skelett(ual))
 	if not namen.is_empty() and ap.has_animation(namen[0]): ap.play(namen[0])
 	return ap
 
@@ -269,6 +274,9 @@ func _pruefe() -> void:
 		var h := sk.find_bone("hand_r")
 		var weg := (sk.get_bone_global_pose(h).origin - sk.get_bone_global_rest(h).origin).length() if h >= 0 else -1.0
 		var netze := sk.get_children().filter(func(c): return c is MeshInstance3D).map(func(c): return "%s%s" % [c.name, "" if c.get_node_or_null(c.skeleton) == sk else "(lose)"])
+		var tief := INF   # Ballen über dem Boden: in Ruhe etwa 3 cm; deutlich darunter steht die Figur im Boden, darüber schwebt sie
+		for b in ["ball_l", "ball_r"]: if sk.find_bone(b) >= 0: tief = minf(tief, (sk.global_transform * sk.get_bone_global_pose(sk.find_bone(b))).origin.y - f.global_position.y)
+		print("FILM Ballen %s: %.1f cm über dem Boden (Ruhe %.1f cm)" % [r[3], tief * 100, (sk.global_transform * sk.get_bone_global_rest(sk.find_bone("ball_l"))).origin.y * 100 - f.global_position.y * 100])
 		print("FILM Feld %s: Feld %dx%d, unten %s %s, Scheitel %s %s; Hand %.0f cm aus der Ruhelage; %s" % [r[3], gr.x, gr.y,
 			str(fuss.round()), "drin" if drin.call(fuss) else "DRAUSSEN", str(kopf.round()), "drin" if drin.call(kopf) else "DRAUSSEN",
 			weg * 100, ", ".join(PackedStringArray(netze))])
@@ -316,6 +324,12 @@ func _raster(i: int) -> Rect2:
 	return Rect2(Vector2((i % 2) * w, OBEN + (i / 2) * h), Vector2(w, h))
 
 
+# Ganzkörperfeld: leicht von oben (10°), damit der Boden mit Schatten sichtbar ist (Prüfer 376.1: waagrecht lag er unsichtbar auf Kante)
+func _ganz(cam: Camera3D, x: float) -> void:
+	cam.rotation_degrees.x = -10.0
+	cam.position = Vector3(x, 1.08, 0.0) + cam.basis.z * 8.0
+
+
 # Teil 1: Grundkörper, links Mann, rechts Frau, je Zeile eine Art (Regulär, Superheld, Jugend); gleicher Maßstab in allen Feldern;
 # Goldlinien in Völkergröße (Frau 7 % kleiner)
 func _koerper_431(koerper: Array) -> void:
@@ -334,7 +348,7 @@ func _koerper_431(koerper: Array) -> void:
 			var h := _hoehe(f)
 			var feld := _feld(_raster(z * 2 + s), 2.35)
 			var cam: Camera3D = feld[0]
-			cam.position = Vector3(x, 1.08, 8.0)
+			_ganz(cam, x)
 			_boden(Vector3(x, 0, 0), 1.8, 1.2)
 			var k := 1.0 if s == 0 else FRAU
 			for v in VOELKER:
@@ -368,6 +382,173 @@ func _haare_431(s: Array, koerper: Array, nr: int, von: int) -> void:
 		cam.position = Vector3(x, h - 0.33, 4.0)
 		_text(feld[1], p.get_file().get_basename().replace("Hair_", "").replace("_", " ") + (" (Frau)" if weib else ""), Vector2(12, 8), 28)
 		rahmen.append([cam, f, h, p.get_file(), h - 0.7])
+
+
+# 376.1 ----------------------------------------------------------------------------------------------------------------------------
+const TRACHTEN := {"Knight": "Ritterin (Platte)", "Knight_Cloth": "Ritterin (Stoff)", "Noble": "Adlige", "Peasant": "Bäuerin",
+	"Ranger": "Waldläuferin", "Wizard": "Magierin"}
+
+func _film_3761() -> void:
+	var trachten := _einmal(_aus_einer(func(p): return "/Outfits/" in p and p.get_file().begins_with("Female_") and "Godot" in p))
+	var kopf := _erste(B.dateien([kauf], ".gltf").filter(func(p): return p.get_file() == "Regular_Female_OnlyHead.gltf"))
+	var haar := _erste(_aus_einer(func(p): return "Rigged to Head Bone" in p and "/Female/" in p and p.get_file() == "Hair_Ponytail_2.gltf"))
+	print("FILM 376.1 Trachten ", trachten.size(), ": ", ", ".join(PackedStringArray(trachten.map(func(p): return p.get_file()))), "; Kopf ", kopf.get_file(), "; Haar ", haar.get_file())
+	if trachten.is_empty(): print("FILM FEHLER keine Frauentrachten"); get_tree().quit(1); return
+	if kopf == "": print("FILM 376.1 ohne Kaufkopf (KAUF fehlt): nur Trachten")
+	ablauf.append([0.0, _trachten_3761.bind(trachten.slice(0, 6), kopf, haar)])
+	ablauf.append([14.0, func(): get_tree().quit()])
+
+
+func _trachten_3761(trachten: Array, kopf: String, haar: String) -> void:
+	_neuer_teil("376.1 · Heldin: alle Frauentrachten der Bibliothek (Quaternius Modular Character Outfits), Kopf Regulär Frau, Zopf")
+	for i in trachten.size():
+		var p: String = trachten[i]
+		var x := 100.0 + i * 6.0
+		var f := _figur(p, Vector3(x, 0, 0))
+		if f == null: continue
+		if kopf != "": _haar(f, kopf)        # Kopf wie Haar: eigenes Gerüst, gleiche Knochen, aufs Gerüst der Tracht
+		if haar != "": _haar(f, haar)
+		_bewegt(f, ["Idle_Loop"])
+		f.set_meta("dreh", 1.0 / 12.0)
+		var h := _hoehe(f)
+		var feld := _feld(_raster(i), 2.35)
+		var cam: Camera3D = feld[0]
+		_ganz(cam, x)
+		_boden(Vector3(x, 0, 0), 1.8, 1.2)
+		var n := p.get_file().get_basename().trim_prefix("Female_")
+		_text(feld[1], "%s · %s" % [TRACHTEN.get(n, n), n], Vector2(12, 8), 26)
+		rahmen.append([cam, f, h, p.get_file()])
+
+
+# 431v -----------------------------------------------------------------------------------------------------------------------------
+# Runde 3 (Chef 01.11., 11:42, „431 wie Sokrates“): Homers Punkte 1, 2 mit Zahlen (voelker.json), Mann und Frau je Volk, Hügelvolk neben
+# Goblin (LISTE-FIGUREN.md „Verwechslungsgefahr“), Schattenriss („am Schattenriss ohne Ausrüstung erkennbar“, 430)
+const VOLK_REIHE := ["Mensch", "Elf", "Zwerg", "Hügelvolk", "Orkblütiger"]
+var voelker := {}   # "Volk/mann|frau" -> Eintrag aus voelker.json
+var volk_dir := OS.get_environment("VOELKER")
+
+func _film_431v() -> void:
+	var j: Variant = JSON.parse_string(FileAccess.get_file_as_string(volk_dir.path_join("voelker.json")))
+	if not j is Dictionary: print("FILM FEHLER voelker.json fehlt unter VOELKER=", volk_dir); get_tree().quit(1); return
+	for e in j["voelker"]:
+		voelker["%s/%s" % [e["volk"], "frau" if e["frau"] else "mann"]] = e
+		print("FILM 431v %s %s: %.3f m, Kopf 1/%.2f, Beine %.3f, Schulter %.3f m (%.2f gegen Mensch, %.2f im Verhältnis zur Größe)" % [e["volk"],
+			"Frau" if e["frau"] else "Mann", e["groesse_m"], e["kopf_1_durch"], e["bein_anteil"], e["schulter_m"], e["schulter_gegen_mensch"], e["schulter_rel_gegen_mensch"]])
+	ablauf.append([0.0, _reihe_431v])
+	ablauf.append([14.0, _goblin_431v])
+	ablauf.append([22.0, _riss_431v])
+	ablauf.append([30.0, func(): get_tree().quit()])
+
+
+func _volk_figur(e: Dictionary, wo: Vector3) -> Node3D:
+	var f := _figur(volk_dir.path_join(String(e["datei"])), wo)
+	if f == null: return null
+	_bewegt(f, ["Idle_Loop"])
+	return f
+
+
+func _ziel_text(e: Dictionary) -> String:
+	var z: Dictionary = e["ziel"]
+	var t := "%s %d cm" % [e["volk"], int(round(float(e["groesse_m"]) * 100))]
+	t += "\nKopf 1/%s" % _m1(float(e["kopf_1_durch"])) + (" (1/%s)" % _m1(1.0 / float(z["kopf"])) if z.has("kopf") else "")
+	t += "\nBeine %s" % _m(float(e["bein_anteil"])) + (" (%s)" % _m(float(z["bein"])) if z.has("bein") else "")
+	if z.has("schulter"):
+		var s: Array = z["schulter"]
+		t += "\nSchulter %s× (%s× %s)" % [_m(float(e["schulter_gegen_mensch"] if s[0] == "abs" else e["schulter_rel_gegen_mensch"])),
+			_m(float(s[1])), "Mensch" if s[0] == "abs" else "zur Größe"]
+	return t
+
+
+func _m1(x: float) -> String:
+	return ("%.1f" % x).replace(".", ",")
+
+
+# eine Reihe Figuren in einem Feld (gleicher Maßstab), darunter die Zahlen, darüber je eine Goldlinie in Homers Größe
+func _reihe(r: Rect2, liste: Array, x0: float, dreh: float, zahlen := true, titel_feld := "") -> Array:
+	var abstand := 0.95
+	var breite := abstand * liste.size()
+	var hoch := maxf(breite * r.size.y / r.size.x, 2.6)
+	var feld := _feld(r, hoch)
+	var cam: Camera3D = feld[0]
+	var mitte := x0 + (liste.size() - 1) * abstand / 2.0
+	cam.position = Vector3(mitte, hoch / 2.0 - (0.75 if zahlen else 0.3), 8.0)
+	_boden(Vector3(mitte, 0, 0), breite + 1.0, 1.6)
+	var figuren := []
+	for i in liste.size():
+		var e: Dictionary = liste[i]
+		var x := x0 + i * abstand
+		var f := _volk_figur(e, Vector3(x, 0, 0))
+		if f == null: continue
+		f.set_meta("dreh", dreh)
+		figuren.append(f)
+		var h := _hoehe(f)
+		var soll: float = float(e["ziel"]["h"]) * (0.93 if e["frau"] else 1.0)
+		_linie(Vector3(x - 0.3, soll, -0.5), Vector3(x + 0.3, soll, -0.5), GOLD.darkened(0.2))
+		if zahlen:
+			var l := _text(feld[1], _ziel_text(e), Vector2.ZERO, 19)
+			l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			l.size = Vector2(r.size.x / liste.size(), 120)
+			l.position = Vector2(cam.unproject_position(Vector3(x, 0, 0)).x - l.size.x / 2.0, cam.unproject_position(Vector3(x, -0.08, 0)).y)
+		rahmen.append([cam, f, h, String(e["datei"])])
+	if titel_feld != "": _text(feld[1], titel_feld, Vector2(14, 8), 26, GOLD)
+	return figuren
+
+
+func _liste(geschlecht: String) -> Array:
+	return VOLK_REIHE.map(func(v): return voelker.get(v + "/" + geschlecht, {})).filter(func(e): return not e.is_empty())
+
+
+func _reihe_431v() -> void:
+	_neuer_teil("431 · Völker Runde 3: Grundkörper je Volk (Ork auf Superheld, übrige Regulär), gemessen; in Klammern Homers Ziel · Goldstrich = Größe")
+	var h := (HOEHE - OBEN) / 2.0
+	_reihe(Rect2(Vector2(0, OBEN), Vector2(BREITE, h)), _liste("mann"), 0.0, 1.0 / 14.0, true, "Männer")
+	_reihe(Rect2(Vector2(0, OBEN + h), Vector2(BREITE, h)), _liste("frau"), 20.0, 1.0 / 14.0, true, "Frauen (7 % kleiner)")
+
+
+func _goblin_431v() -> void:
+	_neuer_teil("431 · Hügelvolk neben Goblin (Verwechslung bei gleicher Größe: Kopf, Haltung; Haut im Spiel getönt) und Mensch als Maßstab")
+	var liste := [voelker.get("Mensch/mann", {}), voelker.get("Hügelvolk/mann", {}), voelker.get("Hügelvolk/frau", {})].filter(func(e): return not e.is_empty())
+	var r := Rect2(Vector2(0, OBEN), Vector2(BREITE, HOEHE - OBEN))
+	var fig := _reihe(r, liste, 40.0, 1.0 / 8.0, true)
+	var gpfad := volk_dir.path_join("goblin.glb")
+	if FileAccess.file_exists(gpfad) and not fig.is_empty():
+		var x := 40.0 + liste.size() * 0.95
+		var g := _figur(gpfad, Vector3(x, 0, 0))
+		if g:
+			var gap := B.spieler(g)
+			if gap and gap.get_animation_list().size() > 0: gap.play(gap.get_animation_list()[0])
+			g.set_meta("dreh", 1.0 / 8.0)
+			var gh := _hoehe(g)
+			print("FILM 431v Goblin %.3f m" % gh)
+			var cam: Camera3D = rahmen[-1][0]
+			var l := _text(felder[-1], "Goblin %d cm" % int(round(gh * 100)), Vector2.ZERO, 19)
+			l.position = Vector2(cam.unproject_position(Vector3(x, 0, 0)).x - 60, cam.unproject_position(Vector3(x, -0.08, 0)).y)
+			rahmen.append([cam, g, gh, "goblin"])
+	else:
+		print("FILM 431v ohne Goblin (goblin.glb fehlt)")
+
+
+# Schattenriss: schwarz auf hellem Grund, oben von vorn, unten von der Seite
+func _riss_431v() -> void:
+	_neuer_teil("431 · Schattenriss ohne Ausrüstung (Homer: „am Schattenriss erkennbar, welches Volk“): oben von vorn, unten von der Seite")
+	var h := (HOEHE - OBEN) / 2.0
+	for z in 2:
+		var figs := _reihe(Rect2(Vector2(0, OBEN + z * h), Vector2(BREITE, h)), _liste("mann"), 60.0 + z * 20.0, 0.0, false)
+		var schwarz := StandardMaterial3D.new()
+		schwarz.albedo_color = Color.BLACK
+		schwarz.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		for f in figs:
+			if z == 1: (f as Node3D).rotation_degrees.y = 90
+			for m in (f as Node3D).find_children("*", "MeshInstance3D", true, false): (m as MeshInstance3D).material_override = schwarz
+	for c in felder:   # heller Grund hinter den Rissen
+		if c is SubViewportContainer:
+			var v := (c as SubViewportContainer).get_child(0) as SubViewport
+			var we := WorldEnvironment.new()
+			var env := Environment.new()
+			env.background_mode = Environment.BG_COLOR
+			env.background_color = Color(0.78, 0.74, 0.66)
+			we.environment = env
+			v.add_child(we)
 
 
 # 416.4 ----------------------------------------------------------------------------------------------------------------------------
