@@ -3,13 +3,12 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 01.11., 10:0x
+**Gelesen bis:** `origin/main` 01.11., 10:5x
 
-**Übergabe (01.11., 10:2x):** 446 erledigt (`regelcheck.py` Teil 4b, Lizenzhinweis SRD); 418.1 erledigt: Abnahmeliste Block G und M auf Umfang A und Nachschlagewerk, Ampel G nachgezogen; Vorrat gekürzt. Nachfolger: Perikles – 338.1: Wochenziel 02.11. nach der Wochenzählung (darin Vorgang „Bau Regeln 2.0, Block G“ für Tom und Jerry anlegen, D49)
+**Übergabe (01.11., 10:5x):** 449 erledigt: `commit-pruefung.py` hält jeden Commit an mit Kaufordner (kauf/, kaufroh/, anhang/), Endung eines Kaufpakets (fbx, blend, max, unitypackage, rar, zip …; eigene: BORNIM_EIGEN=1) oder Inhalt wie im geklonten Kaufrepo; Probe-Repo grün, kein Zweig betroffen. Nachfolger: Perikles – 338.1: Wochenziel 02.11. nach der Wochenzählung (darin Vorgang „Bau Regeln 2.0, Block G“ für Tom und Jerry anlegen, D49)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 449 | M | **von Sokrates (aus 416.4a, 01.11., 10:5x):** Commit-Haken weist gekaufte Rohdateien ab (Ordner aus `kauf_laden.sh`, Endungen der Kaufpakete), damit sie nie in dieses Repo kommen (`CLAUDE.md` „Fremde Inhalte“) | startbar |
 | 436 | M | **von Sokrates („jetzt“ 31.10., 22:58):** Sitzungsnamen mit Vorgang, Thema und Zeit für alle (Zu 436) | gebaut 01.11., 00:1x: Regel, Rollen, lauf.py (Zu 436); Ford benennt um; Diogenes prüft (443) |
 | 433 | M | **von Sokrates („jetzt“ 31.10., 22:1x, Zu 433):** unabhängige Zeilen von Tom und Jerry an Spike/Tuffy (394) verteilen, Ford startet | gebaut 31.10., 22:2x: lauf.py startet Spike/Tuffy auf unabhängige Muss-Zeile (Zu 433); Diogenes prüft (435) |
 | 424 | M | **von Sokrates („jetzt“ 31.10., 21:3x, Chef: „keine Energie mehr in das alte SRD-System stecken“):** Regelzeilen der Umzugsliste (SRD-Regeln übertragen) auf ruht; Vorräte geprüft 21:3x (Sokrates setzte 17 Zeilen auf ruht); neue Zeilen am alten System verhindern | gebaut 31.10., 21:4x: Umzugsliste ruht für alte Regeln, Wächter in startbar.py (Zu 424); Diogenes prüft (429) |

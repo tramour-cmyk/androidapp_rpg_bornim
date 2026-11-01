@@ -6,7 +6,7 @@ Zeile in LISTE-VORGAENGE.md (D- und Unternummern über die Oberzeile); Vorrat ü
 (Hinweis eines anderen mit „von <Absender>“ in jeder neuen Zeile ausgenommen, 400; ARBEIT-BETRIEB.md ausgenommen: Fords Startsperre muss dorthin, kürzen ist Fords Zeile); neue Antwort im Vorgangsarchiv, deren Vorlage
 in entscheiden/, ansehen/ oder billigen/ stehen bleibt (383.3: wer die Antwort einträgt, löscht die Datei im selben Commit; bleibt die
 Frage trotz Antwort offen, setzt er die Zeit in Zeile 1 oder 2 der Datei neu). Eine beantwortete Vorlage darf ohne Archivänderung weg.
-Warnt (Exit 0): Modellnamen, Zeilen über 1500 Zeichen. Fasst nur Notizen an; sonst Exit 0. Jeder Fehler im Haken lässt durch."""
+Hält immer an (auch im Code): gekaufte Rohdatei (449: Kaufordner, Endung eines Kaufpakets, Inhalt wie im geklonten Kaufrepo). Warnt (Exit 0): Modellnamen, Zeilen über 1500 Zeichen. Fasst nur Notizen an; sonst Exit 0. Jeder Fehler im Haken lässt durch."""
 import datetime, os, re, subprocess, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -24,12 +24,41 @@ def fremd_hinweis(p):
     andere = "|".join(n for n in NAMEN if n != eig)
     return bool(zeilen) and all(re.search(r"\bvon (Team |Chef über )?(%s)\b" % andere, z) for z in zeilen)
 
+# 449: Ordner, in die tools/blender348/kauf_laden.sh lädt (Ziel kauf/kaufroh, Anhänge unter anhang/), und Endungen der Kaufpakete
+# (Protofactor .rar/.fbx, Janpec .unitypackage, MadeCG .zip/.max/.blend; Quellformate der Werkzeuge). Eigene Modelle kommen als .glb aus Skripten.
+KAUF_ORDNER = re.compile(r"(^|/)(kauf|kaufroh|anhang|bornim-kaufmodelle)/", re.I)
+KAUF_ENDUNG = (".fbx", ".blend", ".blend1", ".max", ".ma", ".mb", ".3ds", ".dae", ".obj", ".gltf", ".unitypackage", ".uasset", ".umap",
+               ".rar", ".zip", ".7z", ".tga", ".psd", ".spp", ".sbsar", ".exr")
+LEER = "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"  # leere Datei, kommt in beiden Repos vor
+
+def kaufdateien(dat):
+    """Gründe je Datei: Kaufordner, Endung eines Kaufpakets (BORNIM_EIGEN=1 lässt eine eigene Datei mit solcher Endung durch) oder derselbe
+    Inhalt wie eine Datei im geklonten Kaufrepo (BORNIM_KAUF oder bornim-kaufmodelle neben der Kopie bzw. unter /home/user; gilt immer)."""
+    raus = [p + " (Kaufordner)" for _, p in dat if KAUF_ORDNER.search(p)]
+    if os.environ.get("BORNIM_EIGEN") != "1":
+        raus += [p + " (Endung)" for _, p in dat if p.lower().endswith(KAUF_ENDUNG) and not KAUF_ORDNER.search(p)]
+    wurzel = git("rev-parse", "--show-toplevel").strip()
+    for k in [os.environ.get("BORNIM_KAUF", ""), os.path.join(os.path.dirname(wurzel), "bornim-kaufmodelle"), "/home/user/bornim-kaufmodelle"]:
+        if k and os.path.isdir(os.path.join(k, ".git")):
+            r = subprocess.run(["git", "-C", k, "ls-tree", "-r", "HEAD"], capture_output=True, text=True).stdout
+            gekauft = {z.split()[2] for z in r.splitlines() if len(z.split()) > 2} - {LEER}
+            schon = {x.rsplit(" (", 1)[0] for x in raus}
+            for z in git("diff", "--cached", "--raw", "--no-renames", "--no-abbrev").splitlines():
+                f = z.split("\t"); kopf = f[0].split()
+                if len(f) > 1 and len(kopf) > 3 and kopf[3] in gekauft and f[1] not in schon:
+                    raus.append(f[1] + " (Inhalt wie im Kaufrepo)")
+            break
+    return raus
+
 def main():
     ge = git("diff", "--cached", "--name-status", "--no-renames").splitlines()
     dat = [(l.split("\t")[0], l.split("\t")[1]) for l in ge if "\t" in l]
     video = [p for s, p in dat if s != "D" and p.lower().endswith((".mp4", ".webm"))]
     if video:  # 374 (373 b): Videos gehören auf den Zweig „bilder“ (meldung.sh legt sie dort ab), nie auf main
         print("Commit-Prüfung HÄLT AN: Video auf main (%s); auf den Zweig „bilder“ (374)" % ", ".join(video), file=sys.stderr); return 1
+    kauf = kaufdateien([(s, p) for s, p in dat if s != "D"])
+    if kauf:  # 449: gekaufte Rohdateien nur im privaten Repo bornim-kaufmodelle, nie hier (CLAUDE.md „Fremde Inhalte“, 348.12c a)
+        print("Commit-Prüfung HÄLT AN: gekaufte Rohdatei (%s); gehört nur ins private Repo bornim-kaufmodelle (449)" % "; ".join(kauf), file=sys.stderr); return 1
     if not dat or not all(p.startswith("docs/") or p in ("CLAUDE.md", "CHANGELOG.md") or p.startswith("tools/") for _, p in dat):
         return 0
     stop, warn = [], []
