@@ -1,4 +1,4 @@
-# Spielerhandbuch Spielsystem 2.0, Teil 2 (423)
+# Spielerhandbuch Bornimer Rollenspielsystem, Teil 2 (423)
 
 Entwurf Homer, 01.11.; Fortsetzung von `STORY-HANDBUCH-1.md` (dort „Für Tom“). Teil 2: Pfad, Meisterschaften, Kampf, Welt, Ruf. Weiter in `STORY-HANDBUCH-3.md`.
 
