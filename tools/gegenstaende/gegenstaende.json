@@ -24,7 +24,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Grobes Wolltuch, tief ins Gesicht gezogen.",
     "en": "Coarse wool, pulled low over the face."
@@ -58,7 +58,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Ein schmaler Reif aus Metall, mehr Zeichen als Schutz.",
     "en": "A slim band of metal, more sign than shelter."
@@ -92,7 +92,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Gehärtetes Leder, eng um den Schädel geschnürt.",
     "en": "Hardened leather, laced tight about the skull."
@@ -126,7 +126,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Ein schlichter Eisenhelm mit Nasenschutz.",
     "en": "A plain iron helm with a nose guard."
@@ -160,7 +160,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Ein geschlossener Eisentopf mit Sehschlitz; darin klingt der eigene Atem laut.",
     "en": "A closed iron pot with an eye slit; inside it your own breath sounds loud."
@@ -194,7 +194,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Langes, schweres Tuch, wie es Gelehrte und Priester tragen.",
     "en": "Long, heavy cloth, such as scholars and priests wear."
@@ -228,7 +228,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Gekochtes Leder über Brust und Schultern, steif, bis es sich an seinen Träger gewöhnt.",
     "en": "Boiled leather over chest and shoulders, stiff until it learns its wearer."
@@ -262,7 +262,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Leder, dicht mit Eisennieten beschlagen.",
     "en": "Leather, thickly set with iron rivets."
@@ -296,7 +296,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Ein Hemd aus kleinen Eisenringen, das unter dem Mantel verschwindet.",
     "en": "A shirt of small iron rings that hides beneath a coat."
@@ -330,7 +330,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Eisenschuppen auf Leder genäht, übereinander wie bei einem Fisch.",
     "en": "Iron scales sewn onto leather, overlapping like a fish's."
@@ -364,7 +364,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Eine gewölbte Stahlplatte für Brust und Rücken, von Riemen gehalten.",
     "en": "A curved steel plate for chest and back, held by straps."
@@ -398,7 +398,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Platten über Brust, Schultern und Schenkeln, dazwischen Kette und Leder.",
     "en": "Plates over chest, shoulders and thighs, with mail and leather between."
@@ -432,7 +432,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Ein langer Kettenpanzer bis über die Knie, über dicker Wattierung getragen.",
     "en": "Long mail down past the knees, worn over thick padding."
@@ -466,7 +466,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Senkrechte Eisenschienen, auf Leder genietet, eine alte Machart aus Kriegszeiten.",
     "en": "Upright iron splints riveted to leather, an old make from times of war."
@@ -500,7 +500,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Geschmiedeter Stahl für Brust, Rücken und Schultern, Stück für Stück auf den Leib gepasst.",
     "en": "Forged steel for chest, back and shoulders, fitted piece by piece to the body."
@@ -534,7 +534,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Leinenbinden, fest um Unterarme und Hände gewickelt.",
     "en": "Linen strips wound tight about forearms and hands."
@@ -568,7 +568,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Weiches Leder, eng um Finger und Handfläche.",
     "en": "Soft leather, snug about fingers and palm."
@@ -602,7 +602,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Schienen für die Unterarme, die einen Hieb zur Seite lenken sollen.",
     "en": "Guards for the forearms, meant to turn a blow aside."
@@ -636,7 +636,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Handschuhe aus Eisenplatten, gegliedert wie die Finger darin.",
     "en": "Gloves of iron plates, jointed like the fingers inside."
@@ -670,7 +670,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Hosen aus festem Tuch, für lange Wege gemacht.",
     "en": "Trousers of stout cloth, made for long roads."
@@ -704,7 +704,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Lederstiefel mit dicker Sohle, für Schlamm und Stein.",
     "en": "Leather boots with thick soles, for mud and stone."
@@ -738,7 +738,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Beinlinge aus Kettengeflecht, unter dem Rock geschnürt.",
     "en": "Leggings of mail, laced beneath the coat."
@@ -772,7 +772,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Eisenschienen für Schienbein und Knie.",
     "en": "Iron guards for shin and knee."
@@ -806,7 +806,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Ein Umhang aus dunkler Wolle mit tiefer Kapuze.",
     "en": "A cloak of dark wool with a deep hood."
@@ -840,7 +840,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Ein schwerer Mantel mit breitem Kragen, wie ihn Reisende von Stand tragen.",
     "en": "A heavy mantle with a broad collar, such as travelers of rank wear."
@@ -874,7 +874,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Eine kurze, spitze Klinge für Gürtel oder Stiefel.",
     "en": "A short, keen blade for belt or boot."
@@ -908,7 +908,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Eine kurze, breite Klinge für den engen Kampf.",
     "en": "A short, broad blade for close fighting."
@@ -942,7 +942,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Eine gebogene Klinge, die eher schneidet als sticht.",
     "en": "A curved blade that cuts rather than stabs."
@@ -976,7 +976,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Ein Beil für Holz und für Schlimmeres.",
     "en": "A hatchet for wood, and for worse."
@@ -1010,7 +1010,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Ein gerippter Eisenkopf auf kurzem Schaft, gemacht, um Knochen zu brechen.",
     "en": "A ribbed iron head on a short haft, made to break bone."
@@ -1044,7 +1044,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Ein Eschenschaft mit Eisenspitze, die älteste Waffe der Bauern.",
     "en": "An ash shaft with an iron head, the peasant's oldest weapon."
@@ -1078,7 +1078,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Ein mannshoher Stab aus Hartholz, an beiden Enden mit Eisen beschlagen.",
     "en": "A man-high staff of hardwood, shod with iron at both ends."
@@ -1112,7 +1112,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Eine lange, schmale Klinge mit Korb, gemacht für den Stich.",
     "en": "A long, slender blade with a basket hilt, made for the thrust."
@@ -1146,7 +1146,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Eine gerade, zweischneidige Klinge, das Schwert der Wachen.",
     "en": "A straight, double-edged blade, the sword of the watch."
@@ -1180,7 +1180,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Ein breites Axtblatt auf einem Schaft, zu schwer für Feuerholz.",
     "en": "A broad axe blade on a haft, too heavy for firewood."
@@ -1214,7 +1214,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Eine Eisenkugel voller Dornen auf einem Stiel.",
     "en": "An iron ball full of spikes on a haft."
@@ -1248,7 +1248,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Ein Hammer mit einem Dorn auf der Rückseite, gegen Helme geschmiedet.",
     "en": "A hammer with a spike behind, forged against helmets."
@@ -1282,7 +1282,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Ein Stab aus dunklem Holz, kaum länger als eine Elle, in dem etwas summt.",
     "en": "A rod of dark wood, barely a forearm long, in which something hums."
@@ -1316,7 +1316,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Eine Klinge, so lang wie ein Mann, nur mit beiden Händen zu führen.",
     "en": "A blade as long as a man, wielded only with both hands."
@@ -1350,7 +1350,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Ein doppeltes Axtblatt auf langem Schaft, schwer wie ein Urteil.",
     "en": "A double axe blade on a long haft, heavy as a verdict."
@@ -1384,7 +1384,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Ein Eisenklotz auf langem Stiel; was er trifft, gibt nach.",
     "en": "A block of iron on a long haft; what it strikes gives way."
@@ -1418,7 +1418,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Axt, Spitze und Haken auf einem langen Schaft.",
     "en": "Axe, spike and hook on one long shaft."
@@ -1452,7 +1452,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Ein Stab aus altem Holz, in dessen Kopf Zeichen geschnitten sind.",
     "en": "A staff of old wood with signs carved into its head."
@@ -1486,7 +1486,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Ein kurzer Bogen aus Eibe, wie ihn Jäger tragen.",
     "en": "A short yew bow, such as hunters carry."
@@ -1520,7 +1520,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Ein Bogen, so hoch wie sein Schütze, aus einem Stück Eibe.",
     "en": "A bow as tall as its archer, from a single stave of yew."
@@ -1554,7 +1554,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Eine Armbrust mit Holzschaft und Spannhebel.",
     "en": "A crossbow with a wooden stock and a cocking lever."
@@ -1724,7 +1724,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Ein Schild aus Holz, mit Leder bezogen und mit Eisen gerandet.",
     "en": "A wooden shield, covered in leather and rimmed with iron."
@@ -1758,7 +1758,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Ein runder Holzschild mit eisernem Buckel.",
     "en": "A round wooden shield with an iron boss."
@@ -1792,7 +1792,7 @@
      "weg": "beute"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Ein Schild, hinter dem ein Mann fast ganz verschwindet.",
     "en": "A shield a man can almost vanish behind."
@@ -1986,10 +1986,11 @@
    "modell": null,
    "bezug": [
     {
-     "weg": "fund"
+     "weg": "beute",
+     "wo": "Krogg"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Kroggs schwere Handschuhe, gemacht für Fäuste, die gern zuschlagen.",
     "en": "Krogg's heavy gloves, made for fists that like to strike."
@@ -2017,10 +2018,11 @@
    "modell": null,
    "bezug": [
     {
-     "weg": "fund"
+     "weg": "beute",
+     "wo": "Grak"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Graks Kriegsaxt; die Kerben im Blatt zählen seine Kämpfe.",
     "en": "Grak's war axe; the notches in its blade count his fights."
@@ -2051,7 +2053,7 @@
      "weg": "fund"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Eine alte Klinge aus einer Truhe in der Blutzahnhöhle.",
     "en": "An old blade from a chest in the Bloodfang Cave."
@@ -2082,7 +2084,7 @@
      "weg": "fund"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Ein Stab aus verkohltem Holz, in dessen Rissen noch Glut schimmert.",
     "en": "A staff of charred wood, embers still glowing in its cracks."
@@ -2113,7 +2115,7 @@
      "weg": "fund"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Eine schmale Klinge, die beim Ziehen kaum ein Geräusch macht.",
     "en": "A slender blade that makes barely a sound when drawn."
@@ -2144,7 +2146,7 @@
      "weg": "fund"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Ein Streitkolben, in dessen Eisenkopf eine aufgehende Sonne geschlagen ist.",
     "en": "A mace with a rising sun struck into its iron head."
@@ -2172,7 +2174,8 @@
    "modell": null,
    "bezug": [
     {
-     "weg": "fund"
+     "weg": "beute",
+     "wo": "Grimmzahn"
     }
    ],
    "zustand": null,
@@ -2203,10 +2206,11 @@
    "modell": null,
    "bezug": [
     {
-     "weg": "fund"
+     "weg": "beute",
+     "wo": "Riesenspinne"
     }
    ],
-   "zustand": null,
+   "zustand": true,
    "text": {
     "de": "Ein dunkler Umhang, in dessen Saum feine Schutzzeichen gestickt sind.",
     "en": "A dark cloak with fine warding signs stitched into its hem."
@@ -2248,9 +2252,57 @@
       "herbs": 2
      },
      "gold": 5
+    },
+    {
+     "weg": "beute",
+     "wo": "Riesenratte"
+    },
+    {
+     "weg": "beute",
+     "wo": "Wolf"
+    },
+    {
+     "weg": "beute",
+     "wo": "Wildschwein"
+    },
+    {
+     "weg": "beute",
+     "wo": "Riesen-Hundertfüßer"
+    },
+    {
+     "weg": "beute",
+     "wo": "Riesenfledermaus"
+    },
+    {
+     "weg": "beute",
+     "wo": "Blutflügler"
+    },
+    {
+     "weg": "beute",
+     "wo": "Goblin"
+    },
+    {
+     "weg": "beute",
+     "wo": "Goblin-Späher"
+    },
+    {
+     "weg": "beute",
+     "wo": "Goblin-Schamane"
+    },
+    {
+     "weg": "beute",
+     "wo": "Kobold"
+    },
+    {
+     "weg": "beute",
+     "wo": "Skelett"
+    },
+    {
+     "weg": "beute",
+     "wo": "Zombie"
     }
    ],
-   "zustand": null,
+   "zustand": false,
    "text": {
     "de": "Ein roter Heiltrank; er wirkt sofort, auch im Kampf.",
     "en": "A red healing potion; it works at once, even in battle."
@@ -2292,9 +2344,29 @@
       "bat_wing": 1
      },
      "gold": 15
+    },
+    {
+     "weg": "beute",
+     "wo": "Riesenspinne"
+    },
+    {
+     "weg": "beute",
+     "wo": "Goblin-Schamane"
+    },
+    {
+     "weg": "beute",
+     "wo": "Ghul"
+    },
+    {
+     "weg": "beute",
+     "wo": "Ockerschleim"
+    },
+    {
+     "weg": "beute",
+     "wo": "Grimmzahn"
     }
    ],
-   "zustand": null,
+   "zustand": false,
    "text": {
     "de": "Stärker als der einfache Heiltrank; er wirkt sofort, auch im Kampf.",
     "en": "Stronger than the plain healing potion; it works at once, even in battle."
@@ -2325,7 +2397,7 @@
      "wo": "Thessa"
     }
    ],
-   "zustand": null,
+   "zustand": false,
    "text": {
     "de": "Ein seltenes Elixier für schwere Wunden; es wirkt sofort, auch im Kampf.",
     "en": "A rare elixir for grave wounds; it works at once, even in battle."
@@ -2368,7 +2440,7 @@
      "gold": 2
     }
    ],
-   "zustand": null,
+   "zustand": false,
    "text": {
     "de": "Löst Gift, Brand, Blutung, Betäubung und Flüche; auch unverletzt trinkbar.",
     "en": "Cures poison, burning, bleeding, stun and curses; can be drunk even when unhurt."
@@ -2403,7 +2475,7 @@
      "wo": "Morwen"
     }
    ],
-   "zustand": null,
+   "zustand": false,
    "text": {
     "de": "Bis zur nächsten Rast reicht der Atem beim Rennen doppelt so lange; nicht im Kampf.",
     "en": "Until the next rest, your breath for running lasts twice as long; not in battle."
@@ -2434,7 +2506,7 @@
      "wo": "Thessa"
     }
    ],
-   "zustand": null,
+   "zustand": false,
    "text": {
     "de": "Von Morwen gebraut, nicht im Kampf zu trinken: Ein Funke steigt auf und leuchtet über dir bis zur nächsten Rast; du siehst im Dunkeln weiter, aber Monster bemerken dich früher.",
     "en": "Brewed by Morwen, not to be drunk in battle: a spark rises to glow above you until your next rest; in the dark you see further, but monsters notice you sooner."
@@ -2471,9 +2543,21 @@
       "spider_gland": 1
      },
      "gold": 5
+    },
+    {
+     "weg": "beute",
+     "wo": "Goblin"
+    },
+    {
+     "weg": "beute",
+     "wo": "Goblin-Späher"
+    },
+    {
+     "weg": "beute",
+     "wo": "Kobold"
     }
    ],
-   "zustand": null,
+   "zustand": false,
    "text": {
     "de": "Ein Wurfgeschoss, das immer trifft und den Gegner in Brand setzt.",
     "en": "Thrown, it always hits and sets the foe on fire."
@@ -2506,9 +2590,21 @@
     {
      "weg": "laden",
      "wo": "Morwen"
+    },
+    {
+     "weg": "beute",
+     "wo": "Skelett"
+    },
+    {
+     "weg": "beute",
+     "wo": "Zombie"
+    },
+    {
+     "weg": "beute",
+     "wo": "Ghul"
     }
    ],
-   "zustand": null,
+   "zustand": false,
    "text": {
     "de": "Ein Wurfgeschoss, das immer trifft, aber nur Untoten schadet.",
     "en": "Thrown, it always hits, but harms only the undead."
@@ -2535,10 +2631,23 @@
    "modell": null,
    "bezug": [
     {
-     "weg": "beute"
+     "weg": "beute",
+     "wo": "Riesenratte"
+    },
+    {
+     "weg": "beute",
+     "wo": "Wolf"
+    },
+    {
+     "weg": "beute",
+     "wo": "Wildschwein"
+    },
+    {
+     "weg": "beute",
+     "wo": "Grimmzahn"
     }
    ],
-   "zustand": null,
+   "zustand": false,
    "text": {
     "de": "Am Lagerfeuer lässt es sich braten, oder man verkauft es.",
     "en": "It can be roasted at a campfire, or sold."
@@ -2572,7 +2681,7 @@
      }
     }
    ],
-   "zustand": null,
+   "zustand": false,
    "text": {
     "de": "Stärkt dich für den nächsten Kampf.",
     "en": "Fortifies you for the next fight."
@@ -2602,7 +2711,7 @@
      "weg": "sammeln"
     }
    ],
-   "zustand": null,
+   "zustand": false,
    "text": {
     "de": "Sie wachsen auf Blumenwiesen in der Wildnis; Morwen braut daraus Tränke.",
     "en": "They grow in wild flower meadows; Morwen brews potions from them."
@@ -2629,10 +2738,15 @@
    "modell": null,
    "bezug": [
     {
-     "weg": "beute"
+     "weg": "beute",
+     "wo": "Wolf"
+    },
+    {
+     "weg": "beute",
+     "wo": "Grimmzahn"
     }
    ],
-   "zustand": null,
+   "zustand": false,
    "text": {
     "de": "Ein dichtes graues Fell; Händler zahlen gut dafür.",
     "en": "A thick gray pelt; traders pay well for it."
@@ -2659,10 +2773,11 @@
    "modell": null,
    "bezug": [
     {
-     "weg": "beute"
+     "weg": "beute",
+     "wo": "Wildschwein"
     }
    ],
-   "zustand": null,
+   "zustand": false,
    "text": {
     "de": "Ein gebogener Hauer; Händler zahlen gut dafür.",
     "en": "A curved tusk; traders pay well for it."
@@ -2689,10 +2804,11 @@
    "modell": null,
    "bezug": [
     {
-     "weg": "beute"
+     "weg": "beute",
+     "wo": "Riesenspinne"
     }
    ],
-   "zustand": null,
+   "zustand": false,
    "text": {
     "de": "Aus einer Riesenspinne; Morwen kann daraus Alchemistenfeuer mischen.",
     "en": "From a giant spider; Morwen can mix alchemist's fire from it."
@@ -2719,10 +2835,11 @@
    "modell": null,
    "bezug": [
     {
-     "weg": "beute"
+     "weg": "beute",
+     "wo": "Riesenfledermaus"
     }
    ],
-   "zustand": null,
+   "zustand": false,
    "text": {
     "de": "Ledrig und zäh, eine Zutat für starke Heiltränke.",
     "en": "Leathery and tough, an ingredient for strong healing potions."
@@ -2752,7 +2869,7 @@
      "weg": "handlung"
     }
    ],
-   "zustand": null,
+   "zustand": false,
    "text": {
     "de": "Ein schmaler Ring aus angelaufenem Silber; Gwenna wartet am Fluss darauf.",
     "en": "A slim ring of tarnished silver; Gwenna is waiting for it by the river."
@@ -2782,7 +2899,7 @@
      "weg": "handlung"
     }
    ],
-   "zustand": null,
+   "zustand": false,
    "text": {
     "de": "Grobes graues Tuch, ein offenes Auge hineingestickt; Jorin will es sehen.",
     "en": "Coarse gray cloth, an open eye stitched into it; Jorin wants to see it."
@@ -2812,7 +2929,7 @@
      "weg": "handlung"
     }
    ],
-   "zustand": null,
+   "zustand": false,
    "text": {
     "de": "Ein Bündel beißender Kräuter von Morwen. Krogg vor die Füße werfen: Der Rauch nimmt ihm den ersten Hieb. Nur im Kampf.",
     "en": "A bundle of acrid herbs from Morwen. Throw it at Krogg's feet: the smoke takes away his first blow. Only in battle."
@@ -2839,10 +2956,11 @@
    "modell": null,
    "bezug": [
     {
-     "weg": "handlung"
+     "weg": "beute",
+     "wo": "Krogg"
     }
    ],
-   "zustand": null,
+   "zustand": false,
    "text": {
     "de": "Er gehörte Krogg dem Grobian.",
     "en": "It belonged to Krogg the Brute."
@@ -2869,10 +2987,11 @@
    "modell": null,
    "bezug": [
     {
-     "weg": "handlung"
+     "weg": "beute",
+     "wo": "Grak"
     }
    ],
-   "zustand": null,
+   "zustand": false,
    "text": {
     "de": "Ein kleiner, blanker Schlüssel. Er passt nicht zu den Türen.",
     "en": "A small, bright key. It fits none of the doors."
@@ -2899,10 +3018,11 @@
    "modell": null,
    "bezug": [
     {
-     "weg": "handlung"
+     "weg": "beute",
+     "wo": "Grak"
     }
    ],
-   "zustand": null,
+   "zustand": false,
    "text": {
     "de": "Das heilige Amulett aus dem Tempel von Bornim; es ist warm.",
     "en": "The holy amulet of the Bornim temple; it feels warm."
@@ -2929,10 +3049,11 @@
    "modell": null,
    "bezug": [
     {
-     "weg": "handlung"
+     "weg": "beute",
+     "wo": "Grak"
     }
    ],
-   "zustand": null,
+   "zustand": false,
    "text": {
     "de": "Ein Brief, gesiegelt mit einem grauen Auge.",
     "en": "A letter, sealed with a gray eye."

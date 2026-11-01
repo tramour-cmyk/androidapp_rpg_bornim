@@ -10,65 +10,65 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 
 | Kennung | Name | Platz | Stufe | Preis | Modell | Bezug | offen |
 |---|---|---|---|---|---|---|---|
-| `dagger` | Dolch | haupthand | – (alt 1) | – (alt 2) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `shortsword` | Kurzschwert | haupthand | – (alt 1) | – (alt 10) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `scimitar` | Krummsäbel | haupthand | – (alt 1) | – (alt 25) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `handaxe` | Handbeil | haupthand | – (alt 1) | – (alt 5) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `mace` | Streitkolben | haupthand | – (alt 1) | – (alt 5) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `spear` | Speer | haupthand | – (alt 1) | – (alt 1) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `quarterstaff` | Kampfstab | haupthand | – (alt 1) | – (alt 1) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `rapier` | Rapier | haupthand | – (alt 2) | – (alt 25) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `longsword` | Langschwert | haupthand | – (alt 1) | – (alt 15) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `battleaxe` | Streitaxt | haupthand | – (alt 1) | – (alt 10) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `morningstar` | Morgenstern | haupthand | – (alt 3) | – (alt 15) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `warhammer` | Kriegshammer | haupthand | – (alt 2) | – (alt 15) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `wand` | Zauberstab | haupthand | – (alt 2) | – (alt 30) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `greatsword` | Zweihänder | beide_haende | – (alt 3) | – (alt 50) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `greataxe` | Großaxt | beide_haende | – (alt 3) | – (alt 30) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `maul` | Zweihandhammer | beide_haende | – (alt 4) | – (alt 10) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `halberd` | Hellebarde | beide_haende | – (alt 2) | – (alt 20) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `staff` | Magierstab | beide_haende | – (alt 2) | – (alt 40) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `shortbow` | Kurzbogen | beide_haende | – (alt 1) | – (alt 25) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `longbow` | Langbogen | beide_haende | – (alt 3) | – (alt 50) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `light_crossbow` | Armbrust | beide_haende | – (alt 2) | – (alt 25) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
+| `dagger` | Dolch | haupthand | – (alt 1) | – (alt 2) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `shortsword` | Kurzschwert | haupthand | – (alt 1) | – (alt 10) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `scimitar` | Krummsäbel | haupthand | – (alt 1) | – (alt 25) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `handaxe` | Handbeil | haupthand | – (alt 1) | – (alt 5) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `mace` | Streitkolben | haupthand | – (alt 1) | – (alt 5) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `spear` | Speer | haupthand | – (alt 1) | – (alt 1) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `quarterstaff` | Kampfstab | haupthand | – (alt 1) | – (alt 1) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `rapier` | Rapier | haupthand | – (alt 2) | – (alt 25) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `longsword` | Langschwert | haupthand | – (alt 1) | – (alt 15) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `battleaxe` | Streitaxt | haupthand | – (alt 1) | – (alt 10) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `morningstar` | Morgenstern | haupthand | – (alt 3) | – (alt 15) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `warhammer` | Kriegshammer | haupthand | – (alt 2) | – (alt 15) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `wand` | Zauberstab | haupthand | – (alt 2) | – (alt 30) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `greatsword` | Zweihänder | beide_haende | – (alt 3) | – (alt 50) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `greataxe` | Großaxt | beide_haende | – (alt 3) | – (alt 30) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `maul` | Zweihandhammer | beide_haende | – (alt 4) | – (alt 10) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `halberd` | Hellebarde | beide_haende | – (alt 2) | – (alt 20) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `staff` | Magierstab | beide_haende | – (alt 2) | – (alt 40) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `shortbow` | Kurzbogen | beide_haende | – (alt 1) | – (alt 25) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `longbow` | Langbogen | beide_haende | – (alt 3) | – (alt 50) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `light_crossbow` | Armbrust | beide_haende | – (alt 2) | – (alt 25) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
 
 ### Schilde (3)
 
 | Kennung | Name | Platz | Stufe | Preis | Modell | Bezug | offen |
 |---|---|---|---|---|---|---|---|
-| `shield` | Schild | nebenhand | – (alt 1) | – (alt 10) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `round_shield` | Rundschild | nebenhand | – (alt 1) | – (alt 10) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `tower_shield` | Turmschild | nebenhand | – (alt 5) | – (alt 60) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
+| `shield` | Schild | nebenhand | – (alt 1) | – (alt 10) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `round_shield` | Rundschild | nebenhand | – (alt 1) | – (alt 10) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `tower_shield` | Turmschild | nebenhand | – (alt 5) | – (alt 60) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
 
 ### Rüstung (25)
 
 | Kennung | Name | Platz | Stufe | Preis | Modell | Bezug | offen |
 |---|---|---|---|---|---|---|---|
-| `hood` | Kapuze | kopf | – (alt 1) | – (alt 2) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `circlet` | Stirnreif | kopf | – (alt 2) | – (alt 15) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `leather_cap` | Lederkappe | kopf | – (alt 1) | – (alt 5) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `helmet` | Helm | kopf | – (alt 2) | – (alt 15) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `great_helm` | Topfhelm | kopf | – (alt 4) | – (alt 40) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `robe` | Robe | oberkoerper | – (alt 1) | – (alt 5) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `leather` | Lederrüstung | oberkoerper | – (alt 1) | – (alt 10) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `studded_leather` | Nietenleder | oberkoerper | – (alt 2) | – (alt 45) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `chain_shirt` | Kettenhemd | oberkoerper | – (alt 1) | – (alt 50) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `scale_mail` | Schuppenpanzer | oberkoerper | – (alt 2) | – (alt 50) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `breastplate` | Brustplatte | oberkoerper | – (alt 4) | – (alt 400) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `half_plate` | Halbplatte | oberkoerper | – (alt 6) | – (alt 750) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `chain_mail` | Kettenpanzer | oberkoerper | – (alt 2) | – (alt 75) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `splint` | Schienenpanzer | oberkoerper | – (alt 4) | – (alt 200) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `plate` | Plattenpanzer | oberkoerper | – (alt 7) | – (alt 1500) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `wraps` | Armwickel | arme | – (alt 1) | – (alt 2) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `gloves` | Lederhandschuhe | arme | – (alt 1) | – (alt 5) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `bracers` | Armschienen | arme | – (alt 2) | – (alt 20) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `gauntlets` | Panzerhandschuhe | arme | – (alt 3) | – (alt 40) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `leggings` | Beinkleider | beine | – (alt 1) | – (alt 2) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `boots` | Lederstiefel | beine | – (alt 1) | – (alt 5) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `chain_leggings` | Kettenbeinlinge | beine | – (alt 2) | – (alt 20) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `greaves` | Beinschienen | beine | – (alt 3) | – (alt 40) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `cloak` | Umhang | umhang | – (alt 1) | – (alt 5) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
-| `mantle` | Mantel | umhang | – (alt 3) | – (alt 30) | – | Laden Thessa; Beute | stufe, preis, netz, modell, zustand |
+| `hood` | Kapuze | kopf | – (alt 1) | – (alt 2) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `circlet` | Stirnreif | kopf | – (alt 2) | – (alt 15) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `leather_cap` | Lederkappe | kopf | – (alt 1) | – (alt 5) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `helmet` | Helm | kopf | – (alt 2) | – (alt 15) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `great_helm` | Topfhelm | kopf | – (alt 4) | – (alt 40) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `robe` | Robe | oberkoerper | – (alt 1) | – (alt 5) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `leather` | Lederrüstung | oberkoerper | – (alt 1) | – (alt 10) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `studded_leather` | Nietenleder | oberkoerper | – (alt 2) | – (alt 45) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `chain_shirt` | Kettenhemd | oberkoerper | – (alt 1) | – (alt 50) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `scale_mail` | Schuppenpanzer | oberkoerper | – (alt 2) | – (alt 50) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `breastplate` | Brustplatte | oberkoerper | – (alt 4) | – (alt 400) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `half_plate` | Halbplatte | oberkoerper | – (alt 6) | – (alt 750) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `chain_mail` | Kettenpanzer | oberkoerper | – (alt 2) | – (alt 75) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `splint` | Schienenpanzer | oberkoerper | – (alt 4) | – (alt 200) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `plate` | Plattenpanzer | oberkoerper | – (alt 7) | – (alt 1500) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `wraps` | Armwickel | arme | – (alt 1) | – (alt 2) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `gloves` | Lederhandschuhe | arme | – (alt 1) | – (alt 5) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `bracers` | Armschienen | arme | – (alt 2) | – (alt 20) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `gauntlets` | Panzerhandschuhe | arme | – (alt 3) | – (alt 40) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `leggings` | Beinkleider | beine | – (alt 1) | – (alt 2) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `boots` | Lederstiefel | beine | – (alt 1) | – (alt 5) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `chain_leggings` | Kettenbeinlinge | beine | – (alt 2) | – (alt 20) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `greaves` | Beinschienen | beine | – (alt 3) | – (alt 40) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `cloak` | Umhang | umhang | – (alt 1) | – (alt 5) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
+| `mantle` | Mantel | umhang | – (alt 3) | – (alt 30) | – | Laden Thessa; Beute | stufe, preis, netz, modell |
 
 ### Schmuck (4)
 
@@ -98,21 +98,21 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 | Kennung | Name | Platz | Stufe | Preis | Modell | Bezug | offen |
 |---|---|---|---|---|---|---|---|
 | `ring_protection` | Ring des Ältesten (ring) | finger | – (alt –) | – (alt –) | – | Fund | stufe, preis, netz, modell, zustand |
-| `gauntlets_ogre` | Handschuhe der Ogerkraft (gloves) | arme | – (alt –) | – (alt –) | – | Fund | stufe, preis, netz, modell, zustand |
-| `greataxe_grak` | Graks Kriegsaxt (greataxe) | beide_haende | – (alt –) | – (alt –) | – | Fund | stufe, preis, netz, modell, zustand |
-| `longsword_oakford` | Klinge von Bornim (longsword) | haupthand | – (alt –) | – (alt –) | – | Fund | stufe, preis, netz, modell, zustand |
-| `staff_of_embers` | Glutstab (staff) | beide_haende | – (alt –) | – (alt –) | – | Fund | stufe, preis, netz, modell, zustand |
-| `rapier_whisper` | Flüsterklinge (rapier) | haupthand | – (alt –) | – (alt –) | – | Fund | stufe, preis, netz, modell, zustand |
-| `mace_of_dawn` | Morgenröte (mace) | haupthand | – (alt –) | – (alt –) | – | Fund | stufe, preis, netz, modell, zustand |
-| `amulet_grimfang` | Grimmzahns Fang (amulet) | hals | – (alt –) | – (alt –) | – | Fund | stufe, preis, netz, modell, zustand |
-| `cloak_protection` | Umhang des Schutzes (cloak) | umhang | – (alt –) | – (alt –) | – | Fund | stufe, preis, netz, modell, zustand |
+| `gauntlets_ogre` | Handschuhe der Ogerkraft (gloves) | arme | – (alt –) | – (alt –) | – | Beute Krogg | stufe, preis, netz, modell |
+| `greataxe_grak` | Graks Kriegsaxt (greataxe) | beide_haende | – (alt –) | – (alt –) | – | Beute Grak | stufe, preis, netz, modell |
+| `longsword_oakford` | Klinge von Bornim (longsword) | haupthand | – (alt –) | – (alt –) | – | Fund | stufe, preis, netz, modell |
+| `staff_of_embers` | Glutstab (staff) | beide_haende | – (alt –) | – (alt –) | – | Fund | stufe, preis, netz, modell |
+| `rapier_whisper` | Flüsterklinge (rapier) | haupthand | – (alt –) | – (alt –) | – | Fund | stufe, preis, netz, modell |
+| `mace_of_dawn` | Morgenröte (mace) | haupthand | – (alt –) | – (alt –) | – | Fund | stufe, preis, netz, modell |
+| `amulet_grimfang` | Grimmzahns Fang (amulet) | hals | – (alt –) | – (alt –) | – | Beute Grimmzahn | stufe, preis, netz, modell, zustand |
+| `cloak_protection` | Umhang des Schutzes (cloak) | umhang | – (alt –) | – (alt –) | – | Beute Riesenspinne | stufe, preis, netz, modell |
 
 ### Tränke (6)
 
 | Kennung | Name | Platz | Stufe | Preis | Modell | Bezug | offen |
 |---|---|---|---|---|---|---|---|
-| `potion` | Heiltrank | – | – (alt –) | – (alt 25) | – | Laden Thessa; Laden Morwen; Herstellen Morwen (2× Heilkräuter, 5 Gold) | stufe, preis |
-| `greater_potion` | Großer Heiltrank | – | – (alt –) | – (alt 75) | – | Laden Thessa; Laden Morwen; Herstellen Morwen (3× Heilkräuter, 1× Fledermausflügel, 15 Gold) | stufe, preis |
+| `potion` | Heiltrank | – | – (alt –) | – (alt 25) | – | Laden Thessa; Laden Morwen; Herstellen Morwen (2× Heilkräuter, 5 Gold); Beute Riesenratte; Beute Wolf; Beute Wildschwein; Beute Riesen-Hundertfüßer; Beute Riesenfledermaus; Beute Blutflügler; Beute Goblin; Beute Goblin-Späher; Beute Goblin-Schamane; Beute Kobold; Beute Skelett; Beute Zombie | stufe, preis |
+| `greater_potion` | Großer Heiltrank | – | – (alt –) | – (alt 75) | – | Laden Thessa; Laden Morwen; Herstellen Morwen (3× Heilkräuter, 1× Fledermausflügel, 15 Gold); Beute Riesenspinne; Beute Goblin-Schamane; Beute Ghul; Beute Ockerschleim; Beute Grimmzahn | stufe, preis |
 | `superior_potion` | Überragender Heiltrank | – | – (alt –) | – (alt 200) | – | Laden Thessa | stufe, preis |
 | `remedy` | Kräutertrank | – | – (alt –) | – (alt 20) | – | Laden Thessa; Laden Morwen; Herstellen Morwen (2× Heilkräuter, 2 Gold) | stufe, preis |
 | `stamina_potion` | Ausdauertrank | – | – (alt –) | – (alt 25) | – | Laden Thessa; Laden Morwen | stufe, preis |
@@ -122,8 +122,8 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 
 | Kennung | Name | Platz | Stufe | Preis | Modell | Bezug | offen |
 |---|---|---|---|---|---|---|---|
-| `alchemist_fire` | Alchemistenfeuer | – | – (alt –) | – (alt 30) | – | Laden Thessa; Herstellen Morwen (1× Giftdrüse, 5 Gold) | stufe, preis |
-| `holy_water` | Weihwasser | – | – (alt –) | – (alt 25) | – | Laden Thessa; Laden Morwen | stufe, preis |
+| `alchemist_fire` | Alchemistenfeuer | – | – (alt –) | – (alt 30) | – | Laden Thessa; Herstellen Morwen (1× Giftdrüse, 5 Gold); Beute Goblin; Beute Goblin-Späher; Beute Kobold | stufe, preis |
+| `holy_water` | Weihwasser | – | – (alt –) | – (alt 25) | – | Laden Thessa; Laden Morwen; Beute Skelett; Beute Zombie; Beute Ghul | stufe, preis |
 
 ### Nahrung (1)
 
@@ -135,12 +135,12 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 
 | Kennung | Name | Platz | Stufe | Preis | Modell | Bezug | offen |
 |---|---|---|---|---|---|---|---|
-| `raw_meat` | Rohes Fleisch | – | – (alt –) | – (alt 6) | – | Beute | stufe, preis |
+| `raw_meat` | Rohes Fleisch | – | – (alt –) | – (alt 6) | – | Beute Riesenratte; Beute Wolf; Beute Wildschwein; Beute Grimmzahn | stufe, preis |
 | `herbs` | Heilkräuter | – | – (alt –) | – (alt 8) | – | Sammeln | stufe, preis |
-| `wolf_pelt` | Wolfsfell | – | – (alt –) | – (alt 24) | – | Beute | stufe, preis |
-| `boar_tusk` | Keilerhauer | – | – (alt –) | – (alt 20) | – | Beute | stufe, preis |
-| `spider_gland` | Giftdrüse | – | – (alt –) | – (alt 30) | – | Beute | stufe, preis |
-| `bat_wing` | Fledermausflügel | – | – (alt –) | – (alt 16) | – | Beute | stufe, preis |
+| `wolf_pelt` | Wolfsfell | – | – (alt –) | – (alt 24) | – | Beute Wolf; Beute Grimmzahn | stufe, preis |
+| `boar_tusk` | Keilerhauer | – | – (alt –) | – (alt 20) | – | Beute Wildschwein | stufe, preis |
+| `spider_gland` | Giftdrüse | – | – (alt –) | – (alt 30) | – | Beute Riesenspinne | stufe, preis |
+| `bat_wing` | Fledermausflügel | – | – (alt –) | – (alt 16) | – | Beute Riesenfledermaus | stufe, preis |
 
 ### Handlungsgegenstände (7)
 
@@ -149,10 +149,10 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 | `gwenna_ring` | Gwennas Ring | – | – (alt –) | – (alt 0) | – | Handlung | stufe, preis |
 | `grey_rag` | Grauer Fetzen | – | – (alt –) | – (alt 0) | – | Handlung | stufe, preis |
 | `smoke_bundle` | Rauchbündel | – | – (alt –) | – (alt 0) | – | Handlung | stufe, preis |
-| `rusty_key` | Rostiger Schlüssel | – | – (alt –) | – (alt 0) | – | Handlung | stufe, preis |
-| `grak_key` | Graks Schlüssel | – | – (alt –) | – (alt 0) | – | Handlung | stufe, preis |
-| `sun_amulet` | Sonnenamulett | – | – (alt –) | – (alt 0) | – | Handlung | stufe, preis |
-| `prophet_letter` | Versiegelter Brief | – | – (alt –) | – (alt 0) | – | Handlung | stufe, preis |
+| `rusty_key` | Rostiger Schlüssel | – | – (alt –) | – (alt 0) | – | Beute Krogg | stufe, preis |
+| `grak_key` | Graks Schlüssel | – | – (alt –) | – (alt 0) | – | Beute Grak | stufe, preis |
+| `sun_amulet` | Sonnenamulett | – | – (alt –) | – (alt 0) | – | Beute Grak | stufe, preis |
+| `prophet_letter` | Versiegelter Brief | – | – (alt –) | – (alt 0) | – | Beute Grak | stufe, preis |
 
 ## Nach Bezugsweg
 
@@ -163,7 +163,25 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 
 ### Beute
 
-- Kapuze, Stirnreif, Lederkappe, Helm, Topfhelm, Robe, Lederrüstung, Nietenleder, Kettenhemd, Schuppenpanzer, Brustplatte, Halbplatte, Kettenpanzer, Schienenpanzer, Plattenpanzer, Armwickel, Lederhandschuhe, Armschienen, Panzerhandschuhe, Beinkleider, Lederstiefel, Kettenbeinlinge, Beinschienen, Umhang, Mantel, Dolch, Kurzschwert, Krummsäbel, Handbeil, Streitkolben, Speer, Kampfstab, Rapier, Langschwert, Streitaxt, Morgenstern, Kriegshammer, Zauberstab, Zweihänder, Großaxt, Zweihandhammer, Hellebarde, Magierstab, Kurzbogen, Langbogen, Armbrust, Amulett, Talisman, Ring, Siegelring, Schild, Rundschild, Turmschild, Fackel, Zauberkugel, Foliant, Heiligensymbol, Rohes Fleisch, Wolfsfell, Keilerhauer, Giftdrüse, Fledermausflügel
+- Kapuze, Stirnreif, Lederkappe, Helm, Topfhelm, Robe, Lederrüstung, Nietenleder, Kettenhemd, Schuppenpanzer, Brustplatte, Halbplatte, Kettenpanzer, Schienenpanzer, Plattenpanzer, Armwickel, Lederhandschuhe, Armschienen, Panzerhandschuhe, Beinkleider, Lederstiefel, Kettenbeinlinge, Beinschienen, Umhang, Mantel, Dolch, Kurzschwert, Krummsäbel, Handbeil, Streitkolben, Speer, Kampfstab, Rapier, Langschwert, Streitaxt, Morgenstern, Kriegshammer, Zauberstab, Zweihänder, Großaxt, Zweihandhammer, Hellebarde, Magierstab, Kurzbogen, Langbogen, Armbrust, Amulett, Talisman, Ring, Siegelring, Schild, Rundschild, Turmschild, Fackel, Zauberkugel, Foliant, Heiligensymbol
+- **Krogg:** Handschuhe der Ogerkraft, Rostiger Schlüssel
+- **Grak:** Graks Kriegsaxt, Graks Schlüssel, Sonnenamulett, Versiegelter Brief
+- **Grimmzahn:** Grimmzahns Fang, Großer Heiltrank, Rohes Fleisch, Wolfsfell
+- **Riesenspinne:** Umhang des Schutzes, Großer Heiltrank, Giftdrüse
+- **Riesenratte:** Heiltrank, Rohes Fleisch
+- **Wolf:** Heiltrank, Rohes Fleisch, Wolfsfell
+- **Wildschwein:** Heiltrank, Rohes Fleisch, Keilerhauer
+- **Riesen-Hundertfüßer:** Heiltrank
+- **Riesenfledermaus:** Heiltrank, Fledermausflügel
+- **Blutflügler:** Heiltrank
+- **Goblin:** Heiltrank, Alchemistenfeuer
+- **Goblin-Späher:** Heiltrank, Alchemistenfeuer
+- **Goblin-Schamane:** Heiltrank, Großer Heiltrank
+- **Kobold:** Heiltrank, Alchemistenfeuer
+- **Skelett:** Heiltrank, Weihwasser
+- **Zombie:** Heiltrank, Weihwasser
+- **Ghul:** Großer Heiltrank, Weihwasser
+- **Ockerschleim:** Großer Heiltrank
 
 ### Herstellen
 
@@ -176,11 +194,11 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 
 ### Fund
 
-- Ring des Ältesten, Handschuhe der Ogerkraft, Graks Kriegsaxt, Klinge von Bornim, Glutstab, Flüsterklinge, Morgenröte, Grimmzahns Fang, Umhang des Schutzes
+- Ring des Ältesten, Klinge von Bornim, Glutstab, Flüsterklinge, Morgenröte
 
 ### Handlung
 
-- Gwennas Ring, Grauer Fetzen, Rauchbündel, Rostiger Schlüssel, Graks Schlüssel, Sonnenamulett, Versiegelter Brief
+- Gwennas Ring, Grauer Fetzen, Rauchbündel
 
 ## Spalten der Datendatei
 
