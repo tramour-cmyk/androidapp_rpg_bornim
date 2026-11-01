@@ -158,9 +158,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 458.2 | Gegenstandskatalog: Werte, Preise, Beute (Chef 01.11., 458) | D Design | M | 7,09 $ | Team Jerry | Chef |
 | 458.3 | Gegenstandskatalog: Netze, Modelle, Läden (Chef 01.11., 458) | E Figuren | M | – | Team Tom | startbar |
 | 447.2 | Schätzung je Stufe, Bereich Tom (447) | B Abläufe | M | – | Team Tom | startbar |
-| 447.3 | Schätzung je Stufe, Bereich Jerry; Stufe 3 in Simulation 444 (447) | B Abläufe | M | – | Team Jerry | erledigt |
 | 447.4 | Texte Lehrmeister-Einladungen und Ruf-Gespräche für Stufe 3 (447) | C Texte | M | – | Homer | Chef |
-| 447.5 | Abgleich Abnahmeliste 3.1 (erste Prüfung je Pfad) mit E 79 (447) | D Design | M | – | Sokrates | erledigt |
 | 457.1 | Probeskripte Tom mit Spielshadern (457) | E Figuren | M | – | Team Tom | startbar |
 | 457.2 | Probeskripte Jerry mit Spielshadern (457) | E Kampf | M | – | Team Jerry | startbar |
 | 457 | Signatur in jeder Probe: Wächter für Vorlagen ohne Toon/Tusche, Probeskripte mit Spielshadern (Chef 01.11., 11:49) | B Abläufe | M | – | Perikles | gebaut |
