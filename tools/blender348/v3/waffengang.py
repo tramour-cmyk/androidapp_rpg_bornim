@@ -44,6 +44,23 @@ for art, (paket, geh, renn) in GAENGE.items():
         ergebnis['%s_%s' % (wort, art)] = {'quelle': os.path.relpath(q, KAUF), 'da': os.path.exists(ziel)}
         print('GANG %s_%s <- %s %s' % (wort, art, os.path.relpath(q, KAUF), 'gut' if os.path.exists(ziel) else 'FEHLER'))
 
+# Messung 2 (Lauf 41303433929: Rennen je Paket 1,6-2,7 m/s, im Spiel 4,27 m/s, also 1,6- bis 2,65-fach, mit Schild 8,5 Schritte/s):
+# alle Vorwaerts-Gehen, -Rennen und -Sprints je Paket (ohne Richtungen, Hocken, Wurzelweg) zum Vergleich nach probe/, nicht nach GANG
+VERGLEICH = os.path.join(OUT, 'probe')
+os.makedirs(VERGLEICH, exist_ok=True)
+for art, (paket, geh, renn) in GAENGE.items():
+    _, alle = finde(paket, geh)
+    namen = sorted({os.path.basename(p)[9:-4] for p in alle if os.path.basename(p).startswith('Humanoid@')
+                    and any(w in os.path.basename(p) for w in ('Walk', 'Run', 'Sprint'))
+                    and not any(w in os.path.basename(p) for w in ('Left', 'Right', 'Backward', 'Crouch', 'Strafe', '_RM', 'Combat', 'Aim', 'Draw'))})
+    print('VORWAERTS %s: %s' % (paket, ', '.join(namen)))
+    for n in namen:
+        if n in (geh, renn): continue
+        q = next(p for p in alle if os.path.basename(p) == 'Humanoid@%s.fbx' % n)
+        ziel = os.path.join(VERGLEICH, '%s__%s.glb' % (art, n))
+        subprocess.run([BL, '-I', os.path.join(HIER, 'zauber385.py')], env=dict(os.environ, QUELLE=q, ZIEL=ZIEL, NAME=n, OUT=ziel), capture_output=True, text=True)
+        ergebnis['%s__%s' % (art, n)] = {'quelle': os.path.relpath(q, KAUF), 'da': os.path.exists(ziel), 'datei': ziel}
+
 # Knochen der Quelle, die zauber385 nicht abbildet (einmal je Paket): Waffe, Prop, Griff
 for art, (paket, geh, _) in GAENGE.items():
     q, alle = finde(paket, geh)
@@ -95,10 +112,10 @@ def messen(p):
 
 RENN = 3.68 * 1.16; GEH = 1.84 * 1.16
 for n in sorted(ergebnis):
-    p = os.path.join(OUT, n + '.glb')
+    p = ergebnis[n].get('datei') or os.path.join(OUT, n + '.glb')
     if not os.path.exists(p): continue
     m = messen(p); ergebnis[n].update(m)
-    soll = RENN if n.startswith('Rennen') else GEH
+    soll = RENN if (n.startswith('Rennen') or any(w in n.split('__')[-1] for w in ('Run', 'Sprint'))) else GEH
     fach = soll / m['tempo'] if m['tempo'] > 0.01 else 0.0
     sps = 2.0 / m['s'] * fach if m['s'] > 0 else 0.0
     print('MESS %s: %d Bilder, %.2f s, Tempo %.2f m/s (im Spiel %.2f-fach, %.1f Schritte/s), Beckenhub %.1f cm, ohne Boden %d %%, Wurzelweg %.2f m'
