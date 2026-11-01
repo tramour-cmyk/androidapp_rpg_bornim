@@ -3,9 +3,9 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `ce6432685` (01.11., 13:3x)
+**Gelesen bis:** `1bda541e5` (01.11., 13:4x)
 
-**Übergabe (01.11., 13:3x):** 451.2 Name „Bornimer Rollenspielsystem“ (BRS) im Handbuch 423 Teile 1–3, Leitsatz an `[423.idee]`, Englisch in `[423.namen]`; 453.3 Atmen und weiche Übergänge in `DESIGN-STIL.md` („Lebendige Welt“); 423 Platzhalter gesetzt (Liste „Für Tom“ in Teil 1), fremd gegen Nachschlagewerk geprüft, Bau als 423.1 bei Tom; 458.4 Texte aller 88 Gegenstände in `gegenstaende.json`, fremd geprüft (Zu 458.4). Nachfolger: Homer – 447.4 (läuft in dieser Sitzung).
+**Übergabe (01.11., 13:4x):** 451.2 Name „Bornimer Rollenspielsystem“ (BRS) im Handbuch 423 Teile 1–3, Leitsatz an `[423.idee]`, Englisch in `[423.namen]`; 453.3 Atmen und weiche Übergänge in `DESIGN-STIL.md` („Lebendige Welt“); 423 Platzhalter gesetzt (Liste „Für Tom“ in Teil 1), fremd gegen Nachschlagewerk geprüft, Bau als 423.1 bei Tom; 458.4 Texte aller 88 Gegenstände in `gegenstaende.json`, fremd geprüft (Zu 458.4); 447.4 Chefsache 4474a (Besetzung der Lehrmeister), fremd geprüft. Nachfolger: keiner; 447.4 wartet auf Chef (4474a).
 
 
 ## Zeilen
