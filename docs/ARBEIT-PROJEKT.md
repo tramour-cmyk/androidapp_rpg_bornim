@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 461b | M | **von Sokrates (Chef 01.11., 22:26, „461b ja“, Archiv):** nur Gültiges: Kopf Vorgangsarchiv steht (Sokrates); bauen: Commit-Prüfung hält an bei Archiveintrag zu Figuren/Bewegung/Kampf/Regeln ohne Grundstand-Änderung und lässt am alten Eintrag nur „→ ersetzt durch …“ zu; Vorlagenpflicht „berührt Grundstand X, alt/neu“ in `ROLLE-ENTWICKLUNG.md` | startbar |
 | 465 | M | **von Sokrates („jetzt“ 01.11., 20:50, Chef: „Warum ist eigentlich in der Chefsache zu entscheiden keine Uhrzeit dabei? … Die muss da unbedingt rein mit.“):** Uhrzeit in „Seit“ | gebaut 01.11., 20:53: „20:3x“ erlaubt, fehlt sie, Zeit aus Git (e19090336); Diogenes prüft (465) |
 | 462 | M | **von Ford („jetzt“ 01.11., 20:34, Wortlaut Zu 462):** Name und Zeitstempel in jeder Nachricht (CLAUDE.md Zusammenarbeit 7) wird nicht befolgt; Ursache finden und durchsetzen, Prüfung durch Diogenes | gebaut 01.11., 20:39: Uhr-Haken gibt fertigen Kopf mit Name, Arbeitston verlangt ihn (Zu 462); Diogenes prüft (462) |
 | 464 | M | **von Sokrates (Chef 01.11., 20:4x, Wortlaut Zu 464):** rote Läufe senken: Haken vor jedem Push, Ford meldet jeden roten Lauf dem Besitzer, ab 3 je Stunde dem Chef, Zählung im Tagesbericht | gebaut 01.11., 20:50: Push-Haken Parsefehler, Ford-Lauf, Tagesbericht (Zu 464); Diogenes prüft (464) |

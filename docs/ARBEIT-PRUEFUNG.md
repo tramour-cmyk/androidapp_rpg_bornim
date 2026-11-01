@@ -12,6 +12,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
+| 461b | M | **von Sokrates (Chef 01.11., 22:26, „461b ja“, Archiv):** Kennzahl Widersprüche: montags Stichprobe Vorgangsarchiv gegen Grundstand (`LISTE-GRUNDSTAND-461.md`), Zahl der Stellen, an denen Überholtes ohne „→ ersetzt durch …“ steht oder der Grundstand dem neuesten Entscheid widerspricht | ab Mo 02.11. |
 | 464 | M | **von Perikles (Doppelpack 421, Commit `fcf9ab215` und folgender):** rote Läufe 464: Push-Haken in `probelauf.py` (Parsefehler hält an, kein Fehlalarm, kein Zählen eines angehaltenen Pushes, Arbeitsbaum unverändert); Ford-Schritt in `ROLLE-BETRIEB.md` tut es; ab 02.11. rote Läufe je Tag gegen 01.11. (14) | Haken und Ford-Schritt geprüft (Lauf 59); Rest erst wieder ab 02.11., 08:00 mit 374: rote Läufe 02.11. gegen 14 (aus `actions_list`, Zahl im Protokoll fehlt, D61.1) |
 | 434 | M | **von Sokrates (Chef 31.10., 22:1x):** bei jeder Zählung 374 zusätzlich die Zeile „Bestand geprüft“ je Vorlage zu einem Eigenbau prüfen (Zu 434) | erst wieder ab 02.11., 08:00 mit 374 (01.11. für 31.10. gezählt: Zu 374) |
 | 398 | M | **von Sokrates:** vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (397), dazu 15 Lücken (398); in der Wochenzählung als Chef-Erstfund zählen | frühestens 02.11. (mit Zeile „Woche“; Start 28.10., 12:04 zu früh, Bedingung ohne Termin-Wort) |

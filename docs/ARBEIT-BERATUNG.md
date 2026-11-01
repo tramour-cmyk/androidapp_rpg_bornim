@@ -10,7 +10,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 461b | M | **von Chef (01.11., 22:23, „Wer prüft denn nach, dass nicht gegensätzliche Entscheidungen an verschiedenen Stellen stehen?“):** nur Gültiges steht, Ablösung im selben Commit, Prüfer | wartet auf Chef: entscheiden/461b-nur-gueltiges; E1 berichtigt 22:2x |
+| 461b | M | **von Chef (01.11., 22:23, „Wer prüft denn nach, dass nicht gegensätzliche Entscheidungen an verschiedenen Stellen stehen?“):** nur Gültiges steht; ja 22:26 (Archiv); mein Teil: Archiv zu Figuren und Kampf einmal nach Widersprüchen absuchen, Liste an den Chef | in Arbeit (Bau Perikles, Kennzahl Diogenes) |
 | 348.12b | M | **von Chef (Chefrunde 01.11.):** Grak-Film vorab auf altem Körper? | wartet auf Chef: entscheiden/34812b-grak-koerper; Chef testet 146 (ansehen/t146) |
 | 427 | M | **von Chef (31.10., 21:3x):** Bestiarium `LISTE-BESTIARIUM.md` | startbar: Simulation 444 liegt (Befund 3: Geselle in K1 nie erreicht, damit keine Lehrmeister-Einladung, 447.4 liefe leer); Zahlen einstellen, gemessen vorlegen (Chef 21:41 informiert) |
 | 398 | M | **von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr ganz grundlegende Dinge fehlen?“):** Grundsätze DESIGN-* gegen Umzugsliste und Godot-Zweige | wartet auf Perikles: 15 Lücken in LISTE-UMZUG-348.md „398“, Chef 11:3x informiert |
