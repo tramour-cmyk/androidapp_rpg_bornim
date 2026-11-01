@@ -11,4 +11,5 @@ Film 34 s am Rechner, Kampfort mit dem gekauften Wolf, mit Signatur (Toon, Tusch
 - Nicht gebaut: Erde beim Scharren.
 - Bestand geprüft: Janpec Wolf IdleA, IdleC genommen wie r1.
 
-**Zu sagen:** „passt“ (fährt im nächsten gemeinsamen Build mit) oder was an Atmen, Gesten oder Häufigkeit anders sein soll.
+**Prüferbefund nach dem Versand (01.11., 15:48), wichtig:** Das Atmen ist im Film nicht zu sehen: Rücken und Flanke schlagen höchstens 0,4 px aus (erwartet etwa 4 px nah). Während eine Geste gehalten wird, steht der Wolf darum bis 1,45 s still. Die Messung am Rechner sah das Atmen, das Bild nicht; die Ursache wird gesucht (Fehler, kein Geschmack). Außerdem: Bei 6,8 s beginnen Umblicken (grau) und Knurren (schwarz) im selben Bild. Scharren kommt in 0–18 s nicht vor. Bei 13,0 s geht die Schnauze wohl ins Vorderbein. Bei 7,9 s ruckt der graue Wolf. Ende der Nahaufnahme 16–18 s: Der Kopf des schwarzen Wolfs füllt das halbe Bild, dann springt die Kamera. Die Nahaufnahme zeigt meist nur einen Wolf. Gut erkennbar sind Umblicken und Knurren aus der Kampfkamera; Titel lesbar, Tusche da. Der Film wird nach der Behebung neu vorgelegt.
+ „passt“ (fährt im nächsten gemeinsamen Build mit) oder was an Atmen, Gesten oder Häufigkeit anders sein soll.
