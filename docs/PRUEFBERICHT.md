@@ -25,6 +25,18 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 57 · Auftrag 462 Doppelpack zum Zeitstempel (`main` nach `b851fb635`; 01.11., 20:4x; `name()` aus `neustart-haken.py` mit 14 gebauten Protokollen aufgerufen, Haken mit leerem Protokoll aufgerufen, `zug-haken.py` und eigene Zählzeile gelesen)
+
+**Ergebnis:** Für jede Sitzung, die Ford startet, ist der Kopf richtig. `lauf.py` beginnt jede erste Nachricht mit der Rolle (Z. 471, 491, 526, 597). Erkannt werden „Tom“, „Tom 2“, „Tom 2, weiter“, „Tom, mach …“, „**Jerry** …“, „Spike“ als Textliste und „Perikles – 338.1: …“. Bei „Tom 12 Uhr“ bleibt es richtig bei „Tom“, „Tomaten“ wird nicht erkannt. In dieser Sitzung stand „**Diogenes**“ ab dem ersten Haken.
+
+**Befunde**
+
+- **D59.1 Zwischenmeldungen bleiben ohne Kopf, und keiner zählt sie:** Der Kopf wird nur vorgegeben, wenn eine Nachricht eingeht (UserPromptSubmit). Der Stop-Haken prüft und zählt nur die letzte Nachricht eines Zuges. In langen Zügen kommen Zwischentexte, etwa auf den Systemhinweis „user hasn't heard from you“. Diese Texte stehen ohne Kopf im Chat, und genau sie sieht der Chef ohne Zeit. Beleg ist diese Sitzung: Nach dem Haken um 20:44 kam „Ein ‚Nachfolger‘ steht doppelt …“ ohne Kopf. Die Zählung ab 02.11. (374) erfasst solche Texte nicht.
+- **D59.2 Die Spalte `stempel` zählt auch einen Kopf ohne Namen:** `STEMPEL` in `zug-haken.py` lässt den Namen weg (`(?:\*\*…\*\*)?`). „[01.11., 20:44]“ allein zählt also als 1. Der „Anteil ohne Kopf“ misst damit nur die Zeit, nicht den Namen.
+- **D59.3 Ohne erkannte Rolle steht wörtlich „**<Name>**“ im Kopf (gering):** Das passiert, wenn die erste Nachricht nicht mit der Rolle beginnt, z. B. „Hallo Homer“, „tom“ oder ein Systemtext bzw. Befehl davor. Das betrifft nur Starts durch den Chef von Hand.
+
+**Nicht geprüft:** Sitzungen auf Arbeitszweigen (`knapp.md` gilt dort erst nach dem Merge, wie vermerkt); laufende Sitzungen, die vor 20:39 gestartet sind.
+
 ## Lauf 56 · Auftrag 461 Doppelpack zum Grundstand (`main` `9574bb019`; 01.11., 20:4x; jede Zeile von `LISTE-GRUNDSTAND-461.md` gegen ihr „Woher“ im Vorgangsarchiv, wo es fehlt gegen die „Zu“-Absätze der Vorräte; Prüftreppe 4 und `ROLLE-ENTWICKLUNG.md` gegen 373, 389, 396)
 
 **Ergebnis:** 31 der 39 Punkte stehen so im Archiv, wie das Archiv sie nennt: A2–A6, B1–B7, C1, C3, C4, D1–D3, D5, D6, E2, E4–E7, F1, F2, F4, F5, G1, G3. Nichts davon ist umformuliert. B4 und C3 fassen mehrere Urteile zusammen; das ist gedeckt durch 376.1, 406 (20:2x) und 453. Zu 389 gibt es keinen Widerspruch: Bei verbrauchten Läufen geht eine Zeile statt des Films an den Chef, und sein Urteil gibt die Läufe frei wie in 407.

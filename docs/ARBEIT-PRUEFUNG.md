@@ -3,16 +3,15 @@
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
 
-**Geprüft bis:** `51707abf` (21.10., Lauf 41: 274 Schritt 1–3, nur Notizen und Werkzeug-Verweise) · vorher `98ba4b9b` (Lauf 40: 261.5; frühere Stände in Git); nächste Nummer D59 (Lauf 56: 461 Grundstand, D58, `9574bb019`; Lauf 55: 459 zu 458.1/451.1/447.1/457, Nachprüfung 456.1, `9d8e6fef5`; Lauf 54: 456 zu 448.2/449/450, `d6274420c`; Lauf 53: 441, D54; Lauf 52: 443 zu 436, `88415f87b`, Nachprüfung 443.1 `13ad5b26b`; Lauf 51: 435 zu 433, `68de4970f`; Lauf 45: 149/156, Lauf 46: 275 Werkzeuge an Kopie, `4fec9890`; Lauf 47: Nachprüfung D46, `e5b790d3`; Lauf 48: 420 Spielsystem 2.0, `3d64e00`; Lauf 49: 419 Prüfung 418/421, `6185da179`; Lauf 50: 429 zu 424/412, `a005a27f3`).
+**Geprüft bis:** `51707abf` (21.10., Lauf 41: 274 Schritt 1–3, nur Notizen und Werkzeug-Verweise) · vorher `98ba4b9b` (Lauf 40: 261.5; frühere Stände in Git); nächste Nummer D60 (Lauf 57: 462 Zeitstempel, D59; Lauf 56: 461 Grundstand, D58, `9574bb019`; Lauf 55: 459 zu 458.1/451.1/447.1/457, Nachprüfung 456.1, `9d8e6fef5`; Lauf 54: 456 zu 448.2/449/450, `d6274420c`; Lauf 53: 441, D54; Lauf 52: 443 zu 436, `88415f87b`, Nachprüfung 443.1 `13ad5b26b`; Lauf 51: 435 zu 433, `68de4970f`; Lauf 45: 149/156, Lauf 46: 275 Werkzeuge an Kopie, `4fec9890`; Lauf 47: Nachprüfung D46, `e5b790d3`; Lauf 48: 420 Spielsystem 2.0, `3d64e00`; Lauf 49: 419 Prüfung 418/421, `6185da179`; Lauf 50: 429 zu 424/412, `a005a27f3`).
 
-**Übergabe (01.11., 20:4x, „Diogenes – 461: Grundstand“):** 461 geprüft (Lauf 56), D58.1–5 an Perikles (461.2) und Chef (Telegram 20:4x). Nachfolger: „Diogenes – 462: Zeitstempel“, danach 374 am 02.11., 08:00, mit 434.
+**Übergabe (01.11., 20:4x, „Diogenes – 461: Grundstand“):** 461 geprüft (Lauf 56), D58.1–5 an Perikles (461.2) und Chef; 462 geprüft (Lauf 57), D59.1–3 an Perikles (462.1). Nachfolger: „Diogenes – 374: Stichprobe“ 02.11., 08:00, mit 434 und Anteil ohne Kopf (462).
 
 
 ## Zeilen
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
-| 462 | M | **von Perikles (Doppelpack 421, Commit `b851fb635`):** Zeitstempel 462: Kopf „**Name** [TT.MM., HH:MM]“ aus `tools/neustart-haken.py` richtig für jede Rolle (auch Ford-Starts, „Tom 2“); ab 02.11. in der Zählung 374 Anteil der Nachrichten ohne Kopf (Spalte `stempel` in `~/.bornim-regeltreue.tsv` je Sitzung) | startbar |
 | 434 | M | **von Sokrates (Chef 31.10., 22:1x):** bei jeder Zählung 374 zusätzlich die Zeile „Bestand geprüft“ je Vorlage zu einem Eigenbau prüfen (Zu 434) | erst wieder ab 02.11., 08:00 mit 374 (01.11. für 31.10. gezählt: Zu 374) |
 | 398 | M | **von Sokrates:** vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (397), dazu 15 Lücken (398); in der Wochenzählung als Chef-Erstfund zählen | frühestens 02.11. (mit Zeile „Woche“; Start 28.10., 12:04 zu früh, Bedingung ohne Termin-Wort) |
 | 374 | M | **von Sokrates (Chef 27.10., 11:58, Archiv 374):** täglich 8 Uhr bis 03.11. Vorlagen des Vortags an den Chef zählen: mit Fassungsblatt, genau einer Fehlerrunde, Chefwortlaut im Vorgang, Vorgabe Homer (373 a, c, d); eine Zeile Morgenmeldung, Abweichung in den Vorrat des Verursachers | erst wieder ab 02.11., 08:00 (31.10. gezählt 01.11., 08:1x: Zu 374) |
