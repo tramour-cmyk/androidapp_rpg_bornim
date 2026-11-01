@@ -24,4 +24,10 @@ Film 166 s am Rechner, noch kein Build: der gekaufte Held (Kämpfer mit Schwert 
 - **Bekannt:** 8: Hände beim Kriechen bis 14 cm im Boden. 5 bis 7: eine eigene Aufstehbewegung gibt es dort nicht, darum rückwärts. Der Schatten am Boden wandert im Film mit dem Körper; im Spiel bleibt er bisher stehen, das kommt mit dem Einbau.
 - **Nicht im Film:** Zweihand- und Bogensatz (Tod und Aufstehen für große Waffe oder Bogen), das Knie der alten Fassung (gezeichnet, nicht übertragbar) und neue eigene Bewegungen; die kämen erst, wenn hier nichts passt.
 
+**Prüferbefund nach dem Versand (01.11., 14:26):**
+- Überall: Innenseite des Schilds reines Schwarz (am stärksten in 1, 4, 5, 13); Kopf von oben wie ein weißes Ei; Wald hell und sonnig, Tuschelinie am Helden kaum zu sehen.
+- Fehler im Film, nicht in der Bewegung: 2 steht bei 12,0 s schlagartig aus der Bauchlage auf und fällt in 0,2 s wieder hin; 1, 5, 7 und das Ende von 11B–G und 12B–F springen in 0,1–0,3 s in die Kampfhaltung. Die Ursache suche ich vor dem Einbau.
+- In den Bewegungen: 1, 3, 4, 5 offene Schildhand wie Winken; 4 Beine senkrecht in der Luft; 8 Kriechen mit Gesäß hoch; 10, 11F, 12F Schild waagrecht durch Körper und Beine; 11G, 12B Klinge durch Schulter oder Kopf.
+- Am saubersten laut Prüfer: Hinfallen 11E, 11B, 6 (nur in die Knie), voller Sturz 1 oder 3; Aufstehen 12G, 12E, 12D, aus der Rückenlage 3 oder 4.
+
 **Zu sagen:** für das Hinfallen zwei oder drei Nummern aus der Spalte „Hinfallen“, für das Aufstehen zwei oder drei aus der Spalte „Aufstehen“ (zum Beispiel „Hinfallen 1, 3, 6; Aufstehen 1, 3“); 13 nur, wenn ein schwerer Treffer statt eines Sturzes taumeln soll.
