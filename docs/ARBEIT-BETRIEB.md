@@ -82,3 +82,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:33 01.11.: Marke Archiv session_01Hmoj78Tr4Xwwke3pCQ6Djg (lauf.py)
 - 11:33 01.11.: Marke Archiv session_01Hmoj77nuFrNFqZ9hryD8sv (lauf.py)
 - 11:33 01.11.: Nachfolger-Warnung Tom (Übergabe 01.11., 11:19) (lauf.py)
+- 12:02 01.11.: Startsperre 12:02 Start Tom, Jerry, Homer, Perikles (lauf.py)
+- 12:02 01.11.: Marke Archiv session_01Hmoj78fBw7YGLdEPi16NE4 (lauf.py)
+- 12:02 01.11.: Marke Archiv session_01Hmoj78ic5EHpqP8XSFp1uk (lauf.py)
+- 12:02 01.11.: Nachfolger-Warnung Diogenes (Übergabe 01.11., 11:49) (lauf.py)
