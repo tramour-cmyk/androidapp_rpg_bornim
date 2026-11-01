@@ -158,15 +158,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 
-**Perikles** – offen 24, Muss 20, startbar 3
+**Perikles** – offen 24, Muss 20, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 465 | M | von Sokrates („jetzt“ 01.11., 20:50, Chef: „Warum ist eigentlich in der Chefsache zu entsc | startbar |
+| 465 | M | von Sokrates („jetzt“ 01.11., 20:50, Chef: „Warum ist eigentlich in der Chefsache zu entsc | wartet auf Test/Build (gebaut) |
 | 462 | M | von Ford („jetzt“ 01.11., 20:34, Wortlaut Zu 462): Name und Zeitstempel in jeder Nachricht | wartet auf Test/Build (gebaut) |
 | 464 | M | von Sokrates (Chef 01.11., 20:4x, Wortlaut Zu 464): rote Läufe senken: Haken vor jedem Pus | wartet auf Test/Build (gebaut) |
 | 461 | M | von Sokrates („jetzt“ 01.11., 20:3x, Wortlaut in der Liste): Grundstand Figuren und Kampf: | wartet auf Test/Build (gebaut) |
-| 462.1 | M? | von Diogenes (Doppelpack 421, Lauf 57, 01.11., 20:4x): Befunde D59.1–3 zu 462: Zwischenmel | startbar |
+| 462.1 | M? | von Diogenes (Doppelpack 421, Lauf 57, 01.11., 20:4x): Befunde D59.1–3 zu 462 (PRUEFBERICH | wartet auf Test/Build (gebaut) |
 | 461.2 | M? | von Diogenes (Doppelpack 421, Lauf 56, 01.11., 20:4x): Befunde D58.1–5 zum Grundstand: E1 | startbar |
 | 436 | M | von Sokrates („jetzt“ 31.10., 22:58): Sitzungsnamen mit Vorgang, Thema und Zeit für alle ( | wartet auf Test/Build (gebaut) |
 | 433 | M | von Sokrates („jetzt“ 31.10., 22:1x, Zu 433): unabhängige Zeilen von Tom und Jerry an Spik | wartet auf Test/Build (gebaut) |
@@ -187,10 +187,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
-**Diogenes** – offen 7, Muss 5, startbar 1
+**Diogenes** – offen 8, Muss 6, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 465 | M | von Perikles (Doppelpack 421, Commits e19090336, 34581a559): 465 Uhrzeit „Seit“ in der Che | startbar |
 | 464 | M | von Perikles (Doppelpack 421, Commit fcf9ab215 und folgender): rote Läufe 464: Push-Haken | startbar |
 | 434 | M | von Sokrates (Chef 31.10., 22:1x): bei jeder Zählung 374 zusätzlich die Zeile „Bestand gep | Termin 02.11. |
 | 398 | M | von Sokrates: vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (39 | Termin 02.11. |
