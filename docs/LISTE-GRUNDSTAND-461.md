@@ -30,7 +30,7 @@ Chef 01.11., 20:3x: „das mal alles zusammenführt … auf ein Niveau kriegen, 
 | B2 | Grundkörper je Volk: Ork auf Superheld (auch Grak, Krogg, große Leute); Elf, Hügelvolk, Mensch, Aschgeborene auf Regulär; Zwerg nach Film 455.2 | 431 (01.11., 11:42) | ja |
 | B3 | Tracht je Herkunft, Mann und Frau gleich; langes Haar unter Helm und Kapuze verborgen; zwölf Frisuren | 376.1 (29.10., 01.11.) | ja |
 | B4 | Kleidung geschlossen: nichts scheint durch (Umhang, Robe, Kettenhemd), keine Löcher, keine Knie durch die Robe; Haut unter Kleidung nicht gezeichnet; Frau höchstens so viel Durchdringung wie Mann | 376.1 (29.10.; 01.11., 20:2x, 20:57), 406 (20:2x) | ja |
-| B5 | Schild 2 für den ehemaligen Kleriker, Schild 15 für den Krieger; kein zweiter Schild auf dem Rücken | 406 (29.10., 31.10.) | ja |
+| B5 | Schild 2 für den ehemaligen Kleriker (darauf goldene Sonne in unseren Farben), Schild 15 für den Krieger; kein zweiter Schild auf dem Rücken | 406 (29.10., 31.10.), 461c (01.11., 22:35) | ja |
 | B6 | Neue Figur erst als ruhendes Modell abgenommen, dann bewegt; Figuren untereinander unterscheidbar | 348 (28.10.), 348.12 (28.10.) | – |
 | B7 | Größen wie entschieden: Wölfe 1,32 (Film 438) | 438c (01.11., 11:45) | ja |
 
@@ -74,7 +74,7 @@ Chef 01.11., 20:3x: „das mal alles zusammenführt … auf ein Niveau kriegen, 
 | F1 | Schild hebt sich vor dem Biss, nicht danach | 454 (13:1x) | ja |
 | F2 | Biss und Hieb treffen das Ziel | 454, 348.12 (28.10.) | ja |
 | F3 | Reihenfolge Angriff, Treffer, Tod, Neuformation | 439 (31.10.) | ja |
-| F4 | Tod sichtbar als Zusammenbruch, nicht ausgeblendet, nicht zu schnell weg | 440 (31.10.), 348.12 (28.10.) | ja |
+| F4 | Tod sichtbar als Zusammenbruch, für alle (Helden, Gegner, Tiere): zusammenbrechen, kurz liegen, dann ausblenden, nicht zu schnell weg | 440 (31.10.), 348.12 (28.10.), 461c (01.11., 22:35) | ja |
 | F5 | Ausweichen mit Ortswechsel | 348.12f (27.10.) | ja |
 | F6 | Zauber: der Kegel kommt nicht aus dem Körper des Helden (Seitenschritt; ebenso Schüsse aus der zweiten Reihe); Arkanpfeil (früher „Magisches Geschoss“, BRS 12) ohne Schritt, durch den Helden abgenommen | 348.7b (27.10., 19:49; 28.10., 10:43, 15:28) | ja |
 
