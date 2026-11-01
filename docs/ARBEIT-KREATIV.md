@@ -5,7 +5,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `ce6432685` (01.11., 13:3x)
 
-**Übergabe (01.11., 13:3x):** 451.2 Name „Bornimer Rollenspielsystem“ (BRS) im Handbuch 423 Teile 1–3, Leitsatz an `[423.idee]`, Englisch in `[423.namen]`; 453.3 Atmen und weiche Übergänge in `DESIGN-STIL.md` („Lebendige Welt“). Nachfolger: keiner; 458.4 wartet auf Perikles (458.1).
+**Übergabe (01.11., 13:3x):** 451.2 Name „Bornimer Rollenspielsystem“ (BRS) im Handbuch 423 Teile 1–3, Leitsatz an `[423.idee]`, Englisch in `[423.namen]`; 453.3 Atmen und weiche Übergänge in `DESIGN-STIL.md` („Lebendige Welt“); 423 Platzhalter gesetzt (Liste „Für Tom“ in Teil 1), fremd gegen Nachschlagewerk geprüft, Bau als 423.1 bei Tom. Nachfolger: keiner; 458.4 wartet auf Perikles (458.1).
 
 
 ## Zeilen
@@ -15,7 +15,6 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 | 458.4 | M | **von Sokrates (Chef 01.11., 13:1x, Archiv 458):** Gegenstandskatalog: Namen DE/EN und ein Satz je Gegenstand, sobald Perikles die Datendatei angelegt hat (458.1) | startbar (Perikles 01.11., 13:4x): Datei `tools/gegenstaende/gegenstaende.json`, Werkzeug `tools/gegenstaende.py` |
 | 447.4 | M | **von Perikles (Chef 01.11., Archiv 447):** Texte für Stufe 3 der Abnahmeliste: Einladungen der Lehrmeister zu Pfad und den fünf Meisterschaften (3.1, 3.2) und Ruf-Gespräche im Dorf (3.3), DE/EN | startbar |
 | 432 | K | **von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt mir sehr gut“):** eigenes Volk prüfen, mit der Geschichte ab Kapitel 2 | nach dem Meilenstein: Weg A (Archiv); Kult-Antwort und Abgleich mit Kapitel 2 im Storyplan (Aschgeborene, 01.11.), zwei offene Punkte; als Chefsache erst nach dem Meilenstein, vor dem Bau |
-| 423 | M | **von Sokrates (Chef 31.10., 21:2x: „irgendwer muss dann auch einfach eine Anleitung schreiben, wo die wesentlichen Dinge für den Spieler erklärt werden“):** Spielerhandbuch Spielsystem 2.0 aus dem Nachschlagewerk (422), unser Ton, DE/EN | startbar: entschieden (Archiv 423, 01.11.): Platzhalter für Zahlen setzen; Bau bei Tom nach 444 |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |
 | 72 | K | Profil und Kampfsystem | ruht: nichts offen bei Homer; 72g–72j gehören zu 45 (Sokrates); Bau bei Jerry; `DESIGN-KAMPF.md`, [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b) |
