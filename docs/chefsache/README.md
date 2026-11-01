@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [422](entscheiden/422-nachschlagewerk.md) | **Muss** | D Design | 01.11. | Spielsystem 2.0: Nachschlagewerk und Bestiarium abnehmen | Sokrates |
+| [422](entscheiden/422-nachschlagewerk.md) | **Muss** | D Design | 01.11. | Spielsystem 2.0: Regeln im Nachschlagewerk abnehmen | Sokrates |
 | [443a](entscheiden/443a-ford-namensform.md) | **Muss** | B Abläufe | 01.11. | Gilt die Namensform 436 auch für Ford? | Diogenes |
 | [418](entscheiden/418-abnahmeliste-kapitel1.md) | **Muss** | B Abläufe | 31.10., 21:33 | Abnahmeliste Kapitel 1 nach der neuen Direktive: abnehmen und Umfang von 2.0 festlegen | Perikles |
 | [413a](entscheiden/413a-spielsystem-rueckfragen.md) | **Muss** | D Design | 31.10. | Spielsystem 2.0: offene Entwürfe | Sokrates |
@@ -103,13 +103,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 42, Muss 29, startbar 6
+**Jerry** – offen 43, Muss 30, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Wölfe gleiten (Angriff, Tempo, aneinander vor | startbar |
 | 439 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Reihenfolge Angriff, Treffer, Tod, Neuformati | wartet auf Test/Build (gebaut) |
 | 440 | M | von Sokrates (Chef 31.10., 23:34, Film 403): Wolf-Tod zu schnell weg (Zu 438) | wartet auf Test/Build (gebaut) |
+| 444 | M | von Sokrates (Chef 01.11., 09:24, „Ja, so machen wir es“): Rechensimulation Spielsystem 2. | startbar |
 | 416.5 | M | von Sokrates (Chef 31.10., 20:4x, Build 143): im Kampf Details des Kampflogs aufrufen, dan | wartet auf Test (Build) |
 | 416.6 | K | von Sokrates (Chef 31.10., 20:4x): Spuren des Helden fehlen (Fußspuren; bei Regen eigene S | startbar |
 | 415 | K | von Sokrates (Chef 31.10., 20:3x „Ja, Probe mit dem Beams-Sample an Jerry geben“): Handypr | startbar |
@@ -192,7 +193,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 |---|---|---|---|
 | 432.1 | K | von Homer (Chef 01.11., 09:13: „432 Stellungnahme Sokrates fehlt“): Stellungnahme zu Chefs | startbar |
 | 442 | M | von Chef (31.10., 23:52, „warum ihr alle auf dem kleinen Rechenmodell lauft“): Modellzuord | Chef (Datei in der Chefsache) |
-| 427 | M | von Chef (31.10., 21:3x): Bestiarium LISTE-BESTIARIUM.md | Chef |
+| 427 | M | von Chef (31.10., 21:3x): Bestiarium LISTE-BESTIARIUM.md | wartet auf Jerry |
 | 422 | M | von Chef (31.10., 21:2x, „dass es sich liest wie eine gute Anleitung. Und ein Nachschlagew | Chef (Datei in der Chefsache) |
 | 413 | M | von Chef (31.10., 20:1x): Spielsystem 2.0 (DESIGN-SPIELSYSTEM-2-0.md), Meilensteine | Chef |
 | 398 | M | von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr g | wartet auf Perikles |
