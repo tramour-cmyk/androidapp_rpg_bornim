@@ -1233,6 +1233,19 @@ func _walk_home(skip = null) -> float:
 		# 399.2 (Chef 28.10., 16:10: „dann läuft der hintere Wolf durch den vorderen“): um die anderen herum wie die Heldin
 		var via := _detour(position, home, skip)
 		var way := d.length() if via == position else position.distance_to(via) + via.distance_to(home)
+		# 438 (wolf_mess_438, Kleriker 55 s: Wolf 3 lief nach dem Biss heim, während Wolf 1 diesen Platz noch rückwärts räumte;
+		# beide 0,2 m ineinander): führt jeder Weg durch einen anderen, der gerade selbst läuft, wartet er kurz und plant neu
+		if fighter.monster != null and _warte_n < WARTE_MAX:
+			var g := _seg_gap(position, home, skip) if via == position else minf(_seg_gap(position, via, skip), _seg_gap(via, home, skip))
+			if g < 0.0 and kampfort.figures.values().any(func(o): return o != self and o.visible and not o.down and o.unterwegs()):
+				_warte_n += 1
+				_dreh_ab()
+				tween = create_tween()
+				tween.tween_callback(_idle_wenn_frei)
+				tween.tween_interval(WARTE_S)
+				tween.tween_callback(func(): _walk_home(skip))
+				return WARTE_S
+		_warte_n = 0
 		_dreh_ab()
 		bahn = [home] if via == position else [via, home]
 		tween = create_tween()
@@ -1254,7 +1267,39 @@ func _walk_home(skip = null) -> float:
 			return tr
 		var nm := _gangart(way)
 		var first := via - position if via != position else d
-		var tt := _turn(tween, atan2(first.x, first.z), false)
+		# 438 (wolf_mess_438, Kleriker 20 s: Wolf 3 drehte vor dem Umweg 128° auf der Stelle und schwenkte das Heck 0,18 m in
+		# Wolf 2): führt die kurze Drehung durch einen anderen, dreht er andersherum, wenn es dort frei bleibt; sonst setzt er
+		# erst ein Stück rückwärts ab (einmal je Heimweg) und dreht dort
+		var lang := false
+		if fighter.monster != null and _foot_ok:
+			var y1 := atan2(first.x, first.z)
+			var g0 := minf(_rumpf_luft(position, rotation.y, skip), PLATZ_LUFT)
+			var kurz := _dreh_luft(rotation.y, y1)
+			if kurz < g0 - 0.01:
+				var dk := wrapf(y1 - rotation.y, -PI, PI)
+				if _dreh_luft_bogen(rotation.y, dk - signf(dk) * TAU) >= g0 - 0.01:
+					lang = true
+				elif not _abgesetzt and weg.has("Gehen"):
+					var zur := position - Vector3(basis.z.x, 0.0, basis.z.z).normalized() * ABSETZEN * _scale()
+					if _rumpf_luft(zur, rotation.y, skip) >= g0 and _im_bild(zur, Vector3(basis.z.x, 0.0, basis.z.z)):
+						_abgesetzt = true
+						gang = "heim"
+						bahn = [zur, home]
+						tween.tween_callback(func(): anim.play("Gehen", 0.1, -float(tempo.get("Gehen", 1.0))))
+						var ta := _lauf(tween, position, zur, "Gehen", RUECK_TEMPO)
+						tween.tween_callback(func(): _walk_home(skip))
+						return ta
+				# … und geht auch das nicht: rückwärts heim, wenn die Heimat eher hinter ihm liegt (über 90°) und nah genug ist
+				var fz := Vector3(basis.z.x, 0.0, basis.z.z)
+				if weg.has("Gehen") and way <= RUECK_M and rad_to_deg(fz.angle_to(d)) > 90.0:
+					gang = "heim"
+					tween.tween_callback(func(): anim.play("Gehen", 0.15, -float(tempo.get("Gehen", 1.0))))
+					var tr2 := _lauf(tween, position, via if via != position else home, "Gehen", RUECK_TEMPO)
+					if via != position:
+						tr2 += _lauf(tween, via, home, "Gehen", RUECK_TEMPO)
+					tween.tween_callback(_turn_home)
+					return tr2
+		var tt := _turn(tween, atan2(first.x, first.z), false, lang)
 		tween.tween_callback(func(): _play(nm, 0.15))
 		var tg := 0.0
 		if via != position:
@@ -1458,8 +1503,10 @@ func _turn_dps() -> float:
 
 ## Hängt an [tw] eine Drehung auf [yaw] mit Schritten an (kleine Winkel sofort); gibt die Dauer (s) zurück. r4: mit Pfotenhalt
 ## steht das Tier (Stehen) und die Pfoten treten nach; [stehen]: danach bleibt es stehen (die Pfoten treten nach), sonst läuft es los
-func _turn(tw: Tween, yaw: float, stehen: bool) -> float:
+func _turn(tw: Tween, yaw: float, stehen: bool, lang := false) -> float:
 	var dw := wrapf(yaw - rotation.y, -PI, PI)
+	if lang and absf(dw) > 0.01:     # 438: andersherum, weil die kurze Drehung durch einen anderen führte
+		dw -= signf(dw) * TAU
 	if absf(rad_to_deg(dw)) < TURN_KLEIN:     # 438: vorher bis TURN_STILL (15°) in einem Bild, gemessen 13° daheim
 		tw.tween_callback(func(): rotation.y = yaw)
 		return 0.0
@@ -1478,8 +1525,15 @@ func _turn(tw: Tween, yaw: float, stehen: bool) -> float:
 
 
 ## Daheim zur Blickrichtung von _face() drehen, dann Ruhe; gibt die Dauer (s) zurück
+var _warte_n := 0           # 438: so oft schon auf einen Laufenden gewartet (je Heimweg)
+const WARTE_MAX := 8
+const WARTE_S := 0.25
+var _abgesetzt := false     # 438: auf diesem Heimweg schon einmal rückwärts abgesetzt, um frei zu drehen
+
+
 func _turn_home() -> float:
 	bahn = []
+	_abgesetzt = false
 	var r := rotation.y
 	_face()
 	var goal := rotation.y
@@ -1490,8 +1544,10 @@ func _turn_home() -> float:
 		var dw := wrapf(goal - r, -PI, PI)
 		var g0 := minf(_rumpf_luft(position, r), PLATZ_LUFT)
 		var k := 1.0
-		while k > 0.0 and (_rumpf_luft(position, r + dw * k) < g0 or _rumpf_luft(position, r + dw * k * 0.5) < g0):
-			k -= 0.25
+		# 438 (wolf_mess_438, Kleriker 20 s: Wolf 3 drehte daheim 128° und schwenkte das Heck 0,18 m in Wolf 2; geprüft waren nur
+		# Ende und Hälfte der Drehung): jede Lage der Drehung muss frei bleiben, in Schritten von 15°
+		while k > 0.0 and _dreh_luft_bogen(r, dw * k) < g0:
+			k -= 0.125
 		goal = r + dw * maxf(k, 0.0)
 	dreh_ziel = goal
 	tween = create_tween()
@@ -1528,23 +1584,27 @@ func _bite(other, leap: bool, weiter := 0.0) -> int:
 	# 438 (Prüfer Film r2: Wolf 3 sprang 19,4 s durch Bertrams Kopf zu Ansgar): auch die Bahn des Sprungs muss frei sein, nicht nur
 	# der Absprung; geht das in keiner Richtung, beißt er ohne Sprung
 	var luft := minf(_platz_luft(start, dir, other), _seg_gap(start, start + dir * jump, other) if jump > 0.0 else INF)
+	# 438 (wolf_mess_438, Kleriker 43 s: Wolf 1 lief zum freien Bissplatz vor Bertram, aber der einzige Weg dorthin führte 0,45 m
+	# durch Wolf 3, der davor kauerte): der Platz zählt nur so frei wie der Weg dorthin
+	var weg0 := _weg_luft(position, start, other) if start.distance_to(position) > 0.15 else INF
 	if OS.get_environment("SCHAU_MESS") != "":
-		print("Bissplatz %s an %s: start %s Luft %.2f" % [fighter.id, other.fighter.id, start, luft])
-	if luft < PLATZ_LUFT:
+		print("Bissplatz %s an %s: start %s Luft %.2f Weg %.2f" % [fighter.id, other.fighter.id, start, luft, weg0])
+	if luft < PLATZ_LUFT or weg0 < WEG_LUFT:
 		var tg := Vector3(other.position.x, position.y, other.position.z)
 		var r0 := Vector2(tg.x - start.x, tg.z - start.z).length()
-		var best := [luft, dir, start]
+		var best := [minf(luft, weg0), dir, start, luft]
 		for w in [15.0, -15.0, 30.0, -30.0, 45.0, -45.0, 60.0, -60.0]:
 			var d2 := dir.rotated(Vector3.UP, deg_to_rad(w))
 			var s2 := tg - d2 * r0
 			var l2 := minf(_platz_luft(s2, d2, other), _seg_gap(s2, s2 + d2 * jump, other) if jump > 0.0 else INF)
-			if l2 > best[0]:
-				best = [l2, d2, s2]
-			if l2 >= PLATZ_LUFT:
+			var w2 := _weg_luft(position, s2, other) if s2.distance_to(position) > 0.15 else INF
+			if minf(l2, w2) > best[0]:
+				best = [minf(l2, w2), d2, s2, l2]
+			if l2 >= PLATZ_LUFT and w2 >= WEG_LUFT:
 				break
 		dir = best[1]
 		start = best[2]
-		if best[0] < PLATZ_LUFT and jump > 0.0:
+		if best[3] < PLATZ_LUFT and jump > 0.0:
 			# kurzer Satz aus der Nähe: er läuft (mit Umweg) bis knapp vor das Ziel und springt erst dort
 			var kurz := minf(jump, 0.2 * _weg_len(nm))
 			k = kurz / _weg_len(nm)
@@ -1633,6 +1693,15 @@ func _bite(other, leap: bool, weiter := 0.0) -> int:
 
 ## 438: so viel Luft (m) hätte der Rumpf, stünde das Tier an [p] mit Blick [d], zu allen außer [skip] (auch auf deren Bahn)
 const PLATZ_LUFT := 0.1
+## 438: Luft auf dem Weg von [von] nach [nach], mit dem Umweg, den _detour() wählt
+const WEG_LUFT := 0.05
+func _weg_luft(von: Vector3, nach: Vector3, skip) -> float:
+	var via := _detour(von, nach, skip)
+	if via == von:
+		return _seg_gap(von, nach, skip)
+	return minf(_seg_gap(von, via, skip), _seg_gap(via, nach, skip))
+
+
 func _platz_luft(p: Vector3, d: Vector3, skip) -> float:
 	var box := footprint()
 	return _seg_gap(p + d * box.position.z, p + d * box.end.z, skip, false)
@@ -1665,7 +1734,11 @@ func _rumpf_luft(p: Vector3, yaw: float, skip = null) -> float:
 
 ## 438: kleinste Luft des Rumpfs, dreht sich das Tier am Ort von [von] nach [nach] (in 15°-Schritten)
 func _dreh_luft(von: float, nach: float) -> float:
-	var dw := wrapf(nach - von, -PI, PI)
+	return _dreh_luft_bogen(von, wrapf(nach - von, -PI, PI))
+
+
+## 438: Luft des Rumpfs, wenn er von [von] um [dw] auf der Stelle dreht
+func _dreh_luft_bogen(von: float, dw: float) -> float:
 	var n := maxi(1, int(ceilf(absf(rad_to_deg(dw)) / 15.0)))
 	var g := INF
 	for i in range(1, n + 1):
