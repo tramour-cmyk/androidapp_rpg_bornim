@@ -15,8 +15,9 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 438 | M | **von Sokrates (Chef 31.10., 23:31, Film 403):** Wölfe gleiten (Angriff, Tempo, aneinander vorbei); echte Schritte, Zahlen (Zu 438) | gebaut: wolf_mess_438 grün (Zu 438) | `claude/jerry-438-wolf-kampf` |
 | 458.2 | M | **von Sokrates (Chef 01.11., 13:1x, Archiv 458):** Gegenstandskatalog: Werte, Preise, Beute je Monster in die Datendatei (aus 444); das Spiel liest nur sie | gebaut 67eb82d09: Katalog voll, Spiel liest ihn (katalog.gd); fährt im nächsten Build | `claude/tuffy-458-2-katalog` |
 | 457.2 | M | **von Perikles (Chef 01.11., 11:49, „unsere Signatur muss sich wiederfinden“):** eigene Probeskripte zeichnen standardmäßig mit Toon-Licht, Tusche, Schatten; ohne nur mit Schalter (Zu 457.2) | gebaut e87815dc8, fährt mit den nächsten Filmen | `claude/jerry-457-2-signatur` |
-| 453.1 | M | **von Sokrates (Chef 01.11., 13:0x):** Helden im Kampf atmen gleich und zu heftig („hechelt“): Atmen ruhiger, je Figur eigener Takt, nach Angriff oder Abwehr schneller, dann abklingend (Zu 453.1) | wartet auf Chef: Vergleichsfilm 403/heute (ansehen/4531-helden-vergleich, Lauf 154; atem_4531 grün) | `claude/tuffy-453-1-held-atem` |
-| 453 | M | **von Sokrates (Chef 01.11., 11:05):** Wölfe brauchen Ruhebewegungen: atmen, scharren, umblicken, knurren (Zu 453) | wartet auf Chef: Film r3b (ansehen/453-wolf-ruhe, Lauf 156, d41f0c692 grundstand-461) | – |
+| 453.1 | M | **von Sokrates (Chef 01.11., 13:0x):** Helden im Kampf atmen gleich und zu heftig („hechelt“): Atmen ruhiger, je Figur eigener Takt, nach Angriff oder Abwehr schneller, dann abklingend (Zu 453.1) | wartet auf Chef: Vergleichsfilm (ansehen/4531) | `claude/tuffy-453-1-held-atem` |
+| 453 | M | **von Sokrates (Chef 01.11., 11:05):** Wölfe brauchen Ruhebewegungen: atmen, scharren, umblicken, knurren (Zu 453) | wartet auf Chef: Film r3b, Rückfrage 453a | – |
+| 453a | M | Rückfrage: Wolfsatem sichtbar, A/B/C | wartet auf Chef | – |
 | 454 | M | **von Sokrates (Chef 01.11., 11:05):** beim Biss zielt die Achse des Wolfs wohl rechts neben den Helden; erst messen, dann bauen (Zu 453) | gebaut: passt (Archiv 454), fährt im nächsten Build; Schildreaktion in 406 | `claude/jerry-454-bissachse` |
 | 438a | M | **von Sokrates (Chef 01.11., 11:47, „nicht beurteilen, wenn ich es nicht gesehen habe … Vielleicht kann er auch so taumeln“):** Sichtungsfilm Hinfallen/Aufstehen auf Kaufheld aus dem Bestand, dann Wahl am Bild (Archiv 438a) | startbar: Zwischenstand auf jerry-438a-sturz-2 (Zu 438a) | `claude/jerry-438a-sturz` |
 | 439 | M | **von Sokrates (Chef 31.10., 23:31, Film 403):** Reihenfolge Angriff, Treffer, Tod, Neuformation (Zu 438) | gebaut: passt (Archiv 438), fährt im nächsten Build | `claude/jerry-438-wolf-kampf` |
@@ -68,6 +69,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 ## Einzelheiten
 
+- **Zu 438, von Tuffy 00:57, Prüfer 453 r3b):** Wolf springt 7,9 s in 2 Bildern in Vorderansicht; nah 12,7 s 180° in 0,3 s.
 - **Zu 464, von Perikles (01.11., 20:49; Chef: „brutal viele Fehler … fast 20 E-Mails“):** rote Läufe durch wolf_mess_438 und Workflows je Push; Wortlaut in Git, `git show 492b5cee5:docs/ARBEIT-TEAM-JERRY.md`. Jerry 02.11.: wolf_mess_438 behoben (Zu 438), grundstand-461 läuft nur von Hand.
 
 - **von Team Tom (Spike, 01.11., 21:2x, zu 461.1):** `claude/grundstand-461` = Build 146, Tom, `jerry-406-kaufschild`, `jerry-348-12-grak-schreitet`; Konflikte (`heldfigur.gd`, `figur.gd`, `film_403.gd`) mit beiden Seiten gelöst. Nicht neu mischen, weiter auf dem Zweig; Kampfort-Film gegen die Checkliste bleibt euer.
@@ -75,7 +77,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 - **von Homer (13:3x, zu 444: sim444 `punkte_frei` 6 statt 9) und Hinweis von Spike (11:52, zu 425: kritisch ab 19 nicht angezeigt):** Wortlaut in Git, `git show ee343195b:docs/ARBEIT-TEAM-JERRY.md`.
 
 - **Zu 453 (Chef 11:05, 11:45, 13:0x), 402 (Chef 31.10., 21:07 Herzschlag „Bubum“):** Wortlaut in Git, `git show 7cacfa97d:docs/ARBEIT-TEAM-JERRY.md`.
-- **Zu 453 r3 (Prüfer Film r2, 15:48: Atmen im Film ≤ 0,4 px):** 39382e532 ohne Bild, Nullzugriff behoben ec2d46bd3; offen: Bildlauf Einatmung mit/ohne `ATEM_ALT=1`, Schnauze im Vorderbein 13,0 s, Ruck grau 7,9 s; Messwerte im Commit 39382e532.
+- **Zu 453 r3, r3b (Tuffy):** Stand und Prüferbefunde im Blatt `ansehen/453-wolf-ruhe.md`, Ursache im Commit d41f0c692; Rückfrage 453a.
 - **Zu 453, Urteil r2, von Sokrates (Chef 01.11., 19:5x, Archiv 453 r2):** „453 r2 passt“, Helden wieder „doof“ (Vergleich mit Film 403); Wortlaut in Git, `git show 00d2ab8d5:docs/ARBEIT-TEAM-JERRY.md`.
 - **Zu 406, von Tuffy (16:3x):** Zweig hat 457.2, 453.1; `held_kampf.py` SS_-Bewegungen, `kampf-bewegungen.json`; figur.gd `_ss`, `abwehr`; Film `tests/film_406.gd`. Für Jerry: wolf_mess_438 Wolf in Wolf 42 Bilder (ohne SS 8), andere Zugfolge, nicht von 406. Kaufschilde 15 Krieger, 2 Kleriker (`kaufschild.py`, `schild_406.gd`).
 - **Zu 406, Urteil neu vorgelegt (Chef 20:2x, Nachbesserungen a–e), Zu 460 (Vorschlag Sokrates Probefilm), Zu 438a Grundsatz (Chef 20:1x, Waffenpakete):** Wortlaut in Git, `git show 907f307f2:docs/ARBEIT-TEAM-JERRY.md`.
