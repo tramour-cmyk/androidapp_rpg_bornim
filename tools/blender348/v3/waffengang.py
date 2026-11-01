@@ -152,7 +152,9 @@ def messen(p, aktion=None):
     v = max(vs[len(vs) // 2], 0.0) if vs else 0.0
     b = [x.z for x in lage['pelvis']]
     vor = lage['pelvis'][-1].y - lage['pelvis'][0].y
-    return {'bilder': f1 - f0 + 1, 's': round((f1 - f0) / fps, 3), 'tempo': round(v, 3), 'hub_cm': round((max(b) - min(b)) * 100, 1),
+    # Pruefer Film 417 (01.11., 23:0x: „Rennen: die Fuesse kommen nie auf Bodenhoehe … 7 bis 16 Bildpunkte“): tiefster Ballen ueber den Umlauf, cm
+    boden = min(min(v.z for v in lage['ball_l']), min(v.z for v in lage['ball_r'])) * 100
+    return {'boden_cm': round(boden, 1), 'bilder': f1 - f0 + 1, 's': round((f1 - f0) / fps, 3), 'tempo': round(v, 3), 'hub_cm': round((max(b) - min(b)) * 100, 1),
             'luft_pct': int(100 * luft / len(b)), 'wurzelweg_m': round(-vor, 3), 'hand': hand,
             # Chef 01.11., 13:4x: „der Oberkoerper beim normalen Gehen zum Teil zu weit vorgeneigt“: Becken -> Hals gegen senkrecht, Grad
             # (positiv nach vorn, Blick -Y), Mittel und Hoechstwert ueber den Umlauf
@@ -166,7 +168,8 @@ def messen(p, aktion=None):
 # Becken -> Hals misst auch die Kruemmung des Rueckens, darum gegen das Stehen); NEIGUNG_ZIEL=<Grad> setzt sie von Hand
 NEIGUNG_GEHEN = float(os.environ.get('NEIGUNG_GEHEN', '3'))
 try:
-    stehen_n = messen(ZIEL, 'Idle_Loop')['neigung'][0]
+    stehen_m = messen(ZIEL, 'Idle_Loop'); stehen_n = stehen_m['neigung'][0]
+    print('BODEN Stehen (Idle_Loop): tiefster Ballen %.1f cm' % stehen_m['boden_cm'])
     print('NEIGUNG Stehen (Idle_Loop): %.1f, Gehen ohne Waffe (Walk_Loop): %.1f' % (stehen_n, messen(ZIEL, 'Walk_Loop')['neigung'][0]))
     ziel_n = float(os.environ['NEIGUNG_ZIEL']) if os.environ.get('NEIGUNG_ZIEL') else stehen_n + NEIGUNG_GEHEN
 except Exception as e:
@@ -190,6 +193,18 @@ for art, (paket, geh, _) in GAENGE.items():
         winkel = min(winkel + (neu - ziel_n) * winkel / (vor - neu), 25.0)
     ergebnis[n]['aufgerichtet'] = round(winkel, 1)
 
+# Schweben im Rennen (Pruefer Film 417, 01.11., 23:0x; Beckenhoehe Rennen x1,05-1,10, Gehen x1,00): zauber385 setzt das Becken im
+# Verhaeltnis der Beckenhoehen im ersten Bild; Jerry nimmt fuer den Kampf BECKEN=bein (438a: Fuesse 0,18 m ueber dem Boden). Zum Vergleich
+# jede Bewegung auch mit BECKEN=bein nach probe/, BODEN-Zeilen nebeneinander, erst dann umstellen
+for art, (paket, geh, renn) in GAENGE.items():
+    for name in (geh, renn):
+        q, _ = finde(paket, name)
+        if not q: continue
+        ziel = os.path.join(VERGLEICH, '%s__BEIN_%s.glb' % (art, name))
+        subprocess.run([BL, '-I', os.path.join(HIER, 'zauber385.py')], env=dict(os.environ, QUELLE=q, ZIEL=ZIEL, NAME='BEIN_' + name, OUT=ziel,
+                       BECKEN='bein'), capture_output=True, text=True)
+        ergebnis['%s__BEIN_%s' % (art, name)] = {'quelle': os.path.relpath(q, KAUF), 'da': os.path.exists(ziel), 'datei': ziel}
+
 # Gehtempo im Spiel (417 Runde 6, Chef 01.11., 13:4x „schnelles Staxen“): GEHEN_M_S, sonst 1,5 m/s statt 2,13
 RENN = 3.68 * 1.16; GEH = float(os.environ.get('GEHEN_M_S', '1.5'))
 for n in sorted(ergebnis):
@@ -202,6 +217,7 @@ for n in sorted(ergebnis):
     print('NEIGUNG %s: Oberkoerper im Mittel %.1f Grad vor, hoechstens %.1f' % (n, m['neigung'][0], m['neigung'][1]))
     print('MESS %s: %d Bilder, %.2f s, Tempo %.2f m/s (im Spiel %.2f-fach, %.1f Schritte/s), Beckenhub %.1f cm, ohne Boden %d %%, Wurzelweg %.2f m'
           % (n, m['bilder'], m['s'], m['tempo'], fach, sps, m['hub_cm'], m['luft_pct'], m['wurzelweg_m']))
+    print('BODEN %s: tiefster Ballen %.1f cm' % (n, m['boden_cm']))
     if '__' not in n:
         for h in m['hand']: print('HAND %s %s' % (n, h))
 json.dump(ergebnis, open(os.path.join(OUT, 'waffengang.json'), 'w'), indent=1, ensure_ascii=False)
