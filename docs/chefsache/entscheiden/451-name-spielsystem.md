@@ -2,7 +2,7 @@
 Sokrates · 01.11., 11:1x · D Design
 
 **Frage:** „Spielsystem 2.0“ ist ein Arbeitstitel. Welcher Name soll es tragen, so wie D&D und das SRD ihre Namen tragen (Chef 01.11., 10:59)?
-**Votum Sokrates:** **BRS, Bornimer Regelsystem** (englisch *Bornim Rule System*), nach der Prüfung auf Marken (vorher Tatwerk; geändert nach Vorschlag des Chefs 11:59).
+**Votum Sokrates:** **BRS, Bornimer Rollenspielsystem** (englisch *Bornim Roleplaying System*), nach der Prüfung auf Marken (vorher Tatwerk; geändert nach Vorschlag des Chefs 11:59).
 **Berührt:** Nachschlagewerk, Leitbild Punkt 4, `CLAUDE.md`, Handbuch (423, Homer), später Store-Seite und Webseite.
 
 ## Vorschläge
@@ -21,6 +21,19 @@ Sokrates · 01.11., 11:1x · D Design
 - **BSS, Bornimer Spielsystem:** dagegen: das Kürzel enthält „SS“; im Deutschen nicht tragbar.
 - *Stärkstes Gegenargument gegen BRS:* „Regelsystem“ klingt trocken, Tatwerk erzählt den Kern. *Wie es zu entkräften ist:* der Name steht vor allem in unseren Dateien und auf einer Seite im Handbuch; den Kern trägt ein Leitsatz: „Du wirst, was du tust.“ Nah dran ist nur Chaosiums „Basic Roleplaying“ (BRP); trotzdem vor dem Festlegen DPMA und EUIPO nach „BRS“ in Spielen durchsuchen.
 - **Votum jetzt: BRS** (statt Tatwerk), mit dem Leitsatz im Handbuch.
+
+## Mittelwort gesucht (Chef 12:02: „Tatwerk klingt … im Deutschen … vielleicht finden wir irgendwas in die Mitte rein … B und S passen ja, Bornimer irgendwas System“)
+
+Tatwerk fällt: „Tat“ klingt im Deutschen nach Tatort und Tatwaffe. Mittelwörter, geprüft auf das Kürzel:
+
+| Name | Kürzel | englisch | Urteil |
+| --- | --- | --- | --- |
+| **Bornimer Rollenspielsystem** | BRS | Bornim Roleplaying System, BRS | **Votum:** klingt natürlicher als „Regelsystem“, Kürzel in beiden Sprachen gleich |
+| Bornimer Abenteuersystem | BAS | Bornim Adventure System, BAS | gut, erzählt mehr; zweite Wahl |
+| Bornimer Chroniksystem | BCS | Bornim Chronicle System | nah am Spielnamen |
+| Bornimer Tatensystem | BTS | – | Kürzel gehört einer bekannten Musikgruppe |
+| Bornimer Handlungssystem | BHS | – | Kürzel heißt im Deutschen Büstenhalter |
+| Bornimer Spielsystem | BSS | – | „SS“ |
 
 ## Auswertung
 
