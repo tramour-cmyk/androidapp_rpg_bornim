@@ -44,14 +44,17 @@ UMBENENNEN = {HALS: 'hals', NACKEN: 'kopf', J('l_FrontLeg_Ball'): 'vpfoteL', J('
               J('l_HindLeg_Ball'): 'hpfoteL', J('r_HindLeg_Ball'): 'hpfoteR'}
 QUELLEN = ['IdleA', 'IdleC', 'Walk', 'Run', 'Attack', 'Die', 'Howl']
 # Tod: Die dauert 4,1 s, figur.gd blendet nach FALL_MS + FADE_MS = 1,5 s aus; die Quelle sinkt bei Bild 64–78 -> ab Bild 52
-TOD_AB, TOD_BIS = 60, 110     # Prüfer r1 (ab 52): Ausblenden begann noch im Fall, liegend nur 0,4 s; ab 60 fällt er bei 0,13–0,6 s
+# 438 (Prüfer Film 08:18: „Tod fällt gestreckt statt einzuknicken“; Wolf_Die gemessen, Läufe Hüfte–Knöchel gegen Stand: Bild 36–56
+# knicken sie ein, vorn bis 0,62, hinten bis 0,71, Rumpf 0,96–0,92; Bild 62–80 sinkt der Rumpf auf 0,30; ab 86 liegt er still): ab 40,
+# bis 90, gleich lang wie vorher (1,67 s); figur.gd lässt ihn danach LIEGT_MS liegen, erst dann aus (440)
+TOD_AB, TOD_BIS = 40, 90
 # Prüfer r1 (Blatt, Wolfspixel eigen/gekauft): grau 62/82, dunkel 44/73, rost 31/70, Unterbeine und Bauch fast weiß (Quelle dort
 # hell; Leitbild „nie heller als alt“): Zeichnung nur noch von Sattel bis Fell (TMAX), Bauchfarbe nicht mehr; je Fell HELL
 TMAX = float(os.environ.get('TMAX', '0.5'))
 HELL = {'grau': 0.9, 'dunkel': 1.0, 'rost': 0.75, 'asche': 0.9}
 # Biss nachgemessen (probe.gd SCHAU=ort SCHAU_MESS=1, lokal 27.10.): mit Schnauze am weitesten vorn minus 0,07 m blieb die Nase
 # 0,04–0,08 m vor dem Rand der Heldin, zugebissen 0,77–1,03 s, Winkel +2 bis +5°: Abstand −0,06 m (Modell), Zeit, Winkel −4°
-BISS_KORR = (-0.03, 0.8, -4.0)     # Prüfer r1: Kopf verschwindet am Rumpf der Heldin; Nase dort 0,01–0,05 m im Rand: 3 cm zurück
+BISS_KORR = (-0.03, 0.8, 0.0)     # Prüfer r1: Kopf verschwindet am Rumpf der Heldin; Nase dort 0,01–0,05 m im Rand: 3 cm zurück
 KOPF_KNOCHEN = ('neck_top', 'head', 'jaw', 'tongue', 'ear')
 # Augen nach Lage im Netz (Ruhe, Quelle): erster Lauf färbte nach Farbe 4,9 % der Textur als Auge (das Fell der Quelle ist braun
 # gesättigt); gemessen: Iris um (±0,047, −0,832, 0,890) m, Radius 0,010; darum ein weißer Ring (Lid, bis 0,019), wird dunkel
@@ -73,6 +76,38 @@ def importiere(fbx):
     vorher = {o.name for o in bpy.data.objects}
     bpy.ops.import_scene.fbx(filepath=fbx, use_anim=True, ignore_leaf_bones=True, automatic_bone_orientation=False)
     return [o for o in bpy.data.objects if o.name not in vorher]
+
+
+def umtragen(rig, quelle, name):
+    """438 (Chef 31.10., 23:31: Wölfe „wie als ob sie wieder gleiten würden“): jede Bewegungsdatei der Quelle hat ihre eigene Ruhelage
+    (gemessen: Läufe bis 32°, Wurzel bis 2,9 cm anders als in Wolf_Rig.fbx); die Aktion, so wie sie ist, auf das Modell gelegt, hob im
+    Gehen alle vier Pfoten zugleich (bis 0,33 m), die Quelle hat stets zwei am Boden. Darum je Bild die Lage jedes Knochens im Raum des
+    Gerüsts aus der Quelle übernehmen und als Schlüssel des Modells setzen (beide Gerüste haben dieselbe Lage in der Welt)."""
+    a = quelle.animation_data.action
+    a0, a1 = int(a.frame_range[0]), int(a.frame_range[1])
+    neu = bpy.data.actions.new(name); neu.use_fake_user = True
+    rig.animation_data_create(); rig.animation_data.action = neu
+    pb = rig.pose.bones
+    for b in pb:
+        b.rotation_mode = 'QUATERNION'
+    reihe = [b for b in rig.data.bones]     # Eltern vor Kindern
+    reihe.sort(key=lambda b: len(b.parent_recursive))
+    scn = bpy.context.scene
+    for f in range(a0, a1 + 1):
+        scn.frame_set(f)
+        M = {b.name: quelle.pose.bones[b.name].matrix.copy() for b in reihe if b.name in quelle.pose.bones}
+        for b in reihe:
+            if b.name not in M:
+                continue
+            if b.parent is not None and b.parent.name in M:
+                basis = b.matrix_local.inverted() @ b.parent.matrix_local @ M[b.parent.name].inverted() @ M[b.name]
+            else:
+                basis = b.matrix_local.inverted() @ M[b.name]
+            loc, rot, _ = basis.decompose()
+            pb[b.name].location = loc; pb[b.name].rotation_quaternion = rot
+            pb[b.name].keyframe_insert('location', frame=f); pb[b.name].keyframe_insert('rotation_quaternion', frame=f)
+    rig.animation_data.action = None
+    return neu
 
 
 def setze(rig, a):
@@ -138,6 +173,34 @@ def haltung(rig, a, fn):
         for n in alle | {COM, HALS}:
             pb[n].keyframe_insert('location', frame=f); pb[n].keyframe_insert('rotation_quaternion', frame=f)
     print('HALTUNG', a.name, a0, a1, 'Pfote höchstens %.3f m verrückt' % gross)
+
+
+def gerade(rig, a):
+    """454 (Chef 01.11., 11:05: „wenn ich seine Achse betrachte, dass die gar nicht auf dem Helden geht … rechts daneben“): der Biss
+    der Quelle schlägt den Kopf seitlich (gemessen, Schnauze quer zur Achse: erst 0,11 m nach rechts, dann 0,18 m nach links; figur.gd
+    drehte den Rumpf 8,5° weg, damit die Schnauze im Augenblick des Zubeißens traf, danach wischte sie links am Ziel vorbei). Kopie von
+    `a`, je Bild den Hals um die Hochachse durch seinen Ansatz so gedreht, dass die Schnauze auf der Achse des Rumpfs bleibt; Nicken
+    und Strecken der Quelle bleiben."""
+    g = a.copy(); g.name = a.name + '_gerade'; g.use_fake_user = True
+    setze(rig, g)
+    a0, a1 = int(g.frame_range[0]), int(g.frame_range[1])
+    W = rig.matrix_world
+    hoch = (W.to_3x3().inverted() @ Vector((0, 0, 1))).normalized()
+    pb = rig.pose.bones; vl = bpy.context.view_layer
+    hals, maul = pb[HALS], pb[J('Head_JawEnd')]
+    vor = nach = 0.0
+    for f in range(a0, a1 + 1):
+        bpy.context.scene.frame_set(f)
+        h, s = W @ hals.head, W @ maul.head
+        w = math.atan2(s.x - h.x, -(s.y - h.y))     # + = Schnauze links der Achse (Blick -Y, links +X)
+        vor = max(vor, abs(s.x))
+        hp = hals.head.copy()
+        hals.matrix = Matrix.Translation(hp) @ Matrix.Rotation(-w, 4, hoch) @ Matrix.Translation(-hp) @ hals.matrix.copy()
+        vl.update()
+        nach = max(nach, abs((W @ maul.head).x))
+        hals.keyframe_insert('location', frame=f); hals.keyframe_insert('rotation_quaternion', frame=f)
+    print('GERADE %s: Schnauze quer höchstens %.3f, danach %.3f (Quelle, Einheiten der Quelle)' % (a.name, vor, nach))
+    return g
 
 
 def stoss(t, an=0.22):
@@ -248,7 +311,8 @@ def baue(fell):
         n = importiere(f); a = aktion_von(n)
         if a is None:
             print('KEINE BEWEGUNG in', os.path.basename(f)); entferne(n); continue
-        a.use_fake_user = True; a.name = 'q_' + q; akt[q] = a
+        qr = next(o for o in n if o.type == 'ARMATURE')
+        a = umtragen(rig, qr, 'q_' + q); akt[q] = a     # 438: in Lage im Raum, nicht die Aktion der fremden Ruhelage
         entferne(n)
         print('BEWEGUNG', q, 'Bilder', tuple(round(x, 1) for x in a.frame_range))
     rig.animation_data_create()
@@ -266,6 +330,7 @@ def baue(fell):
         hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2], widerrist, rumpf_y, s))
     # ------------------------------------------------ Tempo der Pfoten (vor dem Ableiten), Biss: Zeitpunkt und Reichweite
     v_geh, v_renn = tempo(rig, akt['Walk']), tempo(rig, akt['Run'])
+    akt['Attack'] = gerade(rig, akt['Attack'])     # 454: Biss und Sprung ohne Seitenschlag des Kopfs
     setze(rig, akt['Attack'])
     a0, a1 = int(akt['Attack'].frame_range[0]), int(akt['Attack'].frame_range[1])
     zb = []

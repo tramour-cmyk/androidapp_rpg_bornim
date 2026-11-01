@@ -101,7 +101,13 @@ jobs:
           cp $RUNNER_TEMP/klassen/haare.glb $D/haare.bin && cp $RUNNER_TEMP/klassen/bewegungen.glb $D/bewegungen.bin && cp $RUNNER_TEMP/klassen/held-klassen.json $D/
           cp $RUNNER_TEMP/klassen/haare_w.glb $D/haare_w.bin   # 376.1 Heldin
           printf 'daten/haare.bin\ndaten/haare_w.bin\ndaten/bewegungen.bin\n' >> $D/kauf.txt
-          ls -l $D/held_*.bin $D/haare.bin $D/bewegungen.bin
+          # 403 (Jerry): Kampfbewegungen fuer den Kaufkoerper (unsere aus held.glb umgerechnet, Kandidaten aus der UAL Pro), gekauft
+          SRC=$RUNNER_TEMP/out/held.glb ZIEL=$RUNNER_TEMP/klassen bl/bin/python -I tools/blender348/v3/held_kampf.py > held_kampf.log 2>&1 || { tail -30 held_kampf.log; exit 1; }
+          grep -E "^KAMPF|^SS (GRIFF|TEMPO)|^ohne Sword" held_kampf.log
+          cp $RUNNER_TEMP/klassen/kampf-bewegungen.glb $D/kampf-bewegungen.bin && echo daten/kampf-bewegungen.bin >> $D/kauf.txt
+          # 406 (Tuffy): Tempo, Griff und Kontaktzeiten der Bewegungen aus Sword & Shield (figur.gd kampf_info); nur Zahlen
+          cp $RUNNER_TEMP/klassen/kampf-bewegungen.json $D/
+          ls -l $D/held_*.bin $D/haare.bin $D/haare_w.bin $D/bewegungen.bin $D/kampf-bewegungen.bin
       - name: Leute bauen (Dorf)
         run: |
           # 348.6 Leute: jede Person des Dorfs, die leute.json kennt, als Figur (held3 FIGUR=<id>, rig), 4 zugleich
@@ -182,6 +188,13 @@ jobs:
             KAUF=$KAUF OUT=$RUNNER_TEMP/kw timeout 1200 bl/bin/python -I tools/blender348/kaufwolf.py > kaufwolf.log 2>&1 || { tail -60 kaufwolf.log; exit 1; }
             for f in grau dunkel rost asche; do cp $RUNNER_TEMP/kw/kaufwolf-$f.glb $D/kaufwolf-$f.bin; done; cp $RUNNER_TEMP/kw/kaufwolf-info.json $D/
             (cd godot && ls kampf/daten/giant_rat-*.bin kampf/daten/kaufwolf-*.bin > kampf/daten/kauf.txt)
+            # 406 (Chef 31.10., 23:22): Kaufschilde 2 (Kleriker, „shield“) und 15 (Kaempfer, „round_shield“) statt der eigenen aus
+            # waffen.py, im Kampf und unterwegs auf dem Ruecken (daten/waffen); gekauft, also verschluesselt
+            KAUF=$KAUF OUT=$RUNNER_TEMP/ks timeout 600 bl/bin/python -I tools/blender348/kaufschild.py > kaufschild.log 2>&1 || { tail -40 kaufschild.log; exit 1; }
+            grep '^SCHILD' kaufschild.log
+            mkdir -p godot/daten/waffen
+            for w in shield round_shield; do cp $RUNNER_TEMP/ks/$w.glb $D/$w.bin; echo kampf/daten/$w.bin >> $D/kauf.txt
+              cp $RUNNER_TEMP/ks/$w.glb godot/daten/waffen/$w.bin; echo daten/waffen/$w.bin >> godot/daten/kauf.txt; done
           fi
           grep -q '^RUHE aus' rig.log && echo kampf/daten/held.bin >> $D/kauf.txt || true   # 397: Held mit Pro-Ruhe
           ls -l $D | wc -l
@@ -227,6 +240,9 @@ jobs:
           ! grep -E "SCRIPT ERROR|Parse Error|Failed to load|ERROR:" check.log
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/skripte_pruefen.gd 2>&1 | grep -E "SKRIPTE|FALSCH"   # 399.1 Test 130
           timeout 300 ~/godot/godot --headless --path . -s res://tests/held_klassen_376.gd 2>&1 | grep -E "HELDKLASSEN|FALSCH|SCRIPT ERROR"   # 376.1
+          set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/held_kampf_403.gd 2>&1 | grep -E "^(ok|FEHLER|Held 403)|SCRIPT ERROR"   # 403 (Jerry)
+          set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Held|Söldner|nach|in den|Atem 453)|SCRIPT ERROR"   # 453.1 (Tuffy)
+          set -o pipefail; timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wolf_mess_438.gd 2>&1 | grep -E "^(— |  |Befunde|Wolf 438|Kampf )|SCRIPT ERROR"   # 438, 439, 440 (Jerry): Wölfe ohne Gleiten, Reihenfolge, Tod
           timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_test.gd 2>&1 | grep -E "^(gut|FALSCH)|KLANG|SCRIPT ERROR"   # 399.3
           timeout 120 ~/godot/godot --headless --path . -s res://tests/zwischenbild_test.gd 2>&1 | grep -E "FALSCH|ZWISCHENBILD|SCRIPT ERROR"   # 399.1 Intro
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tasten_4161.gd 2>&1 | grep -E "FEHLER|TASTEN|SCRIPT ERROR"   # 416.1

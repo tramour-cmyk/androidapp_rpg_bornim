@@ -15,10 +15,12 @@ class ClericKitTest {
     }
 
     @Test
-    fun newClericsStartWithStaffAndRoundShield() {
+    fun newClericsStartWithStaffAndShield() {
+        // 406 (Chef 31.10., 23:22): Schild 2 (Drachenschild) für den Kleriker, 15 (rund) für den Kämpfer; Name passt zur Form
         val h = GameState.newGame("Neu", Race.ELF, CharClass.CLERIC).hero
         assertEquals("quarterstaff", h.weapon?.base)
-        assertEquals("round_shield", h.item(GearSlot.OFF_HAND)?.base)
+        assertEquals("shield", h.item(GearSlot.OFF_HAND)?.base)
+        assertEquals("round_shield", GameState.newGame("Neu", Race.HUMAN, CharClass.FIGHTER).hero.item(GearSlot.OFF_HAND)?.base)
     }
 
     @Test
