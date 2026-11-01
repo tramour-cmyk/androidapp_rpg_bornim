@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [423](entscheiden/423-handbuch.md) | **Muss** | C Texte | 01.11. | Spielerhandbuch Spielsystem 2.0: Entwurf zum Lesen, drei Fragen | Homer |
 | [431a](entscheiden/431a-dritter-lauf.md) | **Muss** | E Figuren | 01.11. | Völker: dritten Probelauf freigeben? | Tom |
 | [447](entscheiden/447-meilensteine.md) | **Muss** | B Abläufe | 01.11. | Meilensteine neu: vier Stufen bis „marktreif“, drei danach | Sokrates |
 | [451](entscheiden/451-name-spielsystem.md) | **Muss** | D Design | 01.11. | Ein Name für unser Spielsystem | Sokrates |
@@ -45,12 +44,12 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 1, startbar 0
+**Homer** – offen 5, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 432 | K | von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt | nach dem Meilenstein |
-| 423 | M | von Sokrates (Chef 31.10., 21:2x: „irgendwer muss dann auch einfach eine Anleitung schreib | Chef (Datei in der Chefsache) |
+| 423 | M | von Sokrates (Chef 31.10., 21:2x: „irgendwer muss dann auch einfach eine Anleitung schreib | startbar |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
