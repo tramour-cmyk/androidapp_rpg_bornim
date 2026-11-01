@@ -131,14 +131,56 @@ func ware_liste(liste: Array, kauf: bool) -> void:
 	for g in liste.filter(func(g): return hw.kann_tragen(g)): stueck_reihe(g, kauf, false)
 	if nicht.is_empty(): return
 	luecke(6)
-	kopfzeile("⊘ %s (%d)" % [Sprache.t(Laden.NICHT_TRAGBAR), nicht.size()])
+	# 416.9 (Chef 31.10., 22:20: nicht tragbare extra ausweisen): wie alt das Zeichen (NoEntry) vor der Ueberschrift und auf jedem Bild
+	var k := HBoxContainer.new()
+	k.add_theme_constant_override("separation", int(6 * DP))
+	var zk := LadenSchirm.kein_zeichen(14)
+	zk.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	k.add_child(zk)
+	inhalt.add_child(k)
+	var l := zeile(("%s (%d)" % [Sprache.t(Laden.NICHT_TRAGBAR), nicht.size()]).to_upper(), 14, Stil.GOLD)
+	l.add_theme_font_override("font", Stil.variante(3.0))
+	inhalt.remove_child(l)
+	k.add_child(l)
 	for g in nicht: stueck_reihe(g, kauf, true)
+
+# 416.9: ShopScreen.NoEntry, ein Ring mit Balken in Warnfarbe auf dunklem Grund, gezeichnet (kein Schriftzeichen)
+static func kein_zeichen(dp: float) -> Control:
+	var c := Control.new()
+	c.set_meta("kein_zeichen", true)   # fuer laden_4169
+	c.custom_minimum_size = Vector2(dp, dp) * DP
+	c.size = c.custom_minimum_size
+	c.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	c.draw.connect(func():
+		var d := minf(c.size.x, c.size.y)
+		var w := d * 0.14
+		var m := c.size / 2.0
+		c.draw_circle(m, d / 2.0, Color(0, 0, 0, 0.6))
+		c.draw_arc(m, d / 2.0 - w / 2.0, 0.0, TAU, 32, Stil.WARN, w, true)
+		var o := (d / 2.0 - w) * 0.7071
+		c.draw_line(m - Vector2(o, o), m + Vector2(o, o), Stil.WARN, w, true))
+	return c
+
+# das Bild mit dem Zeichen unten rechts darueber (alt: 16 dp, versetzt um 28 dp bei 42 dp)
+static func mit_zeichen(bild: Control, dp: float) -> Control:
+	var h := Control.new()
+	h.custom_minimum_size = Vector2(dp, dp) * DP
+	h.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	h.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	bild.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	h.add_child(bild)
+	var zk := kein_zeichen(dp * 16.0 / 42.0)
+	zk.position = Vector2(dp, dp) * DP * (28.0 / 42.0)
+	h.add_child(zk)
+	return h
 
 func stueck_reihe(g: Dictionary, kauf: bool, matt: bool) -> void:
 	var p := Laden.kaufpreis_von(hw, g) if kauf else Laden.verkaufspreis_von(hw, g)
 	var u = Vergleich.von(hw, g).urteil() if hw.kann_tragen(g) else null
 	var pfeil := "▲ " if u == 1 else ("▼ " if u == -1 else "")
-	reihe(Menue.stueck_rahmen(g, 42), pfeil + Beute.name(g), farbe_von(g), [Beute.kennwert(g)], preis_text(p), func(): stueck(g, kauf), matt)
+	var bild := Menue.stueck_rahmen(g, 42)
+	if not hw.kann_tragen(g): bild = LadenSchirm.mit_zeichen(bild, 42)
+	reihe(bild, pfeil + Beute.name(g), farbe_von(g), [Beute.kennwert(g)], preis_text(p), func(): stueck(g, kauf), matt)
 
 # ---------------------------------------------------------------- Verkaufen
 const ANGELEGT := ["HEAD", "CLOAK", "CHEST", "ARMS", "LEGS", "AMULET", "RING", "MAIN_HAND", "OFF_HAND"]
@@ -155,7 +197,8 @@ func verkaufen() -> void:
 		for platz in ANGELEGT:
 			var zwei: bool = platz == "OFF_HAND" and waffe is Dictionary and zweihaendig(waffe)
 			var g = waffe if zwei else hw.ding(platz)
-			var b := Menue.stueck_rahmen(g, 34) if g is Dictionary else Menue.bild_feld("", 34)   # leerer Platz: leeres Feld
+			# 416.9 (Chef 31.10., 22:28: auch die leeren Plaetze): ein leerer Platz ist ein leerer Rahmen wie GearIcon(null), nicht nichts
+			var b := Menue.stueck_rahmen(g, 34) if g is Dictionary else LadenSchirm.leer_rahmen(34)
 			if zwei: b.modulate.a = 0.5
 			if g is Dictionary:
 				var gg: Dictionary = g
@@ -199,6 +242,18 @@ func verkaufen() -> void:
 	if dinge.is_empty(): zeile(Sprache.u("nothing"), 14, Stil.DIM)
 	ware_liste(dinge, false)
 
+# GearIcon ohne Stueck: dunkler Grund, Rand Veil.dim zu 35 %
+static func leer_rahmen(dp: float) -> Control:
+	var p := PanelContainer.new()
+	p.set_meta("leer", true)   # fuer laden_4169
+	var st := Stil.kasten(Color("0e0c0a"), Color(Stil.DIM, 0.35), 1.0)
+	st.set_corner_radius_all(int(3 * DP))
+	p.add_theme_stylebox_override("panel", st)
+	p.custom_minimum_size = Vector2(dp, dp) * DP
+	p.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return p
+
 func alle_gewoehnlichen(gew: Array) -> void:
 	var de := de_()
 	var tu := func():
@@ -233,7 +288,11 @@ func menge(id: String, kauf: bool, n_: int, alle := false) -> void:
 	var most := Laden.kann_kaufen(z, hw, id) if kauf else z.anzahl(id)
 	var n := clampi(n_, 1, maxi(1, most))
 	var preis := stueck_ * n
-	var zl: Array = [Erschaffung.txt(Sprache.t(Laden.ding(id).get("info", "")), 14, Stil.DIM),
+	# 416.9 (Chef 31.10., 22:20): das Bild des Dings im Kasten wie alt (DialogSpec supply, 48 dp), wie beim Stueck ueber den Zeilen
+	var bild := Menue.bild_feld("ding-" + id, 48)
+	bild.name = "DingBild"
+	bild.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	var zl: Array = [bild, Erschaffung.txt(Sprache.t(Laden.ding(id).get("info", "")), 14, Stil.DIM),
 		Erschaffung.txt("%s: %d" % [Sprache.t(Laden.MENGE), n], 16),
 		Erschaffung.txt(Sprache.t(Laden.BESITZ) + "%d → %d" % [z.anzahl(id), z.anzahl(id) + (n if kauf else -n)], 15, Stil.DIM),
 		Erschaffung.txt("%s: %d → %d" % [Sprache.u("gold"), z.gold, z.gold - preis if kauf else z.gold + preis], 15, Stil.DIM if most >= 1 else Stil.WARN)]

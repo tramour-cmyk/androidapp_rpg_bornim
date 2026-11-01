@@ -26,13 +26,28 @@ GEHEN = dict(eng_arm=0.45, vor=0.5, schulter=0.3)
 # Strahlen, Schild aufrechter und weiter ab, held3.py: 2 cm hinter der Brustmitte 8 Ecken 3,9 cm vor dem Schild, 3 cm davor 1 Ecke
 # 1,3 cm, 8 cm davor 0)
 RENNEN = dict(eng_arm=0.35, vor=0.65, kopf=-8.0, schwung=0.6, schulter=0.0, rueck=-0.08)
+# 416.4 (Chef 31.10., Build 143: Rennen wirkt „als würde er Hochsprung machen“): Jog_Fwd_Loop ist ein Sprunglauf (2,5 m je Schritt,
+# 2,1 Schritte/s, Sohle bis 22 cm über dem Boden); im Spiel (4,3 m/s) auf 0,8 gedehnt: 1,7 Schritte/s, jeder Satz schwebt.
+# Läufer bei 4,3 m/s: etwa 2,8 Schritte/s, 1,5 m je Schritt. flug = Bilder ohne Fuss am Boden so viel schneller (Stand wie die
+# Quelle, darum gleitet nichts: held.gd speed_scale bleibt), hub = Anteil des Hebens des Beckens über den Stand.
+# RENNEN_ART=<Name> wählt eine Fassung zum Vergleich (Probe 416.4); ohne: die gültige.
+RENNEN_ARTEN = {
+    'heute': ('Jog_Fwd_Loop', {}),
+    'A': ('Jog_Fwd_Loop', dict(flug=2.0, hub=0.35)),    # 18 Bilder, 2,8 Schritte/s, 1,5 m, Becken 7 cm, Sohle hoechstens 11 cm
+    'B': ('Jog_Fwd_Loop', dict(flug=2.5, hub=0.25)),    # 16 Bilder, 3,1 Schritte/s, 1,4 m, Becken 5 cm, Sohle hoechstens 8 cm
+}
+# verworfen (gemessen): schritt 0,4-0,6 (Schritt kaum kuerzer, der Fuss schleift in der Schwungphase), nur Oberschenkel gedaempft
+# (Standfuss hebt nach 2 Bildern ab), Sprint_Loop (auf unserem Helden 9 m/s, im Spiel 0,48-fach: noch langsamer als heute)
+RENNEN_ART = os.environ.get('RENNEN_ART', 'heute')
+RENNEN_QUELLE = RENNEN_ARTEN[RENNEN_ART][0]
+RENNEN = dict(RENNEN, **RENNEN_ARTEN[RENNEN_ART][1])
 _S = dict(rueck=0.02)
 # 348.6 Kampf (von Jerry 27.10.): Tod faellt nach hinten wie die Quelle (vor 1: gedaempft kippte er nicht), Drehung zum Betrachter wie
 # im ersten Bild, Kopf frei (die Neigung ueber alle Bilder gemittelt richtete den Liegenden auf); Anfang aus Kampfstehen (kampf.py)
 TOD = dict(gerade='anfang', vor=1.0, kopf_frei=True)
-HELD = [('Stehen', 'Idle_Loop', dict(STEHEN, **_S)), ('Gehen', 'Walk_Loop', dict(GEHEN, **_S)), ('Rennen', 'Jog_Fwd_Loop', RENNEN),
+HELD = [('Stehen', 'Idle_Loop', dict(STEHEN, **_S)), ('Gehen', 'Walk_Loop', dict(GEHEN, **_S)), ('Rennen', RENNEN_QUELLE, RENNEN),
         ('Stehen_Fackel', 'Idle_Loop', dict(STEHEN, fackel=True, **_S)), ('Gehen_Fackel', 'Walk_Loop', dict(GEHEN, fackel=True, **_S)),
-        ('Rennen_Fackel', 'Jog_Fwd_Loop', dict(RENNEN, fackel=True)), ('Tod', 'Death01', TOD)]
+        ('Rennen_Fackel', RENNEN_QUELLE, dict(RENNEN, fackel=True)), ('Tod', 'Death01', TOD)]
 def leute_liste(LP):   # leute.json „ruhe“, „geh“: andere fremde Bewegung je Figur; „gang.takt“: Bilder je Doppelschritt (32 wie der Held)
     takt = (LP.get('gang') or {}).get('takt', 32)
     # Runde 3 (Fremdpruefung Runde 2: Unterschenkel durch lange Gewaender, alle sieben): „gang.schritt“ daempft die Beine gegen die
@@ -359,14 +374,26 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
         uad.action = act
         if hasattr(uad, 'action_slot') and act.slots: uad.action_slot = act.slots[0]
 
-    def lies(act, takt=None):
+    def lies(act, takt=None, flug=1.0):
         """Posen der fremden Bewegung je Bild (Armatur-Raum, m), Bild 0..n (n = Ende, Schleife: n wie 0); takt: auf n*takt/32
-        Bilder gestreckt (Runde 2: jede Figur in ihrem Takt, alle gingen im Gleichschritt)"""
+        Bilder gestreckt (Runde 2: jede Figur in ihrem Takt, alle gingen im Gleichschritt); flug: Bilder, in denen kein Fuss
+        am Boden ist, so viel schneller (416.4), Standbilder wie die Quelle"""
         setze(act); r0, r1 = act.frame_range; n = int(round(r1 - r0))
         m = n if not takt else max(8, int(round(n * takt / 32.0)))
+        zeiten = [r0 + f * n / m for f in range(m + 1)]
+        if flug != 1.0:
+            fein = [r0 + i * n / (8 * n) for i in range(8 * n + 1)]
+            hoch = []
+            for t in fein:
+                scn.frame_set(int(math.floor(t)), subframe=t - math.floor(t))
+                hoch.append([UP['ball' + s].matrix.translation.z for s in ('_l', '_r')])
+            tl, tr = (min(h[i] for h in hoch) for i in (0, 1))
+            gew = [1.0 if (h[0] < tl + 0.02 or h[1] < tr + 0.02) else 1.0 / flug for h in hoch]
+            kum = np.concatenate([[0.0], np.cumsum([(a + b) / 2 for a, b in zip(gew, gew[1:])])])
+            m = max(8, int(round(m * kum[-1] / (8 * n))))
+            zeiten = list(np.interp(np.linspace(0, kum[-1], m + 1), kum, fein))
         out = []
-        for f in range(m + 1):
-            t = r0 + f * n / m
+        for t in zeiten:
             scn.frame_set(int(math.floor(t)), subframe=t - math.floor(t))
             out.append({b: UP[b].matrix.copy() for b in REIHE} | {'_basis': {b: UP[b].matrix_basis.copy() for b in REIHE}})
         return out
@@ -375,7 +402,7 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
         v = Gf[b].to_3x3() @ (RU[b].to_3x3().inverted() @ Vector((0, -1, 0)))
         return math.degrees(math.atan2(v.x, -v.y))
 
-    def posen(Gs, gerade=False, fackel=None, korr=None, boden=0.0, eng_arm=0.0, eng_bein=0.0, gehen=False, vor=1.0, schritt=1.0, schwung=1.0, schulter=None, rueck=None, mitschwung=0.0):
+    def posen(Gs, gerade=False, fackel=None, korr=None, boden=0.0, eng_arm=0.0, eng_bein=0.0, gehen=False, vor=1.0, schritt=1.0, schwung=1.0, schulter=None, rueck=None, mitschwung=0.0, hub=1.0):
         """Posen unseres Skeletts je Bild: (Ruhe->Pose je Knochen als Basis, Armatur-Matrizen)"""
         W = Matrix.Identity(4)
         MS = {}   # mitschwung: je Seite und Bild die Drehung des fremden Oberarms gegen die Brust, um ihr Mittel, gedaempft
@@ -391,6 +418,9 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
                     MS[s_] = [Matrix.Rotation(math.radians(MIT_WIPPEN * mitschwung * math.sin(4 * math.pi * f_ / n_)), 3, 'X') for f_ in range(len(Gs))]
         if gerade:   # in Ruhe eingedreht: Becken und Brust zurueck zum Betrachter (Runde 2: 70 % liessen ihn seitlich eingedreht)
             W = Matrix.Rotation(math.radians(-float(np.mean([gier(Gf, 'spine_03') for Gf in (Gs[:1] if gerade == 'anfang' else Gs)]))), 4, 'Z')
+        def becken(Go):   # Lage des fremden Beckens gegen seine Ruhe ueber dem Wurzelknochen
+            return Go['pelvis'].translation - (Go['root'] @ RU['root'].inverted() @ RU['pelvis']).translation
+        zm = float(np.min([becken({b: W @ Gf[b] for b in ('root', 'pelvis')}).z for Gf in Gs])) if hub != 1.0 else 0.0   # ueber dem Tiefstand (Stand)
         res = []
         for f, Gf in enumerate(Gs):
             Go = {b: W @ Gf[b] for b in REIHE}; Bq = Gf['_basis']
@@ -462,8 +492,9 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
                     rot = {'clavicle_l': Rc, 'upperarm_l': Ry @ Ru}.get(b, Ry @ Ru @ Matrix.Rotation(math.radians(-120), 3, 'X')) @ RM[b].to_3x3()
                 kopf = kette.translation.copy()
                 if b == 'pelvis':
-                    ru = Go['root'] @ RU['root'].inverted() @ RU['pelvis']
-                    kopf = kopf + (Go['pelvis'].translation - ru.translation) * kbein + Vector((0, 0, boden))
+                    d_ = becken(Go)
+                    d_.z = zm + (d_.z - zm) * hub   # 416.4: Heben des Beckens ueber den Stand gedaempft
+                    kopf = kopf + d_ * kbein + Vector((0, 0, boden))
                 soll = Matrix.Translation(kopf) @ rot.to_4x4()
                 BA[b] = kette.inverted() @ soll; PN[b] = soll
             res.append((BA, PN))
@@ -500,9 +531,9 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
     INFO = {}
     tor = lies(bpy.data.actions[FACKEL]) if FIGUR == 'held' else None
     for name, quelle, opt in mit_ruhe(HELD if FIGUR == 'held' else leute_liste(LP), FIGUR):
-        Gs = lies(bpy.data.actions[quelle], opt.get('takt'))
+        Gs = lies(bpy.data.actions[quelle], opt.get('takt'), opt.get('flug', 1.0))
         fk = tor if opt.get('fackel') else None
-        ka = dict(eng_arm=opt.get('eng_arm', 0.0), eng_bein=opt.get('eng_bein', 0.0), gehen=name.startswith(('Gehen', 'Rennen')), vor=opt.get('vor', 1.0), schritt=opt.get('schritt', 1.0), schwung=opt.get('schwung', 1.0), schulter=opt.get('schulter'), rueck=opt.get('rueck'), mitschwung=opt.get('mitschwung', 0.0))
+        ka = dict(eng_arm=opt.get('eng_arm', 0.0), eng_bein=opt.get('eng_bein', 0.0), gehen=name.startswith(('Gehen', 'Rennen')), vor=opt.get('vor', 1.0), schritt=opt.get('schritt', 1.0), schwung=opt.get('schwung', 1.0), schulter=opt.get('schulter'), rueck=opt.get('rueck'), mitschwung=opt.get('mitschwung', 0.0), hub=opt.get('hub', 1.0))
         res = posen(Gs, opt.get('gerade', False), fk, **ka)
         korr, dn, dd = kopf_korr(res, opt.get('kopf', KOPF)) if not opt.get('kopf_frei') else (None, 0.0, 0.0)
         res = posen(Gs, opt.get('gerade', False), fk, korr, **ka)
@@ -512,6 +543,12 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
         # Fussgleiten: wie schnell wandert der Ballen des Standfusses (am Boden, hoechstens 1,5 cm) nach hinten
         bl = [ballen(PN) for BA, PN in res]
         v = [abs(b[s][1].y - a[s][1].y) * FPS for a, b in zip(bl, bl[1:]) for s in 'lr' if a[s][0] < 0.015 and b[s][0] < 0.015]
+        if name.startswith('Rennen'):   # 416.4: im Lauf liegt der Ballen nur wenige Bilder am Boden (heute 8 Werte, gedaempft 0-2):
+            # je Fuss die Bilder hoechstens 4 cm ueber seinem Tiefstand (der Ballen rollt im Stand 2-3 cm auf)
+            v = []
+            for s in 'lr':
+                t_ = min(b[s][0] for b in bl)
+                v += [abs(b[s][1].y - a[s][1].y) * FPS for a, b in zip(bl, bl[1:]) if a[s][0] < t_ + 0.04 and b[s][0] < t_ + 0.04]
         if os.environ.get('SPUR'): print('SPUR', name, [(round(b['l'][0] * 100, 1), round(b['l'][1].y * 100, 1)) for b in bl])
         act = bpy.data.actions.new(name); act.use_fake_user = True
         ad.action = act; ad.use_nla = False

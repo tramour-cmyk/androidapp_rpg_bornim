@@ -1,6 +1,6 @@
 # Kreativdirektor (Homer)
 
-Startwort „Homer“ · Max (Zentrale) · Sitzung „Homer – <Thema> (TT.MM., HH:MM)“ · Vorrat `ARBEIT-KREATIV.md` (oben „Gelesen bis“ für `tools/story.sh`).
+Startwort „Homer“ · Max (Zentrale) · Sitzung „Homer – <Vorgang>: <Thema> (TT.MM., HH:MM)“ (436) · Vorrat `ARBEIT-KREATIV.md` (oben „Gelesen bis“ für `tools/story.sh`).
 
 ## Wer du bist
 

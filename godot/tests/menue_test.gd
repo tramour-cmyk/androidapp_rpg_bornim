@@ -97,25 +97,42 @@ func _lauf() -> void:
 	m.lege_ab(platz)
 	if hw.ding(platz) != null or m.im_beutel(g) < 0: fehler += 1; print("FEHLER ablegen")
 	if m.passend(platz).is_empty(): fehler += 1; print("FEHLER passend leer fuer ", platz)
-	# System: Speichern meldet sich, die Knoepfe senden
+	# System (425): Zeichen wie alt (SystemSigns): Speichern meldet sich, die Zeichen senden; Gedrueckthalten erklaert
 	var gesendet := []
 	m.speichern.connect(func(): gesendet.append("speichern"))
 	m.hauptmenue.connect(func(): gesendet.append("hauptmenue"))
+	Bedienung.lade(); Bedienung.zeichen_gesehen = false
 	m.reiter = "system"; m.baue()
 	await process_frame; await process_frame
-	var sk: Array = m.inhalt.find_children("*", "Button", true, false)
-	print("System: ", texte(m).substr(0, 300))
-	var bedienung := (6 if Bedienung.klassisch else 8) + 3   # Rückfragen, Steuerung, (Joystick, Rennen,) Aktion, Karte, Rütteln; 399.2 Blut, Tempo, Kampftext
-	if sk.size() != (5 if root.has_node("Klang") else 4) + 2 + bedienung - 1: fehler += 1; print("FEHLER System: %d Knöpfe" % sk.size())   # mit Klang dazu Schritte; Anleitung, Über; Gerät zeigen
+	if not m.meldung_.visible or m.meldung_.text != Sprache.t(Menue.HINWEIS): fehler += 1; print("FEHLER kein Hinweis Gedrückthalten")
+	var zk: Array = m.inhalt.find_children("*", "Zeichenknopf", true, false)
+	var namen: Array = zk.map(func(b): return b.wort)
+	print("System: ", namen)
+	var de_ := Sprache.aktiv() == "de"
+	var soll_ := (["Speichern", "Sprache", "Hauptmenü", "Anleitung", "Über", "Blut", "Tempo", "Kampftext", "Rückfragen", "Steuerung"] if de_ else
+		["Save", "Language", "Main menu", "Guide", "About", "Blood", "Pace", "Battle text", "Confirmations", "Controls"])
+	if namen.slice(0, soll_.size()) != soll_: fehler += 1; print("FEHLER System Zeichen ", namen)
+	var bedienung := (2 if Bedienung.klassisch else 4) + 2   # Steuerung, (Joystick, Rennen,) Aktion; Karte, Rütteln
+	if zk.size() != 5 + 4 + bedienung + (1 if root.has_node("Klang") else 0): fehler += 1; print("FEHLER System: %d Zeichen" % zk.size())
+	# keine Saetze mehr im Menue: nur Name und Wert unter den Zeichen (426 „Zeichen statt Textwände“)
+	for b in zk:
+		if texte(b).length() > 30: fehler += 1; print("FEHLER Zeichen mit Text: ", texte(b))
+	var lang_ := zk.filter(func(b): return b.wort == ("Blut" if de_ else "Blood"))[0] as Zeichenknopf
+	lang_.lang.call(lang_.wort, lang_.erklaerung)
+	await process_frame
+	if not is_instance_valid(m.erklaer_fenster) or not texte(m.erklaer_fenster).contains(lang_.erklaerung) or Zeichenknopf.offen != lang_.wort:
+		fehler += 1; print("FEHLER Gedrückthalten erklärt nicht")
+	m.schliesse_erklaerung()
+	await process_frame
+	if Zeichenknopf.offen != "": fehler += 1; print("FEHLER Erklärung bleibt offen")
 	# 352 Anleitung: Absaetze der eigenen Klasse, fette Eroeffnung als Ueberschrift, keine Sternchen
 	var teile := Menue.anleitung_teile("WIZARD")
 	var alle: Array = Sprache.texte["anleitung"]["teile"]
 	if teile.size() != alle.filter(func(p): return not p.has("nur") or p["nur"] == "WIZARD").size() or teile.size() < 10: fehler += 1; print("FEHLER Anleitung %d Absätze" % teile.size())
 	var ueber_ := [0]
 	m.ueber.connect(func(): ueber_[0] += 1)
-	for b in sk:
-		if b.text == "ÜBER" or b.text == "ABOUT": b.pressed.emit()
-		if b.text == "ANLEITUNG" or b.text == "GUIDE": b.pressed.emit()
+	for b in zk:
+		if b.wort in ["Über", "About", "Anleitung", "Guide"]: b.tat.call()
 	await process_frame
 	if ueber_[0] != 1: fehler += 1; print("FEHLER Über sendet nicht")
 	var rts: Array = m.find_children("*", "RichTextLabel", true, false)
@@ -125,7 +142,10 @@ func _lauf() -> void:
 		if c.find_children("*", "RichTextLabel", true, false).size() > 0: c.free()
 	if not Menue.geraeteangaben().contains("Version:"): fehler += 1; print("FEHLER Geräteangaben")
 	else:
-		sk[0].pressed.emit(); sk[2].pressed.emit()
+		m.reiter = "system"; m.baue()
+		await process_frame
+		zk = m.inhalt.find_children("*", "Zeichenknopf", true, false)
+		zk[0].tat.call(); zk[2].tat.call()
 		if gesendet != ["speichern", "hauptmenue"] or not m.meldung_.visible: fehler += 1; print("FEHLER System sendet ", gesendet)
 	if m.leiste.get_child_count() != 6: fehler += 1; print("FEHLER %d Reiter" % m.leiste.get_child_count())
 	# 399.3.1 Lautstaerke: drei Regler, Antippen in der Mitte stellt Musik auf 50 % (Klang.stelle)
@@ -151,10 +171,10 @@ func _lauf() -> void:
 		regler[3]._eingabe(t2)
 		if Helligkeit.lade() != 50 or not is_equal_approx(Helligkeit.hebung(50), 0.05): fehler += 1; print("FEHLER Helligkeit ", Helligkeit.lade())
 		Helligkeit.setze(hell)
-		var schritte: Array = m.inhalt.find_children("*", "Button", true, false).filter(func(b): return b.text.begins_with("SCHRITTE") or b.text.begins_with("STEPS"))
+		var schritte: Array = m.inhalt.find_children("*", "Zeichenknopf", true, false).filter(func(b): return b.wort in ["Schritte", "Steps"])
 		if schritte.is_empty(): fehler += 1; print("FEHLER kein Schalter Schritte")
 		else:
-			schritte[0].pressed.emit()
+			schritte[0].tat.call()
 			if kl.schritte_an: fehler += 1; print("FEHLER Schritte bleiben an")
 			kl.schritte_an = true; kl.stelle("all", 100)
 	if eigener: kl.queue_free()

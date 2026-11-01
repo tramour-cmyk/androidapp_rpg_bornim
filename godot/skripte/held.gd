@@ -109,16 +109,24 @@ func frei(p: Vector3) -> bool:
 		if is_instance_valid(l) and l.sperrt(p): return false
 	return true
 
-# Tempo und Ueberblendung, auch fuer den Film der Tragprobe (tragprobe.gd, 417): aus dem Stand sofort im Gehtempo, schneller oder
-# langsamer werden mit BESCHL; anhalten sofort
+# Tempo und Ueberblendung fuer Held, Leute, Tiere und den Film der Tragprobe (tragprobe.gd, 417). 416.4 (Chef 01.11., 13:1x: „von
+# Stehen zu Gehen oder Laufen muss weich sein. Egal, wer sich bewegt“): aus dem Stand mit ANLAUF des Gehtempos los (bisher sofort
+# voll), dann mit BESCHL schneller oder langsamer; am Ende des Wegs bremst bremse() auf ANLAUF herunter (bisher voller Schritt bis
+# zum Halt); ohne Weg (Steuerkreuz losgelassen) haelt er sofort
+const ANLAUF := 0.35                   # Anteil des Gehtempos im ersten Bild aus dem Stand und beim letzten Schritt
+const BREMS := 3.5                     # m/s²: vor dem Ziel langsamer werden (aus dem Rennen etwa 2,5 m vorher)
 static func tempo_schritt(jetzt: float, soll: float, geh_t: float, dt: float) -> float:
 	if soll <= 0.0: return 0.0
-	return minf(soll, geh_t) if jetzt <= 0.0 else move_toward(jetzt, soll, BESCHL * dt)
+	return minf(soll, geh_t) * ANLAUF if jetzt <= 0.0 else move_toward(jetzt, soll, BESCHL * dt)
+
+static func bremse(tempo: float, rest: float, geh_t: float) -> float:   # rest: m bis zum Halt
+	return minf(tempo, maxf(geh_t * ANLAUF, sqrt(2.0 * BREMS * maxf(0.0, rest))))
 
 # Runde 5 (Helfer Runde 3: „Haltung springt beim Anlaufen in 0,1 s“): Gehen <-> Rennen 0,6 s (Rumpf neigt sich weich; 0,45: in 1/15 s
-# 9 Grad), aus dem Stehen 0,5 s, sonst 0,25 s (397: Ruhe in Ruhe weich)
+# 9 Grad), aus dem Stehen 0,5 s (397: Ruhe in Ruhe weich); 416.4: aus Gehen oder Rennen in den Stand 0,45 s statt 0,25 s
 static func ueberblendung(cur: String, moving: bool) -> float:
-	if (cur.begins_with("Gehen") or cur.begins_with("Rennen")) and moving: return 0.6
+	var schritt := cur.begins_with("Gehen") or cur.begins_with("Rennen")
+	if schritt: return 0.6 if moving else 0.45
 	return 0.5 if cur.begins_with("Stehen") else 0.25
 
 func _process(dt: float) -> void:
@@ -141,8 +149,12 @@ func _process(dt: float) -> void:
 	if moving:
 		var kps := karte.laufen if laeuft else karte.gehen
 		tempo = kps * Karte.TS / karte.schritt(karte.pos_kachel(position)) * clampf(dir.length(), 0.5, 1.0)
-		# aus dem Stand sofort im Gehtempo, schneller oder langsamer werden weich
+		# aus dem Stand mit ANLAUF los (416.4), schneller oder langsamer werden weich
 		var geh_t := karte.gehen * Karte.TS / karte.schritt(karte.pos_kachel(position))
+		if richtung.length() <= 0.15 and weg.size() > 0:   # 416.4: vor dem Ende des Wegs langsamer
+			var bis := Vector2(weg[0].x - position.x, weg[0].z - position.z).length()
+			for i in range(1, weg.size()): bis += Vector2(weg[i].x - weg[i - 1].x, weg[i].z - weg[i - 1].z).length()
+			tempo = bremse(tempo, bis, geh_t)
 		tempo_jetzt = tempo_schritt(tempo_jetzt, tempo, geh_t, dt)
 		tempo = tempo_jetzt
 		# in kleinen Stuecken, damit ein langes Bild (dt gross) nicht ueber Kanten springt oder zu frueh anstoesst

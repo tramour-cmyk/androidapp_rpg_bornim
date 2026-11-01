@@ -143,7 +143,21 @@ Fehlt im Paket: Hund, Katze, Pferd, Schaf, Vögel außer Huhn und Gans.
 | Gefäße | Clay_Pot_1–6, Large_Jug_Copper/Gold/Silver |
 | Sonst | Meat_Hanging_Frame_1/2, Log_Pile_1/2, Straw_Bails (9) |
 
-Waffen: keine fremden im Bestand (nur Schwert-Bewegungen der UAL).
+**Waffen und Schilde (348.12h, hochgeladen 29.10., 11:0x; Inventur Sokrates 11:09)**, alle privat in `bornim-kaufmodelle` (Version stufe1); Lizenzen auf den Seiten `LISTE-CC0-MODELLE.md` „Ausrüstung genau“:
+
+| Paket | Datei | Lizenz | Modelle | Dreiecke | Texturen | Godot |
+|---|---|---|---|---|---|---|
+| Omie „3D Medieval Weapon Pack“ (gekauft 1,99 $) | `Medieval.Weapon.Pack.Godot.zip` | CC0 (Seite) | 20 | 644–1.764, Mitte 1.321 | je 3 TGA 1024² (Farbe, Normal, ORM), Glanz aus Metallkanal, keine Emission | fertig (4.7, obj, tres) |
+| dasselbe für Unity | `MedievalLowPolyPBR…unitypackage` | – | gleiche 20 (md5 gleich) | – | gleiche | nein, entbehrlich |
+| Anker „Low Poly Medieval Weapons“ | `Low.Poly.Medieval.Weapons.zip` | CC0 (Seite) | 62 | 54–5.272, Mitte 393 | keine, nur Grundfarben | nein (FBX) |
+| Avramania „Weapons & Shields“ frei | `Weapons_Shields_Free.zip` | CC0 (Datei) | 19 | 166–1.156, Mitte 544 | 1 Palette 256² | glb |
+| PolyMech „Low Poly Shields“ | `Shields.zip` | CC0 (Seite) | 9 Schilde | 72–428 | 1 PNG 1024² (Lionheart), Pfad absolut | nein (FBX, blend) |
+
+- **Omie:** Langschwert, Kurzschwert, Krummsäbel, Dolch; Handaxt, Streitaxt, große Axt; Speer, Hellebarde, Dreizack; Streitkolben, Kriegshammer, Kriegspicke, Flegel; Bogen, Armbrust; Zauberstab („Staff Magic“, ein Stück, ohne Kugel); Rund-, Kite-, Faustschild.
+- **Anker:** 8 Schwerter (Claymore, Zweihänder, Falchion, Messer …), Dolch, 4 Äxte (mit Bardiche), 5 Stangenwaffen (Lanze, Wurfspeer …), 7 Schlagwaffen (Morgenstern-Keule, Zweihandhammer …), Lang- und Reiterbogen, Armbrust, Pfeil, Bolzen, Köcher; Zauberbuch offen und zu, Schriftrolle, 6 Tränke; Schilde A–F; Heugabel, Sense, Sichel, Besen, Laute, Krug; 9 Belagerungsgeräte (über 3.000 Dreiecke). Kein Stab.
+- **Avramania:** Schwert, Kurzschwert, Holzschwert, Dolch, Messer, Handaxt, Speer, Streitkolben, Kurzbogen, Armbrust, Pfeil, Bolzen, Köcher, Stab; Rund-, Faust-, Übungsschild; Scheide, Waffenständer.
+- **PolyMech:** Kite, vier runde (Holz, Metallrand, offen), Holz mit Metallrahmen, zwei lange (Eisen, Löwenherz), Löwenherz klein.
+- **Überschneidung:** Dolch, Streitkolben, Bogen, Armbrust, Schwert, Handaxt, Speer, Rundschild in drei Paketen. Nur Omie: Dreizack, Kriegspicke, Krummsäbel; nur Anker: Bücher, Tränke, Belagerung, Werkzeug.
 
 ## Bauteile (Häuser, Natur, Dungeon)
 

@@ -160,6 +160,9 @@ func _notification(what: int) -> void:   # 399: auch beim Verlassen der App (alt
 	if what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_WM_CLOSE_REQUEST: speichere()
 	# 416.1: Android-Zurück schliesst das oberste Fenster (zurueck.gd); ohne Fenster nichts (vorher beendete es das Spiel)
 	if what == NOTIFICATION_WM_GO_BACK_REQUEST: Zurueck.taste(get_tree())
+	# Build 145 (Tests mit spiel.tscn brachen beim Beenden ab, „corrupted size vs. prev_size“): die statische Uhr der Leute hielt eine
+	# Funktion auf dieses Spiel, Godot raeumt statische Variablen erst nach den Knoten ab; beim Verlassen des Baums loesen
+	if what == NOTIFICATION_EXIT_TREE: Leute.uhr = Callable()
 
 func _nacht(k: float) -> void:
 	kamera.nacht = k   # 348.13b: Tusche nach Laterne, Fenster, Fackel
@@ -571,6 +574,7 @@ func person_bei(sp: Vector2) -> Leute:
 
 func sprich(l: Leute) -> void:
 	held.rotation.y = atan2(l.position.x - held.position.x, l.position.z - held.position.z)
+	l.wende_zu()   # 416.8
 	ui.biete_an("")
 	zustand.setze("met_" + String(l.daten["id"]))   # 399.1 Karte: wen der Held kennt (MapMarks.met, Game.talk)
 	Ruf.gehoert(zustand, String(l.daten["id"]), false)   # 399.1 Hail.heard vor dem Gespraech

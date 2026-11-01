@@ -480,3 +480,33 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 399a | Spielfassung 13b97af52 nach Test 132 auf main? | B Umzug | M | 8,49 $ | Team Tom | erledigt |
 | 400 | Hinweise an volle Vorräte bleiben liegen; Stand beim Empfänger immer setzen (Chef 28.10., 21:5x) | B Werkzeuge | M | 1,55 $ | Perikles | erledigt |
 | 405 | Texte der Erschaffung „Aussehen“ (376.1): Frisur „Zurück“ heißt wie der Knopf unten; „Filzlocken“, „Kamm“ passen nicht zum Bild (Prüfer Lauf 2) | C Inhalt | M | 0,89 $ | Homer | erledigt |
+| 348.12h | Fertige Dinge, Möbel, Waffen suchen (CC0 zuerst, sonst gekauft; Chef 26.10., 16:16) | G Geld | M | – | Sokrates | erledigt |
+| 399.3 | Klang in die Spielfassung: Musik, Ortsklang, Schritte, Kampfklang aus dem alten Spiel (aus 399; Chef 28.10., 16:42) | B Umzug | M | 21,56 $ | Team Jerry | erledigt |
+| 404 | Fehlende Sitzungskosten (3 archivierte Sitzungen ohne usage) schätzen oder „fehlt“ lassen (Ford 28.10., Chefsache) | B Werkzeuge | K | 1,84 $ | Ford | erledigt |
+| 411 | Mehr Frisuren als Seitenscheitel (aus 376.1, Chef 29.10., 10:52) | E Figuren | M | – | Team Tom | erledigt |
+| 414 | 14 itch.io-Godot-Pakete auf Tauglichkeit prüfen (Chef 31.10., 20:2x) | D Design | K | 1,17 $ | Sokrates | erledigt |
+| 408 | Bestand vor Eigenbau: gekaufte Modelle sichten und zur Wahl vorlegen, dann erst bauen (Chef 29.10., 11:15) | B Abläufe | M | – | Perikles | erledigt |
+| 409 | Wörter der Erschaffung für fünf neue Frisuren (376.1, Chef 29.10., 10:52 „gibt es noch andere Frisuren“) | C Texte | M | 1,85 $ | Homer | erledigt |
+| 412 | Je Thema ein eigener Vorgang, nichts thematisch Fremdes unter eine Nummer (Chef 29.10., 11:4x) | B Abläufe | M | – | Perikles | erledigt |
+| 419 | Prüfung 418: Direktive in `CLAUDE.md` und neue Abnahmeliste gegen Wortlaut und Spielsystem 2.0 (Chef 31.10., 21:2x) | B Abläufe | M | 3,32 $ | Diogenes | erledigt |
+| 420 | Prüfung Spielsystem 2.0: Ideen und Entscheidungen in `DESIGN-SPIELSYSTEM-2-0.md` auf Widersprüche und Lücken (Chef 31.10., 21:2x) | D Design | M | 3,32 $ | Diogenes | erledigt |
+| 421 | Regel: was Perikles an Regeln und Abläufen ändert, prüft Diogenes („im Doppelpack“, Chef 31.10., 21:2x) | B Abläufe | M | 3,43 $ | Perikles | erledigt |
+| 426 | Design-Grundsatz Icons statt Text in Menüs (zu 425, Chef 31.10., 21:30) | D Design | M | 1,17 $ | Homer | erledigt |
+| 429 | Prüfung im Doppelpack (421): 424 Umzugsliste und Wächter `startbar.py`, 412 Regel in `CLAUDE.md` | B Abläufe | M | 3,32 $ | Diogenes | erledigt |
+| 416.3 | Anschlagbrett und Laden bildschirmfüllend, Design wie alt (Chef 31.10., 20:4x) | B Umzug | M | 10,00 $ | Team Tom | erledigt |
+| 435 | Prüfung im Doppelpack (421): 433 Start von Spike und Tuffy in `lauf.py` und `startbar.py` | B Abläufe | M | 1,09 $ | Diogenes | erledigt |
+| 437 | Keine Bilder auf Telegram von aktuellen Vorgängen (Chef 31.10., 23:12), Regel in CLAUDE.md „Melden“ | B Abläufe | M | 27,96 $ | Perikles | erledigt |
+| 443 | Prüfung im Doppelpack (421): 436 Namensform in CLAUDE.md, Rollendateien und `lauf.py` (Nummer vor „:“) | B Abläufe | M | 2,68 $ | Diogenes | erledigt |
+| 443.1 | Nachprüfung D52.1, D52.2 (Datum im Titel, Namen in Rollendateien) | B Abläufe | M | – | Diogenes | erledigt |
+| 348.7b | Rückfrage: Zauberbahn hoch über die Köpfe oder flach quer über Wolf 3 | E Kampf | M | 22,94 $ | Jerry | erledigt |
+| 428 | Bestiarium: kurze Hintergrundgeschichte je Monsterart (zu 427, Chef 31.10., 21:3x) | C Texte | M | – | Homer | erledigt |
+| 430 | Abnahmelisten für Elf, Zwerg, Hügelvolk, Orkblütiger (Größe, Umriss, Merkmal, Farbe, Haltung) in `LISTE-FIGUREN.md` (Chef 31.10., 22:0x) | D Design | M | 5,42 $ | Homer | erledigt |
+| 441 | Prüfung im Doppelpack: Nachschlagewerk Spielsystem 2.0 (Entscheidungen bis 75) quergelesen (Chef 31.10., 23:40) | D Design | M | – | Diogenes | erledigt |
+| 413 | Spielsystem 2.0: Entwurf `DESIGN-SPIELSYSTEM-2-0.md`, Auseinandersetzung, Meilensteine (Chef 31.10., 20:1x) | D Design | M | 1,17 $ | Sokrates | erledigt |
+| 418 | Oberste Direktive neu in `CLAUDE.md`, Abnahmeliste Kapitel 1 darauf und auf Spielsystem 2.0 umschreiben („jetzt“ 31.10., 21:21) | B Abläufe | M | 3,43 $ | Perikles | erledigt |
+| 422 | Spielsystem 2.0 als Anleitung und Nachschlagewerk: Dokument eindampfen, liest sich wie eine Anleitung, Verlauf der Entscheidungen getrennt (Chef 31.10., 21:2x) | D Design | M | – | Sokrates | erledigt |
+| 432.1 | Stellungnahme Sokrates zu Chefsache 432 (Chef 01.11., 09:13) | C Texte | K | – | Sokrates | erledigt |
+| 442 | Modellzuordnung der Sitzungen nach der Startzuordnung, Startprüfung je Sitzung (Chef 31.10., 23:52) | B Abläufe | M | – | Sokrates | erledigt |
+| 443a | Rückfrage: gilt die Namensform 436 auch für Ford (D52.3)? | B Abläufe | M | – | Diogenes | erledigt |
+| 445 | Alle offenen Chefsachen mit Lösung zum stärksten Gegenargument neu bewerten (Chef 01.11., 09:32) | B Abläufe | M | – | Sokrates | erledigt |
+| 413b | Rückfrage: Leitbild „baut auf SRD 5.1 auf“ und CLAUDE.md „Kotlin, Jetpack Compose“ nachziehen? | D Design | M | – | Sokrates | erledigt |
