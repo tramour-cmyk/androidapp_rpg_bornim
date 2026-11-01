@@ -195,8 +195,10 @@ var zwei_schieben := 0.30
 const SCHILD_ABSPREIZ := 9.0
 # 417 Runde 5 (Lauf 41350556171): das entspannte Paketgehen WalkNormal2S&S fuehrt den linken Arm dicht am Koerper, der untere Schildrand
 # lag in 5 von 15 Bildern bis 5 cm in Ruecken (spine_03) und linkem Oberschenkel. Der Schildarm geht darum immer (kein Sprung beim
-# Wechsel) schild_abspreiz Grad nach aussen; Fassungen in tests/tragen_pakete_417.gd (SCHILD_FASSUNGEN), Wert nach Messung
-var schild_abspreiz := 0.0
+# Wechsel) schild_abspreiz Grad nach aussen; Fassungen in tests/tragen_pakete_417.gd (SCHILD_FASSUNGEN). Lauf 41355090887 (Gehen):
+# 0 Grad 5 von 15 Bildern bis -5,0 cm, 5 Grad 2 Bilder -4,9, 8 Grad frei 3,9 cm, 12 Grad frei 6,3 (Oberschenkel 9,1), 16 Grad 6,3;
+# Rennen bei allen frei. 12 statt 8: Luft fuer kraeftige Statur (gemessen nur normal)
+var schild_abspreiz := 12.0
 
 # Rahmen der Hand im Skelettraum: Basis aus x, y, z je mal Handlaenge, Ursprung am Handgelenk (wie zauber385.py rahmen)
 static func hand_rahmen(sk: Skeleton3D, s: String) -> Transform3D:
