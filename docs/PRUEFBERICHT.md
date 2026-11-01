@@ -25,6 +25,22 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 54 · Auftrag 456 Doppelpack zu 448.2, 449, 450 (`main` `d6274420c`; 01.11., 11:4x; 449 und 450 in Probe-Repos nachgestellt, Tagesbericht mit `--probe` nachgerechnet)
+
+**Ergebnis:** 450 tut, was der Chef verlangt hat (10:55): `meldung.sh --bild` trug den Link im Probe-Repo unter Zeile 1 ins Blatt ein, `zug-index.py` meldet Blätter ohne Link. 449 hält einen Commit mit `.fbx`, `.TGA` oder Ordner `kauf/` an, `.glb` geht durch, `BORNIM_EIGEN=1` lässt nur die Endung durch. Der Tagesbericht rechnet ohne Fehler; die Zahlen „erledigt 24 h“ stimmen (Vergleichsstand 29.10., 11:58, weil vom 29.10., 12:00 bis 31.10., 19:00 kein Commit kam).
+
+**Befunde**
+
+- **D55.1 Zeile 4 und Telegram zählen den Build nicht, der auf den Chef wartet (448.2):** `chefsache()` liest nur Tabellenzeilen, die mit „| [“ beginnen. Build-Zeilen in der Übersicht beginnen mit der Folge („| 1 | [0.348.146]“). Bericht 11:36: „5 entscheiden, 2 ansehen, 1 tun“; Build 146 wartet seit 01.11., 02:56 und fehlt, ebenso im Telegram-Text.
+- **D55.2 Telegram vier Zeilen statt zehn (448.2):** In Chefsache 448 lautet die Frage „zehn Zeilen per Telegram, jede mit einer Zahl“; der Chef antwortete „448 mach es so“ (11:09). `tagesbericht.py --telegram` schickt einen Link und drei Zeilen (Abnahmeliste, bei dir, Risiko); Builds, Fehler, Geld, Rest geschätzt, von dir zuerst gefunden fehlen.
+- **D55.3 Zeilen 3, 5, 6 messen weniger als vorgeschlagen (448.2):** Zeile 6 „Fehler offen aus deinen Tests“ zählt nur Bereich E mit „Fehler“, „Befund“ oder „Build n“ im Titel: 2 (257 und 358, dieses „fertig“). 416.1 „Tasten reagieren schlecht (… Build 143, Chef)“ ist Bereich B und fehlt, ebenso die Befunde aus Build 143 (t146). Zeile 5 ohne „letzter Build, getestet ja/nein“; Zeile 3 ohne „wie viele Sitzungen die letzte Woche geschafft hat“.
+- **D55.4 Kaufsperre greift in den Arbeitszweigen nicht (449):** Der pre-commit-Haken (`notiz.sh`) startet `tools/commit-pruefung.py` aus dem ausgecheckten Zweig. Keiner der zehn jüngsten Code-Zweige (z. B. `tom-348-406-schild`, `jerry-438-wolf-kampf`, `tom-431-voelker`, `spike-416-4-rennen`) hat die neue Fassung; dort, wo Kaufmodelle verarbeitet werden, prüft der Haken also nicht, bis `main` hineingemischt ist. Der Inhaltsvergleich wirkt nur, wenn das Kaufrepo neben der Kopie liegt (hier nicht); eine gekaufte Textur als `.png` außerhalb von `kauf/` geht sonst durch.
+- **D55.5 Ford meldet „Perikles neu gestartet“, auch wenn er nicht neu startet (448.2, `lauf.py` Z. 574–578):** Läuft Perikles um 10 Uhr noch (`per_belegt`), gibt `lauf.py` `TAGESBERICHT-FEHLT` mit diesem Wortlaut aus, aber keine Startzeile.
+
+**Weitere (gering):** Ein Film von 20 bis 50 MB kommt nicht in den Zweig `bilder` und bekommt keinen Link; `zug-index` rät dann zu einem `bilder:`-Link von Hand, den es nicht geben kann (bisher größter Film 23 MB, Mitte 1,6 MB, 88 Filme). `meldung.sh` trägt den Link auch ein, wenn Telegram scheitert (Probe: 404, Link stand im Blatt). `CLAUDE.md` ist mit der Ausnahme 450 über 15 KB (15463).
+
+**Nicht geprüft:** `lauf.py` in einem echten Lauf um 10 Uhr; `meldung.sh --film` (nur `--bild` nachgestellt); ob die Teams `main` in ihre Zweige mischen.
+
 ## Lauf 53 · Auftrag 441 Nachschlagewerk 2.0 querlesen (`DESIGN-SPIELSYSTEM-2-0-ENTWURF.md` und `LISTE-BESTIARIUM.md` „Werte 2.0“, `main` `8c5bf9877`; gegen E 1–76; 01.11., 08:1x; Text fremd geprüft)
 
 **Ergebnis:** Das Nachschlagewerk gibt die Entscheidungen 1–76 meist richtig wieder. Die Rechnungen stimmen: Startpunkte (18 Punkte: 6 frei, 21 Punkte: 9 frei), Völker je +1 unterm Strich, 13 Pfade, alle Kernfertigkeiten aus der Liste der 37. Die drei Beispiele zu Modell D ergeben die Zahlen der Tabelle. Im Bestiarium stimmen Angriff, Abwehr und Wachsamkeit bei allen 18 Arten mit der Formel und den Werten aus `Monsters.kt` überein, Rüstung bei 18 (unter 0 auf 0 gesetzt), Leben bei 16. Fünf Befunde tragen.

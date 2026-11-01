@@ -157,7 +157,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 454 | Wolfsbiss: Achse des Wolfs zielt rechts neben den Helden? messen (Chef 01.11., 11:05) | E Kampf | M | – | Team Jerry | startbar |
 | 455.1 | Probeblatt Baukasten: Roben, Umhänge, Stiefel je Netz × Material × Zeichen (Chef 01.11., 11:24) | E Figuren | M | – | Team Tom | startbar |
 | 455.2 | Netzliste je sichtbarem Platz, Eigenbau geschätzt, Größenfilm der Völker (Chef 01.11., 11:27, 455 ja) | E Figuren | M | – | Team Tom | startbar |
-| 456 | Prüfung im Doppelpack (421): 448.2 Tagesbericht-Werkzeug und Ford-Meldung, 449 Commit-Haken Kaufdateien, 450 Bildlinks | B Abläufe | M | – | Diogenes | startbar |
+| 456 | Prüfung im Doppelpack (421): 448.2 Tagesbericht-Werkzeug und Ford-Meldung, 449 Commit-Haken Kaufdateien, 450 Bildlinks | B Abläufe | M | – | Diogenes | erledigt |
 | 416.7 | Aktionsknopf am Tresen in Schenke und Laden (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | zu testen |
 | 416.8 | NPC dreht sich zum Helden, nach etwa 10 s Leerlauf (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | zu testen |
 | 416.9 | Laden Verkaufen: Reiter bei „angelegt“, Vergleichswerte, nicht tragbare Gegenstände, Icon bei Menge (aus 416.3, Chef 31.10., 22:20) | B Umzug | M | 5,26 $ | Team Tom | startbar |
