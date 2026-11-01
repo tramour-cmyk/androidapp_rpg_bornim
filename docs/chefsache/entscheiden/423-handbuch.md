@@ -1,5 +1,5 @@
 # 423 · Spielerhandbuch Spielsystem 2.0: Entwurf zum Lesen, drei Fragen
-Homer · 01.11., 10:2x · C Texte
+Homer · 01.11., 10:1x · C Texte
 
 **Frage:** Das Handbuch steht als Entwurf in `STORY-HANDBUCH-1.md` (Held, Fertigkeiten, Stufe), `-2.md` (Pfad, Meisterschaften, Kampf, Welt, Ruf), `-3.md` (Herstellen, Abnutzung, Namen), Deutsch und Englisch, allein aus dem Nachschlagewerk 422. Drei Fragen:
 1. **Ton:** passt er (Du-Form, knapp, ernst, kein Lob des Spiels, Beispiel unten)?

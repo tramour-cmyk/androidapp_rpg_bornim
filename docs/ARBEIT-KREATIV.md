@@ -3,9 +3,9 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `47a4012ce` (01.11., 10:3x)
+**Gelesen bis:** `47a4012ce` (01.11., 10:1x)
 
-**Übergabe (01.11., 10:3x):** 423 Spielerhandbuch DE/EN als Entwurf (`STORY-HANDBUCH-1` bis `-3`), fremd gegen 422 geprüft, Chefsache 423 gestellt; 432 Antwort zum Kult intern in `STORY-PLAN.md`. Nachfolger: keiner, 423 wartet auf Chef.
+**Übergabe (01.11., 10:1x):** 423 Spielerhandbuch DE/EN als Entwurf (`STORY-HANDBUCH-1` bis `-3`), fremd gegen 422 geprüft, Chefsache 423 gestellt; 432 Antwort zum Kult intern in `STORY-PLAN.md`. Nachfolger: keiner, 423 wartet auf Chef.
 
 
 ## Zeilen
