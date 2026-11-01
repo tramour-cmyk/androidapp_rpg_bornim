@@ -292,7 +292,7 @@ Siegquote % · Züge bis Sieg, Heldenstufe = Gegnerstufe; Spalte „21“ = Mitt
 
 ## 5. Wirtschaft: Gold, Beute, Zerlegen, Abnutzung, Reparatur, Tränke, Tiere beruhigen (Stufe 3, 447.3)
 
-**Befund (Jerry, 01.11., 14:5x; nur Zahlen, Einstellen bei Sokrates; neu rechnen: `python3 tools/sim444/sim.py --nur-wirtschaft`):**
+**Befund (Jerry, 01.11., 14:3x; nur Zahlen, Einstellen bei Sokrates; neu rechnen: `python3 tools/sim444/sim.py --nur-wirtschaft`):**
 
 1. **Einnahmen Kapitel 1: 155 bis 180 Gold** je Lauf bis Stufe 6 (ohne Quests; alte Aufträge brachten 40–60 Gold je Auftrag). Davon Beute-Gold rund 70 %, Zerlegen 25–27 %, Verkauf von Beute 4 %.
 2. **Gold am Ende: Median 74 (Herumtreiber) bis 163 (Wachsoldat)**, bei 10 % der Läufe unter 18 bis 119. Gegen die alten Preise: ein Kettenpanzer (75) oder Langbogen (50) ist drin, die Brustplatte (400, Stufe 4) nicht.

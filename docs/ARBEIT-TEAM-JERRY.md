@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert“).
 
-**Übergabe (01.11., 15:0x):** 447.3 fertig: Simulation 444 rechnet Wirtschaft (Block `wirtschaft` in `werte.json`, `--nur-wirtschaft`, Prüfungen in `--pruefen`), Ergebnis und Befund `LISTE-SIMULATION-444.md` Abschnitt 5; Schätzung zu Perikles (ARBEIT-PROJEKT, „von Team Jerry … zu 447“). 438a und 458.2a warten auf den Chef, nicht neu starten. Kaufrepo per `add_repo` mit `access: read`. Nachfolger: „Jerry – 457.2: Probeskripte mit Signatur (Toon-Licht, Tusche, Schatten)“
+**Übergabe (01.11., 14:39):** 447.3 fertig: Simulation 444 rechnet Wirtschaft (Block `wirtschaft` in `werte.json`, `--nur-wirtschaft`, Prüfungen in `--pruefen`), Ergebnis und Befund `LISTE-SIMULATION-444.md` Abschnitt 5; Schätzung zu Perikles (ARBEIT-PROJEKT, „von Team Jerry … zu 447“). 438a und 458.2a warten auf den Chef, nicht neu starten. Kaufrepo per `add_repo` mit `access: read`. Nachfolger: „Jerry – 457.2: Probeskripte mit Signatur (Toon-Licht, Tusche, Schatten)“
 
 ## Zeilen
 
