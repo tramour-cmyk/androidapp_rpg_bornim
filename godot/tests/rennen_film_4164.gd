@@ -2,7 +2,8 @@ extends SceneTree
 # 416.4 Vergleichsfilm Rennen (Chef 31.10., Build 143: „als würde er Hochsprung machen“): je Fassung des Helden ein Feld nebeneinander,
 # Stehen, Gehen, Anlaufen und Rennen wie held.gd (Tempo 2,13 und 4,27 m/s, 5 m/s², Überblendung 0,6 s im selben Schritt, speed_scale
 # aus held-info.json, damit die Füße nicht gleiten); erst Spielansicht (30° von oben, Nordwest), dann von der Seite, dann Zeitlupe.
-# Boden mit Kachellinien (1,16 m): daran sieht man Tempo und Gleiten. Am Rechner (Bildlauf, PROBE=416.4):
+# Boden mit Kachellinien (1,16 m): daran sieht man Tempo und Gleiten. Feld „<Titel>|kauf:<Fassung>“: Kaufkoerper wie im Spiel
+# (HeldFigur.RENNEN_ARTEN; Lauf tom-probe-4164.yml). Am Rechner (Bildlauf, PROBE=416.4):
 #   HELDE="<Titel>|<Ordner mit held.glb, held-info.json>;…" xvfb-run -a godot --path godot \
 #     --write-movie <x.avi> --fixed-fps 30 -s res://tests/rennen_film_4164.gd
 const GEHEN := 1.84 * Karte.TS
@@ -77,14 +78,34 @@ func _feld(reihe: VBoxContainer, titel: String, ordner: String, px: Vector2i) ->
 	var held := Node3D.new()
 	held.rotation.y = PI / 2   # läuft nach +X
 	vp.add_child(held)
-	var modell := Gebiet.lade_glb(ordner + "/held.glb")
-	held.add_child(modell)
-	var mats := []
-	Gebiet.male(modell, null, 2, mats)
-	for m in mats: (m as ShaderMaterial).set_shader_parameter("metall", 1.0)
-	var info: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(ordner + "/held-info.json"))
-	var anim := Gebiet.finde(modell, "AnimationPlayer") as AnimationPlayer
-	Gebiet.bewegungen(anim, ["Gehen", "Stehen", "Rennen"])
+	var modell: Node3D
+	var info := {}
+	var anim: AnimationPlayer
+	if ordner.begins_with("kauf:"):
+		# Tom 01.11.: der Held, wie er im Spiel laeuft (Kaufkoerper, heldfigur.gd), Kaempfer; Fassung nach „kauf:“
+		var z := Zustand.new()
+		var hw := Heldwerte.erschaffe("Probe", "HUMAN", "FIGHTER", {}, z.neue_uid)
+		var w := HeldFigur.wahl(hw, z)
+		w["rennen"] = ordner.trim_prefix("kauf:")
+		w["ausruestung"] = {}   # ohne Waffen: Tragart ist 417
+		var km := []
+		modell = HeldFigur.baue(w, km)
+		if modell == null: print("FILM FEHLER Kaufkoerper fehlt"); quit(1); return {}
+		for m in km: (m as ShaderMaterial).set_shader_parameter("metall", 1.0)   # wie held.gd
+		held.add_child(modell)
+		info = {"gehen_m_je_s": modell.get_meta("gehen_m_je_s"), "rennen_m_je_s": modell.get_meta("rennen_m_je_s")}
+		anim = Gebiet.finde(modell, "AnimationPlayer") as AnimationPlayer
+		var a := anim.get_animation("Rennen")
+		print("FILM ", titel, " Rennen ", snappedf(a.length, 0.001), " s, rennen_m_je_s ", snappedf(float(info["rennen_m_je_s"]), 0.001))
+	else:
+		modell = Gebiet.lade_glb(ordner + "/held.glb")
+		held.add_child(modell)
+		var mats := []
+		Gebiet.male(modell, null, 2, mats)
+		for m in mats: (m as ShaderMaterial).set_shader_parameter("metall", 1.0)
+		info = JSON.parse_string(FileAccess.get_file_as_string(ordner + "/held-info.json"))
+		anim = Gebiet.finde(modell, "AnimationPlayer") as AnimationPlayer
+		Gebiet.bewegungen(anim, ["Gehen", "Stehen", "Rennen"])
 	anim.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 	anim.play("Stehen")
 	var cam := Camera3D.new()
