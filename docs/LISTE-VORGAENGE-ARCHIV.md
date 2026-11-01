@@ -522,3 +522,6 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 456 | Prüfung im Doppelpack (421): 448.2 Tagesbericht-Werkzeug und Ford-Meldung, 449 Commit-Haken Kaufdateien, 450 Bildlinks | B Abläufe | M | – | Diogenes | erledigt |
 | 431a | Rückfrage: dritten Probelauf für 431 freigeben (Lauf 2 ohne Spiel-Look, Füße und Schulter falsch) | E Figuren | M | – | Team Tom | erledigt |
 | 447 | Meilensteine neu: Stufen K1–K4 bis marktreif, W1–W3 danach (Chef 01.11., 09:51, 10:46) | B Abläufe | M | – | Sokrates | erledigt |
+| 451 | Name für das Spielsystem statt „2.0“ (Chef 01.11., 10:59) | D Design | M | – | Sokrates | erledigt |
+| 458 | Katalog aller Gegenstände: eine Datendatei, Übersicht `LISTE-GEGENSTAENDE.md` daraus erzeugt (Chef 01.11., 13:0x) | D Design | M | – | Sokrates | erledigt |
+| 452 | Notizen-Übersicht `docs/README.md` aktualisieren, gebündeltes Dokument für den Chef (Chef 01.11., 10:59, 11:00) | B Abläufe | M | – | Sokrates | erledigt |

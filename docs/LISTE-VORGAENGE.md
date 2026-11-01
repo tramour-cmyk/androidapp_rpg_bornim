@@ -149,9 +149,6 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 438 | Wölfe im Kampf wirken gleitend: Angriff, Tempo, Vorbeigehen (Film 403, Chef 31.10., 23:31) | E Kampf | M | 47,92 $ | Team Jerry | gebaut |
 | 439 | Kampfablauf: Neuformation vor dem Tod, Treffer vor dem Angriff (Film 403, Chef 31.10., 23:31) | E Kampf | M | – | Team Jerry | gebaut |
 | 440 | Wolf verschwindet ohne sichtbare Sterbeanimation (Film 403, Chef 31.10., 23:34) | E Kampf | M | – | Team Jerry | gebaut |
-| 451 | Name für das Spielsystem statt „2.0“ (Chef 01.11., 10:59) | D Design | M | – | Sokrates | erledigt |
-| 458 | Katalog aller Gegenstände: eine Datendatei, Übersicht `LISTE-GEGENSTAENDE.md` daraus erzeugt (Chef 01.11., 13:0x) | D Design | M | – | Sokrates | erledigt |
-| 452 | Notizen-Übersicht `docs/README.md` aktualisieren, gebündeltes Dokument für den Chef (Chef 01.11., 10:59, 11:00) | B Abläufe | M | – | Sokrates | erledigt |
 | 453 | Wölfe im Kampfort: Ruhebewegungen (atmen, scharren, umblicken, knurren) (Chef 01.11., 11:05) | E Kampf | M | – | Team Jerry | startbar |
 | 453.1 | Helden im Kampf: Atmen ruhiger, je Figur eigener Takt, nach Aktion schneller und abklingend (Chef 01.11., 13:0x) | E Kampf | M | – | Team Jerry | startbar |
 | 453.2 | Atmen-Schicht für Held unterwegs, Söldner, Leute in Dorf und Innenräumen (Chef 01.11., 13:0x, ganzes Spiel) | E Figuren | M | – | Team Tom | startbar |

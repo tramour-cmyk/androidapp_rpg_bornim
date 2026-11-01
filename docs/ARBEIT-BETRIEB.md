@@ -94,3 +94,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:59 01.11.: Marke Archiv session_01Hmoj793shiZHbpTprrFuEf (lauf.py)
 - 12:59 01.11.: Marke Archiv session_01Hmoj76CEuLaP52Vues8x4r (lauf.py)
 - 12:59 01.11.: Nachfolger-Warnung Tom (Übergabe 01.11., 12:29) (lauf.py)
+- 13:27 01.11.: Startsperre 13:27 Start Homer, Perikles, Spike, Tuffy (lauf.py)
+- 13:27 01.11.: Marke Archiv session_01Hmoj75QreTNJ1SJBBwvqoE (lauf.py)
