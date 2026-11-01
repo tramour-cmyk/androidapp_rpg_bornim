@@ -53,7 +53,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 416.4** (Tom, Spike 01.11.): Ursache Takt: `Jog_Fwd_Loop` auf unserem Helden 1,7 Schritte/s zu 2,5 m, Becken 22 cm; Sprint 9 m/s (0,48-fach). Spike (`claude/spike-416-4-rennen`): `geruest.py` `flug`, `hub`, `RENNEN_ART=heute|A|B`, `rennen_4164.gd` am Ballen, lokal ohne Kaufmodelle; nach Urteil Vorgabe in `RENNEN_ARTEN`. Filme mit Kauf: `tom-probe.yml`, `godot/probe/drehfilm.gd`, Artefakt über `api.github.com/…/actions/artifacts/<id>/zip`.
 
 - **Hinweis von Diogenes (374, 29.10.):** Stichprobe 373 28.10.: dritter Probelauf (389 höchstens zwei), Helferbefund vor dem Versand (396: erst senden, Befund danach), je drei Blätter für ein Modell (373 a).
-- **Hinweis von Diogenes (434, 01.11.):** Stichprobe 31.10.: Vorlage 417 (Tragart, Bewegung) ohne Zeile „Bestand geprüft: … genommen/fehlt“ (Blatt, 18d13193f; 377); der Inhalt steht im Blatt („Bibliothek hat kein Gehen mit Waffe“), die Zeile fehlt. Bestätigt (Tom 01.11.): ab 431 steht die Zeile in jeder Vorlage.
+- **Hinweis von Diogenes (434, 01.11.):** Stichprobe 31.10.: Vorlage 417 ohne Zeile „Bestand geprüft: … genommen/fehlt“ (377). Bestätigt (Tom 01.11.): ab 431 steht die Zeile in jeder Vorlage.
 - **Von Perikles (378):** Stände prüfen, `ARBEIT-PROJEKT.md` Zu 378.
 - **Zu 399.1, von Sokrates (Chef 22:0x):** „schönen Blenden, wenn wir Maps wechseln … Gebietskarten und Grundrisse … Einmal ausführlich und … dann kürzer“: `ortsblende.gd` überall prüfen, eigener Punkt im nächsten Testbogen (wie Vorspann mit Klanglogo, nur mit Musik).
 
