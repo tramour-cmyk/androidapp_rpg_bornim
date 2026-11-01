@@ -24,7 +24,6 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [406](ansehen/406-kaufschilde.md) | Gewählte Schilde am Helden: 2 beim Kleriker, 15 beim Kämpfer | Jerry | 01.11., 11:55 |
-| [417](ansehen/417-tragart.md) | Kriegsaxt in der Hand: Kopf nach unten, weiter vorn gefasst | Tom | 01.11., 12:08 |
 | [453](ansehen/453-wolf-ruhe.md) | Ruhebewegungen der Wölfe im Kampf | – | 01.11., 12:06 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
@@ -55,13 +54,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 40, Muss 30, startbar 5
+**Tom** – offen 40, Muss 30, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | ruht |
 | 431a | M | von Tom (01.11.): Rückfrage: dritten Probelauf für 431 freigeben (389) | Chef (Datei in der Chefsache) |
-| 417 | M | von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“): Tragart je Waffenklasse (Zu 417), | Chef |
+| 417 | M | von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“): Tragart je Waffenklasse (Zu 417), | startbar |
 | 425 | M | von Sokrates (Chef 31.10., 21:30, Build 143): Menüs (Menü „System“, Testmenü): in der alte | wartet auf Test/Build (gebaut) |
 | 416.9 | M | von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“): Laden, Verkaufen, „angelegt“ mit | startbar |
 | 416.7 | M | von Sokrates (Chef 31.10., 20:5x, für den nächsten Build): am Tresen in Schenke und Laden | wartet auf Test (Build) |
