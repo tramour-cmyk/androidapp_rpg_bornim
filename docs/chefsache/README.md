@@ -29,6 +29,7 @@ Nichts offen.
 | [403](ansehen/403-kampfheld.md) | Held im Kampfort wie im Dorf | Jerry | 31.10., 22:45 |
 | [416.9](ansehen/4169-laden.md) | Laden: alle Plätze bei „Angelegt“, nicht Tragbares, Vergleich, Bild bei Menge | – | 01.11., 00:23 |
 | [417](ansehen/417-tragart.md) | Waffen in der Hand beim Gehen und Rennen: Stab, Kriegsaxt, Bogen | Tom | 01.11., 01:05 |
+| [425](ansehen/425-testmenue.md) | Testmenü mit Zeichen | Tom | 01.11., 01:10 |
 
 ## Zu tun
 
@@ -54,13 +55,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 37, Muss 27, startbar 4
+**Tom** – offen 37, Muss 27, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | wartet auf Homer |
 | 417 | M | von Sokrates („jetzt“ 31.10., 21:12, Chef: „diese Rückfrage hat auch Priorität“; Prüfauftr | startbar |
-| 425 | M | von Sokrates (Chef 31.10., 21:30, Build 143): Menüs (Menü „System“, Testmenü): in der alte | in Arbeit bei Spike |
+| 425 | M | von Sokrates (Chef 31.10., 21:30, Build 143): Menüs (Menü „System“, Testmenü): in der alte | startbar |
 | 416.9 | M | von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“): Laden, Verkaufen, Ansicht „angel | wartet auf Test/Build (gebaut) |
 | 416.7 | M | von Sokrates (Chef 31.10., 20:5x, für den nächsten Build): am Tresen in Schenke und Laden | wartet auf Test/Build (gebaut) |
 | 416.8 | M | von Sokrates (Chef 31.10., 20:5x, allgemeiner Hinweis): NPC dreht sich bei Interaktion zum | startbar |
