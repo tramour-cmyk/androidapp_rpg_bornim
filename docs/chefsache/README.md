@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [458](entscheiden/458-gegenstandskatalog.md) | **Muss** | D Design | 01.11. | Ein Katalog aller Gegenstände für Spielsystem 2.0 | Sokrates |
+Nichts offen.
 
 ## Zu billigen
 
@@ -41,10 +37,11 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 7, Muss 3, startbar 3
+**Homer** – offen 8, Muss 4, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 458.4 | M | von Sokrates (Chef 01.11., 13:1x, Archiv 458): Gegenstandskatalog: Namen DE/EN und ein Sat | wartet auf Perikles |
 | 451.2 | M | von Sokrates (Chef 01.11., 13:1x, Archiv 451): „Spielsystem 2.0“ heißt jetzt „Bornimer Rol | startbar |
 | 453.3 | M | von Sokrates (Chef 01.11., 13:0x, Archiv 453.1): Grundsatz „lebende Figuren atmen immer, r | startbar |
 | 432 | K | von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt | nach dem Meilenstein |
@@ -53,7 +50,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 40, Muss 30, startbar 6
+**Tom** – offen 41, Muss 31, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -71,6 +68,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 410 | M | von Sokrates (Chef 29.10., 10:52, 11:40; aus 376.1): Waffen am Körper wegstecken, alle Waf | ruht |
 | 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | startbar |
 | 455.1 | M | von Sokrates (Chef 01.11., 11:24, „Abzug von … unterschiedlichen Roben, Umhängen oder Stie | startbar |
+| 458.3 | M | von Sokrates (Chef 01.11., 13:1x, Archiv 458): Gegenstandskatalog: je Gegenstand Netz × Ma | wartet auf Perikles |
 | 453.2 | M | von Sokrates (Chef 01.11., 13:0x, Archiv 453.1 „aufs ganze Spiel übertragen … als ob die L | startbar |
 | 455.2 | M | von Sokrates (Chef 01.11., 11:27, „455 ja, wie Sokrates“, Archiv): Netzliste je Platz (Bes | startbar |
 | 399.5 | M | von Chef („jetzt“ 28.10., 21:5x, Archiv): Innenräume wie alt: Lichtquellen, Licht und Scha | wartet auf Test (Build) |
@@ -98,11 +96,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 46, Muss 33, startbar 8
+**Jerry** – offen 47, Muss 34, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Wölfe gleiten (Angriff, Tempo, aneinander vor | wartet auf Test/Build (gebaut) |
+| 458.2 | M | von Sokrates (Chef 01.11., 13:1x, Archiv 458): Gegenstandskatalog: Werte, Preise und Beute | wartet auf Perikles |
 | 453.1 | M | von Sokrates (Chef 01.11., 13:0x): Helden im Kampf atmen gleich und zu heftig („hechelt“): | startbar |
 | 453 | M | von Sokrates (Chef 01.11., 11:05): Wölfe brauchen Ruhebewegungen: atmen, scharren, umblick | startbar |
 | 454 | M | von Sokrates (Chef 01.11., 11:05): beim Biss zielt die Achse des Wolfs wohl rechts neben d | Chef |
@@ -149,10 +148,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 22, Muss 19, startbar 4
+**Perikles** – offen 23, Muss 20, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 458.1 | M | von Sokrates (Chef 01.11., 13:1x, „458 ja“, Archiv 458): Gegenstandskatalog: Aufbau der Da | startbar |
 | 451.1 | M | von Sokrates (Chef 01.11., 13:1x, Archiv 451): „Spielsystem 2.0“ heißt jetzt „Bornimer Rol | startbar |
 | 447.1 | M | von Sokrates (Chef 01.11., 12:3x, „447 ja, mit K2b, aber nummeriere das Ganze doch neu und | startbar |
 | 457 | M | von Sokrates („jetzt“ 01.11., 11:49, Chef: „unsere Signatur muss sich wiederfinden. Warum | startbar |
@@ -187,11 +187,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 31, Muss 23, startbar 12
+**Sokrates** – offen 30, Muss 22, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 458 | M | von Chef (01.11., 13:0x, „Gibt es da eine Übersicht? … Brauchen wir das noch? Wo kann da w | Chef (Datei in der Chefsache) |
 | 452 | M | von Chef (01.11., 10:59, 11:00): ein gebündeltes Dokument; Notizen-Übersicht docs/README.m | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 427 | M | von Chef (31.10., 21:3x): Bestiarium LISTE-BESTIARIUM.md | wartet auf Jerry |
 | 398 | M | von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr g | wartet auf Perikles |
@@ -230,7 +229,7 @@ Format (Muster: „So geht's“ unten): t146-befunde.md: 8 Vorgänge, höchstens
 
 Nicht gestellt: 452 (Beratung), 348.12c (Beratung), 186.3 (Pruefung)
 
-Ohne Datei: 448 (Projekt), 275 (Projekt)
+Ohne Datei: 448 (Projekt), 275 (Projekt), 455 (Team Tom)
 
 ## So geht's
 
