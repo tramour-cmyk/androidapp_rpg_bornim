@@ -101,8 +101,10 @@ jobs:
           printf 'daten/haare.bin\ndaten/bewegungen.bin\n' >> $D/kauf.txt
           # 403 (Jerry): Kampfbewegungen fuer den Kaufkoerper (unsere aus held.glb umgerechnet, Kandidaten aus der UAL Pro), gekauft
           SRC=$RUNNER_TEMP/out/held.glb ZIEL=$RUNNER_TEMP/klassen bl/bin/python -I tools/blender348/v3/held_kampf.py > held_kampf.log 2>&1 || { tail -30 held_kampf.log; exit 1; }
-          grep "^KAMPF" held_kampf.log
+          grep -E "^KAMPF|^SS (GRIFF|TEMPO)|^ohne Sword" held_kampf.log
           cp $RUNNER_TEMP/klassen/kampf-bewegungen.glb $D/kampf-bewegungen.bin && echo daten/kampf-bewegungen.bin >> $D/kauf.txt
+          # 406 (Tuffy): Tempo, Griff und Kontaktzeiten der Bewegungen aus Sword & Shield (figur.gd kampf_info); nur Zahlen
+          cp $RUNNER_TEMP/klassen/kampf-bewegungen.json $D/
           ls -l $D/held_*.bin $D/haare.bin $D/bewegungen.bin $D/kampf-bewegungen.bin
       - name: Leute bauen (Dorf)
         run: |

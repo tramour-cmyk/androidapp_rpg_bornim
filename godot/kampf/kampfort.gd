@@ -869,8 +869,15 @@ func _play_say(e: Dictionary) -> void:
 		if not figures.has(id):
 			continue
 		var was: int = before.get(id, e.hp[id])
+		# 406: wer mit Schild kämpft, wehrt ab, bevor der Angriff ankommt (Figur.abwehr); welche Abwehr, sagt die Art des Angriffs
+		var art := ""
+		if target == id and across and actor != null and figures.has(actor):
+			art = "sprung" if figures[actor].letzter_sprung and lunge_ms > 0 else ("fern" if fx != null else "nah")
 		if e.hp[id] < was:
-			figures[id].hurt(lands, e.hp[id] <= 0)
+			var mx: int = mars.find(id).max_hp if mars.find(id) != null else 1
+			figures[id].hurt(lands, e.hp[id] <= 0, (was - e.hp[id]) * 4 >= mx, art)
+		elif target == id and _missed(e) and across and figures[id].blockt():
+			figures[id].abwehr(lands, art)
 		elif target == id and _missed(e) and across:
 			# 438 (Prüfer Film r2: Klinge durch Wolf 2 ohne Treffer): wer ausweicht, ist schon weg, wenn der Hieb ankommt
 			figures[id].dodge(maxi(0, lands - AUSWEICH_VOR_MS) if lunge_ms > 0 and fx == null else lands)

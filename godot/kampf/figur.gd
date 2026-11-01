@@ -377,9 +377,13 @@ static func _kauf_felle(a: String) -> Array:
 ## Kandidaten „Pro_…“ aus der UAL Pro), übertragen wie HeldFigur.bewegungen. Fehlen die Dateien (Bau ohne Kaufmodelle) oder
 ## steht ALTHELD=1, bleibt der bisherige Held (held.bin).
 const KAMPF_BEW := "res://daten/kampf-bewegungen.bin"
-const KAMPF_SCHLEIFEN := ["Kampfstehen", "Pro_Sword_Idle"]
+const KAMPF_SCHLEIFEN := ["Kampfstehen", "Pro_Sword_Idle", "SS_IdleCombat", "SS_WalkForward", "SS_RunForward", "SS_WalkBackwards"]
+## 406: was held_kampf.py zu den Bewegungen misst (Tempo von Gehen und Rennen, Griff von Schild und Schwert, Aufschlag)
+const KAMPF_INFO := "res://daten/kampf-bewegungen.json"
 var kauf := false
+var ss_f := 1.0      # 406: Größe des Kaufkörpers gegen das Gerüst der Bewegungen (Tempo)
 static var kampf_bew: Array = []     # [Animation, Name] je Bewegung, einmal geladen
+static var kampf_info: Dictionary = {}
 
 func _kaufheld() -> Node3D:
 	if fighter.monster != null or OS.get_environment("ALTHELD") != "" or not FileAccess.file_exists(KAMPF_BEW):
@@ -403,6 +407,11 @@ func _kaufheld() -> Node3D:
 				kampf_bew.append([ap0.get_animation(n).duplicate(true), String(n)])
 		sc.free()
 	var f := sk.get_bone_rest(sk.find_bone("pelvis")).origin.length() / HeldFigur.bew_becken
+	ss_f = f
+	if kampf_info.is_empty() and FileAccess.file_exists(KAMPF_INFO):
+		var j = JSON.parse_string(FileAccess.get_file_as_string(KAMPF_INFO))
+		if j is Dictionary:
+			kampf_info = j
 	var pfad := str(HeldFigur._pfad(m, sk))
 	var lib := anim.get_animation_library("")
 	for e in kampf_bew:
@@ -600,7 +609,28 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 	var inward := rest * (Vector3.RIGHT if side == "R" else Vector3.LEFT)
 	var b: Basis
 	var o: Vector3
-	if what.contains("shield"):
+	var ss_griff: Dictionary = kampf_info.get("griff", {}).get("schild", {}) if what.contains("shield") and _ss() else {}
+	if not ss_griff.is_empty():
+		# 406: wie der Satz „Sword & Shield“ den Schild hält (held_kampf.py „griff“, aus dem Prefab): im Handrahmen (Handgelenk zum
+		# Mittelfingerknöchel, quer vom Klein- zum Zeigefinger) die Fessel unseres Schilds dort, wo die Rückseite des Bretts des Satzes in
+		# der Mitte liegt, Vorderseite und oben wie dort (Prüferbefund 01.11., 12:0x: vorher nur die Innenseite im Bild)
+		var hr := sk.get_bone_global_rest(bi).affine_inverse()
+		var s_ := side.to_lower()
+		var h0: Vector3 = hr * sk.get_bone_global_rest(bi).origin
+		var mf: Vector3 = hr * sk.get_bone_global_rest(sk.find_bone("middle_01_" + s_)).origin
+		var zf: Vector3 = hr * sk.get_bone_global_rest(sk.find_bone("index_01_" + s_)).origin
+		var kf: Vector3 = hr * sk.get_bone_global_rest(sk.find_bone("pinky_01_" + s_)).origin
+		var hx := (mf - h0).normalized()
+		var hz := hx.cross(zf - kf).normalized()
+		var rb := Basis(hx, hz.cross(hx), hz)
+		var lang := (mf - h0).length()
+		var v3 := func(k: String) -> Vector3: return Vector3(ss_griff[k][0], ss_griff[k][1], ss_griff[k][2])
+		var front: Vector3 = (rb * v3.call("vorn")).normalized()
+		var up: Vector3 = rb * v3.call("oben")
+		up = (up - front * up.dot(front)).normalized()
+		b = Basis(up.cross(front), up, front)
+		o = h0 + rb * (v3.call("griff") * lang)
+	elif what.contains("shield"):
 		# Schild am Unterarm außen: Vorderseite nach außen, oben nach oben, die Fessel um den Unterarm
 		b = Basis(fwd, -down, -inward)
 		if fighter.monster != null:     # Goblin Runde 4 (Prüfer Runde 3, Chef 21:33 „so schwarz“): nach außen lag die Vorderseite im
@@ -828,7 +858,7 @@ func _play(name: String, blend := 0.15) -> void:
 ## Ruhebewegung der UAL (Idle_Loop, aus ihr Kampfstehen in kampf.py) atmet selbst zweimal in 2,5 s (Schulter 2,1 cm, Kopf 4°; gemessen
 ## 01.11.), beide Helden im Gleichtakt: in den Ruhebewegungen des Kampfs bleibt darum ihr erstes Bild stehen (_ohne_atem), das auch
 ## Anfang und Ende jeder Kampfbewegung ist, und nur die Schicht atmet.
-const ATEM_RUHE := ["Kampfstehen", "Stehen"]
+const ATEM_RUHE := ["Kampfstehen", "Stehen", "SS_IdleCombat"]
 var atem = null
 
 func _atem_an() -> void:
@@ -868,8 +898,25 @@ func _idle_wenn_frei() -> void:
 		_idle()
 
 
+## 406 (Chef 01.11., 13:0x, Archiv 406: neu mit Sword & Shield; 13:1x: „Sein Schild hängt drunter … reißt dann das Schild hoch“):
+## der Kaufheld mit Schild und Klinge kämpft mit dem gekauften Satz „Sword & Shield“ (held_kampf.py, Vorsilbe SS_): steht in
+## Kampfhaltung mit erhobenem Schild, wehrt mit dem Schild ab, geht und rennt mit Schild. OHNE_SS=1: wie vorher (Vergleich)
+func _ss() -> bool:
+	return kauf and anim != null and anim.has_animation("SS_IdleCombat") and _schild() != "" and not _stab() \
+		and OS.get_environment("OHNE_SS") == ""
+
+
+## 406: Gehen, Rennen, rückwärts gehen mit Schild, wenn der Satz da ist
+func _gang_ss(nm: String) -> String:
+	var g: String = {"Gehen": "SS_WalkForward", "Rennen": "SS_RunForward", "Zurück": "SS_WalkBackwards"}.get(nm, nm)
+	return g if _ss() and anim.has_animation(g) else nm
+
+
 func _idle() -> void:
 	if down:
+		return
+	if _ss():
+		_play("SS_IdleCombat", 0.2)
 		return
 	if kauf and anim and anim.has_animation("Kampfstehen") and not _stab():
 		# 403: die Klinge liegt im Faustloch wie in kampf.py; in Stehen (UAL) zeigte sie waagerecht nach vorn auf Hüfthöhe
@@ -1752,6 +1799,8 @@ func _stab() -> bool:
 
 
 func _held_mps(nm: String) -> float:
+	if nm.begins_with("SS_") and float(kampf_info.get("tempo", {}).get(nm, 0.0)) > 0.1:     # 406: aus held_kampf.py, am Fuß gemessen
+		return float(kampf_info["tempo"][nm]) * ss_f
 	var v: float = float(model.get_meta("rennen_m_je_s" if nm == "Rennen" else "gehen_m_je_s", 0.0))
 	return v if v > 0.1 else (WALK_MPS * 2.0 if nm == "Rennen" else WALK_MPS)
 
@@ -1782,7 +1831,7 @@ func _held_schlag(other, weiter := 0.0) -> int:
 		var via := _detour(position, start, other)
 		var pts := [start] if via == position else [via, start]
 		var way := run if via == position else position.distance_to(via) + via.distance_to(start)
-		var gn := "Rennen" if way > RUN_FROM and anim.has_animation("Rennen") else "Gehen"
+		var gn := _gang_ss("Rennen" if way > RUN_FROM and anim.has_animation("Rennen") else "Gehen")
 		var von := position
 		for q in pts:
 			var a: Vector3 = q - von
@@ -1791,15 +1840,23 @@ func _held_schlag(other, weiter := 0.0) -> int:
 			tween.tween_property(self, "position", q, t)
 			t_run += t
 			von = q
-	var bl: float = anim.get_animation("Hieb").length if anim.has_animation("Hieb") else BLOW_MS / 1000.0
-	tween.tween_callback(func(): gang = "hieb"; _face(to - start); _play("Hieb", 0.08))
+	# 406: mit Schild einer der drei Schwerthiebe des Satzes, Aufschlag wie gemessen (held_kampf.py „kontakt“)
+	var hn := "Hieb"
+	var auf := HELD_AUFSCHLAG
+	if _ss():
+		var hiebe := ["SS_SwordAttack1", "SS_SwordAttack2", "SS_SwordAttack3"].filter(func(x): return anim.has_animation(x))
+		if not hiebe.is_empty():
+			hn = hiebe[randi() % hiebe.size()]
+			auf = float(kampf_info.get("kontakt", {}).get(hn, HELD_AUFSCHLAG))
+	var bl: float = anim.get_animation(hn).length if anim.has_animation(hn) else BLOW_MS / 1000.0
+	tween.tween_callback(func(): gang = "hieb"; _face(to - start); _play(hn, 0.08))
 	tween.tween_interval(bl)
 	var heim := start.distance_to(home)
 	var back := maxf(HERO_BACK_S, heim / (_held_mps("Gehen") * HELD_ZURUECK))
 	tween.tween_callback(func(): _back_home(back, other))
 	busy_ms = int((t_run + bl + back) * 1000.0)
 	anlauf_ms = 0
-	return int((t_run + HELD_AUFSCHLAG) * 1000.0 / 0.42)
+	return int((t_run + auf) * 1000.0 / 0.42)
 
 
 ## Rückweg der Heldin: rückwärts, ohne Umdrehen (beim Umdrehen sah man Brust und Schildinnenseite: „andere Ausrüstung“, Helfer
@@ -1808,7 +1865,10 @@ func _back_home(back: float, skip) -> void:
 	var from := position
 	var via := _detour(from, home, skip)
 	var way := from.distance_to(via) + via.distance_to(home) if via != from else from.distance_to(home)
-	if anim and anim.has_animation("Gehen") and way > 0.2:
+	if anim and _gang_ss("Zurück") == "SS_WalkBackwards" and way > 0.2:
+		# 406: mit Schild rückwärts wie der Satz (Schild bleibt oben), im Tempo seiner Schritte
+		anim.play("SS_WalkBackwards", 0.12, clampf(way / back / _held_mps("SS_WalkBackwards"), 1.0, WALK_MAX))
+	elif anim and anim.has_animation("Gehen") and way > 0.2:
 		_guard(true)
 		anim.play("Gehen", 0.12, -clampf(way / back / (_held_mps("Gehen") if kauf else WALK_MPS), 1.0, WALK_MAX))
 	tween = create_tween()
@@ -2183,7 +2243,45 @@ func _im_bild(p: Vector3, blick: Vector3) -> bool:
 	return true
 
 
-func hurt(after_ms: int, dies: bool) -> void:
+## 406 (Chef 01.11., 13:1x: „Sein Schild hängt drunter. Dann wird er vom Wolf angeknabbert und reißt dann das Schild hoch“): wer
+## mit Schild kämpft, wehrt einen Angriff ab, bevor er ankommt; der Schild trifft den Angriff im Aufschlag (Kontakt aus held_kampf.py).
+## Gelungen: die Abwehr läuft aus. art: „sprung“ (Sprungbiss: schwere Abwehr), „fern“ (Pfeil, Zauber), sonst nah (Biss, Hieb).
+const ABWEHR := {"sprung": ["SS_BlockHeavy1", "SS_BlockHeavy2"], "fern": ["SS_BlockMedium1", "SS_ParryHigh1", "SS_BlockMedium2"],
+	"nah": ["SS_BlockLight", "SS_BlockMedium1", "SS_BlockMedium2", "SS_ParryLow"]}
+var abwehr_nr := 0
+
+func blockt() -> bool:
+	return _ss() and not down
+
+
+func abwehr(lands_ms: int, art: String) -> void:
+	if not _ss():
+		return
+	var liste: Array = (ABWEHR.get(art, ABWEHR["nah"]) as Array).filter(func(x): return anim.has_animation(x))
+	if liste.is_empty():
+		return
+	# reihum statt Zufall: nie zweimal dieselbe hintereinander (mindestens drei Varianten, DESIGN-LEITBILD 2)
+	var nm: String = liste[(abwehr_nr + hash(String(fighter.id))) % liste.size()]
+	abwehr_nr += 1
+	var k: float = float(kampf_info.get("kontakt", {}).get(nm, 0.25))
+	var vor_ms := lands_ms - int(k * 1000.0)
+	if vor_ms > 0:
+		await get_tree().create_timer(vor_ms / 1000.0).timeout
+	if down or not _ss() or (not weg.is_empty() and lunging()):
+		return
+	_face_sanft()
+	_play(nm, 0.12)
+	if vor_ms < 0:     # zu spät angesagt: so weit vorgespult, dass der Schild beim Aufschlag steht
+		anim.seek(minf(-vor_ms / 1000.0, k), true)
+	_schnaufen(0.6)
+	var rest: float = anim.get_animation(nm).length - maxf(0.0, -vor_ms / 1000.0)
+	get_tree().create_timer(maxf(0.1, rest - 0.1)).timeout.connect(_idle_wenn_frei)
+
+
+func hurt(after_ms: int, dies: bool, schwer := false, art := "") -> void:
+	# 406: mit Schild erst die Abwehr (vor dem Aufschlag), die nicht hält: beim Aufschlag Treffer mit dem Schild oben
+	if art != "" and blockt() and not dies and not sturz_vorweg:
+		abwehr(after_ms, art)
 	await get_tree().create_timer(after_ms / 1000.0).timeout
 	if hurt_at < 0.0:
 		model_rest = model.position
@@ -2194,6 +2292,11 @@ func hurt(after_ms: int, dies: bool) -> void:
 		die()
 	elif not weg.is_empty() and lunging():
 		pass     # 438: unterwegs nur das Zittern; vorher spielte es Treffer, dann Stehen und glitt so 1 m weiter
+	elif _ss() and not down:
+		var tn := "SS_GetHitHeavyFront" if schwer else "SS_GetHitLightFront"
+		if anim.has_animation(tn):
+			_play(tn, 0.06)
+			get_tree().create_timer(anim.get_animation(tn).length - 0.1).timeout.connect(_idle_wenn_frei)
 	else:
 		_play("Treffer", 0.05)
 		get_tree().create_timer(0.45).timeout.connect(_idle_wenn_frei)
