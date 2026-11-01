@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [451](entscheiden/451-name-spielsystem.md) | **Muss** | D Design | 01.11. | Ein Name für unser Spielsystem | Sokrates |
 | [458](entscheiden/458-gegenstandskatalog.md) | **Muss** | D Design | 01.11. | Ein Katalog aller Gegenstände für Spielsystem 2.0 | Sokrates |
 
 ## Zu billigen
@@ -42,10 +41,11 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 6, Muss 2, startbar 2
+**Homer** – offen 7, Muss 3, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 451.2 | M | von Sokrates (Chef 01.11., 13:1x, Archiv 451): „Spielsystem 2.0“ heißt jetzt „Bornimer Rol | startbar |
 | 453.3 | M | von Sokrates (Chef 01.11., 13:0x, Archiv 453.1): Grundsatz „lebende Figuren atmen immer, r | startbar |
 | 432 | K | von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt | nach dem Meilenstein |
 | 423 | M | von Sokrates (Chef 31.10., 21:2x: „irgendwer muss dann auch einfach eine Anleitung schreib | startbar |
@@ -149,10 +149,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 21, Muss 18, startbar 3
+**Perikles** – offen 22, Muss 19, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 451.1 | M | von Sokrates (Chef 01.11., 13:1x, Archiv 451): „Spielsystem 2.0“ heißt jetzt „Bornimer Rol | startbar |
 | 447.1 | M | von Sokrates (Chef 01.11., 12:3x, „447 ja, mit K2b, aber nummeriere das Ganze doch neu und | startbar |
 | 457 | M | von Sokrates („jetzt“ 01.11., 11:49, Chef: „unsere Signatur muss sich wiederfinden. Warum | startbar |
 | 456.1 | M? | von Diogenes (Doppelpack 421, Lauf 54, 01.11., 11:4x): Befunde D55.1–5 zu 448.2 und 449 na | startbar |
@@ -186,12 +187,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 32, Muss 24, startbar 12
+**Sokrates** – offen 31, Muss 23, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 458 | M | von Chef (01.11., 13:0x, „Gibt es da eine Übersicht? … Brauchen wir das noch? Wo kann da w | Chef (Datei in der Chefsache) |
-| 451 | M | von Chef (01.11., 10:59, „müssen wir unser Spielsystem auch irgendeinen Namen geben … Bitt | Chef (Datei in der Chefsache) |
 | 452 | M | von Chef (01.11., 10:59, 11:00): ein gebündeltes Dokument; Notizen-Übersicht docs/README.m | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 427 | M | von Chef (31.10., 21:3x): Bestiarium LISTE-BESTIARIUM.md | wartet auf Jerry |
 | 398 | M | von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr g | wartet auf Perikles |
