@@ -19,9 +19,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [461d](billigen/461d-ein-ort.md) | **Muss** | B Abläufe | 01.11., 22:49 | Gültige Entscheidungen an einem Ort: in die DESIGN-Dateien statt eigener Liste? | Sokrates |
 | [348.12k](billigen/34812k-grak-film-helden.md) | **Muss** | E Kampf | 01.11., 22:47 | Grak-Film mit den alten Helden: Ursache und neuer Lauf | Sokrates |
-| [461a](billigen/461a-grundstand-tor.md) | **Muss** | B Abläufe | 01.11., 20:56 | Grundstand: Soll ein Verstoß den Film anhalten, bis er behoben ist? | Perikles |
 
 ## Anzusehen
 
