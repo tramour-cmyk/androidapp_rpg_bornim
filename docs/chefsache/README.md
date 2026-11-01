@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [413b](entscheiden/413b-leitbild-kopf.md) | **Muss** | D Design | 01.11. | Leitbild und CLAUDE.md: zwei Reste der alten Grundlage | Sokrates |
 | [422](entscheiden/422-nachschlagewerk.md) | **Muss** | D Design | 01.11. | Spielsystem 2.0: Regeln im Nachschlagewerk abnehmen | Sokrates |
 | [443a](entscheiden/443a-ford-namensform.md) | **Muss** | B Abläufe | 01.11. | Gilt die Namensform 436 auch für Ford? | Diogenes |
 | [418](entscheiden/418-abnahmeliste-kapitel1.md) | **Muss** | B Abläufe | 31.10., 21:33 | Abnahmeliste Kapitel 1 nach der neuen Direktive: abnehmen und Umfang von 2.0 festlegen (Empfehlung: :) | Perikles |
@@ -186,11 +187,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 32, Muss 23, startbar 11
+**Sokrates** – offen 32, Muss 24, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 432.1 | K | von Homer (Chef 01.11., 09:13: „432 Stellungnahme Sokrates fehlt“): Stellungnahme zu Chefs | startbar |
+| 413b | M | von Chef (01.11., 09:41, „413a wie Sokrates“): Reste der alten Grundlage in Leitbild und C | Chef (Datei in der Chefsache) |
 | 442 | M | von Chef (31.10., 23:52, „warum ihr alle auf dem kleinen Rechenmodell lauft“): Modellzuord | Chef (Datei in der Chefsache) |
 | 427 | M | von Chef (31.10., 21:3x): Bestiarium LISTE-BESTIARIUM.md | wartet auf Jerry |
 | 422 | M | von Chef (31.10., 21:2x, „dass es sich liest wie eine gute Anleitung. Und ein Nachschlagew | Chef (Datei in der Chefsache) |
@@ -230,7 +231,7 @@ Format (Muster: „So geht's“ unten): t146-befunde.md: 8 Vorgänge, höchstens
 
 Nicht gestellt: 186.3 (Pruefung)
 
-Ohne Datei: 432 (Beratung), 275 (Projekt), 26 (Team Tom)
+Ohne Datei: 275 (Projekt), 26 (Team Tom)
 
 ## So geht's
 
