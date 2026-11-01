@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (01.11., 12:3x, `session_01Hmoj793shiZHbpTprrFuEf`):** 417 Runde 3 vorgelegt; 431 Völkerkörper (`voelker.py`, Film im Spiel `voelkerprobe.gd`, `tom-probe-431.yml`) gebaut, Lauf nach 431a. Nachfolger: Tom – 416.4, 376.1, 455.1, 417 und 431 nach Urteil.
+**Übergabe (01.11., 12:2x, `session_01Hmoj793shiZHbpTprrFuEf`):** 417 Runde 3 vorgelegt; 431 Völkerkörper (`voelker.py`, Film im Spiel `voelkerprobe.gd`, `tom-probe-431.yml`) gebaut, Lauf nach 431a; 416.9 Code nachgebessert (Godot fehlte). Nachfolger: Tom – 416.9 Bild, 416.4, 376.1, 455.1.
 
 ## Zeilen
 
@@ -12,7 +12,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 431a | M | **von Tom (01.11.):** Rückfrage: dritten Probelauf für 431 freigeben (389) | wartet auf Chef: entscheiden/431a | – |
 | 417 | M | **von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“):** Tragart je Waffenklasse (Zu 417), zuerst Stab, Axt, Bogen; Zahlen messen, Aussehen urteilt der Chef | wartet auf Chef: ansehen/417 Runde 3 (Axt A oder B) | `claude/tom-417-tragart` |
 | 425 | M | **von Sokrates (Chef 31.10., 21:30, Build 143):** Menüs (Menü „System“, Testmenü): in der alten Fassung mit Icons „super klasse“, neu „viel zu viel Text“; alte Menüs möglichst eins zu eins übernehmen, Icons statt Text | gebaut, fährt im nächsten Build | `claude/spike-425-testmenue` |
-| 416.9 | M | **von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“):** Laden, Verkaufen, „angelegt“ mit allen Plätzen, Vergleichswerte, nicht Tragbares, Icon bei Menge | in Arbeit: Leiste fest, Leerzeile, Vergleich wie alt | – |
+| 416.9 | M | **von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“):** Laden, Verkaufen, „angelegt“ mit allen Plätzen, Vergleichswerte, nicht Tragbares, Icon bei Menge | startbar: Code nachgebessert (claude/spike-416-9-laden), Tests und Bild fehlen | – |
 | 416.7 | M | **von Sokrates (Chef 31.10., 20:5x, für den nächsten Build):** am Tresen in Schenke und Laden geht der Aktionsknopf nicht, Kaufen und Kauf mit den zwei NPCs dort nicht möglich; Reichweite erweitern | wartet auf Test: Build 146 (t146) | – |
 | 416.8 | M | **von Sokrates (Chef 31.10., 20:5x, allgemeiner Hinweis):** NPC dreht sich bei Interaktion zum Helden, nach etwa 10 s ignoriert er ihn wieder und spielt Leerlauf; M (Perikles 31.10., 22:2x: Befund aus dem Test des Chefs, Abnahme T, Direktive „immersiv“) | wartet auf Test: Build 146 (t146) | – |
 | 416.1 | M | **von Sokrates (Chef 31.10., 20:4x, Build 143):** Tasten reagieren schlecht (Bartform, Kopfform, Farbe in „Neues Spiel“; „auch in anderen Bereichen“, „grundsätzliches großes Problem“): Ursache nachstellen, überall prüfen | wartet auf Test: Build 146 (t146) | – |
@@ -55,7 +55,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 425:** Archiv 01.11., 11:20. Spike: 2, 3, 8 gebaut, Zeichen ungesehen; 5 mit 1, 4, 6.
 - **Zu 416.4** (Tom, Spike 01.11.): Ursache Takt: `Jog_Fwd_Loop` auf unserem Helden 1,7 Schritte/s zu 2,5 m, Becken 22 cm; Sprint 9 m/s (0,48-fach). Spike (`claude/spike-416-4-rennen`): `geruest.py` `flug`, `hub`, `RENNEN_ART=heute|A|B`, `rennen_4164.gd` am Ballen, lokal ohne Kaufmodelle; nach Urteil Vorgabe in `RENNEN_ARTEN`. Filme mit Kauf: `tom-probe.yml`, `godot/probe/drehfilm.gd`, Artefakt über `api.github.com/…/actions/artifacts/<id>/zip`.
 
-- **Hinweis von Diogenes (374, 29.10.):** Stichprobe 373 28.10.: dritter Probelauf (389 höchstens zwei), Helferbefund vor dem Versand (396: erst senden, Befund danach), je drei Blätter für ein Modell (373 a).
 - **Hinweis von Sokrates (01.11., 11:4x):** Figurenproben mit Toon-Licht, Tusche nach Licht, Schatten wie im Spiel (Bekannte Fehler 3), ab 455.1, 455.2, 431 (umgesetzt: `voelkerprobe.gd`). 348.13 steht „wartet auf Jerry“, Jerry hat 348.13a gebaut: Stand prüfen.
 - **Hinweis von Sokrates (01.11., 11:5x, 438a):** `LISTE-BESTAND.md` führt das Wizard-Set noch als „Übertragung ungeprüft (Tom, 385)“, seit 385 (28.10.) geht sie; darum suchte Jerry für Sturz und Aufstehen nur in der UAL. Zeile berichtigen.
 - **von Jerry (406, 01.11., 11:4x):** `heldfigur.gd` `bewaffne` geändert (Zweig `claude/jerry-406-kaufschild`, 1bd54b7c7): `rand_hinten()` rückt gewölbte Kaufschilde um ihren Rand vom Rücken; Startschilde getauscht (`Rules.kt`: Kämpfer `round_shield`, Kleriker `shield`). Befund Netzmessung `tests/schild_406.gd`: am Rücken ragen Schulter und Oberarm bis 7–9 cm in die Oberkante des Schilds (vorher mit den waffen.py-Schilden 6,5–7,2 cm); Ursache Lage aus 376.1, deins.
