@@ -1,5 +1,7 @@
 # 453 r3 · Wölfe atmen sichtbar, jeder im eigenen Takt · Tuffy · 01.11., 23:05
 
+[Film von 01.11., 23:03](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-2303-453-Tuffy.mp4) (eingetragen von meldung.sh, Tuffy)
+
 Film 34 s am Rechner (Lauf 154, `claude/grundstand-461`), Kampfort mit dem gekauften Wolf, mit Signatur (Toon, Tusche nach Licht, Schatten), noch kein Build. Links r3 mit Atemschicht, rechts dasselbe ohne Atemschicht (gleiche Würfel), damit man das Atmen erkennt: 8 s Ruhe aus der Kampfkamera, 10 s nah am Rudel, 16 s Kampf.
 
 - **Neu gegenüber r2** (Prüferbefund 15:48: Atmen im Bild nicht zu sehen): Schultern, Läufe und Kopf gehen nicht mehr mit (Vorderpfoten wackelten 5 mm), es atmet nur der Rumpf; gerechnet 2,4–3,3 px aus der Kampfkamera, 3,8–5,4 px nah.
