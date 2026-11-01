@@ -40,6 +40,12 @@ var streifen_n := 0                    # Kacheln um heim (alt wander; mit Tagesp
 var drinnen := false                   # 390 (5la): an der Tuer fuer die Nacht hineingegangen: nicht zu sehen, nicht im Weg
 static var uhr := Callable()           # 390: Minute des Tages (spiel.gd, Zustand.minuten)
 static var still := false              # 390: waehrend eines Gespraechs bleiben alle stehen (Mode.Dialog)
+# 416.8 (Chef 31.10., 20:5x: „NPC dreht sich bei Interaktion zum Helden, nach etwa 10 s ignoriert er ihn wieder und spielt Leerlauf“;
+# alt Game.talk npcFacing): angesprochen wendet sich die Person dem Helden zu und folgt ihm mit dem Blick; ZUGEWANDT s nach dem
+# Gespraech dreht sie sich zurueck und macht weiter, was sie tat (Ruhebewegung, Streifen, Runde)
+const ZUGEWANDT := 10.0
+var zugewandt_bis := 0                  # ms (Time.get_ticks_msec); 0: niemandem zugewandt
+var blick_vorher := 0.0
 var da := true                         # 390: nach der Geschichte zu sehen (Story.kt visible: besiegt, befreit)
 
 static func alle(k: Karte, h: Node3D) -> Array:
@@ -377,8 +383,17 @@ func _process(dt: float) -> void:
 	if anim and anim.current_animation != pause:
 		anim.play(pause, 0.5 if anim.current_animation.begins_with("Stehen") else 0.25)
 		anim.speed_scale = 1.0
+	if zugewandt_bis > 0:
+		if still: zugewandt_bis = Time.get_ticks_msec() + int(ZUGEWANDT * 1000)   # waehrend des Gespraechs zaehlt die Zeit nicht
+		if Time.get_ticks_msec() < zugewandt_bis and held:
+			blick = atan2(held.global_position.x - global_position.x, held.global_position.z - global_position.z)
+		else:
+			zugewandt_bis = 0
+			blick = blick_vorher
+			ruhe_bis = -1.0   # die Ruhebewegung beginnt neu
 	rotation.y = drehe(rotation.y, blick, DREH_STEH * dt)
 	if still or not da: return
+	if zugewandt_bis > 0: return
 	if Time.get_ticks_msec() < ruft_bis: return   # 399.1 (306): wer ruft, haelt still, bis das zweite Zeichen vorbei ist
 	warte -= dt
 	if warte > 0: return
@@ -475,6 +490,11 @@ func laufe(dt: float) -> void:
 			anim.play("Gehen", 0.18)
 			anim.seek(zufall.randf() * anim.current_animation_length)
 		anim.speed_scale = tempo / gang
+
+# 416.8: dem Helden zuwenden (spiel.gd sprich)
+func wende_zu() -> void:
+	if zugewandt_bis == 0: blick_vorher = blick
+	zugewandt_bis = Time.get_ticks_msec() + int(ZUGEWANDT * 1000)
 
 # dreht a hoechstens um schritt auf b zu (feste Rate statt lerp: grosse Wenden dauern laenger, kleine bleiben weich)
 static func drehe(a: float, b: float, schritt: float) -> float:
