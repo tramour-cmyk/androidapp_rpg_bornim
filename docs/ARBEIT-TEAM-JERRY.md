@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert“).
 
-**Übergabe (01.11., 12:1x):** 406 Kaufschilde gebaut (1bd54b7c7 auf `claude/jerry-406-kaufschild`, von 438), Film an den Chef (ansehen/406-kaufschilde), Probelauf 406 2/2; 454 gemessen (dd7f09215 auf `claude/jerry-454-bissachse`, Zu 454). Lokal nachbauen: Skript-Schritte wie godot.yml (held3, rig, held_klassen, held_kampf, wolf, kampfort_wald, waffen, kaufwolf, kaufschild); Haartexturen der UBC Source liegen eine Ebene über „Rigged to Head Bone/Male“ (verlinken). Nachfolger: „Jerry – 454: Biss trifft das Ziel“
+**Übergabe (01.11., 12:58):** 454 gebaut (3d3babb4c auf `claude/jerry-454-bissachse`, von 438; Zu 454), Film an den Chef (ansehen/454-wolfsbiss), Probelauf 454 2/2. Kaufpakete: `gh api -H "Accept: application/octet-stream" …/releases/assets/<id>`, dann `kauf_laden.sh` mit stummem `gh`; Haar-PNGs auch unter `Engine Projects/Godot/…/Rigged to Head Bone/Male` verlinken. Nachfolger: „Jerry – 438a: Sichtungsfilm Hinfallen und Aufstehen“
 
 ## Zeilen
 
