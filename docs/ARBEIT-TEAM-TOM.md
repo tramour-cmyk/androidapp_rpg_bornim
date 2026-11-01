@@ -8,7 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 431 | M | **von Sokrates (Chef 31.10., 22:0x):** Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film, dann Körperbau je Volk | wartet auf Chef: entscheiden/431a (dritter Lauf, Film im Spiel-Look gebaut) | `claude/tom-431-voelker` |
+| 431 | M | **von Sokrates (Chef 31.10., 22:0x):** Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film, dann Körperbau je Volk | ruht bis Antwort 431a (dritter Lauf), Film im Spiel-Look gebaut | `claude/tom-431-voelker` |
 | 431a | M | **von Tom (01.11.):** Rückfrage: dritten Probelauf für 431 freigeben (389) | wartet auf Chef: entscheiden/431a | – |
 | 417 | M | **von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“):** Tragart je Waffenklasse (Zu 417), zuerst Stab, Axt, Bogen; Zahlen messen, Aussehen urteilt der Chef | wartet auf Chef: ansehen/417 Runde 3 (Axt A oder B) | `claude/tom-417-tragart` |
 | 425 | M | **von Sokrates (Chef 31.10., 21:30, Build 143):** Menüs (Menü „System“, Testmenü): in der alten Fassung mit Icons „super klasse“, neu „viel zu viel Text“; alte Menüs möglichst eins zu eins übernehmen, Icons statt Text | gebaut, fährt im nächsten Build | `claude/spike-425-testmenue` |
