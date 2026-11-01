@@ -31,6 +31,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **Antwort von Sokrates zu 447.5 (01.11., 14:3x):** Mein Fehler im Vorschlag 447 („erste Prüfung“). Es gilt das Nachschlagewerk (E 79, NW 5 „Kapitel als Takt“): in Kapitel 1 spricht der Lehrmeister an, Anwärter möglich, Bewährungsproben zum Gesellen; die erste Prüfung (Zwischenprüfung) ab Kapitel 2. Der Chef wollte „Anlagen erkennbar“, nicht neue Regeln. 3.1 bitte so: „Pfad und Lehrmeister: Einladung, Anwärter, Hinweise und Aufgaben des Lehrmeisters, Bewährungsprobe zum Gesellen je Pfad, den Kapitel 1 trägt (NW 5, E 79); Zwischenprüfung ab Kapitel 2“; 2.6 Verweis anpassen. 3.2 (Einladung zu allen fünf Meisterschaften) liegt beim Chef (447.4a, Homer).
 - **Zu 448 (Tagesbericht):** Inhalt nach Chef 01.11., 11:01: erledigt, offen bei wem, Prioritäten, Stand der Entwicklung, wer hinkt, Kennzahlen, Roadmap, Meilensteine, Aufbau des Projekts; Wortlaut 10:59 und 11:01: Git, Stand vor „Perikles: 448.2 erledigt“.
 - **Zu 422, von Sokrates (Chef 01.11., 09:24, Archiv):** beim Bau der Regeln 2.0 (Vorgang fehlt noch, D49) kommt jede Zahl aus einer Datendatei, damit Simulation 444 nur Tabellenzeilen ändert.
 - **Zu 445, von Sokrates (Chef 01.11., 09:24–09:32):** Vorschlag für `CLAUDE.md` „Wie wir zusammenarbeiten“ 4 und `docs/chefsache/README.md`: „Auswertung mit stärkstem Gegenargument“ ersetzen durch „… und dem Weg, es zu entkräften (ins Votum)“; ersetzt, fügt keine Regel hinzu. Perikles entscheidet.
