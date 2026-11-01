@@ -54,12 +54,24 @@ def ist_koerper(o):
 
 
 def messen(arm, netze):
-    # voelker.messen am Koerper allein; Sohle der ganzen Figur (Stiefel), damit sie auf dem Boden bleibt
+    # wie voelker.messen, aber Scheitel und Kinn nur am Koerper (Helm, Kapuze zaehlen nicht), Sohle der ganzen Figur (Stiefel; die Tracht
+    # hat unter Hose und Stiefeln keine Beinhaut mehr, held_klassen.beine_weg; Lauf 41323183168: Groesse 0,44 m am Koerper allein)
     k = [o for o in netze if ist_koerper(o)] or netze
-    m = VO.messen(arm, k)
     sohle = min(v.co.z for o in netze for v in o.data.vertices)
-    m['sohle_figur'] = sohle
-    return m
+    scheitel = max(v.co.z for o in k for v in o.data.vertices)
+    H = scheitel - sohle
+    kopf = arm.data.bones['Head'].head_local
+    kinn = 9.0
+    for o in k:
+        gi = o.vertex_groups.get('Head')
+        if gi is None: continue
+        for v in o.data.vertices:
+            st = max(v.groups, key=lambda x: x.weight) if v.groups else None
+            if st and st.group == gi.index and v.co.y < kopf.y - 0.02: kinn = min(kinn, v.co.z)
+    huefte = (arm.data.bones['thigh_l'].head_local.z + arm.data.bones['thigh_r'].head_local.z) / 2 - sohle
+    schulter = (arm.data.bones['upperarm_l'].head_local - arm.data.bones['upperarm_r'].head_local).length
+    return {'h': H, 'kopf': (scheitel - kinn) / H, 'bein': huefte / H, 'schulter': schulter, 'schulter_rel': schulter / H,
+            'sohle': sohle, 'sohle_figur': sohle}
 
 
 def baue(volk, t, g, mensch):
@@ -93,8 +105,8 @@ def baue(volk, t, g, mensch):
             VO.knochen_formen(arm, netze, e)
             m = messen(arm, netze)
             break
-        if 'kopf' in z: e['kopf'] = min(max(e['kopf'] * (z['kopf'] / m['kopf']) ** 1.15, 0.6), 2.2)
-        if 'bein' in z: e['bein'] = min(max(e['bein'] * (z['bein'] / m['bein']) ** 1.6, 0.3), 1.6)
+        if 'kopf' in z: e['kopf'] = min(max(e['kopf'] * (z['kopf'] / max(m['kopf'], 1e-3)) ** 1.15, 0.6), 2.2)
+        if 'bein' in z: e['bein'] = min(max(e['bein'] * (z['bein'] / max(m['bein'], 1e-3)) ** 1.6, 0.3), 1.6)
         if s_ziel: e['schulter'] = min(max(e['schulter'] * (s_ziel / (m['schulter'] * f)), 0.5), 2.2)
     if volk == 'mensch':
         h_soll = m['h']   # der Mensch bleibt, wie er ist (Bezug)
