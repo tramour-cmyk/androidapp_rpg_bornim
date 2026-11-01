@@ -3,6 +3,7 @@ extends Node3D
 # dreht, wie es aus allen Perspektiven ausschaut“). Läuft im Ablauf tom-probe.yml mit --write-movie; gekaufte Dateien bleiben auf dem
 # Runner, ins Artefakt geht nur der Film (348.12c a).
 #   --film=431   Grundkörper, Haare und Bärte der Bibliothek drehend, mit den Größen der Völker (LISTE-FIGUREN.md „Völker“, 430)
+#   --film=376.1 Heldin: alle Frauentrachten der Bibliothek (Modular Character Outfits) mit dem Kaufkopf Regulär Frau, drehend
 #   --film=416.4 Rennen: Jog_Fwd wie im Spiel, Jog mit halbem Beckenhub, Sprint; von der Seite und aus der Spielansicht
 # Umgebung: KAUF=<gekaufte Pakete>, CC0=<freie Quaternius-Pakete> (cc0_laden.sh). Ende von selbst; Zeilen „FILM …“ ins Protokoll.
 # Hochformat wie das Spiel (1080 × 2340, Lauf 41291021273: der Film nimmt die Projektgröße, nicht --resolution): Felder mit je einer
@@ -75,7 +76,8 @@ func _ready() -> void:
 	match film:
 		"431": _film_431()
 		"416.4": _film_4164()
-		_: print("FILM FEHLER: --film=431 oder --film=416.4"); get_tree().quit(1)
+		"376.1": _film_3761()
+		_: print("FILM FEHLER: --film=431, 416.4 oder 376.1"); get_tree().quit(1)
 
 
 func _process(dt: float) -> void:
@@ -368,6 +370,42 @@ func _haare_431(s: Array, koerper: Array, nr: int, von: int) -> void:
 		cam.position = Vector3(x, h - 0.33, 4.0)
 		_text(feld[1], p.get_file().get_basename().replace("Hair_", "").replace("_", " ") + (" (Frau)" if weib else ""), Vector2(12, 8), 28)
 		rahmen.append([cam, f, h, p.get_file(), h - 0.7])
+
+
+# 376.1 ----------------------------------------------------------------------------------------------------------------------------
+const TRACHTEN := {"Knight": "Ritterin (Platte)", "Knight_Cloth": "Ritterin (Stoff)", "Noble": "Adlige", "Peasant": "Bäuerin",
+	"Ranger": "Waldläuferin", "Wizard": "Magierin"}
+
+func _film_3761() -> void:
+	var trachten := _einmal(_aus_einer(func(p): return "/Outfits/" in p and p.get_file().begins_with("Female_") and "Godot" in p))
+	var kopf := _erste(B.dateien([kauf], ".gltf").filter(func(p): return p.get_file() == "Regular_Female_OnlyHead.gltf"))
+	var haar := _erste(_aus_einer(func(p): return "Rigged to Head Bone" in p and "/Female/" in p and p.get_file() == "Hair_Ponytail_2.gltf"))
+	print("FILM 376.1 Trachten ", trachten.size(), ": ", ", ".join(PackedStringArray(trachten.map(func(p): return p.get_file()))), "; Kopf ", kopf.get_file(), "; Haar ", haar.get_file())
+	if trachten.is_empty(): print("FILM FEHLER keine Frauentrachten"); get_tree().quit(1); return
+	if kopf == "": print("FILM 376.1 ohne Kaufkopf (KAUF fehlt): nur Trachten")
+	ablauf.append([0.0, _trachten_3761.bind(trachten.slice(0, 6), kopf, haar)])
+	ablauf.append([14.0, func(): get_tree().quit()])
+
+
+func _trachten_3761(trachten: Array, kopf: String, haar: String) -> void:
+	_neuer_teil("376.1 · Heldin: alle Frauentrachten der Bibliothek (Quaternius Modular Character Outfits), Kopf Regulär Frau, Zopf")
+	for i in trachten.size():
+		var p: String = trachten[i]
+		var x := 100.0 + i * 6.0
+		var f := _figur(p, Vector3(x, 0, 0))
+		if f == null: continue
+		if kopf != "": _haar(f, kopf)        # Kopf wie Haar: eigenes Gerüst, gleiche Knochen, aufs Gerüst der Tracht
+		if haar != "": _haar(f, haar)
+		_bewegt(f, ["Idle_Loop"])
+		f.set_meta("dreh", 1.0 / 12.0)
+		var h := _hoehe(f)
+		var feld := _feld(_raster(i), 2.35)
+		var cam: Camera3D = feld[0]
+		cam.position = Vector3(x, 1.08, 8.0)
+		_boden(Vector3(x, 0, 0), 1.8, 1.2)
+		var n := p.get_file().get_basename().trim_prefix("Female_")
+		_text(feld[1], "%s · %s" % [TRACHTEN.get(n, n), n], Vector2(12, 8), 26)
+		rahmen.append([cam, f, h, p.get_file()])
 
 
 # 416.4 ----------------------------------------------------------------------------------------------------------------------------
