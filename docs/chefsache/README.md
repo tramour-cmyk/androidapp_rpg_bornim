@@ -13,6 +13,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [423](entscheiden/423-handbuch.md) | **Muss** | C Texte | 01.11. | Spielerhandbuch Spielsystem 2.0: Entwurf zum Lesen, drei Fragen | Homer |
 | [447](entscheiden/447-meilensteine.md) | **Muss** | B Abläufe | 01.11. | Meilensteine neu: vier Stufen bis „marktreif“, drei danach | Sokrates |
 | [451](entscheiden/451-name-spielsystem.md) | **Muss** | D Design | 01.11. | Ein Name für unser Spielsystem | Sokrates |
+| [455](entscheiden/455-ausruestung-baukasten.md) | **Muss** | D Design | 01.11. | Ausrüstung am Modell: Baukasten statt ein Modell je Gegenstand | Sokrates |
 
 ## Zu billigen
 
@@ -190,12 +191,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 32, Muss 24, startbar 11
+**Sokrates** – offen 33, Muss 25, startbar 11
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 447 | M | von Chef (01.11., 09:51, „Was sind denn aktuell die Meilensteine? Habe ich die gebilligt?“ | Chef (Datei in der Chefsache) |
 | 451 | M | von Chef (01.11., 10:59, „müssen wir unser Spielsystem auch irgendeinen Namen geben … Bitt | Chef (Datei in der Chefsache) |
+| 455 | M | von Chef (01.11., 11:15, „wir werden ja noch von mir aus 100 andere Ausrüstungsgegenstände | Chef (Datei in der Chefsache) |
 | 452 | M | von Chef (01.11., 10:59, 11:00): ein gebündeltes Dokument; Notizen-Übersicht docs/README.m | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 427 | M | von Chef (31.10., 21:3x): Bestiarium LISTE-BESTIARIUM.md | wartet auf Jerry |
 | 398 | M | von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr g | wartet auf Perikles |
@@ -234,7 +236,7 @@ Format (Muster: „So geht's“ unten): t146-befunde.md: 8 Vorgänge, höchstens
 
 Nicht gestellt: 452 (Beratung), 186.3 (Pruefung)
 
-Ohne Datei: 275 (Projekt), 26 (Team Tom)
+Ohne Datei: 275 (Projekt)
 
 ## So geht's
 
