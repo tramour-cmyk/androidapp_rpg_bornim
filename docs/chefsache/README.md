@@ -23,6 +23,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [406](ansehen/406-kaufschilde.md) | Gewählte Schilde am Helden: 2 beim Kleriker, 15 beim Kämpfer | Jerry | 01.11., 11:55 |
+| [417](ansehen/417-tragart.md) | Kriegsaxt in der Hand: Kopf nach unten, weiter vorn gefasst | Tom | 01.11., 12:08 |
 | [453](ansehen/453-wolf-ruhe.md) | Ruhebewegungen der Wölfe im Kampf | – | 01.11., 12:06 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
