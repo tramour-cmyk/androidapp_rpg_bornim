@@ -131,10 +131,33 @@ def hauptachsen(pts, o):
 
 # die Figur, an der Unity die Props haengt: Lage der Props im Rahmen ihrer Hand (Ruhe)
 sk = sorted(glob.glob(os.path.join(KAUF, '**', 'SK_Protof-Actor.fbx'), recursive=True))
-bpy.ops.wm.read_factory_settings(use_empty=True)
-bpy.ops.import_scene.fbx(filepath=sk[0])
-SK = next(o for o in bpy.data.objects if o.type == 'ARMATURE')
+RUHE = True
+SK = None
+for versuch in ({}, {'ignore_leaf_bones': True}, {'use_anim': False, 'ignore_leaf_bones': True}):
+    bpy.ops.wm.read_factory_settings(use_empty=True)
+    try:
+        bpy.ops.import_scene.fbx(filepath=sk[0], **versuch)
+        SK = next(o for o in bpy.data.objects if o.type == 'ARMATURE'); print('FIGUR SK_Protof-Actor', versuch); break
+    except (RuntimeError, StopIteration) as e:
+        print('FIGUR SK_Protof-Actor nicht lesbar', versuch, str(e).splitlines()[-1][:120])
+if SK is None:   # Lauf 41310507896: Blender liest die Figur nicht (KeyError in link_hierarchy); dann die Zweihaender-Bewegung, deren
+    # Knochenachsen zur Figur passen (Lauf 41310185397: linke Faust 2 cm auf der Griffachse), im ersten Bild
+    bpy.ops.wm.read_factory_settings(use_empty=True)
+    bpy.ops.import_scene.fbx(filepath=fbx('2.HANDED', 'WalkForwardNormal2HandMelee'))
+    SK = next(o for o in bpy.data.objects if o.type == 'ARMATURE'); RUHE = False
+    bpy.context.scene.frame_set(int(SK.animation_data.action.frame_range[0]))
+    print('FIGUR ersatzweise Zweihaender-Bewegung, Bild 1')
 sc_k = SK.matrix_world.to_scale()[0]
+
+
+def knochen_im_rahmen(arm, seite, ruhe):   # Drehung des Handknochens im Rahmen der Hand: gleich, wenn die Knochenachsen gleich sind
+    A, lh, _f = hand_rahmen(arm, seite, ruhe)
+    B = arm.matrix_world @ (arm.data.bones['humanoid_ %s Hand' % seite].matrix_local if ruhe else arm.pose.bones['humanoid_ %s Hand' % seite].matrix)
+    q = (A.to_3x3().normalized().inverted() @ B.to_3x3().normalized()).to_quaternion()
+    return '(%.3f %.3f %.3f %.3f)' % tuple(q)
+
+
+print('KNOCHEN IM RAHMEN Figur: R %s L %s' % (knochen_im_rahmen(SK, 'R', RUHE), knochen_im_rahmen(SK, 'L', RUHE)))
 REL, ECKEN = {}, {}
 for art, (paket, geh, renn, props) in PROPS.items():
     for (pn, seite, lage, dreh) in props:
@@ -146,8 +169,9 @@ for art, (paket, geh, renn, props) in PROPS.items():
                 lo = Vector([min(p[i] for p in pts) for i in range(3)]); hi = Vector([max(p[i] for p in pts) for i in range(3)])
                 print('PROP %s: %d Ecken, Masse %s (m), von %s bis %s' % (pn, len(pts), r3(hi - lo), r3(lo), r3(hi)))
         if not ECKEN[pn]: print('FEHLT PROP', pn); continue
-        A, lh, _f = hand_rahmen(SK, seite, ruhe=True)
-        H = SK.matrix_world @ SK.data.bones['humanoid_ %s Hand' % seite].matrix_local @ Matrix.Scale(1.0 / sc_k, 4)
+        A, lh, _f = hand_rahmen(SK, seite, ruhe=RUHE)
+        H = SK.matrix_world @ (SK.data.bones['humanoid_ %s Hand' % seite].matrix_local if RUHE else SK.pose.bones['humanoid_ %s Hand' % seite].matrix) \
+            @ Matrix.Scale(1.0 / sc_k, 4)
         for fassung in ('gespiegelt', 'wie gelesen'):
             M = Matrix.Diagonal((-1.0, 1.0, 1.0, 1.0)) if fassung == 'gespiegelt' else Matrix.Identity(4)
             Tu = Matrix.Translation(Vector(lage)) @ Quaternion((dreh[3], dreh[0], dreh[1], dreh[2])).to_matrix().to_4x4()
@@ -163,6 +187,8 @@ for art, (paket, geh, renn, props) in PROPS.items():
         S = next(o for o in bpy.data.objects if o.type == 'ARMATURE')
         a = S.animation_data.action
         f0, f1 = int(a.frame_range[0]), int(a.frame_range[1])
+        bpy.context.scene.frame_set(f0)
+        print('KNOCHEN IM RAHMEN %s %s: R %s L %s' % (art, wort, knochen_im_rahmen(S, 'R', False), knochen_im_rahmen(S, 'L', False)))
         for (pn, seite, lage, dreh) in props:
             if not ECKEN.get(pn): continue
             for fassung in ('gespiegelt', 'wie gelesen'):
