@@ -193,6 +193,10 @@ var zwei_schieben := 0.30
 # Schwert mit Schild: im Rennen fuehrt die Bewegung die rechte Faust 5 cm durch den rechten Oberschenkel; der Oberarm geht dafuer
 # immer (auch im Gehen, damit beim Wechsel nichts springt) SCHILD_ABSPREIZ Grad nach aussen
 const SCHILD_ABSPREIZ := 9.0
+# 417 Runde 5 (Lauf 41350556171): das entspannte Paketgehen WalkNormal2S&S fuehrt den linken Arm dicht am Koerper, der untere Schildrand
+# lag in 5 von 15 Bildern bis 5 cm in Ruecken (spine_03) und linkem Oberschenkel. Der Schildarm geht darum immer (kein Sprung beim
+# Wechsel) schild_abspreiz Grad nach aussen; Fassungen in tests/tragen_pakete_417.gd (SCHILD_FASSUNGEN), Wert nach Messung
+var schild_abspreiz := 0.0
 
 # Rahmen der Hand im Skelettraum: Basis aus x, y, z je mal Handlaenge, Ursprung am Handgelenk (wie zauber385.py rahmen)
 static func hand_rahmen(sk: Skeleton3D, s: String) -> Transform3D:
@@ -212,7 +216,7 @@ func _paket(sk: Skeleton3D, ih: int) -> void:
 	var G := sk.global_transform
 	var R := hand_rahmen(sk, seite)
 	var bogen := gang == "bogen"
-	if gang == "schild": _abspreizen(sk, ih)
+	if gang == "schild": _abspreizen(sk, ih, SCHILD_ABSPREIZ)
 	R = hand_rahmen(sk, seite)
 	var d := (R.basis * (BOGEN_ACHSE if bogen else GRIFF_ACHSE)).normalized()
 	zwei_winkel = 0.0
@@ -241,8 +245,8 @@ func _paket(sk: Skeleton3D, ih: int) -> void:
 	waffe.global_basis = Basis(x, dw, x.cross(dw))
 	waffe.global_position = G * p + (dw * zwei_schieben if gang == "axt" else Vector3.ZERO)
 
-# Oberarm um die Vorwaertsachse der Figur nach aussen, die Faust weg vom Bein (SCHILD_ABSPREIZ)
-func _abspreizen(sk: Skeleton3D, ih: int) -> void:
+# Oberarm um die Vorwaertsachse der Figur nach aussen, die Faust weg vom Bein (SCHILD_ABSPREIZ, links schild_abspreiz)
+func _abspreizen(sk: Skeleton3D, ih: int, grad: float) -> void:
 	var iu := sk.find_bone("upperarm_" + seite)
 	if iu < 0 or modell == null: return
 	var mi := sk.global_transform.affine_inverse() * modell.global_transform
@@ -250,7 +254,7 @@ func _abspreizen(sk: Skeleton3D, ih: int) -> void:
 	var aussen := (mi.basis * (Vector3.LEFT if seite == "r" else Vector3.RIGHT)).normalized()
 	var g := sk.get_bone_global_pose(iu)
 	var r := sk.get_bone_global_pose(ih).origin - g.origin
-	var w := deg_to_rad(SCHILD_ABSPREIZ) * signf(vorn.cross(r).dot(aussen))
+	var w := deg_to_rad(grad) * signf(vorn.cross(r).dot(aussen))
 	var nb := Basis(vorn, w) * g.basis.orthonormalized()
 	var p := sk.get_bone_parent(iu)
 	var pb := sk.get_bone_global_pose(p).basis.orthonormalized() if p >= 0 else Basis.IDENTITY
@@ -258,6 +262,7 @@ func _abspreizen(sk: Skeleton3D, ih: int) -> void:
 
 # Schild links am Handruecken (Messung 3f): Vorderseite SCHILD_NORMALE, oben quer ueber die Knoechel (Rahmen y), Fessel am Handgelenk
 func _schildarm(sk: Skeleton3D) -> void:
+	if schild_abspreiz != 0.0 and waffe != null: _abspreizen(sk, sk.find_bone("hand_l"), schild_abspreiz)
 	if merken:
 		posen.resize(sk.get_bone_count())
 		for i in sk.get_bone_count(): posen[i] = sk.get_bone_global_pose(i)

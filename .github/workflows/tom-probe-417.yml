@@ -90,7 +90,7 @@ jobs:
         run: |
           Z=$(find $KAUF -path '*Unreal-Godot*' -name UAL1.glb | sort | head -1); [ -n "$Z" ] || Z=$(find ~/cc0 -name UAL1_Standard.glb | sort | head -1)
           KAUF=$KAUF ZIEL=$Z OUT=$RUNNER_TEMP/gang BL=$GITHUB_WORKSPACE/bl/bin/python bl/bin/python -I tools/blender348/v3/waffengang.py > gang.log 2>&1 || { tail -30 gang.log; exit 1; }
-          grep -E "^(GANG|FEHLT|MESS|NEIGUNG|AUFRICHTEN|WAFFENGANG)" gang.log | sed "s|$KAUF/||g" | cut -c1-300
+          grep -E "^(GANG|FEHLT|MESS|NEIGUNG|AUFRICHTEN|BODEN|WAFFENGANG)" gang.log | sed "s|$KAUF/||g" | cut -c1-300
       - name: Kaempfer und Schurke (376.1, gekauft), Waffen
         run: |
           GANG=$RUNNER_TEMP/gang OUT=$RUNNER_TEMP/out ZIEL=$RUNNER_TEMP/klassen Q=~/cc0 KLASSEN=FIGHTER,ROGUE bl/bin/python -I tools/blender348/v3/held_klassen.py > klassen.log 2>&1 || { tail -40 klassen.log; exit 1; }
