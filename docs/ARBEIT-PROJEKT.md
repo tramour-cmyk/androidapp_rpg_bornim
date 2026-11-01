@@ -33,6 +33,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **Guthaben, Chef 01.11., 20:43 (Bild):** „Du erreichst dein Wochenlimit voraussichtlich vorzeitig · 25 % genutzt · Zurücksetzung am Sa., 7. Nov., 20:00“; dazu Lob für kurze Ausgabe („Kurz, bündig“). Für Wochenziel 02.11. (338.1): Tagesbudget bis Sa so setzen, dass Muss für Tom und Jerry reicht; Sparvorschläge mit der Kostenauswertung.
+
 - **Zu 462** (Chef 01.11., 20:34: „Du kannst mal alle anderen auch hier mal wieder einen Zeitstempel ausgeben, wenn du was machst. Ich kann überhaupt nicht einschätzen, wann hier was passiert ist. Doch klar geregelt.“). Ursache: weder Uhr-Haken noch Arbeitston verlangten den Kopf; Zwischenmeldungen blieben ohne; Stop-Haken zählt nur (Chef 24.10., 21:15). Behoben: `neustart-haken.py` gibt „**Name** [Zeit]“ fertig vor (sofort), `knapp.md` verlangt ihn (Zweige erst nach Merge).
 
 - **Zu 461 (Perikles, 01.11., 20:3x):** 39 Punkte A–G (Liste), „Gehen aufrecht“ ohne Beleg gestrichen, an den Chef zur Prüfung (Telegram 20:3x); verankert in Prüftreppe 4 und `ROLLE-ENTWICKLUNG.md`; montags Abgleich mit dem Archiv.
