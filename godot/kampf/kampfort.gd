@@ -48,6 +48,9 @@ const ART_SIZE := {"boar": 90.0 / 76.0 * 0.8 / 0.9, "giant_rat": 1.0 / (FOE_SIZE
 const WOLF_SIZE := 0.88         # 1,08 nach Messung (Schulter/Held alt 0,64, neu 0,52) wirkte im Bild „wie Kälber“ (Prüfer Lauf 14); zurück
 # SkirmishScreen.kt
 const SAY_MS := 1100
+const AUSWEICH_VOR_MS := 250     # 438: Ausweichen beginnt so viel vor dem Aufschlag
+const TODESZEILE_ANTEIL := 0.6     # 438: Todeszeile nach diesem Anteil der Sterbebewegung
+const NACHTRAG_MS := 150     # 438: Meldung, deren Zeile schon mit der Bewegung stand
 const RING_MS := 1100
 const PERFECT_MS := 90
 const GOOD_MS := 260
@@ -519,6 +522,42 @@ func _hit_camera() -> void:
 	cam.frustum_offset = off
 
 
+## 438 (Prüfer Film r2: Wolf rechts halb abgeschnitten, 42,6 s; wolf_mess_438: ein Wolf auf dem Umweg um den Nachbarn bis 175 px
+## aus dem Bild): läuft eine Figur über den Rand der Szene, geht die Linse weich ein Stück zurück (um die Mitte der Szene), bis alle
+## im Bild sind, und danach langsam wieder heran. Während eines Schlags (hit) führt _hit_camera.
+var rand_z := 1.0
+const RAND_RAUS := 0.18     # je Bild zum nötigen Rückzug
+const RAND_REIN := 0.03     # je Bild zurück zur Grundstellung
+func _rand_kamera() -> void:
+	if cam == null or not hit.is_empty():
+		rand_z = 1.0
+		return
+	var vs := get_viewport().get_visible_rect().size
+	var sr := scene_rect()
+	var c := sr.size / 2.0
+	var m := 8.0 * vs.x / 412.0
+	var need := 1.0
+	for fig in figures.values():
+		if not fig.visible or fig.dead_at >= 0:
+			continue
+		for k in fig.kapseln():
+			for q in [k[0], k[1]]:
+				var s0: Vector2 = c + (screen_of(q) - c) / rand_z     # wo der Punkt ohne Rückzug läge
+				var d: Vector2 = s0 - c
+				if absf(d.x) > 1.0:
+					need = minf(need, (c.x - m) / absf(d.x))
+				if absf(d.y) > 1.0:
+					need = minf(need, (c.y - m) / absf(d.y))
+	need = clampf(need, 0.8, 1.0)
+	rand_z = lerpf(rand_z, need, RAND_RAUS if need < rand_z else RAND_REIN)
+	if absf(rand_z - 1.0) < 0.001:
+		rand_z = 1.0
+	var per := base_size / vs.y
+	var p := Vector2(base_off.x + (c.x - vs.x / 2.0) * per, base_off.y - (c.y - vs.y / 2.0) * per)
+	cam.size = base_size / rand_z
+	cam.frustum_offset = p + (base_off - p) / rand_z
+
+
 ## 348.7 (Helfer Lauf 126: Heldin am Rand angeschnitten): die Mitte des Zooms so nah an [p] wie möglich, aber so, dass bei
 ## [z] jede stehende Figur ganz in der Szene bleibt (über dem Bedienfeld, 8 dp Rand); geht das nicht, bleibt es bei [p].
 func _pivot(p: Vector2, z: float) -> Vector2:
@@ -759,6 +798,7 @@ func _process(_dt: float) -> void:
 	_ink_licht()
 	clock_ms += _dt * 1000.0
 	_hit_camera()
+	_rand_kamera()
 	_grass_spots()
 	if ring_open and Time.get_ticks_msec() > ring_start + RING_MS + GOOD_MS + 60:
 		_answer_ring(Mars.NONE)
@@ -841,10 +881,15 @@ func _play_say(e: Dictionary) -> void:
 		var vorher := e.duplicate()
 		vorher.hp = before
 		shown = vorher
+		var sturz: bool = target != null and figures.has(target) and figures[target].sturz_vorweg
 		get_tree().create_timer(lands / 1000.0).timeout.connect(func():
 			if is_same(shown, vorher):
 				shown = e
-			_zeigen(e))
+			_zeigen(e)
+			# 438 (Prüfer Film r2: „prallt gegen Ansgar“ 3,7 s nach dem Biss): die Meldung zum Sturz (POUNCED) kommt von den Regeln
+			# erst nach dem Sprungbiss, gespielt, wenn der Wolf daheim ist; der Held fällt aber beim Aufprall. Jetzt steht sie mit dem Biss
+			if sturz:
+				_vorweg("POUNCED", target))
 	else:
 		_zeigen(e)
 	# 399.3: Klang der Meldung wie MarsSound.kt, der Treffer, wenn er im Bild landet (nur mit dem Autoload Klang der Spielfassung)
@@ -858,7 +903,8 @@ func _play_say(e: Dictionary) -> void:
 		if e.hp[id] < was:
 			figures[id].hurt(lands, e.hp[id] <= 0)
 		elif target == id and _missed(e) and across:
-			figures[id].dodge(lands)
+			# 438 (Prüfer Film r2: Klinge durch Wolf 2 ohne Treffer): wer ausweicht, ist schon weg, wenn der Hieb ankommt
+			figures[id].dodge(maxi(0, lands - AUSWEICH_VOR_MS) if lunge_ms > 0 and fx == null else lands)
 	# 249 (wie im alten MARS, SkirmishScreen.kt): beim Aufschlag rückt ein kritischer oder tödlicher Schlag die Szene heran
 	# und ruckt sie in Schlagrichtung; ein Hieb, Biss oder Schuss, der trifft, lässt Blut spritzen, weg vom Schlagenden
 	if target != null and actor != null and e.damage > 0 and figures.has(target) and tg != null:
@@ -892,7 +938,9 @@ func _play_say(e: Dictionary) -> void:
 		var fall_ms := -1
 		for id in e.hp:
 			if figures.has(id) and e.hp[id] <= 0 and before.get(id, 1) > 0 and figures[id].fighter.side == "FOES":
-				fall_ms = maxi(fall_ms, lands + figures[id].sterbe_ms())
+				# 438 (Prüfer Film r2: „sackt zusammen“ 1 s nach dem Liegen): die Zeile, während er zusammensackt (Rumpf erreicht den
+				# Boden bei gut 0,8 der Bewegung „Tod“, wolf_mess_438), nicht erst, wenn die Bewegung zu Ende ist
+				fall_ms = maxi(fall_ms, lands + int(figures[id].sterbe_ms() * TODESZEILE_ANTEIL))
 		await get_tree().create_timer(fall_ms / 1000.0).timeout
 		_todesmeldung_vorweg(e)
 		await get_tree().create_timer(maxi(0, tot_ms - fall_ms) / 1000.0).timeout
@@ -907,7 +955,7 @@ func _play_say(e: Dictionary) -> void:
 	if tot_ms > 0:
 		await get_tree().create_timer(maxi(SAY_MS, maxi(lunge_ms, busy_ms) - tot_ms) / 1000.0).timeout
 		return
-	await get_tree().create_timer(maxi(SAY_MS, maxi(lunge_ms, busy_ms)) / 1000.0).timeout
+	await get_tree().create_timer(maxi(NACHTRAG_MS if _nur_nachtrag(e) else SAY_MS, maxi(lunge_ms, busy_ms)) / 1000.0).timeout
 
 
 ## Zeile, Bedienfeld und Würfel einer Meldung (438: beim Aufschlag, sonst sofort); vorweg Gezeigtes nicht noch einmal
@@ -927,6 +975,23 @@ func _todesmeldung_vorweg(e: Dictionary) -> void:
 			b.say["vorweg"] = true
 			ui.log_line(b.say.text)
 	beats_lock.unlock()
+
+
+## 438: die nächste wartende Meldung [cue] an [target] jetzt in die Zeile (die Bewegung dazu ist schon zu sehen)
+func _vorweg(cue: String, target: String) -> void:
+	beats_lock.lock()
+	for b in beats:
+		if b.has("say") and b.say.get("cue") == cue and b.say.get("target") == target and not b.say.get("vorweg", false):
+			b.say["vorweg"] = true
+			ui.log_line(b.say.text)
+			break
+	beats_lock.unlock()
+
+
+## 438 (Prüfer Film r2: 18 von 48 s ohne Bewegung): eine Meldung, deren Zeile schon vorweg stand und zu der nichts mehr geschieht,
+## hält den Kampf nicht noch einmal SAY_MS auf
+func _nur_nachtrag(e: Dictionary) -> bool:
+	return e.get("vorweg", false) and e.cue in ["POUNCED", "FOE_FALLS"]
 
 
 ## 348.7: warmes Licht am Ziel eines Feuerzaubers, ab seiner Ankunft, flackernd verlöschend

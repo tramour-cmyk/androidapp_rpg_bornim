@@ -314,6 +314,8 @@ func _scale() -> float:
 
 ## Welches Tier diese Figur zeigt: Grimmzahn, sonst der Ersatz der Probe („“ = Wolf)
 func art() -> String:
+	if fighter.monster == null:     # 438: der Held ist kein Ersatztier (Probekampf „Ratten“: Held halb so groß, ART_GROESSE der Ratte)
+		return ""
 	if fighter.monster != null and fighter.id == GRIMM:
 		return "dire_wolf"
 	return ersatz()
@@ -578,6 +580,7 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 	_paint(w)
 	var at := BoneAttachment3D.new()
 	at.bone_name = sk.get_bone_name(bi)
+	at.set_meta("was", what)     # 438: Messung (traegt())
 	sk.add_child(at)
 	at.add_child(w)
 	# directions of the figure (+Z forward, +Y up, inward to the body) in the bone's own space
@@ -1045,7 +1048,14 @@ func _walk_home(skip = null) -> float:
 		_dreh_ab()
 		bahn = [home] if via == position else [via, home]
 		tween = create_tween()
-		if _rueckwaerts(position, home, way):
+		# 438 (wolf_mess_438, Kämpfer 44 s: rückwärts zum Umweg quer zur Blickrichtung, 1,7 m seitwärts, das Heck 0,2 m in Wolf 2):
+		# rückwärts nur, wenn auch jeder Abschnitt hinter ihm liegt
+		var rueck := _rueckwaerts(position, home, way)
+		if rueck and via != position and not (_rueckwaerts(position, via, way) and _rueckwaerts(via, home, way)):
+			# … es sei denn, das Umdrehen am Ort führte den Rumpf durch einen anderen (dann doch rückwärts)
+			var first0 := via - position
+			rueck = _dreh_luft(rotation.y, atan2(first0.x, first0.z)) < PLATZ_LUFT
+		if rueck:
 			# 438: rückwärts heim, das Gesicht zum Gegner; statt Kehrtwende, Lauf und zweiter Kehrtwende
 			gang = "heim"
 			tween.tween_callback(func(): anim.play("Gehen", 0.15, -float(tempo.get("Gehen", 1.0))))
@@ -1087,6 +1097,11 @@ func _rueckwaerts_von(von: Vector3, dir: Vector3, skip) -> bool:
 	var vh := _detour(von, home, skip)
 	var way := Vector2(home.x - von.x, home.z - von.z).length() if vh == von else von.distance_to(vh) + vh.distance_to(home)
 	var d := Vector3(home.x - von.x, 0.0, home.z - von.z)
+	if vh != von:     # 438: auch über den Umweg nur rückwärts, wenn beide Abschnitte hinter ihm liegen
+		var d1 := Vector3(vh.x - von.x, 0.0, vh.z - von.z)
+		var d2 := Vector3(home.x - vh.x, 0.0, home.z - vh.z)
+		if rad_to_deg(dir.angle_to(d1)) <= 110.0 or d2.length() > 0.12 and rad_to_deg(dir.angle_to(d2)) <= 110.0:
+			return false
 	return way <= RUECK_M and d.length() > 0.12 and rad_to_deg(dir.angle_to(d)) > 110.0
 
 
@@ -1300,13 +1315,17 @@ func _turn_home() -> float:
 ## 348.12f (Chef 27.10., 18:01, Archiv: „Biss zum Helden nachjustieren wie bei eigenen“): mit Wurzelweg läuft das Tier bis vor das
 ## Ziel, die Schnauze an dessen Rand, und beißt dort; angesagt (Sprung) springt es aus der Weite des Sprungbisses der Quelle an.
 ## Danach springt es zurück (Ausweichen zurück) und geht heim. Gibt wie strike() die Zeit bis zum Biss / 0,42 zurück (ms).
-func _bite(other, leap: bool) -> int:
+func _bite(other, leap: bool, weiter := 0.0) -> int:
 	var flat := Vector3(other.position.x - position.x, 0.0, other.position.z - position.z)
 	if flat.length() < 0.01:
 		flat = basis.z
 	var dir := flat.normalized()
 	var nm := "Sprungbiss" if leap and anim and anim.has_animation("Sprungbiss") and weg.has("Sprungbiss") else "Biss"
-	var stand: float = other.body_r() + bite[nm][0] * model.scale.x     # Ursprung bis Mitte des Ziels beim Biss
+	# 438 (Prüfer Film r2: Schnauze 9,4 s und 20,3 s in Schild und Brust; wolf_mess_438: bis 10 cm in Schild und Klinge): der Rand
+	# des Ziels zum Wolf hin mit dem, was es trägt, nicht nur der Kreis body_r()
+	var stand: float = other.vorne(-dir) + bite[nm][0] * model.scale.x + weiter     # Ursprung bis Mitte des Ziels beim Biss
+	if OS.get_environment("SCHAU_MESS") != "":
+		print("Biss %s an %s: Rand %.2f (Kreis %.2f), Abstand %.2f" % [fighter.id, other.fighter.id, other.vorne(-dir), other.body_r(), stand])
 	stand -= float(SCHNAUZE_NAEHER.get(art(), 0.0))
 	var jump := _weg_len(nm) if nm == "Sprungbiss" else 0.0
 	var k := 1.0
@@ -1318,7 +1337,9 @@ func _bite(other, leap: bool) -> int:
 	# 438 (Prüfer Film 08:18: Wölfe laufen durcheinander; wolf_mess_438: Wolf 3 lief zum Biss an Bertram bis 0,15 m in Wolf 2, der
 	# daneben kauerte): der Platz vor dem Ziel wird nur genommen, wenn dort kein anderer steht oder hinläuft; sonst derselbe Abstand
 	# zum Ziel, um das Ziel herum gedreht (bis 60°), der freieste
-	var luft := _platz_luft(start, dir, other)
+	# 438 (Prüfer Film r2: Wolf 3 sprang 19,4 s durch Bertrams Kopf zu Ansgar): auch die Bahn des Sprungs muss frei sein, nicht nur
+	# der Absprung; geht das in keiner Richtung, beißt er ohne Sprung
+	var luft := minf(_platz_luft(start, dir, other), _seg_gap(start, start + dir * jump, other) if jump > 0.0 else INF)
 	if OS.get_environment("SCHAU_MESS") != "":
 		print("Bissplatz %s an %s: start %s Luft %.2f" % [fighter.id, other.fighter.id, start, luft])
 	if luft < PLATZ_LUFT:
@@ -1328,13 +1349,19 @@ func _bite(other, leap: bool) -> int:
 		for w in [15.0, -15.0, 30.0, -30.0, 45.0, -45.0, 60.0, -60.0]:
 			var d2 := dir.rotated(Vector3.UP, deg_to_rad(w))
 			var s2 := tg - d2 * r0
-			var l2 := _platz_luft(s2, d2, other)
+			var l2 := minf(_platz_luft(s2, d2, other), _seg_gap(s2, s2 + d2 * jump, other) if jump > 0.0 else INF)
 			if l2 > best[0]:
 				best = [l2, d2, s2]
 			if l2 >= PLATZ_LUFT:
 				break
 		dir = best[1]
 		start = best[2]
+		if best[0] < PLATZ_LUFT and jump > 0.0:
+			# kurzer Satz aus der Nähe: er läuft (mit Umweg) bis knapp vor das Ziel und springt erst dort
+			var kurz := minf(jump, 0.2 * _weg_len(nm))
+			k = kurz / _weg_len(nm)
+			start = tg - dir * (r0 - jump + kurz)
+			jump = kurz
 		flat = dir * flat.length()
 	var r_alt := rotation.y
 	_face(flat)
@@ -1445,6 +1472,16 @@ func _rumpf_luft(p: Vector3, yaw: float, skip = null) -> float:
 		if not is_nan(o.dreh_ziel) and o.tween and o.tween.is_running():
 			for q in pts:
 				g = minf(g, o.clearance(q, Vector3.INF, o.dreh_ziel))
+	return g
+
+
+## 438: kleinste Luft des Rumpfs, dreht sich das Tier am Ort von [von] nach [nach] (in 15°-Schritten)
+func _dreh_luft(von: float, nach: float) -> float:
+	var dw := wrapf(nach - von, -PI, PI)
+	var n := maxi(1, int(ceilf(absf(rad_to_deg(dw)) / 15.0)))
+	var g := INF
+	for i in range(1, n + 1):
+		g = minf(g, _rumpf_luft(position, von + dw * i / n))
 	return g
 
 
@@ -1597,13 +1634,15 @@ func strike(other, e: Dictionary) -> int:
 	letzter_sprung = leap or (sprung_bereit and fighter.monster != null)
 	sprung_bereit = false
 	if kauf:
-		return _held_schlag(other)
+		# 438 (Prüfer Film r2: Klinge 31,2 s durch Wolf 2 ohne Treffer): daneben bleibt der Held VERFEHLT_M weiter weg
+		return _held_schlag(other, VERFEHLT_M if e.get("roll") != null and e.roll[0] == "ATTACK" and not e.roll[4] else 0.0)
 	if _zweibeiner() and weg.has("Gehen") and hieb.size() >= 3:
 		return _hieb(other)
 	if fighter.monster != null and weg.has("Gehen"):
 		if leap:
 			pouncing = false
-		return _bite(other, leap)
+		# 438 (wolf_mess_438: beim Verfehlen wich der Held aus, sein Schild fuhr bis 6 cm um die Schnauze): daneben bleibt der Wolf weiter weg
+		return _bite(other, leap, VERFEHLT_M if e.get("roll") != null and e.roll[0] == "ATTACK" and not e.roll[4] else 0.0)
 	var ms := BEAST_LUNGE_MS if fighter.monster != null else BLOW_MS
 	var to: Vector3 = other.position
 	var reach := (to - position) * (0.8 if leap else 0.6)
@@ -1667,7 +1706,8 @@ func _held_mps(nm: String) -> float:
 	return v if v > 0.1 else (WALK_MPS * 2.0 if nm == "Rennen" else WALK_MPS)
 
 
-func _held_schlag(other) -> int:
+const VERFEHLT_M := 0.3
+func _held_schlag(other, weiter := 0.0) -> int:
 	var to: Vector3 = other.position
 	var flat := Vector3(to.x - position.x, 0.0, to.z - position.z)
 	var stand: float = HERO_R + other.body_r() + HERO_REACH
@@ -1676,7 +1716,9 @@ func _held_schlag(other) -> int:
 	if flat.length() > 0.01:
 		var d := flat.normalized()
 		var t := stand
-		while t < flat.length() and other.clearance(to - d * t) < HERO_R + HELD_LUFT:
+		# 438 (wolf_mess_438, Kämpfer: Schild 14 cm im Kopf des kauernden Wolfs): der eigene Rand mit Schild und Klinge, nicht der Kreis
+		var eigen := maxf(HERO_R, vorne(d))
+		while t < flat.length() and other.clearance(to - d * t) < eigen + HELD_LUFT + weiter:
 			t += 0.05
 		stand = minf(t, flat.length())
 	var start := position + flat.normalized() * maxf(0.0, flat.length() - stand) if flat.length() > 0.01 else position
@@ -1877,6 +1919,78 @@ func footprint() -> AABB:
 	return _foot
 
 
+## 438 (Prüfer Film r2: Schnauze in Schild und Brust, Wolf im Kopf des Nachbarn, Dreiecke verschwinden): der Körper in der
+## jetzigen Haltung als Kapseln [a, b, r] (Welt) um die Knochen, für Verdeckung und Messung; leer, wenn das Gerüst unbekannt ist.
+## Mensch (Kaufkörper, UAL-Gerüst): Rumpf, Hals, Kopf, Beine, Arme; Tier: jeder Knochen zu seinem Elternknochen, Dicke nach Teil
+const MENSCH_KAPSELN := [["pelvis", "spine_03", 0.17], ["spine_03", "neck_01", 0.14], ["neck_01", "Head", 0.08], ["Head", "Head", 0.11],
+	["thigh_l", "calf_l", 0.08], ["thigh_r", "calf_r", 0.08], ["calf_l", "foot_l", 0.06], ["calf_r", "foot_r", 0.06],
+	["upperarm_l", "lowerarm_l", 0.06], ["upperarm_r", "lowerarm_r", 0.06], ["lowerarm_l", "hand_l", 0.05], ["lowerarm_r", "hand_r", 0.05]]
+const TIER_DICKE := [["Tongue", 0.015], ["Jaw", 0.04], ["Ear", 0.02], ["Tail", 0.04], ["pfote", 0.04], ["Knee", 0.04], ["Ankle", 0.035], ["Leg", 0.05],
+	["Spine", 0.16], ["ROOT", 0.16], ["Neck", 0.11], ["kopf", 0.1], ["hals", 0.11], ["Head", 0.08]]
+func kapseln() -> Array:
+	var sk := _find(model, "Skeleton3D") as Skeleton3D if model else null
+	if sk == null:
+		return []
+	var out: Array = []
+	var g := sk.global_transform
+	if fighter.monster == null:
+		for c in MENSCH_KAPSELN:
+			var i0 := sk.find_bone(c[0])
+			var i1 := sk.find_bone(c[1])
+			if i0 < 0 or i1 < 0:
+				continue
+			var a: Vector3 = g * sk.get_bone_global_pose(i0).origin
+			var b: Vector3 = g * sk.get_bone_global_pose(i1).origin
+			if c[0] == "Head":
+				a += g.basis.y.normalized() * 0.1
+				b = a
+			out.append([a, b, float(c[2])])
+		return out
+	var s := absf(model.global_transform.basis.get_scale().x)     # das Gerüst selbst kann in cm stehen (Skelett 0,01)
+	for i in sk.get_bone_count():
+		var p := sk.get_bone_parent(i)
+		if p < 0:
+			continue
+		var nm := sk.get_bone_name(i)
+		var r := 0.05
+		for d in TIER_DICKE:
+			if nm.contains(d[0]):
+				r = d[1]
+				break
+		out.append([g * sk.get_bone_global_pose(p).origin, g * sk.get_bone_global_pose(i).origin, r * s, nm])
+	return out
+
+
+## 438: wie weit die Figur in der jetzigen Haltung von ihrem Ursprung in Richtung [zu] (waagerecht) reicht, mit Schild und Waffe;
+## nie weniger als body_r(). Der Kasten um Schild und Waffe mit VORNE_LUFT: im Biss schnellt die Schnauze weiter vor als im
+## Augenblick, für den bite[] gilt, und der Getroffene hebt den Schild (wolf_mess_438: mit den Ecken des Kastens auf 0,71 noch 9 cm darin)
+const VORNE_LUFT := 0.05
+func vorne(zu: Vector3) -> float:
+	var d := Vector3(zu.x, 0.0, zu.z).normalized()
+	var m := body_r()
+	if fighter.monster != null or d == Vector3.ZERO:
+		return m
+	for c in kapseln():
+		for q in [c[0], c[1]]:
+			m = maxf(m, d.dot(q - position) + float(c[2]))
+	for g in traegt():
+		if String(g[2]) == "":
+			continue
+		var box: AABB = g[1]
+		for i in 8:
+			m = maxf(m, d.dot((g[0] as Transform3D) * box.get_endpoint(i) - position) + VORNE_LUFT)
+	return m
+
+
+## 438: was die Figur in der Hand trägt (Schild, Klinge) als Kästen [Transform3D, AABB] (Welt), mit Namen
+func traegt() -> Array:
+	var out: Array = []
+	for at in find_children("*", "BoneAttachment3D", true, false):
+		for m in at.find_children("*", "MeshInstance3D", true, false):
+			out.append([m.global_transform, m.get_aabb(), String(at.get_meta("was", ""))])
+	return out
+
+
 ## Wie weit p (Welt) am Boden außerhalb des Umrisses liegt (< 0: darin); [bei]: so, als stünde die Figur dort (438)
 func clearance(p: Vector3, bei := Vector3.INF, gier := NAN) -> float:
 	var box := footprint()
@@ -1982,20 +2096,41 @@ func _detour(a: Vector3, b: Vector3, skip = null) -> Vector3:
 	var side := Vector3(-d.z, 0.0, d.x)
 	var best := a
 	var best_gap := _seg_gap(a, b, skip)
-	for k in range(1, 13):
-		var off := 0.2 * k
-		for at in [0.5, 0.35, 0.65]:
-			for sg in [1.0, -1.0]:
-				var via: Vector3 = a + d * (n * at) + side * (off * sg)
-				var g := minf(_seg_gap(a, via, skip), _seg_gap(via, b, skip))
-				if g >= AIR:
-					return via
-				if g > best_gap:
-					best_gap = g
-					best = via
+	# 438 (Prüfer Film r2: Wolf rechts halb abgeschnitten, 42,6 s; wolf_mess_438: bis 79 px aus dem Bild): erst ein Umweg, der im
+	# Bild bleibt; gibt es keinen freien, lieber kurz aus dem Bild als durch einen anderen (Kämpfer: Wolf 0,20 m in Wolf)
+	for im_bild in [true, false]:
+		for k in range(1, 13):
+			var off := 0.2 * k
+			for at in [0.5, 0.35, 0.65]:
+				for sg in [1.0, -1.0]:
+					var via: Vector3 = a + d * (n * at) + side * (off * sg)
+					if im_bild and (not _im_bild(via, via - a) or not _im_bild(via, b - via)):
+						continue
+					var g := minf(_seg_gap(a, via, skip), _seg_gap(via, b, skip))
+					if g >= AIR:
+						return via
+					if g > best_gap and im_bild:     # aus dem Bild nur, wenn dort frei
+						best_gap = g
+						best = via
 	if OS.get_environment("SCHAU_MESS") != "":
 		print("Umweg %s %s -> %s: kein freier, bester Luft %.2f über %s" % [fighter.id, a, b, best_gap, best])
 	return best
+
+
+## 438: steht die Figur an [p] mit Blick [blick] (waagerecht) ganz in der Szene, über dem Bedienfeld, 8 dp Rand?
+func _im_bild(p: Vector3, blick: Vector3) -> bool:
+	var sr: Rect2 = kampfort.scene_rect()
+	var rand: float = 8.0 * sr.size.x / 412.0
+	var box := footprint()
+	var b := Basis(Vector3.UP, atan2(blick.x, blick.z)) if Vector2(blick.x, blick.z).length() > 0.01 else basis
+	var hoch: float = kampfort.screen_of(position).y - kampfort.screen_of(head()).y
+	for i in 8:
+		var q := box.get_endpoint(i)
+		var w: Vector3 = p + b * Vector3(q.x, 0.0, q.z) * scale.x
+		var sp: Vector2 = kampfort.screen_of(w)
+		if sp.x < rand or sp.x > sr.size.x - rand or sp.y - hoch < rand:
+			return false
+	return true
 
 
 func hurt(after_ms: int, dies: bool) -> void:
@@ -2065,6 +2200,11 @@ func dodge(after_ms: int, nm := "") -> void:
 				# wie _heimweg(): der kürzeste, der den anderen nicht näher kommt als der Start (Ortmess r3c: nach Luft gewählt
 				# liefen beide Sätze 3,2–3,7 m)
 				var wert: float = (1000.0 - pts[pts.size() - 1][1]) if g >= g0 else g
+				# 438 (wolf_mess_438: Wolf 2 wich dem Zauber bis 186 px aus dem Bild aus): ein Satz, der im Bild bleibt, geht vor
+				for i in range(0, pts.size(), 3):
+					if not _im_bild(pts[i][0], Vector3(sin(pts[i][2]), 0.0, cos(pts[i][2]))):
+						wert -= 500.0 if g >= g0 else 0.0     # frei, aber aus dem Bild: hinter jedem freien im Bild, vor jedem unfreien
+						break
 				if wert > luft:
 					luft = wert
 					best = pts
@@ -2081,7 +2221,8 @@ func dodge(after_ms: int, nm := "") -> void:
 				_lauf(tween, position, zurueck, "Gehen", RUECK_TEMPO)
 				tween.tween_callback(_walk_home)
 				return
-			best = []
+			if luft < 400.0:     # 438: ein freier Satz aus dem Bild bleibt, wenn rückwärts kein Platz ist
+				best = []
 		if not best.is_empty():
 			if OS.get_environment("SCHAU_MESS") != "":
 				print("Ausweichen %s %s Länge %.2f m, Wert %.2f, Grenze %.2f, Start %s" % [fighter.id, nm, best[best.size() - 1][1], luft, g0, position])

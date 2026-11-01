@@ -45,6 +45,26 @@ var roll_vor := 0
 var wurf := []         # [Bild, Ziel, Schaden]
 var hurt_vor := {}
 var hurt_ab := {}      # id -> [Bilder, an denen der Getroffene zu zittern beginnt]
+## 438 Prüfer Film r2: ganzer Körper (Kapseln um die Knochen, Schild, Klinge), Zeilen zur Bewegung, Stillstand, Bildrand, Sprünge
+const KOERPER_M := 0.03
+var koerper := {}      # wolf→mensch Teil -> [Bilder, tiefste m, erstes Bild, Bewegung]
+var klinge := []       # [Bild, Mensch, Wolf, Tiefe]
+var zeilen := []       # [Bild, Text]
+var zeilen_n := 0
+var anim_ab := {}      # id -> {Bewegung: [Bilder, an denen sie beginnt]}
+var anim_vor := {}
+var tief_y := {}       # Sterbender -> [[Bild, Höhe des Rumpfs]]
+var still := 0
+var still_spannen := []    # [ab Bild, Bilder, Zeile]
+var still_ab := -1
+var lage_vor := {}
+var rand := {}         # id -> [Bilder, erstes Bild, größte px]
+var ui_vor := {}
+var ui_sprung := {}    # Ansage/Balken -> [Bilder, erstes Bild, größte px]
+var biss_bild := {}    # Wolf -> letztes Bild mit Biss
+var wurf_ohne := []
+var groesse_gedruckt := false
+const RUHE := ["", "Stehen", "Kampfstehen", "Hocke", "Pro_Sword_Idle", "Ruhelage"]
 
 
 func _initialize() -> void:
@@ -52,6 +72,10 @@ func _initialize() -> void:
 
 
 func _run() -> void:
+	# 438 r2: Bildrand und Ansagen im Handyformat (headless war das Fenster 2340 × 2340)
+	DisplayServer.window_set_size(Vector2i(1080, 2340))
+	root.size = Vector2i(1080, 2340)
+	await process_frame
 	if not FileAccess.file_exists("res://kampf/daten/kaufwolf-info.json") and OS.get_environment("EIGENER_WOLF") == "":
 		print("Wolf 438: ohne Kaufwolf, nichts zu messen")
 		quit(0)
@@ -77,7 +101,7 @@ func _run() -> void:
 			kf.go_on()
 		var n := 0
 		vor.clear()
-		while n < DAUER_BILDER:
+		while n < (int(OS.get_environment("BILDER")) if OS.get_environment("BILDER") != "" else DAUER_BILDER):
 			await process_frame
 			n += 1
 			_bild(kf, n, k)
@@ -180,6 +204,10 @@ func _bild(kf, n: int, k: String) -> void:
 		hurt_vor[hid] = f.hurt_at
 	if kf.ui.roll_at != roll_vor:
 		roll_vor = kf.ui.roll_at
+		var ak = kf.shown.get("actor")
+		if kf.ui.roll_shown != null and ak != null and kf.figures.has(ak) and _wolf(kf.figures[ak]) and kf.shown.get("roll") != null:
+			if n - int(biss_bild.get("%s/%s" % [k, ak], -999)) > 45:
+				wurf_ohne.append([n, "%s/%s" % [k, ak], String(kf.shown.get("text", ""))])
 		if kf.ui.roll_shown != null and int(kf.shown.get("damage", 0)) > 0:
 			wurf.append([n, "%s/%s" % [k, kf.ui.roll_shown[0]], int(kf.shown.damage), String(kf.shown.get("text", ""))])
 	# 438: Kopf des Wolfs (Knochen kopf, Schädeldach, Kieferspitze) im Körper von Held und Söldner, gemessen gegen Kapseln um
@@ -206,6 +234,7 @@ func _bild(kf, n: int, k: String) -> void:
 				var key := "%s/%s→%s/%s" % [k, a.fighter.id, k, b.fighter.id]
 				var e: Array = kopf.get(key, [0, -INF, n])
 				kopf[key] = [e[0] + 1, maxf(e[1], t), e[2]]
+	_r2(kf, n, k, figs)
 	# Durchdringung: Punkte entlang der Längsachse jedes Wolfs gegen den Umriss der anderen (stehend oder nicht)
 	for a in figs:
 		if not _wolf(a) or not a.visible or a.down:
@@ -225,6 +254,197 @@ func _bild(kf, n: int, k: String) -> void:
 					tief = minf(tief, b.clearance(q))
 			if tief < -DURCH_M:
 				durch.append([n, "%s/%s" % [k, a.fighter.id], "%s/%s" % [k, b.fighter.id], -tief, a.anim.current_animation if a.anim else ""])
+
+
+## 438 Prüfer Film r2: alles, was der Prüfer im Film r2 sah, je Bild gemessen
+func _r2(kf, n: int, k: String, figs: Array) -> void:
+	var ui = kf.ui
+	# Zeilen mit Bild
+	while zeilen_n < ui.lines.size():
+		zeilen.append([n, String(ui.lines[zeilen_n]), k])
+		zeilen_n += 1
+	if ui.lines.size() < zeilen_n:
+		zeilen_n = ui.lines.size()
+	# Beginn jeder Bewegung je Figur
+	for f in figs:
+		var id := "%s/%s" % [k, f.fighter.id]
+		var a := String(f.anim.current_animation) if f.anim else ""
+		if a != anim_vor.get(id, ""):
+			var d: Dictionary = anim_ab.get(id, {})
+			d[a] = d.get(a, []) + [n]
+			anim_ab[id] = d
+			anim_vor[id] = a
+		if _wolf(f) and a in ["Biss", "Sprungbiss", "Sprung"]:
+			biss_bild[id] = n
+	# Größe einmal: Schulter des Söldners, Rücken und Ohren des Wolfs (Welt, m)
+	if not groesse_gedruckt and n == 5:
+		groesse_gedruckt = true
+		for f in figs:
+			var sk := f._find(f.model, "Skeleton3D") as Skeleton3D
+			if sk == null:
+				continue
+			var hoch := -INF
+			var schulter := -INF
+			for c in f.kapseln():
+				hoch = maxf(hoch, maxf(c[0].y, c[1].y) + c[2])
+			for bn in ["clavicle_l", "upperarm_l", "Wolf_Spine_02SHJnt", "Wolf_Spine_03SHJnt"]:
+				var bi := sk.find_bone(bn)
+				if bi >= 0:
+					schulter = maxf(schulter, (sk.global_transform * sk.get_bone_global_pose(bi).origin).y)
+			for g in f.traegt():
+				print("Trägt %s/%s %s: Kasten %s, Maßstab %s" % [k, f.fighter.id, g[2], g[1], (g[0] as Transform3D).basis.get_scale()])
+			print("Umriss %s/%s: %s" % [k, f.fighter.id, f.footprint()])
+			print("Größe %s/%s: oben %.2f m, Schulter/Rücken %.2f m, Maßstab %.2f" % [k, f.fighter.id, hoch, schulter, f.model.global_transform.basis.get_scale().x])
+	# Körper: Wolf (Kapseln) gegen Mensch (Kapseln, Schild, Klinge)
+	for a in figs:
+		if not _wolf(a) or not a.visible or a.down:
+			continue
+		var wk: Array = a.kapseln()
+		for b in figs:
+			if _wolf(b) or not b.visible or b.down:
+				continue
+			var tief := -INF
+			var teil := ""
+			var mk: Array = b.kapseln()
+			for i in mk.size():
+				for c in wk:
+					var pq: PackedVector3Array = Geometry3D.get_closest_points_between_segments(c[0], c[1], mk[i][0], mk[i][1])
+					var t: float = c[2] + mk[i][2] - pq[0].distance_to(pq[1])
+					if t > tief:
+						tief = t
+						teil = ["Rumpf", "Brust", "Hals", "Kopf", "Bein", "Bein", "Unterbein", "Unterbein", "Arm", "Arm", "Unterarm", "Unterarm"][mini(i, 11)]
+			for g in b.traegt():
+				var inv: Transform3D = (g[0] as Transform3D).affine_inverse()
+				var box: AABB = g[1]
+				var sc: float = absf((g[0] as Transform3D).basis.get_scale().x)
+				for c in wk:
+					for j in 5:
+						var q: Vector3 = inv * (c[0] as Vector3).lerp(c[1], j / 4.0)
+						var dx := maxf(box.position.x - q.x, q.x - box.end.x)
+						var dy := maxf(box.position.y - q.y, q.y - box.end.y)
+						var dz := maxf(box.position.z - q.z, q.z - box.end.z)
+						var t: float = c[2] - (maxf(dx, maxf(dy, dz)) if dx <= 0 and dy <= 0 and dz <= 0 else Vector3(maxf(dx, 0), maxf(dy, 0), maxf(dz, 0)).length()) * sc
+						if t > tief:
+							tief = t
+							teil = String(g[2]) if String(g[2]) != "" else "Haar"
+						if t > KOERPER_M and OS.get_environment("SCHAU_SCHILD") != "":
+							print("Schild %s Bild %d %s: Kapsel %s r %.2f, Tiefe %.3f, %s bei %.2f, Träger %s, Abstand %.2f" % [a.fighter.id, n, g[2], c[3], c[2], t, a.anim.current_animation, a.anim.current_animation_position, b.anim.current_animation, Vector2(a.position.x - b.position.x, a.position.z - b.position.z).length()])
+			if tief > KOERPER_M:
+				var key := "%s/%s→%s/%s %s" % [k, a.fighter.id, k, b.fighter.id, teil]
+				var e: Array = koerper.get(key, [0, -INF, n, String(a.anim.current_animation) if a.anim else ""])
+				koerper[key] = [e[0] + 1, maxf(e[1], tief), e[2], e[3]]
+	# Wolf in Wolf am Körper (Kapseln), auch im Sprung und beim Platztausch
+	for i in figs.size():
+		var a = figs[i]
+		if not _wolf(a) or not a.visible or a.down:
+			continue
+		for j in range(i + 1, figs.size()):
+			var b = figs[j]
+			if not _wolf(b) or not b.visible or b.down:
+				continue
+			var tief := -INF
+			for c in a.kapseln():
+				for d in b.kapseln():
+					var pq: PackedVector3Array = Geometry3D.get_closest_points_between_segments(c[0], c[1], d[0], d[1])
+					tief = maxf(tief, c[2] + d[2] - pq[0].distance_to(pq[1]))
+			if tief > 0.05:
+				var key := "%s/%s↔%s/%s" % [k, a.fighter.id, k, b.fighter.id]
+				var e: Array = koerper.get(key, [0, -INF, n, "%s/%s" % [String(a.anim.current_animation) if a.anim else "", String(b.anim.current_animation) if b.anim else ""]])
+				koerper[key] = [e[0] + 1, maxf(e[1], tief), e[2], e[3]]
+	# Klinge durch einen Wolf
+	for b in figs:
+		if _wolf(b) or not b.visible or b.down:
+			continue
+		for g in b.traegt():
+			if String(g[2]).contains("shield") or String(g[2]) == "":
+				continue
+			var box: AABB = g[1]
+			var lang := box.get_longest_axis_index()
+			var p0: Vector3 = box.get_center()
+			var p1: Vector3 = p0
+			p0[lang] = box.position[lang]
+			p1[lang] = box.end[lang]
+			var a0: Vector3 = g[0] * p0
+			var a1: Vector3 = g[0] * p1
+			for a in figs:
+				if not _wolf(a) or not a.visible or a.down:
+					continue
+				var tief := -INF
+				for c in a.kapseln():
+					var pq: PackedVector3Array = Geometry3D.get_closest_points_between_segments(a0, a1, c[0], c[1])
+					tief = maxf(tief, c[2] - pq[0].distance_to(pq[1]))
+				if tief > KOERPER_M:
+					klinge.append([n, "%s/%s" % [k, b.fighter.id], "%s/%s" % [k, a.fighter.id], tief])
+	# Sterbende: Höhe des Rumpfs
+	for f in figs:
+		if _wolf(f) and f.dead_at >= 0 and f.visible:
+			var sk := f._find(f.model, "Skeleton3D") as Skeleton3D
+			var bi := sk.find_bone("Wolf_Spine_02SHJnt") if sk else -1
+			if bi >= 0:
+				var id := "%s/%s" % [k, f.fighter.id]
+				tief_y[id] = tief_y.get(id, []) + [[n, (sk.global_transform * sk.get_bone_global_pose(bi).origin).y, f.fighter.name(0)]]
+	# Stillstand: keine Figur bewegt sich oder spielt etwas anderes als Ruhe, die Linse steht
+	var bewegt: bool = not kf.hit.is_empty()
+	for f in figs:
+		if not f.visible:
+			continue
+		var id := "%s/%s" % [k, f.fighter.id]
+		var a := String(f.anim.current_animation) if f.anim else ""
+		var l: Array = lage_vor.get(id, [f.global_position, f.rotation.y])
+		if not (a in RUHE) or f.global_position.distance_to(l[0]) > 0.002 or absf(f.rotation.y - l[1]) > 0.003 or f.hurt_at >= 0.0:
+			bewegt = true
+		lage_vor[id] = [f.global_position, f.rotation.y]
+	if kf.mars.outcome == "ONGOING":
+		if not bewegt:
+			still += 1
+			if still_ab < 0:
+				still_ab = n
+		elif still_ab >= 0:
+			if n - still_ab >= 15:
+				still_spannen.append([still_ab, n - still_ab, str(kf.shown.get("text", "")), str(kf.shown.get("cue", ""))])
+			still_ab = -1
+	# Bildrand: Kapseln jeder sichtbaren Figur in der Szene (über dem Bedienfeld)
+	var sr: Rect2 = kf.scene_rect()
+	for f in figs:
+		if not f.visible or f.dead_at >= 0:
+			continue
+		var raus := 0.0
+		for c in f.kapseln():
+			for q in [c[0], c[1]]:
+				var sp: Vector2 = kf.screen_of(q)
+				var rpx: float = c[2] / kf.m_per_dp(q) * (sr.size.x / 412.0)
+				raus = maxf(raus, maxf(maxf(-(sp.x - rpx), sp.x + rpx - sr.size.x), -(sp.y - rpx)))
+		if OS.get_environment("SCHAU_RAND") != "" and n == 5:
+			var lo := Vector2(INF, INF)
+			var hi := -lo
+			for c in f.kapseln():
+				for q in [c[0], c[1]]:
+					lo = lo.min(kf.screen_of(q))
+					hi = hi.max(kf.screen_of(q))
+			print("Rand %s: %s bis %s, Szene %s, Fenster %s" % [f.fighter.id, lo, hi, sr, kf.get_viewport().get_visible_rect()])
+		if raus > 6.0 and OS.get_environment("SCHAU_RAND") != "":
+			print("Rand Bild %d %s %.0f px: %s bei %s, Zoom %.2f, Treffer %s, Zeile %s" % [n, f.fighter.id, raus, f.anim.current_animation if f.anim else "", f.global_position, kf.cam_z, kf.hit.get("on", "-"), str(kf.shown.get("text", ""))])
+		if raus > 6.0:
+			var id := "%s/%s" % [k, f.fighter.id]
+			var e: Array = rand.get(id, [0, n, 0.0])
+			rand[id] = [e[0] + 1, e[1], maxf(e[2], raus)]
+	# Ansagen und Balken: Sprung über 40 dp in einem Bild (gleitend höchstens ein Viertel des Wegs je Bild)
+	# (gegen den eigenen Fußpunkt: läuft der Wolf, läuft seine Ansage mit)
+	var jetzt := {}
+	for id in ui.sign_of:
+		if kf.figures.has(id):
+			jetzt["Ansage " + String(id)] = (ui.sign_of[id] as Rect2).position - kf.screen_of(kf.figures[id].position)
+	for id in ui.balken_of:
+		if kf.figures.has(id):
+			jetzt["Balken " + String(id)] = ui.balken_of[id] - kf.screen_of(kf.figures[id].position)
+	for key in jetzt:
+		if ui_vor.has(key) and n > 30:     # die ersten Bilder stellen sich alle erst auf (unter der Blende)
+			var d: float = (jetzt[key] as Vector2).distance_to(ui_vor[key])
+			if d > 40.0 * ui.dp:
+				var e: Array = ui_sprung.get(k + " " + key, [0, n, 0.0])
+				ui_sprung[k + " " + key] = [e[0] + 1, e[1], maxf(e[2], d / ui.dp)]
+	ui_vor = jetzt
+	ui.balken_of.clear()
 
 
 ## 438: wie tief [q] (Welt) in einer Kapsel um die Knochen von [f] liegt (m, < 0: so weit draußen)
@@ -363,4 +583,85 @@ func _bilanz() -> void:
 		elif s < t.tod_lang + LIEGT_S:
 			befund += 1
 			print("    Befund: verschwunden, bevor er gefallen ist und %.1f s gelegen hat" % LIEGT_S)
+	_bilanz_r2()
 	print("Befunde: %d" % befund)
+
+
+func _sek(n: int) -> String:
+	return "%.1f s" % (n / 30.0)
+
+
+func _bilanz_r2() -> void:
+	print("— 438 r2 Wolf im Körper, Schild oder Klinge eines Menschen (tiefer als %.2f m): %d" % [KOERPER_M, koerper.size()])
+	for key in koerper:
+		print("  %s: ab %s (%s), %d Bilder, tiefste %.2f m" % [key, _sek(koerper[key][2]), koerper[key][3], koerper[key][0], koerper[key][1]])
+	if not koerper.is_empty():
+		befund += 1
+	var ohne := 0
+	var gez := {}
+	for b in klinge:
+		var getroffen := false
+		for h in hurt_ab.get(b[2], []):
+			if absi(h - b[0]) <= 8:
+				getroffen = true
+		if not getroffen:
+			ohne += 1
+			var key: String = b[1] + "→" + b[2]
+			if not gez.has(key) or b[0] - gez[key][-1][0] > 15:
+				gez[key] = gez.get(key, []) + [[b[0], b[3]]]
+	print("— 438 r2 Klinge durch einen Wolf ohne Treffer: %d Bilder" % ohne)
+	for key in gez:
+		for e in gez[key]:
+			print("  %s ab %s, %.2f m" % [key, _sek(e[0]), e[1]])
+	if ohne > 0:
+		befund += 1
+	print("— 438 r2 Würfelzeile eines Wolfs ohne Biss in den 1,5 s davor: %d" % wurf_ohne.size())
+	for w in wurf_ohne:
+		print("  %s %s: %s" % [_sek(w[0]), w[1], w[2]])
+	if not wurf_ohne.is_empty():
+		befund += 1
+	# Sturz-Meldung zum Biss: Zeile gegen den Beginn von Sturz/Treffer des Getroffenen
+	print("— 438 r2 Zeilen „springt an / prallt gegen / wirft sich auf“ gegen Sturz im Bild")
+	for z in zeilen:
+		if not (z[1].contains(" springt ") or z[1].contains("prallt gegen") or z[1].contains("wirft sich auf")):
+			continue
+		var best := 9999
+		for id in anim_ab:
+			for a in ["Sturz", "Treffer"]:
+				for b in anim_ab[id].get(a, []):
+					if absi(b - z[0]) < absi(best):
+						best = b - z[0]
+		print("  %s %s: Sturz %+.1f s" % [_sek(z[0]), z[1], best / 30.0])
+		if absi(best) > 9:
+			befund += 1
+	print("— 438 r2 Todeszeile gegen Liegen (Rumpf am Boden)")
+	for id in tief_y:
+		var reihe_y: Array = tief_y[id]
+		var lo := INF
+		for e in reihe_y:
+			lo = minf(lo, e[1])
+		var liegt := -1
+		for e in reihe_y:
+			if e[1] <= lo + 0.03:
+				liegt = e[0]
+				break
+		var nm: String = reihe_y[0][2]
+		for z in zeilen:
+			if z[2] == id.get_slice("/", 0) and z[1].begins_with(nm + " ") and (z[1].contains("fällt") or z[1].contains("liegen") or z[1].contains("sackt")) and z[0] >= reihe_y[0][0] - 30:
+				print("  %s: stirbt %s, liegt %s, Zeile %s (%+.1f s zum Liegen): %s" % [id, _sek(reihe_y[0][0]), _sek(liegt), _sek(z[0]), (z[0] - liegt) / 30.0, z[1]])
+				if z[0] - liegt > 9:
+					befund += 1
+				break
+	print("— 438 r2 Stillstand (keine Bewegung, Linse ruht): %s, Spannen ab 0,5 s:" % _sek(still))
+	for sp in still_spannen:
+		print("  ab %s %s nach „%s“ (%s)" % [_sek(sp[0]), _sek(sp[1]), sp[2], sp[3]])
+	print("— 438 r2 Figur am Bildrand angeschnitten: %d" % rand.size())
+	for id in rand:
+		print("  %s: ab %s, %d Bilder, bis %.0f px draußen" % [id, _sek(rand[id][1]), rand[id][0], rand[id][2]])
+	if not rand.is_empty():
+		befund += 1
+	print("— 438 r2 Ansage oder Leiste springt (über 40 dp in einem Bild; Gleiten bleibt darunter): %d" % ui_sprung.size())
+	for key in ui_sprung:
+		print("  %s: ab %s, %d Mal, bis %.0f dp" % [key, _sek(ui_sprung[key][1]), ui_sprung[key][0], ui_sprung[key][2]])
+	if not ui_sprung.is_empty():
+		befund += 1
