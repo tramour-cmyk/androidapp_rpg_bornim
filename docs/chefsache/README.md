@@ -8,8 +8,8 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [376.1](entscheiden/3761-kettenhemd-heldin.md) | **Muss** | E Figuren | 01.11., 20:45 | Kettenhemd der Heldin: so lassen, nachbessern oder Ritterin Platte? | Sokrates |
 | [348.12b](entscheiden/34812b-film-lauf.md) | **Muss** | E Kampf | 01.11. | Grak schreitet: noch ein Lauf für den Film? | Jerry |
-| [376.1](entscheiden/3761-kettenhemd-heldin.md) | **Muss** | E Figuren | 01.11. | Kettenhemd der Heldin: so lassen, nachbessern oder Ritterin Platte? | Sokrates (Frage aus Spikes Blatt 376.1, in Git vor 40abb488a) |
 
 ## Zu billigen
 
@@ -157,10 +157,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 
-**Perikles** – offen 23, Muss 19, startbar 3
+**Perikles** – offen 24, Muss 20, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 465 | M | von Sokrates („jetzt“ 01.11., 20:50, Chef: „Warum ist eigentlich in der Chefsache zu entsc | startbar |
 | 462 | M | von Ford („jetzt“ 01.11., 20:34, Wortlaut Zu 462): Name und Zeitstempel in jeder Nachricht | wartet auf Test/Build (gebaut) |
 | 464 | M | von Sokrates (Chef 01.11., 20:4x: „irgendwer produziert hier abends brutal viele Fehler. A | startbar |
 | 461 | M | von Sokrates („jetzt“ 01.11., 20:3x, Wortlaut in der Liste): Grundstand Figuren und Kampf: | wartet auf Test/Build (gebaut) |
