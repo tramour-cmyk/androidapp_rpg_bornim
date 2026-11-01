@@ -45,8 +45,6 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
-- 01:20 01.11.: Neustart Tom 8d9d896b5 angenommen: Nachfolger `01Hmoj76iH` „425 Testmenü Befunde“; alter Tom `7A2b` archiviert, Kosten **fehlen** (usage 0,30 $ unverändert seit 23:05, unplausibel für 3 h); Spike 425 `79S3` (01:04) sofort archiviert, Tom hatte 425 schon fertig (Lauf-Fehler: Stand „Chef“ kam erst 01:18 auf main)
-- 01:08 01.11.: Diogenes 443/443.1 (Perikles) gestartet und archiviert 2,68 $; Spike 416.9 archiviert 5,26 $, Spike 425 neu; Sokrates Stellungnahme 194.2 per Nachricht an die laufende Sitzung; Jerry-Nachfolger und Diogenes 374 weiter zurückgehalten (7:00/8:00)
 - 22:23–23:13 28.10.: Tom 7d5e21fac/f449ea4a9/e91b86781 Neustarts, Nachfolger `01Hmoj78mj` „376.1 Köpfe, Haut, Robe“ (Titel nach Korrekturen umgestellt); Jerry 96d840aae: Nachfolger `01Hmoj77So`; alte archiviert und gebucht: Tom `75YJ` 19,49 $ (399.1), Jerry `775u` 25,55 $ (399.2,399.2b,399.3), Tom `79nW` 19,45 $ (376.1)
 - 16:35–21:41 28.10.: Neustarts Sokrates (alter `78fq` 23,05 $ auf 385,387,396a,397,398,399), Tom 9eabc83d1/fb048b94a/a12e99b0d/bc486f1d9 (Nachfolger je gestartet, alte archiviert: 28,01 + 13,76 + 25,48 + 16,58 $ auf 399.1 u. a.), Jerry 8aefbb7b1 (`77PX` 14,85 $ auf 399.3,399.2); Homer `01Hmoj77EQ` 19:06 (399.2b)
 - 13:09–15:49 28.10.: Neustarts Jerry cf599b056 (alter `75RG` 19,91 $ auf 399.2,348.12; 14:43 zurückgestellt bis Chefantwort 348.12), Tom 971fcda1a (alter `76N4` 30,41 $ auf 399.1,390,397); Jerry `76aX` 27,93 $ (348.12,387,399.2); Diogenes `77nv` 0,79 $
@@ -54,6 +52,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:37–06:35 27.10.: Neustarts angenommen und Nachfolger gestartet (Tom 13×, Jerry 4×); Jerry 05:55 zurückgestellt (wartet auf Chefsache 3487a)
 - 25.10., 09:35–21:05: Neustarts Tom/Jerry/Sokrates angenommen; Perikles 364 und Sokrates 340.2 gestartet; Sparbetrieb und Max 20x (Verlauf in Git)
 
+- 01:20 01.11.: Neustart Tom 8d9d896b5 angenommen: Nachfolger `01Hmoj76iH` „425 Testmenü Befunde“; alter Tom `7A2b` archiviert, Kosten **fehlen** (usage 0,30 $ unverändert seit 23:05, unplausibel für 3 h); Spike 425 `79S3` (01:04) sofort archiviert, Tom hatte 425 schon fertig (Lauf-Fehler: Stand „Chef“ kam erst 01:18 auf main)
+- 01:08 01.11.: Diogenes 443/443.1 (Perikles) gestartet und archiviert 2,68 $; Spike 416.9 archiviert 5,26 $, Spike 425 neu; Sokrates Stellungnahme 194.2 per Nachricht an die laufende Sitzung; Jerry-Nachfolger und Diogenes 374 weiter zurückgehalten (7:00/8:00)
 - 00:08 01.11.: Selbstneustart Ford (Tiefe 6, Chefsache 110 `--laut` gesendet); Homer `01Hmoj771H` „430“, Perikles `01Hmoj76JN` „Stand zum Marktstart“, Spike `01Hmoj763K` „416.9“ gestartet; alter Spike `77yq` archiviert 9,21 $ auf 425; Jerry-Nachfolger bis 7:00 und Diogenes 374 bis 8:00 zurückgehalten; Sokrates-Desktop nicht archiviert
 - 23:30 28.10.: Chef „Räum auf und buche Kosten“: Protokoll und Eingang gekürzt (Datei 18 → unter 15 KB), alter Ford 9,02 $ gebucht; drei Sitzungen ohne Kosten (Eingang).
 - 22:07 28.10.: Perikles `01Hmoj77Hj` gestartet (400, Chef über Sokrates), alter Perikles `76yC` archiviert (3,05 $ auf 399). Ford-Lücke: Homer 399.2b (startbar seit 15:32, gestartet 19:06); jeden Lauf `startbar.py` gegen laufende Sitzungen prüfen.
@@ -75,3 +75,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:04 01.11.: Marke Archiv-Warnung session_01Hmoj76r9gzqmymitAPFRzM (lauf.py)
 - 01:04 01.11.: Marke Archiv session_01Hmoj78pPLSXQf2qBG5dbSP (lauf.py)
 - 01:04 01.11.: Marke Archiv session_01Hmoj763Kd49V7bhiGj5Uw4 (lauf.py)
+- 02:04 01.11.: Startsperre 02:04 Start Jerry, Diogenes, Spike (lauf.py)
+- 02:04 01.11.: Marke Wächter 436 31.10. 22:58 (lauf.py)
+- 02:04 01.11.: Marke Archiv session_01Hmoj7A2bL17itQc3EZn1KC (lauf.py)
