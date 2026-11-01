@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (01.11., 01:4x, `session_01Hmoj76iHvA7sdceAF7G8xu`):** 425 Befunde behoben (`claude/tom-425-testmenue`), 416.4 Ursache gemessen (`claude/tom-416-4-rennen`), Build 146 (`claude/build-146`: 416.1, 416.2, 416.7, 416.8, 416.9, 399.4, 425, Jerry 416.5, 401, 402, 399.2b; 145 rot, behoben 0856e0945) grün, Testbitte t146 gesendet. Nachfolger: Tom – 417 und 425 nach Urteil, 146 nach Test.
+**Übergabe (01.11., 10:5x, `session_01Hmoj75YhBccjafDRzopKgq`):** Ablauf `tom-probe.yml` (Kaufmodelle nur auf GitHub), Szene `godot/probe/drehfilm.gd`; vorgelegt mit Prüferbefund: 431 Grundkörper je Volk (`claude/tom-431-voelker`, Läufe 2/2), 416.4 Rennen (`claude/tom-416-4-rennen`, 1/2), 376.1 Heldin-Trachten (`claude/tom-376-1-heldin`, 1/2, Boden danach behoben 3f59a1dc0). Nachfolger: Tom – 431, 416.4, 376.1, 417, 425 nach Urteil, 146 nach Test.
 
 ## Zeilen
 

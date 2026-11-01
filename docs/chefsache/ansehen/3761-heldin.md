@@ -11,3 +11,5 @@ Film per Telegram (14 s, Hochformat), noch kein Build. Ablauf auf GitHub (`tom-p
 **Stärkstes Gegenargument:** Anpassen ist Eigenbau (408: Bestand vor Eigenbau); Ritterin Platte für die Kämpferin und Magierin für die Magierin gäbe es fertig. Dann sähen Held und Heldin derselben Klasse verschieden aus.
 
 Nicht Teil dieser Probe: Toon-Licht und Tusche, Haarfarbe (die färbt das Spiel), Waffen.
+
+**Prüferbefund (10:50, nach dem Versand):** Köpfe sitzen sauber am Hals, keine Haut durch Kleidung. Hoch: der Zopf sticht durch beide Ritterhelme und die Kapuze der Waldläuferin (im Spiel: unter Helm und Kapuze kein langes Haar oder verborgen). Boden unsichtbar (Kamera waagrecht auf die Platte; behoben 3f59a1dc0, gilt ab dem nächsten Film); Rückseiten sehr dunkel; Krone sitzt hoch auf dem Haar; Adlige und Waldläuferin nur ein Schulterstück (so in der Bibliothek).
