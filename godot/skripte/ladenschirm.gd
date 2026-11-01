@@ -11,6 +11,7 @@ var laden: Laden
 var seite := "kaufen"              # kaufen, verkaufen, brauen
 var gold_: Label
 var notiz: Label
+var fest: VBoxContainer            # 416.9 (Chef 01.11., 11:30: „Können wir die Angelegt-Leiste nicht fixieren?“): rollt nicht mit
 
 func _init(h: Heldwerte, zu_: Zustand, l: Laden) -> void:
 	super(h, zu_)
@@ -43,6 +44,12 @@ func _ready() -> void:
 	leiste = HBoxContainer.new()
 	leiste.add_theme_constant_override("separation", int(8 * DP))
 	spalte.add_child(leiste)
+	fest = VBoxContainer.new()
+	fest.add_theme_constant_override("separation", int(4 * DP))
+	var fk := Erschaffung.kasten(fest)
+	fest.set_meta("kasten", fk)
+	fk.visible = false
+	spalte.add_child(fk)
 	meldung_ = Erschaffung.txt("", 15, Stil.BRIGHT)   # Menue.meldung (drei Sekunden) bleibt ungenutzt; die Notiz unten bleibt stehen wie alt
 	meldung_.visible = false
 	spalte.add_child(meldung_)
@@ -81,9 +88,10 @@ func baue() -> void:
 	for s in seiten:
 		var w: String = s[0]
 		leiste.add_child(Erschaffung.knopf(String(s[1]), func(): seite = w; baue(), w == seite))
-	for c in inhalt.get_children():
-		inhalt.remove_child(c)
+	for c in inhalt.get_children() + fest.get_children():
+		c.get_parent().remove_child(c)
 		c.queue_free()
+	(fest.get_meta("kasten") as Control).visible = false
 	match seite:
 		"brauen": brauen()
 		"verkaufen": verkaufen()
@@ -189,7 +197,11 @@ func verkaufen() -> void:
 	var de := de_()
 	# 59.2: die neun angelegten Stuecke als Leiste, um auf einen Blick zu sehen, was besser ist
 	if not laden.brauen:
-		kopfzeile("Angelegt" if de else "Equipped")
+		# 416.9: fest ueber der Rolle (fest), nicht im rollenden Inhalt
+		var kz := Erschaffung.txt(("Angelegt" if de else "Equipped").to_upper(), 14, Stil.GOLD)
+		kz.add_theme_font_override("font", Stil.variante(3.0))
+		fest.add_child(kz)
+		(fest.get_meta("kasten") as Control).visible = true
 		var r := HBoxContainer.new()
 		r.alignment = BoxContainer.ALIGNMENT_CENTER
 		r.add_theme_constant_override("separation", int(2 * DP))
@@ -205,8 +217,7 @@ func verkaufen() -> void:
 				b.mouse_filter = Control.MOUSE_FILTER_PASS
 				tippbar(b, func(): dialog(Beute.name(gg), farbe_von(gg), stueck_zeilen(gg), [["OK", func(): pass]]))
 			r.add_child(b)
-		inhalt.add_child(r)
-		luecke(8)
+		fest.add_child(r)
 	# 59.4: zurueckkaufen, was bei diesem Besuch verkauft wurde, zum Erloes
 	if not laden.rueckkauf.is_empty():
 		kopfzeile(Sprache.t(Laden.ZURUECK))
@@ -237,6 +248,7 @@ func verkaufen() -> void:
 	if not gew.is_empty():
 		var b := Erschaffung.knopf(Sprache.t(Laden.GEWOEHNLICHE), func(): alle_gewoehnlichen(gew))
 		b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		b.clip_text = false   # 416.9 (Chef 01.11., 11:30: „unter Ausrüstung … eine Leerzeile“): abgeschnitten blieb ein Knopf ohne Text, 11 px breit
 		b.custom_minimum_size.y = 36 * DP
 		inhalt.add_child(b)
 	if dinge.is_empty(): zeile(Sprache.u("nothing"), 14, Stil.DIM)

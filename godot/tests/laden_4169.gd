@@ -51,8 +51,10 @@ func _lauf() -> void:
 
 	# 1. neun Plaetze, leere sichtbar
 	var leiste: HBoxContainer = null
-	for c in l.inhalt.get_children():
+	for c in l.fest.get_children():   # 416.9 (Chef 01.11., 11:30): fest ueber der Rolle
 		if c is HBoxContainer and c.get_child_count() == LadenSchirm.ANGELEGT.size(): leiste = c
+	for c in l.inhalt.get_children():
+		pruefe(not (c is HBoxContainer and c.get_child_count() == LadenSchirm.ANGELEGT.size()), "Leiste Angelegt rollt mit dem Inhalt")
 	pruefe(leiste != null, "Leiste Angelegt mit neun Plaetzen fehlt")
 	if leiste:
 		var belegt := 0
@@ -91,7 +93,10 @@ func _lauf() -> void:
 			var v := Vergleich.von(hw, g)
 			pruefe(t.contains(v.satz()), "Stueck: Urteil fehlt")
 			var r: Dictionary = v.zeilen[0]
-			pruefe(t.contains("%s: %s → %s" % [r["wort"], r["vorher"], r["nachher"]]), "Stueck: Vergleichszeile fehlt")
+			# 416.9 (Chef 01.11., 11:30): Tabelle wie alt, je Wert eine Reihe Wort | Angelegt | Neu
+			var reihen := k.find_children("*", "HBoxContainer", true, false).filter(func(c): return c.has_meta("vergleich"))
+			pruefe(reihen.size() == v.zeilen.size() + 1, "Stueck: Vergleich %d Reihen, erwartet %d mit Kopf" % [reihen.size(), v.zeilen.size() + 1])
+			pruefe(reihen.any(func(c): return c.get_meta("vergleich") == [String(r["wort"]), String(r["vorher"]), String(r["nachher"])]), "Stueck: Vergleichszeile fehlt")
 			print("Vergleich: ", v.satz(), " (", v.zeilen.size(), " Zeilen)")
 			k.free()
 

@@ -494,9 +494,29 @@ static func stueck_zeilen_von(hw: Heldwerte, g: Dictionary) -> Array:
 			var anderer := v.ersetzt.any(func(x): return String(Beute.grundform(String(x["base"]))["slot"]) != String(b["slot"]))
 			z_.append(Erschaffung.txt(("Ersetzt: " if de else "Replaces: ") + ", ".join(PackedStringArray(v.ersetzt.map(func(x): return Beute.name(x)))), 13, Stil.WARN if anderer else Stil.DIM))
 		z_.append(Erschaffung.txt(v.satz(), 14, {1: GRUEN, -1: Stil.WARN}.get(v.urteil(), Stil.TEXT)))
-		for r in v.zeilen:
-			z_.append(Erschaffung.txt("%s: %s → %s" % [r["wort"], r["vorher"], r["nachher"]], 13, {1: GRUEN, -1: Stil.WARN}.get(r["besser"], Stil.DIM)))
+		# 416.9 (Chef 01.11., 11:30/11:32: „standen wirklich die Werte gegenüber … pseudotabellarisch“, das Urteil bleibt): wie
+		# GearDetails die Tabelle Vergleich | Angelegt | Neu (Gewicht 1,8 : 0,9 : 0,9), Strich darunter, Gewinne gruen, Verluste rot
+		if not v.zeilen.is_empty():
+			z_.append(Menue.vergleich_reihe("Vergleich" if de else "Compare", "Angelegt" if de else "Equipped", "Neu" if de else "New", true, 0))
+			var strich := ColorRect.new()
+			strich.color = Color(Stil.DIM, 0.35)
+			strich.custom_minimum_size = Vector2(0, maxf(1.0, DP))
+			z_.append(strich)
+			for r in v.zeilen: z_.append(Menue.vergleich_reihe(String(r["wort"]), String(r["vorher"]), String(r["nachher"]), false, int(r["besser"])))
 	return z_
+
+static func vergleich_reihe(wort: String, vorher: String, nachher: String, kopf: bool, besser: int) -> HBoxContainer:
+	var h := HBoxContainer.new()
+	h.set_meta("vergleich", [wort, vorher, nachher])   # fuer laden_4169
+	h.add_theme_constant_override("separation", int(6 * DP))
+	var teile := [[wort, 1.8, 15 if kopf else 15, Stil.TEXT], [vorher, 0.9, 13 if kopf else 15, Stil.DIM],
+		[nachher, 0.9, 13 if kopf else 15, Stil.DIM if kopf else {1: GRUEN, -1: Stil.WARN}.get(besser, Stil.DIM)]]
+	for t in teile:
+		var l := Erschaffung.txt(String(t[0]), float(t[2]), t[3])
+		l.size_flags_stretch_ratio = float(t[1])
+		if kopf and t == teile[0] or (not kopf and t == teile[2] and besser != 0): l.add_theme_font_override("font", Stil.variante(1.2))
+		h.add_child(l)
+	return h
 
 func im_beutel(g: Dictionary) -> int:
 	for i in z.beutel.size():
