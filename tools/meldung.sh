@@ -38,7 +38,7 @@ if [ "$art" = video ]; then  # 381: Telegram nimmt über die Bot-Schnittstelle h
   [ "$(stat -c %s "$bild")" -le 52428800 ] || { echo "meldung: Film über 50 MB, nichts gesendet (kürzer oder kleiner rechnen; 381)" >&2; exit 2; }
 fi
 # 457 (Chef 01.11., 11:49: „unsere Signatur muss sich wiederfinden“): Bild oder Film einer Probe nie „ohne Toon/Tusche“
-if [ -n "$art" ] && printf '%s' "${rest[*]}" | grep -qiE 'ohne[[:space:]]+(Toon|Tusche|Spielshader)' && ! printf '%s' "${rest[*]}" | grep -q 'Chef erlaubt ohne Signatur'; then
+if [ -n "$art" ] && printf '%s' "${rest[*]}" | grep -qiE '(ohne|kein[a-z]*)[[:space:]]+(Toon|Tusche|Spielshader)|(Toon|Tusche|Spielshader)[a-zA-Z-]*[[:space:]]+(fehl|aus |weg )' && ! printf '%s' "${rest[*]}" | grep -qiE 'Chef erlaubt ohne Signatur|[[:space:]]mit[[:space:]]+(Toon|Tusche|Spielshader)'; then
   echo "meldung: Probe ohne Toon-Licht/Tusche, nichts gesendet; mit Spielshadern neu zeichnen (457; Ausnahme „Chef erlaubt ohne Signatur“)" >&2; exit 2
 fi
 [ -n "$art" ] && bild="$(realpath "$bild")"  # relativer Pfad: git -C "$repo" fand die Datei sonst nicht (Jerry 25.10.)

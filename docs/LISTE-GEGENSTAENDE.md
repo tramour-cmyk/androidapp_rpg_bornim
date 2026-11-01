@@ -111,10 +111,10 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 
 | Kennung | Name | Platz | Stufe | Preis | Modell | Bezug | offen |
 |---|---|---|---|---|---|---|---|
-| `potion` | Heiltrank | – | – (alt –) | – (alt 25) | – | Laden Thessa; Laden Morwen; Herstellen Morwen (2× Heilkräuter) | stufe, preis |
-| `greater_potion` | Großer Heiltrank | – | – (alt –) | – (alt 75) | – | Laden Thessa; Laden Morwen; Herstellen Morwen (3× Heilkräuter, 1× Fledermausflügel) | stufe, preis |
+| `potion` | Heiltrank | – | – (alt –) | – (alt 25) | – | Laden Thessa; Laden Morwen; Herstellen Morwen (2× Heilkräuter, 5 Gold) | stufe, preis |
+| `greater_potion` | Großer Heiltrank | – | – (alt –) | – (alt 75) | – | Laden Thessa; Laden Morwen; Herstellen Morwen (3× Heilkräuter, 1× Fledermausflügel, 15 Gold) | stufe, preis |
 | `superior_potion` | Überragender Heiltrank | – | – (alt –) | – (alt 200) | – | Laden Thessa | stufe, preis |
-| `remedy` | Kräutertrank | – | – (alt –) | – (alt 20) | – | Laden Thessa; Laden Morwen; Herstellen Morwen (2× Heilkräuter) | stufe, preis |
+| `remedy` | Kräutertrank | – | – (alt –) | – (alt 20) | – | Laden Thessa; Laden Morwen; Herstellen Morwen (2× Heilkräuter, 2 Gold) | stufe, preis |
 | `stamina_potion` | Ausdauertrank | – | – (alt –) | – (alt 25) | – | Laden Thessa; Laden Morwen | stufe, preis |
 | `spark_potion` | Leuchtfunke | – | – (alt –) | – (alt 25) | – | Laden Thessa | stufe, preis |
 
@@ -122,7 +122,7 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 
 | Kennung | Name | Platz | Stufe | Preis | Modell | Bezug | offen |
 |---|---|---|---|---|---|---|---|
-| `alchemist_fire` | Alchemistenfeuer | – | – (alt –) | – (alt 30) | – | Laden Thessa; Herstellen Morwen (1× Giftdrüse) | stufe, preis |
+| `alchemist_fire` | Alchemistenfeuer | – | – (alt –) | – (alt 30) | – | Laden Thessa; Herstellen Morwen (1× Giftdrüse, 5 Gold) | stufe, preis |
 | `holy_water` | Weihwasser | – | – (alt –) | – (alt 25) | – | Laden Thessa; Laden Morwen | stufe, preis |
 
 ### Nahrung (1)
@@ -196,7 +196,7 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 | `material` | nein | Material des Netzes (455) |
 | `zeichen` | nein | Zeichnung/Tusche des Netzes (455) |
 | `modell` | nein | Quelle und Lizenz des Modells (LISTE-BESTAND.md) |
-| `bezug` | ja | Liste von {weg, wo?, rezept?}; weg aus WEGE |
+| `bezug` | ja | Liste von {weg, wo?, rezept?, gold?}; weg aus WEGE; gold = Lohn des Herstellers |
 | `zustand` | nein | true = nutzt sich ab (Abnutzung, Reparatur); null = offen |
 | `text` | nein | {de, en}, ein Satz (Homer) |
 | `grundform` | nein | bei Einzelstuecken: id der Grundform |

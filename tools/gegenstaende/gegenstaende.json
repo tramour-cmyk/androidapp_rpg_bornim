@@ -2246,7 +2246,8 @@
      "wo": "Morwen",
      "rezept": {
       "herbs": 2
-     }
+     },
+     "gold": 5
     }
    ],
    "zustand": null,
@@ -2289,7 +2290,8 @@
      "rezept": {
       "herbs": 3,
       "bat_wing": 1
-     }
+     },
+     "gold": 15
     }
    ],
    "zustand": null,
@@ -2362,7 +2364,8 @@
      "wo": "Morwen",
      "rezept": {
       "herbs": 2
-     }
+     },
+     "gold": 2
     }
    ],
    "zustand": null,
@@ -2466,7 +2469,8 @@
      "wo": "Morwen",
      "rezept": {
       "spider_gland": 1
-     }
+     },
+     "gold": 5
     }
    ],
    "zustand": null,

@@ -28,7 +28,7 @@ AUFBAU = {
     "material": (False, "Material des Netzes (455)"),
     "zeichen": (False, "Zeichnung/Tusche des Netzes (455)"),
     "modell": (False, "Quelle und Lizenz des Modells (LISTE-BESTAND.md)"),
-    "bezug": (True, "Liste von {weg, wo?, rezept?}; weg aus WEGE"),
+    "bezug": (True, "Liste von {weg, wo?, rezept?, gold?}; weg aus WEGE; gold = Lohn des Herstellers"),
     "zustand": (False, "true = nutzt sich ab (Abnutzung, Reparatur); null = offen"),
     "text": (False, "{de, en}, ein Satz (Homer)"),
     "grundform": (False, "bei Einzelstuecken: id der Grundform"),
@@ -92,7 +92,7 @@ def bezug_text(b, namen=None):
     if b.get("wo"):
         t += f" {b['wo']}"
     if b.get("rezept"):
-        t += " (" + ", ".join(f"{n}× {(namen or {}).get(z, z)}" for z, n in b["rezept"].items()) + ")"
+        t += " (" + ", ".join(f"{n}× {(namen or {}).get(z, z)}" for z, n in b["rezept"].items()) + (f", {b['gold']} Gold" if b.get("gold") else "") + ")"
     return t
 
 

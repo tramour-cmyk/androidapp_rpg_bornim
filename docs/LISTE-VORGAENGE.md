@@ -166,7 +166,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 457.1 | Probeskripte Tom mit Spielshadern (457) | E Figuren | M | – | Team Tom | startbar |
 | 457.2 | Probeskripte Jerry mit Spielshadern (457) | E Kampf | M | – | Team Jerry | startbar |
 | 459 | Doppelpack 421: Prüfung 458.1, 451.1, 447.1, 457 (Perikles 01.11.) | B Abläufe | M | – | Diogenes | erledigt |
-| 459.1 | Befunde D56.1–4 nachbessern: Wächter 457, alter Plan im Tagesbericht, Katalog-Haken (Diogenes Lauf 55) | B Abläufe | M? | – | Perikles | startbar |
+| 459.1 | Befunde D56.1–4 nachbessern: Wächter 457, alter Plan im Tagesbericht, Katalog-Haken (Diogenes Lauf 55) | B Abläufe | M? | – | Perikles | erledigt |
 | 457 | Signatur in jeder Probe: Wächter für Vorlagen ohne Toon/Tusche, Probeskripte mit Spielshadern (Chef 01.11., 11:49) | B Abläufe | M | – | Perikles | gebaut |
 | 416.7 | Aktionsknopf am Tresen in Schenke und Laden (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | zu testen |
 | 416.8 | NPC dreht sich zum Helden, nach etwa 10 s Leerlauf (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | zu testen |

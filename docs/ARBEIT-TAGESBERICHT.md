@@ -30,15 +30,16 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 | Diogenes | 6 | 4 | 0 | 9 | 10 |
 <!-- /zahlen -->
 
-## Roadmap (Vorschlag 447, ohne Datum; jede Stufe ein Build, den du spielst)
+## Roadmap (447, von dir gebilligt 01.11. mit Stufe „Alle Systeme angelegt“; ohne Datum; jede Stufe ein Build, den du spielst; Stand 01.11., 13:5x)
 
 | Stufe | Was du spielen kannst | Punkte | Stand |
 |---|---|---|---|
-| **K1 Kern spielbar** | Erschaffung nach 2.0, Dorf und Wald, Kampf nach neuem Rechenmodell, Fertigkeiten durch Tun, Heldenstufe | 4 | Rechensimulation der neuen Regeln am Rechner gelaufen (444), Bau nicht begonnen |
-| **K2 Kapitel 1 durchspielbar** | alle Orte bis Blutzahnhöhle, alle Quests, Bosse, Schleichen, Spähen, Rasten, je Herkunft eine Handlung | 12 | Dorf, Läden, Kampf gegen das Wolfsrudel spielbar (dein Test von Build 143 am 31.10.); Rest offen |
-| **K3 Kapitel 1 fertig** | Aussehen, Musik und Klang je Ort, Englisch, keine SRD-Namen, keine offenen Fehler | 10 | Figuren und Bewegungen in Arbeit, Klang: erst Tierlaute und Herzschlag gebaut |
-| **K4 marktreif** | Kapitel 1 im Play Store | 1 | wartet auf Gewerbeschein (du, 142) |
-| W1–W3 danach | Ruf und Chronik; Handwerk; SRD ganz abgelöst | – | auf dein Wort |
+| **1 Kern spielbar** | Erschaffung nach dem BRS, Dorf und Wald, Kampf nach neuem Rechenmodell, Fertigkeiten durch Tun, Heldenstufe | 4 | Rechensimulation der neuen Regeln am Rechner gelaufen (444), Bau nicht begonnen |
+| **2 Kapitel 1 durchspielbar** | alle Orte bis Blutzahnhöhle, alle Quests, Bosse, Schleichen, Spähen, Rasten, je Herkunft eine Handlung | 12 | Dorf, Läden, Kampf gegen das Wolfsrudel spielbar (dein Test von Build 143 am 31.10.); Rest offen |
+| **3 Alle Systeme angelegt** | Lehrmeister, Meisterschaften, Ruf, Herstellen und Sammeln, Abnutzung, Tiere beruhigen, Chronik, Gegenstandskatalog | 8 | Gegenstandskatalog angelegt (458: 88 Gegenstände, Texte von Homer); Rest offen |
+| **4 Kapitel 1 fertig** | Aussehen, Musik und Klang je Ort, Englisch, keine SRD-Namen, keine offenen Fehler | 10 | Figuren und Bewegungen in Arbeit, Klang: erst Tierlaute und Herzschlag gebaut |
+| **5 marktreif** | Kapitel 1 im Play Store | 1 | wartet auf Gewerbeschein (du, 142) |
+| **6 SRD im Code abgelöst** | nach dem Marktstart, für dich unsichtbar | 1 | – |
 
 ## Wer hinkt (01.11., 11:05)
 
@@ -50,14 +51,14 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 ## Wo du Prioritäten setzen kannst (01.11., 11:05)
 
 1. **Testen**, danach der nächste gemeinsame Build: das gibt Tom und Jerry wieder Arbeit.
-2. **447 entscheiden** (Meilensteine, Gespräch mit Sokrates): erst dann zählt Zeile 1 nach gebilligten Stufen, und Mo 02.11. setze ich Wochenziel 2 auf K1.
+2. **447 entschieden** (01.11.): Zeile 1 zählt jetzt nach den Stufen; Mo 02.11. setze ich das Wochenziel auf Stufe 1, mit den Schätzungen von Tom und Jerry.
 3. **Rückfragen von Jerry zu den Wölfen** (438a, 438c): sonst hängt seine Kampfarbeit.
 
 *Stärkstes Gegenargument:* noch mehr Tests und Entscheidungen bei dir sind genau der Engpass. *Wie es zu entkräften ist:* mit 447 nimmst du je Stufe einen Build ab statt Einzelblätter; bis dahin bündeln wir (höchstens 6 Änderungen je Build).
 
 ## Wie das Projekt aufgebaut ist
 
-- **Spiel:** Godot-Fassung (Ordner `godot/`), Regeln nach Spielsystem 2.0 (`DESIGN-SPIELSYSTEM-2-0-ENTWURF.md`); alte Kotlin-Fassung ruht.
+- **Spiel:** Godot-Fassung (Ordner `godot/`), Regeln nach dem Bornimer Rollenspielsystem, BRS (`DESIGN-SPIELSYSTEM-2-0-ENTWURF.md`); alte Kotlin-Fassung ruht.
 - **Leute:** Chef entscheidet und testet; Sokrates (Stab), Homer (Story), Perikles (Abläufe, dieser Bericht), Diogenes (Prüfer), Ford (startet Sitzungen); Tom und Jerry bauen, Spike und Tuffy helfen ihnen.
 - **Ablauf:** jede Aufgabe ein Vorgang mit Nummer im Vorrat ihres Besitzers; was dich braucht, liegt in der Chefsache; Code kommt erst nach deinem Test auf `main`.
 
@@ -67,4 +68,4 @@ Von Hand (Perikles), das Werkzeug übernimmt sie in die Zeilen 3, 8, 9.
 
 - Rest geschätzt: noch keine Schätzung; Tom und Jerry schätzen je Stufe mit Wochenziel 2 (Mo 02.11.)
 - Von dir zuerst gefunden: zählt Diogenes Mo 02.11.
-- Größtes Risiko: für den Kern der Regeln 2.0 (K1) hat niemand einen Bauauftrag; Gegenmittel: Vorgang „Bau Regeln 2.0“ für Tom und Jerry mit Wochenziel 2 (Perikles, Mo 02.11.)
+- Größtes Risiko: für den Kern des BRS (Stufe 1) hat niemand einen Bauauftrag; Gegenmittel: Vorgang „Bau BRS“ je Stufe für Tom und Jerry mit dem Wochenziel (Perikles, Mo 02.11.)
