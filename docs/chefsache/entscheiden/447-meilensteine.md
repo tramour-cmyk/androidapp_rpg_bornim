@@ -18,7 +18,7 @@ Chef: „447 ja, wenn das bedeutet, dass ich grundsätzlich eine Umsetzung des n
 | Pfad und Lehrmeister (5) | Einladung und erste Prüfung je Pfad, den Kapitel 1 trägt (heute G4) |
 | Meisterschaften (6) | Einladung zu allen fünf; Alchemie (Kräuter → Heiltrank) und Schmieden (Reparatur, Dietrich) ganz, Leder, Runen, Kochen je ein Rezept |
 | Ruf (9) | Ruf bei den Leuten im Dorf; Wirkung sichtbar: Preis bei Borin und Händler, eine Auskunft mehr |
-| Herstellen und Sammeln (10) | Kräuter, Erz, Fisch, Jagd mit Zerlegen; Rezepte am Lagerfeuer und an Werkorten im Dorf |
+| Herstellen und Sammeln (10) | Kräuter, Fisch, Jagd mit Zerlegen; Rezepte am Lagerfeuer und an Werkorten im Dorf. Bergbau nicht (Chef 11:55: „Erze brauchen wir doch noch gar nicht. Weil wir noch gar keine Hügel haben“): Erz für Schmieden und Runen nur kaufen oder finden |
 | Abnutzung und Reparatur (11) | Zustand, Borin repariert, „Alles reparieren“ |
 | Welt (8) | Tiere beruhigen an Wölfen und Wildschwein; Tierbegleiter erst mit dem Pfad Waldläufer |
 | Profil (Entwurf C) | Taten und Chronik |
