@@ -16,6 +16,7 @@ var bisse := []        # [Klasse, Wolf, Ziel, Bewegung, Winkel, seitlich m, Bild
 var gesehen := {}
 var quer_je := {}      # Bewegung -> [Summe Schnauze quer m, Bilder]
 var laufend := {}      # Wolf -> [beste Vorlage dieses Bisses, größte Reichweite]
+var anfang := {}       # Wolf -> [Zielmitte, Drehung des Wolfs, Ort des Wolfs] im ersten Bild des Bisses
 
 
 func _initialize() -> void:
@@ -112,6 +113,7 @@ func _bild(kf, k: String) -> void:
 			if laufend.has(id):
 				bisse.append(laufend[id][0])
 				laufend.erase(id)
+			anfang.erase(id)
 			continue
 		var sk := f._find(f.model, "Skeleton3D") as Skeleton3D
 		var tsk = ziel_f._find(ziel_f.model, "Skeleton3D") as Skeleton3D
@@ -123,6 +125,12 @@ func _bild(kf, k: String) -> void:
 		if schnauze == Vector3.INF or ziel == Vector3.INF:
 			continue
 		var pos: Vector3 = f.global_position
+		if not anfang.has(id):
+			anfang[id] = [ziel, f.rotation.y, pos, f.bite.get(a, f.bite.get("Biss", [0, 0, 0]))[2]]
+		var a0: Array = anfang[id]
+		var ziel_weg := Vector2(ziel.x - a0[0].x, ziel.z - a0[0].z).length()
+		var dreh := rad_to_deg(wrapf(f.rotation.y - a0[1], -PI, PI))
+		var soll := wrapf(rad_to_deg(atan2(a0[0].x - a0[2].x, a0[0].z - a0[2].z) - f.rotation.y) + float(a0[3]), -180.0, 180.0)
 		var reich: float = Vector2(schnauze.x - pos.x, schnauze.z - pos.z).length()
 		if laufend.has(id) and reich <= laufend[id][1]:
 			continue
@@ -144,7 +152,7 @@ func _bild(kf, k: String) -> void:
 		# Schnauze gegen den Rumpf des Wolfs: wie weit sie quer zu seinem Blick steht (links +, aus Sicht des Wolfs)
 		var links := vorn.cross(Vector3.DOWN)     # Blick +Z: links des Wolfs ist +X
 		var kopfquer := (Vector3(schnauze.x, 0, schnauze.z) - Vector3(pos.x, 0, pos.z)).dot(links)
-		laufend[id] = [[k, f.fighter.id, ziel_f.fighter.id, a, winkel, seit, px, zum.length(), sz, kopfquer], reich]
+		laufend[id] = [[k, f.fighter.id, ziel_f.fighter.id, a, winkel, seit, px, zum.length(), sz, kopfquer, ziel_weg, dreh, soll], reich]
 
 
 func _bilanz() -> void:
@@ -156,7 +164,7 @@ func _bilanz() -> void:
 	var sw := 0.0; var ss := 0.0; var sp := 0.0
 	var rechts := 0
 	for b in bisse:
-		print("Biss %s %s → %s (%s): Winkel %+.1f°, Schnauze seitlich %+.2f m, im Bild %+.0f px, Abstand %.2f m, Schnauze–Zielmitte %.2f m, Schnauze quer zum Wolf %+.2f m" % b)
+		print("Biss %s %s → %s (%s): Winkel %+.1f°, Schnauze seitlich %+.2f m, im Bild %+.0f px, Abstand %.2f m, Schnauze–Zielmitte %.2f m, Schnauze quer zum Wolf %+.2f m; Ziel seit Bissbeginn %.2f m gewandert, Wolf %+.1f° gedreht, Drehung gegen Soll %+.1f°" % b)
 		sw += b[4]; ss += b[5]; sp += b[6]
 		if b[6] > 0: rechts += 1
 	var n := float(bisse.size())
