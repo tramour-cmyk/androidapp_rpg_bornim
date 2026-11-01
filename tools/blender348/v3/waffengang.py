@@ -17,7 +17,9 @@ os.makedirs(OUT, exist_ok=True)
 GAENGE = {
     'axt': ('2.HANDED', 'WalkForwardNormal2HandMelee', 'Sprint2HandMelee'),
     'einhand': ('1.HANDED', 'WalkForwardHold1hMelee', 'SprintHold1hMelee'),
-    'schild': ('SWORD.SHIELD', 'WalkForwardS&S', 'RunFastNormalS&S'),
+    # 417 Runde 5 (Chef 01.11., 20:4x: Schild „beim normalen Gehen … ganz einfach an der Seite tragen … so wie er steht“; WalkForwardS&S
+    # ist der Kampfgang, Schild vorn): das entspannte Gehen des Pakets, WalkNormal2S&S (0,79 m/s, Messung 2b; WalkNormal1 18 % ohne Boden)
+    'schild': ('SWORD.SHIELD', os.environ.get('SCHILD_GEHEN', 'WalkNormal2S&S'), 'RunFastNormalS&S'),
     'bogen': ('BOW.ARROW', 'WalkBow', 'RunFastBow'),
 }
 VERGLEICHEN = os.environ.get('VERGLEICH', '') == '1'   # Messung 2: alle Vorwaerts-Bewegungen je Paket dazu
