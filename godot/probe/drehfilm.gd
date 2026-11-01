@@ -223,7 +223,7 @@ func _paket(pfad: String) -> String:   # Paketordner „Universal Base Character
 func _bewegt(f: Node3D, namen: Array) -> AnimationPlayer:
 	var q := {}
 	for n in namen: if ual_ap.has_animation(n): q[n] = ual_ap.get_animation(n)
-	var ap := B.bewegung(f, q)
+	var ap := B.bewegung(f, q, B.skelett(ual))
 	if not namen.is_empty() and ap.has_animation(namen[0]): ap.play(namen[0])
 	return ap
 
@@ -271,6 +271,9 @@ func _pruefe() -> void:
 		var h := sk.find_bone("hand_r")
 		var weg := (sk.get_bone_global_pose(h).origin - sk.get_bone_global_rest(h).origin).length() if h >= 0 else -1.0
 		var netze := sk.get_children().filter(func(c): return c is MeshInstance3D).map(func(c): return "%s%s" % [c.name, "" if c.get_node_or_null(c.skeleton) == sk else "(lose)"])
+		var tief := INF   # Ballen über dem Boden: in Ruhe etwa 3 cm; deutlich darunter steht die Figur im Boden, darüber schwebt sie
+		for b in ["ball_l", "ball_r"]: if sk.find_bone(b) >= 0: tief = minf(tief, (sk.global_transform * sk.get_bone_global_pose(sk.find_bone(b))).origin.y - f.global_position.y)
+		print("FILM Ballen %s: %.1f cm über dem Boden (Ruhe %.1f cm)" % [r[3], tief * 100, (sk.global_transform * sk.get_bone_global_rest(sk.find_bone("ball_l"))).origin.y * 100 - f.global_position.y * 100])
 		print("FILM Feld %s: Feld %dx%d, unten %s %s, Scheitel %s %s; Hand %.0f cm aus der Ruhelage; %s" % [r[3], gr.x, gr.y,
 			str(fuss.round()), "drin" if drin.call(fuss) else "DRAUSSEN", str(kopf.round()), "drin" if drin.call(kopf) else "DRAUSSEN",
 			weg * 100, ", ".join(PackedStringArray(netze))])
