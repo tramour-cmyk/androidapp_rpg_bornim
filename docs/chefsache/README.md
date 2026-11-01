@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [447](entscheiden/447-meilensteine.md) | **Muss** | B Abläufe | 01.11. | Meilensteine neu: vier Stufen bis „marktreif“, drei danach | Sokrates |
 | [451](entscheiden/451-name-spielsystem.md) | **Muss** | D Design | 01.11. | Ein Name für unser Spielsystem | Sokrates |
 
 ## Zu billigen
@@ -148,10 +147,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 20, Muss 17, startbar 2
+**Perikles** – offen 21, Muss 18, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 447.1 | M | von Sokrates (Chef 01.11., 12:3x, „447 ja, mit K2b, aber nummeriere das Ganze doch neu und | startbar |
 | 457 | M | von Sokrates („jetzt“ 01.11., 11:49, Chef: „unsere Signatur muss sich wiederfinden. Warum | startbar |
 | 456.1 | M? | von Diogenes (Doppelpack 421, Lauf 54, 01.11., 11:4x): Befunde D55.1–5 zu 448.2 und 449 na | startbar |
 | 436 | M | von Sokrates („jetzt“ 31.10., 22:58): Sitzungsnamen mit Vorgang, Thema und Zeit für alle ( | wartet auf Test/Build (gebaut) |
@@ -184,11 +184,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 32, Muss 24, startbar 12
+**Sokrates** – offen 31, Muss 23, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 447 | M | von Chef (01.11., 09:51, „Was sind denn aktuell die Meilensteine? Habe ich die gebilligt?“ | Chef (Datei in der Chefsache) |
 | 451 | M | von Chef (01.11., 10:59, „müssen wir unser Spielsystem auch irgendeinen Namen geben … Bitt | Chef (Datei in der Chefsache) |
 | 452 | M | von Chef (01.11., 10:59, 11:00): ein gebündeltes Dokument; Notizen-Übersicht docs/README.m | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 427 | M | von Chef (31.10., 21:3x): Bestiarium LISTE-BESTIARIUM.md | wartet auf Jerry |
@@ -228,7 +227,7 @@ Format (Muster: „So geht's“ unten): t146-befunde.md: 8 Vorgänge, höchstens
 
 Nicht gestellt: 452 (Beratung), 348.12c (Beratung), 186.3 (Pruefung)
 
-Ohne Datei: 275 (Projekt), 455 (Team Tom)
+Ohne Datei: 448 (Projekt), 275 (Projekt), 455 (Team Tom)
 
 ## So geht's
 
