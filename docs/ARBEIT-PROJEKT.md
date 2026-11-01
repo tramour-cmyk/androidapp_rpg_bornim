@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 459.1 | M? | **von Diogenes (Doppelpack 421, Lauf 55, 01.11., 13:4x):** Befunde D56.1–4 zu 457, 447.1, 451.1, 458.1: Wächter erkennt nur das Wort, greift in ganz `chefsache/`; Roadmap, Prioritäten, Risiko und ausführlicher Stand noch auf altem Plan; kein Haken für veraltete `LISTE-GEGENSTAENDE.md`, Rezepte ohne Gold (`PRUEFBERICHT.md` Lauf 55) | startbar |
 | 457 | M | **von Sokrates („jetzt“ 01.11., 11:49, Chef: „unsere Signatur muss sich wiederfinden. Warum ist jetzt das wieder nicht drin … denkt doch bitte jetzt wieder vermehrt an die Signatur“):** Wächter gegen Vorlagen „ohne Toon/Tusche“; Probeskripte mit Spielshadern (457.1, 457.2) | gebaut 01.11., 13:4x: Commit-Prüfung und meldung.sh halten an; Diogenes prüft (459) |
 | 436 | M | **von Sokrates („jetzt“ 31.10., 22:58):** Sitzungsnamen mit Vorgang, Thema und Zeit für alle (Zu 436) | gebaut 01.11., 00:1x: Regel, Rollen, lauf.py (Zu 436); Ford benennt um; Diogenes prüft (443) |
 | 433 | M | **von Sokrates („jetzt“ 31.10., 22:1x, Zu 433):** unabhängige Zeilen von Tom und Jerry an Spike/Tuffy (394) verteilen, Ford startet | gebaut 31.10., 22:2x: lauf.py startet Spike/Tuffy auf unabhängige Muss-Zeile (Zu 433); Diogenes prüft (435) |
