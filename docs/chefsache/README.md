@@ -30,6 +30,7 @@ Nichts offen.
 | [453 r2](ansehen/453-wolf-ruhe.md) | Wölfe atmen ohne Pause, jeder im eigenen Takt | Jerry | 01.11., 15:40 |
 | [453.1](ansehen/4531-helden-atem.md) | Helden atmen ruhiger, jeder im eigenen Takt | Tuffy | 01.11., 14:19 |
 | [455.1](ansehen/4551-baukasten.md) | Baukasten: je ein Netz in drei Materialien × zwei Zeichen | Spike | 01.11., 17:01 |
+| [455.2](ansehen/4552-groessen.md) | Größen: Hügelvolk und Orkblütiger in Kette, Platte, Robe | Spike | 01.11., 17:25 |
 | [458.3](ansehen/4583-waffen.md) | Waffen der Bibliothek zur Wahl | Spike | 01.11., 17:05 |
 | [458.3](ansehen/4583-waffennetze.md) | Waffen aus dem Bestand: Auswahl je Gegenstand | – | 01.11. |
 
