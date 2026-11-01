@@ -26,7 +26,13 @@ var verbraucht := {}                   # Faehigkeit -> Anzahl (Hero.spent)
 static func lade() -> Dictionary:
 	if daten.is_empty() and FileAccess.file_exists("res://daten/held.json"):
 		var j = JSON.parse_string(FileAccess.get_file_as_string("res://daten/held.json"))
-		if j is Dictionary: daten = j
+		if j is Dictionary:
+			daten = j
+			# 458.2: Stufe und Preis der Grundformen nur aus dem Gegenstandskatalog, nicht aus der alten Fassung
+			for id in daten["grundformen"]:
+				if not Katalog.hat(String(id)): push_error("458.2: Grundform %s fehlt im Katalog" % id); continue
+				daten["grundformen"][id]["preis"] = Katalog.preis(String(id))
+				daten["grundformen"][id]["ab_stufe"] = Katalog.stufe(String(id))
 	return daten
 
 static func regel(k: String): return lade()["regeln"][k]

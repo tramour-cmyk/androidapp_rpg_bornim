@@ -5,7 +5,7 @@ name: Godot (Umzug 348)
 on:
   push:
     branches: ["claude/tom-348-**", "claude/jerry-348-**"]
-    paths: ["godot/**", "tools/blender348/**", "core/src/main/**", ".github/workflows/godot.yml"]
+    paths: ["godot/**", "tools/blender348/**", "tools/gegenstaende/**", "core/src/main/**", ".github/workflows/godot.yml"]
   workflow_dispatch:
 
 jobs:
@@ -26,6 +26,8 @@ jobs:
           ./gradlew -p core exportMaps -Pout=$GITHUB_WORKSPACE/godot/daten/karten.json -q
           ./gradlew -p core exportTexts -Pout=$GITHUB_WORKSPACE/godot/daten/texte.json -q
           ./gradlew -p core exportHero -Pout=$GITHUB_WORKSPACE/godot/daten/held.json -q
+          # 458.2: Stufe und Preis aller Gegenstaende nur aus dem Gegenstandskatalog (godot/skripte/katalog.gd)
+          cp tools/gegenstaende/gegenstaende.json godot/daten/
       # 348.12e gekaufte Modelle aus dem privaten Repo bornim-kaufmodelle (348.12c a), danach unter $KAUF;
       # nie hierher committen, nie als Artefakt; ohne Geheimnis KAUF_TOKEN baut alles ohne Kaufmodelle
       - name: Gekaufte Modelle (privat)

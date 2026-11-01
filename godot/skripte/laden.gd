@@ -4,7 +4,8 @@ extends RefCounted
 # (Traenke, Wurfzeug, Zutaten). Preise nach Charisma wie Perks (Jerrys regeln/talente.gd): kaufen voller Preis, verkaufen der halbe.
 # Die letzten fuenf Verkaeufe eines Besuchs lassen sich zum erzielten Preis zurueckkaufen (59.4), nicht gespeichert.
 # Ausruestung (Game.shopGear/buyGear/sellGear/sellAllCommon): Thessas Ware aus skripte/beute.gd, gewuerfelt wie im alten Spiel.
-# Daten aus texte.json (TextExport: dinge, rezepte, laden) und held.json. Gegenprobe: tests/laden_test.gd, tests/beute_golden.gd.
+# Daten aus texte.json (TextExport: dinge, rezepte, laden) und held.json; Preise nur aus dem Gegenstandskatalog (458.2, katalog.gd),
+# Einzelstuecke unverkaeuflich (458.2a). Gegenprobe: tests/laden_test.gd, tests/beute_golden.gd, tests/katalog_test.gd.
 
 const TALENTE := preload("res://regeln/talente.gd")
 # Ueberschriften wie ShopScreen.kt (dort ohne eigenen Namen)
@@ -36,7 +37,7 @@ static func ding(id: String) -> Dictionary:
 	return Sprache.texte.get("dinge", {}).get(id, {})
 
 static func name(id: String) -> String: return Sprache.t(ding(id).get("name", id))
-static func preis(id: String) -> int: return int(ding(id).get("preis", 0))
+static func preis(id: String) -> int: return Katalog.preis(id)
 static func verkaeuflich(id: String) -> bool: return String(ding(id).get("art", "")) != "KEY" and preis(id) > 0
 static func kaufpreis(hw: Heldwerte, id: String) -> int: return TALENTE.buy_price(hw, preis(id))
 static func verkaufspreis(hw: Heldwerte, id: String) -> int: return TALENTE.sell_price(hw, preis(id) / 2)
@@ -89,6 +90,8 @@ static func ware(z: Zustand, hw: Heldwerte) -> Array:
 
 static func kaufpreis_von(hw: Heldwerte, g: Dictionary) -> int: return TALENTE.buy_price(hw, Beute.preis(g))
 static func verkaufspreis_von(hw: Heldwerte, g: Dictionary) -> int: return TALENTE.sell_price(hw, maxi(1, Beute.preis(g) / 4))
+# 458.2a: Einzelstuecke haben im Katalog Preis 0 und bleiben beim Helden
+static func ausruestung_verkaeuflich(g: Dictionary) -> bool: return g.get("unique") == null or Katalog.verkaeuflich(String(g["unique"]))
 
 # Game.buyGear: in die Tasche, mit neuer Kennung
 func kaufe_ausruestung(z: Zustand, hw: Heldwerte, g: Dictionary) -> String:
@@ -105,6 +108,7 @@ func kaufe_ausruestung(z: Zustand, hw: Heldwerte, g: Dictionary) -> String:
 func verkaufe_ausruestung(z: Zustand, hw: Heldwerte, i: int) -> String:
 	if i < 0 or i >= z.beutel.size(): return Sprache.u("cannotSell")
 	var g: Dictionary = z.beutel[i]
+	if not ausruestung_verkaeuflich(g): return Sprache.u("cannotSell")
 	z.beutel.remove_at(i)
 	var p := verkaufspreis_von(hw, g)
 	z.gold += p
@@ -113,7 +117,7 @@ func verkaufe_ausruestung(z: Zustand, hw: Heldwerte, i: int) -> String:
 
 # Game.sellAllCommon: alles Gewoehnliche auf einmal; gibt die Zahl
 func verkaufe_gewoehnliches(z: Zustand, hw: Heldwerte) -> int:
-	var weg_ := z.beutel.filter(func(g): return String(g["rarity"]) == "COMMON")
+	var weg_ := z.beutel.filter(func(g): return String(g["rarity"]) == "COMMON" and ausruestung_verkaeuflich(g))
 	for g in weg_:
 		z.beutel.erase(g)
 		z.gold += verkaufspreis_von(hw, g)

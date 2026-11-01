@@ -607,11 +607,12 @@ func zeige_laden() -> void:
 	for id in verk:   # Tippen waehlt die Menge (59.5); in Klammern, wie viele er hat
 		k.append({"text": "%s (%d) · %s" % [Laden.name(String(id)), z.anzahl(String(id)), Sprache.u("price", [Laden.verkaufspreis(h, String(id))])],
 			"id": "verk:" + String(id)})
-	if not z.beutel.is_empty():
-		k.append({"kopf": "%s: %s (%d)" % [Sprache.u("sell"), Sprache.t(Laden.AUSRUESTUNG), z.beutel.size()]})
-		if z.beutel.any(func(g): return String(g["rarity"]) == "COMMON"): k.append({"text": Sprache.t(Laden.GEWOEHNLICHE), "id": "alle"})
+	# 458.2a: Einzelstuecke (Preis 0 im Katalog) erscheinen nicht, wie Handlungsgegenstaende
+	var reihe := range(z.beutel.size()).filter(func(i): return Laden.ausruestung_verkaeuflich(z.beutel[i]))
+	if not reihe.is_empty():
+		k.append({"kopf": "%s: %s (%d)" % [Sprache.u("sell"), Sprache.t(Laden.AUSRUESTUNG), reihe.size()]})
+		if reihe.any(func(i): return String(z.beutel[i]["rarity"]) == "COMMON"): k.append({"text": Sprache.t(Laden.GEWOEHNLICHE), "id": "alle"})
 		# Seltenes zuerst, dann nach Platz (ShopScreen: rarity absteigend, slot)
-		var reihe := range(z.beutel.size())
 		reihe.sort_custom(func(a, b):
 			var ga: Dictionary = z.beutel[a]
 			var gb: Dictionary = z.beutel[b]
