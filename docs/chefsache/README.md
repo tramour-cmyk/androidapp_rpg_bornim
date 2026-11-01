@@ -10,6 +10,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 |---|---|---|---|---|---|
 | [438a](entscheiden/438a-sturz-held.md) | **Muss** | E Kampf | 01.11., 09:50 | Hinfallen und Aufstehen des gekauften Helden | Jerry |
 | [444a](entscheiden/444a-simulator-main.md) | **Muss** | E Kampf | 01.11., 09:48 | Werkzeug der Simulation 2.0 ohne Gerätetest auf `main` | Tuffy (Team Jerry) |
+| [423](entscheiden/423-handbuch.md) | **Muss** | C Texte | 01.11. | Spielerhandbuch Spielsystem 2.0: Entwurf zum Lesen, drei Fragen | Homer |
 | [447](entscheiden/447-meilensteine.md) | **Muss** | B Abläufe | 01.11. | Meilensteine: eine Liste statt zwei | Sokrates |
 | [416.4a](entscheiden/416.4a-kaufzugang-tom.md) | – | B Umzug | 01.11., 03:10 | Kaufmodelle für Tom: add_repo wird abgelehnt | Ford |
 | [110](entscheiden/110-ford-von-hand-starten.md) | – | B Abläufe | 01.11., 00:10 | Ford bitte von Hand starten (Tiefe 6) | Ford |
@@ -48,12 +49,12 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 1, startbar 1
+**Homer** – offen 5, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 432 | K | von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt | nach dem Meilenstein |
-| 423 | M | von Sokrates (Chef 31.10., 21:2x: „irgendwer muss dann auch einfach eine Anleitung schreib | startbar |
+| 423 | M | von Sokrates (Chef 31.10., 21:2x: „irgendwer muss dann auch einfach eine Anleitung schreib | Chef (Datei in der Chefsache) |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
