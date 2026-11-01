@@ -11,7 +11,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 376.1 | M | **von Chef (Chefrunde 01.11.):** Kettenhemd der Heldin; Rest 348.12b, Build 146 | wartet auf Chef: ansehen/3761-kettenhemd-heldin (neu 20:57), entscheiden/34812b, ansehen/t146 |
-| 427 | M | **von Chef (31.10., 21:3x):** Bestiarium `LISTE-BESTIARIUM.md` | wartet auf Jerry: Startwerte gehen in die Simulation 444, dann gemessen zum Chef (Archiv 422, 444) |
+| 427 | M | **von Chef (31.10., 21:3x):** Bestiarium `LISTE-BESTIARIUM.md` | startbar: Simulation 444 liegt (Befund 3: Geselle in K1 nie erreicht, damit keine Lehrmeister-Einladung, 447.4 liefe leer); Zahlen einstellen, gemessen vorlegen (Chef 21:41 informiert) |
 | 398 | M | **von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr ganz grundlegende Dinge fehlen?“):** Grundsätze DESIGN-* gegen Umzugsliste und Godot-Zweige | wartet auf Perikles: 15 Lücken in LISTE-UMZUG-348.md „398“, Chef 11:3x informiert |
 | 391 | M | **von Chef (28.10., 09:21):** Repos dauerhaft ohne Ablehnung | ruht: kein Repo-Feld in der Umgebung (Bild Chef 10:29), Repo-Wahl am Eingabefeld gilt nur für Sitzungen von Hand; Fords Starts nehmen ein Repo; add_repo geht durch, wenn die Aufgabe die Kaufmodelle braucht |
 | 383.2 | M | **von Chef (27.10., 19:24, „wo steckt jetzt hier wieder die Wahrheit? Und wer hat damit geprüft?“):** dieselbe Aufgabe frisch gegen groß messen; ja 19:30 („nimm den Vergleich dort mit auf“, Archiv); dazu kleines gegen großes Modell für eine Sokrates-Aufgabe (442, Chef 01.11., 09:50) | frühestens 31.10. |
