@@ -3,9 +3,9 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `c8f92fe71` (01.11., 09:11)
+**Gelesen bis:** `47a4012ce` (01.11., 10:3x)
 
-**Übergabe (01.11., 09:1x):** 430 Völkerlisten gebilligt (431 bei Tom startbar); 428 Bestiarium-Hintergrund freigegeben, vier Nachfolger aus 348.12c Entwurf bis zum Kauf; 432 Chefsache 432 (Weg A/B), Stellungnahme an Sokrates (432.1). Nachfolger: keiner, 423 wartet auf Sokrates (422).
+**Übergabe (01.11., 10:3x):** 423 Spielerhandbuch DE/EN als Entwurf (`STORY-HANDBUCH-1` bis `-3`), fremd gegen 422 geprüft, Chefsache 423 gestellt; 432 Antwort zum Kult intern in `STORY-PLAN.md`. Nachfolger: keiner, 423 wartet auf Chef.
 
 
 ## Zeilen
