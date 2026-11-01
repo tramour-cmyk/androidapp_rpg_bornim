@@ -1,5 +1,7 @@
 # 458.3 · Waffen der Bibliothek zur Wahl · Spike · 01.11., 17:05
 
+[Film von 01.11., 17:03](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-1703-458.3-Spike.mp4) (eingetragen von meldung.sh, Spike)
+
 Film per Telegram (25 s, Hochformat, vier Seiten zu 4 × 5): alle 62 Waffen der drei Waffenpakete (Omie, Anker, Avramania; Schilde schon gewählt, 406) drehend, wie im Kampf gezeichnet (Toon, Tusche, Schatten), jede auf 1 m Länge gebracht, darunter Nummer, Paket, Name. Ablauf `spike-probe-4583.yml`, Lauf 41323928086, Zweig `claude/spike-458-3-waffen`.
 
 Für diese Gegenstände fehlt heute ein Netz im Spiel (`LISTE-NETZE.md`, 455.2); Kandidaten nach Nummer im Film:
