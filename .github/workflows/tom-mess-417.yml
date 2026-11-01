@@ -8,6 +8,10 @@ on:
     branches: ["claude/tom-417-**"]
     paths: ["tools/blender348/v3/griff417.py", "tools/blender348/v3/waffengang.py", "tools/blender348/v3/held_klassen.py", ".github/workflows/tom-mess-417.yml"]
   workflow_dispatch:
+    inputs:
+      nur_griff:
+        description: "nur griff417 (ja/nein)"
+        default: "nein"
 
 jobs:
   mess:
@@ -22,6 +26,7 @@ jobs:
           java-version: 17
       - uses: gradle/actions/setup-gradle@v4
       - name: Karten aus core
+        if: inputs.nur_griff != 'ja'
         run: ./gradlew -p core exportMaps -Pout=$GITHUB_WORKSPACE/godot/daten/karten.json -q
       - name: Gekaufte Modelle (privat)
         env:
@@ -58,6 +63,7 @@ jobs:
           [ -d ~/cc0/stylized-nature-megakit ] || PAKETE=stylized-nature-megakit bash tools/blender348/v3/cc0_laden.sh ~/cc0
           [ -d ~/cc0/fantasy-props-megakit ] || PAKETE=fantasy-props-megakit bash tools/blender348/v3/cc0_laden.sh ~/cc0
       - name: Waffengang (Pakete auf das UAL-Geruest)
+        if: inputs.nur_griff != 'ja'
         run: |
           Z=$(find $KAUF -path '*Unreal-Godot*' -name UAL1.glb | sort | head -1); [ -n "$Z" ] || Z=$(find ~/cc0 -name UAL1_Standard.glb | sort | head -1)
           echo "Ziel: ${Z#$KAUF/}"
@@ -65,6 +71,7 @@ jobs:
           grep -E "^(PAKET|FEHLT|GANG|KNOCHEN|  WAFFENKNOCHEN|PROP|MESS|HAND|WAFFENGANG)|^   |Traceback|Error" mess/waffengang.log | sed "s|$KAUF/||g" | cut -c1-500 | head -120
           cp $RUNNER_TEMP/gang/waffengang.json mess/ 2>/dev/null || true
       - name: Kaempfer mit Waffengang in bewegungen.glb
+        if: inputs.nur_griff != 'ja'
         run: |
           export OUT=$RUNNER_TEMP/out KARTEN=$GITHUB_WORKSPACE/godot/daten/karten.json
           for s in tex held3 rig; do
