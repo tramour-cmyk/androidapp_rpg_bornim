@@ -186,9 +186,10 @@ const ZWEI_HOECHST := 30.0
 # Lauf 41324326151: ganz durch beide Faeuste (Anteil 1) steht der Stiel steiler, das Ende in 11 von 15 Bildern zwischen den Beinen
 # (vorher 3). Anteil der Drehung zur linken Faust und Verschieben der Axt laengs des Schafts zur Spitze (m: die Faeuste fassen naeher am
 # Stielende), Fassungen in tests/tragen_pakete_417.gd. Lauf 41326853378: nur Anteil 1 mit 0,25 m ist frei (Rennen 0 von 15, Oberschenkel
-# 0,1 cm) und haelt die linke Faust am Schaft (0,6 cm); Anteil 0,5 liess sie 5,4 cm daneben, 0,15 m stiess 4,9 cm in den Oberschenkel
+# 0,1 cm) und haelt die linke Faust am Schaft (0,6 cm); Anteil 0,5 liess sie 5,4 cm daneben, 0,15 m stiess 4,9 cm in den Oberschenkel.
+# Lauf 41328184986: 0,30 m mit mehr Luft (Rennen 3,0 cm, Gehen 8,5 cm), darum 0,30
 var zwei_anteil := 1.0
-var zwei_schieben := 0.25
+var zwei_schieben := 0.30
 # Schwert mit Schild: im Rennen fuehrt die Bewegung die rechte Faust 5 cm durch den rechten Oberschenkel; der Oberarm geht dafuer
 # immer (auch im Gehen, damit beim Wechsel nichts springt) SCHILD_ABSPREIZ Grad nach aussen
 const SCHILD_ABSPREIZ := 9.0
