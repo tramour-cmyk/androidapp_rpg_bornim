@@ -572,7 +572,8 @@ def main():
         einmal("Tagesbericht %s" % heute, "TAGESBERICHT %s | Perikles | Perikles – 448: Tagesbericht %s | Perikles Tagesbericht (448)" % (heute, heute))
     # 448 (Chef 01.11., 11:09): fehlt der Bericht um 10 Uhr (Sa, So 12 Uhr), meldet Ford dem Chef laut eine Zeile und startet Perikles erneut
     if per_start(*((12, 0) if JETZT.weekday() >= 5 else (10, 0))) and not bericht_da and "Tagesbericht fehlt %s" % heute not in marke_text:
-        ausgabe.append("TAGESBERICHT-FEHLT %s: Tagesbericht um %s nicht da; Ford meldet laut „448: Tagesbericht fehlt, Perikles neu gestartet“" % (heute, JETZT.strftime("%H:%M")))
+        wie = "Perikles läuft noch, Ford erinnert ihn" if per_belegt else "Perikles neu gestartet"  # D55.5: kein „neu gestartet“ ohne Start
+        ausgabe.append("TAGESBERICHT-FEHLT %s: Tagesbericht um %s nicht da; Ford meldet laut „448: Tagesbericht fehlt, %s“" % (heute, JETZT.strftime("%H:%M"), wie))
         wochen.append("Tagesbericht fehlt %s" % heute)
         if "Tagesbericht %s" % heute in marke_text and not per_belegt:  # sonst startet ihn die Zeile oben schon
             ausgabe.append("TAGESBERICHT %s | Perikles | Perikles – 448: Tagesbericht %s | Perikles Tagesbericht (448), fehlte um 10 Uhr (Sa, So 12 Uhr)" % (heute, heute))
