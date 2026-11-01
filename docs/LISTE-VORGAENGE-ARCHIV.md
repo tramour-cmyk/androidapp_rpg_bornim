@@ -520,3 +520,5 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 455 | Ausrüstung am Modell als Baukasten (Netz × Material × Zeichen), nur sichtbare Plätze mit Netz (Chef 01.11., 11:15) | D Design | M | – | Sokrates | erledigt |
 | 444 | Rechensimulation Spielsystem 2.0 am Rechner (ohne Godot): Herkunft × Monsterart × Stufe 1–6, Zahlen aus einer Tabelle (Chef 01.11., 09:24) | E Kampf | M | 4,41 $ | Team Jerry | erledigt |
 | 456 | Prüfung im Doppelpack (421): 448.2 Tagesbericht-Werkzeug und Ford-Meldung, 449 Commit-Haken Kaufdateien, 450 Bildlinks | B Abläufe | M | – | Diogenes | erledigt |
+| 431a | Rückfrage: dritten Probelauf für 431 freigeben (Lauf 2 ohne Spiel-Look, Füße und Schulter falsch) | E Figuren | M | – | Team Tom | erledigt |
+| 447 | Meilensteine neu: Stufen K1–K4 bis marktreif, W1–W3 danach (Chef 01.11., 09:51, 10:46) | B Abläufe | M | – | Sokrates | erledigt |
