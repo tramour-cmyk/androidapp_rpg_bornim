@@ -2,7 +2,7 @@
 
 **Oberste Direktive (Chef 31.10., Archiv 418):** Kapitel 1 in der Godot-Fassung mit Spielsystem 2.0 fertigstellen: ohne technische Fehler, gut aussehend, nach unserer Signatur, düster, professionell und immersiv durch Klang, Musik, Kampfsystem und die Möglichkeiten des Spielers. Qualität vor Quantität und vor Eile; es gibt keinen Termin. Fertig ist, was die Abnahmeliste erfüllt. Geht jeder Kür und jedem Neuen vor.
 
-**Meilenstein „Kapitel 1 fertig“** = jeder Punkt der Abnahmeliste unten abgehakt; danach **„marktreif“** (338): Kapitel 1 öffentlich im Play Store (Block S). Was unter die Abnahmeliste fällt, ist Muss; Kapitel 2, Berufungen, Gruppenkämpfe, Dungeons erst danach. Abhaken darf nur, wer in der Zeile als Prüfer steht; „Chef“ heißt: erst nach seinem Wort. Liest Ford beim Start (Wochenziel); sonst nur bei Anlass.
+**Meilenstein „Kapitel 1 fertig“** = jeder Punkt der Abnahmeliste unten abgehakt; danach **„marktreif“** (338): Kapitel 1 öffentlich im Play Store (Block S). Was unter die Abnahmeliste fällt, ist Muss; Kapitel 2, Berufungen, Gruppenkämpfe, Dungeons erst danach. Abhaken darf nur, wer in der Zeile als Prüfer steht; „Chef“ heißt: erst nach seinem Wort. **Stand je Punkt** (448): ohne Marke offen; am Zeilenende „· Stand: in Arbeit“ oder „· Stand: gebaut“ (setzt Perikles nach den Vorräten); abgehakt = abgenommen; der Tagesbericht zählt danach (`tools/tagesbericht.py`). Liest Ford beim Start (Wochenziel); sonst nur bei Anlass.
 
 ## Abnahmeliste Kapitel 1 (418; abgenommen vom Chef 01.11., 09:43, Umfang A mit zwei Zusätzen, Archiv 418)
 
@@ -49,7 +49,7 @@ Zahlen in Klammern = Entscheidung in `DESIGN-SPIELSYSTEM-2-0.md` („E 7“) ode
 **S Store (danach, für „marktreif“)**
 - [ ] Store-Seite, Texte und Bilder (Homer, Sokrates); Impressum (Datenschutzseite online, 252); Gewerbeschein und Preis (142, 45); Repo privat (109); 12 Tester, geschlossener Test 14 Tage, Prüfung durch Google.
 
-## Stand zum Marktstart (338.1; Perikles: montags ganz, täglich neu; als Seite: [Dashboard](https://claude.ai/artifact/5gdqbHNUUpbBUU9sBo4i7t), 339)
+## Ausführlicher Stand (Zeile 10 des [Tagesberichts](ARBEIT-TAGESBERICHT.md); Perikles montags neu; ersetzt seit 448 den täglichen Stand zum Marktstart und das Dashboard)
 
 **Stand 01.11., 00:15: gelb. Seit 31.10. gilt deine neue oberste Direktive: kein Termin, fertig ist, was die Abnahmeliste oben erfüllt.** Die Liste liegt dir zur Abnahme vor (Chefsache 418); bis zu deinem Wort ampeln wir nach ihrem Entwurf, Block für Block. Das spielbare Godot-Spiel (Dorf und Waldkampf, 399) hast du am 31.10. gegen 20:40 mit Build 143 getestet; von deinen neun Befunden (416) ist einer abgenommen, vier sind gebaut, einer in Arbeit, drei offen (einer davon Kür). 15 neue Änderungen (Tom 7, Jerry 8) warten auf den nächsten gemeinsamen Build; höchstens 6 je Build (317), also mindestens drei Builds. Dazu 5 Punkte aus Build 143, die du noch abnimmst (Spielfassung, Innenräume, Klang, Dorf, Kampfort). Das alte Regelwerk ruht auf dein Wort („keine Energie mehr in das alte SRD-System“, 424); Spielsystem 2.0 ist als Nachschlagewerk beschrieben (Entscheidungen bis 75, Sokrates gleicht ab, 422; Diogenes liest quer, 441), gebaut wird es erst nach deinen Antworten zu den offenen Entwürfen (413a) und zum Umfang für Kapitel 1 (418). Kein Block ist rot; die meisten warten auf diese beiden Antworten.
 

@@ -63,20 +63,20 @@ for datei, anker in (("ARBEIT-TEAM-TOM.md", "## Einzelheiten"), ("ARBEIT-TEAM-JE
     pf = os.path.join(DOCS, datei)
     if os.path.exists(pf) and not any(z.startswith(anker) for z in lesen(pf).splitlines()):
         fund.append("%s: Überschrift „%s“ fehlt, Startbefehl in ROLLE-ENTWICKLUNG.md liest danach (347)" % (datei, anker))
-# Zielvereinbarung Perikles (341): Z1 Stand zum Marktstart höchstens 26 h alt (über einen Sonntag 50 h);
+# Zielvereinbarung Perikles (341): Z1 Tagesbericht (448) höchstens 26 h alt (über einen Sonntag 50 h);
 # Z2 jeder rote Block hat binnen 24 h eine Chefsache von Perikles mit „Block (x)“ in der Kurz-Zeile. Rot seit: „rot seit TT.MM., HH:MM“, sonst Zeit des Stands.
 def zeitpunkt(tt, mm, hh, mi):
     return time.mktime(time.strptime("2026-%s-%s %s:%s" % (mm, tt, hh, mi), "%Y-%m-%d %H:%M"))
 os.environ["TZ"] = "Europe/Berlin"; time.tzset()
 ab = lesen(os.path.join(DOCS, "LISTE-ABNAHME-KAPITEL1.md"))
-st = re.search(r"\*\*Stand (\d\d)\.(\d\d)\., (\d\d):(\d\d)", ab)
+st = re.search(r"\*\*Stand (\d\d)\.(\d\d)\., (\d\d):(\d\d)", lesen(os.path.join(DOCS, "ARBEIT-TAGESBERICHT.md")))  # 448: Tagesbericht statt Stand zum Marktstart
 if not st:
-    fund.append("LISTE-ABNAHME-KAPITEL1.md: kein „**Stand TT.MM., HH:MM“ im Stand zum Marktstart (341 Z1, Perikles)")
+    fund.append("ARBEIT-TAGESBERICHT.md: kein „**Stand TT.MM., HH:MM“ (341 Z1, 448; tools/tagesbericht.py, Perikles)")
 else:
     t0 = zeitpunkt(*st.groups()); jetzt = time.time()
     grenze = 50 if any(time.localtime(t0 + 3600 * h).tm_wday == 6 for h in range(0, int((jetzt - t0) / 3600) + 1)) else 26
     if jetzt - t0 > grenze * 3600:
-        fund.append("LISTE-ABNAHME-KAPITEL1.md: Stand zum Marktstart %d Stunden alt (höchstens %d, 341 Z1): Perikles setzt ihn neu" % ((jetzt - t0) / 3600, grenze))
+        fund.append("ARBEIT-TAGESBERICHT.md: Tagesbericht %d Stunden alt (höchstens %d, 341 Z1, 448): Perikles setzt ihn neu" % ((jetzt - t0) / 3600, grenze))
     teil = ab.split("**1. Stand gegen den Plan**")[-1].split("**2.")[0]
     for z in teil.splitlines():
         sp = [s.strip() for s in z.split("|")]
