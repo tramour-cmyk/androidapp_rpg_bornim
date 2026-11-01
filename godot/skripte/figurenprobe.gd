@@ -126,6 +126,11 @@ func _ready() -> void:
 		FileAccess.open(aus + "/probe.txt", FileAccess.WRITE).store_string("\n".join(protokoll) + "\n")
 		get_tree().quit()
 		return
+	if teil == "baukasten":   # 455.1 Probeblatt Baukasten: Netz x Material x Zeichen (baukastenprobe.gd)
+		await BaukastenProbe.new(self).blatt()
+		FileAccess.open(aus + "/probe.txt", FileAccess.WRITE).store_string("\n".join(protokoll) + "\n")
+		get_tree().quit()
+		return
 	lade_ual()
 	var ks: Array = REIHE + TRACHT + KOEPFE
 	if teil == "koepfe":   # Kopfblatt: alle q_k*.glb der Quelle (koepfe_lauf.sh)

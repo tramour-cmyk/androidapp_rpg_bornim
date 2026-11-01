@@ -27,6 +27,9 @@ uniform vec3 toenung = vec3(1.0);   // 376.1 Held: Haut und Haar getoent (heldfi
 uniform float toen_hell = 0.0;     // > 0: Helligkeit des Bildes am Zielton (Bildhelligkeit / toen_hell), sonst Faktor toenung
 uniform vec3 toen_bild = vec3(1.0); // 376.1 Haut (Chef 28.10., 23:0x „klinisch tot“): Bildfarbe am Zielton (linear); toen_farbe davon
 uniform float toen_farbe = 0.0;    // Anteil der eigenen Farbschwankung des Bildes (Wangen, Lippen roeter) um den Zielton
+// 455.1 Baukasten: Material im Bild (Alpha), kleiner Wert mit der Eckfarbe gewinnt: 1 matt, 0,8 Glimmen (Runen), 0,5 Kette, 0,1 Gold
+uniform float bild_code = 0.0;
+uniform float glimmen = 0.35;      // Runen: schwaches Leuchten in eigener Farbe
 uniform float teil = 0.0;          // nur zum Messen (held.gd --teilfarbe): Eisen gruen, Kette rot, Haut (rig.py TEILMASKE) blau, Rest schwarz
 varying vec3 wpos;
 varying float v_eisen;
@@ -67,7 +70,9 @@ void fragment() {
 #else
 	if (loch > 0.5 && !IN_SHADOW_PASS) discard;
 #endif
-	ALBEDO = texture(tex, UV).rgb * COLOR.rgb;
+	vec4 bild = texture(tex, UV);
+	ALBEDO = bild.rgb * COLOR.rgb;
+	float art = bild_code > 0.5 ? min(bild.a, COLOR.a) : COLOR.a;
 	if (toen_hell > 0.0) {   // 376.1: Zeichnung des Bildes, Farbe des Tons, dazu ein Teil der Farbschwankung des Bildes (toen_farbe)
 		float hl = dot(ALBEDO, vec3(0.2126, 0.7152, 0.0722));
 		vec3 rel = (ALBEDO / max(hl, 0.001)) / max(toen_bild / toen_hell, vec3(0.001));
@@ -80,13 +85,13 @@ void fragment() {
 		float w = mix(0.88, 0.62, sch);   // im Schatten breiter; Helfer Runde 9: schwarze Keile in den Naehten zwischen den Ballen -> schmaler, nur halb deckend
 		ALBEDO = mix(ALBEDO, ink, smoothstep(w, w + 0.1, rim) * smoothstep(0.2, 0.7, sch) * 0.6 * kontur);
 	}
-	v_eisen = metall * (1.0 - smoothstep(0.15, 0.35, COLOR.a));
-	v_kette = metall * smoothstep(0.15, 0.35, COLOR.a) * (1.0 - smoothstep(0.65, 0.85, COLOR.a));
+	v_eisen = metall * (1.0 - smoothstep(0.15, 0.35, art));
+	v_kette = metall * smoothstep(0.15, 0.35, art) * (1.0 - smoothstep(0.65, 0.75, art));
 	AO = mix(1.0, kette_umgebung, v_kette);
 	ROUGHNESS = 1.0;
 	SPECULAR = 0.0;      // kein Glanz aus der Umgebung (sonst Plastik)
 	METALLIC = 0.0;
-	EMISSION = glow_col * glow;
+	EMISSION = glow_col * glow + ALBEDO * glimmen * bild_code * smoothstep(0.72, 0.76, art) * (1.0 - smoothstep(0.86, 0.9, art));
 	v_hinten = (rueckseite > 1.5 && !FRONT_FACING) ? 1.0 : 0.0;
 	if (rueckseite > 0.5 && rueckseite < 1.5 && !FRONT_FACING) {
 		ALBEDO = vec3(0.0);
