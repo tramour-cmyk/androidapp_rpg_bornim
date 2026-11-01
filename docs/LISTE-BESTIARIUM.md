@@ -85,7 +85,7 @@ Nachfolger nach der Monsterwahl (348.12c, 26.10.): Wiedergänger statt Zombie, G
 
 ## Hintergrund (428)
 
-Entwurf Homer, 01.11.; gilt erst nach Freigabe durch den Chef (Chefsache 428), dann wortgetreu übernehmen. Je Art Herkunft und Wesen, ohne Plot zu verraten: Die Toten im Flüsterwald und Grimmzahns Augen bleiben ungeklärt (Roter Faden, offene Fäden). Marke `[428.…]`. Weil der Kauf noch aussteht (348.12c, „noch nicht“), stehen Zombie, Ghul, Blutflügler, Ockerschleim und ihre Nachfolger Wiedergänger, Grabhund, Riesenegel, Säureschnecke beide da; es gilt, was im Spiel ist.
+Homer, 01.11.; **freigegeben** (Chef 01.11., 09:11, „428 ja, wie Sokrates“) für alle Arten im Spiel, wortgetreu übernehmen; Wiedergänger, Grabhund, Riesenegel, Säureschnecke bleiben Entwurf, bis ihr Kauf entschieden ist. Sokrates gleicht beim Füllen der Werte (427) ab und meldet Widersprüche an Homer. Je Art Herkunft und Wesen, ohne Plot zu verraten: Die Toten im Flüsterwald und Grimmzahns Augen bleiben ungeklärt (Roter Faden, offene Fäden). Marke `[428.…]`. Weil der Kauf noch aussteht (348.12c, „noch nicht“), stehen Zombie, Ghul, Blutflügler, Ockerschleim und ihre Nachfolger Wiedergänger, Grabhund, Riesenegel, Säureschnecke beide da; es gilt, was im Spiel ist.
 
 **Tiere**
 
