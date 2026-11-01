@@ -1,8 +1,10 @@
-# 417 · Tragart Runde 5/6: Schild an der Seite, Axt mit beiden Fäusten · Tom · 01.11., 22:5x
+# 417 · Tragart Runde 5/6: Schild an der Seite, Axt mit beiden Fäusten · Tom · 01.11., 23:5x
 
 [Film von 01.11., 23:54](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-2354-417-Tom.mp4) (eingetragen von meldung.sh, Tom)
 
 [Film von 01.11., 22:53](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-2253-417-Tom.mp4) (eingetragen von meldung.sh, Tom)
+
+**Bitte den Film 23:54 beurteilen; 22:53 ist überholt.** Neu gegenüber 22:53 (Lauf 41356789633): Füße im Rennen am Boden statt schwebend (tiefster Ballen höchstens 4,0 cm statt 8,4–10,6; Stehen 1,5). Ursache: das Becken wurde im Verhältnis der Beckenhöhen im ersten Bild gesetzt, im Rennen 5–10 % zu hoch; jetzt nach der Beinlänge wie im Kampf (438a). Schild im Gehen: Schildarm 12 Grad nach außen, frei 6,3 cm (vorher 5 von 15 Bildern bis 5 cm im Körper; 8 Grad wäre knapp frei mit 3,9 cm). **Neu gemessen:** Schwert beim Rennen mit Schild in 1 von 15 Bildern 4,9 cm im rechten Oberschenkel (der tiefere Körper verschiebt die Lage); Behebung folgt.
 
 Film per Telegram (8,7 s, Raster 2 × 2), wie im Spiel gezeichnet, auf dem Grundstand 461 (`claude/grundstand-461`, 878b15f9f); Ablauf `tom-probe-417.yml`, Lauf 41350556171; noch kein Build. Oben links Kriegsaxt, oben rechts Schwert, unten links Schwert und Schild, unten rechts Bogen; je erst Gehen, dann Rennen. Gehen im Film mit dem Vorschlag 1,5 m/s (heute im Spiel 2,13; Runde 4 „schnelles Staxen“).
 
