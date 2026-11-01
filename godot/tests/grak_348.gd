@@ -10,7 +10,7 @@
 extends SceneTree
 
 const Probe = preload("res://kampf/probe.gd")
-const GLEIT := 0.12      # so weit darf das Tempo am Boden vom Tempo des Wurzelwegs abweichen (Anteil)
+const GLEIT := 0.12      # so weit darf der Weg am Boden vom Weg der gespielten Schritte abweichen (Anteil)
 const RAND_MIN := 0.0     # m: so tief liegt die Axt beim Aufschlag mindestens im Rand des Helden …
 const RAND_MAX := 0.3     # … und höchstens (sonst schlägt sie durch den Helden hindurch)
 
@@ -84,12 +84,15 @@ func _all() -> void:
 			if nm != "Gehen":
 				falsch += 1
 				continue
+			# 348.12 Lauf 175 (Platzwechsel 0,9 m: 26 % „gleiten“): seit 438 fährt der Rumpf an und bremst (_lauf, RAMPE_S) und die
+			# Schritte folgen ihm (_schritt_sync, speed_scale); der Vergleich mit dem vollen Tempo zählte die Rampe als Gleiten. Jetzt
+			# Weg am Boden gegen den Weg, den die gespielten Schritte in diesem Bild machen (Tempo des Wurzelwegs mal speed_scale)
 			var s: Array = strecke.get(nm, [0.0, 0.0])
-			strecke[nm] = [s[0] + v.length(), s[1] + dt]
+			strecke[nm] = [s[0] + v.length(), s[1] + grak._mps(nm) * grak.anim.speed_scale * dt / 1000.0]
 		for nm in strecke:
-			gleit = maxf(gleit, absf(strecke[nm][0] / maxf(strecke[nm][1] / 1000.0, 0.001) / grak._mps(nm) - 1.0))
+			gleit = maxf(gleit, absf(strecke[nm][0] / maxf(strecke[nm][1], 0.001) - 1.0))
 		_gut(bilder > 3 and falsch == 0, "Platzwechsel %.1f m: %d Bilder unterwegs, %d ohne Gehen" % [ziel.distance_to(h0) if ziel != h0 else 0.0, bilder, falsch])
-		_gut(gleit < GLEIT or bilder <= 3, "Platzwechsel: Tempo am Boden weicht höchstens %.0f %% vom Wurzelweg ab" % (gleit * 100.0))
+		_gut(gleit < GLEIT or bilder <= 3, "Platzwechsel: Weg am Boden weicht höchstens %.0f %% vom Weg der Schritte ab" % (gleit * 100.0))
 		_gut(grak.position.distance_to(ziel) < 0.05, "Platzwechsel: am Ziel (%.2f m daneben)" % grak.position.distance_to(ziel))
 	# ---- Hieb aus zwei Entfernungen: Axt beim Aufschlag im Rand des Helden
 	for weit in [0.0, 1.5]:
