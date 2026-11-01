@@ -510,3 +510,5 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 443a | Rückfrage: gilt die Namensform 436 auch für Ford (D52.3)? | B Abläufe | M | – | Diogenes | erledigt |
 | 445 | Alle offenen Chefsachen mit Lösung zum stärksten Gegenargument neu bewerten (Chef 01.11., 09:32) | B Abläufe | M | – | Sokrates | erledigt |
 | 413b | Rückfrage: Leitbild „baut auf SRD 5.1 auf“ und CLAUDE.md „Kotlin, Jetpack Compose“ nachziehen? | D Design | M | – | Sokrates | erledigt |
+| 418.1 | Abnahmeliste nach Entscheid 418 nachziehen: Umfang A mit Datenfeldern und je Herkunft einer Handlung (Chef 01.11., 09:43) | B Abläufe | M | – | Perikles | erledigt |
+| 446 | Wächter Lizenzhinweis SRD: `regelcheck` meldet, solange SRD-Abgeleitetes im Spiel ist; Hinweis fällt erst bei leerer Inventur (Chef 01.11., 09:41, 413a) | B Werkzeuge | M | – | Perikles | erledigt |
