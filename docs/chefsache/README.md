@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [438a](entscheiden/438a-sturz-held.md) | **Muss** | E Kampf | 01.11., 09:50 | Hinfallen und Aufstehen des gekauften Helden | Jerry |
 | [423](entscheiden/423-handbuch.md) | **Muss** | C Texte | 01.11. | Spielerhandbuch Spielsystem 2.0: Entwurf zum Lesen, drei Fragen | Homer |
 | [447](entscheiden/447-meilensteine.md) | **Muss** | B Abläufe | 01.11. | Meilensteine neu: vier Stufen bis „marktreif“, drei danach | Sokrates |
 | [451](entscheiden/451-name-spielsystem.md) | **Muss** | D Design | 01.11. | Ein Name für unser Spielsystem | Sokrates |
@@ -91,14 +90,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 46, Muss 33, startbar 6
+**Jerry** – offen 46, Muss 33, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Wölfe gleiten (Angriff, Tempo, aneinander vor | wartet auf Test/Build (gebaut) |
 | 453 | M | von Sokrates (Chef 01.11., 11:05): Wölfe brauchen Ruhebewegungen: atmen, scharren, umblick | in Arbeit bei Tuffy |
 | 454 | M | von Sokrates (Chef 01.11., 11:05): beim Biss zielt die Achse des Wolfs wohl rechts neben d | startbar |
-| 438a | M | Rückfrage: Hinfallen und Aufstehen des Kaufhelden, woher (Chefsache entscheiden/438a) | Chef (Datei in der Chefsache) |
+| 438a | M | von Sokrates (Chef 01.11., 11:47, „nicht beurteilen, wenn ich es nicht gesehen habe … Viel | startbar |
 | 439 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Reihenfolge Angriff, Treffer, Tod, Neuformati | wartet auf Test/Build (gebaut) |
 | 440 | M | von Sokrates (Chef 31.10., 23:34, Film 403): Wolf-Tod zu schnell weg (Zu 438) | wartet auf Test/Build (gebaut) |
 | 444 | M | von Sokrates (Chef 01.11., 09:24, „Ja, so machen wir es“): Rechensimulation Spielsystem 2. | wartet auf Test/Build (gebaut) |
