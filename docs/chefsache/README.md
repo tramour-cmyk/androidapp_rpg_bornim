@@ -9,6 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [348.12b](entscheiden/34812b-film-lauf.md) | **Muss** | E Kampf | 01.11. | Grak schreitet: noch ein Lauf für den Film? | Jerry |
+| [376.1](entscheiden/3761-kettenhemd-heldin.md) | **Muss** | E Figuren | 01.11. | Kettenhemd der Heldin: so lassen, nachbessern oder Ritterin Platte? | Sokrates (Frage aus Spikes Blatt 376.1, in Git vor 40abb488a) |
 
 ## Zu billigen
 
@@ -51,7 +52,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 45, Muss 34, startbar 5
+**Tom** – offen 45, Muss 34, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -67,7 +68,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 399.4 | M | von Chef (21:4x, Archiv); zurück Chef 31.10., 20:4x: oben Rand für die Kamera wie alt: im | wartet auf Test (Build) |
 | 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf | wartet auf Test (Build) |
 | 410 | M | von Sokrates (Chef 29.10., 10:52, 11:40; aus 376.1): Waffen am Körper wegstecken, alle Waf | ruht |
-| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | startbar |
+| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | Chef (Datei in der Chefsache) |
 | 455.1 | M | von Sokrates (Chef 01.11., 11:24, „Abzug von … unterschiedlichen Roben, Umhängen oder Stie | wartet auf Tom |
 | 463 | M | von Sokrates (Chef 01.11., 20:3x: „der Umhang wieder überall durchschimmert und die Knie b | startbar |
 | 461.1 | M | von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461): Grundstand: alles Entschiedene zu Figure | in Arbeit bei Spike |
@@ -196,10 +197,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 28, Muss 20, startbar 10
+**Sokrates** – offen 29, Muss 21, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 376.1 | M | von Chef (Chefrunde 01.11.): Kettenhemd der Heldin; Rest 417, 455.2, 348.12b, Build 146 | Chef (Datei in der Chefsache) |
 | 427 | M | von Chef (31.10., 21:3x): Bestiarium LISTE-BESTIARIUM.md | wartet auf Jerry |
 | 398 | M | von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr g | wartet auf Perikles |
 | 391 | M | von Chef (28.10., 09:21): Repos dauerhaft ohne Ablehnung | ruht |
