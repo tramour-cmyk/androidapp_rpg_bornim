@@ -130,7 +130,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 406 | Ausrüstung der Helden je Stück als eigenes Modell mit Abnahme, „noch steril“ (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe); zuerst Rundschild des Klerikers hell mit goldener Sonne wie alt | E Kampf | M | 40,19 $ | Team Jerry | startbar |
 | 407 | Probelauf-Grenze 389 greift nicht: neue Runde erst nach Urteil des Chefs, jeder Zweig zählt („jetzt“ 29.10., 10:05) | B Abläufe | M | – | Perikles | gebaut |
 | 410 | Waffen am Körper wegstecken, alle Waffenarten (aus 376.1, Chef 29.10., 10:52, 11:40) | E Figuren | M | – | Team Tom | ruht |
-| 413 | Spielsystem 2.0: Entwurf `DESIGN-SPIELSYSTEM-2-0.md`, Auseinandersetzung, Meilensteine (Chef 31.10., 20:1x) | D Design | M | 1,17 $ | Sokrates | Chef |
+| 413 | Spielsystem 2.0: Entwurf `DESIGN-SPIELSYSTEM-2-0.md`, Auseinandersetzung, Meilensteine (Chef 31.10., 20:1x) | D Design | M | 1,17 $ | Sokrates | erledigt |
 | 415 | Handyprobe Beams-Free-Sample (aus 414, Chef 31.10., 20:3x) | C Kampf | K | 1,17 $ | Team Jerry | frei |
 | 416.1 | Tasten reagieren schlecht (Charaktererstellung, überall; Build 143, Chef 31.10., 20:4x) | B Umzug | M | – | Team Tom | zu testen |
 | 416.2 | Platzwechsel mit Dorfbewohnern und Tieren, nicht stecken bleiben (Chef 31.10., 20:4x) | B Umzug | M | – | Team Tom | zu testen |
@@ -157,6 +157,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 443a | Rückfrage: gilt die Namensform 436 auch für Ford (D52.3)? | B Abläufe | M | – | Diogenes | Chef |
 | 444 | Rechensimulation Spielsystem 2.0 am Rechner (ohne Godot): Herkunft × Monsterart × Stufe 1–6, Zahlen aus einer Tabelle (Chef 01.11., 09:24) | E Kampf | M | – | Team Jerry | in Arbeit |
 | 445 | Alle offenen Chefsachen mit Lösung zum stärksten Gegenargument neu bewerten (Chef 01.11., 09:32) | B Abläufe | M | – | Sokrates | erledigt |
+| 446 | Wächter Lizenzhinweis SRD: `regelcheck` meldet, solange SRD-Abgeleitetes im Spiel ist; Hinweis fällt erst bei leerer Inventur (Chef 01.11., 09:41, 413a) | B Werkzeuge | M | – | Perikles | startbar |
 | 416.7 | Aktionsknopf am Tresen in Schenke und Laden (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | zu testen |
 | 416.8 | NPC dreht sich zum Helden, nach etwa 10 s Leerlauf (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | zu testen |
 | 416.9 | Laden Verkaufen: Reiter bei „angelegt“, Vergleichswerte, nicht tragbare Gegenstände, Icon bei Menge (aus 416.3, Chef 31.10., 22:20) | B Umzug | M | 5,26 $ | Team Tom | zu testen |
