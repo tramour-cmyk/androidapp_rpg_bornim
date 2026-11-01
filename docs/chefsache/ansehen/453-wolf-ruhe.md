@@ -1,5 +1,7 @@
 # 453 r3b · Wölfe atmen deutlicher, jeder im eigenen Takt · Tuffy · 02.11., 00:33
 
+[Film von 02.11., 00:33](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/02-0033-453-Tuffy.mp4) (eingetragen von meldung.sh, Tuffy)
+
 Film 34 s am Rechner (Lauf 156, `claude/grundstand-461`), Kampfort mit dem gekauften Wolf, mit Signatur (Toon, Tusche nach Licht, Schatten), noch kein Build. Links mit Atemschicht, rechts dasselbe ohne (gleiche Würfel): 8 s Ruhe aus der Kampfkamera, 10 s nah am Rudel, 16 s Kampf. Ersetzt den Film r3 von 23:03.
 
 - **Ursache, warum man in r3 kaum Atmen sah** (Prüfer 23:2x: Rücken 0,3–0,5 px): kein Bildfehler, am Rechner nachgestellt; die Schicht kam im Bild an, war aber zu klein. Der Rücken hob sich 15 mm auf kurzer Strecke (aus der Kampfkamera 2 px), der Bauch ging gar nicht mit.
