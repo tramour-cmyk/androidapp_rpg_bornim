@@ -22,7 +22,6 @@ Nichts offen.
 | [417](ansehen/417-tragart.md) | Tragart je Waffe, Runde 5 | – | 01.11., 16:02 |
 | [431](ansehen/431-voelker.md) | Völker, Runde 3: Grundkörper je Volk im Spiel-Look | – | 01.11. |
 | [438a](ansehen/438a-sturz-sichtung.md) | Hinfallen und Aufstehen des Helden: Sichtung aus dem Bestand | Jerry | 01.11., 14:20 |
-| [453 r2](ansehen/453-wolf-ruhe.md) | Wölfe atmen ohne Pause, jeder im eigenen Takt | Jerry | 01.11., 15:40 |
 | [453.1](ansehen/4531-helden-atem.md) | Helden atmen ruhiger, jeder im eigenen Takt | Tuffy | 01.11., 14:19 |
 | [455.1](ansehen/4551-baukasten.md) | Baukasten: je ein Netz in drei Materialien × zwei Zeichen | Spike | 01.11., 17:01 |
 | [455.2](ansehen/4552-groessen.md) | Größen: Hügelvolk und Orkblütiger in Kette, Platte, Robe | Spike | 01.11., 17:25 |
@@ -103,7 +102,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 48, Muss 35, startbar 5
+**Jerry** – offen 48, Muss 35, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -111,7 +110,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 458.2 | M | von Sokrates (Chef 01.11., 13:1x, Archiv 458): Gegenstandskatalog: Werte, Preise, Beute je | startbar |
 | 457.2 | M | von Perikles (Chef 01.11., 11:49, „unsere Signatur muss sich wiederfinden“): eigene Probes | wartet auf Test/Build (gebaut) |
 | 453.1 | M | von Sokrates (Chef 01.11., 13:0x): Helden im Kampf atmen gleich und zu heftig („hechelt“): | wartet auf Test/Build (gebaut) |
-| 453 | M | von Sokrates (Chef 01.11., 11:05): Wölfe brauchen Ruhebewegungen: atmen, scharren, umblick | Chef |
+| 453 | M | von Sokrates (Chef 01.11., 11:05): Wölfe brauchen Ruhebewegungen: atmen, scharren, umblick | startbar |
 | 454 | M | von Sokrates (Chef 01.11., 11:05): beim Biss zielt die Achse des Wolfs wohl rechts neben d | wartet auf Test/Build (gebaut) |
 | 438a | M | von Sokrates (Chef 01.11., 11:47, „nicht beurteilen, wenn ich es nicht gesehen habe … Viel | Chef |
 | 439 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Reihenfolge Angriff, Treffer, Tod, Neuformati | wartet auf Test/Build (gebaut) |
