@@ -538,3 +538,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 447.3 | Schätzung je Stufe, Bereich Jerry; Stufe 3 in Simulation 444 (447) | B Abläufe | M | 5,89 $ | Team Jerry | erledigt |
 | 447.5 | Abgleich Abnahmeliste 3.1 (erste Prüfung je Pfad) mit E 79 (447) | D Design | M | – | Sokrates | erledigt |
 | 457 | Signatur in jeder Probe: Wächter für Vorlagen ohne Toon/Tusche, Probeskripte mit Spielshadern (Chef 01.11., 11:49) | B Abläufe | M | – | Perikles | erledigt |
+| 447.2 | Schätzung je Stufe, Bereich Tom (447) | B Abläufe | M | – | Team Tom | erledigt |
