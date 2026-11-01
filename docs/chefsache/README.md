@@ -14,6 +14,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [423](entscheiden/423-handbuch.md) | **Muss** | C Texte | 01.11. | Spielerhandbuch Spielsystem 2.0: Entwurf zum Lesen, drei Fragen | Homer |
 | [447](entscheiden/447-meilensteine.md) | **Muss** | B Abläufe | 01.11. | Meilensteine neu: vier Stufen bis „marktreif“, drei danach | Sokrates |
 | [448](entscheiden/448-tagesbericht.md) | **Muss** | B Abläufe | 01.11. | Tagesbericht mit Zahlen statt Ampeln | Sokrates |
+| [451](entscheiden/451-name-spielsystem.md) | **Muss** | D Design | 01.11. | Ein Name für unser Spielsystem | Sokrates |
 | [416.4a](entscheiden/416.4a-kaufzugang-tom.md) | – | B Umzug | 01.11., 03:10 | Kaufmodelle für Tom: add_repo wird abgelehnt | Ford |
 
 ## Zu billigen
@@ -157,10 +158,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 18, Muss 16, startbar 0
+**Perikles** – offen 19, Muss 17, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 448.1 | M | von Sokrates (Chef 01.11., 10:59, 11:01; „jetzt“ 01.11., 10:59): erster Tagesbericht (Dash | startbar |
 | 436 | M | von Sokrates („jetzt“ 31.10., 22:58): Sitzungsnamen mit Vorgang, Thema und Zeit für alle ( | wartet auf Test/Build (gebaut) |
 | 433 | M | von Sokrates („jetzt“ 31.10., 22:1x, Zu 433): unabhängige Zeilen von Tom und Jerry an Spik | wartet auf Test/Build (gebaut) |
 | 424 | M | von Sokrates („jetzt“ 31.10., 21:3x, Chef: „keine Energie mehr in das alte SRD-System stec | wartet auf Test/Build (gebaut) |
@@ -191,12 +193,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 31, Muss 23, startbar 10
+**Sokrates** – offen 33, Muss 25, startbar 11
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 447 | M | von Chef (01.11., 09:51, „Was sind denn aktuell die Meilensteine? Habe ich die gebilligt?“ | Chef (Datei in der Chefsache) |
 | 448 | M | von Chef (01.11., 10:46, „einen täglichen Bericht … der sinnvolle Werte enthält?“; 10:50 „ | Chef (Datei in der Chefsache) |
+| 451 | M | von Chef (01.11., 10:59, „müssen wir unser Spielsystem auch irgendeinen Namen geben … Bitt | Chef (Datei in der Chefsache) |
+| 452 | M | von Chef (01.11., 10:59, 11:00): ein gebündeltes Dokument; Notizen-Übersicht docs/README.m | startbar |
 | 427 | M | von Chef (31.10., 21:3x): Bestiarium LISTE-BESTIARIUM.md | wartet auf Jerry |
 | 398 | M | von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr g | wartet auf Perikles |
 | 391 | M | von Chef (28.10., 09:21): Repos dauerhaft ohne Ablehnung | ruht |
