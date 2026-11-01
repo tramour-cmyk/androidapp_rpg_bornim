@@ -7,6 +7,10 @@ on:
     branches: ["claude/tom-348-**", "claude/jerry-348-**"]   # 461.1: Grundstand nur von Hand (wie godot-kampf.yml)
     paths: ["godot/**", "tools/blender348/**", "core/src/main/**", ".github/workflows/godot.yml"]
   workflow_dispatch:
+    inputs:
+      kampf:
+        description: "Kampfort-Filme Grundstand (Jerry 453 r3, 453.1 Vergleich): ja"
+        default: ""
 
 jobs:
   apk:
@@ -330,7 +334,50 @@ jobs:
           grep -E "SCRIPT ERROR|^DORF461 (Held|fertig|.*stoesst)" $GITHUB_WORKSPACE/bilder/grundstand/dorf461.log | cut -c1-400 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/dorf461.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $GITHUB_WORKSPACE/bilder/grundstand/dorf461.mp4 || true
           ls -l $GITHUB_WORKSPACE/bilder/grundstand
+      # 453 r3 und 453.1 (Jerry; Chef 01.11., 19:5x: „453 r2 passt … aber die Helden sehe jetzt wieder ‚doof‘ aus. Waren wir da nicht
+      # schon weiter???“): Wölfe r3 mit und ohne Atemschicht; Helden im Kampf (film_403, gleiche Würfel) in fünf Fassungen, je ein
+      # Kandidat seit Film 403 an: Atemschicht (ATEM_ALT), Schwert-und-Schild-Bewegungen (OHNE_SS), Signatur (OHNE_SIGNATUR).
+      # Nur von Hand mit kampf=ja; läuft auch nach rotem Prüfschritt (wolf_mess_438)
+      - name: Kampfort-Filme Grundstand (453 r3, 453.1; nur von Hand mit kampf=ja)
+        if: ${{ !cancelled() && github.event.inputs.kampf != '' }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/kampf461; mkdir -p $B
+          cd godot
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
+          sudo apt-get install -y -qq libgl1-mesa-dri xvfb fonts-dejavu-core ffmpeg > /dev/null || true     # ffprobe für die Längen
+          film() { n=$1; sk=$2; shift 2
+            env SEED=7 "$@" timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+              --write-movie $RUNNER_TEMP/$n.avi --fixed-fps 30 -s res://tests/$sk.gd > $B/$n.log 2>&1 || true
+            grep -E "SCRIPT ERROR|^Film|^Signatur|OHNE" $B/$n.log | head -8 || true
+            ffmpeg -loglevel error -y -i $RUNNER_TEMP/$n.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/$n.mp4 || true; }
+          dauer() { ffprobe -v error -show_entries format=duration -of csv=p=0 $1 2>/dev/null || echo 0; }
+          F=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf
+          titel() { echo "scale=$2:-2,drawtext=fontfile=$F:text='$1':fontsize=$3:fontcolor=white:box=1:boxcolor=black@0.6:x=(w-tw)/2:y=8"; }
+          # 453 r3: Wölfe atmen (Schicht) neben ohne Schicht
+          film wolf453-r3 film_453
+          film wolf453-ohne film_453 ATEM_ALT=1
+          L=$(for v in wolf453-r3 wolf453-ohne; do dauer $B/$v.mp4; done | sort -n | tail -1)
+          ffmpeg -loglevel error -y -i $B/wolf453-r3.mp4 -i $B/wolf453-ohne.mp4 -filter_complex \
+            "[0]$(titel 'r3 Atemschicht' 540 30),tpad=stop_mode=clone:stop_duration=60[a];[1]$(titel 'ohne Atemschicht' 540 30),tpad=stop_mode=clone:stop_duration=60[b];[a][b]hstack=inputs=2,trim=duration=$L" \
+            -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $B/453-r3-film.mp4 || true
+          # 453.1: Helden wie Film 403 gegen heute, je ein Kandidat einzeln
+          film held-wie403 film_403 ATEM_ALT=1 OHNE_SS=1 OHNE_SIGNATUR=1
+          film held-heute film_403
+          film held-atem film_403 OHNE_SS=1 OHNE_SIGNATUR=1
+          film held-ss film_403 ATEM_ALT=1 OHNE_SIGNATUR=1
+          film held-signatur film_403 ATEM_ALT=1 OHNE_SS=1
+          V="held-wie403 held-heute held-atem held-ss held-signatur"
+          L=$(for v in $V; do dauer $B/$v.mp4; done | sort -n | tail -1)
+          i=0; FC=""; IN=""
+          for v in $V; do
+            case $v in held-wie403) t="1 wie Film 403";; held-heute) t="2 heute";; held-atem) t="3 nur Atem neu";; held-ss) t="4 nur SS neu";; *) t="5 nur Signatur neu";; esac
+            IN="$IN -i $B/$v.mp4"; FC="$FC[$i]$(titel "$t" 360 22),tpad=stop_mode=clone:stop_duration=90,trim=duration=$L,setpts=PTS-STARTPTS[v$i];"; i=$((i+1)); done
+          ffmpeg -loglevel error -y $IN -f lavfi -i color=c=black:s=360x780:d=$L -filter_complex \
+            "${FC}[v0][v1][v2][v3][v4][5]xstack=inputs=6:layout=0_0|w0_0|w0+w1_0|0_h0|w0_h0|w0+w1_h0" -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $B/4531-helden-vergleich.mp4 || true
+          ls -l $B
       - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}     # 453: Filme auch nach rotem Prüfschritt
         with:
           name: bornim-godot-bilder
           path: bilder/
