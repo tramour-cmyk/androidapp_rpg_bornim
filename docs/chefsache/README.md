@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [348.12a](entscheiden/34812a-dritter-lauf.md) | **Muss** | E Kampf | 01.11. | Grak schreitet: dritten Probelauf freigeben? | Jerry |
 | [458.2a](entscheiden/4582a-stufe-preis.md) | – | G Balance | 01.11., 14:24 | Stufe und Preis im Gegenstandskatalog: woher die ersten Zahlen? | Jerry |
 | [447.4a](entscheiden/4474a-lehrmeister-k1.md) | – | – | 01.11. | Wer in Bornim Lehrmeister ist | Homer |
 
@@ -110,7 +111,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 48, Muss 35, startbar 4
+**Jerry** – offen 48, Muss 35, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -134,7 +135,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 401 | M | von Chef über Sokrates (Archiv): Tierlaute, mind. 3 je Tier | wartet auf Test (Build) |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | wartet auf Test/Build (gebaut) |
-| 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | startbar |
+| 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | Chef |
 | 385.2 | M | von Chef (Archiv 385.1): Feuer aus dem Stab | startbar |
 | 348.13a | M | von Team Tom (Chef 08:09, Archiv: r9 ja): Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13 | wartet auf Test/Build (gebaut) |
 | 397 | M | von Chef: Tiere, Monster mind. drei Ruhebewegungen | ruht |
