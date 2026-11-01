@@ -25,7 +25,6 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [376.1](ansehen/3761-heldin.md) | Heldin: Frauentrachten der Bibliothek | Tom | 01.11., 10:50 |
-| [403](ansehen/403-kampfheld.md) | Held im Kampfort wie im Dorf | Jerry | 31.10., 22:45 |
 | [416.4](ansehen/4164-rennen-ab.md) | Rennen: Fassungen A und B (Ergänzung zu [Toms Vorlage](4164-rennen.md)) | – | 01.11. |
 | [416.4](ansehen/4164-rennen.md) | Rennen ohne „Hochsprung“: drei Fassungen | Tom | 01.11., 10:30 |
 | [416.9](ansehen/4169-laden.md) | Laden: alle Plätze bei „Angelegt“, nicht Tragbares, Vergleich, Bild bei Menge | – | 01.11., 00:23 |
