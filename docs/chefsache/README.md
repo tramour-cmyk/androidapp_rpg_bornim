@@ -21,7 +21,6 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [417](ansehen/417-tragart.md) | Tragart je Waffe, Runde 5 | – | 01.11., 16:02 |
 | [455.2](ansehen/4552-groessen.md) | Größen: Hügelvolk und Orkblütiger in Kette, Platte, Robe | Spike | 01.11., 17:25 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
@@ -52,12 +51,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 45, Muss 34, startbar 4
+**Tom** – offen 45, Muss 34, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | startbar |
-| 417 | M | von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“): Tragart je Waffenklasse (Zu 417), | Chef |
+| 417 | M | von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“): Tragart je Waffenklasse (Zu 417), | startbar |
 | 425 | M | von Sokrates (Chef 31.10., 21:30, Build 143): Menüs (Menü „System“, Testmenü): in der alte | wartet auf Test/Build (gebaut) |
 | 416.9 | M | von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“): Laden, Verkaufen, „angelegt“ mit | wartet auf Test/Build (gebaut) |
 | 416.7 | M | von Sokrates (Chef 31.10., 20:5x, für den nächsten Build): am Tresen in Schenke und Laden | wartet auf Test (Build) |
