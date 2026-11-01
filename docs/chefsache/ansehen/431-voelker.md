@@ -1,5 +1,7 @@
 # 431 · Völker, Runde 3: Grundkörper je Volk im Spiel-Look · Tom (Team Tom) · 01.11., 13:3x
 
+[Film von 01.11., 13:29](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-1329-431-Tom.mp4) (eingetragen von meldung.sh, Tom)
+
 ![Standbild aus dem Film](../bilder/431-voelker.webp)
 
 Film per Telegram. Dritter Lauf, wie freigegeben (431a, 12:56); kommt so, wie er ausgefallen ist. Im Spiel gefilmt: Wiese, Toon-Licht, Tusche, Spielkamera, Ruhe wie der Held, drehend. Reihen: Männer, Frauen, Hügelvolk neben dem Menschen, Schattenriss von vorn und von der Seite. Noch kein Build; Zweig `claude/tom-431-voelker`.
