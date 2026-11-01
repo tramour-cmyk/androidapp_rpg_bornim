@@ -1,23 +1,23 @@
-# 431 · Völker Runde 3: Grundkörper je Volk im Spiel-Look · Spike · 01.11., 13:4x
+# 431 · Völker, Runde 3: Grundkörper je Volk im Spiel-Look · Tom (Team Tom) · 01.11., 13:3x
 
-Film per Telegram (23 s, Hochformat), noch kein Build. Dritter Lauf nach 431a (Chef 01.11., 12:56), Ablauf `tom-probe-431.yml`, Lauf 41305507692; die gekauften Dateien bleiben dort.
+[Film von 01.11., 13:29](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-1329-431-Tom.mp4) (eingetragen von meldung.sh, Tom)
 
-- **Was du siehst:** je Volk Mann und Frau auf der Wiese im Spiel (Toon-Licht, Tusche, Spielkamera), drehend in der Ruhebewegung des Helden; Reihen Männer, Frauen, dann Hügelvolk neben Mensch und Goblin, zuletzt Schattenriss der Männer von vorn und von der Seite. Zahlen und Ziel stehen im Bild.
-- **Grundkörper** wie entschieden (01.11., 11:42): Ork auf Superheld, die übrigen auf Regulär. Aschgeborene fehlen (Bau nach dem Meilenstein, Archiv 432).
-- **Zahlen gegen Homer (430), Mann:**
+![Standbild aus dem Film](../bilder/431-voelker.webp)
 
-| Volk | Größe Ziel/ist | Kopf Ziel/ist | Bein Ziel/ist | Schulter gegen Mensch Ziel/ist |
-|---|---|---|---|---|
-| Mensch | 1,75 / 1,75 | – / 1/7,8 | – / 0,54 | 1,00 |
-| Elf | 1,72 / 1,72 | 1/8 / 1/8,05 | 0,56 / 0,558 | 0,90 (anteilig) / 0,89 |
-| Zwerg | 1,35 / 1,35 | 1/5 / 1/4,97 | 0,36 / 0,362 | 1,05 / 1,06 |
-| Hügelvolk | 1,05 / 1,05 | 1/6 / 1/6,02 | 0,49 / 0,496 | 1,00 (anteilig) / 1,01 |
-| Orkblütiger | 1,85 / 1,85 | wie Mensch / 1/7,67 | – / 0,545 | 1,20 / 1,20 |
+Film per Telegram. Dritter Lauf, wie freigegeben (431a, 12:56); kommt so, wie er ausgefallen ist. Im Spiel gefilmt: Wiese, Toon-Licht, Tusche, Spielkamera, Ruhe wie der Held, drehend. Reihen: Männer, Frauen, Hügelvolk neben dem Menschen, Schattenriss von vorn und von der Seite. Noch kein Build; Zweig `claude/tom-431-voelker`.
 
-- Frauen gleich gebaut, 7 % kleiner (Mensch 1,63, Elf 1,60, Zwerg 1,26, Hügelvolk 0,98, Ork 1,72 m); Abweichung von den Zielanteilen überall unter 1 %.
-- **Bestand geprüft:** Grundkörper und Ruhebewegung genommen; Elfenohren und Hauer fehlen im Bestand (Suche im Ablauf fand nur Speere). Nächster Schritt nach 408: frei im Netz, dann Kaufvorschlag.
-- Nicht Teil dieser Probe: Haare, Kleidung, Haltung je Volk (Homer Punkt 5 nur über die Ruhebewegung des Helden, noch nicht je Volk).
+Nach deinem Wort von 11:42 (Ork auf Superheld, die übrigen auf Regulär):
 
-**Frage: passen die Körper je Volk so, oder was soll sich ändern?**
-**Vorschlag Spike:** so übernehmen; als Nächstes Ohren und Hauer nach 408 suchen und Haltung je Volk.
-**Stärkstes Gegenargument:** die Zahlen treffen Homers Ziel, sagen aber nichts über die Wirkung; gestreckte Knochen können im Bild gezerrt aussehen (vor allem Zwerg und Hügelvolk mit Kopf 1/5 und 1/6). Das urteilt nur der Chef am Film.
+| Volk | Mann | Frau | Kopf : Körper |
+|---|---|---|---|
+| Mensch | 1,75 m | 1,63 m | 1 : 7,8 |
+| Elf | 1,72 m | 1,60 m | 1 : 8,1 |
+| Zwerg | 1,35 m | 1,26 m | 1 : 5,0 |
+| Hügelvolk | 1,05 m | 0,98 m | 1 : 6,0 |
+| Orkblütiger | 1,85 m | 1,72 m | 1 : 7,7 |
+
+Schultern gegen den Menschen: Elf 0,88, Zwerg 1,06, Hügelvolk 0,61, Ork 1,20. Aschgeborene sind nicht im Film (kein eigener Körperbau gebaut, Regulär wie der Mensch); Zwerg auf beiden Körpern kommt im Größenfilm 455.2.
+
+Gegen Homers Ziel (430): Größe, Kopfanteil, Beinanteil (Elf 0,56, Zwerg 0,36, Hügelvolk 0,49) und Schulter je unter 1 % daneben (Hügelvolk-Schulter anteilig zur Größe 1,01). **Bestand geprüft:** Elfenohren und Hauer fehlen (Suche im Ablauf fand nur Speere); nächster Schritt nach 408 frei im Netz, dann Kaufvorschlag. (Spike, 13:4x; derselbe Film kam von Spike ein zweites Mal per Telegram.)
+
+**Zu sagen:** „431 passt“ oder je Volk, was anders sein soll.
