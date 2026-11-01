@@ -21,6 +21,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [416.4](ansehen/4164-uebergaenge.md) | Weiche Übergänge Stehen, Gehen, Rennen | – | 01.11. |
 | [431](ansehen/431-voelker.md) | Völker, Runde 3: Grundkörper je Volk im Spiel-Look | – | 01.11. |
 | [438a](ansehen/438a-sturz-sichtung.md) | Hinfallen und Aufstehen des Helden: Sichtung aus dem Bestand | Jerry | 01.11., 14:20 |
 | [453.1](ansehen/4531-helden-atem.md) | Helden atmen ruhiger, jeder im eigenen Takt | Tuffy | 01.11., 14:19 |
@@ -229,6 +230,8 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 Format (Muster: „So geht's“ unten): t146-befunde.md: 8 Vorgänge, höchstens 6 je Build (317)
 
 Nicht gestellt: 186.3 (Pruefung)
+
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/4164-uebergaenge.md
 
 Ohne Datei: 275 (Projekt)
 
