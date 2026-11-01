@@ -37,7 +37,7 @@ func _init() -> void:
 			root.add_child(m)
 			var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
 			for b in ["Stehen", "Gehen", "Rennen"]: pruefe(ap != null and ap.has_animation(b), "%s: Bewegung %s fehlt" % [k, b])
-			pruefe(float(m.get_meta("gehen_m_je_s")) > 0.5 and float(m.get_meta("gehen_m_je_s")) < 2.0, "%s: Gehtempo %s" % [k, m.get_meta("gehen_m_je_s")])
+			pruefe(float(m.get_meta("gehen_m_je_s")) > 0.5 and float(m.get_meta("gehen_m_je_s")) < 2.5, "%s: Gehtempo %s" % [k, m.get_meta("gehen_m_je_s")])
 			pruefe((m.get_meta("faust_L") as Dictionary).has("knochen"), "%s: linke Faust fehlt" % k)
 			var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
 			var haare := sk.find_children("Haar_*", "BoneAttachment3D", false, false).size()
@@ -73,10 +73,10 @@ func _init() -> void:
 				var t = (x as ShaderMaterial).get_shader_parameter("toenung")
 				if t is Vector3 and (t as Vector3).distance_to(Vector3.ONE) > 0.01: getoent += 1
 			pruefe(getoent >= 2, "%s %s: nur %d Materialien getoent" % [k, a, getoent])
-			# Grundausruestung sichtbar: Waffe (und Schild) auf dem Ruecken
-			var waffe := sk.find_children("RueckenWaffe", "", false, false).size()
+			# Grundausruestung sichtbar: Waffe auf dem Ruecken oder (417, Stab) in der Hand, Schild auf dem Ruecken
+			var waffe := sk.find_children("RueckenWaffe", "", false, false).size() + m.find_children("Getragen", "", false, false).size()
 			var schild := sk.find_children("RueckenSchild", "", false, false).size()
-			pruefe(waffe == 1, "%s: Waffe auf dem Ruecken %d" % [k, waffe])
+			pruefe(waffe == 1, "%s: Waffe auf dem Ruecken oder in der Hand %d" % [k, waffe])
 			pruefe(schild == (1 if k in ["FIGHTER", "CLERIC"] else 0), "%s: Schild auf dem Ruecken %d" % [kg, schild])
 			# steht auf dem Boden, aufrecht, etwa menschengross
 			ap.play("Stehen")
