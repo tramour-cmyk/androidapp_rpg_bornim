@@ -493,7 +493,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 421 | Regel: was Perikles an Regeln und Abläufen ändert, prüft Diogenes („im Doppelpack“, Chef 31.10., 21:2x) | B Abläufe | M | 3,43 $ | Perikles | erledigt |
 | 426 | Design-Grundsatz Icons statt Text in Menüs (zu 425, Chef 31.10., 21:30) | D Design | M | – | Homer | erledigt |
 | 429 | Prüfung im Doppelpack (421): 424 Umzugsliste und Wächter `startbar.py`, 412 Regel in `CLAUDE.md` | B Abläufe | M | 3,32 $ | Diogenes | erledigt |
-| 416.3 | Anschlagbrett und Laden bildschirmfüllend, Design wie alt (Chef 31.10., 20:4x) | B Umzug | M | – | Team Tom | erledigt |
+| 416.3 | Anschlagbrett und Laden bildschirmfüllend, Design wie alt (Chef 31.10., 20:4x) | B Umzug | M | 0,15 $ | Team Tom | erledigt |
 | 435 | Prüfung im Doppelpack (421): 433 Start von Spike und Tuffy in `lauf.py` und `startbar.py` | B Abläufe | M | 1,09 $ | Diogenes | erledigt |
 | 437 | Keine Bilder auf Telegram von aktuellen Vorgängen (Chef 31.10., 23:12), Regel in CLAUDE.md „Melden“ | B Abläufe | M | 27,96 $ | Perikles | erledigt |
 | 443 | Prüfung im Doppelpack (421): 436 Namensform in CLAUDE.md, Rollendateien und `lauf.py` (Nummer vor „:“) | B Abläufe | M | 2,68 $ | Diogenes | erledigt |
