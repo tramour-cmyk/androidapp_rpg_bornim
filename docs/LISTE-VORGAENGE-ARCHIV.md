@@ -496,5 +496,5 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 416.3 | Anschlagbrett und Laden bildschirmfüllend, Design wie alt (Chef 31.10., 20:4x) | B Umzug | M | – | Team Tom | erledigt |
 | 435 | Prüfung im Doppelpack (421): 433 Start von Spike und Tuffy in `lauf.py` und `startbar.py` | B Abläufe | M | 1,09 $ | Diogenes | erledigt |
 | 437 | Keine Bilder auf Telegram von aktuellen Vorgängen (Chef 31.10., 23:12), Regel in CLAUDE.md „Melden“ | B Abläufe | M | 27,96 $ | Perikles | erledigt |
-| 443 | Prüfung im Doppelpack (421): 436 Namensform in CLAUDE.md, Rollendateien und `lauf.py` (Nummer vor „:“) | B Abläufe | M | 1,94 $ | Diogenes | erledigt |
+| 443 | Prüfung im Doppelpack (421): 436 Namensform in CLAUDE.md, Rollendateien und `lauf.py` (Nummer vor „:“) | B Abläufe | M | 2,68 $ | Diogenes | erledigt |
 | 443.1 | Nachprüfung D52.1, D52.2 (Datum im Titel, Namen in Rollendateien) | B Abläufe | M | – | Diogenes | erledigt |
