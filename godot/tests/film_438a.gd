@@ -12,6 +12,7 @@ extends SceneTree
 const Probe = preload("res://kampf/probe.gd")
 const HeldFigur = preload("res://skripte/heldfigur.gd")
 const Gebiet = preload("res://skripte/gebiet.gd")
+const Signatur = preload("res://kampf/signatur.gd")
 
 # Bewegungen aus den Protofactor-Sätzen (Datei = Name)
 const PROTO := ["GetHitHeavyFrontSS", "DeathBackSS", "DeathFrontSS", "GetBackUpBackSS", "GetBackUpFrontSS", "DeathBack1hMelee",
@@ -92,6 +93,8 @@ func _run() -> void:
 	cam.frustum_offset = Vector2(kf.base_off.x + (c.x - vs.x / 2.0) * per, kf.base_off.y - (c.y - vs.y / 2.0) * per)
 	kf.base_size = cam.size
 	kf.base_off = cam.frustum_offset
+	if not Signatur.wache(kf, self, "Film 438a"):     # 457.2: Toon-Licht, Tusche nach Licht, Schatten wie im Spiel
+		return
 	var cl := CanvasLayer.new()
 	root.add_child(cl)
 	lb = _label(cl, Vector2(vs.x * 0.04, vs.y * 0.03), int(vs.x / 17.0), Color(0.95, 0.82, 0.45))
