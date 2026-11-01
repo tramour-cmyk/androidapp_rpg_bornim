@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (01.11., 20:4x, `session_01Hmoj788UEt1EncKDVd6Bom`):** Chefrunde 01.11.: entschieden und archiviert 376.1, 403-Folgen, 406, 406.1, 416.4, 416.9, 417 (Runden 2–4, aufrecht), 423, 425, 431, 438–440, 438a, 438c, 447 (Stufen 1–6), 447.4a, 447.5, 451 (BRS, Markenrecherche), 453, 453.1, 454, 455, 455.1, 458, 458.2a, 458.3, 348.12a, 348.12c (fünf Pakete gekauft, Bestand), 415 jetzt; neu 460 Kamerafahrten, 461 Grundstand (`LISTE-GRUNDSTAND-461.md`), 463 Umhang/Robe, 464 rote Läufe; Leitung 13:30–19:40. Kosten auf: 452, 376.1, 406, 416.4, 417, 431, 438a, 447, 451, 453, 455, 458, 461. Nachfolger: Sokrates – Chefrunde: Rest 417, 455.2, Build 146, Kettenhemd Heldin
+**Übergabe (01.11., 23:0x, `session_01Hmoj76QsunrED5XX8aLN95`):** Chefrunde 20:4x–22:58: entschieden und archiviert 417 Runde 5, 455.2, 376.1 Kettenhemd B, 348.12b, 348.12 Grak schreitet, 461b, 461c (17 Widersprüche, 13 markiert), 461d; Vorentscheid (Chef 22:58 „Chef im Ring“) 461a, 461d einsortieren, 348.12k (`chefsache/billigen/`); neu 465 (Perikles), 466 (Homer), 467 (Jerry); Idee Vorspann Goldstück in `LISTE-IDEEN.md`; Chef testet 146. Offen beim Chef: billigen 461a, 461d, 348.12k; 348.12b Körper; 348.12j (Jerry); 447.4 (Votum im Chat 21:0x: passt, Wechsel als Anwärter ohne Abschlag, Englisch neutral). Kosten auf: 417, 455.2, 376.1, 348.12, 461, 447.4, 427, 465, 466, 467. Nachfolger: Sokrates – Chefrunde: Billigen 461a, 461d, 348.12k; 447.4; 427 Zahlen
 
 ## Zeilen
 
