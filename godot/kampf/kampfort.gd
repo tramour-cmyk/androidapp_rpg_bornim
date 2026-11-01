@@ -509,14 +509,36 @@ func _rand_kamera() -> void:
 	for fig in figures.values():
 		if not fig.visible or fig.dead_at >= 0:
 			continue
+		# 438 (wolf_mess_438: Wolf 1 lief nach dem Fehlbiss an den Rand, die Linse kam erst nach): wer unterwegs ist, zählt
+		# auch an den Ecken seiner Bahn, so geht die Linse schon zurück, bevor er ankommt
+		var vers: Array = [Vector3.ZERO]
+		if fig.unterwegs():
+			for bp in fig.bahn:
+				vers.append(Vector3(bp.x - fig.position.x, 0.0, bp.z - fig.position.z))
 		for k in fig.kapseln():
-			for q in [k[0], k[1]]:
-				var s0: Vector2 = c + (screen_of(q) - c) / rand_z     # wo der Punkt ohne Rückzug läge
-				var d: Vector2 = s0 - c
-				if absf(d.x) > 1.0:
-					need = minf(need, (c.x - m) / absf(d.x))
-				if absf(d.y) > 1.0:
-					need = minf(need, (c.y - m) / absf(d.y))
+			for v in vers:
+				for q0 in [k[0], k[1]]:
+					var q: Vector3 = q0 + v
+					var s0: Vector2 = c + (screen_of(q) - c) / rand_z     # wo der Punkt ohne Rückzug läge
+					var d: Vector2 = s0 - c
+					# 438 (wolf_mess_438, Lauf 153: Wolf 1 bis 56 px draußen): mit der Dicke der Kapsel, nicht nur ihrer Achse
+					var r0: float = k[2] / m_per_dp(q) * (sr.size.x / 412.0) / rand_z
+					if absf(d.x) > 1.0:
+						need = minf(need, (c.x - m) / (absf(d.x) + r0))
+					if absf(d.y) > 1.0:
+						need = minf(need, (c.y - m) / (absf(d.y) + r0))
+		# 438 (wolf_mess_438: Wolf 1 drehte am Rand auf der Stelle, der Kopf schwang 45 px hinaus): wer gerade läuft oder dreht,
+		# zählt mit dem ganzen Kreis, den sein Körper beim Drehen überstreicht
+		if fig.tween and fig.tween.is_running():
+			var rr := 0.0
+			for k in fig.kapseln():
+				for q0 in [k[0], k[1]]:
+					rr = maxf(rr, Vector2(q0.x - fig.position.x, q0.z - fig.position.z).length() + k[2])
+			for v in vers:
+				for dv in [Vector3(rr, 0, 0), Vector3(-rr, 0, 0), Vector3(0, 0, rr), Vector3(0, 0, -rr)]:
+					var d2: Vector2 = (screen_of(fig.position + v + dv) - c) / rand_z
+					if absf(d2.x) > 1.0:
+						need = minf(need, (c.x - m) / absf(d2.x))
 	need = clampf(need, 0.8, 1.0)
 	rand_z = lerpf(rand_z, need, RAND_RAUS if need < rand_z else RAND_REIN)
 	if absf(rand_z - 1.0) < 0.001:
