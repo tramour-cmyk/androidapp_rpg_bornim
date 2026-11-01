@@ -104,6 +104,9 @@ func standbilder(axt := false, pakete := false) -> void:
 				var vb: float = m.get_meta("gang_gehen_m_je_s" if b0 == "Gehen" else "gang_rennen_m_je_s", v)
 				v = SPIEL_GEHEN if b0 == "Gehen" else SPIEL_RENNEN
 				zeit = v / maxf(0.01, vb)
+				if vb < 0.01:   # Lauf 41305428768: Tempo 0 (nicht gemessen), die Bewegung lief 400-fach
+					fp.protokoll.append("FILM FEHLER %s %s: Tempo ohne Gleiten fehlt" % [e[1], bew]); print(fp.protokoll[-1])
+					zeit = 1.0
 			w.rotation.y = 0.0
 			var n := maxi(8, int(round(lang / zeit * FPS)))
 			for f in 3 * n:
@@ -145,7 +148,7 @@ func standbilder(axt := false, pakete := false) -> void:
 			if e.size() > 4:
 				var vb: float = m.get_meta("gang_gehen_m_je_s" if b0 == "Gehen" else "gang_rennen_m_je_s", v)
 				v = SPIEL_GEHEN if b0 == "Gehen" else SPIEL_RENNEN
-				zeit = v / maxf(0.01, vb)
+				zeit = v / maxf(0.01, vb) if vb >= 0.01 else 1.0
 			for f in int(round(maxf(2.0 * lang / zeit, 2.5) * FPS)):
 				ap.pause()   # erst anhalten, dann springen (umgekehrt wirkt seek nicht, die Figur stand)
 				ap.seek(fmod(f / FPS * zeit, lang), true)

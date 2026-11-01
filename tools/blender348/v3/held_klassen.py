@@ -347,7 +347,8 @@ BEWEGUNGEN = [('Stehen', 'Idle_Loop'), ('Gehen', 'Walk_Loop'), ('Rennen', 'Jog_F
               ('Stehen_3', 'Idle_Tired_Loop'), ('Sitzen', 'Sitting_Idle_Loop'), ('Gesten', 'Idle_Talking_Loop')]
 
 
-def schritt_tempo(arm, a):
+def schritt_tempo(arm, a, fuesse=('foot_l', 'foot_r'), toleranz=0.02):
+    # 417 Runde 4 (Lauf 41305428768: SprintHold1hMelee 0 m/s, der Knoechel lag nie zwei Bilder in 2 cm): Paketbewegungen am Ballen, 3 cm
     # wie figurenprobe.gd schritt_tempo: der Standfuss gleitet auf der Stelle mit dem Tempo zurueck, mit dem der Koerper vorankaeme;
     # je Fuss die Rueckwaertsgeschwindigkeit in den Bildern hoechstens 2 cm ueber seinem Tiefstand, Median (Blick -Y)
     arm.animation_data_create(); arm.animation_data.action = a
@@ -355,7 +356,7 @@ def schritt_tempo(arm, a):
     f0, f1 = int(a.frame_range[0]), int(a.frame_range[1])
     fps = bpy.context.scene.render.fps / bpy.context.scene.render.fps_base
     vs = []
-    for fu in ('foot_l', 'foot_r'):
+    for fu in fuesse:
         d, h = [], []
         for fr in range(f0, f1 + 1):
             bpy.context.scene.frame_set(fr)
@@ -363,7 +364,7 @@ def schritt_tempo(arm, a):
             d.append(-p.y); h.append(p.z)
         tief = min(h)
         for j in range(len(d) - 1):
-            if h[j] < tief + 0.02 and h[j + 1] < tief + 0.02: vs.append((d[j] - d[j + 1]) * fps)
+            if h[j] < tief + toleranz and h[j + 1] < tief + toleranz: vs.append((d[j] - d[j + 1]) * fps)
     vs.sort()
     return round(max(vs[len(vs) // 2], 0.0), 3) if vs else 0.0
 
@@ -393,7 +394,7 @@ def bewegungen():
         print('GANG', n, 'aufgenommen' if neu else 'FEHLT')
     tempo = {n: schritt_tempo(arm, bpy.data.actions[n]) for n in ('Gehen', 'Rennen') if n in bpy.data.actions}
     for a in bpy.data.actions:
-        if a.name.startswith(('Gehen_', 'Rennen_')): tempo[a.name] = schritt_tempo(arm, a)
+        if a.name.startswith(('Gehen_', 'Rennen_')): tempo[a.name] = schritt_tempo(arm, a, ('ball_l', 'ball_r'), 0.03)
     if arm.animation_data: arm.animation_data.action = None
     bpy.ops.object.select_all(action='DESELECT'); arm.select_set(True)
     bpy.ops.export_scene.gltf(filepath=os.path.join(ZIEL, 'bewegungen.glb'), export_format='GLB', use_selection=True, export_animations=True,
