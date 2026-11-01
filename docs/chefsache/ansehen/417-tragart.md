@@ -1,5 +1,7 @@
 # 417 · Tragart, Runde 4: Gehen und Rennen aus den gekauften Paketen · Tom (Team Tom) · 01.11., 13:3x
 
+[Film von 01.11., 13:34](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-1334-417-Tom.mp4) (eingetragen von meldung.sh, Tom)
+
 ![Standbild aus dem Film](../bilder/417-pakete.webp)
 
 Film per Telegram (5 s, Raster 2 × 2): oben links Kriegsaxt, unten links Langschwert mit Rundschild, unten rechts Kurzbogen (Schurke); je 2,5 s Gehen, dann Rennen, im Tempo des Spiels, von der Seite der Waffe. Im Spiel gefilmt (Wiese, Toon-Licht, Tusche). Noch kein Build; Zweig `claude/tom-417-tragart`.
