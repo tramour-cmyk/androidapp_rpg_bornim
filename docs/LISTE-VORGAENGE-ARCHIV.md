@@ -512,3 +512,5 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 413b | Rückfrage: Leitbild „baut auf SRD 5.1 auf“ und CLAUDE.md „Kotlin, Jetpack Compose“ nachziehen? | D Design | M | – | Sokrates | erledigt |
 | 418.1 | Abnahmeliste nach Entscheid 418 nachziehen: Umfang A mit Datenfeldern und je Herkunft einer Handlung (Chef 01.11., 09:43) | B Abläufe | M | – | Perikles | erledigt |
 | 446 | Wächter Lizenzhinweis SRD: `regelcheck` meldet, solange SRD-Abgeleitetes im Spiel ist; Hinweis fällt erst bei leerer Inventur (Chef 01.11., 09:41, 413a) | B Werkzeuge | M | 2,86 $ | Perikles | erledigt |
+| 449 | Commit-Haken weist gekaufte Rohdateien ab (aus 416.4a, 01.11.) | B Werkzeuge | M | – | Perikles | erledigt |
+| 450 | Jedes Blatt in der Chefsache mit Link auf Bild und Film; `meldung.sh` trägt ihn selbst ein (Chef 01.11., 10:55) | B Werkzeuge | M | – | Perikles | erledigt |
