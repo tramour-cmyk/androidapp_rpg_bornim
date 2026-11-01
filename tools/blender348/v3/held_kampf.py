@@ -124,7 +124,10 @@ for name in ['Ruhelage'] + EIGEN:
 SS = ['IdleCombat', 'BlockLight', 'BlockMedium1', 'BlockMedium2', 'BlockHeavy1', 'BlockHeavy2', 'ParryHigh1', 'ParryHigh2', 'ParryLow',
       'ParryLeft', 'ParryRight', 'ShieldAttack1', 'ShieldAttack2', 'ShieldAttack3', 'GetHitLightFront', 'GetHitHeavyFront',
       'GetHitLightLeft', 'GetHitLightRight', 'WalkForward', 'RunForward', 'WalkBackwards', 'SwordAttack1', 'SwordAttack2',
-      'SwordAttack3']
+      'SwordAttack3', 'DeathBack', 'GetBackUpBack']
+# 438a (Chef 01.11., 20:1x, Archiv 438a: Hinfallen 1, Aufstehen 1 aus dem Paket der Waffe): schwerer Treffer, rücklings hinfallen
+# (DeathBack, ohne Tod) und aus der Rückenlage aufstehen; Aufstehen beginnt liegend, darum RUHE = erstes Bild von DeathBack (stehend)
+SS_RUHE = {'GetBackUpBack': 'DeathBack'}
 # Handdrall pruefen: Knoechel von Zeige- und Kleinfinger mit (ein verdrehter Schild faellt sonst erst im Bild auf)
 PRUEF_SS = PRUEF + ['index_01_l', 'pinky_01_l', 'index_01_r', 'pinky_01_r']
 KAUF = os.environ.get('KAUF', '')
@@ -148,6 +151,8 @@ if ss_datei('IdleCombat'):
         if not src: print('FEHLT SS', n); continue
         out = os.path.join(tmp, n + '.glb')
         env = dict(os.environ, QUELLE=src, ZIEL=pro, NAME='SS_' + n, OUT=out, BECKEN='bein')
+        if n in SS_RUHE and ss_datei(SS_RUHE[n]):
+            env['RUHE'] = ss_datei(SS_RUHE[n])
         r = subprocess.run([sys.executable, '-I', os.path.join(HIER, 'zauber385.py')], env=env, capture_output=True, text=True)
         if r.returncode or not os.path.exists(out):
             print('FEHLER SS', n, r.stdout[-600:], r.stderr[-600:]); raise SystemExit('Sword & Shield: %s nicht uebertragen' % n)

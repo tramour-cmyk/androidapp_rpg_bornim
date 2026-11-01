@@ -2692,7 +2692,13 @@ func _fade_out(x: float) -> void:
 		(sh.material_override as ShaderMaterial).set_shader_parameter("dichte", 0.78 * (1.0 - x))
 
 
+var _liegt_ss := false     # 438a: liegt nach SS_DeathBack
 func knocked_down() -> void:
+	# 438a (Chef 01.11., 20:1x, Archiv 438a: Hinfallen 1 aus dem Paket der Waffe): mit Schwert und Schild rücklings hinfallen
+	if _ss() and anim.has_animation("SS_DeathBack"):
+		_play("SS_DeathBack", 0.1)
+		_liegt_ss = true
+		return
 	if _ss() and not anim.has_animation("Sturz"):     # 406: mit Schild der schwere Treffer des Satzes, Schild oben
 		_play("SS_GetHitHeavyFront", 0.1)
 		get_tree().create_timer(anim.get_animation("SS_GetHitHeavyFront").length - 0.1).timeout.connect(_idle_wenn_frei)
@@ -2701,6 +2707,12 @@ func knocked_down() -> void:
 
 
 func rise() -> void:
+	# 438a (Archiv 438a: Aufstehen 1 aus dem Paket der Waffe): aus der Rückenlage aufstehen, dann Kampfhaltung
+	if _ss() and anim.has_animation("SS_GetBackUpBack") and _liegt_ss:
+		_liegt_ss = false
+		_play("SS_GetBackUpBack", 0.1)
+		get_tree().create_timer(anim.get_animation("SS_GetBackUpBack").length - 0.1).timeout.connect(_idle_wenn_frei)
+		return
 	if kauf and not (anim and anim.has_animation("Aufstehen")):
 		_idle()     # 406 (Messung film_406: nach „steht auf“ blieb der Kaufheld in Stehen, ohne Schild oben, bis zum nächsten Zug)
 		return
