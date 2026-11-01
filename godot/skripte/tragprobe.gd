@@ -4,8 +4,12 @@ extends RefCounted
 # Am Rechner: godot --path godot --resolution 900x1200 -- --figuren=<ausgabe> --teil=tragen      Standbilder und Messung
 #             godot --path godot --resolution 720x960 --write-movie <x.avi> --fixed-fps 30 -- --figuren=<ausgabe> --teil=tragenfilm
 #   Standbilder: <ausgabe>/tragen/<figur>_<Bewegung>_<phase>_<ansicht>.png (rechts, links, vorn, hinten), Kamera auf Brusthoehe
+#   --teil=tragenaxt: nur die Kriegsaxt in den Fassungen AXT_FASSUNGEN (Runde 3), Figur FIGHTER_<Fassung>
 #   Messung: je Bild der Abstand der Waffe zum Koerper (verformtes Netz, ohne die tragende Hand): unter 0 steckt sie im Koerper
 const FIGUREN := [["WIZARD", "quarterstaff"], ["FIGHTER", "greataxe"], ["ROGUE", "shortbow"]]
+# Runde 3 (--teil=tragenaxt, Chef 01.11., 11:32: Stab, Bogen passen; „der Axtkopf muss nach unten“, „ein bisschen weiter nach vorne
+# ziehen“): nur die Kriegsaxt in drei Fassungen nebeneinander: Name, Griff unter dem Ursprung (m, Kopf 0,80 darueber), Blatt haengt
+const AXT_FASSUNGEN := [["bisher", 0.40, false], ["A", 0.15, true], ["B", 0.0, true]]
 # Spielkamera (kamera.gd: senkrecht, Tusche): Gieren, Neigung, Bildbreite in m; die Figur blickt nach +Z, ihre Rechte ist -X
 const ANSICHTEN := {"rechts": [-90.0, -6.0, 2.6], "links": [90.0, -6.0, 2.6], "vorn": [0.0, -6.0, 2.6], "hinten": [180.0, -6.0, 2.6],
 	"spiel": [Kamera.NORD, -30.0, Kamera.NAH]}
@@ -16,15 +20,28 @@ const TIEF := 0.05    # m: tiefer gilt nicht als innen
 
 var fp: FigurenProbe
 var cam: Camera3D
+var liste: Array = []   # je Figur [Kennung, Dateiname, Klasse, Waffe]
 
 func _init(p: FigurenProbe) -> void: fp = p
 
-func figuren_bauen() -> void:
+func figuren_bauen(axt := false) -> void:
 	fp.freie_wiese()
 	fp.spiel.held.visible = false
-	for e in FIGUREN:
-		fp.klasse_figur("tr_" + e[0], {"klasse": e[0], "volk": "HUMAN", "aussehen": HeldFigur.vorgabe(e[0]),
-			"ausruestung": {"MAIN_HAND": {"base": e[1]}}})
+	liste = []
+	if axt:
+		for a in AXT_FASSUNGEN: liste.append(["ax_" + a[0], "FIGHTER_" + a[0], "FIGHTER", "greataxe"])
+	else:
+		for e in FIGUREN: liste.append(["tr_" + e[0], e[0], e[0], e[1]])
+	for i in liste.size():
+		var e: Array = liste[i]
+		fp.klasse_figur(e[0], {"klasse": e[2], "volk": "HUMAN", "aussehen": HeldFigur.vorgabe(e[2]),
+			"ausruestung": {"MAIN_HAND": {"base": e[3]}}})
+		if axt and fp.figuren.has(e[0]):
+			var sk := Gebiet.finde(modell(e[0]), "Skeleton3D") as Skeleton3D
+			for t in sk.find_children("Tragen", "", false, false):
+				(t as Tragen).axt_griff = AXT_FASSUNGEN[i][1]
+				(t as Tragen).axt_haengt = AXT_FASSUNGEN[i][2]
+				fp.protokoll.append("FASSUNG %s Griff %.2f haengt %s" % [e[1], AXT_FASSUNGEN[i][1], AXT_FASSUNGEN[i][2]])
 	cam = fp.spiel.kamera
 
 func modell(k: String) -> Node3D: return fp.figuren[k].get_child(0) as Node3D
@@ -45,13 +62,14 @@ func stelle_kamera(w: Node3D, ansicht: String) -> void:
 # ---------------------------------------------------------------- Standbilder und Film (die Messung macht tests/tragen_417.gd)
 # je Figur und Bewegung nach zwei Umlaeufen Vorlauf (der Stabfuss setzt sich) vier Phasen aus vier Richtungen; danach der Film:
 # je Figur von der Seite der Waffe zwei Umlaeufe Gehen, zwei Rennen, Bild fuer Bild (30 je s), die Kamera folgt
-func standbilder() -> void:
-	await figuren_bauen()
+func standbilder(axt := false) -> void:
+	await figuren_bauen(axt)
 	await fp.get_tree().create_timer(1.0).timeout
 	var ort: Vector3 = fp.spiel.karte.kachel_pos(FigurenProbe.FILM_ORT)
 	DirAccess.make_dir_recursive_absolute(fp.aus + "/tragen")
-	for e in FIGUREN:
-		var k: String = "tr_" + e[0]
+	for e in liste:
+		var k: String = e[0]
+		if not fp.figuren.has(k): continue
 		zeige_nur(k)
 		var w: Node3D = fp.figuren[k]
 		var m := modell(k)
@@ -76,18 +94,19 @@ func standbilder() -> void:
 						stelle_kamera(w, a)
 						await RenderingServer.frame_post_draw
 						await RenderingServer.frame_post_draw
-						fp.spiel.get_viewport().get_texture().get_image().save_png(fp.aus + "/tragen/%s_%s_%d_%s.png" % [e[0], bew, int(4.0 * ph / n), a])
-		fp.protokoll.append("BILDER %s %s" % e)
+						fp.spiel.get_viewport().get_texture().get_image().save_png(fp.aus + "/tragen/%s_%s_%d_%s.png" % [e[1], bew, int(4.0 * ph / n), a])
+		fp.protokoll.append("BILDER %s %s" % [e[1], e[3]])
 		print(fp.protokoll[-1])
-	for e in FIGUREN:
-		var k: String = "tr_" + e[0]
+	for e in liste:
+		var k: String = e[0]
+		if not fp.figuren.has(k): continue
 		zeige_nur(k)
 		var w: Node3D = fp.figuren[k]
 		var m := modell(k)
 		var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
 		var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
-		var seite := "links" if e[1] == "shortbow" else "rechts"
-		var ordner: String = fp.aus + "/film/" + String(e[0])
+		var seite := "links" if e[3] == "shortbow" else "rechts"
+		var ordner: String = fp.aus + "/film/" + String(e[1])
 		DirAccess.make_dir_recursive_absolute(ordner)
 		var nr := 0
 		var p := ort
@@ -107,7 +126,7 @@ func standbilder() -> void:
 				await RenderingServer.frame_post_draw
 				fp.spiel.get_viewport().get_texture().get_image().save_png(ordner + "/%03d.png" % nr)
 				nr += 1
-		fp.protokoll.append("FILM %s %s von %s, %d Bilder" % [e[0], e[1], seite, nr])
+		fp.protokoll.append("FILM %s %s von %s, %d Bilder" % [e[1], e[3], seite, nr])
 		print(fp.protokoll[-1])
 
 # ---------------------------------------------------------------- Messung

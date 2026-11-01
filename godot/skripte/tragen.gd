@@ -5,7 +5,7 @@ extends SkeletonModifier3D
 # unterwegs in der Hand statt auf dem Ruecken, Tragart je Waffenklasse (Vorschlag Sokrates, ROLLE-BERATUNG „Tragart“):
 #   stab:     langer Stab als Wanderstab in der rechten Faust, im Gehen steht sein Fuss am Boden und wird je Schritt umgesetzt
 #             (wie Aldric, leute.gd richte_ding), im Rennen schraeg vorn in der Faust
-#   schulter: Kriegsaxt, Speer geschultert: rechte Faust vor der Brust, der Schaft liegt auf der rechten Schulter, Kopf hinten oben
+#   schulter: Kriegsaxt, Speer geschultert: rechte Faust vor der Brust, der Schaft liegt auf der rechten Schulter, Kopf hinten, Blatt haengt
 #   bogen:    Bogen in der linken Faust neben dem Bein, oben etwas nach aussen, der Ruecken des Bogens nach vorn
 # Die UAL hat keine Tragebewegung: nach jeder Bewegung stellt dieser Knoten den tragenden Arm (zwei Knochen, Ellbogen nach hinten
 # aussen) an ein Ziel vor der Brust, das mit der Brust geht; vom Armschwung der Bewegung bleibt SCHWUNG je Tragart. Die Waffe
@@ -22,9 +22,11 @@ const STAB_VOR := 0.16        # m: so weit geht die Faust im Gehen ueber den ste
 const STAB_SETZ := 0.24       # s: Umsetzen
 const STAB_SETZ_VOR := 0.16   # m: so weit vor der Faust setzt er auf
 const STAB_AUSSEN := 0.04     # m: Fuss des Stabs aussen von der Faust
-# Axt am Stielende gefasst (m unter dem Ursprung von waffen.py): in der Mitte gefasst stiess das untere Ende in jedem Schritt in den
-# Oberschenkel (Messung 417: 5 cm in 26 von 40 Bildern)
-const AXT_GRIFF := 0.40
+# Axt: Griff in m unter dem Ursprung von waffen.py (Kopf 0,80 darueber). Runde 2 0,40 am Stielende (in der Mitte stiess das untere Ende
+# in den Oberschenkel, Messung 417: 5 cm in 26 von 40 Bildern). Runde 3 (Chef 01.11., 11:32: „die Schwerkraft sorgt dafür, dass ... der
+# Axtkopf nach unten geht ... ein bisschen weiter nach vorne ziehen, damit es gemütlicher zum Tragen ist"): die Axt weiter vorn gefasst,
+# der Kopf naeher hinter der Schulter und tiefer; das Blatt haengt nach unten statt nach oben (axt_haengt)
+const AXT_GRIFF := 0.15
 
 var art := ""
 var seite := "r"
@@ -47,6 +49,8 @@ var merken := false             # Messung (tests/tragen_417.gd): Posen aller Kno
 var posen: Array[Transform3D] = []   # ausserhalb der Aenderung liefert get_bone_global_pose die Pose ohne diesen Knoten
 var faust_weite := 0.0          # m: Knoechel bis Mittelglieder quer zum Schaft (geschlossene Faust: etwa Schaftdicke plus Finger)
 var fehl := 0.0                  # m: so weit liegt die Faust nach dem Stellen neben dem Ziel (Arm zu kurz)
+var axt_griff := AXT_GRIFF        # Probe 417 Runde 3 (tragprobe.gd): Fassungen nebeneinander
+var axt_haengt := true            # Blatt nach unten (Runde 3); false: Schneide oben wie Runde 2
 
 static func art_von(base: String) -> String: return String(ARTEN.get(base, ""))
 
@@ -130,8 +134,8 @@ func _process_modification() -> void:
 	var x: Vector3
 	match art:
 		"bogen": x = G.basis * -vc              # Ruecken des Bogens nach hinten, die Sehne vorn (hinten schnitt sie den Unterarm, Messung 417)
-		"schulter": x = G.basis * oc             # Blatt laengs des Koerpers, Schneide oben: von der Seite als Blatt zu sehen (Pruefer 417:
-		                                          # nach aussen sah man von der Seite nur die Kante, „wie ein Speer“)
+		"schulter": x = G.basis * (-oc if axt_haengt else oc)   # Blatt laengs des Koerpers: von der Seite als Blatt zu sehen (Pruefer 417:
+		                                          # nach aussen sah man von der Seite nur die Kante, „wie ein Speer“); Runde 3 haengt es nach unten
 		_: x = G.basis * ac                      # Schneide, Blatt nach aussen
 	x = (x - dw * x.dot(dw)).normalized()
 	waffe.global_basis = Basis(x, dw, x.cross(dw))
@@ -139,7 +143,7 @@ func _process_modification() -> void:
 	if art == "stab":
 		if stab_fuss != Vector3.INF: o = stab_fuss + dw * unten   # der Schaft laeuft durch die Faust, der Fuss steht
 		else: o = G * mitte + dw * 0.18                           # im Rennen unter der Mitte gefasst
-	elif art == "schulter": o = G * mitte + dw * AXT_GRIFF
+	elif art == "schulter": o = G * mitte + dw * axt_griff
 	waffe.global_position = o
 
 # Wanderstab: Fuss am Boden (Welt), im Gehen umgesetzt, wenn die Faust STAB_VOR darueber hinaus ist; Ergebnis Richtung im Skelettraum

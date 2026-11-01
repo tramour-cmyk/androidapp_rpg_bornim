@@ -22,9 +22,11 @@ func _initialize() -> void:
 		return
 	var welt := Node3D.new()
 	root.add_child(welt)
-	for e in FIGUREN.slice(0, 1 if OS.get_cmdline_user_args().has("--knie") else 3):
+	var liste: Array = FIGUREN.slice(0, 1 if OS.get_cmdline_user_args().has("--knie") else 3)
+	if OS.get_cmdline_user_args().has("--fassungen"): liste.append(["FIGHTER", "greataxe", 0.0])   # 417 Runde 3: Fassung B (tragprobe.gd)
+	for e in liste:
 		if not HeldFigur.da(e[0]) or not FileAccess.file_exists("res://daten/waffen/%s.bin" % e[1]):
-			print("TRAGEN ohne %s oder %s" % e)
+			print("TRAGEN ohne %s oder %s" % [e[0], e[1]])
 			continue
 		var w := Node3D.new()
 		welt.add_child(w)
@@ -34,10 +36,13 @@ func _initialize() -> void:
 		var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
 		var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
 		var tl := sk.find_children("Tragen", "", false, false)
-		pruefe(tl.size() == 1, "%s %s: keine Tragart" % e)
+		pruefe(tl.size() == 1, "%s %s: keine Tragart" % [e[0], e[1]])
 		if tl.is_empty(): continue
 		var tr := tl[0] as Tragen
 		tr.merken = true
+		if e.size() > 2:
+			tr.axt_griff = e[2]
+			print("FASSUNG Griff %.2f" % e[2])
 		pruefe(sk.find_children("Ruecken*", "", false, false).is_empty(), "%s: Waffe zusaetzlich auf dem Ruecken" % e[0])
 		# vor dem ersten Bild zwei Bilder laufen lassen: vorher wendet der AnimationPlayer nichts an (Probe 1: die Messung lief in
 		# der Ruhelage, Knie in jedem Bild gleich)
@@ -64,6 +69,9 @@ func _initialize() -> void:
 			var knie0 := Vector3.ZERO
 			var weite_min := 9.0
 			var weite_max := 0.0
+			var blatt_y := -9.0     # Axt (417 Runde 3, Chef 01.11., 11:32 „der Axtkopf muss nach unten“): hoechste Richtung des Blatts
+			var kopf_hoch := -9.0   # Axt: Mitte des Blatts ueber dem Schultergelenk, m
+			var kopf_hinten := 0.0
 			for f in 3 * n:
 				var t := f / FPS
 				ap.pause()   # erst anhalten, dann springen (umgekehrt wirkt seek nicht, die Figur stand)
@@ -82,6 +90,13 @@ func _initialize() -> void:
 				if float(r["min"]) < tiefst: tiefst = float(r["min"]); tiefst_bild = "%.2f s %s" % [fmod(t, lang), r["schlimm"] if OS.get_cmdline_user_args().has("--genau") else ""]
 				faust = maxf(faust, tr.fehl)
 				weite_min = minf(weite_min, tr.faust_weite); weite_max = maxf(weite_max, tr.faust_weite)
+				if tr.art == "schulter":
+					var wb := tr.waffe.global_transform
+					blatt_y = maxf(blatt_y, wb.basis.x.normalized().y)
+					var schulter := sk.global_transform * tr.posen[sk.find_bone("upperarm_r")].origin
+					var kopf := wb * Vector3(0.12, 0.80, 0.0)   # waffen.py build_greataxe: Blatt bei 80 cm, bis 23 cm nach +X
+					kopf_hoch = maxf(kopf_hoch, kopf.y - schulter.y)
+					kopf_hinten = maxf(kopf_hinten, -(kopf - schulter).dot((m.global_basis * Vector3.BACK).normalized()))
 				if tr.art == "stab" and tr.stab_fuss != Vector3.INF:
 					if tr.stab_t >= 1.0: fuss_hoch = maxf(fuss_hoch, absf(tr.stab_fuss.y - w.global_position.y))
 					if tr.stab_t < 1.0 and war_t >= 1.0: setzen += 1
@@ -92,7 +107,9 @@ func _initialize() -> void:
 			for teil in teile.slice(0, 4): s.append("%s %.1f" % [teil, tief[teil] * 100.0])
 			print("MESS %s %s %s: naechste Teile (cm) %s; tiefster Punkt %.1f cm bei %s; Bilder im Koerper %d von %d; Faust neben Ziel %.1f cm, Faust weit %.1f bis %.1f cm%s" % [
 				e[0], e[1], bew, ", ".join(s), tiefst * 100.0, tiefst_bild, innen_bilder, n, faust * 100.0, weite_min * 100.0, weite_max * 100.0,
-				("; Stab umgesetzt %d mal, Fuss stehend hoechstens %.1f cm ueber dem Boden" % [setzen, fuss_hoch * 100.0]) if tr.art == "stab" and bew == "Gehen" else ""])
+				(("; Stab umgesetzt %d mal, Fuss stehend hoechstens %.1f cm ueber dem Boden" % [setzen, fuss_hoch * 100.0]) if tr.art == "stab" and bew == "Gehen" else "")
+				+ (("; Blatt hoechstens %.2f nach oben, Blattmitte hoechstens %.0f cm ueber, %.0f cm hinter der Schulter" % [blatt_y, kopf_hoch * 100.0, kopf_hinten * 100.0]) if tr.art == "schulter" else "")])
+			if tr.art == "schulter" and tr.axt_haengt: pruefe(blatt_y < 0.0, "%s %s: Axtblatt zeigt nach oben (%.2f)" % [e[0], bew, blatt_y])
 			pruefe(innen_bilder == 0, "%s %s %s: Waffe in %d Bildern tiefer als %.0f cm im Koerper" % [e[0], e[1], bew, innen_bilder, INNEN_ERLAUBT * 100.0])
 			pruefe(weite_min > 0.025 and weite_max < 0.06, "%s %s: Faust %.1f bis %.1f cm weit (um den Schaft 2,5 bis 6)" % [e[0], bew, weite_min * 100.0, weite_max * 100.0])
 			pruefe(faust <= FAUST_ERLAUBT, "%s %s: Faust %.1f cm neben dem Ziel" % [e[0], bew, faust * 100.0])
