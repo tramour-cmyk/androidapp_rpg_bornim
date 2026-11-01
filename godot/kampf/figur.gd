@@ -1101,17 +1101,27 @@ static func _rampe(x: float, t: float, r: float) -> float:
 
 
 ## 438: Gehen und Rennen im Tempo des Rumpfs (Tempo der Bewegung = Weg je Sekunde / Weg der Schleife), sonst Tempo 1
+var _sync_v := 0.0     # 438: Tempo des Rumpfs im letzten Bild (m/s)
 func _schritt_sync(dt: float) -> void:
 	if anim == null or weg.is_empty() or down or dt <= 0.0:
 		return
 	var cur := String(anim.current_animation)
 	if cur in ["Gehen", "Rennen"] and weg.has(cur) and _sync_vor != Vector3.INF:
 		var v := Vector2(position.x - _sync_vor.x, position.z - _sync_vor.z).length() / dt
+		# 438 (wolf_mess_438: „Rennen zu schnell“ 0,67 m, je im ersten Bild des Anlaufens, Tempo 0,15 bei schon 5 cm Weg): die
+		# Bahn läuft erst nach diesem Aufruf weiter, das Tempo hinkte ein Bild nach; beim Beschleunigen um die Änderung voraus
+		var v_vor := _sync_v
+		_sync_v = v
+		if v > v_vor:
+			v += v - v_vor
 		var base := _mps(cur) / float(tempo.get(cur, 1.0))
 		var custom := absf(anim.get_playing_speed() / anim.speed_scale) if anim.speed_scale != 0.0 else 1.0
 		anim.speed_scale = clampf(v / maxf(base, 0.05) / maxf(custom, 0.05), 0.15, 1.6)
 	elif anim.speed_scale != 1.0:
 		anim.speed_scale = 1.0
+		_sync_v = 0.0
+	else:
+		_sync_v = 0.0
 	_sync_vor = position
 
 
@@ -1559,6 +1569,7 @@ func _turn_home() -> float:
 ## 348.12f (Chef 27.10., 18:01, Archiv: „Biss zum Helden nachjustieren wie bei eigenen“): mit Wurzelweg läuft das Tier bis vor das
 ## Ziel, die Schnauze an dessen Rand, und beißt dort; angesagt (Sprung) springt es aus der Weite des Sprungbisses der Quelle an.
 ## Danach springt es zurück (Ausweichen zurück) und geht heim. Gibt wie strike() die Zeit bis zum Biss / 0,42 zurück (ms).
+const ABWEHR_VOR := 0.1
 func _bite(other, leap: bool, weiter := 0.0) -> int:
 	var flat := Vector3(other.position.x - position.x, 0.0, other.position.z - position.z)
 	if flat.length() < 0.01:
@@ -1568,6 +1579,10 @@ func _bite(other, leap: bool, weiter := 0.0) -> int:
 	# 438 (Prüfer Film r2: Schnauze 9,4 s und 20,3 s in Schild und Brust; wolf_mess_438: bis 10 cm in Schild und Klinge): der Rand
 	# des Ziels zum Wolf hin mit dem, was es trägt, nicht nur der Kreis body_r()
 	var stand: float = other.vorne(-dir) + bite[nm][0] * model.scale.x + weiter     # Ursprung bis Mitte des Ziels beim Biss
+	# 438 (wolf_mess_438, Kleriker 9,5 s: Schild 7 cm im Kopf des Wolfs): wer mit dem Schild abwehrt (406), stößt ihn beim Biss
+	# vor; vorne() misst die Ruhehaltung, darum bleibt der Wolf um ABWEHR_VOR weiter weg
+	if other.has_method("blockt") and other.blockt():
+		stand += ABWEHR_VOR
 	if OS.get_environment("SCHAU_MESS") != "":
 		print("Biss %s an %s: Rand %.2f (Kreis %.2f), Abstand %.2f" % [fighter.id, other.fighter.id, other.vorne(-dir), other.body_r(), stand])
 	stand -= float(SCHNAUZE_NAEHER.get(art(), 0.0))
@@ -1592,15 +1607,23 @@ func _bite(other, leap: bool, weiter := 0.0) -> int:
 	if luft < PLATZ_LUFT or weg0 < WEG_LUFT:
 		var tg := Vector3(other.position.x, position.y, other.position.z)
 		var r0 := Vector2(tg.x - start.x, tg.z - start.z).length()
-		var best := [minf(luft, weg0), dir, start, luft]
+		var best := [minf(luft, weg0) - (0.0 if _im_bild(start, dir) else 1.0), dir, start, luft]
+		var r_satz := r0 - stand     # was über den Bissabstand hinaus zum Satz gehört
 		for w in [15.0, -15.0, 30.0, -30.0, 45.0, -45.0, 60.0, -60.0]:
 			var d2 := dir.rotated(Vector3.UP, deg_to_rad(w))
-			var s2 := tg - d2 * r0
+			# 438 (wolf_mess_438, Kleriker 43,8 s: um das Ziel herum gedreht stand der Wolf 0,31 m im Helden und 4 cm im Schild):
+			# der Rand des Ziels gilt in der neuen Richtung (auf der Schildseite weiter vorn), nicht der alte Abstand
+			var st2: float = stand + other.vorne(-d2) - other.vorne(-dir)
+			var s2 := tg - d2 * (st2 + r_satz)
 			var l2 := minf(_platz_luft(s2, d2, other), _seg_gap(s2, s2 + d2 * jump, other) if jump > 0.0 else INF)
 			var w2 := _weg_luft(position, s2, other) if s2.distance_to(position) > 0.15 else INF
-			if minf(l2, w2) > best[0]:
-				best = [minf(l2, w2), d2, s2, l2]
-			if l2 >= PLATZ_LUFT and w2 >= WEG_LUFT:
+			# 438 (wolf_mess_438, Kleriker 66 s: Wolf 1 lief zu einem Bissplatz am rechten Rand, 20 px aus dem Bild): ein Platz
+			# aus dem Bild nur, wenn keiner im Bild frei ist
+			var drin := _im_bild(s2, d2)
+			var wert2 := minf(l2, w2) - (0.0 if drin else 1.0)
+			if wert2 > best[0]:
+				best = [wert2, d2, s2, l2]
+			if l2 >= PLATZ_LUFT and w2 >= WEG_LUFT and drin:
 				break
 		dir = best[1]
 		start = best[2]
@@ -1608,7 +1631,8 @@ func _bite(other, leap: bool, weiter := 0.0) -> int:
 			# kurzer Satz aus der Nähe: er läuft (mit Umweg) bis knapp vor das Ziel und springt erst dort
 			var kurz := minf(jump, 0.2 * _weg_len(nm))
 			k = kurz / _weg_len(nm)
-			start = tg - dir * (r0 - jump + kurz)
+			var rb := Vector2(tg.x - start.x, tg.z - start.z).length()     # 438: Abstand des gewählten Platzes
+			start = tg - dir * (rb - jump + kurz)
 			jump = kurz
 		flat = dir * flat.length()
 	var r_alt := rotation.y
@@ -1974,10 +1998,13 @@ func _held_mps(nm: String) -> float:
 
 
 const VERFEHLT_M := 0.3
+const HIEB_VOR := 0.12
+const HIEB_ZURUECK_M := 0.3
 func _held_schlag(other, weiter := 0.0) -> int:
 	var to: Vector3 = other.position
 	var flat := Vector3(to.x - position.x, 0.0, to.z - position.z)
-	var stand: float = HERO_R + other.body_r() + HERO_REACH
+	var stand: float = HERO_R + other.body_r() + HERO_REACH + (HIEB_VOR if _ss() else 0.0)
+	var stand_voll := stand
 	# 438 (wolf_mess_438: beim Hieb stand der Held 2 cm vor dem Wolfskopf, der Kreis body_r() kennt den langen Kopf nicht): nie
 	# näher als HELD_LUFT vor dem Umriss des Ziels in Laufrichtung
 	if flat.length() > 0.01:
@@ -1985,8 +2012,13 @@ func _held_schlag(other, weiter := 0.0) -> int:
 		var t := stand
 		# 438 (wolf_mess_438, Kämpfer: Schild 14 cm im Kopf des kauernden Wolfs): der eigene Rand mit Schild und Klinge, nicht der Kreis
 		var eigen := maxf(HERO_R, vorne(d))
+		# 438 (wolf_mess_438, Kämpfer 58,9 s: Langschwert beim Hieb 6–11 cm im Kopf des Wolfs): der Hieb aus Sword & Shield holt
+		# weiter aus als die Ruhehaltung, die vorne() misst
+		if _ss():
+			eigen += HIEB_VOR
 		while t < flat.length() and other.clearance(to - d * t) < eigen + HELD_LUFT + weiter:
 			t += 0.05
+		stand_voll = t
 		stand = minf(t, flat.length())
 	var start := position + flat.normalized() * maxf(0.0, flat.length() - stand) if flat.length() > 0.01 else position
 	if tween and tween.is_running():
@@ -2008,6 +2040,17 @@ func _held_schlag(other, weiter := 0.0) -> int:
 			tween.tween_property(self, "position", q, t)
 			t_run += t
 			von = q
+	# 438 (wolf_mess_438, Kämpfer 59,4 s: Gegenschlag aus dem Stand, der Wolf stand zum Biss so nah, dass das Langschwert 11 cm
+	# in seinen Kopf fuhr): steht das Ziel näher als die Reichweite des Hiebs, erst ein kurzer Schritt zurück mit erhobenem Schild
+	elif flat.length() > 0.01 and flat.length() < stand_voll - 0.03 and _ss() and anim.has_animation("SS_WalkBackwards"):
+		var d0 := flat.normalized()
+		var zur := position - d0 * minf(stand_voll - flat.length(), HIEB_ZURUECK_M)
+		if _seg_gap(position, zur, other) >= 0.0:
+			var tz: float = position.distance_to(zur) / maxf(_held_mps("SS_WalkBackwards"), 0.3)
+			tween.tween_callback(func(): _face(d0); _play("SS_WalkBackwards", 0.08))
+			tween.tween_property(self, "position", zur, tz)
+			t_run += tz
+			start = zur
 	# 406: mit Schild einer der drei Schwerthiebe des Satzes, Aufschlag wie gemessen (held_kampf.py „kontakt“)
 	var hn := "Hieb"
 	var auf := HELD_AUFSCHLAG

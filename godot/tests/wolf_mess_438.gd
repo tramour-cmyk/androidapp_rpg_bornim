@@ -49,6 +49,7 @@ var hurt_ab := {}      # id -> [Bilder, an denen der Getroffene zu zittern begin
 const KOERPER_M := 0.03
 var koerper := {}      # wolf→mensch Teil -> [Bilder, tiefste m, erstes Bild, Bewegung]
 var klinge := []       # [Bild, Mensch, Wolf, Tiefe]
+var klinge_koerper := []   # 438: [Bild, Wolf, Schlüssel, Tiefe, Bewegung] Klinge im Wolf, Treffer erst in der Bilanz geprüft
 var zeilen := []       # [Bild, Text]
 var zeilen_n := 0
 var anim_ab := {}      # id -> {Bewegung: [Bilder, an denen sie beginnt]}
@@ -81,6 +82,8 @@ func _run() -> void:
 		quit(0)
 		return
 	for k in (OS.get_environment("KLASSEN").split(",") if OS.get_environment("KLASSEN") != "" else PackedStringArray(["FIGHTER", "CLERIC"])):
+		# 438: auch der Zufall der Bewegungen (randf: Ausweichen, Ruhe) fest, sonst misst jeder Lauf einen anderen Kampf
+		seed(int(OS.get_environment("SEED")) if OS.get_environment("SEED") != "" else 7)
 		var p = Probe.new()
 		p.hero_cls = k
 		p.merc_cls = "FIGHTER" if k != "FIGHTER" else "CLERIC"
@@ -176,6 +179,8 @@ func _bild(kf, n: int, k: String) -> void:
 			elif nm in ["Gehen", "Rennen"] and f.has_method("_mps") and not f.weg.is_empty() and f.weg.has(nm):
 				var soll: float = f._mps(nm) / 30.0 * absf(f.anim.get_playing_speed())
 				if d > soll * 1.35 + 0.005:
+					if OS.get_environment("SCHAU_RENNEN") != "":
+						print("Rennen Bild %d %s: %.3f m statt %.3f, Tempo %.2f (Schleife %.2f), Gang %s, Bild der Bewegung %.2f" % [n, id, d, soll, f.anim.speed_scale, f.anim.get_playing_speed(), f.gang, f.anim.current_animation_position])
 					var g2: Array = gleiten.get(nm + " zu schnell", [0, 0.0, 0.0])
 					gleiten[nm + " zu schnell"] = [g2[0] + 1, g2[1] + d - soll, maxf(g2[2], d - soll)]
 			if rad_to_deg(dg) > DREH_BILD_GRAD and nm != "Tod":
@@ -331,6 +336,11 @@ func _r2(kf, n: int, k: String, figs: Array) -> void:
 							print("Schild %s Bild %d %s: Kapsel %s r %.2f, Tiefe %.3f, %s bei %.2f, Träger %s, Abstand %.2f" % [a.fighter.id, n, g[2], c[3], c[2], t, a.anim.current_animation, a.anim.current_animation_position, b.anim.current_animation, Vector2(a.position.x - b.position.x, a.position.z - b.position.z).length()])
 			if tief > KOERPER_M:
 				var key := "%s/%s→%s/%s %s" % [k, a.fighter.id, k, b.fighter.id, teil]
+				# 438: die Klinge im getroffenen Wolf ist der Treffer selbst; ob sie ohne Treffer durchfährt, misst „Klinge durch einen
+				# Wolf ohne Treffer“ (±8 Bilder). Hier zählt sie nur, wenn der Wolf in diesen Bildern nicht getroffen wird (Bilanz)
+				if teil in ["longsword", "shortsword", "quarterstaff", "dagger"]:
+					klinge_koerper.append([n, "%s/%s" % [k, a.fighter.id], key, tief, String(a.anim.current_animation) if a.anim else ""])
+					continue
 				var e: Array = koerper.get(key, [0, -INF, n, String(a.anim.current_animation) if a.anim else ""])
 				koerper[key] = [e[0] + 1, maxf(e[1], tief), e[2], e[3]]
 	# Wolf in Wolf am Körper (Kapseln), auch im Sprung und beim Platztausch
@@ -592,6 +602,14 @@ func _sek(n: int) -> String:
 
 
 func _bilanz_r2() -> void:
+	for kk in klinge_koerper:
+		var getroffen := false
+		for h in hurt_ab.get(kk[1], []):
+			if absi(h - kk[0]) <= 8:
+				getroffen = true
+		if not getroffen:
+			var e: Array = koerper.get(kk[2], [0, -INF, kk[0], kk[4]])
+			koerper[kk[2]] = [e[0] + 1, maxf(e[1], kk[3]), e[2], e[3]]
 	print("— 438 r2 Wolf im Körper, Schild oder Klinge eines Menschen (tiefer als %.2f m): %d" % [KOERPER_M, koerper.size()])
 	for key in koerper:
 		print("  %s: ab %s (%s), %d Bilder, tiefste %.2f m" % [key, _sek(koerper[key][2]), koerper[key][3], koerper[key][0], koerper[key][1]])
