@@ -25,6 +25,23 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 59 · Auftrag 464 Doppelpack zu den roten Läufen (`main` nach `8cb4400b6`; 01.11., 22:2x; `parse_pruefen()` mit Godot 4.7.2 (Scratch, nicht `~/godot`) an einem Probezweig aufgerufen; Ford-Commits `8fd2d5e82`, `525f87ff9`; Lauf 150 auf `claude/jerry-348-12-grak-schreitet` (Log))
+
+**Ergebnis:** Der Haken tut, was er soll.
+- Ein eingebauter Parsefehler in `kampf/aufruf.gd` hält den Push an, mit Datei und Zeile, nach 8 s.
+- Kein Fehlalarm: Alle 60 `.gd` auf `main` geändert ergeben „None“, auch einzeln mit `--check-only` (0 Treffer); Dauer 14 s.
+- Der Arbeitsbaum bleibt danach sauber.
+- Ein angehaltener Push wird nicht gezählt, weil die Prüfung vor dem Zählen kommt (Z. 262–267).
+- Ford meldet rote Läufe (21:04 an Jerry, 22:05 an Tom mit Lauf, Commit und Link).
+- Grenze: Der Haken fängt nur Parsefehler. `wolf_mess_438.gd` parst fehlerfrei. Lauf 150 scheiterte später an „Befunde: 5“ im Test, und das fängt der Haken nicht. Das deckt sich mit Perikles: 2 von 14 Läufen wären am Lesen gescheitert. Ohne Godot in der Sitzung prüft der Haken nichts; offen ist die Chefsache tun/464.
+
+**Befunde**
+
+- **D61.1 Die Zahl der roten Läufe des Tages fehlt im Protokoll:** `ROLLE-BETRIEB.md` verlangt „Zahl des Tages ins Protokoll (für den Tagesbericht)“. In `ARBEIT-BETRIEB.md` steht keine. Ford schreibt nur die Zeilen in die Vorräte. Die Zählung ab 02.11. gegen 01.11. (14) hat damit nur `actions_list` als Quelle.
+- **D61.2 Was über der Grenze liegt, wird ohne Hinweis nicht geprüft (gering):** Geprüft werden nur die ersten 25 geänderten Dateien (`gd[:25]`). Dateien, bei denen Godot länger als 20 s braucht, werden übersprungen (`continue`). Ein Zusammenführen wie 453 r3 kann über 25 Dateien ändern; der Push geht dann ohne Hinweis durch.
+
+**Nicht geprüft:** Ob der Hinweis an den Chef bei 3 oder mehr roten Läufen je Stunde kommt; der Fall trat seit 20:51 nicht ein (21:04 und 22:05 je höchstens 2). Der Fall „git push origin main“ von einem Zweig `claude/…` aus prüft den Zweig, das ist harmlos.
+
 ## Lauf 58 · Auftrag 465 Doppelpack zu 465 und 462.1 (`main` `f26bc1db5`; 01.11., 22:07; Übersicht nach dem Lauf von `zug-index.yml` um 22:03 (`a2c8fd34d`) gegen die Zeit des Commits, der jede Datei anlegte; `seit_text()` und `texte_im_zug()` mit eigenen Eingaben aufgerufen)
 
 **Ergebnis:** 462.1 ist erfüllt. D59.1: `texte_im_zug` zählt Zwischenmeldungen und lässt Werkzeugergebnisse, Metatexte und Helfer aus. Probe mit 3 Texten, davon 2 ohne Kopf, ergibt (3, 2); diese Sitzung ergibt (1, 0). D59.2: Ein Kopf ohne Namen zählt nicht mehr. D59.3: Ohne erkannte Rolle steht kein „<Name>“ mehr im Kopf. Bei 465 rechnet das Werkzeug richtig, wenn die Minute passt: „22:0x“ wird 22:03, ein fehlendes Feld wird 22:03.
