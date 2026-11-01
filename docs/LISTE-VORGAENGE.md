@@ -138,7 +138,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 416.5 | Kampflog-Details nicht mehr schließbar (Chef 31.10., 20:4x) | B Umzug | M | 5,66 $ | Team Jerry | zu testen |
 | 416.6 | Spuren des Helden, auch bei Regen (Chef 31.10., 20:4x) | B Umzug | K | – | Team Jerry | frei |
 | 417 | Prüfung: Waffen und Schild beim Gehen und Rennen in der Hand statt auf dem Rücken (zu 410, Chef 31.10., 21:1x) | E Figuren | M | 11,17 $ | Team Tom | Chef |
-| 418 | Oberste Direktive neu in `CLAUDE.md`, Abnahmeliste Kapitel 1 darauf und auf Spielsystem 2.0 umschreiben („jetzt“ 31.10., 21:21) | B Abläufe | M | 3,43 $ | Perikles | Chef |
+| 418 | Oberste Direktive neu in `CLAUDE.md`, Abnahmeliste Kapitel 1 darauf und auf Spielsystem 2.0 umschreiben („jetzt“ 31.10., 21:21) | B Abläufe | M | 3,43 $ | Perikles | erledigt |
+| 418.1 | Abnahmeliste nach Entscheid 418 nachziehen: Umfang A mit Datenfeldern und je Herkunft einer Handlung (Chef 01.11., 09:43) | B Abläufe | M | – | Perikles | startbar |
 | 422 | Spielsystem 2.0 als Anleitung und Nachschlagewerk: Dokument eindampfen, liest sich wie eine Anleitung, Verlauf der Entscheidungen getrennt (Chef 31.10., 21:2x) | D Design | M | – | Sokrates | Chef |
 | 423 | Spielerhandbuch aus dem Nachschlagewerk 422: was der Spieler wissen muss, in unserem Ton, Deutsch und Englisch (Chef 31.10., 21:2x) | C Texte | M | – | Homer | wartet |
 | 424 | Umzugsliste und Vorräte frei von Arbeit am alten SRD-System: Regelzeilen in `LISTE-UMZUG-348.md` ruhen, Wächter in `startbar.py`/`lauf.py` („jetzt“ 31.10., 21:3x) | B Abläufe | M | 3,43 $ | Perikles | gebaut |
@@ -154,7 +155,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 439 | Kampfablauf: Neuformation vor dem Tod, Treffer vor dem Angriff (Film 403, Chef 31.10., 23:31) | E Kampf | M | – | Team Jerry | gebaut |
 | 440 | Wolf verschwindet ohne sichtbare Sterbeanimation (Film 403, Chef 31.10., 23:34) | E Kampf | M | – | Team Jerry | gebaut |
 | 442 | Modellzuordnung der Sitzungen: Opus für alle außer Ford, Desktop-Sitzung auf Sonnet (Chef 31.10., 23:52) | B Abläufe | M | – | Sokrates | Chef |
-| 443a | Rückfrage: gilt die Namensform 436 auch für Ford (D52.3)? | B Abläufe | M | – | Diogenes | Chef |
+| 443a | Rückfrage: gilt die Namensform 436 auch für Ford (D52.3)? | B Abläufe | M | – | Diogenes | erledigt |
 | 444 | Rechensimulation Spielsystem 2.0 am Rechner (ohne Godot): Herkunft × Monsterart × Stufe 1–6, Zahlen aus einer Tabelle (Chef 01.11., 09:24) | E Kampf | M | – | Team Jerry | in Arbeit |
 | 445 | Alle offenen Chefsachen mit Lösung zum stärksten Gegenargument neu bewerten (Chef 01.11., 09:32) | B Abläufe | M | – | Sokrates | erledigt |
 | 413b | Rückfrage: Leitbild „baut auf SRD 5.1 auf“ und CLAUDE.md „Kotlin, Jetpack Compose“ nachziehen? | D Design | M | – | Sokrates | Chef |
