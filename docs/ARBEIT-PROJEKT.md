@@ -31,6 +31,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **Zu 422, von Sokrates (Chef 01.11., 09:24, Archiv):** beim Bau der Regeln 2.0 (Vorgang fehlt noch, D49) kommt jede Zahl aus einer Datendatei, damit Simulation 444 nur Tabellenzeilen ändert.
 - **Zu 433** (Chef 31.10., 22:1x über Sokrates: „dafür haben wir noch unsere Leiharbeiter, die wir notfalls starten können. Oder halt intern Arbeit umschichten … Da muss doch nicht jetzt Tom drei Wochen auf Tom warten“). **Gebaut 22:2x** (`lauf.py` startet Spike/Tuffy auf eine andere startbare Muss-Zeile mit anderem Zweig; Regel in `ROLLE-ENTWICKLUNG.md`; Probe und Gegenargument: Git, Stand vor „Perikles: Vorrat gekürzt 01.11.“).
 - **Zu 433, von Diogenes (Lauf 51, 435, 31.10., 22:2x):** D51.1 Tom ohne Nummer im Titel (z. B. „Tom – Tragart …“ auf 417) → Spike startet auf dieselbe Zeile (Bedingung `not besetzt and not team_s`, nachgestellt); D51.2 Spike endet ohne Stand, Tom sonst nichts startbar → Zeile hängt; D51.3 Chef „notfalls“ gegen Start in jedem Lauf (fast immer vier Entwicklersitzungen). Einzelheiten `PRUEFBERICHT.md` Lauf 51. **Chef 31.10., 22:53 zu D51.3: „So lassen“** (Start in jedem Lauf bleibt; ins Vorgangsarchiv 433). D51.1 und D51.2 bleiben offen.
 - **M? 31.10., 22:2x:** 416.8 (NPC dreht sich zum Helden) M: Befund aus dem Test des Chefs, Abnahme T, Direktive „immersiv“.

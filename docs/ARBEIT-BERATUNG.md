@@ -12,7 +12,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 |---|---|---|---|
 | 432.1 | K | **von Homer (Chef 01.11., 09:13: „432 Stellungnahme Sokrates fehlt“):** Stellungnahme zu Chefsache 432 (eigenes Volk, Weg A oder B) unten in die Datei | startbar |
 | 442 | M | **von Chef (31.10., 23:52, „warum ihr alle auf dem kleinen Rechenmodell lauft“):** Modellzuordnung vorlegen | wartet auf Chef: Chefsache 442 (Befund: 11 von 12 gestarteten Sitzungen Opus; Sonnet: Ford, diese Desktop-Sitzung) |
-| 427 | M | **von Chef (31.10., 21:3x):** Bestiarium `LISTE-BESTIARIUM.md` | wartet auf Chef: Startwerte mit Chefsache 422, D54 berichtigt 01.11., 08:3x |
+| 427 | M | **von Chef (31.10., 21:3x):** Bestiarium `LISTE-BESTIARIUM.md` | wartet auf Jerry: Startwerte gehen in die Simulation 444, dann gemessen zum Chef (Archiv 422, 444) |
 | 422 | M | **von Chef (31.10., 21:2x, „dass es sich liest wie eine gute Anleitung. Und ein Nachschlagewerk“):** Spielsystem 2.0 eindampfen; Verlauf getrennt; Befund Diogenes 420 einarbeiten | wartet auf Chef: Chefsache 422 (Abnahme, Vorschläge a–h), D54 eingearbeitet 01.11., 08:3x |
 | 413 | M | **von Chef (31.10., 20:1x):** Spielsystem 2.0 (`DESIGN-SPIELSYSTEM-2-0.md`), Meilensteine | wartet auf Chef: A1 (Chefsache 413a); S3 Profil entschieden 31.10., 23:51 (E 76) |
 | 398 | M | **von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr ganz grundlegende Dinge fehlen?“):** Grundsätze DESIGN-* gegen Umzugsliste und Godot-Zweige | wartet auf Perikles: 15 Lücken in LISTE-UMZUG-348.md „398“, Chef 11:3x informiert |
@@ -44,7 +44,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (Gewerbeschein); 45a/45c, 72g–72j entschieden ([Artefakt](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj), vertraulich); offen: Preis endgültig mit 142 (ab Gewerbeschein), bis 30.11.; iOS-Schätzung Tom nach Kapitel 2 |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | ruht bis Gewerbeschein (Chef 28.10., 10:26; 142); dann Chefsache neu |
 
-- **Zu 422, 427:** Befunde Diogenes `PRUEFBERICHT.md` Lauf 48, 49, 53 (D54) eingearbeitet 01.11., 08:3x; Vorschläge a–h in Chefsache 422; nach „ja“ Entscheidungen eintragen, 423 an Homer, Bau und Simulation an Perikles. Chef 01.11., 09:21: „Können wir etwas an deinem Gegenargument ändern?“; Antwort im Chat 09:2x (erst Rechensimulation, Zahlen als Tabelle), wartet auf sein Wort.
+- **Zu 422, 427:** D54 eingearbeitet; zweistufig (Archiv 422, 444): Regeln a–g in Chefsache 422, Zahlen nach 444 (Jerry); nach „ja“ Entscheidungen eintragen, 423 an Homer.
 - **Zu 413 (A1), von Perikles (31.10., 21:3x):** `CLAUDE.md` mit der neuen Direktive (418) 15,3 KB, über der Grenze; beim A1-Entwurf mitkürzen (auch Kopfzeile „Regeln nach SRD 5.1“, E 61). Chefsache 418 fragt den Umfang von 2.0 in Kapitel 1 (Votum A, nur Kern).
 - **Zu 383, Sitzungsgröße (27.10., 99 Sitzungen):** 787 $ in 24 h; je Million Ausgabetokens 92–103 $ nach Kontext, kein Hinweis, dass große Sitzungen teurer sind (Beleg schwach). Jeder Start etwa 125k Kontext, kleinste Sitzung 1,25 $. Treiber: Runden (44 %). Wiederholen mit 347 und 383.2 am 31.10.
 - **Zu 376:** Chef 12:09–12:10: 20 $ „super gerne“, wenn Größe und Form anpassbar und Tusche darauf geht; „dann hätten die vielleicht auch mal einen richtigen Kopf“; nah sichtbar in Ausrüstung, Charaktererstellung, Kartenzoom; 12:12 „Universal Base Characters“ als Alternative zum Selbstbau.
