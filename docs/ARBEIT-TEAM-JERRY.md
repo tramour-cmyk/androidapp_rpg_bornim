@@ -32,7 +32,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 401 | M | **von Chef über Sokrates (Archiv):** Tierlaute, mind. 3 je Tier | wartet auf Test: Build 146 (t146) | – |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK | `claude/jerry-348-kampf` |
-| 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | in Arbeit: Grak schreitet d832791a6, Lauf 2/2 mit Film 04b8f3340 (Lauf 1 rot durch Nullzugriff 453 r3, behoben ec2d46bd3) | `claude/jerry-348-kampf` |
+| 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | in Arbeit: Grak schreitet d832791a6; Läufe 1/2 und 2/2 rot durch Fremdes (453 r3 Nullzugriff, 402 intro.json, behoben), Film fehlt; Lauf 366a92335 prüft grak_348 | `claude/jerry-348-kampf` |
 | 385.2 | M | **von Chef (Archiv 385.1):** Feuer aus dem Stab | wartet auf 403 (Magier mit Stab im Kampfort) | – |
 | 348.13a | M | **von Team Tom (Chef 08:09, Archiv: r9 ja):** Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13a) | gebaut 421662dbd: Tusche nach Licht Vorgabe, Linie 1,3; offen Säbel (Tom) | `claude/jerry-348-kampf` |
 | 397 | M | von Chef: Tiere, Monster mind. drei Ruhebewegungen | ruht (399) | – |
