@@ -25,7 +25,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Grobes Wolltuch über dem Kopf; es hält Regen ab und fremde Blicke fern.",
+    "en": "Coarse wool over the head; it keeps off the rain and prying eyes."
+   },
    "alt": {
     "preis": 2,
     "stufe": 1,
@@ -56,7 +59,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein schmaler Reif aus Metall, mehr Zeichen als Schutz.",
+    "en": "A slim band of metal, more sign than shelter."
+   },
    "alt": {
     "preis": 15,
     "stufe": 2,
@@ -87,7 +93,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Gehärtetes Leder, eng um den Schädel geschnürt.",
+    "en": "Hardened leather, laced tight about the skull."
+   },
    "alt": {
     "preis": 5,
     "stufe": 1,
@@ -118,7 +127,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein schlichter Eisenhelm mit Nasenschutz, verbeult von Hieben, die einem anderen galten.",
+    "en": "A plain iron helm with a nose guard, dented by blows meant for someone else."
+   },
    "alt": {
     "preis": 15,
     "stufe": 2,
@@ -149,7 +161,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein geschlossener Eisentopf mit Sehschlitz; darin klingt der eigene Atem laut.",
+    "en": "A closed iron pot with an eye slit; inside it your own breath sounds loud."
+   },
    "alt": {
     "preis": 40,
     "stufe": 4,
@@ -180,7 +195,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Langes, schweres Tuch, wie es Gelehrte und Priester tragen.",
+    "en": "Long, heavy cloth, as scholars and priests wear."
+   },
    "alt": {
     "preis": 5,
     "stufe": 1,
@@ -211,7 +229,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Gekochtes Leder über Brust und Schultern, steif, bis es sich an seinen Träger gewöhnt.",
+    "en": "Boiled leather over chest and shoulders, stiff until it learns its wearer."
+   },
    "alt": {
     "preis": 10,
     "stufe": 1,
@@ -242,7 +263,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Leder, dicht mit Eisennieten beschlagen.",
+    "en": "Leather, thickly set with iron rivets."
+   },
    "alt": {
     "preis": 45,
     "stufe": 2,
@@ -273,7 +297,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein Hemd aus kleinen Eisenringen, das unter dem Mantel verschwindet.",
+    "en": "A shirt of small iron rings that hides beneath a coat."
+   },
    "alt": {
     "preis": 50,
     "stufe": 1,
@@ -304,7 +331,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Eisenschuppen auf Leder genäht, übereinander wie bei einem Fisch.",
+    "en": "Iron scales sewn onto leather, overlapping like a fish's."
+   },
    "alt": {
     "preis": 50,
     "stufe": 2,
@@ -335,7 +365,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Eine gewölbte Stahlplatte für Brust und Rücken, von Riemen gehalten.",
+    "en": "A curved steel plate for chest and back, held by straps."
+   },
    "alt": {
     "preis": 400,
     "stufe": 4,
@@ -366,7 +399,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Platten über Brust, Schultern und Schenkeln, dazwischen Kette und Leder.",
+    "en": "Plates over chest, shoulders and thighs, with mail and leather between."
+   },
    "alt": {
     "preis": 750,
     "stufe": 6,
@@ -397,7 +433,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein langer Kettenpanzer bis über die Knie, über dicker Wattierung getragen.",
+    "en": "Long mail down past the knees, worn over thick padding."
+   },
    "alt": {
     "preis": 75,
     "stufe": 2,
@@ -428,7 +467,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Senkrechte Eisenschienen, auf Leder genietet, eine alte Machart aus Kriegszeiten.",
+    "en": "Upright iron splints riveted to leather, an old make from times of war."
+   },
    "alt": {
     "preis": 200,
     "stufe": 4,
@@ -459,7 +501,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Geschmiedeter Stahl für Brust, Rücken und Schultern, Stück für Stück auf den Leib gepasst.",
+    "en": "Forged steel for chest, back and shoulders, fitted piece by piece to the body."
+   },
    "alt": {
     "preis": 1500,
     "stufe": 7,
@@ -490,7 +535,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Leinenbinden, fest um Unterarme und Hände gewickelt.",
+    "en": "Linen strips wound tight about forearms and hands."
+   },
    "alt": {
     "preis": 2,
     "stufe": 1,
@@ -521,7 +569,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Weiches Leder, abgegriffen an Fingern und Handfläche.",
+    "en": "Soft leather, worn thin at fingers and palm."
+   },
    "alt": {
     "preis": 5,
     "stufe": 1,
@@ -552,7 +603,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Schienen für die Unterarme, die einen Hieb zur Seite lenken sollen.",
+    "en": "Guards for the forearms, meant to turn a blow aside."
+   },
    "alt": {
     "preis": 20,
     "stufe": 2,
@@ -583,7 +637,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Handschuhe aus Eisenplatten, gegliedert wie die Finger darin.",
+    "en": "Gloves of iron plates, jointed like the fingers inside."
+   },
    "alt": {
     "preis": 40,
     "stufe": 3,
@@ -614,7 +671,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Hosen aus festem Tuch, an den Knien geflickt.",
+    "en": "Trousers of stout cloth, patched at the knees."
+   },
    "alt": {
     "preis": 2,
     "stufe": 1,
@@ -645,7 +705,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Lederstiefel, die schon viel Schlamm gesehen haben.",
+    "en": "Leather boots that have seen a great deal of mud."
+   },
    "alt": {
     "preis": 5,
     "stufe": 1,
@@ -676,7 +739,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Beinlinge aus Kettengeflecht, unter dem Rock geschnürt.",
+    "en": "Leggings of mail, laced beneath the coat."
+   },
    "alt": {
     "preis": 20,
     "stufe": 2,
@@ -707,7 +773,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Eisenschienen für Schienbein und Knie.",
+    "en": "Iron guards for shin and knee."
+   },
    "alt": {
     "preis": 40,
     "stufe": 3,
@@ -738,7 +807,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein Umhang aus dunkler Wolle, am Saum ausgefranst.",
+    "en": "A cloak of dark wool, frayed at the hem."
+   },
    "alt": {
     "preis": 5,
     "stufe": 1,
@@ -769,7 +841,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein schwerer Mantel mit breitem Kragen, wie ihn Reisende von Stand tragen.",
+    "en": "A heavy mantle with a broad collar, as travellers of rank wear."
+   },
    "alt": {
     "preis": 30,
     "stufe": 3,
@@ -800,7 +875,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Eine kurze, spitze Klinge für Gürtel oder Stiefel.",
+    "en": "A short, keen blade for belt or boot."
+   },
    "alt": {
     "preis": 2,
     "stufe": 1,
@@ -831,7 +909,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Eine kurze, breite Klinge für den engen Kampf.",
+    "en": "A short, broad blade for close fighting."
+   },
    "alt": {
     "preis": 10,
     "stufe": 1,
@@ -862,7 +943,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Eine gebogene Klinge, die eher schneidet als sticht.",
+    "en": "A curved blade that cuts rather than stabs."
+   },
    "alt": {
     "preis": 25,
     "stufe": 1,
@@ -893,7 +977,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein Beil für Holz und für Schlimmeres.",
+    "en": "A hatchet for wood, and for worse."
+   },
    "alt": {
     "preis": 5,
     "stufe": 1,
@@ -924,7 +1011,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein gerippter Eisenkopf auf kurzem Schaft, gemacht, um Knochen zu brechen.",
+    "en": "A ribbed iron head on a short haft, made to break bone."
+   },
    "alt": {
     "preis": 5,
     "stufe": 1,
@@ -955,7 +1045,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein Eschenschaft mit Eisenspitze, die älteste Waffe der Bauern.",
+    "en": "An ash shaft with an iron head, the oldest weapon of farmers."
+   },
    "alt": {
     "preis": 1,
     "stufe": 1,
@@ -986,7 +1079,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein mannshoher Stab aus Hartholz, an beiden Enden mit Eisen beschlagen.",
+    "en": "A man-high staff of hardwood, shod with iron at both ends."
+   },
    "alt": {
     "preis": 1,
     "stufe": 1,
@@ -1017,7 +1113,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Eine lange, schmale Klinge mit Korb, gemacht für den Stich.",
+    "en": "A long, slender blade with a basket hilt, made for the thrust."
+   },
    "alt": {
     "preis": 25,
     "stufe": 2,
@@ -1048,7 +1147,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Eine gerade, zweischneidige Klinge, das Schwert der Wachen.",
+    "en": "A straight, double-edged blade, the sword of the watch."
+   },
    "alt": {
     "preis": 15,
     "stufe": 1,
@@ -1079,7 +1181,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein breites Axtblatt auf einem Schaft, zu schwer für Feuerholz.",
+    "en": "A broad axe blade on a haft, too heavy for firewood."
+   },
    "alt": {
     "preis": 10,
     "stufe": 1,
@@ -1110,7 +1215,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Eine Eisenkugel voller Dornen auf einem Stiel.",
+    "en": "An iron ball full of spikes on a haft."
+   },
    "alt": {
     "preis": 15,
     "stufe": 3,
@@ -1141,7 +1249,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein Hammer mit einem Dorn auf der Rückseite, gegen Helme geschmiedet.",
+    "en": "A hammer with a spike behind, forged against helmets."
+   },
    "alt": {
     "preis": 15,
     "stufe": 2,
@@ -1172,7 +1283,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein Stab aus dunklem Holz, kaum länger als eine Elle, in dem etwas summt.",
+    "en": "A rod of dark wood, barely a forearm long, in which something hums."
+   },
    "alt": {
     "preis": 30,
     "stufe": 2,
@@ -1203,7 +1317,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Eine Klinge, so lang wie ein Mann, nur mit beiden Händen zu führen.",
+    "en": "A blade as long as a man, wielded only with both hands."
+   },
    "alt": {
     "preis": 50,
     "stufe": 3,
@@ -1234,7 +1351,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein doppeltes Axtblatt auf langem Schaft, schwer wie ein Urteil.",
+    "en": "A double axe blade on a long haft, heavy as a verdict."
+   },
    "alt": {
     "preis": 30,
     "stufe": 3,
@@ -1265,7 +1385,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein Eisenklotz auf langem Stiel; was er trifft, gibt nach.",
+    "en": "A block of iron on a long haft; what it strikes gives way."
+   },
    "alt": {
     "preis": 10,
     "stufe": 4,
@@ -1296,7 +1419,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Axt, Spitze und Haken auf einem langen Schaft.",
+    "en": "Axe, spike and hook on one long shaft."
+   },
    "alt": {
     "preis": 20,
     "stufe": 2,
@@ -1327,7 +1453,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein Stab aus altem Holz, in dessen Kopf Zeichen geschnitten sind.",
+    "en": "A staff of old wood with signs carved into its head."
+   },
    "alt": {
     "preis": 40,
     "stufe": 2,
@@ -1358,7 +1487,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein kurzer Bogen aus Eibe, wie ihn Jäger tragen.",
+    "en": "A short yew bow, as hunters carry."
+   },
    "alt": {
     "preis": 25,
     "stufe": 1,
@@ -1389,7 +1521,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein Bogen, so hoch wie sein Schütze, aus einem Stück Eibe.",
+    "en": "A bow as tall as its archer, from a single stave of yew."
+   },
    "alt": {
     "preis": 50,
     "stufe": 3,
@@ -1420,7 +1555,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Eine Armbrust mit Holzschaft und Spannhebel.",
+    "en": "A crossbow with a wooden stock and a cocking lever."
+   },
    "alt": {
     "preis": 25,
     "stufe": 2,
@@ -1451,7 +1589,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein Anhänger an einer Kette, glatt gegriffen von vielen Händen.",
+    "en": "A pendant on a chain, worn smooth by many hands."
+   },
    "alt": {
     "preis": 25,
     "stufe": 1,
@@ -1482,7 +1623,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein geschnitztes Zeichen an einer Schnur, gegen das, was man fürchtet.",
+    "en": "A carved token on a cord, against whatever you fear."
+   },
    "alt": {
     "preis": 60,
     "stufe": 3,
@@ -1513,7 +1657,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein schlichter Ring aus Metall.",
+    "en": "A plain ring of metal."
+   },
    "alt": {
     "preis": 25,
     "stufe": 1,
@@ -1544,7 +1691,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein Ring mit eingeschnittenem Wappen; einst hat er Briefe gesiegelt.",
+    "en": "A ring with a carved crest; once it sealed letters."
+   },
    "alt": {
     "preis": 60,
     "stufe": 3,
@@ -1575,7 +1725,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein Schild aus Holz, mit Leder bezogen und mit Eisen gerandet.",
+    "en": "A wooden shield, covered in leather and rimmed with iron."
+   },
    "alt": {
     "preis": 10,
     "stufe": 1,
@@ -1606,7 +1759,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein runder Holzschild mit eisernem Buckel.",
+    "en": "A round wooden shield with an iron boss."
+   },
    "alt": {
     "preis": 10,
     "stufe": 1,
@@ -1637,7 +1793,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein Schild, hinter dem ein Mann fast ganz verschwindet.",
+    "en": "A shield a man can almost vanish behind."
+   },
    "alt": {
     "preis": 60,
     "stufe": 5,
@@ -1668,7 +1827,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Pech und Lumpen auf einem Stock: das Licht, das du mitbringst.",
+    "en": "Pitch and rags on a stick: the light you bring with you."
+   },
    "alt": {
     "preis": 2,
     "stufe": 1,
@@ -1699,7 +1861,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Eine Kugel aus trübem Glas, in der ein Licht zu wandern scheint.",
+    "en": "A sphere of clouded glass in which a light seems to wander."
+   },
    "alt": {
     "preis": 20,
     "stufe": 1,
@@ -1730,7 +1895,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein schweres Buch mit Eisenecken, voll fremder Zeichen.",
+    "en": "A heavy book with iron corners, full of strange signs."
+   },
    "alt": {
     "preis": 25,
     "stufe": 2,
@@ -1761,7 +1929,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein geweihtes Zeichen aus Messing, an einer Kette getragen.",
+    "en": "A consecrated token of brass, worn on a chain."
+   },
    "alt": {
     "preis": 5,
     "stufe": 1,
@@ -1788,7 +1959,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Der Ring des Ältesten Aldric; er hat schon dessen Vater gute Dienste geleistet.",
+    "en": "Elder Aldric's ring; it served his father well before him."
+   },
    "alt": {
     "preis": null,
     "stufe": null,
@@ -1816,7 +1990,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Kroggs schwere Handschuhe, zu groß für jede gewöhnliche Hand.",
+    "en": "Krogg's heavy gloves, too big for any ordinary hand."
+   },
    "alt": {
     "preis": null,
     "stufe": null,
@@ -1844,7 +2021,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Graks Kriegsaxt; die Kerben im Blatt zählen seine Kämpfe.",
+    "en": "Grak's war axe; the notches in its blade count his fights."
+   },
    "alt": {
     "preis": null,
     "stufe": null,
@@ -1872,7 +2052,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Eine alte Klinge aus einer Bornimer Schmiede, lange vergessen in einer Truhe.",
+    "en": "An old blade from a Bornim forge, long forgotten in a chest."
+   },
    "alt": {
     "preis": null,
     "stufe": null,
@@ -1900,7 +2083,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein Stab aus verkohltem Holz, in dessen Rissen noch Glut schimmert.",
+    "en": "A staff of charred wood, embers still glowing in its cracks."
+   },
    "alt": {
     "preis": null,
     "stufe": null,
@@ -1928,7 +2114,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Eine schmale Klinge, die beim Ziehen kaum ein Geräusch macht.",
+    "en": "A slender blade that makes barely a sound when drawn."
+   },
    "alt": {
     "preis": null,
     "stufe": null,
@@ -1956,7 +2145,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein Streitkolben, in dessen Eisenkopf eine aufgehende Sonne geschlagen ist.",
+    "en": "A mace with a rising sun struck into its iron head."
+   },
    "alt": {
     "preis": null,
     "stufe": null,
@@ -1984,7 +2176,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein Fangzahn des Leitwolfs Grimmzahn an einem Lederband.",
+    "en": "A fang of Grimfang the pack leader on a leather cord."
+   },
    "alt": {
     "preis": null,
     "stufe": null,
@@ -2012,7 +2207,10 @@
     }
    ],
    "zustand": null,
-   "text": null,
+   "text": {
+    "de": "Ein dunkler Umhang, in dessen Saum feine Schutzzeichen gestickt sind.",
+    "en": "A dark cloak with fine warding signs stitched into its hem."
+   },
    "alt": {
     "preis": null,
     "stufe": null,
@@ -2053,8 +2251,8 @@
    ],
    "zustand": null,
    "text": {
-    "de": "Ein klassischer roter Heiltrank. Wirkt sofort, auch im Kampf.",
-    "en": "A classic red healing potion. Works at once, also in battle."
+    "de": "Ein roter Heiltrank; er wirkt sofort, auch im Kampf.",
+    "en": "A red healing potion; it works at once, also in battle."
    },
    "alt": {
     "preis": 25,
@@ -2096,8 +2294,8 @@
    ],
    "zustand": null,
    "text": {
-    "de": "Doppelt so stark wie der einfache Heiltrank. Wirkt sofort, auch im Kampf.",
-    "en": "Twice as strong as the plain healing potion. Works at once, also in battle."
+    "de": "Stärker als der einfache Heiltrank; er wirkt sofort, auch im Kampf.",
+    "en": "Stronger than the plain healing potion; it works at once, also in battle."
    },
    "alt": {
     "preis": 75,
@@ -2127,8 +2325,8 @@
    ],
    "zustand": null,
    "text": {
-    "de": "Ein seltenes Elixier für schwere Wunden. Wirkt sofort, auch im Kampf.",
-    "en": "A rare elixir for grave wounds. Works at once, also in battle."
+    "de": "Ein seltenes Elixier für schwere Wunden; es wirkt sofort, auch im Kampf.",
+    "en": "A rare elixir for grave wounds; it works at once, also in battle."
    },
    "alt": {
     "preis": 200,
@@ -2169,8 +2367,8 @@
    ],
    "zustand": null,
    "text": {
-    "de": "Heilt alle Zustände: Vergiftung, Brand, Blutung, Betäubung, Flüche. Auch mit vollen TP trinkbar.",
-    "en": "Cures every condition: poison, burning, bleeding, stun, curses. Can be drunk even at full HP."
+    "de": "Löst Gift, Brand, Blutung, Betäubung und Flüche; auch unverletzt trinkbar.",
+    "en": "Cures poison, burning, bleeding, stun and curses; can be drunk even unhurt."
    },
    "alt": {
     "preis": 20,
@@ -2204,8 +2402,8 @@
    ],
    "zustand": null,
    "text": {
-    "de": "Bis zur nächsten Rast reicht der Atem beim Rennen doppelt so lange. Nicht im Kampf.",
-    "en": "Until the next rest, your breath for running lasts twice as long. Not in battle."
+    "de": "Bis zur nächsten Rast reicht der Atem beim Rennen doppelt so lange; nicht im Kampf.",
+    "en": "Until the next rest, your breath for running lasts twice as long; not in battle."
    },
    "alt": {
     "preis": 25,
@@ -2235,8 +2433,8 @@
    ],
    "zustand": null,
    "text": {
-    "de": "Ein Fläschchen, von Morwen gebraut. Getrunken steigt ein Funke auf und leuchtet über dir bis zur nächsten Rast. Im Dunkeln siehst du weiter, aber Monster bemerken dich früher. Nicht im Kampf.",
-    "en": "A flask brewed by Morwen. Drink it, and a spark rises to glow above you until your next rest. In the dark you see further, but monsters notice you sooner. Not in battle."
+    "de": "Von Morwen gebraut: Ein Funke steigt auf und leuchtet über dir bis zur nächsten Rast; du siehst im Dunkeln weiter, aber Monster bemerken dich früher, nicht im Kampf.",
+    "en": "Brewed by Morwen: a spark rises to glow above you until your next rest; in the dark you see further, but monsters notice you sooner, not in battle."
    },
    "alt": {
     "preis": 25,
@@ -2273,8 +2471,8 @@
    ],
    "zustand": null,
    "text": {
-    "de": "Wurfgeschoss, trifft immer und setzt den Gegner in Brand.",
-    "en": "Thrown, always hits and sets the foe on fire."
+    "de": "Ein Wurfgeschoss, das immer trifft und den Gegner in Brand setzt.",
+    "en": "Thrown, it always hits and sets the foe on fire."
    },
    "alt": {
     "preis": 30,
@@ -2308,8 +2506,8 @@
    ],
    "zustand": null,
    "text": {
-    "de": "Wurfgeschoss, trifft immer. Wirkt nur gegen Untote: 2W6 gleißender Schaden.",
-    "en": "Thrown, always hits. Only harms undead: 2d6 radiant damage."
+    "de": "Ein Wurfgeschoss, das immer trifft, aber nur Untoten schadet.",
+    "en": "Thrown, it always hits, but harms only the undead."
    },
    "alt": {
     "preis": 25,
@@ -2338,8 +2536,8 @@
    ],
    "zustand": null,
    "text": {
-    "de": "Am Lagerfeuer lässt es sich braten. Oder man verkauft es.",
-    "en": "Can be roasted at a campfire. Or sold."
+    "de": "Am Lagerfeuer lässt es sich braten, oder man verkauft es.",
+    "en": "It can be roasted at a campfire, or sold."
    },
    "alt": {
     "preis": 6,
@@ -2372,8 +2570,8 @@
    ],
    "zustand": null,
    "text": {
-    "de": "Stärkt für den nächsten Kampf: +1 auf Angriffe und Schaden.",
-    "en": "Fortifies for the next fight: +1 to attacks and damage."
+    "de": "Stärkt dich für den nächsten Kampf.",
+    "en": "Fortifies you for the next fight."
    },
    "alt": {
     "preis": 16,
@@ -2402,8 +2600,8 @@
    ],
    "zustand": null,
    "text": {
-    "de": "Wachsen auf Blumenwiesen in der Wildnis. Morwen braut daraus Tränke.",
-    "en": "Grow in wild flower meadows. Morwen brews potions from them."
+    "de": "Sie wachsen auf Blumenwiesen in der Wildnis; Morwen braut daraus Tränke.",
+    "en": "They grow in wild flower meadows; Morwen brews potions from them."
    },
    "alt": {
     "preis": 8,
@@ -2432,8 +2630,8 @@
    ],
    "zustand": null,
    "text": {
-    "de": "Ein dichtes graues Fell. Händler zahlen gut dafür.",
-    "en": "A thick gray pelt. Traders pay well for it."
+    "de": "Ein dichtes graues Fell; Händler zahlen gut dafür.",
+    "en": "A thick gray pelt; traders pay well for it."
    },
    "alt": {
     "preis": 24,
@@ -2462,8 +2660,8 @@
    ],
    "zustand": null,
    "text": {
-    "de": "Ein gebogener Hauer. Händler zahlen gut dafür.",
-    "en": "A curved tusk. Traders pay well for it."
+    "de": "Ein gebogener Hauer; Händler zahlen gut dafür.",
+    "en": "A curved tusk; traders pay well for it."
    },
    "alt": {
     "preis": 20,
@@ -2492,8 +2690,8 @@
    ],
    "zustand": null,
    "text": {
-    "de": "Aus einer Riesenspinne. Morwen kann daraus Alchemistenfeuer mischen.",
-    "en": "From a giant spider. Morwen can mix alchemist's fire from it."
+    "de": "Aus einer Riesenspinne; Morwen kann daraus Alchemistenfeuer mischen.",
+    "en": "From a giant spider; Morwen can mix alchemist's fire from it."
    },
    "alt": {
     "preis": 30,
@@ -2522,8 +2720,8 @@
    ],
    "zustand": null,
    "text": {
-    "de": "Ledrig und zäh. Eine Zutat für starke Heiltränke.",
-    "en": "Leathery and tough. An ingredient for strong healing potions."
+    "de": "Ledrig und zäh, eine Zutat für starke Heiltränke.",
+    "en": "Leathery and tough, an ingredient for strong healing potions."
    },
    "alt": {
     "preis": 16,
@@ -2552,8 +2750,8 @@
    ],
    "zustand": null,
    "text": {
-    "de": "Ein schmaler Ring aus angelaufenem Silber. Gwenna wartet am Fluss darauf.",
-    "en": "A slim ring of tarnished silver. Gwenna is waiting for it by the river."
+    "de": "Ein schmaler Ring aus angelaufenem Silber; Gwenna wartet am Fluss darauf.",
+    "en": "A slim ring of tarnished silver; Gwenna is waiting for it by the river."
    },
    "alt": {
     "preis": 0,
@@ -2582,8 +2780,8 @@
    ],
    "zustand": null,
    "text": {
-    "de": "Grobes graues Tuch, ein offenes Auge hineingestickt. Jorin will es sehen.",
-    "en": "Coarse gray cloth, an open eye stitched into it. Jorin wants to see it."
+    "de": "Grobes graues Tuch, ein offenes Auge hineingestickt; Jorin will es sehen.",
+    "en": "Coarse gray cloth, an open eye stitched into it; Jorin wants to see it."
    },
    "alt": {
     "preis": 0,
@@ -2612,8 +2810,8 @@
    ],
    "zustand": null,
    "text": {
-    "de": "Ein Bündel beißender Kräuter von Morwen. Krogg vor die Füße werfen: Der Rauch nimmt ihm den ersten Hieb. Nur im Kampf.",
-    "en": "A bundle of acrid herbs from Morwen. Throw it at Krogg's feet: the smoke takes away his first blow. Only in battle."
+    "de": "Ein Bündel beißender Kräuter von Morwen; taucht Krogg auf, fliegt es ihm vor die Füße, und der Rauch nimmt ihm den ersten Hieb.",
+    "en": "A bundle of acrid herbs from Morwen; when Krogg appears it flies at his feet, and the smoke takes away his first blow."
    },
    "alt": {
     "preis": 0,
@@ -2672,8 +2870,8 @@
    ],
    "zustand": null,
    "text": {
-    "de": "Ein kleiner, blanker Schlüssel. Er passt nicht zu den Türen.",
-    "en": "A small, bright key. It fits none of the doors."
+    "de": "Ein kleiner, blanker Schlüssel; er passt zu keiner der Türen.",
+    "en": "A small, bright key; it fits none of the doors."
    },
    "alt": {
     "preis": 0,
@@ -2702,8 +2900,8 @@
    ],
    "zustand": null,
    "text": {
-    "de": "Das heilige Amulett aus dem Tempel von Bornim. Es ist warm.",
-    "en": "The holy amulet of the Bornim temple. It feels warm."
+    "de": "Das heilige Amulett aus dem Tempel von Bornim; es ist warm.",
+    "en": "The holy amulet of the Bornim temple; it feels warm."
    },
    "alt": {
     "preis": 0,
@@ -2732,8 +2930,8 @@
    ],
    "zustand": null,
    "text": {
-    "de": "Gezeichnet mit einem grauen Auge.",
-    "en": "Marked with a gray eye."
+    "de": "Ein Brief, gesiegelt mit einem grauen Auge.",
+    "en": "A letter, sealed with a gray eye."
    },
    "alt": {
     "preis": 0,
