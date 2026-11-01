@@ -38,8 +38,9 @@ func _lauf() -> void:
 		var sk := m.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
 		var b := _knochen(sk, ["pelvis"]); var h := _knochen(sk, ["neck_01", "neck", "spine_03"]); var k := _knochen(sk, ["Head", "head"])
 		var gang := float(m.get_meta("gehen_m_je_s")); var renn := float(m.get_meta("rennen_m_je_s"))
-		print("WECHSEL %s: Knochen %s %s %s, Gehen %.2f s, Rennen %.2f s, gehen_m_je_s %.2f, rennen_m_je_s %.2f" % [art, sk.get_bone_name(b),
-			sk.get_bone_name(h), sk.get_bone_name(k), ap.get_animation("Gehen").length, ap.get_animation("Rennen").length, gang, renn])
+		print("WECHSEL %s: Knochen %s %s %s, Gehen %.2f s (Tritte %s), Rennen %.2f s (Tritte %s), gehen_m_je_s %.2f, rennen_m_je_s %.2f" % [art,
+			sk.get_bone_name(b), sk.get_bone_name(h), sk.get_bone_name(k), ap.get_animation("Gehen").length, ap.get_animation("Gehen").get_meta("tritt", "-"),
+			ap.get_animation("Rennen").length, ap.get_animation("Rennen").get_meta("tritt", "-"), gang, renn])
 		ap.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 		# reine Schleifen: Neigung je Bild
 		for n in ["Gehen", "Rennen"]:
@@ -68,15 +69,14 @@ func _lauf() -> void:
 			var want := ("Rennen" if rennt else "Gehen") if moving else "Stehen"
 			var cur := ap.current_animation
 			var wechsel := ""
+			var sp := (tempo / (renn if rennt else gang)) if moving else 1.0
 			if cur != want:
-				var phase := ap.current_animation_position / maxf(0.001, ap.current_animation_length)
-				var schritt := cur.begins_with("Gehen") or cur.begins_with("Rennen")
-				var bl := Held.ueberblendung(cur, moving)
-				ap.play(want, bl)
-				if schritt and moving: ap.seek(phase * ap.get_animation(want).length)
-				wechsel = "%s->%s Phase %.2f Blende %.2f" % [cur, want, phase, bl]
+				var ph := Held.schritt_phase(ap.get_animation(cur), ap.current_animation_position) if cur != "" else 0.0
+				var vorher_t := ap.current_animation_position
+				Held.wechsel(ap, want, moving, sp)
+				wechsel = "%s->%s Phase %.2f (bei %.2f s) -> %.2f s" % [cur, want, ph, vorher_t, ap.current_animation_position]
 				seit = 0
-			ap.speed_scale = (tempo / (renn if rennt else gang)) if moving else 1.0
+			ap.speed_scale = sp
 			ap.advance(DT)
 			var n1 := _neigung(sk, b, h)
 			var groesst := 0.0; var wer := ""

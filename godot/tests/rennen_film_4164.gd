@@ -196,12 +196,14 @@ func _held(f: Dictionary, dt: float, ansicht: String) -> void:
 	var rennt := moving and tempo > GEHEN * 1.45
 	var want := ("Rennen" if rennt else "Gehen") if moving else "Stehen"
 	var cur := anim.current_animation
-	if cur != want:
+	var sp := (tempo / (f["renn"] if rennt else f["gang"])) if moving else 1.0
+	if cur != want and not alt: Held.wechsel(anim, want, moving, sp)   # 416.4: Ueberblendung in echter Zeit, Schritt nach Tritten
+	elif cur != want:
 		var phase := anim.current_animation_position / maxf(0.001, anim.current_animation_length) if cur != "" else 0.0
 		var schritt := cur.begins_with("Gehen") or cur.begins_with("Rennen")
-		anim.play(want, (0.6 if schritt and moving else (0.5 if cur.begins_with("Stehen") else 0.25)) if alt else Held.ueberblendung(cur, moving))
+		anim.play(want, 0.6 if schritt and moving else (0.5 if cur.begins_with("Stehen") else 0.25))
 		if schritt and moving: anim.seek(phase * anim.get_animation(want).length)
-	anim.speed_scale = (tempo / (f["renn"] if rennt else f["gang"])) if moving else 1.0
+	anim.speed_scale = sp
 	anim.advance(dt)
 	var cam: Camera3D = f["cam"]
 	var ziel := held.position + Vector3(0, 0.9, 0)

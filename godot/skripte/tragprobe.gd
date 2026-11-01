@@ -157,17 +157,13 @@ func standbilder(axt := false, pakete := false) -> void:
 				tempo = Held.tempo_schritt(tempo, soll, SPIEL_GEHEN, 1.0 / FPS)
 				var want := b0
 				if moving and ap.has_animation(b0 + g) and float(m.get_meta("gang_" + ("gehen" if b0 == "Gehen" else "rennen") + "_m_je_s", 0.0)) > 0.01: want = b0 + g
-				var cur := ap.current_animation
-				if cur != want:
-					var phase := ap.current_animation_position / maxf(0.001, ap.current_animation_length) if cur != "" else 0.0
-					var schritt := cur.begins_with("Gehen") or cur.begins_with("Rennen")
-					ap.play(want, Held.ueberblendung(cur, moving))
-					if schritt and moving: ap.seek(phase * ap.get_animation(want).length)
 				var vb := 1.0
 				if moving:
 					var mit := want != b0
 					vb = float(m.get_meta(("gang_" if mit else "") + ("gehen" if b0 == "Gehen" else "rennen") + "_m_je_s", 1.0))
-				ap.speed_scale = tempo / maxf(0.01, vb) if moving else 1.0
+				var sp := tempo / maxf(0.01, vb) if moving else 1.0
+				if ap.current_animation != want: Held.wechsel(ap, want, moving, sp)   # 416.4: Ueberblendung in echter Zeit, Schritt nach Tritten
+				ap.speed_scale = sp
 				ap.advance(1.0 / FPS)
 				p += Vector3(0, 0, 1) * tempo / FPS
 				w.position = p

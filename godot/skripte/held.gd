@@ -129,6 +129,43 @@ static func ueberblendung(cur: String, moving: bool) -> float:
 	if schritt: return 0.6 if moving else 0.45
 	return 0.5 if cur.begins_with("Stehen") else 0.25
 
+# 416.4 (Pruefer 15:1x: „Rennen → Gehen springt in einem Bild in die aufrechte Haltung“; Messung rennen_wechsel_4164, Lauf 41316403849):
+# Godot zaehlt die Ueberblendung in Zeit der Bewegung, also mal speed_scale. Gleich nach dem Wechsel ins Gehen ist das Tempo noch
+# 2,9 m/s, das Gehen (1,0 m/s) laeuft 2,9-fach, die 0,6 s waren 0,2 s (Neigung 25 -> 15 Grad in 4 Bildern); ins Rennen (0,57-fach)
+# gut 1 s, das blieb (Chef: „Rennen und Übergang passen“). Dazu der selbe Schritt nach den Tritten (heldfigur.gd Meta „tritt“: Zeit,
+# zu der der rechte und der linke Ballen aufsetzt) statt nach dem Anteil der Zeit: Rennen A laeuft in der Luft doppelt so schnell, der
+# Anteil traf das Gehen im falschen Schritt (Wade 69 Grad in einem Bild). sp: speed_scale der neuen Bewegung
+static func wechsel(ap: AnimationPlayer, want: String, moving: bool, sp: float) -> void:
+	var cur := ap.current_animation
+	var schritt := moving and (cur.begins_with("Gehen") or cur.begins_with("Rennen"))
+	var bl := ueberblendung(cur, moving)
+	var ph := 0.0
+	if schritt:
+		bl *= maxf(1.0, sp)
+		ph = schritt_phase(ap.get_animation(cur), ap.current_animation_position)
+	ap.play(want, bl)
+	if schritt: ap.seek(schritt_zeit(ap.get_animation(want), ph))
+
+# Schrittphase 0 bis 1: 0 rechter Ballen setzt auf, 0,5 linker; ohne Meta „tritt“ der Anteil der Zeit
+static func schritt_phase(a: Animation, t: float) -> float:
+	var L := maxf(0.001, a.length)
+	if not a.has_meta("tritt"): return fposmod(t, L) / L
+	var tr: Vector2 = a.get_meta("tritt")
+	var d := fposmod(tr.y - tr.x, L)
+	if d < 0.01 or d > L - 0.01: return fposmod(t, L) / L
+	var u := fposmod(t - tr.x, L)
+	return 0.5 * u / d if u < d else 0.5 + 0.5 * (u - d) / (L - d)
+
+static func schritt_zeit(a: Animation, ph: float) -> float:
+	var L := maxf(0.001, a.length)
+	if not a.has_meta("tritt"): return fposmod(ph, 1.0) * L
+	var tr: Vector2 = a.get_meta("tritt")
+	var d := fposmod(tr.y - tr.x, L)
+	if d < 0.01 or d > L - 0.01: return fposmod(ph, 1.0) * L
+	ph = fposmod(ph, 1.0)
+	var u := ph * 2.0 * d if ph < 0.5 else d + (ph - 0.5) * 2.0 * (L - d)
+	return fposmod(tr.x + u, L)
+
 func _process(dt: float) -> void:
 	zeit += dt
 	var dir := Vector3.ZERO
@@ -214,15 +251,10 @@ func _process(dt: float) -> void:
 		if fackel and traegt_fackel:
 			if anim.has_animation(want + "_Fackel"): want += "_Fackel"
 			elif not moving: want = "Stehen_Fackel" if anim.has_animation("Stehen_Fackel") else "Stehen"   # Fackel bleibt in der Hand
-		var cur := anim.current_animation
-		if cur != want:
-			# Gehen <-> Rennen im selben Schritt (beide beginnen mit dem rechten Fuss vorn) und laenger ueberblendet
-			var phase := anim.current_animation_position / maxf(0.001, anim.current_animation_length) if cur != "" else 0.0
-			var schritt := cur.begins_with("Gehen") or cur.begins_with("Rennen")
-			# Runde 5 (Helfer Runde 3: „Haltung springt beim Anlaufen in 0,1 s“): Gehen <-> Rennen 0,6 s (Rumpf neigt sich weich; 0,45: in 1/15 s 9 Grad), aus dem Stehen 0,25 s
-			anim.play(want, ueberblendung(cur, moving))
-			if schritt and moving: anim.seek(phase * anim.get_animation(want).length)
-		anim.speed_scale = (tempo / ((renn_w if rennt else gang_w) if mit else (renn if rennt else gang))) if moving else 1.0
+		var sp := (tempo / ((renn_w if rennt else gang_w) if mit else (renn if rennt else gang))) if moving else 1.0
+		# Gehen <-> Rennen im selben Schritt, Ueberblendung in echter Zeit (416.4, wechsel)
+		if anim.current_animation != want: wechsel(anim, want, moving, sp)
+		anim.speed_scale = sp
 	var k := karte.pos_kachel(position)
 	if k != kachel:
 		kachel = k

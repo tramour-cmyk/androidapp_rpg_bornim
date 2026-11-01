@@ -34,6 +34,7 @@ static var bew_becken := 1.0
 static var bew_sk: Skeleton3D = null    # Skelett von bewegungen.bin (Ruhelage fuer rennen_umformen)
 static var bew_raum := Transform3D.IDENTITY
 static var renn_lib := {}               # Art -> umgeformtes „Rennen“
+static var tritt_cache := {}             # 416.4: Bewegung|Art -> Vector2(Zeit rechter, linker Ballen setzt auf)
 # 416.4 (Chef 31.10., Build 143: Rennen wirkt „als würde er Hochsprung machen“; 01.11., 11:28 „neuer Film“ mit heute, A, B):
 # Jog_Fwd_Loop der UAL ist ein Sprunglauf. flug = Zeit, in der kein Fuss am Boden ist, so viel kuerzer (der Stand bleibt wie die Quelle,
 # darum gleitet nichts, held.gd speed_scale bleibt); hub = Anteil, um den sich das Becken ueber seinen Tiefstand hebt. Werte wie
@@ -84,6 +85,23 @@ static func aussehen_voll(a: Dictionary, klasse := "") -> Dictionary:
 	var v := vorgabe(klasse)
 	for k in a: v[k] = a[k]
 	return v
+
+# 416.4: Zeit, zu der der rechte und der linke Ballen aufsetzt (erstes Bild unter 2 cm ueber dem Tiefstand nach einem Bild darueber);
+# Vector2(-1, -1), wenn ein Fuss nie abhebt
+static func tritte(an: Animation, sk: Skeleton3D, raum: Transform3D) -> Vector2:
+	var h := renn_hoehen(an, sk, raum)
+	var z: Array = h["zeit"]
+	var r := Vector2(-1, -1)
+	for s in 2:
+		var y: Array = h["r" if s == 0 else "l"]
+		var tief: float = y.min()
+		var n := y.size() - 1   # letztes Bild = erstes (Schleife)
+		for i in n:
+			if y[i] < tief + 0.02 and y[(i - 1 + n) % n] >= tief + 0.02:
+				if s == 0: r.x = z[i]
+				else: r.y = z[i]
+				break
+	return r if r.x >= 0.0 and r.y >= 0.0 else Vector2(-1, -1)
 
 # Die Figur: Wurzel des glb mit AnimationPlayer „AnimationPlayer“ (Stehen, Gehen, Rennen, Stehen_2, Stehen_3, …); mats bekommt die
 # Toon-Materialien (held.gd: fill, Nacht). Ergebnis in meta: „gehen_m_je_s“, „rennen_m_je_s“, „faust_L“ (Knochen, Griff, Achse)
@@ -152,6 +170,11 @@ static func bewegungen(m: Node3D, sk: Skeleton3D, art := RENNEN) -> float:
 			elif ty == Animation.TYPE_POSITION_3D:
 				for i in an.track_get_key_count(t): an.track_set_key_value(t, i, an.track_get_key_value(t, i) * f)
 		if n in SCHLEIFEN or n.begins_with("Gehen_") or n.begins_with("Rennen_"): an.loop_mode = Animation.LOOP_LINEAR   # 417 Pakete
+		if n == "Gehen" or n == "Rennen" or n.begins_with("Gehen_") or n.begins_with("Rennen_"):   # 416.4: Tritte fuer Held.wechsel
+			var key := n + "|" + (art if n == "Rennen" else "")
+			if not tritt_cache.has(key):
+				tritt_cache[key] = tritte(renn_lib[art] if n == "Rennen" and renn_lib.has(art) else bew_lib.get_animation(n), bew_sk, bew_raum)
+			if tritt_cache[key].x >= 0.0: an.set_meta("tritt", tritt_cache[key])
 		lib.add_animation(n, an)
 	var ap := AnimationPlayer.new()
 	ap.name = "AnimationPlayer"
