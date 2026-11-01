@@ -1,5 +1,7 @@
 # 416.4 · Weiche Übergänge Stehen, Gehen, Rennen · Tom (Team Tom) · 01.11., 15:0x
 
+[Film von 01.11., 15:02](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-1502-416.4-Tom.mp4)
+
 Film per Telegram, zwei Felder untereinander, beide Held ohne Waffe mit Rennen A (dein „A“ von 13:1x): oben **vorher**, unten **weich**. Je 7 s: Stehen, Anlaufen, Gehen, Rennen, zurück ins Gehen, Abbremsen, Stehen. Erst Spielansicht, dann von der Seite, dann dasselbe in halber Geschwindigkeit. Noch kein Build; Zweig `claude/tom-416-4-rennen`.
 
 Was „weich“ ändert (gilt für Held, Leute und Tiere):
