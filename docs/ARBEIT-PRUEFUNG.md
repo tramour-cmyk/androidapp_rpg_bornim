@@ -12,6 +12,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
+| 459 | M | **von Perikles (Doppelpack 421, 01.11.):** prüfen: 458.1 Gegenstandskatalog (`tools/gegenstaende.py`, Datendatei, `LISTE-GEGENSTAENDE.md`), 451.1 BRS-Name (CLAUDE.md, Leitbild, Werkzeug), 447.1 Abnahmeliste in Stufen 1–6 und `tagesbericht.py` je Stufe, 457 Wächter „ohne Toon/Tusche“ (`commit-pruefung.py`, `meldung.sh`); Commits „Perikles: 458.1/451.1/447.1/457“ | startbar |
 | 434 | M | **von Sokrates (Chef 31.10., 22:1x):** bei jeder Zählung 374 zusätzlich die Zeile „Bestand geprüft“ je Vorlage zu einem Eigenbau prüfen (Zu 434) | erst wieder ab 02.11., 08:00 mit 374 (01.11. für 31.10. gezählt: Zu 374) |
 | 398 | M | **von Sokrates:** vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (397), dazu 15 Lücken (398); in der Wochenzählung als Chef-Erstfund zählen | frühestens 02.11. (mit Zeile „Woche“; Start 28.10., 12:04 zu früh, Bedingung ohne Termin-Wort) |
 | 374 | M | **von Sokrates (Chef 27.10., 11:58, Archiv 374):** täglich 8 Uhr bis 03.11. Vorlagen des Vortags an den Chef zählen: mit Fassungsblatt, genau einer Fehlerrunde, Chefwortlaut im Vorgang, Vorgabe Homer (373 a, c, d); eine Zeile Morgenmeldung, Abweichung in den Vorrat des Verursachers | erst wieder ab 02.11., 08:00 (31.10. gezählt 01.11., 08:1x: Zu 374) |

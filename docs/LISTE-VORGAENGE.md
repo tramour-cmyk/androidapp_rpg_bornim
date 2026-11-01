@@ -168,7 +168,10 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 447.3 | Schätzung je Stufe, Bereich Jerry; Stufe 3 in Simulation 444 (447) | B Abläufe | M | – | Team Jerry | startbar |
 | 447.4 | Texte Lehrmeister-Einladungen und Ruf-Gespräche für Stufe 3 (447) | C Texte | M | – | Homer | startbar |
 | 447.5 | Abgleich Abnahmeliste 3.1 (erste Prüfung je Pfad) mit E 79 (447) | D Design | M | – | Sokrates | startbar |
-| 457 | Signatur in jeder Probe: Wächter für Vorlagen ohne Toon/Tusche, Probeskripte mit Spielshadern (Chef 01.11., 11:49) | B Abläufe | M | – | Perikles | startbar |
+| 457.1 | Probeskripte Tom mit Spielshadern (457) | E Figuren | M | – | Team Tom | startbar |
+| 457.2 | Probeskripte Jerry mit Spielshadern (457) | E Kampf | M | – | Team Jerry | startbar |
+| 459 | Doppelpack 421: Prüfung 458.1, 451.1, 447.1, 457 (Perikles 01.11.) | B Abläufe | M | – | Diogenes | startbar |
+| 457 | Signatur in jeder Probe: Wächter für Vorlagen ohne Toon/Tusche, Probeskripte mit Spielshadern (Chef 01.11., 11:49) | B Abläufe | M | – | Perikles | gebaut |
 | 416.7 | Aktionsknopf am Tresen in Schenke und Laden (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | zu testen |
 | 416.8 | NPC dreht sich zum Helden, nach etwa 10 s Leerlauf (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | zu testen |
 | 416.9 | Laden Verkaufen: Reiter bei „angelegt“, Vergleichswerte, nicht tragbare Gegenstände, Icon bei Menge (aus 416.3, Chef 31.10., 22:20) | B Umzug | M | 5,26 $ | Team Tom | gebaut |
