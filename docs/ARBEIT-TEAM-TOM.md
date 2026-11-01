@@ -51,6 +51,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 - **Zu 425:** Chef 31.10., 22:5x (Archiv): Testmenü mit Icons, Inhalt prüfen. Prüferbefunde 01.11. behoben (588c3c9ec), Reihen 4/3/2 als Geschmack in der Chefsache.
 - **Zu 416.4** (Tom 01.11., `rennen_4164.gd`): Rennen = `Jog_Fwd_Loop`, Sprunglauf (Becken 24 cm Hub, 76 % ohne Boden, 5,7 m/s), im Spiel 0,75-fach. `Sprint_Loop` 14 cm, Neigung 39° (Tempo in `held_klassen.py` falsch gemessen: 0,73). Film (Jog, Jog gedämpft, Sprint) braucht Kaufmodelle; `add_repo` abgelehnt.
+- **Zu 416.4, von Sokrates (01.11., 09:4x, Chefsache 416.4a):** Film im Godot-Ablauf auf GitHub bauen (`godot-kampf.yml`, von Hand starten, holt Kaufmodelle mit `KAUF_TOKEN` über `kauf_laden.sh`, wie Jerry Lauf 147), nicht über `add_repo`.
 
 - **Hinweis von Diogenes (374, 29.10.):** Stichprobe 373 28.10.: dritter Probelauf (389 höchstens zwei), Helferbefund vor dem Versand (396: erst senden, Befund danach), je drei Blätter für ein Modell (373 a).
 - **Hinweis von Diogenes (434, 01.11.):** Stichprobe 31.10.: Vorlage 417 (Tragart, Bewegung) ohne Zeile „Bestand geprüft: … genommen/fehlt“ (Blatt, 18d13193f; 377); der Inhalt steht im Blatt („Bibliothek hat kein Gehen mit Waffe“), die Zeile fehlt.

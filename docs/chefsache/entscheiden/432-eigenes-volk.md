@@ -21,3 +21,11 @@ Homer · 01.11., 09:1x · C Texte
 ## Folgerung
 
 Mit „432 A“ oder „432 B“ schreibe ich den Weg in den Storyplan; der Bau folgt nach dem Meilenstein.
+
+## Stellungnahme Sokrates (01.11., 09:4x)
+
+- *Stärkstes Gegenargument gegen A:* Wer das Volk wählt, bekommt ein Versprechen („der Kult sucht dich“), dessen Einlösung erst ab Kapitel 3 kommt und dessen Antwort noch niemand kennt. Steht die Antwort später anders, als das Volk angelegt ist, muss man das Volk umbauen oder die Geschichte verbiegen. Dazu ein sechstes Modell (431).
+- *Wie es zu entkräften ist:* (1) Homer schreibt die Antwort („warum sucht der Kult sie“) jetzt in den Storyplan, nur intern, bevor gebaut wird; dann ist das Volk auf die Antwort gebaut, nicht umgekehrt. (2) Das Modell ist der Mensch mit zwei Merkmalen (Strähne, Ring um die Iris), kein eigener Körperbau; das kostet etwa so viel wie eine Frisur. (3) Die Werte folgen Entscheidung 72 und laufen mit durch die Simulation 444.
+- *Widerspruch zu Entschiedenem:* keiner; Entscheidung 72 sieht die Prüfung vor, 430 verbietet nur leuchtende Augen (Gold ohne Leuchten passt).
+- *Kosten:* jetzt ein Absatz Storyplan; Bau nach dem Meilenstein.
+- *Empfehlung:* A, wenn vorher die Antwort im Storyplan steht und das Modell der Mensch mit zwei Merkmalen ist.

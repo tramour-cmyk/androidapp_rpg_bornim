@@ -11,7 +11,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 432.1 | K | **von Homer (Chef 01.11., 09:13: „432 Stellungnahme Sokrates fehlt“):** Stellungnahme zu Chefsache 432 (eigenes Volk, Weg A oder B) unten in die Datei | startbar |
-| 442 | M | **von Chef (31.10., 23:52, „warum ihr alle auf dem kleinen Rechenmodell lauft“):** Modellzuordnung vorlegen | wartet auf Chef: Chefsache 442 (Befund: 11 von 12 gestarteten Sitzungen Opus; Sonnet: Ford, diese Desktop-Sitzung) |
+| 442 | M | **von Chef (31.10., 23:52, „warum ihr alle auf dem kleinen Rechenmodell lauft“):** Modellzuordnung vorlegen | wartet auf Chef: Chefsache 442, neu bewertet 01.11. (445) |
 | 427 | M | **von Chef (31.10., 21:3x):** Bestiarium `LISTE-BESTIARIUM.md` | wartet auf Jerry: Startwerte gehen in die Simulation 444, dann gemessen zum Chef (Archiv 422, 444) |
 | 422 | M | **von Chef (31.10., 21:2x, „dass es sich liest wie eine gute Anleitung. Und ein Nachschlagewerk“):** Spielsystem 2.0 eindampfen; Verlauf getrennt; Befund Diogenes 420 einarbeiten | wartet auf Chef: Chefsache 422 (Abnahme, Vorschläge a–h), D54 eingearbeitet 01.11., 08:3x |
 | 413 | M | **von Chef (31.10., 20:1x):** Spielsystem 2.0 (`DESIGN-SPIELSYSTEM-2-0.md`), Meilensteine | wartet auf Chef: A1 (Chefsache 413a); S3 Profil entschieden 31.10., 23:51 (E 76) |

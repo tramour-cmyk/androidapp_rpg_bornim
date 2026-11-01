@@ -15,8 +15,10 @@ Sokrates · 31.10., 23:5x · B Abläufe
 
 *Stärkstes Gegenargument gegen Opus für Sokrates:* Sonnet ist deutlich billiger (die zwei Sonnet-Sitzungen kosteten 6–7 $ bei 300–400 Tsd. Token; Tom und Jerry kosten im Mittel etwa 21 $ je Sitzung, 31.10., 404). Das Guthaben ist begrenzt. *Dafür:* Beratung, Entwürfe wie das Spielsystem 2.0 und Prüfungen leben von Gründlichkeit; die Chefrunde und Grundsatzfragen sind Entscheidungen, die schwer rückgängig zu machen sind (Oberste Direktive: Fehler ausmerzen). Die Startzuordnung hat der Chef am 17.10. so gewollt.
 
+*Wie es zu entkräften ist (neu bewertet 01.11., 09:4x, 445):* (1) Die Kosten entstehen vor allem durch Runden, nicht durch das Modell (Messung 383: Runden 44 %); darum schickt Ford neue Arbeit als „Weiter“ an die laufende Sitzung, statt neu zu starten (Archivregel), und Stellungnahmen 194.2 kommen höchstens zweimal am Tag gebündelt. (2) Ob Opus die Mehrkosten wert ist, wird gemessen statt geschätzt: 383.2 vergleicht dieselbe Aufgabe frisch und groß, ich nehme Sonnet gegen Opus für eine Sokrates-Aufgabe mit auf (Befunde gegen Diogenes' Prüfung). (3) Gegen die Lücke „vom Chef in der App gestartet, falsches Modell“: du startest Sokrates nicht selbst, sondern sagst Ford „Sokrates starten“ (Opus über `lauf.py`); startest du doch selbst, prüft die Sitzung beim Start ihr Modell und meldet Sonnet in der Startzeile.
+
 ## Folgerung
 
-Ja: Startzuordnung unverändert. Der Nachfolger dieser Sitzung (`Sokrates – 422 Abgleich, 427 Bestiarium`) startet über Ford auf Opus. Sag mir, wenn du auch für Sokrates dauerhaft Sonnet möchtest, dann tragen wir es in `lauf.py` ein.
+Ja: Startzuordnung unverändert. Der Nachfolger läuft schon auf Opus (geprüft 01.11.). Mit „442 ja“ nehme ich (2) in 383.2 auf und (3) als Startprüfung in meine Rollendatei.
 
 Erledigt: deine Antwort in das Vorgangsarchiv, Datei löschen (Sokrates).

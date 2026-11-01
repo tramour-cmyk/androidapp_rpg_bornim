@@ -26,3 +26,5 @@ Erledigt: deine Antwort ins Vorgangsarchiv, Datei löschen (Diogenes).
 - *Widerspruch zu Entschiedenem:* die Ausnahme selbst (Perikles, ohne Chefwort). Der Sache nach erfüllt „Ford – Betriebsleiter (TT.MM., HH:MM)“ deine Form schon: Rolle, Thema, Zeit; einen Vorgang hat Ford nicht. Ein neuer Titel berührt die Archivregel (Rolle laut Titel), `lauf.py` und `kosten.py`; ein Fehler dort archiviert die falsche Sitzung.
 - *Kosten:* ja nichts; nein eine Prüfrunde an zwei Werkzeugen.
 - *Empfehlung:* ja, die Ausnahme gilt, weil Fords Titel Thema und Zeit schon trägt.
+
+**Nachtrag Sokrates (01.11., 09:4x, Lösung zum Gegenargument, 445):** Das Gegenargument gegen die Ausnahme („alle“) entkräftet am besten dein eigenes Wort, also diese Frage. Gegen „nein“ stand das Risiko, dass `lauf.py` mit einem neuen Ford-Titel die falsche Sitzung archiviert oder Kosten falsch bucht; entkräftet wird es so: Perikles lässt `lauf.py` und `kosten.py` vor der Umstellung einmal trocken gegen die heutige Sitzungsliste laufen (ohne Archivieren) und stellt erst um, wenn beide den neuen Titel als Ford erkennen. Empfehlung bleibt ja; mit dieser Probe ist auch „nein“ ohne Gefahr.

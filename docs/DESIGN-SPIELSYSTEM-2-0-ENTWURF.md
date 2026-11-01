@@ -424,7 +424,7 @@ Nur Vorschlag; geändert wird erst nach deinem Ja.
 
 **`DESIGN-LEITBILD.md`, Punkt 4 (ersetzt „Das SRD ist das Gerüst, nicht das Ziel …“):**
 
-> 4. **Eigenes Regelwerk: du wirst, was du tust.** Wir spielen nach unserem eigenen Spielsystem 2.0 (`DESIGN-SPIELSYSTEM-2-0-ENTWURF.md`), nicht mehr nach dem SRD. Keine Klasse zu Beginn: Fertigkeiten wachsen durch Benutzung, Wege kommen von selbst, eine Berufung verdient man beim Lehrmeister. Keine feste Höchststufe; jedes Kapitel hebt die Stufengrenze. Zufall ist Würze, kein W20. Zahlen werden gemessen, nicht geraten.
+> 4. **Eigenes Regelwerk: du wirst, was du tust.** Wir spielen nach unserem eigenen Spielsystem 2.0 (`DESIGN-SPIELSYSTEM-2-0-ENTWURF.md`), nicht mehr nach dem SRD. Keine Klasse zu Beginn: Fertigkeiten wachsen durch Benutzung; wer passende Fertigkeiten übt, den lädt ein Lehrmeister zu einem Pfad ein, und dort besteht er Prüfungen. Keine feste Höchststufe; jedes Kapitel hebt die Stufengrenze. Zufall ist Würze, kein W20. Zahlen werden gemessen, nicht geraten.
 
 **`CLAUDE.md`, erster Absatz (ersetzt „Regeln nach SRD 5.1“):**
 
