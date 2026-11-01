@@ -23,7 +23,7 @@ AUFBAU = {
     "art": (True, "eine aus ARTEN"),
     "platz": (False, "eine aus PLAETZE oder null (nicht anlegbar)"),
     "stufe": (False, "Heldenstufe ab der erhaeltlich (BRS); null = offen"),
-    "preis": (False, "Grundpreis in Gold (BRS, vor Ruf); null = offen"),
+    "preis": (False, "Grundpreis in Gold (BRS, vor Ruf); 0 = unverkaeuflich; null = offen"),
     "netz": (False, "Modellnetz (455), z. B. Datei im Kaufrepo"),
     "material": (False, "Material des Netzes (455)"),
     "zeichen": (False, "Zeichnung/Tusche des Netzes (455)"),
