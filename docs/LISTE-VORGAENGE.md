@@ -141,7 +141,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 424 | Umzugsliste und Vorräte frei von Arbeit am alten SRD-System: Regelzeilen in `LISTE-UMZUG-348.md` ruhen, Wächter in `startbar.py`/`lauf.py` („jetzt“ 31.10., 21:3x) | B Abläufe | M | 3,43 $ | Perikles | gebaut |
 | 425 | Menüs und Testmenü mit Icons wie in der alten Fassung statt viel Text (Build 143, Chef 31.10., 21:30) | B Umzug | M | 36,83 $ | Team Tom | gebaut |
 | 427 | Bestiarium: je Monsterart Name, Gebiet und Stufenband, Verhalten, Angriffe und Waffen, Werte für Spielsystem 2.0, Beute; Aussehen verweist auf `LISTE-FIGUREN.md` (Chef 31.10., 21:3x) | D Design | M | – | Sokrates | wartet |
-| 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x) | E Figuren | M | 10,72 $ | Team Tom | in Arbeit |
+| 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x) | E Figuren | M | 10,72 $ | Team Tom | Chef |
 | 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | C Texte | K | 0,79 $ | Homer | nach Meilenstein |
 | 433 | Arbeit verteilen: unabhängige Zeilen von Tom und Jerry an Spike und Tuffy oder intern umschichten, statt zu warten („jetzt“ 31.10., 22:1x) | B Abläufe | M | 31,61 $ | Perikles | gebaut |
 | 434 | Prüfung: jede Vorlage zu einem Eigenbau hat die Zeile „Bestand geprüft“ (377, 408); fehlt sie, an Team und Chef (Chef 31.10., 22:1x) | B Abläufe | M | 4,45 $ | Diogenes | wartet |
@@ -150,14 +150,14 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 439 | Kampfablauf: Neuformation vor dem Tod, Treffer vor dem Angriff (Film 403, Chef 31.10., 23:31) | E Kampf | M | – | Team Jerry | gebaut |
 | 440 | Wolf verschwindet ohne sichtbare Sterbeanimation (Film 403, Chef 31.10., 23:34) | E Kampf | M | – | Team Jerry | gebaut |
 | 453 | Wölfe im Kampfort: Ruhebewegungen (atmen, scharren, umblicken, knurren) (Chef 01.11., 11:05) | E Kampf | M | 10,08 $ | Team Jerry | startbar |
-| 453.1 | Helden im Kampf: Atmen ruhiger, je Figur eigener Takt, nach Aktion schneller und abklingend (Chef 01.11., 13:0x) | E Kampf | M | – | Team Jerry | startbar |
+| 453.1 | Helden im Kampf: Atmen ruhiger, je Figur eigener Takt, nach Aktion schneller und abklingend (Chef 01.11., 13:0x) | E Kampf | M | – | Team Jerry | in Arbeit |
 | 453.2 | Atmen-Schicht für Held unterwegs, Söldner, Leute in Dorf und Innenräumen (Chef 01.11., 13:0x, ganzes Spiel) | E Figuren | M | – | Team Tom | startbar |
-| 453.3 | Grundsatz „lebende Figuren atmen immer“ in `DESIGN-STIL.md` (Chef 01.11., 13:0x) | G Stil | M | – | Homer | startbar |
+| 453.3 | Grundsatz „lebende Figuren atmen immer“ in `DESIGN-STIL.md` (Chef 01.11., 13:0x) | G Stil | M | – | Homer | erledigt |
 | 454 | Wolfsbiss: Achse des Wolfs zielt rechts neben den Helden? messen (Chef 01.11., 11:05) | E Kampf | M | 10,78 $ | Team Jerry | gebaut |
 | 455.1 | Probeblatt Baukasten: Roben, Umhänge, Stiefel je Netz × Material × Zeichen (Chef 01.11., 11:24) | E Figuren | M | – | Team Tom | startbar |
 | 455.2 | Netzliste je sichtbarem Platz, Eigenbau geschätzt, Größenfilm der Völker (Chef 01.11., 11:27, 455 ja) | E Figuren | M | – | Team Tom | startbar |
 | 451.1 | Name „Bornimer Rollenspielsystem“ in CLAUDE.md, Leitbild, Rollendateien, Werkzeugtexten (Chef 01.11., 451) | B Abläufe | M | – | Perikles | startbar |
-| 451.2 | Name „Bornimer Rollenspielsystem“ im Handbuch 423 und in Spieltexten (Chef 01.11., 451) | C Texte | M | – | Homer | startbar |
+| 451.2 | Name „Bornimer Rollenspielsystem“ im Handbuch 423 und in Spieltexten (Chef 01.11., 451) | C Texte | M | – | Homer | erledigt |
 | 458.1 | Gegenstandskatalog: Datendatei festlegen, Werkzeug für `LISTE-GEGENSTAENDE.md` (Chef 01.11., 458 ja) | B Abläufe | M | – | Perikles | erledigt |
 | 458.2 | Gegenstandskatalog: Werte, Preise, Beute (Chef 01.11., 458) | D Design | M | – | Team Jerry | startbar |
 | 458.3 | Gegenstandskatalog: Netze, Modelle, Läden (Chef 01.11., 458) | E Figuren | M | – | Team Tom | startbar |

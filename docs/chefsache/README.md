@@ -12,6 +12,12 @@ Nichts offen.
 
 ## Anzusehen
 
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [431](ansehen/431-voelker.md) | Völker, Runde 3: Grundkörper je Volk im Spiel-Look | – | 01.11. |
+
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
 | Folge | Version | Build | Was | Wer | Seit |
@@ -30,24 +36,22 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 8, Muss 4, startbar 3
+**Homer** – offen 6, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 458.4 | M | von Sokrates (Chef 01.11., 13:1x, Archiv 458): Gegenstandskatalog: Namen DE/EN und ein Sat | wartet auf Perikles |
-| 451.2 | M | von Sokrates (Chef 01.11., 13:1x, Archiv 451): „Spielsystem 2.0“ heißt jetzt „Bornimer Rol | startbar |
-| 453.3 | M | von Sokrates (Chef 01.11., 13:0x, Archiv 453.1): Grundsatz „lebende Figuren atmen immer, r | startbar |
 | 432 | K | von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt | nach dem Meilenstein |
 | 423 | M | von Sokrates (Chef 31.10., 21:2x: „irgendwer muss dann auch einfach eine Anleitung schreib | startbar |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 41, Muss 31, startbar 7
+**Tom** – offen 41, Muss 31, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | startbar |
+| 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | Chef |
 | 417 | M | von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“): Tragart je Waffenklasse (Zu 417), | startbar |
 | 425 | M | von Sokrates (Chef 31.10., 21:30, Build 143): Menüs (Menü „System“, Testmenü): in der alte | wartet auf Test/Build (gebaut) |
 | 416.9 | M | von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“): Laden, Verkaufen, „angelegt“ mit | wartet auf Test/Build (gebaut) |
@@ -89,13 +93,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 01.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 47, Muss 34, startbar 8
+**Jerry** – offen 47, Muss 34, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Wölfe gleiten (Angriff, Tempo, aneinander vor | wartet auf Test/Build (gebaut) |
 | 458.2 | M | von Sokrates (Chef 01.11., 13:1x, Archiv 458): Gegenstandskatalog: Werte, Preise und Beute | wartet auf Perikles |
-| 453.1 | M | von Sokrates (Chef 01.11., 13:0x): Helden im Kampf atmen gleich und zu heftig („hechelt“): | startbar |
+| 453.1 | M | von Sokrates (Chef 01.11., 13:0x): Helden im Kampf atmen gleich und zu heftig („hechelt“): | in Arbeit bei Tuffy |
 | 453 | M | von Sokrates (Chef 01.11., 11:05): Wölfe brauchen Ruhebewegungen: atmen, scharren, umblick | startbar |
 | 454 | M | von Sokrates (Chef 01.11., 11:05): beim Biss zielt die Achse des Wolfs wohl rechts neben d | wartet auf Test/Build (gebaut) |
 | 438a | M | von Sokrates (Chef 01.11., 11:47, „nicht beurteilen, wenn ich es nicht gesehen habe … Viel | startbar |
@@ -220,7 +224,7 @@ Format (Muster: „So geht's“ unten): t146-befunde.md: 8 Vorgänge, höchstens
 
 Nicht gestellt: 186.3 (Pruefung)
 
-Ohne Datei: 448 (Projekt), 275 (Projekt), 455 (Team Tom), 26 (Team Tom)
+Ohne Datei: 448 (Projekt), 275 (Projekt)
 
 ## So geht's
 

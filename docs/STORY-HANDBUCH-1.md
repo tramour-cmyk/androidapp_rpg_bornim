@@ -1,9 +1,9 @@
-# Spielerhandbuch Spielsystem 2.0, Teil 1 (423)
+# Spielerhandbuch Bornimer Rollenspielsystem, Teil 1 (423)
 
 Entwurf Homer, 01.11.; Quelle allein das Nachschlagewerk `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md` (gültig seit 422). Teil 1: Grundidee, Held, Fertigkeiten, Stufe. Teil 2 `STORY-HANDBUCH-2.md`: Pfad, Meisterschaften, Kampf, Welt, Ruf, Herstellen, Abnutzung. Verzeichnis `STORY-REGELN.md`. Prüfpunkte für den Chef in `docs/chefsache/ansehen/423-handbuch.md`.
 
 **Für Tom (Bau erst nach Abnahme durch den Chef und nach 444):**
-- Ersetzt die Anleitung 352 (`STORY-ANLEITUNG.md`), sobald Spielsystem 2.0 im Spiel ist; Aufbau wie dort: Seite mit Abschnitten, fetter Kopf, Absatz, oben Sprungmarken.
+- Ersetzt die Anleitung 352 (`STORY-ANLEITUNG.md`), sobald das Bornimer Rollenspielsystem (BRS, vormals Spielsystem 2.0; 451) im Spiel ist; Aufbau wie dort: Seite mit Abschnitten, fetter Kopf, Absatz, oben Sprungmarken.
 - **Absichtlich ohne Zahlen**, die die Simulation 444 noch festlegt (Erfahrung, Deckel, weiche Grenze, Startwert der Fertigkeiten, Kapitel der Prüfungen). Zahlen, die entschieden sind, stehen drin (21 Punkte, 3 bis 8, Ränge 0 bis 100, 9 Stufen, 1 von 100). Kommt eine Zahl dazu, schreibt Homer den Absatz nach; nie im Code ergänzen.
 - Ein Absatz über einen Pfad, eine Meisterschaft oder eine Fertigkeit erscheint erst, wenn das Spiel sie hat; die Tabellen sind das Ganze, das Spiel zeigt, was gebaut ist.
 - Feste Namen (auch Englisch) stehen in `[423.namen]` in Teil 3 (`STORY-HANDBUCH-3.md`: Herstellen, Abnutzung, Namen).
@@ -21,8 +21,8 @@ EN: **At a glance.** Four things make your hero. **Origin**: how his story begin
 
 ## Die Grundidee
 
-`[423.idee]` **Du wirst, was du tust.** Es gibt keine Klasse, die du am Anfang wählst. Wer oft den Bogen spannt, trifft besser. Wer zaubert, zaubert stärker. Wer schleicht und Dolche führt, bekommt eines Tages Besuch von jemandem, der ihm einen Pfad anbietet.
-EN: **You become what you do.** There is no class to pick at the start. Draw the bow often and you shoot truer. Cast spells and your spells grow stronger. Creep and wield daggers, and one day someone will come to offer you a path.
+`[423.idee]` **Du wirst, was du tust.** Das ist der Leitsatz der Regeln dieses Spiels, des Bornimer Rollenspielsystems, kurz BRS. Es gibt keine Klasse, die du am Anfang wählst. Wer oft den Bogen spannt, trifft besser. Wer zaubert, zaubert stärker. Wer schleicht und Dolche führt, bekommt eines Tages Besuch von jemandem, der ihm einen Pfad anbietet.
+EN: **You become what you do.** That is the guiding line of this game's rules, the Bornim Roleplaying System, BRS for short. There is no class to pick at the start. Draw the bow often and you shoot truer. Cast spells and your spells grow stronger. Creep and wield daggers, and one day someone will come to offer you a path.
 
 `[423.idee.frei]` **Alles geht, nichts muss.** Kampf, Handwerk, Sammeln: jeder Weg bringt dich voran, keiner ist Pflicht. Du darfst dieselben Wälder wieder und wieder durchstreifen; nötig ist es nie. Wiederkehrende Gegner bringen Beute und Übung, aber kaum noch Erfahrung.
 EN: **Everything is possible, nothing is required.** Battle, craft, gathering: every way takes you forward, none is a must. You may roam the same woods again and again; you never have to. Returning foes bring loot and practice, but hardly any experience.
