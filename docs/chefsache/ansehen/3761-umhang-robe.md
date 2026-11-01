@@ -17,3 +17,11 @@ Film per Telegram (24 s, Hochformat), wie im Spiel gezeichnet (Toon-Licht, Tusch
 **Stärkstes Gegenargument:** ganz weg ist es nicht: beim Rennen drückt das Bein noch durch den Umhang, und die Innenseite des Umhangs zeigt sich von hinten noch an einzelnen Stellen (ohne Stoffsimulation folgt der Umhang den Knochen); Wachsoldat und Zauberlehrling haben jetzt 21 500 bis 33 300 Dreiecke statt 18 700 (Waldläufer 31 800).
 
 **Zu sagen:** „passt“ oder was anders sein soll.
+
+**Prüferbefund zum Film 23:03 (nach dem Versand, 23:0x):**
+- Behoben: roter Streifen hinten im Umhang; Knie, Löcher in Brust und Hüfte der Robe (12,0 s, 18,0 s).
+- Bleibt: roter Ärmel schneidet seitlich durch den Umhang (Oberarm, Ellbogen; 3,5 s Profil, 5,0 und 6,0 s Rücken, alle Felder); 6,0 s Frau schlank weißgraues Stück an der rechten Schulter durch den Umhang.
+- Bleibt: Stiefel samt Schaft ragt beim Gehen hinten aus der Robe, Saum geht nicht mit (14,0 s, 18,0 s).
+- Teils: dunkle Flecken auf Oberschenkel und Saum der Frauenrobe (12,0 s, schlank, normal), keine Treppenkante.
+- Hände der Wache weiß, Robe einheitlich blau; Beschriftung ohne „Normal“ und „Frau“ an den Feldern.
+- 0,0 s Wache Frau schlank: Kerbe im Kettenhemd neben dem Wappenrock; 14,0 s Robe Frau: Unterarm durch den Gürtel, heller Flicken an der Hüfte. Kein schwarzes Dreieck am Hals gesehen.
