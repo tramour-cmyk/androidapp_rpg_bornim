@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert“).
 
-**Übergabe (31.10., 22:4x):** 416.5 (597bd140d), 402 (daa514bcd), 403 und 406 auf `claude/jerry-403-held-kampf` (ohne Build; Probeläufe je 2/2, erst nach Versand auf einen `-348-`-Zweig). Kaufpakete: `add_repo`, curl auf die Anhänge. Nachfolger: „Jerry – Morgenblätter 403 und 406 senden, gemeinsamer Build“
+**Übergabe (01.11., 08:2x):** 438, 439, 440 gebaut (ace228bd7, `claude/jerry-438-wolf-kampf` auf 403), Film an den Chef (ansehen/438-woelfe), Probelauf 438 1/2. Rechner: `tools/pruef348/rechner.sh`, Kaufpakete `add_repo`, dann `curl -H "Accept: application/octet-stream" https://api.github.com/repos/tramour-cmyk/bornim-kaufmodelle/releases/assets/<id>`. Nachfolger: „Jerry – 406: Schilde 2 und 15 einbauen“
 
 ## Zeilen
 
@@ -16,7 +16,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert
 | 416.5 | M | **von Sokrates (Chef 31.10., 20:4x, Build 143):** im Kampf Details des Kampflogs aufrufen, dann nicht mehr schließbar (Taste reagiert nicht); beheben | wartet auf Test: Build 146 (t146) | – |
 | 416.6 | K | **von Sokrates (Chef 31.10., 20:4x):** Spuren des Helden fehlen (Fußspuren; bei Regen eigene Spuren); `core/Tracks.kt` laut `LISTE-UMZUG-348.md` Zeile „Spuren“ bei Jerry. Perikles: M oder K? | frei | – |
 | 415 | K | **von Sokrates (Chef 31.10., 20:3x „Ja, Probe mit dem Beams-Sample an Jerry geben“):** Handyprobe Godot-Beams (gratis, itch.io reeboolabs): läuft es, FPS, Renderer Mobile und Compatibility; nur Zahlen, kein Urteil über Aussehen (373), nichts kaufen, Lizenz je Datei | frei, nach den Mussen | – |
-| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | wartet auf Test: Build 143 (t143, Zeile 143.5); Chef testete 31.10., 20:4x, Befunde als 416.x, Abnahme 143 offen | `claude/jerry-348-kampf` |
+| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | wartet auf Abnahme Build 143 (Chef testete 31.10., 20:4x, Befunde als 416.x) | `claude/jerry-348-kampf` |
 | 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | wartet auf Test: Build 146 (t146) | – |
 | 402 | M | **von Sokrates (Chef 22:2x, Archiv):** Blende vor dem Kampf wie alt; Herzschlag beim Hinterhalt stärker | wartet auf Test: Build 146 (t146) | – |
 | 403 | M | **von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler):** Kampfort: Held je Klasse wie im Dorf (`HeldFigur.baue`) statt `kampf/daten/held.bin`; Hieb, Stich, Treffer, Tod, Ausweichen aus der UAL Pro | gebaut 98482c53e: Chef 23:31 Avatar-Animation gut, Wölfe 438, Ablauf 439; Film ansehen/403 bleibt bis Abnahme; UAL Pro im Kampf 70a812275 (Tuffy) | – |
@@ -30,7 +30,6 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert
 | 397 | M | **von Chef (28.10., 11:15):** Tiere, Monster: mind. drei Ruhebewegungen wie alt (`LISTE-UMZUG-348.md`) | ruht (399) | – |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht: altes SRD-System (Chef 31.10.) | – |
 | 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | ruht: altes SRD-System (Chef 31.10.) | `claude/jerry-348-kampf` |
-| 348.7b | M | Zauberbahn nach Chef „D“ | gebaut: r4 passt, Befunde bleiben so (Chef 15:28, Archiv) | `claude/jerry-348-kampf` |
 | 390 | M | **von Perikles:** Funktionen ohne Bild (`LISTE-UMZUG-348.md`) | ruht: altes SRD-System (Chef 31.10.) | `claude/jerry-348-kampf` |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: altes SRD-System (Chef 31.10.) | – |
 | 257 | M | **von Chef (20.10., 17:17, Test B46):** App „hängt“, ging dann weiter (Zu 257) | ruht: Hänger-Wächter (Tom) seit Build 49; bis zum nächsten Hänger mit Absturzbericht | – |
@@ -74,8 +73,6 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert
 - **Zu 390:** gebaut: pechstraehne, ausdauer, talente, zustaende, spuren, klassisch (`ClassicGoldenTest`); offen Ansicht, Gegner auf der Karte.
 - **Zu 348.7 Goblin:** Runde 6 steht (Sokrates, billigen/3487-goblin-r6); Feinschliff laut Chefsache, Beil-Goblin sagt „Stich“ an; Lendentuch nimmt wie beim Späher Unterarm-Gewichte (Fix nur für Späher und Schamane, 8bfec7d13). Probe `GEGNER=GOBLINS`, alt `FOEDRAFT=goblin`, Blatt `FIGUR=gob vergleichsblatt.py`.
 - **Zu 348.7, von Sokrates (Chef 25.10., 08:58 und 09:04, Zustandszeichen):** Textschilder „nichts“; Vorschlag Chef: sprechende Symbole in den Farben aus `Status.kt`, alte Zustandsanimationen mitnutzen, Einzelheiten durch Antippen. Empfehlung Sokrates: Einzelheiten per langem Druck (`whoIs`). **Bauen erst nach Ja.**
-- **Zu 348.7, Fledermaus (4ed188d7c):** r5 abgenommen (Archiv 15:27); Aufruf, Eichung im Kopf von `fledermaus.py`, Probe `GEGNER=BATS`.
-- **Zu 348.7b:** Regel `LISTE-UMZUG-348.md` „Zauberbahn“; Code `kampf_ui.gd` `_draw_spells`, `_step_aside`, Pinsel `tafel.gd`; Proben `BAHN_PRUEF=1`, `SCHRITT_DEBUG=1`.
 - **Zu 348.13a (Tom 08:27):** offen r9: Säbel liest sich als Bogen; Schwert, Schild, Scheide bei Tom (372).
 - **Zu 348.7 (Chef 25.10., 13:11):** „Gradmesser ist Leitbild 1 …; ‚quietschehell passt nicht‘. Nie heller als alt.“
 - **Zu 348.7, nach Runde 16 offen** (Gründe in Git): Kampfort (4ad3ecb86): Lebensbalken und Zustände an der Ansage; offen: Gelb des halben Lebens gleicht „Betäubt“ (Farben wie alt).
