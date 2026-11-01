@@ -21,6 +21,10 @@ const SPIEL_RENNEN := 3.68 * Karte.TS
 const ANSICHTEN := {"rechts": [-90.0, -6.0, 2.6], "links": [90.0, -6.0, 2.6], "vorn": [0.0, -6.0, 2.6], "hinten": [180.0, -6.0, 2.6],
 	"spiel": [Kamera.NORD, -30.0, Kamera.NAH]}
 const FPS := 30.0
+# Film (Pruefer 13:3x; 416.4): Stehen, Anlaufen, Gehen, Rennen, Gehen, Anhalten; Start 12 m vor der Mitte der Wiese (ab 4,3 s lief die
+# Figur ueber den Rand)
+const FILM_FOLGE := [["Stehen", 1.0], ["Gehen", 2.5], ["Rennen", 2.5], ["Gehen", 1.5], ["Stehen", 1.2]]
+const FILM_START := -12.0
 const ZELLE := 0.06
 const NAH := 0.45     # m: Knochen weiter von der Waffe zaehlen nicht
 const TIEF := 0.05    # m: tiefer gilt nicht als innen
@@ -136,29 +140,43 @@ func standbilder(axt := false, pakete := false) -> void:
 		var ordner: String = fp.aus + "/film/" + String(e[1])
 		DirAccess.make_dir_recursive_absolute(ordner)
 		var nr := 0
-		var p := ort
+		var p := ort + Vector3(0, 0, FILM_START)
 		w.rotation.y = 0.0
-		for b0 in ["Gehen", "Rennen"]:
-			var bew: String = b0 + ("_" + String(e[4]) if e.size() > 4 else "")
-			ap.play(bew)
-			await fp.get_tree().process_frame   # eine neue Bewegung muss ein Bild lang laufen; sofort angehalten blieb die alte Pose stehen
-			var lang := ap.get_animation(bew).length
-			var v: float = m.get_meta("gehen_m_je_s" if b0 == "Gehen" else "rennen_m_je_s")
-			var zeit := 1.0   # Pakete: Tempo des Spiels, die Bewegung laeuft speed_scale-fach (held.gd)
-			if e.size() > 4:
-				var vb: float = m.get_meta("gang_gehen_m_je_s" if b0 == "Gehen" else "gang_rennen_m_je_s", v)
-				v = SPIEL_GEHEN if b0 == "Gehen" else SPIEL_RENNEN
-				zeit = v / maxf(0.01, vb) if vb >= 0.01 else 1.0
-			for f in int(round(maxf(2.0 * lang / zeit, 2.5) * FPS)):
-				ap.pause()   # erst anhalten, dann springen (umgekehrt wirkt seek nicht, die Figur stand)
-				ap.seek(fmod(f / FPS * zeit, lang), true)
-				p += Vector3(0, 0, 1) * v / FPS
+		var g: String = "_" + String(e[4]) if e.size() > 4 else ""
+		# Pruefer 13:3x (Runde 4): bei 2,5 s sprang die Pose, der Film schaltete ohne Ueberblendung um. Jetzt wie im Spiel (held.gd): die
+		# Bewegung laeuft von selbst weiter (advance je Bild), Wechsel mit Held.ueberblendung, Gehen <-> Rennen im selben Schritt, Tempo
+		# steigt mit Held.BESCHL; Folge FILM_FOLGE mit Anlaufen und Anhalten (416.4, Chef 13:1x: „muss immer weich sein“)
+		ap.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
+		ap.play("Stehen"); ap.advance(0.0)
+		var tempo := 0.0
+		for ab in FILM_FOLGE:
+			var b0: String = ab[0]
+			for f in int(round(float(ab[1]) * FPS)):
+				var moving := b0 != "Stehen"
+				var soll := 0.0 if not moving else (SPIEL_GEHEN if b0 == "Gehen" else SPIEL_RENNEN)
+				tempo = Held.tempo_schritt(tempo, soll, SPIEL_GEHEN, 1.0 / FPS)
+				var want := b0
+				if moving and ap.has_animation(b0 + g) and float(m.get_meta("gang_" + ("gehen" if b0 == "Gehen" else "rennen") + "_m_je_s", 0.0)) > 0.01: want = b0 + g
+				var cur := ap.current_animation
+				if cur != want:
+					var phase := ap.current_animation_position / maxf(0.001, ap.current_animation_length) if cur != "" else 0.0
+					var schritt := cur.begins_with("Gehen") or cur.begins_with("Rennen")
+					ap.play(want, Held.ueberblendung(cur, moving))
+					if schritt and moving: ap.seek(phase * ap.get_animation(want).length)
+				var vb := 1.0
+				if moving:
+					var mit := want != b0
+					vb = float(m.get_meta(("gang_" if mit else "") + ("gehen" if b0 == "Gehen" else "rennen") + "_m_je_s", 1.0))
+				ap.speed_scale = tempo / maxf(0.01, vb) if moving else 1.0
+				ap.advance(1.0 / FPS)
+				p += Vector3(0, 0, 1) * tempo / FPS
 				w.position = p
 				stelle_kamera(w, seite)
 				await fp.get_tree().process_frame
 				await RenderingServer.frame_post_draw
 				fp.spiel.get_viewport().get_texture().get_image().save_png(ordner + "/%03d.png" % nr)
 				nr += 1
+		ap.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_IDLE
 		fp.protokoll.append("FILM %s %s von %s, %d Bilder" % [e[1], e[3], seite, nr])
 		print(fp.protokoll[-1])
 
