@@ -9,7 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [376.1](entscheiden/3761-kettenhemd-heldin.md) | **Muss** | E Figuren | 01.11., 20:45 | Kettenhemd der Heldin: so lassen, nachbessern oder Ritterin Platte? | Sokrates |
-| [348.12b](entscheiden/34812b-film-lauf.md) | **Muss** | E Kampf | 01.11. | Grak schreitet: noch ein Lauf für den Film? | Jerry |
+| [348.12b](entscheiden/34812b-film-lauf.md) | **Muss** | E Kampf | 01.11., 20:3x | Grak schreitet: noch ein Lauf für den Film? | Jerry |
 
 ## Zu billigen
 
@@ -21,7 +21,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [447.4](ansehen/4474-lehrmeister-texte.md) | Texte Lehrmeister und Ruf, Kapitel 1 | Homer | 01.11. |
+| [447.4](ansehen/4474-lehrmeister-texte.md) | Texte Lehrmeister und Ruf, Kapitel 1 | Homer | 01.11., 21:0x |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
