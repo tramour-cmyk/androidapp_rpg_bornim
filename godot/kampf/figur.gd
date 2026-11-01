@@ -504,6 +504,8 @@ func _arm_kauf() -> void:
 	if not is_inside_tree():
 		await tree_entered
 	var halt := "Ruhelage" if anim and anim.has_animation("Ruhelage") else "Stehen"
+	if _ss():     # 406: der Stab (Kleriker: Stab und Schild) steht in der Kampfhaltung des Satzes senkrecht in der Faust
+		halt = "SS_IdleCombat"
 	if anim and anim.has_animation(halt):
 		# in unserer Ruhelage (Arme hängend, held_kampf.py) wie der alte Held vor dem Einhängen: so hat kampf.py den Schild gebaut.
 		# Prüfer Film 403: der Schild stand quer in Kopfhöhe; im ersten Bild im Baum galt noch die T-Pose, erst ein Bild später die Haltung
@@ -899,11 +901,10 @@ func _idle_wenn_frei() -> void:
 
 
 ## 406 (Chef 01.11., 13:0x, Archiv 406: neu mit Sword & Shield; 13:1x: „Sein Schild hängt drunter … reißt dann das Schild hoch“):
-## der Kaufheld mit Schild und Klinge kämpft mit dem gekauften Satz „Sword & Shield“ (held_kampf.py, Vorsilbe SS_): steht in
+## der Kaufheld mit Schild (Klinge oder Stab) kämpft mit dem gekauften Satz „Sword & Shield“ (held_kampf.py, Vorsilbe SS_): steht in
 ## Kampfhaltung mit erhobenem Schild, wehrt mit dem Schild ab, geht und rennt mit Schild. OHNE_SS=1: wie vorher (Vergleich)
 func _ss() -> bool:
-	return kauf and anim != null and anim.has_animation("SS_IdleCombat") and _schild() != "" and not _stab() \
-		and OS.get_environment("OHNE_SS") == ""
+	return kauf and anim != null and anim.has_animation("SS_IdleCombat") and _schild() != "" and OS.get_environment("OHNE_SS") == ""
 
 
 ## 406: Gehen, Rennen, rückwärts gehen mit Schild, wenn der Satz da ist
@@ -1999,6 +2000,22 @@ const KAUF_RAND := 0.15
 var _foot := AABB()
 var _foot_ok := false
 func footprint() -> AABB:
+	var f0 := _footprint()
+	# 406 (wolf_mess_438 mit Sword & Shield: Wolf 9 cm im Schild beim Rückweg): mit dem Satz hält der Held den Schild vor sich, nicht
+	# mehr seitlich am Körper; sein Umriss (jetzige Lage, am Boden) gehört dazu
+	if kauf and _ss() and model:
+		var sch := model.find_child("Schild", true, false) as Node3D
+		if sch:
+			var inv := global_transform.affine_inverse()
+			for m in sch.find_children("*", "MeshInstance3D", true, false):
+				var bb: AABB = (inv * (m as MeshInstance3D).global_transform) * (m as MeshInstance3D).get_aabb()
+				bb.position.y = 0.0
+				bb.size.y = f0.size.y
+				f0 = f0.merge(bb)
+	return f0
+
+
+func _footprint() -> AABB:
 	if not _foot_ok:
 		_foot_ok = true
 		var inv := global_transform.affine_inverse()
@@ -2246,7 +2263,7 @@ func _im_bild(p: Vector3, blick: Vector3) -> bool:
 ## 406 (Chef 01.11., 13:1x: „Sein Schild hängt drunter. Dann wird er vom Wolf angeknabbert und reißt dann das Schild hoch“): wer
 ## mit Schild kämpft, wehrt einen Angriff ab, bevor er ankommt; der Schild trifft den Angriff im Aufschlag (Kontakt aus held_kampf.py).
 ## Gelungen: die Abwehr läuft aus. art: „sprung“ (Sprungbiss: schwere Abwehr), „fern“ (Pfeil, Zauber), sonst nah (Biss, Hieb).
-const ABWEHR := {"sprung": ["SS_BlockHeavy1", "SS_BlockHeavy2"], "fern": ["SS_BlockMedium1", "SS_ParryHigh1", "SS_BlockMedium2"],
+const ABWEHR := {"sprung": ["SS_BlockHeavy1", "SS_BlockHeavy2", "SS_BlockMedium1"], "fern": ["SS_BlockMedium1", "SS_ParryHigh1", "SS_BlockMedium2"],
 	"nah": ["SS_BlockLight", "SS_BlockMedium1", "SS_BlockMedium2", "SS_ParryLow"]}
 var abwehr_nr := 0
 
@@ -2265,6 +2282,8 @@ func abwehr(lands_ms: int, art: String) -> void:
 	abwehr_nr += 1
 	var k: float = float(kampf_info.get("kontakt", {}).get(nm, 0.25))
 	var vor_ms := lands_ms - int(k * 1000.0)
+	if OS.get_environment("MESS") != "":     # film_406 MESS: Schild steht beim Aufschlag (Kontakt gegen Aufschlag)
+		print("ABWEHR %s %s: Aufschlag in %d ms, Kontakt nach %d ms, Beginn in %d ms" % [fighter.id, nm, lands_ms, int(k * 1000.0), vor_ms])
 	if vor_ms > 0:
 		await get_tree().create_timer(vor_ms / 1000.0).timeout
 	if down or not _ss() or (not weg.is_empty() and lunging()):
@@ -2448,10 +2467,17 @@ func _fade_out(x: float) -> void:
 
 
 func knocked_down() -> void:
+	if _ss() and not anim.has_animation("Sturz"):     # 406: mit Schild der schwere Treffer des Satzes, Schild oben
+		_play("SS_GetHitHeavyFront", 0.1)
+		get_tree().create_timer(anim.get_animation("SS_GetHitHeavyFront").length - 0.1).timeout.connect(_idle_wenn_frei)
+		return
 	_play("Sturz" if anim and anim.has_animation("Sturz") else "Treffer", 0.1)
 
 
 func rise() -> void:
+	if kauf and not (anim and anim.has_animation("Aufstehen")):
+		_idle()     # 406 (Messung film_406: nach „steht auf“ blieb der Kaufheld in Stehen, ohne Schild oben, bis zum nächsten Zug)
+		return
 	_play("Aufstehen" if anim and anim.has_animation("Aufstehen") else "Stehen", 0.2)
 
 

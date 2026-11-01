@@ -62,7 +62,7 @@ func _messe(s: Spur, t: float, ruhe: bool) -> void:
 		s.zug_a = a.anstrengung
 	s.letzte_phase = a.phase
 	# Ruhe: daheim in der Ruhebewegung und ausgeschnauft (die Wölfe greifen schon vor dem ersten Zug des Helden an)
-	if ruhe and a.anstrengung < 0.02 and s.fig.anim.current_animation in ["Kampfstehen", "Stehen"] and not (s.fig.tween and s.fig.tween.is_running()):
+	if ruhe and a.anstrengung < 0.02 and s.fig.anim.current_animation in ["Kampfstehen", "Stehen", "SS_IdleCombat"] and not (s.fig.tween and s.fig.tween.is_running()):
 		s.schulter.append(s.sch_y)
 		s.kopf.append(s.kopf_g)
 
@@ -92,12 +92,16 @@ func _run() -> void:
 	if fails > 0:
 		quit(1)
 		return
-	var ks: Animation = held.anim.get_animation("Kampfstehen")
-	var mehr := 0
-	for t in ks.get_track_count():
-		if ks.track_get_key_count(t) > 1:
-			mehr += 1
-	_check(mehr == 0, "Kampfstehen atmet nicht selbst (%d Spuren mit mehr als einem Schlüssel)" % mehr)
+	# 406: mit Schild ruht der Held in der Kampfhaltung des Satzes (SS_IdleCombat); auch sie atmet nicht selbst
+	for rn in ["Kampfstehen", "SS_IdleCombat"]:
+		if not held.anim.has_animation(rn):
+			continue
+		var ks: Animation = held.anim.get_animation(rn)
+		var mehr := 0
+		for t in ks.get_track_count():
+			if ks.track_get_key_count(t) > 1:
+				mehr += 1
+		_check(mehr == 0, "%s atmet nicht selbst (%d Spuren mit mehr als einem Schlüssel)" % [rn, mehr])
 	# erst eine Sekunde einschwingen (Waffe und Haltung kommen ein Bild nach dem Einhängen, _arm_kauf)
 	for i in 30:
 		await process_frame

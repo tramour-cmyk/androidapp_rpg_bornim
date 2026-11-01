@@ -14,8 +14,10 @@ extends SceneTree
 
 const Probe = preload("res://kampf/probe.gd")
 const Signatur = preload("res://kampf/signatur.gd")
-const DAUER_MS := 16000
+const DAUER_MS := 26000
+const FORMAT := Vector2(1080, 2340)     # Hochformat wie das Handy; Kamera und Messung rechnen damit (ohne Fenster ist der Schirm anders)
 const KLASSEN := ["FIGHTER", "CLERIC"]
+const SEEDS := {"FIGHTER": 2, "CLERIC": 7}
 const NAMEN := {"FIGHTER": "Kämpfer · Schild 15 (rund)", "CLERIC": "Kleriker · Schild 2 (Drachenschild)"}
 
 ## Sichtung: [Bewegung, Name im Bild]; „gehen“, „rennen“, „drehen“ sind Wege
@@ -57,7 +59,9 @@ func _start(k: String, merc: String):
 	p.foe = "WOLVES"
 	root.add_child(p)
 	await process_frame
-	p._start(int(OS.get_environment("SEED")) if OS.get_environment("SEED") != "" else 7)
+	# Würfel je Klasse (SEED_FIGHTER, SEED_CLERIC), sonst SEED, sonst gewählt nach Messung: in 26 s Abwehr, Treffer und eigener Hieb
+	var sd := OS.get_environment("SEED_" + k) if OS.get_environment("SEED_" + k) != "" else OS.get_environment("SEED")
+	p._start(int(sd) if sd != "" else SEEDS.get(k, 7))
 	for i in 4:
 		await process_frame
 	return p
@@ -76,7 +80,7 @@ func _labels() -> void:
 
 ## Kamera mit Blick auf [ziel] aus Richtung [von] (waagerecht), [hoch] m über dem Boden, so weit weg, dass [breite] m quer ins Bild passen
 func _kamera(kf, ziel: Vector3, von: Vector3, hoch: float, breite: float) -> Camera3D:
-	var vs: Vector2 = root.get_visible_rect().size
+	var vs := FORMAT
 	var c := Camera3D.new()
 	kf.add_child(c)
 	c.fov = 30.0     # senkrecht (KEEP_HEIGHT)
@@ -111,14 +115,14 @@ func _sichtung() -> void:
 	helden.sort_custom(func(a, b): return String(a.fighter.id) == "hero")     # Kämpfer links, Kleriker rechts
 	for f in helden:
 		if not f._ss():
-			print("FEHLER: %s ohne Sword & Shield (daten/kampf-bewegungen.bin mit SS_, Schild)" % f.fighter.id)
+			print("FEHLER: %s ohne Sword & Shield (daten/kampf-bewegungen.bin mit SS_, Schild): kauf %s, SS %s, Schild %s, Stab %s, Klasse %s" % [f.fighter.id, f.kauf, f.anim.has_animation("SS_IdleCombat") if f.anim else false, f._schild(), f._stab(), f.fighter.hero.get("cls", "")])
 			quit(1)
 			return
 	var mitte: Vector3 = kf._ground(0, 0)
 	var vorn: Vector3 = kf.cam.global_position - mitte     # aus Richtung der Spielkamera: dort ist die Lichtung frei
 	vorn.y = 0.0
 	vorn = vorn.normalized()
-	var quer := Vector3.UP.cross(vorn).normalized()     # im Bild nach links
+	var quer := vorn.cross(Vector3.UP).normalized()     # im Bild nach links
 	var plaetze := []
 	for i in helden.size():
 		var f = helden[i]
@@ -214,7 +218,7 @@ func _kampf(k: String) -> void:
 	var ziel: Vector3 = hm.lerp(wm, 0.35) + Vector3(0, 0.9, 0)
 	var von: Vector3 = wm - hm
 	von.y = 0.0
-	var cam := _kamera(kf, ziel, von, 2.6, 6.2)
+	var cam := _kamera(kf, ziel, von, 3.2, 4.2)
 	if kf.ui != null:
 		kf.ui.visible = false
 	await process_frame
@@ -235,9 +239,15 @@ func _kampf(k: String) -> void:
 	while n < dauer * 30 / 1000:     # Bilder bei --fixed-fps 30
 		await process_frame
 		n += 1
-		if mess and held.anim.current_animation != alt_anim:
-			alt_anim = held.anim.current_animation
-			print("  %5.2f s Held %s" % [n / 30.0, alt_anim])
+		if mess:
+			var jetzt := ""
+			for id in kf.figures:
+				var f = kf.figures[id]
+				if f.anim != null:
+					jetzt += "%s:%s " % [id, f.anim.current_animation]
+			if jetzt != alt_anim:
+				alt_anim = jetzt
+				print("  %5.2f s %s" % [n / 30.0, jetzt])
 		if kf.mars.outcome != "ONGOING" and not kf.busy and not kf.playing and kf.beats.is_empty():
 			break
 		if not kf.busy and not kf.playing and kf.beats.is_empty() and kf.mars.outcome == "ONGOING":
@@ -257,14 +267,18 @@ func _kampf(k: String) -> void:
 
 ## MESS: steht jede Figur ganz im Bild (Füße und Kopf, mit Rand), wie groß der Held
 func _ausschnitt(cam: Camera3D, figuren: Array, was: String) -> void:
-	var vs: Vector2 = root.get_visible_rect().size
+	var vs := FORMAT
+	var schirm := func(w: Vector3) -> Vector2:     # wie Camera3D.unproject_position im Format des Films (KEEP_HEIGHT)
+		var q: Vector3 = cam.global_transform.affine_inverse() * w
+		var t := tan(deg_to_rad(cam.fov) / 2.0) * -q.z
+		return Vector2((q.x / (t * vs.x / vs.y) + 1.0) * vs.x / 2.0, (1.0 - q.y / t) * vs.y / 2.0).round()
 	for f in figuren:
 		if not f.visible:
 			continue
-		var fuss := cam.unproject_position(f.position)
-		var kopf := cam.unproject_position(f.position + Vector3(0, 1.85 * f.scale.y, 0))
+		var fuss: Vector2 = schirm.call(f.position)
+		var kopf: Vector2 = schirm.call(f.position + Vector3(0, (1.85 if f.fighter.monster == null else 0.9) * f.scale.y, 0))
 		var drin := fuss.x > 0.04 * vs.x and fuss.x < 0.96 * vs.x and kopf.y > 0.13 * vs.y and fuss.y < 0.97 * vs.y
-		print("BILD %s %s: Fuß %s, Kopf %s, Höhe %.0f %% %s" % [was, f.fighter.id, fuss.round(), kopf.round(), 100.0 * (fuss.y - kopf.y) / vs.y,
+		print("BILD %s %s: Fuß %s, Kopf %s, Höhe %.0f %% %s" % [was, f.fighter.id, fuss, kopf, 100.0 * (fuss.y - kopf.y) / vs.y,
 			"" if drin else "AUSSERHALB"])
 		if not drin:
 			fehler += 1
