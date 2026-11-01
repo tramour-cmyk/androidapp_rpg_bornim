@@ -210,9 +210,8 @@ def parse_pruefen(befehl, cwd):
     if not gd:
         return None
     godot = next((b for b in GODOT_BIN if os.path.isfile(b)), None)
-    if not godot:
-        return ("464: Push mit geänderten GDScript-Dateien, aber kein Godot zum Prüfen. Erst Godot 4.7.2 nach ~/godot/godot "
-                "holen (wie godot.yml, Chef 28.10., 399.2d), dann erneut pushen.")
+    if not godot:  # Jerrys Sitzung darf Godot nicht immer laden (01.11.): nicht anhalten, sonst steht der Push ganz
+        return None
     pfad = os.path.join(wurzel, "godot")
     vorher = set(git("ls-files", "--others", "--exclude-standard", "godot", cwd=wurzel).stdout.split())
     try:

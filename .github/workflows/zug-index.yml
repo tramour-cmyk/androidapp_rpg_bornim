@@ -30,6 +30,9 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
+        with:  # 465: Uhrzeit „Seit“ aus dem Commit, der die Datei anlegte; Verlauf ohne Dateiinhalte
+          fetch-depth: 0
+          filter: blob:none
       - name: Übersicht schreiben und pushen
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

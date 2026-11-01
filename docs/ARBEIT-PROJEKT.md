@@ -9,11 +9,11 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 465 | M | **von Sokrates („jetzt“ 01.11., 20:50, Chef: „Warum ist eigentlich in der Chefsache zu entscheiden keine Uhrzeit dabei? … Die muss da unbedingt rein mit.“):** `tools/zug-index.py` SEIT verlangt `HH:MM`, Blätter schreiben oft `20:3x` → Uhrzeit fällt weg; Muster `\d\d:\d[\dx]` zulassen, besser Uhrzeit aus dem Git-Datum der Datei nehmen, wenn sie fehlt; Haken meldet Blatt ohne Uhrzeit | startbar |
+| 465 | M | **von Sokrates („jetzt“ 01.11., 20:50, Chef: „Warum ist eigentlich in der Chefsache zu entscheiden keine Uhrzeit dabei? … Die muss da unbedingt rein mit.“):** Uhrzeit in „Seit“ | gebaut 01.11., 20:53: „20:3x“ erlaubt, fehlt sie, Zeit aus Git (e19090336); Diogenes prüft (465) |
 | 462 | M | **von Ford („jetzt“ 01.11., 20:34, Wortlaut Zu 462):** Name und Zeitstempel in jeder Nachricht (CLAUDE.md Zusammenarbeit 7) wird nicht befolgt; Ursache finden und durchsetzen, Prüfung durch Diogenes | gebaut 01.11., 20:39: Uhr-Haken gibt fertigen Kopf mit Name, Arbeitston verlangt ihn (Zu 462); Diogenes prüft (462) |
-| 464 | M | **von Sokrates (Chef 01.11., 20:4x: „irgendwer produziert hier abends brutal viele Fehler. Auf der Repo … schon fast 20 E-Mails gekriegt“):** rote Läufe: 14 seit 14:30 (7 Jerrys Grak-Zweig, je Push zwei Abläufe; dazu Probeläufe Tom, Spike); Haken vor jedem Push, der baut: `Skripte pruefen` und Tests lokal grün; Ford-Lauf stündlich: jeder rote Lauf an den Besitzer mit Ursache-Auftrag, ab 3 je Stunde Telegram an den Chef; Zählung im Tagesbericht (Chef 20:4x: „kriege ich ja nicht mit, wie viel in die Hose … Abhilfe schafft ja auch keiner“) | startbar |
+| 464 | M | **von Sokrates (Chef 01.11., 20:4x, Wortlaut Zu 464):** rote Läufe senken: Haken vor jedem Push, Ford meldet jeden roten Lauf dem Besitzer, ab 3 je Stunde dem Chef, Zählung im Tagesbericht | gebaut 01.11., 20:50: Push-Haken Parsefehler, Ford-Lauf, Tagesbericht (Zu 464); Diogenes prüft (464) |
 | 461 | M | **von Sokrates („jetzt“ 01.11., 20:3x, Wortlaut in der Liste):** Grundstand Figuren und Kampf: `LISTE-GRUNDSTAND-461.md` prüfen und pflegen, Prüfer prüft jede Vorlage dagegen (Zu 461) | gebaut 01.11., 20:3x: 39 Punkte A–G, Prüfung vor dem Versand verankert (Zu 461); Diogenes prüft (461) |
-| 462.1 | M? | **von Diogenes (Doppelpack 421, Lauf 57, 01.11., 20:4x):** Befunde D59.1–3 zu 462: Zwischenmeldungen ohne Kopf und ungezählt (nur UserPromptSubmit gibt ihn vor, Stop-Haken sieht nur die letzte Nachricht); Spalte `stempel` zählt Kopf ohne Namen; „**<Name>**“ wörtlich bei unerkannter Rolle (`PRUEFBERICHT.md` Lauf 57) | startbar |
+| 462.1 | M? | **von Diogenes (Doppelpack 421, Lauf 57, 01.11., 20:4x):** Befunde D59.1–3 zu 462 (`PRUEFBERICHT.md` Lauf 57) | gebaut 01.11., 20:54: Zwischenmeldungen gezählt, Kopf nur mit Name, kein „<Name>“ (`34581a559`); Diogenes prüft (465) |
 | 461.2 | M? | **von Diogenes (Doppelpack 421, Lauf 56, 01.11., 20:4x):** Befunde D58.1–5 zum Grundstand: E1 gegen Archiv 410 (21:27 Tragart), F6 Magisches Geschoss ausgenommen, G2/C2/E3 ohne Chefwort, „Gehen aufrecht“ belegt (Zu 417 (4)), Tor vor dem Versand ohne Chefwort und gegen 373/396 (`PRUEFBERICHT.md` Lauf 56) | startbar |
 | 436 | M | **von Sokrates („jetzt“ 31.10., 22:58):** Sitzungsnamen mit Vorgang, Thema und Zeit für alle (Zu 436) | gebaut 01.11., 00:1x: Regel, Rollen, lauf.py (Zu 436); Ford benennt um; Diogenes prüft (443) |
 | 433 | M | **von Sokrates („jetzt“ 31.10., 22:1x, Zu 433):** unabhängige Zeilen von Tom und Jerry an Spike/Tuffy (394) verteilen, Ford startet | gebaut 31.10., 22:2x: lauf.py startet Spike/Tuffy auf unabhängige Muss-Zeile (Zu 433); Diogenes prüft (435) |
@@ -36,11 +36,13 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **Zu 464** (Chef 01.11., 20:4x: „irgendwer produziert hier abends brutal viele Fehler. Auf der Repo … schon fast 20 E-Mails gekriegt“; „kriege ich ja nicht mit, wie viel in die Hose … Abhilfe schafft ja auch keiner“). 14 von 168 rot; Einzelheiten Commit `fcf9ab215`, Jerry „Zu 464“. Godot fehlt Jerry: Chefsache tun/464.
+
 - **Guthaben, Chef 01.11., 20:43 (Bild):** „Du erreichst dein Wochenlimit voraussichtlich vorzeitig · 25 % genutzt · Zurücksetzung am Sa., 7. Nov., 20:00“; dazu Lob für kurze Ausgabe („Kurz, bündig“). Für Wochenziel 02.11. (338.1): Tagesbudget bis Sa so setzen, dass Muss für Tom und Jerry reicht; Sparvorschläge mit der Kostenauswertung.
 
-- **Zu 462** (Chef 01.11., 20:34: „Du kannst mal alle anderen auch hier mal wieder einen Zeitstempel ausgeben, wenn du was machst. Ich kann überhaupt nicht einschätzen, wann hier was passiert ist. Doch klar geregelt.“). Ursache: weder Uhr-Haken noch Arbeitston verlangten den Kopf; Zwischenmeldungen blieben ohne; Stop-Haken zählt nur (Chef 24.10., 21:15). Behoben: `neustart-haken.py` gibt „**Name** [Zeit]“ fertig vor (sofort), `knapp.md` verlangt ihn (Zweige erst nach Merge).
+- **Zu 462** (Chef 01.11., 20:34: „Du kannst mal alle anderen auch hier mal wieder einen Zeitstempel ausgeben, wenn du was machst. Ich kann überhaupt nicht einschätzen, wann hier was passiert ist. Doch klar geregelt.“). Ursache und Bau: Commit `b851fb635`.
 
-- **Zu 461 (Perikles, 01.11., 20:3x):** 39 Punkte A–G (Liste), „Gehen aufrecht“ ohne Beleg gestrichen, an den Chef zur Prüfung (Telegram 20:3x); verankert in Prüftreppe 4 und `ROLLE-ENTWICKLUNG.md`; montags Abgleich mit dem Archiv.
+- **Zu 461:** 39 Punkte A–G in der Liste, „Gehen aufrecht“ von Sokrates belegt (D3); verankert in Prüftreppe 4 und `ROLLE-ENTWICKLUNG.md`.
 
 - **423.1, von Team Tom (01.11., 17:2x):** Handbuch als Seite im Spiel braucht das BRS im Spiel (Abnahme 2.2, 2.3); bitte M?/Stufe festlegen, bis dahin wartet es.
 
