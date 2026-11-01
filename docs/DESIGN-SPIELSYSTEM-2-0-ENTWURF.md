@@ -8,7 +8,7 @@ Vier Dinge machen den Helden aus. Mehr muss man nicht wissen, um zu spielen.
 
 | | Was es ist | Wie es wächst |
 | --- | --- | --- |
-| **Werdegang** | wie deine Geschichte anfängt: eine Herkunft (Wachsoldat, Jägerkind …) oder keine (Wanderer) | gar nicht; einmal bei der Erschaffung gewählt, freiwillig |
+| **Herkunft** | wie deine Geschichte anfängt: eine Herkunft (Wachsoldat, Jägerkind …) oder keine (Wanderer) | gar nicht; einmal bei der Erschaffung gewählt, freiwillig |
 | **Fertigkeiten** | was du kannst: 37 Stück, von Einhänder bis Angeln | **durch Tun.** Am Ende jedes Rangs wartet eine **Prüfung**, erst danach geht es weiter |
 | **Pfad** | wohin du dich spezialisierst: Wächter, Paladin, Waldläufer … (genau einer); dazu beliebig viele Handwerke (Meisterschaften) | ein **Lehrmeister** bietet ihn dir an, sobald du passende Fertigkeiten übst; dann drei Prüfungen bei ihm |
 | **Heldenstufe** | wie stark du insgesamt bist | durch **Erfahrung** aus Kämpfen, Quests, Geschichte, bestandenen Prüfungen und Fertigkeitsaufstiegen; jedes Kapitel setzt eine Grenze |
@@ -39,11 +39,21 @@ Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit und 
 
 ### Heldenerschaffung
 
-- Jeder Grundwert beginnt bei **1**. Der Spieler verteilt **21 Punkte**; danach liegt jeder Wert zwischen **3 und 8**. Beispiel Zauberlehrling: Wille 8, Verstand 6, Zähigkeit 4, Wahrnehmung 3, Gewandtheit 3, Kraft 3 (zusammen 27). *Berichtigt:* mit den bisher genannten 18 Punkten blieben nach der Untergrenze 3 nur 6 frei, das Beispiel ging nicht auf (Befund Diogenes D48.1).
-- Dazu ein **Volk** (Mensch, Elf, Zwerg, Hügelvolk, Orkblütiger) mit einem Volksmerkmal und +1 auf zwei Werte; der Volksbonus darf die 8 überschreiten.
-- **Werdegang (Herkunft), freiwillig:** Er verteilt die Punkte vor, gibt zwei bis drei Startfertigkeiten und passende Ausrüstung. Die Punkte kann man ändern. Wer keinen will, ist **Wanderer** und verteilt selbst.
+- Jeder Grundwert beginnt bei **1**. Der Spieler verteilt **18 Punkte** (versuchsweise, Entscheidung 64); danach liegt jeder Wert zwischen **3 und 8**. Damit sind 12 Punkte für die Untergrenze 3 gebunden und **6 frei**, etwa Wille 8, Verstand 4, sonst 3. *Vorschlag (offen, Abschnitt 13):* 21 Punkte, also 9 frei, etwa Wille 8, Verstand 6, Zähigkeit 4, sonst 3 (Befund D48.1).
+- Dazu ein **Volk** mit kleinem Bonus und Malus und einem spürbaren Merkmal (Entscheidung 70, 72):
 
-| Werdegang | Startfertigkeiten | führt meist zu |
+| Volk | Grundwerte | Merkmal |
+| --- | --- | --- |
+| Mensch | +1 frei | Wandelbar: eine zusätzliche Startfertigkeit |
+| Elf | Gewandtheit +1, Wahrnehmung +1, Zähigkeit −1 | Wachsame Sinne |
+| Zwerg | Zähigkeit +1, Verstand +1, Gewandtheit −1 | Steinblut |
+| Hügelvolk | Gewandtheit +1, Wille +1, Kraft −1 | Glückskind |
+| Orkblütiger | Kraft +1, Zähigkeit +1, Wille −1 | Letzter Atemzug |
+
+  Ob das Volk die Spanne 3 bis 8 überschreiten darf (9 oder 2), ist offen (Abschnitt 13). Leute in der Welt reagieren auf das Volk (Entscheidung 71).
+- **Herkunft, freiwillig** (Entscheidung 68, 69): Sie verteilt die Punkte vor, gibt zwei bis drei Startfertigkeiten und passende Ausrüstung; ein Satz bei der Erschaffung sagt, wohin sie lenkt. Die Punkte kann man ändern. Wer keine will, ist **Wanderer** und verteilt selbst.
+
+| Herkunft | Startfertigkeiten | führt meist zu |
 | --- | --- | --- |
 | Wachsoldat | Schild, Mittlere Rüstung, Einhänder | Wächter, Paladin |
 | Jägerkind | Bogen, Wurfwaffen, Spähen | Waldläufer, Scharfschütze |
@@ -69,7 +79,7 @@ Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit und 
 | Wildnis (1) | Tiere beruhigen | feindliche Tiere vor dem Kampf beruhigen |
 | Gesellschaft (3) | Überreden (mit Täuschen), Einschüchtern, Handeln | Gespräche, Läden |
 | Sammeln (4) | Kräuterkunde, Bergbau, Angeln, Jagd (Zerlegen, Fährten) | ernten, angeln, erlegte Tiere zerlegen |
-| Meisterschaften (6) | Schmieden (Metall, Reparieren, Dietriche), Lederarbeit (Gerben, Schneidern), Alchemie (mit Giften), Kochen, Runenkunde (Verzaubern), Heilkunde | herstellen, verbinden |
+| Meisterschaften (6) | Schmieden (Metall, Reparieren, Dietriche), Lederarbeit (Gerben, Schneidern, Reparieren), Alchemie (mit Giften), Kochen, Runenkunde (Verzaubern), Heilkunde | herstellen, verbinden |
 
 ### Wie Fertigkeiten wachsen
 
@@ -90,12 +100,12 @@ Die **Heldenstufe** wächst über Erfahrung. Sie bestimmt Leben, die Stärke im 
 | --- | --- |
 | Fertigkeitsaufstieg | bei jedem Aufstieg des Fertigkeitswerts um einen Schritt (Startwert: je 5 Punkte), nicht für bloßes Üben |
 | Prüfung und Bewährungsprobe | beim Bestehen, als Tat; Prüfungen beim Lehrmeister geben viel |
-| Kampf | beim Sieg; Gegner weit unter der eigenen Stufe (etwa 10 Stufen) geben nichts |
+| Kampf | beim Sieg; ab 9 Stufen über dem Gegner gibt es nichts mehr (Entscheidung 73) |
 | Nebenquests | beim Abschluss, nach Schwierigkeit und Gebiet |
 | Hauptquest | in größeren Blöcken, einmalig |
 
 - **Deckel:** Höchstens **40 Prozent** der Erfahrung für die nächste Stufe dürfen aus Fertigkeitsaufstiegen stammen. Eine Anzeige sagt, wenn der Deckel erreicht ist.
-- **Stufengrenze wie in World of Warcraft:** Jedes Kapitel und jedes neue Gebiet hat eine Grenze; ein neues Kapitel hebt sie. Eine feste Höchststufe gibt es nicht.
+- **Stufengrenze wie in World of Warcraft:** Jedes Kapitel und jedes neue Gebiet hat eine Grenze; ein neues Kapitel hebt sie. Eine feste Höchststufe gibt es nicht (Entscheidung 35). Kapitel 1: Startwert 6 wie im bisherigen Spiel, gemessen wird in der Simulation.
 - **Weiche Grenze:** Die Stufe darf die Kapitelgrenze um bis zu **zwei** Stufen überschreiten, bekommt dafür aber nur **ein Viertel** der Erfahrung.
 - **Baseline:** Sind alle Quests erledigt und alle Gegner einmal besiegt, hat der Held die Erfahrung des Kapitels ausgeschöpft.
 - **Erfahrungstopf je Gebiet:** Zufallsbegegnungen schöpfen aus einem Topf (die Erfahrung aller Gegner des Gebiets einmal). Ist er leer, gibt es nur noch einen kleinen Anteil. Wiedergekehrte Gegner geben kaum Erfahrung, aber weiter Beute.
@@ -147,7 +157,7 @@ Die sechs Gruppen ordnen die Pfade; sie sind keine eigene Stufe:
 | | | Scharfschütze | Armbrust oder Bogen, Wurfwaffen, Spähen | Zielschuss, Durchschlagen | höchstens mittlere Rüstung |
 | Magie (Adept) | eine Schule: Evokation, Schutzmagie, Illusion oder Beschwörung | Magier | zwei Schulen | stärkste Zauber, große Manareserve | keine Rüstung |
 | | | Kriegsmagier | Evokation, Einhänder oder Zweihänder, Leichte Rüstung | Waffenzauber | nur leichte Rüstung, Magie gedeckelt |
-| | | Beschwörer | Beschwörung | Diener beschwören, Untote | keine Rüstung; Ruf sinkt bei Nekromantie; nicht Paladin, nicht Heiler |
+| | | Beschwörer | Beschwörung, eine zweite Schule (Vorschlag; mit nur einer Kernfertigkeit käme die Einladung nie) | Diener beschwören, Untote | keine Rüstung; Ruf sinkt bei Nekromantie; nicht Paladin, nicht Heiler |
 | Heilung (Heilkundiger) | Heilmagie, Heilkunde, Kräuterkunde | Heiler | Heilmagie, Schutzmagie, Heilkunde | Wiederbeleben, Seuchen heilen | höchstens leichte Rüstung |
 | | | Paladin (siehe Schutz) | | | |
 
@@ -159,8 +169,9 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 
 | Meisterschaft | Fertigkeit | Stellt her |
 | --- | --- | --- |
-| Schmied | Schmieden | Waffen, Metallrüstung, Dietriche, Reparatur |
-| Lederarbeit | Lederarbeit | Leder, leichte Rüstung, Taschen, Köcher |
+| Schmied | Schmieden | Waffen, Metallrüstung, Dietriche, Reparatur von Metall |
+| Lederarbeit | Lederarbeit | Leder, leichte Rüstung, Taschen, Köcher, Reparatur von Leder und Stoff |
+| Heilkunde (Name offen) | Heilkunde | Verbände, Salben; Wunden nach dem Kampf versorgen |
 | Alchemist | Alchemie | Tränke, Gegengifte, Gifte, Elixiere |
 | Runenmeister | Runenkunde | Verzauberungen, Runen auf Ausrüstung |
 | Feldkoch | Kochen | Mahlzeiten mit kleinem Bonus |
@@ -251,7 +262,10 @@ Folklore-Wesen (Goblin, Kobold, Skelett, Zombie, Ghul) und Tiere behalten ihre N
 - Umfang der Prüfungsquests beim Lehrmeister.
 - Wie die Grundwerte durch Fertigkeiten wachsen; Haupt- und Nebenwert für Spähen, Tiere beruhigen, Lederarbeit.
 - Rufstufen, Gefährten ohne Klassen, Niederlage, Übernahme alter Spielstände, Reparaturverlust, Abnutzungsrate.
-- Kapitel 1: welche Fertigkeiten es dort schon zu tun gibt (Schmieden, Alchemie, Spähen), damit jeder Werdegang in Kapitel 1 etwas zu üben hat (Befund D49.1).
+- Kapitel 1: welche Fertigkeiten es dort schon zu tun gibt (Schmieden, Alchemie, Spähen), damit jede Herkunft in Kapitel 1 etwas zu üben hat (Befund D49.1; Umfang beim Chef, Chefsache 418).
+- Startpunkte: 18 (Entscheidung 64) oder 21 (Abschnitt 2, D48.1); darf das Volk die Spanne 3 bis 8 überschreiten?
+- Fallen und Verstecktes entdecken: Vorschlag, Spähen findet (Entscheidung 57), Wahrnehmung verstärkt; bisher nennt beides der Text (D49.2).
+- Beschwörer: zweite Kernfertigkeit (Abschnitt 5); Name der Meisterschaft Heilkunde (Abschnitt 6).
 - Alle Zahlen: nach der Simulation.
 
 ---
