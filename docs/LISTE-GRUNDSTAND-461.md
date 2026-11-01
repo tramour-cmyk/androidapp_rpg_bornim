@@ -29,7 +29,7 @@ Chef 01.11., 20:3x: „das mal alles zusammenführt … auf ein Niveau kriegen, 
 | B1 | Held auf dem Kaufkörper wie Film 403, mit einem der sechs Köpfe; Haut nicht „klinisch tot“ (vier Hauttöne) | 403, 376.1 (28.10., 29.10.) | ja |
 | B2 | Grundkörper je Volk: Ork auf Superheld (auch Grak, Krogg, große Leute); Elf, Hügelvolk, Mensch, Aschgeborene auf Regulär; Zwerg nach Film 455.2 | 431 (01.11., 11:42) | ja |
 | B3 | Tracht je Herkunft, Mann und Frau gleich; langes Haar unter Helm und Kapuze verborgen; zwölf Frisuren | 376.1 (29.10., 01.11.) | ja |
-| B4 | Kleidung geschlossen: nichts scheint durch (Umhang, Robe), keine Löcher, keine Knie durch die Robe | 376.1 (29.10.; 01.11., 20:2x), 406 (20:2x) | ja |
+| B4 | Kleidung geschlossen: nichts scheint durch (Umhang, Robe, Kettenhemd), keine Löcher, keine Knie durch die Robe; Haut unter Kleidung nicht gezeichnet; Frau höchstens so viel Durchdringung wie Mann | 376.1 (29.10.; 01.11., 20:2x, 20:57), 406 (20:2x) | ja |
 | B5 | Schild 2 für den ehemaligen Kleriker, Schild 15 für den Krieger; kein zweiter Schild auf dem Rücken | 406 (29.10., 31.10.) | ja |
 | B6 | Neue Figur erst als ruhendes Modell abgenommen, dann bewegt; Figuren untereinander unterscheidbar | 348 (28.10.), 348.12 (28.10.) | – |
 | B7 | Größen wie entschieden: Wölfe 1,32 (Film 438) | 438c (01.11., 11:45) | ja |
