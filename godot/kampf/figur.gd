@@ -158,6 +158,7 @@ func setup(f, k) -> void:
 		tritt = preload("res://kampf/trittfest.gd").new()     # 438: im Gehen und Rennen bleiben aufgesetzte Pfoten fest
 		tritt.figur = self
 		skw.add_child(tritt)
+	_atem_an()
 	_face()
 	_idle()
 	_ground_shadow()
@@ -813,6 +814,45 @@ func _play(name: String, blend := 0.15) -> void:
 	if anim and anim.has_animation(name):
 		anim.clear_queue()     # 453: eine angehängte Grundhaltung (nach einer Ruhebewegung) gilt nicht mehr, sobald etwas anderes beginnt
 		anim.play(name, blend, float(tempo.get(name, 1.0)))
+
+
+## 453.1 (Chef 01.11., 13:0x: „dass unsere Helden unsere zwei immer gleich atmen … nicht so heftig … nach einer Abwehr ein bisschen
+## schneller und dann wieder ruhiger“): Held und Söldner atmen als eigene Schicht (atem.gd), je Figur eigener Takt und Versatz. Die
+## Ruhebewegung der UAL (Idle_Loop, aus ihr Kampfstehen in kampf.py) atmet selbst zweimal in 2,5 s (Schulter 2,1 cm, Kopf 4°; gemessen
+## 01.11.), beide Helden im Gleichtakt: in den Ruhebewegungen des Kampfs bleibt darum ihr erstes Bild stehen (_ohne_atem), das auch
+## Anfang und Ende jeder Kampfbewegung ist, und nur die Schicht atmet.
+const ATEM_RUHE := ["Kampfstehen", "Stehen"]
+var atem = null
+
+func _atem_an() -> void:
+	if not kauf or anim == null or OS.get_environment("ATEM_ALT") != "":     # Prüfschalter ATEM_ALT=1: wie vorher (Vergleichsfilm)
+		return
+	var sk := _find(model, "Skeleton3D") as Skeleton3D
+	if sk == null or sk.find_bone("spine_03") < 0:
+		return
+	for n in ATEM_RUHE:
+		if anim.has_animation(n):
+			_ohne_atem(anim.get_animation(n))
+	atem = preload("res://kampf/atem.gd").new()
+	atem.name = "Atem"
+	atem.eigen(hash(String(fighter.id)))
+	sk.add_child(atem)
+
+
+## jede Spur hält ihren ersten Schlüssel (die Bibliothek gehört nur dieser Figur, HeldFigur.baue und _kaufheld kopieren)
+static func _ohne_atem(an: Animation) -> void:
+	for t in an.get_track_count():
+		var ty := an.track_get_type(t)
+		if ty != Animation.TYPE_ROTATION_3D and ty != Animation.TYPE_POSITION_3D:
+			continue
+		while an.track_get_key_count(t) > 1:
+			an.track_remove_key(t, an.track_get_key_count(t) - 1)
+
+
+## 453.1: nach Angriff, Ausweichen, Treffer schneller und tiefer atmen, dann abklingend (atem.gd)
+func _schnaufen(wie_sehr: float) -> void:
+	if atem != null:
+		atem.anstrengen(wie_sehr)
 
 
 ## 438: Ruhe nach Treffer oder Ausweichen nur, wenn es nicht unterwegs ist (sonst glitt es in Stehen weiter)
@@ -1672,6 +1712,7 @@ func strike(other, e: Dictionary) -> int:
 	var spell: bool = e.spell != null
 	var ranged: bool = fighter.ranged()
 	if spell or ranged:
+		_schnaufen(0.6)
 		_face(other.position - position)
 		_play("Ausholen")
 		get_tree().create_timer(0.6).timeout.connect(func(): _face(); _idle())
@@ -1681,6 +1722,7 @@ func strike(other, e: Dictionary) -> int:
 	letzter_sprung = leap or (sprung_bereit and fighter.monster != null)
 	sprung_bereit = false
 	if kauf:
+		_schnaufen(1.0)
 		# 438 (Prüfer Film r2: Klinge 31,2 s durch Wolf 2 ohne Treffer): daneben bleibt der Held VERFEHLT_M weiter weg
 		return _held_schlag(other, VERFEHLT_M if e.get("roll") != null and e.roll[0] == "ATTACK" and not e.roll[4] else 0.0)
 	if _zweibeiner() and weg.has("Gehen") and hieb.size() >= 3:
@@ -2187,6 +2229,7 @@ func hurt(after_ms: int, dies: bool) -> void:
 		model_rest = model.position
 	# 249: wie im alten MARS nur Zittern und Blut; das orange Aufleuchten wirkte als greller Scherenschnitt (Prüfer 26.10.)
 	hurt_at = kampfort.clock_ms
+	_schnaufen(0.8)
 	if dies:
 		die()
 	elif not weg.is_empty() and lunging():
@@ -2199,6 +2242,7 @@ func hurt(after_ms: int, dies: bool) -> void:
 func dodge(after_ms: int, nm := "") -> void:
 	await get_tree().create_timer(after_ms / 1000.0).timeout
 	_dreh_ab()
+	_schnaufen(0.8)
 	# 348.12f: mit Wurzelweg zur Seite oder zurück, wie die Quelle (Ausweichen links nicht: Kopf unter den Vorderbeinen, Prüfer r7),
 	# dann heim; [nm] wählt (Probe SCHAU=ort), sonst der Zufall
 	if nm == "" and weg.has("Ausweichen links"):
@@ -2310,6 +2354,8 @@ const AUSWEICHEN := [1.0, 0.0, 0.5, 0.9, 90.0, 120.0]     # r3c: mit Blick gerad
 func die() -> void:
 	_dreh_ab()
 	down = true
+	if atem != null:
+		atem.active = false     # 453.1: der Tote atmet nicht
 	if not weg.is_empty() and tween and tween.is_running():
 		tween.kill()     # 348.12f: im Lauf getroffen, liegt es, wo es fällt
 	dead_at = int(kampfort.clock_ms)

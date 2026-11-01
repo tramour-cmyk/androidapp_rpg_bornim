@@ -25,8 +25,22 @@ func _run() -> void:
 		for i in 4:
 			await process_frame
 		var kf = p.fight
+		# 453.1: NAHE=<m> Kamera aus Richtung der Kampfkamera so weit vor Held und Söldner (Brusthöhe), Kampfanzeige aus
+		if OS.get_environment("NAHE") != "":
+			var mitte: Vector3 = (kf.figures["hero"].position + kf.figures["merc"].position) / 2.0 + Vector3(0, 1.25, 0)
+			var nah := Camera3D.new()
+			kf.add_child(nah)
+			nah.fov = kf.cam.fov
+			nah.position = mitte + (kf.cam.global_position - mitte).normalized() * float(OS.get_environment("NAHE"))
+			nah.look_at(mitte)
+			nah.make_current()
+			if kf.ui != null:
+				kf.ui.visible = false
 		if not Signatur.wache(kf, self, "Film 403 " + k):     # 457.2: Toon-Licht, Tusche nach Licht, Schatten wie im Spiel
 			return
+		# 453.1: RUHE_MS=<ms> Ruhe vor dem ersten Zug (Atmen in Ruhe ansehen)
+		for i in int(OS.get_environment("RUHE_MS")) * 30 / 1000 if OS.get_environment("RUHE_MS") != "" else 0:
+			await process_frame
 		kf.mars.find("merc").auto = true
 		kf.mars.set_autopilot(true)
 		if not kf.busy:
