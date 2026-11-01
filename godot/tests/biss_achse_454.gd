@@ -101,13 +101,26 @@ func _bild(kf, k: String) -> void:
 			var q := (Vector3(sn.x, 0, sn.z) - Vector3(f.global_position.x, 0, f.global_position.z)).dot(vv.normalized().cross(Vector3.DOWN))
 			var e: Array = quer_je.get(a, [0.0, 0])
 			quer_je[a] = [e[0] + q, e[1] + 1]
-		# Ziel: laut Ansage (aim), sonst der nächste Mensch (strike setzt aim nicht)
-		var ziel_f = f.aim if f.aim != null and is_instance_valid(f.aim) else null
-		if ziel_f == null:
+		# Ziel: der Mensch, auf den das Tier beim Beginn des Bisses blickt (kleinster Abstand zur Blicklinie vor ihm), für den ganzen
+		# Biss fest; die Ansage (aim) kann einem anderen gelten (Kleriker: Ansage Held, Biss an den Söldner)
+		var ziel_f = null
+		if anfang.has(id) and is_instance_valid(anfang[id][4]):
+			ziel_f = anfang[id][4]
+		else:
+			var blick: Vector3 = f.global_transform.basis.z
+			blick.y = 0.0
+			blick = blick.normalized().rotated(Vector3.UP, -deg_to_rad(float(f.bite.get("Biss", [0, 0, 0])[2])))
 			var best := INF
 			for g in kf.figures.values():
-				if g.fighter.monster == null and g.visible and not g.down and g.global_position.distance_to(f.global_position) < best:
-					best = g.global_position.distance_to(f.global_position)
+				if g.fighter.monster != null or not g.visible or g.down:
+					continue
+				var zu: Vector3 = g.global_position - f.global_position
+				zu.y = 0.0
+				if zu.dot(blick) <= 0.0:
+					continue
+				var quer_ab: float = (zu - blick * zu.dot(blick)).length()
+				if quer_ab < best:
+					best = quer_ab
 					ziel_f = g
 		if not a in ["Biss", "Sprungbiss"] or ziel_f == null:
 			if laufend.has(id):
@@ -126,7 +139,7 @@ func _bild(kf, k: String) -> void:
 			continue
 		var pos: Vector3 = f.global_position
 		if not anfang.has(id):
-			anfang[id] = [ziel, f.rotation.y, pos, f.bite.get(a, f.bite.get("Biss", [0, 0, 0]))[2]]
+			anfang[id] = [ziel, f.rotation.y, pos, f.bite.get(a, f.bite.get("Biss", [0, 0, 0]))[2], ziel_f]
 		var a0: Array = anfang[id]
 		var ziel_weg := Vector2(ziel.x - a0[0].x, ziel.z - a0[0].z).length()
 		var dreh := rad_to_deg(wrapf(f.rotation.y - a0[1], -PI, PI))
