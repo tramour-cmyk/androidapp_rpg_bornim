@@ -184,7 +184,7 @@ func _held(f: Dictionary, dt: float, ansicht: String) -> void:
 		if z < FOLGE[i][0]:
 			art = FOLGE[i][1]; bis = FOLGE[i][0]; naechste = FOLGE[i + 1][1] if i + 1 < FOLGE.size() else 0.0
 			break
-	var soll := [0.0, GEHEN, RENNEN][int(art)]
+	var soll: float = [0.0, GEHEN, RENNEN][int(art)]
 	var moving := soll > 0.0
 	var alt: bool = f.get("alt", false)
 	if moving and naechste == 0.0 and not alt:   # Ende des Wegs: so weit, wie er noch im Gehtempo kaeme
