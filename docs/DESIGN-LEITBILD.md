@@ -2,7 +2,7 @@
 
 Der rote Faden (Thema 44, mit dem Nutzer 12.10.). Wer unsicher ist, ob etwas ins Spiel passt, schaut zuerst hier nach. Bei Widerspruch gilt das Leitbild; die Einzelheiten stehen in [Stil](DESIGN-STIL.md) (Aussehen, Klang, Spielgefühl) und [Abnahme](DESIGN-ABNAHME.md) (Bauen, Prüfen). Ein lebendes Dokument: Änderungen nur nach Abstimmung mit dem Nutzer.
 
-**Was es ist:** Ein Rollenspiel für Android in düsterer, erwachsener Fantasy. Es baut auf dem Regelwerk SRD 5.1 auf und wird in Kapiteln erzählt, mindestens sieben, rund um das Dorf Bornim. Gedacht für den Play Store, Ziel ist eine Altersfreigabe ab 16 (44a). Kaufmodell und Preis: vertraulich, im Artefakt [Geschäftsmodell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj) (246.2).
+**Was es ist:** Ein Rollenspiel für Android in düsterer, erwachsener Fantasy. Es hat ein eigenes Regelwerk (Spielsystem 2.0) und wird in Kapiteln erzählt, mindestens sieben, rund um das Dorf Bornim. Gedacht für den Play Store, Ziel ist eine Altersfreigabe ab 16 (44a). Kaufmodell und Preis: vertraulich, im Artefakt [Geschäftsmodell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj) (246.2).
 
 **Profil (72a, 19.10.):** Ein Held, eine lebendige Welt, jede Entscheidung zählt. „Entscheidung“ heißt nicht nur Auswahl im Gespräch, sondern auch, was ich tue und in welcher Reihenfolge, bis zum Kampfzug; jede Wahl hat eine Folge.
 
