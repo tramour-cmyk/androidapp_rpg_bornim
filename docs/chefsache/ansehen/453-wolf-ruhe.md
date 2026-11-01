@@ -1,5 +1,7 @@
 # 453 · Ruhebewegungen der Wölfe im Kampf · Tuffy (Team Jerry) · 01.11., 12:06
 
+[Film von 01.11., 12:05](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-1205-453-Tuffy.mp4) (eingetragen von meldung.sh, Tuffy)
+
 Film 31 s am Rechner mit dem gekauften Wolf, aus der Kampfkamera, noch kein Build: jede Bewegung nacheinander mit Namen oben, ohne Ton (Laute erst im Spiel). Zweig `claude/tuffy-453-wolf-ruhe`, baut auf 438 auf.
 
 - **Messung vorher** (Prüflauf `wolf_ruhe_453`, zwei Kämpfe gegen das Rudel, Autopilot): die Wölfe ruhten zu 96 % geduckt („Hocke“); diese Hocke war beim gekauften Wolf ein einziges gehaltenes Standbild. 0 Ruhebewegungen, je Wolf 31–77 s ohne jede Regung.
