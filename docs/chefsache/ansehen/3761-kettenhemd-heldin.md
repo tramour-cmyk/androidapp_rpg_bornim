@@ -1,7 +1,7 @@
 # 376.1 · Kettenhemd der Heldin: so lassen, nachbessern oder Ritterin Platte?
 Sokrates · 01.11., 20:57 · E Figuren
 
-![Wachsoldat links Mann, rechts Frau](bilder/3761-kettenhemd.png)
+![Wachsoldat links Mann, rechts Frau](../bilder/3761-kettenhemd.png)
 
 **Ansehen:** Bild oben (Stand, von vorn); in Bewegung im [Film 376.1 von 15:25](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-1525-376.1-Spike.mp4): Mann ab Sekunde 1, Frau ab Sekunde 13 (jeweils oben links „Wachsoldat“), Gehen und Rennen auf Seite 3.
 
