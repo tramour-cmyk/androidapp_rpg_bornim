@@ -3,7 +3,7 @@ name: Tom Probe Voelker (431)
 # 431 Runde 3 (Chef 01.11., 11:42, „431 wie Sokrates“; Hinweis Sokrates 11:4x: Probe wie gebaut, mit Toon-Licht und Tusche): Grundkoerper
 # je Volk (voelker.py) im Spiel gefilmt (figurenprobe --teil=voelker, voelkerprobe.gd), Zahlen dazu (voelker_film.py). Kaufmodelle nur
 # ueber diesen Ablauf, nie in eine Sitzung (416.4a); ins Artefakt nur Film, Masse, Protokolle (348.12c a). Nur bei Commits, die mit
-# „431“ beginnen, oder von Hand.
+# „431“ beginnen, oder von Hand. Dritter Lauf freigegeben (431a, Chef 01.11., 12:56: danach Film an den Chef, egal wie er ausfällt).
 on:
   push:
     branches: ["claude/tom-431-**"]
