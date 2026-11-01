@@ -76,7 +76,7 @@ Chef 01.11., 20:3x: „das mal alles zusammenführt … auf ein Niveau kriegen, 
 | F3 | Reihenfolge Angriff, Treffer, Tod, Neuformation | 439 (31.10.) | ja |
 | F4 | Tod sichtbar als Zusammenbruch, nicht ausgeblendet, nicht zu schnell weg | 440 (31.10.), 348.12 (28.10.) | ja |
 | F5 | Ausweichen mit Ortswechsel | 348.12f (27.10.) | ja |
-| F6 | Zauber: der Kegel kommt nicht aus dem Körper des Helden (Seitenschritt; ebenso Schüsse aus der zweiten Reihe); Magisches Geschoss ohne Schritt, durch den Helden abgenommen | 348.7b (27.10., 19:49; 28.10., 10:43, 15:28) | ja |
+| F6 | Zauber: der Kegel kommt nicht aus dem Körper des Helden (Seitenschritt; ebenso Schüsse aus der zweiten Reihe); Arkanpfeil (früher „Magisches Geschoss“, BRS 12) ohne Schritt, durch den Helden abgenommen | 348.7b (27.10., 19:49; 28.10., 10:43, 15:28) | ja |
 
 ## G Film und Vorlage
 
