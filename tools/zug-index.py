@@ -155,6 +155,15 @@ def formfehler():
     return fehler
 NR = r"[A-Z]?\d+[a-z]*(?:\.\d+[a-z]*)?"
 
+def ohne_link():
+    """450 (Chef 01.11., 10:55): jedes Blatt in ansehen/ (außer Builds t<n>-) zeigt ein Bild aus bilder/ oder verlinkt Bild bzw. Film im Zweig bilder."""
+    pfad = os.path.join(ZUG, "ansehen"); raus = []
+    link = re.compile(r"\]\((?:\.\./bilder/|bilder:|https://github\.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/|https://cdn\.jsdelivr\.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/)")
+    for n in sorted(os.listdir(pfad)) if os.path.isdir(pfad) else []:
+        if n.endswith(".md") and not re.match(r"t\d+-", n) and not link.search(open(os.path.join(pfad, n), encoding="utf-8").read()):
+            raus.append("ansehen/" + n)
+    return raus
+
 def luecken():
     """D21.3: Vorratszeilen, die auf den Chef warten oder „Chefsache <Nr>“ nennen, ohne Datei hier (ARCHIV eingefroren, nicht gelesen)."""
     texte = []
@@ -188,12 +197,14 @@ def luecken():
     except Exception:
         beantw = []
     form = formfehler()
-    if not nicht and not ohne and not form and not alt and not beantw: return ""
+    ohne_bild = ohne_link()
+    if not nicht and not ohne and not form and not alt and not beantw and not ohne_bild: return ""
     teile = ["## Lücken\n\nVom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.\n"]
     if form: teile.append("Format (Muster: „So geht's“ unten): " + "; ".join(form) + "\n")
     if nicht: teile.append("Nicht gestellt: " + ", ".join(f"{nr} ({wer})" for nr, wer in nicht) + "\n")
     if beantw: teile.append("Beantwortet, Datei noch da (383.3: der Absender löscht sofort): " + ", ".join(beantw) + "\n")
     if alt: teile.append("In Überarbeitung, aus der Chefsache nehmen, bis die neue Fassung fertig ist: " + ", ".join(alt) + "\n")
+    if ohne_bild: teile.append("Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): " + ", ".join(ohne_bild) + "\n")
     if ohne: teile.append("Ohne Datei: " + ", ".join(f"{nr} ({wer})" for nr, wer in ohne) + "\n")
     return "\n".join(teile)
 

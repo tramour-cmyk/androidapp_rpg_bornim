@@ -74,7 +74,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 ## Notizen nur auf `main`
 
 - Notizen = `CLAUDE.md`, `CHANGELOG.md`, `docs/`: nur auf `main`, direkt committen und pushen (baut keine APK); Arbeitszweige nur Code.
-- Bearbeiten in `../bornim-main` nur mit Edit/Write, nie mit Bash-Skripten, die Notizen umschreiben (einzige Ausnahme `tools/vorgang.py`, 275); sofort pushen. Push abgelehnt: `git pull`, erneut pushen.
+- Bearbeiten in `../bornim-main` nur mit Edit/Write, nie mit Bash-Skripten, die Notizen umschreiben (Ausnahmen `tools/vorgang.py`, 275; Bildlink von `meldung.sh`, 450); sofort pushen. Push abgelehnt: `git pull`, erneut pushen.
 - Vor jeder Antwort an den Chef `tools/notiz.sh`.
 
 ## Feste Regeln
