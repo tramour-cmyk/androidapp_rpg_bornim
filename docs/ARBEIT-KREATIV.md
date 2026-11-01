@@ -5,7 +5,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `c8f92fe71` (01.11., 09:11)
 
-**Übergabe (01.11., 09:1x):** 430 Völkerlisten gebilligt (431 bei Tom startbar); 428 Bestiarium-Hintergrund freigegeben, vier Nachfolger aus 348.12c Entwurf bis zum Kauf; 432 geprüft (Zu 432), ruht. Nachfolger: keiner, 423 wartet auf Sokrates (422).
+**Übergabe (01.11., 09:1x):** 430 Völkerlisten gebilligt (431 bei Tom startbar); 428 Bestiarium-Hintergrund freigegeben, vier Nachfolger aus 348.12c Entwurf bis zum Kauf; 432 Chefsache 432 (Weg A/B), Stellungnahme an Sokrates (432.1). Nachfolger: keiner, 423 wartet auf Sokrates (422).
 
 
 ## Zeilen
