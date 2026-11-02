@@ -28,7 +28,6 @@ Nichts offen.
 | [417](ansehen/417-tragart-runde5.md) | Tragart Runde 5/6: Schild an der Seite, Axt mit beiden Fäusten | Tom | 02.11., 00:53 |
 | [438a Runde 2](ansehen/438a-sturz-runde2.md) | Hinfallen 1 und Aufstehen 1: Schwert und Schild frei von Boden und Körper | Jerry | 02.11., 01:51 |
 | [447.4](ansehen/4474-lehrmeister-texte.md) | Texte Lehrmeister und Ruf, Kapitel 1 | Homer | 01.11., 20:51 |
-| [465](ansehen/465-seit-uhrzeit.md) | Chefsache „Seit“ immer mit Uhrzeit | Perikles | 02.11., 02:43 |
 
 ## Zu tun
 
@@ -167,13 +166,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | D63.6 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 438 08:11, 09:45; 454 | startbar |
 
-**Perikles** – offen 24, Muss 22, startbar 0
+**Perikles** – offen 24, Muss 22, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 461d | M | von Sokrates (Vorentscheid 22:5x): Liste 461 in die DESIGN-Dateien (Archiv 461d) | wartet auf Test/Build (gebaut) |
 | 461b | M | von Sokrates (Chef 22:26, Archiv): Commit-Prüfung: Archiveintrag ohne DESIGN-/Listenänderu | wartet auf Test/Build (gebaut) |
-| 465 | M | von Sokrates („jetzt“ 01.11., 20:50, Chef: „Warum ist eigentlich in der Chefsache zu entsc | wartet auf Test/Build (gebaut) |
+| 465 | M | von Sokrates („jetzt“ 01.11., 20:50, Chef: „Warum ist eigentlich in der Chefsache zu entsc | startbar |
 | 464 | M | von Sokrates (Chef 01.11., 20:4x, Wortlaut Zu 464): rote Läufe senken: Haken vor jedem Pus | wartet auf Test/Build (gebaut) |
 | 461 | M | von Sokrates („jetzt“ 01.11., 20:3x, Wortlaut in der Liste): Grundstand Figuren und Kampf: | wartet auf Test/Build (gebaut) |
 | 464.1 | M | von Diogenes (Doppelpack 421, Lauf 59, 01.11., 22:13): Befunde D61.1–2 zu 464: Tageszahl r | wartet auf Test/Build (gebaut) |
@@ -250,7 +249,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 407 (Projekt), 186.3 (Pruefung), 474 (Team Tom)
 
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/4474-lehrmeister-texte.md, ansehen/465-seit-uhrzeit.md
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/4474-lehrmeister-texte.md
 
 Ohne Datei: 275 (Projekt)
 
