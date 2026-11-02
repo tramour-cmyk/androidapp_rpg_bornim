@@ -52,11 +52,26 @@ def klasse(rgb):
     if v < 0.10: return 'leder'
     if s < 0.18: return 'metall'
     if 18 <= hu <= 65:
-        if v > 0.55 and s > 0.35: return 'beschlag'
+        # Probelauf 1 (Lauf 41393670942): Anker-Stiele (hautfarben, s um 0,4) liefen als Beschlag; Messing A8884A hat s 0,56, Ton 41
+        if 32 <= hu <= 60 and v > 0.5 and s > 0.45: return 'beschlag'
         return 'leder' if v < 0.26 else 'holz'
     if hu < 18 or hu > 330:
+        if 8 <= hu < 18 and s < 0.85: return 'leder' if v < 0.26 else 'holz'   # rotbraune Stiele (Omie) sind Holz, kein Stein
         return 'leder' if (s < 0.6 and v < 0.45) else 'akzent'
     return 'akzent'
+
+
+# Name des Materials vor der Farbe (Anker: Grundfarben ohne Bild, Namen wie „Wood“, „Metal“), erste passende Regel
+NAMEN = [('akzent', r'gem|crystal|jewel|ruby|sapphire|emerald|stone|kristall|orb'), ('beschlag', r'gold|brass|bronze|copper|messing'),
+         ('leder', r'leather|grip|wrap|strap|cloth|rope|string|leder'), ('holz', r'wood|handle|shaft|stick|bow|haft|holz|limb'),
+         ('metall', r'metal|steel|iron|blade|silver|edge|eisen|stahl')]
+
+
+def name_klasse(m):
+    n = (m.name if m else '').lower()
+    for k, muster in NAMEN:
+        if re.search(muster, n): return k
+    return None
 
 
 def slug(s):
@@ -125,8 +140,9 @@ def bild_klassen(a):
     k = np.full(a.shape[:2], 4, np.int8)   # akzent
     rotbraun = (hu < 18) | (hu > 330)
     k = np.where(rotbraun & (s < 0.6) & (mx < 0.45), 3, k)
+    k = np.where((hu >= 8) & (hu < 18) & (s < 0.85), np.where(mx < 0.26, 3, 2), k)
     gelb = (hu >= 18) & (hu <= 65)
-    k = np.where(gelb, np.where((mx > 0.55) & (s > 0.35), 1, np.where(mx < 0.26, 3, 2)), k)
+    k = np.where(gelb, np.where((hu >= 32) & (hu <= 60) & (mx > 0.5) & (s > 0.45), 1, np.where(mx < 0.26, 3, 2)), k)
     k = np.where(s < 0.18, 0, k)
     k = np.where(mx < 0.10, 3, k)
     return k
@@ -251,6 +267,17 @@ for kennung in sorted(gesucht):
         im = basisbild(m)
         if im is None and paket == 'Omie': im = omie_bild(p, m)
         quellen.append(('bild', verkleinert(pixel(im))) if im is not None else ('farbe', grundfarbe(m)))
+        if im is None:
+            print('MATERIAL', kennung, m.name if m else '-', 'Farbe', tuple(round(x, 2) for x in quellen[-1][1]), 'Name', name_klasse(m),
+                  'Farbe->', klasse(quellen[-1][1]))
+    # Eckfarben (Probelauf 1: Avramania Armbrust und Kurzbogen, 80 Dreiecke, ohne Bild ganz als Metall; im alten Film farbig)
+    ecken = None
+    ca = me.color_attributes.active_color if me.color_attributes else None
+    if ca is not None and len(ca.data):
+        try: werte = [tuple(d.color_srgb[:3]) for d in ca.data]
+        except AttributeError: werte = [tuple((1.055 * x ** (1 / 2.4) - 0.055) if x > 0.0031308 else 12.92 * x for x in d.color[:3]) for d in ca.data]
+        if np.array(werte).std(0).max() > 0.02: ecken = (ca.domain, werte)   # einheitlich weiss (fbx) sagt nichts
+        print('ECKFARBEN', kennung, ca.domain, len(werte), 'genutzt' if ecken else 'einheitlich')
     if not me.uv_layers: me.uv_layers.new(name='UV')
     uv = np.empty(len(me.loops) * 2); me.uv_layers.active.data.foreach_get('uv', uv); uv = uv.reshape(-1, 2)
     # Klasse je Flaeche: Bild an Schwerpunkt und Ecken der UV (Mehrheit), sonst Grundfarbe des Materials
@@ -258,7 +285,14 @@ for kennung in sorted(gesucht):
     for pg in me.polygons:
         qi = min(pg.material_index, len(quellen) - 1)
         art, q = quellen[qi]
-        if art == 'farbe':
+        nk = name_klasse(me.materials[qi]) if art == 'farbe' else None
+        if nk:
+            fl_kl.append(nk)
+        elif art == 'farbe' and ecken is not None:
+            idx = list(pg.loop_indices) if ecken[0] == 'CORNER' else list(pg.vertices)
+            c = np.array([ecken[1][i] for i in idx]).mean(0)
+            fl_kl.append(klasse(c))
+        elif art == 'farbe':
             fl_kl.append(klasse(q))
         else:
             H, W = q.shape[:2]
