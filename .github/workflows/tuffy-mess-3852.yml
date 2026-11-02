@@ -1,0 +1,50 @@
+name: Tuffy Messung Stabfeuer (385.2)
+
+# 385.2 (Tuffy): Lauf 169 fand die Bewegungen des Zauberer-Sets nicht („ohne Zauberer-Set“, held_kampf.py sucht
+# Humanoid@<Name>Wizard.fbx). Nur Text, kein Bild (390a): welche Dateien das Paket ANIMSET.WIZARD auf dem Runner hat, und ob
+# zauber385.py CastSpell6 mit SPIEGEL=1 ueberträgt (ABWEICHUNG gegen die Quelle, gespiegelt). Kaufdateien bleiben auf dem Runner.
+on:
+  push:
+    branches: ["claude/tuffy-385-2-**"]
+    paths: [".github/workflows/tuffy-mess-3852.yml"]
+  workflow_dispatch:
+
+jobs:
+  mess:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v5
+      - name: Gekaufte Modelle (privat)
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+        run: |
+          echo "KAUF=$RUNNER_TEMP/kauf" >> $GITHUB_ENV
+          timeout 1500 bash tools/blender348/kauf_laden.sh $RUNNER_TEMP/kauf > kauf.log 2>&1 || { tail -20 kauf.log; exit 1; }
+          grep -i "wizard\|nicht entpackt" kauf.log | head -20 || true
+      - name: Dateien des Zauberer-Sets (nur Namen)
+        run: |
+          echo "--- Pfade mit wizard (ohne Gross/klein):"; find $KAUF -ipath '*wizard*' -type f | sed "s|$KAUF/||" | sort | head -60
+          echo "--- CastSpell, Idle:"; find $KAUF \( -iname '*castspell*' -o -iname '*idlewizard*' \) | sed "s|$KAUF/||" | sort | head -40
+          echo "--- UAL Pro:"; find $KAUF -path '*Unreal-Godot/UAL1.glb' | sed "s|$KAUF/||"
+      - uses: actions/setup-python@v5
+        id: py
+        with:
+          python-version: "3.13"
+      - uses: actions/cache@v4
+        with:
+          path: bl
+          key: bpy-5.2.3-${{ runner.os }}-py${{ steps.py.outputs.python-version }}
+      - name: Blender als Python-Modul
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libsm6 libxkbcommon0 > /dev/null
+          [ -x bl/bin/python ] || { rm -rf bl; python -m venv bl && bl/bin/pip -q install bpy==5.2.3 numpy pillow; }
+      - name: zauber385 CastSpell6 gespiegelt und ungespiegelt (nur Zahlen)
+        run: |
+          Q=$(find $KAUF -iname 'Humanoid@CastSpell6Wizard.fbx' | head -1); R=$(find $KAUF -iname 'Humanoid@IdleWizard.fbx' | head -1)
+          U=$(find $KAUF -path '*Unreal-Godot/UAL1.glb' | head -1)
+          echo "Quelle ${Q#$KAUF/} Ruhe ${R#$KAUF/} Ziel ${U#$KAUF/}"
+          [ -n "$Q" ] && [ -n "$R" ] && [ -n "$U" ] || { echo "Dateien fehlen"; exit 0; }
+          for s in 1 0; do
+            SPIEGEL=$s BECKEN=bein RUHE="$R" QUELLE="$Q" ZIEL="$U" NAME=WZ_CastSpell6 OUT=$RUNNER_TEMP/wz$s.glb bl/bin/python -I tools/blender348/v3/zauber385.py 2>&1 | grep -E "ABWEICHUNG|ZAUBER385|Error|Traceback" | cut -c1-400
+          done
