@@ -104,12 +104,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 
-**Jerry** – offen 57, Muss 44, startbar 10
+**Jerry** – offen 57, Muss 44, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 473 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.4 Monsterwerte Kapitel 1 nach Rechenm | wartet auf Test/Build (gebaut) |
-| 472 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.3 Heldenstufe aus Erfahrung, Anteil F | startbar |
+| 472 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.3 Heldenstufe aus Erfahrung, Anteil F | wartet auf Test/Build (gebaut) |
 | 467 | M | von Sokrates (Chef 01.11., 21:52, Frage „Wie steigert sich die Ausdauer?“): godot/regeln/a | wartet auf 427 (wartet) |
 | 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Wölfe gleiten (Angriff, Tempo, aneinander vor | wartet auf Test/Build (gebaut) |
 | 458.2 | M | von Sokrates (Chef 01.11., 13:1x, Archiv 458): Gegenstandskatalog: Werte, Preise, Beute je | wartet auf Test/Build (gebaut) |
