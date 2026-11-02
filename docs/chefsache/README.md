@@ -52,11 +52,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 52, Muss 34, startbar 12
+**Tom** – offen 51, Muss 33, startbar 11
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 461b.2 | M | von Perikles (Liste Sokrates 461b, 02.11., 19:1x, Punkt 4): Widerspruch nachziehen: Eichun | startbar |
 | 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | Chef |
 | 417 | M | von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“): Tragart je Waffenklasse (Zu 417), | Chef |
 | 416.9 | M | von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“): Laden, Verkaufen, „angelegt“ mit | startbar |
