@@ -5,7 +5,7 @@ extends SceneTree
 # Umgebung 0,75); misst die Gesichtsfarbe im Bild wie _gesicht (5 x 5 Punkte, Median). Bildlauf (389): Vorgang davor.
 #   CC0_KOERPER=<Ordner mit Superhero_*_FullBody.gltf> [HAUTBILD_AUS=<png>] Godot mit Fenster, Treiber opengl3, dieses Skript
 const EICHUNG_LICHT := Vector3(0.745, 0.549, 0.619)
-const ARTEN := ["ohne Toenung", "wie _eigene_haut", "ohne Hautmaske (toen_farbe 0)", "nur Faktor (toen_hell 0)"]
+const ARTEN := ["ohne Toenung", "wie _eigene_haut", "ohne Hautmaske (toen_farbe 0)", "nur Faktor (toen_hell 0)", "wie _eigene_haut, Toenung mal 0,125", "Messung Hautmaske (haut_mess)"]
 var figs := []
 
 func _lin(c: Array) -> Vector3:
@@ -21,8 +21,8 @@ func _initialize() -> void:
 	env.environment.ambient_light_energy = 0.75
 	welt.add_child(env)
 	var sonne := DirectionalLight3D.new(); sonne.rotation_degrees = Vector3(-45, 55, 0); sonne.light_energy = 1.3; welt.add_child(sonne)
-	var cam := Camera3D.new(); cam.projection = Camera3D.PROJECTION_ORTHOGONAL; cam.size = 1.0
-	cam.position = Vector3(2.45, 1.5, 3.0); welt.add_child(cam); cam.current = true
+	var cam := Camera3D.new(); cam.projection = Camera3D.PROJECTION_ORTHOGONAL; cam.size = 1.0 * ARTEN.size() / 4.0
+	cam.position = Vector3((ARTEN.size() * 2 - 1) * 0.35, 1.5, 3.0); welt.add_child(cam); cam.current = true
 	var ork := Color.html("8e9682").srgb_to_linear()
 	var reihe := []
 	for kb in [["Superhero_Male_FullBody", [0.6078, 0.3843, 0.2784]], ["Superhero_Female_FullBody", [0.6627, 0.4353, 0.302]]]:
@@ -51,7 +51,9 @@ func _initialize() -> void:
 					sm.set_shader_parameter("toen_bild", l)
 					sm.set_shader_parameter("toen_hell", 0.0 if art == 3 else maxf(0.01, 0.2126 * l.x + 0.7152 * l.y + 0.0722 * l.z))
 					sm.set_shader_parameter("toen_farbe", 0.0 if art == 2 else 0.5)
-					sm.set_shader_parameter("toenung", Vector3(ork.r, ork.g, ork.b) * EICHUNG_LICHT)
+					if art == 5: sm.set_shader_parameter("toen_farbe", 0.5)
+					sm.set_shader_parameter("toenung", Vector3(ork.r, ork.g, ork.b) * EICHUNG_LICHT * (0.125 if art == 4 else 1.0))
+					if art == 5: sm.set_shader_parameter("haut_mess", 1.0)
 				n += 1
 				print("HAUTBILD %d %s Flaeche %s/%d Material %s, %s" % [k, reihe[k][0], mi.name, i, rn, ARTEN[art]])
 		if n == 0: print("HAUTBILD %d %s: keine Hautflaeche" % [k, reihe[k][0]])
@@ -61,13 +63,16 @@ func _initialize() -> void:
 	var img := root.get_viewport().get_texture().get_image()
 	var aus := OS.get_environment("HAUTBILD_AUS")
 	if aus != "": img.save_png(aus)
+	print("HAUTBILD ANSICHT %s, Bild %dx%d" % [str(root.get_viewport().get_visible_rect().size), img.get_width(), img.get_height()])
 	for k in figs.size():
 		var f: Node3D = figs[k]
 		var sk := Gebiet.finde(f, "Skeleton3D") as Skeleton3D
 		var hk := sk.global_transform * sk.get_bone_global_pose(sk.find_bone("Head")).origin
 		var kopf := hk + Vector3(0, 0.06, 0)
 		var vorn := kopf + Vector3(0, 0, 0.12)
-		var p := cam.unproject_position(vorn)
+		# 431f Lauf 1 (Tom 02.11., 21:5x): unproject_position liefert Ansichtspunkte, das Bild hat die Fenstergroesse (bei 4800 x 600
+		# lag das Gesicht bei x 3354-15366, gemessen wurde der Rand); umrechnen wie 455.1 (Lage in Ansichtspunkten)
+		var p := cam.unproject_position(vorn) * Vector2(img.get_width(), img.get_height()) / root.get_viewport().get_visible_rect().size
 		var r := []; var g := []; var b := []
 		for dy in range(-2, 3):
 			for dx in range(-2, 3):
@@ -75,4 +80,5 @@ func _initialize() -> void:
 				r.append(c.r); g.append(c.g); b.append(c.b)
 		r.sort(); g.sort(); b.sort()
 		print("HAUTBILD GESICHT %d %s, %s, bei %d,%d: %d/%d/%d" % [k, reihe[k][0], ARTEN[reihe[k][2]], p.x, p.y, r[12] * 255, g[12] * 255, b[12] * 255])
+		if reihe[k][2] == 5: print("HAUTMASKE %s: haut %.2f, Abstand rel %.2f (Gesicht, Median)" % [reihe[k][0], r[12] / maxf(g[12], 0.001), 2.0 * b[12] / maxf(g[12], 0.001)])
 	quit()

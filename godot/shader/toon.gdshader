@@ -27,6 +27,7 @@ uniform vec3 toenung = vec3(1.0);   // 376.1 Held: Haut und Haar getoent (heldfi
 uniform float toen_hell = 0.0;     // > 0: Helligkeit des Bildes am Zielton (Bildhelligkeit / toen_hell), sonst Faktor toenung
 uniform vec3 toen_bild = vec3(1.0); // 376.1 Haut (Chef 28.10., 23:0x „klinisch tot“): Bildfarbe am Zielton (linear); toen_farbe davon
 uniform float toen_farbe = 0.0;    // Anteil der eigenen Farbschwankung des Bildes (Wangen, Lippen roeter) um den Zielton
+uniform float haut_mess = 0.0;     // 431f nur zum Messen: Rot = Hautmaske haut, Gruen 0,5 fest, Blau = Abstand |rel - 1| / 2 (Verhaeltnisse lichtfest)
 uniform float teil = 0.0;          // nur zum Messen (held.gd --teilfarbe): Eisen gruen, Kette rot, Haut (rig.py TEILMASKE) blau, Rest schwarz
 varying vec3 wpos;
 varying float v_eisen;
@@ -75,6 +76,7 @@ void fragment() {
 		// Farbton des Bezugs (rel etwa 0,5/1,3/2,5, Abstand 1,6), Lippen und Wangen nah (Abstand unter 0,4); dazwischen weich
 		float haut = (toen_farbe > 0.0) ? 1.0 - smoothstep(0.6, 1.0, length(rel - vec3(1.0))) : 1.0;
 		ALBEDO = mix(ALBEDO, toenung * hl / toen_hell * mix(vec3(1.0), rel, toen_farbe), haut);
+		if (haut_mess > 0.5) ALBEDO = vec3(0.5 * haut, 0.5, clamp(0.25 * length(rel - vec3(1.0)), 0.0, 0.5)) * 0.4;
 	}
 	else ALBEDO *= toenung;
 	if (kontur > 0.0) {
