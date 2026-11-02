@@ -80,6 +80,7 @@ func _filmablauf(h: Held, neu: bool, basis: Dictionary) -> void:
 	var ap := h.anim
 	ap.play("Stehen", 0.0); ap.seek(0.0, true); ap.speed_scale = 1.0
 	if ap.has_meta("blende"): ap.remove_meta("blende")
+	if ap.has_meta("halt"): ap.remove_meta("halt")
 	h.position = Vector3.ZERO; h.rotation = Vector3(0, PI / 2, 0)
 	var tempo := 0.0; var t := 0.0
 	var v := {}
@@ -109,8 +110,9 @@ func _filmablauf(h: Held, neu: bool, basis: Dictionary) -> void:
 		if neu: rennt = Held.rennt_jetzt(ap, moving, tempo, soll, F_GEHEN, tempo < vor - 1e-5, abbremsen, h.renn, h.gang)
 		var want := ("Rennen" if rennt else "Gehen") if moving else "Stehen"
 		var vv: float = h.renn if rennt else h.gang
-		if ap.current_animation != want: Held.wechsel(ap, want, moving, (tempo / vv) if moving else 1.0)
-		ap.speed_scale = Held.takt(ap, tempo, vv, DT) if moving else 1.0
+		if ap.current_animation != want: Held.wechsel(ap, want, moving, (tempo / vv) if moving else 1.0, neu)
+		if moving and ap.has_meta("halt"): ap.remove_meta("halt")
+		ap.speed_scale = Held.takt(ap, tempo, vv, DT) if moving else (Held.stand_takt(ap, DT) if neu else 1.0)
 		ap.advance(DT)
 		h.position.x += tempo * DT
 		# Knochen
