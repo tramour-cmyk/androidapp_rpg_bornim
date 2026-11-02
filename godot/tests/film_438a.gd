@@ -7,6 +7,7 @@
 # Aufruf: B438A=<ordner mit den .glb> UAL_PRO=<UAL1.glb> PROBE=438a xvfb-run godot --path godot --rendering-driver opengl3
 #   --resolution 1080x2340 --write-movie <datei>.avi --fixed-fps 30 -s res://tests/film_438a.gd
 # MESS=1: ohne Film nur messen (Länge, Aufschlag, Lage des Beckens am Ende, welches Aufstehen zu welchem Liegen passt)
+# SPIEL=1 (438a Runde 2, ohne B438A): Hinfallen 1 und Aufstehen 1 so, wie das Spiel sie spielt, Kämpfer und Kleriker, vorn und Seite
 extends SceneTree
 
 const Probe = preload("res://kampf/probe.gd")
@@ -51,12 +52,15 @@ func _run() -> void:
 	while kf.playing and Time.get_ticks_msec() < bis:
 		await process_frame
 	kf.playing = true     # keine Meldungen der Regeln mehr; _process des Kampforts läuft weiter (Tusche nach Licht)
+	var kleriker = null
 	for id in kf.figures:
 		var f = kf.figures[id]
 		f.set_process(false)
 		if f.fighter.monster == null and fg == null and f.fighter.id != "merc":
 			fg = f
 		else:
+			if f.fighter.id == "merc":
+				kleriker = f
 			f.visible = false
 	anim = fg.anim
 	sk = _find(fg, "Skeleton3D") as Skeleton3D
@@ -102,6 +106,33 @@ func _run() -> void:
 	lz.size = Vector2(vs.x * 0.92, vs.y * 0.1)
 	lz.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	print("Film Start Bild %d" % Engine.get_frames_drawn())
+	if OS.get_environment("SPIEL") != "":
+		# 438a Runde 2: Hinfallen 1 und Aufstehen 1 so, wie das Spiel sie spielt (knocked_down, rise), Waffe und Schild nach dem Paket,
+		# aus Boden und Körper gehalten (figur.gd _boden_schutz, bodenhalt.gd); Kämpfer und Kleriker, je von vorn und von der Seite
+		var wer := [[fg, "Kämpfer"], [kleriker, "Kleriker"]]
+		for w in wer:
+			if w[0] == null:
+				continue
+			for seite in [[40.0, "schräg von vorn"], [130.0, "von der Seite"]]:
+				for x in wer:
+					if x[0] != null:
+						x[0].visible = x[0] == w[0]
+				var f = w[0]
+				f.position = mitte
+				f.rotation = Vector3(0, atan2(vorn.x, vorn.z) + deg_to_rad(seite[0]), 0)
+				lb.text = "%s · %s" % [w[1], seite[1]]
+				lz.text = "Hinfallen 1 und Aufstehen 1 (Schwert & Schild), Waffe und Schild nach dem Paket, frei von Boden und Körper"
+				f.anim.play("SS_IdleCombat", 0.2)
+				await _warte(0.8)
+				f.knocked_down()
+				await _warte(f.anim.get_animation("SS_DeathBack").length + 0.6)
+				f.rise()
+				await _warte(f.anim.get_animation("SS_GetBackUpBack").length + 0.8)
+		lb.text = ""
+		lz.text = ""
+		await create_timer(0.3).timeout
+		quit(0)
+		return
 	for k in _kandidaten():
 		lb.text = k[0]
 		lz.text = k[1]
