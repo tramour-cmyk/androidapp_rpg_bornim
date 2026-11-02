@@ -31,6 +31,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 |---|---|---|---|
 | [376.1](ansehen/3761-umhang-robe.md) | Umhang und Robe nachgebessert | Tom | 01.11., 23:03 |
 | [407](ansehen/407-probelauf-grenze.md) | Probelauf-Grenze greift | Perikles | 02.11., 03:05 |
+| [416.4](ansehen/4164-abbremsen.md) | Abbremsen in Stufen | – | 02.11., 03:55 |
 | [417](ansehen/417-tragart-runde5.md) | Tragart Runde 5/6: Schild an der Seite, Axt mit beiden Fäusten | Tom | 02.11., 00:53 |
 | [438a Runde 2](ansehen/438a-sturz-runde2.md) | Hinfallen 1 und Aufstehen 1: Schwert und Schild frei von Boden und Körper | Jerry | 02.11., 01:51 |
 | [447.4](ansehen/4474-lehrmeister-texte.md) | Texte Lehrmeister und Ruf, Kapitel 1 | Homer | 01.11., 20:51 |
@@ -271,7 +272,7 @@ Format (Muster: „So geht's“ unten): t146-befunde.md: 8 Vorgänge, höchstens
 
 Nicht gestellt: 186.3 (Pruefung)
 
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/407-probelauf-grenze.md, ansehen/4474-lehrmeister-texte.md, ansehen/462-zeitstempel.md, ansehen/465-seit-uhrzeit.md
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/407-probelauf-grenze.md, ansehen/4164-abbremsen.md, ansehen/4474-lehrmeister-texte.md, ansehen/462-zeitstempel.md, ansehen/465-seit-uhrzeit.md
 
 Ohne Datei: 275 (Projekt)
 
