@@ -274,13 +274,13 @@ Folklore-Wesen (Goblin, Kobold, Skelett, Zombie, Ghul) und Tiere behalten ihre N
 
 ## 13. Offen
 
-- Neue Monsterwerte für Kapitel 1 und die Messung „Zeit bis Stufe“ in der Simulation (Befund D49.3); Rechenmodell D ist entschieden (73–75).
+- Monsterwerte Kapitel 1 sind entschieden (427, Chef 02.11.: `LISTE-BESTIARIUM.md` „Werte 2.0“); offen nur Krogg und Grimmzahn (427.1, nachmessen mit Überfall, Rudel, Umreißen) und die Herkünfte (481).
 - Profil (Entwurf C) ist entschieden (Entscheidung 76); offen bleibt nur die Reihenfolge der Bausteine über Taten und Chronik hinaus.
 - Umfang der Prüfungsquests beim Lehrmeister.
 - Wie die Grundwerte durch Fertigkeiten wachsen; Haupt- und Nebenwert für Spähen, Tiere beruhigen, Lederarbeit.
 - Rufstufen, Gefährten ohne Klassen, Niederlage, Übernahme alter Spielstände, Reparaturverlust, Abnutzungsrate.
 - Ruf und Lehrmeister (Abschnitt 9, D54.5).
-- Alle Zahlen (Abschnitt 4, Bestiarium): nach der Rechensimulation 444, dann gemessen zum Chef.
+- Übrige Zahlen (Abschnitt 4: Helden, Übung, Erfahrung): gemessen mit Simulation 444, dann zum Chef.
 
 ---
 
