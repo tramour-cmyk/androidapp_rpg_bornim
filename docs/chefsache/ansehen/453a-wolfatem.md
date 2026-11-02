@@ -1,4 +1,7 @@
 # 453a · Wolfsatem B: Vergleichsfilm, drei Fassungen nebeneinander
+
+[Film von 02.11., 19:47](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261102-194723-453a/2026-11/02-1947-453a-Jerry.mp4) (eingetragen von meldung.sh, Jerry)
+
 Jerry · 02.11., 19:5x · E Kampf
 Kurz: Lauf 176, links B (ganzer Rücken hebt sich), Mitte r3b (wie bisher), rechts ohne Atem; nach 480 jetzt an dich.
 
