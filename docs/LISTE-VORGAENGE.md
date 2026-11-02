@@ -8,7 +8,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 
 | Nr. | Vorgang | Bereich | Kl. | Kosten | Vorrat | Stand |
 |---|---|---|---|---|---|---|
-| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +732,97 $ | Ford | laufend |
+| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +739,17 $ | Ford | laufend |
 | 19 | Zeitablauf der Kampfbewegungen (19e Beispiel) | E Kampf | K |  | Jerry | ruht |
 | 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | E Oberfläche | K |  | Jerry (Inhalt; Technik Tom erledigt) | ruht |
 | 26.1 | Durchspielbogen auswerten, Rest von 26: Gegenprobe je Klasse, neuer Bogen auf Godot (Chef 24.10., 16:56) | Q QS | M | – | Sokrates | wartet |
@@ -95,7 +95,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 348.7 | Umzug Godot: Modellregel, Kampfort Wolfsrudel MARS | E Technik | M | –; +441,15 $ | Team Jerry | ruht |
 | 348.7a | Rückfrage: Geschosse flach oder in 3D | E Technik | M | 58,17 $ | Jerry | in Arbeit |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | B Abläufe | M | 119,56 $ | Perikles, Diogenes | wartet |
-| 348.12 | Fertige CC0-Grundmodelle prüfen, Probe Mensch (Chef 25.10., 21:21, 21:36) | E Technik | M | 173,03 $ | Sokrates, Jerry | wartet |
+| 348.12 | Fertige CC0-Grundmodelle prüfen, Probe Mensch (Chef 25.10., 21:21, 21:36) | E Technik | M | 186,48 $ | Sokrates, Jerry | wartet |
 | 348.12j | Rückfrage: Graks Axt Kopf oben oder hängend (Grundstand E6) | E Kampf | M | – | Jerry | Chef |
 | 348.12c | Modellpaket auch gegen Geld (Quaternius QAL, Dungeon Monsters Kit, andere), Vorschlag mit Preisen (Chef 26.10., 11:59) | G Geld | M | –; +9,24 $ | Sokrates | ruht |
 | 348.12f | Probe gekaufte Riesenratte in unserem Look | E Technik | M | 199,50 $ | Jerry | gebaut |
@@ -129,13 +129,13 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 387 | Gekaufte Tiere schnell auf Bewegungen und unsere Haut prüfen, vor Eigenbau (Chef 27.10., 21:27) | E Monster | M | 98,99 $ | Team Jerry | ruht |
 | 403 | Kampfort: Held je Klasse auf dem Kaufkörper (heldfigur.gd aus 376.1) statt held.bin, Kampfbewegungen aus der UAL | E Kampf | M | 24,71 $ | Team Jerry | gebaut |
 | 467 | Ausdauer nach BRS statt SRD (ausdauer.gd: Konstitution, Stärke 13), Formel aus 427 (Chef 01.11., 21:52) | E Kampf | M? | – | Team Jerry | wartet |
-| 466 | Neues Wort für „Handlung“ eines Pfads (Chef 01.11., 21:13: „Handlung ist alles“) | C Texte | M? | – | Homer | Chef |
+| 466 | Neues Wort für „Handlung“ eines Pfads (Chef 01.11., 21:13: „Handlung ist alles“) | C Texte | M? | 2,21 $ | Homer | Chef |
 | 465 | Chefsache „Zu entscheiden“ mit Uhrzeit in „Seit“ wie bei Anzusehen und Zu tun (Chef 01.11., 20:50) | B Abläufe | M | – | Perikles | gebaut |
 | 464 | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählung im Tagesbericht (Chef 01.11., 20:4x) | B Abläufe | M | – | Perikles | startbar |
 | 461 | Grundstand Figuren und Kampf: Checkliste des Entschiedenen, Prüfer prüft jede Vorlage dagegen („jetzt“ 01.11., 20:3x) | B Abläufe | M | 4,80 $ | Perikles | gebaut |
 | 462 | Zeitstempel in jeder Nachricht aller Sitzungen im Chat sichtbar („jetzt“ 01.11., 20:34) | B Abläufe | M | – | Perikles | gebaut |
 | 463 | Umhang und Robe geschlossen: Durchscheinen und Knie, eine Ursache für alle Proben (Chef 01.11., 20:3x, „DAUERPROBLEM“) | E Figuren | M | – | Team Tom | in Arbeit |
-| 461.1 | Grundstand zusammenführen: ein Zweig für Tom und Jerry, jede Probe baut darauf (01.11.) | B Umzug | M | 5,68 $ | Team Tom, Team Jerry | Chef |
+| 461.1 | Grundstand zusammenführen: ein Zweig für Tom und Jerry, jede Probe baut darauf (01.11.) | B Umzug | M | 19,76 $ | Team Tom, Team Jerry | Chef |
 | 461a | Rückfrage: hält ein Verstoß gegen den Grundstand den Film an? (D58.5) | B Abläufe | M | – | Perikles | gebaut |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | B Abläufe | M | – | Perikles, Diogenes, Sokrates | in Arbeit |
 | 461d | Gültige Entscheidungen an einem Ort: Grundstand in die DESIGN-Dateien einsortieren (Vorentscheid Sokrates 01.11., 22:5x) | B Abläufe | M | – | Perikles, Homer | gebaut |
@@ -151,10 +151,10 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 415 | Handyprobe Beams-Free-Sample (aus 414, Chef 31.10., 20:3x; „jetzt“ 01.11.) | C Kampf | M | 1,17 $ | Team Jerry | Chef |
 | 416.1 | Tasten reagieren schlecht (Charaktererstellung, überall; Build 143, Chef 31.10., 20:4x) | B Umzug | M | – | Team Tom | zu testen |
 | 416.2 | Platzwechsel mit Dorfbewohnern und Tieren, nicht stecken bleiben (Chef 31.10., 20:4x) | B Umzug | M | – | Team Tom | zu testen |
-| 416.4 | Rennen des Helden wirkt wie Hochsprung (Chef 31.10., 20:4x) | B Umzug | M | 25,57 $ | Team Tom | Chef |
+| 416.4 | Rennen des Helden wirkt wie Hochsprung (Chef 31.10., 20:4x) | B Umzug | M | 41,57 $ | Team Tom | Chef |
 | 416.5 | Kampflog-Details nicht mehr schließbar (Chef 31.10., 20:4x) | B Umzug | M | 5,66 $ | Team Jerry | zu testen |
 | 416.6 | Spuren des Helden, auch bei Regen (Chef 31.10., 20:4x) | B Umzug | K | – | Team Jerry | frei |
-| 417 | Prüfung: Waffen und Schild beim Gehen und Rennen in der Hand statt auf dem Rücken (zu 410, Chef 31.10., 21:1x) | E Figuren | M | 105,57 $ | Team Tom | in Arbeit |
+| 417 | Prüfung: Waffen und Schild beim Gehen und Rennen in der Hand statt auf dem Rücken (zu 410, Chef 31.10., 21:1x) | E Figuren | M | 137,58 $ | Team Tom | in Arbeit |
 | 423.1 | Spielerhandbuch BRS als Seite im Spiel, Platzhalter aus der Datendatei (Archiv 423) | A Technik | M? | – | Team Tom | wartet |
 | 424 | Umzugsliste und Vorräte frei von Arbeit am alten SRD-System: Regelzeilen in `LISTE-UMZUG-348.md` ruhen, Wächter in `startbar.py`/`lauf.py` („jetzt“ 31.10., 21:3x) | B Abläufe | M | 3,43 $ | Perikles | gebaut |
 | 425 | Menüs und Testmenü mit Icons wie in der alten Fassung statt viel Text (Build 143, Chef 31.10., 21:30) | B Umzug | M | 36,83 $ | Team Tom | gebaut |
@@ -164,7 +164,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 433 | Arbeit verteilen: unabhängige Zeilen von Tom und Jerry an Spike und Tuffy oder intern umschichten, statt zu warten („jetzt“ 31.10., 22:1x) | B Abläufe | M | 31,61 $ | Perikles | gebaut |
 | 434 | Prüfung: jede Vorlage zu einem Eigenbau hat die Zeile „Bestand geprüft“ (377, 408); fehlt sie, an Team und Chef (Chef 31.10., 22:1x) | B Abläufe | M | 4,45 $ | Diogenes | wartet |
 | 436 | Sitzungsnamen „Rolle – Vorgang: Thema (Zeit)“ für alle Beschäftigten, Regel in CLAUDE.md, Ford benennt um (Chef 31.10., 22:58) | B Abläufe | M | 1,17 $ | Perikles | gebaut |
-| 438 | Wölfe im Kampf wirken gleitend: Angriff, Tempo, Vorbeigehen (Film 403, Chef 31.10., 23:31) | E Kampf | M | 73,66 $ | Team Jerry | gebaut |
+| 438 | Wölfe im Kampf wirken gleitend: Angriff, Tempo, Vorbeigehen (Film 403, Chef 31.10., 23:31) | E Kampf | M | 88,84 $ | Team Jerry | gebaut |
 | 439 | Kampfablauf: Neuformation vor dem Tod, Treffer vor dem Angriff (Film 403, Chef 31.10., 23:31) | E Kampf | M | – | Team Jerry | gebaut |
 | 440 | Wolf verschwindet ohne sichtbare Sterbeanimation (Film 403, Chef 31.10., 23:34) | E Kampf | M | – | Team Jerry | gebaut |
 | 453 | Wölfe im Kampfort: Ruhebewegungen (atmen, scharren, umblicken, knurren) (Chef 01.11., 11:05) | E Kampf | M | 27,35 $ | Team Jerry | Chef |
@@ -175,7 +175,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 455.1 | Probeblatt Baukasten: Roben, Umhänge, Stiefel je Netz × Material × Zeichen (Chef 01.11., 11:24) | E Figuren | M | 30,05 $ | Team Tom | wartet |
 | 455.2 | Netzliste je sichtbarem Platz, Eigenbau geschätzt, Größenfilm der Völker (Chef 01.11., 11:27, 455 ja) | E Figuren | M | – | Team Tom | startbar |
 | 458.2 | Gegenstandskatalog: Werte, Preise, Beute (Chef 01.11., 458) | D Design | M | 10,87 $ | Team Jerry | gebaut |
-| 458.3 | Gegenstandskatalog: Netze, Modelle, Läden (Chef 01.11., 458) | E Figuren | M | – | Team Tom | Chef |
+| 458.3 | Gegenstandskatalog: Netze, Modelle, Läden (Chef 01.11., 458) | E Figuren | M | 12,15 $ | Team Tom | Chef |
 | 447.4 | Texte Lehrmeister-Einladungen und Ruf-Gespräche für Stufe 3 (447) | C Texte | M | – | Homer | Chef |
 | 457.1 | Probeskripte Tom mit Spielshadern (457) | E Figuren | M | – | Team Tom | gebaut |
 | 457.2 | Probeskripte Jerry mit Spielshadern (457) | E Kampf | M | 5,56 $ | Team Jerry | gebaut |

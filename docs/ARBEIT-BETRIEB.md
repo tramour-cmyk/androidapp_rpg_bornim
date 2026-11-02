@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford“ (Selbstneustart, Tiefe 2) `session_01Hmoj78YoThnMqF8v2Ky8sy`; Stundenuhr „Ford-Lauf“ `trig_01C12LSTgbss5EbZKic7CcVR` (:03, angelegt 02.11., 02:41); alte Uhr `trig_01QLCGSbcbqiuxpah1RGHeLs` gelöscht. Alte Ford `01Hmoj786VBGBqdYrYTm67mt` und `01Hmoj77A5` nicht archiviert: Satz des Chefs im Chat fehlt.
+- **Ford lebt in einer Sitzung** „Ford“ (Selbstneustart, Tiefe 2) `session_01Hmoj78YoThnMqF8v2Ky8sy`; Stundenuhr „Ford-Lauf“ `trig_01C12LSTgbss5EbZKic7CcVR` (:03, angelegt 02.11., 02:41); alte Uhr `trig_01QLCGSbcbqiuxpah1RGHeLs` gelöscht. Alter Ford `01Hmoj786VBGBqdYrYTm67mt` archiviert 02.11., 07:2x (Chef: „Aufräumen und Archivieren und Kosten erfassen“); `01Hmoj77A5` ruht.
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus; Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
 
