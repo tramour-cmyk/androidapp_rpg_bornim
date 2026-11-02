@@ -515,6 +515,22 @@ func _run() -> void:
 		var var_f := {}     # 406a E3: Bewegung -> je Fassung aus VARIANTEN_F [Finger vor dem Schild m, Stelle]
 		var var_b := {}     # 406a E3: Bewegung -> je Beugung aus BEUGEN [Finger vor dem Schild m, Stelle]
 		var sm: Node3D = schild.find_children("*", "MeshInstance3D", true, false)[0] if not schild is MeshInstance3D else schild
+		# 406a E3 Lauf 188: die Faust (figur.gd SchildFaust) ist ein SkeletonModifier3D; außerhalb von skeleton_updated liest man die
+		# Pose ohne sie (wie sturz_438a): die Finger, wie man sie sieht, nur dort messen
+		var faust := {"an": false}     # Bewegung -> [Finger vor der Vorderseite m, Stelle, je Finger]
+		var faust_mess := func() -> void:
+			if not faust.an:
+				return
+			faust.an = false
+			var bw := String(fig.anim.current_animation)
+			var r: Array = _varianten_finger(sm, _ecken_aus(sk, _finger))[0]
+			var alt: Array = faust.get(bw, [-INF, Vector3.ZERO, {}])
+			if r[0] > alt[0]:
+				var je := {}
+				for f in FINGERNAMEN:
+					je[f] = _varianten_finger(sm, _ecken_aus(sk, _finger_je[f]))[0][0]
+				faust[bw] = [r[0], r[1], je, fig.anim.current_animation_position]
+		sk.skeleton_updated.connect(faust_mess)
 		kf.mars.find("merc").auto = true
 		kf.mars.set_autopilot(true)
 		if not kf.busy:
@@ -540,6 +556,8 @@ func _run() -> void:
 						e[1] = t[1]
 					if t[0] > NETZ_M:
 						e[2] += 1
+				if n % 6 == 3:
+					faust.an = true
 				if n % 6 == 0:
 					var vk := _varianten_tiefe(sm, _haut_ecken(sk))
 					var vs := _varianten_tiefe(sm, _ecken_aus(sk, _schulter))
@@ -594,6 +612,14 @@ func _run() -> void:
 					jf.append("%s %.1f" % [f, float(je[f]) * 100.0])
 				z.append("%+.0f° %.1f cm (Stelle %s; %s)" % [BEUGEN[i], var_b[b][i][0] * 100.0, (var_b[b][i][1] as Vector3).round(), ", ".join(jf)])
 			print("  %s BEUGEN %s: Finger vor der Vorderseite je Beugung: %s" % [k, b if b != "" else "–", " | ".join(z)])
+		sk.skeleton_updated.disconnect(faust_mess)
+		for b in faust:
+			if b == "an":
+				continue
+			var jf := PackedStringArray()
+			for f in faust[b][2]:
+				jf.append("%s %.1f" % [f, float(faust[b][2][f]) * 100.0])
+			print("  %s FAUST %s: Finger %.1f cm vor der Vorderseite, wie man sie sieht (bei %.2f s, Stelle %s; %s)" % [k, b if b != "" else "–", faust[b][0] * 100.0, faust[b][3], (faust[b][1] as Vector3).round(), ", ".join(jf)])
 		print("Kampf %s: %s nach %d Bildern" % [k, kf.mars.outcome, n])
 		kf.queue_free()
 		p.queue_free()
