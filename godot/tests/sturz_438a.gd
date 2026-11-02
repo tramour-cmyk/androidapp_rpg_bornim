@@ -237,17 +237,27 @@ func _haut_welt(sk: Skeleton3D, haut: Array, box: AABB) -> Array:
 		for v in h[7]:
 			var p := Vector3.ZERO
 			var n := Vector3.ZERO
+			var stark := -1     # Lauf 183: Waffe 5–12,5 cm in Haut, aber wo am Körper? stärkster Knochen der Ecke
+			var sw := 0.0
 			for j in nb:
 				var w: float = h[5][v * nb + j]
 				if w > 0.0:
 					var t: Transform3D = tr[h[4][v * nb + j]]
 					p += t * vs[v] * w
 					n += t.basis * ns[v] * w
+					if w > sw:
+						sw = w
+						stark = h[4][v * nb + j]
 			if box.size != Vector3.ZERO and not box.has_point(p):
 				continue
 			pos.append(p)
 			nor.append(n.normalized())
-			wer.append(String(h[0].name))
+			var kn := ""
+			if stark >= 0:
+				kn = String(skin.get_bind_name(stark))
+				if kn == "" and skin.get_bind_bone(stark) >= 0:
+					kn = sk.get_bone_name(skin.get_bind_bone(stark))
+			wer.append("%s/%s" % [String(h[0].name), kn])
 	return [pos, nor, wer]
 
 
