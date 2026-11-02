@@ -9,8 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [470a](entscheiden/470a-bruecke-bis-2-3.md) | **Muss** | E Regeln | 02.11., 14:33 | BRS-Held in Stufe 1: wie kämpft er, bis der Kampf umgestellt ist? | Spike (Team Tom) |
-| [431c](entscheiden/431c-voelker-angehalten.md) | **Muss** | E Figuren | 02.11., 13:40 | Völker Runde 4: Film am Tor angehalten, neue Läufe frei? | Spike (Team Tom) |
-| [406a](entscheiden/406a-schlussfilm-angehalten.md) | **Muss** | E Kampf | 02.11., 13:18 | Schlussfilm Schilde angehalten: neue Läufe frei? | Jerry |
 | [415b](entscheiden/415b-strahlen-dritter-lauf.md) | **Muss** | C Kampf | 02.11., 13:13 | Strahlenprobe: Film angehalten, dritter Lauf oder Handy? | Jerry |
 | [348.12b](entscheiden/34812b-grak-koerper.md) | **Muss** | E Kampf | 01.11., 21:00 | Grak-Film vorab auf seinem alten Körper? | Sokrates |
 | [474a](entscheiden/474a-debug-schluessel.md) | M? | E Technik | 02.11., 13:44 | Debug-Schlüssel als Geheimnis statt im Cache? | Tom |
@@ -51,11 +49,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 48, Muss 33, startbar 9
+**Tom** – offen 48, Muss 33, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | Chef |
+| 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | startbar |
 | 417 | M | von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“): Tragart je Waffenklasse (Zu 417), | startbar |
 | 416.9 | M | von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“): Laden, Verkaufen, „angelegt“ mit | startbar |
 | 416.7 | M | von Sokrates (Chef 31.10., 20:5x, für den nächsten Build): am Tresen in Schenke und Laden | wartet auf Test/Build |
@@ -104,7 +102,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 
-**Jerry** – offen 57, Muss 44, startbar 3
+**Jerry** – offen 56, Muss 43, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -127,11 +125,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 399.2 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv): Kampfort aufrufbar | wartet auf Test (Build) |
 | 399.2b | M | von Team Tom (15:05): Rudel allein zu stark | wartet auf Test (Build) |
 | 403 | M | von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler): Kampfort: Held | wartet auf Test/Build (gebaut) |
-| 461.1 | M | von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461): Grundstand mit Tom: Kampfort, Wölfe, Hel | wartet auf 406 (wartet) |
+| 461.1 | M | von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461): Grundstand mit Tom: Kampfort, Wölfe, Hel | wartet auf 406 (startbar) |
 | 460 | M | von Sokrates (Chef 01.11., 20:2x: „Wechsel der Kameraperspektive … wie eine Drohne rumflie | wartet auf 461.1 (wartet) |
 | 406.1 | M | von Sokrates (Chef 01.11., 20:2x, Archiv 406): Schildstoß ins MARS/BRS (Reaktion, Konter a | wartet auf 427 (wartet) |
-| 406 | M | von Team Tom (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe): Ausrüstung der Helden je | wartet auf 406a (Chef) |
-| 406a | M | Rückfrage: neue Läufe für den Schlussfilm? | Chef (Datei in der Chefsache) |
+| 406 | M | von Team Tom (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe): Ausrüstung der Helden je | startbar |
 | 401 | M | von Chef über Sokrates (Archiv): Tierlaute, mind. 3 je Tier | wartet auf Test (Build) |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | wartet auf Test/Build (gebaut) |
@@ -251,7 +248,7 @@ Nicht gestellt: 407 (Projekt), 186.3 (Pruefung), 474 (Team Tom)
 
 Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/4474-lehrmeister-texte.md
 
-Ohne Datei: 275 (Projekt)
+Ohne Datei: 275 (Projekt), 26 (Team Tom)
 
 ## So geht's
 
