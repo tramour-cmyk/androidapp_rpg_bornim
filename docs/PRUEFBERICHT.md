@@ -30,6 +30,15 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 68 · Nachprüfung D67.1, D68.1, D68.2 (Doppelpack 421; `main` nach `4c0174b29`; 02.11., 20:0x; `meldung.sh --probe` mit 17 Texten, darunter meine Meldung 447.4 von 19:3x; `urteil()` gegen das Archiv)
+
+- **D67.1 behoben:** „K1“, „HP-Balken“, „s. o.“, „u.U.“, „m. E.“, „H1“, „V2“ halten an; „OK“, „JPG“, „GIF“ und Zitate in „…“ gehen durch; Kennungen (A1, G2, O3, W1, D67.1, t146) gehen durch.
+- **D68.1 behoben:** `urteil("453b")` und `urteil("463a")` = 02.11. 18:46.
+- **D68.2 behoben:** „Tor 461a“ steht nur noch in der Regel „nie ‚Tor 461a‘“ (`ROLLE-ENTWICKLUNG.md:41`); „Chefsache-Blätter“ in `ROLLE-BERATUNG.md:74` bleibt (Sokrates' Datei).
+
+**Befund**
+- **D69.1 (D67.1, mittel, sicher, Klasse 1 Perikles) neuer Fehlalarm bei Dateinamen:** seit `(?!\w)` statt `(?![\w-])` halten Dateinamen ohne Backticks an: „DESIGN-SPIELSYSTEM-2-0-ENTWURF.md“ → „DESIGN“, „ARBEIT-TEAM-TOM.md“ → „ARBEIT“, „LISTE-ABNAHME-KAPITEL1.md“ → „LISTE“. Meine echte Meldung 447.4 von 19:3x ginge so nicht mehr durch.
+
 ## Lauf 67 · Auftrag 340.4 „Geprüft an“, 340.5 Uhrzeit (Doppelpack 421; `main` nach `6dc0d9880`; 02.11., 19:5x; `commit-pruefung.py` mit 4 Probedateien in einer Kopie, Muster mit 12 Zeilen)
 
 **Ergebnis:** 340.4 greift: neue Datei in `ansehen/` und `billigen/` ohne „Geprüft an:“ hält an, mit „Lauf 176“, Link oder `bilder:` geht sie durch; „Geprüft an: Messung“ und „Lauf 17“ halten an; `t999-…` (Build) und `tun/` sind ausgenommen. `DESIGN-ABNAHME.md` ersetzt „461 geprüft“ (Satz fällt weg, wie entschieden). 340.5: Haken in `.claude/settings.json`, bekannter Fehler 1 in `CLAUDE.md` gekürzt.
