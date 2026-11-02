@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert“).
 
-**Übergabe (02.11., 19:5x):** Filme 415 (Lauf 181) und 453a (Lauf 176) an den Chef; 415 r4 gebaut und gemessen (Lauf 185 sauber); 427.1 gemessen, Chefsache 4271; 438a Messlauf Ort der Klinge (Lauf 186, 6a98d1bcb) läuft; 406 Lauf 184 ausgewertet; 478 ruht (470a B); D63.6 erledigt; Rollenspiegel. Nachfolger: „Jerry – 438a, 406, 481.1: Ort der Klinge auswerten, Faust der Schildhand, Tränke in sim444“
+**Übergabe (02.11., 20:5x):** 481.1 gerechnet (sim444 Abschnitt 6, Zahlen an Sokrates); 438a Lauf 186 (Ort: rechter Oberschenkel), Runde 5 Hautschutz (Lauf 187, kaum besser), Messlauf Griff im Kleid (84438b857) läuft; 406 SchildFaust gebaut (577964ea2), Lauf 188 misst sie nicht (schild_406 liest außerhalb von skeleton_updated); 461b.1 erledigt; 415 passt (Testmenü schon da); 467 Hinweis an Sokrates. Nachfolger: „Jerry – 438a, 406: Griff im Kleid auswerten, Schildfaust messen“
 
 ## Zeilen
 
@@ -25,17 +25,17 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 453 | M | **von Sokrates (Chef 01.11., 11:05):** Wölfe brauchen Ruhebewegungen: atmen, scharren, umblicken, knurren (Zu 453) | gebaut: r3b passt (Chef 02.11., 11:02, Archiv 453), fährt im nächsten Build (claude/grundstand-461); Sichtbarkeit in 453a | – |
 | 453a | M | Wolfsatem B (Archiv) | gebaut: passt 19:58; Geprüft an: Lauf 176; Bildrand Nahansicht danach | – |
 | 454 | M | **von Sokrates (Chef 01.11., 11:05):** beim Biss zielt die Achse des Wolfs wohl rechts neben den Helden; erst messen, dann bauen (Zu 453) | gebaut: passt (Archiv 454), fährt im nächsten Build; Schildreaktion in 406 | `claude/jerry-454-bissachse` |
-| 438a | M | **von Sokrates (Archiv 438a):** Hinfallen/Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe und Schild frei | wartet auf Test: Messlauf Runde 5 (5837c37a2, Hautschutz der Beine); Lauf 186: Klinge im Kleid am rechten Oberschenkel 13,3 cm (Kämpfer, Aufstehen 2,80 s), Stab 6,6 cm in der Beinrüstung (Kleriker), 2,6 cm vor den Kapseln | `claude/jerry-438a-sturz-2` |
+| 438a | M | **von Sokrates (Archiv 438a):** Hinfallen/Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe und Schild frei | wartet auf Test: Messlauf 84438b857 (Griff im Kleid?), Lauf 187 Zu 438a | `claude/jerry-438a-sturz-2` |
 | 439 | M | **von Sokrates (Chef 31.10., 23:31, Film 403):** Reihenfolge Angriff, Treffer, Tod, Neuformation (Zu 438) | gebaut: passt (Archiv 438), fährt im nächsten Build | `claude/jerry-438-wolf-kampf` |
 | 440 | M | **von Sokrates (Chef 31.10., 23:34, Film 403):** Wolf-Tod zu schnell weg (Zu 438) | gebaut: passt (Archiv 438), fährt im nächsten Build | `claude/jerry-438-wolf-kampf` |
 | 416.6 | K | **von Sokrates (Chef 31.10., 20:4x):** Spuren des Helden fehlen (`core/Tracks.kt`, `LISTE-UMZUG-348.md` „Spuren“). Perikles: M oder K? | wartet auf Tom: Regen und Zeichnen in Godot (LISTE-UMZUG-348 „Wetter“, Toms karte.gd); spuren.gd mit Test regeln_390 fertig | – |
-| 415 | M | **von Sokrates („jetzt“ 01.11., 20:0x; Archiv 415):** Probe Beams Free Sample im Kampfort (Film, Bilder je Sekunde); nichts kaufen | gebaut: passt (Chef 20:05); Testmenü „Strahlen“ mit Bildern je Sekunde und Renderer-Wechsel schon auf dem Zweig (ca73f353b), r4 c3605f712; fährt im nächsten Build zum Handytest; Geprüft an: Lauf 185 | `claude/jerry-415-beams` |
+| 415 | M | **von Sokrates („jetzt“ 01.11., 20:0x; Archiv 415):** Probe Beams Free Sample im Kampfort (Film, Bilder je Sekunde); nichts kaufen | gebaut: passt (Chef 20:05), Testmenü da, fährt im nächsten Build; Geprüft an: Lauf 185 | `claude/jerry-415-beams` |
 | 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | wartet auf Test: Build 146 (ansehen/t146-befunde.md; 143 getestet 31.10., 20:4x, Befunde als 416.x) | `claude/jerry-348-kampf` |
 | 403 | M | **von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler):** Kampfort: Held je Klasse wie im Dorf (`HeldFigur.baue`), Bewegungen aus der UAL Pro | gebaut: passt (Archiv 403), fährt im nächsten Build | – |
 | 461.1 | M | **von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461):** Grundstand mit Tom: Kampfort, Wölfe, Helden im Kampf (`LISTE-GRUNDSTAND-461.md`) in `claude/grundstand-461`; vor 460 und 406.1 | wartet auf 406, 438a, 453.1, 376.1 (Zu 461.1) | `claude/grundstand-461` |
 | 460 | M | **von Sokrates (Chef 01.11., 20:2x, Archiv 460):** Probefilm Kamerafahrten: Eröffnung je Blende (402), kurze Wechsel nur ohne Eingabe | wartet auf 461.1 (Grundstand vor 460) | – |
 | 406.1 | M | **von Sokrates (Archiv 406.1):** Schildstoß ins MARS/BRS, Bau mit `ShieldAttack1–3S&S` | wartet auf 481 (Herkünfte): Bedingung Chef 11:21 mit Werten 427 nicht erfüllt (Zu 427.1) | – |
-| 406 | M | **von Team Tom (Archiv 376.1):** Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Sonne | wartet auf Test: Messlauf Faust −50° im Spiel (577964ea2, claude/jerry-406c-gehen, SchildFaust); offen Hand 2–4 cm zurück; E8 Tom 417; F2 offen | `claude/jerry-406-kaufschild` |
+| 406 | M | **von Team Tom (Archiv 376.1):** Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Sonne | startbar: SchildFaust 577964ea2 ungemessen (schild_406 liest außerhalb skeleton_updated); dann Hand zurück (Zu 406) | `claude/jerry-406-kaufschild` |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | wartet auf 463 (Tom, B4 Umhang); F1, F5 behoben, E2-Messung drin (6f8eecf62); dann Lauf kampf=grak | `claude/tuffy-348-12k-grak` |
@@ -67,7 +67,6 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht: SRD (Chef 31.10.) | – |
 | 469 | M | **von Sokrates (02.11., 11:0x, zu 406.1):** Kampf auf BRS: Ring (MARS) ohne Klassen regeln (Antwort nach Klasse heute) | wartet auf 406.1 | – |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht: Klang zieht nach Godot; Rest `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
-| Pflege | K | **von Werkzeug (340.3, 02.11.):** 15872 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 ## Einzelheiten
 
@@ -83,8 +82,8 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 - **von Team Tom (Spike, 01.11., 21:2x, zu 461.1):** `claude/grundstand-461` = Build 146, Tom, `jerry-406-kaufschild`, `jerry-348-12-grak-schreitet`; Konflikte (`heldfigur.gd`, `figur.gd`, `film_403.gd`) mit beiden Seiten gelöst. Nicht neu mischen, weiter auf dem Zweig; Kampfort-Film gegen die Checkliste bleibt euer.
 - **Wortlaut in Git** (`git show <Commit>:docs/ARBEIT-TEAM-JERRY.md`): von Homer zu 444 und Spike zu 425 ee343195b; Zu 453, 402 („Bubum“) 7cacfa97d; Zu 453 r2 („Helden wieder doof“) 00d2ab8d5; Zu 406 a–e, 460, 438a Waffenpakete 907f307f2; Zu 453.1 da33d472c; ruhende SRD-Zeilen (296.2, 344.2, 249, 211.13/14, 168.1, 72u.1, 38, 39) de0998e2a; Zu 348.12 Lauf 177 5dc32fd63; Zu 438 (Tuffy 00:57), Zu 461.1 (Tuffy 03:4x), Zu 399.2 (Tom, Goblins v3) 110805b49; Zu 453 r3, Zu 406 G1, von Sokrates zu 427.1 (19:0x) 0bcceff99.
-- **Zu 438a, 438:** Runde 1–3, Lauf 164 in Git (`git show 4b77bbc77:docs/ARBEIT-TEAM-JERRY.md`). Runde 4: Rüstung bis 9,5 cm über den Beinkapseln, Hautkapseln (faf633e16) in Messung. Offen: Klinge im Kleid schon in Kampfhaltung (463), Schildfinger 1,7 cm, Drehung über dem Satz, Wolf 1 im Kleriker (438).
-- **Zu 348.12 (Chef 27.10., 17:19):** „ob das Modell trifft … muss man halt nachjustieren, das kann kein Kriterium sein“. Grak (Chef 29.10., 10:55): „gut, aber Gang schreitend statt kurzer Sprint“; Bau und Prüfwege `git show c30c827d0:docs/ARBEIT-TEAM-JERRY.md`.
+- **Zu 438a, 438 (Jerry 02.11., 20:5x):** Runden 1–4 in Git (4b77bbc77, 1820858d2). Lauf 186: Klinge im Kleid am rechten Oberschenkel (Kämpfer Aufstehen 13,3 cm, 2,80 s), Stab Kleriker 6,6 cm Beinrüstung. Runde 5 (5837c37a2, Hautschutz der Beine in figur.gd) Lauf 187: 12,9 / 5,8 cm, Hinfallen Kämpfer 2,3 cm, Zucken 31°. Messlauf 84438b857: tiefste Stelle vom Griff, Griff in Haut, Drehung; steckt der Griff im Kleid, hilft kein Drehen. Offen: Kampfhaltung Kleid (463), Wolf 1 im Kleriker (438).
+- **Zu 406 (Jerry 02.11., 20:5x):** SchildFaust (−50°, SkeletonModifier3D) auf `claude/jerry-406c-gehen`; schild_406 misst nach `process_frame`, Modifier sieht man nur in `skeleton_updated` (sturz_438a Zeile 80): Messung dorthin, dann Hand 2–4 cm zurück (Kleriker −50° 3,5–3,9 cm, Ring- und kleiner Finger).
 - **von Sokrates (Chef 01.11., 22:35, „461c wie Sokrates“, Archiv 461c; Grundstand B5, F4):** zu 406: Kleriker-Schild Form Schild 2 mit goldener Sonne in unseren Farben; zu Kampf: Tod für alle zusammenbrechen, kurz liegen, dann ausblenden (auch Wölfe); zu 444: Schmiedelehrling startet zusätzlich mit Stumpfe Waffen (`werte.json`), neu rechnen.
-- **Zu 348.12, Urteil Film Grak schreitet, von Sokrates (Chef 01.11., 22:45, Archiv 348.12; Grundstand D5, F5):** Schreiten nur beim Ortswechsel; Ausweichen rasch, nur gegen einen sichtbaren Angriff, danach zurück; Wortlaut `git show 515dfd03e:docs/ARBEIT-TEAM-JERRY.md`. In 348.12k mitnehmen.
+- **Zu 348.12 (Chef 27.10., 29.10., 01.11., 22:45):** Wortlaut in Git (1820858d2): Nachjustieren kein Kriterium; Schreiten nur beim Ortswechsel, Ausweichen rasch nur gegen sichtbaren Angriff; in 348.12k mitnehmen.
 - **Zu 348.12, aus 348.12j (Chef 02.11., 11:22, Archiv 348.12j):** Axtkopf im Kampf oben; im Kampf (Held wie Grak) Kampfhaltung des Zweihand-Pakets, beide Fäuste am Stiel, Stiel nicht durch die Schulter (E3); E6 hängend nur unterwegs. Beim nächsten Grak-Lauf bauen.
