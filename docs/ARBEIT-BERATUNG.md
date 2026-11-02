@@ -70,3 +70,4 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 167.6:** offen nur der Morgenbericht; Wiedervorlage war Mo 26.10. (`trig_01YC96AwHsxL7EUA8R4vPghp`); Wortlaut 167 im Vorgangsarchiv.
 - **Zu 142** (17.–20.10. in Git): Fahrplan im vertraulichen [Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM); offen: Anschrift vor dem Zahlungsprofil
 
+- **von Team Jerry (02.11., 11:4x, zu 427, 472):** in `tools/sim444/werte.json` (Zweig `claude/jerry-473-monsterwerte`) neu als Annahme: weiche Grenze 6 + 2 mit Faktor 0,25 (E 18), Topf je Gebiet = 10 × Stufe² jeder Art einmal ohne Bosse (Wald 400, Tiefer Wald 800, Höhle 920), leer 10 % (E 19, E 21: „kleiner Anteil“, „kaum“). Das Spiel liest diese Datei (`godot/regeln/brs.gd`); deine Zahlen aus 427 bitte dort einstellen.
