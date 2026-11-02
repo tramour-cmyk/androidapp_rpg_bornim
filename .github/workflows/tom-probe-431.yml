@@ -107,17 +107,21 @@ jobs:
         if: inputs.rechnung
         run: bl/bin/python -I tools/blender348/v3/voelker_haut_rechnung.py $VOELKER godot/daten 2>&1 | tee probe/haut_rechnung.txt
       - uses: actions/cache@v4
-        if: ${{ !inputs.rechnung }}
         with:
           path: ~/godot
           key: godot-${{ env.GODOT }}
       - name: Godot
-        if: ${{ !inputs.rechnung }}
         run: |
           mkdir -p ~/godot && cd ~/godot
           base=https://github.com/godotengine/godot/releases/download/$GODOT-stable
           [ -f godot ] || { curl -sSL -o g.zip $base/Godot_v$GODOT-stable_linux.x86_64.zip && unzip -q g.zip && mv Godot_v$GODOT-stable_linux.x86_64 godot && rm g.zip; }
           ~/godot/godot --version
+      - name: Hautwerte in Godot ohne Bild (431c B1, tests/haut_431.gd)
+        if: inputs.rechnung
+        run: |
+          cd godot
+          timeout 300 ~/godot/godot --headless --import --path . > import.log 2>&1 || true
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/haut_431.gd 2>&1 | grep -E "HAUT431|SCRIPT ERROR|ERROR" | tee $GITHUB_WORKSPACE/probe/haut_godot.txt
       - name: Film
         if: ${{ !inputs.rechnung }}
         run: |

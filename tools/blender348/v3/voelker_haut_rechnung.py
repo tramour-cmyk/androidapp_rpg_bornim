@@ -58,7 +58,10 @@ def bild(j, b, mat):
     im = j['images'][j['textures'][t['index']]['source']]
     bv = j['bufferViews'][im['bufferView']]
     roh = b[bv.get('byteOffset', 0): bv.get('byteOffset', 0) + bv['byteLength']]
-    return np.asarray(Image.open(io.BytesIO(roh)).convert('RGB'), dtype=np.float64) / 255.0, pb.get('baseColorFactor')
+    pi = Image.open(io.BytesIO(roh))
+    print('  BILDDATEI %s, Modus %s, Format %s, Infos %s, PNG-Kopf Bittiefe %s Farbtyp %s' % (im.get('mimeType'), pi.mode, pi.format,
+          sorted(pi.info.keys()), roh[24] if roh[:4] == b'\x89PNG' else '-', roh[25] if roh[:4] == b'\x89PNG' else '-'))
+    return np.asarray(pi.convert('RGB'), dtype=np.float64) / 255.0, pb.get('baseColorFactor')
 
 
 def shader(tex_srgb, col, toenung, toen_bild, toen_hell):
