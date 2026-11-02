@@ -1,6 +1,8 @@
 # 466 · Stufen der Meisterschaften ohne „Meister“
 Homer · 02.11., 19:4x · C Texte
 
+Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/c16b54ac5 (Abgleich mit dem BRS-Entwurf Kapitel 5 und 6, fremd geprüft)
+
 **Frage:** Du hast entschieden (02.11., 11:20): „Homer legt die Stufen der Meisterschaften ohne „Meister“ als Stufe in einer Zeile dazu, bevor er einträgt.“ Wie heißen die vier Stufen der fünf Meisterschaften?
 
 **Votum Homer: A.**
