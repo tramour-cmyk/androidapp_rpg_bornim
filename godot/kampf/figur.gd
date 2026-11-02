@@ -472,9 +472,10 @@ func _load_model() -> Node3D:
 ## 406: der Schild, den der Held trägt (aufruf.gd blatt „schild“), sonst der der Startausrüstung (Rules.kt: Kämpfer Rundschild,
 ## Kleriker Drachenschild als „Schild“; Kaufschilde 15 und 2, Chef 31.10., 23:22)
 const OFF_HAND := {"FIGHTER": "round_shield", "CLERIC": "shield"}
-## 406 b: Schild im Kampf gegen die Lage aus dem Prefab [tiefer, weiter vorn] m (Lauf 162: Drachenschild mit dem gewölbten oberen Rand
-## bis 7,3 cm in Schulter und Oberarm bei Abwehr, Rundschild 2,4 cm); Werte aus der Messung FASSUNG
-const SCHILD_LAGE := {"shield": Vector2(0.0, 0.0), "round_shield": Vector2(0.0, 0.0)}
+## 406 b: Schild im Kampf gegen die Lage aus dem Prefab [tiefer m, vorn m, Oberkante vor Grad, Seite +x vor Grad], gedreht um die
+## Fessel (wie tests/schild_406.gd _neigung). Lauf 167 (Messung an der Fläche): Rundschild vorn 3 cm, Schulter und Oberarm -0,7 statt
+## 2,3 cm; Drachenschild noch offen (Schulter bei Abwehr bis 7,7 cm durch den oberen Innenrand)
+const SCHILD_LAGE := {"shield": [0.0, 0.0, 0.0, 0.0], "round_shield": [0.0, 0.03, 0.0, 0.0]}
 const GRIP_CM := 15.7
 const PALM_CM := 2.4
 const CM := 0.01
@@ -637,8 +638,9 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		o = h0 + rb * (v3.call("griff") * lang)
 		# 406 b (Chef 01.11., 20:2x: „bei beiden Schultern … Draufsicht, links am Schild … eine leichte Irritation“): der Schild sitzt
 		# je Art um [tiefer, weiter vorn] m anders an der Fessel (SCHILD_LAGE; gemessen tests/schild_406.gd FASSUNG)
-		var lage: Vector2 = SCHILD_LAGE.get(what, Vector2.ZERO)
-		o += -up * lage.x + front * lage.y
+		var lage: Array = SCHILD_LAGE.get(what, [0.0, 0.0, 0.0, 0.0])
+		o += b * Vector3(0.0, -lage[0], lage[1])
+		b = b * Basis(Vector3.UP, deg_to_rad(-lage[3])) * Basis(Vector3.RIGHT, deg_to_rad(lage[2]))
 	elif what.contains("shield"):
 		# Schild am Unterarm außen: Vorderseite nach außen, oben nach oben, die Fessel um den Unterarm
 		b = Basis(fwd, -down, -inward)

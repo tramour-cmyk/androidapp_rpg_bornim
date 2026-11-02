@@ -220,8 +220,13 @@ func _netz_tiefe(schild: Node3D, koerper: PackedVector3Array) -> Array:
 ## (4,6 cm hinter der Fessel) liegt im Feld die hinterste Randecke, eine Körperecke daneben, außerhalb des Umrisses, zählte als „im
 ## Schild“. Jetzt die Fläche selbst: jedes Dreieck (ohne die Sonne) auf ein Raster von RASTER m gelegt, je Rasterpunkt hinterste und
 ## vorderste Fläche genau an dieser Stelle; außerhalb des Umrisses gibt es keinen Rasterpunkt.
-const VARIANTEN := [[0.0, 0.0], [0.0, 0.01], [0.0, 0.02], [0.0, 0.03], [0.0, 0.04], [0.0, 0.06], [0.04, 0.0], [0.04, 0.02],
-		[0.04, 0.04], [0.08, 0.0], [0.08, 0.02], [0.08, 0.04]]
+## Lauf 167: Kämpfer vorn 3 cm frei (Schulter -0,7 cm); Kleriker bei Abwehr mit der Schulter am oberen Innenrand des Drachenschilds
+## bis 7,7 cm durch, Verschieben allein hilft wenig (vorn 6: 4,1). Darum auch geneigt: [tiefer m, vorn m, Oberkante vor Grad (um die
+## Querachse), Seite vor Grad (um die Hochachse, + bringt +x nach vorn)], gedreht um die Fessel. Werte gegen SCHILD_LAGE in figur.gd.
+const VARIANTEN := [[0.0, 0.0, 0.0, 0.0], [0.0, 0.03, 0.0, 0.0], [0.0, 0.0, 10.0, 0.0], [0.0, 0.0, 20.0, 0.0], [0.0, 0.02, 20.0, 0.0],
+		[0.0, 0.0, 0.0, 10.0], [0.0, 0.0, 0.0, 20.0], [0.0, 0.0, 0.0, -10.0], [0.0, 0.0, 0.0, -20.0], [0.0, 0.02, 0.0, 20.0],
+		[0.0, 0.02, 0.0, -20.0], [0.0, 0.0, 15.0, 15.0], [0.0, 0.0, 15.0, -15.0], [0.0, 0.02, 15.0, 15.0], [0.0, 0.02, 15.0, -15.0],
+		[0.12, 0.02, 0.0, 0.0], [0.16, 0.02, 0.0, 0.0], [0.0, 0.03, 25.0, 0.0]]
 const RASTER := 0.01
 var _karten := {}
 
@@ -267,6 +272,13 @@ func _karte(schild: Node3D) -> Dictionary:
 	return feld
 
 
+## Drehung einer Fassung im Raum des Schilds: erst Oberkante vor (+y nach +z), dann Seite vor (+x nach +z); wie figur.gd _schild_neigung
+static func _neigung(v: Array) -> Basis:
+	var kipp := Basis(Vector3.RIGHT, deg_to_rad(v[2]))       # (0,1,0) -> (0, cos, sin): Oberkante vor
+	var seite := Basis(Vector3.UP, deg_to_rad(-v[3]))       # (1,0,0) -> (cos, 0, sin): Seite +x vor
+	return seite * kipp
+
+
 ## je Fassung [tiefste m, Stelle cm]: Körperecke an einem Rasterpunkt vor der hintersten Fläche, höchstens 5 cm vor der vordersten
 func _varianten_tiefe(schild: Node3D, koerper: PackedVector3Array) -> Array:
 	var feld := _karte(schild)
@@ -279,11 +291,12 @@ func _varianten_tiefe(schild: Node3D, koerper: PackedVector3Array) -> Array:
 			nah.append(q)
 	var out := []
 	for v in VARIANTEN:
-		# Schild tiefer (lokal -y) und weiter vorn (+z): die Körperecke rückt im Raum des Schilds um +y und -z
-		var d := Vector3(0.0, v[0] / sc.y, -v[1] / sc.z)
+		# neuer Schild = alter um (0, -tiefer, vorn) verschoben und um die Fessel gedreht; die Körperecke im Raum des neuen Schilds
+		var dreh := _neigung(v)
+		var t := Vector3(0.0, -v[0] / sc.y, v[1] / sc.z)
 		var best := [-INF, Vector3.ZERO]
 		for q0 in nah:
-			var q: Vector3 = q0 + d
+			var q: Vector3 = dreh.inverse() * (q0 - t)
 			var k := Vector2i(floori(q.x / RASTER), floori(q.y / RASTER))
 			if not feld.has(k):
 				continue
@@ -450,7 +463,7 @@ func _run() -> void:
 		for b in schulter:
 			print("  %s Kampf %s: linke Schulter und Oberarm %.3f m im Schild (Stelle %s cm)" % [k, b if b != "" else "–", schulter[b][0], schulter[b][1]])
 		for i in VARIANTEN.size():
-			print("  %s FASSUNG tiefer %.0f cm, vorn %.0f cm: Körper %.1f cm (Stelle %s), Schulter und Oberarm %.1f cm (Stelle %s) im Schild" % [k, VARIANTEN[i][0] * 100.0, VARIANTEN[i][1] * 100.0, var_k[i][0] * 100.0, (var_k[i][1] as Vector3).round(), var_s[i][0] * 100.0, (var_s[i][1] as Vector3).round()])
+			print("  %s FASSUNG tiefer %.0f cm, vorn %.0f cm, Oberkante vor %.0f°, Seite +x vor %.0f°: Körper %.1f cm (Stelle %s), Schulter und Oberarm %.1f cm (Stelle %s) im Schild" % [k, VARIANTEN[i][0] * 100.0, VARIANTEN[i][1] * 100.0, VARIANTEN[i][2], VARIANTEN[i][3], var_k[i][0] * 100.0, (var_k[i][1] as Vector3).round(), var_s[i][0] * 100.0, (var_s[i][1] as Vector3).round()])
 		print("Kampf %s: %s nach %d Bildern" % [k, kf.mars.outcome, n])
 		kf.queue_free()
 		p.queue_free()
