@@ -49,8 +49,10 @@ Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit und 
 | Zwerg | Zähigkeit +1, Verstand +1, Gewandtheit −1 | Steinblut |
 | Hügelvolk | Gewandtheit +1, Wille +1, Kraft −1 | Glückskind |
 | Orkblütiger | Kraft +1, Zähigkeit +1, Wille −1 | Letzter Atemzug |
+| Aschgeborene (ab dem Bau nach dem Meilenstein) | Wille +1, Wahrnehmung +1, Gewandtheit −1 | Name folgt (Homer): Zauberschaden von Gegnern −25 %; nahe dem Siegel von Aschfurt (Siegelstein, Amulett) ein Zeichen am Bildrand, ohne Probe (432.2) |
 
   Das Volk darf einen Wert auf 9 heben, aber nie unter 3 senken (Entscheidung 78). Leute in der Welt reagieren auf das Volk (Entscheidung 71).
+  **Sechstes Volk: Aschgeborene** (432, Chef 01.11., 09:41; Werte 432.2, 02.11., 16:34): Mensch mit aschgrauer Strähne und goldenem Ring um die Iris; wählbar ab dem Bau nach dem Meilenstein Kapitel 1; vor dem Bau in Simulation 444 mit Völkern messen.
 - **Herkunft, freiwillig** (Entscheidung 68, 69): Sie verteilt die Punkte vor, gibt zwei bis drei Startfertigkeiten und passende Ausrüstung; ein Satz bei der Erschaffung sagt, wohin sie lenkt. Die Punkte kann man ändern. Wer keine will, ist **Wanderer** und verteilt selbst; er wählt zwei Startfertigkeiten. Jede Startfertigkeit beginnt bei **10** (Startwert, Vorschlag).
 
 | Herkunft | Startfertigkeiten | führt meist zu |
