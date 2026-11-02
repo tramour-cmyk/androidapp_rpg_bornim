@@ -56,10 +56,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:08 01.11.: Selbstneustart Ford (Tiefe 6, Chefsache 110 `--laut` gesendet); Homer `01Hmoj771H` „430“, Perikles `01Hmoj76JN` „Stand zum Marktstart“, Spike `01Hmoj763K` „416.9“ gestartet; alter Spike `77yq` archiviert 9,21 $ auf 425; Jerry-Nachfolger bis 7:00 und Diogenes 374 bis 8:00 zurückgehalten; Sokrates-Desktop nicht archiviert
 - 23:30 28.10.: Chef „Räum auf und buche Kosten“: Protokoll und Eingang gekürzt (Datei 18 → unter 15 KB), alter Ford 9,02 $ gebucht; drei Sitzungen ohne Kosten (Eingang).
 - 22:07 28.10.: Perikles `01Hmoj77Hj` gestartet (400, Chef über Sokrates), alter Perikles `76yC` archiviert (3,05 $ auf 399). Ford-Lücke: Homer 399.2b (startbar seit 15:32, gestartet 19:06); jeden Lauf `startbar.py` gegen laufende Sitzungen prüfen.
-- 21:27 31.10.: Marke Tagesbericht 31.10. (lauf.py)
-- 21:27 31.10.: Marke Wächter 407 29.10. 10:05 (lauf.py)
-- 22:12 31.10.: Marke Wächter 399.2 28.10. 12:34 (lauf.py)
-- 22:18 31.10.: Marke Stellungnahme Sokrates 31.10. (lauf.py)
 - 01:04 01.11.: Marke Stellungnahme Sokrates 01.11. (lauf.py)
 - 02:04 01.11.: Marke Wächter 436 31.10. 22:58 (lauf.py)
 - 07:03 01.11.: Marke Stellungnahme Sokrates 01.11. (lauf.py)
@@ -128,3 +124,12 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:04 01.11.: Marke Archiv session_01Hmoj75xjo1RLRDi5F7nzxU (lauf.py)
 - 22:04 01.11.: Marke Archiv session_01Hmoj77mdcU4AngU6i87hj4 (lauf.py)
 - 22:04 01.11.: Nachfolger-Warnung Diogenes (Übergabe 01.11., 20:49) (lauf.py)
+- 02:38 02.11.: Startsperre 02:38 Start Diogenes, Homer, Perikles, Spike, Tuffy (lauf.py)
+- 02:38 02.11.: Marke Stellungnahme Sokrates 02.11. (lauf.py)
+- 02:38 02.11.: Marke Wächter 465 01.11. 20:50 (lauf.py)
+- 02:38 02.11.: Marke Wächter 462 01.11. 20:34 (lauf.py)
+- 02:38 02.11.: Marke Abgleich Vorentscheid 461a ohne Datei in chefsache/billigen/ und ohne (lauf.py)
+- 02:38 02.11.: Marke Archiv session_01Hmoj79qzMeo1P4nFWxVQT6 (lauf.py)
+- 02:38 02.11.: Marke Archiv session_01Hmoj78o3UhhepC7d8i4EsD (lauf.py)
+- 02:38 02.11.: Marke Archiv session_01Hmoj772DRt3QWMD1g9uWz7 (lauf.py)
+- 02:38 02.11.: Marke Archiv session_01Hmoj78eN5kXtDd9ZsnDPJB (lauf.py)
