@@ -1663,10 +1663,10 @@
    "platz": "beide_haende",
    "stufe": 1,
    "preis": 25,
-   "netz": "ab 1: avramania_mdvl_weapons_shortbow_01 · ab 8: omie_sm_bow",
+   "netz": "ab 1: anker_recurve_bow · ab 8: omie_sm_bow",
    "material": "nach Seltenheit (Block seltenheit)",
    "zeichen": "nach Seltenheit (Block seltenheit)",
-   "modell": "Avramania „Weapons & Shields“ frei (CC0); Omie „3D Medieval Weapon Pack“ (gekauft, CC0) (LISTE-BESTAND.md Waffen und Schilde)",
+   "modell": "Anker „Low Poly Medieval Weapons“ (CC0); Omie „3D Medieval Weapon Pack“ (gekauft, CC0) (LISTE-BESTAND.md Waffen und Schilde)",
    "bezug": [
     {
      "weg": "laden",
@@ -1689,7 +1689,7 @@
    "formen": [
     {
      "ab": 1,
-     "netz": "avramania_mdvl_weapons_shortbow_01"
+     "netz": "anker_recurve_bow"
     },
     {
      "ab": 8,
@@ -1707,7 +1707,7 @@
    "platz": "beide_haende",
    "stufe": 3,
    "preis": 50,
-   "netz": "ab 1: anker_long_bow · ab 8: anker_recurve_bow",
+   "netz": "ab 1: anker_long_bow",
    "material": "nach Seltenheit (Block seltenheit)",
    "zeichen": "nach Seltenheit (Block seltenheit)",
    "modell": "Anker „Low Poly Medieval Weapons“ (CC0) (LISTE-BESTAND.md Waffen und Schilde)",
@@ -1734,10 +1734,6 @@
     {
      "ab": 1,
      "netz": "anker_long_bow"
-    },
-    {
-     "ab": 8,
-     "netz": "anker_recurve_bow"
     }
    ]
   },
@@ -1751,10 +1747,10 @@
    "platz": "beide_haende",
    "stufe": 2,
    "preis": 25,
-   "netz": "ab 1: anker_crossbow · ab 5: avramania_mdvl_weapons_crossbow_01 · ab 11: omie_sm_crossbow",
+   "netz": "ab 1: anker_crossbow · ab 8: omie_sm_crossbow",
    "material": "nach Seltenheit (Block seltenheit)",
    "zeichen": "nach Seltenheit (Block seltenheit)",
-   "modell": "Anker „Low Poly Medieval Weapons“ (CC0); Avramania „Weapons & Shields“ frei (CC0); Omie „3D Medieval Weapon Pack“ (gekauft, CC0) (LISTE-BESTAND.md Waffen und Schilde)",
+   "modell": "Anker „Low Poly Medieval Weapons“ (CC0); Omie „3D Medieval Weapon Pack“ (gekauft, CC0) (LISTE-BESTAND.md Waffen und Schilde)",
    "bezug": [
     {
      "weg": "laden",
@@ -1780,11 +1776,7 @@
      "netz": "anker_crossbow"
     },
     {
-     "ab": 5,
-     "netz": "avramania_mdvl_weapons_crossbow_01"
-    },
-    {
-     "ab": 11,
+     "ab": 8,
      "netz": "omie_sm_crossbow"
     }
    ]

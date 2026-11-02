@@ -122,7 +122,7 @@ func _run() -> void:
 	var env := WorldEnvironment.new()
 	env.environment = Environment.new()
 	env.environment.background_mode = Environment.BG_COLOR
-	env.environment.background_color = Color(0.05, 0.05, 0.05)
+	env.environment.background_color = Color(0.13, 0.12, 0.11)   # Probelauf 1: dunkle Hölzer auf 0,05 unsichtbar
 	env.environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	env.environment.ambient_light_color = Color(0.55, 0.52, 0.48)
 	env.environment.ambient_light_energy = 0.6
@@ -164,7 +164,8 @@ func _run() -> void:
 			w.visible = false
 		var name := _text(String(art.name), 22, GOLD, d.position + Vector3(0, -0.5, 0.4), welt)
 		var form := _text("", 16, GOLD.darkened(0.15), d.position + Vector3(0, -0.6, 0.4), welt)
-		zellen.append({"dreher": d, "name": name, "form": form})
+		# Probelauf 1: im Gleichtakt stand das ganze Raster zugleich auf der Kante; je Zelle versetzt (goldener Winkel)
+		zellen.append({"dreher": d, "name": name, "form": form, "phase": fmod(j * 0.382, 1.0)})
 	for netz in formen:
 		for sel in SELTENHEITEN:
 			_faerbe(netz, sel)
@@ -200,7 +201,7 @@ func _run() -> void:
 			zellen[j].form.text = "%s · ab %d" % [_lesbar(String(f.netz)), int(f.ab)]
 		for _b in int(float(a.s) * 30.0):
 			for z in zellen:
-				z.dreher.rotation.y = TAU * fmod(k / (DREH_S * 30.0), 1.0)
+				z.dreher.rotation.y = TAU * fmod(k / (DREH_S * 30.0) + z.phase, 1.0)
 			k += 1
 			await process_frame
 	print("Staffel-Film: %d Arten, %d Formen, %d Abschnitte, %d Bilder, %d Fehler" % [arten.size(), formen.size(), abschnitte.size(), k, fehler])

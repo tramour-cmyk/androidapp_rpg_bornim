@@ -31,17 +31,19 @@ def h(x):
 # Holz 6A4A2E), Baukasten 455.1 (Krapprot, Nachtblau), Gold B8904A (Signatur: Gold einziger Glanz, erst ab „episch“).
 # Material und Zeichen je Seltenheit in Worten: Datendatei, Block „seltenheit“.
 PALETTE = {
-    'COMMON':    {'metall': h(0x5E6168), 'beschlag': h(0x4A4C50), 'holz': h(0x6A4A2E), 'leder': h(0x3A2A20), 'akzent': h(0x4A3A30)},
-    'UNCOMMON':  {'metall': h(0x868E98), 'beschlag': h(0x3A3C42), 'holz': h(0x5A3A26), 'leder': h(0x6E2E24), 'akzent': h(0x6E2E24)},
-    'RARE':      {'metall': h(0xA0A6AE), 'beschlag': h(0xA8884A), 'holz': h(0x4A3020), 'leder': h(0x2A2220), 'akzent': h(0x2A3450)},
-    'VERY_RARE': {'metall': h(0x4E5660), 'beschlag': h(0xA8884A), 'holz': h(0x2A2220), 'leder': h(0x22202A), 'akzent': h(0x5A3A8A)},
-    'EPIC':      {'metall': h(0x30333A), 'beschlag': h(0xB8904A), 'holz': h(0x221C1A), 'leder': h(0x4A1A16), 'akzent': h(0xB0601A)},
-    'DIVINE':    {'metall': h(0xC4C8CE), 'beschlag': h(0xB8904A), 'holz': h(0x2A2220), 'leder': h(0x3A2A20), 'akzent': h(0xD8B040)},
+    # Probelauf 1 (Pruefer 06:3x): göttlich Klingen reinweiss übersteuert, Omie-Stiele hell ocker, dunkle Hölzer auf Schwarz unsichtbar
+    'COMMON':    {'metall': h(0x5E6168), 'beschlag': h(0x4A4C50), 'holz': h(0x5C3F27), 'leder': h(0x3A2A20), 'akzent': h(0x4A3A30)},
+    'UNCOMMON':  {'metall': h(0x7C838C), 'beschlag': h(0x3A3C42), 'holz': h(0x553723), 'leder': h(0x6E2E24), 'akzent': h(0x6E2E24)},
+    'RARE':      {'metall': h(0x8C929A), 'beschlag': h(0xA8884A), 'holz': h(0x48301F), 'leder': h(0x2E2622), 'akzent': h(0x2A3450)},
+    'VERY_RARE': {'metall': h(0x4E5660), 'beschlag': h(0xA8884A), 'holz': h(0x3A2A22), 'leder': h(0x2E2A34), 'akzent': h(0x5A3A8A)},
+    'EPIC':      {'metall': h(0x353840), 'beschlag': h(0xB8904A), 'holz': h(0x36281F), 'leder': h(0x4A1A16), 'akzent': h(0xB0601A)},
+    'DIVINE':    {'metall': h(0x9EA4AC), 'beschlag': h(0xB8904A), 'holz': h(0x3A2A20), 'leder': h(0x3A2A20), 'akzent': h(0xD8B040)},
 }
 # Glimmen (Godot: glow je Flaeche in glow_col): verzaubert ab „sehr selten“, schwach, in der Farbe der Seltenheit (Gear.kt), Klinge
 # leiser als Stein und Schmuck (akzent); bleibt hier, damit Film und Spiel dieselben Zahlen lesen (staffel.json)
-GLIMMEN = {'VERY_RARE': (h(0x9A4FE0), {'metall': 0.10, 'akzent': 0.45}), 'EPIC': (h(0xE8841A), {'metall': 0.14, 'akzent': 0.55}),
-           'DIVINE': (h(0xE8C030), {'metall': 0.16, 'beschlag': 0.10, 'akzent': 0.6})}
+# Probelauf 1: 0,10-0,16 an der Klinge nicht zu sehen
+GLIMMEN = {'VERY_RARE': (h(0x9A4FE0), {'metall': 0.22, 'akzent': 0.6}), 'EPIC': (h(0xE8841A), {'metall': 0.26, 'akzent': 0.7}),
+           'DIVINE': (h(0xE8C030), {'metall': 0.24, 'beschlag': 0.15, 'akzent': 0.8})}
 
 
 def klasse(rgb):
@@ -154,7 +156,7 @@ def umfaerben(a, kl, sel):
     k = bild_klassen(a)
     eigen = lum[k == KLASSEN.index(kl)]
     med = float(np.median(eigen)) if eigen.size > 16 else float(np.median(lum))
-    S = np.clip(lum / max(med, 0.02), 0.55, 1.45) ** 0.85
+    S = np.clip(lum / max(med, 0.02), 0.55, 1.3) ** (0.7 if kl == 'metall' else 0.85)
     out = np.array(PALETTE[sel][kl], dtype=np.float32)[None, None, :] * S[:, :, None]
     return np.clip(out, 0, 1)
 
@@ -333,9 +335,10 @@ for kennung in sorted(gesucht):
     laenge = float((hi - lo).max())
     zs = np.array([(o.matrix_world @ pg.center).z for pg in me.polygons])
     fl = np.array([pg.area for pg in me.polygons])
-    metall = np.array([k in ('metall', 'beschlag') for k in fl_kl])
+    # schweres Ende nach oben: Klinge, Kopf, Stein (Probelauf 1: Avramania-Stab mit Kristall stand auf dem Kopf, Metallkappe unten)
+    metall = np.array([{'metall': 1.0, 'beschlag': 1.0, 'akzent': 4.0}.get(k, 0.0) for k in fl_kl])
     oben = float((fl * metall * (zs > laenge * 0.25)).sum()); unten = float((fl * metall * (zs < -laenge * 0.25)).sum())
-    gedreht = unten > oben * 1.15 and float((fl * metall).sum()) < 0.9 * float(fl.sum())   # ganz aus Metall: Lage lassen
+    gedreht = unten > oben * 1.15 and float((fl * (metall > 0)).sum()) < 0.9 * float(fl.sum())   # ganz aus Metall: Lage lassen
     if gedreht: me.transform(Matrix.Rotation(3.14159, 4, 'X'))
     me.transform(Matrix.Scale(1.0 / max(laenge, 1e-6), 4))   # 1 m zum Ansehen; Laenge am Helden setzt das Spiel (417)
     o.name = kennung
