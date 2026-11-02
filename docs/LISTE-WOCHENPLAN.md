@@ -20,7 +20,7 @@ Feste Zeitpunkte und Routinen: wer, wohin gemeldet, wo es liegt (143, 246). Stan
 
 | Tag | Was | Wer | Ablage |
 |---|---|---|---|
-| Mo ab 8:00 | Wochenzählung (Kennzahlen zählen, nicht bewerten), danach Wochenziel (Muss und Kür, Reifes aus dem Ideenspeicher) | Diogenes, dann Perikles; Ford startet | Zählung: [PRUEFBERICHT.md](PRUEFBERICHT.md), oberster Abschnitt „Lauf n“; Wochenziel: oben in [LISTE-ABNAHME-KAPITEL1.md](LISTE-ABNAHME-KAPITEL1.md) |
+| Mo ab 8:00 | Wochenzählung (Kennzahlen zählen, nicht bewerten), danach Wochenziel (Muss und Kür, Reifes aus dem Ideenspeicher) | Diogenes, dann Perikles; Ford startet | Zählung: [PRUEFBERICHT.md](PRUEFBERICHT.md), oberster Abschnitt „Lauf n“; Wochenziel: oben in [PROJEKTPLAN.md](PROJEKTPLAN.md) |
 | Di–Fr | nur die täglichen Routinen | – | – |
 | Sa | Morgenmeldung und Wache erst 9 Uhr | Ford | – |
 | So | Morgenmeldung 9 Uhr; Urteil über den Ideenspeicher: „reif“, „später“, „verwerfen?“ (verworfen nur mit Ja des Chefs) | Homer | Urteil je Idee in [LISTE-IDEEN.md](LISTE-IDEEN.md) |
@@ -32,7 +32,7 @@ Feste Zeitpunkte und Routinen: wer, wohin gemeldet, wo es liegt (143, 246). Stan
 | Mi 21.10. | Entscheid Stundenuhr nach Messung 20.–21.10. (177); Tagesrückblick Tag 3 mit Stichprobe (165) | Perikles | neue Datei in [chefsache/entscheiden](chefsache/entscheiden/) |
 | Do 22.10. | Auswertung Messung Leitung (99h.6); letzter Tagesrückblick der Probe; Auswertung Ford-Grenze 400.000 Token (185) an Sokrates | Perikles | [ARBEIT-PROJEKT.md](ARBEIT-PROJEKT.md) |
 | Fr 23.10. | Bilanz Tagesrückblick und Stichprobe mit dem Chef, danach weiter nur auf sein Wort; Bilanz Kosten je Vorgang (124) | Perikles | neue Datei in [chefsache/entscheiden](chefsache/entscheiden/) |
-| Sa 24.10. | Termin Wochenziel: Kapitel 1 einmal ganz durchspielbar, der Chef spielt einmal durch | alle | [LISTE-ABNAHME-KAPITEL1.md](LISTE-ABNAHME-KAPITEL1.md) |
+| Sa 24.10. | Termin Wochenziel: Kapitel 1 einmal ganz durchspielbar, der Chef spielt einmal durch | alle | [PROJEKTPLAN.md](PROJEKTPLAN.md) |
 | Mo 26.10., 10:00 | Neues Wochenziel; Wiedervorlage Skript für Fords Lauf (167.2) und Morgenbericht (167.6) | Perikles; Sokrates (geplante Aufgabe) | neue Datei in [chefsache/entscheiden](chefsache/entscheiden/) |
 | Sa 31.10. | Wieder vorlegen: Pflichttest Play Store (142) und Preis (45) | Sokrates | neue Datei in [chefsache/entscheiden](chefsache/entscheiden/) |
 | um 10.11. | Prüfung der Abos vor der Verlängerung (Pro gekündigt, nur Max) | Perikles | [ARBEIT-PROJEKT.md](ARBEIT-PROJEKT.md) |

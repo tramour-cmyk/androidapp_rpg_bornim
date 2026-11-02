@@ -10,7 +10,7 @@ Montags ab 8 Uhr startet Ford Diogenes mit „Wochenzählung“ (Zeile in `ARBEI
 |---|---|
 | **Kosten der Woche** je Hauptthema (E, G, Q, B, M); Anteil Muss | Spalten „Bereich“, „Klasse“, „Kosten“ in `LISTE-VORGAENGE.md` (Differenz zur Vorwoche); **Anteil Spiel** (Tom, Jerry, Homer durch alle) aus `cost_usd` mit `tools/kosten.py`, Definition in `ROLLE-PROJEKT.md` (167.4) |
 | **Guthaben:** Verbrauch je Account gegen die Woche | Zeilen „Guthaben:“ in `ARBEIT-BETRIEB.md` |
-| **Fortschritt Meilenstein:** Wochenziel erreicht, Pflichtpunkte Kapitel 1 offen | `LISTE-ABNAHME-KAPITEL1.md` |
+| **Fortschritt Meilenstein:** Wochenziel erreicht, Pflichtpunkte Kapitel 1 offen | `PROJEKTPLAN.md` |
 | **Testrunden des Chefs** und Rückläufer darunter (Entwickler) | `CHANGELOG.md` „(Rückläufer: n)“, gelöschte Dateien in `docs/chefsache/ansehen/` (`git log`) |
 | **Ersparte Fragen** durch Vorentscheid (unter 5 je Woche fällt der Vorentscheid weg, 98.2) | Einträge „Vorentscheid“ in `VORGANGSARCHIV.md` |
 | **Stillstand** in Stunden je Ursache (Ford) | Zeilen „Stillstand“ im Protokoll von `ARBEIT-BETRIEB.md` |

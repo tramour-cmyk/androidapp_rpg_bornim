@@ -4,6 +4,7 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 
 ## Jetzt
 
+- [Projektplan](PROJEKTPLAN.md): Stufen bis Kapitel 1 fertig, Stand je Punkt, Wochenziel (479; bis 02.11. „Abnahme Kapitel 1“)
 - [Chefsache](chefsache/): was der Chef entscheiden oder ansehen soll
 - [Wochenplan](LISTE-WOCHENPLAN.md): Termine und Routinen, wer meldet wann wohin
 - [Besetzung](ARBEIT-BESETZUNG.md): wer gerade woran
@@ -14,7 +15,6 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 - [Vorgänge](LISTE-VORGAENGE.md): jede Nummer mit Bereich, Muss oder Kür, Kosten; abgeschlossene im [Archiv](LISTE-VORGAENGE-ARCHIV.md)
 - [Checkliste MARS](LISTE-MARS.md): was im Kampfsystem steht, was fehlt, klassisch ↔ MARS (296)
 - [Testgeräte](LISTE-TESTGERAETE.md): Geräteangaben und Messwerte der Tester (388)
-- [Abnahme Kapitel 1](LISTE-ABNAHME-KAPITEL1.md): Meilenstein, Wochenziel, Stand zum Marktstart (Meilensteine neu: 447)
 - [Umzug nach Godot](LISTE-UMZUG-348.md): was aus der alten Fassung übernommen ist und was fehlt (348, 398)
 - Was zu Figuren und Kampf entschieden ist (461): Kennungen in [Abnahme](DESIGN-ABNAHME.md) „Vor jeder Vorlage“; Text in Stil und Kampf; jede Vorlage wird dagegen geprüft
 - [Netzliste](LISTE-NETZE.md): je sichtbarem Platz die Netze (Bestand, unser, Eigenbau) und welche Gegenstände sie tragen (455.2)

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stand zum Marktstart als HTML-Seite (339). Quelle bleibt LISTE-ABNAHME-KAPITEL1.md (ein Ort);
+"""Stand zum Marktstart als HTML-Seite (339). Quelle bleibt PROJEKTPLAN.md (ein Ort);
 dazu offene Chefsache (chefsache/README.md), Muss je Rolle (startbar.py --stand), Guthaben (ARBEIT-BETRIEB.md).
 Aufruf: python3 tools/dashboard.py <ziel.html>   Ford veröffentlicht die Datei im Stundenlauf als Artifact (feste Adresse)."""
 import html, os, re, subprocess, sys, time
@@ -75,7 +75,7 @@ def fehlt(was):
 
 
 def main(ziel):
-    ab = lesen("LISTE-ABNAHME-KAPITEL1.md")
+    ab = lesen("PROJEKTPLAN.md")
     stand = abschnitt(ab, "Stand zum Marktstart") or ""
     st = re.search(r"\*\*Stand ([^:]+:[^:]+): (\w+)\.\*\*\s*(.*)", stand)
     stand_rest = stand.split("\n", 1)[1] if st else stand
@@ -112,7 +112,7 @@ def main(ziel):
     seite = VORLAGE.format(
         farbe=farbe, ampel=html.escape(st.group(2) if st else "–"),
         standzeit=html.escape(st.group(1) if st else "–"), kern=inline(st.group(3) if st else ""),
-        stand=md(stand_rest) if stand else fehlt("„Stand zum Marktstart“ in LISTE-ABNAHME-KAPITEL1.md"), chef=chef,
+        stand=md(stand_rest) if stand else fehlt("„Stand zum Marktstart“ in PROJEKTPLAN.md"), chef=chef,
         muss=muss, jetzt=jetzt)
     with open(ziel, "w", encoding="utf-8") as f:
         f.write(seite)
@@ -161,7 +161,7 @@ footer {{ color: var(--dim); font-size: .9rem; }}
   <section>{stand}</section>
   <section><h2>Wartet auf dich</h2>{chef}</section>
   <section><h2>Woran gearbeitet wird</h2><p class="leise">Oberstes startbares Muss je Rolle.</p>{muss}</section>
-  <footer>Aus LISTE-ABNAHME-KAPITEL1.md, Chefsache und Vorräten gebaut am {jetzt} (Berliner Zeit).</footer>
+  <footer>Aus PROJEKTPLAN.md, Chefsache und Vorräten gebaut am {jetzt} (Berliner Zeit).</footer>
 </main>
 """
 

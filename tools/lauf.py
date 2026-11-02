@@ -552,7 +552,7 @@ def main():
     # 192.2, Schritt 11: Wochenstart (Mo ab 8 Uhr) und Tagesbericht (247.1), je einmal laut Marke im Protokoll
     heute = JETZT.strftime("%d.%m.")
     # Tagesbericht gilt auch ohne Marke als erledigt, wenn sein Kopf schon steht (22.10.: um 08:10 geschrieben, 19:04 erneut verlangt);
-    # ab 24.10. ist es der Stand zum Marktstart (338.1, 341): erledigt, wenn „**Stand <heute>, “ in LISTE-ABNAHME-KAPITEL1.md steht
+    # ab 24.10. ist es der Stand zum Marktstart (338.1, 341): erledigt, wenn „**Stand <heute>, “ in PROJEKTPLAN.md steht
     marke_text = lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")) + "".join(
         "\nTagesbericht %s" % heute for z in lesen(os.path.join(DOCS, "ARBEIT-TAGESBERICHT.md")).splitlines()
         if z.startswith("## ") and (", %s " % heute) in z) + (
