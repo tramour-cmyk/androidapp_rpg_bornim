@@ -3,9 +3,9 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `d27ed9768` (02.11., 03:4x)
+**Gelesen bis:** `9ccfdd417` (02.11., 19:5x)
 
-**Übergabe (02.11., 03:4x):** 461d `DESIGN-STIL.md` gegen A–D geprüft: ein Widerspruch aufgelöst („Ausrüstung unterwegs“ geschultert/Rücken → Verweis E1, E8), vier Doppelungen auf Verweis (Signatur 2 ↔ A2, Übergänge ↔ D1, Sterben ↔ F4, C1 gekürzt), Blick-Tabelle verweist auf E–G. Nicht entschieden: Wölfe fest 1,32 (B7) neben „Größe variiert“ (Abwechslung), gelesen als Grundgröße mit Spielraum. Nachfolger: keiner; 466 und 447.4 warten auf Chef.
+**Übergabe (02.11., 19:5x):** 461d Stiltext gegen A–D; Rollenspiegel; 466 Chefsache Stufen der Meisterschaften; 432.3 Entwurf Aschgeborene (Liste, Text, Orte) und Chefsache 4323, je fremd geprüft; 486 erledigt (Fremdprüfung vor „fertig“ und Vorratsgrenzen in `ROLLE-KREATIV.md`, Grenzen an Ford, Perikles, Tom, Jerry, Diogenes gemeldet, Stiltext auf Godot-Fundstellen). Nachfolger: keiner; 466, 432.3, 447.4 warten auf Chef.
 
 
 ## Zeilen
