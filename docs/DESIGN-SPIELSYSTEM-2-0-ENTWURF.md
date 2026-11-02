@@ -49,7 +49,7 @@ Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit und 
 | Zwerg | Zähigkeit +1, Verstand +1, Gewandtheit −1 | Steinblut |
 | Hügelvolk | Gewandtheit +1, Wille +1, Kraft −1 | Glückskind |
 | Orkblütiger | Kraft +1, Zähigkeit +1, Wille −1 | Letzter Atemzug |
-| Aschgeborene (ab dem Bau nach dem Meilenstein) | Wille +1, Wahrnehmung +1, Gewandtheit −1 | Name folgt (Homer): Zauberschaden von Gegnern −25 %; nahe dem Siegel von Aschfurt (Siegelstein, Amulett) ein Zeichen am Bildrand, ohne Probe (432.2) |
+| Aschgeborene (ab dem Bau nach dem Meilenstein) | Wille +1, Wahrnehmung +1, Gewandtheit −1 | Aschenerbe (Ashen Legacy; 432.3, Chef 02.11., 22:05): Zauberschaden von Gegnern −25 %; nahe dem Siegel von Aschfurt (Siegelstein, Amulett) ein Zeichen am Bildrand, ohne Probe (432.2) |
 
   Das Volk darf einen Wert auf 9 heben, aber nie unter 3 senken (Entscheidung 78). Leute in der Welt reagieren auf das Volk (Entscheidung 71).
   **Sechstes Volk: Aschgeborene** (432, Chef 01.11., 09:41; Werte 432.2, 02.11., 16:34): Mensch mit aschgrauer Strähne und goldenem Ring um die Iris; wählbar ab dem Bau nach dem Meilenstein Kapitel 1; vor dem Bau in Simulation 444 mit Völkern messen.
@@ -142,7 +142,7 @@ Die Ätherdichte (Entscheidung 76) ist noch ohne Zahl.
 | Titelprüfung | Kernfertigkeiten am Ende von Meister (74) | den Titel, z. B. „Paladin“ (in der Regel „Titelträger“) | Rang Großmeister, stärkere Fähigkeit; ab hier gelten die Auflagen | 4 |
 | Hohe Prüfung | Kernfertigkeiten bei 100 | den hohen Titel, z. B. „Hoher Paladin“ | stärkste Fähigkeit | 6 |
 
-Namen nach 466 (Chef 02.11.): **Fähigkeit** (Ability) ist, was ein Pfad gibt; Fertigkeiten haben Wert und Rang, Fähigkeiten nie. Pfadstufen: Anwärter, Eingeweihter, Titel, hoher Titel; Anfänger, Geselle, Meister, Großmeister sind nur Ränge der Fertigkeiten. Im Spiel heißen die Prüfungen nach dem Titel („Prüfung zum Paladin“, „Prüfung zum Hohen Paladin“); „Weihe“, „Titelprüfung“, „Hohe Prüfung“ stehen nur in der Regel. Stufen der Meisterschaften legt Homer fest (466).
+Namen nach 466 (Chef 02.11.): **Fähigkeit** (Ability) ist, was ein Pfad gibt; Fertigkeiten haben Wert und Rang, Fähigkeiten nie. Pfadstufen: Anwärter, Eingeweihter, Titel, hoher Titel; Anfänger, Geselle, Meister, Großmeister sind nur Ränge der Fertigkeiten. Im Spiel heißen die Prüfungen nach dem Titel („Prüfung zum Paladin“, „Prüfung zum Hohen Paladin“); „Weihe“, „Titelprüfung“, „Hohe Prüfung“ stehen nur in der Regel. Stufen der Meisterschaften (466 A, Chef 02.11., 22:03) wie beim Pfad: Anwärter → Eingeweihter → Titel → „Hoher“ + Titel; Titel Schmied, Lederer, Alchemist, Runenwirker, Feldkoch (EN Aspirant, Initiate, Smith, Leatherworker, Alchemist, Runewright, Field Cook, „High …“). „Runenmeister“ und „Lederarbeit“ bleiben Namen der Meisterschaft, keine Stufe.
 
 **Kapitel als Takt für alle Fertigkeiten (Startwerte):**
 
