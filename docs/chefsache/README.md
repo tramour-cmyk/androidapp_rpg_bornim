@@ -43,12 +43,6 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 | [462](ansehen/462-zeitstempel.md) | Name und Zeit vor jeder Nachricht | Perikles | 02.11., 02:43 |
 | [465](ansehen/465-seit-uhrzeit.md) | Chefsache „Seit“ immer mit Uhrzeit | Perikles | 02.11., 02:43 |
 
-**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
-
-| Folge | Version | Build | Was | Wer | Seit |
-|---|---|---|---|---|---|
-| 1 | [0.348.146](ansehen/t146-befunde.md) | [Build 146](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41260309540/artifacts/13065687340) | Befunde aus Build 143 | Tom und Jerry | 01.11., 02:56 |
-
 ## Zu tun
 
 Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen.
@@ -74,20 +68,20 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 45, Muss 34, startbar 4
+**Tom** – offen 45, Muss 34, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | Chef |
 | 417 | M | von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“): Tragart je Waffenklasse (Zu 417), | startbar |
-| 425 | M | von Sokrates (Chef 31.10., 21:30, Build 143): Menüs (Menü „System“, Testmenü): in der alte | wartet auf Test/Build (gebaut) |
-| 416.9 | M | von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“): Laden, Verkaufen, „angelegt“ mit | wartet auf Test/Build (gebaut) |
+| 425 | M | von Sokrates (Chef 31.10., 21:30, Build 143): Menüs (Menü „System“, Testmenü): in der alte | startbar |
+| 416.9 | M | von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“): Laden, Verkaufen, „angelegt“ mit | startbar |
 | 416.7 | M | von Sokrates (Chef 31.10., 20:5x, für den nächsten Build): am Tresen in Schenke und Laden | wartet auf Test (Build) |
-| 416.8 | M | von Sokrates (Chef 31.10., 20:5x, allgemeiner Hinweis): NPC dreht sich bei Interaktion zum | wartet auf Test (Build) |
-| 416.1 | M | von Sokrates (Chef 31.10., 20:4x, Build 143): Tasten reagieren schlecht (Bartform, Kopffor | wartet auf Test (Build) |
-| 416.2 | M | von Sokrates (Chef 31.10., 20:4x): gegen Dorfbewohner und Tiere laufen: Platzwechsel statt | wartet auf Test (Build) |
+| 416.8 | M | von Sokrates (Chef 31.10., 20:5x, allgemeiner Hinweis): NPC dreht sich bei Interaktion zum | startbar |
+| 416.1 | M | von Sokrates (Chef 31.10., 20:4x, Build 143): Tasten reagieren schlecht (Bartform, Kopffor | startbar |
+| 416.2 | M | von Sokrates (Chef 31.10., 20:4x): gegen Dorfbewohner und Tiere laufen: Platzwechsel statt | startbar |
 | 416.4 | M | von Sokrates (Chef 31.10., 20:4x): Rennen des Helden wirkt „als würde er Hochsprung machen | Chef |
-| 399.4 | M | von Chef (21:4x, Archiv); zurück Chef 31.10., 20:4x: oben Rand für die Kamera wie alt: im | wartet auf Test (Build) |
+| 399.4 | M | von Chef (21:4x, Archiv); zurück Chef 31.10., 20:4x: oben Rand für die Kamera wie alt: im | startbar |
 | 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf | wartet auf Test (Build) |
 | 410 | M | von Sokrates (Chef 29.10., 10:52, 11:40; aus 376.1): Waffen am Körper wegstecken, alle Waf | ruht |
 | 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | startbar |
@@ -124,7 +118,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 54, Muss 41, startbar 2
+**Jerry** – offen 54, Muss 41, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -138,12 +132,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 438a | M | von Sokrates (Chef 01.11., 11:47, „nicht beurteilen, wenn ich es nicht gesehen habe … Viel | Chef |
 | 439 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Reihenfolge Angriff, Treffer, Tod, Neuformati | wartet auf Test/Build (gebaut) |
 | 440 | M | von Sokrates (Chef 31.10., 23:34, Film 403): Wolf-Tod zu schnell weg (Zu 438) | wartet auf Test/Build (gebaut) |
-| 416.5 | M | von Sokrates (Chef 31.10., 20:4x, Build 143): im Kampf Details des Kampflogs aufrufen, dan | wartet auf Test (Build) |
+| 416.5 | M | von Sokrates (Chef 31.10., 20:4x, Build 143): im Kampf Details des Kampflogs aufrufen, dan | startbar |
 | 416.6 | K | von Sokrates (Chef 31.10., 20:4x): Spuren des Helden fehlen (core/Tracks.kt, LISTE-UMZUG-3 | startbar |
 | 415 | M | von Sokrates („jetzt“ 01.11., 20:0x; Archiv 415): Handyprobe Beams Free Sample (itch.io re | Chef |
 | 399.2 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv): Kampfort aufrufbar | wartet auf Test (Build) |
 | 399.2b | M | von Team Tom (15:05): Rudel allein zu stark | wartet auf Test (Build) |
-| 402 | M | von Sokrates (Chef 22:2x, Archiv): Blende vor dem Kampf wie alt; Herzschlag beim Hinterhal | wartet auf Test (Build) |
+| 402 | M | von Sokrates (Chef 22:2x, Archiv): Blende vor dem Kampf wie alt; Herzschlag beim Hinterhal | startbar |
 | 403 | M | von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler): Kampfort: Held | wartet auf Test/Build (gebaut) |
 | 461.1 | M | von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461): Grundstand mit Tom: Kampfort, Wölfe, Hel | wartet auf 406 (in Arbeit) |
 | 460 | M | von Sokrates (Chef 01.11., 20:2x: „Wechsel der Kameraperspektive … wie eine Drohne rumflie | wartet auf 461.1 (Chef) |
@@ -270,8 +264,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
-
-Format (Muster: „So geht's“ unten): t146-befunde.md: 8 Vorgänge, höchstens 6 je Build (317)
 
 Nicht gestellt: 186.3 (Pruefung)
 
