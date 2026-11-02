@@ -809,7 +809,8 @@ func _umkreis(a: Vector3, b: Vector3, c: Vector3):
 ## Gilt in jeder Bewegung; im Stehen liegt nichts unter dem Boden, dann bleibt die Lage aus dem Griff unverändert.
 const BODEN_FREI := 0.01        # Abstand über dem Boden, m
 const BODEN_HEBEL := 0.06       # nur Ecken außerhalb der Faust drehen die Waffe (bodenhalt.gd FAUST; die Faust geht mit der Hand)
-const KAPSEL_FREI := {"R": 0.05, "L": 0.12}     # 438a Runde 3: R von 0 auf 5 cm (sturz_438a an Haut und Kleidung: Stab 4 bis 8 cm in
+const KAPSEL_FREI := {"R": 0.02, "L": 0.12}     # 438a Runde 4: R 5 → 2 cm, die Beinkapseln der Waffe tragen jetzt Haut und Kleidung (_haut_radien)
+# 438a Runde 3: R von 0 auf 5 cm (sturz_438a an Haut und Kleidung: Stab 4 bis 8 cm in
 # der Beinrüstung, Klinge bis 7 cm in Stiefel und Kleid; Rüstung und Stoff liegen bis 6 cm über den Kapseln)     # Abstand zu den Körperkapseln, m: der Schild als Fläche braucht mehr (Messung sturz_438a:
 # mit 0 ragten Kopf und Wade bis 9 cm durch den Schildrand, Haut und Kleidung liegen über den Kapseln)
 const STURZ_BEWEGUNG := ["SS_Death", "SS_GetBackUp"]
@@ -880,6 +881,13 @@ func _boden_schutz() -> void:
 			a += (gs.basis * sk.get_bone_global_pose(i0).basis.y).normalized() * 0.1
 			b = a
 		kap.append([a, b, float(c[2]), i])
+	# 438a Runde 4 (Lauf 164: Stab 4,8/8,5 cm in der Beinrüstung, Klinge 13 cm im Wappenrock trotz KAPSEL_FREI 5 cm; Rüstung und Stoff
+	# liegen bis 9,5 cm über den Beinkapseln): für die Waffe die Beinkapseln so dick wie Haut und Kleidung dieses Körpers (_haut_radien)
+	if _haut_r.is_empty():
+		_haut_r = _haut_radien(sk, liste)
+	var kap_waffe := []
+	for k in kap:
+		kap_waffe.append([k[0], k[1], maxf(float(k[2]), float(_haut_r.get(k[3], 0.0))), k[3]])
 	for t in _boden_teile:
 		var w: Node3D = t[0]
 		if not is_instance_valid(w) or not w.is_inside_tree():
@@ -906,7 +914,7 @@ func _boden_schutz() -> void:
 		# Beinrüstung): der Satz führt ein Schwert, sein Griff hält einen Stab mittig, das hintere Ende geht durch die Beine; der Stab
 		# hält sich darum immer frei
 		var stab_frei: bool = t[5] == "R" and bool(w.get_meta("stab", false))
-		for k in (kap if sturz or korrigiert or stab_frei else []):
+		for k in ((kap_waffe if t[5] == "R" else kap) if sturz or korrigiert or stab_frei else []):
 			if not k[3] in ohne and griff.distance_to(Geometry3D.get_closest_point_to_segment(griff, k[0], k[1])) < reich + float(k[2]) + frei:
 				nah.append(k)
 		if nah.is_empty() and griff.y - reich >= y0:
@@ -933,6 +941,100 @@ func _boden_schutz() -> void:
 		g = r2[0]
 		w.transform = par.affine_inverse() * g if r1[1] or r2[1] else lokal
 		t[7] = w.transform
+
+
+## 438a Runde 4: Halbmesser der Beinkapseln (Index in [liste] -> m) aus Haut und Kleidung dieses Körpers, in der Ruhelage einmal je
+## Körper gerechnet (zwischengespeichert je Netz): je Kapsel von Knochen a nach b die Ecken, deren stärkster Knochen a oder ein Kind
+## von a vor b ist, zwischen a und b; davon der Abstand zur Achse, den 95 von 100 Ecken nicht überschreiten, höchstens 10 cm über der
+## festen Kapsel. Nur Ober- und Unterschenkel und Fuß (Kugeln und Rumpf bleiben fest: Umhang und Kopf würden sie aufblähen).
+const HAUT_BEIN := ["thigh_l", "thigh_r", "calf_l", "calf_r", "foot_l", "foot_r"]
+static var _haut_cache := {}
+var _haut_r := {}
+
+
+func _haut_radien(sk: Skeleton3D, liste: Array) -> Dictionary:
+	var netze := []
+	for mi in sk.find_children("*", "MeshInstance3D", true, false):
+		var m := mi as MeshInstance3D
+		if m.skin != null and m.mesh != null and not m.get_parent() is BoneAttachment3D:
+			netze.append(m)
+	var schluessel := ""
+	for m in netze:
+		schluessel += str(m.mesh.get_instance_id()) + ","
+	if _haut_cache.has(schluessel):
+		return _haut_cache[schluessel]
+	var gs := sk.global_transform
+	# Kapseln: [Index, a, b, Knochen, die zu ihr gehören]
+	var bein := []
+	for i in liste.size():
+		var c: Array = liste[i]
+		if c[0] == c[1] or not c[0] in HAUT_BEIN:
+			continue
+		var i0 := sk.find_bone(c[0])
+		var i1 := sk.find_bone(c[1])
+		if i0 < 0 or i1 < 0:
+			continue
+		var zu := {}
+		for bi in sk.get_bone_count():
+			var p := bi
+			while p >= 0 and p != i1:
+				if p == i0:
+					zu[bi] = true
+					break
+				p = sk.get_bone_parent(p)
+		if String(c[1]).begins_with("ball_"):
+			zu[i1] = true
+		bein.append([i, gs * sk.get_bone_global_rest(i0).origin, gs * sk.get_bone_global_rest(i1).origin, zu, PackedFloat32Array()])
+	for m in netze:
+		var skin: Skin = m.skin
+		var tr := []
+		var knochen := PackedInt32Array()
+		for j in skin.get_bind_count():
+			var bb := skin.get_bind_bone(j)
+			if bb < 0:
+				bb = sk.find_bone(skin.get_bind_name(j))
+			knochen.append(bb)
+			tr.append(gs * (sk.get_bone_global_rest(bb) if bb >= 0 else Transform3D.IDENTITY) * skin.get_bind_pose(j))
+		for s in m.mesh.get_surface_count():
+			var ar: Array = m.mesh.surface_get_arrays(s)
+			if ar[Mesh.ARRAY_BONES] == null or ar[Mesh.ARRAY_WEIGHTS] == null:
+				continue
+			var vs: PackedVector3Array = ar[Mesh.ARRAY_VERTEX]
+			var bs = ar[Mesh.ARRAY_BONES]
+			var ws = ar[Mesh.ARRAY_WEIGHTS]
+			var nb: int = bs.size() / maxi(vs.size(), 1)
+			for v in range(0, vs.size(), 2):     # jede zweite Ecke reicht für den Halbmesser
+				var stark := -1
+				var sw := 0.0
+				var p := Vector3.ZERO
+				for j in nb:
+					var w: float = ws[v * nb + j]
+					if w <= 0.0:
+						continue
+					p += (tr[bs[v * nb + j]] as Transform3D) * vs[v] * w
+					if w > sw:
+						sw = w
+						stark = knochen[bs[v * nb + j]]
+				for k in bein:
+					if not (k[3] as Dictionary).has(stark):
+						continue
+					var a: Vector3 = k[1]
+					var ab: Vector3 = (k[2] as Vector3) - a
+					var tt := (p - a).dot(ab) / maxf(ab.length_squared(), 1e-6)
+					if tt < -0.1 or tt > 1.1:
+						continue
+					(k[4] as PackedFloat32Array).append(p.distance_to(Geometry3D.get_closest_point_to_segment(p, a, k[2])))
+	var out := {}
+	for k in bein:
+		var d: PackedFloat32Array = k[4]
+		if d.size() < 20:
+			continue
+		d.sort()
+		var fest: float = float(liste[k[0]][2])
+		out[k[0]] = clampf(d[int(d.size() * 0.95)], fest, fest + 0.10)
+	_haut_cache[schluessel] = out
+	print("  438a Hautkapseln (Index MENSCH_KAPSELN + FUSS_KAPSELN: m) %s" % str(out))
+	return out
 
 
 ## Wie tief eine Ecke der Hülle (außerhalb der Faust) in einer Kapsel aus [nah] liegt (m, ohne Abstand)

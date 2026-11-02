@@ -52,7 +52,10 @@ func _process_modification_with_delta(_delta: float) -> void:
 		var a := sk.find_bone(c[0])
 		var b := sk.find_bone(c[1])
 		if a >= 0 and b >= 0:
-			beine.append([xs * sk.get_bone_global_pose(a).origin, xs * sk.get_bone_global_pose(b).origin, float(c[2]) + FAUST])
+			# 438a Runde 4: die Beinkapsel so dick wie Haut und Rüstung dieses Körpers (figur.gd _haut_radien; Lauf 164: Rüstung bis
+			# 9,5 cm über der festen Kapsel)
+			var r: float = maxf(float(c[2]), float(figur._haut_r.get(j, 0.0)))
+			beine.append([xs * sk.get_bone_global_pose(a).origin, xs * sk.get_bone_global_pose(b).origin, r + FAUST])
 	for i in _arm.size():
 		var hand0: Vector3 = xs * sk.get_bone_global_pose(_arm[i][0]).origin
 		var seite := "L" if i == 0 else "R"

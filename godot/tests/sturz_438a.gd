@@ -20,7 +20,8 @@ const HAND_GRENZE := 0.02        # bodenhalt.gd: Handgelenk und Fingerglieder h�
 const HAUT_GRENZE := 0.01        # Waffe höchstens so tief in Haut oder Kleidung (ohne den rechten Arm, der sie hält)
 const FINGER_GRENZE := 0.003     # Finger der Schildhand höchstens so weit vor der Vorderseite des Schilds
 const OFFEN_GRENZE := 0.03       # Fingerspitzen der Schwerthand höchstens so viel weiter vom Griff als in der Kampfhaltung
-const SPRUNG_GRAD := 15.0        # Waffe oder Schild je Bild höchstens so viel gedreht
+const SPRUNG_GRAD := 15.0        # Waffe oder Schild je Bild höchstens so viel gedreht …
+const SPRUNG_PLUS := 5.0         # … oder höchstens so viel mehr, als der Satz selbst in diesem Bild dreht
 
 var fails := 0
 var _hilfe = null
@@ -73,7 +74,7 @@ func _run() -> void:
 		var finger := _haut_maske(sk, _teilbaum(sk, ["hand_l"]).filter(func(b): return sk.get_bone_name(b) != "hand_l"), true)
 		var werte := {}     # Bewegung -> [Schildnetz m, Klinge in Kapsel m, im Boden m, Waffe in Haut m, Finger vor dem Schild m, Hand offen m, wo]
 		# nach den Schichten (skeleton_updated, nach figur.gd): die Pose, die man sieht, mit bodenhalt.gd
-		var mess := {"vorher": {}, "vorvorher": {}, "sprung": 0.0, "zuck": 0.0, "hand": -INF, "wo": "", "zwo": "", "q": {}, "qq": {}, "satz": 0.0}
+		var mess := {"vorher": {}, "vorvorher": {}, "sprung": 0.0, "zuck": 0.0, "hand": -INF, "wo": "", "zwo": "", "q": {}, "qq": {}, "satz": 0.0, "ueber": -INF, "uwo": ""}
 		var nach := func() -> void:
 			# Runde 3 (Lauf 160: Fingerspitzen unverändert, obwohl bodenhalt.gd die Faust hält): Knochen nur hier so, wie man sie sieht;
 			# außerhalb von skeleton_updated liest man die Pose ohne die Modifier (bodenhalt.gd)
@@ -83,9 +84,18 @@ func _run() -> void:
 				var gw: Transform3D = sk.global_transform * sk.get_bone_global_pose(t[4]) * ((t[0] as Node3D).transform)
 				var korr := gw.basis.orthonormalized().get_rotation_quaternion()
 				var hier := "%s %.2f s %s" % [fig.anim.current_animation, fig.anim.current_animation_position, t[5]]
+				# dasselbe ohne Korrektur (Lage aus dem Griff): wie sehr dreht und zuckt schon die Bewegung des Satzes selbst
+				var qs := (sk.global_transform * sk.get_bone_global_pose(t[4]) * (t[1] as Transform3D)).basis.orthonormalized().get_rotation_quaternion()
 				if mess.vorher.has(t[0]):
 					var q1: Quaternion = mess.vorher[t[0]]
 					var gr := rad_to_deg(q1.angle_to(korr))
+					# Runde 4 (Lauf 164: Schild 34,5° in einem Bild beim Aufprall): gezählt wird, was über SPRUNG_GRAD liegt und mehr als
+					# SPRUNG_PLUS über der Drehung, die der Satz in diesem Bild selbst macht (die Faust schlägt mit dem Arm auf)
+					var gs_: float = rad_to_deg((mess.q[t[0]] as Quaternion).angle_to(qs)) if mess.q.has(t[0]) else 0.0
+					var ueber := minf(gr - SPRUNG_GRAD, gr - gs_ - SPRUNG_PLUS)
+					if ueber > mess.ueber:
+						mess.ueber = ueber
+						mess.uwo = "%s: %.1f°, der Satz %.1f°" % [hier, gr, gs_]
 					if gr > mess.sprung:
 						mess.sprung = gr
 						mess.wo = hier
@@ -97,8 +107,6 @@ func _run() -> void:
 							mess.zwo = hier
 					mess.vorvorher[t[0]] = q1
 				mess.vorher[t[0]] = korr
-				# dasselbe ohne Korrektur (Lage aus dem Griff): wie sehr zuckt schon die Bewegung des Satzes selbst
-				var qs := (sk.global_transform * sk.get_bone_global_pose(t[4]) * (t[1] as Transform3D)).basis.orthonormalized().get_rotation_quaternion()
 				if mess.q.has(t[0]) and mess.qq.has(t[0]):
 					var a0: Quaternion = mess.qq[t[0]]
 					var a1: Quaternion = mess.q[t[0]]
@@ -159,7 +167,7 @@ func _run() -> void:
 		_check(werte.has("SS_GetBackUpBack"), "%s: steht aus der Rückenlage auf" % k)
 		sk.skeleton_updated.disconnect(nach)
 		_check(mess.zuck <= maxf(ZUCK_GRAD, mess.satz), "%s: Waffe und Schild zucken höchstens %.1f° hin und zurück (%s; der Satz selbst %.1f°); je Bild höchstens %.1f° (%s)" % [k, mess.zuck, mess.zwo, mess.satz, mess.sprung, mess.wo])
-		_check(mess.sprung <= SPRUNG_GRAD, "%s: Waffe und Schild je Bild höchstens %.1f° gedreht (%s)" % [k, mess.sprung, mess.wo])
+		_check(mess.ueber <= 0.0, "%s: Waffe und Schild je Bild höchstens %.0f° oder %.0f° über dem Satz gedreht (schlimmstes Bild %s; größte Drehung %.1f° bei %s)" % [k, SPRUNG_GRAD, SPRUNG_PLUS, mess.uwo, mess.sprung, mess.wo])
 		_check(mess.hand <= HAND_GRENZE, "%s: Hände höchstens %.3f m im Boden" % [k, mess.hand])
 		p.queue_free()
 		await process_frame
