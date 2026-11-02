@@ -42,7 +42,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
-- **Zu 471, von Team Tom (03.11., 00:5x):** Wochenziel sagt „Fertigkeiten steigen im Spiel“, 470a B hält den BRS-Helden bis 2.3 im Testmenü. Gebaut: Regeln wie sim.py (`brs_fertigkeit.gd`, Test brs_471). Votum A: im Spiel mit 2.3 wie 472/473; B wäre ein Fertigkeitsstand für den alten Helden (Herkunft aus der Klasse) schon jetzt, Doppelarbeit bis 2.3. Bitte Zeile im Wochenziel anpassen oder B sagen.
+- **Zu 471, von Team Tom (03.11., 00:5x):** Wochenziel sagt „Fertigkeiten steigen im Spiel“, 470a B hält den BRS-Helden bis 2.3 im Testmenü. Gebaut: Regeln wie sim.py (`brs_fertigkeit.gd`, Test brs_471). Votum A: im Spiel mit 2.3 wie 472/473; B wäre ein Fertigkeitsstand für den alten Helden (Herkunft aus der Klasse) schon jetzt, Doppelarbeit bis 2.3. Bitte Zeile im Wochenziel anpassen oder B sagen. Ebenso 458.3, 455.2, 348.13 (M im Vorrat, laut Wochenziel Kür; Aussehen, 488 offen): M oder K?
 - **Erledigt 02.11. abends, Wortlaute in Git:** 486, zu 484, 483, 470a (B), 473, 465, 480/480.1, Jerry Messlauf, Tom Push ohne Lauf, 461b verteilt (461b.1–4), Zu 464 „[skip ci]“ (seit 407 gezählt).
 
 - **von Sokrates (Chef 02.11., 20:22, „427.1 A mit 1 und 2“, Archiv 427.1):** im Projektplan bei O8 (Blutzahnhöhle) vermerken: Krogg erst abnehmen, wenn Morwens Rauch im Spiel zu bekommen ist (O7); Hinweistext 427.2 bei Homer.
