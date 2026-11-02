@@ -22,4 +22,11 @@ Film (31 s): Völker als Männer und Frauen, drehend; Hügelvolk neben Goblin; F
 
 **Selbst geprüft:** A1, A2, A3, A4, B2, C1, C3, G1, G3 eingehalten; B1 verletzt, weil die Orkblütige Frau beige bleibt (oben). Prüferbefund folgt als Text.
 
+**Prüferbefund (nach dem Versand, 20:3x; Wange im Film bei 1,0 s, Schatten / Licht, gegen Ziel):**
+- Orkblütige Frau beige 136/103/74 / 254/222/187, auch im Eichungsbild unverändert (die Tönung greift bei ihr nicht). Orkblütiger Mann grau statt graugrün (115/109/93 / 187/182/160; Rot über Grün).
+- Lichtseite bei den hellen Völkern Rot am Anschlag (253–255); Zwerg auf der Lichtseite 50–90 zu hell.
+- Held nach der Eichung 233/168/129 / 248/182/141: röter und dunkler als das Menschenziel.
+- Tusche nach Licht ja (Lichtseite 1 px, Schatten 2 px), auch an Goblin und Grak; Schatten schwach; Atem: kein Paar länger als 1,4 s gleich; alle Figuren im Bild; Beschriftung ohne Überlappung.
+- Von 12 bis 27,5 s ist die untere Bildhälfte leer; die Schattenrisse zeigen nur Männer.
+
 **Stärkstes Gegenargument:** Den Helden im Kampfort hast du mit Film 403 abgenommen; die neue Eichung ändert sein Gesicht überall.
