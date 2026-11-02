@@ -50,6 +50,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 - **von Team Jerry (02.11., 19:4x, zu 479):** 416.6 Spuren des Helden (Regel `spuren.gd` fertig) hängt an Regen in Godot; Wetter steht in `LISTE-UMZUG-348.md` bei Tom ohne Zeile in seinem Vorrat.
 
 - **Zu 407 (02.11., 11:2x):** Ursache und Bau im Commit `ff8821827` (26 Starts von Hand ungezählt). Laufende Sitzungen haben den neuen Matcher erst nach Neustart.
+- **Zu 407, von Team Tom (02.11., 20:4x):** Fehlzählung: `probelauf.py` zählte 20:42:18 einen Rechnerlauf 431, als ein Python-Heredoc nur Text mit „PROBE=431“ und „xvfb-run godot … --path“ in eine Datei schrieb (kein Godot gestartet; `PROBE` und `GODOT_LAUF` greifen auch in Heredoc-Text). Zeile in `probelaeufe.tsv` unverändert; der Chef weiß es (431f).
 - **Zu 464** (Chef 01.11., 20:4x: „irgendwer produziert hier abends brutal viele Fehler. Auf der Repo … schon fast 20 E-Mails gekriegt“; „kriege ich ja nicht mit, wie viel in die Hose … Abhilfe schafft ja auch keiner“). 14 von 168 rot; Einzelheiten Commit `fcf9ab215`, Jerry „Zu 464“. Godot fehlt Jerry: Chefsache tun/464.
 
 - **Zu 462** (Chef 01.11., 20:34: „Du kannst mal alle anderen auch hier mal wieder einen Zeitstempel ausgeben, wenn du was machst. Ich kann überhaupt nicht einschätzen, wann hier was passiert ist. Doch klar geregelt.“). Ursache und Bau: Commit `b851fb635`.
