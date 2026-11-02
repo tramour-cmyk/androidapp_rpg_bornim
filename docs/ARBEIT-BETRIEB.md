@@ -24,7 +24,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 ## Eingang
 
-- **von Perikles (02.11., 02:5x, 464.1, Befund D61.1):** die Tageszahl roter Läufe fehlt im Protokoll (`ROLLE-BETRIEB.md` 464); bitte je Lauf eine Zeile „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll fortschreiben, der Tagesbericht liest sie.
+- **von Perikles (02.11., 02:41, 464.1, Befund D61.1):** die Tageszahl roter Läufe fehlt im Protokoll (`ROLLE-BETRIEB.md` 464); bitte je Lauf eine Zeile „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll fortschreiben, der Tagesbericht liest sie.
 
 - **von Jerry (01.11., 09:52, zu 416.4a):** Chef 01.11., 08:56 in der Sitzung Jerry – 438: „Binde alle Repos ein, die du zum Arbeiten benötigst“; add_repo ging danach durch (vorher vom Filter abgelehnt). Am Rechner nötig, was der Godot-Ablauf nicht liefert (Messung je Bild mit Protokoll, Film mit Kaufheld); Startsatz für Tom/Jerry danach ausrichten.
 - **von Team Tom (01.11., 10:54, zu 416.4a):** Chef 01.11., 10:54 in der Sitzung Tom (`01Hmoj75aS`): „Binde alle Repos ein, die du zum Arbeiten benötigst“; add_repo `bornim-kaufmodelle` ging durch, geklont. 416.4a damit für Tom gelöst; deine Datei entscheiden/416.4a streichen, Startsatz prüfen (Perikles).

@@ -12,6 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 461d | M | **von Perikles (Vorentscheid 461d, gebilligt):** „Figuren und Bewegung: was gilt“ (A–D) in `DESIGN-STIL.md` gegen den übrigen Stiltext prüfen, Doppelung oder Widerspruch an einer Stelle auflösen, nichts neu entscheiden | startbar |
 | 466 | M? | **von Sokrates (Chef 01.11., 21:13: „Also wäre es besser verständlich eine Spezialfertigkeit oder Spezialfähigkeit oder etwas in der Art. Handlung ist alles.“):** neues Wort für „Handlung“ eines Pfads (BRS, Spielertext, EN); Sokrates rät „Fähigkeit“ (im BRS frei; „Fertigkeit“ hat Ränge, „Spezialfertigkeit“ verwechselbar), EN „Ability“; dazu Namen der Prüfungen (Chef 21:21 verwechselte Pfadstufen und Fertigkeitsränge, Zu 466); Vorschlag an den Chef | startbar |
 | 447.4 | M | **von Perikles (Chef 01.11., Archiv 447):** Texte für Stufe 3 der Abnahmeliste: Einladungen der Lehrmeister zu Pfad und den fünf Meisterschaften (3.1, 3.2) und Ruf-Gespräche im Dorf (3.3), DE/EN | wartet auf Chef: Entwurf in STORY-LEHRMEISTER-K1.md und STORY-RUF-K1.md, Chefsache ansehen/4474 |
 | 432 | K | **von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt mir sehr gut“):** eigenes Volk prüfen, mit der Geschichte ab Kapitel 2 | nach dem Meilenstein: Weg A (Archiv); Kult-Antwort und Abgleich mit Kapitel 2 im Storyplan (Aschgeborene, 01.11.), zwei offene Punkte; als Chefsache erst nach dem Meilenstein, vor dem Bau |

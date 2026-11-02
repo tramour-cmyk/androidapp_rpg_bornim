@@ -12,7 +12,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
-| 464.1 | M | **von Perikles (Doppelpack 421, Commits `013742216`, `0645c3d4e`):** 465.1: x-Zeit ohne passende Minute aus dem ältesten Commit des Tages (D60.1, `zug-index.py`); 464.1: Push-Haken liest alle .gd bis 80 s, nennt Ungeprüftes als Hinweis (D61.2, `probelauf.py`); D61.1 an Ford | startbar |
+| 464.1 | M | **von Perikles (Doppelpack 421):** 465.1 x-Zeit aus Git (D60.1, `013742216`); 464.1 Push-Haken alle .gd, Ungeprüftes als Hinweis (D61.2, `0645c3d4e`); 461d Grundstand in DESIGN-STIL/-KAMPF/-ABNAHME, nichts verloren?; 461a Tor vor dem Versand, ab 02.11. in Zählung 374/373 | startbar |
 | 461b | M | **von Sokrates (Chef 01.11., 22:26, „461b ja“, Archiv):** Kennzahl Widersprüche: montags Stichprobe Vorgangsarchiv gegen Grundstand (`LISTE-GRUNDSTAND-461.md`), Zahl der Stellen, an denen Überholtes ohne „→ ersetzt durch …“ steht oder der Grundstand dem neuesten Entscheid widerspricht | ab Mo 02.11. |
 | 464 | M | **von Perikles (Doppelpack 421, Commit `fcf9ab215` und folgender):** rote Läufe 464: Push-Haken in `probelauf.py` (Parsefehler hält an, kein Fehlalarm, kein Zählen eines angehaltenen Pushes, Arbeitsbaum unverändert); Ford-Schritt in `ROLLE-BETRIEB.md` tut es; ab 02.11. rote Läufe je Tag gegen 01.11. (14) | Haken und Ford-Schritt geprüft (Lauf 59); Rest erst wieder ab 02.11., 08:00 mit 374: rote Läufe 02.11. gegen 14 (aus `actions_list`, Zahl im Protokoll fehlt, D61.1) |
 | 434 | M | **von Sokrates (Chef 31.10., 22:1x):** bei jeder Zählung 374 zusätzlich die Zeile „Bestand geprüft“ je Vorlage zu einem Eigenbau prüfen (Zu 434) | erst wieder ab 02.11., 08:00 mit 374 (01.11. für 31.10. gezählt: Zu 374) |
