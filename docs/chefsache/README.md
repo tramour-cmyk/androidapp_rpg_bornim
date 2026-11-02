@@ -51,11 +51,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 51, Muss 34, startbar 12
+**Tom** – offen 51, Muss 33, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| Pflege | M | von Werkzeug (340.3, 02.11.): 24729 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | startbar |
 | 417 | M | von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“): Tragart je Waffenklasse (Zu 417), | Chef |
 | 416.9 | M | von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“): Laden, Verkaufen, „angelegt“ mit | startbar |
@@ -106,12 +105,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
+| Pflege | K | von Werkzeug (340.3, 02.11.): 25539 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 56, Muss 44, startbar 4
+**Jerry** – offen 56, Muss 43, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| Pflege | M | von Werkzeug (340.3, 02.11.): 15252 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 478 | M | von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv): Rechenkern des Kampfs schon in Stufe | ruht |
 | 427.1 | M | von Sokrates (Chef 02.11., 18:54, Archiv 427): Werte Bestiarium „Werte 2.0“ in werte.json; | startbar |
 | 481.1 | M | von Sokrates (Archiv 427): Tränke in sim444 (Zu 481 in ARBEIT-BERATUNG.md), Herkünfte neu | startbar |
@@ -167,12 +166,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | 469 | M | von Sokrates (02.11., 11:0x, zu 406.1): Kampf auf BRS: Ring (MARS) ohne Klassen regeln (An | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
+| Pflege | K | von Werkzeug (340.3, 02.11.): 15363 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 31, Muss 29, startbar 4
+**Perikles** – offen 31, Muss 28, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| Pflege | M | von Werkzeug (340.3, 02.11.): 22757 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 | 484 | M | von Diogenes (Chef 02.11., 19:27, Wortlaut Zu 484): keine Abkürzungen mehr in Telegram-Mel | wartet auf Test/Build (gebaut) |
 | 483 | M | von Sokrates (Chef 02.11., 19:21, „483 ja“, Archiv): Film-Links reparieren: jsDelivr liefe | wartet auf Test/Build (gebaut) |
 | 340.3 | M | von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv): A: notiz.sh-Hinweise (Größe, Zeilen | startbar |
@@ -203,12 +202,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | wartet auf Test/Build (gebaut) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
+| Pflege | K | von Werkzeug (340.3, 02.11.): 23068 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Diogenes** – offen 11, Muss 9, startbar 3
+**Diogenes** – offen 11, Muss 8, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| Pflege | M | von Werkzeug (340.3, 02.11.): 15198 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 | 484 | M | von Perikles (Doppelpack 421, 02.11., 19:4x): meldung.sh hält Abkürzungen an (Kürzel in Gr | ruht (424: altes SRD-System) |
 | 340.2 | M | von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv): Wirkung 340.3–340.5 zählen (Tabelle | ruht bis 09.11. |
 | 485 | M | „jetzt“ 02.11., 19:37 (Chef: „1, 2, 3 ja, fang an.“, Rollenspiegel 02.11.): (1) Wochenzähl | startbar |
@@ -219,6 +218,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24): Umzug Godot: jedes Vergleichsblatt alt/neu messen, | wartet auf Eingang |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
+| Pflege | K | von Werkzeug (340.3, 02.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
 
 **Sokrates** – offen 32, Muss 23, startbar 13
 
