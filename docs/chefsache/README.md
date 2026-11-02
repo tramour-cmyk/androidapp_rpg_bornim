@@ -262,7 +262,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 407 (Projekt)
 
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/431-voelker-lauf5.md, ansehen/4474-lehrmeister-texte.md
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/4474-lehrmeister-texte.md
 
 Ohne Datei: 3402 (Projekt), 275 (Projekt)
 
