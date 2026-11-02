@@ -5,7 +5,7 @@
 # je STRAHL_S Sekunden, dazwischen Pause. Oben Name des Strahls, Bilder je Sekunde (jetzt und Mittel je Strahl) und Renderer.
 # „Renderer wechseln“ schreibt user://renderer_415.cfg (project.godot application/config/project_settings_override), wirkt nach
 # Neustart der App; „Zurück“ lädt das Spiel neu (Hauptmenü). Kein Kampf: MARS bleibt stehen, die Figuren atmen.
-# Aufruf im Spiel: Testmenü „Strahlen“; als Film: tests/film_415.gd (setzt film = true: ohne Knöpfe, Kamera seitlich).
+# Aufruf im Spiel: Testmenü „Strahlen“; als Film: tests/film_415.gd (setzt film = true: ohne Knöpfe, Spielkamera).
 extends Node
 
 const Probe = preload("res://kampf/probe.gd")
@@ -61,9 +61,10 @@ func _lauf() -> void:
 	kf.add_child(ziel)
 	muendung = Node3D.new()
 	kf.add_child(muendung)
-	if film:
-		_filmkamera()
-	await get_tree().create_timer(1.0).timeout
+	# Prüfer Film 415 r1 (Lauf 171): Magier und Söldner nie im Bild (eigene Kamera im Hochformat zu eng), Strahl durch einen Wolf auf
+	# einen zweiten außerhalb (Ziel gewählt, als das Rudel noch einlief). Jetzt die Spielkamera wie im Kampf (alle im Bild) und das Ziel
+	# erst, wenn alle Figuren 1 s still stehen (höchstens 10 s)
+	await _bis_still()
 	while true:
 		for s in STRAHLEN:
 			await _feuer(s[0], s[1])
@@ -81,7 +82,7 @@ func _wolf():
 		var f = kf.figures[id]
 		if f.fighter.monster == null or f.down or not f.visible:
 			continue
-		var e: float = f.position.distance_to(held.position)
+		var e: float = f.global_position.distance_to(held.global_position)
 		if e < d:
 			d = e
 			best = f
@@ -184,20 +185,19 @@ func _renderer_wechseln() -> void:
 	lb.text += "\nNach Neustart der App: %s" % neu
 
 
-## Film: Kamera seitlich zwischen Magier und Wolf, beide ganz im Bild
-func _filmkamera() -> void:
-	var w = _wolf()
-	if w == null or held == null:
-		return
-	var a: Vector3 = held.global_position
-	var b: Vector3 = w.global_position
-	var mitte := (a + b) * 0.5 + Vector3(0, 0.8, 0)
-	var quer := (b - a).cross(Vector3.UP).normalized()
-	var c := Camera3D.new()
-	kf.add_child(c)
-	c.fov = 34.0
-	c.global_position = mitte + quer * maxf(a.distance_to(b) * 1.5, 3.5) + Vector3(0, 1.2, 0)
-	c.look_at(mitte)
-	c.make_current()
-	if "ink_ziel" in kf:
-		kf.ink_ziel = mitte
+## wartet, bis keine Figur sich mehr als 2 cm in 1 s bewegt (Einlauf des Rudels, Aufstellung), höchstens 10 s
+func _bis_still() -> void:
+	var alt := {}
+	var t := 0.0
+	var ruhig := 0.0
+	while t < 10.0 and ruhig < 1.0:
+		await get_tree().process_frame
+		var dt := get_process_delta_time()
+		t += dt
+		var weit := 0.0
+		for id in kf.figures:
+			var p: Vector3 = kf.figures[id].global_position
+			if alt.has(id):
+				weit = maxf(weit, p.distance_to(alt[id]))
+			alt[id] = p
+		ruhig = ruhig + dt if weit < 0.02 * dt else 0.0
