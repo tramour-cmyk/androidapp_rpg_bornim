@@ -63,6 +63,7 @@ func _run() -> void:
 			continue
 		var sk := fig._find(fig.model, "Skeleton3D") as Skeleton3D
 		hilfe._haut_lesen(sk)
+		fig.messen = true
 		var schild: Node = fig.model.find_child("Schild", true, false)
 		var sm: Node3D = (schild.find_children("*", "MeshInstance3D", true, false)[0] if not schild is MeshInstance3D else schild) if schild else null
 		var klinge: Node3D = null
@@ -314,11 +315,17 @@ func _runde3(fig, sk: Skeleton3D, klinge: Node3D, schild: Node, haut: Array, fin
 					e[3] = t
 					wo_neu = "%s %.2f s; %.2f m vom Griff" % [hw[2][best], fig.anim.current_animation_position, ab_griff]
 		if wo_neu != "":
+			# Lauf 189: „gedreht ?“, klinge ist der BoneAttachment3D, in _boden_teile steht das Netz darunter
 			var gedreht := "?"
 			for bt in fig._boden_teile:
-				if bt[0] == klinge:
-					gedreht = "%.0f°" % rad_to_deg((bt[1] as Transform3D).basis.orthonormalized().get_rotation_quaternion().angle_to(klinge.transform.basis.orthonormalized().get_rotation_quaternion()))
-			e[6] = "%s, Griff %.3f m in Haut, gedreht %s" % [wo_neu, g_tief, gedreht]
+				var wn: Node3D = bt[0]
+				if is_instance_valid(wn) and (wn == klinge or klinge.is_ancestor_of(wn)):
+					gedreht = "%.0f°" % rad_to_deg((bt[1] as Transform3D).basis.orthonormalized().get_rotation_quaternion().angle_to(wn.transform.basis.orthonormalized().get_rotation_quaternion()))
+			var ms: Dictionary = fig.mess_schutz
+			var schutz := "Schutz: Sturz %s, korrigiert %s, %d Hautpunkte, %d Kapseln; Haut vorher %.3f, nach _loesen %.3f (gedreht %s, %.0f°), zum letzten Bild %.0f°, Stufe %s, Ende %.3f m" % [
+				ms.get("sturz"), ms.get("korr"), ms.get("haut", -1), ms.get("nah", -1), ms.get("vor", NAN), ms.get("loesen", NAN), ms.get("gedreht"),
+				ms.get("will", NAN), ms.get("zum_letzten", NAN), ms.get("stufe", "?"), ms.get("ende", NAN)] if not ms.is_empty() else "Schutz: nichts"
+			e[6] = "%s, Griff %.3f m in Haut, gedreht %s; %s" % [wo_neu, g_tief, gedreht, schutz]
 		# Prüfer Runde 2 (Kämpfer von vorn: Klinge waagrecht vor dem Bauch): flachster Winkel der Achse zur Waagrechten
 		e[7] = minf(e[7], rad_to_deg(asin(clampf(absf((z - a).normalized().y), 0.0, 1.0))))
 		# Fingerspitzen der Schwerthand zur Achse (offen liegende Hand, Prüfer 7,1–9,0 s)

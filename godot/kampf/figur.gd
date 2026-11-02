@@ -821,6 +821,8 @@ const BODEN_ZURUECK := 0.12     # je Bild so viel zurück zur Lage aus dem Griff
 const FUSS_KAPSELN := [["foot_l", "ball_l", 0.05], ["foot_r", "ball_r", 0.05], ["calf_l", "calf_l", 0.11], ["calf_r", "calf_r", 0.11],
 	["calf_l", "foot_l", 0.08], ["calf_r", "foot_r", 0.08]]
 const HALTEARM := {"R": [9, 11], "L": [8, 10]}     # MENSCH_KAPSELN: Ober- und Unterarm, der hält, darf die Waffe berühren
+var messen := false             # 438a: sturz_438a liest mess_schutz je Bild (sonst nichts gerechnet)
+var mess_schutz := {}
 var _boden_teile := []          # je Waffe [Netz, Lage aus dem Griff, Hülle im eigenen Raum, Skelett, Knochen, Seite, Reichweite,
 #                                 Lage im letzten Bild]
 
@@ -864,6 +866,8 @@ func _huelle(w: Node3D) -> PackedVector3Array:
 
 
 func _boden_schutz() -> void:
+	if messen:
+		mess_schutz = {}
 	var y0 := global_position.y + BODEN_FREI
 	var sk: Skeleton3D = _boden_teile[0][3]
 	var kap := []     # Körperkapseln wie kapseln(), mit Index
@@ -928,8 +932,12 @@ func _boden_schutz() -> void:
 		var haut := []
 		if t[5] == "R" and (sturz or korrigiert or stab_frei) and t.size() > 8:
 			haut = _haut_nah(sk, g, t)
+		var vor_h := _haut_tiefe(g, t, haut) if messen else 0.0
 		var r1: Array = _loesen(g, t, nah, frei, y0, 24, 20, haut)
+		var nach_h := _haut_tiefe(r1[0], t, haut) if messen else 0.0
+		var will := rad_to_deg(g.basis.orthonormalized().get_rotation_quaternion().angle_to(r1[0].basis.orthonormalized().get_rotation_quaternion())) if messen else 0.0
 		g = r1[0]
+		var stufe := "frei"
 		# Körper weich: die Lage ändert sich je Bild höchstens BODEN_ZUG gegen das letzte Bild (sturz_438a: zwischen Knie und Schild
 		# zuckte der Schild 30° hin und zurück); der Boden bleibt hart, danach noch einmal nur er
 		var q0: Quaternion = (par * (t[7] as Transform3D)).basis.orthonormalized().get_rotation_quaternion()
@@ -941,8 +949,13 @@ func _boden_schutz() -> void:
 			# doppelt so schnell, nie mehr in einem Bild herum; den Boden hält danach r2 hart
 			if _in_kapsel(gz, t, nah, griff) <= frei * 0.3 and _haut_tiefe(gz, t, haut) <= HAUT_FREI * 0.3:     # nur so weit langsam, wie der Körper nicht wirklich hineinragt
 				g = gz
+				stufe = "10°"
 			elif winkel > 2.0 * BODEN_ZUG:
 				g = Transform3D(Basis(q0.slerp(q1, 2.0 * BODEN_ZUG / winkel)) * Basis.from_scale(g.basis.get_scale()), griff)
+				stufe = "20°"
+		if messen and t[5] == "R":     # 438a Messung (Lauf 189: Klinge 13 cm im Kleid, Griff frei): was der Schutz in diesem Bild tat
+			mess_schutz = {"sturz": sturz, "korr": korrigiert, "haut": haut.size(), "nah": nah.size(), "vor": vor_h, "loesen": nach_h,
+				"gedreht": r1[1], "will": will, "zum_letzten": rad_to_deg(winkel), "stufe": stufe, "ende": _haut_tiefe(g, t, haut)}
 		var r2: Array = _loesen(g, t, [], 0.0, y0, 16, 0)
 		g = r2[0]
 		w.transform = par.affine_inverse() * g if r1[1] or r2[1] else lokal
