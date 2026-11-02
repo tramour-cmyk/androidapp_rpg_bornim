@@ -11,6 +11,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
+| D69 | M | **von Perikles (Doppelpack 421, 02.11., 20:0x, `45468a5d7`):** Nachprüfung D69.1 (`meldung.sh`: Dateinamen gehen durch, Kürzel halten weiter an) und D70.1 (Archiv 480, 415c „teils ersetzt“) | startbar |
 | 340.2 | M | **von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv):** Wirkung 340.3–340.5 zählen (Tabelle „Änderungen“ in `LISTE-ROLLENSPIEGEL.md`, Spalte „gewirkt“) | ruht bis Mo 09.11. |
 | 485 | M | **„jetzt“ 02.11., 19:37 (Chef: „1, 2, 3 ja, fang an.“):** (1) Wochentermine „gelaufen ja/nein“ zählen; (2) 348.9 Vergleichsbilder selbst holen und messen; (3) Meldungen ohne Abkürzungen (Zu 485) | ruht bis Mo 09.11.: Wirkung zählen; (1) und (2) erledigt 02.11., 19:4x, (3) gilt |
 | 483 | M | **von Perikles (Doppelpack 421, 02.11., 19:4x):** `meldung.sh --film` legt je Film einen Zweig `film/<Zeit>-<Nr>` mit nur dieser Datei an, Link über jsDelivr; prüfen am nächsten echten Film (Link spielt ab, Datei in `ansehen/` hat ihn) | wartet auf den nächsten echten Film |
