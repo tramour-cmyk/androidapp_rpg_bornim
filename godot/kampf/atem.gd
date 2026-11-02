@@ -30,8 +30,15 @@ const HALTEN_S := 2.0
 const ABKLINGEN_S := 2.5
 ## die Tiefe folgt der Anstrengung weich (s), sonst springen die Schultern mitten im Atemzug
 const TIEF_S := 0.4
-## höchstens so tief wie in Ruhe, mit Ausgleich nach Kameraabstand
-const TIEF_MAX := 3.2
+## höchstens so tief wie in Ruhe, mit Ausgleich nach Kameraabstand und Tracht
+const TIEF_MAX := 5.0
+## 453.1 Feld 2, Tor 461a (Prüfer Lauf 173: der Kleriker atmet im Bild 1,0 px, der Kämpfer 1,7 px, das Schultergelenk beider hebt
+## sich gleich, 1,5 cm; nach dem Treffer 1,6 px, „kaum sichtbar“): wie weit sich die Haut über der Schulter hebt, hängt an der Tracht
+## (welche Knochen sie tragen). Beim ersten Bild misst die Schicht darum an der eigenen Figur, wie weit sich die Haut im Umkreis
+## NETZ_R über dem Schultergelenk bei voller Einatmung hebt, gegen dieselben Punkte, säßen sie fest am Schlüsselbein, und gleicht
+## das aus, höchstens NETZ_MAX
+const NETZ_R := 0.15
+const NETZ_MAX := 2.0
 const EIN_ANTEIL := 0.42
 ## Ausschlag in Grad bei voller Einatmung in Ruhe: [Knochen, Art, Grad]; „zurück“ dreht um die Querachse (Brust hebt sich),
 ## „heben“ das Schlüsselbein um die Längsachse nach oben, „blick“ gleicht am Hals und Kopf den Rumpf aus (Blick bleibt)
@@ -57,6 +64,9 @@ var tief_glatt := 1.0     # weich nachgeführte Tiefe
 ## 453.1 Feld 2 nur im Kampfort (eigen_kampf); unterwegs (held.gd ruft anstrengen je Bild beim Gehen und Rennen) wie
 ## bisher. Prüfschalter ATEM_FELD2=1: auch im Kampfort wie Feld 2 (02.11., 11:07)
 var kampf := false
+var netz := 1.0           # Ausgleich nach Tracht (1 = Haut hebt sich wie das Gelenk)
+var netz_roh := 1.0       # gemessen: Hub fest am Schlüsselbein durch Hub der Haut (Prüflauf)
+var _netz_mi := []        # Netze der Figur, gemessen wird beim ersten Bild
 var _idx := []
 
 
@@ -75,6 +85,12 @@ func eigen_kampf(seed: int) -> void:
 		return
 	kampf = true
 	takt *= RUHE_KAMPF_S / RUHE_S
+
+
+## 453.1: die Netze der Figur (figur.gd), nur im Kampfort; gemessen beim ersten Bild, wenn die Pose der Bewegung steht
+func netz_messen(netze: Array) -> void:
+	if kampf:
+		_netz_mi = netze.filter(func(m): return m is MeshInstance3D and m.skin != null and m.mesh != null)
 
 
 func _enter_tree() -> void:
@@ -142,16 +158,24 @@ func _process_modification_with_delta(delta: float) -> void:
 			_idx.append(sk.find_bone(k[0]))
 	if ausgleich:
 		sicht = lerpf(sicht, _sicht_jetzt(sk), 1.0 - exp(-dt / SICHT_S))
-	var tief := minf(tief_glatt * sicht, TIEF_MAX)
-	tiefe = welle(phase) * tief
-	if tiefe < 0.0005:
-		return
-	# Achsen im Raum des Skeletts: oben aus der Welt, links aus den Oberarmen (der Rumpf kann gedreht sein), vorn daraus
-	var oben: Vector3 = (sk.global_basis.inverse() * Vector3.UP).normalized()
 	var ol := sk.find_bone("upperarm_l")
 	var orr := sk.find_bone("upperarm_r")
 	if ol < 0 or orr < 0:
 		return
+	if not _netz_mi.is_empty():
+		_netz_messen(sk, [ol, orr])
+		_netz_mi = []
+	var tief := minf(tief_glatt * sicht * netz, TIEF_MAX)
+	tiefe = welle(phase) * tief
+	if tiefe < 0.0005:
+		return
+	_drehe(sk, tiefe, ol, orr)
+
+
+## die Schicht auf die Pose: Brust, Schlüsselbeine, Hals, Kopf um [t] (Einatmung mal Tiefe)
+func _drehe(sk: Skeleton3D, t: float, ol: int, orr: int) -> void:
+	# Achsen im Raum des Skeletts: oben aus der Welt, links aus den Oberarmen (der Rumpf kann gedreht sein), vorn daraus
+	var oben: Vector3 = (sk.global_basis.inverse() * Vector3.UP).normalized()
 	var links: Vector3 = sk.get_bone_global_pose(ol).origin - sk.get_bone_global_pose(orr).origin
 	links = (links - oben * links.dot(oben)).normalized()
 	var vorn := links.cross(oben).normalized()
@@ -160,7 +184,7 @@ func _process_modification_with_delta(delta: float) -> void:
 		if b < 0:
 			continue
 		var art: String = KNOCHEN[i][1]
-		var grad: float = KNOCHEN[i][2] * tiefe
+		var grad: float = KNOCHEN[i][2] * t
 		var g := sk.get_bone_global_pose(b)
 		var r: Basis
 		if art == "zurück":
@@ -171,3 +195,77 @@ func _process_modification_with_delta(delta: float) -> void:
 			r = Basis(links, -deg_to_rad(grad))     # negative Grad: wieder nach vorn
 		g.basis = r * g.basis
 		sk.set_bone_global_pose(b, g)
+
+
+## Haut im Umkreis NETZ_R über beiden Schultergelenken: wie weit hebt sie sich bei voller Einatmung (in Ruhe, ohne Ausgleich)
+## gegen dieselben Punkte fest am Schlüsselbein? Haut auf dem Rechner nachgerechnet (Knochenpose * Bindung * Punkt, gewichtet, wie tests/atem_bild_453.gd);
+## danach die Pose zurück, wie sie vor der Messung war
+func _netz_messen(sk: Skeleton3D, gelenke: Array) -> void:
+	var n := sk.get_bone_count()
+	var vor := []
+	for b in n:
+		vor.append(sk.get_bone_global_pose(b))
+	_drehe(sk, 1.0, gelenke[0], gelenke[1])
+	var nach := []
+	for b in n:
+		nach.append(sk.get_bone_global_pose(b))
+	for i in KNOCHEN.size():
+		if _idx[i] >= 0:
+			sk.set_bone_global_pose(_idx[i], vor[_idx[i]])
+	var gt := sk.global_transform
+	var g_ort := []
+	var fest := []     # je Seite: Bewegung des Schlüsselbeins im Raum der Welt
+	for k in 2:
+		g_ort.append(gt * (vor[gelenke[k]] as Transform3D).origin)
+		var c: int = _idx[2 + k]     # KNOCHEN: clavicle_l, clavicle_r
+		if c < 0:
+			return
+		fest.append(gt * (nach[c] as Transform3D) * (vor[c] as Transform3D).affine_inverse() * gt.affine_inverse())
+	var summe := 0.0
+	var summe_fest := 0.0
+	var zahl := 0
+	for mi in _netz_mi:
+		var skin: Skin = mi.skin
+		var bind := []
+		for i in skin.get_bind_count():
+			var bn := skin.get_bind_bone(i)
+			if bn < 0:
+				bn = sk.find_bone(skin.get_bind_name(i))
+			bind.append([bn, skin.get_bind_pose(i)])
+		for f in mi.mesh.get_surface_count():
+			var arr: Array = mi.mesh.surface_get_arrays(f)
+			var vs: PackedVector3Array = arr[Mesh.ARRAY_VERTEX]
+			if arr[Mesh.ARRAY_BONES] == null or vs.is_empty():
+				continue
+			var bo = arr[Mesh.ARRAY_BONES]
+			var we = arr[Mesh.ARRAY_WEIGHTS]
+			var je: int = bo.size() / vs.size()
+			for v in vs.size():
+				var p0 := Vector3()
+				for j in je:
+					var w: float = we[v * je + j]
+					if w > 0.0 and bo[v * je + j] < bind.size() and bind[bo[v * je + j]][0] >= 0:
+						var bi: Array = bind[bo[v * je + j]]
+						p0 += w * ((vor[bi[0]] as Transform3D) * ((bi[1] as Transform3D) * vs[v]))
+				p0 = gt * p0
+				var seite := -1
+				for k in 2:
+					if p0.distance_to(g_ort[k]) < NETZ_R and p0.y > (g_ort[k] as Vector3).y - 0.03:
+						seite = k
+				if seite < 0:
+					continue
+				var p1 := Vector3()
+				for j in je:
+					var w: float = we[v * je + j]
+					if w > 0.0 and bo[v * je + j] < bind.size() and bind[bo[v * je + j]][0] >= 0:
+						var bi: Array = bind[bo[v * je + j]]
+						p1 += w * ((nach[bi[0]] as Transform3D) * ((bi[1] as Transform3D) * vs[v]))
+				summe += (gt * p1).y - p0.y
+				summe_fest += ((fest[seite] as Transform3D) * p0).y - p0.y
+				zahl += 1
+	if zahl == 0 or summe_fest <= 0.0:
+		return
+	netz_roh = summe_fest / maxf(summe, 0.0001 * zahl)
+	netz = clampf(netz_roh, 1.0, NETZ_MAX)
+	print("Atem 453.1 Netz: %d Punkte, Haut %.1f mm, fest am Schlüsselbein %.1f mm, Ausgleich %.2f" % [zahl, summe / zahl * 1000.0,
+		summe_fest / zahl * 1000.0, netz])

@@ -888,6 +888,7 @@ func _atem_an() -> void:
 	atem.name = "Atem"
 	atem.eigen_kampf(hash(String(fighter.id)))     # 453.1 Feld 2: im Kampf „einen Tick schneller“, Steigerung sichtbar
 	atem.ausgleich = true     # 453.1 (Chef 19:5x): der fernere Held atmet im Bild so deutlich wie der nähere
+	atem.netz_messen(model.find_children("*", "MeshInstance3D", true, false))     # 453.1 Tor 461a: Haut nach Tracht
 	sk.add_child(atem)
 
 

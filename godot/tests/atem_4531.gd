@@ -132,8 +132,10 @@ func _run() -> void:
 		print("%s: Atemzug in Ruhe %.2f s (%d Züge), Takt %.2f s, Schulter %.1f cm, Kopf %.2f°" % [n, mittel, d.size(), s.fig.atem.takt, _spanne(s.schulter) * 100.0, _spanne(s.kopf)])
 		_check(mittel >= 3.0 and mittel <= 4.2, "%s: Atemzug in Ruhe 3,0–4,2 s (%.2f)" % [n, mittel])
 		# 453.1 Urteil 19:5x („etwas deutlicher“ beim vorderen): Maße im Bild, also geteilt durch den Ausgleich nach Kameraabstand
-		var si: float = s.fig.atem.sicht
-		print("%s: Ausgleich nach Kameraabstand %.2f, Abstand %.2f m" % [n, si, _kamera_abstand(s)])
+		# 453.1 Tor 461a: das Gelenk hebt sich um den Ausgleich nach Tracht mehr, damit die Haut sich so hebt wie vorher das Gelenk
+		var si: float = s.fig.atem.sicht * s.fig.atem.netz
+		print("%s: Ausgleich nach Kameraabstand %.2f, nach Tracht %.2f (gemessen %.2f), Abstand %.2f m" % [n, s.fig.atem.sicht, s.fig.atem.netz, s.fig.atem.netz_roh, _kamera_abstand(s)])
+		_check(s.fig.atem.netz_roh != 1.0, "%s: Haut über der Schulter gemessen" % n)
 		_check(_spanne(s.schulter) / si >= 0.006 and _spanne(s.schulter) / si <= 0.016, "%s: Schulter hebt sich 0,6–1,6 cm im Bild (%.2f / %.2f)" % [n, _spanne(s.schulter) * 100.0, si])
 		_check(_spanne(s.kopf) / si <= 1.5, "%s: Kopf neigt sich höchstens 1,5° im Bild (%.2f / %.2f)" % [n, _spanne(s.kopf), si])
 	# 453.1: der weiter von der Kamera atmet um so viel tiefer, wie er im Bild kleiner ist (höchstens 1,6), der nähere wie bisher
