@@ -290,6 +290,9 @@ func _runde3(fig, sk: Skeleton3D, klinge: Node3D, schild: Node, haut: Array, fin
 		var hw: Array = _haut_welt(sk, haut, box)
 		var pos: PackedVector3Array = hw[0]
 		var l := a.distance_to(z)
+		var wo_neu := ""
+		var g_ab := INF
+		var g_tief := -INF
 		for i in int(l / 0.015) + 1:
 			var s := a.lerp(z, i * 0.015 / maxf(l, 0.001))
 			var best := -1
@@ -301,9 +304,21 @@ func _runde3(fig, sk: Skeleton3D, klinge: Node3D, schild: Node, haut: Array, fin
 					best = j
 			if best >= 0:
 				var t: float = r - (s - pos[best]).dot(hw[1][best])
+				# Lauf 187 (Runde 5 kaum besser: Aufstehen 12,9 cm): wie weit die tiefste Stelle vom Griff liegt, wie tief der Griff
+				# selbst steckt und wie weit _boden_schutz die Waffe gedreht hat; steckt schon die Faust im Kleid, hilft kein Drehen
+				var ab_griff := s.distance_to(klinge.global_position)
+				if ab_griff < g_ab:
+					g_ab = ab_griff
+					g_tief = t
 				if t > e[3]:
 					e[3] = t
-					e[6] = "%s %.2f s" % [hw[2][best], fig.anim.current_animation_position]
+					wo_neu = "%s %.2f s; %.2f m vom Griff" % [hw[2][best], fig.anim.current_animation_position, ab_griff]
+		if wo_neu != "":
+			var gedreht := "?"
+			for bt in fig._boden_teile:
+				if bt[0] == klinge:
+					gedreht = "%.0f°" % rad_to_deg((bt[1] as Transform3D).basis.orthonormalized().get_rotation_quaternion().angle_to(klinge.transform.basis.orthonormalized().get_rotation_quaternion()))
+			e[6] = "%s, Griff %.3f m in Haut, gedreht %s" % [wo_neu, g_tief, gedreht]
 		# Prüfer Runde 2 (Kämpfer von vorn: Klinge waagrecht vor dem Bauch): flachster Winkel der Achse zur Waagrechten
 		e[7] = minf(e[7], rad_to_deg(asin(clampf(absf((z - a).normalized().y), 0.0, 1.0))))
 		# Fingerspitzen der Schwerthand zur Achse (offen liegende Hand, Prüfer 7,1–9,0 s)
