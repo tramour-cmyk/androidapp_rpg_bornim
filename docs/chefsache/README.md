@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [431c](entscheiden/431c-voelker-angehalten.md) | **Muss** | E Figuren | 02.11., 13:40 | Völker Runde 4: Film am Tor angehalten, neue Läufe frei? | Spike (Team Tom) |
 | [406a](entscheiden/406a-schlussfilm-angehalten.md) | **Muss** | E Kampf | 02.11., 13:18 | Schlussfilm Schilde angehalten: neue Läufe frei? | Jerry |
 | [415b](entscheiden/415b-strahlen-dritter-lauf.md) | **Muss** | C Kampf | 02.11., 13:13 | Strahlenprobe: Film angehalten, dritter Lauf oder Handy? | Jerry |
 | [348.12b](entscheiden/34812b-grak-koerper.md) | **Muss** | E Kampf | 01.11., 21:00 | Grak-Film vorab auf seinem alten Körper? | Sokrates |
@@ -53,11 +54,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 47, Muss 33, startbar 7
+**Tom** – offen 47, Muss 33, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | in Arbeit bei Spike |
+| 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 417 | M | von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“): Tragart je Waffenklasse (Zu 417), | Chef |
 | 416.9 | M | von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“): Laden, Verkaufen, „angelegt“ mit | Chef |
 | 416.7 | M | von Sokrates (Chef 31.10., 20:5x, für den nächsten Build): am Tresen in Schenke und Laden | wartet auf Test/Build |
