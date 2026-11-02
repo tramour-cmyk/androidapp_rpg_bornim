@@ -545,3 +545,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 424 | Umzugsliste und Vorräte frei von Arbeit am alten SRD-System: Regelzeilen in `LISTE-UMZUG-348.md` ruhen, Wächter in `startbar.py`/`lauf.py` („jetzt“ 31.10., 21:3x) | B Abläufe | M | 3,43 $ | Perikles | erledigt |
 | 433 | Arbeit verteilen: unabhängige Zeilen von Tom und Jerry an Spike und Tuffy oder intern umschichten, statt zu warten („jetzt“ 31.10., 22:1x) | B Abläufe | M | 31,61 $ | Perikles | erledigt |
 | 436 | Sitzungsnamen „Rolle – Vorgang: Thema (Zeit)“ für alle Beschäftigten, Regel in CLAUDE.md, Ford benennt um (Chef 31.10., 22:58) | B Abläufe | M | 1,17 $ | Perikles | erledigt |
+| 348.12j | Rückfrage: Graks Axt Kopf oben oder hängend (Grundstand E6) | E Kampf | M | – | Jerry | erledigt |

@@ -165,3 +165,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:15 02.11.: Marke Archiv session_01Hmoj76XUHhCSiR6J7dFHQR (lauf.py)
 - 11:15 02.11.: Marke Archiv session_01Hmoj75ctSXCtzaJ6YUkUfX (lauf.py)
 - 11:33 02.11.: Startsperre 11:33 Start Jerry (lauf.py)
+- 11:53 02.11.: Startsperre 11:53 Start Diogenes, Spike, Tuffy (lauf.py)
+- 11:53 02.11.: Marke Archiv-Warnung session_01Hmoj77knGjX4BaYrUHeYqu (lauf.py)
+- 11:53 02.11.: Marke Archiv-Warnung session_01Hmoj78cFaJik8ADBZZbGKg (lauf.py)
+- 11:53 02.11.: Marke Archiv session_01Hmoj78iuvSCGcM74XdVXxT (lauf.py)
+- 11:53 02.11.: Nachfolger-Warnung Diogenes (Übergabe 02.11., 11:29) (lauf.py)
