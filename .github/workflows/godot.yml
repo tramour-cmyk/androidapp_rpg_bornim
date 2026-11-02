@@ -17,6 +17,9 @@ on:
       schild:
         description: "Schildfilm 406 (Jerry, Schlussfilm): ja"
         default: ""
+      bild:
+        description: "Messlauf ohne Bilder und Filme (Perikles 02.11., 389/390a): nein"
+        default: ""
 
 jobs:
   apk:
@@ -294,6 +297,7 @@ jobs:
           path: bornim-godot.apk
       # Standbilder mit dem Mobile-Renderer (Vulkan in Software, lavapipe) zum Pruefen und fuer das Vergleichsbild
       - name: Standbilder
+        if: github.event.inputs.bild != 'nein'     # Messlauf ohne Bild zählt nicht als Probelauf (Perikles 02.11., 19:5x)
         continue-on-error: true
         run: |
           sudo apt-get install -y -q mesa-vulkan-drivers xvfb > /dev/null
@@ -403,7 +407,7 @@ jobs:
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/schild406.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/406-schluss.mp4 || true
           ls -l $B
       - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}     # 453: Filme auch nach rotem Prüfschritt
+        if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # 453: Filme auch nach rotem Prüfschritt; nie mit bild=nein
         with:
           name: bornim-godot-bilder
           path: bilder/
