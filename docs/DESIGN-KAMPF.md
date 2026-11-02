@@ -15,7 +15,7 @@ Was der Chef zu Waffe, Schild und Kampf im Bild entschieden hat, steht nur hier 
 | E3 | Nichts durch Körper, Kopf, Kleidung oder Boden (Schild, Schwert, Faust, Stiel, Schulter am Schild); Richtwert von uns: höchstens 2 cm je Bild gemessen (Ziel 0 wie „Selbst prüfen“ in `DESIGN-ABNAHME.md`) | 438a, 417, 406, 348.12 | ja, 2 cm Maß |
 | E4 | Angriffe und Schildaktionen aus Sword & Shield, auch mit Stab | 406 (20:2x) | ja |
 | E5 | Hinfallen und Aufstehen aus dem Paket der Waffe (gewählt: Hinfallen 1, 11D, 11F; Aufstehen 1, 12B; Taumeln 13); Injured nur ohne Waffe in der Hand | 438a (20:1x) | ja |
-| E6 | Kriegsaxt: Kopf hängt nach unten, Schwerpunkt etwas nach vorn; Zweihänder: beide Fäuste sichtbar um den Stiel, beim Gehen und Rennen | 417 (11:32; 20:4x) | ja |
+| E6 | Unterwegs: Kriegsaxt Kopf hängt nach unten, Schwerpunkt etwas nach vorn; Zweihänder beide Fäuste sichtbar um den Stiel, beim Gehen und Rennen. Im Kampf (Held wie Grak): Kampfhaltung des Zweihand-Pakets, Kopf oben, beide Fäuste am Stiel, kein Stiel durch die Schulter (E3) | 417 (11:32; 20:4x), 348.12j (02.11., 11:22) | ja |
 | E7 | Waffenformen aus dem Bestand nach Stufe, Seltenheit über Material und Zeichen, in unseren Farben | 458.3 (19:5x) | ja |
 | E8 | Schild beim Gehen an der Seite hängend wie im Stand, nicht vom Körper abgespreizt; Einhandwaffe und Bogen wie Runde 5 | 417 (01.11., 20:4x) | ja |
 
