@@ -62,7 +62,12 @@
     "_fertigkeit_schritt": "A: je 5 Punkte Fertigkeitsaufstieg 20 x Heldenstufe Erfahrung (bei Stufe 1 also 20 von 100)",
     "fertigkeit_deckel": 0.4,
     "probe_erfahrung_je_heldenstufe": 25,
-    "_probe": "A: Bewaehrungsprobe bestanden = 25 x Heldenstufe Erfahrung (Tat)"
+    "_probe": "A: Bewaehrungsprobe bestanden = 25 x Heldenstufe Erfahrung (Tat)",
+    "weich_stufen": 2,
+    "weich_faktor": 0.25,
+    "_weich": "N 4, E 18: ab der Kapitelgrenze bis zu 2 Stufen darueber, dort nur ein Viertel der Erfahrung (472; die Simulation rechnet noch mit harter Grenze)",
+    "topf_rest_anteil": 0.1,
+    "_topf": "E 19, E 21: Topf je Gebiet = 10 x Stufe^2 jeder Art des Gebiets einmal (ohne Bosse, A); leer: nur noch dieser Anteil (A, 'kleiner Anteil', 'kaum'); 472"
   },
 
   "ueben": {
