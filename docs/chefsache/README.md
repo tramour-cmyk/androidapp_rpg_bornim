@@ -217,7 +217,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
-**Diogenes** – offen 9, Muss 7, startbar 6, PAUSE bis 02.11., 08 Uhr
+**Diogenes** – offen 9, Muss 7, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
