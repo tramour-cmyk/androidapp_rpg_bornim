@@ -34,10 +34,10 @@ PALETTE = {
     # Probelauf 1 (Pruefer 06:3x): göttlich Klingen reinweiss übersteuert, Omie-Stiele hell ocker, dunkle Hölzer auf Schwarz unsichtbar
     'COMMON':    {'metall': h(0x5E6168), 'beschlag': h(0x4A4C50), 'holz': h(0x5C3F27), 'leder': h(0x3A2A20), 'akzent': h(0x4A3A30)},
     'UNCOMMON':  {'metall': h(0x7C838C), 'beschlag': h(0x3A3C42), 'holz': h(0x553723), 'leder': h(0x6E2E24), 'akzent': h(0x6E2E24)},
-    'RARE':      {'metall': h(0x8C929A), 'beschlag': h(0xA8884A), 'holz': h(0x48301F), 'leder': h(0x2E2622), 'akzent': h(0x2A3450)},
+    'RARE':      {'metall': h(0x848A92), 'beschlag': h(0xA8884A), 'holz': h(0x48301F), 'leder': h(0x2E2622), 'akzent': h(0x2A3450)},
     'VERY_RARE': {'metall': h(0x4E5660), 'beschlag': h(0xA8884A), 'holz': h(0x3A2A22), 'leder': h(0x2E2A34), 'akzent': h(0x5A3A8A)},
     'EPIC':      {'metall': h(0x353840), 'beschlag': h(0xB8904A), 'holz': h(0x36281F), 'leder': h(0x4A1A16), 'akzent': h(0xB0601A)},
-    'DIVINE':    {'metall': h(0x9EA4AC), 'beschlag': h(0xB8904A), 'holz': h(0x3A2A20), 'leder': h(0x3A2A20), 'akzent': h(0xD8B040)},
+    'DIVINE':    {'metall': h(0x868C94), 'beschlag': h(0xB8904A), 'holz': h(0x3A2A20), 'leder': h(0x3A2A20), 'akzent': h(0xD8B040)},
 }
 # Glimmen (Godot: glow je Flaeche in glow_col): verzaubert ab „sehr selten“, schwach, in der Farbe der Seltenheit (Gear.kt), Klinge
 # leiser als Stein und Schmuck (akzent); bleibt hier, damit Film und Spiel dieselben Zahlen lesen (staffel.json)
@@ -304,6 +304,12 @@ for kennung in sorted(gesucht):
             ks = bild_klassen(q[ys, xs][None, :, :])[0]
             fl_kl.append(KLASSEN[int(np.bincount(ks, minlength=5).argmax())])
         fl_q.append(qi)
+    # Beschlag ist klein (Parierstange, Ringe, Nieten); ueber ein Viertel der Flaeche ist es hellgelbes Holz (Probelauf 2, Pruefer:
+    # Avramania Speer 60 %, Handbeil 40 % Beschlag, Stiel dadurch grau)
+    fl_a = np.array([pg.area for pg in me.polygons])
+    if fl_a[np.array(fl_kl) == 'beschlag'].sum() > 0.25 * fl_a.sum():
+        fl_kl = ['holz' if k == 'beschlag' else k for k in fl_kl]
+        print('BESCHLAG ALS HOLZ', kennung)
     # neue Materialien je (Quelle, Klasse)
     paare = sorted({(q, k) for q, k in zip(fl_q, fl_kl)}, key=lambda x: (KLASSEN.index(x[1]), x[0]))
     neu = []
