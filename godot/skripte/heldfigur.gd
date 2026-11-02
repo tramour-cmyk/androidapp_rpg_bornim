@@ -55,7 +55,7 @@ const RENNEN := "A"   # Chef 01.11., 13:1x (Archiv 416.4): „Wir nehmen tatsäc
 # 417 (Chef 02.11., 14:50/14:52: im Dorf-Film läuft der Held mit Rennen A und mitgetragener Waffe „vernünftig“): Rennen mit Waffe
 # „paket“ = Paketbewegung ganz (Sprint, Oberkoerper aufgerichtet, waffengang.py); „A“ = Beine und Rumpf aus Rennen A, Arme ab dem
 # Schluesselbein aus der Paketbewegung, im Tritt (rennen_mischen). Vergleichsfilm beider Fassungen, Urteil des Chefs
-const WAFFEN_RENNEN := "paket"
+const WAFFEN_RENNEN := "A"   # 417a 2 (Chef 02.11., 21:24, Votum Tom): Rennen mit Waffe wie im Dorf-Film, Beine und Rumpf aus Rennen A
 
 # Woerter der Erschaffung (376.1; Homer prueft sie, Vorgang 376.1 bei Homer): Gesicht nach den Formen des Kopfblatts (Chef 27.10.,
 # 21:41 „Gefällt mir gut“), Frisur und Bart nach den Netzen des Pakets; Frisuren nach dem Bild (Homer 405, STORY-SPIEL [405.frisur])
@@ -459,8 +459,11 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 	var art := Tragen.art_von(waffe)
 	var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
 	var gang := Tragen.gang_von(waffe, schild != "")
-	if gang != "" and ap and ap.has_animation("Gehen_" + gang):   # 417 Runde 4: Paketbewegung fuehrt den Arm, Waffe (und Schild) in der Hand
-		for alt in sk.find_children("Ruecken*", "", false, false): alt.free()
+	# 417a (Chef 02.11., 21:24 „was gut funktioniert … das Schild darf halt weder da schweben, noch darf, wenn es am Arm ist, der Arm
+	# durchschauen“; Votum 1a): Kaempfer wie Kleriker, Schild flach auf dem Ruecken (oben), Schwert in der Hand mit dem Einhandgang;
+	# der Schildgang des Pakets hielt den Schild vor dem Bauch und die Klinge quer vor dem Hals (Pruefer Vergleichsfilm 19:1x, E3, E8)
+	if gang == "schild": gang = "einhand"
+	if gang != "" and ap and ap.has_animation("Gehen_" + gang):   # 417 Runde 4: Paketbewegung fuehrt den Arm, Waffe in der Hand
 		var paare := [[waffe, gang, "r"]] + ([[schild, "schildarm", "l"]] if gang == "schild" else [])
 		if gang == "bogen": paare[0][2] = "l"
 		for p in paare:
