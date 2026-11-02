@@ -93,6 +93,7 @@ var _haut := []     # [MeshInstance3D, Skin, Ecken, Knochen, Gewichte, je Ecke f
 func _haut_lesen(sk: Skeleton3D) -> void:
 	_haut.clear()
 	var arm := []
+	var schulter := []     # 406 b: Schlüsselbein und Oberarm links (mit Drehknochen), ohne Unterarm und Hand
 	for i in sk.get_bone_count():
 		var nm := sk.get_bone_name(i)
 		var p := i
@@ -101,6 +102,12 @@ func _haut_lesen(sk: Skeleton3D) -> void:
 				arm.append(i)
 				break
 			p = sk.get_bone_parent(p)
+		var q := i
+		while q >= 0 and sk.get_bone_name(q) not in ["lowerarm_l", "hand_l"]:
+			if sk.get_bone_name(q) in ["clavicle_l", "upperarm_l"]:
+				schulter.append(i)
+				break
+			q = sk.get_bone_parent(q)
 	for mi in sk.find_children("*", "MeshInstance3D", true, false):
 		var m := mi as MeshInstance3D
 		if m.skin == null or m.get_parent() is BoneAttachment3D:
@@ -112,19 +119,26 @@ func _haut_lesen(sk: Skeleton3D) -> void:
 			var nb: int = ar[Mesh.ARRAY_BONES].size() / ar[Mesh.ARRAY_VERTEX].size()
 			var frei := PackedByteArray()
 			frei.resize(ar[Mesh.ARRAY_VERTEX].size())
+			var sch := PackedByteArray()
+			sch.resize(ar[Mesh.ARRAY_VERTEX].size())
 			for v in ar[Mesh.ARRAY_VERTEX].size():
 				var w_arm := 0.0
+				var w_sch := 0.0
 				for j in nb:
 					var bb: int = m.skin.get_bind_bone(ar[Mesh.ARRAY_BONES][v * nb + j])
 					if bb < 0:
 						bb = sk.find_bone(m.skin.get_bind_name(ar[Mesh.ARRAY_BONES][v * nb + j]))
 					if bb in arm:
 						w_arm += ar[Mesh.ARRAY_WEIGHTS][v * nb + j]
+					if bb in schulter:
+						w_sch += ar[Mesh.ARRAY_WEIGHTS][v * nb + j]
 				frei[v] = 1 if w_arm < 0.3 else 0
-			_haut.append([m, m.skin, ar[Mesh.ARRAY_VERTEX], ar[Mesh.ARRAY_BONES], ar[Mesh.ARRAY_WEIGHTS], nb, frei])
+				sch[v] = 1 if w_sch >= 0.3 else 0
+			_haut.append([m, m.skin, ar[Mesh.ARRAY_VERTEX], ar[Mesh.ARRAY_BONES], ar[Mesh.ARRAY_WEIGHTS], nb, frei, sch])
 
 
-func _haut_ecken(sk: Skeleton3D) -> PackedVector3Array:
+## nur_schulter (406 b): statt der freien Ecken die an Schlüsselbein und Oberarm links (Haut und Kleidung)
+func _haut_ecken(sk: Skeleton3D, nur_schulter := false) -> PackedVector3Array:
 	var out := PackedVector3Array()
 	var g := sk.global_transform
 	for h in _haut:
@@ -138,7 +152,7 @@ func _haut_ecken(sk: Skeleton3D) -> PackedVector3Array:
 		var vs: PackedVector3Array = h[2]
 		var nb: int = h[5]
 		for v in vs.size():
-			if h[6][v] == 0:
+			if h[7 if nur_schulter else 6][v] == 0:
 				continue
 			var p := Vector3.ZERO
 			for j in nb:
@@ -281,6 +295,7 @@ func _run() -> void:
 		if not kf.busy:
 			kf.go_on()
 		var tief := {}     # Bewegung -> [tiefste m, Kapsel, Bilder über TIEF_M]
+		var schulter_tief := {}     # 406 b: Bewegung -> [tiefste m, Stelle im Schild cm, Messbilder über NETZ_M]
 		var n := 0
 		var dauer := int(OS.get_environment("DAUER_MS")) if OS.get_environment("DAUER_MS") != "" else DAUER_MS
 		while n < (dauer * 30 / 1000 if film else 6000):
@@ -296,6 +311,16 @@ func _run() -> void:
 						e[1] = t[1]
 					if t[0] > NETZ_M:
 						e[2] += 1
+					# 406 b (Chef 01.11., 20:2x: „bei beiden Schultern … Draufsicht, links am Schild … eine leichte Irritation“):
+					# Schulter und Oberarm links gegen die Schildfläche, nur gemessen (Grenze erst nach den Zahlen)
+					var ts := _netz_tiefe(sm, _haut_ecken(sk, true))
+					var es: Array = schulter_tief.get(b, [-INF, Vector3.ZERO, 0])
+					if ts[0] > es[0]:
+						es[0] = ts[0]
+						es[1] = ts[1]
+					if ts[0] > NETZ_M:
+						es[2] += 1
+					schulter_tief[b] = es
 				tief[b] = e
 			if kf.mars.outcome != "ONGOING" and not kf.busy and not kf.playing and kf.beats.is_empty():
 				break
@@ -308,6 +333,8 @@ func _run() -> void:
 					kf.order(["attack", ts[0].id] if not ts.is_empty() else ["wait"])
 		for b in tief:
 			_check(tief[b][0] <= KAMPF_M, "%s Kampf %s: Körper höchstens %.3f m im Schild (Netz, Stelle %s cm, %d Messbilder über %.3f)" % [k, b if b != "" else "–", tief[b][0], tief[b][1], tief[b][2], NETZ_M])
+		for b in schulter_tief:
+			print("SCHULTER406 %s Kampf %s: Schulter links höchstens %.3f m im Schild (Stelle %s cm, %d Messbilder über %.3f)" % [k, b if b != "" else "–", schulter_tief[b][0], schulter_tief[b][1], schulter_tief[b][2], NETZ_M])
 		print("Kampf %s: %s nach %d Bildern" % [k, kf.mars.outcome, n])
 		kf.queue_free()
 		p.queue_free()
