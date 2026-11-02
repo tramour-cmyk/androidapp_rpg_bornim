@@ -107,6 +107,12 @@ func starte(w: Dictionary) -> void:
 	zustand.name = String(w.get("name", zustand.name))
 	zustand.aussehen = (w.get("aussehen", {}) as Dictionary).duplicate()   # 376.1
 	werte = Heldwerte.erschaffe(zustand.name, String(w.get("volk", "HUMAN")), String(w.get("klasse", "FIGHTER")), w.get("werte", {}), zustand.neue_uid)   # 399.1 Punktekauf
+	# 470: Held nach BRS (Erschaffung 1.1) im Spielstand; bis 2.3 kaempft er mit den SRD-Werten der Bruecke (BrsHeld.alt, Rueckfrage 470a)
+	zustand.brs = (w.get("brs", {}) as Dictionary).duplicate(true)
+	if w.has("srd"):
+		for a in Heldwerte.ATTRIBUTE: werte.basis[a] = int(w["srd"].get(a, werte.basis[a]))
+		werte.start = werte.basis.duplicate()
+		werte.voll()
 	# 399.1 wie alt (69, GameViewModel.newGame): einmal die Ankunft bei Nacht, dann erwacht der Held neben dem Bett der Schenke
 	# (Story.START), wo Rowena ihn weckt; vorher begann das neue Spiel am Brunnen
 	await zwischenbild("intro")

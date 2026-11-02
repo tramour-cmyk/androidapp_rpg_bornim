@@ -73,17 +73,17 @@ func _lauf() -> void:
 	var e := Erschaffung.new()
 	root.add_child(e)
 	for i in 5: await process_frame
-	var d := Heldwerte.lade()
+	Heldwerte.lade()
 	var n := 0
 	for z in [Vector2.ZERO, Vector2(3, 2), Vector2(0, 6), Vector2(0, 12), Vector2(8, 20)]:
-		for k in ["CLERIC", "ROGUE", "FIGHTER"]:
-			var t := Sprache.t(d["klassen"][k]["name"]).to_upper().replace("ß", "SS")
+		for k in ["Klosterschüler", "Herumtreiber", "Wachsoldat"]:   # 470: Herkunft statt Klasse
+			var t := Sprache.t(Erschaffung.HERKUNFT[k]).to_upper().replace("ß", "SS")
 			var b := knopf_mit(e, t)
 			if b == null: pruefe(false, "Knopf %s fehlt" % t); continue
 			e.rolle.ensure_control_visible(b)
 			await process_frame
 			await tipp(b.get_global_rect().get_center(), z)
-			pruefe(e.klasse == k, "Klasse %s, Zittern %s px -> %s" % [k, z, e.klasse])
+			pruefe(e.b.herkunft == k, "Herkunft %s, Zittern %s px -> %s" % [k, z, e.b.herkunft])
 			n += 1
 	# Farbfeld: Mitte des Felds
 	var liste := [{"rgb": "#d8b89a", "name": {"de": "Hell", "en": "Light"}}, {"rgb": "#a07050", "name": {"de": "Mittel", "en": "Medium"}}]

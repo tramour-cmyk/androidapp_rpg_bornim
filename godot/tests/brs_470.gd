@@ -82,5 +82,22 @@ func _lauf() -> void:
 	var a := zl.alt()
 	pruefe("Zauberlehrling alt", [a["volk"], a["klasse"], a["srd"]["INT"]], ["HALFLING", "WIZARD", BrsHeld.srd_wert(zl.wert("wille"))])
 	pruefe("Klosterschüler alt", BrsHeld.neu("Mensch", "Klosterschüler").alt()["klasse"], "CLERIC")
+	# Seite „Neues Spiel“ passt in die Breite eines Handys (Pruefer 14:5x: Kopf mit 2 x 120 dp schob alles ueber den rechten Rand)
+	root.size = Vector2i(1080, 2340)
+	var es := Erschaffung.new()
+	root.add_child(es)
+	for i in 5: await process_frame
+	var platz := 1080.0 - 2 * (12 + 14) * AktionsKnopf.DP
+	pruefe("Kopf passt (%d px Platz)" % platz, es.kopf.get_parent().get_combined_minimum_size().x <= platz, true)
+	pruefe("Inhalt passt", es.inhalt.get_combined_minimum_size().x <= 1080.0 - 2 * 12 * AktionsKnopf.DP, true)
+	# Namen der Grundwerte ungekuerzt (Pruefer 14:5x: „Gewandth…“, „Wahrnehmu…“), auch beim Menschen mit dem Knopf „+1“
+	var gefunden := 0
+	for lb in es.inhalt.find_children("*", "Label", true, false):
+		var t := (lb as Label).text
+		if t in ["Gewandtheit", "Wahrnehmung", "Agility", "Perception"]:
+			gefunden += 1
+			pruefe("%s ganz (%d von %d px)" % [t, lb.size.x, lb.get_minimum_size().x], lb.size.x >= (lb as Label).get_theme_font("font").get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, (lb as Label).get_theme_font_size("font_size")).x, true)
+	pruefe("Namen gefunden", gefunden, 2)
+	es.queue_free()
 	print("BRS470 ", "gut" if fehler == 0 else "%d falsch" % fehler)
 	quit(1 if fehler else 0)
