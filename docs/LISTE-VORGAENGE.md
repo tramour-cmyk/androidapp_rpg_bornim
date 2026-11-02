@@ -131,7 +131,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 470.1 | Erschaffung: Held auf Antippen bildschirmgroß (Idee Chef 02.11., 18:37) | E Oberfläche | K | – | Team Tom | wartet |
 | 478 | Rechenkern des Kampfs in Stufe 1 auf BRS (470a C, Chef 02.11., 17:59) | E Kampf | M | – | Team Jerry | ruht |
 | 479 | Projektplan: Abnahmeliste umbenennen, auf Stand bringen, Orte und Welt einzeln, Flüsterwald einplanen (Chef 02.11., 18:34) | B Abläufe | M | – | Perikles | startbar |
-| 480 | Angehaltene Filme: klarere Blätter, dritter Lauf ohne Rückfrage (Chef 02.11., 18:43) | B Abläufe | M | – | Sokrates | Chef |
+| 480 | Angehaltene Filme: klarere Blätter, dritter Lauf ohne Rückfrage (Chef 02.11., 18:43) | B Abläufe | M | – | Sokrates | erledigt |
 | 471 | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | E Regeln | M | – | Team Tom | startbar |
 | 472 | Bau BRS 1.3 Heldenstufe aus Erfahrung (Wochenziel 02.11., Stufe 1) | E Regeln | M | – | Team Jerry | gebaut |
 | 473 | Bau BRS 1.4 Monsterwerte Kapitel 1 (Wochenziel 02.11., Stufe 1) | E Kampf | M | 5,89 $ | Team Jerry | gebaut |
