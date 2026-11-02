@@ -27,7 +27,12 @@ VOR_TEIL = os.environ.get('VOR_TEIL', 'cloak')
 # 463 (Tom 02.11., 11:2x): eine Ursache fuer Umhang und Robe? Die meisten Flecken sind Innenseiten (cloak/innen, robe/innen): Lagen
 # kreuzen sich in Falten, die Rueckseite liegt dann vor der Vorderseite. RUECK=<m,…>: Rueckseiten zaehlen so viel weiter weg (toon.gdshader
 # schiebt Ecken, deren Normale von der Kamera weg zeigt, laengs des Blickstrahls zurueck); Vorderseiten bleiben, wie sie sind.
-RUECK = [float(x) for x in os.environ.get('RUECK', '').split(',') if x]
+# Lauf 41427986678 (RUECK 10/20/40 mm): Innenseite des Umhangs Wache Frau 10664 -> 2843/1636/1131, Mann 7418 -> 7705/4460/1596; dafuer
+# mehr Aermel (Mann 1314 -> 2932): was vorher die Innenseite verdeckte, sticht durch. Darum dazu NACH_TEILE (Aermel) zurueck:
+# Eintrag „r+n“ = Rueckseiten r, Teile NACH_TEILE n Meter weiter weg (beides wie im Shader, Vorderseiten der anderen bleiben)
+NACH_TEILE = os.environ.get('NACH_TEILE', 'sleeves').split(',')
+RUECK = [x for x in os.environ.get('RUECK', '').split(',') if x]
+RN = {x: (float(x.split('+')[0]), float(x.split('+')[1]) if '+' in x else 0.0) for x in RUECK}
 
 # Teile der Rohfigur (Ruhelage)
 bpy.ops.wm.open_mainfile(filepath=ROH)
@@ -92,17 +97,18 @@ def sehen(V, F, LF, az, el):
             for v in VORRANG: LV[v][y, x] = L[y, x]
             if RUECK:
                 # alle Flaechen bis max(RUECK) hinter der ersten; je Wert die mit kleinster Tiefe (Rueckseite + v)
-                hs = [(0.0, L[y, x], h[1].dot(d) > 0)]; q = h[0] + d * 0.0005
+                hs = [(0.0, L[y, x], h[1].dot(d) > 0, t in NACH_TEILE)]; q = h[0] + d * 0.0005
                 for _ in range(8):
-                    rest = max(RUECK) - (q - h[0]).length
+                    rest = max(max(r, n) for r, n in RN.values()) - (q - h[0]).length
                     if rest <= 0: break
                     h2 = bv.ray_cast(q, d, rest)
                     if h2[0] is None: break
                     hi = h2[1].dot(d) > 0
-                    hs.append(((h2[0] - h[0]).length, LF[h2[2]] + ('/innen' if hi else ''), hi))
+                    hs.append(((h2[0] - h[0]).length, LF[h2[2]] + ('/innen' if hi else ''), hi, LF[h2[2]] in NACH_TEILE))
                     q = h2[0] + d * 0.0005
                 for v in RUECK:
-                    LR[v][y, x] = min(hs, key=lambda e: e[0] + (v if e[2] else 0.0))[1]
+                    r_, n_ = RN[v]
+                    LR[v][y, x] = min(hs, key=lambda e: e[0] + (r_ if e[2] else 0.0) + (n_ if e[3] else 0.0))[1]
             if VORRANG and t != VOR_TEIL:
                 q = h[0] + d * 0.0005
                 for _ in range(6):
@@ -204,9 +210,9 @@ for bn in BEW:
         print('VORRANG %s %.0f mm: Flecken groesster %d;' % (bn, v * 1000, vg[v]), dict(sorted(vz[v].items(), key=lambda x: -x[1])[:6]),
               'VERDECKT', dict(sorted(vd[v].items(), key=lambda x: -x[1])[:8]))
     for v in RUECK:
-        print('RUECK %s %.0f mm: Flecken groesster %d;' % (bn, v * 1000, rg[v]), dict(sorted(rz[v].items(), key=lambda x: -x[1])[:6]),
+        print('RUECK %s %s: Flecken groesster %d;' % (bn, v, rg[v]), dict(sorted(rz[v].items(), key=lambda x: -x[1])[:6]),
               'innen sichtbar', ri[v], 'GEWECHSELT', dict(sorted(rd[v].items(), key=lambda x: -x[1])[:8]))
         for t, k in rz[v].items(): rgesamt.setdefault(v, {})[t] = rgesamt.setdefault(v, {}).get(t, 0) + k
-print('FLECKEN GESAMT', dict(sorted(gesamt.items(), key=lambda x: -x[1])), '(Bildpunkte zu %.0f mm)' % (AUF * 1000))
+print('FLECKEN GESAMT', sum(gesamt.values()), dict(sorted(gesamt.items(), key=lambda x: -x[1])), '(Bildpunkte zu %.0f mm)' % (AUF * 1000))
 for v in RUECK:
-    print('RUECK GESAMT %.0f mm' % (v * 1000), dict(sorted(rgesamt.get(v, {}).items(), key=lambda x: -x[1])))
+    print('RUECK GESAMT %s' % v, sum(rgesamt.get(v, {}).values()), dict(sorted(rgesamt.get(v, {}).items(), key=lambda x: -x[1])))
