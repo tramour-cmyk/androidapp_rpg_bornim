@@ -2,7 +2,7 @@
 
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
-**Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D67 (Lauf 64: 447.4, D66, `5c3d13358`; Lauf 63: Nachprüfung D63/D64.1, D65, `036b48029`; Lauf 62: 407, D64, `bb1205e31`; Lauf 61: Woche, D63, `73ab91995`; ältere Läufe im Prüfbericht und in Git).
+**Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D68 (Lauf 65: 484 Abkürzungen, D67; Lauf 64: 447.4, D66, `5c3d13358`; Lauf 63: Nachprüfung D63/D64.1, D65, `036b48029`; Lauf 62: 407, D64, `bb1205e31`; Lauf 61: Woche, D63, `73ab91995`; ältere Läufe im Prüfbericht und in Git).
 
 **Übergabe (02.11., 19:1x, „Diogenes – 447.4: Gegenprüfung Lehrmeister“):** Lauf 64: 447.4 gegengeprüft, D66.1–D66.7 in Chefsache ansehen/4474 „Gegenprüfung Diogenes“ und Telegram, Textbefunde an Homer (Zu 447.4 in `ARBEIT-KREATIV.md`). Nachfolger: „Diogenes – 374: Stichprobe“ 03.11., 8 Uhr (Vortag 02.11., mit 434; danach 374 nur in der Wochenzählung).
 
@@ -11,7 +11,6 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
-| 484 | M | **von Perikles (Doppelpack 421, 02.11., 19:4x):** `meldung.sh` hält Abkürzungen an (Kürzel in Großbuchstaben außer MARS, SRD, APK, PNG, MP4, MB, GB, KB, CC0, TCS; „NW 2“, „E 7“; z. B., bzw. …); Fehlalarme an echten Meldungen des Tages prüfen; dazu 465: `zug-index.py` liest Wer und Zeit aus der Titelzeile | startbar |
 | 340.2 | M | **von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv):** Wirkung 340.3–340.5 zählen (Tabelle „Änderungen“ in `LISTE-ROLLENSPIEGEL.md`, Spalte „gewirkt“) | ruht bis Mo 09.11. |
 | 485 | M | **„jetzt“ 02.11., 19:37 (Chef: „1, 2, 3 ja, fang an.“):** (1) Wochentermine „gelaufen ja/nein“ zählen; (2) 348.9 Blätter selbst holen und messen; (3) Meldungen ohne Abkürzungen (Zu 485) | in Arbeit: (1) und (2) erledigt 02.11., 19:4x, (3) gilt; Wirkung Mo 09.11. |
 | 483 | M | **von Perikles (Doppelpack 421, 02.11., 19:4x):** `meldung.sh --film` legt je Film einen Zweig `film/<Zeit>-<Nr>` mit nur dieser Datei an, Link über jsDelivr; prüfen am nächsten echten Film (Link spielt ab, Blatt in `ansehen/` hat ihn) | startbar |
