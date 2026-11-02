@@ -149,3 +149,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 05:03 02.11.: Marke Archiv-Warnung session_01Hmoj77Fcq6ikFG5r2xy2wv (lauf.py)
 - 05:03 02.11.: Marke Archiv session_01Hmoj79Fzi5pn77mNyBi5T4 (lauf.py)
 - 05:03 02.11.: Marke Archiv session_01Hmoj78Ga9V6Fx9myzwYsVe (lauf.py)
+- 06:04 02.11.: Startsperre 06:04 Start Spike, Tuffy (lauf.py)
+- 06:04 02.11.: Marke Archiv session_01Hmoj78KsLeWa9HphhRuvNS (lauf.py)
+- 06:04 02.11.: Marke Archiv session_01Hmoj75yvjhAFkGRnUxZPZs (lauf.py)
