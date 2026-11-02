@@ -467,8 +467,10 @@ if UA > 0 and 'cloak' in TEILNAMEN:
 # Oberarm schiebt den Umhang). Beide Lagen gleich: je Ecke die staerkste Verschiebung und Gewichtung binnen SCHALE_R (wie SCHALE GEWICHTE)
 # Lauf 41368485277 (ARM_LUFT 0,012, ARM_GEW 0,6): schlechter, darum aus (ARM_LUFT=0): sleeves>cloak Ruhe Mann 104 -> 104, Frau 48 -> 112,
 # Gehen 256 -> 215, 238 -> 233; Flecken Mann chain 368 -> 4865, sleeves 1372 -> 2903; in Ruhe liegt der Durchstoss jetzt auf 1,4 m (Schulter)
+# Versuch 2 (Tom 02.11., 02:5x): nur die Aermelgewichte ohne Verschieben (ARM_LUFT 0, ARM_GEW 0,6): die Flecken in Lauf 41368485277
+# kamen vermutlich vom Verschieben (Umhang vor Kette und Aermel); ob das Folgen allein das Durchstossen in Bewegung senkt
 ARM_LUFT = float(os.environ.get('ARM_LUFT', '0')); ARM_GEW = float(os.environ.get('ARM_GEW', '0.6')); ARM_R = float(os.environ.get('ARM_R', '0.06'))
-if ARM_LUFT > 0 and 'cloak' in TEILNAMEN and 'sleeves' in TEILNAMEN:
+if (ARM_LUFT > 0 or ARM_GEW > 0) and 'cloak' in TEILNAMEN and 'sleeves' in TEILNAMEN:
     _ic = TEILNAMEN.index('cloak'); _is = TEILNAMEN.index('sleeves')
     _sf = [f for f in KF if LT[f[0]] == _is]
     _bv = BVHTree.FromPolygons([Vector(v) for v in VK3], _sf); _NA = normalen(VK3)
@@ -480,7 +482,7 @@ if ARM_LUFT > 0 and 'cloak' in TEILNAMEN and 'sleeves' in TEILNAMEN:
         ecken = list(_sf[h[2]]); d = np.linalg.norm(VK3[ecken] - np.array(h[0]), axis=1)
         n = Vector(_NA[ecken].mean(0)).normalized()   # Normale der Aermelecken (nach aussen wie pruef_tracht), nicht die Wicklung der Flaeche
         sd = (Vector(VK3[i]) - h[0]).dot(n)
-        if -0.035 < sd < ARM_LUFT: _dv[i] = np.array(n) * (ARM_LUFT - sd)   # tiefer als 3,5 cm: kein Umhang am Aermel
+        if ARM_LUFT > 0 and -0.035 < sd < ARM_LUFT: _dv[i] = np.array(n) * (ARM_LUFT - sd)   # tiefer als 3,5 cm: kein Umhang am Aermel
         w = 1.0 / np.maximum(d, 1e-4); _neu[i] = (w[:, None] * WKq[ecken]).sum(0) / w.sum()
         a = float(np.clip(1.0 - h[3] / ARM_R, 0, 1)); _a[i] = ARM_GEW * a * a * (3 - 2 * a)
     _kd = KDTree(len(_cl))
