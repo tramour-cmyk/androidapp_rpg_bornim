@@ -280,9 +280,9 @@ func _process(dt: float) -> void:
 			tempo = b
 		abbremsen = ab == ABBREMS and tempo_jetzt > tempo + 0.05 and tempo <= geh_t * 1.45   # (auslaufen)
 		soll_jetzt = tempo
-		var vor := tempo_jetzt
+		var tempo_vor := tempo_jetzt
 		tempo_jetzt = tempo_schritt(tempo_jetzt, tempo, geh_t, dt, ab)
-		faellt = tempo_jetzt < vor - 1e-5
+		faellt = tempo_jetzt < tempo_vor - 1e-5
 		tempo = tempo_jetzt
 		# in kleinen Stuecken, damit ein langes Bild (dt gross) nicht ueber Kanten springt oder zu frueh anstoesst; auf dem Weg ueber
 		# Wegpunkte hinweg weiter (416.4: bisher endete das Stueck am Wegpunkt, das naechste Bild stand)
