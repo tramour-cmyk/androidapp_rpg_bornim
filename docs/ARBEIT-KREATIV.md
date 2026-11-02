@@ -3,16 +3,16 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `60b50725f` (01.11., 20:29)
+**Gelesen bis:** `93c2abc53` (02.11., 02:4x)
 
-**Übergabe (01.11., 21:0x):** 447.4 Texte als Entwurf: Pfade in `STORY-LEHRMEISTER-K1.md`, Meisterschaften und Ruf in `STORY-RUF-K1.md` (DE/EN), fremd geprüft (28 Befunde eingearbeitet), Chefsache `ansehen/4474-lehrmeister-texte.md`; Fragen an Perikles (Rezept beim Ja) und Sokrates (Wechsel als Anwärter) in deren Vorrat. Nachfolger: keiner; 447.4 wartet auf Chef.
+**Übergabe (02.11., 02:4x):** 466 Vorschlag als Chefsache `entscheiden/466-faehigkeit.md` (Fähigkeit; Weihe, Titelprüfung, Hohe Prüfung), fremd geprüft (9 Befunde eingearbeitet). Nachfolger: keiner; 466 und 447.4 warten auf Chef.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 466 | M? | **von Sokrates (Chef 01.11., 21:13: „Also wäre es besser verständlich eine Spezialfertigkeit oder Spezialfähigkeit oder etwas in der Art. Handlung ist alles.“):** neues Wort für „Handlung“ eines Pfads (BRS, Spielertext, EN); Sokrates rät „Fähigkeit“ (im BRS frei; „Fertigkeit“ hat Ränge, „Spezialfertigkeit“ verwechselbar), EN „Ability“; dazu Namen der Prüfungen (Chef 21:21 verwechselte Pfadstufen und Fertigkeitsränge, Zu 466); Vorschlag an den Chef | startbar |
+| 466 | M? | **von Sokrates (Chef 01.11., 21:13, Zu 466):** neues Wort für „Handlung“ eines Pfads, dazu Namen der Prüfungen | wartet auf Chef: Chefsache entscheiden/466 |
 | 447.4 | M | **von Perikles (Chef 01.11., Archiv 447):** Texte für Stufe 3 der Abnahmeliste: Einladungen der Lehrmeister zu Pfad und den fünf Meisterschaften (3.1, 3.2) und Ruf-Gespräche im Dorf (3.3), DE/EN | wartet auf Chef: Entwurf in STORY-LEHRMEISTER-K1.md und STORY-RUF-K1.md, Chefsache ansehen/4474 |
 | 432 | K | **von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt mir sehr gut“):** eigenes Volk prüfen, mit der Geschichte ab Kapitel 2 | nach dem Meilenstein: Weg A (Archiv); Kult-Antwort und Abgleich mit Kapitel 2 im Storyplan (Aschgeborene, 01.11.), zwei offene Punkte; als Chefsache erst nach dem Meilenstein, vor dem Bau |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
@@ -25,4 +25,5 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 - **Zu 41** (Thema, Stand im Wortlaut): Storyplan; Texte Kapitel 2 | **168 D** (18.10.): Garrick fest in K2, Söldner ab K3; Grund und Satz „kommt mit“ in Storyplan und Texte. Storyplan `STORY-PLAN-K2.md` Kapitel 2 fertig (ohne 5b). Textentwurf `STORY-K2-ENTWURF.md` frei seit 72s.1 (entschieden 18.10.), nach dem Meilenstein; Prüfpunkt 6.4 = 41.2, ja (19.10.); Zeilen zu 41.1 geschrieben (19.10.); nichts offen. **D4.1 A** (Chef 15.10., 10:5x): Texte zur Quest vor der Höhle (Morwen, Garrick warnt unter Stufe 3) mit dem Chef, dann Tom
 - **Zu 72:** 72a eingetragen (Leitbild, 19.10.); 72c, 72e entschieden 19.10.; Entschiedenes im Vorgangsarchiv; Chefsache 72g (19.10., 21:34).
 - **Zu 302** (Chef 22.10., 12:12, an Sokrates, Wortlaut): „Ich meine, wir versuchen ja hier was Einzigartiges in Gänsefüßchen zu kreieren. Und kann unser Zeichenstil, unser Animationsstil, unsere Art und Weise, wie wir Figuren und Umgebung präsentieren, eigentlich auch so eine Art Signature sein, dass man das sozusagen wiedererkennt? Oder ist das, wie wir oder wie du jetzt die Grafiken und so machst, Standard, dass bei allen anderen auch so aussieht grundsätzlich? … Aber ist unsere Grafik sozusagen auch einzigartig? Oder können wir die in irgendeiner Art und Weise dann einzigartig machen?“ Einschätzung Sokrates im Chat 12:1x: heute nicht wiedererkennbar (glatte Puppen wie viele Indiespiele); einzigartig ist das Verfahren (alles aus Code gezeichnet, jede Ausrüstung sichtbar); Signatur aus wenigen festen Zwängen: Licht nur aus sichtbarer Quelle, Tuschelinie wie in einer Chronik (`MapSheet.ink`), Gold als einziger Glanz.
+- **Zu 466** (Chef 01.11., 21:13): „Also wäre es besser verständlich eine Spezialfertigkeit oder Spezialfähigkeit oder etwas in der Art. Handlung ist alles.“ Sokrates riet „Fähigkeit“, EN „Ability“. Bei Ja: BRS-Entwurf, Spielanleitung, 447.4 nachziehen, fremd prüfen; Titel der Meisterschaften getrennt vorschlagen.
 - **Zu 466, von Sokrates (Chef 01.11., 21:21: „Also ist die Reihenfolge Anwärter, Eingeweihter, Geselle und Meister? Und wie werde ich was davon?“):** Pfadstufen (Anwärter, Eingeweihter, Titelträger, Meister) und Fertigkeitsränge (Anfänger, Geselle, Meister, Großmeister) verwechselbar, weil „Gesellenprüfung“ zum Titelträger führt und „Meister“ beides ist. Vorschlag Sokrates: Prüfungen nach dem Ziel benennen (Weihe, Titelprüfung, Meisterprüfung) oder Pfadstufen ohne Handwerksnamen; mit dem Wort für „Handlung“ zusammen vorlegen.
