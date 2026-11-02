@@ -5,14 +5,13 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41: 274 Schritt 1–3, nur Notizen und Werkzeug-Verweise) · vorher `98ba4b9b` (Lauf 40: 261.5; frühere Stände in Git); nächste Nummer D63 (461b-Zählung 02.11.: D62; Lauf 59: 464 rote Läufe, D61; Lauf 58: 465 und 462.1, D60, `f26bc1db5`; Lauf 57: 462 Zeitstempel, D59; Lauf 56: 461 Grundstand, D58, `9574bb019`; Lauf 55: 459 zu 458.1/451.1/447.1/457, Nachprüfung 456.1, `9d8e6fef5`; Lauf 54: 456 zu 448.2/449/450, `d6274420c`; Lauf 53: 441, D54; Lauf 52: 443 zu 436, `88415f87b`, Nachprüfung 443.1 `13ad5b26b`; Lauf 51: 435 zu 433, `68de4970f`; Lauf 45: 149/156, Lauf 46: 275 Werkzeuge an Kopie, `4fec9890`; Lauf 47: Nachprüfung D46, `e5b790d3`; Lauf 48: 420 Spielsystem 2.0, `3d64e00`; Lauf 49: 419 Prüfung 418/421, `6185da179`; Lauf 50: 429 zu 424/412, `a005a27f3`).
 
-**Übergabe (02.11., 02:4x, „Diogenes – 374: Stichprobe“, zu früh gestartet, D62.2):** 461b gezählt (Zu 461b), D62.1 an Sokrates, D62.2 an Ford. Nachfolger: „Diogenes – 374: Stichprobe“ 02.11., 8 Uhr, mit 464 (rote Läufe 02.11.), mit 434 und Anteil ohne Kopf (462).
+**Übergabe (02.11., 02:5x, „Diogenes – 374: Stichprobe“, zu früh gestartet, D62.2):** 461b gezählt (Zu 461b), D62.1 an Sokrates, D62.2 an Ford; Lauf 60 Nachprüfung 464.1, 465.1. Nachfolger: „Diogenes – 374: Stichprobe“ 02.11., 8 Uhr, mit 464 (rote Läufe 02.11.), mit 434 und Anteil ohne Kopf (462).
 
 
 ## Zeilen
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
-| 464.1 | M | **von Perikles (Doppelpack 421, Commits `013742216`, `0645c3d4e`):** 465.1: x-Zeit ohne passende Minute aus dem ältesten Commit des Tages (D60.1, `zug-index.py`); 464.1: Push-Haken liest alle .gd bis 80 s, nennt Ungeprüftes als Hinweis (D61.2, `probelauf.py`); D61.1 an Ford | startbar |
 | 461b | M | **von Sokrates (Chef 01.11., 22:26, „461b ja“, Archiv):** Kennzahl Widersprüche: montags Stichprobe Vorgangsarchiv gegen Grundstand (`LISTE-GRUNDSTAND-461.md`), Zahl der Stellen, an denen Überholtes ohne „→ ersetzt durch …“ steht oder der Grundstand dem neuesten Entscheid widerspricht | ruht bis Mo 09.11. (02.11. gezählt: Zu 461b) |
 | 464 | M | **von Perikles (Doppelpack 421, Commit `fcf9ab215` und folgender):** rote Läufe 464: Push-Haken in `probelauf.py` (Parsefehler hält an, kein Fehlalarm, kein Zählen eines angehaltenen Pushes, Arbeitsbaum unverändert); Ford-Schritt in `ROLLE-BETRIEB.md` tut es; ab 02.11. rote Läufe je Tag gegen 01.11. (14) | Haken und Ford-Schritt geprüft (Lauf 59); Rest erst wieder ab 02.11., 8 Uhr mit 374: rote Läufe 02.11. gegen 14 (aus `actions_list`, Zahl im Protokoll fehlt, D61.1) |
 | 434 | M | **von Sokrates (Chef 31.10., 22:1x):** bei jeder Zählung 374 zusätzlich die Zeile „Bestand geprüft“ je Vorlage zu einem Eigenbau prüfen (Zu 434) | erst wieder ab 02.11., 8 Uhr mit 374 (01.11. für 31.10. gezählt: Zu 374) |

@@ -25,6 +25,15 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 60 · Nachprüfung 464.1 und 465.1, Zählung 461b (`main` `6cbb97adf`; 02.11., 02:5x; `seit_text()` an der Übersicht nach dem Lauf, `hinweis_geben()` mit eigener Liste aufgerufen, Haken mit Nicht-Push-Befehl)
+
+- **D60.1 behoben:** 348.12j zeigt 22:03, 431b 21:29, beides die Zeit des Commits, der die Datei anlegte. Feste Minuten ohne „x“ (348.12b 21:00, angelegt 20:58) bleiben, wie sie in der Datei stehen.
+- **D61.2 behoben:** Der Haken liest alle geänderten `.gd`, bis noch 5 s Hakenzeit bleiben. Den Rest nennt er als Hinweis mit Dateinamen. Bei einem Befehl ohne Push gibt er nichts aus.
+- **D61.1:** Perikles hat es an Ford gegeben (`ARBEIT-BETRIEB.md` Eingang). Gebaut ist es noch nicht.
+- **461b (Kennzahl Widersprüche, erste Zählung):** 3 in 38 Archiveinträgen; Einzelheiten in `ARBEIT-PRUEFUNG.md` „Zu 461b“. Zwei liegen offen bei Perikles (461a, 461d), einer ging als D62.1 an Sokrates.
+- **D62.2 an Ford:** `lauf.py` liest die Uhrzeit im Nachfolger nicht. Diese Sitzung wurde deshalb um 02:38 statt um 8 Uhr gestartet.
+- Nicht geprüft: 374, 434, 464 Tageszahl, Woche (erst ab 8 Uhr).
+
 ## Lauf 59 · Auftrag 464 Doppelpack zu den roten Läufen (`main` nach `8cb4400b6`; 01.11., 22:13; `parse_pruefen()` mit Godot 4.7.2 (Scratch, nicht `~/godot`) an einem Probezweig aufgerufen; Ford-Commits `8fd2d5e82`, `525f87ff9`; Lauf 150 auf `claude/jerry-348-12-grak-schreitet` (Log))
 
 **Ergebnis:** Der Haken tut, was er soll.
