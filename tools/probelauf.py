@@ -256,8 +256,11 @@ def handlauf_bash(befehl):
         return vorgang_aus_ref(ref.group(1).strip("\"'") if ref else "", ablauf), "hand"
     m = API_LAUF.search(befehl)
     if m:
-        ref = re.search(r"\\?[\"']ref\\?[\"']\s*:\s*\\?[\"']([^\"'\\]+)", befehl)
+        # JSON (curl -d '{"ref":…}') oder Felder (gh api -f ref=…, -F, --field, --raw-field; D64.1)
+        ref = re.search(r"\\?[\"']ref\\?[\"']\s*:\s*\\?[\"']([^\"'\\]+)", befehl) or \
+            re.search(r"(?:-f|-F|--field|--raw-field)[=\s]+[\"']?ref=([^\s\"']+)", befehl)
         eing = dict(re.findall(r"\\?[\"'](bild|film)\\?[\"']\s*:\s*\\?[\"'](\w+)", befehl))
+        eing.update(re.findall(r"(?:-f|-F|--field|--raw-field)[=\s]+[\"']?inputs\[(bild|film)\]=(\w+)", befehl))
         if ohne_bild(eing):
             return None
         return vorgang_aus_ref(ref.group(1) if ref else "", m.group(1)), "hand"
