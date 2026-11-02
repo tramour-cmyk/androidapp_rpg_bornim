@@ -55,32 +55,22 @@ func _lauf() -> void:
 	var knoepfe := func() -> Array:
 		await process_frame
 		return e.find_children("*", "Button", true, false).filter(func(c): return not c.is_queued_for_deletion())
-	var mit := func(t: String) -> Array:   # 470: Knoepfe nach Aufschrift (die Seite hat je nach Volk und Herkunft andere)
-		var alle_k: Array = await knoepfe.call()
-		return alle_k.filter(func(k): return (k as Button).text == t.to_upper().replace("ß", "SS"))
-	var bs: Array = await mit.call(Erschaffung.tx(Erschaffung.VOLK["Zwerg"]))
-	bs[0].pressed.emit()    # Volk: Zwerg
-	bs = await mit.call(Erschaffung.tx(Erschaffung.HERKUNFT["Klosterschüler"]))
-	bs[0].pressed.emit()    # Herkunft: Klosterschueler (verteilt vor, drei Fertigkeiten, nichts zu waehlen)
-	bs = await mit.call("−")
-	bs[0].pressed.emit()    # Kraft einen weniger, ein Punkt frei: Abenteuer beginnen gesperrt
-	await process_frame
-	if not e.los.disabled: fehler += 1; print("FEHLER Beginnen trotz freiem Punkt")
-	bs = await mit.call("+")
-	bs[3].pressed.emit()    # Verstand einen mehr (vierte Zeile)
-	await process_frame
-	if e.los.disabled: fehler += 1; print("FEHLER Beginnen gesperrt: frei %d" % e.b.frei())
-	e.los.pressed.emit()    # Abenteuer beginnen (unten rechts)
+	var bs: Array = await knoepfe.call()
+	bs[2].pressed.emit()    # Volk: Zwerg (Reihe Mensch, Elf, Zwerg, Halbling, Halbork)
+	bs = await knoepfe.call()
+	bs[5 + 3].pressed.emit()   # Klasse: Kleriker (Kaempfer, Magier, Schurke, Kleriker)
+	bs = await knoepfe.call()
+	var minus: Button = bs[5 + 4 + 1]   # nach Vorschlag: − und + je Attribut, STR zuerst
+	minus.pressed.emit()    # STR einen weniger, ein Punkt frei
+	bs = await knoepfe.call()
+	bs[bs.size() - 1].pressed.emit()   # Abenteuer beginnen (unten rechts)
 	await process_frame
 	print("Hauptmenue: %s" % ergebnis)
 	if ergebnis.get("volk") != "DWARF" or ergebnis.get("klasse") != "CLERIC" or String(ergebnis.get("name", "")) == "" or int(ergebnis.get("platz", 0)) != 1: fehler += 1; print("FEHLER Hauptmenue")
-	var brs: Dictionary = ergebnis.get("brs", {})
-	var kl: Dictionary = BrsHeld.lade()["herkuenfte"]["Klosterschüler"]
-	var kraft := 3 + int(kl["plus"].get("kraft", 0)) + int(kl["plus_variante"].get("kraft", 0)) - 1
-	if String(brs.get("herkunft", "")) != "Klosterschüler" or int(brs.get("grundwerte", {}).get("kraft", 0)) != kraft or (brs.get("fertigkeiten", {}) as Dictionary).size() != 3: fehler += 1; print("FEHLER BRS %s" % brs)
-	if int(ergebnis.get("srd", {}).get("STR", 0)) != BrsHeld.srd_wert(kraft): fehler += 1; print("FEHLER Bruecke %s" % ergebnis.get("srd"))
-	var z3 := Zustand.new(); z3.brs = brs
-	if Zustand.aus_daten(JSON.parse_string(JSON.stringify(z3.als_daten()))).brs != brs: fehler += 1; print("FEHLER BRS im Spielstand")
+	var vor := Heldwerte.vorschlag("CLERIC")
+	if int(ergebnis.get("werte", {}).get("STR", 0)) != int(vor["STR"]) - 1 or not Heldwerte.gueltiger_kauf(ergebnis.get("werte", {})): fehler += 1; print("FEHLER Punktekauf")
+	var h3 := Heldwerte.erschaffe(String(ergebnis["name"]), "DWARF", "CLERIC", ergebnis["werte"])
+	if h3.basis["STR"] != int(vor["STR"]) - 1 + 1: fehler += 1; print("FEHLER Punktekauf im Helden: STR %d" % h3.basis["STR"])   # Zwerg STR +1
 	# alle vier Plaetze belegt: Abenteuer beginnen fragt, wen der Neue ersetzt (alt SlotChooser); Antippen des zweiten waehlt Platz 2
 	for n in range(1, 5):
 		Spielstand.platz = n
@@ -90,7 +80,6 @@ func _lauf() -> void:
 	await process_frame
 	var w2 := {}
 	e2.fertig.connect(func(w): w2.merge(w))
-	e2.b.waehle("Handeln")   # 470: der Mensch waehlt eine Fertigkeit, erst dann geht es los
 	e2.beginne()
 	await process_frame
 	var karten: Array = e2.find_children("*", "PanelContainer", true, false).filter(func(c): return c.gui_input.get_connections().size() > 0)

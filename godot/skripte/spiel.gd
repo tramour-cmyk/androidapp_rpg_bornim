@@ -764,6 +764,20 @@ func test_tat(was: String, mit: Array) -> void:
 			betrete("elder", ziel[0], ziel[1])
 			await ortsworte(von, false)
 			ui.sage([{"text": Sprache.t({"de": "Höhle geschafft, Lyra frei, Amulett in der Tasche: sprich mit Aldric.", "en": "Cave cleared, Lyra free, the amulet in your bag: talk to Aldric."})}])
+		"erschaffung_brs":   # 470a B: Seite nach BRS 1.1 nur ansehen; der Held bleibt, wie er ist
+			var ebene := CanvasLayer.new()
+			ebene.layer = 40
+			ebene.process_mode = Node.PROCESS_MODE_ALWAYS
+			add_child(ebene)
+			var e := ErschaffungBrs.new()
+			e.ziel = maxi(Spielstand.platz, 1)   # nie die Platzwahl: es wird nichts gespeichert
+			ebene.add_child(e)
+			get_tree().paused = true
+			var weg := func():
+				ebene.queue_free()
+				get_tree().paused = false
+			e.zurueck.connect(weg)
+			e.fertig.connect(func(_w): weg.call())
 		"kampf", "probe":
 			if not ResourceLoader.exists("res://kampf/kampfort.gd"): return
 			await abblenden(1.0)

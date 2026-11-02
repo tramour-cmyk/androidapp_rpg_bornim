@@ -810,7 +810,7 @@ func klassen() -> void:
 	spiel.get_tree().root.add_child(e)
 	await get_tree().create_timer(1.5).timeout
 	await knips(aus + "/erschaffung_oben.png")
-	e.b.waehle_herkunft("Herumtreiber"); e.aussehen = HeldFigur.vorgabe(e.klasse()); e.baue()   # 470: Herkunft statt Klasse (Bruecke: Schurke)
+	e.klasse = "ROGUE"; e.gekauft = Heldwerte.vorschlag("ROGUE"); e.aussehen = HeldFigur.vorgabe("ROGUE"); e.baue()
 	await get_tree().create_timer(1.5).timeout
 	var ziel_y := 0
 	for c in e.inhalt.get_children():

@@ -76,6 +76,8 @@ func _lauf() -> void:
 	# Spielstand hin und zurück
 	var r := BrsHeld.aus_daten(JSON.parse_string(JSON.stringify(b.als_daten())))
 	pruefe("Spielstand", r.als_daten(), b.als_daten())
+	var z3 := Zustand.new(); z3.brs = b.als_daten()
+	pruefe("Spielstand im Zustand", Zustand.aus_daten(JSON.parse_string(JSON.stringify(z3.als_daten()))).brs, b.als_daten())
 	# Brücke bis 2.3 (470a): Klasse aus der Herkunft, SRD 8..16
 	pruefe("SRD-Werte", [BrsHeld.srd_wert(3), BrsHeld.srd_wert(5), BrsHeld.srd_wert(8), BrsHeld.srd_wert(9)], [8, 11, 15, 16])
 	var zl := BrsHeld.neu("Hügelvolk", "Zauberlehrling")
@@ -84,7 +86,7 @@ func _lauf() -> void:
 	pruefe("Klosterschüler alt", BrsHeld.neu("Mensch", "Klosterschüler").alt()["klasse"], "CLERIC")
 	# Seite „Neues Spiel“ passt in die Breite eines Handys (Pruefer 14:5x: Kopf mit 2 x 120 dp schob alles ueber den rechten Rand)
 	root.size = Vector2i(1080, 2340)
-	var es := Erschaffung.new()
+	var es := ErschaffungBrs.new()
 	root.add_child(es)
 	for i in 5: await process_frame
 	var platz := 1080.0 - 2 * (12 + 14) * AktionsKnopf.DP
@@ -105,7 +107,7 @@ func _lauf() -> void:
 	es.baue()
 	for i in 5: await process_frame
 	var breiten := {}
-	var namen: Array = Erschaffung.FERT.keys().map(func(f): return Erschaffung.fert_name(String(f)).to_upper().replace("ß", "SS"))
+	var namen: Array = ErschaffungBrs.FERT.keys().map(func(f): return ErschaffungBrs.fert_name(String(f)).to_upper().replace("ß", "SS"))
 	for k in es.inhalt.find_children("*", "Button", true, false):
 		if namen.has((k as Button).text): breiten[(k as Button).text] = roundi((k as Button).size.x)
 	var ziel: int = breiten.values().min()

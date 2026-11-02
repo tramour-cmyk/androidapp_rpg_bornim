@@ -17,7 +17,7 @@ func _bild(n: String) -> void:
 func _lauf() -> void:
 	Sprache.lade()
 	if Sprache.aktiv() != "de": Sprache.wechsle()
-	var e := Erschaffung.new()
+	var e := ErschaffungBrs.new()
 	root.add_child(e)
 	await _bild("470_mensch_oben")
 	for stelle in [0.33, 0.66, 1.0]:
