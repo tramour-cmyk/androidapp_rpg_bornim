@@ -15,4 +15,6 @@ Film (31 s): Völker als Männer und Frauen, drehend; Hügelvolk neben Goblin; F
 
 **Held:** Gleich geeicht wäre sein Gesicht im Kampfortlicht 241/163/126 statt 255/253/236 heute (Ziel 212/162/124), also deutlich weniger blass. Dafür ändert sich die Eichung im Spiel von 1,145/0,96/0,97 auf etwa 0,35/0,22/0,27. Das Bild mit dem Helden ganz rechts zeigt vorher und nachher; im Dorf wird er damit dunkler als heute.
 
+**Selbst geprüft:** A1, A2, A3, A4, B2, C1, C3, G1, G3 eingehalten; B1 verletzt, weil die Orkblütige Frau beige bleibt (oben). Prüferbefund folgt als Text.
+
 **Stärkstes Gegenargument:** Den Helden im Kampfort hast du mit Film 403 abgenommen; die neue Eichung ändert sein Gesicht überall.
