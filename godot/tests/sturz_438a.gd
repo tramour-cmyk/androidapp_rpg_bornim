@@ -143,8 +143,8 @@ func _run() -> void:
 		var griff_ruhe: float = werte.get("SS_IdleCombat", [0, 0, 0, 0, 0, 0.0])[5]
 		for b in werte:
 			var e: Array = werte[b]
-			if e.size() > 6:
-				print("  %s %s: Waffe in Haut %.3f m (%s), Finger vor dem Schild %.3f m, Fingerspitzen vom Griff %.3f m" % [k, b, e[3], e[6], e[4], e[5]])
+			if e.size() > 7:
+				print("  %s %s: Waffe in Haut %.3f m (%s), Finger vor dem Schild %.3f m, Fingerspitzen vom Griff %.3f m, Waffe flachste %.0f° zur Waagrechten" % [k, b, e[3], e[6], e[4], e[5], e[7]])
 			_check(e[3] <= HAUT_GRENZE, "%s %s: Waffe höchstens %.3f m in Haut oder Kleidung" % [k, b, e[3]])
 			_check(e[4] <= FINGER_GRENZE, "%s %s: Finger der Schildhand höchstens %.3f m vor dem Schild" % [k, b, e[4]])
 			_check(e[5] <= griff_ruhe + OFFEN_GRENZE, "%s %s: Schwerthand geschlossen, Fingerspitzen %.3f m vom Griff (Kampfhaltung %.3f)" % [k, b, e[5], griff_ruhe])
@@ -245,8 +245,8 @@ func _haut_welt(sk: Skeleton3D, haut: Array, box: AABB) -> Array:
 ## Runde 3: je Bild Waffe in Haut und Kleidung, Finger der Schildhand vor dem Schild, Fingerspitzen der Schwerthand vom Griff
 func _runde3(fig, sk: Skeleton3D, klinge: Node3D, schild: Node, haut: Array, finger: Array, werte: Dictionary, b: String) -> void:
 	var e: Array = werte.get(b, [-INF, -INF, -INF, -INF, -INF, -INF, ""])
-	while e.size() < 7:
-		e.append(-INF if e.size() < 6 else "")
+	while e.size() < 8:
+		e.append(-INF if e.size() < 6 else ("" if e.size() == 6 else INF))
 	if klinge:
 		# Achse der Waffe: die beiden am weitesten auseinander liegenden Ecken; Halbmesser: Mittelwert des Abstands der Ecken zur Achse
 		var ecken: PackedVector3Array = _hilfe._ecken(klinge)
@@ -285,6 +285,8 @@ func _runde3(fig, sk: Skeleton3D, klinge: Node3D, schild: Node, haut: Array, fin
 				if t > e[3]:
 					e[3] = t
 					e[6] = "%s %.2f s" % [hw[2][best], fig.anim.current_animation_position]
+		# Prüfer Runde 2 (Kämpfer von vorn: Klinge waagrecht vor dem Bauch): flachster Winkel der Achse zur Waagrechten
+		e[7] = minf(e[7], rad_to_deg(asin(clampf(absf((z - a).normalized().y), 0.0, 1.0))))
 		# Fingerspitzen der Schwerthand zur Achse (offen liegende Hand, Prüfer 7,1–9,0 s)
 		for nm in ["index_03_r", "middle_03_r", "ring_03_r"]:
 			var bi := sk.find_bone(nm)

@@ -36,6 +36,14 @@ func _initialize() -> void:
 
 
 func _run() -> void:
+	# 438a Runde 3 (Prüfer Runde 2: „erste Sekunde fremde Szene“): schwarz, bis der Film beginnt
+	var vorhang := CanvasLayer.new()
+	vorhang.layer = 100
+	var schwarz := ColorRect.new()
+	schwarz.color = Color.BLACK
+	schwarz.set_anchors_preset(Control.PRESET_FULL_RECT)
+	vorhang.add_child(schwarz)
+	root.add_child(vorhang)
 	var p = Probe.new()
 	p.hero_cls = "FIGHTER"
 	p.merc_cls = "CLERIC"
@@ -91,6 +99,13 @@ func _run() -> void:
 	var fuss := cam.unproject_position(mitte)
 	var kopf := cam.unproject_position(mitte + Vector3(0, 1.85 * fg.scale.y, 0))
 	var z := clampf(vs.y * 0.40 / maxf(fuss.y - kopf.y, 1.0), 1.0, 6.0)
+	if OS.get_environment("SPIEL") != "":
+		# 438a Runde 3 (Prüfer Runde 2: liegend links angeschnitten): der Liegende reicht bis 1,9 m vom Standort, in jede Richtung
+		var breit := 0.0
+		for i in 16:
+			var q := cam.unproject_position(mitte + Vector3(cos(i * TAU / 16.0), 0.0, sin(i * TAU / 16.0)) * 1.9)
+			breit = maxf(breit, absf(q.x - fuss.x))
+		z = clampf(minf(z, vs.x * 0.44 / maxf(breit, 1.0)), 1.0, 6.0)
 	var c := Vector2(fuss.x, (fuss.y + kopf.y) * 0.5 + (fuss.y - kopf.y) * 0.12)
 	var per: float = kf.base_size / vs.y
 	cam.size = kf.base_size / z
@@ -102,14 +117,15 @@ func _run() -> void:
 	var cl := CanvasLayer.new()
 	root.add_child(cl)
 	lb = _label(cl, Vector2(vs.x * 0.04, vs.y * 0.03), int(vs.x / 17.0), Color(0.95, 0.82, 0.45))
-	lz = _label(cl, Vector2(vs.x * 0.04, vs.y * 0.085), int(vs.x / 30.0), Color(0.92, 0.88, 0.80))
+	lz = _label(cl, Vector2(vs.x * 0.04, vs.y * 0.085), int(vs.x / 22.0), Color(0.92, 0.88, 0.80))     # Prüfer Runde 2: zu klein
 	lz.size = Vector2(vs.x * 0.92, vs.y * 0.1)
 	lz.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	print("Film Start Bild %d" % Engine.get_frames_drawn())
+	vorhang.queue_free()
 	if OS.get_environment("SPIEL") != "":
 		# 438a Runde 2: Hinfallen 1 und Aufstehen 1 so, wie das Spiel sie spielt (knocked_down, rise), Waffe und Schild nach dem Paket,
 		# aus Boden und Körper gehalten (figur.gd _boden_schutz, bodenhalt.gd); Kämpfer und Kleriker, je von vorn und von der Seite
-		var wer := [[fg, "Kämpfer"], [kleriker, "Kleriker"]]
+		var wer := [[fg, "Kämpfer", "Schwert"], [kleriker, "Kleriker", "Stab"]]
 		for w in wer:
 			if w[0] == null:
 				continue
@@ -121,7 +137,12 @@ func _run() -> void:
 				f.position = mitte
 				f.rotation = Vector3(0, atan2(vorn.x, vorn.z) + deg_to_rad(seite[0]), 0)
 				lb.text = "%s · %s" % [w[1], seite[1]]
-				lz.text = "Hinfallen 1 und Aufstehen 1 (Schwert & Schild), Waffe und Schild nach dem Paket, frei von Boden und Körper"
+				var waffe: String = w[2]
+				for at in f.find_children("*", "BoneAttachment3D", true, false):
+					var was := String(at.get_meta("was", ""))
+					if was != "" and not "shield" in was:
+						waffe = "Stab" if was in ["quarterstaff", "staff"] else ("Streitkolben" if "mace" in was else "Schwert")
+				lz.text = "Hinfallen 1 und Aufstehen 1, %s und Schild frei von Boden und Körper" % waffe
 				f.anim.play("SS_IdleCombat", 0.2)
 				await _warte(0.8)
 				f.knocked_down()

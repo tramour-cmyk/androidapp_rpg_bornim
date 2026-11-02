@@ -2463,7 +2463,7 @@ const KAUF_RAND := 0.15
 var _foot := AABB()
 var _foot_ok := false
 func footprint() -> AABB:
-	var f0 := _footprint()
+	var f0 := _footprint_liegend() if kauf and sturz_jetzt() else _footprint()
 	# 406 (wolf_mess_438 mit Sword & Shield: Wolf 9 cm im Schild beim Rückweg): mit dem Satz hält der Held den Schild vor sich, nicht
 	# mehr seitlich am Körper; sein Umriss (jetzige Lage, am Boden) gehört dazu
 	if kauf and _ss() and model:
@@ -2476,6 +2476,36 @@ func footprint() -> AABB:
 				bb.size.y = f0.size.y
 				f0 = f0.merge(bb)
 	return f0
+
+
+## 438a (wolf_mess_438, Runde 2: ein Wolf lief 6–8 cm in den liegenden Kleriker; der Umriss galt in Ruhe, also stehend): beim
+## Hinfallen, Liegen und Aufstehen der Kasten der Rumpf- und Beinknochen in der jetzigen Haltung, um KAUF_RAND erweitert; je Bild einmal
+var _foot_liegend := AABB()
+var _foot_liegend_bild := -1
+func _footprint_liegend() -> AABB:
+	var bild := Engine.get_process_frames()
+	if bild == _foot_liegend_bild:
+		return _foot_liegend
+	var sk := _find(model, "Skeleton3D") as Skeleton3D if model else null
+	if sk == null:
+		return _footprint()
+	var inv := global_transform.affine_inverse()
+	var first := true
+	for bn in KAUF_KNOCHEN:
+		var bi := sk.find_bone(bn)
+		if bi < 0:
+			continue
+		var q: Vector3 = inv * (sk.global_transform * sk.get_bone_global_pose(bi).origin)
+		var bb := AABB(Vector3(q.x - KAUF_RAND, 0.0, q.z - KAUF_RAND), Vector3(2 * KAUF_RAND, 0.0, 2 * KAUF_RAND))
+		_foot_liegend = bb if first else _foot_liegend.merge(bb)
+		first = false
+	if first:
+		return _footprint()
+	_foot_liegend = _foot_liegend.merge(_footprint())     # nie kleiner als stehend (im Fallen steht er noch halb)
+	_foot_liegend.position.y = 0.0
+	_foot_liegend.size.y = 1.8
+	_foot_liegend_bild = bild
+	return _foot_liegend
 
 
 func _footprint() -> AABB:
