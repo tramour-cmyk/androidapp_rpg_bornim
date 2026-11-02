@@ -196,6 +196,12 @@ Ebenfalls geprüft, **nicht verwenden** (Chef 27.10., 12:42 „nein“): 150 Low
 
 Dungeon: kein fremder Bausatz im Bestand.
 
+## Effekte
+
+| Paket | Datei | Ort | Lizenz | Inhalt |
+|---|---|---|---|---|
+| Beams & Lasers VFX Free Sample v1.0 (reeboolabs, gratis; 415, geladen 02.11.) | `anhang/beams/Beams_Lasers_VFX_Godot_Free_Sample.zip` | privat | eigene (`LICENSE.txt`): im Spiel kommerziell, Dateien nie weitergeben; Maskottchen „Oho“ nie ins Spiel | Godot-Addon `reeboo_beams` (Knoten ReebooBeam3D/2D, 11 Shader): Blauer Laser, Feuerstrom, Blitzbogen, je 3D und 2D; im Bau nach `godot/addons/` (godot.yml) |
+
 ## Eigenbau im Zweig (nicht fremd)
 
 `godot/tiere/ratte.glb`, `wildschwein.glb`, `wolf.glb` (in `claude/tom-348-fundament` und Folgezweigen; Jerry, eigenes Skelett): Ratte Stehen, Gehen, Hocke, Biss, Sprung, Lefzen, Drohen, Ausweichen, Treffer, Tod; Wildschwein Stehen, Gehen, Ansturm, Hauer, Scharren(R), Schnauben, Drohen, Hocke, Ausweichen, Treffer, Tod; Wolf Stehen, Gehen, Biss, Sprung, Heulen, Lefzen, Scharren(R), Hocke, Ausweichen, Treffer, Tod. Sonst liegt in keinem Zweig ein GLB, glTF, FBX oder .blend.
