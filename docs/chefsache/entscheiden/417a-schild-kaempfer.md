@@ -1,6 +1,7 @@
 # 417a · Kämpfer im Dorf: Schild auf den Rücken wie beim Kleriker oder am Arm? Rennen wie im Dorf-Film?
 Tom · 02.11., 19:1x · E Figuren
 Kurz: Schild Kämpfer Rücken oder Arm; Rennen mit Waffe wie Dorf-Film
+Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41488712114 (Vergleichsfilm, Commit 463d9c00a)
 
 **Frage:** Zwei Sätze von dir passen nicht zusammen. 19:03 (über Sokrates): Kämpfer-Schild „steht ab“, der Kleriker trägt seinen richtig. Im Dorf-Film trug der Kleriker den Schild **auf dem Rücken** (Stab in der Hand); der Kämpfer trug Schild und Schwert ebenfalls auf dem Rücken. 01.11., 20:4x hattest du für den Schildträger gesagt: „an der Seite tragen … so wie er steht“, also **am Arm**. Welches gilt?
 

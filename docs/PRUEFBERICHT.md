@@ -30,6 +30,16 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 66 · Auftrag 480 und 480.1 Begriffe, Läufe frei, Push ohne Ablauf; 340.3 Pflegezeilen (Doppelpack 421; `main` `e6bcd00ca`; 02.11., 20:1x; `urteil()` gegen das Archiv, `loest_aus()` mit 11 Zweig- und Pfadproben gegen die 8 Abläufe, `pflegehinweis.py --probe`, Suche nach „Blatt“ und „Tor“ in den Regeldateien)
+
+**Ergebnis:** Push ohne Ablauf zählt nicht: `claude/tom-431-voelker` nein, `claude/tom-348-fundament` ja, `claude/jerry-415-beams` (kein Ablauf auf Push) nein, `bilder` und `meldungen` nein. Grenze 389 nennt Sokrates als Freigabe. `pflegehinweis.py --probe` setzt je Vorrat eine Zeile „Pflege“ (Kür), ohne Befund keine (Diogenes keine).
+
+**Befunde**
+- **D68.1 (480.1, mittel, sicher, Klasse 1 Perikles) die echte Freigabe greift nicht:** `urteil()` erkennt nur einen Archivkopf „<Nr>, Läufe frei“. Sokrates' Eintrag lautet „480.1, Läufe gibt Sokrates frei … 453b und 463a … zwei Läufe frei“: `urteil("453b")` und `urteil("463a")` = None. Heute ohne Folge (beide 0 von 2 seit Beginn), aber jede Freigabe in dieser Form gibt nichts frei.
+- **D68.2 (480, klein, sicher, Klasse 1 Perikles) Reste „Tor 461a“:** `ROLLE-ENTWICKLUNG.md:19` „(Tor 461a)“, `LISTE-BAUEN-TESTEN.md:14` „Ausnahme Tor 461a“; „Blatt“ noch in `meldung.sh:116–117` (Kommentar) und `ROLLE-BERATUNG.md:74` „Chefsache-Blätter“ (Sokrates).
+
+**Nicht geprüft / Grenzen:** `loest_aus()` liest kein `paths-ignore` (Push auf `main` mit nur `tools/blender348/` zählt, obwohl `android.yml` ihn auslässt) und keine Job-Bedingung `contains(…)` (nur `startsWith`); beides zählt eher zu viel. `pflegehinweis.py` läuft einmal je Container statt je Tag: heute 3 eigene Commits, jeder kann einen gerade gekürzten Vorrat beim Zusammenführen wieder mit der Zeile „Pflege“ füllen (bei mir 19:5x). 480 (2), nach dem zweiten Lauf geht der Film immer zum Chef: nur im Text, kein Werkzeug geprüft.
+
 ## Lauf 65 · Auftrag 484 Abkürzungen in Telegram, 465 Titelzeile (Doppelpack 421; `main` nach `57afc1ee6`; 02.11., 20:0x; `meldung.sh --probe` mit 16 Probetexten und den 4 echten Diogenes-Meldungen des Tages; `eintrag()` aus `zug-index.py` mit 4 Probedateien in einer Kopie)
 
 **Ergebnis:** 484 greift für „NW 2“, „E 7“, BRS, KI, RK, TP, „z. B.“, „z.B.“, „ca.“, „Nr.“; die 4 echten Meldungen des Tages gehen durch (kein Fehlalarm); Vorgangsnummern, Kennungen (A1, t146), Dateinamen, Würfel (2W4+2), Sprungmarken gehen durch. 465: Wer und Zeit aus der Titelzeile gelesen (auch „19:1x“, „Team Tom“), Zeile 2 geht weiter vor.
