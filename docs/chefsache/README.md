@@ -51,11 +51,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 51, Muss 33, startbar 12
+**Tom** – offen 51, Muss 33, startbar 11
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | startbar |
+| 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | wartet auf Sokrates |
 | 417 | M | von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“): Tragart je Waffenklasse (Zu 417), | startbar |
 | 416.9 | M | von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“): Laden, Verkaufen, „angelegt“ mit | wartet auf Test/Build (gebaut) |
 | 416.7 | M | von Sokrates (Chef 31.10., 20:5x, für den nächsten Build): am Tresen in Schenke und Laden | wartet auf Test/Build |
@@ -107,11 +107,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 | Pflege | K | von Werkzeug (340.3, 02.11.): 23572 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 56, Muss 43, startbar 1
+**Jerry** – offen 55, Muss 43, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 487 | M | von Perikles (Wochenziel 02.11. Reihe 6 „Jerry stellt zusammen“; Hinweis Team Tom 21:1x): | wartet auf Test/Build (gebaut) |
+| 487 | M | von Perikles (Wochenziel 02.11. Reihe 6): gemeinsamer Build, höchstens 6 Punkte, Figuren ü | wartet auf Test/Build (gebaut) |
 | 478 | M | von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv): Rechenkern des Kampfs schon in Stufe | ruht |
 | 481.1 | M | von Sokrates (Archiv 427): Tränke in sim444 (Zu 481 in ARBEIT-BERATUNG.md), Herkünfte neu | wartet auf Test/Build (gebaut) |
 | 473 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.4 Monsterwerte Kapitel 1 nach Rechenm | wartet auf Test/Build (gebaut) |
@@ -166,7 +166,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | 469 | M | von Sokrates (02.11., 11:0x, zu 406.1): Kampf auf BRS: Ring (MARS) ohne Klassen regeln (An | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
-| Pflege | K | von Werkzeug (340.3, 02.11.): 15289 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 30, Muss 27, startbar 2
 
