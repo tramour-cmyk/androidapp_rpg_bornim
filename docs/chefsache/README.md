@@ -18,11 +18,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 ## Zu billigen
 
-Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [348.12k](billigen/34812k-grak-film-helden.md) | **Muss** | E Kampf | 01.11., 22:47 | Grak-Film mit den alten Helden: Ursache und neuer Lauf | Sokrates |
+Nichts offen.
 
 ## Anzusehen
 
