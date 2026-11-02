@@ -77,6 +77,8 @@ func film() -> void:
 			(m as MeshInstance3D).material_override = schwarz
 	_hintergrund(reihen["riss"][0].position)
 	await fp.get_tree().create_timer(1.0).timeout
+	await _diagnose(ort + Vector3(24, 0, 0))
+	if OS.get_environment("VOELKER_NUR_DIAGNOSE") != "": return   # Ablauf mit Eingabe diagnose: nur das Vergleichsbild, kein Film
 	await _laufen(["maenner", "frauen"], 12.0, true)
 	await _laufen(["huegel"], 8.0, true)
 	await _laufen(["familie"], 8.0, true)
@@ -318,6 +320,70 @@ func _ausschnitt(t: String) -> void:
 			return
 		marker.set_meta("zoom", float(marker.get_meta("zoom")) * 1.08)
 	fp.protokoll.append("AUSSCHNITT %s: nach 12 Schritten noch hinaus, Zoom %.2f" % [t, float(marker.get_meta("zoom"))])
+
+
+# 431c B1, Ursache nachstellen (Lauf 41439148830: Voelker kreideweiss, Ork tuerkis, Waesche blaugruen): Godot bekommt dieselben Werte wie
+# gerechnet (tests/haut_431.gd, Lauf 41474466012: Bild, Format, Toenung), Runde 3 ohne Toenung zeigte Haut. Hier nebeneinander, gleiches
+# Licht: der Held (Kaempfer, Hautton 1 wie im Spiel), Mensch und Ork getoent wie im Film und ohne Toenung (Runde 3). Je Figur die
+# Gesichtsfarbe im Bild (5 x 5 Punkte vor dem Kopfknochen) und das Licht der Probe als Messzeilen DIAG; das Bild nur ins Artefakt.
+func _diagnose(x0: Vector3) -> void:
+	_reihe("diagnose", ["Mensch/mann", "Mensch/mann", "Orkblütiger/mann", "Orkblütiger/mann"], x0)
+	var figs: Array = reihen["diagnose"][1]
+	var namen := ["Mensch getoent", "Mensch ohne Toenung", "Ork getoent", "Ork ohne Toenung"]
+	for k in [1, 3]:
+		if k >= figs.size(): continue
+		for mi in (figs[k] as Node3D).find_children("*", "MeshInstance3D", true, false):
+			var me := (mi as MeshInstance3D).mesh
+			for i in me.get_surface_count():
+				var src := me.surface_get_material(i)
+				var rn := String(src.resource_name) if src else ""
+				var sm := (mi as MeshInstance3D).get_surface_override_material(i) as ShaderMaterial
+				if sm and (rn.contains("Regular") or rn.contains("Superhero")):
+					sm.set_shader_parameter("toen_hell", 0.0)
+					sm.set_shader_parameter("toenung", Vector3.ONE)
+	var hw := Heldwerte.erschaffe("Probe", "HUMAN", "FIGHTER")
+	fp.klasse_figur("diag_held", {"klasse": "FIGHTER", "volk": "HUMAN", "aussehen": HeldFigur.vorgabe("FIGHTER"), "ausruestung": hw.ausruestung})
+	if fp.figuren.has("diag_held"):
+		var h: Node3D = fp.figuren["diag_held"]
+		h.position = x0 + Vector3(4 * ABSTAND, 0, 0)
+		figs.append(h)
+		namen.append("Held Kaempfer Hautton 1")
+	var marker: Node3D = reihen["diagnose"][0]
+	marker.position = x0 + Vector3(2 * ABSTAND, MITTE_Y, 0)
+	for f in figs: (f as Node3D).rotation.y = 0.0
+	DirAccess.make_dir_recursive_absolute(fp.aus + "/voelker/diagnose")
+	_kamera(marker)
+	for n in 3: await fp.get_tree().process_frame
+	await RenderingServer.frame_post_draw
+	await RenderingServer.frame_post_draw
+	var img := fp.spiel.get_viewport().get_texture().get_image()
+	img.save_png(fp.aus + "/voelker/diagnose/0000.png")
+	var cam := fp.spiel.kamera as Camera3D
+	var mitte := cam.unproject_position(marker.global_position)
+	var sx := img.get_width() / 2.0 / maxf(mitte.x, 1.0)   # Massstab wie voelker_film.py (Reihenmitte = Bildmitte)
+	var sy := sx
+	for k in figs.size():
+		var f: Node3D = figs[k]
+		var sk := Gebiet.finde(f, "Skeleton3D") as Skeleton3D
+		var kopf := f.global_position + Vector3(0, 1.6, 0)
+		if sk and sk.find_bone("Head") >= 0:
+			kopf = sk.global_transform * sk.get_bone_global_pose(sk.find_bone("Head")).origin + Vector3(0, 0.06, 0)
+		var vorn := kopf + (cam.global_position - kopf).normalized() * 0.12
+		var p := cam.unproject_position(vorn) * Vector2(sx, sy)
+		var summe := Vector3.ZERO
+		var n := 0
+		for dy in range(-2, 3):
+			for dx in range(-2, 3):
+				var q := Vector2i(int(p.x) + dx * 2, int(p.y) + dy * 2)
+				if q.x < 0 or q.y < 0 or q.x >= img.get_width() or q.y >= img.get_height(): continue
+				var c := img.get_pixelv(q)
+				summe += Vector3(c.r, c.g, c.b); n += 1
+		var m := summe / maxf(n, 1) * 255.0
+		fp.protokoll.append("DIAG %s: Gesicht im Bild %d/%d/%d bei %d,%d" % [namen[k], m.x, m.y, m.z, p.x, p.y])
+	var lc: Node = fp.spiel.licht
+	fp.protokoll.append("DIAG Licht: Sonne %.3f %s, Umgebung %.3f %s, Stand %s, Bild %dx%d, Ansicht %s" % [lc.sonne.light_energy, lc.sonne.light_color,
+		lc.env.ambient_light_energy, lc.env.ambient_light_color, str(lc.stand), img.get_width(), img.get_height(), fp.spiel.get_viewport().get_visible_rect().size])
+	for f in figs: (f as Node3D).visible = false
 
 
 func _laufen(teile: Array, sek: float, drehen: bool, name := "") -> void:
