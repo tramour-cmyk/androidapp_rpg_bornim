@@ -136,3 +136,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 02:38 02.11.: Marke Archiv session_01Hmoj78o3UhhepC7d8i4EsD (lauf.py)
 - 02:38 02.11.: Marke Archiv session_01Hmoj772DRt3QWMD1g9uWz7 (lauf.py)
 - 02:38 02.11.: Marke Archiv session_01Hmoj78eN5kXtDd9ZsnDPJB (lauf.py)
+- 03:03 02.11.: Marke Wächter 399.2 28.10. 12:34 (lauf.py)
+- 03:03 02.11.: Marke Wächter 407 29.10. 10:05 (lauf.py)
