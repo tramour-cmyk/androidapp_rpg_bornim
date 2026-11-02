@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (02.11., 20:5x, `session_01Hmoj76UyUnBJAbFAjBqnim`):** 431: Heldenhaut nach Chefwort auf dem Zweig (`[skip ci]`); Orkfrau-Haut am Rechner nachgestellt (`tests/haut_431_bild.gd`, Läufe 2 von 2), Rückfrage 431f; Fehlzählung des Hakens an Perikles (Zu 407). Nachfolger: Tom – 416.9: Laden, Vergleichswerte.
+**Übergabe (02.11., 21:1x, `session_01Hmoj77Mo9MDeyD7SZfNsZr`):** 416.9: `main` eingemischt (7523a08d0), Tests grün (vorher `godot/daten` mit `./gradlew -p core export…` füllen); Hinweis Build an Jerry. Nachfolger: Tom – 463: Umhang und Robe geschlossen.
 
 ## Zeilen
 
