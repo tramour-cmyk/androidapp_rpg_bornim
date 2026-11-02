@@ -169,9 +169,19 @@ func _atem(w: Node3D, m: Node3D, ap: AnimationPlayer, schluessel: String, i: int
 # Pruefer Lauf 41430558274 (B1: Haut kreideweiss wie Gips, Ork blass mint; Runde 3 ohne Toenung nicht): HeldFigur.toene nimmt als
 # Bezug die Bildfarbe des Heldenkopfs (held-klassen.json haut_bild, OnlyHead), der Shader rechnet Bild / Bezug mal Zielton; die Voelker
 # tragen das Bild des FullBody-Koerpers. Darum hier der Bezug aus dem eigenen Bild (voelker.py haut_bild, dieselbe Stelle im Gesicht)
+# 431c B1, Ursache (Vergleichsbild Lauf 41476649959, gleiches Licht wie Dorf und Wiese: Sonne 0,455, Umgebung 0,275): ohne Toenung zeigt
+# das Gesicht echte Haut (Mensch 180/131/91, Ork 183/134/92), getoent ueberstrahlt es (Mensch 235/234/232, Ork 205/225/210 tuerkis), auch
+# der Held mit Hautton 1 (234/232/200 statt Ziel 212/162/124). Die Eichung HeldFigur.HAUT_EICHUNG (1,145/0,96/0,97) setzt die Albedo
+# im Gesicht auf etwa den Zielton selbst; dieses Licht hebt sie aber um das 1,4- bis 1,9-fache (gemessen: Albedo des Bildes zu Farbe im
+# Bild, Mensch 0,708/0,538/0,602, Ork 0,783/0,559/0,636). Hier darum die Albedo so, dass das Gesicht im Bild den Zielton zeigt: Zielton
+# linear mal dem Mittel dieser Messung. Der Held im Spiel bleibt bei seiner Eichung (Aussehen urteilt der Chef, Frage in der Vorlage).
+const EICHUNG_LICHT := Vector3(0.745, 0.549, 0.619)
+
 func _eigene_haut(m: Node3D, e: Dictionary, g: String) -> void:
 	var held: Array = HeldFigur.geschlecht_info(g).get("haut_bild", [])
 	var bild := "ohne"
+	var ton := HeldFigur.ton(String(VOLK_ENUM.get(String(e["volk"]), "HUMAN")), "haut", 0)
+	var tl := ton.srgb_to_linear()
 	for mi in m.find_children("*", "MeshInstance3D", true, false):
 		var me := (mi as MeshInstance3D).mesh
 		for i in me.get_surface_count():
@@ -185,7 +195,9 @@ func _eigene_haut(m: Node3D, e: Dictionary, g: String) -> void:
 			if sm == null or !(e.get("haut_bild") is Array): continue
 			sm.set_shader_parameter("toen_bild", HeldFigur._lin(e["haut_bild"]))
 			sm.set_shader_parameter("toen_hell", HeldFigur._hell(e["haut_bild"]))
-	fp.protokoll.append("HAUTBILD %s %s: eigen %s, Held %s, Bild %s" % [String(e["volk"]), g, str(e.get("haut_bild", "fehlt")), str(held), bild])
+			if ton.r >= 0.0: sm.set_shader_parameter("toenung", Vector3(tl.r, tl.g, tl.b) * EICHUNG_LICHT)
+	fp.protokoll.append("HAUTBILD %s %s: eigen %s, Held %s, Bild %s, Zielton %s, Eichung %s" % [String(e["volk"]), g, str(e.get("haut_bild", "fehlt")),
+		str(held), bild, ton.to_html(false), str(EICHUNG_LICHT)])
 
 
 # Hauer (merkmale.py, Material „Hauer“ ohne Bild): Farbe ueber die Toenung des Toon-Shaders (toen_hell 0: Faktor)
