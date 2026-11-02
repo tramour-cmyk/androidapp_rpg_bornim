@@ -465,7 +465,9 @@ if UA > 0 and 'cloak' in TEILNAMEN:
 # Aermel, und er folgt dem Arm nicht (der Strahl nach innen trifft den Ruecken, nicht den Arm; FOLGT). Darum (1) jede Umhangecke binnen
 # ARM_R am Aermel mindestens ARM_LUFT m vor die Aermelflaeche (entlang deren Normale), (2) bis ARM_GEW der Aermelgewichte (naeher mehr,
 # Oberarm schiebt den Umhang). Beide Lagen gleich: je Ecke die staerkste Verschiebung und Gewichtung binnen SCHALE_R (wie SCHALE GEWICHTE)
-ARM_LUFT = float(os.environ.get('ARM_LUFT', '0.012')); ARM_GEW = float(os.environ.get('ARM_GEW', '0.6')); ARM_R = float(os.environ.get('ARM_R', '0.06'))
+# Lauf 41368485277 (ARM_LUFT 0,012, ARM_GEW 0,6): schlechter, darum aus (ARM_LUFT=0): sleeves>cloak Ruhe Mann 104 -> 104, Frau 48 -> 112,
+# Gehen 256 -> 215, 238 -> 233; Flecken Mann chain 368 -> 4865, sleeves 1372 -> 2903; in Ruhe liegt der Durchstoss jetzt auf 1,4 m (Schulter)
+ARM_LUFT = float(os.environ.get('ARM_LUFT', '0')); ARM_GEW = float(os.environ.get('ARM_GEW', '0.6')); ARM_R = float(os.environ.get('ARM_R', '0.06'))
 if ARM_LUFT > 0 and 'cloak' in TEILNAMEN and 'sleeves' in TEILNAMEN:
     _ic = TEILNAMEN.index('cloak'); _is = TEILNAMEN.index('sleeves')
     _sf = [f for f in KF if LT[f[0]] == _is]
