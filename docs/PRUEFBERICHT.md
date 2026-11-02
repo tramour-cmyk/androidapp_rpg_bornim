@@ -39,6 +39,7 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **Befunde**
 - **D65.1 (461b, klein, sicher, Klasse 1 Perikles) Fehlstopp beim zweiten Anhang:** `commit-pruefung.py` zählt einen Anhang nur, wenn die alte Zeile noch kein „ersetzt durch“ trug (`"ersetzt durch" not in a`). Probe: neuer 461b-Eintrag mit „461 C1“, C1 geändert, am alten 461b (trägt schon „→ Ort … ersetzt durch 461d“) richtig „→ ersetzt durch 461b Probe, 02.11.“ angehängt: Exit 1. Ausweg wäre nur das falsche „ersetzt nichts“.
+  - **Behoben** (Nachprüfung 02.11., 12:1x, `a208e916f`): dieselbe Probe Exit 0; Gegenproben A1 fremd, ohne Anhang, falscher Eintrag (453a), nur Archiv halten weiter an. Zugleich 461.2 (D58.1–5, Lauf 56) nachgesehen: E1 mit Woher 410/417, F6 nimmt den Arkanpfeil aus, G2 „kein Chefwort“ als Maß statt Tor, D3 „Oberkörper aufrecht“, Tor durch 461a gebilligt: behoben.
 
 **Nicht geprüft / Grenzen:** `gh api … --input body.json` und `-fref=` ohne Leerzeichen zählen unter „godot.yml“ (Datei nicht lesbar; selten). Berührt ein Entscheid C1 und C2 und ändert nur C1, geht er durch. „→ **Vorentscheid, gebilligt 21.10.**“ ohne Uhrzeit (261.5, 59e.1, 84.1T.1) erkennt `urteil()` nicht; nur alte Einträge mit eigenem Chefeintrag, ohne Wirkung. Echte Zähldatei dieser Sitzung (fehlte vor dem ersten Zugende).
 
