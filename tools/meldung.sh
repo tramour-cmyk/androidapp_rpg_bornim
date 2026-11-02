@@ -127,7 +127,7 @@ if [ -n "$art" ]; then
           b=$(basename "$f" | tr 'A-Z' 'a-z'); case "$b" in "$k"-*.md) ;; *) continue ;; esac
           t=$(git -C "$repo" log -1 --format=%ct "$basis" -- "$f"); [ "${t:-0}" -ge $jung ] && { jung=${t:-0}; blatt=$f; }
         done
-        [ -n "$blatt" ] || { echo "meldung: Blatt zu $nr auf main nicht gefunden, Link nicht eingetragen (450)" >&2; break; }
+        [ -n "$blatt" ] || { echo "meldung: Datei zu Vorgang $nr in ansehen/ auf main nicht gefunden, Link nicht eingetragen (450)" >&2; break; }
         inhalt=$(git -C "$repo" show "$basis:$blatt"; echo .)
         case "$inhalt" in *"$u"*) eingetragen=1; break ;; esac
         neu_b=$(printf '%s' "${inhalt%.}" | ZEILE="$zeile_l" python3 -c '
@@ -143,7 +143,7 @@ sys.stdout.write(k + "\n\n" + os.environ["ZEILE"] + "\n\n" + r.lstrip("\n"))' | 
         git -C "$repo" push -q origin "$neu:refs/heads/main" 2>/dev/null && { eingetragen=1; break; }
         sleep $((versuch * 2))
       done
-      [ -n "$eingetragen" ] || echo "meldung: Link nicht ins Blatt eingetragen; von Hand nachtragen (450)" >&2
+      [ -n "$eingetragen" ] || echo "meldung: Link nicht in die Datei des Vorgangs eingetragen; von Hand nachtragen (450)" >&2
     fi
   fi
 fi
