@@ -13,6 +13,7 @@ const LEIB := 0.45                     # Meter: so nah kommt der Held an die Koe
 # des echten Tempos (kein Gleiten). 180 Grad in gut 1,2 s, etwa zwei Schritte; im Stehen (Umschauen) gemaechlicher
 const DREH := 2.5                      # rad/s im Gehen
 const DREH_STEH := 1.4                 # rad/s im Stehen
+const DREH_ZU := 2.5                   # rad/s zum Helden hin (416.8, Chef 02.11., 10:52, Build 146: „zombie-mäßig“, „ein Ticken schneller“), 180 Grad in 1,3 s
 const BOGEN := 0.45                    # rad: ab dieser Abweichung geht sie in Blickrichtung statt aufs Ziel
 const BOGEN_TEMPO := 0.4               # Anteil des Tempos bei 180 Grad Abweichung (bei 0 Grad 1)
 
@@ -391,7 +392,7 @@ func _process(dt: float) -> void:
 			zugewandt_bis = 0
 			blick = blick_vorher
 			ruhe_bis = -1.0   # die Ruhebewegung beginnt neu
-	rotation.y = drehe(rotation.y, blick, DREH_STEH * dt)
+	rotation.y = drehe(rotation.y, blick, (DREH_ZU if zugewandt_bis > 0 else DREH_STEH) * dt)
 	if still or not da: return
 	if zugewandt_bis > 0: return
 	if Time.get_ticks_msec() < ruft_bis: return   # 399.1 (306): wer ruft, haelt still, bis das zweite Zeichen vorbei ist
