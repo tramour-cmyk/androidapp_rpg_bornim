@@ -1,6 +1,8 @@
 # 432.3 · Aschgeborene: Name des Merkmals, Aussehen, Text, Orte des Zeichens
 Homer · 02.11., 19:5x · C Texte
 
+Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/08d10a6d8 (Liste, Text und Orte, gegen Archiv 432, 432.2, Storyplan und `geschichte.gd` fremd geprüft)
+
 Kurz: Aschgeborene: Name des Merkmals (Aschenerbe?), Liste, Text, Orte des Zeichens
 
 **Frage:** Zu 432.3 hast du „ja“ gesagt (02.11., 16:35); den Namen des Merkmals und die Orte des Zeichens soll ich festlegen. Welcher Name gilt, und passen Liste, Text und Orte?
