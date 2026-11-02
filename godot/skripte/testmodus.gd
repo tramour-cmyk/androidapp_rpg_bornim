@@ -161,6 +161,9 @@ static func reiter(m: Menue) -> void:
 		zk.call(t.call("Andere Hand", "Other hand"), name_von(nb) if nb != "" else t.call("leer", "empty"),
 			t.call("Wechselt die andere Hand: leer, Schild, Rundschild, Dolch.", "Cycles the other hand: empty, shield, round shield, dagger."),
 			func(): waffe(hw, z, NEBENHAND[(maxi(NEBENHAND.find(nb), 0) + 1) % NEBENHAND.size()] if NEBENHAND.has(nb) else "", true), "SHIELD")])
+	# 470a B: die Seite „Neues Spiel“ nach BRS 1.1 bis 2.3 nur hier; „Abenteuer beginnen“ und „Zurück“ fuehren in die Welt zurueck
+	m.zeichenreihe([zk.call(t.call("Erschaffung BRS", "Creation BRS"), null, t.call("Zeigt die neue Seite „Neues Spiel“ nach BRS 1.1. Ins Spiel kommt sie mit dem Kampf nach BRS (2.3); bis dahin ändert sie den Helden nicht.",
+		"Shows the new “New game” page after BRS 1.1. It enters the game with BRS combat (2.3); until then it does not change the hero."), func(): m.test.emit("erschaffung_brs", []), "RULES")])
 	if waffen_auf:
 		var alle: Array = [""]
 		for id in Beute.grundformen():

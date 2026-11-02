@@ -317,5 +317,37 @@
     "gegner_band_oben": 1,
     "_band": "Gegnerstufe von Heldenstufe - 2 bis Heldenstufe + 1, gleich verteilt ueber die Arten (ohne Bosse)",
     "max_kaempfe": 2000
+  },
+
+  "erschaffung": {
+    "_quelle": "470 (Abnahme 1.1): N 2 'Heldenerschaffung', E 68-72, 77, 78; die Simulation rechnet die Voelker nicht. Grenzen 3 bis 8 und Startwert der Fertigkeiten stehen unter 'held'; die Herkunft verteilt 'plus' und 'plus_variante' vor (zusammen die 9 freien Punkte, Spalte '21' der Simulation)",
+    "grundwerte": ["kraft", "gewandtheit", "zaehigkeit", "verstand", "wille", "wahrnehmung"],
+    "start": 1,
+    "punkte": 21,
+    "_punkte": "E 77: jeder Grundwert beginnt bei 1, 21 Punkte, danach jeder zwischen 3 und 8 (12 gebunden, 9 frei)",
+    "volk_max": 9,
+    "volk_min": 3,
+    "_volk": "E 78: das Volk hebt bis 9, senkt nie unter 3",
+    "wanderer_fertigkeiten": 2,
+    "voelker": {
+      "Mensch": {"plus": {}, "frei": 1, "fertigkeit_extra": 1, "merkmal": "Wandelbar"},
+      "Elf": {"plus": {"gewandtheit": 1, "wahrnehmung": 1, "zaehigkeit": -1}, "merkmal": "Wachsame Sinne"},
+      "Zwerg": {"plus": {"zaehigkeit": 1, "verstand": 1, "gewandtheit": -1}, "merkmal": "Steinblut"},
+      "Hügelvolk": {"plus": {"gewandtheit": 1, "wille": 1, "kraft": -1}, "merkmal": "Glückskind"},
+      "Orkblütiger": {"plus": {"kraft": 1, "zaehigkeit": 1, "wille": -1}, "merkmal": "Letzter Atemzug"},
+      "_voelker": "E 72: Mensch +1 frei und eine Startfertigkeit mehr (Wandelbar); sonst je +1, +1, -1 und ein Merkmal"
+    },
+    "fertigkeiten": {
+      "Waffen": ["Einhänder", "Zweihänder", "Stangenwaffen", "Stumpfe Waffen", "Dolche", "Faustkampf", "Schild", "Bogen", "Armbrust", "Wurfwaffen"],
+      "Rüstung": ["Leichte Rüstung", "Mittlere Rüstung", "Schwere Rüstung", "Ausweichen"],
+      "Schatten": ["Schleichen", "Spähen", "Schlösser knacken", "Fallen entschärfen"],
+      "Magie": ["Evokation", "Schutzmagie", "Heilmagie", "Illusion", "Beschwörung"],
+      "Wildnis": ["Tiere beruhigen"],
+      "Gesellschaft": ["Überreden", "Einschüchtern", "Handeln"],
+      "Sammeln": ["Kräuterkunde", "Bergbau", "Angeln", "Jagd"],
+      "Meisterschaften": ["Schmieden", "Lederarbeit", "Alchemie", "Kochen", "Runenkunde", "Heilkunde"],
+      "_fertigkeiten": "N 3: 37 Fertigkeiten in acht Gruppen; Bergbau zeigt sich ab Kapitel 2 (461c), zur Wahl erst dann"
+    },
+    "nicht_waehlbar": ["Bergbau"]
   }
 }
