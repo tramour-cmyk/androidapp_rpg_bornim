@@ -10,6 +10,8 @@ Kurz: Schild Kämpfer Rücken oder Arm; Rennen mit Waffe wie Dorf-Film
 
 **Berührt:** 417, 461.1 (Dorf-Film, Grundstand), 410 (ruht: Wegstecken).
 
+**Prüfer am Vergleichsfilm (19:1x, nicht versandt):** Beim Gang mit Schwert und Schild aus dem Paket liegt die Klinge im Gehen waagrecht quer vor oder durch Kopf und Hals; der Schild wird vor dem Bauch gehalten statt an der Seite (E3, E8 nein). Der Einhandgang (Schwert allein) ist sauber. Mit 1a fällt der Schild-Gang weg. Bei der Kriegsaxt steht der Stiel beim Gehen noch fast senkrecht (E6 nein; eigener Schritt danach). Beim Rennen gleitet der Standfuß in beiden Fassungen noch etwas (Prüfer: 3–19 Bildpunkte je Bodenkontakt).
+
 **Stärkstes Gegenargument zu 1a:** 417 hieß von Anfang an „in der Hand statt auf dem Rücken“ (31.10., 21:1x). Der Schild auf dem Rücken nimmt das für den Schild zurück.
 
 **Stärkstes Gegenargument zu 2:** Rennen A ist mit 24° vorgebeugt, das aufgerichtete Paket mit 16°. Dein „zu weit vorgebeugt“ (14:46) galt dem Paket-Sprint mit 30–37°; Rennen A im Dorf-Film fandest du „vernünftig“.
