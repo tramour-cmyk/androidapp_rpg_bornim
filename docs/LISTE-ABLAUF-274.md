@@ -36,7 +36,7 @@ flowchart TD
   S -->|Auftrag / Rückläufer| N[Nummer ziehen:<br/>Zähler in ARBEIT-BETRIEB.md]
   N --> L[Zeile in LISTE-VORGAENGE.md<br/>Bereich, Klasse, Stand]
   N --> V[Zeile im Vorrat ARBEIT-‹Rolle›.md<br/>+ Wortlaut „Zu ‹Nr›“]
-  W[Wochenziel in<br/>LISTE-ABNAHME-KAPITEL1.md] -.->|M oder K| V
+  W[Wochenziel in<br/>PROJEKTPLAN.md] -.->|M oder K| V
   V --> F[Ford: startbar.py liest Vorräte<br/>lauf.py startet Sitzung]
   F --> B[ARBEIT-BESETZUNG.md]
   F --> A[Sitzung arbeitet]
@@ -69,7 +69,7 @@ flowchart TD
 | `VORGANGSARCHIV.md` | 182 | Sokrates ab letztem Stand, Werkzeuge | ja, aber zu ausführlich: 309 Einträge, Schnitt 585 Zeichen |
 | `PRUEFBERICHT.md` | 76 | Perikles „vor jeder Antwort“, Diogenes | ja, aber erledigte Läufe 22–39 nur noch Verlauf |
 | `ARBEIT-TAGESBERICHT.md` | 4 | Chef | Probe 247 |
-| `LISTE-ABNAHME-KAPITEL1.md` | 3 | Ford, Perikles | ja |
+| `PROJEKTPLAN.md` | 3 | Ford, Perikles | ja |
 | `LISTE-IDEEN.md` | 21 | Homer sonntags, Perikles montags | ja |
 | `FIRMA.md` | 11 | nur bei Anlass | ja |
 | `LISTE-RELEASE-NEUSTART.md`, `LISTE-PRUEFUNG.md`, `LISTE-BAUEN-TESTEN.md` | 3–9 | bei Anlass | ja |

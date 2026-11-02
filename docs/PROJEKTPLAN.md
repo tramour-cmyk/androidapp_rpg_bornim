@@ -1,4 +1,6 @@
-# Abnahme Kapitel 1: Meilenstein und Wochenziel
+# Projektplan Kapitel 1
+
+Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 479, Chef 02.11., 18:34).
 
 **Oberste Direktive (Chef 31.10., Archiv 418):** Kapitel 1 in der Godot-Fassung mit dem Bornimer Rollenspielsystem (BRS, 451) fertigstellen: ohne technische Fehler, gut aussehend, nach unserer Signatur, düster, professionell und immersiv durch Klang, Musik, Kampfsystem und die Möglichkeiten des Spielers. Qualität vor Quantität und vor Eile; es gibt keinen Termin. Fertig ist, was die Abnahmeliste erfüllt. Geht jeder Kür und jedem Neuen vor.
 

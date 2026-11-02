@@ -40,7 +40,7 @@ Alle Vorräte sind gleich gebaut. Jede Zeile: Nummer, Vorgang mit Wortlaut des C
 
 - **M** (Muss): steht im Wochenziel oder der Chef sagt „jetzt“. **K** (Kür): alles andere. **M?**: wer anlegt, hält es außerhalb des Wochenziels für nötig (mit Halbsatz Grund); Perikles entscheidet beim nächsten Wochenziel, eilt es, der Chef. Einstufen ist kein eigener Schritt.
 - Die **Reihenfolge der Zeilen ist der Vorrang**, Muss oben. Kür nur, wenn kein Muss startbar ist (auch keine Übernahme, 118); zuletzt, vor Leerlauf, Zeilen „nach dem Meilenstein“ (190.10). „A“ markiert nur, was Arbeit anhält.
-- **Wochenziel:** Perikles setzt es montags, ein Satz plus Nummernliste mit Termin, abgeleitet aus dem Meilenstein, oben in `LISTE-ABNAHME-KAPITEL1.md`. Ford startet danach.
+- **Wochenziel:** Perikles setzt es montags, ein Satz plus Nummernliste mit Termin, abgeleitet aus dem Meilenstein, oben in `PROJEKTPLAN.md`. Ford startet danach.
 
 | Wer | Entscheidet |
 |---|---|

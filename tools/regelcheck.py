@@ -68,7 +68,7 @@ for datei, anker in (("ARBEIT-TEAM-TOM.md", "## Einzelheiten"), ("ARBEIT-TEAM-JE
 def zeitpunkt(tt, mm, hh, mi):
     return time.mktime(time.strptime("2026-%s-%s %s:%s" % (mm, tt, hh, mi), "%Y-%m-%d %H:%M"))
 os.environ["TZ"] = "Europe/Berlin"; time.tzset()
-ab = lesen(os.path.join(DOCS, "LISTE-ABNAHME-KAPITEL1.md"))
+ab = lesen(os.path.join(DOCS, "PROJEKTPLAN.md"))
 st = re.search(r"\*\*Stand (\d\d)\.(\d\d)\., (\d\d):(\d\d)", lesen(os.path.join(DOCS, "ARBEIT-TAGESBERICHT.md")))  # 448: Tagesbericht statt Stand zum Marktstart
 if not st:
     fund.append("ARBEIT-TAGESBERICHT.md: kein „**Stand TT.MM., HH:MM“ (341 Z1, 448; tools/tagesbericht.py, Perikles)")
