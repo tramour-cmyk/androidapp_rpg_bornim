@@ -13,6 +13,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [427](entscheiden/427-monsterwerte.md) | **Muss** | E Kampf | 02.11., 15:12 | Monsterwerte Kapitel 1: neue Startwerte nach Messung? | Sokrates |
 | [453.1a](entscheiden/4531a-atem-dritter-lauf.md) | **Muss** | E Kampf | 02.11., 14:57 | Heldenatem: Film angehalten (Kleriker), dritter Lauf? | Tuffy (Team Jerry) |
 | [470a](entscheiden/470a-bruecke-bis-2-3.md) | **Muss** | E Regeln | 02.11., 14:33 | BRS-Held in Stufe 1: wie kämpft er, bis der Kampf umgestellt ist? | Spike (Team Tom) |
+| [432.2](entscheiden/4322-aschgeborene-werte.md) | M? | E Regeln | 02.11., 16:33 | Aschgeborene: Grundwerte und Merkmal | Sokrates |
 | [474a](entscheiden/474a-debug-schluessel.md) | M? | E Technik | 02.11., 13:44 | Debug-Schlüssel als Geheimnis statt im Cache? | Tom |
 
 ## Zu billigen
@@ -41,13 +42,14 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 6, Muss 1, startbar 1
+**Homer** – offen 7, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 466 | M? | von Sokrates (Chef 01.11., 21:13, Zu 466): neues Wort für „Handlung“ eines Pfads, dazu Nam | startbar |
 | 447.4 | M | von Perikles (Chef 01.11., Archiv 447): Texte für Stufe 3 der Abnahmeliste: Einladungen de | Chef |
 | 432 | K | von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt | nach dem Meilenstein |
+| 432.3 | M? | von Sokrates (Chef 02.11., 16:29: Aschgeborene „ordentlich eintragen“ wie alle Völker): Ab | wartet auf 432.2 (Chef) |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
@@ -214,7 +216,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 |---|---|---|---|
 | 468 | M | von Chef (02.11., 07:33, Bild „Nutzung“: 36 %): weiter mit Wächter bis Sa 19:59 (ja 11:13, | startbar |
 | 461b | M | von Chef (01.11., 22:23, „Wer prüft denn nach, dass nicht gegensätzliche Entscheidungen an | startbar |
-| 432 | K | von Chef (01.11., 09:41, Archiv 432; nachgefragt 02.11., 16:27): Werte und Merkmal der Asc | nach dem Meilenstein |
+| 432.2 | M? | von Chef (02.11., 16:29: „die gehören auch ordentlich eingetragen … mit ihren Basisattribu | Chef (Datei in der Chefsache) |
 | 427 | M | von Chef (31.10., 21:3x): Bestiarium LISTE-BESTIARIUM.md | Chef (Datei in der Chefsache) |
 | 398 | M | von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr g | wartet auf Perikles |
 | 391 | M | von Chef (28.10., 09:21): Repos dauerhaft ohne Ablehnung | ruht |
