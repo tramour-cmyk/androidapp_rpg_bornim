@@ -87,6 +87,10 @@ for d in $(git ls-tree --name-only origin/main docs/ 2>/dev/null | grep -E '^doc
 done
 # Pflegefehler der Vorräte (167.9): erledigte Zeilen, Größe, lange Zeilen; nur melden, wenn etwas da ist
 if [ -f "$wt/tools/regelcheck.py" ]; then pf=$(python3 "$wt/tools/regelcheck.py" --kurz 2>/dev/null | grep -v "keine$"); [ -n "$pf" ] && echo "$pf"; fi
+# 340.3: dieselben Hinweise einmal am Tag als Zeile „Pflege“ in den Vorrat des Besitzers, Rollenspiegel ab Freitag als Zeile „Spiegel“;
+# im Hintergrund, eigener Commit auf origin/main ohne Arbeitskopie (tools/pflegehinweis.py)
+pm="$HOME/.bornim-pflege-$(TZ=Europe/Berlin date +%Y%m%d)"
+if [ -f "$wt/tools/pflegehinweis.py" ] && [ ! -f "$pm" ]; then touch "$pm"; (python3 "$wt/tools/pflegehinweis.py" >/dev/null 2>&1 &); fi
 # Commit-Prüfung (192.1): pre-commit-Haken, gilt für Notizkopie und Arbeitskopie (gemeinsames Verzeichnis); fehlt das Skript im Zweig, tut er nichts
 hk="$(git rev-parse --git-common-dir)/hooks/pre-commit"
 # D55.4: immer die Fassung von main (Notizkopie), auch in Arbeitszweigen ohne neue Fassung; alter Haken wird ersetzt
