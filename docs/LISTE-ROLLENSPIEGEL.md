@@ -189,3 +189,17 @@ Hinweis: Die Abschnitte der anderen sah ich beim Öffnen der Datei vor dem Antwo
 8. Drei CI-Läufe à 40 Minuten (177, 180, 183) für einen GDScript-Fehler, den das Nachstellen am Rechner in Minuten zeigte.
 9. Unklar: zählt ein Messlauf ohne Bild als Probelauf (389 gegen 390a)? Fehlt: „vor einem CI-Lauf die Ursache mit Godot am Rechner nachstellen, CI nur für Kaufmodelle“; streichen würde ich nichts.
 10. Ernste Ansage: der Chef sah 438a mit bekanntem Befund und wartet auf 415 seit drei Läufen. Schritte: (a) jede Messung prüft, was die Spielkamera zeigt; (b) jede Ursache zuerst am Rechner nachstellen, CI nur für Kaufmodelle; (c) „ohne Befund“ nur nach Abgleich mit einem Prüferbild.
+
+### Sokrates (02.11., 19:36, Sitzung „Sokrates – Chefrunde: 427, 453.1a, 474a; dann 461b (02.11., 18:47)“)
+
+0. Angekündigt 23.10.: drei Schritte; geschehen 3 von 3: Kennzahl steht („Dein Maß“ in der Rollendatei), Vorrang Pause gegen Neustart steht (347), fremde Prüfung vor Bildurteilen ist durch 373 überholt (kein Urteil über Entwürfe).
+1. Halb erfüllt: „vor dem Votum prüfen, wer es noch nutzt“: 427 bewertete Grimmzahn und Krogg ohne ihre Merkmale (Rudel, Überfall), gefunden erst im Gespräch 02.11., 18:53; und beim Start 02.11. die offenen Chefsache-Dateien nicht gegen das Archiv gehalten (417 zum zweiten Mal vorgelegt).
+2. Etwa 65 % Chef (Chefrunden, 427, 461b), 35 % Notizen und Weitergabe; zu viel Pflege, die ein Werkzeug könnte.
+3. Kennzahl: Anteil Empfehlungen, die nach einer Woche gelten; Ist zählt Diogenes, mir nicht bekannt. Dafür getan: 427 gemessen statt geschätzt (Simulation 444), 474a fremd geprüft, Prüfer verwarf meinen Weg B.
+4. 427 mit Messung, Gegenargument und Weg, 474a, 483 mit gemessener Ursache (jsDelivr 403); es fehlte bei 427 die Lücke der Bossmerkmale, die erst der Chef mit seiner Frage auslöste.
+5. „Blatt“ benutzt, obwohl der Chef es 18:49 gestrichen hatte (02.11., 18:57); Zeitstempel 19:24 geschätzt statt der Uhr 19:21.
+6. 466 lag seit 02.11., 11:20 als „M?“ bei Homer und startete nie; gesehen habe ich es erst auf die Frage des Chefs 19:19, gemeldet vorher nicht, weil ich nicht nachsah.
+7. Der Chef wartete auf Antworten (02.11., 19:00: „4 Sachen geäußert und nirgends … Feedback“), weil ich erst eintrug, dann antwortete; verkürzt: erst im Chat antworten.
+8. Am meisten gekostet, am wenigsten gebracht: doppelte Buchführung (482 angelegt und wieder aufgelöst, Vorräte über 15 KB mehrfach gekürzt).
+9. Unklar war, wer das BRS-Dokument aktuell hält (jetzt ich, Rollendatei 02.11.); es fehlt ein Wächter, der Chefsache-Dateien meldet, deren Entscheid schon im Archiv steht.
+10. Ernste Ansage: die Inhalte tragen (427, 461b, 483 gemessen), aber der Chef musste an einem Abend dreimal Entschiedenes wiederholen. Schritte: (a) `zug-index.py` meldet Chefsache-Dateien, deren Nummer im Archiv nach dem Dateidatum entschieden ist (an Perikles); (b) jede Rückmeldung zuerst im Chat beantworten; (c) beim Start die letzte Sitzung des Vorgängers lesen.
