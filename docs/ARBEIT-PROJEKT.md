@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 02.11., 20:01 (`eecf2b771`)
+**Gelesen bis:** `origin/main` 02.11., 20:06 (`b7ce7b458`)
 
-**Übergabe (02.11., 20:01):** 407, Tagesbericht 02.11., Wochenziel 02.–08.11. (470–473); abends 483 (Film-Links je Zweig film/…), 479 (Projektplan, Orte und Welt, entscheiden/479), 465 (Titelzeile), 484 und D67.1 (Abkürzungen), 480/480.1 („Blatt“, „Läufe frei“), 340.3–340.5, D68, 461b verteilt; Zielvereinbarung gemeldet (2 von 4). Doppelpack über Ford. Nachfolger: Perikles – 338.1: Ausführlicher Stand im Projektplan (Wochenzählung liegt), nach Antwort 479 Zeilen übernehmen
+**Übergabe (02.11., 20:06):** 407, Tagesbericht und Wochenziel 02.11.; abends 483, 479 (Vorschlag beim Chef), 465, 484, D67–D70, 480/480.1, 340.3–340.5, 461b verteilt, Stand im Projektplan, Zielvereinbarung gemeldet. Nachfolger: Perikles – 448: Tagesbericht 03.11. (7:30), danach nach Antwort 479 die Zeilen Orte und Welt übernehmen
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
@@ -57,7 +57,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 - **423.1, von Team Tom (01.11., 17:2x):** Handbuch als Seite im Spiel braucht das BRS im Spiel (Abnahme 2.2, 2.3); bitte M?/Stufe festlegen, bis dahin wartet es.
 
 - **Schätzungen 447.2 (Tom, 38 Sitzungen) und 447.3 (Jerry, etwa 69 Sitzungen, 48 Runden) je Punkt:** Git, Stand vor „Perikles: Pflege 02.11.“; Summen im Tagesbericht Zeile 3. Homers Regelfragen zu 447.4 an Sokrates weitergegeben (Regelwerk).
-- **Zu 448 (Tagesbericht):** Inhalt nach Chef 01.11., 11:01: erledigt, offen bei wem, Prioritäten, Stand der Entwicklung, wer hinkt, Kennzahlen, Roadmap, Meilensteine, Aufbau des Projekts; Wortlaut 10:59 und 11:01: Git, Stand vor „Perikles: 448.2 erledigt“.
 - **Zu 422, von Sokrates (Chef 01.11., 09:24, Archiv):** beim Bau der Regeln 2.0 (Vorgang fehlt noch, D49) kommt jede Zahl aus einer Datendatei, damit Simulation 444 nur Tabellenzeilen ändert.
 - **Zu 445, von Sokrates (Chef 01.11., 09:24–09:32):** Vorschlag für `CLAUDE.md` „Wie wir zusammenarbeiten“ 4 und `docs/chefsache/README.md`: „Auswertung mit stärkstem Gegenargument“ ersetzen durch „… und dem Weg, es zu entkräften (ins Votum)“; ersetzt, fügt keine Regel hinzu. Perikles entscheidet.
 - **Ältere Einzelheiten** (Zu 433, 424, 407, 412, 408, 418, 421, 436, 384, 383, 275 Stufe 1, 347.2, 378, 338, 381.1, 276, Fehler 341 Woche 19.–25.10., Wortlaute ab 234): Git, Stand vor „Perikles: 461d einsortiert, Vorrat gekürzt“; offen daraus: D51.1, D51.2, D53.1, D53.2, `tools/regeltreue/stufe2/CLAUDE.md` alte Direktive.
