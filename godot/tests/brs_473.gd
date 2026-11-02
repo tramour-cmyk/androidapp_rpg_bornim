@@ -27,11 +27,11 @@ func _lauf() -> void:
 		for feld in ["stufe", "leben", "ruestung", "schaden", "angriff", "abwehr", "wachsamkeit"]:
 			pruefe("%s.%s ganz, nicht unter 0" % [id, feld], float(w[feld]) >= 0.0 and float(w[feld]) == floorf(float(w[feld])), true)
 		pruefe("%s Stufe 1–6 (Kapitelgrenze)" % id, Brs.stufe(id) >= 1 and Brs.stufe(id) <= 6, true)
-	# Stichproben aus dem Bestiarium „Werte 2.0“
+	# Stichproben aus dem Bestiarium „Werte 2.0“ (427, Chef 02.11., 18:54; werte.json seit 427.1)
 	var wolf := Brs.monster("wolf")
-	pruefe("Wolf", [wolf.stufe, wolf.leben, wolf.ruestung, wolf.schaden, wolf.angriff, wolf.abwehr, wolf.wachsamkeit], [2.0, 14.0, 1.0, 7.0, 15.0, 12.0, 30.0])
+	pruefe("Wolf", [wolf.stufe, wolf.leben, wolf.ruestung, wolf.schaden, wolf.angriff, wolf.abwehr, wolf.wachsamkeit], [2.0, 25.0, 1.0, 6.0, 15.0, 12.0, 30.0])
 	var grak := Brs.monster("hobgoblin_captain")
-	pruefe("Grak", [grak.stufe, grak.leben, grak.angriff, grak.abwehr, Brs.boss("hobgoblin_captain")], [6.0, 58.0, 40.0, 38.0, true])
+	pruefe("Grak", [grak.stufe, grak.leben, grak.angriff, grak.abwehr, Brs.boss("hobgoblin_captain")], [6.0, 75.0, 25.0, 38.0, true])
 	pruefe("Skelett gegen Stumpfes", Brs.monster("skeleton").get("schwaeche", {}).get("stumpf"), 1.5)
 	pruefe("Ockerschleim gegen Klingen", Brs.monster("ochre_jelly").get("schwaeche", {}).get("klinge"), 0.5)
 	pruefe("unbekannt leer", Brs.monster("drache").is_empty(), true)
@@ -49,7 +49,7 @@ func _lauf() -> void:
 	pruefe("Erfahrung Wolf", [Brs.erfahrung(1, "wolf"), Brs.erfahrung(2, "wolf"), Brs.erfahrung(11, "wolf")], [44.0, 40.0, 0.0])
 	pruefe("Erfahrung Wolf Stufe 5", Brs.erfahrung(5, "wolf"), 26.666666666666668)
 	pruefe("Erfahrung Grak", [Brs.erfahrung(6, "hobgoblin_captain"), Brs.erfahrung(4, "hobgoblin_captain"), Brs.erfahrung(1, "hobgoblin_captain")], [1080.0, 1296.0, 1620.0])
-	# Würfeln: Wolf gegen Held Stufe 1, Abwehr 12, Abzug 3; sim.py mit 400 000 Schlägen: Mittel 4,171, Treffer 71,5 %
+	# Würfeln: Wolf gegen Held Stufe 1, Abwehr 12, Abzug 3; sim.py mit 400 000 Schlägen (Werte 2.0): Mittel 3,281, Treffer 71,5 %
 	var rng := RandomNumberGenerator.new()
 	rng.seed = 473
 	var n := 100000
@@ -60,7 +60,7 @@ func _lauf() -> void:
 		summe += s
 		if s > 0.0: treffer += 1
 	var mittel := summe / n
-	pruefe("Wolfsbiss Mittel 4,17 ± 0,05 (ist %.3f)" % mittel, absf(mittel - 4.171) < 0.05, true)
+	pruefe("Wolfsbiss Mittel 3,28 ± 0,05 (ist %.3f)" % mittel, absf(mittel - 3.281) < 0.05, true)
 	pruefe("Wolfsbiss Treffer 71,5 %% ± 0,6 (ist %.3f)" % (float(treffer) / n), absf(float(treffer) / n - 0.7146) < 0.006, true)
 	print("BRS473 ", "gut" if fehler == 0 else "%d FALSCH" % fehler)
 	quit(1 if fehler else 0)
