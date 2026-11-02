@@ -107,11 +107,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 | Pflege | K | von Werkzeug (340.3, 02.11.): 23572 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 56, Muss 43, startbar 2
+**Jerry** – offen 56, Muss 43, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 487 | M | von Perikles (Wochenziel 02.11. Reihe 6 „Jerry stellt zusammen“; Hinweis Team Tom 21:1x): | startbar |
+| 487 | M | von Perikles (Wochenziel 02.11. Reihe 6 „Jerry stellt zusammen“; Hinweis Team Tom 21:1x): | wartet auf Test/Build (gebaut) |
 | 478 | M | von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv): Rechenkern des Kampfs schon in Stufe | ruht |
 | 481.1 | M | von Sokrates (Archiv 427): Tränke in sim444 (Zu 481 in ARBEIT-BERATUNG.md), Herkünfte neu | wartet auf Test/Build (gebaut) |
 | 473 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.4 Monsterwerte Kapitel 1 nach Rechenm | wartet auf Test/Build (gebaut) |
