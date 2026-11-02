@@ -48,3 +48,9 @@ Alle: Tempo auf das Spiel umgetaktet, Oberkörper aufgerichtet (Gehen 6,5–9,7 
 - Schwert beim Rennen mit Schild sichtbar im Oberschenkel, etwa 7 von 15 Bildern je Schritt (ab 4,73 s), Knauf hinten; gemessen 1 Bild tiefer als 1 cm (4,9 cm). Behebung wird gemessen.
 - Rennen mit Schild stark vorgebeugt, Kopf vor der Schulter; Stillstand 0–0,97 s gebeugt, dann Sprung der Pose; Axt im Stand nur eine Hand.
 - Schild nicht im Körper. Axtblatt am Feldrand abgeschnitten; Beschriftung nur Kennungen.
+
+**Prüferbefund zum Film 00:53 (nach dem Versand, 00:5x; Bildpunkte, dazu unsere Messung):**
+- Schildträger: Schwert beim Gehen waagerecht in Mundhöhe, Klinge quer durch den Kopf (2,1 s, 2,75 s); beim Rennen Klinge durch Hüfte und Oberschenkel, Knauf hinten aus dem Mantel (4,33, 5,33, 6,0 s). Gemessen im Raum: frei (Gehen Schlüsselbein 3,3 cm, Hals 4,9; Rennen Oberschenkel 7,0). Der Schildträger ist von links gefilmt, das Schwert in der rechten Hand liegt hinter dem Körper; ob Durchdringung oder Verdeckung, klärt der Nachfolger mit einem Bild von rechts.
+- Axt beim Gehen einhändig senkrecht wie eine Fahne, linke Hand nicht am Stiel (2,0–3,7 s); gemessen linke Faust 0,0 cm am Schaft (von rechts gefilmt, die linke Hand liegt hinten). Rennen beide Hände sichtbar am Stiel.
+- Füße: Gehen bis 16 Bildpunkte über dem Boden (Axt), Schild setzt nie ganz auf (6–10); Rennen setzt auf. **Rennen: Fuß 17–28 % langsamer als der Boden, rutscht (alle vier).**
+- Schild verdeckt Kinn und Bart (4,67 s), nicht im Körper. Axtblatt am Feldrand abgeschnitten; Beschriftung nur Kennungen.
