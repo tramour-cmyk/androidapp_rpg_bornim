@@ -8,7 +8,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| Pflege | M | **von Werkzeug (340.3, 02.11.):** 24729 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 431 | M | **von Sokrates (Chef 31.10., 22:0x):** Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film, dann Körperbau je Volk | in Arbeit: Lauf 4 (1 von 2 aus 431d) mit Kampfort-Signatur, Eichung im Kampfortlicht gemessen, Atemphasen, Beschriftung; Grak als Gegner | `claude/tom-431-voelker` |
 | 417 | M | **von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“):** Tragart je Waffenklasse (Zu 417), zuerst Stab, Axt, Bogen; Zahlen messen, Aussehen urteilt der Chef | wartet auf Chef: Chefsache 417a (Schild Kämpfer Rücken oder Arm; Rennen mit Waffe wie Dorf-Film); dann Film wie Dorf-Film (461.1) | `claude/tom-417-tragart` |
 | 416.9 | M | **von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“):** Laden, Verkaufen, „angelegt“ mit allen Plätzen, Vergleichswerte, nicht Tragbares, Icon bei Menge | startbar: passt (Chef 02.11., 14:37, Archiv), in den nächsten Build | `claude/tom-416-9-vergleich` |
@@ -59,6 +58,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 133 | K | Charisma-Wahlen Kapitel 2 (`STORY-WAHLEN.md`) | ruht: altes SRD-System (Chef 31.10.) | – |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (Kapitel 2 nicht im Spiel) | – |
 | D63.5 | K | **von Diogenes (374/434, Vortag 01.11.):** ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53, 23:54; 416.4 ×4 (auch Spike); 376.1 Umhang/Robe, Tracht (Spike); 455.1, 455.2 (Spike); ohne Homer-Vorgabe (373 c): 417, 416.4, 376.1, 416.9, 425, 455.1/.2; nach Tor 461a ohne belegte Prüfung: 376.1 23:03, 417 23:54 (Zu 374 in `ARBEIT-PRUEFUNG.md`) | offen | – |
+| Pflege | K | **von Werkzeug (340.3, 02.11.):** 25539 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 ## Einzelheiten
 

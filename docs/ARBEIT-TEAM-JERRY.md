@@ -12,7 +12,6 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| Pflege | M | **von Werkzeug (340.3, 02.11.):** 15252 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 478 | M | **von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv):** Rechenkern des Kampfs schon in Stufe 1 auf BRS (Modell D), Darstellung bleibt bis 2.3 | ruht: 470a B (geschätzt 3–4 Sitzungen, Zu 478) | – |
 | 427.1 | M | **von Sokrates (Chef 02.11., 18:54, Archiv 427):** Werte Bestiarium „Werte 2.0“ in `werte.json`; sim444 mit Rudel, Umreißen (Grimmzahn), Überfall (Krogg); beide nachmessen, Chefsache | startbar | – |
 | 481.1 | M | **von Sokrates (Archiv 427):** Tränke in sim444 (Zu 481 in `ARBEIT-BERATUNG.md`), Herkünfte neu messen, Zahlen an Sokrates | startbar | – |
@@ -68,6 +67,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht: SRD (Chef 31.10.) | – |
 | 469 | M | **von Sokrates (02.11., 11:0x, zu 406.1):** Kampf auf BRS: Ring (MARS) ohne Klassen regeln (Antwort nach Klasse heute) | wartet auf 406.1 | – |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht: Klang zieht nach Godot; Rest `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
+| Pflege | K | **von Werkzeug (340.3, 02.11.):** 15363 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 ## Einzelheiten
 

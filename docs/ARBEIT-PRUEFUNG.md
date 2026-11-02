@@ -11,7 +11,6 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
-| Pflege | M | **von Werkzeug (340.3, 02.11.):** 15198 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 22 | startbar |
 | 484 | M | **von Perikles (Doppelpack 421, 02.11., 19:4x):** `meldung.sh` hält Abkürzungen an (Kürzel in Großbuchstaben außer MARS, SRD, APK, PNG, MP4, MB, GB, KB, CC0, TCS; „NW 2“, „E 7“; z. B., bzw. …); Fehlalarme an echten Meldungen des Tages prüfen; dazu 465: `zug-index.py` liest Wer und Zeit aus der Titelzeile | startbar |
 | 340.2 | M | **von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv):** Wirkung 340.3–340.5 zählen (Tabelle „Änderungen“ in `LISTE-ROLLENSPIEGEL.md`, Spalte „gewirkt“) | ruht bis Mo 09.11. |
 | 485 | M | **„jetzt“ 02.11., 19:37 (Chef: „1, 2, 3 ja, fang an.“, Rollenspiegel 02.11.):** (1) Wochenzählung zählt fällige Wochentermine „gelaufen ja/nein“; (2) 348.9 Blätter selbst aus `meldungen.tsv` holen und messen; (3) jede Meldung vor dem Senden ohne Abkürzungen, für den Chef lesbar (Zu 485) | in Arbeit: (1) und (2) erledigt 02.11., 19:4x, (3) gilt; Wirkung Mo 09.11. |
@@ -22,6 +21,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24):** Umzug Godot: jedes Vergleichsblatt alt/neu messen, Hinweis an den Chef, kein Tor (373); gedrehte Ansichten gegen Regeln (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 3, 5) | wartet auf nächstes Blatt; selbst holen ab „Blätter geholt bis“ (Zu 485); gemessen bis 02.11. (Zu 348.9, 02.11.) |
 | Woche | K | **Wochenzählung (QM, 106.1):** alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht (`LISTE-PRUEFUNG.md` „Wochenzählung“); jede Woche, Zeile bleibt; **ab Mo 26.10. auch „Anteil Spiel“** (167.4, Chef 18.10.: aus `kosten.py`, Stufe 50 %) | frühestens 09.11.: montags ab 8 Uhr; 25.10.–01.11. gezählt 02.11., 11:2x (dazu ab 04.11. 374 und 434 der Woche, 461b, Nächte 371, rote Läufe 464) |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (`tools/pruefbogen/`, mit echten Bögen ungetestet) | ruht, bis Bögen der Tester da sind (nicht „wartet auf Chef“: das sperrte in lauf.py ganz Diogenes, 190) |
+| Pflege | K | **von Werkzeug (340.3, 02.11.):** Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 23 | startbar |
 
 
 - **von Homer (486, 02.11., 19:5x):** Vorrat 15,1 KB, knapp über der Grenze von etwa 15 KB; Erledigtes streichen.

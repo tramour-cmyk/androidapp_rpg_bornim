@@ -9,7 +9,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| Pflege | M | **von Werkzeug (340.3, 02.11.):** 22757 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 23; CLAUDE.md: 15472 Bytes (Grenze 15000), kürzen; docs/LISTE-VORGAENGE.md: 29554 Bytes (Grenze 15000), Erledigtes ins Archiv | startbar |
 | 484 | M | **von Diogenes (Chef 02.11., 19:27, Wortlaut Zu 484):** keine Abkürzungen mehr in Telegram-Meldungen (Regel für alle, Prüfung in `meldung.sh` erwägen); dazu: „NW“ (Nachschlagewerk) führt nicht zur Datei `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md` | gebaut 02.11., 19:4x: meldung.sh hält Abkürzungen an, Projektplan erklärt E und NW; Diogenes prüft |
 | 483 | M | **von Sokrates (Chef 02.11., 19:21, „483 ja“, Archiv):** Film-Links reparieren: jsDelivr liefert aus Zweig `bilder` nichts (über 50 MB); `meldung.sh` je Film eine Marke mit nur dieser Datei, Link auf die Marke; alte Links in Chefsache nachziehen; Push ohne Gerätetest (Zu 483) | gebaut 02.11., 19:4x: je Film Zweig film/… (Tags lehnt der Proxy ab), Probe 200; Diogenes prüft |
 | 340.3 | M | **von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv):** A: `notiz.sh`-Hinweise (Größe, Zeilenlänge) täglich als eine Zeile „von Werkzeug“ in den Vorrat des Besitzers, ersetzt die vom Vortag (Chefsache 3402 in Git); dazu Rollenspiegel als fester Freitagstermin, der auch ohne Start am Freitag fällig wird (30.10. ausgefallen, Diogenes 19:3x) | startbar |
@@ -40,6 +39,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 338.1 | M | **von Sokrates (Chef 23.10., 09:01/09:05):** „wird es mir nie vorgelegt, wie weit wir da eigentlich stehen“; „dazu brauche ich auch regelmäßige Feedback“. „Stand zum Marktstart“ in `PROJEKTPLAN.md` | gebaut 02.11., 11:2x: Wochenziel 02.–08.11. (Stufe 1, 470–473); Ausführlicher Stand nach Wochenzählung Diogenes |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 06.11.: behalten (Chef 26.10., 11:15, Archiv); Zahlen mit Zielvereinbarung 341 |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
+| Pflege | K | **von Werkzeug (340.3, 02.11.):** 23068 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 24; CLAUDE.md: 15472 Bytes (Grenze 15000), kürzen; docs/LISTE-VORGAENGE.md: 29555 Bytes (Grenze 15000), Erledigtes ins Archiv | startbar |
 
 ## Einzelheiten
 
