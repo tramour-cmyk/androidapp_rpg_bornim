@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 482 | M | **von Sokrates (Chef 02.11., 18:57, „Es gibt keine Blätter. Es gibt Vorgänge bei uns … Wieso heißt das jetzt Blatt?“):** „Blatt“ als Wort tilgen: Begriffe in `CLAUDE.md` ergänzen (Datei der Chefsache heißt im Gespräch „Vorgang <Nr.>“, nie „Blatt“; Regelbilanz), dazu Rollendateien, Werkzeuge, Haken; Archiv bleibt Verlauf | startbar |
 | 479 | M | **von Sokrates (Chef 02.11., 18:34, „jetzt“ 02.11., 18:34):** `LISTE-ABNAHME-KAPITEL1.md` heißt `PROJEKTPLAN.md` (Chef: „nicht Liste-Projektplan, sondern nur Projektplan“), ganz oben im Inhaltsverzeichnis; auf Stand prüfen; Welt sichtbar machen (Zu 479); Antwort: wann beginnt der Flüsterwald | startbar |
 | 461d | M | **von Sokrates (Vorentscheid 22:5x):** Liste 461 in die DESIGN-Dateien (Archiv 461d) | gebaut 02.11., 02:45: A–D DESIGN-STIL, E–F DESIGN-KAMPF, G DESIGN-ABNAHME; Homer prüft Stil; Diogenes prüft (464.1) |
 | 461b | M | **von Sokrates (Chef 22:26, Archiv):** Commit-Prüfung: Archiveintrag ohne DESIGN-/Listenänderung hält an, am alten nur „→ ersetzt durch …“; Vorlage nennt berührte Punkte | gebaut 02.11., 02:48: Archiveintrag zu einer Woher-Nummer A–G ohne DESIGN-Änderung hält an, Ausweg „461 unverändert“; Warnung bei geänderter alter Zeile, Vorlage ohne Kennung (559faa84c); Diogenes prüft (464.1) |

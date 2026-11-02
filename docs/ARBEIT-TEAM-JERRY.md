@@ -13,6 +13,8 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 478 | M | **von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv):** Rechenkern des Kampfs schon in Stufe 1 auf BRS (Modell D: Treffer, Schaden, Abzug; Held mit Leben, Angriff, Abwehr nach BRS), Darstellung bleibt bis 2.3; erst genau schätzen: über 2 Sitzungen → Chef (dann B) | ruht: 470a B (Chefregel über 2 Sitzungen; geschätzt 3–4, Zu 478; gemeldet 18:1x); Erschaffung mit 2.3 | – |
+| 427.1 | M | **von Sokrates (Chef 02.11., 18:54, Archiv 427):** Werte Bestiarium „Werte 2.0“ in `werte.json`; sim444 mit Rudel, Umreißen (Grimmzahn), Überfall (Krogg); beide nachmessen, Chefsache | startbar | – |
+| 481.1 | M | **von Sokrates (Archiv 427):** Tränke in sim444 (Zu 481 in `ARBEIT-BERATUNG.md`), Herkünfte neu messen, Zahlen an Sokrates | startbar | – |
 | 473 | M | **von Perikles (Wochenziel 02.11., Stufe 1):** Bau BRS 1.4 Monsterwerte Kapitel 1 nach Rechenmodell D ins Spiel (Abnahmeliste 1.4, Schätzung 447.3: 1 Sitzung, 1 Runde) | gebaut 7d2eec7cc: Werte aller 18 Arten und Modell D im Spiel (regeln/brs.gd, daten/werte.json wie sim444), Kampf rechnet bis 2.3 nach SRD (Frage an Perikles); fährt im nächsten Build | – |
 | 472 | M | **von Perikles (Wochenziel 02.11., Stufe 1):** Bau BRS 1.3 Heldenstufe aus Erfahrung, Anteil Fertigkeiten höchstens 40 %, Erfahrungstopf je Gebiet (Abnahmeliste 1.3); Schnittstelle mit Tom (471) | gebaut a6a83b13e: Regel (Brs.gib_erfahrung, Deckel, weiche Grenze, Topf); Verdrahtung mit Held nach 470 etwa 1 S, 1 R (Zu 472) | – |
 | 467 | M | **von Sokrates (Chef 01.11., 21:52, Frage „Wie steigert sich die Ausdauer?“):** `godot/regeln/ausdauer.gd` rechnet noch nach SRD (Konstitution 10, Modifikator, Stärke 13); BRS: Ausdauer aus Zähigkeit, Wille, Stufe (Abschnitt 2); Formel kommt mit 427 zum Chef, dann umstellen | wartet auf 427 (Formel von Sokrates zum Chef) | – |
@@ -32,7 +34,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 403 | M | **von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler):** Kampfort: Held je Klasse wie im Dorf (`HeldFigur.baue`), Bewegungen aus der UAL Pro | gebaut: passt (Archiv 403), fährt im nächsten Build | – |
 | 461.1 | M | **von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461):** Grundstand mit Tom: Kampfort, Wölfe, Helden im Kampf (`LISTE-GRUNDSTAND-461.md`) in `claude/grundstand-461`; vor 460 und 406.1 | wartet auf 406, 438a, 453.1, 376.1 (Zu 461.1) | `claude/grundstand-461` |
 | 460 | M | **von Sokrates (Chef 01.11., 20:2x, Archiv 460):** Probefilm Kamerafahrten: Eröffnung je Blende (402), kurze Wechsel nur ohne Eingabe | wartet auf 461.1 (Grundstand vor 460) | – |
-| 406.1 | M | **von Sokrates (Archiv 406.1):** Schildstoß ins MARS/BRS, Bau mit `ShieldAttack1–3S&S` | wartet auf 427 (sim444 Schildträger gleicher Stufe 92–100 % Leben, Hinweis an Sokrates) | – |
+| 406.1 | M | **von Sokrates (Archiv 406.1):** Schildstoß ins MARS/BRS, Bau mit `ShieldAttack1–3S&S` | wartet auf 481 (Herkünfte): Bedingung Chef 11:21 mit Werten 427 nicht erfüllt (Zu 427.1) | – |
 | 406 | M | **von Team Tom (Archiv 376.1):** Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Sonne | wartet auf Test: Messlauf Faust schließen −50/−75/−90°, je Finger (82804c504; Lauf 182: −50° lässt Kämpfer 1,8–2,4, Kleriker 3,3–4,1 cm); E8 wartet auf Tom 417; F2 offen | `claude/jerry-406-kaufschild` |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK | `claude/jerry-348-kampf` |
@@ -68,6 +70,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 ## Einzelheiten
 
+- **von Sokrates (02.11., 19:0x, zu 427.1):** Krogg: Held beginnt im Nachteil. Annahmen weiche Grenze, Topf, leer 10 % bleiben bis zum Kampflog. 406.1: Bedingung (Chef 11:21) auch mit neuen Werten nicht erfüllt (Wachsoldat 100 %), wartet auf 481.
 - **Zu 478 (Jerry 02.11., 18:2x):** 3–4 Sitzungen: BRS-Heldenwerte fehlen im Spiel (470, 471) 1; mars.gd Treffer, Schaden, Leben 1; Zauber, Schleichangriff, Zustände, Ring, Würfelzeile 1; Gegenprobe sim444, Tests 0,5–1. Gegenargument: nur Waffe und Biss in 2, dann Magier und Kleriker auf SRD.
 - **Zu 406 (Jerry 02.11., `claude/jerry-406c-gehen`):** G1 behoben (Lauf 179: 0 angeschnitten). E3: Finger 3–8,6 cm vor dem Schild; Schild weiter vor drückt den Schwertarm hinein; Messung Faust beugen läuft. E8 wartet auf Tom 417; F2 offen.
 
