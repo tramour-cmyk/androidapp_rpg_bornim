@@ -165,10 +165,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | D63.6 | K | von Diogenes (374/434, 01.11.): fehlende Zeilen „Bestand geprüft“, Homer-Vorgabe, Tor-Prüf | startbar |
 
-**Perikles** – offen 24, Muss 22, startbar 1
+**Perikles** – offen 25, Muss 23, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 479 | M | von Sokrates (Chef 02.11., 18:34, „jetzt“ 02.11., 18:34): LISTE-ABNAHME-KAPITEL1.md heißt | startbar |
 | 461d | M | von Sokrates (Vorentscheid 22:5x): Liste 461 in die DESIGN-Dateien (Archiv 461d) | wartet auf Test/Build (gebaut) |
 | 461b | M | von Sokrates (Chef 22:26, Archiv): Commit-Prüfung: Archiveintrag ohne DESIGN-/Listenänderu | wartet auf Test/Build (gebaut) |
 | 465 | M | von Sokrates („jetzt“ 01.11., 20:50, Chef: „Warum ist eigentlich in der Chefsache zu entsc | startbar |
