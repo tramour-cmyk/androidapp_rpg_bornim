@@ -10,7 +10,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 487 | M | **von Perikles (Wochenziel 02.11. Reihe 6):** gemeinsamer Build, höchstens 6 Punkte, Figuren über 461.1 | wartet auf Lauf 196 (claude/build-487, 3999506d4, mit 415), PR #178, Prüfliste t196-build-487; Lauf 193 grün ohne 415; dann Testbitte | – |
+| 487 | M | **von Perikles (Wochenziel 02.11. Reihe 6):** gemeinsamer Build, höchstens 6 Punkte, Figuren über 461.1 | wartet auf Test: Build 196 (Lauf 196 grün, claude/build-487 3999506d4, mit 415), PR #178, Prüfliste t196-build-487; Testbitte 22:5x | – |
 | 478 | M | **von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv):** Rechenkern des Kampfs schon in Stufe 1 auf BRS (Modell D), Darstellung bleibt bis 2.3 | ruht: 470a B (geschätzt 3–4 Sitzungen, Zu 478) | – |
 | 481.1 | M | **von Sokrates (Archiv 427):** Tränke in sim444 (Zu 481 in `ARBEIT-BERATUNG.md`), Herkünfte neu messen, Zahlen an Sokrates | gebaut: sim444 Abschnitt 6 auf claude/jerry-481-1-traenke, Befund LISTE-SIMULATION-444, Zahlen an Sokrates (Zu 481); Geprüft an: 4bb60ba5e (--pruefen 0, Abschnitte 1–5 gleich main) | – |
 | 473 | M | **von Perikles (Wochenziel 02.11., Stufe 1):** Bau BRS 1.4 Monsterwerte Kapitel 1 nach Rechenmodell D ins Spiel (Abnahmeliste 1.4, Schätzung 447.3: 1 Sitzung, 1 Runde) | gebaut 7d2eec7cc: Werte aller 18 Arten und Modell D im Spiel (regeln/brs.gd, daten/werte.json wie sim444), Kampf rechnet bis 2.3 nach SRD (Frage an Perikles); fährt im nächsten Build | – |
