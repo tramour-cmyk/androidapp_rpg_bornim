@@ -115,9 +115,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 399.1 | Spielfassung: eine APK mit Dorf, Laden, Rast, Weg in den Wald, Kampf, zurück (aus 399) | B Umzug | M | 124,12 $ | Team Tom | zu testen |
 | 399.5 | Innenräume wie alt: Lichtquellen, Licht und Schatten, Einrichtung; Fenster außen wie innen (Chef „jetzt“ 28.10., 21:5x) | B Umzug | M | 51,75 $ | Team Tom | zu testen |
 | 399.2 | Kampfort als aufrufbare Szene für die Spielfassung 399.1 (aus 399) | B Umzug | M | 40,83 $ | Team Jerry | zu testen |
-| 399.2b | Rudel allein: drei von vier Klassen verlieren; Ursache prüfen, Balance an Chef (aus 399.2a) | E Kampf | M | 16,00 $ | Team Jerry | zu testen |
+| 399.2b | Rudel allein: drei von vier Klassen verlieren; Ursache prüfen, Balance an Chef (aus 399.2a) | E Kampf | M | 16,00 $ | Team Jerry | erledigt |
 | 399.2d | Godot am Rechner freigeben (Auto-Modus lehnte Download ab), Tests ohne CI-Lauf (aus 399.2) | E Kampf | M | – | Team Jerry | wartet |
-| 401 | Lebendige Welt: Laute für jedes Tier im Dorf, mindestens drei je Tier (Chef 28.10., 22:0x) | E Klang | M | 2,67 $ | Team Jerry | zu testen |
+| 401 | Lebendige Welt: Laute für jedes Tier im Dorf, mindestens drei je Tier (Chef 28.10., 22:0x) | E Klang | M | 2,67 $ | Team Jerry | erledigt |
 | 399.3.1 | Klang: Haken in spiel.gd übernehmen, Klangregler im Menü System (aus 399.3) | B Umzug | M | – | Team Tom | zu testen |
 | 385 | Protofactor-Animsets (Zauberer u. a.) auf die Listen, Probe ob nutzbar (Chef 27.10., 20:59) | E Figuren | M | 40,87 $ | Team Tom | ruht |
 | 385.2 | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball (aus 385.1, Chef 28.10., 19:1x) | E Kampf | M | 9,99 $ | Team Jerry | ruht |
@@ -154,7 +154,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 406 | Ausrüstung der Helden je Stück als eigenes Modell mit Abnahme, „noch steril“ (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe); zuerst Rundschild des Klerikers hell mit goldener Sonne wie alt | E Kampf | M | 76,55 $ | Team Jerry | zu testen |
 | 407 | Probelauf-Grenze 389 greift nicht: neue Runde erst nach Urteil des Chefs, jeder Zweig zählt („jetzt“ 29.10., 10:05) | B Abläufe | M | – | Perikles | gebaut |
 | 410 | Waffen am Körper wegstecken, alle Waffenarten (aus 376.1, Chef 29.10., 10:52, 11:40) | E Figuren | M | – | Team Tom | ruht |
-| 415 | Handyprobe Beams-Free-Sample (aus 414, Chef 31.10., 20:3x; „jetzt“ 01.11.) | C Kampf | M | 25,59 $ | Team Jerry | zu testen |
+| 415 | Handyprobe Beams-Free-Sample (aus 414, Chef 31.10., 20:3x; „jetzt“ 01.11.) | C Kampf | M | 25,59 $ | Team Jerry | startbar |
 | 416.2 | Platzwechsel mit Dorfbewohnern und Tieren, nicht stecken bleiben (Chef 31.10., 20:4x) | B Umzug | M | – | Team Tom | wartet |
 | 416.4 | Rennen des Helden wirkt wie Hochsprung (Chef 31.10., 20:4x) | B Umzug | M | 41,57 $ | Team Tom | wartet |
 | 416.6 | Spuren des Helden, auch bei Regen (Chef 31.10., 20:4x) | B Umzug | K | – | Team Jerry | frei |

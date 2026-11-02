@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert“).
 
-**Übergabe (02.11., 16:1x):** Lauf 164 ausgewertet; Filme 406, 415, 453a am Tor angehalten, Rückfragen 406a, 415b, 453b; 453a B gebaut (`claude/jerry-453a-wolfatem`); 406.1 an 427. Nachfolger: „Jerry – 438a, 415, 406: Waffe beim Aufstehen frei vom Bein, Strahlen F6/E3/F2, Schlussfilm vier Tor-Punkte“
+**Übergabe (02.11., 18:3x):** 415 r3 gebaut, Messung ohne Befund, Film Lauf 181 fertig (noch nicht geprüft, nicht gesendet); 438a Hautkapseln 4c (5b89022e4, Messlauf läuft); 406 G1 behoben, Messung Faust beugen läuft (Lauf 182); 478 geschätzt, gemeldet (470a → B); 453.1 passt. Nachfolger: „Jerry – 415, 438a, 406: Strahlenfilm ans Tor und zum Chef, Hautkapseln auswerten, Faust der Schildhand“
 
 ## Zeilen
 
@@ -24,19 +24,17 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 453a | M | Wolfsatem B (Archiv) | wartet auf 453b | – |
 | 453b | M | Rückfrage: neue Läufe? | wartet auf Chef | – |
 | 454 | M | **von Sokrates (Chef 01.11., 11:05):** beim Biss zielt die Achse des Wolfs wohl rechts neben den Helden; erst messen, dann bauen (Zu 453) | gebaut: passt (Archiv 454), fährt im nächsten Build; Schildreaktion in 406 | `claude/jerry-454-bissachse` |
-| 438a | M | **von Sokrates (Archiv 438a):** Hinfallen/Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe und Schild frei | wartet auf Test: Messlauf faf633e16 (Hautkapseln 4b) | `claude/jerry-438a-sturz-2` |
+| 438a | M | **von Sokrates (Archiv 438a):** Hinfallen/Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe und Schild frei | wartet auf Test: Messlauf 5b89022e4 (Hautkapseln 4c, Ursache Wertetyp behoben) | `claude/jerry-438a-sturz-2` |
 | 439 | M | **von Sokrates (Chef 31.10., 23:31, Film 403):** Reihenfolge Angriff, Treffer, Tod, Neuformation (Zu 438) | gebaut: passt (Archiv 438), fährt im nächsten Build | `claude/jerry-438-wolf-kampf` |
 | 440 | M | **von Sokrates (Chef 31.10., 23:34, Film 403):** Wolf-Tod zu schnell weg (Zu 438) | gebaut: passt (Archiv 438), fährt im nächsten Build | `claude/jerry-438-wolf-kampf` |
 | 416.6 | K | **von Sokrates (Chef 31.10., 20:4x):** Spuren des Helden fehlen (`core/Tracks.kt`, `LISTE-UMZUG-348.md` „Spuren“). Perikles: M oder K? | frei | – |
-| 415 | M | **von Sokrates („jetzt“ 01.11., 20:0x; Archiv 415):** Probe Beams Free Sample im Kampfort (Film, Bilder je Sekunde); nichts kaufen | wartet auf Test: Filmlauf (dritter Lauf, 415b A); Messung ohne Befund | – |
+| 415 | M | **von Sokrates („jetzt“ 01.11., 20:0x; Archiv 415):** Probe Beams Free Sample im Kampfort (Film, Bilder je Sekunde); nichts kaufen | startbar: Film fertig (Lauf 181, Artefakt bornim-godot-bilder 13164021766), Tor 461a durch Helfer, dann an den Chef | – |
 | 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | wartet auf Test: Build 146 (ansehen/t146-befunde.md; 143 getestet 31.10., 20:4x, Befunde als 416.x) | `claude/jerry-348-kampf` |
-| 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | wartet auf Test: Build 146 (t146) | – |
 | 403 | M | **von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler):** Kampfort: Held je Klasse wie im Dorf (`HeldFigur.baue`), Bewegungen aus der UAL Pro | gebaut: passt (Archiv 403), fährt im nächsten Build | – |
 | 461.1 | M | **von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461):** Grundstand mit Tom: Kampfort, Wölfe, Helden im Kampf (`LISTE-GRUNDSTAND-461.md`) in `claude/grundstand-461`; vor 460 und 406.1 | wartet auf 406, 438a, 453.1, 376.1 (Zu 461.1) | `claude/grundstand-461` |
 | 460 | M | **von Sokrates (Chef 01.11., 20:2x, Archiv 460):** Probefilm Kamerafahrten: Eröffnung je Blende (402), kurze Wechsel nur ohne Eingabe | wartet auf 461.1 (Grundstand vor 460) | – |
 | 406.1 | M | **von Sokrates (Archiv 406.1):** Schildstoß ins MARS/BRS, Bau mit `ShieldAttack1–3S&S` | wartet auf 427 (sim444 Schildträger gleicher Stufe 92–100 % Leben, Hinweis an Sokrates) | – |
 | 406 | M | **von Team Tom (Archiv 376.1):** Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Sonne | wartet auf Test: Messlauf Faust beugen (claude/jerry-406c-gehen); G1 behoben; E8 wartet auf Tom 417; F2 offen | `claude/jerry-406-kaufschild` |
-| 401 | M | **von Chef über Sokrates (Archiv):** Tierlaute, mind. 3 je Tier | wartet auf Test: Build 146 (t146) | – |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | wartet auf 463 (Tom, B4 Umhang); F1, F5 behoben, E2-Messung drin (6f8eecf62); dann Lauf kampf=grak | `claude/tuffy-348-12k-grak` |
