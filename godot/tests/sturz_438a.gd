@@ -51,8 +51,8 @@ func _run() -> void:
 	# Zucken 69,6°), jetzt V2 (je Punkt der Achse gegen alle Beinecken) und Schwertarm beim Aufstehen abgespreizt (A15, A30, bodenhalt.gd);
 	# Lauf 200: Arm abgespreizt schob den Griff ins Kleid (verworfen), V2 sah die Tiefe, _loesen machte sie größer: V2 im Gitter, V3 = V2
 	# mit der besten Lage aller Schritte, V4 = wie gebaut mit der besten Lage
-	for kv in [["FIGHTER", 0, 0.0], ["CLERIC", 0, 0.0], ["FIGHTER", 2, 0.0], ["CLERIC", 2, 0.0], ["FIGHTER", 3, 0.0], ["CLERIC", 3, 0.0],
-			["FIGHTER", 4, 0.0], ["CLERIC", 4, 0.0]]:
+	# Lauf 201: das Gitter blieb leer (V2, V3 ohne Haut), V4 wie V0; jetzt V2 und V3 mit Gitter
+	for kv in [["FIGHTER", 0, 0.0], ["FIGHTER", 2, 0.0], ["FIGHTER", 3, 0.0], ["CLERIC", 0, 0.0], ["CLERIC", 3, 0.0]]:
 		var p = Probe.new()
 		p.hero_cls = kv[0]
 		var k: String = kv[0] + ("" if kv[1] == 0 else " V%d" % kv[1]) + ("" if kv[2] == 0.0 else " A%d" % int(kv[2]))

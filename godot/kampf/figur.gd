@@ -1220,8 +1220,8 @@ func _haut_nah(sk: Skeleton3D, g: Transform3D, t: Array, alle := false) -> Array
 			voll.append([pos[j], nor[j]])
 			var k := Vector3i((pos[j] / HAUT_SUCHE).floor())
 			if not _gitter.has(k):
-				_gitter[k] = PackedInt32Array()
-			(_gitter[k] as PackedInt32Array).append(j)
+				_gitter[k] = []     # Array, nicht PackedInt32Array (Lauf 201: die Kopie aus „as“ nahm append, das Gitter blieb leer)
+			(_gitter[k] as Array).append(j)
 		_gitter_haut = voll
 		return voll
 	# je Punkt der Achse die nächste Ecke (wie sturz_438a); mit Drehungen bis 20° je Bild bleiben es dieselben Stellen
