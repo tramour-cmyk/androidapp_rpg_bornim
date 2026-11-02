@@ -3,16 +3,15 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `93c2abc53` (02.11., 02:4x)
+**Gelesen bis:** `d27ed9768` (02.11., 03:4x)
 
-**Übergabe (02.11., 02:4x):** 466 Vorschlag als Chefsache `entscheiden/466-faehigkeit.md` (Fähigkeit; Weihe, Titelprüfung, Hohe Prüfung), fremd geprüft (9 Befunde eingearbeitet). Nachfolger: keiner; 466 und 447.4 warten auf Chef.
+**Übergabe (02.11., 03:4x):** 461d `DESIGN-STIL.md` gegen A–D geprüft: ein Widerspruch aufgelöst („Ausrüstung unterwegs“ geschultert/Rücken → Verweis E1, E8), vier Doppelungen auf Verweis (Signatur 2 ↔ A2, Übergänge ↔ D1, Sterben ↔ F4, C1 gekürzt), Blick-Tabelle verweist auf E–G. Nicht entschieden: Wölfe fest 1,32 (B7) neben „Größe variiert“ (Abwechslung), gelesen als Grundgröße mit Spielraum. Nachfolger: keiner; 466 und 447.4 warten auf Chef.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 461d | M | **von Perikles (Vorentscheid 461d, gebilligt):** „Figuren und Bewegung: was gilt“ (A–D) in `DESIGN-STIL.md` gegen den übrigen Stiltext prüfen, Doppelung oder Widerspruch an einer Stelle auflösen, nichts neu entscheiden | startbar |
 | 466 | M? | **von Sokrates (Chef 01.11., 21:13, Zu 466):** neues Wort für „Handlung“ eines Pfads, dazu Namen der Prüfungen | wartet auf Chef: Chefsache entscheiden/466 |
 | 447.4 | M | **von Perikles (Chef 01.11., Archiv 447):** Texte für Stufe 3 der Abnahmeliste: Einladungen der Lehrmeister zu Pfad und den fünf Meisterschaften (3.1, 3.2) und Ruf-Gespräche im Dorf (3.3), DE/EN | wartet auf Chef: Entwurf in STORY-LEHRMEISTER-K1.md und STORY-RUF-K1.md, Chefsache ansehen/4474 |
 | 432 | K | **von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt mir sehr gut“):** eigenes Volk prüfen, mit der Geschichte ab Kapitel 2 | wartet auf Meilenstein: Storyplan-Entwurf und Abgleich K2 fertig (STORY-PLAN.md, Aschgeborene), zwei Punkte offen; Chefsache erst nach dem Meilenstein, vor dem Bau |

@@ -17,7 +17,7 @@ Diese Datei ist das Stilhandbuch: jede gültige Design-Regel steht hier oder hat
 | Hauptmenü | schwarz, warmer Lichtkegel von oben, vier Helden zur Mitte gedreht (Entwurf A); Feuer (B) zurückgestellt | 292, 292.2, 292.3 | [Blende](DESIGN-BLENDE.md) „Vorspann und Hauptmenü“ |
 | Logo | Leiterbahn mit Lötaugen auf Schwarz | 251 | [Blende](DESIGN-BLENDE.md) Punkt 7 |
 | Zwischensequenzen | fünf Standbilder, Überblendung, Maß ist das Intro | 70, 112 | „Zwischensequenzen“ |
-| Figuren, Bewegung | Prüfpunkte A–D (Bild, Gestalt, Leben, Bewegung); jede Vorlage wird dagegen geprüft | 461, 461d | „Figuren und Bewegung: was gilt“ |
+| Figuren, Bewegung | Prüfpunkte A–D (Bild, Gestalt, Leben, Bewegung); jede Vorlage wird dagegen geprüft | 461, 461d | „Figuren und Bewegung: was gilt“; E, F (Waffe, Schild, Kampf) [Kampf](DESIGN-KAMPF.md), G (Film) [Abnahme](DESIGN-ABNAHME.md) |
 | Gegner, Figuren | drei Varianten, düster, nie niedlich, keine Figur starr | – | „Abwechslung“, „Lebendige Welt“ |
 | Karte, Räume | Sichtbarkeit, Maßstab, Karte und Kampfort gehören zusammen | 43, 77e.3 | „Karte und Räume“ |
 | Bedienung | frei, wenige Schritte, bekannte Muster | 33 | „Spielerfreundlich“ |
@@ -31,7 +31,7 @@ Diese Datei ist das Stilhandbuch: jede gültige Design-Regel steht hier oder hat
 Drei feste Zwänge, an denen man unser Bild wiedererkennt (Chef 22.10., 14:15: „302. Ja.“). Gelten für alles neu Gezeichnete. Bestand (Chef 22.10., 20:25, Vorgangsarchiv „302 Bestand“): nach dem Meilenstein, große Figuren zuerst (Ausrüstung, Hauptmenü, Charakter, Kampf); Orte und Kampforte nur, wenn sie ohnehin überarbeitet werden; auf der Gebietskarte ist die Linie bei Kartengröße unsichtbar, dort nur auf eigene Chefsache.
 
 1. **Licht hat eine Quelle:** jede Szene hat eine sichtbare Lichtquelle (Fackel, Fenster, Mond, Pilz); im Lichtkreis warm, außerhalb kaltes Blauschwarz.
-2. **Tuschelinie der Chronik:** jede Figur und jedes Ding hat einen dunklen Umriss wie mit der Feder gezogen, leicht ungleichmäßig, im Schatten dicker, im Licht dünner (wie `MapSheet.ink`). Die Linie wird im Zeichner mitgezeichnet, das Licht danach darüber; nie als Filter über das fertige Bild, der schwärzt Lichtränder (Chef 23.10., 07:34, 302.3).
+2. **Tuschelinie der Chronik:** jede Figur und jedes Ding hat einen dunklen Umriss wie mit der Feder gezogen, leicht ungleichmäßig, im Schatten dicker, im Licht dünner (wie `MapSheet.ink`; an Figuren prüfbar als A1–A3). Die Linie wird im Zeichner mitgezeichnet, das Licht danach darüber; nie als Filter über das fertige Bild, der schwärzt Lichtränder (Chef 23.10., 07:34, 302.3).
 3. **Gold ist der einzige Glanz:** nur Gold, Feuer und Magie glänzen oder leuchten; Stahl, Leder und Stein bleiben matt.
 
 ## Richtung
@@ -39,7 +39,7 @@ Drei feste Zwänge, an denen man unser Bild wiedererkennt (Chef 22.10., 14:15: �
 - **Unser Stil ist die lebendige Diagonalwelt** (Nutzer 14.10.): Details, Mikrobewegungen, Licht aus Quellen, Klang. Alles andere richtet sich daran aus, auch Standbilder der Zwischensequenzen und Kampf (79). „Dieselbe Welt“ heißt gleiche Farben, Formen, Licht und Stimmung, nicht derselbe Blickwinkel.
 - **Weg vom Nintendo- und Pokémon-Stil** (knuffig, quietschbunt, Spielzeug), **hin zu erwachsener, etwas düsterer Fantasy.**
 - Bessere Grafik: echte Formen, Licht und Schatten, glaubwürdige Proportionen (Körpermaße, Waffengrößen nach realen Vorbildern).
-- Bessere Übergänge: keine Sprünge zwischen Haltungen, Bewegungen gehen fließend ineinander über.
+- Bessere Übergänge: keine Sprünge zwischen Haltungen, Bewegungen gehen fließend ineinander über (Einzelheiten „Übergänge immer weich“, D1).
 - Licht kommt von sichtbaren Quellen (Sonne, Mond, Fackeln, Feuer, Pilze, Fenster). Dunkelheit ist erlaubt.
 - **Monster sind düster und gefährlich:** böse Mäuler, große Zähne und Klauen, Narben, glühende oder tote Augen, zerfetzte Kleidung. Nie niedlich, nie knuffig.
 - Blut und Wunden gehören dazu, abgestuft über die Menüeinstellung „Blut bei Treffern“ (Aus, Dezent, Deutlich), für Held und Gegner gleich.
@@ -49,7 +49,7 @@ Drei feste Zwänge, an denen man unser Bild wiedererkennt (Chef 22.10., 14:15: �
 - **Kein Gegner sieht aus wie der vorige seiner Art.** Jede Gegnerart bekommt mindestens drei Varianten in Aussehen und Ausrüstung, zum Beispiel ein Goblin mit Krummsäbel und Schild, einer mit Speer, einer mit Keule und Helm. Dazu kommen Hautton, Fell oder Narben.
 - **Die Werte bleiben gleich:** Varianten sind Optik. Schaden, Rüstungsklasse und Trefferpunkte kommen aus den Monsterdaten.
 - **Jede Bewegung in mindestens drei Varianten:** Angriff, Treffer, Ausweichen und Sieg oder Niederlage, damit Kämpfe nicht gleichförmig wirken. Das gilt für Gegner wie für den Helden.
-- **Kein Gegner verschwindet einfach:** Jede Gegnerart bekommt eigene Sterbeanimationen (mindestens drei), erst danach blendet sie aus. Ein tödlicher kritischer Treffer bekommt einen eigenen Killerschlag (Erweiterungen in der [Merkliste](LISTE-IDEEN.md) „Sonstiges“).
+- **Kein Gegner verschwindet einfach:** Jede Gegnerart bekommt eigene Sterbeanimationen (mindestens drei), erst danach blendet sie aus (Ablauf F4 in `DESIGN-KAMPF.md`). Ein tödlicher kritischer Treffer bekommt einen eigenen Killerschlag (Erweiterungen in der [Merkliste](LISTE-IDEEN.md) „Sonstiges“).
 - **Größe und Körperbau variieren** im Rahmen des SRD, zum Beispiel Goblins 98–118 cm (Small), Skelette 160–185 cm, dazu schlank, normal oder kräftig. Größe, Körperbau, Ausrüstung und Hautton werden unabhängig voneinander gewählt.
 - Die Variante wird beim Kampfbeginn aus dem Erscheinungsbild-Zufall des Gegners gewählt und bleibt für diesen Gegner im ganzen Kampf gleich.
 - **Ausnahme einmalige Monster:** Bosse und andere einzigartige Monster (etwa Krogg, Grak, Grimmzahn) erscheinen nur in einer Form, ohne Varianten in Aussehen und Ausrüstung, damit man sie wiedererkennt; ihre Bewegungen haben trotzdem je drei Varianten.
@@ -76,7 +76,7 @@ Chef 01.11., 20:3x: „auf ein Niveau kriegen, dass wir von da aus alle weiteren
 | Nr. | Prüfpunkt | Woher | Prüfer |
 |---|---|---|---|
 | A1 | Spielshader in jeder Probe und jedem Film (Toon-Licht, Tusche nach Licht, Schatten wie im Spiel); ohne nur mit Schalter und Hinweis in der Vorlage | 457, 457.1 (01.11.) | ja |
-| A2 | Tusche nach Lichtrichtung: Lichtseite dünn oder weg, Schattenseite kräftig; im Kampfort Linienstärke 1,3, Sonne schräg von der Seite | 348.13 (26.10.), 348.13a (27.10.) | ja |
+| A2 | Tusche nach Lichtrichtung (Signatur 2): Lichtseite dünn oder weg, Schattenseite kräftig; im Kampfort Linienstärke 1,3, Sonne schräg von der Seite | 348.13 (26.10.), 348.13a (27.10.) | ja |
 | A3 | Dieselbe Signatur an allen Figuren und Tieren, auch an Kaufmodellen („unsere Haut“: eigene Bemalung, Tusche) | 387 (28.10.), 348.12f (27.10.) | ja |
 | A4 | Schatten liegt nach Sonnenstand unter dem Körper, keine schwarzen Scheiben unter den Füßen | 348.12f (28.10.) | ja |
 | A5 | Held sieht in Dorf, Wiese und Kampfort gleich aus, mindestens Stand Film 403 | 403 (01.11., 11:13), 417 (13:4x), 453 r2 (19:5x) | – |
@@ -98,7 +98,7 @@ Chef 01.11., 20:3x: „auf ein Niveau kriegen, dass wir von da aus alle weiteren
 
 | Nr. | Prüfpunkt | Woher | Prüfer |
 |---|---|---|---|
-| C1 | „Atmen immer“ wie unter „Lebendige Welt“: sichtbar, eigene Schicht, eigener Takt, nach Anstrengung schneller und abklingend | 453.1 (01.11., 13:0x, 19:5x) | ja |
+| C1 | „Atmen immer“ wie unter „Lebendige Welt“, dazu sichtbar | 453.1 (01.11., 13:0x, 19:5x) | ja |
 | C2 | Kein Stillstand: Bewegung oder Atmen, nie starr („Stillstand für mehrere Sekunden geht eigentlich nicht“); Richtwert von uns: kein Abschnitt über 1 s ohne Bewegung | 453 (13:0x) | ja, 1 s Maß |
 | C3 | Kein Gleichtakt („Nie im Takt“ unter „Lebendige Welt“): zwei Figuren nie dieselbe Bewegung zur selben Zeit, auch nicht Angriff | 453 (13:0x), 406 (20:2x) | ja |
 | C4 | Ruhebewegungen wechseln; Wölfe mit Gesten | 453, 438 (01.11.) | – |
@@ -117,7 +117,7 @@ Chef 01.11., 20:3x: „auf ein Niveau kriegen, dass wir von da aus alle weiteren
 ## Karte und Räume (diagonale Sicht)
 
 Aus den Rückmeldungen des Nutzers bis 11.10. (Verlauf im Archiv, in Git bis `f3ec7200`: `docs/ARBEIT-ARCHIV.md`):
-- **Ausrüstung unterwegs:** Waffen geschultert (nie am Boden schleifend), Schild auf dem Rücken, Zweitwaffe in der Scheide. Im Kampf wie gehabt.
+- **Ausrüstung unterwegs:** nach E1 und E8 in `DESIGN-KAMPF.md` (Waffe in der Hand, Schild an der Seite hängend; ersetzt „geschultert, Schild auf dem Rücken, Zweitwaffe in der Scheide“ vom 11.10., 461d); nie am Boden schleifend.
 - **Sichtbarkeit (Thema 43, Nutzer 12.10.):** Was in der alten Ansicht rechts gut zu sehen war, steht diagonal vorn unten zwischen Kamera und Geschehen.
   - **Wichtiges steht frei:** Leute, Questziele, Eingänge, Schilder, Feuerstellen haben freien Blick; zur Kamera hin (Süden, Osten) nichts Hohes davor. Sonst umstellen (das Ding oder die Bäume davor); die Karte muss nur diagonal stimmen.
   - **Durchsicht nur um den Helden:** Kronen, Felsen, Büsche und hohe Möbel in einem kleinen Umkreis um den Helden fast ganz durchsichtig, nicht gestapelt, damit er nie verschwindet.
