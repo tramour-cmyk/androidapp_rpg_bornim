@@ -524,7 +524,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 447 | Meilensteine neu: Stufen K1–K4 bis marktreif, W1–W3 danach (Chef 01.11., 09:51, 10:46) | B Abläufe | M | 3,73 $ | Sokrates | erledigt |
 | 451 | Name für das Spielsystem statt „2.0“ (Chef 01.11., 10:59) | D Design | M | 3,73 $ | Sokrates | erledigt |
 | 458 | Katalog aller Gegenstände: eine Datendatei, Übersicht `LISTE-GEGENSTAENDE.md` daraus erzeugt (Chef 01.11., 13:0x) | D Design | M | – | Sokrates | erledigt |
-| 452 | Notizen-Übersicht `docs/README.md` aktualisieren, gebündeltes Dokument für den Chef (Chef 01.11., 10:59, 11:00) | B Abläufe | M | – | Sokrates | erledigt |
+| 452 | Notizen-Übersicht `docs/README.md` aktualisieren, gebündeltes Dokument für den Chef (Chef 01.11., 10:59, 11:00) | B Abläufe | M | 73,54 $ | Sokrates | erledigt |
 | 423 | Spielerhandbuch aus dem Nachschlagewerk 422: was der Spieler wissen muss, in unserem Ton, Deutsch und Englisch (Chef 31.10., 21:2x) | C Texte | M | 4,14 $ | Homer | erledigt |
 | 453.3 | Grundsatz „lebende Figuren atmen immer“ in `DESIGN-STIL.md` (Chef 01.11., 13:0x) | G Stil | M | – | Homer | erledigt |
 | 451.1 | Name „Bornimer Rollenspielsystem“ in CLAUDE.md, Leitbild, Rollendateien, Werkzeugtexten (Chef 01.11., 451) | B Abläufe | M | – | Perikles | erledigt |
