@@ -112,7 +112,9 @@ func _nah(kf, cam: Camera3D) -> void:
 		for f in kf.figures.values():
 			if f != null and is_instance_valid(f) and f.fighter != null and f.fighter.monster != null and not f.down:
 				breit = maxf(breit, absf((f.home - _mitte).dot(quer)))
-		var w: float = (breit + 0.8) / _halb_quer(kf, cam)
+		# 453a (Prüfer Film Lauf 174, G1: schwarzer Wolf am rechten Rand, Kopf des braunen draußen): Wölfe stehen mit Gesten und Rute
+		# bis 1,7 m lang um ihren Platz, 0,8 m Rand reichte nicht
+		var w: float = (breit + 1.6) / _halb_quer(kf, cam)
 		if w < beste_weit:
 			beste_weit = w
 			beste = r

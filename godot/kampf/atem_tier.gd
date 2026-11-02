@@ -35,7 +35,8 @@ var _von := -1
 ## Schultern und Hals um 1 cm; Kopf, Läufe, Pfoten und Rute bleiben, wo die Bewegung sie hinstellt. [Knochen, Weitung (Anteil wie
 ## RIPPEN), Hebung m]; Weitung hebt die Rückenhaut zusätzlich (r3: Spine_02 mit 0,010 m Hebung gab 22 mm Rückenlinie).
 ## Prüfschalter ATEM_R3B=1: wie r3b (Vergleichsfilm).
-const RUECKEN_B := [["Wolf_Spine_01SHJnt", 0.7, 0.012], ["Wolf_Spine_02SHJnt", 1.0, 0.010], ["Wolf_Spine_03SHJnt", 0.8, 0.010],
+## Lauf 174 (Prüfer: Kruppe 2,0–2,5 px, Hüfte höchstens 0,3 px; atem_ruecken: Hinterteil auf ROOT gewichtet, 7 mm): ROOT hebt sich mit
+const RUECKEN_B := [["Wolf_ROOTSHJnt", 0.0, 0.012], ["Wolf_Spine_01SHJnt", 0.7, 0.012], ["Wolf_Spine_02SHJnt", 1.0, 0.010], ["Wolf_Spine_03SHJnt", 0.8, 0.010],
 	["Wolf_Spine_04SHJnt", 0.0, 0.010], ["Wolf_Spine_TopSHJnt", 0.0, 0.010], ["hals", 0.0, 0.010]]
 var R3B := OS.get_environment("ATEM_R3B") != ""
 var _b_folge := PackedInt32Array()     # alle Knochen unter dem ersten gehobenen, Eltern vor Kindern
@@ -104,11 +105,15 @@ static func passt(sk: Skeleton3D) -> bool:
 	return sk.find_bone(RIPPEN[0][0]) >= 0 and sk.find_bone(HALTEN) >= 0 and sk.find_bone(VON) >= 0
 
 
+## 453a (Prüfer Film Lauf 174, C3: schwarzer und grauer Wolf atmeten den ersten Zug gleichzeitig, Höchststand beide bei 1,2 s): der
+## Versatz aus dem Zufall allein lag zweimal dicht beieinander; jetzt je neuem Wolf um den goldenen Schnitt weiter, dazu wenig Zufall
+static var _zaehler := 0
 func eigen(seed: int) -> void:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = seed
 	takt = TIER_RUHE_S * (1.0 + rng.randf_range(-TAKT_STREU, TAKT_STREU))
-	phase = rng.randf()
+	phase = fposmod(_zaehler * 0.618034 + rng.randf_range(0.0, 0.1), 1.0)
+	_zaehler += 1
 
 
 func _process_modification_with_delta(delta: float) -> void:
