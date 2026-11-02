@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (02.11., 12:1x, `session_01Hmoj78S6eEERrpPHXvwswk`):** 376.1 berichtigt; 431 Runde 4 an Spike; 463 gemessen, Lauf „Ärmel weg“ läuft; PR #177 (Build 146) nach grüner CI mergen; 474, 475 neu; Vorrat kürzen. Nachfolger: Tom – 463, PR #177: Ärmel-Messung auswerten, Build 146 nach main.
+**Übergabe (02.11., 12:1x, `session_01Hmoj78S6eEERrpPHXvwswk`):** 376.1 berichtigt; 431 Runde 4 an Spike; 463 gemessen, Lauf „Ärmel weg“ läuft; Build 146 auf main (PR #177), 425, 416.1, 399.4 fertig; 474, 475 neu; Vorrat kürzen. Nachfolger: Tom – 463: Ärmel-Messung auswerten.
 
 ## Zeilen
 
@@ -10,14 +10,11 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 |---|---|---|---|---|
 | 431 | M | **von Sokrates (Chef 31.10., 22:0x):** Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film, dann Körperbau je Volk | in Arbeit bei Spike: Runde 4 gebaut (Ohren, Hauer, Haut, Haltung, Zwerghaar, Familie), Probelauf 1 (41430558274) prüfen | `claude/tom-431-voelker` |
 | 417 | M | **von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“):** Tragart je Waffenklasse (Zu 417), zuerst Stab, Axt, Bogen; Zahlen messen, Aussehen urteilt der Chef | wartet auf Chef: Film 03:39 (ansehen/417-tragart-runde5), keine neue Runde ohne Urteil (468); Anlaufgleiten Ursache Pose (Zu 416.4, 417) | `claude/tom-417-tragart` |
-| 425 | M | **von Sokrates (Chef 31.10., 21:30, Build 143):** Menüs (Menü „System“, Testmenü): in der alten Fassung mit Icons „super klasse“, neu „viel zu viel Text“; alte Menüs möglichst eins zu eins übernehmen, Icons statt Text | wartet auf Build: PR #177 nach main, CI läuft (passt, Chef 02.11., 10:52) | `claude/spike-425-testmenue` |
 | 416.9 | M | **von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“):** Laden, Verkaufen, „angelegt“ mit allen Plätzen, Vergleichswerte, nicht Tragbares, Icon bei Menge | startbar: 146.4 Plätze ok, Vergleich vorher→nachher als Tabelle fehlt (Chef 02.11., 10:52) | – |
 | 416.7 | M | **von Sokrates (Chef 31.10., 20:5x, für den nächsten Build):** am Tresen in Schenke und Laden geht der Aktionsknopf nicht, Kaufen und Kauf mit den zwei NPCs dort nicht möglich; Reichweite erweitern | wartet auf Build: PR #177 nach main (146.3 ohne Tresenbefund) | – |
 | 416.8 | M | **von Sokrates (Chef 31.10., 20:5x, allgemeiner Hinweis):** NPC dreht sich bei Interaktion zum Helden, nach etwa 10 s ignoriert er ihn wieder und spielt Leerlauf; M (Perikles 31.10., 22:2x: Befund aus dem Test des Chefs, Abnahme T, Direktive „immersiv“) | startbar: 146.3 Zuwenden zu langsam („zombie-mäßig“), ein Ticken schneller (Chef 02.11., 10:52) | – |
-| 416.1 | M | **von Sokrates (Chef 31.10., 20:4x, Build 143):** Tasten reagieren schlecht (Bartform, Kopfform, Farbe in „Neues Spiel“; „auch in anderen Bereichen“, „grundsätzliches großes Problem“): Ursache nachstellen, überall prüfen | wartet auf Build: PR #177 nach main, CI läuft (passt, Chef 02.11., 10:52) | – |
 | 416.2 | M | **von Sokrates (Chef 31.10., 20:4x):** gegen Dorfbewohner und Tiere laufen: Platzwechsel statt nur Schieben; sie stehen im Weg, teils kein Weiterkommen, vor allem rechts unten bei Feld, Ziege, Hühnern | startbar: 146.5 Ziege wird geschoben, kein Platztausch (Chef 02.11., 10:52) | – |
 | 416.4 | M | **von Sokrates (Chef 31.10., 20:4x):** Rennen des Helden wirkt „als würde er Hochsprung machen“, nicht rennen; Bewegung ändern (Aussehen urteilt der Chef, 373) | wartet auf Build: Abbremsen passt (Chef 02.11., 11:24, Archiv) | `claude/tom-416-4-rennen` |
-| 399.4 | M | **von Chef (21:4x, Archiv); zurück Chef 31.10., 20:4x:** oben Rand für die Kamera wie alt: im Build 143 fehlt er, Handykamera im Bild (im Kampf gesehen; alle Schirme prüfen) | wartet auf Build: PR #177 nach main, CI läuft (passt, Chef 02.11., 10:52) | – |
 | 399.1 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv 399):** Spielfassung Dorf und Kampf | wartet auf Test: Build 143 (Bogen zu, Archiv 31.10.; 143.2, 143.6 offen) | `claude/tom-399-spielfassung` |
 | 410 | M | **von Sokrates (Chef 29.10., 10:52, 11:40; aus 376.1):** Waffen am Körper wegstecken, alle Waffenarten (Zu 410) | ruht: Chef 21:1x will Waffen in der Hand statt auf dem Rücken, Prüfung 417; nichts weiterbauen | `claude/tom-376-1-wegstecken` |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | wartet auf Tom: 463; Film 23:03 Richtung passt, nicht fertig (Chef 02.11., 11:12, Archiv) | `claude/spike-376-1-tracht` |
