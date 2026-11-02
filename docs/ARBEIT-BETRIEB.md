@@ -152,3 +152,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 06:04 02.11.: Startsperre 06:04 Start Spike, Tuffy (lauf.py)
 - 06:04 02.11.: Marke Archiv session_01Hmoj78KsLeWa9HphhRuvNS (lauf.py)
 - 06:04 02.11.: Marke Archiv session_01Hmoj75yvjhAFkGRnUxZPZs (lauf.py)
+- 07:06 02.11.: Startsperre 07:06 Start Tom, Jerry (lauf.py)
+- 07:06 02.11.: Marke Archiv session_01Hmoj77wB66pui98ak1X5BQ (lauf.py)
+- 07:06 02.11.: Marke Archiv session_01Hmoj77knGjX4BaYrUHeYqu (lauf.py)
