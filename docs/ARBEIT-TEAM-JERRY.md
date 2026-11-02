@@ -27,8 +27,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 439 | M | **von Sokrates (Chef 31.10., 23:31, Film 403):** Reihenfolge Angriff, Treffer, Tod, Neuformation (Zu 438) | gebaut: passt (Archiv 438), fährt im nächsten Build | `claude/jerry-438-wolf-kampf` |
 | 440 | M | **von Sokrates (Chef 31.10., 23:34, Film 403):** Wolf-Tod zu schnell weg (Zu 438) | gebaut: passt (Archiv 438), fährt im nächsten Build | `claude/jerry-438-wolf-kampf` |
 | 416.6 | K | **von Sokrates (Chef 31.10., 20:4x):** Spuren des Helden fehlen (`core/Tracks.kt`, `LISTE-UMZUG-348.md` „Spuren“). Perikles: M oder K? | frei | – |
-| 415 | M | **von Sokrates („jetzt“ 01.11., 20:0x; Archiv 415):** Handyprobe Beams Free Sample: läuft es auf dem Handy, FPS je Renderer, Wirkung mit Toon-Licht und Tusche im Kampfort (Film); nichts kaufen | wartet auf 415b (Film Lauf 172 am Tor angehalten, APK fürs Handy da) | – |
-| 415b | M | Rückfrage: dritter Lauf oder Handy? | wartet auf Chef: entscheiden/415b | – |
+| 415 | M | **von Sokrates („jetzt“ 01.11., 20:0x; Archiv 415):** Handyprobe Beams Free Sample: läuft es auf dem Handy, FPS je Renderer, Wirkung mit Toon-Licht und Tusche im Kampfort (Film); nichts kaufen | startbar: 415b A (Chef 15:05, Archiv) | – |
 | 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | wartet auf Test: Build 146 (ansehen/t146-befunde.md; 143 getestet 31.10., 20:4x, Befunde als 416.x) | `claude/jerry-348-kampf` |
 | 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | wartet auf Test: Build 146 (t146) | – |
 | 403 | M | **von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler):** Kampfort: Held je Klasse wie im Dorf (`HeldFigur.baue`), Bewegungen aus der UAL Pro | gebaut: passt (Archiv 403), fährt im nächsten Build | – |
