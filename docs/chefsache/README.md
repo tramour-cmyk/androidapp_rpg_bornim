@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [468](entscheiden/468-sparplan.md) | **Muss** | B Abläufe | 02.11., 07:35 | Sparplan bis Samstag 19:59 | Sokrates |
+| [468](entscheiden/468-sparplan.md) | **Muss** | B Abläufe | 02.11., 11:12 | Weiter mit Wächter bis Samstag 19:59 | Sokrates |
 | [453a](entscheiden/453a-wolf-atem-sichtbar.md) | **Muss** | E Kampf | 02.11., 00:57 | Wolfsatem aus der Kampfkamera sichtbar: wie? (Empfehlung: :) | Tuffy (Zusatzentwickler Team Jerry) |
 | [406.1](entscheiden/4061-schildstoss.md) | **Muss** | E Kampf | 01.11., 22:35 | Schildstoß: Block und Konter am Ring für jeden mit Schild, als Angriff erst für den Wächter? (Empfehlung: :) | Jerry |
 | [348.12j](entscheiden/34812j-grak-axt.md) | **Muss** | E Kampf | 01.11., 22:03 | Graks Axt: Kopf oben (wie abgenommen) oder hängend (Grundstand E6)? (Empfehlung: :) | Jerry |
