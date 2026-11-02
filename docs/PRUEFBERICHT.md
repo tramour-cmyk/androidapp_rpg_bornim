@@ -30,7 +30,15 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
-## Lauf 66 · Auftrag 480 und 480.1 Begriffe, Läufe frei, Push ohne Ablauf; 340.3 Pflegezeilen (Doppelpack 421; `main` `e6bcd00ca`; 02.11., 20:1x; `urteil()` gegen das Archiv, `loest_aus()` mit 11 Zweig- und Pfadproben gegen die 8 Abläufe, `pflegehinweis.py --probe`, Suche nach „Blatt“ und „Tor“ in den Regeldateien)
+## Lauf 67 · Auftrag 340.4 „Geprüft an“, 340.5 Uhrzeit (Doppelpack 421; `main` nach `6dc0d9880`; 02.11., 19:5x; `commit-pruefung.py` mit 4 Probedateien in einer Kopie, Muster mit 12 Zeilen)
+
+**Ergebnis:** 340.4 greift: neue Datei in `ansehen/` und `billigen/` ohne „Geprüft an:“ hält an, mit „Lauf 176“, Link oder `bilder:` geht sie durch; „Geprüft an: Messung“ und „Lauf 17“ halten an; `t999-…` (Build) und `tun/` sind ausgenommen. `DESIGN-ABNAHME.md` ersetzt „461 geprüft“ (Satz fällt weg, wie entschieden). 340.5: Haken in `.claude/settings.json`, bekannter Fehler 1 in `CLAUDE.md` gekürzt.
+
+**Befund (ohne Nummer, eigener Fehler, zählt als Beleg für 340.5):** meine Probedateien trugen „20:10“, die Commit-Prüfung hielt an: „liegt nach jetzt (19:58)“. Ich hatte in Lauf 65 und 66 und in D67.1, D68.1 „20:0x“, „20:1x“ geschätzt; berichtigt auf 19:4x, 19:5x. Diese Sitzung startete vor dem Haken, sie bekommt keine Zeile „Uhr:“ nach jedem Schritt.
+
+**Grenzen:** jede Hex-Folge ab 7 Zeichen gilt als Commit, auch ein Wort wie „facade1“ oder eine Kennung, die es nicht gibt; ob der Link zum Vorgang gehört, prüft niemand. Den Haken „Uhr:“ an neuen Sitzungen nicht gesehen.
+
+## Lauf 66 · Auftrag 480 und 480.1 Begriffe, Läufe frei, Push ohne Ablauf; 340.3 Pflegezeilen (Doppelpack 421; `main` `e6bcd00ca`; 02.11., 19:5x; `urteil()` gegen das Archiv, `loest_aus()` mit 11 Zweig- und Pfadproben gegen die 8 Abläufe, `pflegehinweis.py --probe`, Suche nach „Blatt“ und „Tor“ in den Regeldateien)
 
 **Ergebnis:** Push ohne Ablauf zählt nicht: `claude/tom-431-voelker` nein, `claude/tom-348-fundament` ja, `claude/jerry-415-beams` (kein Ablauf auf Push) nein, `bilder` und `meldungen` nein. Grenze 389 nennt Sokrates als Freigabe. `pflegehinweis.py --probe` setzt je Vorrat eine Zeile „Pflege“ (Kür), ohne Befund keine (Diogenes keine).
 
@@ -40,12 +48,12 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **Nicht geprüft / Grenzen:** `loest_aus()` liest kein `paths-ignore` (Push auf `main` mit nur `tools/blender348/` zählt, obwohl `android.yml` ihn auslässt) und keine Job-Bedingung `contains(…)` (nur `startsWith`); beides zählt eher zu viel. `pflegehinweis.py` läuft einmal je Container statt je Tag: heute 3 eigene Commits, jeder kann einen gerade gekürzten Vorrat beim Zusammenführen wieder mit der Zeile „Pflege“ füllen (bei mir 19:5x). 480 (2), nach dem zweiten Lauf geht der Film immer zum Chef: nur im Text, kein Werkzeug geprüft.
 
-## Lauf 65 · Auftrag 484 Abkürzungen in Telegram, 465 Titelzeile (Doppelpack 421; `main` nach `57afc1ee6`; 02.11., 20:0x; `meldung.sh --probe` mit 16 Probetexten und den 4 echten Diogenes-Meldungen des Tages; `eintrag()` aus `zug-index.py` mit 4 Probedateien in einer Kopie)
+## Lauf 65 · Auftrag 484 Abkürzungen in Telegram, 465 Titelzeile (Doppelpack 421; `main` nach `57afc1ee6`; 02.11., 19:4x; `meldung.sh --probe` mit 16 Probetexten und den 4 echten Diogenes-Meldungen des Tages; `eintrag()` aus `zug-index.py` mit 4 Probedateien in einer Kopie)
 
 **Ergebnis:** 484 greift für „NW 2“, „E 7“, BRS, KI, RK, TP, „z. B.“, „z.B.“, „ca.“, „Nr.“; die 4 echten Meldungen des Tages gehen durch (kein Fehlalarm); Vorgangsnummern, Kennungen (A1, t146), Dateinamen, Würfel (2W4+2), Sprungmarken gehen durch. 465: Wer und Zeit aus der Titelzeile gelesen (auch „19:1x“, „Team Tom“), Zeile 2 geht weiter vor.
 
 **Befunde**
-- **D67.1 (484, mittel, sicher, Klasse 1 Perikles) Lücken:** gehen durch: „K1“ (Buchstabe mit Ziffer gilt als Kennung), Kürzel vor Bindestrich („HP-Balken“, „EP-Anzeige“), „s. o.“, „u.U.“. Fehlalarm, klein: „OK“, „JPG“, „GIF“ halten an (PNG und MP4 sind frei); ebenso ein Kürzel, das als Beispiel in „…“ zitiert wird (meine Meldung zu 484 um 20:0x hielt an, ging mit `…` durch).
+- **D67.1 (484, mittel, sicher, Klasse 1 Perikles) Lücken:** gehen durch: „K1“ (Buchstabe mit Ziffer gilt als Kennung), Kürzel vor Bindestrich („HP-Balken“, „EP-Anzeige“), „s. o.“, „u.U.“. Fehlalarm, klein: „OK“, „JPG“, „GIF“ halten an (PNG und MP4 sind frei); ebenso ein Kürzel, das als Beispiel in „…“ zitiert wird (meine Meldung zu 484 um 19:4x hielt an, ging mit `…` durch).
 
 **Nebenbei:** `zug-index.py` schreibt beim Laden als Modul `docs/chefsache/README.md` neu (Import ruft das Hauptprogramm); in der Kopie bemerkt und zurückgesetzt, nichts gepusht. **Nicht geprüft:** Meldungstexte der anderen Rollen (`meldungen.tsv` hat keinen Text).
 

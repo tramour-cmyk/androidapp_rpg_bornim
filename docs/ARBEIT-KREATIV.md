@@ -12,6 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 461b.3 | M | **von Perikles (Liste Sokrates 461b, 02.11., 19:1x, Punkte 5, 6, 16):** Widersprüche nachziehen: Prüfungsnamen und „Handlung“ im Regelwerk gegen 466; `DESIGN-STIL.md` Zeilen 50, 53, 173 (SRD-Namen) gegen 348.12c und Entscheidung 25; B7 Wölfe 1,32 gegen „Größe variiert“ | startbar (nur Notizen) |
 | 466 | M? | **von Sokrates (Chef 01.11., 21:13, Zu 466):** neues Wort für „Handlung“ eines Pfads, dazu Namen der Prüfungen | wartet auf Chef: Stufen der Meisterschaften entscheiden/466-meisterschaft-stufen.md (fremd geprüft); danach Spielanleitung [423.pfad…] und 447.4 nachziehen |
 | 447.4 | M | **von Perikles (Chef 01.11., Archiv 447):** Texte für Stufe 3 der Abnahmeliste: Einladungen der Lehrmeister zu Pfad und den fünf Meisterschaften (3.1, 3.2) und Ruf-Gespräche im Dorf (3.3), DE/EN | wartet auf Chef: Entwurf in STORY-LEHRMEISTER-K1.md und STORY-RUF-K1.md, Chefsache ansehen/4474 |
 | 432 | K | **von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt mir sehr gut“):** eigenes Volk prüfen, mit der Geschichte ab Kapitel 2 | ruht: Storyplan, Kult-Antwort und Abgleich K2 fertig (STORY-PLAN.md, Aschgeborene); Chefsache erst nach dem Meilenstein, vor dem Bau; Volk selbst in 432.3 |
