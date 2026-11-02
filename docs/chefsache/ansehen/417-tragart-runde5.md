@@ -64,3 +64,12 @@ Alle: Tempo auf das Spiel umgetaktet, Oberkörper aufgerichtet (Gehen 6,5–9,7 
 - Axt beim Gehen einhändig senkrecht wie eine Fahne, linke Hand nicht am Stiel (2,0–3,7 s); gemessen linke Faust 0,0 cm am Schaft (von rechts gefilmt, die linke Hand liegt hinten). Rennen beide Hände sichtbar am Stiel.
 - Füße: Gehen bis 16 Bildpunkte über dem Boden (Axt), Schild setzt nie ganz auf (6–10); Rennen setzt auf. **Rennen: Fuß 17–28 % langsamer als der Boden, rutscht (alle vier).**
 - Schild verdeckt Kinn und Bart (4,67 s), nicht im Körper. Axtblatt am Feldrand abgeschnitten; Beschriftung nur Kennungen.
+
+**Prüferbefund zum Film 02:2x (nach dem Versand, 02:3x; Felder 1–6 wie beschriftet):**
+- Zuerst auffällig: bei 1,0 s springt die Haltung in einem Bild von stark vorgebeugt in aufrecht (Axt, Schwert, Schild von links); Stand am Anfang und Ende verschieden.
+- **Schild von rechts, Gehen: Klinge durch den Kopf in Mundhöhe (1,75–3,25 s), jetzt von der Waffenseite bestätigt**; unsere Messung „frei“ war also falsch (Nachfolger prüft, warum der Kopf in der Messung fehlt). Rennen: Klinge nicht durch die Hüfte.
+- Axt von links, Rennen: in etwa der Hälfte des Schritts keine Hand am Stiel, Stielende an Kinn oder Hals (4,1, 4,5, 4,7, 5,1, 5,7 s); Gehen eine Faust am Stiel; im Stand Axt waagerecht, Kopf vorn, beim Gehen Kopf oben.
+- Schild beim Gehen tiefer an der Hüfte und pendelnd, nicht wie im Stand (Grundstand E8); im Stand fast schwarz.
+- Bogen kreuzt beim Rennen schräg die Beine, Arm verschwindet hinter dem Bein (5,7 s).
+- Füße: Rennen 6–8 Bildpunkte über dem Stand (Axt, Bogen nie ganz unten); **Rennen Fuß langsamer als der Boden: Axt 12 und 8 %, Schwert 22 %, Schild 12 und 17 %, Bogen 3 %**; Gehen gleichmäßig im Rahmen; Anlaufen (1,1–1,5 s) und Auslaufen (6,5–7,3 s) Füße gleiten deutlich (40–145 %).
+- Grundstand: A1, A4, C2, G1, G2 ja; D4, E1, E3, E6, E8 nein. Text lesbar und richtig.
