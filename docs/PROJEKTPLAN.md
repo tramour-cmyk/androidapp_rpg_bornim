@@ -11,7 +11,7 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 **Wie du die Verweise findest** (484): „E 7“ = Entscheidung 7 in der Liste [Entscheidungen zum Spielsystem](DESIGN-SPIELSYSTEM-2-0.md); „NW 5“ = Abschnitt 5 im [Regelwerk des Bornimer Rollenspielsystems](DESIGN-SPIELSYSTEM-2-0-ENTWURF.md) (Datei heißt noch „Entwurf“, gilt aber; E 84); eine Zahl ohne Buchstaben ist ein Vorgang. Gilt nur, was entschieden ist; neue Entscheidungen gehen hier ein. Alle Zahlen sind Startwerte; abhakbar mit Zahlen erst nach der Rechensimulation (444). Termine gibt es keine; Wochenziele nennen Reihenfolge und Schätzung, keine Tage je Punkt. Alte Kurzzeichen (T1 … S1, bis 01.11.): Git, Stand vor „Perikles: 447.1“.
 
 **Stufe 1 · Kern spielbar** (Prüfung: Rechensimulation 444 abgenommen; der Chef spielt Dorf und Wald an)
-- [ ] **1.1** G · Ohne Klassen (E 1): Erschaffung mit sechs Grundwerten ab 1, 21 Punkte, jeder Wert 3 bis 8 (E 77); fünf Völker mit Bonus, Malus und Merkmal, Volk hebt bis 9, nie unter 3 (E 70, 72, 78); Herkunft freiwillig oder Wanderer, Startfertigkeiten bei 10 (E 68, 69; NW 2).
+- [ ] **1.1** G · Ohne Klassen (E 1): Erschaffung mit sechs Grundwerten ab 1, 21 Punkte, jeder Wert 3 bis 8 (E 77); fünf Völker mit Bonus, Malus und Merkmal, Volk hebt bis 9, nie unter 3 (E 70, 72, 78); Herkunft freiwillig oder Wanderer, Startfertigkeiten bei 10 (E 68, 69; NW 2). Ins Spiel erst mit 2.3; bis dahin im Testmenü zu sehen (470a: „C“, aber der Rechenkern des Kampfs ist mit 3–4 Sitzungen über 2 geschätzt, darum gilt B).
 - [ ] **1.2** G · Fertigkeiten steigen durch Tun, Wert 0–100 in vier Rängen, am Rangende Halt mit kleinem Puffer bis zur Prüfung (E 67, E 44); Kapitel 1 bis Geselle (49) mit Bewährungsproben zum Gesellen (Takt, NW 5); Prüfregel und die 37 (E 59); Hinweis beim Aufstieg, Heldenblatt zeigt nur Getanes (NW 3).
 - [ ] **1.3** G · Heldenstufe aus Erfahrung (E 16), höchstens 40 % aus Fertigkeitsaufstiegen (E 17); Kapitelgrenze weich bis zwei Stufen darüber (E 18, E 35); Erfahrungstopf je Gebiet, Wiederkehrer geben kaum Erfahrung, aber Beute (E 19, E 21).
 - [ ] **1.4** M · Neue Monsterwerte für Kapitel 1 nach dem BRS auf Rechenmodell D (E 73–75, NW 7).
@@ -114,10 +114,10 @@ Quelle: der alte Kotlin-Code (`core`, `app`), abgeglichen mit `LISTE-UMZUG-348.m
 | Reihenfolge | Vorgang | Wer | fertig, wenn | Schätzung |
 |---|---|---|---|---|
 | 1 | von dir genannt (468): 463 Umhang und Robe geschlossen, 348.12k Grak, 427 Bestiarium, 467 Ausdauer nach BRS | Tom, Jerry, Sokrates | wie in der Zeile des Vorrats | – |
-| 2 | 470 Bau BRS 1.1 Erschaffung | Tom | Erschaffung im Spiel nach 1.1, Zahlen aus der Datendatei | 2 Sitzungen (447.2) |
+| 2 | 470 Bau BRS 1.1 Erschaffung | Tom | Erschaffung nach 1.1 im Testmenü, Zahlen aus der Datendatei; ins Spiel mit 2.3 (470a B) | 2 Sitzungen (447.2) |
 | 3 | 471 Bau BRS 1.2 Fertigkeiten durch Tun | Tom, Kampfteil mit Jerry | Fertigkeiten steigen im Spiel nach 1.2 | erste Sitzung schätzt |
 | 4 | 472 Bau BRS 1.3 Heldenstufe | Jerry | Heldenstufe im Spiel nach 1.3 | erste Sitzung schätzt |
-| 5 | 473 Bau BRS 1.4 Monsterwerte | Jerry | Werte der Monster von Kapitel 1 im Spiel nach 1.4 | 1 Sitzung, 1 Runde (447.3) |
+| 5 | 473 Bau BRS 1.4 Monsterwerte | Jerry | Werte der Monster von Kapitel 1 als Daten und Regeln (`brs.gd`); der Kampf rechnet damit ab 2.3 (470a B) | 1 Sitzung, 1 Runde (447.3) |
 | 6 | gemeinsame Builds aus den wartenden Änderungen, dann Stufe 1 als Build | Jerry stellt zusammen | höchstens 6 Änderungen je Build (317); du spielst Dorf und Wald an | – |
 | 7 | 469 Ring ohne Klassen (aus deinem Urteil 406.1) | Jerry | wie in der Zeile des Vorrats | – |
 
