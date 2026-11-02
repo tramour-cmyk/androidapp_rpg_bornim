@@ -63,6 +63,29 @@ def name_netz(o):
     if 'eye' in n: return 'augen'
     return 'koerper'
 
+# Lauf 41430726121: Aermel zusaetzlich zurueck hilft kaum (Wache Mann Aermel 2932 -> 2605 bei 20 mm, dafuer Kette und Koerper mehr):
+# der Aermel sticht tiefer als 3 cm durch. WEG=<teil>:<oben+oben>:<m>: Flaechen von <teil>, ueber denen in der Ruhelage binnen m laengs
+# ihrer Normale eine der Oberlagen liegt, fallen weg (wie Koerper unter Kleidung, kauf_kleid.py 7)
+WEG = os.environ.get('WEG', '')
+WEG_F = set()
+if WEG:
+    _t, _o, _m = WEG.split(':'); _o = _o.split('+'); _m = float(_m)
+    _ti = TEILNAMEN.index(_t) if _t in TEILNAMEN else -1
+    _oi = [TEILNAMEN.index(x) for x in _o if x in TEILNAMEN]
+    _me = kleid.data
+    _W = [kleid.matrix_world @ v.co for v in _me.vertices]
+    _ob = [p_ for p_ in _me.polygons if KT[p_.vertices[0]] in _oi]
+    if _ti >= 0 and _ob:
+        _bv = BVHTree.FromPolygons(_W, [tuple(p_.vertices) for p_ in _ob])
+        _N = kleid.matrix_world.to_3x3()
+        for p_ in _me.polygons:
+            if KT[p_.vertices[0]] != _ti: continue
+            c_ = sum((_W[i] for i in p_.vertices), Vector()) / len(p_.vertices)
+            n_ = (_N @ p_.normal).normalized()
+            if _bv.ray_cast(c_ + n_ * 0.0005, n_, _m)[0] is not None: WEG_F.add(p_.index)
+    print('WEG', WEG, len(WEG_F), 'Flaechen von', sum(1 for p_ in _me.polygons if KT[p_.vertices[0]] == _ti))
+
+
 def lage():
     dg.update()
     V, F, LF = [], [], []
@@ -70,6 +93,7 @@ def lage():
         me = o.evaluated_get(dg).to_mesh(); b = len(V); M = o.matrix_world
         V += [M @ v.co for v in me.vertices]
         for p in me.polygons:
+            if o == kleid and p.index in WEG_F: continue
             vs = tuple(b + i for i in p.vertices); F.append(vs)
             LF.append(TEILNAMEN[KT[p.vertices[0]]] if o == kleid else name_netz(o))
         o.evaluated_get(dg).to_mesh_clear()
@@ -127,8 +151,9 @@ def sehen(V, F, LF, az, el):
 
 def flecken(L):
     # Felder fremder Bildpunkte (nicht leer, nicht Huelle aussen), die ganz von Huelle aussen umschlossen sind
-    H = np.isin(L, HUELLE); leer = L == ''
-    fremd = ~H & ~leer
+    # 463 (WEG): auch leere Felder zaehlen, wenn die Huelle sie umschliesst (Loch, Hintergrund durch die Figur), als „loch“
+    H = np.isin(L, HUELLE)
+    fremd = ~H
     n0, n1 = L.shape; gesehen = np.zeros_like(fremd); aus = []
     for y in range(n0):
         for x in range(n1):
@@ -145,7 +170,7 @@ def flecken(L):
                     else: rand_a += 1
             if rand_h >= 0.9 * (rand_h + rand_a) and len(feld) >= 2:
                 teile = {}
-                for p in feld: teile[L[p]] = teile.get(L[p], 0) + 1
+                for p in feld: teile[L[p] or 'loch'] = teile.get(L[p] or 'loch', 0) + 1
                 aus.append((len(feld), np.mean(feld, axis=0), teile))
     return aus
 
