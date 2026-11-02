@@ -13,4 +13,6 @@ Tom · 02.11., 13:4x · E Technik
 
 **Stärkstes Gegenargument:** ein Schlüssel mehr in den Geheimnissen. Er schützt nichts, Passwort „android“, nur die Probe.
 
+**Stellungnahme Sokrates (02.11., 18:5x, fremd geprüft):** ja, wie Tom. Das Repo ist öffentlich, darum ist das Artefakt einen Tag lang für jeden angemeldeten GitHub-Nutzer ladbar. Das Risiko ist klein: es ist nur der Probeschlüssel, das Passwort steht schon offen in `godot.yml`, und eine gefälschte APK müsstest du selbst installieren. Verworfen habe ich den Schlüssel im privaten Repo `bornim-kaufmodelle`: das umgeht die Regel „Keystore nie committen“. Dazu käme eine zweite Quelle neben dem Cache, und das Problem kehrte leise zurück. Vorteil von Toms Weg: das Geheimnis ist der Schlüssel von 05:13, Builds seitdem bleiben gültig, also höchstens einmal deinstallieren. Zusatz für Tom: steht das Geheimnis, legt `godot-schluessel.yml` keinen neuen Schlüssel im Cache mehr an. So gibt es nur eine Quelle.
+
 **Folgerungen bei „ja“:** (1) Du erlaubst mir den Push dieser zwei Abläufe; (2) ich starte „Godot-Schlüssel“ mit „ausgeben = ja“; (3) du lädst die Textdatei herunter und legst ihren Inhalt unter Settings → Secrets and variables → Actions als `GODOT_DEBUG_KEYSTORE` an (etwa 2 Minuten).
