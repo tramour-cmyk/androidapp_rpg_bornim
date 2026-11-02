@@ -6,6 +6,8 @@ Zeile in LISTE-VORGAENGE.md (D- und Unternummern über die Oberzeile); Vorrat ü
 (Hinweis eines anderen mit „von <Absender>“ in jeder neuen Zeile ausgenommen, 400; ARBEIT-BETRIEB.md ausgenommen: Fords Startsperre muss dorthin, kürzen ist Fords Zeile); neue Antwort im Vorgangsarchiv, deren Vorlage
 in entscheiden/, ansehen/ oder billigen/ stehen bleibt (383.3: wer die Antwort einträgt, löscht die Datei im selben Commit; bleibt die
 Frage trotz Antwort offen, setzt er die Zeit in Zeile 1 oder 2 der Datei neu). Eine beantwortete Vorlage darf ohne Archivänderung weg.
+Neuer Archiveintrag zu einer Nummer aus der Spalte „Woher“ der Kennungen A–G ohne Änderung an DESIGN-STIL/-KAMPF/-ABNAHME (461b; Ausweg
+„461 unverändert“ im Eintrag); warnt bei geänderter alter Archivzeile und bei neuer Vorlage ohne berührte Kennung.
 Vorlage in docs/chefsache/ansehen/ mit „ohne Toon“, „Tusche fehlt“ u. ä. ohne Vergleich „mit Tusche“ (457, D56.1–2; Ausnahme „Chef erlaubt ohne Signatur“). Hält immer an (auch im Code): gekaufte Rohdatei (449: Kaufordner, Endung eines Kaufpakets, Inhalt wie im geklonten Kaufrepo). Warnt (Exit 0): Modellnamen, Zeilen über 1500 Zeichen. Fasst nur Notizen an; sonst Exit 0. Jeder Fehler im Haken lässt durch."""
 import datetime, os, re, subprocess, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -60,6 +62,49 @@ def kaufdateien(dat):
             break
     return raus
 
+GILT = ("docs/DESIGN-STIL.md", "docs/DESIGN-KAMPF.md", "docs/DESIGN-ABNAHME.md")  # 461d: wo die Kennungen A–G stehen
+WOHER_NR = re.compile(r"^\s*(?:Test\s+)?(\d{3}(?:\.\d+)?[a-z]?)(?![.:\d])")
+
+def kennungen():
+    """461b: {Vorgangsnummer: {Kennungen}} aus der Spalte „Woher“ der Tabellen A–G (Stand im Index)."""
+    tafel = {}
+    for p in GILT:
+        for z in git("show", ":" + p).splitlines():
+            t = [x.strip() for x in z.split("|")]
+            if len(t) > 4 and re.fullmatch(r"[A-G]\d", t[1]):
+                for teil in re.split(r"[,;]", t[3]):
+                    m = WOHER_NR.match(teil)
+                    if m: tafel.setdefault(m.group(1), set()).add(t[1])
+    return tafel
+
+def gueltig_pruefen(dat, stop, warn):
+    """461b (Chef 01.11., 22:26, „461b ja“): neuer Archiveintrag zu einer Nummer, aus der eine Kennung A–G stammt (Spalte „Woher“), oder
+    mit „Grundstand X1“/„461 X1“: im selben Commit die Zeile in DESIGN-STIL, -KAMPF oder -ABNAHME ändern; ändert der Entscheid
+    nichts daran, steht „461 unverändert“ im Eintrag. Alte Archivzeilen: nur anhängen (z. B. „→ ersetzt durch …“), sonst Warnung."""
+    diff = git("diff", "--cached", "-U0", "--", "docs/VORGANGSARCHIV.md").splitlines()
+    plus = [z[1:] for z in diff if z.startswith("+") and not z.startswith("+++")]
+    minus = [z[1:] for z in diff if z.startswith("-") and not z.startswith("---")]
+    tafel = kennungen(); geaendert = any(p in GILT for _, p in dat)
+    for alt in minus:  # geänderte alte Zeile: alter Text muss vorn stehen bleiben
+        if alt.strip() and not any(neu.startswith(alt.rstrip()) for neu in plus):
+            warn.append("VORGANGSARCHIV.md: alte Zeile geändert statt ergänzt („%s …“); am alten Eintrag nur „→ ersetzt durch …“ anhängen (461b)" % alt[:60])
+    for neu in plus:
+        if neu in minus or not neu.startswith("- **") or any(a.strip() and neu.startswith(a.rstrip()) for a in minus): continue
+        if geaendert or re.search(r"\b461 unverändert\b", neu): continue
+        kopf = neu[4:neu.find("**", 4)] if "**" in neu[4:] else neu[4:60]
+        nrn = set(re.findall(r"(?<![\d.])(\d{3}(?:\.\d+)?[a-z]?)(?![\d.:])", kopf))
+        treffer = sorted({k for n in nrn for k in tafel.get(n, ())} | set(re.findall(r"\b(?:Grundstand|461)\s+([A-G]\d)\b", neu)))
+        if treffer:
+            stop.append("VORGANGSARCHIV.md: neuer Entscheid zu %s berührt %s; im selben Commit die Zeile(n) in DESIGN-STIL/-KAMPF/-ABNAHME "
+                        "ändern und am alten Eintrag „→ ersetzt durch …“ anhängen (461b); ändert er nichts daran: „461 unverändert“ in den Eintrag"
+                        % (", ".join(sorted(nrn)) or kopf[:20], ", ".join(treffer)))
+    for s, p in dat:  # 461b: Vorlage nennt berührte Punkte
+        if s == "A" and re.match(r"docs/chefsache/(entscheiden|billigen|ansehen)/", p):
+            n = os.path.basename(p).split("-")[0].lower()
+            ks = sorted({k for nr, v in tafel.items() if nr.replace(".", "").lower() == n for k in v})
+            if ks and not re.search(r"\b[A-G]\d\b|461", git("show", ":" + p)):
+                warn.append("%s: Vorlage zu einem Vorgang mit Kennung (%s), nennt aber keinen berührten Punkt A–G (461b)" % (p, ", ".join(ks)))
+
 def main():
     ge = git("diff", "--cached", "--name-status", "--no-renames").splitlines()
     dat = [(l.split("\t")[0], l.split("\t")[1]) for l in ge if "\t" in l]
@@ -106,6 +151,8 @@ def main():
                 a = startbar.ueberholt(n, git("show", ":" + p), antwort)
                 if a: stop.append("%s: Chef hat %s beantwortet (%s), die Vorlage bleibt stehen; im selben Commit löschen (383.3), "
                                   "bleibt die Frage offen: Zeit in Zeile 1 oder 2 der Datei neu setzen" % (p, a[0], a[1].strftime("%d.%m., %H:%M")))
+    try: gueltig_pruefen(dat, stop, warn)
+    except Exception as e: warn.append("461b-Prüfung übersprungen: %s" % e)
     for s, p in dat:
         if s == "D" and p.startswith("docs/chefsache/entscheiden/") and not arch and os.environ.get("BORNIM_ZURUECK") != "1" \
                 and not startbar.ueberholt(os.path.basename(p), git("show", "HEAD:" + p), antwort):

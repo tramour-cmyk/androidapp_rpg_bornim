@@ -43,7 +43,7 @@ Ideensammlung, Stand 31.10.2026. Hier schreiben wir alles zusammen, was das Spie
 | 35 | Stufengrenzen, Kapitel, Höchststufe (Fragen 5c, 15, 19, 20) | „Bisschen wie World of Warcraft oder Pokémon: Wenn es neue Kapitel/Gebiete gibt, dann gibt es neues Levelcap.“ Also keine feste Höchststufe; jedes neue Kapitel oder Gebiet hebt die Grenze. Chef 31.10.2026. |
 | 36 | Ruf sinkt (Frage 6) | B: sinkt bei wenigen klaren Anlässen. „Kaufen, Infos von NPC“ sind Wirkungen eines guten Rufs, keine Anlässe zum Sinken: „wenn ich einen guten Ruf habe, dann kann ich eben günstiger Sachen kaufen oder ich bekomme in manchen Dialogen mehr Infos … Und komme damit weiter in der Quest“. Chef 31.10.2026, 20:3x. |
 | 37 | Ortsruf (Frage 7) | B: gewichtet, Schlüssel-NPCs zählen mehr. Chef 31.10.2026. |
-| 38 | Zahl der Fertigkeiten (Frage 8) | A: alle 69, „nach Rücksprache mit BornWire“ (Stellungnahme Sokrates unten, Abschnitt 6). Chef 31.10.2026. |
+| 38 | Zahl der Fertigkeiten (Frage 8) | A: alle 69, „nach Rücksprache mit BornWire“ (Stellungnahme Sokrates unten, Abschnitt 6). Chef 31.10.2026. → ersetzt durch 59: 37 Fertigkeiten |
 | 39 | Werkort (Frage 9) | C: gestaffelt, einfache Rezepte überall, höhere am Werkort. Chef 31.10.2026. |
 | 40 | Experimentieren (Frage 10) | Empfehlung: zuerst feste Rezepte, Experimentieren später, nur Alchemie und Kochen. Chef 31.10.2026. |
 | 41 | Tragkraft (Frage 12) | Tragkraft bleibt; früh im Spiel ein „Nimmersatt-Beutel“, der die Tragkraft stark erhöht; darüber hinaus Malus auf die Geschwindigkeit (weich, kein Aufnahmestopp). Chef 31.10.2026. |

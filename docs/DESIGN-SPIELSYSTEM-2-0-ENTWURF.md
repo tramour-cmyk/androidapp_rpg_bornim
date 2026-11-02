@@ -60,7 +60,7 @@ Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit und 
 | Zauberlehrling | Evokation, Schutzmagie | Magier, Kriegsmagier |
 | Klosterschüler | Heilmagie, Heilkunde, Kräuterkunde | Heiler, Paladin |
 | Kräutersammler | Kräuterkunde, Alchemie, Spähen | Meisterschaft Alchemist |
-| Schmiedelehrling | Schmieden, Bergbau | Meisterschaft Schmied |
+| Schmiedelehrling | Schmieden, Bergbau, Stumpfe Waffen (461c; Bergbau zeigt sich ab Kapitel 2) | Meisterschaft Schmied |
 | Herumtreiber | Schleichen, Spähen, Dolche | Assassine, Schatzjäger |
 | Wanderer | selbst gewählt | – |
 
@@ -407,7 +407,7 @@ Abnutzung und Reparatur: Reparieren ist keine eigene Fertigkeit mehr; Metall rep
 | Zauberer | Zauberlehrling | Evokation, Schutzmagie | Magier, Kriegsmagier |
 | Heiler | Klosterschüler | Heilmagie, Heilkunde, Kräuterkunde | Heiler, Paladin |
 | Kräuterkundiger | Kräutersammler | Kräuterkunde, Alchemie, Spähen | Meisterschaft Alchemist |
-| Schmiedegeselle | Schmiedelehrling | Schmieden, Bergbau | Meisterschaft Schmied |
+| Schmiedegeselle | Schmiedelehrling | Schmieden, Bergbau, Stumpfe Waffen (461c; Bergbau zeigt sich ab Kapitel 2) | Meisterschaft Schmied |
 | Späher (neu) | Herumtreiber | Schleichen, Spähen, Dolche | Assassine, Schatzjäger |
 | Frei | Wanderer (keine Herkunft; du verteilst die 18 Punkte selbst und wählst Startfertigkeiten frei) | selbst gewählt | – |
 

@@ -25,6 +25,42 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 60 · Nachprüfung 464.1 und 465.1, Zählung 461b (`main` `6cbb97adf`; 02.11., 02:5x; `seit_text()` an der Übersicht nach dem Lauf, `hinweis_geben()` mit eigener Liste aufgerufen, Haken mit Nicht-Push-Befehl)
+
+- **D60.1 behoben:** 348.12j zeigt 22:03, 431b 21:29, beides die Zeit des Commits, der die Datei anlegte. Feste Minuten ohne „x“ (348.12b 21:00, angelegt 20:58) bleiben, wie sie in der Datei stehen.
+- **D61.2 behoben:** Der Haken liest alle geänderten `.gd`, bis noch 5 s Hakenzeit bleiben. Den Rest nennt er als Hinweis mit Dateinamen. Bei einem Befehl ohne Push gibt er nichts aus.
+- **D61.1:** Perikles hat es an Ford gegeben (`ARBEIT-BETRIEB.md` Eingang). Gebaut ist es noch nicht.
+- **461b (Kennzahl Widersprüche, erste Zählung):** 3 in 38 Archiveinträgen; Einzelheiten in `ARBEIT-PRUEFUNG.md` „Zu 461b“. Zwei liegen offen bei Perikles (461a, 461d), einer ging als D62.1 an Sokrates.
+- **D62.2 an Ford:** `lauf.py` liest die Uhrzeit im Nachfolger nicht. Diese Sitzung wurde deshalb um 02:38 statt um 8 Uhr gestartet.
+- Nicht geprüft: 374, 434, 464 Tageszahl, Woche (erst ab 8 Uhr).
+
+## Lauf 59 · Auftrag 464 Doppelpack zu den roten Läufen (`main` nach `8cb4400b6`; 01.11., 22:13; `parse_pruefen()` mit Godot 4.7.2 (Scratch, nicht `~/godot`) an einem Probezweig aufgerufen; Ford-Commits `8fd2d5e82`, `525f87ff9`; Lauf 150 auf `claude/jerry-348-12-grak-schreitet` (Log))
+
+**Ergebnis:** Der Haken tut, was er soll.
+- Ein eingebauter Parsefehler in `kampf/aufruf.gd` hält den Push an, mit Datei und Zeile, nach 8 s.
+- Kein Fehlalarm: Alle 60 `.gd` auf `main` geändert ergeben „None“, auch einzeln mit `--check-only` (0 Treffer); Dauer 14 s.
+- Der Arbeitsbaum bleibt danach sauber.
+- Ein angehaltener Push wird nicht gezählt, weil die Prüfung vor dem Zählen kommt (Z. 262–267).
+- Ford meldet rote Läufe (21:04 an Jerry, 22:05 an Tom mit Lauf, Commit und Link).
+- Grenze: Der Haken fängt nur Parsefehler. `wolf_mess_438.gd` parst fehlerfrei. Lauf 150 scheiterte später an „Befunde: 5“ im Test, und das fängt der Haken nicht. Das deckt sich mit Perikles: 2 von 14 Läufen wären am Lesen gescheitert. Ohne Godot in der Sitzung prüft der Haken nichts; offen ist die Chefsache tun/464.
+
+**Befunde**
+
+- **D61.1 Die Zahl der roten Läufe des Tages fehlt im Protokoll:** `ROLLE-BETRIEB.md` verlangt „Zahl des Tages ins Protokoll (für den Tagesbericht)“. In `ARBEIT-BETRIEB.md` steht keine. Ford schreibt nur die Zeilen in die Vorräte. Die Zählung ab 02.11. gegen 01.11. (14) hat damit nur `actions_list` als Quelle.
+- **D61.2 Was über der Grenze liegt, wird ohne Hinweis nicht geprüft (gering):** Geprüft werden nur die ersten 25 geänderten Dateien (`gd[:25]`). Dateien, bei denen Godot länger als 20 s braucht, werden übersprungen (`continue`). Ein Zusammenführen wie 453 r3 kann über 25 Dateien ändern; der Push geht dann ohne Hinweis durch.
+
+**Nicht geprüft:** Ob der Hinweis an den Chef bei 3 oder mehr roten Läufen je Stunde kommt; der Fall trat seit 20:51 nicht ein (21:04 und 22:05 je höchstens 2). Der Fall „git push origin main“ von einem Zweig `claude/…` aus prüft den Zweig, das ist harmlos.
+
+## Lauf 58 · Auftrag 465 Doppelpack zu 465 und 462.1 (`main` `f26bc1db5`; 01.11., 22:07; Übersicht nach dem Lauf von `zug-index.yml` um 22:03 (`a2c8fd34d`) gegen die Zeit des Commits, der jede Datei anlegte; `seit_text()` und `texte_im_zug()` mit eigenen Eingaben aufgerufen)
+
+**Ergebnis:** 462.1 ist erfüllt. D59.1: `texte_im_zug` zählt Zwischenmeldungen und lässt Werkzeugergebnisse, Metatexte und Helfer aus. Probe mit 3 Texten, davon 2 ohne Kopf, ergibt (3, 2); diese Sitzung ergibt (1, 0). D59.2: Ein Kopf ohne Namen zählt nicht mehr. D59.3: Ohne erkannte Rolle steht kein „<Name>“ mehr im Kopf. Bei 465 rechnet das Werkzeug richtig, wenn die Minute passt: „22:0x“ wird 22:03, ein fehlendes Feld wird 22:03.
+
+**Befunde**
+
+- **D60.1 Im Lauf hat 465 noch keine „x“-Zeit ersetzt:** Alle vier x-Zeiten der Übersicht stehen unverändert da, weil die geschätzte Zeit nicht zur Anlage-Zeit passt. Das Werkzeug ersetzt nur, wenn die Commit-Zeit mit „22:1“ usw. beginnt; sonst bleibt der Text der Datei. 348.12j: Datei „22:1x“, angelegt 22:03; die Übersicht zeigte um 22:05 eine Zeit in der Zukunft. 431b: „21:4x“, angelegt 21:29. Ansehen 348.12: „21:5x“, angelegt 21:49. 447.4: „21:0x“, angelegt 20:51. Bei den anderen zwei „Zu entscheiden“ weicht die Minute ebenfalls ab: 348.12b steht auf 21:00, angelegt 20:58; 461a steht auf 20:56, angelegt 20:57. Ursache ist die geschätzte Uhrzeit in Zeile 1 oder 2 (Bekannte Fehler 1). Das Werkzeug vertraut ihr, statt die Git-Zeit zu nehmen.
+
+**Nicht geprüft:** ob der Lauf auf GitHub die Zeit wirklich aus dem vollen Verlauf holt (es gab keinen Fall, der zur Minute passte); Zählzeilen aus einem echten Stop (in dieser Sitzung gibt es noch keine `~/.bornim-regeltreue.tsv`).
+
 ## Lauf 57 · Auftrag 462 Doppelpack zum Zeitstempel (`main` nach `b851fb635`; 01.11., 20:4x; `name()` aus `neustart-haken.py` mit 14 gebauten Protokollen aufgerufen, Haken mit leerem Protokoll aufgerufen, `zug-haken.py` und eigene Zählzeile gelesen)
 
 **Ergebnis:** Für jede Sitzung, die Ford startet, ist der Kopf richtig. `lauf.py` beginnt jede erste Nachricht mit der Rolle (Z. 471, 491, 526, 597). Erkannt werden „Tom“, „Tom 2“, „Tom 2, weiter“, „Tom, mach …“, „**Jerry** …“, „Spike“ als Textliste und „Perikles – 338.1: …“. Bei „Tom 12 Uhr“ bleibt es richtig bei „Tom“, „Tomaten“ wird nicht erkannt. In dieser Sitzung stand „**Diogenes**“ ab dem ersten Haken.

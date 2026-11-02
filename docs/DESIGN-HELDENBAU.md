@@ -1,5 +1,7 @@
 # Heldenbau
 
+**Überholt durch das BRS** (`DESIGN-SPIELSYSTEM-2-0-ENTWURF.md`; 461d, 01.11., 22:5x): gilt nur, soweit das BRS es übernimmt; Aussehen der Figuren in `DESIGN-STIL.md` „Figuren und Bewegung“.
+
 Freigegeben vom Nutzer am 13.10. (Themen 49, 50). Quelle: Dokument auf Max (gelöscht 20.10., 246.1; gilt diese Datei). Offen: Erkennungszeichen-Standbilder, Messung Jerry (38).
 
 ## Worum es geht

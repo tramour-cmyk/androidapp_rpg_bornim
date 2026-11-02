@@ -1,6 +1,34 @@
 # Kampfsystem neu denken
 
-Stand 14.10.2026. Original seit 16.10. hier (99g); vorher Docs-Dokument „Bornim – Kampfsystem neu denken“ auf Max. Was entschieden ist, steht im Vorgangsarchiv (`VORGANGSARCHIV.md`, 72.x).
+Stand 14.10.2026. Original seit 16.10. hier (99g); vorher Docs-Dokument „Bornim – Kampfsystem neu denken“ auf Max. Was entschieden ist, steht im Vorgangsarchiv (`VORGANGSARCHIV.md`, 72.x); was zu Waffe, Schild und Kampf im Bild gilt, steht im nächsten Abschnitt.
+
+## Waffe, Schild und Kampf im Bild: was gilt (461)
+
+Was der Chef zu Waffe, Schild und Kampf im Bild entschieden hat, steht nur hier (461d, 01.11., 22:5x; vorher `LISTE-GRUNDSTAND-461.md`); Figuren und Bewegung (A–D) in `DESIGN-STIL.md`, Film und Vorlage (G) und wie geprüft wird in `DESIGN-ABNAHME.md` „Vor jeder Vorlage“. Spalte „Prüfer“: ja = Chefwort und prüfbar, ein Verstoß hält den Film an (461a); „Maß“ = Zahl von uns, nur Richtwert. Neue Entscheidung: die Zeile hier im selben Commit ändern, am alten Archiveintrag „→ ersetzt durch …“ (461b).
+
+### E Waffe und Schild
+
+| Nr. | Prüfpunkt | Woher | Prüfer |
+|---|---|---|---|
+| E1 | Unterwegs (Stehen, Gehen, Rennen) jede Waffe in der Hand, Gang aus dem Paket der Waffe (Einhand, Zweihand, Schwert und Schild, Bogen); kein Gürtel, kein Rücken; innen ausgeblendet an der Schwelle. **Ersetzt** Gürtel und Rücken aus 410/417 vom 31.10., 21:17–21:27 (Kotlin-Zeit, ohne Pakete) | 417 (01.11., 13:4x „Richtung Pakete ja“; 20:4x Runde 5: Einhand, Bogen passen), 410 (31.10., 21:1x „lassen wir die doch bitte in der Hand“) | ja |
+| E2 | Waffe und Schild nach Paketvorlage angesteckt (`Protof-Actor@Sword&Shield.prefab`) | 438a (01.11., 20:1x) | ja |
+| E3 | Nichts durch Körper, Kopf, Kleidung oder Boden (Schild, Schwert, Faust, Stiel, Schulter am Schild); Richtwert von uns: höchstens 2 cm je Bild gemessen (Ziel 0 wie „Selbst prüfen“ in `DESIGN-ABNAHME.md`) | 438a, 417, 406, 348.12 | ja, 2 cm Maß |
+| E4 | Angriffe und Schildaktionen aus Sword & Shield, auch mit Stab | 406 (20:2x) | ja |
+| E5 | Hinfallen und Aufstehen aus dem Paket der Waffe (gewählt: Hinfallen 1, 11D, 11F; Aufstehen 1, 12B; Taumeln 13); Injured nur ohne Waffe in der Hand | 438a (20:1x) | ja |
+| E6 | Kriegsaxt: Kopf hängt nach unten, Schwerpunkt etwas nach vorn; Zweihänder: beide Fäuste sichtbar um den Stiel, beim Gehen und Rennen | 417 (11:32; 20:4x) | ja |
+| E7 | Waffenformen aus dem Bestand nach Stufe, Seltenheit über Material und Zeichen, in unseren Farben | 458.3 (19:5x) | ja |
+| E8 | Schild beim Gehen an der Seite hängend wie im Stand, nicht vom Körper abgespreizt; Einhandwaffe und Bogen wie Runde 5 | 417 (01.11., 20:4x) | ja |
+
+### F Kampf
+
+| Nr. | Prüfpunkt | Woher | Prüfer |
+|---|---|---|---|
+| F1 | Schild hebt sich vor dem Biss, nicht danach | 454 (13:1x) | ja |
+| F2 | Biss und Hieb treffen das Ziel | 454, 348.12 (28.10.) | ja |
+| F3 | Reihenfolge Angriff, Treffer, Tod, Neuformation | 439 (31.10.) | ja |
+| F4 | Tod sichtbar als Zusammenbruch, für alle (Helden, Gegner, Tiere): zusammenbrechen, kurz liegen, dann ausblenden, nicht zu schnell weg | 440 (31.10.), 348.12 (28.10.), 461c (01.11., 22:35) | ja |
+| F5 | Ausweichen mit Ortswechsel: rasch zur Seite oder zurück, nur auf einen Angriff hin, dann zurück auf den Platz | 348.12f (27.10.), 348.12 (01.11., 22:45) | ja |
+| F6 | Zauber: der Kegel kommt nicht aus dem Körper des Helden (Seitenschritt; ebenso Schüsse aus der zweiten Reihe); Arkanpfeil (früher „Magisches Geschoss“, BRS 12) ohne Schritt, durch den Helden abgenommen | 348.7b (27.10., 19:49; 28.10., 10:43, 15:28) | ja |
 
 ## Kurzfassung
 

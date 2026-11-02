@@ -16,7 +16,7 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 - [Testgeräte](LISTE-TESTGERAETE.md): Geräteangaben und Messwerte der Tester (388)
 - [Abnahme Kapitel 1](LISTE-ABNAHME-KAPITEL1.md): Meilenstein, Wochenziel, Stand zum Marktstart (Meilensteine neu: 447)
 - [Umzug nach Godot](LISTE-UMZUG-348.md): was aus der alten Fassung übernommen ist und was fehlt (348, 398)
-- [Grundstand](LISTE-GRUNDSTAND-461.md): was zu Figuren und Kampf entschieden ist; jede Vorlage wird dagegen geprüft (461)
+- Was zu Figuren und Kampf entschieden ist (461): Kennungen in [Abnahme](DESIGN-ABNAHME.md) „Vor jeder Vorlage“; Text in Stil und Kampf; jede Vorlage wird dagegen geprüft
 - [Netzliste](LISTE-NETZE.md): je sichtbarem Platz die Netze (Bestand, unser, Eigenbau) und welche Gegenstände sie tragen (455.2)
 
 ## Spiel

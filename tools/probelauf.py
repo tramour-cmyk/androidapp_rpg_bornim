@@ -26,6 +26,7 @@ import re
 import subprocess
 import sys
 import tempfile
+import time
 import uuid
 import zoneinfo
 
@@ -102,9 +103,13 @@ def urteil(nr):
     for m in ARCHIV_KOPF.finditer(archiv):
         if not re.search(r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)", m.group(1)):
             continue
+        klammer = archiv[m.end():archiv.find(")", m.end())] if ")" in archiv[m.end():] else ""
+        if "Vorentscheid" in m.group(1) or ("Vorentscheid" in klammer and "gebilligt" not in klammer):
+            continue  # D50.5 (b): ein Vorentscheid ist kein Urteil des Chefs, gibt keine Läufe frei
         tag, monat, std = int(m.group(2)), int(m.group(3)), m.group(4)
         jahr = heute.year if (monat, tag) <= (heute.month, heute.day) else heute.year - 1
-        zeit = f"{jahr}-{monat:02d}-{tag:02d} {std}:{m.group(5)}{'0' if m.group(6) == 'x' else m.group(6)}:00"
+        # D50.5 (c): „21:1x“ zählt als 21:19, damit kein Lauf vor dem echten Urteil als danach gilt
+        zeit = f"{jahr}-{monat:02d}-{tag:02d} {std}:{m.group(5)}{'9' if m.group(6) == 'x' else m.group(6)}:00"
         beste = max(beste or "", zeit)
     return beste
 
@@ -180,6 +185,18 @@ def push_lauf(befehl, cwd):
 GODOT_BIN = [os.path.expanduser("~/godot/godot"), "/usr/local/bin/godot", "/usr/bin/godot"]
 
 
+ENDE = time.monotonic() + 80  # Haken-Zeitgrenze 90 s (.claude/settings.json), 10 s Rand für das Zählen
+UNGEPRUEFT = []  # 464.1 (D61.2): .gd-Dateien, die aus Zeitgründen nicht gelesen wurden; der Haken nennt sie
+
+
+def ungeprueft_hinweis():
+    if not UNGEPRUEFT:
+        return ""
+    return (f"464: {len(UNGEPRUEFT)} geänderte .gd-Dateien aus Zeitgründen nicht auf Parsefehler gelesen "
+            f"({', '.join(UNGEPRUEFT[:4])}{' …' if len(UNGEPRUEFT) > 4 else ''}); vor dem Push selbst prüfen: "
+            "godot --headless --path godot --check-only -s res://<datei>.")
+
+
 def parse_pruefen(befehl, cwd):
     """464 (Chef 01.11., 20:4x: „irgendwer produziert hier abends brutal viele Fehler … fast 20 E-Mails“): vor jedem Push auf
     einen Zweig `claude/…` jede geänderte .gd-Datei mit Godot `--check-only` lesen (nach `--import`, sonst fehlen die
@@ -225,11 +242,16 @@ def parse_pruefen(befehl, cwd):
             except OSError:
                 pass
     fehler = []
-    for datei in gd[:25]:
+    for datei in gd:  # 464.1 (D61.2): alle Dateien, bis die Hakenzeit (90 s) knapp wird; Rest als Hinweis
+        rest = ENDE - time.monotonic()
+        if rest < 5:
+            UNGEPRUEFT.append(datei)
+            continue
         try:
             r = subprocess.run([godot, "--headless", "--path", pfad, "--check-only", "-s", "res://" + datei],
-                               capture_output=True, text=True, timeout=20)
+                               capture_output=True, text=True, timeout=min(20, rest - 2))
         except subprocess.TimeoutExpired:
+            UNGEPRUEFT.append(datei)
             continue
         zeilen = [z.strip() for z in (r.stdout + r.stderr).splitlines() if "Parse Error" in z or "GDScript::reload" in z]
         if r.returncode != 0 and zeilen:
@@ -274,10 +296,10 @@ def main():
         else:
             nr, art = push_lauf(befehl, cwd), "ci"
             if not nr:
-                return
+                return hinweis_geben()
         n, vorlage = stand(nr)
     except (OSError, subprocess.SubprocessError, ValueError):
-        return
+        return hinweis_geben()
     if n >= GRENZE:
         anhalten(f"389 (Chef 27.10., 23:55: „höchstens zwei Läufe und die Betonung hierbei liegt auf höchstens“): für {nr} "
                  f"schon {n} Probeläufe seit {'deinem Urteil ' + vorlage if vorlage else 'Beginn der Zählung'}. Kein weiterer Lauf: "
@@ -285,9 +307,14 @@ def main():
                  "Befund der Fehlerprüfung danach als Text (396). Erst das Urteil des Chefs (Eintrag im Vorgangsarchiv) gibt zwei neue "
                  "Läufe frei (407); bis dahin an einem anderen Vorgang weiter.")
     zaehlen(nr, wer, art)
-    print(json.dumps({"hookSpecificOutput": {"hookEventName": "PreToolUse",
-                      "additionalContext": f"389: Probelauf {n + 1} von {GRENZE} für {nr}"
-                      + ("; danach vorlegen." if n + 1 == GRENZE else ".")}}, ensure_ascii=False))
+    hinweis_geben(f"389: Probelauf {n + 1} von {GRENZE} für {nr}" + ("; danach vorlegen." if n + 1 == GRENZE else "."))
+
+
+def hinweis_geben(text=""):
+    """Zusatztext an die Sitzung (PreToolUse additionalContext): Zählstand 389 und, falls nötig, Ungeprüftes 464.1."""
+    text = " ".join(t for t in (text, ungeprueft_hinweis()) if t)
+    if text:
+        print(json.dumps({"hookSpecificOutput": {"hookEventName": "PreToolUse", "additionalContext": text}}, ensure_ascii=False))
 
 
 if __name__ == "__main__":
