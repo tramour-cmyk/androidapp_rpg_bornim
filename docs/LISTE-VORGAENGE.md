@@ -142,7 +142,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 484 | Keine Abkürzungen in Telegram-Meldungen; „NW“ für `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md` nicht auffindbar (Chef 02.11., 19:27) | B Abläufe | M | – | Perikles | erledigt |
 | 485 | Diogenes bessert sich aus dem Rollenspiegel 02.11.: Wochentermine zählen, Vergleichsblätter selbst holen, Meldungen ohne Abkürzungen (Chef 02.11., 19:37 „1, 2, 3 ja“) | Q QS | M | – | Diogenes | ruht |
 | 486 | Homer bessert sich aus dem Rollenspiegel 02.11.: Notizen mit Regelwirkung vor „fertig“ fremd prüfen, Vorratsgrenzen anderer wöchentlich melden, Stiltext auf Godot-Fundstellen (Chef 02.11., 19:44 „Ja, mache das.“) | Q QS | M | – | Homer | erledigt |
-| 487 | Gemeinsamer Build aus den wartenden Änderungen beider Teams, ohne Figuren und Bewegung (die über den Grundstand 461.1), höchstens 6 je Build (Wochenziel 02.11. Reihe 6, Hinweis Team Tom 21:1x) | E Technik | M | 1,93 $ | Team Jerry | zu testen |
+| 487 | Gemeinsamer Build aus den wartenden Änderungen beider Teams, ohne Figuren und Bewegung (die über den Grundstand 461.1), höchstens 6 je Build (Wochenziel 02.11. Reihe 6, Hinweis Team Tom 21:1x) | E Technik | M | 6,06 $ | Team Jerry | zu testen |
 | 488 | Feinarbeit einfrieren, erst Kapitel 1 durchspielbar, dann polieren (Chef 02.11., 22:44: „wieder 20 Durchläufe für einen Umhang, das ist halt verschwendete Rechenleistung“) | B Abläufe | M | – | Sokrates | wartet |
 | 471 | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | E Regeln | M | – | Team Tom | startbar |
 | 472 | Bau BRS 1.3 Heldenstufe aus Erfahrung (Wochenziel 02.11., Stufe 1) | E Regeln | M | – | Team Jerry | gebaut |
@@ -171,7 +171,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 461.2 | Befunde D58.1–5 zum Grundstand nachbessern: E1, F6, G2/C2/E3, Gehen aufrecht, Tor vor dem Versand (Diogenes Lauf 56) | B Abläufe | M | – | Perikles | gebaut |
 | 460 | Kamerafahrten im Kampfort: Eröffnung wie Drohnenflug je Blende, Wechsel der Perspektive ohne Eingabe; erst Probefilm (Chef 01.11., 20:2x) | E Kampf | M | – | Team Jerry | wartet |
 | 406.1 | Schildstoß im MARS: Reaktion oder Konter am Ring, vielleicht Angriff; Regelvorschlag, dann Bau (Chef 01.11., 20:2x) | E Kampf | M | – | Team Jerry | wartet |
-| 406 | Ausrüstung der Helden je Stück als eigenes Modell mit Abnahme, „noch steril“ (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe); zuerst Rundschild des Klerikers hell mit goldener Sonne wie alt | E Kampf | M | 121,60 $ | Team Jerry | wartet |
+| 406 | Ausrüstung der Helden je Stück als eigenes Modell mit Abnahme, „noch steril“ (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe); zuerst Rundschild des Klerikers hell mit goldener Sonne wie alt | E Kampf | M | 125,73 $ | Team Jerry | wartet |
 | 407 | Probelauf-Grenze 389 greift nicht: neue Runde erst nach Urteil des Chefs, jeder Zweig zählt („jetzt“ 29.10., 10:05) | B Abläufe | M | 41,23 $ | Perikles | gebaut |
 | 410 | Waffen am Körper wegstecken, alle Waffenarten (aus 376.1, Chef 29.10., 10:52, 11:40) | E Figuren | M | – | Team Tom | ruht |
 | 415 | Handyprobe Beams-Free-Sample (aus 414, Chef 31.10., 20:3x; „jetzt“ 01.11.) | C Kampf | M | 32,03 $ | Team Jerry | gebaut |
@@ -194,7 +194,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 432.2 | Aschgeborene: Grundwerte und Merkmal (Chef 02.11., 16:29) | E Regeln | M? | – | Sokrates | erledigt |
 | 432.3 | Aschgeborene: Abnahmeliste in LISTE-FIGUREN, Erschaffungstext (Chef 02.11., 16:29) | C Texte | M? | – | Homer | startbar |
 | 434 | Prüfung: jede Vorlage zu einem Eigenbau hat die Zeile „Bestand geprüft“ (377, 408); fehlt sie, an Team und Chef (Chef 31.10., 22:1x) | B Abläufe | M | 4,45 $ | Diogenes | wartet |
-| 438 | Wölfe im Kampf wirken gleitend: Angriff, Tempo, Vorbeigehen (Film 403, Chef 31.10., 23:31) | E Kampf | M | 120,39 $ | Team Jerry | gebaut |
+| 438 | Wölfe im Kampf wirken gleitend: Angriff, Tempo, Vorbeigehen (Film 403, Chef 31.10., 23:31) | E Kampf | M | 124,52 $ | Team Jerry | gebaut |
 | 439 | Kampfablauf: Neuformation vor dem Tod, Treffer vor dem Angriff (Film 403, Chef 31.10., 23:31) | E Kampf | M | – | Team Jerry | gebaut |
 | 440 | Wolf verschwindet ohne sichtbare Sterbeanimation (Film 403, Chef 31.10., 23:34) | E Kampf | M | – | Team Jerry | gebaut |
 | 453 | Wölfe im Kampfort: Ruhebewegungen (atmen, scharren, umblicken, knurren) (Chef 01.11., 11:05) | E Kampf | M | 47,52 $ | Team Jerry | gebaut |
