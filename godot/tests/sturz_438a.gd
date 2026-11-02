@@ -1,7 +1,8 @@
 # 438a (Chef 01.11., 20:1x, Archiv 438a: Hinfallen 1 und Aufstehen 1 aus dem Paket der Waffe; „bei fast allem geht das Schild durch den
 # Körperteil … das Schwert … durch den Kopf“): der Kaufheld mit Schwert und Schild (Kämpfer, Kleriker) fällt im Kampfort rücklings hin
 # (SS_DeathBack) und steht aus der Rückenlage auf (SS_GetBackUpBack). Ohne Bild, jedes Bild gemessen: Körper oder Kleidung durch den
-# Schild (Netz, wie schild_406.gd), Klinge in einer Körperkapsel (ohne den rechten Arm, der sie hält), Schild oder Klinge im Boden.
+# Schild (Netz, wie schild_406.gd), Klinge in einer Körperkapsel (ohne den rechten Arm, der sie hält), Schild oder Klinge im Boden,
+# Hände im Boden (bodenhalt.gd) und wie weit Waffe und Schild sich von Bild zu Bild aus Boden und Körper drehen (figur.gd _boden_schutz).
 # Aufruf: godot headless mit 30 Bildern je Sekunde, Skript res://tests/sturz_438a.gd (Ende 0 = alles in den Grenzen; ohne Kauf 0)
 extends SceneTree
 
@@ -11,6 +12,9 @@ const GRENZE_M := 0.02       # Grundstand E3: höchstens 2 cm je Bild
 const NETZ_GRENZE_M := 0.06  # Schildnetz wie schild_406.gd KAMPF_M (Kleidung liegt über den Kapseln)
 const BODEN_M := 0.02
 const OHNE_KLINGE := [9, 11]     # MENSCH_KAPSELN: rechter Ober- und Unterarm halten das Schwert
+const ZUCK_GRAD := 6.0           # Waffe und Schild in der Welt: hin und gleich wieder zurück höchstens so viel (Zucken); schnell in eine
+# Richtung dürfen sie (der Schild schlägt beim Aufprall flach auf, wie die Bewegung des Satzes ihn in den Boden führt)
+const HAND_GRENZE := 0.02        # bodenhalt.gd: Handgelenk und Fingerglieder höchstens so tief im Boden
 
 var fails := 0
 
@@ -58,6 +62,42 @@ func _run() -> void:
 				klinge = at
 		var boden: float = fig.global_position.y
 		var werte := {}     # Bewegung -> [Schildnetz m, Klinge in Kapsel m, im Boden m]
+		# nach den Schichten (skeleton_updated, nach figur.gd): die Pose, die man sieht, mit bodenhalt.gd
+		var mess := {"vorher": {}, "vorvorher": {}, "sprung": 0.0, "zuck": 0.0, "hand": -INF, "wo": "", "zwo": "", "q": {}, "qq": {}, "satz": 0.0}
+		var nach := func() -> void:
+			for t in fig._boden_teile:     # 438a: Waffe und Schild drehen sich aus Boden und Körper ohne Zucken
+				# wie man sie sieht: Lage in der Welt (die Korrektur selbst darf gegen eine Hand, die beim Aufprall federt, hin und her gehen)
+				var gw: Transform3D = sk.global_transform * sk.get_bone_global_pose(t[4]) * ((t[0] as Node3D).transform)
+				var korr := gw.basis.orthonormalized().get_rotation_quaternion()
+				var hier := "%s %.2f s %s" % [fig.anim.current_animation, fig.anim.current_animation_position, t[5]]
+				if mess.vorher.has(t[0]):
+					var q1: Quaternion = mess.vorher[t[0]]
+					var gr := rad_to_deg(q1.angle_to(korr))
+					if gr > mess.sprung:
+						mess.sprung = gr
+						mess.wo = hier
+					if mess.vorvorher.has(t[0]):
+						var q0: Quaternion = mess.vorvorher[t[0]]
+						var z := rad_to_deg(q0.angle_to(q1)) + gr - rad_to_deg(q0.angle_to(korr))
+						if z > mess.zuck:
+							mess.zuck = z
+							mess.zwo = hier
+					mess.vorvorher[t[0]] = q1
+				mess.vorher[t[0]] = korr
+				# dasselbe ohne Korrektur (Lage aus dem Griff): wie sehr zuckt schon die Bewegung des Satzes selbst
+				var qs := (sk.global_transform * sk.get_bone_global_pose(t[4]) * (t[1] as Transform3D)).basis.orthonormalized().get_rotation_quaternion()
+				if mess.q.has(t[0]) and mess.qq.has(t[0]):
+					var a0: Quaternion = mess.qq[t[0]]
+					var a1: Quaternion = mess.q[t[0]]
+					mess.satz = maxf(mess.satz, rad_to_deg(a0.angle_to(a1) + a1.angle_to(qs) - a0.angle_to(qs)))
+				if mess.q.has(t[0]):
+					mess.qq[t[0]] = mess.q[t[0]]
+				mess.q[t[0]] = qs
+			for nm in ["hand_l", "hand_r", "middle_03_r", "index_03_r", "middle_03_l", "index_03_l"]:
+				var bi := sk.find_bone(nm)
+				if bi >= 0:
+					mess.hand = maxf(mess.hand, boden - (sk.global_transform * sk.get_bone_global_pose(bi).origin).y)
+		sk.skeleton_updated.connect(nach)
 		fig.knocked_down()
 		var ab := String(fig.anim.current_animation)
 		_check(ab == "SS_DeathBack", "%s: knocked_down spielt %s" % [k, ab])
@@ -93,6 +133,9 @@ func _run() -> void:
 			_check(e[1] <= GRENZE_M, "%s %s: Klinge höchstens %.3f m im Körper" % [k, b, e[1]])
 			_check(e[2] <= BODEN_M, "%s %s: Schild und Klinge höchstens %.3f m im Boden" % [k, b, e[2]])
 		_check(werte.has("SS_GetBackUpBack"), "%s: steht aus der Rückenlage auf" % k)
+		sk.skeleton_updated.disconnect(nach)
+		_check(mess.zuck <= maxf(ZUCK_GRAD, mess.satz), "%s: Waffe und Schild zucken höchstens %.1f° hin und zurück (%s; der Satz selbst %.1f°); je Bild höchstens %.1f° (%s)" % [k, mess.zuck, mess.zwo, mess.satz, mess.sprung, mess.wo])
+		_check(mess.hand <= HAND_GRENZE, "%s: Hände höchstens %.3f m im Boden" % [k, mess.hand])
 		p.queue_free()
 		await process_frame
 	print("STURZ 438a %s" % ("gut" if fails == 0 else "FALSCH %d" % fails))

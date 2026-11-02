@@ -90,6 +90,8 @@ var neck = null         # kopfdreh.gd am Skelett
 var letzter_sprung := false     # 439: war der letzte Angriff ein Sprung (kampfort.gd: der Getroffene fällt beim Aufprall)
 var sprung_bereit := false     # 439: angesagter Sprung, die Ansage ist mit „Anspringen!“ schon weg
 var sturz_vorweg := false       # 439: schon beim Sprung gefallen, die Meldung „wirft sich auf“ zeigt nur den Text
+var boden_halt = null   # 438a: bodenhalt.gd am Skelett des Kaufhelden
+var griff_ort := {}     # 438a: Seite ("L", "R") -> Griff im Raum des Handknochens
 var tritt = null        # 438: trittfest.gd am Skelett (Tiere mit Wurzelweg): Pfoten im Gehen und Rennen fest am Boden
 var halt = null         # pfotenhalt.gd am Skelett (Tiere mit Wurzelweg): Pfoten bleiben beim Drehen auf der Stelle am Boden
 var fidget_at := 0      # Chef 08:57 (8): in Ruhe ab und zu Lefzen zeigen oder scharren (ms)
@@ -521,6 +523,9 @@ func _arm_kauf() -> void:
 	var off: String = _schild()
 	if off != "":
 		_hold(sk, "L", off)
+	boden_halt = preload("res://kampf/bodenhalt.gd").new()     # 438a: keine Hand unter dem Boden (Aufstehen aus dem Satz)
+	boden_halt.figur = self
+	sk.add_child(boden_halt)
 	if anim:
 		_idle()
 
@@ -612,20 +617,47 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 	var b: Basis
 	var o: Vector3
 	var ss_griff: Dictionary = kampf_info.get("griff", {}).get("schild", {}) if what.contains("shield") and _ss() else {}
-	if not ss_griff.is_empty():
+	# 438a (Chef 01.11., 20:1x, Archiv 438a: „Waffe und Schild nach dem Paket halten“): mit dem Satz das Schwert wie im Prefab
+	# (held_kampf.py „griff“ schwert: Griff, Klinge, Schneide im Handrahmen); der Stab bleibt senkrecht in der Faust (406)
+	var ss_schwert: Dictionary = kampf_info.get("griff", {}).get("schwert", {}) \
+		if side == "R" and _ss() and what not in STAFFS and not what.contains("bow") and not what.contains("shield") else {}
+	if not ss_schwert.is_empty():
+		var rl: Array = _handrahmen(sk, bi, side)
+		var rb: Basis = rl[0]
+		var v3 := func(k: String) -> Vector3: return Vector3(ss_schwert[k][0], ss_schwert[k][1], ss_schwert[k][2])
+		var ax: Vector3 = (rb * v3.call("klinge")).normalized()
+		var edge: Vector3 = rb * v3.call("schneide")
+		edge = (edge - ax * edge.dot(ax)).normalized()
+		b = Basis(edge, ax, edge.cross(ax))
+		o = rl[1] + rb * (v3.call("griff") * float(rl[2]))
+		# Ort aus dem Prefab liegt in unserer Faust nicht mittig (held_kampf_403: die Klinge 1,5 bis 4 cm von den Fingergliedern, also
+		# durch einen Finger): quer zur Klinge in die Mitte des Kreises, um den sich Zeige-, Mittel- und Ringfinger krümmen (je Finger
+		# Grund-, Mittel- und Endgelenk), in der Haltung, in der die Hand hier steht (Kampfhaltung des Satzes, _arm_kauf)
+		var hp := sk.get_bone_global_pose(bi).affine_inverse()
+		var mitte := Vector3.ZERO
+		var n := 0
+		for f in ["index", "middle", "ring"]:
+			var pk := []
+			for g in ["01", "02", "03"]:
+				var fb := sk.find_bone("%s_%s_r" % [f, g])
+				if fb >= 0:
+					var q: Vector3 = hp * sk.get_bone_global_pose(fb).origin
+					pk.append(q - ax * (q - o).dot(ax))     # in die Ebene quer zur Klinge durch den Griff
+			if pk.size() == 3:
+				var m = _umkreis(pk[0], pk[1], pk[2])
+				if m != null:
+					mitte += m
+					n += 1
+		if n > 0:
+			o = mitte / n
+	elif not ss_griff.is_empty():
 		# 406: wie der Satz „Sword & Shield“ den Schild hält (held_kampf.py „griff“, aus dem Prefab): im Handrahmen (Handgelenk zum
 		# Mittelfingerknöchel, quer vom Klein- zum Zeigefinger) die Fessel unseres Schilds dort, wo die Rückseite des Bretts des Satzes in
 		# der Mitte liegt, Vorderseite und oben wie dort (Prüferbefund 01.11., 12:0x: vorher nur die Innenseite im Bild)
-		var hr := sk.get_bone_global_rest(bi).affine_inverse()
-		var s_ := side.to_lower()
-		var h0: Vector3 = hr * sk.get_bone_global_rest(bi).origin
-		var mf: Vector3 = hr * sk.get_bone_global_rest(sk.find_bone("middle_01_" + s_)).origin
-		var zf: Vector3 = hr * sk.get_bone_global_rest(sk.find_bone("index_01_" + s_)).origin
-		var kf: Vector3 = hr * sk.get_bone_global_rest(sk.find_bone("pinky_01_" + s_)).origin
-		var hx := (mf - h0).normalized()
-		var hz := hx.cross(zf - kf).normalized()
-		var rb := Basis(hx, hz.cross(hx), hz)
-		var lang := (mf - h0).length()
+		var rl: Array = _handrahmen(sk, bi, side)
+		var rb: Basis = rl[0]
+		var h0: Vector3 = rl[1]
+		var lang: float = rl[2]
 		var v3 := func(k: String) -> Vector3: return Vector3(ss_griff[k][0], ss_griff[k][1], ss_griff[k][2])
 		var front: Vector3 = (rb * v3.call("vorn")).normalized()
 		var up: Vector3 = rb * v3.call("oben")
@@ -717,6 +749,16 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		b = Basis(edge, ax, edge.cross(ax))
 		o = Vector3(0, grip, 0) + inward * palm
 	w.transform = Transform3D(Basis(b.x * size, b.y * size, b.z * size), o)
+	if kauf:     # 438a: Waffe und Schild des Kaufhelden nie im Boden (_boden_schutz, nach jeder Pose, so wie man sie sieht)
+		var hu := _huelle(w)
+		var reich := 0.0
+		for q in hu:
+			reich = maxf(reich, q.length())
+		_boden_teile.append([w, w.transform, hu, sk, bi, side, reich, w.transform])
+		if sk.get_bone_name(bi) == "hand_" + side.to_lower():
+			griff_ort[side] = w.transform.origin     # bodenhalt.gd: die Faust um den Griff
+		if not sk.skeleton_updated.is_connected(_boden_schutz):
+			sk.skeleton_updated.connect(_boden_schutz)
 	w.name = "Waffe" if side == "R" else "Schild"
 	w.set_meta("stab", what in STAFFS or what == "staff-schamane")     # 348.7b: Zauber ab der Stabspitze (cast_point)
 	if fighter.monster != null and (what in ["shortbow", "staff-schamane"] or what.ends_with("-rost") or what.ends_with("-grob")):
@@ -726,6 +768,217 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		for m in mats.slice(mats.size() - _count_meshes(w)):
 			(m as ShaderMaterial).shader = toon_mark()
 
+
+## 406, 438a: Handrahmen am Kaufkörper in der Ruhelage, im Raum des Handknochens: [Basis (Handgelenk zum Mittelfingerknöchel, quer
+## vom Klein- zum Zeigefinger), Handgelenk, Handlänge m], wie held_kampf.py den Griff des Satzes misst
+func _handrahmen(sk: Skeleton3D, bi: int, side: String) -> Array:
+	var hr := sk.get_bone_global_rest(bi).affine_inverse()
+	var s_ := side.to_lower()
+	var h0: Vector3 = hr * sk.get_bone_global_rest(bi).origin
+	var mf: Vector3 = hr * sk.get_bone_global_rest(sk.find_bone("middle_01_" + s_)).origin
+	var zf: Vector3 = hr * sk.get_bone_global_rest(sk.find_bone("index_01_" + s_)).origin
+	var kf: Vector3 = hr * sk.get_bone_global_rest(sk.find_bone("pinky_01_" + s_)).origin
+	var hx := (mf - h0).normalized()
+	var hz := hx.cross(zf - kf).normalized()
+	return [Basis(hx, hz.cross(hx), hz), h0, (mf - h0).length()]
+
+
+## 438a: spielt gerade Hinfallen oder Aufstehen aus dem Satz
+func sturz_jetzt() -> bool:
+	if _liegt_ss:     # liegt nach dem Hinfallen (auch wenn die Bewegung zu Ende ist), bis er aufsteht
+		return true
+	if anim == null:
+		return false
+	var a := String(anim.current_animation)
+	return a.begins_with(STURZ_BEWEGUNG[0]) or a.begins_with(STURZ_BEWEGUNG[1])
+
+
+## Mittelpunkt des Kreises durch drei Punkte (null, wenn sie fast auf einer Geraden liegen)
+func _umkreis(a: Vector3, b: Vector3, c: Vector3):
+	var ab := b - a
+	var ac := c - a
+	var n := ab.cross(ac)
+	if n.length_squared() < 1e-10:
+		return null
+	return a + (n.cross(ab) * ac.length_squared() + ac.cross(n) * ab.length_squared()) / (2.0 * n.length_squared())
+
+
+## 438a (Chef 01.11., 20:1x: „das Schild … das Schwert … durch den Boden“; Messung 02.11.: schon der Satz selbst steckt Schild bis 19 cm,
+## Schwert bis 77 cm in den Boden, sturz_438a am Kaufhelden 31 bis 52 cm): liegt eine Ecke von Waffe oder Schild unter dem Boden,
+## dreht sie sich um den Griff, bis sie aufliegt, wie eine Klinge, die in der Faust nachgibt, oder ein Schild, der flach aufkommt.
+## Gilt in jeder Bewegung; im Stehen liegt nichts unter dem Boden, dann bleibt die Lage aus dem Griff unverändert.
+const BODEN_FREI := 0.01        # Abstand über dem Boden, m
+const BODEN_HEBEL := 0.06       # nur Ecken außerhalb der Faust drehen die Waffe (bodenhalt.gd FAUST; die Faust geht mit der Hand)
+const KAPSEL_FREI := {"R": 0.0, "L": 0.12}     # Abstand zu den Körperkapseln, m: der Schild als Fläche braucht mehr (Messung sturz_438a:
+# mit 0 ragten Kopf und Wade bis 9 cm durch den Schildrand, Haut und Kleidung liegen über den Kapseln)
+const STURZ_BEWEGUNG := ["SS_Death", "SS_GetBackUp"]
+const BODEN_ZUG := 0.17         # rad (10°) je Bild höchstens, solange nur der Körper drückt
+const BODEN_ZURUECK := 0.12     # je Bild so viel zurück zur Lage aus dem Griff (bei 30 Bildern je Sekunde in etwa 0,5 s)
+# Zusätze zu MENSCH_KAPSELN: die Kapseln enden am Fußknochen, der Schuh reicht weiter; Knieschutz und Stiefelschaft stehen am Knie ab
+# (sturz_438a: Male_Knight_Feet_Armor 6 bis 7 cm außerhalb der Wadenkapsel im Schild, der Stiefelschaft des Kämpfers 1 bis 4 cm)
+const FUSS_KAPSELN := [["foot_l", "ball_l", 0.05], ["foot_r", "ball_r", 0.05], ["calf_l", "calf_l", 0.11], ["calf_r", "calf_r", 0.11],
+	["calf_l", "foot_l", 0.08], ["calf_r", "foot_r", 0.08]]
+const HALTEARM := {"R": [9, 11], "L": [8, 10]}     # MENSCH_KAPSELN: Ober- und Unterarm, der hält, darf die Waffe berühren
+var _boden_teile := []          # je Waffe [Netz, Lage aus dem Griff, Hülle im eigenen Raum, Skelett, Knochen, Seite, Reichweite,
+#                                 Lage im letzten Bild]
+
+
+## Hülle: die äußersten Ecken in 64 Richtungen, gleich über die Kugel verteilt (Schild rund, Klinge lang; billig je Bild; mit 26
+## Richtungen lag der Schildrand zwischen zwei Richtungen bis 4 cm tiefer)
+func _huelle(w: Node3D) -> PackedVector3Array:
+	var alle := PackedVector3Array()
+	for mi in w.find_children("*", "MeshInstance3D", true, false) + ([w] if w is MeshInstance3D else []):
+		var t := Transform3D.IDENTITY
+		var n: Node = mi
+		while n != w and n is Node3D:
+			t = (n as Node3D).transform * t
+			n = n.get_parent()
+		var me := (mi as MeshInstance3D).mesh
+		for s in me.get_surface_count():
+			for v in me.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]:
+				alle.append(t * v)
+	var out := PackedVector3Array()
+	for i in 64:
+		var y := 1.0 - (i + 0.5) / 32.0
+		var r := sqrt(maxf(1.0 - y * y, 0.0))
+		var phi := i * 2.39996323     # goldener Winkel
+		var d := Vector3(cos(phi) * r, y, sin(phi) * r)
+		var best := -INF
+		var bp := Vector3.ZERO
+		for p in alle:
+			if p.dot(d) > best:
+				best = p.dot(d)
+				bp = p
+		if not out.has(bp):
+			out.append(bp)
+	# Messung sturz_438a: Gesicht und Stiefel ragten durch die Fläche des Schilds, nicht durch den Rand; dazu je Würfel von 6 cm eine Ecke
+	var wuerfel := {}
+	for p in alle:
+		var k := Vector3i(floori(p.x / 0.06), floori(p.y / 0.06), floori(p.z / 0.06))
+		if not wuerfel.has(k):
+			wuerfel[k] = p
+			out.append(p)
+	return out
+
+
+func _boden_schutz() -> void:
+	var y0 := global_position.y + BODEN_FREI
+	var sk: Skeleton3D = _boden_teile[0][3]
+	var kap := []     # Körperkapseln wie kapseln(), mit Index
+	var gs := sk.global_transform
+	var liste: Array = MENSCH_KAPSELN + FUSS_KAPSELN
+	for i in liste.size():
+		var c: Array = liste[i]
+		var i0 := sk.find_bone(c[0])
+		var i1 := sk.find_bone(c[1])
+		if i0 < 0 or i1 < 0:
+			continue
+		var a: Vector3 = gs * sk.get_bone_global_pose(i0).origin
+		var b: Vector3 = gs * sk.get_bone_global_pose(i1).origin
+		if c[0] == "Head":     # Kopfmitte über dem Kopfknochen in seiner eigenen Richtung (liegend nicht „oben“)
+			a += (gs.basis * sk.get_bone_global_pose(i0).basis.y).normalized() * 0.1
+			b = a
+		kap.append([a, b, float(c[2]), i])
+	for t in _boden_teile:
+		var w: Node3D = t[0]
+		if not is_instance_valid(w) or not w.is_inside_tree():
+			continue
+		var par: Transform3D = gs * sk.get_bone_global_pose(t[4])     # wie der Knochen jetzt steht
+		# vom Stand des letzten Bilds aus, langsam zurück zur Lage aus dem Griff (sturz_438a: neu je Bild sprang der Schild bis 120°)
+		var base: Transform3D = t[1]
+		var qv: Quaternion = (t[7] as Transform3D).basis.orthonormalized().get_rotation_quaternion()
+		var qg: Quaternion = base.basis.orthonormalized().get_rotation_quaternion()
+		var lokal := Transform3D(Basis(qv.slerp(qg, BODEN_ZURUECK)) * Basis.from_scale(base.basis.get_scale()), base.origin)
+		if qv.angle_to(qg) < 0.01:
+			lokal = base
+		# Körper frei beim Hinfallen und Aufstehen und, bis die Lage danach wieder die aus dem Griff ist (schild_406: sonst stand der
+		# Schild in einer Abwehr gleich nach dem Aufstehen noch gedreht, Körper 6,7 cm darin)
+		var korrigiert := not lokal.is_equal_approx(base)
+		var g: Transform3D = par * lokal
+		var griff := g.origin
+		var ohne: Array = HALTEARM[t[5]]
+		var frei: float = KAPSEL_FREI[t[5]]
+		var reich: float = t[6] * g.basis.get_scale().x
+		var nah := []     # nur Kapseln in Reichweite (billig je Bild), nur beim Hinfallen und Aufstehen (im Kampf hält der Satz selbst frei)
+		var sturz := sturz_jetzt()
+		for k in (kap if sturz or korrigiert else []):
+			if not k[3] in ohne and griff.distance_to(Geometry3D.get_closest_point_to_segment(griff, k[0], k[1])) < reich + float(k[2]) + frei:
+				nah.append(k)
+		if nah.is_empty() and griff.y - reich >= y0:
+			if not (t[7] as Transform3D).is_equal_approx(base):
+				w.transform = lokal
+				t[7] = lokal
+			continue
+		var r1: Array = _loesen(g, t, nah, frei, y0, 24, 20)
+		g = r1[0]
+		# Körper weich: die Lage ändert sich je Bild höchstens BODEN_ZUG gegen das letzte Bild (sturz_438a: zwischen Knie und Schild
+		# zuckte der Schild 30° hin und zurück); der Boden bleibt hart, danach noch einmal nur er
+		var q0: Quaternion = (par * (t[7] as Transform3D)).basis.orthonormalized().get_rotation_quaternion()
+		var q1: Quaternion = g.basis.orthonormalized().get_rotation_quaternion()
+		var winkel := q0.angle_to(q1)
+		if winkel > BODEN_ZUG:
+			var gz := Transform3D(Basis(q0.slerp(q1, BODEN_ZUG / winkel)) * Basis.from_scale(g.basis.get_scale()), griff)
+			if _in_kapsel(gz, t, nah, griff) <= frei * 0.3:     # nur so weit langsam, wie der Körper nicht wirklich hineinragt
+				g = gz
+		var r2: Array = _loesen(g, t, [], 0.0, y0, 16, 0)
+		g = r2[0]
+		w.transform = par.affine_inverse() * g if r1[1] or r2[1] else lokal
+		t[7] = w.transform
+
+
+## Wie tief eine Ecke der Hülle (außerhalb der Faust) in einer Kapsel aus [nah] liegt (m, ohne Abstand)
+func _in_kapsel(g: Transform3D, t: Array, nah: Array, griff: Vector3) -> float:
+	var tief := -INF
+	for c in t[2]:
+		var p: Vector3 = g * c
+		if p.distance_to(griff) < BODEN_HEBEL:
+			continue
+		for k in nah:
+			tief = maxf(tief, float(k[2]) - p.distance_to(Geometry3D.get_closest_point_to_segment(p, k[0], k[1])))
+	return tief
+
+
+## Dreht [g] um den Griff, bis keine Ecke der Hülle (t[2]) unter y0 oder in einer Kapsel aus [nah] (+ [frei]) liegt; [n] Schritte, ab
+## [boden_ab] nur der Boden. Gibt [Lage, ob gedreht] zurück.
+func _loesen(g: Transform3D, t: Array, nah: Array, frei: float, y0: float, n: int, boden_ab: int) -> Array:
+	var neu := false
+	var griff := g.origin
+	for i in n:     # die schlimmste Ecke heraus; schiebt das eine Ende das andere hinein, die nächste; zuletzt nur der Boden
+		var nur_boden := i >= boden_ab
+		var tief := 0.002
+		var lp := Vector3.ZERO
+		var nach := Vector3.ZERO     # wohin die Ecke soll
+		for c in t[2]:
+			var p: Vector3 = g * c
+			if p.distance_to(griff) < BODEN_HEBEL:
+				continue
+			if y0 - p.y > tief:
+				tief = y0 - p.y
+				lp = p
+				nach = Vector3.UP
+			if nur_boden:
+				continue
+			for k in nah:
+				var q: Vector3 = Geometry3D.get_closest_point_to_segment(p, k[0], k[1])
+				var d: float = float(k[2]) + frei - p.distance_to(q)
+				if d > tief and p.distance_to(q) > 0.001:
+					tief = d
+					lp = p
+					nach = (p - q).normalized()
+		if nach == Vector3.ZERO:
+			break
+		var v := lp - griff
+		var r := v.length()
+		var ax := v.cross(nach)
+		if ax.length() < 0.001 * r:     # die Ecke soll genau vom Griff weg: um die Querachse der Figur
+			ax = global_transform.basis.x
+		var ang := asin(clampf(tief / r, 0.0, 1.0)) * 1.05
+		if nach == Vector3.UP:     # Boden: genau bis zur Höhe y0 (auch eine Spitze, die steil nach unten zeigt)
+			ang = asin(clampf((y0 - griff.y) / r, -1.0, 1.0)) - asin(clampf(v.y / r, -1.0, 1.0))
+		ang = minf(ang, 0.15)     # je Schritt höchstens 9°: kleine Schritte, so findet sie zwischen Boden und Bein die nächste Lage
+		g = Transform3D(Basis(ax.normalized(), ang) * g.basis, griff)
+		neu = true
+	return [g, neu]
 
 func _count_meshes(n: Node) -> int:
 	var c := 0

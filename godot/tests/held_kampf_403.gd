@@ -51,7 +51,10 @@ func _run() -> void:
 			var fr := HeldFigur.faust(sk, "r")
 			# 453.1: die Hand so, wie man sie sieht (nach der Atemschicht), wie die Waffe am Knochen; sonst 2–3 cm daneben
 			var nach := {}
-			var merk := func(): nach["hand"] = sk.global_transform * sk.get_bone_global_pose(sk.find_bone("hand_r"))
+			var merk := func():
+				nach["hand"] = sk.global_transform * sk.get_bone_global_pose(sk.find_bone("hand_r"))
+				for nm in ["middle_01_r", "middle_02_r", "middle_03_r"]:
+					nach[nm] = sk.global_transform * sk.get_bone_global_pose(sk.find_bone(nm)).origin
 			sk.skeleton_updated.connect(merk)
 			await process_frame
 			await process_frame
@@ -59,7 +62,17 @@ func _run() -> void:
 			var hand: Transform3D = nach.get("hand", sk.global_transform * sk.get_bone_global_pose(sk.find_bone("hand_r")))
 			var soll: Vector3 = hand * (fr["griff"] as Vector3)
 			var d := waffe.global_position.distance_to(soll) if waffe else 9.0
-			_check(d < 0.005, "%s: %s im Faustloch (%.3f m daneben)" % [k, fig.fighter.hero.main.id, d])
+			if not fig.kampf_info.get("griff", {}).get("schwert", {}).is_empty() and fig._ss() and not String(fig.fighter.hero.main.id) in ["quarterstaff", "staff"]:
+				# 438a (Chef 01.11., 20:1x: Waffe nach dem Paket halten): das Schwert wie im Prefab, 4 cm vom Faustloch (Knöchellinie);
+				# richtig, wenn der Mittelfinger es mit allen drei Gelenken gleich weit umschließt (figur.gd: Mitte seines Krümmungskreises)
+				var ax: Vector3 = waffe.global_basis.y.normalized() if waffe else Vector3.UP
+				var ab := []
+				for nm in ["middle_01_r", "middle_02_r", "middle_03_r"]:
+					var b: Vector3 = (nach.get(nm, Vector3.ZERO) as Vector3) - (waffe.global_position if waffe else Vector3.ZERO)
+					ab.append((b - ax * b.dot(ax)).length())
+				_check(ab.max() < 0.045 and ab.max() - ab.min() < 0.012, "%s: %s mitten in der Faust (Finger %.3f bis %.3f m von der Klinge)" % [k, fig.fighter.hero.main.id, ab.min(), ab.max()])
+			else:
+				_check(d < 0.005, "%s: %s im Faustloch (%.3f m daneben)" % [k, fig.fighter.hero.main.id, d])
 			if String(fig.fighter.hero.main.id) in ["quarterstaff", "staff"]:     # Prüfer Film 403: Stab waagerecht auf den Nachbarn
 				var oben: float = (waffe.global_transform.basis.y.normalized()).dot(Vector3.UP)
 				_check(absf(oben) > 0.8, "%s: Stab in Ruhe senkrecht (%.2f)" % [k, oben])
