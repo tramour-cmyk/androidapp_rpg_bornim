@@ -254,12 +254,35 @@ static func bewegungen(m: Node3D, sk: Skeleton3D, art := RENNEN) -> float:
 			var ziel: float = TAKT_RENNEN if n.begins_with("Rennen") else TAKT_GEHEN
 			if v > 0.01: umtakten(an, v / ziel)
 		lib.add_animation(n, an)
+	ruhe_spuren(lib, sk)
 	var ap := AnimationPlayer.new()
 	ap.name = "AnimationPlayer"
 	m.add_child(ap)
 	ap.root_node = NodePath("..")
 	ap.add_animation_library("", lib)
 	return f
+
+# 417 (Pruefer Film 03:39: bei 1,0 s schnellt die Figur aus etwa 40 Grad gebueckt auf; Lauf 41387533240): der AnimationPlayer mischt
+# nicht deterministisch, ein Knochen ohne Spur in der laufenden Bewegung behaelt die Pose der vorigen. Die Pakete richten im Gehen und
+# Rennen spine_01 auf (waffengang.py AUFRICHTEN), Stehen hat dort keine Spur: nach dem Rennen stand die Brust 29-45 Grad vor, bis das
+# Gehen sie setzte (Sprung -19 bis -33 Grad in einem Bild); im Spiel ebenso beim Halt aus dem Rennen. Darum bekommt jede Bewegung jede
+# Drehspur, die eine andere hat, mit der Ruhelage dieses Skeletts (so wie ohne die fehlende Spur frisch gezeichnet)
+static func ruhe_spuren(lib: AnimationLibrary, sk: Skeleton3D) -> void:
+	var alle := {}
+	for n in lib.get_animation_list():
+		var an := lib.get_animation(n)
+		for t in an.get_track_count():
+			var ty := an.track_get_type(t)
+			if ty == Animation.TYPE_ROTATION_3D: alle[an.track_get_path(t)] = true   # Becken (Lage) setzen Kampf und Rennen selbst
+	for n in lib.get_animation_list():
+		var an := lib.get_animation(n)
+		for k in alle:
+			if an.find_track(k, Animation.TYPE_ROTATION_3D) >= 0: continue
+			var b := sk.find_bone(String(k).get_slice(":", 1))
+			if b < 0: continue
+			var t := an.add_track(Animation.TYPE_ROTATION_3D)
+			an.track_set_path(t, k)
+			an.rotation_track_insert_key(t, 0.0, sk.get_bone_rest(b).basis.get_rotation_quaternion())
 
 static func _pfad(m: Node, n: Node) -> NodePath:
 	var teile: PackedStringArray = []

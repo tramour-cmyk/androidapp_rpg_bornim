@@ -16,6 +16,9 @@ const AXT_FASSUNGEN := [[0.0, 0.0], [0.5, 0.0], [1.0, 0.0], [0.0, 0.15], [0.5, 0
 
 const GLEIT_ERLAUBT := 5.0      # %: Standfuss gegen den Boden (Pruefer 00:53: 17-28 %)
 var fehler := 0
+var haltung_anfang := 0.0      # Brust Grad vor im ersten Bild des letzten film_nach (nach advance)
+var haltung_sprung := 0.0      # groesster Sprung von Bild zu Bild darin, ab dem zweiten Bild
+const SPRUNG_ERLAUBT := 8.0    # Grad: Rennen und Anlaufen neigen bis 4 Grad je Bild (Lauf 41387533240 frisch)
 
 # Film 02:2x (tragprobe FILMGLEIT: Rennen 10-22 % Betrag, einzeln abgespielt 0-4 %): der Ablauf des Films ohne Bild (FILM_FOLGE, Held.tempo_schritt,
 # wechsel, takt, advance), je Abschnitt ab 0,8 s der Standfuss im Raum mit Vorzeichen (+ = gleitet vorwaerts mit der Figur, - = rueckwaerts),
@@ -61,6 +64,7 @@ func film_nach(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, gang: String, wer
 		var y := (sk.global_transform.basis * sk.get_bone_global_pose(ib).basis.y).normalized()
 		return rad_to_deg(atan2(y.z, y.y))
 	var n_alt: float = neig.call()
+	haltung_sprung = 0.0
 	var sprung := [0.0, 0.0, ""]
 	var t_film := 0.0
 	var haltung := PackedStringArray()
@@ -90,6 +94,8 @@ func film_nach(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, gang: String, wer
 			if t_film < 1.3: bilder.append("%d:%.0f/%.0f%s" % [int(round(t_film * FPS)), n_neu, 100.0 * float(kopf_vor.call()),
 				"" if ap.current_animation == b0 else "(" + ap.current_animation + ")"])
 			if absf(n_neu - n_alt) > absf(float(sprung[0])): sprung = [n_neu - n_alt, t_film, "%s %s" % [b0, ap.current_animation]]
+			if ai == 0 and f == 0: haltung_anfang = n_neu   # erstes gezeichnetes Bild (davor steht frisch noch die Ruhelage)
+			elif t_film > 0.05: haltung_sprung = maxf(haltung_sprung, absf(n_neu - n_alt))
 			n_alt = n_neu
 			if f == nf - 1: haltung.append("%s Ende %.1f" % [b0, n_neu])
 			if f >= int(0.8 * FPS) and moving:
@@ -174,8 +180,10 @@ func _initialize() -> void:
 		for x in spuren.call("Rennen_" + gang): if not x in st: fehlt.append(x)
 		print("HALTUNGSPUR %s: deterministic %s, Stehen %d Spuren, im Rennen mehr: %s" % [gang, ap.deterministic, st.size(), ", ".join(fehlt)])
 		await film_nach(m, sk, ap, gang, gang + " frisch")
+		var frisch := haltung_anfang
 		await standbilder_nach(ap, gang)
 		await film_nach(m, sk, ap, gang, gang + " nach Standbildern")
+		pruefe(absf(haltung_anfang - frisch) < 2.0 and haltung_sprung < SPRUNG_ERLAUBT, "%s: Haltung nach Standbildern %.1f statt %.1f Grad, Sprung %.1f Grad" % [gang, haltung_anfang, frisch, haltung_sprung])
 		# Lauf 41315361680 und 41320044677: der Schild wurde nie gemessen; Godot benennt den zweiten Knoten „@Tragen@…“ um, darum nach Typ
 		var tl: Array = sk.get_children().filter(func(c): return c is Tragen)
 		pruefe(tl.size() == (2 if gang == "schild" else 1), "%s %s: %d Tragen-Knoten" % [e[1], gang, tl.size()])
