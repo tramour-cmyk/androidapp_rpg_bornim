@@ -10,9 +10,10 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 |---|---|---|---|---|---|
 | [453a](entscheiden/453a-wolf-atem-sichtbar.md) | **Muss** | E Kampf | 02.11., 00:57 | Wolfsatem aus der Kampfkamera sichtbar: wie? | Tuffy (Zusatzentwickler Team Jerry) |
 | [406.1](entscheiden/4061-schildstoss.md) | **Muss** | E Kampf | 01.11., 22:35 | Schildstoß: Block und Konter am Ring für jeden mit Schild, als Angriff erst für den Wächter? | Jerry |
-| [348.12j](entscheiden/34812j-grak-axt.md) | **Muss** | E Kampf | 01.11., 22:1x | Graks Axt: Kopf oben (wie abgenommen) oder hängend (Grundstand E6)? | Jerry |
-| [431b](entscheiden/431b-ohren-hauer.md) | **Muss** | E Figuren | 01.11., 21:4x | Elfenohren und Hauer: kaufen oder selbst formen? | Tom |
+| [348.12j](entscheiden/34812j-grak-axt.md) | **Muss** | E Kampf | 01.11., 22:03 | Graks Axt: Kopf oben (wie abgenommen) oder hängend (Grundstand E6)? | Jerry |
+| [431b](entscheiden/431b-ohren-hauer.md) | **Muss** | E Figuren | 01.11., 21:29 | Elfenohren und Hauer: kaufen oder selbst formen? | Tom |
 | [348.12b](entscheiden/34812b-grak-koerper.md) | **Muss** | E Kampf | 01.11., 21:00 | Grak-Film vorab auf seinem alten Körper? | Sokrates |
+| [466](entscheiden/466-faehigkeit.md) | M? | C Texte | 02.11., 02:43 | Statt „Handlung“ „Fähigkeit“, und Prüfungen ohne „Geselle“ und „Meister“? | Homer |
 
 ## Zu billigen
 
@@ -31,7 +32,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 | [376.1](ansehen/3761-umhang-robe.md) | Umhang und Robe nachgebessert | Tom | 01.11., 23:03 |
 | [417](ansehen/417-tragart-runde5.md) | Tragart Runde 5/6: Schild an der Seite, Axt mit beiden Fäusten | Tom | 02.11., 00:53 |
 | [438a Runde 2](ansehen/438a-sturz-runde2.md) | Hinfallen 1 und Aufstehen 1: Schwert und Schild frei von Boden und Körper | Jerry | 02.11., 01:51 |
-| [447.4](ansehen/4474-lehrmeister-texte.md) | Texte Lehrmeister und Ruf, Kapitel 1 | Homer | 01.11., 21:0x |
+| [447.4](ansehen/4474-lehrmeister-texte.md) | Texte Lehrmeister und Ruf, Kapitel 1 | Homer | 01.11., 20:51 |
 | [453 r3b](ansehen/453-wolf-ruhe.md) | Wölfe atmen deutlicher, jeder im eigenen Takt | Tuffy | 02.11., 00:33 |
 | [453.1](ansehen/4531-helden-vergleich.md) | Helden im Kampf: Stand Film 403 gegen heute | Tuffy | 01.11., 23:05 |
 | [461.1](ansehen/4611-dorf-film.md) | Grundstand: Dorf-Film des Helden | – | 01.11., 22:55 |
@@ -56,18 +57,18 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 6, Muss 1, startbar 1
+**Homer** – offen 6, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 466 | M? | von Sokrates (Chef 01.11., 21:13: „Also wäre es besser verständlich eine Spezialfertigkeit | startbar |
+| 466 | M? | von Sokrates (Chef 01.11., 21:13, Zu 466): neues Wort für „Handlung“ eines Pfads, dazu Nam | Chef (Datei in der Chefsache) |
 | 447.4 | M | von Perikles (Chef 01.11., Archiv 447): Texte für Stufe 3 der Abnahmeliste: Einladungen de | Chef |
 | 432 | K | von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt | nach dem Meilenstein |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 45, Muss 34, startbar 6
+**Tom** – offen 45, Muss 34, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -79,7 +80,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 416.8 | M | von Sokrates (Chef 31.10., 20:5x, allgemeiner Hinweis): NPC dreht sich bei Interaktion zum | wartet auf Test (Build) |
 | 416.1 | M | von Sokrates (Chef 31.10., 20:4x, Build 143): Tasten reagieren schlecht (Bartform, Kopffor | wartet auf Test (Build) |
 | 416.2 | M | von Sokrates (Chef 31.10., 20:4x): gegen Dorfbewohner und Tiere laufen: Platzwechsel statt | wartet auf Test (Build) |
-| 416.4 | M | von Sokrates (Chef 31.10., 20:4x): Rennen des Helden wirkt „als würde er Hochsprung machen | startbar |
+| 416.4 | M | von Sokrates (Chef 31.10., 20:4x): Rennen des Helden wirkt „als würde er Hochsprung machen | in Arbeit bei Spike |
 | 399.4 | M | von Chef (21:4x, Archiv); zurück Chef 31.10., 20:4x: oben Rand für die Kamera wie alt: im | wartet auf Test (Build) |
 | 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf | wartet auf Test (Build) |
 | 410 | M | von Sokrates (Chef 29.10., 10:52, 11:40; aus 376.1): Waffen am Körper wegstecken, alle Waf | ruht |
@@ -117,7 +118,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 54, Muss 41, startbar 5
+**Jerry** – offen 54, Muss 41, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -138,7 +139,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 399.2b | M | von Team Tom (15:05): Rudel allein zu stark | wartet auf Test (Build) |
 | 402 | M | von Sokrates (Chef 22:2x, Archiv): Blende vor dem Kampf wie alt; Herzschlag beim Hinterhal | wartet auf Test (Build) |
 | 403 | M | von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler): Kampfort: Held | wartet auf Test/Build (gebaut) |
-| 461.1 | M | von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461): Grundstand mit Tom: Kampfort, Wölfe, Hel | startbar |
+| 461.1 | M | von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461): Grundstand mit Tom: Kampfort, Wölfe, Hel | in Arbeit bei Tuffy |
 | 460 | M | von Sokrates (Chef 01.11., 20:2x: „Wechsel der Kameraperspektive … wie eine Drohne rumflie | wartet auf 461.1 (in Arbeit) |
 | 406.1 | M | von Sokrates (Chef 01.11., 20:2x, Archiv 406): Schildstoß ins MARS/BRS (Reaktion, Konter a | Chef (Datei in der Chefsache) |
 | 406 | M | von Team Tom (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe): Ausrüstung der Helden je | startbar |
@@ -176,7 +177,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 467 | M? | von Sokrates (Chef 01.11., 21:52, Frage „Wie steigert sich die Ausdauer?“): godot/regeln/a | wartet auf 427 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 
-**Perikles** – offen 29, Muss 23, startbar 7
+**Perikles** – offen 29, Muss 23, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -186,8 +187,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 462 | M | von Ford („jetzt“ 01.11., 20:34, Wortlaut Zu 462): Name und Zeitstempel in jeder Nachricht | wartet auf Test/Build (gebaut) |
 | 464 | M | von Sokrates (Chef 01.11., 20:4x, Wortlaut Zu 464): rote Läufe senken: Haken vor jedem Pus | wartet auf Test/Build (gebaut) |
 | 461 | M | von Sokrates („jetzt“ 01.11., 20:3x, Wortlaut in der Liste): Grundstand Figuren und Kampf: | wartet auf Test/Build (gebaut) |
-| 464.1 | M? | von Diogenes (Doppelpack 421, Lauf 59, 01.11., 22:13): Befunde D61.1–2 zu 464: Tageszahl r | startbar |
-| 465.1 | M? | von Diogenes (Doppelpack 421, Lauf 58, 01.11., 22:07): Befund D60.1 zu 465: x-Zeiten bleib | startbar |
+| 464.1 | M? | von Diogenes (Doppelpack 421, Lauf 59, 01.11., 22:13): Befunde D61.1–2 zu 464: Tageszahl r | wartet auf Test/Build (gebaut) |
+| 465.1 | M? | von Diogenes (Doppelpack 421, Lauf 58, 01.11., 22:07): Befund D60.1 zu 465: x-Zeiten bleib | wartet auf Test/Build (gebaut) |
 | 462.1 | M? | von Diogenes (Doppelpack 421, Lauf 57, 01.11., 20:4x): Befunde D59.1–3 zu 462 (PRUEFBERICH | wartet auf Test/Build (gebaut) |
 | 461.2 | M? | von Diogenes (Doppelpack 421, Lauf 56, 01.11., 20:4x): Befunde D58.1–5 zum Grundstand (PRU | wartet auf Test/Build (gebaut) |
 | 461a | M | von Perikles (D58.5): Rückfrage, ob ein Grundstand-Verstoß den Film anhält | startbar |
@@ -210,11 +211,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
-**Diogenes** – offen 8, Muss 6, startbar 6
+**Diogenes** – offen 8, Muss 6, startbar 5, PAUSE bis 02.11., 08 Uhr
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 461b | M | von Sokrates (Chef 01.11., 22:26, „461b ja“, Archiv): Kennzahl Widersprüche: montags Stich | startbar |
+| 461b | M | von Sokrates (Chef 01.11., 22:26, „461b ja“, Archiv): Kennzahl Widersprüche: montags Stich | ruht bis 09.11. |
 | 464 | M | von Perikles (Doppelpack 421, Commit fcf9ab215 und folgender): rote Läufe 464: Push-Haken | startbar |
 | 434 | M | von Sokrates (Chef 31.10., 22:1x): bei jeder Zählung 374 zusätzlich die Zeile „Bestand gep | startbar |
 | 398 | M | von Sokrates: vom Chef zuerst gefunden (28.10., 11:15): Ruhebewegungen fehlen im Umzug (39 | startbar |
@@ -223,11 +224,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | startbar |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 30, Muss 22, startbar 12
+**Sokrates** – offen 31, Muss 23, startbar 13
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 461b | M | von Chef (01.11., 22:23, „Wer prüft denn nach, dass nicht gegensätzliche Entscheidungen an | startbar |
+| D62.1 | M | von Diogenes (461b, Zählung 02.11., 02:4x): Archiv „376.1, Klassen und Köpfe“ (29.10., 10: | startbar |
 | 348.12b | M | von Chef (Chefrunde 01.11.): Grak-Film vorab auf altem Körper? | Chef (Datei in der Chefsache) |
 | 427 | M | von Chef (31.10., 21:3x): Bestiarium LISTE-BESTIARIUM.md | startbar |
 | 398 | M | von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr g | wartet auf Perikles |
