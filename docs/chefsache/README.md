@@ -170,13 +170,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 469 | M | von Sokrates (02.11., 11:0x, zu 406.1): Kampf auf BRS: Ring (MARS) ohne Klassen regeln (An | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 
-**Perikles** – offen 32, Muss 28, startbar 2
+**Perikles** – offen 33, Muss 28, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 484 | M | von Diogenes (Chef 02.11., 19:27, Wortlaut Zu 484): keine Abkürzungen mehr in Telegram-Mel | wartet auf Test/Build (gebaut) |
 | D67.1 | M | von Diogenes (Doppelpack 421, Lauf 65, 02.11., 19:4x): meldung.sh lässt „K1“, Kürzel vor B | wartet auf Test/Build (gebaut) |
 | D69.1 | M? | von Diogenes (Doppelpack 421, Lauf 68, 02.11., 20:0x): meldung.sh hält seit D67.1 Dateinam | startbar |
+| D70.1 | M? | von Diogenes (Doppelpack 421, Lauf 68, zu 461b): Archiv 480 und 415c tragen „→ ersetzt dur | startbar |
 | D68.1 | M | von Diogenes (Doppelpack 421, Lauf 66, 02.11., 19:5x): probelauf.py erkennt nur den Kopf „ | wartet auf Test/Build (gebaut) |
 | D68.2 | M | von Diogenes (Lauf 66): Reste „Tor 461a“ in ROLLE-ENTWICKLUNG.md:19, LISTE-BAUEN-TESTEN.md | wartet auf Test/Build (gebaut) |
 | 483 | M | von Sokrates (Chef 02.11., 19:21, „483 ja“, Archiv): Film-Links reparieren: jsDelivr liefe | wartet auf Test/Build (gebaut) |
@@ -207,11 +208,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | Pflege | K | von Werkzeug (340.3, 02.11.): 20750 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Diogenes** – offen 10, Muss 8, startbar 1
+**Diogenes** – offen 9, Muss 7, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| D68 | M | von Perikles (Doppelpack 421, 02.11., 19:5x, 4c0174b29): Nachprüfung D68.1 („Läufe frei“ i | startbar |
 | 340.2 | M | von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv): Wirkung 340.3–340.5 zählen (Tabelle | ruht bis 09.11. |
 | 485 | M | „jetzt“ 02.11., 19:37 (Chef: „1, 2, 3 ja, fang an.“): (1) Wochentermine „gelaufen ja/nein“ | ruht bis 09.11. |
 | 483 | M | von Perikles (Doppelpack 421, 02.11., 19:4x): meldung.sh --film legt je Film einen Zweig f | wartet auf Eingang |
