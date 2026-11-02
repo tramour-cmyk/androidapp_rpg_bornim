@@ -10,14 +10,14 @@ Was der Chef zu Waffe, Schild und Kampf im Bild entschieden hat, steht nur hier 
 
 | Nr. | Prüfpunkt | Woher | Prüfer |
 |---|---|---|---|
-| E1 | Unterwegs (Stehen, Gehen, Rennen) jede Waffe in der Hand, Gang aus dem Paket der Waffe (Einhand, Zweihand, Schwert und Schild, Bogen); kein Gürtel, kein Rücken; innen ausgeblendet an der Schwelle. **Ersetzt** Gürtel und Rücken aus 410/417 vom 31.10., 21:17–21:27 (Kotlin-Zeit, ohne Pakete) | 417 (01.11., 13:4x „Richtung Pakete ja“; 20:4x Runde 5: Einhand, Bogen passen), 410 (31.10., 21:1x „lassen wir die doch bitte in der Hand“) | ja |
+| E1 | Unterwegs (Stehen, Gehen, Rennen) trägt jede Figur ihre Waffen so, wie es gut funktioniert und gut aussieht: lebenstauglich, erwachsen, düster, mit Signatur; nicht jeder gleich (in der Hand, am Arm oder auf dem Rücken). Nichts schwebt, nichts schaut durch (E3); innen ausgeblendet an der Schwelle. **Ersetzt** „jede Waffe in der Hand, kein Rücken“ (01.11.) | 417a (02.11., 21:24: „jetzt nehmen wir halt einfach für alles das, was gut funktioniert. Es muss nicht jeder alles gleich tragen, sondern es soll einfach gut ausschauen“) | ja |
 | E2 | Waffe und Schild nach Paketvorlage angesteckt (`Protof-Actor@Sword&Shield.prefab`) | 438a (01.11., 20:1x) | ja |
 | E3 | Nichts durch Körper, Kopf, Kleidung oder Boden (Schild, Schwert, Faust, Stiel, Schulter am Schild); Richtwert von uns: höchstens 2 cm je Bild gemessen (Ziel 0 wie „Selbst prüfen“ in `DESIGN-ABNAHME.md`) | 438a, 417, 406, 348.12 | ja, 2 cm Maß |
 | E4 | Angriffe und Schildaktionen aus Sword & Shield, auch mit Stab | 406 (20:2x) | ja |
 | E5 | Hinfallen und Aufstehen aus dem Paket der Waffe (gewählt: Hinfallen 1, 11D, 11F; Aufstehen 1, 12B; Taumeln 13); Injured nur ohne Waffe in der Hand | 438a (20:1x) | ja |
 | E6 | Unterwegs: Kriegsaxt Kopf hängt nach unten, Schwerpunkt etwas nach vorn; Zweihänder beide Fäuste sichtbar um den Stiel, beim Gehen und Rennen. Im Kampf (Held wie Grak): Kampfhaltung des Zweihand-Pakets, Kopf oben, beide Fäuste am Stiel, kein Stiel durch die Schulter (E3) | 417 (11:32; 20:4x), 348.12j (02.11., 11:22) | ja |
 | E7 | Waffenformen aus dem Bestand nach Stufe (Staffel abgenommen 02.11.), Seltenheit über Material und Zeichen, in unseren Farben; ab „episch“ ein sichtbarer Effekt (Glimmen), nicht nur Farbe | 458.3 (01.11., 19:5x; 02.11., 11:28) | ja |
-| E8 | Schild beim Gehen an der Seite hängend wie im Stand, nicht vom Körper abgespreizt; Einhandwaffe und Bogen wie Runde 5 | 417 (01.11., 20:4x) | ja |
+| E8 | Schild am Arm oder flach auf dem Rücken, gleich welches; er darf weder schweben (nicht abgespreizt) noch darf am Arm der Arm durchschauen; Kämpfer wie Kleriker im Dorf-Film; Einhandwaffe und Bogen wie Runde 5 | 417 (01.11., 20:4x), 417a (02.11., 21:24: „ob dann einer das Schild am Arm trägt oder auf dem Rücken hat, ist mir am Schluss egal“) | ja |
 
 ### F Kampf
 
