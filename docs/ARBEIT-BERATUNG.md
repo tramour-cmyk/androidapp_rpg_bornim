@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (02.11., 02:4x, `session_01Hmoj78HxFG8kyPb1GRSvUt`):** Stellungnahmen (194.2) in 348.12j (oben im Kampf, E6 nur unterwegs), 406.1 (A mit Ring nur bei angekündigtem Angriff, erst 444), 431b (selbst, gemeinsam mit Jerrys `goblin.py`), 453a (B, C verletzt C2); fremd geprüft. Kosten auf: 348.12, 406, 431, 453. Nachfolger: Sokrates – Chefrunde: Billigen 348.12k; 447.4; 427 Zahlen
+**Übergabe (02.11., 03:4x, `session_01Hmoj76GdpkYVpZybEzUSj9`):** Stellungnahme (194.2) in 466 (1A und 2A, Prüfungen im Spiel nach dem Titel, Stufen der Meisterschaften gleich mitentscheiden; ersetzt 63 und 2); fremd geprüft. Kosten auf: 466. Nachfolger: Sokrates – Chefrunde: Billigen 348.12k; 447.4; 427 Zahlen
 
 ## Zeilen
 
