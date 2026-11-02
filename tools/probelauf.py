@@ -108,17 +108,33 @@ def urteil(nr):
         archiv = open(p, encoding="utf-8").read() if os.path.exists(p) else ""
     heute = datetime.datetime.now(BERLIN)
     beste = None
+
+    def zeit(tag, monat, std, m1, m2):
+        tag, monat = int(tag), int(monat)
+        jahr = heute.year if (monat, tag) <= (heute.month, heute.day) else heute.year - 1
+        # D50.5 (c): „21:1x“ zählt als 21:19, damit kein Lauf vor dem echten Urteil als danach gilt
+        return f"{jahr}-{monat:02d}-{tag:02d} {std}:{m1}{'9' if m2 == 'x' else m2}:00"
+
     for m in ARCHIV_KOPF.finditer(archiv):
         if not re.search(r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)", m.group(1)):
             continue
-        klammer = archiv[m.end():archiv.find(")", m.end())] if ")" in archiv[m.end():] else ""
-        if "Vorentscheid" in m.group(1) or ("Vorentscheid" in klammer and "gebilligt" not in klammer):
-            continue  # D50.5 (b): ein Vorentscheid ist kein Urteil des Chefs, gibt keine Läufe frei
-        tag, monat, std = int(m.group(2)), int(m.group(3)), m.group(4)
-        jahr = heute.year if (monat, tag) <= (heute.month, heute.day) else heute.year - 1
-        # D50.5 (c): „21:1x“ zählt als 21:19, damit kein Lauf vor dem echten Urteil als danach gilt
-        zeit = f"{jahr}-{monat:02d}-{tag:02d} {std}:{m.group(5)}{'9' if m.group(6) == 'x' else m.group(6)}:00"
-        beste = max(beste or "", zeit)
+        ende = archiv.find("\n- **", m.end())
+        eintrag = archiv[m.end():ende if ende >= 0 else len(archiv)]
+        klammer = eintrag[:eintrag.find(")")] if ")" in eintrag else ""
+        vorentscheid = "Vorentscheid" in m.group(1) or "Vorentscheid" in klammer or "→ **Vorentscheid" in eintrag
+        if not vorentscheid:
+            beste = max(beste or "", zeit(m.group(2), m.group(3), m.group(4), m.group(5), m.group(6)))
+            continue
+        # D50.5 (b): ein Vorentscheid ist kein Urteil des Chefs; D63.3: gebilligt gilt ab der Zeit der Billigung,
+        # „348.12k **gebilligt** (Chef 02.11., 11:08 …“ oder „461a, 461d **gebilligt** (Chef 23:01 …“ (Tag des Kopfs)
+        g = re.search(r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)[^;→]{0,40}?\*?\*?gebilligt\*?\*?\s*\(Chef\s+"
+                      r"(?:(\d\d)\.(\d\d)\.,?\s*)?(\d\d):(\d)([\dx])", eintrag)
+        if g:
+            beste = max(beste or "", zeit(g.group(1) or m.group(2), g.group(2) or m.group(3), g.group(3), g.group(4), g.group(5)))
+            continue
+        g = re.search(r"\*\*gebilligt (\d\d)\.(\d\d)\.", eintrag)  # „→ **gebilligt 27.10. (Vorentscheid …)**“: ohne Uhrzeit Tagesende
+        if g and "gebilligt" in eintrag[eintrag.rfind("→"):]:
+            beste = max(beste or "", zeit(g.group(1), g.group(2), "23", "5", "9"))
     return beste
 
 
