@@ -1,0 +1,115 @@
+class_name Brs
+extends RefCounted
+# 473 (Abnahme 1.4): Monsterwerte Kapitel 1 nach dem BRS auf Rechenmodell D (E 73–75, NW 7).
+# Einzige Quelle der Zahlen: tools/sim444/werte.json (im Bau nach daten/werte.json kopiert), dieselbe Datei, mit der die
+# Rechensimulation 444 rechnet; Werte der Arten aus LISTE-BESTIARIUM.md „Werte 2.0“. Die Regeln hier sind die von
+# tools/sim444/sim.py (stufenfaktor, trefferchance, schaden_roh, endschaden, ep_fuer), Gegenprobe: tests/brs_473.gd.
+# Der Kampf (mars.gd, klassisch.gd) rechnet noch nach SRD (tabellen.json); er stellt mit 2.3 auf diese Regeln um,
+# die Heldenstufe aus Erfahrung kommt mit 472.
+
+const DATEI := "res://daten/werte.json"
+
+# Kennung im Spiel (tabellen.json, Monsters.kt) -> Art im Bestiarium; Nachfolger nach 348.12c erben die Werte dort.
+const ARTEN := {
+	"giant_rat": "Riesenratte", "kobold": "Kobold", "stirge": "Blutflügler", "wolf": "Wolf", "boar": "Wildschwein",
+	"giant_centipede": "Riesen-Hundertfüßer", "goblin": "Goblin", "goblin_archer": "Goblin-Späher", "skeleton": "Skelett",
+	"zombie": "Zombie", "giant_bat": "Riesenfledermaus", "goblin_shaman": "Goblin-Schamane", "giant_spider": "Riesenspinne",
+	"ghoul": "Ghul", "ochre_jelly": "Ockerschleim", "bugbear": "Krogg", "dire_wolf": "Grimmzahn", "hobgoblin_captain": "Grak",
+}
+
+static var W := {}
+
+static func lade() -> Dictionary:
+	if W.is_empty():
+		var j = JSON.parse_string(FileAccess.get_file_as_string(DATEI)) if FileAccess.file_exists(DATEI) else null
+		if j is Dictionary:
+			W = j
+		else:
+			push_error("473: %s fehlt oder ist kaputt" % DATEI)
+	return W
+
+static func kampf() -> Dictionary: return lade().get("kampf", {})
+
+## Werte einer Art nach Kennung im Spiel (stufe, leben, ruestung, schaden, angriff, abwehr, wachsamkeit, art, gebiet,
+## boss, schwaeche); leer, wenn die Kennung keine Art des Bestiariums ist.
+static func monster(id: String) -> Dictionary:
+	var m = lade().get("monster", {}).get(ARTEN.get(id, ""), {})
+	return m if m is Dictionary else {}
+
+static func stufe(id: String) -> int: return int(monster(id).get("stufe", 0))
+static func boss(id: String) -> bool: return bool(monster(id).get("boss", false))
+
+## Python rundet halbe auf die gerade (Bestiarium „Rundung“: 4,5 -> 4, 5,5 -> 6); GDScript round() nicht.
+static func runde(x: float) -> int:
+	var f := floorf(x)
+	var r := x - f
+	if is_equal_approx(r, 0.5):
+		return int(f) if int(f) % 2 == 0 else int(f) + 1
+	return int(f) + 1 if r > 0.5 else int(f)
+
+## Stufenunterschied d = eigene Stufe − Stufe des Ziels; je Stufe 10 %, nie unter 0.
+static func stufenfaktor(d: float) -> float:
+	return maxf(0.0, 1.0 + float(kampf()["stufenfaktor_je_stufe"]) * d)
+
+## Trefferchance 0..1 aus Fertigkeit des Angreifers gegen Abwehr des Ziels, begrenzt 5–95 %.
+static func trefferchance(angriff: float, abwehr: float, bonus := 0.0) -> float:
+	var k := kampf()
+	var c: float = float(k["trefferchance_basis"]) + (angriff - abwehr) * float(k["trefferchance_je_punkt"]) + bonus
+	return clampf(c, float(k["trefferchance_min"]), float(k["trefferchance_max"])) / 100.0
+
+## (Grundschaden) × (1 + Fertigkeit/100) × Stufenfaktor, Glückstreffer (Stufenfaktor mindestens 1), kritisch, Streuung.
+## Die Zufallszahlen 0..1 kommen von außen (z_glueck, z_krit, z_streu), damit Spiel und Simulation gleich rechnen;
+## gewuerfelt wird in schaden().
+static func schaden_roh(grund: float, fertigkeit: float, d: float, z_glueck: float, z_krit: float, z_streu: float, kritisch_prozent := 0.0) -> float:
+	var k := kampf()
+	var sf := stufenfaktor(d)
+	if z_glueck < float(k["glueckstreffer_anteil"]):
+		sf = maxf(sf, 1.0)
+	var s := grund * (1.0 + fertigkeit * float(k["fertigkeit_im_schaden_je_punkt"])) * sf
+	if kritisch_prozent > 0.0 and z_krit * 100.0 < kritisch_prozent:
+		s *= float(k["kritisch_faktor"])
+	var st := float(k["streuung"])
+	if st > 0.0:
+		s *= (1.0 - st) + 2.0 * st * z_streu
+	return s
+
+## Abzug der Rüstung, nie unter 0, gerundet wie die Simulation.
+static func endschaden(s: float, abzug: float) -> float:
+	var r := maxf(0.0, s - abzug)
+	return float(runde(r)) if bool(kampf().get("schaden_runden", true)) else r
+
+## Ein Schlag mit Würfeln aus rng in der Reihenfolge der Simulation (Treffer, Glück, kritisch, Streuung); 0 heißt daneben.
+## Die Fertigkeit zählt für Treffer und Schaden (Modell D), beim Monster ist es sein Angriff.
+static func schaden(rng: RandomNumberGenerator, fertigkeit: float, abwehr: float, grund: float, d: float, abzug: float, bonus := 0.0, kritisch_prozent := 0.0) -> float:
+	if rng.randf() >= trefferchance(fertigkeit, abwehr, bonus):
+		return 0.0
+	var zg := rng.randf()
+	var zk := rng.randf() if kritisch_prozent > 0.0 else 1.0
+	var zs := rng.randf()
+	return endschaden(schaden_roh(grund, fertigkeit, d, zg, zk, zs, kritisch_prozent), abzug)
+
+## Das Monster [id] schlägt den Helden der Stufe [held_stufe] mit [abwehr] und Rüstungsabzug [abzug]; Fertigkeit = Angriff.
+static func monsterschlag(rng: RandomNumberGenerator, id: String, held_stufe: int, abwehr: float, abzug: float) -> float:
+	var m := monster(id)
+	if m.is_empty():
+		return 0.0
+	return schaden(rng, float(m["angriff"]), abwehr, float(m["schaden"]), float(int(m["stufe"]) - held_stufe), abzug)
+
+## Erfahrung für den Sieg über [id]: 10 × Stufe², Boss × 3, dann Faktor aus Modell D (null ab 9 Stufen darüber,
+## höchstens doppelt gegen Stärkere).
+static func erfahrung(held_stufe: int, id: String) -> float:
+	var m := monster(id)
+	if m.is_empty():
+		return 0.0
+	var e: Dictionary = lade()["erfahrung"]
+	var s := int(m["stufe"])
+	var basis := float(e["je_gegner_faktor"]) * s * s
+	if bool(m.get("boss", false)):
+		basis *= float(e["boss_faktor"])
+	var d := held_stufe - s
+	var f := 1.0
+	if d > 0:
+		f = 0.0 if d >= int(e["hoeher_null_ab"]) else 1.0 - float(d) / float(e["hoeher_null_ab"])
+	elif d < 0:
+		f = minf(float(e["tiefer_hoechstens"]), 1.0 - float(d) / float(e["tiefer_teiler"]))
+	return basis * f
