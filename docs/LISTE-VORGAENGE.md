@@ -114,12 +114,12 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 398 | Gegenprobe: Grundsätze aus DESIGN-Dateien, die im Umzug nach Godot fehlen (Chef 28.10., 11:22) | B Umzug | M | 12,07 $ | Sokrates | wartet |
 | 399 | Spielbare Godot-Fassung zuerst: Dorf begehbar, Kampf spielbar; Feintuning ruht (Chef 28.10., 12:34) | B Umzug | M | 12,45 $ | Perikles, Team Tom, Team Jerry | wartet |
 | 399.1 | Spielfassung: eine APK mit Dorf, Laden, Rast, Weg in den Wald, Kampf, zurück (aus 399) | B Umzug | M | 124,12 $ | Team Tom | zu testen |
-| 399.4 | Oben Rand für die Kamera freilassen wie im alten Spiel (Chef 28.10., 21:4x) | B Umzug | M | – | Team Tom | zu testen |
+| 399.4 | Oben Rand für die Kamera freilassen wie im alten Spiel (Chef 28.10., 21:4x) | B Umzug | M | – | Team Tom | wartet |
 | 399.5 | Innenräume wie alt: Lichtquellen, Licht und Schatten, Einrichtung; Fenster außen wie innen (Chef „jetzt“ 28.10., 21:5x) | B Umzug | M | 51,75 $ | Team Tom | zu testen |
 | 399.2 | Kampfort als aufrufbare Szene für die Spielfassung 399.1 (aus 399) | B Umzug | M | 40,83 $ | Team Jerry | zu testen |
 | 399.2b | Rudel allein: drei von vier Klassen verlieren; Ursache prüfen, Balance an Chef (aus 399.2a) | E Kampf | M | 16,00 $ | Team Jerry | zu testen |
 | 399.2d | Godot am Rechner freigeben (Auto-Modus lehnte Download ab), Tests ohne CI-Lauf (aus 399.2) | E Kampf | M | – | Team Jerry | wartet |
-| 402 | Blende vor dem Kampf wie alt (Hinterhalt, Erstschlag, normal, Boss); Herzschlag beim Hinterhalt stärker (Chef 28.10., 22:2x) | E Kampf | M | 22,24 $ | Team Jerry | zu testen |
+| 402 | Blende vor dem Kampf wie alt (Hinterhalt, Erstschlag, normal, Boss); Herzschlag beim Hinterhalt stärker (Chef 28.10., 22:2x) | E Kampf | M | 22,24 $ | Team Jerry | wartet |
 | 401 | Lebendige Welt: Laute für jedes Tier im Dorf, mindestens drei je Tier (Chef 28.10., 22:0x) | E Klang | M | 2,67 $ | Team Jerry | zu testen |
 | 399.3.1 | Klang: Haken in spiel.gd übernehmen, Klangregler im Menü System (aus 399.3) | B Umzug | M | – | Team Tom | zu testen |
 | 384 | Kosten: alle Sitzungen gebucht? Lücken und Buchungen ohne Kennung (Chef 27.10., 20:06) | B Werkzeuge | M | – | Perikles | gebaut |
@@ -150,15 +150,15 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 407 | Probelauf-Grenze 389 greift nicht: neue Runde erst nach Urteil des Chefs, jeder Zweig zählt („jetzt“ 29.10., 10:05) | B Abläufe | M | – | Perikles | gebaut |
 | 410 | Waffen am Körper wegstecken, alle Waffenarten (aus 376.1, Chef 29.10., 10:52, 11:40) | E Figuren | M | – | Team Tom | ruht |
 | 415 | Handyprobe Beams-Free-Sample (aus 414, Chef 31.10., 20:3x; „jetzt“ 01.11.) | C Kampf | M | 1,17 $ | Team Jerry | Chef |
-| 416.1 | Tasten reagieren schlecht (Charaktererstellung, überall; Build 143, Chef 31.10., 20:4x) | B Umzug | M | – | Team Tom | zu testen |
-| 416.2 | Platzwechsel mit Dorfbewohnern und Tieren, nicht stecken bleiben (Chef 31.10., 20:4x) | B Umzug | M | – | Team Tom | zu testen |
+| 416.1 | Tasten reagieren schlecht (Charaktererstellung, überall; Build 143, Chef 31.10., 20:4x) | B Umzug | M | – | Team Tom | wartet |
+| 416.2 | Platzwechsel mit Dorfbewohnern und Tieren, nicht stecken bleiben (Chef 31.10., 20:4x) | B Umzug | M | – | Team Tom | startbar |
 | 416.4 | Rennen des Helden wirkt wie Hochsprung (Chef 31.10., 20:4x) | B Umzug | M | 41,57 $ | Team Tom | Chef |
-| 416.5 | Kampflog-Details nicht mehr schließbar (Chef 31.10., 20:4x) | B Umzug | M | 5,66 $ | Team Jerry | zu testen |
+| 416.5 | Kampflog-Details nicht mehr schließbar (Chef 31.10., 20:4x) | B Umzug | M | 5,66 $ | Team Jerry | wartet |
 | 416.6 | Spuren des Helden, auch bei Regen (Chef 31.10., 20:4x) | B Umzug | K | – | Team Jerry | frei |
 | 417 | Prüfung: Waffen und Schild beim Gehen und Rennen in der Hand statt auf dem Rücken (zu 410, Chef 31.10., 21:1x) | E Figuren | M | 137,58 $ | Team Tom | in Arbeit |
 | 423.1 | Spielerhandbuch BRS als Seite im Spiel, Platzhalter aus der Datendatei (Archiv 423) | A Technik | M? | – | Team Tom | wartet |
 | 424 | Umzugsliste und Vorräte frei von Arbeit am alten SRD-System: Regelzeilen in `LISTE-UMZUG-348.md` ruhen, Wächter in `startbar.py`/`lauf.py` („jetzt“ 31.10., 21:3x) | B Abläufe | M | 3,43 $ | Perikles | gebaut |
-| 425 | Menüs und Testmenü mit Icons wie in der alten Fassung statt viel Text (Build 143, Chef 31.10., 21:30) | B Umzug | M | 36,83 $ | Team Tom | gebaut |
+| 425 | Menüs und Testmenü mit Icons wie in der alten Fassung statt viel Text (Build 143, Chef 31.10., 21:30) | B Umzug | M | 36,83 $ | Team Tom | wartet |
 | 427 | Bestiarium: je Monsterart Name, Gebiet und Stufenband, Verhalten, Angriffe und Waffen, Werte für Spielsystem 2.0, Beute; Aussehen verweist auf `LISTE-FIGUREN.md` (Chef 31.10., 21:3x) | D Design | M | 3,73 $ | Sokrates | wartet |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x) | E Figuren | M | 12,75 $ | Team Tom | Chef |
 | 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | C Texte | K | 0,79 $ | Homer | wartet |
@@ -181,8 +181,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 457.1 | Probeskripte Tom mit Spielshadern (457) | E Figuren | M | – | Team Tom | gebaut |
 | 457.2 | Probeskripte Jerry mit Spielshadern (457) | E Kampf | M | 5,56 $ | Team Jerry | gebaut |
 | 416.7 | Aktionsknopf am Tresen in Schenke und Laden (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | zu testen |
-| 416.8 | NPC dreht sich zum Helden, nach etwa 10 s Leerlauf (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | zu testen |
-| 416.9 | Laden Verkaufen: Reiter bei „angelegt“, Vergleichswerte, nicht tragbare Gegenstände, Icon bei Menge (aus 416.3, Chef 31.10., 22:20) | B Umzug | M | 11,16 $ | Team Tom | gebaut |
+| 416.8 | NPC dreht sich zum Helden, nach etwa 10 s Leerlauf (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | startbar |
+| 416.9 | Laden Verkaufen: Reiter bei „angelegt“, Vergleichswerte, nicht tragbare Gegenstände, Icon bei Menge (aus 416.3, Chef 31.10., 22:20) | B Umzug | M | 11,16 $ | Team Tom | startbar |
 | 390 | Umzug: Punkte ohne Bilderrunde weiterbauen, solange Blätter beim Chef liegen (Perikles 28.10., Wochenziel 348) | E Technik | M | 39,54 $ | Team Tom, Team Jerry | gebaut |
 | 383.2 | Kosten: dieselbe Aufgabe frisch gegen groß messen (Chef 27.10., 19:24) | B Werkzeuge | M | – | Sokrates | wartet |
 | 383 | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokrates) | B Werkzeuge | M | 99,45 $ | Perikles | wartet |
