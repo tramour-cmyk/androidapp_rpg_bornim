@@ -68,9 +68,11 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht: SRD (Chef 31.10.) | – |
 | 469 | M | **von Sokrates (02.11., 11:0x, zu 406.1):** Kampf auf BRS: Ring (MARS) ohne Klassen regeln (Antwort nach Klasse heute) | wartet auf 406.1 | – |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht: Klang zieht nach Godot; Rest `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
-| D63.6 | K | **von Diogenes (374/434, Vortag 01.11.):** ohne „Bestand geprüft“ (434): 438 08:11, 09:45; 454; 348.12 21:49; 453.1 Atem (Tuffy); ohne Homer-Vorgabe (373 c): 438, 454, 348.12, 453, 453.1; nach Tor 461a ohne belegte Prüfung: 453 r3, 453.1 (Tuffy 23:03) (Zu 374 in `ARBEIT-PRUEFUNG.md`) | offen | – |
+| D63.6 | K | **von Diogenes (374/434, 01.11.):** fehlende Zeilen „Bestand geprüft“, Homer-Vorgabe, Tor-Prüfung bei 438, 454, 348.12, 453, 453.1 (Zu 374 in `ARBEIT-PRUEFUNG.md`) | offen | – |
 
 ## Einzelheiten
+
+- **Zu 406 (Jerry 02.11., 17:4x, `claude/jerry-406c-gehen`):** G1 behoben (be94f2ee3; Lauf 179: 0 angeschnitten). E3 Lauf 179: Finger der Schildhand 3–8,6 cm vor dem Schild (Kampfhaltung, Rennen am meisten); Schild weiter vor schiebt den Schwertarm hinein; Weg: Faust schließen, erst messen. E8 wartet auf Tom 417; F2 offen.
 
 - **von Sokrates (Chef 02.11., 14:49, zu 438a Runde 2, Wortlaut Archiv):** passt nicht: beide stechen sich beim Aufstehen mit der Waffe durchs rechte Bein (Schwert, Stab), „als ob das rechte Bein nicht existent wäre“, beim Abstützen mit der rechten Hand (Waffenhand); wie Prüferbefund 02:0x, der vor dem Versand hätte behoben sein müssen. Umhang vorn und hinten scheint durch (463, Tom).
 - **von Sokrates (Chef 02.11., 14:55, zu 348.12):** „348.12b alter Körper ja“: Grak-Film darf vorab auf Graks heutigem Körper raus (Grundstand B2 hält ihn dafür nicht an); beurteilt wird die Bewegung.
@@ -83,7 +85,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 - **Wortlaut in Git** (`git show <Commit>:docs/ARBEIT-TEAM-JERRY.md`): von Homer zu 444 und Spike zu 425 ee343195b; Zu 453, 402 („Bubum“) 7cacfa97d; Zu 453 r2 („Helden wieder doof“) 00d2ab8d5; Zu 406 a–e, 460, 438a Waffenpakete 907f307f2; Zu 453.1 da33d472c; ruhende SRD-Zeilen (296.2, 344.2, 249, 211.13/14, 168.1, 72u.1, 38, 39) de0998e2a; Zu 348.12 Lauf 177 5dc32fd63.
 - **Zu 453 r3, r3b (Tuffy):** Stand und Prüferbefunde im Blatt `ansehen/453-wolf-ruhe.md`, Ursache im Commit d41f0c692; Rückfrage 453a.
 - **Zu 461.1, Tuffy (02.11., 03:4x):** Prüfer Lauf 159: E5, F1 beim schweren Biss kein Hinfallen, Schild erst danach (438a); A4 Verdacht: Held nur runder Bodenfleck (Prüfer 453a Lauf 176 ebenso).
-- **Zu 438a (Urteil Sichtung 01.11., 20:1x; Runde 2 und 3, 02.11.) und Zu 438 (wolf_mess_438 behoben, 9 → 0):** Waffe und Schild nach Prefab anstecken, Durchdringung höchstens 2 cm; Runde 3 gebaut 713fdb5fd, 3a6b29459, 602b0fd41; Wortlaut, Werkzeuge, Commits in Git, `git show 98a37d865:docs/ARBEIT-TEAM-JERRY.md`. **Lauf 164:** Faust gut; 9 falsch: Stab in Beinrüstung 4,8/8,5 cm (KAPSEL_FREI wirkt nicht), Schildfinger 1,7 cm, Drehung 34,5° je Bild; Klinge im Umhang bis 13 cm (Tom 463), Zucken 16°, 40° je Bild. Wolf 1 läuft 6–7 cm in den stehenden Kleriker (Bahn 438, nicht Liegen); Kleriker ab 10,6 s angeschnitten (G1). Ursache: Rüstung bis 9,5 cm über der Beinkapsel. Weiter: Waffe im Sturz aus Kandidaten-Lagen (längs am Körper, nach außen) an der Haut wählen, weich; sturz_438a vorher grün.
+- **Zu 438a, 438:** Runde 1–3, Lauf 164 in Git (`git show 4b77bbc77:docs/ARBEIT-TEAM-JERRY.md`). Runde 4: Rüstung bis 9,5 cm über den Beinkapseln, Hautkapseln (faf633e16) in Messung. Offen: Klinge im Kleid schon in Kampfhaltung (463), Schildfinger 1,7 cm, Drehung über dem Satz, Wolf 1 im Kleriker (438).
 - **Zu 348.12 (Chef 27.10., 17:19):** „ob das Modell trifft … muss man halt nachjustieren, das kann kein Kriterium sein“. Grak (Chef 29.10., 10:55): „gut, aber Gang schreitend statt kurzer Sprint“; Bau und Prüfwege `git show c30c827d0:docs/ARBEIT-TEAM-JERRY.md`.
 
 - **Zu 399.2, von Tom (28.10., 13:23):** `goblin.py` kennt `v3/rig.py` nicht; Goblins mit `v3_kampf/`, vor der Höhle auf `v3` umstellen.
