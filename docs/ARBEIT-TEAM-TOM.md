@@ -2,13 +2,13 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (02.11., 20:3x, `session_01Hmoj78iLSmUzj7y6MRMWuJ`):** 417: Vergleichsfilm Rennen (Lauf 41488712114, nicht versandt), Rückfrage 417a; 431: Läufe 4 und 5 (Kampfort-Signatur, Eichung je Volk und Geschlecht, Atem, Beschriftung), Film an den Chef (ansehen/431-voelker-lauf5); 461b.2 erledigt. Nachfolger: Tom – 431: Haut Orkblütige Frau, Ursache nachstellen.
+**Übergabe (02.11., 20:5x, `session_01Hmoj76UyUnBJAbFAjBqnim`):** 431: Heldenhaut nach Chefwort auf dem Zweig (`[skip ci]`); Orkfrau-Haut am Rechner nachgestellt (`tests/haut_431_bild.gd`, Läufe 2 von 2), Rückfrage 431f; Fehlzählung des Hakens an Perikles (Zu 407). Nachfolger: Tom – 416.9: Laden, Vergleichswerte.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 431 | M | **von Sokrates (Chef 31.10., 22:0x):** Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film, dann Körperbau je Volk | wartet auf Chef: 431f (zwei Läufe, Orkfrau-Haut; Zu 431) | `claude/tom-431-voelker` |
+| 431 | M | **von Sokrates (Chef 31.10., 22:0x):** Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film, dann Körperbau je Volk | wartet auf Chef: Chefsache 431f (zwei Läufe, Orkfrau-Haut; Zu 431) | `claude/tom-431-voelker` |
 | 417 | M | **von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“):** Tragart je Waffenklasse (Zu 417), zuerst Stab, Axt, Bogen; Zahlen messen, Aussehen urteilt der Chef | wartet auf Chef: Chefsache 417a (Schild Kämpfer Rücken oder Arm; Rennen mit Waffe wie Dorf-Film); dann Film wie Dorf-Film (461.1) | `claude/tom-417-tragart` |
 | 416.9 | M | **von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“):** Laden, Verkaufen, „angelegt“ mit allen Plätzen, Vergleichswerte, nicht Tragbares, Icon bei Menge | startbar: passt (Chef 02.11., 14:37, Archiv), in den nächsten Build | `claude/tom-416-9-vergleich` |
 | 416.7 | M | **von Sokrates (Chef 31.10., 20:5x, für den nächsten Build):** am Tresen in Schenke und Laden geht der Aktionsknopf nicht, Kaufen und Kauf mit den zwei NPCs dort nicht möglich; Reichweite erweitern | wartet auf Build: PR #177 nach main (146.3 ohne Tresenbefund) | – |
