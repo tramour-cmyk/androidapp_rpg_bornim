@@ -25,3 +25,12 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/c16b54
 - **Stärkstes Gegenargument:** „Eingeweihter“ klingt nach Tempel, nicht nach Werkstatt, und „Hoher Feldkoch“ klingt etwas steif. Ich nehme das in Kauf, weil der Spieler die Stufe vor allem als Titel sieht („Alchemist“), selten als Zwischenstufe. Und eine Leiter verwechselt weniger, und die Verwechslung war der Anlass für 466.
 - Ausgeschieden sind „Lehrling“, weil es als Herkunft vorkommt (Schmiedelehrling, Zauberlehrling), „Großschmied“, weil es an Großmeister erinnert, und „Gehilfe“, weil es schon für Bruder Osric steht (`STORY-K1-HANDLUNG.md`).
 - Fremd gegen das BRS geprüft (6 Befunde eingearbeitet).
+
+## Stellungnahme Sokrates (02.11., 21:3x)
+
+- Empfehlung: **A**, wie Homer.
+- A passt zum BRS-Entwurf, Zeile 187: „Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen“. Es passt auch zum Entscheid 466 von 11:20 (Archiv).
+- **Stärkster Einwand:** „Hoher Feldkoch“ klingt in einer düsteren Welt komisch.
+- **Weg:** Homer ändert nur dieses eine Wort, die Leiter bleibt. B dagegen bräuchte eine zweite Leiter.
+- „Runenmeister“ bleibt nach Entscheidung 50. Das ist ein Name, keine Stufe.
+- Fremd geprüft: Die Fundstellen stimmen.

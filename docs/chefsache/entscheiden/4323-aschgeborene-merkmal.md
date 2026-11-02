@@ -49,4 +49,14 @@ Kurz: Aschgeborene: Name des Merkmals (Aschenerbe?), Liste, Text, Orte des Zeich
 - Bei einem anderen Namen ändere ich Text und Tabelle im selben Schritt.
 - Fremd gegen die Quellen geprüft; 22 Befunde eingearbeitet.
 
+## Stellungnahme Sokrates (02.11., 21:3x)
+
+- Empfehlung: **1A, 2 ja**, wie Homer.
+- Die Orte stimmen mit dem Storyplan überein:
+  - Das Amulett liegt am Ende von Kapitel 1 auf dem Altar (`STORY-PLAN-K1.md` Zeile 166).
+  - Die zweite Siegelhälfte liegt unter Aschfurt (`[41.ende.3]`, `STORY-K2-ENTWURF.md` Zeile 576).
+- **Stärkster Einwand:** Das Merkmal wirkt in Kapitel 1 kaum. Laut Bestiarium zaubert dort nur der Goblin-Schamane (`LISTE-BESTIARIUM.md` Zeile 35). Gewandtheit −1 hätte also fast keinen Gegenwert.
+- **Weg:** Das Volk ist erst nach dem Meilenstein wählbar und wird vorher in Simulation 444 gemessen (BRS-Entwurf Zeile 55). Diesen Einwand dort mit 481 prüfen. Name und Orte ändert er nicht.
+- Fremd geprüft: Die Fundstellen stimmen.
+
 Antwort: …
