@@ -23,6 +23,7 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 | Nächte Teams (371; Basis 27.10.: 207 $/9 h) | Kosten (Start 21–7 Uhr) 25./26. 184 $ · 26./27. 267 · 27./28. 203 · 28./29. 180 · 29./30. 0 · 30./31. 0 · 31./01. 101 · 01./02. 194; Bilder und Filme an den Chef 27./28. 28 · 28./29. 22 · 31./01. 12 · 01./02. 15, vorher fehlt | – | Sitzungen; `meldungen.tsv` (ab 27.10., 19:14) |
 | Rote Läufe (464) | 02.11. bis 11:17: 11 von 175 abgeschlossenen (01.11.: 14) | – | `actions_list` |
 | Widersprüche (461b) | 3 in 38 Archiveinträgen (02.11., 02:4x) | – | `ARBEIT-PRUEFUNG.md` „Zu 461b“ |
+| Wochentermine gelaufen (485, nachgezählt 02.11., 19:4x) | Rollenspiegel Fr 30.10. nein · Ideenspeicher Homer So 25.10. und 01.11. nein, nein (nur Einträge von Sokrates) · Wochenziel Perikles Mo 26.10. ja · Tagesbericht 448 ab 01.11. ja · Stichprobe 374 um 8 Uhr 28.10.–01.11.: 3 von 5 (30. und 31.10. erst 31.10., 21:37 nachgeholt) · Ford-Meldung 6–10 Uhr 28.10.–02.11.: 1 von 6 (29.10., 09:05) · Wochenzählung Diogenes Mo 26.10. ja | – | Git `main` (Datei je Termin), `meldungen.tsv` |
 | Ohne Kopf (462) | fehlt: `zug-haken.py --summe` schrieb die Spalten von 462.1 nicht nach `LISTE-REGELTREUE.md` (D63.4, behoben 11:3x, ab 09.11. zählbar) | – | `LISTE-REGELTREUE.md` |
 
 ## Offen für den Chef
