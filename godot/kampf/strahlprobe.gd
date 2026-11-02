@@ -10,6 +10,9 @@ extends Node
 
 const Probe = preload("res://kampf/probe.gd")
 const STRAHLEN := [["laser_blue", "Blauer Laser"], ["fire_stream", "Feuerstrom"], ["lightning_arc", "Blitzbogen"]]
+## r4 (Tor 461a, Lauf 181: alle Strahlen am Schirm über dem grauen Wolf, im Raum 0,4–1,1 m an jedem Körper vorbei): halbe Breite je
+## Strahl in m (Feuerstrom breit, Blitz mit Seitenästen bis an den Kopf des Söldners)
+const HALB := {"laser_blue": 0.05, "fire_stream": 0.3, "lightning_arc": 0.35}
 const PFAD := "res://addons/reeboo_beams/beams_3d/%s.tscn"
 const STRAHL_S := 4.0
 const PAUSE_S := 1.2
@@ -36,6 +39,8 @@ var dreh_grad := 0.0     # Messung strahl_mess_415: der Magier dreht sich so vie
 var wolf_jetzt = null    # Messung: Ziel des laufenden Strahls
 var sichtbar := false    # Messung: Strahl sichtbar
 var getroffen = null     # Messung: Figur, an der der Strahl endet (Ziel oder Körper dazwischen)
+var halb := 0.05         # halbe Breite des laufenden Strahls, m
+var abgebrochen := 0     # Messung: Strahlen, die endeten, weil die Stabspitze im Magier lag (F6)
 
 
 static func da() -> bool:
@@ -75,6 +80,7 @@ func _lauf() -> void:
 	# einen zweiten außerhalb (Ziel gewählt, als das Rudel noch einlief). Jetzt die Spielkamera wie im Kampf (alle im Bild) und das Ziel
 	# erst, wenn alle Figuren 1 s still stehen (höchstens 10 s)
 	await _bis_still()
+	await _kampf_ruht()
 	while true:
 		for s in STRAHLEN:
 			await _feuer(s[0], s[1])
@@ -103,7 +109,10 @@ func _wolf():
 
 ## erste Figur (außer Magier und [ziel]) auf der Strecke von [a] nach [b], mit dem Punkt, an dem der Strahl sie trifft: [Figur, Punkt]
 ## oder [null, b]. Körper aus den Kapseln (figur.gd kapseln), in Schritten von 2 cm
+## r4 (Lauf 181): verdeckt zählt auch, was die Kamera vor dem Strahl sieht: Strecke Kamera–Strahlpunkt gegen jede Kapsel, mit der
+## halben Breite des Strahls
 func _erster_koerper(a: Vector3, b: Vector3, ziel_) -> Array:
+	var cam := get_viewport().get_camera_3d()
 	var kaps := []
 	for id in kf.figures:
 		var f = kf.figures[id]
@@ -116,12 +125,26 @@ func _erster_koerper(a: Vector3, b: Vector3, ziel_) -> Array:
 	for i in range(1, n + 1):
 		var q := a.lerp(b, float(i) / n)
 		for k in kaps:
-			if q.distance_to(Geometry3D.get_closest_point_to_segment(q, k[1], k[2])) < k[3]:
+			if q.distance_to(Geometry3D.get_closest_point_to_segment(q, k[1], k[2])) < k[3] + halb:
 				return [k[0], q]
+			if cam != null:
+				var auge := _auge(cam, q)
+				var pp := Geometry3D.get_closest_points_between_segments(auge, q, k[1], k[2])
+				if (pp[0] as Vector3).distance_to(pp[1]) < k[3] + halb:
+					return [k[0], q]
 	return [null, b]
 
 
+## Kamerapunkt für [q]: bei Parallelprojektion (Spielkamera orthogonal) der Punkt auf der Blickachse vor [q], sonst die Kamera
+func _auge(cam: Camera3D, q: Vector3) -> Vector3:
+	var vor := -cam.global_transform.basis.z.normalized()
+	if cam.projection == Camera3D.PROJECTION_ORTHOGONAL:
+		return q - vor * 30.0
+	return cam.global_position
+
+
 func _feuer(art: String, name_: String) -> void:
+	halb = float(HALB.get(art, 0.05))
 	var w = _wolf()
 	if w == null or held == null:
 		return
@@ -147,6 +170,9 @@ func _feuer(art: String, name_: String) -> void:
 		await get_tree().process_frame
 		t += get_process_delta_time()
 		_richten(w)
+		if _spitze_im_magier():
+			abgebrochen += 1
+			break
 		bilder += 1
 		if bilder == SICHTBAR_NACH and strahl is Node3D:
 			(strahl as Node3D).visible = true
@@ -160,6 +186,20 @@ func _feuer(art: String, name_: String) -> void:
 	wolf_jetzt = null
 	_drehen(Vector3.ZERO)
 	held._idle()
+
+
+## r4 (F6): liegt die Stabspitze im Körper des Magiers oder von der Kamera aus dahinter, endet der Strahl
+func _spitze_im_magier() -> bool:
+	var q := muendung.global_position
+	var cam := get_viewport().get_camera_3d()
+	for c in held.kapseln():
+		if q.distance_to(Geometry3D.get_closest_point_to_segment(q, c[0], c[1])) < float(c[2]):
+			return true
+		if cam != null:
+			var pp := Geometry3D.get_closest_points_between_segments(_auge(cam, q), q, c[0], c[1])
+			if (pp[0] as Vector3).distance_to(pp[1]) < float(c[2]) * 0.8:
+				return true
+	return false
 
 
 ## weich zur Richtung [dir] (null: Grundrichtung) in 0,3 s, nicht in einem Bild (D1)
@@ -246,6 +286,20 @@ func _renderer_wechseln() -> void:
 	cfg.set_value("rendering", "renderer/rendering_method.mobile", neu)
 	cfg.save(RENDERER_CFG)
 	lb.text += "\nNach Neustart der App: %s" % neu
+
+
+## r4 (Lauf 181, F6: der graue Wolf sprang den Magier im Feuerstrom an, er wich aus, der Strahl kam aus dem Körper): wartet, bis der
+## Kampf auf einen Zug der Gruppe wartet (höchstens 20 s), und hält ihn dann an (busy wie während eines Zugs); die Probe zeigt Strahlen,
+## keinen Kampf
+func _kampf_ruht() -> void:
+	var t := 0.0
+	while t < 20.0:
+		if not kf.busy and not kf.playing and kf.beats.is_empty() and (kf.mars.outcome != "ONGOING" or not kf.mars.pilot_next()):
+			break
+		await get_tree().process_frame
+		t += get_process_delta_time()
+	kf.busy = true
+	await _bis_still()
 
 
 ## wartet, bis keine Figur sich mehr als 2 cm in 1 s bewegt (Einlauf des Rudels, Aufstellung), höchstens 10 s

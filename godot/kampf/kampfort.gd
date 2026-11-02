@@ -527,6 +527,13 @@ func _rand_kamera() -> void:
 						need = minf(need, (c.x - m) / (absf(d.x) + r0))
 					if absf(d.y) > 1.0:
 						need = minf(need, (c.y - m) / (absf(d.y) + r0))
+		# 415 r4 (Lauf 181, G1): auch Waffe und Schild ganz im Bild
+		for q in fig.waffen_punkte():
+			var dw: Vector2 = (screen_of(q) - c) / rand_z
+			if absf(dw.x) > 1.0:
+				need = minf(need, (c.x - m) / absf(dw.x))
+			if absf(dw.y) > 1.0:
+				need = minf(need, (c.y - m) / absf(dw.y))
 		# 438 (wolf_mess_438: Wolf 1 drehte am Rand auf der Stelle, der Kopf schwang 45 px hinaus): wer gerade läuft oder dreht,
 		# zählt mit dem ganzen Kreis, den sein Körper beim Drehen überstreicht
 		if fig.tween and fig.tween.is_running():
