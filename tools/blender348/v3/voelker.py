@@ -23,6 +23,7 @@ ZIEL = os.environ.get('ZIEL', '/tmp/voelker')
 NUR = [s for s in os.environ.get('NUR_VOELKER', '').split(',') if s]   # nicht VOELKER: so heisst im Ablauf der Ordner (Lauf 41299824753)
 os.makedirs(ZIEL, exist_ok=True)
 import quaternius as QT
+import merkmale as MK
 
 FRAU = 0.93
 # Ziele nach Homer (430): Groesse Mann (m), Kopfanteil, Beinanteil (Hueftgelenk), Schulter: ('abs'|'rel', Faktor gegen den Menschen)
@@ -41,6 +42,9 @@ ZIELE = {
     'ork':    {'koerper': 'Superhero', 'h': 1.85, 'schulter': ('abs', 1.20),
                'dick': 1.12, 'hals': 0.75, 'hand': 1.15},                                      # massig, kurzer dicker Hals
 }
+# 431 Runde 4 (Chef 01.11., 20:3x, Archiv 431; 431b 02.11., 11:17): Merkmale aus merkmale.py (Form und Mass aus goblin.py),
+# am gekauften Kopf in der Ruhelage vor dem Formen der Knochen (die Masse dort sind die des Kaufkopfs, danach waechst alles mit)
+MERKMALE = {'elf': {'ohr': 'elf'}, 'huegel': {'ohr': 'huegel'}, 'ork': {'ohr': 'ork', 'hauer': 'ork'}}
 VOLKSNAME = {'mensch': 'Mensch', 'elf': 'Elf', 'zwerg': 'Zwerg', 'huegel': 'Hügelvolk', 'ork': 'Orkblütiger'}
 
 
@@ -90,6 +94,44 @@ def mass(n, e):
     return (1, 1)
 
 
+# 431 Runde 4 (Pruefer Runde 3: „beim Zwerg die Unterschenkel von der Seite kantig, mit hartem Absatz am Knie“): am Knie folgen
+# Ecken mit Gewicht am Oberschenkel dessen Laenge und Dicke, die mit Gewicht am Unterschenkel dessen; wo die Achsen in der Ruhelage
+# nicht fluchten, entsteht eine Stufe. Die Verschiebung wird binnen KNIE_R um das Kniegelenk ueber die Nachbarecken geglaettet
+KNIE_R = 0.09
+
+
+def knie_glatt(o, alt, knie, keys):
+    if not knie or not o.data.edges: return
+    n = len(alt)
+    A = [mathutils.Vector(v) for v in alt]
+    w = [0.0] * n
+    for i, a in enumerate(A):
+        d = min((a - k).length for k in knie)
+        if d < KNIE_R: w[i] = 1.0 - (d / KNIE_R) ** 2
+    if not any(w): return
+    nb = [[] for _ in range(n)]
+    for ed in o.data.edges:
+        a, b = ed.vertices
+        nb[a].append(b); nb[b].append(a)
+    D = [o.data.vertices[i].co - A[i] for i in range(n)]
+    roh = list(D)
+    for _ in range(8):
+        D2 = list(D)
+        for i in range(n):
+            if w[i] <= 0 or not nb[i]: continue
+            m = sum((D[j] for j in nb[i]), mathutils.Vector()) / len(nb[i])
+            D2[i] = D[i].lerp(m, 0.6 * w[i])
+        D = D2
+    groesst = 0.0
+    for i in range(n):
+        if w[i] <= 0: continue
+        k = D[i] - roh[i]
+        groesst = max(groesst, k.length)
+        o.data.vertices[i].co += k
+        for kb in keys: kb.data[i].co += k
+    print('KNIE geglaettet %s: %d Ecken, groesste Aenderung %.1f mm' % (o.name, sum(1 for x in w if x > 0), groesst * 1000))
+
+
 def knochen_formen(arm, netze, e):
     # cc0.py: neue Ruhelage je Knochen (eigene Laenge und Dicke, Kopf am verschobenen Ende des Elternknochens), Netz linear mitgezogen
     ad = arm.data
@@ -103,7 +145,9 @@ def knochen_formen(arm, netze, e):
         M[b.name] = mathutils.Matrix.Translation(h) @ rot @ S
     D = {n: M[n] @ R[n].inverted() for n in M}
     sohle_alt = min(v.co.z for o in netze for v in o.data.vertices)
+    knie = [R[n].translation.copy() for n in ('calf_l', 'calf_r') if n in R]
     for o in netze:
+        alt = [v.co.copy() for v in o.data.vertices]
         gname = {g.index: g.name for g in o.vertex_groups}
         keys = list(o.data.shape_keys.key_blocks) if o.data.shape_keys else []   # Formschluessel mitziehen, sonst gilt die alte Basis
         for v in o.data.vertices:
@@ -115,6 +159,7 @@ def knochen_formen(arm, netze, e):
             Mv = acc * (1.0 / w)
             v.co = Mv @ v.co
             for kb in keys: kb.data[v.index].co = Mv @ kb.data[v.index].co
+        knie_glatt(o, alt, knie, keys)
     # Sohlen zurueck auf den alten Boden: Netz und alle Knochen ausser der Wurzel senken (cc0.py; Lauf 41300277200: ohne das stand die
     # Wurzel tiefer als der Ursprung, die Beckenlage der UAL passte nicht, Zwerg 50 cm im Boden, Elf 9 cm darueber)
     tief = min(v.co.z for o in netze for v in o.data.vertices) - sohle_alt
@@ -171,6 +216,19 @@ def auf_groesse(arm, alle, h_ist, sohle, h_soll):
     bpy.ops.object.transform_apply(location=True, rotation=False, scale=True)
 
 
+def merkmale(volk, arm, netze, alle):
+    mk = MERKMALE.get(volk, {})
+    if not mk: return {}
+    haut = next(o for o in alle if ('regular' in o.name.lower() or 'superhero' in o.name.lower()) and not o.name.startswith(('Eye', 'Hair')))
+    augen = next((o for o in alle if o.name.startswith('Eyes')), None)
+    aus = {}
+    if mk.get('ohr'): aus['ohren'] = {('rechts' if s < 0 else 'links'): v for s, v in MK.ohren(haut, augen, mk['ohr']).items()}
+    if mk.get('hauer'):
+        o, lage = MK.hauer(haut, augen, mk['hauer'], arm)
+        netze.append(o); alle.append(o); aus['hauer'] = lage
+    return aus
+
+
 def einstellung_start(z):
     return {'kopf': 1.0, 'hals': z.get('hals', 1.0), 'rumpf': 1.0, 'dick': z.get('dick', 1.0), 'bauch': z.get('bauch', 1.0),
             'schulter': 1.0, 'arm': 1.0, 'bein': 1.0, 'hand': z.get('hand', 1.0), 'fuss': z.get('fuss', 1.0)}
@@ -187,6 +245,8 @@ def baue(volk, frau):
     beste = None   # (groesste Abweichung, Einstellung): am Ende gilt die beste Runde (Lauf 41300277200: Schulter schwang sich auf)
     for runde in range(7):
         arm, netze, alle = laden(z['koerper'], frau)
+        mk = merkmale(volk, arm, netze, alle)
+        if runde == 0 and mk: print('MERKMALE', volk, 'frau' if frau else 'mann', json.dumps(mk))
         knochen_formen(arm, netze, e)
         m = messen(arm, netze)
         f = h_soll / m['h']   # nach dem Skalieren gelten die Anteile weiter, die Schulter waechst mit f
@@ -206,6 +266,7 @@ def baue(volk, frau):
         if runde == 6:   # nicht eingelaufen: die beste Runde neu bauen
             e = beste[1]
             arm, netze, alle = laden(z['koerper'], frau)
+            mk = merkmale(volk, arm, netze, alle)
             knochen_formen(arm, netze, e)
             m = messen(arm, netze)
             print('BESTE %s %s: Abweichung %.3f' % (volk, 'frau' if frau else 'mann', beste[0]))
@@ -239,7 +300,9 @@ def baue(volk, frau):
          'schulter_rel_gegen_mensch': round(m2['schulter_rel'] / ms['schulter_rel'], 3) if ms else 1.0,
          'becken_m': round(arm.data.bones['pelvis'].head_local.z, 4),
          'ziel': {k: (round(v, 4) if isinstance(v, float) else v) for k, v in z.items()},
-         'einstellung': {k: round(v, 3) for k, v in e.items()}}
+         'einstellung': {k: round(v, 3) for k, v in e.items()}, 'merkmale': mk,
+         # 431 Runde 4: Kopf gegen den Kaufkopf (Knochen „Head“ e['kopf'], dann das Ganze auf die Groesse): Haare in Godot mitwachsen
+         'kopf_skala': round(e['kopf'] * h_soll / m['h'], 4)}
     print('VOLK', json.dumps(r, ensure_ascii=False))
     return r, m2
 

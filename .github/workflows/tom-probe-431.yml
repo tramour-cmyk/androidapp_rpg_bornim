@@ -4,17 +4,18 @@ name: Tom Probe Voelker (431)
 # je Volk (voelker.py) im Spiel gefilmt (figurenprobe --teil=voelker, voelkerprobe.gd), Zahlen dazu (voelker_film.py). Kaufmodelle nur
 # ueber diesen Ablauf, nie in eine Sitzung (416.4a); ins Artefakt nur Film, Masse, Protokolle (348.12c a). Nur bei Commits, die mit
 # „431“ beginnen, oder von Hand. Dritter Lauf freigegeben (431a, Chef 01.11., 12:56: danach Film an den Chef, egal wie er ausfällt).
+# Runde 4 (Chef 01.11., 20:3x; 431b 02.11., 11:17): Merkmale (merkmale.py), Haltung, Hautfarbe, Zwerghaar, Familie neben Goblin und Grak.
 on:
   push:
     branches: ["claude/tom-431-**"]
-    paths: ["godot/skripte/voelkerprobe.gd", "tools/blender348/v3/voelker.py", "tools/blender348/v3/voelker_film.py", ".github/workflows/tom-probe-431.yml"]
+    paths: ["godot/skripte/voelkerprobe.gd", "tools/blender348/v3/voelker.py", "tools/blender348/v3/merkmale.py", "tools/blender348/v3/voelker_film.py", ".github/workflows/tom-probe-431.yml"]
   workflow_dispatch:
 
 jobs:
   probe:
     if: github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, '431')
     runs-on: ubuntu-24.04
-    timeout-minutes: 60
+    timeout-minutes: 90
     env:
       GODOT: "4.7.2"
     steps:
@@ -82,13 +83,19 @@ jobs:
           OUT=$RUNNER_TEMP/out ZIEL=$RUNNER_TEMP/klassen Q=~/cc0 KLASSEN=FIGHTER bl/bin/python -I tools/blender348/v3/held_klassen.py > klassen.log 2>&1 || { tail -40 klassen.log; exit 1; }
           D=godot/daten
           for f in $RUNNER_TEMP/klassen/held_*.glb; do cp $f $D/$(basename $f .glb).bin; done
-          cp $RUNNER_TEMP/klassen/haare.glb $D/haare.bin && cp $RUNNER_TEMP/klassen/bewegungen.glb $D/bewegungen.bin && cp $RUNNER_TEMP/klassen/held-klassen.json $D/
+          cp $RUNNER_TEMP/klassen/haare.glb $D/haare.bin && cp $RUNNER_TEMP/klassen/haare_w.glb $D/haare_w.bin && cp $RUNNER_TEMP/klassen/bewegungen.glb $D/bewegungen.bin && cp $RUNNER_TEMP/klassen/held-klassen.json $D/
           mkdir -p $GITHUB_WORKSPACE/probe
           V=$RUNNER_TEMP/voelker; echo "VOELKER=$V" >> $GITHUB_ENV
           Q=~/cc0 ZIEL=$V timeout 1800 bl/bin/python -I tools/blender348/v3/voelker.py > $GITHUB_WORKSPACE/probe/voelker.log 2>&1 || { tail -40 $GITHUB_WORKSPACE/probe/voelker.log; exit 1; }
           grep -E "^(RUNDE|BESTE|VOELKER)" $GITHUB_WORKSPACE/probe/voelker.log | cut -c1-200
+          grep -E "^MERKMALE" $GITHUB_WORKSPACE/probe/voelker.log | cut -c1-900
+          grep -E "^KNIE" $GITHUB_WORKSPACE/probe/voelker.log | sort | uniq -c | sort -rn | head -8 | cut -c1-200
           cp $V/voelker.json $GITHUB_WORKSPACE/probe/
           { ART=goblin KIT=leder V3=tools/blender348/v3_kampf timeout 900 bl/bin/python -I tools/blender348/goblin.py > goblin.log 2>&1 && cp $OUT/goblin-leder.glb $V/goblin.glb; } || { echo "ohne Goblin"; tail -15 goblin.log; }
+          # 431b: Grak daneben (grak_gestalt.py wie godot-kampf.yml; Axt aus waffen.py); fehlt etwas, ohne Grak
+          { OUT=$RUNNER_TEMP/out timeout 600 bl/bin/python -I tools/blender348/waffen.py > waffen.log 2>&1 && \
+            OUT=$RUNNER_TEMP/grak CC0=$HOME/cc0 WAFFEN=$RUNNER_TEMP/out timeout 1500 bl/bin/python -I tools/blender348/grak_gestalt.py > grak.log 2>&1 && \
+            cp $RUNNER_TEMP/grak/grak-gestalt.glb $V/grak.glb; } || { echo "ohne Grak"; tail -15 waffen.log grak.log 2>/dev/null; }
           echo "Ohren, Hauer im Bestand (408):"; find $KAUF ~/cc0 \( -iname '*ear*' -o -iname '*tusk*' -o -iname '*fang*' \) -not -iname '*year*' -not -iname '*gear*' -not -iname '*wear*' 2>/dev/null | grep -v '\.png$' | head -20 || true
           ls -l $V
       - uses: actions/cache@v4
@@ -111,7 +118,7 @@ jobs:
           timeout 300 ~/godot/godot --headless --import --path . > import.log 2>&1 || true
           timeout 2400 xvfb-run -a -s "-screen 0 1920x1080x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x720 \
             -- --figuren=$A --teil=voelker > $GITHUB_WORKSPACE/probe/probe.log 2>&1 || true
-          grep -E "^(VOLK|TEIL|FEHLT)|SCRIPT ERROR|^ +at: " $GITHUB_WORKSPACE/probe/probe.log | cut -c1-300 | head -60
+          grep -E "^(VOLK|TEIL|FEHLT|HAUER|ZWERGHAAR)|SCRIPT ERROR|^ +at: " $GITHUB_WORKSPACE/probe/probe.log | cut -c1-300 | head -60
           cp $A/probe.txt $A/voelker/lage.json $GITHUB_WORKSPACE/probe/ 2>/dev/null || true
           cd $GITHUB_WORKSPACE
           bl/bin/python -I tools/blender348/v3/voelker_film.py $A/voelker godot/kampf/schrift/alegreya_regular.ttf $RUNNER_TEMP/seiten

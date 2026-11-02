@@ -7,6 +7,36 @@ extends RefCounted
 #   <ausgabe>/voelker/<teil>/<nnnn>.png; Teile: maenner, frauen (12 s, eine Umdrehung), huegel (Mensch, Huegelvolk Mann und Frau,
 #   Goblin; 8 s), riss_vorn, riss_seite (Schattenriss der Maenner, je 3 s); <ausgabe>/voelker/lage.json: Bildmitte jeder Figur
 const REIHE := ["Mensch", "Elf", "Zwerg", "Hügelvolk", "Orkblütiger"]
+# 431 Runde 4 (Chef 01.11., 20:3x, Archiv 431): Hautfarbe je Volk wie der Held (HeldFigur.toene, Appearance.kt), Haltung (430 Punkt 5),
+# Bart und Zoepfe des Zwergs (Haare aus held_klassen.py, an den groesseren Kopf), Familie neben Goblin und Grak (431b, 02.11., 11:17)
+const VOLK_ENUM := {"Mensch": "HUMAN", "Elf": "ELF", "Zwerg": "DWARF", "Hügelvolk": "HALFLING", "Orkblütiger": "HALF_ORC"}
+const ZAHN := Color(0.80, 0.74, 0.58)   # merkmale.py ZAHN (vergilbter Knochen)
+# Haltung je Volk: (Knochen, Achse im Raum der Figur, Grad); die Figur blickt +Z. Seite „±“: Vorzeichen nach der Seite des Knochens
+#   Zwerg „breitbeinig, standfest, Gewicht tief“: Oberschenkel 5 Grad hinaus, Fuss zurueck (Sohle flach)
+#   Orkbluetiger „Schultern leicht vorgeschoben“: Schluesselbeine 9 Grad vor, Brust 3 Grad vor (der Kopf hebt sich, KopfHeben)
+#   Huegelvolk „aufrecht, locker, nie geduckt“, Elf „aufrecht, Kopf hoch“: Brust 3 Grad zurueck
+const HALTUNG := {
+	"Zwerg": [["thigh_l", Vector3.BACK, 5.0, true], ["thigh_r", Vector3.BACK, 5.0, true], ["foot_l", Vector3.BACK, -5.0, true], ["foot_r", Vector3.BACK, -5.0, true]],
+	"Orkblütiger": [["spine_03", Vector3.RIGHT, 3.0, false], ["clavicle_l", Vector3.UP, -9.0, true], ["clavicle_r", Vector3.UP, -9.0, true]],
+	"Hügelvolk": [["spine_02", Vector3.RIGHT, -3.0, false]],
+	"Elf": [["spine_02", Vector3.RIGHT, -3.0, false]],
+}
+
+class Haltung extends SkeletonModifier3D:
+	var liste: Array = []
+	func _process_modification() -> void:
+		var sk := get_skeleton()
+		for e in liste:
+			var i := sk.find_bone(String(e[0]))
+			if i < 0: continue
+			var g := sk.get_bone_global_pose(i)
+			var grad: float = e[2]
+			# Seite: links (+X) und rechts gegengleich, damit beide hinaus bzw. beide vor gehen
+			if e[3]: grad *= signf(sk.get_bone_global_rest(i).origin.x) if absf(sk.get_bone_global_rest(i).origin.x) > 0.001 else 1.0
+			var neu := Basis(e[1], deg_to_rad(grad)) * g.basis.orthonormalized()
+			var pi := sk.get_bone_parent(i)
+			var pg := sk.get_bone_global_pose(pi) if pi >= 0 else Transform3D()
+			sk.set_bone_pose_rotation(i, (pg.basis.orthonormalized().inverse() * neu).get_rotation_quaternion())
 const FPS := 30.0
 const ABSTAND := 0.85      # m zwischen den Figuren einer Reihe
 const BREITE := 4.4        # m Bildbreite (Kamera.zoom), 5 Figuren
@@ -33,6 +63,7 @@ func film() -> void:
 	_reihe("frauen", REIHE.map(func(v): return v + "/frau"), ort + Vector3(-4, 0, 0))
 	_reihe("huegel", ["Mensch/mann", "Hügelvolk/mann", "Hügelvolk/frau", "goblin"], ort + Vector3(3, 0, 0))
 	_reihe("riss", REIHE.map(func(v): return v + "/mann"), ort + Vector3(10, 0, 0))
+	_reihe("familie", ["Elf/mann", "Hügelvolk/mann", "Orkblütiger/mann", "goblin", "grak"], ort + Vector3(17, 0, 0))
 	var schwarz := StandardMaterial3D.new()
 	schwarz.albedo_color = Color.BLACK
 	schwarz.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
@@ -43,6 +74,7 @@ func film() -> void:
 	await fp.get_tree().create_timer(1.0).timeout
 	await _laufen(["maenner", "frauen"], 12.0, true)
 	await _laufen(["huegel"], 8.0, true)
+	await _laufen(["familie"], 8.0, true)
 	await _laufen(["riss"], 3.0, false, "riss_vorn")
 	for f in reihen["riss"][1]: (f as Node3D).rotation_degrees.y = 90.0
 	await _laufen(["riss"], 3.0, false, "riss_seite")
@@ -61,14 +93,16 @@ func _reihe(teil: String, keys: Array, x0: Vector3) -> void:
 		w.position = x0 + Vector3(i * ABSTAND, 0, 0)
 		var m: Node3D
 		var e: Dictionary = daten.get(keys[i], {})
-		if keys[i] == "goblin":
-			if not FileAccess.file_exists(dir.path_join("goblin.glb")): w.free(); continue
-			m = Gebiet.lade_glb(dir.path_join("goblin.glb"))
+		if keys[i] in ["goblin", "grak"]:
+			if not FileAccess.file_exists(dir.path_join(keys[i] + ".glb")): w.free(); fp.protokoll.append("FEHLT " + keys[i]); continue
+			m = Gebiet.lade_glb(dir.path_join(keys[i] + ".glb"))
 			Gebiet.male(m, null, 2, [])
 			w.add_child(m)
 			var gap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
-			if gap and not gap.get_animation_list().is_empty(): gap.play(gap.get_animation_list()[0])
-			e = {"volk": "Goblin", "datei": "goblin.glb"}
+			if gap and not gap.get_animation_list().is_empty():
+				var l := gap.get_animation_list()
+				gap.play("Stehen" if l.has("Stehen") else l[0])
+			e = {"volk": "Goblin" if keys[i] == "goblin" else "Grak", "datei": keys[i] + ".glb"}
 		else:
 			if e.is_empty(): w.free(); fp.protokoll.append("FEHLT " + keys[i]); continue
 			m = Gebiet.lade_glb(dir.path_join(String(e["datei"])))
@@ -81,12 +115,77 @@ func _reihe(teil: String, keys: Array, x0: Vector3) -> void:
 			var f := HeldFigur.bewegungen(m, sk)
 			var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
 			ap.play("Stehen")
+			var volk := String(e["volk"])
+			var g := "w" if e["frau"] else "m"
+			HeldFigur.toene(m, {"haut": 0, "haarfarbe": 0, "geschlecht": g}, String(VOLK_ENUM.get(volk, "HUMAN")))
+			_zahn(m)
+			if HALTUNG.has(volk):
+				var hm := Haltung.new()
+				hm.liste = HALTUNG[volk]
+				sk.add_child(hm)
+				sk.move_child(hm, 0)   # vor KopfHeben: der Kopf hebt sich danach auf die neue Brust
+			if volk == "Zwerg": _zwerghaar(m, sk, e, g, mats)
 			var soll: float = float(e["ziel"]["h"]) * (0.93 if e["frau"] else 1.0)
 			_ziel_linie(w, soll)
 			fp.protokoll.append("VOLK %s %s: Becken-Faktor %.3f, Hoehe %.3f m" % [teil, keys[i], f, float(e["groesse_m"])])
 		figs.append(w)
 		eintraege.append(e)
 	reihen[teil] = [marker, figs, eintraege]
+
+
+# Hauer (merkmale.py, Material „Hauer“ ohne Bild): Farbe ueber die Toenung des Toon-Shaders (toen_hell 0: Faktor)
+func _zahn(m: Node3D) -> void:
+	for mi in m.find_children("*", "MeshInstance3D", true, false):
+		var me := (mi as MeshInstance3D).mesh
+		for i in me.get_surface_count():
+			var src := me.surface_get_material(i)
+			if src == null or not String(src.resource_name).begins_with("Hauer"): continue
+			var sm := (mi as MeshInstance3D).get_surface_override_material(i) as ShaderMaterial
+			if sm == null: continue
+			var l := ZAHN.srgb_to_linear()
+			sm.set_shader_parameter("toenung", Vector3(l.r, l.g, l.b))
+			fp.protokoll.append("HAUER %s getoent" % mi.name)
+
+
+# Zwerg (430 Punkt 3): Mann voller Bart bis aufs Brustbein, Frau zwei Zoepfe. Aus den Haaren des Helden (held_klassen.py, haare.bin,
+# haare_w.bin) der laengste Bart bzw. die Frisur mit den tiefsten Strähnen; der Zwergkopf ist groesser (voelker.py kopf_skala gegen
+# den Menschen), darum am Kopfknochen um dessen Ursprung vergroessert statt nur verschoben (HeldFigur.haare)
+func _zwerghaar(m: Node3D, sk: Skeleton3D, e: Dictionary, g: String, mats: Array) -> void:
+	var datei := "res://daten/haare.bin" if g == "m" else "res://daten/haare_w.bin"
+	if not FileAccess.file_exists(datei): fp.protokoll.append("FEHLT " + datei); return
+	var hs := Gebiet.lade_glb(datei)
+	var gi := HeldFigur.geschlecht_info(g)
+	var namen: Array = gi.get("baerte", []) if g == "m" else gi.get("haare", [])
+	var best := ""
+	var tief := 9.0
+	var zoepfe := namen.filter(func(n): return String(n).to_lower().contains("braid") or String(n).to_lower().contains("pigtail"))
+	for n in (zoepfe if g == "w" and not zoepfe.is_empty() else namen):
+		var q := hs.find_child(String(n), true, false) as MeshInstance3D
+		if q == null: continue
+		var bb := HeldFigur.im_raum(hs, q) * q.mesh.get_aabb()
+		if bb.position.y < tief: tief = bb.position.y; best = String(n)
+	if best == "": fp.protokoll.append("FEHLT Haar Zwerg " + g); return
+	var ref: Array = gi.get("kopf", [0, 0, 0])
+	var kb := sk.find_bone("Head")
+	var ruhe := HeldFigur.im_raum(m, sk) * sk.get_bone_global_rest(kb)
+	var mensch: Dictionary = daten.get("Mensch/" + ("frau" if e["frau"] else "mann"), {})
+	var s := float(e.get("kopf_skala", 1.0)) / maxf(float(mensch.get("kopf_skala", 1.0)), 0.01)
+	var q := hs.find_child(best, true, false) as MeshInstance3D
+	var ba := BoneAttachment3D.new()
+	ba.bone_name = "Head"
+	sk.add_child(ba)
+	var mi := MeshInstance3D.new()
+	mi.name = best
+	mi.mesh = q.mesh
+	var p_ref := Vector3(ref[0], ref[1], ref[2])
+	mi.transform = ruhe.affine_inverse() * Transform3D(Basis().scaled(Vector3.ONE * s), ruhe.origin - s * p_ref) * HeldFigur.im_raum(hs, q)
+	ba.add_child(mi)
+	var hm := []
+	Gebiet.male(mi, null, 2, hm)
+	for x in hm: (x as ShaderMaterial).set_shader_parameter("fill", 0.42)
+	mats.append_array(hm)
+	HeldFigur.toene(m, {"haut": 0, "haarfarbe": 0, "geschlecht": g}, "DWARF")
+	fp.protokoll.append("ZWERGHAAR %s %s Faktor %.3f, tiefster Punkt %.3f m, Auswahl %s" % [g, best, s, tief, str(zoepfe if g == "w" else namen)])
 
 
 # Goldstrich in Homers Groesse hinter der Figur (dreht nicht mit)

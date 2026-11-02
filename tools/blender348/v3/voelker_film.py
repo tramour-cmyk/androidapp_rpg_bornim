@@ -1,4 +1,4 @@
-# 431 Runde 3: Bilder aus voelkerprobe.gd zum Film zusammensetzen (Hochformat 1080 breit): Titel, Bild, darunter je Figur die Zahlen aus
+# 431 Runde 3 und 4: Bilder aus voelkerprobe.gd zum Film zusammensetzen (Hochformat 1080 breit): Titel, Bild, darunter je Figur die Zahlen aus
 # voelker.json gegen Homers Ziel (430). Aufruf: python voelker_film.py <ausgabe/voelker> <schrift.ttf> <ziel-ordner>  ->  <ziel>/%04d.png
 import json, os, sys
 from PIL import Image, ImageDraw, ImageFont
@@ -17,7 +17,7 @@ def k(x, n=2):
 
 
 def zahlen(e):
-    if e.get('volk') == 'Goblin': return ['Goblin', '(Jerry)']
+    if e.get('volk') in ('Goblin', 'Grak'): return [e['volk'], '(Jerry)']
     z = e['ziel']
     t = [e['volk'], '%d cm' % round(e['groesse_m'] * 100)]
     t.append('Kopf 1/%s' % k(e['kopf_1_durch'], 1) + (' (%s)' % k(1 / z['kopf'], 1) if 'kopf' in z else ''))
@@ -75,14 +75,17 @@ def raus(c):
         n = Image.new('RGB', GROESSE, GRUND); n.paste(c, (0, 0)); c = n
     c.save(os.path.join(ZIEL, '%04d.png' % nr)); nr += 1
 
-T1 = ('431 · Völker Runde 3: Grundkörper je Volk im Spiel (Licht, Tusche), Ork auf Superheld, übrige Regulär; in Klammern Homers Ziel; '
-      'Schulter gegen den Menschen, * im Verhältnis zur Größe; Goldstrich = Größe')
+T1 = ('431 · Völker Runde 4: Ohren, Hauer, Hautfarbe, Haltung, Bart und Zöpfe des Zwergs, im Spiel (Licht, Tusche); in Klammern '
+      'Homers Ziel; Schulter gegen den Menschen, * im Verhältnis zur Größe; Goldstrich = Größe')
 m, w = bilder('maenner'), bilder('frauen')
 for a, b in zip(m, w):
     raus(seite(T1, [feld(Image.open(a).convert('RGB'), 'maenner', 'Männer'), feld(Image.open(b).convert('RGB'), 'frauen', 'Frauen (7 % kleiner)')]))
-T2 = '431 · Hügelvolk neben Goblin (Verwechslung bei gleicher Größe: Kopf, Haltung; Haut noch ungetönt), Mensch als Maßstab'
+T2 = '431 · Hügelvolk neben Goblin (Verwechslung bei gleicher Größe: Kopf, Haltung, Haut), Mensch als Maßstab'
 for a in bilder('huegel'):
     raus(seite(T2, [feld(Image.open(a).convert('RGB'), 'huegel', 'Hügelvolk und Goblin')]))
+T4 = '431b · Ohren und Hauer als ein Teil: Elf, Hügelvolk, Orkblütiger neben Goblin und Grak (Jerry)'
+for a in bilder('familie'):
+    raus(seite(T4, [feld(Image.open(a).convert('RGB'), 'familie', 'Familie und Unterschied')]))
 T3 = '431 · Schattenriss ohne Ausrüstung (Homer: „am Schattenriss erkennbar, welches Volk“): oben von vorn, unten von der Seite'
 for a, b in zip(bilder('riss_vorn'), bilder('riss_seite')):
     raus(seite(T3, [feld(Image.open(a).convert('RGB'), 'riss_vorn', 'von vorn'), feld(Image.open(b).convert('RGB'), 'riss_seite', 'von der Seite')]))
