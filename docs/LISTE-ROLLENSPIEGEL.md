@@ -147,3 +147,17 @@ Hinweis: Die Abschnitte der anderen sah ich beim Öffnen der Datei vor dem Antwo
 8. Am meisten gekostet bei wenig Nutzen: die Wochenzählung 02.11. (eine Sitzung, viele Zahlen „fehlt“ oder ohne Folge); laut Wochenzählung Diogenes 121 $ (3 %) in der Woche.
 9. Unklar: „Ein Lauf je Sitzung“ gegen Doppelpacks (heute Läufe 61–63 in einer Sitzung). Fehlt: Telegram ohne Abkürzungen (jetzt 484 bei Perikles); streichen: die ruhende Zeile 186.3 (seit 20.10. ohne Bögen).
 10. Ernste Ansage: meine Befunde halten, aber ich zähle Abläufe, statt das Spiel zu prüfen, und zwei Fehler in meinem eigenen Bereich fand diese Woche der Chef. Schritte: (a) Wochenzählung zählt fällige Wochentermine (Rollenspiegel, 371, 374) mit „gelaufen ja/nein“; (b) 348.9: Blätter selbst aus `meldungen.tsv` holen und messen; (c) jede Meldung vor dem Senden auf Abkürzungen und Lesbarkeit durch den Chef prüfen.
+
+### Team Tom (02.11., 19:35, Sitzung „Tom – 417: Tragart Rennclips (02.11., 18:01)“)
+
+0. Angekündigt war 417 bis zum Film nach Paketen (Wochenziel 461.1). Geschehen ist das nur halb: Es gab vier Filme 417 (02.11., 00:53, 02:24, 03:39, Vergleich 19:0x), aber 461.1 wartet weiter auf 417 und 416.4.
+1. Nur halb erfüllt habe ich „Prüftreppe, niedrigste Stufe“: Für 417 lief erneut ein 3×2-Probenraster, obwohl der Chef im Dorf-Film (14:36) schon ein gutes Bild hatte. Dazu „nie Uhrzeit schätzen“: Eine Meldung trug 19:22, die Uhr zeigte 19:10.
+2. Etwa 75 % Chef (417, 431, Rückfrage 417a), 15 % Betrieb (Vorrat, Meldungen, Weckrufe), 10 % andere (Grundstand 461 mit Jerry). Der Anteil ist richtig, aber der Chef-Anteil ging zu sehr in Probenzwischenstände statt in Spielbau.
+3. Kennzahl Rückläufer: 417 kam diese Woche fünfmal zurück (R2 bis R5, Film 03:39), dazu 19:03 „warum wird hier so viel Energie verschwendet“. Ziel: höchstens zwei Runden je Aussehensfrage bis „passt“, gezählt von Diogenes aus dem Vorgangsarchiv.
+4. Vorgelegt habe ich 417a (zwei Wege, Votum, Gegenargument, Prüferbefund). Fremd geprüft war sie vor dem Versand nicht; der Prüferbefund kam danach als Nachtrag.
+5. Zurückweisen würde der Chef, dass die Messung „Schwert frei, 3,3 cm“ seit drei Filmen dem Prüfer widerspricht („Klinge durch den Kopf“, Prüfer 19:1x), ohne dass ich es mit einem Bild von der anderen Seite geklärt habe.
+6. Nicht gemeldet habe ich: Vorräte BETRIEB 23 KB, TOM 23 KB, LISTE-VORGAENGE 27 KB (notiz.sh-Warnung). Ich sah es beim Start und habe es übergangen, weil es nicht mein Vorgang war.
+7. Auf mich warten 461.1 (Grundstand, Jerry) und der Chef auf ein Rennen ohne Probenraster; ich warte auf 417a. Verkürzt hätte es, die 19:03-Lage (Dorf-Film gut) schon um 14:36 als Maßstab zu nehmen.
+8. Am meisten gekostet bei wenig Ertrag: der Vergleichsfilm 3×2 (Lauf 41488712114, etwa 50 Minuten Läufer, nicht versandt), weil die Frage auch mit dem Dorf-Film und einer Rückfrage zu klären war.
+9. Unklar war, ob Sokrates’ Wiedergabe „Kleriker als Vorlage“ Schild auf dem Rücken oder am Arm meint (darum 417a). Streichen würde ich nichts; fehlt: vor jeder neuen Probe die Prüffrage „gibt es schon ein Bild, das der Chef gut fand?“
+10. Ernste Ansage: Ich messe viel und baue sauber, aber gegen die Frage des Chefs vorbei, und 417 kostet über 180 $. Schritte: (a) je Aussehensfrage zuerst das vorhandene gute Bild als Maßstab, dann nur die Abweichung; (b) Widerspruch Messung–Prüfer immer mit einem Bild aus der fraglichen Richtung klären, bevor ich die Messung nenne; (c) Zeit nur aus der Uhr-Zeile.
