@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [415c](entscheiden/415c-strahlen-vierter-lauf.md) | **Muss** | C Kampf | 02.11., 18:41 | Strahlenprobe: Film wieder angehalten, Film trotzdem oder zwei neue Läufe? | Jerry |
 | [453b](entscheiden/453b-wolfatem-film-angehalten.md) | **Muss** | E Kampf | 02.11., 16:10 | Wolfsatem B: Film am Tor angehalten, neue Läufe frei? | Jerry |
 | [463a](entscheiden/463a-tracht-angehalten.md) | **Muss** | E Figuren | 02.11., 16:06 | Umhang durchgängig: Film am Tor angehalten, neue Läufe frei? | Tom |
 | [427](entscheiden/427-monsterwerte.md) | **Muss** | E Kampf | 02.11., 15:12 | Monsterwerte Kapitel 1: neue Startwerte nach Messung? | Sokrates |
@@ -105,7 +106,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 
-**Jerry** – offen 55, Muss 42, startbar 3
+**Jerry** – offen 56, Muss 43, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -126,6 +127,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 440 | M | von Sokrates (Chef 31.10., 23:34, Film 403): Wolf-Tod zu schnell weg (Zu 438) | wartet auf Test/Build (gebaut) |
 | 416.6 | K | von Sokrates (Chef 31.10., 20:4x): Spuren des Helden fehlen (core/Tracks.kt, LISTE-UMZUG-3 | startbar |
 | 415 | M | von Sokrates („jetzt“ 01.11., 20:0x; Archiv 415): Probe Beams Free Sample im Kampfort (Fil | startbar |
+| 415c | M | Rückfrage: Film trotzdem oder zwei neue Läufe? | Chef (Datei in der Chefsache) |
 | 399.2 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv): Kampfort aufrufbar | wartet auf Test (Build) |
 | 403 | M | von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler): Kampfort: Held | wartet auf Test/Build (gebaut) |
 | 461.1 | M | von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461): Grundstand mit Tom: Kampfort, Wölfe, Hel | wartet auf 406 (zu testen) |

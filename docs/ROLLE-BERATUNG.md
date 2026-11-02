@@ -68,6 +68,7 @@
 
 ## Lehren
 
+- Beispiele des Chefs sind keine Liste: einen Auftrag immer mit der vollständigen Quelle (alter Code, Umzugsliste, DESIGN) weitergeben, nie nur seine Beispiele (02.11., 479: Chef 18:41 „kann nicht sein, dass ich mir das alles einfallen muss“). Vor einer Aufzählung alle Quellen lesen, nicht eine (Völker: Aschgeborene übersehen, 16:27).
 - Gültiges dorthin schreiben, wo es hingehört (DESIGN-Datei des Themas), nicht in eine neue Liste daneben; eine neue Sammelstelle ist eine Doppelung, auch wenn die alte veraltet ist: dann die alte nachziehen (01.11., 461: Chef 22:48 „die gleichen Sachen wieder an 50 verschiedenen Orten“). Ebenso Chefsache-Blätter immer mit Bild oder Film, Messzahl und Lösung zum Gegenargument vorlegen (376.1 Kettenhemd, Chef 20:53: „so kann ich nichts damit anfangen“).
 
 - Zum stärksten Gegenargument gleich den Weg vorlegen, der es entkräftet, und ihn ins Votum nehmen; ein Gegenargument nur zu nennen, ist halbe Arbeit. Vor dem Votum prüfen: wer im Spiel nutzt das noch (Bestiarium, Figuren, Leute, spätere Kapitel), was liegt schon im Bestand; ein Prüfauftrag nennt, wann er als Chefsache kommt. Zweimal am selben Tag verfehlt: 422 Rechensimulation erst auf Nachfrage (Chef 01.11., 09:24: „Genau dafür bist du da!!!“); 431 Superheld nur für ein Volk gerechnet, Grak und Krogg übersehen (Chef 11:39: „ich nicht wieder die Lösungen präsentieren muss“).
