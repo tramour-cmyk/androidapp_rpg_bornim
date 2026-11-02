@@ -16,7 +16,7 @@ Ein Build, den der Chef beim ersten Test durchwinkt, mit einer Prüfliste, die n
 
 ## Dein typischer Fehler
 
-Fertig melden, ohne selbst hingesehen zu haben. „Test grün“ ist nicht fertig; fertig ist, was du im Standbild oder Film gesehen und gegen „Ort fertig“ (`DESIGN-ABNAHME.md`), `DESIGN-STIL.md` und bei Figuren, Bewegung, Kampfort gegen „Vor jeder Vorlage“ (`DESIGN-ABNAHME.md`, 461) geprüft hast (Chef 09:17: „Schaut denn keiner mehr auf das, was er vorlegt?“). Bild und Film gehen dann sofort an den Chef; ein fremder Helfer hält sie nicht auf, außer bei einem Verstoß gegen einen Punkt mit „Prüfer: ja“ (Tor 461a), sein übriger Befund kommt höchstens danach als Text (396, Chef 28.10., 11:01: „wenn er doch fertig ist, … schickt's mir doch dann einfach“; Prüftreppe 4 in `LISTE-BAUEN-TESTEN.md`). Verwandt: mehr bauen als bestellt (114: Idee des Chefs gleich gebaut; eine Idee heißt prüfen, 115).
+Fertig melden, ohne selbst hingesehen zu haben. „Test grün“ ist nicht fertig; fertig ist, was du im Standbild oder Film gesehen und gegen „Ort fertig“ (`DESIGN-ABNAHME.md`), `DESIGN-STIL.md` und bei Figuren, Bewegung, Kampfort gegen „Vor jeder Vorlage“ (`DESIGN-ABNAHME.md`, 461) geprüft hast (Chef 09:17: „Schaut denn keiner mehr auf das, was er vorlegt?“). Bild und Film gehen dann sofort an den Chef; ein fremder Helfer hält sie nicht auf, außer beim ersten Lauf mit einem Verstoß gegen einen Punkt mit „Prüfer: ja“ (461a, 480), sein übriger Befund kommt höchstens danach als Text (396, Chef 28.10., 11:01: „wenn er doch fertig ist, … schickt's mir doch dann einfach“; Prüftreppe 4 in `LISTE-BAUEN-TESTEN.md`). Verwandt: mehr bauen als bestellt (114: Idee des Chefs gleich gebaut; eine Idee heißt prüfen, 115).
 
 ## Was du tust
 

@@ -356,3 +356,93 @@ Fortschritt wie Abschnitt 1, aber mit 21 Punkten (Entscheidung 77), Gold und Beu
 | Wanderer | kämpft | 4,5 | 2,8 | 3,1 | 0,0 | 3,3 | 0 | 0 | 4 | 11,1 | – | – |
 | Wanderer | beruhigt | 4,5 | 2,6 | 3,3 | 0,0 | 3,1 | 0 | 0 | 3 | 9,6 | 1,8 (42) | 1 |
 
+
+## 6. Tränke im Bosskampf (481.1)
+
+Jerry, 02.11.; Werkzeug auf Zweig `claude/jerry-481-1-traenke` (4bb60ba5e), nur dieser Teil: `python3 tools/sim444/sim.py --nur-traenke`; Werte heute (`werte.json` mit Merkmalen 427.1), daher andere Bosszahlen als Abschnitt 2 oben.
+
+**Befund (nur Zahlen, Einstellen bei Sokrates):**
+1. **Zwei Heiltränke (50 Gold) tragen am meisten:** Herkünfte ab 50 % Krogg 2 → 6, Grimmzahn 5 → 6, Grak 4 → 7, Krogg mit Rauch 5 → 7.
+2. **Kampftränke ohne Kräuterkunde schaden** (Wirkung 0,5, jeder Trank ein Zug): schlechter als nur Heiltränke, etwa Zauberlehrling gegen Grimmzahn 85 → 40 %.
+3. **Kräutersammler bleibt fast chancenlos:** ohne 0–2 %, Heil 3–14 %, Kampf 8–27 %. In der Simulation übt nichts seine Kräuterkunde (Sammeln nicht gerechnet), sie bleibt bei 10.
+4. **Erst Kräuterkunde 24 (Decke Kapitel 1) und viel Feuer bringen ihn zur Mitte:** 6 Alchemistenfeuer (230 Gold) 64 / 53 / 49 %, mit Rauch 81 % (6b); mit dem Satz wie oben nur 20–25 %.
+5. Klosterschüler (beginnt auch mit Kräuterkunde) gewinnt schon ohne Tränke 69–96 %.
+
+Offen: wie Kräuterkunde in Kapitel 1 steigt (Sammeln), Preise und Wirkung (alle A).
+
+Held auf der Stufe des Bosses, Fertigkeiten aus Abschnitt 1 (18 Punkte); je Fall 1000 Kämpfe; Sieg in %. „ohne“ wie Abschnitt 2; „Heil“: 2 Heiltränke; „Kampf“: dazu 1 Steinhaut, 1 Berserkertrank, 2 Alchemistenfeuer (Beutel 190 Gold), Wirkung nach Kräuterkunde wie gerechnet; „Kampf, KK 24“: nur wer mit Kräuterkunde beginnt, geübt bis zur Decke von Kapitel 1.
+
+- **Wirkung** = 0.5 + 0.05 × Kräuterkunde, höchstens 2.0 (ohne 0,5, Startwert 10 = 1, 24 = 1,7). Steinhaut: 2 Runden Schaden × (1 − 0.5 × Wirkung), bei 2 unverwundbar; Berserkertrank: 3 Angriffe mit Waffenschaden × (1 + 0.5 × Wirkung), nicht für Zauberer; Alchemistenfeuer: geworfen, Grundschaden 10 × Wirkung, Feuer. Jeder Trank kostet einen Zug. Alle Zahlen Annahmen (`werte.json` „kampftraenke“).
+
+**Krogg**
+
+| Herkunft | Kräuterkunde | ohne | Heil | Kampf | Kampf, KK 24 |
+|---|---|---|---|---|---|
+| Wachsoldat | 0 | **100** | **100** | **100** | – |
+| Jägerkind | 0 | 26 | **67** | **50** | – |
+| Zauberlehrling | 0 | 24 | **60** | 40 | – |
+| Klosterschüler | 10 | **91** | **96** | **96** | **98** |
+| Kräutersammler | 10 | 0 | 3 | 8 | 25 |
+| Schmiedelehrling | 0 | 14 | 47 | 34 | – |
+| Herumtreiber | 0 | 18 | **53** | 38 | – |
+| Wanderer | 0 | 39 | **72** | **63** | – |
+| ab 50 % | | 2 | 6 | 4 | |
+
+**Grimmzahn**
+
+| Herkunft | Kräuterkunde | ohne | Heil | Kampf | Kampf, KK 24 |
+|---|---|---|---|---|---|
+| Wachsoldat | 0 | **100** | **100** | **100** | – |
+| Jägerkind | 0 | **54** | **71** | **60** | – |
+| Zauberlehrling | 0 | **65** | **85** | 40 | – |
+| Klosterschüler | 10 | **69** | **80** | **78** | **84** |
+| Kräutersammler | 10 | 1 | 6 | 12 | 24 |
+| Schmiedelehrling | 0 | 29 | 49 | 35 | – |
+| Herumtreiber | 0 | 38 | **58** | 46 | – |
+| Wanderer | 0 | **59** | **75** | **65** | – |
+| ab 50 % | | 5 | 6 | 4 | |
+
+**Grak**
+
+| Herkunft | Kräuterkunde | ohne | Heil | Kampf | Kampf, KK 24 |
+|---|---|---|---|---|---|
+| Wachsoldat | 0 | **100** | **100** | **100** | – |
+| Jägerkind | 0 | 48 | **75** | **70** | – |
+| Zauberlehrling | 0 | **56** | **80** | **52** | – |
+| Klosterschüler | 10 | **87** | **93** | **96** | **96** |
+| Kräutersammler | 10 | 1 | 4 | 10 | 20 |
+| Schmiedelehrling | 0 | 27 | **52** | 48 | – |
+| Herumtreiber | 0 | 34 | **59** | **53** | – |
+| Wanderer | 0 | **60** | **80** | **74** | – |
+| ab 50 % | | 4 | 7 | 6 | |
+
+**Krogg mit Rauch**
+
+| Herkunft | Kräuterkunde | ohne | Heil | Kampf | Kampf, KK 24 |
+|---|---|---|---|---|---|
+| Wachsoldat | 0 | **100** | **100** | **100** | – |
+| Jägerkind | 0 | **64** | **90** | **84** | – |
+| Zauberlehrling | 0 | **72** | **93** | **75** | – |
+| Klosterschüler | 10 | **96** | **99** | **98** | **98** |
+| Kräutersammler | 10 | 2 | 14 | 27 | 47 |
+| Schmiedelehrling | 0 | 46 | **76** | **67** | – |
+| Herumtreiber | 0 | 46 | **77** | **69** | – |
+| Wanderer | 0 | **77** | **91** | **89** | – |
+| ab 50 % | | 5 | 7 | 7 | |
+
+### 6b. Kräutersammler mit anderem Beutel
+
+Sieg in %, je 2 Heiltränke dazu; Kräuterkunde gesetzt. Preis des Beutels in Gold.
+
+| Kräuterkunde | Beutel | Gold | Krogg | Grimmzahn | Grak | Krogg mit Rauch |
+|---|---|---|---|---|---|---|
+| 10 | Satz wie oben | 190 | 8 | 11 | 10 | 26 |
+| 10 | 2 Steinhaut, 1 Berserker, 4 Feuer | 290 | 8 | 8 | 7 | 27 |
+| 10 | 6 Feuer | 230 | 8 | 11 | 6 | 29 |
+| 24 | Satz wie oben | 190 | 20 | 24 | 22 | 47 |
+| 24 | 2 Steinhaut, 1 Berserker, 4 Feuer | 290 | 49 | 38 | 35 | **68** |
+| 24 | 6 Feuer | 230 | **64** | **53** | 49 | **81** |
+| 30 | Satz wie oben | 190 | 36 | 33 | 35 | **60** |
+| 30 | 2 Steinhaut, 1 Berserker, 4 Feuer | 290 | **69** | **54** | **55** | **79** |
+| 30 | 6 Feuer | 230 | **75** | **68** | **64** | **87** |
+
