@@ -46,7 +46,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 |---|---|---|---|
 | 466 | M? | von Sokrates (Chef 01.11., 21:13, Zu 466): neues Wort für „Handlung“ eines Pfads, dazu Nam | Chef (Datei in der Chefsache) |
 | 447.4 | M | von Perikles (Chef 01.11., Archiv 447): Texte für Stufe 3 der Abnahmeliste: Einladungen de | Chef |
-| 432 | K | von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt | nach dem Meilenstein |
+| 432 | K | von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt | ruht |
 | 432.3 | M? | von Sokrates (Chef 02.11., 16:29; „ja“ 16:35): Aschgeborene eintragen wie alle Völker: Abn | Chef (Datei in der Chefsache) |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
@@ -168,14 +168,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 469 | M | von Sokrates (02.11., 11:0x, zu 406.1): Kampf auf BRS: Ring (MARS) ohne Klassen regeln (An | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 
-**Perikles** – offen 34, Muss 28, startbar 4
+**Perikles** – offen 34, Muss 31, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 484 | M | von Diogenes (Chef 02.11., 19:27, Wortlaut Zu 484): keine Abkürzungen mehr in Telegram-Mel | wartet auf Test/Build (gebaut) |
-| D67.1 | M? | von Diogenes (Doppelpack 421, Lauf 65, 02.11., 20:0x): meldung.sh lässt „K1“, Kürzel vor B | startbar |
-| D68.1 | M? | von Diogenes (Doppelpack 421, Lauf 66, 02.11., 20:1x): probelauf.py erkennt nur den Kopf „ | startbar |
-| D68.2 | M? | von Diogenes (Lauf 66): Reste „Tor 461a“ in ROLLE-ENTWICKLUNG.md:19, LISTE-BAUEN-TESTEN.md | startbar |
+| D67.1 | M | von Diogenes (Doppelpack 421, Lauf 65, 02.11., 20:0x): meldung.sh lässt „K1“, Kürzel vor B | wartet auf Test/Build (gebaut) |
+| D68.1 | M | von Diogenes (Doppelpack 421, Lauf 66, 02.11., 20:1x): probelauf.py erkennt nur den Kopf „ | startbar |
+| D68.2 | M | von Diogenes (Lauf 66): Reste „Tor 461a“ in ROLLE-ENTWICKLUNG.md:19, LISTE-BAUEN-TESTEN.md | startbar |
 | 483 | M | von Sokrates (Chef 02.11., 19:21, „483 ja“, Archiv): Film-Links reparieren: jsDelivr liefe | wartet auf Test/Build (gebaut) |
 | 340.3 | M | von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv): A: notiz.sh-Hinweise (Größe, Zeilen | wartet auf Test/Build (gebaut) |
 | 340.4 | M | von Sokrates (Archiv 340.2): B: Pflichtzeile „Geprüft an: <Link auf Film, Bild oder Lauf>“ | wartet auf Test/Build (gebaut) |
@@ -207,10 +207,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | Pflege | K | von Werkzeug (340.3, 02.11.): 20750 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Diogenes** – offen 10, Muss 8, startbar 1
+**Diogenes** – offen 11, Muss 9, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| D67.1 | M | von Perikles (Doppelpack 421, 02.11., 19:5x, 05c8828c5): Nachprüfung D67.1 (meldung.sh Kür | startbar |
 | 340.4 | M | von Perikles (Doppelpack 421, 02.11., 19:5x, 6dc0d9880): „Geprüft an: <Link>“ Pflicht (Com | startbar |
 | 340.2 | M | von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv): Wirkung 340.3–340.5 zählen (Tabelle | ruht bis 09.11. |
 | 485 | M | „jetzt“ 02.11., 19:37 (Chef: „1, 2, 3 ja, fang an.“): (1) Wochentermine „gelaufen ja/nein“ | ruht bis 09.11. |
