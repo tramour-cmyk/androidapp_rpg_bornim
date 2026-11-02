@@ -22,6 +22,8 @@ var gehoben := {}            # Prüflauf: Seite -> m, um die die Hand im letzten
 var _arm: Array = []         # je Seite [Hand, Unterarm, Oberarm]
 var _spitzen: Array = []     # je Seite die Fingerglieder [vorletztes, letztes]
 var _mitte: Array = []       # je Seite der Mittelfingerknöchel
+var _finger: Array = []      # je Seite alle Fingerglieder (Knochen)
+var _griff: Array = [{}, {}] # je Seite Knochen -> Drehung im Kampf (die Faust um Griff oder Schildgriff), zuletzt außerhalb des Sturzes
 
 
 func _process_modification_with_delta(_delta: float) -> void:
@@ -30,6 +32,18 @@ func _process_modification_with_delta(_delta: float) -> void:
 		return
 	if _arm.is_empty() and not _knochen(sk):
 		return
+	# 438a Runde 3 (Prüfer Runde 2: liegend hält die Hand das Schwert nicht, offen; Kleriker legt die Hand flach auf den Stab;
+	# sturz_438a: Fingerspitzen beim Aufstehen bis 24 cm vom Griff, im Kampf 4 bis 8 cm): wer etwas hält, behält beim Hinfallen,
+	# Liegen und Aufstehen die Faust aus dem Kampf; der Satz öffnet sie, weil seine eigene Waffe anders sitzt
+	var sturz: bool = figur.sturz_jetzt()
+	for i in _arm.size():
+		if not figur.griff_ort.has("L" if i == 0 else "R"):
+			continue
+		for bi in _finger[i]:
+			if not sturz:
+				_griff[i][bi] = sk.get_bone_pose_rotation(bi)
+			elif _griff[i].has(bi):
+				sk.set_bone_pose_rotation(bi, _griff[i][bi])
 	var xs := sk.global_transform
 	var y0: float = figur.global_position.y + FREI
 	var beine := []
@@ -82,6 +96,13 @@ func _knochen(sk: Skeleton3D) -> bool:
 			return false
 		_arm.append(e)
 		_mitte.append(maxi(sk.find_bone("middle_01_" + s), e[0]))
+		var alle := []
+		for f in FINGER:
+			for n in ["01", "02", "03"]:
+				var fb := sk.find_bone("%s_%s_%s" % [f, n, s])
+				if fb >= 0:
+					alle.append(fb)
+		_finger.append(alle)
 		var sp := []
 		for f in FINGER:
 			var a := sk.find_bone("%s_02_%s" % [f, s])

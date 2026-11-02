@@ -809,7 +809,8 @@ func _umkreis(a: Vector3, b: Vector3, c: Vector3):
 ## Gilt in jeder Bewegung; im Stehen liegt nichts unter dem Boden, dann bleibt die Lage aus dem Griff unverändert.
 const BODEN_FREI := 0.01        # Abstand über dem Boden, m
 const BODEN_HEBEL := 0.06       # nur Ecken außerhalb der Faust drehen die Waffe (bodenhalt.gd FAUST; die Faust geht mit der Hand)
-const KAPSEL_FREI := {"R": 0.0, "L": 0.12}     # Abstand zu den Körperkapseln, m: der Schild als Fläche braucht mehr (Messung sturz_438a:
+const KAPSEL_FREI := {"R": 0.05, "L": 0.12}     # 438a Runde 3: R von 0 auf 5 cm (sturz_438a an Haut und Kleidung: Stab 4 bis 8 cm in
+# der Beinrüstung, Klinge bis 7 cm in Stiefel und Kleid; Rüstung und Stoff liegen bis 6 cm über den Kapseln)     # Abstand zu den Körperkapseln, m: der Schild als Fläche braucht mehr (Messung sturz_438a:
 # mit 0 ragten Kopf und Wade bis 9 cm durch den Schildrand, Haut und Kleidung liegen über den Kapseln)
 const STURZ_BEWEGUNG := ["SS_Death", "SS_GetBackUp"]
 const BODEN_ZUG := 0.17         # rad (10°) je Bild höchstens, solange nur der Körper drückt
@@ -901,7 +902,11 @@ func _boden_schutz() -> void:
 		var reich: float = t[6] * g.basis.get_scale().x
 		var nah := []     # nur Kapseln in Reichweite (billig je Bild), nur beim Hinfallen und Aufstehen (im Kampf hält der Satz selbst frei)
 		var sturz := sturz_jetzt()
-		for k in (kap if sturz or korrigiert else []):
+		# 438a Runde 3 (Prüfer Runde 2: Stab des Klerikers quer durch die Beine, auch in der Kampfhaltung; sturz_438a 4,3 cm in der
+		# Beinrüstung): der Satz führt ein Schwert, sein Griff hält einen Stab mittig, das hintere Ende geht durch die Beine; der Stab
+		# hält sich darum immer frei
+		var stab_frei: bool = t[5] == "R" and bool(w.get_meta("stab", false))
+		for k in (kap if sturz or korrigiert or stab_frei else []):
 			if not k[3] in ohne and griff.distance_to(Geometry3D.get_closest_point_to_segment(griff, k[0], k[1])) < reich + float(k[2]) + frei:
 				nah.append(k)
 		if nah.is_empty() and griff.y - reich >= y0:
@@ -918,8 +923,12 @@ func _boden_schutz() -> void:
 		var winkel := q0.angle_to(q1)
 		if winkel > BODEN_ZUG:
 			var gz := Transform3D(Basis(q0.slerp(q1, BODEN_ZUG / winkel)) * Basis.from_scale(g.basis.get_scale()), griff)
+			# 438a Runde 3 (sturz_438a: je Bild bis 34° gedreht, Prüfer „Schild klappt in 4 Bildern 90°“): tief im Körper höchstens
+			# doppelt so schnell, nie mehr in einem Bild herum; den Boden hält danach r2 hart
 			if _in_kapsel(gz, t, nah, griff) <= frei * 0.3:     # nur so weit langsam, wie der Körper nicht wirklich hineinragt
 				g = gz
+			elif winkel > 2.0 * BODEN_ZUG:
+				g = Transform3D(Basis(q0.slerp(q1, 2.0 * BODEN_ZUG / winkel)) * Basis.from_scale(g.basis.get_scale()), griff)
 		var r2: Array = _loesen(g, t, [], 0.0, y0, 16, 0)
 		g = r2[0]
 		w.transform = par.affine_inverse() * g if r1[1] or r2[1] else lokal
