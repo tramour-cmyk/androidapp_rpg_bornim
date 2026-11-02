@@ -1,23 +1,50 @@
 # 432.3 · Aschgeborene: Name des Merkmals, Aussehen, Text, Orte des Zeichens
 Homer · 02.11., 19:5x · C Texte
 
-**Frage:** Du hast 432.3 mit „ja“ entschieden (02.11., 16:35), den Namen des Merkmals und die Orte des Zeichens lege ich vor. Welcher Name, und passen Liste, Text und Orte?
+Kurz: Aschgeborene: Name des Merkmals (Aschenerbe?), Liste, Text, Orte des Zeichens
+
+**Frage:** Zu 432.3 hast du „ja“ gesagt (02.11., 16:35); den Namen des Merkmals und die Orte des Zeichens soll ich festlegen. Welcher Name gilt, und passen Liste, Text und Orte?
 
 **Votum Homer: 1A, 2 ja.**
 
 1. **Name des Merkmals** (Zauberschaden von Gegnern −25 %, Zeichen nahe dem Siegel):
-   - **A „Altes Blut“, EN „Old Blood“.** Sagt, dass etwas Altes im Blut liegt (Storyplan: „trug einen Rest davon im Blut fort“), verrät aber das Siegel nicht. Bis Kapitel 3 wird nichts erklärt.
-   - B „Siegelblut“, EN „Sealblood“. Trifft genauer, nennt aber das Siegel, und damit ist das Rätsel schon in der Erschaffung gelöst. Klingt außerdem wie „Steinblut“ (Zwerg).
-   - C „Aschenfest“, EN „Ashward“. Sagt die Wirkung (fest gegen Zauber), aber nichts vom Erbe.
+   - **A „Aschenerbe“, EN „Ashen Legacy“.** Sagt: etwas aus Aschfurt wurde vererbt. Verrät aber nicht, was, und das Siegel bleibt bis Kapitel 3 ungenannt.
+   - B „Siegelblut“, EN „Sealblood“. Trifft genauer, nennt aber schon bei der Erschaffung das Siegel. Außerdem trügen dann drei von sechs Völkern „Blut“ im Namen (Steinblut, Orkblütiger).
+   - C „Bannfest“, EN „Spellward“. Sagt nur die Wirkung, nichts vom Erbe.
 2. **Liste, Text, Orte** (Entwurf, eingetragen):
-   - Abnahmeliste „Aschgeborener“ in `LISTE-FIGUREN.md` „Völker“, mit einer Ausnahme: Am Schattenriss sieht man das Volk nicht, weil das Modell der Mensch ist (432).
-   - Text bei der Erschaffung `[423.volk.liste]` in `STORY-HANDBUCH-1.md`: „**Aschgeborener**: Wille und Wahrnehmung höher, Gewandtheit niedriger; Altes Blut, Zauber deiner Feinde treffen dich schwächer.“ EN: „**Ashborn**: Will and Perception higher, Agility lower; Old Blood, your enemies' spells strike you more weakly.“
-   - Orte des Zeichens in `STORY-PLAN.md` „Aschgeborene“. Das Zeichen erscheint nur bei einer Siegelhälfte, die an einem Ort liegt, nicht in der Tasche. Kapitel 1: in Graks Halle, bei Aldric, im Tempel am Altar ab der Tempelszene. Kapitel 2: in der Kapelle des Morgenlichts und in der Gruft mit dem Siegelstein. Aussehen: der goldene Ring der Iris, matt, am Bildrand.
+   - **Abnahmeliste** „Aschgeborener“ in `LISTE-FIGUREN.md` „Völker“:
+     - Mensch mit aschgrauer Strähne, etwa zwei Finger breit, unter Helm und Kapuze verborgen, nie weiß.
+     - Schmaler goldener Ring um die Iris, nie leuchtend; zu sehen bei der Erschaffung und im Heldenblatt.
+     - Ausnahme: Am Schattenriss erkennt man das Volk nicht.
+   - **Text bei der Erschaffung** `[423.volk.liste]`: „**Aschgeborener**: Wille und Wahrnehmung höher, Gewandtheit niedriger; Aschenerbe, Zauber deiner Feinde verletzen dich weniger.“ EN: „**Ashborn**: Will and Perception higher, Agility lower; Ashen Legacy, your enemies' spells wound you less.“
+   - **Orte des Zeichens** (`STORY-PLAN.md`): Das Zeichen erscheint, solange der Held im selben Grundriss ist wie eine Siegelhälfte. Nicht, solange er sie selbst bei sich hat, und nicht in Zwischensequenzen.
+     - Kapitel 1: Graks Halle, solange Grak lebt (er trägt das Amulett); der Tempel, sobald das Amulett auf dem Altar liegt.
+     - Kapitel 2: der Tempel in Bornim und die Gruft unter der Kapelle von Aschfurt mit dem Siegelstein.
 
-**Berührt:** BRS-Entwurf Völkertabelle („Name folgt (Homer)“), Spielanleitung, Abnahmeliste für Tom (Bau nach dem Meilenstein), Storyplan.
+**Berührt:** BRS-Entwurf Völkertabelle („Name folgt (Homer)“, nach deiner Antwort nachziehen), Spielanleitung `[423.volk.liste]`, Abnahmeliste für Tom (Bau nach dem Meilenstein), Storyplan „Die Aschgeborenen“.
 
 ## Begründung
 
-- Der Text nennt die Wirkung, aber nicht das Mal. In Kapitel 1 und 2 erklärt niemand das Mal (Entscheidung 71, Storyplan).
-- In der Tasche kein Zeichen: Sonst stünde es auf dem ganzen Weg von Graks Halle zu Aldric und sagte nichts mehr über den Ort.
-- **Stärkstes Gegenargument:** Der Ring um die Iris ist auf der Karte zu klein, das Volk erkennt man dort nur an der Strähne, und die verschwindet unter Helm und Kapuze. Ein Spieler mit Helm sieht sein Volk dann nur im Heldenblatt. Ich nehme das in Kauf, weil du „Mensch mit zwei Merkmalen“ entschieden hast und ein Volk, das man auf den ersten Blick erkennt, in Kapitel 1 und 2 schon zu viel verriete.
+- Der Text nennt die Wirkung, aber nicht das Mal; laut Storyplan erklärt niemand das Mal vor Kapitel 3.
+- Keine Anzeige in der Tasche: Sonst stünde das Zeichen auf dem ganzen Heimweg und sagte nichts mehr über den Ort.
+- Das Zeichen schon im Kampf gegen Grak ist ein früher Hinweis, dass das Amulett mehr ist als ein Schmuckstück.
+
+## Sachverhalt
+
+- Archiv 432.2 (02.11., 16:34): Wille +1, Wahrnehmung +1, Gewandtheit −1. Zauberschaden von Gegnern −25 %, Zeichen am Bildrand nahe dem Siegel von Aschfurt (Siegelstein, Amulett), ohne Probe. Die Orte lege ich fest.
+- Archiv 432 (01.11., 09:41): Das Modell ist der Mensch mit Strähne und goldenem Ring um die Iris, nie leuchtend.
+- `STORY-PLAN-K1.md` 122: „Bei ihm findest du das Sonnenamulett“. In `[41.ende.1]` liegt das Amulett am Ende von Kapitel 2 auf dem Altar in Bornim.
+- „Altes Blut“ (erster Entwurf) habe ich verworfen, weil das Wort schon für Kroggs Morgenstern und für Untote steht.
+
+## Auswertung
+
+- **Stärkstes Gegenargument:** Auf Gebietskarte und Grundriss ist der Ring zu klein. Dort erkennt man das Volk nur an der Strähne, und die verschwindet unter Helm und Kapuze. Ein Spieler mit Helm sieht sein Volk dann nur im Heldenblatt. Ich nehme das in Kauf: Du hast „Mensch mit zwei Merkmalen“ entschieden, und ein Volk, das man auf den ersten Blick erkennt, verriete in Kapitel 1 und 2 schon zu viel.
+- Gegen A spricht, dass „Aschenerbe“ das Rätsel andeutet. Das tut der Name des Volks aber schon.
+
+## Folgerungen
+
+- Bei 1A und 2 ja: Ich trage den Namen in die Völkertabelle des BRS ein, und die Zeile 432.3 ist erledigt. Tom baut nach dem Meilenstein.
+- Bei einem anderen Namen ändere ich Text und Tabelle im selben Schritt.
+- Fremd gegen die Quellen geprüft; 22 Befunde eingearbeitet.
+
+Antwort: …

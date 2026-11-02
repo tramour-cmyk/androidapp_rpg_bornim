@@ -124,12 +124,14 @@ Gebilligt (Chef 25.10., 22:00):
 4. **Farbe:** Haut graugrün, oliv, aschgrau oder moosgrün, nie hellgrün und nie rot (Unterschied zu Goblin und Hobgoblin); Haar schwarz, dunkelbraun, grau oder rostbraun.
 5. **Haltung:** aufrecht, Schultern leicht vorgeschoben (neu); kein Raubtier, kein Monster.
 
-**Aschgeborener** (Entwurf Homer 02.11., 432.3, zum Ansehen beim Chef; Bau nach dem Meilenstein; Modell ist der Mensch mit zwei Merkmalen, Archiv 432)
+**Aschgeborener**
 1. **Größe:** wie der Mensch, 175 cm.
-2. **Umriss:** wie der Mensch. **Ausnahme** von „am Schattenriss erkennbar“: Das Volk erkennt man nur am Gesicht und am Haar, nicht am Umriss (folgt aus „Modell ist der Mensch“, 432).
-3. **Merkmal:** eine aschgraue Strähne, etwa zwei Finger breit, von der Stirn zurück, bei jeder Frisur sichtbar, unter Helm und Kapuze verborgen wie das übrige Haar (B3). Ein schmaler goldener Ring um die Iris, matt wie Gold, **nie leuchtend**. Sichtbar bei der Erschaffung, im Heldenblatt und in Nahsicht; auf der Karte reicht die Strähne.
-4. **Farbe:** Haut, Haar und Augenfarbe wie beim Menschen, nur Strähne und Ring kommen dazu; die Strähne ist auch bei jungen Figuren aschgrau, nie weiß.
-5. **Haltung:** wie der Mensch; nichts Fremdes, nichts Unheimliches. Die Leute bemerken das Mal, niemand erklärt es (Entscheidung 71, Storyplan).
+2. **Umriss:** wie der Mensch. **Ausnahme** von „am Schattenriss erkennbar“: Das Volk erkennt man nur an Haar und Augen, nicht am Umriss (Modell ist der Mensch, Archiv 432).
+3. **Merkmal:** eine aschgraue Strähne, etwa zwei Finger breit, von der Stirn zurück, bei jeder Frisur sichtbar, unter Helm und Kapuze verborgen. Ein schmaler goldener Ring um die Iris, Gold wie in der Signatur, **nie leuchtend**. Der Ring ist bei der Erschaffung und im Heldenblatt zu sehen, auf Gebietskarte und Grundriss nur die Strähne.
+4. **Farbe:** Haut, Haar und Augen wählbar wie beim Menschen; dazu die Strähne, auch bei jungen Figuren aschgrau, nie weiß.
+5. **Haltung:** wie der Mensch; nichts Fremdes, nichts Unheimliches.
+
+Aschgeborener: Entwurf Homer 02.11. (432.3), beim Chef zur Entscheidung; gebaut wird nach dem Meilenstein.
 
 Gebilligt (Chef 25.10., 23:33, 348.11 b): übrige Monster aus Kapitel 1. Für alle gilt:
 - **Echte Größe:** die Maße gelten auch im Kampfort, ohne die bisherige Vergrößerung (Gegner 1,3-fach, Bosse 1,5-fach).

@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [340.2](entscheiden/3402-rollenspiegel.md) | **Muss** | B Abläufe | 02.11., 19:40 | Rollenspiegel 02.11.: drei Werkzeuge gegen drei Muster? | Sokrates |
 | [479](entscheiden/479-orte-welt.md) | **Muss** | B Abläufe | 02.11., 19:43 | Projektplan: Orte und Welt je Zeile, wann der Flüsterwald beginnt | Perikles |
 | [417a](entscheiden/417a-schild-kaempfer.md) | **Muss** | E Figuren | 02.11., 19:12 | Schild Kämpfer Rücken oder Arm; Rennen mit Waffe wie Dorf-Film | Tom |
 | [432.3](entscheiden/4323-aschgeborene-merkmal.md) | M? | C Texte | 02.11., 19:44 | Aschgeborene: Name des Merkmals, Aussehen, Text, Orte des Zeichens | Homer |
@@ -24,6 +23,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [415](ansehen/415-strahlenprobe.md) | Strahlenprobe: drei Strahlen aus dem Beams Free Sample im Kampfort | – | 02.11., 19:45 |
 | [447.4](ansehen/4474-lehrmeister-texte.md) | Texte Lehrmeister und Ruf, Kapitel 1 | Homer | 01.11., 20:51 |
 
 ## Zu tun
@@ -166,16 +166,19 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 469 | M | von Sokrates (02.11., 11:0x, zu 406.1): Kampf auf BRS: Ring (MARS) ohne Klassen regeln (An | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 
-**Perikles** – offen 27, Muss 24, startbar 2
+**Perikles** – offen 30, Muss 27, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 484 | M? | von Diogenes (Chef 02.11., 19:27, Wortlaut Zu 484): keine Abkürzungen mehr in Telegram-Mel | startbar |
 | 483 | M | von Sokrates (Chef 02.11., 19:21, „483 ja“, Archiv): Film-Links reparieren: jsDelivr liefe | wartet auf Test/Build (gebaut) |
+| 340.3 | M | von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv): A: notiz.sh-Hinweise (Größe, Zeilen | startbar |
+| 340.4 | M | von Sokrates (Archiv 340.2): B: Pflichtzeile „Geprüft an: <Link auf Film, Bild oder Lauf>“ | startbar |
+| 340.5 | M | von Sokrates (Archiv 340.2): C: Haken hängt „Uhr: HH:MM“ an jedes Werkzeugergebnis; bekann | startbar |
 | 479 | M | von Sokrates (Chef 02.11., 18:34, „jetzt“ 02.11., 18:34): LISTE-ABNAHME-KAPITEL1.md heißt | Chef (Datei in der Chefsache) |
 | 461d | M | von Sokrates (Vorentscheid 22:5x): Liste 461 in die DESIGN-Dateien (Archiv 461d) | wartet auf Test/Build (gebaut) |
 | 461b | M | von Sokrates (Chef 22:26, Archiv): Commit-Prüfung: Archiveintrag ohne DESIGN-/Listenänderu | wartet auf Test/Build (gebaut) |
-| 465 | M | von Sokrates („jetzt“ 01.11., 20:50, Chef: „Warum ist eigentlich in der Chefsache zu entsc | startbar |
+| 465 | M | von Sokrates („jetzt“ 01.11., 20:50, Chef: „Warum ist eigentlich in der Chefsache zu entsc | wartet auf Test/Build (gebaut) |
 | 464 | M | von Sokrates (Chef 01.11., 20:4x, Wortlaut Zu 464): rote Läufe senken: Haken vor jedem Pus | wartet auf Test/Build (gebaut) |
 | 461 | M | von Sokrates („jetzt“ 01.11., 20:3x, Wortlaut in der Liste): Grundstand Figuren und Kampf: | wartet auf Test/Build (gebaut) |
 | 464.1 | M | von Diogenes (Doppelpack 421, Lauf 59, 01.11., 22:13): Befunde D61.1–2 zu 464: Tageszahl r | wartet auf Test/Build (gebaut) |
@@ -198,10 +201,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
-**Diogenes** – offen 8, Muss 6, startbar 2
+**Diogenes** – offen 9, Muss 7, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 340.2 | M | von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv): Wirkung 340.3–340.5 zählen (Tabelle | ruht bis 09.11. |
 | 485 | M | „jetzt“ 02.11., 19:37 (Chef: „1, 2, 3 ja, fang an.“, Rollenspiegel 02.11.): (1) Wochenzähl | startbar |
 | 483 | M | von Perikles (Doppelpack 421, 02.11., 19:4x): meldung.sh --film legt je Film einen Zweig f | startbar |
 | 461b | M | von Sokrates (Chef 01.11., 22:26, „461b ja“, Archiv): Kennzahl Widersprüche: montags Stich | ruht bis 09.11. |
@@ -226,7 +230,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 376 | M | von Chef (27.10., 12:00): Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Tom |
 | 374 | M | von Chef (27.10., 11:54): wer prüft 373? | startbar |
 | 348.12 | M | von Chef (25.10., 21:21, „b prüfen“): fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit | wartet auf Jerry |
-| 340.2 | M | von Chef (25.10., 10:16, Vorgangsarchiv 340): tools/rollenspiegel.sh <Rolle> zeigt nur Fra | Chef (Datei in der Chefsache) |
+| 340.2 | M | von Chef (25.10., 10:16, Vorgangsarchiv 340): tools/rollenspiegel.sh <Rolle> zeigt nur Fra | wartet auf Perikles |
 | 348 | M | von Chef (24.10., 16:43; „jetzt“ 16:54): fertige Spiel-Engine statt Selbstbau? | ruht |
 | 26.1 | M | von Chef (24.10., 16:56): Durchspielbogen auswerten (Rest von 26) | wartet auf 348 (in Arbeit) |
 | 327 | K | von Chef (23.10., 00:08): Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraul | nach dem Meilenstein |
@@ -253,9 +257,9 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 186.3 (Pruefung)
 
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/4474-lehrmeister-texte.md
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/415-strahlenprobe.md, ansehen/4474-lehrmeister-texte.md
 
-Ohne Datei: 275 (Projekt)
+Ohne Datei: 3402 (Projekt), 275 (Projekt)
 
 ## So geht's
 

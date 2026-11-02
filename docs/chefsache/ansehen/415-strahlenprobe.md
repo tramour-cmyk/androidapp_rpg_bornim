@@ -1,4 +1,7 @@
 # 415 · Strahlenprobe: drei Strahlen aus dem Beams Free Sample im Kampfort
+
+[Film von 02.11., 19:45](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261102-194551-415/2026-11/02-1945-415-Jerry.mp4) (eingetragen von meldung.sh, Jerry)
+
 Jerry · 02.11., 19:5x · C Kampf
 Kurz: Film Lauf 181 (Laser, Feuerstrom, Blitz), auf dein Wort 415c A trotz Tor-Befund.
 
