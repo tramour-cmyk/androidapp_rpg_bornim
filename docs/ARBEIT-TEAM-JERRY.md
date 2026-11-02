@@ -12,6 +12,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 461b.1 | M | **von Perikles (Liste Sokrates 461b, 02.11., 19:1x, Punkt 3, 9):** Widersprüche nachziehen: 38, 399.2b und D23.3 (Klassenbalance) gegen 406; Säureschnecke mit Sokrates (Werte gleich gegen 348.12c „voller Klingenschaden“); am alten Archiveintrag „→ ersetzt durch …“ | startbar (eine Sitzung, nur Notizen) | – |
 | 478 | M | **von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv):** Rechenkern des Kampfs schon in Stufe 1 auf BRS (Modell D), Darstellung bleibt bis 2.3 | ruht: 470a B (geschätzt 3–4 Sitzungen, Zu 478) | – |
 | 427.1 | M | **von Sokrates (Chef 02.11., 18:54, Archiv 427):** Werte Bestiarium „Werte 2.0“ in `werte.json`; sim444 mit Rudel, Umreißen (Grimmzahn), Überfall (Krogg); beide nachmessen, Chefsache | wartet auf Chef: entscheiden/4271 (Krogg ohne Rauch zu hart, Votum A); sim444 mit Merkmalen auf main ee9e5b0bb | – |
 | 481.1 | M | **von Sokrates (Archiv 427):** Tränke in sim444 (Zu 481 in `ARBEIT-BERATUNG.md`), Herkünfte neu messen, Zahlen an Sokrates | startbar | – |
