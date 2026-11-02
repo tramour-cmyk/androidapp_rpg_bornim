@@ -85,7 +85,7 @@ func film() -> void:
 	await fp.get_tree().create_timer(1.0).timeout
 	print("SIGNATUR Voelker: " + (Signatur.pruefen(fp.spiel) if Signatur.pruefen(fp.spiel) != "" else "Toon, Tusche nach Licht, Schatten"))
 	await _eichen(ort + Vector3(24, 0, 0))
-	if OS.get_environment("VOELKER_DIAGNOSE") != "": await _diagnose(ort + Vector3(31, 0, 0))
+	if OS.get_environment("VOELKER_DIAGNOSE") != "": await _diagnose(ort + Vector3(38, 0, 0))
 	if OS.get_environment("VOELKER_NUR_DIAGNOSE") != "": return   # Ablauf mit Eingabe diagnose: nur Eichung und Vergleichsbild, kein Film
 	await _laufen(["maenner", "frauen"], 12.0, true)
 	await _laufen(["huegel"], 8.0, true)
@@ -206,9 +206,10 @@ func _eigene_haut(m: Node3D, e: Dictionary, g: String) -> void:
 			sm.set_shader_parameter("toen_bild", HeldFigur._lin(e["haut_bild"]))
 			sm.set_shader_parameter("toen_hell", HeldFigur._hell(e["haut_bild"]))
 			if ton.r >= 0.0:
-				sm.set_shader_parameter("toenung", Vector3(tl.r, tl.g, tl.b) * EICHUNG_LICHT * Vector3(korr.get(String(e["volk"]), Vector3.ONE)))
-				if not haut_mats.has(String(e["volk"])): haut_mats[String(e["volk"])] = []
-				haut_mats[String(e["volk"])].append([sm, Vector3(tl.r, tl.g, tl.b)])
+				var sl := String(e["volk"]) + ("/frau" if e["frau"] else "/mann")   # Lauf 4: je Volk und Geschlecht
+				sm.set_shader_parameter("toenung", Vector3(tl.r, tl.g, tl.b) * EICHUNG_LICHT * Vector3(korr.get(sl, Vector3.ONE)))
+				if not haut_mats.has(sl): haut_mats[sl] = []
+				haut_mats[sl].append([sm, Vector3(tl.r, tl.g, tl.b)])
 	fp.protokoll.append("HAUTBILD %s %s: eigen %s, Held %s, Bild %s, Zielton %s, Eichung %s" % [String(e["volk"]), g, str(e.get("haut_bild", "fehlt")),
 		str(held), bild, ton.to_html(false), str(EICHUNG_LICHT)])
 
@@ -272,6 +273,7 @@ func _zwerghaar(m: Node3D, sk: Skeleton3D, e: Dictionary, g: String, mats: Array
 func _ziel_linie(w: Node3D, h: float) -> void:
 	var m := MeshInstance3D.new()
 	m.name = "Ziel"
+	m.set_meta("ziel", true)   # Godot benennt gleichnamige Geschwister um
 	var bm := BoxMesh.new()
 	bm.size = Vector3(0.5, 0.008, 0.008)
 	var mat := StandardMaterial3D.new()
@@ -432,34 +434,43 @@ func _signatur(wo: Vector3) -> void:
 
 
 # 431d C3 (Pruefer Lauf 3: Elf Frau und Ork Frau atmen 0-5,7 s im Gleichtakt, Startphasen 0,82 und 0,80): je Reihe die Startphasen so,
-# dass zwei Figuren ueber die ganze Filmzeit nie naeher als moeglich atmen (Takte bleiben je Figur eigen, 4,3 s +-15 %): 400 Versuche,
-# der mit dem groessten kleinsten Abstand (Anteil der Schleife) gilt. Messzeile ATEMABSTAND, ohne Bild gerechnet
+# dass kein Paar lange gleichzeitig atmet. Lauf 4 (41497944608): der kleinste Abstand ist kein Mass; mit eigenen Takten (4,3 s +-15 %)
+# laufen zwei Figuren in 12 s zwangslaeufig einmal durch dieselbe Phase (Abstand 0,00-0,01). Gleichtakt heisst lange zusammen: gezaehlt
+# wird die laengste Zeit, in der ein Paar naeher als GLEICH (Anteil der Schleife) atmet; 400 Versuche, die kuerzeste gilt. Messzeile
+# ATEMABSTAND, ohne Bild gerechnet
+const GLEICH := 0.08
 func _atem_verteilen(teil: String, sek: float) -> void:
 	var figs := (reihen[teil][1] as Array).filter(func(w): return (w as Node3D).has_meta("atem"))
 	if figs.size() < 2: return
+	# Takte je Reihe zum Mittel hin (Abweichung ein Fuenftel, etwa +-3 %): bei +-15 % kreuzen sich zwei Figuren in 12 s zwangslaeufig
+	# und bleiben bis 2,5 s gleich (am Rechner nachgerechnet); bei +-3 % halten die Startphasen sie den ganzen Film auseinander
+	var mt := 0.0
+	for w in figs: mt += float(w.get_meta("atem_takt")) / figs.size()
+	for w in figs: w.set_meta("atem_takt", mt + (float(w.get_meta("atem_takt")) - mt) * 0.2)
 	var rng := RandomNumberGenerator.new()
 	rng.seed = hash(teil) ^ 431
 	var best := []
-	var best_d := -1.0
-	var best_t := 0.0
+	var best_lang := INF
+	var best_paar := ""
 	for v in 400:
 		var st := []
 		for k in figs.size(): st.append(fposmod(float(k) / figs.size() + (0.0 if v == 0 else rng.randf_range(-0.5, 0.5)), 1.0))
-		var dmin := 1.0
-		var tmin := 0.0
-		for j in int(sek * 10.0) + 1:
-			var t := j / 10.0
-			for a in figs.size():
-				for b in range(a + 1, figs.size()):
+		var lang := 0.0
+		var paar := ""
+		for a in figs.size():
+			for b in range(a + 1, figs.size()):
+				var lauf := 0.0
+				for j in int(sek * 10.0) + 1:
+					var t := j / 10.0
 					var pa: float = st[a] + t / float(figs[a].get_meta("atem_takt"))
 					var pb: float = st[b] + t / float(figs[b].get_meta("atem_takt"))
-					var d := absf(fposmod(pa - pb + 0.5, 1.0) - 0.5)
-					if d < dmin: dmin = d; tmin = t
-		if dmin > best_d: best_d = dmin; best = st; best_t = tmin
+					lauf = lauf + 0.1 if absf(fposmod(pa - pb + 0.5, 1.0) - 0.5) < GLEICH else 0.0
+					if lauf > lang: lang = lauf; paar = "%s/%s bis %.1f s" % [figs[a].get_meta("schluessel"), figs[b].get_meta("schluessel"), t]
+		if lang < best_lang: best_lang = lang; best = st; best_paar = paar
 	for k in figs.size():
 		figs[k].set_meta("atem_start", best[k])
 		figs[k].get_meta("atem").phase = best[k]
-	fp.protokoll.append("ATEMABSTAND %s: %d Figuren, kleinster Abstand %.2f der Schleife bei %.1f s (gleich verteilt waere %.2f)" % [teil, figs.size(), best_d, best_t, 0.5 / figs.size()])
+	fp.protokoll.append("ATEMABSTAND %s: %d Figuren, laengstes Paar naeher als %.2f der Schleife %.1f s (%s)" % [teil, figs.size(), GLEICH, best_lang, best_paar if best_paar != "" else "keins"])
 	print(fp.protokoll[-1])
 
 
@@ -470,19 +481,25 @@ func _gesicht(img: Image, f: Node3D, marker: Node3D) -> Vector3:
 	var sx := img.get_width() / 2.0 / maxf(mitte.x, 1.0)
 	var sk := Gebiet.finde(f, "Skeleton3D") as Skeleton3D
 	var kopf := f.global_position + Vector3(0, 1.6, 0)
+	var gross := 1.0
 	if sk and sk.find_bone("Head") >= 0:
-		kopf = sk.global_transform * sk.get_bone_global_pose(sk.find_bone("Head")).origin + Vector3(0, 0.06, 0)
-	var vorn := kopf + (cam.global_position - kopf).normalized() * 0.12
+		var hk := sk.global_transform * sk.get_bone_global_pose(sk.find_bone("Head")).origin
+		gross = clampf((hk.y - f.global_position.y) / 1.55, 0.5, 1.3)   # kleine Voelker: Wange naeher am Kopfknochen
+		kopf = hk + Vector3(0, 0.06 * gross, 0)
+	var vorn := kopf + (cam.global_position - kopf).normalized() * 0.12 * gross
 	var p := cam.unproject_position(vorn) * sx
-	var summe := Vector3.ZERO
-	var n := 0
+	# Median je Kanal statt Mittel (Lauf 4: Huegelvolk R blieb bei 217, waehrend die Toenung stieg: ein Teil der Punkte lag nicht auf Haut)
+	var r := []; var g := []; var b := []
 	for dy in range(-2, 3):
 		for dx in range(-2, 3):
 			var q := Vector2i(int(p.x) + dx * 2, int(p.y) + dy * 2)
 			if q.x < 0 or q.y < 0 or q.x >= img.get_width() or q.y >= img.get_height(): continue
 			var c := img.get_pixelv(q)
-			summe += Vector3(c.r, c.g, c.b); n += 1
-	return summe / maxf(n, 1) * 255.0
+			r.append(c.r); g.append(c.g); b.append(c.b)
+	if r.is_empty(): return Vector3.ZERO
+	fp.protokoll.append("GESICHT %s bei %d,%d, Streuung R %d-%d" % [String(f.get_meta("schluessel", f.name)), p.x, p.y, int(r.min() * 255), int(r.max() * 255)])
+	r.sort(); g.sort(); b.sort()
+	return Vector3(r[r.size() / 2], g[g.size() / 2], b[b.size() / 2]) * 255.0
 
 
 static func _lin3(v: Vector3) -> Vector3:
@@ -495,18 +512,20 @@ static func _lin3(v: Vector3) -> Vector3:
 # Zielton, je Kanal linear nachgezogen, drei Durchgaenge. Gilt fuer alle Figuren der Probe (Voelker: korr, Held: Toenung). Messzeilen EICH;
 # EICHUNG HELD nennt den Wert fuer HeldFigur.HAUT_EICHUNG (Spiel erst nach Urteil des Chefs)
 func _eichen(x0: Vector3) -> void:
+	# Lauf 4 (Pruefer: Orkbluetige Frau beige, R-G +29, waehrend der Mann traf): je Volk und Geschlecht eigene Messung, zwei Reihen
 	_reihe("eichung", REIHE.map(func(v): return v + "/mann"), x0)
-	var figs: Array = reihen["eichung"][1]
-	var marker: Node3D = reihen["eichung"][0]
+	_reihe("eichung_w", REIHE.map(func(v): return v + "/frau"), x0 + Vector3(7.0, 0, 0))
 	var hw := Heldwerte.erschaffe("Probe", "HUMAN", "FIGHTER")
 	fp.klasse_figur("eich_held", {"klasse": "FIGHTER", "volk": "HUMAN", "aussehen": HeldFigur.vorgabe("FIGHTER"), "ausruestung": hw.ausruestung})
 	var held: Node3D = fp.figuren.get("eich_held")
 	var held_mats := []
 	if held:
-		held.position = x0 + Vector3(figs.size() * ABSTAND, 0, 0)
-		figs.append(held)
-		marker.position = x0 + Vector3((figs.size() - 1) * ABSTAND / 2.0, MITTE_Y, 0)
-		marker.set_meta("zoom", BREITE * figs.size() / 5.0)
+		var figs0: Array = reihen["eichung"][1]
+		var marker0: Node3D = reihen["eichung"][0]
+		held.position = x0 + Vector3(figs0.size() * ABSTAND, 0, 0)
+		figs0.append(held)
+		marker0.position = x0 + Vector3((figs0.size() - 1) * ABSTAND / 2.0, MITTE_Y, 0)
+		marker0.set_meta("zoom", BREITE * figs0.size() / 5.0)
 		for mi in held.find_children("*", "MeshInstance3D", true, false):
 			var me := (mi as MeshInstance3D).mesh
 			for i in me.get_surface_count():
@@ -514,39 +533,47 @@ func _eichen(x0: Vector3) -> void:
 				var rn := String(src.resource_name) if src else ""
 				var sm := (mi as MeshInstance3D).get_surface_override_material(i) as ShaderMaterial
 				if sm and (rn.contains("Regular") or rn.contains("Superhero")): held_mats.append([sm, sm.get_shader_parameter("toenung")])
-	for f in figs: (f as Node3D).rotation.y = 0.0
+	for t in ["eichung", "eichung_w"]:
+		for f in reihen[t][1]: (f as Node3D).rotation.y = 0.0
+	var ziele := fp.spiel.get_children().filter(func(c): return c is MeshInstance3D and c.has_meta("ziel") and c.visible)
+	for z in ziele: (z as Node3D).visible = false   # Lauf 4: Goldstrich der Groesse hinter dem Kopf kleiner Voelker
 	var k_held := Vector3.ONE
 	var held_ziel := HeldFigur.ton("HUMAN", "haut", int(HeldFigur.vorgabe("FIGHTER").get("haut", 0)))
 	DirAccess.make_dir_recursive_absolute(fp.aus + "/voelker/eichung")
 	for durchgang in 4:
-		_kamera(marker)
-		for n in 4: await fp.get_tree().process_frame
-		await RenderingServer.frame_post_draw
-		await RenderingServer.frame_post_draw
-		var img := fp.spiel.get_viewport().get_texture().get_image()
-		img.save_png(fp.aus + "/voelker/eichung/%04d.png" % durchgang)
-		for k in figs.size():
-			var f: Node3D = figs[k]
-			var ist := _gesicht(img, f, marker)
-			var ist_held := f == held
-			var volk: String = "Held" if ist_held else String(f.get_meta("schluessel", "")).get_slice("/", 0)
-			var z := held_ziel if ist_held else HeldFigur.ton(String(VOLK_ENUM.get(volk, "HUMAN")), "haut", 0)
-			var ziel := Vector3(z.r, z.g, z.b) * 255.0
-			var lz := _lin3(ziel); var li := _lin3(ist)
-			var fk := Vector3(clampf(lz.x / li.x, 0.5, 2.0), clampf(lz.y / li.y, 0.5, 2.0), clampf(lz.z / li.z, 0.5, 2.0))
-			fp.protokoll.append("EICH %d %s: Gesicht %d/%d/%d, Ziel %d/%d/%d, Abstand %.0f" % [durchgang, volk, ist.x, ist.y, ist.z, ziel.x, ziel.y, ziel.z, (ist - ziel).length()])
-			print(fp.protokoll[-1])
-			if durchgang == 3: continue   # letzter Durchgang misst nur
-			if ist_held:
-				k_held *= fk
-				for hm in held_mats: (hm[0] as ShaderMaterial).set_shader_parameter("toenung", (hm[1] as Vector3) * k_held)
-			else:
-				korr[volk] = Vector3(korr.get(volk, Vector3.ONE)) * fk
-				for hm in haut_mats.get(volk, []): (hm[0] as ShaderMaterial).set_shader_parameter("toenung", (hm[1] as Vector3) * EICHUNG_LICHT * Vector3(korr[volk]))
+		for t in ["eichung", "eichung_w"]:
+			var figs: Array = reihen[t][1]
+			var marker: Node3D = reihen[t][0]
+			_kamera(marker)
+			for n in 4: await fp.get_tree().process_frame
+			await RenderingServer.frame_post_draw
+			await RenderingServer.frame_post_draw
+			var img := fp.spiel.get_viewport().get_texture().get_image()
+			img.save_png(fp.aus + "/voelker/eichung/%s_%04d.png" % [t, durchgang])
+			for k in figs.size():
+				var f: Node3D = figs[k]
+				var ist := _gesicht(img, f, marker)
+				var ist_held := f == held
+				var sl: String = "Held" if ist_held else String(f.get_meta("schluessel", ""))
+				var z := held_ziel if ist_held else HeldFigur.ton(String(VOLK_ENUM.get(sl.get_slice("/", 0), "HUMAN")), "haut", 0)
+				var ziel := Vector3(z.r, z.g, z.b) * 255.0
+				var lz := _lin3(ziel); var li := _lin3(ist)
+				var fk := Vector3(clampf(lz.x / li.x, 0.5, 2.0), clampf(lz.y / li.y, 0.5, 2.0), clampf(lz.z / li.z, 0.5, 2.0))
+				fp.protokoll.append("EICH %d %s: Gesicht %d/%d/%d, Ziel %d/%d/%d, Abstand %.0f" % [durchgang, sl, ist.x, ist.y, ist.z, ziel.x, ziel.y, ziel.z, (ist - ziel).length()])
+				print(fp.protokoll[-1])
+				if durchgang == 3: continue   # letzter Durchgang misst nur
+				if ist_held:
+					k_held *= fk
+					for hm in held_mats: (hm[0] as ShaderMaterial).set_shader_parameter("toenung", (hm[1] as Vector3) * k_held)
+				else:
+					korr[sl] = Vector3(korr.get(sl, Vector3.ONE)) * fk
+					for hm in haut_mats.get(sl, []): (hm[0] as ShaderMaterial).set_shader_parameter("toenung", (hm[1] as Vector3) * EICHUNG_LICHT * Vector3(korr[sl]))
 	for v in korr: fp.protokoll.append("EICHUNG %s: %s (EICHUNG_LICHT mal %s)" % [v, str(EICHUNG_LICHT * Vector3(korr[v])), str(korr[v])])
 	fp.protokoll.append("EICHUNG HELD: HAUT_EICHUNG %s statt %s (Kampfortlicht)" % [str(HeldFigur.haut_eichung() * k_held), str(HeldFigur.haut_eichung())])
 	for z in fp.protokoll.slice(-korr.size() - 1): print(z)
-	for f in figs: (f as Node3D).visible = false
+	for t in ["eichung", "eichung_w"]:
+		for f in reihen[t][1]: (f as Node3D).visible = false
+	for z in ziele: (z as Node3D).visible = true
 
 
 func _laufen(teile: Array, sek: float, drehen: bool, name := "") -> void:
