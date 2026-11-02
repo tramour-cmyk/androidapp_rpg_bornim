@@ -28,6 +28,7 @@ uniform float toen_hell = 0.0;     // > 0: Helligkeit des Bildes am Zielton (Bil
 uniform vec3 toen_bild = vec3(1.0); // 376.1 Haut (Chef 28.10., 23:0x „klinisch tot“): Bildfarbe am Zielton (linear); toen_farbe davon
 uniform float toen_farbe = 0.0;    // Anteil der eigenen Farbschwankung des Bildes (Wangen, Lippen roeter) um den Zielton
 uniform float vorrang = 0.0;       // 463: Umhang (UV2.x > 0,5, held_klassen.py vorrang_marke) so viele Meter zur Kamera; gewinnt die Tiefe gegen den Aermel
+uniform float rueck = 0.0;         // 463: Rueckseiten (Normale von der Kamera weg) so viele Meter laengs des Blickstrahls zurueck; Lagen in Falten
 uniform float teil = 0.0;          // nur zum Messen (held.gd --teilfarbe): Eisen gruen, Kette rot, Haut (rig.py TEILMASKE) blau, Rest schwarz
 varying vec3 wpos;
 varying float v_eisen;
@@ -36,9 +37,12 @@ varying float v_hinten;
 void vertex() {
 	if (kette_aus > 0.0 && COLOR.a >= 0.25 && COLOR.a < 0.7) VERTEX += NORMAL * kette_aus;
 	wpos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
-	if (vorrang > 0.0 && UV2.x > 0.5) {   // laengs des Blickstrahls: Lage im Bild bleibt, nur die Tiefe
+	if (rueck > 0.0 || (vorrang > 0.0 && UV2.x > 0.5)) {   // laengs des Blickstrahls: Lage im Bild bleibt, nur die Tiefe
 		vec4 vv = MODELVIEW_MATRIX * vec4(VERTEX, 1.0);
-		vv.xyz -= normalize(vv.xyz) * vorrang;
+		vec3 blick = PROJECTION_MATRIX[3][3] > 0.5 ? vec3(0.0, 0.0, -1.0) : normalize(vv.xyz);   // Dorf orthogonal (kamera.gd), Kampfort perspektivisch
+		if (vorrang > 0.0 && UV2.x > 0.5) vv.xyz -= blick * vorrang;
+		// 463 (pruef_flecken RUECK): Innenseite einer Lage verliert gegen eine Vorderseite bis rueck dahinter; Vorderseiten bleiben
+		if (rueck > 0.0) vv.xyz += blick * rueck * smoothstep(0.0, 0.2, dot(normalize((MODELVIEW_MATRIX * vec4(NORMAL, 0.0)).xyz), blick));
 		POSITION = PROJECTION_MATRIX * vv;
 	}
 	if (sway > 0.0) {
