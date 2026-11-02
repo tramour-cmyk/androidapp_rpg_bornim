@@ -29,6 +29,21 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 62 · Auftrag 407 Probelauf-Haken (`main` `bb1205e31`; 02.11., 11:2x; `probelauf.py` mit 10 Probeeingaben, `BORNIM_PROBELAUF_TROCKEN=1`, Zählung in eine Scratch-Datei, kein Push in `probelaeufe`)
+
+**Ergebnis: Der Haken greift.**
+- `actions_run_trigger` run_workflow auf `claude/tom-417-film` zählt „417“ (Nummer aus der Commit-Nachricht). Mit 2 Läufen hält der nächste Start an (Exit 2, Text 389). Beleg: 415 auf `claude/jerry-415-beams` über drei Wege (Server, `gh workflow run`, `curl …/dispatches`), der dritte angehalten.
+- Rerun über den Server und `gh run rerun` halten an. `bild: nein` zählt nicht (390a).
+- Keine Fehlzählung bei `gh workflow run` im Text einer Commit-Nachricht oder bei „gh run rerun“ in einem `echo` (782e96f21).
+- Gegen die Nacht 01.11., 20:4x bis 02.11., 07:14: `--stand 417` zeigt 0 Läufe seit dem Urteil 01.11., 20:49. Die 20 Filme zu 417 wurden damals also nicht gezählt. Mit dem neuen Haken wäre der dritte Start angehalten worden.
+
+**Befunde**
+- **D64.1 (407, mittel, sicher, Klasse 1 Perikles) `gh api …/dispatches -f ref=…` zählt unter dem Ablaufnamen statt unter dem Vorgang:** Probe `gh api -X POST repos/o/r/actions/workflows/godot.yml/dispatches -f ref=claude/jerry-415-beams` ergibt „Probelauf 1 von 2 für godot.yml“, obwohl 415 schon 2 hatte. Ursache: `handlauf_bash` liest `ref` nur in JSON-Form (`"ref":"…"`). Über diesen Weg sind so je Ablauf 2 weitere Läufe möglich.
+- **Hinweis (kein Befund):** Der Server-Haken steht nur in `.claude/settings.json` auf `main`; die 15 jüngsten `claude/`-Zweige haben ihn nicht. Sitzungen starten auf `main` (`lauf.py` REVISION), haben ihn also ab Start. Sitzungen, die vor 11:19 gestartet sind, haben ihn erst nach einem Neustart (so auch Perikles, Zu 407). Ob ein späterer Wechsel auf einen alten Zweig die Haken neu lädt, ist nicht geprüft.
+- D63.3 bestätigt: `--stand 348.12k` zeigt „seit Beginn der Zählung“, obwohl der Chef um 11:08 gebilligt hat.
+
+**Nicht geprüft:** Push auf einen beliebigen `claude/`-Zweig (dafür wäre ein echter Push nötig); ob die Zeile im Zweig `probelaeufe` geschrieben wird (Trockenlauf).
+
 ## Lauf 61 · Wochenzählung 25.10.–01.11., 464.1 Rest, 374 und 434 für 01.11. (`main` `73ab91995`; 02.11., 11:2x; Probeeingaben an `commit-pruefung.py` in einer Kopie, `urteil()` aufgerufen)
 
 **Ergebnis 464.1:** 461a erfüllt (Widerspruch 1 behoben: Tor in `DESIGN-ABNAHME.md:11`, Ausnahme in `LISTE-BAUEN-TESTEN.md:14`, `ROLLE-ENTWICKLUNG.md:41`). 461d größtenteils: alle 40 Kennungen in DESIGN-STIL (A–D), -KAMPF (E–F), -ABNAHME (G), Wortlaut gleich bis auf Zusätze A2, C3, D1, E3. 407 D50.5 c behoben („x“ = :x9; Docstring `probelauf.py:96` sagt noch :x0). 461b Commit-Prüfung hält bei Kennung ohne DESIGN-Änderung richtig an.
