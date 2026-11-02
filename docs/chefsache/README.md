@@ -182,7 +182,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 461d | M | von Sokrates (Vorentscheid 22:5x): Punkte der Liste 461 in die DESIGN-Dateien einsortieren | wartet auf Test/Build (gebaut) |
+| 461d | M | von Sokrates (Vorentscheid 22:5x): Liste 461 in die DESIGN-Dateien (Archiv 461d) | wartet auf Test/Build (gebaut) |
 | 461b | M | von Sokrates (Chef 22:26, Archiv): Commit-Prüfung: Archiveintrag ohne DESIGN-/Listenänderu | wartet auf Test/Build (gebaut) |
 | 465 | M | von Sokrates („jetzt“ 01.11., 20:50, Chef: „Warum ist eigentlich in der Chefsache zu entsc | wartet auf Test/Build (gebaut) |
 | 462 | M | von Ford („jetzt“ 01.11., 20:34, Wortlaut Zu 462): Name und Zeitstempel in jeder Nachricht | wartet auf Test/Build (gebaut) |
