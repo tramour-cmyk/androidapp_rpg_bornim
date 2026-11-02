@@ -88,7 +88,7 @@ func film_nach(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, gang: String, wer
 			if moving and ap.has_meta("halt"): ap.remove_meta("halt")
 			ap.speed_scale = Held.takt(ap, tempo, vb, 1.0 / FPS) if moving else Held.stand_takt(ap, 1.0 / FPS)
 			ap.advance(1.0 / FPS)
-			p += Vector3(0, 0, 1) * tempo / FPS * Held.schub(ap)   # 417: wie held.gd
+			p += Vector3(0, 0, 1) * tempo / FPS
 			w.position = p
 			await process_frame
 			t_film += 1.0 / FPS

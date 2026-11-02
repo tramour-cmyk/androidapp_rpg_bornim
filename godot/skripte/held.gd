@@ -181,16 +181,6 @@ static func wechsel(ap: AnimationPlayer, want: String, moving: bool, sp: float, 
 	ap.play(want, bl)
 	if schritt: ap.seek(schritt_zeit(ap.get_animation(want), ph))
 
-# 417 (Lauf 41391890897: Standfuss beim Anlaufen 49-114 % des Tempos, alle vier Pakete, auch mit sanft; Pruefer Film 03:39 60-100 %):
-# in der Ueberblendung aus dem Stehen traegt der Schritt nur mit seinem Anteil w, der Standfuss gleitet um (1 - w) des Tempos mit. Der
-# Koerper kommt darum nur mit w voran (schub), hoechstens SCHUB_MIN weniger (sonst stuende er, moving braucht 20 % des Wegs)
-const SCHUB_MIN := 0.3
-static func schub(ap: AnimationPlayer) -> float:
-	if ap == null or not ap.has_meta("blende"): return 1.0
-	var b: Array = ap.get_meta("blende")
-	if b.size() < 4 or not bool(b[3]): return 1.0
-	return clampf(float(b[0]) / maxf(0.01, float(b[1])), SCHUB_MIN, 1.0)
-
 # speed_scale im Stand: nach dem Halt (wechsel sanft) so lange HALT_TAKT, bis die Ueberblendung in den Stand vorbei ist
 static func stand_takt(ap: AnimationPlayer, dt: float) -> float:
 	if not ap.has_meta("halt"): return 1.0
@@ -326,7 +316,7 @@ func _process(dt: float) -> void:
 		# in kleinen Stuecken, damit ein langes Bild (dt gross) nicht ueber Kanten springt oder zu frueh anstoesst; auf dem Weg ueber
 		# Wegpunkte hinweg weiter (416.4: bisher endete das Stueck am Wegpunkt, das naechste Bild stand)
 		var d := dir.normalized()
-		var rest := tempo * dt * schub(anim)   # 417: aus dem Stand nur mit dem Anteil des Schritts
+		var rest := tempo * dt
 		var am_weg := weg.size() > 0 and richtung.length() <= 0.15
 		while rest > 1e-4:
 			var lang := 0.08
