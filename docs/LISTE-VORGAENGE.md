@@ -145,8 +145,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 487 | Gemeinsamer Build aus den wartenden Änderungen beider Teams, ohne Figuren und Bewegung (die über den Grundstand 461.1), höchstens 6 je Build (Wochenziel 02.11. Reihe 6, Hinweis Team Tom 21:1x) | E Technik | M | 6,06 $ | Team Jerry | zu testen |
 | 488 | Feinarbeit einfrieren, erst Kapitel 1 durchspielbar, dann polieren (Chef 02.11., 22:44: „wieder 20 Durchläufe für einen Umhang, das ist halt verschwendete Rechenleistung“) | B Abläufe | M | – | Sokrates | wartet |
 | 471 | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | E Regeln | M | – | Team Tom | startbar |
-| 472 | Bau BRS 1.3 Heldenstufe aus Erfahrung (Wochenziel 02.11., Stufe 1) | E Regeln | M | – | Team Jerry | gebaut |
-| 473 | Bau BRS 1.4 Monsterwerte Kapitel 1 (Wochenziel 02.11., Stufe 1) | E Kampf | M | 5,89 $ | Team Jerry | gebaut |
+| 472 | Bau BRS 1.3 Heldenstufe aus Erfahrung (Wochenziel 02.11., Stufe 1) | E Regeln | M | – | Team Jerry | zu testen |
+| 473 | Bau BRS 1.4 Monsterwerte Kapitel 1 (Wochenziel 02.11., Stufe 1) | E Kampf | M | 5,89 $ | Team Jerry | zu testen |
 | 474 | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, Meldung Tuffy): nächster Build einmal deinstallieren; dauerhaft ohne Cache | E Technik | M? | 8,66 $ | Team Tom | ruht |
 | 475 | Leute des Dorfs (Rowena, Borin …) auf Kaufkörper ihres Volks mit Gesicht, statt der alten Figuren (Chef 02.11., 10:52, Build 146: „Kommt da noch was?“) | E Figuren | M? | – | Team Tom | wartet |
 | 476 | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild (Chef 02.11., 14:43) | E Oberfläche | M? | – | Team Tom | wartet |
@@ -174,7 +174,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 406 | Ausrüstung der Helden je Stück als eigenes Modell mit Abnahme, „noch steril“ (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe); zuerst Rundschild des Klerikers hell mit goldener Sonne wie alt | E Kampf | M | 125,73 $ | Team Jerry | wartet |
 | 407 | Probelauf-Grenze 389 greift nicht: neue Runde erst nach Urteil des Chefs, jeder Zweig zählt („jetzt“ 29.10., 10:05) | B Abläufe | M | 41,23 $ | Perikles | gebaut |
 | 410 | Waffen am Körper wegstecken, alle Waffenarten (aus 376.1, Chef 29.10., 10:52, 11:40) | E Figuren | M | – | Team Tom | ruht |
-| 415 | Handyprobe Beams-Free-Sample (aus 414, Chef 31.10., 20:3x; „jetzt“ 01.11.) | C Kampf | M | 32,03 $ | Team Jerry | gebaut |
+| 415 | Handyprobe Beams-Free-Sample (aus 414, Chef 31.10., 20:3x; „jetzt“ 01.11.) | C Kampf | M | 32,03 $ | Team Jerry | zu testen |
 | 415c | Rückfrage: Strahlenprobe Lauf 181 am Tor angehalten, Film trotzdem oder zwei neue Läufe? | C Kampf | M | – | Team Jerry | erledigt |
 | 415d | Rückfrage: Status Effects VFX und Beams & Lasers kaufen, sobald der Handytest läuft? (Chef 02.11., 20:05) | C Kampf | M | – | Sokrates | wartet |
 | 416.2 | Platzwechsel mit Dorfbewohnern und Tieren, nicht stecken bleiben (Chef 31.10., 20:4x) | B Umzug | M | – | Team Tom | wartet |
@@ -206,7 +206,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 454 | Wolfsbiss: Achse des Wolfs zielt rechts neben den Helden? messen (Chef 01.11., 11:05) | E Kampf | M | 10,78 $ | Team Jerry | gebaut |
 | 455.1 | Probeblatt Baukasten: Roben, Umhänge, Stiefel je Netz × Material × Zeichen (Chef 01.11., 11:24) | E Figuren | M | 30,05 $ | Team Tom | wartet |
 | 455.2 | Netzliste je sichtbarem Platz, Eigenbau geschätzt, Größenfilm der Völker (Chef 01.11., 11:27, 455 ja) | E Figuren | M | – | Team Tom | startbar |
-| 458.2 | Gegenstandskatalog: Werte, Preise, Beute (Chef 01.11., 458) | D Design | M | 10,87 $ | Team Jerry | gebaut |
+| 458.2 | Gegenstandskatalog: Werte, Preise, Beute (Chef 01.11., 458) | D Design | M | 10,87 $ | Team Jerry | zu testen |
 | 458.3 | Gegenstandskatalog: Netze, Modelle, Läden (Chef 01.11., 458) | E Figuren | M | 12,15 $ | Team Tom | startbar |
 | 447.4 | Texte Lehrmeister-Einladungen und Ruf-Gespräche für Stufe 3 (447) | C Texte | M | 11,22 $ | Homer | Chef |
 | 457.1 | Probeskripte Tom mit Spielshadern (457) | E Figuren | M | – | Team Tom | gebaut |
