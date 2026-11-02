@@ -467,9 +467,10 @@ if UA > 0 and 'cloak' in TEILNAMEN:
 # Oberarm schiebt den Umhang). Beide Lagen gleich: je Ecke die staerkste Verschiebung und Gewichtung binnen SCHALE_R (wie SCHALE GEWICHTE)
 # Lauf 41368485277 (ARM_LUFT 0,012, ARM_GEW 0,6): schlechter, darum aus (ARM_LUFT=0): sleeves>cloak Ruhe Mann 104 -> 104, Frau 48 -> 112,
 # Gehen 256 -> 215, 238 -> 233; Flecken Mann chain 368 -> 4865, sleeves 1372 -> 2903; in Ruhe liegt der Durchstoss jetzt auf 1,4 m (Schulter)
-# Versuch 2 (Tom 02.11., 02:5x): nur die Aermelgewichte ohne Verschieben (ARM_LUFT 0, ARM_GEW 0,6): die Flecken in Lauf 41368485277
-# kamen vermutlich vom Verschieben (Umhang vor Kette und Aermel); ob das Folgen allein das Durchstossen in Bewegung senkt
-ARM_LUFT = float(os.environ.get('ARM_LUFT', '0')); ARM_GEW = float(os.environ.get('ARM_GEW', '0.6')); ARM_R = float(os.environ.get('ARM_R', '0.06'))
+# Versuch 2 (Lauf 41374143498, nur Aermelgewichte ARM_GEW 0,6, ARM_LUFT 0): kaum Wirkung, darum auch aus: sleeves>cloak Ruhe Mann 104 -> 104,
+# Frau 48 -> 48 (der Durchstoss liegt schon in der Ruhelage, 1,4 m hinten, also Form, nicht Gewicht), Gehen 256 -> 236, 238 -> 254; Flecken
+# Mann chain 368 -> 474, sleeves 1372 -> 1642. Naechster Versuch: Aermel unter dem Umhang nach innen (Form), nicht den Umhang hinaus
+ARM_LUFT = float(os.environ.get('ARM_LUFT', '0')); ARM_GEW = float(os.environ.get('ARM_GEW', '0')); ARM_R = float(os.environ.get('ARM_R', '0.06'))
 if (ARM_LUFT > 0 or ARM_GEW > 0) and 'cloak' in TEILNAMEN and 'sleeves' in TEILNAMEN:
     _ic = TEILNAMEN.index('cloak'); _is = TEILNAMEN.index('sleeves')
     _sf = [f for f in KF if LT[f[0]] == _is]
