@@ -10,7 +10,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 487 | M | **von Perikles (Wochenziel 02.11. Reihe 6):** gemeinsamer Build, höchstens 6 Punkte, Figuren über 461.1 | gebaut: claude/build-487, 6 Punkte (Zu 487); Lauf, Prüfliste, PR offen; Geprüft an: 4c96e8fba (lokal) | – |
+| 487 | M | **von Perikles (Wochenziel 02.11. Reihe 6):** gemeinsamer Build, höchstens 6 Punkte, Figuren über 461.1 | wartet auf Lauf 193 (claude/build-487, 6e7751d28), PR #178, Prüfliste t193-build-487; dann Testbitte | – |
 | 478 | M | **von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv):** Rechenkern des Kampfs schon in Stufe 1 auf BRS (Modell D), Darstellung bleibt bis 2.3 | ruht: 470a B (geschätzt 3–4 Sitzungen, Zu 478) | – |
 | 481.1 | M | **von Sokrates (Archiv 427):** Tränke in sim444 (Zu 481 in `ARBEIT-BERATUNG.md`), Herkünfte neu messen, Zahlen an Sokrates | gebaut: sim444 Abschnitt 6 auf claude/jerry-481-1-traenke, Befund LISTE-SIMULATION-444, Zahlen an Sokrates (Zu 481); Geprüft an: 4bb60ba5e (--pruefen 0, Abschnitte 1–5 gleich main) | – |
 | 473 | M | **von Perikles (Wochenziel 02.11., Stufe 1):** Bau BRS 1.4 Monsterwerte Kapitel 1 nach Rechenmodell D ins Spiel (Abnahmeliste 1.4, Schätzung 447.3: 1 Sitzung, 1 Runde) | gebaut 7d2eec7cc: Werte aller 18 Arten und Modell D im Spiel (regeln/brs.gd, daten/werte.json wie sim444), Kampf rechnet bis 2.3 nach SRD (Frage an Perikles); fährt im nächsten Build | – |
@@ -33,7 +33,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert
 | 461.1 | M | **von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461):** Grundstand mit Tom: Kampfort, Wölfe, Helden im Kampf (`LISTE-GRUNDSTAND-461.md`) in `claude/grundstand-461`; vor 460 und 406.1 | wartet auf 406, 438a, 453.1, 376.1 (Zu 461.1) | `claude/grundstand-461` |
 | 460 | M | **von Sokrates (Chef 01.11., 20:2x, Archiv 460):** Probefilm Kamerafahrten: Eröffnung je Blende (402), kurze Wechsel nur ohne Eingabe | wartet auf 461.1 (Grundstand vor 460) | – |
 | 406.1 | M | **von Sokrates (Archiv 406.1):** Schildstoß ins MARS/BRS, Bau mit `ShieldAttack1–3S&S` | wartet auf 481 (Herkünfte): Bedingung Chef 11:21 mit Werten 427 nicht erfüllt (Zu 427.1) | – |
-| 406 | M | **von Team Tom (Archiv 376.1):** Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Sonne | wartet auf Test: Messlauf Schildfaust in skeleton_updated (e746078ed); dann Hand zurück (Zu 406) | `claude/jerry-406-kaufschild` |
+| 406 | M | **von Team Tom (Archiv 376.1):** Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Sonne | in Arbeit: Lauf 190 FAUST: Finger noch 2,1–2,7 cm (Kämpfer), 3,7–4,0 cm (Kleriker) vor der Schildvorderseite; Hand zurück (Zu 406) | `claude/jerry-406-kaufschild` |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | wartet auf 463 (Tom, B4 Umhang); F1, F5 behoben, E2-Messung drin (6f8eecf62); dann Lauf kampf=grak | `claude/tuffy-348-12k-grak` |
