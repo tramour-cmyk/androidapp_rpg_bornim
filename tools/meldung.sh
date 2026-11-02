@@ -50,11 +50,13 @@ if [ -z "$name" ] || [ -z "$text" ]; then echo "Aufruf: tools/meldung.sh [--laut
 if kurz=$(printf '%s' "$text" | python3 -c '
 import re, sys
 t = sys.stdin.read()
-t = re.sub(r"`[^`]*`|\]\([^)]*\)|https?://\S+", " ", t)
-frei = {"MARS", "SRD", "APK", "PNG", "MP4", "MB", "GB", "KB", "CC0", "TCS"}
-funde = [w for w in re.findall(r"(?<![\w./-])[A-ZÄÖÜ]{2,6}(?![\w-])", t) if w not in frei]
+t = re.sub(r"`[^`]*`|\]\([^)]*\)|https?://\S+|„[^“]*“", " ", t)  # D67.1: Zitat in „…“ ist Wortlaut, bleibt
+frei = {"MARS", "SRD", "APK", "PNG", "MP4", "MB", "GB", "KB", "CC0", "TCS", "OK", "JPG", "GIF"}
+funde = [w for w in re.findall(r"(?<![\w./-])[A-ZÄÖÜ]{2,6}(?!\w)", t) if w not in frei]  # D67.1: auch „HP-Balken“
+# D67.1: Buchstabe mit Zahl nur als Kennung (A1–G9 Grundstand, O/W Projektplan, D Befund, t Build), sonst Kürzel wie „K1“
+funde += re.findall(r"(?<![\w./-])(?![A-GOWD]\d)[A-Z]\d{1,2}(?![\w.])", t)
 funde += re.findall(r"(?<![\w.])(?:NW|E)\s\d+\b", t)
-funde += re.findall(r"(?<!\w)(?:z\.\s?B\.|bzw\.|usw\.|ggf\.|ca\.|u\.\s?a\.|d\.\s?h\.|evtl\.|inkl\.|vgl\.|Nr\.|o\.\s?ä\.)", t)
+funde += re.findall(r"(?<!\w)(?:z\.\s?B\.|bzw\.|usw\.|ggf\.|ca\.|u\.\s?a\.|d\.\s?h\.|evtl\.|inkl\.|vgl\.|Nr\.|o\.\s?ä\.|s\.\s?o\.|s\.\s?u\.|u\.\s?U\.|m\.\s?E\.)", t)
 print(", ".join(dict.fromkeys(funde))); sys.exit(0 if funde else 1)'); then
   echo "meldung: Abkürzung im Text ($kurz), nichts gesendet; ausschreiben (484, Chef 02.11., 19:27)" >&2; exit 2
 fi
