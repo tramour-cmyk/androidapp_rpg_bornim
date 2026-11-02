@@ -13,6 +13,8 @@ Grundstand 461: geprüft, soweit messbar (A1 Spielkamera mit Tusche, D1 Übergä
 
 **Prüferbefund (04:0x, nach dem Versand, gemessen):** Rennen → Gehen dauert oben 0,40 s, unten 1,03 s. Der Rumpf richtet sich in beiden Feldern in etwa 3 Bildern auf (unten etwa 15° → 5°), der Umhang springt in 2 Bildern von „wehend“ auf „hängend“, der Kopf springt nicht. Die Füße gleiten in beiden Feldern beim Anlaufen 0,3–0,4 m und beim Halt 80–100 px; unten schleift beim Abheben nach dem Wechsel die Fußspitze etwa 60 px. Knie und Stiefel stoßen nach dem Wechsel durch den Umhangsaum (463). Der Umhang schlägt im Rennen bis auf Kopfhöhe. Bild 0 ist grau. Behebe ich als Technik vor dem nächsten Film, nachdem die Ursache nachgestellt ist; den Saum macht Tom (463).
 
+**Nach dem Film behoben (Technik, Zweig 42445d0ee, gemessen ohne Bild, Lauf 41383140719):** Standfuß gleitet beim Anlaufen 390 statt 1058 mm, im Wechsel Rennen → Gehen 14 statt 318 mm; kein Knochen springt. Der Umhang hört auf zu wehen, sobald die weiten Rennschritte enden, weil er starr an Rücken und Oberschenkel hängt (463, Tom). Halt noch ohne verlässliche Messung. Zu sehen im nächsten Film nach deinem Urteil.
+
 **Frage:** Ist das Abbremsen vom Rennen ins Gehen so weich genug?
 **Stärkstes Gegenargument:** Wer kurz das Rennen loslässt, ist eine Sekunde lang schneller als im Gehen; vor einer Tür oder Person kommt er etwas weiter, als er will. Vor einem angetippten Ziel bremst er weiter wie bisher.
 
