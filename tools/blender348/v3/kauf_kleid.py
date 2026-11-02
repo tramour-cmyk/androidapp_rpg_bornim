@@ -536,13 +536,18 @@ if 'cloak' in TEILNAMEN and 'tabard' in TEILNAMEN and os.environ.get('RUECKBAHN'
 # (Umhang liegt 5-25 mm am Arm). Gemessen mit pruef_flecken WEG, Laeufe 41442266720, 41445338659: nur Aermel weg, dann sticht die Kette
 # durch (Wache Mann 624 -> 1414); Aermel und Kette weg: Wache Mann 6909 -> 5701, Frau 5441 -> 4940, Aermel 2958 -> 1118, keine Loecher.
 # UNTER_WEG=<teil>:<oben+oben>:<m>&… (leer: aus)
-UNTER_WEG = os.environ.get('UNTER_WEG', 'sleeves:chain+cloak+robe:0.03&chain:cloak:0.03')
+# 463 Messlauf 41517895812 (pruef_flecken WEG1..5, am gebauten Modell mit RUECK 0,04): Robe unter Guertel weg Robe Mann 12347 -> 10707,
+# Frau 17382 -> 15058; Hose und Guertel unter dem Umhang weg Wache Frau 4832 -> 4208, Mann 5844 -> 5556; Aermel und Kette 5 statt 3 cm
+# Wache Mann 5556 -> 4367 (Aermel 1353 -> 387), Frau 4208 -> 4131; keine Loecher dazu. Stiefel unter der Robe und Haut unter Kette und
+# Kragen: kaum Wirkung (Robe Stiefel 1130 -> 1067), nicht eingebaut. „:beide“ hinten: auch Oberlage hinter der Flaeche (Guertel in der Robe)
+UNTER_WEG = os.environ.get('UNTER_WEG', 'sleeves:chain+cloak+robe:0.05&chain:cloak:0.05&pants:cloak+robe+tabard:0.03&belt:cloak:0.03'
+                           '&robe:belt+buckle+cuff:0.03:beide&sleeves:cuff:0.03')
 if UNTER_WEG:
     LT3 = np.zeros(len(kme.vertices), dtype=int); kme.attributes['teil'].data.foreach_get('value', LT3)
     _W = [kleid.matrix_world @ v.co for v in kme.vertices]; _N = kleid.matrix_world.to_3x3()
     unter_weg = set()
     for _a in [x for x in UNTER_WEG.split('&') if x]:
-        _t, _o, _m = _a.split(':'); _m = float(_m)
+        _t, _o, _m = _a.split(':')[:3]; _m = float(_m); _beide = _a.endswith(':beide')
         if _t not in TEILNAMEN: continue
         _ti = TEILNAMEN.index(_t); _oi = [TEILNAMEN.index(x) for x in _o.split('+') if x in TEILNAMEN]
         _ob = [p_ for p_ in kme.polygons if LT3[p_.vertices[0]] in _oi]
@@ -553,7 +558,8 @@ if UNTER_WEG:
             if LT3[p_.vertices[0]] != _ti: continue
             c_ = sum((_W[i] for i in p_.vertices), Vector()) / len(p_.vertices)
             n_ = (_N @ p_.normal).normalized()
-            if _bv.ray_cast(c_ + n_ * 0.0005, n_, _m)[0] is not None: unter_weg.add(p_.index)
+            if _bv.ray_cast(c_ + n_ * 0.0005, n_, _m)[0] is not None or (_beide and _bv.ray_cast(c_ - n_ * 0.0005, -n_, _m)[0] is not None):
+                unter_weg.add(p_.index)
         print('UNTER WEG', _a, len(unter_weg) - _n0, 'Flaechen')
     if unter_weg:
         bm = bmesh.new(); bm.from_mesh(kme); bm.faces.ensure_lookup_table()

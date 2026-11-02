@@ -76,7 +76,7 @@ _N = kleid.matrix_world.to_3x3()
 def weg_flaechen(spec):
     aus = {}   # Netz -> Flaechen
     for _a in [x for x in spec.split('&') if x]:
-        _t, _o, _m = _a.split(':'); _o = _o.split('+'); _m = float(_m)
+        _t, _o, _m = _a.split(':')[:3]; _o = _o.split('+'); _m = float(_m); _beide = _a.endswith(':beide')   # wie kauf_kleid.py UNTER_WEG
         _oi = [TEILNAMEN.index(x) for x in _o if x in TEILNAMEN]
         _ob = [p_ for p_ in _me.polygons if KT[p_.vertices[0]] in _oi]
         if not _ob: print('WEG', _a, 'keine Oberlage'); continue
@@ -90,7 +90,7 @@ def weg_flaechen(spec):
             for p_ in fl:
                 c_ = sum((M @ vs[i].co for i in p_.vertices), Vector()) / len(p_.vertices)
                 n_ = (M3 @ p_.normal).normalized()
-                if _bv.ray_cast(c_ + n_ * 0.0005, n_, _m)[0] is not None: f_.add(p_.index)
+                if _bv.ray_cast(c_ + n_ * 0.0005, n_, _m)[0] is not None or (_beide and _bv.ray_cast(c_ - n_ * 0.0005, -n_, _m)[0] is not None): f_.add(p_.index)
             print('WEG', _a, o.name, len(f_) - n0, 'Flaechen von', len(fl))
     return aus
 
