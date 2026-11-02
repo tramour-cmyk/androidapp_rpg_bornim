@@ -1,5 +1,7 @@
 # 417 · Dorf-Film: Kämpfer mit Schwert in der Hand, Schild auf dem Rücken · Tom · 03.11., 00:0x
 
+[Film von 03.11., 00:13](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261103-001353-417/2026-11/03-0013-417-Tom.mp4) (eingetragen von meldung.sh, Tom)
+
 E Figuren
 Kurz: 417a umgesetzt (Schild Rücken, Rennen A), Dorf-Film Lauf 2
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41534918254 (Lauf 2, Commit 3b29ac0cb)
