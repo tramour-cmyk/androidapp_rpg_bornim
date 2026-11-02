@@ -531,6 +531,33 @@ if 'cloak' in TEILNAMEN and 'tabard' in TEILNAMEN and os.environ.get('RUECKBAHN'
     hinten = [v for v in bm.verts if LT2[v.index] == TEILNAMEN.index('tabard') and v.co.y > py]
     bmesh.ops.delete(bm, geom=hinten, context='VERTS'); bm.to_mesh(kme); bm.free()
     print('RUECKBAHN WEG', len(hinten), 'Ecken')
+# 463 (Chef 01.11., 20:3x: „der Umhang wieder überall durchschimmert … DAUERPROBLEM“): wie der Koerper unter der Kleidung (7) fallen auch
+# Unterlagen weg, die eine Oberlage in der Ruhelage binnen 3 cm laengs ihrer Normale deckt; sonst stechen sie in Bewegung durch
+# (Umhang liegt 5-25 mm am Arm). Gemessen mit pruef_flecken WEG, Laeufe 41442266720, 41445338659: nur Aermel weg, dann sticht die Kette
+# durch (Wache Mann 624 -> 1414); Aermel und Kette weg: Wache Mann 6909 -> 5701, Frau 5441 -> 4940, Aermel 2958 -> 1118, keine Loecher.
+# UNTER_WEG=<teil>:<oben+oben>:<m>&… (leer: aus)
+UNTER_WEG = os.environ.get('UNTER_WEG', 'sleeves:chain+cloak+robe:0.03&chain:cloak:0.03')
+if UNTER_WEG:
+    LT3 = np.zeros(len(kme.vertices), dtype=int); kme.attributes['teil'].data.foreach_get('value', LT3)
+    _W = [kleid.matrix_world @ v.co for v in kme.vertices]; _N = kleid.matrix_world.to_3x3()
+    unter_weg = set()
+    for _a in [x for x in UNTER_WEG.split('&') if x]:
+        _t, _o, _m = _a.split(':'); _m = float(_m)
+        if _t not in TEILNAMEN: continue
+        _ti = TEILNAMEN.index(_t); _oi = [TEILNAMEN.index(x) for x in _o.split('+') if x in TEILNAMEN]
+        _ob = [p_ for p_ in kme.polygons if LT3[p_.vertices[0]] in _oi]
+        if not _ob: continue
+        _bv = BVHTree.FromPolygons(_W, [tuple(p_.vertices) for p_ in _ob])
+        _n0 = len(unter_weg)
+        for p_ in kme.polygons:
+            if LT3[p_.vertices[0]] != _ti: continue
+            c_ = sum((_W[i] for i in p_.vertices), Vector()) / len(p_.vertices)
+            n_ = (_N @ p_.normal).normalized()
+            if _bv.ray_cast(c_ + n_ * 0.0005, n_, _m)[0] is not None: unter_weg.add(p_.index)
+        print('UNTER WEG', _a, len(unter_weg) - _n0, 'Flaechen')
+    if unter_weg:
+        bm = bmesh.new(); bm.from_mesh(kme); bm.faces.ensure_lookup_table()
+        bmesh.ops.delete(bm, geom=[bm.faces[i] for i in sorted(unter_weg)], context='FACES'); bm.to_mesh(kme); bm.free()
 
 dr = sum(len(o.data.polygons) for o in qnetze + [kleid])
 info = {'kennung': KENNUNG, 'koerper': KOERPER, 'kopf': KOPF or KOERPER, 'haar': HAAR, 'bart': BART, 'form': KO.form_aus(FORM), 'haut': HAUT, 'stoppeln': STOPPELN, 'farbe': FARBE,
