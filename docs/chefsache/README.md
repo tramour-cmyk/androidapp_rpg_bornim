@@ -161,10 +161,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 469 | M | von Sokrates (02.11., 11:0x, zu 406.1): Kampf auf BRS: Ring (MARS) ohne Klassen regeln (An | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 
-**Perikles** – offen 26, Muss 24, startbar 3
+**Perikles** – offen 27, Muss 24, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 484 | M? | von Diogenes (Chef 02.11., 19:27, Wortlaut Zu 484): keine Abkürzungen mehr in Telegram-Mel | startbar |
 | 483 | M | von Sokrates (Chef 02.11., 19:21, „483 ja“, Archiv): Film-Links reparieren: jsDelivr liefe | startbar |
 | 479 | M | von Sokrates (Chef 02.11., 18:34, „jetzt“ 02.11., 18:34): LISTE-ABNAHME-KAPITEL1.md heißt | startbar |
 | 461d | M | von Sokrates (Vorentscheid 22:5x): Liste 461 in die DESIGN-Dateien (Archiv 461d) | wartet auf Test/Build (gebaut) |
