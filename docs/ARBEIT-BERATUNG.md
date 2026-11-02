@@ -4,13 +4,13 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (02.11., 07:3x, `session_01Hmoj76QsunrED5XX8aLN95`):** Chefrunde 01.11. abends (417, 455.2, 376.1, 348.12b, 348.12, 461b–d, 461a gebilligt; Archiv); 02.11., 07:26 **STOPP ALLE** umgesetzt (ARBEIT-BETRIEB, Ford-Lauf aus, Jerry, Tom, Tuffy benachrichtigt; bei „weiter“ Ford-Lauf `trig_01C12LSTgbss5EbZKic7CcVR` wieder ein); 407 greift nicht (417 vier Filme über Nacht) bei Perikles. Nachts (`…GdpkYVpZybEzUSj9`): Stellungnahme 466 (1A, 2A). Kosten auf: 417, 455.2, 376.1, 348.12, 461, 447.4, 427, 465, 466, 467. Nachfolger erst nach „weiter“: Sokrates – Chefrunde: Billigen 348.12k; 447.4; 427 Zahlen
+**Übergabe (02.11., 11:1x, `session_01Hmoj76QsunrED5XX8aLN95`):** Chefrunde 01.11. abends und 02.11. vormittags: entschieden 417 R5, 455.2, 376.1 (Kettenhemd B, Umhang Richtung), 348.12, 348.12b-Frage, 348.12k gebilligt, 461a–d, 453 r3b, 453.1 Feld 2, Build 146 freigegeben, 464 Setup (getestet), 468 weiter mit Wächter (Ford-Lauf wieder an 11:13); STOPP ALLE beendet. Offen beim Chef: 348.12b, 348.12j, 406.1, 431b, 453a, 466, 447.4, Ansehen 416.4, 417, 438a, 458.3, 461.1, 462, 465, 407 (neu). Kosten auf: 417, 455.2, 376.1, 348.12, 461, 447.4, 427, 465, 466, 467, 468. Nachfolger: Sokrates – 427: Zahlen für Fertigkeiten und Stufe (444)
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 468 | M | **von Chef (02.11., 07:33, Bild „Nutzung“: 36 %, Limit Mittwochnacht leer):** Sparplan bis Sa 19:59 | wartet auf Chef: entscheiden/468-sparplan |
+| 468 | M | **von Chef (02.11., 07:33, Bild „Nutzung“: 36 %):** weiter mit Wächter bis Sa 19:59 (ja 11:13, Archiv, ARBEIT-BETRIEB) | Dauer: Ford liest 18 Uhr ab; Sokrates prüft Sa 07.11., ob 407 griff und der Verbrauch hielt |
 | 461b | M | **von Chef (01.11., 22:23, „Wer prüft denn nach, dass nicht gegensätzliche Entscheidungen an verschiedenen Stellen stehen?“):** nur Gültiges steht; ja 22:26 (Archiv); mein Teil: Archiv zu Figuren und Kampf einmal nach Widersprüchen absuchen, Liste an den Chef | in Arbeit (Bau Perikles, Kennzahl Diogenes) |
 | D62.1 | M | **von Diogenes (461b, Zählung 02.11., 02:4x):** Archiv „376.1, Klassen und Köpfe“ (29.10., 10:52) trägt „Klassen … abgenommen“ ohne „→ ersetzt durch“; markiert ist nur Wegstecken, Klassen ersetzt laut „376.1, Klassenentwürfe“ (28.10.) durch Tracht je Herkunft (01.11.) | startbar |
 | 348.12b | M | **von Chef (Chefrunde 01.11.):** Grak-Film vorab auf altem Körper? | wartet auf Chef: entscheiden/34812b-grak-koerper; Chef testet 146 (ansehen/t146) |
