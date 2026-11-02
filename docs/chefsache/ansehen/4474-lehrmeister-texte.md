@@ -16,3 +16,11 @@ Zum Lesen: `docs/STORY-LEHRMEISTER-K1.md` (fünf Lehrmeister, neun Pfade) und `d
 **Zu sagen:** „447.4 passt“ (dann Bau bei Tom mit Stufe 3) oder was anders sein soll, etwa „447.4 2 andere Namen“.
 
 Erledigt: Antwort ins Vorgangsarchiv, Datei löschen (Homer).
+
+## Stellungnahme Sokrates (01.11., 21:0x im Chat; hier 02.11., 11:0x)
+
+- **Trägt:** Einladung erst nach Leistung (zwei Kernfertigkeiten Geselle) ist die echte Wahl des Leitbilds; „Noch nicht.“ vollwertig; Regeln stimmen (Morwen „Leder, nicht mehr“ = Entscheidung 80; Schlagbaum gibt es); Rufstufen klar.
+- **Korrektur 1, Wechsel als Anwärter:** `[447.4.sys.wechsel]` droht „Handlungen gehen verloren“, ein Anwärter hat aber noch keine (erste mit der Zwischenprüfung, ab Kapitel 2). Empfehlung: in Kapitel 1 ohne Abschlag wechseln, Zeile „Du gibst den Pfad {weg} auf. Wirklich wechseln?“; Abschlag ab Eingeweihter. Gegenargument „Wahl ohne Gewicht“: das Gewicht trägt der Wechsel des Lehrmeisters; Rangverlust zwänge zum Neuüben (gegen „Grinden darf man, muss man nie“).
+- **Korrektur 2, Englisch:** „stayed on his feet“ u. ä. sprechen die Heldin als Mann an; geschlechtsneutral fassen.
+- **Hängt an 427:** laut Simulation 444 (Befund 3) erreicht in Kapitel 1 keine Fertigkeit Geselle; dann käme keine Einladung. Die Zahlen stelle ich mit 427 ein.
+- **Empfehlung:** „447.4 passt, Wechsel als Anwärter ohne Abschlag, Englisch neutral“; Bau erst mit 427.
