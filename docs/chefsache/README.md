@@ -16,7 +16,6 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [417](ansehen/417-tragart-runde5.md) | Tragart Runde 5/6: Schild an der Seite, Axt mit beiden Fäusten | Tom | 02.11., 00:53 |
 | [447.4](ansehen/4474-lehrmeister-texte.md) | Texte Lehrmeister und Ruf, Kapitel 1 | Homer | 01.11., 20:51 |
 
 ## Zu tun
@@ -158,11 +157,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 469 | M | von Sokrates (02.11., 11:0x, zu 406.1): Kampf auf BRS: Ring (MARS) ohne Klassen regeln (An | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 
-**Perikles** – offen 26, Muss 24, startbar 3
+**Perikles** – offen 25, Muss 23, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 482 | M | von Sokrates (Chef 02.11., 18:57, „Es gibt keine Blätter. Es gibt Vorgänge bei uns … Wieso | startbar |
 | 479 | M | von Sokrates (Chef 02.11., 18:34, „jetzt“ 02.11., 18:34): LISTE-ABNAHME-KAPITEL1.md heißt | startbar |
 | 461d | M | von Sokrates (Vorentscheid 22:5x): Liste 461 in die DESIGN-Dateien (Archiv 461d) | wartet auf Test/Build (gebaut) |
 | 461b | M | von Sokrates (Chef 22:26, Archiv): Commit-Prüfung: Archiveintrag ohne DESIGN-/Listenänderu | wartet auf Test/Build (gebaut) |
