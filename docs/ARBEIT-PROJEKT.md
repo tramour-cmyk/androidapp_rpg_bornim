@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 02.11., 11:2x (`70bcd3284`)
+**Gelesen bis:** `origin/main` 02.11., 11:3x (`ff7b24574`)
 
-**Übergabe (02.11., 11:2x):** 407 gebaut (Starts von Hand zählen, Doppelpack an Diogenes über Ford); Tagesbericht 02.11. (448, Werkzeug holt Verlauf in flacher Kopie); Wochenziel 02.–08.11. mit 470–473 (Bau BRS Stufe 1); 467, 469 auf M. Nachfolger: Perikles – 338.1: Ausführlicher Stand nach der Wochenzählung von Diogenes (Muss-Zeilen außerhalb des Wochenziels prüfen, Zielvereinbarung melden)
+**Übergabe (02.11., 11:3x):** 407 gebaut, Diogenes: greift (Lauf 62); D63.1–4, D64.1 gebaut, Doppelpack an Diogenes über Ford; Tagesbericht 02.11. (448, Werkzeug holt Verlauf in flacher Kopie); Wochenziel 02.–08.11. mit 470–473 (Bau BRS Stufe 1); 467, 469 auf M. Nachfolger: Perikles – 338.1: Ausführlicher Stand nach der Wochenzählung von Diogenes (Muss-Zeilen außerhalb des Wochenziels prüfen, Zielvereinbarung melden)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
@@ -25,9 +25,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 462.1 | M? | **von Diogenes (Doppelpack 421, Lauf 57, 01.11., 20:4x):** Befunde D59.1–3 zu 462 (`PRUEFBERICHT.md` Lauf 57) | gebaut 01.11., 20:54: Zwischenmeldungen gezählt, Kopf nur mit Name, kein „<Name>“ (`34581a559`); Diogenes prüft (465) |
 | 461.2 | M? | **von Diogenes (Doppelpack 421, Lauf 56, 01.11., 20:4x):** Befunde D58.1–5 zum Grundstand (`PRUEFBERICHT.md` Lauf 56) | gebaut 01.11., 20:56: E1, F6, G2 berichtigt, Spalte „Prüfer“; Tor seit 02.11. (461a); Diogenes prüft (461) |
 | 461a | M | **von Perikles (D58.5):** Rückfrage, ob ein Grundstand-Verstoß den Film anhält | gebaut 02.11., 02:45: Tor in DESIGN-ABNAHME, Prüftreppe 4, ROLLE-ENTWICKLUNG; Diogenes prüft (464.1) |
-| 436 | M | **von Sokrates („jetzt“ 31.10., 22:58):** Sitzungsnamen mit Vorgang, Thema und Zeit für alle (Zu 436) | gebaut 01.11., 00:1x: Regel, Rollen, lauf.py (Zu 436); Ford benennt um; Diogenes prüft (443) |
-| 433 | M | **von Sokrates („jetzt“ 31.10., 22:1x, Zu 433):** unabhängige Zeilen von Tom und Jerry an Spike/Tuffy (394) verteilen, Ford startet | gebaut 31.10., 22:2x: lauf.py startet Spike/Tuffy auf unabhängige Muss-Zeile (Zu 433); Diogenes prüft (435) |
-| 424 | M | **von Sokrates („jetzt“ 31.10., 21:3x, Chef: „keine Energie mehr in das alte SRD-System stecken“):** Regelzeilen der Umzugsliste (SRD-Regeln übertragen) auf ruht; Vorräte geprüft 21:3x (Sokrates setzte 17 Zeilen auf ruht); neue Zeilen am alten System verhindern | gebaut 31.10., 21:4x: Umzugsliste ruht für alte Regeln, Wächter in startbar.py (Zu 424); Diogenes prüft (429) |
 | 407 | M | **„jetzt“ 02.11., 11:13 (468: erster Start nach dem Stopp, bis greift höchstens drei Sitzungen); von Chef über Sokrates (29.10., 10:05):** Probelauf-Grenze 389 so, dass sie greift: nach zwei Läufen keine weitere Runde, bis der Chef geurteilt hat (Zu 407) | gebaut 02.11., 11:2x; Diogenes geprüft (Lauf 62: greift), D64.1 gebaut; wartet auf Chef: ansehen/407 |
 | 399 | M | **von Chef über Sokrates („jetzt“ 28.10., 12:34, Archiv):** Vorrang neu: erst eine Godot-Fassung am Handy, in der der Chef im Dorf herumläuft und einen Kampf spielt; Feintuning ruht | wartet auf Tom, Jerry: 399.1 Spielfassung, 399.2 Kampfort aufrufbar (12:4x); Feinschliff 397, 348.13b ruht |
 | 398 | M | **von Sokrates (Chef 28.10., 11:22):** Termine je Block nachrechnen mit der Schätzung der 15 Zeilen 398 | wartet auf Diogenes: Wochenzählung 02.11.; Schätzungen im Wochenziel 02.11. verwendet |
