@@ -75,6 +75,9 @@ func _run() -> void:
 		# nach den Schichten (skeleton_updated, nach figur.gd): die Pose, die man sieht, mit bodenhalt.gd
 		var mess := {"vorher": {}, "vorvorher": {}, "sprung": 0.0, "zuck": 0.0, "hand": -INF, "wo": "", "zwo": "", "q": {}, "qq": {}, "satz": 0.0}
 		var nach := func() -> void:
+			# Runde 3 (Lauf 160: Fingerspitzen unverändert, obwohl bodenhalt.gd die Faust hält): Knochen nur hier so, wie man sie sieht;
+			# außerhalb von skeleton_updated liest man die Pose ohne die Modifier (bodenhalt.gd)
+			_runde3(fig, sk, klinge, schild, haut, finger, werte, String(fig.anim.current_animation))
 			for t in fig._boden_teile:     # 438a: Waffe und Schild drehen sich aus Boden und Körper ohne Zucken
 				# wie man sie sieht: Lage in der Welt (die Korrektur selbst darf gegen eine Hand, die beim Aufprall federt, hin und her gehen)
 				var gw: Transform3D = sk.global_transform * sk.get_bone_global_pose(t[4]) * ((t[0] as Node3D).transform)
@@ -111,7 +114,6 @@ func _run() -> void:
 		fig.anim.play("SS_IdleCombat", 0.2)     # wie film_438a: erst Kampfhaltung (Finger durch den Schild schon hier, Prüfer 1,2 s)
 		for n in 24:
 			await process_frame
-			_runde3(fig, sk, klinge, schild, haut, finger, werte, "SS_IdleCombat")
 		fig.knocked_down()
 		var ab := String(fig.anim.current_animation)
 		_check(ab == "SS_DeathBack", "%s: knocked_down spielt %s" % [k, ab])
@@ -139,7 +141,6 @@ func _run() -> void:
 				for q in ecken:
 					e[2] = maxf(e[2], boden - q.y)
 			werte[b] = e
-			_runde3(fig, sk, klinge, schild, haut, finger, werte, b)
 		var griff_ruhe: float = werte.get("SS_IdleCombat", [0, 0, 0, 0, 0, 0.0])[5]
 		for b in werte:
 			var e: Array = werte[b]
