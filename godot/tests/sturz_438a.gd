@@ -48,9 +48,11 @@ func _run() -> void:
 	var hilfe = Schild406.new()
 	_hilfe = hilfe
 	# Lauf 190: je Klasse der Schutz wie gebaut (V0) und der Vergleich V1 (figur.gd schutz_variante); Lauf 197: V1 half nicht (12 cm,
-	# Zucken 69,6°), jetzt V2 (je Punkt der Achse gegen alle Beinecken) und Schwertarm beim Aufstehen abgespreizt (A15, A30, bodenhalt.gd)
-	for kv in [["FIGHTER", 0, 0.0], ["FIGHTER", 0, 15.0], ["FIGHTER", 0, 30.0], ["CLERIC", 0, 0.0], ["CLERIC", 0, 30.0],
-			["FIGHTER", 2, 0.0], ["FIGHTER", 2, 30.0], ["CLERIC", 2, 0.0], ["CLERIC", 2, 30.0]]:
+	# Zucken 69,6°), jetzt V2 (je Punkt der Achse gegen alle Beinecken) und Schwertarm beim Aufstehen abgespreizt (A15, A30, bodenhalt.gd);
+	# Lauf 200: Arm abgespreizt schob den Griff ins Kleid (verworfen), V2 sah die Tiefe, _loesen machte sie größer: V2 im Gitter, V3 = V2
+	# mit der besten Lage aller Schritte, V4 = wie gebaut mit der besten Lage
+	for kv in [["FIGHTER", 0, 0.0], ["CLERIC", 0, 0.0], ["FIGHTER", 2, 0.0], ["CLERIC", 2, 0.0], ["FIGHTER", 3, 0.0], ["CLERIC", 3, 0.0],
+			["FIGHTER", 4, 0.0], ["CLERIC", 4, 0.0]]:
 		var p = Probe.new()
 		p.hero_cls = kv[0]
 		var k: String = kv[0] + ("" if kv[1] == 0 else " V%d" % kv[1]) + ("" if kv[2] == 0.0 else " A%d" % int(kv[2]))

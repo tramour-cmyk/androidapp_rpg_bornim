@@ -822,7 +822,9 @@ const FUSS_KAPSELN := [["foot_l", "ball_l", 0.05], ["foot_r", "ball_r", 0.05], [
 	["calf_l", "foot_l", 0.08], ["calf_r", "foot_r", 0.08]]
 const HALTEARM := {"R": [9, 11], "L": [8, 10]}     # MENSCH_KAPSELN: Ober- und Unterarm, der hält, darf die Waffe berühren
 var schutz_variante := 0        # 438a Vergleich in sturz_438a: 1 = Hautpunkte nach dem Drehen neu, tief drin ohne Grenze je Bild;
-#                                 2 = je Punkt der Achse gegen alle Beinecken um die Waffe (Lauf 197: 1 Hautpunkt sah 0,3 cm, gemessen 11,6)
+#                                 2 = je Punkt der Achse gegen alle Beinecken um die Waffe (Lauf 197: 1 Hautpunkt sah 0,3 cm, gemessen 11,6),
+#                                 im Gitter (Lauf 200: alle 5689 Ecken je Schritt kosteten 144 ms je Bild); 3 = 2 und _loesen nimmt die
+#                                 beste Lage aller Schritte; 4 = wie gebaut und die beste Lage
 var spreizen_grad := 0.0        # 438a Vergleich in sturz_438a: Schwertarm beim Aufstehen so weit vom rechten Bein weg (bodenhalt.gd)
 var mess_us := 0                # 438a Messung: Zeit von _boden_schutz in diesem Bild, µs
 var messen := false             # 438a: sturz_438a liest mess_schutz je Bild (sonst nichts gerechnet)
@@ -936,7 +938,7 @@ func _boden_schutz() -> void:
 		# Beine selbst, gemessen wie sturz_438a (je Punkt der Achse die nächste Ecke, ihre Normale)
 		var haut := []
 		if t[5] == "R" and (sturz or korrigiert or stab_frei) and t.size() > 8:
-			haut = _haut_nah(sk, g, t, schutz_variante == 2)
+			haut = _haut_nah(sk, g, t, schutz_variante in [2, 3])
 		var vor_h := _haut_tiefe(g, t, haut) if messen else 0.0
 		var r1: Array = _loesen(g, t, nah, frei, y0, 24, 20, haut)
 		if schutz_variante == 1 and not haut.is_empty():
@@ -1213,8 +1215,14 @@ func _haut_nah(sk: Skeleton3D, g: Transform3D, t: Array, alle := false) -> Array
 		return []
 	if alle:
 		var voll := []
+		_gitter = {}
 		for j in pos.size():
 			voll.append([pos[j], nor[j]])
+			var k := Vector3i((pos[j] / HAUT_SUCHE).floor())
+			if not _gitter.has(k):
+				_gitter[k] = PackedInt32Array()
+			(_gitter[k] as PackedInt32Array).append(j)
+		_gitter_haut = voll
 		return voll
 	# je Punkt der Achse die nächste Ecke (wie sturz_438a); mit Drehungen bis 20° je Bild bleiben es dieselben Stellen
 	var wahl := {}
@@ -1236,6 +1244,10 @@ func _haut_nah(sk: Skeleton3D, g: Transform3D, t: Array, alle := false) -> Array
 	return out
 
 
+var _gitter := {}              # 438a V2: Zelle (Vector3i) -> Indizes in _gitter_haut
+var _gitter_haut: Array = []
+
+
 ## Tiefster Punkt der Achse hinter Haut oder Kleidung: [Tiefe m (mit HAUT_FREI), Punkt, Richtung hinaus]; nur Punkte außerhalb der Faust
 func _haut_tiefste(g: Transform3D, t: Array, haut: Array) -> Array:
 	var ax: Array = t[8]
@@ -1245,17 +1257,32 @@ func _haut_tiefste(g: Transform3D, t: Array, haut: Array) -> Array:
 	var griff := g.origin
 	var l := a.distance_to(z)
 	var out := [-INF, Vector3.ZERO, Vector3.ZERO]
+	var gitter := is_same(haut, _gitter_haut)
 	for i in int(l / HAUT_SCHRITT) + 1:
 		var s := a.lerp(z, i * HAUT_SCHRITT / maxf(l, 0.001))
 		if s.distance_to(griff) < BODEN_HEBEL:
 			continue
 		var best := -1
 		var bd := HAUT_SUCHE
-		for j in haut.size():
-			var d := s.distance_to(haut[j][0])
-			if d < bd:
-				bd = d
-				best = j
+		if gitter:     # V2: nur die 27 Zellen um den Punkt (Zelle = HAUT_SUCHE)
+			var k0 := Vector3i((s / HAUT_SUCHE).floor())
+			for dx in [-1, 0, 1]:
+				for dy in [-1, 0, 1]:
+					for dz in [-1, 0, 1]:
+						var zelle = _gitter.get(k0 + Vector3i(dx, dy, dz))
+						if zelle == null:
+							continue
+						for j in zelle:
+							var d := s.distance_to(haut[j][0])
+							if d < bd:
+								bd = d
+								best = j
+		else:
+			for j in haut.size():
+				var d := s.distance_to(haut[j][0])
+				if d < bd:
+					bd = d
+					best = j
 		if best < 0:
 			continue
 		var n: Vector3 = haut[best][1]
@@ -1288,34 +1315,26 @@ func _in_kapsel(g: Transform3D, t: Array, nah: Array, griff: Vector3) -> float:
 func _loesen(g: Transform3D, t: Array, nah: Array, frei: float, y0: float, n: int, boden_ab: int, haut: Array = []) -> Array:
 	var neu := false
 	var griff := g.origin
+	# 438a V3, V4 (Lauf 200: zwischen den Beinen schob ein Schritt die Klinge aus einem Bein ins andere, vorher 4,7, nach 14,8 cm): die
+	# beste Lage aller Schritte gegen den Körper, nicht die letzte; danach nur noch der Boden
+	var beste := schutz_variante >= 3 and boden_ab > 0
+	var best := g
+	var best_tief := INF
 	for i in n:     # die schlimmste Ecke heraus; schiebt das eine Ende das andere hinein, die nächste; zuletzt nur der Boden
 		var nur_boden := i >= boden_ab
-		var tief := 0.002
-		var lp := Vector3.ZERO
-		var nach := Vector3.ZERO     # wohin die Ecke soll
-		for c in t[2]:
-			var p: Vector3 = g * c
-			if p.distance_to(griff) < BODEN_HEBEL:
-				continue
-			if y0 - p.y > tief:
-				tief = y0 - p.y
-				lp = p
-				nach = Vector3.UP
+		var m: Array = []
+		if beste and (not nur_boden or i == boden_ab):
+			m = _loesen_stelle(g, t, nah, frei, y0, false, haut, griff)
+			if float(m[0]) < best_tief:
+				best_tief = m[0]
+				best = g
 			if nur_boden:
-				continue
-			for k in nah:
-				var q: Vector3 = Geometry3D.get_closest_point_to_segment(p, k[0], k[1])
-				var d: float = float(k[2]) + frei - p.distance_to(q)
-				if d > tief and p.distance_to(q) > 0.001:
-					tief = d
-					lp = p
-					nach = (p - q).normalized()
-		if not nur_boden and not haut.is_empty():     # Runde 5: Haut und Kleidung der Beine (Punkt der Achse hinter der nächsten Ecke)
-			var hv: Array = _haut_tiefste(g, t, haut)
-			if hv[0] > tief:
-				tief = hv[0]
-				lp = hv[1]
-				nach = hv[2]
+				g = best
+		if nur_boden or not beste:
+			m = _loesen_stelle(g, t, nah, frei, y0, nur_boden, haut, griff)
+		var tief: float = m[0]
+		var lp: Vector3 = m[1]
+		var nach: Vector3 = m[2]
 		if nach == Vector3.ZERO:
 			break
 		var v := lp - griff
@@ -1329,7 +1348,40 @@ func _loesen(g: Transform3D, t: Array, nah: Array, frei: float, y0: float, n: in
 		ang = minf(ang, 0.15)     # je Schritt höchstens 9°: kleine Schritte, so findet sie zwischen Boden und Bein die nächste Lage
 		g = Transform3D(Basis(ax.normalized(), ang) * g.basis, griff)
 		neu = true
+	if beste and boden_ab >= n and best_tief < INF and float(_loesen_stelle(g, t, nah, frei, y0, false, haut, griff)[0]) > best_tief:
+		g = best
 	return [g, neu]
+
+
+## Eine Stufe von _loesen: die schlimmste Stelle [Tiefe m, Punkt, wohin]; wohin = 0, wenn nichts tiefer als 2 mm liegt
+func _loesen_stelle(g: Transform3D, t: Array, nah: Array, frei: float, y0: float, nur_boden: bool, haut: Array, griff: Vector3) -> Array:
+	var tief := 0.002
+	var lp := Vector3.ZERO
+	var nach := Vector3.ZERO     # wohin die Ecke soll
+	for c in t[2]:
+		var p: Vector3 = g * c
+		if p.distance_to(griff) < BODEN_HEBEL:
+			continue
+		if y0 - p.y > tief:
+			tief = y0 - p.y
+			lp = p
+			nach = Vector3.UP
+		if nur_boden:
+			continue
+		for k in nah:
+			var q: Vector3 = Geometry3D.get_closest_point_to_segment(p, k[0], k[1])
+			var d: float = float(k[2]) + frei - p.distance_to(q)
+			if d > tief and p.distance_to(q) > 0.001:
+				tief = d
+				lp = p
+				nach = (p - q).normalized()
+	if not nur_boden and not haut.is_empty():     # Runde 5: Haut und Kleidung der Beine (Punkt der Achse hinter der nächsten Ecke)
+		var hv: Array = _haut_tiefste(g, t, haut)
+		if hv[0] > tief:
+			tief = hv[0]
+			lp = hv[1]
+			nach = hv[2]
+	return [tief, lp, nach]
 
 func _count_meshes(n: Node) -> int:
 	var c := 0
