@@ -109,11 +109,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 | Pflege | K | von Werkzeug (340.3, 02.11.): 25539 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 56, Muss 44, startbar 4
+**Jerry** – offen 55, Muss 43, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 461b.1 | M | von Perikles (Liste Sokrates 461b, 02.11., 19:1x, Punkt 3, 9): Widersprüche nachziehen: 38 | startbar |
 | 478 | M | von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv): Rechenkern des Kampfs schon in Stufe | ruht |
 | 427.1 | M | von Sokrates (Chef 02.11., 18:54, Archiv 427): Werte Bestiarium „Werte 2.0“ in werte.json; | Chef (Datei in der Chefsache) |
 | 481.1 | M | von Sokrates (Archiv 427): Tränke in sim444 (Zu 481 in ARBEIT-BERATUNG.md), Herkünfte neu | wartet auf Test/Build (gebaut) |
