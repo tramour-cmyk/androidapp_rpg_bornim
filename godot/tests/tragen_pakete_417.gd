@@ -40,7 +40,16 @@ func standbilder_nach(ap: AnimationPlayer, gang: String) -> void:
 			TragProbe.standbild_lage(ap, f / FPS, 1.0, lang)
 			await process_frame
 
-func film_nach(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, gang: String, wer: String) -> void:
+# 417 (Uebergabe 02.11.: Anlaufgleiten 0,65-1,2 m/s, Held.schub half nicht): je Bild der ersten 0,8 s des Anlaufens (Abschnitt 1)
+# FILMBILD: Anteil w der Ueberblendung, speed_scale, Tempo, wie weit der Koerper vorankommt; Standfuss (der tiefere Ballen) gegen die
+# Figur (rel) zerlegt in A = -w * speed_scale * Tempo ohne Gleiten (Schritt traegt mit seinem Anteil) und B = Rest (Pose wandert vom
+# Stehen in den Schritt), dazu Fuss im Raum und Hoehe beider Ballen; fest: der Koerper kommt nur so weit voran, wie der Standfuss
+# gegen die Figur zurueckgeht (Fuss steht nach Bauart), zum Vergleich
+func ballen_rel(sk: Skeleton3D, w: Node3D) -> Array:
+	return [sk.global_transform * sk.get_bone_global_pose(sk.find_bone("ball_l")).origin - w.global_position,
+		sk.global_transform * sk.get_bone_global_pose(sk.find_bone("ball_r")).origin - w.global_position]
+
+func film_nach(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, gang: String, wer: String, fest := false) -> void:
 	var g := "_" + gang
 	var w := m.get_parent() as Node3D
 	var p := Vector3.ZERO
@@ -69,6 +78,8 @@ func film_nach(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, gang: String, wer
 	var t_film := 0.0
 	var haltung := PackedStringArray()
 	haltung.append("Anfang %.1f" % n_alt)
+	var rel_alt := ballen_rel(sk, w)
+	var abw := 0.0   # m: Ballen nach advance gegen nach dem Bild (ob die Lage nach advance schon gilt)
 	for ai in TragProbe.FILM_FOLGE.size():
 		var b0: String = TragProbe.FILM_FOLGE[ai][0]
 		var nf := int(round(float(TragProbe.FILM_FOLGE[ai][1]) * FPS))
@@ -88,9 +99,30 @@ func film_nach(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, gang: String, wer
 			if moving and ap.has_meta("halt"): ap.remove_meta("halt")
 			ap.speed_scale = Held.takt(ap, tempo, vb, 1.0 / FPS) if moving else Held.stand_takt(ap, 1.0 / FPS)
 			ap.advance(1.0 / FPS)
-			p += Vector3(0, 0, 1) * tempo / FPS
+			var rel_neu := ballen_rel(sk, w)
+			var dz := tempo / FPS
+			var bild := moving and ai == 1 and f < int(0.8 * FPS)
+			var s_i := 0 if (rel_neu[0] as Vector3).y <= (rel_neu[1] as Vector3).y else 1
+			var d_st := (rel_neu[s_i] as Vector3).z - (rel_alt[s_i] as Vector3).z
+			if fest and bild: dz = maxf(0.0, -d_st)
+			p += Vector3(0, 0, 1) * dz
 			w.position = p
 			await process_frame
+			var rel_bild := ballen_rel(sk, w)
+			for k in 2: abw = maxf(abw, ((rel_bild[k] as Vector3) - (rel_neu[k] as Vector3)).length())
+			if bild:
+				var wb := 1.0
+				if ap.has_meta("blende"):
+					var bm: Array = ap.get_meta("blende")
+					wb = clampf(float(bm[0]) / maxf(0.01, float(bm[1])), 0.0, 1.0)
+				var a_t := -wb * ap.speed_scale * vb
+				var vrel := d_st * FPS
+				var o_i := 1 - s_i
+				var d_o := (rel_neu[o_i] as Vector3).z - (rel_alt[o_i] as Vector3).z
+				print("FILMBILD %s%s %d: w %.2f, speed_scale %.2f, Tempo %.2f, Koerper %.2f m/s; Stand %s %.1f cm hoch, gegen Figur %+.2f = A %+.2f + B %+.2f, im Raum %+.2f m/s; anderer %.1f cm hoch, im Raum %+.2f m/s (%s)" % [
+					wer, " fest" if fest else "", f, wb, ap.speed_scale, tempo, dz * FPS, "L" if s_i == 0 else "R", 100.0 * (rel_neu[s_i] as Vector3).y,
+					vrel, a_t, vrel - a_t, vrel + dz * FPS, 100.0 * (rel_neu[o_i] as Vector3).y, d_o * FPS + dz * FPS, ap.current_animation])
+			rel_alt = rel_bild
 			t_film += 1.0 / FPS
 			var n_neu: float = neig.call()
 			if t_film < 1.3: bilder.append("%d:%.0f/%.0f%s" % [int(round(t_film * FPS)), n_neu, 100.0 * float(kopf_vor.call()),
@@ -125,6 +157,7 @@ func film_nach(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, gang: String, wer
 			var ab := vs.map(func(v): return absf(v)); ab.sort()
 			print("FILMNACH %s %s%s (Abschnitt %d, %s): Standfuss %+.2f m/s (Median mit Vorzeichen), Betrag %.2f, Figur %.2f m/s, speed_scale %.2f, %d Proben; gegen Tempo Median %.0f %%, groesster %.0f %%" % [wer, b0,
 				teil[0], ai, zz[-1][4], vs[vs.size() / 2], ab[ab.size() / 2], tm, sp, vs.size(), rel[rel.size() / 2], rel[-1]])
+	print("FILMBILD %s%s: Ballen nach advance gegen nach dem Bild hoechstens %.1f mm" % [wer, " fest" if fest else "", abw * 1000.0])
 	print("HALTUNG %s: Brust Grad vor: %s; groesster Sprung %+.1f Grad in einem Bild bei %.2f s (%s)" % [wer, ", ".join(haltung), sprung[0], sprung[1], sprung[2]])
 	print("HALTUNGBILD %s (Bild:Brust Grad/Kopf vor Becken cm%s): %s" % [wer, "" if haar else ", ohne Haar", " ".join(bilder)])
 	ap.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_IDLE
@@ -192,6 +225,9 @@ func _initialize() -> void:
 		var frisch := haltung_anfang
 		await standbilder_nach(ap, gang)
 		await film_nach(m, sk, ap, gang, gang + " nach Standbildern")
+		var h_a := haltung_anfang; var h_s := haltung_sprung
+		await film_nach(m, sk, ap, gang, gang, true)   # 417: Vergleich Koerper nach dem Standfuss (FILMBILD … fest)
+		haltung_anfang = h_a; haltung_sprung = h_s
 		pruefe(absf(haltung_anfang - frisch) < 2.0 and haltung_sprung < SPRUNG_ERLAUBT, "%s: Haltung nach Standbildern %.1f statt %.1f Grad, Sprung %.1f Grad" % [gang, haltung_anfang, frisch, haltung_sprung])
 		# Lauf 41315361680 und 41320044677: der Schild wurde nie gemessen; Godot benennt den zweiten Knoten „@Tragen@…“ um, darum nach Typ
 		var tl: Array = sk.get_children().filter(func(c): return c is Tragen)
