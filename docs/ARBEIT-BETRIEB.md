@@ -196,3 +196,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:52 02.11.: Chef archivierte Tom 78qS, Jerry 76w5 von Hand; Kosten (463, 406, 438a, 431) waren schon gebucht, nichts zu tun.
 - 19:52 02.11.: Neustart Jerry 76ce17e7f geprüft; Jerry – 438a gestartet session_01Hmoj7A2jWrJar1ADMFmNoC (Vorgänger 771R beendet, danach archivieren und buchen).
 - 20:03 02.11.: Neustart Diogenes e3ffc83f8: Nachfolger „374“ erst 03.11., 8 Uhr, kein Start; Diogenes 76sH archiviert, gebucht D63.
+- 20:36 02.11.: Neustart Tom 145b20d7d geprüft; Tom – 431 gestartet session_01Hmoj76UyUnBJAbFAjBqnim (Vorgänger 78iL beendet, archivieren und buchen offen); Perikles 75yT Archivieren abgelehnt (20:08).
