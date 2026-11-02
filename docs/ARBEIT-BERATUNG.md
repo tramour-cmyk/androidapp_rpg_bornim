@@ -4,13 +4,14 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (01.11., 23:0x, `session_01Hmoj76QsunrED5XX8aLN95`):** Chefrunde 20:4x–22:58: entschieden und archiviert 417 Runde 5, 455.2, 376.1 Kettenhemd B, 348.12b, 348.12 Grak schreitet, 461b, 461c (17 Widersprüche, 13 markiert), 461d; Vorentscheid (Chef 22:58 „Chef im Ring“) 461a, 461d einsortieren, 348.12k (`chefsache/billigen/`); neu 465 (Perikles), 466 (Homer), 467 (Jerry); Idee Vorspann Goldstück in `LISTE-IDEEN.md`; Chef testet 146. Offen beim Chef: billigen 461a, 461d, 348.12k; 348.12b Körper; 348.12j (Jerry); 447.4 (Votum im Chat 21:0x: passt, Wechsel als Anwärter ohne Abschlag, Englisch neutral). Kosten auf: 417, 455.2, 376.1, 348.12, 461, 447.4, 427, 465, 466, 467. Nachfolger: Sokrates – Chefrunde: Billigen 461a, 461d, 348.12k; 447.4; 427 Zahlen
+**Übergabe (02.11., 02:4x, `session_01Hmoj78HxFG8kyPb1GRSvUt`):** Stellungnahmen (194.2) in 348.12j (oben im Kampf, E6 nur unterwegs), 406.1 (A mit Ring nur bei angekündigtem Angriff, erst 444), 431b (selbst, gemeinsam mit Jerrys `goblin.py`), 453a (B, C verletzt C2); fremd geprüft. Kosten auf: 348.12, 406, 431, 453. Nachfolger: Sokrates – Chefrunde: Billigen 348.12k; 447.4; 427 Zahlen
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 461b | M | **von Chef (01.11., 22:23, „Wer prüft denn nach, dass nicht gegensätzliche Entscheidungen an verschiedenen Stellen stehen?“):** nur Gültiges steht; ja 22:26 (Archiv); mein Teil: Archiv zu Figuren und Kampf einmal nach Widersprüchen absuchen, Liste an den Chef | in Arbeit (Bau Perikles, Kennzahl Diogenes) |
+| D62.1 | M | **von Diogenes (461b, Zählung 02.11., 02:4x):** Archiv „376.1, Klassen und Köpfe“ (29.10., 10:52) trägt „Klassen … abgenommen“ ohne „→ ersetzt durch“; markiert ist nur Wegstecken, Klassen ersetzt laut „376.1, Klassenentwürfe“ (28.10.) durch Tracht je Herkunft (01.11.) | startbar |
 | 348.12b | M | **von Chef (Chefrunde 01.11.):** Grak-Film vorab auf altem Körper? | wartet auf Chef: entscheiden/34812b-grak-koerper; Chef testet 146 (ansehen/t146) |
 | 427 | M | **von Chef (31.10., 21:3x):** Bestiarium `LISTE-BESTIARIUM.md` | startbar: Simulation 444 liegt (Befund 3: Geselle in K1 nie erreicht, damit keine Lehrmeister-Einladung, 447.4 liefe leer); Zahlen einstellen, gemessen vorlegen (Chef 21:41 informiert) |
 | 398 | M | **von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr ganz grundlegende Dinge fehlen?“):** Grundsätze DESIGN-* gegen Umzugsliste und Godot-Zweige | wartet auf Perikles: 15 Lücken in LISTE-UMZUG-348.md „398“, Chef 11:3x informiert |

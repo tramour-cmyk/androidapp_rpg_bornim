@@ -56,6 +56,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **von Team Jerry (Tuffy, 399.1a, 02.11., 02:4x):** Godot-Lauf 157 (41361582331, `claude/grundstand-461`) rot im Android-Export: „Schluessel fehlt“, Cache `bornim-godot-schluessel-2` nicht mehr da (letzter Lauf von `godot-schluessel.yml` 29.10. grün; vermutlich verdrängt, Cache-Grenze 10 GB). Der Plan-Lauf Mo 03:17 UTC legt einen neuen Schlüssel an: dann lehnt Android das Update über Build 146 ab, Chef muss die Probe einmal deinstallieren. Deins (Votum 399.1a).
 - **von Jerry (376.1, 02.11., 01:5x):** Messung 438a am Rechner (Kämpfer, Tracht WACHE, Kampfort): liegt der Held rücklings (SS_DeathBack), steckt der Umhang (Netz „Kleid“, gewichtet auf `spine_03`) bis 16 cm, an `thigh_l` bis 14 cm unter dem Boden; der Körper selbst liegt frei (Hals 5 cm darüber). Ursache: Umhang starr am Rücken gebunden. Sichtbar im Film 438a Runde 2 (`chefsache/ansehen/438a-sturz-runde2.md`); deins.
 
 - **von Jerry (406, 01.11., 11:4x):** `heldfigur.gd` `bewaffne` geändert (Zweig `claude/jerry-406-kaufschild`, 1bd54b7c7): `rand_hinten()` rückt gewölbte Kaufschilde um ihren Rand vom Rücken; Startschilde getauscht (`Rules.kt`: Kämpfer `round_shield`, Kleriker `shield`). Befund Netzmessung `tests/schild_406.gd`: am Rücken ragen Schulter und Oberarm bis 7–9 cm in die Oberkante des Schilds (vorher mit den waffen.py-Schilden 6,5–7,2 cm); Ursache Lage aus 376.1, deins.
