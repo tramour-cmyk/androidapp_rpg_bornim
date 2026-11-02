@@ -68,9 +68,9 @@ Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit und 
 
 ## 3. Fertigkeiten
 
-**Prüfregel:** Eine Fertigkeit gibt es nur, wenn sie eine Handlung im Spiel hat, die sie übt, und eine Wirkung, die man merkt.
+**Prüfregel:** Eine Fertigkeit gibt es nur, wenn sie eine Tätigkeit im Spiel hat, die sie übt, und eine Wirkung, die man merkt.
 
-**37 Fertigkeiten in acht Gruppen** (nach oben offen: kommt eine neue Handlung ins Spiel, etwa Reiten mit Reittieren, kommt die Fertigkeit dazu):
+**37 Fertigkeiten in acht Gruppen** (nach oben offen: kommt eine neue Tätigkeit ins Spiel, etwa Reiten mit Reittieren, kommt die Fertigkeit dazu):
 
 | Gruppe | Fertigkeiten | Geübt durch |
 | --- | --- | --- |
@@ -138,30 +138,32 @@ Die Ätherdichte (Entscheidung 76) ist noch ohne Zahl.
 
 | Prüfung | Voraussetzung | Danach bist du | Bekommst | Ab Kapitel (Startwert) |
 | --- | --- | --- | --- | --- |
-| Zwischenprüfung | Kernfertigkeiten am Ende von Geselle (49) | Eingeweihter | Rang Meister für die Kernfertigkeiten, erste Handlung | 2 |
-| Gesellenprüfung | Kernfertigkeiten am Ende von Meister (74) | Titelträger, z. B. „Paladin“ | Rang Großmeister, stärkere Handlung; ab hier gelten die Auflagen | 4 |
-| Meisterprüfung | Kernfertigkeiten bei 100 | Meister, z. B. „Hoher Paladin“ | stärkste Handlung | 6 |
+| Weihe | Kernfertigkeiten am Ende von Geselle (49) | Eingeweihter | Rang Meister für die Kernfertigkeiten, erste Fähigkeit | 2 |
+| Titelprüfung | Kernfertigkeiten am Ende von Meister (74) | den Titel, z. B. „Paladin“ (in der Regel „Titelträger“) | Rang Großmeister, stärkere Fähigkeit; ab hier gelten die Auflagen | 4 |
+| Hohe Prüfung | Kernfertigkeiten bei 100 | den hohen Titel, z. B. „Hoher Paladin“ | stärkste Fähigkeit | 6 |
+
+Namen nach 466 (Chef 02.11.): **Fähigkeit** (Ability) ist, was ein Pfad gibt; Fertigkeiten haben Wert und Rang, Fähigkeiten nie. Pfadstufen: Anwärter, Eingeweihter, Titel, hoher Titel; Anfänger, Geselle, Meister, Großmeister sind nur Ränge der Fertigkeiten. Im Spiel heißen die Prüfungen nach dem Titel („Prüfung zum Paladin“, „Prüfung zum Hohen Paladin“); „Weihe“, „Titelprüfung“, „Hohe Prüfung“ stehen nur in der Regel. Stufen der Meisterschaften legt Homer fest (466).
 
 **Kapitel als Takt für alle Fertigkeiten (Startwerte):**
 
 | Kapitel | höchster Rang im Pfad oder in der Meisterschaft | höchster Rang sonst | Bewährungsproben verfügbar | Lehrmeister |
 | --- | --- | --- | --- | --- |
 | 1 | Geselle (bis 49) | Geselle (bis 49) | zum Gesellen | spricht an, Anwärter möglich |
-| 2–3 | Meister (nach der Zwischenprüfung) | Geselle | zum Gesellen | Zwischenprüfung |
-| 4–5 | Großmeister (nach der Gesellenprüfung) | Meister | zum Meister | Gesellenprüfung |
-| 6–7 | Großmeister bis 100 | Meister | zum Meister | Meisterprüfung |
+| 2–3 | Meister (nach der Weihe) | Geselle | zum Gesellen | Weihe |
+| 4–5 | Großmeister (nach der Titelprüfung) | Meister | zum Meister | Titelprüfung |
+| 6–7 | Großmeister bis 100 | Meister | zum Meister | Hohe Prüfung |
 
-So zeigt Kapitel 1 die ersten Lehrmeister und Anwärter. Die Berufung beginnt in Kapitel 2 mit der Zwischenprüfung (Eingeweihter, Entscheidung 51); den Titel („Paladin“) bringt die Gesellenprüfung ab Kapitel 4 (behebt D48.2, D54.1).
+So zeigt Kapitel 1 die ersten Lehrmeister und Anwärter. Der Pfad beginnt in Kapitel 2 mit der Weihe (Eingeweihter, Entscheidung 51); den Titel („Paladin“) bringt die Titelprüfung ab Kapitel 4 (behebt D48.2, D54.1).
 
-**Was ein Pfad bringt:** neue Handlungen im Kampf und in der Welt, jede besser als die vorige (Riposte, Tierbegleiter, Waffenzauber), keine großen Zahlenaufschläge. Die Kraft bleibt in den Fertigkeiten.
+**Was ein Pfad bringt:** neue Fähigkeiten im Kampf und in der Welt, jede besser als die vorige (Riposte, Tierbegleiter, Waffenzauber), keine großen Zahlenaufschläge. Die Kraft bleibt in den Fertigkeiten.
 
-**Wechseln** geht beim Lehrmeister mit Abschlägen: Die Handlungen des alten Pfads gehen verloren, seine Kernfertigkeiten sinken um einen Rang.
+**Wechseln** geht beim Lehrmeister mit Abschlägen: Die Fähigkeiten des alten Pfads gehen verloren, seine Kernfertigkeiten sinken um einen Rang.
 
 **Magie und Rüstung (Entscheidung 80):** Die Sperre kommt daher, dass Metall die Aufnahme der Magiepartikel aus der Umgebung stört. Sie gilt darum für jeden, der aus der Umgebung schöpft: **Evokation, Illusion, Beschwörung** gehen nur ohne Metall (Stoff oder Leder). **Heil- und Schutzmagie** schöpfen aus dem eigenen Willen und gehen auch in Rüstung. So zaubern Paladin und Heiler ohne Ausnahmeregel; der Kriegsmagier bleibt die eine Ausnahme bei Evokation (leichte Rüstung).
 
 Die sechs Gruppen ordnen die Pfade; sie sind keine eigene Stufe:
 
-| Gruppe | typische Fertigkeiten | Pfad | Kernfertigkeiten (Einladung, Prüfungen) | Handlungen (Beispiele) | Auflagen ab Gesellenprüfung |
+| Gruppe | typische Fertigkeiten | Pfad | Kernfertigkeiten (Einladung, Prüfungen) | Fähigkeiten (Beispiele) | Auflagen ab Titelprüfung |
 | --- | --- | --- | --- | --- | --- |
 | Schutz (Bewahrer) | Schild, Mittlere und Schwere Rüstung, Ausweichen | Wächter | Schild, Schwere Rüstung | Gegner binden, Gefährten decken | langsam, wenig eigener Schaden |
 | | | Paladin (Kernfertigkeiten aus Schutz und Heilung) | Schild, Einhänder, Heilmagie | Heilende Hand, Schutzaura | keine Nekromantie; Ruf muss hoch bleiben |
@@ -200,7 +202,7 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 - **Zufall nur als Würze:** kleine Streuung statt W20; ein Glückstreffer (1 von 100) ist nur ein Kratzer („Kratzer reicht“); kritische Treffer und Ausweichen hängen an Gewandtheit und Fertigkeit. Gegen Gegner, die 9 Stufen und mehr unter dem Helden stehen, gibt es keine Erfahrung (Entscheidung 73).
 - **Abwehr:** Die Schildfertigkeit und die Rüstungsfertigkeit erhöhen den Schadensabzug: Abzug = Rüstungswert × (1 + Fertigkeit / 100); die Rüstungsfertigkeit senkt nur den Schaden, nicht die Trefferchance (Entscheidung 74). **Parieren:** Für die Trefferchance zählt als Abwehr der beste von Schild, Ausweichen und halber Fertigkeit der Nahkampfwaffe, nur gegen Nahkampf; gegen Pfeile und Zauber gelten nur Schild und Ausweichen. Riposte bleibt Handlung des Duellanten (Entscheidung 75).
 - **Schleichen und Hinterhalt:** Mit der Schleichtaste nähert sich der Held. Bleibt er unbemerkt (Schleichen gegen die Wachsamkeit des Gegners, ohne Würfel), greift er als Erster an und bekommt den Vorteil des Hinterhalts. Mehr Gegner sind schwerer zu überlisten. **Bosse** sind wachsamer, ihr Hinterhalt-Bonus ist gedeckelt.
-- **Ausschlüsse sind hart.** Metall stört die Aufnahme der Magiepartikel aus der Umgebung (Entscheidung 10, 33). Die Sperre hängt an der Schule, nicht am Pfad (Entscheidung 80): Evokation, Illusion und Beschwörung gehen für jeden nur ohne Metall, also in Stoff oder Leder; Heil- und Schutzmagie auch in Metall. Dazu trägt der Magier ab der Gesellenprüfung keine Rüstung, der Kriegsmagier nur leichte. In schwerer Rüstung geht Schleichen nicht („Deine Rüstung klirrt“). Zweihänder und Schild schließen sich aus. Jeder Held hat höchstens einen Pfad.
+- **Ausschlüsse sind hart.** Metall stört die Aufnahme der Magiepartikel aus der Umgebung (Entscheidung 10, 33). Die Sperre hängt an der Schule, nicht am Pfad (Entscheidung 80): Evokation, Illusion und Beschwörung gehen für jeden nur ohne Metall, also in Stoff oder Leder; Heil- und Schutzmagie auch in Metall. Dazu trägt der Magier ab der Titelprüfung keine Rüstung, der Kriegsmagier nur leichte. In schwerer Rüstung geht Schleichen nicht („Deine Rüstung klirrt“). Zweihänder und Schild schließen sich aus. Jeder Held hat höchstens einen Pfad.
 - **Gegner gehören zu Gebieten**, damit niemand zu früh in zu hohe Stufen läuft. Höhere Gebiete sind betretbar; die Karte zeigt ihr Stufenband.
 
 ## 8. Die Welt
@@ -233,7 +235,7 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 | Fische | Teich, Fluss | Angeln (Fang nach Rang, Angel und Gebiet) |
 | Fleisch, Fell, Knochen, Sehnen, Zähne | erlegte Tiere | Jagd (Zerlegen nach dem Sieg; ohne Jagd weniger und schlechtere Teile, nie nichts) |
 
-Ernten ist eine kurze Handlung ohne Minispiel. Fundorte wachsen nach einer Zeit nach. Höhere Gebiete liefern bessere Rohstoffe.
+Ernten ist eine kurze Tätigkeit ohne Minispiel. Fundorte wachsen nach einer Zeit nach. Höhere Gebiete liefern bessere Rohstoffe.
 
 **Die Kette vom Tier zum Gegenstand:** Jagd (zerlegen) → Kochen (Fleisch, Fisch) · Lederarbeit (Fell zu Leder, leichte Rüstung, Taschen) · Alchemie (Zähne, Giftdrüsen, seltene Fische) · Händler (alles).
 
@@ -324,7 +326,7 @@ Zu A bis C: A ist am einfachsten, aber Üben zählt im Kampf kaum, und der Handw
 
 Anforderung des Chefs (31.10., 21:3x): Ein kleiner Held gegen ein starkes Monster muss verlieren, mit vielleicht einem Glückstreffer von 1 zu 100; umgekehrt gibt Stufe 10 gegen Stufe 1 keine Erfahrung.
 
-**Die Idee:** Die **Stufe** bestimmt die Größenordnung (Schaden und Leben). Die **Fertigkeit** bestimmt das Können: wie oft man trifft, wie hart man trifft und welche Handlungen man hat. Wer das Schwert tausendmal geführt hat, trifft öfter und härter (Nachfrage Chef 31.10., 21:4x: „wo taucht denn das in deiner Berechnung des Schadens auf?“). D ist der Stufenunterschied: Stufe des Angreifers minus Stufe des Verteidigers.
+**Die Idee:** Die **Stufe** bestimmt die Größenordnung (Schaden und Leben). Die **Fertigkeit** bestimmt das Können: wie oft man trifft, wie hart man trifft und welche Fähigkeiten man nutzt. Wer das Schwert tausendmal geführt hat, trifft öfter und härter (Nachfrage Chef 31.10., 21:4x: „wo taucht denn das in deiner Berechnung des Schadens auf?“). D ist der Stufenunterschied: Stufe des Angreifers minus Stufe des Verteidigers.
 
 | Regel | Formel (Startwerte) |
 | --- | --- |
@@ -366,7 +368,7 @@ Neu gefasst nach Entwurf F (Chef 31.10., 21:4x: „das irgendwie erklärt sich m
 | Heldenstufe | Leben, Größenordnung im Kampf, Zugang zu Gebieten | 1, 2, 3 …; jedes Kapitel setzt eine Grenze (weich, bis zwei darüber) | Erfahrung aus Kampf, Quests, Story und Fertigkeitsaufstiegen |
 | Grundwerte (6) | Begabung: Kraft, Gewandtheit, Zähigkeit, Verstand, Wille, Wahrnehmung | Start 3 bis 8 | wachsen langsam mit den Fertigkeiten |
 | Fertigkeiten (37) | Können im Einzelnen, auch Sammeln wie Kräuterkunde und Handwerk wie Schmieden | Wert 0 bis 100 in vier Rängen: Anfänger, Geselle, Meister, Großmeister; bei 100 fertig | durch Tun bis zur Rangdecke; der nächste Rang braucht eine Prüfung (Entwurf F) |
-| Pfad oder Meisterschaft | Rolle des Helden: ein Pfad (Kampf und Lebensweg, mit Auflagen), dazu beliebig viele Meisterschaften (Handwerk, ohne Auflagen) | Anwärter → Eingeweihter → Titelträger → Meister | Lehrmeister: Zusage, dann Zwischen-, Gesellen-, Meisterprüfung (Entwurf F) |
+| Pfad oder Meisterschaft | Rolle des Helden: ein Pfad (Kampf und Lebensweg, mit Auflagen), dazu beliebig viele Meisterschaften (Handwerk, ohne Auflagen) | Anwärter → Eingeweihter → Titel → hoher Titel | Lehrmeister: Zusage, dann Weihe, Titelprüfung, Hohe Prüfung (Entwurf F, Namen 466) |
 
 Wie das zusammenhängt: Kräuterkunde ist eine **Fertigkeit** (Sammeln). Sie gehört zu den Kernfertigkeiten der **Meisterschaft** Alchemist, so wie Schild zur **Berufung** Paladin gehört. Meisterschaften laufen genauso wie Berufungen (Lehrmeister, Prüfungen), nur ohne Auflagen und ohne Grenze der Anzahl. Ein eigener „Meisterschaftsrang“ entfällt; es ist die Stufe in der Meisterschaft.
 
