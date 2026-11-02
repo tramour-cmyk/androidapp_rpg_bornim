@@ -103,9 +103,13 @@ def urteil(nr):
     for m in ARCHIV_KOPF.finditer(archiv):
         if not re.search(r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)", m.group(1)):
             continue
+        klammer = archiv[m.end():archiv.find(")", m.end())] if ")" in archiv[m.end():] else ""
+        if "Vorentscheid" in m.group(1) or ("Vorentscheid" in klammer and "gebilligt" not in klammer):
+            continue  # D50.5 (b): ein Vorentscheid ist kein Urteil des Chefs, gibt keine Läufe frei
         tag, monat, std = int(m.group(2)), int(m.group(3)), m.group(4)
         jahr = heute.year if (monat, tag) <= (heute.month, heute.day) else heute.year - 1
-        zeit = f"{jahr}-{monat:02d}-{tag:02d} {std}:{m.group(5)}{'0' if m.group(6) == 'x' else m.group(6)}:00"
+        # D50.5 (c): „21:1x“ zählt als 21:19, damit kein Lauf vor dem echten Urteil als danach gilt
+        zeit = f"{jahr}-{monat:02d}-{tag:02d} {std}:{m.group(5)}{'9' if m.group(6) == 'x' else m.group(6)}:00"
         beste = max(beste or "", zeit)
     return beste
 
