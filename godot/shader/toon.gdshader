@@ -83,7 +83,10 @@ void fragment() {
 	if (toen_hell > 0.0) {   // 376.1: Zeichnung des Bildes, Farbe des Tons, dazu ein Teil der Farbschwankung des Bildes (toen_farbe)
 		float hl = dot(ALBEDO, vec3(0.2126, 0.7152, 0.0722));
 		vec3 rel = (ALBEDO / max(hl, 0.001)) / max(toen_bild / toen_hell, vec3(0.001));
-		ALBEDO = toenung * hl / toen_hell * mix(vec3(1.0), rel, toen_farbe);
+		// 431c B1 (Pruefer Lauf 41439148830: Waesche ausgebleicht): nur hautfarbene Stellen toenen. Graue Waesche liegt weit vom
+		// Farbton des Bezugs (rel etwa 0,5/1,3/2,5, Abstand 1,6), Lippen und Wangen nah (Abstand unter 0,4); dazwischen weich
+		float haut = (toen_farbe > 0.0) ? 1.0 - smoothstep(0.6, 1.0, length(rel - vec3(1.0))) : 1.0;
+		ALBEDO = mix(ALBEDO, toenung * hl / toen_hell * mix(vec3(1.0), rel, toen_farbe), haut);
 	}
 	else ALBEDO *= toenung;
 	if (kontur > 0.0) {

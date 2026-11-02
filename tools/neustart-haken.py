@@ -67,15 +67,62 @@ def text(stufe, plus, gesamt):
     return kopf + " " + rest
 
 
-def prompt(eingabe):
-    # Uhr (Chef 18.10.: „keiner kann die Uhr lesen“): jede Nachricht trägt die echte Zeit, die Sitzung schätzt nie
+ROLLEN = r"(Perikles|Homer|Sokrates|Diogenes|Ford|Tom|Jerry|Spike|Tuffy)( \d)?"
+
+
+def name(pfad, sitzung):
+    """462: Rolle aus der ersten Nachricht („Wer man ist, sagt die erste Nachricht“), je Sitzung zwischengespeichert."""
+    import re
+    zpfad = f"/tmp/bornim-name-{sitzung}"
     try:
-        import datetime, zoneinfo
-        print("Uhr: " + datetime.datetime.now(zoneinfo.ZoneInfo("Europe/Berlin")).strftime("%d.%m., %H:%M") + " (Berliner Zeit, Systemuhr; so stempeln)")
-    except Exception:
+        return open(zpfad).read().strip()
+    except OSError:
         pass
+    if not pfad or not os.path.exists(pfad):
+        return ""
+    gefunden = ""
+    with open(pfad, encoding="utf-8", errors="replace") as f:
+        for i, zeile in enumerate(f):
+            if i > 50:
+                break
+            try:
+                d = json.loads(zeile)
+            except ValueError:
+                continue
+            inhalt = d.get("content") if d.get("type") == "queue-operation" else (d.get("message") or {}).get("content") if d.get("type") == "user" else None
+            if isinstance(inhalt, list):
+                inhalt = " ".join(t.get("text", "") for t in inhalt if isinstance(t, dict))
+            if not isinstance(inhalt, str) or not inhalt.strip():
+                continue
+            m = re.match(r"\W*" + ROLLEN + r"\b", inhalt.strip())
+            gefunden = (m.group(1) + (m.group(2) or "")) if m else ""
+            break
+    if gefunden:
+        with open(zpfad, "w") as f:
+            f.write(gefunden)
+    return gefunden
+
+
+def prompt(eingabe):
     pfad = eingabe.get("transcript_path")
     sitzung = "".join(c for c in str(eingabe.get("session_id") or "x") if c.isalnum() or c == "-")[:64]
+    # Uhr (Chef 18.10.: „keiner kann die Uhr lesen“): jede Nachricht trägt die echte Zeit, die Sitzung schätzt nie.
+    # 462 (Chef 01.11., 20:34): fertiger Kopf mit Name, damit jede Nachricht so beginnt (CLAUDE.md Zusammenarbeit 7)
+    try:
+        import datetime, zoneinfo
+        uhr = datetime.datetime.now(zoneinfo.ZoneInfo("Europe/Berlin")).strftime("%d.%m., %H:%M")
+        print("Uhr: " + uhr + " (Berliner Zeit, Systemuhr; so stempeln)")
+        try:
+            wer = name(pfad, sitzung)
+        except Exception:
+            wer = ""
+        if wer:
+            print("Jede Nachricht an den Chef, auch Zwischenmeldungen in diesem Zug, beginnt mit: **" + wer + "** [" + uhr + "]")
+        else:  # 462.1 (D59.3): Rolle nicht erkannt, kein wörtliches „<Name>“
+            print("Jede Nachricht an den Chef, auch Zwischenmeldungen in diesem Zug, beginnt mit deinem Rollennamen fett und ["
+                  + uhr + "], etwa „**Tom** [" + uhr + "]“")
+    except Exception:
+        pass
     kern(sitzung)
     if not pfad or not os.path.exists(pfad):
         return

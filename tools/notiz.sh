@@ -89,9 +89,10 @@ done
 if [ -f "$wt/tools/regelcheck.py" ]; then pf=$(python3 "$wt/tools/regelcheck.py" --kurz 2>/dev/null | grep -v "keine$"); [ -n "$pf" ] && echo "$pf"; fi
 # Commit-Prüfung (192.1): pre-commit-Haken, gilt für Notizkopie und Arbeitskopie (gemeinsames Verzeichnis); fehlt das Skript im Zweig, tut er nichts
 hk="$(git rev-parse --git-common-dir)/hooks/pre-commit"
-if [ ! -f "$hk" ] || ! grep -q commit-pruefung "$hk" 2>/dev/null; then
+# D55.4: immer die Fassung von main (Notizkopie), auch in Arbeitszweigen ohne neue Fassung; alter Haken wird ersetzt
+if [ ! -f "$hk" ] || ! grep -q "commit-pruefung (D55.4)" "$hk" 2>/dev/null; then
     mkdir -p "$(dirname "$hk")"
-    printf '#!/bin/sh\n# commit-pruefung (192.1)\nif [ -f tools/commit-pruefung.py ]; then python3 tools/commit-pruefung.py || exit 1; fi\nexit 0\n' > "$hk" && chmod +x "$hk"
+    printf '#!/bin/sh\n# commit-pruefung (D55.4)\nf=/home/user/bornim-main/tools/commit-pruefung.py; [ -f "$f" ] || f=tools/commit-pruefung.py\nif [ -f "$f" ]; then python3 "$f" || exit 1; fi\nexit 0\n' > "$hk" && chmod +x "$hk"
 fi
 echo "$neu" > "$mark"
 echo "Arbeitskopie für Notizen: $wt"

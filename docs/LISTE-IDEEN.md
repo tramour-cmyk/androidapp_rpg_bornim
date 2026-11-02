@@ -100,6 +100,8 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 
 ## G Gestaltung
 
+- **Vorspann: Goldstück glänzt, Titel steigt auf** (Chef 01.11., 20:45, an Sokrates: „das gelbe Etwas … das Goldstück … leicht glänzen lassen? Kurz aufleuchten … Nach unserem Jingle auch. Zu Chroniken von Bornim können wir das in der Mitte entstehen lassen. Und dann nach oben gleiten lassen. Und dann kommt das Hauptmenü … garantiert nicht wichtig“): Glanz auf dem Schlag der Glocke im Klanglogo (292.1), Schriftzug entsteht mittig, gleitet hoch, Hauptmenü blendet darunter auf. Sokrates: dafür, Kür; Bedingung Gesamtlänge wie bisher, Tippen überspringt, Glanz einmal und schmal (kein Blendlicht); passt zur ersten Wirkung beim Testeraufruf 142.3. Gegen: jeder Start sieht ihn, zu lang nervt beim 50. Mal. → Homer urteilt; Bau Tom (Blende).
+
 ### Story
 
 - **Kapitel 2, Geschichte:** Spur des „Grauen Propheten“, „Tag der Asche“ als Bedrohung. → **später:** steht im Storyplan (41).

@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       film:
-        description: "431, 416.4 oder 376.1"
+        description: "431, 431v, 416.4 oder 376.1"
         required: true
         default: "431"
 
@@ -28,7 +28,7 @@ jobs:
           EINGABE: ${{ github.event.inputs.film }}
         run: |
           F="$EINGABE"
-          [ -n "$F" ] || F=$(printf '%s' "$NACHRICHT" | grep -oE '^(416\.4|431|376\.1)' | head -1)
+          [ -n "$F" ] || F=$(printf '%s' "$NACHRICHT" | grep -oE '^(416\.4|431v|431|376\.1)' | head -1)
           [ -n "$F" ] || { echo "Commit beginnt nicht mit 431, 416.4 oder 376.1"; exit 1; }
           echo "FILM=$F" >> $GITHUB_ENV
       - uses: actions/cache@v4
@@ -57,6 +57,34 @@ jobs:
           echo "KAUF=$RUNNER_TEMP/kauf" >> $GITHUB_ENV
           timeout 900 bash tools/blender348/kauf_laden.sh $RUNNER_TEMP/kauf > kauf.log 2>&1 || { tail -20 kauf.log; exit 1; }
           grep -E "FullBody\.gltf|Rigged to Head Bone.*\.gltf" kauf.log | grep -v "\.bin" | head -60 || true
+      # 431v (Völker Runde 3): Grundkörper je Volk in Blender (voelker.py, Knochenlängen nach Homers Zielen, gemessen), Goblin zum
+      # Vergleich (Jerrys goblin.py); beides nur auf dem Runner
+      - uses: actions/setup-python@v5
+        if: env.FILM == '431v'
+        id: py
+        with:
+          python-version: "3.13"
+      - uses: actions/cache@v4
+        if: env.FILM == '431v'
+        with:
+          path: bl
+          key: bpy-5.2.3-${{ runner.os }}-py${{ steps.py.outputs.python-version }}
+      - name: Völker bauen (431v)
+        if: env.FILM == '431v'
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libsm6 libxkbcommon0 > /dev/null
+          [ -x bl/bin/python ] || { rm -rf bl; python -m venv bl && bl/bin/pip -q install bpy==5.2.3 numpy pillow; }
+          mkdir -p $GITHUB_WORKSPACE/filme
+          export VOELKER=$RUNNER_TEMP/voelker; echo "VOELKER=$VOELKER" >> $GITHUB_ENV
+          Q=~/cc0 ZIEL=$VOELKER timeout 1500 bl/bin/python -I tools/blender348/v3/voelker.py > $GITHUB_WORKSPACE/filme/voelker.log 2>&1 || { tail -40 $GITHUB_WORKSPACE/filme/voelker.log; exit 1; }
+          grep -E "^(LADEN|RUNDE|VOELKER)" $GITHUB_WORKSPACE/filme/voelker.log | cut -c1-300
+          cp $VOELKER/voelker.json $GITHUB_WORKSPACE/filme/
+          # Goblin (Jerry, Kit Leder) zum Vergleich mit dem Hügelvolk; fehlt er, zeigt der Film den Teil ohne ihn
+          export OUT=$RUNNER_TEMP/out KARTEN=$GITHUB_WORKSPACE/godot/daten/karten.json
+          { bl/bin/python -I tools/blender348/v3/tex.py > tex.log 2>&1 && ART=goblin KIT=leder V3=tools/blender348/v3_kampf timeout 900 bl/bin/python -I tools/blender348/goblin.py > goblin.log 2>&1 \
+            && cp $OUT/goblin-leder.glb $VOELKER/goblin.glb; } || { echo "ohne Goblin"; tail -15 tex.log goblin.log; }
+          ls -l $VOELKER
+          echo "Ohren, Hauer im Bestand (408):"; find $KAUF ~/cc0 \( -iname '*ear*' -o -iname '*tusk*' -o -iname '*fang*' \) -not -iname '*year*' -not -iname '*gear*' -not -iname '*wear*' 2>/dev/null | grep -v '\.png$' | head -20 || true
       - name: Film
         run: |
           sudo apt-get install -y -qq xvfb libgl1-mesa-dri > /dev/null

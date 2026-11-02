@@ -30,7 +30,8 @@ const KLASSEN_VORGABE := {
 # Haut lebendig (Chef 23:0x „klinisch tot“): Licht, Umgebung und Stimmung (licht.gd) nehmen der Haut Farbe (Lauf 1, haut.txt: Wange
 # „Warm“ 166/137/104 statt Feld 212/162/124, „Hell“ grau 180/165/141); je Kanal geeicht auf die Farbe des Felds bei gleicher
 # Helligkeit (Eichung 1,66/1,39/1,40 durch ihre Helligkeit; nicht heller: Chef „dunkler“), dazu ein Teil der Farbschwankung des Bildes
-const HAUT_EICHUNG := Vector3(1.145, 0.96, 0.97)
+# 431 (Chef 02.11., 20:37 „Heldenhaut so“; 431e eine Eichung, Bezug Kampfortlicht): gemessen in Lauf 5 41504744398 (EICHUNG HELD)
+const HAUT_EICHUNG := Vector3(0.355, 0.219, 0.270)
 const HAUT_FARBE := 0.5
 # Bewegungen, die sich wiederholen (wie held.gd Gebiet.bewegungen)
 const SCHLEIFEN := ["Stehen", "Gehen", "Rennen", "Stehen_2", "Stehen_3", "Sitzen", "Gesten"]
@@ -39,6 +40,19 @@ static var info := {}
 static var haare_szenen := {}   # Geschlecht -> haare.bin (m), haare_w.bin
 static var bew_lib: AnimationLibrary = null
 static var bew_becken := 1.0
+static var bew_sk: Skeleton3D = null    # Skelett von bewegungen.bin (Ruhelage fuer rennen_umformen)
+static var bew_raum := Transform3D.IDENTITY
+static var renn_lib := {}               # Art -> umgeformtes „Rennen“
+const TAKT_GEHEN := 1.84 * 1.16          # 416.4: m/s, auf die Gehen und Rennen umgetaktet werden (karte.gd gehen, laufen auf Gras)
+const TAKT_RENNEN := 3.68 * 1.16
+static var tritt_cache := {}             # 416.4: Bewegung|Art -> Vector2(Zeit rechter, linker Ballen setzt auf)
+static var stand_cache := {}             # 417: Bewegung|Art|Tracht|Becken|Bein -> Tempo des Standfusses an dieser Figur (m/s)
+# 416.4 (Chef 31.10., Build 143: Rennen wirkt „als würde er Hochsprung machen“; 01.11., 11:28 „neuer Film“ mit heute, A, B):
+# Jog_Fwd_Loop der UAL ist ein Sprunglauf. flug = Zeit, in der kein Fuss am Boden ist, so viel kuerzer (der Stand bleibt wie die Quelle,
+# darum gleitet nichts, held.gd speed_scale bleibt); hub = Anteil, um den sich das Becken ueber seinen Tiefstand hebt. Werte wie
+# Spike am CC0-Helden (geruest.py RENNEN_ARTEN); hier am Kaufkoerper, wie er im Spiel laeuft. Urteil des Chefs: Vorgabe RENNEN.
+const RENNEN_ARTEN := {"heute": {}, "A": {"flug": 2.0, "hub": 0.35}, "B": {"flug": 2.5, "hub": 0.25}}
+const RENNEN := "A"   # Chef 01.11., 13:1x (Archiv 416.4): „Wir nehmen tatsächlich A“; mit Waffe die Pakete (417)
 
 # Woerter der Erschaffung (376.1; Homer prueft sie, Vorgang 376.1 bei Homer): Gesicht nach den Formen des Kopfblatts (Chef 27.10.,
 # 21:41 „Gefällt mir gut“), Frisur und Bart nach den Netzen des Pakets; Frisuren nach dem Bild (Homer 405, STORY-SPIEL [405.frisur])
@@ -113,6 +127,40 @@ static func aussehen_voll(a: Dictionary, klasse := "") -> Dictionary:
 	for k in a: v[k] = a[k]
 	return v
 
+# 416.4: Tempo ohne Gleiten der Bewegung n in der Bewegungsdatei (held-klassen.json; Pakete unter gang.<art>), vor dem Umtakten
+static func _eigen(n: String) -> float:
+	if n == "Gehen": return float(info.get("gehen_m_je_s", 1.08))
+	if n == "Rennen": return float(info.get("rennen_m_je_s", 0.0))
+	var g: Dictionary = info.get("gang", {}).get(n.get_slice("_", 1), {})
+	return float(g.get(("gehen" if n.begins_with("Gehen") else "rennen") + "_m_je_s", 0.0))
+
+# Zeit der Bewegung mal k (k < 1 schneller); Tritte mit
+static func umtakten(an: Animation, k: float) -> void:
+	if absf(k - 1.0) < 0.001: return
+	for t in an.get_track_count():
+		var nk := an.track_get_key_count(t)
+		for i in (range(nk - 1, -1, -1) if k > 1.0 else range(nk)): an.track_set_key_time(t, i, an.track_get_key_time(t, i) * k)
+	an.length *= k
+	if an.has_meta("tritt"): an.set_meta("tritt", (an.get_meta("tritt") as Vector2) * k)
+	an.set_meta("takt", k)
+
+# 416.4: Zeit, zu der der rechte und der linke Ballen aufsetzt (erstes Bild unter 2 cm ueber dem Tiefstand nach einem Bild darueber);
+# Vector2(-1, -1), wenn ein Fuss nie abhebt
+static func tritte(an: Animation, sk: Skeleton3D, raum: Transform3D) -> Vector2:
+	var h := renn_hoehen(an, sk, raum)
+	var z: Array = h["zeit"]
+	var r := Vector2(-1, -1)
+	for s in 2:
+		var y: Array = h["r" if s == 0 else "l"]
+		var tief: float = y.min()
+		var n := y.size() - 1   # letztes Bild = erstes (Schleife)
+		for i in n:
+			if y[i] < tief + 0.02 and y[(i - 1 + n) % n] >= tief + 0.02:
+				if s == 0: r.x = z[i]
+				else: r.y = z[i]
+				break
+	return r if r.x >= 0.0 and r.y >= 0.0 else Vector2(-1, -1)
+
 # Die Figur: Wurzel des glb mit AnimationPlayer „AnimationPlayer“ (Stehen, Gehen, Rennen, Stehen_2, Stehen_3, …); mats bekommt die
 # Toon-Materialien (held.gd: fill, Nacht). Ergebnis in meta: „gehen_m_je_s“, „rennen_m_je_s“, „faust_L“ (Knochen, Griff, Achse)
 # 463 (Chef 01.11., 20:3x „Umhang … durchschimmert“, Robe): Rueckseiten und Aermel in der Tiefe zurueck, Werte nach pruef_flecken RUECK
@@ -139,11 +187,17 @@ static func baue(w: Dictionary, mats: Array) -> Node3D:
 	form(m, String(a["form"]))
 	statur(m, String(a.get("statur", "normal")))
 	toene(m, a, String(w.get("volk", "HUMAN")))
-	var f := bewegungen(m, sk)
-	m.set_meta("gehen_m_je_s", float(info.get("gehen_m_je_s", 1.08)) * f)
-	m.set_meta("rennen_m_je_s", float(info.get("rennen_m_je_s", 0.0)) * f)
+	var f := bewegungen(m, sk, String(w.get("rennen", RENNEN)))
+	m.set_meta("massstab", f)                 # Figur gegen die Bewegungsdatei (Becken)
+	m.set_meta("gehen_m_je_s", TAKT_GEHEN)   # 416.4: umgetaktet (bewegungen)
+	m.set_meta("rennen_m_je_s", TAKT_RENNEN if float(info.get("rennen_m_je_s", 0.0)) > 0.01 else 0.0)
 	m.set_meta("faust_L", faust(sk, "l"))
 	bewaffne(m, sk, w.get("ausruestung", {}))
+	# 417 Runde 4: mit Paketbewegung („gang“) Tempo ohne Gleiten aus held-klassen.json gang.<art> (held_klassen.py)
+	var g: Dictionary = info.get("gang", {}).get(String(m.get_meta("gang", "")), {})
+	if not g.is_empty():
+		m.set_meta("gang_gehen_m_je_s", TAKT_GEHEN if float(g.get("gehen_m_je_s", 0.0)) > 0.01 else 0.0)
+		m.set_meta("gang_rennen_m_je_s", TAKT_RENNEN if float(g.get("rennen_m_je_s", 0.0)) > 0.01 else 0.0)
 	return m
 
 # Transform des Knotens n im Raum der Wurzel m (ohne Baum: Figur noch nicht eingehaengt)
@@ -156,7 +210,7 @@ static func im_raum(m: Node, n: Node) -> Transform3D:
 	return t
 
 # ---------------------------------------------------------------- Bewegungen (UAL, nur Drehungen; Becken im Verhaeltnis der Beckenhoehe)
-static func bewegungen(m: Node3D, sk: Skeleton3D) -> float:
+static func bewegungen(m: Node3D, sk: Skeleton3D, art := RENNEN) -> float:
 	if bew_lib == null:
 		var sc := Gebiet.lade_glb("res://daten/bewegungen.bin")
 		var ap0 := Gebiet.finde(sc, "AnimationPlayer") as AnimationPlayer
@@ -164,12 +218,19 @@ static func bewegungen(m: Node3D, sk: Skeleton3D) -> float:
 		bew_becken = maxf(0.01, sk0.get_bone_rest(sk0.find_bone("pelvis")).origin.length())
 		bew_lib = AnimationLibrary.new()
 		for n in ap0.get_animation_list(): bew_lib.add_animation(n, ap0.get_animation(n).duplicate(true))
+		bew_raum = im_raum(sc, sk0)
+		sk0.get_parent().remove_child(sk0)
+		bew_sk = sk0
 		sc.free()
+	if not RENNEN_ARTEN.has(art): art = RENNEN
+	if art != "heute" and not renn_lib.has(art) and bew_lib.has_animation("Rennen"):
+		var o: Dictionary = RENNEN_ARTEN[art]
+		renn_lib[art] = rennen_umformen(bew_lib.get_animation("Rennen"), bew_sk, bew_raum, float(o.get("flug", 1.0)), float(o.get("hub", 1.0)))
 	var f := sk.get_bone_rest(sk.find_bone("pelvis")).origin.length() / bew_becken
 	var lib := AnimationLibrary.new()
 	var pfad := String(m.get_path_to(sk)) if sk.is_inside_tree() else str(_pfad(m, sk))
 	for n in bew_lib.get_animation_list():
-		var an := bew_lib.get_animation(n).duplicate(true) as Animation
+		var an := ((renn_lib[art] if n == "Rennen" and renn_lib.has(art) else bew_lib.get_animation(n)) as Animation).duplicate(true) as Animation
 		for t in range(an.get_track_count() - 1, -1, -1):
 			var bn := String(an.track_get_path(t)).get_slice(":", 1)
 			an.track_set_path(t, NodePath("%s:%s" % [pfad, bn]))
@@ -178,14 +239,57 @@ static func bewegungen(m: Node3D, sk: Skeleton3D) -> float:
 				an.remove_track(t)
 			elif ty == Animation.TYPE_POSITION_3D:
 				for i in an.track_get_key_count(t): an.track_set_key_value(t, i, an.track_get_key_value(t, i) * f)
-		if n in SCHLEIFEN: an.loop_mode = Animation.LOOP_LINEAR
+		if n in SCHLEIFEN or n.begins_with("Gehen_") or n.begins_with("Rennen_"): an.loop_mode = Animation.LOOP_LINEAR   # 417 Pakete
+		if n == "Gehen" or n == "Rennen" or n.begins_with("Gehen_") or n.begins_with("Rennen_"):   # 416.4: Tritte fuer Held.wechsel
+			var key := n + "|" + (art if n == "Rennen" else "")
+			if not tritt_cache.has(key):
+				tritt_cache[key] = tritte(renn_lib[art] if n == "Rennen" and renn_lib.has(art) else bew_lib.get_animation(n), bew_sk, bew_raum)
+			if tritt_cache[key].x >= 0.0: an.set_meta("tritt", tritt_cache[key])
+			# 416.4 Nachmessung (Lauf 41317137978): ein speed_scale fuer beide Bewegungen der Ueberblendung; Gehen (1,0 m/s) und Rennen
+			# (5,5 m/s) lagen 5,5-fach auseinander, im Wechsel lief das Rennen 2,9-fach (Beine 40-67 Grad je Bild). Umgetaktet auf das
+			# Spieltempo (TAKT_*), dann laufen beide bei speed_scale 1 ohne Gleiten und liegen nur 2-fach auseinander
+			# 417 (Pruefer Film 00:53: „Rennen: Fuss 17-28 % langsamer als der Boden, rutscht (alle vier)“): das Tempo der Quelle (held_klassen.py,
+			# am UAL-Geruest, 3 cm Toleranz, Bilder) mal Beckenverhaeltnis f traf den Kaufkoerper nicht; jetzt am Skelett dieser Figur gemessen
+			# (stand_tempo: Standfuss am Ballen, 120 Proben je Umlauf), Quelle nur, wenn dort nichts messbar ist. „--takt_alt“: wie vorher
+			var v0 := _eigen(n) * f
+			var v := v0
+			if v0 > 0.01 and "--takt_alt" not in OS.get_cmdline_user_args():
+				var tk := "%s|%s|%s|%.4f|%.4f" % [n, art, m.get_meta("tracht", ""), f, _beinlaenge(sk)]
+				if not stand_cache.has(tk): stand_cache[tk] = stand_tempo(an, sk, im_raum(m, sk))
+				if float(stand_cache[tk]) > 0.01: v = float(stand_cache[tk])
+			an.set_meta("v_quelle", v0); an.set_meta("v_figur", v)
+			var ziel: float = TAKT_RENNEN if n.begins_with("Rennen") else TAKT_GEHEN
+			if v > 0.01: umtakten(an, v / ziel)
 		lib.add_animation(n, an)
+	ruhe_spuren(lib, sk)
 	var ap := AnimationPlayer.new()
 	ap.name = "AnimationPlayer"
 	m.add_child(ap)
 	ap.root_node = NodePath("..")
 	ap.add_animation_library("", lib)
 	return f
+
+# 417 (Pruefer Film 03:39: bei 1,0 s schnellt die Figur aus etwa 40 Grad gebueckt auf; Lauf 41387533240): der AnimationPlayer mischt
+# nicht deterministisch, ein Knochen ohne Spur in der laufenden Bewegung behaelt die Pose der vorigen. Die Pakete richten im Gehen und
+# Rennen spine_01 auf (waffengang.py AUFRICHTEN), Stehen hat dort keine Spur: nach dem Rennen stand die Brust 29-45 Grad vor, bis das
+# Gehen sie setzte (Sprung -19 bis -33 Grad in einem Bild); im Spiel ebenso beim Halt aus dem Rennen. Darum bekommt jede Bewegung jede
+# Drehspur, die eine andere hat, mit der Ruhelage dieses Skeletts (so wie ohne die fehlende Spur frisch gezeichnet)
+static func ruhe_spuren(lib: AnimationLibrary, sk: Skeleton3D) -> void:
+	var alle := {}
+	for n in lib.get_animation_list():
+		var an := lib.get_animation(n)
+		for t in an.get_track_count():
+			var ty := an.track_get_type(t)
+			if ty == Animation.TYPE_ROTATION_3D: alle[an.track_get_path(t)] = true   # Becken (Lage) setzen Kampf und Rennen selbst
+	for n in lib.get_animation_list():
+		var an := lib.get_animation(n)
+		for k in alle:
+			if an.find_track(k, Animation.TYPE_ROTATION_3D) >= 0: continue
+			var b := sk.find_bone(String(k).get_slice(":", 1))
+			if b < 0: continue
+			var t := an.add_track(Animation.TYPE_ROTATION_3D)
+			an.track_set_path(t, k)
+			an.rotation_track_insert_key(t, 0.0, sk.get_bone_rest(b).basis.get_rotation_quaternion())
 
 static func _pfad(m: Node, n: Node) -> NodePath:
 	var teile: PackedStringArray = []
@@ -339,8 +443,49 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 		var unten := Vector3(0, y - 0.53, float(r[1]) - 0.03)
 		var hoch := (oben - unten).normalized()
 		var t := Transform3D(Basis(Vector3.LEFT, hoch, Vector3.LEFT.cross(hoch)), (oben + unten) * 0.5)
+		# 406 (Jerry): gewölbte Kaufschilde reichen am Rand hinter die Fessel (Drachenschild 3,8 cm, rund 1,7 cm); so weit weiter
+		# vom Rücken, wie der Rand hinter ihr liegt (die eigenen aus waffen.py sind am Rand flach: 0), sonst ragten Schulter und
+		# Oberarm tiefer hinein als beim alten Schild (gemessen tests/schild_406.gd)
+		var weg := rand_hinten(schild)
+		t.origin += t.basis.z * weg
 		_haenge(m, sk, bi, brust, schild, t, "RueckenSchild")
-		aussen = minf(aussen, (oben.z + unten.z) * 0.5) - 0.10   # Schild mit Buckel (376.1 Lauf 2: bei 7 cm durchdrang der Buckel das Schwert)
+		aussen = minf(aussen, (oben.z + unten.z) * 0.5) - 0.10 - weg   # Schild mit Buckel (376.1 Lauf 2: bei 7 cm durchdrang der Buckel das Schwert)
+	# 417 Runde 6: Godot benennt den zweiten gleichnamigen Knoten „@Getragen@…“ bzw. „@Tragen@…“; „Getragen*“ fand ihn nicht, beim
+	# Wechsel der Ausruestung blieb der Schild der Paketbewegung in der Hand (Messung: zweiter Tragen-Knoten nie gefunden)
+	for alt in m.get_children():
+		if String(alt.name).contains("Getragen"): alt.free()
+	for alt in sk.get_children():
+		if alt is Tragen: alt.free()
+	var art := Tragen.art_von(waffe)
+	var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
+	var gang := Tragen.gang_von(waffe, schild != "")
+	if gang != "" and ap and ap.has_animation("Gehen_" + gang):   # 417 Runde 4: Paketbewegung fuehrt den Arm, Waffe (und Schild) in der Hand
+		for alt in sk.find_children("Ruecken*", "", false, false): alt.free()
+		var paare := [[waffe, gang, "r"]] + ([[schild, "schildarm", "l"]] if gang == "schild" else [])
+		if gang == "bogen": paare[0][2] = "l"
+		for p in paare:
+			var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % p[0])
+			if d == null: continue
+			d.name = "Getragen"
+			d.top_level = true
+			m.add_child(d)
+			Gebiet.male(d, null, 2, [])
+			var t := Tragen.new("", d, m, faust(sk, String(p[2])))
+			t.gang = String(p[1]); t.seite = String(p[2]); t.anim = ap
+			sk.add_child(t)
+		m.set_meta("gang", gang)
+		return
+	if art != "":   # 417: Stab, Axt, Bogen unterwegs in der Hand (tragen.gd)
+		var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % waffe)
+		if d == null: return
+		d.name = "Getragen"
+		d.top_level = true
+		m.add_child(d)
+		Gebiet.male(d, null, 2, [])
+		var t := Tragen.new(art, d, m, faust(sk, String(Tragen.LAGE[art]["seite"])))
+		t.anim = Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
+		sk.add_child(t)
+		return
 	if waffe != "":
 		var lang := waffe in ["quarterstaff", "staff", "spear", "greataxe"]
 		var achse := Vector3(0.42, -1.0, 0.0).normalized() if not lang else Vector3(0.62, -1.0, 0.0).normalized()   # Klinge zur linken Huefte
@@ -367,6 +512,21 @@ static func ruecken(m: Node3D, y0: float, y1: float) -> Array:
 	if ganz > 8.0: ganz = -0.15
 	return [oben if oben < 8.0 else ganz, unten if unten < 8.0 else ganz, ganz]
 
+## 406: wie weit der Schild außerhalb der Mitte (mehr als 15 cm seitlich der Fessel) hinter die Fessel reicht (glTF: vorn +z), in m
+static func rand_hinten(was: String) -> float:
+	var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % was)
+	if d == null: return 0.0
+	var h := 0.0
+	for mi in d.find_children("*", "MeshInstance3D", true, false) + ([d] if d is MeshInstance3D else []):
+		var me := (mi as MeshInstance3D).mesh
+		var tr := im_raum(d, mi)
+		for s in me.get_surface_count():
+			for v in me.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]:
+				var p: Vector3 = tr * v
+				if absf(p.x) > 0.15: h = maxf(h, -p.z)
+	d.free()
+	return h
+
 static func _modell(g) -> String:
 	if not g is Dictionary: return ""
 	var b := String(g.get("base", ""))
@@ -382,3 +542,126 @@ static func _haenge(m: Node3D, sk: Skeleton3D, bi: int, brust: Transform3D, was:
 	d.transform = brust.affine_inverse() * t
 	ba.add_child(d)
 	Gebiet.male(d, null, 2, [])
+
+# ---------------------------------------------------------------- 416.4 Rennen umformen (ohne Baum: Vorwaertskinematik aus den Spuren)
+# Spuren je Knochen: {"rot": Spur, "pos": Spur}
+static func _spuren(an: Animation) -> Dictionary:
+	var sp := {}
+	for t in an.get_track_count():
+		var bn := String(an.track_get_path(t)).get_slice(":", 1)
+		if bn == "": continue
+		var ty := an.track_get_type(t)
+		if not sp.has(bn): sp[bn] = {}
+		var e: Dictionary = sp[bn]
+		if ty == Animation.TYPE_ROTATION_3D: e["rot"] = t
+		elif ty == Animation.TYPE_POSITION_3D: e["pos"] = t
+	return sp
+
+# Lage des Knochens b im Raum der Figur (raum = Skelett in der Figur) zur Zeit t; ab: Ersatz der Lage einzelner Knochen {Name: Vector3}
+static func knochen_lage(an: Animation, sp: Dictionary, sk: Skeleton3D, raum: Transform3D, b: int, t: float, ab := {}) -> Transform3D:
+	var kette := []
+	var i := b
+	while i >= 0:
+		kette.push_front(i); i = sk.get_bone_parent(i)
+	var g := raum
+	for k in kette:
+		var rest := sk.get_bone_rest(k)
+		var n := sk.get_bone_name(k)
+		var s: Dictionary = sp.get(n, {})
+		var q: Quaternion = an.rotation_track_interpolate(s["rot"], t) if s.has("rot") else rest.basis.get_rotation_quaternion()
+		var p: Vector3 = an.position_track_interpolate(s["pos"], t) if s.has("pos") else rest.origin
+		if ab.has(n): p = ab[n]
+		g = g * Transform3D(Basis(q), p)
+	return g
+
+# Zeiten der Bilder: die Schluessel der laengsten Spur (UAL: jedes Bild), dazu das Ende
+static func _bilder(an: Animation) -> Array:
+	var best := -1
+	for t in an.get_track_count():
+		if best < 0 or an.track_get_key_count(t) > an.track_get_key_count(best): best = t
+	var z := []
+	for k in an.track_get_key_count(best): z.append(an.track_get_key_time(best, k))
+	if z.is_empty() or z[-1] < an.length - 0.0001: z.append(an.length)
+	return z
+
+# 417: Tempo ohne Gleiten an diesem Skelett (wie figurenprobe.gd schritt_tempo): je Ballen die Rueckwaertsgeschwindigkeit (Blick +Z) in den
+# Proben hoechstens tol ueber seinem Tiefstand, Median; 0, wenn weniger als vier Proben
+static func stand_tempo(an: Animation, sk: Skeleton3D, raum: Transform3D, tol := 0.02, n := 120) -> float:
+	var sp := _spuren(an)
+	var L := maxf(0.001, an.length)
+	var vs := []
+	for bn in ["ball_l", "ball_r"]:
+		var b := sk.find_bone(bn)
+		if b < 0: b = sk.find_bone(bn.replace("ball", "foot"))
+		if b < 0: return 0.0
+		var d := []; var h := []
+		for j in n + 1:
+			var o := knochen_lage(an, sp, sk, raum, b, L * j / n).origin
+			d.append(o.z); h.append(o.y)
+		var tief: float = h.min()
+		for j in n:
+			if h[j] < tief + tol and h[j + 1] < tief + tol: vs.append((d[j] - d[j + 1]) * n / L)
+	if vs.size() < 4: return 0.0
+	vs.sort()
+	return maxf(float(vs[vs.size() / 2]), 0.0)
+
+static func _beinlaenge(sk: Skeleton3D) -> float:
+	var s := 0.0
+	for bn in ["calf_l", "foot_l", "ball_l"]:
+		var b := sk.find_bone(bn)
+		if b >= 0: s += sk.get_bone_rest(b).origin.length()
+	return s
+
+# Hoehe beider Fuesse und des Beckens je Bild: {"zeit": [], "l": [], "r": [], "becken": []}; Fuss am Ballen (Spike, rennen_4164:
+# im Lauf hebt sich die Ferse im Stand, der Knoechel stieg ueber 2 cm und galt als Flug)
+static func renn_hoehen(an: Animation, sk: Skeleton3D, raum: Transform3D) -> Dictionary:
+	var sp := _spuren(an)
+	var fl := sk.find_bone("ball_l"); var fr := sk.find_bone("ball_r"); var pe := sk.find_bone("pelvis")
+	if fl < 0 or fr < 0: fl = sk.find_bone("foot_l"); fr = sk.find_bone("foot_r")
+	var h := {"zeit": _bilder(an), "l": [], "r": [], "becken": []}
+	for t in h["zeit"]:
+		h["l"].append(knochen_lage(an, sp, sk, raum, fl, t).origin.y)
+		h["r"].append(knochen_lage(an, sp, sk, raum, fr, t).origin.y)
+		h["becken"].append(knochen_lage(an, sp, sk, raum, pe, t).origin.y)
+	return h
+
+static func rennen_umformen(an0: Animation, sk: Skeleton3D, raum: Transform3D, flug: float, hub: float) -> Animation:
+	var an := an0.duplicate(true) as Animation
+	var sp := _spuren(an)
+	var h := renn_hoehen(an0, sk, raum)
+	var zeit: Array = h["zeit"]
+	var tl: float = h["l"].min(); var tr: float = h["r"].min(); var bm: float = h["becken"].min()
+	# Becken: Heben ueber den Tiefstand auf hub gedaempft, im Raum der Figur senkrecht, zurueck in den Raum des Elternknochens.
+	# Lauf 1 (01.11., 12:4x, rennen_kauf_4164: Ballen bei A 2,2 cm, bei B 3,0 cm unter dem Boden): das Becken senkte sich auch, wenn ein
+	# Fuss stand. Gesenkt wird hoechstens so weit, wie der tiefere Ballen ueber seinem Tiefstand ist (das Becken traegt beide Fuesse mit)
+	var pe := sk.find_bone("pelvis")
+	var bl := sk.find_bone("ball_l"); var br := sk.find_bone("ball_r")
+	if bl < 0 or br < 0: bl = sk.find_bone("foot_l"); br = sk.find_bone("foot_r")
+	if hub != 1.0 and sp.get("pelvis", {}).has("pos"):
+		var st: int = sp["pelvis"]["pos"]
+		var eltern := sk.get_bone_parent(pe)
+		for k in an.track_get_key_count(st):
+			var t := an.track_get_key_time(st, k)
+			var y := knochen_lage(an0, sp, sk, raum, pe, t).origin.y
+			var b := knochen_lage(an0, sp, sk, raum, eltern, t).basis if eltern >= 0 else raum.basis
+			var frei := maxf(0.0, minf(knochen_lage(an0, sp, sk, raum, bl, t).origin.y - tl, knochen_lage(an0, sp, sk, raum, br, t).origin.y - tr))
+			var d := b.inverse() * Vector3(0, -minf((1.0 - hub) * (y - bm), frei), 0)
+			an.track_set_key_value(st, k, (an.track_get_key_value(st, k) as Vector3) + d)
+	# Zeit: Bilder ohne Fuss am Boden (2 cm ueber seinem Tiefstand) laufen flug-mal so schnell
+	if flug != 1.0:
+		var gew := []
+		for i in zeit.size(): gew.append(1.0 if (h["l"][i] < tl + 0.02 or h["r"][i] < tr + 0.02) else 1.0 / flug)
+		var neu := [0.0]
+		for i in zeit.size() - 1: neu.append(neu[i] + (zeit[i + 1] - zeit[i]) * (gew[i] + gew[i + 1]) / 2.0)
+		for t in an.get_track_count():
+			for k in an.track_get_key_count(t):
+				an.track_set_key_time(t, k, _abbild(an0.track_get_key_time(t, k), zeit, neu))
+		an.length = neu[-1]
+	return an
+
+static func _abbild(t: float, zeit: Array, neu: Array) -> float:
+	for i in zeit.size() - 1:
+		if t <= zeit[i + 1]:
+			var a: float = (t - zeit[i]) / maxf(0.000001, zeit[i + 1] - zeit[i])
+			return lerpf(neu[i], neu[i + 1], clampf(a, 0.0, 1.0))
+	return neu[-1]

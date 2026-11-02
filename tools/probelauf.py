@@ -70,8 +70,9 @@ def testlauf(lauf, befehl, cwd):
 
 
 def bildlauf(befehl, cwd="."):
-    return SKRIPT.search(befehl) or any("--import" not in m.group(0) and not testlauf(m.group(0), befehl, cwd)
-                                        for m in GODOT_LAUF.finditer(befehl))
+    # 464: `--check-only` liest nur den Quelltext (Parsefehler), führt nichts aus, zeigt kein Bild
+    return SKRIPT.search(befehl) or any("--import" not in m.group(0) and "--check-only" not in m.group(0)
+                                        and not testlauf(m.group(0), befehl, cwd) for m in GODOT_LAUF.finditer(befehl))
 
 
 def git(*args, cwd=REPO, timeout=8):
@@ -176,6 +177,69 @@ def push_lauf(befehl, cwd):
     return nr.group(1) if nr else zweig
 
 
+GODOT_BIN = [os.path.expanduser("~/godot/godot"), "/usr/local/bin/godot", "/usr/bin/godot"]
+
+
+def parse_pruefen(befehl, cwd):
+    """464 (Chef 01.11., 20:4x: „irgendwer produziert hier abends brutal viele Fehler … fast 20 E-Mails“): vor jedem Push auf
+    einen Zweig `claude/…` jede geänderte .gd-Datei mit Godot `--check-only` lesen (nach `--import`, sonst fehlen die
+    Klassennamen); Parsefehler hält den Push an. Nachgestellt an Lauf ef817fa (Tom, 13:31 UTC): gleicher Fehler wie in CI.
+    Gibt den Grund zum Anhalten zurück oder None."""
+    m = PUSH.search(befehl)
+    if not m:
+        return None
+    cds = CD.findall(befehl[:m.start()])
+    wo = m.group(1) or (os.path.join(cwd, os.path.expanduser(cds[-1].strip("\"'"))) if cds else cwd)
+    ziel = re.search(r"claude/[\w./-]+", m.group(2))
+    zweig = ziel.group(0).split(":")[-1] if ziel else git("rev-parse", "--abbrev-ref", "HEAD", cwd=wo).stdout.strip()
+    if not zweig.startswith("claude/"):
+        return None
+    wurzel = git("rev-parse", "--show-toplevel", cwd=wo).stdout.strip()
+    if not wurzel or not os.path.isdir(os.path.join(wurzel, "godot")):
+        return None
+    oben = git("rev-parse", "--verify", "-q", f"origin/{zweig}", cwd=wo).stdout.strip() or \
+        git("merge-base", "HEAD", "origin/main", cwd=wo).stdout.strip()
+    if not oben:
+        return None
+    pfade = git("diff", "--name-only", f"{oben}..HEAD", cwd=wo).stdout.split()
+    if COMMIT.search(befehl[:m.start()]):  # Commit im selben Befehl: Arbeitsbaum zählt mit
+        pfade += git("diff", "--name-only", "HEAD", cwd=wo).stdout.split()
+        pfade += git("ls-files", "--others", "--exclude-standard", cwd=wo).stdout.split()
+    gd = sorted({p[len("godot/"):] for p in pfade if p.startswith("godot/") and p.endswith(".gd")
+                 and os.path.isfile(os.path.join(wurzel, p))})
+    if not gd:
+        return None
+    godot = next((b for b in GODOT_BIN if os.path.isfile(b)), None)
+    if not godot:  # Jerrys Sitzung darf Godot nicht immer laden (01.11.): nicht anhalten, sonst steht der Push ganz
+        return None
+    pfad = os.path.join(wurzel, "godot")
+    vorher = set(git("ls-files", "--others", "--exclude-standard", "godot", cwd=wurzel).stdout.split())
+    try:
+        subprocess.run([godot, "--headless", "--import", "--path", pfad], capture_output=True, timeout=45)
+    except subprocess.TimeoutExpired:
+        pass
+    for neu in set(git("ls-files", "--others", "--exclude-standard", "godot", cwd=wurzel).stdout.split()) - vorher:
+        if neu.endswith(".uid"):  # vom Import angelegt: Arbeitsbaum bleibt, wie er war
+            try:
+                os.remove(os.path.join(wurzel, neu))
+            except OSError:
+                pass
+    fehler = []
+    for datei in gd[:25]:
+        try:
+            r = subprocess.run([godot, "--headless", "--path", pfad, "--check-only", "-s", "res://" + datei],
+                               capture_output=True, text=True, timeout=20)
+        except subprocess.TimeoutExpired:
+            continue
+        zeilen = [z.strip() for z in (r.stdout + r.stderr).splitlines() if "Parse Error" in z or "GDScript::reload" in z]
+        if r.returncode != 0 and zeilen:
+            fehler.append(datei + ": " + " ".join(zeilen[:2]))
+    if fehler:
+        return ("464: Push angehalten, Parsefehler in GDScript (CI würde rot, der Chef bekommt eine E-Mail). Erst beheben, "
+                "dann erneut pushen:\n" + "\n".join(fehler[:6]))
+    return None
+
+
 def anhalten(text):
     print(text, file=sys.stderr)
     sys.exit(2)
@@ -194,6 +258,12 @@ def main():
     befehl = (d.get("tool_input") or {}).get("command") or ""
     cwd = d.get("cwd") or os.getcwd()
     wer = (d.get("session_id") or "?")[:20]
+    try:
+        grund = parse_pruefen(befehl, cwd)  # 464: vor dem Zählen, ein angehaltener Push ist kein Lauf
+    except (OSError, subprocess.SubprocessError, ValueError):
+        grund = None
+    if grund:
+        anhalten(grund)
     try:
         if bildlauf(befehl, cwd):
             m = PROBE.search(befehl)

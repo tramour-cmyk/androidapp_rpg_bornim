@@ -1,0 +1,26 @@
+# Spielerhandbuch Bornimer Rollenspielsystem, Teil 3 (423)
+
+Entwurf Homer, 01.11.; Fortsetzung von `STORY-HANDBUCH-2.md` (Hinweise für den Bau in `STORY-HANDBUCH-1.md`, „Für Tom“). Teil 3: Herstellen, Abnutzung, feste Namen.
+
+## Herstellen und Sammeln
+
+`[423.sammeln]` **Kaufen, herstellen oder finden:** drei Wege zum selben Ding. Wer nicht herstellen will, verkauft, was er sammelt, und kauft, was er braucht. Kräuter, Pilze und Blüten wachsen auf Wiesen, im Wald und in Höhlen; Erz in Adern und Felswänden; Fische in Teich und Fluss; Fleisch, Fell, Knochen, Sehnen und Zähne geben erlegte Tiere. Ernten ist ein Griff, kein Spiel im Spiel. Was du aberntest, wächst nach. Wer die Jagd nicht kennt, zerlegt schlechter, aber nie umsonst.
+EN: **Buy, craft or find:** three ways to the same thing. Whoever does not wish to craft sells what he gathers and buys what he needs. Herbs, mushrooms and blossoms grow in meadows, woods and caves; ore in veins and rock faces; fish in pond and river; meat, hide, bone, sinew and teeth come from the beasts you fell. Harvesting is a single grasp, not a game within the game. What you take grows back. Whoever knows no hunting butchers worse, but never for nothing.
+
+`[423.herstellen]` **Herstellen.** Einfaches gelingt am Lagerfeuer, Höheres an Schmiede, Werkbank, Alchemietisch und Gerberei. Rezepte findest du bei Lehrmeistern und Handwerkern, in Büchern, als Lohn und beim Händler. Die Liste zeigt, was du herstellen kannst, wo eine Zutat fehlt und was dir noch verschlossen ist. Handwerker im Ort stellen dir gegen Lohn Dinge her, wenn du die Zutaten bringst.
+EN: **Crafting.** Simple things succeed at a campfire, finer ones at forge, workbench, alchemy table and tannery. Recipes you find with mentors and craftsmen, in books, as rewards and at the merchant. The list shows what you can make, where an ingredient is missing and what is still closed to you. Craftsmen in town make things for a fee if you bring the ingredients.
+
+`[423.tragen]` **Tragen.** Kraft bestimmt, wie viel du trägst. Wer mehr schleppt, wird langsamer, kann aber weiter aufheben. Früh auf deinem Weg wartet der **Nimmersatt-Beutel**, der dich weit mehr tragen lässt.
+EN: **Carrying.** Strength decides how much you carry. Haul more and you slow down, but you can still pick things up. Early on your way the **Bottomless Bag** awaits, which lets you carry far more.
+
+## Abnutzung und Reparatur
+
+`[423.zustand]` **Nichts hält ewig.** Ausrüstung ist **makellos**, **benutzt**, **beschädigt** oder **defekt**, und mit ihrem Zustand sinkt, was sie leistet; das Spiel warnt dich rechtzeitig. Defekt heißt nutzlos, nicht verloren. Gegen viel schwächere Gegner nutzt sie sich kaum ab.
+EN: **Nothing lasts forever.** Gear is **pristine**, **used**, **damaged** or **broken**, and as its state falls, so does what it does; the game warns you in time. Broken means useless, not lost. Against far weaker foes it hardly wears.
+
+`[423.reparatur]` **Reparieren.** Beim Handwerker gegen Gold, bei gutem Ruf günstiger, doch er kann nur, was er selbst beherrscht. Selbst, mit Material, Werkort und genug Rang in Schmieden oder Lederarbeit: als Anfänger Werkzeug, einfache Waffen, Leder und Stoff, als Geselle Metallwaffen, mittlere Rüstung, Schilde und Bögen, als Meister schwere Rüstung und Meisterwerke, als Großmeister mit Runenkunde auch Magisches. Unterwegs flickt ein Reparaturset, nicht ganz. „Alles reparieren“ geht mit einem Tippen.
+EN: **Repairing.** At a craftsman's for gold, cheaper with good standing, but he can only mend what he masters himself. Yourself, with material, a workplace and enough rank in Smithing or Leatherwork: as a Novice tools, simple weapons, leather and cloth, as a Journeyman metal weapons, medium armour, shields and bows, as a Master heavy armour and masterworks, as a Grandmaster with Runecraft magical things too. On the road a repair kit patches, not fully. "Repair all" takes one tap.
+
+## Feste Namen
+
+`[423.namen]` Englisch, überall gleich (Vorschlag Homer, Prüfpunkt 1): Bornimer Rollenspielsystem = Bornim Roleplaying System, Kürzel in beiden Sprachen BRS, nie als eigener Schriftzug (451); Herkunft = Origin, Pfad = Path, Lehrmeister = Mentor (nicht „Master“, das ist der Rang), Anwärter = Aspirant, Eingeweihter = Initiate, Bewährungsprobe = Proving, Meisterschaft = Mastery, Heldenblatt = Hero Sheet, Heldenstufe = Hero Level. Grundwerte: Strength, Agility, Toughness, Wits, Will, Perception. Ränge: Novice, Journeyman, Master, Grandmaster. Prüfungen: First Trial, Journeyman's Trial, Master's Trial. Völker: Human, Elf, Dwarf, Hill Folk, Orc-blooded; Merkmale: Adaptable, Watchful Senses, Stoneblood, Child of Fortune, Last Breath. Herkünfte: Watch Soldier, Hunter's Child, Apprentice Mage, Cloister Pupil, Herb Gatherer, Smith's Apprentice, Drifter, Wanderer. Pfade: Warden, Paladin, Berserker, Duelist, Monk, Assassin, Treasure Hunter, Ranger, Marksman, Mage, Battlemage, Summoner, Healer. Meisterschaften: Smith, Leatherworker, Alchemist, Runemaster, Field Cook. Nimmersatt-Beutel = Bottomless Bag. Zustand: pristine, used, damaged, broken.

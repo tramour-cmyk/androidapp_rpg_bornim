@@ -1,54 +1,64 @@
 # Abnahme Kapitel 1: Meilenstein und Wochenziel
 
-**Oberste Direktive (Chef 31.10., Archiv 418):** Kapitel 1 in der Godot-Fassung mit Spielsystem 2.0 fertigstellen: ohne technische Fehler, gut aussehend, nach unserer Signatur, düster, professionell und immersiv durch Klang, Musik, Kampfsystem und die Möglichkeiten des Spielers. Qualität vor Quantität und vor Eile; es gibt keinen Termin. Fertig ist, was die Abnahmeliste erfüllt. Geht jeder Kür und jedem Neuen vor.
+**Oberste Direktive (Chef 31.10., Archiv 418):** Kapitel 1 in der Godot-Fassung mit dem Bornimer Rollenspielsystem (BRS, 451) fertigstellen: ohne technische Fehler, gut aussehend, nach unserer Signatur, düster, professionell und immersiv durch Klang, Musik, Kampfsystem und die Möglichkeiten des Spielers. Qualität vor Quantität und vor Eile; es gibt keinen Termin. Fertig ist, was die Abnahmeliste erfüllt. Geht jeder Kür und jedem Neuen vor.
 
-**Meilenstein „Kapitel 1 fertig“** = jeder Punkt der Abnahmeliste unten abgehakt; danach **„marktreif“** (338): Kapitel 1 öffentlich im Play Store (Block S). Was unter die Abnahmeliste fällt, ist Muss; Kapitel 2, Berufungen, Gruppenkämpfe, Dungeons erst danach. Abhaken darf nur, wer in der Zeile als Prüfer steht; „Chef“ heißt: erst nach seinem Wort. Liest Ford beim Start (Wochenziel); sonst nur bei Anlass.
+**Stufen statt eines Meilensteins** (447, Chef 01.11.: „447 ja, mit K2b, aber nummeriere das Ganze doch neu und vernünftig durch“): sechs Stufen ohne Datum, jede ein spielbarer Build mit einer Prüfung. **„Kapitel 1 fertig“** = Stufen 1–4 abgehakt; **„marktreif“** (338) = Stufe 5; Stufe 6 nach dem Marktstart. Punkte heißen „Stufe.Punkt“ (z. B. „3.2“), der Buchstabe danach ist der Bereich (T Technik, A Aussehen, K Klang, M Kampf, G Regelwerk BRS, W Möglichkeiten des Spielers, S Store). Ein Punkt wird erst abgehakt, wenn er ganz fertig ist, nicht „gut genug für die Stufe“. Was unter die Abnahmeliste fällt, ist Muss; Kapitel 2, Berufungen, Gruppenkämpfe, Dungeons, Bergbau erst danach. Abhaken darf nur, wer in der Zeile als Prüfer steht; „Chef“ heißt: erst nach seinem Wort. **Stand je Punkt** (448): ohne Marke offen; am Zeilenende „· Stand: in Arbeit“ oder „· Stand: gebaut“ (setzt Perikles nach den Vorräten); abgehakt = abgenommen; der Tagesbericht zählt je Stufe (`tools/tagesbericht.py`). Liest Ford beim Start (Wochenziel); sonst nur bei Anlass.
 
-## Abnahmeliste Kapitel 1 (418; Entwurf Perikles 31.10., Chef nimmt ab: Chefsache 418)
+## Abnahmeliste Kapitel 1 (418, abgenommen vom Chef 01.11., 09:43; in Stufen seit 447, 01.11.; 418 Umfang A gilt nicht mehr)
 
-Zahlen in Klammern = Entscheidung in `DESIGN-SPIELSYSTEM-2-0.md` („E 7“) oder Vorgang. Gilt nur, was entschieden ist; offene Fragen dort (413a) gehen hier ein, sobald entschieden. Wo eine Zahl oder Regel noch nicht stimmt (Prüfbericht Lauf 48, D48.1–D48.4: Startpunkte, Niveau je Kapitel, Liste der 37 je Werdegang), ist der Punkt erst abhakbar, wenn Sokrates sie im Nachschlagewerk (422) bereinigt hat. Termine gibt es keine; Wochenziele nennen Reihenfolge und Schätzung, keine Tage je Punkt.
+Zahlen in Klammern = Entscheidung in `DESIGN-SPIELSYSTEM-2-0.md` („E 7“) oder Vorgang; was gilt, steht im Nachschlagewerk `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md` („NW 5“ = Abschnitt 5; E 84). Gilt nur, was entschieden ist; neue Entscheidungen gehen hier ein. Alle Zahlen sind Startwerte; abhakbar mit Zahlen erst nach der Rechensimulation (444). Termine gibt es keine; Wochenziele nennen Reihenfolge und Schätzung, keine Tage je Punkt. Alte Kurzzeichen (T1 … S1, bis 01.11.): Git, Stand vor „Perikles: 447.1“.
 
-**T Ohne technische Fehler**
-- [ ] Kein Absturz, kein Hängenbleiben, kein Ruckeln auf den Testgeräten des Chefs (Handy und Tablet, 267); Spielstände halten über Updates.
-- [ ] Kollision und Sprungtest 0 in jedem Ort; kein Schweben nach Start und Kartenwechsel (24); Tippen trifft, was gezeichnet ist.
-- [ ] Kerntests der Regeln 2.0 als GDScript-Tests grün; Zufallsspieler spielt Kapitel 1 im neuen Spiel durch (26).
-- [ ] Jeder Fehler aus den Tests des Chefs behoben (Prüfer: Chef).
+**Stufe 1 · Kern spielbar** (Prüfung: Rechensimulation 444 abgenommen; der Chef spielt Dorf und Wald an)
+- [ ] **1.1** G · Ohne Klassen (E 1): Erschaffung mit sechs Grundwerten ab 1, 21 Punkte, jeder Wert 3 bis 8 (E 77); fünf Völker mit Bonus, Malus und Merkmal, Volk hebt bis 9, nie unter 3 (E 70, 72, 78); Herkunft freiwillig oder Wanderer, Startfertigkeiten bei 10 (E 68, 69; NW 2).
+- [ ] **1.2** G · Fertigkeiten steigen durch Tun, Wert 0–100 in vier Rängen, am Rangende Halt mit kleinem Puffer bis zur Prüfung (E 67, E 44); Kapitel 1 bis Geselle (49) mit Bewährungsproben zum Gesellen (Takt, NW 5); Prüfregel und die 37 (E 59); Hinweis beim Aufstieg, Heldenblatt zeigt nur Getanes (NW 3).
+- [ ] **1.3** G · Heldenstufe aus Erfahrung (E 16), höchstens 40 % aus Fertigkeitsaufstiegen (E 17); Kapitelgrenze weich bis zwei Stufen darüber (E 18, E 35); Erfahrungstopf je Gebiet, Wiederkehrer geben kaum Erfahrung, aber Beute (E 19, E 21).
+- [ ] **1.4** M · Neue Monsterwerte für Kapitel 1 nach dem BRS auf Rechenmodell D (E 73–75, NW 7).
 
-**A Aussehen und Signatur**
-- [ ] Jeder Ort „Ort fertig“ nach `DESIGN-ABNAHME.md`, sinngemäß in Godot: Dorf, Räume, Flüsterwald, Tiefer Flüsterwald, Blutzahnhöhle.
-- [ ] Jede Figur, jedes Haus, jedes Ding in `LISTE-UMZUG-348.md` auf „abgenommen“ (Prüfer: Chef; Diogenes misst nebenher, 373).
-- [ ] Signatur nach `DESIGN-STIL.md`: schwarz-gold, Tusche, düster und lesbar; Hauptmenü, Erschaffung, Menüs, Vorspann und Zwischenbilder im selben Look (Prüfer: Chef).
+**Stufe 2 · Kapitel 1 durchspielbar** (Prüfung: Zufallsspieler spielt Kapitel 1 durch; Kollision 0; Kapitelsimulation: jede Herkunft schafft die Bosse; der Chef spielt einmal grob durch)
+- [ ] **2.1** T · Kollision und Sprungtest 0 in jedem Ort; kein Schweben nach Start und Kartenwechsel (24); Tippen trifft, was gezeichnet ist.
+- [ ] **2.2** T · Kerntests der Regeln des BRS als GDScript-Tests grün; Zufallsspieler spielt Kapitel 1 im neuen Spiel durch (26).
+- [ ] **2.3** M · MARS und klassischer Kampf (212 A, 249) rund auf den Regeln des BRS: Kampf ohne W20 nach Stufen (E 7), jeder Angriff sichtbar, Ansage harter Schläge, Pechsträhne.
+- [ ] **2.4** M · Kampf nie langweilig, echte Wahl (`DESIGN-LEITBILD.md`); Schwierigkeitsgrade (39).
+- [ ] **2.5** M · Ausgleich gemessen, nicht geschätzt: Simulation „Zeit bis Stufe“ und Kapitelsimulation auf den Regeln des BRS (444); jede Herkunft und der Wanderer schaffen die Bosse in vergleichbarem Maß; Zielwert mit dem Chef festlegen (38).
+- [ ] **2.6** G · Lehrmeister spricht an, sobald zwei Kernfertigkeiten eines Pfads Geselle sind; Anwärter möglich (E 63, E 79; Takt NW 5); Bewährungsprobe zum Gesellen siehe 3.1.
+- [ ] **2.7** G · Jede Herkunft hat in Kapitel 1 eine Handlung (Chef 01.11., 09:43): Wachsoldat, Jägerkind, Zauberlehrling, Klosterschüler, Herumtreiber im Kampf und mit Schleichen und Spähen; Kräutersammler: Kräuter sammeln und ein Rezept Heiltrank; Schmiedelehrling: Reparieren bei Borin.
+- [ ] **2.8** G · Schleichen mit Schleichtaste und Hinterhalt, Bosse wachsamer (E 55, E 47); Spähen durch Verweilen findet Fallen, Kräuter, Truhen, Wahrnehmung verstärkt (E 57, E 83), dann entschärfen; Truhen mit Dietrich, Truhen in Häusern der Leute zu (E 55, E 46); schwere Rüstung sperrt Schleichen, Metall sperrt Evokation, Illusion, Beschwörung (E 33, E 80); kein Stehlen, kein Barde (E 30, E 31).
+- [ ] **2.9** G · Kurze Erholung 2 h, Langes Ausruhen 9 h (E 26); Tragkraft mit Nimmersatt-Beutel, darüber langsamer (E 41).
+- [ ] **2.10** G · **Bauweise** (Chef 01.11., 09:43): Leute, Orte und Gegenstände haben beim Bau Datenfelder für Ruf, Rezept und Zustand (in Stufe 3 gefüllt); jede Zahl steht in einer Datendatei, nicht im Code (422, 444).
+- [ ] **2.11** W · Jeder Ort, jede Hauptquest und Nebenquest, jedes Gespräch, Laden, Anschlagbrett, Tagesablauf, Hilfe aus dem alten Spiel geht in Godot mindestens so (`LISTE-UMZUG-348.md`, 348.9), außer was das BRS ersetzt.
+- [ ] **2.12** W · Spielerfreundlich (`DESIGN-LEITBILD.md` 3): auf „Normal“ ohne Grinden schaffbar.
 
-**K Klang und Musik**
-- [ ] Musik je Ort, Tageszeit und Kampf; Umgebung aus echten Aufnahmen je Ort.
-- [ ] Schritte je Untergrund (74), Raumklang in Innenräumen und Höhle (119), Stimmen der Gegner (18); bisher „wenn Zeit ist“, jetzt Muss, weil die Direktive Klang nennt (Prüfer: Chef).
+**Stufe 3 · Alle Systeme angelegt** (447 „mit K2b“, Chef 01.11.: „alle Elemente grundsätzlich drin … die Anlagen sollen schon erkennbar sein“; je System ein kleiner, ganzer Kreislauf mit spürbarer Wirkung, kein leerer Knopf. Prüfung: je Punkt ein Spieltest „merkt man, was das kann?“; 444 rechnet Gold, Reparatur und Tränke mit)
+- [ ] **3.1** G · Pfad und Lehrmeister: Einladung, Anwärter, Hinweise und Aufgaben des Lehrmeisters, Bewährungsprobe zum Gesellen je Pfad, den Kapitel 1 trägt (Jorin Wächter, Osric Heiler und Paladin, Garrick Waldläufer und Scharfschütze, Thessa Schatzjäger, Morwen Magier und Kriegsmagier; NW 5, E 79, Archiv 447.4a); Zwischenprüfung ab Kapitel 2 (447.5).
+- [ ] **3.2** G · Meisterschaften: Einladung zu dreien (Alchemist Morwen, Lederarbeit Garrick, Feldkoch Rowena); Schmied und Runenmeister laden ab Kapitel 2 ein, Schmieden und Runenkunde üben und benutzen geht in Kapitel 1 (Archiv 447.4a); Alchemie (Kräuter → Heiltrank) und Schmieden (Reparatur, Dietrich) ganz, Leder, Runen, Kochen je ein Rezept (NW 6; Texte der Einladungen Homer).
+- [ ] **3.3** G · Ruf bei den Leuten im Dorf; Wirkung sichtbar: Preis bei Borin und Händler, eine Auskunft mehr (NW 9; Ruf-Gespräche Homer).
+- [ ] **3.4** G · Herstellen und Sammeln: Kräuter, Fisch, Jagd mit Zerlegen; Rezepte am Lagerfeuer und an Werkorten im Dorf; kein Bergbau (Chef 01.11., 11:55: „Erze brauchen wir doch noch gar nicht“), Erz für Schmieden und Runen nur kaufen oder finden (NW 10).
+- [ ] **3.5** G · Abnutzung und Reparatur: Zustand, Borin repariert, „Alles reparieren“ (NW 11).
+- [ ] **3.6** G · Tiere beruhigen an Wölfen und Wildschwein; Tierbegleiter erst mit dem Pfad Waldläufer (NW 8).
+- [ ] **3.7** G · Profil: Taten und Chronik (Entwurf C, Entscheidung 76).
+- [ ] **3.8** G · Gegenstandskatalog: jeder Gegenstand mit Platz, Stufe, Preis, Modell und Bezugsweg in `tools/gegenstaende/gegenstaende.json`, das Spiel liest nur ihn; Übersicht `LISTE-GEGENSTAENDE.md` erzeugt (458).
 
-**M Kampfsystem**
-- [ ] MARS und klassischer Kampf (212 A, 249) rund auf den Regeln 2.0: Kampf ohne W20 nach Stufen (E 7), jeder Angriff sichtbar, Ansage harter Schläge, Pechsträhne.
-- [ ] Kampf nie langweilig, echte Wahl (`DESIGN-LEITBILD.md`); Schwierigkeitsgrade (39).
-- [ ] Neue Monsterwerte für Kapitel 1 nach 2.0; Stufenfaktor des Kampfs entschieden (Frage 3, S1 offen).
-- [ ] Ausgleich gemessen, nicht geschätzt: Simulation „Zeit bis Stufe“ und Kapitelsimulation auf den Regeln 2.0; jeder Werdegang schafft die Bosse in vergleichbarem Maß; Zielwert mit dem Chef festlegen (38, bisher je Klasse).
+**Stufe 4 · Kapitel 1 fertig** (Prüfung: der Chef spielt ganz durch und sagt „gut“)
+- [ ] **4.1** T · Kein Absturz, kein Hängenbleiben, kein Ruckeln auf den Testgeräten des Chefs (Handy und Tablet, 267); Spielstände halten über Updates.
+- [ ] **4.2** T · Jeder Fehler aus den Tests des Chefs behoben (Prüfer: Chef).
+- [ ] **4.3** A · Jeder Ort „Ort fertig“ nach `DESIGN-ABNAHME.md`, sinngemäß in Godot: Dorf, Räume, Flüsterwald, Tiefer Flüsterwald, Blutzahnhöhle.
+- [ ] **4.4** A · Jede Figur, jedes Haus, jedes Ding in `LISTE-UMZUG-348.md` auf „abgenommen“ (Prüfer: Chef; Diogenes misst nebenher, 373).
+- [ ] **4.5** A · Signatur nach `DESIGN-STIL.md`: schwarz-gold, Tusche, düster und lesbar; Hauptmenü, Erschaffung, Menüs, Vorspann und Zwischenbilder im selben Look (Prüfer: Chef).
+- [ ] **4.6** K · Musik je Ort, Tageszeit und Kampf; Umgebung aus echten Aufnahmen je Ort.
+- [ ] **4.7** K · Schritte je Untergrund (74), Raumklang in Innenräumen und Höhle (119), Stimmen der Gegner (18); bisher „wenn Zeit ist“, jetzt Muss, weil die Direktive Klang nennt (Prüfer: Chef).
+- [ ] **4.8** G · Namen nach dem Glossar, keine SRD-Begriffe im Spiel (E 24, E 25, E 27; NW 12; `regelcheck` zählt die Reste, 446).
+- [ ] **4.9** W · Englisch durchgehend (Homer, Tom).
+- [ ] **4.10** W · **Durchgespielt:** der Chef spielt Kapitel 1 einmal ganz durch und sagt „gut“ (Prüfer: Chef).
 
-**G Spielsystem 2.0, Kern in Kapitel 1** (E 60)
-- [ ] Ohne Klassen (E 1): Erschaffung mit sechs Grundwerten ab 1, 18 Punkte, jeder Wert 3 bis 8 (E 6, E 64); Werdegänge als Starthilfe (E 28, E 29, E 45).
-- [ ] Fertigkeiten steigen durch Benutzung (E 2) mit Niveau je Kapitel begrenzt (E 20), am Limit hart mit Puffer (E 44); Prüfregel und Liste (E 59).
-- [ ] Heldenstufe aus Erfahrung (E 16), höchstens 40 % aus Fertigkeiten (E 17); weiche Kapitelgrenze (E 18, E 35); Erfahrungstopf je Gebiet, Wiederkehrer geben kaum Erfahrung, aber Beute (E 19, E 21).
-- [ ] Wege sichtbar, Berufungen erst ab Kapitel 2 (E 51, E 52); Heldenblatt zeigt nur Getanes (E 65).
-- [ ] Jeder Werdegang hat in Kapitel 1 etwas zu tun (Kräuterkundiger und Heiler: Kräuter sammeln; Schmiedegeselle: offen mit G2, Sokrates).
-- [ ] Schleichen mit Schleichtaste und Hinterhalt, Bosse wachsamer (E 55, E 47); Fallen entdecken durch Spähen (E 57), dann entschärfen; Truhen mit Dietrich, Truhen in Häusern der Leute zu (E 55, E 46); schwere Rüstung sperrt Schleichen (E 33); kein Stehlen, kein Barde (E 30, E 31).
-- [ ] Kurze Erholung 2 h, Langes Ausruhen 9 h (E 26); Tragkraft mit Nimmersatt-Beutel, darüber langsamer (E 41).
-- [ ] Namen nach dem Glossar, keine SRD-Begriffe im Spiel (E 24, E 25, E 27).
+**Stufe 5 · marktreif** (338; Prüfung: Kapitel 1 öffentlich im Play Store)
+- [ ] **5.1** S · Store-Seite, Texte und Bilder (Homer, Sokrates); Impressum (Datenschutzseite online, 252); Gewerbeschein und Preis (142, 45); Repo privat (109); 12 Tester, geschlossener Test 14 Tage, Prüfung durch Google. Vorlauf (142, 109, 142.3) läuft schon jetzt daneben, weil er lange dauert.
 
-**W Möglichkeiten des Spielers**
-- [ ] Jeder Ort, jede Hauptquest und Nebenquest, jedes Gespräch, Laden, Anschlagbrett, Tagesablauf, Hilfe aus dem alten Spiel geht in Godot mindestens so (`LISTE-UMZUG-348.md`, 348.9), außer was 2.0 ersetzt.
-- [ ] Englisch durchgehend (Homer, Tom).
-- [ ] Spielerfreundlich (`DESIGN-LEITBILD.md` 3): auf „Normal“ ohne Grinden schaffbar.
-- [ ] **Durchgespielt:** der Chef spielt Kapitel 1 einmal ganz durch und sagt „gut“ (Prüfer: Chef).
+**Stufe 6 · SRD im Code abgelöst** (nach dem Marktstart; der Spieler sieht es nicht)
+- [ ] **6.1** G · Auch im Code keine SRD-Werte mehr, der Lizenzhinweis „SRD 5.1 · CC BY 4.0“ entfällt; `regelcheck` ohne Treffer (446).
 
-**S Store (danach, für „marktreif“)**
-- [ ] Store-Seite, Texte und Bilder (Homer, Sokrates); Impressum (Datenschutzseite online, 252); Gewerbeschein und Preis (142, 45); Repo privat (109); 12 Tester, geschlossener Test 14 Tage, Prüfung durch Google.
+## Ausführlicher Stand (Zeile 10 des [Tagesberichts](ARBEIT-TAGESBERICHT.md); Perikles montags neu; ersetzt seit 448 den täglichen Stand zum Marktstart und das Dashboard)
 
-## Stand zum Marktstart (338.1; Perikles: montags ganz, täglich neu; als Seite: [Dashboard](https://claude.ai/artifact/5gdqbHNUUpbBUU9sBo4i7t), 339)
+**Hinweis (01.11., 13:5x):** Der Stand unten und die Wochenziele sind vom alten Plan (Blöcke T–S, „Umfang A“, „Spielsystem 2.0“); seit 447 gelten die Stufen oben und der Name BRS (451). Perikles setzt alles Mo 02.11. mit dem Wochenziel neu.
 
 **Stand 01.11., 00:15: gelb. Seit 31.10. gilt deine neue oberste Direktive: kein Termin, fertig ist, was die Abnahmeliste oben erfüllt.** Die Liste liegt dir zur Abnahme vor (Chefsache 418); bis zu deinem Wort ampeln wir nach ihrem Entwurf, Block für Block. Das spielbare Godot-Spiel (Dorf und Waldkampf, 399) hast du am 31.10. gegen 20:40 mit Build 143 getestet; von deinen neun Befunden (416) ist einer abgenommen, vier sind gebaut, einer in Arbeit, drei offen (einer davon Kür). 15 neue Änderungen (Tom 7, Jerry 8) warten auf den nächsten gemeinsamen Build; höchstens 6 je Build (317), also mindestens drei Builds. Dazu 5 Punkte aus Build 143, die du noch abnimmst (Spielfassung, Innenräume, Klang, Dorf, Kampfort). Das alte Regelwerk ruht auf dein Wort („keine Energie mehr in das alte SRD-System“, 424); Spielsystem 2.0 ist als Nachschlagewerk beschrieben (Entscheidungen bis 75, Sokrates gleicht ab, 422; Diogenes liest quer, 441), gebaut wird es erst nach deinen Antworten zu den offenen Entwürfen (413a) und zum Umfang für Kapitel 1 (418). Kein Block ist rot; die meisten warten auf diese beiden Antworten.
 
@@ -64,7 +74,7 @@ Zahlen in Klammern = Entscheidung in `DESIGN-SPIELSYSTEM-2-0.md` („E 7“) ode
 | A Aussehen und Signatur | gelb | Bei dir zum Ansehen, jeweils nur „passt“ oder was anders sein soll: Held im Kampfort wie im Dorf (Film 403; Bewegung „gut“, 23:31), Waffen in der Hand beim Gehen (Probe Stab, Axt, Bogen, 417); zu entscheiden: Aussehen der Völker (430). Innenräume wie alt (399.5) sind in Build 143. Feinschliff der Tuschelinien ruht, bis das Spiel steht (348.13b). |
 | K Klang und Musik | gelb | Tierlaute (401), Blende und Herzschlag vor dem Kampf (402) sind gebaut und kommen mit dem nächsten Build. Musik je Ort und Tageszeit, Schritte je Untergrund, Raumklang: noch nicht begonnen. |
 | M Kampfsystem | gelb | Die Kampfbewegungen des Helden gefallen dir (403); offen aus deinem Film: Wölfe gleiten (438), Neuformation vor dem Tod (439), Wolf stirbt ohne Animation (440), alle bei Jerry. Kampf auf den Regeln 2.0 (Stufen statt W20) beginnt nach 413a. |
-| G Spielsystem 2.0 | gelb | Nachschlagewerk steht (Entscheidungen bis 75); offene Entwürfe bei dir (413a), Umfang für Kapitel 1 bei dir (418: nur Kern oder Kern mit Ruf und Alchemie). Gebaut ist davon noch nichts. |
+| G Spielsystem 2.0 | gelb | Nachschlagewerk gilt (Entscheidungen bis 84, 01.11.); Umfang für Kapitel 1 entschieden: nur der Kern, dazu leere Datenfelder für spätere Wellen und je Herkunft eine Handlung (418, 01.11., 09:43). Rechensimulation läuft (444). Gebaut ist davon noch nichts; der Bau wird mit Wochenziel 2 am Mo 02.11. auf Tom und Jerry verteilt. |
 | W Möglichkeiten des Spielers | gelb | Spielbar: Hauptmenü, Erschaffung, Spielstände, Dorf mit Schenke, Laden, Ältestem und Tempel, Anschlagbrett, Rast, Waldkampf gegen das Wolfsrudel; Laden „Verkaufen“ wird nachgebessert (416.9, Spike, der Zusatzentwickler bei Tom). Englisch durchgehend: offen. |
 | S Store | gelb | Konto und App angelegt, Datenschutzseite online (252). Der Weg zum Store: Gewerbeschein, dann das Repo auf privat stellen (109), dann der Aufruf für die 12 Tester (vorbereitet, 142.3), dann 14 Tage geschlossener Test. Bei dir: Gewerbe-Neuanmeldung korrigieren und absenden (Zu tun 142). |
 **2. Ausgaben**
@@ -125,7 +135,7 @@ Dazu, ohne Vorgang (Perikles vergibt Nummern mit Wochenziel 2): Englisch durchge
 
 ## Wochenziel 2: 02.–08.11. (Perikles, vorab gesetzt 26.10., 17:15 nach der Schätzung 348.14; Montag 02.11. mit der Wochenzählung geprüft)
 
-**Überholt seit 418 (31.10.):** die Tage unten widersprechen „es gibt keinen Termin“ und rechnen mit dem alten System; Perikles setzt Wochenziel 2 am 02.11. neu auf die Abnahmeliste, nach deiner Antwort zu Chefsache 418, mit Reihenfolge und Schätzung statt Tagen.
+**Überholt seit 418 (31.10.):** die Tage unten widersprechen „es gibt keinen Termin“ und rechnen mit dem alten System; Perikles setzt Wochenziel 2 am 02.11. neu auf die Abnahmeliste (Umfang A seit 01.11., 09:43), mit Reihenfolge und Schätzung statt Tagen.
 
 **Umzug fertig zum Durchspielen: jeder Punkt der Checkliste ist bis Mo 02.11. „gebaut“ (hält nur, wenn du etwa 28 Blätter am Tag ansiehst, 373) und bis Di 03.11. von Diogenes gemessen (Hinweis, keine Bedingung für deine Abnahme); die Kerntests laufen als GDScript-Tests grün, der Zufallsspieler spielt Kapitel 1 im neuen Spiel durch; dann spielst du Kapitel 1 in Godot einmal ganz durch, und deine Fehler sind Muss.** Abnahme der Punkte nach deinem Wort, Feinschliff danach. Das Guthaben ab Sa 31.10., 20:00 reicht beim jetzigen Takt bis etwa Mi 04.11.; was dann offen ist, geht nach dem Stillstand ab Sa 07.11., 20:00 weiter. Messen, GDScript-Tests und Zufallsspieler sind nicht geschätzt. Stärkstes Gegenargument: wird es der späte Termin (seit 338a „B“ Di 03.11., früh; dann hält das Wochenziel nicht), bleibt für deine Fehler aus dem Durchspielen kaum Guthaben in dieser Woche.
 

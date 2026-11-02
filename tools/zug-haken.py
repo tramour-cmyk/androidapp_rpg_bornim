@@ -27,7 +27,7 @@ import zoneinfo
 
 BERLIN = zoneinfo.ZoneInfo("Europe/Berlin")
 ZAEHLER = os.environ.get("BORNIM_REGELTREUE") or os.path.expanduser("~/.bornim-regeltreue.tsv")
-KOPF = "zeit\tsitzung\tkontext_token\twoerter\tentschuldigung\tstempel\tdaneben_min\tangehalten\tzweitstopp"
+KOPF = "zeit\tsitzung\tkontext_token\twoerter\tentschuldigung\tstempel\tdaneben_min\tangehalten\tzweitstopp\ttexte_im_zug\tohne_kopf"
 STAND = os.environ.get("BORNIM_HAKEN63") or os.path.expanduser("~/.bornim-haken63.json")  # 383: was beim ersten Anhalten fehlte
 CHEFSACHE = os.environ.get("BORNIM_CHEFSACHE") or os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs", "chefsache")
 STEMPEL = re.compile(r"^\W*(?:\*\*[^*\n]{1,40}\*\*)?\s*\[(\d{1,2})\.(\d{1,2})\.,? (\d{1,2}):(\d{2})\]")
@@ -91,6 +91,32 @@ def protokoll(pfad):
                 u = m["usage"]
                 ctx = sum(int(u.get(k) or 0) for k in ("input_tokens", "cache_creation_input_tokens", "cache_read_input_tokens")) or ctx
     return frage, ctx
+
+
+KOPF_NAME = re.compile(r"^\W*\*\*[^*\n]{1,40}\*\*\s*\[\d{1,2}\.\d{1,2}\.,? \d{1,2}:\d{2}\]")  # 462.1 (D59.2): Name und Zeit
+
+
+def texte_im_zug(pfad):
+    """462.1 (D59.1): (Texte des Zugs seit der letzten Nachricht des Nutzers, davon ohne Kopf „**Name** [Zeit]“);
+    zählt auch Zwischenmeldungen, nicht nur die letzte."""
+    texte = []
+    with open(pfad, encoding="utf-8", errors="replace") as f:
+        for zeile in f:
+            try:
+                d = json.loads(zeile)
+            except ValueError:
+                continue
+            if d.get("isSidechain"):
+                continue
+            c = (d.get("message") or {}).get("content")
+            if d.get("type") == "user" and not d.get("isMeta") and (isinstance(c, str) or (
+                    isinstance(c, list) and c and not any(isinstance(x, dict) and x.get("type") == "tool_result" for x in c))):
+                texte = []
+            elif d.get("type") == "assistant" and isinstance(c, list):
+                t = "\n".join(x.get("text", "") for x in c if isinstance(x, dict) and x.get("type") == "text").strip()
+                if t:
+                    texte.append(t)
+    return len(texte), sum(1 for t in texte if not KOPF_NAME.match(t))
 
 
 def stempel_pruefen(t, frage, jetzt):
@@ -170,11 +196,17 @@ def main():
             jetzt = datetime.datetime.now(BERLIN)
             frage, ctx = protokoll(e["transcript_path"]) if e.get("transcript_path") else (None, 0)
             gef, daneben = stempel_pruefen(t or "", frage, jetzt)
+            if not KOPF_NAME.match((t or "").lstrip()):
+                gef = 0  # 462.1 (D59.2): Zeit ohne Name zählt nicht als Kopf
+            try:
+                zug = list(texte_im_zug(e["transcript_path"])) if e.get("transcript_path") else ["", ""]
+            except OSError:
+                zug = ["", ""]
             ohne_code = re.sub(r"```.*?```", " ", t or "", flags=re.S)
             werte = [jetzt.strftime("%Y-%m-%d %H:%M"), str(e.get("session_id", "?"))[:40], ctx, len(ohne_code.split()),
                      1 if ENTSCHULD.search(t or "") else 0, gef, daneben]
         except Exception:
-            werte = None
+            werte, zug = None, ["", ""]
         chef = chefsache(t)
         if chef:
             gruende.append(chef)
@@ -185,7 +217,7 @@ def main():
             st.pop(str(e.get("session_id", "?")), None)
         stand_schreiben(st)
         if werte:
-            zaehlen(werte + [1 if gruende else 0, ""])
+            zaehlen(werte + [1 if gruende else 0, ""] + zug)
         if gruende:
             print(json.dumps({"decision": "block", "reason": " · ".join(gruende)}))
     except Exception:

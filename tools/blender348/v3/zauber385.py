@@ -23,6 +23,17 @@ bpy.ops.import_scene.gltf(filepath=ZIEL)
 T = next(o for o in bpy.data.objects if o.type == 'ARMATURE')
 for o in [o for o in bpy.data.objects if o != T]: bpy.data.objects.remove(o)
 for a in list(bpy.data.actions): bpy.data.actions.remove(a)
+# 438a: liegt die Quelle im ersten Bild (Aufstehen, Knien, Sitzen), ist ihre Ruhelage nicht stehend und die Uebertragung beginnt
+# stehend (Becken stieg bis 11 m). RUHE=<Humanoid@….fbx desselben Geruests, erstes Bild stehend> gibt dann Ruhelage und Angleichen.
+RUHE = os.environ.get('RUHE', '')
+if RUHE:
+    bpy.ops.import_scene.fbx(filepath=RUHE)
+    R = next(o for o in bpy.data.objects if o.type == 'ARMATURE' and o != T)
+    RW = R.matrix_world.copy()
+    Rs0r = {b.name: (RW @ b.matrix_local).to_3x3().normalized().to_quaternion() for b in R.data.bones}
+    Ps0r = {b.name: RW @ b.head_local for b in R.data.bones}
+    for o in [o for o in bpy.data.objects if o != T]: bpy.data.objects.remove(o)
+    for a in list(bpy.data.actions): bpy.data.actions.remove(a)
 bpy.ops.import_scene.fbx(filepath=QUELLE)
 S = next(o for o in bpy.data.objects if o.type == 'ARMATURE' and o != T)
 for o in [o for o in bpy.data.objects if o not in (T, S)]: bpy.data.objects.remove(o)
@@ -37,6 +48,7 @@ Rt0 = {b.name: dreh(TW @ b.matrix_local) for b in tb}
 Pt0 = {b.name: TW @ b.head_local for b in tb}
 Rs0 = {b.name: dreh(SW @ b.matrix_local) for b in sb}
 Ps0 = {b.name: SW @ b.head_local for b in sb}
+if RUHE: Rs0, Ps0 = Rs0r, Ps0r
 
 # Angleichen der Ruhelagen: Richtung zum (ersten abgebildeten) Kind; ohne Kind wie der Elternknochen
 def kind(b):
@@ -65,6 +77,21 @@ for s in ('l', 'r'):
         A[h] = (Fs @ Ft.inverted()).to_quaternion()
 
 hoehe = Pt0['pelvis'].z / max(Ps0[KARTE['pelvis']].z, 1e-3)
+# 417 (Chef 01.11., 13:4x: „der Oberkoerper beim normalen Gehen zum Teil zu weit vorgeneigt“): AUFRICHTEN=<Grad> dreht den Oberkoerper
+# starr um den Kopf von spine_01 zurueck (alle Knochen darueber, Arme und Waffe mit), Achse quer zum Blick (-Y), Schwung bleibt
+import math
+AUF = Quaternion((1.0, 0.0, 0.0), -math.radians(float(os.environ.get('AUFRICHTEN', '0') or 0)))
+oben = set()
+for b in tb:   # Eltern vor Kindern
+    if b.name == 'spine_01' or (b.parent and b.parent.name in oben): oben.add(b.name)
+# 438a (Messung: Fuesse im Stand 0,18 m ueber dem Boden): steht die Quelle in der Ruhelage mit gebeugten Knien (Schwert & Schild 0,86 m
+# Becken), hob „Ruhelage auf Ruhelage“ den Helden um die Beugung an. BECKEN=bein: Hoehe ueber dem Boden wie die Quelle, im Verhaeltnis
+# der Beinlaengen (Oberschenkel, Wade, Knoechel), waagerecht wie bisher.
+BEIN = os.environ.get('BECKEN', '') == 'bein'
+if BEIN:
+    def bein(P, k):
+        return (P[k('thigh_l')] - P[k('calf_l')]).length + (P[k('calf_l')] - P[k('foot_l')]).length + P[k('foot_l')].z
+    hoehe = bein(Pt0, lambda n: n) / max(bein(Ps0, lambda n: KARTE[n]), 1e-3)
 TWq = dreh(TW)
 act = bpy.data.actions.new(NAME)
 T.animation_data_create(); T.animation_data.action = act
@@ -81,18 +108,19 @@ for f in range(f0, f1 + 1):
             s = KARTE[b.name]
             Rs = dreh(SW @ S.pose.bones[s].matrix)
             Q = (Rs @ Rs0[s].inverted()) @ A[b.name] @ Rt0[b.name]
+            if b.name in oben: Q = AUF @ Q
             qa = TWq.inverted() @ Q
             qb = dreh(Mp).inverted() @ qa
             if b.name == 'pelvis':
                 P = Pt0['pelvis'] + (SW @ S.pose.bones[s].head - Ps0[s]) * hoehe
+                if BEIN: P.z = (SW @ S.pose.bones[s].head).z * hoehe
                 loc = Mp.to_3x3().inverted() @ (TW.inverted() @ P - Mp.translation)
         pb.rotation_quaternion = qb
         pb.location = loc
         pose[b.name] = Mp @ Matrix.Translation(loc) @ qb.to_matrix().to_4x4()
         pb.keyframe_insert('rotation_quaternion', frame=f - f0 + 1)
         if b.name == 'pelvis': pb.keyframe_insert('location', frame=f - f0 + 1)
-# Pruefung: Richtung der Knochen Ziel gegen Quelle (Grad, schlimmstes Bild)
-import math
+# Pruefung: Richtung der Knochen Ziel gegen Quelle (Grad, schlimmstes Bild; mit AUFRICHTEN am Ruecken um so viel mehr)
 schlimm = {}
 for f in range(f0, f1 + 1, 5):
     bpy.context.scene.frame_set(f)

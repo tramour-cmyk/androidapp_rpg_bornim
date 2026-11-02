@@ -5,10 +5,34 @@ Läuft als GitHub Action bei jedem Push nach docs/chefsache/ (zug-index.yml); ke
 darum gibt es dort keine Konflikte (D15.3). Lokal zur Vorschau: python3 tools/zug-index.py (nicht committen).
 Je Datei: Zeile 1 „# <Nr.> · <Frage>“, Zeile 2 „<Absender> · <TT.MM.>, …“; optional „Kurz: …“ als Text der Übersicht.
 """
-import os, re, sys
+import os, re, subprocess, sys
 
 ZUG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs", "chefsache")
-SEIT = r"\b(\d\d)\.(\d\d)\.(?:,? (\d\d:\d\d))?"  # 275 (Chef 15:21): „Seit“ mit Uhrzeit, „damit ich sehe, das liegt jetzt schon so und so lange“
+# 275 (Chef 15:21): „Seit“ mit Uhrzeit, „damit ich sehe, das liegt jetzt schon so und so lange“; 465: auch „20:3x“
+SEIT = r"\b(\d\d)\.(\d\d)\.(?:,? (\d\d:\d[\dx]))?"
+
+
+def seit_text(m, pfad):
+    """465 (Chef 01.11., 20:50: „Warum ist eigentlich in der Chefsache zu entscheiden keine Uhrzeit dabei? … Die muss da
+    unbedingt rein mit.“): fehlt die Uhrzeit oder steht „x“ darin, gilt die Zeit des Commits, der die Datei angelegt hat
+    (Berliner Zeit), sofern er am selben Tag war."""
+    if not m:
+        return ""
+    if m.group(3) and "x" not in m.group(3):
+        return m.group(0)
+    tag = f"{m.group(1)}.{m.group(2)}."
+    vorn = m.group(3)[:4] if m.group(3) else ""  # „20:3x“: Commit-Zeit muss zu 20:3 passen
+    try:
+        r = subprocess.run(["git", "-C", os.path.dirname(pfad), "log", "--format=%cd", "--date=format-local:%d.%m. %H:%M",
+                            *([] if vorn else ["--diff-filter=A"]), "--", os.path.basename(pfad)],
+                           capture_output=True, text=True, timeout=10, env={**os.environ, "TZ": "Europe/Berlin"})
+        zeiten = [z.split(" ") for z in r.stdout.split("\n") if z.strip()]
+    except (OSError, subprocess.SubprocessError):
+        return m.group(0)
+    for t, uhr in zeiten[::-1]:  # älteste passende zuerst: seit wann es so dasteht
+        if t == tag and uhr.startswith(vorn):
+            return f"{tag}, {uhr}"
+    return m.group(0)
 BEREICH = re.compile(r"^[EGQBM] [A-ZÄÖÜ]\w+$")
 
 def vorgaenge():
@@ -60,7 +84,7 @@ def eintrag(ordner, name):
     meta = next((z for z in zeilen[1:] if not z.startswith("Kurz:")), "")
     wer = meta.split(" · ")[0] if " · " in meta else ""
     m = re.search(SEIT, meta)
-    seit = m.group(0) if m else ""
+    seit = seit_text(m, os.path.join(ZUG, ordner, name))
     kurz = next((z[5:].strip() for z in zeilen if z.startswith("Kurz:")), None)
     if kurz: was = kurz
     else:
@@ -90,7 +114,7 @@ def builds(name):
     meta = next((z for z in zeilen[1:] if not z.startswith("Kurz:")), "")
     wer = kopf.split(" · ")[0]
     m = re.search(SEIT, meta)
-    seit = m.group(0) if m else ""
+    seit = seit_text(m, os.path.join(ZUG, "ansehen", name))
     tn = re.match(r"t(\d+)-", name)
     # APK-Link in der Bereichszeile (Lauf oder Pull-Request), sonst der Pull-Request aus Zeile 1: die Spalte „Build“ ist dann anklickbar
     ml = re.search(r"\]\((https://[^)]+)\)", meta)
@@ -100,7 +124,7 @@ def builds(name):
         teile = kopf.split(" · ")
         team = next((t for t in teile[2:] if re.sub(r" \d+$", "", t) in TEAMS), "")
         d = re.search(SEIT, kopf)
-        return [(None, teile[0], "", teile[1] if len(teile) > 1 else kopf, name, team or "–", d.group(0) if d else seit)]  # 367: Wer nie die Nummer
+        return [(None, teile[0], "", teile[1] if len(teile) > 1 else kopf, name, team or "–", seit_text(d, os.path.join(ZUG, "ansehen", name)) if d else seit)]  # 367: Wer nie die Nummer
     def zeile(teile, standard):
         v = next((VERSION.search(t) for t in teile if VERSION.search(t)), None)
         build = next((t for t in teile if re.match(r"Build \d+$", t)), f"Build {tn.group(1)}" if tn else "")
@@ -155,6 +179,15 @@ def formfehler():
     return fehler
 NR = r"[A-Z]?\d+[a-z]*(?:\.\d+[a-z]*)?"
 
+def ohne_link():
+    """450 (Chef 01.11., 10:55): jedes Blatt in ansehen/ (außer Builds t<n>-) zeigt ein Bild aus bilder/ oder verlinkt Bild bzw. Film im Zweig bilder."""
+    pfad = os.path.join(ZUG, "ansehen"); raus = []
+    link = re.compile(r"\]\((?:\.\./bilder/|bilder:|https://github\.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/|https://cdn\.jsdelivr\.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/)")
+    for n in sorted(os.listdir(pfad)) if os.path.isdir(pfad) else []:
+        if n.endswith(".md") and not re.match(r"t\d+-", n) and not link.search(open(os.path.join(pfad, n), encoding="utf-8").read()):
+            raus.append("ansehen/" + n)
+    return raus
+
 def luecken():
     """D21.3: Vorratszeilen, die auf den Chef warten oder „Chefsache <Nr>“ nennen, ohne Datei hier (ARCHIV eingefroren, nicht gelesen)."""
     texte = []
@@ -188,12 +221,14 @@ def luecken():
     except Exception:
         beantw = []
     form = formfehler()
-    if not nicht and not ohne and not form and not alt and not beantw: return ""
+    ohne_bild = ohne_link()
+    if not nicht and not ohne and not form and not alt and not beantw and not ohne_bild: return ""
     teile = ["## Lücken\n\nVom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.\n"]
     if form: teile.append("Format (Muster: „So geht's“ unten): " + "; ".join(form) + "\n")
     if nicht: teile.append("Nicht gestellt: " + ", ".join(f"{nr} ({wer})" for nr, wer in nicht) + "\n")
     if beantw: teile.append("Beantwortet, Datei noch da (383.3: der Absender löscht sofort): " + ", ".join(beantw) + "\n")
     if alt: teile.append("In Überarbeitung, aus der Chefsache nehmen, bis die neue Fassung fertig ist: " + ", ".join(alt) + "\n")
+    if ohne_bild: teile.append("Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): " + ", ".join(ohne_bild) + "\n")
     if ohne: teile.append("Ohne Datei: " + ", ".join(f"{nr} ({wer})" for nr, wer in ohne) + "\n")
     return "\n".join(teile)
 
