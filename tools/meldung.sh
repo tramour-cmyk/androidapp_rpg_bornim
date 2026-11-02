@@ -45,6 +45,19 @@ fi
 if [ ${#rest[@]} -gt 2 ]; then echo "meldung: zu viele Angaben (Text in Anführungszeichen?), nichts gesendet" >&2; exit 2; fi
 name="${rest[0]}"; text="${rest[1]}"
 if [ -z "$name" ] || [ -z "$text" ]; then echo "Aufruf: tools/meldung.sh [--laut] <Name> \"<Text>\"" >&2; exit 2; fi
+# 484 (Chef 02.11., 19:27: „Keine Abkürzungen mehr in Telegram-Meldungen.“): Kürzel und Abkürzungen halten die Meldung an;
+# erlaubt sind Vorgangsnummern und Kennungen (A1, D63.1, t146), Code in `…`, Links und die Namen MARS, SRD, APK, PNG, MP4, MB, GB
+if kurz=$(printf '%s' "$text" | python3 -c '
+import re, sys
+t = sys.stdin.read()
+t = re.sub(r"`[^`]*`|\]\([^)]*\)|https?://\S+", " ", t)
+frei = {"MARS", "SRD", "APK", "PNG", "MP4", "MB", "GB", "KB", "CC0", "TCS"}
+funde = [w for w in re.findall(r"(?<![\w./-])[A-ZÄÖÜ]{2,6}(?![\w-])", t) if w not in frei]
+funde += re.findall(r"(?<![\w.])(?:NW|E)\s\d+\b", t)
+funde += re.findall(r"(?<!\w)(?:z\.\s?B\.|bzw\.|usw\.|ggf\.|ca\.|u\.\s?a\.|d\.\s?h\.|evtl\.|inkl\.|vgl\.|Nr\.|o\.\s?ä\.)", t)
+print(", ".join(dict.fromkeys(funde))); sys.exit(0 if funde else 1)'); then
+  echo "meldung: Abkürzung im Text ($kurz), nichts gesendet; ausschreiben (484, Chef 02.11., 19:27)" >&2; exit 2
+fi
 if [ $probe = 0 ] && [ -z "$TELEGRAM_BOT_TOKEN" ]; then echo "meldung: TELEGRAM_BOT_TOKEN fehlt in dieser Umgebung, Meldung nicht gesendet" >&2; exit 1; fi
 zeit=$(TZ=Europe/Berlin date "+%d.%m. %H:%M"); stunde=$(TZ=Europe/Berlin date +%H)
 if [ $laut = 1 ]; then
