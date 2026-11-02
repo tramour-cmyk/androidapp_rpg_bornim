@@ -6,7 +6,15 @@
 
 [Film von 01.11., 22:53](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-2253-417-Tom.mp4) (eingetragen von meldung.sh, Tom)
 
-**Bitte den Film 00:53 beurteilen; 23:54 und 22:53 sind überholt.** Neu gegenüber 23:54 (Lauf 41361118983): Schwertarm beim Schild 15 Grad nach außen (vorher 9), das Schwert beim Rennen nicht mehr im Oberschenkel (frei 7,0 cm; 12 Grad wären 6,0). Messung aller vier Waffen ohne Fehler. Stand 23:54: Neu gegenüber 22:53 (Lauf 41356789633): Füße im Rennen am Boden statt schwebend (tiefster Ballen höchstens 4,0 cm statt 8,4–10,6; Stehen 1,5). Ursache: das Becken wurde im Verhältnis der Beckenhöhen im ersten Bild gesetzt, im Rennen 5–10 % zu hoch; jetzt nach der Beinlänge wie im Kampf (438a). Schild im Gehen: Schildarm 12 Grad nach außen, frei 6,3 cm (vorher 5 von 15 Bildern bis 5 cm im Körper; 8 Grad wäre knapp frei mit 3,9 cm). Schwert beim Rennen mit Schild war in 1 von 15 Bildern 4,9 cm im rechten Oberschenkel (in 00:53 behoben).
+**Bitte den neuesten Film (02.11., 02:2x) beurteilen; 00:53 und älter sind überholt.** Neu gegenüber 00:53 (Lauf 41368062432): Kriegsaxt und Schwert mit Schild je von beiden Seiten (Raster 3 × 2), Felder mit Waffe und Seite beschriftet, Bild 1,2-fach weiter (Axtblatt nicht mehr am Rand). Je Feld: 1 s Stehen, 2,5 s Gehen, 2,5 s Rennen, 1,5 s Gehen, Stehen. Damit sieht man, ob das Schwert beim Schildträger durch Kopf und Bein geht oder nur hinter dem Körper liegt (gemessen frei).
+
+**Noch nicht behoben: Fuß rutscht im Rennen.** Der Prüfer hatte recht: im Film gleitet der Standfuß im Rennen 10–22 % des Tempos (Bogen 10, Schild 18, Axt 22), obwohl dieselbe Bewegung einzeln abgespielt fest steht (0–4 %). Der Fehler liegt im Abspielen beim Wechsel Gehen–Rennen (Überblendung, Tempo), nicht in der Bewegung; Ursache wird ohne Bild nachgestellt, dann behoben. Nebenbei behoben: das Einhandrennen war 31 % falsch umgetaktet.
+
+**Stärkstes Gegenargument:** das Rutschen kann auch im Spiel stecken (gleicher Ablauf in `held.gd`); dann betrifft die Behebung Held und Leute, nicht nur den Film.
+
+**Zu sagen:** je Waffe „passt“ oder was anders sein soll (ohne das Rutschen).
+
+**Stand 00:53:** Neu gegenüber 23:54 (Lauf 41361118983): Schwertarm beim Schild 15 Grad nach außen (vorher 9), das Schwert beim Rennen nicht mehr im Oberschenkel (frei 7,0 cm; 12 Grad wären 6,0). Messung aller vier Waffen ohne Fehler. Stand 23:54: Neu gegenüber 22:53 (Lauf 41356789633): Füße im Rennen am Boden statt schwebend (tiefster Ballen höchstens 4,0 cm statt 8,4–10,6; Stehen 1,5). Ursache: das Becken wurde im Verhältnis der Beckenhöhen im ersten Bild gesetzt, im Rennen 5–10 % zu hoch; jetzt nach der Beinlänge wie im Kampf (438a). Schild im Gehen: Schildarm 12 Grad nach außen, frei 6,3 cm (vorher 5 von 15 Bildern bis 5 cm im Körper; 8 Grad wäre knapp frei mit 3,9 cm). Schwert beim Rennen mit Schild war in 1 von 15 Bildern 4,9 cm im rechten Oberschenkel (in 00:53 behoben).
 
 Film per Telegram (8,7 s, Raster 2 × 2), wie im Spiel gezeichnet, auf dem Grundstand 461 (`claude/grundstand-461`, 878b15f9f); Ablauf `tom-probe-417.yml`, Lauf 41350556171; noch kein Build. Oben links Kriegsaxt, oben rechts Schwert, unten links Schwert und Schild, unten rechts Bogen; je erst Gehen, dann Rennen. Gehen im Film mit dem Vorschlag 1,5 m/s (heute im Spiel 2,13; Runde 4 „schnelles Staxen“).
 
