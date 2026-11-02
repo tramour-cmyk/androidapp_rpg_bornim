@@ -754,7 +754,7 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		var reich := 0.0
 		for q in hu:
 			reich = maxf(reich, q.length())
-		_boden_teile.append([w, w.transform, hu, sk, bi, side, reich, w.transform])
+		_boden_teile.append([w, w.transform, hu, sk, bi, side, reich, w.transform, _achse(w)])
 		if sk.get_bone_name(bi) == "hand_" + side.to_lower():
 			griff_ort[side] = w.transform.origin     # bodenhalt.gd: die Faust um den Griff
 		if not sk.skeleton_updated.is_connected(_boden_schutz):
@@ -922,7 +922,13 @@ func _boden_schutz() -> void:
 				w.transform = lokal
 				t[7] = lokal
 			continue
-		var r1: Array = _loesen(g, t, nah, frei, y0, 24, 20)
+		# 438a Runde 5 (Lauf 186: Klinge beim Aufstehen 13,3 cm im Kleid am rechten Oberschenkel, Stab 6,6 cm in der Beinrüstung, obwohl
+		# 2,6 cm vor den Kapseln; Kleid und Rüstung stehen weiter ab als jede Kapsel): die Waffe hält sich frei von Haut und Kleidung der
+		# Beine selbst, gemessen wie sturz_438a (je Punkt der Achse die nächste Ecke, ihre Normale)
+		var haut := []
+		if t[5] == "R" and (sturz or korrigiert or stab_frei) and t.size() > 8:
+			haut = _haut_nah(sk, g, t)
+		var r1: Array = _loesen(g, t, nah, frei, y0, 24, 20, haut)
 		g = r1[0]
 		# Körper weich: die Lage ändert sich je Bild höchstens BODEN_ZUG gegen das letzte Bild (sturz_438a: zwischen Knie und Schild
 		# zuckte der Schild 30° hin und zurück); der Boden bleibt hart, danach noch einmal nur er
@@ -933,7 +939,7 @@ func _boden_schutz() -> void:
 			var gz := Transform3D(Basis(q0.slerp(q1, BODEN_ZUG / winkel)) * Basis.from_scale(g.basis.get_scale()), griff)
 			# 438a Runde 3 (sturz_438a: je Bild bis 34° gedreht, Prüfer „Schild klappt in 4 Bildern 90°“): tief im Körper höchstens
 			# doppelt so schnell, nie mehr in einem Bild herum; den Boden hält danach r2 hart
-			if _in_kapsel(gz, t, nah, griff) <= frei * 0.3:     # nur so weit langsam, wie der Körper nicht wirklich hineinragt
+			if _in_kapsel(gz, t, nah, griff) <= frei * 0.3 and _haut_tiefe(gz, t, haut) <= HAUT_FREI * 0.3:     # nur so weit langsam, wie der Körper nicht wirklich hineinragt
 				g = gz
 			elif winkel > 2.0 * BODEN_ZUG:
 				g = Transform3D(Basis(q0.slerp(q1, 2.0 * BODEN_ZUG / winkel)) * Basis.from_scale(g.basis.get_scale()), griff)
@@ -1042,6 +1048,189 @@ func _haut_radien(sk: Skeleton3D, liste: Array) -> Dictionary:
 	return out
 
 
+## 438a Runde 5: Achse der Waffe im eigenen Raum wie sturz_438a (die beiden am weitesten auseinander liegenden Ecken; Halbmesser:
+## Median des Abstands der Ecken zur Achse): [a, z, r]
+const HAUT_FREI := 0.015        # Abstand der Waffe zu Haut und Kleidung der Beine, m
+const HAUT_SCHRITT := 0.03      # Punkte auf der Achse, m
+const HAUT_SUCHE := 0.12        # nächste Ecke höchstens so weit (wie sturz_438a)
+func _achse(w: Node3D) -> Array:
+	var alle := PackedVector3Array()
+	for mi in w.find_children("*", "MeshInstance3D", true, false) + ([w] if w is MeshInstance3D else []):
+		var tr := Transform3D.IDENTITY
+		var n: Node = mi
+		while n != w and n is Node3D:
+			tr = (n as Node3D).transform * tr
+			n = n.get_parent()
+		var me := (mi as MeshInstance3D).mesh
+		for s in me.get_surface_count():
+			for v in me.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]:
+				alle.append(tr * v)
+	if alle.is_empty():
+		return []
+	var mitte := Vector3.ZERO
+	for q in alle:
+		mitte += q
+	mitte /= alle.size()
+	var a := mitte
+	for q in alle:
+		if q.distance_to(mitte) > a.distance_to(mitte):
+			a = q
+	var z := a
+	for q in alle:
+		if q.distance_to(a) > z.distance_to(a):
+			z = q
+	var ab := []
+	for q in alle:
+		ab.append(q.distance_to(Geometry3D.get_closest_point_to_segment(q, a, z)))
+	ab.sort()
+	return [a, z, float(ab[ab.size() / 2])]
+
+
+## 438a Runde 5: Ecken von Haut und Kleidung an Bein und Fuß (stärkster Knochen thigh_l/r oder darunter), einmal je Körper:
+## je Netz [Skin, Ecken, Normalen, Knochen, Gewichte, je Ecke Zahl, Indizes]
+static var _bein_cache := {}
+func _bein_ecken(sk: Skeleton3D) -> Array:
+	var netze := []
+	for mi in sk.find_children("*", "MeshInstance3D", true, false):
+		var m := mi as MeshInstance3D
+		if m.skin != null and m.mesh != null and not m.get_parent() is BoneAttachment3D:
+			netze.append(m)
+	var schluessel := ""
+	for m in netze:
+		schluessel += str(m.mesh.get_instance_id()) + ","
+	if _bein_cache.has(schluessel):
+		return _bein_cache[schluessel]
+	var bein := {}
+	for bi in sk.get_bone_count():
+		var p := bi
+		while p >= 0:
+			if sk.get_bone_name(p) in ["thigh_l", "thigh_r"]:
+				bein[bi] = true
+				break
+			p = sk.get_bone_parent(p)
+	var out := []
+	for m in netze:
+		var skin: Skin = m.skin
+		var knochen := PackedInt32Array()
+		for j in skin.get_bind_count():
+			var bb := skin.get_bind_bone(j)
+			if bb < 0:
+				bb = sk.find_bone(skin.get_bind_name(j))
+			knochen.append(bb)
+		for s in m.mesh.get_surface_count():
+			var ar: Array = m.mesh.surface_get_arrays(s)
+			if ar[Mesh.ARRAY_BONES] == null or ar[Mesh.ARRAY_WEIGHTS] == null or ar[Mesh.ARRAY_NORMAL] == null:
+				continue
+			var vs: PackedVector3Array = ar[Mesh.ARRAY_VERTEX]
+			var bs = ar[Mesh.ARRAY_BONES]
+			var ws = ar[Mesh.ARRAY_WEIGHTS]
+			var nb: int = bs.size() / maxi(vs.size(), 1)
+			var idx := PackedInt32Array()
+			for v in range(0, vs.size(), 2):     # jede zweite Ecke (billig je Bild; Abstand der Ecken um 1 cm)
+				var stark := -1
+				var sw := 0.0
+				for j in nb:
+					if ws[v * nb + j] > sw:
+						sw = ws[v * nb + j]
+						stark = knochen[bs[v * nb + j]]
+				if bein.has(stark):
+					idx.append(v)
+			if not idx.is_empty():
+				out.append([skin, vs, ar[Mesh.ARRAY_NORMAL], bs, ws, nb, idx, knochen, m])
+	_bein_cache[schluessel] = out
+	return out
+
+
+## Ecken der Beine nahe der Waffe in der Welt, so wie man sie jetzt sieht; davon je Punkt der Achse die nächste (höchstens
+## HAUT_SUCHE): [[Ort, Normale], …] (wenige; _loesen dreht nur gegen diese)
+func _haut_nah(sk: Skeleton3D, g: Transform3D, t: Array) -> Array:
+	var ax: Array = t[8]
+	if ax.is_empty():
+		return []
+	var a: Vector3 = g * (ax[0] as Vector3)
+	var z: Vector3 = g * (ax[1] as Vector3)
+	var box := AABB(a, Vector3.ZERO).expand(z).grow(HAUT_SUCHE)
+	var gs := sk.global_transform
+	var pos := PackedVector3Array()
+	var nor := PackedVector3Array()
+	for h in _bein_ecken(sk):
+		var skin: Skin = h[0]
+		var tr := []
+		for j in skin.get_bind_count():
+			var bb: int = h[7][j]
+			tr.append(gs * (sk.get_bone_global_pose(bb) if bb >= 0 else Transform3D.IDENTITY) * skin.get_bind_pose(j))
+		var vs: PackedVector3Array = h[1]
+		var ns: PackedVector3Array = h[2]
+		var nb: int = h[5]
+		for v in h[6]:
+			var p := Vector3.ZERO
+			var n := Vector3.ZERO
+			for j in nb:
+				var w: float = h[4][v * nb + j]
+				if w > 0.0:
+					var tt: Transform3D = tr[h[3][v * nb + j]]
+					p += tt * vs[v] * w
+					n += tt.basis * ns[v] * w
+			if box.has_point(p):
+				pos.append(p)
+				nor.append(n.normalized())
+	if pos.is_empty():
+		return []
+	# je Punkt der Achse die nächste Ecke (wie sturz_438a); mit Drehungen bis 20° je Bild bleiben es dieselben Stellen
+	var wahl := {}
+	var l := a.distance_to(z)
+	for i in int(l / HAUT_SCHRITT) + 1:
+		var s := a.lerp(z, i * HAUT_SCHRITT / maxf(l, 0.001))
+		var best := -1
+		var bd := HAUT_SUCHE
+		for j in pos.size():
+			var d := s.distance_to(pos[j])
+			if d < bd:
+				bd = d
+				best = j
+		if best >= 0:
+			wahl[best] = true
+	var out := []
+	for j in wahl:
+		out.append([pos[j], nor[j]])
+	return out
+
+
+## Tiefster Punkt der Achse hinter Haut oder Kleidung: [Tiefe m (mit HAUT_FREI), Punkt, Richtung hinaus]; nur Punkte außerhalb der Faust
+func _haut_tiefste(g: Transform3D, t: Array, haut: Array) -> Array:
+	var ax: Array = t[8]
+	var a: Vector3 = g * (ax[0] as Vector3)
+	var z: Vector3 = g * (ax[1] as Vector3)
+	var r: float = float(ax[2]) * g.basis.get_scale().x
+	var griff := g.origin
+	var l := a.distance_to(z)
+	var out := [-INF, Vector3.ZERO, Vector3.ZERO]
+	for i in int(l / HAUT_SCHRITT) + 1:
+		var s := a.lerp(z, i * HAUT_SCHRITT / maxf(l, 0.001))
+		if s.distance_to(griff) < BODEN_HEBEL:
+			continue
+		var best := -1
+		var bd := HAUT_SUCHE
+		for j in haut.size():
+			var d := s.distance_to(haut[j][0])
+			if d < bd:
+				bd = d
+				best = j
+		if best < 0:
+			continue
+		var n: Vector3 = haut[best][1]
+		var tief: float = r + HAUT_FREI - (s - (haut[best][0] as Vector3)).dot(n)
+		if tief > out[0]:
+			out = [tief, s, n]
+	return out
+
+
+func _haut_tiefe(g: Transform3D, t: Array, haut: Array) -> float:
+	if haut.is_empty():
+		return -INF
+	return float(_haut_tiefste(g, t, haut)[0])
+
+
 ## Wie tief eine Ecke der Hülle (außerhalb der Faust) in einer Kapsel aus [nah] liegt (m, ohne Abstand)
 func _in_kapsel(g: Transform3D, t: Array, nah: Array, griff: Vector3) -> float:
 	var tief := -INF
@@ -1056,7 +1245,7 @@ func _in_kapsel(g: Transform3D, t: Array, nah: Array, griff: Vector3) -> float:
 
 ## Dreht [g] um den Griff, bis keine Ecke der Hülle (t[2]) unter y0 oder in einer Kapsel aus [nah] (+ [frei]) liegt; [n] Schritte, ab
 ## [boden_ab] nur der Boden. Gibt [Lage, ob gedreht] zurück.
-func _loesen(g: Transform3D, t: Array, nah: Array, frei: float, y0: float, n: int, boden_ab: int) -> Array:
+func _loesen(g: Transform3D, t: Array, nah: Array, frei: float, y0: float, n: int, boden_ab: int, haut: Array = []) -> Array:
 	var neu := false
 	var griff := g.origin
 	for i in n:     # die schlimmste Ecke heraus; schiebt das eine Ende das andere hinein, die nächste; zuletzt nur der Boden
@@ -1081,6 +1270,12 @@ func _loesen(g: Transform3D, t: Array, nah: Array, frei: float, y0: float, n: in
 					tief = d
 					lp = p
 					nach = (p - q).normalized()
+		if not nur_boden and not haut.is_empty():     # Runde 5: Haut und Kleidung der Beine (Punkt der Achse hinter der nächsten Ecke)
+			var hv: Array = _haut_tiefste(g, t, haut)
+			if hv[0] > tief:
+				tief = hv[0]
+				lp = hv[1]
+				nach = hv[2]
 		if nach == Vector3.ZERO:
 			break
 		var v := lp - griff
