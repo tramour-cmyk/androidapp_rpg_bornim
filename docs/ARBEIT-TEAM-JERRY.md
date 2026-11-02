@@ -67,7 +67,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht: SRD (Chef 31.10.) | – |
 | 469 | M | **von Sokrates (02.11., 11:0x, zu 406.1):** Kampf auf BRS: Ring (MARS) ohne Klassen regeln (Antwort nach Klasse heute) | wartet auf 406.1 | – |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht: Klang zieht nach Godot; Rest `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
-| Pflege | K | **von Werkzeug (340.3, 02.11.):** 16081 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | **von Werkzeug (340.3, 02.11.):** 15314 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 ## Einzelheiten
 
