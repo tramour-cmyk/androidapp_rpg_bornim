@@ -177,6 +177,40 @@ func _finger_lesen(sk: Skeleton3D) -> void:
 	_schulter = alt
 
 
+## 406a E3 Weg (Lauf 179: Schild weiter vor schiebt den Schwertarm hinein): Finger der Schildhand zur Faust beugen. Je Beugung aus
+## BEUGEN (Grad je Glied um die Achse quer über die Knöchel, Handrahmen wie figur.gd _handrahmen; Vorzeichen unbekannt, darum beide)
+## die Finger vor der Vorderseite bei der jetzigen Fassung; die Pose wird danach zurückgesetzt
+const BEUGEN := [0.0, 25.0, 50.0, -25.0, -50.0]
+func _beugen_finger(sk: Skeleton3D, schild: Node3D) -> Array:
+	var glieder := []
+	for f in ["index", "middle", "ring", "pinky"]:
+		for n in ["01", "02", "03"]:
+			var b := sk.find_bone("%s_%s_l" % [f, n])
+			if b >= 0:
+				glieder.append(b)
+	var hand := sk.find_bone("hand_l")
+	var mf := sk.find_bone("middle_01_l")
+	var zf := sk.find_bone("index_01_l")
+	var kf := sk.find_bone("pinky_01_l")
+	if hand < 0 or mf < 0 or zf < 0 or kf < 0 or glieder.is_empty():
+		return []
+	var alt := {}
+	for b in glieder:
+		alt[b] = sk.get_bone_pose_rotation(b)
+	var out := []
+	for grad in BEUGEN:
+		for b in glieder:
+			# Achse quer über die Knöchel im Raum des Elternknochens (aus der jetzigen Pose)
+			var pg := sk.get_bone_global_pose(sk.get_bone_parent(b))
+			var quer := (sk.get_bone_global_pose(zf).origin - sk.get_bone_global_pose(kf).origin).normalized()
+			var achse := (pg.basis.inverse() * quer).normalized()
+			sk.set_bone_pose_rotation(b, Quaternion(achse, deg_to_rad(grad)) * (alt[b] as Quaternion))
+		out.append(_varianten_finger(schild, _ecken_aus(sk, _finger))[0])
+		for b in glieder:
+			sk.set_bone_pose_rotation(b, alt[b])
+	return out
+
+
 ## je Fassung aus VARIANTEN_F: wie weit eine Fingerecke vor der Vorderseite des Schilds liegt (m, positiv = sichtbar davor), nur mitten
 ## im Schild (alle 8 Nachbarfelder da), wie sturz_438a _runde3
 const VARIANTEN_F := [[0.0, 0.0, 0.0, 0.0], [0.0, 0.02, 0.0, 0.0], [0.0, 0.04, 0.0, 0.0], [0.0, 0.06, 0.0, 0.0], [0.0, 0.08, 0.0, 0.0]]
@@ -460,6 +494,7 @@ func _run() -> void:
 		_schulter_lesen(sk)
 		_haut_lesen(sk)
 		var var_f := {}     # 406a E3: Bewegung -> je Fassung aus VARIANTEN_F [Finger vor dem Schild m, Stelle]
+		var var_b := {}     # 406a E3: Bewegung -> je Beugung aus BEUGEN [Finger vor dem Schild m, Stelle]
 		var sm: Node3D = schild.find_children("*", "MeshInstance3D", true, false)[0] if not schild is MeshInstance3D else schild
 		kf.mars.find("merc").auto = true
 		kf.mars.set_autopilot(true)
@@ -499,6 +534,14 @@ func _run() -> void:
 						if vf[i][0] > fb[i][0]:
 							fb[i] = vf[i]
 					var_f[b] = fb
+					var bg := _beugen_finger(sk, sm)
+					var bf: Array = var_b.get(b, [])
+					for i in bg.size():
+						if bf.size() <= i:
+							bf.append([-INF, Vector3.ZERO])
+						if bg[i][0] > bf[i][0]:
+							bf[i] = bg[i]
+					var_b[b] = bf
 					for i in VARIANTEN.size():
 						if vk[i][0] > var_k[i][0]:
 							var_k[i] = vk[i]
@@ -523,6 +566,11 @@ func _run() -> void:
 		for b in var_f:
 			for i in VARIANTEN_F.size():
 				print("  %s FINGER %s, Schild vorn +%.0f cm: Finger %.1f cm vor der Vorderseite (Stelle %s)" % [k, b if b != "" else "–", VARIANTEN_F[i][1] * 100.0, var_f[b][i][0] * 100.0, (var_f[b][i][1] as Vector3).round()])
+		for b in var_b:
+			var z := PackedStringArray()
+			for i in (var_b[b] as Array).size():
+				z.append("%+.0f° %.1f cm" % [BEUGEN[i], var_b[b][i][0] * 100.0])
+			print("  %s BEUGEN %s: Finger vor der Vorderseite je Beugung: %s" % [k, b if b != "" else "–", ", ".join(z)])
 		print("Kampf %s: %s nach %d Bildern" % [k, kf.mars.outcome, n])
 		kf.queue_free()
 		p.queue_free()
