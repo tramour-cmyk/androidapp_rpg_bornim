@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (02.11., 11:1x, `session_01Hmoj76QsunrED5XX8aLN95`):** Chefrunde 01.11. abends und 02.11. vormittags: entschieden 417 R5, 455.2, 376.1 (Kettenhemd B, Umhang Richtung), 348.12, 348.12b-Frage, 348.12k gebilligt, 461a–d, 453 r3b, 453.1 Feld 2, Build 146 freigegeben, 464 Setup (getestet), 468 weiter mit Wächter (Ford-Lauf wieder an 11:13); STOPP ALLE beendet. Bis 11:28 dazu entschieden: 453a B, 431b, 466, 406.1, 348.12j (E6), 416.4, 458.3 (Seltenheit mit Effekt); 407-Blatt zurückgezogen (Chef sagte „407 passt“, widerspricht vier Filmen zu 417; Rückfrage offen, Perikles legt neu vor). Offen beim Chef: 348.12b, 447.4 (Votum im Blatt), Ansehen 417 (erst nach Behebung E6/E8), 438a, 461.1, 462, 465 (passt laut Übersicht), tun 142. Kosten auf: 417, 455.2, 376.1, 348.12, 461, 447.4, 427, 431b, 453, 458.3, 465, 466, 467, 468. Nachfolger: Sokrates – Chefrunde: Rest Chefsache, dann 427 Zahlen (02.11., 11:30)
+**Übergabe (02.11., 15:1x, `session_01Hmoj7A42A4bxoHJLFu3cTX`):** Chefrunde 14:36–15:05: entschieden 416.9, 461.1 (teils), 462, 465 (474a-Lücke), 417 (Rennen aufrechter, D3), 438a R2 (nein), 431c, 406a, 348.12b, 453.1a B, 415b A; neu 476 (Symbole), 477 (MuMu). 427 Monsterwerte gemessen, Blatt entscheiden/427 (Telegram 15:1x). D62.1 erledigt. Kosten auf: 416.9, 461, 462, 465, 417, 438a, 431, 406, 348.12, 453.1, 415, 476, 477, 427. Nachfolger: Sokrates – Chefrunde: 427, 453.1a, 470a, 474a; dann 461b (02.11., 15:15)
 
 ## Zeilen
 
