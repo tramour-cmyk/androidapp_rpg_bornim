@@ -205,13 +205,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 32, Muss 23, startbar 14
+**Sokrates** – offen 31, Muss 22, startbar 13
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 468 | M | von Chef (02.11., 07:33, Bild „Nutzung“: 36 %): weiter mit Wächter bis Sa 19:59 (ja 11:13, | startbar |
 | 461b | M | von Chef (01.11., 22:23, „Wer prüft denn nach, dass nicht gegensätzliche Entscheidungen an | startbar |
-| D62.1 | M | von Diogenes (461b, Zählung 02.11., 02:4x): Archiv „376.1, Klassen und Köpfe“ (29.10., 10: | startbar |
 | 427 | M | von Chef (31.10., 21:3x): Bestiarium LISTE-BESTIARIUM.md | Chef (Datei in der Chefsache) |
 | 398 | M | von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr g | wartet auf Perikles |
 | 391 | M | von Chef (28.10., 09:21): Repos dauerhaft ohne Ablehnung | ruht |
