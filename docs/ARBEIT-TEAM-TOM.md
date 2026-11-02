@@ -8,7 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 431 | M | **von Sokrates (Chef 31.10., 22:0x):** Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film, dann Körperbau je Volk | wartet auf Chef: Chefsache 431d (Lauf 3 am Tor: B1 Elf/Ork, C3, G3, Grak-Tusche, A2; neue Läufe, Weg A2) und 431e (Heldenhaut); B1 Ursache gemessen, G1 behoben | `claude/tom-431-voelker` |
+| 431 | M | **von Sokrates (Chef 31.10., 22:0x):** Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film, dann Körperbau je Volk | startbar: 431d ja a, 431e eine Eichung (Chef 18:29, Archiv) | `claude/tom-431-voelker` |
 | 417 | M | **von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“):** Tragart je Waffenklasse (Zu 417), zuerst Stab, Axt, Bogen; Zahlen messen, Aussehen urteilt der Chef | in Arbeit: Lauf 41488712114, Film 3x2 oben Sprint aufgerichtet, unten Rennen A mit Paketarmen; normale Rennclips verworfen (4,5–5,2 Schritte/s) | `claude/tom-417-tragart` |
 | 416.9 | M | **von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“):** Laden, Verkaufen, „angelegt“ mit allen Plätzen, Vergleichswerte, nicht Tragbares, Icon bei Menge | startbar: passt (Chef 02.11., 14:37, Archiv), in den nächsten Build | `claude/tom-416-9-vergleich` |
 | 416.7 | M | **von Sokrates (Chef 31.10., 20:5x, für den nächsten Build):** am Tresen in Schenke und Laden geht der Aktionsknopf nicht, Kaufen und Kauf mit den zwei NPCs dort nicht möglich; Reichweite erweitern | wartet auf Build: PR #177 nach main (146.3 ohne Tresenbefund) | – |
@@ -41,7 +41,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 376.2 | M | **von Perikles (Chef 12:37, `LISTE-CC0-MODELLE.md`):** RenderHub-Marktpaket: Brunnen und Stände als Form, unsere gemalten Farben | wartet auf 348.6 (Dorf nach Urteil Probehaus); Paket im Release stufe1 erreichbar (Chef 17:38) | – |
 | 372 | M | **von Perikles (338a B, Chef 27.10., 09:36, Archiv):** Feinschliff Held: Kettenhemd, Helm, Kragen (Zu 348.6, Hände) | ruht bis Ende des Umzugs | `claude/tom-348-fundament` |
 | 397 | M | **von Chef (28.10., 11:15):** Held, Leute: mind. drei Ruhebewegungen wie alt (`LISTE-UMZUG-348.md`) | gebaut: Held, Leute Stehen, Umsehen, Müde (UAL Pro), in 399.1 | `claude/tom-397-ruhe` |
-| 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | wartet auf Test: Kampf in 348.13a gebaut (Jerry 421662dbd); Dorf beim nächsten Build prüfen (Tom) |
+| 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | startbar: Dorf fehlt (Chef 18:29 über 431d) |
 | 348.13b | M | **von Sokrates (Chef 08:09, Archiv):** Tusche nach Fackel, Feuer, Fenster; Dorf zuerst, Kosten messen | ruht: Feinschliff, erst Spielfassung (399) | `claude/tom-34813-kampfprobe` |
 | 267 | M | **von Chef (20.10., 21:46, B48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | ruht: Gefühl am Tablet sagt der Chef beim nächsten Tablettest (77.7, Zu 267), ohne Rückfrage-Datei | – |
 | 302.3 | M | **von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3):** Intro und Outro mit Tusche, etwas kräftiger als Intro 4 | ruht bis Ende Umzug 348; dann von c8cc89dd ausgehen | claude/tom-3023-kraeftiger |
@@ -91,5 +91,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 292.4** (Git): `TITLECAMP=1`; nur Gold, Feuer, Magie glänzen (Homer).
 - **Zu 292.2, Stufe 2** (Chef 22.10., 11:43; Wortlaut in Git): je Held eine seltene, gute Signatur-Bewegung, Waffenhaltung je Klasse verschieden (`DESIGN-BLENDE.md` 8); gilt auch für Entwurf B 292.3.
 - **von Sokrates (Chef 02.11., 14:36, Dorf-Film 4611, Wortlaut Archiv 461.1):** Stehen, Gehen passen; Kämpfer: Schild steht ab (417); Rennen zum angetippten Ziel „ruckelt es wie blöd“, beide Helden (416.4, erst nachstellen). Film erst nach Behebung neu vorlegen.
+- **von Sokrates (Chef 02.11., 18:29, 431d/431e, Archiv):** 431d ja, a (zwei Läufe, Kampfort-Signatur); Haut: eine Eichung der Materialfarbe für Held und Völker, Bezug Kampfortlicht 403, nie je Licht (gilt auch 463a B1). 348.13: Tusche nach Licht fehlt im Dorf (Prüfer 431d A2), Stand „wartet auf Test“ stimmt nicht; als Muss bauen.
 - **Zu 461.1, von Ford (464, 01.11., 22:08):** zwei rote Läufe „Godot (Umzug 348)“ auf `claude/grundstand-461`: #151 (Commit 5a0fa8c9b, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41342971370) und #153 (Commit f69af1fd0, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41346080014); Ursache finden.
 - **Zu 145** (Git): [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn), `KARTENMAPPE=1`.
