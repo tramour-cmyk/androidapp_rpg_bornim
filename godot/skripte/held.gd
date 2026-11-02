@@ -169,13 +169,12 @@ static func wechsel(ap: AnimationPlayer, want: String, moving: bool, sp: float, 
 	elif sanft and moving and cur.begins_with("Stehen"):
 		bl = ANLAUF_BLENDE
 		ap.set_meta("blende", [0.0, bl, -ANLAUF_V, true])   # Tempo ohne Gleiten von ANLAUF_V mal dem des Gehens herauf
-		ph = 0.0001   # erster Schritt ab dem Aufsetzen des rechten Ballens (Lauf 41383140719: der Schritt begann mitten im Schwung)
 	elif sanft and not moving and (cur.begins_with("Gehen") or cur.begins_with("Rennen")):
 		if ap.has_meta("blende"): ap.remove_meta("blende")
 		ap.set_meta("halt", [0.0, bl])
 		bl *= HALT_TAKT
 	ap.play(want, bl)
-	if schritt or ph > 0.0: ap.seek(schritt_zeit(ap.get_animation(want), ph))
+	if schritt: ap.seek(schritt_zeit(ap.get_animation(want), ph))
 
 # speed_scale im Stand: nach dem Halt (wechsel sanft) so lange HALT_TAKT, bis die Ueberblendung in den Stand vorbei ist
 static func stand_takt(ap: AnimationPlayer, dt: float) -> float:
