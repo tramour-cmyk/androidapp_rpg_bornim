@@ -37,6 +37,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 | [447.4](ansehen/4474-lehrmeister-texte.md) | Texte Lehrmeister und Ruf, Kapitel 1 | Homer | 01.11., 20:51 |
 | [453 r3b](ansehen/453-wolf-ruhe.md) | Wölfe atmen deutlicher, jeder im eigenen Takt | Tuffy | 02.11., 00:33 |
 | [453.1](ansehen/4531-helden-vergleich.md) | Helden im Kampf: Stand Film 403 gegen heute | Tuffy | 01.11., 23:05 |
+| [458.3](ansehen/4583-staffel.md) | Waffenformen nach Stufe und Seltenheit | Spike | 02.11., 06:52 |
 | [461.1](ansehen/4611-dorf-film.md) | Grundstand: Dorf-Film des Helden | – | 01.11., 22:55 |
 | [462](ansehen/462-zeitstempel.md) | Name und Zeit vor jeder Nachricht | Perikles | 02.11., 02:43 |
 | [465](ansehen/465-seit-uhrzeit.md) | Chefsache „Seit“ immer mit Uhrzeit | Perikles | 02.11., 02:43 |
