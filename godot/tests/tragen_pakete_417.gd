@@ -28,6 +28,17 @@ func film_nach(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, gang: String, wer
 	ap.play("Stehen"); ap.advance(0.0)
 	var tempo := 0.0
 	var gehen := TragProbe.SPIEL_GEHEN
+	# Pruefer Film 02:2x („bei 1,0 s springt die Haltung in einem Bild von stark vorgebeugt in aufrecht“; „Stand am Anfang und Ende
+	# verschieden“): Neigung der Brust (spine_03, Grad vor gegen senkrecht) je Bild, groesster Sprung von Bild zu Bild
+	var ib := sk.find_bone("spine_03")
+	var neig := func() -> float:
+		var y := (sk.global_transform.basis * sk.get_bone_global_pose(ib).basis.y).normalized()
+		return rad_to_deg(atan2(y.z, y.y))
+	var n_alt: float = neig.call()
+	var sprung := [0.0, 0.0, ""]
+	var t_film := 0.0
+	var haltung := PackedStringArray()
+	haltung.append("Anfang %.1f" % n_alt)
 	for ai in TragProbe.FILM_FOLGE.size():
 		var b0: String = TragProbe.FILM_FOLGE[ai][0]
 		var nf := int(round(float(TragProbe.FILM_FOLGE[ai][1]) * FPS))
@@ -48,6 +59,11 @@ func film_nach(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, gang: String, wer
 			p += Vector3(0, 0, 1) * tempo / FPS
 			w.position = p
 			await process_frame
+			t_film += 1.0 / FPS
+			var n_neu: float = neig.call()
+			if absf(n_neu - n_alt) > absf(float(sprung[0])): sprung = [n_neu - n_alt, t_film, "%s %s" % [b0, ap.current_animation]]
+			n_alt = n_neu
+			if f == nf - 1: haltung.append("%s Ende %.1f" % [b0, n_neu])
 			if f >= int(0.8 * FPS) and moving:
 				z.append([(sk.global_transform * sk.get_bone_global_pose(sk.find_bone("ball_l"))).origin,
 					(sk.global_transform * sk.get_bone_global_pose(sk.find_bone("ball_r"))).origin, tempo, ap.speed_scale, ap.current_animation])
@@ -66,6 +82,7 @@ func film_nach(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, gang: String, wer
 		var ab := vs.map(func(v): return absf(v)); ab.sort()
 		print("FILMNACH %s %s (Abschnitt %d, %s): Standfuss %+.2f m/s (Median mit Vorzeichen), Betrag %.2f, Figur %.2f m/s, speed_scale %.2f, %d Proben" % [wer, b0, ai,
 			z[-1][4], vs[vs.size() / 2], ab[ab.size() / 2], tm, sp, vs.size()])
+	print("HALTUNG %s: Brust Grad vor: %s; groesster Sprung %+.1f Grad in einem Bild bei %.2f s (%s)" % [wer, ", ".join(haltung), sprung[0], sprung[1], sprung[2]])
 	ap.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_IDLE
 	w.position = Vector3.ZERO
 	ap.speed_scale = 1.0
@@ -172,6 +189,14 @@ func _initialize() -> void:
 				var zw := 0.0
 				var tiefbild := {}
 				var iy := Vector2(INF, -INF)
+				# Pruefer Film 02:2x (Axt von links, Rennen: „in etwa der Haelfte des Schritts keine Hand am Stiel, Stielende an Kinn oder
+				# Hals“): „links“ misst nur den Abstand zur Schaftlinie; dazu wo laengs der Waffe (Modell-y) die Faeuste fassen, gegen die
+				# Laenge der Waffe, und wie nah das Stielende Kopf und Hals kommt
+				var wy := Vector2(INF, -INF)
+				for q0 in pkt: wy = Vector2(minf(wy.x, q0.y), maxf(wy.y, q0.y))
+				var ly := Vector2(INF, -INF); var rfy := Vector2(INF, -INF)
+				var aus_stiel := 0
+				var ende_kopf := 9.0
 				for f in 2 * n:
 					ap.pause()
 					ap.seek(fmod(f / FPS, lang), true)
@@ -192,6 +217,14 @@ func _initialize() -> void:
 						var o := tr.waffe.global_position; var a := tr.waffe.global_basis.y.normalized()
 						var q := fl - o
 						links = maxf(links, (q - a * q.dot(a)).length())
+						var wi := tr.waffe.global_transform.affine_inverse()
+						var yl := (wi * fl).y; var yr := (wi * tr.faust_welt).y
+						ly = Vector2(minf(ly.x, yl), maxf(ly.y, yl)); rfy = Vector2(minf(rfy.x, yr), maxf(rfy.y, yr))
+						if yl < wy.x - 0.02: aus_stiel += 1
+						var ende := tr.waffe.global_transform * Vector3(0, wy.x, 0)
+						for kn in ["Head", "neck_01"]:
+							var bi := sk.find_bone(kn)
+							if bi >= 0: ende_kopf = minf(ende_kopf, ende.distance_to(sk.global_transform * sk.get_bone_global_pose(bi).origin))
 				var teile := tief.keys()
 				teile.sort_custom(func(x, y): return tief[x] < tief[y])
 				var s := PackedStringArray()
@@ -209,6 +242,9 @@ func _initialize() -> void:
 					continue
 				print("MESS %s %s %s: naechste Teile (cm) %s; tiefster Punkt %.1f cm; Bilder im Koerper %d von %d%s" % [e[1], was, bew,
 					", ".join(s), tiefst * 100.0, innen, n, ("; linke Faust hoechstens %.1f cm neben dem Schaft, Schaft bis %.1f Grad gegen die rechte Hand gedreht" % [links * 100.0, zw]) if gang == "axt" else ""])
+				if gang == "axt":
+					print("AXTGRIFF %s %s: Waffe y %.2f bis %.2f m; linke Faust y %.2f bis %.2f, rechte %.2f bis %.2f; linke Faust unter dem Stielende in %d von %d Bildern; Stielende hoechstens %.1f cm an Kopf oder Hals (Knochenursprung)" % [
+						e[1], bew, wy.x, wy.y, ly.x, ly.y, rfy.x, rfy.y, aus_stiel, n, ende_kopf * 100.0])
 				# wo an der Waffe (Waffenraum, m; Laenge laeuft auf y) und wann: Klinge, Parierstange, Knauf oder Wurfarm?
 				if not tiefbild.is_empty() and tiefst < 0.0:
 					var wp: Vector3 = tiefbild["waffe"]

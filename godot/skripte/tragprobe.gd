@@ -256,7 +256,18 @@ static func netze_von(m: Node3D) -> Array:
 	var r := []
 	for mi in m.find_children("*", "MeshInstance3D", true, false):
 		var mm := mi as MeshInstance3D
-		if mm.skin == null or not mm.is_visible_in_tree(): continue
+		if not mm.is_visible_in_tree(): continue
+		# Pruefer Film 02:2x (Schild von rechts: „Klinge durch den Kopf in Mundhoehe“, gemessen frei): Haar und Bart haengen ohne Haut starr
+		# am Kopfknochen (heldfigur.gd haare, BoneAttachment3D „Haar_<Netz>“) und fehlten in der Messung; jetzt starr mit dem Knochen
+		if mm.skin == null:
+			var ba := mm.get_parent() as BoneAttachment3D
+			if ba == null or not String(ba.name).begins_with("Haar_"): continue
+			for s in mm.mesh.get_surface_count():
+				var a := mm.mesh.surface_get_arrays(s)
+				var V: PackedVector3Array = a[Mesh.ARRAY_VERTEX]
+				var I: PackedInt32Array = a[Mesh.ARRAY_INDEX] if a[Mesh.ARRAY_INDEX] != null else PackedInt32Array(range(V.size()))
+				r.append({"starr": ba.bone_name, "lokal": mm.transform, "V": V, "N": a[Mesh.ARRAY_NORMAL], "I": I, "name": String(mm.name)})
+			continue
 		for s in mm.mesh.get_surface_count():
 			var a := mm.mesh.surface_get_arrays(s)
 			var V: PackedVector3Array = a[Mesh.ARRAY_VERTEX]
@@ -285,6 +296,19 @@ static func abstand(netze: Array, sk: Skeleton3D, ohne: PackedStringArray, w: No
 		lo3 = lo3.min(q); hi3 = hi3.max(q)
 	var box := AABB(lo3, hi3 - lo3).grow(NAH)
 	for nz in netze:
+		if nz.has("starr"):
+			var bi := sk.find_bone(String(nz["starr"]))
+			if bi < 0: continue
+			var kt: Transform3D = sk.global_transform * (posen[bi] if bi < posen.size() else sk.get_bone_global_pose(bi))
+			if not box.has_point(kt.origin): continue
+			var tr: Transform3D = kt * (nz["lokal"] as Transform3D)
+			var V0: PackedVector3Array = nz["V"]; var N0: PackedVector3Array = nz["N"]; var I0: PackedInt32Array = nz["I"]
+			var o0 := P.size()
+			for i in V0.size():
+				P.append(tr * V0[i]); N.append((tr.basis * N0[i]).normalized()); T.append(String(nz["name"]))
+			for j in range(0, I0.size() - 2, 3):
+				_dreieck(o0 + I0[j], o0 + I0[j + 1], o0 + I0[j + 2], P, D, gitter)
+			continue
 		var skin: Skin = nz["skin"]
 		var mats := []; var namen := []
 		for b in skin.get_bind_count():
@@ -315,16 +339,7 @@ static func abstand(netze: Array, sk: Skeleton3D, ohne: PackedStringArray, w: No
 			P.append(p); N.append(n.normalized()); T.append(namen[bb])
 		for j in range(0, I.size() - 2, 3):
 			if weg[I[j]] + weg[I[j + 1]] + weg[I[j + 2]] > 0: continue
-			var a := P[o + I[j]]; var b2 := P[o + I[j + 1]]; var c2 := P[o + I[j + 2]]
-			var nr := D.size() / 3
-			D.append(o + I[j]); D.append(o + I[j + 1]); D.append(o + I[j + 2])
-			var lo := Vector3i((a.min(b2).min(c2) / ZELLE).floor()); var hi := Vector3i((a.max(b2).max(c2) / ZELLE).floor())
-			for x in range(lo.x, hi.x + 1):
-				for y in range(lo.y, hi.y + 1):
-					for z in range(lo.z, hi.z + 1):
-						var k := Vector3i(x, y, z)
-						if not gitter.has(k): gitter[k] = PackedInt32Array()
-						gitter[k].append(nr)
+			_dreieck(o + I[j], o + I[j + 1], o + I[j + 2], P, D, gitter)
 	var teile := {}
 	var innen := 0
 	var mn := 9.0
@@ -364,6 +379,19 @@ static func abstand(netze: Array, sk: Skeleton3D, ohne: PackedStringArray, w: No
 		if d < mn: schlimm = {"waffe": q0, "welt": q, "punkt": bc, "teil": teil}
 		mn = minf(mn, d)
 	return {"teile": teile, "innen": innen, "min": mn, "schlimm": schlimm, "innen_y": innen_y}
+
+# Dreieck (Nummern der Ecken in P) in D und in jede Zelle des Gitters, die es beruehrt
+static func _dreieck(i0: int, i1: int, i2: int, P: PackedVector3Array, D: PackedInt32Array, gitter: Dictionary) -> void:
+	var a := P[i0]; var b2 := P[i1]; var c2 := P[i2]
+	var nr := D.size() / 3
+	D.append(i0); D.append(i1); D.append(i2)
+	var lo := Vector3i((a.min(b2).min(c2) / ZELLE).floor()); var hi := Vector3i((a.max(b2).max(c2) / ZELLE).floor())
+	for x in range(lo.x, hi.x + 1):
+		for y in range(lo.y, hi.y + 1):
+			for z in range(lo.z, hi.z + 1):
+				var k := Vector3i(x, y, z)
+				if not gitter.has(k): gitter[k] = PackedInt32Array()
+				gitter[k].append(nr)
 
 # naechster Punkt des Dreiecks abc zu p als Schwerpunktkoordinaten (Ericson, Real-Time Collision Detection 5.1.5)
 static func _naechst(p: Vector3, a: Vector3, b: Vector3, c: Vector3) -> Vector3:
