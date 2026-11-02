@@ -263,6 +263,34 @@ func _varianten_finger(schild: Node3D, finger: PackedVector3Array) -> Array:
 	return out
 
 
+## 406 Lauf 198: wie weit eine Ecke vor der Vorderseite liegt, in jedem Feld des Schilds, auch am Rand; nur bis RAND_WEIT davor (weiter
+## vorn kreuzt etwas vor dem Schild vorbei): [m, Stelle im Schild cm]
+const RAND_WEIT := 0.08
+const RAND_BEWEGUNGEN := ["SS_IdleCombat", "SS_WalkForward", "SS_RunForward", "SS_WalkBackwards", "SS_BlockLight", "SS_GetHitLightFront"]
+func _rand_vorn(schild: Node3D, pts: PackedVector3Array) -> Array:
+	var feld := _karte(schild)
+	var inv := schild.global_transform.affine_inverse()
+	var best := [-INF, Vector3.ZERO]
+	for p in pts:
+		var q: Vector3 = inv * p
+		var k := Vector2i(floori(q.x / RASTER), floori(q.y / RASTER))
+		if not feld.has(k):
+			continue
+		var vorn: float = q.z - (feld[k] as Vector2).y
+		if vorn < RAND_WEIT and vorn > best[0]:
+			best = [vorn, q * 100.0]
+	return best
+
+
+## Haut des linken Unterarms und der Hand (ohne Finger), wie _schulter
+func _arm_lesen(sk: Skeleton3D) -> Array:
+	var alt := _schulter.duplicate()
+	_schulter_lesen(sk, [sk.find_bone("lowerarm_l"), sk.find_bone("hand_l")])
+	var out := _schulter
+	_schulter = alt
+	return out
+
+
 func _ecken_aus(sk: Skeleton3D, liste: Array) -> PackedVector3Array:
 	var out := PackedVector3Array()
 	var g := sk.global_transform
@@ -551,6 +579,42 @@ func _run() -> void:
 				for f in FINGERNAMEN:
 					je[f] = _varianten_finger(sm, _ecken_aus(sk, _finger_je[f]))[0][0]
 				faust[bw] = [r[0], r[1], je, fig.anim.current_animation_position]
+		# 406 Lauf 198 (Prüfer am Film: Gehen und Rennen, Finger und Unterarm der Schildhand vor dem oberen Schildrand, 2–3 cm): je
+		# Bewegung des Satzes Finger und Unterarm vor der Vorderseite, auch am Rand (ohne „mitten im Schild“), wie man sie sieht
+		var unterarm := _arm_lesen(sk)
+		var rand := {}     # Bewegung -> [[Finger m, Stelle], [Unterarm m, Stelle], Zeit]
+		var rand_an := {"an": false}
+		var rand_mess := func() -> void:
+			if not rand_an.an:
+				return
+			rand_an.an = false
+			var bw := String(fig.anim.current_animation)
+			var fv: Array = _rand_vorn(sm, _ecken_aus(sk, _finger))
+			var uv: Array = _rand_vorn(sm, _ecken_aus(sk, unterarm))
+			var alt: Array = rand.get(bw, [[-INF, Vector3.ZERO], [-INF, Vector3.ZERO], 0.0])
+			if fv[0] > alt[0][0]:
+				alt[0] = fv
+				alt[2] = fig.anim.current_animation_position
+			if uv[0] > alt[1][0]:
+				alt[1] = uv
+			rand[bw] = alt
+		sk.skeleton_updated.connect(rand_mess)
+		fig.set_process(false)
+		for bw in RAND_BEWEGUNGEN:
+			if not fig.anim.has_animation(bw):
+				continue
+			fig.anim.play(bw, 0.15)
+			for j in 45:
+				await process_frame
+				if j % 2 == 0:
+					rand_an.an = true
+		sk.skeleton_updated.disconnect(rand_mess)
+		fig.anim.play("SS_IdleCombat", 0.2)
+		fig.set_process(true)
+		for bw in rand:
+			var r: Array = rand[bw]
+			print("  %s RAND %s: Finger %.1f cm (Stelle %s, bei %.2f s), Unterarm und Hand %.1f cm (Stelle %s) vor der Vorderseite, auch am Rand" % [
+				k, bw, r[0][0] * 100.0, (r[0][1] as Vector3).round(), r[2], r[1][0] * 100.0, (r[1][1] as Vector3).round()])
 		sk.skeleton_updated.connect(faust_mess)
 		kf.mars.find("merc").auto = true
 		kf.mars.set_autopilot(true)
