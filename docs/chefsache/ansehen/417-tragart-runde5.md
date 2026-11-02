@@ -23,6 +23,14 @@
 
 **Zu sagen:** je Waffe „passt“ oder was anders sein soll; Schwert beim Schildträger: auf der Schulter so richtig?
 
+**Prüferbefund zum Film 03:39 (nach dem Versand, 03:5x; Bildpunkte, Boden Gehen 7,1, Rennen 20,5 je Bild):**
+- **Haltungssprung bei 1,0 s nicht behoben:** Axt von rechts, Schwert, Schild von links stehen anfangs etwa 40 Grad gebückt und schnellen in einem Bild auf; nur im jeweils ersten Feld einer Figur, die zweite Seite springt nicht. Meine Behebung war eine Vermutung; der Nachfolger stellt es erst ohne Bild nach (Standbilder vor dem Film), dann behebt er.
+- Gleiten: Anlaufen 1,0–1,5 s 60–100 %, Rennen 20–35 %, Auslaufen 6,0–7,5 s 30–90 % (am stärksten Schild von rechts), Gehen bis 25 %; unsere Messung mit Vorzeichen: Rennen 1–11 %, Auslaufen ab 6,8 s 0 %. Abweichung offen.
+- Kriegsaxt beim Gehen und Rennen senkrecht hochgereckt, Kopf oben (Grundstand E6 nein); von links im Rennen keine Faust sichtbar (verdeckt); 6,07–6,20 s nickt die Axt 25 Grad ab und wieder hoch.
+- Schwert beim Schildträger: Klinge quer vor (von rechts) bzw. hinter (von links) Kopf und Bart, verdeckt; Durchstich nicht auszuschließen.
+- Schild pendelt beim Gehen 40–60 Bildpunkte nach vorn (E8 eher nein). Beim Gehen tiefster Fuß 4–6 Bildpunkte über der Sohle im Stand.
+- Grundstand: A4, C1, E1, G1, G3 ja; D4, E6, E8 nein. Text lesbar; „von rechts“ mehrdeutig (Figur läuft nach rechts).
+
 **Stand 02:24:** Kriegsaxt und Schwert mit Schild je von beiden Seiten (Raster 3 × 2), Felder beschriftet, Bild 1,2-fach weiter; Einhandrennen war 31 % falsch umgetaktet (behoben).
 
 **Stand 00:53:** Neu gegenüber 23:54 (Lauf 41361118983): Schwertarm beim Schild 15 Grad nach außen (vorher 9), das Schwert beim Rennen nicht mehr im Oberschenkel (frei 7,0 cm; 12 Grad wären 6,0). Messung aller vier Waffen ohne Fehler. Stand 23:54: Neu gegenüber 22:53 (Lauf 41356789633): Füße im Rennen am Boden statt schwebend (tiefster Ballen höchstens 4,0 cm statt 8,4–10,6; Stehen 1,5). Ursache: das Becken wurde im Verhältnis der Beckenhöhen im ersten Bild gesetzt, im Rennen 5–10 % zu hoch; jetzt nach der Beinlänge wie im Kampf (438a). Schild im Gehen: Schildarm 12 Grad nach außen, frei 6,3 cm (vorher 5 von 15 Bildern bis 5 cm im Körper; 8 Grad wäre knapp frei mit 3,9 cm). Schwert beim Rennen mit Schild war in 1 von 15 Bildern 4,9 cm im rechten Oberschenkel (in 00:53 behoben).
