@@ -52,7 +52,7 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 ## Wo du Prioritäten setzen kannst (02.11., 11:2x)
 
 1. **Wochenziel 02.11.** (heute, Perikles): Stufe 1 bauen, jeder der vier Punkte bekommt einen Besitzer; Filme und Feinschliff sind bis dahin Kür.
-2. **Zwei Entscheidungen zum Kampf** (348.12j Graks Axt, 348.12b Grak-Film): sonst hängen Jerry (348.12j) und der Grak-Film (348.12b).
+2. **Eine Entscheidung zum Kampf** (348.12b Grak-Film vorab auf seinem alten Körper?): sonst hängt der Grak-Film.
 3. **Gemeinsame Builds** aus den 23 Änderungen (höchstens 6 je Build, also mindestens vier), die du testest: erst dann wird Entwicklung „erledigt“.
 
 *Stärkstes Gegenargument:* wenn Stufe 1 vorgeht, bleiben Figuren und Bewegungen (Stufe 4), die du gerade siehst, länger liegen. *Wie es zu entkräften ist:* die Oberste Direktive verlangt das BRS; ohne Stufe 1 kann keine spätere Stufe abgenommen werden, Bewegungen bleiben als Kür im Rahmen von zwei Läufen.
