@@ -165,6 +165,8 @@ func _schulter_lesen(sk: Skeleton3D, knochen := []) -> void:
 ## 406a E3 (Tor 461a, Lauf 170: die Faust der Schildhand liegt außen auf dem Schild, 2, 5, 22, 35 s, Kämpfer 82–87 s; gemessen nur
 ## vor der Neigung): Haut der Finger der linken Hand (mindestens halbes Gewicht auf einem Fingerglied), wie _schulter
 var _finger := []
+const FINGERNAMEN := ["thumb", "index", "middle", "ring", "pinky"]
+var _finger_je := {}
 func _finger_lesen(sk: Skeleton3D) -> void:
 	var nur := []
 	for i in sk.get_bone_count():
@@ -174,13 +176,26 @@ func _finger_lesen(sk: Skeleton3D) -> void:
 	var alt := _schulter.duplicate()
 	_schulter_lesen(sk, nur)
 	_finger = _schulter
+	# Lauf 182: Beugen −50° lässt 1,8–4 cm; welcher Finger bleibt davor, je Finger einzeln
+	_finger_je = {}
+	for f in FINGERNAMEN:
+		var je := []
+		for i in nur:
+			if (sk.get_bone_name(i) as String).begins_with(f):
+				je.append(i)
+		if je.is_empty():
+			_finger_je[f] = []
+			continue
+		_schulter_lesen(sk, je)
+		_finger_je[f] = _schulter
 	_schulter = alt
 
 
 ## 406a E3 Weg (Lauf 179: Schild weiter vor schiebt den Schwertarm hinein): Finger der Schildhand zur Faust beugen. Je Beugung aus
 ## BEUGEN (Grad je Glied um die Achse quer über die Knöchel, Handrahmen wie figur.gd _handrahmen; Vorzeichen unbekannt, darum beide)
 ## die Finger vor der Vorderseite bei der jetzigen Fassung; die Pose wird danach zurückgesetzt
-const BEUGEN := [0.0, 25.0, 50.0, -25.0, -50.0]
+## Lauf 182: positiv streckt (bis 11 cm), negativ schließt die Faust (−50°: 1,8–4 cm); jetzt weiter schließen
+const BEUGEN := [0.0, -50.0, -75.0, -90.0]
 func _beugen_finger(sk: Skeleton3D, schild: Node3D) -> Array:
 	var glieder := []
 	for f in ["index", "middle", "ring", "pinky"]:
@@ -205,7 +220,11 @@ func _beugen_finger(sk: Skeleton3D, schild: Node3D) -> Array:
 			var quer := (sk.get_bone_global_pose(zf).origin - sk.get_bone_global_pose(kf).origin).normalized()
 			var achse := (pg.basis.inverse() * quer).normalized()
 			sk.set_bone_pose_rotation(b, Quaternion(achse, deg_to_rad(grad)) * (alt[b] as Quaternion))
-		out.append(_varianten_finger(schild, _ecken_aus(sk, _finger))[0])
+		var r: Array = _varianten_finger(schild, _ecken_aus(sk, _finger))[0]
+		var je := {}
+		for f in FINGERNAMEN:
+			je[f] = _varianten_finger(schild, _ecken_aus(sk, _finger_je[f]))[0][0]
+		out.append([r[0], r[1], je])
 		for b in glieder:
 			sk.set_bone_pose_rotation(b, alt[b])
 	return out
@@ -569,8 +588,12 @@ func _run() -> void:
 		for b in var_b:
 			var z := PackedStringArray()
 			for i in (var_b[b] as Array).size():
-				z.append("%+.0f° %.1f cm" % [BEUGEN[i], var_b[b][i][0] * 100.0])
-			print("  %s BEUGEN %s: Finger vor der Vorderseite je Beugung: %s" % [k, b if b != "" else "–", ", ".join(z)])
+				var jf := PackedStringArray()
+				var je: Dictionary = var_b[b][i][2] if (var_b[b][i] as Array).size() > 2 else {}
+				for f in je:
+					jf.append("%s %.1f" % [f, float(je[f]) * 100.0])
+				z.append("%+.0f° %.1f cm (Stelle %s; %s)" % [BEUGEN[i], var_b[b][i][0] * 100.0, (var_b[b][i][1] as Vector3).round(), ", ".join(jf)])
+			print("  %s BEUGEN %s: Finger vor der Vorderseite je Beugung: %s" % [k, b if b != "" else "–", " | ".join(z)])
 		print("Kampf %s: %s nach %d Bildern" % [k, kf.mars.outcome, n])
 		kf.queue_free()
 		p.queue_free()
