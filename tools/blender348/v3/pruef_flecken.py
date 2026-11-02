@@ -86,6 +86,8 @@ if WEG:
     print('WEG', WEG, len(WEG_F), 'Flaechen von', sum(1 for p_ in _me.polygons if KT[p_.vertices[0]] == _ti))
 
 
+MIT_WEG = False
+
 def lage():
     dg.update()
     V, F, LF = [], [], []
@@ -93,7 +95,7 @@ def lage():
         me = o.evaluated_get(dg).to_mesh(); b = len(V); M = o.matrix_world
         V += [M @ v.co for v in me.vertices]
         for p in me.polygons:
-            if o == kleid and p.index in WEG_F: continue
+            if MIT_WEG and o == kleid and p.index in WEG_F: continue
             vs = tuple(b + i for i in p.vertices); F.append(vs)
             LF.append(TEILNAMEN[KT[p.vertices[0]]] if o == kleid else name_netz(o))
         o.evaluated_get(dg).to_mesh_clear()
@@ -149,11 +151,12 @@ def sehen(V, F, LF, az, el):
     sehen.LV = LV; sehen.LR = LR
     return L, c, rechts, oben, r
 
-def flecken(L):
+def flecken(L, loch=False):
     # Felder fremder Bildpunkte (nicht leer, nicht Huelle aussen), die ganz von Huelle aussen umschlossen sind
-    # 463 (WEG): auch leere Felder zaehlen, wenn die Huelle sie umschliesst (Loch, Hintergrund durch die Figur), als „loch“
-    H = np.isin(L, HUELLE)
-    fremd = ~H
+    # loch=True (463): stattdessen leere Felder, die die Huelle umschliesst (Hintergrund durch die Figur). Getrennt gezaehlt,
+    # denn leer als fremd verband Flecken am Umriss mit dem Hintergrund und liess sie wegfallen (Lauf 41433473023: Robe Guertel 4210 -> 326)
+    H = np.isin(L, HUELLE); leer = L == ''
+    fremd = leer if loch else (~H & ~leer)
     n0, n1 = L.shape; gesehen = np.zeros_like(fremd); aus = []
     for y in range(n0):
         for x in range(n1):
@@ -188,56 +191,66 @@ def strahl(V, F, LF, w, az, el):
     return ' '.join(aus)
 
 qa.animation_data_create()
-gesamt = {}; rgesamt = {}
-for bn in BEW:
-    if bn == 'Ruhe': qa.animation_data.action = None; fr = [0]
-    else:
-        a = AKT.get(bn)
-        if a is None: print('FEHLT', bn); continue
-        qa.animation_data.action = a
-        if hasattr(qa.animation_data, 'action_slot') and a.slots: qa.animation_data.action_slot = a.slots[0]
-        fr = [int(round(f)) for f in np.linspace(a.frame_range[0], a.frame_range[1], BILDER)]
-    zahl = {}; groesst = 0; innen = {}
-    vz = {v: {} for v in VORRANG}; vg = {v: 0 for v in VORRANG}; vd = {v: {} for v in VORRANG}
-    rz = {v: {} for v in RUECK}; rg = {v: 0 for v in RUECK}; rd = {v: {} for v in RUECK}; ri = {v: {} for v in RUECK}
-    for f in fr:
-        bpy.context.scene.frame_set(f)
-        V, F, LF = lage()
-        for az, el in SICHT:
-            L, c, rechts, oben, r = sehen(V, F, LF, az, el)
-            for t in set(L.ravel().tolist()):
-                if t.endswith('/innen') and t.split('/')[0] in HUELLE: innen[t] = innen.get(t, 0) + int((L == t).sum())
-            for v in VORRANG:
-                LV = sehen.LV[v]
-                for gr, m, teile in flecken(LV):
-                    vg[v] = max(vg[v], gr)
-                    for t, k in teile.items(): vz[v][t] = vz[v].get(t, 0) + k
-                wech = (LV != L)
-                for t in set(L[wech].tolist()): vd[v][t] = vd[v].get(t, 0) + int((L[wech] == t).sum())
-            for v in RUECK:
-                LR = sehen.LR[v]
-                for gr, m, teile in flecken(LR):
-                    rg[v] = max(rg[v], gr)
-                    for t, k in teile.items(): rz[v][t] = rz[v].get(t, 0) + k
-                wech = (LR != L)
-                for t in set(L[wech].tolist()): rd[v][t] = rd[v].get(t, 0) + int((L[wech] == t).sum())
-                for t in set(LR.ravel().tolist()):
-                    if t.endswith('/innen') and t.split('/')[0] in HUELLE: ri[v][t] = ri[v].get(t, 0) + int((LR == t).sum())
-            for gr, m, teile in flecken(L):
-                groesst = max(groesst, gr)
-                for t, k in teile.items(): zahl[t] = zahl.get(t, 0) + k
-                if WO == bn and gr >= 4:
-                    w = c + rechts * (-r + m[1] * AUF) + oben * (r - m[0] * AUF)
-                    print('WO', bn, f, '%d/%d' % (az, el), gr, teile, 'Hoehe %.2f m' % w.z, 'Strahl', strahl(V, F, LF, w, az, el))
-    for t, k in zahl.items(): gesamt[t] = gesamt.get(t, 0) + k
-    print('FLECKEN', bn, 'groesster %d Punkte;' % groesst, dict(sorted(zahl.items(), key=lambda x: -x[1])[:8]), 'innen sichtbar', innen)
-    for v in VORRANG:
-        print('VORRANG %s %.0f mm: Flecken groesster %d;' % (bn, v * 1000, vg[v]), dict(sorted(vz[v].items(), key=lambda x: -x[1])[:6]),
-              'VERDECKT', dict(sorted(vd[v].items(), key=lambda x: -x[1])[:8]))
+
+def lauf():
+    # VOR = '' ohne, 'WEG ' mit weggelassenen Flaechen (gleiche Zaehlung, gleicher Lauf: vergleichbar)
+    global VOR
+    gesamt = {}; rgesamt = {}; lgesamt = 0
+    for bn in BEW:
+        if bn == 'Ruhe': qa.animation_data.action = None; fr = [0]
+        else:
+            a = AKT.get(bn)
+            if a is None: print(VOR + 'FEHLT', bn); continue
+            qa.animation_data.action = a
+            if hasattr(qa.animation_data, 'action_slot') and a.slots: qa.animation_data.action_slot = a.slots[0]
+            fr = [int(round(f)) for f in np.linspace(a.frame_range[0], a.frame_range[1], BILDER)]
+        zahl = {}; groesst = 0; innen = {}
+        vz = {v: {} for v in VORRANG}; vg = {v: 0 for v in VORRANG}; vd = {v: {} for v in VORRANG}
+        rz = {v: {} for v in RUECK}; rg = {v: 0 for v in RUECK}; rd = {v: {} for v in RUECK}; ri = {v: {} for v in RUECK}
+        for f in fr:
+            bpy.context.scene.frame_set(f)
+            V, F, LF = lage()
+            for az, el in SICHT:
+                L, c, rechts, oben, r = sehen(V, F, LF, az, el)
+                for t in set(L.ravel().tolist()):
+                    if t.endswith('/innen') and t.split('/')[0] in HUELLE: innen[t] = innen.get(t, 0) + int((L == t).sum())
+                for v in VORRANG:
+                    LV = sehen.LV[v]
+                    for gr, m, teile in flecken(LV):
+                        vg[v] = max(vg[v], gr)
+                        for t, k in teile.items(): vz[v][t] = vz[v].get(t, 0) + k
+                    wech = (LV != L)
+                    for t in set(L[wech].tolist()): vd[v][t] = vd[v].get(t, 0) + int((L[wech] == t).sum())
+                for v in RUECK:
+                    LR = sehen.LR[v]
+                    for gr, m, teile in flecken(LR):
+                        rg[v] = max(rg[v], gr)
+                        for t, k in teile.items(): rz[v][t] = rz[v].get(t, 0) + k
+                    wech = (LR != L)
+                    for t in set(L[wech].tolist()): rd[v][t] = rd[v].get(t, 0) + int((L[wech] == t).sum())
+                    for t in set(LR.ravel().tolist()):
+                        if t.endswith('/innen') and t.split('/')[0] in HUELLE: ri[v][t] = ri[v].get(t, 0) + int((LR == t).sum())
+                for gr, m, teile in flecken(L, True): lgesamt += gr
+                for gr, m, teile in flecken(L):
+                    groesst = max(groesst, gr)
+                    for t, k in teile.items(): zahl[t] = zahl.get(t, 0) + k
+                    if WO == bn and gr >= 4:
+                        w = c + rechts * (-r + m[1] * AUF) + oben * (r - m[0] * AUF)
+                        print(VOR + 'WO', bn, f, '%d/%d' % (az, el), gr, teile, 'Hoehe %.2f m' % w.z, 'Strahl', strahl(V, F, LF, w, az, el))
+        for t, k in zahl.items(): gesamt[t] = gesamt.get(t, 0) + k
+        print(VOR + 'FLECKEN', bn, 'groesster %d Punkte;' % groesst, dict(sorted(zahl.items(), key=lambda x: -x[1])[:8]), 'innen sichtbar', innen)
+        for v in VORRANG:
+            print(VOR + 'VORRANG %s %.0f mm: Flecken groesster %d;' % (bn, v * 1000, vg[v]), dict(sorted(vz[v].items(), key=lambda x: -x[1])[:6]),
+                  'VERDECKT', dict(sorted(vd[v].items(), key=lambda x: -x[1])[:8]))
+        for v in RUECK:
+            print(VOR + 'RUECK %s %s: Flecken groesster %d;' % (bn, v, rg[v]), dict(sorted(rz[v].items(), key=lambda x: -x[1])[:6]),
+                  'innen sichtbar', ri[v], 'GEWECHSELT', dict(sorted(rd[v].items(), key=lambda x: -x[1])[:8]))
+            for t, k in rz[v].items(): rgesamt.setdefault(v, {})[t] = rgesamt.setdefault(v, {}).get(t, 0) + k
+    print(VOR + 'FLECKEN GESAMT', sum(gesamt.values()), dict(sorted(gesamt.items(), key=lambda x: -x[1])), '(Bildpunkte zu %.0f mm)' % (AUF * 1000))
     for v in RUECK:
-        print('RUECK %s %s: Flecken groesster %d;' % (bn, v, rg[v]), dict(sorted(rz[v].items(), key=lambda x: -x[1])[:6]),
-              'innen sichtbar', ri[v], 'GEWECHSELT', dict(sorted(rd[v].items(), key=lambda x: -x[1])[:8]))
-        for t, k in rz[v].items(): rgesamt.setdefault(v, {})[t] = rgesamt.setdefault(v, {}).get(t, 0) + k
-print('FLECKEN GESAMT', sum(gesamt.values()), dict(sorted(gesamt.items(), key=lambda x: -x[1])), '(Bildpunkte zu %.0f mm)' % (AUF * 1000))
-for v in RUECK:
-    print('RUECK GESAMT %s' % v, sum(rgesamt.get(v, {}).values()), dict(sorted(rgesamt.get(v, {}).items(), key=lambda x: -x[1])))
+        print(VOR + 'RUECK GESAMT %s' % v, sum(rgesamt.get(v, {}).values()), dict(sorted(rgesamt.get(v, {}).items(), key=lambda x: -x[1])))
+    print(VOR + 'LOCH GESAMT', lgesamt, 'Bildpunkte Hintergrund durch die Figur')
+
+VOR = ''; lauf()
+if WEG_F:
+    MIT_WEG = True; VOR = 'WEG '; lauf()
