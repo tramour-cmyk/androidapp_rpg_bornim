@@ -5,7 +5,7 @@ name: Godot (Umzug 348)
 on:
   push:
     branches: ["claude/tom-348-**", "claude/jerry-348-**"]
-    paths: ["godot/**", "tools/blender348/**", "tools/gegenstaende/**", "core/src/main/**", ".github/workflows/godot.yml"]
+    paths: ["godot/**", "tools/blender348/**", "tools/gegenstaende/**", "tools/sim444/**", "core/src/main/**", ".github/workflows/godot.yml"]
   workflow_dispatch:
 
 jobs:
@@ -26,6 +26,8 @@ jobs:
           ./gradlew -p core exportMaps -Pout=$GITHUB_WORKSPACE/godot/daten/karten.json -q
           ./gradlew -p core exportTexts -Pout=$GITHUB_WORKSPACE/godot/daten/texte.json -q
           ./gradlew -p core exportHero -Pout=$GITHUB_WORKSPACE/godot/daten/held.json -q
+          # 473: Monsterwerte und Regeln BRS (Modell D) aus derselben Datei wie die Simulation 444 (godot/regeln/brs.gd)
+          cp tools/sim444/werte.json godot/daten/
           # 399.1 Intro wie alt (IntroExport): Saetze, Uhr, Klang, Fackelzug; die Bilder aus app/src/main/assets
           ./gradlew -p core exportIntro -Pout=$GITHUB_WORKSPACE/godot/daten/intro.json -q
           # als .bild wie hauptmenue.bild: Godot soll sie nicht importieren, zwischenbild.gd liest die Bytes
@@ -228,6 +230,7 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/skripte_pruefen.gd 2>&1 | grep -E "SKRIPTE|FALSCH"   # 399.1 Test 130
           timeout 300 ~/godot/godot --headless --path . -s res://tests/held_klassen_376.gd 2>&1 | grep -E "HELDKLASSEN|FALSCH|SCRIPT ERROR"   # 376.1
           timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_test.gd 2>&1 | grep -E "^(gut|FALSCH)|KLANG|SCRIPT ERROR"   # 399.3
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_473.gd 2>&1 | grep -E "FALSCH|BRS473|SCRIPT ERROR"   # 473 Monsterwerte BRS wie sim444
           timeout 120 ~/godot/godot --headless --path . -s res://tests/zwischenbild_test.gd 2>&1 | grep -E "FALSCH|ZWISCHENBILD|SCRIPT ERROR"   # 399.1 Intro
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tasten_4161.gd 2>&1 | grep -E "FEHLER|TASTEN|SCRIPT ERROR"   # 416.1
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tresen_4167.gd 2>&1 | grep -E "FEHLER|TRESEN|SCRIPT ERROR"   # 416.7
