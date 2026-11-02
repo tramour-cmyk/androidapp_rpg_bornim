@@ -23,11 +23,49 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 | Nächte Teams (371; Basis 27.10.: 207 $/9 h) | Kosten (Start 21–7 Uhr) 25./26. 184 $ · 26./27. 267 · 27./28. 203 · 28./29. 180 · 29./30. 0 · 30./31. 0 · 31./01. 101 · 01./02. 194; Bilder und Filme an den Chef 27./28. 28 · 28./29. 22 · 31./01. 12 · 01./02. 15, vorher fehlt | – | Sitzungen; `meldungen.tsv` (ab 27.10., 19:14) |
 | Rote Läufe (464) | 02.11. bis 11:17: 11 von 175 abgeschlossenen (01.11.: 14) | – | `actions_list` |
 | Widersprüche (461b) | 3 in 38 Archiveinträgen (02.11., 02:4x) | – | `ARBEIT-PRUEFUNG.md` „Zu 461b“ |
+| Wochentermine gelaufen (485, nachgezählt 02.11., 19:4x) | Rollenspiegel Fr 30.10. nein · Ideenspeicher Homer So 25.10. und 01.11. nein, nein (nur Einträge von Sokrates) · Wochenziel Perikles Mo 26.10. ja · Tagesbericht 448 ab 01.11. ja · Stichprobe 374 um 8 Uhr 28.10.–01.11.: 3 von 5 (30. und 31.10. erst 31.10., 21:37 nachgeholt) · Ford-Meldung 6–10 Uhr 28.10.–02.11.: 1 von 6 (29.10., 09:05) · Wochenzählung Diogenes Mo 26.10. ja | – | Git `main` (Datei je Termin), `meldungen.tsv` |
 | Ohne Kopf (462) | fehlt: `zug-haken.py --summe` schrieb die Spalten von 462.1 nicht nach `LISTE-REGELTREUE.md` (D63.4, behoben 11:3x, ab 09.11. zählbar) | – | `LISTE-REGELTREUE.md` |
 
 ## Offen für den Chef
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
+
+## Lauf 68 · Nachprüfung D67.1, D68.1, D68.2 (Doppelpack 421; `main` nach `4c0174b29`; 02.11., 20:0x; `meldung.sh --probe` mit 17 Texten, darunter meine Meldung 447.4 von 19:3x; `urteil()` gegen das Archiv)
+
+- **D67.1 behoben:** „K1“, „HP-Balken“, „s. o.“, „u.U.“, „m. E.“, „H1“, „V2“ halten an; „OK“, „JPG“, „GIF“ und Zitate in „…“ gehen durch; Kennungen (A1, G2, O3, W1, D67.1, t146) gehen durch.
+- **D68.1 behoben:** `urteil("453b")` und `urteil("463a")` = 02.11. 18:46.
+- **D68.2 behoben:** „Tor 461a“ steht nur noch in der Regel „nie ‚Tor 461a‘“ (`ROLLE-ENTWICKLUNG.md:41`); „Chefsache-Blätter“ in `ROLLE-BERATUNG.md:74` bleibt (Sokrates' Datei).
+
+**Befund**
+- **D69.1 (D67.1, mittel, sicher, Klasse 1 Perikles) neuer Fehlalarm bei Dateinamen:** seit `(?!\w)` statt `(?![\w-])` halten Dateinamen ohne Backticks an: „DESIGN-SPIELSYSTEM-2-0-ENTWURF.md“ → „DESIGN“, „ARBEIT-TEAM-TOM.md“ → „ARBEIT“, „LISTE-ABNAHME-KAPITEL1.md“ → „LISTE“. Meine echte Meldung 447.4 von 19:3x ginge so nicht mehr durch.
+- **461b-Teil (`0e2a2e2cd`):** 461b.1–4 stehen bei Jerry, Tom, Homer, Sokrates; Anhänge 362 (→ 373) und 418 („Gliederung ersetzt“) passen. **D70.1 (461b, klein, sicher, Klasse 1 Perikles):** 480 und 415c tragen „→ ersetzt durch 480.1“ ohne „teils“, obwohl 480.1 nur die Freigabe weiterer Läufe ändert; 480 (1) einfache Worte und (2) „nach dem zweiten Lauf geht der Film immer an den Chef“ sowie 415c „Film jetzt an den Chef“ gelten weiter. Wie bei 396 („teils ersetzt durch 461a“) gehört „teils“ davor, sonst liest man beide als überholt.
+
+## Lauf 67 · Auftrag 340.4 „Geprüft an“, 340.5 Uhrzeit (Doppelpack 421; `main` nach `6dc0d9880`; 02.11., 19:5x; `commit-pruefung.py` mit 4 Probedateien in einer Kopie, Muster mit 12 Zeilen)
+
+**Ergebnis:** 340.4 greift: neue Datei in `ansehen/` und `billigen/` ohne „Geprüft an:“ hält an, mit „Lauf 176“, Link oder `bilder:` geht sie durch; „Geprüft an: Messung“ und „Lauf 17“ halten an; `t999-…` (Build) und `tun/` sind ausgenommen. `DESIGN-ABNAHME.md` ersetzt „461 geprüft“ (Satz fällt weg, wie entschieden). 340.5: Haken in `.claude/settings.json`, bekannter Fehler 1 in `CLAUDE.md` gekürzt.
+
+**Befund (ohne Nummer, eigener Fehler, zählt als Beleg für 340.5):** meine Probedateien trugen „20:10“, die Commit-Prüfung hielt an: „liegt nach jetzt (19:58)“. Ich hatte in Lauf 65 und 66 und in D67.1, D68.1 „20:0x“, „20:1x“ geschätzt; berichtigt auf 19:4x, 19:5x. Diese Sitzung startete vor dem Haken, sie bekommt keine Zeile „Uhr:“ nach jedem Schritt.
+
+**Grenzen:** jede Hex-Folge ab 7 Zeichen gilt als Commit, auch ein Wort wie „facade1“ oder eine Kennung, die es nicht gibt; ob der Link zum Vorgang gehört, prüft niemand. Den Haken „Uhr:“ an neuen Sitzungen nicht gesehen.
+
+## Lauf 66 · Auftrag 480 und 480.1 Begriffe, Läufe frei, Push ohne Ablauf; 340.3 Pflegezeilen (Doppelpack 421; `main` `e6bcd00ca`; 02.11., 19:5x; `urteil()` gegen das Archiv, `loest_aus()` mit 11 Zweig- und Pfadproben gegen die 8 Abläufe, `pflegehinweis.py --probe`, Suche nach „Blatt“ und „Tor“ in den Regeldateien)
+
+**Ergebnis:** Push ohne Ablauf zählt nicht: `claude/tom-431-voelker` nein, `claude/tom-348-fundament` ja, `claude/jerry-415-beams` (kein Ablauf auf Push) nein, `bilder` und `meldungen` nein. Grenze 389 nennt Sokrates als Freigabe. `pflegehinweis.py --probe` setzt je Vorrat eine Zeile „Pflege“ (Kür), ohne Befund keine (Diogenes keine).
+
+**Befunde**
+- **D68.1 (480.1, mittel, sicher, Klasse 1 Perikles) die echte Freigabe greift nicht:** `urteil()` erkennt nur einen Archivkopf „<Nr>, Läufe frei“. Sokrates' Eintrag lautet „480.1, Läufe gibt Sokrates frei … 453b und 463a … zwei Läufe frei“: `urteil("453b")` und `urteil("463a")` = None. Heute ohne Folge (beide 0 von 2 seit Beginn), aber jede Freigabe in dieser Form gibt nichts frei.
+- **D68.2 (480, klein, sicher, Klasse 1 Perikles) Reste „Tor 461a“:** `ROLLE-ENTWICKLUNG.md:19` „(Tor 461a)“, `LISTE-BAUEN-TESTEN.md:14` „Ausnahme Tor 461a“; „Blatt“ noch in `meldung.sh:116–117` (Kommentar) und `ROLLE-BERATUNG.md:74` „Chefsache-Blätter“ (Sokrates).
+
+**Nicht geprüft / Grenzen:** `loest_aus()` liest kein `paths-ignore` (Push auf `main` mit nur `tools/blender348/` zählt, obwohl `android.yml` ihn auslässt) und keine Job-Bedingung `contains(…)` (nur `startsWith`); beides zählt eher zu viel. `pflegehinweis.py` läuft einmal je Container statt je Tag: heute 3 eigene Commits, jeder kann einen gerade gekürzten Vorrat beim Zusammenführen wieder mit der Zeile „Pflege“ füllen (bei mir 19:5x). 480 (2), nach dem zweiten Lauf geht der Film immer zum Chef: nur im Text, kein Werkzeug geprüft.
+
+## Lauf 65 · Auftrag 484 Abkürzungen in Telegram, 465 Titelzeile (Doppelpack 421; `main` nach `57afc1ee6`; 02.11., 19:4x; `meldung.sh --probe` mit 16 Probetexten und den 4 echten Diogenes-Meldungen des Tages; `eintrag()` aus `zug-index.py` mit 4 Probedateien in einer Kopie)
+
+**Ergebnis:** 484 greift für „NW 2“, „E 7“, BRS, KI, RK, TP, „z. B.“, „z.B.“, „ca.“, „Nr.“; die 4 echten Meldungen des Tages gehen durch (kein Fehlalarm); Vorgangsnummern, Kennungen (A1, t146), Dateinamen, Würfel (2W4+2), Sprungmarken gehen durch. 465: Wer und Zeit aus der Titelzeile gelesen (auch „19:1x“, „Team Tom“), Zeile 2 geht weiter vor.
+
+**Befunde**
+- **D67.1 (484, mittel, sicher, Klasse 1 Perikles) Lücken:** gehen durch: „K1“ (Buchstabe mit Ziffer gilt als Kennung), Kürzel vor Bindestrich („HP-Balken“, „EP-Anzeige“), „s. o.“, „u.U.“. Fehlalarm, klein: „OK“, „JPG“, „GIF“ halten an (PNG und MP4 sind frei); ebenso ein Kürzel, das als Beispiel in „…“ zitiert wird (meine Meldung zu 484 um 19:4x hielt an, ging mit `…` durch).
+
+**Nebenbei:** `zug-index.py` schreibt beim Laden als Modul `docs/chefsache/README.md` neu (Import ruft das Hauptprogramm); in der Kopie bemerkt und zurückgesetzt, nichts gepusht. **Nicht geprüft:** Meldungstexte der anderen Rollen (`meldungen.tsv` hat keinen Text).
 
 ## Lauf 63 · Nachprüfung D63.1–D63.4, D64.1 (Doppelpack 421; `main` `036b48029`; 02.11., 11:5x; `commit-pruefung.py` mit 6 Probecommits in einer Scratch-Kopie, `urteil()` gegen das Archiv und gegen Auszüge, `zug-haken.py --summe` mit Probedatei, `handlauf_bash()` mit 13 Befehlen)
 

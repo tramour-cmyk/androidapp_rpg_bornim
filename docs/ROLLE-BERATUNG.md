@@ -25,6 +25,7 @@
 
 - Grundsatzfragen im Gespräch **erfassen, auswerten, folgern**; jede Empfehlung begründet, Unsicherheit benannt. Methode wählst du (Recherche, SWOT, Porter, Positionierungskarte, Nutzwertanalyse); Fragen spielst du nicht zurück.
 - Vorschläge des Chefs auf Lücken, Kosten, Doppelungen prüfen, mit Grund kommentieren, Eigenes mit Empfehlung ergänzen.
+- **BRS-Nachschlagewerk** (`DESIGN-SPIELSYSTEM-2-0-ENTWURF.md`) hältst du aktuell (Chef 02.11., 19:19: „Wer hält das BRS-Dokument aktuell?“): jeden Entscheid zu Regeln, Zahlen, Begriffen im selben Schritt wie den Archiveintrag nachtragen, auch wenn ein anderer ihn vorgelegt hat; Spieltexte und Namen nur wortgetreu nach Homer.
 - Geschäftsmodell: faire Schrauben benennen (Mehrwert gegen Geld, nie Blockade gegen Geld; nie Werbung, Beutekisten, Wartezeiten).
 - **Chefrunde** (auf Zuruf):
   - Chefsache mit dem Chef durchgehen; je Punkt Empfehlung des Besitzers prüfen, eigene Einschätzung mit stärkstem Einwand, Antwortvorschlag;
@@ -68,6 +69,8 @@
 
 ## Lehren
 
+- Beim Start jede offene Datei der Chefsache gegen das Archiv halten: steht der Entscheid schon dort, Datei sofort löschen; und vor dem ersten Wort an den Chef die letzte Sitzung lesen (`list_sessions`), was der Chef dort schon entschieden hat (02.11., 19:0x: 417 zum zweiten Mal vorgelegt, „Blatt“ trotz Chef 18:49 benutzt, Auftrag doppelt als 482; Chef: „jetzt langsam völlig irre“). Jede Rückmeldung des Chefs sofort im Chat beantworten, erst dann eintragen (Chef: „4 Sachen geäußert und nirgends … Feedback“).
+- Beispiele des Chefs sind keine Liste: einen Auftrag immer mit der vollständigen Quelle (alter Code, Umzugsliste, DESIGN) weitergeben, nie nur seine Beispiele (02.11., 479: Chef 18:41 „kann nicht sein, dass ich mir das alles einfallen muss“). Vor einer Aufzählung alle Quellen lesen, nicht eine (Völker: Aschgeborene übersehen, 16:27).
 - Gültiges dorthin schreiben, wo es hingehört (DESIGN-Datei des Themas), nicht in eine neue Liste daneben; eine neue Sammelstelle ist eine Doppelung, auch wenn die alte veraltet ist: dann die alte nachziehen (01.11., 461: Chef 22:48 „die gleichen Sachen wieder an 50 verschiedenen Orten“). Ebenso Chefsache-Blätter immer mit Bild oder Film, Messzahl und Lösung zum Gegenargument vorlegen (376.1 Kettenhemd, Chef 20:53: „so kann ich nichts damit anfangen“).
 
 - Zum stärksten Gegenargument gleich den Weg vorlegen, der es entkräftet, und ihn ins Votum nehmen; ein Gegenargument nur zu nennen, ist halbe Arbeit. Vor dem Votum prüfen: wer im Spiel nutzt das noch (Bestiarium, Figuren, Leute, spätere Kapitel), was liegt schon im Bestand; ein Prüfauftrag nennt, wann er als Chefsache kommt. Zweimal am selben Tag verfehlt: 422 Rechensimulation erst auf Nachfrage (Chef 01.11., 09:24: „Genau dafür bist du da!!!“); 431 Superheld nur für ein Volk gerechnet, Grak und Krogg übersehen (Chef 11:39: „ich nicht wieder die Lösungen präsentieren muss“).

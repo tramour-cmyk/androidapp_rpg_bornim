@@ -11,7 +11,7 @@ Jede Änderung auf der niedrigsten Stufe prüfen, die die Frage beantwortet; hö
 1. **Logik** (Zeiten, Regeln, Abläufe): Kerntest, Sekunden. `./gradlew -p core test`, Ergebnis am Exit-Code prüfen (`set -o pipefail`), nicht nur an gefilterter Ausgabe.
 2. **Sichtbar ohne Bewegung:** ein Standbild, nur der Ausschnitt (`CROP=`).
 3. **Bewegung:** kurzer Film nur des Übergangs; ereignislose Zeit mit `FROM=` überspringen (`WALKFILM`, `IDLEFILM`, `FILM=`). Kampf, Bewegung, Effekte durch die echte Oberfläche filmen (`DESIGN-ABNAHME.md` „Selbst prüfen“).
-4. **Fremde Prüfung, bei Bild und Film nach dem Versand** (338.2, Chef 23.10., 09:23; 396, 28.10.: Fertiges sofort an den Chef, der Befund folgt als Text; Text weiter vorher): ein Helfer, der nicht erstellt hat, mit Auftrag „Fehler finden“ und festen Fragen, zuerst „Was fällt einem Spieler im ganzen Bild als Erstes auf?“ (340.1), dann: Hand an der Waffe, Ausrichtung (Blatt, Spitze, Blick), Größe, Verdeckung, Text im Bild, gegen `DESIGN-STIL.md`. Jeder Negativbefund ist behoben oder steht in der Vorlage; zum Chef kommen nur Geschmacksfragen. **Ausnahme Tor 461a:** Punkte mit „Prüfer: ja“ aus „Vor jeder Vorlage“ (`DESIGN-ABNAHME.md`) prüft der Helfer vor dem Versand; ein Verstoß hält den Film an.
+4. **Fremde Prüfung, bei Bild und Film nach dem Versand** (338.2, Chef 23.10., 09:23; 396, 28.10.: Fertiges sofort an den Chef, der Befund folgt als Text; Text weiter vorher): ein Helfer, der nicht erstellt hat, mit Auftrag „Fehler finden“ und festen Fragen, zuerst „Was fällt einem Spieler im ganzen Bild als Erstes auf?“ (340.1), dann: Hand an der Waffe, Ausrichtung (Blatt, Spitze, Blick), Größe, Verdeckung, Text im Bild, gegen `DESIGN-STIL.md`. Jeder Negativbefund ist behoben oder steht in der Vorlage; zum Chef kommen nur Geschmacksfragen. **Ausnahme (461a, 480):** Punkte mit „Prüfer: ja“ aus „Vor jeder Vorlage“ (`DESIGN-ABNAHME.md`) prüft der Helfer vor dem Versand; ein Verstoß hält den Film des ersten Laufs an, nach dem zweiten Lauf geht er mit Befund an den Chef.
 5. **Spielgefühl:** nur der Chef, mit guter Prüfliste.
 
 **Kleine, sichere Schritte:** nach jedem fertigen Schritt Kerntests, Commit, Push auf den eigenen Zweig. App-Code: vor dem Push auch die Vorschau bauen (32.5). Befund mit Wirkung „hoch“ (Absturz, Festhängen, Quest unlösbar, falscher Text) behoben: einen Kerntest schreiben, der ihn künftig fängt (75h). Token sind knapp: Dateien gezielt lesen (`grep`, Marken, `sed -n`).
@@ -37,7 +37,7 @@ Fällt ein Punkt beim Chef durch, steht im `CHANGELOG.md`-Eintrag des späteren 
 
 ### Nicht warten (54)
 
-Ist der nächste Punkt freigegeben und nichts vom Chef zu entscheiden: sofort anfangen, ohne Ankündigung. Blockiert: aufschreiben, nächsten nehmen. „Leer“ erst nach Durchsicht aller eigenen Zeilen (auch Befunde) und `LISTE-ABNAHME-KAPITEL1.md` (81n). Der Stop-Haken `tools/weiter-haken.py` hält jedes Zugende einmal auf; nur „Vorrat leer“ oder „an den Nachfolger übergeben“ lässt sofort durch.
+Ist der nächste Punkt freigegeben und nichts vom Chef zu entscheiden: sofort anfangen, ohne Ankündigung. Blockiert: aufschreiben, nächsten nehmen. „Leer“ erst nach Durchsicht aller eigenen Zeilen (auch Befunde) und `PROJEKTPLAN.md` (81n). Der Stop-Haken `tools/weiter-haken.py` hält jedes Zugende einmal auf; nur „Vorrat leer“ oder „an den Nachfolger übergeben“ lässt sofort durch.
 
 ### Befunde von Diogenes (75g)
 
@@ -82,7 +82,7 @@ Workflow `.github/workflows/android.yml` („Build APK“, Version `0.1.<Laufnum
 |---|---|
 | `KARTENZOOM=1` (+ `ONLY=zoom_nah_…`, `DIAG=1`, `RAIN=1`, `ZOOMSTUFE=`) | Karte im echten Spiel: Wald, Dorf, Schänke (`i1`, `i2`), Ältester `e`, Laden `l`, Tempel `t`, Tag und Abend |
 | `KARTENZOOM=1 HELDORT=ort:x:y:R:stunde` | Held an einem Ort zur Stunde (Tagesablauf der Bewohner, 5l) |
-| `ISODINGE=1` / `=aeltester` / `=laden` / `=tempel` | Blatt aller Raum-Möbel diagonal, je drei Varianten |
+| `ISODINGE=1` / `=aeltester` / `=laden` / `=tempel` | Bild aller Raum-Möbel diagonal, je drei Varianten |
 | `FEUER=1` | alle Bilder des Kaminfeuers |
 | `WALKFILM=karte:x:y` (+ `CROP=x0:y0:x1:y1`, `FROM=`), `IDLEFILM=` | Laufen bzw. Stehen durch die echte Oberfläche filmen |
 | `FLORA=karte:x0:y0:breite:höhe` | Kartenausschnitt in voller Auflösung |

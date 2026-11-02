@@ -11,7 +11,7 @@ Hierher ausgelagert aus der `CLAUDE.md`, Wortlaut unverändert (einzige Änderun
   - Kür nur, wenn kein Muss startbar; danach Zeilen „nach dem Meilenstein“; „A“ heißt nur: hält Arbeit an; Zahlen: `python3 tools/startbar.py --stand`.
 - `ARBEIT-BETRIEB.md`: Vorgangszähler, Fords Stellung, Guthaben, Eingang (was keinem gehört), Protokoll.
 - `ARBEIT-BESETZUNG.md`: wer gerade woran; schreibt `tools/lauf.py`, darum haben Vorräte keine Spalte „Wer“.
-- `LISTE-VORGAENGE.md`: je Vorgang eine Zeile (Bereich, Klasse, Kosten, ein Wort Stand). `LISTE-ABNAHME-KAPITEL1.md`: Meilenstein, oben das **Wochenziel**.
+- `LISTE-VORGAENGE.md`: je Vorgang eine Zeile (Bereich, Klasse, Kosten, ein Wort Stand). `PROJEKTPLAN.md`: Meilenstein, oben das **Wochenziel**.
 - **Chefsache** `docs/chefsache/`: was der Chef entscheiden oder ansehen soll. **Vorgangsarchiv** `docs/VORGANGSARCHIV.md`: was entschieden ist.
 - `DESIGN-…`, `STORY-…`, `LISTE-…` nur, wenn die Aufgabe es braucht.
 - **Idee** (auch des Chefs) heißt prüfen, nicht bauen. Passt sie zu einem Vorgang: dorthin; sonst `LISTE-IDEEN.md`, ebenso jede Kür ohne Zweig, Termin oder angefangene Arbeit; unsicher → Sokrates. Sonntags urteilt Homer, montags holt Perikles Reifes; verwerfen nur der Chef.

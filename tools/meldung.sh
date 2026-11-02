@@ -45,6 +45,21 @@ fi
 if [ ${#rest[@]} -gt 2 ]; then echo "meldung: zu viele Angaben (Text in Anführungszeichen?), nichts gesendet" >&2; exit 2; fi
 name="${rest[0]}"; text="${rest[1]}"
 if [ -z "$name" ] || [ -z "$text" ]; then echo "Aufruf: tools/meldung.sh [--laut] <Name> \"<Text>\"" >&2; exit 2; fi
+# 484 (Chef 02.11., 19:27: „Keine Abkürzungen mehr in Telegram-Meldungen.“): Kürzel und Abkürzungen halten die Meldung an;
+# erlaubt sind Vorgangsnummern und Kennungen (A1, D63.1, t146), Code in `…`, Links und die Namen MARS, SRD, APK, PNG, MP4, MB, GB
+if kurz=$(printf '%s' "$text" | python3 -c '
+import re, sys
+t = sys.stdin.read()
+t = re.sub(r"`[^`]*`|\]\([^)]*\)|https?://\S+|„[^“]*“|[\w.-]+\.(?:md|py|sh|gd|json|yml|tsv|png|mp4|tscn)\b", " ", t)  # D67.1: Zitat in „…“ ist Wortlaut; D69.1: Dateinamen
+frei = {"MARS", "SRD", "APK", "PNG", "MP4", "MB", "GB", "KB", "CC0", "TCS", "OK", "JPG", "GIF"}
+funde = [w for w in re.findall(r"(?<![\w./-])[A-ZÄÖÜ]{2,6}(?!\w)", t) if w not in frei]  # D67.1: auch „HP-Balken“
+# D67.1: Buchstabe mit Zahl nur als Kennung (A1–G9 Grundstand, O/W Projektplan, D Befund, t Build), sonst Kürzel wie „K1“
+funde += re.findall(r"(?<![\w./-])(?![A-GOWD]\d)[A-Z]\d{1,2}(?![\w.])", t)
+funde += re.findall(r"(?<![\w.])(?:NW|E)\s\d+\b", t)
+funde += re.findall(r"(?<!\w)(?:z\.\s?B\.|bzw\.|usw\.|ggf\.|ca\.|u\.\s?a\.|d\.\s?h\.|evtl\.|inkl\.|vgl\.|Nr\.|o\.\s?ä\.|s\.\s?o\.|s\.\s?u\.|u\.\s?U\.|m\.\s?E\.)", t)
+print(", ".join(dict.fromkeys(funde))); sys.exit(0 if funde else 1)'); then
+  echo "meldung: Abkürzung im Text ($kurz), nichts gesendet; ausschreiben (484, Chef 02.11., 19:27)" >&2; exit 2
+fi
 if [ $probe = 0 ] && [ -z "$TELEGRAM_BOT_TOKEN" ]; then echo "meldung: TELEGRAM_BOT_TOKEN fehlt in dieser Umgebung, Meldung nicht gesendet" >&2; exit 1; fi
 zeit=$(TZ=Europe/Berlin date "+%d.%m. %H:%M"); stunde=$(TZ=Europe/Berlin date +%H)
 if [ $laut = 1 ]; then
@@ -80,14 +95,31 @@ if [ -n "$art" ]; then
       git -C "$repo" push -q origin "$neu:refs/heads/bilder" 2>/dev/null && { abgelegt=1; break; }
       sleep $((versuch * 2))
     done
-    if [ -n "$abgelegt" ] && [ "$art" = video ]; then text="$text\n[Film im Repo](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/$pfad)"  # 381.1: spielt im Browser ab
+    # 483 (Chef 02.11., 19:21): jsDelivr liefert aus dem Zweig bilder nichts mehr (über 50 MB); je Film ein eigener Zweig
+    # film/… mit nur dieser Datei (Commit ohne Eltern), Link über jsDelivr darauf; Marken (Tags) lässt der Proxy der Sitzungen
+    # nicht zu (403, 02.11.), Zweige ja (Probe film/probe-483: 200, video/mp4); geht das nicht: Link auf GitHub
+    film_url="https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/$pfad"
+    if [ -n "$abgelegt" ] && [ "$art" = video ]; then
+      marke="film/$(TZ=Europe/Berlin date +%Y%m%d-%H%M%S)-$(printf '%s' "$nr" | tr -c 'A-Za-z0-9.' '_')"
+      idx=$(mktemp); rm -f "$idx"
+      GIT_INDEX_FILE=$idx git -C "$repo" update-index --add --cacheinfo "100644,$blob,$pfad"
+      fbaum=$(GIT_INDEX_FILE=$idx git -C "$repo" write-tree); rm -f "$idx"
+      fneu=$(git -C "$repo" commit-tree "$fbaum" -m "Film $nr ($name)")
+      for versuch in 1 2 3; do
+        git -C "$repo" push -q origin "$fneu:refs/heads/$marke" 2>/dev/null && {
+          film_url="https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@$marke/$pfad"; break; }
+        sleep $((versuch * 2))
+      done
+      case "$film_url" in *jsdelivr*) ;; *) echo "meldung: Marke $marke nicht gepusht, Link auf GitHub (483)" >&2 ;; esac
+    fi
+    if [ -n "$abgelegt" ] && [ "$art" = video ]; then text="$text\n[Film im Repo]($film_url)"  # 381.1: spielt im Browser ab
     elif [ -n "$abgelegt" ]; then text="$text\n[Bild im Repo](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/$pfad)"
     else echo "meldung: Ablage im Zweig bilder fehlgeschlagen, Bild nur auf Telegram" >&2; fi
-    # 450 (Chef 01.11., 10:55): Link selbst ins Blatt ansehen/<k>-….md auf main, unter Zeile 1, neuester oben; ohne Arbeitskopie
-    # (temporärer Index wie beim Zweig bilder), darum keine Störung offener Änderungen. Mehrere Blätter zur Nummer: das zuletzt geänderte.
+    # 450 (Chef 01.11., 10:55): Link selbst in die Datei ansehen/<k>-….md des Vorgangs auf main, unter Zeile 1, neuester oben; ohne Arbeitskopie
+    # (temporärer Index wie beim Zweig bilder), darum keine Störung offener Änderungen. Mehrere Dateien zum Vorgang: die zuletzt geänderte.
     if [ -n "$abgelegt" ]; then
       wort=Bild; u="https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/$pfad"
-      [ "$art" = video ] && { wort=Film; u="https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/$pfad"; }
+      [ "$art" = video ] && { wort=Film; u="$film_url"; }
       zeile_l="[$wort von $(TZ=Europe/Berlin date '+%d.%m., %H:%M')]($u) (eingetragen von meldung.sh, $name)"
       eingetragen=""
       for versuch in 1 2 3; do
@@ -97,7 +129,7 @@ if [ -n "$art" ]; then
           b=$(basename "$f" | tr 'A-Z' 'a-z'); case "$b" in "$k"-*.md) ;; *) continue ;; esac
           t=$(git -C "$repo" log -1 --format=%ct "$basis" -- "$f"); [ "${t:-0}" -ge $jung ] && { jung=${t:-0}; blatt=$f; }
         done
-        [ -n "$blatt" ] || { echo "meldung: Blatt zu $nr auf main nicht gefunden, Link nicht eingetragen (450)" >&2; break; }
+        [ -n "$blatt" ] || { echo "meldung: Datei zu Vorgang $nr in ansehen/ auf main nicht gefunden, Link nicht eingetragen (450)" >&2; break; }
         inhalt=$(git -C "$repo" show "$basis:$blatt"; echo .)
         case "$inhalt" in *"$u"*) eingetragen=1; break ;; esac
         neu_b=$(printf '%s' "${inhalt%.}" | ZEILE="$zeile_l" python3 -c '
@@ -113,7 +145,7 @@ sys.stdout.write(k + "\n\n" + os.environ["ZEILE"] + "\n\n" + r.lstrip("\n"))' | 
         git -C "$repo" push -q origin "$neu:refs/heads/main" 2>/dev/null && { eingetragen=1; break; }
         sleep $((versuch * 2))
       done
-      [ -n "$eingetragen" ] || echo "meldung: Link nicht ins Blatt eingetragen; von Hand nachtragen (450)" >&2
+      [ -n "$eingetragen" ] || echo "meldung: Link nicht in die Datei des Vorgangs eingetragen; von Hand nachtragen (450)" >&2
     fi
   fi
 fi

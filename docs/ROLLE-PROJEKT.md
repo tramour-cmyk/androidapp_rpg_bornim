@@ -33,7 +33,7 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link: „Zielvereinb
 ## Was du tust
 
 - **Wochenziel** (montags nach der Wochenzählung):
-  - ein Satz plus Nummernliste mit Termin, aus dem Meilenstein „marktreif“ (338: Blöcke a–f, Rückwärtsplan bis Weihnachten), oben in `LISTE-ABNAHME-KAPITEL1.md`; dort zuerst den ausführlichen Stand neu setzen (Zeile 10 des Tagesberichts);
+  - ein Satz plus Nummernliste mit Termin, aus dem Meilenstein „marktreif“ (338: Blöcke a–f, Rückwärtsplan bis Weihnachten), oben in `PROJEKTPLAN.md`; dort zuerst den ausführlichen Stand neu setzen (Zeile 10 des Tagesberichts);
   - was drinsteht, ist Muss (M), alles andere Kür (K); „M?“ in den Vorräten entscheidest du dabei;
   - „Reif“ aus `LISTE-IDEEN.md` mit Nummer als Zeile in den Vorrat des Bereichs; „Verwerfen?“ als eine Datei in die Chefsache;
   - danach Kennzahlen der Woche bewerten, höchstens drei Empfehlungen, per Telegram.

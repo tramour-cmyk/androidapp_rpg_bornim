@@ -116,12 +116,19 @@ def urteil(nr):
         return f"{jahr}-{monat:02d}-{tag:02d} {std}:{m1}{'9' if m2 == 'x' else m2}:00"
 
     for m in ARCHIV_KOPF.finditer(archiv):
-        if not re.search(r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)", m.group(1)):
-            continue
         ende = archiv.find("\n- **", m.end())
         eintrag = archiv[m.end():ende if ende >= 0 else len(archiv)]
+        # D68.1: „453b und 463a … zwei Läufe frei (Sokrates)“ im Text eines Eintrags gibt frei, ab dessen Zeit
+        if any("Läufe frei" in teil and re.search(r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)", teil)
+               for teil in re.split(r"[;:]\s", eintrag)):
+            beste = max(beste or "", zeit(m.group(2), m.group(3), m.group(4), m.group(5), m.group(6)))
+            continue
         klammer = eintrag[:eintrag.find(")")] if ")" in eintrag else ""
         vorentscheid = "Vorentscheid" in m.group(1) or "Vorentscheid" in klammer or "→ **Vorentscheid" in eintrag
+        if "Läufe frei" in m.group(1):  # 480.1 (Chef 02.11., 18:46): weitere Läufe gibt Sokrates frei, Kopf „<Nr>, Läufe frei“
+            vorentscheid = False
+        if not re.search(r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)", m.group(1)):
+            continue
         if not vorentscheid:
             beste = max(beste or "", zeit(m.group(2), m.group(3), m.group(4), m.group(5), m.group(6)))
             continue
@@ -202,8 +209,62 @@ def push_lauf(befehl, cwd):
             pfade += git("ls-files", "--others", "--exclude-standard", cwd=wo).stdout.split()
         if not pfade or not any(p.startswith(CI_PFADE) for p in pfade):
             return None
+    else:
+        pfade = None
+    if not loest_aus(wo, zweig, pfade, nachricht):  # Tom 02.11., 16:3x: Push ohne Lauf zählte als Probelauf
+        return None
     nr = re.match(r"\s*(?:\w+:\s*)?(" + NR + r")\b", nachricht)
     return nr.group(1) if nr else zweig
+
+
+def _glob(muster, text):
+    """GitHub-Muster: ** über Schrägstriche, * innerhalb eines Teils."""
+    rx = re.escape(muster).replace(r"\*\*", "\0").replace(r"\*", "[^/]*").replace("\0", ".*")
+    return re.fullmatch(rx, text) is not None
+
+
+def loest_aus(wo, zweig, pfade, nachricht):
+    """Startet ein Ablauf unter .github/workflows/ bei einem Push auf zweig? (on.push.branches/paths; Job-Bedingung
+    startsWith(github.event.head_commit.message, '…')). Unlesbar oder unklar: ja, lieber zählen als durchlassen."""
+    try:
+        import yaml
+    except ImportError:
+        return True
+    wurzel = git("rev-parse", "--show-toplevel", cwd=wo).stdout.strip()
+    ordner = os.path.join(wurzel, ".github", "workflows")
+    if not wurzel or not os.path.isdir(ordner):
+        return True
+    for datei in os.listdir(ordner):
+        if not datei.endswith((".yml", ".yaml")):
+            continue
+        try:
+            text = open(os.path.join(ordner, datei), encoding="utf-8").read()
+            d = yaml.safe_load(text) or {}
+        except Exception:
+            return True
+        an = d.get("on", d.get(True))  # YAML liest „on“ als True
+        if isinstance(an, str):
+            an = {an: None}
+        if isinstance(an, list):
+            an = {k: None for k in an}
+        if not isinstance(an, dict) or "push" not in an:
+            continue
+        push = an.get("push") or {}
+        zweige = push.get("branches")
+        if zweige and not any(_glob(m, zweig) for m in zweige):
+            continue
+        if any(_glob(m, zweig) for m in push.get("branches-ignore") or []):
+            continue
+        wege = push.get("paths")
+        if wege and pfade is not None and not any(_glob(m, p) for m in wege for p in pfade):
+            continue
+        bed = re.findall(r"startsWith\(\s*github\.event\.head_commit\.message\s*,\s*'([^']+)'\s*\)", text)
+        jobs = d.get("jobs") or {}
+        if bed and jobs and all("startsWith(github.event.head_commit.message" in str((j or {}).get("if", "")) for j in jobs.values()) \
+                and not any(nachricht.lstrip().startswith(b) for b in bed):
+            continue
+        return True
+    return False
 
 
 RERUN = ("407 (Chef 02.11., 07:18: „die ganze Nacht über jetzt 1000 Filmchen gedreht“): einen Lauf neu starten zählt der Haken "
@@ -411,7 +472,8 @@ def pruefen_und_zaehlen(nr, art, wer):
                  f"schon {n} Probeläufe seit {'deinem Urteil ' + vorlage if vorlage else 'Beginn der Zählung'}. Kein weiterer Lauf: "
                  f"jetzt vorlegen, was da ist (Datei in docs/chefsache/ansehen/, `meldung.sh --bild` oder `--film` mit „{nr}:“), "
                  "Befund der Fehlerprüfung danach als Text (396). Erst das Urteil des Chefs (Eintrag im Vorgangsarchiv) gibt zwei neue "
-                 "Läufe frei (407); bis dahin an einem anderen Vorgang weiter.")
+                 "Läufe frei (407), oder Sokrates mit einem Archiveintrag „<Nr>, Läufe frei“ (480.1; Bitte an ihn per Vorrat, nie "
+                 "Chefsache); bis dahin an einem anderen Vorgang weiter.")
     zaehlen(nr, wer, art)
     hinweis_geben(f"389: Probelauf {n + 1} von {GRENZE} für {nr}" + ("; danach vorlegen." if n + 1 == GRENZE else "."))
 

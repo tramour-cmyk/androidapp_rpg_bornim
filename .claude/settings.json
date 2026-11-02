@@ -103,6 +103,18 @@
           }
         ]
       }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "printf '{\"hookSpecificOutput\":{\"hookEventName\":\"PostToolUse\",\"additionalContext\":\"Uhr: %s\"}}' \"$(TZ=Europe/Berlin date '+%d.%m., %H:%M')\"",
+            "timeout": 5
+          }
+        ]
+      }
     ]
   }
 }

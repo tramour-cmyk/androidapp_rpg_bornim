@@ -2,9 +2,9 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (02.11., 02:4x, Ford `session_01Hmoj786VBGBqdYrYTm67mt`, Tiefe 1; Chef 01.11.: „Archivieren“ gilt für jede ARCHIVIERE-Zeile, Kosten buchen):** Läuft: Tom 417/463 (`79Fzi`), Jerry 438a (`763nY`); idle, warten auf den Chef: Tuffy 453 (`78eN`), Spike 461.1 (`772D`), Diogenes 465 (`79qz`), Perikles 461 (`75xj`), Homer 447.4 (`78o3`), Sokrates Chefrunde (`76Qs`). Alter Sokrates `7725k`, `788UE` nie ohne Wort des Chefs archivieren. `archive_session` lehnt der Klassifizierer manchmal ab (nach dem Wort „Archivieren“ des Chefs ging es); dann nicht umgehen, einmal melden. Kosten: `lauf.py --kosten`, bei Jerry 438a bucht es auf 438; fehlen sie in der Abfrage, „fehlt“ melden. Nicht starten: Perikles „M?“ (keine Nummer), Homer 432/466 (Kür, Sparbetrieb, `--ohne`), Tom neben laufendem Tom. Neu seit 20:3x: jede Nachricht mit **Ford** [Zeit] beginnen (Chef 01.11., 20:34, Vorgang 462); rote GitHub-Läufe je Lauf prüfen und in den Vorrat des Besitzers schreiben (464; `actions_list`, Zweig `tom`/`spike`/`grundstand` → Tom, `jerry`/`tuffy` → Jerry). Lauf-Kurzliste vor `lauf.py` frisch aus `list_sessions` bauen. Nachfolger: Ford – Betriebsleiter.
+**Übergabe (02.11., 15:3x, Ford `session_01Hmoj78YoThnMqF8v2Ky8sy`, Tiefe 2; Chef 02.11., 10:42: „archiviere alle alten Sitzungen, maximal einer der Beschäftigten, und verrechne die Kosten“ gilt weiter, ebenso „weiter mit Wächter“ bis Sa 07.11., 19:59 mit Eingang-Regeln oben):** Je Rolle höchstens eine Sitzung, ältere archivieren und mit `lauf.py --kosten` buchen (bei Mehrfachvorgängen die erste Nummer). Läuft/idle: Tom `78qS`, Jerry `76w5`, Tuffy `78Ro`, Spike `77HW`, Diogenes `76sH` (374 erst 03.11., 8 Uhr; `--ohne 374:…` solange `lauf.py` ihn neben der lebenden Sitzung nochmals starten will), Perikles `75yT`, Homer `78Ga`, Sokrates `7A42` (Chef sieht nur Sitzungen mit Ford als Elternteil; Sokrates immer von Ford starten). Idle-Sitzungen warten meist auf Urteil des Chefs: dann kein START, sondern `send_message` „Weiter: <Vorgang>“ oder nichts; nie Kür starten, solange der Verbrauch (täglich 18 Uhr ablesen, Ziel 11 %/Tag) drüber liegt; `--ohne 432/466:wartet auf Chef`. Nach archiviertem Jerry 415: 415 liegt im Vorrat. Alte Sitzungen sind außer `76Qs` (archiviert 11:30) alle archiviert. Kosten bucht `lauf.py --kosten NR USD SESSION`. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 476** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 487** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -18,12 +18,14 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford“ (Selbstneustart, Tiefe 2) `session_01Hmoj78YoThnMqF8v2Ky8sy`; Stundenuhr „Ford-Lauf“ `trig_01C12LSTgbss5EbZKic7CcVR` (:03, angelegt 02.11., 02:41); alte Uhr `trig_01QLCGSbcbqiuxpah1RGHeLs` gelöscht. Alter Ford `01Hmoj786VBGBqdYrYTm67mt` archiviert 02.11., 07:2x (Chef: „Aufräumen und Archivieren und Kosten erfassen“); `01Hmoj77A5` ruht.
+- **Ford lebt in einer Sitzung** „Ford“ (Selbstneustart, Tiefe 3) `session_01Hmoj76TkJDAHTy5crCj9QH`; Stundenuhr „Ford-Lauf“ `trig_01NzprQoTTYQkoonvCPfbwo9` (:03, angelegt 02.11., 15:32); alte Uhren gelöscht. Vorgänger `session_01Hmoj78YoThnMqF8v2Ky8sy` ruht (idle), Archivieren vom Klassifizierer abgelehnt (02.11., 15:33, einmal gemeldet), Kosten 9,57 $ noch nicht gebucht. Alter Ford `01Hmoj786VBGBqdYrYTm67mt` archiviert 02.11., 07:2x (Chef: „Aufräumen und Archivieren und Kosten erfassen“); `01Hmoj77A5` ruht.
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus; Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
 
 ## Eingang
 
+- **von Homer (486, 02.11., 19:5x):** `ARBEIT-BETRIEB.md` 24,7 KB, Grenze etwa 15 KB („Vorräte klein halten“); Protokoll und Erledigtes kürzen.
+- **von Diogenes (02.11., 19:4x, 485 Wochentermine):** Morgenmeldung (`LISTE-BETRIEB.md` Schritt 10, `meldung.sh --laut`, Mo–Fr 7 Uhr, Sa/So 9 Uhr) laut `meldungen.tsv` 28.10.–02.11. an keinem Tag zur Zeit: Ford-Meldungen vor 10 Uhr nur 28.10., 03:04 (389) und 29.10., 09:05 (194.1); 30.10.–02.11. keine. Ist sie anders gegangen, bitte Quelle nennen, sonst nachziehen.
 - **von Perikles (02.11., 02:41, 464.1, Befund D61.1):** die Tageszahl roter Läufe fehlt im Protokoll (`ROLLE-BETRIEB.md` 464); bitte je Lauf eine Zeile „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll fortschreiben, der Tagesbericht liest sie.
 
 - **von Jerry (01.11., 09:52, zu 416.4a):** Chef 01.11., 08:56 in der Sitzung Jerry – 438: „Binde alle Repos ein, die du zum Arbeiten benötigst“; add_repo ging danach durch (vorher vom Filter abgelehnt). Am Rechner nötig, was der Godot-Ablauf nicht liefert (Messung je Bild mit Protokoll, Film mit Kaufheld); Startsatz für Tom/Jerry danach ausrichten.
@@ -176,3 +178,24 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:05 02.11.: Marke Archiv session_01Hmoj75yTx6DJ3Pcn9MM77y (lauf.py)
 - 13:05 02.11.: Nachfolger-Warnung Diogenes (Übergabe 02.11., 11:59) (lauf.py)
 - 13:05 02.11.: Nachfolger-Warnung Perikles (Übergabe 02.11., 11:39) (lauf.py)
+- 15:33 02.11.: Startsperre 15:33 Start Tom, Jerry, Perikles, Spike, Tuffy (lauf.py)
+- 15:33 02.11.: Marke Archiv-Warnung session_01Hmoj76XUHhCSiR6J7dFHQR (lauf.py)
+- 15:33 02.11.: Marke Archiv session_01Hmoj76cAKWzJUATsjh6Vm7 (lauf.py)
+- 15:33 02.11.: Marke Archiv session_01Hmoj78qSq3kYYp9FMduqqz (lauf.py)
+- 15:33 02.11.: Marke Archiv session_01Hmoj76w57ShWTojhhvZA9r (lauf.py)
+- 15:33 02.11.: Marke Archiv session_01Hmoj77HWSLW1W2EnTGrPc2 (lauf.py)
+- 15:33 02.11.: Marke Archiv session_01Hmoj78RonErzXXyyv3fHgX (lauf.py)
+- 15:4x 02.11.: Ford (Tiefe 3) startet den Plan von 15:33 nicht: Tom (78qS) wartet auf Messläufe 463/417, Jerry (76w5) prüft Lauf 453a um 15:30, beide mit eigenem Weckruf; Spike, Tuffy idle auf Läufe; Perikles-Start „M?“ ist keine Muss und der Verbrauch liegt über Ziel. Archivieren vom Klassifizierer abgelehnt (einmal gemeldet).
+- 16:08 02.11.: Neustart Tom c025282b1 geprüft (auf main, Nachfolger in Übergabe); Tom – 431 gestartet session_01Hmoj76x8cCiqXq1ueQ15XW; alter Tom 78qS bleibt, Archivieren abgelehnt (zweite Ablehnung, einmal gemeldet).
+- 16:14 02.11.: Neustart Jerry 4b77bbc77 geprüft (auf main, Nachfolger in Übergabe); Jerry – 438a gestartet session_01Hmoj7ACQSSeNhA1v7f7r7v; alter Jerry 76w5 bleibt (Archivieren abgelehnt, gemeldet).
+- 18:01 02.11.: Neustart Tom 45ddf843f geprüft; Tom – 417 gestartet session_01Hmoj78iLSmUzj7y6MRMWuJ (Vorgänger 76x8 beendet, Archivieren offen).
+- 18:30 02.11.: Neustart Jerry ab3d3ed28 geprüft; Jerry – 415 gestartet session_01Hmoj771R3v3yXgXTa935az (Vorgänger 7ACQ beendet, Archivieren offen).
+- 18:48 02.11.: Neustart Sokrates 2448ab797 geprüft; Sokrates – Chefrunde gestartet session_01Hmoj79zybXj2rS1xGyodY6 (Vorgänger 7A42 beendet, Archivieren offen).
+- 19:02 02.11.: Auftrag Diogenes 447.4 (Sokrates, Chef 19:00): Diogenes – 447.4 gestartet session_01Hmoj75WBdGFoShniPbessb; alter Diogenes 76sH (idle seit 11:09) bleibt, Archivieren offen.
+- 19:48 02.11.: Chef „Archivieren und abrechnen“: archiviert alter Ford 78Yo, Sokrates 7A42, Tuffy 78Ro, Spike 77HW, Diogenes 75WB (archive_session ging jetzt durch); gebucht Betrieb 9,57, 416.9 24,31, 453.1 12,67, 470 23,20, 447.4 5,65 $.
+- 19:52 02.11.: Chef archivierte Tom 78qS, Jerry 76w5 von Hand; Kosten (463, 406, 438a, 431) waren schon gebucht, nichts zu tun.
+- 19:52 02.11.: Neustart Jerry 76ce17e7f geprüft; Jerry – 438a gestartet session_01Hmoj7A2jWrJar1ADMFmNoC (Vorgänger 771R beendet, danach archivieren und buchen).
+- 20:03 02.11.: Neustart Diogenes e3ffc83f8: Nachfolger „374“ erst 03.11., 8 Uhr, kein Start; Diogenes 76sH archiviert, gebucht D63.
+- 20:36 02.11.: Neustart Tom 145b20d7d geprüft; Tom – 431 gestartet session_01Hmoj76UyUnBJAbFAjBqnim (Vorgänger 78iL beendet, archivieren und buchen offen); Perikles 75yT Archivieren abgelehnt (20:08).
+- 20:51 02.11.: Neustart Jerry 2ca8e1f3b geprüft; Jerry – 438a gestartet session_01Hmoj7629BdXzi6JfLG4nru (Vorgänger 7A2j beendet); Archivieren offen (Klassifizierer lehnt ab, Chef gebeten).
+- 20:54 02.11.: Neustart Tom 29bdd5f3f geprüft (nach 18 Minuten und 88 Tsd. Token, Haken-Fehlzählung laut Tom, Zu 407); Tom – 416.9 gestartet session_01Hmoj77Mo9MDeyD7SZfNsZr.

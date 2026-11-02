@@ -62,6 +62,7 @@ def kaufdateien(dat):
             break
     return raus
 
+GEPRUEFT = re.compile(r"Geprüft an:?\**\s*(?:\[[^\]]*\]\()?(?:https?://\S+|bilder:\S+|`?[0-9a-f]{7,40}`?|Lauf \d{3,})")
 GILT = ("docs/DESIGN-STIL.md", "docs/DESIGN-KAMPF.md", "docs/DESIGN-ABNAHME.md")  # 461d: wo die Kennungen A–G stehen
 WOHER_NR = re.compile(r"^\s*(?:Test\s+)?(\d{3}(?:\.\d+)?[a-z]?)(?![.:\d])")
 
@@ -170,6 +171,10 @@ def main():
                                   "bleibt die Frage offen: Zeit in Zeile 1 oder 2 der Datei neu setzen" % (p, a[0], a[1].strftime("%d.%m., %H:%M")))
     try: gueltig_pruefen(dat, stop, warn)
     except Exception as e: warn.append("461b-Prüfung übersprungen: %s" % e)
+    for s, p in dat:  # 340.4 (Chef 02.11., 19:44, „340.2 ja“, B): jede Vorlage nennt „Geprüft an: <Link>“, ein Link, kein Wort
+        if s in ("A", "M") and re.match(r"docs/chefsache/(entscheiden|ansehen|billigen)/(?!t\d+-)[^/]+\.md$", p) \
+                and not GEPRUEFT.search(git("show", ":" + p)):
+            stop.append("%s: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort" % p)
     for s, p in dat:
         if s == "D" and p.startswith("docs/chefsache/entscheiden/") and not arch and os.environ.get("BORNIM_ZURUECK") != "1" \
                 and not startbar.ueberholt(os.path.basename(p), git("show", "HEAD:" + p), antwort):

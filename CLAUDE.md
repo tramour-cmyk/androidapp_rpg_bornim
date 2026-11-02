@@ -21,7 +21,7 @@ Android-Rollenspiel (Godot; alte Fassung Kotlin), Regeln nach unserem eigenen Bo
 ## Bekannte Fehler
 
 Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Diogenes schlägt in der Wochenzählung vor, Perikles trägt ein (347).
-- Nie die Uhrzeit schätzen oder weiterrechnen; stattdessen die Zeile „Uhr:“ (Haken, `tools/notiz.sh`) oder `TZ=Europe/Berlin date`; den Stempel am Anfang der Antwort prüft der Stop-Haken.
+- Nie die Uhrzeit schätzen; stattdessen die letzte Zeile „Uhr:“ (hängt der Haken an jedes Werkzeugergebnis, 340.5).
 - Nie einen Helferbefund verschweigen; stattdessen als Text nachsenden, urteilen tut nur der Chef (320, 362, 373, 396).
 - Nie eine Probe nach anderer Methode vorlegen, als später gebaut wird; stattdessen gleich so, wie es aussehen soll (302.3 Tusche als Filter).
 - Nie Inhalte oder einen Stand aus dem Gedächtnis übernehmen; stattdessen in der Quelle nachsehen, beim Stand Vorrat und Archiv (Durchspielbogen: Kampf am Schlagbaum, den es nicht gibt; 13e Höhle als offen geführt).
@@ -51,7 +51,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
   - Kür nur, wenn kein Muss startbar; danach Zeilen „nach dem Meilenstein“; „A“ heißt nur: hält Arbeit an; Zahlen: `python3 tools/startbar.py --stand`.
 - `ARBEIT-BETRIEB.md`: Vorgangszähler, Fords Stellung, Guthaben, Eingang (was keinem gehört), Protokoll.
 - `ARBEIT-BESETZUNG.md`: wer gerade woran; schreibt `tools/lauf.py`, darum haben Vorräte keine Spalte „Wer“.
-- `LISTE-VORGAENGE.md`: je Vorgang eine Zeile (Bereich, Klasse, Kosten, ein Wort Stand). `LISTE-ABNAHME-KAPITEL1.md`: Meilenstein, oben das **Wochenziel**.
+- `LISTE-VORGAENGE.md`: je Vorgang eine Zeile (Bereich, Klasse, Kosten, ein Wort Stand). `PROJEKTPLAN.md`: Stufen, Stand, oben das **Wochenziel**.
 - **Chefsache** `docs/chefsache/`: was der Chef entscheiden oder ansehen soll. **Vorgangsarchiv** `docs/VORGANGSARCHIV.md`: was entschieden ist.
 - `DESIGN-…`, `STORY-…`, `LISTE-…` nur, wenn die Aufgabe es braucht.
 - **Idee** (auch des Chefs) heißt prüfen, nicht bauen. Passt sie zu einem Vorgang: dorthin; sonst `LISTE-IDEEN.md`, ebenso jede Kür ohne Zweig, Termin oder angefangene Arbeit; unsicher → Sokrates. Sonntags urteilt Homer, montags holt Perikles Reifes; verwerfen nur der Chef.
@@ -89,7 +89,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
   - eine Übergabe je Rolle, oben im Vorrat: nur Getanes und Nachfolger, kein Stand; die alte ersetzen; vor Pause oder Neustart pushen.
 - **Story und Dialoge:** Plot und Texte legen Chef und Homer fest; Verzeichnis `STORY-REGELN.md`, über die Marke `[Thema.kurz]` suchen, wortgetreu übernehmen, Englisch selbst übersetzen. Fehlt ein Text: Vorgang an Homer, nie erfinden. Tippfehler direkt korrigieren (Commit „Text:“).
 - **Chefsache:** je Punkt eine Datei, jeder nur seine; beantwortet heißt weg, im selben Commit wie die Antwort (383.3; Regeln `docs/chefsache/README.md`, Bilder höchstens 60 KB); im Chat nur Nummern. Entschieden wird in der Chefrunde mit Sokrates (`ROLLE-BERATUNG.md`).
-- **Begriffe** (auch im Spiel): **Vorgang** („Vorgang 72s.1“, in Meldungen „72s.1:“; nicht „Thema“, nicht „Nummer“). **Landkarte** → **Gebietskarte** (unter freiem Himmel) → **Grundriss** (hinter einem Eingang); übereinanderliegende Teile eines Grundrisses: **Ebene** (nie „Stockwerk“, nie für Kartenstufen). Kampfsystem **MARS**; wo gekämpft wird: **Kampfort** (nie „Bühne“). Menschen an der Seite des Helden: **Gefährte** oder **Söldner**, sonst **Begleiter**. Erster Schirm mit Auswahl: **Hauptmenü** (nie „Titelbild“; 292).
+- **Begriffe** (auch im Spiel): **Vorgang** („Vorgang 72s.1“, in Meldungen „72s.1:“; nicht „Thema“, nicht „Nummer“, nie „Blatt“; was beim Chef liegt: „Vorgang beim Chef“, 480). **Landkarte** → **Gebietskarte** (unter freiem Himmel) → **Grundriss** (hinter einem Eingang); übereinanderliegende Teile eines Grundrisses: **Ebene** (nie „Stockwerk“, nie für Kartenstufen). Kampfsystem **MARS**; wo gekämpft wird: **Kampfort** (nie „Bühne“). Menschen an der Seite des Helden: **Gefährte** oder **Söldner**, sonst **Begleiter**. Erster Schirm mit Auswahl: **Hauptmenü** (nie „Titelbild“; 292).
 - **Ford steht:** kommt um 7 Uhr (Sa, So, Urlaub 9 Uhr) keine Morgenmeldung, ein Wort an Team Tom oder Perikles („Ford-Wache“, `LISTE-BETRIEB.md`).
 
 ## Technik und Sicherheit
