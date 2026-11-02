@@ -13,7 +13,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [406a](entscheiden/406a-schlussfilm-angehalten.md) | **Muss** | E Kampf | 02.11., 13:18 | Schlussfilm Schilde angehalten: neue Läufe frei? | Jerry |
 | [415b](entscheiden/415b-strahlen-dritter-lauf.md) | **Muss** | C Kampf | 02.11., 13:13 | Strahlenprobe: Film angehalten, dritter Lauf oder Handy? | Jerry |
 | [348.12b](entscheiden/34812b-grak-koerper.md) | **Muss** | E Kampf | 01.11., 21:00 | Grak-Film vorab auf seinem alten Körper? | Sokrates |
-| [474a](entscheiden/474a-debug-schluessel.md) | M? | E Technik |  | Debug-Schlüssel als Geheimnis statt im Cache? · Tom · 02.11., 13:4x |  |
+| [474a](entscheiden/474a-debug-schluessel.md) | M? | E Technik | 02.11., 13:44 | Debug-Schlüssel als Geheimnis statt im Cache? | Tom |
 
 ## Zu billigen
 
