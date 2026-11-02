@@ -44,6 +44,15 @@ func _process_modification_with_delta(_delta: float) -> void:
 				_griff[i][bi] = sk.get_bone_pose_rotation(bi)
 			elif _griff[i].has(bi):
 				sk.set_bone_pose_rotation(bi, _griff[i][bi])
+	# 438a Vergleich (Lauf 197: beim Aufstehen steckt schon der Griff 3,7 cm im Kleid am rechten Oberschenkel, Drehen um ihn hilft
+	# nicht): Schwertarm abspreizen, nur in sturz_438a (figur.spreizen_grad), weich hinein und heraus
+	if float(figur.spreizen_grad) > 0.0 and figur.griff_ort.has("R") and figur.anim != null \
+			and String(figur.anim.current_animation).begins_with(figur.STURZ_BEWEGUNG[1]):
+		var pos: float = figur.anim.current_animation_position
+		var lang: float = figur.anim.current_animation_length
+		var gew := clampf(pos / 0.25, 0.0, 1.0) * clampf((lang - pos) / 0.3, 0.0, 1.0)
+		if gew > 0.0:
+			_spreizen(sk, deg_to_rad(float(figur.spreizen_grad)) * gew)
 	var xs := sk.global_transform
 	var y0: float = figur.global_position.y + FREI
 	var beine := []
@@ -114,3 +123,19 @@ func _knochen(sk: Skeleton3D) -> bool:
 				sp.append([a, b])
 		_spitzen.append(sp)
 	return true
+
+
+## 438a Vergleich: dreht den rechten Oberarm um [ang], so dass die Hand vom rechten Oberschenkel weggeht (Unterarm, Hand, Waffe gehen mit)
+func _spreizen(sk: Skeleton3D, ang: float) -> void:
+	var e: Array = _arm[1]
+	var th := sk.find_bone("thigh_r")
+	var ca := sk.find_bone("calf_r")
+	if th < 0 or ca < 0:
+		return
+	var go := sk.get_bone_global_pose(e[2])
+	var hand := sk.get_bone_global_pose(e[0]).origin
+	var q := Geometry3D.get_closest_point_to_segment(hand, sk.get_bone_global_pose(th).origin, sk.get_bone_global_pose(ca).origin)
+	var ax := (hand - go.origin).cross(hand - q)
+	if ax.length() < 1e-6:
+		return
+	sk.set_bone_global_pose(e[2], Transform3D(Basis(ax.normalized(), ang) * go.basis, go.origin))

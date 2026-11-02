@@ -821,7 +821,10 @@ const BODEN_ZURUECK := 0.12     # je Bild so viel zurück zur Lage aus dem Griff
 const FUSS_KAPSELN := [["foot_l", "ball_l", 0.05], ["foot_r", "ball_r", 0.05], ["calf_l", "calf_l", 0.11], ["calf_r", "calf_r", 0.11],
 	["calf_l", "foot_l", 0.08], ["calf_r", "foot_r", 0.08]]
 const HALTEARM := {"R": [9, 11], "L": [8, 10]}     # MENSCH_KAPSELN: Ober- und Unterarm, der hält, darf die Waffe berühren
-var schutz_variante := 0        # 438a Vergleich in sturz_438a: 1 = Hautpunkte nach dem Drehen neu, tief drin ohne Grenze je Bild
+var schutz_variante := 0        # 438a Vergleich in sturz_438a: 1 = Hautpunkte nach dem Drehen neu, tief drin ohne Grenze je Bild;
+#                                 2 = je Punkt der Achse gegen alle Beinecken um die Waffe (Lauf 197: 1 Hautpunkt sah 0,3 cm, gemessen 11,6)
+var spreizen_grad := 0.0        # 438a Vergleich in sturz_438a: Schwertarm beim Aufstehen so weit vom rechten Bein weg (bodenhalt.gd)
+var mess_us := 0                # 438a Messung: Zeit von _boden_schutz in diesem Bild, µs
 var messen := false             # 438a: sturz_438a liest mess_schutz je Bild (sonst nichts gerechnet)
 var mess_schutz := {}
 var _boden_teile := []          # je Waffe [Netz, Lage aus dem Griff, Hülle im eigenen Raum, Skelett, Knochen, Seite, Reichweite,
@@ -867,6 +870,7 @@ func _huelle(w: Node3D) -> PackedVector3Array:
 
 
 func _boden_schutz() -> void:
+	var t_us := Time.get_ticks_usec()
 	if messen:
 		mess_schutz = {}
 	var y0 := global_position.y + BODEN_FREI
@@ -932,7 +936,7 @@ func _boden_schutz() -> void:
 		# Beine selbst, gemessen wie sturz_438a (je Punkt der Achse die nächste Ecke, ihre Normale)
 		var haut := []
 		if t[5] == "R" and (sturz or korrigiert or stab_frei) and t.size() > 8:
-			haut = _haut_nah(sk, g, t)
+			haut = _haut_nah(sk, g, t, schutz_variante == 2)
 		var vor_h := _haut_tiefe(g, t, haut) if messen else 0.0
 		var r1: Array = _loesen(g, t, nah, frei, y0, 24, 20, haut)
 		if schutz_variante == 1 and not haut.is_empty():
@@ -971,6 +975,8 @@ func _boden_schutz() -> void:
 		g = r2[0]
 		w.transform = par.affine_inverse() * g if r1[1] or r2[1] else lokal
 		t[7] = w.transform
+	if messen:
+		mess_us = Time.get_ticks_usec() - t_us
 
 
 ## 438a Runde 4: Halbmesser der Beinkapseln (Index in [liste] -> m) aus Haut und Kleidung dieses Körpers, in der ersten Pose im Kampf einmal je
@@ -1167,13 +1173,18 @@ func _bein_ecken(sk: Skeleton3D) -> Array:
 
 ## Ecken der Beine nahe der Waffe in der Welt, so wie man sie jetzt sieht; davon je Punkt der Achse die nächste (höchstens
 ## HAUT_SUCHE): [[Ort, Normale], …] (wenige; _loesen dreht nur gegen diese)
-func _haut_nah(sk: Skeleton3D, g: Transform3D, t: Array) -> Array:
+## [alle] (438a V2): alle Ecken im Bereich, den die Waffe beim Drehen um den Griff erreicht; _haut_tiefste nimmt dann je Punkt der Achse
+## in jeder Lage die nächste von ihnen, wie sturz_438a misst
+func _haut_nah(sk: Skeleton3D, g: Transform3D, t: Array, alle := false) -> Array:
 	var ax: Array = t[8]
 	if ax.is_empty():
 		return []
 	var a: Vector3 = g * (ax[0] as Vector3)
 	var z: Vector3 = g * (ax[1] as Vector3)
 	var box := AABB(a, Vector3.ZERO).expand(z).grow(HAUT_SUCHE)
+	if alle:
+		var rw := maxf(g.origin.distance_to(a), g.origin.distance_to(z)) + HAUT_SUCHE
+		box = AABB(g.origin - Vector3.ONE * rw, Vector3.ONE * 2.0 * rw)
 	var gs := sk.global_transform
 	var pos := PackedVector3Array()
 	var nor := PackedVector3Array()
@@ -1200,6 +1211,11 @@ func _haut_nah(sk: Skeleton3D, g: Transform3D, t: Array) -> Array:
 				nor.append(n.normalized())
 	if pos.is_empty():
 		return []
+	if alle:
+		var voll := []
+		for j in pos.size():
+			voll.append([pos[j], nor[j]])
+		return voll
 	# je Punkt der Achse die nächste Ecke (wie sturz_438a); mit Drehungen bis 20° je Bild bleiben es dieselben Stellen
 	var wahl := {}
 	var l := a.distance_to(z)

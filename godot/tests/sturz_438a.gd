@@ -47,11 +47,13 @@ func _run() -> void:
 		return
 	var hilfe = Schild406.new()
 	_hilfe = hilfe
-	# Lauf 190: je Klasse der Schutz wie gebaut (V0) und der Vergleich V1 (figur.gd schutz_variante)
-	for kv in [["FIGHTER", 0], ["CLERIC", 0], ["FIGHTER", 1], ["CLERIC", 1]]:
+	# Lauf 190: je Klasse der Schutz wie gebaut (V0) und der Vergleich V1 (figur.gd schutz_variante); Lauf 197: V1 half nicht (12 cm,
+	# Zucken 69,6°), jetzt V2 (je Punkt der Achse gegen alle Beinecken) und Schwertarm beim Aufstehen abgespreizt (A15, A30, bodenhalt.gd)
+	for kv in [["FIGHTER", 0, 0.0], ["FIGHTER", 0, 15.0], ["FIGHTER", 0, 30.0], ["CLERIC", 0, 0.0], ["CLERIC", 0, 30.0],
+			["FIGHTER", 2, 0.0], ["FIGHTER", 2, 30.0], ["CLERIC", 2, 0.0], ["CLERIC", 2, 30.0]]:
 		var p = Probe.new()
 		p.hero_cls = kv[0]
-		var k: String = kv[0] + ("" if kv[1] == 0 else " V1")
+		var k: String = kv[0] + ("" if kv[1] == 0 else " V%d" % kv[1]) + ("" if kv[2] == 0.0 else " A%d" % int(kv[2]))
 		p.merc_cls = "FIGHTER" if kv[0] != "FIGHTER" else "CLERIC"
 		p.foe = "WOLVES"
 		root.add_child(p)
@@ -67,6 +69,7 @@ func _run() -> void:
 		hilfe._haut_lesen(sk)
 		fig.messen = true
 		fig.schutz_variante = kv[1]
+		fig.spreizen_grad = kv[2]
 		var schild: Node = fig.model.find_child("Schild", true, false)
 		var sm: Node3D = (schild.find_children("*", "MeshInstance3D", true, false)[0] if not schild is MeshInstance3D else schild) if schild else null
 		var klinge: Node3D = null
@@ -78,8 +81,12 @@ func _run() -> void:
 		var finger := _haut_maske(sk, _teilbaum(sk, ["hand_l"]).filter(func(b): return sk.get_bone_name(b) != "hand_l"), true)
 		var werte := {}     # Bewegung -> [Schildnetz m, Klinge in Kapsel m, im Boden m, Waffe in Haut m, Finger vor dem Schild m, Hand offen m, wo]
 		# nach den Schichten (skeleton_updated, nach figur.gd): die Pose, die man sieht, mit bodenhalt.gd
-		var mess := {"vorher": {}, "vorvorher": {}, "sprung": 0.0, "zuck": 0.0, "hand": -INF, "wo": "", "zwo": "", "q": {}, "qq": {}, "satz": 0.0, "ueber": -INF, "uwo": ""}
+		var mess := {"vorher": {}, "vorvorher": {}, "sprung": 0.0, "zuck": 0.0, "hand": -INF, "wo": "", "zwo": "", "q": {}, "qq": {}, "satz": 0.0, "ueber": -INF, "uwo": "",
+			"us": 0, "us_sum": 0, "us_n": 0}
 		var nach := func() -> void:
+			mess.us = maxi(mess.us, fig.mess_us)     # 438a V2: was der Schutz je Bild kostet
+			mess.us_sum += fig.mess_us
+			mess.us_n += 1
 			# Runde 3 (Lauf 160: Fingerspitzen unverändert, obwohl bodenhalt.gd die Faust hält): Knochen nur hier so, wie man sie sieht;
 			# außerhalb von skeleton_updated liest man die Pose ohne die Modifier (bodenhalt.gd)
 			_runde3(fig, sk, klinge, schild, haut, finger, werte, String(fig.anim.current_animation))
@@ -173,6 +180,7 @@ func _run() -> void:
 		_check(mess.zuck <= maxf(ZUCK_GRAD, mess.satz), "%s: Waffe und Schild zucken höchstens %.1f° hin und zurück (%s; der Satz selbst %.1f°); je Bild höchstens %.1f° (%s)" % [k, mess.zuck, mess.zwo, mess.satz, mess.sprung, mess.wo])
 		_check(mess.ueber <= 0.0, "%s: Waffe und Schild je Bild höchstens %.0f° oder %.0f° über dem Satz gedreht (schlimmstes Bild %s; größte Drehung %.1f° bei %s)" % [k, SPRUNG_GRAD, SPRUNG_PLUS, mess.uwo, mess.sprung, mess.wo])
 		_check(mess.hand <= HAND_GRENZE, "%s: Hände höchstens %.3f m im Boden" % [k, mess.hand])
+		print("  %s: Schutz je Bild höchstens %.1f ms, im Mittel %.2f ms (Rechner des Ablaufs)" % [k, mess.us / 1000.0, mess.us_sum / 1000.0 / maxf(mess.us_n, 1)])
 		p.queue_free()
 		await process_frame
 	print("STURZ 438a %s" % ("gut" if fails == 0 else "FALSCH %d" % fails))
