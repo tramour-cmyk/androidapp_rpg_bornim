@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [468a](entscheiden/468a-verbrauch-halbieren.md) | **Muss** | M Betrieb | 02.11., 21:34 | Verbrauch halbieren bis zur Zurücksetzung Sa 20:00? | Sokrates |
 | [415d](entscheiden/415d-effektpakete-kauf.md) | **Muss** | C Kampf | 02.11., 20:06 | Effektpakete kaufen, sobald der Handytest läuft? | Sokrates |
 | [432.3](entscheiden/4323-aschgeborene-merkmal.md) | M? | C Texte | 02.11., 19:57 | Aschgeborene: Name des Merkmals (Aschenerbe?), Liste, Text, Orte des Zeichens | Homer |
 | [466](entscheiden/466-meisterschaft-stufen.md) | M? | C Texte | 02.11., 19:39 | Stufen der Meisterschaften ohne „Meister“ | Homer |
@@ -106,11 +107,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 | Pflege | K | von Werkzeug (340.3, 02.11.): 23572 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 56, Muss 43, startbar 2
+**Jerry** – offen 56, Muss 43, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 487 | M | von Perikles (Wochenziel 02.11. Reihe 6 „Jerry stellt zusammen“; Hinweis Team Tom 21:1x): | startbar |
+| 487 | M | von Perikles (Wochenziel 02.11. Reihe 6 „Jerry stellt zusammen“; Hinweis Team Tom 21:1x): | wartet auf Test/Build (gebaut) |
 | 478 | M | von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv): Rechenkern des Kampfs schon in Stufe | ruht |
 | 481.1 | M | von Sokrates (Archiv 427): Tränke in sim444 (Zu 481 in ARBEIT-BERATUNG.md), Herkünfte neu | wartet auf Test/Build (gebaut) |
 | 473 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.4 Monsterwerte Kapitel 1 nach Rechenm | wartet auf Test/Build (gebaut) |
@@ -165,7 +166,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | 469 | M | von Sokrates (02.11., 11:0x, zu 406.1): Kampf auf BRS: Ring (MARS) ohne Klassen regeln (An | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
-| Pflege | K | von Werkzeug (340.3, 02.11.): 16081 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 02.11.): 15289 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 30, Muss 27, startbar 2
 
@@ -200,7 +201,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | wartet auf Test/Build (gebaut) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
-| Pflege | K | von Werkzeug (340.3, 02.11.): 15505 Bytes (Grenze 15000), Erledigtes streichen; CLAUDE.md: | startbar |
+| Pflege | K | von Werkzeug (340.3, 02.11.): 16023 Bytes (Grenze 15000), Erledigtes streichen; CLAUDE.md: | startbar |
 
 **Diogenes** – offen 10, Muss 8, startbar 1
 
@@ -222,7 +223,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 461b.4 | M | von Perikles (deine Liste 461b, 02.11., 19:1x, Punkte 7, 9): Köpfe von DESIGN-SPIELSYSTEM- | startbar |
-| 468 | M | von Chef (02.11., 07:33, Bild „Nutzung“: 36 %): weiter mit Wächter bis Sa 19:59 (ja 11:13, | startbar |
+| 468 | M | von Chef (02.11., 07:33, Bild „Nutzung“: 36 %): weiter mit Wächter bis Sa 19:59 (ja 11:13, | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 415d | M | von Chef (02.11., 20:05, „Hatten wir nicht weitere Effekte vorgesehen?“): Kauf der zwei Ef | Chef (Datei in der Chefsache) |
 | 483 | M | von Chef (02.11., 19:08, „Das mit den Filmen klappt nicht, da ich konstant wieder Fehler a | wartet auf Perikles |
 | 481 | M | von Chef (02.11., 18:54, „Herkünfte auch“; 18:55 Kräutersammler mit Tränken, Zu 481): Herk | startbar |
@@ -254,7 +255,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (Chef) |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | ruht |
 | D63.7 | K | von Diogenes (434, Vortag 01.11.): entscheiden/3761-kettenhemd-heldin.md (20:55) ohne Zeil | startbar |
-| Pflege | K | von Werkzeug (340.3, 02.11.): 16653 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
+| Pflege | K | von Werkzeug (340.3, 02.11.): 16371 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
