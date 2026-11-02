@@ -17,6 +17,59 @@ const AXT_FASSUNGEN := [[0.0, 0.0], [0.5, 0.0], [1.0, 0.0], [0.0, 0.15], [0.5, 0
 const GLEIT_ERLAUBT := 5.0      # %: Standfuss gegen den Boden (Pruefer 00:53: 17-28 %)
 var fehler := 0
 
+# Film 02:2x (tragprobe FILMGLEIT: Rennen 10-22 % Betrag, einzeln abgespielt 0-4 %): der Ablauf des Films ohne Bild (FILM_FOLGE, Held.tempo_schritt,
+# wechsel, takt, advance), je Abschnitt ab 0,8 s der Standfuss im Raum mit Vorzeichen (+ = gleitet vorwaerts mit der Figur, - = rueckwaerts),
+# Median und Betrag, dazu speed_scale und Tempo; zeigt, ob das Rutschen im Abspielen steckt und wo
+func film_nach(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, gang: String, wer: String) -> void:
+	var g := "_" + gang
+	var w := m.get_parent() as Node3D
+	var p := Vector3.ZERO
+	ap.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
+	ap.play("Stehen"); ap.advance(0.0)
+	var tempo := 0.0
+	var gehen := TragProbe.SPIEL_GEHEN
+	for ai in TragProbe.FILM_FOLGE.size():
+		var b0: String = TragProbe.FILM_FOLGE[ai][0]
+		var nf := int(round(float(TragProbe.FILM_FOLGE[ai][1]) * FPS))
+		var halt: bool = ai + 1 < TragProbe.FILM_FOLGE.size() and TragProbe.FILM_FOLGE[ai + 1][0] == "Stehen"
+		var z := []
+		for f in nf:
+			var moving := b0 != "Stehen"
+			var soll := 0.0 if not moving else (gehen if b0 == "Gehen" else TragProbe.SPIEL_RENNEN)
+			if moving and halt: soll = Held.bremse(soll, float(nf - f) / FPS * gehen * Held.ANLAUF * 2.0, gehen)
+			tempo = Held.tempo_schritt(tempo, soll, gehen, 1.0 / FPS)
+			var want := b0
+			if moving and ap.has_animation(b0 + g): want = b0 + g
+			var vb := 1.0
+			if moving: vb = float(m.get_meta(("gang_" if want != b0 else "") + ("gehen" if b0 == "Gehen" else "rennen") + "_m_je_s", 1.0))
+			if ap.current_animation != want: Held.wechsel(ap, want, moving, tempo / maxf(0.01, vb) if moving else 1.0)
+			ap.speed_scale = Held.takt(ap, tempo, vb, 1.0 / FPS) if moving else 1.0
+			ap.advance(1.0 / FPS)
+			p += Vector3(0, 0, 1) * tempo / FPS
+			w.position = p
+			await process_frame
+			if f >= int(0.8 * FPS) and moving:
+				z.append([(sk.global_transform * sk.get_bone_global_pose(sk.find_bone("ball_l"))).origin,
+					(sk.global_transform * sk.get_bone_global_pose(sk.find_bone("ball_r"))).origin, tempo, ap.speed_scale, ap.current_animation])
+		if z.size() < 4: continue
+		var vs := []
+		var tm := 0.0; var sp := 0.0
+		for x in z: tm += float(x[2]) / z.size(); sp += float(x[3]) / z.size()
+		for s in [0, 1]:
+			var tief := INF
+			for x in z: tief = minf(tief, (x[s] as Vector3).y)
+			for j in z.size() - 1:
+				var a: Vector3 = z[j][s]; var b: Vector3 = z[j + 1][s]
+				if a.y < tief + 0.02 and b.y < tief + 0.02: vs.append((b.z - a.z) * FPS)
+		if vs.is_empty(): continue
+		vs.sort()
+		var ab := vs.map(func(v): return absf(v)); ab.sort()
+		print("FILMNACH %s %s (Abschnitt %d, %s): Standfuss %+.2f m/s (Median mit Vorzeichen), Betrag %.2f, Figur %.2f m/s, speed_scale %.2f, %d Proben" % [wer, b0, ai,
+			z[-1][4], vs[vs.size() / 2], ab[ab.size() / 2], tm, sp, vs.size()])
+	ap.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_IDLE
+	w.position = Vector3.ZERO
+	ap.speed_scale = 1.0
+
 # Rueckwaertstempo des Standfusses (Ballen, Blick +Z) beim Abspielen, 60 Proben je Umlauf, Median wie HeldFigur.stand_tempo
 func stand_abspielen(ap: AnimationPlayer, sk: Skeleton3D, bew: String, lang: float) -> float:
 	var n := 60
@@ -62,6 +115,7 @@ func _initialize() -> void:
 		var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
 		var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
 		pruefe(String(m.get_meta("gang", "")) == gang, "%s: Gang %s statt %s" % [e[1], m.get_meta("gang", ""), gang])
+		await film_nach(m, sk, ap, gang, String(e[1]))
 		# Lauf 41315361680 und 41320044677: der Schild wurde nie gemessen; Godot benennt den zweiten Knoten „@Tragen@…“ um, darum nach Typ
 		var tl: Array = sk.get_children().filter(func(c): return c is Tragen)
 		pruefe(tl.size() == (2 if gang == "schild" else 1), "%s %s: %d Tragen-Knoten" % [e[1], gang, tl.size()])
