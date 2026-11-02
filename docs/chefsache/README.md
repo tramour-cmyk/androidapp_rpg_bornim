@@ -57,7 +57,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 45, Muss 34, startbar 10
+**Tom** – offen 45, Muss 34, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -73,7 +73,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 399.4 | M | von Chef (21:4x, Archiv); zurück Chef 31.10., 20:4x: oben Rand für die Kamera wie alt: im | startbar |
 | 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf | wartet auf Test (Build) |
 | 410 | M | von Sokrates (Chef 29.10., 10:52, 11:40; aus 376.1): Waffen am Körper wegstecken, alle Waf | ruht |
-| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
+| 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | wartet auf Tom |
 | 455.1 | M | von Sokrates (Chef 01.11., 11:24, „Abzug von … unterschiedlichen Roben, Umhängen oder Stie | wartet auf Tom |
 | 463 | M | von Sokrates (Chef 01.11., 20:3x, Zu 463): Umhang und lange Robe geschlossen: eine Ursache | startbar |
 | 461.1 | M | von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461): Grundstand: alles Entschiedene zu Figure | Chef |
