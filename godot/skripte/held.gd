@@ -199,7 +199,12 @@ func _process(dt: float) -> void:
 	elif weg.size() > 0:
 		var to := weg[0] - position
 		to.y = 0
-		if to.length() < 0.06:
+		# 416.4 (Chef 02.11., 14:36: Rennen zum angetippten Ziel „ruckelt es wie blöd“; ruckeln_4164.gd): an jedem Wegpunkt stand der
+		# Held ein Bild still (Tempo 5 -> 0 -> 5 m/s, viermal je Sekunde); erreichte Wegpunkte gleich hinter sich lassen, nur am Ende halten
+		while to.length() < 0.06 and weg.size() > 1:
+			weg.pop_front()
+			to = weg[0] - position; to.y = 0
+		if to.length() < 0.005:   # 416.4: am Ziel; vorher 6 cm, der letzte Schritt sprang dann in einem Bild (0,9 -> 3 m/s)
 			position = Vector3(weg[0].x, position.y, weg[0].z)
 			weg.pop_front()
 		else:
@@ -221,9 +226,17 @@ func _process(dt: float) -> void:
 		# in kleinen Stuecken, damit ein langes Bild (dt gross) nicht ueber Kanten springt oder zu frueh anstoesst
 		var d := dir.normalized()
 		var rest := tempo * dt
-		if weg.size() > 0 and richtung.length() <= 0.15: rest = minf(rest, Vector2(weg[0].x - position.x, weg[0].z - position.z).length())
+		# 416.4: auf dem Weg ueber Wegpunkte hinweg weiter (vorher endete das Bild am Wegpunkt, der Rest des Schritts fiel weg)
+		var pfad := weg.size() > 0 and richtung.length() <= 0.15
 		while rest > 1e-4:
-			var step := d * minf(rest, 0.08)
+			var bis_punkt := INF
+			if pfad:
+				var zu := Vector3(weg[0].x - position.x, 0, weg[0].z - position.z)
+				if zu.length() < 1e-4:
+					if weg.size() > 1: weg.pop_front(); continue
+					break
+				d = zu.normalized(); dir = d; bis_punkt = zu.length()
+			var step := d * minf(minf(rest, 0.08), bis_punkt)
 			rest -= step.length()
 			var np := position + step
 			var vorn_frei := frei(np) and frei(np + d * RAND)
