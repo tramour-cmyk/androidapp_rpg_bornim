@@ -66,7 +66,6 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht: SRD (Chef 31.10.) | – |
 | 469 | M | **von Sokrates (02.11., 11:0x, zu 406.1):** Kampf auf BRS: Ring (MARS) ohne Klassen regeln (Antwort nach Klasse heute) | wartet auf 406.1 | – |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht: Klang zieht nach Godot; Rest `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
-| D63.6 | K | **von Diogenes (374/434, 01.11.):** fehlende Zeilen „Bestand geprüft“, Homer-Vorgabe, Tor-Prüfung bei 438, 454, 348.12, 453, 453.1 (Zu 374 in `ARBEIT-PRUEFUNG.md`) | offen | – |
 
 ## Einzelheiten
 
