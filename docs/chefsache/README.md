@@ -26,7 +26,6 @@ Nichts offen.
 |---|---|---|---|
 | [415](ansehen/415-strahlenprobe.md) | Strahlenprobe: drei Strahlen aus dem Beams Free Sample im Kampfort | – | 02.11., 19:45 |
 | [447.4](ansehen/4474-lehrmeister-texte.md) | Texte Lehrmeister und Ruf, Kapitel 1 | Homer | 01.11., 20:51 |
-| [453a](ansehen/453a-wolfatem.md) | Wolfsatem B: Vergleichsfilm, drei Fassungen nebeneinander | – | 02.11., 19:47 |
 
 ## Zu tun
 
@@ -126,7 +125,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 457.2 | M | von Perikles (Chef 01.11., 11:49, „unsere Signatur muss sich wiederfinden“): eigene Probes | wartet auf Test/Build (gebaut) |
 | 453.1 | M | von Sokrates (Chef 01.11., 13:0x): Helden im Kampf atmen gleich und zu heftig („hechelt“): | wartet auf Test/Build (gebaut) |
 | 453 | M | von Sokrates (Chef 01.11., 11:05): Wölfe brauchen Ruhebewegungen: atmen, scharren, umblick | wartet auf Test/Build (gebaut) |
-| 453a | M | Wolfsatem B (Archiv) | Chef |
+| 453a | M | Wolfsatem B (Archiv) | wartet auf Test/Build (gebaut) |
 | 454 | M | von Sokrates (Chef 01.11., 11:05): beim Biss zielt die Achse des Wolfs wohl rechts neben d | wartet auf Test/Build (gebaut) |
 | 438a | M | von Sokrates (Archiv 438a): Hinfallen/Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe | wartet auf Test (Build) |
 | 439 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Reihenfolge Angriff, Treffer, Tod, Neuformati | wartet auf Test/Build (gebaut) |
@@ -266,7 +265,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/415-strahlenprobe.md, ansehen/4474-lehrmeister-texte.md, ansehen/453a-wolfatem.md
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/415-strahlenprobe.md, ansehen/4474-lehrmeister-texte.md
 
 Ohne Datei: 3402 (Projekt), 275 (Projekt)
 
