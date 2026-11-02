@@ -251,12 +251,66 @@ def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False):
             waffe_name, l_waffe = "Faustkampf", 1.0
     waffe = W["waffen"][waffe_name]
     schwaeche = mon.get("schwaeche", {})
+    # 427.1: Merkmale (werte.json "merkmale"): Ueberfall (Krogg), Umreissen und Rudel (Grimmzahn); "rauch": Morwens Rauch (D4.1)
+    mk = W.get("merkmale", {})
+    ueb = mk["ueberfall"] if mon.get("ueberfall") else None
+    umr = mk["umreissen"] if mon.get("umreissen") else None
+    rud = mk["rudel"][mon["rudel"]] if mon.get("rudel") else None
+    zust = {"erster": True, "betaeubt": 0, "liegt": False}
+
+    def auf_held(angriff, schaden, faktor=1.0):
+        """Ein Angriff auf den Helden (Monster oder Begleiter); True bei Treffer."""
+        nonlocal leben
+        abw_name, abw = held_abwehr(W, held, mon["art"], waffe_name, l_schild > 0)
+        if rng.random() < trefferchance(W, angriff, abw):
+            s = schaden_roh(W, schaden, angriff, -d_held, rng) * faktor
+            leben -= endschaden(W, s, held_abzug(W, held, bann, l_ruestung, l_schild))
+            if wirt is not None:
+                wirt.nutze("ruestung", held, mon)
+                wirt.nutze("schild", held, mon)
+            rs = W["ruestungen"][held.ruestung]["fertigkeit"]
+            if lernen:
+                if rs:
+                    held.uebe(rs, mon["stufe"])
+                    benutzt.add(rs)
+                if held.schild:
+                    held.uebe("Schild", mon["stufe"])
+                    benutzt.add("Schild")
+            return True
+        if wirt is not None and abw_name == "Schild":
+            wirt.nutze("schild", held, mon, W["wirtschaft"]["abnutzung"]["schild_je_abwehr"])
+        if lernen:
+            held.uebe(abw_name, mon["stufe"])
+            benutzt.add(abw_name)
+        return False
+
+    def gegner_handelt():
+        if ueb and zust["erster"] and mon.get("rauch"):
+            zust["erster"] = False     # der erste Hieb geht im Rauch fehl, mit ihm Wucht und Betaeubung
+        elif ueb and zust["erster"]:
+            if auf_held(mon["angriff"], mon["schaden"], ueb["erster_treffer_faktor"]):
+                zust["erster"] = False
+                if rng.random() < ueb["betaeubt_chance"]:
+                    zust["betaeubt"] = ueb["betaeubt_zuege"]
+        elif auf_held(mon["angriff"], mon["schaden"]):
+            if umr and rng.random() < umr["chance_bei_treffer"]:
+                zust["liegt"] = True
+        if rud:
+            for _ in range(rud["anzahl"]):
+                if leben > 0 and rng.random() < rud["chance"]:
+                    auf_held(mon["angriff"] + rud["angriff_verschiebung"], mon["schaden"] * rud["schaden_anteil"])
+
     runde = 0
+    if ueb and ueb["gegner_zuerst"]:
+        gegner_handelt()
+        if leben <= 0:
+            return {"sieg": False, "runden": 0, "leben": 0.0, "benutzt": benutzt}
     while runde < W["lauf"]["max_runden"]:
         runde += 1
         # ---- Held handelt
         aktion = None
-        if tier_zuerst and runde == 1:
+        if (tier_zuerst and runde == 1) or zust["betaeubt"] > 0:
+            zust["betaeubt"] = max(0, zust["betaeubt"] - 1)
             aktion = "warten"
         elif wirt is not None and leben < lmax * W["wirtschaft"]["traenke"]["trinken_unter"] and wirt.hat_trank():
             aktion = "trank"
@@ -300,6 +354,9 @@ def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False):
                 bonus = k["fernkampf_treffer_je_wahrnehmung"] * held.werte["wahrnehmung"] if waffe["art"] == "fern" else 0.0
                 typ = waffe["typ"]
             fw = held.f(fert_name)
+            if zust["liegt"]:     # 427.1 Umreissen: am Boden, dieser Angriff mit Nachteil
+                bonus += umr["naechster_angriff_treffer"]
+                zust["liegt"] = False
             if rng.random() < trefferchance(W, fw, mon["abwehr"], bonus):
                 s = schaden_roh(W, grund, fw, d_held, rng, k["kritisch_prozent_je_gewandtheit"] * held.werte["gewandtheit"])
                 s *= schwaeche.get(typ, 1.0)
@@ -311,28 +368,8 @@ def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False):
                     benutzt.add(fert_name)
             if mleben <= 0:
                 return {"sieg": True, "runden": runde, "leben": leben / lmax, "benutzt": benutzt}
-        # ---- Monster handelt
-        abw_name, abw = held_abwehr(W, held, mon["art"], waffe_name, l_schild > 0)
-        if rng.random() < trefferchance(W, mon["angriff"], abw):
-            s = schaden_roh(W, mon["schaden"], mon["angriff"], -d_held, rng)
-            leben -= endschaden(W, s, held_abzug(W, held, bann, l_ruestung, l_schild))
-            if wirt is not None:
-                wirt.nutze("ruestung", held, mon)
-                wirt.nutze("schild", held, mon)
-            rs = W["ruestungen"][held.ruestung]["fertigkeit"]
-            if lernen:
-                if rs:
-                    held.uebe(rs, mon["stufe"])
-                    benutzt.add(rs)
-                if held.schild:
-                    held.uebe("Schild", mon["stufe"])
-                    benutzt.add("Schild")
-        else:
-            if wirt is not None and abw_name == "Schild":
-                wirt.nutze("schild", held, mon, W["wirtschaft"]["abnutzung"]["schild_je_abwehr"])
-            if lernen:
-                held.uebe(abw_name, mon["stufe"])
-                benutzt.add(abw_name)
+        # ---- Monster handelt (427.1: mit Merkmalen, danach das Rudel)
+        gegner_handelt()
         if leben <= 0:
             return {"sieg": False, "runden": runde, "leben": 0.0, "benutzt": benutzt}
     return {"sieg": False, "runden": runde, "leben": leben / lmax, "benutzt": benutzt, "remis": True}
@@ -823,7 +860,7 @@ def bericht(W, ergebnisse, variante_ergebnisse, args):
     a("- **Herkunft:** Punkteverteilung, Waffe und Rüstung je Herkunft gesetzt (Tabelle unten). Wanderer als Kampfbau (Schwert, Ausweichen).")
     a("- **Rüstungswerte:** leicht 1, mittel 3, schwer 5, Schild 2; Abzug = Rüstung × (1 + Rüstungsfertigkeit/100) + Schild × (1 + Schild/100).")
     a("- **Zauber:** Funkenpfeil Grundschaden 6, 4 Mana; Wundsegen heilt (6 + Wille) × (1 + Heilmagie/100) unter halbem Leben, 5 Mana; Bannschild Rüstung +2 in Runde 1, 4 Mana. Ohne Mana Stab (Stumpfe Waffe, Fertigkeit 0).")
-    a("- **Kampf:** eins gegen eins, Held schlägt zuerst, Streuung ±20 %, kein Hinterhalt, keine Merkmale außer Skelett (Stumpfes × 1,5) und Ockerschleim (Klingen × 0,5); Leben und Mana voll vor jedem Kampf; höchstens 60 Runden.")
+    a("- **Kampf:** eins gegen eins, Held schlägt zuerst, Streuung ±20 %, kein Hinterhalt; Merkmale nur Skelett (Stumpfes × 1,5), Ockerschleim (Klingen × 0,5) und seit 427.1 Krogg (Überfall: er schlägt zuerst, erster Treffer × 1,6, zur Hälfte betäubt einen Zug; „mit Rauch“: der erste Hieb geht fehl) und Grimmzahn (Umreißen: bei Treffer zur Hälfte am Boden, nächster Angriff −25 Prozentpunkte; Leibwache: 2 Wölfe, je 55 % je Runde, Angriff −10, Schaden × 0,31, fliehen mit ihm); Zahlen in `werte.json` „merkmale“; Leben und Mana voll vor jedem Kampf; höchstens 60 Runden.")
     a("- **Üben:** 1 Übung je Treffer (Waffe, Zauber), je erlittenem Treffer (Rüstung, Schild), je Fehlschlag des Gegners (beste Abwehr); × (1 + (Gegnerstufe − Heldenstufe)/5), 0,2 bis 1,5. Bedarf für +1: (Wert + 10)/5.")
     a("- **Ränge Kapitel 1:** Decke 24, Bewährungsprobe = 3 Siege gegen Gegner mindestens der eigenen Stufe mit dieser Fertigkeit, dann Decke 49; Puffer 15 Übung.")
     a("- **Erfahrung aus Fertigkeiten:** je 5 Punkte 20 × Heldenstufe, Deckel 40 % des Stufenbedarfs; Probe 25 × Heldenstufe.")
@@ -1009,6 +1046,10 @@ def main():
     p.add_argument("--ohne-wirtschaft", action="store_true", help="Abschnitt 5 nicht rechnen")
     args = p.parse_args()
     W = lade(args.werte)
+    # 427.1: Boss mit Ueberfall auch mit Morwens Rauch (D4.1: der erste Hieb geht fehl), nur in Bossen und Matrix
+    for n, m in list(ohne_info(W["monster"]).items()):
+        if m.get("ueberfall"):
+            W["monster"][n + " mit Rauch"] = dict(m, rauch=True)
     if args.pruefen:
         sys.exit(1 if pruefen(W) else 0)
     kaempfe = args.kaempfe or W["lauf"]["kaempfe_je_fall"]

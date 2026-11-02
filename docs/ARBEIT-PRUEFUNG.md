@@ -11,6 +11,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
+| 340.2 | M | **von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv):** Wirkung 340.3–340.5 zählen (Tabelle „Änderungen“ in `LISTE-ROLLENSPIEGEL.md`, Spalte „gewirkt“) | ruht bis Mo 09.11. |
 | 485 | M | **„jetzt“ 02.11., 19:37 (Chef: „1, 2, 3 ja, fang an.“, Rollenspiegel 02.11.):** (1) Wochenzählung zählt fällige Wochentermine „gelaufen ja/nein“; (2) 348.9 Blätter selbst aus `meldungen.tsv` holen und messen; (3) jede Meldung vor dem Senden ohne Abkürzungen, für den Chef lesbar (Zu 485) | startbar |
 | 483 | M | **von Perikles (Doppelpack 421, 02.11., 19:4x):** `meldung.sh --film` legt je Film einen Zweig `film/<Zeit>-<Nr>` mit nur dieser Datei an, Link über jsDelivr; prüfen am nächsten echten Film (Link spielt ab, Blatt in `ansehen/` hat ihn) | startbar |
 | 461b | M | **von Sokrates (Chef 01.11., 22:26, „461b ja“, Archiv):** Kennzahl Widersprüche: montags Stichprobe Vorgangsarchiv gegen Grundstand (`LISTE-GRUNDSTAND-461.md`), Zahl der Stellen, an denen Überholtes ohne „→ ersetzt durch …“ steht oder der Grundstand dem neuesten Entscheid widerspricht | ruht bis Mo 09.11. (02.11. gezählt: Zu 461b) |
