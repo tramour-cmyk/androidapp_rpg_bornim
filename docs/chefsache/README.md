@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [468](entscheiden/468-sparplan.md) | **Muss** | B Abläufe | 02.11., 07:35 | Sparplan bis Samstag 19:59 | Sokrates |
 | [453a](entscheiden/453a-wolf-atem-sichtbar.md) | **Muss** | E Kampf | 02.11., 00:57 | Wolfsatem aus der Kampfkamera sichtbar: wie? (Empfehlung: :) | Tuffy (Zusatzentwickler Team Jerry) |
 | [406.1](entscheiden/4061-schildstoss.md) | **Muss** | E Kampf | 01.11., 22:35 | Schildstoß: Block und Konter am Ring für jeden mit Schild, als Angriff erst für den Wächter? (Empfehlung: :) | Jerry |
 | [348.12j](entscheiden/34812j-grak-axt.md) | **Muss** | E Kampf | 01.11., 22:03 | Graks Axt: Kopf oben (wie abgenommen) oder hängend (Grundstand E6)? (Empfehlung: :) | Jerry |
@@ -230,10 +231,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | startbar |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 31, Muss 23, startbar 13
+**Sokrates** – offen 32, Muss 24, startbar 13
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 468 | M | von Chef (02.11., 07:33, Bild „Nutzung“: 36 %, Limit Mittwochnacht leer): Sparplan bis Sa | Chef (Datei in der Chefsache) |
 | 461b | M | von Chef (01.11., 22:23, „Wer prüft denn nach, dass nicht gegensätzliche Entscheidungen an | startbar |
 | D62.1 | M | von Diogenes (461b, Zählung 02.11., 02:4x): Archiv „376.1, Klassen und Köpfe“ (29.10., 10: | startbar |
 | 348.12b | M | von Chef (Chefrunde 01.11.): Grak-Film vorab auf altem Körper? | Chef (Datei in der Chefsache) |
