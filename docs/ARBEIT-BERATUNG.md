@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (02.11., 21:3x, `session_01Hmoj79zybXj2rS1xGyodY6`):** entschieden 427, 474a, 483, 340.2, 453a, 415, 479, 427.1, 431, 417a; neu 481, 427.2, 415d; BRS nach 466; 461b Liste an den Chef; Säureschnecke im Bestiarium (461b.4 Punkt 9). Kosten auf: 427, 474, 483, 340, 453, 415, 479, 431, 417, 461, 481, 466. Nachfolger: Sokrates – Chefrunde: 415d, 432.3, 466; dann 461b.4, 481 (02.11., 21:27)
+**Übergabe (02.11., 22:0x, `session_01Hmoj78UdwDM4ji11rqe7fk`):** Chefrunde: entschieden 468a (mit Spike, die anderen machen fertig), 466 A, 415d ja, 432.3 1A, 2 ja; BRS nachgetragen (466, Aschenerbe); Hinweis an Jerry zu 415 (Termin Handytest). Kosten auf: 468, 466, 415, 432. Nachfolger: keiner bis Sa 07.11., 20:00 (468a: Sokrates nur auf Zuruf); dann Sokrates – 461b.4, 481 und Prüfung 468.
 
 ## Zeilen
 
