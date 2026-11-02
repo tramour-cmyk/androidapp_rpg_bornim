@@ -102,7 +102,7 @@ jobs:
           # 376.1 Urteil Tracht (Chef 01.11., 20:2x): was die Kamera sieht, Flecken in Umhang und Robe (pruef_flecken.py), ringsum und von hinten
           for k in WACHE_M:roh_held_m:cloak WACHE_W:roh_held_w:cloak ROBE_M:roh_held_wizard_m:robe,chain ROBE_W:roh_held_wizard_w:robe,chain; do
             IFS=: read n r h <<< "$k"
-            GLB=$Z/held_$n.glb ROH=$Z/roh/held_$n.blend TEILE=$Z/$r/teile.json UAL=$UAL HUELLE=$h AUF=0.01 BILDER=4 RUECK=0.04 timeout 1500 bl/bin/python -I tools/blender348/v3/pruef_flecken.py > probe/flecken-$n.log 2>&1 || echo "pruef_flecken $n $?"
+            GLB=$Z/held_$n.glb ROH=$Z/roh/held_$n.blend TEILE=$Z/$r/teile.json UAL=$UAL HUELLE=$h AUF=0.01 BILDER=4 RUECK=0.04 WEG="robe:belt+buckle+cuff:0.03&sleeves:cuff:0.03" timeout 1500 bl/bin/python -I tools/blender348/v3/pruef_flecken.py > probe/flecken-$n.log 2>&1 || echo "pruef_flecken $n $?"
             echo "== $n"; grep -E "^(FLECKEN|FEHLT|VORRANG|RUECK|WEG|LOCH)" probe/flecken-$n.log | cut -c1-500
           done
       - uses: actions/cache@v4
