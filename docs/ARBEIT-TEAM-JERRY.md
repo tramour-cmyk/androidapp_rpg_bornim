@@ -12,7 +12,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 478 | M | **von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv):** Rechenkern des Kampfs schon in Stufe 1 auf BRS (Modell D: Treffer, Schaden, Abzug; Held mit Leben, Angriff, Abwehr nach BRS), Darstellung bleibt bis 2.3; erst genau schätzen: über 2 Sitzungen → Chef (dann B) | ruht: 470a B (Chefregel über 2 Sitzungen; geschätzt 3–4, Zu 478; gemeldet 18:1x); Erschaffung mit 2.3 | – |
+| 478 | M | **von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv):** Rechenkern des Kampfs schon in Stufe 1 auf BRS (Modell D), Darstellung bleibt bis 2.3 | ruht: 470a B (geschätzt 3–4 Sitzungen, Zu 478) | – |
 | 427.1 | M | **von Sokrates (Chef 02.11., 18:54, Archiv 427):** Werte Bestiarium „Werte 2.0“ in `werte.json`; sim444 mit Rudel, Umreißen (Grimmzahn), Überfall (Krogg); beide nachmessen, Chefsache | startbar | – |
 | 481.1 | M | **von Sokrates (Archiv 427):** Tränke in sim444 (Zu 481 in `ARBEIT-BERATUNG.md`), Herkünfte neu messen, Zahlen an Sokrates | startbar | – |
 | 473 | M | **von Perikles (Wochenziel 02.11., Stufe 1):** Bau BRS 1.4 Monsterwerte Kapitel 1 nach Rechenmodell D ins Spiel (Abnahmeliste 1.4, Schätzung 447.3: 1 Sitzung, 1 Runde) | gebaut 7d2eec7cc: Werte aller 18 Arten und Modell D im Spiel (regeln/brs.gd, daten/werte.json wie sim444), Kampf rechnet bis 2.3 nach SRD (Frage an Perikles); fährt im nächsten Build | – |
@@ -23,7 +23,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 457.2 | M | **von Perikles (Chef 01.11., 11:49, „unsere Signatur muss sich wiederfinden“):** eigene Probeskripte zeichnen standardmäßig mit Toon-Licht, Tusche, Schatten; ohne nur mit Schalter (Zu 457.2) | gebaut e87815dc8, fährt mit den nächsten Filmen | `claude/jerry-457-2-signatur` |
 | 453.1 | M | **von Sokrates (Chef 01.11., 13:0x):** Helden im Kampf atmen gleich und zu heftig („hechelt“): Atmen ruhiger, je Figur eigener Takt, nach Angriff oder Abwehr schneller, dann abklingend (Zu 453.1) | gebaut: passt (Archiv 453.1a, Lauf 173 = fd2116303), fährt im nächsten Build; 0f28eda79, d88f06ab3 ungesehen, nicht mitnehmen | `claude/tuffy-453-1-held-atem` |
 | 453 | M | **von Sokrates (Chef 01.11., 11:05):** Wölfe brauchen Ruhebewegungen: atmen, scharren, umblicken, knurren (Zu 453) | gebaut: r3b passt (Chef 02.11., 11:02, Archiv 453), fährt im nächsten Build (claude/grundstand-461); Sichtbarkeit in 453a | – |
-| 453a | M | Wolfsatem B (Archiv) | startbar: Film Lauf 176 sofort an Chef (480), zwei Läufe frei (Sokrates 18:4x, 480.1) | – |
+| 453a | M | Wolfsatem B (Archiv) | wartet auf Chef: Vergleichsfilm Lauf 176 gesendet 19:5x (480, Blatt ansehen/453a); Bildrand Nahansicht danach | – |
 | 454 | M | **von Sokrates (Chef 01.11., 11:05):** beim Biss zielt die Achse des Wolfs wohl rechts neben den Helden; erst messen, dann bauen (Zu 453) | gebaut: passt (Archiv 454), fährt im nächsten Build; Schildreaktion in 406 | `claude/jerry-454-bissachse` |
 | 438a | M | **von Sokrates (Archiv 438a):** Hinfallen/Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe und Schild frei | wartet auf Test: Messlauf Ort am Körper (6a98d1bcb); Lauf 183: Hautkapseln gefüllt, Waffe weiter in Haut (Kämpfer 12,5 cm Aufstehen, Kleriker 6,6 cm) | `claude/jerry-438a-sturz-2` |
 | 439 | M | **von Sokrates (Chef 31.10., 23:31, Film 403):** Reihenfolge Angriff, Treffer, Tod, Neuformation (Zu 438) | gebaut: passt (Archiv 438), fährt im nächsten Build | `claude/jerry-438-wolf-kampf` |
