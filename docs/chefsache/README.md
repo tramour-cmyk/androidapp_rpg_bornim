@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [480](entscheiden/480-tor-blaetter.md) | **Muss** | B Abläufe | 02.11., 18:45 | Angehaltene Filme: klarere Blätter und ein Lauf mehr ohne Rückfrage? | Sokrates |
 | [453b](entscheiden/453b-wolfatem-film-angehalten.md) | **Muss** | E Kampf | 02.11., 16:10 | Wolfsatem B: Film am Tor angehalten, neue Läufe frei? | Jerry |
 | [463a](entscheiden/463a-tracht-angehalten.md) | **Muss** | E Figuren | 02.11., 16:06 | Umhang durchgängig: Film am Tor angehalten, neue Läufe frei? | Tom |
 | [427](entscheiden/427-monsterwerte.md) | **Muss** | E Kampf | 02.11., 15:12 | Monsterwerte Kapitel 1: neue Startwerte nach Messung? | Sokrates |
@@ -207,13 +206,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 32, Muss 23, startbar 13
+**Sokrates** – offen 31, Muss 22, startbar 13
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 468 | M | von Chef (02.11., 07:33, Bild „Nutzung“: 36 %): weiter mit Wächter bis Sa 19:59 (ja 11:13, | startbar |
 | 461b | M | von Chef (01.11., 22:23, „Wer prüft denn nach, dass nicht gegensätzliche Entscheidungen an | startbar |
-| 480 | M | von Chef (02.11., 18:43: „Tor 461a. Was ist das?“): angehaltene Filme: klarere Blätter, dr | Chef (Datei in der Chefsache) |
 | 427 | M | von Chef (31.10., 21:3x): Bestiarium LISTE-BESTIARIUM.md | Chef (Datei in der Chefsache) |
 | 398 | M | von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr g | wartet auf Perikles |
 | 391 | M | von Chef (28.10., 09:21): Repos dauerhaft ohne Ablehnung | ruht |
