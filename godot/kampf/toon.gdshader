@@ -10,10 +10,16 @@ uniform float cut_on = 0.0;        // Durchsicht (DESIGN-STIL „Karte und Räum
 uniform vec3 cut_pos = vec3(0.0);  // Brust des Helden
 uniform float cut_ab = 0.0;        // Rinde: erst ab dieser Hoehe (Stamm in der Krone), Laub: ganz
 uniform vec3 glow_col : source_color = vec3(1.0, 0.72, 0.38);          // Glas: nachts leuchtend
+uniform float vorrang = 0.0;       // 463 wie shader/toon.gdshader: Umhang (UV2.x > 0,5) so viele Meter zur Kamera
 uniform float weg = 0.0;           // 348.7: Ausblenden des Toten (0 da, 1 weg), als Raster, damit Tiefe und Tusche bleiben
 varying vec3 wpos;
 void vertex() {
 	wpos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	if (vorrang > 0.0 && UV2.x > 0.5) {
+		vec4 vv = MODELVIEW_MATRIX * vec4(VERTEX, 1.0);
+		vv.xyz -= normalize(vv.xyz) * vorrang;
+		POSITION = PROJECTION_MATRIX * vv;
+	}
 	if (sway > 0.0) {
 		float h = clamp((wpos.y - 1.6) / 2.5, 0.0, 1.0);
 		float t = TIME * 1.3 + wpos.x * 0.35 + wpos.z * 0.27;

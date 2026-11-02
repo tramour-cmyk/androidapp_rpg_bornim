@@ -195,6 +195,27 @@ def schlank(objs, gross=1024):
             im.pack()
 
 
+# 463 (Aermel sticht 5-25 mm durch den Umhang, drei Formversuche aus): Umhang im zweiten UV-Satz markieren (u = 1); toon.gdshader
+# zieht ihn um „vorrang“ Meter zur Kamera, dann gewinnt er die Tiefe gegen den Aermel. Das Farbbild bleibt am ersten Satz
+def vorrang_marke(netze, teile):
+    if not os.path.exists(teile): return
+    tn = json.load(open(teile))
+    if 'cloak' not in tn: return
+    ic = tn.index('cloak')
+    for o in netze:
+        me = o.data
+        if 'teil' not in me.attributes or len(me.uv_layers) != 1: continue
+        tl = [0] * len(me.vertices); me.attributes['teil'].data.foreach_get('value', tl)
+        aktiv = me.uv_layers[0]
+        uv = me.uv_layers.new(name='vorrang')
+        n = 0
+        for l in me.loops:
+            ja = tl[l.vertex_index] == ic
+            uv.data[l.index].uv = (1.0 if ja else 0.0, 0.0); n += ja
+        me.uv_layers.active = aktiv; aktiv.active_render = True
+        print('VORRANG', o.name, n, 'Ecken Umhang')
+
+
 def exportiere(p, objs, farbe=False):
     schlank(objs)
     for o in objs:
@@ -277,6 +298,7 @@ def kaempfer(k, g, figur='', fuesse='', stiefel_bis=0.0):
     p = KO.merkpunkte(haut, augen)
     schluessel([haut, augen] + brauen if augen else [haut] + brauen, p, augen)
     statur(arm, netze)
+    vorrang_marke(netze, os.path.join(env['OUT'], 'teile.json'))
     exportiere(os.path.join(ZIEL, 'held_%s.glb' % k), [arm] + netze, farbe=True)
     return arm, netze
 
