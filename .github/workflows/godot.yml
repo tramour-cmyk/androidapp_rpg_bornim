@@ -251,9 +251,9 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/skripte_pruefen.gd 2>&1 | grep -E "SKRIPTE|FALSCH"   # 399.1 Test 130
           timeout 300 ~/godot/godot --headless --path . -s res://tests/held_klassen_376.gd 2>&1 | grep -E "HELDKLASSEN|FALSCH|SCRIPT ERROR"   # 376.1
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/held_kampf_403.gd 2>&1 | grep -E "^(ok|FEHLER|Held 403)|SCRIPT ERROR"   # 403 (Jerry)
-          set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Held|Söldner|nach|in den|Atem 453)|SCRIPT ERROR"   # 453.1 (Tuffy)
-          # 438a Runde 3 (Jerry): Hinfallen und Aufstehen, Waffe in Haut und Kleidung, Finger vor dem Schild, offene Hand, Spruenge; misst und meldet, haelt noch nicht an
+          # 438a Runde 3 (Jerry): Hinfallen und Aufstehen, Waffe in Haut und Kleidung, Finger vor dem Schild, offene Hand, Spruenge; misst und meldet, haelt noch nicht an; Lauf 192: vor atem_4531, das rot wurde und die Messung verhinderte
           timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/sturz_438a.gd 2>&1 | grep -E "^(ok|FEHLER|  |STURZ|Sturz)|SCRIPT ERROR" || true
+          set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Held|Söldner|nach|in den|Atem 453)|SCRIPT ERROR"   # 453.1 (Tuffy)
           set -o pipefail; timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wolf_mess_438.gd 2>&1 | grep -E "^(— |  |Befunde|Wolf 438|Kampf )|SCRIPT ERROR"   # 438, 439, 440 (Jerry): Wölfe ohne Gleiten, Reihenfolge, Tod
           timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_test.gd 2>&1 | grep -E "^(gut|FALSCH)|KLANG|SCRIPT ERROR"   # 399.3
           timeout 120 ~/godot/godot --headless --path . -s res://tests/zwischenbild_test.gd 2>&1 | grep -E "FALSCH|ZWISCHENBILD|SCRIPT ERROR"   # 399.1 Intro
