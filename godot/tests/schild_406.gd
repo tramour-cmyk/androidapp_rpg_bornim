@@ -64,11 +64,15 @@ func _ecken(n: Node) -> PackedVector3Array:
 	return out
 
 
-func _dreiecke(n: Node) -> int:
+## sonne = false: Dreiecke des Schilds ohne die aufgelegte Sonne (kaufschild.py, Material „sonne“), true: nur die Sonne
+func _dreiecke(n: Node, sonne := false) -> int:
 	var d := 0
-	for mi in n.find_children("*", "MeshInstance3D", true, false):
+	for mi in n.find_children("*", "MeshInstance3D", true, false) + ([n] if n is MeshInstance3D else []):
 		var me := (mi as MeshInstance3D).mesh
 		for s in me.get_surface_count():
+			var mat := me.surface_get_material(s)
+			if (mat != null and mat.resource_name.begins_with("sonne")) != sonne:
+				continue
 			var idx = me.surface_get_arrays(s)[Mesh.ARRAY_INDEX]
 			d += (idx.size() if idx != null else me.surface_get_arrays(s)[Mesh.ARRAY_VERTEX].size()) / 3
 	return d
@@ -209,6 +213,48 @@ func _netz_tiefe(schild: Node3D, koerper: PackedVector3Array) -> Array:
 	return best
 
 
+## 406 b (Lauf 162: Kleriker Schulter und Oberarm bis 7,3 cm im Drachenschild bei Abwehr, Kämpfer bis 2,4 cm): wie tief Körper,
+## Schulter und Oberarm stünden, säße der Schild um [tiefer, weiter vorn] m anders an der Fessel (VARIANTEN). Der Schild bewegt sich
+## starr, also gleich, als rückten die Körperecken entgegen; ohne neuen Lauf je Fassung. [tiefste m je Fassung]
+const VARIANTEN := [[0.0, 0.0], [0.0, 0.02], [0.0, 0.04], [0.0, 0.06], [0.04, 0.0], [0.04, 0.02], [0.04, 0.04], [0.08, 0.0],
+		[0.08, 0.02], [0.08, 0.04], [0.12, 0.0], [0.12, 0.02]]
+
+func _varianten_tiefe(schild: Node3D, koerper: PackedVector3Array) -> PackedFloat32Array:
+	var inv := schild.global_transform.affine_inverse()
+	var sc := schild.global_transform.basis.get_scale()
+	var feld := {}
+	var lo := Vector3(INF, INF, INF)
+	var hi := -lo
+	for p in _ecken(schild):
+		var q := inv * p
+		lo = lo.min(q); hi = hi.max(q)
+		var k := Vector2i(floori(q.x / 0.02), floori(q.y / 0.02))
+		var e: Vector2 = feld.get(k, Vector2(INF, -INF))
+		feld[k] = Vector2(minf(e.x, q.z), maxf(e.y, q.z))
+	var nah := PackedVector3Array()
+	var rand := 0.2
+	for p in koerper:
+		var q := inv * p
+		if q.x > lo.x - rand and q.x < hi.x + rand and q.y > lo.y - rand and q.y < hi.y + rand and q.z > lo.z - rand and q.z < hi.z + rand:
+			nah.append(q)
+	var out := PackedFloat32Array()
+	for v in VARIANTEN:
+		# Schild tiefer (lokal -y) und weiter vorn (+z): die Körperecke rückt im Raum des Schilds um +y und -z
+		var d := Vector3(0.0, v[0] / sc.y, -v[1] / sc.z)
+		var best := -INF
+		for q0 in nah:
+			var q: Vector3 = q0 + d
+			var k := Vector2i(floori(q.x / 0.02), floori(q.y / 0.02))
+			if not feld.has(k):
+				continue
+			var e: Vector2 = feld[k]
+			if q.z > e.y + 0.05:
+				continue
+			best = maxf(best, q.z - e.x)
+		out.append(best)
+	return out
+
+
 func _run() -> void:
 	DisplayServer.window_set_size(Vector2i(1080, 2340))
 	root.size = Vector2i(1080, 2340)
@@ -307,6 +353,9 @@ func _run() -> void:
 			continue
 		var d := _dreiecke(schild)
 		_check(d == DREIECKE[SOLL[k]], "%s Kampf: Kaufschild %s (%d Dreiecke)" % [k, SOLL[k], d])
+		# 406, B5 (Chef 01.11., 22:35, Archiv 461c): auf dem Drachenschild des Klerikers die goldene Sonne, auf dem Rundschild keine
+		var ds := _dreiecke(schild, true)
+		_check((ds > 0) == (SOLL[k] == "shield"), "%s Kampf: Sonne auf dem Schild %s (%d Dreiecke)" % [k, "ja" if SOLL[k] == "shield" else "nein", ds])
 		var sk := fig._find(fig.model, "Skeleton3D") as Skeleton3D
 		_schulter_lesen(sk)
 		_haut_lesen(sk)
@@ -317,6 +366,10 @@ func _run() -> void:
 			kf.go_on()
 		var tief := {}     # Bewegung -> [tiefste m, Kapsel, Bilder über TIEF_M]
 		var schulter := {}     # 406 b: Bewegung -> [tiefste m, Stelle cm]
+		var var_k := []     # 406 b: je Fassung tiefste m Körper (ohne linken Arm)
+		var var_s := []     # ... Schulter und Oberarm
+		for v in VARIANTEN:
+			var_k.append(-INF); var_s.append(-INF)
 		var n := 0
 		var dauer := int(OS.get_environment("DAUER_MS")) if OS.get_environment("DAUER_MS") != "" else DAUER_MS
 		while n < (dauer * 30 / 1000 if film else 6000):
@@ -335,6 +388,11 @@ func _run() -> void:
 					var u := _netz_tiefe(sm, _ecken_aus(sk, _schulter))
 					if u[0] > schulter.get(b, [-INF])[0]:
 						schulter[b] = u
+				if n % 6 == 0:
+					var vk := _varianten_tiefe(sm, _haut_ecken(sk))
+					var vs := _varianten_tiefe(sm, _ecken_aus(sk, _schulter))
+					for i in VARIANTEN.size():
+						var_k[i] = maxf(var_k[i], vk[i]); var_s[i] = maxf(var_s[i], vs[i])
 				tief[b] = e
 			if kf.mars.outcome != "ONGOING" and not kf.busy and not kf.playing and kf.beats.is_empty():
 				break
@@ -349,6 +407,8 @@ func _run() -> void:
 			_check(tief[b][0] <= KAMPF_M, "%s Kampf %s: Körper höchstens %.3f m im Schild (Netz, Stelle %s cm, %d Messbilder über %.3f)" % [k, b if b != "" else "–", tief[b][0], tief[b][1], tief[b][2], NETZ_M])
 		for b in schulter:
 			print("  %s Kampf %s: linke Schulter und Oberarm %.3f m im Schild (Stelle %s cm)" % [k, b if b != "" else "–", schulter[b][0], schulter[b][1]])
+		for i in VARIANTEN.size():
+			print("  %s FASSUNG tiefer %.0f cm, vorn %.0f cm: Körper %.1f cm, Schulter und Oberarm %.1f cm im Schild" % [k, VARIANTEN[i][0] * 100.0, VARIANTEN[i][1] * 100.0, var_k[i] * 100.0, var_s[i] * 100.0])
 		print("Kampf %s: %s nach %d Bildern" % [k, kf.mars.outcome, n])
 		kf.queue_free()
 		p.queue_free()
