@@ -17,8 +17,8 @@ HERKUNFT = {'WACHSOLDAT': 'Wachsoldat', 'ZAUBERLEHRLING': 'Zauberlehrling', 'KLO
             'SCHMIEDELEHRLING': 'Schmiedelehrling'}
 STATUR = {'schlank': 'Schlank', 'normal': 'Normal', 'kraeftig': 'Kräftig'}   # 463 (Pruefer 23:03: ohne „Normal“ und „Frau“)
 TITEL = {   # 376.1 Urteil Tracht (Chef 01.11., 20:2x): zweite Runde nur Umhang und Robe (trachtprobe.gd)
-    'umhang': '376.1 · Umhang des Wachsoldaten nachgebessert: oben Mann, Mitte Frau (Schlank, Normal, Kräftig), unten Gehen',
-    'robe': '376.1 · Robe des Zauberlehrlings nachgebessert: oben Mann, Mitte Frau (Schlank, Normal, Kräftig), unten Gehen',
+    'umhang': '463 · Umhang des Wachsoldaten geschlossen: oben Mann, Mitte Frau (Schlank, Normal, Kräftig), unten Gehen',
+    'robe': '463 · Robe des Zauberlehrlings geschlossen: oben Mann, Mitte Frau (Schlank, Normal, Kräftig), unten Gehen',
 }
 
 
@@ -32,16 +32,19 @@ def zeilen(e):
 
 
 def streifen(bild, name, h):
-    b = bild.resize((BREITE, int(bild.height * BREITE / bild.width)))
-    b = b.crop((0, max(0, (b.height - h) // 2), BREITE, max(0, (b.height - h) // 2) + h))
+    # 463a G1 (Pruefer Film 16:0x: Sohlen an der Beschriftungsleiste angeschnitten): ganzes Bild in den Streifen einpassen statt oben
+    # und unten abschneiden; schmaler als BREITE, dann mittig mit Rand
+    s = min(BREITE / bild.width, h / bild.height)
+    b = bild.resize((int(bild.width * s), int(bild.height * s)))
+    x0 = (BREITE - b.width) // 2
     c = Image.new('RGB', (BREITE, h + UNTER), GRUND)
-    c.paste(b, (0, 0))
+    c.paste(b, (x0, (h - b.height) // 2))
     d = ImageDraw.Draw(c)
-    f = BREITE / (ANSICHT[0] if ANSICHT else bild.width)   # Pruefer 376.1: Beschriftung falsch
+    f = b.width / (ANSICHT[0] if ANSICHT else bild.width)   # Pruefer 376.1: Beschriftung falsch
     for p in lage.get(name, []):
         z = zeilen(p['eintrag'])
         for i, t in enumerate(z[:2]):
-            d.text((p['x'] * f, h + 4 + i * 28), t, font=f_name, fill=GOLD if i == 0 else WEISS, anchor='ma')
+            d.text((x0 + p['x'] * f, h + 4 + i * 28), t, font=f_name, fill=GOLD if i == 0 else WEISS, anchor='ma')
     d.rectangle([0, 0, c.width - 1, c.height - 1], outline=(110, 90, 50), width=2)
     return c
 
