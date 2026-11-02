@@ -88,9 +88,16 @@ func eigen_kampf(seed: int) -> void:
 
 
 ## 453.1: die Netze der Figur (figur.gd), nur im Kampfort; gemessen beim ersten Bild, wenn die Pose der Bewegung steht
+## Lauf 175: an keinem Helden gemessen, ohne Meldung; jetzt meldet jeder Ausstieg den Grund, und ein Netz ohne eigene Bindung
+## (Godot bindet es dann selbst aus der Ruhelage, MeshInstance3D.skin bleibt leer) wird mit der Ruhelage des Skeletts gerechnet
 func netz_messen(netze: Array) -> void:
-	if kampf:
-		_netz_mi = netze.filter(func(m): return m is MeshInstance3D and m.skin != null and m.mesh != null)
+	if not kampf:
+		return
+	_netz_mi = netze.filter(func(m): return m is MeshInstance3D and m.mesh != null and m.mesh.get_surface_count() > 0)
+	var mit := netze.filter(func(m): return m is MeshInstance3D and m.skin != null).size()
+	print("Atem 453.1 Netz: %d Netze, %d mit eigener Bindung" % [_netz_mi.size(), mit])
+	if _netz_mi.is_empty():
+		_netz_mi = [null]     # einmal messen lassen, damit der Grund gemeldet wird
 
 
 func _enter_tree() -> void:
@@ -219,23 +226,32 @@ func _netz_messen(sk: Skeleton3D, gelenke: Array) -> void:
 		g_ort.append(gt * (vor[gelenke[k]] as Transform3D).origin)
 		var c: int = _idx[2 + k]     # KNOCHEN: clavicle_l, clavicle_r
 		if c < 0:
+			print("Atem 453.1 Netz: nicht gemessen, ohne Schlüsselbein")
 			return
 		fest.append(gt * (nach[c] as Transform3D) * (vor[c] as Transform3D).affine_inverse() * gt.affine_inverse())
 	var summe := 0.0
 	var summe_fest := 0.0
 	var zahl := 0
+	var ohne_haut := 0
 	for mi in _netz_mi:
+		if mi == null:
+			continue
 		var skin: Skin = mi.skin
 		var bind := []
-		for i in skin.get_bind_count():
-			var bn := skin.get_bind_bone(i)
-			if bn < 0:
-				bn = sk.find_bone(skin.get_bind_name(i))
-			bind.append([bn, skin.get_bind_pose(i)])
+		if skin == null:
+			for b in n:
+				bind.append([b, sk.get_bone_global_rest(b).affine_inverse()])
+		else:
+			for i in skin.get_bind_count():
+				var bn := skin.get_bind_bone(i)
+				if bn < 0:
+					bn = sk.find_bone(skin.get_bind_name(i))
+				bind.append([bn, skin.get_bind_pose(i)])
 		for f in mi.mesh.get_surface_count():
 			var arr: Array = mi.mesh.surface_get_arrays(f)
 			var vs: PackedVector3Array = arr[Mesh.ARRAY_VERTEX]
 			if arr[Mesh.ARRAY_BONES] == null or vs.is_empty():
+				ohne_haut += 1
 				continue
 			var bo = arr[Mesh.ARRAY_BONES]
 			var we = arr[Mesh.ARRAY_WEIGHTS]
@@ -264,6 +280,8 @@ func _netz_messen(sk: Skeleton3D, gelenke: Array) -> void:
 				summe_fest += ((fest[seite] as Transform3D) * p0).y - p0.y
 				zahl += 1
 	if zahl == 0 or summe_fest <= 0.0:
+		print("Atem 453.1 Netz: nicht gemessen, %d Punkte über den Schultern, fest %.1f mm, %d Flächen ohne Knochen" % [zahl,
+			summe_fest / maxf(zahl, 1) * 1000.0, ohne_haut])
 		return
 	netz_roh = summe_fest / maxf(summe, 0.0001 * zahl)
 	netz = clampf(netz_roh, 1.0, NETZ_MAX)

@@ -2,6 +2,7 @@
 # über der Schulter (atem.gd _netz_messen) an einem gebauten Skelett ohne Kaufdateien:
 #  - Haut am Schlüsselbein: hebt sich wie fest am Schlüsselbein, Ausgleich 1
 #  - Haut nur am Rücken (spine_02, Tracht über den Schultern): hebt sich weniger, Ausgleich über 1, höchstens NETZ_MAX
+#  - auch ein Netz ohne eigene Bindung (skin leer, Godot bindet aus der Ruhelage) wird gemessen
 #  - nach der Messung steht die Pose wieder wie vorher (die Schicht dreht nur einmal je Bild)
 # Run: godot --headless --path godot -s res://tests/atem_netz_4531.gd   (exit code 0 = alles richtig)
 extends SceneTree
@@ -21,7 +22,7 @@ func _initialize() -> void:
 
 
 ## Skelett wie die UAL: Becken, Rücken, Hals, Kopf, Schlüsselbeine, Oberarme; Haut als Punkte über den Schultern an [traeger]
-func _figur(traeger: String) -> Array:
+func _figur(traeger: String, bindung := true) -> Array:
 	var sk := Skeleton3D.new()
 	var teile := [["pelvis", "", Vector3(0, 1.0, 0)], ["spine_02", "pelvis", Vector3(0, 0.15, 0)], ["spine_03", "spine_02", Vector3(0, 0.15, 0)],
 		["neck_01", "spine_03", Vector3(0, 0.2, 0)], ["Head", "neck_01", Vector3(0, 0.1, 0)],
@@ -59,7 +60,8 @@ func _figur(traeger: String) -> Array:
 	m.add_surface_from_arrays(Mesh.PRIMITIVE_POINTS, arr)
 	var mi := MeshInstance3D.new()
 	mi.mesh = m
-	mi.skin = skin
+	if bindung:
+		mi.skin = skin     # ohne: Godot bindet aus der Ruhelage, skin bleibt leer (Kaufheld, Lauf 175)
 	sk.add_child(mi)
 	mi.skeleton = NodePath("..")
 	var a = Atem.new()
@@ -73,8 +75,9 @@ func _figur(traeger: String) -> Array:
 
 func _run() -> void:
 	var gerade := []
-	for traeger in ["clavicle", "spine_02"]:
-		var f := _figur(traeger)
+	for fall in [["clavicle", true], ["spine_02", true], ["spine_02", false]]:
+		var traeger: String = fall[0]
+		var f := _figur(traeger, fall[1])
 		var sk: Skeleton3D = f[0]
 		var a = f[1]
 		var vor := sk.get_bone_global_pose(sk.find_bone("upperarm_l"))
