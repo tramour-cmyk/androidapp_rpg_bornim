@@ -48,6 +48,12 @@ jobs:
         run: |
           echo "KAUF=$RUNNER_TEMP/kauf" >> $GITHUB_ENV
           bash tools/blender348/kauf_laden.sh $RUNNER_TEMP/kauf
+      # 415 (Jerry, Chef „415 jetzt“ 02.11., 10:55; „415d muss ins nächste Build“ 22:05): Beams Free Sample (reeboolabs) aus
+      # bornim-kaufmodelle anhang/beams; die Lizenz verbietet die Weitergabe der Dateien, darum nie ins Repo (godot/.gitignore), nur in den Bau
+      - name: Beams-Probe (415, privat)
+        run: |
+          d=$(find "$KAUF/anhang/beams" -type d -path '*addons/reeboo_beams' 2>/dev/null | head -1)
+          if [ -n "$d" ]; then mkdir -p godot/addons && cp -r "$d" godot/addons/ && echo "Beams-Probe: $(ls godot/addons/reeboo_beams/beams_3d)"; else echo "Beams-Probe: nicht da"; fi
       - uses: actions/setup-python@v5
         id: py
         with:
