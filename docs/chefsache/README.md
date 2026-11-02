@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [415d](entscheiden/415d-effektpakete-kauf.md) | **Muss** | C Kampf | 02.11., 20:06 | Effektpakete kaufen, sobald der Handytest läuft? | Sokrates |
-| [427.1](entscheiden/4271-krogg-grimmzahn.md) | **Muss** | E Kampf | 02.11., 19:49 | Mit ihren Besonderheiten gerechnet: Grimmzahn passt, Krogg ohne Morwens Rauch zu hart. | Jerry |
 | [417a](entscheiden/417a-schild-kaempfer.md) | **Muss** | E Figuren | 02.11., 19:12 | Schild Kämpfer Rücken oder Arm; Rennen mit Waffe wie Dorf-Film | Tom |
 | [432.3](entscheiden/4323-aschgeborene-merkmal.md) | M? | C Texte | 02.11., 19:57 | Aschgeborene: Name des Merkmals (Aschenerbe?), Liste, Text, Orte des Zeichens | Homer |
 | [466](entscheiden/466-meisterschaft-stufen.md) | M? | C Texte | 02.11., 19:39 | Stufen der Meisterschaften ohne „Meister“ | Homer |
@@ -38,10 +37,11 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 8, Muss 2, startbar 0
+**Homer** – offen 9, Muss 3, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 427.2 | M | von Sokrates (Chef 02.11., 20:22, „427.1 A mit 1 und 2“, Archiv 427.1): Hinweis auf Morwen | startbar |
 | 461b.3 | M | von Perikles (Liste Sokrates 461b, 02.11., 19:1x, Punkte 5, 6, 16): Widersprüche nachziehe | ruht (424: altes SRD-System) |
 | 466 | M? | von Sokrates (Chef 01.11., 21:13, Zu 466): neues Wort für „Handlung“ eines Pfads, dazu Nam | Chef (Datei in der Chefsache) |
 | 447.4 | M | von Perikles (Chef 01.11., Archiv 447): Texte für Stufe 3 der Abnahmeliste: Einladungen de | Chef |
@@ -108,12 +108,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 | Pflege | K | von Werkzeug (340.3, 02.11.): 25539 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 55, Muss 43, startbar 0
+**Jerry** – offen 55, Muss 43, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 478 | M | von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv): Rechenkern des Kampfs schon in Stufe | ruht |
-| 427.1 | M | von Sokrates (Chef 02.11., 18:54, Archiv 427): Werte Bestiarium „Werte 2.0“ in werte.json; | Chef (Datei in der Chefsache) |
+| 427.1 | M | von Sokrates (Chef 02.11., 18:54, Archiv 427): Werte Bestiarium „Werte 2.0“ in werte.json; | startbar |
 | 481.1 | M | von Sokrates (Archiv 427): Tränke in sim444 (Zu 481 in ARBEIT-BERATUNG.md), Herkünfte neu | wartet auf Test/Build (gebaut) |
 | 473 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.4 Monsterwerte Kapitel 1 nach Rechenm | wartet auf Test/Build (gebaut) |
 | 472 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.3 Heldenstufe aus Erfahrung, Anteil F | wartet auf Test/Build (gebaut) |
