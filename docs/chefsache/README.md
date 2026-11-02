@@ -166,7 +166,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | D63.6 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 438 08:11, 09:45; 454 | startbar |
 
-**Perikles** – offen 32, Muss 21, startbar 1
+**Perikles** – offen 32, Muss 21, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -181,7 +181,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | D63.2 | M? | von Diogenes (Lauf 61): Commit-Prüfung 461b zu grob: jede Änderung an DESIGN-STIL/-KAMPF/- | wartet auf Test/Build (gebaut) |
 | D63.3 | M? | von Diogenes (Lauf 61): probelauf.py urteil() übergeht gebilligte Vorentscheide im Kopf (3 | wartet auf Test/Build (gebaut) |
 | D63.4 | M? | von Diogenes (Lauf 61): zug-haken.py --summe schreibt die Zählung „ohne Kopf“ (462.1) nich | wartet auf Test/Build (gebaut) |
-| D64.1 | M? | von Diogenes (Doppelpack 421, Lauf 62 zu 407, 02.11., 11:2x): 407 greift (Server, gh, curl | startbar |
+| D64.1 | M? | von Diogenes (Doppelpack 421, Lauf 62 zu 407, 02.11., 11:2x): 407 greift (Server, gh, curl | wartet auf Test/Build (gebaut) |
 | 465.1 | M? | von Diogenes (Doppelpack 421, Lauf 58, 01.11., 22:07): Befund D60.1 zu 465: x-Zeiten bleib | wartet auf Test/Build (gebaut) |
 | 462.1 | M? | von Diogenes (Doppelpack 421, Lauf 57, 01.11., 20:4x): Befunde D59.1–3 zu 462 (PRUEFBERICH | wartet auf Test/Build (gebaut) |
 | 461.2 | M? | von Diogenes (Doppelpack 421, Lauf 56, 01.11., 20:4x): Befunde D58.1–5 zum Grundstand (PRU | wartet auf Test/Build (gebaut) |
@@ -203,10 +203,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
-**Diogenes** – offen 6, Muss 4, startbar 0
+**Diogenes** – offen 7, Muss 5, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| D63 | M | von Perikles (Doppelpack 421, 02.11., 11:2x–11:3x): Nachprüfung D63.1 (Archiv: Kopf, 461, | startbar |
 | 461b | M | von Sokrates (Chef 01.11., 22:26, „461b ja“, Archiv): Kennzahl Widersprüche: montags Stich | ruht bis 09.11. |
 | 434 | M | von Sokrates (Chef 31.10., 22:1x): bei jeder Zählung 374 zusätzlich die Zeile „Bestand gep | Termin 03.11. |
 | 374 | M | von Sokrates (Chef 27.10., 11:58, Archiv 374): täglich 8 Uhr bis 03.11. Vorlagen des Vorta | Termin 03.11. |
@@ -255,7 +256,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung), 453 (Team Jerry), 348.12j (Team Jerry)
+Nicht gestellt: 407 (Projekt), 186.3 (Pruefung), 453 (Team Jerry), 348.12j (Team Jerry)
 
 Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/4474-lehrmeister-texte.md, ansehen/462-zeitstempel.md, ansehen/465-seit-uhrzeit.md
 
