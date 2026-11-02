@@ -78,6 +78,7 @@ func _feld(reihe: VBoxContainer, titel: String, ordner: String, px: Vector2i) ->
 	sonne.shadow_enabled = true
 	sonne.light_energy = 1.2
 	vp.add_child(sonne)
+	Licht.zur_sonne = sonne.basis.z.normalized()   # 416.4 Grundstand A1: Tusche nach dieser Sonne (Kamera)
 	vp.add_child(_boden())
 	var held := Node3D.new()
 	held.rotation.y = PI / 2   # läuft nach +X
@@ -112,11 +113,8 @@ func _feld(reihe: VBoxContainer, titel: String, ordner: String, px: Vector2i) ->
 		Gebiet.bewegungen(anim, ["Gehen", "Stehen", "Rennen"])
 	anim.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 	anim.play("Stehen")
-	var cam := Camera3D.new()
-	cam.projection = Camera3D.PROJECTION_ORTHOGONAL
-	cam.keep_aspect = Camera3D.KEEP_WIDTH
-	cam.near = 0.5
-	cam.far = 120.0
+	# 416.4 Grundstand A1 (457.1): Spielkamera mit Tusche nach Licht (Welt Schablone 0, Held 2) statt einer blanken Camera3D
+	var cam := Kamera.new()
 	vp.add_child(cam)
 	var schild := Label.new()
 	schild.text = titel
