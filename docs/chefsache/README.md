@@ -23,6 +23,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [431](ansehen/431-voelker-lauf5.md) | Völker im Kampfortlicht: Haut geeicht, Atem versetzt | Tom | 02.11., 20:27 |
 | [447.4](ansehen/4474-lehrmeister-texte.md) | Texte Lehrmeister und Ruf, Kapitel 1 | Homer | 01.11., 20:51 |
 
 ## Zu tun
@@ -261,7 +262,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 407 (Projekt)
 
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/4474-lehrmeister-texte.md
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/431-voelker-lauf5.md, ansehen/4474-lehrmeister-texte.md
 
 Ohne Datei: 3402 (Projekt), 275 (Projekt)
 
