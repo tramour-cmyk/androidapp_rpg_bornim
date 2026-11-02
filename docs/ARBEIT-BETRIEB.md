@@ -205,3 +205,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:35 02.11.: Chef „Aufräumen, archivieren, Kosten erfassen“: archiviert Tom 77Mo, 76Uy, 78iL, Jerry 7A2j, Sokrates 79zy, Perikles 75yT; gebucht 416.9 2,53, 431 7,92, 438a/406/481.1 11,05, 417 23,19, Sokrates (427/474a/453.1) 25,97, 407 41,23 $.
 - 21:33 02.11.: Neustart Jerry 02f2f9bfc geprüft; Jerry – 487 gestartet session_01Hmoj76t4HxwZqDEYv5tnei (Vorgänger 7629 beendet, Archivieren und Buchen im nächsten Lauf).
 - 21:48 02.11.: Neustart Jerry 805ac95cb (GitHub-Werkzeuge fehlten kurz in der Sitzung); Jerry – 487 gestartet session_01Hmoj77n3ANsuBTkRSTL4BE; Vorgänger 7629 archiviert, 8,09 $ auf 438a, 406 gebucht.
+- 22:28 02.11.: Chef „Archivieren, Kosten ermitteln“: Jerry 76t4 archiviert, 5,78 $ auf 487, 438a, 406 gebucht. Von Ford heute gebucht zusammen 228,61 $.
