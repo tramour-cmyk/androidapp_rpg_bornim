@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [417a](entscheiden/417a-schild-kaempfer.md) | **Muss** | E Figuren | 02.11., 19:12 | Schild Kämpfer Rücken oder Arm; Rennen mit Waffe wie Dorf-Film | Tom |
-| [483](entscheiden/483-film-links.md) | **Muss** | B Werkzeuge | 02.11., 19:09 | Film-Links reparieren: Push ohne Gerätetest? | Sokrates |
 
 ## Zu billigen
 
@@ -162,10 +161,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 469 | M | von Sokrates (02.11., 11:0x, zu 406.1): Kampf auf BRS: Ring (MARS) ohne Klassen regeln (An | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 
-**Perikles** – offen 25, Muss 23, startbar 2
+**Perikles** – offen 26, Muss 24, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 483 | M | von Sokrates (Chef 02.11., 19:21, „483 ja“, Archiv): Film-Links reparieren: jsDelivr liefe | startbar |
 | 479 | M | von Sokrates (Chef 02.11., 18:34, „jetzt“ 02.11., 18:34): LISTE-ABNAHME-KAPITEL1.md heißt | startbar |
 | 461d | M | von Sokrates (Vorentscheid 22:5x): Liste 461 in die DESIGN-Dateien (Archiv 461d) | wartet auf Test/Build (gebaut) |
 | 461b | M | von Sokrates (Chef 22:26, Archiv): Commit-Prüfung: Archiveintrag ohne DESIGN-/Listenänderu | wartet auf Test/Build (gebaut) |
@@ -209,7 +209,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 |---|---|---|---|
 | 468 | M | von Chef (02.11., 07:33, Bild „Nutzung“: 36 %): weiter mit Wächter bis Sa 19:59 (ja 11:13, | startbar |
 | 461b | M | von Chef (01.11., 22:23, „Wer prüft denn nach, dass nicht gegensätzliche Entscheidungen an | startbar |
-| 483 | M | von Chef (02.11., 19:08, „Das mit den Filmen klappt nicht, da ich konstant wieder Fehler a | Chef (Datei in der Chefsache) |
+| 483 | M | von Chef (02.11., 19:08, „Das mit den Filmen klappt nicht, da ich konstant wieder Fehler a | wartet auf Perikles |
 | 481 | M | von Chef (02.11., 18:54, „Herkünfte auch“; 18:55 Kräutersammler mit Tränken, Zu 481): Herk | wartet auf Jerry |
 | 398 | M | von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr g | wartet auf Perikles |
 | 391 | M | von Chef (28.10., 09:21): Repos dauerhaft ohne Ablehnung | ruht |
