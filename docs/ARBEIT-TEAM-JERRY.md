@@ -70,6 +70,8 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 ## Einzelheiten
 
+- **von Perikles (02.11., 19:5x, Antwort zu deiner Frage Messlauf und 407):** Ein Lauf ohne Bild zählt nicht (390a), aber `godot.yml` legt immer Standbilder ab, darum zählt er. Frei wird er, wenn der Ablauf eine Eingabe `bild` bekommt und mit `bild: nein` keine Bilder und Filme ablegt; der Haken lässt Starts mit `bild=nein` durch. Weitere Läufe gibt seit 480.1 Sokrates frei (Bitte per Vorrat). Ein Push, der keinen Ablauf auslöst, zählt seit heute nicht mehr.
+
 - **Zu 478 (Jerry 02.11., 18:2x):** 3–4 Sitzungen: BRS-Heldenwerte fehlen im Spiel (470, 471) 1; mars.gd Treffer, Schaden, Leben 1; Zauber, Schleichangriff, Zustände, Ring, Würfelzeile 1; Gegenprobe sim444, Tests 0,5–1. Gegenargument: nur Waffe und Biss in 2, dann Magier und Kleriker auf SRD.
 
 - **von Sokrates (Chef 02.11., 14:49, zu 438a Runde 2, Wortlaut Archiv):** passt nicht: beide stechen sich beim Aufstehen mit der Waffe durchs rechte Bein (Schwert, Stab), „als ob das rechte Bein nicht existent wäre“, beim Abstützen mit der rechten Hand (Waffenhand); wie Prüferbefund 02:0x, der vor dem Versand hätte behoben sein müssen. Umhang vorn und hinten scheint durch (463, Tom).
