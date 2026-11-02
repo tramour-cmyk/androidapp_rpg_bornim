@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       kampf:
-        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich) oder 461 (Grundstand-Film, 406 b Schulter)"
+        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich) oder 461 (Grundstand-Film Kampfort)"
         default: ""
       dorf:
         description: "Dorf-Film Grundstand (461.1): ja"
@@ -359,12 +359,10 @@ jobs:
           dauer() { ffprobe -v error -show_entries format=duration -of csv=p=0 $1 2>/dev/null || echo 0; }
           F=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf
           titel() { echo "scale=$2:-2,drawtext=fontfile=$F:text='$1':fontsize=$3:fontcolor=white:box=1:boxcolor=black@0.6:x=(w-tw)/2:y=8"; }
-          # 461.1 (Tuffy): kampf=461 nur der Grundstand-Film Kampfort (Helden heute, Wölfe) und ohne Bild 406 b Schulter am Schild
+          # 461.1 (Tuffy): kampf=461 nur der Grundstand-Film Kampfort (Helden heute, Wölfe)
           if [ "${{ github.event.inputs.kampf }}" = "461" ]; then
             film kampf461-helden film_403
             film kampf461-woelfe film_453
-            SEED=7 timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/schild_406.gd > $B/schild406.log 2>&1 || true
-            grep -E "^(ok|FEHLER|SCHULTER406|SCHILD 406|Kampf )|SCRIPT ERROR" $B/schild406.log | cut -c1-300 || true
             ls -l $B; exit 0
           fi
           # 453 r3: Wölfe atmen (Schicht) neben ohne Schicht
