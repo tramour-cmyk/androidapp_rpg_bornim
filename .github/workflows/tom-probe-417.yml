@@ -134,7 +134,7 @@ jobs:
           cd godot
           timeout 1500 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 600x800 \
             -- --figuren=$A --teil=tragenpakete > $GITHUB_WORKSPACE/probe/probe.log 2>&1 || true
-          grep -E "^(GANG|BILDER|FILM|KLASSE|FEHLT)|SCRIPT ERROR|^ +at: " $GITHUB_WORKSPACE/probe/probe.log | cut -c1-400 | head -60
+          grep -E "^(GANG|BILDER|FILM|FILMGLEIT|KLASSE|FEHLT)|SCRIPT ERROR|^ +at: " $GITHUB_WORKSPACE/probe/probe.log | cut -c1-400 | head -60
           cp $A/probe.txt $GITHUB_WORKSPACE/probe/ 2>/dev/null || true
           cd $A
           F="FIGHTER_axt FIGHTER_einhand FIGHTER_schild ROGUE_bogen"

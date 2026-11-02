@@ -162,6 +162,7 @@ func standbilder(axt := false, pakete := false) -> void:
 		ap.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 		ap.play("Stehen"); ap.advance(0.0)
 		var tempo := 0.0
+		var spur := []   # Pruefer 00:53 („Rennen: Fuss 17-28 % langsamer als der Boden“): je Bild Abschnitt, Zeit darin, Ballen im Raum, Tempo
 		for ai in FILM_FOLGE.size():
 			var b0: String = FILM_FOLGE[ai][0]
 			var nf := int(round(float(FILM_FOLGE[ai][1]) * FPS))
@@ -182,13 +183,39 @@ func standbilder(axt := false, pakete := false) -> void:
 				ap.advance(1.0 / FPS)
 				p += Vector3(0, 0, 1) * tempo / FPS
 				w.position = p
+				spur.append([ai, f, (sk.global_transform * sk.get_bone_global_pose(sk.find_bone("ball_l"))).origin,
+					(sk.global_transform * sk.get_bone_global_pose(sk.find_bone("ball_r"))).origin, tempo])
 				stelle_kamera(w, seite, FILM_WEIT)   # Pruefer 00:53: Axtblatt am Feldrand abgeschnitten
 				await fp.get_tree().process_frame
 				await RenderingServer.frame_post_draw
 				fp.spiel.get_viewport().get_texture().get_image().save_png(ordner + "/%03d.png" % nr)
 				nr += 1
 		ap.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_IDLE
+		film_gleit(String(e[1]) + " von " + seite, spur)
 		fp.protokoll.append("FILM %s %s von %s, %d Bilder" % [e[1], e[3], seite, nr])
+		print(fp.protokoll[-1])
+
+# Standfuss im Raum des Films (Boden steht): je Abschnitt Gehen/Rennen ab 0,8 s (nach Ueberblendung und Anlauf) die Geschwindigkeit des
+# Ballens in den Bildern hoechstens 2 cm ueber seinem Tiefstand, Median, gegen das Tempo der Figur; 0 = kein Rutschen
+func film_gleit(wer: String, spur: Array) -> void:
+	for ai in FILM_FOLGE.size():
+		var b0: String = FILM_FOLGE[ai][0]
+		if b0 == "Stehen": continue
+		var z := spur.filter(func(x): return int(x[0]) == ai and int(x[1]) >= int(0.8 * FPS))
+		if z.size() < 4: continue
+		var vs := []
+		var tm := 0.0
+		for s in [2, 3]:
+			var tief := INF
+			for x in z: tief = minf(tief, (x[s] as Vector3).y)
+			for j in z.size() - 1:
+				var a: Vector3 = z[j][s]; var b: Vector3 = z[j + 1][s]
+				if a.y < tief + 0.02 and b.y < tief + 0.02: vs.append(Vector2(b.x - a.x, b.z - a.z).length() * FPS)
+		for x in z: tm += float(x[4]) / z.size()
+		if vs.is_empty(): continue
+		vs.sort()
+		var v: float = vs[vs.size() / 2]
+		fp.protokoll.append("FILMGLEIT %s %s (Abschnitt %d): Standfuss gleitet %.2f m/s, Figur %.2f m/s (%.0f %%)" % [wer, b0, ai, v, tm, 100.0 * v / maxf(0.01, tm)])
 		print(fp.protokoll[-1])
 
 # ---------------------------------------------------------------- Messung
