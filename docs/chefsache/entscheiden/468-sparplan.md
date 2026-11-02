@@ -1,22 +1,21 @@
-# 468 · Sparplan bis Samstag 19:59
-Sokrates · 02.11., 07:35 · B Abläufe
+# 468 · Weiter mit Wächter bis Samstag 19:59
+Sokrates · 02.11., 11:12 · B Abläufe
 
-**Frage:** Nach deinem Bild (07:33): 36 % des Wochenlimits nach rund 36 h, „bei diesem Tempo … Mittwochnacht aufgebraucht“. Gilt ab deinem „weiter“ dieser Sparplan?
+**Frage:** Chef 11:10: ab Mittag bis Freitag wenig Zeit; „Sachen schon bearbeitet werden … der Sparplan ergibt sich automatisch, wenn bei mir alles aufläuft“. Gilt „weiter mit Wächter“ statt des Sparplans von 07:35?
 **Votum Sokrates:** ja.
-1. Höchstens zwei Sitzungen gleichzeitig, nur Muss mit deinem Urteil (348.12k, 463, 417 nach deinem Blick auf Film 03:39).
-2. Nachts 23–7 Uhr startet Ford nichts, auch keine Nachfolger.
-3. Sokrates, Homer, Diogenes nur auf Zuruf; keine Stellungnahmen über Nacht.
-4. Täglich 18 Uhr eine Zeile an dich: Verbrauch gegen Ziel 11 % je Tag; darüber bremst Ford weiter.
-**Berührt:** `ROLLE-BETRIEB.md`, `lauf.py` (Ford), 407 (Probelauf-Grenze).
+1. STOPP ALLE endet, Ford-Lauf wieder an, auch nachts.
+2. Zuerst repariert Perikles die Probelauf-Grenze 407; bis sie nachweislich greift, höchstens drei Sitzungen gleichzeitig.
+3. Ford liest täglich 18 Uhr den Wochenverbrauch ab, Ziel etwa 11 % je Tag bis Sa 19:59; darüber am nächsten Tag nur Muss, Zeile per Telegram an den Chef.
+4. Keine neue Runde zu einer Vorlage ohne Urteil des Chefs; abgearbeitet wird der Vorrat (461d, 348.12k, 463, 427, 467).
+**Berührt:** `ROLLE-BETRIEB.md`, `lauf.py`, 407.
 
 ## Sachverhalt
 
-- Rest 64 % für etwa 132 h: rund 0,5 % je Stunde, halb so viel wie bisher.
-- Nacht 01./02.11.: etwa 20 Sitzungen, 47 Läufe (12 rot), 11 Filme; 417 allein 16 Läufe, 4 Filme.
+- 07:33: 36 % nach rund 36 h; Rest 64 % für etwa 132 h.
+- Nacht 01./02.11.: 417 hatte 16 Läufe und 4 Filme, obwohl die Sache beim Chef lag (407 greift nicht); Messläufe, Stellungnahmen, Nachfolger bremst nichts.
 
 ## Auswertung
 
-- **Stärkstes Gegenargument:** halbes Tempo, Kapitel 1 wird später fertig. **Entkräftet:** Direktive „Qualität vor Quantität und vor Eile; es gibt keinen Termin“; die Nacht brachte Menge, nicht Abnahmen.
-- Nutzungsguthaben steht auf „an“ bei 0 Credits: Kosten nur, wenn Guthaben gekauft oder nachgeladen wird; aus schaltet es nur der Chef.
+- **Stärkstes Gegenargument:** Bremsen kostet Fortschritt in einer Woche, in der der Chef nicht stört. **Entkräftet:** der Wächter greift erst über Plan; ohne ihn droht Stillstand bis Samstagabend, auch für den Chef selbst.
 
-**Zu sagen:** „468 ja“ (gilt ab „weiter“) oder was anders sein soll.
+**Zu sagen:** „weiter mit Wächter“ oder was anders sein soll.
