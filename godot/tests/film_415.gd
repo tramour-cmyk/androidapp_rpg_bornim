@@ -1,5 +1,5 @@
 # 415 (Chef „415 jetzt“ 02.11., 10:55): Film der Strahlenprobe im Kampfort (kampf/strahlprobe.gd): Magier gegen das Wolfsrudel im
-# Spiellicht (Toon-Licht, Tusche nach Licht, Schatten; Signatur.wache), Kamera seitlich, die drei Strahlen der Beams-Probe (Blauer
+# Spiellicht (Toon-Licht, Tusche nach Licht, Schatten; Signatur.wache), Spielkamera, die drei Strahlen der Beams-Probe (Blauer
 # Laser, Feuerstrom, Blitzbogen) nacheinander aus der Stabspitze auf den nächsten Wolf. Schwarzblende am Anfang und Ende (G2).
 # Ohne das Paket (godot/addons/reeboo_beams, nur im Bau aus bornim-kaufmodelle) meldet es „ohne Paket“ und endet mit 0.
 # Aufruf (Bild, Probelauf nach 389): PROBE=415 xvfb-run godot --path godot --resolution 540x1170 --write-movie <datei>.avi
