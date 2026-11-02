@@ -8,7 +8,7 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 
 ## Abnahmeliste Kapitel 1 (418, abgenommen vom Chef 01.11., 09:43; in Stufen seit 447, 01.11.; 418 Umfang A gilt nicht mehr)
 
-Zahlen in Klammern = Entscheidung in `DESIGN-SPIELSYSTEM-2-0.md` („E 7“) oder Vorgang; was gilt, steht im Nachschlagewerk `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md` („NW 5“ = Abschnitt 5; E 84). Gilt nur, was entschieden ist; neue Entscheidungen gehen hier ein. Alle Zahlen sind Startwerte; abhakbar mit Zahlen erst nach der Rechensimulation (444). Termine gibt es keine; Wochenziele nennen Reihenfolge und Schätzung, keine Tage je Punkt. Alte Kurzzeichen (T1 … S1, bis 01.11.): Git, Stand vor „Perikles: 447.1“.
+**Wie du die Verweise findest** (484): „E 7“ = Entscheidung 7 in der Liste [Entscheidungen zum Spielsystem](DESIGN-SPIELSYSTEM-2-0.md); „NW 5“ = Abschnitt 5 im [Regelwerk des Bornimer Rollenspielsystems](DESIGN-SPIELSYSTEM-2-0-ENTWURF.md) (Datei heißt noch „Entwurf“, gilt aber; E 84); eine Zahl ohne Buchstaben ist ein Vorgang. Gilt nur, was entschieden ist; neue Entscheidungen gehen hier ein. Alle Zahlen sind Startwerte; abhakbar mit Zahlen erst nach der Rechensimulation (444). Termine gibt es keine; Wochenziele nennen Reihenfolge und Schätzung, keine Tage je Punkt. Alte Kurzzeichen (T1 … S1, bis 01.11.): Git, Stand vor „Perikles: 447.1“.
 
 **Stufe 1 · Kern spielbar** (Prüfung: Rechensimulation 444 abgenommen; der Chef spielt Dorf und Wald an)
 - [ ] **1.1** G · Ohne Klassen (E 1): Erschaffung mit sechs Grundwerten ab 1, 21 Punkte, jeder Wert 3 bis 8 (E 77); fünf Völker mit Bonus, Malus und Merkmal, Volk hebt bis 9, nie unter 3 (E 70, 72, 78); Herkunft freiwillig oder Wanderer, Startfertigkeiten bei 10 (E 68, 69; NW 2).
