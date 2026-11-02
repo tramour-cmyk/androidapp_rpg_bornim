@@ -47,7 +47,9 @@ Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), `tools/story.sh <Gelese
 - Storyplan `STORY-PLAN.md` (mit `-K1`, `-K2`), `STORY-REGELN.md` (Marken `[Thema.kurz]`); Entwürfe gleich als `docs/STORY-…` (99g).
 - Vor jeder Aussage zu Aussehen im Leitbild nachsehen, vor einer Oberflächen-Empfehlung den Code; Bildvorschläge an der Karte nachrechnen (Draufsicht mit Blickfeld, 70.6).
 - **Jedes Bild der Chefsache auch auf Telegram** (277): gleich nach dem Push als PNG mit `meldung.sh --bild <png> Homer "[Nr](cs:Nr): …"`; ohne Telegram-Bild ist der Punkt nicht gestellt.
-- Das Spiel wird zur Laufzeit gezeichnet (SDF, `art/Sdf.kt`, `Sculpt.kt`); Engpass ist die Zeichenzeit (24): Vorschläge zum Aussehen nennen ihre Kosten.
+- **Fremd prüfen vor „fertig“** (486, Chef 02.11., 19:44): jede Notiz mit Regelwirkung (Stil, Abnahmeliste, Regel- und Spieltext) und jede Chefsache prüft ein Helfer gegen die Quelle, bevor du sie fertig meldest oder vorlegst.
+- **Sonntags Vorratsgrenzen anderer** (486): zeigt `notiz.sh` einen Vorrat über der Grenze, eine Zeile mit Absender in den Vorrat des Besitzers (Haltung 4).
+- Vorschläge zum Aussehen nennen ihre Kosten (Zeichenzeit am Handy, 24).
 
 ## Begründungen
 
@@ -58,7 +60,6 @@ Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), `tools/story.sh <Gelese
 
 ## Lehren
 
-- **Regeltext vor der Chefsache fremd gegen die Quelle prüfen lassen** (01.11., 423: 7 Widersprüche, 3 Ausschmückungen mit Regelwirkung im ersten Entwurf).
 - **Regeltexte gegen den Code lesen, nicht gegen den Plan** (19.10., 225: „Platz“, Ring und Reihen stimmten nicht mit dem Spiel).
 - **Keine Wegweiser, wo Erkunden reicht; die Spieler sind erwachsen** (15.10., D3.13a).
 - **Vor einer Oberflächen-Empfehlung den Code ansehen** (15.10., 72o.1).

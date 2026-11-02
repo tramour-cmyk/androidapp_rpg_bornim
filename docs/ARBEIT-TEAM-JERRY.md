@@ -12,7 +12,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 478 | M | **von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv):** Rechenkern des Kampfs schon in Stufe 1 auf BRS (Modell D: Treffer, Schaden, Abzug; Held mit Leben, Angriff, Abwehr nach BRS), Darstellung bleibt bis 2.3; erst genau schätzen: über 2 Sitzungen → Chef (dann B) | ruht: 470a B (Chefregel über 2 Sitzungen; geschätzt 3–4, Zu 478; gemeldet 18:1x); Erschaffung mit 2.3 | – |
+| 478 | M | **von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv):** Rechenkern des Kampfs schon in Stufe 1 auf BRS (Modell D), Darstellung bleibt bis 2.3 | ruht: 470a B (geschätzt 3–4 Sitzungen, Zu 478) | – |
 | 427.1 | M | **von Sokrates (Chef 02.11., 18:54, Archiv 427):** Werte Bestiarium „Werte 2.0“ in `werte.json`; sim444 mit Rudel, Umreißen (Grimmzahn), Überfall (Krogg); beide nachmessen, Chefsache | startbar | – |
 | 481.1 | M | **von Sokrates (Archiv 427):** Tränke in sim444 (Zu 481 in `ARBEIT-BERATUNG.md`), Herkünfte neu messen, Zahlen an Sokrates | startbar | – |
 | 473 | M | **von Perikles (Wochenziel 02.11., Stufe 1):** Bau BRS 1.4 Monsterwerte Kapitel 1 nach Rechenmodell D ins Spiel (Abnahmeliste 1.4, Schätzung 447.3: 1 Sitzung, 1 Runde) | gebaut 7d2eec7cc: Werte aller 18 Arten und Modell D im Spiel (regeln/brs.gd, daten/werte.json wie sim444), Kampf rechnet bis 2.3 nach SRD (Frage an Perikles); fährt im nächsten Build | – |
@@ -23,13 +23,13 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 457.2 | M | **von Perikles (Chef 01.11., 11:49, „unsere Signatur muss sich wiederfinden“):** eigene Probeskripte zeichnen standardmäßig mit Toon-Licht, Tusche, Schatten; ohne nur mit Schalter (Zu 457.2) | gebaut e87815dc8, fährt mit den nächsten Filmen | `claude/jerry-457-2-signatur` |
 | 453.1 | M | **von Sokrates (Chef 01.11., 13:0x):** Helden im Kampf atmen gleich und zu heftig („hechelt“): Atmen ruhiger, je Figur eigener Takt, nach Angriff oder Abwehr schneller, dann abklingend (Zu 453.1) | gebaut: passt (Archiv 453.1a, Lauf 173 = fd2116303), fährt im nächsten Build; 0f28eda79, d88f06ab3 ungesehen, nicht mitnehmen | `claude/tuffy-453-1-held-atem` |
 | 453 | M | **von Sokrates (Chef 01.11., 11:05):** Wölfe brauchen Ruhebewegungen: atmen, scharren, umblicken, knurren (Zu 453) | gebaut: r3b passt (Chef 02.11., 11:02, Archiv 453), fährt im nächsten Build (claude/grundstand-461); Sichtbarkeit in 453a | – |
-| 453a | M | Wolfsatem B (Archiv) | startbar: Film Lauf 176 sofort an Chef (480), zwei Läufe frei (Sokrates 18:4x, 480.1) | – |
+| 453a | M | Wolfsatem B (Archiv) | wartet auf Chef: Vergleichsfilm Lauf 176 gesendet 19:5x (480, Blatt ansehen/453a); Bildrand Nahansicht danach | – |
 | 454 | M | **von Sokrates (Chef 01.11., 11:05):** beim Biss zielt die Achse des Wolfs wohl rechts neben den Helden; erst messen, dann bauen (Zu 453) | gebaut: passt (Archiv 454), fährt im nächsten Build; Schildreaktion in 406 | `claude/jerry-454-bissachse` |
 | 438a | M | **von Sokrates (Archiv 438a):** Hinfallen/Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe und Schild frei | wartet auf Test: Messlauf Ort am Körper (6a98d1bcb); Lauf 183: Hautkapseln gefüllt, Waffe weiter in Haut (Kämpfer 12,5 cm Aufstehen, Kleriker 6,6 cm) | `claude/jerry-438a-sturz-2` |
 | 439 | M | **von Sokrates (Chef 31.10., 23:31, Film 403):** Reihenfolge Angriff, Treffer, Tod, Neuformation (Zu 438) | gebaut: passt (Archiv 438), fährt im nächsten Build | `claude/jerry-438-wolf-kampf` |
 | 440 | M | **von Sokrates (Chef 31.10., 23:34, Film 403):** Wolf-Tod zu schnell weg (Zu 438) | gebaut: passt (Archiv 438), fährt im nächsten Build | `claude/jerry-438-wolf-kampf` |
 | 416.6 | K | **von Sokrates (Chef 31.10., 20:4x):** Spuren des Helden fehlen (`core/Tracks.kt`, `LISTE-UMZUG-348.md` „Spuren“). Perikles: M oder K? | wartet auf Tom: Regen und Zeichnen in Godot (LISTE-UMZUG-348 „Wetter“, Toms karte.gd); spuren.gd mit Test regeln_390 fertig | – |
-| 415 | M | **von Sokrates („jetzt“ 01.11., 20:0x; Archiv 415):** Probe Beams Free Sample im Kampfort (Film, Bilder je Sekunde); nichts kaufen | wartet auf 415c: Lauf 181 am Tor angehalten (E3, F2, F6, G1; B4 Tom); r4 gebaut c3605f712 (Strahl endet an dem, was die Kamera davor sieht; Kampf ruht), Messlauf ohne Bild läuft | `claude/jerry-415-beams` |
+| 415 | M | **von Sokrates („jetzt“ 01.11., 20:0x; Archiv 415):** Probe Beams Free Sample im Kampfort (Film, Bilder je Sekunde); nichts kaufen | wartet auf Chef: Film Lauf 181 gesendet 19:5x (415c A, Blatt ansehen/415); Behebung r4 c3605f712, Lauf erst nach seinem Urteil | `claude/jerry-415-beams` |
 | 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | wartet auf Test: Build 146 (ansehen/t146-befunde.md; 143 getestet 31.10., 20:4x, Befunde als 416.x) | `claude/jerry-348-kampf` |
 | 403 | M | **von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler):** Kampfort: Held je Klasse wie im Dorf (`HeldFigur.baue`), Bewegungen aus der UAL Pro | gebaut: passt (Archiv 403), fährt im nächsten Build | – |
 | 461.1 | M | **von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461):** Grundstand mit Tom: Kampfort, Wölfe, Helden im Kampf (`LISTE-GRUNDSTAND-461.md`) in `claude/grundstand-461`; vor 460 und 406.1 | wartet auf 406, 438a, 453.1, 376.1 (Zu 461.1) | `claude/grundstand-461` |
@@ -70,6 +70,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 ## Einzelheiten
 
+- **von Homer (486, 02.11., 19:5x):** Vorrat 15,3 KB, knapp über der Grenze von etwa 15 KB; Erledigtes streichen.
 - **von Sokrates (02.11., 19:0x, zu 427.1):** Krogg: Held beginnt im Nachteil. Annahmen weiche Grenze, Topf, leer 10 % bleiben bis zum Kampflog. 406.1: Bedingung (Chef 11:21) auch mit neuen Werten nicht erfüllt (Wachsoldat 100 %), wartet auf 481.
 - **Zu 478 (Jerry 02.11., 18:2x):** 3–4 Sitzungen: BRS-Heldenwerte fehlen im Spiel (470, 471) 1; mars.gd Treffer, Schaden, Leben 1; Zauber, Schleichangriff, Zustände, Ring, Würfelzeile 1; Gegenprobe sim444, Tests 0,5–1. Gegenargument: nur Waffe und Biss in 2, dann Magier und Kleriker auf SRD.
 - **Zu 406 (Jerry 02.11., `claude/jerry-406c-gehen`):** G1 behoben (Lauf 179: 0 angeschnitten). E3: Finger 3–8,6 cm vor dem Schild; Schild weiter vor drückt den Schwertarm hinein; Messung Faust beugen läuft. E8 wartet auf Tom 417; F2 offen.
