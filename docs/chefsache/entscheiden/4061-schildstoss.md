@@ -3,7 +3,7 @@ Jerry · 01.11., 22:35 · E Kampf
 
 **Frage:** Wie kommt der Schildstoß ins Spiel? Du hast gesagt (01.11., 20:2x): „als Reaktion … mit dem Ring“, „als Konter, den man dann gezielt macht, wenn man den Ring gut trifft“, „vielleicht als Angriff“.
 **Votum Jerry: A.** Wer einen Schild in der Hand hält, bekommt bei jedem Nahangriff den Ring. Bei gutem Ring blockt er mit dem Schild, bei vollem Ring stößt er zurück (Konter). Als eigene Handlung im Menü kommt der Schildstoß mit dem Pfad Wächter, als dessen erste Handlung nach der Zwischenprüfung (ab Kapitel 2), so wie die Riposte erst mit dem Duellanten kommt (Entscheidung 75).
-**Berührt:** 406 (Kaufschilde, Bewegungen aus Sword & Shield), BRS Kapitel 5 (Pfad Wächter) und 7 (Kampf, Modell D), 444 (Simulation, `werte.json`), 467 (Kampf auf BRS), MARS-Ring (72.11).
+**Berührt:** 406 (Kaufschilde, Bewegungen aus Sword & Shield), BRS Kapitel 5 (Pfad Wächter) und 7 (Kampf, Modell D), 444 (Simulation, `werte.json`), 469 (Kampf auf BRS), MARS-Ring (72.11).
 
 ## Begründung
 
@@ -21,7 +21,7 @@ Alle Zahlen sind Startwerte nach Modell D; die Simulation 444 misst sie.
 | **Angriff im Menü**, Wächter ab Zwischenprüfung | eigene Handlung „Schildstoß“ statt Waffenhieb | dieselbe Formel wie der Konter; trifft er, taumelt der Gegner | wie Konter |
 | **Bosse** (Grak) | taumeln seltener | Taumeln nur mit halber Chance (Wurf nach dem Treffer) | – |
 
-Die Tabelle des Wächters in BRS 5 bekommt die Handlung „Schildstoß“ dazu. Ring voll ohne Schild bleibt bis 467 wie heute (Antwort nach Klasse); 467 regelt sie im BRS neu, weil es dort keine Klassen gibt.
+Die Tabelle des Wächters in BRS 5 bekommt die Handlung „Schildstoß“ dazu. Ring voll ohne Schild bleibt bis 469 wie heute (Antwort nach Klasse); 469 regelt sie im BRS neu, weil es dort keine Klassen gibt.
 
 **Beispiel:** Wachsoldat Stufe 1 (Schild 10, Mittlere Rüstung 10, Kraft 6, Rundschild mit Schildwert 2) gegen einen Wolf Stufe 2 (Schaden 7, Angriff 15, Abwehr 12, Rüstung 1; `werte.json`):
 - Biss: 7 × 1,15 × 1,1 ≈ 8,9. Abzug: 3 × 1,1 + 2 × 1,1 = 5,5.
@@ -56,6 +56,6 @@ Antwort: „406.1 A“ oder „406.1 B“, gern mit Zahlen.
 
 - **Stärkstes Gegenargument:** Ring bei jedem Nahangriff heißt gegen ein Rudel ein Tipp je Biss; der Ring war als seltener, lesbarer Augenblick gebaut („Kleine Schläge der Goblins kommen ohne Ring“, `DESIGN-KAMPF-SPIELANLEITUNG-72-10A.md`; DESIGN-KAMPF: jeder Ring braucht eine lesbare Ausholbewegung mit festem Takt). Oft wiederholt wird er Pflichtübung statt Wahl, und nach Jerrys eigenem Beispiel nimmt der Wachsoldat mit „Ring gut“ vom Wolf 0 Schaden: der Schildträger wird in Kapitel 1 unverwundbar, sobald der Spieler den Takt kann.
 - **Weg, der es entkräftet:** Ring nur bei angekündigten Nahangriffen (beim Wolf „Anspringen“, mit Ausholbewegung), nicht bei jedem Biss; Simulation 444 misst vor dem Bau zwei Zahlen: Ringe je Kampf und Schaden des Schildträgers mit „Ring gut“ (Richtwert: nie 0 gegen einen Gegner seiner Stufe, sonst Abzug kleiner).
-- **Widerspruch zu Entschiedenem:** (1) Rechner „ohne Ring“ widerspricht der geltenden Spielanleitung (Automatik „fängt den Ring mit Gut“); wenn, dann für allen Ring gleich, nicht nur beim Schild, sonst zwei Regeln für denselben Ring. (2) Abzug nach Simulation statt BRS Modell D: das BRS ist unser Regelwerk; die Abweichung entscheidet 467 einmal, nicht dieser Vorschlag nebenbei. (3) Wächter-Handlung im Menü passt zu 75 (Riposte erst mit dem Duellanten) und zu BRS 5; kein Widerspruch.
+- **Widerspruch zu Entschiedenem:** (1) Rechner „ohne Ring“ widerspricht der geltenden Spielanleitung (Automatik „fängt den Ring mit Gut“); wenn, dann für allen Ring gleich, nicht nur beim Schild, sonst zwei Regeln für denselben Ring. (2) Abzug nach Simulation statt BRS Modell D: das BRS ist unser Regelwerk; die Abweichung entscheidet 469 einmal, nicht dieser Vorschlag nebenbei. (3) Wächter-Handlung im Menü passt zu 75 (Riposte erst mit dem Duellanten) und zu BRS 5; kein Widerspruch.
 - **Kosten:** A: ein Simulationslauf (Perikles), eine Jerry-Sitzung für Ring, Block, Konter, Taumeln, Zeilen von Homer, ein Film; B dazu Menüpunkt und Abgrenzung zum Wächter. Bewegungen sind gekauft (406), keine Ausgabe.
-- **Empfehlung:** „406.1 A“, aber mit Ring nur bei angekündigten Nahangriffen statt jedem, Automatik wie heute „gut“ bis 467 es für allen Ring regelt, und Bau erst, wenn 444 zeigt, dass der Schildträger in Kapitel 1 weiter Schaden nimmt; B nein, weil es dem Pfad Wächter den Grund nimmt.
+- **Empfehlung:** „406.1 A“, aber mit Ring nur bei angekündigten Nahangriffen statt jedem, Automatik wie heute „gut“ bis 469 es für allen Ring regelt, und Bau erst, wenn 444 zeigt, dass der Schildträger in Kapitel 1 weiter Schaden nimmt; B nein, weil es dem Pfad Wächter den Grund nimmt.
