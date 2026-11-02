@@ -99,6 +99,7 @@ func _reihe(teil: String, keys: Array, x0: Vector3) -> void:
 		fp.spiel.add_child(w)
 		w.position = x0 + Vector3(i * ab, 0, 0)
 		w.set_meta("versatz", VERSATZ[i % VERSATZ.size()])
+		w.set_meta("schluessel", String(keys[i]))
 		var m: Node3D
 		var e: Dictionary = daten.get(keys[i], {})
 		if keys[i] in ["goblin", "grak"]:
@@ -110,6 +111,7 @@ func _reihe(teil: String, keys: Array, x0: Vector3) -> void:
 			if gap and not gap.get_animation_list().is_empty():
 				var l := gap.get_animation_list()
 				gap.play("Stehen" if l.has("Stehen") else l[0])
+				_atem(w, m, gap, teil + "/" + String(keys[i]), i)
 			e = {"volk": "Goblin" if keys[i] == "goblin" else "Grak", "datei": keys[i] + ".glb"}
 		else:
 			if e.is_empty(): w.free(); fp.protokoll.append("FEHLT " + keys[i]); continue
@@ -123,6 +125,7 @@ func _reihe(teil: String, keys: Array, x0: Vector3) -> void:
 			var f := HeldFigur.bewegungen(m, sk)
 			var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
 			ap.play("Stehen")
+			_atem(w, m, ap, teil + "/" + String(keys[i]), i)
 			var volk := String(e["volk"])
 			var g := "w" if e["frau"] else "m"
 			HeldFigur.toene(m, {"haut": 0, "haarfarbe": 0, "geschlecht": g}, String(VOLK_ENUM.get(volk, "HUMAN")))
@@ -140,6 +143,25 @@ func _reihe(teil: String, keys: Array, x0: Vector3) -> void:
 		figs.append(w)
 		eintraege.append(e)
 	reihen[teil] = [marker, figs, eintraege]
+
+
+# 431c C3 (Pruefer Lauf 41439148830: Zwerg und Huegelvolk atmen fast gleichzeitig; die UAL-Ruhe atmet zweimal je Schleife, 1,3 s je
+# Zug, „hecheln“): eigene Atemschicht wie Held und Leute im Dorf (Gebiet.atem_an, 453.2): Stehen bleibt im ersten Bild, nur die Schicht
+# atmet, je Figur eigener Takt (atem.gd eigen, 4,3 s ± 15 %) und Startphase im Abstand der Reihe (i / Anzahl, gegeneinander versetzt).
+# Der Film laeuft nicht in Echtzeit: die Schicht schreitet selbst nicht fort (takt sehr gross), _laufen setzt die Phase je Filmbild.
+func _atem(w: Node3D, m: Node3D, ap: AnimationPlayer, schluessel: String, i: int) -> void:
+	var at = Gebiet.atem_an(m, ap, hash(schluessel) ^ 431)
+	if at == null:
+		fp.protokoll.append("ATEM %s: ohne (kein UAL-Geruest)" % schluessel)
+		return
+	var takt: float = at.takt
+	var start: float = fposmod(float(VERSATZ[i % VERSATZ.size()]) + 0.5 * at.phase, 1.0)
+	at.takt = 1.0e9
+	at.phase = start
+	w.set_meta("atem", at)
+	w.set_meta("atem_takt", takt)
+	w.set_meta("atem_start", start)
+	fp.protokoll.append("ATEM %s: Takt %.2f s, Start %.2f" % [schluessel, takt, start])
 
 
 # Pruefer Lauf 41430558274 (B1: Haut kreideweiss wie Gips, Ork blass mint; Runde 3 ohne Toenung nicht): HeldFigur.toene nimmt als
@@ -258,8 +280,49 @@ func _kamera(marker: Node3D) -> void:
 	kam.springe()
 
 
+# 431c G1 (Pruefer Lauf 41439148830: Graks Axt ragt 21-26 s oben rechts aus dem Bild): vor dem Film je Reihe pruefen, ob jede Figur
+# ganz im Bild bleibt, auch gedreht: um jede Figur ein Zylinder (groesster Abstand einer Netzecke von der Achse, hoechster Punkt, mit
+# RAND fuer die Ruhebewegung); ragt ein Punkt hinaus, Ausschnitt in Schritten von 8 % weiter. Messzeile AUSSCHNITT
+const RAND := 1.15
+func _ausschnitt(t: String) -> void:
+	var marker: Node3D = reihen[t][0]
+	var cam := fp.spiel.kamera as Camera3D
+	var zyl := []
+	for w in reihen[t][1]:
+		var r := 0.0
+		var h := 0.0
+		for mi in (w as Node3D).find_children("*", "MeshInstance3D", true, false):
+			if mi.name == "Ziel": continue
+			var bb: AABB = (w as Node3D).global_transform.affine_inverse() * (mi as MeshInstance3D).global_transform * (mi as MeshInstance3D).get_aabb()
+			for k in 8:
+				var ecke := bb.get_endpoint(k)
+				r = maxf(r, Vector2(ecke.x, ecke.z).length())
+				h = maxf(h, ecke.y)
+		zyl.append([w, r * RAND, h * RAND])
+	var start: float = marker.get_meta("zoom", BREITE)
+	for schritt in 12:
+		_kamera(marker)
+		await fp.get_tree().process_frame
+		var raus := ""
+		for z in zyl:
+			var p: Vector3 = (z[0] as Node3D).global_position
+			for k in 16:
+				var a := TAU * k / 8.0
+				var rr: float = z[1] if k < 8 else minf(z[1], 0.35)   # unten nur die Fuesse (Ring am Boden), oben Arme, Waffe, Kopf
+				var q := p + Vector3(cos(a) * rr, z[2] if k < 8 else 0.0, sin(a) * rr)
+				# Frustum statt unproject_position (anderer Massstab als das Bild, voelker_film.py)
+				if not cam.is_position_in_frustum(q): raus = String(z[0].get_meta("schluessel", "")); break
+			if raus != "": break
+		if raus == "":
+			fp.protokoll.append("AUSSCHNITT %s: Zoom %.2f (vorher %.2f), %d Schritte" % [t, float(marker.get_meta("zoom")), start, schritt])
+			return
+		marker.set_meta("zoom", float(marker.get_meta("zoom")) * 1.08)
+	fp.protokoll.append("AUSSCHNITT %s: nach 12 Schritten noch hinaus, Zoom %.2f" % [t, float(marker.get_meta("zoom"))])
+
+
 func _laufen(teile: Array, sek: float, drehen: bool, name := "") -> void:
 	var n := int(round(sek * FPS))
+	for t in teile: await _ausschnitt(t)
 	for t in teile: DirAccess.make_dir_recursive_absolute(fp.aus + "/voelker/" + (name if name != "" else String(t)))
 	for i in n:
 		var zeit := i / FPS
@@ -271,6 +334,8 @@ func _laufen(teile: Array, sek: float, drehen: bool, name := "") -> void:
 					var lang := ap.get_animation(ap.assigned_animation).length
 					ap.pause()   # erst anhalten, dann springen (tragprobe.gd)
 					ap.seek(fmod(zeit + float(w.get_meta("versatz", 0.0)) * lang, lang), true)
+				if w.has_meta("atem"):
+					w.get_meta("atem").phase = fposmod(float(w.get_meta("atem_start")) + zeit / float(w.get_meta("atem_takt")), 1.0)
 		await fp.get_tree().process_frame
 		for t in teile:
 			_kamera(reihen[t][0])
