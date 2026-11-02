@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (02.11., 12:1x, `session_01Hmoj78S6eEERrpPHXvwswk`):** 376.1 berichtigt; 431 Runde 4 an Spike; 463 gemessen, Lauf „Ärmel weg“ läuft; Build 146 auf main (PR #177), 425, 416.1, 399.4 fertig; 474, 475 neu; Vorrat kürzen. Nachfolger: Tom – 463: Ärmel-Messung auswerten.
+**Übergabe (02.11., 12:1x, `session_01Hmoj78S6eEERrpPHXvwswk`):** 376.1 berichtigt; 431 Runde 4 an Spike; 463 Lauf „Ärmel weg“: 41433473023; Build 146 auf main, 425, 416.1, 399.4 fertig; 474, 475 neu; Vorrat kürzen. Nachfolger: Tom – 463: Ärmel-Messung auswerten.
 
 ## Zeilen
 
