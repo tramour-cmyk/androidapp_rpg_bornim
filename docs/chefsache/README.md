@@ -166,7 +166,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | D63.6 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 438 08:11, 09:45; 454 | startbar |
 
-**Perikles** – offen 31, Muss 21, startbar 4
+**Perikles** – offen 32, Muss 21, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -177,10 +177,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 464 | M | von Sokrates (Chef 01.11., 20:4x, Wortlaut Zu 464): rote Läufe senken: Haken vor jedem Pus | wartet auf Test/Build (gebaut) |
 | 461 | M | von Sokrates („jetzt“ 01.11., 20:3x, Wortlaut in der Liste): Grundstand Figuren und Kampf: | wartet auf Test/Build (gebaut) |
 | 464.1 | M? | von Diogenes (Doppelpack 421, Lauf 59, 01.11., 22:13): Befunde D61.1–2 zu 464: Tageszahl r | wartet auf Test/Build (gebaut) |
-| D63.1 | M? | von Diogenes (Doppelpack 421, Lauf 61, 02.11., 11:2x): Widerspruch 2 aus 461b offen: Archi | startbar |
+| D63.1 | M? | von Diogenes (Doppelpack 421, Lauf 61, 02.11., 11:2x): Widerspruch 2 aus 461b offen: Archi | wartet auf Test/Build (gebaut) |
 | D63.2 | M? | von Diogenes (Lauf 61): Commit-Prüfung 461b zu grob: jede Änderung an DESIGN-STIL/-KAMPF/- | startbar |
-| D63.3 | M? | von Diogenes (Lauf 61): probelauf.py urteil() übergeht gebilligte Vorentscheide im Kopf (3 | startbar |
+| D63.3 | M? | von Diogenes (Lauf 61): probelauf.py urteil() übergeht gebilligte Vorentscheide im Kopf (3 | wartet auf Test/Build (gebaut) |
 | D63.4 | M? | von Diogenes (Lauf 61): zug-haken.py --summe schreibt die Zählung „ohne Kopf“ (462.1) nich | startbar |
+| D64.1 | M? | von Diogenes (Doppelpack 421, Lauf 62 zu 407, 02.11., 11:2x): 407 greift (Server, gh, curl | startbar |
 | 465.1 | M? | von Diogenes (Doppelpack 421, Lauf 58, 01.11., 22:07): Befund D60.1 zu 465: x-Zeiten bleib | wartet auf Test/Build (gebaut) |
 | 462.1 | M? | von Diogenes (Doppelpack 421, Lauf 57, 01.11., 20:4x): Befunde D59.1–3 zu 462 (PRUEFBERICH | wartet auf Test/Build (gebaut) |
 | 461.2 | M? | von Diogenes (Doppelpack 421, Lauf 56, 01.11., 20:4x): Befunde D58.1–5 zum Grundstand (PRU | wartet auf Test/Build (gebaut) |
@@ -202,11 +203,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
-**Diogenes** – offen 7, Muss 5, startbar 1
+**Diogenes** – offen 6, Muss 4, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 407 | M | von Perikles (Doppelpack 421, ff8821827, 782e96f21): Probelauf-Haken zählt Starts von Hand | startbar |
 | 461b | M | von Sokrates (Chef 01.11., 22:26, „461b ja“, Archiv): Kennzahl Widersprüche: montags Stich | ruht bis 09.11. |
 | 434 | M | von Sokrates (Chef 31.10., 22:1x): bei jeder Zählung 374 zusätzlich die Zeile „Bestand gep | Termin 03.11. |
 | 374 | M | von Sokrates (Chef 27.10., 11:58, Archiv 374): täglich 8 Uhr bis 03.11. Vorlagen des Vorta | Termin 03.11. |
