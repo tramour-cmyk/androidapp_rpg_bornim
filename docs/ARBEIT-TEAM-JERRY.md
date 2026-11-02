@@ -13,7 +13,6 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 478 | M | **von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv):** Rechenkern des Kampfs schon in Stufe 1 auf BRS (Modell D), Darstellung bleibt bis 2.3 | ruht: 470a B (geschätzt 3–4 Sitzungen, Zu 478) | – |
-| 427.1 | M | **von Sokrates (Chef 02.11., 18:54, Archiv 427):** Werte Bestiarium „Werte 2.0“ in `werte.json`; sim444 mit Rudel, Umreißen (Grimmzahn), Überfall (Krogg); beide nachmessen, Chefsache | startbar: A mit 1 und 2 (Chef 20:22, Archiv); Werte Bestiarium in werte.json, falls noch nicht | – |
 | 481.1 | M | **von Sokrates (Archiv 427):** Tränke in sim444 (Zu 481 in `ARBEIT-BERATUNG.md`), Herkünfte neu messen, Zahlen an Sokrates | gebaut: sim444 Abschnitt 6 auf claude/jerry-481-1-traenke, Befund LISTE-SIMULATION-444, Zahlen an Sokrates (Zu 481); Geprüft an: 4bb60ba5e (--pruefen 0, Abschnitte 1–5 gleich main) | – |
 | 473 | M | **von Perikles (Wochenziel 02.11., Stufe 1):** Bau BRS 1.4 Monsterwerte Kapitel 1 nach Rechenmodell D ins Spiel (Abnahmeliste 1.4, Schätzung 447.3: 1 Sitzung, 1 Runde) | gebaut 7d2eec7cc: Werte aller 18 Arten und Modell D im Spiel (regeln/brs.gd, daten/werte.json wie sim444), Kampf rechnet bis 2.3 nach SRD (Frage an Perikles); fährt im nächsten Build | – |
 | 472 | M | **von Perikles (Wochenziel 02.11., Stufe 1):** Bau BRS 1.3 Heldenstufe aus Erfahrung, Anteil Fertigkeiten höchstens 40 %, Erfahrungstopf je Gebiet (Abnahmeliste 1.3); Schnittstelle mit Tom (471) | gebaut a6a83b13e: Regel (Brs.gib_erfahrung, Deckel, weiche Grenze, Topf); Verdrahtung mit Held nach 470 etwa 1 S, 1 R (Zu 472) | – |
@@ -67,6 +66,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht: SRD (Chef 31.10.) | – |
 | 469 | M | **von Sokrates (02.11., 11:0x, zu 406.1):** Kampf auf BRS: Ring (MARS) ohne Klassen regeln (Antwort nach Klasse heute) | wartet auf 406.1 | – |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht: Klang zieht nach Godot; Rest `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
+| Pflege | K | **von Werkzeug (340.3, 02.11.):** 15810 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 ## Einzelheiten
 
