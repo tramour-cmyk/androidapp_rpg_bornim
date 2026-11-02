@@ -11,10 +11,10 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 **Wie du die Verweise findest** (484): „E 7“ = Entscheidung 7 in der Liste [Entscheidungen zum Spielsystem](DESIGN-SPIELSYSTEM-2-0.md); „NW 5“ = Abschnitt 5 im [Regelwerk des Bornimer Rollenspielsystems](DESIGN-SPIELSYSTEM-2-0-ENTWURF.md) (Datei heißt noch „Entwurf“, gilt aber; E 84); eine Zahl ohne Buchstaben ist ein Vorgang. Gilt nur, was entschieden ist; neue Entscheidungen gehen hier ein. Alle Zahlen sind Startwerte; abhakbar mit Zahlen erst nach der Rechensimulation (444). Termine gibt es keine; Wochenziele nennen Reihenfolge und Schätzung, keine Tage je Punkt. Alte Kurzzeichen (T1 … S1, bis 01.11.): Git, Stand vor „Perikles: 447.1“.
 
 **Stufe 1 · Kern spielbar** (Prüfung: Rechensimulation 444 abgenommen; der Chef spielt Dorf und Wald an)
-- [ ] **1.1** G · Ohne Klassen (E 1): Erschaffung mit sechs Grundwerten ab 1, 21 Punkte, jeder Wert 3 bis 8 (E 77); fünf Völker mit Bonus, Malus und Merkmal, Volk hebt bis 9, nie unter 3 (E 70, 72, 78); Herkunft freiwillig oder Wanderer, Startfertigkeiten bei 10 (E 68, 69; NW 2). Ins Spiel erst mit 2.3; bis dahin im Testmenü zu sehen (470a: „C“, aber der Rechenkern des Kampfs ist mit 3–4 Sitzungen über 2 geschätzt, darum gilt B).
+- [ ] **1.1** G · Ohne Klassen (E 1): Erschaffung mit sechs Grundwerten ab 1, 21 Punkte, jeder Wert 3 bis 8 (E 77); fünf Völker mit Bonus, Malus und Merkmal, Volk hebt bis 9, nie unter 3 (E 70, 72, 78); Herkunft freiwillig oder Wanderer, Startfertigkeiten bei 10 (E 68, 69; NW 2). Ins Spiel erst mit 2.3; bis dahin im Testmenü zu sehen (470a: „C“, aber der Rechenkern des Kampfs ist mit 3–4 Sitzungen über 2 geschätzt, darum gilt B). · Stand: in Arbeit
 - [ ] **1.2** G · Fertigkeiten steigen durch Tun, Wert 0–100 in vier Rängen, am Rangende Halt mit kleinem Puffer bis zur Prüfung (E 67, E 44); Kapitel 1 bis Geselle (49) mit Bewährungsproben zum Gesellen (Takt, NW 5); Prüfregel und die 37 (E 59); Hinweis beim Aufstieg, Heldenblatt zeigt nur Getanes (NW 3).
-- [ ] **1.3** G · Heldenstufe aus Erfahrung (E 16), höchstens 40 % aus Fertigkeitsaufstiegen (E 17); Kapitelgrenze weich bis zwei Stufen darüber (E 18, E 35); Erfahrungstopf je Gebiet, Wiederkehrer geben kaum Erfahrung, aber Beute (E 19, E 21).
-- [ ] **1.4** M · Neue Monsterwerte für Kapitel 1 nach dem BRS auf Rechenmodell D (E 73–75, NW 7).
+- [ ] **1.3** G · Heldenstufe aus Erfahrung (E 16), höchstens 40 % aus Fertigkeitsaufstiegen (E 17); Kapitelgrenze weich bis zwei Stufen darüber (E 18, E 35); Erfahrungstopf je Gebiet, Wiederkehrer geben kaum Erfahrung, aber Beute (E 19, E 21). · Stand: gebaut
+- [ ] **1.4** M · Neue Monsterwerte für Kapitel 1 nach dem BRS auf Rechenmodell D (E 73–75, NW 7). · Stand: gebaut
 
 **Stufe 2 · Kapitel 1 durchspielbar** (Prüfung: Zufallsspieler spielt Kapitel 1 durch; Kollision 0; Kapitelsimulation: jede Herkunft schafft die Bosse; der Chef spielt einmal grob durch)
 - [ ] **2.1** T · Kollision und Sprungtest 0 in jedem Ort; kein Schweben nach Start und Kartenwechsel (24); Tippen trifft, was gezeichnet ist.
@@ -125,7 +125,21 @@ Quelle: der alte Kotlin-Code (`core`, `app`), abgeglichen mit `LISTE-UMZUG-348.m
 
 ## Ausführlicher Stand (Zeile 10 des [Tagesberichts](ARBEIT-TAGESBERICHT.md); Perikles montags neu; ersetzt seit 448 den täglichen Stand zum Marktstart und das Dashboard)
 
-**Hinweis (02.11., 11:2x):** Der Stand unten ist noch vom alten Plan (Blöcke T–S, Stand 01.11.); es gelten die Stufen oben, das Wochenziel 02.–08.11. und der Tagesbericht. Perikles setzt den Stand nach der Wochenzählung von Diogenes neu.
+**Stand 02.11., 20:0x** (nach der Wochenzählung von Diogenes, 02.11.; Zahlen je Tag im [Tagesbericht](ARBEIT-TAGESBERICHT.md))
+
+| Stufe | Stand | was als Nächstes |
+|---|---|---|
+| 1 Kern spielbar | 0 von 4 abgenommen. 1.3 Heldenstufe (472) und 1.4 Monsterwerte (473) als Regeln gebaut; 1.1 Erschaffung (470) in Arbeit, von dir am 02.11., 18:40 für gut befunden, kommt mit 2.3 ins Spiel (470a B); 1.2 Fertigkeiten (471) nicht begonnen. Simulation 444 gerechnet, nicht von dir abgenommen. | 471 bauen; 444 dir vorlegen; Stufe 1 als Build mit dem Dorf und dem Flüsterwald (479) |
+| 2 Kapitel 1 durchspielbar | 0 von 12. Dorf, Räume und Wolfskampf spielbar (Build 146, von dir am 02.11., 10:52 getestet). Flüsterwald, Tiefer Flüsterwald, Blutzahnhöhle fehlen in Godot. Kampf rechnet noch nach dem alten System (2.3). | Orte und Welt je Zeile (479, dein Ja); Rechenkern des Kampfs (478) |
+| 3 Alle Systeme angelegt | 0 von 8. Gegenstandskatalog angelegt (458). | nach Stufe 2 |
+| 4 Kapitel 1 fertig | 0 von 10. Figuren und Bewegungen in deinen Runden (417 Tragart, 376.1 Tracht, 463 Umhang, 453 Atmen). | Rückläufer aus deinem Urteil, höchstens zwei Läufe je Urteil |
+| 5 marktreif | Gewerbeschein offen (du, Vorgang 142 beim Chef) | – |
+| 6 SRD im Code abgelöst | nach dem Marktstart | – |
+
+**Woche 25.10.–01.11. (Diogenes):** Wochenziel nicht erreicht; Anteil Muss an den Kosten 95 %; Anteil Tom, Jerry, Homer 75 %; Kosten etwa 3978 $ Rechenwert in 424 Sitzungen. **Diese Woche:** Wochenguthaben 36 % am Montagmorgen (Ziel etwa 11 % je Tag, 468).
+
+<details><summary>Alter Stand vom 01.11. (Blöcke T–S, Risiken, Reihenfolge); gilt nicht mehr, steht hier nur bis zum nächsten Montag</summary>
+
 
 **Stand 01.11., 00:15: gelb. Seit 31.10. gilt deine neue oberste Direktive: kein Termin, fertig ist, was die Abnahmeliste oben erfüllt.** Die Liste liegt dir zur Abnahme vor (Chefsache 418); bis zu deinem Wort ampeln wir nach ihrem Entwurf, Block für Block. Das spielbare Godot-Spiel (Dorf und Waldkampf, 399) hast du am 31.10. gegen 20:40 mit Build 143 getestet; von deinen neun Befunden (416) ist einer abgenommen, vier sind gebaut, einer in Arbeit, drei offen (einer davon Kür). 15 neue Änderungen (Tom 7, Jerry 8) warten auf den nächsten gemeinsamen Build; höchstens 6 je Build (317), also mindestens drei Builds. Dazu 5 Punkte aus Build 143, die du noch abnimmst (Spielfassung, Innenräume, Klang, Dorf, Kampfort). Das alte Regelwerk ruht auf dein Wort („keine Energie mehr in das alte SRD-System“, 424); Spielsystem 2.0 ist als Nachschlagewerk beschrieben (Entscheidungen bis 75, Sokrates gleicht ab, 422; Diogenes liest quer, 441), gebaut wird es erst nach deinen Antworten zu den offenen Entwürfen (413a) und zum Umfang für Kapitel 1 (418). Kein Block ist rot; die meisten warten auf diese beiden Antworten.
 
@@ -174,6 +188,8 @@ Dazu, ohne Vorgang (Perikles vergibt Nummern mit Wochenziel 2): Englisch durchge
 | 2 | Regeln 2.0 bauen, Blöcke T, A, K, M, G, W im neuen Spiel abhaken |
 | 3 | Fehler und Glätten; Englisch, Geräte, Spielstände; Store-Seite, Impressum; Tester bereit; du spielst Kapitel 1 ganz durch |
 | 4 | Chef: „gut“; geschlossener Test 14 Tage (falls nicht schon mit der alten App gelaufen), Antrag, Prüfung durch Google, Marktstart |
+
+</details>
 
 ## Meilenstein Umzug: „Kapitel 1 auf Godot mindestens so gut wie alt“ (348.9, Chef 25.10., 12:24; seit 418 Teil von Block W der Abnahmeliste)
 
