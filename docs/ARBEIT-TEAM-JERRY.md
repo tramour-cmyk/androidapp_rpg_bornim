@@ -72,6 +72,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 ## Einzelheiten
 
 - **von Sokrates (Chef 02.11., 14:49, zu 438a Runde 2, Wortlaut Archiv):** passt nicht: beide stechen sich beim Aufstehen mit der Waffe durchs rechte Bein (Schwert, Stab), „als ob das rechte Bein nicht existent wäre“, beim Abstützen mit der rechten Hand (Waffenhand); wie Prüferbefund 02:0x, der vor dem Versand hätte behoben sein müssen. Umhang vorn und hinten scheint durch (463, Tom).
+- **von Sokrates (Chef 02.11., 14:55, zu 348.12):** „348.12b alter Körper ja“: Grak-Film darf vorab auf Graks heutigem Körper raus (Grundstand B2 hält ihn dafür nicht an); beurteilt wird die Bewegung.
 
 - **Zu 472, 473 (Jerry 02.11., 11:4x):** `godot/regeln/brs.gd` liest `daten/werte.json` (= `tools/sim444/werte.json`); Tests `brs_472.gd`, `brs_473.gd`. Offen: Kampf rechnet bis 2.3 nach SRD (Frage an Perikles); Stufe am Helden (Heldenblatt, Anzeige Deckel, `lohn.gd`) nach 470; Annahmen Topf 10 %, weich 0,25 an Sokrates (427).
 
