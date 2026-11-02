@@ -35,7 +35,7 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 **Ergebnis:** 484 greift für „NW 2“, „E 7“, BRS, KI, RK, TP, „z. B.“, „z.B.“, „ca.“, „Nr.“; die 4 echten Meldungen des Tages gehen durch (kein Fehlalarm); Vorgangsnummern, Kennungen (A1, t146), Dateinamen, Würfel (2W4+2), Sprungmarken gehen durch. 465: Wer und Zeit aus der Titelzeile gelesen (auch „19:1x“, „Team Tom“), Zeile 2 geht weiter vor.
 
 **Befunde**
-- **D67.1 (484, mittel, sicher, Klasse 1 Perikles) Lücken:** gehen durch: „K1“ (Buchstabe mit Ziffer gilt als Kennung), Kürzel vor Bindestrich („HP-Balken“, „EP-Anzeige“), „s. o.“, „u.U.“. Fehlalarm, klein: „OK“, „JPG“, „GIF“ halten an (PNG und MP4 sind frei).
+- **D67.1 (484, mittel, sicher, Klasse 1 Perikles) Lücken:** gehen durch: „K1“ (Buchstabe mit Ziffer gilt als Kennung), Kürzel vor Bindestrich („HP-Balken“, „EP-Anzeige“), „s. o.“, „u.U.“. Fehlalarm, klein: „OK“, „JPG“, „GIF“ halten an (PNG und MP4 sind frei); ebenso ein Kürzel, das als Beispiel in „…“ zitiert wird (meine Meldung zu 484 um 20:0x hielt an, ging mit `…` durch).
 
 **Nebenbei:** `zug-index.py` schreibt beim Laden als Modul `docs/chefsache/README.md` neu (Import ruft das Hauptprogramm); in der Kopie bemerkt und zurückgesetzt, nichts gepusht. **Nicht geprüft:** Meldungstexte der anderen Rollen (`meldungen.tsv` hat keinen Text).
 
