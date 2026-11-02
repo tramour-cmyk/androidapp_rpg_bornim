@@ -24,7 +24,8 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 440 | M | **von Sokrates (Chef 31.10., 23:34, Film 403):** Wolf-Tod zu schnell weg (Zu 438) | gebaut: passt (Archiv 438), fährt im nächsten Build | `claude/jerry-438-wolf-kampf` |
 | 416.5 | M | **von Sokrates (Chef 31.10., 20:4x, Build 143):** im Kampf Details des Kampflogs aufrufen, dann nicht mehr schließbar (Taste reagiert nicht); beheben | wartet auf Merge: 146.8 passt (Chef 02.11., 10:52) | – |
 | 416.6 | K | **von Sokrates (Chef 31.10., 20:4x):** Spuren des Helden fehlen (`core/Tracks.kt`, `LISTE-UMZUG-348.md` „Spuren“). Perikles: M oder K? | frei | – |
-| 415 | M | **von Sokrates („jetzt“ 01.11., 20:0x; Archiv 415):** Handyprobe Beams Free Sample (itch.io reeboolabs, gratis): läuft es auf dem Handy, FPS je Renderer, und wie wirkt es mit Toon-Licht und Tusche im Kampfort (Film); entscheidet für alle reeboolabs-Pakete (Status Effects VFX, Beams); nichts kaufen | wartet auf „weiter“ (STOPP); Code ausführen erlaubt (Chef 02.11., 10:53) | – |
+| 415 | M | **von Sokrates („jetzt“ 01.11., 20:0x; Archiv 415):** Handyprobe Beams Free Sample: läuft es auf dem Handy, FPS je Renderer, Wirkung mit Toon-Licht und Tusche im Kampfort (Film); nichts kaufen | wartet auf 415a; erlaubt 10:53 | – |
+| 415a | M | Rückfrage: Beams-Probe jetzt trotz STOPP? | wartet auf Chef: entscheiden/415a | – |
 | 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | wartet auf Test: Build 146 (ansehen/t146-befunde.md; 143 getestet 31.10., 20:4x, Befunde als 416.x) | `claude/jerry-348-kampf` |
 | 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | wartet auf Test: Build 146 (t146) | – |
 | 402 | M | **von Sokrates (Chef 22:2x, Archiv):** Blende vor dem Kampf wie alt; Herzschlag beim Hinterhalt stärker | wartet auf Merge: 146.8 passt (Chef 02.11., 10:52) | – |
