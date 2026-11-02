@@ -902,7 +902,8 @@ func _play_say(e: Dictionary) -> void:
 			figures[id].abwehr(lands, art)
 		elif target == id and _missed(e) and across:
 			# 438 (Prüfer Film r2: Klinge durch Wolf 2 ohne Treffer): wer ausweicht, ist schon weg, wenn der Hieb ankommt
-			figures[id].dodge(maxi(0, lands - AUSWEICH_VOR_MS) if lunge_ms > 0 and fx == null else lands)
+			figures[id].dodge(maxi(0, lands - AUSWEICH_VOR_MS) if lunge_ms > 0 and fx == null else lands, "",
+				figures[actor] if actor != null and figures.has(actor) else null)     # 348.12k: weg vom Angreifer
 	# 249 (wie im alten MARS, SkirmishScreen.kt): beim Aufschlag rückt ein kritischer oder tödlicher Schlag die Szene heran
 	# und ruckt sie in Schlagrichtung; ein Hieb, Biss oder Schuss, der trifft, lässt Blut spritzen, weg vom Schlagenden
 	if target != null and actor != null and e.damage > 0 and figures.has(target) and tg != null:

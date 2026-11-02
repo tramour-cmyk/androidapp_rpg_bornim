@@ -654,18 +654,20 @@ func _ort() -> void:
 		rat.announce(null, held)
 		await warte.call(0.4)
 		var mh: int = rat.strike(held, {"spell": null})
-		held.hurt(int(mh * 0.42), false)
+		held.hurt(int(mh * 0.42), false, false, "nah")     # Prüfer Lauf 166 (F1): ohne Art kein Schild vor dem Aufschlag
 		await warte.call(rat.busy_ms / 1000.0 + 0.6)
 		# 348.12k (Chef 01.11., 22:45: „die Ausweichbewegungen sind zwar dem Film zu sehen, aber da erfolgt ja kein Angriff“): der
 		# Held schlägt nach Grak und verfehlt; Grak weicht wie im Kampf (kampfort.gd) AUSWEICH_VOR_MS vor dem Aufschlag rasch zur
 		# Seite aus und setzt danach auf seinen Platz zurück (figur.gd dodge)
-		for nm in ["Ausweichen", "Ausweichen links"]:     # Seitenlauf der UAL Pro, je Seite einmal
+		# Prüfer Lauf 166 (F5): je Seite einmal erzwungen wich Grak einmal auf die Klerikerin zu; jetzt wie im Kampf die Seite weg vom
+		# Angreifer (figur.gd _ausweich_seite), zweimal
+		for nm in ["Ausweichen", "Ausweichen"]:
 			if rat.weg.has(nm):
 				zeig.call(nm)
 				held.announce(null, rat)
 				await warte.call(0.4)
 				var hs: int = held.strike(rat, {"spell": null, "roll": ["ATTACK", 0, 0, 0, false]})
-				rat.dodge(maxi(0, int(hs * 0.42) - fight.AUSWEICH_VOR_MS), nm)
+				rat.dodge(maxi(0, int(hs * 0.42) - fight.AUSWEICH_VOR_MS), "", held)
 				await warte.call(held.busy_ms / 1000.0 + 0.3)
 				var bis_w: float = fight.clock_ms + 6000.0
 				while (rat.tween and rat.tween.is_running() or held.tween and held.tween.is_running()) and fight.clock_ms < bis_w:

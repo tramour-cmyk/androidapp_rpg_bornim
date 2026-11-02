@@ -2571,14 +2571,14 @@ func hurt(after_ms: int, dies: bool, schwer := false, art := "") -> void:
 
 
 const AUSWEICHEN_HALT_S := 0.3     # 348.12k: Zweibeiner nach dem Ausweichen, bevor er auf den Platz zurücksetzt
-func dodge(after_ms: int, nm := "") -> void:
+func dodge(after_ms: int, nm := "", von = null) -> void:
 	await get_tree().create_timer(after_ms / 1000.0).timeout
 	_dreh_ab()
 	_schnaufen(0.8)
 	# 348.12f: mit Wurzelweg zur Seite oder zurück, wie die Quelle (Ausweichen links nicht: Kopf unter den Vorderbeinen, Prüfer r7),
 	# dann heim; [nm] wählt (Probe SCHAU=ort), sonst der Zufall
 	if nm == "" and weg.has("Ausweichen links"):
-		nm = _ausweich_seite()
+		nm = _ausweich_seite(von)
 	if nm == "":
 		nm = "Ausweichen zurück" if weg.has("Ausweichen zurück") and randf() < 0.5 else "Ausweichen"
 	if weg.has(nm) and anim and anim.has_animation(nm) and not down and not lunging():
@@ -2673,14 +2673,20 @@ func dodge(after_ms: int, nm := "") -> void:
 
 ## 348.12 (Chef 15:23: „Animation … beim Ausweichen“): Grak setzt zur Seite (Seitenlauf der UAL Pro, 1,7 m); zu der, deren Weg von den
 ## anderen am freiesten ist, bei gleich viel Luft zur Mitte des Kampforts hin
-func _ausweich_seite() -> String:
+func _ausweich_seite(von = null) -> String:
 	var best := "Ausweichen"
 	var wert := -INF
 	for nm in ["Ausweichen", "Ausweichen links"]:
 		if not weg.has(nm):
 			continue
 		var ende := _weg_at(position, basis, nm, (weg[nm].size() - 1) / weg_fps)
-		var w := minf(_seg_gap(position, ende, null), 0.3) - ende.length() * 0.01
+		var luft := _seg_gap(position, ende, null)
+		var w := minf(luft, 0.3) - ende.length() * 0.01
+		# 348.12k (Prüfer Lauf 166, F5: Grak wich nach rechts auf die Klerikerin zu, ihr Stab traf seinen Fuß): weg vom Angreifer,
+		# solange der Weg frei ist
+		if von != null and is_instance_valid(von):
+			var v := Vector3(von.position.x, ende.y, von.position.z)
+			w += ende.distance_to(v) - (10.0 if luft < 0.0 else 0.0)
 		if w > wert:
 			wert = w
 			best = nm
