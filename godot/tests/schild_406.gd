@@ -136,9 +136,9 @@ func _haut_ecken(sk: Skeleton3D) -> PackedVector3Array:
 ## ganzen linken Arm aus, auch Schulter und Oberarm, die den Schild nicht halten; hier nur sie (Gewicht auf clavicle_l, upperarm_l)
 var _schulter := []
 
-func _schulter_lesen(sk: Skeleton3D) -> void:
-	_schulter.clear()
-	var nur := [sk.find_bone("clavicle_l"), sk.find_bone("upperarm_l")]
+func _schulter_lesen(sk: Skeleton3D, knochen := []) -> void:
+	_schulter = []
+	var nur: Array = knochen if not knochen.is_empty() else [sk.find_bone("clavicle_l"), sk.find_bone("upperarm_l")]
 	for mi in sk.find_children("*", "MeshInstance3D", true, false):
 		var m := mi as MeshInstance3D
 		if m.skin == null or m.get_parent() is BoneAttachment3D:
@@ -160,6 +160,52 @@ func _schulter_lesen(sk: Skeleton3D) -> void:
 						w += ar[Mesh.ARRAY_WEIGHTS][v * nb + j]
 				frei[v] = 1 if w >= 0.5 else 0
 			_schulter.append([m, m.skin, ar[Mesh.ARRAY_VERTEX], ar[Mesh.ARRAY_BONES], ar[Mesh.ARRAY_WEIGHTS], nb, frei])
+
+
+## 406a E3 (Tor 461a, Lauf 170: die Faust der Schildhand liegt außen auf dem Schild, 2, 5, 22, 35 s, Kämpfer 82–87 s; gemessen nur
+## vor der Neigung): Haut der Finger der linken Hand (mindestens halbes Gewicht auf einem Fingerglied), wie _schulter
+var _finger := []
+func _finger_lesen(sk: Skeleton3D) -> void:
+	var nur := []
+	for i in sk.get_bone_count():
+		var nm := sk.get_bone_name(i)
+		if nm.ends_with("_l") and (nm.begins_with("thumb") or nm.begins_with("index") or nm.begins_with("middle") or nm.begins_with("ring") or nm.begins_with("pinky")):
+			nur.append(i)
+	var alt := _schulter.duplicate()
+	_schulter_lesen(sk, nur)
+	_finger = _schulter
+	_schulter = alt
+
+
+## je Fassung aus VARIANTEN_F: wie weit eine Fingerecke vor der Vorderseite des Schilds liegt (m, positiv = sichtbar davor), nur mitten
+## im Schild (alle 8 Nachbarfelder da), wie sturz_438a _runde3
+const VARIANTEN_F := [[0.0, 0.0, 0.0, 0.0], [0.0, 0.02, 0.0, 0.0], [0.0, 0.04, 0.0, 0.0], [0.0, 0.06, 0.0, 0.0], [0.0, 0.08, 0.0, 0.0]]
+func _varianten_finger(schild: Node3D, finger: PackedVector3Array) -> Array:
+	var feld := _karte(schild)
+	var inv := schild.global_transform.affine_inverse()
+	var sc := schild.global_transform.basis.get_scale()
+	var out := []
+	for v in VARIANTEN_F:
+		var dreh := _neigung(v)
+		var t := Vector3(0.0, -v[0] / sc.y, v[1] / sc.z)
+		var best := [-INF, Vector3.ZERO]
+		for p in finger:
+			var q: Vector3 = dreh.inverse() * (inv * p - t)
+			var k := Vector2i(floori(q.x / RASTER), floori(q.y / RASTER))
+			if not feld.has(k):
+				continue
+			var innen := true
+			for dx in [-1, 0, 1]:
+				for dy in [-1, 0, 1]:
+					if not feld.has(k + Vector2i(dx, dy)):
+						innen = false
+			if not innen:
+				continue
+			var e: Vector2 = feld[k]
+			if q.z - e.y > best[0]:
+				best = [q.z - e.y, q * 100.0]
+		out.append(best)
+	return out
 
 
 func _ecken_aus(sk: Skeleton3D, liste: Array) -> PackedVector3Array:
@@ -410,8 +456,10 @@ func _run() -> void:
 		var ds := _dreiecke(schild, true)
 		_check((ds > 0) == (SOLL[k] == "shield"), "%s Kampf: Sonne auf dem Schild %s (%d Dreiecke)" % [k, "ja" if SOLL[k] == "shield" else "nein", ds])
 		var sk := fig._find(fig.model, "Skeleton3D") as Skeleton3D
+		_finger_lesen(sk)
 		_schulter_lesen(sk)
 		_haut_lesen(sk)
+		var var_f := {}     # 406a E3: Bewegung -> je Fassung aus VARIANTEN_F [Finger vor dem Schild m, Stelle]
 		var sm: Node3D = schild.find_children("*", "MeshInstance3D", true, false)[0] if not schild is MeshInstance3D else schild
 		kf.mars.find("merc").auto = true
 		kf.mars.set_autopilot(true)
@@ -443,6 +491,14 @@ func _run() -> void:
 					var vs := _varianten_tiefe(sm, _ecken_aus(sk, _schulter))
 					if vs[0][0] > schulter.get(b, [-INF])[0]:
 						schulter[b] = vs[0]
+					var vf := _varianten_finger(sm, _ecken_aus(sk, _finger))
+					var fb: Array = var_f.get(b, [])
+					for i in VARIANTEN_F.size():
+						if fb.size() <= i:
+							fb.append([-INF, Vector3.ZERO])
+						if vf[i][0] > fb[i][0]:
+							fb[i] = vf[i]
+					var_f[b] = fb
 					for i in VARIANTEN.size():
 						if vk[i][0] > var_k[i][0]:
 							var_k[i] = vk[i]
@@ -464,6 +520,9 @@ func _run() -> void:
 			print("  %s Kampf %s: linke Schulter und Oberarm %.3f m im Schild (Stelle %s cm)" % [k, b if b != "" else "–", schulter[b][0], schulter[b][1]])
 		for i in VARIANTEN.size():
 			print("  %s FASSUNG tiefer %.0f cm, vorn %.0f cm, Oberkante vor %.0f°, Seite +x vor %.0f°: Körper %.1f cm (Stelle %s), Schulter und Oberarm %.1f cm (Stelle %s) im Schild" % [k, VARIANTEN[i][0] * 100.0, VARIANTEN[i][1] * 100.0, VARIANTEN[i][2], VARIANTEN[i][3], var_k[i][0] * 100.0, (var_k[i][1] as Vector3).round(), var_s[i][0] * 100.0, (var_s[i][1] as Vector3).round()])
+		for b in var_f:
+			for i in VARIANTEN_F.size():
+				print("  %s FINGER %s, Schild vorn +%.0f cm: Finger %.1f cm vor der Vorderseite (Stelle %s)" % [k, b if b != "" else "–", VARIANTEN_F[i][1] * 100.0, var_f[b][i][0] * 100.0, (var_f[b][i][1] as Vector3).round()])
 		print("Kampf %s: %s nach %d Bildern" % [k, kf.mars.outcome, n])
 		kf.queue_free()
 		p.queue_free()
