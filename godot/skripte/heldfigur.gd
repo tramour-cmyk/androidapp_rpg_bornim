@@ -116,7 +116,7 @@ static func aussehen_voll(a: Dictionary, klasse := "") -> Dictionary:
 # Die Figur: Wurzel des glb mit AnimationPlayer „AnimationPlayer“ (Stehen, Gehen, Rennen, Stehen_2, Stehen_3, …); mats bekommt die
 # Toon-Materialien (held.gd: fill, Nacht). Ergebnis in meta: „gehen_m_je_s“, „rennen_m_je_s“, „faust_L“ (Knochen, Griff, Achse)
 # 463 (Chef 01.11., 20:3x „Umhang … durchschimmert“, Robe): Rueckseiten und Aermel in der Tiefe zurueck, Werte nach pruef_flecken RUECK
-const RUECK := 0.0
+const RUECK := 0.04   # Laeufe 41427986678, 41449210697: mit Unterlagen weg (kauf_kleid UNTER_WEG) Wache Mann 11404 -> 5831, Frau 14284 -> 4788 Flecken
 const NACH := 0.0
 static func baue(w: Dictionary, mats: Array) -> Node3D:
 	var k := String(w.get("klasse", "FIGHTER"))
