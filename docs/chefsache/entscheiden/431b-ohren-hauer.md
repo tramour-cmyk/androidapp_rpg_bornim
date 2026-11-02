@@ -22,3 +22,11 @@ Tom · 01.11., 21:4x · E Figuren
 - „431b kaufen“: Sokrates prüft die Lizenz, du kaufst, Tom legt die passenden Ohren drehend im Film vor (408), du wählst.
 
 **Zu sagen:** „431b selbst“ oder „431b kaufen“.
+
+## Stellungnahme Sokrates (02.11., 02:41)
+
+- **Stärkstes Gegenargument gegen „selbst“:** Ohren am Kopf sind schon einmal verloren gegangen (t78: „Gesicht oval, Ohren, Nase“ über drei Übergaben, Bekannte Fehler in `CLAUDE.md`); eine eigene Form sieht schnell gebastelt aus, und das Urteil über Aussehen hast nur du.
+- **Bestand übersehen:** Die Suche galt nur der Kaufbibliothek. Im eigenen Bestand baut Jerry Ohren und Hauer schon: `tools/blender348/goblin.py` (Zweig `claude/grundstand-461`) formt Ohren (`ear`) sowie zwei Hauer aus dem Unterkiefer für den Goblin und lange Hauer aus dem Unterbiss für Grak, über Prüferrunden nachgebessert (Ohren bis 6b, Hauer bis 5b). Laut `LISTE-FIGUREN.md` brauchen Hauer Orkblütiger, Goblin, Grak, Krogg; eigene Ohren Elf, Hügelvolk, Orkblütiger, Goblin, Grak (zugespitzt) und Krogg (rund). Das ist ein Teil für sechs Figuren und beide Teams, kein Einzelstück für Tom. Es sind eigene Netze auf Jerrys Köpfen; ob sie auf den Kaufkopf passen, zeigt erst ein Versuch.
+- **Widerspruch zu Entschiedenem:** keiner zu 408, weil es die Teile nicht fertig gibt; 408 verlangt aber zuerst den Bestand, und der liegt bei Jerry. Gemeinsamer Bau über beide Teams braucht nach `CLAUDE.md` deinen Entscheid. Kauf: Lizenz „Royalty Free“ ohne Aussage zu Frist und Umsatzgrenze erfüllt 348.12c nicht ohne Prüfung; Hauer fehlen dort ohnehin.
+- **Kosten:** selbst etwa eine Tom-Sitzung plus Film, kein Geld; kaufen 15 $, Lizenzprüfung, Anpassen an Kopf und Haut (ebenfalls Arbeit), Hauer trotzdem selbst.
+- **Empfehlung:** „431b selbst, gemeinsam“: Tom nimmt Form und Maß der Hauer und Ohren aus Jerrys `goblin.py` als ein Teil für alle Völker und Gegner (dein Wort deckt den Bau über beide Teams), Jerry nennt die Stellen, und Tom legt Elf, Hügelvolk und Orkblütiger drehend im Film neben Goblin und Grak vor, damit du Familie und Unterschied auf einen Blick siehst.

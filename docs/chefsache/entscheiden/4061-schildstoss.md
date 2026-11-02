@@ -51,3 +51,11 @@ Schild übt sich mit jedem Schildstoß, der trifft (BRS 3: „Treffen im Kampf�
 - Geprüft wird mit `wolf_mess_438` (Schild durch Wolf, Reihenfolge) und einem kurzen Film Block und Konter.
 
 Antwort: „406.1 A“ oder „406.1 B“, gern mit Zahlen.
+
+## Stellungnahme Sokrates (02.11., 02:41)
+
+- **Stärkstes Gegenargument:** Ring bei jedem Nahangriff heißt gegen ein Rudel ein Tipp je Biss; der Ring war als seltener, lesbarer Augenblick gebaut („Kleine Schläge der Goblins kommen ohne Ring“, `DESIGN-KAMPF-SPIELANLEITUNG-72-10A.md`; DESIGN-KAMPF: jeder Ring braucht eine lesbare Ausholbewegung mit festem Takt). Oft wiederholt wird er Pflichtübung statt Wahl, und nach Jerrys eigenem Beispiel nimmt der Wachsoldat mit „Ring gut“ vom Wolf 0 Schaden: der Schildträger wird in Kapitel 1 unverwundbar, sobald der Spieler den Takt kann.
+- **Weg, der es entkräftet:** Ring nur bei angekündigten Nahangriffen (beim Wolf „Anspringen“, mit Ausholbewegung), nicht bei jedem Biss; Simulation 444 misst vor dem Bau zwei Zahlen: Ringe je Kampf und Schaden des Schildträgers mit „Ring gut“ (Richtwert: nie 0 gegen einen Gegner seiner Stufe, sonst Abzug kleiner).
+- **Widerspruch zu Entschiedenem:** (1) Rechner „ohne Ring“ widerspricht der geltenden Spielanleitung (Automatik „fängt den Ring mit Gut“); wenn, dann für allen Ring gleich, nicht nur beim Schild, sonst zwei Regeln für denselben Ring. (2) Abzug nach Simulation statt BRS Modell D: das BRS ist unser Regelwerk; die Abweichung entscheidet 467 einmal, nicht dieser Vorschlag nebenbei. (3) Wächter-Handlung im Menü passt zu 75 (Riposte erst mit dem Duellanten) und zu BRS 5; kein Widerspruch.
+- **Kosten:** A: ein Simulationslauf (Perikles), eine Jerry-Sitzung für Ring, Block, Konter, Taumeln, Zeilen von Homer, ein Film; B dazu Menüpunkt und Abgrenzung zum Wächter. Bewegungen sind gekauft (406), keine Ausgabe.
+- **Empfehlung:** „406.1 A“, aber mit Ring nur bei angekündigten Nahangriffen statt jedem, Automatik wie heute „gut“ bis 467 es für allen Ring regelt, und Bau erst, wenn 444 zeigt, dass der Schildträger in Kapitel 1 weiter Schaden nimmt; B nein, weil es dem Pfad Wächter den Grund nimmt.

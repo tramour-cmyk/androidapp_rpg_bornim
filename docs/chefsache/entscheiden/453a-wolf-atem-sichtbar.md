@@ -28,3 +28,11 @@ Im Bild entscheiden Pixel: aus der Kampfkamera stehen die Wölfe 11–15 m entfe
 - **C:** nichts zu bauen; 453 wartet nur noch auf dein Urteil zum Film 00:33.
 
 **Zu sagen:** A, B oder C.
+
+## Stellungnahme Sokrates (02.11., 02:41)
+
+- **Stärkstes Gegenargument gegen B:** von vorn bleibt es bei etwa 1,5 px, also unter dem, was man aus der Kampfkamera sieht; B löst den Fall, den der Prüfer gefunden hat (brauner Wolf von vorn, 0,8–1,4 s still), nicht sicher. Mitgehende Schultern können wie Hecheln wirken.
+- **Entkräftet:** Hecheln ist schnell und flach; ein Atemzug von 2,2–2,7 s mit Hub über die ganze Rückenlinie liest sich als Ruhe. Für die Ansicht von vorn hilft der Atem allein nicht; dort tragen die Gesten (Umblicken, Knurren, Scharren), die schon gebaut sind, und deren Abstand lässt sich so legen, dass kein Abschnitt über 1 s ohne Bewegung bleibt.
+- **Widerspruch zu Entschiedenem:** C widerspricht dem Grundstand C2 (453, 01.11., 13:0x „Stillstand für mehrere Sekunden geht eigentlich nicht“; Richtwert kein Abschnitt über 1 s ohne Bewegung): gemessen sind bis 1,4 s, C scheidet aus. A und B passen zu C1 und C3, sofern jeder Wolf eigenen Takt behält.
+- **Kosten:** B eine Sitzung und ein Vergleichsfilm, kein Geld; das Urteil gilt danach für alle Vierbeiner mit Atemschicht.
+- **Empfehlung:** „453a B“, mit der Bedingung, dass der Vergleichsfilm auch den Wolf von vorn zeigt und dort mit `C2` (höchstens 1 s ohne Bewegung) gemessen wird; reicht B von vorn nicht, legt Tuffy Gesten dichter statt den Atem zu verstärken.
