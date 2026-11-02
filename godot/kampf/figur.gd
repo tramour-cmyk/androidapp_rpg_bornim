@@ -943,7 +943,7 @@ func _boden_schutz() -> void:
 		t[7] = w.transform
 
 
-## 438a Runde 4: Halbmesser der Beinkapseln (Index in [liste] -> m) aus Haut und Kleidung dieses Körpers, in der Ruhelage einmal je
+## 438a Runde 4: Halbmesser der Beinkapseln (Index in [liste] -> m) aus Haut und Kleidung dieses Körpers, in der ersten Pose im Kampf einmal je
 ## Körper gerechnet (zwischengespeichert je Netz): je Kapsel von Knochen a nach b die Ecken, deren stärkster Knochen a oder ein Kind
 ## von a vor b ist, zwischen a und b; davon der Abstand zur Achse, den 95 von 100 Ecken nicht überschreiten, höchstens 10 cm über der
 ## festen Kapsel. Nur Ober- und Unterschenkel und Fuß (Kugeln und Rumpf bleiben fest: Umhang und Kopf würden sie aufblähen).
@@ -984,7 +984,7 @@ func _haut_radien(sk: Skeleton3D, liste: Array) -> Dictionary:
 				p = sk.get_bone_parent(p)
 		if String(c[1]).begins_with("ball_"):
 			zu[i1] = true
-		bein.append([i, gs * sk.get_bone_global_rest(i0).origin, gs * sk.get_bone_global_rest(i1).origin, zu, PackedFloat32Array()])
+		bein.append([i, gs * sk.get_bone_global_pose(i0).origin, gs * sk.get_bone_global_pose(i1).origin, zu, PackedFloat32Array(), 0])
 	for m in netze:
 		var skin: Skin = m.skin
 		var tr := []
@@ -994,7 +994,7 @@ func _haut_radien(sk: Skeleton3D, liste: Array) -> Dictionary:
 			if bb < 0:
 				bb = sk.find_bone(skin.get_bind_name(j))
 			knochen.append(bb)
-			tr.append(gs * (sk.get_bone_global_rest(bb) if bb >= 0 else Transform3D.IDENTITY) * skin.get_bind_pose(j))
+			tr.append(gs * (sk.get_bone_global_pose(bb) if bb >= 0 else Transform3D.IDENTITY) * skin.get_bind_pose(j))
 		for s in m.mesh.get_surface_count():
 			var ar: Array = m.mesh.surface_get_arrays(s)
 			if ar[Mesh.ARRAY_BONES] == null or ar[Mesh.ARRAY_WEIGHTS] == null:
@@ -1018,6 +1018,7 @@ func _haut_radien(sk: Skeleton3D, liste: Array) -> Dictionary:
 				for k in bein:
 					if not (k[3] as Dictionary).has(stark):
 						continue
+					k[5] += 1
 					var a: Vector3 = k[1]
 					var ab: Vector3 = (k[2] as Vector3) - a
 					var tt := (p - a).dot(ab) / maxf(ab.length_squared(), 1e-6)
@@ -1025,15 +1026,17 @@ func _haut_radien(sk: Skeleton3D, liste: Array) -> Dictionary:
 						continue
 					(k[4] as PackedFloat32Array).append(p.distance_to(Geometry3D.get_closest_point_to_segment(p, a, k[2])))
 	var out := {}
+	var zahl := []
 	for k in bein:
 		var d: PackedFloat32Array = k[4]
+		zahl.append("%s→%s %d/%d" % [liste[k[0]][0], liste[k[0]][1], d.size(), k[5]])
 		if d.size() < 20:
 			continue
 		d.sort()
 		var fest: float = float(liste[k[0]][2])
 		out[k[0]] = clampf(d[int(d.size() * 0.95)], fest, fest + 0.10)
 	_haut_cache[schluessel] = out
-	print("  438a Hautkapseln (Index MENSCH_KAPSELN + FUSS_KAPSELN: m) %s" % str(out))
+	print("  438a Hautkapseln (Index MENSCH_KAPSELN + FUSS_KAPSELN: m) %s; Ecken je Kapsel (an der Achse/am Knochen): %s; %d Netze" % [str(out), ", ".join(zahl), netze.size()])
 	return out
 
 
