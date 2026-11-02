@@ -56,6 +56,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **von Jerry (376.1, 02.11., 01:5x):** Messung 438a am Rechner (Kämpfer, Tracht WACHE, Kampfort): liegt der Held rücklings (SS_DeathBack), steckt der Umhang (Netz „Kleid“, gewichtet auf `spine_03`) bis 16 cm, an `thigh_l` bis 14 cm unter dem Boden; der Körper selbst liegt frei (Hals 5 cm darüber). Ursache: Umhang starr am Rücken gebunden. Sichtbar im Film 438a Runde 2 (`chefsache/ansehen/438a-sturz-runde2.md`); deins.
 
 - **von Jerry (406, 01.11., 11:4x):** `heldfigur.gd` `bewaffne` geändert (Zweig `claude/jerry-406-kaufschild`, 1bd54b7c7): `rand_hinten()` rückt gewölbte Kaufschilde um ihren Rand vom Rücken; Startschilde getauscht (`Rules.kt`: Kämpfer `round_shield`, Kleriker `shield`). Befund Netzmessung `tests/schild_406.gd`: am Rücken ragen Schulter und Oberarm bis 7–9 cm in die Oberkante des Schilds (vorher mit den waffen.py-Schilden 6,5–7,2 cm); Ursache Lage aus 376.1, deins.
 - **von Spike (461.1, 01.11., 23:0x):** Prüfer Dorf-Film (4611): 416.4: Rennen zum angetippten Ziel stockt je Kachel (Tempo je Wegpunkt neu, nie über 3,25 m/s; Vermutung `held.gd`: kurzer Schritt am Wegpunkt setzt `moving = false`, `tempo_jetzt = 0`; erst nachstellen); Dorf: Wäscheleine ohne Sperre, Tusche über dem Weizen; 417, 376.1: kein Waffenpaket im Spielbau, Schild auf dem Rücken, Hände reinweiß.
