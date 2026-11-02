@@ -10,8 +10,8 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 |---|---|---|---|---|---|
 | [453a](entscheiden/453a-wolf-atem-sichtbar.md) | **Muss** | E Kampf | 02.11., 00:57 | Wolfsatem aus der Kampfkamera sichtbar: wie? | Tuffy (Zusatzentwickler Team Jerry) |
 | [406.1](entscheiden/4061-schildstoss.md) | **Muss** | E Kampf | 01.11., 22:35 | Schildstoß: Block und Konter am Ring für jeden mit Schild, als Angriff erst für den Wächter? | Jerry |
-| [348.12j](entscheiden/34812j-grak-axt.md) | **Muss** | E Kampf | 01.11., 22:1x | Graks Axt: Kopf oben (wie abgenommen) oder hängend (Grundstand E6)? | Jerry |
-| [431b](entscheiden/431b-ohren-hauer.md) | **Muss** | E Figuren | 01.11., 21:4x | Elfenohren und Hauer: kaufen oder selbst formen? | Tom |
+| [348.12j](entscheiden/34812j-grak-axt.md) | **Muss** | E Kampf | 01.11., 22:03 | Graks Axt: Kopf oben (wie abgenommen) oder hängend (Grundstand E6)? | Jerry |
+| [431b](entscheiden/431b-ohren-hauer.md) | **Muss** | E Figuren | 01.11., 21:29 | Elfenohren und Hauer: kaufen oder selbst formen? | Tom |
 | [348.12b](entscheiden/34812b-grak-koerper.md) | **Muss** | E Kampf | 01.11., 21:00 | Grak-Film vorab auf seinem alten Körper? | Sokrates |
 
 ## Zu billigen
@@ -31,7 +31,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 | [376.1](ansehen/3761-umhang-robe.md) | Umhang und Robe nachgebessert | Tom | 01.11., 23:03 |
 | [417](ansehen/417-tragart-runde5.md) | Tragart Runde 5/6: Schild an der Seite, Axt mit beiden Fäusten | Tom | 02.11., 00:53 |
 | [438a Runde 2](ansehen/438a-sturz-runde2.md) | Hinfallen 1 und Aufstehen 1: Schwert und Schild frei von Boden und Körper | Jerry | 02.11., 01:51 |
-| [447.4](ansehen/4474-lehrmeister-texte.md) | Texte Lehrmeister und Ruf, Kapitel 1 | Homer | 01.11., 21:0x |
+| [447.4](ansehen/4474-lehrmeister-texte.md) | Texte Lehrmeister und Ruf, Kapitel 1 | Homer | 01.11., 20:51 |
 | [453 r3b](ansehen/453-wolf-ruhe.md) | Wölfe atmen deutlicher, jeder im eigenen Takt | Tuffy | 02.11., 00:33 |
 | [453.1](ansehen/4531-helden-vergleich.md) | Helden im Kampf: Stand Film 403 gegen heute | Tuffy | 01.11., 23:05 |
 | [461.1](ansehen/4611-dorf-film.md) | Grundstand: Dorf-Film des Helden | – | 01.11., 22:55 |
@@ -176,7 +176,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 467 | M? | von Sokrates (Chef 01.11., 21:52, Frage „Wie steigert sich die Ausdauer?“): godot/regeln/a | wartet auf 427 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 
-**Perikles** – offen 29, Muss 23, startbar 7
+**Perikles** – offen 29, Muss 23, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -186,8 +186,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 462 | M | von Ford („jetzt“ 01.11., 20:34, Wortlaut Zu 462): Name und Zeitstempel in jeder Nachricht | wartet auf Test/Build (gebaut) |
 | 464 | M | von Sokrates (Chef 01.11., 20:4x, Wortlaut Zu 464): rote Läufe senken: Haken vor jedem Pus | wartet auf Test/Build (gebaut) |
 | 461 | M | von Sokrates („jetzt“ 01.11., 20:3x, Wortlaut in der Liste): Grundstand Figuren und Kampf: | wartet auf Test/Build (gebaut) |
-| 464.1 | M? | von Diogenes (Doppelpack 421, Lauf 59, 01.11., 22:13): Befunde D61.1–2 zu 464: Tageszahl r | startbar |
-| 465.1 | M? | von Diogenes (Doppelpack 421, Lauf 58, 01.11., 22:07): Befund D60.1 zu 465: x-Zeiten bleib | startbar |
+| 464.1 | M? | von Diogenes (Doppelpack 421, Lauf 59, 01.11., 22:13): Befunde D61.1–2 zu 464: Tageszahl r | wartet auf Test/Build (gebaut) |
+| 465.1 | M? | von Diogenes (Doppelpack 421, Lauf 58, 01.11., 22:07): Befund D60.1 zu 465: x-Zeiten bleib | wartet auf Test/Build (gebaut) |
 | 462.1 | M? | von Diogenes (Doppelpack 421, Lauf 57, 01.11., 20:4x): Befunde D59.1–3 zu 462 (PRUEFBERICH | wartet auf Test/Build (gebaut) |
 | 461.2 | M? | von Diogenes (Doppelpack 421, Lauf 56, 01.11., 20:4x): Befunde D58.1–5 zum Grundstand (PRU | wartet auf Test/Build (gebaut) |
 | 461a | M | von Perikles (D58.5): Rückfrage, ob ein Grundstand-Verstoß den Film anhält | startbar |
@@ -210,10 +210,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
-**Diogenes** – offen 8, Muss 6, startbar 6
+**Diogenes** – offen 9, Muss 7, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 464.1 | M | von Perikles (Doppelpack 421, Commits 013742216, 0645c3d4e): 465.1: x-Zeit ohne passende M | startbar |
 | 461b | M | von Sokrates (Chef 01.11., 22:26, „461b ja“, Archiv): Kennzahl Widersprüche: montags Stich | startbar |
 | 464 | M | von Perikles (Doppelpack 421, Commit fcf9ab215 und folgender): rote Läufe 464: Push-Haken | startbar |
 | 434 | M | von Sokrates (Chef 31.10., 22:1x): bei jeder Zählung 374 zusätzlich die Zeile „Bestand gep | startbar |
