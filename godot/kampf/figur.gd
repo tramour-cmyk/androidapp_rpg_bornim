@@ -1909,9 +1909,19 @@ func strike(other, e: Dictionary) -> int:
 	_dreh_ab()
 	var spell: bool = e.spell != null
 	var ranged: bool = fighter.ranged()
+	los_ms = 0
 	if spell or ranged:
 		_schnaufen(0.6)
 		_face(other.position - position)
+		var wz := _zauber_bew(String(e.spell)) if spell else ""
+		if wz != "":
+			# 385.2: der Magier zaubert Feuerpfeil und Feuerball mit den Bewegungen aus dem Zauberer-Set (Film 8, 9 aus 385.1), das
+			# Feuer geht beim Loslassen von der Stabspitze los (kampf_ui.gd cast wartet los_ms)
+			var lang: float = anim.get_animation(wz).length
+			los_ms = int(float(kampf_info.get("los", {}).get(wz, lang * 0.4)) * 1000.0)
+			_wz_spiel(wz)
+			busy_ms = int(lang * 1000.0)
+			return busy_ms
 		_play("Ausholen")
 		get_tree().create_timer(0.6).timeout.connect(func(): _face(); _idle())
 		busy_ms = 700
@@ -2111,6 +2121,45 @@ func _tier_heim(back: float, skip) -> void:
 	tween.tween_callback(func(): _face(); _idle())
 
 
+## 385.2 (Chef 28.10., 19:1x, Archiv 385.1): Zauber mit eigener Bewegung aus dem Zauberer-Set (held_kampf.py WZ_, gespiegelt: Stab
+## rechts); nur der Kaufheld mit Stab ohne Schild (Magier), sonst wie bisher „Ausholen“
+const WZ_BEW := {"FIRE_BOLT": "WZ_CastSpell6", "FIREBALL": "WZ_CastSpell4"}
+var los_ms := 0     # 385.2: ms ab Beginn des letzten Angriffs, bis der Zauber die Stabspitze verlässt (0: sofort)
+
+func _zauber_bew(kind: String) -> String:
+	var wz: String = WZ_BEW.get(kind, "")
+	if wz == "" or not kauf or anim == null or not anim.has_animation(wz) or _ss() or OS.get_environment("WZ_AUS") != "":
+		return ""
+	var w := model.find_child("Waffe", true, false) as Node3D if model != null else null
+	return wz if w != null and w.get_meta("stab", false) else ""
+
+
+var wz_nr := 0     # 385.2: die wievielte Zauberbewegung; ein älterer Zeitgeber beendet keine neuere
+
+func _wz_spiel(wz: String) -> void:
+	wz_nr += 1
+	var nr := wz_nr
+	_play(wz, 0.2)
+	get_tree().create_timer(maxf(anim.get_animation(wz).length - 0.25, 0.1)).timeout.connect(func():
+		if nr == wz_nr and String(anim.current_animation) == wz:
+			_face()
+			_idle())
+
+
+## 385.2: steht der Wirkende erst zur Seite (kampf_ui.gd), beginnt die Zauberbewegung um ms später, damit das Loslassen auf das Feuer fällt
+func zauber_spaeter(ms: float) -> void:
+	var wz := String(anim.current_animation) if anim != null else ""
+	if ms <= 0.0 or not wz.begins_with("WZ_"):
+		return
+	wz_nr += 1
+	var nr := wz_nr
+	_idle()
+	get_tree().create_timer(ms / 1000.0).timeout.connect(func():
+		if nr == wz_nr and not down:
+			_wz_spiel(wz))
+	busy_ms += int(ms)
+
+
 ## 348.7b (Chef 27.10., 19:36 „D“): wo ein Zauber oder Pfeil die Figur verlässt (Welt): die Spitze eines Stabs, sonst die Faust
 ## der Waffenhand (Bogen, Klinge) oder die rechte Hand; ohne Gerüst null
 func cast_point():
@@ -2121,12 +2170,15 @@ func cast_point():
 	if off != null and off.get_meta("stab", false):     # Schamane: Stab links (Runde 4)
 		w = off
 	if w != null and w.get_meta("stab", false):
+		# 385.2: das obere Ende im Raum des Stabs (lokal +Y ist oben, _hold), nicht der höchste Punkt im Bild; im Zauberstoß
+		# (WZ_CastSpell) neigt sich der Stab nach vorn, dann läge sonst das falsche Ende oben
+		var inv := w.global_transform.affine_inverse()
 		var top := -INF
 		var pts := []
 		for m in w.find_children("*", "MeshInstance3D", true, false):
 			var bb: AABB = (m as MeshInstance3D).get_aabb()
 			for i in 8:
-				var q: Vector3 = (m as MeshInstance3D).global_transform * bb.get_endpoint(i)
+				var q: Vector3 = inv * ((m as MeshInstance3D).global_transform * bb.get_endpoint(i))
 				pts.append(q)
 				top = maxf(top, q.y)
 		var tip := Vector3.ZERO
@@ -2136,7 +2188,7 @@ func cast_point():
 				tip += q
 				n += 1
 		if n > 0:
-			return tip / n
+			return w.global_transform * (tip / n)
 	if w != null:
 		return w.global_position
 	var sk := _find(model, "Skeleton3D") as Skeleton3D

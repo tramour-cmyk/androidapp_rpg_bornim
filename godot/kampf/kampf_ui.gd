@@ -913,8 +913,15 @@ func cast(kind: String, by: String, on: String, crit: bool, missed: bool, after_
 	spell_seed += 1
 	var k = kampfort
 	var step_ms := 0.0
+	# 385.2: zaubert der Magier mit einer Bewegung aus dem Zauberer-Set, geht das Feuer erst beim Loslassen von der Stabspitze los
+	var los: float = float(k.figures[by].los_ms) if k.figures.has(by) and kind in ["FIRE_BOLT", "FIREBALL"] else 0.0
 	if kind in STEP_KINDS and by != on and k.figures.has(by) and k.figures.has(on):
-		step_ms = _step_aside(kind, k.figures[by], k.figures[on], after_ms, Zauber.arrives(kind))
+		step_ms = _step_aside(kind, k.figures[by], k.figures[on], after_ms, Zauber.arrives(kind), los)
+	if los > 0.0 and step_ms > los:     # der Schritt zur Seite dauert länger als das Ausholen: die Bewegung beginnt später
+		k.figures[by].zauber_spaeter(step_ms - los)
+	step_ms = maxf(step_ms, los)
+	if los > 0.0:
+		k.figures[by].los_ms = 0     # gilt nur für diesen Zauber
 	after_ms += step_ms
 	# 348.7a Runde 5 (Prüfer r4: „drei Strahlen eine Bahn“): der wievielte Strahl dieses Wirkenden in Folge
 	var t: float = k.clock_ms + after_ms
@@ -941,7 +948,7 @@ const STEP_S := 0.22     # je Weg hin und zurück, kürzester
 const STEP_V := 4.0      # m/s für längere Schritte
 const BH_FLAME := Zauber.BH_FLAME
 
-func _step_aside(kind: String, by, on, after_ms: float, arrives_ms: float) -> float:
+func _step_aside(kind: String, by, on, after_ms: float, arrives_ms: float, los_ms := 0.0) -> float:
 	var k = kampfort
 	var dir: Vector3 = (on.position - by.home) * Vector3(1, 0, 1)
 	if dir.length() < 0.01:
@@ -994,9 +1001,10 @@ func _step_aside(kind: String, by, on, after_ms: float, arrives_ms: float) -> fl
 	if OS.get_environment("SCHRITT_DEBUG") != "":
 		print("Seitenschritt %s -> %s: %s in der Linie, %+.1f m (Bild %s, Platz x %.0f, Seite zur Mitte %+.0f, Start auf eigenem Mann: %s)" % [by.fighter.id, on.fighter.id, blocker.fighter.id, off.dot(side), vs, k.screen_of(by.home).x, first, _starts_on_mate(by.home + off + rel, b3, mates)])
 	var hold := maxf(arrives_ms, 250.0) / 1000.0 + 0.15
+	var step_s := maxf(STEP_S, off.length() / STEP_V)
+	hold += maxf(los_ms / 1000.0 - step_s, 0.0)     # 385.2: am Seitenplatz auch, bis der Zauber losgeht
 	if kind == "BURNING_HANDS":     # Prüfer r1: der Kegel hing am Seitenplatz, als er schon zurücktrat; er bleibt, solange er brennt
 		hold = Zauber.duration(kind) * BH_FLAME / 1000.0
-	var step_s := maxf(STEP_S, off.length() / STEP_V)
 	if after_ms > 0.0:
 		get_tree().create_timer(after_ms / 1000.0).timeout.connect(func(): by.side_step(off, hold, step_s))
 	else:

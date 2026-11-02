@@ -93,6 +93,17 @@ if BEIN:
         return (P[k('thigh_l')] - P[k('calf_l')]).length + (P[k('calf_l')] - P[k('foot_l')]).length + P[k('foot_l')].z
     hoehe = bein(Pt0, lambda n: n) / max(bein(Ps0, lambda n: KARTE[n]), 1e-3)
 TWq = dreh(TW)
+# 385.2 (Chef 28.10., 19:1x: Feuer aus dem Stab): SPIEGEL=1 spiegelt die Bewegung links/rechts. Der Zauberer des Sets haelt den Stab
+# links, unser Magier im Kampfort rechts (figur.gd _arm_kauf). Jeder Knochen nimmt die Bewegung seines Gegenstuecks der anderen Seite,
+# die Drehung gegen die Ruhelage an der Mittelebene der Quelle gespiegelt (S D S), ebenso der Weg des Beckens; Ruhelage bleibt Ruhelage
+SPIEGEL = os.environ.get('SPIEGEL', '') == '1'
+def gegen(n):
+    return n[:-2] + ('_r' if n.endswith('_l') else '_l') if SPIEGEL and n.endswith(('_l', '_r')) else n
+quer = Ps0[KARTE['upperarm_l']] - Ps0[KARTE['upperarm_r']]; quer.z = 0.0; quer.normalize()
+SM = Matrix.Identity(3) - 2.0 * Matrix([[quer.x * quer.x, quer.x * quer.y, quer.x * quer.z], [quer.y * quer.x, quer.y * quer.y, quer.y * quer.z],
+                                        [quer.z * quer.x, quer.z * quer.y, quer.z * quer.z]])
+def spiegel_q(q): return (SM @ q.to_matrix() @ SM).to_quaternion() if SPIEGEL else q
+def spiegel_v(v): return SM @ v if SPIEGEL else v
 act = bpy.data.actions.new(NAME)
 T.animation_data_create(); T.animation_data.action = act
 for pb in T.pose.bones: pb.rotation_mode = 'QUATERNION'
@@ -104,15 +115,15 @@ for f in range(f0, f1 + 1):
         rr = (b.parent.matrix_local.inverted() @ b.matrix_local) if b.parent else b.matrix_local
         Mp = (pose[b.parent.name] @ rr) if b.parent else rr
         qb = Quaternion(); loc = Vector()
-        if b.name in KARTE and KARTE[b.name] in S.pose.bones:
-            s = KARTE[b.name]
+        if b.name in KARTE and gegen(b.name) in KARTE and KARTE[gegen(b.name)] in S.pose.bones:
+            s = KARTE[gegen(b.name)]
             Rs = dreh(SW @ S.pose.bones[s].matrix)
-            Q = (Rs @ Rs0[s].inverted()) @ A[b.name] @ Rt0[b.name]
+            Q = spiegel_q(Rs @ Rs0[s].inverted()) @ A[b.name] @ Rt0[b.name]
             if b.name in oben: Q = AUF @ Q
             qa = TWq.inverted() @ Q
             qb = dreh(Mp).inverted() @ qa
             if b.name == 'pelvis':
-                P = Pt0['pelvis'] + (SW @ S.pose.bones[s].head - Ps0[s]) * hoehe
+                P = Pt0['pelvis'] + spiegel_v(SW @ S.pose.bones[s].head - Ps0[s]) * hoehe
                 if BEIN: P.z = (SW @ S.pose.bones[s].head).z * hoehe
                 loc = Mp.to_3x3().inverted() @ (TW.inverted() @ P - Mp.translation)
         pb.rotation_quaternion = qb
@@ -128,7 +139,7 @@ for f in range(f0, f1 + 1, 5):
     for a, c in (('upperarm_l', 'lowerarm_l'), ('lowerarm_l', 'hand_l'), ('upperarm_r', 'lowerarm_r'), ('lowerarm_r', 'hand_r'), ('thigh_l', 'calf_l'),
                  ('calf_r', 'foot_r'), ('spine_01', 'neck_01'), ('hand_r', 'middle_01_r'), ('pinky_01_r', 'index_01_r'), ('pinky_01_l', 'index_01_l')):
         t = (TW @ T.pose.bones[c].head) - (TW @ T.pose.bones[a].head)
-        q = (SW @ S.pose.bones[KARTE[c]].head) - (SW @ S.pose.bones[KARTE[a]].head)
+        q = spiegel_v((SW @ S.pose.bones[KARTE[gegen(c)]].head) - (SW @ S.pose.bones[KARTE[gegen(a)]].head))
         schlimm[a] = max(schlimm.get(a, 0.0), math.degrees(t.angle(q)))
 print('ABWEICHUNG', ' '.join('%s %.0f' % kv for kv in schlimm.items()))
 bpy.data.objects.remove(S)
@@ -137,4 +148,4 @@ bpy.context.scene.frame_start = 1; bpy.context.scene.frame_end = f1 - f0 + 1
 for o in bpy.data.objects: o.select_set(o == T)
 bpy.ops.export_scene.gltf(filepath=OUT, export_format='GLB', use_selection=True, export_animations=True,
                           export_animation_mode='ACTIONS', export_skins=True)
-print('ZAUBER385 OK', NAME, 'Bilder', f1 - f0 + 1, 'fps', fps, 'Beckenhoehe x%.2f' % hoehe)
+print('ZAUBER385 OK', NAME, 'Bilder', f1 - f0 + 1, 'fps', fps, 'Beckenhoehe x%.2f' % hoehe, 'gespiegelt' if SPIEGEL else '')

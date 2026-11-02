@@ -233,6 +233,57 @@ if ss_datei('IdleCombat'):
 else:
     print('ohne Sword & Shield (KAUF): keine SS_-Bewegungen')
 
+# 385.2 (Chef 28.10., 19:1x, Archiv 385.1: Feuerpfeil und Feuerball „ohne dass was rauskommt“; Feuer aus dem Stab): die zwei Zauber
+# aus dem gekauften Zauberer-Set, die der Chef in Film 8 und 9 gesehen hat (1–12 ja): Feuerpfeil CastSpell6, Feuerball CastSpell4,
+# Vorsilbe „WZ_“. Das Set haelt den Stab links, unser Magier rechts: gespiegelt (zauber385.py SPIEGEL=1), Ruhelage aus IdleWizard
+# (erstes Bild stehend), Becken nach Beinlaenge wie Sword & Shield. „los“ (s ab Beginn) = Loslassen: das erste Bild, in dem die
+# Stabhand 95 % ihrer weitesten Reichweite nach vorn hat (wie Toms Film 385.1); figur.gd laesst das Feuer dann an der Stabspitze los.
+WZ = {'CastSpell6': 'FIRE_BOLT', 'CastSpell4': 'FIREBALL'}
+los = {}
+
+
+def wz_datei(n):
+    f = sorted(glob.glob(os.path.join(KAUF, '**', 'Humanoid@%sWizard.fbx' % n), recursive=True)) if KAUF else []
+    return f[0] if f else None
+
+
+if wz_datei('CastSpell6') and wz_datei('IdleWizard'):
+    tmp = tempfile.mkdtemp()
+    vorn_z = (ZW @ ZB['upperarm_l'].head_local) - (ZW @ ZB['upperarm_r'].head_local)
+    vorn_z.z = 0.0
+    vorn_z = vorn_z.normalized().cross(Vector((0, 0, 1)))       # links x oben = vorn
+    for n in WZ:
+        src = wz_datei(n)
+        if not src: print('FEHLT WZ', n); continue
+        out = os.path.join(tmp, n + '.glb')
+        env = dict(os.environ, QUELLE=src, ZIEL=pro, NAME='WZ_' + n, OUT=out, BECKEN='bein', SPIEGEL='1', RUHE=wz_datei('IdleWizard'))
+        r = subprocess.run([sys.executable, '-I', os.path.join(HIER, 'zauber385.py')], env=env, capture_output=True, text=True)
+        if r.returncode or not os.path.exists(out):
+            print('FEHLER WZ', n, r.stdout[-600:], r.stderr[-600:]); raise SystemExit('Zauberer-Set: %s nicht uebertragen' % n)
+        print('WZ', n, ' '.join(l for l in r.stdout.splitlines() if l.startswith(('ZAUBER385', 'ABWEICHUNG'))))
+        vorher = set(bpy.data.objects); va = set(bpy.data.actions)
+        bpy.ops.import_scene.gltf(filepath=out)
+        q = next(o for o in bpy.data.objects if o.type == 'ARMATURE' and o not in vorher)
+        for o in [o for o in bpy.data.objects if o not in vorher and o != q]: bpy.data.objects.remove(o)
+        a = next(x for x in bpy.data.actions if x not in va)
+        F2 = ZB['pelvis'].head_local.z / q.data.bones['pelvis'].head_local.z
+        uebertrage(q, a, 'WZ_' + n, F2, pruef=PRUEF_SS)
+        bpy.data.objects.remove(q); bpy.data.actions.remove(a)
+        akt(ziel, bpy.data.actions['Neu_WZ_' + n]); a2 = ziel.animation_data.action
+        weit, hoch, becken = [], [], None
+        for fr in range(int(a2.frame_range[0]), int(a2.frame_range[1]) + 1):
+            bpy.context.scene.frame_set(fr)
+            b0 = ZW @ ziel.pose.bones['pelvis'].head
+            if becken is None: becken = b0
+            h = ZW @ ziel.pose.bones['hand_r'].head
+            weit.append((h - becken).dot(vorn_z)); hoch.append((h - becken).z)
+        i = next(j for j, w in enumerate(weit) if w >= 0.95 * max(weit))
+        los['WZ_' + n] = round(i / fps, 3)
+        print('WZ LOS %-11s %s %.2f s von %.2f s (Stabhand vor dem Becken %.2f m, darueber %.2f m)' % (
+            n, WZ[n], los['WZ_' + n], (len(weit) - 1) / fps, weit[i], hoch[i]))
+else:
+    print('ohne Zauberer-Set (KAUF): keine WZ_-Bewegungen')
+
 bpy.data.objects.remove(quelle)
 for a in [a for a in bpy.data.actions if not a.name.startswith(('Neu_', 'Pro_'))]: bpy.data.actions.remove(a)
 for a in bpy.data.actions:
@@ -256,6 +307,6 @@ for name, soll in ERSTES.items():
 print('KAMPF NACHGEMESSEN Datei gegen Rechnung hoechstens %.3f m' % fehl)
 if fehl > 0.01: raise SystemExit('kampf-bewegungen.glb weicht ab: %.3f m' % fehl)
 json.dump({'bewegungen': sorted(a.name for a in bpy.data.actions), 'uebertragen': bericht, 'becken_faktor': round(F, 4),
-           'tempo': tempo, 'griff': griff, 'kontakt': kontakt,
+           'tempo': tempo, 'griff': griff, 'kontakt': kontakt, 'los': los,
            'ual': os.path.basename(pro)}, open(os.path.join(ZIEL, 'kampf-bewegungen.json'), 'w'), indent=1, ensure_ascii=False)
 print('KAMPF BEWEGUNGEN OK', out, os.path.getsize(out))

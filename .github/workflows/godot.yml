@@ -110,7 +110,7 @@ jobs:
           printf 'daten/haare.bin\ndaten/haare_w.bin\ndaten/bewegungen.bin\n' >> $D/kauf.txt
           # 403 (Jerry): Kampfbewegungen fuer den Kaufkoerper (unsere aus held.glb umgerechnet, Kandidaten aus der UAL Pro), gekauft
           SRC=$RUNNER_TEMP/out/held.glb ZIEL=$RUNNER_TEMP/klassen bl/bin/python -I tools/blender348/v3/held_kampf.py > held_kampf.log 2>&1 || { tail -30 held_kampf.log; exit 1; }
-          grep -E "^KAMPF|^SS (GRIFF|TEMPO)|^ohne Sword" held_kampf.log
+          grep -E "^KAMPF|^SS (GRIFF|TEMPO)|^ohne Sword|^WZ|^ohne Zauberer" held_kampf.log
           cp $RUNNER_TEMP/klassen/kampf-bewegungen.glb $D/kampf-bewegungen.bin && echo daten/kampf-bewegungen.bin >> $D/kauf.txt
           # 406 (Tuffy): Tempo, Griff und Kontaktzeiten der Bewegungen aus Sword & Shield (figur.gd kampf_info); nur Zahlen
           cp $RUNNER_TEMP/klassen/kampf-bewegungen.json $D/
@@ -248,6 +248,7 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/skripte_pruefen.gd 2>&1 | grep -E "SKRIPTE|FALSCH"   # 399.1 Test 130
           timeout 300 ~/godot/godot --headless --path . -s res://tests/held_klassen_376.gd 2>&1 | grep -E "HELDKLASSEN|FALSCH|SCRIPT ERROR"   # 376.1
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/held_kampf_403.gd 2>&1 | grep -E "^(ok|FEHLER|Held 403)|SCRIPT ERROR"   # 403 (Jerry)
+          set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/stabfeuer_3852.gd 2>&1 | grep -E "^(ok|FEHLER|STABFEUER|Stabfeuer)|SCRIPT ERROR"   # 385.2 (Tuffy)
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Held|Söldner|nach|in den|Atem 453)|SCRIPT ERROR"   # 453.1 (Tuffy)
           set -o pipefail; timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wolf_mess_438.gd 2>&1 | grep -E "^(— |  |Befunde|Wolf 438|Kampf )|SCRIPT ERROR"   # 438, 439, 440 (Jerry): Wölfe ohne Gleiten, Reihenfolge, Tod
           timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_test.gd 2>&1 | grep -E "^(gut|FALSCH)|KLANG|SCRIPT ERROR"   # 399.3
@@ -360,6 +361,11 @@ jobs:
           F=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf
           titel() { echo "scale=$2:-2,drawtext=fontfile=$F:text='$1':fontsize=$3:fontcolor=white:box=1:boxcolor=black@0.6:x=(w-tw)/2:y=8"; }
           # 461.1 (Tuffy): kampf=461 nur der Grundstand-Film Kampfort (Helden und Wölfe im Kampf; Nahteil von film_453 nicht, Prüfer Lauf 159: C2, G1)
+          # 385.2 (Tuffy): kampf=3852 nur der Film Feuer aus dem Stab (Magier, Feuerpfeil und Feuerball je zweimal, Echtzeit)
+          if [ "${{ github.event.inputs.kampf }}" = "3852" ]; then
+            film stabfeuer3852 stabfeuer_3852 FILM=1
+            ls -l $B; exit 0
+          fi
           if [ "${{ github.event.inputs.kampf }}" = "461" ]; then
             film kampf461-helden film_403 DAUER_MS=40000     # Lauf 159: nach 22 s noch ONGOING, Tod und Neuformation (F3, F4) fehlten
             ls -l $B; exit 0
