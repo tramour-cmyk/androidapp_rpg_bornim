@@ -141,3 +141,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 03:43 02.11.: Startsperre 03:43 Start Homer (lauf.py)
 - 03:43 02.11.: Marke Stellungnahme Sokrates 02.11. (lauf.py)
 - 03:43 02.11.: Marke Archiv session_01Hmoj78Ly5CaDkLr9Ak7zBs (lauf.py)
+- 04:04 02.11.: Startsperre 04:04 Start Jerry, Tuffy (lauf.py)
+- 04:04 02.11.: Marke Archiv session_01Hmoj763nAJcYQAutDZ3KXK (lauf.py)
+- 04:04 02.11.: Marke Archiv session_01Hmoj77Fcq6ikFG5r2xy2wv (lauf.py)
+- 04:04 02.11.: Nachfolger-Warnung Jerry (Übergabe 02.11., 03:49) (lauf.py)
