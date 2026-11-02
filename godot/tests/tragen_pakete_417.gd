@@ -20,12 +20,38 @@ var fehler := 0
 # Film 02:2x (tragprobe FILMGLEIT: Rennen 10-22 % Betrag, einzeln abgespielt 0-4 %): der Ablauf des Films ohne Bild (FILM_FOLGE, Held.tempo_schritt,
 # wechsel, takt, advance), je Abschnitt ab 0,8 s der Standfuss im Raum mit Vorzeichen (+ = gleitet vorwaerts mit der Figur, - = rueckwaerts),
 # Median und Betrag, dazu speed_scale und Tempo; zeigt, ob das Rutschen im Abspielen steckt und wo
+# Pruefer Film 03:39 (Sprung bei 1,0 s nur im ersten Feld je Figur, die zweite Seite springt nicht): der Film laeuft nach den
+# Standbildern (tragprobe standbilder), die Messung lief bisher nur frisch. Darum je Figur zweimal: frisch und nach den Standbildern
+# (standbilder_nach), Anfang wie im Film (TragProbe.film_anfang); HALTUNGBILD je Bild der ersten 1,3 s: Brust aus der Knochenpose
+# (ohne Tragen-Knoten) und Kopf vor dem Becken aus dem Haar am Kopfknochen (BoneAttachment3D, folgt dem gezeichneten Skelett)
+func standbilder_nach(ap: AnimationPlayer, gang: String) -> void:
+	ap.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_IDLE
+	for b0 in ["Gehen", "Rennen"]:
+		var bew: String = b0 + "_" + gang
+		if not ap.has_animation(bew): continue
+		ap.play(bew)
+		await process_frame
+		var lang := ap.get_animation(bew).length
+		var n := maxi(8, int(round(lang * FPS)))
+		for f in 3 * n:
+			TragProbe.standbild_lage(ap, f / FPS, 1.0, lang)
+			await process_frame
+
 func film_nach(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, gang: String, wer: String) -> void:
 	var g := "_" + gang
 	var w := m.get_parent() as Node3D
 	var p := Vector3.ZERO
-	ap.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
-	ap.play("Stehen"); ap.advance(0.0)
+	w.position = p
+	TragProbe.film_anfang(ap)
+	await process_frame
+	var haar: Node3D = null
+	for c in sk.get_children():
+		if c is BoneAttachment3D and String(c.name).begins_with("Haar_"): haar = c; break
+	var ik := sk.find_bone("pelvis")
+	var kopf_vor := func() -> float:   # m: Haar (Kopf) vor dem Becken, Blick +Z
+		if haar == null or ik < 0: return NAN
+		return haar.global_position.z - (sk.global_transform * sk.get_bone_global_pose(ik)).origin.z
+	var bilder := PackedStringArray()
 	var tempo := 0.0
 	var gehen := TragProbe.SPIEL_GEHEN
 	# Pruefer Film 02:2x („bei 1,0 s springt die Haltung in einem Bild von stark vorgebeugt in aufrecht“; „Stand am Anfang und Ende
@@ -61,6 +87,8 @@ func film_nach(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, gang: String, wer
 			await process_frame
 			t_film += 1.0 / FPS
 			var n_neu: float = neig.call()
+			if t_film < 1.3: bilder.append("%d:%.0f/%.0f%s" % [int(round(t_film * FPS)), n_neu, 100.0 * float(kopf_vor.call()),
+				"" if ap.current_animation == b0 else "(" + ap.current_animation + ")"])
 			if absf(n_neu - n_alt) > absf(float(sprung[0])): sprung = [n_neu - n_alt, t_film, "%s %s" % [b0, ap.current_animation]]
 			n_alt = n_neu
 			if f == nf - 1: haltung.append("%s Ende %.1f" % [b0, n_neu])
@@ -83,6 +111,7 @@ func film_nach(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, gang: String, wer
 		print("FILMNACH %s %s (Abschnitt %d, %s): Standfuss %+.2f m/s (Median mit Vorzeichen), Betrag %.2f, Figur %.2f m/s, speed_scale %.2f, %d Proben" % [wer, b0, ai,
 			z[-1][4], vs[vs.size() / 2], ab[ab.size() / 2], tm, sp, vs.size()])
 	print("HALTUNG %s: Brust Grad vor: %s; groesster Sprung %+.1f Grad in einem Bild bei %.2f s (%s)" % [wer, ", ".join(haltung), sprung[0], sprung[1], sprung[2]])
+	print("HALTUNGBILD %s (Bild:Brust Grad/Kopf vor Becken cm%s): %s" % [wer, "" if haar else ", ohne Haar", " ".join(bilder)])
 	ap.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_IDLE
 	w.position = Vector3.ZERO
 	ap.speed_scale = 1.0
@@ -132,7 +161,21 @@ func _initialize() -> void:
 		var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
 		var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
 		pruefe(String(m.get_meta("gang", "")) == gang, "%s: Gang %s statt %s" % [e[1], m.get_meta("gang", ""), gang])
-		await film_nach(m, sk, ap, gang, String(e[1]))
+		# Verdacht Haltungssprung: Knochen mit Spur im Rennen, aber nicht im Stehen, behalten ohne deterministic die alte Pose, bis das
+		# Gehen sie wieder setzt (Nachbau am Rechner: genau dieses Bild, Sprung beim Wechsel)
+		var spuren := func(n: String) -> PackedStringArray:
+			var r := PackedStringArray()
+			if not ap.has_animation(n): return r
+			var an := ap.get_animation(n)
+			for t in an.get_track_count(): r.append("%s%d" % [String(an.track_get_path(t)).get_slice(":", 1), an.track_get_type(t)])
+			return r
+		var st: PackedStringArray = spuren.call("Stehen")
+		var fehlt := PackedStringArray()
+		for x in spuren.call("Rennen_" + gang): if not x in st: fehlt.append(x)
+		print("HALTUNGSPUR %s: deterministic %s, Stehen %d Spuren, im Rennen mehr: %s" % [gang, ap.deterministic, st.size(), ", ".join(fehlt)])
+		await film_nach(m, sk, ap, gang, gang + " frisch")
+		await standbilder_nach(ap, gang)
+		await film_nach(m, sk, ap, gang, gang + " nach Standbildern")
 		# Lauf 41315361680 und 41320044677: der Schild wurde nie gemessen; Godot benennt den zweiten Knoten „@Tragen@…“ um, darum nach Typ
 		var tl: Array = sk.get_children().filter(func(c): return c is Tragen)
 		pruefe(tl.size() == (2 if gang == "schild" else 1), "%s %s: %d Tragen-Knoten" % [e[1], gang, tl.size()])

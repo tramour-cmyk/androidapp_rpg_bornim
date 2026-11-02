@@ -120,8 +120,7 @@ func standbilder(axt := false, pakete := false) -> void:
 			var n := maxi(8, int(round(lang / zeit * FPS)))
 			for f in 3 * n:
 				var t := f / FPS
-				ap.pause()   # erst anhalten, dann springen (umgekehrt wirkt seek nicht, die Figur stand)
-				ap.seek(fmod(t * zeit, lang), true)
+				standbild_lage(ap, t, zeit, lang)
 				w.position = ort + Vector3(0, 0, 1) * v * t
 				await fp.get_tree().process_frame   # angehalten wirkt seek erst im naechsten Bild
 				var ph := f - 2 * n
@@ -159,14 +158,11 @@ func standbilder(axt := false, pakete := false) -> void:
 		# Pruefer 13:3x (Runde 4): bei 2,5 s sprang die Pose, der Film schaltete ohne Ueberblendung um. Jetzt wie im Spiel (held.gd): die
 		# Bewegung laeuft von selbst weiter (advance je Bild), Wechsel mit Held.ueberblendung, Gehen <-> Rennen im selben Schritt, Tempo
 		# steigt mit Held.BESCHL; Folge FILM_FOLGE mit Anlaufen und Anhalten (416.4, Chef 13:1x: „muss immer weich sein“)
-		ap.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 		# Pruefer Film 02:2x („bei 1,0 s springt die Haltung in einem Bild von stark vorgebeugt in aufrecht“, „Stand am Anfang und Ende
 		# verschieden“): die Standbilder davor liessen den Spieler angehalten im Rennen (pause, seek); play("Stehen") setzte ihn nicht
 		# zurueck, die erste Sekunde stand das Rennen (Brust 45-54 Grad vor), erst der Wechsel ins Gehen spielte. Die Messung ohne
 		# Standbilder (tests/tragen_pakete_417.gd HALTUNG) steht 13 Grad und springt nicht. Darum erst anhalten, dann Stehen von vorn
-		ap.stop()
-		ap.speed_scale = 1.0
-		ap.play("Stehen"); ap.seek(0.0, true); ap.advance(0.0)
+		film_anfang(ap)
 		await fp.get_tree().process_frame
 		var tempo := 0.0
 		var spur := []   # Pruefer 00:53 („Rennen: Fuss 17-28 % langsamer als der Boden“): je Bild Abschnitt, Zeit darin, Ballen im Raum, Tempo
@@ -201,6 +197,17 @@ func standbilder(axt := false, pakete := false) -> void:
 		film_gleit(String(e[1]) + " von " + seite, spur)
 		fp.protokoll.append("FILM %s %s von %s, %d Bilder" % [e[1], e[3], seite, nr])
 		print(fp.protokoll[-1])
+
+# Lage eines Standbilds und Anfang des Films; ein Ort fuer Probe und Messung (tests/tragen_pakete_417.gd stellt beides nach, 417)
+static func standbild_lage(ap: AnimationPlayer, t: float, zeit: float, lang: float) -> void:
+	ap.pause()   # erst anhalten, dann springen (umgekehrt wirkt seek nicht, die Figur stand)
+	ap.seek(fmod(t * zeit, lang), true)
+
+static func film_anfang(ap: AnimationPlayer) -> void:
+	ap.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
+	ap.stop()
+	ap.speed_scale = 1.0
+	ap.play("Stehen"); ap.seek(0.0, true); ap.advance(0.0)
 
 # Standfuss im Raum des Films (Boden steht): je Abschnitt Gehen/Rennen ab 0,8 s (nach Ueberblendung und Anlauf) die Geschwindigkeit des
 # Ballens in den Bildern hoechstens 2 cm ueber seinem Tiefstand, Median, gegen das Tempo der Figur; 0 = kein Rutschen
