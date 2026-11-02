@@ -474,8 +474,10 @@ func _load_model() -> Node3D:
 const OFF_HAND := {"FIGHTER": "round_shield", "CLERIC": "shield"}
 ## 406 b: Schild im Kampf gegen die Lage aus dem Prefab [tiefer m, vorn m, Oberkante vor Grad, Seite +x vor Grad], gedreht um die
 ## Fessel (wie tests/schild_406.gd _neigung). Lauf 167 (Messung an der Fläche): Rundschild vorn 3 cm, Schulter und Oberarm -0,7 statt
-## 2,3 cm; Drachenschild noch offen (Schulter bei Abwehr bis 7,7 cm durch den oberen Innenrand)
-const SCHILD_LAGE := {"shield": [0.0, 0.0, 0.0, 0.0], "round_shield": [0.0, 0.03, 0.0, 0.0]}
+## 2,3 cm; Drachenschild mit der Schulter bei Abwehr bis 7,7 cm durch den oberen Innenrand, Verschieben allein half nicht.
+## Lauf 168 (geneigt): Rundschild dazu Seite 20° vor: Körper -0,7, Schulter -4,1 cm (vorher kreuzte der Schwertarm 8,4 cm davor);
+## Drachenschild Oberkante 15° und Seite 15° vor: Körper -2,1 (vorher 1,6), Schulter -3,6 cm (vorher 7,4)
+const SCHILD_LAGE := {"shield": [0.0, 0.0, 15.0, 15.0], "round_shield": [0.0, 0.03, 0.0, 20.0]}
 const GRIP_CM := 15.7
 const PALM_CM := 2.4
 const CM := 0.01
