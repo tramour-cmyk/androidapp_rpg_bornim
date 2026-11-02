@@ -1,4 +1,5 @@
-# 474a · Debug-Schlüssel als Geheimnis statt im Cache? · Tom · 02.11., 13:4x
+# 474a · Debug-Schlüssel als Geheimnis statt im Cache?
+Tom · 02.11., 13:4x · E Technik
 
 **Frage:** Soll der Debug-Schlüssel der Godot-Probe (`de.bornim.game.godot`, Passwort „android“, nicht der Play-Schlüssel) als GitHub-Geheimnis `GODOT_DEBUG_KEYSTORE` hinterlegt werden statt nur im Cache?
 
