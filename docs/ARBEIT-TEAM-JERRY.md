@@ -12,7 +12,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 478 | M | **von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv):** Rechenkern des Kampfs schon in Stufe 1 auf BRS (Modell D: Treffer, Schaden, Abzug; Held mit Leben, Angriff, Abwehr nach BRS), Darstellung bleibt bis 2.3; erst genau schätzen: über 2 Sitzungen → Chef (dann B) | startbar | – |
+| 478 | M | **von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv):** Rechenkern des Kampfs schon in Stufe 1 auf BRS (Modell D: Treffer, Schaden, Abzug; Held mit Leben, Angriff, Abwehr nach BRS), Darstellung bleibt bis 2.3; erst genau schätzen: über 2 Sitzungen → Chef (dann B) | wartet auf Chef: geschätzt 3–4 Sitzungen (Zu 478), über 2, nach Archiv 470a gilt B | – |
 | 473 | M | **von Perikles (Wochenziel 02.11., Stufe 1):** Bau BRS 1.4 Monsterwerte Kapitel 1 nach Rechenmodell D ins Spiel (Abnahmeliste 1.4, Schätzung 447.3: 1 Sitzung, 1 Runde) | gebaut 7d2eec7cc: Werte aller 18 Arten und Modell D im Spiel (regeln/brs.gd, daten/werte.json wie sim444), Kampf rechnet bis 2.3 nach SRD (Frage an Perikles); fährt im nächsten Build | – |
 | 472 | M | **von Perikles (Wochenziel 02.11., Stufe 1):** Bau BRS 1.3 Heldenstufe aus Erfahrung, Anteil Fertigkeiten höchstens 40 %, Erfahrungstopf je Gebiet (Abnahmeliste 1.3); Schnittstelle mit Tom (471) | gebaut a6a83b13e: Regel (Brs.gib_erfahrung, Deckel, weiche Grenze, Topf); Verdrahtung mit Held nach 470 etwa 1 S, 1 R (Zu 472) | – |
 | 467 | M | **von Sokrates (Chef 01.11., 21:52, Frage „Wie steigert sich die Ausdauer?“):** `godot/regeln/ausdauer.gd` rechnet noch nach SRD (Konstitution 10, Modifikator, Stärke 13); BRS: Ausdauer aus Zähigkeit, Wille, Stufe (Abschnitt 2); Formel kommt mit 427 zum Chef, dann umstellen | wartet auf 427 (Formel von Sokrates zum Chef) | – |
@@ -24,18 +24,18 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 453a | M | Wolfsatem B (Archiv) | wartet auf 453b | – |
 | 453b | M | Rückfrage: neue Läufe? | wartet auf Chef | – |
 | 454 | M | **von Sokrates (Chef 01.11., 11:05):** beim Biss zielt die Achse des Wolfs wohl rechts neben den Helden; erst messen, dann bauen (Zu 453) | gebaut: passt (Archiv 454), fährt im nächsten Build; Schildreaktion in 406 | `claude/jerry-454-bissachse` |
-| 438a | M | **von Sokrates (Chef 01.11., 11:47, „nicht beurteilen, wenn ich es nicht gesehen habe … Vielleicht kann er auch so taumeln“):** Sichtungsfilm Hinfallen/Aufstehen auf Kaufheld aus dem Bestand, dann Wahl am Bild (Archiv 438a) | wartet auf Test: Messlauf faf633e16 (Hautkapseln 4b) | `claude/jerry-438a-sturz-2` |
+| 438a | M | **von Sokrates (Archiv 438a):** Hinfallen/Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe und Schild frei | wartet auf Test: Messlauf faf633e16 (Hautkapseln 4b) | `claude/jerry-438a-sturz-2` |
 | 439 | M | **von Sokrates (Chef 31.10., 23:31, Film 403):** Reihenfolge Angriff, Treffer, Tod, Neuformation (Zu 438) | gebaut: passt (Archiv 438), fährt im nächsten Build | `claude/jerry-438-wolf-kampf` |
 | 440 | M | **von Sokrates (Chef 31.10., 23:34, Film 403):** Wolf-Tod zu schnell weg (Zu 438) | gebaut: passt (Archiv 438), fährt im nächsten Build | `claude/jerry-438-wolf-kampf` |
 | 416.6 | K | **von Sokrates (Chef 31.10., 20:4x):** Spuren des Helden fehlen (`core/Tracks.kt`, `LISTE-UMZUG-348.md` „Spuren“). Perikles: M oder K? | frei | – |
-| 415 | M | **von Sokrates („jetzt“ 01.11., 20:0x; Archiv 415):** Handyprobe Beams Free Sample: läuft es auf dem Handy, FPS je Renderer, Wirkung mit Toon-Licht und Tusche im Kampfort (Film); nichts kaufen | wartet auf Test: Filmlauf (dritter Lauf, 415b A); Messung ohne Befund | – |
+| 415 | M | **von Sokrates („jetzt“ 01.11., 20:0x; Archiv 415):** Probe Beams Free Sample im Kampfort (Film, Bilder je Sekunde); nichts kaufen | wartet auf Test: Filmlauf (dritter Lauf, 415b A); Messung ohne Befund | – |
 | 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | wartet auf Test: Build 146 (ansehen/t146-befunde.md; 143 getestet 31.10., 20:4x, Befunde als 416.x) | `claude/jerry-348-kampf` |
 | 399.2b | M | **von Team Tom (15:05):** Rudel allein zu stark | wartet auf Test: Build 146 (t146) | – |
 | 403 | M | **von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler):** Kampfort: Held je Klasse wie im Dorf (`HeldFigur.baue`), Bewegungen aus der UAL Pro | gebaut: passt (Archiv 403), fährt im nächsten Build | – |
 | 461.1 | M | **von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461):** Grundstand mit Tom: Kampfort, Wölfe, Helden im Kampf (`LISTE-GRUNDSTAND-461.md`) in `claude/grundstand-461`; vor 460 und 406.1 | wartet auf 406, 438a, 453.1, 376.1 (Zu 461.1) | `claude/grundstand-461` |
-| 460 | M | **von Sokrates (Chef 01.11., 20:2x: „Wechsel der Kameraperspektive … wie eine Drohne rumfliegen … verschiedene Eröffnungen“; Wortlaut Archiv 460):** Probefilm Kamerafahrten: Eröffnung je Blende (402), kurze Wechsel nur ohne Eingabe; Vorschlag Sokrates im Chat 20:3x, Zu 460 | wartet auf 461.1 (Grundstand vor 460) | – |
-| 406.1 | M | **von Sokrates (Chef 01.11., 20:2x, Archiv 406):** Schildstoß ins MARS/BRS (Reaktion, Konter am Ring, vielleicht Angriff): Regelvorschlag als Chefsache, dann Bau mit `ShieldAttack1–3S&S` | wartet auf 427 (sim444 Schildträger gleicher Stufe 92–100 % Leben, Hinweis an Sokrates) | – |
-| 406 | M | **von Team Tom (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe):** Ausrüstung der Helden je Stück aufwerten („steril“), zuerst Rundschild des Klerikers hell mit goldener Sonne (`Dress.kt`); Wappenrock-Sonne macht Tom | wartet auf Test: Messlauf Faust beugen (claude/jerry-406c-gehen); G1 behoben; E8 wartet auf Tom 417; F2 offen | `claude/jerry-406-kaufschild` |
+| 460 | M | **von Sokrates (Chef 01.11., 20:2x, Archiv 460):** Probefilm Kamerafahrten: Eröffnung je Blende (402), kurze Wechsel nur ohne Eingabe | wartet auf 461.1 (Grundstand vor 460) | – |
+| 406.1 | M | **von Sokrates (Archiv 406.1):** Schildstoß ins MARS/BRS, Bau mit `ShieldAttack1–3S&S` | wartet auf 427 (sim444 Schildträger gleicher Stufe 92–100 % Leben, Hinweis an Sokrates) | – |
+| 406 | M | **von Team Tom (Archiv 376.1):** Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Sonne | wartet auf Test: Messlauf Faust beugen (claude/jerry-406c-gehen); G1 behoben; E8 wartet auf Tom 417; F2 offen | `claude/jerry-406-kaufschild` |
 | 401 | M | **von Chef über Sokrates (Archiv):** Tierlaute, mind. 3 je Tier | wartet auf Test: Build 146 (t146) | – |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: im Dorf über Toms godot.yml (kauftier.py); Feintuning nach 399: Hühner hoppeln (Chef), Rind 78 s Fleck, 150°-Sprung |
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK | `claude/jerry-348-kampf` |
@@ -72,7 +72,8 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 ## Einzelheiten
 
-- **Zu 406 (Jerry 02.11., 17:4x, `claude/jerry-406c-gehen`):** G1 behoben (be94f2ee3; Lauf 179: 0 angeschnitten). E3 Lauf 179: Finger der Schildhand 3–8,6 cm vor dem Schild (Kampfhaltung, Rennen am meisten); Schild weiter vor schiebt den Schwertarm hinein; Weg: Faust schließen, erst messen. E8 wartet auf Tom 417; F2 offen.
+- **Zu 478 (Jerry 02.11., 18:2x):** 3–4 Sitzungen: BRS-Heldenwerte fehlen im Spiel (470, 471) 1; mars.gd Treffer, Schaden, Leben 1; Zauber, Schleichangriff, Zustände, Ring, Würfelzeile 1; Gegenprobe sim444, Tests 0,5–1. Gegenargument: nur Waffe und Biss in 2, dann Magier und Kleriker auf SRD.
+- **Zu 406 (Jerry 02.11., `claude/jerry-406c-gehen`):** G1 behoben (Lauf 179: 0 angeschnitten). E3: Finger 3–8,6 cm vor dem Schild; Schild weiter vor drückt den Schwertarm hinein; Messung Faust beugen läuft. E8 wartet auf Tom 417; F2 offen.
 
 - **von Sokrates (Chef 02.11., 14:49, zu 438a Runde 2, Wortlaut Archiv):** passt nicht: beide stechen sich beim Aufstehen mit der Waffe durchs rechte Bein (Schwert, Stab), „als ob das rechte Bein nicht existent wäre“, beim Abstützen mit der rechten Hand (Waffenhand); wie Prüferbefund 02:0x, der vor dem Versand hätte behoben sein müssen. Umhang vorn und hinten scheint durch (463, Tom).
 - **von Sokrates (Chef 02.11., 14:55, zu 348.12):** „348.12b alter Körper ja“: Grak-Film darf vorab auf Graks heutigem Körper raus (Grundstand B2 hält ihn dafür nicht an); beurteilt wird die Bewegung.
