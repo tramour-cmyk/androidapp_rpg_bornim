@@ -58,6 +58,55 @@ Zahlen in Klammern = Entscheidung in `DESIGN-SPIELSYSTEM-2-0.md` („E 7“) ode
 **Stufe 6 · SRD im Code abgelöst** (nach dem Marktstart; der Spieler sieht es nicht)
 - [ ] **6.1** G · Auch im Code keine SRD-Werte mehr, der Lizenzhinweis „SRD 5.1 · CC BY 4.0“ entfällt; `regelcheck` ohne Treffer (446).
 
+## Orte und Welt je Zeile (Vorschlag 479, 02.11., 19:4x; wartet auf dein Ja, Chefsache entscheiden/479)
+
+Quelle: der alte Kotlin-Code (`core`, `app`), abgeglichen mit `LISTE-UMZUG-348.md` und dem Stand in `godot/` auf `main` (Arbeitszweige nicht mitgezählt). Je Zeile zwei Häkchen: **begehbar** (Stufe 2: geht im Spiel wie alt) und **fertig** (Stufe 4: „Ort fertig“ oder „gut“ von dir). Stand Godot: **da** = vorhanden, **teils** = nur ein Teil, **fehlt**.
+
+**Orte** (acht Karten im alten Spiel; die Blutzahnhöhle hat eine Ebene)
+
+| Nr. | Ort | Godot heute | begehbar | fertig |
+|---|---|---|---|---|
+| O1 | Dorf Bornim (5 Leute, Hühner, Hund, Vögel, Schmetterlinge) | da (Build 146) | [ ] | [ ] |
+| O2 | Gasthaus „Zum Schlafenden Greif“ (Rowena, Borin, Katze) | da | [ ] | [ ] |
+| O3 | Thessas Kramladen | da | [ ] | [ ] |
+| O4 | Haus des Ältesten (Aldric) | da | [ ] | [ ] |
+| O5 | Tempel des Morgenlichts (Osric, Lyra nach der Rettung) | da | [ ] | [ ] |
+| O6 | **Flüsterwald** (Garrick, 11 Gegnerarten, Teiche, Frösche, Libellen) | **fehlt**: der Weg in den Wald startet nur einen Kampf | [ ] | [ ] |
+| O7 | **Tiefer Flüsterwald** mit Morwens Hütte, Endgegner Grimmzahn | **fehlt** | [ ] | [ ] |
+| O8 | **Blutzahnhöhle** (Lyra gefangen, Endgegner Krogg und Grak, 10 Gegnerarten) | **fehlt** | [ ] | [ ] |
+| O9 | Kampforte Wald (Lichtung, Waldrand, Teich, Baum, Felsen, Steinkreis) | teils: nur die Lichtung | [ ] | [ ] |
+| O10 | Kampforte Höhle (Eingang, Gang, Halle, Teich, Lager) | fehlt | [ ] | [ ] |
+
+**Welt** (gilt an jedem Ort)
+
+| Nr. | Merkmal | Godot heute | begehbar | fertig |
+|---|---|---|---|---|
+| W1 | Tageszeit, Tag und Nacht | da | [ ] | [ ] |
+| W2 | Schatten nach Sonnenstand (morgens, mittags, abends) | da | [ ] | [ ] |
+| W3 | Wetter: Regen, ferne Blitze und Donner, Regen als Klang | fehlt | [ ] | [ ] |
+| W4 | Spuren: Fußspuren nach Regen, Blut, Staub beim Rennen (auch im Regen) | teils: Regeln da, im Spiel nicht aufgerufen | [ ] | [ ] |
+| W5 | Tagesablauf der Leute, Stammplätze | teils: Tagesablauf da, Stammplätze fehlen | [ ] | [ ] |
+| W6 | Leute machen auf sich aufmerksam (Zeichen, Geste: Hand heben, winken, nicken, Krug heben) | teils: Zeichen da, Geste fehlt | [ ] | [ ] |
+| W7 | Leute schauen den Helden an, wenn er nah ist, nach 10 s nicht mehr | teils: nur beim Ansprechen | [ ] | [ ] |
+| W8 | Ruhebewegungen aller Figuren (Leute, Monster, Tiere) und Atmen im Stand | teils: Leute da, Monster nur im Kampfort, Atmen außerhalb fehlt | [ ] | [ ] |
+| W9 | Garrick am Feuer (nickt ein, fährt auf, wenn der Held kommt) | fehlt | [ ] | [ ] |
+| W10 | Rudel und Leibwache folgen dem Anführer auf der Karte | fehlt | [ ] | [ ] |
+| W11 | Jedes Tier und Lebewesen mit eigenem Laut (Vögel, Grillen, Eule, ferner Wolf; Monster schnüffeln, knurren) | fehlt (Hühner da) | [ ] | [ ] |
+| W12 | Umgebungsklang je Ort (Fluss, Teich, Tropfen, Feuer, Raumklang) | teils: Teich fehlt | [ ] | [ ] |
+| W13 | Musik je Ort und Tageszeit | da | [ ] | [ ] |
+| W14 | Schritte je Untergrund, Keuchen | da | [ ] | [ ] |
+| W15 | Licht: Fackel, Sichtweite des Helden | teils: Sichtweite fehlt | [ ] | [ ] |
+| W16 | Ortslicht: Laternen, Fenster, Kerzen, Pilze, Kristalle, Mond | teils: Pilze, Kristalle fehlen | [ ] | [ ] |
+| W17 | Feuerschein auf Figuren | fehlt | [ ] | [ ] |
+| W18 | Wasser lebt (Glitzern, Regenringe, Lichtspiegel) | teils | [ ] | [ ] |
+| W19 | Kartenrand: Wald läuft ins Dunkel | fehlt | [ ] | [ ] |
+| W20 | Rauch aus Kaminen | da | [ ] | [ ] |
+| W21 | Kleinleben Dorf: Katze, Hund, Vögel fliegen vor dem Helden auf | fehlt (Hühner, Ziege, Kaninchen da) | [ ] | [ ] |
+| W22 | Kleinleben Wald: Frosch, Libelle, Schmetterling, Glühwürmchen | teils: Schmetterling, Glühwürmchen | [ ] | [ ] |
+| W23 | Leute auf eigenem Modell statt eines gemeinsamen Kopfs (475) | teils | [ ] | [ ] |
+
+„da“ heißt nur: im Code gefunden, nicht von dir abgenommen. Geprüft nur Kopf und einzelne Stellen der Godot-Dateien; ob jedes Merkmal dem alten Stand voll entspricht, sagt erst dein Häkchen.
+
 ## Wochenziel 02.–08.11. (Perikles, gesetzt 02.11., 11:2x; ohne Wochenzählung von Diogenes, die wegen des Stopps 07:26 noch fehlt)
 
 **Stufe 1 „Kern spielbar“ ist gebaut und liegt dir als Build vor: Erschaffung, Fertigkeiten durch Tun, Heldenstufe und Monsterwerte nach dem BRS, gerechnet mit den Zahlen der Simulation 444.** Termine gibt es keine; die Reihenfolge gilt. Muss (M) sind die Vorgänge unten und jeder Rückläufer aus deinem Urteil (höchstens zwei Läufe je Urteil, 389, 407); alles andere ist Kür, auch Filme ohne dein Urteil dazwischen.
