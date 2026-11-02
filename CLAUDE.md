@@ -21,7 +21,7 @@ Android-Rollenspiel (Godot; alte Fassung Kotlin), Regeln nach unserem eigenen Bo
 ## Bekannte Fehler
 
 Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Diogenes schlägt in der Wochenzählung vor, Perikles trägt ein (347).
-- Nie die Uhrzeit schätzen oder weiterrechnen; stattdessen die Zeile „Uhr:“ (Haken, `tools/notiz.sh`) oder `TZ=Europe/Berlin date`; den Stempel am Anfang der Antwort prüft der Stop-Haken.
+- Nie die Uhrzeit schätzen; stattdessen die letzte Zeile „Uhr:“ (hängt der Haken an jedes Werkzeugergebnis, 340.5).
 - Nie einen Helferbefund verschweigen; stattdessen als Text nachsenden, urteilen tut nur der Chef (320, 362, 373, 396).
 - Nie eine Probe nach anderer Methode vorlegen, als später gebaut wird; stattdessen gleich so, wie es aussehen soll (302.3 Tusche als Filter).
 - Nie Inhalte oder einen Stand aus dem Gedächtnis übernehmen; stattdessen in der Quelle nachsehen, beim Stand Vorrat und Archiv (Durchspielbogen: Kampf am Schlagbaum, den es nicht gibt; 13e Höhle als offen geführt).
