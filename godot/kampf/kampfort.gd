@@ -507,6 +507,74 @@ func _hit_camera() -> void:
 	cam.frustum_offset = off
 
 
+<<<<<<< HEAD
+=======
+## 438 (Prüfer Film r2: Wolf rechts halb abgeschnitten, 42,6 s; wolf_mess_438: ein Wolf auf dem Umweg um den Nachbarn bis 175 px
+## aus dem Bild): läuft eine Figur über den Rand der Szene, geht die Linse weich ein Stück zurück (um die Mitte der Szene), bis alle
+## im Bild sind, und danach langsam wieder heran. Während eines Schlags (hit) führt _hit_camera.
+var rand_z := 1.0
+const RAND_RAUS := 0.18     # je Bild zum nötigen Rückzug
+const RAND_REIN := 0.03     # je Bild zurück zur Grundstellung
+func _rand_kamera() -> void:
+	if cam == null or not hit.is_empty():
+		rand_z = 1.0
+		return
+	var vs := get_viewport().get_visible_rect().size
+	var sr := scene_rect()
+	var c := sr.size / 2.0
+	var m := 8.0 * vs.x / 412.0
+	var need := 1.0
+	for fig in figures.values():
+		if not fig.visible or fig.dead_at >= 0:
+			continue
+		# 438 (wolf_mess_438: Wolf 1 lief nach dem Fehlbiss an den Rand, die Linse kam erst nach): wer unterwegs ist, zählt
+		# auch an den Ecken seiner Bahn, so geht die Linse schon zurück, bevor er ankommt
+		var vers: Array = [Vector3.ZERO]
+		if fig.unterwegs():
+			for bp in fig.bahn:
+				vers.append(Vector3(bp.x - fig.position.x, 0.0, bp.z - fig.position.z))
+		for k in fig.kapseln():
+			for v in vers:
+				for q0 in [k[0], k[1]]:
+					var q: Vector3 = q0 + v
+					var s0: Vector2 = c + (screen_of(q) - c) / rand_z     # wo der Punkt ohne Rückzug läge
+					var d: Vector2 = s0 - c
+					# 438 (wolf_mess_438, Lauf 153: Wolf 1 bis 56 px draußen): mit der Dicke der Kapsel, nicht nur ihrer Achse
+					var r0: float = k[2] / m_per_dp(q) * (sr.size.x / 412.0) / rand_z
+					if absf(d.x) > 1.0:
+						need = minf(need, (c.x - m) / (absf(d.x) + r0))
+					if absf(d.y) > 1.0:
+						need = minf(need, (c.y - m) / (absf(d.y) + r0))
+		# 415 r4 (Lauf 181, G1): auch Waffe und Schild ganz im Bild
+		for q in fig.waffen_punkte():
+			var dw: Vector2 = (screen_of(q) - c) / rand_z
+			if absf(dw.x) > 1.0:
+				need = minf(need, (c.x - m) / absf(dw.x))
+			if absf(dw.y) > 1.0:
+				need = minf(need, (c.y - m) / absf(dw.y))
+		# 438 (wolf_mess_438: Wolf 1 drehte am Rand auf der Stelle, der Kopf schwang 45 px hinaus): wer gerade läuft oder dreht,
+		# zählt mit dem ganzen Kreis, den sein Körper beim Drehen überstreicht
+		if fig.tween and fig.tween.is_running():
+			var rr := 0.0
+			for k in fig.kapseln():
+				for q0 in [k[0], k[1]]:
+					rr = maxf(rr, Vector2(q0.x - fig.position.x, q0.z - fig.position.z).length() + k[2])
+			for v in vers:
+				for dv in [Vector3(rr, 0, 0), Vector3(-rr, 0, 0), Vector3(0, 0, rr), Vector3(0, 0, -rr)]:
+					var d2: Vector2 = (screen_of(fig.position + v + dv) - c) / rand_z
+					if absf(d2.x) > 1.0:
+						need = minf(need, (c.x - m) / absf(d2.x))
+	need = clampf(need, 0.8, 1.0)
+	rand_z = lerpf(rand_z, need, RAND_RAUS if need < rand_z else RAND_REIN)
+	if absf(rand_z - 1.0) < 0.001:
+		rand_z = 1.0
+	var per := base_size / vs.y
+	var p := Vector2(base_off.x + (c.x - vs.x / 2.0) * per, base_off.y - (c.y - vs.y / 2.0) * per)
+	cam.size = base_size / rand_z
+	cam.frustum_offset = p + (base_off - p) / rand_z
+
+
+>>>>>>> c3605f712 (415 Strahlenprobe r4: Strahl endet an dem, was die Kamera davor sieht, mit Breite; Kampf ruht während der Probe; Waffe im Bild [skip ci])
 ## 348.7 (Helfer Lauf 126: Heldin am Rand angeschnitten): die Mitte des Zooms so nah an [p] wie möglich, aber so, dass bei
 ## [z] jede stehende Figur ganz in der Szene bleibt (über dem Bedienfeld, 8 dp Rand); geht das nicht, bleibt es bei [p].
 func _pivot(p: Vector2, z: float) -> Vector2:
