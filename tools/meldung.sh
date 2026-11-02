@@ -80,14 +80,31 @@ if [ -n "$art" ]; then
       git -C "$repo" push -q origin "$neu:refs/heads/bilder" 2>/dev/null && { abgelegt=1; break; }
       sleep $((versuch * 2))
     done
-    if [ -n "$abgelegt" ] && [ "$art" = video ]; then text="$text\n[Film im Repo](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/$pfad)"  # 381.1: spielt im Browser ab
+    # 483 (Chef 02.11., 19:21): jsDelivr liefert aus dem Zweig bilder nichts mehr (über 50 MB); je Film ein eigener Zweig
+    # film/… mit nur dieser Datei (Commit ohne Eltern), Link über jsDelivr darauf; Marken (Tags) lässt der Proxy der Sitzungen
+    # nicht zu (403, 02.11.), Zweige ja (Probe film/probe-483: 200, video/mp4); geht das nicht: Link auf GitHub
+    film_url="https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/$pfad"
+    if [ -n "$abgelegt" ] && [ "$art" = video ]; then
+      marke="film/$(TZ=Europe/Berlin date +%Y%m%d-%H%M%S)-$(printf '%s' "$nr" | tr -c 'A-Za-z0-9.' '_')"
+      idx=$(mktemp); rm -f "$idx"
+      GIT_INDEX_FILE=$idx git -C "$repo" update-index --add --cacheinfo "100644,$blob,$pfad"
+      fbaum=$(GIT_INDEX_FILE=$idx git -C "$repo" write-tree); rm -f "$idx"
+      fneu=$(git -C "$repo" commit-tree "$fbaum" -m "Film $nr ($name)")
+      for versuch in 1 2 3; do
+        git -C "$repo" push -q origin "$fneu:refs/heads/$marke" 2>/dev/null && {
+          film_url="https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@$marke/$pfad"; break; }
+        sleep $((versuch * 2))
+      done
+      case "$film_url" in *jsdelivr*) ;; *) echo "meldung: Marke $marke nicht gepusht, Link auf GitHub (483)" >&2 ;; esac
+    fi
+    if [ -n "$abgelegt" ] && [ "$art" = video ]; then text="$text\n[Film im Repo]($film_url)"  # 381.1: spielt im Browser ab
     elif [ -n "$abgelegt" ]; then text="$text\n[Bild im Repo](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/$pfad)"
     else echo "meldung: Ablage im Zweig bilder fehlgeschlagen, Bild nur auf Telegram" >&2; fi
     # 450 (Chef 01.11., 10:55): Link selbst ins Blatt ansehen/<k>-….md auf main, unter Zeile 1, neuester oben; ohne Arbeitskopie
     # (temporärer Index wie beim Zweig bilder), darum keine Störung offener Änderungen. Mehrere Blätter zur Nummer: das zuletzt geänderte.
     if [ -n "$abgelegt" ]; then
       wort=Bild; u="https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/$pfad"
-      [ "$art" = video ] && { wort=Film; u="https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/$pfad"; }
+      [ "$art" = video ] && { wort=Film; u="$film_url"; }
       zeile_l="[$wort von $(TZ=Europe/Berlin date '+%d.%m., %H:%M')]($u) (eingetragen von meldung.sh, $name)"
       eingetragen=""
       for versuch in 1 2 3; do
