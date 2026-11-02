@@ -12,7 +12,6 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 461b.1 | M | **von Perikles (Liste Sokrates 461b, 02.11., 19:1x, Punkt 3, 9):** Widersprüche nachziehen: 38, 399.2b und D23.3 (Klassenbalance) gegen 406; Säureschnecke mit Sokrates (Werte gleich gegen 348.12c „voller Klingenschaden“); am alten Archiveintrag „→ ersetzt durch …“ | startbar (eine Sitzung, nur Notizen) | – |
 | 478 | M | **von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv):** Rechenkern des Kampfs schon in Stufe 1 auf BRS (Modell D), Darstellung bleibt bis 2.3 | ruht: 470a B (geschätzt 3–4 Sitzungen, Zu 478) | – |
 | 427.1 | M | **von Sokrates (Chef 02.11., 18:54, Archiv 427):** Werte Bestiarium „Werte 2.0“ in `werte.json`; sim444 mit Rudel, Umreißen (Grimmzahn), Überfall (Krogg); beide nachmessen, Chefsache | wartet auf Chef: entscheiden/4271 (Krogg ohne Rauch zu hart, Votum A); sim444 mit Merkmalen auf main ee9e5b0bb | – |
 | 481.1 | M | **von Sokrates (Archiv 427):** Tränke in sim444 (Zu 481 in `ARBEIT-BERATUNG.md`), Herkünfte neu messen, Zahlen an Sokrates | gebaut: sim444 Abschnitt 6 auf claude/jerry-481-1-traenke, Befund LISTE-SIMULATION-444, Zahlen an Sokrates (Zu 481); Geprüft an: 4bb60ba5e (--pruefen 0, Abschnitte 1–5 gleich main) | – |
@@ -57,12 +56,12 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 296.3 | K | von Sokrates: MARS-Schmuck (Todesschrei, Siegerpose …) | ruht bis 348.7 (Kampf in Godot; Urteil 348 gefallen 25.10.) | – |
 | 344.2 | K | von Sokrates: Kampf mit der Fackel | ruht: SRD (Chef 31.10.) | `claude/jerry-344-2-fackel` |
 | 168.1 | K | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab 3 | wartet auf 38, dann Bau Kapitel 2; Texte Homer (41) | – |
-| D23.3 | M | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis Ende Umzug 348.7 (Archiv 38: danach in MARS messen) | `claude/diogenes-d41-messung` |
+| D23.3 | M | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht: ersetzt durch 427 (Klassen entfallen; Zauberlehrling und Klosterschüler je Herkunft in sim444, 481) | `claude/diogenes-d41-messung` |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte | ruht bis 348.7 (Kampfort in Godot); Kür hinter dem Meilenstein (Chef 19.10.) | `claude/jerry-72u-standbild-2` |
 | 133 | K | Umsetzung 133: Charisma-Proben, Erfahrung für Konflikte | ruht: SRD (Chef 31.10.) | – |
 | 212 | M | Umsetzung 212: Schalter MARS oder klassisch | ruht: SRD (Chef 31.10.) | – |
 | 86 | K | Keuchen, Initiative, Rennen | ruht: SRD (Chef 31.10.) | – |
-| 38 | M | Balance Kapitel 1 gemessen | ruht: SRD (Chef 31.10.) | – |
+| 38 | M | Balance Kapitel 1 gemessen | ruht: teils ersetzt durch 427 (Balance je Herkunft, sim444, 481) | – |
 | 39 | M | Schwierigkeitsgrad im Menü | ruht: SRD (Chef 31.10.) | `claude/jerry-39-schwierigkeit` |
 | 59e | K | Händler: Vorrat je Laden | ruht: SRD (Chef 31.10.) | `claude/jerry-59e-haendlervorrat` |
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht: SRD (Chef 31.10.) | – |
