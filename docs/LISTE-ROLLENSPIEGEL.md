@@ -189,3 +189,31 @@ Hinweis: Die Abschnitte der anderen sah ich beim Öffnen der Datei vor dem Antwo
 8. Drei CI-Läufe à 40 Minuten (177, 180, 183) für einen GDScript-Fehler, den das Nachstellen am Rechner in Minuten zeigte.
 9. Unklar: zählt ein Messlauf ohne Bild als Probelauf (389 gegen 390a)? Fehlt: „vor einem CI-Lauf die Ursache mit Godot am Rechner nachstellen, CI nur für Kaufmodelle“; streichen würde ich nichts.
 10. Ernste Ansage: der Chef sah 438a mit bekanntem Befund und wartet auf 415 seit drei Läufen. Schritte: (a) jede Messung prüft, was die Spielkamera zeigt; (b) jede Ursache zuerst am Rechner nachstellen, CI nur für Kaufmodelle; (c) „ohne Befund“ nur nach Abgleich mit einem Prüferbild.
+
+### Sokrates (02.11., 19:36, Sitzung „Sokrates – Chefrunde: 427, 453.1a, 474a; dann 461b (02.11., 18:47)“)
+
+0. Angekündigt 23.10.: drei Schritte; geschehen 3 von 3: Kennzahl steht („Dein Maß“ in der Rollendatei), Vorrang Pause gegen Neustart steht (347), fremde Prüfung vor Bildurteilen ist durch 373 überholt (kein Urteil über Entwürfe).
+1. Halb erfüllt: „vor dem Votum prüfen, wer es noch nutzt“: 427 bewertete Grimmzahn und Krogg ohne ihre Merkmale (Rudel, Überfall), gefunden erst im Gespräch 02.11., 18:53; und beim Start 02.11. die offenen Chefsache-Dateien nicht gegen das Archiv gehalten (417 zum zweiten Mal vorgelegt).
+2. Etwa 65 % Chef (Chefrunden, 427, 461b), 35 % Notizen und Weitergabe; zu viel Pflege, die ein Werkzeug könnte.
+3. Kennzahl: Anteil Empfehlungen, die nach einer Woche gelten; Ist zählt Diogenes, mir nicht bekannt. Dafür getan: 427 gemessen statt geschätzt (Simulation 444), 474a fremd geprüft, Prüfer verwarf meinen Weg B.
+4. 427 mit Messung, Gegenargument und Weg, 474a, 483 mit gemessener Ursache (jsDelivr 403); es fehlte bei 427 die Lücke der Bossmerkmale, die erst der Chef mit seiner Frage auslöste.
+5. „Blatt“ benutzt, obwohl der Chef es 18:49 gestrichen hatte (02.11., 18:57); Zeitstempel 19:24 geschätzt statt der Uhr 19:21.
+6. 466 lag seit 02.11., 11:20 als „M?“ bei Homer und startete nie; gesehen habe ich es erst auf die Frage des Chefs 19:19, gemeldet vorher nicht, weil ich nicht nachsah.
+7. Der Chef wartete auf Antworten (02.11., 19:00: „4 Sachen geäußert und nirgends … Feedback“), weil ich erst eintrug, dann antwortete; verkürzt: erst im Chat antworten.
+8. Am meisten gekostet, am wenigsten gebracht: doppelte Buchführung (482 angelegt und wieder aufgelöst, Vorräte über 15 KB mehrfach gekürzt).
+9. Unklar war, wer das BRS-Dokument aktuell hält (jetzt ich, Rollendatei 02.11.); es fehlt ein Wächter, der Chefsache-Dateien meldet, deren Entscheid schon im Archiv steht.
+10. Ernste Ansage: die Inhalte tragen (427, 461b, 483 gemessen), aber der Chef musste an einem Abend dreimal Entschiedenes wiederholen. Schritte: (a) `zug-index.py` meldet Chefsache-Dateien, deren Nummer im Archiv nach dem Dateidatum entschieden ist (an Perikles); (b) jede Rückmeldung zuerst im Chat beantworten; (c) beim Start die letzte Sitzung des Vorgängers lesen.
+
+### Homer (02.11., 19:36, Sitzung „Homer – 461d: Stiltext gegen A–D (02.11., 03:44)“)
+
+0. Angekündigt waren drei Schritte. (a) Fremd prüfen vor der Chefsache: geschehen bei 458.4 (13:42) und 466 (9 Befunde eingearbeitet); bei 423 (01.11.) erst nach sieben Widersprüchen im ersten Entwurf, daraus die Lehre. (b) Keine Kür außerhalb von Kapitel 1 angenommen, 432 ruht bis nach dem Meilenstein (Commit 01.11., 09:10). (c) Vorratsgrenzen anderer nicht gemeldet. Ergebnis: 2 von 3.
+1. Halb erfüllt: „Fertiges Muster sofort festschreiben“. 453.3 (Atmen, Übergänge) und 426 (Zeichen statt Textwände) stehen im Stil, aber der Stiltext zeigt noch auf Kotlin-Bausteine (`MapRest`, `MapSheet.ink`) statt auf die Godot-Fundstelle.
+2. Etwa 50 % Chef (423, 430, 432, 447.4, 466), 40 % Teams und Perikles (348.11/12 Abnahmelisten, 405/409 Frisuren, 458.4, 461d), 10 % Betrieb. Das ist richtig so.
+3. Ziel 0 Vorgänge „von Team …“, die älter als 1 Tag unbeantwortet sind; Ist 0 (`ARBEIT-KREATIV.md` 02.11.). Dafür habe ich Teamfragen am selben Tag beantwortet, z. B. 405 Frisurwörter an Tom (29.10., 01:07).
+4. Vorgelegt habe ich 348.11 und 348.12c (Abnahmelisten), 423 Handbuch, 428, 430, 432, 447.4 und 466. Bei 466 waren Wege, Gegenargument und Fremdprüfung dabei; bei 423 fehlte die Fremdprüfung vor dem Vorlegen.
+5. 461d (02.11., 03:47) habe ich ohne Fremdprüfung als fertig gemeldet. Die Ersetzung lief dabei per Python statt mit Edit, gegen „Notizen nur mit Edit/Write“.
+6. Nicht gemeldet habe ich, dass `ARBEIT-BETRIEB.md` (19 KB), `ARBEIT-TEAM-TOM.md` (22 KB) und `LISTE-VORGAENGE.md` (26 KB) über der Grenze liegen (`notiz.sh` 02.11.). Ich hielt die Warnung des Hakens für Meldung genug; das ist derselbe Fehler wie in der Vorwoche.
+7. Auf mich gewartet hat niemand länger als einen Tag. Ich warte auf den Chef bei 466 und 447.4 (seit 01.11.); kürzer wäre es mit einem Telegram-Bild zu 447.4 gegangen statt nur Text.
+8. Am meisten gekostet hat 366 (Tester-Text): sechs Commits in einer Stunde (25.10., 18:41–19:46), weil die Faktenprüfung erst nach dem dritten Entwurf kam.
+9. Unklar ist, wann eine Zeile „nach dem Meilenstein“ startbar ist: Der Weiter-Haken schickte mich zu 432, obwohl dort nur noch die Chefsache fehlt, die laut Vorrat erst nach dem Meilenstein kommt. Fehlen würde ein Stand-Wort „wartet auf Meilenstein“, das `startbar.py` sperrt; dafür könnte das Wort „ruht“ wegfallen.
+10. Ernste Ansage: Texte kommen schnell und kein Team wartet, aber ein Schritt der Vorwoche blieb liegen, und 461d ging ungeprüft raus. Schritte: (a) jede Arbeit an Notizen mit Regelwirkung vor „fertig“ fremd prüfen lassen, nicht nur Chefsachen; (b) Vorratsgrenzen anderer einmal je Woche in deren Vorrat melden; (c) Stiltext auf Godot-Fundstellen umstellen (Muster festschreiben).
