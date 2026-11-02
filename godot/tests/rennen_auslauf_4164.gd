@@ -68,6 +68,83 @@ func _schleife(h: Held, n: String) -> float:
 	h.anim.play("Stehen", 0.0)
 	return g
 
+
+# Pruefer Film 03:55: Rumpf in 3 Bildern aufgerichtet, Umhang springt in 2 Bildern von wehend auf haengend (mitten in der Ueberblendung,
+# in beiden Feldern); Fuesse gleiten beim Anlaufen und Halt. Ablauf wie rennen_film_4164 (FOLGE, GEHEN/RENNEN fest), neu und bisher;
+# je Knochen die Drehung je Bild gegen seine groesste in den reinen Schleifen, Spruenge mit Zeit; Standfuss je Abschnitt in mm je Bild
+const F_GEHEN := 1.84 * 1.16
+const F_RENNEN := 3.68 * 1.16
+const F_FOLGE := [[0.8, 0.0], [2.4, 1.0], [4.4, 2.0], [6.2, 1.0], [7.0, 0.0], [8.0, 0.0]]
+func _filmablauf(h: Held, neu: bool, basis: Dictionary) -> void:
+	var sk := Gebiet.finde(h.modell, "Skeleton3D") as Skeleton3D
+	var ap := h.anim
+	ap.play("Stehen", 0.0); ap.seek(0.0, true); ap.speed_scale = 1.0
+	if ap.has_meta("blende"): ap.remove_meta("blende")
+	h.position = Vector3.ZERO; h.rotation = Vector3(0, PI / 2, 0)
+	var tempo := 0.0; var t := 0.0
+	var v := {}
+	var spr := []
+	var fuss := {}
+	var vorher_f := {}
+	var tief := INF
+	var zeile := ""
+	while t < 8.0:
+		t += DT
+		var art := 0.0; var bis := 0.0; var naechste := 0.0
+		for i in F_FOLGE.size():
+			if t < F_FOLGE[i][0]:
+				art = F_FOLGE[i][1]; bis = F_FOLGE[i][0]; naechste = F_FOLGE[i + 1][1] if i + 1 < F_FOLGE.size() else 0.0
+				break
+		var soll: float = [0.0, F_GEHEN, F_RENNEN][int(art)]
+		var moving := soll > 0.0
+		var ab := Held.ABBREMS if neu else Held.BESCHL
+		if moving and naechste == 0.0:
+			var b := Held.bremse(soll, (bis - t) * F_GEHEN, F_GEHEN)
+			if b < soll - 0.001: ab = Held.BESCHL
+			soll = b
+		var vor := tempo
+		var abbremsen: bool = neu and ab == Held.ABBREMS and vor > soll + 0.05 and soll <= F_GEHEN * 1.45
+		tempo = Held.tempo_schritt(tempo, soll, F_GEHEN, DT, ab)
+		var rennt := moving and tempo > F_GEHEN * 1.45
+		if neu: rennt = Held.rennt_jetzt(ap, moving, tempo, soll, F_GEHEN, tempo < vor - 1e-5, abbremsen, h.renn, h.gang)
+		var want := ("Rennen" if rennt else "Gehen") if moving else "Stehen"
+		var vv: float = h.renn if rennt else h.gang
+		if ap.current_animation != want: Held.wechsel(ap, want, moving, (tempo / vv) if moving else 1.0)
+		ap.speed_scale = Held.takt(ap, tempo, vv, DT) if moving else 1.0
+		ap.advance(DT)
+		h.position.x += tempo * DT
+		# Knochen
+		for i in sk.get_bone_count():
+			var q := sk.get_bone_pose_rotation(i)
+			if v.has(i):
+				var d := rad_to_deg((v[i] as Quaternion).angle_to(q))
+				var g: float = basis.get(i, 0.0)
+				if d > maxf(2.0 * g, g + 5.0) and d > 4.0: spr.append("%s %.2f %.0f/%.0f" % [sk.get_bone_name(i), t, d, g])
+			v[i] = q
+		# Standfuss
+		var abschnitt := "anlauf" if t < 1.6 else ("wechsel" if t > 4.3 and t < 5.8 else ("halt" if t > 6.0 else ""))
+		for s in ["l", "r"]:
+			var o := _ballen(sk, s)
+			tief = minf(tief, o.y)
+			if vorher_f.has(s) and abschnitt != "" and o.y < tief + 0.02 and (vorher_f[s] as Vector3).y < tief + 0.02:
+				var mm := 1000.0 * Vector2(o.x - (vorher_f[s] as Vector3).x, o.z - (vorher_f[s] as Vector3).z).length()
+				if not fuss.has(abschnitt): fuss[abschnitt] = []
+				fuss[abschnitt].append([mm, t, s])
+			vorher_f[s] = o
+		if t > 4.3 and t < 6.0 and int(round(t / DT)) % 2 == 0:
+			var s3 := sk.find_bone("spine_03")
+			var achse := (sk.get_bone_global_pose(s3).basis * Vector3.UP).normalized()
+			zeile += "%.2f %s %.2f N%.1f S%.1f | " % [t, ap.current_animation.substr(0, 3), tempo, _neigung(sk), rad_to_deg(achse.angle_to(Vector3.UP))]
+	var nm := "neu" if neu else "bisher"
+	print("AUSLAUF FILM %s Verlauf: %s" % [nm, zeile])
+	print("AUSLAUF FILM %s Knochenspruenge (Name Zeit Grad/Schleife): %s" % [nm, spr.slice(0, 40)])
+	for teil in fuss:
+		var l: Array = fuss[teil]
+		l.sort_custom(func(a, b): return a[0] > b[0])
+		var summe := 0.0
+		for e in l: summe += float(e[0])
+		print("AUSLAUF FILM %s Standfuss %s: %d Proben, Summe %.0f mm, groesste %s" % [nm, teil, l.size(), summe, l.slice(0, 5)])
+
 func _lauf() -> void:
 	if not HeldFigur.da("FIGHTER") or not FileAccess.file_exists("res://daten/karten.json"):
 		print("AUSLAUF FEHLER Daten fehlen"); quit(1); return
@@ -82,6 +159,25 @@ func _lauf() -> void:
 	pruefe(h.anim.has_animation("RennenAus"), "RennenAus fehlt")
 	var g_gehen := _schleife(h, "Gehen"); var g_rennen := _schleife(h, "Rennen")
 	print("AUSLAUF Schleifen: groesste Drehung je Bild Gehen %.1f, Rennen %.1f Grad (bei Tempo ohne Gleiten)" % [g_gehen, g_rennen])
+	# Knochen des Koerpers (Umhang eigene Knochen?) und je Knochen die groesste Drehung je Bild in den Schleifen
+	var nb := []
+	for i in sk.get_bone_count(): nb.append(sk.get_bone_name(i))
+	print("AUSLAUF Knochen %d: %s" % [nb.size(), nb])
+	var basis := {}
+	for n in ["Gehen", "Rennen", "Stehen"]:
+		var a := h.anim.get_animation(n)
+		h.anim.play(n, 0.0); h.anim.seek(0.0, true); h.anim.speed_scale = 1.0
+		var vb := {}
+		for j in int(a.length / DT) + 2:
+			h.anim.advance(DT)
+			for i in sk.get_bone_count():
+				var q := sk.get_bone_pose_rotation(i)
+				if vb.has(i) and j > 0: basis[i] = maxf(float(basis.get(i, 0.0)), rad_to_deg((vb[i] as Quaternion).angle_to(q)))
+				vb[i] = q
+	_filmablauf(h, false, basis)
+	_filmablauf(h, true, basis)
+	h.position = Vector3.ZERO; h.rotation = Vector3.ZERO
+	h.anim.play("Stehen", 0.0)
 
 	# --- tippen
 	h.setze(Vector2i(4, 10), "RIGHT")
