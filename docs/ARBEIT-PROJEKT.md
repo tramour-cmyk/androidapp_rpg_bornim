@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 02.11., 11:3x (`ff7b24574`)
+**Gelesen bis:** `origin/main` 02.11., 20:01 (`eecf2b771`)
 
-**Übergabe (02.11., 11:3x):** 407 gebaut, Diogenes: greift (Lauf 62); D63.1–4, D64.1 gebaut, Doppelpack an Diogenes über Ford; Tagesbericht 02.11. (448, Werkzeug holt Verlauf in flacher Kopie); Wochenziel 02.–08.11. mit 470–473 (Bau BRS Stufe 1); 467, 469 auf M. Nachfolger: Perikles – 338.1: Ausführlicher Stand nach der Wochenzählung von Diogenes (Muss-Zeilen außerhalb des Wochenziels prüfen, Zielvereinbarung melden)
+**Übergabe (02.11., 20:01):** 407, Tagesbericht 02.11., Wochenziel 02.–08.11. (470–473); abends 483 (Film-Links je Zweig film/…), 479 (Projektplan, Orte und Welt, entscheiden/479), 465 (Titelzeile), 484 und D67.1 (Abkürzungen), 480/480.1 („Blatt“, „Läufe frei“), 340.3–340.5, D68, 461b verteilt; Zielvereinbarung gemeldet (2 von 4). Doppelpack über Ford. Nachfolger: Perikles – 338.1: Ausführlicher Stand im Projektplan (Wochenzählung liegt), nach Antwort 479 Zeilen übernehmen
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
@@ -55,8 +55,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 - **Zu 407 (02.11., 11:2x):** Ursache und Bau im Commit `ff8821827` (26 Starts von Hand ungezählt). Laufende Sitzungen haben den neuen Matcher erst nach Neustart.
 - **Zu 464** (Chef 01.11., 20:4x: „irgendwer produziert hier abends brutal viele Fehler. Auf der Repo … schon fast 20 E-Mails gekriegt“; „kriege ich ja nicht mit, wie viel in die Hose … Abhilfe schafft ja auch keiner“). 14 von 168 rot; Einzelheiten Commit `fcf9ab215`, Jerry „Zu 464“. Godot fehlt Jerry: Chefsache tun/464.
-
-- **Guthaben, Chef 01.11., 20:43 (Bild):** „Du erreichst dein Wochenlimit voraussichtlich vorzeitig · 25 % genutzt · Zurücksetzung am Sa., 7. Nov., 20:00“; dazu Lob für kurze Ausgabe („Kurz, bündig“). Für Wochenziel 02.11. (338.1): Tagesbudget bis Sa so setzen, dass Muss für Tom und Jerry reicht; Sparvorschläge mit der Kostenauswertung.
 
 - **Zu 462** (Chef 01.11., 20:34: „Du kannst mal alle anderen auch hier mal wieder einen Zeitstempel ausgeben, wenn du was machst. Ich kann überhaupt nicht einschätzen, wann hier was passiert ist. Doch klar geregelt.“). Ursache und Bau: Commit `b851fb635`.
 
