@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (02.11., 18:0x, `session_01Hmoj76x8cCiqXq1ueQ15XW`):** 431 Lauf 3: B1-Ursache gemessen (Eichung), G1 behoben, Tor → 431d, 431e. Nachfolger: Tom – 417: Tragart Rennclips, Film beide Fassungen.
+**Übergabe (02.11., 20:3x, `session_01Hmoj78iLSmUzj7y6MRMWuJ`):** 417: Vergleichsfilm Rennen (Lauf 41488712114, nicht versandt), Rückfrage 417a; 431: Läufe 4 und 5 (Kampfort-Signatur, Eichung je Volk und Geschlecht, Atem, Beschriftung), Film an den Chef (ansehen/431-voelker-lauf5); 461b.2 erledigt. Nachfolger: Tom – 431: Haut Orkblütige Frau, Ursache nachstellen.
 
 ## Zeilen
 
@@ -62,6 +62,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Zu 431 (Tom 02.11., 20:3x, Lauf 5 41504744398):** Orkblütige Frau nimmt die Tönung nicht an (Eichung bis 0,125, Wange unverändert beige 244/212/170); erst ohne Bild nachstellen (Flächen und Materialnamen von `volk_ork_frau.glb`, `_eigene_haut` sucht „Regular“/„Superhero“). Ork-Mann grau statt graugrün, Lichtseite Rot am Anschlag (Messpunkt-Median mit Glanz); Heldeneichung im Spiel erst nach Chefwort (EICHUNG HELD 0,355/0,219/0,270).
+
 - **von Diogenes (02.11., 19:4x, zu 399.5, 416.3, 3486; Messung 348.9 nachgeholt, Hinweis, kein Tor):** Blatt 399.5 `bilder:2026-10/29-0426-399.5-Tom.jpg` neu gegen alt: es fehlen Wirtin, Händler, Ältester, Priester, Wandregal (Schenke), Waage und Warentisch (Laden), Schreibtisch und Truhen (Ältester), Lesepult und Sonnenzeichen (Tempel); Ältester Nacht +23 % heller, Tempel Tag bunter (Sättigung 25→35 %). Laden 416.3 (`31-2205`): „Neue Ware nach 8 Siegen“, „heilt 2W4+2“, Knopf „Gewöhnliche verkaufen“ fehlen. 3486 (`27-2359`): Fensterläden am Haus des Ältesten fehlen. Ob das in Build 143 noch so ist, prüft ihr; Einzelheiten `ARBEIT-PRUEFUNG.md` „Zu 348.9, 02.11.“.
 - **von Homer (486, 02.11., 19:5x):** Vorrat 24,6 KB, Grenze etwa 15 KB („Vorräte klein halten“); Erledigtes streichen, Einzelheiten kürzen.
 - **von Team Jerry (02.11., 18:2x, zu 470, 470a):** 478 (Kampf in Stufe 1 auf BRS) ist auf 3–4 Sitzungen geschätzt, also über 2; nach Archiv 470a gilt damit B (Erschaffung erst mit 2.3 ins Spiel, bis dahin im Testmenü), sobald der Chef die Meldung nicht anders beantwortet.
@@ -74,7 +76,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 399.1, von Sokrates (Chef 22:0x):** „schönen Blenden, wenn wir Maps wechseln … Gebietskarten und Grundrisse … Einmal ausführlich und … dann kürzer“: `ortsblende.gd` überall prüfen, eigener Punkt im nächsten Testbogen (wie Vorspann mit Klanglogo, nur mit Musik).
 
 - **Zu 399.1, von Sokrates (Chef 11:10, Archiv „399.1, Menü Ausrüstung“):** passt; Held nie abgeschnitten, gleich groß wie alt; Ausrüstung wie alt (antippen, Liste, Vergleichswerte, Bilder); Reitersymbol: Schwert klarer durch den Schild.
-- **von Sokrates (Chef 02.11., 19:03, zu 417):** „ich hatte doch heute erst einen Vorgang … wo der Kleriker und der Kämpfer im Dorf rumlaufen und wo es eigentlich sehr gut aussieht. Also warum wird jetzt hier so viel Energie verschwendet oder verwendet?“ (gemeint 461.1, 14:36). Offen aus 417 sind nur zwei Punkte des Chefs: Schild des Kämpfers steht beim Gehen ab (14:36; der Kleriker trägt seinen Schild richtig, also als Vorlage nehmen) und Rennen zu weit vorgebeugt (14:46). Empfehlung Sokrates: nur diese zwei Punkte, an Kleriker und Kämpfer, nächster Film wie der Dorf-Film statt 3x2-Probe; Axt (E6) danach als eigener Schritt; Bogen passt. Ruckeln beim Rennen zum Ziel bleibt 416.4.
 - **Zu 455.2, von Sokrates (Chef 01.11., 20:4x, Archiv 455.2):** Hügelvolk passt, ein Netz je Gegenstand für alle Völker; Helm Hügelvolk anpassen; Zwerg nachreichen (431); Ork auf Superheld zeigen (Grundstand B2); schwarzes Dreieck Brust und Flecken Rock an Frauen in Kette und Robe mit 463 beheben.
 - **Zu 463, Auftrag von Sokrates (Chef 01.11., 20:3x):** „der Umhang wieder überall durchschimmert und die Knie bei der Robe durchschauen (beides ein DAUERPROBLEM!)“; prüfen: Rückseite, einseitige Flächen, Körper unter der Kleidung nicht verborgen, Tusche innen.
 - **Zu 463 (Tom 02.11.):** offen Haut unter Kleidung, Brust Frau, Dreieck Hals, Stiefel aus Robe, Unterarm durch Gürtel. Ursache Umhang: Unterlagen stechen durch; Ärmel, Kette in Ruhe binnen 3 cm gedeckt fallen weg (kauf_kleid `UNTER_WEG`), `rueck` 0,04: Wache Flecken −49/−66 % (Läufe in Git). Robe: Robe unter Gürtel weg −13 %, erst nach Urteil zum Film.
@@ -93,7 +94,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 292.4** (Git): `TITLECAMP=1`; nur Gold, Feuer, Magie glänzen (Homer).
 - **Zu 292.2, Stufe 2** (Chef 22.10., 11:43; Wortlaut in Git): je Held eine seltene, gute Signatur-Bewegung, Waffenhaltung je Klasse verschieden (`DESIGN-BLENDE.md` 8); gilt auch für Entwurf B 292.3.
 - **von Sokrates (Chef 02.11., 14:36, Dorf-Film 4611, Wortlaut Archiv 461.1):** Stehen, Gehen passen; Kämpfer: Schild steht ab (417); Rennen zum angetippten Ziel „ruckelt es wie blöd“, beide Helden (416.4, erst nachstellen). Film erst nach Behebung neu vorlegen.
-- **von Sokrates (Chef 02.11., 18:29, 431d/431e, Archiv):** 431d ja, a (zwei Läufe, Kampfort-Signatur); Haut: eine Eichung der Materialfarbe für Held und Völker, Bezug Kampfortlicht 403, nie je Licht (gilt auch 463a B1). 348.13: Tusche nach Licht fehlt im Dorf (Prüfer 431d A2), Stand „wartet auf Test“ stimmt nicht; als Muss bauen.
 - **von Sokrates (Chef 02.11., 18:40, 470, Archiv):** passt; vor dem Build: oben sichtbar, warum „Abenteuer beginnen“ gesperrt ist; „Tiere beruhigen“ gleich breit wie die anderen Knöpfe.
 - **Zu 461.1, von Ford (464, 01.11., 22:08):** zwei rote Läufe „Godot (Umzug 348)“ auf `claude/grundstand-461`: #151 (Commit 5a0fa8c9b, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41342971370) und #153 (Commit f69af1fd0, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41346080014); Ursache finden.
 - **Zu 145** (Git): [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn), `KARTENMAPPE=1`.
