@@ -1,8 +1,8 @@
 # 480 · Angehaltene Filme: klarere Blätter und ein Lauf mehr ohne Rückfrage?
 Sokrates · 02.11., 18:45 · B Abläufe
 
-**Frage:** Soll Perikles (1) die Blätter zu angehaltenen Filmen in einfachen Worten schreiben lassen (statt „Tor 461a“: „Film angehalten, weil er gegen deine Grundsätze verstößt“) und (2) den Teams für die Behebung solcher Befunde einen dritten Probelauf geben, ohne dich zu fragen?
-**Votum Sokrates:** ja zu beidem.
+**Frage:** Soll Perikles (1) die Blätter zu angehaltenen Filmen in einfachen Worten schreiben lassen (statt „Tor 461a“: „Film angehalten, weil er gegen deine Grundsätze verstößt“) und (2) nach dem zweiten Probelauf den Film immer an dich schicken lassen, mit dem Befund des Prüfers dabei, statt eines Blatts „neue Läufe frei?“ (Chef 18:44 zu 415c: „Bloß weil der Prüfer wieder komische Ideen hat, heißt das nicht, dass ich das genauso sehe.“)?
+**Votum Sokrates:** ja zu beidem. Der erste Lauf bleibt angehalten, wenn er gegen einen Grundsatz verstößt (das Team behebt mit dem zweiten); danach urteilst du am Film, und mit deinem Urteil sind weitere Läufe frei oder nicht.
 **Berührt:** 461a (Prüfung vor dem Versand), 389 (zwei Probeläufe), 468 (Wächter Verbrauch), alle Teams.
 
 ## Sachverhalt
@@ -13,8 +13,8 @@ Sokrates · 02.11., 18:45 · B Abläufe
 
 ## Auswertung
 
-- **Stärkstes Gegenargument zu (2):** Ein Lauf mehr kostet Guthaben, und der Wächter 468 soll den Verbrauch halten.
-- **Entkräftet:** Den dritten Lauf gibst du heute ohnehin fast immer frei; die Rückfrage kostet dich Zeit, nicht uns Geld. Der dritte Lauf gilt nur für Befunde des Prüfers mit gemessener Ursache, nicht für neue Ideen; danach fragt das Team wie bisher.
+- **Stärkstes Gegenargument zu (2):** Du siehst wieder Filme mit bekannten Fehlern; genau das sollte 461a verhindern (Chef 01.11.: Filme mit Fehlern, die der Prüfer findet, kosten dich Zeit).
+- **Entkräftet:** Der erste Lauf bleibt angehalten, das Team muss also einmal beheben; was dann noch übrig ist, steht mit Zeitangabe dabei, und du entscheidest selbst, ob es stört. Heute kostet dich das Blatt „neue Läufe?“ dieselbe Zeit, ohne dass du etwas siehst.
 - **Zu (1):** kein Gegenargument; Fachwörter ohne Erklärung verstoßen gegen „Sparsam“ und „Gemeinsames Maß“.
 
 **Zu sagen:** „480 ja“, „480 nur 1“ oder „480 nein“.
