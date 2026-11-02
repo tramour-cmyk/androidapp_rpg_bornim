@@ -41,6 +41,10 @@ const FPS := 30.0
 const ABSTAND := 0.85      # m zwischen den Figuren einer Reihe
 const BREITE := 4.4        # m Bildbreite (Kamera.zoom), 5 Figuren
 const MITTE_Y := 0.1       # Kamera sieht auf diese Hoehe + 0,9 (Kamera nah)
+# Runde 4, Pruefer Lauf 41430558274 (Grak und Goblin beruehren sich, 21 s): die Familie weiter auseinander, Bild entsprechend breiter
+const ABSTAND_TEIL := {"familie": 1.0}
+# Pruefer Lauf 41430558274 (C3: alle atmen im selben Takt, gleiche Stelle der Schleife): je Figur eine andere Stelle (Anteil der Schleife)
+const VERSATZ := [0.0, 0.43, 0.19, 0.71, 0.57, 0.31]
 
 var fp: FigurenProbe
 var dir := OS.get_environment("VOELKER")
@@ -63,7 +67,8 @@ func film() -> void:
 	_reihe("frauen", REIHE.map(func(v): return v + "/frau"), ort + Vector3(-4, 0, 0))
 	_reihe("huegel", ["Mensch/mann", "Hügelvolk/mann", "Hügelvolk/frau", "goblin"], ort + Vector3(3, 0, 0))
 	_reihe("riss", REIHE.map(func(v): return v + "/mann"), ort + Vector3(10, 0, 0))
-	_reihe("familie", ["Elf/mann", "Hügelvolk/mann", "Orkblütiger/mann", "goblin", "grak"], ort + Vector3(17, 0, 0))
+	# Goblin neben Huegelvolk, Orkbluetiger neben Grak (431b: Unterschied auf einen Blick)
+	_reihe("familie", ["goblin", "Hügelvolk/mann", "Elf/mann", "Orkblütiger/mann", "grak"], ort + Vector3(17, 0, 0))
 	var schwarz := StandardMaterial3D.new()
 	schwarz.albedo_color = Color.BLACK
 	schwarz.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
@@ -84,13 +89,16 @@ func film() -> void:
 func _reihe(teil: String, keys: Array, x0: Vector3) -> void:
 	var marker := Node3D.new()
 	fp.spiel.add_child(marker)
-	marker.position = x0 + Vector3((keys.size() - 1) * ABSTAND / 2.0, MITTE_Y, 0)
+	var ab: float = ABSTAND_TEIL.get(teil, ABSTAND)
+	marker.position = x0 + Vector3((keys.size() - 1) * ab / 2.0, MITTE_Y, 0)
+	marker.set_meta("zoom", BREITE * ab / ABSTAND)
 	var figs := []
 	var eintraege := []
 	for i in keys.size():
 		var w := Node3D.new()
 		fp.spiel.add_child(w)
-		w.position = x0 + Vector3(i * ABSTAND, 0, 0)
+		w.position = x0 + Vector3(i * ab, 0, 0)
+		w.set_meta("versatz", VERSATZ[i % VERSATZ.size()])
 		var m: Node3D
 		var e: Dictionary = daten.get(keys[i], {})
 		if keys[i] in ["goblin", "grak"]:
@@ -125,12 +133,35 @@ func _reihe(teil: String, keys: Array, x0: Vector3) -> void:
 				sk.add_child(hm)
 				sk.move_child(hm, 0)   # vor KopfHeben: der Kopf hebt sich danach auf die neue Brust
 			if volk == "Zwerg": _zwerghaar(m, sk, e, g, mats)
+			_eigene_haut(m, e, g)
 			var soll: float = float(e["ziel"]["h"]) * (0.93 if e["frau"] else 1.0)
 			_ziel_linie(w, soll)
 			fp.protokoll.append("VOLK %s %s: Becken-Faktor %.3f, Hoehe %.3f m" % [teil, keys[i], f, float(e["groesse_m"])])
 		figs.append(w)
 		eintraege.append(e)
 	reihen[teil] = [marker, figs, eintraege]
+
+
+# Pruefer Lauf 41430558274 (B1: Haut kreideweiss wie Gips, Ork blass mint; Runde 3 ohne Toenung nicht): HeldFigur.toene nimmt als
+# Bezug die Bildfarbe des Heldenkopfs (held-klassen.json haut_bild, OnlyHead), der Shader rechnet Bild / Bezug mal Zielton; die Voelker
+# tragen das Bild des FullBody-Koerpers. Darum hier der Bezug aus dem eigenen Bild (voelker.py haut_bild, dieselbe Stelle im Gesicht)
+func _eigene_haut(m: Node3D, e: Dictionary, g: String) -> void:
+	var held: Array = HeldFigur.geschlecht_info(g).get("haut_bild", [])
+	var bild := "ohne"
+	for mi in m.find_children("*", "MeshInstance3D", true, false):
+		var me := (mi as MeshInstance3D).mesh
+		for i in me.get_surface_count():
+			var src := me.surface_get_material(i)
+			var rn := String(src.resource_name) if src else ""
+			if not (rn.contains("Regular") or rn.contains("Superhero")): continue
+			if src is BaseMaterial3D and (src as BaseMaterial3D).albedo_texture:
+				var t := (src as BaseMaterial3D).albedo_texture
+				bild = "%dx%d" % [t.get_width(), t.get_height()]
+			var sm := (mi as MeshInstance3D).get_surface_override_material(i) as ShaderMaterial
+			if sm == null or !(e.get("haut_bild") is Array): continue
+			sm.set_shader_parameter("toen_bild", HeldFigur._lin(e["haut_bild"]))
+			sm.set_shader_parameter("toen_hell", HeldFigur._hell(e["haut_bild"]))
+	fp.protokoll.append("HAUTBILD %s %s: eigen %s, Held %s, Bild %s" % [String(e["volk"]), g, str(e.get("haut_bild", "fehlt")), str(held), bild])
 
 
 # Hauer (merkmale.py, Material „Hauer“ ohne Bild): Farbe ueber die Toenung des Toon-Shaders (toen_hell 0: Faktor)
@@ -223,7 +254,7 @@ func _kamera(marker: Node3D) -> void:
 	kam.nah = true
 	kam.gieren_ziel = 0.0
 	kam.neigung = -6.0
-	kam.zoom = BREITE
+	kam.zoom = float(marker.get_meta("zoom", BREITE))
 	kam.springe()
 
 
@@ -239,7 +270,7 @@ func _laufen(teile: Array, sek: float, drehen: bool, name := "") -> void:
 				if ap and ap.assigned_animation != "":
 					var lang := ap.get_animation(ap.assigned_animation).length
 					ap.pause()   # erst anhalten, dann springen (tragprobe.gd)
-					ap.seek(fmod(zeit, lang), true)
+					ap.seek(fmod(zeit + float(w.get_meta("versatz", 0.0)) * lang, lang), true)
 		await fp.get_tree().process_frame
 		for t in teile:
 			_kamera(reihen[t][0])

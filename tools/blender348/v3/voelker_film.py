@@ -36,15 +36,24 @@ def feld(bild, teil, titel):
     c.paste(bild, (0, 0))
     d = ImageDraw.Draw(c)
     d.text((14, 10), titel, font=f_feld, fill=GOLD, stroke_width=3, stroke_fill=(0, 0, 0))
-    for p in lage.get(teil, []):
+    # Pruefer Runde 3 und Lauf 41430558274 (G1: nur „Mensch“ lesbar, nicht unter seiner Figur, der Rest rechts aus dem Bild): Godot
+    # misst unproject_position in einem anderen Massstab als das gespeicherte Bild (Mitte der Reihe bei 1755 statt 540). Die Kamera
+    # steht auf der Mitte der Reihe, also liegt deren Mittel in der Bildmitte: Massstab = Bildbreite / (2 x Mittel)
+    ps = lage.get(teil, [])
+    mx = sum(p['x'] for p in ps) / len(ps) if ps else bild.width / 2
+    sx = bild.width / (2 * mx) if mx > 0 else 1.0
+    for p in ps:
         for i, z in enumerate(zahlen(p['eintrag'])):
-            d.text((p['x'], bild.height + 8 + i * 27), z, font=f_zahl, fill=GOLD if i == 0 else WEISS, anchor='ma')
+            d.text((p['x'] * sx, bild.height + 8 + i * 27), z, font=f_zahl, fill=GOLD if i == 0 else WEISS, anchor='ma')
     d.rectangle([0, 0, c.width - 1, c.height - 1], outline=(110, 90, 50), width=2)
     return c
 
 
+KOPF = 160   # Pruefer Lauf 41430558274 (G1: dritte Titelzeile vom Bild verdeckt): Platz fuer drei Zeilen (14 + 3 x 42)
+
+
 def seite(titel, felder):
-    hoehe = 120 + sum(f.height for f in felder)
+    hoehe = KOPF + sum(f.height for f in felder)
     c = Image.new('RGB', (1080, hoehe), GRUND)
     d = ImageDraw.Draw(c)
     # Titel umbrechen
@@ -55,7 +64,7 @@ def seite(titel, felder):
         else:
             zeile = (zeile + ' ' + w).strip()
     d.text((20, y), zeile, font=f_titel, fill=GOLD)
-    y = 120
+    y = KOPF
     for f in felder:
         c.paste(f, (0, y)); y += f.height
     return c

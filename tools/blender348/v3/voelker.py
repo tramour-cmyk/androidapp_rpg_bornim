@@ -22,8 +22,10 @@ os.environ.setdefault('FIGUREN', 'keine')
 ZIEL = os.environ.get('ZIEL', '/tmp/voelker')
 NUR = [s for s in os.environ.get('NUR_VOELKER', '').split(',') if s]   # nicht VOELKER: so heisst im Ablauf der Ordner (Lauf 41299824753)
 os.makedirs(ZIEL, exist_ok=True)
+import numpy as np
 import quaternius as QT
 import merkmale as MK
+import kopf as KO
 
 FRAU = 0.93
 # Ziele nach Homer (430): Groesse Mann (m), Kopfanteil, Beinanteil (Hueftgelenk), Schulter: ('abs'|'rel', Faktor gegen den Menschen)
@@ -229,6 +231,29 @@ def merkmale(volk, arm, netze, alle):
     return aus
 
 
+def haut_bild(alle):
+    # Pruefer Lauf 41430558274 (Haut kreideweiss): Bezug fuer die Toenung in Godot (HeldFigur.toene: Bild / Bezug mal Zielton) aus dem
+    # eigenen Hautbild, wie held_klassen.py haare(): Median der Bildfarbe (sRGB) im Gesicht zwischen Kinn und Augen, vorn
+    haut = next(o for o in alle if ('regular' in o.name.lower() or 'superhero' in o.name.lower()) and not o.name.startswith(('Eye', 'Hair')))
+    augen = next((o for o in alle if o.name.startswith('Eyes')), None)
+    p = KO.merkpunkte(haut, augen)
+    me = haut.data; uv = me.uv_layers.active.data
+    W = KO._welt(haut)
+    ok = (W[:, 2] > p['kinn_z'] + 0.02) & (W[:, 2] < p['augen_z']) & (W[:, 1] < p['mitte'][1])
+    werte = []
+    for m in me.materials:
+        tn = QT.basisbild(m) if m else None
+        if not tn or not tn.image: continue
+        im = tn.image; Wd, Hd = im.size
+        px = np.empty(Wd * Hd * 4, dtype=np.float32); im.pixels.foreach_get(px); px = px.reshape(Hd, Wd, 4)
+        for l in me.loops:
+            if not ok[l.vertex_index]: continue
+            u, v = uv[l.index].uv
+            werte.append(px[int(v % 1 * Hd) % Hd, int(u % 1 * Wd) % Wd, :3])
+        break
+    return [round(float(x), 4) for x in np.median(np.array(werte), axis=0)] if werte else [1.0, 1.0, 1.0]
+
+
 def einstellung_start(z):
     return {'kopf': 1.0, 'hals': z.get('hals', 1.0), 'rumpf': 1.0, 'dick': z.get('dick', 1.0), 'bauch': z.get('bauch', 1.0),
             'schulter': 1.0, 'arm': 1.0, 'bein': 1.0, 'hand': z.get('hand', 1.0), 'fuss': z.get('fuss', 1.0)}
@@ -302,7 +327,11 @@ def baue(volk, frau):
          'ziel': {k: (round(v, 4) if isinstance(v, float) else v) for k, v in z.items()},
          'einstellung': {k: round(v, 3) for k, v in e.items()}, 'merkmale': mk,
          # 431 Runde 4: Kopf gegen den Kaufkopf (Knochen „Head“ e['kopf'], dann das Ganze auf die Groesse): Haare in Godot mitwachsen
-         'kopf_skala': round(e['kopf'] * h_soll / m['h'], 4)}
+         'kopf_skala': round(e['kopf'] * h_soll / m['h'], 4), 'haut_bild': None}
+    try:
+        r['haut_bild'] = haut_bild(alle)
+    except Exception as x:   # ohne Bezug toent Godot wie den Helden (Messzeile HAUTBILD zeigt es)
+        print('HAUTBILD FEHLER', volk, repr(x))
     print('VOLK', json.dumps(r, ensure_ascii=False))
     return r, m2
 
