@@ -125,9 +125,43 @@ func _haut_lesen(sk: Skeleton3D) -> void:
 
 
 func _haut_ecken(sk: Skeleton3D) -> PackedVector3Array:
+	return _ecken_aus(sk, _haut)
+
+
+## 406 b (Chef 01.11., 20:2x: „bei beiden Schultern … Draufsicht, links am Schild … eine leichte Irritation“): die Netzmessung lässt den
+## ganzen linken Arm aus, auch Schulter und Oberarm, die den Schild nicht halten; hier nur sie (Gewicht auf clavicle_l, upperarm_l)
+var _schulter := []
+
+func _schulter_lesen(sk: Skeleton3D) -> void:
+	_schulter.clear()
+	var nur := [sk.find_bone("clavicle_l"), sk.find_bone("upperarm_l")]
+	for mi in sk.find_children("*", "MeshInstance3D", true, false):
+		var m := mi as MeshInstance3D
+		if m.skin == null or m.get_parent() is BoneAttachment3D:
+			continue
+		for s in m.mesh.get_surface_count():
+			var ar := m.mesh.surface_get_arrays(s)
+			if ar[Mesh.ARRAY_BONES] == null:
+				continue
+			var nb: int = ar[Mesh.ARRAY_BONES].size() / ar[Mesh.ARRAY_VERTEX].size()
+			var frei := PackedByteArray()
+			frei.resize(ar[Mesh.ARRAY_VERTEX].size())
+			for v in ar[Mesh.ARRAY_VERTEX].size():
+				var w := 0.0
+				for j in nb:
+					var bb: int = m.skin.get_bind_bone(ar[Mesh.ARRAY_BONES][v * nb + j])
+					if bb < 0:
+						bb = sk.find_bone(m.skin.get_bind_name(ar[Mesh.ARRAY_BONES][v * nb + j]))
+					if bb in nur:
+						w += ar[Mesh.ARRAY_WEIGHTS][v * nb + j]
+				frei[v] = 1 if w >= 0.5 else 0
+			_schulter.append([m, m.skin, ar[Mesh.ARRAY_VERTEX], ar[Mesh.ARRAY_BONES], ar[Mesh.ARRAY_WEIGHTS], nb, frei])
+
+
+func _ecken_aus(sk: Skeleton3D, liste: Array) -> PackedVector3Array:
 	var out := PackedVector3Array()
 	var g := sk.global_transform
-	for h in _haut:
+	for h in liste:
 		var skin: Skin = h[1]
 		var tr := []
 		for i in skin.get_bind_count():
@@ -274,6 +308,7 @@ func _run() -> void:
 		var d := _dreiecke(schild)
 		_check(d == DREIECKE[SOLL[k]], "%s Kampf: Kaufschild %s (%d Dreiecke)" % [k, SOLL[k], d])
 		var sk := fig._find(fig.model, "Skeleton3D") as Skeleton3D
+		_schulter_lesen(sk)
 		_haut_lesen(sk)
 		var sm: Node3D = schild.find_children("*", "MeshInstance3D", true, false)[0] if not schild is MeshInstance3D else schild
 		kf.mars.find("merc").auto = true
@@ -281,6 +316,7 @@ func _run() -> void:
 		if not kf.busy:
 			kf.go_on()
 		var tief := {}     # Bewegung -> [tiefste m, Kapsel, Bilder über TIEF_M]
+		var schulter := {}     # 406 b: Bewegung -> [tiefste m, Stelle cm]
 		var n := 0
 		var dauer := int(OS.get_environment("DAUER_MS")) if OS.get_environment("DAUER_MS") != "" else DAUER_MS
 		while n < (dauer * 30 / 1000 if film else 6000):
@@ -296,6 +332,9 @@ func _run() -> void:
 						e[1] = t[1]
 					if t[0] > NETZ_M:
 						e[2] += 1
+					var u := _netz_tiefe(sm, _ecken_aus(sk, _schulter))
+					if u[0] > schulter.get(b, [-INF])[0]:
+						schulter[b] = u
 				tief[b] = e
 			if kf.mars.outcome != "ONGOING" and not kf.busy and not kf.playing and kf.beats.is_empty():
 				break
@@ -308,6 +347,8 @@ func _run() -> void:
 					kf.order(["attack", ts[0].id] if not ts.is_empty() else ["wait"])
 		for b in tief:
 			_check(tief[b][0] <= KAMPF_M, "%s Kampf %s: Körper höchstens %.3f m im Schild (Netz, Stelle %s cm, %d Messbilder über %.3f)" % [k, b if b != "" else "–", tief[b][0], tief[b][1], tief[b][2], NETZ_M])
+		for b in schulter:
+			print("  %s Kampf %s: linke Schulter und Oberarm %.3f m im Schild (Stelle %s cm)" % [k, b if b != "" else "–", schulter[b][0], schulter[b][1]])
 		print("Kampf %s: %s nach %d Bildern" % [k, kf.mars.outcome, n])
 		kf.queue_free()
 		p.queue_free()
