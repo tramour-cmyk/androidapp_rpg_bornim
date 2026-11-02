@@ -527,6 +527,10 @@ func _arm_kauf() -> void:
 	var off: String = _schild()
 	if off != "":
 		_hold(sk, "L", off)
+		if _ss() and schild_faust == null:     # 406a E3: die Finger der Schildhand zur Faust, nicht außen auf dem Schild
+			schild_faust = SchildFaust.new()
+			schild_faust.name = "SchildFaust"
+			sk.add_child(schild_faust)
 	if anim:
 		_idle()
 
@@ -2189,6 +2193,38 @@ class ArmHold extends SkeletonModifier3D:
 			sk.set_bone_pose(bi, poses[bi])
 
 var arm_hold: ArmHold
+
+
+## 406a E3 (Tor 461a; Lauf 170: Finger der Schildhand liegen außen auf dem Schild, 3 bis 8,6 cm vor der Vorderseite; Lauf 182 und 184:
+## schild_406 beugt Zeige- bis kleinen Finger je Glied um die Achse quer über die Knöchel, −50° am besten: Kämpfer 1,7–2,3 cm,
+## Kleriker 3,5–3,8 cm, −75° und −90° nicht besser): nach jeder Pose aus dem Satz die Finger der linken Hand um FAUST_GRAD weiter
+## zur Faust, so wie schild_406 _beugen_finger gemessen hat
+const FAUST_GRAD := -50.0
+class SchildFaust extends SkeletonModifier3D:
+	var glieder := PackedInt32Array()
+	var zf := -1
+	var kf := -1
+	func _process_modification_with_delta(_delta: float) -> void:
+		var sk := get_skeleton()
+		if sk == null:
+			return
+		if glieder.is_empty():
+			for f in ["index", "middle", "ring", "pinky"]:
+				for n in ["01", "02", "03"]:
+					var b := sk.find_bone("%s_%s_l" % [f, n])
+					if b >= 0:
+						glieder.append(b)
+			zf = sk.find_bone("index_01_l")
+			kf = sk.find_bone("pinky_01_l")
+		if zf < 0 or kf < 0:
+			return
+		var quer := (sk.get_bone_global_pose(zf).origin - sk.get_bone_global_pose(kf).origin).normalized()
+		for b in glieder:
+			var pg := sk.get_bone_global_pose(sk.get_bone_parent(b))
+			var achse := (pg.basis.inverse() * quer).normalized()
+			sk.set_bone_pose_rotation(b, Quaternion(achse, deg_to_rad(FAUST_GRAD)) * sk.get_bone_pose_rotation(b))
+
+var schild_faust: SchildFaust
 
 func _guard(on: bool) -> void:
 	var sk := _find(model, "Skeleton3D") as Skeleton3D
