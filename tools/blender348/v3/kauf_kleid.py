@@ -430,7 +430,9 @@ ARM_LUFT = float(os.environ.get('ARM_LUFT', '0.012')); ARM_GEW = float(os.enviro
 if (ARM_LUFT > 0 or ARM_GEW > 0) and 'cloak' in TEILNAMEN and 'sleeves' in TEILNAMEN:
     _ic = TEILNAMEN.index('cloak'); _is = TEILNAMEN.index('sleeves')
     _sf = [f for f in KF if _lt[f[0]] == _is]
-    _bv = BVHTree.FromPolygons([Vector(v) for v in VK2], _sf); _NA = normalen(VK2)
+    kme.vertices.foreach_set('co', VK2.ravel()); kme.update()   # Normalen wie normalen() unten (dort erst spaeter definiert)
+    _NA = np.empty(len(VK2) * 3); kme.vertices.foreach_get('normal', _NA); _NA = _NA.reshape(-1, 3)
+    _bv = BVHTree.FromPolygons([Vector(v) for v in VK2], _sf)
     _cl = np.where(_lt == _ic)[0]
     _dv = np.zeros((len(VK2), 3)); _a = np.zeros(len(VK2)); _neu = {}
     for i in _cl:
