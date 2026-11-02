@@ -205,13 +205,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | Pflege | K | von Werkzeug (340.3, 02.11.): 20750 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Diogenes** – offen 9, Muss 7, startbar 2
+**Diogenes** – offen 9, Muss 7, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 340.2 | M | von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv): Wirkung 340.3–340.5 zählen (Tabelle | ruht bis 09.11. |
-| 485 | M | „jetzt“ 02.11., 19:37 (Chef: „1, 2, 3 ja, fang an.“): (1) Wochentermine „gelaufen ja/nein“ | startbar |
-| 483 | M | von Perikles (Doppelpack 421, 02.11., 19:4x): meldung.sh --film legt je Film einen Zweig f | startbar |
+| 485 | M | „jetzt“ 02.11., 19:37 (Chef: „1, 2, 3 ja, fang an.“): (1) Wochentermine „gelaufen ja/nein“ | ruht bis 09.11. |
+| 483 | M | von Perikles (Doppelpack 421, 02.11., 19:4x): meldung.sh --film legt je Film einen Zweig f | wartet auf Eingang |
 | 461b | M | von Sokrates (Chef 01.11., 22:26, „461b ja“, Archiv): Kennzahl Widersprüche: montags Stich | ruht bis 09.11. |
 | 434 | M | von Sokrates (Chef 31.10., 22:1x): bei jeder Zählung 374 zusätzlich die Zeile „Bestand gep | Termin 03.11. |
 | 374 | M | von Sokrates (Chef 27.10., 11:58, Archiv 374): täglich 8 Uhr bis 03.11. Vorlagen des Vorta | Termin 03.11. |
