@@ -1191,7 +1191,7 @@ func _gang_ss(nm: String) -> String:
 var _schleifen := 0     # 453 r3: wie oft die Grundschleife neu begann (Versatz je Wolf, für Prüfläufe fest)
 
 func _idle() -> void:
-	if down:
+	if down or _liegt_ss:     # 438a: wer liegt, steht erst mit rise() auf (die Abwehr vor dem Sturz endet sonst in Kampfhaltung)
 		return
 	if _ss():
 		_play("SS_IdleCombat", 0.2)
@@ -2817,7 +2817,9 @@ func abwehr(lands_ms: int, art: String) -> void:
 
 func hurt(after_ms: int, dies: bool, schwer := false, art := "") -> void:
 	# 406: mit Schild erst die Abwehr (vor dem Aufschlag), die nicht hält: beim Aufschlag Treffer mit dem Schild oben
-	if art != "" and blockt() and not dies and not sturz_vorweg:
+	# 438a Runde 3 (Grundstand F1, Prüfer Lauf 159: beim schweren Biss hob sich der Schild erst danach): auch vor dem Sturz hebt sich
+	# der Schild vor dem Biss; beim Aufschlag fällt der Held (kampfort.gd knocked_down)
+	if art != "" and blockt() and not dies:
 		abwehr(after_ms, art)
 	await get_tree().create_timer(after_ms / 1000.0).timeout
 	if hurt_at < 0.0:
@@ -2829,6 +2831,9 @@ func hurt(after_ms: int, dies: bool, schwer := false, art := "") -> void:
 		die()
 	elif not weg.is_empty() and lunging():
 		pass     # 438: unterwegs nur das Zittern; vorher spielte es Treffer, dann Stehen und glitt so 1 m weiter
+	elif sturz_vorweg or _liegt_ss:
+		pass     # 438a Runde 3 (Grundstand E5: beim schweren Biss kein Hinfallen): er fällt schon (knocked_down zur selben Zeit); der Treffer
+		# spielte sonst danach SS_GetHitHeavyFront über das Hinfallen und stellte ihn mit _idle_wenn_frei wieder hin
 	elif _ss() and not down:
 		var tn := "SS_GetHitHeavyFront" if schwer else "SS_GetHitLightFront"
 		if anim.has_animation(tn):
