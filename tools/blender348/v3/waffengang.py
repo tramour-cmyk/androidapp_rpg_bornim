@@ -23,6 +23,9 @@ GAENGE = {
     'bogen': ('BOW.ARROW', 'WalkBow', 'RunFastBow'),
 }
 VERGLEICHEN = os.environ.get('VERGLEICH', '') == '1'   # Messung 2: alle Vorwaerts-Bewegungen je Paket dazu
+# 417 (Chef 02.11., 14:46: Rennen „deutlich zu viel nach vorne gebeugt“, ausser Bogen): VERGLEICH_WORTE=Run nur die Rennclips je Paket,
+# Neigung wie beim Bogen (RunFastBow) gesucht
+VERGLEICH_WORTE = tuple(w for w in os.environ.get('VERGLEICH_WORTE', 'Walk,Run,Sprint').split(',') if w)
 
 
 def finde(paket, name):
@@ -62,7 +65,7 @@ os.makedirs(VERGLEICH, exist_ok=True)
 for art, (paket, geh, renn) in (GAENGE.items() if VERGLEICHEN else []):
     _, alle = finde(paket, geh)
     namen = sorted({os.path.basename(p)[9:-4] for p in alle if os.path.basename(p).startswith('Humanoid@')
-                    and any(w in os.path.basename(p) for w in ('Walk', 'Run', 'Sprint'))
+                    and any(w in os.path.basename(p) for w in VERGLEICH_WORTE)
                     and not any(w in os.path.basename(p) for w in ('Left', 'Right', 'Backward', 'Crouch', 'Strafe', '_RM', 'Combat', 'Aim', 'Draw'))})
     print('VORWAERTS %s: %s' % (paket, ', '.join(namen)))
     for n in namen:
