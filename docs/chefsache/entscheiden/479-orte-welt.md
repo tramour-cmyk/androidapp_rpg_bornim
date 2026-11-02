@@ -9,6 +9,8 @@ Perikles · 02.11., 19:4x · B Abläufe
 - B – nach Stufe 1: Tom beginnt den Flüsterwald, sobald 470 und 471 gebaut sind, also frühestens in etwa einer Woche.
 - C – vor Stufe 1: Tom baut zuerst den Flüsterwald, Stufe 1 rückt nach hinten.
 
+Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/771d8647a (Zeilen im Projektplan, Abgleich mit dem alten Code)
+
 **Berührt:** `PROJEKTPLAN.md` Abschnitt „Orte und Welt je Zeile“ (neu), Punkte 2.11 und 4.3 (werden durch die Zeilen O1–O10 ersetzt), Wochenziel 02.–08.11.
 
 ## Begründung

@@ -90,6 +90,9 @@ def stand_setzen(nr, stand, rolle=None):
     w = wort(stand)
     if not w: sys.exit("vorgang.py: Stand muss mit einem Wort der Liste beginnen (%s)" % ", ".join(sorted({w for _, w in WORT})))
     if "|" in stand or "\n" in stand: sys.exit("vorgang.py: Stand ohne | und Zeilenumbruch")
+    if w == "gebaut" and not re.search(r"Geprüft an:?\s*(?:https?://\S+|bilder:\S+|`?[0-9a-f]{7,40}`?|Lauf \d{3,})", stand):
+        # 340.4 (Chef 02.11., 19:44, „340.2 ja“, B): „gebaut“ nur mit Link auf Film, Bild, Lauf oder Commit, kein Wort
+        sys.exit("vorgang.py: „gebaut“ braucht „Geprüft an: <Link, Lauf-Nummer oder Commit>“ im Stand (340.4)")
     datei, rolle, z = zeile_finden(nr, rolle)
     t = z.split("|"); t[4] = " %s " % stand
     neu = "|".join(t)

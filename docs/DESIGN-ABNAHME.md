@@ -7,7 +7,7 @@ Wie gebaut und geprüft wird: die Einzelheiten zum [Leitbild](DESIGN-LEITBILD.md
 Gilt für jede Probe, jedes Bild und jeden Film zu Figuren, Bewegung und Kampfort (Chef 01.11., 20:3x, Archiv 461; ein Ort 461d, Prüfung vor dem Versand 461a, 01.11., 22:5x; 480). Die Punkte stehen je einmal, hier nur Kennung, Stichwort und Ort.
 
 **Wie geprüft wird** (373, 396 gelten weiter, außer wo hier anders):
-- Wer vorlegt, prüft vor dem Versand jeden Punkt, der im Bild vorkommt, und schreibt in die Vorlage „461 geprüft“ oder „Punkt X verletzt, weil …“.
+- Wer vorlegt, prüft vor dem Versand jeden Punkt, der im Bild vorkommt; die Vorlage nennt „Geprüft an: <Link auf Film, Bild oder Lauf>“ (340.4, ersetzt „461 geprüft“), ein Verstoß steht dabei als „Punkt X verletzt, weil …“.
 - **Prüfung vor dem Versand (461a, 480):** Punkte mit „Prüfer: ja“ prüft der Helfer (Auftrag im Wortlaut, 300) **vor** dem Versand, nur ja/nein oder gemessen, nie die Wirkung (373). Ein Verstoß hält den Film des ersten Laufs an (Ausnahme zu 396). Nach dem zweiten Lauf geht der Film immer an den Chef, der Befund mit Zeit dabei, in einfachen Worten; keine Frage „neue Läufe?“ an ihn (480, Chef 02.11., 18:45). Weitere Läufe gibt sein Urteil oder Sokrates frei (407, 480.1). Alle anderen Befunde kommen wie bisher nach dem Versand als Text (396).
 - „Maß“ = Zahl von uns, nur Richtwert, hält nicht an; „–“ = Wirkung, nur Selbstprüfung.
 - Abweichen darf nur der Chef; dann die Zeile an ihrem Ort ändern, mit Wortlaut und Zeit, am alten Archiveintrag „→ ersetzt durch …“ (461b). Perikles gleicht montags mit dem Wochenziel gegen das Archiv ab, Diogenes zählt Widersprüche (461b).
