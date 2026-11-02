@@ -10,7 +10,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 |---|---|---|---|---|---|
 | [415d](entscheiden/415d-effektpakete-kauf.md) | **Muss** | C Kampf | 02.11., 20:06 | Effektpakete kaufen, sobald der Handytest läuft? | Sokrates |
 | [432.3](entscheiden/4323-aschgeborene-merkmal.md) | M? | C Texte | 02.11., 19:57 | Aschgeborene: Name des Merkmals (Aschenerbe?), Liste, Text, Orte des Zeichens | Homer |
-| [466](entscheiden/466-meisterschaft-stufen.md) | M? | C Texte | 02.11., 19:39 | Stufen der Meisterschaften ohne „Meister“ | Homer |
 
 ## Zu billigen
 
@@ -42,13 +41,13 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 9, Muss 3, startbar 1
+**Homer** – offen 9, Muss 3, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 427.2 | M | von Sokrates (Chef 02.11., 20:22, „427.1 A mit 1 und 2“, Archiv 427.1): Hinweis auf Morwen | startbar |
 | 461b.3 | M | von Perikles (Liste Sokrates 461b, 02.11., 19:1x, Punkte 5, 6, 16): Widersprüche nachziehe | ruht (424: altes SRD-System) |
-| 466 | M? | von Sokrates (Chef 01.11., 21:13, Zu 466): neues Wort für „Handlung“ eines Pfads, dazu Nam | Chef (Datei in der Chefsache) |
+| 466 | M? | von Sokrates (Chef 01.11., 21:13, Zu 466): neues Wort für „Handlung“ eines Pfads, dazu Nam | startbar |
 | 447.4 | M | von Perikles (Chef 01.11., Archiv 447): Texte für Stufe 3 der Abnahmeliste: Einladungen de | Chef |
 | 432 | K | von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt | ruht |
 | 432.3 | M? | von Sokrates (Chef 02.11., 16:29; „ja“ 16:35): Aschgeborene eintragen wie alle Völker: Abn | Chef (Datei in der Chefsache) |
