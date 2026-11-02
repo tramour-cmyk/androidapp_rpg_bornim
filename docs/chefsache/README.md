@@ -166,7 +166,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | D63.6 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 438 08:11, 09:45; 454 | startbar |
 
-**Perikles** – offen 32, Muss 21, startbar 3
+**Perikles** – offen 32, Muss 21, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -178,9 +178,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 461 | M | von Sokrates („jetzt“ 01.11., 20:3x, Wortlaut in der Liste): Grundstand Figuren und Kampf: | wartet auf Test/Build (gebaut) |
 | 464.1 | M? | von Diogenes (Doppelpack 421, Lauf 59, 01.11., 22:13): Befunde D61.1–2 zu 464: Tageszahl r | wartet auf Test/Build (gebaut) |
 | D63.1 | M? | von Diogenes (Doppelpack 421, Lauf 61, 02.11., 11:2x): Widerspruch 2 aus 461b offen: Archi | wartet auf Test/Build (gebaut) |
-| D63.2 | M? | von Diogenes (Lauf 61): Commit-Prüfung 461b zu grob: jede Änderung an DESIGN-STIL/-KAMPF/- | startbar |
+| D63.2 | M? | von Diogenes (Lauf 61): Commit-Prüfung 461b zu grob: jede Änderung an DESIGN-STIL/-KAMPF/- | wartet auf Test/Build (gebaut) |
 | D63.3 | M? | von Diogenes (Lauf 61): probelauf.py urteil() übergeht gebilligte Vorentscheide im Kopf (3 | wartet auf Test/Build (gebaut) |
-| D63.4 | M? | von Diogenes (Lauf 61): zug-haken.py --summe schreibt die Zählung „ohne Kopf“ (462.1) nich | startbar |
+| D63.4 | M? | von Diogenes (Lauf 61): zug-haken.py --summe schreibt die Zählung „ohne Kopf“ (462.1) nich | wartet auf Test/Build (gebaut) |
 | D64.1 | M? | von Diogenes (Doppelpack 421, Lauf 62 zu 407, 02.11., 11:2x): 407 greift (Server, gh, curl | startbar |
 | 465.1 | M? | von Diogenes (Doppelpack 421, Lauf 58, 01.11., 22:07): Befund D60.1 zu 465: x-Zeiten bleib | wartet auf Test/Build (gebaut) |
 | 462.1 | M? | von Diogenes (Doppelpack 421, Lauf 57, 01.11., 20:4x): Befunde D59.1–3 zu 462 (PRUEFBERICH | wartet auf Test/Build (gebaut) |
