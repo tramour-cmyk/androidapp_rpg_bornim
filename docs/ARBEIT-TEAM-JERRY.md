@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert“).
 
-**Übergabe (02.11., 07:27, STOPP ALLE):** 406 (`claude/jerry-406c-gehen`) b, B5, a, d gebaut; Schlussfilm in Lauf 170 (schild=ja) ungeprüft. 438a: Lauf 164 offen. Nachfolger erst nach „weiter“ des Chefs: „Jerry – 406, 438a: Schlussfilm Lauf 170 prüfen und vorlegen, Lauf 164 auswerten“
+**Übergabe (02.11., 11:4x):** Leichen 453, 348.12j berichtigt; 473 und 472 (Regelteil) gebaut auf `claude/jerry-473-monsterwerte`. Aus der Übergabe 07:27 weiter offen: 406 Schlussfilm Lauf 170 (`claude/jerry-406c-gehen`), 438a Lauf 164. Nachfolger: „Jerry – 406, 438a: Schlussfilm Lauf 170 prüfen und vorlegen, Lauf 164 auswerten“
 
 ## Zeilen
 
@@ -13,7 +13,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 473 | M | **von Perikles (Wochenziel 02.11., Stufe 1):** Bau BRS 1.4 Monsterwerte Kapitel 1 nach Rechenmodell D ins Spiel (Abnahmeliste 1.4, Schätzung 447.3: 1 Sitzung, 1 Runde) | gebaut 7d2eec7cc: Werte aller 18 Arten und Modell D im Spiel (regeln/brs.gd, daten/werte.json wie sim444), Kampf rechnet bis 2.3 nach SRD (Frage an Perikles); fährt im nächsten Build | – |
-| 472 | M | **von Perikles (Wochenziel 02.11., Stufe 1):** Bau BRS 1.3 Heldenstufe aus Erfahrung, Anteil Fertigkeiten höchstens 40 %, Erfahrungstopf je Gebiet (Abnahmeliste 1.3); Schnittstelle mit Tom (471) | startbar: erste Sitzung schätzen, Abgleich mit 444 | – |
+| 472 | M | **von Perikles (Wochenziel 02.11., Stufe 1):** Bau BRS 1.3 Heldenstufe aus Erfahrung, Anteil Fertigkeiten höchstens 40 %, Erfahrungstopf je Gebiet (Abnahmeliste 1.3); Schnittstelle mit Tom (471) | gebaut a6a83b13e: Regel (Brs.gib_erfahrung, Deckel, weiche Grenze, Topf); Verdrahtung mit Held nach 470 etwa 1 S, 1 R (Zu 472) | – |
 | 467 | M | **von Sokrates (Chef 01.11., 21:52, Frage „Wie steigert sich die Ausdauer?“):** `godot/regeln/ausdauer.gd` rechnet noch nach SRD (Konstitution 10, Modifikator, Stärke 13); BRS: Ausdauer aus Zähigkeit, Wille, Stufe (Abschnitt 2); Formel kommt mit 427 zum Chef, dann umstellen | wartet auf 427 (Formel von Sokrates zum Chef) | – |
 | 438 | M | **von Sokrates (Chef 31.10., 23:31, Film 403):** Wölfe gleiten (Angriff, Tempo, aneinander vorbei); echte Schritte, Zahlen (Zu 438) | gebaut: wolf_mess_438 grün (Zu 438) | `claude/jerry-438-wolf-kampf` |
 | 458.2 | M | **von Sokrates (Chef 01.11., 13:1x, Archiv 458):** Gegenstandskatalog: Werte, Preise, Beute je Monster in die Datendatei (aus 444); das Spiel liest nur sie | gebaut 67eb82d09: Katalog voll, Spiel liest ihn (katalog.gd); fährt im nächsten Build | `claude/tuffy-458-2-katalog` |
@@ -72,24 +72,20 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 ## Einzelheiten
 
+- **Zu 472, 473 (Jerry 02.11., 11:4x):** `godot/regeln/brs.gd` liest `daten/werte.json` (= `tools/sim444/werte.json`); Tests `brs_472.gd`, `brs_473.gd`. Offen: Kampf rechnet bis 2.3 nach SRD (Frage an Perikles); Stufe am Helden (Heldenblatt, Anzeige Deckel, `lohn.gd`) nach 470; Annahmen Topf 10 %, weich 0,25 an Sokrates (427).
+
 - **Zu 438, von Tuffy 00:57, Prüfer 453 r3b):** Wolf springt 7,9 s in 2 Bildern in Vorderansicht; nah 12,7 s 180° in 0,3 s.
 - **Zu 464, von Perikles (01.11., 20:49; Chef: „brutal viele Fehler … fast 20 E-Mails“):** rote Läufe durch wolf_mess_438 und Workflows je Push; Wortlaut in Git, `git show 492b5cee5:docs/ARBEIT-TEAM-JERRY.md`. Jerry 02.11.: wolf_mess_438 behoben (Zu 438), grundstand-461 läuft nur von Hand.
 
 - **von Team Tom (Spike, 01.11., 21:2x, zu 461.1):** `claude/grundstand-461` = Build 146, Tom, `jerry-406-kaufschild`, `jerry-348-12-grak-schreitet`; Konflikte (`heldfigur.gd`, `figur.gd`, `film_403.gd`) mit beiden Seiten gelöst. Nicht neu mischen, weiter auf dem Zweig; Kampfort-Film gegen die Checkliste bleibt euer.
 - **von Team Tom (01.11., 16:2x, zu 453.1/453.2):** Held und Leute unterwegs atmen mit `kampf/atem.gd`; Einzelheiten in Git, `git show 00d2ab8d5:docs/ARBEIT-TEAM-JERRY.md`.
-- **von Homer (13:3x, zu 444: sim444 `punkte_frei` 6 statt 9) und Hinweis von Spike (11:52, zu 425: kritisch ab 19 nicht angezeigt):** Wortlaut in Git, `git show ee343195b:docs/ARBEIT-TEAM-JERRY.md`.
-
-- **Zu 453 (Chef 11:05, 11:45, 13:0x), 402 (Chef 31.10., 21:07 Herzschlag „Bubum“):** Wortlaut in Git, `git show 7cacfa97d:docs/ARBEIT-TEAM-JERRY.md`.
+- **Wortlaut in Git** (`git show <Commit>:docs/ARBEIT-TEAM-JERRY.md`): von Homer zu 444 und Spike zu 425 ee343195b; Zu 453, 402 („Bubum“) 7cacfa97d; Zu 453 r2 („Helden wieder doof“) 00d2ab8d5; Zu 406 a–e, 460, 438a Waffenpakete 907f307f2; Zu 453.1 da33d472c; ruhende SRD-Zeilen (296.2, 344.2, 249, 211.13/14, 168.1, 72u.1, 38, 39) de0998e2a; Zu 348.12 Lauf 177 5dc32fd63.
 - **Zu 453 r3, r3b (Tuffy):** Stand und Prüferbefunde im Blatt `ansehen/453-wolf-ruhe.md`, Ursache im Commit d41f0c692; Rückfrage 453a.
-- **Zu 453, Urteil r2, von Sokrates (Chef 01.11., 19:5x, Archiv 453 r2):** „453 r2 passt“, Helden wieder „doof“ (Vergleich mit Film 403); Wortlaut in Git, `git show 00d2ab8d5:docs/ARBEIT-TEAM-JERRY.md`.
-- **Zu 406, Urteil neu vorgelegt (Chef 20:2x, Nachbesserungen a–e), Zu 460 (Vorschlag Sokrates Probefilm), Zu 438a Grundsatz (Chef 20:1x, Waffenpakete):** Wortlaut in Git, `git show 907f307f2:docs/ARBEIT-TEAM-JERRY.md`.
-- **Zu 461.1, 406, Tuffy (02.11., 03:4x):** Prüfer Lauf 159 (Kampfort-Film, Tor 461a) Verstöße: B5 Kleriker-Schild ohne Sonne (406, 461c); E5, F1 beim schweren Biss kein Hinfallen, Schild erst danach (438a); C1 Kämpfer von hinten ohne sichtbaren Atem (453.1); B4, E3 Umhang (Tom); A4 Verdacht: Held nur runder Bodenfleck.- **Zu 453.1:** Wortlaut, Weg und Grundsatz in Git, `git show da33d472c:docs/ARBEIT-TEAM-JERRY.md`.
+- **Zu 461.1, 406, Tuffy (02.11., 03:4x):** Prüfer Lauf 159 (Kampfort-Film, Tor 461a) Verstöße: B5 Kleriker-Schild ohne Sonne (406, 461c); E5, F1 beim schweren Biss kein Hinfallen, Schild erst danach (438a); C1 Kämpfer von hinten ohne sichtbaren Atem (453.1); B4, E3 Umhang (Tom); A4 Verdacht: Held nur runder Bodenfleck.
 - **Zu 438a (Urteil Sichtung 01.11., 20:1x; Runde 2 und 3, 02.11.) und Zu 438 (wolf_mess_438 behoben, 9 → 0):** Waffe und Schild nach Prefab anstecken, Durchdringung höchstens 2 cm; Runde 3 gebaut 713fdb5fd, 3a6b29459, 602b0fd41, Wolf im Kleriker misst Lauf auf 9eaac1670; Wortlaut, Werkzeuge, Commits in Git, `git show 98a37d865:docs/ARBEIT-TEAM-JERRY.md`.
 - **Zu 348.12 (Chef 27.10., 17:19):** „ob das Modell trifft … muss man halt nachjustieren, das kann kein Kriterium sein“. Grak (Chef 29.10., 10:55): „gut, aber Gang schreitend statt kurzer Sprint“; Bau und Prüfwege `git show c30c827d0:docs/ARBEIT-TEAM-JERRY.md`.
 
-- **Zu 296.2, 344.2, 249, 211.13/211.14, 168.1, 72u.1, 38, 39** (ruhend, altes SRD-System): Text in Git, `git show de0998e2a:docs/ARBEIT-TEAM-JERRY.md`.
 - **Zu 399.2, von Tom (28.10., 13:23):** `goblin.py` kennt `v3/rig.py` nicht; Goblins mit `v3_kampf/`, vor der Höhle auf `v3` umstellen.
-- **Zu 348.12, Prüfer Film Lauf 177 (22:0x):** in Git, `git show 5dc32fd63:docs/ARBEIT-TEAM-JERRY.md`.
 - **von Sokrates (Chef 01.11., 22:35, „461c wie Sokrates“, Archiv 461c; Grundstand B5, F4):** zu 406: Kleriker-Schild Form Schild 2 mit goldener Sonne in unseren Farben; zu Kampf: Tod für alle zusammenbrechen, kurz liegen, dann ausblenden (auch Wölfe); zu 444: Schmiedelehrling startet zusätzlich mit Stumpfe Waffen (`werte.json`), neu rechnen.
 - **Zu 348.12, Urteil Film Grak schreitet, von Sokrates (Chef 01.11., 22:45, Archiv 348.12; Grundstand D5, F5):** Schreiten nur beim Ortswechsel; Ausweichen rasch, nur gegen einen sichtbaren Angriff, danach zurück; Wortlaut `git show 515dfd03e:docs/ARBEIT-TEAM-JERRY.md`. In 348.12k mitnehmen.
 - **Zu 348.12, aus 348.12j (Chef 02.11., 11:22, Archiv 348.12j):** Axtkopf im Kampf oben; im Kampf (Held wie Grak) Kampfhaltung des Zweihand-Pakets, beide Fäuste am Stiel, Stiel nicht durch die Schulter (E3); E6 hängend nur unterwegs. Beim nächsten Grak-Lauf bauen.
