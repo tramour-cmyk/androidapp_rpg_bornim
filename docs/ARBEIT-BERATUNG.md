@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (02.11., 15:1x, `session_01Hmoj7A42A4bxoHJLFu3cTX`):** Chefrunde 14:36–15:05: entschieden 416.9, 461.1 (teils), 462, 465 (474a-Lücke), 417 (Rennen aufrechter, D3), 438a R2 (nein), 431c, 406a, 348.12b, 453.1a B, 415b A; neu 476 (Symbole), 477 (MuMu). 427 Monsterwerte gemessen, Blatt entscheiden/427 (Telegram 15:1x). D62.1 erledigt. Kosten auf: 416.9, 461, 462, 465, 417, 438a, 431, 406, 348.12, 453.1, 415, 476, 477, 427. Nachfolger: Sokrates – Chefrunde: 427, 453.1a, 470a, 474a; dann 461b (02.11., 15:15)
+**Übergabe (02.11., 18:4x, `session_01Hmoj7A42A4bxoHJLFu3cTX`):** Chefrunde 02.11. nachmittags/abends: entschieden 416.9, 461.1, 462, 465, 417, 438a, 431c/d/e, 406a, 348.12b, 453.1a B, 415b/c, 432.2 (Aschgeborene), 432.3, 470, 470a C, 480; neu 476, 477, 478 (Jerry), 479 Projektplan (Perikles), 470.1. 427 Blatt liegt. D62.1 erledigt. Kosten auf: 416.9, 461, 417, 438a, 431, 406, 348.12, 453.1, 415, 427, 432, 470, 476, 477, 478, 479, 480. Nachfolger: Sokrates – Chefrunde: 427, 453.1a, 474a; dann 461b (02.11., 18:47)
 
 ## Zeilen
 
