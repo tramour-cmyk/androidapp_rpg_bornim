@@ -19,6 +19,11 @@ BILDER = int(os.environ.get('BILDER', '6'))
 SICHT = [(float(a), float(e)) for a, e in (s.split('/') for s in os.environ.get('SICHT', '0/10,45/30,90/10,135/30,180/10,180/30,225/30,270/10,315/30').split(','))]
 AUF = float(os.environ.get('AUF', '0.006'))   # m je Bildpunkt
 WO = os.environ.get('WO', '')                 # „<bewegung>“: Mittelpunkte der Flecken ausgeben
+# 463 (Tom 02.11.: Aermel sticht 5-25 mm durch den Umhang, Umhang ueber dem Aermel in Form drei Versuche aus): Vorrang im Zeichnen.
+# VORRANG=<m,…>: der Umhang (VOR_TEIL) gewinnt, wo er hoechstens so weit hinter der ersten Flaeche liegt (toon.gdshader zieht ihn so
+# weit zur Kamera); je Wert Flecken wie oben und VERDECKT: welche Teile dabei zu Umhang werden (auch, was er nicht verdecken soll)
+VORRANG = [float(x) for x in os.environ.get('VORRANG', '').split(',') if x]
+VOR_TEIL = os.environ.get('VOR_TEIL', 'cloak')
 
 # Teile der Rohfigur (Ruhelage)
 bpy.ops.wm.open_mainfile(filepath=ROH)
@@ -71,6 +76,7 @@ def sehen(V, F, LF, az, el):
     r = float(np.linalg.norm(mx - mn)) * 0.55
     n = int(2 * r / AUF)
     L = np.full((n, n), '', dtype=object)
+    LV = {v: np.full((n, n), '', dtype=object) for v in VORRANG}
     for y in range(n):
         for x in range(n):
             p = c + rechts * (-r + x * AUF) + oben * (r - y * AUF) - d * 5
@@ -78,6 +84,21 @@ def sehen(V, F, LF, az, el):
             if h[0] is None: continue
             t = LF[h[2]]
             L[y, x] = t + '/innen' if h[1].dot(d) > 0 else t
+            for v in VORRANG: LV[v][y, x] = L[y, x]
+            if VORRANG and t != VOR_TEIL:
+                q = h[0] + d * 0.0005
+                for _ in range(6):
+                    rest = max(VORRANG) - (q - h[0]).length
+                    if rest <= 0: break
+                    h2 = bv.ray_cast(q, d, rest)
+                    if h2[0] is None: break
+                    if LF[h2[2]] == VOR_TEIL:
+                        s_ = (h2[0] - h[0]).length
+                        for v in VORRANG:
+                            if s_ <= v: LV[v][y, x] = VOR_TEIL + ('/innen' if h2[1].dot(d) > 0 else '')
+                        break
+                    q = h2[0] + d * 0.0005
+    sehen.LV = LV
     return L, c, rechts, oben, r
 
 def flecken(L):
@@ -128,6 +149,7 @@ for bn in BEW:
         if hasattr(qa.animation_data, 'action_slot') and a.slots: qa.animation_data.action_slot = a.slots[0]
         fr = [int(round(f)) for f in np.linspace(a.frame_range[0], a.frame_range[1], BILDER)]
     zahl = {}; groesst = 0; innen = {}
+    vz = {v: {} for v in VORRANG}; vg = {v: 0 for v in VORRANG}; vd = {v: {} for v in VORRANG}
     for f in fr:
         bpy.context.scene.frame_set(f)
         V, F, LF = lage()
@@ -135,6 +157,13 @@ for bn in BEW:
             L, c, rechts, oben, r = sehen(V, F, LF, az, el)
             for t in set(L.ravel().tolist()):
                 if t.endswith('/innen') and t.split('/')[0] in HUELLE: innen[t] = innen.get(t, 0) + int((L == t).sum())
+            for v in VORRANG:
+                LV = sehen.LV[v]
+                for gr, m, teile in flecken(LV):
+                    vg[v] = max(vg[v], gr)
+                    for t, k in teile.items(): vz[v][t] = vz[v].get(t, 0) + k
+                wech = (LV != L)
+                for t in set(L[wech].tolist()): vd[v][t] = vd[v].get(t, 0) + int((L[wech] == t).sum())
             for gr, m, teile in flecken(L):
                 groesst = max(groesst, gr)
                 for t, k in teile.items(): zahl[t] = zahl.get(t, 0) + k
@@ -143,4 +172,7 @@ for bn in BEW:
                     print('WO', bn, f, '%d/%d' % (az, el), gr, teile, 'Hoehe %.2f m' % w.z, 'Strahl', strahl(V, F, LF, w, az, el))
     for t, k in zahl.items(): gesamt[t] = gesamt.get(t, 0) + k
     print('FLECKEN', bn, 'groesster %d Punkte;' % groesst, dict(sorted(zahl.items(), key=lambda x: -x[1])[:8]), 'innen sichtbar', innen)
+    for v in VORRANG:
+        print('VORRANG %s %.0f mm: Flecken groesster %d;' % (bn, v * 1000, vg[v]), dict(sorted(vz[v].items(), key=lambda x: -x[1])[:6]),
+              'VERDECKT', dict(sorted(vd[v].items(), key=lambda x: -x[1])[:8]))
 print('FLECKEN GESAMT', dict(sorted(gesamt.items(), key=lambda x: -x[1])), '(Bildpunkte zu %.0f mm)' % (AUF * 1000))
