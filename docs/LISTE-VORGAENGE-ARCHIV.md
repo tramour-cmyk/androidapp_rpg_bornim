@@ -546,3 +546,6 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 433 | Arbeit verteilen: unabhängige Zeilen von Tom und Jerry an Spike und Tuffy oder intern umschichten, statt zu warten („jetzt“ 31.10., 22:1x) | B Abläufe | M | 31,61 $ | Perikles | erledigt |
 | 436 | Sitzungsnamen „Rolle – Vorgang: Thema (Zeit)“ für alle Beschäftigten, Regel in CLAUDE.md, Ford benennt um (Chef 31.10., 22:58) | B Abläufe | M | 1,17 $ | Perikles | erledigt |
 | 348.12j | Rückfrage: Graks Axt Kopf oben oder hängend (Grundstand E6) | E Kampf | M | – | Jerry | erledigt |
+| 399.4 | Oben Rand für die Kamera freilassen wie im alten Spiel (Chef 28.10., 21:4x) | B Umzug | M | – | Team Tom | erledigt |
+| 416.1 | Tasten reagieren schlecht (Charaktererstellung, überall; Build 143, Chef 31.10., 20:4x) | B Umzug | M | – | Team Tom | erledigt |
+| 425 | Menüs und Testmenü mit Icons wie in der alten Fassung statt viel Text (Build 143, Chef 31.10., 21:30) | B Umzug | M | 36,83 $ | Team Tom | erledigt |
