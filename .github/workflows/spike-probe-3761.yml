@@ -128,8 +128,10 @@ jobs:
           grep -E "HELDKLASSEN|FALSCH|SCRIPT ERROR|^HERKUNFT" $GITHUB_WORKSPACE/probe/test.log | cut -c1-300 | head -60
           timeout 2400 xvfb-run -a -s "-screen 0 1920x1080x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x720 \
             -- --figuren=$A --teil=trachten > $GITHUB_WORKSPACE/probe/probe.log 2>&1 || true
-          grep -E "^(TRACHT|TEIL|FEHLT)|SCRIPT ERROR|^ +at: " $GITHUB_WORKSPACE/probe/probe.log | cut -c1-300 | head -60
+          grep -E "^(TRACHT|TEIL|FEHLT|KAMERA|SIGNATUR|AUSSCHNITT|ATEM)|SCRIPT ERROR|^ +at: " $GITHUB_WORKSPACE/probe/probe.log | cut -c1-300 | head -60
           cp $A/probe.txt $A/trachten/lage.json $GITHUB_WORKSPACE/probe/ 2>/dev/null || true
+          # 463a (Pruefer Lauf 1: kein Boden, kein Schatten, Grund einfarbig 118/135/112): Rohbilder aus Godot zum Nachstellen
+          for t in umhang_1 robe_2; do cp $A/trachten/$t/0000.png probe/roh-$t-0000.png 2>/dev/null || true; done
           cd $GITHUB_WORKSPACE
           bl/bin/python -I tools/blender348/v3/tracht_film.py $A/trachten godot/kampf/schrift/alegreya_regular.ttf $RUNNER_TEMP/seiten
           ffmpeg -loglevel error -y -framerate 30 -i $RUNNER_TEMP/seiten/%04d.png -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast -movflags +faststart probe/3761-tracht.mp4
