@@ -1,5 +1,7 @@
 # 417 · Tragart Runde 5/6: Schild an der Seite, Axt mit beiden Fäusten · Tom · 02.11., 00:5x
 
+[Film von 02.11., 02:24](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/02-0224-417-Tom.mp4) (eingetragen von meldung.sh, Tom)
+
 [Film von 02.11., 00:53](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/02-0053-417-Tom.mp4) (eingetragen von meldung.sh, Tom)
 
 [Film von 01.11., 23:54](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-2354-417-Tom.mp4) (eingetragen von meldung.sh, Tom)
