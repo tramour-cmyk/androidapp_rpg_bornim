@@ -74,6 +74,7 @@ func film_nach(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, gang: String, wer
 		var nf := int(round(float(TragProbe.FILM_FOLGE[ai][1]) * FPS))
 		var halt: bool = ai + 1 < TragProbe.FILM_FOLGE.size() and TragProbe.FILM_FOLGE[ai + 1][0] == "Stehen"
 		var z := []
+		var za := []
 		for f in nf:
 			var moving := b0 != "Stehen"
 			var soll := 0.0 if not moving else (gehen if b0 == "Gehen" else TragProbe.SPIEL_RENNEN)
@@ -98,24 +99,31 @@ func film_nach(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, gang: String, wer
 			elif t_film > 0.05: haltung_sprung = maxf(haltung_sprung, absf(n_neu - n_alt))
 			n_alt = n_neu
 			if f == nf - 1: haltung.append("%s Ende %.1f" % [b0, n_neu])
-			if f >= int(0.8 * FPS) and moving:
-				z.append([(sk.global_transform * sk.get_bone_global_pose(sk.find_bone("ball_l"))).origin,
+			# Pruefer Film 03:39: Anlaufen 1,0-1,5 s 60-100 %, Auslaufen 6,0-7,5 s 30-90 %; gemessen war nur ab 0,8 s je Abschnitt, also
+			# Anlaufen und Wechsel nie. Darum die ersten 0,8 s eigens („Anfang“, Ueberblendung und Tempo im Fluss)
+			if moving:
+				(z if f >= int(0.8 * FPS) else za).append([(sk.global_transform * sk.get_bone_global_pose(sk.find_bone("ball_l"))).origin,
 					(sk.global_transform * sk.get_bone_global_pose(sk.find_bone("ball_r"))).origin, tempo, ap.speed_scale, ap.current_animation])
-		if z.size() < 4: continue
-		var vs := []
-		var tm := 0.0; var sp := 0.0
-		for x in z: tm += float(x[2]) / z.size(); sp += float(x[3]) / z.size()
-		for s in [0, 1]:
-			var tief := INF
-			for x in z: tief = minf(tief, (x[s] as Vector3).y)
-			for j in z.size() - 1:
-				var a: Vector3 = z[j][s]; var b: Vector3 = z[j + 1][s]
-				if a.y < tief + 0.02 and b.y < tief + 0.02: vs.append((b.z - a.z) * FPS)
-		if vs.is_empty(): continue
-		vs.sort()
-		var ab := vs.map(func(v): return absf(v)); ab.sort()
-		print("FILMNACH %s %s (Abschnitt %d, %s): Standfuss %+.2f m/s (Median mit Vorzeichen), Betrag %.2f, Figur %.2f m/s, speed_scale %.2f, %d Proben" % [wer, b0, ai,
-			z[-1][4], vs[vs.size() / 2], ab[ab.size() / 2], tm, sp, vs.size()])
+		for teil in [["", z], [" Anfang", za]]:
+			var zz: Array = teil[1]
+			if zz.size() < 4: continue
+			var vs := []
+			var rel := []   # Standfuss gegen das Tempo der Figur in diesem Bild, %
+			var tm := 0.0; var sp := 0.0
+			for x in zz: tm += float(x[2]) / zz.size(); sp += float(x[3]) / zz.size()
+			for s in [0, 1]:
+				var tief := INF
+				for x in zz: tief = minf(tief, (x[s] as Vector3).y)
+				for j in zz.size() - 1:
+					var a: Vector3 = zz[j][s]; var b: Vector3 = zz[j + 1][s]
+					if a.y < tief + 0.02 and b.y < tief + 0.02:
+						vs.append((b.z - a.z) * FPS)
+						rel.append(100.0 * absf(b.z - a.z) * FPS / maxf(0.05, float(zz[j][2])))
+			if vs.is_empty(): continue
+			vs.sort(); rel.sort()
+			var ab := vs.map(func(v): return absf(v)); ab.sort()
+			print("FILMNACH %s %s%s (Abschnitt %d, %s): Standfuss %+.2f m/s (Median mit Vorzeichen), Betrag %.2f, Figur %.2f m/s, speed_scale %.2f, %d Proben; gegen Tempo Median %.0f %%, groesster %.0f %%" % [wer, b0,
+				teil[0], ai, zz[-1][4], vs[vs.size() / 2], ab[ab.size() / 2], tm, sp, vs.size(), rel[rel.size() / 2], rel[-1]])
 	print("HALTUNG %s: Brust Grad vor: %s; groesster Sprung %+.1f Grad in einem Bild bei %.2f s (%s)" % [wer, ", ".join(haltung), sprung[0], sprung[1], sprung[2]])
 	print("HALTUNGBILD %s (Bild:Brust Grad/Kopf vor Becken cm%s): %s" % [wer, "" if haar else ", ohne Haar", " ".join(bilder)])
 	ap.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_IDLE
