@@ -9,6 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [479](entscheiden/479-orte-welt.md) | **Muss** | B Abläufe | 02.11., 19:43 | Projektplan: Orte und Welt je Zeile, wann der Flüsterwald beginnt | Perikles |
+| [427.1](entscheiden/4271-krogg-grimmzahn.md) | **Muss** | E Kampf | 02.11., 19:49 | Mit ihren Besonderheiten gerechnet: Grimmzahn passt, Krogg ohne Morwens Rauch zu hart. | Jerry |
 | [417a](entscheiden/417a-schild-kaempfer.md) | **Muss** | E Figuren | 02.11., 19:12 | Schild Kämpfer Rücken oder Arm; Rennen mit Waffe wie Dorf-Film | Tom |
 | [432.3](entscheiden/4323-aschgeborene-merkmal.md) | M? | C Texte | 02.11., 19:44 | Aschgeborene: Name des Merkmals (Aschenerbe?), Liste, Text, Orte des Zeichens | Homer |
 | [466](entscheiden/466-meisterschaft-stufen.md) | M? | C Texte | 02.11., 19:39 | Stufen der Meisterschaften ohne „Meister“ | Homer |
@@ -107,12 +108,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 | Pflege | K | von Werkzeug (340.3, 02.11.): 25539 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 56, Muss 43, startbar 4
+**Jerry** – offen 56, Muss 43, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 478 | M | von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv): Rechenkern des Kampfs schon in Stufe | ruht |
-| 427.1 | M | von Sokrates (Chef 02.11., 18:54, Archiv 427): Werte Bestiarium „Werte 2.0“ in werte.json; | startbar |
+| 427.1 | M | von Sokrates (Chef 02.11., 18:54, Archiv 427): Werte Bestiarium „Werte 2.0“ in werte.json; | Chef (Datei in der Chefsache) |
 | 481.1 | M | von Sokrates (Archiv 427): Tränke in sim444 (Zu 481 in ARBEIT-BERATUNG.md), Herkünfte neu | startbar |
 | 473 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.4 Monsterwerte Kapitel 1 nach Rechenm | wartet auf Test/Build (gebaut) |
 | 472 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.3 Heldenstufe aus Erfahrung, Anteil F | wartet auf Test/Build (gebaut) |
@@ -168,13 +169,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | Pflege | K | von Werkzeug (340.3, 02.11.): 15363 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 31, Muss 28, startbar 4
+**Perikles** – offen 31, Muss 28, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 484 | M | von Diogenes (Chef 02.11., 19:27, Wortlaut Zu 484): keine Abkürzungen mehr in Telegram-Mel | wartet auf Test/Build (gebaut) |
 | 483 | M | von Sokrates (Chef 02.11., 19:21, „483 ja“, Archiv): Film-Links reparieren: jsDelivr liefe | wartet auf Test/Build (gebaut) |
-| 340.3 | M | von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv): A: notiz.sh-Hinweise (Größe, Zeilen | startbar |
+| 340.3 | M | von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv): A: notiz.sh-Hinweise (Größe, Zeilen | wartet auf Test/Build (gebaut) |
 | 340.4 | M | von Sokrates (Archiv 340.2): B: Pflichtzeile „Geprüft an: <Link auf Film, Bild oder Lauf>“ | startbar |
 | 340.5 | M | von Sokrates (Archiv 340.2): C: Haken hängt „Uhr: HH:MM“ an jedes Werkzeugergebnis; bekann | startbar |
 | 479 | M | von Sokrates (Chef 02.11., 18:34, „jetzt“ 02.11., 18:34): LISTE-ABNAHME-KAPITEL1.md heißt | Chef (Datei in der Chefsache) |
@@ -204,13 +205,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | Pflege | K | von Werkzeug (340.3, 02.11.): 23068 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Diogenes** – offen 11, Muss 8, startbar 3
+**Diogenes** – offen 10, Muss 8, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 484 | M | von Perikles (Doppelpack 421, 02.11., 19:4x): meldung.sh hält Abkürzungen an (Kürzel in Gr | ruht (424: altes SRD-System) |
 | 340.2 | M | von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv): Wirkung 340.3–340.5 zählen (Tabelle | ruht bis 09.11. |
-| 485 | M | „jetzt“ 02.11., 19:37 (Chef: „1, 2, 3 ja, fang an.“, Rollenspiegel 02.11.): (1) Wochenzähl | startbar |
+| 485 | M | „jetzt“ 02.11., 19:37 (Chef: „1, 2, 3 ja, fang an.“): (1) Wochentermine „gelaufen ja/nein“ | startbar |
 | 483 | M | von Perikles (Doppelpack 421, 02.11., 19:4x): meldung.sh --film legt je Film einen Zweig f | startbar |
 | 461b | M | von Sokrates (Chef 01.11., 22:26, „461b ja“, Archiv): Kennzahl Widersprüche: montags Stich | ruht bis 09.11. |
 | 434 | M | von Sokrates (Chef 31.10., 22:1x): bei jeder Zählung 374 zusätzlich die Zeile „Bestand gep | Termin 03.11. |
@@ -218,7 +219,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24): Umzug Godot: jedes Vergleichsblatt alt/neu messen, | wartet auf Eingang |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
-| Pflege | K | von Werkzeug (340.3, 02.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
 
 **Sokrates** – offen 32, Muss 23, startbar 13
 
@@ -259,8 +259,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
-
-Nicht gestellt: 186.3 (Pruefung)
 
 Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/415-strahlenprobe.md, ansehen/4474-lehrmeister-texte.md, ansehen/453a-wolfatem.md
 
