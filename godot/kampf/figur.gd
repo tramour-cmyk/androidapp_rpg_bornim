@@ -984,7 +984,7 @@ func _haut_radien(sk: Skeleton3D, liste: Array) -> Dictionary:
 				p = sk.get_bone_parent(p)
 		if String(c[1]).begins_with("ball_"):
 			zu[i1] = true
-		bein.append([i, gs * sk.get_bone_global_pose(i0).origin, gs * sk.get_bone_global_pose(i1).origin, zu, PackedFloat32Array(), 0])
+		bein.append([i, gs * sk.get_bone_global_pose(i0).origin, gs * sk.get_bone_global_pose(i1).origin, zu, [], 0])
 	for m in netze:
 		var skin: Skin = m.skin
 		var tr := []
@@ -1022,14 +1022,16 @@ func _haut_radien(sk: Skeleton3D, liste: Array) -> Dictionary:
 					var a: Vector3 = k[1]
 					var ab: Vector3 = (k[2] as Vector3) - a
 					var tt := (p - a).dot(ab) / maxf(ab.length_squared(), 1e-6)
+					if k[5] <= 3:     # Lauf 180: an jeder Kapsel 0 Ecken an der Achse, Ursache offen: erste Ecken melden
+						k.append("p %s tt %.2f" % [p.snapped(Vector3.ONE * 0.01), tt])
 					if tt < -0.1 or tt > 1.1:
 						continue
-					(k[4] as PackedFloat32Array).append(p.distance_to(Geometry3D.get_closest_point_to_segment(p, a, k[2])))
+					(k[4] as Array).append(p.distance_to(Geometry3D.get_closest_point_to_segment(p, a, k[2])))
 	var out := {}
 	var zahl := []
 	for k in bein:
-		var d: PackedFloat32Array = k[4]
-		zahl.append("%s→%s %d/%d" % [liste[k[0]][0], liste[k[0]][1], d.size(), k[5]])
+		var d: Array = k[4]     # Lauf 177, 180: als PackedFloat32Array kam jedes append an einer Kopie an (Wertetyp), darum leer
+		zahl.append("%s→%s %d/%d (a %s, b %s; %s)" % [liste[k[0]][0], liste[k[0]][1], d.size(), k[5], (k[1] as Vector3).snapped(Vector3.ONE * 0.01), (k[2] as Vector3).snapped(Vector3.ONE * 0.01), ", ".join(PackedStringArray(k.slice(6)))])
 		if d.size() < 20:
 			continue
 		d.sort()
