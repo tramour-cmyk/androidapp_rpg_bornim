@@ -238,6 +238,15 @@ else:
 # Vorsilbe „WZ_“. Das Set haelt den Stab links, unser Magier rechts: gespiegelt (zauber385.py SPIEGEL=1), Ruhelage aus IdleWizard
 # (erstes Bild stehend), Becken nach Beinlaenge wie Sword & Shield. „los“ (s ab Beginn) = Loslassen: das erste Bild, in dem die
 # Stabhand 95 % ihrer weitesten Reichweite nach vorn hat (wie Toms Film 385.1); figur.gd laesst das Feuer dann an der Stabspitze los.
+# OFFEN (Tuffy 02.11., 07:3x, Stopp des Chefs 07:26, nicht weiter gebaut):
+# 1. Lauf 169 meldete „ohne Zauberer-Set“, obwohl die Dateien auf dem Runner liegen (Messlauf tuffy-mess-3852, run 41399822062:
+#    anhang/stufe1/ANIMSET.WIZARD/Assets/PROTOFACTOR/UltimateAnimationCollection/Animations/Wizard Animset/FBX Files/
+#    Humanoid@CastSpell6Wizard.fbx, ...IdleWizard.fbx; glob mit Leerzeichen im Pfad am Rechner nachgestellt: findet). Ursache nicht
+#    gefunden; vor dem naechsten Lauf hier ausgeben, was wz_datei sieht (KAUF, Anzahl Treffer), nicht vermuten.
+# 2. zauber385.py SPIEGEL=1 ist falsch: ABWEICHUNG gespiegelt Unterarm 65, Hand 80, Kleinfinger 64-70 Grad (ungespiegelt 0-5).
+#    Ursache: A (Angleichen der Ruhelagen) wird gegen dieselbe Seite der Quelle gerechnet; die Ruhelage IdleWizard ist nicht
+#    symmetrisch (linker Arm haelt den Stab). Mit SPIEGEL muss A gegen die gespiegelte Ruhelage des Gegenstuecks gerechnet werden
+#    (ds = S (Ps0[KARTE[gegen(c)]] - Ps0[KARTE[gegen(b)]]), Handrahmen ebenso aus gespiegelten Punkten). Erst dann Lauf mit Film.
 WZ = {'CastSpell6': 'FIRE_BOLT', 'CastSpell4': 'FIREBALL'}
 los = {}
 
