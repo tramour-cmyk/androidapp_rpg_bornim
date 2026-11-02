@@ -359,10 +359,9 @@ jobs:
           dauer() { ffprobe -v error -show_entries format=duration -of csv=p=0 $1 2>/dev/null || echo 0; }
           F=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf
           titel() { echo "scale=$2:-2,drawtext=fontfile=$F:text='$1':fontsize=$3:fontcolor=white:box=1:boxcolor=black@0.6:x=(w-tw)/2:y=8"; }
-          # 461.1 (Tuffy): kampf=461 nur der Grundstand-Film Kampfort (Helden heute, Wölfe)
+          # 461.1 (Tuffy): kampf=461 nur der Grundstand-Film Kampfort (Helden und Wölfe im Kampf; Nahteil von film_453 nicht, Prüfer Lauf 159: C2, G1)
           if [ "${{ github.event.inputs.kampf }}" = "461" ]; then
             film kampf461-helden film_403 DAUER_MS=40000     # Lauf 159: nach 22 s noch ONGOING, Tod und Neuformation (F3, F4) fehlten
-            film kampf461-woelfe film_453
             ls -l $B; exit 0
           fi
           # 453 r3: Wölfe atmen (Schicht) neben ohne Schicht

@@ -523,12 +523,6 @@ func _arm_kauf() -> void:
 		_hold(sk, "L", off)
 	if anim:
 		_idle()
-		# 461.1 (Grundstand C3; Prüfer Film 453.1 Feld 4: Held und Söldner wippen im Gleichtakt): beide begannen SS_IdleCombat im
-		# selben Bild bei 0 s; jetzt je Figur an fester anderer Stelle der Schleife (für Prüfläufe gleich)
-		if _ss() and anim.current_animation == "SS_IdleCombat":
-			var z := RandomNumberGenerator.new()
-			z.seed = hash("%s/SS_IdleCombat" % fighter.id)
-			anim.seek(z.randf() * anim.get_animation("SS_IdleCombat").length, true)
 
 
 func _schild() -> String:
