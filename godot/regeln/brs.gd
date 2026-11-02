@@ -113,3 +113,73 @@ static func erfahrung(held_stufe: int, id: String) -> float:
 	elif d < 0:
 		f = minf(float(e["tiefer_hoechstens"]), 1.0 - float(d) / float(e["tiefer_teiler"]))
 	return basis * f
+
+# ---------------------------------------------------------------- Heldenstufe aus Erfahrung (472, Abnahme 1.3)
+# Der Stand des Helden ist ein Dictionary (neuer_stand()): stufe, ep (in der Stufe), ep_fert (davon aus Fertigkeiten),
+# toepfe (Gebiet -> Rest). Deckel und Aufstieg wie Held.gib_ep / stufe_auf in sim.py; dazu weiche Grenze (E 18) und
+# Erfahrungstopf je Gebiet (E 19, E 21), die die Simulation noch nicht rechnet.
+
+static func neuer_stand() -> Dictionary:
+	return {"stufe": 1, "ep": 0.0, "ep_fert": 0.0, "toepfe": {}}
+
+static func grenze() -> int: return int(lade()["held"]["kapitelgrenze"])
+static func hoechste_stufe() -> int: return grenze() + int(lade()["erfahrung"]["weich_stufen"])
+
+## Erfahrung von [stufe] bis zur nächsten (100 × Stufe).
+static func bedarf(stufe: int) -> float:
+	return float(lade()["erfahrung"]["bis_naechste_stufe_je_stufe"]) * stufe
+
+## Voller Topf eines Gebiets: 10 × Stufe² jeder Art, die dort vorkommt, einmal, ohne Bosse.
+static func topf_voll(gebiet: String) -> float:
+	var e: Dictionary = lade()["erfahrung"]
+	var t := 0.0
+	for n in lade()["monster"]:
+		var m = lade()["monster"][n]
+		if n.begins_with("_") or not (m is Dictionary) or bool(m.get("boss", false)): continue
+		if gebiet in m.get("gebiet", []):
+			t += float(e["je_gegner_faktor"]) * int(m["stufe"]) * int(m["stufe"])
+	return t
+
+## Gibt [menge] Erfahrung aus [quelle] ("kampf", "fertigkeit", "probe", "quest") in den Stand [h]. Kampf in [gebiet]
+## (ohne Boss) schöpft aus dem Topf, leer nur topf_rest_anteil; ab der Kapitelgrenze ein Viertel; Fertigkeiten höchstens
+## 40 % des Bedarfs der Stufe; auf der höchsten Stufe nichts mehr. Steigt selbst auf.
+## Zurück: {gegeben, verfallen, deckel (Deckel jetzt erreicht), topf_leer, aufstiege}.
+static func gib_erfahrung(h: Dictionary, menge: float, quelle: String, gebiet := "", boss := false) -> Dictionary:
+	var e: Dictionary = lade()["erfahrung"]
+	var r := {"gegeben": 0.0, "verfallen": 0.0, "deckel": false, "topf_leer": false, "aufstiege": 0}
+	if menge <= 0.0:
+		return r
+	var roh := menge
+	if quelle == "kampf" and gebiet != "" and not boss:
+		var rest: float = h["toepfe"].get(gebiet, topf_voll(gebiet))
+		var aus_topf := minf(menge, rest)
+		h["toepfe"][gebiet] = rest - aus_topf
+		menge = aus_topf + (menge - aus_topf) * float(e["topf_rest_anteil"])
+		r.topf_leer = rest - aus_topf <= 0.0
+	if int(h["stufe"]) >= hoechste_stufe():
+		r.verfallen = roh
+		return r
+	if int(h["stufe"]) >= grenze():
+		menge *= float(e["weich_faktor"])
+	if quelle == "fertigkeit":
+		var erl: float = float(e["fertigkeit_deckel"]) * bedarf(int(h["stufe"])) - float(h["ep_fert"])
+		if erl <= 0.0:
+			r.verfallen = roh
+			return r
+		if menge >= erl:
+			r.deckel = true
+			menge = erl
+		h["ep_fert"] = float(h["ep_fert"]) + menge
+	h["ep"] = float(h["ep"]) + menge
+	r.gegeben = menge
+	r.verfallen = roh - menge
+	while int(h["stufe"]) < hoechste_stufe() and float(h["ep"]) >= bedarf(int(h["stufe"])):
+		h["ep"] = float(h["ep"]) - bedarf(int(h["stufe"]))
+		h["stufe"] = int(h["stufe"]) + 1
+		h["ep_fert"] = 0.0
+		r.aufstiege += 1
+	return r
+
+## Ist der Deckel der Fertigkeiten in dieser Stufe erreicht? (Anzeige, NW 4)
+static func deckel_erreicht(h: Dictionary) -> bool:
+	return float(h["ep_fert"]) >= float(lade()["erfahrung"]["fertigkeit_deckel"]) * bedarf(int(h["stufe"])) - 0.0001
