@@ -2031,7 +2031,9 @@ func _held_schlag(other, weiter := 0.0) -> int:
 		var via := _detour(position, start, other)
 		var pts := [start] if via == position else [via, start]
 		var way := run if via == position else position.distance_to(via) + via.distance_to(start)
-		var gn := _gang_ss("Rennen" if way > RUN_FROM and anim.has_animation("Rennen") else "Gehen")
+		# 406 c (Chef 01.11., 20:2x, Film 406: der Stabkämpfer ist „zum Wolfangriff … eher hingehoppelt … Er sollte einfach hingehen“):
+		# mit Stab geht der Held zum Ziel, auch weiter als RUN_FROM (das Rennen mit Schild aus Sword & Shield ist für die Klinge gemacht)
+		var gn := _gang_ss("Rennen" if way > RUN_FROM and anim.has_animation("Rennen") and not _stab() else "Gehen")
 		var von := position
 		for q in pts:
 			var a: Vector3 = q - von
