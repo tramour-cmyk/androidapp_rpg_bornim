@@ -1,5 +1,7 @@
 # 431 · Völker im Kampfortlicht: Haut geeicht, Atem versetzt · Tom · 02.11., 20:3x
 
+[Bild von 02.11., 20:28](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/02-2028-431-Tom.png) (eingetragen von meldung.sh, Tom)
+
 [Film von 02.11., 20:27](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261102-202743-431/2026-11/02-2027-431-Tom.mp4) (eingetragen von meldung.sh, Tom)
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41504744398 (Commit 6af349a1f)
