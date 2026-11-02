@@ -2,13 +2,13 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (02.11., 16:0x, `session_01Hmoj78qSq3kYYp9FMduqqz`):** 463 gebaut, Tor → 463a; 416.9 Fett (`variation_embolden` 0,9) nachbauen; 416.8, 416.2, 416.4 gebaut; 417 gemessen; 474a. Nachfolger: Tom – 431: Völker Runde 4 (B1, C3, G1).
+**Übergabe (02.11., 18:0x, `session_01Hmoj76x8cCiqXq1ueQ15XW`):** 431 Lauf 3: B1-Ursache gemessen (Eichung), G1 behoben, Tor → 431d, 431e. Nachfolger: Tom – 417: Tragart Rennclips, Film beide Fassungen.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 431 | M | **von Sokrates (Chef 31.10., 22:0x):** Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film, dann Körperbau je Volk | wartet auf Chef: 431d (Lauf 3 am Tor: B1 Elf/Ork, C3, G3, Grak-Tusche, A2; neue Läufe, Weg A2), 431e (Heldenhaut); B1 Ursache gemessen, G1 behoben | `claude/tom-431-voelker` |
+| 431 | M | **von Sokrates (Chef 31.10., 22:0x):** Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film, dann Körperbau je Volk | wartet auf Chef: Chefsache 431d (Lauf 3 am Tor: B1 Elf/Ork, C3, G3, Grak-Tusche, A2; neue Läufe, Weg A2) und 431e (Heldenhaut); B1 Ursache gemessen, G1 behoben | `claude/tom-431-voelker` |
 | 417 | M | **von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“):** Tragart je Waffenklasse (Zu 417), zuerst Stab, Axt, Bogen; Zahlen messen, Aussehen urteilt der Chef | in Arbeit: aufrechte Rennclips da (Axt RunNormal2HandMelee 17°, Einhand RunHold1hMelee 15°, Schild RunNormalS&S 18°; Lauf 41456531260), aber ~5 Schritte/s; Film beide Fassungen | `claude/tom-417-tragart` |
 | 416.9 | M | **von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“):** Laden, Verkaufen, „angelegt“ mit allen Plätzen, Vergleichswerte, nicht Tragbares, Icon bei Menge | startbar: passt (Chef 02.11., 14:37, Archiv), in den nächsten Build | `claude/tom-416-9-vergleich` |
 | 416.7 | M | **von Sokrates (Chef 31.10., 20:5x, für den nächsten Build):** am Tresen in Schenke und Laden geht der Aktionsknopf nicht, Kaufen und Kauf mit den zwei NPCs dort nicht möglich; Reichweite erweitern | wartet auf Build: PR #177 nach main (146.3 ohne Tresenbefund) | – |
