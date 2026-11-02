@@ -11,7 +11,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [406.1](entscheiden/4061-schildstoss.md) | **Muss** | E Kampf | 01.11., 22:35 | Schildstoß: Block und Konter am Ring für jeden mit Schild, als Angriff erst für den Wächter? (Empfehlung: :) | Jerry |
 | [348.12j](entscheiden/34812j-grak-axt.md) | **Muss** | E Kampf | 01.11., 22:03 | Graks Axt: Kopf oben (wie abgenommen) oder hängend (Grundstand E6)? (Empfehlung: :) | Jerry |
 | [348.12b](entscheiden/34812b-grak-koerper.md) | **Muss** | E Kampf | 01.11., 21:00 | Grak-Film vorab auf seinem alten Körper? | Sokrates |
-| [466](entscheiden/466-faehigkeit.md) | M? | C Texte | 02.11., 02:43 | Statt „Handlung“ „Fähigkeit“, und Prüfungen ohne „Geselle“ und „Meister“? (Empfehlung: :) | Homer |
 
 ## Zu billigen
 
@@ -45,11 +44,11 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 6, Muss 1, startbar 0
+**Homer** – offen 6, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 466 | M? | von Sokrates (Chef 01.11., 21:13, Zu 466): neues Wort für „Handlung“ eines Pfads, dazu Nam | Chef (Datei in der Chefsache) |
+| 466 | M? | von Sokrates (Chef 01.11., 21:13, Zu 466): neues Wort für „Handlung“ eines Pfads, dazu Nam | startbar |
 | 447.4 | M | von Perikles (Chef 01.11., Archiv 447): Texte für Stufe 3 der Abnahmeliste: Einladungen de | Chef |
 | 432 | K | von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt | nach dem Meilenstein |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
