@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [463a](entscheiden/463a-tracht-angehalten.md) | **Muss** | E Figuren | 02.11., 16:06 | Umhang durchgängig: Film am Tor angehalten, neue Läufe frei? | Tom |
 | [427](entscheiden/427-monsterwerte.md) | **Muss** | E Kampf | 02.11., 15:12 | Monsterwerte Kapitel 1: neue Startwerte nach Messung? | Sokrates |
 | [453.1a](entscheiden/4531a-atem-dritter-lauf.md) | **Muss** | E Kampf | 02.11., 14:57 | Heldenatem: Film angehalten (Kleriker), dritter Lauf? | Tuffy (Team Jerry) |
 | [470a](entscheiden/470a-bruecke-bis-2-3.md) | **Muss** | E Regeln | 02.11., 14:33 | BRS-Held in Stufe 1: wie kämpft er, bis der Kampf umgestellt ist? | Spike (Team Tom) |
@@ -50,7 +51,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 49, Muss 33, startbar 10
+**Tom** – offen 49, Muss 33, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -65,7 +66,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 410 | M | von Sokrates (Chef 29.10., 10:52, 11:40; aus 376.1): Waffen am Körper wegstecken, alle Waf | ruht |
 | 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | wartet auf Tom |
 | 455.1 | M | von Sokrates (Chef 01.11., 11:24, „Abzug von … unterschiedlichen Roben, Umhängen oder Stie | wartet auf Tom |
-| 463 | M | von Sokrates (Chef 01.11., 20:3x, Zu 463): Umhang und lange Robe geschlossen: eine Ursache | startbar |
+| 463 | M | von Sokrates (Chef 01.11., 20:3x, Zu 463): Umhang und lange Robe geschlossen: eine Ursache | Chef |
 | 470 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.1 Erschaffung: sechs Grundwerte, 21 P | Chef |
 | 471 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.2 Fertigkeiten durch Tun, vier Ränge, | startbar |
 | 474 | M? | von Team Jerry (Tuffy, 02.11., 02:4x; aus 399.1a): Debug-Schlüssel nur im Cache, verdrängt | Chef |
@@ -134,7 +135,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 401 | M | von Chef über Sokrates (Archiv): Tierlaute, mind. 3 je Tier | wartet auf Test (Build) |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | wartet auf Test/Build (gebaut) |
-| 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | wartet auf 463 (in Arbeit) |
+| 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | wartet auf 463 (Chef) |
 | 385.2 | M | von Chef (Archiv 385.1): Feuer aus dem Stab | ruht |
 | 348.13a | M | von Team Tom (Chef 08:09, Archiv: r9 ja): Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13 | wartet auf Test/Build (gebaut) |
 | 397 | M | von Chef: Tiere, Monster mind. drei Ruhebewegungen | ruht |
