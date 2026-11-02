@@ -30,6 +30,15 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 65 · Auftrag 484 Abkürzungen in Telegram, 465 Titelzeile (Doppelpack 421; `main` nach `57afc1ee6`; 02.11., 20:0x; `meldung.sh --probe` mit 16 Probetexten und den 4 echten Diogenes-Meldungen des Tages; `eintrag()` aus `zug-index.py` mit 4 Probedateien in einer Kopie)
+
+**Ergebnis:** 484 greift für „NW 2“, „E 7“, BRS, KI, RK, TP, „z. B.“, „z.B.“, „ca.“, „Nr.“; die 4 echten Meldungen des Tages gehen durch (kein Fehlalarm); Vorgangsnummern, Kennungen (A1, t146), Dateinamen, Würfel (2W4+2), Sprungmarken gehen durch. 465: Wer und Zeit aus der Titelzeile gelesen (auch „19:1x“, „Team Tom“), Zeile 2 geht weiter vor.
+
+**Befunde**
+- **D67.1 (484, mittel, sicher, Klasse 1 Perikles) Lücken:** gehen durch: „K1“ (Buchstabe mit Ziffer gilt als Kennung), Kürzel vor Bindestrich („HP-Balken“, „EP-Anzeige“), „s. o.“, „u.U.“. Fehlalarm, klein: „OK“, „JPG“, „GIF“ halten an (PNG und MP4 sind frei).
+
+**Nebenbei:** `zug-index.py` schreibt beim Laden als Modul `docs/chefsache/README.md` neu (Import ruft das Hauptprogramm); in der Kopie bemerkt und zurückgesetzt, nichts gepusht. **Nicht geprüft:** Meldungstexte der anderen Rollen (`meldungen.tsv` hat keinen Text).
+
 ## Lauf 63 · Nachprüfung D63.1–D63.4, D64.1 (Doppelpack 421; `main` `036b48029`; 02.11., 11:5x; `commit-pruefung.py` mit 6 Probecommits in einer Scratch-Kopie, `urteil()` gegen das Archiv und gegen Auszüge, `zug-haken.py --summe` mit Probedatei, `handlauf_bash()` mit 13 Befehlen)
 
 - **D63.1 behoben:** Archiv-Kopf nennt die DESIGN-Dateien (461d); 461 und 461b tragen „→ ersetzt durch 461d“, 396 „→ teils ersetzt durch 461a“; `LISTE-GRUNDSTAND-461.md` ist nur Verweis.
