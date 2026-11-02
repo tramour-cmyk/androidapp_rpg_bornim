@@ -24,6 +24,10 @@ WO = os.environ.get('WO', '')                 # „<bewegung>“: Mittelpunkte d
 # weit zur Kamera); je Wert Flecken wie oben und VERDECKT: welche Teile dabei zu Umhang werden (auch, was er nicht verdecken soll)
 VORRANG = [float(x) for x in os.environ.get('VORRANG', '').split(',') if x]
 VOR_TEIL = os.environ.get('VOR_TEIL', 'cloak')
+# 463 (Tom 02.11., 11:2x): eine Ursache fuer Umhang und Robe? Die meisten Flecken sind Innenseiten (cloak/innen, robe/innen): Lagen
+# kreuzen sich in Falten, die Rueckseite liegt dann vor der Vorderseite. RUECK=<m,…>: Rueckseiten zaehlen so viel weiter weg (toon.gdshader
+# schiebt Ecken, deren Normale von der Kamera weg zeigt, laengs des Blickstrahls zurueck); Vorderseiten bleiben, wie sie sind.
+RUECK = [float(x) for x in os.environ.get('RUECK', '').split(',') if x]
 
 # Teile der Rohfigur (Ruhelage)
 bpy.ops.wm.open_mainfile(filepath=ROH)
@@ -77,6 +81,7 @@ def sehen(V, F, LF, az, el):
     n = int(2 * r / AUF)
     L = np.full((n, n), '', dtype=object)
     LV = {v: np.full((n, n), '', dtype=object) for v in VORRANG}
+    LR = {v: np.full((n, n), '', dtype=object) for v in RUECK}
     for y in range(n):
         for x in range(n):
             p = c + rechts * (-r + x * AUF) + oben * (r - y * AUF) - d * 5
@@ -85,6 +90,19 @@ def sehen(V, F, LF, az, el):
             t = LF[h[2]]
             L[y, x] = t + '/innen' if h[1].dot(d) > 0 else t
             for v in VORRANG: LV[v][y, x] = L[y, x]
+            if RUECK:
+                # alle Flaechen bis max(RUECK) hinter der ersten; je Wert die mit kleinster Tiefe (Rueckseite + v)
+                hs = [(0.0, L[y, x], h[1].dot(d) > 0)]; q = h[0] + d * 0.0005
+                for _ in range(8):
+                    rest = max(RUECK) - (q - h[0]).length
+                    if rest <= 0: break
+                    h2 = bv.ray_cast(q, d, rest)
+                    if h2[0] is None: break
+                    hi = h2[1].dot(d) > 0
+                    hs.append(((h2[0] - h[0]).length, LF[h2[2]] + ('/innen' if hi else ''), hi))
+                    q = h2[0] + d * 0.0005
+                for v in RUECK:
+                    LR[v][y, x] = min(hs, key=lambda e: e[0] + (v if e[2] else 0.0))[1]
             if VORRANG and t != VOR_TEIL:
                 q = h[0] + d * 0.0005
                 for _ in range(6):
@@ -98,7 +116,7 @@ def sehen(V, F, LF, az, el):
                             if s_ <= v: LV[v][y, x] = VOR_TEIL + ('/innen' if h2[1].dot(d) > 0 else '')
                         break
                     q = h2[0] + d * 0.0005
-    sehen.LV = LV
+    sehen.LV = LV; sehen.LR = LR
     return L, c, rechts, oben, r
 
 def flecken(L):
@@ -139,7 +157,7 @@ def strahl(V, F, LF, w, az, el):
     return ' '.join(aus)
 
 qa.animation_data_create()
-gesamt = {}
+gesamt = {}; rgesamt = {}
 for bn in BEW:
     if bn == 'Ruhe': qa.animation_data.action = None; fr = [0]
     else:
@@ -150,6 +168,7 @@ for bn in BEW:
         fr = [int(round(f)) for f in np.linspace(a.frame_range[0], a.frame_range[1], BILDER)]
     zahl = {}; groesst = 0; innen = {}
     vz = {v: {} for v in VORRANG}; vg = {v: 0 for v in VORRANG}; vd = {v: {} for v in VORRANG}
+    rz = {v: {} for v in RUECK}; rg = {v: 0 for v in RUECK}; rd = {v: {} for v in RUECK}; ri = {v: {} for v in RUECK}
     for f in fr:
         bpy.context.scene.frame_set(f)
         V, F, LF = lage()
@@ -164,6 +183,15 @@ for bn in BEW:
                     for t, k in teile.items(): vz[v][t] = vz[v].get(t, 0) + k
                 wech = (LV != L)
                 for t in set(L[wech].tolist()): vd[v][t] = vd[v].get(t, 0) + int((L[wech] == t).sum())
+            for v in RUECK:
+                LR = sehen.LR[v]
+                for gr, m, teile in flecken(LR):
+                    rg[v] = max(rg[v], gr)
+                    for t, k in teile.items(): rz[v][t] = rz[v].get(t, 0) + k
+                wech = (LR != L)
+                for t in set(L[wech].tolist()): rd[v][t] = rd[v].get(t, 0) + int((L[wech] == t).sum())
+                for t in set(LR.ravel().tolist()):
+                    if t.endswith('/innen') and t.split('/')[0] in HUELLE: ri[v][t] = ri[v].get(t, 0) + int((LR == t).sum())
             for gr, m, teile in flecken(L):
                 groesst = max(groesst, gr)
                 for t, k in teile.items(): zahl[t] = zahl.get(t, 0) + k
@@ -175,4 +203,10 @@ for bn in BEW:
     for v in VORRANG:
         print('VORRANG %s %.0f mm: Flecken groesster %d;' % (bn, v * 1000, vg[v]), dict(sorted(vz[v].items(), key=lambda x: -x[1])[:6]),
               'VERDECKT', dict(sorted(vd[v].items(), key=lambda x: -x[1])[:8]))
+    for v in RUECK:
+        print('RUECK %s %.0f mm: Flecken groesster %d;' % (bn, v * 1000, rg[v]), dict(sorted(rz[v].items(), key=lambda x: -x[1])[:6]),
+              'innen sichtbar', ri[v], 'GEWECHSELT', dict(sorted(rd[v].items(), key=lambda x: -x[1])[:8]))
+        for t, k in rz[v].items(): rgesamt.setdefault(v, {})[t] = rgesamt.setdefault(v, {}).get(t, 0) + k
 print('FLECKEN GESAMT', dict(sorted(gesamt.items(), key=lambda x: -x[1])), '(Bildpunkte zu %.0f mm)' % (AUF * 1000))
+for v in RUECK:
+    print('RUECK GESAMT %.0f mm' % (v * 1000), dict(sorted(rgesamt.get(v, {}).items(), key=lambda x: -x[1])))
