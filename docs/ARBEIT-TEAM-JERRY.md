@@ -67,6 +67,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 467 | M? | **von Sokrates (Chef 01.11., 21:52, Frage „Wie steigert sich die Ausdauer?“):** `godot/regeln/ausdauer.gd` rechnet noch nach SRD (Konstitution 10, Modifikator, Stärke 13); BRS: Ausdauer aus Zähigkeit, Wille, Stufe (Abschnitt 2); Formel kommt mit 427 zum Chef, dann umstellen | wartet auf 427 (Formel von Sokrates zum Chef) | – |
 | 469 | M? | **von Sokrates (02.11., 11:0x, zu 406.1):** Kampf auf BRS: Ring (MARS) ohne Klassen regeln (Antwort nach Klasse heute) | wartet auf 406.1 | – |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht: Klang zieht nach Godot; Rest `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
+| D63.6 | K | **von Diogenes (374/434, Vortag 01.11.):** ohne „Bestand geprüft“ (434): 438 08:11, 09:45; 454; 348.12 21:49; 453.1 Atem (Tuffy); ohne Homer-Vorgabe (373 c): 438, 454, 348.12, 453, 453.1; nach Tor 461a ohne belegte Prüfung: 453 r3, 453.1 (Tuffy 23:03) (Zu 374 in `ARBEIT-PRUEFUNG.md`) | offen | – |
 
 ## Einzelheiten
 
