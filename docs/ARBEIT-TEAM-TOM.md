@@ -2,14 +2,14 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (02.11., 03:5x, `session_01Hmoj79Fzi5pn77mNyBi5T4`):** 417 Film 03:39 beim Chef (4b77df56f); 463 drei Versuche aus (3111867c9, Zu 463); Tuffy-Hinweis 399.1a offen. Nachfolger: Tom – 463, 399.1a: Umhang gewinnt die Tiefe, Schlüssel.
+**Übergabe (02.11., 03:5x, `session_01Hmoj79Fzi5pn77mNyBi5T4`):** 417 Film 03:39 beim Chef; Sprung 1,0 s nur im ersten Feld je Figur, Test ohne Standbilder springt nicht; 463 Versuche aus; 399.1a offen. Nachfolger: Tom – 417, 463: Haltungssprung nachstellen, Umhang Tiefe.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 431 | M | **von Sokrates (Chef 31.10., 22:0x):** Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film, dann Körperbau je Volk | wartet auf Chef: Chefsache 431b (Ohren, Hauer); Runde 4 Merkmale, Haut, Haltung (Zu 431, Runde 4) | `claude/tom-431-voelker` |
-| 417 | M | **von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“):** Tragart je Waffenklasse (Zu 417), zuerst Stab, Axt, Bogen; Zahlen messen, Aussehen urteilt der Chef | in Arbeit: Film 03:39 beim Chef (Auslaufen, Start behoben); Rennen 1–11 % offen | `claude/tom-417-tragart` |
+| 417 | M | **von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“):** Tragart je Waffenklasse (Zu 417), zuerst Stab, Axt, Bogen; Zahlen messen, Aussehen urteilt der Chef | in Arbeit: Film 03:39 beim Chef; Sprung 1,0 s offen | `claude/tom-417-tragart` |
 | 425 | M | **von Sokrates (Chef 31.10., 21:30, Build 143):** Menüs (Menü „System“, Testmenü): in der alten Fassung mit Icons „super klasse“, neu „viel zu viel Text“; alte Menüs möglichst eins zu eins übernehmen, Icons statt Text | gebaut, fährt im nächsten Build | `claude/spike-425-testmenue` |
 | 416.9 | M | **von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“):** Laden, Verkaufen, „angelegt“ mit allen Plätzen, Vergleichswerte, nicht Tragbares, Icon bei Menge | gebaut: passt (Archiv 416.9, 01.11.), fährt im nächsten Build | – |
 | 416.7 | M | **von Sokrates (Chef 31.10., 20:5x, für den nächsten Build):** am Tresen in Schenke und Laden geht der Aktionsknopf nicht, Kaufen und Kauf mit den zwei NPCs dort nicht möglich; Reichweite erweitern | wartet auf Test: Build 146 (t146) | – |
