@@ -38,6 +38,7 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **Befund**
 - **D69.1 (D67.1, mittel, sicher, Klasse 1 Perikles) neuer Fehlalarm bei Dateinamen:** seit `(?!\w)` statt `(?![\w-])` halten Dateinamen ohne Backticks an: „DESIGN-SPIELSYSTEM-2-0-ENTWURF.md“ → „DESIGN“, „ARBEIT-TEAM-TOM.md“ → „ARBEIT“, „LISTE-ABNAHME-KAPITEL1.md“ → „LISTE“. Meine echte Meldung 447.4 von 19:3x ginge so nicht mehr durch.
+- **461b-Teil (`0e2a2e2cd`):** 461b.1–4 stehen bei Jerry, Tom, Homer, Sokrates; Anhänge 362 (→ 373) und 418 („Gliederung ersetzt“) passen. **D70.1 (461b, klein, sicher, Klasse 1 Perikles):** 480 und 415c tragen „→ ersetzt durch 480.1“ ohne „teils“, obwohl 480.1 nur die Freigabe weiterer Läufe ändert; 480 (1) einfache Worte und (2) „nach dem zweiten Lauf geht der Film immer an den Chef“ sowie 415c „Film jetzt an den Chef“ gelten weiter. Wie bei 396 („teils ersetzt durch 461a“) gehört „teils“ davor, sonst liest man beide als überholt.
 
 ## Lauf 67 · Auftrag 340.4 „Geprüft an“, 340.5 Uhrzeit (Doppelpack 421; `main` nach `6dc0d9880`; 02.11., 19:5x; `commit-pruefung.py` mit 4 Probedateien in einer Kopie, Muster mit 12 Zeilen)
 
