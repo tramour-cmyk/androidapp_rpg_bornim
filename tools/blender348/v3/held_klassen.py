@@ -200,20 +200,22 @@ def schlank(objs, gross=1024):
 def vorrang_marke(netze, teile):
     if not os.path.exists(teile): return
     tn = json.load(open(teile))
-    if 'cloak' not in tn: return
-    ic = tn.index('cloak')
+    # 463 (pruef_flecken RUECK „r+n“): dazu die Aermel im zweiten Wert (v = 1), toon.gdshader schiebt sie um „nach“ zurueck
+    ic = tn.index('cloak') if 'cloak' in tn else -9
+    ia = tn.index('sleeves') if 'sleeves' in tn else -9
+    if ic < 0 and ia < 0: return
     for o in netze:
         me = o.data
         if 'teil' not in me.attributes or len(me.uv_layers) != 1: continue
         tl = [0] * len(me.vertices); me.attributes['teil'].data.foreach_get('value', tl)
         aktiv = me.uv_layers[0]
         uv = me.uv_layers.new(name='vorrang')
-        n = 0
+        n = na = 0
         for l in me.loops:
-            ja = tl[l.vertex_index] == ic
-            uv.data[l.index].uv = (1.0 if ja else 0.0, 0.0); n += ja
+            ja = tl[l.vertex_index] == ic; ar = tl[l.vertex_index] == ia
+            uv.data[l.index].uv = (1.0 if ja else 0.0, 1.0 if ar else 0.0); n += ja; na += ar
         me.uv_layers.active = aktiv; aktiv.active_render = True
-        print('VORRANG', o.name, n, 'Ecken Umhang')
+        print('VORRANG', o.name, n, 'Ecken Umhang,', na, 'Aermel')
 
 
 def exportiere(p, objs, farbe=False):
