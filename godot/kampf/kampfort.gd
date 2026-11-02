@@ -51,7 +51,6 @@ const PERFECT_MS := 90
 const GOOD_MS := 260
 ## 249: Blut wie im alten Spiel, Stufe 1 (wenige kleine Tropfen) ist dort die Vorgabe; 0 aus, 2 mehr mit Flecken am Boden.
 ## Der Schalter im Menü kommt mit Toms Systemmenü.
-const BLOOD_LEVEL := 1
 
 var mars
 var tables: Dictionary
@@ -64,6 +63,7 @@ var figures := {}          # id -> Figur
 var shown := {}            # the last message played: hp, places, intents, queue, sp
 ## 296.2: the hero's experience before the fight, how far above the place he stands, the level cap (null: chapter's)
 var progress := {}
+var verhuellt := false     # 402: die Blende vor dem Kampf steht noch (Kampfblende.gd)
 ## 296.2: what the won fight brings ({xp, gold, items, level, levels, xp_total, lines}), empty otherwise
 var reward := {}
 ## 399.2 (aufruf.gd): Kampfort und Tageszeit aus dem Aufruf; heute gibt es nur den Wald, die Tageszeit dämpft das Licht
@@ -98,7 +98,10 @@ func setup(party: Array, foes: Array, p_tables: Dictionary, potions: Dictionary,
 		return false
 	var dice = Wuerfel.new(null if seed < 0 else seed)
 	var words = Wuerfel.new(null if seed < 0 else seed + 279)
-	mars = Mars.new(party, foes, tables, dice, words, lang, false)
+	# 399.2: aus der Welt atemlos (Skirmish winded: Initiative mit Nachteil), satt (+1 auf Angriffe und Schaden), Eröffnung (Opening:
+	# NORMAL, AMBUSHED Gegner zuerst, HERO_FIRST Held zuerst)
+	mars = Mars.new(party, foes, tables, dice, words, lang, bool(p_progress.get("atemlos", false)), String(p_progress.get("eroeffnung", "NORMAL")))
+	mars.fed = bool(p_progress.get("satt", false))
 	for k in potions:
 		mars.potions[k] = int(potions[k])
 	mars.listener = func(e): _post({"say": e})
@@ -124,6 +127,17 @@ func _ready() -> void:
 	get_viewport().size_changed.connect(_fit_camera)
 	_fit_camera()
 	ui.refresh()
+	# 402: die Blende vor dem Kampf wie alt (progress „blende“: aus der Welt, nicht in Proben und Tests)
+	if bool(progress.get("blende", false)):
+		var ebene := CanvasLayer.new()
+		ebene.layer = 100
+		add_child(ebene)
+		var zufall := RandomNumberGenerator.new()
+		zufall.randomize()
+		var kb := Kampfblende.new(String(progress.get("eroeffnung", "NORMAL")), Kampfblende.lage(mars), zufall)
+		verhuellt = true
+		kb.geht.connect(func(): verhuellt = false)
+		ebene.add_child(kb)
 	_run(func(): mars.start(_react))
 
 
@@ -658,6 +672,11 @@ func _react(t, intent) -> String:
 
 func _run(block: Callable) -> void:
 	busy = true
+	# 399.2 (Test 133, Chef 16:4x: „gar keine Option, eine Tasche oder Flucht oder Abwehr zu klicken … kann anscheinend nur noch
+	# kämpfen“; Foto: nur „WOLF 6/12“ und „ZURÜCK“): nach einem Befehl wieder die Hauptauswahl wie SkirmishScreen.order (pick =
+	# Pick.Main); bisher erst, wenn ein Gegner den Helden angriff (ring_open), sonst blieb die Zielwahl stehen
+	ui.pick = "main"
+	ui.pick_arg = null
 	ui.refresh()
 	if worker and worker.is_started():
 		worker.wait_to_finish()
@@ -679,9 +698,15 @@ func go_on() -> void:
 	_run(func(): mars.proceed(_react))
 
 
+## 272 (Testmodus): gewinnen oder verlieren sofort; läuft der Kampf noch, gilt es, sobald er wartet (SkirmishScreen endAsked)
+var end_asked = null
 func test_end(win: bool) -> void:
-	if busy or mars.outcome != "ONGOING":
+	if mars.outcome != "ONGOING":
 		return
+	if busy:
+		end_asked = win
+		return
+	end_asked = null
 	_run(func(): mars.test_end(win))
 
 
@@ -720,7 +745,7 @@ func _process(_dt: float) -> void:
 	_grass_spots()
 	if ring_open and Time.get_ticks_msec() > ring_start + RING_MS + GOOD_MS + 60:
 		_answer_ring(Mars.NONE)
-	if playing:
+	if playing or verhuellt:     # 402: unter der Blende warten Worte und Züge
 		return
 	beats_lock.lock()
 	var b = beats.pop_front() if not beats.is_empty() else null
@@ -781,6 +806,10 @@ func _play_say(e: Dictionary) -> void:
 		var step: float = ui.cast(fx, actor, target, _crit(e), _missed(e) or e.cue == "DUCKED")
 		lands = int(step + Zauber.arrives(fx))
 		busy_ms = maxi(busy_ms, figures[actor].busy_ms)     # 348.7b: Seitenschritt hin und zurück
+	# 399.3: Klang der Meldung wie MarsSound.kt, der Treffer, wenn er im Bild landet (nur mit dem Autoload Klang der Spielfassung)
+	var klang = get_node_or_null("/root/Klang")
+	if klang != null:
+		klang.kampf(e, mars, lands if lunge_ms > 0 or fx != null else -1)
 	for id in e.hp:
 		if not figures.has(id):
 			continue
@@ -795,15 +824,23 @@ func _play_say(e: Dictionary) -> void:
 		var crit := _crit(e)
 		var w := Wucht.of(crit, e.damage, tg.max_hp, e.hp.get(target, 1) <= 0)
 		var gore := 1.0 - float(e.hp.get(target, 0)) / maxi(tg.max_hp, 1)
-		var wound: bool = e.wound and BLOOD_LEVEL > 0
+		var wound: bool = e.wound and blood_level() > 0
 		get_tree().create_timer(lands / 1000.0).timeout.connect(func():
 			if Wucht.jolt_dp(w) > 0.0:
 				hit = {"by": actor, "on": target, "w": w, "t0": clock_ms}
 			if wound:
 				ui.bleed(actor, target, w == Wucht.CRIT or (w == Wucht.KILL and crit), gore, tg.monster.id if tg.monster != null else ""))
+	# 399.2 (Chef 28.10., 16:10: „wenn nur noch zwei Wölfe da sind und die dann in einer Linie stehen, dann läuft der hintere Wolf
+	# durch den vorderen“; umweg_399 Lauf 168): greift einer von hinten an, tauscht er mit dem vorderen den Platz (mars.gd
+	# _leap_forward); beide liefen zugleich auf derselben Linie gegeneinander. Wer Platz macht, geht erst, wenn der Angreifer vorbei ist
+	var warte_ms: int = figures[actor].anlauf_ms if lunge_ms > 0 and actor != null and figures.has(actor) else 0
 	for f in mars.fighters():
 		if figures.has(f.id) and e.places.has(f.id) and not f.fled:     # 399.2a: wer flieht, kommt nicht an seinen Platz zurück
-			figures[f.id].glide_to(_spot_pos(f, e.places[f.id]))
+			var ziel := _spot_pos(f, e.places[f.id])
+			if warte_ms > 0 and f.id != actor and not figures[f.id].home.is_equal_approx(ziel):
+				get_tree().create_timer(warte_ms / 1000.0).timeout.connect(figures[f.id].glide_to.bind(ziel))
+			else:
+				figures[f.id].glide_to(ziel)
 	ui.refresh()
 	ui.show_roll(e)
 	await get_tree().create_timer(maxi(SAY_MS, maxi(lunge_ms, busy_ms)) / 1000.0).timeout
@@ -874,8 +911,14 @@ func _refused() -> void:
 func _done() -> void:
 	shown.queue = mars.queue()
 	busy = false
+	if end_asked != null and mars.outcome == "ONGOING":
+		test_end(bool(end_asked))
+		return
 	if mars.outcome == "WON" and reward.is_empty():
-		reward = Lohn.reward(mars, int(progress.get("xp", 0)), mars.dice, int(progress.get("over", 0)), progress.get("cap"))
+		# 399.2: Ausrüstung als Beute (Loot.drops) würfelt die Welt, die Held und Tasche kennt (progress „beute“, aufruf.gd)
+		var beute: Callable = progress.get("beute", Callable())
+		reward = Lohn.reward(mars, int(progress.get("xp", 0)), mars.dice, int(progress.get("over", 0)), progress.get("cap"), 1.0, 1.0,
+			beute.call() if beute.is_valid() else [])
 	if mars.outcome == "ONGOING" and mars.pilot_next():
 		go_on()
 	ui.refresh()
@@ -894,3 +937,8 @@ func finish() -> void:
 	if on_end.is_valid():
 		on_end.call(mars.outcome)
 	queue_free()
+
+
+## 399.2: wie viel Blut (Menü System „Blut“: Aus, Dezent, Deutlich; MarsLayout bloodLevel)
+func blood_level() -> int:
+	return Bedienung.blut_stufe()

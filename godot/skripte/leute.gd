@@ -29,6 +29,8 @@ var ziel := Vector2i(-1, -1)           # Kachel, auf die sie gerade geht
 var weg: Array[Vector2i] = []          # Runde: Weg zum naechsten Punkt
 var bein := 0                          # Runde: Index des Punkts, zu dem sie geht (Walker.leg)
 var warte := 0.0
+const DURCH_MS := 1800                  # 416.2: so lange nach einem Platzwechsel sperrt sie den Helden nicht (ein Schritt etwa 1 s)
+var durch_bis := 0                      # Time.get_ticks_msec() bis dahin
 var blick := 0.0
 var leib := LEIB
 var pause := "Stehen"                  # Dorftiere: Stehen oder Fressen in der Pause
@@ -38,6 +40,12 @@ var streifen_n := 0                    # Kacheln um heim (alt wander; mit Tagesp
 var drinnen := false                   # 390 (5la): an der Tuer fuer die Nacht hineingegangen: nicht zu sehen, nicht im Weg
 static var uhr := Callable()           # 390: Minute des Tages (spiel.gd, Zustand.minuten)
 static var still := false              # 390: waehrend eines Gespraechs bleiben alle stehen (Mode.Dialog)
+# 416.8 (Chef 31.10., 20:5x: „NPC dreht sich bei Interaktion zum Helden, nach etwa 10 s ignoriert er ihn wieder und spielt Leerlauf“;
+# alt Game.talk npcFacing): angesprochen wendet sich die Person dem Helden zu und folgt ihm mit dem Blick; ZUGEWANDT s nach dem
+# Gespraech dreht sie sich zurueck und macht weiter, was sie tat (Ruhebewegung, Streifen, Runde)
+const ZUGEWANDT := 10.0
+var zugewandt_bis := 0                  # ms (Time.get_ticks_msec); 0: niemandem zugewandt
+var blick_vorher := 0.0
 var da := true                         # 390: nach der Geschichte zu sehen (Story.kt visible: besiegt, befreit)
 
 static func alle(k: Karte, h: Node3D) -> Array:
@@ -74,7 +82,10 @@ static func tiere(k: Karte, h: Node3D) -> Array:
 # auf der Wiese suedlich des Flusses beim Kornfeld, Kaninchen am Westrand und am Nordufer, frei vor Kronen und Daechern (Pruefung
 # 09:04: unter Krone und Dach nicht zu sehen). Tiere bleiben auf Wiese und Blumen (TIERBODEN); grosse Tiere (Ziege, Rind) nicht
 # neben Feld, Garten, Zaun, Heu, ihr Koerper ragte sonst hinein (Pruefung: Ziege halb im Korn)
-const DORFTIERE := {"village": [["rind", 27, 27], ["ziege", 25, 27], ["ziege", 30, 27], ["ziege", 14, 29], ["kaninchen", 2, 23], ["kaninchen", 27, 24]]}
+# Chef 28.10., 16:12 („südlich des Flusses Hühner, Ziegen und Kühe und der Bauer … Das ist zu viel … die Kuh muss da unten weg …
+# auch die Ziegen zum Teil … unter Umständen auch die Durchgang da blockiert“): Rind vorerst ganz weg, suedlich des Flusses eine Ziege
+# statt drei, abseits von Bruecke und Weg
+const DORFTIERE := {"village": [["ziege", 30, 27], ["kaninchen", 2, 23], ["kaninchen", 27, 24]]}
 const HUHN_PLATZ := [Vector2i(-1, 0), Vector2i(0, -1), Vector2i(-1, -1), Vector2i(1, 0), Vector2i(0, 1)]
 const TIERBODEN := ".f,"
 # Pause zwischen zwei Schritten (s) und Anteil Fressen statt Stehen: Huehner picken oft, das Rind grast lange
@@ -147,6 +158,38 @@ func _init(k: Karte, d: Dictionary, h: Node3D) -> void:
 	warte = zufall.randf_range(0.5, 3.0)
 
 # 390: nach der Geschichte da oder nicht (Geschichte.sichtbar)
+# 399.1 Ruf (134.1): ein goldenes „!“ mit dunklem Rand ueber dem Kopf, durch alles sichtbar, immer zur Kamera
+var ruf_zeichen: Label3D
+var ruft_bis := 0                       # ms (Hail.calms)
+
+func rufe(an: bool) -> void:
+	if not an and ruf_zeichen == null: return
+	if ruf_zeichen == null:
+		ruf_zeichen = Label3D.new()
+		ruf_zeichen.text = "!"
+		ruf_zeichen.font = Stil.schrift()
+		ruf_zeichen.font_size = 96
+		ruf_zeichen.outline_size = 18
+		ruf_zeichen.modulate = Color("f0c850")
+		ruf_zeichen.outline_modulate = Color("201408b0")
+		ruf_zeichen.pixel_size = 0.004
+		ruf_zeichen.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+		ruf_zeichen.no_depth_test = true
+		ruf_zeichen.shaded = false
+		ruf_zeichen.position = Vector3(0, kopfhoehe() + 0.35, 0)
+		add_child(ruf_zeichen)
+	ruf_zeichen.visible = an
+
+# Scheitel ueber den Fuessen: aus den Netzen der Figur, sonst 1,75 m
+func kopfhoehe() -> float:
+	var oben := 0.0
+	if modell:
+		for m in modell.find_children("*", "MeshInstance3D", true, false):
+			var bb: AABB = (m as MeshInstance3D).get_aabb()
+			var t: Transform3D = global_transform.affine_inverse() * (m as MeshInstance3D).global_transform if m.is_inside_tree() and is_inside_tree() else Transform3D()
+			oben = maxf(oben, (t * bb).end.y)
+	return oben if oben > 0.5 else 1.75
+
 func zeige(ja: bool) -> void:
 	da = ja
 	visible = da and not drinnen
@@ -282,8 +325,34 @@ func nacht(k: float) -> void:
 
 # fuer Held.frei: steht hier jemand?
 func sperrt(p: Vector3) -> bool:
-	if drinnen or not da: return false
+	if drinnen or not da or Time.get_ticks_msec() < durch_bis: return false
 	return Vector2(p.x - position.x, p.z - position.z).length() < leib
+
+# 348.6 Ausweichen wie alt (Game.makeWay, 92; Chef 16:12: „man kann ja auch noch keine NPCs oder Tiere … schieben“): wer vom Helden
+# geschoben wird, tritt zur Seite (links oder rechts des Wegs, sonst voran) und bleibt dort einen Moment (alt 4 s), bevor der Tag
+# weitergeht; Wachen auf ihrer Runde nicht (alt: patrol). Tiere auch.
+func weicht() -> bool: return da and not drinnen and not daten.has("runde")
+
+func weiche(d: Vector2i) -> bool:
+	var seiten := [Vector2i(d.y, d.x), Vector2i(-d.y, -d.x)]   # quer zum Weg, in zufaelliger Folge
+	if zufall.randf() < 0.5: seiten.reverse()
+	for s in seiten + [d]:
+		var n: Vector2i = kachel + s
+		if frei_fuer_mich(n):
+			ziel = n
+			warte = 4.0
+			return true
+	# 416.2 (Chef 31.10.: „Platzwechsel statt nur Schieben … teils kein Weiterkommen“): wie alt makeWay (sonst p.x to p.y) tauscht,
+	# wer nicht zur Seite kann, mit dem Helden den Platz; solange gehen beide durcheinander hindurch
+	var h := held_kachel()
+	var u := h - kachel
+	var nachbar := absi(u.x) + absi(u.y) == 1 or (absi(u.x) == 1 and absi(u.y) == 1 and karte.begehbar(kachel + Vector2i(u.x, 0)) and karte.begehbar(kachel + Vector2i(0, u.y)))
+	if nachbar and frei_fuer_mich(h, true):
+		ziel = h
+		warte = 4.0
+		durch_bis = Time.get_ticks_msec() + DURCH_MS
+		return true
+	return false
 
 func held_kachel() -> Vector2i:
 	return karte.pos_kachel(held.position) if held else Vector2i(-99, -99)
@@ -292,10 +361,11 @@ func nah_am_held(t: Vector2i) -> bool:
 	var h := held_kachel()
 	return absi(t.x - h.x) + absi(t.y - h.y) <= 1
 
-func frei_fuer_mich(t: Vector2i) -> bool:
+func frei_fuer_mich(t: Vector2i, held_da := false) -> bool:
 	if not karte.begehbar(t) or not karte.ausgang(t).is_empty(): return false
-	if daten.has("tier") and not (Leute.tierboden_gross(karte, t) if leib > 0.7 else Leute.tierboden(karte, t)): return false
-	if t == held_kachel(): return false
+	# beim Platzwechsel (held_da) darf ein Tier kurz auf den Weg des Helden; zurueck auf seinen Boden streift es von selbst
+	if daten.has("tier") and not held_da and not (Leute.tierboden_gross(karte, t) if leib > 0.7 else Leute.tierboden(karte, t)): return false
+	if t == held_kachel() and not held_da: return false
 	for l in get_parent().get_children():
 		if l is Leute and l != self and l.visible and (l.kachel == t or l.ziel == t): return false
 	return true
@@ -313,8 +383,18 @@ func _process(dt: float) -> void:
 	if anim and anim.current_animation != pause:
 		anim.play(pause, 0.5 if anim.current_animation.begins_with("Stehen") else 0.25)
 		anim.speed_scale = 1.0
+	if zugewandt_bis > 0:
+		if still: zugewandt_bis = Time.get_ticks_msec() + int(ZUGEWANDT * 1000)   # waehrend des Gespraechs zaehlt die Zeit nicht
+		if Time.get_ticks_msec() < zugewandt_bis and held:
+			blick = atan2(held.global_position.x - global_position.x, held.global_position.z - global_position.z)
+		else:
+			zugewandt_bis = 0
+			blick = blick_vorher
+			ruhe_bis = -1.0   # die Ruhebewegung beginnt neu
 	rotation.y = drehe(rotation.y, blick, DREH_STEH * dt)
 	if still or not da: return
+	if zugewandt_bis > 0: return
+	if Time.get_ticks_msec() < ruft_bis: return   # 399.1 (306): wer ruft, haelt still, bis das zweite Zeichen vorbei ist
 	warte -= dt
 	if warte > 0: return
 	if tagesplan(): return
@@ -410,6 +490,11 @@ func laufe(dt: float) -> void:
 			anim.play("Gehen", 0.18)
 			anim.seek(zufall.randf() * anim.current_animation_length)
 		anim.speed_scale = tempo / gang
+
+# 416.8: dem Helden zuwenden (spiel.gd sprich)
+func wende_zu() -> void:
+	if zugewandt_bis == 0: blick_vorher = blick
+	zugewandt_bis = Time.get_ticks_msec() + int(ZUGEWANDT * 1000)
 
 # dreht a hoechstens um schritt auf b zu (feste Rate statt lerp: grosse Wenden dauern laenger, kleine bleiben weich)
 static func drehe(a: float, b: float, schritt: float) -> float:

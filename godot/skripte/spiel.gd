@@ -27,8 +27,14 @@ var rast_ort := ""                               # 390 (Mode.Rest): Feld offen a
 var rast_notiz := ""
 var rast_zweites := false
 var laden: Laden                                 # 390 (Mode.Shop): offen, bis „Schließen“
-var laden_notiz := ""
-var laden_menge := {}                            # 390 (59.5): ein Ding mit Menge {id, kaufen, n}; leer = Liste
+var laden_schirm: LadenSchirm                    # 416.3
+var laufen_will := false                        # 399.1 Ring oder Renntaste (Stamina.step run)
+var brett_offen := false
+var brett_schirm: BrettSchirm                    # 416.3
+var rufe := {}                                   # 399.1 Ruf: Person -> seit wann (ms) sie ruft, -1 = bemerkt, nichts Neues
+var rufe_karte := ""
+var naechster_ruf := 0                           # 134.3 Game.nextCallAt: vorher ruft kein anderer
+var spricht_mit := ""                            # bis das Gespraech vorbei ist, dann gilt gehoert (Game.talkingTo)                        # 399.1 Anschlagbrett (Mode.Board)
 
 func _ready() -> void:
 	licht = Licht.new()
@@ -45,15 +51,17 @@ func _ready() -> void:
 	ui.tippen.connect(_tippen)
 	ui.joystick.connect(func(v): if held: held.richtung = kamera.richtung(v))
 	ui.kneifen.connect(func(f, w): kamera.kneifen(f); kamera.drehe(w))
-	ui.laufen.connect(func(an): if held: held.laeuft = an)
+	ui.laufen.connect(func(an): laufen_will = an)   # 399.1 ob er rennt, entscheidet der Atem (Ausdauer.schritt)
 	ui.aktion.connect(_aktion)
 	ui.knopf.connect(_knopf)
 	ui.windrose.zurueck.connect(kamera.nach_norden)
+	ui.leiste.menue.connect(oeffne_menue)
 	ui.gelesen.connect(weiter)
 	ui.gewaehlt.connect(_rast_wahl)
-	ui.gewaehlt.connect(_laden_wahl)
 	licht.nacht_geaendert.connect(_nacht)
 	Leute.uhr = func(): return zustand.minuten   # 390 Tagesablauf
+	Rand.beim_start = Rand.oben(get_viewport())
+	add_child(Rand.band(Rand.beim_start))   # 399.4: schwarz, was die Kamera des Handys verdeckt
 	# 399: Hauptmenue und Erschaffung zuerst, ausser bei Probelaeufen am Rechner (--bilder, --figuren …, Tests ohne Fenster)
 	if OS.get_cmdline_user_args().is_empty() and DisplayServer.get_name() != "headless":
 		var ebene := CanvasLayer.new()   # 399.1 (Test 130: Probeknoepfe und Windrose lagen ueber dem Menue): eigene Ebene ueber allem
@@ -61,17 +69,12 @@ func _ready() -> void:
 		add_child(ebene)
 		var menue := Hauptmenue.new(ui)
 		ebene.add_child(menue)
+		# 399.3 (Jerry): die Titelmusik startet das Hauptmenue, beim Kaltstart erst nach dem Vorspann (292)
 		var w: Dictionary = await menue.fertig
 		ebene.queue_free()
-		var stand := Spielstand.lade() if w.get("laden", false) else {}
-		if not stand.is_empty():
-			zustand = Zustand.aus_daten(stand["zustand"])
-			werte = Heldwerte.aus_daten(stand["held"])
-			var o: Dictionary = stand["ort"]
-			betrete(String(o["karte"]), Vector2i(int(o["x"]), int(o["y"])), String(o["blick"]))
-			return
-		zustand.name = String(w.get("name", zustand.name))
-		werte = Heldwerte.erschaffe(zustand.name, String(w.get("volk", "HUMAN")), String(w.get("klasse", "FIGHTER")), {}, zustand.neue_uid)
+		add_child(Helligkeit.schicht())   # 399.1: Helligkeit ueber dem ganzen Spiel, nicht im Hauptmenue (App.kt liftBlack)
+		starte(w)
+		return
 	betrete(START, START_KACHEL, "DOWN")
 	bilder()
 	gang_film()
@@ -83,19 +86,52 @@ func _ready() -> void:
 	dorftiere_blatt()
 	tusche_nacht()
 	rast_probe()
+	raeume_bilder()
+	if FigurenProbe.an(): add_child(FigurenProbe.new(self))   # 376.1 Probeblatt Quaternius-Figuren (figurenprobe.gd)
+
+# 399: Spielbeginn aus dem Hauptmenue: geladen an den gespeicherten Ort, sonst ein neues Spiel mit frischem Zustand (Test 139: das neue
+# Spiel begann dort, wo das vorige stand; seit 3b17961e9 nach der Ankunft im Bett der Schenke). Eigene Funktion fuer tests/neues_spiel_399.gd
+func starte(w: Dictionary) -> void:
+	Spielstand.platz = maxi(1, int(w.get("platz", 1)))   # 399.1: vier Plaetze wie alt; gespeichert wird in diesen
+	var stand := Spielstand.lade(Spielstand.platz) if w.get("laden", false) else {}
+	if not stand.is_empty():
+		zustand = Zustand.aus_daten(stand["zustand"])
+		werte = Heldwerte.aus_daten(stand["held"])
+		var o: Dictionary = stand["ort"]
+		blende.color.a = 1.0
+		klang("verhuelle", [true])
+		betrete(String(o["karte"]), Vector2i(int(o["x"]), int(o["y"])), String(o["blick"]))
+		ortsworte("", false)   # 24.1 Spielbeginn: Name und Satz
+		return
+	zustand = Zustand.new()   # nichts vom vorigen Spiel: Flaggen, Gold, Taschen, Ort
+	zustand.name = String(w.get("name", zustand.name))
+	zustand.aussehen = (w.get("aussehen", {}) as Dictionary).duplicate()   # 376.1
+	werte = Heldwerte.erschaffe(zustand.name, String(w.get("volk", "HUMAN")), String(w.get("klasse", "FIGHTER")), w.get("werte", {}), zustand.neue_uid)   # 399.1 Punktekauf
+	# 399.1 wie alt (69, GameViewModel.newGame): einmal die Ankunft bei Nacht, dann erwacht der Held neben dem Bett der Schenke
+	# (Story.START), wo Rowena ihn weckt; vorher begann das neue Spiel am Brunnen
+	await zwischenbild("intro")
+	blende.color.a = 1.0
+	klang("verhuelle", [true])
+	betrete(String(Rast.START["karte"]), Vector2i(int(Rast.START["x"]), int(Rast.START["y"])), String(Rast.START["blick"]))
+	ortsworte("", true)   # 24.1 Spielbeginn: Name und Satz
 
 func betrete(id: String, t: Vector2i, blick: String) -> void:
+	var t0 := Time.get_ticks_usec()   # 399.1 Gerät: Ladezeit je Ort
 	if gebiet: gebiet.queue_free()
 	if held: held.queue_free()
 	if leute: leute.queue_free()
 	karte = Karte.lade(id, zustand.flaggen)   # 390: Schlagbaum, Tor, Ausgaenge und Wege lesen den Spielstand
+	zustand.setze("besucht:" + id)   # 399.1 Chronik „Die Blutzahnhöhle“ (alt GameState.explored)
 	licht.innen = String(karte.daten.get("art", "")) == "INTERIOR"   # 399.1 Grundriss
+	for m in kamera.tusche_mats: m.set_shader_parameter("relativ", 1.0 if licht.innen else 0.0)   # 399.5: Tusche nie heller als die Flaeche
+	licht.herd = "".join(karte.zeilen).contains("Z")   # 399.5 wie alt hasHearth
 	licht.stelle(licht.nacht)
 	gebiet = Gebiet.new(karte)
 	add_child(gebiet)
-	held = Held.new(karte)
+	held = Held.new(karte, HeldFigur.wahl(werte, zustand))   # 376.1 Klasse, Aussehen, Ausruestung
 	add_child(held)
 	held.setze(t, blick)
+	fackel_neu()   # 399.1 Light.burns
 	held.steht_auf.connect(_betritt)
 	held.stoesst.connect(_stoesst)
 	leute = Node3D.new()
@@ -110,16 +146,23 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	gebiet.kamera = kamera
 	kamera.springe()
 	ui.ort.text = karte.name()
+	klang("ort", [karte, held])   # 399.3 (Jerry): Ortsmusik, Schritte nach dem Boden
 	_nacht(licht.nacht)
 	_steht_auf(t)
 	spiele(Geschichte.betreten(id, zustand))   # 390: MapDef.onEnter
 	speichere()   # 399: wie alt beim Kartenwechsel
+	Messung.geladen(id, (Time.get_ticks_usec() - t0) / 1000.0)
 
 func speichere() -> void:
 	if held and karte and not OS.get_cmdline_user_args().size(): Spielstand.speichere(zustand, held_werte(), platz())
 
 func _notification(what: int) -> void:   # 399: auch beim Verlassen der App (alt: onPause)
 	if what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_WM_CLOSE_REQUEST: speichere()
+	# 416.1: Android-Zurück schliesst das oberste Fenster (zurueck.gd); ohne Fenster nichts (vorher beendete es das Spiel)
+	if what == NOTIFICATION_WM_GO_BACK_REQUEST: Zurueck.taste(get_tree())
+	# Build 145 (Tests mit spiel.tscn brachen beim Beenden ab, „corrupted size vs. prev_size“): die statische Uhr der Leute hielt eine
+	# Funktion auf dieses Spiel, Godot raeumt statische Variablen erst nach den Knoten ab; beim Verlassen des Baums loesen
+	if what == NOTIFICATION_EXIT_TREE: Leute.uhr = Callable()
 
 func _nacht(k: float) -> void:
 	kamera.nacht = k   # 348.13b: Tusche nach Laterne, Fenster, Fackel
@@ -177,12 +220,14 @@ func _tippen(sp: Vector2) -> void:
 	if p == null: return
 	var b := karte.pos_kachel(p)
 	if karte.begehbar(b):
-		held.geh_zu(p)
+		if not held.geh_zu(p): Bedienung.ruettle()   # 399.1 Ruetteln: kein Weg dorthin (WorldScreen route == null)
 		return
 	# Tuer, gesperrter Ausgang, Schild, Schlagbaum: davor stellen, dann Knopf oder Text
-	if not (karte.tuer(b) or not karte.sperrt(b).is_empty() or zeichen_lesbar(b) or karte.zeichen(b) == "z"): return
+	if not (karte.tuer(b) or not karte.sperrt(b).is_empty() or zeichen_lesbar(b) or brett(b) or karte.zeichen(b) == "z"):
+		Bedienung.ruettle()
+		return
 	var ziel := naechster_nachbar(b)
-	if ziel.x < 0: return
+	if ziel.x < 0: Bedienung.ruettle(); return
 	ziel_stoss = b
 	held.geh_zu(karte.kachel_pos(ziel))
 
@@ -191,14 +236,19 @@ func naechster_nachbar(b: Vector2i) -> Vector2i:
 	var best_n := 1 << 30
 	for d in NACHBARN:
 		var n: Vector2i = b + d
+		var tresen := karte.zeichen(n) == "K"
+		if tresen: n += d   # 416.7 (Navigation.route): wer hinter dem Tresen steht, wird von davor angesprochen, nicht von hinten
 		if not karte.begehbar(n): continue
 		var w := karte.weg(held.kachel, n)
 		if w.is_empty() and n != held.kachel: continue
-		if w.size() < best_n: best_n = w.size(); best = n
+		var wn := w.size() - (1000 if tresen else 0)
+		if wn < best_n: best_n = wn; best = n
 	return best
 
 func zeichen_lesbar(t: Vector2i) -> bool:
 	return karte.zeichen(t) == "S" and schild(t) != ""
+
+func brett(t: Vector2i) -> bool: return karte.zeichen(t) == "!"   # 399.1 Tile.NOTICE (Navigation: READ)
 
 func schild(t: Vector2i) -> String:
 	for s in karte.daten["schilder"]:
@@ -210,6 +260,7 @@ func _steht_auf(t: Vector2i) -> void:
 
 # 390: der Held tritt auf eine Kachel (Trigger der Karte)
 func _betritt(t: Vector2i) -> void:
+	zustand.schritte += 1   # 399.1: GameState.steps, je betretene Kachel (System „Schritte“)
 	_steht_auf(t)
 	if not ui.spricht(): spiele(Geschichte.ausloeser(karte.id, t, zustand))
 
@@ -218,7 +269,7 @@ func vor_ihm(t: Vector2i) -> Vector2i:
 	if not karte.ausgang(t).is_empty(): return t
 	var vorn := Vector2i(roundi(sin(held.rotation.y)), roundi(cos(held.rotation.y)))
 	for d in [vorn] + NACHBARN:
-		if karte.tuer(t + d) or zeichen_lesbar(t + d) or rast_kachel(t + d) != "": return t + d
+		if karte.tuer(t + d) or zeichen_lesbar(t + d) or brett(t + d) or rast_kachel(t + d) != "": return t + d
 	return Vector2i(-1, -1)
 
 # wie Navigation.actionAt: Ausgang und Tuer (auch verschlossen) ENTER, Schild READ; dazu actionPlace: wohin, wenn offen
@@ -228,7 +279,7 @@ func angebot(t: Vector2i) -> Array:
 	if pv[0] and pv[1]: return ["TALK", ""]
 	var z := vor_ihm(t)
 	if z.x < 0: return ["TALK", ""] if pv[0] else ["", ""]
-	if zeichen_lesbar(z): return ["READ", ""]
+	if zeichen_lesbar(z) or brett(z): return ["READ", ""]
 	var rk := rast_kachel(z)
 	if rk != "": return ["REST" if rk in ["feuer", "zimmer"] else "LOOK", ""]
 	var a := karte.ausgang(z)
@@ -246,6 +297,9 @@ func _aktion() -> void:
 	if zeichen_lesbar(z):
 		ui.sage([{"text": schild(z)}])
 		return
+	if brett(z):
+		oeffne_brett()
+		return
 	match rast_kachel(z):
 		"feuer", "zimmer": oeffne_rast(rast_kachel(z)); return
 		"hoehle": ui.sage([{"text": Sprache.t(Rast.FEUER_HOEHLE)}]); return
@@ -253,7 +307,9 @@ func _aktion() -> void:
 	var a := karte.ausgang(z)
 	if bool(a["verschlossen"]):
 		var nachts := licht.nacht > 0.5
-		if a.has("klopfen"): ui.sage(zeilen(a["klopfen"]["nacht" if nachts else "tag"]))
+		if a.has("klopfen"):
+			ui.sage(zeilen(a["klopfen"]["nacht" if nachts else "tag"]))
+			zustand.setze("heard_%d_%d" % [z.x, z.y])   # 399.1 Karte: wer hier wohnt (MapPeople.heard)
 		return
 	if a.has("braucht") and not karte.flaggen.has(a["braucht"]):
 		ui.sage(zeilen(a.get("abgewiesen", [])))
@@ -261,6 +317,7 @@ func _aktion() -> void:
 	geh_hinaus(a)
 
 func _stoesst(t: Vector2i) -> void:
+	if await _schiebt(t): return
 	if karte.zeichen(t) == "z" and not karte.flaggen.has("barrier_open"):
 		ui.sage([{"text": Sprache.t(karte.schlagbaum)}])
 		return
@@ -276,6 +333,37 @@ func _stoesst(t: Vector2i) -> void:
 	else:
 		ui.sage(zeilen(a.get("abgewiesen", [])))
 
+# 348.6 Ausweichen wie alt (Game.nudge, makeWay; 92): wer vor dem Helden steht und weicht (Leute.weicht), tritt zur Seite. Mit dem
+# Steuerkreuz erst, wenn der Held weiter drueckt (alt zwei Stoesse, PUSH_BUMPS 2); auf einem getippten Weg gleich
+func _schiebt(t: Vector2i) -> bool:
+	var wer: Leute = null
+	for l in leute.get_children():
+		if l is Leute and l.weicht() and (l.kachel == t or l.ziel == t): wer = l
+	if wer == null: return false
+	if held.richtung.length() > 0.15:
+		# Test 133.7: weiter gedrueckt heisst weiter gegen ihn; abbrechen nur, wenn losgelassen, abgewandt oder vorbei
+		# Test 139.7: „gegen ihn“ heisst ungefaehr zu ihm hin (die Kamera blickt schraeg, der Joystick zeigt selten genau entlang
+		# der Kacheln, der Held gleitet an ihm entlang); vorher musste der Joystick genau auf seine Kachel zeigen, so wich fast nie jemand
+		await (Engine.get_main_loop() as SceneTree).create_timer(0.5).timeout
+		if not is_instance_valid(wer) or not drueckt_gegen(wer): return true
+	var zu := wo_ist(wer) - Vector2(held.position.x, held.position.z)
+	if zu.length() < 0.05: zu = Vector2(held.richtung.x, held.richtung.z)
+	var d := Vector2i(int(signf(zu.x)), 0) if absf(zu.x) >= absf(zu.y) else Vector2i(0, int(signf(zu.y)))
+	if d == Vector2i.ZERO: return true
+	wer.weiche(d)
+	return true
+
+# der Held drueckt noch gegen [wer]: Joystick oder Kreuz gehalten, ungefaehr zu ihm hin (bis 60 Grad daneben), und noch an ihm dran
+func drueckt_gegen(wer: Leute) -> bool:
+	var r := Vector2(held.richtung.x, held.richtung.z)
+	var zu := wo_ist(wer) - Vector2(held.position.x, held.position.z)
+	if r.length() <= 0.15 or zu.length() > wer.leib + Held.RAND + 0.5: return false
+	return zu.length() < 0.05 or r.normalized().dot(zu.normalized()) > 0.5
+
+func wo_ist(l: Leute) -> Vector2:   # ausserhalb des Baums (Proben) die Mitte ihrer Kachel
+	var p := l.position if l.is_inside_tree() else held.karte.kachel_pos(l.kachel)
+	return Vector2(p.x, p.z)
+
 func zeilen(liste: Array) -> Array:
 	var r: Array = []
 	for z in liste:
@@ -289,10 +377,13 @@ func geh_hinaus(a: Dictionary) -> void:
 	var z: Dictionary = a["ziel"]
 	var id := String(z["karte"])
 	ui.biete_an("")
+	klang("effekt", ["door"])   # 399.3 (Jerry): Game.kt DOOR
 	await abblenden(1.0)
 	if FileAccess.file_exists("res://daten/" + Gebiet.datei(id) + ".bin") and id != karte.id:
+		var von := karte.id
+		var erster := not zustand.has("besucht:" + id)
 		betrete(id, Vector2i(int(z["x"]), int(z["y"])), String(z["blick"]))
-		await abblenden(0.0)
+		await ortsworte(von, erster)
 		return
 	var alle: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json"))
 	var name := Sprache.t(alle["karten"][id]["name"]) if alle["karten"].has(id) else id
@@ -317,18 +408,28 @@ func vor_tuer(alle: Dictionary, id: String, a: Dictionary) -> Vector2i:
 # ---------------------------------------------------------------- Kampf (399.1, Chef 28.10., 12:34: im Dorf herumlaufen, in einen Kampf kommen)
 # Der Weg in den Wald fuehrt in den Kampfort von Jerry (kampf/kampfort.gd, MARS) gegen ein Wolfsrudel, bis Wald und tiefer Wald als
 # Gebietskarten stehen; danach zurueck vor den Ausgang, die Trefferpunkte bleiben. Verloren: wie Game.kt (154) vier Stunden vergehen,
-# der Held erwacht ganz geheilt am Wiederkehrort (steht dieser Grundriss noch nicht, vor dessen Tuer im Dorf). Das Kampfblatt
+# der Held erwacht ganz geheilt im Wiederkehrort (steht dieser Grundriss noch nicht, vor dessen Tuer im Dorf). Das Kampfblatt
 # kommt aus den Heldwerten (kampf/aufruf.gd, 399.2 Jerry).
 const WALD := ["forest", "deep_forest"]
 const AufrufS = preload("res://kampf/aufruf.gd")
 var kampf: Node
+var leiste_uhr := 0.0
+
+# 399.3 (Jerry): Musik und Klang ueber den Autoload Klang; ueber den Knoten statt den Namen, denn mit -s (skripte_pruefen,
+# Lauf 135) gibt es den Autoload noch nicht und spiel.gd liesse sich nicht laden
+func klang(was: String, mit := []) -> void:
+	var k := get_node_or_null("/root/Klang")
+	if k: k.callv(was, mit)
 
 func tageszeit() -> String:   # Kampfort.tageszeit: tag, abend, nacht
 	var m := zustand.minuten
 	return "nacht" if m < 6 * 60 or m >= 21 * 60 else ("abend" if m >= 18 * 60 else "tag")
 
-func kampf_im_wald(zurueck: Vector2i) -> void:
-	var hw := held_werte()
+# gegner wie kampf/probe.gd FOES; [probe] (Test „MARS-Probekampf“, Skirmish.probe): Held und Soeldner [klasse, stufe] statt des eigenen
+# Helden, danach bleibt er, wie er war (kein Lohn, keine TP, kein Tod)
+func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = []) -> void:
+	var hw := held_werte() if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
+	var soeldner = null if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
 	var erg := {"ende": "", "tp": {}, "lohn": {}, "rest": zustand.anzahl("potion")}
 	var aufruf := AufrufS.new()
 	add_child(aufruf)
@@ -341,22 +442,37 @@ func kampf_im_wald(zurueck: Vector2i) -> void:
 	var umgebung: Array = find_children("*", "WorldEnvironment", true, false)
 	var env_alt := umgebung.map(func(we): return we.environment)
 	# 399.2a (Chef 14:19 „a“): Wolf mit 1–2 Jungwölfen wie im alten Spiel
-	var gestartet: bool = aufruf.starte("RUDEL", hw, null, "wald", tageszeit(), zustand.anzahl("potion"))
+	klang("verhuelle", [true])   # 402 (Jerry): unter der Blende vor dem Kampf schweigt alles; sie bringt den Klang des Kampfbeginns
+	klang("spiele_szene", ["BATTLE"])   # 399.3 (Jerry): Kampfmusik wie alt (300 ms), nach der Blende
+	# 399.2 (Jerry 3b9fb3116): Ausruestung als Beute nach einem Sieg wie Battle.finishWin (Loot.drops, einmal je Kampf, Gebietsstufe)
+	var beute := func() -> Array:
+		var w := KotlinZufall.new(randi())
+		var ilvl := int(Karte.lade("forest").daten.get("stufe", 1))
+		var st: Dictionary = Heldwerte.lade()["seltenheiten"]
+		return Beute.beute(hw, w, ilvl, false, false, zustand.neue_uid).map(func(g): return {"gear": g, "name": Beute.name(g), "rarity": Sprache.t(st[String(g["rarity"])]["name"])})
+	var k0 := Time.get_ticks_msec()
+	var lage := {"atemlos": zustand.atemlos, "satt": zustand.satt} if probe.is_empty() else {}   # 399.2 (Jerry): wie der Held kommt
+	if Testmodus.ist_an(): lage["eroeffnung"] = Testmodus.eroeffnung   # 399.2 (Jerry): Eröffnung aus dem Reiter Test
+	lage["blende"] = true   # 402 (Jerry): die Blende vor dem Kampf wie alt, auch im Probekampf
+	var gestartet: bool = aufruf.starte(gegner, hw, soeldner, "wald", tageszeit(), zustand.anzahl("potion") if probe.is_empty() else 2, -1, -1, -1, beute, lage)
+	if probe.is_empty(): zustand.satt = false   # 399.1: Battle.wellFed endet mit dem Kampfbeginn (der Kampfort gibt +1, 399.2)
 	if gestartet:
 		for we in umgebung: we.environment = null
 		visible = false; ui.visible = false
 		while aufruf.kampf != null and not aufruf.kampf.is_inside_tree() and erg["ende"] == "": await get_tree().process_frame
 		kampf = aufruf.kampf
+		Messung.kampf_ms = Time.get_ticks_msec() - k0
 		if kampf and kampf.cam: kampf.cam.make_current()
 	while erg["ende"] == "": await get_tree().process_frame
 	kampf = null
 	for k in umgebung.size(): umgebung[k].environment = env_alt[k]
 	kamera.make_current()
 	visible = true; ui.visible = true
-	if int(erg["rest"]) < zustand.anzahl("potion"): zustand.weg("potion", zustand.anzahl("potion") - int(erg["rest"]))   # getrunken
+	if probe.is_empty() and int(erg["rest"]) < zustand.anzahl("potion"): zustand.weg("potion", zustand.anzahl("potion") - int(erg["rest"]))   # getrunken
 	var lohn: Dictionary = erg["lohn"]
 	var ende := [String(erg["ende"])]
-	if ende[0] == "NONE":
+	klang("nach_kampf", [ende[0] == "WON", karte])   # 399.3 (Jerry): Sieg mit sieg_, sonst Ortsmusik nach 10 s
+	if ende[0] == "NONE" or not probe.is_empty():
 		held.setze(zurueck, "DOWN"); kamera.springe(); await abblenden(0.0)
 		return
 	var tp_nach := int(erg["tp"].get("hero", hw.tp))
@@ -365,7 +481,11 @@ func kampf_im_wald(zurueck: Vector2i) -> void:
 		hw.tp = hw.max_tp()
 		var wk: Dictionary = zustand.wiederkehr
 		var alle: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json"))
+		# Test 132 (Chef 16:09: „Bei Heilung bin ich nicht vor der Schenke, sondern vor dem Tempel“): wie Game.kt state.place =
+		# state.respawn im Wiederkehrort selbst (Schenke neben dem Bett, Tempel nach der Heilung des Priesters), seit die Grundrisse stehen
 		if String(wk["karte"]) == karte.id: held.setze(Vector2i(int(wk["x"]), int(wk["y"])), String(wk["blick"]))
+		elif FileAccess.file_exists("res://daten/" + Gebiet.datei(String(wk["karte"])) + ".bin"):
+			betrete(String(wk["karte"]), Vector2i(int(wk["x"]), int(wk["y"])), String(wk["blick"]))
 		else:
 			var tuer := zurueck
 			for a in alle["karten"][karte.id].get("ausgaenge", []):
@@ -375,18 +495,23 @@ func kampf_im_wald(zurueck: Vector2i) -> void:
 		ui.sage([{"text": Sprache.t({"de": "Du erwachst an einem sicheren Ort … Der Heimweg hat Stunden gedauert.", "en": "You wake up somewhere safe… The way home took hours."})}])
 		return
 	hw.tp = clampi(tp_nach, 1, hw.max_tp())
+	if ende[0] == "WON": zustand.siege += 1   # 399.1: GameState.battlesWon (System „Siege“, Thessas Ware); zaehlte bisher nie
 	if not lohn.is_empty():
 		zustand.gold += int(lohn.get("gold", 0))
 		for d in lohn.get("items", []): zustand.dazu(String(d))   # Beute (Felle, Zaehne)
+		for g in lohn.get("gear", []): zustand.ausruestung_dazu(g)   # 399.2 Ausruestung aus dem Kampflohn
 		hw.ep_dazu(int(lohn.get("xp", 0)))   # Hero.gainXp: Stufe hoeher heilt ganz
 	held.setze(zurueck, "DOWN")
 	kamera.springe()
 	await abblenden(0.0)
 
 func abblenden(ziel: float) -> void:
+	klang("verhuelle", [ziel > 0.5])   # 399.3 (Jerry): in der Schwarzblende schweigen die Effekte, Musik erst danach (Hush.kt)
+	if ziel > 0.5: Messung.blende(true)
 	var tw := create_tween()
 	tw.tween_property(blende, "color:a", ziel, 0.35)
 	await tw.finished
+	if ziel <= 0.5: Messung.blende(false)
 
 # ---------------------------------------------------------------- Gespraeche (390)
 const REICHWEITE := 1.3                          # Kacheln vom Helden zur Person (Navigation.ACTION_REACH)
@@ -410,6 +535,14 @@ func person_vorn() -> Array:
 	for l in leute_liste():
 		var d := Vector2(l.position.x - held.position.x, l.position.z - held.position.z) / Karte.TS
 		var n := d.length()
+		if n > REICHWEITE:
+			# 416.7 (Chef 31.10.: am Tresen in Schenke und Laden ging der Knopf nicht): wie actionTarget ueber den Tresen, gerade
+			# hinueber; die Reichweite zaehlt bis zur Mitte der Tresenkachel
+			var k := tresen_kachel(held.kachel, l.kachel)
+			if k.x < 0: continue
+			var kp := karte.kachel_pos(k)
+			d = Vector2(kp.x - held.position.x, kp.z - held.position.z) / Karte.TS
+			n = d.length()
 		if n > REICHWEITE or not spricht_was(l): continue
 		var f := n < 0.01 or d.normalized().dot(vorn) >= 0.5
 		var w := n + (0.0 if f else 10.0)
@@ -417,6 +550,12 @@ func person_vorn() -> Array:
 	return [best, best_f]
 
 func person_nah() -> Leute: return person_vorn()[0]
+
+# 416.7: die Tresenkachel zwischen a und b, wenn b gerade zwei Kacheln hinter einem Tresen (Tile.COUNTER) liegt; sonst (-1, -1)
+func tresen_kachel(a: Vector2i, b: Vector2i) -> Vector2i:
+	for o in NACHBARN:
+		if b - a == o * 2 and karte.zeichen(a + o) == "K": return a + o
+	return Vector2i(-1, -1)
 
 # angetippt: wessen Bild (Fuesse bis Kopf, 0–1,8 m) dem Finger am naechsten ist (Pruefer: ein Tippen auf den Kopf traf den
 # Boden 1–1,5 m hinter der Figur)
@@ -435,8 +574,14 @@ func person_bei(sp: Vector2) -> Leute:
 
 func sprich(l: Leute) -> void:
 	held.rotation.y = atan2(l.position.x - held.position.x, l.position.z - held.position.z)
+	l.wende_zu()   # 416.8
 	ui.biete_an("")
-	spiele(Geschichte.gespraech(String(l.daten["id"]), zustand))
+	zustand.setze("met_" + String(l.daten["id"]))   # 399.1 Karte: wen der Held kennt (MapMarks.met, Game.talk)
+	Ruf.gehoert(zustand, String(l.daten["id"]), false)   # 399.1 Hail.heard vor dem Gespraech
+	spricht_mit = String(l.daten["id"])
+	rufe.erase(spricht_mit)
+	var abgabe := Auftraege.abgabe(zustand, String(l.daten["id"]))   # 399.1 Game.talk: Jobs.handIn vor dem Gespraech
+	spiele(abgabe if not abgabe.is_empty() else Geschichte.gespraech(String(l.daten["id"]), zustand))
 
 # wie Game.enqueue: neue Befehle hinten an; laufen nur, wenn gerade kein Text offen ist (Mode.Explore)
 func spiele(befehle: Array) -> void:
@@ -457,6 +602,9 @@ func weiter() -> void:
 				zustand.setze(String(c["flagge"]))
 				flaggen_neu()
 			"geben":
+				if String(c["ding"]).begins_with("@gear:"):   # 399.1 Game.kt Cmd.Give „@gear:RARITY:SLOT“ (Jorins Kopfschutz)
+					zeige({"text": Sprache.u("found", [gear_gabe(String(c["ding"]))])})
+					return
 				zustand.dazu(String(c["ding"]), int(c["anzahl"]))
 				zeige({"text": Sprache.u("found", [Sprache.ding(String(c["ding"]), int(c["anzahl"]))])})
 				return
@@ -477,7 +625,69 @@ func weiter() -> void:
 				# Kampf (Jerry 348.7), Laden, Schenke, Kapitelende, Tempelszene, Morgen: in Kotlin wartet die Szene dort; bis sie
 				# gebaut sind, endet sie hier, damit nichts danach (Flaggen, Saetze) ohne das Ereignis geschieht (Pruefer)
 				szene.clear()
+	if spricht_mit != "" and not ui.spricht():   # Hail.heard nach dem Gespraech
+		Ruf.gehoert(zustand, spricht_mit, true)
+		spricht_mit = ""
 	if held: _steht_auf(held.kachel)
+
+# Loot.generate mit Mindestseltenheit (rarityFor special, floor) und Platz, Stufe wie maxOf(areaLevel, hero.level)
+func gear_gabe(was: String) -> String:
+	var t := was.trim_prefix("@gear:").split(":")
+	var hw := held_werte()
+	var w := KotlinZufall.new(randi())
+	var ilvl := maxi(int(karte.daten.get("stufe", 1)), hw.stufe)
+	var g := Beute.erzeuge(w, zustand.neue_uid(), ilvl, Beute.seltenheit_fuer(hw, w, ilvl, true, t[0]), hw.klasse, t[1] if t.size() > 1 else "")
+	zustand.ausruestung_dazu(g)
+	return "%s (%s)" % [Beute.name(g), Sprache.t(Heldwerte.lade()["seltenheiten"][String(g["rarity"])]["name"])]
+
+# ---------------------------------------------------------------- Anschlagbrett (399.1, BoardScreen.kt): was haengt, mit Aushang
+# und Lohn, je einer „Annehmen“ (angenommen: grau); nichts: verblichene Naegel; „Zurück“ schliesst (Game.advance)
+# 416.3: bildschirmfuellend wie alt (brettschirm.gd)
+func oeffne_brett() -> void:
+	Auftraege.lies(zustand)
+	brett_offen = true
+	held.halt()
+	held.richtung = Vector3.ZERO
+	var ebene := CanvasLayer.new()
+	ebene.layer = 40
+	add_child(ebene)
+	brett_schirm = BrettSchirm.new(zustand)
+	ebene.add_child(brett_schirm)
+	brett_schirm.wahl.connect(_brett_wahl)
+
+func _brett_wahl(id: String) -> void:
+	if not brett_offen: return
+	if id.begins_with("nimm:"):
+		Auftraege.nimm(zustand, Auftraege.von(id.trim_prefix("nimm:")))
+		speichere()
+		brett_schirm.baue()
+		return
+	brett_offen = false
+	brett_schirm.get_parent().queue_free()
+	brett_schirm = null
+	weiter()
+
+# 399.1 Game.updateHails: wer den Helden bemerkt (Reichweite, sichtbar), ruft einmal, wenn er Neues hat; wieder erst, wenn der Held
+# zwei Kacheln weiter weg war; ein neuer Ort zaehlt als neu herankommen
+func rufe_neu() -> void:
+	if karte.id != rufe_karte:
+		rufe.clear(); rufe_karte = karte.id
+	var jetzt := Time.get_ticks_msec()
+	var r := Ruf.reichweite(held_werte())
+	for l in leute_liste():
+		var id := String(l.daten.get("id", ""))
+		var d := absi(l.kachel.x - held.kachel.x) + absi(l.kachel.y - held.kachel.y)
+		if rufe.has(id):
+			if d > r + 2: rufe.erase(id)
+		elif d <= r and id != spricht_mit:
+			rufe[id] = jetzt if Ruf.neu(zustand, id) else -1
+			if int(rufe[id]) >= 0:
+				l.ruft_bis = jetzt + Ruf.WIEDER_MS + Ruf.ZEIGT_MS   # 306 Hail.calms
+				var st := Ruf.stimme(id)                             # 134.3 mit dem Zeichen ein Ruf ohne Worte, nie zwei zugleich
+				if st != "" and jetzt >= naechster_ruf:
+					klang("effekt", [st, Ruf.pegel(d)])
+					naechster_ruf = jetzt + Ruf.RUF_ABSTAND_MS
+		l.rufe(rufe.has(id) and int(rufe[id]) >= 0 and Ruf.zeigt(jetzt - int(rufe[id])) and not ui.spricht())
 
 # ---------------------------------------------------------------- Rast (390, RestScreen.kt, Game.rest)
 # was an Kachel t zu tun ist: Lagerfeuer (in der Hoehle nur ansehen), Bett der Schenke (anderswo fremd), sonst ""
@@ -486,6 +696,113 @@ func rast_kachel(t: Vector2i) -> String:
 		"F": return "hoehle" if String(karte.daten.get("art", "")) == "CAVE" else "feuer"
 		"B": return "zimmer" if karte.id == "inn" else "bett"
 	return ""
+
+# 399.1 Menue wie alt (menue.gd): die Leiste oeffnet es, nur beim Erkunden (alt: game.mode == Mode.Explore); das Spiel steht so lange
+func oeffne_menue() -> void:
+	if ui.spricht() or rast_ort != "" or laden != null or kampf != null or get_tree().paused: return
+	held.halt(); held.richtung = Vector3.ZERO
+	var ebene := CanvasLayer.new()
+	ebene.layer = 40
+	ebene.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(ebene)
+	var m := Menue.new(held_werte(), zustand)
+	m.ort = platz()
+	m.dunkel = im_dunkeln()
+	ebene.add_child(m)
+	m.speichern.connect(speichere)
+	m.ankunft.connect(func():   # 399.1 Chronik „Die Ankunft ansehen“ (69d, vm.watchIntro)
+		m.zu.emit()
+		get_tree().paused = true
+		await zwischenbild("intro")
+		get_tree().paused = false
+		klang("ort", [karte, held]))
+	m.sprache.connect(sprache_wechseln)
+	m.test.connect(func(was: String, mit: Array):   # 399.1 Reiter „Test“: erst das Menue zu, dann in der Welt
+		m.zu.emit()
+		test_tat(was, mit))
+	m.ueber.connect(func():   # 399.1 System „Über“ wie alt: vm.toMenu, dann Screen.ABOUT
+		Hauptmenue.ueber_zuerst = true
+		m.hauptmenue.emit())
+	m.hauptmenue.connect(func():   # 399.1: wie alt vm.toMenu: speichern, dann von vorn mit dem Hauptmenue
+		speichere()
+		get_tree().paused = false
+		get_tree().reload_current_scene())
+	get_tree().paused = true
+	m.zu.connect(func():
+		get_tree().paused = false
+		ebene.queue_free()
+		speichere()
+		ui.richte_ein()      # 399.1 Bedienung aus dem Menue System
+		fackel_neu()
+		kamera.fern_neu()
+		ui.leiste.zeige(held_werte(), zustand, licht.nacht > 0.65))
+
+# 399.1 Reiter „Test“ (Testmodus.gd) wie alt: cheatWarp, cheatChapterEnd, cheatFight, startProbe
+func test_tat(was: String, mit: Array) -> void:
+	match was:
+		"teleport":
+			await abblenden(1.0)
+			var von := karte.id
+			betrete(String(mit[0]), Vector2i(int(mit[1]), int(mit[2])), String(mit[3]))
+			await ortsworte(von, false)
+		"kapitelende":   # Hoehle geschafft, Lyra frei, das Amulett in der Tasche, Abend, vor Aldric in seinem Haus
+			for f in [Geschichte.INTRO_DONE, Geschichte.QUEST_STARTED, Geschichte.BARRIER_OPEN, Geschichte.KROGG_DEFEATED, Geschichte.GRAK_DEFEATED,
+					Geschichte.LYRA_RESCUED, Geschichte.LYRA_GONE]:
+				zustand.setze(f)
+			if zustand.anzahl("sun_amulet") == 0: zustand.dazu("sun_amulet")
+			if zustand.minuten < 18 * 60: zustand.minuten = 20 * 60
+			var ziel := Testmodus.vor_aldric()
+			if ziel.is_empty(): return
+			await abblenden(1.0)
+			var von := karte.id
+			betrete("elder", ziel[0], ziel[1])
+			await ortsworte(von, false)
+			ui.sage([{"text": Sprache.t({"de": "Höhle geschafft, Lyra frei, Amulett in der Tasche: sprich mit Aldric.", "en": "Cave cleared, Lyra free, the amulet in your bag: talk to Aldric."})}])
+		"kampf", "probe":
+			if not ResourceLoader.exists("res://kampf/kampfort.gd"): return
+			await abblenden(1.0)
+			await kampf_im_wald(held.kachel, String(mit[0]), [] if was == "kampf" else [String(mit[1]), int(mit[2])])
+
+# 399.1 Schwarzblende mit Worten wie alt (Ortsblende, 24.1): auf der stehenden Blende Name und Satz, dann steigt der Ort auf;
+# [von] leer beim Spielbeginn, [erster] beim ersten Besuch. Ohne daten/intro.json wie bisher nur die Blende
+func ortsworte(von: String, erster: bool) -> void:
+	if not Zwischenbild.da():
+		await abblenden(0.0)
+		return
+	var a := Ortsblende.art_fuer(von, karte.id, erster)
+	var satz = null
+	if a == "FULL":
+		var z := RandomNumberGenerator.new()
+		z.randomize()
+		satz = Ortsblende.waehle(Ortsblende.saetze(karte.id, zustand, tageszeit() == "nacht"), Ortsblende.letzter.get("satz"), z)
+		if satz != null: Ortsblende.letzter["satz"] = satz
+	var o := Ortsblende.new(a, karte.name(), satz)
+	ui.add_child(o)
+	blende.color.a = 0.0   # das Schwarz traegt jetzt die Ortsblende
+	await o.fertig
+	o.queue_free()
+	Messung.blende(false)
+	klang("verhuelle", [false])   # 319: Effekte und Musik erst, wenn der Ort da ist
+
+# 399.1 Zwischensequenz (Zwischenbild, 69): ueber allem, laeuft auch, wenn das Spiel steht; ohne daten/intro.json gleich vorbei
+func zwischenbild(art: String) -> void:
+	if not Zwischenbild.da(): return
+	var ebene := CanvasLayer.new()
+	ebene.layer = 60
+	ebene.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(ebene)
+	var z := Zwischenbild.new(art, get_node_or_null("/root/Klang"))
+	ebene.add_child(z)
+	await z.fertig
+	ebene.queue_free()
+
+# 399.1 Game.heroInDark: nachts draussen, in der Hoehle immer
+func im_dunkeln() -> bool:
+	var art := String(karte.daten.get("art", ""))
+	return (licht.nacht > 0.5 and art != "INTERIOR") or art == "CAVE"
+
+func fackel_neu() -> void:
+	if held: held.fackel_neu(Menue.fackel(held_werte()), String(karte.daten.get("art", "")) == "INTERIOR")
 
 func held_werte() -> Heldwerte:
 	if werte == null: werte = Heldwerte.erschaffe(zustand.name, "HUMAN", "FIGHTER")
@@ -571,139 +888,22 @@ func raste(art: String) -> void:
 # ---------------------------------------------------------------- Laden (390, ShopScreen.kt): Dinge kaufen (Menge waehlen, 59.5),
 # Verkaeufliches aus der Tasche verkaufen, die letzten fuenf Verkaeufe zurueckkaufen, bei Morwen brauen; Ausruestung bei Thessa
 # kaufen (Tragbares zuerst, 59.2), ueberall verkaufen (Seltenes zuerst), Gewoehnliches auf einmal.
+# 416.3 (Chef 31.10.): bildschirmfuellend wie alt (ladenschirm.gd, ShopScreen.kt); zu: die Szene geht weiter (Game.advance)
 func oeffne_laden(waren: Array, brauen: bool) -> void:
 	laden = Laden.new(waren, brauen)
-	laden_notiz = ""
-	laden_menge = {}
 	held.halt()
 	held.richtung = Vector3.ZERO
-	zeige_laden()
-
-func zeige_laden() -> void:
-	if not laden_menge.is_empty():
-		zeige_menge()
-		return
-	var h := held_werte()
-	var z := zustand
-	var k: Array = [{"kopf": Sprache.t(Laden.VORRAETE)}]
-	for id in laden.waren:
-		var p := Laden.kaufpreis(h, String(id))
-		k.append({"text": "%s · %s" % [Laden.name(String(id)), Sprache.u("price", [p])], "info": Sprache.t(Laden.ding(String(id)).get("info", "")),
-			"an": z.gold >= p, "id": "kauf:" + String(id)})
-	if laden.brauen:
-		k.append({"kopf": Sprache.t(Laden.REZEPTE)})
-		var rz := Laden.rezepte()
-		for i in rz.size():
-			k.append({"text": Laden.name(String(rz[i]["ergebnis"])), "info": Laden.kosten(rz[i]), "an": Laden.bezahlbar(z, rz[i]), "id": "brau:%d" % i})
-	if not laden.brauen:   # Morwen handelt nur mit Kraeutern und Traenken
-		var ware := Laden.ware(z, h)
-		k.append({"kopf": "%s (%d)" % [Sprache.t(Laden.AUSRUESTUNG), ware.size()]})
-		var nicht := ware.filter(func(g): return not h.kann_tragen(g))
-		for g in ware.filter(func(g): return h.kann_tragen(g)): k.append(_ware_zeile(h, g, true))
-		if not nicht.is_empty(): k.append({"kopf": "%s (%d)" % [Sprache.t(Laden.NICHT_TRAGBAR), nicht.size()]})
-		for g in nicht: k.append(_ware_zeile(h, g, true))
-	var verk := z.taschen.keys().filter(func(id): return Laden.verkaeuflich(String(id)))
-	if not verk.is_empty(): k.append({"kopf": Sprache.u("sell")})
-	for id in verk:   # Tippen waehlt die Menge (59.5); in Klammern, wie viele er hat
-		k.append({"text": "%s (%d) · %s" % [Laden.name(String(id)), z.anzahl(String(id)), Sprache.u("price", [Laden.verkaufspreis(h, String(id))])],
-			"id": "verk:" + String(id)})
-	if not z.beutel.is_empty():
-		k.append({"kopf": "%s: %s (%d)" % [Sprache.u("sell"), Sprache.t(Laden.AUSRUESTUNG), z.beutel.size()]})
-		if z.beutel.any(func(g): return String(g["rarity"]) == "COMMON"): k.append({"text": Sprache.t(Laden.GEWOEHNLICHE), "id": "alle"})
-		# Seltenes zuerst, dann nach Platz (ShopScreen: rarity absteigend, slot)
-		var reihe := range(z.beutel.size())
-		reihe.sort_custom(func(a, b):
-			var ga: Dictionary = z.beutel[a]
-			var gb: Dictionary = z.beutel[b]
-			var ra := Beute.stufe_von(String(ga["rarity"]))
-			var rb := Beute.stufe_von(String(gb["rarity"]))
-			if ra != rb: return ra > rb
-			var sa := Beute.PLAETZE.find(String(Beute.grundform(String(ga["base"]))["slot"]))
-			var sb := Beute.PLAETZE.find(String(Beute.grundform(String(gb["base"]))["slot"]))
-			return sa < sb if sa != sb else a < b)
-		for i in reihe: k.append(_ware_zeile(h, z.beutel[i], false, i))
-	if not laden.rueckkauf.is_empty(): k.append({"kopf": Sprache.t(Laden.ZURUECK)})
-	for i in laden.rueckkauf.size():
-		var r: Dictionary = laden.rueckkauf[i]
-		k.append({"text": "%s · %s" % [Laden.verkauft_name(r), Sprache.u("price", [int(r["preis"])])],
-			"an": z.gold >= int(r["preis"]), "id": "zur:%d" % i})
-	var kopf := Sprache.t(Laden.HUETTE) if laden.brauen else Sprache.u("shop")
-	var zeilen_: Array = ["%s: %d" % [Sprache.u("gold"), z.gold]]
-	if laden.brauen: zeilen_.append(Sprache.t(Laden.KRAEUTER))
-	if not laden.brauen: zeilen_.append(Sprache.t(Laden.NEUE_WARE))
-	ui.zeige_wahl(kopf, zeilen_, k, Sprache.u("close"), laden_notiz)
-
-# 59.5, 349 (supplyDialog): ein Ding kaufen oder verkaufen, eins weniger, eins mehr, ×1, ×5, beim Verkauf auch alle; der Preis folgt
-func zeige_menge() -> void:
-	var h := held_werte()
-	var z := zustand
-	var id := String(laden_menge["id"])
-	var kaufen := bool(laden_menge["kaufen"])
-	var stueck := Laden.kaufpreis(h, id) if kaufen else Laden.verkaufspreis(h, id)
-	var most := Laden.kann_kaufen(z, h, id) if kaufen else z.anzahl(id)
-	var n := clampi(int(laden_menge["n"]), 1, maxi(1, most))
-	laden_menge["n"] = n
-	var preis := stueck * n
-	var zeilen_: Array = [Sprache.t(Laden.ding(id).get("info", "")), "%s: %d" % [Sprache.t(Laden.MENGE), n],
-		Sprache.t(Laden.BESITZ) + "%d → %d" % [z.anzahl(id), z.anzahl(id) + (n if kaufen else -n)],
-		"%s: %d → %d" % [Sprache.u("gold"), z.gold, z.gold - preis if kaufen else z.gold + preis]]
-	if most < 1: zeilen_.append(Sprache.u("notEnoughGold") if kaufen else Sprache.u("nothing"))
-	var k: Array = [{"text": "−", "an": n > 1, "id": "m:-"}, {"text": "+", "an": n < most, "id": "m:+"},
-		{"text": "×1", "an": most >= 1, "id": "m:1"}, {"text": "×5", "an": most >= 5, "id": "m:5"}]
-	if not kaufen: k.append({"text": Sprache.t(Laden.ALLE), "an": most >= 1, "id": "m:alle"})
-	k.append({"text": "%s%s · %s" % [Sprache.u("buy") if kaufen else Sprache.u("sell"), " ×%d" % n if n > 1 else "", Sprache.u("price", [preis])],
-		"an": most >= 1, "id": "m:ok"})
-	ui.zeige_wahl(Laden.name(id), zeilen_, k, Sprache.u("back"), laden_notiz)
-
-func _menge_wahl(was: String) -> void:
-	var h := held_werte()
-	var id := String(laden_menge["id"])
-	var kaufen := bool(laden_menge["kaufen"])
-	var most := Laden.kann_kaufen(zustand, h, id) if kaufen else zustand.anzahl(id)
-	match was:
-		"-": laden_menge["n"] = int(laden_menge["n"]) - 1
-		"+": laden_menge["n"] = int(laden_menge["n"]) + 1
-		"1", "5": laden_menge["n"] = int(was)
-		"alle": laden_menge["n"] = most
-		"ok":
-			var n := clampi(int(laden_menge["n"]), 1, maxi(1, most))
-			laden_notiz = laden.kaufe(zustand, h, id, n) if kaufen else laden.verkaufe(zustand, h, id, n)
-			laden_menge = {}
-
-# ein Stueck Ausruestung: Name · Preis, darunter Seltenheit und Gear.listLine; [i] Platz in der Tasche beim Verkauf
-func _ware_zeile(h: Heldwerte, g: Dictionary, kaufen: bool, i: int = -1) -> Dictionary:
-	var p := Laden.kaufpreis_von(h, g) if kaufen else Laden.verkaufspreis_von(h, g)
-	var selten := Sprache.t(Beute.d_()["seltenheiten"][String(g["rarity"])]["name"])
-	var zeile := Beute.listen_zeile(g)
-	return {"text": "%s · %s" % [Beute.name(g), Sprache.u("price", [p])], "info": selten.left(1).to_upper() + selten.substr(1) + (" · " + zeile if zeile != "" else ""),
-		"an": zustand.gold >= p if kaufen else true, "id": ("ag:%d" % int(g["uid"])) if kaufen else ("vg:%d" % i)}
-
-func _laden_wahl(id: String) -> void:
-	if laden == null: return
-	var h := held_werte()
-	if id == "" and not laden_menge.is_empty():   # „Zurück“ aus der Menge in die Liste
-		laden_menge = {}
-		zeige_laden()
-		return
-	if id == "":
+	var ebene := CanvasLayer.new()
+	ebene.layer = 40
+	add_child(ebene)
+	laden_schirm = LadenSchirm.new(held_werte(), zustand, laden)
+	ebene.add_child(laden_schirm)
+	laden_schirm.zu.connect(func():
+		ebene.queue_free()
 		laden = null
-		ui.schliesse_wahl()
+		laden_schirm = null
 		weiter()
-		_steht_auf(held.kachel)
-		return
-	var teil := id.split(":")
-	match teil[0]:
-		"kauf": laden_menge = {"id": teil[1], "kaufen": true, "n": 1}
-		"verk": laden_menge = {"id": teil[1], "kaufen": false, "n": 1}
-		"m": _menge_wahl(teil[1])
-		"zur": laden_notiz = laden.zurueck(zustand, int(teil[1]))
-		"ag":
-			for g in Laden.ware(zustand, h):
-				if int(g["uid"]) == int(teil[1]): laden_notiz = laden.kaufe_ausruestung(zustand, h, g); break
-		"vg": laden_notiz = laden.verkaufe_ausruestung(zustand, h, int(teil[1]))
-		"alle": laden_notiz = Sprache.t(Laden.GEWOEHNLICHE_WEG) % laden.verkaufe_gewoehnliches(zustand, h)
-		"brau": laden_notiz = laden.braue(zustand, h, Laden.rezepte()[int(teil[1])])
-	zeige_laden()
+		_steht_auf(held.kachel))
 
 func zeige_zeilen(z: Array) -> void:
 	held.halt()
@@ -729,6 +929,11 @@ func sichtbar_neu() -> void:
 # ---------------------------------------------------------------- Lauf
 func _process(dt: float) -> void:
 	if held == null: return
+	Messung.bild(dt, "%s %d/%d" % [karte.id, held.kachel.x, held.kachel.y])   # 399.1 Gerät: Messwerte wie alt
+	held.laeuft = Ausdauer.schritt(zustand, held_werte(), dt * 1000.0, held.geht(), laufen_will)   # 399.1 Stamina.step
+	ui.ausdauer_balken.z = zustand
+	klang("atme", [zustand.atemlos and kampf == null, zustand.ausdauer])   # 399.3 (Jerry): atemlos keucht er (Panting.kt)
+	rufe_neu()
 	Leute.still = ui.spricht()   # 390: wer spricht, bleibt stehen (Mode.Dialog)
 	if is_instance_valid(ziel_person) and not ui.spricht():
 		var nah := person_nah()
@@ -750,11 +955,16 @@ func _process(dt: float) -> void:
 			if karte.tuer(s) or zeichen_lesbar(s) or rast_kachel(s) != "": ui.biete_an.callv(angebot(held.kachel))
 			else: _stoesst(s)
 	if rast_ort == "" and laden == null: zustand.uhr(dt)   # 390: in Rast und Laden steht die Uhr; die Rast stellt sie selbst weiter
+	leiste_uhr -= dt
+	if leiste_uhr <= 0.0:   # 399.1 Leiste: viermal je Sekunde reicht fuer Uhr und Werte
+		leiste_uhr = 0.25
+		ui.leiste.zeige(held_werte(), zustand, licht.nacht > 0.65)
 	kamera.folge(minf(1.0, dt * 5.0))
 	ui.windrose.richte(kamera.nord_winkel())
 	gebiet.nah(kamera.nah, held.position)
 	zeiten.append(dt)
 	if zeiten.size() > 240: zeiten.pop_front()
+	if Testmodus.standort: ui.standort = "%s %d/%d" % [karte.id, held.kachel.x, held.kachel.y]
 	ui.messe(zeiten)
 
 # ---------------------------------------------------------------- Standbilder am Rechner (Vergleich alt/neu)
@@ -763,9 +973,11 @@ func bilder() -> void:
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--bilder="): dir = a.substr(9)
 	if dir == "": return
+	held.fackel_neu(true, false)   # 399.1: Probe wie bisher mit Fackel (im Spiel nur in der Nebenhand)
 	DirAccess.make_dir_recursive_absolute(dir)
 	ui.mess.visible = false
 	ui.oben.visible = false   # 348.6 (Befund 7): Probeknoepfe standen vor der Turmspitze
+	ui.leiste.visible = false   # 399.1: Vergleichsbilder ohne Leiste
 	await get_tree().create_timer(1.0).timeout
 	await knips(dir + "/tag.png")
 	held.geh_zu(held.position + Vector3(3.0, 0, -2.0))
@@ -845,6 +1057,7 @@ func gang_film() -> void:
 	DirAccess.make_dir_recursive_absolute(dir)
 	ui.mess.visible = false
 	ui.oben.visible = false
+	ui.leiste.visible = false   # 399.1: Vergleichsbilder ohne Leiste
 	held.setze(Vector2i(25, 9), "DOWN")
 	for l in leute.get_children():   # nur die Leute
 		if l.daten.has("tier"): l.free()
@@ -880,6 +1093,7 @@ func leute_blatt() -> void:
 	DirAccess.make_dir_recursive_absolute(dir)
 	ui.mess.visible = false
 	ui.oben.visible = false
+	ui.leiste.visible = false   # 399.1: Vergleichsbilder ohne Leiste
 	for l in leute.get_children(): l.free()
 	var ids: Array = []
 	for f in DirAccess.get_files_at("res://daten/leute"):
@@ -921,7 +1135,7 @@ func leute_blatt() -> void:
 		kamera.nah_fern()
 		kamera.springe()
 		for l in leute.get_children(): l.rotation.y += PI
-		await get_tree().create_timer(0.5).timeout
+		await (Engine.get_main_loop() as SceneTree).create_timer(0.5).timeout
 	# Leute Runde 4 (Helfer: Bein durch den Rock im Gang): alle gehen auf der Stelle, seitlich zur Kamera, vier Bilder nah
 	for l in leute.get_children():
 		l.rotation.y = atan2(zu.x, zu.z) + PI / 2
@@ -956,9 +1170,11 @@ func held_film() -> void:
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--held="): dir = a.substr(7)
 	if dir == "": return
+	held.fackel_neu(true, false)   # 399.1: Probe wie bisher mit Fackel (im Spiel nur in der Nebenhand)
 	DirAccess.make_dir_recursive_absolute(dir)
 	ui.mess.visible = false
 	ui.oben.visible = false
+	ui.leiste.visible = false   # 399.1: Vergleichsbilder ohne Leiste
 	for l in leute.get_children(): l.free()
 	held.leute = []
 	held.setze(Vector2i(18, 18), "UP")              # Brunnen 16/16 (348.6, vorher 17/14) und Staende 14-15/12, 20-21/12
@@ -982,14 +1198,14 @@ func held_film() -> void:
 			await get_tree().create_timer(2.5).timeout
 		var tag := "nacht" if nacht else "tag"
 		held.setze(Vector2i(6, 8), "RIGHT")            # Strasse im Norden: frei, nichts wird durchsichtig
-		held.laeuft = false
+		laufen_will = false
 		kamera.springe()
 		await get_tree().create_timer(1.0).timeout
 		await knips(dir + "/%s_stehen.png" % tag)
 		held.richtung = Vector3(1, 0, 0)
 		await get_tree().create_timer(1.0).timeout
 		await knips(dir + "/%s_gehen.png" % tag)
-		held.laeuft = true
+		laufen_will = true
 		for f in (20 if not nacht else 0):
 			await knips(dir + "/wechsel_%02d.png" % f)
 			await get_tree().create_timer(1.0 / 15.0).timeout
@@ -998,7 +1214,7 @@ func held_film() -> void:
 		held.richtung = Vector3.ZERO
 	kamera.nah_fern()                               # nah, nachts: Fackel im Stehen, dann Rennen (ein Doppelschritt)
 	held.setze(Vector2i(6, 8), "RIGHT")
-	held.laeuft = false
+	laufen_will = false
 	kamera.springe()
 	await get_tree().create_timer(1.0).timeout
 	await knips(dir + "/nacht_nah_stehen.png")
@@ -1008,7 +1224,7 @@ func held_film() -> void:
 			await get_tree().create_timer(2.5).timeout
 		held.setze(Vector2i(6, 8), "RIGHT")
 		held.richtung = Vector3(1, 0, 0)
-		held.laeuft = true
+		laufen_will = true
 		await get_tree().create_timer(1.5).timeout
 		for f in 10:
 			await knips(dir + "/rennen_nah_%s_%02d.png" % ["nacht" if nacht else "tag", f])
@@ -1026,6 +1242,7 @@ func tusche_blatt() -> void:
 	DirAccess.make_dir_recursive_absolute(dir)
 	ui.mess.visible = false
 	ui.oben.visible = false
+	ui.leiste.visible = false   # 399.1: Vergleichsbilder ohne Leiste
 	if "--ohneheld" in OS.get_cmdline_user_args(): held.visible = false   # Maske des Helden: Bild mit minus ohne
 	for st in [[Licht.Stand.MORGEN, "morgen"], [Licht.Stand.MITTAG, "mittag"], [Licht.Stand.ABEND, "abend"]]:
 		licht.setze_stand(st[0])
@@ -1049,6 +1266,7 @@ func probe_blatt() -> void:
 	DirAccess.make_dir_recursive_absolute(dir)
 	ui.mess.visible = false
 	ui.oben.visible = false
+	ui.leiste.visible = false   # 399.1: Vergleichsbilder ohne Leiste
 	held.setze(Vector2i(7, 16), "UP")
 	for st in [[Licht.Stand.MITTAG, "mittag"], [Licht.Stand.ABEND, "abend"]]:
 		licht.setze_stand(st[0])
@@ -1093,6 +1311,7 @@ func haeuser_blatt() -> void:
 	DirAccess.make_dir_recursive_absolute(dir)
 	ui.mess.visible = false
 	ui.oben.visible = false
+	ui.leiste.visible = false   # 399.1: Vergleichsbilder ohne Leiste
 	for hs in arg.get_slice(":", 1).split(";"):
 		var f := hs.split(",")
 		var n := f[0]
@@ -1145,6 +1364,7 @@ func dorftiere_blatt() -> void:
 	if dir != "": DirAccess.make_dir_recursive_absolute(dir)
 	ui.mess.visible = false
 	ui.oben.visible = false
+	ui.leiste.visible = false   # 399.1: Vergleichsbilder ohne Leiste
 	for l in leute.get_children():
 		if l.daten.has("tier"):
 			print("DORFTIERE %s %s %s Fell %s Gang %.2f m/s Leib %.2f m Bewegungen %s" % [l.daten["id"], l.kachel, l.daten["tier"], l.daten["fell"], l.gang, l.leib, l.anim.get_animation_list() if l.anim else []])
@@ -1174,9 +1394,11 @@ func tusche_nacht() -> void:
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--tuschenacht="): dir = a.substr(14)
 	if dir == "": return
+	held.fackel_neu(true, false)   # 399.1: Probe wie bisher mit Fackel (im Spiel nur in der Nebenhand)
 	DirAccess.make_dir_recursive_absolute(dir)
 	ui.mess.visible = false
 	ui.oben.visible = false
+	ui.leiste.visible = false   # 399.1: Vergleichsbilder ohne Leiste
 	licht.umschalten()
 	await get_tree().create_timer(2.5).timeout
 	var vp := get_viewport().get_viewport_rid()
@@ -1212,6 +1434,72 @@ func knips(p: String) -> void:
 	if leute: print("LEUTE ", leute.get_children().map(func(l): return "%s %s %s" % [l.daten["id"], l.kachel, l.anim.current_animation if l.anim else "-"]))
 	print("BILD ", p, " Held ", held.kachel, " ", held.position, " Kamera ", kamera.position, " Text ", ui.textfeld.visible, " '", ui.text.text, "' Knopf ", ui.aktion_knopf.visible, " ", ui.aktion_knopf.zeichen, " '", ui.ort_schild.text, "' durchsichtig ", gebiet.gruppen.keys().filter(func(k): return gebiet.gruppen[k]["a"] < 1.0))
 
+# 399.5 Grundrisse am Rechner: --raeume=<ordner> knipst je Grundriss aus der Grundansicht wie die alten Vergleichsbilder (Held wie
+# HELDORT inn:4:6, sonst 4:4, Blick nach oben) Tag und Nacht, dazu um 180 Grad gedreht (die Waende vor dem Raum werden zur Bruestung)
+func raeume_bilder() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--raeume="): dir = a.substr(9)
+	if dir == "": return
+	var stufen: PackedStringArray = []
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--nachtstufen="): stufen = a.substr(14).split(",")
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	ui.leiste.visible = false
+	for r in [["inn", Vector2i(4, 6)], ["shop", Vector2i(4, 4)], ["elder", Vector2i(4, 4)], ["temple", Vector2i(4, 4)]]:
+		licht.ziel = 0.0
+		licht.stelle(0.0)
+		betrete(r[0], r[1], "UP")
+		await get_tree().create_timer(1.5).timeout
+		ui.sage([])
+		ui.textfeld.visible = false   # Gruss beim Eintreten und Tipps: nicht ueber dem Raum
+		ui.textfeld.visible = false   # Lauf 1: der Gruss kam nach dem Ausblenden wieder (Textkasten unten im Bild)
+		await knips(dir + "/%s_tag.png" % r[0])
+		if "--kerzenprobe" in OS.get_cmdline_user_args(): await kerzen_probe(dir, r[0] + "_tag")
+		licht.ziel = 1.0
+		licht.stelle(1.0)
+		await get_tree().create_timer(1.0).timeout
+		ui.textfeld.visible = false
+		await knips(dir + "/%s_nacht.png" % r[0])
+		if "--kerzenprobe" in OS.get_cmdline_user_args(): await kerzen_probe(dir, r[0] + "_nacht")
+		for v in stufen:   # Probe: Umgebung nachts in Stufen „Umgebung[:Kontrast[:Mondfaktor]]“, ein Lauf fuer mehrere Messungen
+			var t := String(v).split(":")
+			licht.env.ambient_light_energy = float(t[0])
+			if t.size() > 1: licht.env.adjustment_contrast = float(t[1])
+			if t.size() > 2 and gebiet.raumlicht:
+				for f in gebiet.raumlicht.fenster: (f[0] as SpotLight3D).light_energy = f[1] * float(t[2])
+			await get_tree().create_timer(0.3).timeout
+			await knips(dir + "/%s_nacht_%s.png" % [r[0], v])
+		licht.stelle(1.0)
+		licht.ziel = 0.0
+		licht.stelle(0.0)
+		kamera.drehe(180.0)
+		await get_tree().create_timer(2.5).timeout
+		ui.textfeld.visible = false
+		await knips(dir + "/%s_gedreht.png" % r[0])
+		kamera.nach_norden()
+		await get_tree().create_timer(2.5).timeout
+	get_tree().quit()
+
+# 399.5 Lichtinseln (Pruefer Lauf 6: keine um die Tischkerzen): dasselbe Bild ohne Kerzenlicht und die Kerzen am Schirm, damit
+# raeume_blatt.py den Anteil der Kerzen am Boden misst (ohne Ansehen)
+func kerzen_probe(dir: String, name: String) -> void:
+	var aus: Array = []
+	for f in gebiet.raumlicht.feuer:
+		var o: OmniLight3D = f[0]
+		if o.get_meta("art", "") == "kerze" and o.visible:
+			var q := kamera.get_viewport().get_camera_3d().unproject_position(o.global_position)
+			var b := kamera.get_viewport().get_camera_3d().unproject_position(o.global_position - Vector3(0, o.global_position.y, 0))
+			print("KERZE %s %d %d %d %d %.2f %.2f" % [name, q.x, q.y, b.x, b.y, o.omni_range, o.global_position.y])
+			o.visible = false
+			aus.append(o)
+	await get_tree().create_timer(0.3).timeout
+	await knips(dir + "/%s_ohnekerzen.png" % name)
+	for o in aus: (o as OmniLight3D).visible = true
+	await get_tree().create_timer(0.3).timeout
+
 # 390 (Rast) am Rechner: --rastprobe oeffnet das Feuer und die Theke, waehlt und schreibt den Stand je Schritt (ohne Bild);
 # Ende mit quit. Gegenprobe der Regeln: tests/rast_test.gd
 func rast_probe() -> void:
@@ -1220,9 +1508,9 @@ func rast_probe() -> void:
 	var h := held_werte()
 	var log := func(was: String) -> void:
 		var knoepfe := ui.wahl_box.get_children().filter(func(c): return c is Button).map(func(b): return "%s%s" % [b.text, "" if not b.disabled else " (aus)"])
-		print("RASTPROBE %s | Feld %s %s | Text %s '%s' | Tag %d %02d:%02d | TP %d/%d | Gold %d | Met %d | Nacht %s | Laden '%s' %s" % [was, ui.waehlt(), knoepfe,
+		print("RASTPROBE %s | Feld %s %s | Text %s '%s' | Tag %d %02d:%02d | TP %d/%d | Gold %d | Met %d | Nacht %s | %s" % [was, ui.waehlt(), knoepfe,
 			ui.spricht(), ui.text.text, zustand.tag, zustand.minuten / 60, zustand.minuten % 60, h.tp, h.max_tp(), zustand.gold, zustand.met, licht.ziel > 0.5,
-			laden_notiz, zustand.taschen])
+			zustand.taschen])
 	h.tp = 1
 	zustand.minuten = 20 * 60
 	oeffne_rast("feuer")
@@ -1252,32 +1540,5 @@ func rast_probe() -> void:
 	ui.gewaehlt.emit("")
 	log.call("Theke zu")
 	ui.naechste()
-	zustand.gold = 60
-	zustand.dazu("herbs", 3)
-	spiele([{"art": "laden", "waren": ["potion", "remedy"], "brauen": true}, {"art": "sagen", "text": {"de": "Nach dem Laden.", "en": "After the shop."}}])
-	log.call("Laden")
-	ui.gewaehlt.emit("kauf:potion")
-	log.call("Menge Heiltrank")
-	ui.gewaehlt.emit("m:+")
-	ui.gewaehlt.emit("m:ok")
-	log.call("zwei Heiltraenke gekauft")
-	ui.gewaehlt.emit("verk:herbs")
-	ui.gewaehlt.emit("m:ok")
-	log.call("Kraut verkauft")
-	ui.gewaehlt.emit("zur:0")
-	log.call("zurueck")
-	ui.gewaehlt.emit("brau:0")
-	log.call("gebraut")
-	ui.gewaehlt.emit("")
-	log.call("Laden zu")
-	ui.naechste()
-	zustand.gold = 200
-	spiele([{"art": "laden", "waren": ["potion"]}])
-	log.call("Thessa")
-	ui.gewaehlt.emit("ag:-1")
-	log.call("Ausruestung gekauft")
-	ui.gewaehlt.emit("vg:0")
-	log.call("Ausruestung verkauft")
-	ui.gewaehlt.emit("")
-	log.call("Thessa zu")
+	# Laden: tests/laden_test.gd (Regeln) und tests/bedienung_test.gd (ladenschirm.gd, 416.3)
 	get_tree().quit()

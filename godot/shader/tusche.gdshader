@@ -24,6 +24,7 @@ uniform vec4 lampen[8];
 uniform float lampen_kraft[8];
 uniform int lampen_n = 0;
 uniform float nacht = 0.0;
+uniform float relativ = 0.0;      // 399.5 Grundriss (Pruefer Lauf 8: nachts helle Linien auf dunklen Flaechen): hoechstens halb so hell wie darunter
 void vertex() { POSITION = vec4(VERTEX.xy, 1.0, 1.0); }
 // Lage des Bildpunkts in der Welt (fuer die Richtung zu Laterne, Fenster, Fackel)
 vec3 welt(vec2 uv, mat4 ip, mat4 iv) {
@@ -100,6 +101,6 @@ void fragment() {
 	float lap = abs(zl + zr + zd + zu - 4.0 * z);
 	float hinten = smoothstep(hinten_ab, hinten_ab * 1.6, z - min(min(zl, zr), min(zd, zu))) * innen * step(0.5, richtung);   // hinter der Kante: Boden
 	float edge = smoothstep(knick, knick * 2.5, lap);
-	ALBEDO = ink;
+	ALBEDO = mix(ink, min(ink, texture(screen_tex, SCREEN_UV).rgb * 0.5), relativ);
 	ALPHA = edge * a_licht * (1.0 - hinten);
 }

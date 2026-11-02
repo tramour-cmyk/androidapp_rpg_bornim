@@ -8,6 +8,7 @@ var sonne: DirectionalLight3D
 var env: Environment
 var nacht := 0.0
 var ziel := 0.0
+var herd := true                       # 399.5 Grundriss mit Kamin (alt hasHearth)
 var innen := false                     # 399.1 Grundriss: Licht aus Kamin, Kerzen, Fenstern; die Sonne nur als schwacher Rest von oben
 
 # 348.6 Runde 11 (Chef 25.10., 12:12: Sonnenstand und Schatten falsch, neu kurz nach rechts statt alt lang nach links unten):
@@ -24,6 +25,11 @@ const NACHT_UMGEBUNG := 0.75
 const NACHT_KONTRAST := 0.96   # unter 1 hebt das Schwarz an
 const TIEF_UMGEBUNG := 1.1     # Morgen, Abend: Fronten im Schatten, Himmel traegt mehr
 const DAEMMERUNG_UMGEBUNG := 0.18
+const INNEN_TAG := 0.34        # 399.5 Grundriss: Umgebung am Tag und nachts
+const INNEN_NACHT_KONTRAST := 0.93   # Lauf 5 (Nacht in % des Tags, alt 44–64): Kontrast 0,87 → 78–84, 0,96 mit Umgebung 0,16 → 40–56
+const INNEN_TAG_OHNE_HERD := 0.75   # wie alt MapLight ambient: ohne Feuer am Tag doppelt so hell (Tempel Lauf 2: Mittel 34, alt 51; Lauf 8 bei 0,55: 41,5)
+const INNEN_NACHT_OHNE_HERD := 0.46   # Pruefer Lauf 7 (Tempel nachts: Baenke 19-26, alt 25-48; ohne Feuer kein Licht in der Raummitte); Lauf 8 bei 0,34: Mittel 27,3, alt 33
+const INNEN_NACHT := 0.24      # Lauf 4 misst neu (Stimmung innen jetzt wie alt). Lauf 1: nachts 37–48 % des Tags (alt 44–64 %), Waende fast schwarz; Lauf 3 Stufen 0,34/0,45/0,6: 44/47/50 %
 const ALT := [[Vector2(-1.0, -0.2), 1.2], [Vector2(0.15, 1.0), 0.35], [Vector2(1.0, -0.2), 1.2]]
 const NATUR := [[Vector2(-1.0, -0.3), 1.2], [Vector2(0.35, -1.0), 0.6], [Vector2(1.0, -0.3), 1.2]]
 static var bahn := NATUR   # Chef 25.10., 12:25 (3486-sonne): wie in der Natur
@@ -117,10 +123,22 @@ func stelle(k: float) -> void:
 	env.adjustment_saturation = lerpf(TAG_SAETTIGUNG, 0.45, k) + 0.1 * daemmerung   # nachts blasser und blau wie alt
 	env.background_color = Color(0.36, 0.42, 0.34).lerp(Color(0.03, 0.04, 0.08), k)
 	if innen:
-		sonne.light_energy *= 0.3
-		env.ambient_light_energy *= 0.7
+		# 399.5 wie alt (MapLight ambient INTERIOR, mit Herd 0,13 nachts bis 0,31 am Tag): kein Himmel ueber dem Raum, nur ein
+		# warmer Rest; hell wird es durch Kamin, Kerzen und das Tageslicht der Fenster (raumlicht.gd)
+		sonne.light_energy = 0.0
+		env.ambient_light_color = Color(0.62, 0.56, 0.5).lerp(Color(0.4, 0.42, 0.55), k)
+		env.ambient_light_energy = lerpf(INNEN_TAG if herd else INNEN_TAG_OHNE_HERD, INNEN_NACHT if herd else INNEN_NACHT_OHNE_HERD, k)
 		env.background_color = Color(0.0, 0.0, 0.0)
-	toene(1.0 - k)
+		# alt MapGrade.of INTERIOR: die Stimmung im Raum haengt nicht an der Uhr (mit Herd warm FFE8C8 0,45, ohne F0EAE0 0,35, Rand
+		# 0,2); Saettigung bleibt wie am Tag, der Kontrast steigt nachts nur bis INNEN_NACHT_KONTRAST. Lauf 3: die Nacht von draussen (blau, Rand 0,32, Saettigung 0,45)
+		# drueckte den Raum auf 50 % des Tags, mehr Grundlicht half kaum
+		env.adjustment_contrast = lerpf(TAG_KONTRAST, INNEN_NACHT_KONTRAST, k)
+		env.adjustment_saturation = TAG_SAETTIGUNG
+		var f := Color8(0xFF, 0xE8, 0xC8) if herd else Color8(0xF0, 0xEA, 0xE0)
+		stimmung.set_shader_parameter("toenung", Vector3(f.r, f.g, f.b))
+		stimmung.set_shader_parameter("anteil", 0.45 if herd else 0.35)
+		stimmung.set_shader_parameter("rand", 0.2)
+	else: toene(1.0 - k)
 	nacht_geaendert.emit(k)
 
 # MapGrade.of fuer das Dorf (daylight 1 Tag, 0,5 Daemmerung, 0 Nacht); Wald und Hoehle beim Bau je Ort

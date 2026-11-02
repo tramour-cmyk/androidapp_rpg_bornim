@@ -21,11 +21,19 @@ uniform float glanz_eisen = 0.45;   // Helm (Helfer blind 3 von 3: 0,45 vor 0,9 
 uniform float glanz_kette = 0.5;
 uniform float kette_lampe = 1.0;   // 348.6 Kette nachts (held.gd): Metall unter Lampe und Fackel, Anteil Streulicht
 uniform float kette_umgebung = 1.0;   // dazu Anteil der Umgebung an der Kette (nachts 0,7)
+uniform float rueckseite = 0.0;    // 376.1 Halszacken (Helfer 22:3x: Innenseite des Kettenkragens): 1 Rueckseiten magenta (Messen), 2 Rueckseiten im Schatten ohne fill
+uniform float kette_aus = 0.0;     // nur zum Messen (376.1 Halszacken): Kette (Eckfarbe alpha 0,25-0,7) so viele Meter laengs der Normale hinaus
+uniform vec3 toenung = vec3(1.0);   // 376.1 Held: Haut und Haar getoent (heldfigur.gd): Zielton linear
+uniform float toen_hell = 0.0;     // > 0: Helligkeit des Bildes am Zielton (Bildhelligkeit / toen_hell), sonst Faktor toenung
+uniform vec3 toen_bild = vec3(1.0); // 376.1 Haut (Chef 28.10., 23:0x „klinisch tot“): Bildfarbe am Zielton (linear); toen_farbe davon
+uniform float toen_farbe = 0.0;    // Anteil der eigenen Farbschwankung des Bildes (Wangen, Lippen roeter) um den Zielton
 uniform float teil = 0.0;          // nur zum Messen (held.gd --teilfarbe): Eisen gruen, Kette rot, Haut (rig.py TEILMASKE) blau, Rest schwarz
 varying vec3 wpos;
 varying float v_eisen;
 varying float v_kette;
+varying float v_hinten;
 void vertex() {
+	if (kette_aus > 0.0 && COLOR.a >= 0.25 && COLOR.a < 0.7) VERTEX += NORMAL * kette_aus;
 	wpos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
 	if (sway > 0.0) {
 		float h = clamp((wpos.y - 1.6) / 2.5, 0.0, 1.0);
@@ -60,6 +68,12 @@ void fragment() {
 	if (loch > 0.5 && !IN_SHADOW_PASS) discard;
 #endif
 	ALBEDO = texture(tex, UV).rgb * COLOR.rgb;
+	if (toen_hell > 0.0) {   // 376.1: Zeichnung des Bildes, Farbe des Tons, dazu ein Teil der Farbschwankung des Bildes (toen_farbe)
+		float hl = dot(ALBEDO, vec3(0.2126, 0.7152, 0.0722));
+		vec3 rel = (ALBEDO / max(hl, 0.001)) / max(toen_bild / toen_hell, vec3(0.001));
+		ALBEDO = toenung * hl / toen_hell * mix(vec3(1.0), rel, toen_farbe);
+	}
+	else ALBEDO *= toenung;
 	if (kontur > 0.0) {
 		float rim = 1.0 - abs(dot(NORMAL, VIEW));
 		float sch = 1.0 - smoothstep(-0.2, 0.35, dot(normalize((INV_VIEW_MATRIX * vec4(NORMAL, 0.0)).xyz), licht_dir));
@@ -73,6 +87,11 @@ void fragment() {
 	SPECULAR = 0.0;      // kein Glanz aus der Umgebung (sonst Plastik)
 	METALLIC = 0.0;
 	EMISSION = glow_col * glow;
+	v_hinten = (rueckseite > 1.5 && !FRONT_FACING) ? 1.0 : 0.0;
+	if (rueckseite > 0.5 && rueckseite < 1.5 && !FRONT_FACING) {
+		ALBEDO = vec3(0.0);
+		EMISSION = vec3(1.0, 0.0, 1.0);
+	}
 	if (teil > 0.5) {
 		ALBEDO = vec3(0.0);
 		EMISSION = COLOR.a < 0.25 ? vec3(0.0, 1.0, 0.0) : (COLOR.a < 0.7 ? vec3(1.0, 0.0, 0.0) : (COLOR.a < 0.95 ? vec3(0.0, 0.0, 1.0) : vec3(0.0)));
@@ -84,7 +103,7 @@ void light() {
 	float b;
 	if (LIGHT_IS_DIRECTIONAL) b = smoothstep(0.38, 0.5, l) * 0.45 + smoothstep(0.04, 0.12, l) * 0.55;   // Sonne, Mond: drei Stufen, weiche Kante
 	else b = ndl * smoothstep(0.0, 1.0, ATTENUATION) * mix(1.0, kette_lampe, v_kette + v_eisen);              // Lampen, Fackel: weicher Schein
-	if (LIGHT_IS_DIRECTIONAL) b = max(b, fill);
+	if (LIGHT_IS_DIRECTIONAL) b = max(b, fill * (1.0 - v_hinten));   // 376.1: die Innenseite eines Kragens bleibt im Schatten
 	DIFFUSE_LIGHT += b * LIGHT_COLOR / PI;
 	if (v_eisen + v_kette > 0.0) {
 		float nh = clamp(dot(NORMAL, normalize(LIGHT + VIEW)), 0.0, 1.0);
