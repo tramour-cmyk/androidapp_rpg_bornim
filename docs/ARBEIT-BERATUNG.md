@@ -10,6 +10,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 468 | M | **von Chef (02.11., 07:33, Bild „Nutzung“: 36 %, Limit Mittwochnacht leer):** Sparplan bis Sa 19:59 | wartet auf Chef: entscheiden/468-sparplan |
 | 461b | M | **von Chef (01.11., 22:23, „Wer prüft denn nach, dass nicht gegensätzliche Entscheidungen an verschiedenen Stellen stehen?“):** nur Gültiges steht; ja 22:26 (Archiv); mein Teil: Archiv zu Figuren und Kampf einmal nach Widersprüchen absuchen, Liste an den Chef | in Arbeit (Bau Perikles, Kennzahl Diogenes) |
 | D62.1 | M | **von Diogenes (461b, Zählung 02.11., 02:4x):** Archiv „376.1, Klassen und Köpfe“ (29.10., 10:52) trägt „Klassen … abgenommen“ ohne „→ ersetzt durch“; markiert ist nur Wegstecken, Klassen ersetzt laut „376.1, Klassenentwürfe“ (28.10.) durch Tracht je Herkunft (01.11.) | startbar |
 | 348.12b | M | **von Chef (Chefrunde 01.11.):** Grak-Film vorab auf altem Körper? | wartet auf Chef: entscheiden/34812b-grak-koerper; Chef testet 146 (ansehen/t146) |
