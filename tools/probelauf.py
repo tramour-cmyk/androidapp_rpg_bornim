@@ -11,7 +11,11 @@ Probelauf heißt:
 - ein Bildlauf am Rechner: Godot mit Fenster (xvfb-run oder `godot --path` ohne `--import`) oder ein Laufskript aus
   `tools/pruef348/` (alle außer `rechner.sh`) oder `*_lauf.sh`; der Vorgang steht davor: `PROBE=<Nr> bash …`;
   kein Probelauf: `godot --headless --path <dir> -s res://tests/<datei>.gd` ohne Bildbefehl in der Testdatei (390a);
-- ein Push auf `claude/tom-*` oder `claude/jerry-*`, der `godot.yml` auslöst (letzter Commit ohne „[skip ci]“, Änderung
+- ein Ablauf auf GitHub, von Hand gestartet (407, 02.11.: 20 Filme zu 417 über `tom-probe-417.yml` ungezählt): `actions_run_trigger`
+  (run_workflow) oder `gh workflow run`/API `…/dispatches`; Vorgang = erste Nummer der Commit-Nachricht oben auf dem Zweig,
+  sonst Nummer in Klammern im Namen des Ablaufs; mit Eingabe bild=nein oder film=nein kein Probelauf (390a); Neustart eines
+  Laufs (rerun) hält der Haken an;
+- ein Push auf einen Zweig `claude/…`, der einen Ablauf auslöst (letzter Commit ohne „[skip ci]“, Änderung
   unter godot/, tools/blender348/, core/src/main/ oder am Workflow); der Vorgang ist die erste Nummer der Commit-Nachricht.
 Vorlage heißt: eine Meldung mit Bild, Film oder Datei zu dem Vorgang (Zeile im Zweig „meldungen“, schreibt `meldung.sh`, 383).
 Jeder Lauf wird gezählt, auch einer, der abbricht. Die Zählung steht im Zweig „probelaeufe“ in `probelaeufe.tsv` (überlebt den
@@ -46,9 +50,13 @@ COMMIT = re.compile(r"\bgit\s+(?:-C\s+\S+\s+)?commit\b[^\n]*?\s-[a-zA-Z]*m\s*(.+
 TEST_SKRIPT = re.compile(r"(?:^|\s)-s\s+[\"']?res://tests/([\w./-]+\.gd)\b")
 BILDBEFEHL = re.compile(r"save_png|save_jpg|save_webp|save_exr|get_image\s*\(|get_texture\s*\(|MovieWriter|screenshot", re.I)
 CD = re.compile(r"\bcd\s+([^\s;&|]+)")
-CI_ZWEIG = re.compile(r"claude/(?:tom|jerry)-[\w./-]+")  # 407: jeder Zweig der Teams, nicht nur 348
+CI_ZWEIG = re.compile(r"claude/[\w./-]+")  # 407 (02.11.): jeder Arbeitszweig, auch grundstand-461, spike-, tuffy-
+BEFEHL_ANFANG = r"(?:^|[;&|(`]|\$\()\s*(?:\w+=\S*\s+)*"  # nur als Befehl, nicht in einer Commit-Nachricht (Fehlzählung 02.11.)
+GH_LAUF = re.compile(BEFEHL_ANFANG + r"gh\s+workflow\s+run\s+([^\n|;&]*)", re.M)
+GH_RERUN = re.compile(BEFEHL_ANFANG + r"(?:gh\s+run\s+rerun\b|(?:curl|gh\s+api)\b[^\n|;&]*/actions/(?:runs|jobs)/\d+/rerun)", re.M)
+API_LAUF = re.compile(BEFEHL_ANFANG + r"(?:curl|gh\s+api)\b[^\n|;&]*/actions/workflows/([\w.-]+)/dispatches[^\n|;&]*", re.M)
 ARCHIV_KOPF = re.compile(r"^- \*\*([^*]+)\*\*\s*\((\d\d)\.(\d\d)\.,\s*(\d\d):(\d)([\dx])", re.M)
-CI_PFADE = ("godot/", "tools/blender348/", "core/src/main/", ".github/workflows/godot.yml", ".github/workflows/godot-kampf.yml")
+CI_PFADE = ("godot/", "tools/blender348/", "core/src/main/", ".github/workflows/")  # 407: auch eigene Probe-Abläufe
 
 
 def jetzt():
@@ -182,6 +190,64 @@ def push_lauf(befehl, cwd):
     return nr.group(1) if nr else zweig
 
 
+RERUN = ("407 (Chef 02.11., 07:18: „die ganze Nacht über jetzt 1000 Filmchen gedreht“): einen Lauf neu starten zählt der Haken "
+         "nicht nach Vorgang; neu starten nur mit run_workflow (`mcp__github__actions_run_trigger` method run_workflow oder "
+         "`gh workflow run`), dann zählt er je Vorgang.")
+
+
+def vorgang_aus_ref(ref, ablauf):
+    """407: Vorgang eines von Hand gestarteten Ablaufs: erste Nummer der Commit-Nachricht oben auf ref, sonst Nummer in
+    Klammern im Namen des Ablaufs („Tom Probe Tragart (417)“), sonst der Zweig selbst."""
+    ref = (ref or "").removeprefix("refs/heads/")
+    nachricht, name = "", ""
+    if ref and git("fetch", "-q", "origin", ref).returncode == 0:
+        nachricht = git("log", "-1", "--format=%B", "FETCH_HEAD").stdout
+        if ablauf and not ablauf.isdigit():
+            datei = ablauf if "/" in ablauf else ".github/workflows/" + ablauf
+            name = (re.search(r"^name:\s*(.+)$", git("show", f"FETCH_HEAD:{datei}").stdout, re.M) or [None, ""])[1]
+    nr = re.match(r"\s*(?:\w+:\s*)?(" + NR + r")\b", nachricht) or re.search(r"\((" + NR + r")\)", name)
+    return nr.group(1) if nr else (ref or ablauf or "?")
+
+
+def ohne_bild(eingaben):
+    """390a: Ablauf nur mit Messung ohne Bild (Eingabe bild=nein oder film=nein) ist kein Probelauf."""
+    return any(str(eingaben.get(k, "")).strip().lower() == "nein" for k in ("bild", "film"))
+
+
+def handlauf_mcp(d):
+    """407: `actions_run_trigger` über den GitHub-Server: (Vorgang, Art), RERUN zum Anhalten, oder None."""
+    e = d.get("tool_input") or {}
+    methode = e.get("method", "")
+    if methode in ("rerun_workflow_run", "rerun_failed_jobs"):
+        return RERUN
+    if methode != "run_workflow" or ohne_bild(e.get("inputs") or {}):
+        return None
+    return vorgang_aus_ref(e.get("ref"), str(e.get("workflow_id") or "")), "hand"
+
+
+def handlauf_bash(befehl):
+    """407: `gh workflow run …` oder Aufruf der API (…/dispatches, …/rerun) aus der Shell; wie handlauf_mcp."""
+    if GH_RERUN.search(befehl):
+        return RERUN
+    m = GH_LAUF.search(befehl)
+    if m:
+        teile = m.group(1).split()
+        ablauf = next((t for t in teile if not t.startswith("-")), "")
+        ref = re.search(r"(?:--ref|-r)[=\s]+(\S+)", m.group(1))
+        eing = dict(re.findall(r"(?:-f|-F|--field|--raw-field)[=\s]+[\"']?(\w+)=([^\s\"']*)", m.group(1)))
+        if ohne_bild(eing):
+            return None
+        return vorgang_aus_ref(ref.group(1).strip("\"'") if ref else "", ablauf), "hand"
+    m = API_LAUF.search(befehl)
+    if m:
+        ref = re.search(r"\\?[\"']ref\\?[\"']\s*:\s*\\?[\"']([^\"'\\]+)", befehl)
+        eing = dict(re.findall(r"\\?[\"'](bild|film)\\?[\"']\s*:\s*\\?[\"'](\w+)", befehl))
+        if ohne_bild(eing):
+            return None
+        return vorgang_aus_ref(ref.group(1) if ref else "", m.group(1)), "hand"
+    return None
+
+
 GODOT_BIN = [os.path.expanduser("~/godot/godot"), "/usr/local/bin/godot", "/usr/bin/godot"]
 
 
@@ -280,6 +346,16 @@ def main():
     befehl = (d.get("tool_input") or {}).get("command") or ""
     cwd = d.get("cwd") or os.getcwd()
     wer = (d.get("session_id") or "?")[:20]
+    if "actions_run_trigger" in (d.get("tool_name") or ""):  # 407: Start von Hand über den GitHub-Server
+        try:
+            hand = handlauf_mcp(d)
+        except (OSError, subprocess.SubprocessError, ValueError):
+            hand = None
+        if hand == RERUN:
+            anhalten(RERUN)
+        if hand:
+            pruefen_und_zaehlen(*hand, wer)
+        return
     try:
         grund = parse_pruefen(befehl, cwd)  # 464: vor dem Zählen, ein angehaltener Push ist kein Lauf
     except (OSError, subprocess.SubprocessError, ValueError):
@@ -293,10 +369,21 @@ def main():
                 anhalten("389 (Chef 27.10., 23:55, höchstens zwei Probeläufe je Vorlage): Bildlauf erkannt. "
                          "Vorgang davorsetzen: `PROBE=<Nr> <Befehl>`; der Haken zählt je Vorgang.")
             nr, art = m.group(1), "rechner"
+        elif (hand := handlauf_bash(befehl)):
+            if hand == RERUN:
+                anhalten(RERUN)
+            nr, art = hand
         else:
             nr, art = push_lauf(befehl, cwd), "ci"
             if not nr:
                 return hinweis_geben()
+    except (OSError, subprocess.SubprocessError, ValueError):
+        return hinweis_geben()
+    pruefen_und_zaehlen(nr, art, wer)
+
+
+def pruefen_und_zaehlen(nr, art, wer):
+    try:
         n, vorlage = stand(nr)
     except (OSError, subprocess.SubprocessError, ValueError):
         return hinweis_geben()
