@@ -34,6 +34,7 @@ const SICHT_S := 0.8
 var takt := RUHE_S
 var sicht := 1.0          # Ausgleich nach Kameraabstand, 1 = nächster Held
 var ausgleich := false    # nur im Kampfort
+var ohne_schultern := false   # 348.12k Grak: Axt in beiden Fäusten, die Schlüsselbeine bleiben (sonst rutscht eine Faust am Stiel)
 var phase := 0.0          # 0..1 im Atemzug
 var anstrengung := 0.0    # 0..1
 var tiefe := 0.0          # zuletzt angewandte Einatmung 0..1 mal Tiefe (Prüflauf)
@@ -119,6 +120,8 @@ func _process_modification_with_delta(delta: float) -> void:
 		if b < 0:
 			continue
 		var art: String = KNOCHEN[i][1]
+		if ohne_schultern and art == "heben":
+			continue
 		var grad: float = KNOCHEN[i][2] * tiefe
 		var g := sk.get_bone_global_pose(b)
 		var r: Basis

@@ -385,6 +385,18 @@ var ss_f := 1.0      # 406: Größe des Kaufkörpers gegen das Gerüst der Beweg
 static var kampf_bew: Array = []     # [Animation, Name] je Bewegung, einmal geladen
 static var kampf_info: Dictionary = {}
 
+## 348.12k (Vorentscheid Sokrates 01.11., 22:5x; Chef 22:42: „Das sind jetzt wieder welche mit zwei Schilden und uralte Fassung.
+## Warum?“): ein Film (--write-movie) mit dem Helden ohne Kaufheld bricht ab, statt still den alten Helden zu zeigen; der alte nur
+## mit dem ausdrücklichen Schalter ALTHELD=1. Ohne Film (Prüfläufe ohne Bild, Bau ohne Kaufmodelle) bleibt es wie bisher.
+func _ohne_kaufheld_film() -> void:
+	if fighter.monster != null or OS.get_environment("ALTHELD") != "" or Engine.get_write_movie_path() == "":
+		return
+	print("FEHLER: kein Kaufheld im Film (%s, Klasse %s; fehlt daten/kampf-bewegungen.bin oder held_*.bin), Abbruch (348.12k; ALTHELD=1 erzwingt den alten)"
+		% [fighter.id, String(fighter.hero.get("cls", "?"))])
+	push_error("348.12k: Film ohne Kaufheld")
+	Engine.get_main_loop().quit(3)
+
+
 func _kaufheld() -> Node3D:
 	if fighter.monster != null or OS.get_environment("ALTHELD") != "" or not FileAccess.file_exists(KAMPF_BEW):
 		return null
@@ -436,6 +448,7 @@ func _load_model() -> Node3D:
 	var kh := _kaufheld()
 	if kh != null:
 		return kh
+	_ohne_kaufheld_film()
 	var p := _model_path()
 	if FileAccess.file_exists(p):
 		var doc := GLTFDocument.new()
@@ -875,6 +888,16 @@ func _atem_an() -> void:
 			atem = Tier.new()
 			atem.name = "Atem"
 			atem.eigen(hash(String(fighter.id)))
+			sk.add_child(atem)
+		elif fighter.monster.id == Mars.GRAK and sk != null and sk.find_bone("spine_03") >= 0:
+			# 348.12k (Grundstand C1, C2; Vorlage Lauf 177: „Grak hat noch keine Atemschicht“): Grak atmet wie die Helden als Schicht,
+			# sein Stehen (Idle_Loop der UAL, hechelt) hält das erste Bild; ohne Schlüsselbeine, die Axt liegt in beiden Fäusten
+			if anim.has_animation("Stehen"):
+				_ohne_atem(anim.get_animation("Stehen"))
+			atem = preload("res://kampf/atem.gd").new()
+			atem.name = "Atem"
+			atem.eigen(hash(String(fighter.id)))
+			atem.ohne_schultern = true
 			sk.add_child(atem)
 		return
 	if not kauf:
@@ -2547,6 +2570,7 @@ func hurt(after_ms: int, dies: bool, schwer := false, art := "") -> void:
 		get_tree().create_timer(0.45).timeout.connect(_idle_wenn_frei)
 
 
+const AUSWEICHEN_HALT_S := 0.3     # 348.12k: Zweibeiner nach dem Ausweichen, bevor er auf den Platz zurücksetzt
 func dodge(after_ms: int, nm := "") -> void:
 	await get_tree().create_timer(after_ms / 1000.0).timeout
 	_dreh_ab()
@@ -2565,6 +2589,19 @@ func dodge(after_ms: int, nm := "") -> void:
 		var bl: float = anim.get_animation(nm).length
 		tween = create_tween()
 		tween.tween_method(func(x: float): position = _weg_at(o, b, nm, x), 0.0, bl, bl)
+		# 348.12k (Chef 01.11., 22:45: „ein Ausweichen ist ja doch grundsätzlich mal eine eher rasche Bewegung nach hinten oder zur
+		# Seite. Und dann bewegt man sich wieder auf den Grundplatz … zurück“; Film Lauf 177: Grak schritt nach jedem Ausweichen
+		# umgedreht heim): der Zweibeiner setzt mit dem Gegenlauf ebenso rasch auf den Platz zurück, Blick bleibt zum Gegner;
+		# geschritten wird nur beim Ortswechsel (D5)
+		var gegen: String = {"Ausweichen": "Ausweichen links", "Ausweichen links": "Ausweichen"}.get(nm, "")
+		if _zweibeiner() and gegen != "" and anim.has_animation(gegen) and o.distance_to(home) < 0.3:
+			var gl: float = anim.get_animation(gegen).length
+			tween.tween_callback(_idle)     # kurz stehen, wo der Hieb vorbeiging, dann zurück
+			tween.tween_interval(AUSWEICHEN_HALT_S)
+			tween.tween_callback(func(): _play(gegen, 0.1))
+			tween.tween_property(self, "position", home, gl).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			tween.tween_callback(func(): _face(); _idle())
+			return
 		tween.tween_callback(_walk_home)
 		return
 	# Kaufwolf (Chef 27.10., 21:51, Archiv: „Ausweichen-Bewegung war am Platz und ohne Ortswechsel … grundsätzlich wie bei der

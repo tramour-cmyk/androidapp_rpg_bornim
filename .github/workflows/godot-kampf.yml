@@ -7,10 +7,6 @@ on:
     branches: ["claude/jerry-348-**"]
     paths: ["godot/**", "tools/blender348/**", ".github/workflows/godot-kampf.yml"]
   workflow_dispatch:
-    inputs:
-      film:
-        description: "Film ohne Commit-Wort, auch bei rotem Test (348.12b: grak)"
-        default: ""
 
 jobs:
   regeln:
@@ -92,8 +88,7 @@ jobs:
 
   apk:
     needs: regeln
-    # 348.12b (Chef 01.11., 20:5x, Archiv): Film auch bei rotem Test; nur mit Eingabe film beim Start von Hand
-    if: ${{ !cancelled() && (needs.regeln.result == 'success' || github.event.inputs.film != '') }}
+    # 348.12k: Filme mit Held nur in godot.yml (vorher hier Eingabe film, 348.12b)
     runs-on: ubuntu-24.04
     timeout-minutes: 90     # 348.12f: Filme und Bau der Kaufratte; Lauf 112 lief in die alten 40 min
     env:
@@ -477,23 +472,9 @@ jobs:
             ffmpeg -loglevel error -y -i $f -vf "fps=4/$d,scale=240:-2,tile=4x1" -frames:v 1 ${f%.mp4}-reihe.png || true; done
           ffmpeg -loglevel error -y $(for f in $L; do echo "-i ${f%.mp4}-reihe.png"; done) -filter_complex "vstack=inputs=$n" $P/387-kauftiere-blatt.png || true
           ls -l $P
-      # 348.12 Grak (1d6618d74, im APK seit 399.2): Bewegungen mit Ortswechsel im Kampfort wie die Kauftiere (Chef 27.10., 18:01), mit dem
-      # Spiel-Grak aus „Modelle bauen“ (verschlüsselt, derselbe Schlüssel): Anlauf, Stehen, Hieb, Treffer, Platzwechsel, Tod
-      # Dritter Lauf (Chef 28.10., 14:42, Archiv) zusammen mit 348.7b und Fledermaus in einem Lauf; Lauf 163 scheiterte am Grak-Bau (f5ed4ee0f)
-      # 348.12 nachbessern: seit der Spielfassung (399, project.godot startet spiel.tscn) nennen alle Filme hier die Probe ausdrücklich
-      # (res://kampf/probe.tscn); sonst lief das Spiel ohne Karten an und brach ab (am Rechner nachgestellt)
-      - name: 348.12 Probe Grak im Kampfort (nur bei Commits mit „348.12 Grak Film“)
-        if: ${{ contains(github.event.head_commit.message, '348.12 Grak Film') || (!cancelled() && github.event.inputs.film == 'grak') }}
-        run: |
-          P=$GITHUB_WORKSPACE/grakprobe; mkdir -p $P
-          command -v xvfb-run > /dev/null || sudo apt-get install -y -qq xvfb libgl1-mesa-dri > /dev/null   # 348.12b: Vergleichsbild übersprungen bei rotem Test
-          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
-          (cd godot && GEGNER=GRAK ORT_ID=grak OHNEUI=1 SCHAU=ort SCHAU_TITEL=Grak timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . res://kampf/probe.tscn --resolution 540x1170 --write-movie $RUNNER_TEMP/grak.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/grak-ort.log 2>&1) || true
-          ffmpeg -loglevel error -y -ss 1.25 -i $RUNNER_TEMP/grak.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $P/348.12-grak-film.mp4 || true
-          grep -E "SCRIPT ERROR|^ +at: |^Ort " $P/grak-ort.log | head -20 || true
-          d=$(ffmpeg -i $P/348.12-grak-film.mp4 2>&1 | grep -oE 'Duration: [0-9:.]+' | awk -F'[: ]' '{print $3*3600+$4*60+$5}')
-          ffmpeg -loglevel error -y -i $P/348.12-grak-film.mp4 -vf "fps=8/$d,scale=270:-2,tile=8x1" -frames:v 1 $P/348.12-grak-blatt.png || true
-          ls -l $P
+      # 348.12k (Vorentscheid Sokrates 01.11., 22:5x): der Grak-Film läuft nur noch in godot.yml (kampf=grak) mit dem Kaufhelden;
+      # hier fehlte er (held_kampf.py), der Kampfort zeigte still den alten Helden. Jeder Film mit Held bricht ohne Kaufhelden ab
+      # (figur.gd, außer ALTHELD=1); die übrigen Filmschritte hier ruhen und gehören bei Bedarf ebenfalls nach godot.yml
       # 348.7b r4 (Chef 28.10., 10:43 „b“): Zauberbahn mit dem längeren Seitenschritt, Aufstellung wie r3 (Magier als Söldner, Wölfe);
       # Lauf 161 kam nicht bis hier (Modellbau, bd950c6b2), Lauf 164 abgebrochen; dritter Lauf mit Grak und Fledermaus (Chef 28.10., 14:42)
       - name: 348.7b Probe Zauberbahn (nur bei Commits mit „348.7b Film“)
@@ -522,7 +503,7 @@ jobs:
           grep -E "SCRIPT ERROR|^ +at: |^Ort " $P/fledermaus-ort.log | head -20 || true
           ls -l $P
       - uses: actions/upload-artifact@v4
-        if: ${{ contains(github.event.head_commit.message, '348.12 Grak Film') || contains(github.event.head_commit.message, '348.7b Film') || contains(github.event.head_commit.message, '348.7 Fledermaus Film') || (!cancelled() && github.event.inputs.film == 'grak') }}
+        if: ${{ contains(github.event.head_commit.message, '348.7b Film') || contains(github.event.head_commit.message, '348.7 Fledermaus Film') }}
         with:
           name: grakprobe
           path: grakprobe
