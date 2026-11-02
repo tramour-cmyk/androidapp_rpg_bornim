@@ -258,7 +258,9 @@ func _bild(kf, n: int, k: String) -> void:
 					var q: Vector3 = a.global_transform * Vector3(x, 0, z)
 					tief = minf(tief, b.clearance(q))
 			if tief < -DURCH_M:
-				durch.append([n, "%s/%s" % [k, a.fighter.id], "%s/%s" % [k, b.fighter.id], -tief, a.anim.current_animation if a.anim else ""])
+				# 438a: wie das Opfer gerade steht (Lauf 160: Wolf 1 bis 8 cm im Kleriker; liegt er oder steht er?)
+				var bz := "%s%s" % [b.anim.current_animation if b.anim else "", " liegt" if b.has_method("sturz_jetzt") and b.sturz_jetzt() else ""]
+				durch.append([n, "%s/%s" % [k, a.fighter.id], "%s/%s" % [k, b.fighter.id], -tief, a.anim.current_animation if a.anim else "", bz])
 
 
 ## 438 Prüfer Film r2: alles, was der Prüfer im Film r2 sah, je Bild gemessen
@@ -527,7 +529,7 @@ func _bilanz() -> void:
 	print("— 438 Durchdringung über %.2f m: %d Bilder" % [DURCH_M, durch.size()])
 	var gez := {}
 	for d in durch:
-		var k: String = d[1] + "→" + d[2] + " " + d[4]
+		var k: String = d[1] + "→" + d[2] + " " + d[4] + (" (Opfer " + String(d[5]) + ")" if d.size() > 5 else "")
 		if not gez.has(k):
 			gez[k] = [d[0], d[3], 0]
 		gez[k][1] = maxf(gez[k][1], d[3])
