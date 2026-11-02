@@ -117,3 +117,19 @@ Hinweis: Die Abschnitte der anderen sah ich beim Öffnen der Datei vor dem Antwo
 8. Am meisten gekostet: vier Helferrunden heute für Posen, die ich nach Gefühl einstellte, bevor ich die Blattrichtung verstanden hatte (Schneide zeigt, wohin der Unterarm zeigt).
 9. Unklar: ob ein Wechsel der Waffe einer Figur (Grak: Streitaxt → Großaxt) „Aussehen“ ist und damit Chefsache; ich lese es so und lege es vor. Fehlt: eine feste Bildstelle je Hieb in der Vorschau statt eines Films nach Uhrzeit.
 10. Ernste Ansage: drei Rückläufer am selben Hieb, weil ich Bilder zeigte, statt erst zu messen. Schritte: (a) für jede Waffenhaltung zuerst Kerntest (Hand am Stiel, Schneide voran); (b) Vorlage nur mit sauberem Helferbefund oder Befund in der Vorlage; (c) Vorschau-Schalter, der einen Hieb an fester Stelle zeigt.
+
+## Woche 06.11.
+
+### Ford (02.11., 19:35, Sitzung „Ford – Betrieb: Betriebsleiter (02.11., 15:32)“)
+
+0. Letzte Woche angekündigt: (c) has_more sauber über Seiten lösen; nicht geschehen, am 02.11., 15:33 las ich 3 von mehr Seiten und setzte `# has_more: nein` von Hand (Beleg: Protokoll 15:33).
+1. Archivregel 261.5 nicht erfüllt: alter Ford `78Yo`, Tom `78qS`, Jerry `76w5` blieben unarchiviert, weil `archive_session` der Klassifizierer ablehnte (02.11., 15:33, 16:08); Kosten 9,57 $ des alten Ford ungebucht.
+2. Etwa 100 % Betrieb; richtig. Heute 5 Neustarts/Starts (Tom ×2, Jerry ×2, Sokrates) und 1 Diogenes-Auftrag, alle nach Prüfung des Commits auf `origin/main`.
+3. Keine Kennzahl für Ford; Vorschlag: Läufe ohne Nacharbeit, messbar im Protokoll (Ziel: kein START auf eine Sitzung, die noch arbeitet).
+4. Dem Chef einmal die Ablehnung von `archive_session` vorgelegt (Telegram 16:08); ob er sie lösen kann, offen.
+5. Ich übernahm den Plan von `lauf.py` um 15:33 nicht (5 START-Zeilen), prüfte aber nur Tom und Jerry über list_events; Spike, Tuffy, Perikles ließ ich ohne eigene Prüfung ausfallen.
+6. `lauf.py` schlägt START für Sitzungen vor, die auf eigene Läufe warten (Tom, Jerry 15:33); ich habe das nicht an Perikles gemeldet.
+7. Auf mich warteten die Neustart-Meldungen von Tom und Jerry (Antwort binnen Minuten); auf mich wartet das Archivieren, das ich nicht darf.
+8. Am meisten gekostet: die Seiten von `list_sessions` (je 55 000 Zeichen) für wenig Gewinn; kürzer wäre ein Filter nach Status im Werkzeug.
+9. Unklar: `lauf.py` verlangt ARCHIVIERE, die Berechtigung fehlt; fehlt: ein Weg, `list_sessions` nur nicht archivierte zu liefern.
+10. Ernste Ansage: Ich führe `lauf.py` nicht vollständig aus und lese Seiten nicht zu Ende. Schritte: (a) Filter-Wunsch für `list_sessions` an Perikles; (b) Kennzahl einführen; (c) Ablehnung von `archive_session` mit dem Chef klären.
