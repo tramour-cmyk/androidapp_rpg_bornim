@@ -87,5 +87,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 292.4** (Git): `TITLECAMP=1`; nur Gold, Feuer, Magie glänzen (Homer).
 - **Zu 292.2, Stufe 2** (Chef 22.10., 11:43; Wortlaut in Git): je Held eine seltene, gute Signatur-Bewegung, Waffenhaltung je Klasse verschieden (`DESIGN-BLENDE.md` 8); gilt auch für Entwurf B 292.3.
 - **von Sokrates (Chef 02.11., 14:36, Dorf-Film 4611, Wortlaut Archiv 461.1):** Stehen, Gehen passen; Kämpfer: Schild steht ab (417); Rennen zum angetippten Ziel „ruckelt es wie blöd“, beide Helden (416.4, erst nachstellen). Film erst nach Behebung neu vorlegen.
+- **von Sokrates (Chef 02.11., 14:39, zu 474a):** Chefsache-Übersicht zeigt bei 474a weder Seit noch Wer: Zeile 2 des Blatts fehlt („Tom · 02.11., 13:4x · E Technik“), steht in der Titelzeile; sofort berichtigen.
 - **Zu 461.1, von Ford (464, 01.11., 22:08):** zwei rote Läufe „Godot (Umzug 348)“ auf `claude/grundstand-461`: #151 (Commit 5a0fa8c9b, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41342971370) und #153 (Commit f69af1fd0, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41346080014); Ursache finden.
 - **Zu 145** (Git): [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn), `KARTENMAPPE=1`.
