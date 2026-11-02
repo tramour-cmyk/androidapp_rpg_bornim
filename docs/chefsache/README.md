@@ -50,7 +50,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 48, Muss 33, startbar 10
+**Tom** – offen 49, Muss 33, startbar 11
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -71,6 +71,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 474 | M? | von Team Jerry (Tuffy, 02.11., 02:4x; aus 399.1a): Debug-Schlüssel nur im Cache, verdrängt | Chef |
 | 475 | M? | von Sokrates (Chef 02.11., 10:52, Build 146): Rowena, Borin ohne Gesicht („Kommt da noch w | wartet auf Tom |
 | 476 | M? | von Sokrates (Chef 02.11., 14:43: „Werden … die Symbole der Ausrüstungsgegenstände … durch | startbar |
+| 477 | M? | von Sokrates (Chef 02.11., 14:59: „Die APK lässt sich nicht unter MumuPlayer abspielen … G | startbar |
 | 461.1 | M | von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461): Grundstand: alles Entschiedene zu Figure | wartet auf 416.4 (startbar) |
 | 458.3 | M | von Sokrates (Chef 01.11., 13:1x, Archiv 458): Gegenstandskatalog: je Gegenstand Netz × Ma | startbar |
 | 457.1 | M | von Perikles (Chef 01.11., 11:49, „unsere Signatur muss sich wiederfinden“): godot/probe/b | wartet auf Test/Build (gebaut) |
