@@ -142,7 +142,7 @@ Die Ätherdichte (Entscheidung 76) ist noch ohne Zahl.
 | Titelprüfung | Kernfertigkeiten am Ende von Meister (74) | den Titel, z. B. „Paladin“ (in der Regel „Titelträger“) | Rang Großmeister, stärkere Fähigkeit; ab hier gelten die Auflagen | 4 |
 | Hohe Prüfung | Kernfertigkeiten bei 100 | den hohen Titel, z. B. „Hoher Paladin“ | stärkste Fähigkeit | 6 |
 
-Namen nach 466 (Chef 02.11.): **Fähigkeit** (Ability) ist, was ein Pfad gibt; Fertigkeiten haben Wert und Rang, Fähigkeiten nie. Pfadstufen: Anwärter, Eingeweihter, Titel, hoher Titel; Anfänger, Geselle, Meister, Großmeister sind nur Ränge der Fertigkeiten. Im Spiel heißen die Prüfungen nach dem Titel („Prüfung zum Paladin“, „Prüfung zum Hohen Paladin“); „Weihe“, „Titelprüfung“, „Hohe Prüfung“ stehen nur in der Regel. Stufen der Meisterschaften legt Homer fest (466).
+Namen nach 466 (Chef 02.11.): **Fähigkeit** (Ability) ist, was ein Pfad gibt; Fertigkeiten haben Wert und Rang, Fähigkeiten nie. Pfadstufen: Anwärter, Eingeweihter, Titel, hoher Titel; Anfänger, Geselle, Meister, Großmeister sind nur Ränge der Fertigkeiten. Im Spiel heißen die Prüfungen nach dem Titel („Prüfung zum Paladin“, „Prüfung zum Hohen Paladin“); „Weihe“, „Titelprüfung“, „Hohe Prüfung“ stehen nur in der Regel. Stufen der Meisterschaften (466 A, Chef 02.11., 22:03) wie beim Pfad: Anwärter → Eingeweihter → Titel → „Hoher“ + Titel; Titel Schmied, Lederer, Alchemist, Runenwirker, Feldkoch (EN Aspirant, Initiate, Smith, Leatherworker, Alchemist, Runewright, Field Cook, „High …“). „Runenmeister“ und „Lederarbeit“ bleiben Namen der Meisterschaft, keine Stufe.
 
 **Kapitel als Takt für alle Fertigkeiten (Startwerte):**
 
