@@ -181,8 +181,9 @@ func standbilder(axt := false, pakete := false) -> void:
 				if moving:
 					var mit := want != b0
 					vb = float(m.get_meta(("gang_" if mit else "") + ("gehen" if b0 == "Gehen" else "rennen") + "_m_je_s", 1.0))
-				if ap.current_animation != want: Held.wechsel(ap, want, moving, tempo / maxf(0.01, vb) if moving else 1.0)   # 416.4
-				ap.speed_scale = Held.takt(ap, tempo, vb, 1.0 / FPS) if moving else 1.0
+				if ap.current_animation != want: Held.wechsel(ap, want, moving, tempo / maxf(0.01, vb) if moving else 1.0, true)   # sanft wie held.gd   # 416.4
+				if moving and ap.has_meta("halt"): ap.remove_meta("halt")
+				ap.speed_scale = Held.takt(ap, tempo, vb, 1.0 / FPS) if moving else Held.stand_takt(ap, 1.0 / FPS)
 				ap.advance(1.0 / FPS)
 				p += Vector3(0, 0, 1) * tempo / FPS
 				w.position = p

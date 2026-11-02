@@ -84,8 +84,9 @@ func film_nach(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, gang: String, wer
 			if moving and ap.has_animation(b0 + g): want = b0 + g
 			var vb := 1.0
 			if moving: vb = float(m.get_meta(("gang_" if want != b0 else "") + ("gehen" if b0 == "Gehen" else "rennen") + "_m_je_s", 1.0))
-			if ap.current_animation != want: Held.wechsel(ap, want, moving, tempo / maxf(0.01, vb) if moving else 1.0)
-			ap.speed_scale = Held.takt(ap, tempo, vb, 1.0 / FPS) if moving else 1.0
+			if ap.current_animation != want: Held.wechsel(ap, want, moving, tempo / maxf(0.01, vb) if moving else 1.0, true)   # sanft wie held.gd
+			if moving and ap.has_meta("halt"): ap.remove_meta("halt")
+			ap.speed_scale = Held.takt(ap, tempo, vb, 1.0 / FPS) if moving else Held.stand_takt(ap, 1.0 / FPS)
 			ap.advance(1.0 / FPS)
 			p += Vector3(0, 0, 1) * tempo / FPS
 			w.position = p
