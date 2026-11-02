@@ -10,13 +10,20 @@
 
 [Film von 01.11., 22:53](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/01-2253-417-Tom.mp4) (eingetragen von meldung.sh, Tom)
 
-**Bitte den neuesten Film (02.11., 02:2x) beurteilen; 00:53 und älter sind überholt.** Neu gegenüber 00:53 (Lauf 41368062432): Kriegsaxt und Schwert mit Schild je von beiden Seiten (Raster 3 × 2), Felder mit Waffe und Seite beschriftet, Bild 1,2-fach weiter (Axtblatt nicht mehr am Rand). Je Feld: 1 s Stehen, 2,5 s Gehen, 2,5 s Rennen, 1,5 s Gehen, Stehen. Damit sieht man, ob das Schwert beim Schildträger durch Kopf und Bein geht oder nur hinter dem Körper liegt (gemessen frei).
+**Bitte den neuesten Film (02.11., 03:39) beurteilen; 02:24 und älter sind überholt.** Neu gegenüber 02:24 (Lauf 41375577190, 4b77df56f):
+- **Auslaufen ohne Gleiten:** beim Wechsel Rennen → Gehen lief die Überblendung seit dem Umtakten doppelt so lang (1,2 statt 0,6 s), der Fuß glitt im Auslaufen mit der Figur mit (gemessen +0,9 bis +1,5 m/s). Behoben in `held.gd`, gilt auch im Spiel.
+- **Kein Haltungssprung bei 1,0 s:** der Film stand die erste Sekunde in der Rennhaltung der Standbilder davor (Brust 45–54 Grad vor); jetzt beginnt er im Stand (13 Grad). Nur die Probe betroffen, nicht das Spiel.
+- **Rennen:** Standfuß gegen den Boden gemessen mit Vorzeichen 1–11 % (Bogen 1, Axt 5, Schwert 6, Schild 11), einzeln abgespielt 0–4 %; Ursache des Rests im Film noch offen (Schild 11 % zuerst).
 
-**Noch nicht behoben: Fuß rutscht im Rennen.** Der Prüfer hatte recht: im Film gleitet der Standfuß im Rennen 10–22 % des Tempos (Bogen 10, Schild 18, Axt 22), obwohl dieselbe Bewegung einzeln abgespielt fest steht (0–4 %). Der Fehler liegt im Abspielen beim Wechsel Gehen–Rennen (Überblendung, Tempo), nicht in der Bewegung; Ursache wird ohne Bild nachgestellt, dann behoben. Nebenbei behoben: das Einhandrennen war 31 % falsch umgetaktet.
+**Gemessen statt Prüferverdacht** (Prüfer 02:3x):
+- Schwert beim Schildträger „durch den Kopf in Mundhöhe“: Messung jetzt mit Haar und Bart (fehlten vorher): Klinge 3,3 cm über dem Schlüsselbein, 5,1 cm am Hals, Kopf und Bart weiter als 7 cm. Das Schwert liegt auf der Schulter hinter dem Kopf; von der Seite verdeckt der Kopf die Klinge.
+- Axt „keine Hand am Stiel, Stielende an Kinn“: linke Faust 5 cm über dem Stielende am Schaft (0–0,6 cm neben der Schaftlinie), rechte 21 cm darüber; Stielende 50 cm von Kopf und Hals.
 
-**Stärkstes Gegenargument:** das Rutschen kann auch im Spiel stecken (gleicher Ablauf in `held.gd`); dann betrifft die Behebung Held und Leute, nicht nur den Film.
+**Stärkstes Gegenargument:** Messung und Prüfer widersprechen sich bei Axt und Schwert; misst die Probe an der falschen Stelle, bleibt der Fehler im Bild. Darum im neuen Film selbst ansehen.
 
-**Zu sagen:** je Waffe „passt“ oder was anders sein soll (ohne das Rutschen).
+**Zu sagen:** je Waffe „passt“ oder was anders sein soll; Schwert beim Schildträger: auf der Schulter so richtig?
+
+**Stand 02:24:** Kriegsaxt und Schwert mit Schild je von beiden Seiten (Raster 3 × 2), Felder beschriftet, Bild 1,2-fach weiter; Einhandrennen war 31 % falsch umgetaktet (behoben).
 
 **Stand 00:53:** Neu gegenüber 23:54 (Lauf 41361118983): Schwertarm beim Schild 15 Grad nach außen (vorher 9), das Schwert beim Rennen nicht mehr im Oberschenkel (frei 7,0 cm; 12 Grad wären 6,0). Messung aller vier Waffen ohne Fehler. Stand 23:54: Neu gegenüber 22:53 (Lauf 41356789633): Füße im Rennen am Boden statt schwebend (tiefster Ballen höchstens 4,0 cm statt 8,4–10,6; Stehen 1,5). Ursache: das Becken wurde im Verhältnis der Beckenhöhen im ersten Bild gesetzt, im Rennen 5–10 % zu hoch; jetzt nach der Beinlänge wie im Kampf (438a). Schild im Gehen: Schildarm 12 Grad nach außen, frei 6,3 cm (vorher 5 von 15 Bildern bis 5 cm im Körper; 8 Grad wäre knapp frei mit 3,9 cm). Schwert beim Rennen mit Schild war in 1 von 15 Bildern 4,9 cm im rechten Oberschenkel (in 00:53 behoben).
 
