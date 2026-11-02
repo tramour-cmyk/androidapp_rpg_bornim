@@ -5,29 +5,29 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 ## Zehn Zeilen
 
 <!-- zahlen -->
-**Stand 02.11., 19:40** (Werkzeug `tools/tagesbericht.py`)
+**Stand 02.11., 20:03** (Werkzeug `tools/tagesbericht.py`)
 
 | # | Kennzahl | heute | Bemerkung |
 |---|---|---|---|
-| 1 | Stufe | **Stufe 1 Kern spielbar**: 0 von 4 abgenommen, 0 gebaut, 0 in Arbeit | 36 Punkte in 6 Stufen: 0 abgenommen, 0 gebaut, 0 in Arbeit, 36 offen |
-| 2 | Seit gestern | abgenommen **0**, gebaut **0**, von dir zurück **0** | Vorgänge erledigt 24 h / 7 Tage: 24 / 118, davon Spiel (Entwicklung, Gestaltung, Texte, Design) 12 / 44; neu 49 / 206 |
+| 1 | Stufe | **Stufe 1 Kern spielbar**: 0 von 4 abgenommen, 2 gebaut, 1 in Arbeit | 36 Punkte in 6 Stufen: 0 abgenommen, 2 gebaut, 1 in Arbeit, 33 offen |
+| 2 | Seit gestern | abgenommen **0**, gebaut **2**, von dir zurück **0** | Vorgänge erledigt 24 h / 7 Tage: 29 / 123, davon Spiel (Entwicklung, Gestaltung, Texte, Design) 13 / 45; neu 60 / 217 |
 | 3 | Rest geschätzt | Stufe 1 etwa 3 Sitzungen (Tom 1.1 Erschaffung 2, Jerry 1.4 Monsterwerte 1), 1.2 und 1.3 noch ohne Schätzung; bis Stufe 6 Tom 38 Sitzungen ohne Rundenzahl, Jerry etwa 69 Sitzungen und 48 Runden bei dir (447.2, 447.3, ±30 %) | Sitzungen bis zur nächsten Stufe, Tom und Jerry, montags neu |
-| 4 | Wartet auf dich | **1 entscheiden**, **1 ansehen**, **1 tun** | ältestes: 142 seit 27.10., 20:07; [Chefsache](chefsache/README.md) |
-| 5 | Builds | Änderungen warten auf deinen Test: **29** (Tom 13, Jerry 16) | bei dir zum Testen: kein Build; höchstens 6 je Build (317) |
+| 4 | Wartet auf dich | **5 entscheiden**, **2 ansehen**, **1 tun** | ältestes: 142 seit 27.10., 20:07; [Chefsache](chefsache/README.md) |
+| 5 | Builds | Änderungen warten auf deinen Test: **30** (Tom 13, Jerry 17) | bei dir zum Testen: kein Build; höchstens 6 je Build (317) |
 | 6 | Fehler | **4** offen, davon 2 älter als drei Tage | offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3) |
-| 7 | Geld | Woche **36 %** (dein Bild 02.11., 07:33); gestern 657 $ Rechenwert, Spiel 71 % | Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal) |
+| 7 | Geld | Woche **36 %** (dein Bild 02.11., 07:33); gestern 732 $ Rechenwert, Spiel 70 % | Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal) |
 | 8 | Von dir zuerst gefunden | heute 1 (07:18: Probelauf-Grenze 407 griff nicht, nachts 26 Filmläufe; gebaut 11:2x, Diogenes prüft; laufende Sitzungen erst nach Neustart); Woche zählt Diogenes | Woche, zählt Diogenes montags |
 | 9 | Größtes Risiko | Stufe 1 ist nicht begonnen: keiner der vier Punkte hat eine Zeile im Vorrat von Tom oder Jerry, 1.2 Fertigkeiten und 1.3 Heldenstufe auch keine Schätzung, während nachts Filme gedreht wurden; Gegenmittel: Wochenziel 02.11. mit Bauaufträgen „Bau BRS“ für Stufe 1 (Perikles, heute) |  |
 | 10 | Ausführlich | [Abnahmeliste und Stand](PROJEKTPLAN.md) |  |
 
 | Rolle | offen | davon Muss | startbar | erledigt 24 h | erledigt 7 Tage |
 |---|---|---|---|---|---|
-| Tom | 50 | 33 | 11 | 4 | 14 |
-| Jerry | 55 | 43 | 3 | 11 | 17 |
-| Homer | 7 | 1 | 2 | 0 | 9 |
-| Sokrates | 32 | 23 | 14 | 2 | 23 |
-| Perikles | 27 | 24 | 3 | 7 | 44 |
-| Diogenes | 7 | 5 | 1 | 0 | 11 |
+| Tom | 52 | 34 | 13 | 4 | 14 |
+| Jerry | 56 | 44 | 3 | 11 | 17 |
+| Homer | 8 | 2 | 0 | 1 | 10 |
+| Sokrates | 33 | 24 | 15 | 3 | 24 |
+| Perikles | 33 | 28 | 3 | 10 | 47 |
+| Diogenes | 9 | 7 | 0 | 0 | 11 |
 <!-- /zahlen -->
 
 ## Roadmap (447, von dir gebilligt 01.11. mit Stufe „Alle Systeme angelegt“; ohne Datum; jede Stufe ein Build, den du spielst; Stand 01.11., 13:5x)
