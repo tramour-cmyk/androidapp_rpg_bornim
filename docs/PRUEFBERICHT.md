@@ -23,11 +23,24 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 | Nächte Teams (371; Basis 27.10.: 207 $/9 h) | Kosten (Start 21–7 Uhr) 25./26. 184 $ · 26./27. 267 · 27./28. 203 · 28./29. 180 · 29./30. 0 · 30./31. 0 · 31./01. 101 · 01./02. 194; Bilder und Filme an den Chef 27./28. 28 · 28./29. 22 · 31./01. 12 · 01./02. 15, vorher fehlt | – | Sitzungen; `meldungen.tsv` (ab 27.10., 19:14) |
 | Rote Läufe (464) | 02.11. bis 11:17: 11 von 175 abgeschlossenen (01.11.: 14) | – | `actions_list` |
 | Widersprüche (461b) | 3 in 38 Archiveinträgen (02.11., 02:4x) | – | `ARBEIT-PRUEFUNG.md` „Zu 461b“ |
-| Ohne Kopf (462) | fehlt: `zug-haken.py --summe` schreibt die Spalten von 462.1 nicht nach `LISTE-REGELTREUE.md` (D63.4) | – | `LISTE-REGELTREUE.md` |
+| Ohne Kopf (462) | fehlt: `zug-haken.py --summe` schrieb die Spalten von 462.1 nicht nach `LISTE-REGELTREUE.md` (D63.4, behoben 11:3x, ab 09.11. zählbar) | – | `LISTE-REGELTREUE.md` |
 
 ## Offen für den Chef
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
+
+## Lauf 63 · Nachprüfung D63.1–D63.4, D64.1 (Doppelpack 421; `main` `036b48029`; 02.11., 11:5x; `commit-pruefung.py` mit 6 Probecommits in einer Scratch-Kopie, `urteil()` gegen das Archiv und gegen Auszüge, `zug-haken.py --summe` mit Probedatei, `handlauf_bash()` mit 13 Befehlen)
+
+- **D63.1 behoben:** Archiv-Kopf nennt die DESIGN-Dateien (461d); 461 und 461b tragen „→ ersetzt durch 461d“, 396 „→ teils ersetzt durch 461a“; `LISTE-GRUNDSTAND-461.md` ist nur Verweis.
+- **D63.2 behoben, mit Rest (D65.1):** fremde Zeile A1 hält an (vorher Exit 0); C1 geändert ohne Anhang hält an; Anhang am falschen Eintrag (453a) hält an; mit Anhang am alten 453.1 Exit 0.
+- **D63.3 behoben:** `urteil("348.12k")` = 02.11. 11:08; 461a, 461d = 01.11. 23:01; ungebilligte „→ **Vorentscheid (Sokrates)**“ (348.6, 348.7, 383.1) = None.
+- **D63.4 behoben:** Summenzeile mit letzter Spalte „1/5“ aus Probedatei (Zeilen ohne Spalten 9/10 und Zweitstopps übergangen); Kopf in `LISTE-REGELTREUE.md` hat die Spalte.
+- **D64.1 behoben:** `-f`, `-F`, `--field`, `--raw-field=`, mit und ohne Anführung → 415; `inputs[bild]=nein` zählt nicht; `ref=main` → „main“.
+
+**Befunde**
+- **D65.1 (461b, klein, sicher, Klasse 1 Perikles) Fehlstopp beim zweiten Anhang:** `commit-pruefung.py` zählt einen Anhang nur, wenn die alte Zeile noch kein „ersetzt durch“ trug (`"ersetzt durch" not in a`). Probe: neuer 461b-Eintrag mit „461 C1“, C1 geändert, am alten 461b (trägt schon „→ Ort … ersetzt durch 461d“) richtig „→ ersetzt durch 461b Probe, 02.11.“ angehängt: Exit 1. Ausweg wäre nur das falsche „ersetzt nichts“.
+
+**Nicht geprüft / Grenzen:** `gh api … --input body.json` und `-fref=` ohne Leerzeichen zählen unter „godot.yml“ (Datei nicht lesbar; selten). Berührt ein Entscheid C1 und C2 und ändert nur C1, geht er durch. „→ **Vorentscheid, gebilligt 21.10.**“ ohne Uhrzeit (261.5, 59e.1, 84.1T.1) erkennt `urteil()` nicht; nur alte Einträge mit eigenem Chefeintrag, ohne Wirkung. Echte Zähldatei dieser Sitzung (fehlte vor dem ersten Zugende).
 
 ## Lauf 62 · Auftrag 407 Probelauf-Haken (`main` `bb1205e31`; 02.11., 11:2x; `probelauf.py` mit 10 Probeeingaben, `BORNIM_PROBELAUF_TROCKEN=1`, Zählung in eine Scratch-Datei, kein Push in `probelaeufe`)
 
