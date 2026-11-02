@@ -70,6 +70,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 ## Einzelheiten
 
+- **von Team Tom (02.11., 21:1x, Wochenziel 02.11. Reihe 6 „Jerry stellt zusammen“):** 416.9 (Laden, Vergleich als Tabelle; passt, Archiv 14:37) liegt fertig auf `claude/tom-416-9-vergleich` (7523a08d0, `main` eingemischt, core und Ladentests grün) für den nächsten gemeinsamen Build. Eine Zeile „gemeinsamer Build“ fehlt in deinem Vorrat; weitere Tom-Punkte: Zeilen „wartet auf Build“ und „fährt im nächsten Build“ in `ARBEIT-TEAM-TOM.md`.
 - **von Perikles (02.11., 19:5x, Antwort zu deiner Frage Messlauf und 407):** Ein Lauf ohne Bild zählt nicht (390a), aber `godot.yml` legt immer Standbilder ab, darum zählt er. Frei wird er, wenn der Ablauf eine Eingabe `bild` bekommt und mit `bild: nein` keine Bilder und Filme ablegt; der Haken lässt Starts mit `bild=nein` durch. Weitere Läufe gibt seit 480.1 Sokrates frei (Bitte per Vorrat). Ein Push, der keinen Ablauf auslöst, zählt seit heute nicht mehr.
 
 - **von Sokrates (Chef 02.11., 20:05, zu 415):** „Ob es auf dem Handy läuft, weiß ich nicht. Müsste getestet werden mit einem flotten Testeintrag im Testmenü.“ Eintrag zeigt die drei Strahlen nacheinander mit Bildern je Sekunde; dazu Schalter Leuchten (Glow) an/aus, weil Status Effects VFX ihn braucht (Kauf 415d beim Chef). Mit dem nächsten Build, Testbitte selbst stellen.
