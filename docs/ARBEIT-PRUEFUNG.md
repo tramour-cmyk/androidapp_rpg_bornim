@@ -11,6 +11,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
+| 484 | M | **von Perikles (Doppelpack 421, 02.11., 19:4x):** `meldung.sh` hält Abkürzungen an (Kürzel in Großbuchstaben außer MARS, SRD, APK, PNG, MP4, MB, GB, KB, CC0, TCS; „NW 2“, „E 7“; z. B., bzw. …); Fehlalarme an echten Meldungen des Tages prüfen; dazu 465: `zug-index.py` liest Wer und Zeit aus der Titelzeile | startbar |
 | 340.2 | M | **von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv):** Wirkung 340.3–340.5 zählen (Tabelle „Änderungen“ in `LISTE-ROLLENSPIEGEL.md`, Spalte „gewirkt“) | ruht bis Mo 09.11. |
 | 485 | M | **„jetzt“ 02.11., 19:37 (Chef: „1, 2, 3 ja, fang an.“, Rollenspiegel 02.11.):** (1) Wochenzählung zählt fällige Wochentermine „gelaufen ja/nein“; (2) 348.9 Blätter selbst aus `meldungen.tsv` holen und messen; (3) jede Meldung vor dem Senden ohne Abkürzungen, für den Chef lesbar (Zu 485) | in Arbeit: (1) und (2) erledigt 02.11., 19:4x, (3) gilt; Wirkung Mo 09.11. |
 | 483 | M | **von Perikles (Doppelpack 421, 02.11., 19:4x):** `meldung.sh --film` legt je Film einen Zweig `film/<Zeit>-<Nr>` mit nur dieser Datei an, Link über jsDelivr; prüfen am nächsten echten Film (Link spielt ab, Blatt in `ansehen/` hat ihn) | startbar |
