@@ -106,9 +106,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
-| Pflege | K | von Werkzeug (340.3, 02.11.): 25539 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 02.11.): 23756 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 55, Muss 43, startbar 1
+**Jerry** – offen 56, Muss 43, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -167,6 +167,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | 469 | M | von Sokrates (02.11., 11:0x, zu 406.1): Kampf auf BRS: Ring (MARS) ohne Klassen regeln (An | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
+| Pflege | K | von Werkzeug (340.3, 02.11.): 15872 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 30, Muss 27, startbar 2
 
@@ -201,7 +202,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | wartet auf Test/Build (gebaut) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
-| Pflege | K | von Werkzeug (340.3, 02.11.): 20750 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
+| Pflege | K | von Werkzeug (340.3, 02.11.): 15212 Bytes (Grenze 15000), Erledigtes streichen; CLAUDE.md: | startbar |
 
 **Diogenes** – offen 10, Muss 8, startbar 1
 
@@ -218,7 +219,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 33, Muss 24, startbar 14
+**Sokrates** – offen 34, Muss 24, startbar 15
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -255,6 +256,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (Chef) |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | ruht |
 | D63.7 | K | von Diogenes (434, Vortag 01.11.): entscheiden/3761-kettenhemd-heldin.md (20:55) ohne Zeil | startbar |
+| Pflege | K | von Werkzeug (340.3, 02.11.): 17489 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
