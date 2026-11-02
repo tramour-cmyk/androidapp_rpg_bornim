@@ -14,6 +14,12 @@ const PFAD := "res://addons/reeboo_beams/beams_3d/%s.tscn"
 const STRAHL_S := 4.0
 const PAUSE_S := 1.2
 const RENDERER_CFG := "user://renderer_415.cfg"
+# r3 (Tor 461a, Lauf 172: F6 alle Strahlen aus Hals und Schulter, der Magier stand ohne Zauberbewegung; F2 ein Bild Laser in den
+# Himmel; E3 der graue Wolf lief in den Feuerstrom, der Strahl ging durch ihn): erst Zauberbewegung (Ausholen, wie im Kampf strike),
+# der Strahl ab AUSHOLEN_S und erst sichtbar, wenn die Mündung ausgerichtet ist; er endet am ersten Körper zwischen Stab und Ziel
+const AUSHOLEN_S := 0.45
+const SICHTBAR_NACH := 2     # Bilder nach play(), bis der Strahl sichtbar wird (ausgerichtet)
+const BRUST := 0.45          # Zielhöhe über dem Boden des Wolfs, m
 
 var film := false
 var fertig := false     # film: alle Strahlen einmal durch
@@ -26,6 +32,10 @@ var strahl: Node
 var lb: Label
 var mittel := {}     # Strahl -> [Summe fps, Bilder]
 var jetzt := ""
+var dreh_grad := 0.0     # Messung strahl_mess_415: der Magier dreht sich so viel weiter als zum Ziel (Stabspitze frei vom Körper)
+var wolf_jetzt = null    # Messung: Ziel des laufenden Strahls
+var sichtbar := false    # Messung: Strahl sichtbar
+var getroffen = null     # Messung: Figur, an der der Strahl endet (Ziel oder Körper dazwischen)
 
 
 static func da() -> bool:
@@ -74,19 +84,41 @@ func _lauf() -> void:
 			return
 
 
-## der nächste stehende Wolf, Ziel auf Brusthöhe
+## der nächste stehende Wolf mit freier Linie von der Stabspitze, sonst der nächste; Ziel auf Brusthöhe
 func _wolf():
-	var best = null
-	var d := INF
+	var liste := []
 	for id in kf.figures:
 		var f = kf.figures[id]
 		if f.fighter.monster == null or f.down or not f.visible:
 			continue
-		var e: float = f.global_position.distance_to(held.global_position)
-		if e < d:
-			d = e
-			best = f
-	return best
+		liste.append([f.global_position.distance_to(held.global_position), f])
+	liste.sort_custom(func(a, b): return a[0] < b[0])
+	var p = held.cast_point()
+	var von: Vector3 = p if p is Vector3 else held.global_position + Vector3(0, 1.4, 0)
+	for e in liste:
+		if _erster_koerper(von, e[1].global_position + Vector3(0, BRUST, 0), e[1])[0] == null:
+			return e[1]
+	return liste[0][1] if not liste.is_empty() else null
+
+
+## erste Figur (außer Magier und [ziel]) auf der Strecke von [a] nach [b], mit dem Punkt, an dem der Strahl sie trifft: [Figur, Punkt]
+## oder [null, b]. Körper aus den Kapseln (figur.gd kapseln), in Schritten von 2 cm
+func _erster_koerper(a: Vector3, b: Vector3, ziel_) -> Array:
+	var kaps := []
+	for id in kf.figures:
+		var f = kf.figures[id]
+		if f == held or f == ziel_ or f.down or not f.visible:
+			continue
+		for c in f.kapseln():
+			kaps.append([f, c[0], c[1], float(c[2])])
+	var l := a.distance_to(b)
+	var n := int(l / 0.02) + 1
+	for i in range(1, n + 1):
+		var q := a.lerp(b, float(i) / n)
+		for k in kaps:
+			if q.distance_to(Geometry3D.get_closest_point_to_segment(q, k[1], k[2])) < k[3]:
+				return [k[0], q]
+	return [null, b]
 
 
 func _feuer(art: String, name_: String) -> void:
@@ -94,28 +126,59 @@ func _feuer(art: String, name_: String) -> void:
 	if w == null or held == null:
 		return
 	jetzt = name_
+	wolf_jetzt = w
+	# Zauberbewegung wie im Kampf (figur.gd strike: Ausholen), zum Ziel gedreht; der Strahl erst danach
+	var lang := AUSHOLEN_S + STRAHL_S + 0.3
+	held.busy_ms = maxi(held.busy_ms, int(lang * 1000.0))
+	_drehen((w.global_position - held.global_position).rotated(Vector3.UP, deg_to_rad(dreh_grad)))
+	held._play("Ausholen")
+	await get_tree().create_timer(AUSHOLEN_S).timeout
 	strahl = (load(PFAD % art) as PackedScene).instantiate()
 	strahl.auto_raycast = false
 	strahl.target = ziel
+	if strahl is Node3D:
+		(strahl as Node3D).visible = false
 	muendung.add_child(strahl)
 	_richten(w)
 	strahl.play()
 	var t := 0.0
+	var bilder := 0
 	while t < STRAHL_S:
 		await get_tree().process_frame
 		t += get_process_delta_time()
 		_richten(w)
+		bilder += 1
+		if bilder == SICHTBAR_NACH and strahl is Node3D:
+			(strahl as Node3D).visible = true
+			sichtbar = true
 	strahl.stop()
+	sichtbar = false
 	await get_tree().create_timer(0.8).timeout
 	strahl.queue_free()
 	strahl = null
 	jetzt = ""
+	wolf_jetzt = null
+	_drehen(Vector3.ZERO)
+	held._idle()
+
+
+## weich zur Richtung [dir] (null: Grundrichtung) in 0,3 s, nicht in einem Bild (D1)
+func _drehen(dir: Vector3) -> void:
+	var r0: float = held.rotation.y
+	held._face(dir)
+	var r1: float = r0 + wrapf(held.rotation.y - r0, -PI, PI)
+	held.rotation.y = r0
+	if absf(r1 - r0) > 0.01:
+		held.create_tween().tween_property(held, "rotation:y", r1, 0.3).set_trans(Tween.TRANS_SINE)
 
 
 func _richten(w) -> void:
-	ziel.global_position = w.global_position + Vector3(0, 0.45, 0)
 	var p = held.cast_point()
 	muendung.global_position = p if p is Vector3 else held.global_position + Vector3(0, 1.4, 0)
+	# endet am ersten Körper zwischen Stab und Ziel (E3)
+	var e := _erster_koerper(muendung.global_position, w.global_position + Vector3(0, BRUST, 0), w)
+	getroffen = e[0] if e[0] != null else w
+	ziel.global_position = e[1]
 	if muendung.global_position.distance_to(ziel.global_position) > 0.05:
 		muendung.look_at(ziel.global_position)
 
