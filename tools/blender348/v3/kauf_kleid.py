@@ -415,6 +415,45 @@ if (HUELLE & _GEW).any():
         _W[i] = WKq[nb].mean(0)
     WKq = _W / _W.sum(1, keepdims=True)
     print('SCHALE GEWICHTE', len(_sch), 'Ecken gemittelt')
+# 463 (Pruefer Film 23:03: „roter Aermel schneidet seitlich durch den Umhang, Oberarm, Ellbogen“; Lauf 41366192062, pruef_tracht ORT:
+# sleeves>cloak schon in Ruhe, 1,1-1,3 m hoch, hinten, beide Seiten, 5-25 mm tief): der Umhang liegt hinten am Oberarm nicht ueber dem
+# Aermel, und er folgt dem Arm nicht (der Strahl nach innen trifft den Ruecken, nicht den Arm; FOLGT). Darum (1) jede Umhangecke binnen
+# ARM_R am Aermel mindestens ARM_LUFT m vor die Aermelflaeche (entlang deren Normale), (2) bis ARM_GEW der Aermelgewichte (naeher mehr,
+# Oberarm schiebt den Umhang). Beide Lagen gleich: je Ecke die staerkste Verschiebung und Gewichtung binnen SCHALE_R (wie SCHALE GEWICHTE)
+# Lauf 41368485277 (ARM_LUFT 0,012, ARM_GEW 0,6): schlechter, darum aus (ARM_LUFT=0): sleeves>cloak Ruhe Mann 104 -> 104, Frau 48 -> 112,
+# Gehen 256 -> 215, 238 -> 233; Flecken Mann chain 368 -> 4865, sleeves 1372 -> 2903; in Ruhe liegt der Durchstoss jetzt auf 1,4 m (Schulter)
+# Versuch 2 (Lauf 41374143498, nur Aermelgewichte ARM_GEW 0,6, ARM_LUFT 0): kaum Wirkung (Ruhe 104/48 unveraendert, Flecken mehr).
+# Ursache (Tom 02.11., 03:2x): beide Versuche liefen auf VK3, der Kleidung schon zurueck in der T-Pose der Kauffigur; dort liegen die Arme
+# waagerecht, der Umhang beruehrt den Aermel nur an der Schulter (darum Durchstoss danach auf 1,4 m). Jetzt auf VK2, in unserer Haltung mit
+# haengenden Armen, wo der Aermel hinten am Ellbogen durch den Umhang sticht, vor der Rueckrechnung in die Ruhelage (Gewichte gelten mit)
+ARM_LUFT = float(os.environ.get('ARM_LUFT', '0.012')); ARM_GEW = float(os.environ.get('ARM_GEW', '0.6')); ARM_R = float(os.environ.get('ARM_R', '0.06'))
+if (ARM_LUFT > 0 or ARM_GEW > 0) and 'cloak' in TEILNAMEN and 'sleeves' in TEILNAMEN:
+    _ic = TEILNAMEN.index('cloak'); _is = TEILNAMEN.index('sleeves')
+    _sf = [f for f in KF if _lt[f[0]] == _is]
+    _bv = BVHTree.FromPolygons([Vector(v) for v in VK2], _sf); _NA = normalen(VK2)
+    _cl = np.where(_lt == _ic)[0]
+    _dv = np.zeros((len(VK2), 3)); _a = np.zeros(len(VK2)); _neu = {}
+    for i in _cl:
+        h = _bv.find_nearest(Vector(VK2[i]), ARM_R)
+        if h[0] is None: continue
+        ecken = list(_sf[h[2]]); d = np.linalg.norm(VK2[ecken] - np.array(h[0]), axis=1)
+        n = Vector(_NA[ecken].mean(0)).normalized()   # Normale der Aermelecken (nach aussen wie pruef_tracht), nicht die Wicklung der Flaeche
+        sd = (Vector(VK2[i]) - h[0]).dot(n)
+        if ARM_LUFT > 0 and -0.035 < sd < ARM_LUFT: _dv[i] = np.array(n) * (ARM_LUFT - sd)   # tiefer als 3,5 cm: kein Umhang am Aermel
+        w = 1.0 / np.maximum(d, 1e-4); _neu[i] = (w[:, None] * WKq[ecken]).sum(0) / w.sum()
+        a = float(np.clip(1.0 - h[3] / ARM_R, 0, 1)); _a[i] = ARM_GEW * a * a * (3 - 2 * a)
+    _kd = KDTree(len(_cl))
+    for i in _cl: _kd.insert(Vector(VK2[i]), int(i))
+    _kd.balance()
+    _dv2 = _dv.copy(); _W = WKq.copy(); n_auf = n_gew = 0
+    for i in _cl:
+        nb = [k for _, k, _ in _kd.find_range(Vector(VK2[i]), SCHALE_R)]
+        kv = max(nb, key=lambda k: float(np.linalg.norm(_dv[k]))); _dv2[i] = _dv[kv]; n_auf += bool(np.linalg.norm(_dv[kv]) > 0)
+        ka = max(nb, key=lambda k: _a[k])
+        if _a[ka] > 0 and ka in _neu: _W[i] = (1 - _a[ka]) * WKq[i] + _a[ka] * _neu[ka]; n_gew += 1
+    tief = float(np.linalg.norm(_dv, axis=1).max()) if len(_cl) else 0.0
+    VK2 = VK2 + _dv2; WKq = _W / _W.sum(1, keepdims=True)
+    print('UMHANG UEBER AERMEL', n_auf, 'Ecken vor (hoechstens %.1f cm), %d folgen dem Arm (bis %.0f %%)' % (tief * 100, n_gew, ARM_GEW * 100))
 VK3 = np.empty_like(VK2)
 for i, v in enumerate(VK2):
     A = np.tensordot(WKq[i], SA, axes=1)
@@ -460,44 +499,6 @@ if UA > 0 and 'cloak' in TEILNAMEN:
     m = np.isin(LT, [TEILNAMEN.index(t) for t in ('cloak', 'clasp') if t in TEILNAMEN]) & (VK3[:, 2] > cz - 0.05)
     VK3[m] += NR[m] * UA * np.clip((VK3[m, 2:3] - (cz - 0.05)) / 0.1, 0, 1)
     print('UMHANG AUF', int(m.sum()), 'Ecken')
-# 463 (Pruefer Film 23:03: „roter Aermel schneidet seitlich durch den Umhang, Oberarm, Ellbogen“; Lauf 41366192062, pruef_tracht ORT:
-# sleeves>cloak schon in Ruhe, 1,1-1,3 m hoch, hinten, beide Seiten, 5-25 mm tief): der Umhang liegt hinten am Oberarm nicht ueber dem
-# Aermel, und er folgt dem Arm nicht (der Strahl nach innen trifft den Ruecken, nicht den Arm; FOLGT). Darum (1) jede Umhangecke binnen
-# ARM_R am Aermel mindestens ARM_LUFT m vor die Aermelflaeche (entlang deren Normale), (2) bis ARM_GEW der Aermelgewichte (naeher mehr,
-# Oberarm schiebt den Umhang). Beide Lagen gleich: je Ecke die staerkste Verschiebung und Gewichtung binnen SCHALE_R (wie SCHALE GEWICHTE)
-# Lauf 41368485277 (ARM_LUFT 0,012, ARM_GEW 0,6): schlechter, darum aus (ARM_LUFT=0): sleeves>cloak Ruhe Mann 104 -> 104, Frau 48 -> 112,
-# Gehen 256 -> 215, 238 -> 233; Flecken Mann chain 368 -> 4865, sleeves 1372 -> 2903; in Ruhe liegt der Durchstoss jetzt auf 1,4 m (Schulter)
-# Versuch 2 (Lauf 41374143498, nur Aermelgewichte ARM_GEW 0,6, ARM_LUFT 0): kaum Wirkung, darum auch aus: sleeves>cloak Ruhe Mann 104 -> 104,
-# Frau 48 -> 48 (der Durchstoss liegt schon in der Ruhelage, 1,4 m hinten, also Form, nicht Gewicht), Gehen 256 -> 236, 238 -> 254; Flecken
-# Mann chain 368 -> 474, sleeves 1372 -> 1642. Naechster Versuch: Aermel unter dem Umhang nach innen (Form), nicht den Umhang hinaus
-ARM_LUFT = float(os.environ.get('ARM_LUFT', '0')); ARM_GEW = float(os.environ.get('ARM_GEW', '0')); ARM_R = float(os.environ.get('ARM_R', '0.06'))
-if (ARM_LUFT > 0 or ARM_GEW > 0) and 'cloak' in TEILNAMEN and 'sleeves' in TEILNAMEN:
-    _ic = TEILNAMEN.index('cloak'); _is = TEILNAMEN.index('sleeves')
-    _sf = [f for f in KF if LT[f[0]] == _is]
-    _bv = BVHTree.FromPolygons([Vector(v) for v in VK3], _sf); _NA = normalen(VK3)
-    _cl = np.where(LT == _ic)[0]
-    _dv = np.zeros((len(VK3), 3)); _a = np.zeros(len(VK3)); _neu = {}
-    for i in _cl:
-        h = _bv.find_nearest(Vector(VK3[i]), ARM_R)
-        if h[0] is None: continue
-        ecken = list(_sf[h[2]]); d = np.linalg.norm(VK3[ecken] - np.array(h[0]), axis=1)
-        n = Vector(_NA[ecken].mean(0)).normalized()   # Normale der Aermelecken (nach aussen wie pruef_tracht), nicht die Wicklung der Flaeche
-        sd = (Vector(VK3[i]) - h[0]).dot(n)
-        if ARM_LUFT > 0 and -0.035 < sd < ARM_LUFT: _dv[i] = np.array(n) * (ARM_LUFT - sd)   # tiefer als 3,5 cm: kein Umhang am Aermel
-        w = 1.0 / np.maximum(d, 1e-4); _neu[i] = (w[:, None] * WKq[ecken]).sum(0) / w.sum()
-        a = float(np.clip(1.0 - h[3] / ARM_R, 0, 1)); _a[i] = ARM_GEW * a * a * (3 - 2 * a)
-    _kd = KDTree(len(_cl))
-    for i in _cl: _kd.insert(Vector(VK3[i]), int(i))
-    _kd.balance()
-    _dv2 = _dv.copy(); _W = WKq.copy(); n_auf = n_gew = 0
-    for i in _cl:
-        nb = [k for _, k, _ in _kd.find_range(Vector(VK3[i]), SCHALE_R)]
-        kv = max(nb, key=lambda k: float(np.linalg.norm(_dv[k]))); _dv2[i] = _dv[kv]; n_auf += bool(np.linalg.norm(_dv[kv]) > 0)
-        ka = max(nb, key=lambda k: _a[k])
-        if _a[ka] > 0 and ka in _neu: _W[i] = (1 - _a[ka]) * WKq[i] + _a[ka] * _neu[ka]; n_gew += 1
-    tief = float(np.linalg.norm(_dv, axis=1).max()) if len(_cl) else 0.0
-    VK3 = VK3 + _dv2; WKq = _W / _W.sum(1, keepdims=True)
-    print('UMHANG UEBER AERMEL', n_auf, 'Ecken vor (hoechstens %.1f cm), %d folgen dem Arm (bis %.0f %%)' % (tief * 100, n_gew, ARM_GEW * 100))
 umhang_dbg(VK3, 'Ende')
 kme.vertices.foreach_set('co', VK3.ravel())
 for g in list(kleid.vertex_groups): kleid.vertex_groups.remove(g)
