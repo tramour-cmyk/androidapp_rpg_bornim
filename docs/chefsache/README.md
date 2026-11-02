@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [470a](entscheiden/470a-bruecke-bis-2-3.md) | **Muss** | E Regeln | 02.11., 14:33 | BRS-Held in Stufe 1: wie kämpft er, bis der Kampf umgestellt ist? | Spike (Team Tom) |
 | [431c](entscheiden/431c-voelker-angehalten.md) | **Muss** | E Figuren | 02.11., 13:40 | Völker Runde 4: Film am Tor angehalten, neue Läufe frei? | Spike (Team Tom) |
 | [406a](entscheiden/406a-schlussfilm-angehalten.md) | **Muss** | E Kampf | 02.11., 13:18 | Schlussfilm Schilde angehalten: neue Läufe frei? | Jerry |
 | [415b](entscheiden/415b-strahlen-dritter-lauf.md) | **Muss** | C Kampf | 02.11., 13:13 | Strahlenprobe: Film angehalten, dritter Lauf oder Handy? | Jerry |
