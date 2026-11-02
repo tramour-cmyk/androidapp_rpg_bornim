@@ -361,7 +361,7 @@ jobs:
           titel() { echo "scale=$2:-2,drawtext=fontfile=$F:text='$1':fontsize=$3:fontcolor=white:box=1:boxcolor=black@0.6:x=(w-tw)/2:y=8"; }
           # 461.1 (Tuffy): kampf=461 nur der Grundstand-Film Kampfort (Helden heute, Wölfe)
           if [ "${{ github.event.inputs.kampf }}" = "461" ]; then
-            film kampf461-helden film_403
+            film kampf461-helden film_403 DAUER_MS=40000     # Lauf 159: nach 22 s noch ONGOING, Tod und Neuformation (F3, F4) fehlten
             film kampf461-woelfe film_453
             ls -l $B; exit 0
           fi
