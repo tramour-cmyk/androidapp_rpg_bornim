@@ -6,17 +6,32 @@
 # Grundbewegung bleibt, wie sie ist; nur ihr eigener Atem wird vorher herausgenommen (figur.gd _ohne_atem).
 # Je Figur eigener Takt (± TAKT_STREU) und Versatz; anstrengen() nach Angriff, Ausweichen, Treffer: schneller und tiefer, in etwa
 # 5 s zurück (ABKLINGEN_S). Einatmen kürzer als Ausatmen (EIN_ANTEIL).
+# 453.1 Feld 2 (Chef 02.11., 11:07: „hatten wir nicht gesagt, dass Atmen sich bei Angriff und Verteidigung steigert und dann wieder
+# normalisiert? Und einen Tick schneller dürfen die Helden schon atmen“): im Kampfort Ruhe RUHE_KAMPF_S statt RUHE_S (unterwegs wie
+# bisher); die Anstrengung sammelt sich über mehrere Züge, bleibt HALTEN_S oben (die Figur ist noch in der Bewegung) und klingt erst
+# dann ab; tiefer (TIEFER_KAMPF) und weich angehoben (TIEF_S), damit nichts zuckt. Unterwegs alles wie bisher (kampf).
 extends SkeletonModifier3D
 
 ## Ruhe: ein Atemzug in Sekunden (14 je Minute; in Idle_Loop der UAL dauert er 1,25 s, 48 je Minute: „hechelt“)
 const RUHE_S := 4.3
 ## eigener Takt je Figur: ± so viel
 const TAKT_STREU := 0.15
-## nach voller Anstrengung: so viel kürzer und so viel tiefer
+## im Kampfort: 17 je Minute (Feld 2: 14, „einen Tick schneller“)
+const RUHE_KAMPF_S := 3.6
+## nach voller Anstrengung: so viel kürzer und so viel tiefer (unterwegs und Tiere, atem_tier.gd)
 const SCHNELLER := 0.55
 const TIEFER := 0.9
-## Anstrengung klingt mit dieser Zeitkonstante ab (s); nach 5 s bleibt etwa ein Siebtel, nach 6 s ein Elftel
+## im Kampfort (Feld 2 mit 0,55 und 0,9: Steigerung kaum zu sehen)
+const SCHNELLER_KAMPF := 0.5
+const TIEFER_KAMPF := 1.6
+## so lange nach der letzten Anstrengung bleibt sie oben (s; Feld 2: 0)
+const HALTEN_S := 2.0
+## dann klingt sie mit dieser Zeitkonstante ab (s); 7 s nach dem Zug bleibt etwa ein Siebtel, nach 9 s ein Zwanzigstel
 const ABKLINGEN_S := 2.5
+## die Tiefe folgt der Anstrengung weich (s), sonst springen die Schultern mitten im Atemzug
+const TIEF_S := 0.4
+## höchstens so tief wie in Ruhe, mit Ausgleich nach Kameraabstand
+const TIEF_MAX := 3.2
 const EIN_ANTEIL := 0.42
 ## Ausschlag in Grad bei voller Einatmung in Ruhe: [Knochen, Art, Grad]; „zurück“ dreht um die Querachse (Brust hebt sich),
 ## „heben“ das Schlüsselbein um die Längsachse nach oben, „blick“ gleicht am Hals und Kopf den Rumpf aus (Blick bleibt)
@@ -37,6 +52,11 @@ var ausgleich := false    # nur im Kampfort
 var phase := 0.0          # 0..1 im Atemzug
 var anstrengung := 0.0    # 0..1
 var tiefe := 0.0          # zuletzt angewandte Einatmung 0..1 mal Tiefe (Prüflauf)
+var halten := 0.0         # so lange bleibt die Anstrengung noch oben (s)
+var tief_glatt := 1.0     # weich nachgeführte Tiefe
+## 453.1 Feld 2 nur im Kampfort (eigen_kampf); unterwegs (held.gd ruft anstrengen je Bild beim Gehen und Rennen) wie
+## bisher. Prüfschalter ATEM_FELD2=1: auch im Kampfort wie Feld 2 (02.11., 11:07)
+var kampf := false
 var _idx := []
 
 
@@ -46,6 +66,15 @@ func eigen(seed: int) -> void:
 	rng.seed = seed
 	takt = RUHE_S * (1.0 + rng.randf_range(-TAKT_STREU, TAKT_STREU))
 	phase = rng.randf()
+
+
+## 453.1 Feld 2: Held und Söldner im Kampfort (figur.gd); Prüfschalter ATEM_FELD2=1 wie Feld 2
+func eigen_kampf(seed: int) -> void:
+	eigen(seed)
+	if OS.get_environment("ATEM_FELD2") != "":
+		return
+	kampf = true
+	takt *= RUHE_KAMPF_S / RUHE_S
 
 
 func _enter_tree() -> void:
@@ -74,8 +103,14 @@ func _sicht_jetzt(sk: Skeleton3D) -> float:
 	return sicht_ziel(d, d_min)
 
 
+## nach Angriff, Abwehr, Ausweichen, Treffer: Züge kurz hintereinander steigern sich (0,6 auf 0,6 gibt 0,84), jeder hält sie HALTEN_S oben
 func anstrengen(wie_sehr := 1.0) -> void:
-	anstrengung = maxf(anstrengung, clampf(wie_sehr, 0.0, 1.0))
+	var w := clampf(wie_sehr, 0.0, 1.0)
+	if not kampf:
+		anstrengung = maxf(anstrengung, w)
+		return
+	anstrengung = clampf(anstrengung + w * (1.0 - anstrengung), 0.0, 1.0)
+	halten = HALTEN_S
 
 
 static func welle(p: float) -> float:
@@ -85,9 +120,15 @@ static func welle(p: float) -> float:
 
 
 func schritt(dt: float) -> void:
-	var dauer := takt * (1.0 - SCHNELLER * anstrengung)
+	var dauer := takt * (1.0 - (SCHNELLER_KAMPF if kampf else SCHNELLER) * anstrengung)
 	phase = fposmod(phase + dt / dauer, 1.0)
-	anstrengung *= exp(-dt / ABKLINGEN_S)
+	var ab := dt
+	if halten > 0.0:
+		ab = maxf(0.0, dt - halten)
+		halten = maxf(0.0, halten - dt)
+	anstrengung *= exp(-ab / ABKLINGEN_S)
+	var ziel := 1.0 + (TIEFER_KAMPF if kampf else TIEFER) * anstrengung
+	tief_glatt = ziel if not kampf else lerpf(tief_glatt, ziel, 1.0 - exp(-dt / TIEF_S))
 
 
 func _process_modification_with_delta(delta: float) -> void:
@@ -101,7 +142,7 @@ func _process_modification_with_delta(delta: float) -> void:
 			_idx.append(sk.find_bone(k[0]))
 	if ausgleich:
 		sicht = lerpf(sicht, _sicht_jetzt(sk), 1.0 - exp(-dt / SICHT_S))
-	var tief := (1.0 + TIEFER * anstrengung) * sicht
+	var tief := minf(tief_glatt * sicht, TIEF_MAX)
 	tiefe = welle(phase) * tief
 	if tiefe < 0.0005:
 		return

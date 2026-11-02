@@ -886,7 +886,7 @@ func _atem_an() -> void:
 			_ohne_atem(anim.get_animation(n))
 	atem = preload("res://kampf/atem.gd").new()
 	atem.name = "Atem"
-	atem.eigen(hash(String(fighter.id)))
+	atem.eigen_kampf(hash(String(fighter.id)))     # 453.1 Feld 2: im Kampf „einen Tick schneller“, Steigerung sichtbar
 	atem.ausgleich = true     # 453.1 (Chef 19:5x): der fernere Held atmet im Bild so deutlich wie der nähere
 	sk.add_child(atem)
 

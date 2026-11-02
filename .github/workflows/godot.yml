@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       kampf:
-        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich) oder 461 (Grundstand-Film Kampfort)"
+        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich), 461 (Grundstand-Film Kampfort) oder 4531 (Heldenatem Feld 2 gegen neu)"
         default: ""
       dorf:
         description: "Dorf-Film Grundstand (461.1): ja"
@@ -248,7 +248,8 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/skripte_pruefen.gd 2>&1 | grep -E "SKRIPTE|FALSCH"   # 399.1 Test 130
           timeout 300 ~/godot/godot --headless --path . -s res://tests/held_klassen_376.gd 2>&1 | grep -E "HELDKLASSEN|FALSCH|SCRIPT ERROR"   # 376.1
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/held_kampf_403.gd 2>&1 | grep -E "^(ok|FEHLER|Held 403)|SCRIPT ERROR"   # 403 (Jerry)
-          set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Held|Söldner|nach|in den|Atem 453)|SCRIPT ERROR"   # 453.1 (Tuffy)
+          set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Held|Söldner|nach|in den|im Kampf|Atem 453)|SCRIPT ERROR"   # 453.1 (Tuffy)
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/atem_rechnung_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Anstrengung|Atemrechnung)|SCRIPT ERROR"   # 453.1 Feld 2 (Tuffy)
           set -o pipefail; timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wolf_mess_438.gd 2>&1 | grep -E "^(— |  |Befunde|Wolf 438|Kampf )|SCRIPT ERROR"   # 438, 439, 440 (Jerry): Wölfe ohne Gleiten, Reihenfolge, Tod
           timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_test.gd 2>&1 | grep -E "^(gut|FALSCH)|KLANG|SCRIPT ERROR"   # 399.3
           timeout 120 ~/godot/godot --headless --path . -s res://tests/zwischenbild_test.gd 2>&1 | grep -E "FALSCH|ZWISCHENBILD|SCRIPT ERROR"   # 399.1 Intro
@@ -360,6 +361,17 @@ jobs:
           F=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf
           titel() { echo "scale=$2:-2,drawtext=fontfile=$F:text='$1':fontsize=$3:fontcolor=white:box=1:boxcolor=black@0.6:x=(w-tw)/2:y=8"; }
           # 461.1 (Tuffy): kampf=461 nur der Grundstand-Film Kampfort (Helden und Wölfe im Kampf; Nahteil von film_453 nicht, Prüfer Lauf 159: C2, G1)
+          # 453.1 Feld 2 (Tuffy; Chef 02.11., 11:07 „steigert sich … und dann wieder normalisiert … einen Tick schneller“): kampf=4531
+          # derselbe Kampf (SEED 7) wie Feld 2 links, neu rechts
+          if [ "${{ github.event.inputs.kampf }}" = "4531" ]; then
+            film held-feld2 film_403 ATEM_FELD2=1 DAUER_MS=40000
+            film held-neu film_403 DAUER_MS=40000
+            L=$(for v in held-feld2 held-neu; do dauer $B/$v.mp4; done | sort -n | tail -1)
+            $FT -loglevel error -y -i $B/held-feld2.mp4 -i $B/held-neu.mp4 -filter_complex \
+              "[0]$(titel 'Feld 2 (vorher)' 540 30),tpad=stop_mode=clone:stop_duration=60[a];[1]$(titel 'neu' 540 30),tpad=stop_mode=clone:stop_duration=60[b];[a][b]hstack=inputs=2,trim=duration=$L" \
+              -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $B/4531-feld2-neu.mp4 || true
+            ls -l $B; exit 0
+          fi
           if [ "${{ github.event.inputs.kampf }}" = "461" ]; then
             film kampf461-helden film_403 DAUER_MS=40000     # Lauf 159: nach 22 s noch ONGOING, Tod und Neuformation (F3, F4) fehlten
             ls -l $B; exit 0
