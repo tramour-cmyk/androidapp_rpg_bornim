@@ -339,6 +339,12 @@ for kennung in sorted(gesucht):
     metall = np.array([{'metall': 1.0, 'beschlag': 1.0, 'akzent': 4.0}.get(k, 0.0) for k in fl_kl])
     oben = float((fl * metall * (zs > laenge * 0.25)).sum()); unten = float((fl * metall * (zs < -laenge * 0.25)).sum())
     gedreht = unten > oben * 1.15 and float((fl * (metall > 0)).sum()) < 0.9 * float(fl.sum())   # ganz aus Metall: Lage lassen
+    # zuerst der Griff: Holz und Leder im aeusseren Fuenftel gehoeren nach unten (Probelauf 2: Anker-Schwerter kopfueber, weil
+    # Parierstange und Knauf unten mehr Metallflaeche haben als die schmale Klingenspitze oben); nur wenn das nicht entscheidet, das Gewicht
+    griff = np.array([k in ('holz', 'leder') for k in fl_kl])
+    g_oben = float((fl * griff * (zs > laenge * 0.3)).sum()); g_unten = float((fl * griff * (zs < -laenge * 0.3)).sum())
+    if g_oben > g_unten * 1.3: gedreht = True
+    elif g_unten > g_oben * 1.3: gedreht = False
     if gedreht: me.transform(Matrix.Rotation(3.14159, 4, 'X'))
     me.transform(Matrix.Scale(1.0 / max(laenge, 1e-6), 4))   # 1 m zum Ansehen; Laenge am Helden setzt das Spiel (417)
     o.name = kennung
