@@ -30,6 +30,75 @@ var _halten := -1
 var _kinder := PackedInt32Array()
 var _von := -1
 
+## 453a B (Chef 02.11., 11:15, „453a B“, Archiv 453a; Votum Tuffy): aus der Kampfkamera (11–15 m) hob sich in r3b nur die Rückenmitte
+## (ein Fünftel der Länge, 3–4 px). Jetzt hebt sich der ganze Rücken vom Hinterteil (Spine_01) bis zur Schulterhöhe (Spine_04), dazu
+## Schultern und Hals um 1 cm; Kopf, Läufe, Pfoten und Rute bleiben, wo die Bewegung sie hinstellt. [Knochen, Weitung (Anteil wie
+## RIPPEN), Hebung m]; Weitung hebt die Rückenhaut zusätzlich (r3: Spine_02 mit 0,010 m Hebung gab 22 mm Rückenlinie).
+## Prüfschalter ATEM_R3B=1: wie r3b (Vergleichsfilm).
+const RUECKEN_B := [["Wolf_Spine_01SHJnt", 0.7, 0.012], ["Wolf_Spine_02SHJnt", 1.0, 0.010], ["Wolf_Spine_03SHJnt", 0.8, 0.010],
+	["Wolf_Spine_04SHJnt", 0.0, 0.010], ["Wolf_Spine_TopSHJnt", 0.0, 0.010], ["hals", 0.0, 0.010]]
+var R3B := OS.get_environment("ATEM_R3B") != ""
+var _b_folge := PackedInt32Array()     # alle Knochen unter dem ersten gehobenen, Eltern vor Kindern
+var _b_art := {}                       # Knochen -> Index in RUECKEN_B; fehlt er, bleibt er in der Lage vor dem Atem
+
+
+## Reihenfolge einmal: von den Wurzeln abwärts; nur Knochen unter einem gehobenen werden gesetzt
+func _b_bereit(sk: Skeleton3D) -> void:
+	for i in RUECKEN_B.size():
+		var b := sk.find_bone(RUECKEN_B[i][0])
+		if b >= 0:
+			_b_art[b] = i
+	var offen := []
+	for b in sk.get_bone_count():
+		if sk.get_bone_parent(b) < 0:
+			offen.append([b, false])
+	while not offen.is_empty():
+		var e: Array = offen.pop_front()
+		var unter: bool = e[1] or _b_art.has(e[0])
+		if unter:
+			_b_folge.append(e[0])
+		for k in sk.get_bone_children(e[0]):
+			offen.append([k, unter])
+	if OS.get_environment("ATEM_BAUM") != "":     # Prüflauf: welche Knochen heben sich, welche bleiben
+		var z := []
+		for b in _b_folge:
+			z.append("%s%s<%s" % ["+" if _b_art.has(b) else "", sk.get_bone_name(b), sk.get_bone_name(sk.get_bone_parent(b))])
+		print("ATEMBAUM %s" % " ".join(z))
+
+
+func _ruecken_b(sk: Skeleton3D) -> void:
+	if _b_folge.is_empty():
+		_b_bereit(sk)
+		_von = sk.find_bone(VON)
+		_halten = sk.find_bone(HALTEN)
+	if _b_folge.is_empty() or _von < 0 or _halten < 0:
+		return
+	tiefe = welle(phase) * (1.0 + TIEFER * anstrengung)
+	if tiefe < 0.0005:
+		return
+	var oben: Vector3 = (sk.global_basis.inverse() * Vector3.UP).normalized()
+	var laengs: Vector3 = sk.get_bone_global_pose(_halten).origin - sk.get_bone_global_pose(_von).origin
+	if laengs.length() < 1e-6:
+		return
+	laengs = laengs.normalized()
+	var quer := laengs.cross(oben).normalized()
+	oben = quer.cross(laengs).normalized()
+	var je_m: float = 1.0 / maxf(sk.global_basis.get_scale().y, 1e-6)
+	var achsen := Basis(quer, oben, laengs)
+	var vorher := []     # erst alle lesen: nach dem Setzen enthielte ein Kindknochen die Lage des Elternknochens schon
+	for b in _b_folge:
+		vorher.append(sk.get_bone_global_pose(b))
+	for i in _b_folge.size():
+		var b: int = _b_folge[i]
+		var g: Transform3D = vorher[i]
+		if _b_art.has(b):
+			var r: Array = RUECKEN_B[_b_art[b]]
+			var a: float = float(r[1]) * tiefe
+			if a > 0.0:
+				g.basis = achsen * Basis.from_scale(Vector3(1.0 + BREITER * a, 1.0 + TIEFER_BAUCH * a, 1.0)) * achsen.inverse() * g.basis
+			g.origin += oben * (float(r[2]) * tiefe * je_m)
+		sk.set_bone_global_pose(b, g)
+
 
 static func passt(sk: Skeleton3D) -> bool:
 	return sk.find_bone(RIPPEN[0][0]) >= 0 and sk.find_bone(HALTEN) >= 0 and sk.find_bone(VON) >= 0
@@ -47,6 +116,9 @@ func _process_modification_with_delta(delta: float) -> void:
 	if sk == null:
 		return
 	schritt(maxf(delta, 0.0))
+	if not R3B:
+		_ruecken_b(sk)
+		return
 	if _rippen.is_empty():
 		for r in RIPPEN:
 			_rippen.append(sk.find_bone(r[0]))

@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       kampf:
-        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich) oder 461 (Grundstand-Film Kampfort)"
+        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich), 461 (Grundstand-Film Kampfort) oder 453a (Wolfsatem B)"
         default: ""
       dorf:
         description: "Dorf-Film Grundstand (461.1): ja"
@@ -259,6 +259,14 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/testmenue_mass_425.gd 2>&1 | grep -E "FEHLER|TESTMENUE|SCRIPT ERROR"   # 425 Befunde Testmenue
           timeout 120 ~/godot/godot --headless --path . -s res://tests/laden_4169.gd 2>&1 | grep -E "FEHLER|LADEN4169|SCRIPT ERROR"   # 416.9
           timeout 120 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4532.gd 2>&1 | grep -E "^(ok|FEHLER|ATEM)"   # 453.2 Atmen unterwegs
+          # 453a B (Jerry; Chef 02.11., 11:15): Wolfsatem ganzer Rücken gegen r3b (ATEM_R3B=1); Haut in mm, im Bild in px, Stillstand (C2);
+          # meldet ohne anzuhalten
+          for v in "" "ATEM_R3B=1"; do echo "— Wolfsatem ${v:-453a B}"
+            env $v ATEM_BAUM=1 timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_netz_453.gd 2>&1 | grep -E "^(ATEMBAUM|tiefe|  |Fläche)|SCRIPT ERROR" || true
+            env $v timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_ruecken_453.gd 2>&1 | grep -E "^(ATEM|  )|SCRIPT ERROR" || true
+            env $v timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_bild_453.gd 2>&1 | grep -E "^(— |Wölfe|Nahkamera|Atem 453)|SCRIPT ERROR" || true
+            env $v timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wolf_ruhe_453.gd 2>&1 | grep -E "^(— |Stillstand|Wolf 453)|SCRIPT ERROR" || true
+          done
       # fester Schluessel ueber alle Laeufe, sonst lehnt Android das Update ab (348.5, Build 9). 399.1a (Chef 28.10., 14:41): der Cache
       # eines Zweigs galt nur dort (Build 130 bekam einen neuen); jetzt nur lesen, angelegt wird er auf main (godot-schluessel.yml)
       - uses: actions/cache/restore@v4
@@ -362,6 +370,17 @@ jobs:
           # 461.1 (Tuffy): kampf=461 nur der Grundstand-Film Kampfort (Helden und Wölfe im Kampf; Nahteil von film_453 nicht, Prüfer Lauf 159: C2, G1)
           if [ "${{ github.event.inputs.kampf }}" = "461" ]; then
             film kampf461-helden film_403 DAUER_MS=40000     # Lauf 159: nach 22 s noch ONGOING, Tod und Neuformation (F3, F4) fehlten
+            ls -l $B; exit 0
+          fi
+          # 453a B (Jerry; Chef 02.11., 11:15 „453a B“): ganzer Rücken, r3b, ohne Atem nebeneinander; Kampfkamera, nah, Kampf
+          if [ "${{ github.event.inputs.kampf }}" = "453a" ]; then
+            film wolf453a-b film_453
+            film wolf453a-r3b film_453 ATEM_R3B=1
+            film wolf453a-ohne film_453 ATEM_ALT=1
+            L=$(for v in wolf453a-b wolf453a-r3b wolf453a-ohne; do dauer $B/$v.mp4; done | sort -n | tail -1)
+            $FT -loglevel error -y -i $B/wolf453a-b.mp4 -i $B/wolf453a-r3b.mp4 -i $B/wolf453a-ohne.mp4 -filter_complex \
+              "[0]$(titel 'B ganzer Rücken' 540 30),tpad=stop_mode=clone:stop_duration=60[a];[1]$(titel 'r3b' 540 30),tpad=stop_mode=clone:stop_duration=60[b];[2]$(titel 'ohne Atem' 540 30),tpad=stop_mode=clone:stop_duration=60[c];[a][b][c]hstack=inputs=3,trim=duration=$L" \
+              -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $B/453a-wolfatem.mp4 || true
             ls -l $B; exit 0
           fi
           # 453 r3: Wölfe atmen (Schicht) neben ohne Schicht

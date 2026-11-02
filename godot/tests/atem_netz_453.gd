@@ -60,8 +60,10 @@ func _run() -> void:
 	var ohne: Array = posen[0]
 	var mit: Array = posen[1]
 	print("tiefe %.2f" % a.tiefe)
-	for n in ["Wolf_Spine_02SHJnt", "Wolf_Spine_03SHJnt", "Wolf_Spine_04SHJnt", "vpfoteL", "kopf"]:
+	for n in ["Wolf_Spine_01SHJnt", "Wolf_Spine_02SHJnt", "Wolf_Spine_03SHJnt", "Wolf_Spine_04SHJnt", "hals", "kopf", "vpfoteL", "hpfoteL"]:     # 453a B
 		var b := sk.find_bone(n)
+		if b < 0:
+			continue
 		print("  %-20s Ort %.2f mm, Drehung %.3f°" % [n, (mit[b].origin - ohne[b].origin).length() * sk.global_basis.get_scale().y * 1000,
 			rad_to_deg(ohne[b].basis.get_rotation_quaternion().angle_to(mit[b].basis.get_rotation_quaternion()))])
 	for s in mi.mesh.get_surface_count():
