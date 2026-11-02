@@ -166,10 +166,11 @@ func _lauf() -> void:
 		if t >= 2.0: h.laeuft = false
 		_bild(h); t += DT
 		var a := h.anim.current_animation
-		if folge.is_empty() or folge[-1][0] != a: folge.append([a, snappedf(t, 0.01)])
-		if t > 2.0 and a.begins_with("Rennen") and folge.size() > 1 and String(folge[-2][0]).begins_with("Gehen"): zurueck += 1
+		if folge.is_empty() or folge[-1][0] != a:
+			folge.append([a, snappedf(t, 0.01)])
+			if t > 2.0 and a.begins_with("Rennen") and folge.size() > 1 and String(folge[-2][0]).begins_with("Gehen"): zurueck += 1
 	print("AUSLAUF atem: Folge %s" % [folge])
-	pruefe(zurueck == 0, "atem: %d Bilder zurueck ins Rennen" % zurueck)
+	pruefe(zurueck == 0, "atem: %d mal zurueck ins Rennen" % zurueck)
 	h.free()
 	print("AUSLAUF4164 ", "gut" if fehler == 0 else "%d Fehler" % fehler)
 	quit(1 if fehler > 0 else 0)
