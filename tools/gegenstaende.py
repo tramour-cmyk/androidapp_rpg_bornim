@@ -32,6 +32,8 @@ AUFBAU = {
     "zustand": (False, "true = nutzt sich ab (Abnutzung, Reparatur); null = offen"),
     "text": (False, "{de, en}, ein Satz (Homer)"),
     "grundform": (False, "bei Einzelstuecken: id der Grundform"),
+    "formen": (False, "Waffen (458.3): Liste {ab, netz}, Form ab Heldenstufe ab, netz = Kennung paket_datei (waffen_staffel.py); "
+                      "erste ab 1, aufsteigend, 2-4 Formen; Material und Zeichen je Seltenheit im Block seltenheit"),
     "alt": (False, "Werte der alten Fassung (SRD), gelten nicht; Hilfe beim Uebertragen, faellt mit Stufe 6"),
 }
 ARTEN = {
@@ -78,6 +80,11 @@ def pruefe(gg):
             for z in (b.get("rezept") or {}):
                 if z not in {x.get("id") for x in gg}:
                     fehler.append(f"{wo}: Zutat {z} nicht im Katalog")
+        fo = g.get("formen")
+        if fo is not None:
+            ab = [f.get("ab") for f in fo]
+            if not (2 <= len(fo) <= 4) or ab[0] != 1 or ab != sorted(set(ab)) or not all(f.get("netz") for f in fo):
+                fehler.append(f"{wo}: formen: 2-4 Formen, erste ab 1, aufsteigend, je mit netz")
         if g.get("grundform") and g["grundform"] not in {x.get("id") for x in gg}:
             fehler.append(f"{wo}: Grundform {g['grundform']} nicht im Katalog")
     return fehler

@@ -1,0 +1,81 @@
+name: Spike Probe Waffenstaffel (458.3)
+
+# 458.3 Waffenformen gestaffelt (Archiv 458.3): Formen je Waffenart aus der Datendatei (Spalte formen), in unseren Farben je Seltenheit
+# (tools/blender348/waffen_staffel.py), Film Stufe 1-20 und Seltenheiten (godot/tests/waffen_staffel_film.gd). Kaufmodelle nur ueber
+# diesen Ablauf, nie in eine Sitzung (416.4a); ins Artefakt nur Film, Bilder, staffel.json (348.12c a). Nur bei Commits, die mit
+# „458.3 Probe“ beginnen.
+on:
+  push:
+    branches: ["claude/spike-458-3-**"]
+  workflow_dispatch:
+
+jobs:
+  probe:
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, '458.3 Probe')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      GODOT: "4.7.2"
+    steps:
+      - uses: actions/checkout@v5
+      - name: Waffenpakete (privat)
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+        run: |
+          echo "KAUF=$RUNNER_TEMP/kauf" >> $GITHUB_ENV
+          MUSTER="Medieval.Weapon.Pack.Godot.zip Low.Poly.Medieval.Weapons.zip Weapons_Shields_Free.zip" timeout 900 bash tools/blender348/kauf_laden.sh $RUNNER_TEMP/kauf > kauf.log 2>&1 || { tail -20 kauf.log; exit 1; }
+          wc -l kauf.log
+      - uses: actions/setup-python@v5
+        id: py
+        with:
+          python-version: "3.13"
+      - uses: actions/cache@v4
+        with:
+          path: bl
+          key: bpy-5.2.3-${{ runner.os }}-py${{ steps.py.outputs.python-version }}
+      - name: Blender als Python-Modul
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libsm6 libxkbcommon0 > /dev/null
+          [ -x bl/bin/python ] || { rm -rf bl; python -m venv bl && bl/bin/pip -q install bpy==5.2.3 numpy pillow; }
+      - name: Formen aus den Paketen
+        run: |
+          mkdir -p probe; W=$RUNNER_TEMP/staffel
+          echo "STAFFEL=$W" >> $GITHUB_ENV
+          echo "KATALOG=$GITHUB_WORKSPACE/tools/gegenstaende/gegenstaende.json" >> $GITHUB_ENV
+          ZIEL=$W KATALOG=$GITHUB_WORKSPACE/tools/gegenstaende/gegenstaende.json timeout 1500 bl/bin/python -I tools/blender348/waffen_staffel.py > probe/staffel.log 2>&1 || { tail -40 probe/staffel.log; exit 1; }
+          grep -E "^(FORMEN|DATEIEN|FEHLT|FORM |STAFFEL)" probe/staffel.log | cut -c1-260
+          cp $W/staffel.json probe/
+          grep -q "^STAFFEL OK" probe/staffel.log && ! grep -q "^FEHLT" probe/staffel.log
+      - uses: actions/cache@v4
+        with:
+          path: ~/godot
+          key: godot-${{ env.GODOT }}
+      - name: Godot
+        run: |
+          mkdir -p ~/godot && cd ~/godot
+          base=https://github.com/godotengine/godot/releases/download/$GODOT-stable
+          [ -f godot ] || { curl -sSL -o g.zip $base/Godot_v$GODOT-stable_linux.x86_64.zip && unzip -q g.zip && mv Godot_v$GODOT-stable_linux.x86_64 godot && rm g.zip; }
+          ~/godot/godot --version
+      - name: Film
+        run: |
+          sudo apt-get install -y -qq xvfb libgl1-mesa-dri > /dev/null
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; }
+          export PATH=~/ffbin:$PATH
+          cd godot
+          timeout 300 ~/godot/godot --headless --import --path . > import.log 2>&1 || true
+          PRUEFEN=1 timeout 300 ~/godot/godot --headless --path . -s res://tests/waffen_staffel_film.gd > $GITHUB_WORKSPACE/probe/pruefen.log 2>&1 || { grep -E "Staffel|FEHLT|SCRIPT ERROR" $GITHUB_WORKSPACE/probe/pruefen.log | head -30; exit 1; }
+          grep -E "Staffel" $GITHUB_WORKSPACE/probe/pruefen.log
+          timeout 1800 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 \
+            --write-movie $RUNNER_TEMP/staffel.avi --fixed-fps 30 -s res://tests/waffen_staffel_film.gd > $GITHUB_WORKSPACE/probe/film.log 2>&1 || true
+          grep -E "Staffel-Film|Signatur|FEHLT|SCRIPT ERROR|^ +at: " $GITHUB_WORKSPACE/probe/film.log | head -30
+          cd $GITHUB_WORKSPACE
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/staffel.avi -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast -movflags +faststart probe/4583-staffel.mp4
+          for t in 0.5 6.5 12.5 19.5 21 31 33 43; do ffmpeg -loglevel error -y -ss $t -i probe/4583-staffel.mp4 -frames:v 1 probe/4583-$t.png || true; done
+          ls -l probe
+          grep -q "Staffel-Film:" probe/film.log && ! grep -q "SCRIPT ERROR" probe/film.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bornim-probe-4583-staffel
+          path: probe/
+          if-no-files-found: ignore
