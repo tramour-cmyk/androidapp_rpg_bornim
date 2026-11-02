@@ -15,7 +15,7 @@ BREITE, HOEHE, OBEN, UNTER = 1080, 2340, 120, 62
 HERKUNFT = {'WACHSOLDAT': 'Wachsoldat', 'ZAUBERLEHRLING': 'Zauberlehrling', 'KLOSTERSCHUELER': 'Klosterschüler', 'JAEGERKIND': 'Jägerkind',
             'HERUMTREIBER': 'Herumtreiber', 'WANDERER': 'Wanderer, Kräutersammler,', 'KRAEUTERSAMMLER': 'Kräutersammler',
             'SCHMIEDELEHRLING': 'Schmiedelehrling'}
-STATUR = {'schlank': 'Schlank', 'normal': '', 'kraeftig': 'Kräftig'}
+STATUR = {'schlank': 'Schlank', 'normal': 'Normal', 'kraeftig': 'Kräftig'}   # 463 (Pruefer 23:03: ohne „Normal“ und „Frau“)
 TITEL = {   # 376.1 Urteil Tracht (Chef 01.11., 20:2x): zweite Runde nur Umhang und Robe (trachtprobe.gd)
     'umhang': '376.1 · Umhang des Wachsoldaten nachgebessert: oben Mann, Mitte Frau (Schlank, Normal, Kräftig), unten Gehen',
     'robe': '376.1 · Robe des Zauberlehrlings nachgebessert: oben Mann, Mitte Frau (Schlank, Normal, Kräftig), unten Gehen',
@@ -25,7 +25,8 @@ TITEL = {   # 376.1 Urteil Tracht (Chef 01.11., 20:2x): zweite Runde nur Umhang 
 def zeilen(e):
     a = [HERKUNFT.get(e['herkunft'], e['herkunft'])]
     if e['herkunft'] == 'WANDERER': a.append('Schmiedelehrling')
-    zu = [x for x in (STATUR.get(e['statur'], ''), '' if e['bewegung'] == 'Stehen' else e['bewegung']) if x]
+    g = {'m': 'Mann', 'w': 'Frau'}.get(str(e.get('geschlecht', '')).lower(), '')
+    zu = [x for x in (g, STATUR.get(e['statur'], ''), '' if e['bewegung'] == 'Stehen' else e['bewegung']) if x]
     if zu: a.append(', '.join(zu))
     return a
 
