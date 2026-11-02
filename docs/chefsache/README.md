@@ -11,7 +11,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [453b](entscheiden/453b-wolfatem-film-angehalten.md) | **Muss** | E Kampf | 02.11., 16:10 | Wolfsatem B: Film am Tor angehalten, neue Läufe frei? | Jerry |
 | [463a](entscheiden/463a-tracht-angehalten.md) | **Muss** | E Figuren | 02.11., 16:06 | Umhang durchgängig: Film am Tor angehalten, neue Läufe frei? | Tom |
 | [427](entscheiden/427-monsterwerte.md) | **Muss** | E Kampf | 02.11., 15:12 | Monsterwerte Kapitel 1: neue Startwerte nach Messung? | Sokrates |
-| [453.1a](entscheiden/4531a-atem-dritter-lauf.md) | **Muss** | E Kampf | 02.11., 14:57 | Heldenatem: Film angehalten (Kleriker), dritter Lauf? | Tuffy (Team Jerry) |
 | [470a](entscheiden/470a-bruecke-bis-2-3.md) | **Muss** | E Regeln | 02.11., 14:33 | BRS-Held in Stufe 1: wie kämpft er, bis der Kampf umgestellt ist? | Spike (Team Tom) |
 | [474a](entscheiden/474a-debug-schluessel.md) | M? | E Technik | 02.11., 13:44 | Debug-Schlüssel als Geheimnis statt im Cache? | Tom |
 
@@ -107,7 +106,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 
-**Jerry** – offen 57, Muss 44, startbar 4
+**Jerry** – offen 56, Muss 43, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -117,8 +116,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Wölfe gleiten (Angriff, Tempo, aneinander vor | wartet auf Test/Build (gebaut) |
 | 458.2 | M | von Sokrates (Chef 01.11., 13:1x, Archiv 458): Gegenstandskatalog: Werte, Preise, Beute je | wartet auf Test/Build (gebaut) |
 | 457.2 | M | von Perikles (Chef 01.11., 11:49, „unsere Signatur muss sich wiederfinden“): eigene Probes | wartet auf Test/Build (gebaut) |
-| 453.1 | M | von Sokrates (Chef 01.11., 13:0x): Helden im Kampf atmen gleich und zu heftig („hechelt“): | wartet auf 453.1a (wartet) |
-| 453.1a | M | von Tuffy: Rückfrage dritter Lauf Heldenatem (C1 Kleriker) | Chef (Datei in der Chefsache) |
+| 453.1 | M | von Sokrates (Chef 01.11., 13:0x): Helden im Kampf atmen gleich und zu heftig („hechelt“): | wartet auf Test/Build (gebaut) |
 | 453 | M | von Sokrates (Chef 01.11., 11:05): Wölfe brauchen Ruhebewegungen: atmen, scharren, umblick | wartet auf Test/Build (gebaut) |
 | 453a | M | Wolfsatem B (Archiv) | wartet auf 453b (Chef) |
 | 453b | M | Rückfrage: neue Läufe? | Chef (Datei in der Chefsache) |
