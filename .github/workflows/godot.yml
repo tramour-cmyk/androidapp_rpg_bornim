@@ -14,6 +14,9 @@ on:
       dorf:
         description: "Dorf-Film Grundstand (461.1): ja"
         default: ""
+      bild:
+        description: "Messlauf ohne Bilder und Filme (Perikles 02.11., 389/390a): nein"
+        default: ""
 
 jobs:
   apk:
@@ -289,6 +292,7 @@ jobs:
           path: bornim-godot.apk
       # Standbilder mit dem Mobile-Renderer (Vulkan in Software, lavapipe) zum Pruefen und fuer das Vergleichsbild
       - name: Standbilder
+        if: github.event.inputs.bild != 'nein'     # Messlauf ohne Bild zählt nicht als Probelauf (Perikles 02.11., 19:5x)
         continue-on-error: true
         run: |
           sudo apt-get install -y -q mesa-vulkan-drivers xvfb > /dev/null
@@ -384,7 +388,7 @@ jobs:
             "${FC}[v0][v1][v2][v3][v4][5]xstack=inputs=6:layout=0_0|w0_0|w0+w1_0|0_h0|w0_h0|w0+w1_h0" -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $B/4531-helden-vergleich.mp4 || true
           ls -l $B
       - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}     # 453: Filme auch nach rotem Prüfschritt
+        if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # 453: Filme auch nach rotem Prüfschritt; nie mit bild=nein
         with:
           name: bornim-godot-bilder
           path: bilder/
