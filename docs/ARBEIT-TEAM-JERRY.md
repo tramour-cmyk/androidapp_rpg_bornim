@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert“).
 
-**Übergabe (02.11., 21:3x):** 427.1 erledigt; 438a Lauf 189 ausgewertet, Messung mit Vergleich V1 (87b0297d5, bild=nein) läuft; 406 Faust-Messung (e746078ed) Lauf 190 läuft; godot.yml beider Zweige mit Eingabe bild=nein; 487 angelegt. Nachfolger: „Jerry – 487, 438a, 406: gemeinsamer Build, Messläufe auswerten“
+**Übergabe (02.11., 21:4x):** 487 auf `claude/build-487` (Zu 487); ohne GitHub-Werkzeuge (`mcp__github__` fehlte, `gh` ohne Schlüssel) kein Lauf, kein PR, Läufe 438a und 406 nicht gelesen. Nachfolger: „Jerry – 487, 438a, 406: Build starten, Messläufe auswerten“ (zuerst prüfen, ob `mcp__github__` da ist)
 
 ## Zeilen
 
@@ -12,7 +12,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 487 | M | **von Perikles (Wochenziel 02.11. Reihe 6 „Jerry stellt zusammen“; Hinweis Team Tom 21:1x):** gemeinsamer Build aus den wartenden Änderungen beider Teams, höchstens 6; Figuren und Bewegung über 461.1 | startbar: Auswahl nach Vorräten (Zu 487) | – |
+| 487 | M | **von Perikles (Wochenziel 02.11. Reihe 6 „Jerry stellt zusammen“; Hinweis Team Tom 21:1x):** gemeinsamer Build aus den wartenden Änderungen beider Teams, höchstens 6; Figuren und Bewegung über 461.1 | gebaut: claude/build-487, 6 Punkte (Zu 487); Lauf, Prüfliste, PR offen (GitHub-Werkzeuge fehlten 21:33); Geprüft an: 4c96e8fba (lokal Tests grün) | – |
 | 478 | M | **von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv):** Rechenkern des Kampfs schon in Stufe 1 auf BRS (Modell D), Darstellung bleibt bis 2.3 | ruht: 470a B (geschätzt 3–4 Sitzungen, Zu 478) | – |
 | 481.1 | M | **von Sokrates (Archiv 427):** Tränke in sim444 (Zu 481 in `ARBEIT-BERATUNG.md`), Herkünfte neu messen, Zahlen an Sokrates | gebaut: sim444 Abschnitt 6 auf claude/jerry-481-1-traenke, Befund LISTE-SIMULATION-444, Zahlen an Sokrates (Zu 481); Geprüft an: 4bb60ba5e (--pruefen 0, Abschnitte 1–5 gleich main) | – |
 | 473 | M | **von Perikles (Wochenziel 02.11., Stufe 1):** Bau BRS 1.4 Monsterwerte Kapitel 1 nach Rechenmodell D ins Spiel (Abnahmeliste 1.4, Schätzung 447.3: 1 Sitzung, 1 Runde) | gebaut 7d2eec7cc: Werte aller 18 Arten und Modell D im Spiel (regeln/brs.gd, daten/werte.json wie sim444), Kampf rechnet bis 2.3 nach SRD (Frage an Perikles); fährt im nächsten Build | – |
@@ -71,7 +71,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 ## Einzelheiten
 
-- **Zu 487 (Jerry 02.11., 21:3x; von Team Tom 21:1x):** Tom: 416.9 Laden-Vergleich (passt, Archiv 14:37) fertig auf `claude/tom-416-9-vergleich` (7523a08d0, `main` eingemischt, Tests grün); weitere Tom-Punkte: Zeilen „wartet auf Build“ und „fährt im nächsten Build“ in `ARBEIT-TEAM-TOM.md`. Jerry ohne Figuren: 415 Testmenü Strahlen (Testbitte, Zeile „von Sokrates zu 415“), 458.2 Katalog, 472, 473 (Regeln, ohne Bild). Figuren und Bewegung (453, 453.1, 454, 438–440, 403, 406) nicht hier, sondern über 461.1. Build-Nummer = Laufnummer von `godot.yml`, über 146; vorher Vorrat Tom auf Reihenfolge (102).
+- **Zu 487 (Jerry 02.11., 21:4x):** `claude/build-487` (4c96e8fba): Tom 416.9, 416.8, 416.2 (Merge); Jerry 458.2 (Merge, Einzelstücke jetzt in `ladenschirm.gd` ausgeblendet), 473, 472 (Cherry-Pick); `brs_473` auf Werte 2.0 (427.1, sim.py nachgerechnet). Lokal grün außer tresen, platzwechsel, klang (brauchen Modelle, Klänge). Nicht drin: 415 (sitzt auf Grundstand), 416.4, 453.2 (über 461.1). Offen: `godot.yml` von Hand auf dem Zweig, Prüfliste, PR; 472/473 ohne sichtbare Wirkung bis 2.3.
 
 - **von Sokrates (Chef 02.11., 20:05, zu 415):** „Ob es auf dem Handy läuft, weiß ich nicht. Müsste getestet werden mit einem flotten Testeintrag im Testmenü.“ Eintrag zeigt die drei Strahlen nacheinander mit Bildern je Sekunde; dazu Schalter Leuchten (Glow) an/aus, weil Status Effects VFX ihn braucht (Kauf 415d beim Chef). Mit dem nächsten Build, Testbitte selbst stellen.
 
