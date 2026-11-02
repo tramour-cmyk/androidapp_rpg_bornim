@@ -201,3 +201,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:54 02.11.: Neustart Tom 29bdd5f3f geprüft (nach 18 Minuten und 88 Tsd. Token, Haken-Fehlzählung laut Tom, Zu 407); Tom – 416.9 gestartet session_01Hmoj77Mo9MDeyD7SZfNsZr.
 - 21:13 02.11.: Neustart Tom b84ef7fbd geprüft (416.9 fertig); Tom – 463 gestartet session_01Hmoj782AjTsNQU43C58Mq1. Berichtigung zu 20:54: Fehlzählung betraf den Probelauf-Zähler, nicht den Neustart-Haken.
 - 21:29 02.11.: Neustart Sokrates b3b32599c geprüft; Sokrates – Chefrunde gestartet session_01Hmoj78UdwDM4ji11rqe7fk (Vorgänger 79zy beendet).
+- 21:35 02.11.: Chef „Aufräumen, archivieren, Kosten erfassen“: archiviert Tom 77Mo, 76Uy, 78iL, Jerry 7A2j, Sokrates 79zy, Perikles 75yT; gebucht 416.9 2,53, 431 7,92, 438a/406/481.1 11,05, 417 23,19, Sokrates (427/474a/453.1) 25,97, 407 41,23 $.
