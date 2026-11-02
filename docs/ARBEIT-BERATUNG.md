@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (02.11., 03:4x, `session_01Hmoj76GdpkYVpZybEzUSj9`):** Stellungnahme (194.2) in 466 (1A und 2A, Prüfungen im Spiel nach dem Titel, Stufen der Meisterschaften gleich mitentscheiden; ersetzt 63 und 2); fremd geprüft. Kosten auf: 466. Nachfolger: Sokrates – Chefrunde: Billigen 348.12k; 447.4; 427 Zahlen
+**Übergabe (02.11., 07:3x, `session_01Hmoj76QsunrED5XX8aLN95`):** Chefrunde 01.11. abends (417, 455.2, 376.1, 348.12b, 348.12, 461b–d, 461a gebilligt; Archiv); 02.11., 07:26 **STOPP ALLE** umgesetzt (ARBEIT-BETRIEB, Ford-Lauf aus, Jerry, Tom, Tuffy benachrichtigt; bei „weiter“ Ford-Lauf `trig_01C12LSTgbss5EbZKic7CcVR` wieder ein); 407 greift nicht (417 vier Filme über Nacht) bei Perikles. Nachts (`…GdpkYVpZybEzUSj9`): Stellungnahme 466 (1A, 2A). Kosten auf: 417, 455.2, 376.1, 348.12, 461, 447.4, 427, 465, 466, 467. Nachfolger erst nach „weiter“: Sokrates – Chefrunde: Billigen 348.12k; 447.4; 427 Zahlen
 
 ## Zeilen
 
