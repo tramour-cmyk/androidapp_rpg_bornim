@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (02.11., 21:1x, `session_01Hmoj77Mo9MDeyD7SZfNsZr`):** 416.9: `main` eingemischt (7523a08d0), Tests grün (vorher `godot/daten` mit `./gradlew -p core export…` füllen); Hinweis Build an Jerry. Nachfolger: Tom – 463: Umhang und Robe geschlossen.
+**Übergabe (03.11., 00:2x, `session_01Hmoj782AjTsNQU43C58Mq1`):** 463 eingefroren, Film an Chef; 417a gebaut (3b29ac0cb), Film an Chef; 431f Bitte an Sokrates. Nachfolger: Tom – 470: Erschaffung BRS 1.1.
 
 ## Zeilen
 
