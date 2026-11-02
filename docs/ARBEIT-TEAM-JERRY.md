@@ -38,7 +38,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Archiv):** Goblin aufs CC0-Gerüst mit UAL | wartet auf 463 (Tom, B4 Umhang): Lauf 166 vom Tor angehalten (B4, E2, F1, F5); F1, F5 behoben, E2-Messung eingebaut (6f8eecf62); dann zweiter Lauf godot.yml kampf=grak (Tuffy) | `claude/tuffy-348-12k-grak` |
 | 348.12j | M | Rückfrage: Graks Axt Kopf oben oder hängend (E6) | wartet auf Chef: entscheiden/34812j-grak-axt | – |
-| 385.2 | M | **von Chef (Archiv 385.1):** Feuer aus dem Stab | wartet auf 403 (Magier mit Stab im Kampfort) | – |
+| 385.2 | M | **von Chef (Archiv 385.1):** Feuer aus dem Stab | in Arbeit bei Tuffy | – |
 | 348.13a | M | **von Team Tom (Chef 08:09, Archiv: r9 ja):** Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13a) | gebaut 421662dbd: Tusche nach Licht Vorgabe, Linie 1,3; offen Säbel (Tom) | `claude/jerry-348-kampf` |
 | 397 | M | von Chef: Tiere, Monster mind. drei Ruhebewegungen | ruht (399) | – |
 | 348.12c | M | von Sokrates: Untote und Gewürm übernehmen Fähigkeiten der Vorgänger | ruht: SRD (Chef 31.10.) | – |
