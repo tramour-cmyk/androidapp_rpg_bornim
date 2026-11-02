@@ -1,4 +1,7 @@
 # 431 · Völker im Kampfortlicht: Haut geeicht, Atem versetzt · Tom · 02.11., 20:3x
+
+[Film von 02.11., 20:27](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261102-202743-431/2026-11/02-2027-431-Tom.mp4) (eingetragen von meldung.sh, Tom)
+
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41504744398 (Commit 6af349a1f)
 
 **Zu sagen:** „431 passt“ oder was anders sein soll; dazu zur Haut des Helden: „Heldenhaut so“ oder „nein“.
