@@ -8,7 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 431 | M | **von Sokrates (Chef 31.10., 22:0x):** Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film, dann Körperbau je Volk | wartet auf Chef: Chefsache 431c (beide Läufe am Tor 461a angehalten: Haut weiß, Gleichtakt, Axt aus dem Bild); Zweig 4d9069e85 | `claude/tom-431-voelker` |
+| 431 | M | **von Sokrates (Chef 31.10., 22:0x):** Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film, dann Körperbau je Volk | startbar: 431c ja, zwei Läufe frei (Chef 14:54, Archiv): B1, C3, G1 beheben, dann Film | `claude/tom-431-voelker` |
 | 417 | M | **von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“):** Tragart je Waffenklasse (Zu 417), zuerst Stab, Axt, Bogen; Zahlen messen, Aussehen urteilt der Chef | in Arbeit: Rennclips je Paket messen (Neigung wie Bogen), Lauf 41456531260; Rennen zu vorgebeugt außer Bogen (Chef 14:46, Archiv) | `claude/tom-417-tragart` |
 | 416.9 | M | **von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“):** Laden, Verkaufen, „angelegt“ mit allen Plätzen, Vergleichswerte, nicht Tragbares, Icon bei Menge | startbar: passt (Chef 02.11., 14:37, Archiv), in den nächsten Build | `claude/tom-416-9-vergleich` |
 | 416.7 | M | **von Sokrates (Chef 31.10., 20:5x, für den nächsten Build):** am Tresen in Schenke und Laden geht der Aktionsknopf nicht, Kaufen und Kauf mit den zwei NPCs dort nicht möglich; Reichweite erweitern | wartet auf Build: PR #177 nach main (146.3 ohne Tresenbefund) | – |
