@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 479 | M | **von Sokrates (Chef 02.11., 18:34, „jetzt“ 02.11., 18:34):** `LISTE-ABNAHME-KAPITEL1.md` heißt `PROJEKTPLAN.md` (Chef: „nicht Liste-Projektplan, sondern nur Projektplan“), ganz oben im Inhaltsverzeichnis; auf Stand prüfen; Welt sichtbar machen (Zu 479); Antwort: wann beginnt der Flüsterwald | startbar |
 | 461d | M | **von Sokrates (Vorentscheid 22:5x):** Liste 461 in die DESIGN-Dateien (Archiv 461d) | gebaut 02.11., 02:45: A–D DESIGN-STIL, E–F DESIGN-KAMPF, G DESIGN-ABNAHME; Homer prüft Stil; Diogenes prüft (464.1) |
 | 461b | M | **von Sokrates (Chef 22:26, Archiv):** Commit-Prüfung: Archiveintrag ohne DESIGN-/Listenänderung hält an, am alten nur „→ ersetzt durch …“; Vorlage nennt berührte Punkte | gebaut 02.11., 02:48: Archiveintrag zu einer Woher-Nummer A–G ohne DESIGN-Änderung hält an, Ausweg „461 unverändert“; Warnung bei geänderter alter Zeile, Vorlage ohne Kennung (559faa84c); Diogenes prüft (464.1) |
 | 465 | M | **von Sokrates („jetzt“ 01.11., 20:50, Chef: „Warum ist eigentlich in der Chefsache zu entscheiden keine Uhrzeit dabei? … Die muss da unbedingt rein mit.“):** Uhrzeit in „Seit“ | startbar: Lücke 474a ohne Seit und Wer (Chef 14:39, Einzelheiten) |
@@ -35,6 +36,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
 
 ## Einzelheiten
+
+- **Zu 479, von Sokrates (Chef 02.11., 18:34):** Chef findet in der Liste nichts „Banales“: „Karte Flüsterwald fertiggestellt“, Tiefer Flüsterwald, Höhle; „Spuren des Helden im Regen“; alle Tiere und Lebewesen mit passendem Geräusch (401); Schatten im Tagesverlauf nach Sonnenstand (Idee des Chefs; A4 gilt schon); Leute auf vernünftigem Modell statt Rowenas Kopf (475); „null abgehakt“; „wann fangen wir mit der Karte Flüsterwald an? Da ist anscheinend kein Projektziel“. Befund Sokrates: Orte nur gebündelt in 4.3 und 2.11; Flüsterwald in Godot nicht begonnen (`LISTE-UMZUG-348.md` forest „–“), obwohl die Prüfung von Stufe 1 „Dorf und Wald anspielen“ sagt. Gewünscht: je Ort und je Weltmerkmal eine eigene Zeile mit Stand; Flüsterwald mit Termin in der Reihenfolge; Vorschlag an den Chef. Werkzeuge mit altem Dateinamen nachziehen.
 
 - **von Sokrates (Chef 02.11., 17:59, „470a C“):** Rechenkern des Kampfs zieht in Stufe 1 vor (478, Jerry; Darstellung bleibt 2.3); Abnahmeliste Stufe 1 und 2.3 nachziehen; Brücke A entfällt.
 
