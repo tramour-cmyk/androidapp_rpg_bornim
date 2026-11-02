@@ -67,29 +67,36 @@ def name_netz(o):
 # der Aermel sticht tiefer als 3 cm durch. WEG=<teil>:<oben+oben>:<m>: Flaechen von <teil>, ueber denen in der Ruhelage binnen m laengs
 # ihrer Normale eine der Oberlagen liegt, fallen weg (wie Koerper unter Kleidung, kauf_kleid.py 7)
 WEG = os.environ.get('WEG', '')
-WEG_F = set()
-# Lauf 41442266720: nur Aermel weg, dann sticht die Kette darunter durch (Wache Mann 624 -> 1414): mehrere Angaben mit „&“,
-# z. B. sleeves:chain+cloak+robe:0.03&chain:cloak:0.03 (Aermel unter Kette, Umhang, Robe und Kette unter Umhang)
+# 463 (Tom 02.11., 21:3x): mehrere Fassungen in einem Lauf, getrennt mit „|“ (Zeilen „WEG1 …“, „WEG2 …“); <teil> darf auch „stiefel“
+# oder „koerper“ sein (eigene Netze, nicht im Kleid): Stiefel unter der Robe, Haut unter Kette und Kragen
 _me = kleid.data
 _W = [kleid.matrix_world @ v.co for v in _me.vertices]
 _N = kleid.matrix_world.to_3x3()
-for _a in [x for x in WEG.split('&') if x]:
-    _t, _o, _m = _a.split(':'); _o = _o.split('+'); _m = float(_m)
-    _ti = TEILNAMEN.index(_t) if _t in TEILNAMEN else -1
-    _oi = [TEILNAMEN.index(x) for x in _o if x in TEILNAMEN]
-    _ob = [p_ for p_ in _me.polygons if KT[p_.vertices[0]] in _oi]
-    _n0 = len(WEG_F)
-    if _ti >= 0 and _ob:
+
+def weg_flaechen(spec):
+    aus = {}   # Netz -> Flaechen
+    for _a in [x for x in spec.split('&') if x]:
+        _t, _o, _m = _a.split(':'); _o = _o.split('+'); _m = float(_m)
+        _oi = [TEILNAMEN.index(x) for x in _o if x in TEILNAMEN]
+        _ob = [p_ for p_ in _me.polygons if KT[p_.vertices[0]] in _oi]
+        if not _ob: print('WEG', _a, 'keine Oberlage'); continue
         _bv = BVHTree.FromPolygons(_W, [tuple(p_.vertices) for p_ in _ob])
-        for p_ in _me.polygons:
-            if KT[p_.vertices[0]] != _ti: continue
-            c_ = sum((_W[i] for i in p_.vertices), Vector()) / len(p_.vertices)
-            n_ = (_N @ p_.normal).normalized()
-            if _bv.ray_cast(c_ + n_ * 0.0005, n_, _m)[0] is not None: WEG_F.add(p_.index)
-    print('WEG', _a, len(WEG_F) - _n0, 'Flaechen von', sum(1 for p_ in _me.polygons if KT[p_.vertices[0]] == _ti))
+        if _t in TEILNAMEN:
+            ziele = [(kleid, [p_ for p_ in _me.polygons if KT[p_.vertices[0]] == TEILNAMEN.index(_t)])]
+        else:
+            ziele = [(o, list(o.data.polygons)) for o in netze if o != kleid and name_netz(o) == _t]
+        for o, fl in ziele:
+            M = o.matrix_world; M3 = M.to_3x3(); vs = o.data.vertices; f_ = aus.setdefault(o.name, set()); n0 = len(f_)
+            for p_ in fl:
+                c_ = sum((M @ vs[i].co for i in p_.vertices), Vector()) / len(p_.vertices)
+                n_ = (M3 @ p_.normal).normalized()
+                if _bv.ray_cast(c_ + n_ * 0.0005, n_, _m)[0] is not None: f_.add(p_.index)
+            print('WEG', _a, o.name, len(f_) - n0, 'Flaechen von', len(fl))
+    return aus
 
+WEG_V = [weg_flaechen(x) for x in WEG.split('|') if x]
+WEG_F = {}
 
-MIT_WEG = False
 
 def lage():
     dg.update()
@@ -98,7 +105,7 @@ def lage():
         me = o.evaluated_get(dg).to_mesh(); b = len(V); M = o.matrix_world
         V += [M @ v.co for v in me.vertices]
         for p in me.polygons:
-            if MIT_WEG and o == kleid and p.index in WEG_F: continue
+            if p.index in WEG_F.get(o.name, ()): continue
             vs = tuple(b + i for i in p.vertices); F.append(vs)
             LF.append(TEILNAMEN[KT[p.vertices[0]]] if o == kleid else name_netz(o))
         o.evaluated_get(dg).to_mesh_clear()
@@ -255,5 +262,5 @@ def lauf():
     print(VOR + 'LOCH GESAMT', lgesamt, 'Bildpunkte Hintergrund durch die Figur')
 
 VOR = ''; lauf()
-if WEG_F:
-    MIT_WEG = True; VOR = 'WEG '; lauf()
+for _i, _f in enumerate(WEG_V):
+    WEG_F = _f; VOR = 'WEG%s ' % ('' if len(WEG_V) == 1 else _i + 1); lauf()

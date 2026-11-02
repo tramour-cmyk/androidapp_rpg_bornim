@@ -98,12 +98,12 @@ jobs:
             FIG=$Z/roh/held_$n.blend UAL=$UAL HELDOUT=$h/x timeout 900 bl/bin/python -I tools/blender348/v3/pruef_tracht.py > probe/durch-$n.log 2>&1 || echo "pruef_tracht $n $?"
             echo "== $n"; grep -E "^(DURCH|BEDECKT|FEHLT|ORT)" probe/durch-$n.log | cut -c1-700
           done
-          # 463 (Tom 02.11.): RUECK = Rueckseiten im Zeichnen zurueck (pruef_flecken.py), „r+n“ dazu Aermel n zurueck
+          # 463 (Tom 02.11., 21:3x): WEG1..5 = Unterlagen unter Huelle und Guertel weg, Stufe fuer Stufe (pruef_flecken.py „|“); RUECK = Rueckseiten im Zeichnen zurueck (pruef_flecken.py), „r+n“ dazu Aermel n zurueck
           # 376.1 Urteil Tracht (Chef 01.11., 20:2x): was die Kamera sieht, Flecken in Umhang und Robe (pruef_flecken.py), ringsum und von hinten
           for k in WACHE_M:roh_held_m:cloak WACHE_W:roh_held_w:cloak ROBE_M:roh_held_wizard_m:robe,chain ROBE_W:roh_held_wizard_w:robe,chain; do
             IFS=: read n r h <<< "$k"
-            GLB=$Z/held_$n.glb ROH=$Z/roh/held_$n.blend TEILE=$Z/$r/teile.json UAL=$UAL HUELLE=$h AUF=0.01 BILDER=4 RUECK=0.04 WEG="robe:belt+buckle+cuff:0.03&sleeves:cuff:0.03" timeout 1500 bl/bin/python -I tools/blender348/v3/pruef_flecken.py > probe/flecken-$n.log 2>&1 || echo "pruef_flecken $n $?"
-            echo "== $n"; grep -E "^(FLECKEN|FEHLT|VORRANG|RUECK|WEG|LOCH)" probe/flecken-$n.log | cut -c1-500
+            GLB=$Z/held_$n.glb ROH=$Z/roh/held_$n.blend TEILE=$Z/$r/teile.json UAL=$UAL HUELLE=$h AUF=0.01 BILDER=4 RUECK=0.04 WO=$([ $n = ROBE_W ] && echo Jog_Fwd_Loop) WEG="robe:belt+buckle+cuff:0.03&sleeves:cuff:0.03|robe:belt+buckle+cuff:0.03&sleeves:cuff:0.03&pants:cloak+robe+tabard:0.03&belt:cloak:0.03&buckle:cloak:0.03|robe:belt+buckle+cuff:0.03&sleeves:cuff:0.03&pants:cloak+robe+tabard:0.03&belt:cloak:0.03&buckle:cloak:0.03&stiefel:robe:0.15|robe:belt+buckle+cuff:0.03&sleeves:cuff:0.03&pants:cloak+robe+tabard:0.03&belt:cloak:0.03&buckle:cloak:0.03&stiefel:robe:0.15&koerper:chain+robe+cloak+tabard+sleeves+cuff:0.03|robe:belt+buckle+cuff:0.03&sleeves:cuff:0.03&pants:cloak+robe+tabard:0.03&belt:cloak:0.03&buckle:cloak:0.03&stiefel:robe:0.15&koerper:chain+robe+cloak+tabard+sleeves+cuff:0.03&sleeves:chain+cloak+robe:0.05&chain:cloak:0.05" timeout 2400 bl/bin/python -I tools/blender348/v3/pruef_flecken.py > probe/flecken-$n.log 2>&1 || echo "pruef_flecken $n $?"
+            echo "== $n"; grep -E "^(FLECKEN|FEHLT|VORRANG|RUECK|WEG|LOCH)" probe/flecken-$n.log | grep -v " WO " | cut -c1-500
           done
       - uses: actions/cache@v4
         with:
