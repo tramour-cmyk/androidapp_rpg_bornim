@@ -109,7 +109,7 @@ Chef 01.11., 20:3x: „auf ein Niveau kriegen, dass wir von da aus alle weiteren
 |---|---|---|---|
 | D1 | „Übergänge immer weich“ wie unter „Lebendige Welt“; dazu Anlaufen zügig, Abbremsen in Stufen (Sprint, Rennen, langsamer, Gehen) und länger als Beschleunigen; Stehenbleiben aus dem Sprint geht | 416.4 (01.11., 13:1x, 20:3x) | – |
 | D2 | Rennen ohne Waffe Fassung A; mit Waffe Gehen und Rennen aus dem Waffenpaket, nie von Hand gestellt | 416.4, 348.12c, 417 (01.11.) | ja |
-| D3 | Gehen langsamer als in Runde 4 (Zahl schlägt Tom vor), Oberkörper aufrecht, nicht vorgeneigt; kein Schweben, kein Staksen, kein Hoppeln | 417 (12:21, 13:4x; Nachtrag Archiv 20:4x), 406 (20:2x) | – |
+| D3 | Gehen langsamer als in Runde 4 (Zahl schlägt Tom vor), Oberkörper aufrecht, nicht vorgeneigt; Rennen mit Waffe nicht stärker vorgebeugt als mit Bogen; kein Schweben, kein Staksen, kein Hoppeln | 417 (12:21, 13:4x; Nachtrag Archiv 20:4x; 02.11., 14:46), 406 (20:2x) | – |
 | D4 | Ortswechsel immer mit Laufbewegung, nie geschoben; Füße gleiten nicht | 348.12 (28.10.), 438 (31.10.) | ja |
 | D5 | Boss schreitet statt zu sprinten, beim Ortswechsel; nicht beim Ausweichen (F5) | 348.12 (29.10.; 01.11., 22:45) | – |
 | D6 | Figuren gehen nicht durcheinander (Wolf durch Wolf) | Test 133 (28.10.) | ja |
