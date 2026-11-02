@@ -148,8 +148,13 @@ static func wechsel(ap: AnimationPlayer, want: String, moving: bool, sp: float) 
 	var ph := 0.0
 	if schritt:
 		ph = schritt_phase(ap.get_animation(cur), ap.current_animation_position)
+		# 417 (Lauf 41372776505 FILMNACH: Gehen nach dem Rennen Standfuss +0,9 bis +1,5 m/s, Pruefer Film 02:2x „Auslaufen Fuesse gleiten
+		# deutlich“): seit dem Umtakten (TAKT_*) beginnt die Ueberblendung mit dem speed_scale der alten Bewegung (takt: v gleitet von der
+		# alten), nicht mit sp = Tempo / v der neuen; Rennen -> Gehen war sp 2, die 0,6 s wurden 1,2 s Bewegungszeit, real etwa 1,6 s halb
+		# Rennen, halb Gehen. Jetzt mit dem speed_scale, der gerade laeuft (ohne takt wie vorher sp)
+		var sp0 := ap.speed_scale if ap.has_meta("v") else sp
 		if ap.has_meta("v"): ap.set_meta("blende", [0.0, bl, float(ap.get_meta("v"))])   # takt: Tempo gleitend
-		bl *= maxf(1.0, sp)
+		bl *= maxf(1.0, sp0)
 	ap.play(want, bl)
 	if schritt: ap.seek(schritt_zeit(ap.get_animation(want), ph))
 

@@ -160,7 +160,14 @@ func standbilder(axt := false, pakete := false) -> void:
 		# Bewegung laeuft von selbst weiter (advance je Bild), Wechsel mit Held.ueberblendung, Gehen <-> Rennen im selben Schritt, Tempo
 		# steigt mit Held.BESCHL; Folge FILM_FOLGE mit Anlaufen und Anhalten (416.4, Chef 13:1x: „muss immer weich sein“)
 		ap.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
-		ap.play("Stehen"); ap.advance(0.0)
+		# Pruefer Film 02:2x („bei 1,0 s springt die Haltung in einem Bild von stark vorgebeugt in aufrecht“, „Stand am Anfang und Ende
+		# verschieden“): die Standbilder davor liessen den Spieler angehalten im Rennen (pause, seek); play("Stehen") setzte ihn nicht
+		# zurueck, die erste Sekunde stand das Rennen (Brust 45-54 Grad vor), erst der Wechsel ins Gehen spielte. Die Messung ohne
+		# Standbilder (tests/tragen_pakete_417.gd HALTUNG) steht 13 Grad und springt nicht. Darum erst anhalten, dann Stehen von vorn
+		ap.stop()
+		ap.speed_scale = 1.0
+		ap.play("Stehen"); ap.seek(0.0, true); ap.advance(0.0)
+		await fp.get_tree().process_frame
 		var tempo := 0.0
 		var spur := []   # Pruefer 00:53 („Rennen: Fuss 17-28 % langsamer als der Boden“): je Bild Abschnitt, Zeit darin, Ballen im Raum, Tempo
 		for ai in FILM_FOLGE.size():
