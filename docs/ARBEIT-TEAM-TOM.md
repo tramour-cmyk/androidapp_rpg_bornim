@@ -55,10 +55,10 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 357 | K | **von Perikles (Chef 24.10., Chefsache 26, „okay“):** Puppe in der Charaktererstellung sieht beim Drehen „nicht sonderlich fein“ aus; mit 302.1 | ruht bis Ende Umzug 348; dann mit 302.1 | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2 (Zu 145) | claude/tom-145-kartenmappe |
+| 463.1 | K | **nach dem Durchspielen (aus 463, eingefroren Chef 22:44):** Ärmel an der Schulter durch den Umhang, Stiefel beim Gehen durch die Robe, Kettenhemd durch den Wappenrock; Trachtfilm ohne Boden und Schatten (`ansehen/463-umhang-robe.md`) | ruht: nach dem Durchspielen | `claude/spike-376-1-tracht` |
 | 133 | K | Charisma-Wahlen Kapitel 2 (`STORY-WAHLEN.md`) | ruht: altes SRD-System (Chef 31.10.) | – |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (Kapitel 2 nicht im Spiel) | – |
 | D63.5 | K | **von Diogenes (374/434, Vortag 01.11.):** ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53, 23:54; 416.4 ×4 (auch Spike); 376.1 Umhang/Robe, Tracht (Spike); 455.1, 455.2 (Spike); ohne Homer-Vorgabe (373 c): 417, 416.4, 376.1, 416.9, 425, 455.1/.2; nach Tor 461a ohne belegte Prüfung: 376.1 23:03, 417 23:54 (Zu 374 in `ARBEIT-PRUEFUNG.md`) | offen | – |
-| 463.1 | K | **nach dem Durchspielen (aus 463, eingefroren Chef 22:44):** Ärmel an der Schulter durch den Umhang, Stiefel beim Gehen durch die Robe, Kettenhemd durch den Wappenrock; Trachtfilm ohne Boden und Schatten (`ansehen/463-umhang-robe.md`) | ruht: nach dem Durchspielen | `claude/spike-376-1-tracht` |
 | Pflege | K | **von Werkzeug (340.3, 02.11.):** 24131 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 ## Einzelheiten
