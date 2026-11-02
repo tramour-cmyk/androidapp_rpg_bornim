@@ -8,7 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 431 | M | **von Sokrates (Chef 31.10., 22:0x):** Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film, dann Körperbau je Volk | in Arbeit: Runde 4 gebaut (Ohren, Hauer, Haut, Haltung, Zwerghaar, Familie), Probelauf 1 läuft (41430558274) | `claude/tom-431-voelker` |
+| 431 | M | **von Sokrates (Chef 31.10., 22:0x):** Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film, dann Körperbau je Volk | in Arbeit bei Spike: Runde 4 gebaut (Ohren, Hauer, Haut, Haltung, Zwerghaar, Familie), Probelauf 1 (41430558274) prüfen | `claude/tom-431-voelker` |
 | 417 | M | **von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“):** Tragart je Waffenklasse (Zu 417), zuerst Stab, Axt, Bogen; Zahlen messen, Aussehen urteilt der Chef | wartet auf Chef: Film 03:39 (ansehen/417-tragart-runde5), keine neue Runde ohne Urteil (468); Anlaufgleiten Ursache Pose (Zu 416.4, 417) | `claude/tom-417-tragart` |
 | 425 | M | **von Sokrates (Chef 31.10., 21:30, Build 143):** Menüs (Menü „System“, Testmenü): in der alten Fassung mit Icons „super klasse“, neu „viel zu viel Text“; alte Menüs möglichst eins zu eins übernehmen, Icons statt Text | wartet auf Merge: 146.6 passt (Chef 02.11., 10:52) | `claude/spike-425-testmenue` |
 | 416.9 | M | **von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“):** Laden, Verkaufen, „angelegt“ mit allen Plätzen, Vergleichswerte, nicht Tragbares, Icon bei Menge | startbar: 146.4 Plätze ok, Vergleich vorher→nachher als Tabelle fehlt (Chef 02.11., 10:52) | – |
