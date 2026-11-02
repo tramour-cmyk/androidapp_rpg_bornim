@@ -29,6 +29,14 @@ def zahlen(e):
     return t
 
 
+_schriften = {}
+def passend(d, z, breite):
+    for g in range(22, 13, -1):
+        f = _schriften.setdefault(g, ImageFont.truetype(SCHRIFT, g))
+        if d.textlength(z, font=f) <= breite: return f
+    return _schriften[14]
+
+
 def feld(bild, teil, titel):
     # Bild mit Feldtitel oben links und Zahlen darunter
     h = 175
@@ -42,9 +50,15 @@ def feld(bild, teil, titel):
     ps = lage.get(teil, [])
     mx = sum(p['x'] for p in ps) / len(ps) if ps else bild.width / 2
     sx = bild.width / (2 * mx) if mx > 0 else 1.0
+    # 431d G3 (Pruefer Lauf 3: Zeilen „Schulter …“ ueberlappen, der weitere Ausschnitt macht die Spalten schmaler): je Zeile die Schrift so
+    # klein, dass sie in ihre Spalte passt (Abstand zur naechsten Figur, 92 %), hoechstens bis 14 Punkt; dann „Schulter“ gekuerzt
+    xs = sorted(p['x'] * sx for p in ps)
+    spalte = min([b - a for a, b in zip(xs, xs[1:])] + [bild.width / max(len(ps), 1)]) * 0.92
     for p in ps:
         for i, z in enumerate(zahlen(p['eintrag'])):
-            d.text((p['x'] * sx, bild.height + 8 + i * 27), z, font=f_zahl, fill=GOLD if i == 0 else WEISS, anchor='ma')
+            f = passend(d, z, spalte)
+            if d.textlength(z, font=f) > spalte: z = z.replace('Schulter', 'Sch.'); f = passend(d, z, spalte)
+            d.text((p['x'] * sx, bild.height + 8 + i * 27), z, font=f, fill=GOLD if i == 0 else WEISS, anchor='ma')
     d.rectangle([0, 0, c.width - 1, c.height - 1], outline=(110, 90, 50), width=2)
     return c
 

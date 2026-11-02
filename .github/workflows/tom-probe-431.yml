@@ -140,8 +140,10 @@ jobs:
             -- --figuren=$A --teil=voelker > $GITHUB_WORKSPACE/probe/probe.log 2>&1 || true
           grep -E "^(VOLK|TEIL|FEHLT|HAUER|ZWERGHAAR|HAUTBILD)|SCRIPT ERROR" $GITHUB_WORKSPACE/probe/probe.log | cut -c1-300 | head -60
           cp $A/probe.txt $A/voelker/lage.json $GITHUB_WORKSPACE/probe/ 2>/dev/null || true
-          grep -E "^(DIAG|ATEM|AUSSCHNITT)" $A/probe.txt | cut -c1-300 || true
+          grep -E "^(DIAG|ATEM|AUSSCHNITT|EICH|SIGNATUR)" $A/probe.txt | cut -c1-300 || true
+          grep -E "^(SIGNATUR|FEHLER Signatur)" $GITHUB_WORKSPACE/probe/probe.log | cut -c1-300 || true
           cp $A/voelker/diagnose/0000.png $GITHUB_WORKSPACE/probe/431-diagnose.png 2>/dev/null || true
+          cp $A/voelker/eichung/0000.png $GITHUB_WORKSPACE/probe/431-eichung-vorher.png 2>/dev/null || true; cp $A/voelker/eichung/0003.png $GITHUB_WORKSPACE/probe/431-eichung-nachher.png 2>/dev/null || true
           cd $GITHUB_WORKSPACE
           [ "${{ inputs.diagnose }}" = "true" ] && { ls -l probe; grep -E "SCRIPT ERROR" -A2 probe/probe.log | head -12; exit 0; }
           bl/bin/python -I tools/blender348/v3/voelker_film.py $A/voelker godot/kampf/schrift/alegreya_regular.ttf $RUNNER_TEMP/seiten
