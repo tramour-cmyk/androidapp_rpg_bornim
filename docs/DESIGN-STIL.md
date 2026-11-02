@@ -31,7 +31,7 @@ Diese Datei ist das Stilhandbuch: jede gültige Design-Regel steht hier oder hat
 Drei feste Zwänge, an denen man unser Bild wiedererkennt (Chef 22.10., 14:15: „302. Ja.“). Gelten für alles neu Gezeichnete. Bestand (Chef 22.10., 20:25, Vorgangsarchiv „302 Bestand“): nach dem Meilenstein, große Figuren zuerst (Ausrüstung, Hauptmenü, Charakter, Kampf); Orte und Kampforte nur, wenn sie ohnehin überarbeitet werden; auf der Gebietskarte ist die Linie bei Kartengröße unsichtbar, dort nur auf eigene Chefsache.
 
 1. **Licht hat eine Quelle:** jede Szene hat eine sichtbare Lichtquelle (Fackel, Fenster, Mond, Pilz); im Lichtkreis warm, außerhalb kaltes Blauschwarz.
-2. **Tuschelinie der Chronik:** jede Figur und jedes Ding hat einen dunklen Umriss wie mit der Feder gezogen, leicht ungleichmäßig, im Schatten dicker, im Licht dünner (wie `MapSheet.ink`; an Figuren prüfbar als A1–A3). Die Linie wird im Zeichner mitgezeichnet, das Licht danach darüber; nie als Filter über das fertige Bild, der schwärzt Lichtränder (Chef 23.10., 07:34, 302.3).
+2. **Tuschelinie der Chronik:** jede Figur und jedes Ding hat einen dunklen Umriss wie mit der Feder gezogen, leicht ungleichmäßig, im Schatten dicker, im Licht dünner (Godot: `godot/shader/tusche.gdshader`, im Kampfort `godot/kampf/tusche_licht.gdshader`; Kotlin-Zeit `MapSheet.ink`; an Figuren prüfbar als A1–A3). Die Linie wird im Zeichner mitgezeichnet, das Licht danach darüber; nie als Filter über das fertige Bild, der schwärzt Lichtränder (Chef 23.10., 07:34, 302.3).
 3. **Gold ist der einzige Glanz:** nur Gold, Feuer und Magie glänzen oder leuchten; Stahl, Leder und Stein bleiben matt.
 
 ## Richtung
@@ -57,7 +57,7 @@ Drei feste Zwänge, an denen man unser Bild wiedererkennt (Chef 22.10., 14:15: �
 
 ## Lebendige Welt: keine Figur steht starr
 
-Wunsch des Nutzers (09.10.): Wer auf der Karte steht, lebt. Jede Figur, auch der Held, atmet, verlagert ab und zu das Gewicht, schaut kurz zur Seite oder stützt die Hände in die Hüften (Baustein `MapRest`, bekommen neue Figuren automatisch). Figuren mit eigener Aufgabe bekommen eigene Handlungen obendrauf (Garrick: Hände am Feuer wärmen, in den Wald spähen).
+Wunsch des Nutzers (09.10.): Wer auf der Karte steht, lebt. Jede Figur, auch der Held, atmet, verlagert ab und zu das Gewicht, schaut kurz zur Seite oder stützt die Hände in die Hüften (Godot: Ruhebewegungen `godot/skripte/gebiet.gd` `ruhe_naechste`, Leute `godot/skripte/leute.gd`; Kotlin-Zeit Baustein `MapRest`). Figuren mit eigener Aufgabe bekommen eigene Handlungen obendrauf (Garrick: Hände am Feuer wärmen, in den Wald spähen).
 
 - **Atmen immer** (Grundsatz des Nutzers, 01.11., 13:0x, Archiv 453.1): Jede lebende Figur (Held, Söldner, Leute, Tiere, Monster) atmet immer, als eigene Schicht unter jeder anderen Bewegung; ruhig, je Figur eigener Takt, nach Anstrengung schneller und abklingend. Kein Gleichtakt, kein Stillstand: auch nicht für ein paar Sekunden zwischen zwei Ruhebewegungen („atmen kann man nicht aussetzen“).
 - **Übergänge immer weich** (Grundsatz des Nutzers, 01.11., 13:1x, Archiv 416.4): Stehen, Gehen und Rennen gehen bei jeder Figur weich ineinander über, in beide Richtungen („Egal, wer sich bewegt. Das muss immer weich sein.“).
@@ -146,7 +146,7 @@ Im Vorschlag an den Nutzer stehen die vier Antworten kurz neben dem Abgleich mit
 - Farben, die auf Schwarz stehen (Seltenheit, Warnung), hell genug zum Lesen.
 - **Zeichen statt Textwände** (426, Chef 31.10., 21:30 zu Build 143: alte Menüs mit Icons „super klasse“, neue „viel zu viel Text“): Menüs, auch Menü „System“ und Testmenü, zeigen jeden Eintrag als Zeichen mit kurzer Beschriftung (ein bis zwei Wörter), nie als Satz oder Absatz; Erklärung nur, wenn der Spieler sie aufruft. Maß sind die Menüs der alten Fassung: was dort mit Zeichen ging, übernimmt die neue möglichst eins zu eins (425, Tom). Neue Zeichen nach „Zeichen“ unten.
 
-### Zeichen (326; Muster: Reiterzeichen, `MenuTabs.kt` `glyph()`)
+### Zeichen (326; Muster: Reiterzeichen; Godot `godot/skripte/reiterzeichen.gd`, Kartenknopf `aktionsknopf.gd`, Menü „System“ `zeichenknopf.gd`, Farben `stil.gd`; Kotlin-Zeit `MenuTabs.kt` `glyph()`)
 
 - **Art:** Raster 24 × 24, nutzbar 1,5–22,5; Linie 1,6 (`line`), fein 1,1 (`thin`), runde Enden und Ecken; nie gefüllt außer Punkten (r ≤ 1,4); nie Pixelbilder. Alle Zeichen gleich kräftig: keine Linie unter 1,2 dp am Bildschirm, darum kein Zeichen unter 16 dp (Sonne, Mond an der Uhr heute 13 dp).
 - **Farbe:** im Menü `Veil.gold`, gewählt `Veil.bright`; auf der Karte `Veil.bright`; aus oder gesperrt `Veil.dim`.

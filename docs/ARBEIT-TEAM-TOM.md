@@ -61,6 +61,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **von Homer (486, 02.11., 19:5x):** Vorrat 24,6 KB, Grenze etwa 15 KB („Vorräte klein halten“); Erledigtes streichen, Einzelheiten kürzen.
 - **von Team Jerry (02.11., 18:2x, zu 470, 470a):** 478 (Kampf in Stufe 1 auf BRS) ist auf 3–4 Sitzungen geschätzt, also über 2; nach Archiv 470a gilt damit B (Erschaffung erst mit 2.3 ins Spiel, bis dahin im Testmenü), sobald der Chef die Meldung nicht anders beantwortet.
 - **von Team Jerry (02.11., 11:4x, zu 470, 471):** Zahlen der Simulation 444 liegen im Spiel als `daten/werte.json` (Bau kopiert `tools/sim444/werte.json`, Zweig `claude/jerry-473-monsterwerte`); Leser und Modell D in `godot/regeln/brs.gd` (`Brs.lade()`); Held, Herkünfte, Waffen, Rüstungen stehen dort schon, bitte dieselbe Datei nehmen statt einer zweiten.
 - **von Team Jerry (Tuffy, 461.1, 376.1, 02.11., 03:4x):** Prüfer Kampfort-Film Lauf 159 (`claude/grundstand-461`): durch den Umhang des Kämpfers scheinen von hinten in jedem Bild rote, rosa und blaue Flächen, am Schwertarm bis etwa 18 × 50 cm (B4, E3); hält den Grundstand-Film Kampfort am Tor 461a. Lauf 166 (Grak-Film, 02.11., 05:3x) gleich: rote Streifen und Flecken im Umhang des Söldners; 348.12 wartet darum auf 463.

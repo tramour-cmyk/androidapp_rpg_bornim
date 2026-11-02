@@ -70,6 +70,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 ## Einzelheiten
 
+- **von Homer (486, 02.11., 19:5x):** Vorrat 15,3 KB, knapp über der Grenze von etwa 15 KB; Erledigtes streichen.
 - **von Sokrates (02.11., 19:0x, zu 427.1):** Krogg: Held beginnt im Nachteil. Annahmen weiche Grenze, Topf, leer 10 % bleiben bis zum Kampflog. 406.1: Bedingung (Chef 11:21) auch mit neuen Werten nicht erfüllt (Wachsoldat 100 %), wartet auf 481.
 - **Zu 478 (Jerry 02.11., 18:2x):** 3–4 Sitzungen: BRS-Heldenwerte fehlen im Spiel (470, 471) 1; mars.gd Treffer, Schaden, Leben 1; Zauber, Schleichangriff, Zustände, Ring, Würfelzeile 1; Gegenprobe sim444, Tests 0,5–1. Gegenargument: nur Waffe und Biss in 2, dann Magier und Kleriker auf SRD.
 - **Zu 406 (Jerry 02.11., `claude/jerry-406c-gehen`):** G1 behoben (Lauf 179: 0 angeschnitten). E3: Finger 3–8,6 cm vor dem Schild; Schild weiter vor drückt den Schwertarm hinein; Messung Faust beugen läuft. E8 wartet auf Tom 417; F2 offen.
