@@ -50,7 +50,7 @@ if [ -z "$name" ] || [ -z "$text" ]; then echo "Aufruf: tools/meldung.sh [--laut
 if kurz=$(printf '%s' "$text" | python3 -c '
 import re, sys
 t = sys.stdin.read()
-t = re.sub(r"`[^`]*`|\]\([^)]*\)|https?://\S+|„[^“]*“", " ", t)  # D67.1: Zitat in „…“ ist Wortlaut, bleibt
+t = re.sub(r"`[^`]*`|\]\([^)]*\)|https?://\S+|„[^“]*“|[\w.-]+\.(?:md|py|sh|gd|json|yml|tsv|png|mp4|tscn)\b", " ", t)  # D67.1: Zitat in „…“ ist Wortlaut; D69.1: Dateinamen
 frei = {"MARS", "SRD", "APK", "PNG", "MP4", "MB", "GB", "KB", "CC0", "TCS", "OK", "JPG", "GIF"}
 funde = [w for w in re.findall(r"(?<![\w./-])[A-ZÄÖÜ]{2,6}(?!\w)", t) if w not in frei]  # D67.1: auch „HP-Balken“
 # D67.1: Buchstabe mit Zahl nur als Kennung (A1–G9 Grundstand, O/W Projektplan, D Befund, t Build), sonst Kürzel wie „K1“
