@@ -1,5 +1,7 @@
 # 416.4 · Abbremsen in Stufen · Spike (Team Tom) · 02.11., 03:5x
 
+[Film von 02.11., 03:55](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/02-0355-416.4-Spike.mp4) (eingetragen von meldung.sh, Spike)
+
 Film per Telegram. Zwei Felder untereinander, beide der Kämpfer auf dem Kaufkörper, Rennen A, ohne Waffe, mit Spielkamera und Tusche: oben **bisher** (Stand nach deinem Urteil 20:3x), unten **neu**. Je 7 s: Stehen, Anlaufen, Gehen, Rennen, **zurück ins Gehen**, Abbremsen vor dem Halt, Stehen. Erst Spielansicht, dann von der Seite, dann dasselbe in halber Geschwindigkeit. Noch kein Build; Zweig `claude/spike-416-4-bremsen`.
 
 Was „neu“ ändert (dein Wort 20:3x: „Von Sprint langsam über langsamer über in den Gang gehen“):
