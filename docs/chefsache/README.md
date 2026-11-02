@@ -205,10 +205,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | Pflege | K | von Werkzeug (340.3, 02.11.): 20750 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Diogenes** – offen 9, Muss 7, startbar 0
+**Diogenes** – offen 10, Muss 8, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| D69 | M | von Perikles (Doppelpack 421, 02.11., 20:0x, 45468a5d7): Nachprüfung D69.1 (meldung.sh: Da | startbar |
 | 340.2 | M | von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv): Wirkung 340.3–340.5 zählen (Tabelle | ruht bis 09.11. |
 | 485 | M | „jetzt“ 02.11., 19:37 (Chef: „1, 2, 3 ja, fang an.“): (1) Wochentermine „gelaufen ja/nein“ | ruht bis 09.11. |
 | 483 | M | von Perikles (Doppelpack 421, 02.11., 19:4x): meldung.sh --film legt je Film einen Zweig f | wartet auf Eingang |

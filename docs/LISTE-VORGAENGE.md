@@ -156,7 +156,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 463 | Umhang und Robe geschlossen: Durchscheinen und Knie, eine Ursache für alle Proben (Chef 01.11., 20:3x, „DAUERPROBLEM“) | E Figuren | M | 47,02 $ | Team Tom | startbar |
 | 461.1 | Grundstand zusammenführen: ein Zweig für Tom und Jerry, jede Probe baut darauf (01.11.) | B Umzug | M | 30,19 $ | Team Tom, Team Jerry | wartet |
 | 461a | Rückfrage: hält ein Verstoß gegen den Grundstand den Film an? (D58.5) | B Abläufe | M | – | Perikles | gebaut |
-| 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | B Abläufe | M | – | Perikles, Diogenes, Sokrates | in Arbeit |
+| 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | B Abläufe | M | – | Perikles, Diogenes, Sokrates | gebaut |
 | 461b.1 | Widersprüche aus Liste 461b nachziehen: Klassenbalance 38/399.2b/D23.3 gegen 406, Säureschnecke | E Kampf | M | – | Team Jerry | startbar |
 | 461b.2 | Widerspruch aus Liste 461b: Eichung 431e in Grundstand B1 | E Figuren | M | – | Team Tom | startbar |
 | 461b.3 | Widersprüche aus Liste 461b: Regelwerk gegen 466, SRD-Namen in DESIGN-STIL, B7 Wölfe | C Texte | M | – | Homer | startbar |
@@ -173,6 +173,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 410 | Waffen am Körper wegstecken, alle Waffenarten (aus 376.1, Chef 29.10., 10:52, 11:40) | E Figuren | M | – | Team Tom | ruht |
 | 415 | Handyprobe Beams-Free-Sample (aus 414, Chef 31.10., 20:3x; „jetzt“ 01.11.) | C Kampf | M | 32,03 $ | Team Jerry | Chef |
 | 415c | Rückfrage: Strahlenprobe Lauf 181 am Tor angehalten, Film trotzdem oder zwei neue Läufe? | C Kampf | M | – | Team Jerry | erledigt |
+| 415d | Rückfrage: Status Effects VFX und Beams & Lasers kaufen, sobald der Handytest läuft? (Chef 02.11., 20:05) | C Kampf | M | – | Sokrates | Chef |
 | 416.2 | Platzwechsel mit Dorfbewohnern und Tieren, nicht stecken bleiben (Chef 31.10., 20:4x) | B Umzug | M | – | Team Tom | wartet |
 | 416.4 | Rennen des Helden wirkt wie Hochsprung (Chef 31.10., 20:4x) | B Umzug | M | 41,57 $ | Team Tom | wartet |
 | 416.6 | Spuren des Helden, auch bei Regen (Chef 31.10., 20:4x) | B Umzug | K | – | Team Jerry | wartet |
