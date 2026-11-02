@@ -176,3 +176,11 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:05 02.11.: Marke Archiv session_01Hmoj75yTx6DJ3Pcn9MM77y (lauf.py)
 - 13:05 02.11.: Nachfolger-Warnung Diogenes (Übergabe 02.11., 11:59) (lauf.py)
 - 13:05 02.11.: Nachfolger-Warnung Perikles (Übergabe 02.11., 11:39) (lauf.py)
+- 15:33 02.11.: Startsperre 15:33 Start Tom, Jerry, Perikles, Spike, Tuffy (lauf.py)
+- 15:33 02.11.: Marke Archiv-Warnung session_01Hmoj76XUHhCSiR6J7dFHQR (lauf.py)
+- 15:33 02.11.: Marke Archiv session_01Hmoj76cAKWzJUATsjh6Vm7 (lauf.py)
+- 15:33 02.11.: Marke Archiv session_01Hmoj78qSq3kYYp9FMduqqz (lauf.py)
+- 15:33 02.11.: Marke Archiv session_01Hmoj76w57ShWTojhhvZA9r (lauf.py)
+- 15:33 02.11.: Marke Archiv session_01Hmoj77HWSLW1W2EnTGrPc2 (lauf.py)
+- 15:33 02.11.: Marke Archiv session_01Hmoj78RonErzXXyyv3fHgX (lauf.py)
+- 15:4x 02.11.: Ford (Tiefe 3) startet den Plan von 15:33 nicht: Tom (78qS) wartet auf Messläufe 463/417, Jerry (76w5) prüft Lauf 453a um 15:30, beide mit eigenem Weckruf; Spike, Tuffy idle auf Läufe; Perikles-Start „M?“ ist keine Muss und der Verbrauch liegt über Ziel. Archivieren vom Klassifizierer abgelehnt (einmal gemeldet).
