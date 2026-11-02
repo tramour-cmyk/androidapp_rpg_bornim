@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert“).
 
-**Übergabe (02.11., 02:0x):** 438a Runde 2 gebaut (47ad5bfd2, 6e5ff1210), Film beim Chef (ansehen/438a-sturz-runde2), Prüferbefund nachgesendet (in der Chefsache-Datei); Umhang-Befund an Tom (376.1). Nachfolger: „Jerry – 438a: Prüferbefund Runde 2, Wolf am Liegenden“
+**Übergabe (02.11., 03:4x):** 438a Runde 3 auf `claude/jerry-438a-sturz-2` (Messung erweitert, Faust, Stab, F1/E5; Lauf auf 9eaac1670 gestartet 03:41); 406 c gebaut, b-Messung auf `claude/jerry-406c-gehen` (Lauf 162). Läufe ohne Weckruf: Nachfolger holt sie ab. Nachfolger: „Jerry – 438a, 406: Messläufe auswerten, Runde 3 weiter“
 
 ## Zeilen
 
