@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert“).
 
-**Übergabe (02.11., 21:4x):** 427.1 erledigt; 438a Lauf 189 ausgewertet, Messung mit Vergleich V1 (87b0297d5, bild=nein) läuft; 406 Faust-Messung (e746078ed) Lauf 190 läuft; godot.yml beider Zweige mit Eingabe bild=nein; 487 angelegt. Nachfolger: „Jerry – 487, 438a, 406: gemeinsamer Build, Messläufe auswerten“
+**Übergabe (02.11., 21:3x):** 427.1 erledigt; 438a Lauf 189 ausgewertet, Messung mit Vergleich V1 (87b0297d5, bild=nein) läuft; 406 Faust-Messung (e746078ed) Lauf 190 läuft; godot.yml beider Zweige mit Eingabe bild=nein; 487 angelegt. Nachfolger: „Jerry – 487, 438a, 406: gemeinsamer Build, Messläufe auswerten“
 
 ## Zeilen
 
@@ -71,7 +71,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 ## Einzelheiten
 
-- **Zu 487 (Jerry 02.11., 21:4x; von Team Tom 21:1x):** Tom: 416.9 Laden-Vergleich (passt, Archiv 14:37) fertig auf `claude/tom-416-9-vergleich` (7523a08d0, `main` eingemischt, Tests grün); weitere Tom-Punkte: Zeilen „wartet auf Build“ und „fährt im nächsten Build“ in `ARBEIT-TEAM-TOM.md`. Jerry ohne Figuren: 415 Testmenü Strahlen (Testbitte, Zeile „von Sokrates zu 415“), 458.2 Katalog, 472, 473 (Regeln, ohne Bild). Figuren und Bewegung (453, 453.1, 454, 438–440, 403, 406) nicht hier, sondern über 461.1. Build-Nummer = Laufnummer von `godot.yml`, über 146; vorher Vorrat Tom auf Reihenfolge (102).
+- **Zu 487 (Jerry 02.11., 21:3x; von Team Tom 21:1x):** Tom: 416.9 Laden-Vergleich (passt, Archiv 14:37) fertig auf `claude/tom-416-9-vergleich` (7523a08d0, `main` eingemischt, Tests grün); weitere Tom-Punkte: Zeilen „wartet auf Build“ und „fährt im nächsten Build“ in `ARBEIT-TEAM-TOM.md`. Jerry ohne Figuren: 415 Testmenü Strahlen (Testbitte, Zeile „von Sokrates zu 415“), 458.2 Katalog, 472, 473 (Regeln, ohne Bild). Figuren und Bewegung (453, 453.1, 454, 438–440, 403, 406) nicht hier, sondern über 461.1. Build-Nummer = Laufnummer von `godot.yml`, über 146; vorher Vorrat Tom auf Reihenfolge (102).
 
 - **von Sokrates (Chef 02.11., 20:05, zu 415):** „Ob es auf dem Handy läuft, weiß ich nicht. Müsste getestet werden mit einem flotten Testeintrag im Testmenü.“ Eintrag zeigt die drei Strahlen nacheinander mit Bildern je Sekunde; dazu Schalter Leuchten (Glow) an/aus, weil Status Effects VFX ihn braucht (Kauf 415d beim Chef). Mit dem nächsten Build, Testbitte selbst stellen.
 
