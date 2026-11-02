@@ -56,9 +56,25 @@ Zahlen in Klammern = Entscheidung in `DESIGN-SPIELSYSTEM-2-0.md` („E 7“) ode
 **Stufe 6 · SRD im Code abgelöst** (nach dem Marktstart; der Spieler sieht es nicht)
 - [ ] **6.1** G · Auch im Code keine SRD-Werte mehr, der Lizenzhinweis „SRD 5.1 · CC BY 4.0“ entfällt; `regelcheck` ohne Treffer (446).
 
+## Wochenziel 02.–08.11. (Perikles, gesetzt 02.11., 11:2x; ohne Wochenzählung von Diogenes, die wegen des Stopps 07:26 noch fehlt)
+
+**Stufe 1 „Kern spielbar“ ist gebaut und liegt dir als Build vor: Erschaffung, Fertigkeiten durch Tun, Heldenstufe und Monsterwerte nach dem BRS, gerechnet mit den Zahlen der Simulation 444.** Termine gibt es keine; die Reihenfolge gilt. Muss (M) sind die Vorgänge unten und jeder Rückläufer aus deinem Urteil (höchstens zwei Läufe je Urteil, 389, 407); alles andere ist Kür, auch Filme ohne dein Urteil dazwischen.
+
+| Reihenfolge | Vorgang | Wer | fertig, wenn | Schätzung |
+|---|---|---|---|---|
+| 1 | von dir genannt (468): 463 Umhang und Robe geschlossen, 348.12k Grak, 427 Bestiarium, 467 Ausdauer nach BRS | Tom, Jerry, Sokrates | wie in der Zeile des Vorrats | – |
+| 2 | 470 Bau BRS 1.1 Erschaffung | Tom | Erschaffung im Spiel nach 1.1, Zahlen aus der Datendatei | 2 Sitzungen (447.2) |
+| 3 | 471 Bau BRS 1.2 Fertigkeiten durch Tun | Tom, Kampfteil mit Jerry | Fertigkeiten steigen im Spiel nach 1.2 | erste Sitzung schätzt |
+| 4 | 472 Bau BRS 1.3 Heldenstufe | Jerry | Heldenstufe im Spiel nach 1.3 | erste Sitzung schätzt |
+| 5 | 473 Bau BRS 1.4 Monsterwerte | Jerry | Werte der Monster von Kapitel 1 im Spiel nach 1.4 | 1 Sitzung, 1 Runde (447.3) |
+| 6 | gemeinsame Builds aus den wartenden Änderungen, dann Stufe 1 als Build | Jerry stellt zusammen | höchstens 6 Änderungen je Build (317); du spielst Dorf und Wald an | – |
+| 7 | 469 Ring ohne Klassen (aus deinem Urteil 406.1) | Jerry | wie in der Zeile des Vorrats | – |
+
+**Stärkstes Gegenargument:** Figuren und Bewegungen, die du gerade beurteilst, rücken nach hinten. **Entkräftet:** sie bleiben Muss als Rückläufer deines Urteils, nur ohne Läufe auf Vorrat; ohne Stufe 1 lässt sich keine spätere Stufe abnehmen.
+
 ## Ausführlicher Stand (Zeile 10 des [Tagesberichts](ARBEIT-TAGESBERICHT.md); Perikles montags neu; ersetzt seit 448 den täglichen Stand zum Marktstart und das Dashboard)
 
-**Hinweis (01.11., 13:5x):** Der Stand unten und die Wochenziele sind vom alten Plan (Blöcke T–S, „Umfang A“, „Spielsystem 2.0“); seit 447 gelten die Stufen oben und der Name BRS (451). Perikles setzt alles Mo 02.11. mit dem Wochenziel neu.
+**Hinweis (02.11., 11:2x):** Der Stand unten ist noch vom alten Plan (Blöcke T–S, Stand 01.11.); es gelten die Stufen oben, das Wochenziel 02.–08.11. und der Tagesbericht. Perikles setzt den Stand nach der Wochenzählung von Diogenes neu.
 
 **Stand 01.11., 00:15: gelb. Seit 31.10. gilt deine neue oberste Direktive: kein Termin, fertig ist, was die Abnahmeliste oben erfüllt.** Die Liste liegt dir zur Abnahme vor (Chefsache 418); bis zu deinem Wort ampeln wir nach ihrem Entwurf, Block für Block. Das spielbare Godot-Spiel (Dorf und Waldkampf, 399) hast du am 31.10. gegen 20:40 mit Build 143 getestet; von deinen neun Befunden (416) ist einer abgenommen, vier sind gebaut, einer in Arbeit, drei offen (einer davon Kür). 15 neue Änderungen (Tom 7, Jerry 8) warten auf den nächsten gemeinsamen Build; höchstens 6 je Build (317), also mindestens drei Builds. Dazu 5 Punkte aus Build 143, die du noch abnimmst (Spielfassung, Innenräume, Klang, Dorf, Kampfort). Das alte Regelwerk ruht auf dein Wort („keine Energie mehr in das alte SRD-System“, 424); Spielsystem 2.0 ist als Nachschlagewerk beschrieben (Entscheidungen bis 75, Sokrates gleicht ab, 422; Diogenes liest quer, 441), gebaut wird es erst nach deinen Antworten zu den offenen Entwürfen (413a) und zum Umfang für Kapitel 1 (418). Kein Block ist rot; die meisten warten auf diese beiden Antworten.
 
@@ -135,7 +151,7 @@ Dazu, ohne Vorgang (Perikles vergibt Nummern mit Wochenziel 2): Englisch durchge
 
 ## Wochenziel 2: 02.–08.11. (Perikles, vorab gesetzt 26.10., 17:15 nach der Schätzung 348.14; Montag 02.11. mit der Wochenzählung geprüft)
 
-**Überholt seit 418 (31.10.):** die Tage unten widersprechen „es gibt keinen Termin“ und rechnen mit dem alten System; Perikles setzt Wochenziel 2 am 02.11. neu auf die Abnahmeliste (Umfang A seit 01.11., 09:43), mit Reihenfolge und Schätzung statt Tagen.
+**Ersetzt durch das Wochenziel 02.–08.11. oben (02.11., 11:2x).**
 
 **Umzug fertig zum Durchspielen: jeder Punkt der Checkliste ist bis Mo 02.11. „gebaut“ (hält nur, wenn du etwa 28 Blätter am Tag ansiehst, 373) und bis Di 03.11. von Diogenes gemessen (Hinweis, keine Bedingung für deine Abnahme); die Kerntests laufen als GDScript-Tests grün, der Zufallsspieler spielt Kapitel 1 im neuen Spiel durch; dann spielst du Kapitel 1 in Godot einmal ganz durch, und deine Fehler sind Muss.** Abnahme der Punkte nach deinem Wort, Feinschliff danach. Das Guthaben ab Sa 31.10., 20:00 reicht beim jetzigen Takt bis etwa Mi 04.11.; was dann offen ist, geht nach dem Stillstand ab Sa 07.11., 20:00 weiter. Messen, GDScript-Tests und Zufallsspieler sind nicht geschätzt. Stärkstes Gegenargument: wird es der späte Termin (seit 338a „B“ Di 03.11., früh; dann hält das Wochenziel nicht), bleibt für deine Fehler aus dem Durchspielen kaum Guthaben in dieser Woche.
 

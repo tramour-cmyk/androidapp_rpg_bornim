@@ -12,6 +12,9 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 473 | M | **von Perikles (Wochenziel 02.11., Stufe 1):** Bau BRS 1.4 Monsterwerte Kapitel 1 nach Rechenmodell D ins Spiel (Abnahmeliste 1.4, Schätzung 447.3: 1 Sitzung, 1 Runde) | startbar | – |
+| 472 | M | **von Perikles (Wochenziel 02.11., Stufe 1):** Bau BRS 1.3 Heldenstufe aus Erfahrung, Anteil Fertigkeiten höchstens 40 %, Erfahrungstopf je Gebiet (Abnahmeliste 1.3); Schnittstelle mit Tom (471) | startbar: erste Sitzung schätzen, Abgleich mit 444 | – |
+| 467 | M | **von Sokrates (Chef 01.11., 21:52, Frage „Wie steigert sich die Ausdauer?“):** `godot/regeln/ausdauer.gd` rechnet noch nach SRD (Konstitution 10, Modifikator, Stärke 13); BRS: Ausdauer aus Zähigkeit, Wille, Stufe (Abschnitt 2); Formel kommt mit 427 zum Chef, dann umstellen | wartet auf 427 (Formel von Sokrates zum Chef) | – |
 | 438 | M | **von Sokrates (Chef 31.10., 23:31, Film 403):** Wölfe gleiten (Angriff, Tempo, aneinander vorbei); echte Schritte, Zahlen (Zu 438) | gebaut: wolf_mess_438 grün (Zu 438) | `claude/jerry-438-wolf-kampf` |
 | 458.2 | M | **von Sokrates (Chef 01.11., 13:1x, Archiv 458):** Gegenstandskatalog: Werte, Preise, Beute je Monster in die Datendatei (aus 444); das Spiel liest nur sie | gebaut 67eb82d09: Katalog voll, Spiel liest ihn (katalog.gd); fährt im nächsten Build | `claude/tuffy-458-2-katalog` |
 | 457.2 | M | **von Perikles (Chef 01.11., 11:49, „unsere Signatur muss sich wiederfinden“):** eigene Probeskripte zeichnen standardmäßig mit Toon-Licht, Tusche, Schatten; ohne nur mit Schalter (Zu 457.2) | gebaut e87815dc8, fährt mit den nächsten Filmen | `claude/jerry-457-2-signatur` |
@@ -64,8 +67,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 39 | M | Schwierigkeitsgrad im Menü | ruht: SRD (Chef 31.10.) | `claude/jerry-39-schwierigkeit` |
 | 59e | K | Händler: Vorrat je Laden | ruht: SRD (Chef 31.10.) | `claude/jerry-59e-haendlervorrat` |
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht: SRD (Chef 31.10.) | – |
-| 467 | M? | **von Sokrates (Chef 01.11., 21:52, Frage „Wie steigert sich die Ausdauer?“):** `godot/regeln/ausdauer.gd` rechnet noch nach SRD (Konstitution 10, Modifikator, Stärke 13); BRS: Ausdauer aus Zähigkeit, Wille, Stufe (Abschnitt 2); Formel kommt mit 427 zum Chef, dann umstellen | wartet auf 427 (Formel von Sokrates zum Chef) | – |
-| 469 | M? | **von Sokrates (02.11., 11:0x, zu 406.1):** Kampf auf BRS: Ring (MARS) ohne Klassen regeln (Antwort nach Klasse heute) | wartet auf 406.1 | – |
+| 469 | M | **von Sokrates (02.11., 11:0x, zu 406.1):** Kampf auf BRS: Ring (MARS) ohne Klassen regeln (Antwort nach Klasse heute) | wartet auf 406.1 | – |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht: Klang zieht nach Godot; Rest `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
 
 ## Einzelheiten
