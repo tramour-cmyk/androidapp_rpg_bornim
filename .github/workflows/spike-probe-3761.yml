@@ -9,6 +9,10 @@ on:
   push:
     branches: ["claude/spike-376-1-**"]
   workflow_dispatch:
+    inputs:
+      bild:
+        description: "Film (ja) oder nur Messung ohne Bild (nein, 390a)"
+        default: "ja"
 
 jobs:
   probe:
@@ -92,7 +96,7 @@ jobs:
           for k in WACHE_M:$Z/roh_held_m WACHE_W:$Z/roh_held_w ROBE_M:$Z/roh_held_wizard_m ROBE_W:$Z/roh_held_wizard_w; do
             n=${k%%:*}; h=${k#*:}
             FIG=$Z/roh/held_$n.blend UAL=$UAL HELDOUT=$h/x timeout 900 bl/bin/python -I tools/blender348/v3/pruef_tracht.py > probe/durch-$n.log 2>&1 || echo "pruef_tracht $n $?"
-            echo "== $n"; grep -E "^(DURCH|BEDECKT|FEHLT)" probe/durch-$n.log | cut -c1-220
+            echo "== $n"; grep -E "^(DURCH|BEDECKT|FEHLT|ORT)" probe/durch-$n.log | cut -c1-700
           done
           # 376.1 Urteil Tracht (Chef 01.11., 20:2x): was die Kamera sieht, Flecken in Umhang und Robe (pruef_flecken.py), ringsum und von hinten
           for k in WACHE_M:roh_held_m:cloak WACHE_W:roh_held_w:cloak ROBE_M:roh_held_wizard_m:robe,chain ROBE_W:roh_held_wizard_w:robe,chain; do
@@ -111,6 +115,7 @@ jobs:
           [ -f godot ] || { curl -sSL -o g.zip $base/Godot_v$GODOT-stable_linux.x86_64.zip && unzip -q g.zip && mv Godot_v$GODOT-stable_linux.x86_64 godot && rm g.zip; }
           ~/godot/godot --version
       - name: Test und Film
+        if: inputs.bild != 'nein'
         run: |
           sudo apt-get install -y -qq xvfb libgl1-mesa-dri > /dev/null
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; }
