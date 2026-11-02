@@ -25,7 +25,6 @@ Nichts offen.
 |---|---|---|---|
 | [417](ansehen/417-tragart-runde5.md) | Tragart Runde 5/6: Schild an der Seite, Axt mit beiden Fäusten | Tom | 02.11., 00:53 |
 | [447.4](ansehen/4474-lehrmeister-texte.md) | Texte Lehrmeister und Ruf, Kapitel 1 | Homer | 01.11., 20:51 |
-| [470](ansehen/470-erschaffung.md) | Erschaffung nach BRS 1.1: Seite „Neues Spiel“ | – | 02.11., 14:56 |
 
 ## Zu tun
 
