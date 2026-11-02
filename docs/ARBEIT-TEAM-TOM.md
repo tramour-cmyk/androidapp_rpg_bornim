@@ -8,7 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 431 | M | **von Sokrates (Chef 31.10., 22:0x):** Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film, dann Körperbau je Volk | wartet auf Chef: Chefsache 431f (zwei Läufe, Orkfrau-Haut; Zu 431) | `claude/tom-431-voelker` |
+| 431 | M | **von Sokrates (Chef 31.10., 22:0x):** Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film, dann Körperbau je Volk | startbar: 431f ja (Chef 21:28): zwei Läufe für die Orkfrau-Haut; Heldenhaut so (B1) | `claude/tom-431-voelker` |
 | 417 | M | **von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“):** Tragart je Waffenklasse (Zu 417), zuerst Stab, Axt, Bogen; Zahlen messen, Aussehen urteilt der Chef | startbar: 417a 21:24 (Archiv): 1a Schild Kämpfer flach auf dem Rücken, 2 Rennen A; Film wie Dorf-Film | `claude/tom-417-tragart` |
 | 416.9 | M | **von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“):** Laden, Verkaufen, „angelegt“ mit allen Plätzen, Vergleichswerte, nicht Tragbares, Icon bei Menge | gebaut: passt (Archiv 14:37), fährt im nächsten Build (Jerry); Geprüft an: 7523a08d0 | `claude/tom-416-9-vergleich` |
 | 416.7 | M | **von Sokrates (Chef 31.10., 20:5x, für den nächsten Build):** am Tresen in Schenke und Laden geht der Aktionsknopf nicht, Kaufen und Kauf mit den zwei NPCs dort nicht möglich; Reichweite erweitern | wartet auf Build: PR #177 nach main (146.3 ohne Tresenbefund) | – |
@@ -58,7 +58,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 133 | K | Charisma-Wahlen Kapitel 2 (`STORY-WAHLEN.md`) | ruht: altes SRD-System (Chef 31.10.) | – |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (Kapitel 2 nicht im Spiel) | – |
 | D63.5 | K | **von Diogenes (374/434, Vortag 01.11.):** ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53, 23:54; 416.4 ×4 (auch Spike); 376.1 Umhang/Robe, Tracht (Spike); 455.1, 455.2 (Spike); ohne Homer-Vorgabe (373 c): 417, 416.4, 376.1, 416.9, 425, 455.1/.2; nach Tor 461a ohne belegte Prüfung: 376.1 23:03, 417 23:54 (Zu 374 in `ARBEIT-PRUEFUNG.md`) | offen | – |
-| Pflege | K | **von Werkzeug (340.3, 02.11.):** 23535 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | **von Werkzeug (340.3, 02.11.):** 23572 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 ## Einzelheiten
 

@@ -76,7 +76,7 @@ Stand der Spalten „Angriff“, „Beute“ und „Merkmal“: aus `core/src/ma
 | Grimmzahn (Boss) | Tiefer Wald | 5 | 55 | 2 | 7 | 22 | 29 | 80 |
 | Grak (Boss) | Höhle | 6 | 75 | 2 | 7 | 25 | 38 | 90 |
 
-Nachfolger nach der Monsterwahl (348.12c, 26.10.): Wiedergänger statt Zombie, Grabhund statt Ghul, Riesenegel statt Blutflügler, Säureschnecke statt Ockerschleim, je mit derselben Rolle und denselben Werten; der Kauf der Modelle ruht (348.12c). Bis dahin gelten die alten Arten.
+Nachfolger nach der Monsterwahl (348.12c, 26.10.): Wiedergänger statt Zombie, Grabhund statt Ghul, Riesenegel statt Blutflügler, Säureschnecke statt Ockerschleim, je mit derselben Rolle und denselben Werten (die Säureschnecke ohne Klingenwiderstand, Archiv 348.12c Werte, 26.10., 21:33); der Kauf der Modelle ruht (348.12c). Bis dahin gelten die alten Arten.
 
 *Gebiet* aus `Story.kt` gelesen (Begegnungen), Krogg und Grimmzahn aus der Handlung. Was die Simulation noch nicht rechnet (Rudel, Hinterhalt, Merkmale, Tränke), wird im Spiel mit dem Kampflog nachgemessen.
 

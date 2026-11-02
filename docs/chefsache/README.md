@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [431f](entscheiden/431f-orkfrau-haut-laeufe.md) | **Muss** | E Figuren | 02.11., 20:52 | Orkfrau-Haut: Ursache noch offen, zwei Läufe zum Nachstellen und Beheben | Tom |
 | [415d](entscheiden/415d-effektpakete-kauf.md) | **Muss** | C Kampf | 02.11., 20:06 | Effektpakete kaufen, sobald der Handytest läuft? | Sokrates |
 | [432.3](entscheiden/4323-aschgeborene-merkmal.md) | M? | C Texte | 02.11., 19:57 | Aschgeborene: Name des Merkmals (Aschenerbe?), Liste, Text, Orte des Zeichens | Homer |
 | [466](entscheiden/466-meisterschaft-stufen.md) | M? | C Texte | 02.11., 19:39 | Stufen der Meisterschaften ohne „Meister“ | Homer |
@@ -51,11 +50,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 51, Muss 33, startbar 11
+**Tom** – offen 51, Muss 33, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | Chef |
+| 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | startbar |
 | 417 | M | von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“): Tragart je Waffenklasse (Zu 417), | startbar |
 | 416.9 | M | von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“): Laden, Verkaufen, „angelegt“ mit | wartet auf Test/Build (gebaut) |
 | 416.7 | M | von Sokrates (Chef 31.10., 20:5x, für den nächsten Build): am Tresen in Schenke und Laden | wartet auf Test/Build |
@@ -105,7 +104,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
-| Pflege | K | von Werkzeug (340.3, 02.11.): 23535 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 02.11.): 23572 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 55, Muss 42, startbar 1
 
@@ -165,7 +164,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | 469 | M | von Sokrates (02.11., 11:0x, zu 406.1): Kampf auf BRS: Ring (MARS) ohne Klassen regeln (An | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
-| Pflege | K | von Werkzeug (340.3, 02.11.): 16055 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 02.11.): 16081 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 30, Muss 27, startbar 2
 
@@ -254,7 +253,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (Chef) |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | ruht |
 | D63.7 | K | von Diogenes (434, Vortag 01.11.): entscheiden/3761-kettenhemd-heldin.md (20:55) ohne Zeil | startbar |
-| Pflege | K | von Werkzeug (340.3, 02.11.): 17676 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
+| Pflege | K | von Werkzeug (340.3, 02.11.): 16653 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
