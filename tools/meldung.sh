@@ -115,8 +115,8 @@ if [ -n "$art" ]; then
     if [ -n "$abgelegt" ] && [ "$art" = video ]; then text="$text\n[Film im Repo]($film_url)"  # 381.1: spielt im Browser ab
     elif [ -n "$abgelegt" ]; then text="$text\n[Bild im Repo](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/$pfad)"
     else echo "meldung: Ablage im Zweig bilder fehlgeschlagen, Bild nur auf Telegram" >&2; fi
-    # 450 (Chef 01.11., 10:55): Link selbst ins Blatt ansehen/<k>-….md auf main, unter Zeile 1, neuester oben; ohne Arbeitskopie
-    # (temporärer Index wie beim Zweig bilder), darum keine Störung offener Änderungen. Mehrere Blätter zur Nummer: das zuletzt geänderte.
+    # 450 (Chef 01.11., 10:55): Link selbst in die Datei ansehen/<k>-….md des Vorgangs auf main, unter Zeile 1, neuester oben; ohne Arbeitskopie
+    # (temporärer Index wie beim Zweig bilder), darum keine Störung offener Änderungen. Mehrere Dateien zum Vorgang: die zuletzt geänderte.
     if [ -n "$abgelegt" ]; then
       wort=Bild; u="https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/$pfad"
       [ "$art" = video ] && { wort=Film; u="$film_url"; }

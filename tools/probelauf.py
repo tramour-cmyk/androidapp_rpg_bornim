@@ -116,14 +116,19 @@ def urteil(nr):
         return f"{jahr}-{monat:02d}-{tag:02d} {std}:{m1}{'9' if m2 == 'x' else m2}:00"
 
     for m in ARCHIV_KOPF.finditer(archiv):
-        if not re.search(r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)", m.group(1)):
-            continue
         ende = archiv.find("\n- **", m.end())
         eintrag = archiv[m.end():ende if ende >= 0 else len(archiv)]
+        # D68.1: „453b und 463a … zwei Läufe frei (Sokrates)“ im Text eines Eintrags gibt frei, ab dessen Zeit
+        if any("Läufe frei" in teil and re.search(r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)", teil)
+               for teil in re.split(r"[;:]\s", eintrag)):
+            beste = max(beste or "", zeit(m.group(2), m.group(3), m.group(4), m.group(5), m.group(6)))
+            continue
         klammer = eintrag[:eintrag.find(")")] if ")" in eintrag else ""
         vorentscheid = "Vorentscheid" in m.group(1) or "Vorentscheid" in klammer or "→ **Vorentscheid" in eintrag
         if "Läufe frei" in m.group(1):  # 480.1 (Chef 02.11., 18:46): weitere Läufe gibt Sokrates frei, Kopf „<Nr>, Läufe frei“
             vorentscheid = False
+        if not re.search(r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)", m.group(1)):
+            continue
         if not vorentscheid:
             beste = max(beste or "", zeit(m.group(2), m.group(3), m.group(4), m.group(5), m.group(6)))
             continue
