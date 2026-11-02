@@ -12,7 +12,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 |---|---|---|---|
 | 468 | M | **von Chef (02.11., 07:33, Bild „Nutzung“: 36 %):** weiter mit Wächter bis Sa 19:59 (ja 11:13, Archiv, ARBEIT-BETRIEB) | Dauer: Ford liest 18 Uhr ab; Sokrates prüft Sa 07.11., ob 407 griff und der Verbrauch hielt |
 | 461b | M | **von Chef (01.11., 22:23, „Wer prüft denn nach, dass nicht gegensätzliche Entscheidungen an verschiedenen Stellen stehen?“):** nur Gültiges steht; ja 22:26 (Archiv); mein Teil: Archiv zu Figuren und Kampf einmal nach Widersprüchen absuchen, Liste an den Chef | in Arbeit (Bau Perikles, Kennzahl Diogenes) |
-| 432 | K | **von Chef (01.11., 09:41, Archiv 432; nachgefragt 02.11., 16:27):** Werte und Merkmal der Aschgeborenen (sechstes Volk) vorschlagen, in Simulation 444 messen | nach dem Meilenstein |
+| 432.2 | M? | **von Chef (02.11., 16:29: „die gehören auch ordentlich eingetragen … mit ihren Basisattributen“):** Werte der Aschgeborenen | wartet auf Chef: entscheiden/4322 |
 | 427 | M | **von Chef (31.10., 21:3x):** Bestiarium `LISTE-BESTIARIUM.md` | wartet auf Chef: entscheiden/427-monsterwerte (gemessen, Prüfer 15:1x eingearbeitet) |
 | 398 | M | **von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr ganz grundlegende Dinge fehlen?“):** Grundsätze DESIGN-* gegen Umzugsliste und Godot-Zweige | wartet auf Perikles: 15 Lücken in LISTE-UMZUG-348.md „398“, Chef 11:3x informiert |
 | 391 | M | **von Chef (28.10., 09:21):** Repos dauerhaft ohne Ablehnung | ruht: kein Repo-Feld in der Umgebung (Bild Chef 10:29), Repo-Wahl am Eingabefeld gilt nur für Sitzungen von Hand; Fords Starts nehmen ein Repo; add_repo geht durch, wenn die Aufgabe die Kaufmodelle braucht |
