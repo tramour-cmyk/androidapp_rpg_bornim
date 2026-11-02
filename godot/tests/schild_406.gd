@@ -215,42 +215,82 @@ func _netz_tiefe(schild: Node3D, koerper: PackedVector3Array) -> Array:
 
 ## 406 b (Lauf 162: Kleriker Schulter und Oberarm bis 7,3 cm im Drachenschild bei Abwehr, Kämpfer bis 2,4 cm): wie tief Körper,
 ## Schulter und Oberarm stünden, säße der Schild um [tiefer, weiter vorn] m anders an der Fessel (VARIANTEN). Der Schild bewegt sich
-## starr, also gleich, als rückten die Körperecken entgegen; ohne neuen Lauf je Fassung. [tiefste m je Fassung]
-const VARIANTEN := [[0.0, 0.0], [0.0, 0.02], [0.0, 0.04], [0.0, 0.06], [0.04, 0.0], [0.04, 0.02], [0.04, 0.04], [0.08, 0.0],
-		[0.08, 0.02], [0.08, 0.04], [0.12, 0.0], [0.12, 0.02]]
+## starr, also gleich, als rückten die Körperecken entgegen; ohne neuen Lauf je Fassung.
+## Lauf 165: mit den Feldern von 2 cm aus den Ecken sprangen die Werte (Kämpfer 6 cm vor: Körper 7,3 statt -5,8): am gewölbten Rand
+## (4,6 cm hinter der Fessel) liegt im Feld die hinterste Randecke, eine Körperecke daneben, außerhalb des Umrisses, zählte als „im
+## Schild“. Jetzt die Fläche selbst: jedes Dreieck (ohne die Sonne) auf ein Raster von RASTER m gelegt, je Rasterpunkt hinterste und
+## vorderste Fläche genau an dieser Stelle; außerhalb des Umrisses gibt es keinen Rasterpunkt.
+const VARIANTEN := [[0.0, 0.0], [0.0, 0.01], [0.0, 0.02], [0.0, 0.03], [0.0, 0.04], [0.0, 0.06], [0.04, 0.0], [0.04, 0.02],
+		[0.04, 0.04], [0.08, 0.0], [0.08, 0.02], [0.08, 0.04]]
+const RASTER := 0.01
+var _karten := {}
 
-func _varianten_tiefe(schild: Node3D, koerper: PackedVector3Array) -> PackedFloat32Array:
+## Rasterpunkt -> Vector2(hinterste z, vorderste z) im Raum von schild (einmal je Schild, die Lage der Netze darin ist starr)
+func _karte(schild: Node3D) -> Dictionary:
+	var id := schild.get_instance_id()
+	if _karten.has(id):
+		return _karten[id]
+	var feld := {}
+	var inv := schild.global_transform.affine_inverse()
+	for mi in schild.find_children("*", "MeshInstance3D", true, false) + ([schild] if schild is MeshInstance3D else []):
+		var me := (mi as MeshInstance3D).mesh
+		var tr := inv * (mi as MeshInstance3D).global_transform
+		for s in me.get_surface_count():
+			var mat := me.surface_get_material(s)
+			if mat != null and mat.resource_name.begins_with("sonne"):
+				continue
+			var ar := me.surface_get_arrays(s)
+			var vs: PackedVector3Array = ar[Mesh.ARRAY_VERTEX]
+			var idx = ar[Mesh.ARRAY_INDEX]
+			var n: int = idx.size() if idx != null else vs.size()
+			for t in range(0, n - 2, 3):
+				var pa: Vector3 = tr * vs[idx[t] if idx != null else t]
+				var pb: Vector3 = tr * vs[idx[t + 1] if idx != null else t + 1]
+				var pc: Vector3 = tr * vs[idx[t + 2] if idx != null else t + 2]
+				var den := (pb.y - pc.y) * (pa.x - pc.x) + (pc.x - pb.x) * (pa.y - pc.y)
+				if absf(den) < 1e-12:
+					continue
+				for i in range(floori(minf(pa.x, minf(pb.x, pc.x)) / RASTER), floori(maxf(pa.x, maxf(pb.x, pc.x)) / RASTER) + 1):
+					for j in range(floori(minf(pa.y, minf(pb.y, pc.y)) / RASTER), floori(maxf(pa.y, maxf(pb.y, pc.y)) / RASTER) + 1):
+						var px := (i + 0.5) * RASTER
+						var py := (j + 0.5) * RASTER
+						var l1 := ((pb.y - pc.y) * (px - pc.x) + (pc.x - pb.x) * (py - pc.y)) / den
+						var l2 := ((pc.y - pa.y) * (px - pc.x) + (pa.x - pc.x) * (py - pc.y)) / den
+						var l3 := 1.0 - l1 - l2
+						if l1 < -1e-4 or l2 < -1e-4 or l3 < -1e-4:
+							continue
+						var z := l1 * pa.z + l2 * pb.z + l3 * pc.z
+						var k := Vector2i(i, j)
+						var e: Vector2 = feld.get(k, Vector2(INF, -INF))
+						feld[k] = Vector2(minf(e.x, z), maxf(e.y, z))
+	_karten[id] = feld
+	return feld
+
+
+## je Fassung [tiefste m, Stelle cm]: Körperecke an einem Rasterpunkt vor der hintersten Fläche, höchstens 5 cm vor der vordersten
+func _varianten_tiefe(schild: Node3D, koerper: PackedVector3Array) -> Array:
+	var feld := _karte(schild)
 	var inv := schild.global_transform.affine_inverse()
 	var sc := schild.global_transform.basis.get_scale()
-	var feld := {}
-	var lo := Vector3(INF, INF, INF)
-	var hi := -lo
-	for p in _ecken(schild):
-		var q := inv * p
-		lo = lo.min(q); hi = hi.max(q)
-		var k := Vector2i(floori(q.x / 0.02), floori(q.y / 0.02))
-		var e: Vector2 = feld.get(k, Vector2(INF, -INF))
-		feld[k] = Vector2(minf(e.x, q.z), maxf(e.y, q.z))
 	var nah := PackedVector3Array()
-	var rand := 0.2
 	for p in koerper:
 		var q := inv * p
-		if q.x > lo.x - rand and q.x < hi.x + rand and q.y > lo.y - rand and q.y < hi.y + rand and q.z > lo.z - rand and q.z < hi.z + rand:
+		if absf(q.x) < 0.6 and absf(q.y) < 0.7 and absf(q.z) < 0.3:
 			nah.append(q)
-	var out := PackedFloat32Array()
+	var out := []
 	for v in VARIANTEN:
 		# Schild tiefer (lokal -y) und weiter vorn (+z): die Körperecke rückt im Raum des Schilds um +y und -z
 		var d := Vector3(0.0, v[0] / sc.y, -v[1] / sc.z)
-		var best := -INF
+		var best := [-INF, Vector3.ZERO]
 		for q0 in nah:
 			var q: Vector3 = q0 + d
-			var k := Vector2i(floori(q.x / 0.02), floori(q.y / 0.02))
+			var k := Vector2i(floori(q.x / RASTER), floori(q.y / RASTER))
 			if not feld.has(k):
 				continue
 			var e: Vector2 = feld[k]
-			if q.z > e.y + 0.05:
+			if q.z > e.y + 0.05 or q.z - e.x <= best[0]:
 				continue
-			best = maxf(best, q.z - e.x)
+			best = [q.z - e.x, q * 100.0]
 		out.append(best)
 	return out
 
@@ -369,7 +409,7 @@ func _run() -> void:
 		var var_k := []     # 406 b: je Fassung tiefste m Körper (ohne linken Arm)
 		var var_s := []     # ... Schulter und Oberarm
 		for v in VARIANTEN:
-			var_k.append(-INF); var_s.append(-INF)
+			var_k.append([-INF, Vector3.ZERO]); var_s.append([-INF, Vector3.ZERO])
 		var n := 0
 		var dauer := int(OS.get_environment("DAUER_MS")) if OS.get_environment("DAUER_MS") != "" else DAUER_MS
 		while n < (dauer * 30 / 1000 if film else 6000):
@@ -385,14 +425,16 @@ func _run() -> void:
 						e[1] = t[1]
 					if t[0] > NETZ_M:
 						e[2] += 1
-					var u := _netz_tiefe(sm, _ecken_aus(sk, _schulter))
-					if u[0] > schulter.get(b, [-INF])[0]:
-						schulter[b] = u
 				if n % 6 == 0:
 					var vk := _varianten_tiefe(sm, _haut_ecken(sk))
 					var vs := _varianten_tiefe(sm, _ecken_aus(sk, _schulter))
+					if vs[0][0] > schulter.get(b, [-INF])[0]:
+						schulter[b] = vs[0]
 					for i in VARIANTEN.size():
-						var_k[i] = maxf(var_k[i], vk[i]); var_s[i] = maxf(var_s[i], vs[i])
+						if vk[i][0] > var_k[i][0]:
+							var_k[i] = vk[i]
+						if vs[i][0] > var_s[i][0]:
+							var_s[i] = vs[i]
 				tief[b] = e
 			if kf.mars.outcome != "ONGOING" and not kf.busy and not kf.playing and kf.beats.is_empty():
 				break
@@ -408,7 +450,7 @@ func _run() -> void:
 		for b in schulter:
 			print("  %s Kampf %s: linke Schulter und Oberarm %.3f m im Schild (Stelle %s cm)" % [k, b if b != "" else "–", schulter[b][0], schulter[b][1]])
 		for i in VARIANTEN.size():
-			print("  %s FASSUNG tiefer %.0f cm, vorn %.0f cm: Körper %.1f cm, Schulter und Oberarm %.1f cm im Schild" % [k, VARIANTEN[i][0] * 100.0, VARIANTEN[i][1] * 100.0, var_k[i] * 100.0, var_s[i] * 100.0])
+			print("  %s FASSUNG tiefer %.0f cm, vorn %.0f cm: Körper %.1f cm (Stelle %s), Schulter und Oberarm %.1f cm (Stelle %s) im Schild" % [k, VARIANTEN[i][0] * 100.0, VARIANTEN[i][1] * 100.0, var_k[i][0] * 100.0, (var_k[i][1] as Vector3).round(), var_s[i][0] * 100.0, (var_s[i][1] as Vector3).round()])
 		print("Kampf %s: %s nach %d Bildern" % [k, kf.mars.outcome, n])
 		kf.queue_free()
 		p.queue_free()
