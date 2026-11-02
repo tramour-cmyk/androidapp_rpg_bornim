@@ -377,10 +377,12 @@ jobs:
           # 348.12k: Grak im Kampfort (Anlauf, Stehen, Hieb, Ausweichen gegen den Hieb des Helden, Treffer, Platzwechsel, Tod) mit
           # dem Kaufhelden; fehlt er, bricht figur.gd den Film ab (FEHLER: kein Kaufheld), dann rot statt alter Held
           if [ "${{ github.event.inputs.kampf }}" = "grak" ]; then
-            GEGNER=GRAK ORT_ID=grak OHNEUI=1 SCHAU=ort SCHAU_TITEL=Grak timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 \
+            GEGNER=GRAK ORT_ID=grak OHNEUI=1 SCHAU=ort SCHAU_TITEL=Grak AXT_MESS=1 timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 \
               --path . res://kampf/probe.tscn --resolution 540x1170 --write-movie $RUNNER_TEMP/grak.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/grak.png > $B/grak-ort.log 2>&1 || true
             grep -E "SCRIPT ERROR|^ +at: |^Ort |^FEHLER" $B/grak-ort.log | head -30 || true
             if grep -q "FEHLER: kein Kaufheld" $B/grak-ort.log; then exit 1; fi     # „! grep“ hielte bash -e nicht an
+            # Prüfer Lauf 166 (E2): Fäuste an der Axt je Bewegung, größte Abweichung (m) und wo; ganze Liste in grak-ort.log
+            grep "^AXT " $B/grak-ort.log | awk '{k=$2" "$6; r=$10; l=$12; if (r+0>mr[k]+0) {mr[k]=r; wr[k]=$3" "$4" ms "$7}; if (l+0>ml[k]+0) {ml[k]=l; wl[k]=$3" "$4" ms "$7}} END {for (k in mr) printf "AXT %s rechts %.3f (Bild %s s) links %.3f (Bild %s s)\n", k, mr[k], wr[k], ml[k], wl[k]}' || true
             ffmpeg -loglevel error -y -ss 1.25 -i $RUNNER_TEMP/grak.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/348.12-grak-film.mp4
             d=$(dauer $B/348.12-grak-film.mp4)
             ffmpeg -loglevel error -y -i $B/348.12-grak-film.mp4 -vf "fps=8/$d,scale=270:-2,tile=8x1" -frames:v 1 $B/348.12-grak-blatt.png || true

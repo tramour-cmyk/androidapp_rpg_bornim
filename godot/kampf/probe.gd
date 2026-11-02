@@ -590,6 +590,7 @@ func _ort() -> void:
 			fight.figures[id].aim = held
 	var h0: Vector3 = rat.home
 	var mess := OS.get_environment("SCHAU_MESS") != ""
+	var axt_mess := OS.get_environment("AXT_MESS") != ""
 	var warte := func(s: float) -> void:
 		var bis: float = fight.clock_ms + s * 1000.0
 		while fight.clock_ms < bis:
@@ -599,6 +600,8 @@ func _ort() -> void:
 			fight.beats_lock.unlock()
 			if mess:
 				_ort_mess(rat, held)
+			if axt_mess:
+				_axt_mess(rat)
 			_ort_bild += 1
 			await get_tree().process_frame
 	var zeig := func(nm: String) -> void:
@@ -837,6 +840,30 @@ var _ort_nase := -1.0
 var _hu := {}     # 387 r4: Netz je MeshInstance3D für _huelle (Ecken, Knochen, Gewichte, Knochen je Bindung)
 var _ort_schritt := ""
 var _ort_bild := 0
+var _axt_ref = null
+
+
+## 348.12k (Prüfer Lauf 166, E2: bei 7,47 s im Hieb ein Bild lang „Axtstiel etwa 60 px über beiden Fäusten … springt von schräg
+## oben nach waagerecht“): AXT_MESS=1 misst je Bild, wie weit die rechte und linke Faust von ihrem Platz an der Axt abweichen
+## (Raum des Knochens „axt“, grak_gestalt.py; Bezug: erstes gemessenes Bild), mit Bewegung und Zeit; nur Zahlen, Meter im Modell
+func _axt_mess(rat) -> void:
+	var sk: Skeleton3D = rat._find(rat.model, "Skeleton3D") as Skeleton3D
+	if sk == null:
+		return
+	var ia := sk.find_bone("axt")
+	var ir := sk.find_bone("hand_r")
+	var il := sk.find_bone("hand_l")
+	if ia < 0 or ir < 0 or il < 0:
+		return
+	var ax := sk.get_bone_global_pose(ia).affine_inverse()
+	var r: Vector3 = ax * sk.get_bone_global_pose(ir).origin
+	var l: Vector3 = ax * sk.get_bone_global_pose(il).origin
+	if _axt_ref == null:
+		_axt_ref = [r, l]
+	var an: String = rat.anim.current_animation if rat.anim and rat.anim.current_animation != "" else "-"
+	var pos: float = rat.anim.current_animation_position if an != "-" else 0.0
+	print("AXT %s %d %.0f ms %s %.3f s rechts %.3f links %.3f" % [_ort_schritt, _ort_bild, fight.clock_ms, an, pos,
+		r.distance_to(_axt_ref[0]), l.distance_to(_axt_ref[1])])
 
 
 ## 387 r4 (Prüfer r3: Huhn ein heller Fleck ohne Kopf und Beine, Kaninchen sitzt beim Platzwechsel, Hundertfüßer wirkt 1 m lang; in
