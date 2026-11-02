@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert“).
 
-**Übergabe (02.11., 00:29):** 438 wolf_mess_438 grün (Godot-Lauf 41361582331 prüfen); 406.1 beim Chef; 438a Zwischenstand. Nachfolger: „Jerry – 438a: Hinfallen und Aufstehen aus dem Waffenpaket“
+**Übergabe (02.11., 02:0x):** 438a Runde 2 gebaut (47ad5bfd2, 6e5ff1210), Film beim Chef (ansehen/438a-sturz-runde2), Prüferbefund nachgesendet (in der Chefsache-Datei); Umhang-Befund an Tom (376.1). Nachfolger: „Jerry – 438a: Prüferbefund Runde 2, Wolf am Liegenden“
 
 ## Zeilen
 
@@ -83,7 +83,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 - **Zu 406, Urteil neu vorgelegt (Chef 20:2x, Nachbesserungen a–e), Zu 460 (Vorschlag Sokrates Probefilm), Zu 438a Grundsatz (Chef 20:1x, Waffenpakete):** Wortlaut in Git, `git show 907f307f2:docs/ARBEIT-TEAM-JERRY.md`.
 - **Zu 453.1:** Wortlaut, Weg und Grundsatz in Git, `git show da33d472c:docs/ARBEIT-TEAM-JERRY.md`.
 - **Zu 438a, Urteil Sichtung, von Sokrates (Chef 01.11., 20:1x, Archiv 438a):** Schild und Schwert durch Körper, Kopf, Boden; gut nur 1, 11D, 11F, 12B, 13, so lala 2 (Wortlaut je Stück, Werkzeuge `film_438a.gd`, `zauber385.py`: `git show dc386b2e8:docs/ARBEIT-TEAM-JERRY.md` und 7cacfa97d). Waffe und Schild nach Prefab des Pakets anstecken (`Protof-Actor@Sword&Shield.prefab`), Durchdringung je Bild messen (höchstens 2 cm), mit Tom (417) und 406.
-- **Zu 438a, Jerry (02.11., 01:5x):** Runde 2 (47ad5bfd2, 6e5ff1210): Schwert nach Prefab; `bodenhalt.gd`; `figur.gd _boden_schutz`; lokal grün außer `wolf_mess_438`: 1 Befund wie vorher, Wolf läuft 6–8 cm in den liegenden Kleriker (Wegsuche kennt den Liegenden nicht), nächster Schritt. Umhang im Boden an Tom (376.1). Probeläufe 2/2.
+- **Zu 438a, Jerry (02.11., 01:5x):** Runde 2 (47ad5bfd2, 6e5ff1210): Schwert nach Prefab; `bodenhalt.gd`; `figur.gd _boden_schutz`; lokal grün außer `wolf_mess_438`: 1 Befund wie vorher, Wolf läuft 6–8 cm in den liegenden Kleriker (Wegsuche kennt den Liegenden nicht), nächster Schritt. Umhang im Boden an Tom (376.1). Probeläufe 2/2. Nächste Runde: Prüferbefund in `chefsache/ansehen/438a-sturz-runde2.md` (Stab durch Beine, Finger durch Schild, offene Hand, Sprünge, Klinge vor dem Bauch), headless mit `sturz_438a`; Film erst nach Urteil (Probeläufe 2/2). Lokaler Aufbau: `kauf_laden`-Anhänge per curl, Daten wie `godot.yml`.
 - **Zu 438, Jerry (02.11., 00:2x):** wolf_mess_438 mit Kaufmodellen am Rechner nachgestellt und auf `claude/grundstand-461` behoben, 9 → 0 Befunde (Commits d073edf35, 1313f9060, d8ebed87a); Bestätigung: Godot-Lauf 41361582331.
 - **Zu 348.12 (Chef 27.10., 17:19):** „ob das Modell trifft … muss man halt nachjustieren, das kann kein Kriterium sein“. Grak (Chef 29.10., 10:55): „gut, aber Gang schreitend statt kurzer Sprint“; Bau und Prüfwege `git show c30c827d0:docs/ARBEIT-TEAM-JERRY.md`.
 
@@ -91,4 +91,4 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 - **Zu 399.2, von Tom (28.10., 13:23):** `goblin.py` kennt `v3/rig.py` nicht; Goblins mit `v3_kampf/`, vor der Höhle auf `v3` umstellen.
 - **Zu 348.12, Prüfer Film Lauf 177 (22:0x):** in Git, `git show 5dc32fd63:docs/ARBEIT-TEAM-JERRY.md`.
 - **von Sokrates (Chef 01.11., 22:35, „461c wie Sokrates“, Archiv 461c; Grundstand B5, F4):** zu 406: Kleriker-Schild Form Schild 2 mit goldener Sonne in unseren Farben; zu Kampf: Tod für alle zusammenbrechen, kurz liegen, dann ausblenden (auch Wölfe); zu 444: Schmiedelehrling startet zusätzlich mit Stumpfe Waffen (`werte.json`), neu rechnen.
-- **Zu 348.12, Urteil Film Grak schreitet, von Sokrates (Chef 01.11., 22:45, Archiv 348.12; Grundstand D5, F5):** Bewegung an sich „nicht schlecht“. Ausweichen: „da erfolgt ja kein Angriff … witzig, wenn Grak immer von links nach rechts … schreitet … ein Ausweichen ist ja doch grundsätzlich mal eine eher rasche Bewegung nach hinten oder zur Seite. Und dann bewegt man sich wieder auf den Grundplatz … zurück.“ Schreiten nur beim Ortswechsel; Ausweichen rasch, nur gegen einen sichtbaren Angriff des Helden, danach zurück. Im nächsten Lauf (348.12k) mitnehmen.
+- **Zu 348.12, Urteil Film Grak schreitet, von Sokrates (Chef 01.11., 22:45, Archiv 348.12; Grundstand D5, F5):** Schreiten nur beim Ortswechsel; Ausweichen rasch, nur gegen einen sichtbaren Angriff, danach zurück; Wortlaut `git show 515dfd03e:docs/ARBEIT-TEAM-JERRY.md`. In 348.12k mitnehmen.
