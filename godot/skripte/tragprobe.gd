@@ -28,6 +28,7 @@ const FPS := 30.0
 # Figur ueber den Rand)
 const FILM_FOLGE := [["Stehen", 1.0], ["Gehen", 2.5], ["Rennen", 2.5], ["Gehen", 1.5], ["Stehen", 1.2]]
 const FILM_START := -12.0
+const FILM_WEIT := 1.2
 const ZELLE := 0.06
 const NAH := 0.45     # m: Knochen weiter von der Waffe zaehlen nicht
 const TIEF := 0.05    # m: tiefer gilt nicht als innen
@@ -75,14 +76,14 @@ func modell(k: String) -> Node3D: return fp.figuren[k].get_child(0) as Node3D
 func zeige_nur(k: String) -> void:
 	for x in fp.figuren: fp.figuren[x].visible = x == k
 
-func stelle_kamera(w: Node3D, ansicht: String) -> void:
+func stelle_kamera(w: Node3D, ansicht: String, weit := 1.0) -> void:
 	var a: Array = ANSICHTEN[ansicht]
 	var kam := cam as Kamera
 	kam.ziel = w
 	kam.nah = true
 	kam.gieren_ziel = a[0]
 	kam.neigung = a[1]
-	kam.zoom = a[2]
+	kam.zoom = a[2] * weit
 	kam.springe()
 
 # ---------------------------------------------------------------- Standbilder und Film (die Messung macht tests/tragen_417.gd)
@@ -132,7 +133,16 @@ func standbilder(axt := false, pakete := false) -> void:
 						fp.spiel.get_viewport().get_texture().get_image().save_png(fp.aus + "/tragen/%s_%s_%d_%s.png" % [e[1], b0, int(4.0 * ph / n), a])
 		fp.protokoll.append("BILDER %s %s" % [e[1], e[3]])
 		print(fp.protokoll[-1])
+	# Pruefer Film 00:53: Schwert beim Schildtraeger und linke Faust an der Axt lagen hinter dem Koerper (Durchdringung oder Verdeckung?);
+	# Schild und Axt darum von beiden Seiten, Ordner <Datei>_<Seite>
+	var folgen := []
 	for e in liste:
+		var s0 := "links" if e[3] == "shortbow" or (e.size() > 4 and e[4] == "schild") else "rechts"
+		folgen.append([e, s0])
+		if e.size() > 4 and e[4] in ["schild", "axt"]: folgen.append([e, "rechts" if s0 == "links" else "links"])
+	for fe in folgen:
+		var e: Array = fe[0]
+		var seite: String = fe[1]
 		var k: String = e[0]
 		if not fp.figuren.has(k): continue
 		zeige_nur(k)
@@ -140,8 +150,7 @@ func standbilder(axt := false, pakete := false) -> void:
 		var m := modell(k)
 		var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
 		var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
-		var seite := "links" if e[3] == "shortbow" or (e.size() > 4 and e[4] == "schild") else "rechts"
-		var ordner: String = fp.aus + "/film/" + String(e[1])
+		var ordner: String = fp.aus + "/film/" + String(e[1]) + "_" + seite
 		DirAccess.make_dir_recursive_absolute(ordner)
 		var nr := 0
 		var p := ort + Vector3(0, 0, FILM_START)
@@ -173,7 +182,7 @@ func standbilder(axt := false, pakete := false) -> void:
 				ap.advance(1.0 / FPS)
 				p += Vector3(0, 0, 1) * tempo / FPS
 				w.position = p
-				stelle_kamera(w, seite)
+				stelle_kamera(w, seite, FILM_WEIT)   # Pruefer 00:53: Axtblatt am Feldrand abgeschnitten
 				await fp.get_tree().process_frame
 				await RenderingServer.frame_post_draw
 				fp.spiel.get_viewport().get_texture().get_image().save_png(ordner + "/%03d.png" % nr)

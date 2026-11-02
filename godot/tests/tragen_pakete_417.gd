@@ -14,7 +14,30 @@ const SCHILD_FASSUNGEN := [0.0, 5.0, 8.0, 12.0, 16.0]
 const SCHWERT_FASSUNGEN := [9.0, 12.0, 15.0, 18.0]
 const AXT_FASSUNGEN := [[0.0, 0.0], [0.5, 0.0], [1.0, 0.0], [0.0, 0.15], [0.5, 0.15], [1.0, 0.15], [0.5, 0.25], [1.0, 0.25], [1.0, 0.30]]
 
+const GLEIT_ERLAUBT := 5.0      # %: Standfuss gegen den Boden (Pruefer 00:53: 17-28 %)
 var fehler := 0
+
+# Rueckwaertstempo des Standfusses (Ballen, Blick +Z) beim Abspielen, 60 Proben je Umlauf, Median wie HeldFigur.stand_tempo
+func stand_abspielen(ap: AnimationPlayer, sk: Skeleton3D, bew: String, lang: float) -> float:
+	var n := 60
+	var vs := []
+	var d := {"l": [], "r": []}; var h := {"l": [], "r": []}
+	ap.play(bew)
+	for j in n + 1:
+		ap.pause()
+		ap.seek(lang * j / n, true)
+		await process_frame
+		for s in ["l", "r"]:
+			var o := (sk.global_transform * sk.get_bone_global_pose(sk.find_bone("ball_" + s))).origin
+			d[s].append(o.z); h[s].append(o.y)
+	for s in ["l", "r"]:
+		var tief: float = h[s].min()
+		for j in n:
+			if h[s][j] < tief + 0.02 and h[s][j + 1] < tief + 0.02: vs.append((d[s][j] - d[s][j + 1]) * n / lang)
+	ap.play(bew)
+	if vs.is_empty(): return 0.0
+	vs.sort()
+	return float(vs[vs.size() / 2])
 
 func pruefe(ok: bool, was: String) -> void:
 	if not ok:
@@ -56,6 +79,16 @@ func _initialize() -> void:
 			await process_frame
 			var lang := ap.get_animation(bew).length
 			var n := int(round(lang * FPS))
+			# Pruefer Film 00:53 („Rennen: Fuss 17-28 % langsamer als der Boden, rutscht“): der Standfuss im echten Abspielen (speed_scale 1 =
+			# Spieltempo gang_*_m_je_s) gegen das Tempo, mit dem die Figur vorankommt; dazu das Tempo der Quelle (vorher) gegen das an der Figur
+			var vsoll := float(m.get_meta("gang_gehen_m_je_s" if b0 == "Gehen" else "gang_rennen_m_je_s", 0.0))
+			var vst: float = await stand_abspielen(ap, sk, bew, lang)
+			var an0 := ap.get_animation(bew)
+			var vq := float(an0.get_meta("v_quelle", 0.0)); var vf := float(an0.get_meta("v_figur", 0.0))
+			var gl := 100.0 * (vst - vsoll) / maxf(0.01, vsoll)
+			print("GLEIT %s %s: Standfuss %.2f m/s, Figur kommt %.2f m/s voran, Fuss %+.0f %% gegen den Boden; Quelle %.2f, an der Figur %.2f m/s (vorher %+.0f %%)" % [e[1], bew,
+				vst, vsoll, gl, vq, vf, 100.0 * (vf / maxf(0.01, vq) - 1.0)])
+			pruefe(absf(gl) <= GLEIT_ERLAUBT, "%s %s: Standfuss %+.0f %% gegen den Boden" % [e[1], bew, gl])
 			var laeufe := []
 			for t in tl:
 				if gang == "axt":

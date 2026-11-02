@@ -45,6 +45,7 @@ static var renn_lib := {}               # Art -> umgeformtes „Rennen“
 const TAKT_GEHEN := 1.84 * 1.16          # 416.4: m/s, auf die Gehen und Rennen umgetaktet werden (karte.gd gehen, laufen auf Gras)
 const TAKT_RENNEN := 3.68 * 1.16
 static var tritt_cache := {}             # 416.4: Bewegung|Art -> Vector2(Zeit rechter, linker Ballen setzt auf)
+static var stand_cache := {}             # 417: Bewegung|Art|Tracht|Becken|Bein -> Tempo des Standfusses an dieser Figur (m/s)
 # 416.4 (Chef 31.10., Build 143: Rennen wirkt „als würde er Hochsprung machen“; 01.11., 11:28 „neuer Film“ mit heute, A, B):
 # Jog_Fwd_Loop der UAL ist ein Sprunglauf. flug = Zeit, in der kein Fuss am Boden ist, so viel kuerzer (der Stand bleibt wie die Quelle,
 # darum gleitet nichts, held.gd speed_scale bleibt); hub = Anteil, um den sich das Becken ueber seinen Tiefstand hebt. Werte wie
@@ -240,7 +241,16 @@ static func bewegungen(m: Node3D, sk: Skeleton3D, art := RENNEN) -> float:
 			# 416.4 Nachmessung (Lauf 41317137978): ein speed_scale fuer beide Bewegungen der Ueberblendung; Gehen (1,0 m/s) und Rennen
 			# (5,5 m/s) lagen 5,5-fach auseinander, im Wechsel lief das Rennen 2,9-fach (Beine 40-67 Grad je Bild). Umgetaktet auf das
 			# Spieltempo (TAKT_*), dann laufen beide bei speed_scale 1 ohne Gleiten und liegen nur 2-fach auseinander
-			var v := _eigen(n) * f
+			# 417 (Pruefer Film 00:53: „Rennen: Fuss 17-28 % langsamer als der Boden, rutscht (alle vier)“): das Tempo der Quelle (held_klassen.py,
+			# am UAL-Geruest, 3 cm Toleranz, Bilder) mal Beckenverhaeltnis f traf den Kaufkoerper nicht; jetzt am Skelett dieser Figur gemessen
+			# (stand_tempo: Standfuss am Ballen, 120 Proben je Umlauf), Quelle nur, wenn dort nichts messbar ist. „--takt_alt“: wie vorher
+			var v0 := _eigen(n) * f
+			var v := v0
+			if v0 > 0.01 and "--takt_alt" not in OS.get_cmdline_user_args():
+				var tk := "%s|%s|%s|%.4f|%.4f" % [n, art, m.get_meta("tracht", ""), f, _beinlaenge(sk)]
+				if not stand_cache.has(tk): stand_cache[tk] = stand_tempo(an, sk, im_raum(m, sk))
+				if float(stand_cache[tk]) > 0.01: v = float(stand_cache[tk])
+			an.set_meta("v_quelle", v0); an.set_meta("v_figur", v)
 			var ziel: float = TAKT_RENNEN if n.begins_with("Rennen") else TAKT_GEHEN
 			if v > 0.01: umtakten(an, v / ziel)
 		lib.add_animation(n, an)
@@ -543,6 +553,34 @@ static func _bilder(an: Animation) -> Array:
 	for k in an.track_get_key_count(best): z.append(an.track_get_key_time(best, k))
 	if z.is_empty() or z[-1] < an.length - 0.0001: z.append(an.length)
 	return z
+
+# 417: Tempo ohne Gleiten an diesem Skelett (wie figurenprobe.gd schritt_tempo): je Ballen die Rueckwaertsgeschwindigkeit (Blick +Z) in den
+# Proben hoechstens tol ueber seinem Tiefstand, Median; 0, wenn weniger als vier Proben
+static func stand_tempo(an: Animation, sk: Skeleton3D, raum: Transform3D, tol := 0.02, n := 120) -> float:
+	var sp := _spuren(an)
+	var L := maxf(0.001, an.length)
+	var vs := []
+	for bn in ["ball_l", "ball_r"]:
+		var b := sk.find_bone(bn)
+		if b < 0: b = sk.find_bone(bn.replace("ball", "foot"))
+		if b < 0: return 0.0
+		var d := []; var h := []
+		for j in n + 1:
+			var o := knochen_lage(an, sp, sk, raum, b, L * j / n).origin
+			d.append(o.z); h.append(o.y)
+		var tief: float = h.min()
+		for j in n:
+			if h[j] < tief + tol and h[j + 1] < tief + tol: vs.append((d[j] - d[j + 1]) * n / L)
+	if vs.size() < 4: return 0.0
+	vs.sort()
+	return maxf(float(vs[vs.size() / 2]), 0.0)
+
+static func _beinlaenge(sk: Skeleton3D) -> float:
+	var s := 0.0
+	for bn in ["calf_l", "foot_l", "ball_l"]:
+		var b := sk.find_bone(bn)
+		if b >= 0: s += sk.get_bone_rest(b).origin.length()
+	return s
 
 # Hoehe beider Fuesse und des Beckens je Bild: {"zeit": [], "l": [], "r": [], "becken": []}; Fuss am Ballen (Spike, rennen_4164:
 # im Lauf hebt sich die Ferse im Stand, der Knoechel stieg ueber 2 cm und galt als Flug)
