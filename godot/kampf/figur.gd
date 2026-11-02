@@ -821,6 +821,7 @@ const BODEN_ZURUECK := 0.12     # je Bild so viel zurück zur Lage aus dem Griff
 const FUSS_KAPSELN := [["foot_l", "ball_l", 0.05], ["foot_r", "ball_r", 0.05], ["calf_l", "calf_l", 0.11], ["calf_r", "calf_r", 0.11],
 	["calf_l", "foot_l", 0.08], ["calf_r", "foot_r", 0.08]]
 const HALTEARM := {"R": [9, 11], "L": [8, 10]}     # MENSCH_KAPSELN: Ober- und Unterarm, der hält, darf die Waffe berühren
+var schutz_variante := 0        # 438a Vergleich in sturz_438a: 1 = Hautpunkte nach dem Drehen neu, tief drin ohne Grenze je Bild
 var messen := false             # 438a: sturz_438a liest mess_schutz je Bild (sonst nichts gerechnet)
 var mess_schutz := {}
 var _boden_teile := []          # je Waffe [Netz, Lage aus dem Griff, Hülle im eigenen Raum, Skelett, Knochen, Seite, Reichweite,
@@ -934,6 +935,14 @@ func _boden_schutz() -> void:
 			haut = _haut_nah(sk, g, t)
 		var vor_h := _haut_tiefe(g, t, haut) if messen else 0.0
 		var r1: Array = _loesen(g, t, nah, frei, y0, 24, 20, haut)
+		if schutz_variante == 1 and not haut.is_empty():
+			# 438a Vergleich V1 (Lauf 190): die Hautpunkte gelten nur für die Lage, aus der sie genommen sind; nach dem Drehen neu nehmen
+			for wdh in 3:
+				var haut2 := _haut_nah(sk, r1[0], t)
+				haut = haut2
+				if _haut_tiefe(r1[0], t, haut2) <= HAUT_FREI * 0.3:
+					break
+				r1 = [_loesen(r1[0], t, nah, frei, y0, 24, 20, haut2)[0], true]
 		var nach_h := _haut_tiefe(r1[0], t, haut) if messen else 0.0
 		var will := rad_to_deg(g.basis.orthonormalized().get_rotation_quaternion().angle_to(r1[0].basis.orthonormalized().get_rotation_quaternion())) if messen else 0.0
 		g = r1[0]
@@ -950,6 +959,8 @@ func _boden_schutz() -> void:
 			if _in_kapsel(gz, t, nah, griff) <= frei * 0.3 and _haut_tiefe(gz, t, haut) <= HAUT_FREI * 0.3:     # nur so weit langsam, wie der Körper nicht wirklich hineinragt
 				g = gz
 				stufe = "10°"
+			elif schutz_variante == 1:     # V1: steckt sie wirklich, ganz heraus in einem Bild
+				stufe = "ganz"
 			elif winkel > 2.0 * BODEN_ZUG:
 				g = Transform3D(Basis(q0.slerp(q1, 2.0 * BODEN_ZUG / winkel)) * Basis.from_scale(g.basis.get_scale()), griff)
 				stufe = "20°"

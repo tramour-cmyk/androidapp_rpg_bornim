@@ -47,10 +47,12 @@ func _run() -> void:
 		return
 	var hilfe = Schild406.new()
 	_hilfe = hilfe
-	for k in ["FIGHTER", "CLERIC"]:
+	# Lauf 190: je Klasse der Schutz wie gebaut (V0) und der Vergleich V1 (figur.gd schutz_variante)
+	for kv in [["FIGHTER", 0], ["CLERIC", 0], ["FIGHTER", 1], ["CLERIC", 1]]:
 		var p = Probe.new()
-		p.hero_cls = k
-		p.merc_cls = "FIGHTER" if k != "FIGHTER" else "CLERIC"
+		p.hero_cls = kv[0]
+		var k: String = kv[0] + ("" if kv[1] == 0 else " V1")
+		p.merc_cls = "FIGHTER" if kv[0] != "FIGHTER" else "CLERIC"
 		p.foe = "WOLVES"
 		root.add_child(p)
 		await process_frame
@@ -64,6 +66,7 @@ func _run() -> void:
 		var sk := fig._find(fig.model, "Skeleton3D") as Skeleton3D
 		hilfe._haut_lesen(sk)
 		fig.messen = true
+		fig.schutz_variante = kv[1]
 		var schild: Node = fig.model.find_child("Schild", true, false)
 		var sm: Node3D = (schild.find_children("*", "MeshInstance3D", true, false)[0] if not schild is MeshInstance3D else schild) if schild else null
 		var klinge: Node3D = null
