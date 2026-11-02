@@ -84,16 +84,33 @@ def gueltig_pruefen(dat, stop, warn):
     diff = git("diff", "--cached", "-U0", "--", "docs/VORGANGSARCHIV.md").splitlines()
     plus = [z[1:] for z in diff if z.startswith("+") and not z.startswith("+++")]
     minus = [z[1:] for z in diff if z.startswith("-") and not z.startswith("---")]
-    tafel = kennungen(); geaendert = any(p in GILT for _, p in dat)
+    tafel = kennungen()
+    # D63.2 (a): nur die Kennungen, deren Zeile in DESIGN-STIL/-KAMPF/-ABNAHME im Commit geändert wurde, zählen als berührt
+    geaendert = set()
+    for p in GILT:
+        for z in git("diff", "--cached", "-U0", "--", p).splitlines():
+            if z[:1] in "+-" and not z.startswith(("+++", "---")):
+                t = [x.strip() for x in z[1:].split("|")]
+                if len(t) > 2 and re.fullmatch(r"[A-G]\d", t[1]): geaendert.add(t[1])
+    alt_archiv = git("show", "HEAD:docs/VORGANGSARCHIV.md")
+    ersetzt = [neu for neu in plus if "ersetzt durch" in neu and any(a.strip() and neu.startswith(a.rstrip()) and "ersetzt durch" not in a for a in minus)]
     for alt in minus:  # geänderte alte Zeile: alter Text muss vorn stehen bleiben
         if alt.strip() and not any(neu.startswith(alt.rstrip()) for neu in plus):
             warn.append("VORGANGSARCHIV.md: alte Zeile geändert statt ergänzt („%s …“); am alten Eintrag nur „→ ersetzt durch …“ anhängen (461b)" % alt[:60])
     for neu in plus:
         if neu in minus or not neu.startswith("- **") or any(a.strip() and neu.startswith(a.rstrip()) for a in minus): continue
-        if geaendert or re.search(r"\b461 unverändert\b", neu): continue
+        if re.search(r"\b461 unverändert\b", neu): continue
         kopf = neu[4:neu.find("**", 4)] if "**" in neu[4:] else neu[4:60]
         nrn = set(re.findall(r"(?<![\d.])(\d{3}(?:\.\d+)?[a-z]?)(?![\d.:])", kopf))
         treffer = sorted({k for n in nrn for k in tafel.get(n, ())} | set(re.findall(r"\b(?:Grundstand|461)\s+([A-G]\d)\b", neu)))
+        if treffer and geaendert & set(treffer):
+            # D63.2 (b): gibt es schon einen Eintrag zu der Nummer, muss am alten „→ ersetzt durch …“ hängen
+            frueher = [z for z in alt_archiv.splitlines() if z.startswith("- **") and any(
+                re.search(r"(?<![\d.])" + re.escape(n) + r"(?![\d.:])", z[4:z.find("**", 4)] if "**" in z[4:] else z[4:60]) for n in nrn)]
+            if frueher and "ersetzt nichts" not in neu and not any(any(e.startswith(f.rstrip()) for f in frueher) for e in ersetzt):
+                stop.append("VORGANGSARCHIV.md: neuer Entscheid zu %s ersetzt einen älteren Eintrag; dort „→ ersetzt durch <Nr., Datum>“ anhängen "
+                            "(461b); ergänzt er ihn nur: „ersetzt nichts“ in den Eintrag" % ", ".join(sorted(nrn)))
+            continue
         if treffer:
             stop.append("VORGANGSARCHIV.md: neuer Entscheid zu %s berührt %s; im selben Commit die Zeile(n) in DESIGN-STIL/-KAMPF/-ABNAHME "
                         "ändern und am alten Eintrag „→ ersetzt durch …“ anhängen (461b); ändert er nichts daran: „461 unverändert“ in den Eintrag"
