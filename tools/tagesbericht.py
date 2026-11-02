@@ -37,6 +37,10 @@ def punkte(text):
     return p
 
 def rev_vor(spec):
+    # flache Kopie (frische Sitzung, 02.11.: nur 76 Commits, Zeile 2 zählte 0 / 0): Verlauf von 9 Tagen nachholen
+    if git("rev-parse", "--is-shallow-repository").strip() == "true":
+        subprocess.run(["git", "-C", ROOT, "fetch", "-q", "--shallow-since=9 days ago", "origin", "main"],
+                       capture_output=True, timeout=120)
     return git("rev-list", "-1", "--before=" + spec, "HEAD").strip()
 
 def tafel(rev):
