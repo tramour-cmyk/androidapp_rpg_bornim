@@ -93,7 +93,7 @@ def gueltig_pruefen(dat, stop, warn):
                 t = [x.strip() for x in z[1:].split("|")]
                 if len(t) > 2 and re.fullmatch(r"[A-G]\d", t[1]): geaendert.add(t[1])
     alt_archiv = git("show", "HEAD:docs/VORGANGSARCHIV.md")
-    ersetzt = [neu for neu in plus if "ersetzt durch" in neu and any(a.strip() and neu.startswith(a.rstrip()) and "ersetzt durch" not in a for a in minus)]
+    ersetzt = [neu for neu in plus if "ersetzt durch" in neu and any(a.strip() and neu.startswith(a.rstrip()) and neu.count("ersetzt durch") > a.count("ersetzt durch") for a in minus)]  # D65.1
     for alt in minus:  # geänderte alte Zeile: alter Text muss vorn stehen bleiben
         if alt.strip() and not any(neu.startswith(alt.rstrip()) for neu in plus):
             warn.append("VORGANGSARCHIV.md: alte Zeile geändert statt ergänzt („%s …“); am alten Eintrag nur „→ ersetzt durch …“ anhängen (461b)" % alt[:60])
