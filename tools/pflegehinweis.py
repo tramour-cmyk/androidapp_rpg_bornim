@@ -74,14 +74,18 @@ def spiegel_faellig(text_spiegel):
     return faellig
 
 
-def neu_setzen(text, nr, zeile):
-    """Ersetzt die Tabellenzeile `| nr |` (oder fügt sie oben in die erste Tabelle ein); zeile None: entfernen."""
+def neu_setzen(text, nr, zeile, unten=False):
+    """Ersetzt die Tabellenzeile `| nr |`: oben in die erste Tabelle, mit unten=True ans Ende der ersten Tabelle; zeile None: entfernen."""
     zeilen = text.split("\n")
     zeilen = [z for z in zeilen if not z.startswith(f"| {nr} |")]
     if zeile:
         for i, z in enumerate(zeilen):
             if z.startswith("| Nr.") and i + 1 < len(zeilen) and zeilen[i + 1].startswith("|---"):
-                zeilen.insert(i + 2, zeile)
+                j = i + 2
+                if unten:
+                    while j < len(zeilen) and zeilen[j].startswith("|"):
+                        j += 1
+                zeilen.insert(j, zeile)
                 break
     return "\n".join(zeilen)
 
@@ -99,11 +103,11 @@ def berechnen(basis, je, tag):
         if b:
             text = "; ".join(b)
             text = text if len(text) <= 300 else text[:297] + " …"
-            pflege = f"| Pflege | M | **von Werkzeug (340.3, {tag}):** {text.replace('|', '/')} | startbar |"
+            pflege = f"| Pflege | K | **von Werkzeug (340.3, {tag}):** {text.replace('|', '/')} | startbar |"
         s = spiegel.get(rolle)
         sp = (f"| Spiegel | M | **von Werkzeug (340.3, Rollenspiegel Woche {s}):** `tools/rollenspiegel.sh {rolle.split()[-1]}` "
               f"zeigt die Fragen; Antwort mit `--antwort` anhängen, committen, pushen | startbar |") if s else None
-        neu = neu_setzen(neu_setzen(alt, "Pflege", pflege), "Spiegel", sp)
+        neu = neu_setzen(neu_setzen(alt, "Pflege", pflege, unten=True), "Spiegel", sp)  # Pflege als Kür unten, kein Start dafür
         if neu != alt:
             aenderung[pfad] = neu
     return aenderung
