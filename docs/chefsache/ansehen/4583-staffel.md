@@ -1,5 +1,7 @@
 # 458.3 · Waffenformen nach Stufe und Seltenheit · Spike · 02.11., 06:5x
 
+[Film von 02.11., 06:52](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/2026-11/02-0652-458.3-Spike.mp4) (eingetragen von meldung.sh, Spike)
+
 Film per Telegram (44 s, Hochformat): 18 Waffenarten im Raster 3 × 6, drehend, wie im Kampf gezeichnet (Toon, Tusche nach Licht, Schatten). Teil 1 (0–20 s) zählt Stufe 1 bis 20 hoch, jede Art wechselt auf die Form, die ab dieser Stufe gilt (alle gewöhnlich). Teil 2 (20–32 s): die Formen von Stufe 1 durch die sechs Seltenheiten. Teil 3 (32–44 s): die Formen von Stufe 20 durch die sechs Seltenheiten. Alle Stücke sind auf Zellhöhe gebracht; die Länge am Helden setzt das Spiel (417). Ablauf `spike-probe-4583.yml`, Lauf 41395186552 (Probelauf 2 von 2), Zweig `claude/spike-458-3-staffel`.
 
 ## Staffel je Waffenart (Archiv 458.3: schlicht unten, aufwendig oben)
