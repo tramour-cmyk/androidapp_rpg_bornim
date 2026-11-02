@@ -98,7 +98,7 @@ Chef 01.11., 20:3x: „auf ein Niveau kriegen, dass wir von da aus alle weiteren
 
 | Nr. | Prüfpunkt | Woher | Prüfer |
 |---|---|---|---|
-| C1 | „Atmen immer“ wie unter „Lebendige Welt“, dazu sichtbar | 453.1 (01.11., 13:0x, 19:5x) | ja |
+| C1 | „Atmen immer“ wie unter „Lebendige Welt“, dazu sichtbar; Helden in Ruhe „einen Tick schneller“ als in Film 453.1 (02.11.); nach Angriff und Abwehr sichtbar schneller, dann abklingend | 453.1 (01.11., 13:0x, 19:5x; 02.11., 11:07) | ja |
 | C2 | Kein Stillstand: Bewegung oder Atmen, nie starr („Stillstand für mehrere Sekunden geht eigentlich nicht“); Richtwert von uns: kein Abschnitt über 1 s ohne Bewegung | 453 (13:0x) | ja, 1 s Maß |
 | C3 | Kein Gleichtakt („Nie im Takt“ unter „Lebendige Welt“): zwei Figuren nie dieselbe Bewegung zur selben Zeit, auch nicht Angriff | 453 (13:0x), 406 (20:2x) | ja |
 | C4 | Ruhebewegungen wechseln; Wölfe mit Gesten | 453, 438 (01.11.) | – |
