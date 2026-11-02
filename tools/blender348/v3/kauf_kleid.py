@@ -426,7 +426,10 @@ if (HUELLE & _GEW).any():
 # Ursache (Tom 02.11., 03:2x): beide Versuche liefen auf VK3, der Kleidung schon zurueck in der T-Pose der Kauffigur; dort liegen die Arme
 # waagerecht, der Umhang beruehrt den Aermel nur an der Schulter (darum Durchstoss danach auf 1,4 m). Jetzt auf VK2, in unserer Haltung mit
 # haengenden Armen, wo der Aermel hinten am Ellbogen durch den Umhang sticht, vor der Rueckrechnung in die Ruhelage (Gewichte gelten mit)
-ARM_LUFT = float(os.environ.get('ARM_LUFT', '0.012')); ARM_GEW = float(os.environ.get('ARM_GEW', '0.6')); ARM_R = float(os.environ.get('ARM_R', '0.06'))
+# Lauf 41377342833 (auf VK2, 12 mm, 60 %): Ruhe Mann sleeves>cloak 104 -> 32, Frau 48 -> 56; in Bewegung kaum anders (Gehen 231/222 statt
+# 256/238, Idle 283/469, Jog 235/301); Flecken Kette Mann 368 -> 2893. Der Arm schwingt in Bewegung in den Umhang, den die Form in Ruhe
+# nicht erreicht: darum wieder aus (ARM_LUFT=0.012 ARM_GEW=0.6 zum Nachstellen); naechster Ansatz im Zeichnen (Umhang gewinnt die Tiefe)
+ARM_LUFT = float(os.environ.get('ARM_LUFT', '0')); ARM_GEW = float(os.environ.get('ARM_GEW', '0')); ARM_R = float(os.environ.get('ARM_R', '0.06'))
 if (ARM_LUFT > 0 or ARM_GEW > 0) and 'cloak' in TEILNAMEN and 'sleeves' in TEILNAMEN:
     _ic = TEILNAMEN.index('cloak'); _is = TEILNAMEN.index('sleeves')
     _sf = [f for f in KF if _lt[f[0]] == _is]
