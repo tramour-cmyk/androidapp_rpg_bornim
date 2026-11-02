@@ -51,9 +51,10 @@ TEST_SKRIPT = re.compile(r"(?:^|\s)-s\s+[\"']?res://tests/([\w./-]+\.gd)\b")
 BILDBEFEHL = re.compile(r"save_png|save_jpg|save_webp|save_exr|get_image\s*\(|get_texture\s*\(|MovieWriter|screenshot", re.I)
 CD = re.compile(r"\bcd\s+([^\s;&|]+)")
 CI_ZWEIG = re.compile(r"claude/[\w./-]+")  # 407 (02.11.): jeder Arbeitszweig, auch grundstand-461, spike-, tuffy-
-GH_LAUF = re.compile(r"\bgh\s+workflow\s+run\s+([^\n|;&]*)")
-GH_RERUN = re.compile(r"\bgh\s+run\s+rerun\b|/actions/runs/\d+/rerun|/actions/jobs/\d+/rerun")
-API_LAUF = re.compile(r"/actions/workflows/([\w.-]+)/dispatches[^\n|;&]*")
+BEFEHL_ANFANG = r"(?:^|[;&|(`]|\$\()\s*(?:\w+=\S*\s+)*"  # nur als Befehl, nicht in einer Commit-Nachricht (Fehlzählung 02.11.)
+GH_LAUF = re.compile(BEFEHL_ANFANG + r"gh\s+workflow\s+run\s+([^\n|;&]*)", re.M)
+GH_RERUN = re.compile(BEFEHL_ANFANG + r"(?:gh\s+run\s+rerun\b|(?:curl|gh\s+api)\b[^\n|;&]*/actions/(?:runs|jobs)/\d+/rerun)", re.M)
+API_LAUF = re.compile(BEFEHL_ANFANG + r"(?:curl|gh\s+api)\b[^\n|;&]*/actions/workflows/([\w.-]+)/dispatches[^\n|;&]*", re.M)
 ARCHIV_KOPF = re.compile(r"^- \*\*([^*]+)\*\*\s*\((\d\d)\.(\d\d)\.,\s*(\d\d):(\d)([\dx])", re.M)
 CI_PFADE = ("godot/", "tools/blender348/", "core/src/main/", ".github/workflows/")  # 407: auch eigene Probe-Abläufe
 
