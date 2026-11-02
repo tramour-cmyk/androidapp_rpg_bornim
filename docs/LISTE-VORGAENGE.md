@@ -143,7 +143,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 465 | Chefsache „Zu entscheiden“ mit Uhrzeit in „Seit“ wie bei Anzusehen und Zu tun (Chef 01.11., 20:50) | B Abläufe | M | 2,43 $ | Perikles | startbar |
 | 464 | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählung im Tagesbericht (Chef 01.11., 20:4x) | B Abläufe | M | – | Perikles | startbar |
 | 461 | Grundstand Figuren und Kampf: Checkliste des Entschiedenen, Prüfer prüft jede Vorlage dagegen („jetzt“ 01.11., 20:3x) | B Abläufe | M | 22,37 $ | Perikles | gebaut |
-| 463 | Umhang und Robe geschlossen: Durchscheinen und Knie, eine Ursache für alle Proben (Chef 01.11., 20:3x, „DAUERPROBLEM“) | E Figuren | M | 47,02 $ | Team Tom | Chef |
+| 463 | Umhang und Robe geschlossen: Durchscheinen und Knie, eine Ursache für alle Proben (Chef 01.11., 20:3x, „DAUERPROBLEM“) | E Figuren | M | 47,02 $ | Team Tom | startbar |
 | 461.1 | Grundstand zusammenführen: ein Zweig für Tom und Jerry, jede Probe baut darauf (01.11.) | B Umzug | M | 30,19 $ | Team Tom, Team Jerry | wartet |
 | 461a | Rückfrage: hält ein Verstoß gegen den Grundstand den Film an? (D58.5) | B Abläufe | M | – | Perikles | gebaut |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | B Abläufe | M | – | Perikles, Diogenes, Sokrates | in Arbeit |
@@ -177,8 +177,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 439 | Kampfablauf: Neuformation vor dem Tod, Treffer vor dem Angriff (Film 403, Chef 31.10., 23:31) | E Kampf | M | – | Team Jerry | gebaut |
 | 440 | Wolf verschwindet ohne sichtbare Sterbeanimation (Film 403, Chef 31.10., 23:34) | E Kampf | M | – | Team Jerry | gebaut |
 | 453 | Wölfe im Kampfort: Ruhebewegungen (atmen, scharren, umblicken, knurren) (Chef 01.11., 11:05) | E Kampf | M | 47,52 $ | Team Jerry | gebaut |
-| 453a | Rückfrage: Wolfsatem aus der Kampfkamera sichtbar machen, A/B/C | E Kampf | M | – | Team Jerry | wartet |
-| 453b | Rückfrage: Film Wolfsatem B am Tor angehalten, neue Läufe frei? | E Kampf | M | – | Team Jerry | Chef |
+| 453a | Rückfrage: Wolfsatem aus der Kampfkamera sichtbar machen, A/B/C | E Kampf | M | – | Team Jerry | startbar |
+| 453b | Rückfrage: Film Wolfsatem B am Tor angehalten, neue Läufe frei? | E Kampf | M | – | Team Jerry | erledigt |
 | 453.1 | Helden im Kampf: Atmen ruhiger, je Figur eigener Takt, nach Aktion schneller und abklingend (Chef 01.11., 13:0x) | E Kampf | M | 9,22 $ | Team Jerry | gebaut |
 | 453.1a | Rückfrage: Heldenatem, Film am Tor angehalten (Kleriker), dritter Lauf, A/B/C | E Kampf | M | – | Team Jerry | erledigt |
 | 453.2 | Atmen-Schicht für Held unterwegs, Söldner, Leute in Dorf und Innenräumen (Chef 01.11., 13:0x, ganzes Spiel) | E Figuren | M | – | Team Tom | startbar |
