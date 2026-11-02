@@ -135,6 +135,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 481 | Herkünfte ausgleichen: Kräutersammler mit Kampftränken, Wachsoldat, Klosterschüler, Bewährungsprobe (Chef 02.11., 18:54, aus 427) | E Kampf | M | – | Sokrates, Team Jerry | wartet |
 | 482 | Begriff „Blatt“ tilgen (Chef 02.11., 18:57): doppelt, aufgegangen in 480 bei Perikles | B Abläufe | M | – | Perikles | erledigt |
 | 483 | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Marke (Chef 02.11., 19:08) | B Werkzeuge | M | – | Sokrates | startbar |
+| 484 | Keine Abkürzungen in Telegram-Meldungen; „NW“ für `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md` nicht auffindbar (Chef 02.11., 19:27) | B Abläufe | M? | – | Perikles | startbar |
 | 471 | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | E Regeln | M | – | Team Tom | startbar |
 | 472 | Bau BRS 1.3 Heldenstufe aus Erfahrung (Wochenziel 02.11., Stufe 1) | E Regeln | M | – | Team Jerry | gebaut |
 | 473 | Bau BRS 1.4 Monsterwerte Kapitel 1 (Wochenziel 02.11., Stufe 1) | E Kampf | M | 5,89 $ | Team Jerry | gebaut |
