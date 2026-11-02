@@ -4,26 +4,44 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 ## Wochenzählung (QM, 106.1; nur Zahlen, Bewertung Perikles)
 
-| Kennzahl | 18.–24.10. (gezählt 26.10., 00:5x) | Quelle |
-|---|---|---|
-| Kosten je Bereich (Liste) | 1703,90 $: B 789,02 (davon Zeile „Betrieb“ 564,16) · E 607,59 · G 171,54 · Q 92,36 · M 21,45; ohne Bereichsbuchstaben der Liste: D 10,33, A 5,50, O 4,85, F 1,26 | `LISTE-VORGAENGE.md` + `-ARCHIV.md`, `62ca83ee8` → `b17da0aea`; ein Teil kann vom 17.10. stammen |
-| Anteil Muss | 43 % (735,66 $); ohne „Betrieb“ 65 %; M? 114,67, K 125,71, „–“ 727,86 | Spalte „Kl.“ |
-| Kosten je Rolle, Anteil Spiel | 1813,92 $ (370 Sitzungen, 20 ohne Kosten): Jerry 543 (30 %), Sokrates 489 (27 %), Tom 383 (21 %), Ford 156 (9 %), Perikles 118 (7 %), Homer 102 (6 %), Diogenes 23 (1 %); **Anteil Spiel 57 %** (Stufe 50 %) | `kosten.py`, Starttag der Sitzung |
-| Guthaben Max | Woche 5 % (18.10.) → 41 % (20.10.) → 77 % (22.10., 12:45) → 94 % (23.10., 07:16) → 100 % 23.10., 10:1x; danach Credits 79,38 → 54,03 $ (24.10., 17:21); 80/95 % genau: fehlt | „Guthaben:“ in `ARBEIT-BETRIEB.md` (Git); Monatsangabe 4,31 → 248,62 $ passt nicht zum Rückgang 41,66 $ (Nachkauf nicht eingetragen) |
-| Wochenziel / Meilenstein | Wochenziel nein (38 offen, 39 wartet; erledigt 13e, 112/68, 26); Pflicht Block (a) 3 von 4 offen; marktreif 5 von 6 Blöcken gelb | `LISTE-ABNAHME-KAPITEL1.md` |
-| Testrunden Chef, Rückläufer | 63 Builds (19–87) im CHANGELOG; Rückläufer laut Feld „Rückläufer:“ 6 (Build 81: 1, 82: 3, 83: 1, 84: 1; Feld erst ab 81); über alle Builds der Woche aus den Einträgen gezählt 66 (Tom 23, Jerry 43, Lauf 45) | `CHANGELOG.md`; 101 Löschungen in `ansehen/` |
-| Ersparte Fragen (Vorentscheid) | 3 (59e.1, 84.1T.1, 261.5), alle gebilligt | `VORGANGSARCHIV.md` |
-| Stillstand | Fehler: Homer 8,4 h (bis 18.10., 08:24); Guthaben: 0 Zeilen (ab 23.10. über Credits) | Protokoll `ARBEIT-BETRIEB.md` |
-| „von Team“ an Homer > 1 Tag | 0 | `ARBEIT-KREATIV.md` |
-| Empfehlungen Sokrates (17./18.10.) noch gültig | 11 von 13, 2 teilweise abgelöst (167 durch 192.4; 99h.6 durch 261.5) | `VORGANGSARCHIV.md` |
-| Verwerfquote Diogenes | 0 von 49 (D26.1–D41.5), 2 teilweise (D29.1, D29.4) | Prüfbericht, Archiv |
-| Erst der Chef am Gerät | 6 laut Feld, 66 über alle Builds (Rückläufer) | `CHANGELOG.md` |
-| Perikles Z3 / Z4 / Z6 | Z3 1 (23.10., 13e); Z4 14 neue Chefsache-Dateien: 11 ja, 1 ja, aber (186), 1 anders (287), 1 unklar (234); Z6 nein, Muss 43 % | `ARBEIT-PROJEKT.md`, `git log --diff-filter=A`; Zielvereinbarung erst seit 23.10. |
-| Z5 Anteil Tom, Jerry, Homer | 57 % | wie Kosten je Rolle |
+| Kennzahl | 25.10.–01.11. (8 Tage, gezählt 02.11., 11:2x) | 18.–24.10. (gezählt 26.10., 00:5x) | Quelle |
+|---|---|---|---|
+| Kosten je Bereich (Liste) | 3841,36 $: E 2571,63 · B 1085,08 (davon Zeile „Betrieb“ 181,77) · M 56,36 · G 51,44 · Q 0; ohne Bereichsbuchstaben D 38,04, A 22,10, C 16,71 (`b17da0aea` → `2c67df6`) | 1703,90 $: B 789,02 (davon Zeile „Betrieb“ 564,16) · E 607,59 · G 171,54 · Q 92,36 · M 21,45; ohne Bereichsbuchstaben der Liste: D 10,33, A 5,50, O 4,85, F 1,26 | `LISTE-VORGAENGE.md` + `-ARCHIV.md`, `62ca83ee8` → `b17da0aea`; ein Teil kann vom 17.10. stammen |
+| Anteil Muss | 95 % (3630,52 $); ohne „Betrieb“ 99 %; K 3,80, „–“ 207,04 (davon Betrieb 181,77), M? 0 | 43 % (735,66 $); ohne „Betrieb“ 65 %; M? 114,67, K 125,71, „–“ 727,86 | Spalte „Kl.“ |
+| Kosten je Rolle, Anteil Spiel | 3978,41 $ (424 Sitzungen, Starttag MEZ; 26 ohne Kosten, Tom 11, Jerry 15; 7 vom 25.10. nicht einzeln abgefragt): Tom mit Spike 1547 (39 %), Jerry mit Tuffy 1376 (35 %), Sokrates 573 (14 %), Perikles 173 (4 %), Ford 123 (3 %), Diogenes 121 (3 %), Homer 65 (2 %); **Anteil Spiel 75 %**. Je Tag: 744 · 616 · 846 · 747 · 172 · 0 (30.10.) · 152 · 701. `list_sessions` ohne `cost_usd`: Quelle `KOSTEN-GEBUCHT.tsv` und `get_session` | 1813,92 $ (370 Sitzungen, 20 ohne Kosten): Jerry 543 (30 %), Sokrates 489 (27 %), Tom 383 (21 %), Ford 156 (9 %), Perikles 118 (7 %), Homer 102 (6 %), Diogenes 23 (1 %); **Anteil Spiel 57 %** (Stufe 50 %) | `kosten.py`, Starttag der Sitzung |
+| Guthaben Max | Max 20x seit 25.10., ~11:00: Woche 0 % (25.10., 11:05) → 27 % (26.10., 11:43) → 51 % (27.10., 09:47); danach kein Bild bis zur Zurücksetzung 31.10., 20:00; neue Woche 13 % (01.11., 11:25); 80/95/100 % genau: fehlt | Woche 5 % (18.10.) → 41 % (20.10.) → 77 % (22.10., 12:45) → 94 % (23.10., 07:16) → 100 % 23.10., 10:1x; danach Credits 79,38 → 54,03 $ (24.10., 17:21); 80/95 % genau: fehlt | „Guthaben:“ in `ARBEIT-BETRIEB.md` (Git); Monatsangabe 4,31 → 248,62 $ passt nicht zum Rückgang 41,66 $ (Nachkauf nicht eingetragen) |
+| Wochenziel / Meilenstein | Wochenziel (Umzug Woche 1) nein: erledigt 348.8 (25.10.), 348.14 (26.10.); 348.6 zu testen, 348.7 ruht (Chef 31.10.), 348.9 wartet, 142 beim Chef; Stufen 1–6 (447, ab 01.11.): 0 von 36 Punkten abgehakt | Wochenziel nein (38 offen, 39 wartet; erledigt 13e, 112/68, 26); Pflicht Block (a) 3 von 4 offen; marktreif 5 von 6 Blöcken gelb | `LISTE-ABNAHME-KAPITEL1.md` |
+| Testrunden Chef, Rückläufer | CHANGELOG 9 Einträge: mit Gerätetest Build 89 (25.10.) und Test 132 (399); ohne Gerätetest 388 (Build 90), 142.1 ×2, 444, 447.3, 389; Godot-Testbuilds in Commits 130–146; 118 Löschungen in `ansehen/`; Rückläufer laut Feld 0 (nur 2 Felder: 89, 444) | 63 Builds (19–87) im CHANGELOG; Rückläufer laut Feld „Rückläufer:“ 6 (Build 81: 1, 82: 3, 83: 1, 84: 1; Feld erst ab 81); über alle Builds der Woche aus den Einträgen gezählt 66 (Tom 23, Jerry 43, Lauf 45) | `CHANGELOG.md`; 101 Löschungen in `ansehen/` |
+| Ersparte Fragen (Vorentscheid) | 13, alle gebilligt: 9 Nachturteile 26.10. (348.6, 348.7; gebilligt 11:14), 383.1 (27.10.), 461a, 461d (23:01), 348.12k (02.11., 11:08) | 3 (59e.1, 84.1T.1, 261.5), alle gebilligt | `VORGANGSARCHIV.md` |
+| Stillstand | Protokoll 0 Zeilen; aus Git: kein Commit von 29.10., 11:58 bis 31.10., 20:4x (rund 57 h), 30.10. keine Sitzung; Ursache nicht eingetragen | Fehler: Homer 8,4 h (bis 18.10., 08:24); Guthaben: 0 Zeilen (ab 23.10. über Credits) | Protokoll `ARBEIT-BETRIEB.md` |
+| „von Team“ an Homer > 1 Tag | 0 | 0 | `ARBEIT-KREATIV.md` |
+| Empfehlungen Sokrates (17./18.10.) noch gültig | fehlt (nicht gezählt) | 11 von 13, 2 teilweise abgelöst (167 durch 192.4; 99h.6 durch 261.5) | `VORGANGSARCHIV.md` |
+| Verwerfquote Diogenes | 0 von 62 (D43.1–D62.2) | 0 von 49 (D26.1–D41.5), 2 teilweise (D29.1, D29.4) | Prüfbericht, Archiv |
+| Erst der Chef am Gerät | 0 laut Feld; Chef-Erstfund 398 (28.10., 11:15: Ruhebewegungen fehlen, 15 Lücken) 1; weitere ohne Zählquelle: fehlt | 6 laut Feld, 66 über alle Builds (Rückläufer) | `CHANGELOG.md` |
+| Perikles Z3 / Z4 / Z6 | Z3 2 (25.10., 00:36 Hauskürzel; 07:55 Chefsache 361 trotz 287); Z4 11 neue Dateien von Perikles, davon 9 Vorschläge: 6 ja (270, 338b, 373a, 383.1, 396a, 461a über Sokrates), 1 „wie Sokrates“ (418), 1 anders (338a: B statt A), 1 zurückgezogen (361); Z6 nein, Muss 95 % | Z3 1 (23.10., 13e); Z4 14 neue Chefsache-Dateien: 11 ja, 1 ja, aber (186), 1 anders (287), 1 unklar (234); Z6 nein, Muss 43 % | `ARBEIT-PROJEKT.md`, `git log --diff-filter=A`; Zielvereinbarung erst seit 23.10. |
+| Z5 Anteil Tom, Jerry, Homer | 75 % | 57 % | wie Kosten je Rolle |
+| Nächte Teams (371; Basis 27.10.: 207 $/9 h) | Kosten (Start 21–7 Uhr) 25./26. 184 $ · 26./27. 267 · 27./28. 203 · 28./29. 180 · 29./30. 0 · 30./31. 0 · 31./01. 101 · 01./02. 194; Bilder und Filme an den Chef 27./28. 28 · 28./29. 22 · 31./01. 12 · 01./02. 15, vorher fehlt | – | Sitzungen; `meldungen.tsv` (ab 27.10., 19:14) |
+| Rote Läufe (464) | 02.11. bis 11:17: 11 von 175 abgeschlossenen (01.11.: 14) | – | `actions_list` |
+| Widersprüche (461b) | 3 in 38 Archiveinträgen (02.11., 02:4x) | – | `ARBEIT-PRUEFUNG.md` „Zu 461b“ |
+| Ohne Kopf (462) | fehlt: `zug-haken.py --summe` schreibt die Spalten von 462.1 nicht nach `LISTE-REGELTREUE.md` (D63.4) | – | `LISTE-REGELTREUE.md` |
 
 ## Offen für den Chef
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
+
+## Lauf 61 · Wochenzählung 25.10.–01.11., 464.1 Rest, 374 und 434 für 01.11. (`main` `73ab91995`; 02.11., 11:2x; Probeeingaben an `commit-pruefung.py` in einer Kopie, `urteil()` aufgerufen)
+
+**Ergebnis 464.1:** 461a erfüllt (Widerspruch 1 behoben: Tor in `DESIGN-ABNAHME.md:11`, Ausnahme in `LISTE-BAUEN-TESTEN.md:14`, `ROLLE-ENTWICKLUNG.md:41`). 461d größtenteils: alle 40 Kennungen in DESIGN-STIL (A–D), -KAMPF (E–F), -ABNAHME (G), Wortlaut gleich bis auf Zusätze A2, C3, D1, E3. 407 D50.5 c behoben („x“ = :x9; Docstring `probelauf.py:96` sagt noch :x0). 461b Commit-Prüfung hält bei Kennung ohne DESIGN-Änderung richtig an.
+
+**Befunde**
+
+- **D63.1 (461b/461d, mittel, sicher, Klasse 2 Perikles) Widerspruch 2 offen:** `VORGANGSARCHIV.md:3` „was gilt, steht im Grundstand (`LISTE-GRUNDSTAND-461.md`)“; die Datei ist seit `fa43a030e` nur Verweis. Einträge 461 (Z. 25) und 461b (Z. 16, „Grundstand gilt“) ohne „→ ersetzt durch 461d einsortieren“; 396 (Z. 131, „hält nichts mehr auf“) ohne Hinweis auf die Ausnahme 461a. Regel 461b „neu ersetzt alt im selben Commit“.
+- **D63.2 (461b, mittel, sicher, Klasse 1 Perikles) Commit-Prüfung zu grob:** (a) jede Änderung an DESIGN-STIL/-KAMPF/-ABNAHME reicht (`geaendert = any(p in GILT …)`); Probe: neuer 453.1-Entscheid mit fremder Zeile in DESIGN-STIL geht mit Exit 0 durch, die Zeile C1 blieb unberührt. (b) Ob am alten Eintrag „→ ersetzt durch …“ hängt, prüft sie nicht; 461b: „hält an, wenn das fehlt“. Grenze: Entscheid ohne Kennung im Text nicht prüfbar.
+- **D63.3 (407 D50.5 b, mittel, sicher, Klasse 1 Perikles) gebilligter Vorentscheid gilt nicht als Urteil:** `probelauf.py:107` überspringt jeden Kopf mit „Vorentscheid“, auch wenn „gebilligt“ dahinter steht. `urteil("348.12k")` = None, obwohl der Chef 02.11., 11:08 billigte (Archiv Z. 12): die Läufe zu 348.12k zählen seit Beginn, nach zwei sperrt 389. Umgekehrt erkennt es „→ **Vorentscheid (Sokrates)**“ hinter der Klammer nicht (Z. 221–227, heute durch Z. 220 gedeckt).
+- **D63.4 (462, klein, sicher, Klasse 1 Perikles) Anteil ohne Kopf nicht zählbar:** `zug-haken.py --summe` (Z. 174–178) schreibt die Spalten von 462.1 (Texte, ohne Kopf) nicht in die Summenzeile; `LISTE-REGELTREUE.md` hat keine Spalte, die Container-Datei geht mit der Sitzung verloren.
+- **374 und 434 (01.11.):** Zeile „Zu 374, 02.11.“ in `ARBEIT-PRUEFUNG.md`; Abweichungen als D63.5 an Tom, D63.6 an Jerry, D63.7 an Sokrates (Klasse 1, Hinweis).
+
+**Nicht geprüft:** Empfehlungen Sokrates noch gültig (Aufwand); Rückläufer der Godot-Tests 130–146 (kein Feld im CHANGELOG); ob `notiz.sh` den Commit-Haken in jeder Sitzung einrichtet; 7 Sitzungen vom 25.10. ohne Einzelabfrage der Kosten.
 
 ## Lauf 60 · Nachprüfung 464.1 und 465.1, Zählung 461b (`main` `6cbb97adf`; 02.11., 02:5x; `seit_text()` an der Übersicht nach dem Lauf, `hinweis_geben()` mit eigener Liste aufgerufen, Haken mit Nicht-Push-Befehl)
 

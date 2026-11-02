@@ -42,6 +42,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 142 | M | Pflichttest Play Store (von Perikles); Store-Text „jede Entscheidung zählt“ prüfen (72a) | wartet auf Chef: GewA 1 BornWire TCS prüfen, unterschreiben, senden (tun/142); dann Gewerbeschein; Tester bis 15.11. |
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (Gewerbeschein); 45a/45c, 72g–72j entschieden ([Artefakt](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj), vertraulich); offen: Preis endgültig mit 142 (ab Gewerbeschein), bis 30.11.; iOS-Schätzung Tom nach Kapitel 2 |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | ruht bis Gewerbeschein (Chef 28.10., 10:26; 142); dann Chefsache neu |
+| D63.7 | K | **von Diogenes (434, Vortag 01.11.):** `entscheiden/3761-kettenhemd-heldin.md` (20:55) ohne Zeile „Bestand geprüft“ (Zu 374 in `ARBEIT-PRUEFUNG.md`) | offen |
 
 - **Zu 427:** Regeln gelten (422, E 77–84); Startwerte gehen in Simulation 444 (Jerry), danach stelle ich die Zahlen ein und lege sie gemessen vor (Abschnitt 4 und Bestiarium).
 - **Zu 383, Sitzungsgröße (27.10., 99 Sitzungen):** 787 $ in 24 h; je Million Ausgabetokens 92–103 $ nach Kontext, kein Hinweis, dass große Sitzungen teurer sind (Beleg schwach). Jeder Start etwa 125k Kontext, kleinste Sitzung 1,25 $. Treiber: Runden (44 %). Wiederholen mit 347 und 383.2 am 31.10.

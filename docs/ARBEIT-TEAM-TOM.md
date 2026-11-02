@@ -55,6 +55,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2 (Zu 145) | claude/tom-145-kartenmappe |
 | 133 | K | Charisma-Wahlen Kapitel 2 (`STORY-WAHLEN.md`) | ruht: altes SRD-System (Chef 31.10.) | – |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (Kapitel 2 nicht im Spiel) | – |
+| D63.5 | K | **von Diogenes (374/434, Vortag 01.11.):** ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53, 23:54; 416.4 ×4 (auch Spike); 376.1 Umhang/Robe, Tracht (Spike); 455.1, 455.2 (Spike); ohne Homer-Vorgabe (373 c): 417, 416.4, 376.1, 416.9, 425, 455.1/.2; nach Tor 461a ohne belegte Prüfung: 376.1 23:03, 417 23:54 (Zu 374 in `ARBEIT-PRUEFUNG.md`) | offen | – |
 
 ## Einzelheiten
 
