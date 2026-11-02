@@ -68,22 +68,25 @@ def name_netz(o):
 # ihrer Normale eine der Oberlagen liegt, fallen weg (wie Koerper unter Kleidung, kauf_kleid.py 7)
 WEG = os.environ.get('WEG', '')
 WEG_F = set()
-if WEG:
-    _t, _o, _m = WEG.split(':'); _o = _o.split('+'); _m = float(_m)
+# Lauf 41442266720: nur Aermel weg, dann sticht die Kette darunter durch (Wache Mann 624 -> 1414): mehrere Angaben mit „&“,
+# z. B. sleeves:chain+cloak+robe:0.03&chain:cloak:0.03 (Aermel unter Kette, Umhang, Robe und Kette unter Umhang)
+_me = kleid.data
+_W = [kleid.matrix_world @ v.co for v in _me.vertices]
+_N = kleid.matrix_world.to_3x3()
+for _a in [x for x in WEG.split('&') if x]:
+    _t, _o, _m = _a.split(':'); _o = _o.split('+'); _m = float(_m)
     _ti = TEILNAMEN.index(_t) if _t in TEILNAMEN else -1
     _oi = [TEILNAMEN.index(x) for x in _o if x in TEILNAMEN]
-    _me = kleid.data
-    _W = [kleid.matrix_world @ v.co for v in _me.vertices]
     _ob = [p_ for p_ in _me.polygons if KT[p_.vertices[0]] in _oi]
+    _n0 = len(WEG_F)
     if _ti >= 0 and _ob:
         _bv = BVHTree.FromPolygons(_W, [tuple(p_.vertices) for p_ in _ob])
-        _N = kleid.matrix_world.to_3x3()
         for p_ in _me.polygons:
             if KT[p_.vertices[0]] != _ti: continue
             c_ = sum((_W[i] for i in p_.vertices), Vector()) / len(p_.vertices)
             n_ = (_N @ p_.normal).normalized()
             if _bv.ray_cast(c_ + n_ * 0.0005, n_, _m)[0] is not None: WEG_F.add(p_.index)
-    print('WEG', WEG, len(WEG_F), 'Flaechen von', sum(1 for p_ in _me.polygons if KT[p_.vertices[0]] == _ti))
+    print('WEG', _a, len(WEG_F) - _n0, 'Flaechen von', sum(1 for p_ in _me.polygons if KT[p_.vertices[0]] == _ti))
 
 
 MIT_WEG = False
