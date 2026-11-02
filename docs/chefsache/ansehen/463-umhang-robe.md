@@ -1,5 +1,7 @@
 # 463 · Umhang und Robe geschlossen, letzter Lauf (eingefroren) · Tom · 02.11., 23:0x
 
+[Film von 02.11., 22:59](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261102-225916-463/2026-11/02-2259-463-Tom.mp4) (eingetragen von meldung.sh, Tom)
+
 E Figuren
 Kurz: letzter Lauf zu 463 (Chef 22:44 „einfrieren“): gilt dieser Stand?
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41523105690 (Lauf 1, Commit e3789d130)
