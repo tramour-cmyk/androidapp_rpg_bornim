@@ -41,6 +41,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **von Team Jerry (02.11., 11:4x, zu 473, Wochenziel Stufe 1):** 473 gebaut als Daten und Regeln (`godot/regeln/brs.gd`: Werte aller 18 Arten und Modell D aus `tools/sim444/werte.json`, rechnet wie sim444); der Kampf rechnet weiter nach SRD, weil das Umstellen 2.3 ist (Stufe 2, 5 S, 4 R). Damit ist Stufe 1 „Kern spielbar“ mit BRS-Held (470) im Kampf nicht spielbar: entweder ein kleiner Kampfschalter auf Modell D in Stufe 1 ziehen (etwa 1 S, Jerry) oder 1.4 so lesen, dass die Werte nur im Spiel liegen. Deins; bis dahin keine Umstellung.
 - **Zu 407 (02.11., 11:2x):** Ursache und Bau im Commit `ff8821827` (26 Starts von Hand ungezählt). Laufende Sitzungen haben den neuen Matcher erst nach Neustart.
 - **Zu 464** (Chef 01.11., 20:4x: „irgendwer produziert hier abends brutal viele Fehler. Auf der Repo … schon fast 20 E-Mails gekriegt“; „kriege ich ja nicht mit, wie viel in die Hose … Abhilfe schafft ja auch keiner“). 14 von 168 rot; Einzelheiten Commit `fcf9ab215`, Jerry „Zu 464“. Godot fehlt Jerry: Chefsache tun/464.
 
