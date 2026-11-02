@@ -98,6 +98,22 @@ func _lauf() -> void:
 			gefunden += 1
 			pruefe("%s ganz (%d von %d px)" % [t, lb.size.x, lb.get_minimum_size().x], lb.size.x >= (lb as Label).get_theme_font("font").get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, (lb as Label).get_theme_font_size("font_size")).x, true)
 	pruefe("Namen gefunden", gefunden, 2)
+	# oben steht, warum „Abenteuer beginnen“ gesperrt ist (Prüfer 02.11., 14:5x), und nichts, wenn es frei ist
+	pruefe("Vorgabe frei, oben nichts", [es.los.disabled, es.kopf.find_child("Fehlt", true, false) == null], [es.b.wahl_anzahl() > 0, es.b.wahl_anzahl() == 0])
+	# Knöpfe der Fertigkeiten gleich breit (Prüfer 02.11., 14:5x: „Tiere beruhigen“ breiter als die anderen), beim Wanderer mit allen Gruppen
+	es.b.waehle_herkunft("Wanderer")
+	es.baue()
+	for i in 5: await process_frame
+	var breiten := {}
+	var namen: Array = Erschaffung.FERT.keys().map(func(f): return Erschaffung.fert_name(String(f)).to_upper().replace("ß", "SS"))
+	for k in es.inhalt.find_children("*", "Button", true, false):
+		if namen.has((k as Button).text): breiten[(k as Button).text] = roundi((k as Button).size.x)
+	var ziel: int = breiten.values().min()
+	var fe: Label = es.kopf.find_child("Fehlt", true, false)
+	pruefe("Wanderer gesperrt", es.los.disabled, true)
+	pruefe("oben steht warum", fe.text if fe else "", es.punkte_satz() + " · " + es.wahl_satz())
+	pruefe("Fertigkeiten gefunden", breiten.size() >= 30, true)
+	pruefe("Fertigkeiten gleich breit", breiten.keys().filter(func(t): return absi(int(breiten[t]) - int(ziel)) > 1).map(func(t): return "%s %d" % [t, breiten[t]]), [])
 	es.queue_free()
 	print("BRS470 ", "gut" if fehler == 0 else "%d falsch" % fehler)
 	quit(1 if fehler else 0)

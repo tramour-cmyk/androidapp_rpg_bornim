@@ -264,6 +264,21 @@ func kopf_neu() -> void:
 			l.custom_minimum_size.x = 104 * DP   # wie alt; breiter schob die ganze Seite ueber den Rand (Pruefer 14:5x)
 			r.add_child(l)
 		kopf.add_child(r)
+	# Pruefer 02.11., 14:5x (Chef 18:40 „Sokrates Bemerkungen berücksichtigen“): oben sichtbar, warum „Abenteuer beginnen“ gesperrt ist
+	var fehlt := []
+	if b.frei() != 0: fehlt.append(punkte_satz())
+	if b.wahl.size() < b.wahl_anzahl(): fehlt.append(wahl_satz())
+	if not fehlt.is_empty():
+		var w := txt(" · ".join(PackedStringArray(fehlt)), 13, Stil.WARN)
+		w.name = "Fehlt"
+		kopf.add_child(luecke(4))
+		kopf.add_child(w)
+
+func punkte_satz() -> String:
+	var frei_alle := BrsHeld.summe_soll() - BrsHeld.unten() * BrsHeld.grundwerte().size()
+	return ("Punkte übrig: " if Sprache.aktiv() == "de" else "Points left: ") + "%d / %d" % [b.frei(), frei_alle]
+func wahl_satz() -> String:
+	return ("Selbst gewählt: " if Sprache.aktiv() == "de" else "Your choice: ") + "%d / %d" % [b.wahl.size(), b.wahl_anzahl()]
 
 func namensfeld() -> Control:
 	var e := LineEdit.new()
@@ -295,12 +310,10 @@ func wahl(was: Array, gewaehlt: String, wort: Callable, nimm: Callable, spalten 
 # Grundwerte verteilen (wie PointBuy alt): Punkte uebrig, Satz aus dem Handbuch, je Wert Name, Endwert, Volk, − und +; beim Menschen
 # waehlt „+1“ den Wert mit dem freien Punkt
 func grundwerte() -> void:
-	var de := Sprache.aktiv() == "de"
 	inhalt.add_child(kopfzeile(tx(T["werte"])))
 	var p := VBoxContainer.new()
 	p.add_theme_constant_override("separation", int(4 * DP))
-	var frei_alle := BrsHeld.summe_soll() - BrsHeld.unten() * BrsHeld.grundwerte().size()
-	p.add_child(txt(("Punkte übrig: " if de else "Points left: ") + "%d / %d" % [b.frei(), frei_alle], 15, Stil.WARN if b.frei() > 0 else Stil.TEXT))
+	p.add_child(txt(punkte_satz(), 15, Stil.WARN if b.frei() > 0 else Stil.TEXT))
 	p.add_child(txt(tx(T["schaffen"]), 12, Stil.DIM))
 	var mensch := int(BrsHeld.e()["voelker"][b.volk].get("frei", 0)) > 0
 	for g in BrsHeld.grundwerte():
@@ -343,14 +356,13 @@ func grundwerte() -> void:
 
 # Startfertigkeiten: die der Herkunft fest, dazu die eigene Wahl (Wanderer zwei, Mensch eine mehr) aus den Gruppen des Handbuchs
 func fertigkeiten() -> void:
-	var de := Sprache.aktiv() == "de"
 	inhalt.add_child(kopfzeile(tx(T["fert"])))
 	var p := VBoxContainer.new()
 	p.add_theme_constant_override("separation", int(6 * DP))
 	var alle := b.fertigkeiten()
 	p.add_child(txt(", ".join(PackedStringArray(alle.keys().map(func(f): return "%s %d" % [fert_name(String(f)), int(alle[f])]))) if not alle.is_empty() else "—", 15))
 	if b.wahl_anzahl() > 0:
-		p.add_child(txt(("Selbst gewählt: " if de else "Your choice: ") + "%d / %d" % [b.wahl.size(), b.wahl_anzahl()], 15, Stil.WARN if b.wahl.size() < b.wahl_anzahl() else Stil.TEXT))
+		p.add_child(txt(wahl_satz(), 15, Stil.WARN if b.wahl.size() < b.wahl_anzahl() else Stil.TEXT))
 		var wb := BrsHeld.waehlbar()
 		for gr in wb:
 			var liste: Array = (wb[gr] as Array).filter(func(f): return not b.herkunft_fertigkeiten().has(f))
@@ -365,6 +377,7 @@ func fertigkeiten() -> void:
 				k.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 				k.disabled = not b.wahl.has(f) and not b.kann_waehlen(String(f))
 				g.add_child(k)
+			for i in (2 - liste.size() % 2) % 2: g.add_child(luecke_breit())   # Pruefer 02.11., 14:5x: „Tiere beruhigen“ allein in seiner Gruppe war breiter
 			p.add_child(g)
 	inhalt.add_child(kasten(p))
 
@@ -453,6 +466,13 @@ static func luecke(hoch_dp: float, breit_dp := 0.0) -> Control:
 	return c
 
 # Panel auf Schwarz: Rand 1 dp Veil.line, innen 14 dp seitlich, 10 dp oben und unten
+# leere Zelle, die im Raster so breit wird wie ein Knopf (Knopf allein in seiner Reihe bleibt halb breit)
+static func luecke_breit() -> Control:
+	var c := Control.new()
+	c.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	c.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return c
+
 static func kasten(innen: Control) -> PanelContainer:
 	var p := PanelContainer.new()
 	var s := Stil.kasten(Color.BLACK, Stil.LINE, 1.0)
