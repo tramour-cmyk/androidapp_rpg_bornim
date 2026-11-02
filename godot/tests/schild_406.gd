@@ -196,6 +196,8 @@ func _finger_lesen(sk: Skeleton3D) -> void:
 ## die Finger vor der Vorderseite bei der jetzigen Fassung; die Pose wird danach zurückgesetzt
 ## Lauf 182: positiv streckt (bis 11 cm), negativ schließt die Faust (−50°: 1,8–4 cm); jetzt weiter schließen
 const BEUGEN := [0.0, -50.0, -75.0, -90.0]
+## 406a E3 Lauf 190: Faust allein lässt 2–4 cm; figur.gd knickt die Hand um KNICK_GRAD, hier je Winkel mehr (Grad) gemessen
+const KNICK_PROBE := [-10.0, 10.0, 20.0]
 func _beugen_finger(sk: Skeleton3D, schild: Node3D) -> Array:
 	var glieder := []
 	for f in ["index", "middle", "ring", "pinky"]:
@@ -518,12 +520,31 @@ func _run() -> void:
 		# 406a E3 Lauf 188: die Faust (figur.gd SchildFaust) ist ein SkeletonModifier3D; außerhalb von skeleton_updated liest man die
 		# Pose ohne sie (wie sturz_438a): die Finger, wie man sie sieht, nur dort messen
 		var faust := {"an": false}     # Bewegung -> [Finger vor der Vorderseite m, Stelle, je Finger]
+		var knick_f := {}     # 406a E3: Bewegung -> je Winkel aus KNICK_PROBE [Finger vor der Vorderseite m, Stelle]
 		var faust_mess := func() -> void:
 			if not faust.an:
 				return
 			faust.an = false
 			var bw := String(fig.anim.current_animation)
 			var r: Array = _varianten_finger(sm, _ecken_aus(sk, _finger))[0]
+			# 406a E3 Knick: wie weit die Finger vor der Vorderseite lägen, knickte die Hand um KNICK_PROBE Grad mehr (Schild bleibt)
+			var sf = fig.schild_faust
+			if sf != null and sf.hand >= 0 and sf.achse != Vector3.ZERO:
+				var hg: Transform3D = sk.global_transform * sk.get_bone_global_pose(sf.hand)
+				var ax: Vector3 = (hg.basis * sf.achse).normalized()
+				var pts := _ecken_aus(sk, _finger)
+				var kn: Array = knick_f.get(bw, [])
+				for i in KNICK_PROBE.size():
+					var dreh := Basis(ax, deg_to_rad(KNICK_PROBE[i]))
+					var neu := PackedVector3Array()
+					for q in pts:
+						neu.append(hg.origin + dreh * (q - hg.origin))
+					var v: Array = _varianten_finger(sm, neu)[0]
+					if kn.size() <= i:
+						kn.append([-INF, Vector3.ZERO])
+					if v[0] > kn[i][0]:
+						kn[i] = v
+				knick_f[bw] = kn
 			var alt: Array = faust.get(bw, [-INF, Vector3.ZERO, {}])
 			if r[0] > alt[0]:
 				var je := {}
@@ -620,6 +641,11 @@ func _run() -> void:
 			for f in faust[b][2]:
 				jf.append("%s %.1f" % [f, float(faust[b][2][f]) * 100.0])
 			print("  %s FAUST %s: Finger %.1f cm vor der Vorderseite, wie man sie sieht (bei %.2f s, Stelle %s; %s)" % [k, b if b != "" else "–", faust[b][0] * 100.0, faust[b][3], (faust[b][1] as Vector3).round(), ", ".join(jf)])
+		for b in knick_f:
+			var z := PackedStringArray()
+			for i in (knick_f[b] as Array).size():
+				z.append("%+.0f° %.1f cm (Stelle %s)" % [KNICK_PROBE[i], knick_f[b][i][0] * 100.0, (knick_f[b][i][1] as Vector3).round()])
+			print("  %s KNICK %s (gebaut %.0f°): Finger vor der Vorderseite je Grad mehr: %s" % [k, b if b != "" else "–", Figur.KNICK_GRAD.get(k, 0.0), " | ".join(z)])
 		print("Kampf %s: %s nach %d Bildern" % [k, kf.mars.outcome, n])
 		kf.queue_free()
 		p.queue_free()

@@ -531,6 +531,10 @@ func _arm_kauf() -> void:
 			schild_faust = SchildFaust.new()
 			schild_faust.name = "SchildFaust"
 			sk.add_child(schild_faust)
+		if schild_faust != null:     # 406a E3: Knick im Handgelenk, wie _hold den Schild dagegen gesetzt hat
+			schild_faust.knick = knick_quat
+			schild_faust.achse = knick_achse
+			schild_faust.hand = knick_knochen
 	if anim:
 		_idle()
 
@@ -647,6 +651,15 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		var lage: Array = SCHILD_LAGE.get(what, [0.0, 0.0, 0.0, 0.0])
 		o += b * Vector3(0.0, -lage[0], lage[1])
 		b = b * Basis(Vector3.UP, deg_to_rad(-lage[3])) * Basis(Vector3.RIGHT, deg_to_rad(lage[2]))
+		# 406a E3 Lauf 190 (Faust −50°: Finger noch 2,1–2,7 cm, Kleriker 3,7–4,0 cm vor der Vorderseite; Schild weiter vor schiebt den
+		# Schwertarm hinein, Lauf 179): die Hand im Handgelenk um KNICK_GRAD nach hinten knicken, Knöchel weg von der Vorderseite; der
+		# Schild bleibt, wo er war (hier um dieselbe Drehung zurück), die Faust dreht SchildFaust nach jeder Pose
+		knick_achse = b.z.normalized().cross(hx).normalized()
+		knick_knochen = bi
+		var knick := Basis(knick_achse, deg_to_rad(KNICK_GRAD.get(fighter.hero.get("cls", ""), 0.0)))
+		knick_quat = knick.get_rotation_quaternion()
+		b = knick.inverse() * b
+		o = knick.inverse() * o
 	elif what.contains("shield"):
 		# Schild am Unterarm außen: Vorderseite nach außen, oben nach oben, die Fessel um den Unterarm
 		b = Basis(fwd, -down, -inward)
@@ -2200,14 +2213,26 @@ var arm_hold: ArmHold
 ## Kleriker 3,5–3,8 cm, −75° und −90° nicht besser): nach jeder Pose aus dem Satz die Finger der linken Hand um FAUST_GRAD weiter
 ## zur Faust, so wie schild_406 _beugen_finger gemessen hat
 const FAUST_GRAD := -50.0
+## 406a E3 Lauf 190 (Faust −50°, gemessen in skeleton_updated): Kämpfer 2,1–2,7 cm, Kleriker 3,7–4,0 cm vor der Vorderseite, vor allem
+## Ring- und kleiner Finger; Knick im Handgelenk nach hinten je Klasse (Knöchel etwa 9 cm vom Gelenk: 3 cm ≈ 20°, 4,5 cm ≈ 30°),
+## gemessen mit schild_406 KNICK (je ±10° dazu)
+const KNICK_GRAD := {"FIGHTER": 20.0, "CLERIC": 30.0}
+var knick_achse := Vector3.ZERO
+var knick_quat := Quaternion.IDENTITY
+var knick_knochen := -1
 class SchildFaust extends SkeletonModifier3D:
 	var glieder := PackedInt32Array()
 	var zf := -1
 	var kf := -1
+	var hand := -1
+	var knick := Quaternion.IDENTITY     # im Raum der Hand, um das Handgelenk (figur.gd _hold)
+	var achse := Vector3.ZERO     # Achse des Knicks im Raum der Hand (schild_406 misst damit weitere Winkel)
 	func _process_modification_with_delta(_delta: float) -> void:
 		var sk := get_skeleton()
 		if sk == null:
 			return
+		if hand >= 0 and knick != Quaternion.IDENTITY:
+			sk.set_bone_pose_rotation(hand, sk.get_bone_pose_rotation(hand) * knick)
 		if glieder.is_empty():
 			for f in ["index", "middle", "ring", "pinky"]:
 				for n in ["01", "02", "03"]:
