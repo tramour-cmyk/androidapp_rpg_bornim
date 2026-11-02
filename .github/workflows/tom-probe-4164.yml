@@ -112,7 +112,7 @@ jobs:
           export PATH=~/ffbin:$PATH
           mkdir -p $GITHUB_WORKSPACE/probe
           cd godot
-          export HELDE="vorher|kauf:A|alt;weich (416.4)|kauf:A"   # 416.4 Uebergaenge (Chef 01.11., 13:1x), Rennen A
+          export HELDE="bisher|kauf:A|bisher;Abbremsen in Stufen (416.4)|kauf:A"   # 416.4 Chef 20:3x Abbremsen in Stufen, Rennen A
           timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 \
             --write-movie $RUNNER_TEMP/film.avi --fixed-fps 30 -s res://tests/rennen_film_4164.gd > $GITHUB_WORKSPACE/probe/film.log 2>&1 || true
           grep -E "^FILM|SCRIPT ERROR|^ +at: " $GITHUB_WORKSPACE/probe/film.log | cut -c1-400 | head -40

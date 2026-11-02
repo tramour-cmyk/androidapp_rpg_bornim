@@ -42,6 +42,8 @@ func _bau() -> void:
 		var teil := e.split("|")
 		var fd := _feld(reihe, teil[0], teil[1], Vector2i(breite, hoehe))
 		fd["alt"] = teil.size() > 2 and teil[2] == "alt"   # 416.4: Uebergaenge wie vor dem 01.11. (sofort los, ohne Bremsen, 0,25 s in den Stand)
+		fd["bisher"] = teil.size() > 2 and teil[2] == "bisher"   # 416.4 vor dem Abbremsen in Stufen (Chef 20:3x): Rennen -> Gehen mit BESCHL
+		if not fd["alt"] and not fd["bisher"]: Held.baue_aus(fd["anim"])
 		felder.append(fd)
 	kopf = Label.new()
 	kopf.position = Vector2(0, 12)
@@ -187,13 +189,20 @@ func _held(f: Dictionary, dt: float, ansicht: String) -> void:
 	var soll: float = [0.0, GEHEN, RENNEN][int(art)]
 	var moving := soll > 0.0
 	var alt: bool = f.get("alt", false)
+	var neu: bool = not alt and not f.get("bisher", false)
+	var ab := Held.ABBREMS if neu else BESCHL   # 416.4 wie held.gd: langsamer werden ohne Halt gut 1 s
 	if moving and naechste == 0.0 and not alt:   # Ende des Wegs: so weit, wie er noch im Gehtempo kaeme
-		soll = Held.bremse(soll, (bis - z) * GEHEN, GEHEN)
+		var b := Held.bremse(soll, (bis - z) * GEHEN, GEHEN)
+		if b < soll - 0.001: ab = BESCHL
+		soll = b
+	var vor: float = f["tempo"]
+	var abbremsen: bool = neu and ab == Held.ABBREMS and vor > soll + 0.05 and soll <= GEHEN * 1.45
 	if alt: f["tempo"] = 0.0 if not moving else (minf(soll, GEHEN) if f["tempo"] <= 0.0 else move_toward(f["tempo"], soll, BESCHL * dt))
-	else: f["tempo"] = Held.tempo_schritt(f["tempo"], soll, GEHEN, dt)
+	else: f["tempo"] = Held.tempo_schritt(f["tempo"], soll, GEHEN, dt, ab)
 	var tempo: float = f["tempo"]
 	held.position.x += tempo * dt
 	var rennt := moving and tempo > GEHEN * 1.45
+	if neu: rennt = Held.rennt_jetzt(anim, moving, tempo, soll, GEHEN, tempo < vor - 1e-5, abbremsen, f["renn"], f["gang"])
 	var want := ("Rennen" if rennt else "Gehen") if moving else "Stehen"
 	var cur := anim.current_animation
 	var v: float = f["renn"] if rennt else f["gang"]
