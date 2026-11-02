@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [415a](entscheiden/415a-beams-trotz-stopp.md) | **Muss** | C Kampf | 02.11., 10:53 | Beams-Probe jetzt trotz STOPP ALLE? | Jerry |
 | [468](entscheiden/468-sparplan.md) | **Muss** | B Abläufe | 02.11., 07:35 | Sparplan bis Samstag 19:59 | Sokrates |
 | [453a](entscheiden/453a-wolf-atem-sichtbar.md) | **Muss** | E Kampf | 02.11., 00:57 | Wolfsatem aus der Kampfkamera sichtbar: wie? (Empfehlung: :) | Tuffy (Zusatzentwickler Team Jerry) |
 | [406.1](entscheiden/4061-schildstoss.md) | **Muss** | E Kampf | 01.11., 22:35 | Schildstoß: Block und Konter am Ring für jeden mit Schild, als Angriff erst für den Wächter? (Empfehlung: :) | Jerry |
@@ -117,7 +118,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 54, Muss 41, startbar 5
+**Jerry** – offen 55, Muss 42, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -133,7 +134,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 02.11.; „star
 | 440 | M | von Sokrates (Chef 31.10., 23:34, Film 403): Wolf-Tod zu schnell weg (Zu 438) | wartet auf Test/Build (gebaut) |
 | 416.5 | M | von Sokrates (Chef 31.10., 20:4x, Build 143): im Kampf Details des Kampflogs aufrufen, dan | startbar |
 | 416.6 | K | von Sokrates (Chef 31.10., 20:4x): Spuren des Helden fehlen (core/Tracks.kt, LISTE-UMZUG-3 | startbar |
-| 415 | M | von Sokrates („jetzt“ 01.11., 20:0x; Archiv 415): Handyprobe Beams Free Sample (itch.io re | startbar |
+| 415 | M | von Sokrates („jetzt“ 01.11., 20:0x; Archiv 415): Handyprobe Beams Free Sample: läuft es a | wartet auf 415a (Chef) |
+| 415a | M | Rückfrage: Beams-Probe jetzt trotz STOPP? | Chef (Datei in der Chefsache) |
 | 399.2 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv): Kampfort aufrufbar | wartet auf Test (Build) |
 | 399.2b | M | von Team Tom (15:05): Rudel allein zu stark | wartet auf Test (Build) |
 | 402 | M | von Sokrates (Chef 22:2x, Archiv): Blende vor dem Kampf wie alt; Herzschlag beim Hinterhal | startbar |
