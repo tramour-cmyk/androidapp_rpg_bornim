@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [415c](entscheiden/415c-strahlen-vierter-lauf.md) | **Muss** | C Kampf | 02.11., 18:41 | Strahlenprobe: Film wieder angehalten, Film trotzdem oder zwei neue Läufe? | Jerry |
+| [415c](entscheiden/415c-strahlen-wieder-angehalten.md) | **Muss** | C Kampf | 02.11., 18:43 | Strahlenfilm Lauf 181 am Tor angehalten; Film trotzdem, zwei neue Läufe oder beides? | Jerry |
 | [453b](entscheiden/453b-wolfatem-film-angehalten.md) | **Muss** | E Kampf | 02.11., 16:10 | Wolfsatem B: Film am Tor angehalten, neue Läufe frei? | Jerry |
 | [463a](entscheiden/463a-tracht-angehalten.md) | **Muss** | E Figuren | 02.11., 16:06 | Umhang durchgängig: Film am Tor angehalten, neue Läufe frei? | Tom |
 | [427](entscheiden/427-monsterwerte.md) | **Muss** | E Kampf | 02.11., 15:12 | Monsterwerte Kapitel 1: neue Startwerte nach Messung? | Sokrates |
