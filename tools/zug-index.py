@@ -32,6 +32,10 @@ def seit_text(m, pfad):
     for t, uhr in zeiten[::-1]:  # älteste passende zuerst: seit wann es so dasteht
         if t == tag and uhr.startswith(vorn):
             return f"{tag}, {uhr}"
+    # 465.1 (D60.1): passt die geschätzte Minute zu keinem Commit, gilt der älteste Commit des Tages (Git vor Schätzung)
+    for t, uhr in zeiten[::-1]:
+        if t == tag:
+            return f"{tag}, {uhr}"
     return m.group(0)
 BEREICH = re.compile(r"^[EGQBM] [A-ZÄÖÜ]\w+$")
 
