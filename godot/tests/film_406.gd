@@ -32,6 +32,17 @@ const FOLGE := [
 	["SS_SwordAttack3", "Schwerthieb 3"], ["drehen", "Drehung: Schild von allen Seiten"]]
 
 var mess := OS.get_environment("MESS") != ""
+# 406 d (Prüfer Film 406, 01.11., 16:4x: an den Schnitten fremde Bilder, Spielansicht, graues Bild, Testmenü; Grundstand G2): schwarz
+# über allem wie film_403 (699c3a035), bis der Kampfort steht; am Ende jedes Teils abblenden, erst dann abbauen
+const BLENDE_BILDER := 8     # 0,27 s bei 30 Bildern
+const RUHIG_BILDER := 6
+var schwarz: ColorRect
+# 406 a (Chef 01.11., 20:2x: „der Hälfte des Videos völlig parallele Bewegungsabläufe“): in der Sichtung beginnt der rechte Held
+# jede Bewegung VERSATZ s später, im Gehen und in der Kampfhaltung eine halbe Bewegung versetzt
+const VERSATZ := 0.4
+# 406 d (Prüfer: von der Wolfsseite stehen Kämpfer und Kleriker hintereinander „wie eine Figur mit zwei Köpfen“): Kamera um SCHRAEG
+# Grad um die Mitte gedreht
+const SCHRAEG := 40.0
 var lb: Label
 var lz: Label
 var fehler := 0
@@ -41,7 +52,29 @@ func _initialize() -> void:
 	_run.call_deferred()
 
 
+func _blende(ziel: float) -> void:
+	if schwarz == null:
+		return
+	if ziel < 0.5:
+		schwarz.color.a = 1.0
+		for i in RUHIG_BILDER:
+			await process_frame
+	var von := schwarz.color.a
+	for i in BLENDE_BILDER:
+		await process_frame
+		schwarz.color.a = lerpf(von, ziel, float(i + 1) / BLENDE_BILDER)
+
+
 func _run() -> void:
+	if not mess:
+		var deck := CanvasLayer.new()
+		deck.layer = 128
+		schwarz = ColorRect.new()
+		schwarz.color = Color.BLACK
+		schwarz.set_anchors_preset(Control.PRESET_FULL_RECT)
+		schwarz.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		deck.add_child(schwarz)
+		root.add_child(deck)
 	var teil := OS.get_environment("TEIL")
 	if teil != "kampf":
 		await _sichtung()
@@ -142,6 +175,8 @@ func _sichtung() -> void:
 		return
 	_labels()
 	lb.text = "Sichtung · Sword & Shield"
+	helden[1].anim.seek(helden[1].anim.current_animation_length * 0.5, true)
+	await _blende(0.0)
 	for e in FOLGE:
 		lz.text = "%s\nlinks Kämpfer, Schild 15 · rechts Kleriker, Schild 2" % e[1]
 		match e[0]:
@@ -153,6 +188,7 @@ func _sichtung() -> void:
 			"drehen":
 				for f in helden:
 					f.anim.play("SS_IdleCombat", 0.2)
+				helden[1].anim.seek(helden[1].anim.current_animation_length * 0.5)
 				var t := 0.0
 				var r0: float = helden[0].rotation.y
 				while t < 8.0:
@@ -163,12 +199,19 @@ func _sichtung() -> void:
 			_:
 				var lang := 0.0
 				for f in helden:
-					f.anim.play(e[0], 0.15)
 					lang = maxf(lang, f.anim.get_animation(e[0]).length)
-				await create_timer(lang if e[0] != "SS_IdleCombat" else 2.5).timeout
-				for f in helden:
-					f.anim.play("SS_IdleCombat", 0.2)
-				await create_timer(0.35).timeout
+				if e[0] == "SS_IdleCombat":
+					await create_timer(2.5).timeout
+				else:
+					helden[0].anim.play(e[0], 0.15)
+					await create_timer(VERSATZ).timeout
+					helden[1].anim.play(e[0], 0.15)
+					await create_timer(lang - VERSATZ).timeout
+					helden[0].anim.play("SS_IdleCombat", 0.2)
+					await create_timer(VERSATZ).timeout
+					helden[1].anim.play("SS_IdleCombat", 0.2)
+					await create_timer(0.35).timeout
+	await _blende(1.0)
 	lb.text = ""
 	lz.text = ""
 	kf.queue_free()
@@ -182,6 +225,7 @@ func _weg(helden: Array, ziele: Array, nm: String) -> void:
 	for f in helden:
 		f.anim.play(nm, 0.15)
 		von.append(f.position)
+	helden[1].anim.seek(helden[1].anim.current_animation_length * 0.5)
 	var s: float = von[0].distance_to(ziele[0]) / helden[0]._held_mps(nm)
 	var t := 0.0
 	while t < s:
@@ -218,6 +262,21 @@ func _kampf(k: String) -> void:
 	var ziel: Vector3 = hm.lerp(wm, 0.35) + Vector3(0, 0.9, 0)
 	var von: Vector3 = wm - hm
 	von.y = 0.0
+	# zur Seite, auf der die Helden im Bild am weitesten auseinander stehen
+	var hs := []
+	for id in kf.figures:
+		if kf.figures[id].fighter.monster == null:
+			hs.append(kf.figures[id].home)
+	var best_v := von
+	var best_a := -1.0
+	for sg in [1.0, -1.0]:
+		var v := von.rotated(Vector3.UP, deg_to_rad(SCHRAEG) * sg)
+		var quer := v.cross(Vector3.UP).normalized()
+		var a := absf((hs[0] - hs[-1]).dot(quer)) if hs.size() > 1 else 0.0
+		if a > best_a:
+			best_a = a
+			best_v = v
+	von = best_v
 	var cam := _kamera(kf, ziel, von, 3.2, 4.2)
 	if kf.ui != null:
 		kf.ui.visible = false
@@ -229,6 +288,7 @@ func _kampf(k: String) -> void:
 	_labels()
 	lb.text = "Kampf · " + NAMEN[k]
 	lz.text = "Kamera auf der Seite der Wölfe; Autopilot, Echtzeit"
+	await _blende(0.0)
 	kf.mars.find("merc").auto = true
 	kf.mars.set_autopilot(true)
 	if not kf.busy:
@@ -258,6 +318,7 @@ func _kampf(k: String) -> void:
 				var ts: Array = kf.mars.targets(c)
 				kf.order(["attack", ts[0].id] if not ts.is_empty() else ["wait"])
 	print("Film 406 Kampf %s: %s nach %d Bildern" % [k, kf.mars.outcome, n])
+	await _blende(1.0)
 	lb.text = ""
 	lz.text = ""
 	kf.queue_free()
