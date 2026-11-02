@@ -334,16 +334,9 @@ func sperrt(p: Vector3) -> bool:
 func weicht() -> bool: return da and not drinnen and not daten.has("runde")
 
 func weiche(d: Vector2i) -> bool:
-	var seiten := [Vector2i(d.y, d.x), Vector2i(-d.y, -d.x)]   # quer zum Weg, in zufaelliger Folge
-	if zufall.randf() < 0.5: seiten.reverse()
-	for s in seiten + [d]:
-		var n: Vector2i = kachel + s
-		if frei_fuer_mich(n):
-			ziel = n
-			warte = 4.0
-			return true
-	# 416.2 (Chef 31.10.: „Platzwechsel statt nur Schieben … teils kein Weiterkommen“): wie alt makeWay (sonst p.x to p.y) tauscht,
-	# wer nicht zur Seite kann, mit dem Helden den Platz; solange gehen beide durcheinander hindurch
+	# 416.2 (Chef 31.10.: „Platzwechsel statt nur Schieben“; 02.11., 10:52, Build 146: „Ziege wird geschoben, kein Platztausch“):
+	# zuerst tauscht, wer geschoben wird, mit dem Helden den Platz; solange gehen beide durcheinander hindurch. Nur wo das nicht
+	# geht (Held nicht daneben, sein Platz nicht fuer sie, etwa ein Tier auf dem Weg), tritt sie zur Seite, sonst voran (alt makeWay)
 	var h := held_kachel()
 	var u := h - kachel
 	var nachbar := absi(u.x) + absi(u.y) == 1 or (absi(u.x) == 1 and absi(u.y) == 1 and karte.begehbar(kachel + Vector2i(u.x, 0)) and karte.begehbar(kachel + Vector2i(0, u.y)))
@@ -352,6 +345,14 @@ func weiche(d: Vector2i) -> bool:
 		warte = 4.0
 		durch_bis = Time.get_ticks_msec() + DURCH_MS
 		return true
+	var seiten := [Vector2i(d.y, d.x), Vector2i(-d.y, -d.x)]   # quer zum Weg, in zufaelliger Folge
+	if zufall.randf() < 0.5: seiten.reverse()
+	for s in seiten + [d]:
+		var n: Vector2i = kachel + s
+		if frei_fuer_mich(n):
+			ziel = n
+			warte = 4.0
+			return true
 	return false
 
 func held_kachel() -> Vector2i:
