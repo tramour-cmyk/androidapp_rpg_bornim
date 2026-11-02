@@ -1,5 +1,7 @@
 # 470 · Erschaffung nach BRS 1.1: Seite „Neues Spiel“ · Spike (Team Tom) · 02.11., 14:5x
 
+[Bild von 02.11., 14:57](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/02-1457-470-Spike.png) (eingetragen von meldung.sh, Spike)
+
 ![Grundwerte verteilen, Mensch als Wachsoldat](../bilder/470-erschaffung.webp)
 
 Bilder per Telegram (Bildlauf am Rechner, ohne Heldenmodell, darum links leer). Noch kein Build; Zweig `claude/spike-470-erschaffung`.
