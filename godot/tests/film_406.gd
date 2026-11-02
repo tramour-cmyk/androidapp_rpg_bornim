@@ -278,6 +278,8 @@ func _kampf(k: String) -> void:
 			best_v = v
 	von = best_v
 	var cam := _kamera(kf, ziel, von, 3.2, 4.2)
+	var folge := {"mitte": ziel, "d": -1.0, "aus": 0, "aus_wo": ""}
+	_folgen(cam, kf, folge, true)
 	if kf.ui != null:
 		kf.ui.visible = false
 	await process_frame
@@ -299,6 +301,7 @@ func _kampf(k: String) -> void:
 	while n < dauer * 30 / 1000:     # Bilder bei --fixed-fps 30
 		await process_frame
 		n += 1
+		_folgen(cam, kf, folge, false)
 		if mess:
 			var jetzt := ""
 			for id in kf.figures:
@@ -317,13 +320,76 @@ func _kampf(k: String) -> void:
 				var c = kf.mars.current()
 				var ts: Array = kf.mars.targets(c)
 				kf.order(["attack", ts[0].id] if not ts.is_empty() else ["wait"])
-	print("Film 406 Kampf %s: %s nach %d Bildern" % [k, kf.mars.outcome, n])
+	print("Film 406 Kampf %s: %s nach %d Bildern; G1 Figur angeschnitten in %d Bildern %s" % [k, kf.mars.outcome, n, folge.aus, folge.aus_wo])
+	if mess and folge.aus > 0:
+		fehler += 1
 	await _blende(1.0)
 	lb.text = ""
 	lz.text = ""
 	kf.queue_free()
 	p.queue_free()
 	await process_frame
+
+
+## G1 (Tor 461a, Lauf 170: Schild, Kämpfer und Wolf am Rand angeschnitten, 5, 22, 52–76, 79–106 s; die Kamera stand fest auf 4,2 m
+## Breite): die Kampfkamera folgt allen Figuren in derselben Richtung und Neigung, so nah, dass jede ganz im Bild ist (Rand oben für
+## die Schrift); weiter weg sofort, näher langsam. Zählt Bilder, in denen trotzdem eine Figur über den Rand ragt.
+const RAND_X := 0.90         # Anteil der halben Breite
+const RAND_OBEN := 0.66      # oben die Schrift (bis 13 % der Höhe) und Luft
+const RAND_UNTEN := 0.92
+const NAEHER := 0.03         # je Bild so viel zum nötigen Abstand, wenn er kleiner wird
+func _folgen(cam: Camera3D, kf, folge: Dictionary, erst: bool) -> void:
+	var vs := FORMAT
+	var ty := tan(deg_to_rad(cam.fov) / 2.0)
+	var tx := ty * vs.x / vs.y
+	var b := cam.global_transform.basis
+	var fw := -b.z
+	var pts := []
+	var mitte := Vector3.ZERO
+	var n := 0
+	for id in kf.figures:
+		var f = kf.figures[id]
+		if not f.visible:
+			continue
+		var h: float = (1.85 if f.fighter.monster == null else 0.9) * f.scale.y
+		var r: float = f.body_r() + 0.15     # Schild, Waffe, Rute
+		for q in [Vector3.ZERO, Vector3(0, h, 0)]:
+			for sx in [-1.0, 1.0]:
+				pts.append(f.global_position + q + b.x * r * sx)
+		mitte += f.global_position + Vector3(0, h * 0.5, 0)
+		n += 1
+	if n == 0:
+		return
+	mitte /= n
+	folge.mitte = mitte if erst else (folge.mitte as Vector3).lerp(mitte, 0.08)
+	var c: Vector3 = folge.mitte
+	var d_noetig := 2.0
+	for p in pts:
+		var rel: Vector3 = p - c
+		var x := absf(rel.dot(b.x))
+		var y := rel.dot(b.y)
+		var z := rel.dot(fw)
+		d_noetig = maxf(d_noetig, x / (tx * RAND_X) - z)
+		d_noetig = maxf(d_noetig, (y / (ty * RAND_OBEN) if y > 0.0 else -y / (ty * RAND_UNTEN)) - z)
+	var d: float = folge.d
+	d = d_noetig if erst or d < 0.0 or d_noetig > d else lerpf(d, d_noetig, NAEHER)
+	folge.d = d
+	cam.global_position = c - fw * d
+	kf.ink_ziel = c
+	# angeschnitten: Fuß oder Kopf einer Figur außerhalb des Bilds
+	for id in kf.figures:
+		var f = kf.figures[id]
+		if not f.visible:
+			continue
+		var h: float = (1.85 if f.fighter.monster == null else 0.9) * f.scale.y
+		for q in [f.global_position, f.global_position + Vector3(0, h, 0)]:
+			var rel: Vector3 = q - cam.global_position
+			var z := rel.dot(fw)
+			if z <= 0.1 or absf(rel.dot(b.x)) > tx * z or absf(rel.dot(b.y)) > ty * z:
+				folge.aus += 1
+				if folge.aus_wo == "":
+					folge.aus_wo = "(zuerst %s)" % id
+				return
 
 
 ## MESS: steht jede Figur ganz im Bild (Füße und Kopf, mit Rand), wie groß der Held
