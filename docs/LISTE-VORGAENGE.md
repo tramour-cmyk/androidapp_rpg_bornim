@@ -180,7 +180,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 417 | Prüfung: Waffen und Schild beim Gehen und Rennen in der Hand statt auf dem Rücken (zu 410, Chef 31.10., 21:1x) | E Figuren | M | 181,99 $ | Team Tom | Chef |
 | 423.1 | Spielerhandbuch BRS als Seite im Spiel, Platzhalter aus der Datendatei (Archiv 423) | A Technik | M? | – | Team Tom | wartet |
 | 427 | Bestiarium: je Monsterart Name, Gebiet und Stufenband, Verhalten, Angriffe und Waffen, Werte für Spielsystem 2.0, Beute; Aussehen verweist auf `LISTE-FIGUREN.md` (Chef 31.10., 21:3x); Werte entschieden 02.11., 18:54 | D Design | M | 4,47 $ | Sokrates | erledigt |
-| 427.1 | Monsterwerte ins Spiel, Grimmzahn und Krogg mit Rudel, Umreißen, Überfall nachmessen (Chef 02.11., 18:54) | E Kampf | M | – | Team Jerry | Chef |
+| 427.1 | Monsterwerte ins Spiel, Grimmzahn und Krogg mit Rudel, Umreißen, Überfall nachmessen (Chef 02.11., 18:54) | E Kampf | M | – | Team Jerry | startbar |
+| 427.2 | Hinweis auf Morwens Rauch spätestens nach der ersten Niederlage gegen Krogg (Chef 02.11., 20:22, aus 427.1) | C Texte | M | – | Homer | startbar |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x) | E Figuren | M | 33,23 $ | Team Tom | in Arbeit |
 | 431c | Rückfrage: Völker Runde 4 am Tor angehalten, neue Läufe frei? | E Figuren | M | – | Team Tom | Chef |
 | 431d | Rückfrage: Völker Lauf 3 am Tor angehalten (B1 Elf, C3, G3, A1/A3 Grak, A2), neue Läufe frei, Weg A2? | E Figuren | M | – | Team Tom | Chef |

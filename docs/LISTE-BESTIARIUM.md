@@ -49,7 +49,7 @@ Stand der Spalten „Angriff“, „Beute“ und „Merkmal“: aus `core/src/ma
 
 ## Werte 2.0 (427)
 
-**Gilt** (Chef 02.11., 18:54: „427 ja, Herkünfte auch, Grimmzahn und Krogg nachmessen“): Werte gemessen mit Simulation 444 (Messung im Vorgangsarchiv 427, Blatt in Git). Krogg und Grimmzahn sind **vorläufig**, bis sie mit Überfall, Rudel und Umreißen nachgemessen sind (427.1). Geändert wird nach Messung, nicht nach Gefühl.
+**Gilt** (Chef 02.11., 18:54: „427 ja, Herkünfte auch, Grimmzahn und Krogg nachmessen“): Werte gemessen mit Simulation 444 (Messung im Vorgangsarchiv 427, Chefsache in Git). Krogg und Grimmzahn mit Überfall, Leibwache und Umreißen nachgemessen und bestätigt (427.1 A, Chef 02.11., 20:22): Kroggs Werte gelten mit Morwens Rauchbündel (D4.1); der Hinweis darauf kommt spätestens nach der ersten Niederlage gegen Krogg; Krogg wird erst abgenommen, wenn der Rauch im Spiel zu bekommen ist (Tiefer Flüsterwald). Geändert wird nach Messung, nicht nach Gefühl.
 
 - **Stufe:** Kapitel 1 hat die Grenze 6. Flüsterwald 1–3, Tiefer Flüsterwald 1–5, Blutzahnhöhle 1–6 (schwache Arten kommen überall vor, die Stärkeren nur tiefer).
 - **Herkunft der Zahlen:** Startwerte (Vorschlag Sokrates 01.11., aus den alten Werten umgerechnet, Rechenweg in Git vor 02.11., 18:5x), dann gewöhnliche Arten Leben × 2,0 / 1,8 / 1,4 / 1,1 / 0,9 (Stufe 1–5) und Schaden × 0,8 (Stufe 1–2) / 0,9 (3) / 0,85 (4–5); Zombie Leben 44, Riesenspinne Angriff 25; Bosse einzeln. **Abwehr** und **Wachsamkeit** wie die Startwerte; der Held schleicht in Kapitel 1 höchstens mit 49 (Geselle).
@@ -72,8 +72,8 @@ Stand der Spalten „Angriff“, „Beute“ und „Merkmal“: aus `core/src/ma
 | Riesenspinne | Tiefer Wald, Höhle | 4 | 43 | 2 | 7 | 25 | 24 | 40 |
 | Ghul | Tiefer Wald (Nacht), Höhle | 4 | 37 | 1 | 6 | 25 | 20 | 40 |
 | Ockerschleim | Höhle | 5 | 44 | 0 | 5 | 30 | 17 | 10 |
-| Krogg (Boss, vorläufig) | Höhle | 4 | 55 | 2 | 7 | 20 | 28 | 60 |
-| Grimmzahn (Boss, vorläufig) | Tiefer Wald | 5 | 55 | 2 | 7 | 22 | 29 | 80 |
+| Krogg (Boss) | Höhle | 4 | 55 | 2 | 7 | 20 | 28 | 60 |
+| Grimmzahn (Boss) | Tiefer Wald | 5 | 55 | 2 | 7 | 22 | 29 | 80 |
 | Grak (Boss) | Höhle | 6 | 75 | 2 | 7 | 25 | 38 | 90 |
 
 Nachfolger nach der Monsterwahl (348.12c, 26.10.): Wiedergänger statt Zombie, Grabhund statt Ghul, Riesenegel statt Blutflügler, Säureschnecke statt Ockerschleim, je mit derselben Rolle und denselben Werten; der Kauf der Modelle ruht (348.12c). Bis dahin gelten die alten Arten.
