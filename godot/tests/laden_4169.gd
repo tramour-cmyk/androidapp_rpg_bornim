@@ -91,7 +91,10 @@ func _lauf() -> void:
 			var v := Vergleich.von(hw, g)
 			pruefe(t.contains(v.satz()), "Stueck: Urteil fehlt")
 			var r: Dictionary = v.zeilen[0]
-			pruefe(t.contains("%s: %s → %s" % [r["wort"], r["vorher"], r["nachher"]]), "Stueck: Vergleichszeile fehlt")
+			# 416.9 (Chef 02.11., 10:52): Gegenueberstellung als Tabelle wie alt, Kopf „Vergleich | Angelegt | Neu“, je Wert drei Spalten
+			pruefe(t.contains("Vergleich\nAngelegt\nNeu\n") or t.contains("Compare\nEquipped\nNew\n"), "Stueck: Tabellenkopf fehlt")
+			pruefe(t.contains("%s\n%s\n%s\n" % [r["wort"], r["vorher"], r["nachher"]]), "Stueck: Vergleichszeile fehlt")
+			pruefe(not t.contains("%s: %s → %s" % [r["wort"], r["vorher"], r["nachher"]]), "Stueck: Vergleich noch als Satz")
 			print("Vergleich: ", v.satz(), " (", v.zeilen.size(), " Zeilen)")
 			k.free()
 
