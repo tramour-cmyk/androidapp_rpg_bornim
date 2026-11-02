@@ -8,11 +8,9 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert
 
 ## Zeilen
 
-Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JERRY.md`.
-
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 487 | M | **von Perikles (Wochenziel 02.11. Reihe 6 „Jerry stellt zusammen“; Hinweis Team Tom 21:1x):** gemeinsamer Build aus den wartenden Änderungen beider Teams, höchstens 6; Figuren und Bewegung über 461.1 | gebaut: claude/build-487, 6 Punkte (Zu 487); Lauf, Prüfliste, PR offen (GitHub-Werkzeuge fehlten 21:33); Geprüft an: 4c96e8fba (lokal Tests grün) | – |
+| 487 | M | **von Perikles (Wochenziel 02.11. Reihe 6):** gemeinsamer Build, höchstens 6 Punkte, Figuren über 461.1 | gebaut: claude/build-487, 6 Punkte (Zu 487); Lauf, Prüfliste, PR offen; Geprüft an: 4c96e8fba (lokal) | – |
 | 478 | M | **von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv):** Rechenkern des Kampfs schon in Stufe 1 auf BRS (Modell D), Darstellung bleibt bis 2.3 | ruht: 470a B (geschätzt 3–4 Sitzungen, Zu 478) | – |
 | 481.1 | M | **von Sokrates (Archiv 427):** Tränke in sim444 (Zu 481 in `ARBEIT-BERATUNG.md`), Herkünfte neu messen, Zahlen an Sokrates | gebaut: sim444 Abschnitt 6 auf claude/jerry-481-1-traenke, Befund LISTE-SIMULATION-444, Zahlen an Sokrates (Zu 481); Geprüft an: 4bb60ba5e (--pruefen 0, Abschnitte 1–5 gleich main) | – |
 | 473 | M | **von Perikles (Wochenziel 02.11., Stufe 1):** Bau BRS 1.4 Monsterwerte Kapitel 1 nach Rechenmodell D ins Spiel (Abnahmeliste 1.4, Schätzung 447.3: 1 Sitzung, 1 Runde) | gebaut 7d2eec7cc: Werte aller 18 Arten und Modell D im Spiel (regeln/brs.gd, daten/werte.json wie sim444), Kampf rechnet bis 2.3 nach SRD (Frage an Perikles); fährt im nächsten Build | – |
@@ -67,7 +65,6 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht: SRD (Chef 31.10.) | – |
 | 469 | M | **von Sokrates (02.11., 11:0x, zu 406.1):** Kampf auf BRS: Ring (MARS) ohne Klassen regeln (Antwort nach Klasse heute) | wartet auf 406.1 | – |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht: Klang zieht nach Godot; Rest `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
-| Pflege | K | **von Werkzeug (340.3, 02.11.):** 15314 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 ## Einzelheiten
 
@@ -80,7 +77,7 @@ Volle Titel der ruhenden Zeilen in Git: `git show dc386b2e8:docs/ARBEIT-TEAM-JER
 - **Zu 472, 473 (Jerry 02.11., 11:4x):** `godot/regeln/brs.gd` liest `daten/werte.json` (= `tools/sim444/werte.json`); Tests `brs_472.gd`, `brs_473.gd`. Offen: Kampf rechnet bis 2.3 nach SRD (Frage an Perikles); Stufe am Helden (Heldenblatt, Anzeige Deckel, `lohn.gd`) nach 470; Annahmen Topf 10 %, weich 0,25 an Sokrates (427).
 
 - **von Team Tom (Spike, 01.11., 21:2x, zu 461.1):** `claude/grundstand-461` = Build 146, Tom, `jerry-406-kaufschild`, `jerry-348-12-grak-schreitet`; Konflikte (`heldfigur.gd`, `figur.gd`, `film_403.gd`) mit beiden Seiten gelöst. Nicht neu mischen, weiter auf dem Zweig; Kampfort-Film gegen die Checkliste bleibt euer.
-- **Wortlaut in Git** (`git show <Commit>:docs/ARBEIT-TEAM-JERRY.md`): von Homer zu 444 und Spike zu 425 ee343195b; Zu 453, 402 („Bubum“) 7cacfa97d; Zu 453 r2 („Helden wieder doof“) 00d2ab8d5; Zu 406 a–e, 460, 438a Waffenpakete 907f307f2; Zu 453.1 da33d472c; ruhende SRD-Zeilen (296.2, 344.2, 249, 211.13/14, 168.1, 72u.1, 38, 39) de0998e2a; Zu 348.12 Lauf 177 5dc32fd63; Zu 438 (Tuffy 00:57), Zu 461.1 (Tuffy 03:4x), Zu 399.2 (Tom, Goblins v3) 110805b49; Zu 453 r3, Zu 406 G1, von Sokrates zu 427.1 (19:0x) 0bcceff99; von Perikles (bild=nein), von Sokrates zu 438a Runde 2 (14:49), Zu 438a Läufe 186–187 ccc23661c; Zu 478 (Schätzung) 22ae14a88.
+- **Wortlaut in Git** (`git show <Commit>:docs/ARBEIT-TEAM-JERRY.md`): volle Titel der ruhenden Zeilen dc386b2e8; von Homer zu 444 und Spike zu 425 ee343195b; Zu 453, 402 („Bubum“) 7cacfa97d; Zu 453 r2 („Helden wieder doof“) 00d2ab8d5; Zu 406 a–e, 460, 438a Waffenpakete 907f307f2; Zu 453.1 da33d472c; ruhende SRD-Zeilen (296.2, 344.2, 249, 211.13/14, 168.1, 72u.1, 38, 39) de0998e2a; Zu 348.12 Lauf 177 5dc32fd63; Zu 438 (Tuffy 00:57), Zu 461.1 (Tuffy 03:4x), Zu 399.2 (Tom, Goblins v3) 110805b49; Zu 453 r3, Zu 406 G1, von Sokrates zu 427.1 (19:0x) 0bcceff99; von Perikles (bild=nein), von Sokrates zu 438a Runde 2 (14:49), Zu 438a Läufe 186–187 ccc23661c; Zu 478 (Schätzung) 22ae14a88.
 - **Zu 438a, 438 (Jerry 02.11., 20:5x):** Chef 14:49 passt nicht (Waffe durchs rechte Bein beim Aufstehen). Runde 5 (5837c37a2, Hautschutz der Beine) kaum besser. Lauf 189: Griff frei (−0,5 cm), Klinge 0,52 m vom Griff 13,0 cm im Kleid (thigh_l, 2,90 s); Kampfhaltung 8,1 cm im ersten Bild (0,03 s, Schutz dort aus); Kleriker 5,8 cm, Griff frei. Messlauf 87b0297d5 (bild=nein): Zeile „Schutz:“ (was _boden_schutz tat) und Vergleich V1 (Hautpunkte nach dem Drehen neu, tief drin ohne Grenze je Bild). Offen: Kampfhaltung Kleid (463), Wolf 1 im Kleriker (438).
 - **Zu 406 (Jerry 02.11., 20:5x):** SchildFaust (−50°, SkeletonModifier3D) auf `claude/jerry-406c-gehen`; Messung in `skeleton_updated` (e746078ed, Zeile FAUST), Lauf 190; dann Hand 2–4 cm zurück (Kleriker −50° 3,5–3,9 cm, Ring- und kleiner Finger).
 - **von Sokrates (Chef 01.11., 22:35, „461c wie Sokrates“, Archiv 461c; Grundstand B5, F4):** zu 406: Kleriker-Schild Form Schild 2 mit goldener Sonne in unseren Farben; zu Kampf: Tod für alle zusammenbrechen, kurz liegen, dann ausblenden (auch Wölfe); zu 444: Schmiedelehrling startet zusätzlich mit Stumpfe Waffen (`werte.json`), neu rechnen.
