@@ -233,6 +233,17 @@ jobs:
             for w in shield round_shield; do cp $RUNNER_TEMP/ks/$w.glb $D/$w.bin; echo kampf/daten/$w.bin >> $D/kauf.txt
               cp $RUNNER_TEMP/ks/$w.glb godot/daten/waffen/$w.bin; echo daten/waffen/$w.bin >> godot/daten/kauf.txt; done
           fi
+          # 494 (von Tom, 492: Graks Halle in der Höhle startet den Kampf aus der Szene): Grak wie godot-kampf.yml (348.12, 399.2):
+          # Quaternius-Teile aus ~/cc0, Großaxt aus waffen.py ($OUT), Tod aus der gekauften UAL Pro (Death02), dann verschlüsselt;
+          # ohne Kauf Death01 (CC0)
+          PRO=$(find ${KAUF:-/kein} -path '*Unreal-Godot/UAL1.glb' 2>/dev/null | head -1)
+          OUT=$RUNNER_TEMP/grak CC0=$HOME/cc0 WAFFEN=$RUNNER_TEMP/out UAL=$PRO TOD_QUELLE=$([ -n "$PRO" ] && echo Death02 || echo Death01) \
+            timeout 1500 bl/bin/python -I tools/blender348/grak_gestalt.py > grak.log 2>&1 || { tail -40 grak.log; exit 1; }
+          grep -E "^(ZWEIHAND|BEWEGUNG|TOD|WEG|HIEB)" grak.log | cut -c1-200 || true
+          cp $RUNNER_TEMP/grak/grak-gestalt.glb $D/hobgoblin_captain-hauptmann.bin
+          python3 -c "import json,sys; s=json.load(open(sys.argv[1])).get('spiel',{}); d={'waffen':[],'groesse_cm':186,'geruest':'cc0'}; d.update(s); json.dump({'hauptmann':d},open(sys.argv[2],'w'))" \
+            $RUNNER_TEMP/grak/grak-gestalt-info.json $D/hobgoblin_captain-info.json
+          [ -n "$PRO" ] && echo kampf/daten/hobgoblin_captain-hauptmann.bin >> $D/kauf.txt || true
           grep -q '^RUHE aus' rig.log && echo kampf/daten/held.bin >> $D/kauf.txt || true   # 397: Held mit Pro-Ruhe
           ls -l $D | wc -l
       # 348.12i (Chef 26.10., 19:41, „348.12i B“): gekaufte Modelle nur verschluesselt ins APK, Schluessel je Lauf neu, steht nur im
@@ -303,6 +314,7 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/testmenue_470.gd 2>&1 | grep -E "FEHLER|TESTMENUE470"   # 470a B: Erschaffung BRS nur im Testmenue
           timeout 120 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4532.gd 2>&1 | grep -E "^(ok|FEHLER|ATEM)"   # 453.2 Atmen unterwegs
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/wildschwein_494.gd 2>&1 | grep -E "Wildschwein|WILDSCHWEIN|FEHLER|SCRIPT ERROR"   # 494 Wildschwein
+          set -o pipefail; timeout 400 ~/godot/godot --headless --path . -s res://tests/krogg_494.gd 2>&1 | grep -E "Krogg|KROGG|FEHLER|SCRIPT ERROR"   # 494 Krogg, Morwens Rauch
       # fester Schluessel ueber alle Laeufe, sonst lehnt Android das Update ab (348.5, Build 9). 399.1a (Chef 28.10., 14:41): der Cache
       # eines Zweigs galt nur dort (Build 130 bekam einen neuen); jetzt nur lesen, angelegt wird er auf main (godot-schluessel.yml)
       - uses: actions/cache/restore@v4

@@ -45,6 +45,9 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 		"BOARS": [["boar", "boar", Vector2i(0, 0)]],
 		# 494: der Riesen-Hundertfüßer allein (Monsters.kt giant_centipede), im Bild der gekaufte (kauftier.py TIER=hundertfuesser)
 		"CENTIPEDES": [["centipede", "giant_centipede", Vector2i(0, 0)]],
+		# 494 (von Tom, 492: Krogg bewacht in der Höhle den rostigen Schlüssel): Krogg allein wie im alten Spiel (Packs.kt ohne Rudel für
+		# bugbear), seine Regeln aus Monsters.kt (tabellen.json, Überraschungsschlag), Morwens Rauch in MARS (lage „rauch“)
+		"KROGG": [["krogg", "bugbear", Vector2i(0, 0)]],
 	}.get(foe, [])
 	Figur.ersatz_art = {"RATS": "giant_rat", "BATS": "giant_bat", "SHAMANS": Figur.SHAMAN, "KOBOLDS": Figur.KOBOLD, "BOARS": "kauf_keiler", "CENTIPEDES": "kauf_hundertfuesser"}.get(foe, "")
 	# 348.12f eingebaut (Chef 28.10., 11:50: Kaufwolf abgenommen, Archiv 27.10., 21:51: „eigener entfällt“): Wölfe sind der gekaufte
@@ -157,7 +160,8 @@ static func _waffe(h, w, nebenhand := false) -> Dictionary:
 ## ebenso oder null, [ort] Kampfort (heute nur „wald“), [tageszeit] „tag“, „abend“ oder „nacht“, [traenke] Heiltränke im Gepäck.
 ## false: kein Kampf (Held ohne LP); ende kommt dann gleich mit „NONE“
 ## [lage]: wie der Held aus der Welt kommt, {"atemlos": bool, "satt": bool, "eroeffnung": "NORMAL" | "AMBUSHED" | "HERO_FIRST",
-## "blende": die schwarze Blende vor dem Kampf, 402} (399.2)
+## "blende": die schwarze Blende vor dem Kampf, 402; "rauch": Morwens Rauchbündel im Gepäck, gegen Krogg, 494; übrig danach
+## kampf.mars.smoke} (399.2)
 func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := "tag", traenke := 2, held_tp := -1, soeldner_tp := -1, seed := -1, beute := Callable(), lage := {}) -> bool:
 	tabellen = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
 	var dice = Wuerfel.new(null if seed < 0 else seed + 1)
@@ -179,7 +183,7 @@ func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := 
 	kampf.ort = ort
 	# Erfahrung für den Lohn: der Held bringt seine mit, ein Blatt steht am Anfang seiner Stufe (wie die Probe, 296.2)
 	var xp: int = int(tabellen.xpForLevel[int(held.level)]) if held is Dictionary else int(held.ep)
-	if not kampf.setup(party, foes, tabellen, {"potion": traenke}, _fertig, seed, {"xp": xp, "beute": beute, "atemlos": bool(lage.get("atemlos", false)), "satt": bool(lage.get("satt", false)), "eroeffnung": String(lage.get("eroeffnung", "NORMAL")), "blende": bool(lage.get("blende", false))}):
+	if not kampf.setup(party, foes, tabellen, {"potion": traenke}, _fertig, seed, {"xp": xp, "beute": beute, "atemlos": bool(lage.get("atemlos", false)), "satt": bool(lage.get("satt", false)), "eroeffnung": String(lage.get("eroeffnung", "NORMAL")), "blende": bool(lage.get("blende", false)), "rauch": int(lage.get("rauch", 0))}):
 		kampf.free()
 		kampf = null
 		_fertig.call_deferred("NONE")

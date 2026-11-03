@@ -110,6 +110,7 @@ func setup(party: Array, foes: Array, p_tables: Dictionary, potions: Dictionary,
 	# NORMAL, AMBUSHED Gegner zuerst, HERO_FIRST Held zuerst)
 	mars = Mars.new(party, foes, tables, dice, words, lang, bool(p_progress.get("atemlos", false)), String(p_progress.get("eroeffnung", "NORMAL")))
 	mars.fed = bool(p_progress.get("satt", false))
+	mars.smoke = int(p_progress.get("rauch", 0))     # D4.1, 494: Morwens Rauchbündel gegen Krogg (aufruf.gd lage „rauch“)
 	for k in potions:
 		mars.potions[k] = int(potions[k])
 	mars.listener = func(e): _post({"say": e})

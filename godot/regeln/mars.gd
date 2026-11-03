@@ -246,6 +246,14 @@ var srd_attacks := true
 ## 296.2: the statuses of the old fight (off for the replays of the Kotlin MARS on main, which has none).
 var statuses := true
 var potions := {}
+## D4.1, 494: Morwens Rauchbündel im Gepäck (Kampfort setup „rauch“); wie Battle.smokeBundle fliegt eins, sobald Krogg auftaucht,
+## ohne den Zug des Helden, und sein erster Schlag geht fehl (mit ihm der Überraschungsschlag); nach dem Kampf: was übrig ist
+var smoke := 0
+var smoke_thrown := false
+var smoke_spent := false
+const KROGG := "bugbear"
+const THROWS := ["{0} wirft {1}!", "{0} throws {1}!"]     # Battle.kt Msg.throws
+const SMOKE_BUNDLE := ["Rauchbündel", "Smoke Bundle"]     # Items.kt smoke_bundle
 var aim_spot := {}
 var retargeted := {}
 var chosen := false
@@ -661,8 +669,22 @@ func _opening() -> void:
 		_say(fmt(X.MSG72_WINDED, lang, [lead().name(lang)]))
 	if fed:
 		_say(fmt(MSG399_FED, lang, [lead().name(lang)]))
+	_smoke_bundle()
 	for foe in intents.keys():
 		_say_announce(by_id(foe))
+
+
+## D4.1 (Battle.smokeBundle): the hero throws Morwen's smoke bundle as soon as Krogg shows up, by itself, before an ambush too.
+func _smoke_bundle() -> void:
+	if smoke <= 0 or not foes_of_kind(KROGG):
+		return
+	smoke -= 1
+	smoke_thrown = true
+	_say(fmt(THROWS, lang, [lead().name(lang), SMOKE_BUNDLE[lang]]), lead().id, foes_of_kind(KROGG)[0].id, 0, null, false, false, "THROW")
+
+
+func foes_of_kind(id: String) -> Array:
+	return fighters().filter(func(f): return f.side == "FOES" and f.monster != null and str(f.monster.id) == id)
 
 
 ## 259: plays a light fight through in one go. Returns {lost, stopped, events}.
@@ -1269,6 +1291,12 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 	var atk: int = int(m.atk) - _penalty(foe)
 	var success := not (r == 1 or (r != 20 and r + atk < t.ac()))
 	var info := ["ATTACK", r, atk, t.ac(), success, mode, cover and from_back(foe)]
+	if str(m.id) == KROGG and smoke_thrown and not smoke_spent:
+		# D4.1: der Rauch brennt in den Augen, der erste Schlag geht fehl, mit ihm der Überraschungsschlag (Battle.enemyAttack)
+		smoke_spent = true
+		foe.has_hit = true
+		success = false
+		info[4] = false
 	if intent.effect == "POUNCE":
 		_leap_forward(foe)
 	if re == PERFECT:
