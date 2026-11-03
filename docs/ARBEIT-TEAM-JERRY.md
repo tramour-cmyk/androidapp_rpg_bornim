@@ -4,14 +4,14 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
-**Übergabe (04.11., 00:1x):** 415 Build 250 (Strahlenprobe mit „Ohne Strahl“, `claude/jerry-415-ohne-strahl`); gebaut für den nächsten Build: 527, 532, 544 (je eigener Zweig von `claude/build-490`); 532a beim Chef; 545 Test ohne Befund. Nachfolger: Jerry – 545: Testknöpfe in der Welt nachstellen.
+**Übergabe (04.11., 00:1x):** 415 Build 250 (Strahlenprobe mit „Ohne Strahl“, `claude/jerry-415-ohne-strahl`); gebaut für den nächsten Build: 527, 532, 544 (je eigener Zweig von `claude/build-490`); 532a beim Chef; 545 Test ohne Befund. Nachfolger: Jerry – 545/548: Testknöpfe und Rattenkampf in der Welt nachstellen.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 527 | M | **von Sokrates (512, Abgleich Build 249 im Code; Zu 527):** System: Schalter „Tempo“ und „Kampftext“ wirken im Kampf nicht; anschließen oder ausblenden, bis sie wirken | gebaut: Tempo über Engine.time_scale, Kampftext ausgeblendet (wirkte alt nur klassisch), fährt im nächsten Build (claude/jerry-527-tempo-kampftext); Geprüft an: 6a1e5eab8 (tempo_527, menue_test) | – |
-| 548 | M | **von Sokrates (Chef 04.11., 00:03, Build 249, Bild; Zu 548):** „Gegen Ratten gespielt. Die starben ohne mein Zutun alle drei?!? Habe nicht einen Knopf gedrückt …“ | startbar | – |
+| 548 | M | **von Sokrates (Chef 04.11., 00:03, Build 249, Bild; Zu 548):** „Gegen Ratten gespielt. Die starben ohne mein Zutun alle drei?!? Habe nicht einen Knopf gedrückt …“ | startbar: braucht die Welt mit Daten (Kartenratten), am Rechner ohne Welt nicht nachstellbar; mit 545 zusammen (Zu 548) | – |
 | 545 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS-Probekampf: Testknöpfe „Gegner besiegen“ (✓) und „Held fällt“ (✗) ohne Funktion | startbar: am Rechner ohne Welt nicht nachgestellt (beide Wege wirken, testende_545); in der Welt mit Daten nachstellen (Zu 545); claude/jerry-545-testknoepfe | – |
 | 546 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS: Wölfe weichen viel zu träge aus („wie Schlaftabletten“) | startbar | – |
 | 547 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS: Text sagt „geht in die Knie“, Sturz ist aus (438a eingefroren): Text und Bild in Einklang bringen | startbar | – |
@@ -85,7 +85,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 ## Einzelheiten
 
-- **Zu 548, von Sokrates:** Bild: Magier Alrik mit Langschwert und Schild allein im Wald, keine Ratte zu sehen; Bericht „Riesenratte 1 sackt winselnd zusammen. Riesenratte 2 fällt. Riesenratte 3 sackt winselnd zusammen.“; Sieg, 80 EP, 6 Gold, Rohes Fleisch; TP 6/19. Möglich, nicht geprüft: „Held selbst“ (Automatik) blieb aus dem Probekampf an; verspätete Wirkung des Testknopfs ✓ (545); Ratten als Wölfe mit Wolfstexten (535). Erst nachstellen. Ratten auch unsichtbar? **Chef 00:05:** „Ich konnte nicht einstellen, da die Ratten angriffen und dann eine nach der anderen tot umfiel …“ Also kein Zug des Spielers, keine Knöpfe; Kampf läuft von selbst bis zum Sieg.
+- **Zu 548, von Sokrates:** Bild: Magier Alrik mit Langschwert und Schild allein im Wald, keine Ratte zu sehen; Bericht „Riesenratte 1 sackt winselnd zusammen. Riesenratte 2 fällt. Riesenratte 3 sackt winselnd zusammen.“; Sieg, 80 EP, 6 Gold, Rohes Fleisch; TP 6/19. Möglich, nicht geprüft: „Held selbst“ (Automatik) blieb aus dem Probekampf an; verspätete Wirkung des Testknopfs ✓ (545); Ratten als Wölfe mit Wolfstexten (535). Erst nachstellen. Ratten auch unsichtbar? **Chef 00:05:** „Ich konnte nicht einstellen, da die Ratten angriffen und dann eine nach der anderen tot umfiel …“ Also kein Zug des Spielers, keine Knöpfe; Kampf läuft von selbst bis zum Sieg. **Jerry:** diese Zeilen schreibt auch `test_end(true)` (545).
 - **Zu 545–547, von Sokrates:** Chef 04.11., 00:01: „MARS: Animation niedersinken oder umfallen oder in die Knie gehen kommt trotz Text nicht. Wölfe weichen aus wie Schlaftabletten. Helden wehren immer gleich ab.... Button Gegner killen oder Suicide ohne Funktion“ „Helden wehren immer gleich ab“ gehört zu 406.2 (Parade je Richtung, laut t249 später). Zu 547: entweder Sturz zeigen oder bis dahin Text ohne „in die Knie“; Text über Homer.
 - **Zu 545 (Jerry 00:0x):** `tests/testende_545.gd` (Hochformat, Finger und Maus, über `probe.gd` und `aufruf.gd` mit Blende): Haken und Kreuz wirken am Rechner. Nächster Schritt: in `spiel.tscn` mit allen Daten über „Test“ → „MARS-Probekampf“, `gui_get_hovered_control()` an `win_rect`.
 - **Zu 544 (Jerry 23:57):** `kampf_ui.gd` las die rohe .ttf (`load_dynamic_font`), im APK steht nur die importierte .fontdata (`include_filter`); nachgestellt ohne rohe Datei: leere Schrift ohne Namen. Jetzt `load()`.
@@ -104,7 +104,6 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 - **Zu 416.6 (Chef 09:21, nach „416.6 passt“ für Blut):** Fußspuren bei Regen, Staub beim Laufen wie in Kotlin; Wortlaut a091e0433. Staub gebaut; Läufe 226, 231: Held ging (416.4).
 - **Zu 494 (Perikles, Chef 07:54):** Gegner: Wildschwein, Riesenspinne, Hundertfüßer, Stirge, Ockergallerte, Krogg (Untote 506); Ratten, Fledermäuse eigene Figur. **Fertig** alle außer Fledermaus (Einzelheiten in den Commits auf `claude/jerry-494-gegner`, zuletzt 458867c5f; Säureschnecke: `figur.gd` spielt Umsehen, Drohen noch nicht; Ratte, Fledermaus, Spinne auf der Karte erst mit Toms `Streuner.GRUPPE`); **offen:** Wahl der Fledermaus (510); alle Bilder ungeprüft (511).
 - **Zu 494 (Chef 10:26):** Kartenratte = Kaufratte; geprüft (Jerry 19:0x, Code): `aufruf.gegner()` setzt `Figur.ersatz_art` bei jedem Kampfbeginn neu, je Kampf nur eine Art; Wolf und Ratte behalten je ihr Modell.
-- **Zu 494 Riesenspinne und Krogg:** Einzelheiten in den Commits 0ce902a40, 6a155992b (Netzwurf), 7498a04f0 (Weg, Größe, Balken), 0984f92ea (Krogg, `krogg_gestalt.py`); Bilder ungeprüft (511).
 - **Zu 494, von Sokrates (15:4x):** Kauf 348.12c: nur Fehlendes selbst bauen. `bornim-kaufmodelle/LIZENZ.md` nachgetragen (Jerry 18:01, 3353173; Bär steht unter Janpec). Chef 03.11., 18:00: „Hiermit erteile ich dir alle Rechte, die du brauchst, damit du vernünftig arbeiten kannst. Auch mögliche Schreibrechte in der Kaufmodellrepo.“ Push dorthin geht (`add_repo` mit Schreibzugang).
 - **Zu 494, von Sokrates (Chef 16:08, zu 491):** Grimmzahn „sieht … nicht aus wie unsere Wölfe aus dem Kampf“: auf den Kaufwolf (eigenes Fell, 1,75, glühende Augen). Gebaut 11e6c4167 (`kaufwolf.py ART=dire_wolf`; ohne Narbe, Ohr; ungeprüft, 511).
 - **Zu 510 (aus 494, „ein Lauf“; Wortlaut a091e0433):** OGA-Fledermaus in unseren Fellen neben der eigenen, Chef wählt; nur vorhandene Bewegungen, kurzer Film (`gegner=FLEDERMAUS`). Lauf 243 ohne Film: Runner abgeschaltet.
