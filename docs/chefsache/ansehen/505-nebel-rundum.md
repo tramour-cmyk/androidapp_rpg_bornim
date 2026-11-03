@@ -4,11 +4,11 @@ W Welt
 Kurz: Sicht rundum (Chef 10:08 „505 C“), Kanten weich, Lauf 1 von 2 nach dem Urteil
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41613223081 (Lauf 1, Commit 697fbe7a5)
 
-![Rundum: frisch am Teich, nach dem Weg, nachts](../bilder/505-rundum.jpg)
+![Rundum: frisch an Garricks Feuer, nach dem Weg (Teich oben links), nachts](../bilder/505-rundum.jpg)
 
 Großbild: Telegram 03.11. 11:24
 
-**Zu sehen:** Der Held sieht jetzt rundum gleich weit (Reichweite wie gebaut, Urteil am Gerät). Bild 1 dieselbe Stelle wie die Formen beim letzten Mal, frisch betreten; Bild 2 nach dem Weg nach Norden (der Weg hinter ihm bleibt gedämpft); Bild 3 nachts. Behoben aus dem letzten Befund: die Nebelkanten folgten den Feldern als Zickzack, jetzt weicher; die Umrisslinie am Teichufer lag über dem schwarzen Nebel, jetzt darunter. Neu, noch ohne Bild (getestet): die Karte im Menü zeigt im Wald nur, was der Held schon gesehen hat, der Rest bleibt leeres Pergament wie im alten Spiel. Höhle folgt mit der Blutzahnhöhle.
+**Zu sehen:** Der Held sieht jetzt rundum gleich weit (Reichweite wie gebaut, Urteil am Gerät). Bild 1 dieselbe Stelle wie die Formen beim letzten Mal (an Garricks Feuer), frisch betreten; Bild 2 nach dem Weg nach Norden, oben links der Teich (der Weg hinter ihm bleibt gedämpft); Bild 3 nachts. Behoben aus dem letzten Befund: die Nebelkanten folgten den Feldern als Zickzack, jetzt weicher; die Umrisslinie am Teichufer lag über dem schwarzen Nebel, jetzt darunter. Neu, noch ohne Bild (getestet): die Karte im Menü zeigt im Wald nur, was der Held schon gesehen hat, der Rest bleibt leeres Pergament wie im alten Spiel. Höhle folgt mit der Blutzahnhöhle.
 
 **Prüfer (03.11., 11:23), Fehler aus den Bildern:** Held überall ganz und klar, rundum frei; kein Zickzack mehr, die Übergänge breiter und weicher; keine Uferlinie im Nebel.
 - Der Teich ist innen schwarz, sein Rand ringsum hell, auch auf der abgewandten Seite; nachts ist der Rand das Hellste im Bild.
