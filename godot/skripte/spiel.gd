@@ -455,12 +455,13 @@ func tageszeit() -> String:   # Kampfort.tageszeit: tag, abend, nacht
 func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeffnung := "") -> String:
 	var hw := held_werte() if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
 	var soeldner = null if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
-	var erg := {"ende": "", "tp": {}, "lohn": {}, "rest": zustand.anzahl("potion")}
+	var erg := {"ende": "", "tp": {}, "lohn": {}, "rest": zustand.anzahl("potion"), "rauch": zustand.anzahl("smoke_bundle")}
 	var aufruf := AufrufS.new()
 	add_child(aufruf)
 	aufruf.ende.connect(func(o, tp, lohn):
 		erg["tp"] = tp; erg["lohn"] = lohn
 		if aufruf.kampf and aufruf.kampf.mars: erg["rest"] = int(aufruf.kampf.mars.potions.get("potion", 0))
+		if aufruf.kampf and aufruf.kampf.mars and "smoke" in aufruf.kampf.mars: erg["rauch"] = int(aufruf.kampf.mars.smoke)   # 494 (Jerry): Morwens Rauch, übrig
 		erg["ende"] = String(o))
 	held.halt(); held.richtung = Vector3.ZERO
 	# die Welt ruht unsichtbar; Kamera und Umgebung des Kampforts gelten (sonst zeichnet unsere Kamera, unsere Umgebung zuerst)
@@ -480,6 +481,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	if Testmodus.ist_an(): lage["eroeffnung"] = Testmodus.eroeffnung   # 399.2 (Jerry): Eröffnung aus dem Reiter Test
 	if eroeffnung != "": lage["eroeffnung"] = eroeffnung   # 490: Ueberfall, Held zuerst (Opening) vom Monster auf der Karte
 	lage["blende"] = true   # 402 (Jerry): die Blende vor dem Kampf wie alt, auch im Probekampf
+	if probe.is_empty(): lage["rauch"] = zustand.anzahl("smoke_bundle")   # 494 (Jerry): Morwens Rauchbündel gegen Krogg
 	var ort := "hoehle" if String(karte.daten.get("art", "")) == "CAVE" else "wald"   # 492: Kampforte der Hoehle (507, Jerry)
 	var gestartet: bool = aufruf.starte(gegner, hw, soeldner, ort, tageszeit(), zustand.anzahl("potion") if probe.is_empty() else 2, -1, -1, -1, beute, lage)
 	if probe.is_empty(): zustand.satt = false   # 399.1: Battle.wellFed endet mit dem Kampfbeginn (der Kampfort gibt +1, 399.2)
@@ -496,6 +498,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	kamera.make_current()
 	visible = true; ui.visible = true
 	if probe.is_empty() and int(erg["rest"]) < zustand.anzahl("potion"): zustand.weg("potion", zustand.anzahl("potion") - int(erg["rest"]))   # getrunken
+	if probe.is_empty() and int(erg["rauch"]) < zustand.anzahl("smoke_bundle"): zustand.weg("smoke_bundle", zustand.anzahl("smoke_bundle") - int(erg["rauch"]))   # 494: geworfen
 	var lohn: Dictionary = erg["lohn"]
 	var ende := [String(erg["ende"])]
 	klang("nach_kampf", [ende[0] == "WON", karte])   # 399.3 (Jerry): Sieg mit sieg_, sonst Ortsmusik nach 10 s

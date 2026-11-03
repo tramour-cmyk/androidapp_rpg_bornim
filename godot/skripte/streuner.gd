@@ -19,7 +19,7 @@ const LAUERER := ["giant_spider", "giant_bat", "ochre_jelly"]
 ## Kampfgruppe (kampf/aufruf.gd gegner) je Monster der Karte; Jerry ergaenzt mit 494
 static var GRUPPE := {"wolf": "RUDEL", "giant_rat": "RATS", "goblin": "GOBLINS", "goblin_archer": "SCOUTS", "kobold": "KOBOLDS",
 	"goblin_shaman": "SHAMANS", "giant_bat": "BATS", "giant_spider": "SPIDER", "dire_wolf": "GRIMM",
-	"hobgoblin_captain": "GRAK"}   # 492: Grak in seiner Halle (fight("hobgoblin_captain"), aufruf.gd GRAK); Krogg (bugbear) kommt mit 494   # 491: Grimmzahn mit Leibwache (Packs.guard)
+	"hobgoblin_captain": "GRAK", "bugbear": "KROGG"}   # 492: Grak in seiner Halle (fight("hobgoblin_captain")), Krogg (fight("bugbear")); aufruf.gd GRAK, KROGG (494 Jerry)   # 491: Grimmzahn mit Leibwache (Packs.guard)
 const PACE := 1.6                 # Terrain.PACE
 const FLED_CALM_MS := 12000       # Game.FLED_CALM_MS
 const WIEDER_SCHRITTE := 60       # endBattle: kommt nach einem guten Weg wieder
