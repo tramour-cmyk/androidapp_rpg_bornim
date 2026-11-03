@@ -142,6 +142,10 @@ func stelle(jetzt: int) -> void:
 	var da := {}
 	if Spuren.draft:
 		for m in spuren.on(karte_id, jetzt):
+			if m.kind == Spuren.PRINT:
+				da[m] = true
+				_tritt(m, jetzt)
+				continue
 			if m.kind != Spuren.BLOOD: continue
 			da[m] = true
 			if not _netze.has(m): _netze[m] = _lache(m)
@@ -158,7 +162,55 @@ func stelle(jetzt: int) -> void:
 			_netze.erase(m)
 
 func anzahl() -> int:
-	return _netze.size()
+	return _netze.values().filter(func(n): return n.has_meta("lache")).size()
+
+func tritte() -> int:
+	return _netze.values().filter(func(n): return n.has_meta("tritt")).size()
+
+## 416.6 Fußspuren (Tracks.walked PRINT; WorldScreen.drawTracks): im nassen weichen Boden dunkel eingedrückt, von schlammigen Stiefeln
+## blass auf Stein und Dielen; Sohle vorn, Absatz hinten, in Gehrichtung; Deckung 0,7, am Ende verblassend. Größe eines Stiefels
+## (0,3 m), Form wie alt (Sohle 3,4 × 5, Absatz 3 × 2,6 Punkte, 4,3 Punkte auseinander)
+const TRITT_NASS := Color(0x231810FF)
+const TRITT_BLASS := Color(0x9A8262FF)
+const TRITT_M := Vector2(0.2, 0.3)
+static var _tritt_bild: ImageTexture = null
+
+func _tritt(m, jetzt: int) -> void:
+	if not _netze.has(m):
+		if _tritt_bild == null:
+			_tritt_bild = ImageTexture.create_from_image(tritt_bild())
+		var mi := MeshInstance3D.new()
+		var pm := PlaneMesh.new()
+		pm.size = TRITT_M
+		mi.mesh = pm
+		mi.position = Vector3(m.x * Karte.TS, HOEHE * 0.9, m.y * Karte.TS)
+		mi.rotation.y = deg_to_rad(m.yaw)     # Gehrichtung wie held.rotation.y (Sohle nach +z)
+		mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		var mat := StandardMaterial3D.new()
+		mat.albedo_texture = _tritt_bild
+		mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		mat.roughness = 0.9
+		mi.material_override = mat
+		mi.set_meta("tritt", true)
+		add_child(mi)
+		_netze[m] = mi
+	var f := TRITT_NASS if m.strength >= 1.0 else TRITT_BLASS
+	f.a = 0.7 * m.alpha(jetzt)
+	(_netze[m].material_override as StandardMaterial3D).albedo_color = f
+	_netze[m].visible = f.a > 0.01
+
+## das Bild eines Stiefels: weiß, Deckung aus Sohle und Absatz (Farbe aus dem Stoff); Zeile wächst zur Spitze (+z)
+static func tritt_bild() -> Image:
+	var w := 32
+	var h := 48
+	var img := Image.create(w, h, false, Image.FORMAT_RGBA8)
+	img.fill(Color(1, 1, 1, 0))
+	var s := float(h) / 13.6     # Bildpunkte je alter Punkt: Absatz −5,4 bis Sohle +6,5, mit Rand
+	var mitte := Vector2(w * 0.5, h * 0.5 - 0.6 * s)
+	_oval(img, mitte + Vector2(0, 1.5 * s), 3.4 * s * 0.5, 5.0 * s * 0.5)
+	_oval(img, mitte + Vector2(0, -2.8 * s), 3.0 * s * 0.5, 2.6 * s * 0.5)
+	img.generate_mipmaps()
+	return img
 
 func _lache(m) -> MeshInstance3D:
 	var mi := MeshInstance3D.new()
@@ -173,6 +225,7 @@ func _lache(m) -> MeshInstance3D:
 	mat.roughness = 0.35   # feucht glänzend; Licht und Nacht wie der Boden
 	mat.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	mi.material_override = mat
+	mi.set_meta("lache", true)
 	add_child(mi)
 	return mi
 

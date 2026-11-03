@@ -88,6 +88,30 @@ func _lauf() -> void:
 		sp.walked("forest", 9.0, 2.0 + i * 0.3, 0.0, "GRASS", true, true, 30000 + i * 80)
 	b.staub(30000 + 11 * 80)
 	pruefe(b.staub_anzahl() == 0, "gehend auf dem Weg und rennend auf Gras kein Staub: %d" % b.staub_anzahl())
+	# Fußspuren (Tracks.walked PRINT): trocken keine; nach Regen im weichen Boden dunkel, danach auf Stein noch blass
+	for i in 12:
+		sp.walked("forest", 12.0, 2.0 + i * 0.3, 0.0, "GRASS", true, false, 40000 + i * 80)
+	b.stelle(40000 + 11 * 80)
+	pruefe(b.tritte() == 0, "trocken keine Fußspuren: %d" % b.tritte())
+	sp.settle(1.0)
+	for i in 12:
+		sp.walked("forest", 14.0, 2.0 + i * 0.3, 0.0, "GRASS", true, false, 50000 + i * 80)
+	b.stelle(50000 + 11 * 80)
+	var nass := b.tritte()
+	pruefe(nass >= 6 and nass <= 10, "nach Regen auf Gras je Schritt eine Fußspur: %d" % nass)
+	var t0: MeshInstance3D = null
+	for c in b.get_children():
+		if c.has_meta("tritt"): t0 = c
+	if t0 != null:
+		var ft := (t0.material_override as StandardMaterial3D).albedo_color
+		pruefe(ft.r < 0.2 and absf(ft.a - 0.7) < 0.01, "nass dunkel, Deckung 0,7: %s" % ft)
+	sp.settle(0.0)
+	for i in 12:
+		sp.walked("forest", 14.0, 6.0 + i * 0.3, 0.0, "COBBLE", true, false, 51000 + i * 80)
+	b.stelle(51000 + 11 * 80)
+	pruefe(b.tritte() > nass, "mit Schlamm an den Stiefeln noch blasse auf Stein: %d" % (b.tritte() - nass))
+	var tb := Blutspur.tritt_bild()
+	pruefe(tb.get_pixel(16, 34).a > 0.9 and tb.get_pixel(16, 12).a > 0.9 and tb.get_pixel(1, 1).a == 0.0, "Stiefel: Sohle und Absatz decken, Ecke leer")
 	# ohne Prüfschalter keine
 	Spuren.draft = false
 	Blutspur.blut("forest", Vector2i(1, 1), 5, 5000)
