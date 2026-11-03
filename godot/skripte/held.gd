@@ -443,6 +443,16 @@ func baue_fackel() -> void:
 	var t := Node3D.new()
 	t.name = "Fackel"
 	ba.add_child(t)
+	var teile := Held.fackelkopf(t)
+	flamme = teile[0]
+	fackel = teile[1]
+	fackel.set_meta("reich", 4.0)   # 348.13b: Tusche nach der Fackel (am Tag unsichtbar, zaehlt dann nicht)
+	fackel.set_meta("kraft", 1.0)
+	fackel.add_to_group("tuschelicht")
+	nacht(0.0)
+
+# 531: Stiel, Pechkopf, Flamme und Licht einer Fackel an t (Stiel laengs +Y); auch fuer Garricks Abwehr (abwehr.gd). [Flamme, Licht]
+static func fackelkopf(t: Node3D) -> Array:
 	var stiel := MeshInstance3D.new()
 	var cm := CylinderMesh.new()
 	cm.top_radius = 0.022; cm.bottom_radius = 0.016; cm.height = 0.42
@@ -467,7 +477,7 @@ func baue_fackel() -> void:
 	t.add_child(glut)
 	# Helfer: Flamme „wie Papier“ (ein blassgelber Kegel, flackert kaum): aussen orange, innen hell, beide flackern verschieden
 	# Runde 5 (Helfer Runde 3: noch mattes Dreieck mit schwarzer Kontur): additiv leuchtend ohne Tusche (flamme.gdshader), mit Schein
-	flamme = MeshInstance3D.new()
+	var flamme := MeshInstance3D.new()
 	flamme.position = Vector3(0, 0.36, 0)
 	t.add_child(flamme)
 	var fl: Shader = load("res://shader/flamme.gdshader")
@@ -499,17 +509,14 @@ func baue_fackel() -> void:
 		kegel.material_override = m
 		kegel.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		flamme.add_child(kegel)
-	fackel = OmniLight3D.new()
+	var fackel := OmniLight3D.new()
 	fackel.position = Vector3(0, 0.45, 0)
 	fackel.light_color = Color(1.0, 0.72, 0.38)
 	fackel.omni_range = 8.0
 	fackel.omni_attenuation = 2.0
 	fackel.light_cull_mask = 0xFFFFF & ~2
 	t.add_child(fackel)
-	fackel.set_meta("reich", 4.0)   # 348.13b: Tusche nach der Fackel (am Tag unsichtbar, zaehlt dann nicht)
-	fackel.set_meta("kraft", 1.0)
-	fackel.add_to_group("tuschelicht")
-	nacht(0.0)
+	return [flamme, fackel]
 
 func richte_fackel() -> void:
 	# Fackel in der linken Faust (Bewegungen _Fackel: Arm vor der Schulter), halb aufgerichtet, folgt der Faust
