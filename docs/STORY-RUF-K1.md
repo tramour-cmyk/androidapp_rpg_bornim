@@ -40,7 +40,7 @@ Entwurf Homer, 01.11.; Vorgang 447.4, Abnahmeliste 3.2 (Meisterschaften; Ablauf 
 
 ### Für Tom
 
-- Ruf in Kapitel 1 kommt aus den fünf Nebenquests vom Anschlagbrett (Thessa, Gwenna, Borin, Morwen, Jorin). Die gibt es bisher nur in der alten Fassung (`Jobs.kt`); ohne ihren Umzug (2.11) gibt es in Kapitel 1 keinen Ruf. Aldric und Osric danken am Kapitelende; ihre Ruf-Zeilen folgen mit Kapitel 2.
+- Ruf in Kapitel 1 kommt aus den fünf Nebenquests vom Anschlagbrett (Thessa, Gwenna, Borin, Morwen, Jorin). Das Anschlagbrett mit allen fünf steht in Godot (399.1, `godot/skripte/auftraege.gd`), abschließbar ist bisher nur Thessa (Diogenes 02.11.: Ring, Wildschwein, Krogg, Fetzen fehlen); Ruf selbst (Wert, Stufen, Preis) und Borins Reparatur (3.5) fehlen noch. Ruf-Gespräche wiederholen sich: `…gruss` in drei Wortlauten (504), vor dem Bau. Aldric und Osric danken am Kapitelende; ihre Ruf-Zeilen folgen mit Kapitel 2.
 - Stufe je Person aus der Datendatei (2.10). Ab der zweiten Stufe ersetzt `…gruss` die erste Zeile der üblichen Begrüßung; `…auskunft` einmal, solange ihre Bedingung gilt; `…preis` beim Öffnen des Ladens oder der Reparatur.
 - `{name}` Held, `{person}` Name aus `geschichte.gd`.
 

@@ -52,7 +52,7 @@ In Graks Halle fand {name} Schwester Lyra, Priesterin des Morgenlichts. Sie soll
 
 `[64d.grimmzahn]` (Leitwolf Grimmzahn besiegt)
 **Grimmzahn**
-Tief im Flüsterwald warnte die Kräuterfrau Morwen vor Grimmzahn, einem Leitwolf, groß wie ein Pony. {name} stellte ihn im Norden des Tiefen Waldes. Seitdem ist es dort ruhiger.
+Im Tiefen Flüsterwald warnte die Kräuterfrau Morwen vor Grimmzahn, einem Leitwolf, groß wie ein Pony. {name} stellte ihn im Norden des Tiefen Flüsterwalds. Seitdem ist es dort ruhiger.
 
 `[64d.auge]` (Fund am Steinkreis)
 **Das offene Auge**
