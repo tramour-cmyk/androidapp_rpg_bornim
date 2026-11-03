@@ -24,7 +24,7 @@ Nichts offen.
 |---|---|---|---|
 | [490](ansehen/490-fluesterwald.md) | Flüsterwald begehbar wie alt: Standbilder aus Sicht des Helden | – | 03.11., 08:58 |
 | [491](ansehen/491-tiefer-wald.md) | Tiefer Flüsterwald begehbar wie alt: Standbilder aus Sicht des Helden | – | 03.11., 10:05 |
-| [493](ansehen/493-kampforte-wald.md) | Kampforte im Wald wie alt: Lichtung, Waldrand, Teich, Baum, Felsen, Steinkreis | – | 03.11., 10:30 |
+| [493](ansehen/493-kampforte-wald.md) | Kampforte im Wald wie alt: Lichtung, Waldrand, Teich, Baum, Felsen, Steinkreis | – | 03.11., 10:37 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -64,7 +64,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 495 | M | von Perikles (Wochenziel 03.11. Reihe 4, 488): Zufallsspieler spielt Kapitel 1 in Godot bi | Termin 04.11. |
 | 491 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Tiefer Flüsterwald begehbar w | Chef |
 | 505 | M | von Perikles (Archiv 502, Chef 03.11., 07:30, Zu 502 in ARBEIT-PROJEKT): Nebel des Krieges | in Arbeit bei Spike |
-| 493 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; Spike, von Jerry übernommen, Chef 07:54): Ka | in Arbeit bei Spike |
+| 493 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; Spike, von Jerry übernommen, Chef 07:54): Ka | Chef |
 | 506 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; Spike, aus 494): Untote im Kampf: Skelett, Z | in Arbeit bei Spike |
 | 492 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; Tom, von Jerry übernommen, Chef 07:54): Blut | startbar |
 | 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | wartet auf Sokrates |
