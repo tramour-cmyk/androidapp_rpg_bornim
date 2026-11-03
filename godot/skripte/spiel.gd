@@ -1690,12 +1690,14 @@ func raeume_bilder() -> void:
 		ui.textfeld.visible = false   # Gruss beim Eintreten und Tipps: nicht ueber dem Raum
 		ui.textfeld.visible = false   # Lauf 1: der Gruss kam nach dem Ausblenden wieder (Textkasten unten im Bild)
 		await knips(dir + "/%s_tag.png" % r[0])
+		kamin_lage(r[0] + "_tag")
 		if "--kerzenprobe" in OS.get_cmdline_user_args(): await kerzen_probe(dir, r[0] + "_tag")
 		licht.ziel = 1.0
 		licht.stelle(1.0)
 		await get_tree().create_timer(1.0).timeout
 		ui.textfeld.visible = false
 		await knips(dir + "/%s_nacht.png" % r[0])
+		kamin_lage(r[0] + "_nacht")
 		if "--kerzenprobe" in OS.get_cmdline_user_args(): await kerzen_probe(dir, r[0] + "_nacht")
 		for v in stufen:   # Probe: Umgebung nachts in Stufen „Umgebung[:Kontrast[:Mondfaktor]]“, ein Lauf fuer mehrere Messungen
 			var t := String(v).split(":")
@@ -1715,6 +1717,15 @@ func raeume_bilder() -> void:
 		kamera.nach_norden()
 		await get_tree().create_timer(2.5).timeout
 	get_tree().quit()
+
+# 501: wo im Bild der Kamin brennt (Fuss der Flamme), damit das Bild fuer den Chef darum ausgeschnitten wird (ohne Ansehen)
+func kamin_lage(name: String) -> void:
+	var cam := kamera.get_viewport().get_camera_3d()
+	for f in gebiet.raumlicht.flammen:
+		var kern: Node3D = f[0]
+		if kern.global_basis.get_scale().y < 1.0 or not kern.is_visible_in_tree(): continue
+		var q := cam.unproject_position(kern.global_position)
+		print("KAMIN %s %d %d" % [name, q.x, q.y])
 
 # 399.5 Lichtinseln (Pruefer Lauf 6: keine um die Tischkerzen): dasselbe Bild ohne Kerzenlicht und die Kerzen am Schirm, damit
 # raeume_blatt.py den Anteil der Kerzen am Boden misst (ohne Ansehen)
