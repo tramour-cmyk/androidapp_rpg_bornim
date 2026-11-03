@@ -22,6 +22,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [492](ansehen/492-hoehle.md) | Blutzahnhöhle begehbar wie alt: Standbilder aus Sicht des Helden | – | 03.11., 16:15 |
+| [513](ansehen/513-figurenstand.md) | Ein Figurenstand: Schild am Rücken, Robe des Magiers, Umhang | – | 03.11., 19:28 |
 | [514](ansehen/514-gluehwuermchen.md) | Glühwürmchen nachts wie im alten Spiel | – | 03.11., 19:10 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
