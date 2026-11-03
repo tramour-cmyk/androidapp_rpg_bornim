@@ -11,7 +11,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 527 | M | **von Sokrates (512, Abgleich Build 249 im Code; Zu 527):** System: Schalter „Tempo“ und „Kampftext“ wirken im Kampf nicht; anschließen oder ausblenden, bis sie wirken | gebaut: Tempo über Engine.time_scale, Kampftext ausgeblendet (wirkte alt nur klassisch), fährt im nächsten Build (claude/jerry-527-tempo-kampftext); Geprüft an: 6a1e5eab8 (tempo_527, menue_test) | – |
-| 545 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS-Probekampf: Testknöpfe „Gegner besiegen“ (✓) und „Held fällt“ (✗) ohne Funktion | startbar | – |
+| 545 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS-Probekampf: Testknöpfe „Gegner besiegen“ (✓) und „Held fällt“ (✗) ohne Funktion | in Arbeit bei Jerry (Zweig claude/jerry-545-testknoepfe) | – |
 | 546 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS: Wölfe weichen viel zu träge aus („wie Schlaftabletten“) | startbar | – |
 | 547 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS: Text sagt „geht in die Knie“, Sturz ist aus (438a eingefroren): Text und Bild in Einklang bringen | startbar | – |
 | 544 | M | **von Sokrates (Chef 03.11., 23:49, Build 249, Bild MARS-Probekampf: „Stimmt die Schrift?“):** Kampfschirm in Ersatzschrift ohne Serifen statt Alegreya wie Menü (Zu 544) | gebaut: load() statt roh (Ursache nachgestellt), nächster Build; Geprüft an: 510d5940b (schrift_544) | `claude/jerry-544-kampfschrift` |
