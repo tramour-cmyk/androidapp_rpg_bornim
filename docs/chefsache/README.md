@@ -197,12 +197,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 16547 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 29, Muss 26, startbar 3
+**Perikles** – offen 28, Muss 25, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 511 | M | von Sokrates (Chef 03.11., 13:50, „511 ja“, Archiv; „jetzt“ 03.11., 13:50): probelauf.py s | wartet auf Test/Build (gebaut) |
-| 506a | M | von Team Tom (Spike, 03.11., 09:5x): 506 sagt Zombie und Ghul „auf dem CC0-Menschen“, Arch | startbar |
 | 502 | M | von Sokrates (Chef 03.11., 07:28; Zu 502): Nebel des Krieges und Sichtfeld des Helden in „ | wartet auf Test/Build (gebaut) |
 | 488 | M | von Sokrates (Chef 03.11., 06:44, „488 ja“, Archiv 488; „jetzt“ 03.11., 06:44): Wochenziel | wartet auf Test/Build (gebaut) |
 | D69.1 | M | von Diogenes (Doppelpack 421, Lauf 68, 02.11., 20:0x): meldung.sh hält seit D67.1 Dateinam | wartet auf Test/Build (gebaut) |
