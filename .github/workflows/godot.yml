@@ -328,6 +328,20 @@ jobs:
           OBERFLAECHE_AUS=$GITHUB_WORKSPACE/bilder/drehteller VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -s res://tests/drehteller_499.gd 2>&1 | grep -E "SCRIPT ERROR|^BILD|FEHLER|DREHTELLER|^[A-Z]+:|^  " | cut -c1-300 | tee $GITHUB_WORKSPACE/bilder/drehteller/messung.log || true
           ls -l $GITHUB_WORKSPACE/bilder/drehteller
+      # 513 (Chef 03.11., 15:51: Magier „Knie durchschauen“, Kaempfer „Umhang durchscheint hinten … Stiefel“): was die Kamera an der fertigen
+      # Figur sieht (pruef_flecken.py, Rueckseiten 4 cm zurueck wie im Spiel), im Stehen und Gehen; WO: wo die Flecken im Stehen liegen
+      - name: Flecken Robe und Umhang (513, nur mit drehteller=ja)
+        if: ${{ !cancelled() && github.event.inputs.drehteller == 'ja' }}
+        continue-on-error: true
+        run: |
+          Z=$RUNNER_TEMP/klassen
+          [ -d $Z/roh ] || { echo "ohne Kauf keine Flecken"; exit 0; }
+          UAL=$(find ~/cc0 -name UAL1_Standard.glb | grep -i godot | head -1); [ -n "$UAL" ] || UAL=$(find ~/cc0 -name UAL1_Standard.glb | head -1)
+          for k in ROBE_M:roh_held_wizard_m:robe WACHE_M:roh_held_m:cloak; do
+            IFS=: read n r h <<< "$k"
+            GLB=$Z/held_$n.glb ROH=$Z/roh/held_$n.blend TEILE=$Z/$r/teile.json UAL=$UAL HUELLE=$h AUF=0.01 BILDER=4 RUECK=0.04 BEW=Ruhe,Idle_Loop,Walk_Loop WO=Idle_Loop timeout 1500 bl/bin/python -I tools/blender348/v3/pruef_flecken.py > $GITHUB_WORKSPACE/bilder/drehteller/flecken-$n.log 2>&1 || echo "pruef_flecken $n $?"
+            echo "== $n"; grep -E "^(FLECKEN|FEHLT|RUECK|LOCH|WO)" $GITHUB_WORKSPACE/bilder/drehteller/flecken-$n.log | cut -c1-400 | head -60
+          done
       # 348.13b Tusche nach Laterne, Fenster, Fackel: nachts je Ort mit und ohne, Kosten je Bild (Renderer wie am Handy), nur bei „348.13b“
       - name: Tusche nachts (348.13b)
         if: contains(github.event.head_commit.message, '348.13b')

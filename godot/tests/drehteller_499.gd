@@ -11,6 +11,7 @@ const GANG := {"FIGHTER": "einhand", "CLERIC": "", "ROGUE": "einhand", "WIZARD":
 const SCHILD := {"FIGHTER": true, "CLERIC": true, "ROGUE": false, "WIZARD": false}
 const FAUST_M := 0.03
 const RUECKEN_M := 0.06
+const SPALT_M := 0.04   # 513: Schild oben und unten höchstens 4 cm vom Rücken (Chef 15:51 „unten steht's weg“)
 
 var fehler := 0
 
@@ -47,6 +48,56 @@ func koerper_abstand(m: Node3D, p: Vector3) -> float:
 					w += (sk.global_transform * sk.get_bone_global_pose(bone) * x.skin.get_bind_pose(bind) * vs[i]) * g
 				best = minf(best, w.distance_to(p))
 	return best
+
+# 513: Spalt zwischen Schild und Rücken im Raum der Figur (Blick +Z, Rücken -Z), wie der Teller sie zeigt (echte Knochenlage): je Feld
+# (3 cm breit, 2 cm hoch) die hinterste Ecke des Körpers; je Schildecke im obersten und untersten Viertel des Schilds der Abstand nach
+# vorn bis zum Körper; [kleinster oben, kleinster unten, Ecken im Körper (mehr als 1 cm hinein)]
+func schild_spalt(modell: Node3D, ba: Node3D) -> Array:
+	var inv := modell.global_transform.affine_inverse()
+	var feld := {}
+	for mi in modell.find_children("*", "MeshInstance3D", true, false):
+		var x := mi as MeshInstance3D
+		if x.skin == null: continue
+		var sk := x.get_node_or_null(x.skeleton) as Skeleton3D
+		if sk == null: continue
+		var mb := []
+		for b in x.skin.get_bind_count():
+			var bone := x.skin.get_bind_bone(b)
+			if bone < 0: bone = sk.find_bone(x.skin.get_bind_name(b))
+			mb.append(inv * sk.global_transform * sk.get_bone_global_pose(bone) * x.skin.get_bind_pose(b))
+		for s in x.mesh.get_surface_count():
+			var arr := x.mesh.surface_get_arrays(s)
+			var vs: PackedVector3Array = arr[Mesh.ARRAY_VERTEX]
+			var bo = arr[Mesh.ARRAY_BONES]; var we = arr[Mesh.ARRAY_WEIGHTS]
+			if bo == null or vs.is_empty(): continue
+			var n := int(bo.size() / vs.size())
+			for i in vs.size():
+				var p := Vector3.ZERO
+				for j in n:
+					var g: float = we[i * n + j]
+					if g > 0.0: p += (mb[bo[i * n + j]] * vs[i]) * g
+				if p.z > 0.05: continue
+				var key := Vector2i(floori(p.x / 0.03), floori(p.y / 0.02))
+				feld[key] = minf(feld.get(key, 9.0), p.z)
+	var ecken := []
+	var lo := INF; var hi := -INF
+	for mi in ba.find_children("*", "MeshInstance3D", true, false):
+		var x := mi as MeshInstance3D
+		var t := inv * x.global_transform
+		for s in x.mesh.get_surface_count():
+			for v in x.mesh.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]:
+				var p: Vector3 = t * v
+				ecken.append(p); lo = minf(lo, p.y); hi = maxf(hi, p.y)
+	var oben := 9.0; var unten := 9.0; var drin := 0
+	var h := hi - lo
+	for p in ecken:
+		var z: float = feld.get(Vector2i(floori(p.x / 0.03), floori(p.y / 0.02)), 9.0)
+		if z > 8.0: continue
+		var spalt: float = z - p.z
+		if spalt < -0.01: drin += 1
+		if p.y > hi - h * 0.25: oben = minf(oben, spalt)
+		elif p.y < lo + h * 0.25: unten = minf(unten, spalt)
+	return [oben, unten, drin]
 
 func _lauf() -> void:
 	Sprache.lade()
@@ -88,7 +139,11 @@ func _lauf() -> void:
 				var c := (mi as MeshInstance3D).global_transform * (mi as MeshInstance3D).get_aabb().get_center()
 				var d := koerper_abstand(modell, c)
 				print("  auf dem Rücken (%s): Mitte %.3f m vom Körper" % [ba.name, d])
-				pruefe(d <= RUECKEN_M + 0.10, "%s: %s %.0f cm vom Körper" % [k, ba.name, d * 100])
+			if String(ba.name).begins_with("RueckenSchild"):
+				var sp := schild_spalt(modell, ba)
+				print("  Schild am Rücken (513, Haltung im Teller): Spalt oben %.3f m, unten %.3f m, %d Ecken im Körper; berechnet %s" % [sp[0], sp[1], sp[2], str(modell.get_meta("schild_spalt", "-"))])
+				pruefe(sp[0] <= SPALT_M and sp[1] <= SPALT_M, "%s: Schild oben %.0f cm, unten %.0f cm vom Rücken" % [k, sp[0] * 100, sp[1] * 100])
+				pruefe(sp[2] == 0, "%s: %d Ecken des Schilds im Körper" % [k, sp[2]])
 		if bild:
 			var bilder: Array[Image] = []
 			for winkel in [0.0, 90.0, 200.0]:

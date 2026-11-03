@@ -443,7 +443,12 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 	var y := brust.origin.y
 	var r := ruecken(m, y - 0.63, y + 0.1)   # [z oben, z unten, hinterste z]: Ruecken an Ober- und Unterkante des Schilds
 	var aussen: float = r[2]
-	if schild != "":
+	var lage := schild_anlegen(m, sk, bi, schild) if schild != "" else {}
+	if not lage.is_empty():
+		_haenge(m, sk, bi, lage["brust"], schild, lage["t"], "RueckenSchild")
+		m.set_meta("schild_spalt", lage["spalt"])
+		aussen = minf(aussen, float(lage["hinten"])) - 0.10
+	elif schild != "":
 		# Pruefer Lauf 2 (Kaempfer: Schild ragt von vorn ueber die Schultern; Schild 0,72 m, Oberkante 1,54 m, Schultern 1,46 m):
 		# Mitte 29 cm unter spine_03, Oberkante etwa 1,32 m (376.1 Lauf 1: bei 1,42 m von schraeg oben noch ueber den Schultern)
 		var oben := Vector3(0, y - 0.05, float(r[0]) - 0.03)
@@ -536,6 +541,113 @@ static func rand_hinten(was: String) -> float:
 				if absf(p.x) > 0.15: h = maxf(h, -p.z)
 	d.free()
 	return h
+
+# 513 (Chef 03.11., 15:51 „Seitenansicht. Das Schild unten steht halt … ewig weit weg vom Rücken … oben passt und unten steht's weg“;
+# Pruefer 499: unten 20-25 cm, Messung Lauf 244: Mitte 18-19 cm vom Koerper): bisher aus der Ruhelage (A-Haltung) gelegt und an spine_03
+# gehaengt; im Stehen neigt sich die Brust, der Schild dreht mit und steht unten ab. Jetzt an der Haltung „Stehen“ (Bild 0) gemessen:
+# Ruecken je Hoehe und Breite (hinterste Ecke der gehaeuteten Netze, Koerper, Kleidung, Umhang), der Schild mit seinen eigenen Ecken
+# so geneigt und so nah heran, dass er oben und unten anliegt (SCHILD_LUFT), nirgends hinein. Ergebnis {t, brust (spine_03 in der
+# Haltung), spalt [oben, unten] in m, hinten}; leer ohne Haltung oder Schildmodell (dann wie bisher aus der Ruhelage)
+const SCHILD_LUFT := 0.012
+static func schild_anlegen(m: Node3D, sk: Skeleton3D, bi: int, was: String) -> Dictionary:
+	var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
+	if ap == null or not ap.has_animation("Stehen"): return {}
+	var P := haltung(sk, ap.get_animation("Stehen"), im_raum(m, sk), 0.0)
+	var brust: Transform3D = P[bi]
+	var yc := brust.origin.y - 0.29        # Mitte 29 cm unter spine_03 wie bisher (Oberkante etwa 1,32 m, 376.1 Lauf 1)
+	# Schild: Ecken im eigenen Raum (vorn +Z, oben +Y, Fessel im Ursprung), jede vierte
+	var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % was)
+	if d == null: return {}
+	var sv := PackedVector3Array()
+	for mi in d.find_children("*", "MeshInstance3D", true, false) + ([d] if d is MeshInstance3D else []):
+		var tr := im_raum(d, mi)
+		var me := (mi as MeshInstance3D).mesh
+		for s in me.get_surface_count():
+			var vs: PackedVector3Array = me.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]
+			for i in range(0, vs.size(), 4): sv.append(tr * vs[i])
+	d.free()
+	if sv.is_empty(): return {}
+	var hy := 0.0; var hx := 0.0; var ylo := INF; var yhi := -INF
+	for v in sv:
+		hy = maxf(hy, absf(v.y)); hx = maxf(hx, absf(v.x)); ylo = minf(ylo, v.y); yhi = maxf(yhi, v.y)
+	var viertel := (yhi - ylo) * 0.25
+	# Ruecken: hinterste z je Feld (3 cm breit, 2 cm hoch) im Bereich des Schilds
+	var x0 := -hx - 0.03; var y0 := yc - hy * 1.3 - 0.05; var y1 := yc + hy * 1.3 + 0.05
+	var nx := int(ceil((2.0 * hx + 0.06) / 0.03)); var ny := int(ceil((y1 - y0) / 0.02))
+	var feld := PackedFloat32Array(); feld.resize(nx * ny); feld.fill(9.0)
+	for mi in m.find_children("*", "MeshInstance3D", true, false):
+		var x := mi as MeshInstance3D
+		if x.skin == null: continue
+		var me := x.mesh
+		var mb := []
+		for b in x.skin.get_bind_count():
+			var k := x.skin.get_bind_bone(b)
+			if k < 0: k = sk.find_bone(x.skin.get_bind_name(b))
+			mb.append(P[k] * x.skin.get_bind_pose(b) if k >= 0 else Transform3D.IDENTITY)
+		var ruhe := im_raum(m, x)
+		for s in me.get_surface_count():
+			var arr := me.surface_get_arrays(s)
+			var vs: PackedVector3Array = arr[Mesh.ARRAY_VERTEX]
+			var bo = arr[Mesh.ARRAY_BONES]; var we = arr[Mesh.ARRAY_WEIGHTS]
+			if bo == null or vs.is_empty(): continue
+			var n := int(bo.size() / vs.size())
+			for i in vs.size():
+				var r := ruhe * vs[i]   # grob vorsortiert an der Ruhelage
+				if r.z > 0.05 or absf(r.x) > hx + 0.15 or r.y < y0 - 0.25 or r.y > y1 + 0.25: continue
+				var p := Vector3.ZERO
+				for j in n:
+					var g: float = we[i * n + j]
+					if g > 0.0: p += (mb[bo[i * n + j]] * vs[i]) * g
+				var fx := int((p.x - x0) / 0.03); var fy := int((p.y - y0) / 0.02)
+				if fx < 0 or fx >= nx or fy < 0 or fy >= ny: continue
+				feld[fy * nx + fx] = minf(feld[fy * nx + fx], p.z)
+	# Neigung: je Winkel so nah heran, bis die erste Ecke SCHILD_LUFT vor dem Ruecken liegt; Spalt oben und unten (je die naechste Ecke im
+	# obersten und untersten Viertel); gewaehlt der Winkel mit dem kleinsten groesseren der beiden Spalte
+	var best := {}
+	for gr in range(-35, 36):
+		var w := deg_to_rad(float(gr))
+		var hoch := Vector3(0, cos(w), sin(w))   # +w: Oberkante zum Koerper hin (nach +z), Unterkante weg
+		var bas := Basis(Vector3.LEFT, hoch, Vector3.LEFT.cross(hoch))
+		var platz := 9.0
+		var sp := []   # [Feld, z] der Ecken ueber dem Ruecken
+		for v in sv:
+			var p := bas * v + Vector3(0, yc, 0)
+			var fx := int((p.x - x0) / 0.03); var fy := int((p.y - y0) / 0.02)
+			if fx < 0 or fx >= nx or fy < 0 or fy >= ny: continue
+			var z := feld[fy * nx + fx]
+			if z > 8.0: continue
+			platz = minf(platz, z - SCHILD_LUFT - p.z)
+			sp.append(Vector3(v.y, z, p.z))
+		if platz > 8.0: continue
+		var oben := 9.0; var unten := 9.0
+		for e in sp:
+			var spalt: float = e.y - (e.z + platz)
+			if e.x > yhi - viertel: oben = minf(oben, spalt)
+			elif e.x < ylo + viertel: unten = minf(unten, spalt)
+		if oben > 8.0 or unten > 8.0: continue
+		var wert := maxf(oben, unten) + absf(float(gr)) * 0.0001
+		if best.is_empty() or wert < float(best["wert"]):
+			best = {"wert": wert, "t": Transform3D(bas, Vector3(0, yc, platz)), "spalt": [oben, unten]}
+	if best.is_empty(): return {}
+	var t: Transform3D = best["t"]
+	return {"t": t, "brust": brust, "spalt": best["spalt"], "hinten": t.origin.z}
+
+# Lage aller Knochen im Raum der Figur (raum = Skelett in der Figur) in der Bewegung an zur Zeit zeit
+static func haltung(sk: Skeleton3D, an: Animation, raum: Transform3D, zeit: float) -> Array:
+	var sp := _spuren(an)
+	var P := []
+	P.resize(sk.get_bone_count())
+	var offen := Array(sk.get_parentless_bones())
+	while not offen.is_empty():   # Eltern vor den Kindern
+		var b: int = offen.pop_front()
+		var rest := sk.get_bone_rest(b)
+		var s: Dictionary = sp.get(sk.get_bone_name(b), {})
+		var q: Quaternion = an.rotation_track_interpolate(s["rot"], zeit) if s.has("rot") else rest.basis.get_rotation_quaternion()
+		var p: Vector3 = an.position_track_interpolate(s["pos"], zeit) if s.has("pos") else rest.origin
+		var e := sk.get_bone_parent(b)
+		P[b] = (P[e] if e >= 0 else raum) * Transform3D(Basis(q), p)   # wie knochen_lage
+		offen.append_array(Array(sk.get_bone_children(b)))
+	return P
 
 static func _modell(g) -> String:
 	if not g is Dictionary: return ""
