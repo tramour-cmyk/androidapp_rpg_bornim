@@ -58,6 +58,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 15:33 03.11.: Neustart Jerry e9369fd9c → `ZwvU` „507 Probe“; alter `gwo8` archiviert, Kosten nicht lesbar (usage fehlt).
 - 15:26 03.11.: Diogenes `ppa1` „275, D69“ (Chefwort 15:17); Neustart Tom c496f2108 → `wm1A` „492 Blutzahnhöhle“, alter Tom `SZRh` archiviert, 20,03 $ auf 470.
 - 15:03 03.11.: Neustart Jerry 9eccbe6f3 → `gwo8` „507 Höhle“; alter `nM3u` archiviert, 15,80 $ auf 496a.
 - 14:30 03.11.: Neustart Sokrates 2ac0fe42d → `j7tV` „Chefrunde 348.12c Kauf“; alter `Hm6D` archiviert, 22,75 $ auf 348.12c.
