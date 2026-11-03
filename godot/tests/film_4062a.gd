@@ -158,7 +158,13 @@ func _held(h: Dictionary) -> void:
 	await _blende(0.0)
 	await create_timer(0.8).timeout
 	if diag:
-		await _diag(kf, cam, held, wolf, String(h.name) + " vor Anlauf 1")
+		await _matrix(kf, cam, held, wolf, kampfweg[0], String(h.name))
+		if h != HELDEN[0]:
+			await _blende(1.0)
+			kf.queue_free()
+			p.queue_free()
+			await process_frame
+			return
 	for i in WINKEL.size():
 		wolf.position = kampfweg[i]
 		wolf._face(held.home - wolf.position)
@@ -266,3 +272,77 @@ func _farbe(img: Image, px: Vector2) -> String:
 	var y := int(clampf(px.y * s.y, 0, vs.y - 1))
 	var c := img.get_pixel(x, y)
 	return "(%d,%d)=%.2f/%.2f/%.2f" % [x, y, c.r, c.g, c.b]
+
+
+## DIAG=1 Lauf 2 (Lauf 230: Wolf nicht gekappt (rot ohne Tiefentest 343 Punkte), kein Wald dazwischen (tests/sicht_4062a.gd), im
+## Bild von Lauf 223 nur sein Schatten): trägt der Wolf überhaupt Bildpunkte bei? Je Kamera (Film 15 m, Spiel, nah 5 m) und Lage
+## (daheim, Anlaufpunkt): Bild mit und ohne Wolf (visible), Zahl der geänderten Punkte im Kasten um seinen Rumpf; ebenso Schwert
+## und Schild (Anhänger an der Hand) und der Held. Dazu die Stoffe des Wolfs mit allen Werten, die etwas verschwinden lassen können.
+func _matrix(kf, film_cam: Camera3D, held, wolf, weg_punkt: Vector3, wer: String) -> void:
+	var vp := root
+	for mi in wolf.model.find_children("*", "MeshInstance3D", true, false):
+		var m: MeshInstance3D = mi
+		var stoffe := []
+		for s in m.mesh.get_surface_count():
+			var x = m.get_surface_override_material(s)
+			if x == null:
+				x = m.material_override
+			if x == null:
+				x = m.mesh.surface_get_material(s)
+			var t := "%s" % x
+			if x is ShaderMaterial:
+				t = "Shader %s cut_on %s weg %s rueck %s vorrang %s nach %s prio %d next %s" % [x.shader.resource_path if x.shader.resource_path != "" else "eigen", x.get_shader_parameter("cut_on"), x.get_shader_parameter("weg"), x.get_shader_parameter("rueck"), x.get_shader_parameter("vorrang"), x.get_shader_parameter("nach"), x.render_priority, x.next_pass]
+				if x.shader.code.contains("stencil_mode"):
+					t += " stencil " + x.shader.code.substr(x.shader.code.find("stencil_mode"), 40).split("\n")[0]
+			stoffe.append(t)
+		print("DIAG2 Wolf-Netz %s: Sicht %s, Bereich bis %.0f, transparency %.2f, lod_bias %.2f, Ebenen %d, Stoffe %s" % [m.name, m.is_visible_in_tree(), m.visibility_range_end, m.transparency, m.lod_bias, m.layers, stoffe])
+	var nah := Camera3D.new()
+	kf.add_child(nah)
+	nah.fov = film_cam.fov
+	var teile := [["Wolf", wolf, func(): return wolf.global_position + Vector3(0, 0.45, 0)], ["Held", held, func(): return held.global_position + Vector3(0, 1.2, 0)]]
+	for at in held.model.find_children("*", "BoneAttachment3D", true, false):
+		if at.has_meta("was"):
+			teile.append(["Waffe " + String(at.get_meta("was")), at, func(): return (at as Node3D).global_position])
+	var heim: Vector3 = wolf.home
+	for lage in ["daheim", "Anlaufpunkt"]:
+		wolf.position = heim if lage == "daheim" else weg_punkt
+		var mitte: Vector3 = held.position.lerp(wolf.position, 0.5) + Vector3(0, 0.6, 0)
+		var von: Vector3 = film_cam.global_position - mitte
+		nah.global_position = mitte + von.normalized() * 5.0
+		nah.look_at(mitte)
+		for k in [["Film", film_cam], ["Spiel", kf.cam], ["nah 5 m", nah]]:
+			var c: Camera3D = k[1]
+			c.make_current()
+			kf.ink_ziel = mitte
+			await process_frame
+			await process_frame
+			var zeile := PackedStringArray()
+			for t in teile:
+				var n: Node3D = t[1]
+				var px: Vector2 = c.unproject_position(t[2].call())
+				await RenderingServer.frame_post_draw
+				var mit := vp.get_texture().get_image()
+				n.visible = false
+				await process_frame
+				await RenderingServer.frame_post_draw
+				var ohne := vp.get_texture().get_image()
+				n.visible = true
+				var s := Vector2(mit.get_width(), mit.get_height()) / Vector2(vp.get_visible_rect().size)
+				var cx := int(px.x * s.x)
+				var cy := int(px.y * s.y)
+				var anders := 0
+				var alle := 0
+				for y in range(cy - 40, cy + 41, 2):
+					for x in range(cx - 40, cx + 41, 2):
+						if x < 0 or y < 0 or x >= mit.get_width() or y >= mit.get_height():
+							continue
+						alle += 1
+						var a := mit.get_pixel(x, y)
+						var b := ohne.get_pixel(x, y)
+						if absf(a.r - b.r) + absf(a.g - b.g) + absf(a.b - b.b) > 0.08:
+							anders += 1
+				zeile.append("%s %d/%d bei (%d,%d)%s" % [t[0], anders, alle, cx, cy, "" if c.is_position_in_frustum(t[2].call()) else " außerhalb"])
+			print("DIAG2 %s %s, Lage %s: %s" % [wer, k[0], lage, ", ".join(zeile)])
+	wolf.position = weg_punkt
+	film_cam.make_current()
+	nah.queue_free()
