@@ -20,6 +20,10 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/
 - 80,2–80,8 s: der tote Wolf liegt nur eine halbe Sekunde, dann endet der Teil.
 - Unsicher: unter den Helden in Teil 1 eher ein runder dunkler Fleck als ein Schatten nach der Sonne; der helle Fleck auf dem Drachenschild ist noch da.
 
+**Nachgeprüft (Jerry 03.11., 03:2x; ohne neuen Film):**
+- Schildhand: Ein zweiter Prüfer hat die Standbilder bei 4,5–8,5 s vergrößert. Der runde Schild des Kämpfers hat oben eine Kerbe; Unterarm und Finger sieht man durch diese Kerbe, sie liegen weder vor dem Rand noch vor dem Beschlag. Nur ob die Fingerspitze am Grund der Kerbe 3–5 cm auf der roten Fläche liegt, ist am Bild nicht sicher zu sagen; die Messung sagt dahinter (0,2–0,7 cm). Beim Kleriker ist die Schildhand ganz hinter dem Schild.
+- Wald: Der Held verschwindet bei 78–80 s hinter einem schmalen Stamm, der kurz vor ihm steht, nicht vor der Kamera. Die alte Messung konnte so einen Stamm nicht sehen, die neue kann es. Im Messlauf ohne Film (der Kampf verläuft dort anders) ist der Held in 4 von 52 Messbildern kurz verdeckt. Links steht dazu eine schwarze Silhouette nah an der Kamera (etwa 15 % des Bilds); die Figuren sind nur etwa 7 % der Bildhöhe groß.
+
 **Stärkstes Gegenargument:** Im Kampf sind die Helden klein im Bild (die Kamera nimmt alle Figuren auf, im ersten Lauf etwa ein Sechzehntel der Bildhöhe); die Schildhand lässt sich nur in Teil 1 beurteilen.
 
 **Zu sagen:** „406 passt“ oder was anders sein soll.
