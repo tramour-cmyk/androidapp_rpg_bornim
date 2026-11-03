@@ -14,6 +14,14 @@ Großbild: Telegram 03.11. 16:15
 
 **Lauf 1 (Prüfer 16:08, nicht versandt):** Held in einem Bild ganz, in drei teilweise von Wänden verdeckt; fern der Lichter nichts zu sehen; Ausgang und Lichtschacht ohne sichtbare Quelle. Behoben: dünne Wände niedriger wie alt, Farben heller, Ausblick am Ausgang, Lichtsäule im Schacht. Strahltest ohne Bild: Brust des Helden nirgends verdeckt, Knie an vier bis sieben Stellen je Drehung.
 
+**Prüfer Lauf 2 (03.11., 16:17, nach dem Versand):**
+- In fast jedem Bild ist unten ein großer Teil (30 bis 50 %) leer und schwarz; im Eingang sind Ausgang, Tageslicht, Ausblick und Laub nicht zu sehen.
+- Weiße Wandflächen leuchten ohne sichtbare Quelle (Eingang, Teich, Westflügel).
+- Die Lichtsäule (Ostflügel, Halle) wirkt wie ein weißer Steinpfeiler mit einem schwebenden Fleck oben, nicht wie Licht.
+- Die Wände wirken wie Kästen und Pappplatten: flache Oberseiten, Rillen, schwarze Quadrate wie Löcher, grobes Klötzchenmuster an hellen Wänden.
+- Der Held ist oft dunkel oder halb verdeckt (Gang, Ostflügel, Teich durch einen Goblin, Halle).
+- Kristalle nur kleine weiße Splitter; Teich ein schwarzes Loch; Steinkranz am Feuer flache Vierecke; im Lager keine Kisten und kein Fass; das Gitter zeigt keine zwei Flügel; in der Halle nur eine Fackel, sie steht auf einem frei stehenden Block.
+
 **Stärkstes Gegenargument:** Krogg und Grak stehen noch nicht in der Höhle (ihre Modelle fehlen im Spiel, Jerry, Zu 494); ohne Krogg kein Schlüssel, die Höhle ist bis dahin nicht durchspielbar.
 
 **Bestand geprüft:** Fels, Tropfsteine, Kristalle, Pilze, Gitter, Stützen eigene Formen wie alt (kein Höhlenfels im Bestand); Truhe wie im Wald; Lyra aus unseren Leuten; nichts neu.

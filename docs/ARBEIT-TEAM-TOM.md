@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (03.11., 15:2x, `session_01Hmoj78SZRhbPyx9bENdSqL`):** Kaufmodelle-Repo eingebunden; 492 gesichtet, Zweig `claude/tom-492-hoehle` (von 491): Höhle als `dorf.py KARTE=cave`; Gitter L in karte.gd, `_stoesst` da, Tippen auf L (spiel.gd:242) fehlt; Krogg wartet auf 494. Nachfolger: Tom – 492: Blutzahnhöhle.
+**Übergabe (03.11., 16:2x, `session_01Hmoj75wm1AzPhDgiD8ktBp`):** 492 gebaut (`claude/tom-492-hoehle`, mit 490, 491; `hoehle.py`, Test `hoehle_492`), Lauf 2 von 2 beim Chef. Nachfolger: Tom – 490: Flüsterwald in den gemeinsamen Build.
 
 ## Zeilen
 
@@ -16,7 +16,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 515 | M? | **von Sokrates (Chef 03.11., 16:07, zu 491: „3 bis 4 können auch halbwegs versteckt sein unter den Laubkronen … wenn man von der Standardansicht weg muss … Können ja dann auch verschlossen sein, dass man sie aufbrechen muss oder halt einen Dietrich braucht“):** Truhen je Karte, einige verschlossen nach BRS „Truhen und Schlösser“ (Schlossstufe, Dietrich, Aufbrechen mit Kraft, Spähen); Godot hat noch keine Schlösser (`spiel.gd` `oeffne_kiste`); Regelteil mit Jerry; Zeitpunkt Perikles (488) | startbar | – |
 | 493 | M | **von Perikles (Wochenziel 03.11. Reihe 2, 488; Spike, von Jerry übernommen, Chef 07:54):** Kampforte Wald wie alt: Waldrand, Teich, Baum, Felsen, Steinkreis (Orte O9), mit Jerrys Kampfort-Schnittstelle | startbar: Steinkreis nachbessern (Chef 15:59, Archiv) | `claude/spike-493-kampforte` |
 | 506 | M | **von Perikles (Wochenziel 03.11. Reihe 2, 488; Spike, aus 494):** Untote im Kampf: Skelett, Zombie, Ghul auf dem CC0-Menschen (Wald nachts, Höhle), je Gegner höchstens ein Lauf | wartet auf Jerry: Ursache der unsichtbaren Netze im Film (406.2a, Messlauf 246), dieselbe wie Lauf 236; dann Probebild (511) | – |
-| 492 | M | **von Perikles (Wochenziel 03.11. Reihe 3, 488; Tom, von Jerry übernommen, Chef 07:54):** Blutzahnhöhle begehbar wie alt (`Story.kt:731`): Grundriss, Krogg, Grak, Lyra, Tor und Schlüssel (Orte O8); Kampforte Höhle Jerry (507) | wartet auf Chef: ansehen/492 (Lauf 2 von 2); Krogg, Grak fehlen im Spiel-Build (Zu 494 bei Jerry) | – |
+| 492 | M | **von Perikles (Wochenziel 03.11. Reihe 3, 488):** Blutzahnhöhle begehbar wie alt (`Story.kt:731`): Grundriss, Krogg, Grak, Lyra, Tor, Schlüssel (O8) | wartet auf Chef: ansehen/492; Krogg, Grak bei Jerry (Zu 494) | – |
 | 431 | M | **von Sokrates (Chef 31.10., 22:0x):** Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film, dann Körperbau je Volk | wartet auf Sokrates: 431f Läufe verbraucht ohne Messwert (Fehler Tom), Bitte um zwei neue (480.1); Messmodus Hautmaske gebaut c3b0bea19 | `claude/tom-431-voelker` |
 | 417 | M | **von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“):** Tragart je Waffenklasse (Zu 417), zuerst Stab, Axt, Bogen; Zahlen messen, Aussehen urteilt der Chef | startbar: passt (Chef 03.11., 06:54, Archiv); in den nächsten gemeinsamen Build, Mängelzeile anlegen (Zu 417) | `claude/tom-417-tragart` |
 | 416.9 | M | **von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“):** Laden, Verkaufen, „angelegt“ mit allen Plätzen, Vergleichswerte, nicht Tragbares, Icon bei Menge | gebaut: passt (Archiv 14:37), fährt im nächsten Build (Jerry); Geprüft an: 7523a08d0 | `claude/tom-416-9-vergleich` |
@@ -80,6 +80,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Pflege | K | **von Werkzeug (340.3, 03.11.):** 41343 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 73; Zeile Pflege wartet auf t204, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile Pflege wartet auf t204, aber keine Datei in docs/chefsache/ans … | startbar |
 
 ## Einzelheiten
+
+- **Zu 492 (Tom):** Vermutungen zu Lauf 2, erst nachstellen: `Himmel_Ausgang` von hinten gesehen; `Strahl_` deckend (Alpha der Eckfarbe); weiße Wände = Spot des Ausgangs.
 
 - **Hinweis von Perikles (03.11., 16:0x, 512 ja, Chef 15:41):** ab der nächsten Testbitte vorher Abgleich alt gegen neu der Schirme, die der Build berührt (Helfer, `LISTE-UMZUG-348.md` „Abgleich“); Funde beheben oder als „bekannt“ in die Prüfliste.
 - **Hinweis von Perikles (03.11., 16:1x, 513.1 gebaut):** `probelauf.py` hält ab sofort jeden Probelauf und jedes Probebild an, dessen Stand 417 (`3b29ac0cb`) und 463 (`e3789d130`) nicht enthält (`tools/figurenstand.tsv` auf `main`); von 12 Zweigen ist nur `build-496a` frei. Tom: steht der Zweig Figurenstand (513), seinen Commit in `tools/figurenstand.tsv` eintragen (er ersetzt die Zeilen, die er enthält); alle Figurenzweige mischen ihn.
