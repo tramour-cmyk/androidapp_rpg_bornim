@@ -556,30 +556,86 @@ static func stueck_zeilen_von(hw: Heldwerte, g: Dictionary) -> Array:
 	var b := Beute.grundform(String(g["base"]))
 	var d := Heldwerte.lade()
 	var z_: Array = []
+	var sp := "de" if de else "en"
+	var fett := func(l: Label) -> Label:
+		l.add_theme_constant_override("outline_size", int(DP * 0.6)); l.add_theme_color_override("font_outline_color", l.get_theme_color("font_color"))
+		return l
 	var bild := Menue.bild_feld("stueck-%s-%s" % [g["base"], g["rarity"]], 48)   # Dialogs.kt: GearPicture 48 dp
 	bild.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	z_.append(bild)
-	var zeile_ := Beute.listen_zeile(g)
-	if zeile_ != "": z_.append(Erschaffung.txt(zeile_, 14, farbe_von.call(g)))
-	var wo := ("Stufe " if de else "Level ") + str(int(g["ilvl"]))
-	if zweihaendig.call(g): wo = ("Beide Hände · " if de else "Both hands · ") + wo
-	z_.append(Erschaffung.txt(wo, 13, Stil.WARN if zweihaendig.call(g) else Stil.DIM))
+	# 524 (Abgleich 512, Chef 23:26 „besser machen“, alt ist die Untergrenze): Reihenfolge und Inhalt wie GearDetails alt (GearUi.kt 156–243)
+	# Gear.kindLine: Seltenheit und Art, wenn der Name sie nicht schon sagt
+	var plus := int(g.get("plus", 0))
+	var plus_t := (" +%d" % plus) if plus > 0 else ""
+	var selten := Sprache.t(d["seltenheiten"][String(g["rarity"])]["name"])
+	var gezeigt := Beute.name(g)
+	var art := String(b[sp])
+	var hat_art := gezeigt.containsn(art)
+	var art_zeile := ""
+	if not (hat_art and gezeigt.containsn(selten)):
+		var gross := selten.left(1).to_upper() + selten.substr(1)
+		art_zeile = gross + plus_t if hat_art else ((gross + String(d["endungen"][String(b["geschlecht"])]) + " " + art + plus_t) if de else (gross + " " + art + plus_t))
+	if art_zeile != "": z_.append(Erschaffung.txt(art_zeile, 14, farbe_von.call(g)))
+	# Gear.wearLine · Stufe · Gewicht; beidhaendige Waffe fett in Rot (ein Schild muss herunter)
+	var waffe := Beute.ist_waffe(b)
+	var wo := String(d["plaetze"][String(b["slot"])][sp])
+	if waffe and zweihaendig.call(g): wo = "Beide Hände" if de else "Both hands"
+	elif b.get("vielseitig") != null: wo = "Vielseitig: eine oder beide Hände" if de else "Versatile: one or both hands"
+	elif waffe: wo = "Haupt- oder Nebenhand" if de else "Main or off hand"
+	wo += (" · Stufe " if de else " · Level ") + str(int(g["ilvl"]))
+	var gewicht := String(b.get("gewicht", "NONE"))
+	if gewicht != "NONE": wo += " · " + Sprache.t(d["ruestungsarten"].get(gewicht, {"de": "Stoff", "en": "cloth"}))
+	var wl := Erschaffung.txt(wo, 13, Stil.WARN if waffe and zweihaendig.call(g) else Stil.DIM)
+	z_.append(fett.call(wl) if waffe and zweihaendig.call(g) else wl)
+	# [84.1.laden] wozu die Fackel ist (Light.torchAbout)
+	if String(b["art"]) == "LIGHT":
+		z_.append(Erschaffung.txt("Pech und Werg auf einem Stock. In der Nebenhand, statt eines Schilds. Im Dunkeln siehst du weiter als mit einem Leuchtfunken. Brennt, solange du sie trägst." if de else
+			"Pitch and tow on a stick. Held in the off hand, instead of a shield. In the dark you see further than with a Lightspark. Burns as long as you carry it.", 14))
+	# was dafuer abgelegt wird und das Urteil gleich oben, ohne Rollen; die Tabelle unten sagt warum (59.3: nie fuer Getragenes)
+	var v: Vergleich = Vergleich.von(hw, g) if hw.kann_tragen(g) and not hw.ausruestung.values().any(func(x): return x != null and int(x["uid"]) == int(g["uid"])) else null
+	if v:
+		if not v.ersetzt.is_empty():
+			var anderer := v.ersetzt.any(func(x): return String(Beute.grundform(String(x["base"]))["slot"]) != String(b["slot"]))
+			var el := Erschaffung.txt(("Ersetzt: " if de else "Replaces: ") + ", ".join(PackedStringArray(v.ersetzt.map(func(x): return Beute.name(x)))), 13, Stil.WARN if anderer else Stil.DIM)
+			z_.append(fett.call(el) if anderer else el)
+		z_.append(fett.call(Erschaffung.txt(v.satz(), 14, {1: GRUEN, -1: Stil.WARN}.get(v.urteil(), Stil.TEXT))))
+	# Grundzahlen: Schaden je Griff, Angriff, Eigenschaften der Waffe; RK der Ruestung mit GES; Schild; Zauberkraft
+	if b.get("schaden") != null:
+		var viel = b.get("vielseitig")
+		var w_ = hw.waffe()
+		var beide: bool = viel != null and w_ != null and int(w_["uid"]) == int(g["uid"]) and hw.beide_haende_mit(g)
+		var art_s := Sprache.t(d["schadensarten"].get(String(b["schadensart"]), {"de": "", "en": ""}))
+		z_.append(fett.call(Erschaffung.txt("%s: %s %s%s" % [Sprache.u("damage"), Beute.wuerfel_text(viel if beide else b["schaden"], plus, de), art_s,
+			((" (beide Hände)" if de else " (both hands)") if beide else "")], 16)))
+		if viel != null:
+			z_.append(Erschaffung.txt(((("Mit einer Hand (Schild oder Zweitwaffe): " if de else "In one hand (shield or second weapon): ") + Beute.wuerfel_text(b["schaden"], plus, de)) if beide else
+				(("Mit beiden Händen (andere Hand leer): " if de else "In both hands (other hand empty): ") + Beute.wuerfel_text(viel, plus, de))), 14, Stil.DIM))
+		if plus > 0: z_.append(fett.call(Erschaffung.txt("%s +%d" % [Sprache.u("attack"), plus], 15)))
+		var zuege: Array = []
+		if bool(b.get("finesse", false)): zuege.append("Finesse")
+		if bool(b.get("fern", false)): zuege.append("Fernkampf" if de else "Ranged")
+		if not zuege.is_empty(): z_.append(Erschaffung.txt(" · ".join(PackedStringArray(zuege)), 13, Stil.DIM))
+	if String(b["slot"]) == "CHEST" and int(b.get("ruestung", 0)) > 0:
+		var ges: String = {"LIGHT": " + GES" if de else " + DEX", "MEDIUM": " + GES (max 2)" if de else " + DEX (max 2)"}.get(gewicht, "")
+		z_.append(fett.call(Erschaffung.txt("%s %d%s" % [Sprache.u("ac"), int(b["ruestung"]) + plus, ges], 16)))
+	if String(b["art"]) == "SHIELD": z_.append(fett.call(Erschaffung.txt("%s +%d" % [Sprache.u("ac"), int(b["ruestung"]) + plus], 16)))
+	if int(b.get("fokus", 0)) > 0: z_.append(fett.call(Erschaffung.txt(("Zauberkraft +%d" if de else "Spell power +%d") % int(b["fokus"]), 16)))
+	# Eigenschaften (Affix.line), blau wie alt
 	for r in g["rolls"]:
 		var a := String(r[0]); var w := int(r[1])
 		var ad: Dictionary = d["affixdaten"][a]
 		var t := ("Kritisch ab %d" % (20 - w) if de else "Critical on %d–20" % (20 - w)) if a == "CRIT" else \
 			"+%d%s %s" % [w, "%" if bool(ad["prozent"]) else "", Sprache.t(ad["name"])]
-		z_.append(Erschaffung.txt(t, 15))
+		z_.append(Erschaffung.txt(t, 16, Color(SELTEN["RARE"])))
+	# Warnungen
 	if not hw.kann_tragen(g):
-		z_.append(Erschaffung.txt(("Als %s kannst du das nicht tragen." if de else "As a %s you cannot wear this.") % Sprache.t(d["klassen"][hw.klasse]["name"]), 13, Stil.DIM))
-	elif not hw.ausruestung.values().has(g):
-		# GearDetails: was dafuer abgelegt wird, das Urteil gleich sichtbar, darunter warum (GearCompare)
-		var v := Vergleich.von(hw, g)
-		if not v.ersetzt.is_empty():
-			var anderer := v.ersetzt.any(func(x): return String(Beute.grundform(String(x["base"]))["slot"]) != String(b["slot"]))
-			z_.append(Erschaffung.txt(("Ersetzt: " if de else "Replaces: ") + ", ".join(PackedStringArray(v.ersetzt.map(func(x): return Beute.name(x)))), 13, Stil.WARN if anderer else Stil.DIM))
-		z_.append(Erschaffung.txt(v.satz(), 14, {1: GRUEN, -1: Stil.WARN}.get(v.urteil(), Stil.TEXT)))
-		if not v.zeilen.is_empty(): z_.append(vergleich_tabelle(v.zeilen, de))
+		z_.append(Erschaffung.txt("Deine Klasse kann das nicht tragen." if de else "Your class can't wear this.", 15, Stil.WARN))
+	elif waffe and not hw.geuebt(g):
+		z_.append(Erschaffung.txt("Ungeübt: kein Übungsbonus auf Angriffe." if de else "Not proficient: no proficiency bonus to attacks.", 15, Stil.WARN))
+	if int(b.get("fokus", 0)) > 0 and not bool(hw.klassendaten()["zauberer"]):
+		z_.append(Erschaffung.txt("Zauberkraft nützt nur Zauberwirkern." if de else "Spell power only helps spellcasters.", 13, Stil.DIM))
+	# Vergleich: alles, was sich aendert, Getragenes neben dem Neuen, Gewinn gruen, Verlust rot, Hinweise darunter
+	if v and not v.zeilen.is_empty(): z_.append(vergleich_tabelle(v.zeilen, de))
 	return z_
 
 # 416.9 (Chef 01.11., 11:30 „pseudotabellarisch“, 02.11., 10:52 „tabellarische Gegenüberstellung“): wie GearDetails alt,
