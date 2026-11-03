@@ -247,10 +247,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 39, Muss 28, startbar 19
+**Sokrates** – offen 40, Muss 29, startbar 20
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 513 | M | von Team Tom (Spike, 03.11., 19:3x; 480.1): zwei neue Läufe für 513: in Probe 1 und 2 fehl | startbar |
 | 508 | M? | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
 | 488 | M | von Chef (02.11., 22:44, „dann frieren wir das mal ab einem gewissen Punkt ein … kümmern u | wartet auf Perikles |
 | 461b.4 | M | von Perikles (deine Liste 461b, 02.11., 19:1x, Punkte 7, 9): Köpfe von DESIGN-SPIELSYSTEM- | startbar |
