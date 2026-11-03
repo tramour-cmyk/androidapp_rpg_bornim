@@ -21,6 +21,7 @@ const HELDEN := [
 	{"cls": "FIGHTER", "name": "Kämpfer · Kriegsaxt", "main": "greataxe"}]
 
 var mess := OS.get_environment("MESS") != ""
+var diag := OS.get_environment("DIAG") != "" and not mess     # Lauf 223 nachstellen: Wolf und Waffen fehlen im Bild, Schatten da
 var schwarz: ColorRect
 var lb: Label
 var lz: Label
@@ -156,6 +157,8 @@ func _held(h: Dictionary) -> void:
 		lz.text = String(h.name)
 	await _blende(0.0)
 	await create_timer(0.8).timeout
+	if diag:
+		await _diag(kf, cam, held, wolf, String(h.name) + " vor Anlauf 1")
 	for i in WINKEL.size():
 		wolf.position = kampfweg[i]
 		wolf._face(held.home - wolf.position)
@@ -171,6 +174,8 @@ func _held(h: Dictionary) -> void:
 			var c: String = held.anim.current_animation
 			if lauf == "" and c != vorher and not c.begins_with("SS_Idle") and c not in ["Kampfstehen", "Stehen"]:
 				lauf = c
+			if diag and i == 0 and t >= 0.5 and t < 0.5 + 1.0 / 30.0:
+				await _diag(kf, cam, held, wolf, String(h.name) + " Anlauf 1 bei 0,5 s")
 			mitte = mitte.lerp(held.position.lerp(wolf.position, 0.5), 0.12)
 			d_cam = lerpf(d_cam, abstand.call(), 0.06)
 			_kamera_auf(cam, kf, mitte, von, d_cam)
@@ -193,3 +198,71 @@ func _kamera_auf(cam: Camera3D, kf, ziel: Vector3, von: Vector3, d: float) -> vo
 	cam.position = z + von * d + Vector3(0, d * 0.22, 0)     # etwa 12° von oben wie die Spielkamera, nicht flach
 	cam.look_at(z)
 	kf.ink_ziel = z     # Tusche nach Licht nach dieser Kamera (kampfort.gd _ink_licht)
+
+
+## DIAG=1 (Lauf 223, Prüfer: Wolf unsichtbar, nur sein Schatten; keine Waffe, kein Schild in der Hand): was liegt wo, was ist
+## sichtbar, was zeichnet der Schirm an dieser Stelle; dann je Teil für ein Bild rot und unbeschattet: kommt es dann ins Bild?
+func _diag(kf, cam: Camera3D, held, wolf, wann: String) -> void:
+	var vp := root
+	print("DIAG %s: Kamera aktiv %s (Film %s, Spiel %s), Bild %s, cam %s fov %.0f" % [wann, vp.get_camera_3d(), cam, kf.cam, vp.get_visible_rect().size, cam.global_position, cam.fov])
+	var teile := []     # [Name, Knoten]
+	teile.append(["Wolf", wolf.model])
+	teile.append(["Held", held.model])
+	for at in held.model.find_children("*", "BoneAttachment3D", true, false):
+		if at.has_meta("was"):
+			teile.append(["Waffe " + String(at.get_meta("was")), at])
+	for t in teile:
+		var n: Node3D = t[1]
+		var mis: Array = n.find_children("*", "MeshInstance3D", true, false)
+		var box := AABB()
+		var erst := true
+		for mi in mis:
+			var g: AABB = mi.global_transform * mi.get_aabb()
+			box = g if erst else box.merge(g)
+			erst = false
+		var c: Vector3 = box.get_center()
+		var px := cam.unproject_position(c)
+		print("DIAG   %s: im Baum sichtbar %s, Netze %d, Mitte %s, Größe %s, Maßstab %s, im Kegel %s, Schirm %s, hinter %s" % [t[0], n.is_visible_in_tree(), mis.size(), c, box.size, n.global_transform.basis.get_scale(), cam.is_position_in_frustum(c), px, cam.is_position_behind(c)])
+		for mi in mis.slice(0, 4):
+			var m = mi.get_surface_override_material(0) if mi.get_surface_override_material_count() > 0 else null
+			if m == null:
+				m = mi.material_override
+			var sh := ""
+			if m is ShaderMaterial and m.shader:
+				sh = "%s weg %s glow %s" % [m.shader.resource_path if m.shader.resource_path != "" else "eigen", m.get_shader_parameter("weg"), m.get_shader_parameter("glow")]
+			print("DIAG     %s: sichtbar %s, Schatten %d, Ebenen %d, Rand %.1f, Haut %s, Stoff %s" % [mi.name, mi.is_visible_in_tree(), mi.cast_shadow, mi.layers, mi.extra_cull_margin, mi.skin != null, sh])
+		await process_frame
+		var img0 := vp.get_texture().get_image()
+		var f0 := _farbe(img0, px)
+		# je Teil ein Bild rot, unbeschattet, ohne Tiefentest: kommt es an dieser Stelle?
+		var rot := StandardMaterial3D.new()
+		rot.albedo_color = Color.RED
+		rot.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		rot.no_depth_test = true
+		var alt := []
+		for mi in mis:
+			alt.append(mi.material_overlay)
+			mi.material_overlay = rot
+		await process_frame
+		await process_frame
+		var img1 := vp.get_texture().get_image()
+		var f1 := _farbe(img1, px)
+		var rote := 0
+		for y in range(0, img1.get_height(), 4):
+			for x in range(0, img1.get_width(), 4):
+				var q := img1.get_pixel(x, y)
+				if q.r > 0.8 and q.g < 0.2 and q.b < 0.2:
+					rote += 1
+		print("DIAG     %s Schirm an der Mitte vorher %s, rot drüber %s, rote Punkte im Bild (je 4. Punkt) %d" % [t[0], f0, f1, rote])
+		for k in mis.size():
+			mis[k].material_overlay = alt[k]
+		await process_frame
+
+
+func _farbe(img: Image, px: Vector2) -> String:
+	var vs := Vector2(img.get_width(), img.get_height())
+	var s := vs / Vector2(root.get_visible_rect().size)
+	var x := int(clampf(px.x * s.x, 0, vs.x - 1))
+	var y := int(clampf(px.y * s.y, 0, vs.y - 1))
+	var c := img.get_pixel(x, y)
+	return "(%d,%d)=%.2f/%.2f/%.2f" % [x, y, c.r, c.g, c.b]

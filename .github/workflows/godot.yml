@@ -468,9 +468,11 @@ jobs:
           cd godot
           sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
           MESS=1 timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_4062a.gd 2>&1 | grep -E "^Film|^Kampfrennen|FEHLER|SCRIPT ERROR" | tee $B/messung.log || true
-          timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+          # 406.2a Lauf 223 nachstellen (Wolf und Waffen fehlen im Bild): mit bild=nein DIAG=1, nur Textzeilen, kein Film hinaus
+          DIAG=${{ github.event.inputs.bild == 'nein' && '1' || '' }} timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
             --write-movie $RUNNER_TEMP/rennen4062a.avi --fixed-fps 30 -s res://tests/film_4062a.gd > $B/rennen4062a.log 2>&1 || true
           grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER" $B/rennen4062a.log | head -16 || true
+          grep -E "^DIAG" $B/rennen4062a.log | head -120 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/rennen4062a.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/4062a-rennen.mp4 || true
           ls -l $B
       - uses: actions/upload-artifact@v4
