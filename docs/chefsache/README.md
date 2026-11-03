@@ -25,6 +25,7 @@ Nichts offen.
 | [492](ansehen/492-hoehle.md) | Blutzahnhöhle: alt gegen neu an acht Stellen | – | 03.11., 23:30 |
 | [505](ansehen/505-nebel-stufen.md) | Nebel im Wald: drei Stufen beschriftet, Bäume A oder B | – | 03.11., 22:35 |
 | [519](ansehen/519-gegenstandsfenster.md) | Fenster eines Gegenstands passt auf den Schirm, wie alt | – | 03.11., 23:50 |
+| [524](ansehen/524-gegenstandsfenster-inhalt.md) | Fenster eines Gegenstands: Inhalt wie in der alten Fassung | – | 04.11., 00:15 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -67,7 +68,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 537 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 537): Kapitelende fehlt: nach Aldric kei | startbar |
 | 549 | M | von Sokrates (Chef 04.11., 00:07, Build 249, Bild; Zu 549): „Rastscreen wirkt sehr klein u | startbar |
 | 523 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 523): Tasche wie alt und besser: „Funke | startbar |
-| 524 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 524): Gegenstandsfenster, Inhalt wie alt | in Arbeit bei Spike |
+| 524 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 524): Gegenstandsfenster, Inhalt wie alt | wartet auf Test/Build (gebaut) |
 | 525 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 525): Laden, Morwen, Rast wie alt und be | startbar |
 | 526 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 526): Rückfragen und Fenster einheitlich | startbar |
 | 528 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 528): Held, Karte, Chronik wie alt: Satz | startbar |
@@ -327,7 +328,7 @@ Format (Muster: „So geht's“ unten): t249-build-490.md: 14 Vorgänge, höchst
 
 Nicht gestellt: 407 (Projekt)
 
-Ohne Datei: 3402 (Projekt), 275 (Projekt), 26 (Team Tom)
+Ohne Datei: 3402 (Projekt), 275 (Projekt)
 
 ## So geht's
 
