@@ -6,7 +6,7 @@ extends Node
 # Kampfklang nach MarsSound.kt; was das alte Spiel synthetisiert, rendert KlangExport.kt im Bau als .wav (nicht neu gebaut).
 # Ortsklang wie PlaceSound.kt, Ambience.kt, RiverSound.kt (WorldScreen.kt: Wind, Halle, Feuer, Fluss, Tropfen, Knarren, Husten);
 # Raumklang wie Room.kt: die Fassungen aus app/src/main/assets/raum (Vorschau RAUMKLANG=spiel), die synthetischen aus KlangExport.kt.
-# Noch nicht hier (Folgeschritte 399.3): Leute (Tassen, Stühle, D1.10), Teich, Hühner, Vögel, Regen (gibt es in Godot noch nicht),
+# Teich: teichleben.gd (509). Noch nicht hier (Folgeschritte 399.3): Leute (Tassen, Stühle, D1.10), Hühner, Vögel, Regen (gibt es in Godot noch nicht),
 # Bemerkgrenze (Threat).
 # Schwarzblende wie Hush.kt und VeilGate (Music.kt): solange sie steht, schweigen die Effekte (außer Klick und Tür), danach
 # kommen sie in 400 ms wieder; neue Musik und der Höhlenteppich erst nach der Blende und 500 ms Ruhe.
@@ -555,6 +555,15 @@ func _ort_betreten() -> void:
 	_letztes = ""
 	_feuer_bei = Vector2i(-99999, -99999)
 	_fluss_bei = Vector2i(-99999, -99999)
+
+
+## 509 Teich (PondSound.kt, teichleben.gd): ob Einzelklänge jetzt erklingen dürfen, und der Chor der Frösche in der Dämmerung als
+## Schleife wie Feuer und Fluss (beim Ortswechsel klingt er mit den anderen aus)
+func ruhig() -> bool:
+	return _ruhig()
+
+func teich_chor(soll: float, hoechst: float, dt_ms: float) -> void:
+	_schleife("teich", "frog_chorus", soll, hoechst, dt_ms, FADE_MS)
 
 
 ## Ruhig: auf der Karte, nicht im Kampf, kein Menü (WorldScreen.kt calm: Mode.Explore und kein Menü)

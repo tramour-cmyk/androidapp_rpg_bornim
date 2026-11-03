@@ -237,6 +237,7 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/testmenue_mass_425.gd 2>&1 | grep -E "FEHLER|TESTMENUE|SCRIPT ERROR"   # 425 Befunde Testmenue
           timeout 120 ~/godot/godot --headless --path . -s res://tests/laden_4169.gd 2>&1 | grep -E "FEHLER|LADEN4169|SCRIPT ERROR"   # 416.9
           timeout 300 ~/godot/godot --headless --path . -s res://tests/wald_490.gd 2>&1 | tee wald490.log | grep -E "FEHLER|WALD490|SCRIPT ERROR"; grep -q "^WALD490 0 Fehler" wald490.log   # 490
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/teich_509.gd 2>&1 | grep -E "FEHLER|TEICH509|SCRIPT ERROR"   # 509 Frösche, Libellen
       # fester Schluessel ueber alle Laeufe, sonst lehnt Android das Update ab (348.5, Build 9). 399.1a (Chef 28.10., 14:41): der Cache
       # eines Zweigs galt nur dort (Build 130 bekam einen neuen); jetzt nur lesen, angelegt wird er auf main (godot-schluessel.yml)
       - uses: actions/cache/restore@v4
@@ -302,7 +303,7 @@ jobs:
       # 490 Flüsterwald: aus Sicht des Helden (Ankunft, Feuer, Teich, Kraeuter, Hoehle, Rand, Monster mit „!“, nachts Feuer und Ankunft),
       # mit Kaufheld wie im Build; nur bei „490 Waldbilder“ im Commit oder von Hand auf dem Zweig claude/spike-490-…
       - name: Waldbilder (490)
-        if: contains(github.event.head_commit.message, '490 Waldbilder') || (github.event_name == 'workflow_dispatch' && contains(github.ref, 'spike-490'))
+        if: contains(github.event.head_commit.message, '490 Waldbilder') || (github.event_name == 'workflow_dispatch' && (contains(github.ref, 'spike-490') || contains(github.ref, 'jerry-509')))
         continue-on-error: true
         run: |
           mkdir -p $GITHUB_WORKSPACE/bilder/wald490
@@ -310,6 +311,21 @@ jobs:
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --wald=$GITHUB_WORKSPACE/bilder/wald490 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^BILD|^LEUTE|^WALDBILDER" | cut -c1-400 || true
           ls -l $GITHUB_WORKSPACE/bilder/wald490
+      # 509 Frösche und Libellen am Teich (tests/film_teich_509.gd), Film aus der Spielkamera; nur von Hand auf claude/jerry-509-…
+      - name: Teichfilm (509)
+        if: github.event_name == 'workflow_dispatch' && contains(github.ref, 'jerry-509')
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/teich509; mkdir -p $B
+          cd godot
+          command -v ffmpeg > /dev/null || sudo apt-get install -y -qq ffmpeg > /dev/null || true
+          MESS=1 timeout 300 ~/godot/godot --headless --path . -s res://tests/film_teich_509.gd 2>&1 | grep -E "^Teich 509|SCRIPT ERROR" | tee $B/messung.log || true
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
+            --write-movie $RUNNER_TEMP/teich509.avi --fixed-fps 30 -s res://tests/film_teich_509.gd > $B/teich509.log 2>&1 || true
+          grep -E "SCRIPT ERROR|SHADER ERROR|^Teich 509" $B/teich509.log | head -20 || true
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/teich509.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/509-teich.mp4 || true
+          ls -l $B
       - uses: actions/upload-artifact@v4
         with:
           name: bornim-godot-bilder

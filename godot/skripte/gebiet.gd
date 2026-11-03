@@ -29,6 +29,7 @@ var kraut_netz: MeshInstance3D        # 490 Vorlage des Heilkrauts (dorf.py „K
 var kraeuter := {}                    # Vector2i -> MeshInstance3D
 var feuer: Array = []                 # 490 Lagerfeuer: {licht, flammen, rauch, basis}
 var glut: Array[ShaderMaterial] = []  # 490 Glut im Feuer
+var teich: Teichleben                 # 509 Frösche und Libellen am Waldteich (teichleben.gd)
 
 func _init(k: Karte) -> void:
 	karte = k
@@ -265,6 +266,7 @@ func nacht(k: float) -> void:
 	if korn_mat: korn_mat.set_shader_parameter("night", k)
 	for f in falter: (f["n"] as Node3D).visible = k < 0.5
 	for g in gluehen: g.emitting = k > 0.6
+	if teich: teich.nacht_k = k
 	for r in rauch: r.color = Color(0.70, 0.68, 0.65, 0.55).lerp(Color(0.31, 0.29, 0.28, 0.5), k)
 
 # Laub vor dem Helden, nach der Tusche (Prioritaet 1, 2 wie Rauch), sonst Tuschering an der Lochkante: erst nur Tiefe (vorderste
@@ -516,6 +518,9 @@ func baue_leben() -> void:
 		var at := gpos(l["pos"])
 		if l["art"] == "rauch": rauch.append(baue_rauch(at))
 		elif l["art"] == "blumen": gluehen.append(baue_gluehen(at))
+	if wald:   # 509 (Jerry): Frösche und Libellen an den Teichen wie alt (PondLife.kt), Plätze aus dem Ufer der Maske
+		teich = Teichleben.baue(karte, mimg, held)
+		add_child(teich)
 
 func baue_rauch(at: Vector3) -> CPUParticles3D:
 	var pr := CPUParticles3D.new()
@@ -591,6 +596,7 @@ static func punkt_mat(leuchtet: bool) -> StandardMaterial3D:
 
 func _process(dt: float) -> void:
 	zeit += dt
+	if teich: teich.held = held
 	blende_gruppen(dt)
 	for f in feuer:   # 490: Flackern wie MapLight FIRE (zwei Wellen und Rauschen)
 		var o: OmniLight3D = f["licht"]
