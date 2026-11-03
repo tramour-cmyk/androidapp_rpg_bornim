@@ -4,6 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **494 Wildschwein, Hundertfüßer, Riesenspinne im Kampf** (Jerry): das Wildschwein zuckt bei einem Treffer (der Kauf hat keine Bewegung dafür); Name und Lebensbalken stehen über dem Tier statt in Wolfshöhe (Hundertfüßer); die Riesenspinne gleitet neben dem Wolf nicht mehr, steht in echter Größe (vorher anderthalbfach) mit Balken über dem Körper. Tests `wildschwein_494`, `spinne_494`.
 - **494 Riesenegel und Säureschnecke** (Jerry): aus den gekauften Modellen (348.12c), statt Stirge und Ockergallerte; Riesenegel in drei Formen (braun, grau, ocker), Säureschnecke 2,4 m lang in Schlammbraun, Gelbgrau, Ocker, greift mit der Zunge an; Probekämpfe „Riesenegel“, „Säureschnecke“ mit den alten Regeln. Test `wildschwein_494`.
 - **494 Riesenspinne** (Jerry): aus dem gekauften Modell (348.12c) mit drei eigenen Häuten (Sanduhr, Längsstreifen mit Beinringen, Winkel und Narben), acht matten Augen, offenen Kieferklauen und erhobenen Vorderbeinen; Treffer und Ausweichen selbst gebaut, weil der Kauf sie nicht hat. Test `spinne_494`.
 - **494 Krogg-Figur** (Jerry): Krogg der Grobian nach `LISTE-FIGUREN.md` — Körper auf dem CC0-Superhelden (431), Kopf vom gekauften Braunbären, Morgenstern aus dem Anker-Paket; Mähne, Bart, Hauer, Zotteln, Fellumhang, Lendenschurz, Gürtel mit Schlüssel, Krallennarben; Bewegungen Stehen, Gehen, Hieb, Treffer, Tod mit fallendem Morgenstern, Rennen, Zurück, Ausweichen. Im Kampf wie Grak, im Spiel-Build verschlüsselt.
