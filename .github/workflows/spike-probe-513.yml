@@ -2,13 +2,16 @@ name: Spike Probe Figurenstand (513)
 
 # 513 B (Chef 03.11., 15:56): ein Figurenstand fuer alle Zweige; Schild unten am Ruecken, Knie Magier, Umhang jetzt. Bau wie godot.yml
 # (Held je Klasse, Waffen, Kaufschilde), dann nur der Drehteller 499 (Standbilder, Messung Schild-Ruecken, Waffe-Faust) und die Flecken
-# in Robe und Umhang (pruef_flecken.py); kein Film, keine APK. Nur von Hand. Kaufmodelle nur ueber diesen Ablauf, ins Artefakt nur
-# Bilder und Protokolle (348.12c a).
+# in Robe und Umhang (pruef_flecken.py); kein Film, keine APK. Kaufmodelle nur ueber diesen Ablauf, ins Artefakt nur
+# Bilder und Protokolle (348.12c a). Nur bei Commits, die mit „513 Probe“ beginnen (Haken probelauf.py zaehlt den Push).
 on:
+  push:
+    branches: ["claude/figurenstand-513"]
   workflow_dispatch:
 
 jobs:
   probe:
+    if: startsWith(github.event.head_commit.message, '513 Probe')
     runs-on: ubuntu-24.04
     timeout-minutes: 120
     env:
