@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
-**Übergabe (03.11., 17:5x):** 494 Riesenegel und Säureschnecke aus dem Kauf gebaut (b7673e117, Zu 494), `wildschwein_494` grün. Nachfolger: „Jerry – 494: Wildschwein und Hundertfüßer prüfen“
+**Übergabe (03.11., 19:1x):** 494 Wildschwein, Hundertfüßer geprüft, Spinne repariert (Weg, Größe, Netzwurf), Ratte, Fledermaus, Spinne allein mit eigenen Regeln, Fledermaus im Spiel-Build (bis 458867c5f); 517 Waldklang gebaut (c12991504). Kaufmodelle lokal bauen: Anhänge über `gh api …/releases/assets/<id>` (gh release geht hier nicht). Nachfolger: keiner (auf Abruf; Startbares erst nach 511 oder „507, Läufe frei“).
 
 ## Zeilen
 
