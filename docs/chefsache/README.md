@@ -16,6 +16,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [492](ansehen/492-hoehle.md) | Blutzahnhöhle: alt gegen neu an acht Stellen | – | 03.11., 23:30 |
 | [505](ansehen/505-nebel-stufen.md) | Nebel im Wald: drei Stufen beschriftet, Bäume A oder B | – | 03.11., 22:35 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
