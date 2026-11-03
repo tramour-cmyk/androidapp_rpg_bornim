@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert“).
 
-**Übergabe (03.11., 05:1x):** 438a: Läufe 207–211 Schwertfaust aus dem Kleid (Zu 438a), angehalten wegen 488. 406: Messwerkzeug nachgebessert (d263891ff, Lauf 208), Helferbefund in ansehen/406-schildfilm.md. PR #178 abonniert. Nachfolger: „Jerry – 438a, 406: nach Urteil des Chefs (488, Schildfilm)“ (zuerst PR #178 abonnieren)
+**Übergabe (03.11., 07:4x):** 438a eingefroren (488), 406 passt. 406.2 gebaut (f596907c1, Zweig claude/jerry-406-2-parade mit 406c-gehen); der einzige Filmlauf (488) ist Lauf 212 (Actions-Run 41587796869, schild=ja), noch nicht fertig. 415: Beams-Paket war im Bau 204 (Schritt „Beams-Probe“ grün); Kopfzeile „415 Strahlenprobe · –“ heißt: kein Strahl gestartet; Probe setzt hero_cls WIZARD, der Chef sah Kämpfer und alte Wölfe ohne Atem, also wohl gar keine Kaufmodelle in der Probe (nachstellen, nicht geglaubt). Nachfolger: „Jerry – 406.2, 415: Parade-Film an den Chef, Strahlenprobe nachstellen“ (zuerst PR #178 abonnieren; Lauf 212 abwarten, Film sofort per meldung.sh --film an den Chef, Prüfer danach: Gehen zum Angriff ohne Rutschen, Parade zur Seite des Angreifers; ABWEHR-Zeilen im Log; dann 415 nach Zu 415)
 
 ## Zeilen
 
@@ -60,7 +60,6 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert
 | 296.3 | K | von Sokrates: MARS-Schmuck (Todesschrei, Siegerpose …) | ruht bis 348.7 (Kampf in Godot; Urteil 348 gefallen 25.10.) | – |
 | 344.2 | K | von Sokrates: Kampf mit der Fackel | ruht: SRD (Chef 31.10.) | `claude/jerry-344-2-fackel` |
 | 168.1 | K | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab 3 | wartet auf 38, dann Bau Kapitel 2; Texte Homer (41) | – |
-| D23.3 | M | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht: ersetzt durch 427 (Klassen entfallen; Zauberlehrling und Klosterschüler je Herkunft in sim444, 481) | `claude/diogenes-d41-messung` |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte | ruht bis 348.7 (Kampfort in Godot); Kür hinter dem Meilenstein (Chef 19.10.) | `claude/jerry-72u-standbild-2` |
 | 133 | K | Umsetzung 133: Charisma-Proben, Erfahrung für Konflikte | ruht: SRD (Chef 31.10.) | – |
 | 212 | M | Umsetzung 212: Schalter MARS oder klassisch | ruht: SRD (Chef 31.10.) | – |
@@ -82,11 +81,11 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert
 - **Zu 415, von Sokrates (Chef 02.11., 22:05: „415d muss ins nächste Build“):** Testmenü-Eintrag 415 in Build 196. 415d ja (Chef 22:04, Archiv): läuft der Test flüssig, lege `chefsache/tun/415d-…` (Kauf beider Pakete, Links) an; Lizenz nach dem Kauf vor dem Einbau lesen.
 - **Zu 487 (Jerry 02.11., 22:5x):** Build 196 = Tom 416.9, 416.8, 416.2; Jerry 458.2, 473, 472, 415 (Cherry-Pick ohne `_rand_kamera`, `film_415` aus dem Grundstand); Prüfliste t196, PR #178. Nicht drin: 416.4, 453.2 (über 461.1). Fällt ein Punkt durch: nur er per `git revert` heraus.
 
-- **Zu 472, 473 (Jerry 02.11., 11:4x):** `godot/regeln/brs.gd` liest `daten/werte.json` (= `tools/sim444/werte.json`); Tests `brs_472.gd`, `brs_473.gd`. Offen: Kampf rechnet bis 2.3 nach SRD (Frage an Perikles); Stufe am Helden (Heldenblatt, Anzeige Deckel, `lohn.gd`) nach 470; Annahmen Topf 10 %, weich 0,25 an Sokrates (427).
+- **Zu 472, 473 (Jerry 02.11., 11:4x):** `regeln/brs.gd` liest `daten/werte.json`; Tests `brs_472/473.gd`. Offen: Stufe am Helden nach 470; Annahmen Topf 10 %, weich 0,25 an Sokrates (427).
 
 - **von Team Tom (Spike, 01.11., 21:2x, zu 461.1):** `claude/grundstand-461` = Build 146, Tom, `jerry-406-kaufschild`, `jerry-348-12-grak-schreitet`; nicht neu mischen, weiter auf dem Zweig.
 - **Wortlaut in Git:** welcher Eintrag in welchem Commit steht (ruhende Zeilen, Zu 453, 402, 406 a–e, 438, 461.1, 427.1, 438a Runde 2, 478, 415, 348.12b), listet `git show a97f67e7e:docs/ARBEIT-TEAM-JERRY.md` unter „Wortlaut in Git“.
-- **Zu 438a, 438 (Jerry 03.11., 07:1x):** eingefroren (488). Nach dem Durchspielen: Läufe 207–211 (Zweig, faust_frei im Spiel aus), bester Fall I (2b63fa933): Hinfallen frei, beim Aufstehen Klinge 13,3 cm quer im Kleid, Schub springt bis 13 cm; nächster Schritt wäre die Klinge zwischen den Beinen. Offen: Wolf 1 im Kleriker (438).
+- **Zu 438a, 438 (Jerry 03.11., 07:1x):** eingefroren (488); Stand der Läufe 207–211 im Commit 2b63fa933 (Zweig). Offen: Wolf 1 im Kleriker (438).
 - **Zu 406 (Jerry 03.11., 07:1x):** passt (Chef 06:59). Für nach dem Durchspielen (Prüfer Lauf 205, ansehen/406-schildfilm.md in Git): Wald und Silhouette vor der Kamera, Helden klein, Umhang B4, toter Wolf F4; Messwerkzeug d263891ff (Dreiecke, UEBER). E8 wartet auf Tom 417; F2 offen.
 - **von Sokrates (Chef 01.11., 22:35, „461c wie Sokrates“, Archiv 461c; Grundstand B5, F4):** zu 406: Kleriker-Schild Form Schild 2 mit goldener Sonne in unseren Farben; zu Kampf: Tod für alle zusammenbrechen, kurz liegen, dann ausblenden (auch Wölfe); zu 444: Schmiedelehrling startet zusätzlich mit Stumpfe Waffen (`werte.json`), neu rechnen.
 - **Zu 348.12 (Chef 27.10., 29.10., 01.11., 22:45):** Wortlaut in Git (1820858d2): Nachjustieren kein Kriterium; Schreiten nur beim Ortswechsel, Ausweichen rasch nur gegen sichtbaren Angriff; in 348.12k mitnehmen.
