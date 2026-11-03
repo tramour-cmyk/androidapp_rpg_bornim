@@ -1609,26 +1609,24 @@ func nebel_bilder() -> void:
 	betrete("forest", Vector2i(11, 8), "LEFT")
 	if herde: herde.aus = true
 	await get_tree().create_timer(1.0).timeout
-	for f in ["kegel", "breit", "kreis"]:
-		Nebel.form = f
-		nebel.vergiss()
-		held.setze(Vector2i(11, 8), "LEFT"); kamera.springe()
-		await get_tree().create_timer(1.2).timeout
-		ui.textfeld.visible = false
-		await knips("%s/form_%s.png" % [dir, f])
-	Nebel.form = "kegel"
+	# 505 C (Chef 10:08): rundum; frisch an derselben Stelle wie die Formen in Lauf 2 (Teich im Bild: Wasser unter dem Nebel?)
+	nebel.vergiss()
+	held.setze(Vector2i(11, 8), "LEFT"); kamera.springe()
+	await get_tree().create_timer(1.2).timeout
+	ui.textfeld.visible = false
+	await knips("%s/rundum_frisch.png" % dir)
 	nebel.vergiss()
 	for y in range(29, 17, -1):   # der Weg nach Norden, Kachel fuer Kachel
 		held.setze(Vector2i(9, y), "UP"); kamera.springe()
 		await get_tree().create_timer(0.25).timeout
 	await get_tree().create_timer(1.0).timeout
 	ui.textfeld.visible = false
-	await knips("%s/kegel_gegangen.png" % dir)
+	await knips("%s/rundum_gegangen.png" % dir)
 	licht.umschalten()
 	zustand.minuten = 23 * 60
 	await get_tree().create_timer(2.5).timeout
 	ui.textfeld.visible = false
-	await knips("%s/kegel_nacht.png" % dir)
+	await knips("%s/rundum_nacht.png" % dir)
 	print("NEBELBILDER fertig")
 	get_tree().quit()
 

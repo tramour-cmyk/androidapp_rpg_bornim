@@ -25,7 +25,7 @@ func _lauf() -> void:
 	pruefe(n.an, "im Wald Nebel")
 	pruefe(n.nebel(9, 26) == 2, "Kachel des Helden in Sicht")
 	pruefe(n.nebel(9, 23) == 2, "drei vor ihm (Weg nach Norden) in Sicht")
-	pruefe(n.nebel(9, 29) != 2, "drei hinter ihm nicht in Sicht: %d" % n.nebel(9, 29))
+	pruefe(n.nebel(9, 29) == 2, "drei hinter ihm in Sicht (rundum, Chef 10:08 „505 C“): %d" % n.nebel(9, 29))
 	pruefe(n.nebel(10, 27) == 2, "daneben (kleiner Kreis) in Sicht")
 	pruefe(n.nebel(9, 3) == 0, "weit weg nie gesehen")
 	pruefe(n.nebel(0, 26) == 1, "Baum ausser Sicht nie schwarz (t732): %d" % n.nebel(0, 26))
@@ -40,7 +40,7 @@ func _lauf() -> void:
 	var k := (3 * Nebel.SUB + 1) * w + 9 * Nebel.SUB + 1
 	pruefe(n.bild.get_pixel(k % w, k / w).r > 0.98, "Nebelbild schwarz weit weg")
 	# weitergehen: was gesehen war, bleibt gesehen
-	spiel.held.setze(Vector2i(9, 18), "UP")
+	spiel.held.setze(Vector2i(9, 16), "UP")     # rundum: sieben Felder weiter, damit (9, 23) aus der Sicht ist
 	for i in 3: await process_frame
 	pruefe(n.nebel(9, 23) == 1, "(9, 23) nach dem Weitergehen gesehen, nicht in Sicht: %d" % n.nebel(9, 23))
 	pruefe(n.nebel(9, 15) == 2, "(9, 15) jetzt in Sicht")
@@ -57,12 +57,12 @@ func _lauf() -> void:
 			aus_sicht += 1
 			if s.visible: falsch += 1
 	pruefe(aus_sicht > 0 and falsch == 0, "Monster ausser Sicht unsichtbar (%d ausser Sicht, %d falsch)" % [aus_sicht, falsch])
-	# Formen zur Wahl (Vorlage an den Chef): Kreis sieht auch hinter sich
-	Nebel.form = "kreis"
+	# die alte Form (Kegel 160°, Bildlauf --nebel) sieht nicht hinter sich
+	Nebel.form = "kegel"
 	spiel.held.setze(Vector2i(9, 26), "UP")
 	for i in 3: await process_frame
-	pruefe(n.nebel(9, 29) == 2, "Form Kreis: auch hinter dem Helden in Sicht")
-	Nebel.form = "kegel"
+	pruefe(n.nebel(9, 29) != 2, "Form Kegel: hinter dem Helden nicht in Sicht")
+	Nebel.form = "kreis"
 	_ende()
 
 func _ende() -> void:

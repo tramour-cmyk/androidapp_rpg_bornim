@@ -7,7 +7,7 @@ extends Node
 # Draussen ist ein Baum nie schwarz (t732), jenseits des Rands nie dunkler als gesehen. Je Kachel 4 x 4 Teile (SUB), die
 # Kegelkante darum rund (13e); jeder Wechsel blendet in etwa 150 ms (FADE_MS 450 / 3).
 # Form des Sichtfelds (Chef 07:30: „ob wir das Sichtfeld doch ein bisschen anders machen“): FORMEN, alt = "kegel"; vor dem Bau
-# als Vorlage an den Chef, bis dahin gilt alt.
+# als Vorlage an den Chef; entschieden C rundum (Chef 10:08, Archiv 505 C).
 
 const SUB := 4
 const UNDURCHSICHTIG := ["TREE", "ROCK", "WALL", "CAVE_WALL", "ROOF", "ROOF_BLUE", "WINDOW", "TORCH", "SHELF", "CRYSTAL"]
@@ -20,7 +20,7 @@ const FADE_MS := 450.0
 const HOEHLE_GESEHEN := 0.5        # MapLight.CAVE_SEEN_DIM, bis die Hoehle kommt (492) wie draussen
 ## Formen zur Wahl: Kegel (cos der halben Oeffnung) und Kreis ringsum (Kacheln); alt: 160° plus 2 Kacheln
 const FORMEN := {"kegel": [0.17, 2.0], "kreis": [-1.0, 0.0], "breit": [-0.5, 2.0]}
-static var form := "kegel"
+static var form := "kreis"     # Chef 03.11., 10:08 „505 C“ (Archiv): rundum gleich weit; FORMEN bleiben für den Bildlauf
 
 var spiel                          # spiel.gd
 var karte: Karte
@@ -70,6 +70,7 @@ func _ready() -> void:
 	mat.render_priority = 127      # nach allem, auch nach der Tusche (kamera.gd): naeher an der Kamera, darum spaeter gezeichnet
 	mat.set_shader_parameter("nebel", tex)
 	mat.set_shader_parameter("groesse", Vector2(breite, hoehe) * Karte.TS)
+	mat.set_shader_parameter("teile", Vector2(breite, hoehe))
 	mat.set_shader_parameter("rand_hoechstens", 1.0 if String(karte.daten.get("art", "")) == "CAVE" else 0.5)
 	flaeche.material_override = mat
 	flaeche.position = Vector3(0, 0, -0.9)

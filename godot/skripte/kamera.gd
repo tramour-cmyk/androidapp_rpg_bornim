@@ -96,7 +96,9 @@ func tusche_flaeche(sh: Shader, breite: float, dick: float) -> MeshInstance3D:
 	q.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	var m := ShaderMaterial.new()
 	m.shader = sh
-	m.render_priority = 127   # zuletzt, auch nach der Flamme (held.gd, 100), die sich mit Schablone 1 ausnimmt
+	# zuletzt, auch nach der Flamme (held.gd, 100), die sich mit Schablone 1 ausnimmt; 126, weil der Nebel (nebel.gd, 127) danach
+	# kommen muss (505 Prüfer Lauf 2: die Linie am Teichufer lag über dem schwarzen Nebel)
+	m.render_priority = 126
 	m.set_shader_parameter("px", breite)
 	m.set_shader_parameter("dick", dick)
 	tusche_mats.append(m)
