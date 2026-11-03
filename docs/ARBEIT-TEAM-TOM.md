@@ -8,6 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 531 | M | **von Sokrates (Chef 03.11., 23:42, Build 249; Zu 531):** Garrick: „Gesicht wirkt sonderbar, Bogen fehlt, vertreibt keine Mobs. Hat er schon Animation?“ | startbar | – |
 | 530 | M | **von Sokrates (Chef 03.11., 23:40, Build 249):** „Schlagbaum öffnet sich nicht visuell.“ Merker `barrier_open` (`geschichte.gd` 58) und Erzähltext kommen, das Modell bleibt zu; nachstellen, auch nach Laden eines Spielstands | startbar | – |
 | 522 | M | **von Sokrates (Chef 03.11., 23:33, Build 249; Zu 522):** „im Testmenü Ausrüstung des Helden geändert (Schild gegeben), aber im Spiel kein Schild“; Ursache nachstellen, auch nach Anlegen im Ausrüstungsschirm | startbar | – |
 | 521 | M | **von Sokrates (Chef 03.11., 23:23, Build 249, Bild; Zu 521):** Wechselschirm (Platz antippen): Gegenstände kaum zu unterscheiden; Zeile wie alt `GearRow` | startbar | – |
@@ -95,6 +96,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Zu 531, von Sokrates:** Chef 23:42: „Ist Garrick schon ‚fertig‘? Gesicht wirkt sonderbar, Bogen fehlt, vertreibt keine Mobs. Hat er schon Animation?“ Alt (`MapFolk.kt` 24–34): breiter Mann, kurzer Vollbart, Kapuze und Umhang dunkles Oliv, dunkles Leder, Langbogen quer über dem Köcher auf dem Rücken; Ruhebewegungen Hände am Feuer wärmen, in den Wald spähen (Z. 424), setzt sich, nickt nachts ein (`WorldScreen.kt` 1073–1077), trägt die Fackel gegen ein Tier (890). Neu: Schutzort wirkt im Code (`herde.gd` 117–140, Tiere geben auf, Meldung), Fackelschwenken nicht gefunden. Erst nachstellen, was am Gerät fehlt; besser als alt erlaubt (Chef 23:26), Figur zuerst als Standbild.
 - **Zu 453.2, von Sokrates (Chef 03.11., 23:37, Build 249, t249 245.2):** „Atmung wirkt auf mich von der Animation her sehr gleichmäßig und unabhängig vom gehen oder rennen …“ Teil „nach dem Rennen schneller, dann ruhiger“ durchgefallen. Code `held.gd` 381–383 ruft `atem.anstrengen` beim Gehen und Rennen; am Gerät nicht sichtbar: erst nachstellen (wirkt es nicht, oder zu schwach?), dann bauen.
 - **Zu 523, von Sokrates (Helfer, Code gelesen, Chef 23:26 „besser machen“):** alt `MenuScreen.kt` 718–766, `GearUi.kt` 132–150, `Dialogs.kt` 107–114; neu `menue.gd` 325–351, 426–476; Seltenheit fehlt im Export (`TextExport.kt` 67 ohne `seltenheit`). Klang beim Benutzen nur vermutet (`Game.kt` 1539 ff.). Vorschlag Helfer: Filter nach Platz.
 - **Zu 524, von Sokrates (Helfer, Code gelesen, Chef 23:26 „besser machen“):** alt `GearUi.kt` 161–243, `GearCompare.kt` 55, 80–110; neu `menue.gd` 500–510, `vergleich.gd` 6, 36–53; `hw.geuebt` gibt es (`heldwerte.gd` 156). Ohne Deckelhinweis heißt ein Stück nur „Bringt nichts“. Mit 519 (Größe des Fensters) zusammen bauen.
