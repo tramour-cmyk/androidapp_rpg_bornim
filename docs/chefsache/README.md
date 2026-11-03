@@ -128,7 +128,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 453 | M | von Sokrates (Chef 01.11., 11:05): Wölfe brauchen Ruhebewegungen: atmen, scharren, umblick | wartet auf Test/Build (gebaut) |
 | 453a | M | Wolfsatem B (Archiv) | wartet auf Test/Build (gebaut) |
 | 454 | M | von Sokrates (Chef 01.11., 11:05): beim Biss zielt die Achse des Wolfs wohl rechts neben d | wartet auf Test/Build (gebaut) |
-| 438a | M | von Sokrates (Archiv 438a): Hinfallen/Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
+| 438a | M | von Sokrates (Archiv 438a): Hinfallen/Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe | startbar |
 | 439 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Reihenfolge Angriff, Treffer, Tod, Neuformati | wartet auf Test/Build (gebaut) |
 | 440 | M | von Sokrates (Chef 31.10., 23:34, Film 403): Wolf-Tod zu schnell weg (Zu 438) | wartet auf Test/Build (gebaut) |
 | 416.6 | K | von Sokrates (Chef 31.10., 20:4x): Spuren des Helden fehlen (core/Tracks.kt, LISTE-UMZUG-3 | wartet auf Tom |
@@ -266,7 +266,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 407 (Projekt), 438a (Team Jerry)
+Nicht gestellt: 407 (Projekt)
 
 Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/406-schildfilm.md, ansehen/417-dorf-film.md, ansehen/4474-lehrmeister-texte.md, ansehen/463-umhang-robe.md
 
