@@ -91,6 +91,7 @@ func _ready() -> void:
 	rast_probe()
 	raeume_bilder()
 	wald_bilder()
+	tiefwald_bilder()
 	if FigurenProbe.an(): add_child(FigurenProbe.new(self))   # 376.1 Probeblatt Quaternius-Figuren (figurenprobe.gd)
 
 # 399: Spielbeginn aus dem Hauptmenue: geladen an den gespeicherten Ort, sonst ein neues Spiel mit frischem Zustand (Test 139: das neue
@@ -544,6 +545,25 @@ func _kampf_auf_karte(monster: String, eroeffnung: String, wer: Streuner) -> voi
 
 var blick_nach := "DOWN"   # 490: Blick nach dem Kampf (Monster der Karte: wie vorher)
 
+# 491 Kampf aus der Geschichte (Grimmzahn: fight("dire_wolf", GRIMFANG_DEFEATED)): Gruppe wie die Monster der Karte (Streuner.GRUPPE,
+# Grimmzahn mit seiner Leibwache), danach steht der Held, wo er stand; gewonnen: Flagge, wer besiegt ist, verschwindet, die Szene
+# geht weiter (Grimmzahn bricht zusammen …); verloren oder geflohen: die Szene endet (Game.endBattle)
+func _szenenkampf(monster: String, flagge: String) -> void:
+	im_kampf = true
+	held.halt(); held.richtung = Vector3.ZERO
+	blick_nach = held.blick()
+	var ende := await kampf_im_wald(held.kachel, String(Streuner.GRUPPE[monster]))
+	blick_nach = "DOWN"
+	im_kampf = false
+	if ende != "WON":
+		szene.clear()
+		return
+	if flagge != "":
+		zustand.setze(flagge)
+		flaggen_neu()
+	sichtbar_neu()
+	weiter()
+
 # ---------------------------------------------------------------- 490 Truhen (Tile.CHEST, Game.openChest): einmal je Truhe, Inhalt aus der Karte
 func kiste(t: Vector2i) -> Dictionary:
 	if karte.zeichen(t) != "C": return {}
@@ -722,6 +742,11 @@ func weiter() -> void:
 			"laden":   # Cmd.OpenShop: Thessa oder Morwen; die Szene geht weiter, wenn der Laden zu ist
 				oeffne_laden(c["waren"], bool(c.get("brauen", false)))
 				return
+			"kampf":   # 491 Cmd.Fight (Game.startBattle aus der Szene): Sieg setzt die Flagge, die Szene geht weiter; sonst endet sie
+				if Streuner.GRUPPE.has(String(c["monster"])) and ResourceLoader.exists("res://kampf/kampfort.gd"):
+					_szenenkampf(String(c["monster"]), String(c.get("flagge", "")))
+					return
+				szene.clear()
 			"schenke":   # Cmd.Tavern: Rowenas Theke; die Szene geht weiter, wenn das Feld zu ist (Game.advance)
 				oeffne_rast("schenke")
 				return
@@ -1580,6 +1605,39 @@ func wald_bilder() -> void:
 		ui.textfeld.visible = false   # Tipps beim Betreten nicht ueber dem Ort
 		await knips("%s/%s.png" % [dir, o[0]])
 	print("WALDBILDER fertig")
+	get_tree().quit()
+
+# 491 Tiefer Flüsterwald am Rechner: --tiefwald=<ordner> knipst aus Sicht des Helden: Ankunft vom Flüsterwald, Weg zwischen den
+# Baeumen (Sicht 353a: Held ganz zu sehen, Weg voraus erkennbar), Morwen an ihrem Feuer mit der Huette, Grimmzahn vor seinem Platz;
+# Morwen und Grimmzahn auch nachts
+func tiefwald_bilder() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--tiefwald="): dir = a.substr(11)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	zustand.minuten = 10 * 60
+	betrete("deep_forest", Vector2i(1, 18), "RIGHT")
+	if herde: herde.aus = true   # Bilder ohne Angriff
+	await get_tree().create_timer(1.5).timeout
+	var orte := [["ankunft", Vector2i(1, 18), "RIGHT"], ["weg", Vector2i(21, 14), "UP"], ["morwen", Vector2i(24, 31), "UP"],
+		["grimmzahn", Vector2i(22, 7), "UP"]]
+	for o in orte:
+		held.setze(o[1], o[2]); kamera.springe()
+		await get_tree().create_timer(1.0).timeout
+		ui.textfeld.visible = false
+		await knips("%s/%s.png" % [dir, o[0]])
+	licht.umschalten()
+	zustand.minuten = 23 * 60
+	await get_tree().create_timer(2.5).timeout
+	for o in [["nacht_morwen", Vector2i(24, 31), "UP"], ["nacht_grimmzahn", Vector2i(22, 7), "UP"]]:
+		held.setze(o[1], o[2]); kamera.springe()
+		await get_tree().create_timer(1.0).timeout
+		ui.textfeld.visible = false
+		await knips("%s/%s.png" % [dir, o[0]])
+	print("TIEFWALDBILDER fertig")
 	get_tree().quit()
 
 # 399.5 Grundrisse am Rechner: --raeume=<ordner> knipst je Grundriss aus der Grundansicht wie die alten Vergleichsbilder (Held wie
