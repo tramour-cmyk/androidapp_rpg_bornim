@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (02.11., 22:0x, `session_01Hmoj78UdwDM4ji11rqe7fk`):** Chefrunde: entschieden 468a (mit Spike, die anderen machen fertig), 466 A, 415d ja, 432.3 1A, 2 ja; BRS nachgetragen (466, Aschenerbe); Hinweis an Jerry zu 415 (Termin Handytest). Kosten auf: 468, 466, 415, 432. Nachfolger: keiner bis Sa 07.11., 20:00 (468a: Sokrates nur auf Zuruf); dann Sokrates – 461b.4, 481 und Prüfung 468.
+**Übergabe (03.11., 08:4x, `session_01Hmoj78UdwDM4ji11rqe7fk`):** Chefrunde 02.11.: 468a, 466 A, 415d, 432.3; 03.11.: 488, 463, 417, 406 (406.2), 502, 496a, Build 204 freigegeben und PR #178 zusammengeführt; neue Vorgänge aus dem Test 489, 497–501, 503; 475, 416.6 auf M; Lehre Sachaussagen. Kosten auf: 468, 466, 415, 432, 488, 463, 417, 406, 502, 487, 496. Nachfolger: keiner bis Sa 07.11., 20:00 (468a: Sokrates nur auf Zuruf); dann Sokrates – 461b.4, 481 und Prüfung 468.
 
 ## Zeilen
 
@@ -62,6 +62,6 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 142, Konto:** 25 $ bezahlt 23.10. (Beleg 263); App angelegt 25.10. (`de.bornim.game`, kostenlos); Konto-Mail bornwire@famibos.de; sobald `play@bornwire.de` steht, Entwickler-E-Mail in der Play Console umstellen (Einstellungen → Kontodetails). Play-Upload: Dienstkonto als Secret, Action, interner Test, AAB; erstes Mal von Hand.
 - **Zu 142:** vor Marktstart Klangmarken DPMA/EUIPO suchen (292.1).
 - **Zu 142.3 C (20:1x, Netz):** Organisationskonto braucht D-U-N-S (D&B, kostenlos, 5–30 Tage), neues Konto 25 $; App per Übertragung umziehen, Testgruppen ziehen nicht mit; testfrei nur gefolgert.
-- **Zu 461b (02.11., 19:1x, Helfer, 3 Stichproben bestätigt, an den Chef 19:1x):** 16 Funde. Nachziehen: (1) `DESIGN-ABNAHME.md:11` „sein Urteil gibt neue Läufe frei“ → 480.1; (2) 415c, 480 ohne „→ ersetzt durch 480.1“; (3) 38, 399.2b, Jerry D23.3 Klassenbalance gegen 406; (4) 431e Eichung fehlt in B1; (5) Prüfungsnamen, „Handlung“ im Nachschlagewerk gegen 466 (Homer); (6) `DESIGN-STIL.md:50, 53, 173` SRD gegen 348.12c, BRS 25 (Homer); (7) Kopf `DESIGN-SPIELSYSTEM-2-0.md:3`, Nr. 24, `LISTE-BESTIARIUM.md:3`, `DESIGN-KAMPF.md:3` gegen E 84; (9) Säureschnecke Werte gleich gegen 348.12c „voller Klingenschaden“ (Sokrates mit Jerry); (10) Monsterwerte im Nachschlagewerk offen (Sokrates, erledigt). Ohne Anhang im Archiv: 376.1 (11:19), 72o, 72o.1, 348.12 (26.10.), 362, 348.9 (13:26), 72.8, 414, 418; (16) B7 Wölfe 1,32 gegen Größe variiert (Homer); F3, F4 Datum 439, 440. Verteilt Perikles.
+- **Zu 461b:** 16 Funde (02.11., 19:1x) in Git vor 03.11., 08:50; verteilt Perikles; meine Punkte in 461b.4.
 - **Zu 253:** Name BornWire TCS (Verlauf in Git vor `2e6ab39a`, Fahrplan-Dokument); Gewerbeschein auf „Wirestorm TCS“ beantragt.
 - **Zu 142** (17.–20.10. in Git): Fahrplan im vertraulichen [Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM); offen: Anschrift vor dem Zahlungsprofil
