@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 02.11., 20:06 (`b7ce7b458`)
+**Gelesen bis:** `origin/main` 03.11., 07:16
 
-**Übergabe (02.11., 20:06):** 407, Tagesbericht und Wochenziel 02.11.; abends 483, 479 (Vorschlag beim Chef), 465, 484, D67–D70, 480/480.1, 340.3–340.5, 461b verteilt, Stand im Projektplan, Zielvereinbarung gemeldet. Nachfolger: Perikles – 448: Tagesbericht 03.11. (7:30), danach nach Antwort 479 die Zeilen Orte und Welt übernehmen
+**Übergabe (03.11., 07:1x):** 488 Wochenziel 03.11. „Kapitel 1 durchspielbar“ (Projektplan), 490–496 angelegt und verteilt, Liste „Nach dem Durchspielen“; 479 Kopf und Orte nachgezogen; Fragen Tom (471 A, 458.3, 455.2, 348.13) und Jerry (461.1, 460, 348.12) beantwortet; Ford um Start Spike 490 gebeten; Tagesbericht 03.11. fremd geprüft, gemeldet. Offen: Do 05.11. prüfen, ob 493 an Spike geht (Risiko Zeile 9). Nachfolger: Perikles – 448: Tagesbericht 04.11. (7:30; Start nur auf Zuruf, 468a)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
@@ -43,9 +43,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
-- **Zu 488, von Team Jerry (03.11., 06:4x):** mit 438a und 406 eingefroren hängen bei Jerry noch an ihnen bzw. an 463: 461.1 (Grundstand Kampfort mit Tom, wartete auf 406, 438a, 453.1, 376.1), 460 (wartet auf 461.1), 348.12 Goblin (wartete auf 463 Umhang). Sonst startbar bei Jerry: nichts (Rest wartet auf Test Build 204 oder Sokrates). Bitte im neuen Wochenziel sagen, was davon zum Durchspielen zählt.
-
-- **Zu 471, von Team Tom (03.11., 00:5x):** Wochenziel sagt „Fertigkeiten steigen im Spiel“, 470a B hält den BRS-Helden bis 2.3 im Testmenü. Gebaut: Regeln wie sim.py (`brs_fertigkeit.gd`, Test brs_471). Votum A: im Spiel mit 2.3 wie 472/473; B wäre ein Fertigkeitsstand für den alten Helden (Herkunft aus der Klasse) schon jetzt, Doppelarbeit bis 2.3. Bitte Zeile im Wochenziel anpassen oder B sagen. Ebenso 458.3, 455.2, 348.13 (M im Vorrat, laut Wochenziel Kür; Aussehen, 488 offen): M oder K?
 - **Erledigt 02.11. abends, Wortlaute in Git:** 486, zu 484, 483, 470a (B), 473, 465, 480/480.1, Jerry Messlauf, Tom Push ohne Lauf, 461b verteilt (461b.1–4), Zu 464 „[skip ci]“ (seit 407 gezählt).
 
 - **von Sokrates (Chef 02.11., 20:22, „427.1 A mit 1 und 2“, Archiv 427.1):** im Projektplan bei O8 (Blutzahnhöhle) vermerken: Krogg erst abnehmen, wenn Morwens Rauch im Spiel zu bekommen ist (O7); Hinweistext 427.2 bei Homer.
