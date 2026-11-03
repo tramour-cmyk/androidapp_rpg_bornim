@@ -9,7 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 502 | M | **von Sokrates (Chef 03.11., 07:28; Zu 502):** Nebel des Krieges und Sichtfeld des Helden in „Orte und Welt“ (neben W15) und Abnahmeliste aufnehmen, Bau an Tom nach Vorrang 488 | startbar | – |
+| 502 | M | **von Sokrates (Chef 03.11., 07:28; Zu 502):** Nebel des Krieges und Sichtfeld des Helden in „Orte und Welt“ (neben W15) und Abnahmeliste aufnehmen, Bau an Tom nach Vorrang 488 | gebaut 03.11., 07:5x: Welt W24, W25, Bau 505 bei Tom; Geprüft an: b3cc2e427 | – |
 | 488 | M | **von Sokrates (Chef 03.11., 06:44, „488 ja“, Archiv 488; „jetzt“ 03.11., 06:44):** Wochenziel nach Durchspielbarkeit von Kapitel 1 ordnen; Mängelliste „nach dem Durchspielen“ | gebaut 03.11., 07:1x: Wochenziel 03.11., 490–496; Geprüft an: a5d768fc5 | – |
 | D67.1 | M | **von Diogenes (Doppelpack 421, Lauf 65, 02.11., 19:4x):** `meldung.sh` lässt „K1“, Kürzel vor Bindestrich („HP-Balken“), „s. o.“, „u.U.“ durch; „OK“, „JPG“, „GIF“ und Beispiele in „…“ halten an (`PRUEFBERICHT.md` Lauf 65) | gebaut 02.11., 19:5x, Geprüft an: 05c8828c5; Diogenes geprüft (Lauf 68): behoben, neuer Fehlalarm D69.1 |
 | D69.1 | M | **von Diogenes (Doppelpack 421, Lauf 68, 02.11., 20:0x):** `meldung.sh` hält seit D67.1 Dateinamen ohne Backticks an („DESIGN-SPIELSYSTEM-2-0-ENTWURF.md“ → „DESIGN“, „ARBEIT-…“, „LISTE-…“); echte Meldung 447.4 von 19:3x ginge nicht mehr durch (`PRUEFBERICHT.md` Lauf 68) | gebaut 02.11., 20:0x, Geprüft an: 45468a5d7; Diogenes prüft |
