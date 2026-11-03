@@ -212,10 +212,19 @@ func hauptknopf(t: String, unter: String, was: Callable) -> void:
 	b.pressed.connect(was)
 	mittig(b)
 
-# RoundSign: rundes Zeichen 46 dp mit duennem Goldrand
-func rundzeichen(t: String, was: Callable) -> void:
+# RoundSign: rundes Zeichen 46 dp mit duennem Goldrand; mit [glyphe] (Zeichenknopf.glyphe, Raster 22) statt Text ein Zeichen 22 dp,
+# durchgestrichen und matt, wenn [an] falsch ist (App.kt SignGlyph)
+func rundzeichen(t: String, was: Callable, glyphe := "", an := true) -> Button:
 	var b := Button.new()
 	b.text = t
+	if glyphe != "":
+		var z := Control.new()
+		z.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		z.set_anchors_preset(Control.PRESET_FULL_RECT)
+		z.draw.connect(func():
+			var s := 22 * DP
+			Zeichenknopf.glyphe(z, glyphe, (z.size - Vector2(s, s)) / 2, s / 22.0, Stil.TEXT if an else Stil.DIM, an))
+		b.add_child(z)
 	b.custom_minimum_size = Vector2(46, 46) * DP
 	b.add_theme_font_override("font", Stil.variante(1.0))
 	b.add_theme_font_size_override("font_size", int(round(14 * Stil.SP)))
@@ -224,7 +233,7 @@ func rundzeichen(t: String, was: Callable) -> void:
 	s.set_corner_radius_all(int(23 * DP))
 	for z in ["normal", "hover", "focus", "pressed"]: b.add_theme_stylebox_override(z, s)
 	b.pressed.connect(was)
-	mittig(b)
+	return b
 
 func bild(pfad: String, breite_dp: float) -> TextureRect:
 	var tex: Texture2D = null
@@ -275,7 +284,16 @@ func titel() -> void:
 	ue.custom_minimum_size.x = 280 * DP
 	mittig(ue)
 	abstand(18)
-	rundzeichen("DE" if Sprache.aktiv() == "de" else "EN", func(): Sprache.wechsle(); titel())
+	# 489 (Chef 03.11., 07:07): wie alt (App.kt) Sprache, Musik und Effekte als drei kleine Zeichen, 22 dp Abstand; Musik und Effekte
+	# schalten stumm (Klang.schalte), die Regler im Spielmenü bleiben
+	var zeichen := HBoxContainer.new()
+	zeichen.add_theme_constant_override("separation", int(22 * DP))
+	zeichen.add_child(rundzeichen("DE" if Sprache.aktiv() == "de" else "EN", func(): Sprache.wechsle(); titel()))
+	var k := klang()
+	if k:
+		zeichen.add_child(rundzeichen("", func(): k.schalte("music"); titel(), "MUSIC", k.musik_an))
+		zeichen.add_child(rundzeichen("", func(): k.schalte("fx"); titel(), "SOUND", k.effekte_an))
+	mittig(zeichen)
 	abstand(22)
 	var lg := bild(LOGO, 130)
 	abstand(6)
