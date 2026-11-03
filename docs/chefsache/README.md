@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [511](entscheiden/511-film-vorpruefung.md) | **Muss** | B Werkzeuge | 03.11., 13:50 | Heute sind 6 von 6 Film-Vorgängen der Teams kaputt beim Chef angekommen; Ursache ist immer dieselbe: erst nach dem teuren Lauf hingesehen. | Sokrates |
 | [509a](entscheiden/509a-dritter-lauf.md) | **Muss** | E Klang | 03.11., 11:02 | Der Teichfilm aus Lauf 228 zeigt nur Logo und Hauptmenü; ein dritter Lauf? | Jerry |
 | [494a](entscheiden/494a-dritter-lauf.md) | **Muss** | E Kampf | 03.11., 10:59 | Beide Läufe zu 494 brachen beim Bauen ab, es gibt keinen Film; ein dritter Lauf? | Jerry |
 | [348.12c](entscheiden/34812c-gegner-kauf.md) | **Muss** | G Geld | 03.11., 08:56 | Für 6 der 18 Gegner von Kapitel 1 haben wir kein Modell; der Warenkorb vom 27.10. deckt genau diese sechs. | Sokrates |
@@ -250,12 +251,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 38, Muss 27, startbar 17
+**Sokrates** – offen 39, Muss 28, startbar 17
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 508 | M? | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
 | 488 | M | von Chef (02.11., 22:44, „dann frieren wir das mal ab einem gewissen Punkt ein … kümmern u | wartet auf Perikles |
+| 511 | M | von Chef (03.11., 13:47, „Warum werden so viele sinnlose und kaputte Filme gemacht? Das ko | Chef (Datei in der Chefsache) |
 | 348.12c | M | von Chef (03.11., 08:50, „Aber müssen wir dazu nicht auch was kaufen?“, zu 494 Gegner): Ka | Chef (Datei in der Chefsache) |
 | 461b.4 | M | von Perikles (deine Liste 461b, 02.11., 19:1x, Punkte 7, 9): Köpfe von DESIGN-SPIELSYSTEM- | startbar |
 | 468 | M | von Chef (02.11., 07:33, Bild „Nutzung“: 36 %): weiter mit Wächter bis Sa 19:59 (ja 11:13, | startbar |
