@@ -53,6 +53,10 @@ var da := true                         # 390: nach der Geschichte zu sehen (Stor
 static func alle(k: Karte, h: Node3D) -> Array:
 	var r := []
 	for d in k.daten.get("leute", []):
+		var mo := String(d.get("aussehen", ""))
+		if mo.begins_with("monster:"):   # 491: Grimmzahn (Npc „monster:dire_wolf“) als Modell des Kampforts, wie die Monster der Karte
+			if Streuner.da(mo.trim_prefix("monster:")): r.append(Leute.new(k, d, h))
+			continue
 		if not FileAccess.file_exists("res://daten/leute/%s.bin" % d["id"]): continue
 		var l := Leute.new(k, d, h)
 		r.append(l)
@@ -208,10 +212,32 @@ func plan_jetzt() -> Array:
 
 func _ready() -> void:
 	var datei := String(daten.get("datei", "res://daten/leute/%s.bin" % daten["id"]))
+	var p := datei.get_basename() + "-info.json"
+	var mo := String(daten.get("aussehen", ""))
+	if mo.begins_with("monster:"):
+		# 491: ein Monster der Geschichte (Grimmzahn) steht als Figur des Kampforts (kampf/figur.gd, Jerry) wie die Monster der Karte
+		# (streuner.gd): dasselbe Modell, Fell und dieselbe Groesse wie im Kampf; streift nicht, spricht nicht, angesprochen greift es an
+		var f = Streuner.kaempfer(mo.trim_prefix("monster:"), 1)
+		if Streuner.helfer == null: Streuner.helfer = Streuner.Kampfort.new()
+		var fig = Streuner.Figur.new()
+		fig.fighter = f
+		fig.kampfort = Streuner.Stub.new(Streuner.helfer)
+		add_child(fig)
+		fig.setup(f, fig.kampfort)
+		fig.rotation.y = 0.0
+		fig.set_process(true)
+		modell = fig
+		anim = fig.anim
+		gang = 1.0
+		leib = 0.8
+		position = karte.kachel_pos(kachel)
+		blick = {"UP": PI, "DOWN": 0.0, "LEFT": -PI / 2, "RIGHT": PI / 2}.get(String(daten.get("blick", "DOWN")), 0.0)
+		rotation.y = blick
+		if anim and anim.has_animation("Stehen"): anim.play("Stehen")
+		return
 	modell = Gebiet.lade_glb(datei)
 	add_child(modell)
 	Gebiet.male(modell, null, 2, mats)
-	var p := datei.get_basename() + "-info.json"
 	if daten.has("info") and FileAccess.file_exists(String(daten["info"])):
 		# Dorftiere (kauftier.py): je Fell ein Eintrag; Tempo ohne Gleiten aus dem Wurzelweg des Gehens (Weg fuer Tempo 1)
 		var alle: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(String(daten["info"])))

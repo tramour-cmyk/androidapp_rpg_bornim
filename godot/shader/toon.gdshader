@@ -7,6 +7,7 @@ uniform float fill = 0.0;          // Held: Mindesthelligkeit im Schatten
 uniform float sway = 0.0;          // Laub: im Wind wiegen
 uniform float cut_on = 0.0;        // Durchsicht (DESIGN-STIL „Karte und Räume“, 353a): Laub vor dem Helden weich ausblenden
 uniform vec3 cut_pos = vec3(0.0);  // Brust des Helden
+uniform float cut_weit = 1.0;      // 491 (353a, Tiefer Wald: Held halb unter Laub): Loch weiter und freier (Wald 1,3, Dorf 1)
 uniform float cut_ab = 0.0;        // Rinde: erst ab dieser Hoehe (Stamm in der Krone), Laub: ganz
 uniform float weg = 0.0;           // Durchsicht als Ganzes (gebiet.gd, Gruppe: Haus, Stand, Laterne verdeckt den Helden): deckend aus, nur DURCH
 uniform float durch_a = 0.5;       // dabei Deckkraft (alt WorldScreen: zusammen halb)
@@ -64,9 +65,9 @@ void fragment() {
 		float along = dot(d, CAMERA_DIRECTION_WORLD);   // > 0: zur Kamera hin (nachgestellt 25.10.)
 		float side = length(d - CAMERA_DIRECTION_WORLD * along);
 		// weich nur ueber den Abstand quer zur Blickachse; die Tiefe (along) weit gestaffelt, sonst harte Kante, wo die Krone sich wegkruemmt
-		durch = (1.0 - smoothstep(0.7, 1.6, side)) * smoothstep(-0.9, 0.3, along) * smoothstep(cut_ab, cut_ab + 0.8, wpos.y);
-		loch = step(side, 1.65) * step(-0.95, along);
-		deck = step(side, 2.0) * step(-1.15, along);
+		durch = (1.0 - smoothstep(0.7 * cut_weit, 1.6 * cut_weit, side)) * smoothstep(-0.9, 0.3, along) * smoothstep(cut_ab, cut_ab + 0.8, wpos.y);
+		loch = step(side, 1.65 * cut_weit) * step(-0.95, along);
+		deck = step(side, 2.0 * cut_weit) * step(-1.15, along);
 	}
 	if (weg > 0.5) { loch = 1.0; deck = 1.0; }
 #ifdef DURCH
@@ -74,7 +75,7 @@ void fragment() {
 #ifdef TIEFE
 	ALPHA = 0.0;
 #else
-	ALPHA = weg > 0.5 ? durch_a : 1.0 - 0.85 * durch;
+	ALPHA = weg > 0.5 ? durch_a : 1.0 - (cut_weit > 1.0 ? 0.95 : 0.85) * durch;
 #endif
 #else
 	if (loch > 0.5 && !IN_SHADOW_PASS) discard;
