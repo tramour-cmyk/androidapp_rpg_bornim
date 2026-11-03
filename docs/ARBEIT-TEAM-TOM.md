@@ -9,7 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 490 | M | **von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike):** Flüsterwald begehbar wie alt (`Story.kt:524`): Übergang Dorf–Wald–Tiefer Wald, Garrick am Feuer, Gegner auf der Karte starten den Kampf, Kräuter, Teiche, Kartenrand; ohne Feinarbeit (Orte O6) | in Arbeit bei Spike | – |
-| 495 | M | **von Perikles (Wochenziel 03.11. Reihe 4, 488):** Zufallsspieler spielt Kapitel 1 in Godot bis „chapter1_done“ durch und meldet, wo er hängenbleibt (Abnahme 2.2) | startbar | – |
+| 495 | M | **von Perikles (Wochenziel 03.11. Reihe 4, 488):** Zufallsspieler spielt Kapitel 1 in Godot bis „chapter1_done“ durch und meldet, wo er hängenbleibt (Abnahme 2.2) | wartet auf Guthaben: heute eine Sitzung weniger (468a, Bild Chef 07:16, 53 %), frühestens 04.11. | – |
 | 491 | M | **von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike):** Tiefer Flüsterwald begehbar wie alt (`Story.kt:619`): Morwens Hütte, Grimmzahn mit Leibwache, Sicht 353a (Orte O7) | wartet auf 490 | – |
 | 431 | M | **von Sokrates (Chef 31.10., 22:0x):** Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film, dann Körperbau je Volk | wartet auf Sokrates: 431f Läufe verbraucht ohne Messwert (Fehler Tom), Bitte um zwei neue (480.1); Messmodus Hautmaske gebaut c3b0bea19 | `claude/tom-431-voelker` |
 | 417 | M | **von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“):** Tragart je Waffenklasse (Zu 417), zuerst Stab, Axt, Bogen; Zahlen messen, Aussehen urteilt der Chef | startbar: passt (Chef 03.11., 06:54, Archiv); in den nächsten gemeinsamen Build, Mängelzeile anlegen (Zu 417) | `claude/tom-417-tragart` |
