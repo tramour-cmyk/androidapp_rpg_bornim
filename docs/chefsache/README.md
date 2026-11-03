@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [524a](entscheiden/524a-fenster-besser.md) | **Muss** | A Spiel | 04.11., 00:50 | Gegenstandsfenster: noch einen Vorschlag „besser als alt“? | Sokrates |
 | [512a](entscheiden/512a-abgleich-bis-brs.md) | **Muss** | E Kampf | 04.11., 00:14 | Abgleichsfunde, die das BRS ohnehin ändert: jetzt nach alten Regeln bauen oder bis 478 zurückstellen? | Sokrates |
 | [503a](entscheiden/503a-laden-rueckfrage.md) | **Muss** | E Oberfläche | 04.11., 00:08 | Am Rechner mit echtem Antippen nachgestellt (Rückfragen an): Der Knopf „Gewöhnliche verkaufen“ unter „Ausrüstung“ fragt „Alle gewöhnlichen verkaufen?“ und verkauft vorher nichts. Ohne Rückfrage verkauft das Spiel, wie die alte Fassung, einen einzelnen Gegenstand unter „selten“ (Gegenstand antippen, dann „Verkaufen“); gefragt wird dort erst ab „selten“. | Team Tom (Spike) |
 | [532a](entscheiden/532a-kampf-tasche-metrausch.md) | **Muss** | E Kampf | 03.11., 23:53 | Im Kampf gibt es nur den einfachen Heiltrank; Metrausch wirkt dort nicht. Beides gab es nur im alten klassischen Kampf, nie im MARS. | Team Jerry |
@@ -57,7 +56,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 96, Muss 74, startbar 24
+**Tom** – offen 97, Muss 75, startbar 25
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -74,9 +73,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 555 | M | von Sokrates (Chef 04.11., 00:30, „Fehlt vielleicht noch mehr im Testmenü??? Wäre zum Test | wartet auf Test/Build (gebaut) |
 | 554 | M | von Sokrates (Chef 04.11., 00:27, Build 249): „Im Testmenü fehlt, dass Tiere mich ignorier | wartet auf Test/Build (gebaut) |
 | 523 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 523): Tasche wie alt und besser: „Funke | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
+| 524.1 | M | von Sokrates (Chef 04.11., 00:52, „Vorschlag zum Verbessern und spielerfreundlicher machen | startbar |
 | 524 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 524): Gegenstandsfenster, Inhalt wie alt | wartet auf Test/Build (gebaut) |
 | 525 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 525): Laden, Morwen, Rast wie alt und be | startbar |
-| 526 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 526): Rückfragen und Fenster einheitlich | in Arbeit bei Spike |
+| 526 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 526): Rückfragen und Fenster einheitlich | wartet auf Test/Build (gebaut) |
 | 528 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 528): Held, Karte, Chronik wie alt: Satz | startbar |
 | 529 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 529): Spielstände: Heldenbild und Spielz | startbar |
 | 538 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 538): Heldenstufe kommt in Gesprächen ni | startbar |
@@ -289,12 +289,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 38, Muss 29, startbar 16
+**Sokrates** – offen 37, Muss 28, startbar 16
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 512 | M | von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles): Abgleich alt gegen ne | startbar |
-| 524a | M | Rückfrage: Gegenstandsfenster, Vorschlag „besser als alt“ noch oder „passt“ genügt? | Chef (Datei in der Chefsache) |
 | 512a | M | Rückfrage: Abgleichsfunde 535, 543 bis 478 zurückstellen? | Chef (Datei in der Chefsache) |
 | 508 | M | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
 | 488 | M | von Chef (02.11., 22:44, „dann frieren wir das mal ab einem gewissen Punkt ein … kümmern u | wartet auf Perikles |
@@ -339,7 +338,7 @@ Format (Muster: „So geht's“ unten): t249-build-490.md: 14 Vorgänge, höchst
 
 Nicht gestellt: 407 (Projekt), 523 (Team Tom)
 
-Ohne Datei: 3402 (Projekt), 275 (Projekt), 521 (Team Tom)
+Ohne Datei: 3402 (Projekt), 275 (Projekt), 521 (Team Tom), 26 (Team Tom)
 
 ## So geht's
 
