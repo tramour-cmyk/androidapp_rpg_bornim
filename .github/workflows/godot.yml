@@ -20,6 +20,9 @@ on:
       bild:
         description: "Messlauf ohne Bilder und Filme (Perikles 02.11., 389/390a): nein"
         default: ""
+      hoehle:
+        description: "Standbilder Kampforte der Höhle 507 (Jerry): ja"
+        default: ""
 
 jobs:
   apk:
@@ -182,6 +185,7 @@ jobs:
           bau() { n=$1; shift; l=$RUNNER_TEMP/k-$n-$(echo "$@" | tr -c "a-z_\n" -).log; env "$@" bl/bin/python -I tools/blender348/$n > $l 2>&1 || { tail -40 $l; exit 1; }; }
           bau wolf.py; bau wolf.py ART=dire_wolf; bau kampfort_wald.py; bau waffen.py; bau ratte.py
           for o in waldrand teich baum felsen steinkreis; do bau kampfort_wald.py SPOT=$o; done   # 493 Kampforte im Wald wie alt
+          for o in eingang gang halle teich lager; do bau kampfort_hoehle.py SPOT=$o; done   # 507 Kampforte der Höhle wie alt
           for a in goblin goblin_archer goblin_shaman kobold; do bau goblin.py ART=$a V3=tools/blender348/v3_kampf; done   # v3_kampf/LIESMICH.md
           D=godot/kampf/daten; mkdir -p $D
           cp $OUT/held.glb $D/held.bin
@@ -190,6 +194,7 @@ jobs:
           for f in braun grau schwarz; do cp $OUT/giant_rat-$f.glb $D/giant_rat-$f.bin; done; cp $OUT/giant_rat-info.json $D/
           cp $OUT/kampfort-wald.glb $D/kampfort-wald.bin; cp $OUT/wald-maske.png $D/wald-maske.bild
           for o in waldrand teich baum felsen steinkreis; do cp $OUT/kampfort-wald-$o.glb $D/kampfort-wald-$o.bin; cp $OUT/wald-maske-$o.png $D/wald-maske-$o.bild; done
+          for o in eingang gang halle teich lager; do cp $OUT/kampfort-hoehle-$o.glb $D/kampfort-hoehle-$o.bin; cp $OUT/hoehle-info-$o.json $D/; done   # 507
           for w in dagger shortsword longsword quarterstaff shield round_shield scimitar handaxe scimitar-rost handaxe-rost dagger-rost dagger-kobold round_shield-grob shortbow staff-schamane spear-rost; do cp $OUT/$w.glb $D/$w.bin; done
           for k in leder kappe helm; do cp $OUT/goblin-$k.glb $D/goblin-$k.bin; done; cp $OUT/goblin-info.json $D/
           for k in kapuze kappe fell; do cp $OUT/goblin_archer-$k.glb $D/goblin_archer-$k.bin; done; cp $OUT/goblin_archer-info.json $D/
@@ -273,6 +278,7 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4532.gd 2>&1 | grep -E "^(ok|FEHLER|ATEM)"   # 453.2 Atmen unterwegs
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/kampforte_493.gd 2>&1 | grep -E "FALSCH|KAMPFORTE493|Kampforte|SCRIPT ERROR"   # 493 Kampforte im Wald
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/hoehle_507.gd 2>&1 | grep -E "FALSCH|HOEHLE507|SCRIPT ERROR"   # 507 Kampforte der Höhle
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/hoehle_bau_507.gd 2>&1 | grep -E "FALSCH|HOEHLEBAU507|SCRIPT ERROR"   # 507 Bau je Ort
       # fester Schluessel ueber alle Laeufe, sonst lehnt Android das Update ab (348.5, Build 9). 399.1a (Chef 28.10., 14:41): der Cache
       # eines Zweigs galt nur dort (Build 130 bekam einen neuen); jetzt nur lesen, angelegt wird er auf main (godot-schluessel.yml)
       - uses: actions/cache/restore@v4
@@ -322,6 +328,18 @@ jobs:
               ~/godot/godot --path . res://kampf/probe.tscn --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --bild=$GITHUB_WORKSPACE/bilder/kampforte/$o.png 2>&1 | grep -E "SCRIPT ERROR|^Dran" | cut -c1-300 || true
           done
           ls -l $GITHUB_WORKSPACE/bilder/kampforte
+      # 507 (Jerry): je Kampfort der Höhle ein Standbild wie im Spiel (Probekampf gegen das Wolfsrudel), nur von Hand mit hoehle=ja
+      - name: Kampforte Höhle (507)
+        if: ${{ !cancelled() && github.event.inputs.hoehle != '' }}
+        continue-on-error: true
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/bilder/hoehle
+          cd godot
+          for o in eingang gang halle teich lager; do
+            ORT=hoehle PLATZ=$o VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 400 xvfb-run -a -s "-screen 0 1080x2340x24" \
+              ~/godot/godot --path . res://kampf/probe.tscn --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --bild=$GITHUB_WORKSPACE/bilder/hoehle/$o.png 2>&1 | grep -E "SCRIPT ERROR|^Dran" | cut -c1-300 || true
+          done
+          ls -l $GITHUB_WORKSPACE/bilder/hoehle
       # 348.13b Tusche nach Laterne, Fenster, Fackel: nachts je Ort mit und ohne, Kosten je Bild (Renderer wie am Handy), nur bei „348.13b“
       - name: Tusche nachts (348.13b)
         if: contains(github.event.head_commit.message, '348.13b')

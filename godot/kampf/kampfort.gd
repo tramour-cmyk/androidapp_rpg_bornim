@@ -258,8 +258,20 @@ func _setup_world() -> void:
 		sun.light_color = Color(0.62, 0.7, 1.0)
 		env.ambient_light_color = Color(0.4, 0.46, 0.62)
 		env.ambient_light_energy *= 0.5
+	if ort == "hoehle":     # 507: die Höhle lebt von ihren Lampen (CaveScene setLights); die Sonne nur schwach für Tusche und Schatten
+		env.background_color = Color(0.015, 0.015, 0.02)
+		env.ambient_light_color = HOEHLE_UMGEBUNG.get(platz, Color(0.32, 0.30, 0.36))
+		env.ambient_light_energy = 0.45
+		env.fog_light_color = Color(0.02, 0.02, 0.025)
+		env.fog_depth_begin = 20.0
+		env.fog_depth_end = 40.0
+		sun.light_energy *= 0.22 if platz != "eingang" else 0.45
+		sun.light_color = Color(0.85, 0.82, 0.78)
 	add_child(sun)
-	_build_forest()
+	if ort == "hoehle":
+		_build_cave()
+	else:
+		_build_forest()
 	cam = Camera3D.new()
 	cam.projection = Camera3D.PROJECTION_FRUSTUM
 	cam.near = 0.1
@@ -369,6 +381,70 @@ func _inkless_toon() -> Shader:
 		var code: String = (load("res://kampf/toon.gdshader") as Shader).code
 		_inkless.code = code.replace("render_mode cull_disabled, specular_disabled;", "render_mode cull_disabled, specular_disabled;\nstencil_mode write, compare_always, 1;")
 	return _inkless
+
+
+## 507 (Jerry, Perikles 03.11., Orte O10): der Kampfort in der Höhle (tools/blender348/kampfort_hoehle.py, Ort nach
+## hoehlenplatz_fuer). Wie CaveScene lebt er vom Licht: die Lampen aus hoehle-info-<ort>.json als Punktlichter, Fackel und Feuer
+## flackern; Flamme, Glut, Himmel und Pilze leuchten von selbst. Kein Gras, kein Bodenbild: der Boden ist Teil des Netzes.
+## Umgebungslicht je Ort wie CaveScene ambient (dunkel, Glühen bläulich, Lager warm)
+const HOEHLE_UMGEBUNG := {"eingang": Color(0.40, 0.40, 0.42), "gang": Color(0.34, 0.30, 0.32), "halle": Color(0.26, 0.34, 0.40),
+	"teich": Color(0.24, 0.34, 0.40), "lager": Color(0.36, 0.30, 0.28)}
+const LEUCHTEN := {"flamme": Color(1.0, 0.62, 0.22), "glut": Color(0.9, 0.32, 0.08), "himmel": Color(0.92, 0.95, 0.88),
+	"pilz": Color(0.48, 0.94, 0.88)}
+var _flackern: Array = []     # [OmniLight3D, Grundstärke, Versatz]
+
+func _build_cave() -> void:
+	if not platz in HOEHLENPLAETZE:
+		platz = "halle"
+	forest = Node3D.new()     # wie der Wald-Knoten: örtlich x = zu den Gegnern, z = quer nach rechts
+	forest.rotation.y = deg_to_rad(90.0 - AXIS)
+	add_child(forest)
+	var p := "res://kampf/daten/kampfort-hoehle-%s.bin" % platz
+	if FileAccess.file_exists(p):
+		var doc := GLTFDocument.new()
+		var st := GLTFState.new()
+		if doc.append_from_buffer(FileAccess.get_file_as_bytes(p), "", st) == OK:
+			var n := doc.generate_scene(st) as Node3D
+			_toon_all(n)
+			for knoten in n.find_children("*", "MeshInstance3D", true, false):
+				var mi := knoten as MeshInstance3D
+				# Wand und Decke werfen keinen Schatten: sonst läge der ganze Kampf im Schatten der Decke; unter den Figuren bleibt er
+				mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+				for i in mi.mesh.get_surface_count():
+					var src := mi.mesh.surface_get_material(i)
+					var rn: String = src.resource_name if src else ""
+					if LEUCHTEN.has(rn):
+						var m := mi.get_surface_override_material(i) as ShaderMaterial
+						m.set_shader_parameter("glow", 1.0)
+						m.set_shader_parameter("glow_col", LEUCHTEN[rn])
+					elif rn == "dunkel":
+						(mi.get_surface_override_material(i) as ShaderMaterial).shader = _inkless_toon()
+			forest.add_child(n)
+	var ip := "res://kampf/daten/hoehle-info-%s.json" % platz
+	if not FileAccess.file_exists(ip):
+		return
+	var info = JSON.parse_string(FileAccess.get_file_as_string(ip))
+	if not info is Dictionary:
+		return
+	var k := 0
+	for l in info.get("lampen", []):
+		var o := OmniLight3D.new()
+		o.position = Vector3(l.pos[0], l.pos[1], l.pos[2])
+		o.light_color = Color.html("#" + String(l.farbe))
+		o.omni_range = float(l.reichweite)
+		o.light_energy = float(l.staerke)
+		o.omni_attenuation = 1.2
+		o.shadow_enabled = false     # Handy: Schatten nur von der Sonne (Signatur A4)
+		forest.add_child(o)
+		if String(l.art) in ["fackel", "feuer"]:
+			_flackern.append([o, o.light_energy, k * 1.7])
+		k += 1
+
+
+func _flackern_jetzt() -> void:
+	var t := clock_ms / 1000.0
+	for f in _flackern:
+		(f[0] as OmniLight3D).light_energy = f[1] * (0.88 + 0.08 * sin(t * 9.0 + f[2]) + 0.05 * sin(t * 23.0 + f[2] * 2.3))
 
 
 ## A painted picture from tex.py (or the mask), stored as .bild so Godot does not import it.
@@ -854,6 +930,8 @@ func _process(_dt: float) -> void:
 	_hit_camera()
 	_rand_kamera()
 	_grass_spots()
+	if not _flackern.is_empty():
+		_flackern_jetzt()
 	if ring_open and Time.get_ticks_msec() > ring_start + RING_MS + GOOD_MS + 60:
 		_answer_ring(Mars.NONE)
 	if playing or verhuellt:     # 402: unter der Blende warten Worte und Züge
