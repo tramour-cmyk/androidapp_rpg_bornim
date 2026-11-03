@@ -9,7 +9,7 @@ Entwurf Homer, 01.11.; Vorgang 447.4, Besetzung entschieden in 447.4a (Vorgangsa
 - **Pfad und Meisterschaft zugleich** (Garrick, Morwen): erst der Pfad, die Meisterschaft im nächsten Gespräch.
 - **„Noch nicht.“:** der Lehrmeister fragt nicht von selbst wieder; im Gespräch bleibt die Wahl `[447.4.wahl.pfad]` oder `[447.4.wahl.handwerk]`, sie führt wieder zu `…frage`.
 - **Anwärter** (Pfad und Meisterschaft, NW 6 „genauso“): nach `…ja` die Systemzeile `[447.4.sys.anwaerter]`; danach in jedem Gespräch einmal `…hinweis` vor seinem üblichen Text.
-- **Grenze in Kapitel 1:** stehen alle Kernfertigkeiten (bei Meisterschaften beide Fertigkeiten) am Ende von Geselle (49), sagt er statt `…hinweis` die Zeile `…grenze` (Zwischenprüfung erst ab Kapitel 2, NW 5).
+- **Grenze in Kapitel 1:** stehen alle Kernfertigkeiten (bei Meisterschaften beide Fertigkeiten) am Ende von Geselle (49), sagt er statt `…hinweis` die Zeile `…grenze` (Weihe erst ab Kapitel 2, NW 5).
 - **Schon ein Pfad:** bei einem anderen Lehrmeister vor `…frage` die Zeile `[447.4.wechsel]`, beim selben `[447.4.wechsel.selbst]`; nach „Ja.“ die Systemzeile `[447.4.sys.wechsel]` mit eigener Bestätigung.
 - `{name}` Held, `{weg}` Name des Pfads oder der Meisterschaft, `{rezept}` Rezeptname aus dem Katalog.
 
@@ -23,7 +23,7 @@ Entwurf Homer, 01.11.; Vorgang 447.4, Besetzung entschieden in 447.4a (Vorgangsa
 `[447.4.sys.rezept]` Neues Rezept: {rezept}. / EN: New recipe: {rezept}.
 `[447.4.wechsel]` Du gehst schon bei einem anderen in die Lehre. Ich nehme dich trotzdem, wenn du willst. / EN: You're already learning under someone else. I'll take you anyway, if you want.
 `[447.4.wechsel.selbst]` Du gehst bei mir schon den anderen Weg. Willst du wechseln? / EN: You're already walking the other path with me. Do you want to switch?
-`[447.4.sys.wechsel]` Du gibst den Pfad {weg} auf. Seine Handlungen gehen verloren, seine Kernfertigkeiten fallen um einen Rang. Wirklich wechseln? / EN: You give up the {weg} path. Its actions are lost and its core skills drop one rank. Switch anyway?
+`[447.4.sys.wechsel]` Du gibst den Pfad {weg} auf. Seine Fähigkeiten gehen verloren, seine Kernfertigkeiten fallen um einen Rang. Wirklich wechseln? / EN: You give up the {weg} path. Its abilities are lost and its core skills drop one rank. Switch anyway?
 
 ## Pfade (3.1)
 
