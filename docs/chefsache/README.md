@@ -23,6 +23,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [490](ansehen/490-fluesterwald.md) | Flüsterwald begehbar wie alt: Standbilder aus Sicht des Helden | – | 03.11., 08:58 |
+| [505](ansehen/505-sichtfeld.md) | Nebel im Wald: welche Form hat das Sichtfeld des Helden? | – | 03.11., 09:41 |
 
 ## Zu tun
 
