@@ -393,11 +393,29 @@ func dialog(titel: String, farbe: Color, zeilen: Array, knoepfe: Array) -> Contr
 	mitte.add_child(Erschaffung.kasten(v))
 	v.add_child(Stil.zeile(titel.to_upper(), 14, farbe, 3.0))
 	for c in zeilen: v.add_child(c)
-	for k in knoepfe:
+	# 503 (Chef 03.11., 07:40, „genau wie alt“): ConfirmDialog (Dialogs.kt 86–104): weitere Knoepfe nebeneinander in einer Reihe,
+	# darunter „Abbrechen“ (oder „Schliessen“) links und der erste Knopf rechts, je halb so breit, Schrift 15 sp; ein einzelner
+	# Knopf (OK, Schliessen) ueber die ganze Breite
+	var mach := func(k: Array) -> Button:
 		var tat: Callable = k[1]
 		var b := Erschaffung.knopf(String(k[0]), func(): schleier.queue_free(); tat.call())
 		if k.size() > 2: b.disabled = not bool(k[2])
-		v.add_child(b)
+		b.add_theme_font_size_override("font_size", int(round(15 * Stil.SP)))
+		b.clip_text = false
+		return b
+	var reihe := func(ks: Array) -> void:
+		var r := HBoxContainer.new()
+		r.add_theme_constant_override("separation", int(8 * DP))
+		for k in ks:
+			r.add_child(mach.call(k))
+		v.add_child(r)
+	var ab := knoepfe.size() > 1 and String(knoepfe[-1][0]) in [abbrechen(), Sprache.u("close")]
+	if ab:
+		if knoepfe.size() > 2:
+			reihe.call(knoepfe.slice(1, knoepfe.size() - 1))
+		reihe.call([knoepfe[-1], knoepfe[0]])
+	else:
+		for k in knoepfe: reihe.call([k])
 	return schleier
 
 const ABBRECHEN := {"de": "Abbrechen", "en": "Cancel"}
@@ -499,9 +517,38 @@ static func stueck_zeilen_von(hw: Heldwerte, g: Dictionary) -> Array:
 			var anderer := v.ersetzt.any(func(x): return String(Beute.grundform(String(x["base"]))["slot"]) != String(b["slot"]))
 			z_.append(Erschaffung.txt(("Ersetzt: " if de else "Replaces: ") + ", ".join(PackedStringArray(v.ersetzt.map(func(x): return Beute.name(x)))), 13, Stil.WARN if anderer else Stil.DIM))
 		z_.append(Erschaffung.txt(v.satz(), 14, {1: GRUEN, -1: Stil.WARN}.get(v.urteil(), Stil.TEXT)))
-		for r in v.zeilen:
-			z_.append(Erschaffung.txt("%s: %s → %s" % [r["wort"], r["vorher"], r["nachher"]], 13, {1: GRUEN, -1: Stil.WARN}.get(r["besser"], Stil.DIM)))
+		if not v.zeilen.is_empty(): z_.append(vergleich_tabelle(v.zeilen, de))
 	return z_
+
+# 416.9 (Chef 01.11., 11:30 „pseudotabellarisch“, 02.11., 10:52 „tabellarische Gegenüberstellung“): wie GearDetails alt,
+# Kopf „Vergleich | Angelegt | Neu“ (1,8 : 0,9 : 0,9), Strich, je Wert eine Zeile; vorher matt, nachher fett in Gruen oder Rot
+static func vergleich_tabelle(zeilen: Array, de: bool) -> Control:
+	var t := VBoxContainer.new()
+	t.add_theme_constant_override("separation", int(2 * DP))
+	var spalte := func(text: String, sp: float, farbe: Color, anteil: float, fett := false) -> Label:
+		var l := Stil.zeile(text, sp * 0.95, farbe, 0.2)
+		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		l.size_flags_stretch_ratio = anteil
+		if fett: l.add_theme_constant_override("outline_size", int(DP * 0.6)); l.add_theme_color_override("font_outline_color", farbe)
+		return l
+	var kopf := HBoxContainer.new()
+	kopf.add_child(spalte.call("Vergleich" if de else "Compare", 15.0, Stil.TEXT, 1.8, true))
+	kopf.add_child(spalte.call("Angelegt" if de else "Equipped", 13.7, Stil.DIM, 0.9))
+	kopf.add_child(spalte.call("Neu" if de else "New", 13.7, Stil.DIM, 0.9))
+	t.add_child(kopf)
+	var strich := ColorRect.new()
+	strich.color = Color(Stil.DIM, 0.35)
+	strich.custom_minimum_size.y = maxf(1.0, DP)
+	t.add_child(strich)
+	for r in zeilen:
+		var h := HBoxContainer.new()
+		var besser := int(r["besser"])
+		h.add_child(spalte.call(String(r["wort"]), 15.0, Stil.TEXT, 1.8))
+		h.add_child(spalte.call(String(r["vorher"]), 15.0, Stil.DIM, 0.9))
+		h.add_child(spalte.call(String(r["nachher"]), 15.0, {1: GRUEN, -1: Stil.WARN}.get(besser, Stil.DIM), 0.9, besser != 0))
+		t.add_child(h)
+	return t
 
 func im_beutel(g: Dictionary) -> int:
 	for i in z.beutel.size():

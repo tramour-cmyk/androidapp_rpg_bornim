@@ -114,6 +114,12 @@ func starte(w: Dictionary) -> void:
 	zustand.name = String(w.get("name", zustand.name))
 	zustand.aussehen = (w.get("aussehen", {}) as Dictionary).duplicate()   # 376.1
 	werte = Heldwerte.erschaffe(zustand.name, String(w.get("volk", "HUMAN")), String(w.get("klasse", "FIGHTER")), w.get("werte", {}), zustand.neue_uid)   # 399.1 Punktekauf
+	# 470: Held nach BRS (Erschaffung 1.1) im Spielstand; bis 2.3 kaempft er mit den SRD-Werten der Bruecke (BrsHeld.alt, Rueckfrage 470a)
+	zustand.brs = (w.get("brs", {}) as Dictionary).duplicate(true)
+	if w.has("srd"):
+		for a in Heldwerte.ATTRIBUTE: werte.basis[a] = int(w["srd"].get(a, werte.basis[a]))
+		werte.start = werte.basis.duplicate()
+		werte.voll()
 	# 399.1 wie alt (69, GameViewModel.newGame): einmal die Ankunft bei Nacht, dann erwacht der Held neben dem Bett der Schenke
 	# (Story.START), wo Rowena ihn weckt; vorher begann das neue Spiel am Brunnen
 	await zwischenbild("intro")
@@ -482,7 +488,10 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	if eroeffnung != "": lage["eroeffnung"] = eroeffnung   # 490: Ueberfall, Held zuerst (Opening) vom Monster auf der Karte
 	lage["blende"] = true   # 402 (Jerry): die Blende vor dem Kampf wie alt, auch im Probekampf
 	if probe.is_empty(): lage["rauch"] = zustand.anzahl("smoke_bundle")   # 494 (Jerry): Morwens Rauchbündel gegen Krogg
+	if probe.is_empty(): lage["aussehen"] = zustand.aussehen   # 403 (Jerry): der Held im Kampf wie im Dorf (HeldFigur)
 	var ort := "hoehle" if String(karte.daten.get("art", "")) == "CAVE" else "wald"   # 492: Kampforte der Hoehle (507, Jerry)
+	# 493 (Jerry): Kampfort im Wald nach dem, was um den Helden steht (wie alt BattleScene.spotFor); im Testmodus wählbar
+	if ort == "wald": lage["platz"] = Testmodus.kampfort if Testmodus.ist_an() and Testmodus.kampfort != "" else load("res://kampf/kampfort.gd").platz_fuer(karte, held.kachel)
 	var gestartet: bool = aufruf.starte(gegner, hw, soeldner, ort, tageszeit(), zustand.anzahl("potion") if probe.is_empty() else 2, -1, -1, -1, beute, lage)
 	if probe.is_empty(): zustand.satt = false   # 399.1: Battle.wellFed endet mit dem Kampfbeginn (der Kampfort gibt +1, 399.2)
 	if gestartet:
@@ -876,6 +885,7 @@ func oeffne_menue() -> void:
 # 399.1 Reiter „Test“ (Testmodus.gd) wie alt: cheatWarp, cheatChapterEnd, cheatFight, startProbe
 func test_tat(was: String, mit: Array) -> void:
 	match was:
+		"nacht", "tiere": _knopf(was)   # 500: aus dem Testmenue statt der Probeknoepfe
 		"teleport":
 			await abblenden(1.0)
 			var von := karte.id
@@ -894,6 +904,26 @@ func test_tat(was: String, mit: Array) -> void:
 			betrete("elder", ziel[0], ziel[1])
 			await ortsworte(von, false)
 			ui.sage([{"text": Sprache.t({"de": "Höhle geschafft, Lyra frei, Amulett in der Tasche: sprich mit Aldric.", "en": "Cave cleared, Lyra free, the amulet in your bag: talk to Aldric."})}])
+		"strahlen":   # 415 (Jerry): Strahlenprobe im Kampfort (kampf/strahlprobe.gd); dort lädt „Zurück“ das Spiel neu
+			speichere()
+			var s = load("res://kampf/strahlprobe.gd").new()
+			get_tree().root.add_child(s)
+			get_tree().current_scene.queue_free()
+			get_tree().current_scene = s
+		"erschaffung_brs":   # 470a B: Seite nach BRS 1.1 nur ansehen; der Held bleibt, wie er ist
+			var ebene := CanvasLayer.new()
+			ebene.layer = 40
+			ebene.process_mode = Node.PROCESS_MODE_ALWAYS
+			add_child(ebene)
+			var e := ErschaffungBrs.new()
+			e.ziel = maxi(Spielstand.platz, 1)   # nie die Platzwahl: es wird nichts gespeichert
+			ebene.add_child(e)
+			get_tree().paused = true
+			var weg := func():
+				ebene.queue_free()
+				get_tree().paused = false
+			e.zurueck.connect(weg)
+			e.fertig.connect(func(_w): weg.call())
 		"kampf", "probe":
 			if not ResourceLoader.exists("res://kampf/kampfort.gd"): return
 			await abblenden(1.0)
@@ -1721,12 +1751,14 @@ func raeume_bilder() -> void:
 		ui.textfeld.visible = false   # Gruss beim Eintreten und Tipps: nicht ueber dem Raum
 		ui.textfeld.visible = false   # Lauf 1: der Gruss kam nach dem Ausblenden wieder (Textkasten unten im Bild)
 		await knips(dir + "/%s_tag.png" % r[0])
+		kamin_lage(r[0] + "_tag")
 		if "--kerzenprobe" in OS.get_cmdline_user_args(): await kerzen_probe(dir, r[0] + "_tag")
 		licht.ziel = 1.0
 		licht.stelle(1.0)
 		await get_tree().create_timer(1.0).timeout
 		ui.textfeld.visible = false
 		await knips(dir + "/%s_nacht.png" % r[0])
+		kamin_lage(r[0] + "_nacht")
 		if "--kerzenprobe" in OS.get_cmdline_user_args(): await kerzen_probe(dir, r[0] + "_nacht")
 		for v in stufen:   # Probe: Umgebung nachts in Stufen „Umgebung[:Kontrast[:Mondfaktor]]“, ein Lauf fuer mehrere Messungen
 			var t := String(v).split(":")
@@ -1746,6 +1778,15 @@ func raeume_bilder() -> void:
 		kamera.nach_norden()
 		await get_tree().create_timer(2.5).timeout
 	get_tree().quit()
+
+# 501: wo im Bild der Kamin brennt (Fuss der Flamme), damit das Bild fuer den Chef darum ausgeschnitten wird (ohne Ansehen)
+func kamin_lage(name: String) -> void:
+	var cam := kamera.get_viewport().get_camera_3d()
+	for f in gebiet.raumlicht.flammen:
+		var kern: Node3D = f[0]
+		if kern.global_basis.get_scale().y < 1.0 or not kern.is_visible_in_tree(): continue
+		var q := cam.unproject_position(kern.global_position)
+		print("KAMIN %s %d %d" % [name, q.x, q.y])
 
 # 399.5 Lichtinseln (Pruefer Lauf 6: keine um die Tischkerzen): dasselbe Bild ohne Kerzenlicht und die Kerzen am Schirm, damit
 # raeume_blatt.py den Anteil der Kerzen am Boden misst (ohne Ansehen)

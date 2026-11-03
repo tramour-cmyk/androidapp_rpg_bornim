@@ -1,0 +1,96 @@
+name: Tom Messung Waffengang (417)
+
+# 417 Runde 4 (Chef 01.11., 12:21; 348.12c): Gehen und Rennen je Waffe aus den Protofactor-Paketen auf den Kaufkoerper (waffengang.py),
+# Messung ohne Bild; danach held_klassen.py mit GANG: stehen die Bewegungen in bewegungen.glb? Kaufdateien bleiben auf dem Runner,
+# ins Artefakt gehen nur Protokolle und waffengang.json (348.12c a). Nur bei Commits, die mit „417 Messung“ beginnen, oder von Hand.
+on:
+  push:
+    branches: ["claude/tom-417-**"]
+    paths: ["tools/blender348/v3/griff417.py", "tools/blender348/v3/griff417b.py", "tools/blender348/v3/waffengang.py", "tools/blender348/v3/held_klassen.py", ".github/workflows/tom-mess-417.yml"]
+  workflow_dispatch:
+    inputs:
+      nur_griff:
+        description: "nur griff417 (ja/nein)"
+        default: "nein"
+      vergleich:
+        description: "alle Vorwaerts-Bewegungen je Paket messen (1/0)"
+        default: "0"
+
+jobs:
+  mess:
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, '417 Messung')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Karten aus core
+        if: inputs.nur_griff != 'ja'
+        run: ./gradlew -p core exportMaps -Pout=$GITHUB_WORKSPACE/godot/daten/karten.json -q
+      - name: Gekaufte Modelle (privat)
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+        run: |
+          echo "KAUF=$RUNNER_TEMP/kauf" >> $GITHUB_ENV
+          timeout 1500 bash tools/blender348/kauf_laden.sh $RUNNER_TEMP/kauf > kauf.log 2>&1 || { tail -20 kauf.log; exit 1; }
+          mkdir -p mess && grep -iE "ANIMSET\.(SWORD|1\.HANDED|2\.HANDED|BOW)" kauf.log | grep -iE "walk|run|prop|SK_" | grep -viE "_RM|bazooka" | head -150 > mess/kauf-gang.txt || true
+          grep -c . mess/kauf-gang.txt || true
+      - name: Griff aus den Unity-Prefabs (417 Messung 3b, nur Text)
+        run: |
+          python3 -I tools/blender348/v3/griff417.py > mess/griff.log 2>&1 || true
+          sed "s|$KAUF/||g" -i mess/griff.log; cut -c1-400 mess/griff.log | head -400
+      - uses: actions/setup-python@v5
+        id: py
+        with:
+          python-version: "3.13"
+      - uses: actions/cache@v4
+        with:
+          path: bl
+          key: bpy-5.2.3-${{ runner.os }}-py${{ steps.py.outputs.python-version }}
+      - name: Blender als Python-Modul
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libsm6 libxkbcommon0 > /dev/null
+          [ -x bl/bin/python ] || { rm -rf bl; python -m venv bl && bl/bin/pip -q install bpy==5.2.3 numpy pillow; }
+      - uses: actions/cache@v4
+        with:
+          path: ~/cc0
+          key: cc0-quaternius-4
+      - name: CC0-Pakete (Quaternius)
+        run: |
+          [ -n "$(find ~/cc0 -name UAL1_Standard.glb 2>/dev/null)" ] || bash tools/blender348/v3/cc0_laden.sh ~/cc0
+          [ -d ~/cc0/medieval-village-megakit ] || PAKETE=medieval-village-megakit bash tools/blender348/v3/cc0_laden.sh ~/cc0
+          [ -d ~/cc0/stylized-nature-megakit ] || PAKETE=stylized-nature-megakit bash tools/blender348/v3/cc0_laden.sh ~/cc0
+          [ -d ~/cc0/fantasy-props-megakit ] || PAKETE=fantasy-props-megakit bash tools/blender348/v3/cc0_laden.sh ~/cc0
+      - name: Griff im Rahmen der Hand (417 Messung 3d, Blender, nur Text)
+        if: inputs.nur_griff == 'ja'
+        run: |
+          OUT=mess/griff417.json bl/bin/python -I tools/blender348/v3/griff417b.py > mess/griff-b.log 2>&1 || true
+          sed "s|$KAUF/||g" -i mess/griff-b.log; grep -E "^(PROP|GRIFF|FEHLT)|Traceback|Error" mess/griff-b.log | cut -c1-400 | head -150
+      - name: Waffengang (Pakete auf das UAL-Geruest)
+        if: inputs.nur_griff != 'ja'
+        run: |
+          Z=$(find $KAUF -path '*Unreal-Godot*' -name UAL1.glb | sort | head -1); [ -n "$Z" ] || Z=$(find ~/cc0 -name UAL1_Standard.glb | sort | head -1)
+          echo "Ziel: ${Z#$KAUF/}"
+          VERGLEICH=${{ inputs.vergleich || '1' }} VERGLEICH_WORTE=Run KAUF=$KAUF ZIEL=$Z OUT=$RUNNER_TEMP/gang BL=$GITHUB_WORKSPACE/bl/bin/python bl/bin/python -I tools/blender348/v3/waffengang.py > mess/waffengang.log 2>&1 || true
+          grep -E "^(PAKET|FEHLT|GANG|KNOCHEN|  WAFFENKNOCHEN|PROP|MESS|NEIGUNG|AUFRICHTEN|HAND|WAFFENGANG)|^   |Traceback|Error" mess/waffengang.log | sed "s|$KAUF/||g" | cut -c1-500 | head -160
+          cp $RUNNER_TEMP/gang/waffengang.json mess/ 2>/dev/null || true
+      - name: Kaempfer mit Waffengang in bewegungen.glb
+        if: inputs.nur_griff != 'ja'
+        run: |
+          export OUT=$RUNNER_TEMP/out KARTEN=$GITHUB_WORKSPACE/godot/daten/karten.json
+          for s in tex held3 rig; do
+            bl/bin/python -I tools/blender348/v3/$s.py > $s.log 2>&1 || { tail -40 $s.log; exit 1; }
+          done
+          GANG=$RUNNER_TEMP/gang ZIEL=$RUNNER_TEMP/klassen Q=~/cc0 KLASSEN=FIGHTER bl/bin/python -I tools/blender348/v3/held_klassen.py > mess/klassen.log 2>&1 || { tail -40 mess/klassen.log; exit 1; }
+          grep -E "^GANG|HELD KLASSEN|FEHLT" mess/klassen.log || true
+          python3 -c "import json; j=json.load(open('$RUNNER_TEMP/klassen/held-klassen.json')); print('bewegungen', j.get('bewegungen')); print('gang', j.get('gang')); print('rennen_m_je_s', j.get('rennen_m_je_s'))" | tee mess/bewegungen.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bornim-mess-417
+          path: mess/
+          if-no-files-found: ignore

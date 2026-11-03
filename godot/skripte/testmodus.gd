@@ -43,6 +43,7 @@ const KLASSEN := ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]
 
 static var waffen_auf := false
 static var eroeffnung := "NORMAL"       # 399.2 (Jerry, TestTab.kt opening): wer zuerst handelt im beschworenen Kampf
+static var kampfort := ""               # 493 (Jerry): Kampfort im Wald für den beschworenen Kampf; leer: nach der Kachel wie im Spiel
 static var probe_gegner := "GRAK"
 static var probe_stufe := 3
 
@@ -161,6 +162,9 @@ static func reiter(m: Menue) -> void:
 		zk.call(t.call("Andere Hand", "Other hand"), name_von(nb) if nb != "" else t.call("leer", "empty"),
 			t.call("Wechselt die andere Hand: leer, Schild, Rundschild, Dolch.", "Cycles the other hand: empty, shield, round shield, dagger."),
 			func(): waffe(hw, z, NEBENHAND[(maxi(NEBENHAND.find(nb), 0) + 1) % NEBENHAND.size()] if NEBENHAND.has(nb) else "", true), "SHIELD")])
+	# 470a B: die Seite „Neues Spiel“ nach BRS 1.1 bis 2.3 nur hier; „Abenteuer beginnen“ und „Zurück“ fuehren in die Welt zurueck
+	m.zeichenreihe([zk.call(t.call("Erschaffung BRS", "Creation BRS"), null, t.call("Zeigt die neue Seite „Neues Spiel“ nach BRS 1.1. Ins Spiel kommt sie mit dem Kampf nach BRS (2.3); bis dahin ändert sie den Helden nicht.",
+		"Shows the new “New game” page after BRS 1.1. It enters the game with BRS combat (2.3); until then it does not change the hero."), func(): m.test.emit("erschaffung_brs", []), "RULES")])
 	if waffen_auf:
 		var alle: Array = [""]
 		for id in Beute.grundformen():
@@ -180,6 +184,16 @@ static func reiter(m: Menue) -> void:
 			func(): m.test.emit("teleport", ["village", 11, 7, "DOWN"]), "HOME"),
 		zk.call(t.call("Kapitelende", "Chapter end"), null, t.call("Kapitel 1 bis kurz vor Ende: Höhle geschafft, Lyra frei, Amulett in der Tasche; sprich mit Aldric.",
 			"Chapter 1 to just before its end: cave done, Lyra free, amulet in the bag; talk to Aldric."), func(): m.test.emit("kapitelende", []), "FLAG")])
+	# 500 (Chef 03.11., 07:24): was nur die Probeknoepfe rechts in der Welt schalteten, hier
+	var welt2 := [zk.call(t.call("Tag / Nacht", "Day / night"), null, t.call("Schaltet zwischen Mittag und 23 Uhr; die Leute folgen der Uhr.", "Switches between noon and 11 pm; the people follow the clock."),
+		func(): m.test.emit("nacht", []), "", "☾")]
+	if DirAccess.dir_exists_absolute("res://daten/tiere"):
+		welt2.append(zk.call(t.call("Tiere", "Animals"), null, t.call("Stellt alle Tiermodelle zum Anschauen um den Helden; noch einmal: weg.", "Puts every animal model around the hero to look at; again: gone."),
+			func(): m.test.emit("tiere", []), "STEPS"))
+	m.zeichenreihe(welt2)
+	# 415 (Jerry, Chef „415 jetzt“ 02.11., 10:55): Handyprobe der Beams-Probe im Kampfort (kampf/strahlprobe.gd)
+	m.zeichenreihe([zk.call(t.call("Strahlen", "Beams"), null, t.call("415: drei Strahlen der Beams-Probe im Kampfort, mit Bildern je Sekunde; Renderer umschaltbar.",
+		"415: three beams of the Beams sample in the battle place, with frames per second; renderer switchable."), func(): m.test.emit("strahlen", []), "FPS")])
 	var fs := feinde()
 	if not fs.is_empty():
 		m.gruppe(t.call("Kampf beschwören", "Summon a fight"))
@@ -187,7 +201,12 @@ static func reiter(m: Menue) -> void:
 		m.zeichenreihe([zk.call(t.call("Eröffnung", "Opening"), String(eroeffnungen[eroeffnung]), t.call("Wer im beschworenen Kampf zuerst handelt: wie im Spiel, Hinterhalt der Gegner, oder der Held.",
 			"Who acts first in a summoned fight: as in the game, a foe ambush, or the hero."), func():
 				var e: Array = eroeffnungen.keys()
-				eroeffnung = String(e[(e.find(eroeffnung) + 1) % e.size()]), "DICE")])
+				eroeffnung = String(e[(e.find(eroeffnung) + 1) % e.size()]), "DICE"),
+			# 493: welcher Kampfort im Wald (Lichtung, Waldrand, Teich, Baum, Felsen, Steinkreis), sonst nach der Kachel wie im Spiel
+			zk.call(t.call("Kampfort", "Battle place"), String(kampforte()[kampfort]), t.call("Wo der beschworene Kampf im Wald stattfindet: wie im Spiel nach dem, was um dich steht, oder einer der sechs Orte.",
+				"Where the summoned fight takes place in the woods: as in the game by what stands around you, or one of the six places."), func():
+					var o: Array = kampforte().keys()
+					kampfort = String(o[(o.find(kampfort) + 1) % o.size()]), "PIN")])
 		var ids: Array = fs.keys()
 		for i in range(0, ids.size(), 2):
 			reihe.call(ids.slice(i, i + 2).map(func(id): return [String(fs[id]), func(): m.test.emit("kampf", [id])]))
@@ -222,3 +241,11 @@ static func vor_aldric() -> Array:
 		for v in [[a + Vector2i(0, 1), "UP"], [a + Vector2i(-1, 0), "RIGHT"], [a + Vector2i(1, 0), "LEFT"]]:
 			if k.begehbar(v[0]): return v
 	return []
+
+
+## 493: die Kampforte im Wald für den Reiter Test, „“ = nach der Kachel wie im Spiel (kampfort.gd platz_fuer)
+static func kampforte() -> Dictionary:
+	var de := Sprache.aktiv() == "de"
+	return {"": "Wie im Spiel" if de else "As in game", "lichtung": "Lichtung" if de else "Clearing", "waldrand": "Waldrand" if de else "Forest edge",
+		"teich": "Teich" if de else "Pond", "baum": "Baum" if de else "Fallen tree", "felsen": "Felsen" if de else "Rocks",
+		"steinkreis": "Steinkreis" if de else "Stone circle"}

@@ -14,6 +14,7 @@ const Ui = preload("res://kampf/kampf_ui.gd")
 const Figur = preload("res://kampf/figur.gd")
 const Wucht = preload("res://regeln/trefferwucht.gd")
 const Zauber = preload("res://kampf/zauber.gd")
+const Signatur = preload("res://kampf/signatur.gd")
 
 # FightCamera.kt
 const PITCH := 25.0
@@ -30,6 +31,8 @@ const BACK_GAP_A := 2.4          # 0,8 wie alt; der Wolf hinten stand im Rumpf d
 const BACK_GAP_B := -1.0
 # einer vorn, zwei hinten (Grimmzahn Runde 7): vorn 0,3 m nach rechts, hinten 1 m zurück, 0,45 m weiter auseinander und 0,85 m
 # nach links (Grimmzahn hinten rechts lief sonst über den Bildrand); gemessen: Deckung der Wache 36 % → 1 %
+const SOLO_BACK_A := 0.6       # 438: einer vorn, einer hinten: hinten 0,6 m weiter zurück und 1,3 m zur Seite
+const SOLO_BACK_B := -1.3
 const PAIR_FRONT_B := 0.3
 const PAIR_BACK_A := 1.0
 const PAIR_BACK_B := 0.45
@@ -46,6 +49,9 @@ const ART_SIZE := {"boar": 90.0 / 76.0 * 0.8 / 0.9, "giant_rat": 1.0 / (FOE_SIZE
 const WOLF_SIZE := 0.88         # 1,08 nach Messung (Schulter/Held alt 0,64, neu 0,52) wirkte im Bild „wie Kälber“ (Prüfer Lauf 14); zurück
 # SkirmishScreen.kt
 const SAY_MS := 1100
+const AUSWEICH_VOR_MS := 250     # 438: Ausweichen beginnt so viel vor dem Aufschlag
+const TODESZEILE_ANTEIL := 0.6     # 438: Todeszeile nach diesem Anteil der Sterbebewegung
+const NACHTRAG_MS := 150     # 438: Meldung, deren Zeile schon mit der Bewegung stand
 const RING_MS := 1100
 const PERFECT_MS := 90
 const GOOD_MS := 260
@@ -69,6 +75,43 @@ var reward := {}
 ## 399.2 (aufruf.gd): Kampfort und Tageszeit aus dem Aufruf; heute gibt es nur den Wald, die Tageszeit dämpft das Licht
 var ort := "wald"
 var tageszeit := "tag"
+## 493: welcher Kampfort im Wald (kampfort_wald.py SPOT): lichtung, waldrand, teich, baum, felsen, steinkreis; fehlt sein Modell im
+## Bau, die Lichtung
+var platz := "lichtung"
+const PLAETZE := ["lichtung", "waldrand", "teich", "baum", "felsen", "steinkreis"]
+
+
+## 493 wie alt (BattleScene.spotFor): was um die Kachel [t] auf [karte] steht: Wasser bis 4 Kacheln → Teich, stehende Steine bis 3 →
+## Steinkreis, ein liegender Stamm bis 3 → Baum, Felsen bis 3 → Felsen; sonst mit 8 Bäumen in 5 × 5 der Waldrand, sonst die Lichtung
+static func platz_fuer(karte, t: Vector2i) -> String:
+	if karte == null:
+		return "lichtung"
+	var art := func(c: Vector2i) -> String:
+		var z: String = karte.zeichen(c)
+		return String(karte.kacheln.get(z, {}).get("name", ""))
+	var nah := func(name_: String, r: int) -> bool:
+		for dy in range(-r, r + 1):
+			for dx in range(-r, r + 1):
+				if art.call(t + Vector2i(dx, dy)) == name_:
+					return true
+		return false
+	if nah.call("WATER", 4): return "teich"
+	if nah.call("MENHIR", 3): return "steinkreis"
+	if nah.call("LOG", 3): return "baum"
+	if nah.call("ROCK", 3): return "felsen"
+	var baeume := 0
+	for dy in range(-2, 3):
+		for dx in range(-2, 3):
+			if art.call(t + Vector2i(dx, dy)) == "TREE": baeume += 1
+	return "waldrand" if baeume >= 8 else "lichtung"
+
+
+## 493: Dateiname des Kampforts im Bau („kampfort-wald“, „-teich“ …), auf die Lichtung zurück, wenn er fehlt
+func _platz_datei(name_: String, endung: String) -> String:
+	var p := "res://kampf/daten/%s-%s.%s" % [name_, platz, endung]
+	if platz != "lichtung" and FileAccess.file_exists(p):
+		return p
+	return "res://kampf/daten/%s.%s" % [name_, endung]
 var lang := 0
 
 # the rules' thread and its beats (ProbeRun)
@@ -86,6 +129,8 @@ var ring_for := ""
 var clock_ms := 0.0
 ## 249: der kritische oder tödliche Schlag, der die Szene heranrückt und rucken lässt: {by, on, w, t0}
 var hit := {}
+var cam_z := 1.0                 # 438: Zoom und Mitte, wie _hit_camera sie zuletzt gesetzt hat (ein neuer Schlag beginnt dort)
+var cam_p := Vector2.ZERO
 var base_size := 1.0
 var base_off := Vector2.ZERO
 
@@ -175,21 +220,9 @@ func _setup_world() -> void:
 	add_child(we)
 	var sun := DirectionalLight3D.new()
 	# höher und von vorn als im Dorf (licht.gd -50, 25): sonst liegt der Schatten der Bäume auf der Lichtung (Lauf 11:
-	# Wölfe schwarz, grauer Wolf Helligkeit 8, ohne Baumschatten 43)
-	sun.rotation_degrees = Vector3(-65, 0, 0)
-	if tusche() == "licht" or OS.has_environment("KAMPF_SONNE"):     # 348.13a Probe (Tom): Sonne von vorn hat keine Lichtseite links/rechts; KAMPF_SONNE=<Höhe>,<seitlich>
-		# Chef 28.10., 08:09 (r9 ja): mit Tusche nach Licht die Sonne −45,55
-		var sv := (OS.get_environment("KAMPF_SONNE") if OS.has_environment("KAMPF_SONNE") else "-45,55").split(",")
-		sun.rotation_degrees = Vector3(float(sv[0]), float(sv[1]), 0)
-	sun.shadow_enabled = true
-	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_ORTHOGONAL
-	sun.directional_shadow_max_distance = 40.0
-	sun.shadow_blur = 1.5
-	# Schlagschatten nicht schwarz (Prüfer Stand 7: harte schwarze Schatten), Licht bleibt aus der Sonne
-	sun.shadow_opacity = 0.7
-	sun.shadow_normal_bias = 1.2
-	sun.light_energy = 1.3
-	sun.light_color = Color(1.0, 0.94, 0.82)
+	# Wölfe schwarz, grauer Wolf Helligkeit 8, ohne Baumschatten 43); mit Tusche nach Licht −45, 55 (Chef 28.10., 08:09, r9 ja);
+	# Schlagschatten weich, nicht schwarz (Prüfer Stand 7). 457.2: Werte in signatur.gd, damit Proben mit eigener Bühne gleich zeichnen
+	Signatur.sonne_wie_kampf(sun, tusche() == "licht")
 	if tageszeit == "abend":     # 399.2: nur Funktion, Feinschliff auf der Feintuning-Liste
 		sun.light_energy *= 0.75
 		sun.light_color = Color(1.0, 0.74, 0.52)
@@ -208,62 +241,42 @@ func _setup_world() -> void:
 	add_child(cam)
 	# Tusche wie Toms kamera.gd: Welt (Schablone 0) und Gruppe mit Waffen (Schablone 2, feiner; Probe Build 12)
 	var tu: Shader = load("res://kampf/tusche.gdshader")
-	var tu_held := Shader.new()
-	tu_held.code = tu.code.replace("stencil_mode read, compare_equal, 0;", "stencil_mode read, compare_equal, 2;")
+	var tu_held := Signatur.schablone(tu, 2)
 	_sun = sun
-	if tusche() == "licht":     # 348.13 Probe (Tom): Tusche nach Licht wie kamera.gd
-		tu = load("res://kampf/tusche_licht.gdshader")
-		tu_held = Shader.new()
-		tu_held.code = tu.code.replace("stencil_mode read, compare_equal, 0;", "stencil_mode read, compare_equal, 2;")
-		# 348.13a (Chef 27.10., 09:41): Schattenseite im Kampf kräftiger als im Dorf; Probe TUSCHE_DICK=<Faktor auf das Dorf>
-		_ink(tu, 1.3, 1.7)
-		_ink(tu_held, 0.8, 1.5)
-		var tu_gegner := Shader.new()     # Runde 7: Gegner (figur.gd toon_gegner, Schablone 3) wie der Held statt mit der Welttusche
-		tu_gegner.code = tu.code.replace("stencil_mode read, compare_equal, 0;", "stencil_mode read, compare_equal, 3;")
-		_ink(tu_gegner, 0.8, 1.5)
-		var k := float(OS.get_environment("TUSCHE_DICK")) if OS.has_environment("TUSCHE_DICK") else 1.3     # Probe: Faktor auf den Umriss; Chef 28.10., 08:09 (r9 ja): 1,3
-		for m in _ink_mats: m.set_shader_parameter("umriss_dick", k)
+	if tusche() == "licht":     # 348.13 Probe (Tom): Tusche nach Licht wie kamera.gd; Welt, Gruppe, Gegner (signatur.gd)
+		_ink_mats.append_array(Signatur.tusche_licht(cam))
 	elif tusche() != "0":     # Prüflauf: TUSCHE=0 misst, was die Linie ausmacht
 		_ink(tu, 1.3, 1.25)
 		_ink(tu_held, 0.8, 1.0)
 
 
 func _ink(sh: Shader, width: float, thick: float) -> void:
-	var q := MeshInstance3D.new()
-	var qm := QuadMesh.new()
-	qm.size = Vector2(2, 2)
-	q.mesh = qm
-	q.extra_cull_margin = 16384.0
-	q.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	var tm := ShaderMaterial.new()
-	tm.shader = sh
-	tm.set_shader_parameter("px", width)
-	tm.set_shader_parameter("dick", thick)
-	if OS.get_environment("TUSCHE_MAGENTA") != "":     # Messlauf: Breite der Linie zählen (tusche_breite.py)
-		tm.set_shader_parameter("ink", Color(1, 0, 1))
-	q.material_override = tm
-	q.position = Vector3(0, 0, -1)
-	cam.add_child(q)
-	_ink_mats.append(tm)
+	_ink_mats.append(Signatur.quad(cam, sh, width, thick))
 
 var _sun: DirectionalLight3D
 ## 348.13a (Chef 28.10., 08:09, Archiv: r9 ja): Tusche nach Licht ist Vorgabe; TUSCHE=alt die alte Tusche, TUSCHE=0 ohne
+## 457.2: OHNE_SIGNATUR=1 wie TUSCHE=0 (und ohne Schatten, signatur.gd)
 static func tusche() -> String:
+	if Signatur.aus():
+		return "0"
 	return OS.get_environment("TUSCHE") if OS.has_environment("TUSCHE") else "licht"
 var _ink_mats: Array[ShaderMaterial] = []
+## 457.2: Mitte des Bildinhalts für die Tusche (Welt) mit der Kamera, die gerade zeichnet; null = Kampfmitte mit [cam]; nur Proben (probe.gd NAH)
+var ink_ziel = null
 func _ink_licht() -> void:
 	if tusche() != "licht" or _ink_mats.is_empty(): return
-	var bm := get_viewport().get_visible_rect().size.x / (120.0 * scene_rect().size.x / 412.0 / 1.75) * cam.size / base_size
 	if OS.get_environment("TUSCHE_DBG") != "" and Engine.get_process_frames() % 30 == 0:     # 348.13a: Sonne am Schirm (wie sl im Shader)
 		var lv := cam.global_transform.basis.inverse() * _sun.global_transform.basis.z
 		print("Sonne Schirm ", Vector2(lv.x, -lv.y).normalized(), " Laenge ", Vector2(lv.x, lv.y).length())
-	for m in _ink_mats:
-		m.set_shader_parameter("licht_dir", _sun.global_transform.basis.z)
-		m.set_shader_parameter("breite_m", bm)
-		m.set_shader_parameter("nah_bis", d0 + 5.0)     # 348.13a: breite Linie nur auf der Lichtung (Helfer: Kronen oben als dicker Ast)
-		m.set_shader_parameter("nah_ab", d0 - 6.0)
-	for i in range(1, _ink_mats.size()):     # Held und (Runde 7) Gegner gleich; vorher nur der Held
-		_ink_mats[i].set_shader_parameter("hinten_ab", lerpf(0.05, 0.25, clampf((bm - 3.4) / (9.0 - 3.4), 0.0, 1.0)))
+	# 457.2: Bildbreite und Tiefe der breiten Linie aus der Kamera, die gerade zeichnet, und der Kampfmitte (im Spiel wie
+	# vorher: Tiefe d0, Breite mit dem Zoom); Proben mit eigener Kamera oder Nähe setzen [ink_ziel] auf ihr Bildziel
+	var c := cam
+	var wo: Vector3 = to_global(_ground(0, 0))
+	if ink_ziel != null:
+		wo = ink_ziel
+		if get_viewport().get_camera_3d() != null:
+			c = get_viewport().get_camera_3d()
+	Signatur.nachfuehren(_ink_mats, c, _sun, wo, get_viewport().get_visible_rect().size)
 
 
 ## Die Lichtung (tools/blender348/kampfort_wald.py): Bäume, Büsche, Steine, Boden mit Weg und Sonnentupfen, Grasbüschel.
@@ -274,7 +287,7 @@ func _build_forest() -> void:
 	forest = Node3D.new()
 	forest.rotation.y = deg_to_rad(90.0 - AXIS)
 	add_child(forest)
-	var p := "res://kampf/daten/kampfort-wald.bin"
+	var p := _platz_datei("kampfort-wald", "bin")     # 493
 	if FileAccess.file_exists(p):
 		var doc := GLTFDocument.new()
 		var st := GLTFState.new()
@@ -294,7 +307,7 @@ func _build_forest() -> void:
 	ground.mesh = pm
 	var gm := ShaderMaterial.new()
 	gm.shader = load("res://kampf/wald_boden.gdshader")
-	gm.set_shader_parameter("maske", _picture("wald-maske", Color(0, 0, 0, 0)))
+	gm.set_shader_parameter("maske", _picture(_platz_datei("wald-maske", "bild").get_file().get_basename(), Color(0, 0, 0, 0)))     # 493
 	gm.set_shader_parameter("gras", _picture("gras", Color(0.30, 0.38, 0.20)))
 	gm.set_shader_parameter("erde", _picture("erde", Color(0.42, 0.34, 0.24)))
 	ground.material_override = gm
@@ -348,7 +361,7 @@ func _grass() -> void:
 	if OS.get_environment("HALME") == "0":     # Prüflauf: ohne Büschel
 		return
 	var mask := Image.new()
-	var mp := "res://kampf/daten/wald-maske.bild"
+	var mp := _platz_datei("wald-maske", "bild")     # 493
 	if not FileAccess.file_exists(mp) or mask.load_png_from_buffer(FileAccess.get_file_as_bytes(mp)) != OK:
 		return
 	var rng := RandomNumberGenerator.new()
@@ -485,6 +498,7 @@ func _hit_camera() -> void:
 		hit = {}
 		cam.size = base_size
 		cam.frustum_offset = base_off
+		cam_z = 1.0
 		return
 	var by = figures.get(hit.by, on)
 	var hz := 1.0
@@ -497,6 +511,13 @@ func _hit_camera() -> void:
 	if not hit.has("pivot"):
 		hit["pivot"] = _pivot(_near_of(on.position), 1.0 + (0.10 if kill else Wucht.zoom(w)) + 0.03)
 	var p: Vector2 = hit.pivot
+	var z0: float = hit.get("z0", 1.0)
+	if z0 > 1.0001 and el < t_in:     # 438: vom Stand des vorigen Schlags weich zum neuen
+		var s := _soft(el / t_in)
+		z = lerpf(z0, z, s)
+		p = (hit.p0 as Vector2).lerp(p, s)
+	cam_z = z
+	cam_p = p
 	cam.size = base_size / z
 	var off := p + (base_off - p) / z
 	# der Ruck: die Szene ein Stück vom Schlagenden zum Getroffenen hin (am Schirm, in dp)
@@ -505,6 +526,71 @@ func _hit_camera() -> void:
 		var vs := get_viewport().get_visible_rect().size
 		off -= dir.normalized() * jp * Wucht.jolt_dp(w) * (vs.x / 412.0) * cam.size / vs.y
 	cam.frustum_offset = off
+
+
+## 438 (Prüfer Film r2: Wolf rechts halb abgeschnitten, 42,6 s; wolf_mess_438: ein Wolf auf dem Umweg um den Nachbarn bis 175 px
+## aus dem Bild): läuft eine Figur über den Rand der Szene, geht die Linse weich ein Stück zurück (um die Mitte der Szene), bis alle
+## im Bild sind, und danach langsam wieder heran. Während eines Schlags (hit) führt _hit_camera.
+var rand_z := 1.0
+const RAND_RAUS := 0.18     # je Bild zum nötigen Rückzug
+const RAND_REIN := 0.03     # je Bild zurück zur Grundstellung
+func _rand_kamera() -> void:
+	if cam == null or not hit.is_empty():
+		rand_z = 1.0
+		return
+	var vs := get_viewport().get_visible_rect().size
+	var sr := scene_rect()
+	var c := sr.size / 2.0
+	var m := 8.0 * vs.x / 412.0
+	var need := 1.0
+	for fig in figures.values():
+		if not fig.visible or fig.dead_at >= 0:
+			continue
+		# 438 (wolf_mess_438: Wolf 1 lief nach dem Fehlbiss an den Rand, die Linse kam erst nach): wer unterwegs ist, zählt
+		# auch an den Ecken seiner Bahn, so geht die Linse schon zurück, bevor er ankommt
+		var vers: Array = [Vector3.ZERO]
+		if fig.unterwegs():
+			for bp in fig.bahn:
+				vers.append(Vector3(bp.x - fig.position.x, 0.0, bp.z - fig.position.z))
+		for k in fig.kapseln():
+			for v in vers:
+				for q0 in [k[0], k[1]]:
+					var q: Vector3 = q0 + v
+					var s0: Vector2 = c + (screen_of(q) - c) / rand_z     # wo der Punkt ohne Rückzug läge
+					var d: Vector2 = s0 - c
+					# 438 (wolf_mess_438, Lauf 153: Wolf 1 bis 56 px draußen): mit der Dicke der Kapsel, nicht nur ihrer Achse
+					var r0: float = k[2] / m_per_dp(q) * (sr.size.x / 412.0) / rand_z
+					if absf(d.x) > 1.0:
+						need = minf(need, (c.x - m) / (absf(d.x) + r0))
+					if absf(d.y) > 1.0:
+						need = minf(need, (c.y - m) / (absf(d.y) + r0))
+		# 415 r4 (Lauf 181, G1): auch Waffe und Schild ganz im Bild
+		for q in fig.waffen_punkte():
+			var dw: Vector2 = (screen_of(q) - c) / rand_z
+			if absf(dw.x) > 1.0:
+				need = minf(need, (c.x - m) / absf(dw.x))
+			if absf(dw.y) > 1.0:
+				need = minf(need, (c.y - m) / absf(dw.y))
+		# 438 (wolf_mess_438: Wolf 1 drehte am Rand auf der Stelle, der Kopf schwang 45 px hinaus): wer gerade läuft oder dreht,
+		# zählt mit dem ganzen Kreis, den sein Körper beim Drehen überstreicht
+		if fig.tween and fig.tween.is_running():
+			var rr := 0.0
+			for k in fig.kapseln():
+				for q0 in [k[0], k[1]]:
+					rr = maxf(rr, Vector2(q0.x - fig.position.x, q0.z - fig.position.z).length() + k[2])
+			for v in vers:
+				for dv in [Vector3(rr, 0, 0), Vector3(-rr, 0, 0), Vector3(0, 0, rr), Vector3(0, 0, -rr)]:
+					var d2: Vector2 = (screen_of(fig.position + v + dv) - c) / rand_z
+					if absf(d2.x) > 1.0:
+						need = minf(need, (c.x - m) / absf(d2.x))
+	need = clampf(need, 0.8, 1.0)
+	rand_z = lerpf(rand_z, need, RAND_RAUS if need < rand_z else RAND_REIN)
+	if absf(rand_z - 1.0) < 0.001:
+		rand_z = 1.0
+	var per := base_size / vs.y
+	var p := Vector2(base_off.x + (c.x - vs.x / 2.0) * per, base_off.y - (c.y - vs.y / 2.0) * per)
+	cam.size = base_size / rand_z
+	cam.frustum_offset = p + (base_off - p) / rand_z
 
 
 ## 348.7 (Helfer Lauf 126: Heldin am Rand angeschnitten): die Mitte des Zooms so nah an [p] wie möglich, aber so, dass bei
@@ -602,6 +688,11 @@ func _spot_pos(f, spot: Vector2i) -> Vector3:
 	# (SkirmishScreen.kt BACK_GAP_A, BACK_GAP_B, Build 89)
 	if f.side == "FOES" and spot.x == Mars.BACK and alone and not _alone(null, Mars.FRONT, "FOES"):
 		ab = Vector2(ab.x + BACK_GAP_A, BACK_GAP_B)
+	# 438 (Chef 31.10., 23:31, Film 403: Wölfe „wieder aneinander vorbeigehen“; tests/wolf_mess_438.gd): einer allein vorn, einer
+	# allein hinten standen genau hintereinander, 1,5 m Mitte zu Mitte, der Kaufwolf ist 2,3 m lang: 0,5 m ineinander. Hinten
+	# dann schräg versetzt wie das Paar hinten (PAIR_BACK_*), um eine Wolfslänge
+	elif f.side == "FOES" and spot.x == Mars.BACK and alone and _count(Mars.FRONT, "FOES") == 1:
+		ab = Vector2(ab.x + SOLO_BACK_A, SOLO_BACK_B)
 	# 348.7 Grimmzahn Runde 7 (Prüfer Runde 6: „Wolf auf Wolf“, „zweiköpfiger Wolf“): einer allein vorn vor zweien hinten stand
 	# im Bild genau vor dem linken hinteren (37 % verdeckt); vorn ein Stück nach rechts, hinten weiter auseinander und zurück
 	if f.side == "FOES" and _alone(null, Mars.FRONT, "FOES") and not _alone(null, Mars.BACK, "FOES") and _count(Mars.FRONT, "FOES") == 1:
@@ -742,6 +833,7 @@ func _process(_dt: float) -> void:
 	_ink_licht()
 	clock_ms += _dt * 1000.0
 	_hit_camera()
+	_rand_kamera()
 	_grass_spots()
 	if ring_open and Time.get_ticks_msec() > ring_start + RING_MS + GOOD_MS + 60:
 		_answer_ring(Mars.NONE)
@@ -773,8 +865,6 @@ func _play_say(e: Dictionary) -> void:
 			add_child(fig)
 			figures[f.id] = fig
 			fig.snap_to(_spot_pos(f, e.places[f.id]) + facing(true) * -3.0)
-	if e.text != "":
-		ui.log_line(e.text)
 	var actor = e.actor
 	var target = e.target
 	var by = mars.find(actor) if actor != null else null
@@ -791,8 +881,20 @@ func _play_say(e: Dictionary) -> void:
 	for id in figures:
 		if not e.intents.has(id):
 			figures[id].announce(null)
+	# 439 (Chef 31.10., 23:31: „beim Helden einmal die Treffer-Animation, bevor der Angriff richtig da war“; tests/wolf_mess_438.gd):
+	# „wirft sich auf …“ (POUNCED) kommt als eigene Meldung nach dem Sprungbiss, wenn der Wolf schon wieder daheim steht; der Held fiel
+	# dann ohne Wolf. Jetzt fällt er beim Aufprall des Sprungs (mars.gd: ein Sprung, der trifft und ihn stehen lässt, wirft ihn um),
+	# und die Meldung danach zeigt nur noch den Text.
+	if lunge_ms > 0 and actor != null and target != null and figures[actor].letzter_sprung and e.damage > 0 \
+			and e.hp.get(target, 1) > 0 and figures.has(target):
+		var opfer = figures[target]
+		opfer.sturz_vorweg = true
+		get_tree().create_timer(int(lunge_ms * 0.42) / 1000.0).timeout.connect(func(): if is_instance_valid(opfer): opfer.knocked_down())
 	if e.cue == "POUNCED" and target != null:
-		figures[target].knocked_down()
+		if figures[target].sturz_vorweg:
+			figures[target].sturz_vorweg = false
+		else:
+			figures[target].knocked_down()
 	elif e.cue == "RISES" and actor != null:
 		figures[actor].rise()
 	elif e.cue == "CIRCLE" and actor != null:
@@ -806,6 +908,25 @@ func _play_say(e: Dictionary) -> void:
 		var step: float = ui.cast(fx, actor, target, _crit(e), _missed(e) or e.cue == "DUCKED")
 		lands = int(step + Zauber.arrives(fx))
 		busy_ms = maxi(busy_ms, figures[actor].busy_ms)     # 348.7b: Seitenschritt hin und zurück
+	# 438 (Prüfer Film 08:18: Würfelzeile, Schaden und Leiste 0:07,9, der Wolf trifft den Helden erst 0:09,7): Meldung, Würfel,
+	# Lebensleisten und Bedienfeld erst beim Aufschlag (DESIGN-ABNAHME: „Bewegung zuerst, dann eine einzige Textzeile mit Ausgang
+	# und Schaden“); bis dahin zeigt shown die Leben von vorher
+	var spaeter: bool = lands > 0 and (lunge_ms > 0 or fx != null)
+	if spaeter:
+		var vorher := e.duplicate()
+		vorher.hp = before
+		shown = vorher
+		var sturz: bool = target != null and figures.has(target) and figures[target].sturz_vorweg
+		get_tree().create_timer(lands / 1000.0).timeout.connect(func():
+			if is_same(shown, vorher):
+				shown = e
+			_zeigen(e)
+			# 438 (Prüfer Film r2: „prallt gegen Ansgar“ 3,7 s nach dem Biss): die Meldung zum Sturz (POUNCED) kommt von den Regeln
+			# erst nach dem Sprungbiss, gespielt, wenn der Wolf daheim ist; der Held fällt aber beim Aufprall. Jetzt steht sie mit dem Biss
+			if sturz:
+				_vorweg("POUNCED", target))
+	else:
+		_zeigen(e)
 	# 399.3: Klang der Meldung wie MarsSound.kt, der Treffer, wenn er im Bild landet (nur mit dem Autoload Klang der Spielfassung)
 	var klang = get_node_or_null("/root/Klang")
 	if klang != null:
@@ -814,10 +935,20 @@ func _play_say(e: Dictionary) -> void:
 		if not figures.has(id):
 			continue
 		var was: int = before.get(id, e.hp[id])
+		# 406: wer mit Schild kämpft, wehrt ab, bevor der Angriff ankommt (Figur.abwehr); welche Abwehr, sagt die Art des Angriffs
+		var art := ""
+		if target == id and across and actor != null and figures.has(actor):
+			art = "sprung" if figures[actor].letzter_sprung and lunge_ms > 0 else ("fern" if fx != null else "nah")
 		if e.hp[id] < was:
-			figures[id].hurt(lands, e.hp[id] <= 0)
+			var mx: int = mars.find(id).max_hp if mars.find(id) != null else 1
+			figures[id].hurt(lands, e.hp[id] <= 0, (was - e.hp[id]) * 4 >= mx, art)
+		elif target == id and _missed(e) and across and figures[id].blockt():
+			# 406.2: gelungene Abwehr nach der Seite des Angreifers, gegen tiefe Gegner tief
+			var af = figures.get(actor)
+			figures[id].abwehr(lands, art, af.global_position if af != null else Vector3.INF, true, af != null and af.niedrig())
 		elif target == id and _missed(e) and across:
-			figures[id].dodge(lands)
+			# 438 (Prüfer Film r2: Klinge durch Wolf 2 ohne Treffer): wer ausweicht, ist schon weg, wenn der Hieb ankommt
+			figures[id].dodge(maxi(0, lands - AUSWEICH_VOR_MS) if lunge_ms > 0 and fx == null else lands)
 	# 249 (wie im alten MARS, SkirmishScreen.kt): beim Aufschlag rückt ein kritischer oder tödlicher Schlag die Szene heran
 	# und ruckt sie in Schlagrichtung; ein Hieb, Biss oder Schuss, der trifft, lässt Blut spritzen, weg vom Schlagenden
 	if target != null and actor != null and e.damage > 0 and figures.has(target) and tg != null:
@@ -827,13 +958,37 @@ func _play_say(e: Dictionary) -> void:
 		var wound: bool = e.wound and blood_level() > 0
 		get_tree().create_timer(lands / 1000.0).timeout.connect(func():
 			if Wucht.jolt_dp(w) > 0.0:
-				hit = {"by": actor, "on": target, "w": w, "t0": clock_ms}
+				# 438 (Prüfer Film 08:18: Kamera zoomt 0:38 ruckartig): kam der Schlag, während der vorige noch heranrückte,
+				# sprang die Linse auf Grundstellung und von dort neu heran; jetzt beginnt er, wo die Linse gerade steht
+				hit = {"by": actor, "on": target, "w": w, "t0": clock_ms, "z0": cam_z, "p0": cam_p}
 			if wound:
 				ui.bleed(actor, target, w == Wucht.CRIT or (w == Wucht.KILL and crit), gore, tg.monster.id if tg.monster != null else ""))
 	# 399.2 (Chef 28.10., 16:10: „wenn nur noch zwei Wölfe da sind und die dann in einer Linie stehen, dann läuft der hintere Wolf
 	# durch den vorderen“; umweg_399 Lauf 168): greift einer von hinten an, tauscht er mit dem vorderen den Platz (mars.gd
 	# _leap_forward); beide liefen zugleich auf derselben Linie gegeneinander. Wer Platz macht, geht erst, wenn der Angreifer vorbei ist
-	var warte_ms: int = figures[actor].anlauf_ms if lunge_ms > 0 and actor != null and figures.has(actor) else 0
+	# 438 (Prüfer Film 08:18: Platztausch 1/3, während Wolf 3 angreift): wer Platz macht, geht erst nach dem Biss (Angriff, Treffer,
+	# dann Neuformation wie 439), nicht schon, wenn der Angreifer anläuft
+	var warte_ms: int = lands + 200 if lunge_ms > 0 and actor != null and figures.has(actor) else 0
+	# 439 (Chef 31.10., 23:31: „Neuformation der Wölfe beginnt, bevor der getroffene Wolf stirbt“): fällt in dieser Meldung ein
+	# Gegner, rücken die anderen erst auf, wenn er gestürzt ist und gelegen hat (Figur.sterbe_ms, LIEGT_MS); erst Angriff, Treffer,
+	# Tod, dann die Neuformation. Die nächste Meldung wartet so lange.
+	var tot_ms := -1
+	for id in e.hp:
+		if figures.has(id) and e.hp[id] <= 0 and before.get(id, 1) > 0 and figures[id].fighter.side == "FOES":
+			tot_ms = maxi(tot_ms, lands + figures[id].sterbe_ms() + Figur.LIEGT_MS)
+	if tot_ms > 0:
+		# 438 (Prüfer Film 08:18: Todesmeldung 0,7 s nach dem Verschwinden): „… bricht zusammen“ (FOE_FALLS, die nächste Meldung
+		# der Regeln) steht in der Zeile, sobald er gefallen ist, nicht erst nach Liegen und Ausblenden
+		var fall_ms := -1
+		for id in e.hp:
+			if figures.has(id) and e.hp[id] <= 0 and before.get(id, 1) > 0 and figures[id].fighter.side == "FOES":
+				# 438 (Prüfer Film r2: „sackt zusammen“ 1 s nach dem Liegen): die Zeile, während er zusammensackt (Rumpf erreicht den
+				# Boden bei gut 0,8 der Bewegung „Tod“, wolf_mess_438), nicht erst, wenn die Bewegung zu Ende ist
+				fall_ms = maxi(fall_ms, lands + int(figures[id].sterbe_ms() * TODESZEILE_ANTEIL))
+		await get_tree().create_timer(fall_ms / 1000.0).timeout
+		_todesmeldung_vorweg(e)
+		await get_tree().create_timer(maxi(0, tot_ms - fall_ms) / 1000.0).timeout
+		warte_ms = 0
 	for f in mars.fighters():
 		if figures.has(f.id) and e.places.has(f.id) and not f.fled:     # 399.2a: wer flieht, kommt nicht an seinen Platz zurück
 			var ziel := _spot_pos(f, e.places[f.id])
@@ -841,9 +996,46 @@ func _play_say(e: Dictionary) -> void:
 				get_tree().create_timer(warte_ms / 1000.0).timeout.connect(figures[f.id].glide_to.bind(ziel))
 			else:
 				figures[f.id].glide_to(ziel)
+	if tot_ms > 0:
+		await get_tree().create_timer(maxi(SAY_MS, maxi(lunge_ms, busy_ms) - tot_ms) / 1000.0).timeout
+		return
+	await get_tree().create_timer(maxi(NACHTRAG_MS if _nur_nachtrag(e) else SAY_MS, maxi(lunge_ms, busy_ms)) / 1000.0).timeout
+
+
+## Zeile, Bedienfeld und Würfel einer Meldung (438: beim Aufschlag, sonst sofort); vorweg Gezeigtes nicht noch einmal
+func _zeigen(e: Dictionary) -> void:
+	if e.text != "" and not e.get("vorweg", false):
+		ui.log_line(e.text)
 	ui.refresh()
 	ui.show_roll(e)
-	await get_tree().create_timer(maxi(SAY_MS, maxi(lunge_ms, busy_ms)) / 1000.0).timeout
+
+
+## 438: die Meldung „fällt“ zu den Gegnern, die in [e] gefallen sind, wartet schon (die Regeln sagen sie gleich nach dem Schlag);
+## jetzt in die Zeile, ihr Schlag zeigt dann nur noch den Rest
+func _todesmeldung_vorweg(e: Dictionary) -> void:
+	beats_lock.lock()
+	for b in beats:
+		if b.has("say") and b.say.get("cue") == "FOE_FALLS" and e.hp.get(b.say.get("target"), 1) <= 0 and not b.say.get("vorweg", false):
+			b.say["vorweg"] = true
+			ui.log_line(b.say.text)
+	beats_lock.unlock()
+
+
+## 438: die nächste wartende Meldung [cue] an [target] jetzt in die Zeile (die Bewegung dazu ist schon zu sehen)
+func _vorweg(cue: String, target: String) -> void:
+	beats_lock.lock()
+	for b in beats:
+		if b.has("say") and b.say.get("cue") == cue and b.say.get("target") == target and not b.say.get("vorweg", false):
+			b.say["vorweg"] = true
+			ui.log_line(b.say.text)
+			break
+	beats_lock.unlock()
+
+
+## 438 (Prüfer Film r2: 18 von 48 s ohne Bewegung): eine Meldung, deren Zeile schon vorweg stand und zu der nichts mehr geschieht,
+## hält den Kampf nicht noch einmal SAY_MS auf
+func _nur_nachtrag(e: Dictionary) -> bool:
+	return e.get("vorweg", false) and e.cue in ["POUNCED", "FOE_FALLS"]
 
 
 ## 348.7: warmes Licht am Ziel eines Feuerzaubers, ab seiner Ankunft, flackernd verlöschend

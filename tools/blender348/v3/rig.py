@@ -32,6 +32,22 @@ for o in meshes:
         o.modifiers.clear(); o.data = new; me = new
     while me.uv_layers: me.uv_layers.remove(me.uv_layers[0])
     me.uv_layers.new(name='UVMap')
+# 376.1 Urteil Tracht (Chef 01.11., 20:2x: Farbstreifen durch den Umhang, Flecken in der Robe): der Abbau auf 6000 liess der Kauffigur
+# (held_klassen.py nimmt nur die Kleidung) Umhang 418 von 11756 Dreiecken, Robe 500 von 14400; beide Lagen jeder Schale fielen je
+# fuer sich, die innere stach durch die aeussere (pruef_flecken.py: Innenseite sichtbar in der Robe 94407 Punkte, ohne Abbau 1038).
+# Vor dem Abwickeln und Backen (Pruefer Film 22:18: roter Leiterstreifen auf der hinteren Mitte des Umhangs, Flecken auf der Robe:
+# nach dem Abwickeln ausgeduennt spannten Dreiecke ueber Inseln des Bilds, 366 Umhangdreiecke mit Rot darin, pr uv.py).
+# GITTER=<teile>: diese Teile statt Zusammenfallen je Stufe auf ein Viertel ausduennen (Gitter bleibt Gitter, Lagen getrennt), dann fest
+GITTER = [t for t in os.environ.get('GITTER', '').split(',') if t]
+if GITTER:
+    import bmesh
+    for o in meshes:
+        if o.name.split('.')[0] not in GITTER: continue
+        bm_ = bmesh.new(); bm_.from_mesh(o.data); vor_ = len(bm_.faces)
+        bmesh.ops.unsubdivide(bm_, verts=bm_.verts, iterations=int(os.environ.get('GITTER_STUFE', '2')))
+        bm_.to_mesh(o.data); bm_.free(); o.data.update()
+        (o.vertex_groups.get('fest') or o.vertex_groups.new(name='fest')).add(list(range(len(o.data.vertices))), 1.0, 'REPLACE')
+        print('GITTER', o.name, vor_, '->', len(o.data.polygons), 'Flaechen')
 for m in bpy.data.materials:
     if not m.node_tree or 'M_out' not in m.node_tree.nodes: continue
     nt = m.node_tree; ea = nt.nodes['M_albedo']

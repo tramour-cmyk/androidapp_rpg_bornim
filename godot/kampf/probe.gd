@@ -8,6 +8,7 @@ const Wuerfel = preload("res://regeln/wuerfel.gd")
 const Kampfort = preload("res://kampf/kampfort.gd")
 const Figur = preload("res://kampf/figur.gd")
 const Aufruf = preload("res://kampf/aufruf.gd")
+const Signatur = preload("res://kampf/signatur.gd")
 const CLASSES := ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]
 const NAMES := {"FIGHTER": "Kämpfer", "WIZARD": "Magier", "ROGUE": "Schurke", "CLERIC": "Kleriker"}
 const FOES := {"WOLVES": "Wolfsrudel", "RUDEL": "Wolf mit Jungwölfen", "GRAK": "Grak", "SPIDER": "Spinne", "SCOUT": "Späher", "RATS": "Ratten", "BATS": "Fledermäuse", "GRIMM": "Grimmzahn", "GOBLINS": "Goblins", "SCOUTS": "Goblin-Späher", "SHAMANS": "Goblin-Schamanen", "KOBOLDS": "Kobolde"}
@@ -58,6 +59,10 @@ func _still(path: String) -> void:
 	_start.call_deferred(7)
 	var schau := OS.get_environment("SCHAU") != ""
 	await get_tree().create_timer(1.0 if schau else 2.5).timeout
+	# 457.2 (Chef 01.11., 11:49: „unsere Signatur muss sich wiederfinden“): kein Bild ohne Toon-Licht, Tusche nach Licht,
+	# Schatten, außer mit Schalter (OHNE_SIGNATUR=1, TUSCHE=0, MASKE …)
+	if not Signatur.wache(fight, get_tree(), "Probe"):
+		return
 	if schau:     # Kurzvideo: gleich anhalten, nicht auf den Zug der Gruppe warten
 		if OS.get_environment("OHNEUI") != "" and fight.ui != null:
 			fight.ui.visible = false
@@ -190,6 +195,7 @@ func _still(path: String) -> void:
 		nah.position = kopf + weg * float(OS.get_environment("NAHM") if OS.get_environment("NAHM") != "" else "1.4")
 		nah.look_at(kopf)
 		nah.make_current()
+		fight.ink_ziel = kopf     # 457.2: Tusche wie im Spiel in dieser Nähe (breite Linie, Strichstärke nach Bildbreite)
 		if fight.ui != null:     # ui ist CanvasLayer, kein CanvasItem: die Anzeige blieb in der Nahaufnahme stehen
 			fight.ui.visible = false
 		await get_tree().process_frame
@@ -1161,6 +1167,8 @@ func _start(seed := -1) -> void:
 	var foes: Array = Aufruf.gegner(foe, monsters, dice)
 	visible = false
 	fight = Kampfort.new()
+	if OS.get_environment("PLATZ") != "":     # 493: Standbild je Kampfort im Wald (PLATZ=teich …)
+		fight.platz = OS.get_environment("PLATZ")
 	# 296.2: der Held der Probe steht am Anfang seiner Stufe; ohne LP kein Kampf
 	var xp := int(tables.xpForLevel[int(hs.hero.level)])
 	if not fight.setup(party, foes, tables, {"potion": 2}, func(_outcome): visible = true, seed, {"xp": xp}):

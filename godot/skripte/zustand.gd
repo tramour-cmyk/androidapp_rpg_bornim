@@ -5,6 +5,7 @@ extends RefCounted
 
 var name := "Alrik"
 var aussehen := {}                     # 376.1 Kopfform, Haar, Bart, Haar- und Hautfarbe (HeldFigur.VORGABE)
+var brs := {}                          # 470: Held nach BRS (BrsHeld.als_daten: Volk, Herkunft, Grundwerte, Startfertigkeiten)
 var stufe_held := 1
 var gold := 0
 var taschen := {}                      # Ding -> Anzahl (GameState.inventory)
@@ -76,11 +77,13 @@ func als_daten() -> Dictionary:
 	return {"name": name, "stufe": stufe_held, "gold": gold, "taschen": taschen.duplicate(), "flaggen": flaggen.keys(), "minuten": minuten, "tag": tag,
 		"ausdauer": ausdauer, "atemlos": atemlos, "ausdauer_trank": ausdauer_trank, "funke": funke, "satt": satt, "lange_rast_tag": lange_rast_tag,
 		"met": met, "leiden": leiden.duplicate(), "wiederkehr": wiederkehr.duplicate(), "beutel": beutel.duplicate(true), "siege": siege, "schritte": schritte,
-		"laden_verkauft": laden_verkauft.keys(), "uid_zaehler": uid_zaehler, "gehoert": gehoert.duplicate(true), "aussehen": aussehen.duplicate(), "gepflueckt": gepflueckt.duplicate()}
+		"laden_verkauft": laden_verkauft.keys(), "uid_zaehler": uid_zaehler, "gehoert": gehoert.duplicate(true), "aussehen": aussehen.duplicate(),
+		"gepflueckt": gepflueckt.duplicate(), "brs": brs.duplicate(true)}
 
 static func aus_daten(d: Dictionary) -> Zustand:
 	var z := Zustand.new()
 	z.aussehen = (d.get("aussehen", {}) as Dictionary).duplicate()
+	if d.get("brs") is Dictionary and not (d["brs"] as Dictionary).is_empty(): z.brs = BrsHeld.aus_daten(d["brs"]).als_daten()   # 470: Zahlen wieder ganz
 	z.name = String(d.get("name", z.name)); z.stufe_held = int(d.get("stufe", 1)); z.gold = int(d.get("gold", 0))
 	for k in d.get("taschen", {}): z.taschen[String(k)] = int(d["taschen"][k])
 	for f in d.get("flaggen", []): z.flaggen[String(f)] = true

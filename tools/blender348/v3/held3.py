@@ -47,9 +47,13 @@ FG = dict(sex='m', statur='mittel', groesse=1.0, kind=False, kopf='helm', hemd='
 # Chef Lauf 75 (Gesicht „nichtssagend“): der Kaempfer beginnt im alten Spiel ohne Helm (CharClass.startItems: Langschwert, Kettenhemd,
 # Schild), man sieht sein Haar; KOPF=helm baut ihn mit Helm (bis die Ausruestung im Spiel wechselt)
 if FIGUR == 'held': FG['kopf'] = os.environ.get('KOPF', FG['kopf'])
+if FIGUR == 'held' and os.environ.get('SEX') in ('m', 'w'): FG['sex'] = os.environ['SEX']   # 376.1 Heldin (wie unten)
 if FIGUR != 'held':
     FG.update(schwert=False, schild=False, umhang=None)
     FG.update(json.load(open(os.environ.get('LEUTE', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'leute.json'))))[FIGUR])
+    # 376.1 Heldin (Chef 01.11., 11:19 „wie Sokrates“: Kettenhemd und lange Robe an den Frauenkoerper angepasst): SEX=w baut dieselbe
+    # Tracht auf dem Frauenkoerper (schmalere Schultern und Taille, breitere Huefte), fuer held_klassen.py
+    if os.environ.get('SEX') in ('m', 'w'): FG['sex'] = os.environ['SEX']
     _h = lambda k: int(FG[k], 16)
     COL['skin'] = hx(_h('haut')); COL['hair'] = hx(_h('haar'))
     COL['lip'] = mix(_h('haut'), 0x8A3A34 if FG['sex'] == 'w' else 0x4A2620, 0.4)

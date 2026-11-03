@@ -137,7 +137,7 @@ static func blatt(h, zweite = null) -> Dictionary:
 		"sp": h.zp, "skills": faehig, "main": _waffe(h, h.waffe()), "second": _waffe(h, zweite) if zweite != null else null,
 		"off": _waffe(h, h.nebenwaffe(), true) if h.nebenwaffe() != null else null,
 		"con": h.mod("CON"), "prof": h.uebung(), "saves": RETTUNG.get(h.klasse, []),
-		"tenacity": h.standhaft(),
+		"tenacity": h.standhaft(), "schild": String(schild["base"]) if schild != null else "",   # 406: Modell in der Hand (figur.gd)
 		"hits": {"POISON": h.bonus("POISON_HIT"), "BLEED": h.bonus("BLEED_HIT"), "STUN": h.bonus("STUN_HIT")}}
 
 
@@ -163,6 +163,7 @@ func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := 
 	for m in tabellen.monsters:
 		monsters[m.id] = m
 	var party := [_kaempfer("hero", held, held_tp, Vector2i(Mars.FRONT, 0), skills)]
+	party[0].hero["look"] = lage.get("aussehen", {})     # 403: Kopf, Haar, Haut wie im Dorf (Zustand.aussehen, HeldFigur)
 	if soeldner != null:
 		var sb := _als_blatt(soeldner)
 		var hinten: bool = sb.main.ranged or sb.cls == "WIZARD" or sb.cls == "CLERIC"
@@ -171,6 +172,7 @@ func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := 
 	kampf = Kampfort.new()
 	kampf.tageszeit = tageszeit
 	kampf.ort = ort
+	kampf.platz = String(lage.get("platz", "lichtung"))     # 493: Kampfort im Wald nach der Kachel (Kampfort.platz_fuer)
 	# Erfahrung für den Lohn: der Held bringt seine mit, ein Blatt steht am Anfang seiner Stufe (wie die Probe, 296.2)
 	var xp: int = int(tabellen.xpForLevel[int(held.level)]) if held is Dictionary else int(held.ep)
 	if not kampf.setup(party, foes, tabellen, {"potion": traenke}, _fertig, seed, {"xp": xp, "beute": beute, "atemlos": bool(lage.get("atemlos", false)), "satt": bool(lage.get("satt", false)), "eroeffnung": String(lage.get("eroeffnung", "NORMAL")), "blende": bool(lage.get("blende", false))}):

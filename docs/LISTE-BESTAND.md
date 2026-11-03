@@ -85,6 +85,12 @@ Release `stufe1` im Kaufrepo: `ANIMSET.SWORD.SHIELD.unitypackage` (698119529), `
 | Janpec Animal Pack Deluxe | `Animal.pack.deluxe.unitypackage` (678515204, 324 MB) | privat | Unity Asset Store EULA | Unity-Paket (tar.gz, ohne Unity entpackbar, `kauf_laden.sh`); FBX: `Models/<Tier>_Rig.fbx`, je Bewegung `Animations/<Tier>_<Bew>.fbx` |
 | MadeCG Hundertfüßer | `low.poly.animated.centipede.zip` (678369839) | privat | RenderHub Extended Use | innen je Zip: FBX, OBJ, .blend, Maya, 3ds Max, Unreal, Unity; je Bewegung eine Datei (`fbx/walk.FBX` …), Netz `skin` |
 | Animated3D Leopard-Mischwesen (Leopard Hybrid A2, RenderHub) | `leopard.hybrid-a2.zip` (685443057, 768 MB) | privat | RenderHub Extended Use (Volltext prüfen) | innen je Zip: `Blender.zip` (.blend 3.6), `FbxBlender`/`FbxUnity`/`FbxUE5` (ein FBX, alle Bewegungen), `FbxC4D`/`Fbx3DSmax`/`FbxMaya` (je Bewegung eine Datei), `Iclone8_CC4`; `Textures_A2.zip` (PNG 4096: diffuse, normal, height, ao, opacity); Film `Leopard_Hybrid_A12.mp4` |
+| Protofactor Darkness Spider (Riesenspinne; 348.12c, Chef 03.11.) | `DARKNESS.SPIDER.RAW.FILES.rar` (705921551), `ARANEAE_TENEBRAE_ASSET.1.rar` (705921043, enthält `DARKNESS_SPIDER_PACKAGE.unitypackage`) | privat | Protofactor EULA | FBX je Bewegung, Texturen jpg (Albedo, AO, Gloss, Illum, Roughness, Spec, Metalness), DAE |
+| Protofactor Skeleton Knight (Skelett) | `SKELETON.KNIGHT.RAW.FILES.rar` (705918842), `SKELETON_KNIGHT_ASSET.1.rar` (705919870, Unity) | privat | Protofactor EULA | FBX je Bewegung, Körper `SK_SkeletonKnight.FBX`, lose Knochen `SM_SkeletonBones.FBX`; Texturen je Teil: Einhandschwert, Zweihandschwert, Brustpanzer, Helm, Schild |
+| Protofactor Barghest (Grabhund) | `BARGHEST.RAW.FILES.1.rar` (705910673), `BARGHEST_ASSET.rar` (705912873, Unity) | privat | Protofactor EULA | FBX je Bewegung; Netze einzeln `BARGHEST_BODY`, `_MANE`, `_TAIL` und `_AllMeshes`; Texturen jpg, Haar tga mit Transparenz |
+| Protofactor Giant Slug (Säureschnecke) | `GIANT.SLUG.RAW.FILES.1.rar` (705921911), `GIANT_SLUG_ASSET.rar` (705909168, Unity) | privat | Protofactor EULA | FBX je Bewegung (Netz in `GiantSlug@AllAnimations.FBX`), Texturen `T_GiantSlug_*` jpg (mit Emissive) |
+| wernerkurt Evil Undead (Wiedergänger; RenderHub) | `evil.undead.zip` (705936368, 264 MB) | privat | RenderHub Extended Use | innen je Zip: `Animations.zip` (FBX und Maya je Bewegung), `Base mesh.zip` (FBX, OBJ, Maya), `Textures.zip` (TGA 4096: Albedo, Normal, AO, Metallic, Roughness, drei Emissive), Unity, Unreal |
+| Game Ready Studios Mobile Leeches Collection (Riesenegel; RenderHub) | `mobile.leeches.collection.zip` (705923279, 691 MB) | privat | RenderHub Extended Use | `MobileLeeches_FBX.zip`: vier Formen `SK_MobileLeech_01`–`04`, Bewegungen `Anims/` (auch `Anims/Unity/`), Texturen PNG (7 Häute: 01; 02–04 je Skin1, Skin2); Unreal 4.18, Unity |
 
 ## Figuren (Menschen, Kleidung)
 
@@ -105,7 +111,17 @@ Alles Quaternius, CC0 (`License_Source.txt`/`License_Standard.txt` geprüft), Ge
 
 **Protofactor Riesenratte** (privat, siehe oben; im Einsatz Probe 348.12f, `kaufratte.py`): Idle, Walk, Run, Taunt, DodgeLeft/Right/Backwards, JumpBite, GetHitFront/Left/Right, Death; Walk, Run, Dodge*, JumpBite auch `_RM`; dazu `GIANT_RAT@AllAnimations.FBX`. Texturen Fell (tga, png).
 
+**OGA „Vampire Bat (Animated)“** (frei, rubberduck, CC0 laut https://opengameart.org/content/vampire-bat-animated, geprüft 03.11.; Texturen CC0 von yughues; nicht im Repository, der Ablauf lädt `animated_vampire_bat.zip`, sha256 2670593426d1…a148; 510): `bat_v5.blend` (4004 Punkte), `bat_tex.jpg`, `bat_tex_n.jpg`, Frostvariante `frost_bat_tex.jpg`, Rohdaten `raw/`, HDRI. Bewegungen laut Auftrag Bat_Idle, Bat_Flying, Bat_Attack, Bat_Die (Liste im Log von `oga_fledermaus.py`, Zeilen AKTION).
+
 **MadeCG Hundertfüßer** (privat): idle, walk, alert, attack, hit, die (6).
+
+**Kauf 348.12c** (Chef 03.11., hochgeladen 15:32–15:40; Inventur Sokrates 15:4x aus den Dateinamen; Dreiecke laut Anbieter, am Modell messen; ohne `_RM` und `AllAnimations` gezählt; je Paket `Animation List.txt`):
+- **Riesenspinne** (Darkness Spider, 6.200 Dreiecke): idleNormal, idleThreat, idleLookAroundNormal/Threat, crawlNormal, crawlThreat, Bite, Bite3HitCombo, crawlBiteThreat, jumpBiteNormal/Threat, throwSpiderWebNormal/Threat (Netzwurf), crawlThrowSpiderWebThreat, deathNormal, deathThreat (16). Treffer fehlt.
+- **Skelett** (Skeleton Knight, 10.600 Dreiecke): je Einhand und Zweihand Idle, Walk, WalkCombat, Run, StrafeL/R, Attack1–3, 2hitCombo, 3hitCombo (alle auch „Forward“), GetHit, Death (je 17); dazu ComeOutOfTheGround (Einhand, Zweihand je A, B; Auftauchen aus dem Boden), IdleProtected, ShieldBlock (42). Schwert, Zweihänder, Brustpanzer, Helm, Schild als eigene Teile; `SM_SkeletonBones` (Knochenhaufen).
+- **Grabhund** (Barghest, 19.200 Dreiecke): idleBreathe, idleLookAround, idleAggressive, walk, run, runBite, biteNormal/Aggressive, jumpBiteNormal/Aggressive, getHitNormal/Aggressive, deathNormal/Aggressive (14). Mähne und Schwanz eigene Netze (beim Ausdünnen einzeln).
+- **Säureschnecke** (Giant Slug, 11.240 Dreiecke): IdleBreathe, IdleLookAround, CrawlForward, CrawlForwardTurnLeft/Right, Turn90Left/Right, SpittersAttack (Spucken), SpittersAttackForward, CrawlForwardTurnLeft/RightSpittersAttack, TongueAttackStraight, TongueAttackLeftRight, Turn90Left/RightTongueAttack, GetHitFront/Left/Right, Death (19).
+- **Wiedergänger** (Evil Undead, 13.350 Dreiecke): idle1–5, walk1–5, walkback, run1–2, strafeleft/right, turn180, crawl (Kriechen), standup (Aufstehen), rage1–2 (Brüllen), attack1–6, gethit1–4, death1–4 (34).
+- **Riesenegel** (Mobile Leeches, 800 Dreiecke laut Anbieter): vier Formen, sieben Häute; Idle_01–03, Move, AttackEat_01/02, Gethit, Gethit2, Death, Death2 (10).
 
 **Animated3D Leopard-Mischwesen** (privat, Chef 28.10., 16:38; Idee Gegner ab Kapitel 2, `LISTE-IDEEN.md`): Atk1, Atk2, Idle1, Idle2, Jump, Run, Walk, Walkback (8, 60 fps, laut Herstellerblatt); Treffer und Tod fehlen. 22.848 Punkte, 20.820 Flächen (Regel höchstens 6000, ausdünnen).
 

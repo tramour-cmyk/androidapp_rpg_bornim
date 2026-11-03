@@ -73,9 +73,9 @@ Quelle: der alte Kotlin-Code (`core`, `app`), abgeglichen mit `LISTE-UMZUG-348.m
 | O5 | Tempel des Morgenlichts (Osric, Lyra nach der Rettung) | da | [ ] | [ ] |
 | O6 | **Flüsterwald** (Garrick, 11 Gegnerarten, Teiche, Frösche, Libellen) | **fehlt**: der Weg in den Wald startet nur einen Kampf (490, Spike) | [ ] | [ ] |
 | O7 | **Tiefer Flüsterwald** mit Morwens Hütte, Endgegner Grimmzahn | **fehlt** (491, Spike) | [ ] | [ ] |
-| O8 | **Blutzahnhöhle** (Lyra gefangen, Endgegner Krogg und Grak, 10 Gegnerarten) | **fehlt** (492, Jerry) | [ ] | [ ] |
-| O9 | Kampforte Wald (Lichtung, Waldrand, Teich, Baum, Felsen, Steinkreis) | teils: nur die Lichtung (493, Jerry) | [ ] | [ ] |
-| O10 | Kampforte Höhle (Eingang, Gang, Halle, Teich, Lager) | fehlt (492, Jerry) | [ ] | [ ] |
+| O8 | **Blutzahnhöhle** (Lyra gefangen, Endgegner Krogg und Grak, 10 Gegnerarten) | **fehlt** (492, Tom) | [ ] | [ ] |
+| O9 | Kampforte Wald (Lichtung, Waldrand, Teich, Baum, Felsen, Steinkreis) | teils: nur die Lichtung (493, Spike) | [ ] | [ ] |
+| O10 | Kampforte Höhle (Eingang, Gang, Halle, Teich, Lager) | fehlt (507, Jerry) | [ ] | [ ] |
 
 **Welt** (gilt an jedem Ort)
 
@@ -104,19 +104,21 @@ Quelle: der alte Kotlin-Code (`core`, `app`), abgeglichen mit `LISTE-UMZUG-348.m
 | W21 | Kleinleben Dorf: Katze, Hund, Vögel fliegen vor dem Helden auf | fehlt (Hühner, Ziege, Kaninchen da) | [ ] | [ ] |
 | W22 | Kleinleben Wald: Frosch, Libelle, Schmetterling, Glühwürmchen | teils: Schmetterling, Glühwürmchen | [ ] | [ ] |
 | W23 | Leute auf eigenem Modell statt eines gemeinsamen Kopfs (475) | teils | [ ] | [ ] |
+| W24 | Nebel des Krieges in der Wildnis wie alt: schwarz, was nie gesehen wurde, gedämpft, was gerade nicht in Sicht ist (`Fog.kt`; 502, Chef 03.11., 07:30) | fehlt (505, Tom) | [ ] | [ ] |
+| W25 | Sichtfeld des Helden: Bäume, Felsen, Wände sperren die Sicht; Form vor dem Bau als Vorlage an dich (alt Kegel 160° plus kleiner Kreis; 502) | fehlt (505, Tom) | [ ] | [ ] |
 
 „da“ heißt nur: im Code gefunden, nicht von dir abgenommen. Geprüft nur Kopf und einzelne Stellen der Godot-Dateien; ob jedes Merkmal dem alten Stand voll entspricht, sagt erst dein Häkchen.
 
 ## Wochenziel 03.–08.11.: Kapitel 1 durchspielbar (Perikles, gesetzt 03.11., 07:1x nach 488; ersetzt das vom 02.11.)
 
-**Du spielst Kapitel 1 einmal von Anfang bis Ende am Handy: vom Dorf durch den Flüsterwald und den Tiefen Flüsterwald bis in die Blutzahnhöhle und zurück zu Aldric.** Grundlage 488 (Chef 03.11., 06:44, „488 ja“): Feinarbeit am Aussehen ist eingefroren; Vorrang hat, was zum Durchspielen fehlt. Die Geschichte von Kapitel 1 (alle Gespräche und Quests bis „chapter1_done“) ist in Godot schon gebaut (390, `geschichte.gd`), ebenso die Kämpfe gegen Wölfe, Grimmzahn, Grak, Goblins, Spinne, Ratten und Fledermäuse im Kampfort zum Ausprobieren (`kampf/probe.gd`). Es fehlen die Orte außerhalb des Dorfs und ein Teil der Gegner. Muss sind die Zeilen unten und was du ausdrücklich „jetzt“ sagst; alles andere ist Kür oder wartet „nach dem Durchspielen“ (Liste unten). Bis Sa 07.11., 20:00 arbeiten nur Tom, Jerry und Spike (468a).
+**Du spielst Kapitel 1 einmal von Anfang bis Ende am Handy: vom Dorf durch den Flüsterwald und den Tiefen Flüsterwald bis in die Blutzahnhöhle und zurück zu Aldric.** Grundlage 488 (Chef 03.11., 06:44, „488 ja“): Feinarbeit am Aussehen ist eingefroren; Vorrang hat, was zum Durchspielen fehlt. Die Geschichte von Kapitel 1 (alle Gespräche und Quests bis „chapter1_done“) ist in Godot schon gebaut (390, `geschichte.gd`), ebenso Kämpfe gegen Wölfe, Grimmzahn, Grak und Goblins im Kampfort zum Ausprobieren (`kampf/probe.gd`); Ratten, Fledermäuse und Spinne stehen dort nur als Wolfsfigur. Es fehlen die Orte außerhalb des Dorfs und ein Teil der Gegner. Muss sind die Zeilen unten und was du ausdrücklich „jetzt“ sagst; alles andere ist Kür oder wartet „nach dem Durchspielen“ (Liste unten). Bis Sa 07.11., 20:00 arbeiten nur Tom, Jerry und Spike (468a).
 
 | Reihenfolge | Vorgang | Wer | fertig, wenn | Schätzung |
 |---|---|---|---|---|
 | 1 | Build 204 testen (t204); 489 Musik- und Effektschalter im Hauptmenü, 406.2 Angriff gehen und Parade (deine „jetzt“) | du; Jerry | wie in der Zeile des Vorrats | – |
-| 2 | 490 Flüsterwald, dann 491 Tiefer Flüsterwald mit Morwens Hütte und Grimmzahn (479 A) | Spike (Team Tom) | Held geht vom Dorf in den Wald und weiter, trifft Garrick und Morwen, Gegner stehen auf der Karte und starten den Kampf, Kräuter, Teiche, Kartenrand; geht wie alt (`Story.kt:524`, `:619`) | Wald 4 S, Tiefer Wald 3 S (348.14, dort mit Bilderrunden) |
-| 3 | 493 Kampforte Wald, 494 jeder Gegner von Kapitel 1 im Kampf aufrufbar (Waldgegner zuerst; 348.12 Goblin gehört dazu), dann 492 Blutzahnhöhle mit Kampforten Höhle, Krogg, Grak, Lyra | Jerry | jeder Gegner aus dem alten Spiel kämpft an seinem Ort; Höhle geht wie alt (`Story.kt:731`); fehlende Modelle in der Reihenfolge, in der du ihnen begegnest, je Gegner höchstens ein Lauf, Feinarbeit danach | Höhle mit Kampforten 11 S, fehlende Gegner etwa 18 S (348.14, mit Bilderrunden; ohne sie weniger), erste Sitzung schätzt neu |
-| 4 | 495 Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2) | Tom | ein Programm spielt Kapitel 1 bis „chapter1_done“ durch und meldet, wo es hängenbleibt, bevor du spielst | erste Sitzung schätzt |
+| 2 | **Wald:** 490 Flüsterwald, 505 Nebel des Krieges, 491 Tiefer Flüsterwald mit Morwens Hütte und Grimmzahn (479 A), 493 Kampforte Wald, 506 Untote (Skelett, Zombie, Ghul) | Spike (Team Tom) | Held geht vom Dorf in den Wald und weiter, trifft Garrick und Morwen, Gegner stehen auf der Karte und starten den Kampf, Kräuter, Teiche, Kartenrand; geht wie alt (`Story.kt:524`, `:619`) | etwa 18 S: Wald 4, Tiefer Wald 3, Kampforte 3, Untote 8 (348.14, dort mit Bilderrunden) |
+| 3 | **Gegner:** 494 Wildschwein, Riesenspinne, Hundertfüßer, Stirge, Ockergallerte, Krogg, Ratten und Fledermäuse mit eigener Figur (348.12 Goblin gehört dazu); 507 Kampforte Höhle | Jerry | jeder Gegner aus dem alten Spiel kämpft an seinem Ort; Modelle in der Reihenfolge, in der du ihnen begegnest, je Gegner höchstens ein Lauf, Feinarbeit danach | etwa 18,5 S: Gegner 15,5, Kampforte Höhle 3 (348.14 vom 26.10., mit Bilderrunden) |
+| 4 | **Höhle und Prüfung:** 492 Blutzahnhöhle mit Grundriss, Krogg, Grak, Lyra, Tor und Schlüssel; 495 Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2) | Tom (nach den Befunden aus Build 204) | Höhle geht wie alt (`Story.kt:731`); ein Programm spielt Kapitel 1 bis „chapter1_done“ durch und meldet, wo es hängenbleibt, bevor du spielst | Höhle etwa 8 S, Zufallsspieler schätzt die erste Sitzung |
 | 5 | 496 Durchspiel-Build aus 2–4 | Jerry stellt zusammen | du spielst Kapitel 1 ganz durch; deine Befunde sind Muss, Aussehen nach Gewicht | – |
 | danach | 478 Rechenkern des Kampfs auf BRS, dann 2.3 mit Tom (470 Erschaffung, 471 Fertigkeiten, 472, 473 ins Spiel) | Jerry, Tom | wie Abnahme 2.3 | 3–4 Sitzungen (478) |
 

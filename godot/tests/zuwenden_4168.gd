@@ -63,8 +63,10 @@ func _lauf() -> void:
 	await process_frame
 	pruefe(zum(wer, spiel.held.global_position) > 150.0, "%s blickt vorher weg (%.0f Grad)" % [wer.daten["id"], zum(wer, spiel.held.global_position)])
 	spiel.sprich(wer)
-	await warte(2.5)   # gewendet wird mit fester Rate (DREH_STEH 1,4 rad/s, Chef Lauf 75: nicht zu flott), 180 Grad in 2,2 s
-	pruefe(zum(wer, spiel.held.global_position) < 20.0, "nach 2,5 s zum Helden (%.0f Grad daneben)" % zum(wer, spiel.held.global_position))
+	await warte(0.6)   # 416.8 (Chef 02.11., 10:52: „ein Ticken schneller“): DREH_ZU 2,5 rad/s, nach 0,6 s noch nicht ganz herum
+	pruefe(zum(wer, spiel.held.global_position) > 30.0, "nach 0,6 s schon herum, zu flott (%.0f Grad daneben)" % zum(wer, spiel.held.global_position))
+	await warte(1.0)   # 180 Grad in 1,3 s (vorher DREH_STEH 1,4 rad/s, 2,2 s)
+	pruefe(zum(wer, spiel.held.global_position) < 20.0, "nach 1,6 s zum Helden (%.0f Grad daneben)" % zum(wer, spiel.held.global_position))
 	pruefe(Leute.still, "Gespraech offen")
 	# der Held tritt zur Seite: der Blick folgt
 	spiel.held.setze(stand + seite, "UP")

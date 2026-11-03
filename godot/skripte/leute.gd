@@ -13,6 +13,7 @@ const LEIB := 0.45                     # Meter: so nah kommt der Held an die Koe
 # des echten Tempos (kein Gleiten). 180 Grad in gut 1,2 s, etwa zwei Schritte; im Stehen (Umschauen) gemaechlicher
 const DREH := 2.5                      # rad/s im Gehen
 const DREH_STEH := 1.4                 # rad/s im Stehen
+const DREH_ZU := 2.5                   # rad/s zum Helden hin (416.8, Chef 02.11., 10:52, Build 146: „zombie-mäßig“, „ein Ticken schneller“), 180 Grad in 1,3 s
 const BOGEN := 0.45                    # rad: ab dieser Abweichung geht sie in Blickrichtung statt aufs Ziel
 const BOGEN_TEMPO := 0.4               # Anteil des Tempos bei 180 Grad Abweichung (bei 0 Grad 1)
 
@@ -29,6 +30,7 @@ var ziel := Vector2i(-1, -1)           # Kachel, auf die sie gerade geht
 var weg: Array[Vector2i] = []          # Runde: Weg zum naechsten Punkt
 var bein := 0                          # Runde: Index des Punkts, zu dem sie geht (Walker.leg)
 var warte := 0.0
+var tempo_jetzt := 0.0                 # 416.4: m/s, steigt beim Anlaufen und faellt vor dem Halt (Held.tempo_schritt)
 const DURCH_MS := 1800                  # 416.2: so lange nach einem Platzwechsel sperrt sie den Helden nicht (ein Schritt etwa 1 s)
 var durch_bis := 0                      # Time.get_ticks_msec() bis dahin
 var blick := 0.0
@@ -263,6 +265,7 @@ func _ready() -> void:
 	if anim:
 		anim.play("Stehen")
 		anim.seek(zufall.randf() * 2.0, true)   # nicht alle im selben Atemzug
+	Gebiet.atem_an(modell, anim, hash(String(daten.get("id", ""))) ^ 4532)   # 453.2: eigener Takt je Person (gebiet.gd)
 	position = karte.kachel_pos(kachel)
 	blick = {"UP": PI, "DOWN": 0.0, "LEFT": -PI / 2, "RIGHT": PI / 2}.get(String(daten.get("blick", "DOWN")), 0.0)
 	rotation.y = blick
@@ -370,16 +373,9 @@ func sperrt(p: Vector3) -> bool:
 func weicht() -> bool: return da and not drinnen and not daten.has("runde")
 
 func weiche(d: Vector2i) -> bool:
-	var seiten := [Vector2i(d.y, d.x), Vector2i(-d.y, -d.x)]   # quer zum Weg, in zufaelliger Folge
-	if zufall.randf() < 0.5: seiten.reverse()
-	for s in seiten + [d]:
-		var n: Vector2i = kachel + s
-		if frei_fuer_mich(n):
-			ziel = n
-			warte = 4.0
-			return true
-	# 416.2 (Chef 31.10.: „Platzwechsel statt nur Schieben … teils kein Weiterkommen“): wie alt makeWay (sonst p.x to p.y) tauscht,
-	# wer nicht zur Seite kann, mit dem Helden den Platz; solange gehen beide durcheinander hindurch
+	# 416.2 (Chef 31.10.: „Platzwechsel statt nur Schieben“; 02.11., 10:52, Build 146: „Ziege wird geschoben, kein Platztausch“):
+	# zuerst tauscht, wer geschoben wird, mit dem Helden den Platz; solange gehen beide durcheinander hindurch. Nur wo das nicht
+	# geht (Held nicht daneben, sein Platz nicht fuer sie, etwa ein Tier auf dem Weg), tritt sie zur Seite, sonst voran (alt makeWay)
 	var h := held_kachel()
 	var u := h - kachel
 	var nachbar := absi(u.x) + absi(u.y) == 1 or (absi(u.x) == 1 and absi(u.y) == 1 and karte.begehbar(kachel + Vector2i(u.x, 0)) and karte.begehbar(kachel + Vector2i(0, u.y)))
@@ -388,6 +384,14 @@ func weiche(d: Vector2i) -> bool:
 		warte = 4.0
 		durch_bis = Time.get_ticks_msec() + DURCH_MS
 		return true
+	var seiten := [Vector2i(d.y, d.x), Vector2i(-d.y, -d.x)]   # quer zum Weg, in zufaelliger Folge
+	if zufall.randf() < 0.5: seiten.reverse()
+	for s in seiten + [d]:
+		var n: Vector2i = kachel + s
+		if frei_fuer_mich(n):
+			ziel = n
+			warte = 4.0
+			return true
 	return false
 
 func held_kachel() -> Vector2i:
@@ -406,6 +410,9 @@ func frei_fuer_mich(t: Vector2i, held_da := false) -> bool:
 		if l is Leute and l != self and l.visible and (l.kachel == t or l.ziel == t): return false
 	return true
 
+# 416.4 (Chef 01.11., 13:1x: „von Stehen zu Gehen oder Laufen muss weich sein. Egal, wer sich bewegt“): wer auf der Runde von Kachel
+# zu Kachel weitergeht, stand bisher ein Bild lang (Stehen 0,25 s angespielt, dann Gehen 0,18 s an zufaelliger Stelle: Sprung je
+# Kachel). Jetzt entscheidet sie erst, ob sie weitergeht; nur wer stehen bleibt, blendet in die Pause
 func _process(dt: float) -> void:
 	if ziel.x >= 0:
 		laufe(dt)
@@ -416,9 +423,14 @@ func _process(dt: float) -> void:
 		if ruhe_bis <= 0.0:
 			var r := Gebiet.ruhe_naechste(anim, pause, zufall)
 			pause = r[0]; ruhe_bis = float(r[1])
+	stehen(dt)
+	if ziel.x >= 0: return
+	tempo_jetzt = 0.0
 	if anim and anim.current_animation != pause:
-		anim.play(pause, 0.5 if anim.current_animation.begins_with("Stehen") else 0.25)
+		anim.play(pause, Held.ueberblendung(anim.current_animation, false))
 		anim.speed_scale = 1.0
+
+func stehen(dt: float) -> void:
 	if fort_nach.x >= 0 and not still: zugewandt_bis = 0   # 492: wer fortgeht, geht gleich nach dem Gespraech (Game.leave)
 	if zugewandt_bis > 0:
 		if still: zugewandt_bis = Time.get_ticks_msec() + int(ZUGEWANDT * 1000)   # waehrend des Gespraechs zaehlt die Zeit nicht
@@ -428,7 +440,7 @@ func _process(dt: float) -> void:
 			zugewandt_bis = 0
 			blick = blick_vorher
 			ruhe_bis = -1.0   # die Ruhebewegung beginnt neu
-	rotation.y = drehe(rotation.y, blick, DREH_STEH * dt)
+	rotation.y = drehe(rotation.y, blick, (DREH_ZU if zugewandt_bis > 0 else DREH_STEH) * dt)
 	if still or not da: return
 	if zugewandt_bis > 0: return
 	if Time.get_ticks_msec() < ruft_bis: return   # 399.1 (306): wer ruft, haelt still, bis das zweite Zeichen vorbei ist
@@ -516,6 +528,10 @@ func laufe(dt: float) -> void:
 	rotation.y = drehe(rotation.y, soll, DREH * dt)
 	var ab := absf(angle_difference(rotation.y, soll))
 	tempo *= lerpf(BOGEN_TEMPO, 1.0, (cos(ab) + 1.0) * 0.5)
+	# 416.4: anlaufen und vor dem letzten Schritt langsamer werden wie der Held (Held.tempo_schritt, Held.bremse)
+	if weg.is_empty(): tempo = Held.bremse(tempo, to.length(), gang * TEMPO)   # letzte Kachel des Wegs (Runde, Tagesplan) oder Streifen
+	tempo_jetzt = Held.tempo_schritt(tempo_jetzt, tempo, gang * TEMPO, dt)
+	tempo = tempo_jetzt
 	var s := tempo * dt
 	if ab < BOGEN and to.length() <= s:
 		position = Vector3(zp.x, position.y, zp.z)
@@ -531,7 +547,9 @@ func laufe(dt: float) -> void:
 	kachel = karte.pos_kachel(position)
 	if anim:
 		if anim.current_animation != "Gehen":   # CC0-Geruest Runde 2 (Fremdpruefung: Gleichschritt): jede mit eigenem Schritt
-			anim.play("Gehen", 0.18)
+			# 416.4: aus dem Stand weich (Held.ueberblendung, 0,5 s statt 0,18 s); der Schritt beginnt an zufaelliger Stelle, nur
+			# beim Anlaufen (die Pause steht noch voll im Bild, der Sprung im Gang faellt nicht auf)
+			anim.play("Gehen", Held.ueberblendung(anim.current_animation, true))
 			anim.seek(zufall.randf() * anim.current_animation_length)
 		anim.speed_scale = tempo / gang
 

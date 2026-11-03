@@ -7,6 +7,10 @@ on:
     branches: ["claude/jerry-348-**"]
     paths: ["godot/**", "tools/blender348/**", ".github/workflows/godot-kampf.yml"]
   workflow_dispatch:
+    inputs:
+      film:
+        description: "Film ohne Commit-Wort, auch bei rotem Test (348.12b: grak)"
+        default: ""
 
 jobs:
   regeln:
@@ -27,6 +31,14 @@ jobs:
           [ -f godot ] || { curl -sSL -o g.zip $base/Godot_v$GODOT-stable_linux.x86_64.zip && unzip -q g.zip && mv Godot_v$GODOT-stable_linux.x86_64 godot && rm g.zip; }
           [ -d templates ] || { curl -sSL -o t.tpz $base/Godot_v$GODOT-stable_export_templates.tpz && unzip -q t.tpz && rm t.tpz; }
           ~/godot/godot --version
+      # 348.12 Lauf 173 (aufruf_399 „Blende: AMBUSH, [WOLF]“): ohne intro.json fehlen die Sätze der Kampfblende (402, IntroExport
+      # „kampfblende“); godot/daten/ ist nicht im Repository, godot.yml exportiert sie, dieser Lauf bisher nicht
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Sätze der Kampfblende aus core (402)
+        run: ./gradlew -p core exportIntro -Pout=$GITHUB_WORKSPACE/godot/daten/intro.json -q
       - name: Regeln gegen Kotlin (MARS golden)
         run: |
           cd godot
@@ -60,6 +72,12 @@ jobs:
           grep -E "^(endet|FEHLER|Kampfort)|SCRIPT ERROR|^ +at: " lauf.log | head -80
           grep -q " 0 hängen" lauf.log
           ! grep -q "SCRIPT ERROR" lauf.log
+      - name: Signatur in den Proben (457.2, Toon, Tusche nach Licht, Schatten)
+        run: |
+          cd godot
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/signatur_457.gd > signatur.log 2>&1 || true
+          grep -E "^FEHLER|Signatur 457|SCRIPT ERROR" signatur.log | head -40
+          grep -q "Signatur 457: 0 Fehler" signatur.log
       - name: Kampfort aus einem Aufruf (399.2, wie aus dem Dorf)
         run: |
           cd godot
@@ -74,6 +92,8 @@ jobs:
 
   apk:
     needs: regeln
+    # 348.12b (Chef 01.11., 20:5x, Archiv): Film auch bei rotem Test; nur mit Eingabe film beim Start von Hand
+    if: ${{ !cancelled() && (needs.regeln.result == 'success' || github.event.inputs.film != '') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 90     # 348.12f: Filme und Bau der Kaufratte; Lauf 112 lief in die alten 40 min
     env:
@@ -118,6 +138,8 @@ jobs:
           grep -E "^GLB" waffen.log
           bl/bin/python -I tools/blender348/ratte.py > ratte.log 2>&1 || (tail -40 ratte.log; exit 1)
           grep -E "^GLB" ratte.log | cut -c1-160
+          # 348.12 Lauf 174 (goblin.py: „rig.py: Eckfarben geändert“): Toms v3/rig.py hat sich geändert; wie godot.yml mit v3_kampf (LIESMICH)
+          export V3=tools/blender348/v3_kampf
           bl/bin/python -I tools/blender348/goblin.py > goblin.log 2>&1 || (tail -60 goblin.log; exit 1)
           grep -E "GOBLIN|GLB" goblin.log | cut -c1-160
           ART=goblin_archer bl/bin/python -I tools/blender348/goblin.py > spaeher.log 2>&1 || (tail -60 spaeher.log; exit 1)
@@ -161,6 +183,10 @@ jobs:
           grep -E "^GLB|FEHLT" kaufwolf.log | cut -c1-160 || true
           for f in grau dunkel rost asche; do cp $RUNNER_TEMP/kw/kaufwolf-$f.glb $D/kaufwolf-$f.bin; done
           cp $RUNNER_TEMP/kw/kaufwolf-info.json $D/
+          # 406 (Chef 31.10., 23:22): Kaufschilde 2 (Kleriker, „shield“) und 15 (Kaempfer, „round_shield“) statt der aus waffen.py
+          KAUF=$RUNNER_TEMP/kaufroh OUT=$RUNNER_TEMP/ks timeout 600 bl/bin/python -I tools/blender348/kaufschild.py > kaufschild.log 2>&1 || (tail -40 kaufschild.log; exit 1)
+          grep '^SCHILD' kaufschild.log || true
+          for w in shield round_shield; do cp $RUNNER_TEMP/ks/$w.glb $D/$w.bin; done
           # 399.2 Grak, soweit fertig (348.12 Gestalt mit Gehen, Hieb, Treffer, Tod, 1d6618d74): Quaternius-Teile (CC0, cc0_laden.sh von
           # Toms Zweig), Tod aus der gekauften UAL Pro (Death02), darum auch verschlüsselt; ohne Kaufdateien Death01
           # Lauf 160–162: e457d6d8b fehlte im flachen Checkout (fatal: invalid object name); erst holen wie im Schritt 348.12
@@ -177,7 +203,7 @@ jobs:
           # 348.12 nachbessern (Chef 28.10., 15:23): Wurzelweg je Bewegung und Aufschlag des Hiebs (grak_gestalt.py „spiel“) für figur.gd
           python3 -c "import json,sys; s=json.load(open(sys.argv[1])).get('spiel',{}); d={'waffen':[],'groesse_cm':186,'geruest':'cc0'}; d.update(s); json.dump({'hauptmann':d},open(sys.argv[2],'w'))" \
             $RUNNER_TEMP/grak/grak-gestalt-info.json $D/hobgoblin_captain-info.json
-          (cd godot && ls kampf/daten/giant_rat-*.bin kampf/daten/kaufwolf-*.bin kampf/daten/hobgoblin_captain-*.bin > kampf/daten/kauf.txt)
+          (cd godot && ls kampf/daten/giant_rat-*.bin kampf/daten/kaufwolf-*.bin kampf/daten/hobgoblin_captain-*.bin kampf/daten/shield.bin kampf/daten/round_shield.bin > kampf/daten/kauf.txt)
       - uses: actions/cache@v4
         with:
           path: ~/godot
@@ -457,9 +483,10 @@ jobs:
       # 348.12 nachbessern: seit der Spielfassung (399, project.godot startet spiel.tscn) nennen alle Filme hier die Probe ausdrücklich
       # (res://kampf/probe.tscn); sonst lief das Spiel ohne Karten an und brach ab (am Rechner nachgestellt)
       - name: 348.12 Probe Grak im Kampfort (nur bei Commits mit „348.12 Grak Film“)
-        if: contains(github.event.head_commit.message, '348.12 Grak Film')
+        if: ${{ contains(github.event.head_commit.message, '348.12 Grak Film') || (!cancelled() && github.event.inputs.film == 'grak') }}
         run: |
           P=$GITHUB_WORKSPACE/grakprobe; mkdir -p $P
+          command -v xvfb-run > /dev/null || sudo apt-get install -y -qq xvfb libgl1-mesa-dri > /dev/null   # 348.12b: Vergleichsbild übersprungen bei rotem Test
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
           (cd godot && GEGNER=GRAK ORT_ID=grak OHNEUI=1 SCHAU=ort SCHAU_TITEL=Grak timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . res://kampf/probe.tscn --resolution 540x1170 --write-movie $RUNNER_TEMP/grak.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/grak-ort.log 2>&1) || true
           ffmpeg -loglevel error -y -ss 1.25 -i $RUNNER_TEMP/grak.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $P/348.12-grak-film.mp4 || true
@@ -495,7 +522,7 @@ jobs:
           grep -E "SCRIPT ERROR|^ +at: |^Ort " $P/fledermaus-ort.log | head -20 || true
           ls -l $P
       - uses: actions/upload-artifact@v4
-        if: contains(github.event.head_commit.message, '348.12 Grak Film') || contains(github.event.head_commit.message, '348.7b Film') || contains(github.event.head_commit.message, '348.7 Fledermaus Film')
+        if: ${{ contains(github.event.head_commit.message, '348.12 Grak Film') || contains(github.event.head_commit.message, '348.7b Film') || contains(github.event.head_commit.message, '348.7 Fledermaus Film') || (!cancelled() && github.event.inputs.film == 'grak') }}
         with:
           name: grakprobe
           path: grakprobe
