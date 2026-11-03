@@ -1,6 +1,7 @@
 # 406 · Schildfilm nach der Änderung an der Schildhand · Jerry · 03.11., 02:2x
 
 E Figuren
+Berührt: B5 Schilde, C3 kein Gleichtakt, E3 nichts durch etwas, E4 Sword & Shield, E8 Schild hängend (offen), F1 Schild vor dem Biss, G1 Ausschnitt
 Kurz: Kaufschilde mit dem gekauften Satz „Sword & Shield“, zweiter Lauf: passt die Schildhand, und passt der Film so?
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41550572567 (Lauf 2, Commit 5d6633266); Messung ohne Bild https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41543397528
 
