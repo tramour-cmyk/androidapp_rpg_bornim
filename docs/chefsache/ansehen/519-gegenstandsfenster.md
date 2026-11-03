@@ -1,5 +1,7 @@
 # 519 · Fenster eines Gegenstands passt auf den Schirm, wie alt · Team Tom (Spike) · 03.11., 23:5x
 
+[Bild von 03.11., 23:51](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/03-2351-519-Spike.png) (eingetragen von meldung.sh, Spike)
+
 A Spiel
 Kurz: dein Befund von 23:13 (Build 249) am Rechner nachgestellt (Fenster 1128 statt höchstens 1080 Bildpunkte breit) und behoben; kommt mit dem nächsten Testbuild. Nur ansehen, nichts zu entscheiden.
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/fd80a395a (Test fenster_519 ohne Fehler; vorher 5 Fehler)
