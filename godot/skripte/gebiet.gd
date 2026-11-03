@@ -309,6 +309,7 @@ func durchsicht(m: ShaderMaterial, mark := 0) -> void:
 	var x := m
 	while x:
 		x.set_shader_parameter("cut_on", 1.0)
+		if String(karte.daten.get("art", "")) == "FOREST": x.set_shader_parameter("cut_weit", 1.3)   # 491 (353a): Held ganz zu sehen
 		laub.append(x)
 		x = x.next_pass as ShaderMaterial
 

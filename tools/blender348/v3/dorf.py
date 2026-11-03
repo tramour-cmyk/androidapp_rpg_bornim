@@ -1390,10 +1390,19 @@ def yard(c, r):
 def outer_tree(c, r, at=None):
     """Baum im Waldring; 348.6 (Befund 6: Klumpen, Staemme in Reihe): wie MapFlora.objects ein Drittel Fichten, Eichen in
     drei Groessen, in der Kachel um 0,35 versetzt"""
-    p = trocken((at if at is not None else tile_c(c, r)) + Vector((rnd.uniform(-0.35, 0.35) * TS, rnd.uniform(-0.35, 0.35) * TS, 0)), rad=1.0)
+    zufall = Vector((rnd.uniform(-0.35, 0.35) * TS, rnd.uniform(-0.35, 0.35) * TS, 0))
+    # 491 (Sicht 353a: Weg voraus erkennbar, Held ganz zu sehen): im Wald ruecken Baeume am Weg von den begehbaren Nachbarn weg,
+    # ihre Kronen etwas kleiner; das Dorf bleibt, wie es ist
+    weg_nah = []
+    if KARTE != 'village' and at is None:
+        weg_nah = [tile_c(c, r) - tile_c(nc, nr) for nc, nr in ((c + 1, r), (c - 1, r), (c, r + 1), (c, r - 1)) if ch(nc, nr) in WALK]
+        if weg_nah:
+            weg_v = sum(weg_nah, Vector((0, 0, 0)))
+            zufall = (weg_v.normalized() * 0.3 * TS if weg_v.length > 1 else Vector((0, 0, 0))) + zufall * 0.3
+    p = trocken((at if at is not None else tile_c(c, r)) + zufall, rad=1.0)
     if at is None: STAMM[(c, r)] = p
     k0 = 13 if at is not None else 0
-    g = (0.82, 1.0, 1.15)[int(h1(c, r, 3 + k0) * 3)]
+    g = (0.82, 1.0, 1.15)[int(h1(c, r, 3 + k0) * 3)] * (0.85 if weg_nah else 1.0)
     if h1(c, r, 2 + k0) < 0.3:
         spruce(DORF, p, 82 * g, c * 41 + r * 7 + k0); return          # Lauf 15: Spitzen stachen aus den Eichenkronen
     with use('rinde'): cylinder(DORF, p, 16 * g, 230 * g, 6, (0.6, 0.6, 0.6), cap=False, r2=10 * g)
