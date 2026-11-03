@@ -130,7 +130,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 38153 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Jerry** – offen 63, Muss 51, startbar 10
+**Jerry** – offen 60, Muss 48, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -160,9 +160,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 510 | M | von Sokrates (Chef 03.11., 10:28–10:57, aus 494, „ein Lauf“): Fledermaus: freies Modell OG | startbar |
 | 509 | M | von Sokrates (Chef 03.11., 09:21, „glaube ich, habe ich gesehen, dass Frösche und Libellen | startbar |
 | 494 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Gegner von Kapitel 1 im Kampf (Liste und St | startbar |
-| 509a | M | Rückfrage: dritter Lauf für den Teichfilm (Lauf 228 zeigt nur das Hauptmenü) | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
-| 494a | M | Rückfrage: dritter Lauf für Wildschwein und Hundertfüßer (Läufe 225, 229 brachen beim Bau | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
-| 510a | M | Rückfrage: zweiter Lauf für den Fledermaus-Vergleich (Lauf 235: freies Modell leer) | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 507 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; aus 492): Kampforte Höhle wie alt: Eingang, | startbar |
 | 496a | M | Rückfrage: abgenommene Kampfbilder (Grundstand 461) schon in den Durchspiel-Build? | startbar |
 | 496 | M | von Perikles (Wochenziel 03.11. Reihe 5, 488): Durchspiel-Build aus 490–495: der Chef spie | wartet auf 490 (Chef) |
@@ -294,7 +291,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 407 (Projekt), 509a (Team Jerry), 494a (Team Jerry), 510a (Team Jerry)
+Nicht gestellt: 407 (Projekt)
 
 Ohne Datei: 3402 (Projekt), 275 (Projekt)
 
