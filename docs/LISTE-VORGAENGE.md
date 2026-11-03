@@ -149,9 +149,10 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 491 | Tiefer Flüsterwald mit Morwens Hütte und Grimmzahn begehbar (Orte O7, 479 A; Wochenziel 03.11., 488) | B Umzug | M | – | Team Tom | Chef |
 | 492 | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry an Tom, Chef 07:54) | B Umzug | M | – | Team Tom | startbar |
 | 493 | Kampforte Wald: Waldrand, Teich, Baum, Felsen, Steinkreis (Orte O9; Wochenziel 03.11., 488; von Jerry an Spike) | E Kampf | M | – | Team Tom | Chef |
-| 494 | Gegner von Kapitel 1 im Kampf außer den Untoten (506), je Gegner höchstens ein Lauf (Wochenziel 03.11., 488) | E Kampf | M | – | Team Jerry | gebaut |
+| 494 | Gegner von Kapitel 1 im Kampf außer den Untoten (506), je Gegner höchstens ein Lauf (Wochenziel 03.11., 488) | E Kampf | M | – | Team Jerry | Chef |
 | 495 | Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2; Wochenziel 03.11., 488) | E Technik | M | – | Team Tom | wartet |
 | 496 | Durchspiel-Build: Kapitel 1 von Anfang bis Ende am Handy (Wochenziel 03.11., 488) | E Technik | M | – | Team Jerry | wartet |
+| 494a | Rückfrage: dritter Lauf für Wildschwein und Hundertfüßer (Läufe 225, 229 brachen beim Bau ab) | E Kampf | M | – | Team Jerry | Chef |
 | 496a | Rückfrage: abgenommene Kampfbilder (Grundstand 461) schon in den Durchspiel-Build? | E Technik | M | 12,11 $ | Team Jerry | zu testen |
 | 497 | „Über das Spiel“: Lizenzhinweis der Godot Engine (MIT) und ihrer Drittteile fehlt (Chef 03.11., 07:09, Frage nach Schriften, Build 204) | M Veröffentlichung | M | – | Team Tom | startbar |
 | 498 | Schriftbild wie in der Kotlin-Fassung: Größe, Sperrung, Halbfett (Chef 03.11., 07:13, „Über das Spiel“ wirkt kleiner) | E Oberfläche | M | – | Team Tom | startbar |
