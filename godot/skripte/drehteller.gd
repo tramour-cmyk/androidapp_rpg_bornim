@@ -72,10 +72,12 @@ func zeige(w: Dictionary) -> void:
 		Gebiet.bewegungen(anim, ["Stehen"])
 		if anim.has_animation("Stehen"): anim.play("Stehen")
 
-# Umriss aller Netze im Raum von n (Ruhehaltung)
+# Umriss aller Netze im Raum von n (Ruhehaltung). 499: ohne Waffe und Schild (getragen: top_level, steht erst nach dem ersten Bild an
+# der Faust; Ruecken*: BoneAttachment ohne Knochenlage) - mit ihnen war der Held 2,0-2,7 m „hoch“ und im Teller zu klein (Massstab 0,68)
 func huelle(n: Node, t: Transform3D) -> AABB:
 	var box := AABB()
 	var leer := true
+	if (n is Node3D and (n as Node3D).top_level) or String(n.name).begins_with("Ruecken"): return box
 	var tt := t * (n as Node3D).transform if n is Node3D else t
 	if n is MeshInstance3D and (n as MeshInstance3D).mesh:
 		box = tt * (n as MeshInstance3D).get_aabb(); leer = false

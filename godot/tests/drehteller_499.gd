@@ -6,6 +6,9 @@ extends SceneTree
 # Größe wie die Figur (± 2 %). Aufruf: im Ordner godot mit -s res://tests/drehteller_499.gd -> „DREHTELLER499 n Fehler“
 
 const KLASSEN := ["FIGHTER", "CLERIC", "ROGUE", "WIZARD"]
+# 417a (Archiv 417, 03.11., 06:54 „417 passt“, Stand 3b29ac0cb): Waffe in der Hand, Schild auf dem Ruecken; Schwert mit dem Einhandgang
+const GANG := {"FIGHTER": "einhand", "CLERIC": "", "ROGUE": "einhand", "WIZARD": ""}
+const SCHILD := {"FIGHTER": true, "CLERIC": true, "ROGUE": false, "WIZARD": false}
 const FAUST_M := 0.03
 const RUECKEN_M := 0.06
 
@@ -63,6 +66,10 @@ func _lauf() -> void:
 		var sk := Gebiet.finde(modell, "Skeleton3D") as Skeleton3D
 		var mh: Variant = w.get("ausruestung", {}).get("MAIN_HAND"); var oh: Variant = w.get("ausruestung", {}).get("OFF_HAND")
 		print("%s: Hand %s, andere Hand %s, Figur Maßstab %.3f, Gang %s" % [k, mh.get("base", "-") if mh is Dictionary else "-", oh.get("base", "-") if oh is Dictionary else "-", ms, modell.get_meta("gang", "-")])
+		var box := dt.huelle(modell, Transform3D.IDENTITY)
+		print("  Figur ohne Waffen %.2f m hoch (Ruhe), im Teller %.2f m" % [box.size.y, box.size.y * ms])
+		pruefe(String(modell.get_meta("gang", "")) == GANG[k], "%s: Gang %s statt %s" % [k, modell.get_meta("gang", "-"), GANG[k]])
+		var in_hand := 0
 		for t in sk.get_children():
 			if not (t is Tragen): continue
 			var tr := t as Tragen
@@ -72,6 +79,10 @@ func _lauf() -> void:
 			print("  in der Hand (%s, %s): %s, %.3f m von der Faust, Größe %.3f gegen Figur %.3f" % [tr.seite, tr.gang if tr.gang != "" else tr.art, tr.waffe.name, d, ws, ms])
 			pruefe(d <= FAUST_M, "%s: Waffe %.0f cm neben der Faust" % [k, d * 100])
 			pruefe(absf(ws / ms - 1.0) <= 0.02, "%s: Waffe %.2f-fach der Figur" % [k, ws / ms])
+			in_hand += 1
+		pruefe(in_hand == 1, "%s: %d Waffen in der Hand statt 1" % [k, in_hand])
+		pruefe(sk.find_children("RueckenWaffe*", "", false, false).is_empty(), "%s: Waffe auf dem Ruecken" % k)
+		pruefe(sk.find_children("RueckenSchild*", "", false, false).size() == (1 if SCHILD[k] else 0), "%s: Schild nicht auf dem Ruecken" % k)
 		for ba in sk.find_children("Ruecken*", "", false, false):
 			for mi in ba.find_children("*", "MeshInstance3D", true, false):
 				var c := (mi as MeshInstance3D).global_transform * (mi as MeshInstance3D).get_aabb().get_center()
