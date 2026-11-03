@@ -1,7 +1,7 @@
 name: Spike Probe Figurenstand (513)
 
 # 513 B (Chef 03.11., 15:56): ein Figurenstand fuer alle Zweige; Schild unten am Ruecken, Knie Magier, Umhang jetzt. Bau wie godot.yml
-# (Held je Klasse, Waffen, Kaufschilde), dann nur der Drehteller 499 (Standbilder, Messung Schild-Ruecken, Waffe-Faust) und die Flecken
+# bis zu den Standbildern (ohne APK), dann der Drehteller 499 (Standbilder, Messung Schild-Ruecken, Waffe-Faust) und die Flecken
 # in Robe und Umhang (pruef_flecken.py); kein Film, keine APK. Kaufmodelle nur ueber diesen Ablauf, ins Artefakt nur
 # Bilder und Protokolle (348.12c a). Nur bei Commits, die mit „513 Probe“ beginnen (Haken probelauf.py zaehlt den Push).
 on:
@@ -160,6 +160,26 @@ jobs:
       # 348.6 Dorftiere (Chefrunde 28.10., 08:09: „lieber ein paar Tiere zuerst ‚Platzieren‘“): die gekauften Tiere aus 387, gebaut mit
       # Jerrys kauftier.py (Tiere = 387 Bereich Jerry; liegt das Skript noch nicht in diesem Zweig, von seinem Zweig wie waffen.py);
       # Huhn, Rind, Ziege, Kaninchen (Leute.dorftiere stellt sie auf); ohne Kauf (KAUF_TOKEN) keine Dorftiere
+      - name: Dorftiere bauen (387, gekauft)
+        run: |
+          [ -n "$(find $KAUF -name '*_Rig.fbx' 2>/dev/null | head -1)" ] || { echo "ohne Kauf keine Dorftiere"; exit 0; }
+          S=tools/blender348
+          if [ ! -f $S/kauftier.py ]; then
+            git fetch -q --depth 1 origin claude/jerry-348-kampf
+            S=$RUNNER_TEMP/jerry; mkdir -p $S
+            for f in kauftier kaufratte glbquat; do git show FETCH_HEAD:tools/blender348/$f.py > $S/$f.py; done
+          fi
+          export S
+          bau() { OUT=$RUNNER_TEMP/dorftiere TIER=$1 timeout 900 bl/bin/python -I $S/kauftier.py > $RUNNER_TEMP/dorftier-$1.log 2>&1 || { echo "$1 fehlt"; tail -20 $RUNNER_TEMP/dorftier-$1.log; }
+            grep -E "MASS|TEMPO|FEHLT|FERTIG" $RUNNER_TEMP/dorftier-$1.log | cut -c1-200; }
+          export -f bau
+          echo huhn rind ziege kaninchen | tr ' ' '\n' | xargs -P 4 -I{} bash -c 'bau {}'
+          D=godot/daten/dorftiere; mkdir -p $D
+          for f in $RUNNER_TEMP/dorftiere/kauf_*.glb; do [ -f "$f" ] && cp $f $D/$(basename $f .glb).bin; done
+          cp $RUNNER_TEMP/dorftiere/kauf_*-info.json $D/ 2>/dev/null || true
+          ls -l $D
+          # 348.12i: gekauft, also nur verschluesselt ins APK
+          (cd godot && ls daten/dorftiere/*.bin 2>/dev/null >> daten/kauf.txt) || true
       - name: Kampfort bauen (Jerry 348.7, 399.1)
         run: |
           # 399.1 (Chef 28.10., 12:34): Kampf im selben Spiel wie das Dorf; Modelle wie godot-kampf.yml (Jerry), Held und Gras aus „Modelle bauen“
@@ -199,6 +219,29 @@ jobs:
       # 348.12i (Chef 26.10., 19:41, „348.12i B“): gekaufte Modelle nur verschluesselt ins APK, Schluessel je Lauf neu, steht nur im
       # Programm (schluessel.gd), nie im Protokoll. Wer ein Kaufmodell nach godot/daten legt, traegt den Pfad in godot/daten/kauf.txt ein.
       # Erste Kaufmodelle im Spiel: die Dorftiere (Geraetetest, sonst fehlen sie)
+      - name: Kaufmodelle verschluesseln (348.12i)
+        run: |
+          K=$(openssl rand -hex 32)
+          echo "::add-mask::$K"
+          sed -i "s/^const KAUF := \"\"/const KAUF := \"$K\"/" godot/skripte/schluessel.gd
+          grep -q "$K" godot/skripte/schluessel.gd || { echo "Schluessel nicht gesetzt"; exit 1; }
+          touch godot/daten/kauf.txt
+          cd godot && cat daten/kauf.txt kampf/daten/kauf.txt 2>/dev/null | sort -u | xargs -r bash ../tools/blender348/verschluesseln.sh $K   # 399.1: auch Jerrys Kampfort
+      - uses: actions/cache@v4
+        with:
+          path: ~/godot
+          key: godot-${{ env.GODOT }}
+      # 399.3 (Jerry; 398, Chef 28.10., 11:38: Klang wiederverwenden): Musik und Effekte des alten Spiels unverändert nach
+      # daten/klang, liste.json mit den Namen je Ordner für klang.gd
+      - name: Klang (399.3)
+        run: |
+          D=godot/daten/klang; mkdir -p $D
+          cp -r app/src/main/assets/music app/src/main/assets/sfx app/src/main/assets/raum $D/
+          # was das alte Spiel synthetisiert (Hiebe, Bisse, Pfeile, Schwung), aus demselben Kotlin-Code als .wav, dazu kampfklang.json
+          ./gradlew -p core exportKlang -Pout=$GITHUB_WORKSPACE/$D/sfx -q && mv $D/sfx/kampfklang.json $D/
+          # Raumfassungen (Room.kt) je Ort: raum/cave, hall, room, tavern
+          python3 -c "import json, os; d='$D'; n=lambda p: sorted(f[:-4] for f in os.listdir(p) if f.endswith(('.ogg', '.wav'))); j={o: n(os.path.join(d, o)) for o in ('music', 'sfx')}; j['raum']={r: n(os.path.join(d, 'raum', r)) for r in sorted(os.listdir(os.path.join(d, 'raum')))}; json.dump(j, open(os.path.join(d, 'liste.json'), 'w'))"
+          python3 -c "import json; j=json.load(open('$D/liste.json')); print('Klang:', {k: len(v) for k, v in j.items()}, {r: len(v) for r, v in j['raum'].items()})"
       - name: Godot und Exportvorlagen
         run: |
           mkdir -p ~/godot && cd ~/godot
@@ -207,11 +250,45 @@ jobs:
           [ -d templates ] || { curl -sSL -o t.tpz $base/Godot_v$GODOT-stable_export_templates.tpz && unzip -q t.tpz && rm t.tpz; }
           mkdir -p ~/.local/share/godot/export_templates/$GODOT.stable
           cp templates/android_debug.apk templates/android_release.apk templates/version.txt ~/.local/share/godot/export_templates/$GODOT.stable/
-      - name: Godot importieren
+      - name: Skripte pruefen
         run: |
           cd godot
           ~/godot/godot --headless --import --path . 2>&1 | tail -5 || true
+          timeout 120 ~/godot/godot --headless --path . --quit-after 300 2>&1 | tee check.log | tail -20
+          ! grep -E "SCRIPT ERROR|Parse Error|Failed to load|ERROR:" check.log
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/skripte_pruefen.gd 2>&1 | grep -E "SKRIPTE|FALSCH"   # 399.1 Test 130
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/held_klassen_376.gd 2>&1 | grep -E "HELDKLASSEN|FALSCH|SCRIPT ERROR"   # 376.1
+          set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/held_kampf_403.gd 2>&1 | grep -E "^(ok|FEHLER|Held 403)|SCRIPT ERROR"   # 403 (Jerry)
+          set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Held|Söldner|nach|in den|Atem 453)|SCRIPT ERROR"   # 453.1 (Tuffy)
+          set -o pipefail; timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wolf_mess_438.gd 2>&1 | grep -E "^(— |  |Befunde|Wolf 438|Kampf )|SCRIPT ERROR"   # 438, 439, 440 (Jerry): Wölfe ohne Gleiten, Reihenfolge, Tod
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_test.gd 2>&1 | grep -E "^(gut|FALSCH)|KLANG|SCRIPT ERROR"   # 399.3
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_473.gd 2>&1 | grep -E "FALSCH|BRS473|SCRIPT ERROR"   # 473 Monsterwerte BRS wie sim444
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_472.gd 2>&1 | grep -E "FALSCH|BRS472|SCRIPT ERROR"   # 472 Heldenstufe aus Erfahrung
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/zwischenbild_test.gd 2>&1 | grep -E "FALSCH|ZWISCHENBILD|SCRIPT ERROR"   # 399.1 Intro
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/tasten_4161.gd 2>&1 | grep -E "FEHLER|TASTEN|SCRIPT ERROR"   # 416.1
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/tresen_4167.gd 2>&1 | grep -E "FEHLER|TRESEN|SCRIPT ERROR"   # 416.7
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/platzwechsel_4162.gd 2>&1 | grep -E "FEHLER|PLATZWECHSEL|SCRIPT ERROR"   # 416.2
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/ziege_4162.gd 2>&1 | grep -E "FEHLER|ZIEGE|SCRIPT ERROR"   # 416.2 Ziege (146.5)
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/zeichen_425.gd 2>&1 | grep -E "FEHLER|ZEICHEN|SCRIPT ERROR"   # 425
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/testmenue_mass_425.gd 2>&1 | grep -E "FEHLER|TESTMENUE|SCRIPT ERROR"   # 425 Befunde Testmenue
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/laden_4169.gd 2>&1 | grep -E "FEHLER|LADEN4169|SCRIPT ERROR"   # 416.9
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_470.gd 2>&1 | grep -E "FALSCH|BRS470|SCRIPT ERROR"   # 470 Erschaffung BRS 1.1
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/testmenue_470.gd 2>&1 | grep -E "FEHLER|TESTMENUE470"   # 470a B: Erschaffung BRS nur im Testmenue
+          timeout 120 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4532.gd 2>&1 | grep -E "^(ok|FEHLER|ATEM)"   # 453.2 Atmen unterwegs
+      # fester Schluessel ueber alle Laeufe, sonst lehnt Android das Update ab (348.5, Build 9). 399.1a (Chef 28.10., 14:41): der Cache
+      # eines Zweigs galt nur dort (Build 130 bekam einen neuen); jetzt nur lesen, angelegt wird er auf main (godot-schluessel.yml)
+      # 513 Probe 2 (Pruefer 19:3x, Vergleich mit Lauf 244): mit nur einem Teil der Schritte aus godot.yml fehlten im Bild Haar, Waffe
+      # und Schild (die Messung fand sie); darum jetzt alle Schritte wie dort bis zu den Standbildern, ohne APK
+      - name: Standbilder
+        continue-on-error: true
+        run: |
           sudo apt-get install -y -q mesa-vulkan-drivers xvfb > /dev/null
+          mkdir -p $GITHUB_WORKSPACE/bilder
+          cd godot
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --bilder=$GITHUB_WORKSPACE/bilder 2>&1 | grep -E "Vulkan|SCRIPT ERROR" || true
+          ls -l $GITHUB_WORKSPACE/bilder
+      # 499 (Chef 03.11., 07:14): Held im Drehteller mit Grundausruestung je Klasse, Abstand Waffe-Faust und Schild-Ruecken, Bilder
       - name: Drehteller 499
         if: ${{ !cancelled() }}
         continue-on-error: true
