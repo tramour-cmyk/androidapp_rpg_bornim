@@ -135,24 +135,24 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 467 | M | von Sokrates (Chef 01.11., 21:52): regeln/ausdauer.gd rechnet nach SRD; BRS: Ausdauer aus | wartet auf Sokrates |
 | 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Wölfe gleiten (Angriff, Tempo, aneinander vor | wartet auf Test/Build (gebaut) |
 | 457.2 | M | von Perikles (Chef 01.11., 11:49): Probeskripte zeichnen standardmäßig mit Toon-Licht, Tus | wartet auf Test/Build (gebaut) |
-| 453.1 | M | von Sokrates (Archiv 453.1a): Helden im Kampf atmen ruhiger, je Figur eigener Takt | wartet auf Test/Build (gebaut) |
-| 453 | M | von Sokrates (Archiv 453): Ruhebewegungen der Wölfe | wartet auf Test/Build (gebaut) |
-| 453a | M | Wolfsatem B (Archiv) | wartet auf Test/Build (gebaut) |
-| 454 | M | von Sokrates (Archiv 454): Bissachse des Wolfs | wartet auf Test/Build (gebaut) |
+| 453.1 | M | von Sokrates (Archiv 453.1a): Helden im Kampf atmen ruhiger, je Figur eigener Takt | wartet auf Test (Build) |
+| 453 | M | von Sokrates (Archiv 453): Ruhebewegungen der Wölfe | wartet auf Test (Build) |
+| 453a | M | Wolfsatem B (Archiv) | wartet auf Test (Build) |
+| 454 | M | von Sokrates (Archiv 454): Bissachse des Wolfs | wartet auf Test (Build) |
 | 438a | M | von Sokrates (Archiv 438a): Hinfallen/Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe | ruht |
-| 439 | M | von Sokrates (Archiv 438): Reihenfolge Angriff, Treffer, Tod, Neuformation | wartet auf Test/Build (gebaut) |
-| 440 | M | von Sokrates (Archiv 438): Wolf-Tod zu schnell weg | wartet auf Test/Build (gebaut) |
+| 439 | M | von Sokrates (Archiv 438): Reihenfolge Angriff, Treffer, Tod, Neuformation | wartet auf Test (Build) |
+| 440 | M | von Sokrates (Archiv 438): Wolf-Tod zu schnell weg | wartet auf Test (Build) |
 | 416.6 | M | von Sokrates (Chef 31.10., 20:4x; M seit Chef 03.11., 07:31 „Blutspuren in der Welt bitte | wartet auf Test/Build (gebaut) |
-| 415 | M | von Sokrates („jetzt“ 02.11., 22:05, Chef: „415d muss ins nächste Build“; Archiv 415): Pro | wartet auf Test/Build (gebaut) |
+| 415 | M | von Sokrates („jetzt“ 02.11., 22:05, Chef: „415d muss ins nächste Build“; Archiv 415): Pro | wartet auf Test (Build) |
 | 399.2 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv): Kampfort aufrufbar | wartet auf Test (Build) |
-| 403 | M | von Team Tom (Archiv 403): Kampfort: Held je Klasse wie im Dorf | wartet auf Test/Build (gebaut) |
+| 403 | M | von Team Tom (Archiv 403): Kampfort: Held je Klasse wie im Dorf | wartet auf Test (Build) |
 | 461.1 | M | von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461): Grundstand mit Tom: Kampfort, Wölfe, Hel | ruht |
 | 460 | M | von Sokrates (Chef 01.11., 20:2x, Archiv 460): Probefilm Kamerafahrten: Eröffnung je Blend | ruht |
 | 406.1 | M | von Sokrates (Archiv 406.1): Schildstoß ins MARS/BRS, Bau mit ShieldAttack1–3S&S | wartet auf 481 (startbar) |
-| 489 | M | von Sokrates (Chef 03.11., 07:07, Test Build 204; Zu 489): Hauptmenü: Schalter Musik und E | wartet auf Test/Build (gebaut) |
+| 489 | M | von Sokrates (Chef 03.11., 07:07, Test Build 204; Zu 489): Hauptmenü: Schalter Musik und E | wartet auf Test (Build) |
 | 406.2a | M | von Sokrates (Chef 03.11., 09:03, Archiv 406.2a; „jetzt“ 03.11., 09:03): Angriffsweg im Ka | wartet auf Test/Build (gebaut) |
 | 406.2 | M | von Sokrates (Chef 03.11., 06:59, Zu 406.2; „jetzt“ 03.11., 06:59): im Kampf zum Angriff g | wartet auf Test/Build (gebaut) |
-| 406 | M | von Team Tom (Archiv 376.1): Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Son | wartet auf Test/Build (gebaut) |
+| 406 | M | von Team Tom (Archiv 376.1): Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Son | wartet auf Test (Build) |
 | 509 | M | von Sokrates (Chef 03.11., 09:21, „glaube ich, habe ich gesehen, dass Frösche und Libellen | startbar |
 | 494 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Gegner von Kapitel 1 im Kampf (Liste und St | wartet auf Test/Build (gebaut) |
 | 507 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; aus 492): Kampforte Höhle wie alt: Eingang, | startbar |
