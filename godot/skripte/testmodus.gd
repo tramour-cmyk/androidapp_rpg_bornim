@@ -43,6 +43,7 @@ const KLASSEN := ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]
 
 static var waffen_auf := false
 static var eroeffnung := "NORMAL"       # 399.2 (Jerry, TestTab.kt opening): wer zuerst handelt im beschworenen Kampf
+static var kampfort := ""               # 493 (Jerry): Kampfort im Wald für den beschworenen Kampf; leer: nach der Kachel wie im Spiel
 static var probe_gegner := "GRAK"
 static var probe_stufe := 3
 
@@ -187,7 +188,12 @@ static func reiter(m: Menue) -> void:
 		m.zeichenreihe([zk.call(t.call("Eröffnung", "Opening"), String(eroeffnungen[eroeffnung]), t.call("Wer im beschworenen Kampf zuerst handelt: wie im Spiel, Hinterhalt der Gegner, oder der Held.",
 			"Who acts first in a summoned fight: as in the game, a foe ambush, or the hero."), func():
 				var e: Array = eroeffnungen.keys()
-				eroeffnung = String(e[(e.find(eroeffnung) + 1) % e.size()]), "DICE")])
+				eroeffnung = String(e[(e.find(eroeffnung) + 1) % e.size()]), "DICE"),
+			# 493: welcher Kampfort im Wald (Lichtung, Waldrand, Teich, Baum, Felsen, Steinkreis), sonst nach der Kachel wie im Spiel
+			zk.call(t.call("Kampfort", "Battle place"), String(kampforte()[kampfort]), t.call("Wo der beschworene Kampf im Wald stattfindet: wie im Spiel nach dem, was um dich steht, oder einer der sechs Orte.",
+				"Where the summoned fight takes place in the woods: as in the game by what stands around you, or one of the six places."), func():
+					var o: Array = kampforte().keys()
+					kampfort = String(o[(o.find(kampfort) + 1) % o.size()]), "PIN")])
 		var ids: Array = fs.keys()
 		for i in range(0, ids.size(), 2):
 			reihe.call(ids.slice(i, i + 2).map(func(id): return [String(fs[id]), func(): m.test.emit("kampf", [id])]))
@@ -222,3 +228,11 @@ static func vor_aldric() -> Array:
 		for v in [[a + Vector2i(0, 1), "UP"], [a + Vector2i(-1, 0), "RIGHT"], [a + Vector2i(1, 0), "LEFT"]]:
 			if k.begehbar(v[0]): return v
 	return []
+
+
+## 493: die Kampforte im Wald für den Reiter Test, „“ = nach der Kachel wie im Spiel (kampfort.gd platz_fuer)
+static func kampforte() -> Dictionary:
+	var de := Sprache.aktiv() == "de"
+	return {"": "Wie im Spiel" if de else "As in game", "lichtung": "Lichtung" if de else "Clearing", "waldrand": "Waldrand" if de else "Forest edge",
+		"teich": "Teich" if de else "Pond", "baum": "Baum" if de else "Fallen tree", "felsen": "Felsen" if de else "Rocks",
+		"steinkreis": "Steinkreis" if de else "Stone circle"}
