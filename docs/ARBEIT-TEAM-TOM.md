@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (03.11., 16:2x, `session_01Hmoj75wm1AzPhDgiD8ktBp`):** 492 gebaut (`claude/tom-492-hoehle`, mit 490, 491; `hoehle.py`, Test `hoehle_492`), Lauf 2 von 2 beim Chef. Nachfolger: Tom – 490: Flüsterwald in den gemeinsamen Build.
+**Übergabe (03.11., 16:5x, `session_01Hmoj75QoAxN3P4LLrSPcXQ`):** Build 248 läuft (Lauf 41667833227, PR #180); grün: APK-Link in t248, Testbitte. Nachfolger: Tom – 505: Nebel des Krieges.
 
 ## Zeilen
 
