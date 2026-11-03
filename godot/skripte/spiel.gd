@@ -37,6 +37,7 @@ var naechster_ruf := 0                           # 134.3 Game.nextCallAt: vorher
 var spricht_mit := ""                            # bis das Gespraech vorbei ist, dann gilt gehoert (Game.talkingTo)                        # 399.1 Anschlagbrett (Mode.Board)
 var herde: Herde                                 # 490 Monster auf der Karte (herde.gd, streuner.gd)
 var im_kampf := false                            # 490: vom Angriff bis zurueck auf der Karte
+var nebel: Nebel                                 # 505 Nebel des Krieges in der Wildnis (nebel.gd)
 var kraut_tag := -1                              # 490 Heilkraeuter: fuer welchen Tag sie stehen (Game.herbDay)
 
 func _ready() -> void:
@@ -91,6 +92,7 @@ func _ready() -> void:
 	rast_probe()
 	raeume_bilder()
 	wald_bilder()
+	nebel_bilder()
 	if FigurenProbe.an(): add_child(FigurenProbe.new(self))   # 376.1 Probeblatt Quaternius-Figuren (figurenprobe.gd)
 
 # 399: Spielbeginn aus dem Hauptmenue: geladen an den gespeicherten Ort, sonst ein neues Spiel mit frischem Zustand (Test 139: das neue
@@ -127,6 +129,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	if leute: leute.queue_free()
 	if herde: herde.queue_free()
 	herde = null
+	if nebel: nebel.queue_free()
 	karte = Karte.lade(id, zustand.flaggen)   # 390: Schlagbaum, Tor, Ausgaenge und Wege lesen den Spielstand
 	zustand.setze("besucht:" + id)   # 399.1 Chronik „Die Blutzahnhöhle“ (alt GameState.explored)
 	licht.innen = String(karte.daten.get("art", "")) == "INTERIOR"   # 399.1 Grundriss
@@ -156,6 +159,8 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	kraut_tag = -1
 	kraeuter_neu()
 	sichtbar_neu()
+	nebel = Nebel.new(self, karte)   # 505
+	add_child(nebel)
 	kamera.ziel = held
 	gebiet.held = held
 	gebiet.kamera = kamera
@@ -1062,6 +1067,12 @@ func _process(dt: float) -> void:
 	# 490: Monster ziehen, solange der Held frei unterwegs ist (Mode.Explore); Kraeuter wachsen bei Sonnenaufgang nach
 	if herde and not im_kampf and not ui.spricht() and rast_ort == "" and laden == null and not brett_offen and not get_tree().paused: herde.schritt(dt)
 	if kraut_tag != kraut_heute(): kraeuter_neu()
+	if nebel and nebel.an:   # 505: Nebel nachziehen; Leute und Monster nur in Sicht (WorldScreen: fog != VISIBLE nicht gezeichnet)
+		nebel.schritt(dt)
+		if herde:
+			for s in herde.liste: s.visible = nebel.zeigt(s.kachel)
+		for l in leute.get_children():
+			if l is Leute: l.visible = l.da and not l.drinnen and nebel.zeigt(l.kachel)
 	leiste_uhr -= dt
 	if leiste_uhr <= 0.0:   # 399.1 Leiste: viermal je Sekunde reicht fuer Uhr und Werte
 		leiste_uhr = 0.25
@@ -1580,6 +1591,39 @@ func wald_bilder() -> void:
 		ui.textfeld.visible = false   # Tipps beim Betreten nicht ueber dem Ort
 		await knips("%s/%s.png" % [dir, o[0]])
 	print("WALDBILDER fertig")
+	get_tree().quit()
+
+# 505 Sichtfeld zur Wahl (Chef 07:30, vor dem Bau als Vorlage): --nebel=<ordner> geht vom Waldrand den Weg hinauf (Gesehenes bleibt
+# gedaempft) und knipst an derselben Stelle je Form (Nebel.FORMEN: kegel = alt 160° plus Kreis, breit = 240° plus Kreis, kreis = rundum),
+# dazu alt bei Nacht; Monster ruhig
+func nebel_bilder() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--nebel="): dir = a.substr(8)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	zustand.minuten = 10 * 60
+	betrete("forest", Vector2i(9, 29), "UP")
+	if herde: herde.aus = true
+	await get_tree().create_timer(1.0).timeout
+	for y in range(29, 17, -1):   # der Weg nach Norden, Kachel fuer Kachel
+		held.setze(Vector2i(9, y), "UP"); kamera.springe()
+		await get_tree().create_timer(0.25).timeout
+	held.setze(Vector2i(9, 18), "UP")
+	for f in ["kegel", "breit", "kreis"]:
+		Nebel.form = f
+		await get_tree().create_timer(1.2).timeout
+		ui.textfeld.visible = false
+		await knips("%s/form_%s.png" % [dir, f])
+	Nebel.form = "kegel"
+	licht.umschalten()
+	zustand.minuten = 23 * 60
+	await get_tree().create_timer(2.5).timeout
+	ui.textfeld.visible = false
+	await knips("%s/form_kegel_nacht.png" % dir)
+	print("NEBELBILDER fertig")
 	get_tree().quit()
 
 # 399.5 Grundrisse am Rechner: --raeume=<ordner> knipst je Grundriss aus der Grundansicht wie die alten Vergleichsbilder (Held wie

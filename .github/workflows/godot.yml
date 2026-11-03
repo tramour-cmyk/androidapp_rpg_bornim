@@ -237,6 +237,7 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/testmenue_mass_425.gd 2>&1 | grep -E "FEHLER|TESTMENUE|SCRIPT ERROR"   # 425 Befunde Testmenue
           timeout 120 ~/godot/godot --headless --path . -s res://tests/laden_4169.gd 2>&1 | grep -E "FEHLER|LADEN4169|SCRIPT ERROR"   # 416.9
           timeout 300 ~/godot/godot --headless --path . -s res://tests/wald_490.gd 2>&1 | tee wald490.log | grep -E "FEHLER|WALD490|SCRIPT ERROR"; grep -q "^WALD490 0 Fehler" wald490.log   # 490
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/nebel_505.gd 2>&1 | tee nebel505.log | grep -E "FEHLER|NEBEL505|SCRIPT ERROR"; grep -q "^NEBEL505 0 Fehler" nebel505.log   # 505
       # fester Schluessel ueber alle Laeufe, sonst lehnt Android das Update ab (348.5, Build 9). 399.1a (Chef 28.10., 14:41): der Cache
       # eines Zweigs galt nur dort (Build 130 bekam einen neuen); jetzt nur lesen, angelegt wird er auf main (godot-schluessel.yml)
       - uses: actions/cache/restore@v4
@@ -310,6 +311,17 @@ jobs:
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --wald=$GITHUB_WORKSPACE/bilder/wald490 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^BILD|^LEUTE|^WALDBILDER" | cut -c1-400 || true
           ls -l $GITHUB_WORKSPACE/bilder/wald490
+      # 505 Sichtfeld zur Wahl: dieselbe Stelle im Wald je Form (alt Kegel, breiter Kegel, rundum), alt nachts; nur bei „505 Nebelbilder“
+      # im Commit oder von Hand auf dem Zweig claude/spike-505-…
+      - name: Nebelbilder (505)
+        if: contains(github.event.head_commit.message, '505 Nebelbilder') || (github.event_name == 'workflow_dispatch' && contains(github.ref, 'spike-505'))
+        continue-on-error: true
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/bilder/nebel505
+          cd godot
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --nebel=$GITHUB_WORKSPACE/bilder/nebel505 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^BILD|^NEBELBILDER" | cut -c1-400 || true
+          ls -l $GITHUB_WORKSPACE/bilder/nebel505
       - uses: actions/upload-artifact@v4
         with:
           name: bornim-godot-bilder

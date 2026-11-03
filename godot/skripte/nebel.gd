@@ -1,0 +1,239 @@
+class_name Nebel
+extends Node
+# 505 (Archiv 502, Chef 03.11., 07:30: „den Nebel brauchen wir auf jeden Fall“): Nebel des Krieges und Sicht des Helden wie alt
+# (Fog.kt Sight, Game.fogged, WorldScreen.drawFog und FogFade). In der Wildnis (Wald, Hoehle) schwarz, was nie gesehen wurde,
+# gedaempft, was gerade nicht in Sicht ist; Sicht = Kegel in Gehrichtung plus kleiner Kreis, Baeume, Felsen, Waende sperren
+# (Bresenham wie lineOfSight); Gesehenes bleibt (Zustand.erkundet, gespeichert); Leute und Monster ausser Sicht unsichtbar.
+# Draussen ist ein Baum nie schwarz (t732), jenseits des Rands nie dunkler als gesehen. Je Kachel 4 x 4 Teile (SUB), die
+# Kegelkante darum rund (13e); jeder Wechsel blendet in etwa 150 ms (FADE_MS 450 / 3).
+# Form des Sichtfelds (Chef 07:30: „ob wir das Sichtfeld doch ein bisschen anders machen“): FORMEN, alt = "kegel"; vor dem Bau
+# als Vorlage an den Chef, bis dahin gilt alt.
+
+const SUB := 4
+const UNDURCHSICHTIG := ["TREE", "ROCK", "WALL", "CAVE_WALL", "ROOF", "ROOF_BLUE", "WINDOW", "TORCH", "SHELF", "CRYSTAL"]
+const HOEHLENFELS := ["CAVE_WALL", "CRYSTAL", "TORCH"]
+const DARK_SIGHT := 4.2            # Light.kt
+const DAY_SIGHT := 5.2
+const SPARK_SIGHT := 5.5
+const TORCH_SIGHT := 6.5
+const FADE_MS := 450.0
+const HOEHLE_GESEHEN := 0.5        # MapLight.CAVE_SEEN_DIM, bis die Hoehle kommt (492) wie draussen
+## Formen zur Wahl: Kegel (cos der halben Oeffnung) und Kreis ringsum (Kacheln); alt: 160° plus 2 Kacheln
+const FORMEN := {"kegel": [0.17, 2.0], "kreis": [-1.0, 0.0], "breit": [-0.5, 2.0]}
+static var form := "kegel"
+
+var spiel                          # spiel.gd
+var karte: Karte
+var an := false
+var breite := 0
+var hoehe := 0
+var sichtbar := PackedByteArray()  # Kachel jetzt in Sicht
+var frei := PackedByteArray()      # Kachel nah genug, nichts dazwischen (fuer in_sicht)
+var reich := 0.0
+var blick := Vector2(0, 1)
+var schluessel := ""
+var erkundet := PackedByteArray()
+var ist := PackedFloat32Array()    # je Teil: wie dunkel jetzt
+var soll := PackedFloat32Array()   # je Teil: wohin es blendet
+var aktiv := {}                    # Teile, die noch blenden
+var bild: Image
+var tex: ImageTexture
+var flaeche: MeshInstance3D
+var mat: ShaderMaterial
+var neu := true
+
+func _init(s, k: Karte) -> void:
+	spiel = s
+	karte = k
+	var art := String(k.daten.get("art", ""))
+	an = art == "FOREST" or art == "CAVE"   # Game.fogged
+	breite = k.breite; hoehe = k.hoehe
+	name = "Nebel"
+
+func _ready() -> void:
+	if not an: return
+	sichtbar.resize(breite * hoehe); frei.resize(breite * hoehe)
+	erkundet = lade(spiel.zustand, karte.id, breite * hoehe)
+	ist.resize(breite * hoehe * SUB * SUB); ist.fill(1.0)
+	soll.resize(ist.size()); soll.fill(1.0)
+	bild = Image.create(breite * SUB, hoehe * SUB, false, Image.FORMAT_L8)
+	bild.fill(Color(1, 1, 1))
+	tex = ImageTexture.create_from_image(bild)
+	flaeche = MeshInstance3D.new()
+	var qm := QuadMesh.new()
+	qm.size = Vector2(2, 2)
+	flaeche.mesh = qm
+	flaeche.extra_cull_margin = 16384.0
+	flaeche.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	mat = ShaderMaterial.new()
+	mat.shader = load("res://shader/nebel.gdshader")
+	mat.render_priority = 127      # nach allem, auch nach der Tusche (kamera.gd): naeher an der Kamera, darum spaeter gezeichnet
+	mat.set_shader_parameter("nebel", tex)
+	mat.set_shader_parameter("groesse", Vector2(breite, hoehe) * Karte.TS)
+	mat.set_shader_parameter("rand_hoechstens", 1.0 if String(karte.daten.get("art", "")) == "CAVE" else 0.5)
+	flaeche.material_override = mat
+	flaeche.position = Vector3(0, 0, -0.9)
+	spiel.kamera.add_child(flaeche)
+
+func _exit_tree() -> void:
+	if is_instance_valid(flaeche): flaeche.queue_free()
+
+# ---------------------------------------------------------------- gespeichert wie GameState.explored: je Karte hex, 4 Kacheln je Ziffer
+static func lade(z, id: String, n: int) -> PackedByteArray:
+	var b := PackedByteArray(); b.resize(n)
+	var hex: String = String(z.erkundet.get(id, ""))
+	for i in n:
+		var c := i / 4
+		if c < hex.length() and (hex[c].hex_to_int() >> (i % 4)) & 1 == 1: b[i] = 1
+	return b
+
+func speichere() -> void:
+	var s := ""
+	var i := 0
+	while i < erkundet.size():
+		var v := 0
+		for b in 4:
+			if i + b < erkundet.size() and erkundet[i + b] == 1: v |= 1 << b
+		s += "%x" % v
+		i += 4
+	spiel.zustand.erkundet[karte.id] = s
+
+# ---------------------------------------------------------------- Sicht (Sight.update)
+func zeichen_name(x: int, y: int) -> String:
+	return String(karte.kacheln.get(karte.zeichen(Vector2i(x, y)), {}).get("name", ""))
+
+func innen(x: int, y: int) -> bool: return x >= 0 and y >= 0 and x < breite and y < hoehe
+
+func weite() -> float:
+	var dunkel: bool = spiel.im_dunkeln()
+	var s := DAY_SIGHT
+	if dunkel:
+		if Menue.fackel(spiel.held_werte()): s = TORCH_SIGHT
+		elif spiel.zustand.funke: s = SPARK_SIGHT
+		else: s = DARK_SIGHT
+	return s + 0.5 * maxi(0, spiel.held_werte().mod("WIS"))   # Perks.sightBonus
+
+func neu_sehen(h: Vector2i, gier: float) -> bool:
+	var grad := roundf(rad_to_deg(gier) / 5.0) * 5.0   # in Schritten von 5°, sonst rechnet jede kleine Drehung neu
+	var r_ := weite()
+	var k := "%d/%d/%s/%s/%s" % [h.x, h.y, grad, r_, form]
+	if k == schluessel: return false
+	schluessel = k
+	blick = Vector2(sin(deg_to_rad(grad)), cos(deg_to_rad(grad)))
+	sichtbar.fill(0); frei.fill(0)
+	reich = r_
+	var kegel: float = FORMEN[form][0]
+	var r := int(r_) + 2
+	for dy in range(-r, r + 1):
+		for dx in range(-r, r + 1):
+			var x := h.x + dx; var y := h.y + dy
+			if not innen(x, y): continue
+			var d := sqrt(float(dx * dx + dy * dy))
+			var nah := d <= 1.5
+			var los := nah or sicht_frei(h.x, h.y, x, y)
+			if d <= r_ + 1 and los: frei[y * breite + x] = 1
+			if not nah:
+				if d > r_: continue
+				if (dx * blick.x + dy * blick.y) / d < kegel: continue
+				if not los: continue
+			sichtbar[y * breite + x] = 1
+	var geaendert := false
+	for i in sichtbar.size():
+		if sichtbar[i] == 1 and erkundet[i] == 0:
+			erkundet[i] = 1; geaendert = true
+	if geaendert: speichere()
+	return true
+
+## nichts Undurchsichtiges zwischen den Kacheln (die letzte darf ein Baum sein); Hoehle: niedrige Waende spaeter (492, MapCaveIso.low)
+func sicht_frei(x0: int, y0: int, x1: int, y1: int) -> bool:
+	var x := x0; var y := y0
+	var dx := absi(x1 - x0); var dy := -absi(y1 - y0)
+	var sx := 1 if x0 < x1 else -1
+	var sy := 1 if y0 < y1 else -1
+	var err := dx + dy
+	while true:
+		if x == x1 and y == y1: return true
+		if (x != x0 or y != y0) and zeichen_name(x, y) in UNDURCHSICHTIG: return false
+		var e2 := 2 * err
+		if e2 >= dy: err += dy; x += sx
+		if e2 <= dx: err += dx; y += sy
+	return true
+
+func roh(i: int) -> int:   # 0 verborgen, 1 gesehen, 2 in Sicht (Fog)
+	if sichtbar[i] == 1: return 2
+	return 1 if erkundet[i] == 1 else 0
+
+func fest(x: int, y: int) -> bool:
+	var n := zeichen_name(x, y)
+	return n in HOEHLENFELS if String(karte.daten.get("art", "")) == "CAVE" else n == "TREE"
+
+## Sight.fog(view = true): 0 verborgen, 1 gesehen, 2 in Sicht
+func nebel(x: int, y: int) -> int:
+	if not innen(x, y): return 0
+	var eigen := roh(y * breite + x)
+	var hoehle := String(karte.daten.get("art", "")) == "CAVE"
+	if not fest(x, y): return eigen
+	if not hoehle: return eigen if eigen == 2 else 1   # draussen ist ein Baum nie schwarz (t732)
+	var best := eigen
+	for dy in range(-2, 3):
+		for dx in range(-2, 3):
+			var nx := x + dx; var ny := y + dy
+			if not innen(nx, ny) or fest(nx, ny): continue
+			best = maxi(best, roh(ny * breite + nx))
+	return best
+
+## Sight.inSight: Punkt in Kacheln, feiner als eine Kachel (Kegelkante als Linie, 13e)
+func in_sicht_punkt(px: float, py: float) -> bool:
+	if not an: return true
+	var tx := floori(px); var ty := floori(py)
+	if not innen(tx, ty): return false
+	if String(karte.daten.get("art", "")) == "CAVE" and zeichen_name(tx, ty) in HOEHLENFELS: return nebel(tx, ty) == 2
+	if frei[ty * breite + tx] == 0: return false
+	var h: Vector2i = spiel.held.kachel
+	var dx := px - (h.x + 0.5); var dy := py - (h.y + 0.5)
+	var d := sqrt(dx * dx + dy * dy)
+	var f: Array = FORMEN[form]
+	if d <= maxf(2.0, float(f[1])) and float(f[1]) > 0.0: return true
+	if d > reich: return false
+	if d < 0.001: return true
+	return (dx * blick.x + dy * blick.y) / d >= float(f[0])
+
+## Leute und Monster: gezeichnet nur auf einer Kachel in Sicht (WorldScreen: fog(npc) != VISIBLE → nicht gezeichnet)
+func zeigt(t: Vector2i) -> bool:
+	return not an or nebel(t.x, t.y) == 2
+
+# ---------------------------------------------------------------- je Bild: Ziele neu, wenn der Held geht oder sich dreht, dann blenden
+func schritt(dt: float) -> void:
+	if not an or spiel.held == null: return
+	if neu_sehen(spiel.held.kachel, spiel.held.rotation.y) or neu:
+		var sw := breite * SUB
+		for ty in hoehe:
+			for tx in breite:
+				var f := nebel(tx, ty)
+				var aus := 1.0 if f == 0 else 0.5
+				var mitte: Vector2i = Vector2i(tx, ty) - spiel.held.kachel
+				var nahe := absi(mitte.x) <= int(reich) + 2 and absi(mitte.y) <= int(reich) + 2
+				for v in SUB:
+					for u in SUB:
+						var j := (ty * SUB + v) * sw + tx * SUB + u
+						var g := aus
+						if f == 2 or nahe:
+							g = 0.0 if in_sicht_punkt(tx + (u + 0.5) / SUB, ty + (v + 0.5) / SUB) else aus
+						if soll[j] != g:
+							soll[j] = g
+							aktiv[j] = true
+		if neu:   # beim Betreten sofort, ohne Blenden
+			neu = false
+			for j in aktiv: ist[j] = soll[j]
+	if aktiv.is_empty(): return
+	var schr := minf(1.0, clampf(dt * 1000.0, 0.0, 100.0) / FADE_MS * 3.0)
+	var fertig: Array = []
+	var w := breite * SUB
+	for j in aktiv:
+		var n := ist[j] + (soll[j] - ist[j]) * schr
+		if absf(soll[j] - n) < 0.01:
+			n = soll[j]; fertig.append(j)
+		ist[j] = n
+		bild.set_pixel(j % w, j / w, Color(n, n, n))
+	for j in fertig: aktiv.erase(j)
+	tex.update(bild)
