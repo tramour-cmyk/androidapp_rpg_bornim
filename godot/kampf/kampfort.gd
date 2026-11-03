@@ -906,9 +906,9 @@ func _play_say(e: Dictionary) -> void:
 			var mx: int = mars.find(id).max_hp if mars.find(id) != null else 1
 			figures[id].hurt(lands, e.hp[id] <= 0, (was - e.hp[id]) * 4 >= mx, art)
 		elif target == id and _missed(e) and across and figures[id].blockt():
-			# 406.2: gelungene Abwehr nach der Seite des Angreifers, gegen tiefe Gegner tief
+			# 406.2: gelungene Abwehr nach der Seite des Angreifers, sonst nach der Trefferhöhe seines Angriffs (Chef 09:27)
 			var af = figures.get(actor)
-			figures[id].abwehr(lands, art, af.global_position if af != null else Vector3.INF, true, af != null and af.niedrig())
+			figures[id].abwehr(lands, art, af.global_position if af != null else Vector3.INF, true, af.trefferhoehe(art) if af != null else "mitte")
 		elif target == id and _missed(e) and across:
 			# 438 (Prüfer Film r2: Klinge durch Wolf 2 ohne Treffer): wer ausweicht, ist schon weg, wenn der Hieb ankommt
 			figures[id].dodge(maxi(0, lands - AUSWEICH_VOR_MS) if lunge_ms > 0 and fx == null else lands)

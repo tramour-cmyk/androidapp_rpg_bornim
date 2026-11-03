@@ -2663,20 +2663,30 @@ var _abwehr_letzt := ""
 ## ausweichen … beim Wolf wäre das so eine Abwehr tief … oder Abwehr Mitte oder mal links, rechts … variieren … wenn der Wolf von links
 ## angreift“): die gelungene Abwehr nach der Seite, von der der Angriff kommt (im Blick des Helden; Modell: links = +X), gegen tiefe
 ## Gegner (Wolf, Ratte) tief oder Mitte; je Seite zwei von drei zur Seite, eine zur Mitte, damit es wechselt
-const PARADE_SEITE := 30.0     # Grad aus der Blickrichtung, ab denen die Parade zur Seite geht
-func _parade_liste(von: Vector3, art: String, tief: bool) -> Array:
+## 406.2 (Chef 03.11., 09:24: „die Schildabwehr oben ist halt, wenn jemand mit dem Stab von oben drauf schlägt oder mit dem Schwert.
+## Ein Wolf springt dich im Regelfall nicht von oben an, sondern springt zwar, aber trifft dich normal von vorne“; 09:27 „406.2 Parade
+## nach Trefferhöhe“, Archiv): die Parade folgt, wo der Angriff trifft (trefferhoehe des Angreifers): von der Seite links oder rechts,
+## sonst oben hoch, Mitte mittel, tief tief; gewechselt wird nur unter dem, was passt
+const PARADE_SEITE := 30.0     # Grad aus der Blickrichtung, ab denen der Angriff von der Seite kommt
+const PARADE := {"oben": ["SS_ParryHigh1", "SS_ParryHigh2"], "mitte": ["SS_BlockMedium1", "SS_BlockMedium2"], "tief": ["SS_ParryLow"]}
+func _parade_liste(von: Vector3, hoehe: String) -> Array:
 	var l := global_transform.basis.inverse() * (von - global_position)
 	var ang := rad_to_deg(atan2(l.x, l.z))
-	var mitte := "SS_ParryLow" if tief else "SS_BlockMedium1"
 	if ang > PARADE_SEITE:
-		return ["SS_ParryLeft", mitte, "SS_ParryLeft"]
+		return ["SS_ParryLeft"]
 	if ang < -PARADE_SEITE:
-		return ["SS_ParryRight", mitte, "SS_ParryRight"]
+		return ["SS_ParryRight"]
+	return PARADE.get(hoehe, PARADE["mitte"])
+
+
+## 406.2 (Chef 09:27): wo der Angriff dieser Figur trifft. Oben: Hieb eines Zweibeiners (Goblin, Grak mit der Axt), Flieger; Mitte: Sprung
+## (der Wolf trifft von vorn), Stoß; tief: Biss eines tiefen Tiers ans Bein (Wolf, Ratte, Wildschwein, Spinne)
+func trefferhoehe(art: String) -> String:
+	if fighter.monster == null or _zweibeiner() or ersatz() == "giant_bat":
+		return "oben"
 	if art == "sprung":
-		return ["SS_ParryHigh1", "SS_BlockHeavy1", "SS_ParryHigh2"]
-	if tief:
-		return ["SS_ParryLow", "SS_BlockMedium1", "SS_ParryLow", "SS_BlockMedium2"]
-	return ["SS_ParryHigh1", "SS_BlockMedium1", "SS_ParryHigh2", "SS_BlockMedium2"]
+		return "mitte"
+	return "tief" if niedrig() else "mitte"
 
 
 ## 406.2: tiefer Gegner (vierbeinig, nicht fliegend): die Parade geht tief oder zur Mitte
@@ -2688,12 +2698,12 @@ func blockt() -> bool:
 	return _ss() and not down
 
 
-func abwehr(lands_ms: int, art: String, von := Vector3.INF, gelungen := false, tief := false) -> void:
+func abwehr(lands_ms: int, art: String, von := Vector3.INF, gelungen := false, hoehe := "mitte") -> void:
 	if not _ss():
 		return
 	var liste: Array = (ABWEHR.get(art, ABWEHR["nah"]) as Array).filter(func(x): return anim.has_animation(x))
 	if gelungen and von != Vector3.INF and art != "fern":
-		var pl := _parade_liste(von, art, tief).filter(func(x): return anim.has_animation(x))
+		var pl := _parade_liste(von, hoehe).filter(func(x): return anim.has_animation(x))
 		if not pl.is_empty():
 			liste = pl
 	if liste.is_empty():
@@ -2711,7 +2721,7 @@ func abwehr(lands_ms: int, art: String, von := Vector3.INF, gelungen := false, t
 		var seite := ""
 		if von != Vector3.INF:
 			var lv := global_transform.basis.inverse() * (von - global_position)
-			seite = ", Angreifer %.0f° (links +)%s" % [rad_to_deg(atan2(lv.x, lv.z)), ", tief" if tief else ""]
+			seite = ", Angreifer %.0f° (links +), Trefferhöhe %s" % [rad_to_deg(atan2(lv.x, lv.z)), hoehe]
 		print("ABWEHR %s %s%s%s: Aufschlag in %d ms, Kontakt nach %d ms, Beginn in %d ms" % [fighter.id, nm, " gelungen" if gelungen else "", seite, lands_ms, int(k * 1000.0), vor_ms])
 	if vor_ms > 0:
 		await get_tree().create_timer(vor_ms / 1000.0).timeout
