@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [496a](entscheiden/496a-grundstand-im-durchspiel.md) | **Muss** | E Technik | 03.11., 07:46 | Sollen die abgenommenen Kampfbilder (Helden je Klasse, Atmen, Schild, Parade) schon in den Durchspiel-Build? | Team Jerry |
+Nichts offen.
 
 ## Zu billigen
 
@@ -118,9 +114,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
-| Pflege | K | von Werkzeug (340.3, 03.11.): 29360 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 03.11.): 34017 Bytes (Grenze 15000), Erledigtes streichen; Zeile 470 | startbar |
 
-**Jerry** – offen 61, Muss 49, startbar 7
+**Jerry** – offen 61, Muss 49, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -152,7 +148,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 406 | M | von Team Tom (Archiv 376.1): Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Son | wartet auf Test/Build (gebaut) |
 | 494 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; neu aufgeteilt Chef 07:54): Gegner von Kapit | startbar |
 | 507 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; aus 492): Kampforte Höhle wie alt: Eingang, | startbar |
-| 496a | M | Rückfrage: abgenommene Kampfbilder (Grundstand 461) schon in den Durchspiel-Build? | Chef (Datei in der Chefsache) |
+| 496a | M | Rückfrage: abgenommene Kampfbilder (Grundstand 461) schon in den Durchspiel-Build? | startbar |
 | 496 | M | von Perikles (Wochenziel 03.11. Reihe 5, 488): Durchspiel-Build aus 490–495: der Chef spie | wartet auf 490 (in Arbeit) |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | wartet auf Test/Build (gebaut) |
@@ -184,7 +180,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | 469 | M | von Sokrates (02.11., 11:0x, zu 406.1): Kampf auf BRS: Ring (MARS) ohne Klassen regeln (An | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
-| Pflege | K | von Werkzeug (340.3, 03.11.): 19208 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
+| Pflege | K | von Werkzeug (340.3, 03.11.): 18033 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 27, Muss 24, startbar 2
 
@@ -216,7 +212,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | wartet auf Test/Build (gebaut) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
-| Pflege | K | von Werkzeug (340.3, 03.11.): 17831 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
+| Pflege | K | von Werkzeug (340.3, 03.11.): 17481 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
 **Diogenes** – offen 10, Muss 8, startbar 3
 
@@ -277,11 +273,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 407 (Projekt)
+Nicht gestellt: 407 (Projekt), 415 (Team Jerry)
 
 Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/4474-lehrmeister-texte.md
 
-Ohne Datei: 3402 (Projekt)
+Ohne Datei: 3402 (Projekt), 275 (Projekt)
 
 ## So geht's
 
