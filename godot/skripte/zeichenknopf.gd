@@ -239,6 +239,18 @@ static func glyphe(ci: CanvasItem, g: String, o: Vector2, u: float, c: Color, an
 			zug.call([Vector2(6, 4), Vector2(16, 4), Vector2(20, 9), Vector2(11, 20), Vector2(2, 9)], true)
 			linie.call(2, 9, 20, 9); zug.call([Vector2(6, 4), Vector2(8.5, 9), Vector2(11, 20)]); zug.call([Vector2(16, 4), Vector2(13.5, 9), Vector2(11, 20)])
 			linie.call(8.5, 9, 11, 4); linie.call(11, 4, 13.5, 9)
+		"MUSIC":   # 489 wie alt (App.kt SignGlyph): zwei Noten mit Balken, Köpfe gefüllt
+			for m in [Vector2(5.75, 16.6), Vector2(15.25, 14.6)]:
+				var q := PackedVector2Array()
+				for i in 24: q.append(P.call(m.x + 2.75 * cos(TAU * i / 24), m.y + 2.1 * sin(TAU * i / 24)))
+				ci.draw_colored_polygon(q, c)
+			linie.call(8.2, 16.5, 8.2, 4.5); linie.call(17.7, 14.5, 17.7, 2.5)
+			ci.draw_line(P.call(8.2, 4.5), P.call(17.7, 2.5), c, 2.2 * u, true)
+		"SOUND":   # 489 wie alt: Lautsprecher, an mit zwei Wellen
+			zug.call([Vector2(3, 8.5), Vector2(7, 8.5), Vector2(11.5, 4.5), Vector2(11.5, 17.5), Vector2(7, 13.5), Vector2(3, 13.5)], true)
+			if an_:
+				ci.draw_arc(P.call(13, 11), 4 * u, deg_to_rad(-45), deg_to_rad(45), 12, c, w, true)
+				ci.draw_arc(P.call(14, 11), 7 * u, deg_to_rad(-50), deg_to_rad(50), 16, c, w, true)
 		"DICE":   # ein Wuerfel mit drei Augen: Zufall, Eroeffnung
 			zug.call([Vector2(4, 4), Vector2(18, 4), Vector2(18, 18), Vector2(4, 18)], true)
 			punkt.call(Vector2(7.5, 7.5), 1.4); punkt.call(Vector2(11, 11), 1.4); punkt.call(Vector2(14.5, 14.5), 1.4)
