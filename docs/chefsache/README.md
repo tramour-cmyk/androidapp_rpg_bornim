@@ -189,12 +189,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 15896 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 30, Muss 27, startbar 2
+**Perikles** – offen 30, Muss 27, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 512 | M | von Sokrates (Hinweis 03.11., 07:45, zu 488): vor jeder Testbitte berührte Schirme alt geg | wartet auf Test/Build (gebaut) |
-| 513.1 | M | von Sokrates (Chef 03.11., 15:56, „513 B“, Archiv; „jetzt“ 03.11., 15:56): probelauf.py lä | startbar |
+| 513.1 | M | von Sokrates (Chef 03.11., 15:56, „513 B“, Archiv; „jetzt“ 03.11., 15:56): probelauf.py lä | wartet auf Test/Build (gebaut) |
 | 511 | M | von Sokrates (Chef 03.11., 13:50, „511 ja“, Archiv; „jetzt“ 03.11., 13:50): probelauf.py s | wartet auf Test/Build (gebaut) |
 | 502 | M | von Sokrates (Chef 03.11., 07:28; Zu 502): Nebel des Krieges und Sichtfeld des Helden in „ | wartet auf Test/Build (gebaut) |
 | 488 | M | von Sokrates (Chef 03.11., 06:44, „488 ja“, Archiv 488; „jetzt“ 03.11., 06:44): Wochenziel | wartet auf Test/Build (gebaut) |
@@ -224,10 +224,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 16124 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Diogenes** – offen 9, Muss 7, startbar 0
+**Diogenes** – offen 10, Muss 8, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 513.1 | M | von Perikles (Doppelpack 421, 03.11., 16:1x, 45351ef1d): probelauf.py hält Probeläufe an, | startbar |
 | 512 | M | von Perikles (Doppelpack 421, 03.11., 16:0x, e823b0ee7): Abgleich alt/neu vor jeder Testbi | wartet auf Eingang |
 | 511 | M | von Perikles (Doppelpack 421, 03.11., 14:0x, d6d9eca8c): Filmsperre probelauf.py am ersten | wartet auf Eingang |
 | 340.2 | M | von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv): Wirkung 340.3–340.5 zählen (Tabelle | ruht bis 09.11. |
