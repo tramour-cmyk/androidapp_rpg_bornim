@@ -69,6 +69,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht: SRD (Chef 31.10.) | – |
 | 469 | M | **von Sokrates:** Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 406.1 | – |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht: Klang zieht nach Godot; Rest `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
+| Pflege | K | **von Werkzeug (340.3, 03.11.):** 15064 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 ## Einzelheiten
 
