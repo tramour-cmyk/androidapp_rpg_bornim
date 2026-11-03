@@ -198,6 +198,21 @@ func in_sicht_punkt(px: float, py: float) -> bool:
 	if d < 0.001: return true
 	return (dx * blick.x + dy * blick.y) / d >= float(f[0])
 
+## bilinear zwischen den Kachelmitten (ausserhalb der Karte: 1)
+func weich(kw: PackedFloat32Array, x: float, y: float) -> float:
+	var ix := floori(x); var iy := floori(y)
+	var fx := x - ix; var fy := y - iy
+	return (kw_bei(kw, ix, iy) * (1.0 - fx) + kw_bei(kw, ix + 1, iy) * fx) * (1.0 - fy) + (kw_bei(kw, ix, iy + 1) * (1.0 - fx) + kw_bei(kw, ix + 1, iy + 1) * fx) * fy
+
+func kw_bei(kw: PackedFloat32Array, tx: int, ty: int) -> float:
+	return kw[ty * breite + tx] if tx >= 0 and ty >= 0 and tx < breite and ty < hoehe else 1.0
+
+## fuer den Bildlauf (--nebel): alles vergessen, wie beim ersten Betreten
+func vergiss() -> void:
+	erkundet.fill(0)
+	schluessel = ""
+	neu = true
+
 ## Leute und Monster: gezeichnet nur auf einer Kachel in Sicht (WorldScreen: fog(npc) != VISIBLE → nicht gezeichnet)
 func zeigt(t: Vector2i) -> bool:
 	return not an or nebel(t.x, t.y) == 2
@@ -206,19 +221,28 @@ func zeigt(t: Vector2i) -> bool:
 func schritt(dt: float) -> void:
 	if not an or spiel.held == null: return
 	if neu_sehen(spiel.held.kachel, spiel.held.rotation.y) or neu:
-		var sw := breite * SUB
+		# je Kachel 1 nie gesehen, sonst 0,5; die Teile dazwischen weich aus den vier naechsten Kachelmitten (drawFog: weiche Kanten,
+		# Lauf 1 zeigte harte Rautenkanten), in Sicht 0 mit der Kegelkante als Linie (13e)
+		var kw := PackedFloat32Array(); kw.resize(breite * hoehe)
 		for ty in hoehe:
-			for tx in breite:
+			for tx in breite: kw[ty * breite + tx] = 1.0 if nebel(tx, ty) == 0 else 0.5
+		var sw := breite * SUB
+		# nur um den Helden aendert sich etwas (Sicht bis reich, die weiche Kante eine Kachel weiter); beim Betreten alles
+		var r := int(reich) + 4
+		var h: Vector2i = spiel.held.kachel
+		for ty in range(0 if neu else maxi(0, h.y - r), hoehe if neu else mini(hoehe, h.y + r + 1)):
+			for tx in range(0 if neu else maxi(0, h.x - r), breite if neu else mini(breite, h.x + r + 1)):
 				var f := nebel(tx, ty)
-				var aus := 1.0 if f == 0 else 0.5
-				var mitte: Vector2i = Vector2i(tx, ty) - spiel.held.kachel
+				var mitte: Vector2i = Vector2i(tx, ty) - h
 				var nahe := absi(mitte.x) <= int(reich) + 2 and absi(mitte.y) <= int(reich) + 2
 				for v in SUB:
 					for u in SUB:
 						var j := (ty * SUB + v) * sw + tx * SUB + u
-						var g := aus
-						if f == 2 or nahe:
-							g = 0.0 if in_sicht_punkt(tx + (u + 0.5) / SUB, ty + (v + 0.5) / SUB) else aus
+						var px := tx + (u + 0.5) / SUB
+						var py := ty + (v + 0.5) / SUB
+						var g := 0.0
+						if not ((f == 2 or nahe) and in_sicht_punkt(px, py)):
+							g = weich(kw, px - 0.5, py - 0.5)
 						if soll[j] != g:
 							soll[j] = g
 							aktiv[j] = true

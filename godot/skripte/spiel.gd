@@ -1593,9 +1593,10 @@ func wald_bilder() -> void:
 	print("WALDBILDER fertig")
 	get_tree().quit()
 
-# 505 Sichtfeld zur Wahl (Chef 07:30, vor dem Bau als Vorlage): --nebel=<ordner> geht vom Waldrand den Weg hinauf (Gesehenes bleibt
-# gedaempft) und knipst an derselben Stelle je Form (Nebel.FORMEN: kegel = alt 160° plus Kreis, breit = 240° plus Kreis, kreis = rundum),
-# dazu alt bei Nacht; Monster ruhig
+# 505 Sichtfeld zur Wahl (Chef 07:30, vor dem Bau als Vorlage): --nebel=<ordner> knipst je Form (Nebel.FORMEN: kegel = alt 160° plus
+# Kreis, breit = 240° plus Kreis, kreis = rundum) dieselbe Stelle auf der grossen Lichtung, frisch betreten (alles andere nie gesehen),
+# Blick nach Westen; dann alt nach dem Weg vom Waldrand herauf (Gesehenes bleibt gedaempft), alt bei Nacht; Monster ruhig.
+# Lauf 1 (Pruefer 09:10): nach dem Weg herauf unterschieden sich die Formen kaum (vorn sehen alle gleich, hinten war schon gesehen)
 func nebel_bilder() -> void:
 	var dir := ""
 	for a in OS.get_cmdline_user_args():
@@ -1605,24 +1606,29 @@ func nebel_bilder() -> void:
 	ui.mess.visible = false
 	ui.oben.visible = false
 	zustand.minuten = 10 * 60
-	betrete("forest", Vector2i(9, 29), "UP")
+	betrete("forest", Vector2i(11, 8), "LEFT")
 	if herde: herde.aus = true
 	await get_tree().create_timer(1.0).timeout
-	for y in range(29, 17, -1):   # der Weg nach Norden, Kachel fuer Kachel
-		held.setze(Vector2i(9, y), "UP"); kamera.springe()
-		await get_tree().create_timer(0.25).timeout
-	held.setze(Vector2i(9, 18), "UP")
 	for f in ["kegel", "breit", "kreis"]:
 		Nebel.form = f
+		nebel.vergiss()
+		held.setze(Vector2i(11, 8), "LEFT"); kamera.springe()
 		await get_tree().create_timer(1.2).timeout
 		ui.textfeld.visible = false
 		await knips("%s/form_%s.png" % [dir, f])
 	Nebel.form = "kegel"
+	nebel.vergiss()
+	for y in range(29, 17, -1):   # der Weg nach Norden, Kachel fuer Kachel
+		held.setze(Vector2i(9, y), "UP"); kamera.springe()
+		await get_tree().create_timer(0.25).timeout
+	await get_tree().create_timer(1.0).timeout
+	ui.textfeld.visible = false
+	await knips("%s/kegel_gegangen.png" % dir)
 	licht.umschalten()
 	zustand.minuten = 23 * 60
 	await get_tree().create_timer(2.5).timeout
 	ui.textfeld.visible = false
-	await knips("%s/form_kegel_nacht.png" % dir)
+	await knips("%s/kegel_nacht.png" % dir)
 	print("NEBELBILDER fertig")
 	get_tree().quit()
 
