@@ -15,30 +15,30 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 467 | M | **von Sokrates (Chef 01.11., 21:52):** `regeln/ausdauer.gd` rechnet nach SRD; BRS: Ausdauer aus Zähigkeit, Wille, Stufe; nach der Formel aus 427 umstellen | wartet auf Sokrates: Formel Ausdauer fehlt in 427 (Hinweis Beratung) | – |
 | 438 | M | **von Sokrates (Chef 31.10., 23:31, Film 403):** Wölfe gleiten (Angriff, Tempo, aneinander vorbei); echte Schritte, Zahlen (Zu 438) | gebaut: wolf_mess_438 grün (Zu 438) | `claude/jerry-438-wolf-kampf` |
 | 457.2 | M | **von Perikles (Chef 01.11., 11:49):** Probeskripte zeichnen standardmäßig mit Toon-Licht, Tusche, Schatten | gebaut e87815dc8, fährt mit den nächsten Filmen | `claude/jerry-457-2-signatur` |
-| 453.1 | M | **von Sokrates:** Helden im Kampf atmen ruhiger, je Figur eigener Takt | wartet auf Test: Build 245 (t245) | – |
-| 453 | M | **von Sokrates:** Ruhebewegungen der Wölfe | wartet auf Test: Build 245 (t245) | – |
-| 453a | M | Wolfsatem B | wartet auf Test: Build 245 (t245) | – |
-| 454 | M | **von Sokrates:** Bissachse des Wolfs | wartet auf Test: Build 245 (t245) | – |
+| 453.1 | M | **von Sokrates:** Helden im Kampf atmen ruhiger, je Figur eigener Takt | wartet auf Test: t248 | – |
+| 453 | M | **von Sokrates:** Ruhebewegungen der Wölfe | wartet auf Test: t248 | – |
+| 453a | M | Wolfsatem B | wartet auf Test: t248 | – |
+| 454 | M | **von Sokrates:** Bissachse des Wolfs | wartet auf Test: t248 | – |
 | 438a | M | **von Sokrates (438a):** Hinfallen und Aufstehen des Kaufhelden, Waffe und Schild frei | ruht: eingefroren (488); Klinge quer im Kleid, Hand ruckt; im Spiel aus | `claude/jerry-438a-sturz-2` |
-| 439 | M | **von Sokrates:** Reihenfolge Angriff, Treffer, Tod, Neuformation | wartet auf Test: Build 245 (t245) | – |
-| 440 | M | **von Sokrates:** Wolf-Tod zu schnell weg | wartet auf Test: Build 245 (t245) | – |
+| 439 | M | **von Sokrates:** Reihenfolge Angriff, Treffer, Tod, Neuformation | wartet auf Test: t248 | – |
+| 440 | M | **von Sokrates:** Wolf-Tod zu schnell weg | wartet auf Test: t248 | – |
 | 416.6 | M | **von Sokrates:** Spuren (`core/Tracks.kt`): Blut, Staub, Fußspuren | wartet auf Perikles: Probebild nur auf dem Bauserver (511); mit 416.4 b31b7a85d lokal gut | `claude/jerry-416-6-blut` |
-| 415 | M | **von Sokrates:** Probe Beams Free Sample im Kampfort; nichts kaufen | wartet auf Test: Build 245 (t245) | – |
+| 415 | M | **von Sokrates:** Probe Beams Free Sample im Kampfort; nichts kaufen | wartet auf Test: t248 | – |
 | 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34):** Kampfort aufrufbar | wartet auf Test: Build 146 (ansehen/t146-befunde.md; Befunde als 416.x) | `claude/jerry-348-kampf` |
-| 403 | M | **von Team Tom:** Kampfort: Held je Klasse wie im Dorf | wartet auf Test: Build 245 (t245) | – |
+| 403 | M | **von Team Tom:** Kampfort: Held je Klasse wie im Dorf | wartet auf Test: t248 | – |
 | 461.1 | M | **von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461):** Grundstand mit Tom: Kampfort, Wölfe, Helden (`LISTE-GRUNDSTAND-461.md`); vor 460 und 406.1 | ruht: nach dem Durchspielen (488) | `claude/grundstand-461` |
 | 460 | M | **von Sokrates (Chef 01.11., 20:2x, Archiv 460):** Probefilm Kamerafahrten: Eröffnung je Blende (402), kurze Wechsel nur ohne Eingabe | ruht: nach dem Durchspielen (488, Wochenziel 03.11.) | – |
 | 406.1 | M | **von Sokrates (406.1):** Schildstoß ins MARS/BRS, Bau mit `ShieldAttack1–3S&S` | wartet auf 481 (Herkünfte): Bedingung Chef 11:21 mit Werten 427 nicht erfüllt (Zu 427.1) | – |
-| 489 | M | **von Sokrates:** Hauptmenü: Schalter Musik und Effekte wie alt | wartet auf Test: Build 245 (t245) | – |
+| 489 | M | **von Sokrates:** Hauptmenü: Schalter Musik und Effekte wie alt | wartet auf Test: t248 | – |
 | 406.2a | M | **von Sokrates:** Angriffsweg im Kampf mit UAL-Rennen wie im Dorf, alle Waffen (Zu 406.2a) | wartet auf Perikles: Probebild nur auf dem Bauserver (511); Messlauf 246 (Zu 406.2a) | `claude/jerry-406-2a-rennen` |
 | 406.2 | M | **von Sokrates (Chef 03.11., 06:59, „jetzt“; Zu 406.2):** im Kampf zum Angriff gehen statt rennen, Parade mit Schild je Richtung; ein Lauf, dann eingefroren (488) | gebaut: Parade nach Trefferhöhe, nächster Build; Geprüft an: 9bb94fd69 | – |
-| 406 | M | **von Team Tom:** Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Sonne | wartet auf Test: Build 245 (t245) | – |
+| 406 | M | **von Team Tom:** Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Sonne | wartet auf Test: t248 | – |
 | 510 | M | **von Sokrates:** Fledermaus: freies OGA-Modell „Vampire Bat“ (CC0) mit unseren Fellen neben der eigenen, Film, Chef wählt (Zu 510) | wartet auf Perikles: Probebild nur auf dem Bauserver (511); Lauf 243: Runner abgeschaltet (Zu 510) | `claude/jerry-494-gegner` |
 | 509 | M | **von Sokrates (Chef 03.11., 09:21):** Frösche und Libellen an den Teichen wie alt (`PondLife.kt`, `PondSound.kt`; O6, W22) | wartet auf Perikles: Probebild nur auf dem Bauserver (511); Film kaputt, aus der Chefsache (Chef 13:49) | `claude/jerry-509-teich` |
 | 494 | M | **von Perikles (Wochenziel 03.11. Reihe 3, 488):** Gegner von Kapitel 1 im Kampf (Liste und Stand Zu 494), je Gegner höchstens ein Lauf; 348.12 Goblin geht hierin auf | wartet auf 511: alle Gegner außer Fledermaus (510) gebaut, Bilder ungeprüft; zuletzt Netzwurf 6a155992b, Ratte, Fledermaus, Spinne allein f0f9ea09d (Zu 494) | `claude/jerry-494-gegner` |
 | 517 | M | **von Team Tom (03.11., 16:3x, Abgleich 512):** Waldklang wie alt: Vögel am Tag, Eule und Grillen nachts, fernes Wolfsheulen im Tiefen Wald (`WildSound.kt`; `klang.gd` hat nur Wind, Feuer, Fluss, Dorftiere), steht in t248 als bekannt | gebaut: fährt im nächsten Build; Geprüft an: c12991504 (klang_test) | `claude/jerry-517-waldklang` |
 | 507 | M | **von Perikles (Wochenziel 03.11. Reihe 3, 488; aus 492):** Kampforte Höhle wie alt: Eingang, Gang, Halle, Teich, Lager (Orte O10); die Höhle als Ort baut Tom (492) | startbar: ein Lauf frei (Sokrates 20:2x, Archiv), Probebild nach 511a | `claude/jerry-507-hoehle` |
-| 496a | M | Rückfrage: abgenommene Kampfbilder schon in den Durchspiel-Build? | wartet auf Test: Build 245 (t245) | – |
+| 496a | M | Rückfrage: abgenommene Kampfbilder schon in den Durchspiel-Build? | wartet auf Test: t248 | – |
 | 496 | M | **von Perikles (Wochenziel 03.11. Reihe 5, 488):** Durchspiel-Build aus 490–495: der Chef spielt Kapitel 1 von Anfang bis Ende am Handy | wartet auf 490, 491, 492, 493, 494, 495, 506, 507 | – |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: Feintuning nach 399 (Hühner hoppeln, Rind 78 s Fleck, 150°-Sprung) |
 | 348.12f | M | **von Sokrates (348.12c b):** gekaufte Riesenratte, unsere Haut | gebaut f77f2740e: Kaufratte und -wolf verschlüsselt im APK | `claude/jerry-348-kampf` |
