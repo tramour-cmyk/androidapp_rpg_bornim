@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 488 | M | **von Sokrates (Chef 03.11., 06:44, „488 ja“, Archiv 488; „jetzt“ 03.11., 06:44):** Wochenziel nach Durchspielbarkeit von Kapitel 1 ordnen: was fehlt, damit der Chef Kapitel 1 einmal ganz durchspielt (Orte, Kämpfe, Geschichte, Build); Feinarbeit am Aussehen eingefroren bis danach, Mängelliste „nach dem Durchspielen“ | startbar (Ausnahme zu 468a: Chefwort) | – |
 | D67.1 | M | **von Diogenes (Doppelpack 421, Lauf 65, 02.11., 19:4x):** `meldung.sh` lässt „K1“, Kürzel vor Bindestrich („HP-Balken“), „s. o.“, „u.U.“ durch; „OK“, „JPG“, „GIF“ und Beispiele in „…“ halten an (`PRUEFBERICHT.md` Lauf 65) | gebaut 02.11., 19:5x, Geprüft an: 05c8828c5; Diogenes geprüft (Lauf 68): behoben, neuer Fehlalarm D69.1 |
 | D69.1 | M | **von Diogenes (Doppelpack 421, Lauf 68, 02.11., 20:0x):** `meldung.sh` hält seit D67.1 Dateinamen ohne Backticks an („DESIGN-SPIELSYSTEM-2-0-ENTWURF.md“ → „DESIGN“, „ARBEIT-…“, „LISTE-…“); echte Meldung 447.4 von 19:3x ginge nicht mehr durch (`PRUEFBERICHT.md` Lauf 68) | gebaut 02.11., 20:0x, Geprüft an: 45468a5d7; Diogenes prüft |
 | D70.1 | M | **von Diogenes (Doppelpack 421, Lauf 68, zu 461b):** Archiv 480 und 415c tragen „→ ersetzt durch 480.1“ ohne „teils“, gelten aber bis auf die Freigabe weiterer Läufe weiter (wie 396 „teils ersetzt“) (`PRUEFBERICHT.md` Lauf 68) | gebaut 02.11., 20:0x, Geprüft an: 45468a5d7; Diogenes prüft |
