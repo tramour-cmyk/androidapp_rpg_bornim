@@ -292,6 +292,7 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/kampforte_493.gd 2>&1 | grep -E "FALSCH|KAMPFORTE493|Kampforte|SCRIPT ERROR"   # 493 Kampforte im Wald
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/hoehle_507.gd 2>&1 | grep -E "FALSCH|HOEHLE507|SCRIPT ERROR"   # 507 Kampforte der Höhle
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/hoehle_bau_507.gd 2>&1 | grep -E "FALSCH|HOEHLEBAU507|SCRIPT ERROR"   # 507 Bau je Ort
+          set -o pipefail; OHNE_ALT=1 ORT=hoehle PLATZ=halle timeout 300 ~/godot/godot --headless --path . -s res://tests/ansage_507.gd 2>&1 | grep -E "ANSAGE507|Strich von|SCRIPT ERROR"   # 507 Ansage mit Strich (Prüfer Lauf 247)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_470.gd 2>&1 | grep -E "FALSCH|BRS470|SCRIPT ERROR"   # 470 Erschaffung BRS 1.1
           timeout 120 ~/godot/godot --headless --path . -s res://tests/testmenue_470.gd 2>&1 | grep -E "FEHLER|TESTMENUE470"   # 470a B: Erschaffung BRS nur im Testmenue
       # fester Schluessel ueber alle Laeufe, sonst lehnt Android das Update ab (348.5, Build 9). 399.1a (Chef 28.10., 14:41): der Cache

@@ -1503,15 +1503,25 @@ func _draw_intents(sr: Rect2) -> void:
 		# 438 (Prüfer Film r2: Ansagen springen über und unter, 21,6–25 s): der Platz vom letzten Bild bleibt, solange er frei ist;
 		# erst wenn nicht, wird neu gesucht (sonst wechselte es mit jedem Schritt eines Nachbarn hin und her)
 		var alt = sign_wahl.get(s.id)
+		var ohne_alt = null     # 507: der alte Platz ohne Strich, falls nirgends einer mit Strich frei ist
 		if alt != null and alt[0] < spots.size():
 			var q: Vector2 = spots[alt[0]] if alt[0] >= 0 else Vector2(s.x, s.y + alt[2])
-			if q.y >= 34 * dp and q.y + s.h <= sr.size.y - 4 * dp and not clash.call(Rect2(q.x, q.y, s.w, s.h), alt[1]):
+			var rq := Rect2(q.x, q.y, s.w, s.h)
+			if q.y >= 34 * dp and q.y + s.h <= sr.size.y - 4 * dp and not clash.call(rq, alt[1]):
 				x = q.x
 				y = q.y
 				done = true
 				s.stroke = alt[1]
+				# 507 (Prüfer Lauf 247: Ansage des braunen Wolfs links ohne Strich, obwohl der Strich dort frei lief): einmal ohne
+				# Strich gewählt (etwa beim Aufstellen), blieb es so, solange der Platz frei war; ohne Strich nur, solange keiner geht
+				if not alt[1] and not clash.call(rq, true):
+					s.stroke = true
+					sign_wahl[s.id] = [alt[0], true, alt[2]]
+				elif not alt[1]:
+					ohne_alt = q
+					done = false
 		# erst mit freiem Strich; geht das nirgends, lieber ohne Strich als auf einem anderen (Prüfer Runde 5: Schild auf dem grauen)
-		for strict in ([] if done else [true, false]):
+		for strict in ([] if done else ([true] if ohne_alt != null else [true, false])):
 			for qi in spots.size():
 				var q: Vector2 = spots[qi]
 				# Runde 16: unter den Pfoten ragte es unten ins Bedienfeld (abgeschnitten); nur ganz in der Szene
@@ -1534,6 +1544,10 @@ func _draw_intents(sr: Rect2) -> void:
 			if done:
 				s.stroke = strict
 				break
+		if not done and ohne_alt != null:     # 507: keiner mit Strich frei, der alte ohne bleibt (springt nicht)
+			x = ohne_alt.x
+			y = ohne_alt.y
+			s.stroke = false
 		# 438: ein neuer Platz wird angefahren (gut 0,1 s), nicht gesprungen
 		var fuss := Vector2(s.fx, s.foot)
 		var ziel := fuss + _gleiten("ansage:" + String(s.id), Vector2(x, y) - fuss)     # am eigenen Fußpunkt, sonst hinkt es dem Laufenden nach
