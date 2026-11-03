@@ -1,6 +1,6 @@
 # Lehrmeister, Kapitel 1 (Entwurf)
 
-Entwurf Homer, 01.11.; Vorgang 447.4, Besetzung entschieden in 447.4a (Vorgangsarchiv). Abnahmeliste Stufe 3: Pfad und Lehrmeister (3.1), Meisterschaften (3.2) und Ruf (3.3) in `STORY-RUF-K1.md`. Quellen: Nachschlagewerk `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md` Abschnitte 5, 6; Figuren `LISTE-FIGUREN.md`. Englische Begriffe nach `[423.namen]`. Fremd geprüft 01.11. Prüfpunkte: `docs/chefsache/ansehen/4474-lehrmeister-texte.md`.
+Entwurf Homer, 01.11.; Vorgang 447.4, Besetzung entschieden in 447.4a (Vorgangsarchiv). Abnahmeliste Stufe 3: Pfad und Lehrmeister (3.1), Meisterschaften (3.2) und Ruf (3.3) in `STORY-RUF-K1.md`. Quellen: Nachschlagewerk `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md` Abschnitte 5, 6; Figuren `LISTE-FIGUREN.md`. Englische Begriffe nach `[423.namen]`. Fremd geprüft 01.11.; Befunde Sokrates und Diogenes (02.11.) eingearbeitet 03.11. Vorlage: `docs/chefsache/entscheiden/4474-lehrmeister.md`. **Varianten (504):** jede Zeile, die man wiederholt hört (`…frage`, `…beide`, `…nein`, `…hinweis`, `…grenze`), bekommt nach der Vorlage drei Wortlaute, vor dem Bau.
 
 ## Für Tom
 
@@ -9,7 +9,7 @@ Entwurf Homer, 01.11.; Vorgang 447.4, Besetzung entschieden in 447.4a (Vorgangsa
 - **Pfad und Meisterschaft zugleich** (Garrick, Morwen): erst der Pfad, die Meisterschaft im nächsten Gespräch.
 - **„Noch nicht.“:** der Lehrmeister fragt nicht von selbst wieder; im Gespräch bleibt die Wahl `[447.4.wahl.pfad]` oder `[447.4.wahl.handwerk]`, sie führt wieder zu `…frage`.
 - **Anwärter** (Pfad und Meisterschaft, NW 6 „genauso“): nach `…ja` die Systemzeile `[447.4.sys.anwaerter]`; danach in jedem Gespräch einmal `…hinweis` vor seinem üblichen Text.
-- **Grenze in Kapitel 1:** stehen alle Kernfertigkeiten (bei Meisterschaften beide Fertigkeiten) am Ende von Geselle (49), sagt er statt `…hinweis` die Zeile `…grenze` (Zwischenprüfung erst ab Kapitel 2, NW 5).
+- **Grenze in Kapitel 1:** stehen alle Kernfertigkeiten (bei Meisterschaften beide Fertigkeiten) am Ende von Geselle (49), sagt er statt `…hinweis` die Zeile `…grenze` (Weihe erst ab Kapitel 2, NW 5).
 - **Schon ein Pfad:** bei einem anderen Lehrmeister vor `…frage` die Zeile `[447.4.wechsel]`, beim selben `[447.4.wechsel.selbst]`; nach „Ja.“ die Systemzeile `[447.4.sys.wechsel]` mit eigener Bestätigung.
 - `{name}` Held, `{weg}` Name des Pfads oder der Meisterschaft, `{rezept}` Rezeptname aus dem Katalog.
 
@@ -23,14 +23,14 @@ Entwurf Homer, 01.11.; Vorgang 447.4, Besetzung entschieden in 447.4a (Vorgangsa
 `[447.4.sys.rezept]` Neues Rezept: {rezept}. / EN: New recipe: {rezept}.
 `[447.4.wechsel]` Du gehst schon bei einem anderen in die Lehre. Ich nehme dich trotzdem, wenn du willst. / EN: You're already learning under someone else. I'll take you anyway, if you want.
 `[447.4.wechsel.selbst]` Du gehst bei mir schon den anderen Weg. Willst du wechseln? / EN: You're already walking the other path with me. Do you want to switch?
-`[447.4.sys.wechsel]` Du gibst den Pfad {weg} auf. Seine Handlungen gehen verloren, seine Kernfertigkeiten fallen um einen Rang. Wirklich wechseln? / EN: You give up the {weg} path. Its actions are lost and its core skills drop one rank. Switch anyway?
+`[447.4.sys.wechsel]` Du gibst den Pfad {weg} auf. Seine Fähigkeiten gehen verloren, seine Kernfertigkeiten fallen um einen Rang. Wirklich wechseln? / EN: You give up the {weg} path. Its abilities are lost and its core skills drop one rank. Switch anyway?
 
 ## Pfade (3.1)
 
 ### Wache Jorin · Wächter (Schild, Schwere Rüstung)
 
-`[447.4.jorin.ruf]` Du stehst wie einer, der Schläge eingesteckt hat und nicht umgefallen ist. Das lernt man nicht in der Schänke. / EN: You stand like someone who's taken blows and stayed on his feet. You don't learn that at the inn.
-`[447.4.jorin.frage]` Ein Wächter weicht nicht. Er hält, damit die anderen leben. Willst du Wächter werden? / EN: A Warden doesn't give ground. He holds, so the others live. Do you want to become a Warden?
+`[447.4.jorin.ruf]` Du stehst wie einer, der Schläge eingesteckt hat und nicht umgefallen ist. Das lernt man nicht in der Schänke. / EN: You stand like someone who's taken blows and stayed standing. You don't learn that at the inn.
+`[447.4.jorin.frage]` Ein Wächter weicht nicht. Er hält, damit die anderen leben. Willst du Wächter werden? / EN: A Warden doesn't give ground. A Warden holds, so the others live. Do you want to become a Warden?
 `[447.4.jorin.ja]` Gut. Ab heute bist du mein Anwärter. Ich steh hier am Schlagbaum, Tag und Nacht. / EN: Good. From today you're my Aspirant. I'm here at the barrier, day and night.
 `[447.4.jorin.hinweis]` Lass sie zuschlagen und halt stand. Ein Schild, der nie getroffen wird, lehrt dich nichts. / EN: Let them strike and hold your ground. A shield that's never hit teaches you nothing.
 `[447.4.jorin.nein]` Auch recht. Ich steh hier, falls du es dir anders überlegst. / EN: Fair enough. I'm here if you change your mind.
@@ -38,7 +38,7 @@ Entwurf Homer, 01.11.; Vorgang 447.4, Besetzung entschieden in 447.4a (Vorgangsa
 
 ### Bruder Osric · Heiler (Heilmagie, Schutzmagie, Heilkunde) und Paladin (Schild, Einhänder, Heilmagie)
 
-`[447.4.osric.heiler.ruf]` Ich habe gesehen, wie du Wunden versorgst und dich schützt. Du hast ein Gespür dafür, {name}. / EN: I've seen how you tend wounds and shield yourself. You have a feel for it, {name}.
+`[447.4.osric.heiler.ruf]` Ich habe gesehen, wie du Wunden versorgst. Du hast ein Gespür dafür, {name}. / EN: I've seen how you tend wounds. You have a feel for it, {name}.
 `[447.4.osric.heiler.frage]` Willst du Heiler werden? Es ist ein stiller Weg. Dank bekommt man selten. / EN: Do you want to become a Healer? It's a quiet path. Thanks are rare.
 `[447.4.osric.paladin.ruf]` Du weichst nicht zurück, und du gibst nicht auf. So fängt ein Paladin an. / EN: You don't back down, and you don't give up. That's how a Paladin begins.
 `[447.4.osric.paladin.frage]` Willst du Paladin werden? Dann trägst du das Licht nicht nur, du verteidigst es. Und die Leute müssen dir trauen können. / EN: Do you want to become a Paladin? Then you don't just carry the light, you defend it. And people must be able to trust you.
@@ -58,7 +58,7 @@ Entwurf Homer, 01.11.; Vorgang 447.4, Besetzung entschieden in 447.4a (Vorgangsa
 `[447.4.garrick.beide]` Bogen und Wild oder Auge und Ziel. Beides kannst du. Was willst du werden? (Antworten: Waldläufer. / Scharfschütze. / Noch nicht.) / EN: Bow and beast, or eye and mark. You can do both. Which will it be? (Ranger. / Marksman. / Not yet.)
 `[447.4.garrick.ja]` Gut. Am Feuer ist Platz. / EN: Good. There's room by the fire.
 `[447.4.garrick.waldlaeufer.hinweis]` Nicht jedes Tier muss sterben. Sprich mit ihm, bevor du den Bogen spannst. Und was du erlegst, zerleg sauber. / EN: Not every beast has to die. Talk to it before you draw the bow. And whatever you kill, butcher it cleanly.
-`[447.4.garrick.schuetze.hinweis]` Halt still und schau, bevor du schießt. Wer zuerst sieht, schießt zuerst. Und lern werfen; ein Messer ist schneller zur Hand als ein Pfeil. / EN: Keep still and look before you shoot. Whoever sees first shoots first. And learn to throw; a knife is quicker to hand than an arrow.
+`[447.4.garrick.schuetze.hinweis]` Halt still und schau, bevor du schießt. Wer zuerst sieht, schießt zuerst. Und lern werfen; nicht immer ist Zeit, den Bogen zu spannen. / EN: Keep still and look before you shoot. Whoever sees first shoots first. And learn to throw; there isn't always time to draw a bow.
 `[447.4.garrick.nein]` Auch gut. Das Feuer brennt trotzdem. / EN: That's fine too. The fire burns all the same.
 `[447.4.garrick.grenze]` Mehr geht hier nicht. Wenn du weiter draußen warst als dieser Wald, prüf ich dich. / EN: This is as far as it goes here. Once you've been further out than these woods, I'll test you.
 
@@ -75,7 +75,7 @@ Entwurf Homer, 01.11.; Vorgang 447.4, Besetzung entschieden in 447.4a (Vorgangsa
 
 `[447.4.morwen.magier.ruf]` Na sieh an. Du rufst, und es kommt. Und nicht nur auf eine Weise. / EN: Well, well. You call, and it comes. And not in just one way.
 `[447.4.morwen.magier.frage]` Ich weiß mehr davon, als ich im Dorf erzähle. Willst du Magier werden? / EN: I know more of this than I tell in the village. Do you want to become a Mage?
-`[447.4.morwen.kriegsmagier.ruf]` Du kämpfst wie einer, der mehr will als Eisen. Das sieht man selten, und meistens nicht lange. / EN: You fight like someone who wants more than iron. You rarely see that, and usually not for long.
+`[447.4.morwen.kriegsmagier.ruf]` Du kämpfst leicht und schnell, nicht wie die Eisenköpfe aus dem Dorf. Daraus lässt sich etwas machen. / EN: You fight light and fast, not like the ironheads from the village. Something can be made of that.
 `[447.4.morwen.kriegsmagier.frage]` Willst du Kriegsmagier werden? Dann lass das Eisen vom Leib. Leder, nicht mehr. / EN: Do you want to become a Battlemage? Then keep iron off your body. Leather, nothing more.
 `[447.4.morwen.beide]` Zwei Türen, {name}. Die eine führt tiefer in die Kunst, die andere mitten in den Kampf. Welche? (Antworten: Magier. / Kriegsmagier. / Noch nicht.) / EN: Two doors, {name}. One leads deeper into the craft, the other into the thick of the fight. Which? (Mage. / Battlemage. / Not yet.)
 `[447.4.morwen.ja]` Gut. Dann komm ans Feuer, Anwärter. Hier draußen hört uns keiner. / EN: Good. Then come to the fire, Aspirant. No one hears us out here.
@@ -88,5 +88,5 @@ Entwurf Homer, 01.11.; Vorgang 447.4, Besetzung entschieden in 447.4a (Vorgangsa
 
 - **Erstes Rezept beim Ja** (`[447.4.sys.rezept]`; die `…ja`-Zeilen von Morwen, Garrick, Rowena reichen etwas): das Nachschlagewerk sagt nur „Rezepte gibt es bei Lehrmeistern“ (NW 10), 3.2 „je ein Rezept“. Ob das Rezept mit dem Ja kommt, entscheidet Perikles mit 3.2; sonst entfallen die Systemzeile und der Halbsatz nach dem Punkt.
 - **Aufgaben des Lehrmeisters** (NW 5 „Hinweise und Aufgaben“): hier nur Hinweise. Aufgaben mit Lohn wären Quests mit Regelwirkung; Texte erst, wenn sie festgelegt sind.
-- **Wechsel als Anwärter in Kapitel 1:** ob die Kernfertigkeiten auch dann um einen Rang fallen, legt das Nachschlagewerk nicht fest (Sokrates).
+- **Wechsel als Anwärter in Kapitel 1:** das Nachschlagewerk (Pfade, „Wechseln“) zieht immer einen Rang ab; Sokrates rät, in Kapitel 1 ohne Abschlag (Chefsache 447.4 Punkt 2). `[447.4.sys.wechsel]` folgt der Antwort.
 - **Dietriche:** Thessa führt heute keine (`geschichte.gd` SHOP_STOCK); `[447.4.thessa.hinweis]` setzt sie nicht als Ware voraus.

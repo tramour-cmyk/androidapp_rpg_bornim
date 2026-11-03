@@ -76,7 +76,7 @@ Stand der Spalten „Angriff“, „Beute“ und „Merkmal“: aus `core/src/ma
 | Grimmzahn (Boss) | Tiefer Wald | 5 | 55 | 2 | 7 | 22 | 29 | 80 |
 | Grak (Boss) | Höhle | 6 | 75 | 2 | 7 | 25 | 38 | 90 |
 
-Nachfolger nach der Monsterwahl (348.12c, 26.10.): Wiedergänger statt Zombie, Grabhund statt Ghul, Riesenegel statt Blutflügler, Säureschnecke statt Ockerschleim, je mit derselben Rolle und denselben Werten (die Säureschnecke ohne Klingenwiderstand, Archiv 348.12c Werte, 26.10., 21:33); der Kauf der Modelle ruht (348.12c). Bis dahin gelten die alten Arten.
+Nachfolger nach der Monsterwahl (348.12c, 26.10.): Wiedergänger statt Zombie, Grabhund statt Ghul, Riesenegel statt Blutflügler, Säureschnecke statt Ockerschleim, je mit derselben Rolle und denselben Werten (die Säureschnecke ohne Klingenwiderstand, Archiv 348.12c Werte, 26.10., 21:33); Modelle gekauft (Chef 03.11., 15:40, 348.12c A), sie gelten ab jetzt.
 
 *Gebiet* aus `Story.kt` gelesen (Begegnungen), Krogg und Grimmzahn aus der Handlung. Was die Simulation noch nicht rechnet (Rudel, Hinterhalt, Merkmale, Tränke), wird im Spiel mit dem Kampflog nachgemessen.
 
@@ -189,5 +189,5 @@ EN: A hobgoblin who united the cowardly Bloodfang tribe with his axe; whoever sp
 ## Später
 
 - Kaufmodelle mit eigener Art: Keiler (Wildschwein), Riesenratte gekauft, Kaufwolf (348.12f, 387) gehören zu den Arten oben; nur das Modell wechselt.
-- Wiedergänger, Grabhund, Riesenegel, Säureschnecke ersetzen in Kapitel 1 Zombie, Ghul, Blutflügler, Ockerschleim, sobald ihr Kauf entschieden ist (348.12c; Abschnitt „Werte 2.0“).
+- Wiedergänger, Grabhund, Riesenegel, Säureschnecke ersetzen in Kapitel 1 Zombie, Ghul, Blutflügler, Ockerschleim; gekauft 03.11. (348.12c; Abschnitt „Werte 2.0“).
 - Im Spiel denkbar: ein Bestiarium in der Chronik, das sich füllt, wenn der Held einem Monster begegnet (passt zu S3, Vorschlag).

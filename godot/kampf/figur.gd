@@ -2113,6 +2113,23 @@ func _tier_heim(back: float, skip) -> void:
 
 ## 348.7b (Chef 27.10., 19:36 „D“): wo ein Zauber oder Pfeil die Figur verlässt (Welt): die Spitze eines Stabs, sonst die Faust
 ## der Waffenhand (Bogen, Klinge) oder die rechte Hand; ohne Gerüst null
+## 415 r4 (Tor 461a, Lauf 181, G1: hinteres Stabende des Magiers über dem Bildrand): Ecken der Waffe und des Schilds (Umrisskasten
+## je Netz), damit die Kamera sie mit im Bild hält
+func waffen_punkte() -> Array:
+	var out := []
+	if model == null:
+		return out
+	for nm in ["Waffe", "Schild"]:
+		var w := model.find_child(nm, true, false) as Node3D
+		if w == null or not w.visible:
+			continue
+		for m in w.find_children("*", "MeshInstance3D", true, false):
+			var bb: AABB = (m as MeshInstance3D).get_aabb()
+			for i in 8:
+				out.append((m as MeshInstance3D).global_transform * bb.get_endpoint(i))
+	return out
+
+
 func cast_point():
 	if model == null:
 		return null
