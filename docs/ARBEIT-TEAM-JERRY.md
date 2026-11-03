@@ -74,6 +74,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert
 ## Einzelheiten
 
 - **Hinweis von Perikles (03.11., 16:0x, 512 ja, Chef 15:41):** ab der nächsten Testbitte vorher Abgleich alt gegen neu der Schirme, die der Build berührt (Helfer, `LISTE-UMZUG-348.md` „Abgleich“); Funde beheben oder als „bekannt“ in die Prüfliste.
+- **Hinweis von Perikles (03.11., 16:1x, 513.1 gebaut):** `probelauf.py` hält jeden Probelauf an, dessen Stand die abgenommenen Figurencommits aus `tools/figurenstand.tsv` (417, 463) nicht enthält; deine Zweige 507, 416.6, 406.2a, 494 sind betroffen. Den Figurenstand (Toms 513) mischen, sobald er steht.
 
 - **Zu 507 (Jerry 15:5x):** `kampfort_hoehle.py` (Befunde Lauf 234, 247 im Kopf), `kampfort.gd _build_cave`, Tests `hoehle_bau_507`, `hoehle_507`, `ansage_507`; Felsen mit Tom 492 abstimmen. Lauf 247 nachgestellt: Höhle a94fd2b32; Ansage ohne Strich 7c0b2b78e (Wahl ohne Strich blieb kleben, 438); Miras Schild nur davor (schild_406 Lauf 247: Kopf 15,8 cm vom Schild; Haltung Sword & Shield, in die Vorlage). Lauf 3 nach „507, Läufe frei“ (Sokrates). Headless nachstellen: Daten aus dem APK eines Laufs nach `godot/kampf/daten`, `godot/daten`, verschlüsselte weglassen.
 - **Zu 416.6, von Sokrates (Chef 03.11., 09:21, nach „416.6 passt“ für Blut):** Fußspuren bei Regen, Staubwölkchen beim Laufen wie in Kotlin (`core/Tracks.kt`); Wortlaut in Git a091e0433. Staub gebaut; Läufe 226, 231: Held ging (Ursache 416.4, 67b7b0dbe).
