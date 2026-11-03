@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert“).
 
-**Übergabe (03.11., 09:0x):** 463 (mit 431) in Build 496a gemischt, Lauf 221 (bild=nein). Nachfolger: noch keiner, Sitzung `session_01Hmoj79Q5NS4ebMPJKt8c5G` arbeitet.
+**Übergabe (03.11., 09:5x):** 463 in Build 496a; 406.2a, 406.2, 494, 416.6 gebaut, Läufe 223, 225, 226. Nachfolger: „Jerry – 496a: Prüfliste Build 221, Filme 406.2a, 494, 416.6“ (PR #179 abonnieren; Prüfliste `ansehen/t221-…`: 489, 417, 453.2, 463, 415, Probekampf Wolfsrudel als Kämpfer und Kleriker; Filme nach Tor 461a; Staub aus `staub_NN.png` als MP4; dann 509)
 
 ## Zeilen
 
@@ -81,8 +81,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert
 - **Zu 415 (Sokrates, Chef 02.11., 22:04 „415d ja“; Jerry 07:4x):** läuft die Probe im Build flüssig, `chefsache/tun/415d-…` (Kauf beider Pakete) anlegen, Lizenz vor dem Einbau lesen. Vor jeder Testbitte Probe im APK.
 - **Zu 496a (Chef 07:59 „Rein damit in den Build. Also auf Main.“; Jerry 08:1x):** `claude/build-496a` = `main` + Grundstand 461 (mit 417, 453.2, 406) + 406.2, 415, 489, 453.1 + 463 mit 431 (48907b6b9); Lauf 221 (bild=nein, sonst keine Läufe mehr). Nach dem Test des Chefs auf `main`.
 - **Wortlaut in Git:** ruhende Zeilen, Zu 453, 402, 406 a–e, 438, 461.1, 427.1, 438a Runde 2, 478, 415, 348.12b: `git show a97f67e7e:docs/ARBEIT-TEAM-JERRY.md`; Zu 489 (Chef 07:07): `git show a18dd9473:docs/ARBEIT-TEAM-JERRY.md`.
-- **Zu 438a, 438 (Jerry 03.11., 07:1x):** eingefroren (488); Stand der Läufe 207–211 im Commit 2b63fa933 (Zweig). Offen: Wolf 1 im Kleriker (438).
-- **Zu 406 (Jerry 03.11., 07:1x):** passt (Chef 06:59). Für nach dem Durchspielen (Prüfer Lauf 205, ansehen/406-schildfilm.md in Git): Wald und Silhouette vor der Kamera, Helden klein, Umhang B4, toter Wolf F4. E8 wartet auf Tom 417; F2 offen.
+- **Zu 438a, 438, 406 (Jerry 07:1x):** 438a Läufe 207–211 in 2b63fa933; offen Wolf 1 im Kleriker (438); 406 nach dem Durchspielen: Befunde `ansehen/406-schildfilm.md` (Git), F2.
 - **von Sokrates (Chef 01.11., 22:35, Archiv 461c):** zu 444: Schmiedelehrling startet zusätzlich mit Stumpfe Waffen (`werte.json`), neu rechnen.
 - **Zu 348.12 (Chef 27.10., 29.10., 01.11., 22:45):** Wortlaut in Git (1820858d2): Nachjustieren kein Kriterium; Schreiten nur beim Ortswechsel, Ausweichen rasch nur gegen sichtbaren Angriff; in 348.12k mitnehmen.
 - **Zu 348.12, aus 348.12j (Chef 02.11., 11:22, Archiv 348.12j):** Axtkopf im Kampf oben; im Kampf (Held wie Grak) Kampfhaltung des Zweihand-Pakets, beide Fäuste am Stiel, Stiel nicht durch die Schulter (E3); E6 hängend nur unterwegs. Beim nächsten Grak-Lauf bauen.
