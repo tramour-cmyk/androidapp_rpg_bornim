@@ -20,7 +20,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [406](ansehen/406-schildfilm.md) | Schildfilm nach der Änderung an der Schildhand | Jerry | 03.11., 02:17 |
+| [406](ansehen/406-schildfilm.md) | Schildfilm nach der Änderung an der Schildhand | Jerry | 03.11., 02:28 |
 | [417](ansehen/417-dorf-film.md) | Dorf-Film: Kämpfer mit Schwert in der Hand, Schild auf dem Rücken | Tom | 03.11., 00:13 |
 | [447.4](ansehen/4474-lehrmeister-texte.md) | Texte Lehrmeister und Ruf, Kapitel 1 | Homer | 01.11., 20:51 |
 | [463](ansehen/463-umhang-robe.md) | Umhang und Robe geschlossen, letzter Lauf (eingefroren) | Tom | 02.11., 22:59 |
