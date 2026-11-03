@@ -57,7 +57,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 96, Muss 74, startbar 26
+**Tom** – offen 96, Muss 74, startbar 24
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -71,8 +71,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 537 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 537): Kapitelende fehlt: nach Aldric kei | wartet auf Test/Build (gebaut) |
 | 549 | M | von Sokrates (Chef 04.11., 00:07, Build 249, Bild; Zu 549): „Rastscreen wirkt sehr klein u | startbar |
 | 550 | M | von Sokrates (Chef 04.11., 00:19, Build 249): „erstes Mal Heilkräuter gepflückt ein riesen | wartet auf Test/Build (gebaut) |
-| 555 | M | von Sokrates (Chef 04.11., 00:30, „Fehlt vielleicht noch mehr im Testmenü??? Wäre zum Test | startbar |
-| 554 | M | von Sokrates (Chef 04.11., 00:27, Build 249): „Im Testmenü fehlt, dass Tiere mich ignorier | startbar |
+| 555 | M | von Sokrates (Chef 04.11., 00:30, „Fehlt vielleicht noch mehr im Testmenü??? Wäre zum Test | wartet auf Test/Build (gebaut) |
+| 554 | M | von Sokrates (Chef 04.11., 00:27, Build 249): „Im Testmenü fehlt, dass Tiere mich ignorier | wartet auf Test/Build (gebaut) |
 | 523 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 523): Tasche wie alt und besser: „Funke | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 524 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 524): Gegenstandsfenster, Inhalt wie alt | wartet auf Test/Build (gebaut) |
 | 525 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 525): Laden, Morwen, Rast wie alt und be | startbar |
