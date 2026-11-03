@@ -225,7 +225,7 @@ func verkaufen() -> void:
 		var id := String(id_)
 		reihe(Menue.vorrat_bild(id), "%s  ×%d" % [Laden.name(id), z.anzahl(id)], farbe_ding(id), [Sprache.t(Laden.ding(id).get("info", ""))],
 			preis_text(Laden.verkaufspreis(hw, id)), func(): menge(id, false, 1))
-	if laden.brauen: return
+	# 491: bei Morwen fehlt nur das Kaufen von Ausruestung; verkaufen geht wie alt (ShopScreen.kt 252 `!(brewing && buying)`)
 	luecke(8)
 	# 458.2a: Einzelstuecke (Preis 0 im Katalog) erscheinen nicht, wie Handlungsgegenstaende
 	var dinge: Array = z.beutel.filter(func(g): return Laden.ausruestung_verkaeuflich(g))
