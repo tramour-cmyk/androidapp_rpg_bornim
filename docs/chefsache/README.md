@@ -16,7 +16,7 @@ Nichts offen.
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.348.248](ansehen/t248-build-490.md) | [Build 248](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41667833227) | Flüsterwald, Tiefer Flüsterwald, Kampforte Wald, Kamin, Laden; dazu alles aus Build 245 (Grundstand Kampf, Waffen in der Hand, Strahlenprobe, Klangschalter) | Tom und Jerry | 03.11., 16:50 |
+| 1 | [0.348.248](ansehen/t248-build-490.md) | [Build 248](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41667833227/artifacts/13250370571) | Flüsterwald, Tiefer Flüsterwald, Kampforte Wald, Kamin, Laden; dazu alles aus Build 245 (Grundstand Kampf, Waffen in der Hand, Strahlenprobe, Klangschalter) | Tom und Jerry | 03.11., 16:50 |
 
 ## Zu tun
 
