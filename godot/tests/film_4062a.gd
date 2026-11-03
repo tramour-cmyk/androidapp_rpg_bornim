@@ -156,6 +156,7 @@ func _held(h: Dictionary) -> void:
 	await create_timer(0.8).timeout
 	if diag:
 		await _matrix(kf, cam, held, wolf, kampfweg[0], String(h.name))
+		await _matrix3(kf, cam, held, wolf, kampfweg[0], String(h.name))
 		if h != HELDEN[0]:
 			await _blende(1.0)
 			kf.queue_free()
@@ -386,3 +387,74 @@ func _matrix(kf, film_cam: Camera3D, held, wolf, weg_punkt: Vector3, wer: String
 	wolf.position = weg_punkt
 	film_cam.make_current()
 	nah.queue_free()
+
+
+## DIAG3 (Prüfer 13:32 zu Lauf 239: Wolf nur schwarzer Umriss, keine Waffe sichtbar; DIAG2 zählte mit dem Schatten): je Kamera
+## (Film, Spiel), Tusche an oder aus (Flächen „Tusche*“ unsichtbar) und Teil ohne Schattenwurf: Bild mit und ohne Teil, geänderte
+## Punkte im Kasten, ihre mittlere Farbe im Bild mit Teil und wie viele davon fast schwarz sind (Helligkeit unter 0,08).
+## Schwarz mit Tusche, farbig ohne: die Tusche übermalt die Fläche (Schablone 2/3 im Kompatibilitäts-Renderer).
+func _matrix3(kf, film_cam: Camera3D, held, wolf, weg_punkt: Vector3, wer: String) -> void:
+	var vp := root
+	var tusche := []     # bildschirmfüllende Flächen, die die Schablone lesen (Namen doppelter Kinder werden umbenannt)
+	for mi in root.find_children("*", "MeshInstance3D", true, false):
+		var mo = mi.material_override
+		if mo is ShaderMaterial and mo.shader and mo.shader.code.contains("stencil_mode read"):
+			tusche.append(mi)
+	print("DIAG3 %s: Tuscheflächen %d, Renderer %s" % [wer, tusche.size(), RenderingServer.get_current_rendering_method()])
+	var teile := [["Wolf", wolf, func(): return wolf.global_position + Vector3(0, 0.45, 0)], ["Held", held, func(): return held.global_position + Vector3(0, 1.2, 0)]]
+	for at in held.model.find_children("*", "BoneAttachment3D", true, false):
+		if at.has_meta("was"):
+			teile.append(["Waffe " + String(at.get_meta("was")), at, func(): return (at as Node3D).global_position])
+	wolf.position = weg_punkt
+	var mitte: Vector3 = held.position.lerp(wolf.position, 0.5) + Vector3(0, 0.6, 0)
+	for k in [["Film", film_cam], ["Spiel", kf.cam]]:
+		var c: Camera3D = k[1]
+		c.make_current()
+		kf.ink_ziel = mitte
+		for an in [true, false]:
+			for q in tusche:
+				q.visible = an
+			await process_frame
+			await process_frame
+			var zeile := PackedStringArray()
+			for t in teile:
+				var n: Node3D = t[1]
+				var mis: Array = n.find_children("*", "MeshInstance3D", true, false)
+				var sch := []
+				for mi in mis:
+					sch.append(mi.cast_shadow)
+					mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+				var px: Vector2 = c.unproject_position(t[2].call())
+				await process_frame
+				await RenderingServer.frame_post_draw
+				var mit := vp.get_texture().get_image()
+				n.visible = false
+				await process_frame
+				await RenderingServer.frame_post_draw
+				var ohne := vp.get_texture().get_image()
+				n.visible = true
+				for j in mis.size():
+					mis[j].cast_shadow = sch[j]
+				var s := Vector2(mit.get_width(), mit.get_height()) / Vector2(vp.get_visible_rect().size)
+				var cx := int(px.x * s.x)
+				var cy := int(px.y * s.y)
+				var anders := 0
+				var schwarz := 0
+				var summe := Color(0, 0, 0)
+				for y in range(cy - 40, cy + 41, 2):
+					for x in range(cx - 40, cx + 41, 2):
+						if x < 0 or y < 0 or x >= mit.get_width() or y >= mit.get_height():
+							continue
+						var a := mit.get_pixel(x, y)
+						var b := ohne.get_pixel(x, y)
+						if absf(a.r - b.r) + absf(a.g - b.g) + absf(a.b - b.b) > 0.08:
+							anders += 1
+							summe += a
+							if a.get_luminance() < 0.08:
+								schwarz += 1
+				var m := summe / maxf(anders, 1)
+				zeile.append("%s %d (schwarz %d, Farbe %.2f/%.2f/%.2f)" % [t[0], anders, schwarz, m.r, m.g, m.b])
+			print("DIAG3 %s %s, Tusche %s: %s" % [wer, k[0], "an" if an else "aus", ", ".join(zeile)])
+	for q in tusche:
+		q.visible = true
+	film_cam.make_current()
