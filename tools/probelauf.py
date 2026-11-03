@@ -614,6 +614,26 @@ def alte_einstellungen(befehl, cwd):
             "dann weiter; greift der Haken danach nicht, Sitzung über Ford neu starten.")
 
 
+HEREDOC = re.compile(r"^(?P<kopf>[^\n]*?)<<-?\s*(?P<q>['\"]?)(?P<ende>\w+)(?P=q)[^\n]*\n", re.M)
+
+
+def ohne_heredoc(befehl):
+    """407 (Tom 02.11., 20:4x; Spike 03.11., 08:10; Perikles 03.11., 13:5x): Text in einem Heredoc für Python, cat, tee
+    u. Ä. ist kein Befehl und zählt nicht; ein Heredoc für eine Shell oder Godot bleibt stehen (dort läuft er)."""
+    aus, pos = [], 0
+    for m in HEREDOC.finditer(befehl):
+        if m.start() < pos:
+            continue
+        schluss = re.compile(r"^\s*" + re.escape(m.group("ende")) + r"\s*$", re.M).search(befehl, m.end())
+        if not schluss:
+            continue
+        if re.search(r"(?<![\w.-])(?:bash|sh|zsh|xvfb-run|godot\S*|ssh|env)(?![\w.])[^|;&]*$", m.group("kopf")):
+            continue
+        aus.append(befehl[pos:m.end()])
+        pos = schluss.start()
+    return "".join(aus) + befehl[pos:]
+
+
 def anhalten(text):
     print(text, file=sys.stderr)
     sys.exit(2)
@@ -640,7 +660,8 @@ def main():
         d = json.load(sys.stdin)
     except ValueError:
         return
-    befehl = (d.get("tool_input") or {}).get("command") or ""
+    roh = (d.get("tool_input") or {}).get("command") or ""  # Push und Commit-Nachricht (Heredoc) aus dem ganzen Befehl
+    befehl = ohne_heredoc(roh)
     cwd = d.get("cwd") or os.getcwd()
     wer = (d.get("session_id") or "?")[:20]
     if "actions_run_trigger" in (d.get("tool_name") or ""):  # 407: Start von Hand über den GitHub-Server
@@ -660,7 +681,7 @@ def main():
     if alt:
         anhalten(alt)
     try:
-        grund = parse_pruefen(befehl, cwd)  # 464: vor dem Zählen, ein angehaltener Push ist kein Lauf
+        grund = parse_pruefen(roh, cwd)  # 464: vor dem Zählen, ein angehaltener Push ist kein Lauf
     except (OSError, subprocess.SubprocessError, ValueError):
         grund = None
     if grund:
@@ -684,7 +705,7 @@ def main():
                 anhalten(RERUN)
             (nr, art), film = hand, True
         else:
-            push = push_lauf(befehl, cwd)
+            push = push_lauf(roh, cwd)
             if not push:
                 return hinweis_geben()
             (nr, film), art = push, "ci"
