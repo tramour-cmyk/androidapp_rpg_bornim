@@ -54,7 +54,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 490 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Flüsterwald begehbar wie alt | in Arbeit bei Spike |
 | 495 | M | von Perikles (Wochenziel 03.11. Reihe 4, 488): Zufallsspieler spielt Kapitel 1 in Godot bi | Termin 04.11. |
 | 491 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Tiefer Flüsterwald begehbar w | wartet auf 490 (in Arbeit) |
-| 505 | M | von Perikles (Archiv 502, Chef 03.11., 07:30, Zu 502 in ARBEIT-PROJEKT): Nebel des Krieges | wartet auf 490 (in Arbeit) |
+| 505 | M | von Perikles (Archiv 502, Chef 03.11., 07:30, Zu 502 in ARBEIT-PROJEKT): Nebel des Krieges | in Arbeit bei Spike |
 | 493 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; Spike, von Jerry übernommen, Chef 07:54): Ka | startbar |
 | 506 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; Spike, aus 494): Untote im Kampf: Skelett, Z | wartet auf 491 (wartet) |
 | 492 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; Tom, von Jerry übernommen, Chef 07:54): Blut | startbar |
