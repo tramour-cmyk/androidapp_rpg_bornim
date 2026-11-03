@@ -45,6 +45,9 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 		"BOARS": [["boar", "boar", Vector2i(0, 0)]],
 		# 494: der Riesen-Hundertfüßer allein (Monsters.kt giant_centipede), im Bild der gekaufte (kauftier.py TIER=hundertfuesser)
 		"CENTIPEDES": [["centipede", "giant_centipede", Vector2i(0, 0)]],
+		# 506: drei Skelette wie im alten Spiel (Wald nachts, Höhle), je eines der Kits (MonsterKit.kt skeleton: Kurzschwert und
+		# Helm, Kurzschwert und Rundschild, Speer und Helm), mit ihren Regeln (Monsters.kt skeleton in tabellen.json), Bild untote.py
+		"SKELETONS": [["skel1", "skeleton", Vector2i(0, 0)], ["skel2", "skeleton", Vector2i(0, 1)], ["skel3", "skeleton", Vector2i(1, 0)]],
 	}.get(foe, [])
 	Figur.ersatz_art = {"RATS": "giant_rat", "BATS": "giant_bat", "SHAMANS": Figur.SHAMAN, "KOBOLDS": Figur.KOBOLD, "BOARS": "kauf_keiler", "CENTIPEDES": "kauf_hundertfuesser"}.get(foe, "")
 	# 348.12f eingebaut (Chef 28.10., 11:50: Kaufwolf abgenommen, Archiv 27.10., 21:51: „eigener entfällt“): Wölfe sind der gekaufte

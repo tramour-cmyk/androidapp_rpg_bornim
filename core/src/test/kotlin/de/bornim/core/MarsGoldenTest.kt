@@ -196,7 +196,9 @@ class MarsGoldenTest {
         val potion = Items["potion"]
         val kinds = listOf(Skirmish.WOLF, Skirmish.GRAK, Skirmish.CALLED, Skirmish.SCOUT, Skirmish.SPIDER).map { Monsters[it] } +
             // 494 (Wochenziel 03.11. Reihe 3): die Gegner von Kapitel 1 mit eigenen Werten, MARS spielt sie mit den allgemeinen Absichten
-            listOf("boar", "giant_centipede").map { Monsters[it] }
+            listOf("boar", "giant_centipede").map { Monsters[it] } +
+            // 506 (Wochenziel 03.11. Reihe 2): die Untoten, zuerst das Skelett (Monsters.kt: untot, verwundbar gegen Wucht)
+            listOf("skeleton").map { Monsters[it] }
         // 296.2: the items the foes may leave, by name
         val left = kinds.flatMap { k -> k.loot.map { it.item } }.distinct().filter { Items.exists(it) && it != potion.id }.map { Items[it] }
         val tables = mapOf(

@@ -11,7 +11,7 @@ const Aufruf = preload("res://kampf/aufruf.gd")
 const Signatur = preload("res://kampf/signatur.gd")
 const CLASSES := ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]
 const NAMES := {"FIGHTER": "Kämpfer", "WIZARD": "Magier", "ROGUE": "Schurke", "CLERIC": "Kleriker"}
-const FOES := {"WOLVES": "Wolfsrudel", "RUDEL": "Wolf mit Jungwölfen", "GRAK": "Grak", "SPIDER": "Spinne", "SCOUT": "Späher", "RATS": "Ratten", "BATS": "Fledermäuse", "GRIMM": "Grimmzahn", "GOBLINS": "Goblins", "SCOUTS": "Goblin-Späher", "SHAMANS": "Goblin-Schamanen", "KOBOLDS": "Kobolde", "BOARS": "Wildschwein", "CENTIPEDES": "Hundertfüßer"}
+const FOES := {"WOLVES": "Wolfsrudel", "RUDEL": "Wolf mit Jungwölfen", "GRAK": "Grak", "SPIDER": "Spinne", "SCOUT": "Späher", "RATS": "Ratten", "BATS": "Fledermäuse", "GRIMM": "Grimmzahn", "GOBLINS": "Goblins", "SCOUTS": "Goblin-Späher", "SHAMANS": "Goblin-Schamanen", "KOBOLDS": "Kobolde", "BOARS": "Wildschwein", "CENTIPEDES": "Hundertfüßer", "SKELETONS": "Skelette"}
 
 var tables: Dictionary
 var hero_cls := "FIGHTER"

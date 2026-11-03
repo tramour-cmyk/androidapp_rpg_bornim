@@ -302,6 +302,7 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/testmenue_470.gd 2>&1 | grep -E "FEHLER|TESTMENUE470"   # 470a B: Erschaffung BRS nur im Testmenue
           timeout 120 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4532.gd 2>&1 | grep -E "^(ok|FEHLER|ATEM)"   # 453.2 Atmen unterwegs
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/wildschwein_494.gd 2>&1 | grep -E "Wildschwein|WILDSCHWEIN|FEHLER|SCRIPT ERROR"   # 494 Wildschwein
+          set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/skelett_506.gd 2>&1 | grep -E "Skelett 506|SKELETT506|FEHLER|SCRIPT ERROR"   # 506 Skelette
       # fester Schluessel ueber alle Laeufe, sonst lehnt Android das Update ab (348.5, Build 9). 399.1a (Chef 28.10., 14:41): der Cache
       # eines Zweigs galt nur dort (Build 130 bekam einen neuen); jetzt nur lesen, angelegt wird er auf main (godot-schluessel.yml)
       - uses: actions/cache/restore@v4
