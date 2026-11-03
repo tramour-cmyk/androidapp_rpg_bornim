@@ -10,6 +10,12 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 527 | M | **von Sokrates (512, Abgleich Build 249 im Code; Zu 527):** System: Schalter „Tempo“ und „Kampftext“ wirken im Kampf nicht; anschließen oder ausblenden, bis sie wirken | gebaut: Tempo über Engine.time_scale, Kampftext ausgeblendet (wirkte alt nur klassisch), fährt im nächsten Build (claude/jerry-527-tempo-kampftext); Geprüft an: 6a1e5eab8 (tempo_527, menue_test) | – |
+| 532 | M | **von Sokrates (512, Abgleich Build 249 im Code; Zu 532):** Kampf: Held geht ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch und ohne die ganze Tasche (nur einfacher Heiltrank) in den Kampf, danach wird nur TP zurückgeschrieben; Zauber kosten nichts | in Arbeit bei Jerry (Zweig claude/jerry-532-kampfzustand) | – |
+| 533 | M | **von Sokrates (512, Abgleich Build 249 im Code; Zu 533):** Kampf: Grimmzahn ist ein Wolf, kein Boss: Werte, „Grimmzahns Fang“, keine Flucht, Leibwache flieht nach seinem Fall | startbar | – |
+| 534 | M | **von Sokrates (512, Abgleich Build 249 im Code; Zu 534):** Kampf: Zauber und Fähigkeiten fehlen in „Können“ (Magierrüstung, Untote vertreiben, Spirituelle Waffe, Geisterwächter) oder wirken nicht (Unglaubliches Ausweichen, Unerbittlichkeit, Lebensraub, Schadensminderung der Ausrüstung); Talente zu Kampfbeginn (Einschüchtern, Schwächen kennen) | startbar | – |
+| 535 | M | **von Sokrates (512, Abgleich Build 249 im Code; Zu 535):** Kampf: Gegnerstufe, Elite, schimmernde Gegner, Gruppen (Ratten und Fledermäuse als Wölfe, Schamane ohne Heilen), EP und Gold je Gegner, Nachlass in Stufe 1; gegen BRS klären, Balance entscheidet der Chef | startbar | – |
+| 536 | M | **von Sokrates (512, Abgleich Build 249 im Code; Zu 536):** Kampf: Erklärungen bei langem Drücken (MarsTips), Grund bei gesperrtem Zauber, „Kein Ziel in Sicht“, Knopf „Schnell“, Stufe und EP im Gruppenkasten, Seltenheitsfarbe der Beute | startbar | – |
 | 478 | M | **von Sokrates (Chef 02.11., 17:59 „470a C“):** Rechenkern des Kampfs in Stufe 1 auf BRS (Modell D) | ruht: 470a B (3–4 Sitzungen, Wortlaut in Git) | – |
 | 481.1 | M | **von Sokrates (427):** Tränke in sim444, Herkünfte neu messen, Zahlen an Sokrates | gebaut: sim444 Abschnitt 6 (claude/jerry-481-1-traenke); Geprüft an: 4bb60ba5e | – |
 | 467 | M | **von Sokrates (Chef 01.11., 21:52):** `regeln/ausdauer.gd` rechnet nach SRD; BRS: Ausdauer aus Zähigkeit, Wille, Stufe; nach der Formel aus 427 umstellen | wartet auf Sokrates: Formel Ausdauer fehlt in 427 (Hinweis Beratung) | – |
@@ -23,7 +29,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 439 | M | **von Sokrates:** Reihenfolge Angriff, Treffer, Tod, Neuformation | wartet auf Test: t249 | – |
 | 440 | M | **von Sokrates:** Wolf-Tod zu schnell weg | wartet auf Test: t249 | – |
 | 416.6 | M | **von Sokrates:** Spuren (`core/Tracks.kt`): Blut, Staub, Fußspuren | wartet auf Perikles: Probebild nur auf dem Bauserver (511); mit 416.4 b31b7a85d lokal gut | `claude/jerry-416-6-blut` |
-| 415 | M | **von Sokrates:** Probe Beams Free Sample im Kampfort; nichts kaufen | startbar: „jetzt“ 03.11., 23:05 (ohne Strahlen messen, Zu 415) | – |
+| 415 | M | **von Sokrates:** Probe Beams Free Sample im Kampfort; nichts kaufen | in Arbeit: Build 250 mit Messung „Ohne Strahl“ läuft (claude/jerry-415-ohne-strahl, c2ae46be1) | – |
 | 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34):** Kampfort aufrufbar | wartet auf Test: Build 146 (ansehen/t146-befunde.md; Befunde als 416.x) | `claude/jerry-348-kampf` |
 | 403 | M | **von Team Tom:** Kampfort: Held je Klasse wie im Dorf | wartet auf Test: t249 | – |
 | 461.1 | M | **von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461):** Grundstand mit Tom: Kampfort, Wölfe, Helden (`LISTE-GRUNDSTAND-461.md`); vor 460 und 406.1 | ruht: nach dem Durchspielen (488) | `claude/grundstand-461` |
@@ -69,10 +75,17 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht: SRD (Chef 31.10.) | – |
 | 469 | M | **von Sokrates:** Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 406.1 | – |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht: Klang zieht nach Godot; Rest `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
-| Pflege | K | **von Werkzeug (340.3, 03.11.):** 15874 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | **von Werkzeug (340.3, 03.11.):** 16391 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 ## Einzelheiten
 
+- **Zu 527–536, von Sokrates (Helfer, Code gelesen):** Alt lief der Weltkampf klassisch (`Battle.kt`), MARS nur als Probekampf; neu jeder Kampf MARS, `regeln/klassisch.gd` ungenutzt. Besser neu: Reihen, Platztausch, Waffenwechsel, Decken, Absichten, Automatik je Figur, Kampfbericht, Zugleiste.
+- **Zu 532, von Sokrates:** `aufruf.gd` 178, 203–209, `spiel.gd` 489, 529, `mars.gd` 333–335 (je Rast voll zu jedem Kampf); alt `Battle.kt` 160–176, 576–605, `Game.kt` 764–773, 1496. Test: Kampf, dann Rast, ZP und Tasche prüfen.
+- **Zu 533, von Sokrates:** `aufruf.gd` 34, `tabellen.json` „wolf“, `mars.gd` 939, 1525; alt `Monsters.kt` 133–137, `Packs.kt` 64.
+- **Zu 534, von Sokrates:** `mars.gd` 83–86, 1494 `_hurt`; alt `Battle.kt` 221–227, 407–410, 478–560, 1036–1042. Gegen BRS (451) prüfen, was bleiben soll.
+- **Zu 535, von Sokrates:** `aufruf.gd` 29–36, 178 (kein „over“), `lohn.gd` 31–43; alt `Game.kt` 1267–1276, `Battle.kt` 101–116, 658–683, 1069–1071, `Packs.kt` 51, 68. Grinden lohnt neu nicht (Leitbild). Was absichtlich anders ist (MARS, BRS), als Chefsache vorlegen, nicht still angleichen.
+- **Zu 536, von Sokrates:** `kampf_ui.gd` 589–702, `mars.gd` 669 `quick()`; alt `SkirmishScreen.kt` 1340–1475, `BattleScreen.kt` 1650–1730.
+- **Zu 527, von Sokrates (Helfer, Code gelesen, Chef 23:26 „besser machen“):** alt `BattleScreen.kt` 497, 609, 620; neu nur `menue.gd` 809–812, `bedienung.gd` 20–21, kein Leser im Kampf. Ob MARS das vorsieht: offen.
 - **von Team Tom (03.11., 21:4x, zu 518):** `godot/kampf/toon.gdshader` und `godot/shader/toon.gdshader` setzten seit 463 `POSITION` nur bei `rueck`/`vorrang`/`nach` > 0, alle anderen Netze unsichtbar (Dorf ohne Häuser, Build 248); behoben 4f9ca1dce (`claude/tom-518-position`), Test `tests/position_518.gd`. Jeder deiner Zweige mit dem Figurenstand 463 braucht den Commit vor dem nächsten Bildlauf.
 
 - **von Team Tom (03.11., 16:3x):** Krogg und Rauch eingebunden (`claude/tom-492-hoehle` 2fa4f6f0d, `"bugbear": "KROGG"`, `lage["rauch"]`, Abzug nach `mars.smoke`; ohne deinen Zweig wirkungslos). Build 248 (PR #180, auf 245) mit 490, 491, 493, 501, 503, 500, 497 läuft. Waldklang als 517.

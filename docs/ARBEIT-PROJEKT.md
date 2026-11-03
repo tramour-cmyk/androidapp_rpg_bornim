@@ -10,7 +10,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
 | 516 | K | **von Ford (Chef 03.11., 16:20, „gab es nicht ein Tool oder einen Haken für die Kostenerfassung?“):** `cost_usd` fehlt bei archivierten Sitzungen; selbst lesen und buchen? | ruht bis 05.11.: Befund Ford 16:33 (in Git): alle 7 liefen beim Archivieren noch; Regel „nur archivieren, wenn idle“, kein Haken nötig; fehlt die Zahl trotz idle, wird es Muss (Perikles 20:3x, Zu 516) | – |
-| 512 | M | **von Sokrates (Hinweis 03.11., 07:45, zu 488):** vor jeder Testbitte berührte Schirme alt gegen neu vergleichen (beide Teams) | gebaut 03.11., 16:0x: Abgleich mit Zeitpunkt in LISTE-UMZUG-348 und Prüfliste in LISTE-BAUEN-TESTEN; Geprüft an: e823b0ee7; gilt ab nächster Testbitte | – |
 | 513.1 | M | **von Sokrates (Chef 03.11., 15:56, „513 B“, Archiv; „jetzt“ 03.11., 15:56):** `probelauf.py` lässt keinen Bild- oder Filmlauf zu, dessen Zweig einen abgenommenen Figurencommit (417, 463, künftig je Abnahme) nicht enthält | gebaut 03.11., 16:1x: Sperre und tools/figurenstand.tsv (417 3b29ac0cb, 463 e3789d130); Geprüft an: 45351ef1d (12 Zweige: nur build-496a frei) | – |
 | 511 | M | **von Sokrates (Chef 03.11., 13:50, „511 ja“, Archiv; „jetzt“ 03.11., 13:50):** `probelauf.py` startet einen Filmlauf nur mit geprüftem Probebild (Zu 511) | gebaut 03.11., 14:03, Geprüft an: d6d9eca8c; Diogenes prüft | – |
 | 502 | M | **von Sokrates (Chef 03.11., 07:28; Zu 502):** Nebel des Krieges und Sichtfeld des Helden in „Orte und Welt“ (neben W15) und Abnahmeliste aufnehmen, Bau an Tom nach Vorrang 488 | gebaut 03.11., 07:5x: Welt W24, W25, Bau 505 bei Tom; Geprüft an: b3cc2e427 | – |
@@ -39,7 +38,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 338.1 | M | **von Sokrates (Chef 23.10., 09:01/09:05):** „wird es mir nie vorgelegt, wie weit wir da eigentlich stehen“; „dazu brauche ich auch regelmäßige Feedback“. „Stand zum Marktstart“ in `PROJEKTPLAN.md` | gebaut 02.11., 20:02, Geprüft an: 4f3bacbda; Stand je Stufe im Projektplan |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 06.11.: behalten (Chef 26.10., 11:15, Archiv); Zahlen mit Zielvereinbarung 341 |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
-| Pflege | K | **von Werkzeug (340.3, 03.11.):** 17853 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14; CLAUDE.md: 15468 Bytes (Grenze 15000), kürzen; docs/LISTE-VORGAENGE.md: 38178 Bytes (Grenze 15000), Erledigtes ins Archiv | startbar |
+| Pflege | K | **von Werkzeug (340.3, 03.11.):** 17549 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14; CLAUDE.md: 15468 Bytes (Grenze 15000), kürzen; docs/LISTE-VORGAENGE.md: 41222 Bytes (Grenze 15000), Erledigtes ins Archiv | startbar |
 
 ## Einzelheiten
 
