@@ -6,7 +6,7 @@ extends Control
 # Klasse mit Beschreibung, Trefferwuerfel, Hauptattribut, Ruestung und den Faehigkeiten der Stufe 1, dann der Punktekauf mit
 # Vorschlag; unten fest Zurueck und Abenteuer beginnen. Masse in dp/sp wie alt (Theme.kt Txt, VeilHead, Panel, PixelButton).
 # 376.1 Aussehen wie alt nach dem Volk: Haut und Haar als Farbtoene des Volks (Appearance.kt), dazu Gesicht, Frisur, Bart des
-# Kaufkopfs (HeldFigur); der Held im Drehteller zeigt seine Klasse mit Grundausruestung. Noch nicht wie alt: Geschlecht, Statur.
+# Kaufkopfs (HeldFigur); der Held im Drehteller zeigt seine Klasse mit Grundausruestung. Geschlecht und Statur wie alt (376.1).
 # Ende: Signal fertig({"name", "volk", "klasse", "werte", "aussehen", "platz"}) oder zurueck.
 
 signal fertig(wahl: Dictionary)
@@ -108,7 +108,7 @@ func baue() -> void:
 	vk.add_child(txt("  ".join(PackedStringArray(bon)), 15))
 	vk.add_child(txt(Sprache.t(vd["merkmal"]), 15, Stil.GOLD))
 	inhalt.add_child(kasten(vk))
-	if HeldFigur.da(klasse): aussehen_wahl()
+	if HeldFigur.da(klasse, String(aussehen.get("geschlecht", "m"))): aussehen_wahl()
 	inhalt.add_child(kopfzeile(Sprache.u("chooseClass")))
 	inhalt.add_child(wahl(KLASSEN, klasse, func(k): return Sprache.t(d["klassen"][k]["name"]), klasse_waehlen))
 	var kk := VBoxContainer.new()
@@ -295,7 +295,11 @@ func vorschau() -> Control:
 func klasse_waehlen(k: String) -> void:
 	klasse = k
 	gekauft = Heldwerte.vorschlag(k)
-	if not aussehen_eigen: aussehen = HeldFigur.vorgabe(k)   # Beispielkopf der Klasse, solange der Spieler nichts gewaehlt hat
+	if not aussehen_eigen:   # Beispielkopf der Klasse, solange der Spieler nichts gewaehlt hat; Geschlecht und Statur bleiben
+		var g := String(aussehen.get("geschlecht", "m"))
+		var st := String(aussehen.get("statur", "normal"))
+		aussehen = HeldFigur.vorgabe(k, g)
+		aussehen["statur"] = st
 	baue()
 
 func wahl_jetzt() -> Dictionary:
@@ -311,15 +315,29 @@ func zeige_held() -> void:
 func aussehen_wahl() -> void:
 	var de := Sprache.aktiv() == "de"
 	inhalt.add_child(kopfzeile("Aussehen" if de else "Appearance"))
+	# wie alt (CreateScreen.kt Choices Sex, Build): Geschlecht und Statur zuerst
+	var g := String(aussehen.get("geschlecht", "m"))
+	inhalt.add_child(wahl(HeldFigur.GESCHLECHTER, g, func(x): return HeldFigur.wort("geschlecht:" + x), geschlecht_waehlen))
+	inhalt.add_child(wahl(HeldFigur.STATUREN, String(aussehen.get("statur", "normal")), func(x): return HeldFigur.wort("statur:" + x),
+		func(x): aussehen["statur"] = x; baue()))
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(8 * DP))
 	v.add_child(toene("Haut" if de else "Skin", HeldFigur.toene_liste(volk, "haut"), "haut"))
 	v.add_child(toene("Haar" if de else "Hair", HeldFigur.toene_liste(volk, "haar"), "haarfarbe"))
 	inhalt.add_child(v)
-	for teil in [["form", HeldFigur.formen()], ["frisur", HeldFigur.frisuren()], ["bart", HeldFigur.baerte()]]:
+	for teil in [["form", HeldFigur.formen()], ["frisur", HeldFigur.frisuren(g)], ["bart", HeldFigur.baerte(g)]]:
+		if (teil[1] as Array).size() < 2: continue   # Heldin: kein Bart
 		inhalt.add_child(txt(HeldFigur.wort(teil[0]), 14))
 		inhalt.add_child(wahl(teil[1], String(aussehen.get(teil[0], "")), func(x): return HeldFigur.wort(teil[0] + ":" + x),
 			func(x): aussehen[teil[0]] = x; aussehen_eigen = true; baue()))
+
+# Geschlecht: Frisur aus der Liste des Geschlechts (eigene bleibt, wenn es sie dort gibt), Heldin ohne Bart; Gesicht, Farben, Statur bleiben
+func geschlecht_waehlen(g: String) -> void:
+	aussehen["geschlecht"] = g
+	if not aussehen_eigen or String(aussehen.get("frisur", "")) not in HeldFigur.frisuren(g):
+		aussehen["frisur"] = String(HeldFigur.vorgabe(klasse, g)["frisur"])
+	if String(aussehen.get("bart", "")) not in HeldFigur.baerte(g): aussehen["bart"] = ""
+	baue()
 
 # ToneChoices: Beschriftung, dann je Ton ein Feld mit Namen darunter; das gewaehlte mit Goldrand
 func toene(wort: String, liste: Array, schluessel: String) -> Control:

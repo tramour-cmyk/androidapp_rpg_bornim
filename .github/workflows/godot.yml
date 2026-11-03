@@ -4,9 +4,16 @@ name: Godot (Umzug 348)
 # Android-Export; APK als Artefakt "bornim-godot-apk". Zum Testen neben dem alten Spiel: Kennung de.bornim.game.godot.
 on:
   push:
-    branches: ["claude/tom-348-**", "claude/jerry-348-**"]
+    branches: ["claude/tom-348-**", "claude/jerry-348-**"]   # 461.1: Grundstand nur von Hand (wie godot-kampf.yml)
     paths: ["godot/**", "tools/blender348/**", "core/src/main/**", ".github/workflows/godot.yml"]
   workflow_dispatch:
+    inputs:
+      kampf:
+        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich) oder 461 (Grundstand-Film Kampfort)"
+        default: ""
+      dorf:
+        description: "Dorf-Film Grundstand (461.1): ja"
+        default: ""
 
 jobs:
   apk:
@@ -92,17 +99,30 @@ jobs:
             grep -h "GLB OK\|NETZ" dorf-$g.log; cp $OUT/$g.glb $D/$g.bin && cp $OUT/$g-info.json $D/ && cp $OUT/$g-boden-maske.png $D/$g-boden-maske.bild; done
           ls -l $D
       # 376.1 (Chef 28.10., 22:0x): der Held je Klasse auf Kaufkoerper und Kaufkopf (held_klassen.py), Haare, Bewegungen aus der UAL;
+      # seit 01.11. je Tracht der Herkunft und Geschlecht (held_<TRACHT>_<M|W>), mit Statur;
       # gekauft, also verschluesselt (kauf.txt). Ohne Kaufpakete (KAUF_TOKEN) bleibt der bisherige Held (held.bin)
       - name: Held je Klasse (376.1, gekauft)
         run: |
           if [ -z "$(find ${KAUF:-/kein} -name 'Regular_Male_OnlyHead.gltf' 2>/dev/null | head -1)" ]; then echo "ohne Kauf kein Held je Klasse"; exit 0; fi
-          OUT=$RUNNER_TEMP/out ZIEL=$RUNNER_TEMP/klassen Q=~/cc0 bl/bin/python -I tools/blender348/v3/held_klassen.py > klassen.log 2>&1 || { tail -40 klassen.log; exit 1; }
-          grep -E "^KLASSE|HELD KLASSEN|FEHLT" klassen.log
+          # 417a (Pruefer Dorf-Film 23:0x: Schwert blieb auf dem Ruecken, „Waffengang ''“): die Waffenpakete (waffengang.py) fehlten im
+          # Spielbau, nur tom-probe-417.yml baute sie; ohne Gehen_<gang> haengt bewaffne() die Waffe auf den Ruecken
+          U=$(find $KAUF -path '*Unreal-Godot*' -name UAL1.glb | sort | head -1); [ -n "$U" ] || U=$(find ~/cc0 -name UAL1_Standard.glb | sort | head -1)
+          KAUF=$KAUF ZIEL=$U OUT=$RUNNER_TEMP/gang BL=$GITHUB_WORKSPACE/bl/bin/python bl/bin/python -I tools/blender348/v3/waffengang.py > gang.log 2>&1 || { tail -30 gang.log; exit 1; }
+          grep -E "^(GANG|FEHLT|WAFFENGANG)" gang.log | sed "s|$KAUF/||g" | cut -c1-200
+          GANG=$RUNNER_TEMP/gang OUT=$RUNNER_TEMP/out ZIEL=$RUNNER_TEMP/klassen Q=~/cc0 bl/bin/python -I tools/blender348/v3/held_klassen.py > klassen.log 2>&1 || { tail -40 klassen.log; exit 1; }
+          grep -E "^TRACHT|^STATUR|HELD TRACHTEN|FEHLT" klassen.log
           D=godot/daten
           for f in $RUNNER_TEMP/klassen/held_*.glb; do n=$(basename $f .glb); cp $f $D/$n.bin; echo daten/$n.bin >> $D/kauf.txt; done
           cp $RUNNER_TEMP/klassen/haare.glb $D/haare.bin && cp $RUNNER_TEMP/klassen/bewegungen.glb $D/bewegungen.bin && cp $RUNNER_TEMP/klassen/held-klassen.json $D/
-          printf 'daten/haare.bin\ndaten/bewegungen.bin\n' >> $D/kauf.txt
-          ls -l $D/held_*.bin $D/haare.bin $D/bewegungen.bin
+          cp $RUNNER_TEMP/klassen/haare_w.glb $D/haare_w.bin   # 376.1 Heldin
+          printf 'daten/haare.bin\ndaten/haare_w.bin\ndaten/bewegungen.bin\n' >> $D/kauf.txt
+          # 403 (Jerry): Kampfbewegungen fuer den Kaufkoerper (unsere aus held.glb umgerechnet, Kandidaten aus der UAL Pro), gekauft
+          SRC=$RUNNER_TEMP/out/held.glb ZIEL=$RUNNER_TEMP/klassen bl/bin/python -I tools/blender348/v3/held_kampf.py > held_kampf.log 2>&1 || { tail -30 held_kampf.log; exit 1; }
+          grep -E "^KAMPF|^SS (GRIFF|TEMPO)|^ohne Sword" held_kampf.log
+          cp $RUNNER_TEMP/klassen/kampf-bewegungen.glb $D/kampf-bewegungen.bin && echo daten/kampf-bewegungen.bin >> $D/kauf.txt
+          # 406 (Tuffy): Tempo, Griff und Kontaktzeiten der Bewegungen aus Sword & Shield (figur.gd kampf_info); nur Zahlen
+          cp $RUNNER_TEMP/klassen/kampf-bewegungen.json $D/
+          ls -l $D/held_*.bin $D/haare.bin $D/haare_w.bin $D/bewegungen.bin $D/kampf-bewegungen.bin
       - name: Leute bauen (Dorf)
         run: |
           # 348.6 Leute: jede Person des Dorfs, die leute.json kennt, als Figur (held3 FIGUR=<id>, rig), 4 zugleich
@@ -183,6 +203,13 @@ jobs:
             KAUF=$KAUF OUT=$RUNNER_TEMP/kw timeout 1200 bl/bin/python -I tools/blender348/kaufwolf.py > kaufwolf.log 2>&1 || { tail -60 kaufwolf.log; exit 1; }
             for f in grau dunkel rost asche; do cp $RUNNER_TEMP/kw/kaufwolf-$f.glb $D/kaufwolf-$f.bin; done; cp $RUNNER_TEMP/kw/kaufwolf-info.json $D/
             (cd godot && ls kampf/daten/giant_rat-*.bin kampf/daten/kaufwolf-*.bin > kampf/daten/kauf.txt)
+            # 406 (Chef 31.10., 23:22): Kaufschilde 2 (Kleriker, „shield“) und 15 (Kaempfer, „round_shield“) statt der eigenen aus
+            # waffen.py, im Kampf und unterwegs auf dem Ruecken (daten/waffen); gekauft, also verschluesselt
+            KAUF=$KAUF OUT=$RUNNER_TEMP/ks timeout 600 bl/bin/python -I tools/blender348/kaufschild.py > kaufschild.log 2>&1 || { tail -40 kaufschild.log; exit 1; }
+            grep '^SCHILD' kaufschild.log
+            mkdir -p godot/daten/waffen
+            for w in shield round_shield; do cp $RUNNER_TEMP/ks/$w.glb $D/$w.bin; echo kampf/daten/$w.bin >> $D/kauf.txt
+              cp $RUNNER_TEMP/ks/$w.glb godot/daten/waffen/$w.bin; echo daten/waffen/$w.bin >> godot/daten/kauf.txt; done
           fi
           grep -q '^RUHE aus' rig.log && echo kampf/daten/held.bin >> $D/kauf.txt || true   # 397: Held mit Pro-Ruhe
           ls -l $D | wc -l
@@ -228,6 +255,9 @@ jobs:
           ! grep -E "SCRIPT ERROR|Parse Error|Failed to load|ERROR:" check.log
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/skripte_pruefen.gd 2>&1 | grep -E "SKRIPTE|FALSCH"   # 399.1 Test 130
           timeout 300 ~/godot/godot --headless --path . -s res://tests/held_klassen_376.gd 2>&1 | grep -E "HELDKLASSEN|FALSCH|SCRIPT ERROR"   # 376.1
+          set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/held_kampf_403.gd 2>&1 | grep -E "^(ok|FEHLER|Held 403)|SCRIPT ERROR"   # 403 (Jerry)
+          set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Held|Söldner|nach|in den|Atem 453)|SCRIPT ERROR"   # 453.1 (Tuffy)
+          set -o pipefail; timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wolf_mess_438.gd 2>&1 | grep -E "^(— |  |Befunde|Wolf 438|Kampf )|SCRIPT ERROR"   # 438, 439, 440 (Jerry): Wölfe ohne Gleiten, Reihenfolge, Tod
           timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_test.gd 2>&1 | grep -E "^(gut|FALSCH)|KLANG|SCRIPT ERROR"   # 399.3
           timeout 120 ~/godot/godot --headless --path . -s res://tests/zwischenbild_test.gd 2>&1 | grep -E "FALSCH|ZWISCHENBILD|SCRIPT ERROR"   # 399.1 Intro
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tasten_4161.gd 2>&1 | grep -E "FEHLER|TASTEN|SCRIPT ERROR"   # 416.1
@@ -239,6 +269,7 @@ jobs:
           timeout 300 ~/godot/godot --headless --path . -s res://tests/wald_490.gd 2>&1 | tee wald490.log | grep -E "FEHLER|WALD490|SCRIPT ERROR"; grep -q "^WALD490 0 Fehler" wald490.log   # 490
           timeout 300 ~/godot/godot --headless --path . -s res://tests/nebel_505.gd 2>&1 | tee nebel505.log | grep -E "FEHLER|NEBEL505|SCRIPT ERROR"; grep -q "^NEBEL505 0 Fehler" nebel505.log   # 505
           timeout 120 ~/godot/godot --headless --path . -s res://tests/kartennebel_505.gd 2>&1 | tee kartennebel505.log | grep -E "FEHLER|KARTENNEBEL505|SCRIPT ERROR"; grep -q "^KARTENNEBEL505 0 Fehler" kartennebel505.log   # 505 Karte im Menü
+          timeout 120 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4532.gd 2>&1 | grep -E "^(ok|FEHLER|ATEM)"   # 453.2 Atmen unterwegs
       # fester Schluessel ueber alle Laeufe, sonst lehnt Android das Update ab (348.5, Build 9). 399.1a (Chef 28.10., 14:41): der Cache
       # eines Zweigs galt nur dort (Build 130 bekam einen neuen); jetzt nur lesen, angelegt wird er auf main (godot-schluessel.yml)
       - uses: actions/cache/restore@v4
@@ -323,7 +354,73 @@ jobs:
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --nebel=$GITHUB_WORKSPACE/bilder/nebel505 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^BILD|^NEBELBILDER" | cut -c1-400 || true
           ls -l $GITHUB_WORKSPACE/bilder/nebel505
+      # 461.1 Grundstand (Chef 01.11., 20:3x): Film des Helden im Dorf wie im Spiel (Kämpfer, Klerikerin: Stehen, Gehen, Rennen,
+      # Loslassen, Rennen zum Ziel, Gehen bei den Tieren), gegen LISTE-GRUNDSTAND-461.md
+      - name: Dorf-Film Grundstand (461.1)
+        if: ${{ !cancelled() && github.event.inputs.dorf != '' }}     # nur von Hand mit dorf=ja, auch nach rotem Prüfschritt (wie 453)
+        continue-on-error: true
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/bilder/grundstand
+          cd godot
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
+          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
+          timeout 1200 xvfb-run -a -s "-screen 0 540x1170x24" \
+            ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/dorf461.avi --fixed-fps 30 \
+            -s res://tests/film_dorf_461.gd -- --dorffilm > $GITHUB_WORKSPACE/bilder/grundstand/dorf461.log 2>&1 || true
+          grep -E "SCRIPT ERROR|^DORF461 (Held|fertig|.*stoesst)" $GITHUB_WORKSPACE/bilder/grundstand/dorf461.log | cut -c1-400 || true
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/dorf461.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $GITHUB_WORKSPACE/bilder/grundstand/dorf461.mp4 || true
+          ls -l $GITHUB_WORKSPACE/bilder/grundstand
+      # 453 r3 und 453.1 (Jerry; Chef 01.11., 19:5x: „453 r2 passt … aber die Helden sehe jetzt wieder ‚doof‘ aus. Waren wir da nicht
+      # schon weiter???“): Wölfe r3 mit und ohne Atemschicht; Helden im Kampf (film_403, gleiche Würfel) in fünf Fassungen, je ein
+      # Kandidat seit Film 403 an: Atemschicht (ATEM_ALT), Schwert-und-Schild-Bewegungen (OHNE_SS), Signatur (OHNE_SIGNATUR).
+      # Nur von Hand mit kampf=ja; läuft auch nach rotem Prüfschritt (wolf_mess_438)
+      - name: Kampfort-Filme Grundstand (453 r3, 453.1; nur von Hand mit kampf=ja)
+        if: ${{ !cancelled() && github.event.inputs.kampf != '' }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/kampf461; mkdir -p $B
+          cd godot
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
+          sudo apt-get install -y -qq libgl1-mesa-dri xvfb fonts-dejavu-core ffmpeg > /dev/null || true     # ffprobe für die Längen
+          # Lauf 154: das ffmpeg im PATH kannte drawtext nicht, die Montagen fehlten; Titel mit dem ffmpeg aus apt
+          FT=ffmpeg; /usr/bin/ffmpeg -hide_banner -filters 2>/dev/null | grep -q drawtext && FT=/usr/bin/ffmpeg
+          film() { n=$1; sk=$2; shift 2
+            env SEED=7 "$@" timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+              --write-movie $RUNNER_TEMP/$n.avi --fixed-fps 30 -s res://tests/$sk.gd > $B/$n.log 2>&1 || true
+            grep -E "SCRIPT ERROR|^Film|^Signatur|OHNE" $B/$n.log | head -8 || true
+            ffmpeg -loglevel error -y -i $RUNNER_TEMP/$n.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/$n.mp4 || true; }
+          dauer() { ffprobe -v error -show_entries format=duration -of csv=p=0 $1 2>/dev/null || echo 0; }
+          F=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf
+          titel() { echo "scale=$2:-2,drawtext=fontfile=$F:text='$1':fontsize=$3:fontcolor=white:box=1:boxcolor=black@0.6:x=(w-tw)/2:y=8"; }
+          # 461.1 (Tuffy): kampf=461 nur der Grundstand-Film Kampfort (Helden und Wölfe im Kampf; Nahteil von film_453 nicht, Prüfer Lauf 159: C2, G1)
+          if [ "${{ github.event.inputs.kampf }}" = "461" ]; then
+            film kampf461-helden film_403 DAUER_MS=40000     # Lauf 159: nach 22 s noch ONGOING, Tod und Neuformation (F3, F4) fehlten
+            ls -l $B; exit 0
+          fi
+          # 453 r3: Wölfe atmen (Schicht) neben ohne Schicht
+          film wolf453-r3 film_453
+          film wolf453-ohne film_453 ATEM_ALT=1
+          L=$(for v in wolf453-r3 wolf453-ohne; do dauer $B/$v.mp4; done | sort -n | tail -1)
+          $FT -loglevel error -y -i $B/wolf453-r3.mp4 -i $B/wolf453-ohne.mp4 -filter_complex \
+            "[0]$(titel 'r3 Atemschicht' 540 30),tpad=stop_mode=clone:stop_duration=60[a];[1]$(titel 'ohne Atemschicht' 540 30),tpad=stop_mode=clone:stop_duration=60[b];[a][b]hstack=inputs=2,trim=duration=$L" \
+            -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $B/453-r3-film.mp4 || true
+          # 453.1: Helden wie Film 403 gegen heute, je ein Kandidat einzeln
+          film held-wie403 film_403 ATEM_ALT=1 OHNE_SS=1 OHNE_SIGNATUR=1
+          film held-heute film_403
+          film held-atem film_403 OHNE_SS=1 OHNE_SIGNATUR=1
+          film held-ss film_403 ATEM_ALT=1 OHNE_SIGNATUR=1
+          film held-signatur film_403 ATEM_ALT=1 OHNE_SS=1
+          V="held-wie403 held-heute held-atem held-ss held-signatur"
+          L=$(for v in $V; do dauer $B/$v.mp4; done | sort -n | tail -1)
+          i=0; FC=""; IN=""
+          for v in $V; do
+            case $v in held-wie403) t="1 wie Film 403";; held-heute) t="2 heute";; held-atem) t="3 nur Atem neu";; held-ss) t="4 nur SS neu";; *) t="5 nur Signatur neu";; esac
+            IN="$IN -i $B/$v.mp4"; FC="$FC[$i]$(titel "$t" 360 22),tpad=stop_mode=clone:stop_duration=90,trim=duration=$L,setpts=PTS-STARTPTS[v$i];"; i=$((i+1)); done
+          $FT -loglevel error -y $IN -f lavfi -i color=c=black:s=360x780:d=$L -filter_complex \
+            "${FC}[v0][v1][v2][v3][v4][5]xstack=inputs=6:layout=0_0|w0_0|w0+w1_0|0_h0|w0_h0|w0+w1_h0" -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $B/4531-helden-vergleich.mp4 || true
+          ls -l $B
       - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}     # 453: Filme auch nach rotem Prüfschritt
         with:
           name: bornim-godot-bilder
           path: bilder/
