@@ -11,7 +11,7 @@
 # Kaninchen unsere Felle, gesättigte Stellen (Kamm, Schnabel, Beine) behalten die Farbe des Kaufs (BEHALTEN); Wurzelweg „weg“ für
 # Gehen und Rennen im Tempo der Pfoten am Boden und „biss“ wie kaufwolf.py; Pfoten der Vierbeiner heißen wie beim Wolf (vpfoteL …,
 # figur.gd Pfotenschatten und Pfotenhalt).
-import os, sys, glob, json, math, time
+import os, sys, glob, json, math, time, fnmatch
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 T0 = time.time()
 import bpy
@@ -88,14 +88,48 @@ T = TIERE[TIER]
 ID = 'kauf_' + TIER
 
 
+def suche(d, muster):
+    """494 (Lauf 225: der Hundertfüßer kam als unitypackage, „skin.FBX nicht gefunden“): Dateinamen ohne Rücksicht auf Groß- und
+    Kleinschreibung; bei Unity auch „<Tier>@<Bewegung>.fbx“"""
+    m = muster.lower()
+    return sorted(os.path.join(w, f) for w, _, fs in os.walk(d) for f in fs if fnmatch.fnmatch(f.lower(), m) and '/.git' not in w)
+
+
+def auspacken():
+    """494 Lauf 229: der Hundertfüßer (MadeCG) liegt nur gepackt vor (fbx.zip neben dem unitypackage; dessen Bewegungen sind
+    Unity-.anim, für Blender unbrauchbar): die Zips des Tiers mit „fbx“ (sonst alle) in einen eigenen Ordner außerhalb des Kaufs
+    auspacken und dort suchen. Nur auf dem Läufer, nichts davon kommt ins Repo."""
+    import zipfile, tempfile
+    stamm = T['tex'].rstrip('*').lower()
+    zips = [z for z in suche(KAUF, '*.zip') if stamm in z.lower()]
+    zips = [z for z in zips if 'fbx' in os.path.basename(z).lower()] or zips
+    if not zips:
+        return []
+    ziel = os.path.join(os.environ.get('RUNNER_TEMP', tempfile.gettempdir()), 'kauf-' + TIER)
+    for z in zips:
+        with zipfile.ZipFile(z) as zf:
+            print('AUSPACKEN', os.path.relpath(z, KAUF), len(zf.namelist()), 'Dateien:', ', '.join(zf.namelist()[:12]))
+            zf.extractall(os.path.join(ziel, os.path.splitext(os.path.basename(z))[0]))
+    return suche(ziel, T['rig']) or suche(ziel, '*' + T['rig'])     # auch „centipede-skin.FBX“
+
+
 def quelle():
     if not KAUF:
         sys.exit('KAUF fehlt (Ordner mit den gekauften Modellen)')
-    t = sorted(glob.glob(os.path.join(KAUF, '**', T['rig']), recursive=True))
+    t = suche(KAUF, T['rig'])
     if not t:
+        t = auspacken()
+    if not t:
+        stamm = T['tex'].rstrip('*').lower()
+        print('DATEIEN mit „%s“ unter %s:' % (stamm, KAUF))
+        for w, _, fs in os.walk(KAUF):
+            for f in fs:
+                if stamm in os.path.join(w, f).lower() and '/.git' not in w: print('  ', os.path.relpath(os.path.join(w, f), KAUF))
         sys.exit('%s nicht gefunden unter %s' % (T['rig'], KAUF))
     d = os.path.dirname(os.path.dirname(t[0]))
-    tex = sorted(glob.glob(os.path.join(d, '**', T['tex'] + '.tga'), recursive=True) + glob.glob(os.path.join(d, '**', T['tex'] + '.png'), recursive=True))
+    tex = suche(d, T['tex'] + '.tga') + suche(d, T['tex'] + '.png')
+    if not tex:     # ausgepackt ohne Bild: das Bild aus dem Kauf (Unity Assets/Textures)
+        tex = suche(KAUF, T['tex'] + '.tga') + suche(KAUF, T['tex'] + '.png')
     return t[0], d, tex[0] if tex else None
 
 
@@ -301,7 +335,7 @@ def baue(fell):
     print('IMPORT', TIER, os.path.basename(fbx), 'Netze', len(meshes), 'Dreiecke', tris(meshes), 'Knochen', len(rig.data.bones), 'Textur', tex and os.path.basename(tex))
     akt = {}
     for nm, q in T['namen'].items():
-        f = sorted(glob.glob(os.path.join(d, '**', T['anim'] % q), recursive=True))
+        f = suche(d, T['anim'] % q) or suche(d, '*@' + T['anim'] % q) or suche(d, '*[-_]' + T['anim'] % q)
         if not f:
             print('FEHLT', nm, q); continue
         n = importiere(f[0]); a = aktion_von(n)
