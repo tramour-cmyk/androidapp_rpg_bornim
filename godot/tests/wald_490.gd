@@ -41,7 +41,7 @@ func _lauf() -> void:
 	print("Monster: %s" % ", ".join(h.liste.map(func(s): return "%s %s" % [s.art, s.kachel])))
 	pruefe(h.liste.size() >= 5 and h.liste.size() <= 7, "5 bis 7 Monster (alt 7, ohne Gruppe oder Modell weniger): %d" % h.liste.size())
 	for s in h.liste:
-		pruefe(spiel.karte.zeichen(s.kachel) == "," and h.sicher(s.kachel).is_empty(), "%s auf hohem Gras, nicht am Schutzort" % s.art)
+		pruefe(spiel.karte.zeichen(s.heim) == "," and h.sicher(s.kachel).is_empty(), "%s auf hohem Gras erschienen, nicht am Schutzort" % s.art)
 		pruefe(s.figur != null and s.figur.anim != null, "%s mit Modell und Bewegungen" % s.art)
 	# ein Jaeger neben dem Helden greift an
 	h.kampf.disconnect(spiel._kampf_auf_karte)
@@ -53,7 +53,9 @@ func _lauf() -> void:
 	if jaeger:
 		var t := Vector2i(15, 9)   # hohes Gras oestlich des Feuers, ausserhalb des Schutzkreises
 		spiel.held.setze(Vector2i(16, 9) if spiel.karte.begehbar(Vector2i(16, 9)) else Vector2i(15, 8), "LEFT")
-		jaeger.kachel = t; jaeger.von = t; jaeger.jagt = true; jaeger.naechst_ms = 0
+		for s in h.liste:   # die anderen lassen ihn in Ruhe, damit der Angriff von diesem kommt
+			if s != jaeger: s.ruhig_bis = 1 << 40; s.jagt = false; s.kachel = s.heim; s.von = s.heim
+		jaeger.kachel = t; jaeger.von = t; jaeger.heim = t; jaeger.jagt = true; jaeger.naechst_ms = 0
 		h.frieden_bis = 0
 		for i in 20:
 			h.schritt(0.05)
