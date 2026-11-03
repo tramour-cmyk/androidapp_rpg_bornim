@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [447.4](entscheiden/4474-lehrmeister.md) | **Muss** | C Texte | 03.11., 08:09 | Lehrmeister fragen nach „Noch nicht“ noch einmal? Wechsel als Anwärter in Kapitel 1 ohne Verlust? | Homer |
 
 ## Zu billigen
 
@@ -12,11 +16,7 @@ Nichts offen.
 
 ## Anzusehen
 
-**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
-
-| Nr. | Was | Wer | Seit |
-|---|---|---|---|
-| [447.4](ansehen/4474-lehrmeister-texte.md) | Texte Lehrmeister und Ruf, Kapitel 1 | Homer | 01.11., 20:51 |
+Nichts offen.
 
 ## Zu tun
 
@@ -35,7 +35,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 447.4 | M | von Perikles (Chef 01.11., Archiv 447; Chef 03.11., 07:52 zurück, Zu 447.4): Texte für Stu | Chef |
+| 447.4 | M | von Perikles (Chef 01.11., Archiv 447; Chef 03.11., 07:52 zurück, Zu 447.4): Texte für Stu | Chef (Datei in der Chefsache) |
 | 504 | M | von Perikles (Chef 03.11., 07:52, Zu 504): Gespräche nie gleich: jede Zeile, die man wiede | startbar |
 | 427.2 | M | von Sokrates (Chef 02.11., 20:22, „427.1 A mit 1 und 2“, Archiv 427.1): Hinweis auf Morwen | startbar |
 | 461b.3 | M | von Perikles (Liste Sokrates 461b, 02.11., 19:1x, Punkte 5, 6, 16): Widersprüche nachziehe | ruht (424: altes SRD-System) |
@@ -277,9 +277,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 407 (Projekt), 415 (Team Jerry)
 
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/4474-lehrmeister-texte.md
-
-Ohne Datei: 3402 (Projekt), 275 (Projekt)
+Ohne Datei: 3402 (Projekt), 275 (Projekt), 26 (Team Tom)
 
 ## So geht's
 
