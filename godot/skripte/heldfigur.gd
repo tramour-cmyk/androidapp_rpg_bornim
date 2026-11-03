@@ -30,7 +30,8 @@ const KLASSEN_VORGABE := {
 # Haut lebendig (Chef 23:0x „klinisch tot“): Licht, Umgebung und Stimmung (licht.gd) nehmen der Haut Farbe (Lauf 1, haut.txt: Wange
 # „Warm“ 166/137/104 statt Feld 212/162/124, „Hell“ grau 180/165/141); je Kanal geeicht auf die Farbe des Felds bei gleicher
 # Helligkeit (Eichung 1,66/1,39/1,40 durch ihre Helligkeit; nicht heller: Chef „dunkler“), dazu ein Teil der Farbschwankung des Bildes
-const HAUT_EICHUNG := Vector3(1.145, 0.96, 0.97)
+# 431 (Chef 02.11., 20:37 „Heldenhaut so“; 431e eine Eichung, Bezug Kampfortlicht): gemessen in Lauf 5 41504744398 (EICHUNG HELD)
+const HAUT_EICHUNG := Vector3(0.355, 0.219, 0.270)
 const HAUT_FARBE := 0.5
 # Bewegungen, die sich wiederholen (wie held.gd Gebiet.bewegungen)
 const SCHLEIFEN := ["Stehen", "Gehen", "Rennen", "Stehen_2", "Stehen_3", "Sitzen", "Gesten"]
@@ -162,6 +163,9 @@ static func tritte(an: Animation, sk: Skeleton3D, raum: Transform3D) -> Vector2:
 
 # Die Figur: Wurzel des glb mit AnimationPlayer „AnimationPlayer“ (Stehen, Gehen, Rennen, Stehen_2, Stehen_3, …); mats bekommt die
 # Toon-Materialien (held.gd: fill, Nacht). Ergebnis in meta: „gehen_m_je_s“, „rennen_m_je_s“, „faust_L“ (Knochen, Griff, Achse)
+# 463 (Chef 01.11., 20:3x „Umhang … durchschimmert“, Robe): Rueckseiten und Aermel in der Tiefe zurueck, Werte nach pruef_flecken RUECK
+const RUECK := 0.04   # Laeufe 41427986678, 41449210697: mit Unterlagen weg (kauf_kleid UNTER_WEG) Wache Mann 11404 -> 5831, Frau 14284 -> 4788 Flecken
+const NACH := 0.0
 static func baue(w: Dictionary, mats: Array) -> Node3D:
 	var k := String(w.get("klasse", "FIGHTER"))
 	var a := aussehen_voll(w.get("aussehen", {}), k)
@@ -176,6 +180,9 @@ static func baue(w: Dictionary, mats: Array) -> Node3D:
 	var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
 	if "--ohneheben" not in OS.get_cmdline_user_args(): sk.add_child(FigurenProbe.KopfHeben.new())   # UAL senkt den Kopf (Helfer 20:2x)
 	Gebiet.male(m, null, 2, mats)
+	for x in mats:   # 463: Kleidung geschlossen (Innenseiten und Aermel verlieren in der Tiefe; toon.gdshader rueck, nach)
+		(x as ShaderMaterial).set_shader_parameter("rueck", RUECK)
+		(x as ShaderMaterial).set_shader_parameter("nach", NACH)
 	haare(m, sk, String(t["modell"]), a, mats)
 	form(m, String(a["form"]))
 	statur(m, String(a.get("statur", "normal")))
