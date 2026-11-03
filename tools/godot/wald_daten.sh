@@ -24,7 +24,7 @@ cp $O/dorf.glb $D/dorf.bin; cp $O/dorf-info.json $D/
 for g in forest deep_forest; do cp $O/$g.glb $D/$g.bin; cp $O/$g-info.json $D/; cp $O/$g-boden-maske.png $D/$g-boden-maske.bild; done
 for t in gras erde pflaster halme korn weiss; do cp $O/tex/$t.png $D/$t.bild; done
 cp $O/boden-maske.png $D/boden-maske.bild
-cp $O/cave.glb $D/cave.bin; cp $O/cave-info.json $D/
+cp $O/cave.glb $D/cave.bin; cp $O/cave-info.json $D/; cp $O/cave-boden-maske.png $D/cave-boden-maske.bild
 for i in garrick morwen lyra; do cp $O/leute/$i/held.glb $D/leute/$i.bin; cp $O/leute/$i/held-info.json $D/leute/$i-info.json; done; cp tools/blender348/v3/leute.json $D/leute/
 K=$G/kampf/daten; mkdir -p $K
 cp $O/held.glb $K/held.bin

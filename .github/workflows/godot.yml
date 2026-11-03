@@ -121,7 +121,7 @@ jobs:
             grep -h "GLB OK\|NETZ" dorf-$g.log; cp $OUT/$g.glb $D/$g.bin && cp $OUT/$g-info.json $D/ && cp $OUT/$g-boden-maske.png $D/$g-boden-maske.bild; done
           # 492 Blutzahnhoehle als Grundriss (hoehle.py KARTE=cave): cave.bin, cave-info.json (innen, hoehle, lichter, waende)
           KARTE=cave bl/bin/python -I tools/blender348/v3/hoehle.py > hoehle.log 2>&1 || { tail -30 hoehle.log; exit 1; }
-          grep -h "GLB OK\|^NETZE\|^LICHTER" hoehle.log; cp $OUT/cave.glb $D/cave.bin && cp $OUT/cave-info.json $D/
+          grep -h "GLB OK\|^NETZE\|^LICHTER" hoehle.log; cp $OUT/cave.glb $D/cave.bin && cp $OUT/cave-info.json $D/ && cp $OUT/cave-boden-maske.png $D/cave-boden-maske.bild
           ls -l $D
       # 376.1 (Chef 28.10., 22:0x): der Held je Klasse auf Kaufkoerper und Kaufkopf (held_klassen.py), Haare, Bewegungen aus der UAL;
       # seit 01.11. je Tracht der Herkunft und Geschlecht (held_<TRACHT>_<M|W>), mit Statur;

@@ -29,6 +29,7 @@ var kraut_netz: MeshInstance3D        # 490 Vorlage des Heilkrauts (dorf.py „K
 var kraeuter := {}                    # Vector2i -> MeshInstance3D
 var feuer: Array = []                 # 490 Lagerfeuer: {licht, flammen, rauch, basis}
 var glut: Array[ShaderMaterial] = []  # 490 Glut im Feuer
+var strahl_basis := 0.06   # 492: der Lichtstrahl atmet (alt WorldScreen 2315: Fleck am Boden atmet)
 var himmel: Array[StandardMaterial3D] = []   # 492 Ausblick, Spalt und Lichtstrahl der Hoehle
 
 func _init(k: Karte) -> void:
@@ -302,7 +303,7 @@ func nacht(k: float) -> void:
 	for m in himmel:   # 492: tags hell, nachts Mond (alt SKYLIGHT, CAVE_EXIT: When.SUN / When.MOON)
 		var hell := lerpf(1.0, 0.18, k)
 		if m.transparency == BaseMaterial3D.TRANSPARENCY_DISABLED: m.albedo_color = Color(hell, hell, hell * lerpf(1.0, 1.4, k))
-		else: m.albedo_color = Color(1, 1, 1, lerpf(0.06, 0.015, k))
+		else: m.albedo_color = Color(1, 1, 1, lerpf(0.06, 0.015, k)); strahl_basis = m.albedo_color.a
 	for f in feuer: f["basis"] = 0.5 + 1.6 * k   # 490: Garricks Feuer, nachts die einzige warme Insel (LISTE-UMZUG-348 Stimmung)
 	for m in glas: m.set_shader_parameter("glow", 0.5 * k)
 	if wasser: wasser.set_shader_parameter("night", k)
@@ -564,6 +565,25 @@ func baue_leben() -> void:
 		var at := gpos(l["pos"])
 		if l["art"] == "rauch": rauch.append(baue_rauch(at))
 		elif l["art"] == "blumen": gluehen.append(baue_gluehen(at))
+		# 492 (Abgleich, alt WorldScreen 2192-2202, 2315-2380): Staub im Lichtstrahl, Sporen ueber den Leuchtpilzen, immer
+		elif l["art"] == "staub": baue_schweben(at, Color(1.0, 0.97, 0.88), Vector3(0.3, 2.2, 0.3), 10, 0.025, 0.25)
+		elif l["art"] == "sporen": baue_schweben(at, Color(0.38, 0.95, 0.88), Vector3(0.45, 0.35, 0.45), 6, 0.03, 0.5)
+
+func baue_schweben(at: Vector3, farbe: Color, feld: Vector3, n: int, gross: float, hell: float) -> CPUParticles3D:
+	var ff := CPUParticles3D.new()
+	ff.amount = n; ff.lifetime = 5.0; ff.preprocess = 5.0
+	ff.emission_shape = CPUParticles3D.EMISSION_SHAPE_BOX; ff.emission_box_extents = feld
+	ff.gravity = Vector3(0, -0.01, 0); ff.direction = Vector3(1, 0.2, 0.3); ff.spread = 180.0
+	ff.initial_velocity_min = 0.01; ff.initial_velocity_max = 0.05
+	var gr := Gradient.new(); var aus := farbe; aus.a = 0.0; var an := farbe; an.a = hell
+	gr.set_color(0, aus); gr.add_point(0.5, an); gr.set_color(gr.get_point_count() - 1, aus)
+	ff.color_ramp = gr
+	var qm := QuadMesh.new(); qm.size = Vector2(gross, gross)
+	qm.material = punkt_mat(true)
+	ff.mesh = qm
+	ff.position = at
+	add_child(ff)
+	return ff
 
 func baue_rauch(at: Vector3) -> CPUParticles3D:
 	var pr := CPUParticles3D.new()
@@ -640,6 +660,8 @@ static func punkt_mat(leuchtet: bool) -> StandardMaterial3D:
 func _process(dt: float) -> void:
 	zeit += dt
 	blende_gruppen(dt)
+	for m in himmel:
+		if m.transparency != BaseMaterial3D.TRANSPARENCY_DISABLED: m.albedo_color.a = strahl_basis * (0.82 + 0.18 * sin(zeit / 1.4))
 	for f in feuer:   # 490: Flackern wie MapLight FIRE (zwei Wellen und Rauschen)
 		var o: OmniLight3D = f["licht"]
 		o.light_energy = float(f["basis"]) * (0.85 + 0.1 * sin(zeit * 9.0) + 0.07 * sin(zeit * 23.0 + 1.3) + 0.05 * randf())
