@@ -6,6 +6,17 @@
 # blickt aus etwa 15 m, Kampflinie 30° nach rechts. Nichts steht auf den Plätzen (a ±5, b ±3,5), der Boden dort ist eben.
 # Ausgabe: kampfort-hoehle-<ort>.glb, hoehle-info-<ort>.json (Lampen, Dreiecke)
 # Aufruf: OUT=<ordner> SPOT=<ort> python -I kampfort_hoehle.py   (vorher tex.py mit demselben OUT; CC0=<ordner> für Felsen)
+# Offen nach Lauf 1 (Lauf 234, Prüfer vor dem Versand 03.11., 11:5x; nicht versandt, 461a). Figuren und Posen in allen fünf Bildern
+# gleich (Probe), nur der Ort wechselt. Verstöße: A1 Figuren glatt statt Toon (Wölfe fotoartig, Miras Beinschienen glänzend, Bertrams
+# Umhang mit weichem Verlauf); A2 Tusche an den Wölfen olivbraun und heller als der Grund, im Eingang keine; A4 unter jeder Figur eine
+# hellgrün leuchtende Scheibe statt eines dunklen Schattens; E3 Bertram: Rot/Rosa sticht durch den Umhang (x 205–225, y 490–565),
+# unter dem Saum Lücke, Stiefel wirken getrennt; Schwertgriff leuchtet gelb. Inhalt fehlt: Teich ohne Wasser und Ufer (oben rechts
+# ungefüllte orange Linie x 360–540, y 130–180); Lager ohne Feuer, Kisten, Sack, Schlaflager, Knochen (nur Felsen links, Fass am Rand
+# abgeschnitten); Halle: Säulen nur als olivfarbene Umrisse auf Schwarz; Leuchtpilze nirgends; Fackeln nur im Gang (298, 152), im
+# Eingang fraglich (403, 166), Teich und Lager keine. Licht ohne Quelle: Gang rechte Wand gleichmäßig hell; Halle grünlicher Schimmer
+# oben links; Teich grün (x 0–150, y 70–240) und violett (x 230–330); Lager oranges Licht oben links ohne Feuer. Lesbarkeit: Halle und
+# Teich fast schwarz, Wölfe und Bertram verschwinden; Lager: Wölfe und Bertram kaum vom roten Boden. Eingang: Ausblick wie ein flaches
+# grünes Rechteck mit weißem Zackenrand (x 100–355, y 65–150). Koordinaten im Bild 540×1170 (Artefakt Lauf 41615106648, hoehle/*.png).
 import bpy, bmesh, math, os, json, random, glob
 from mathutils import Vector
 
