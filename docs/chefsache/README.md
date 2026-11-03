@@ -16,8 +16,7 @@ Nichts offen.
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.348.245](ansehen/t245-build-496a.md) | [Build 245](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41638592828/artifacts/13233169355) | Grundstand Kampf, Waffen in der Hand (417), Strahlenprobe 415, Klangschalter 489 | Tom und Jerry | 03.11., 14:31 |
-| 2 | [0.348.248](ansehen/t248-build-490.md) | [Build 248](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41667833227) | Flüsterwald, Tiefer Flüsterwald, Kampforte Wald, Kamin, Laden | Tom | 03.11., 16:50 |
+| 1 | [0.348.248](ansehen/t248-build-490.md) | [Build 248](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41667833227) | Flüsterwald, Tiefer Flüsterwald, Kampforte Wald, Kamin, Laden; dazu alles aus Build 245 (Grundstand Kampf, Waffen in der Hand, Strahlenprobe, Klangschalter) | Tom und Jerry | 03.11., 16:50 |
 
 ## Zu tun
 
@@ -182,11 +181,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 469 | M | von Sokrates: Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 
-**Perikles** – offen 31, Muss 27, startbar 2
+**Perikles** – offen 31, Muss 27, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 516 | M? | von Ford (Chef 03.11., 16:20, Frage „gab es nicht ein Tool oder einen Haken für die Kosten | startbar |
+| 516 | K | von Ford (Chef 03.11., 16:20, „gab es nicht ein Tool oder einen Haken für die Kostenerfass | ruht bis 05.11. |
 | 512 | M | von Sokrates (Hinweis 03.11., 07:45, zu 488): vor jeder Testbitte berührte Schirme alt geg | wartet auf Test/Build (gebaut) |
 | 513.1 | M | von Sokrates (Chef 03.11., 15:56, „513 B“, Archiv; „jetzt“ 03.11., 15:56): probelauf.py lä | wartet auf Test/Build (gebaut) |
 | 511 | M | von Sokrates (Chef 03.11., 13:50, „511 ja“, Archiv; „jetzt“ 03.11., 13:50): probelauf.py s | wartet auf Test/Build (gebaut) |
@@ -277,7 +276,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): t248-build-490.md: 7 Vorgänge, höchstens 6 je Build (317)
+Format (Muster: „So geht's“ unten): t248-build-490.md: 13 Vorgänge, höchstens 6 je Build (317)
 
 Nicht gestellt: 407 (Projekt)
 
