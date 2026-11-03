@@ -8,7 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 490 | M | **von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike):** Flüsterwald begehbar wie alt (`Story.kt:524`): Übergang Dorf–Wald–Tiefer Wald, Garrick am Feuer, Gegner auf der Karte starten den Kampf, Kräuter, Teiche, Kartenrand; ohne Feinarbeit (Orte O6) | in Arbeit bei Spike | – |
+| 490 | M | **von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike):** Flüsterwald begehbar wie alt (`Story.kt:524`): Übergang Dorf–Wald–Tiefer Wald, Garrick am Feuer, Gegner auf der Karte starten den Kampf, Kräuter, Teiche, Kartenrand; ohne Feinarbeit (Orte O6) | wartet auf Chef: Standbilder Lauf 2 (ansehen/490); Zweig claude/spike-490-fluesterwald, Geprüft an: Lauf 41596768637 | – |
 | 495 | M | **von Perikles (Wochenziel 03.11. Reihe 4, 488):** Zufallsspieler spielt Kapitel 1 in Godot bis „chapter1_done“ durch und meldet, wo er hängenbleibt (Abnahme 2.2) | wartet auf Guthaben: heute eine Sitzung weniger (468a, Bild Chef 07:16, 53 %), frühestens 04.11. | – |
 | 491 | M | **von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike):** Tiefer Flüsterwald begehbar wie alt (`Story.kt:619`): Morwens Hütte, Grimmzahn mit Leibwache, Sicht 353a (Orte O7) | in Arbeit bei Spike | – |
 | 505 | M | **von Perikles (Archiv 502, Chef 03.11., 07:30, Zu 502 in ARBEIT-PROJEKT):** Nebel des Krieges in der Wildnis wie alt (`Fog.kt`, `WorldScreen.kt` 1426), zuerst im Flüsterwald; Sichtfeld des Helden erst nach Vorlage der Form an den Chef (Welt W24, W25) | in Arbeit bei Spike | – |
