@@ -1,4 +1,4 @@
-# Gespräche in Varianten, Kapitel 1: Wald und Höhle (Vorschlag)
+# Gespräche in Varianten, Kapitel 1: Wald, Höhle, Türen, Rast (Vorschlag)
 
 Teil 2 zu `STORY-VARIANTEN-K1.md` (Vorgang 504; Regeln dort, „W“ = nur Wiederholung). Quelle der Wortlaute 1: `godot/skripte/geschichte.gd`.
 
@@ -50,3 +50,47 @@ Teil 2 zu `STORY-VARIANTEN-K1.md` (Vorgang 504; Regeln dort, „W“ = nur Wiede
 1. bisher: „Ein schweres Eisengitter. Es ist verschlossen.“
 2. Du rüttelst am Gitter. Es gibt keinen Fingerbreit nach. — EN: You rattle the gate. It doesn't give an inch.
 3. Das Schloss ist alt, aber fest. Ohne Schlüssel kommst du hier nicht durch. — EN: The lock is old but solid. Without a key you won't get through here.
+
+## Türen, Schlagbaum, Rast
+
+Quelle der Wortlaute 1: `Story.kt` (Türen 73b, über `MapExport.kt` nach Godot), `Game.kt` (Schlagbaum), `godot/skripte/rast.gd`, `spiel.gd` (Erwachen). Schilder und anderes Geschriebenes bleiben immer gleich.
+
+`[504.tuer.edrik]` (`[73b.edrik]`) / `[504.tuer.edrik.ende]`
+1. bisher: „Wer ist da? … Ich mach nicht auf. Für niemanden.“ · „Du hast die Goblins vertrieben? … Morgen vielleicht. Heute nicht.“
+2. Schon wieder? Ich sagte: Ich mach nicht auf. · Ich hab gehört, was du getan hast. Trotzdem, die Tür bleibt zu. — EN: Again? I said: I'm not opening. · I heard what you did. Still, the door stays shut.
+3. Geh weg von meiner Tür. Wer klopft, will meistens nichts Gutes. · Seit Wochen schlafe ich wieder ruhig. Das soll auch so bleiben. Lass mich. — EN: Get away from my door. Whoever knocks usually means no good. · For the first time in weeks I sleep soundly again. I'd like it to stay that way. Leave me be.
+
+`[504.tuer.kael]` (`[73b.kael]`)
+1. bisher: „Geh weiter. Ich hab in meinem Leben genug an fremde Türen klopfen hören.“
+2. Klopf, so viel du willst. Was ich weiß, sag ich nicht durch eine Tür. — EN: Knock all you like. What I know, I don't say through a door.
+3. Fremde an meiner Tür bringen nie etwas Gutes. Geh weiter. — EN: Strangers at my door never bring anything good. Move along.
+
+`[504.tuer.gwenna]` (Tag, Erzähler, `[41.gwenna.tuer]`) / `[504.tuer.gwenna.nacht]` (`[73b.gwenna.nacht]`)
+1. bisher: „Hier wohnt Gwenna. Seit ihr Mann nicht zurückkam …“ · „Nicht nachts. Nicht mehr.“
+2. Gwennas Haus. Die Tür ist verriegelt, wie jeden Tag, seit ihr Mann nicht zurückkam. · Wer ist da? … Geh. Bitte. — EN: Gwenna's house. The door is bolted, as every day since her husband didn't come back. · Who's there? … Go. Please.
+3. Niemand öffnet. Seit ihr Mann nicht zurückkam, ist Gwenna tagsüber am Fluss. · Ich mach nachts nicht mehr auf. Für keinen. — EN: No one answers. Since her husband didn't come back, Gwenna spends her days by the river. · I don't open at night anymore. Not for anyone.
+
+`[504.tuer.dorran]` (Tag, Erzähler) / `[504.tuer.dorran.nacht]` (`[73b.dorran.nacht]`)
+1. bisher: „Das Haus von Schmied Dorran. Er ist wohl in seiner Werkstatt.“ · „Die Esse ist kalt. Komm morgen.“
+2. Dorrans Haus. Niemand da; er steht sicher an der Esse. · Es ist Nacht. Schmiede schlafen auch. — EN: Dorran's house. Nobody home; he's surely at the forge. · It's night. Smiths sleep too.
+3. Keiner öffnet. Um diese Zeit ist Dorran in seiner Werkstatt. · Wer will um diese Zeit etwas vom Schmied? Morgen. — EN: No one answers. At this hour Dorran is in his workshop. · Who wants anything from the smith at this hour? Tomorrow.
+
+`[504.tuer.pim]` (Tag, `[73b.pim.tag]`) / `[504.tuer.pim.nacht]` (`[73b.pim.nacht]`)
+1. bisher: „Pim ist nicht da. Wenn du ihn am Schlagbaum siehst …“ · „Pim schläft. Und du solltest …“
+2. Pim? Der ist wieder draußen. Wenn du ihn am Schlagbaum siehst, schick ihn heim. · Psst! Pim schläft endlich. Klopf morgen wieder. — EN: Pim? He's out again. If you see him at the barrier, send him home. · Shh! Pim's finally asleep. Knock again tomorrow.
+3. Nein, Pim ist nicht hier. Schleicht bestimmt wieder um den Schlagbaum. · Um diese Zeit? Geh heim, bevor dich die Wölfe holen. — EN: No, Pim's not here. Sneaking round the barrier again, no doubt. · At this hour? Go home before the wolves get you.
+
+`[504.schlagbaum]` (Erzähler, vor der Quest) / `[504.schlagbaum.quest]` (Quest läuft, Schlagbaum zu)
+1. bisher: „Der Schlagbaum ist unten. Ohne Erlaubnis des Ältesten …“ · „Der Schlagbaum ist unten. Sprich mit Wache Jorin …“
+2. Der Schlagbaum bleibt unten. Erst muss der Älteste dich schicken. · Der Schlagbaum ist noch unten. Wache Jorin öffnet ihn dir. — EN: The barrier stays down. First the Elder has to send you. · The barrier is still down. Guard Jorin will raise it for you.
+3. Das Seil ist fest verknotet. Ohne das Wort des Ältesten öffnet dir hier keiner. · Solange der Schlagbaum unten ist, kommst du nicht vorbei. Sprich mit Wache Jorin. — EN: The rope is tied fast. Without the Elder's word nobody opens up for you here. · As long as the barrier is down, you can't get past. Talk to Guard Jorin.
+
+`[504.rast.hoehle]` / `[504.rast.bett]` (`rast.gd` FEUER_HOEHLE, FREMDES_BETT)
+1. bisher: „Das Feuer der Goblins. Es ist viel zu gefährlich, hier in der Höhle zu rasten.“ · „Ein weiches Bett.“
+2. Die Glut der Goblins ist noch warm. Hier zu rasten wäre viel zu gefährlich. · Ein fremdes Bett. Weich, aber nicht deins. — EN: The goblins' embers are still warm. Resting here would be far too dangerous. · A stranger's bed. Soft, but not yours.
+3. Ein Feuer mitten in Feindesland. Wer hier rastet, wacht nicht wieder auf. · Frisch bezogen und weich. Für jemand anderen. — EN: A fire in the middle of enemy ground. Whoever rests here doesn't wake up. · Freshly made and soft. For someone else.
+
+`[504.erwachen]` (Erzähler, nach einer Niederlage, `spiel.gd`)
+1. bisher: „Du erwachst an einem sicheren Ort … Der Heimweg hat Stunden gedauert.“
+2. Du kommst zu dir, an einem sicheren Ort. Der Weg hierher hat Stunden gedauert. — EN: You come to, somewhere safe. The way here took hours.
+3. Schmerz, dann Stille. Du erwachst an einem sicheren Ort, und der Heimweg hat Stunden gekostet. — EN: Pain, then silence. You wake up somewhere safe, and the way home cost you hours.

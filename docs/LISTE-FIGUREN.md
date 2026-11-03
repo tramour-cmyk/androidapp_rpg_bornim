@@ -131,10 +131,10 @@ Gebilligt (Chef 25.10., 22:00):
 4. **Farbe:** Haut, Haar und Augen wählbar wie beim Menschen; dazu die Strähne, auch bei jungen Figuren aschgrau, nie weiß.
 5. **Haltung:** wie der Mensch; nichts Fremdes, nichts Unheimliches.
 
-Aschgeborener: Entwurf Homer 02.11. (432.3), beim Chef zur Entscheidung; gebaut wird nach dem Meilenstein.
+Aschgeborener: entschieden 432.3 (Chef 02.11., 22:05, Vorgangsarchiv); gebaut wird nach dem Meilenstein.
 
 Gebilligt (Chef 25.10., 23:33, 348.11 b): übrige Monster aus Kapitel 1. Für alle gilt:
-- **Echte Größe:** die Maße gelten auch im Kampfort, ohne die bisherige Vergrößerung (Gegner 1,3-fach, Bosse 1,5-fach).
+- **Echte Größe:** die Maße gelten auch im Kampfort, ohne die bisherige Vergrößerung (Gegner 1,3-fach, Bosse 1,5-fach). Ausnahme: Wölfe bleiben 1,32 (Chef 01.11., 438c).
 - **Leuchten** nur, wo eine sichtbare Quelle ist: Schamane (Fluch) und Skelett (Untod), dazu Grimmzahn (Faden der Geschichte); alle anderen Augen matt, grelle Farben gedämpft.
 - **Kits am Umriss verschieden** (Kapuze, Fellkragen, Helm), nicht nur an der Farbe.
 - Jeder Goblin, Kobold, Untote ist zufällig schlank, mittel oder kräftig.
