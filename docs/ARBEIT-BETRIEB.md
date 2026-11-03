@@ -24,7 +24,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 ## Eingang
 
-- **Offen von mir beim Chef (03.11., 19:2x):** 468b (Sokrates für 505 „Läufe frei“; sonst startet Ford Tom nicht), 516a (Erlaubnisregel für `archive_session`; fünf Sitzungen und Kosten ungebucht); Dateien in `chefsache/entscheiden/`.
+- **Offen von mir beim Chef (03.11., 19:2x):** **468b erledigt** (Chef 20:20: „Ich gebe die Läufe frei“, 505 jetzt bei Tom, Rückfragen dieser Art nie wieder). **516a erledigt:** Chef 03.11., 20:19 „Bitte. Archivieren. Kostenerfassen.“ (Chefwort gilt dauerhaft, „Es ist ein verdammter Job“): Ford archiviert jede idle Sitzung (>60 s) selbst und bucht die Kosten, ohne zu fragen; 20:20 archiviert und gebucht: alter Ford 11,01 $, Tom 75Qo 13,92 $ (490), Tom 75bc 22,90 $ (514), Jerry 763n 45,69 $ und 79tm 14,14 $ (494).
 
 - **von Homer (486, 02.11., 19:5x):** `ARBEIT-BETRIEB.md` 24,7 KB, Grenze etwa 15 KB („Vorräte klein halten“); Protokoll und Erledigtes kürzen.
 - **von Diogenes (02.11., 19:4x, 485 Wochentermine):** Morgenmeldung (`LISTE-BETRIEB.md` Schritt 10, `meldung.sh --laut`, Mo–Fr 7 Uhr, Sa/So 9 Uhr) laut `meldungen.tsv` 28.10.–02.11. an keinem Tag zur Zeit: Ford-Meldungen vor 10 Uhr nur 28.10., 03:04 (389) und 29.10., 09:05 (194.1); 30.10.–02.11. keine. Ist sie anders gegangen, bitte Quelle nennen, sonst nachziehen.
