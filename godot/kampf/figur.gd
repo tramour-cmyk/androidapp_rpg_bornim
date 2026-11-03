@@ -826,6 +826,7 @@ var schutz_variante := 0        # 438a Vergleich in sturz_438a: 1 = Hautpunkte n
 #                                 im Gitter (Lauf 200: alle 5689 Ecken je Schritt kosteten 144 ms je Bild); 3 = 2 und _loesen nimmt die
 #                                 beste Lage aller Schritte; 4 = wie gebaut und die beste Lage
 var spreizen_grad := 0.0        # 438a Vergleich in sturz_438a: Schwertarm beim Aufstehen so weit vom rechten Bein weg (bodenhalt.gd)
+var faust_frei := false         # 438a Vergleich in sturz_438a: Schwertfaust beim Hinfallen und Aufstehen aus Haut und Kleidung der Beine (bodenhalt.gd)
 var mess_us := 0                # 438a Messung: Zeit von _boden_schutz in diesem Bild, µs
 var messen := false             # 438a: sturz_438a liest mess_schutz je Bild (sonst nichts gerechnet)
 var mess_schutz := {}
@@ -1187,30 +1188,13 @@ func _haut_nah(sk: Skeleton3D, g: Transform3D, t: Array, alle := false) -> Array
 	if alle:
 		var rw := maxf(g.origin.distance_to(a), g.origin.distance_to(z)) + HAUT_SUCHE
 		box = AABB(g.origin - Vector3.ONE * rw, Vector3.ONE * 2.0 * rw)
-	var gs := sk.global_transform
+	var bw: Array = bein_welt(sk)
 	var pos := PackedVector3Array()
 	var nor := PackedVector3Array()
-	for h in _bein_ecken(sk):
-		var skin: Skin = h[0]
-		var tr := []
-		for j in skin.get_bind_count():
-			var bb: int = h[7][j]
-			tr.append(gs * (sk.get_bone_global_pose(bb) if bb >= 0 else Transform3D.IDENTITY) * skin.get_bind_pose(j))
-		var vs: PackedVector3Array = h[1]
-		var ns: PackedVector3Array = h[2]
-		var nb: int = h[5]
-		for v in h[6]:
-			var p := Vector3.ZERO
-			var n := Vector3.ZERO
-			for j in nb:
-				var w: float = h[4][v * nb + j]
-				if w > 0.0:
-					var tt: Transform3D = tr[h[3][v * nb + j]]
-					p += tt * vs[v] * w
-					n += tt.basis * ns[v] * w
-			if box.has_point(p):
-				pos.append(p)
-				nor.append(n.normalized())
+	for j in (bw[0] as PackedVector3Array).size():
+		if box.has_point(bw[0][j]):
+			pos.append(bw[0][j])
+			nor.append(bw[1][j])
 	if pos.is_empty():
 		return []
 	if alle:
@@ -1242,6 +1226,43 @@ func _haut_nah(sk: Skeleton3D, g: Transform3D, t: Array, alle := false) -> Array
 	for j in wahl:
 		out.append([pos[j], nor[j]])
 	return out
+
+
+## 438a Faust (Lauf 206: beim Aufstehen steckt der Griff selbst 7–13 cm im Kleid, Drehen um ihn hilft nicht): alle Ecken von Haut und
+## Kleidung der Beine in der Welt, wie man sie jetzt sieht: [Orte, Normalen]; einmal je Bild gerechnet (bodenhalt.gd schiebt damit die
+## Schwertfaust hinaus, danach nimmt _boden_schutz dieselben; der Arm bewegt die Beine nicht)
+var _bw_bild := -1
+var _bw: Array = [PackedVector3Array(), PackedVector3Array()]
+func bein_welt(sk: Skeleton3D) -> Array:
+	var bild := Engine.get_process_frames()
+	if bild == _bw_bild:
+		return _bw
+	_bw_bild = bild
+	var gs := sk.global_transform
+	var pos := PackedVector3Array()
+	var nor := PackedVector3Array()
+	for h in _bein_ecken(sk):
+		var skin: Skin = h[0]
+		var tr := []
+		for j in skin.get_bind_count():
+			var bb: int = h[7][j]
+			tr.append(gs * (sk.get_bone_global_pose(bb) if bb >= 0 else Transform3D.IDENTITY) * skin.get_bind_pose(j))
+		var vs: PackedVector3Array = h[1]
+		var ns: PackedVector3Array = h[2]
+		var nb: int = h[5]
+		for v in h[6]:
+			var p := Vector3.ZERO
+			var n := Vector3.ZERO
+			for j in nb:
+				var w: float = h[4][v * nb + j]
+				if w > 0.0:
+					var tt: Transform3D = tr[h[3][v * nb + j]]
+					p += tt * vs[v] * w
+					n += tt.basis * ns[v] * w
+			pos.append(p)
+			nor.append(n.normalized())
+	_bw = [pos, nor]
+	return _bw
 
 
 var _gitter := {}              # 438a V2: Zelle (Vector3i) -> Indizes in _gitter_haut

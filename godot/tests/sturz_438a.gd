@@ -53,10 +53,12 @@ func _run() -> void:
 	# mit der besten Lage aller Schritte, V4 = wie gebaut mit der besten Lage
 	# Lauf 201: das Gitter blieb leer (V2, V3 ohne Haut), V4 wie V0; Lauf 203: V3 sieht 11,3 cm, findet keinen Schritt hinaus; V5 probiert
 	# feste Drehungen um den Griff zuerst
-	for kv in [["FIGHTER", 0, 0.0], ["FIGHTER", 3, 0.0], ["FIGHTER", 5, 0.0], ["CLERIC", 5, 0.0]]:
+	# Lauf 206: V5 wie V3 (Kämpfer Aufstehen 10,8 cm, Griff selbst 7,3 cm im Kleid): Drehen ausgereizt; jetzt die Schwertfaust aus dem
+	# Kleid (F, figur.faust_frei, bodenhalt.gd), dahinter V3
+	for kv in [["FIGHTER", 3, 0.0, false], ["FIGHTER", 3, 0.0, true], ["FIGHTER", 5, 0.0, true], ["CLERIC", 3, 0.0, true]]:
 		var p = Probe.new()
 		p.hero_cls = kv[0]
-		var k: String = kv[0] + ("" if kv[1] == 0 else " V%d" % kv[1]) + ("" if kv[2] == 0.0 else " A%d" % int(kv[2]))
+		var k: String = kv[0] + ("" if kv[1] == 0 else " V%d" % kv[1]) + ("" if kv[2] == 0.0 else " A%d" % int(kv[2])) + (" F" if kv[3] else "")
 		p.merc_cls = "FIGHTER" if kv[0] != "FIGHTER" else "CLERIC"
 		p.foe = "WOLVES"
 		root.add_child(p)
@@ -73,6 +75,7 @@ func _run() -> void:
 		fig.messen = true
 		fig.schutz_variante = kv[1]
 		fig.spreizen_grad = kv[2]
+		fig.faust_frei = kv[3]
 		var schild: Node = fig.model.find_child("Schild", true, false)
 		var sm: Node3D = (schild.find_children("*", "MeshInstance3D", true, false)[0] if not schild is MeshInstance3D else schild) if schild else null
 		var klinge: Node3D = null
@@ -85,10 +88,23 @@ func _run() -> void:
 		var werte := {}     # Bewegung -> [Schildnetz m, Klinge in Kapsel m, im Boden m, Waffe in Haut m, Finger vor dem Schild m, Hand offen m, wo]
 		# nach den Schichten (skeleton_updated, nach figur.gd): die Pose, die man sieht, mit bodenhalt.gd
 		var mess := {"vorher": {}, "vorvorher": {}, "sprung": 0.0, "zuck": 0.0, "hand": -INF, "wo": "", "zwo": "", "q": {}, "qq": {}, "satz": 0.0, "ueber": -INF, "uwo": "",
-			"us": 0, "us_sum": 0, "us_n": 0}
+			"us": 0, "us_sum": 0, "us_n": 0, "f_tief": 0.0, "f_wo": "", "f_weg": 0.0, "f_ruck": 0.0, "f_rwo": "", "f_letzt": 0.0}
 		var nach := func() -> void:
-			mess.us = maxi(mess.us, fig.mess_us)     # 438a V2: was der Schutz je Bild kostet
-			mess.us_sum += fig.mess_us
+			var bh = fig.boden_halt
+			var us: int = fig.mess_us + (int(bh.faust_us) if bh else 0)
+			mess.us = maxi(mess.us, us)     # 438a V2: was der Schutz je Bild kostet (mit der Faust in bodenhalt.gd)
+			mess.us_sum += us
+			if bh and fig.faust_frei:     # 438a Faust: wie tief die Faust vor dem Schub lag, wie weit geschoben, Ruck je Bild
+				var hier_f := "%s %.2f s" % [fig.anim.current_animation, fig.anim.current_animation_position]
+				if float(bh.faust_tief) > mess.f_tief:
+					mess.f_tief = float(bh.faust_tief)
+					mess.f_wo = hier_f
+				mess.f_weg = maxf(mess.f_weg, float(bh.faust_weg))
+				var ruck := absf(float(bh.faust_weg) - float(mess.f_letzt))
+				if ruck > mess.f_ruck:
+					mess.f_ruck = ruck
+					mess.f_rwo = hier_f
+				mess.f_letzt = float(bh.faust_weg)
 			mess.us_n += 1
 			# Runde 3 (Lauf 160: Fingerspitzen unverändert, obwohl bodenhalt.gd die Faust hält): Knochen nur hier so, wie man sie sieht;
 			# außerhalb von skeleton_updated liest man die Pose ohne die Modifier (bodenhalt.gd)
@@ -183,6 +199,8 @@ func _run() -> void:
 		_check(mess.zuck <= maxf(ZUCK_GRAD, mess.satz), "%s: Waffe und Schild zucken höchstens %.1f° hin und zurück (%s; der Satz selbst %.1f°); je Bild höchstens %.1f° (%s)" % [k, mess.zuck, mess.zwo, mess.satz, mess.sprung, mess.wo])
 		_check(mess.ueber <= 0.0, "%s: Waffe und Schild je Bild höchstens %.0f° oder %.0f° über dem Satz gedreht (schlimmstes Bild %s; größte Drehung %.1f° bei %s)" % [k, SPRUNG_GRAD, SPRUNG_PLUS, mess.uwo, mess.sprung, mess.wo])
 		_check(mess.hand <= HAND_GRENZE, "%s: Hände höchstens %.3f m im Boden" % [k, mess.hand])
+		if fig.faust_frei:
+			print("  %s: Faust vorher höchstens %.3f m in Haut (%s), geschoben höchstens %.3f m, Schub je Bild höchstens %.3f m anders (%s)" % [k, mess.f_tief, mess.f_wo, mess.f_weg, mess.f_ruck, mess.f_rwo])
 		print("  %s: Schutz je Bild höchstens %.1f ms, im Mittel %.2f ms (Rechner des Ablaufs)" % [k, mess.us / 1000.0, mess.us_sum / 1000.0 / maxf(mess.us_n, 1)])
 		p.queue_free()
 		await process_frame
