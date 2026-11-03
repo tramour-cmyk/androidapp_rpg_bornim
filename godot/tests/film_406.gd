@@ -278,6 +278,7 @@ func _kampf(k: String) -> void:
 	# hinter dem schwarzen Wolf): je Richtung zählen, was zwischen Kamera und Helden steht (Ecken des Walds, Wölfe); die freieste nehmen,
 	# bei Gleichstand die, in der die Helden am weitesten auseinander stehen
 	var wald := _wald_ecken(kf)
+	print("Film 406 Kampf %s: Wald %d Dreiecke über dem Boden" % [k, (wald[1] as PackedVector3Array).size()])
 	var best_v := von
 	var best_a := -1.0
 	var best_z := INF
@@ -419,30 +420,44 @@ func _folgen(cam: Camera3D, kf, folge: Dictionary, erst: bool) -> void:
 				return
 
 
-## 406 G1 (Lauf 198): Ecken des Walds im Kampfort über dem Boden (jede vierte), einmal je Kampf
-func _wald_ecken(kf) -> PackedVector3Array:
-	var out := PackedVector3Array()
+## 406 G1 (Lauf 205, Prüfer: Held 78–80 s ganz hinter einem Stamm, _verdeckt sah 0): Dreiecke des Walds im Kampfort über dem Boden,
+## einmal je Kampf: [Ecken a, b, c je Dreieck, Mitten, Halbmesser]. Vorher zählten Ecken nahe der Blicklinie; ein Stamm hat Ecken nur
+## unten und oben, eine Krone nur außen, die Linie quer hindurch traf keine
+func _wald_ecken(kf) -> Array:
+	var tri := PackedVector3Array()
+	var mitte := PackedVector3Array()
+	var rad := PackedFloat32Array()
 	var wald = kf.get("forest")
 	if wald == null:
-		return out
+		return [tri, mitte, rad]
 	for mi in (wald as Node).find_children("*", "MeshInstance3D", true, false):
 		var m := mi as MeshInstance3D
-		if m.mesh == null or m.mesh is PlaneMesh:
+		if m.mesh == null or m.mesh is PlaneMesh or not m.visible:
 			continue
 		var tr := m.global_transform
 		for s in m.mesh.get_surface_count():
-			var vs: PackedVector3Array = m.mesh.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]
-			for i in range(0, vs.size(), 4):
-				var p: Vector3 = tr * vs[i]
-				if p.y > 0.25:
-					out.append(p)
-	return out
+			var ar := m.mesh.surface_get_arrays(s)
+			var vs: PackedVector3Array = ar[Mesh.ARRAY_VERTEX]
+			var idx = ar[Mesh.ARRAY_INDEX]
+			var n: int = idx.size() if idx != null else vs.size()
+			for t in range(0, n - 2, 3):
+				var pa: Vector3 = tr * vs[idx[t] if idx != null else t]
+				var pb: Vector3 = tr * vs[idx[t + 1] if idx != null else t + 1]
+				var pc: Vector3 = tr * vs[idx[t + 2] if idx != null else t + 2]
+				if maxf(pa.y, maxf(pb.y, pc.y)) <= 0.25:
+					continue
+				var c := (pa + pb + pc) / 3.0
+				tri.append(pa)
+				tri.append(pb)
+				tri.append(pc)
+				mitte.append(c)
+				rad.append(maxf(c.distance_to(pa), maxf(c.distance_to(pb), c.distance_to(pc))))
+	return [tri, mitte, rad]
 
 
-## 406 G1 (Lauf 198): wie viel zwischen [auge] und den Helden steht: Ecken des Walds und Wölfe (je 50) näher als VERDECKT_R an der
-## Linie vom Auge zur Brust eines Helden, außer im letzten Meter vor ihm
-const VERDECKT_R := 0.3
-func _verdeckt(auge: Vector3, kf, wald: PackedVector3Array) -> int:
+## 406 G1: wie viel zwischen [auge] und den Helden steht: Dreiecke des Walds, die die Linie vom Auge zur Brust (und zum Kopf) eines
+## Helden schneiden, und Wölfe (je 50) näher als 0,35 m an ihr, außer im letzten Meter vor ihm
+func _verdeckt(auge: Vector3, kf, wald: Array) -> int:
 	var ziele := []
 	var woelfe := []
 	for id in kf.figures:
@@ -451,18 +466,22 @@ func _verdeckt(auge: Vector3, kf, wald: PackedVector3Array) -> int:
 			continue
 		if f.fighter.monster == null:
 			ziele.append(f.global_position + Vector3(0, 1.1, 0))
+			ziele.append(f.global_position + Vector3(0, 1.6, 0))
 		else:
 			woelfe.append(f.global_position + Vector3(0, 0.45, 0))
+	var tri: PackedVector3Array = wald[0]
+	var mitte: PackedVector3Array = wald[1]
+	var rad: PackedFloat32Array = wald[2]
 	var n := 0
 	for z in ziele:
 		var l: float = auge.distance_to(z)
 		var r: Vector3 = (z - auge) / maxf(l, 0.001)
-		var box := AABB(auge, Vector3.ZERO).expand(z).grow(VERDECKT_R)
-		for p in wald:
-			if not box.has_point(p):
+		var ende: Vector3 = auge + r * maxf(l - 1.0, 0.0)
+		for i in mitte.size():
+			var c: Vector3 = mitte[i]
+			if c.distance_to(Geometry3D.get_closest_point_to_segment(c, auge, ende)) > rad[i]:
 				continue
-			var s: float = (p - auge).dot(r)
-			if s > 0.0 and s < l - 1.0 and (p - auge - r * s).length() < VERDECKT_R:
+			if Geometry3D.segment_intersects_triangle(auge, ende, tri[3 * i], tri[3 * i + 1], tri[3 * i + 2]) != null:
 				n += 1
 		for w in woelfe:
 			var s: float = (w - auge).dot(r)

@@ -282,6 +282,48 @@ func _rand_vorn(schild: Node3D, pts: PackedVector3Array) -> Array:
 	return best
 
 
+## 406 Lauf 205 (Prüfer: Finger des Kämpfers beim Gehen und Rennen 5–10 cm über dem oberen Schildrand, RAND sagt −0,2 cm): _rand_vorn
+## zählt nur Ecken vor einem Feld des Schilds; was über den Umriss hinausragt, sah es nie. Hier je Ecke außerhalb des Umrisses, wie weit
+## sie über den Rand hinausragt (Umriss je 10° um die Mitte der Felder) und wie weit vor (+) oder hinter (−) der Vorderseite des Rands;
+## nur bis UEBER_WEIT hinaus: [m über den Rand, m vor dem Rand, Stelle im Schild cm]
+const UEBER_WEIT := 0.15
+var _umrisse := {}
+func _rand_ueber(schild: Node3D, pts: PackedVector3Array) -> Array:
+	var feld := _karte(schild)
+	var id := schild.get_instance_id()
+	if not _umrisse.has(id):
+		var m := Vector2.ZERO
+		for k in feld:
+			m += Vector2(k) * RASTER
+		m /= maxf(feld.size(), 1)
+		var r := PackedFloat32Array()
+		var vorn := PackedFloat32Array()
+		r.resize(36)
+		vorn.resize(36)
+		vorn.fill(-INF)
+		for k in feld:
+			var d: Vector2 = Vector2(k) * RASTER - m
+			var si := posmod(int(floor(rad_to_deg(d.angle()) / 10.0)), 36)
+			if d.length() > r[si]:
+				r[si] = d.length()
+			vorn[si] = maxf(vorn[si], (feld[k] as Vector2).y)
+		_umrisse[id] = [m, r, vorn]
+	var u: Array = _umrisse[id]
+	var inv := schild.global_transform.affine_inverse()
+	var best := [-INF, 0.0, Vector3.ZERO]
+	for p in pts:
+		var q: Vector3 = inv * p
+		var k := Vector2i(floori(q.x / RASTER), floori(q.y / RASTER))
+		if feld.has(k):
+			continue
+		var d: Vector2 = Vector2(q.x, q.y) - (u[0] as Vector2)
+		var si := posmod(int(floor(rad_to_deg(d.angle()) / 10.0)), 36)
+		var ueber: float = d.length() - float(u[1][si])
+		if ueber > 0.0 and ueber < UEBER_WEIT and ueber > best[0]:
+			best = [ueber, q.z - float(u[2][si]), q * 100.0]
+	return best
+
+
 ## Haut des linken Unterarms und der Hand (ohne Finger), wie _schulter
 func _arm_lesen(sk: Skeleton3D) -> Array:
 	var alt := _schulter.duplicate()
@@ -583,6 +625,7 @@ func _run() -> void:
 		# Bewegung des Satzes Finger und Unterarm vor der Vorderseite, auch am Rand (ohne „mitten im Schild“), wie man sie sieht
 		var unterarm := _arm_lesen(sk)
 		var rand := {}     # Bewegung -> [[Finger m, Stelle], [Unterarm m, Stelle], Zeit]
+		var ueber := {}    # 406 Lauf 205: Bewegung -> [[Finger über den Rand], [Unterarm über den Rand], Zeit]
 		var rand_an := {"an": false}
 		var rand_mess := func() -> void:
 			if not rand_an.an:
@@ -598,6 +641,15 @@ func _run() -> void:
 			if uv[0] > alt[1][0]:
 				alt[1] = uv
 			rand[bw] = alt
+			var fu: Array = _rand_ueber(sm, _ecken_aus(sk, _finger))
+			var uu: Array = _rand_ueber(sm, _ecken_aus(sk, unterarm))
+			var au: Array = ueber.get(bw, [[-INF, 0.0, Vector3.ZERO], [-INF, 0.0, Vector3.ZERO], 0.0])
+			if fu[0] > au[0][0]:
+				au[0] = fu
+				au[2] = fig.anim.current_animation_position
+			if uu[0] > au[1][0]:
+				au[1] = uu
+			ueber[bw] = au
 		sk.skeleton_updated.connect(rand_mess)
 		fig.set_process(false)
 		for bw in RAND_BEWEGUNGEN:
@@ -615,6 +667,10 @@ func _run() -> void:
 			var r: Array = rand[bw]
 			print("  %s RAND %s: Finger %.1f cm (Stelle %s, bei %.2f s), Unterarm und Hand %.1f cm (Stelle %s) vor der Vorderseite, auch am Rand" % [
 				k, bw, r[0][0] * 100.0, (r[0][1] as Vector3).round(), r[2], r[1][0] * 100.0, (r[1][1] as Vector3).round()])
+		for bw in ueber:
+			var r: Array = ueber[bw]
+			print("  %s UEBER %s: Finger %.1f cm über den Rand hinaus, %.1f cm vor der Vorderseite des Rands (Stelle %s, bei %.2f s); Unterarm und Hand %.1f cm hinaus, %.1f cm davor (Stelle %s)" % [
+				k, bw, r[0][0] * 100.0, r[0][1] * 100.0, (r[0][2] as Vector3).round(), r[2], r[1][0] * 100.0, r[1][1] * 100.0, (r[1][2] as Vector3).round()])
 		sk.skeleton_updated.connect(faust_mess)
 		kf.mars.find("merc").auto = true
 		kf.mars.set_autopilot(true)
