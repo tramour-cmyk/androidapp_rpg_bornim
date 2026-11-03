@@ -5,16 +5,16 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 ## Zehn Zeilen
 
 <!-- zahlen -->
-**Stand 03.11., 07:13** (Werkzeug `tools/tagesbericht.py`)
+**Stand 03.11., 07:15** (Werkzeug `tools/tagesbericht.py`)
 
 | # | Kennzahl | heute | Bemerkung |
 |---|---|---|---|
 | 1 | Stufe | **Stufe 1 Kern spielbar**: 0 von 4 abgenommen, 4 gebaut, 0 in Arbeit | 36 Punkte in 6 Stufen: 0 abgenommen, 4 gebaut, 0 in Arbeit, 32 offen |
-| 2 | Seit gestern | abgenommen **0**, gebaut **4**, von dir zurück **0** | Vorgänge erledigt 24 h / 7 Tage: 34 / 127, davon Spiel (Entwicklung, Gestaltung, Texte, Design) 16 / 48; neu 58 / 232 |
+| 2 | Seit gestern | abgenommen **0**, gebaut **4**, von dir zurück **0** | Vorgänge erledigt 24 h / 7 Tage: 34 / 127, davon Spiel (Entwicklung, Gestaltung, Texte, Design) 16 / 48; neu 60 / 234 |
 | 3 | Rest geschätzt | Stufe 1 gebaut, liegt dir in Build 204 vor (471 kommt mit 2.3). Bis zum Durchspiel-Build (Wochenziel 03.11.): Spike Flüsterwald 4 und Tiefer Flüsterwald 3 Sitzungen, Jerry Höhle mit Kampforten 11 und fehlende Gegner etwa 18 Sitzungen (348.14, dort mit Bilderrunden; ohne Feinarbeit weniger), Zufallsspieler (Tom) noch ohne Schätzung | Sitzungen bis zur nächsten Stufe, Tom und Jerry, montags neu |
 | 4 | Wartet auf dich | **1 ansehen**, **1 Build**, **2 tun** | ältestes: 142 seit 27.10., 20:07; [Chefsache](chefsache/README.md) |
 | 5 | Builds | Änderungen warten auf deinen Test: **34** (Tom 15, Jerry 19) | bei dir zum Testen: Build 204; höchstens 6 je Build (317) |
-| 6 | Fehler | **6** offen, davon 2 älter als drei Tage | offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3) |
+| 6 | Fehler | **7** offen, davon 2 älter als drei Tage | offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3) |
 | 7 | Geld | Woche **36 %** (dein Bild 02.11., 07:33); gestern 756 $ Rechenwert, Spiel 67 % | Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal) |
 | 8 | Von dir zuerst gefunden | heute 2, beide beim Test von Build 204: Schalter für Musik und Effekte im Hauptmenü fehlen gegenüber der alten Fassung (07:07, 489, Jerry); Lizenzhinweis der Godot Engine fehlt unter „Über das Spiel“ (07:09, 497, Tom); Woche zählt Diogenes | Woche, zählt Diogenes montags |
 | 9 | Größtes Risiko | Jerry trägt mit Höhle und fehlenden Gegnern etwa 29 der rund 36 Sitzungen bis zum Durchspiel-Build, Spike etwa 7; bei der Wochenwarnung des Guthabens seit heute Nacht reicht die Woche dafür nicht; Gegenmittel: je Gegner höchstens ein Lauf, keine Bilderrunden (488), Kampforte Wald (493) als Übernahme an Spike, sobald der Flüsterwald steht (Perikles prüft Do 05.11.) |  |
@@ -22,7 +22,7 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 
 | Rolle | offen | davon Muss | startbar | erledigt 24 h | erledigt 7 Tage |
 |---|---|---|---|---|---|
-| Tom | 56 | 37 | 9 | 5 | 15 |
+| Tom | 58 | 39 | 10 | 5 | 15 |
 | Jerry | 62 | 49 | 5 | 13 | 19 |
 | Homer | 9 | 3 | 3 | 1 | 10 |
 | Sokrates | 36 | 26 | 16 | 3 | 24 |
@@ -35,7 +35,7 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 | Stufe | Was du spielen kannst | Punkte | Stand |
 |---|---|---|---|
 | **1 Kern spielbar** | Erschaffung nach dem BRS, Dorf und Wald, Kampf nach neuem Rechenmodell, Fertigkeiten durch Tun, Heldenstufe | 4 | gebaut; Erschaffung, Heldenstufe, Monsterwerte in Build 204 bei dir, Fertigkeiten kommen mit 2.3 |
-| **2 Kapitel 1 durchspielbar** | alle Orte bis Blutzahnhöhle, alle Quests, Bosse, Schleichen, Spähen, Rasten, je Herkunft eine Handlung | 12 | Dorf, Läden, Wolfskampf spielbar, Geschichte gebaut (390); Wald, Tiefer Wald, Höhle in Arbeit ab heute (Wochenziel 03.11., 490–496) |
+| **2 Kapitel 1 durchspielbar** | alle Orte bis Blutzahnhöhle, alle Quests, Bosse, Schleichen, Spähen, Rasten, je Herkunft eine Handlung | 12 | Dorf, Läden, Wolfskampf spielbar, Geschichte gebaut (390); Wald, Tiefer Wald, Höhle starten ab heute (Wochenziel 03.11., 490–496) |
 | **3 Alle Systeme angelegt** | Lehrmeister, Meisterschaften, Ruf, Herstellen und Sammeln, Abnutzung, Tiere beruhigen, Chronik, Gegenstandskatalog | 8 | Gegenstandskatalog angelegt (458: 88 Gegenstände, Texte von Homer); Rest offen |
 | **4 Kapitel 1 fertig** | Aussehen, Musik und Klang je Ort, Englisch, keine SRD-Namen, keine offenen Fehler | 10 | Figuren und Bewegungen in Arbeit, Klang: erst Tierlaute und Herzschlag gebaut |
 | **5 marktreif** | Kapitel 1 im Play Store | 1 | wartet auf Gewerbeschein (du, 142) |
@@ -43,7 +43,7 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 
 ## Wer hinkt (03.11., 07:1x)
 
-- **Feinarbeit statt Spiel, nachts noch einmal:** Jerry ließ zu 438a (Hinfallen und Aufstehen) und 406 (Schild) bis 05:1x die Läufe 200–211 laufen, dann griff 488. Seit 06:44 ist Feinarbeit am Aussehen eingefroren; 463, 417, 406 hast du heute früh mit „passt“ abgeschlossen.
+- **Feinarbeit statt Spiel, nachts noch einmal:** Jerry ließ zu 438a (Hinfallen und Aufstehen) und 406 (Schild) von 23:13 bis 05:1x elf Läufe laufen (200–211 ohne 204, den Build; laut Jerrys Commits), dann griff 488. Seit 06:44 ist Feinarbeit am Aussehen eingefroren; 463 und 417 hast du heute früh mit „passt“ abgeschlossen, 406 mit „passt“ zusammen mit dem letzten Lauf 406.2.
 - **Rote Läufe** (464): seit 02.11., 22:2x 9 von 100 Läufen rot, alle auf Jerrys Zweig zu 438a (eingefroren). Ford schreibt die Tageszahl noch nicht ins Protokoll (D61.1).
 - **Guthaben:** letztes Bild von dir 02.11., 07:33 mit 36 %; seit heute Nacht meldet das Konto die Wochenwarnung, Ford startet nur Muss. Eine genaue Zahl gibt nur ein neues Bild von dir.
 - **Flüsterwald hatte keinen Besitzer:** deine Antwort 479 A (Spike ab 03.11.) stand seit 20:14 ohne Zeile in einem Vorrat; seit 07:1x Vorgang 490 bei Team Tom (Spike), Ford hat den Start.
