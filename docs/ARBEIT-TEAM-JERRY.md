@@ -38,7 +38,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 439 | M | **von Sokrates:** Reihenfolge Angriff, Treffer, Tod, Neuformation | wartet auf Test: t249 | – |
 | 440 | M | **von Sokrates:** Wolf-Tod zu schnell weg | wartet auf Test: t249 | – |
 | 416.6 | M | **von Sokrates:** Spuren (`core/Tracks.kt`): Blut, Staub, Fußspuren | wartet auf Perikles: Probebild nur auf dem Bauserver (511); mit 416.4 b31b7a85d lokal gut | `claude/jerry-416-6-blut` |
-| 415 | M | **von Sokrates:** Probe Beams Free Sample im Kampfort; nichts kaufen | in Arbeit: Build 250 mit Messung „Ohne Strahl“ läuft (claude/jerry-415-ohne-strahl, c2ae46be1) | – |
+| 415 | M | **von Sokrates:** Probe Beams Free Sample im Kampfort; nichts kaufen | wartet auf Test: t250 (Ohne Strahl je Renderer), dann Renderer vorschlagen; claude/jerry-415-ohne-strahl | – |
 | 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34):** Kampfort aufrufbar | wartet auf Test: Build 146 (ansehen/t146-befunde.md; Befunde als 416.x) | `claude/jerry-348-kampf` |
 | 403 | M | **von Team Tom:** Kampfort: Held je Klasse wie im Dorf | wartet auf Test: t249 | – |
 | 461.1 | M | **von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461):** Grundstand mit Tom: Kampfort, Wölfe, Helden (`LISTE-GRUNDSTAND-461.md`); vor 460 und 406.1 | ruht: nach dem Durchspielen (488) | `claude/grundstand-461` |
