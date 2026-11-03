@@ -118,7 +118,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 35327 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Jerry** – offen 57, Muss 45, startbar 6
+**Jerry** – offen 56, Muss 45, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -127,17 +127,17 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 467 | M | von Sokrates (Chef 01.11., 21:52, Frage „Wie steigert sich die Ausdauer?“): godot/regeln/a | wartet auf Sokrates |
 | 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Wölfe gleiten (Angriff, Tempo, aneinander vor | wartet auf Test/Build (gebaut) |
 | 457.2 | M | von Perikles (Chef 01.11., 11:49, „unsere Signatur muss sich wiederfinden“): eigene Probes | wartet auf Test/Build (gebaut) |
-| 453.1 | M | von Sokrates (Chef 01.11., 13:0x): Helden im Kampf atmen gleich und zu heftig („hechelt“): | wartet auf Test/Build (gebaut) |
-| 453 | M | von Sokrates (Chef 01.11., 11:05): Wölfe brauchen Ruhebewegungen: atmen, scharren, umblick | wartet auf Test/Build (gebaut) |
+| 453.1 | M | von Sokrates (Archiv 453.1a): Helden im Kampf atmen ruhiger, je Figur eigener Takt | wartet auf Test/Build (gebaut) |
+| 453 | M | von Sokrates (Archiv 453): Ruhebewegungen der Wölfe | wartet auf Test/Build (gebaut) |
 | 453a | M | Wolfsatem B (Archiv) | wartet auf Test/Build (gebaut) |
-| 454 | M | von Sokrates (Chef 01.11., 11:05): beim Biss zielt die Achse des Wolfs wohl rechts neben d | wartet auf Test/Build (gebaut) |
+| 454 | M | von Sokrates (Archiv 454): Bissachse des Wolfs | wartet auf Test/Build (gebaut) |
 | 438a | M | von Sokrates (Archiv 438a): Hinfallen/Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe | ruht |
-| 439 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Reihenfolge Angriff, Treffer, Tod, Neuformati | wartet auf Test/Build (gebaut) |
-| 440 | M | von Sokrates (Chef 31.10., 23:34, Film 403): Wolf-Tod zu schnell weg (Zu 438) | wartet auf Test/Build (gebaut) |
+| 439 | M | von Sokrates (Archiv 438): Reihenfolge Angriff, Treffer, Tod, Neuformation | wartet auf Test/Build (gebaut) |
+| 440 | M | von Sokrates (Archiv 438): Wolf-Tod zu schnell weg | wartet auf Test/Build (gebaut) |
 | 416.6 | M | von Sokrates (Chef 31.10., 20:4x; M seit Chef 03.11., 07:31 „Blutspuren in der Welt bitte | startbar |
 | 415 | M | von Sokrates („jetzt“ 02.11., 22:05, Chef: „415d muss ins nächste Build“; Archiv 415): Pro | startbar |
 | 399.2 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv): Kampfort aufrufbar | wartet auf Test (Build) |
-| 403 | M | von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler): Kampfort: Held | wartet auf Test/Build (gebaut) |
+| 403 | M | von Team Tom (Archiv 403): Kampfort: Held je Klasse wie im Dorf | wartet auf Test/Build (gebaut) |
 | 461.1 | M | von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461): Grundstand mit Tom: Kampfort, Wölfe, Hel | ruht |
 | 460 | M | von Sokrates (Chef 01.11., 20:2x, Archiv 460): Probefilm Kamerafahrten: Eröffnung je Blend | ruht |
 | 406.1 | M | von Sokrates (Archiv 406.1): Schildstoß ins MARS/BRS, Bau mit ShieldAttack1–3S&S | wartet auf 481 (startbar) |
@@ -178,7 +178,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | 469 | M | von Sokrates (02.11., 11:0x, zu 406.1): Kampf auf BRS: Ring (MARS) ohne Klassen regeln (An | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
-| Pflege | K | von Werkzeug (340.3, 03.11.): 17910 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 27, Muss 24, startbar 2
 
