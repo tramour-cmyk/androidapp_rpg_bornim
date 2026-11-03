@@ -25,6 +25,7 @@ Nichts offen.
 | [490](ansehen/490-fluesterwald.md) | Flüsterwald begehbar wie alt: Standbilder aus Sicht des Helden | – | 03.11., 08:58 |
 | [491](ansehen/491-tiefer-wald.md) | Tiefer Flüsterwald begehbar wie alt: Standbilder aus Sicht des Helden | – | 03.11., 10:05 |
 | [493](ansehen/493-kampforte-wald.md) | Kampforte im Wald wie alt: Lichtung, Waldrand, Teich, Baum, Felsen, Steinkreis | – | 03.11., 10:37 |
+| [499](ansehen/499-drehteller.md) | Held im Drehteller der Erschaffung: Waffe in der Hand, Schild auf dem Rücken | – | 03.11., 14:06 |
 | [505](ansehen/505-nebel-rundum.md) | Nebel im Wald: Sicht rundum eingebaut | – | 03.11., 11:24 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
