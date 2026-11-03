@@ -5,7 +5,7 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 ## Zehn Zeilen
 
 <!-- zahlen -->
-**Stand 03.11., 07:15** (Werkzeug `tools/tagesbericht.py`)
+**Stand 03.11., 07:17** (Werkzeug `tools/tagesbericht.py`)
 
 | # | Kennzahl | heute | Bemerkung |
 |---|---|---|---|
@@ -15,7 +15,7 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 | 4 | Wartet auf dich | **1 ansehen**, **1 Build**, **2 tun** | ältestes: 142 seit 27.10., 20:07; [Chefsache](chefsache/README.md) |
 | 5 | Builds | Änderungen warten auf deinen Test: **34** (Tom 15, Jerry 19) | bei dir zum Testen: Build 204; höchstens 6 je Build (317) |
 | 6 | Fehler | **7** offen, davon 2 älter als drei Tage | offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3) |
-| 7 | Geld | Woche **36 %** (dein Bild 02.11., 07:33); gestern 756 $ Rechenwert, Spiel 67 % | Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal) |
+| 7 | Geld | Woche **53 %** (dein Bild 03.11., 07:16); gestern 756 $ Rechenwert, Spiel 67 % | Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal) |
 | 8 | Von dir zuerst gefunden | heute 2, beide beim Test von Build 204: Schalter für Musik und Effekte im Hauptmenü fehlen gegenüber der alten Fassung (07:07, 489, Jerry); Lizenzhinweis der Godot Engine fehlt unter „Über das Spiel“ (07:09, 497, Tom); Woche zählt Diogenes | Woche, zählt Diogenes montags |
 | 9 | Größtes Risiko | Jerry trägt mit Höhle, Kampforten und neun fehlenden Gegnern etwa 38 der rund 45 Sitzungen bis zum Durchspiel-Build, Spike etwa 7; bei der Wochenwarnung des Guthabens seit heute Nacht reicht die Woche dafür nicht; Gegenmittel: je Gegner höchstens ein Lauf, keine Bilderrunden (488), Kampforte Wald (493) als Übernahme an Spike, sobald der Flüsterwald steht (Perikles prüft Do 05.11.) |  |
 | 10 | Ausführlich | [Abnahmeliste und Stand](PROJEKTPLAN.md) |  |
@@ -45,14 +45,14 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 
 - **Feinarbeit statt Spiel, nachts noch einmal:** Jerry ließ zu 438a (Hinfallen und Aufstehen) und 406 (Schild) von 23:13 bis 05:1x elf Läufe laufen (200–211 ohne 204, den Build; laut Jerrys Commits), dann griff 488. Seit 06:44 ist Feinarbeit am Aussehen eingefroren; 463 und 417 hast du heute früh mit „passt“ abgeschlossen, 406 mit „passt“ zusammen mit dem letzten Lauf 406.2.
 - **Rote Läufe** (464): seit 02.11., 22:2x 9 von 100 Läufen rot, alle auf Jerrys Zweig zu 438a (eingefroren). Ford schreibt die Tageszahl noch nicht ins Protokoll (D61.1).
-- **Guthaben:** letztes Bild von dir 02.11., 07:33 mit 36 %; seit heute Nacht meldet das Konto die Wochenwarnung, Ford startet nur Muss. Eine genaue Zahl gibt nur ein neues Bild von dir.
+- **Guthaben:** dein Bild 03.11., 07:16: 53 % der Woche, das Konto sagt „am Donnerstagmorgen aufgebraucht“. Gestern 17 % statt 10 %, also heute eine Sitzung weniger (468a): Tom macht nur 417, 463 und 497 fertig, der Zufallsspieler (495) wartet; Spike und Jerry arbeiten weiter. Bis Sa 20:00 bleiben etwa 10 % je Tag.
 - **Flüsterwald hatte keinen Besitzer:** deine Antwort 479 A (Spike ab 03.11.) stand seit 20:14 ohne Zeile in einem Vorrat; seit 07:1x Vorgang 490 bei Team Tom (Spike), Ford hat den Start.
 
 ## Wo du Prioritäten setzen kannst (03.11., 07:1x)
 
 1. **Build 204 fertig testen** (t204): Stufe 1 (Erschaffung, Heldenstufe, Monsterwerte) wird erst mit deinem Test abnehmbar.
 2. **Wochenziel 03.11. „Kapitel 1 durchspielbar“** ([Projektplan](PROJEKTPLAN.md)): erst Flüsterwald, Tiefer Flüsterwald, Kampforte, Gegner, Blutzahnhöhle, dann der Durchspiel-Build; der Kampf darin rechnet noch alt, das BRS (2.3) folgt gleich danach. Sagst du „2.3 vorher“, kommen etwa 3–4 Sitzungen vor dein erstes Durchspielen.
-3. **Ein Bild deiner Nutzung:** ohne es weiß keiner, ob die Woche bis Sa 20 Uhr für den Durchspiel-Build reicht.
+3. **Guthaben (dein Bild 07:16, 53 %):** der Durchspiel-Build (etwa 45 Sitzungen) passt nicht in diese Woche; er kommt in der Woche ab Sa 20:00. Bis dahin Flüsterwald und Waldgegner zuerst.
 
 *Stärkstes Gegenargument:* Befunde zum Kampf aus dem ersten Durchspielen gelten nur bedingt, weil 2.3 die Zahlen ändert. *Wie es zu entkräften ist:* Orte, Wege, Geschichte und Gegner hängen nicht an den Regeln, und Stufe 4 verlangt ohnehin ein zweites Durchspielen.
 
