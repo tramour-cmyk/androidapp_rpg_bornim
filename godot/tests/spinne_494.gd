@@ -9,6 +9,7 @@ const Figur = preload("res://kampf/figur.gd")
 const Mars = preload("res://regeln/mars.gd")
 
 var fehler := 0
+var webs := 0
 
 
 func _initialize() -> void:
@@ -21,6 +22,13 @@ func _lauf() -> void:
 	_haeute()
 	await _kampf()
 	await _kampf("SPINNE")     # 494 (Jerry 18:4x): allein wie im alten Spiel (Roamers.kt), ohne Wolf daneben
+	for i in 3:     # Netz werfen wählt sie zur Hälfte (mars.gd _pick_intent); mit Kaufmodell (Netzwurf) muss eines fliegen
+		if webs > 0 or not FileAccess.file_exists("res://kampf/daten/giant_spider-info.json"):
+			break
+		await _kampf("SPINNE", 10 + i)
+	if webs == 0 and FileAccess.file_exists("res://kampf/daten/giant_spider-info.json"):
+		fehler += 1
+		print("FEHLER kein Netz geflogen")
 	print("SPINNE 494 %s" % ("gut" if fehler == 0 else "%d FEHLER" % fehler))
 	quit(1 if fehler > 0 else 0)
 
@@ -86,14 +94,14 @@ func _haeute() -> void:
 	print("Spinne 494 Häute: %s" % [j.keys()])
 
 
-func _kampf(foe := "SPIDER") -> void:
+func _kampf(foe := "SPIDER", seed := 3) -> void:
 	var p = Probe.new()
 	p.hero_cls = "FIGHTER"
 	p.merc_cls = "CLERIC"
 	p.foe = foe
 	root.add_child(p)
 	await process_frame
-	p._start(3)
+	p._start(seed)
 	for i in 6:
 		await process_frame
 	var kf = p.fight
@@ -128,8 +136,15 @@ func _kampf(foe := "SPIDER") -> void:
 			print("Spinne 494 neben Kaufwolf: Weg %s, Größe %.2f, Balken %.2f m" % [fig._weg().keys(), kf.foe_scale(fig.fighter), kopf])
 	kf.mars.find("merc").auto = true
 	var t0 := Time.get_ticks_msec()
+	var netz_an := 0
+	var vorher = null
 	while Time.get_ticks_msec() - t0 < 90000:
 		await process_frame
+		for sp in spinnen:     # angesagtes „Netz werfen“ (die Ansage steht bis zu ihrem Zug)
+			var it = kf.mars.intents.get(sp.id)
+			if it != null and it[0].get("effect", "") == "WEB" and not is_same(it, vorher):
+				netz_an += 1
+				vorher = it
 		if kf.mars.outcome != "ONGOING" and not kf.busy and not kf.playing and kf.beats.is_empty():
 			break
 		if not kf.busy and not kf.playing and kf.beats.is_empty() and kf.mars.outcome == "ONGOING":
@@ -138,7 +153,12 @@ func _kampf(foe := "SPIDER") -> void:
 			else:
 				var ts: Array = kf.mars.targets(kf.mars.current())
 				kf.order(["attack", ts[0].id] if not ts.is_empty() else ["wait"])
-	print("Spinne 494 Ausgang: %s" % kf.mars.outcome)
+	print("Spinne 494 Ausgang: %s, Effekte %s, Netz angesagt %d" % [kf.mars.outcome, kf.fx_zahl, netz_an])
+	# 494: die Spinne beißt wie im alten Spiel, nur „Netz werfen“ fliegt (als Netz); vorher flog bei jedem ihrer Angriffe ein Pfeil
+	if kf.fx_zahl.has("ARROW"):
+		fehler += 1
+		print("FEHLER Pfeil im Kampf mit der Spinne")
+	webs += int(kf.fx_zahl.get("WEB", 0))
 	if kf.mars.outcome == "ONGOING":
 		fehler += 1
 		print("FEHLER Kampf endet nicht: %s" % [kf.mars.fighters().map(func(f): return "%s %d" % [f.id, f.hp])])

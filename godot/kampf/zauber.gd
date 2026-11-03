@@ -5,7 +5,9 @@ extends RefCounted
 ## Heilung, Segen, Brennende Hände und der Pfeil. Maß wie alt: u = Höhe des Getroffenen / 40 (ein Wolf steht rund 40 Einheiten hoch).
 
 ## Was fliegt, geht beim Fehlschlag am Ziel vorbei (BattleFx.kt FLYING)
-const FLYING := ["ARROW", "FIRE_BOLT", "MISSILES", "RAYS", "FIREBALL", "SACRED_FLAME"]
+const FLYING := ["ARROW", "FIRE_BOLT", "MISSILES", "RAYS", "FIREBALL", "SACRED_FLAME", "WEB"]
+## 494 Netz der Riesenspinne (MarsTips.kt: „Das Netz fliegt langsam“): grauweiße Fäden, matt (Gold bleibt einziger Glanz)
+const WEB_SILK := Color("d8d4c8")
 
 const WHITE := Color(1, 1, 1)
 const STEEL := Color("cfe4ff")
@@ -56,6 +58,8 @@ static func duration(kind: String) -> float:
 			return 900.0
 		"MISSILES", "FIRE_BOLT", "ARROW", "HEAL", "BLESS":
 			return 750.0
+		"WEB":     # 494: langsamer als der Pfeil, bleibt kurz am Ziel kleben
+			return 1100.0
 	return 520.0
 
 
@@ -65,6 +69,8 @@ static func arrives(kind: String) -> float:
 	match kind:
 		"ARROW":
 			share = 0.6
+		"WEB":
+			share = 0.55
 		"FIREBALL", "FIRE_BOLT", "MISSILES":
 			share = 0.42
 		"RAYS", "BURNING_HANDS":
@@ -589,6 +595,39 @@ func _arrow(p: float, from: Vector2, hit: Vector2, u: float) -> void:
 		ci.draw_line(tail + d * (2.5 * u), tail - d * (0.5 * u) + n * (side * 1.4 * u), Color("a08c6c", 0.75), 0.8 * u, true)
 
 
+## 494 Netzwurf der Riesenspinne: ein Knäuel Fäden fliegt im flachen Bogen und spannt sich im Flug auf (acht Speichen, zwei Ringe),
+## trifft es, legt es sich über das Ziel und vergeht; daneben fällt es zu Boden
+func _web(p: float, from: Vector2, hit: Vector2, u: float) -> void:
+	var flug := 0.55
+	var at: Vector2
+	var r: float
+	var a := 0.85
+	if p < flug:
+		var t := p / flug
+		at = _arc(from, hit, t, 0.0, ARROW_RISE * 1.5)
+		r = lerpf(2.5, 11.0, t) * u
+		for k in 3:     # Faden zur Spinne zurück, dünn
+			ci.draw_line(_arc(from, hit, maxf(0.0, t - 0.08 * (k + 1)), 0.0, ARROW_RISE * 1.5), _arc(from, hit, maxf(0.0, t - 0.08 * k), 0.0, ARROW_RISE * 1.5),
+				_a(WEB_SILK, 0.35 - 0.1 * k), 0.6 * u, true)
+	else:
+		_at_hit()
+		var s := (p - flug) / (1.0 - flug)
+		at = hit + (Vector2(0, 6 * u * s) if on_floor else Vector2.ZERO)
+		r = (11.0 + 3.0 * minf(s * 3.0, 1.0)) * u
+		a = 0.85 * (1.0 - clampf((s - 0.6) / 0.4, 0.0, 1.0))
+	var dreh := rnd.randf() * TAU
+	var spitzen := PackedVector2Array()
+	for i in 8:
+		var w := dreh + TAU * i / 8.0
+		var rr := r * (0.85 + 0.3 * rnd.randf())
+		var q := at + Vector2(cos(w), sin(w) * 0.7) * rr
+		spitzen.append(q)
+		ci.draw_line(at, q, _a(WEB_SILK, a), 0.7 * u, true)
+	for ring in [0.45, 0.8]:
+		for i in 8:
+			ci.draw_line(at.lerp(spitzen[i], ring), at.lerp(spitzen[(i + 1) % 8], ring), _a(WEB_SILK, a * 0.8), 0.5 * u, true)
+
+
 ## Einschlag (Helfer Runde 2: Pfeil ohne Einschlag): er steckt kurz, wo er traf, ein Ruck Splitter und Staub, dann vergeht er
 func _arrow_lands(p: float, from: Vector2, hit: Vector2, u: float) -> void:
 	var s := (p - 0.6) / 0.4
@@ -622,6 +661,8 @@ func draw_fx(kind: String, sd: int, p: float, source: Vector2, target: Vector2, 
 	match kind:
 		"ARROW":
 			_arrow(p, source, hit, u)
+		"WEB":
+			_web(p, source, hit, u)
 		"FIRE_BOLT":
 			_fire_bolt(p, source, hit, u)
 		"FIREBALL":

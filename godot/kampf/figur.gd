@@ -1949,6 +1949,8 @@ func sterbe_ms() -> int:
 
 ## The announced intent (or none): a wolf about to pounce crouches.
 func announce(intent, at = null) -> void:
+	if intent != null:     # 494: bleibt bis zum Zug (davor nimmt eine Meldung ohne Ansage sie weg, wie „Anspringen!“ beim Wolf)
+		angesagt = intent
 	var p: bool = intent != null and intent.effect == "POUNCE"
 	var turned: bool = at != aim
 	aim = at
@@ -1964,11 +1966,33 @@ func announce(intent, at = null) -> void:
 		_idle_wenn_frei()     # 438 (wolf_mess_438: kauerte unterwegs heim und glitt 4,8 m in Hocke): unterwegs erst daheim
 
 
+## 494 Riesenspinne: zuletzt angesagte Absicht (announce); „Netz werfen“ spielt den Netzwurf, wann das Netz losfliegt (ms)
+var angesagt = null
+var netz_los_ms := -1
+const NETZ_LOS := 0.45      # Anteil des Netzwurfs, bei dem das Netz den Hinterleib verlässt (Stichprobe im Kauf, ungeprüft: 511)
+
 ## A blow, bite, shot or spell at [other]; returns how long it takes (ms).
 func strike(other, e: Dictionary) -> int:
 	_dreh_ab()
 	var spell: bool = e.spell != null
 	var ranged: bool = fighter.ranged()
+	netz_los_ms = -1
+	# 494 (Zu 494, kein Chefentscheid): die Spinne zählt in MARS als Fernkämpfer (Netz aus der hinteren Reihe), sie beißt aber wie im
+	# alten Spiel (SkirmishScreen: Pfeil nur bei attackFx ARROW, die Spinne hat BITE); nur „Netz werfen“ wirft, mit Netz statt Pfeil.
+	# Vorher spielte sie bei jedem Angriff „Ausholen“ (hat sie nicht: stand still) und ein Pfeil flog
+	if fighter.monster != null and fighter.monster.id == Mars.SPIDER and not spell:
+		ranged = false
+		var netz: bool = angesagt != null and angesagt.get("effect", "") == "WEB"
+		angesagt = null
+		if netz and anim and anim.has_animation("Netzwurf"):
+			_schnaufen(0.6)
+			_face(other.position - position)
+			_play("Netzwurf", 0.1)
+			var l: float = anim.get_animation("Netzwurf").length / float(tempo.get("Netzwurf", 1.0))
+			netz_los_ms = int(l * NETZ_LOS * 1000.0)
+			get_tree().create_timer(l).timeout.connect(_idle_wenn_frei)
+			busy_ms = int(l * 1000.0)
+			return netz_los_ms
 	if spell or ranged:
 		_schnaufen(0.6)
 		_face(other.position - position)

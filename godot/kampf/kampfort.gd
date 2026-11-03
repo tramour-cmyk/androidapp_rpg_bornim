@@ -66,6 +66,7 @@ var again_fn: Callable
 var cam: Camera3D
 var ui
 var figures := {}          # id -> Figur
+var fx_zahl := {}          # 494: wie oft je Art ein Effekt flog (Test spinne_494: Netz statt Pfeil)
 var shown := {}            # the last message played: hp, places, intents, queue, sp
 ## 296.2: the hero's experience before the fight, how far above the place he stands, the level cap (null: chapter's)
 var progress := {}
@@ -871,8 +872,10 @@ func _play_say(e: Dictionary) -> void:
 	# 348.7 (Rest aus 249, BattleFxLayer): Zauber und Pfeile fliegen sichtbar, auch daneben; der Treffer fällt, wenn sie ankommen
 	var fx = _fx_of(e, by, tg, across)
 	if fx != null:
-		var step: float = ui.cast(fx, actor, target, _crit(e), _missed(e) or e.cue == "DUCKED")
-		lands = int(step + Zauber.arrives(fx))
+		fx_zahl[fx] = int(fx_zahl.get(fx, 0)) + 1
+		var los: float = maxf(0.0, float(figures[actor].netz_los_ms)) if fx == "WEB" else 0.0     # 494: das Netz fliegt mitten im Netzwurf los
+		var step: float = ui.cast(fx, actor, target, _crit(e), _missed(e) or e.cue == "DUCKED", los)
+		lands = int(step + los + Zauber.arrives(fx))
 		busy_ms = maxi(busy_ms, figures[actor].busy_ms)     # 348.7b: Seitenschritt hin und zurück
 	# 438 (Prüfer Film 08:18: Würfelzeile, Schaden und Leiste 0:07,9, der Wolf trifft den Helden erst 0:09,7): Meldung, Würfel,
 	# Lebensleisten und Bedienfeld erst beim Aufschlag (DESIGN-ABNAHME: „Bewegung zuerst, dann eine einzige Textzeile mit Ausgang
@@ -1044,6 +1047,9 @@ func _fx_of(e: Dictionary, by, tg, across: bool):
 		return null
 	if e.spell != null and (across or e.spell in ["HEAL", "BLESS"]):
 		return e.spell
+	if across and e.roll != null and by.monster != null and by.monster.id == Mars.SPIDER:
+		var fs = figures.get(String(by.id))     # 494: nur der Netzwurf fliegt (Figur.strike), sonst beißt sie
+		return "WEB" if fs != null and fs.netz_los_ms >= 0 else null
 	if across and e.roll != null and by.ranged():
 		return "ARROW"
 	return null
