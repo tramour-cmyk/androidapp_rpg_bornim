@@ -360,9 +360,84 @@ func _still(path: String) -> void:
 		get_tree().quit()
 		return
 	await RenderingServer.frame_post_draw
+	if OS.get_environment("HELL") != "":     # 507 Messlauf ohne Bild (bild=nein): Helligkeit statt Standbild
+		_hell_mess()
+		get_tree().quit()
+		return
 	get_viewport().get_texture().get_image().save_png(path)
 	print("Bild ", path)
 	get_tree().quit()
+
+
+## 507 (Prüfer Lauf 234: Halle und Teich fast schwarz, Wölfe verschwinden, Teich und Lager ohne Inhalt): Helligkeit (Luma 0–255)
+## der Szene, je Figur (Rechteck ihrer Netze) gegen den Grund daneben, Bodenschatten unter den Füßen gegen den Boden daneben, und
+## je Merkpunkt (hoehle-info-<ort>.json „merk“: Teich, Feuer, Kisten, Pilze …) gegen seine Umgebung. Kein Bild wird gespeichert.
+func _hell_mess() -> void:
+	var img := get_viewport().get_texture().get_image()
+	var sr: Rect2 = fight.scene_rect()
+	var tag := "%s/%s Licht %s" % [fight.ort, fight.platz, OS.get_environment("HOEHLE_LICHT") if OS.get_environment("HOEHLE_LICHT") != "" else "1"]
+	var werte: Array = []
+	for y in range(int(sr.position.y), int(sr.end.y), 3):
+		for x in range(0, img.get_width(), 3):
+			werte.append(_luma(img, x, y))
+	werte.sort()
+	var n := werte.size()
+	print("HELL %s Szene: p10 %.0f, p50 %.0f, p90 %.0f, Mittel %.1f" % [tag, werte[n / 10], werte[n / 2], werte[n * 9 / 10], _mittel(werte)])
+	for id in fight.figures:
+		var fg = fight.figures[id]
+		if not fg.visible:
+			continue
+		var lo := Vector2(1e9, 1e9)
+		var hi := Vector2(-1e9, -1e9)
+		for mi in fg.find_children("*", "MeshInstance3D", true, false):
+			if not mi.is_visible_in_tree() or mi.mesh == null or mi.name in ["Bodenschatten", "Pfotenschatten"]:
+				continue
+			var bb: AABB = mi.global_transform * mi.get_aabb()
+			for k in 8:
+				var q: Vector2 = fight.cam.unproject_position(bb.get_endpoint(k))
+				lo = lo.min(q)
+				hi = hi.max(q)
+		var r := Rect2(lo, hi - lo).intersection(Rect2(Vector2.ZERO, Vector2(img.get_size())))
+		var innen := _feld(img, r.grow(-r.size.x * 0.2))
+		var links := _feld(img, Rect2(r.position.x - r.size.x * 0.5, r.position.y, r.size.x * 0.4, r.size.y))
+		var rechts := _feld(img, Rect2(r.end.x + r.size.x * 0.1, r.position.y, r.size.x * 0.4, r.size.y))
+		var fuss: Vector2 = fight.screen_of(fg.position)
+		var schatten := _feld(img, Rect2(fuss - Vector2(6, 3), Vector2(12, 6)))
+		var boden := (_feld(img, Rect2(fuss + Vector2(-r.size.x * 0.9, -3), Vector2(12, 6))) + _feld(img, Rect2(fuss + Vector2(r.size.x * 0.9 - 12, -3), Vector2(12, 6)))) / 2.0
+		print("HELL %s Figur %s: innen %.1f, Grund links %.1f, rechts %.1f; unter den Füßen %.1f, Boden daneben %.1f (Rechteck %d,%d-%d,%d)" % [
+			tag, id, innen, links, rechts, schatten, boden, r.position.x, r.position.y, r.end.x, r.end.y])
+	var ip := "res://kampf/daten/hoehle-info-%s.json" % fight.platz
+	if fight.ort == "hoehle" and FileAccess.file_exists(ip):
+		var info = JSON.parse_string(FileAccess.get_file_as_string(ip))
+		for m in info.get("merk", []):
+			var w: Vector3 = fight.forest.to_global(Vector3(m.pos[0], m.pos[1], m.pos[2]))
+			var q: Vector2 = fight.cam.unproject_position(w)
+			var kern := _feld(img, Rect2(q - Vector2(5, 5), Vector2(10, 10)))
+			var um := (_feld(img, Rect2(q + Vector2(-30, -5), Vector2(10, 10))) + _feld(img, Rect2(q + Vector2(20, -5), Vector2(10, 10))) +
+				_feld(img, Rect2(q + Vector2(-5, -30), Vector2(10, 10))) + _feld(img, Rect2(q + Vector2(-5, 20), Vector2(10, 10)))) / 4.0
+			print("HELL %s Merk %s bei %d,%d: %.1f, Umgebung %.1f" % [tag, m.name, q.x, q.y, kern, um])
+
+
+static func _luma(img: Image, x: int, y: int) -> float:
+	var c := img.get_pixel(clampi(x, 0, img.get_width() - 1), clampi(y, 0, img.get_height() - 1))
+	return (0.2126 * c.r + 0.7152 * c.g + 0.0722 * c.b) * 255.0
+
+
+static func _mittel(a: Array) -> float:
+	var s := 0.0
+	for v in a:
+		s += v
+	return s / maxf(a.size(), 1)
+
+
+static func _feld(img: Image, r: Rect2) -> float:
+	var s := 0.0
+	var n := 0
+	for y in range(int(r.position.y), int(r.end.y)):
+		for x in range(int(r.position.x), int(r.end.x)):
+			s += _luma(img, x, y)
+			n += 1
+	return s / maxf(n, 1)
 
 
 ## 348.12f, 368 (Chef 26.10., 16:23: Bewegungen als Kurzvideo): SCHAU=1 hält den Kampf an und spielt allen Gegnern dieselbe

@@ -57,7 +57,8 @@ void light() {
 	float l = ndl * ATTENUATION;
 	float b;
 	if (LIGHT_IS_DIRECTIONAL) b = smoothstep(0.38, 0.5, l) * 0.45 + smoothstep(0.04, 0.12, l) * 0.55;   // Sonne, Mond: drei Stufen, weiche Kante
-	else b = ndl * smoothstep(0.0, 1.0, ATTENUATION);                                                     // Lampen, Fackel: weicher Schein
+	// 507 (Prüfer Lauf 234, A1: in der Höhle Figuren glatt statt Toon): Lampen, Fackel, Feuer in Stufen wie die Sonne, weiche Kante
+	else b = smoothstep(0.30, 0.42, l) * 0.45 + smoothstep(0.03, 0.10, l) * 0.55;
 	if (LIGHT_IS_DIRECTIONAL) b = max(b, fill);
 	DIFFUSE_LIGHT += b * LIGHT_COLOR / PI;
 }

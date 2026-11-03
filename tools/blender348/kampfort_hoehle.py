@@ -161,6 +161,36 @@ MUND = {'eingang': (-1.2, 3.4, 3.6), 'gang': (0.0, 1.9, 2.4), 'halle': (-1.0, 3.
         'teich': (3.4, 1.8, 2.3), 'lager': (-0.6, 1.8, 2.3)}[SPOT]       # Mund in der Rückwand: quer (+ rechts), halbe Breite, Höhe
 FLACH = lambda a, b: ss(0.0, 1.0, max((abs(a) - 5.0) / 2.0, (abs(b) - 3.6) / 1.6))   # 0 auf den Plätzen, 1 weit weg
 
+# Lauf 234 (Prüfer: Teich, Lager, Pilze fehlen im Bild): die Kampfkamera zeigt hochkant nur einen schmalen Keil, rund ±0,19 der
+# Tiefe zur Seite; was am Ort zählt, steht darum dort, wo sie hinsieht (Bildanteil wie CaveScene: Fackeln bei 0,13 und 0,84).
+# Kamera wie kampfort.gd _fit_camera im Prüfbild 540×1170 (Szene bis 770, darunter die Tafel): Brennweite, Augenhöhe, Horizont
+GW, GH = 540.0, 770.0
+GF = GH * 0.32 / math.tan(math.radians(15)) * 1.5
+GD0 = GF / (120.0 * GW / 412.0 / 1.75)
+GEYE = GD0 * math.tan(math.radians(25))
+GHOR = GH * 0.64 - GF * math.tan(math.radians(25))
+AUGE = Vector((-0.866 * GD0, -0.5 * GD0, GEYE))
+def bild(p):
+    """Bildpunkt (x, y in Punkten des Prüfbilds) und Tiefe eines Blender-Punkts in der Kampfkamera"""
+    a, b = p.x, -p.y
+    X = a * 0.5 + b * 0.866; tiefe = GD0 + a * 0.866 - b * 0.5
+    return GW / 2 + GF * X / tiefe, GHOR + GF * (GEYE - p.z) / tiefe, tiefe
+MERK = []        # (Name, Blender-Punkt, Halbmesser): was im Bild zu sehen sein muss (Prüfung am Ende); der Strahl beginnt am Rand des Dings
+def merk(name, p, r=0.15): MERK.append((name, p.copy(), r))
+
+# Teich (CaveScene lake): Wasser links hinter den Gegnern, wo die Kamera hinsieht; der Boden senkt sich darunter
+TEICH = (4.2, -5.7, 3.0, 1.75)     # Mitte a, b, Halbachsen a, b
+def im_teich(a, b): return ((a - TEICH[0]) / TEICH[2]) ** 2 + ((b - TEICH[1]) / TEICH[3]) ** 2
+def boden_z(a, b):
+    f = FLACH(a, b)
+    z = f * (0.35 * (fbm(a * 0.4, b * 0.4, 21) - 0.5) + 0.12 * (fbm(a * 1.7, b * 1.7, 22) - 0.5))
+    z += 0.004 * (fbm(a * 3, b * 3, 23) - 0.5)
+    r_ = (a / HINTEN) ** 2 + (b / WEIT) ** 2
+    z += ss(0.7, 1.2, r_) * 1.2 * f   # zur Wand hin steigt der Boden (auf den Plätzen nie)
+    if SPOT == 'teich':
+        z -= 0.35 * (1 - ss(0.85, 1.35, im_teich(a, b)))
+    return z
+
 def wand_punkt(s, z):
     """Wand um die Kampfmitte: s von -1 (links) über 0 (hinten) bis 1 (rechts), Höhe z; oben neigt sie sich als Decke herein"""
     ang = s * math.radians(105)                     # bis 105° zur Seite: die Seitenwände kommen bis vor die Kämpfer
@@ -242,12 +272,7 @@ with use('erde'):
         row = []
         for k in range(B_N):
             b = -(WEIT + 3) + 2 * (WEIT + 3) * k / (B_N - 1)
-            f = FLACH(a, b)
-            z = f * (0.35 * (fbm(a * 0.4, b * 0.4, 21) - 0.5) + 0.12 * (fbm(a * 1.7, b * 1.7, 22) - 0.5))
-            z += 0.004 * (fbm(a * 3, b * 3, 23) - 0.5)
-            r_ = (a / HINTEN) ** 2 + (b / WEIT) ** 2
-            z += ss(0.7, 1.2, r_) * 1.2 * f   # zur Wand hin steigt der Boden (auf den Plätzen nie)
-            row.append(fight(a, b, z))
+            row.append(fight(a, b, boden_z(a, b)))
         rows.append(row)
     def boden_col(p, n):
         a, b = p.x, -p.y
@@ -270,12 +295,6 @@ with use('feldstein'):
         if abs(p.x) < 5.6 and abs(p.y) < 4.0:
             L = min(L, p.z - 3.8)     # über den Plätzen hängt kein Tropfstein in die erhobene Waffe
         cone(p, 0.22 + 0.25 * rnd.random(), L, 7, rock_col(), seed=i, down=True)
-    for i in range(10 if SPOT != 'gang' else 6):
-        s = rnd.uniform(-0.95, 0.95)
-        p = wand_punkt(s, 0.0); p = p + (fight(0, 0) - p) * rnd.uniform(0.04, 0.12); p.z = -0.05
-        a, b = p.x, -p.y
-        if abs(a) < 6.0 and abs(b) < 4.2: continue
-        cone(p, 0.25 + 0.3 * rnd.random(), 0.8 + rnd.random() * 2.2, 7, rock_col(), seed=i + 40)
 
 STEINE = []
 def bestand_teil(name, p, r, dreh, farbe):
@@ -307,12 +326,36 @@ def brocken(p, r, s):
     if not bestand_teil('Rock_Medium_%d' % (1 + s % 3), p, r, rnd.uniform(0, 2 * math.pi), rock_col()):
         with use('feldstein'):
             blob(p + Vector((0, 0, r * 0.35)), r, rock_col(), sub=2, squash=0.7, seed=s, bump=0.3)
-for i in range(7):
-    for _ in range(20):
-        a = rnd.uniform(-3, HINTEN - 1); b = rnd.choice((-1, 1)) * rnd.uniform(4.6, WEIT - 0.8)
-        if SPOT == 'teich' and b < 0: b = -b
-        if all(math.hypot(a - x, -b - y) > 1.6 for x, y, _ in STEINE): break
-    brocken(fight(a, b), rnd.uniform(0.45, 1.0), i)
+
+def deckt_merk(p, r, h):
+    """Lauf 234 (Lager: nur Felsen links): ein Stein oder Tropfstein bei p (Halbmesser r, Höhe h) läge im Bild vor etwas, das man sehen muss"""
+    xs = [bild(p + Vector((dx, dy, dz)))[:2] for dx in (-r, r) for dy in (-r, r) for dz in (0.0, h)]
+    x0 = min(x for x, _ in xs) - 12; x1 = max(x for x, _ in xs) + 12; y0 = min(y for _, y in xs) - 12; y1 = max(y for _, y in xs) + 12
+    t = bild(p)[2]
+    for _, q, _r in MERK:
+        x, y, tq = bild(q)
+        if x0 < x < x1 and y0 < y < y1 and t < tq + 0.5: return True
+    if SPOT == 'teich' and im_teich(p.x, -p.y) < 1.4: return True
+    return False
+def stoerer():
+    """Tropfsteine am Wandfuß und Felsbrocken an den Seiten, erst nach dem, was den Ort ausmacht: nie davor"""
+    with use('feldstein'):
+        for i in range(10 if SPOT != 'gang' else 6):
+            s = rnd.uniform(-0.95, 0.95)
+            p = wand_punkt(s, 0.0); p = p + (fight(0, 0) - p) * rnd.uniform(0.04, 0.12); p.z = -0.05
+            a, b = p.x, -p.y
+            if abs(a) < 6.0 and abs(b) < 4.2: continue
+            r, L = 0.25 + 0.3 * rnd.random(), 0.8 + rnd.random() * 2.2
+            if deckt_merk(p, r, L): continue
+            cone(p, r, L, 7, rock_col(), seed=i + 40)
+    for i in range(7):
+        for _ in range(30):
+            r = rnd.uniform(0.45, 1.0)
+            a = rnd.uniform(-3, HINTEN - 1); b = rnd.choice((-1, 1)) * rnd.uniform(max(4.6, 3.8 + r), max(WEIT - 0.8, 3.9 + r))
+            if all(math.hypot(a - x, -b - y) > 1.6 for x, y, _ in STEINE) and not deckt_merk(fight(a, b), r, r * 2.0): break
+        else:
+            continue
+        brocken(fight(a, b, boden_z(a, b)), r, i)
 
 # ---------------------------------------------------------------- was den Ort ausmacht
 LAMPEN = []      # (Blender-Punkt, Farbe 0xRRGGBB, Reichweite m, Stärke, Art)
@@ -330,6 +373,27 @@ def fackel(s, z):
         tube(p + inn * 0.02 - Vector((0, 0, 0.3)), q - Vector((0, 0, 0.25)), 0.025, 5, lin(0x2A2624))     # Eisenhalter
     flamme(q + Vector((0, 0, 0.02)), 0.32)
     lampe(q + inn * 0.25 + Vector((0, 0, 0.35)), 0xFFA050, 9.0, 1.6, 'fackel')
+    merk('Fackel', q + Vector((0, 0, 0.2)), 0.25)
+def s_bei(fx, z=0.0):
+    """Stelle s der Wand (hinten und an den Seiten, |s| ≤ 0,75), die im Bild beim Anteil fx der Breite liegt (CaveScene fx)"""
+    return min((abs(bild(wand_punkt(k / 200.0, z))[0] - fx * GW), k / 200.0) for k in range(-150, 151))[1]
+def am_fuss(fx, rein=0.06):
+    """Punkt am Wandfuß beim Bildanteil fx, ein Stück herein, auf dem Boden (der Boden steigt zur Wand hin an)"""
+    p = wand_punkt(s_bei(fx), 0.0); p = p + (fight(0, 0) - p) * rein
+    return fight(p.x, -p.y, boden_z(p.x, -p.y))
+def pilze(fx, cyan):
+    """Leuchtpilze und Kristalle (CaveScene fungi): türkis, mal violett, am Wandfuß; Lauf 234: lagen unter dem ansteigenden Boden"""
+    p = am_fuss(fx)
+    with use('pilz'):
+        for m in range(6):
+            dx, dy = rnd.uniform(-0.45, 0.45), rnd.uniform(-0.45, 0.45)
+            q = fight(p.x + dx, -(p.y + dy), boden_z(p.x + dx, -(p.y + dy)) - 0.02)
+            hoch = rnd.uniform(0.1, 0.2)
+            cylinder(q, 0.025, hoch, 5, lin(0xC8D8D0))
+            blob(q + Vector((0, 0, hoch + 0.01)), rnd.uniform(0.08, 0.15), lin(0x7AF0E0 if cyan else 0xB890FF), sub=1, squash=0.45, seed=m)
+    lampe(p + Vector((0, 0, 0.5)), 0x7AF0E0 if cyan else 0xB890FF, 5.0, 1.0, 'pilz')
+    merk('Pilze', p + Vector((0, 0, 0.15)))
+def auf_boden(a, b, dz=0.0): return fight(a, b, boden_z(a, b) + dz)
 
 if SPOT == 'gang':
     # Stützbalken (CaveScene beams): drei Joche quer über den Gang, das hinterste vor dem Mund
@@ -337,48 +401,57 @@ if SPOT == 'gang':
         for a in (-1.5, 3.5, 7.0):
             wb = WEIT * 0.82 if a < 6 else MUND[1] + 0.8
             for side in (-1, 1):
-                fuss = fight(a, side * wb)
-                cylinder(fuss, 0.16, 3.6, 7, lambda q, n: tuple(x * (0.75 + 0.25 * n.z + 0.1) for x in lin(0x6A4A30)), r2=0.14)
+                fuss = auf_boden(a, side * wb, -0.1)
+                cylinder(fuss, 0.16, 3.7, 7, lambda q, n: tuple(x * (0.75 + 0.25 * n.z + 0.1) for x in lin(0x6A4A30)), r2=0.14)
             if a > 5.5:     # Querbalken nur hinter den Gegnern; vorn tragen die Pfosten ein Kopfholz zur Wand
                 tube(fight(a, -wb - 0.3, 3.6), fight(a, wb + 0.3, 3.6), 0.17, 7, lin(0x5A3E28))
             else:
                 for side in (-1, 1):
                     tube(fight(a, side * wb, 3.5), fight(a, side * (wb + 1.2), 3.9), 0.15, 7, lin(0x5A3E28))
-    fackel(-0.35, 2.4); fackel(0.42, 2.2)
+    merk('Stützbalken', fight(3.5, -WEIT * 0.82, 1.8), 0.3)
+    fackel(s_bei(0.13, 2.4), 2.4); fackel(s_bei(0.76, 2.2), 2.2)
 elif SPOT == 'halle':
-    # Säulen, wo Tropfstein und Stalagmit zusammengewachsen sind (CaveScene pillars): schmale Taille, unten und oben breit
+    # Säulen, wo Tropfstein und Stalagmit zusammengewachsen sind (CaveScene pillars): schmale Taille, unten und oben breit;
+    # Lauf 234: zwei standen rechts außerhalb des Bilds, jetzt links und hinter den Gegnern
     with use('feldstein'):
-        for (a, b, r) in ((HINTEN * 0.55, -6.8, 0.9), (HINTEN * 0.7, 5.6, 1.1), (2.0, 8.6, 0.8)):
+        for (a, b, r) in ((6.4, -6.2, 0.9), (9.0, -0.6, 1.0), (10.0, -4.0, 0.8)):
+            z0 = boden_z(a, b) - 0.1
             rings = []
             for i in range(12):
-                t = i / 11; z = (HOCH * 1.2) * t
+                t = i / 11; z = z0 + (HOCH * 1.2) * t
                 waist = 1 - 0.45 * math.exp(-((t - 0.55) / 0.18) ** 2)
                 flare = 1 + 0.9 * max(t - 0.8, 0) * 5 + 0.6 * max(0.15 - t, 0) * 6
                 rr = r * waist * flare
                 rings.append([fight(a, b, z) + Vector((math.cos(2 * math.pi * k / 10) * rr * (1 + 0.1 * math.sin(z * 3 + k)),
                                                         math.sin(2 * math.pi * k / 10) * rr, 0)) for k in range(10)])
-            grid([r_ + [r_[0]] for r_ in rings], rock_col())
-    # Leuchtpilze und Kristalle an den Wänden (GLOW), dazu eine Fackel am Mund
-    fackel(-0.12, 2.6)
+            grid([r_ + [r_[0]] for r_ in rings], rock_col(moos=0.2))
+            merk('Säule', fight(a, b, z0 + 1.6), r * 1.3)
+    fackel(s_bei(0.13, 2.6), 2.6)
+    for k, fx in enumerate((0.04, 0.47)):
+        pilze(fx, k != 1)
 elif SPOT == 'teich':
-    # Wasser links hinten (CaveScene lake), Ufer mit Kies; die Wand rechts mit dem Mund daneben
+    # Wasser links hinter den Gegnern (CaveScene lake), Ufer mit Kies; Lauf 234: lag 6 cm unter dem Boden der Plätze
+    ca, cb, ra, rb = TEICH
     with use('wasser'):
-        ca, cb, ra, rb = HINTEN * 0.45, -WEIT * 0.42, HINTEN * 0.6, WEIT * 0.45
         ring = []
-        for k in range(28):
-            t = 2 * math.pi * k / 28; w = 1 + 0.08 * math.sin(t * 3 + 1.1)
-            ring.append(fight(ca + math.cos(t) * ra * w, cb + math.sin(t) * rb * w, -0.06))
-        add_face(ring, lin(0x0E2226))
+        for k in range(32):
+            t = 2 * math.pi * k / 32; w = 1 + 0.07 * math.sin(t * 3 + 1.1)
+            ring.append(fight(ca + math.cos(t) * ra * w, cb + math.sin(t) * rb * w, -0.1))
+        add_face(ring, lambda q, n: mixc(lin(0x14303A), lin(0x2A5058), ss(cb + rb, cb - rb, -q.y)))
     with use('feldstein'):
-        for k in range(14):
-            t = 2 * math.pi * k / 14
-            q = fight(ca + math.cos(t) * ra * 1.05, cb + math.sin(t) * rb * 1.05)
-            if abs(q.x) < 5.4 and abs(q.y) < 3.9: continue
-            blob(q, rnd.uniform(0.12, 0.25), rock_col(), sub=1, squash=0.5, seed=k)
+        for k in range(22):
+            t = 2 * math.pi * k / 22
+            a, b = ca + math.cos(t) * ra * 1.08, cb + math.sin(t) * rb * 1.08
+            if abs(a) < 5.4 and abs(b) < 3.9: continue
+            blob(auf_boden(a, b), rnd.uniform(0.1, 0.22), rock_col(), sub=1, squash=0.5, seed=k)
+    merk('Wasser', fight(ca, cb, -0.1)); merk('Wasser vorn', fight(ca - ra * 0.7, cb + rb * 0.3, -0.1))
     lampe(fight(ca, cb, 1.2), 0x60C8D0, 7.0, 0.6, 'wasser')
+    for k, fx in enumerate((0.04, 0.22, 0.62, 0.9)):
+        pilze(fx, k != 2)
 elif SPOT == 'lager':
     # Feuerstelle links (CaveScene camp): Steinkranz, Scheite, Glut; Kisten, Sack, Schlaflager, Knochen
-    fc = fight(HINTEN * 0.42, -5.6)
+    # Lauf 234: Kisten, Sack, Knochen lagen rechts außerhalb des Bilds, das Feuer hinter Felsen; jetzt im Blick der Kamera
+    fc = auf_boden(2.6, -4.9)
     with use('feldstein'):
         for k in range(9):
             t = 2 * math.pi * k / 9
@@ -389,48 +462,46 @@ elif SPOT == 'lager':
             tube(fc + Vector((math.cos(t) * 0.55, math.sin(t) * 0.55, 0.06)), fc + Vector((math.cos(t) * 0.1, math.sin(t) * 0.1, 0.32)), 0.07, 6, lin(0x3A2A1C))
     with use('glut'):
         blob(fc + Vector((0, 0, 0.03)), 0.35, lambda q, n: lin(0xC84A10), sub=1, squash=0.25, seed=3)
-    flamme(fc + Vector((0, 0, 0.12)), 0.55, 'feuer')
+    flamme(fc + Vector((0, 0, 0.12)), 0.6, 'feuer')
     lampe(fc + Vector((0, 0, 0.9)), 0xFF9440, 11.0, 2.2, 'feuer')
+    merk('Feuer', fc + Vector((0, 0, 0.45)))
     with use('balken'):
-        box(fight(HINTEN * 0.62, 4.8), 0.8, 0.7, 0.7, 0.3, lin(0x7A5634))
-        box(fight(HINTEN * 0.62 + 0.1, 4.75, 0.7), 0.6, 0.55, 0.5, 0.5, lin(0x6A4A2C))
-        box(fight(HINTEN * 0.45, 6.0), 0.7, 0.7, 0.6, -0.2, lin(0x7A5634))
+        box(auf_boden(6.4, -1.9, -0.05), 0.8, 0.7, 0.7, 0.3, lin(0x7A5634))
+        box(auf_boden(6.5, -1.95, 0.65), 0.6, 0.55, 0.5, 0.5, lin(0x6A4A2C))
+        box(auf_boden(6.9, -0.9, -0.05), 0.7, 0.7, 0.6, -0.2, lin(0x7A5634))
+    merk('Kisten', auf_boden(6.4, -1.9, 0.9), 0.6)
     with use('stoff'):
-        blob(fight(HINTEN * 0.5, 5.6, 0.35), 0.38, lambda q, n: mixc(lin(0x5A4A34), lin(0x9A8460), 0.3 + 0.5 * n.z), sub=2, squash=1.2, seed=7)
-        tube(fight(HINTEN * 0.3, -7.2, 0.18), fight(HINTEN * 0.3 + 1.6, -7.6, 0.18), 0.2, 8, lin(0x5A3A2A))     # Schlaflager
+        blob(auf_boden(5.9, -3.3, 0.3), 0.38, lambda q, n: mixc(lin(0x5A4A34), lin(0x9A8460), 0.3 + 0.5 * n.z), sub=2, squash=1.2, seed=7)
+        merk('Sack', auf_boden(5.9, -3.3, 0.45), 0.5)
+        tube(auf_boden(3.1, -6.1, 0.16), auf_boden(4.6, -6.3, 0.16), 0.2, 8, lin(0x5A3A2A))     # Schlaflager
+        merk('Schlaflager', auf_boden(3.85, -6.2, 0.36), 0.3)
     with use('weiss'):
         for k in range(5):
-            q = fight(HINTEN * 0.2 + rnd.uniform(-0.6, 0.6), 6.4 + rnd.uniform(-0.6, 0.6), 0.04)
+            a, b = 6.8 + rnd.uniform(-0.5, 0.5), -4.4 + rnd.uniform(-0.5, 0.5)
+            q = auf_boden(a, b, 0.04)
             d = Vector((math.cos(k * 1.7), math.sin(k * 1.7), 0)) * rnd.uniform(0.2, 0.4)
-            tube(q - d, q + d, 0.03, 5, lin(0xC8BCA0))
+            tube(q - d, q + d, 0.035, 5, lin(0xC8BCA0))
+        merk('Knochen', auf_boden(6.8, -4.4, 0.06))
 else:     # eingang: Laub und Moos zum Mund hin, Licht von draußen
     with use('laub'):
         for k in range(40):
             a = rnd.uniform(2, HINTEN - 0.5); b = rnd.uniform(-WEIT + 1, WEIT - 1)
             if abs(a) < 5.2 and abs(b) < 3.8: continue
-            q = fight(a, b, 0.02 + FLACH(a, b) * 0.15)
+            q = auf_boden(a, b, 0.02)
             r = rnd.uniform(0.06, 0.12); t = rnd.uniform(0, math.pi)
             add_face([q + Vector((math.cos(t + j * math.pi / 2) * r, math.sin(t + j * math.pi / 2) * r, 0.005 * j)) for j in range(4)],
                      [lin(0x8A5A26), lin(0xA87A30), lin(0x6A4A22)][k % 3])
-    fackel(0.45, 2.4)
+    merk('Ausgang', mitte_mund + Vector((0, 0, MUND[2] * 0.45)))
+    fackel(s_bei(0.84, 2.4), 2.4)
 
-# Licht, das jeder Ort hat: weich über dem Kampf (CaveScene fightLight), damit Gegner und Held nie im Schwarzen stehen
+stoerer()
+
+# Licht, das jeder Ort hat: weich über dem Kampf (CaveScene fightLight), damit Gegner und Held nie im Schwarzen stehen;
+# Lauf 234 (Gang: rechte Wand gleichmäßig hell ohne Quelle): Reichweite nur bis zu den Plätzen, die Wände leuchten Fackel und Pilz
 licht = {'eingang': 0xFFF0E0, 'gang': 0xFFB070, 'halle': 0x60C8D0, 'teich': 0x60C8D0, 'lager': 0xFFC890}[SPOT]
-lampe(fight(0.5, 0.0, 4.0), licht, 12.0, 0.55, 'kampf')
+lampe(fight(0.5, 0.0, 4.0), licht, 8.5, 0.55, 'kampf')
 if SPOT == 'eingang':     # Tageslicht aus dem Mund, weit und kühl-hell
     lampe(mitte_mund + Vector((0, 0, hh * 0.6)) - tief * 1.0, 0xF0F4E8, 16.0, 1.8, 'tag')
-if SPOT in ('halle', 'teich'):     # Leuchtpilze und Kristalle (CaveScene fungi): türkis, mal violett, am Wandfuß
-    for k in range(7):
-        s = -0.8 + 1.6 * k / 6 + rnd.uniform(-0.05, 0.05)
-        p = wand_punkt(s, 0.0); p = p + (fight(0, 0) - p) * 0.06
-        if abs(p.x) < 6 and abs(p.y) < 4.5: continue
-        cyan = k % 3 != 2
-        with use('pilz'):
-            for m in range(5):
-                q = p + Vector((rnd.uniform(-0.4, 0.4), rnd.uniform(-0.4, 0.4), 0.0))
-                cylinder(q, 0.02, 0.12, 5, lin(0xC8D8D0))
-                blob(q + Vector((0, 0, 0.13)), rnd.uniform(0.06, 0.12), lin(0x7AF0E0 if cyan else 0xB890FF), sub=1, squash=0.45, seed=m)
-        lampe(p + Vector((0, 0, 0.5)), 0x7AF0E0 if cyan else 0xB890FF, 4.0, 0.9, 'pilz')
 
 # ---------------------------------------------------------------- Netz und Ausgabe
 def material(name):
@@ -461,8 +532,31 @@ bpy.ops.export_scene.gltf(filepath=OUT + '/kampfort-hoehle-%s.glb' % SPOT, expor
 info = dict(ort=SPOT, dreiecke=tris, stoffe=names,
             lampen=[dict(pos=[round(p.x, 3), round(p.z, 3), round(-p.y, 3)], farbe='%06X' % c, reichweite=r, staerke=k, art=a)
                     for (p, c, r, k, a) in LAMPEN],
+            merk=[dict(name=n, pos=[round(q.x, 3), round(q.z, 3), round(-q.y, 3)]) for (n, q, _r) in MERK],
             hinweis='507: Lampen als OmniLight3D (kampfort.gd _build_cave); fackel und feuer flackern; Stoffe flamme, glut, himmel, pilz leuchten')
 json.dump(info, open(OUT + '/hoehle-info-%s.json' % SPOT, 'w'), indent=1)
+# Blickprüfung (Lauf 234, Prüfer: Teich, Lager, Pilze fehlen im Bild): jeder Merkpunkt im Bild der Kampfkamera, nicht hinter
+# Fels, Wand oder Boden (Strahl vom Auge), nicht hinter den Figuren (Rechteck je Platz wie kampfort.gd _stand, Wolf 1,2 m, Mensch 1,9 m)
+from mathutils.bvhtree import BVHTree
+bvh = BVHTree.FromPolygons([tuple(v) for v in P.V], P.F)
+FIGUREN = [(a, b, 0.45, 1.9) for a, b in ((-2.4, -0.9), (-2.4, 0.9), (-3.3, -0.1), (-3.3, 1.3), (-2.75, 0.35))] + \
+          [(a, b, 1.2, 1.2) for a, b in ((1.95, -1.65), (1.4, 1.2), (2.9, -1.2), (2.9, 1.2), (5.3, -1.0), (2.0, -1.3), (3.9, -1.65))]
+blick_fehler = []
+for name, q, r in MERK:
+    x, y, t = bild(q)
+    zum = AUGE - q; dist = zum.length; zum.normalize()
+    treffer = bvh.ray_cast(q + zum * r, zum, dist - r - 0.1)
+    hinter = [f for f in FIGUREN if t > bild(fight(f[0], f[1]))[2] + 0.3 and
+              min(bild(fight(f[0] + da, f[1] + db, dz))[0] for da in (-f[2], f[2]) for db in (-f[2], f[2]) for dz in (0, f[3])) < x <
+              max(bild(fight(f[0] + da, f[1] + db, dz))[0] for da in (-f[2], f[2]) for db in (-f[2], f[2]) for dz in (0, f[3])) and
+              bild(fight(f[0], f[1], f[3]))[1] < y < bild(fight(f[0], f[1]))[1]]
+    stand = 'außerhalb' if not (12 < x < GW - 12 and 40 < y < GH - 10) else ('verdeckt' if treffer[0] is not None else ('hinter Figur' if hinter else 'sichtbar'))
+    wo = '' if treffer[0] is None else ' von %s bei %.1f m (%.1f, %.1f, %.1f)' % (P.M[treffer[2]], treffer[3], treffer[0].x, -treffer[0].y, treffer[0].z)
+    print('BLICK %s %s: %.0f, %.0f, %.1f m %s%s' % (SPOT, name, x, y, t, stand, wo))
+    if stand != 'sichtbar': blick_fehler.append(name + ' ' + stand)
+if blick_fehler:
+    print('FEHLER 507: nicht im Bild', blick_fehler)
+    raise SystemExit(1)
 # Prüfung: nichts auf den Plätzen (a ±5, b ±3,5) zwischen 3 cm und 3,6 m (Platz für Figuren mit erhobener Waffe)
 hoch = [v for v in P.V if abs(v.x) < 5.0 and abs(v.y) < 3.5 and 0.03 < v.z < 3.6]
 print('HOEHLE', SPOT, 'Dreiecke', tris, 'Lampen', len(LAMPEN), 'Stoffe', names, 'auf den Plätzen', len(hoch))

@@ -259,13 +259,15 @@ func _setup_world() -> void:
 		env.ambient_light_color = Color(0.4, 0.46, 0.62)
 		env.ambient_light_energy *= 0.5
 	if ort == "hoehle":     # 507: die Höhle lebt von ihren Lampen (CaveScene setLights); die Sonne nur schwach für Tusche und Schatten
+		# Lauf 234 (Prüfer: Halle und Teich fast schwarz, Figuren verschwinden): Szene im Mittel 2 bis 9 von 255, der Boden 0;
+		# Umgebung und Sonne heller (Sonne: Toon-Stufen und Schatten an den Figuren), Messlauf HOEHLE_LICHT=<Faktor>
 		env.background_color = Color(0.015, 0.015, 0.02)
 		env.ambient_light_color = HOEHLE_UMGEBUNG.get(platz, Color(0.32, 0.30, 0.36))
-		env.ambient_light_energy = 0.45
+		env.ambient_light_energy = 1.0 * hoehle_licht()
 		env.fog_light_color = Color(0.02, 0.02, 0.025)
-		env.fog_depth_begin = 20.0
-		env.fog_depth_end = 40.0
-		sun.light_energy *= 0.22 if platz != "eingang" else 0.45
+		env.fog_depth_begin = 24.0
+		env.fog_depth_end = 45.0
+		sun.light_energy *= (0.45 if platz != "eingang" else 0.7) * sqrt(hoehle_licht())
 		sun.light_color = Color(0.85, 0.82, 0.78)
 	add_child(sun)
 	if ort == "hoehle":
@@ -392,6 +394,9 @@ const HOEHLE_UMGEBUNG := {"eingang": Color(0.40, 0.40, 0.42), "gang": Color(0.34
 const LEUCHTEN := {"flamme": Color(1.0, 0.62, 0.22), "glut": Color(0.9, 0.32, 0.08), "himmel": Color(0.92, 0.95, 0.88),
 	"pilz": Color(0.48, 0.94, 0.88)}
 var _flackern: Array = []     # [OmniLight3D, Grundstärke, Versatz]
+## 507 Messlauf (probe.gd HELL): Faktor auf Umgebung und Lampen der Höhle, 1 = Vorgabe
+static func hoehle_licht() -> float:
+	return float(OS.get_environment("HOEHLE_LICHT")) if OS.get_environment("HOEHLE_LICHT") != "" else 1.0
 
 func _build_cave() -> void:
 	if not platz in HOEHLENPLAETZE:
@@ -417,6 +422,10 @@ func _build_cave() -> void:
 						var m := mi.get_surface_override_material(i) as ShaderMaterial
 						m.set_shader_parameter("glow", 1.0)
 						m.set_shader_parameter("glow_col", LEUCHTEN[rn])
+					elif rn == "wasser":     # Lauf 234 (Teich ohne Wasser): matter Schimmer der Pilze auf dem Wasser
+						var m := mi.get_surface_override_material(i) as ShaderMaterial
+						m.set_shader_parameter("glow", 0.25)
+						m.set_shader_parameter("glow_col", Color(0.16, 0.36, 0.4))
 					elif rn == "dunkel":
 						(mi.get_surface_override_material(i) as ShaderMaterial).shader = _inkless_toon()
 			forest.add_child(n)
@@ -432,7 +441,7 @@ func _build_cave() -> void:
 		o.position = Vector3(l.pos[0], l.pos[1], l.pos[2])
 		o.light_color = Color.html("#" + String(l.farbe))
 		o.omni_range = float(l.reichweite)
-		o.light_energy = float(l.staerke)
+		o.light_energy = float(l.staerke) * 1.5 * hoehle_licht()
 		o.omni_attenuation = 1.2
 		o.shadow_enabled = false     # Handy: Schatten nur von der Sonne (Signatur A4)
 		forest.add_child(o)
