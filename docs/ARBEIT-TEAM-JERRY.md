@@ -23,7 +23,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 439 | M | **von Sokrates:** Reihenfolge Angriff, Treffer, Tod, Neuformation | wartet auf Test: t249 | – |
 | 440 | M | **von Sokrates:** Wolf-Tod zu schnell weg | wartet auf Test: t249 | – |
 | 416.6 | M | **von Sokrates:** Spuren (`core/Tracks.kt`): Blut, Staub, Fußspuren | wartet auf Perikles: Probebild nur auf dem Bauserver (511); mit 416.4 b31b7a85d lokal gut | `claude/jerry-416-6-blut` |
-| 415 | M | **von Sokrates:** Probe Beams Free Sample im Kampfort; nichts kaufen | wartet auf Test: t249 | – |
+| 415 | M | **von Sokrates:** Probe Beams Free Sample im Kampfort; nichts kaufen | startbar: „jetzt“ 03.11., 23:05 (ohne Strahlen messen, Zu 415) | – |
 | 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34):** Kampfort aufrufbar | wartet auf Test: Build 146 (ansehen/t146-befunde.md; Befunde als 416.x) | `claude/jerry-348-kampf` |
 | 403 | M | **von Team Tom:** Kampfort: Held je Klasse wie im Dorf | wartet auf Test: t249 | – |
 | 461.1 | M | **von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461):** Grundstand mit Tom: Kampfort, Wölfe, Helden (`LISTE-GRUNDSTAND-461.md`); vor 460 und 406.1 | ruht: nach dem Durchspielen (488) | `claude/grundstand-461` |
@@ -89,7 +89,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 - **Zu 510 (aus 494, „ein Lauf“; Wortlaut a091e0433):** OGA-Fledermaus in unseren Fellen neben der eigenen, Chef wählt; nur vorhandene Bewegungen, kurzer Film (`gegner=FLEDERMAUS`). Lauf 243 ohne Film: Runner abgeschaltet.
 - **Zu 406.2a (Chef 09:03):** alle Waffen, ohne Durchdringung, nie `SS_RunForward`; Film `film_4062a.gd` (`rennen=ja`). Messlauf 246: Waffen 4–5-mal kleiner als im Spiel, Wolf auf der Schattenseite; nächster Schritt Spielkamera, Probebild (511).
 - **Zu 415 (Chef 02.11., 22:04 „415d ja“):** läuft die Probe im Build flüssig, `chefsache/tun/415d-…` anlegen (Kauf beider Pakete), Lizenz vor dem Einbau lesen; vor jeder Testbitte Probe im APK.
-- **Zu 415, von Sokrates (Chef 03.11., 22:57, Bild t249 245.4):** „Zu Build 249 Werte der Effekte“: Renderer gl_compatibility, jetzt 37 Bilder/s; Mittel Blauer Laser 33, Feuerstrom 34, Blitzbogen 33. Chef 23:00, zweites Bild: Renderer mobile, jetzt 25; Mittel Laser 24, Feuerstrom 25, Blitzbogen 25, also unter 30 (Falsch-Spalte); `project.godot` stellt auf main „mobile“ ein. Kein Urteil zum Aussehen.
+- **Zu 415, von Sokrates (Chef 03.11., 22:57, Bild t249 245.4):** „Zu Build 249 Werte der Effekte“: Renderer gl_compatibility, jetzt 37 Bilder/s; Mittel Blauer Laser 33, Feuerstrom 34, Blitzbogen 33. Chef 23:00, zweites Bild: Renderer mobile, jetzt 25; Mittel Laser 24, Feuerstrom 25, Blitzbogen 25, also unter 30 (Falsch-Spalte); `project.godot` stellt auf main „mobile“ ein. Kein Urteil zum Aussehen. Chef 23:05 „Ja, Jerry soll ohne Strahlen messen“: dieselbe Stelle ohne Strahlen auf beiden Renderern messen, dann einen Renderer vorschlagen; 415d nicht vorher.
 - **Zu 496a (Chef 07:59 „Rein damit in den Build. Also auf Main.“):** `claude/build-496a` = `main` + 461, 406.2, 415, 489, 453.1, 463, 417, Build 245; Kotlin rot (BattleAheadTest, fremd). Nach Test auf `main`.
 - **Wortlaut in Git:** gekürzte Zeilen und Zu 453, 402, 406 a–e, 438, 461.1, 427.1, 438a, 478, 415, 348.12b, 489, 406.2, 348.12/348.12j: `git show a97f67e7e:docs/ARBEIT-TEAM-JERRY.md`, `a18dd9473:…`, `a091e0433:…`, Stand 16:2x `8e133b464:…`.
 - **von Sokrates (461c):** zu 444: Schmiedelehrling startet auch mit Stumpfe Waffen (`werte.json`), neu rechnen.
