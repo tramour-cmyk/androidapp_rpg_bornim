@@ -1197,17 +1197,18 @@ func blut_bilder(dir: String) -> void:
 	await staub_bilder(dir)
 
 # 416.6 Staub (Chef 03.11., 09:21): der Held rennt im Wald ein Stück den trockenen Weg entlang; je 0,1 s ein Bild staub_NN.png (daraus
-# der Film); Ziel ist das fernste Wegfeld in höchstens 7 Feldern, zu dem ein Weg führt
+# der Film); Ziel ist das fernste Wegfeld in höchstens 12 Feldern, zu dem ein Weg führt
 func staub_bilder(dir: String) -> void:
 	var von := held.kachel
 	var ziel := von
 	var weit := 0.0
-	for y in range(von.y - 7, von.y + 8):
-		for x in range(von.x - 7, von.x + 8):
+	# Lauf 231 nachgestellt (rennen_weg_4166): auf 7 Feldern rennt er mit Anlauf und Bremsen nur gut 1 s; 12 Felder
+	for y in range(von.y - 12, von.y + 13):
+		for x in range(von.x - 12, von.x + 13):
 			var t := Vector2i(x, y)
 			if karte.zeichen(t) != "=" or not karte.begehbar(t): continue
 			var d := Vector2(t - von).length()
-			if d > weit and d <= 7.0 and karte.weg(von, t).size() > 0:
+			if d > weit and d <= 12.0 and karte.weg(von, t).size() > 0:
 				weit = d
 				ziel = t
 	if ziel == von:
