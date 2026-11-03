@@ -62,6 +62,32 @@ func _lauf() -> void:
 	# Feld vor dem Helden (Kampf ohne Streuner)
 	pruefe(Blutspur.vor(Vector2i(5, 5), "UP") == Vector2i(5, 4) and Blutspur.vor(Vector2i(5, 5), "DOWN") == Vector2i(5, 6)
 		and Blutspur.vor(Vector2i(5, 5), "LEFT") == Vector2i(4, 5) and Blutspur.vor(Vector2i(5, 5), "RIGHT") == Vector2i(6, 5), "Feld vor dem Helden je Blick")
+	# Staub (Chef 09:21, Tracks.walked): rennend auf trockenem Weg je Doppelschritt eine Wolke aus drei Wölkchen, gehend oder auf Gras
+	# keine; sie gehen in 0,9 s auf und vergehen
+	var sp: Spuren = Blutspur.spuren
+	for i in 12:     # 12 × 0,3 Felder rennend auf dem Weg: Schritte bei 0,6 Feldern, jeder zweite mit Staub
+		sp.walked("forest", 2.0, 2.0 + i * 0.3, 0.0, "PATH", true, true, 20000 + i * 80)
+	b.staub(20000 + 11 * 80)
+	var wolken := b.staub_anzahl()
+	pruefe(wolken >= 2 and wolken <= 4, "rennend auf dem Weg Staub je Doppelschritt: %d Wolken" % wolken)
+	var w0: Node3D = null
+	for c in b.get_children():
+		if c.get_child_count() == 3: w0 = c
+	pruefe(w0 != null, "eine Wolke aus drei Wölkchen")
+	if w0 != null:
+		var a0: float = (w0.get_child(0).material_override as StandardMaterial3D).albedo_color.a
+		var s0: float = w0.get_child(0).scale.x
+		b.staub(20000 + 11 * 80 + 500)
+		var a1: float = (w0.get_child(0).material_override as StandardMaterial3D).albedo_color.a
+		pruefe(a1 < a0 and w0.get_child(0).scale.x > s0, "Wölkchen wächst und verblasst: Deckung %.2f → %.2f" % [a0, a1])
+	b.staub(20000 + 11 * 80 + Spuren.DUST_MS + 200)
+	await process_frame
+	pruefe(b.staub_anzahl() == 0, "nach 0,9 s fort: %d" % b.staub_anzahl())
+	for i in 12:
+		sp.walked("forest", 6.0, 2.0 + i * 0.3, 0.0, "PATH", true, false, 30000 + i * 80)
+		sp.walked("forest", 9.0, 2.0 + i * 0.3, 0.0, "GRASS", true, true, 30000 + i * 80)
+	b.staub(30000 + 11 * 80)
+	pruefe(b.staub_anzahl() == 0, "gehend auf dem Weg und rennend auf Gras kein Staub: %d" % b.staub_anzahl())
 	# ohne Prüfschalter keine
 	Spuren.draft = false
 	Blutspur.blut("forest", Vector2i(1, 1), 5, 5000)

@@ -21,6 +21,14 @@ const HALB := 1.25
 const HOEHE := 0.012
 
 var karte_id := ""
+## 416.6 Staub (Chef 03.11., 09:21: „die Staubwölkchen beim Laufen … Schau mal in der Kotlin-Version nach. Hat ja schon Atmosphäre
+## gemacht“): der Held und seine Karte (spiel.gd), damit seine Füße Spuren lassen (Tracks.walked); Staub je Doppelschritt beim Rennen
+## auf trockenem Weg oder Höhlenboden, drei Wölkchen, die in 0,9 s aufgehen und vergehen (WorldScreen.drawTracks Kind.DUST)
+var held: Node3D = null
+var karte = null
+const STAUB := Color(0xE2D2AEFF)
+var _staub := {}     # Mark -> Node3D (drei Wölkchen)
+static var _wolke: ImageTexture = null
 ## Mark -> MeshInstance3D
 var _netze := {}
 var _uhr := 0.0
@@ -42,10 +50,92 @@ static func vor(kachel: Vector2i, blick: String) -> Vector2i:
 	return kachel + Vector2i(0, 1)
 
 func _process(dt: float) -> void:
+	var jetzt := Time.get_ticks_msec()
+	_fuesse(jetzt)
+	staub(jetzt)
 	_uhr += dt
 	if _uhr < 0.25: return
 	_uhr = 0.0
-	stelle(Time.get_ticks_msec())
+	stelle(jetzt)
+
+## die Füße des Helden: wo er geht oder rennt, auf welchem Boden (Kachelname wie core Tile), draußen oder drinnen
+func _fuesse(jetzt: int) -> void:
+	if held == null or not is_instance_valid(held) or karte == null:
+		return
+	var anim = held.get("anim")
+	var a: String = anim.current_animation if anim != null else ""
+	if not (a.begins_with("Gehen") or a.begins_with("Rennen")):
+		return
+	var p: Vector3 = held.position
+	var boden := String(karte.kacheln.get(karte.zeichen(karte.pos_kachel(p)), {}).get("name", ""))
+	var draussen := String(karte.daten.get("art", "")) not in ["INTERIOR", "CAVE"]
+	spuren.walked(karte_id, p.x / Karte.TS, p.z / Karte.TS, rad_to_deg(held.rotation.y), boden, draussen, a.begins_with("Rennen"), jetzt)
+
+## 416.6: der Staub dieser Karte zur Zeit [jetzt]: je Spur drei Wölkchen, die auseinandergehen, wachsen, steigen und verblassen
+## (alt je Wölkchen Abstand 1,5 + 3·Alter, Halbmesser 2 + 5·Alter Punkte bei 16 Punkten je Feld, Deckung 0,55·(1 − Alter))
+func staub(jetzt: int) -> void:
+	var da := {}
+	if Spuren.draft:
+		for m in spuren.on(karte_id, jetzt):
+			if m.kind != Spuren.DUST: continue
+			da[m] = true
+			if not _staub.has(m): _staub[m] = _wolken(m)
+			var age: float = m.age(jetzt)
+			var n: Node3D = _staub[m]
+			for i in n.get_child_count():
+				var w := n.get_child(i) as MeshInstance3D
+				var ang: float = w.get_meta("ang")
+				var d := (1.5 + age * 3.0) / ALT_T * Karte.TS
+				var r := (2.0 + age * 5.0 + float(w.get_meta("r"))) / ALT_T * Karte.TS
+				w.position = Vector3(cos(ang) * d, 0.08 + r * 0.6 + age * 0.15, sin(ang) * d)
+				w.scale = Vector3.ONE * (2.0 * r)
+				var f := STAUB
+				f.a = 0.55 * (1.0 - age)
+				(w.material_override as StandardMaterial3D).albedo_color = f
+	for m in _staub.keys():
+		if not da.has(m):
+			_staub[m].queue_free()
+			_staub.erase(m)
+
+func _wolken(m) -> Node3D:
+	var n := Node3D.new()
+	n.position = Vector3(m.x * Karte.TS, 0.0, m.y * Karte.TS)
+	var rnd := RandomNumberGenerator.new()
+	rnd.seed = m.seed
+	if _wolke == null:
+		_wolke = ImageTexture.create_from_image(wolke_bild())
+	for i in 3:
+		var w := MeshInstance3D.new()
+		var q := QuadMesh.new()
+		q.size = Vector2.ONE
+		w.mesh = q
+		w.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		w.set_meta("ang", rnd.randf() * TAU)
+		w.set_meta("r", rnd.randf() * 1.5)
+		var mat := StandardMaterial3D.new()
+		mat.albedo_texture = _wolke
+		mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		mat.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
+		mat.roughness = 1.0
+		mat.depth_draw_mode = BaseMaterial3D.DEPTH_DRAW_DISABLED
+		w.material_override = mat
+		n.add_child(w)
+	add_child(n)
+	return n
+
+## ein weiches Wölkchen: weiß, Deckung zum Rand hin weich abnehmend (Farbe aus dem Stoff)
+static func wolke_bild() -> Image:
+	var n := 32
+	var img := Image.create(n, n, false, Image.FORMAT_RGBA8)
+	for y in n:
+		for x in n:
+			var e := Vector2(x + 0.5 - n * 0.5, y + 0.5 - n * 0.5).length() / (n * 0.5)
+			img.set_pixel(x, y, Color(1, 1, 1, clampf(1.0 - e, 0.0, 1.0) ** 1.5))
+	img.generate_mipmaps()
+	return img
+
+func staub_anzahl() -> int:
+	return _staub.size()
 
 ## zeigt die Spuren dieser Karte zur Zeit [jetzt] (ms): neue anlegen, Farbe und Deckung nachführen, vergangene entfernen
 func stelle(jetzt: int) -> void:

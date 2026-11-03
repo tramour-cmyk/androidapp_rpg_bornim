@@ -156,6 +156,8 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 		herde.kampf.connect(_kampf_auf_karte)
 		herde.gemeldet.connect(func(t): ui.kurz(t))
 	blutspur = Blutspur.new(id)   # 416.6 (Jerry): Blut, wo ein Gegner fiel (Tracks.kt), bleibt über Kartenwechsel im Speicher
+	blutspur.held = held   # 416.6 Staub beim Rennen auf trockenem Weg (Tracks.walked)
+	blutspur.karte = karte
 	add_child(blutspur)
 	kraut_tag = -1
 	kraeuter_neu()
@@ -1192,6 +1194,34 @@ func blut_bilder(dir: String) -> void:
 	await get_tree().create_timer(2.5).timeout
 	await knips(dir + "/blut_nacht.png")
 	licht.umschalten()
+	await staub_bilder(dir)
+
+# 416.6 Staub (Chef 03.11., 09:21): der Held rennt im Wald ein Stück den trockenen Weg entlang; je 0,1 s ein Bild staub_NN.png (daraus
+# der Film); Ziel ist das fernste Wegfeld in höchstens 7 Feldern, zu dem ein Weg führt
+func staub_bilder(dir: String) -> void:
+	var von := held.kachel
+	var ziel := von
+	var weit := 0.0
+	for y in range(von.y - 7, von.y + 8):
+		for x in range(von.x - 7, von.x + 8):
+			var t := Vector2i(x, y)
+			if karte.zeichen(t) != "=" or not karte.begehbar(t): continue
+			var d := Vector2(t - von).length()
+			if d > weit and d <= 7.0 and karte.weg(von, t).size() > 0:
+				weit = d
+				ziel = t
+	if ziel == von:
+		print("STAUB kein Weg nahe %s" % von)
+		return
+	held.weg.clear()
+	for t in karte.weg(von, ziel):
+		held.weg.append(karte.kachel_pos(t))
+	held.laeuft = true
+	for i in 36:
+		await get_tree().create_timer(0.1).timeout
+		await knips(dir + "/staub_%02d.png" % i)
+	held.laeuft = false
+	print("STAUB %s -> %s, %d Wolken zuletzt" % [von, ziel, blutspur.staub_anzahl()])
 
 # 348.6 Leute: --gang=<ordner> stellt die Leute nebeneinander auf den Platz, seitlich zur Kamera, und legt je 0,1 s
 # ein Bild eines Doppelschritts ab (Gang je Figur pruefen, Chef 17:03); die Figuren gehen auf der Stelle
