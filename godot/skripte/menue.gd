@@ -393,11 +393,29 @@ func dialog(titel: String, farbe: Color, zeilen: Array, knoepfe: Array) -> Contr
 	mitte.add_child(Erschaffung.kasten(v))
 	v.add_child(Stil.zeile(titel.to_upper(), 14, farbe, 3.0))
 	for c in zeilen: v.add_child(c)
-	for k in knoepfe:
+	# 503 (Chef 03.11., 07:40, „genau wie alt“): ConfirmDialog (Dialogs.kt 86–104): weitere Knoepfe nebeneinander in einer Reihe,
+	# darunter „Abbrechen“ (oder „Schliessen“) links und der erste Knopf rechts, je halb so breit, Schrift 15 sp; ein einzelner
+	# Knopf (OK, Schliessen) ueber die ganze Breite
+	var mach := func(k: Array) -> Button:
 		var tat: Callable = k[1]
 		var b := Erschaffung.knopf(String(k[0]), func(): schleier.queue_free(); tat.call())
 		if k.size() > 2: b.disabled = not bool(k[2])
-		v.add_child(b)
+		b.add_theme_font_size_override("font_size", int(round(15 * Stil.SP)))
+		b.clip_text = false
+		return b
+	var reihe := func(ks: Array) -> void:
+		var r := HBoxContainer.new()
+		r.add_theme_constant_override("separation", int(8 * DP))
+		for k in ks:
+			r.add_child(mach.call(k))
+		v.add_child(r)
+	var ab := knoepfe.size() > 1 and String(knoepfe[-1][0]) in [abbrechen(), Sprache.u("close")]
+	if ab:
+		if knoepfe.size() > 2:
+			reihe.call(knoepfe.slice(1, knoepfe.size() - 1))
+		reihe.call([knoepfe[-1], knoepfe[0]])
+	else:
+		for k in knoepfe: reihe.call([k])
 	return schleier
 
 const ABBRECHEN := {"de": "Abbrechen", "en": "Cancel"}

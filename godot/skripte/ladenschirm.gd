@@ -238,6 +238,7 @@ func verkaufen() -> void:
 	if not gew.is_empty():
 		var b := Erschaffung.knopf(Sprache.t(Laden.GEWOEHNLICHE), func(): alle_gewoehnlichen(gew))
 		b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		b.clip_text = false   # 503 (Chef 03.11., 07:40): mit clip_text und SHRINK war der Knopf 0 breit, ohne Text
 		b.custom_minimum_size.y = 36 * DP
 		inhalt.add_child(b)
 	if dinge.is_empty(): zeile(Sprache.u("nothing"), 14, Stil.DIM)
@@ -266,7 +267,7 @@ func alle_gewoehnlichen(gew: Array) -> void:
 	var summe := 0
 	for g in gew: summe += Laden.verkaufspreis_von(hw, g)
 	dialog("Alle gewöhnlichen verkaufen?" if de else "Sell all common items?", Stil.GOLD,
-		[Erschaffung.txt(("%d Gegenstände:" if de else "%d items:") % gew.size(), 15), Erschaffung.txt(", ".join(PackedStringArray(gew.map(func(g): return Beute.name(g)))), 14, Stil.DIM)],
+		[Stil.zeile((("%d Gegenstände:" if de else "%d items:") % gew.size()).to_upper(), 14, Stil.GOLD, 3.0), Erschaffung.txt(", ".join(PackedStringArray(gew.map(func(g): return Beute.name(g)))), 14, Stil.DIM)],
 		[[("Verkaufen · " if de else "Sell · ") + preis_text(summe), tu], [abbrechen(), func(): pass]])
 
 # ---------------------------------------------------------------- Brauen (Morwen)
