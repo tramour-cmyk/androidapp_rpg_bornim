@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (03.11., 03:1x, Ford `session_01Hmoj76TkJDAHTy5crCj9QH`, Tiefe 3):** Geltend: 468a (Chef 02.11., 22:01, Zeile unten) bis Sa 07.11., 20:00: nur Tom, Jerry, Spike (ab 03.11.) starten, Tuffy ruht, Homer, Perikles, Diogenes, Sokrates nur auf Zuruf; Wochenwarnung `allowed_warning` seit 03.11.: nur Muss. Läuft: Tom `78SZ` (470), Jerry `79Wf` (438a/406, PR #178), Homer `78Ga` (macht fertig), Sokrates `78Ud`. Alle älteren Sitzungen archiviert und gebucht (bei Mehrfachvorgängen gleichmäßig verteilt); `archive_session` ging nach Chefwort durch. Offen: 18-Uhr-Ablesung braucht das Bild des Chefs (gestern keins). Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 511** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 512** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 

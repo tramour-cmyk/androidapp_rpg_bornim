@@ -165,6 +165,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 503 | Laden, Verkaufen: Knopf „Gewöhnliche verkaufen“ leer, ohne Text (Chef 03.11., 07:40, Build 204) | E Oberfläche | M | – | Team Tom | gebaut |
 | 504 | Gespräche nie gleich: jede Zeile, die man wiederholt hört, in mindestens drei Varianten (Chef 03.11., 07:52: „Lebendige Welt, keine monotone Welt“) | C Texte | M | – | Homer | erledigt |
 | 509 | Frösche und Libellen an den Teichen im Flüsterwald fehlen in Godot (Chef 03.11., 09:21; `PondLife.kt`, Projektplan O6, W22) | E Welt | M | – | Team Jerry | Chef |
+| 511 | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele sinnlose und kaputte Filme gemacht?“) | B Werkzeuge | M | – | Sokrates | Chef |
 | 510 | Fledermaus: freies Modell (OGA „Vampire Bat“, CC0) neben der eigenen im Film, Chef wählt (Chef 03.11., 10:28–10:57, aus 494) | E Kampf | M | 17,92 $ | Team Jerry | in Arbeit |
 | 508 | Lehrmeister in Kapitel 1 erreichbar (Geselle), Magie-Pflicht Paladin/Kriegsmagier, Wachsoldat zu Wächter (aus 447.4) | D Design | M? | – | Sokrates | startbar |
 | 504.1 | Bau der Gesprächsvarianten Kapitel 1 (`STORY-VARIANTEN-K1.md`) in `geschichte.gd` | C Texte | M? | – | Tom | startbar |
