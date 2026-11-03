@@ -131,7 +131,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | D71.1 | K | von Diogenes (374/434, Vortag 02.11.): ohne „Bestand geprüft“ (434): 417 00:53, 02:24, 03: | startbar |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 39286 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Jerry** – offen 61, Muss 48, startbar 5
+**Jerry** – offen 61, Muss 48, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -161,7 +161,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 510 | M | von Sokrates (Chef 03.11., 10:28–10:57, aus 494, „ein Lauf“): Fledermaus: freies Modell OG | wartet auf Perikles |
 | 509 | M | von Sokrates (Chef 03.11., 09:21, „glaube ich, habe ich gesehen, dass Frösche und Libellen | startbar |
 | 494 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Gegner von Kapitel 1 im Kampf (Liste und St | startbar |
-| 507 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; aus 492): Kampforte Höhle wie alt: Eingang, | startbar |
+| 507 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; aus 492): Kampforte Höhle wie alt: Eingang, | wartet auf Sokrates |
 | 496a | M | Rückfrage: abgenommene Kampfbilder (Grundstand 461) schon in den Durchspiel-Build? | wartet auf Test (Build) |
 | 496 | M | von Perikles (Wochenziel 03.11. Reihe 5, 488): Durchspiel-Build aus 490–495: der Chef spie | wartet auf 490 (Chef) |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
@@ -244,7 +244,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 38, Muss 27, startbar 17
+**Sokrates** – offen 39, Muss 28, startbar 18
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -254,6 +254,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 461b.4 | M | von Perikles (deine Liste 461b, 02.11., 19:1x, Punkte 7, 9): Köpfe von DESIGN-SPIELSYSTEM- | startbar |
 | 468 | M | von Chef (02.11., 07:33, Bild „Nutzung“: 36 %): weiter mit Wächter bis Sa 19:59 (ja 11:13, | startbar |
 | 415d | M | von Chef (02.11., 20:05, „Hatten wir nicht weitere Effekte vorgesehen?“): Kauf der zwei Ef | wartet auf Jerry |
+| 507 | M | von Team Jerry (03.11., 15:29): Bitte „507, Läufe frei“ (480.1): Lauf 247 (2 von 2) Prüfer | startbar |
 | 431f | M | von Team Tom (02.11., 21:5x): Bitte „431f, Läufe frei“ (480.1): beide Läufe ohne Messwert | startbar |
 | 483 | M | von Chef (02.11., 19:08, „Das mit den Filmen klappt nicht, da ich konstant wieder Fehler a | wartet auf Perikles |
 | 481 | M | von Chef (02.11., 18:54, „Herkünfte auch“; 18:55 Kräutersammler mit Tränken, Zu 481): Herk | startbar |
