@@ -1,5 +1,7 @@
 # 513 · Ein Figurenstand: Schild am Rücken, Robe des Magiers, Umhang · Team Tom (Spike) · 03.11., 19:2x
 
+[Bild von 03.11., 19:29](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/03-1928-513-Spike.png) (eingetragen von meldung.sh, Spike)
+
 E Figuren
 Kurz: ein Zweig mit allem, was du an Figuren abgenommen hast; der Schild liegt jetzt am Rücken an, beim Magier sticht nichts mehr durch die Robe; am Umhang hat sich nichts geändert.
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41686998047 (Lauf 2 von 2, Commit 47b09d566)
