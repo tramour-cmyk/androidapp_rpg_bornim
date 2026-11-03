@@ -42,6 +42,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [531a](tun/531a-tom-berechtigung.md) | **Muss** | B Abläufe | 04.11., 00:45 | Alter Tom wartet auf eine Bash-Berechtigung (Push offen) | Ford |
 | [142](tun/142-pflichttest.md) | **Muss** | M Veröffentlichung | 27.10., 20:07 | Pflichttest Play Store: Gewerbeschein melden | Sokrates |
 
 ## Offen je Rolle
@@ -296,7 +297,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 512a | M | Rückfrage: Abgleichsfunde 535, 543 bis 478 zurückstellen? | Chef (Datei in der Chefsache) |
 | 508 | M | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
 | 488 | M | von Chef (02.11., 22:44, „dann frieren wir das mal ab einem gewissen Punkt ein … kümmern u | wartet auf Perikles |
-| 461b.4 | M | von Perikles (deine Liste 461b, 02.11., 19:1x, Punkte 7, 9): Köpfe von DESIGN-SPIELSYSTEM- | startbar |
+| 461b.4 | M | von Perikles (deine Liste 461b, 02.11., 19:1x, Punkte 7, 9; Zu 461b.4): Köpfe der Design-D | startbar |
 | 468 | M | von Chef (02.11., 07:33, Bild „Nutzung“: 36 %): weiter mit Wächter bis Sa 19:59 (ja 11:13, | startbar |
 | 415d | M | von Chef (02.11., 20:05, „Hatten wir nicht weitere Effekte vorgesehen?“): Kauf der zwei Ef | wartet auf Jerry |
 | 483 | M | von Chef (02.11., 19:08, „Das mit den Filmen klappt nicht, da ich konstant wieder Fehler a | wartet auf Perikles |
