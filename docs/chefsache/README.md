@@ -23,6 +23,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [490](ansehen/490-fluesterwald.md) | Flüsterwald begehbar wie alt: Standbilder aus Sicht des Helden | – | 03.11., 08:58 |
+| [491](ansehen/491-tiefer-wald.md) | Tiefer Flüsterwald begehbar wie alt: Standbilder aus Sicht des Helden | – | 03.11., 10:05 |
 | [505](ansehen/505-sichtfeld.md) | Nebel im Wald: welche Form hat das Sichtfeld des Helden? | – | 03.11., 09:41 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
@@ -61,7 +62,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 |---|---|---|---|
 | 490 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Flüsterwald begehbar wie alt | Chef |
 | 495 | M | von Perikles (Wochenziel 03.11. Reihe 4, 488): Zufallsspieler spielt Kapitel 1 in Godot bi | Termin 04.11. |
-| 491 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Tiefer Flüsterwald begehbar w | in Arbeit bei Spike |
+| 491 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Tiefer Flüsterwald begehbar w | Chef |
 | 505 | M | von Perikles (Archiv 502, Chef 03.11., 07:30, Zu 502 in ARBEIT-PROJEKT): Nebel des Krieges | Chef |
 | 493 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; Spike, von Jerry übernommen, Chef 07:54): Ka | in Arbeit bei Spike |
 | 506 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; Spike, aus 494): Untote im Kampf: Skelett, Z | in Arbeit bei Spike |
