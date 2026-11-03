@@ -60,10 +60,12 @@ func _run() -> void:
 	# Schüben; G = F mit Schub höchstens 1,5 cm je Bild anders
 	# Lauf 209: nach allen Schüben lag die Faust beim Aufstehen (1,73 s) noch 10,3 cm im Kleid, ohne Schub in dem Bild: der Boden hob die
 	# Hand danach hinein; G dämpft den Ruck (12,1 → 1,5 cm je Bild), Arm zu kurz höchstens 4 cm (F 14,7). H = erst Boden, dann Faust, gedämpft
-	for kv in [["FIGHTER", 3, 0.0, 2], ["FIGHTER", 3, 0.0, 3], ["CLERIC", 3, 0.0, 3]]:
+	# Lauf 210: H nach allen Schüben beim Aufstehen noch 7,6 cm (2,73 s; Schub 5 cm, nötig 11: gedämpft 1,5 cm je Bild, 4 Schübe je Bild);
+	# Klinge 12 cm. I = H ungedämpft, 8 Schübe je Bild (gilt für alle)
+	for kv in [["FIGHTER", 3, 0.0, 3], ["FIGHTER", 3, 0.0, 4], ["CLERIC", 3, 0.0, 4]]:
 		var p = Probe.new()
 		p.hero_cls = kv[0]
-		var k: String = kv[0] + ("" if kv[1] == 0 else " V%d" % kv[1]) + ("" if kv[2] == 0.0 else " A%d" % int(kv[2])) + ["", " F", " G", " H"][kv[3]]
+		var k: String = kv[0] + ("" if kv[1] == 0 else " V%d" % kv[1]) + ("" if kv[2] == 0.0 else " A%d" % int(kv[2])) + ["", " F", " G", " H", " I"][kv[3]]
 		p.merc_cls = "FIGHTER" if kv[0] != "FIGHTER" else "CLERIC"
 		p.foe = "WOLVES"
 		root.add_child(p)

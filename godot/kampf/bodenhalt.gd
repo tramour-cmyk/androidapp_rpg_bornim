@@ -18,7 +18,7 @@ const WAFFE_HEBEN := 0.12    # m: so weit hebt sich die Schildhand, wenn der Sch
 
 const FAUST_HAUT := 0.03     # 438a Faust: Punkte der Schwertfaust so weit vor Haut und Kleidung der Beine (Faust um 3 cm dick)
 const SUCHE := 0.12          # nächste Ecke höchstens so weit (wie sturz_438a)
-const FAUST_SCHRITTE := 4    # Schübe je Bild (die nächste Ecke ändert sich mit dem Schub)
+const FAUST_SCHRITTE := 8    # Schübe je Bild (die nächste Ecke ändert sich mit dem Schub; Lauf 210: 4 reichten nicht)
 
 var figur: Node3D
 var faust_tief := 0.0        # Prüflauf: wie tief die Schwertfaust vor dem Schub in Haut oder Kleidung lag (m)
@@ -105,7 +105,7 @@ func _process_modification_with_delta(_delta: float) -> void:
 		# hinein und heraus
 		if i == 1 and int(figur.faust_frei) == 2:
 			weg = _faust_letzt.move_toward(weg, FAUST_ZUG)
-		if i == 1 and int(figur.faust_frei) != 3:
+		if i == 1 and int(figur.faust_frei) in [1, 2]:
 			_faust_letzt = weg
 		if weg != Vector3.ZERO:
 			PH._ik(sk, xs, _arm[i], hand0 + weg)
@@ -138,7 +138,7 @@ func _process_modification_with_delta(_delta: float) -> void:
 		# 438a H (Lauf 209: nach allen Schüben lag die Faust beim Aufstehen noch 10,3 cm im Kleid, ohne Schub in diesem Bild: der Boden hob
 		# die Hand danach ins Bein): erst der Boden, dann die Faust aus dem Kleid, dabei nicht wieder hinunter, solange sie am Boden liegt;
 		# Schub je Bild höchstens FAUST_ZUG anders
-		if i == 1 and int(figur.faust_frei) == 3:
+		if i == 1 and int(figur.faust_frei) in [3, 4]:
 			var h1: Vector3 = xs * sk.get_bone_global_pose(_arm[i][0]).origin
 			var f1: Vector3 = xs * (sk.get_bone_global_pose(_arm[i][0]) * figur.griff_ort["R"]) if figur.griff_ort.has("R") else h1
 			var w3 := Vector3.ZERO
@@ -149,12 +149,13 @@ func _process_modification_with_delta(_delta: float) -> void:
 				faust_nor = fs[2]
 				if gehoben[i] > 0.0:
 					w3.y = maxf(w3.y, 0.0)
-			w3 = _faust_letzt.move_toward(w3, FAUST_ZUG)
+			if int(figur.faust_frei) == 3:     # I (4): ungedämpft (Lauf 210: H blieb beim Aufstehen 7,6 cm drin, Schub 5 cm statt 11)
+				w3 = _faust_letzt.move_toward(w3, FAUST_ZUG)
 			_faust_letzt = w3
 			if w3 != Vector3.ZERO:
 				PH._ik(sk, xs, _arm[i], h1 + w3)
 				faust_kurz = (h1 + w3).distance_to(xs * sk.get_bone_global_pose(_arm[i][0]).origin)
-			faust_weg = (weg + w3).length()
+			faust_weg = w3.length()     # nur der Schub aus dem Kleid (Lauf 210: mit den Kapseln zählte der Ruck 7,7 cm, gedämpft)
 		if i == 1 and not faust_pos.is_empty():
 			faust_nach = _faust_tiefe(sk, xs, i, faust_pos, faust_nor)
 
