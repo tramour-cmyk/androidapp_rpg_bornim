@@ -10,6 +10,8 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/
 
 **Zu sehen:** der Held jeder Klasse im Drehteller der Erschaffung, je von vorn, von der Seite und von hinten.
 
+**Bild unbrauchbar (Prüfer 19:3x):** Haar, Waffe und Schild fehlen im Bild bei allen Klassen, obwohl die Messung sie an Kopf, Faust und Rücken findet. In Lauf 244 waren sie da. Ursache: Mein Probeablauf ließ Schritte des Spielbaus aus. Das ist behoben (809ac6a6b); ein neues Bild braucht einen dritten Lauf, die Bitte liegt bei Sokrates. Zum Schild darum noch nicht urteilen.
+
 **Figurenstand:** Zweig `claude/figurenstand-513` enthält die Waffe in der Hand (417), Umhang und Robe (463) und den Drehteller (499). Alle Figurenzweige können darauf aufbauen.
 
 **Schild:** Er wurde bisher an der Ruhehaltung ausgerichtet; im Stehen neigt sich der Oberkörper, und der Schild stand unten ab. Jetzt wird er am Stehen ausgerichtet. Gemessen von der Seite: Kleriker oben 0, unten 1 cm vom Rücken; Kämpfer oben 0, unten 5 cm (vorher 20 bis 25 cm). Beim Kämpfer hält der Griff hinter dem Rundschild ihn so weit weg.
@@ -24,6 +26,6 @@ Bestand geprüft: kein neues Modell, nur Lage des Schilds und Unterlagen der vor
 
 **Stärkstes Gegenargument:** Der Umhang ist nicht besser geworden, obwohl du ihn mit „513 B“ jetzt wolltest; beide Läufe sind verbraucht.
 
-**Zu sagen:** passt oder nicht, je für Schild und Magier; für den Umhang: zwei neue Läufe oder nach dem Durchspielen.
+**Zu sagen:** erst nach dem neuen Bild: passt oder nicht, je für Schild und Magier; für den Umhang: weitere Läufe oder nach dem Durchspielen.
 
 Erledigt: Antwort ins Vorgangsarchiv, Datei löschen (Spike).
