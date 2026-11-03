@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [406.2a](entscheiden/4062a-rennen-kampf.md) | **Muss** | E Kampf | 03.11., 09:00 | Das Dorf-Laufen (UAL) gefällt, im Kampf läuft eine andere Bewegung (Paket Sword & Shield). | Sokrates |
 | [348.12c](entscheiden/34812c-gegner-kauf.md) | **Muss** | G Geld | 03.11., 08:56 | Für 6 der 18 Gegner von Kapitel 1 haben wir kein Modell; der Warenkorb vom 27.10. deckt genau diese sechs. | Sokrates |
 | [427.2a](entscheiden/4272a-zweites-rauchbuendel.md) | **Muss** | D Design | 03.11., 08:14 | Zweites Rauchbündel nach einer Niederlage gegen Krogg? | Homer |
 | [447.4](entscheiden/4474-lehrmeister.md) | **Muss** | C Texte | 03.11., 08:09 | Lehrmeister fragen nach „Noch nicht“ noch einmal? Wechsel als Anwärter in Kapitel 1 ohne Verlust? | Homer |
@@ -121,7 +120,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 35338 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Jerry** – offen 57, Muss 45, startbar 6
+**Jerry** – offen 58, Muss 46, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -145,6 +144,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 460 | M | von Sokrates (Chef 01.11., 20:2x, Archiv 460): Probefilm Kamerafahrten: Eröffnung je Blend | ruht |
 | 406.1 | M | von Sokrates (Archiv 406.1): Schildstoß ins MARS/BRS, Bau mit ShieldAttack1–3S&S | wartet auf 481 (startbar) |
 | 489 | M | von Sokrates (Chef 03.11., 07:07, Test Build 204; Zu 489): Hauptmenü: Schalter Musik und E | wartet auf Test/Build (gebaut) |
+| 406.2a | M | von Sokrates (Chef 03.11., 09:03, Archiv 406.2a; „jetzt“ 03.11., 09:03): Angriffsweg im Ka | startbar |
 | 406.2 | M | von Sokrates (Chef 03.11., 06:59, Zu 406.2; „jetzt“ 03.11., 06:59): im Kampf zum Angriff g | Chef |
 | 406 | M | von Team Tom (Archiv 376.1): Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Son | wartet auf Test/Build (gebaut) |
 | 494 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; neu aufgeteilt Chef 07:54): Gegner von Kapit | startbar |
@@ -230,14 +230,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 39, Muss 28, startbar 17
+**Sokrates** – offen 38, Muss 27, startbar 17
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 508 | M? | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
 | 488 | M | von Chef (02.11., 22:44, „dann frieren wir das mal ab einem gewissen Punkt ein … kümmern u | wartet auf Perikles |
 | 348.12c | M | von Chef (03.11., 08:50, „Aber müssen wir dazu nicht auch was kaufen?“, zu 494 Gegner): Ka | Chef (Datei in der Chefsache) |
-| 406.2a | M | von Chef (03.11., 08:57, Parade-Film): im Kampf zum Angriff rennen wie im Dorf (UAL statt | Chef (Datei in der Chefsache) |
 | 461b.4 | M | von Perikles (deine Liste 461b, 02.11., 19:1x, Punkte 7, 9): Köpfe von DESIGN-SPIELSYSTEM- | startbar |
 | 468 | M | von Chef (02.11., 07:33, Bild „Nutzung“: 36 %): weiter mit Wächter bis Sa 19:59 (ja 11:13, | startbar |
 | 415d | M | von Chef (02.11., 20:05, „Hatten wir nicht weitere Effekte vorgesehen?“): Kauf der zwei Ef | wartet auf Jerry |
