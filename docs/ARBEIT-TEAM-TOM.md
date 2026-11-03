@@ -8,6 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 519 | M | **von Sokrates (Chef 03.11., 23:13, Build 249, Bild):** Ausrüstung, Fenster eines Gegenstands passt nicht auf den Bildschirm: Name, Spalte „Neu“, Knöpfe rechts abgeschnitten; alte Fassung vergleichen (512) | startbar | – |
 | 518 | M | **von Sokrates (Chef 03.11., 20:47, Build 248, Bild):** Dorf leer: keine Häuser, nur Wege und Pflaster; ständiges schwarzes Flackern (schwarze Striche); t248 so nicht testbar. Ursache erst in Vorschau nachstellen | wartet auf Test: Build 249 (t249); behoben 4f9ca1dce | – |
 | 490 | M | **von Perikles (Wochenziel 03.11. Reihe 2, 488):** Flüsterwald begehbar wie alt (`Story.kt:524`, Orte O6) | wartet auf Test: Build 249 (t249) | `claude/build-490` |
 | 495 | M | **von Perikles (Wochenziel 03.11. Reihe 4, 488):** Zufallsspieler spielt Kapitel 1 in Godot bis „chapter1_done“ durch und meldet, wo er hängenbleibt (Abnahme 2.2) | wartet auf Guthaben: heute eine Sitzung weniger (468a, Bild Chef 07:16, 53 %), frühestens 04.11. | – |
@@ -83,6 +84,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Pflege | K | **von Werkzeug (340.3, 03.11.):** 48450 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 17, 76; Zeile 518 wartet auf t248, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile Pflege wartet auf t248, aber keine Datei in docs/chefsache/an … | startbar |
 
 ## Einzelheiten
+
+- **Zu 519, von Sokrates (gesehen, nicht vom Chef):** Ring zeigt „+1 alle Attribute“, „+2 Geschicklichkeit“, „+2 Charisma“, Vergleich aber Charisma 11 → 12, Geschicklichkeit und Stärke fehlen; nachrechnen, ob Anzeige oder Wert falsch.
 
 - **Zu 518, von Sokrates (Chef 03.11., 21:32):** „Liegen lassen, Tom soll 518 jetzt beheben“: t248 wartet auf den Build mit 518. **Ursache (Tom 21:4x):** `toon.gdshader` (Dorf und Kampf) schrieb seit 463 `POSITION` nur am Helden, alle anderen Netze unsichtbar; nachgestellt, behoben 4f9ca1dce, Test `position_518`; auch Ursache für 505 ohne Bäume und wohl 513 „ohne Haar, Waffe, Schild“.
 
