@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [512](entscheiden/512-vergleich-vor-testbitte.md) | **Muss** | B Abläufe | 03.11., 14:17 | Heute hast du 9 Fehler als Erster gefunden, alle im Vergleich alte gegen neue Fassung; keiner stand in der Prüfliste. | Perikles |
 | [348.12c](entscheiden/34812c-gegner-kauf.md) | **Muss** | G Geld | 03.11., 08:56 | Für 6 der 18 Gegner von Kapitel 1 haben wir kein Modell; der Warenkorb vom 27.10. deckt genau diese sechs. | Sokrates |
 | [427.2a](entscheiden/4272a-zweites-rauchbuendel.md) | **Muss** | D Design | 03.11., 08:14 | Zweites Rauchbündel nach einer Niederlage gegen Krogg? | Homer |
 | [447.4](entscheiden/4474-lehrmeister.md) | **Muss** | C Texte | 03.11., 08:09 | Lehrmeister fragen nach „Noch nicht“ noch einmal? Wechsel als Anwärter in Kapitel 1 ohne Verlust? | Homer |
@@ -197,10 +198,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 16547 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 27, Muss 25, startbar 0
+**Perikles** – offen 28, Muss 26, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 512 | M | von Sokrates (Hinweis 03.11., 07:45, zu 488): vor jeder Testbitte berührte Schirme alt geg | Chef (Datei in der Chefsache) |
 | 511 | M | von Sokrates (Chef 03.11., 13:50, „511 ja“, Archiv; „jetzt“ 03.11., 13:50): probelauf.py s | wartet auf Test/Build (gebaut) |
 | 502 | M | von Sokrates (Chef 03.11., 07:28; Zu 502): Nebel des Krieges und Sichtfeld des Helden in „ | wartet auf Test/Build (gebaut) |
 | 488 | M | von Sokrates (Chef 03.11., 06:44, „488 ja“, Archiv 488; „jetzt“ 03.11., 06:44): Wochenziel | wartet auf Test/Build (gebaut) |
