@@ -10,6 +10,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 527 | M | **von Sokrates (512, Abgleich Build 249 im Code; Zu 527):** System: Schalter „Tempo“ und „Kampftext“ wirken im Kampf nicht; anschließen oder ausblenden, bis sie wirken | startbar | – |
 | 478 | M | **von Sokrates (Chef 02.11., 17:59 „470a C“):** Rechenkern des Kampfs in Stufe 1 auf BRS (Modell D) | ruht: 470a B (3–4 Sitzungen, Wortlaut in Git) | – |
 | 481.1 | M | **von Sokrates (427):** Tränke in sim444, Herkünfte neu messen, Zahlen an Sokrates | gebaut: sim444 Abschnitt 6 (claude/jerry-481-1-traenke); Geprüft an: 4bb60ba5e | – |
 | 467 | M | **von Sokrates (Chef 01.11., 21:52):** `regeln/ausdauer.gd` rechnet nach SRD; BRS: Ausdauer aus Zähigkeit, Wille, Stufe; nach der Formel aus 427 umstellen | wartet auf Sokrates: Formel Ausdauer fehlt in 427 (Hinweis Beratung) | – |
@@ -73,6 +74,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 ## Einzelheiten
 
+- **Zu 527, von Sokrates (Helfer, Code gelesen, Chef 23:26 „besser machen“):** alt `BattleScreen.kt` 497, 609, 620; neu nur `menue.gd` 809–812, `bedienung.gd` 20–21, kein Leser im Kampf. Ob MARS das vorsieht: offen.
 - **von Team Tom (03.11., 21:4x, zu 518):** `godot/kampf/toon.gdshader` und `godot/shader/toon.gdshader` setzten seit 463 `POSITION` nur bei `rueck`/`vorrang`/`nach` > 0, alle anderen Netze unsichtbar (Dorf ohne Häuser, Build 248); behoben 4f9ca1dce (`claude/tom-518-position`), Test `tests/position_518.gd`. Jeder deiner Zweige mit dem Figurenstand 463 braucht den Commit vor dem nächsten Bildlauf.
 
 - **von Team Tom (03.11., 16:3x):** Krogg und Rauch eingebunden (`claude/tom-492-hoehle` 2fa4f6f0d, `"bugbear": "KROGG"`, `lage["rauch"]`, Abzug nach `mars.smoke`; ohne deinen Zweig wirkungslos). Build 248 (PR #180, auf 245) mit 490, 491, 493, 501, 503, 500, 497 läuft. Waldklang als 517.
