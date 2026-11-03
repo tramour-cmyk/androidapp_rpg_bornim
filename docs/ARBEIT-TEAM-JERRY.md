@@ -23,7 +23,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert
 | 439 | M | **von Sokrates (Archiv 438):** Reihenfolge Angriff, Treffer, Tod, Neuformation | gebaut: passt, in Build 496a | – |
 | 440 | M | **von Sokrates (Archiv 438):** Wolf-Tod zu schnell weg | gebaut: passt, in Build 496a | – |
 | 416.6 | M | **von Sokrates (Chef 31.10., 20:4x; M seit Chef 03.11., 07:31 „Blutspuren in der Welt bitte mit einplanen“, W4):** Spuren (`core/Tracks.kt`): Blut, Staub, Fußspuren | gebaut: Staub (Bildfolge Lauf 226), Fußspuren (erst mit Regen, W3); Blut passt; Geprüft an: 693d333c1 | `claude/jerry-416-6-blut` |
-| 415 | M | **von Sokrates („jetzt“ 02.11., 22:05, Chef: „415d muss ins nächste Build“; Archiv 415):** Probe Beams Free Sample im Kampfort (Film, Bilder je Sekunde); nichts kaufen | in Arbeit: in Build 496a, Strahlenfilm Lauf 214 (Zu 415) | – |
+| 415 | M | **von Sokrates („jetzt“ 02.11., 22:05, Chef: „415d muss ins nächste Build“; Archiv 415):** Probe Beams Free Sample im Kampfort (Film, Bilder je Sekunde); nichts kaufen | gebaut: in Build 496a (Lauf 221), Laser kann am Kämpfer enden; Geprüft an: c3605f712 | – |
 | 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34, Archiv):** Kampfort aufrufbar | wartet auf Test: Build 146 (ansehen/t146-befunde.md; 143 getestet 31.10., 20:4x, Befunde als 416.x) | `claude/jerry-348-kampf` |
 | 403 | M | **von Team Tom (Archiv 403):** Kampfort: Held je Klasse wie im Dorf | gebaut: passt, in Build 496a | – |
 | 461.1 | M | **von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461):** Grundstand mit Tom: Kampfort, Wölfe, Helden im Kampf (`LISTE-GRUNDSTAND-461.md`) in `claude/grundstand-461`; vor 460 und 406.1 | ruht: nach dem Durchspielen (488, Wochenziel 03.11.) | `claude/grundstand-461` |
