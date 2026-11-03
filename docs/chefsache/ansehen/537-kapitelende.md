@@ -1,5 +1,7 @@
 # 537 · Kapitelende: Schirm „Ende von Kapitel 1“, Morgenandacht, Morgen im Tempel · Team Tom (Spike) · 04.11., 00:3x
 
+[Bild von 04.11., 00:37](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/04-0037-537-Spike.png) (eingetragen von meldung.sh, Spike)
+
 A Spiel
 Kurz: Nach Aldric fehlte bisher das ganze Ende von Kapitel 1. Jetzt läuft es ab wie in der alten Fassung; es kommt mit dem nächsten Testbuild. Das Bild zeigt den Schirm am Kapitelende so, wie er gebaut ist.
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/8ebfd78ab (Test kapitelende_537 ohne Fehler)
