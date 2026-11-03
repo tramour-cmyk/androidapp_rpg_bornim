@@ -1,5 +1,7 @@
 # 493 · Kampforte im Wald wie alt: Lichtung, Waldrand, Teich, Baum, Felsen, Steinkreis · Team Tom (Spike, von Jerry übernommen) · 03.11., 10:37
 
+[Bild von 03.11., 10:37](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/03-1037-493-Spike.png) (eingetragen von meldung.sh, Spike)
+
 O Orte
 Kurz: sechs Kampforte im Wald, Lauf 2 von 2
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41606989973 (Lauf 2, Commit 56bcf0ead)
