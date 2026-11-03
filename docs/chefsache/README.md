@@ -123,7 +123,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | D71.1 | K | von Diogenes (374/434, Vortag 02.11.): ohne „Bestand geprüft“ (434): 417 00:53, 02:24, 03: | startbar |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 48450 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Jerry** – offen 60, Muss 48, startbar 3
+**Jerry** – offen 60, Muss 48, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -140,7 +140,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 439 | M | von Sokrates: Reihenfolge Angriff, Treffer, Tod, Neuformation | wartet auf Test (Build) |
 | 440 | M | von Sokrates: Wolf-Tod zu schnell weg | wartet auf Test (Build) |
 | 416.6 | M | von Sokrates: Spuren (core/Tracks.kt): Blut, Staub, Fußspuren | wartet auf Perikles |
-| 415 | M | von Sokrates: Probe Beams Free Sample im Kampfort; nichts kaufen | wartet auf Test (Build) |
+| 415 | M | von Sokrates: Probe Beams Free Sample im Kampfort; nichts kaufen | startbar |
 | 399.2 | M | von Perikles („jetzt“ 28.10., 12:34): Kampfort aufrufbar | wartet auf Test (Build) |
 | 403 | M | von Team Tom: Kampfort: Held je Klasse wie im Dorf | wartet auf Test (Build) |
 | 461.1 | M | von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461): Grundstand mit Tom: Kampfort, Wölfe, Hel | ruht |
