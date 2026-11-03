@@ -156,7 +156,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 494a | Rückfrage: dritter Lauf für Wildschwein und Hundertfüßer (Läufe 225, 229 brachen beim Bau ab) | E Kampf | M | – | Team Jerry | erledigt |
 | 510a | Rückfrage: zweiter Lauf für den Fledermaus-Vergleich (Lauf 235: freies Modell leer, Film nur mit unserer) | E Kampf | M | – | Team Jerry | erledigt |
 | 496a | Rückfrage: abgenommene Kampfbilder (Grundstand 461) schon in den Durchspiel-Build? | E Technik | M | 51,18 $ | Team Jerry | zu testen |
-| 497 | „Über das Spiel“: Lizenzhinweis der Godot Engine (MIT) und ihrer Drittteile fehlt (Chef 03.11., 07:09, Frage nach Schriften, Build 204) | M Veröffentlichung | M | – | Team Tom | zu testen |
+| 497 | „Über das Spiel“: Lizenzhinweis der Godot Engine (MIT) und ihrer Drittteile fehlt (Chef 03.11., 07:09, Frage nach Schriften, Build 204) | M Veröffentlichung | M | – | Team Tom | startbar |
 | 498 | Schriftbild wie in der Kotlin-Fassung: Größe, Sperrung, Halbfett (Chef 03.11., 07:13, „Über das Spiel“ wirkt kleiner) | E Oberfläche | M | – | Team Tom | gebaut |
 | 499 | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 (Chef 03.11., 07:14, Build 204) | E Figuren | M | 9,32 $ | Team Tom | Chef |
 | 500 | Welt: Probeknöpfe rechts (Tag/Nacht, Nah/Fern, Drehen, Sprache, Tiere) weg; „Karte Näher/Normal“ bleibt (Chef 03.11., 07:24 und 07:27, Build 204) | E Oberfläche | M | – | Team Tom | zu testen |
