@@ -7,6 +7,10 @@ on:
     branches: ["claude/tom-348-**", "claude/jerry-348-**"]
     paths: ["godot/**", "tools/blender348/**", "core/src/main/**", ".github/workflows/godot.yml"]
   workflow_dispatch:
+    inputs:
+      drehteller:
+        description: "Drehteller 499 (Spike): ja = Held je Klasse im Drehteller, Messung und Bilder"
+        default: ""
 
 jobs:
   apk:
@@ -269,6 +273,16 @@ jobs:
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --bilder=$GITHUB_WORKSPACE/bilder 2>&1 | grep -E "Vulkan|SCRIPT ERROR" || true
           ls -l $GITHUB_WORKSPACE/bilder
+      # 499 (Chef 03.11., 07:14): Held im Drehteller mit Grundausruestung je Klasse, Abstand Waffe-Faust und Schild-Ruecken, Bilder
+      - name: Drehteller 499 (nur von Hand mit drehteller=ja)
+        if: ${{ !cancelled() && github.event.inputs.drehteller == 'ja' }}
+        continue-on-error: true
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/bilder/drehteller
+          cd godot
+          OBERFLAECHE_AUS=$GITHUB_WORKSPACE/bilder/drehteller VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -s res://tests/drehteller_499.gd 2>&1 | grep -E "SCRIPT ERROR|^BILD|FEHLER|DREHTELLER|^[A-Z]+:|^  " | cut -c1-300 | tee $GITHUB_WORKSPACE/bilder/drehteller/messung.log || true
+          ls -l $GITHUB_WORKSPACE/bilder/drehteller
       # 348.13b Tusche nach Laterne, Fenster, Fackel: nachts je Ort mit und ohne, Kosten je Bild (Renderer wie am Handy), nur bei „348.13b“
       - name: Tusche nachts (348.13b)
         if: contains(github.event.head_commit.message, '348.13b')
