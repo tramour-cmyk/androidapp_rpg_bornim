@@ -394,9 +394,11 @@ const HOEHLE_UMGEBUNG := {"eingang": Color(0.40, 0.40, 0.42), "gang": Color(0.34
 const LEUCHTEN := {"flamme": Color(1.0, 0.62, 0.22), "glut": Color(0.9, 0.32, 0.08), "himmel": Color(0.92, 0.95, 0.88),
 	"pilz": Color(0.48, 0.94, 0.88)}
 var _flackern: Array = []     # [OmniLight3D, Grundstärke, Versatz]
-## 507 Messlauf (probe.gd HELL): Faktor auf Umgebung und Lampen der Höhle, 1 = Vorgabe
+## 507 Messlauf (probe.gd HELL): Faktor auf Umgebung und Lampen der Höhle. Vorgabe 3 nach Messlauf 242: bei 1 Halle, Teich, Lager
+## Mittel 6–7 von 255, Held innen 26, Wölfe 8–10 (Prüfer 234 „fast schwarz“); bei 3 Held innen 40–54, Wölfe 16–22, Fackeln
+## nicht ausgebrannt (97–129), Szene im Mittel 10–22 (Lichtung 91): düster, Figuren lesbar
 static func hoehle_licht() -> float:
-	return float(OS.get_environment("HOEHLE_LICHT")) if OS.get_environment("HOEHLE_LICHT") != "" else 1.0
+	return float(OS.get_environment("HOEHLE_LICHT")) if OS.get_environment("HOEHLE_LICHT") != "" else 3.0
 
 func _build_cave() -> void:
 	if not platz in HOEHLENPLAETZE:
