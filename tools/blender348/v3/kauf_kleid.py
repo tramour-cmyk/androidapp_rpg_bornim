@@ -540,7 +540,11 @@ if 'cloak' in TEILNAMEN and 'tabard' in TEILNAMEN and os.environ.get('RUECKBAHN'
 # Frau 17382 -> 15058; Hose und Guertel unter dem Umhang weg Wache Frau 4832 -> 4208, Mann 5844 -> 5556; Aermel und Kette 5 statt 3 cm
 # Wache Mann 5556 -> 4367 (Aermel 1353 -> 387), Frau 4208 -> 4131; keine Loecher dazu. Stiefel unter der Robe und Haut unter Kette und
 # Kragen: kaum Wirkung (Robe Stiefel 1130 -> 1067), nicht eingebaut. „:beide“ hinten: auch Oberlage hinter der Flaeche (Guertel in der Robe)
-UNTER_WEG = os.environ.get('UNTER_WEG', 'sleeves:chain+cloak+robe:0.05&chain:cloak:0.05&pants:cloak+robe+tabard:0.03&belt:cloak:0.03'
+# 513 Probe 1 (Lauf 41673495083, pruef_flecken im Stehen, Rueckseiten 4 cm wie im Spiel): Robe Mann 529 Flecken, im Stehen nur der Kittel
+# (chain) 4 mm vor der Robe auf 0,83-0,90 m (Chef 15:51 „Knie durchschauen“): Kittel unter der Robe weg wie unter dem Umhang; Wache Mann
+# 1666: Guertel 6-8 mm vor dem Umhang (0,91-0,99 m, von hinten) 347, Aermel an der Schulter bis 4,4 cm vor dem Umhang (1,20 m) 631: Guertel
+# 6 statt 3 cm, Aermel 8 statt 5 cm; Loecher 0 vorher
+UNTER_WEG = os.environ.get('UNTER_WEG', 'sleeves:chain+cloak+robe:0.08&chain:cloak+robe:0.05&pants:cloak+robe+tabard:0.03&belt:cloak:0.06'
                            '&robe:belt+buckle+cuff:0.03:beide&sleeves:cuff:0.03')
 if UNTER_WEG:
     LT3 = np.zeros(len(kme.vertices), dtype=int); kme.attributes['teil'].data.foreach_get('value', LT3)

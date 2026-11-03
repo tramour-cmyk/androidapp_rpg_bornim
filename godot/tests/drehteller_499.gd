@@ -51,7 +51,7 @@ func koerper_abstand(m: Node3D, p: Vector3) -> float:
 
 # 513: Spalt zwischen Schild und Rücken im Raum der Figur (Blick +Z, Rücken -Z), wie der Teller sie zeigt (echte Knochenlage): je Feld
 # (3 cm breit, 2 cm hoch) die hinterste Ecke des Körpers; je Schildecke im obersten und untersten Viertel des Schilds der Abstand nach
-# vorn bis zum Körper; [kleinster oben, kleinster unten, Ecken im Körper (mehr als 1 cm hinein)]
+# vorn bis zum Körper; [kleinster oben, kleinster unten, Ecken des Rands im Körper (mehr als 1 cm hinein)]
 func schild_spalt(modell: Node3D, ba: Node3D) -> Array:
 	var inv := modell.global_transform.affine_inverse()
 	var feld := {}
@@ -90,7 +90,11 @@ func schild_spalt(modell: Node3D, ba: Node3D) -> Array:
 				ecken.append(p); lo = minf(lo, p.y); hi = maxf(hi, p.y)
 	var oben := 9.0; var unten := 9.0; var drin := 0
 	var h := hi - lo
+	var xl := INF; var xh := -INF
+	for p in ecken: xl = minf(xl, p.x); xh = maxf(xh, p.x)
+	var mitte := Vector2((xl + xh) * 0.5, (lo + hi) * 0.5); var halb := Vector2(maxf(0.01, (xh - xl) * 0.5), maxf(0.01, h * 0.5))
 	for p in ecken:
+		if ((Vector2(p.x, p.y) - mitte) / halb).length() <= HeldFigur.SCHILD_RAND: continue   # Fessel hinter der Platte: unsichtbar
 		var z: float = feld.get(Vector2i(floori(p.x / 0.03), floori(p.y / 0.02)), 9.0)
 		if z > 8.0: continue
 		var spalt: float = z - p.z

@@ -549,6 +549,7 @@ static func rand_hinten(was: String) -> float:
 # so geneigt und so nah heran, dass er oben und unten anliegt (SCHILD_LUFT), nirgends hinein. Ergebnis {t, brust (spine_03 in der
 # Haltung), spalt [oben, unten] in m, hinten}; leer ohne Haltung oder Schildmodell (dann wie bisher aus der Ruhelage)
 const SCHILD_LUFT := 0.012
+const SCHILD_RAND := 0.6
 static func schild_anlegen(m: Node3D, sk: Skeleton3D, bi: int, was: String) -> Dictionary:
 	var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
 	if ap == null or not ap.has_animation("Stehen"): return {}
@@ -571,6 +572,15 @@ static func schild_anlegen(m: Node3D, sk: Skeleton3D, bi: int, was: String) -> D
 	for v in sv:
 		hy = maxf(hy, absf(v.y)); hx = maxf(hx, absf(v.x)); ylo = minf(ylo, v.y); yhi = maxf(yhi, v.y)
 	var viertel := (yhi - ylo) * 0.25
+	# Probe 1 (Lauf 41673495083): Rundschild des Kaempfers oben 0, unten 5,4 cm; was ihn hielt, war die Fessel in der Mulde hinter der
+	# Platte. Die sieht man nicht (die Platte deckt sie): nur der Rand (ausserhalb 60 % zur Mitte) darf den Ruecken nicht schneiden
+	var xlo := INF; var xhi := -INF
+	for v in sv: xlo = minf(xlo, v.x); xhi = maxf(xhi, v.x)
+	var mitte := Vector2((xlo + xhi) * 0.5, (ylo + yhi) * 0.5); var halb := Vector2(maxf(0.01, (xhi - xlo) * 0.5), maxf(0.01, (yhi - ylo) * 0.5))
+	var rand := PackedVector3Array()
+	for v in sv:
+		if ((Vector2(v.x, v.y) - mitte) / halb).length() > SCHILD_RAND: rand.append(v)
+	if rand.size() > 20: sv = rand
 	# Ruecken: hinterste z je Feld (3 cm breit, 2 cm hoch) im Bereich des Schilds
 	var x0 := -hx - 0.03; var y0 := yc - hy * 1.3 - 0.05; var y1 := yc + hy * 1.3 + 0.05
 	var nx := int(ceil((2.0 * hx + 0.06) / 0.03)); var ny := int(ceil((y1 - y0) / 0.02))
