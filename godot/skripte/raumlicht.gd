@@ -77,6 +77,27 @@ func licht(l: Dictionary) -> void:
 		for f in l.get("flammen", []):
 			teile.append(flamme(gpos(f), 2.0 if art == "kamin" else 0.32, art == "kamin"))
 		if l.has("wand"): an_wand[String(l["wand"])] = an_wand.get(String(l["wand"]), []) + teile
+	elif art == "fackel" or art == "schein":
+		# 492 Hoehle (alt MapLight CAVE): Fackel an der Wand FFB060, Leuchtpilz 60E8D8, Kristall B088FF; brennen und leuchten immer;
+		# Fackel mit Schatten und Flamme, Pilz und Kristall nur ein schwacher Schein ohne Schatten
+		var o := OmniLight3D.new()
+		o.position = gpos(l["pos"])
+		o.omni_range = float(l.get("reich", 2.0)) * ts
+		var k := float(l.get("kraft", 0.6))
+		var kraft := k * (2.6 if art == "fackel" else 0.9)
+		o.light_energy = kraft
+		o.light_color = Color(1.0, 0.69, 0.38) if art == "fackel" else Color.html(String(l.get("farbe", "FFFFFF")))
+		o.omni_attenuation = 1.4 if art == "fackel" else 2.0
+		o.shadow_enabled = art == "fackel"
+		o.shadow_bias = 0.06
+		add_child(o)
+		if art == "fackel":
+			feuer.append([o, kraft, randf() * 10.0])
+			o.add_to_group("tuschelicht")
+			o.set_meta("reich", o.omni_range); o.set_meta("kraft", k); o.set_meta("art", art)
+		var teile: Array = [o]
+		for f in l.get("flammen", []): teile.append(flamme(gpos(f), 0.75, false))
+		if l.has("wand"): an_wand[String(l["wand"])] = an_wand.get(String(l["wand"]), []) + teile
 	elif art == "tageslicht" or art == "tuer":
 		var s := SpotLight3D.new()
 		var von := gpos(l["pos"]); var zu := gpos(l["ziel"])

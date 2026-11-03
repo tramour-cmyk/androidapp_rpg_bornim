@@ -92,6 +92,7 @@ func _ready() -> void:
 	raeume_bilder()
 	wald_bilder()
 	tiefwald_bilder()
+	hoehle_bilder()
 	if FigurenProbe.an(): add_child(FigurenProbe.new(self))   # 376.1 Probeblatt Quaternius-Figuren (figurenprobe.gd)
 
 # 399: Spielbeginn aus dem Hauptmenue: geladen an den gespeicherten Ort, sonst ein neues Spiel mit frischem Zustand (Test 139: das neue
@@ -130,7 +131,8 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	herde = null
 	karte = Karte.lade(id, zustand.flaggen)   # 390: Schlagbaum, Tor, Ausgaenge und Wege lesen den Spielstand
 	zustand.setze("besucht:" + id)   # 399.1 Chronik „Die Blutzahnhöhle“ (alt GameState.explored)
-	licht.innen = String(karte.daten.get("art", "")) == "INTERIOR"   # 399.1 Grundriss
+	licht.innen = String(karte.daten.get("art", "")) in ["INTERIOR", "CAVE"]   # 399.1 Grundriss; 492 die Hoehle wie ein Grundriss
+	licht.hoehle = String(karte.daten.get("art", "")) == "CAVE"
 	for m in kamera.tusche_mats: m.set_shader_parameter("relativ", 1.0 if licht.innen else 0.0)   # 399.5: Tusche nie heller als die Flaeche
 	licht.herd = "".join(karte.zeilen).contains("Z")   # 399.5 wie alt hasHearth
 	licht.stelle(licht.nacht)
@@ -157,6 +159,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	kraut_tag = -1
 	kraeuter_neu()
 	sichtbar_neu()
+	gitter_neu()
 	kamera.ziel = held
 	gebiet.held = held
 	gebiet.kamera = kamera
@@ -239,7 +242,7 @@ func _tippen(sp: Vector2) -> void:
 		if not held.geh_zu(p): Bedienung.ruettle()   # 399.1 Ruetteln: kein Weg dorthin (WorldScreen route == null)
 		return
 	# Tuer, gesperrter Ausgang, Schild, Schlagbaum: davor stellen, dann Knopf oder Text
-	if not (karte.tuer(b) or not karte.sperrt(b).is_empty() or zeichen_lesbar(b) or brett(b) or karte.zeichen(b) == "z" or kiste(b) != {}):
+	if not (karte.tuer(b) or not karte.sperrt(b).is_empty() or zeichen_lesbar(b) or brett(b) or karte.zeichen(b) in ["z", "L"] or kiste(b) != {}):   # 492 Gitter
 		Bedienung.ruettle()
 		return
 	var ziel := naechster_nachbar(b)
@@ -477,7 +480,8 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	if Testmodus.ist_an(): lage["eroeffnung"] = Testmodus.eroeffnung   # 399.2 (Jerry): Eröffnung aus dem Reiter Test
 	if eroeffnung != "": lage["eroeffnung"] = eroeffnung   # 490: Ueberfall, Held zuerst (Opening) vom Monster auf der Karte
 	lage["blende"] = true   # 402 (Jerry): die Blende vor dem Kampf wie alt, auch im Probekampf
-	var gestartet: bool = aufruf.starte(gegner, hw, soeldner, "wald", tageszeit(), zustand.anzahl("potion") if probe.is_empty() else 2, -1, -1, -1, beute, lage)
+	var ort := "hoehle" if String(karte.daten.get("art", "")) == "CAVE" else "wald"   # 492: Kampforte der Hoehle (507, Jerry)
+	var gestartet: bool = aufruf.starte(gegner, hw, soeldner, ort, tageszeit(), zustand.anzahl("potion") if probe.is_empty() else 2, -1, -1, -1, beute, lage)
 	if probe.is_empty(): zustand.satt = false   # 399.1: Battle.wellFed endet mit dem Kampfbeginn (der Kampfort gibt +1, 399.2)
 	if gestartet:
 		for we in umgebung: we.environment = null
@@ -743,7 +747,7 @@ func weiter() -> void:
 				oeffne_laden(c["waren"], bool(c.get("brauen", false)))
 				return
 			"kampf":   # 491 Cmd.Fight (Game.startBattle aus der Szene): Sieg setzt die Flagge, die Szene geht weiter; sonst endet sie
-				if Streuner.GRUPPE.has(String(c["monster"])) and ResourceLoader.exists("res://kampf/kampfort.gd"):
+				if Streuner.da(String(c["monster"])) and ResourceLoader.exists("res://kampf/kampfort.gd"):   # 492: Gruppe und Modell (Grak, Krogg)
 					_szenenkampf(String(c["monster"]), String(c.get("flagge", "")))
 					return
 				szene.clear()
@@ -931,7 +935,7 @@ func im_dunkeln() -> bool:
 	return (licht.nacht > 0.5 and art != "INTERIOR") or art == "CAVE"
 
 func fackel_neu() -> void:
-	if held: held.fackel_neu(Menue.fackel(held_werte()), String(karte.daten.get("art", "")) == "INTERIOR")
+	if held: held.fackel_neu(Menue.fackel(held_werte()), String(karte.daten.get("art", "")) == "INTERIOR", String(karte.daten.get("art", "")) == "CAVE")
 
 func held_werte() -> Heldwerte:
 	if werte == null: werte = Heldwerte.erschaffe(zustand.name, "HUMAN", "FIGHTER")
@@ -1049,11 +1053,30 @@ func zeige(e: Dictionary) -> void:
 func flaggen_neu() -> void:
 	karte.baue_wege()
 	sichtbar_neu()
+	gitter_neu(true)
 
 func sichtbar_neu() -> void:
 	if leute == null: return
 	for l in leute.get_children():
-		if l is Leute: l.zeige(Geschichte.sichtbar(String(l.daten.get("id", "")), zustand))
+		if l is Leute:
+			l.zeige(Geschichte.sichtbar(String(l.daten.get("id", "")), zustand))
+			# 492 (356.1 Leave): Lyra, befreit, geht durch das offene Gitter aus der Halle (10/7), dort ist sie fort (LYRA_GONE)
+			if String(l.daten.get("id", "")) == "lyra_cave" and zustand.has(Geschichte.LYRA_RESCUED) and not zustand.has(Geschichte.LYRA_GONE):
+				l.geht_fort(Vector2i(10, 7), func():
+					zustand.setze(Geschichte.LYRA_GONE)
+					sichtbar_neu())
+
+# 492 das Gitter der Hoehle (hoehle.py Gitter_L, Gitter_R, Ursprung an der Angel): offen schwenken die Fluegel nach Norden in die
+# Halle; beim Oeffnen sieht man es, beim Betreten steht es schon offen
+func gitter_neu(schwenk := false) -> void:
+	if gebiet == null: return
+	var auf := zustand.has(Geschichte.GATE_OPEN)
+	for n in [["Gitter_L", 1.0], ["Gitter_R", -1.0]]:
+		var g := gebiet.find_child(String(n[0]), true, false) as Node3D
+		if g == null: continue
+		var soll := deg_to_rad(100.0) * float(n[1]) if auf else 0.0
+		if schwenk and absf(g.rotation.y - soll) > 0.01: create_tween().tween_property(g, "rotation:y", soll, 1.4).set_trans(Tween.TRANS_SINE)
+		else: g.rotation.y = soll
 
 # ---------------------------------------------------------------- Lauf
 func _process(dt: float) -> void:
@@ -1638,6 +1661,38 @@ func tiefwald_bilder() -> void:
 		ui.textfeld.visible = false
 		await knips("%s/%s.png" % [dir, o[0]])
 	print("TIEFWALDBILDER fertig")
+	get_tree().quit()
+
+# 492 Blutzahnhoehle am Rechner: --hoehle=<ordner> knipst aus Sicht des Helden: Eingang vom Wald, Gang mit Stuetzbalken, Gitter vor
+# Graks Halle, Krogg im Ostfluegel, Lager am Feuer, Teich im Westen, Westfluegel mit Truhe und Kristallen, Graks Halle mit Lyra;
+# dazu der Gang um 180 Grad gedreht (die Waende wechseln hoch und niedrig, raumlicht.gd)
+func hoehle_bilder() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--hoehle="): dir = a.substr(9)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	zustand.minuten = 10 * 60
+	zustand.setze("cave_seen")
+	betrete("cave", Vector2i(10, 18), "UP")
+	if herde: herde.aus = true   # Bilder ohne Angriff
+	await get_tree().create_timer(1.5).timeout
+	var orte := [["eingang", Vector2i(10, 18), "UP"], ["gang", Vector2i(11, 14), "UP"], ["gitter", Vector2i(10, 7), "UP"],
+		["krogg", Vector2i(15, 11), "UP"], ["lager", Vector2i(14, 16), "RIGHT"], ["teich", Vector2i(5, 14), "LEFT"],
+		["westfluegel", Vector2i(5, 9), "UP"], ["halle", Vector2i(10, 3), "UP"]]
+	for o in orte:
+		held.setze(o[1], o[2]); kamera.springe()
+		await get_tree().create_timer(1.0).timeout
+		ui.textfeld.visible = false
+		await knips("%s/%s.png" % [dir, o[0]])
+	held.setze(Vector2i(11, 14), "DOWN"); kamera.springe()
+	kamera.drehe(180.0)
+	await get_tree().create_timer(2.5).timeout
+	ui.textfeld.visible = false
+	await knips("%s/gang_gedreht.png" % dir)
+	print("HOEHLENBILDER fertig")
 	get_tree().quit()
 
 # 399.5 Grundrisse am Rechner: --raeume=<ordner> knipst je Grundriss aus der Grundansicht wie die alten Vergleichsbilder (Held wie

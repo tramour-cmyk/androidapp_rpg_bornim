@@ -245,6 +245,9 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 					m.set_shader_parameter("cut_ab", 1.4)
 					g.durchsicht(m)
 				if g and nm.contains("Glas"): g.glas.append(m)
+				if rn.begins_with("leucht"):   # 492 Hoehle: Kristalle violett, Leuchtpilze tuerkis (alt MapCave crystal, cap), Tag und Nacht
+					m.set_shader_parameter("glow", 0.55)
+					m.set_shader_parameter("glow_col", Vector3(0.69, 0.53, 1.0) if rn.contains("kristall") else Vector3(0.38, 0.91, 0.85))
 				if rn.begins_with("glut"):   # 490 Glut im Lagerfeuer: leuchtet von selbst, nachts staerker (nacht())
 					m.set_shader_parameter("glow", 0.6)
 					m.set_shader_parameter("glow_col", Vector3(1.0, 0.45, 0.15))
@@ -256,7 +259,7 @@ func nacht(k: float) -> void:
 	if raumlicht: raumlicht.nacht(k)
 	# 348.9: nachts wie alt geeicht (Laternen, Fenster, Lichtinseln am Boden kleiner; alt p90 46)
 	for o in lampen: o.light_energy = 1.4 * k   # 348.6: alt nur ein kleiner Hof um die Laterne (Helfer: neu 4-mal zu hell, zu weit)
-	for m in glut: m.set_shader_parameter("glow", 0.35 + 0.65 * k)
+	for m in glut: m.set_shader_parameter("glow", 1.0 if info.get("hoehle", false) else 0.35 + 0.65 * k)   # 492: in der Hoehle ist immer Nacht
 	for f in feuer: f["basis"] = 0.5 + 1.6 * k   # 490: Garricks Feuer, nachts die einzige warme Insel (LISTE-UMZUG-348 Stimmung)
 	for m in glas: m.set_shader_parameter("glow", 0.5 * k)
 	if wasser: wasser.set_shader_parameter("night", k)
@@ -451,7 +454,8 @@ static func kreuz() -> ArrayMesh:
 func baue_leben() -> void:
 	var ts := Karte.TS
 	var mimg := Image.new()
-	mimg.load_png_from_buffer(FileAccess.get_file_as_bytes("res://daten/%s.bild" % maske(karte.id)))
+	if FileAccess.file_exists("res://daten/%s.bild" % maske(karte.id)):   # Grundriss, Hoehle: keine Bodenmaske (dort waechst nichts)
+		mimg.load_png_from_buffer(FileAccess.get_file_as_bytes("res://daten/%s.bild" % maske(karte.id)))
 	var rng := RandomNumberGenerator.new(); rng.seed = 348
 	var xf: Array[Transform3D] = []; var cu: Array[Color] = []
 	var kxf: Array[Transform3D] = []; var kcu: Array[Color] = []

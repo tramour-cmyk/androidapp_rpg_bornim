@@ -9,6 +9,7 @@ var env: Environment
 var nacht := 0.0
 var ziel := 0.0
 var herd := true                       # 399.5 Grundriss mit Kamin (alt hasHearth)
+var hoehle := false                    # 492 Hoehle: wie innen, aber fern der Quellen fast schwarz (alt MapLight ambient CAVE)
 var innen := false                     # 399.1 Grundriss: Licht aus Kamin, Kerzen, Fenstern; die Sonne nur als schwacher Rest von oben
 
 # 348.6 Runde 11 (Chef 25.10., 12:12: Sonnenstand und Schatten falsch, neu kurz nach rechts statt alt lang nach links unten):
@@ -25,6 +26,7 @@ const NACHT_UMGEBUNG := 0.75
 const NACHT_KONTRAST := 0.96   # unter 1 hebt das Schwarz an
 const TIEF_UMGEBUNG := 1.1     # Morgen, Abend: Fronten im Schatten, Himmel traegt mehr
 const DAEMMERUNG_UMGEBUNG := 0.18
+const HOEHLE_UMGEBUNG := 0.12   # 492: alt CAVE 0,05 gegen Raum mit Herd nachts 0,13 (hier 0,24), im Verhaeltnis
 const INNEN_TAG := 0.34        # 399.5 Grundriss: Umgebung am Tag und nachts
 const INNEN_NACHT_KONTRAST := 0.93   # Lauf 5 (Nacht in % des Tags, alt 44–64): Kontrast 0,87 → 78–84, 0,96 mit Umgebung 0,16 → 40–56
 const INNEN_TAG_OHNE_HERD := 0.75   # wie alt MapLight ambient: ohne Feuer am Tag doppelt so hell (Tempel Lauf 2: Mittel 34, alt 51; Lauf 8 bei 0,55: 41,5)
@@ -138,6 +140,16 @@ func stelle(k: float) -> void:
 		stimmung.set_shader_parameter("toenung", Vector3(f.r, f.g, f.b))
 		stimmung.set_shader_parameter("anteil", 0.45 if herd else 0.35)
 		stimmung.set_shader_parameter("rand", 0.2)
+		if hoehle:
+			# 492 alt MapLight.ambient CAVE (0,05; 0,05; 0,075): „away from visible sources nearly black, only outlines“ (13e.6), Tag und
+			# Nacht gleich; MapGrade CAVE: kalt, etwas gruen (D0ECDC, Anteil 0,5, Rand 0,26)
+			env.ambient_light_color = Color(0.55, 0.55, 0.8)
+			env.ambient_light_energy = HOEHLE_UMGEBUNG
+			env.adjustment_contrast = TAG_KONTRAST
+			var g := Color8(0xD0, 0xEC, 0xDC)
+			stimmung.set_shader_parameter("toenung", Vector3(g.r, g.g, g.b))
+			stimmung.set_shader_parameter("anteil", 0.5)
+			stimmung.set_shader_parameter("rand", 0.26)
 	else: toene(1.0 - k)
 	nacht_geaendert.emit(k)
 
