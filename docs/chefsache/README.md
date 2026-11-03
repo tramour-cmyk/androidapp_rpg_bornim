@@ -24,7 +24,6 @@ Nichts offen.
 |---|---|---|---|
 | [492](ansehen/492-hoehle.md) | Blutzahnhöhle: alt gegen neu an acht Stellen | – | 03.11., 23:30 |
 | [505](ansehen/505-nebel-stufen.md) | Nebel im Wald: drei Stufen beschriftet, Bäume A oder B | – | 03.11., 22:35 |
-| [521](ansehen/521-tasche.md) | Tasche und Wechselfenster: Gegenstände auf einen Blick unterscheiden | – | 04.11., 00:25 |
 | [524](ansehen/524-gegenstandsfenster-inhalt.md) | Fenster eines Gegenstands: Inhalt wie in der alten Fassung | – | 04.11., 00:15 |
 | [531](ansehen/531-garrick.md) | Garrick am Feuer: wie er aussieht und wie er Tiere mit der Fackel vertreibt | – | 04.11., 00:16 |
 | [537](ansehen/537-kapitelende.md) | Kapitelende: Schirm „Ende von Kapitel 1“, Morgenandacht, Morgen im Tempel | – | 04.11., 00:37 |
@@ -58,14 +57,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 96, Muss 74, startbar 25
+**Tom** – offen 96, Muss 74, startbar 26
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 531 | M | von Sokrates (Chef 03.11., 23:42, Build 249; Zu 531): Garrick: „Gesicht wirkt sonderbar, B | Chef |
 | 530 | M | von Sokrates (Chef 03.11., 23:40, Build 249): „Schlagbaum öffnet sich nicht visuell.“ Merk | wartet auf Test/Build (gebaut) |
 | 522 | M | von Sokrates (Chef 03.11., 23:33, Build 249; Zu 522): „im Testmenü Ausrüstung des Helden g | wartet auf Test/Build (gebaut) |
-| 521 | M | von Sokrates (Chef 03.11., 23:23, Build 249, Bild; Zu 521): Wechselschirm (Platz antippen) | Chef |
+| 521 | M | von Sokrates (Chef 03.11., 23:23, Build 249, Bild; Zu 521): Wechselschirm (Platz antippen) | wartet auf Test/Build (gebaut) |
 | 520 | M | von Sokrates (Chef 03.11., 23:19, Build 249, Bild; Zu 520): Ausrüstung: „Warum ist der Hel | wartet auf Test/Build (gebaut) |
 | 519 | M | von Sokrates (Chef 03.11., 23:13, Build 249, Bild): Ausrüstung, Fenster eines Gegenstands | wartet auf Test/Build (gebaut) |
 | 518 | M | von Sokrates (Chef 03.11., 20:47, Build 248, Bild): Dorf leer: keine Häuser, nur Wege und | wartet auf Test (Build) |
@@ -74,7 +73,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 550 | M | von Sokrates (Chef 04.11., 00:19, Build 249): „erstes Mal Heilkräuter gepflückt ein riesen | wartet auf Test/Build (gebaut) |
 | 555 | M | von Sokrates (Chef 04.11., 00:30, „Fehlt vielleicht noch mehr im Testmenü??? Wäre zum Test | startbar |
 | 554 | M | von Sokrates (Chef 04.11., 00:27, Build 249): „Im Testmenü fehlt, dass Tiere mich ignorier | startbar |
-| 523 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 523): Tasche wie alt und besser: „Funke | Chef |
+| 523 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 523): Tasche wie alt und besser: „Funke | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 524 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 524): Gegenstandsfenster, Inhalt wie alt | wartet auf Test/Build (gebaut) |
 | 525 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 525): Laden, Morwen, Rast wie alt und be | startbar |
 | 526 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 526): Rückfragen und Fenster einheitlich | in Arbeit bei Spike |
@@ -337,9 +336,9 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Format (Muster: „So geht's“ unten): t249-build-490.md: 14 Vorgänge, höchstens 6 je Build (317)
 
-Nicht gestellt: 407 (Projekt)
+Nicht gestellt: 407 (Projekt), 523 (Team Tom)
 
-Ohne Datei: 3402 (Projekt), 275 (Projekt)
+Ohne Datei: 3402 (Projekt), 275 (Projekt), 521 (Team Tom)
 
 ## So geht's
 
