@@ -101,7 +101,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (Kapitel 2 nicht im Spiel) | – |
 | D63.5 | K | **von Diogenes (374/434, Vortag 01.11.):** ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53, 23:54; 416.4 ×4 (auch Spike); 376.1 Umhang/Robe, Tracht (Spike); 455.1, 455.2 (Spike); ohne Homer-Vorgabe (373 c): 417, 416.4, 376.1, 416.9, 425, 455.1/.2; nach Tor 461a ohne belegte Prüfung: 376.1 23:03, 417 23:54 (Zu 374 in `ARBEIT-PRUEFUNG.md`) | offen | – |
 | D71.1 | K | **von Diogenes (374/434, Vortag 02.11.):** ohne „Bestand geprüft“ (434): 417 00:53, 02:24, 03:39; 416.4 03:56 (Spike); 431 Lauf 5 20:27; 463 22:59; Homer-Vorgabe (373 c) bei keiner | startbar: Zeile in Blatt oder Meldung nachtragen oder „fehlt im Bestand“ | – |
-| Pflege | K | **von Werkzeug (340.3, 03.11.):** 57284 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 29, 88; Zeile 518 wartet auf t248, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile Pflege wartet auf t248, aber keine Datei in docs/chefsache/an … | startbar |
+| Pflege | K | **von Werkzeug (340.3, 04.11.):** 65247 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 38, 97; Zeile 518 wartet auf t248, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile Pflege wartet auf t248, aber keine Datei in docs/chefsache/an … | startbar |
 
 ## Einzelheiten
 
