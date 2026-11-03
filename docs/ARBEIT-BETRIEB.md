@@ -209,3 +209,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:00 02.11.: Neustart Jerry 4a4c6680c geprüft; Jerry – 406 gestartet session_01Hmoj76WGNJTwkqo2HJqfH1; PR-Abo #178 an den Nachfolger übergeben (PR-ABO), Vorgänger 77n3 archivieren und buchen im nächsten Lauf nach Abo-Wechsel.
 - 23:05 02.11.: Jerry 77n3 archiviert, 12,40 $ auf 487, 438a, 406 gebucht.
 - 00:26 03.11.: Neustart Tom d9ff36a72 geprüft; Tom – 470 gestartet session_01Hmoj78SZRhbPyx9bENdSqL (Vorgänger 782A beendet, archivieren und buchen im nächsten Lauf).
+- 01:04 03.11.: Tom 782A archiviert, 26,85 $ auf 463, 417, 431 gebucht. Rate-Limit-Feld der Sitzung zeigt seven_day allowed_warning (D20.2): lauf.py nur mit --nur-muss.
