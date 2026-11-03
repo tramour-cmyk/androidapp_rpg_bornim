@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [427.2a](entscheiden/4272a-zweites-rauchbuendel.md) | **Muss** | D Design | 03.11., 08:14 | Zweites Rauchbündel nach einer Niederlage gegen Krogg? | Homer |
 | [447.4](entscheiden/4474-lehrmeister.md) | **Muss** | C Texte | 03.11., 08:09 | Lehrmeister fragen nach „Noch nicht“ noch einmal? Wechsel als Anwärter in Kapitel 1 ohne Verlust? | Homer |
 
 ## Zu billigen
@@ -46,12 +45,13 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 6, Muss 2, startbar 0
+**Homer** – offen 7, Muss 3, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 447.4 | M | von Perikles (Chef 01.11., Archiv 447; Chef 03.11., 07:52 zurück, Zu 447.4): Texte für Stu | Chef (Datei in der Chefsache) |
 | 427.2 | M | von Sokrates (Chef 02.11., 20:22, „427.1 A mit 1 und 2“, Archiv 427.1): Hinweis auf Morwen | wartet auf Tom |
+| 427.2a | M | von Sokrates (Chef 03.11., 15:44, „427.2a ja“, Archiv): Morwen gibt nach jeder Niederlage | startbar |
 | 432 | K | von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt | ruht |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
