@@ -4,6 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **494 Riesenspinne wirft ihr Netz** (Jerry): bisher stand die Spinne bei jedem Angriff still und ein Pfeil flog; jetzt läuft sie zum Biss wie im alten Spiel, und wenn sie „Netz werfen“ ansagt, hebt sie sich und wirft ein Netz aus grauweißen Fäden, das sich im Flug aufspannt. Riesenratte, Riesenfledermaus und Riesenspinne kämpfen je allein mit ihren eigenen Werten wie im alten Spiel (Probekämpfe „Ratte“, „Fledermaus“, „Spinne allein“).
 - **494 Wildschwein, Hundertfüßer, Riesenspinne im Kampf** (Jerry): das Wildschwein zuckt bei einem Treffer (der Kauf hat keine Bewegung dafür); Name und Lebensbalken stehen über dem Tier statt in Wolfshöhe (Hundertfüßer); die Riesenspinne gleitet neben dem Wolf nicht mehr, steht in echter Größe (vorher anderthalbfach) mit Balken über dem Körper. Tests `wildschwein_494`, `spinne_494`.
 - **494 Riesenegel und Säureschnecke** (Jerry): aus den gekauften Modellen (348.12c), statt Stirge und Ockergallerte; Riesenegel in drei Formen (braun, grau, ocker), Säureschnecke 2,4 m lang in Schlammbraun, Gelbgrau, Ocker, greift mit der Zunge an; Probekämpfe „Riesenegel“, „Säureschnecke“ mit den alten Regeln. Test `wildschwein_494`.
 - **494 Riesenspinne** (Jerry): aus dem gekauften Modell (348.12c) mit drei eigenen Häuten (Sanduhr, Längsstreifen mit Beinringen, Winkel und Narben), acht matten Augen, offenen Kieferklauen und erhobenen Vorderbeinen; Treffer und Ausweichen selbst gebaut, weil der Kauf sie nicht hat. Test `spinne_494`.
