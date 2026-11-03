@@ -153,13 +153,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | D71.1 | K | von Diogenes (374/434, Vortag 02.11.): ohne „Bestand geprüft“ (434): 417 00:53, 02:24, 03: | startbar |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 57284 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Jerry** – offen 73, Muss 61, startbar 12
+**Jerry** – offen 74, Muss 62, startbar 13
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 527 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 527): System: Schalter „Tempo“ und „Kamp | wartet auf Test/Build (gebaut) |
 | 548 | M | von Sokrates (Chef 04.11., 00:03, Build 249, Bild; Zu 548): „Gegen Ratten gespielt. Die st | startbar |
 | 551 | M | von Sokrates (Chef 04.11., 00:21, Build 249): „MARS Kasten links und rechts unten wird unt | startbar |
+| 552 | M | von Sokrates (Chef 04.11., 00:22, Build 249): „MARS Zugreihenfolge oben fehlt“. Laut Abgle | startbar |
 | 545 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS-Probekampf: Testknöpfe „Gegner | startbar |
 | 546 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS: Wölfe weichen viel zu träge au | startbar |
 | 547 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS: Text sagt „geht in die Knie“, | startbar |
