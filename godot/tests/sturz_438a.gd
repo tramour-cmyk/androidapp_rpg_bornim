@@ -55,10 +55,13 @@ func _run() -> void:
 	# feste Drehungen um den Griff zuerst
 	# Lauf 206: V5 wie V3 (Kämpfer Aufstehen 10,8 cm, Griff selbst 7,3 cm im Kleid): Drehen ausgereizt; jetzt die Schwertfaust aus dem
 	# Kleid (F, figur.faust_frei, bodenhalt.gd), dahinter V3
-	for kv in [["FIGHTER", 3, 0.0, false], ["FIGHTER", 3, 0.0, true], ["FIGHTER", 5, 0.0, true], ["CLERIC", 3, 0.0, true]]:
+	# Lauf 207: F hilft beim Hinfallen (Kämpfer 2,5 → −0,3 cm), beim Aufstehen kaum (12,6 → 10,4 cm, Griff danach 3 cm im Kleid), Schub bis
+	# 23,5 cm, springt 10,4 cm in einem Bild; V5 F nicht besser (fällt weg). Jetzt: wie weit der Arm nicht reicht, Tiefe nach allen
+	# Schüben; G = F mit Schub höchstens 1,5 cm je Bild anders
+	for kv in [["FIGHTER", 3, 0.0, 1], ["FIGHTER", 3, 0.0, 2], ["CLERIC", 3, 0.0, 1]]:
 		var p = Probe.new()
 		p.hero_cls = kv[0]
-		var k: String = kv[0] + ("" if kv[1] == 0 else " V%d" % kv[1]) + ("" if kv[2] == 0.0 else " A%d" % int(kv[2])) + (" F" if kv[3] else "")
+		var k: String = kv[0] + ("" if kv[1] == 0 else " V%d" % kv[1]) + ("" if kv[2] == 0.0 else " A%d" % int(kv[2])) + ["", " F", " G"][kv[3]]
 		p.merc_cls = "FIGHTER" if kv[0] != "FIGHTER" else "CLERIC"
 		p.foe = "WOLVES"
 		root.add_child(p)
@@ -88,13 +91,13 @@ func _run() -> void:
 		var werte := {}     # Bewegung -> [Schildnetz m, Klinge in Kapsel m, im Boden m, Waffe in Haut m, Finger vor dem Schild m, Hand offen m, wo]
 		# nach den Schichten (skeleton_updated, nach figur.gd): die Pose, die man sieht, mit bodenhalt.gd
 		var mess := {"vorher": {}, "vorvorher": {}, "sprung": 0.0, "zuck": 0.0, "hand": -INF, "wo": "", "zwo": "", "q": {}, "qq": {}, "satz": 0.0, "ueber": -INF, "uwo": "",
-			"us": 0, "us_sum": 0, "us_n": 0, "f_tief": 0.0, "f_wo": "", "f_weg": 0.0, "f_ruck": 0.0, "f_rwo": "", "f_letzt": 0.0}
+			"us": 0, "us_sum": 0, "us_n": 0, "f_tief": 0.0, "f_wo": "", "f_weg": 0.0, "f_ruck": 0.0, "f_rwo": "", "f_letzt": 0.0, "f_nach": 0.0, "f_nwo": "", "f_kurz": 0.0}
 		var nach := func() -> void:
 			var bh = fig.boden_halt
 			var us: int = fig.mess_us + (int(bh.faust_us) if bh else 0)
 			mess.us = maxi(mess.us, us)     # 438a V2: was der Schutz je Bild kostet (mit der Faust in bodenhalt.gd)
 			mess.us_sum += us
-			if bh and fig.faust_frei:     # 438a Faust: wie tief die Faust vor dem Schub lag, wie weit geschoben, Ruck je Bild
+			if bh and int(fig.faust_frei) > 0:     # 438a Faust: wie tief die Faust vor dem Schub lag, wie weit geschoben, Ruck je Bild
 				var hier_f := "%s %.2f s" % [fig.anim.current_animation, fig.anim.current_animation_position]
 				if float(bh.faust_tief) > mess.f_tief:
 					mess.f_tief = float(bh.faust_tief)
@@ -105,6 +108,10 @@ func _run() -> void:
 					mess.f_ruck = ruck
 					mess.f_rwo = hier_f
 				mess.f_letzt = float(bh.faust_weg)
+				if float(bh.faust_nach) > mess.f_nach:
+					mess.f_nach = float(bh.faust_nach)
+					mess.f_nwo = "%s (Schub %.3f m, Arm zu kurz um %.3f m)" % [hier_f, float(bh.faust_weg), float(bh.faust_kurz)]
+				mess.f_kurz = maxf(mess.f_kurz, float(bh.faust_kurz))
 			mess.us_n += 1
 			# Runde 3 (Lauf 160: Fingerspitzen unverändert, obwohl bodenhalt.gd die Faust hält): Knochen nur hier so, wie man sie sieht;
 			# außerhalb von skeleton_updated liest man die Pose ohne die Modifier (bodenhalt.gd)
@@ -199,8 +206,9 @@ func _run() -> void:
 		_check(mess.zuck <= maxf(ZUCK_GRAD, mess.satz), "%s: Waffe und Schild zucken höchstens %.1f° hin und zurück (%s; der Satz selbst %.1f°); je Bild höchstens %.1f° (%s)" % [k, mess.zuck, mess.zwo, mess.satz, mess.sprung, mess.wo])
 		_check(mess.ueber <= 0.0, "%s: Waffe und Schild je Bild höchstens %.0f° oder %.0f° über dem Satz gedreht (schlimmstes Bild %s; größte Drehung %.1f° bei %s)" % [k, SPRUNG_GRAD, SPRUNG_PLUS, mess.uwo, mess.sprung, mess.wo])
 		_check(mess.hand <= HAND_GRENZE, "%s: Hände höchstens %.3f m im Boden" % [k, mess.hand])
-		if fig.faust_frei:
+		if int(fig.faust_frei) > 0:
 			print("  %s: Faust vorher höchstens %.3f m in Haut (%s), geschoben höchstens %.3f m, Schub je Bild höchstens %.3f m anders (%s)" % [k, mess.f_tief, mess.f_wo, mess.f_weg, mess.f_ruck, mess.f_rwo])
+			print("  %s: Faust nach allen Schüben höchstens %.3f m in Haut (%s); Arm zu kurz höchstens %.3f m" % [k, mess.f_nach, mess.f_nwo, mess.f_kurz])
 		print("  %s: Schutz je Bild höchstens %.1f ms, im Mittel %.2f ms (Rechner des Ablaufs)" % [k, mess.us / 1000.0, mess.us_sum / 1000.0 / maxf(mess.us_n, 1)])
 		p.queue_free()
 		await process_frame

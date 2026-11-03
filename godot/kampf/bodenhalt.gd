@@ -24,6 +24,10 @@ var figur: Node3D
 var faust_tief := 0.0        # Prüflauf: wie tief die Schwertfaust vor dem Schub in Haut oder Kleidung lag (m)
 var faust_weg := 0.0         # Prüflauf: wie weit die Schwerthand in diesem Bild geschoben wurde (m)
 var faust_us := 0            # Prüflauf: Zeit für die Faust in diesem Bild (µs)
+var faust_kurz := 0.0        # Prüflauf: so weit blieb die Schwerthand vor dem Ziel des Schubs (Arm zu kurz)
+var faust_nach := 0.0        # Prüflauf: so tief liegt die Schwertfaust nach allen Schüben und dem Boden noch in Haut oder Kleidung (m)
+const FAUST_ZUG := 0.015     # 438a G: Schub je Bild höchstens so viel anders (m; 45 cm/s)
+var _faust_letzt := Vector3.ZERO
 var gehoben := {}            # Prüflauf: Seite -> m, um die die Hand im letzten Bild gehoben wurde
 
 var _arm: Array = []         # je Seite [Hand, Unterarm, Oberarm]
@@ -45,6 +49,8 @@ func _process_modification_with_delta(_delta: float) -> void:
 	var sturz: bool = figur.sturz_jetzt()
 	faust_tief = 0.0
 	faust_us = 0
+	faust_nach = 0.0
+	faust_kurz = 0.0
 	for i in _arm.size():
 		if not figur.griff_ort.has("L" if i == 0 else "R"):
 			continue
@@ -88,7 +94,9 @@ func _process_modification_with_delta(_delta: float) -> void:
 		# 438a Faust (Lauf 206: beim Aufstehen steckt der Griff 7–13 cm im Kleid am rechten Oberschenkel, Kapseln sehen das Kleid nicht,
 		# Drehen um den Griff hilft nicht): die Schwertfaust selbst geht aus Haut und Kleidung der Beine, je Punkt der Faust (Handgelenk,
 		# Griff, Knöchel) die nächste Ecke und ihre Normale, wie sturz_438a misst; nur beim Hinfallen, Liegen und Aufstehen
-		if i == 1 and figur.faust_frei and sturz:
+		var faust_pos := PackedVector3Array()     # Prüflauf: Ecken um die Faust, für die Tiefe nach allen Schüben
+		var faust_nor := PackedVector3Array()
+		if i == 1 and int(figur.faust_frei) > 0 and sturz:
 			var t_us := Time.get_ticks_usec()
 			var bw: Array = figur.bein_welt(sk)
 			var punkte := [faust, hand0, xs * sk.get_bone_global_pose(_mitte[i]).origin]
@@ -127,13 +135,24 @@ func _process_modification_with_delta(_delta: float) -> void:
 					break
 				weg += schub
 			faust_tief = tiefste
+			faust_pos = pos
+			faust_nor = nor
 			faust_us = Time.get_ticks_usec() - t_us
+		# 438a G (Lauf 207: der Schub sprang beim Hinfallen 10,4 cm in einem Bild): höchstens FAUST_ZUG je Bild anders als im letzten, auch
+		# hinein und heraus
+		if i == 1 and int(figur.faust_frei) == 2:
+			weg = _faust_letzt.move_toward(weg, FAUST_ZUG)
+		if i == 1:
+			_faust_letzt = weg
 		if weg != Vector3.ZERO:
 			PH._ik(sk, xs, _arm[i], hand0 + weg)
 			if i == 1:
 				faust_weg = weg.length()
+				# Lauf 207: nach den Schüben steckte der Griff noch 3 cm im Kleid: reicht der Arm nicht (IK bis 99,9 % gestreckt)?
+				faust_kurz = (hand0 + weg).distance_to(xs * sk.get_bone_global_pose(_arm[i][0]).origin)
 		elif i == 1:
 			faust_weg = 0.0
+			faust_kurz = 0.0
 		var tief: float = (xs * sk.get_bone_global_pose(_arm[i][0]).origin).y
 		for f in _spitzen[i]:
 			var a: Vector3 = xs * sk.get_bone_global_pose(f[0]).origin
@@ -150,10 +169,29 @@ func _process_modification_with_delta(_delta: float) -> void:
 					w_tief = minf(w_tief, (gw * c).y)
 				d = maxf(d, minf(figur.global_position.y + figur.BODEN_FREI - w_tief, WAFFE_HEBEN))
 		gehoben[i] = maxf(d, 0.0)
-		if d <= 0.0:
-			continue
-		var hand: Vector3 = xs * sk.get_bone_global_pose(_arm[i][0]).origin
-		PH._ik(sk, xs, _arm[i], hand + Vector3.UP * d)
+		if d > 0.0:
+			var hand: Vector3 = xs * sk.get_bone_global_pose(_arm[i][0]).origin
+			PH._ik(sk, xs, _arm[i], hand + Vector3.UP * d)
+		if i == 1 and not faust_pos.is_empty():
+			faust_nach = _faust_tiefe(sk, xs, i, faust_pos, faust_nor)
+
+
+## 438a Prüflauf: wie tief Griff, Handgelenk und Knöchel der Faust [i] jetzt in den Ecken [pos] liegen (wie der Schub, mit FAUST_HAUT)
+func _faust_tiefe(sk: Skeleton3D, xs: Transform3D, i: int, pos: PackedVector3Array, nor: PackedVector3Array) -> float:
+	var hb := sk.get_bone_global_pose(_arm[i][0])
+	var punkte := [xs * (hb * figur.griff_ort["R"]), xs * hb.origin, xs * sk.get_bone_global_pose(_mitte[i]).origin]
+	var out := 0.0
+	for f in punkte:
+		var best := -1
+		var bd := SUCHE
+		for j in pos.size():
+			var dd: float = (f as Vector3).distance_to(pos[j])
+			if dd < bd:
+				bd = dd
+				best = j
+		if best >= 0:
+			out = maxf(out, FAUST_HAUT - ((f as Vector3) - pos[best]).dot(nor[best]))
+	return out
 
 
 func _knochen(sk: Skeleton3D) -> bool:
