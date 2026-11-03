@@ -23,6 +23,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [406.2](ansehen/4062-parade.md) | Parade-Film: Angriff gehen, gelungene Abwehr als Parade | Jerry | 03.11., 08:28 |
+| [416.6](ansehen/4166-blut.md) | Blutspuren im Wald: Standbilder | Jerry | 03.11., 09:17 |
 | [490](ansehen/490-fluesterwald.md) | Flüsterwald begehbar wie alt: Standbilder aus Sicht des Helden | – | 03.11., 08:58 |
 
 ## Zu tun
@@ -120,7 +121,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 35338 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Jerry** – offen 58, Muss 46, startbar 7
+**Jerry** – offen 58, Muss 46, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -136,7 +137,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 438a | M | von Sokrates (Archiv 438a): Hinfallen/Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe | ruht |
 | 439 | M | von Sokrates (Archiv 438): Reihenfolge Angriff, Treffer, Tod, Neuformation | wartet auf Test/Build (gebaut) |
 | 440 | M | von Sokrates (Archiv 438): Wolf-Tod zu schnell weg | wartet auf Test/Build (gebaut) |
-| 416.6 | M | von Sokrates (Chef 31.10., 20:4x; M seit Chef 03.11., 07:31 „Blutspuren in der Welt bitte | startbar |
+| 416.6 | M | von Sokrates (Chef 31.10., 20:4x; M seit Chef 03.11., 07:31 „Blutspuren in der Welt bitte | Chef |
 | 415 | M | von Sokrates („jetzt“ 02.11., 22:05, Chef: „415d muss ins nächste Build“; Archiv 415): Pro | startbar |
 | 399.2 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv): Kampfort aufrufbar | wartet auf Test (Build) |
 | 403 | M | von Team Tom (Archiv 403): Kampfort: Held je Klasse wie im Dorf | wartet auf Test/Build (gebaut) |
@@ -277,6 +278,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 407 (Projekt)
+
+In Überarbeitung, aus der Chefsache nehmen, bis die neue Fassung fertig ist: ansehen/4166-blut.md
 
 Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/4062-parade.md
 
