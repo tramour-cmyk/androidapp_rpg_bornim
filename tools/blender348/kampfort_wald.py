@@ -262,12 +262,41 @@ def stamm(a0, b0, a1, b1, r, s):
     for i in range(5):
         q = p0.lerp(p1, i / 4)
         ZONEN.append((q.x, q.y, r + 0.4)); SCHATTEN.append((q.x + 0.15, q.y - 0.1, r * 1.6, 0.6))
+def bestand_teil(name, p, r, dreh, farbe):
+    """Bestand geprüft (LISTE-BESTAND.md, Stylized Nature MegaKit, CC0, Chef: „Felsen ja“; wie dorf.py fremd_teil): Teil aus dem
+    Naturbausatz, waagerecht auf Halbmesser [r] m gebracht, um [dreh] gedreht, ein Fünftel im Boden; Eckfarbe aus [farbe]. Ohne
+    Paket (CC0 fehlt): False"""
+    import glob
+    from mathutils import Matrix
+    d = glob.glob(glob.escape(os.path.expanduser(os.environ.get('CC0', '~/cc0'))) + '/stylized-nature-megakit/glTF')
+    if not d or not os.path.exists(d[0] + '/' + name + '.gltf'): return False
+    vor = set(bpy.data.objects)
+    bpy.ops.import_scene.gltf(filepath=d[0] + '/' + name + '.gltf')
+    neu = [o for o in bpy.data.objects if o not in vor]
+    pts_all = [o.matrix_world @ v.co for o in neu if o.type == 'MESH' for v in o.data.vertices]
+    lo = Vector((min(q.x for q in pts_all), min(q.y for q in pts_all), min(q.z for q in pts_all)))
+    hi = Vector((max(q.x for q in pts_all), max(q.y for q in pts_all), max(q.z for q in pts_all)))
+    k = r / max((hi.x - lo.x) / 2, (hi.y - lo.y) / 2, 1e-6)
+    M = Matrix.Translation(p + Vector((0, 0, -(hi.z - lo.z) * k * 0.2))) @ Matrix.Rotation(dreh, 4, 'Z') @ Matrix.Scale(k, 4) \
+        @ Matrix.Translation(-Vector(((lo.x + hi.x) / 2, (lo.y + hi.y) / 2, lo.z)))
+    for o in neu:
+        if o.type != 'MESH': continue
+        me = o.data; W = M @ o.matrix_world
+        for poly in me.polygons:
+            pts = [W @ me.vertices[me.loops[li].vertex_index].co for li in poly.loop_indices]
+            add_face(pts, farbe)
+            P.S[-1] = poly.use_smooth
+    for o in neu: bpy.data.objects.remove(o, do_unlink=True)
+    return True
 def fels(a, b, r, s):
-    """Felsblock (ForestCam boulder): rund, oben Moos, halb im Boden"""
+    """Felsblock (ForestCam boulder) aus dem Bestand (Rock_Medium 1–3), oben Moos; ohne Paket ein eigener Ballen"""
     p = fight(a, b)
+    hoch = r * 1.6
+    farbe = lambda v, n: mixc(mixc(lin(0x4A4A46), lin(0xC4C2B6), 0.25 + 0.6 * max(0.0, n.z)), lin(0x56723A),
+                              0.55 * ss(0.55, 0.9, n.z) * ss(hoch * 0.35, hoch * 0.7, v.z))
     with use('feldstein'):
-        blob(p + Vector((0, 0, r * 0.25)), r, lambda v, n: mixc(mixc(lin(0x4A4A46), lin(0xC4C2B6), 0.25 + 0.6 * max(0.0, n.z)),
-             lin(0x56723A), 0.55 * ss(0.55, 0.9, n.z)), sub=3, squash=0.78, seed=s, bump=0.2)
+        if not bestand_teil('Rock_Medium_%d' % (1 + s % 3), p, r, PR.uniform(0, 2 * math.pi), farbe):
+            blob(p + Vector((0, 0, r * 0.25)), r, farbe, sub=3, squash=0.78, seed=s, bump=0.2)
     ZONEN.append((p.x, p.y, r + 0.3)); SCHATTEN.append((p.x + 0.2, p.y - 0.15, r * 1.5, 0.7))
 def menhir(a, b, h, r, s):
     """stehender Stein (ForestCam menhir): kantig, oben schmaler, leicht geneigt; manche abgebrochen"""
