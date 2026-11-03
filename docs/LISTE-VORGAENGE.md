@@ -153,6 +153,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 495 | Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2; Wochenziel 03.11., 488) | E Technik | M | – | Team Tom | startbar |
 | 496 | Durchspiel-Build: Kapitel 1 von Anfang bis Ende am Handy (Wochenziel 03.11., 488) | E Technik | M | – | Team Jerry | wartet |
 | 497 | „Über das Spiel“: Lizenzhinweis der Godot Engine (MIT) und ihrer Drittteile fehlt (Chef 03.11., 07:09, Frage nach Schriften, Build 204) | M Veröffentlichung | M | – | Team Tom | startbar |
+| 498 | Schriftbild wie in der Kotlin-Fassung: Größe, Sperrung, Halbfett (Chef 03.11., 07:13, „Über das Spiel“ wirkt kleiner) | E Oberfläche | M | – | Team Tom | startbar |
 | 471 | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | E Regeln | M | – | Team Tom | wartet |
 | 472 | Bau BRS 1.3 Heldenstufe aus Erfahrung (Wochenziel 02.11., Stufe 1) | E Regeln | M | – | Team Jerry | zu testen |
 | 473 | Bau BRS 1.4 Monsterwerte Kapitel 1 (Wochenziel 02.11., Stufe 1) | E Kampf | M | 5,89 $ | Team Jerry | zu testen |
