@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 506a | M | **von Team Tom (Spike, 03.11., 09:5x):** 506 sagt Zombie und Ghul „auf dem CC0-Menschen“, Archiv 348.12c (26.10.) ersetzt sie durch Wiedergänger und Grabhund (Kaufmodelle, nicht gekauft); was gilt? Skelett baut Spike bis dahin (in beiden gleich) | startbar | – |
 | 502 | M | **von Sokrates (Chef 03.11., 07:28; Zu 502):** Nebel des Krieges und Sichtfeld des Helden in „Orte und Welt“ (neben W15) und Abnahmeliste aufnehmen, Bau an Tom nach Vorrang 488 | gebaut 03.11., 07:5x: Welt W24, W25, Bau 505 bei Tom; Geprüft an: b3cc2e427 | – |
 | 488 | M | **von Sokrates (Chef 03.11., 06:44, „488 ja“, Archiv 488; „jetzt“ 03.11., 06:44):** Wochenziel nach Durchspielbarkeit von Kapitel 1 ordnen; Mängelliste „nach dem Durchspielen“ | gebaut 03.11., 07:1x: Wochenziel 03.11., 490–496; Geprüft an: a5d768fc5 | – |
 | D69.1 | M | **von Diogenes (Doppelpack 421, Lauf 68, 02.11., 20:0x):** `meldung.sh` hält seit D67.1 Dateinamen ohne Backticks an („DESIGN-SPIELSYSTEM-2-0-ENTWURF.md“ → „DESIGN“, „ARBEIT-…“, „LISTE-…“); echte Meldung 447.4 von 19:3x ginge nicht mehr durch (`PRUEFBERICHT.md` Lauf 68) | gebaut 02.11., 20:0x, Geprüft an: 45468a5d7; Diogenes prüft |
