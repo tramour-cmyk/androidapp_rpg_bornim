@@ -1216,10 +1216,19 @@ func staub_bilder(dir: String) -> void:
 	held.weg.clear()
 	for t in karte.weg(von, ziel):
 		held.weg.append(karte.kachel_pos(t))
+	# Lauf 226 (Prüfer: kein Staub, der Held ging): held.laeuft setzt _process jedes Bild aus Ausdauer.schritt neu; rennen will er
+	# wie mit Ring oder Renntaste
+	laufen_will = true
 	held.laeuft = true
+	var rennen := 0
+	var meist := 0
 	for i in 36:
 		await get_tree().create_timer(0.1).timeout
 		await knips(dir + "/staub_%02d.png" % i)
+		if held.anim != null and held.anim.current_animation.begins_with("Rennen"): rennen += 1
+		meist = maxi(meist, blutspur.staub_anzahl())
+	print("STAUB rannte in %d von 36 Bildern, höchstens %d Wolken zugleich" % [rennen, meist])
+	laufen_will = false
 	held.laeuft = false
 	print("STAUB %s -> %s, %d Wolken zuletzt" % [von, ziel, blutspur.staub_anzahl()])
 
