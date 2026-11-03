@@ -11,8 +11,8 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 **Wie du die Verweise findest** (484): „E 7“ = Entscheidung 7 in der Liste [Entscheidungen zum Spielsystem](DESIGN-SPIELSYSTEM-2-0.md); „NW 5“ = Abschnitt 5 im [Regelwerk des Bornimer Rollenspielsystems](DESIGN-SPIELSYSTEM-2-0-ENTWURF.md) (Datei heißt noch „Entwurf“, gilt aber; E 84); eine Zahl ohne Buchstaben ist ein Vorgang. Gilt nur, was entschieden ist; neue Entscheidungen gehen hier ein. Alle Zahlen sind Startwerte; abhakbar mit Zahlen erst nach der Rechensimulation (444). Termine gibt es keine; Wochenziele nennen Reihenfolge und Schätzung, keine Tage je Punkt. Alte Kurzzeichen (T1 … S1, bis 01.11.): Git, Stand vor „Perikles: 447.1“.
 
 **Stufe 1 · Kern spielbar** (Prüfung: Rechensimulation 444 abgenommen; der Chef spielt Dorf und Wald an)
-- [ ] **1.1** G · Ohne Klassen (E 1): Erschaffung mit sechs Grundwerten ab 1, 21 Punkte, jeder Wert 3 bis 8 (E 77); fünf Völker mit Bonus, Malus und Merkmal, Volk hebt bis 9, nie unter 3 (E 70, 72, 78); Herkunft freiwillig oder Wanderer, Startfertigkeiten bei 10 (E 68, 69; NW 2). Ins Spiel erst mit 2.3; bis dahin im Testmenü zu sehen (470a: „C“, aber der Rechenkern des Kampfs ist mit 3–4 Sitzungen über 2 geschätzt, darum gilt B). · Stand: in Arbeit
-- [ ] **1.2** G · Fertigkeiten steigen durch Tun, Wert 0–100 in vier Rängen, am Rangende Halt mit kleinem Puffer bis zur Prüfung (E 67, E 44); Kapitel 1 bis Geselle (49) mit Bewährungsproben zum Gesellen (Takt, NW 5); Prüfregel und die 37 (E 59); Hinweis beim Aufstieg, Heldenblatt zeigt nur Getanes (NW 3).
+- [ ] **1.1** G · Ohne Klassen (E 1): Erschaffung mit sechs Grundwerten ab 1, 21 Punkte, jeder Wert 3 bis 8 (E 77); fünf Völker mit Bonus, Malus und Merkmal, Volk hebt bis 9, nie unter 3 (E 70, 72, 78); Herkunft freiwillig oder Wanderer, Startfertigkeiten bei 10 (E 68, 69; NW 2). Ins Spiel erst mit 2.3; bis dahin im Testmenü zu sehen (470a: „C“, aber der Rechenkern des Kampfs ist mit 3–4 Sitzungen über 2 geschätzt, darum gilt B). · Stand: gebaut
+- [ ] **1.2** G · Fertigkeiten steigen durch Tun, Wert 0–100 in vier Rängen, am Rangende Halt mit kleinem Puffer bis zur Prüfung (E 67, E 44); Kapitel 1 bis Geselle (49) mit Bewährungsproben zum Gesellen (Takt, NW 5); Prüfregel und die 37 (E 59); Hinweis beim Aufstieg, Heldenblatt zeigt nur Getanes (NW 3). · Stand: gebaut
 - [ ] **1.3** G · Heldenstufe aus Erfahrung (E 16), höchstens 40 % aus Fertigkeitsaufstiegen (E 17); Kapitelgrenze weich bis zwei Stufen darüber (E 18, E 35); Erfahrungstopf je Gebiet, Wiederkehrer geben kaum Erfahrung, aber Beute (E 19, E 21). · Stand: gebaut
 - [ ] **1.4** M · Neue Monsterwerte für Kapitel 1 nach dem BRS auf Rechenmodell D (E 73–75, NW 7). · Stand: gebaut
 
@@ -58,7 +58,7 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 **Stufe 6 · SRD im Code abgelöst** (nach dem Marktstart; der Spieler sieht es nicht)
 - [ ] **6.1** G · Auch im Code keine SRD-Werte mehr, der Lizenzhinweis „SRD 5.1 · CC BY 4.0“ entfällt; `regelcheck` ohne Treffer (446).
 
-## Orte und Welt je Zeile (Vorschlag 479, 02.11., 19:4x; wartet auf dein Ja, Chefsache entscheiden/479)
+## Orte und Welt je Zeile (479, Chef 02.11., 20:14: „479 (1) ja. (2) A.“; ersetzen 2.11 und 4.3)
 
 Quelle: der alte Kotlin-Code (`core`, `app`), abgeglichen mit `LISTE-UMZUG-348.md` und dem Stand in `godot/` auf `main` (Arbeitszweige nicht mitgezählt). Je Zeile zwei Häkchen: **begehbar** (Stufe 2: geht im Spiel wie alt) und **fertig** (Stufe 4: „Ort fertig“ oder „gut“ von dir). Stand Godot: **da** = vorhanden, **teils** = nur ein Teil, **fehlt**.
 
@@ -71,11 +71,11 @@ Quelle: der alte Kotlin-Code (`core`, `app`), abgeglichen mit `LISTE-UMZUG-348.m
 | O3 | Thessas Kramladen | da | [ ] | [ ] |
 | O4 | Haus des Ältesten (Aldric) | da | [ ] | [ ] |
 | O5 | Tempel des Morgenlichts (Osric, Lyra nach der Rettung) | da | [ ] | [ ] |
-| O6 | **Flüsterwald** (Garrick, 11 Gegnerarten, Teiche, Frösche, Libellen) | **fehlt**: der Weg in den Wald startet nur einen Kampf | [ ] | [ ] |
-| O7 | **Tiefer Flüsterwald** mit Morwens Hütte, Endgegner Grimmzahn | **fehlt** | [ ] | [ ] |
-| O8 | **Blutzahnhöhle** (Lyra gefangen, Endgegner Krogg und Grak, 10 Gegnerarten) | **fehlt** | [ ] | [ ] |
-| O9 | Kampforte Wald (Lichtung, Waldrand, Teich, Baum, Felsen, Steinkreis) | teils: nur die Lichtung | [ ] | [ ] |
-| O10 | Kampforte Höhle (Eingang, Gang, Halle, Teich, Lager) | fehlt | [ ] | [ ] |
+| O6 | **Flüsterwald** (Garrick, 11 Gegnerarten, Teiche, Frösche, Libellen) | **fehlt**: der Weg in den Wald startet nur einen Kampf (490, Spike) | [ ] | [ ] |
+| O7 | **Tiefer Flüsterwald** mit Morwens Hütte, Endgegner Grimmzahn | **fehlt** (491, Spike) | [ ] | [ ] |
+| O8 | **Blutzahnhöhle** (Lyra gefangen, Endgegner Krogg und Grak, 10 Gegnerarten) | **fehlt** (492, Jerry) | [ ] | [ ] |
+| O9 | Kampforte Wald (Lichtung, Waldrand, Teich, Baum, Felsen, Steinkreis) | teils: nur die Lichtung (493, Jerry) | [ ] | [ ] |
+| O10 | Kampforte Höhle (Eingang, Gang, Halle, Teich, Lager) | fehlt (492, Jerry) | [ ] | [ ] |
 
 **Welt** (gilt an jedem Ort)
 
@@ -107,7 +107,37 @@ Quelle: der alte Kotlin-Code (`core`, `app`), abgeglichen mit `LISTE-UMZUG-348.m
 
 „da“ heißt nur: im Code gefunden, nicht von dir abgenommen. Geprüft nur Kopf und einzelne Stellen der Godot-Dateien; ob jedes Merkmal dem alten Stand voll entspricht, sagt erst dein Häkchen.
 
-## Wochenziel 02.–08.11. (Perikles, gesetzt 02.11., 11:2x; ohne Wochenzählung von Diogenes, die wegen des Stopps 07:26 noch fehlt)
+## Wochenziel 03.–08.11.: Kapitel 1 durchspielbar (Perikles, gesetzt 03.11., 07:1x nach 488; ersetzt das vom 02.11.)
+
+**Du spielst Kapitel 1 einmal von Anfang bis Ende am Handy: vom Dorf durch den Flüsterwald und den Tiefen Flüsterwald bis in die Blutzahnhöhle und zurück zu Aldric.** Grundlage 488 (Chef 03.11., 06:44, „488 ja“): Feinarbeit am Aussehen ist eingefroren; Vorrang hat, was zum Durchspielen fehlt. Die Geschichte von Kapitel 1 (alle Gespräche und Quests bis „chapter1_done“) ist in Godot schon gebaut (390, `geschichte.gd`), ebenso die Kämpfe gegen Wölfe, Grimmzahn, Grak, Goblins, Spinne, Ratten und Fledermäuse im Kampfort zum Ausprobieren (`kampf/probe.gd`). Es fehlen die Orte außerhalb des Dorfs und ein Teil der Gegner. Muss sind die Zeilen unten und was du ausdrücklich „jetzt“ sagst; alles andere ist Kür oder wartet „nach dem Durchspielen“ (Liste unten). Bis Sa 07.11., 20:00 arbeiten nur Tom, Jerry und Spike (468a).
+
+| Reihenfolge | Vorgang | Wer | fertig, wenn | Schätzung |
+|---|---|---|---|---|
+| 1 | Build 204 testen (t204); 489 Musik- und Effektschalter im Hauptmenü, 406.2 Angriff gehen und Parade (deine „jetzt“) | du; Jerry | wie in der Zeile des Vorrats | – |
+| 2 | 490 Flüsterwald, dann 491 Tiefer Flüsterwald mit Morwens Hütte und Grimmzahn (479 A) | Spike (Team Tom) | Held geht vom Dorf in den Wald und weiter, trifft Garrick und Morwen, Gegner stehen auf der Karte und starten den Kampf, Kräuter, Teiche, Kartenrand; geht wie alt (`Story.kt:524`, `:619`) | Wald 4 S, Tiefer Wald 3 S (348.14, dort mit Bilderrunden) |
+| 3 | 493 Kampforte Wald, 494 jeder Gegner von Kapitel 1 im Kampf aufrufbar (Waldgegner zuerst; 348.12 Goblin gehört dazu), dann 492 Blutzahnhöhle mit Kampforten Höhle, Krogg, Grak, Lyra | Jerry | jeder Gegner aus dem alten Spiel kämpft an seinem Ort; Höhle geht wie alt (`Story.kt:731`); fehlende Modelle in der Reihenfolge, in der du ihnen begegnest, je Gegner höchstens ein Lauf, Feinarbeit danach | Höhle mit Kampforten 11 S, fehlende Gegner etwa 18 S (348.14, mit Bilderrunden; ohne sie weniger), erste Sitzung schätzt neu |
+| 4 | 495 Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2) | Tom | ein Programm spielt Kapitel 1 bis „chapter1_done“ durch und meldet, wo es hängenbleibt, bevor du spielst | erste Sitzung schätzt |
+| 5 | 496 Durchspiel-Build aus 2–4 | Jerry stellt zusammen | du spielst Kapitel 1 ganz durch; deine Befunde sind Muss, Aussehen nach Gewicht | – |
+| danach | 478 Rechenkern des Kampfs auf BRS, dann 2.3 mit Tom (470 Erschaffung, 471 Fertigkeiten, 472, 473 ins Spiel) | Jerry, Tom | wie Abnahme 2.3 | 3–4 Sitzungen (478) |
+
+**Kampf im Durchspiel-Build:** er rechnet noch nach dem alten Regelwerk; das BRS kommt mit 2.3 gleich danach. **Stärkstes Gegenargument:** Was du beim ersten Durchspielen über Kämpfe sagst, gilt nur bedingt, weil 2.3 die Zahlen ändert; die Oberste Direktive verlangt das BRS. **Entkräftet:** Orte, Wege, Geschichte und Gegner hängen nicht an den Regeln; du sagtest „dass irgendwann das Spiel an sich fertig wird und ich durchspielen kann“, und mit 2.3 vorab kämen 3–4 Sitzungen vor dein erstes Durchspielen; Stufe 4 verlangt ohnehin ein zweites Durchspielen (4.10).
+
+**Antworten an die Teams (Perikles, 488):** 471 Fertigkeiten ins Spiel mit 2.3 (Votum Tom A); 458.3, 455.2, 348.13 (Tom), 461.1, 460 (Jerry) nach dem Durchspielen; 348.12 Goblin geht in 494 auf; 417, 463, 406 (passt) in den nächsten gemeinsamen Build.
+
+### Nach dem Durchspielen (488)
+
+Eingefroren am 03.11.; gestrichen wird nichts. Nach deinem ersten Durchspiel ordnet Perikles diese Liste nach dem Gewicht deiner Befunde. Einzelheiten in der Zeile des Vorgangs.
+
+- 463.1 Umhang und Robe: Ärmel, Stiefel, Kettenhemd, Haut, Boden (Tom)
+- 417 Tragart: Rumpf dreht beim Rennen, Füße rutschen, Schild steht ab, Kornfeld, Stabgang (Tom, Archiv 417)
+- 438a Hinfallen und Aufstehen: Klinge quer im Kleid, Hand ruckt (Jerry)
+- 431f Haut der Orkfrau, 431 Völker als Modelle, 475 Leute auf eigenem Körper (Tom)
+- 455.1, 455.2 Roben, Netzliste und Größenfilm; 458.3 Netze des Gegenstandskatalogs; 476 Symbole der Ausrüstung (Tom)
+- 348.13, 348.13b Tusche nach Lichtrichtung und Fackel; 302.1–302.3 Tusche an Figuren, Karte, Vorspann (Tom)
+- 461.1 Grundstand Kampfort, 460 Kamerafahrten (Jerry, Tom)
+- 372 Feinschliff Held; 387 gekaufte Tiere (Tom, Jerry)
+
+## Wochenziel 02.–08.11. (Perikles, gesetzt 02.11., 11:2x; ersetzt durch das Wochenziel 03.–08.11. oben, 488)
 
 **Stufe 1 „Kern spielbar“ ist gebaut und liegt dir als Build vor: Erschaffung, Fertigkeiten durch Tun, Heldenstufe und Monsterwerte nach dem BRS, gerechnet mit den Zahlen der Simulation 444.** Termine gibt es keine; die Reihenfolge gilt. Muss (M) sind die Vorgänge unten und jeder Rückläufer aus deinem Urteil (höchstens zwei Läufe je Urteil, 389, 407); alles andere ist Kür, auch Filme ohne dein Urteil dazwischen.
 
@@ -125,14 +155,14 @@ Quelle: der alte Kotlin-Code (`core`, `app`), abgeglichen mit `LISTE-UMZUG-348.m
 
 ## Ausführlicher Stand (Zeile 10 des [Tagesberichts](ARBEIT-TAGESBERICHT.md); Perikles montags neu; ersetzt seit 448 den täglichen Stand zum Marktstart und das Dashboard)
 
-**Stand 02.11., 20:0x** (nach der Wochenzählung von Diogenes, 02.11.; Zahlen je Tag im [Tagesbericht](ARBEIT-TAGESBERICHT.md))
+**Stand 03.11., 07:1x** (Wochenzählung von Diogenes 02.11.; Zahlen je Tag im [Tagesbericht](ARBEIT-TAGESBERICHT.md))
 
 | Stufe | Stand | was als Nächstes |
 |---|---|---|
-| 1 Kern spielbar | 0 von 4 abgenommen. 1.3 Heldenstufe (472) und 1.4 Monsterwerte (473) als Regeln gebaut; 1.1 Erschaffung (470) in Arbeit, von dir am 02.11., 18:40 für gut befunden, kommt mit 2.3 ins Spiel (470a B); 1.2 Fertigkeiten (471) nicht begonnen. Simulation 444 gerechnet, nicht von dir abgenommen. | 471 bauen; 444 dir vorlegen; Stufe 1 als Build mit dem Dorf und dem Flüsterwald (479) |
-| 2 Kapitel 1 durchspielbar | 0 von 12. Dorf, Räume und Wolfskampf spielbar (Build 146, von dir am 02.11., 10:52 getestet). Flüsterwald, Tiefer Flüsterwald, Blutzahnhöhle fehlen in Godot. Kampf rechnet noch nach dem alten System (2.3). | Orte und Welt je Zeile (479, dein Ja); Rechenkern des Kampfs (478) |
+| 1 Kern spielbar | 0 von 4 abgenommen. 1.1 Erschaffung (470, im Testmenü), 1.3 Heldenstufe (472) und 1.4 Monsterwerte (473) liegen dir in Build 204 zum Testen vor; 1.2 Fertigkeiten (471) als Regeln gebaut, kommt mit 2.3 ins Spiel. Simulation 444 gerechnet, nicht von dir abgenommen. | dein Test von Build 204 |
+| 2 Kapitel 1 durchspielbar | 0 von 12. Dorf, Räume und Wolfskampf spielbar (Build 146). Geschichte und Gespräche von Kapitel 1 gebaut (390). Flüsterwald, Tiefer Flüsterwald, Blutzahnhöhle und ein Teil der Gegner fehlen in Godot. Kampf rechnet noch nach dem alten System (2.3). | Wochenziel 03.11.: 490–496, dann 478 und 2.3 |
 | 3 Alle Systeme angelegt | 0 von 8. Gegenstandskatalog angelegt (458). | nach Stufe 2 |
-| 4 Kapitel 1 fertig | 0 von 10. Figuren und Bewegungen in deinen Runden (417 Tragart, 376.1 Tracht, 463 Umhang, 453 Atmen). | Rückläufer aus deinem Urteil, höchstens zwei Läufe je Urteil |
+| 4 Kapitel 1 fertig | 0 von 10. Feinarbeit am Aussehen eingefroren (488); 463 Umhang, 417 Tragart, 406 Schild am 03.11. mit „passt“ eingefroren, Mängel auf der Liste „Nach dem Durchspielen“. | nach deinem ersten Durchspiel |
 | 5 marktreif | Gewerbeschein offen (du, Vorgang 142 beim Chef) | – |
 | 6 SRD im Code abgelöst | nach dem Marktstart | – |
 
