@@ -102,10 +102,10 @@ func licht(l: Dictionary) -> void:
 		o.position = gpos(l["pos"])
 		o.omni_range = float(l.get("reich", 2.0)) * ts
 		var k := float(l.get("kraft", 0.6))
-		var kraft := k * (2.6 if art == "fackel" else 0.9)
+		var kraft := k * (2.6 if art == "fackel" else 1.4)   # 492 Abgleich (Pruefer Lauf 1: Kristalle schweben vor dunkler Wand): Schein heller
 		o.light_energy = kraft
 		o.light_color = Color(1.0, 0.69, 0.38) if art == "fackel" else Color.html(String(l.get("farbe", "FFFFFF")))
-		o.omni_attenuation = 1.4 if art == "fackel" else 2.0
+		o.omni_attenuation = 1.4 if art == "fackel" else 1.5
 		o.shadow_enabled = art == "fackel"
 		o.shadow_bias = 0.06
 		add_child(o)
@@ -117,7 +117,7 @@ func licht(l: Dictionary) -> void:
 			o.add_to_group("tuschelicht")
 			o.set_meta("reich", o.omni_range); o.set_meta("kraft", k); o.set_meta("art", art)
 		var teile: Array = [o]
-		for f in l.get("flammen", []): teile.append(flamme(gpos(f), 0.75, false))
+		for f in l.get("flammen", []): teile.append(flamme(gpos(f), 1.2, false))   # 492 (Pruefer Lauf 1: Fackel nur ein roter Punkt): 0,75 -> 1,2
 		if l.has("wand"): an_wand[String(l["wand"])] = an_wand.get(String(l["wand"]), []) + teile
 	elif art == "tageslicht" or art == "tuer":
 		var s := SpotLight3D.new()

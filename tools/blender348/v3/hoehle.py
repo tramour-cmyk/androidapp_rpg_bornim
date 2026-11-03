@@ -160,7 +160,7 @@ def boden_ton(p, n):
     w = nass(p)
     c = mixc(c, sc(BODEN_D, 0.55), 0.5 * w)                                                     # nasser Stein dunkler
     pf = fbm(p.x / 44, p.y / 44, 9) * 0.8 + vn(p.x / 12, p.y / 12, 10) * 0.2 + w * 0.28          # alt puddle(): flache Pfuetzen
-    c = mixc(c, lin(0x1C2226), 0.85 * ss(0.66, 0.72, pf) * (1 - mund_naehe(p)))
+    c = mixc(c, sc(BODEN_D, 0.45), 0.6 * ss(0.62, 0.74, pf) * (1 - mund_naehe(p)))           # Lauf 1 (Pruefer: schwarze Wellenstreifen)
     c = mixc(c, MOOS, 0.55 * ss(0.5, 0.8, vn(p.x / 30, p.y / 30, 34)) * max(w, ss(0, 40, 70 - wand_naehe(p)) * 0.5))
     m = mund_naehe(p)                                                                           # Walderde, Moos, heller nach aussen
     c = mixc(c, mixc(lin(0x5A4A30), lin(0x56643A), vn(p.x / 25, p.y / 25, 35)), 0.8 * m)
@@ -247,7 +247,7 @@ def tiefe(u, z, L, seed):
     """wie weit die Felsflaeche hinter der Kachelkante liegt (cm, + in den Fels): Fuss wulstet in den Raum, oben zurueck"""
     rand = ss(0, 26, u) * ss(0, 26, L - u)                  # an den Enden genau auf der Kante: Ecken schliessen
     fuss = -(4 + 10 * vn(u / 35, 0.5, seed)) * (1 - ss(0, 45, z))
-    rau = ss(0, 50, z) * (8 + 26 * fbm(u / 42, z / 36, seed + 1)) + 0.1 * z
+    rau = ss(0, 50, z) * (8 + 26 * fbm(u / 42, z / 36, seed + 1) + 7 * (0.5 + 0.5 * math.sin(z / 21 + 3 * fbm(u / 80, 0.3, seed + 2)))) + 0.1 * z   # Lauf 1: Waende wie Kaesten
     return rand * (fuss + rau)
 
 def flaeche(P, a, e, n, L, hoehen, ton, seed, deckel=True):
@@ -270,12 +270,16 @@ def flaeche(P, a, e, n, L, hoehen, ton, seed, deckel=True):
     for i in range(nu):
         for j in range(nz):
             quad(P, pts[i][j], pts[i + 1][j], pts[i + 1][j + 1], pts[i][j + 1], ton, 'weiss', n)
+    dom = 0.0   # Strahltest: gewoelbte Deckel verdeckten Knie an 2 Kacheln mehr; flach wie Lauf 1
     if deckel:                                               # dunkler Deckel ueber dem Fels dahinter (die Decke liegt im Dunkel)
         for i in range(nu):
             p0, p1 = pts[i][nz], pts[i + 1][nz]
             q0 = p0 - n * (TS * 0.95); q1 = p1 - n * (TS * 0.95)
             add = Vector((0, 0, 6 * vn(i * 0.7, 1.1, seed + 9)))
-            quad(P, p0, p1, q1 + add, q0 + add, deckel_ton, 'weiss', Vector((0, 0, 1)))
+            mi0 = p0 * 0.55 + q0 * 0.45 + Vector((0, 0, (10 + 14 * vn(i * 0.5, 2.3, seed + 8)) * dom))   # Lauf 1: flache Oberseiten, jetzt gewoelbt (nur hohe Waende)
+            mi1 = p1 * 0.55 + q1 * 0.45 + Vector((0, 0, (10 + 14 * vn((i + 1) * 0.5, 2.3, seed + 8)) * dom))
+            quad(P, p0, p1, mi1, mi0, deckel_ton, 'weiss', Vector((0, 0, 1)))
+            quad(P, mi0, mi1, q1 + add, q0 + add, deckel_ton, 'weiss', Vector((0, 0, 1)))
     return pts
 
 for nr_, (s, lauf) in enumerate(laeufe()):
@@ -544,7 +548,7 @@ def gitter():
     for x in (tx(c0) + 6, tx(c1 + 1) - 6):
         box(P, (x - 7, y - 7, 0), (x + 7, y + 7, 248), EISEN, 'weiss')
     box(P, (tx(c0), y - 6, 236), (tx(c1 + 1), y + 6, 248), ROST, 'weiss')
-    breite = (tx(c1 + 1) - tx(c0) - 26) / 2 - 3                 # Abgleich: Spalt zwischen den Fluegeln
+    breite = (tx(c1 + 1) - tx(c0) - 26) / 2 - 6                 # Abgleich: Spalt zwischen den Fluegeln (Pruefer Lauf 1: keine zwei Fluegel)
     for name, angel, sg in (('Gitter_L', tx(c0) + 13, 1), ('Gitter_R', tx(c1 + 1) - 13, -1)):
         G = part(name); G.O = Vector((angel, y, 0))
         ton = lambda q, nn: mixc(EISEN, ROST, vn(q.x / 20, q.z / 25, 141))
@@ -585,8 +589,9 @@ def lichtschacht(c, r):
         pts = [m + Vector((0, 0, 1.5)), m + Vector((math.cos(a1) * 75, math.sin(a1) * 60, 1.5)), m + Vector((math.cos(a0) * 75, math.sin(a0) * 60, 1.5))]
         add_face(S, pts, lambda q, nn: sc((1.0, 0.97, 0.88), 1.6 * (1 - ss(0, 75, (q - m).length))), 'weiss')
     LICHTER.append(dict(art='staub', pos=list(m + Vector((10, 15, 220)))))
-    H = part('Himmel_Spalt')
-    klumpen(H, m + Vector((25, 40, 525)), 30, (0.95, 0.97, 1.0), 'weiss', seed=c, squash=0.2, rau=0.5)
+    H = part('Himmel_Spalt')                                   # Lauf 1 (Pruefer: harte weisse Ellipse): schmaler Riss, gedaempft
+    for k in range(5):
+        klumpen(H, m + Vector((25 + (k - 2) * 9, 40 + (k - 2) * 5, 525)), 7 - abs(k - 2), (0.12, 0.13, 0.14), 'weiss', seed=c + k, squash=0.25, rau=0.5, n=6, lagen=3)
 
 def ausgang():
     """Ausgang (CAVE_EXIT) zum Wald: Tageslicht faellt von draussen herein (alt EXIT FFF4D8 3,4 Kacheln), nachts Mond"""
@@ -597,12 +602,17 @@ def ausgang():
     # Abgleich (alt EXIT 3,4 Kacheln; Pruefer Lauf 2: Weisse Waende in Teich und Westfluegel): Reichweite wie alt, Kegel enger
     LICHTER.append(dict(art='tageslicht', pos=[x, ty(NR + AUSSEN - 1), 300], ziel=[x, ty(NR - 2), 0], kraft=0.8, reich=6.5, winkel=26))
     # Ausblick am Ende des Gangs (alt MapEdge: draussen bleibt es hell): Lauf 2 stand er mit dem Ruecken zur Kamera (unsichtbar)
+    # Lauf 1 (Pruefer: grosse hellgruene Flaeche ohne Quelle): kein stehender Ausblick mehr; draussen liegt der Boden im Tageslicht
+    # (alt: goldener Boden am Ausgang, EXIT FFF4D8), eine Handbreit ueber dem Grund, leuchtet von selbst, nach aussen heller
     H = part('Himmel_Ausgang')
-    y = ty(NR + AUSSEN)
-    for k in range(6):
-        x0 = tx(min(MUND)) - 60 + (TS * len(MUND) + 120) * k / 6; x1 = tx(min(MUND)) - 60 + (TS * len(MUND) + 120) * (k + 1) / 6
-        quad(H, Vector((x0, y, -5)), Vector((x1, y, -5)), Vector((x1, y, 330)), Vector((x0, y, 330)),
-             lambda q, nn: mixc(lin(0x4E6A34), lin(0xD8E4C8), ss(0, 330, q.z)), 'weiss', Vector((0, -1, 0)))
+    for r in range(NR + 1, NR + AUSSEN):
+        for c in MUND:
+            for i in range(4):
+                for j in range(4):
+                    x0 = tx(c) + TS * i / 4; x1 = x0 + TS / 4; y0 = ty(r) - TS * j / 4; y1 = y0 - TS / 4
+                    q = [Vector((x0, y1, 1.2)), Vector((x1, y1, 1.2)), Vector((x1, y0, 1.2)), Vector((x0, y0, 1.2))]
+                    add_face(H, q, lambda p, n: sc(mixc(lin(0x8A7A50), lin(0xFFF4D8), mund_naehe(p)), 0.012 + 0.07 * mund_naehe(p) ** 1.5
+                                                  * (0.8 + 0.4 * vn(p.x / 20, p.y / 20, 165))), 'weiss')
     P = part('Ding_' + stueck(MUND[0], NR - 1))
     for k in range(40 * len(MUND)):                                                           # Laub, vom Wind hereingeweht (alt 40 je Kachel)
         p = Vector((x + (h1(k, 1, 161) - 0.5) * TS * len(MUND), ty(NR - 2) - TS * (AUSSEN + 1.6) * h1(k, 2, 162) ** 0.7, 0.8))

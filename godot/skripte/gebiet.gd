@@ -29,7 +29,7 @@ var kraut_netz: MeshInstance3D        # 490 Vorlage des Heilkrauts (dorf.py „K
 var kraeuter := {}                    # Vector2i -> MeshInstance3D
 var feuer: Array = []                 # 490 Lagerfeuer: {licht, flammen, rauch, basis}
 var glut: Array[ShaderMaterial] = []  # 490 Glut im Feuer
-var strahl_basis := 0.06   # 492: der Lichtstrahl atmet (alt WorldScreen 2315: Fleck am Boden atmet)
+var strahl_basis := 0.035   # 492: der Lichtstrahl atmet (alt WorldScreen 2315: Fleck am Boden atmet)
 var himmel: Array[StandardMaterial3D] = []   # 492 Ausblick, Spalt und Lichtstrahl der Hoehle
 
 func _init(k: Karte) -> void:
@@ -272,7 +272,7 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 					g.durchsicht(m)
 				if g and nm.contains("Glas"): g.glas.append(m)
 				if rn.begins_with("leucht"):   # 492 Hoehle: Kristalle violett, Leuchtpilze tuerkis (alt MapCave crystal, cap), Tag und Nacht
-					m.set_shader_parameter("glow", 0.3)   # Lauf 1 (Pruefer: Kristalle weiss statt violett): 0,55 war zu viel
+					m.set_shader_parameter("glow", 0.18)   # Lauf 1 (Pruefer: Kristalle weiss statt violett): 0,55 war zu viel; 492 Abgleich: Hoehle ×2,1 heller, 0,3 -> 0,18
 					m.set_shader_parameter("glow_col", Vector3(0.69, 0.53, 1.0) if rn.contains("kristall") else Vector3(0.38, 0.91, 0.85))
 				if rn.begins_with("glut"):   # 490 Glut im Lagerfeuer: leuchtet von selbst, nachts staerker (nacht())
 					m.set_shader_parameter("glow", 0.6)
@@ -303,7 +303,7 @@ func nacht(k: float) -> void:
 	for m in himmel:   # 492: tags hell, nachts Mond (alt SKYLIGHT, CAVE_EXIT: When.SUN / When.MOON)
 		var hell := lerpf(1.0, 0.18, k)
 		if m.transparency == BaseMaterial3D.TRANSPARENCY_DISABLED: m.albedo_color = Color(hell, hell, hell * lerpf(1.0, 1.4, k))
-		else: m.albedo_color = Color(1, 1, 1, lerpf(0.06, 0.015, k)); strahl_basis = m.albedo_color.a
+		else: m.albedo_color = Color(1, 1, 1, lerpf(0.035, 0.01, k)); strahl_basis = m.albedo_color.a   # 492: Hoehle jetzt ×2,1 heller (licht.gd)
 	for f in feuer: f["basis"] = 0.5 + 1.6 * k   # 490: Garricks Feuer, nachts die einzige warme Insel (LISTE-UMZUG-348 Stimmung)
 	for m in glas: m.set_shader_parameter("glow", 0.5 * k)
 	if wasser: wasser.set_shader_parameter("night", k)

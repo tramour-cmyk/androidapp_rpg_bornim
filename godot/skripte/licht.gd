@@ -26,6 +26,7 @@ const NACHT_UMGEBUNG := 0.75
 const NACHT_KONTRAST := 0.96   # unter 1 hebt das Schwarz an
 const TIEF_UMGEBUNG := 1.1     # Morgen, Abend: Fronten im Schatten, Himmel traegt mehr
 const DAEMMERUNG_UMGEBUNG := 0.18
+const HOEHLE_HELL := 2.1       # 492 Abgleich: Lauf 1 ohne Kontrasthebung halb so hell wie alt (p90 15 gegen 30–43)
 const HOEHLE_UMGEBUNG := 0.3    # 492: alt CAVE 0,05 gegen Raum mit Herd nachts 0,13; Lauf 1 bei 0,12 (Pruefer: fern der Lichter gar nichts, keine Umrisse)
 const INNEN_TAG := 0.34        # 399.5 Grundriss: Umgebung am Tag und nachts
 const INNEN_NACHT_KONTRAST := 0.93   # Lauf 5 (Nacht in % des Tags, alt 44–64): Kontrast 0,87 → 78–84, 0,96 mit Umgebung 0,16 → 40–56
@@ -124,6 +125,7 @@ func stelle(k: float) -> void:
 	env.adjustment_contrast = lerpf(TAG_KONTRAST, NACHT_KONTRAST, k)
 	env.adjustment_saturation = lerpf(TAG_SAETTIGUNG, 0.45, k) + 0.1 * daemmerung   # nachts blasser und blau wie alt
 	env.background_color = Color(0.36, 0.42, 0.34).lerp(Color(0.03, 0.04, 0.08), k)
+	env.adjustment_brightness = 1.0   # 492: nur die Hoehle hebt (unten)
 	if innen:
 		# 399.5 wie alt (MapLight ambient INTERIOR, mit Herd 0,13 nachts bis 0,31 am Tag): kein Himmel ueber dem Raum, nur ein
 		# warmer Rest; hell wird es durch Kamin, Kerzen und das Tageslicht der Fenster (raumlicht.gd)
@@ -145,7 +147,11 @@ func stelle(k: float) -> void:
 			# Nacht gleich; MapGrade CAVE: kalt, etwas gruen (D0ECDC, Anteil 0,5, Rand 0,26)
 			env.ambient_light_color = Color(0.55, 0.55, 0.8)
 			env.ambient_light_energy = HOEHLE_UMGEBUNG
-			env.adjustment_contrast = TAG_KONTRAST
+			# Abgleich 492 (Lauf 1 gemessen: ein Drittel des Bildes genau 15/16/15, alt 0; Kontrast 0,87 hob Schwarz auf 16,6 und
+			# druckte das Licht): Schwarz bleibt schwarz wie alt (alt p50 3–5, neu 16); dafuer heller wie alt (alt p90 30–43, neu
+			# ohne Hebung 13–15): Helligkeit ×HOEHLE_HELL nach dem Tonemapping
+			env.adjustment_contrast = 1.0
+			env.adjustment_brightness = HOEHLE_HELL
 			var g := Color8(0xD0, 0xEC, 0xDC)
 			stimmung.set_shader_parameter("toenung", Vector3(g.r, g.g, g.b))
 			stimmung.set_shader_parameter("anteil", 0.5)
