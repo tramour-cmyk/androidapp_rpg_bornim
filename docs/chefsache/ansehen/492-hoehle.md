@@ -1,5 +1,7 @@
 # 492 · Blutzahnhöhle: alt gegen neu an acht Stellen · Team Tom · 03.11., 23:3x
 
+[Bild von 03.11., 23:30](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/03-2330-492-Tom.png) (eingetragen von meldung.sh, Tom)
+
 O Orte
 Kurz: neue Vorlage nach deinem „abgleichen“ (16:30–16:33), Lauf 2 von 2; je Stelle oben alt, darunter neu.
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/bc11f77ed (Lauf 2 am Rechner, Held ohne Kaufmodell; Test hoehle_492 ohne Fehler; Strahltest: Brust des Helden nirgends verdeckt, Knie an 4–8 Kacheln je Drehung)
