@@ -24,6 +24,8 @@ Großbild: Telegram 03.11. 08:59
 
 **Bestand geprüft:** Bäume, Felsen, Büsche aus dem Naturbausatz (CC0) wie im Dorf; Garrick aus unseren Leuten; Monster wie im Kampf; nichts neu.
 
+**Nachtrag Sokrates (03.11., 14:01):** Dein Hinweis 10:22: Karte lässt sich drehen und zoomen, verdeckte Wege durch Kronen sind kein Befund. Monster auf der Karte: Wolf (Kauf), Goblins (CC0), Ratte (Kauf); Fledermaus fehlt noch (510), Wildschwein, Hundertfüßer folgen mit 494.
+
 **Zu sagen:** „490 passt“ (begehbar, Fehler oben danach), oder was anders sein soll.
 
 Erledigt: Antwort ins Vorgangsarchiv, Datei löschen (Spike).

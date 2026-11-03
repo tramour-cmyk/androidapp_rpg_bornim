@@ -28,6 +28,8 @@ Großbild: Telegram 03.11. 10:05
 
 **Bestand geprüft:** Bäume und Felsen aus dem Naturbausatz (CC0) wie im Flüsterwald; Morwen aus unseren Leuten; Grimmzahn wie im Kampf; nichts neu.
 
+**Nachtrag Sokrates (03.11., 14:01):** Dein Hinweis 10:22: Karte lässt sich drehen und zoomen, „Kronen verdecken den Weg“ oben ist damit kein Befund.
+
 **Zu sagen:** „491 passt“ (begehbar, Fehler oben danach), oder was anders sein soll.
 
 Erledigt: Antwort ins Vorgangsarchiv, Datei löschen (Spike).

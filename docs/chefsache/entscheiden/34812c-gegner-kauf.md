@@ -7,7 +7,7 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/main/doc
 
 **Frage:** Kaufst du jetzt die sechs Modelle der Monsterwahl (26.10.)?
 
-**Votum:** „348.12c A“: alle sechs, heute; RenderHub-Rabatt läuft für den Wiedergänger in etwa 4 Tagen ab.
+**Votum:** „348.12c A“: alle sechs; RenderHub-Rabatt läuft für den Wiedergänger etwa bis 07.11., für den Egel etwa bis 10.11. (Countdown 03.11.). Du kaufst frühestens heute Nachmittag (09:07); Rückfrage offen, ob dein „Ja“ A heißt.
 
 ![Vier der sechs Kaufmodelle (Bilder der Anbieter)](../bilder/34812c-gegner-kauf.webp)
 
@@ -38,7 +38,7 @@ Summe 128,95 $ (Protofactor 89,96, RenderHub 38,99); am 26.10. gab Protofactor i
 | Goblin, Goblin-Späher, Grak | ja, CC0-Gerüst mit UAL |
 | Kobold, Goblin-Schamane | Gerüst und Bewegungen ja (CC0, UAL), eigene Figur offen (Eigenbau, kein Kauf) |
 | Krogg | offen: Bewegungen aus Paket 2 Handed (gekauft 01.11.); Körper fehlt, Jerry prüft Quaternius „Bestiary“ (QAL, gegen 348.12c a zu prüfen); falls Kauf nötig, eigene Vorlage |
-| Riesenfledermaus | frei: „Vampire Bat“ OpenGameArt, CC0, düster; Protofactor-Fledermaus wirkt fast komisch; kein Kauf |
+| Riesenfledermaus | ja: eigene (abgenommen 28.10.); Vergleich mit dem freien „Vampire Bat“ (CC0) in 510; kein Kauf |
 | Riesenspinne, Skelett, Zombie, Ghul, Blutflügler, Ockerschleim | **nein**: dieser Kauf |
 
 <details><summary>Begründung</summary>
