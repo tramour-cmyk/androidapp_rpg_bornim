@@ -827,7 +827,8 @@ var schutz_variante := 0        # 438a Vergleich in sturz_438a: 1 = Hautpunkte n
 #                                 beste Lage aller Schritte; 4 = wie gebaut und die beste Lage
 var spreizen_grad := 0.0        # 438a Vergleich in sturz_438a: Schwertarm beim Aufstehen so weit vom rechten Bein weg (bodenhalt.gd)
 var faust_frei := 0             # 438a Vergleich in sturz_438a: Schwertfaust beim Hinfallen und Aufstehen aus Haut und Kleidung der Beine
-#                                 (bodenhalt.gd): 1 = je Bild ganz, 2 = Schub je Bild höchstens FAUST_ZUG anders
+#                                 (bodenhalt.gd): 1 = je Bild ganz, 2 = Schub je Bild höchstens FAUST_ZUG anders;
+#                                 3 = nach dem Boden, gedämpft wie 2 (Lauf 209: der Boden hob die Hand danach wieder ins Bein)
 var mess_us := 0                # 438a Messung: Zeit von _boden_schutz in diesem Bild, µs
 var messen := false             # 438a: sturz_438a liest mess_schutz je Bild (sonst nichts gerechnet)
 var mess_schutz := {}

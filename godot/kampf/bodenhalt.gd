@@ -96,53 +96,16 @@ func _process_modification_with_delta(_delta: float) -> void:
 		# Griff, Knöchel) die nächste Ecke und ihre Normale, wie sturz_438a misst; nur beim Hinfallen, Liegen und Aufstehen
 		var faust_pos := PackedVector3Array()     # Prüflauf: Ecken um die Faust, für die Tiefe nach allen Schüben
 		var faust_nor := PackedVector3Array()
-		if i == 1 and int(figur.faust_frei) > 0 and sturz:
-			var t_us := Time.get_ticks_usec()
-			var bw: Array = figur.bein_welt(sk)
-			var punkte := [faust, hand0, xs * sk.get_bone_global_pose(_mitte[i]).origin]
-			var box := AABB(faust, Vector3.ZERO)
-			for q in punkte:
-				box = box.expand(q)
-			box = box.grow(SUCHE + FAUST_HAUT + 0.15)
-			var pos := PackedVector3Array()
-			var nor := PackedVector3Array()
-			for j in (bw[0] as PackedVector3Array).size():
-				if box.has_point(bw[0][j]):
-					pos.append(bw[0][j])
-					nor.append(bw[1][j])
-			var tiefste := 0.0
-			for wdh in FAUST_SCHRITTE:
-				var schub := Vector3.ZERO
-				var tief_max := 0.0
-				for q in punkte:
-					var f: Vector3 = q + weg
-					var best := -1
-					var bd := SUCHE
-					for j in pos.size():
-						var dd := f.distance_to(pos[j])
-						if dd < bd:
-							bd = dd
-							best = j
-					if best < 0:
-						continue
-					var tief: float = FAUST_HAUT - (f - pos[best]).dot(nor[best])
-					if tief > tief_max:
-						tief_max = tief
-						schub = nor[best] * tief
-				if wdh == 0:
-					tiefste = tief_max
-				if tief_max <= 0.002:
-					break
-				weg += schub
-			faust_tief = tiefste
-			faust_pos = pos
-			faust_nor = nor
-			faust_us = Time.get_ticks_usec() - t_us
+		if i == 1 and int(figur.faust_frei) in [1, 2] and sturz:
+			var fs: Array = _faust_schub(sk, xs, i, faust, hand0, weg)
+			weg = fs[0]
+			faust_pos = fs[1]
+			faust_nor = fs[2]
 		# 438a G (Lauf 207: der Schub sprang beim Hinfallen 10,4 cm in einem Bild): höchstens FAUST_ZUG je Bild anders als im letzten, auch
 		# hinein und heraus
 		if i == 1 and int(figur.faust_frei) == 2:
 			weg = _faust_letzt.move_toward(weg, FAUST_ZUG)
-		if i == 1:
+		if i == 1 and int(figur.faust_frei) != 3:
 			_faust_letzt = weg
 		if weg != Vector3.ZERO:
 			PH._ik(sk, xs, _arm[i], hand0 + weg)
@@ -172,8 +135,73 @@ func _process_modification_with_delta(_delta: float) -> void:
 		if d > 0.0:
 			var hand: Vector3 = xs * sk.get_bone_global_pose(_arm[i][0]).origin
 			PH._ik(sk, xs, _arm[i], hand + Vector3.UP * d)
+		# 438a H (Lauf 209: nach allen Schüben lag die Faust beim Aufstehen noch 10,3 cm im Kleid, ohne Schub in diesem Bild: der Boden hob
+		# die Hand danach ins Bein): erst der Boden, dann die Faust aus dem Kleid, dabei nicht wieder hinunter, solange sie am Boden liegt;
+		# Schub je Bild höchstens FAUST_ZUG anders
+		if i == 1 and int(figur.faust_frei) == 3:
+			var h1: Vector3 = xs * sk.get_bone_global_pose(_arm[i][0]).origin
+			var f1: Vector3 = xs * (sk.get_bone_global_pose(_arm[i][0]) * figur.griff_ort["R"]) if figur.griff_ort.has("R") else h1
+			var w3 := Vector3.ZERO
+			if sturz:
+				var fs: Array = _faust_schub(sk, xs, i, f1, h1, Vector3.ZERO)
+				w3 = fs[0]
+				faust_pos = fs[1]
+				faust_nor = fs[2]
+				if gehoben[i] > 0.0:
+					w3.y = maxf(w3.y, 0.0)
+			w3 = _faust_letzt.move_toward(w3, FAUST_ZUG)
+			_faust_letzt = w3
+			if w3 != Vector3.ZERO:
+				PH._ik(sk, xs, _arm[i], h1 + w3)
+				faust_kurz = (h1 + w3).distance_to(xs * sk.get_bone_global_pose(_arm[i][0]).origin)
+			faust_weg = (weg + w3).length()
 		if i == 1 and not faust_pos.is_empty():
 			faust_nach = _faust_tiefe(sk, xs, i, faust_pos, faust_nor)
+
+
+## 438a Faust: schiebt die Schwertfaust (Griff [faust], Handgelenk [hand0], Knöchel) aus Haut und Kleidung der Beine, ausgehend von [weg];
+## gibt [weg, Ecken, Normalen] zurück und setzt faust_tief, faust_us
+func _faust_schub(sk: Skeleton3D, xs: Transform3D, i: int, faust: Vector3, hand0: Vector3, weg: Vector3) -> Array:
+	var t_us := Time.get_ticks_usec()
+	var bw: Array = figur.bein_welt(sk)
+	var punkte := [faust, hand0, xs * sk.get_bone_global_pose(_mitte[i]).origin]
+	var box := AABB(faust, Vector3.ZERO)
+	for q in punkte:
+		box = box.expand(q)
+	box = box.grow(SUCHE + FAUST_HAUT + 0.15)
+	var pos := PackedVector3Array()
+	var nor := PackedVector3Array()
+	for j in (bw[0] as PackedVector3Array).size():
+		if box.has_point(bw[0][j]):
+			pos.append(bw[0][j])
+			nor.append(bw[1][j])
+	var tiefste := 0.0
+	for wdh in FAUST_SCHRITTE:
+		var schub := Vector3.ZERO
+		var tief_max := 0.0
+		for q in punkte:
+			var f: Vector3 = q + weg
+			var best := -1
+			var bd := SUCHE
+			for j in pos.size():
+				var dd := f.distance_to(pos[j])
+				if dd < bd:
+					bd = dd
+					best = j
+			if best < 0:
+				continue
+			var tief: float = FAUST_HAUT - (f - pos[best]).dot(nor[best])
+			if tief > tief_max:
+				tief_max = tief
+				schub = nor[best] * tief
+		if wdh == 0:
+			tiefste = tief_max
+		if tief_max <= 0.002:
+			break
+		weg += schub
+	faust_tief = tiefste
+	faust_us = Time.get_ticks_usec() - t_us
+	return [weg, pos, nor]
 
 
 ## 438a Prüflauf: wie tief Griff, Handgelenk und Knöchel der Faust [i] jetzt in den Ecken [pos] liegen (wie der Schub, mit FAUST_HAUT)

@@ -58,10 +58,12 @@ func _run() -> void:
 	# Lauf 207: F hilft beim Hinfallen (Kämpfer 2,5 → −0,3 cm), beim Aufstehen kaum (12,6 → 10,4 cm, Griff danach 3 cm im Kleid), Schub bis
 	# 23,5 cm, springt 10,4 cm in einem Bild; V5 F nicht besser (fällt weg). Jetzt: wie weit der Arm nicht reicht, Tiefe nach allen
 	# Schüben; G = F mit Schub höchstens 1,5 cm je Bild anders
-	for kv in [["FIGHTER", 3, 0.0, 1], ["FIGHTER", 3, 0.0, 2], ["CLERIC", 3, 0.0, 1]]:
+	# Lauf 209: nach allen Schüben lag die Faust beim Aufstehen (1,73 s) noch 10,3 cm im Kleid, ohne Schub in dem Bild: der Boden hob die
+	# Hand danach hinein; G dämpft den Ruck (12,1 → 1,5 cm je Bild), Arm zu kurz höchstens 4 cm (F 14,7). H = erst Boden, dann Faust, gedämpft
+	for kv in [["FIGHTER", 3, 0.0, 2], ["FIGHTER", 3, 0.0, 3], ["CLERIC", 3, 0.0, 3]]:
 		var p = Probe.new()
 		p.hero_cls = kv[0]
-		var k: String = kv[0] + ("" if kv[1] == 0 else " V%d" % kv[1]) + ("" if kv[2] == 0.0 else " A%d" % int(kv[2])) + ["", " F", " G"][kv[3]]
+		var k: String = kv[0] + ("" if kv[1] == 0 else " V%d" % kv[1]) + ("" if kv[2] == 0.0 else " A%d" % int(kv[2])) + ["", " F", " G", " H"][kv[3]]
 		p.merc_cls = "FIGHTER" if kv[0] != "FIGHTER" else "CLERIC"
 		p.foe = "WOLVES"
 		root.add_child(p)
