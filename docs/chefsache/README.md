@@ -28,7 +28,7 @@ Nichts offen.
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.348.196](ansehen/t196-build-487.md) | [Build 196](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41527943257/artifacts/13180964299) | Strahlenprobe 415, Befunde aus Build 146, Katalog, BRS | Tom und Jerry | 02.11., 22:55 |
+| 1 | [0.348.204](ansehen/t204-build-487.md) | [Build 204](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41548422407/artifacts/13191910743) | Strahlenprobe 415, Erschaffung BRS 470, Befunde aus Build 146, Katalog, BRS | Tom und Jerry | 03.11., 01:26 |
 
 ## Zu tun
 
@@ -268,8 +268,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
-
-Format (Muster: „So geht's“ unten): t196-build-487.md: Zeile 2 ist keine Bereichszeile
 
 Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/417-dorf-film.md, ansehen/4474-lehrmeister-texte.md, ansehen/463-umhang-robe.md
 
