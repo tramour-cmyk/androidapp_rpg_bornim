@@ -1,5 +1,7 @@
 # 501 · Kaminfeuer sitzt auf dem Holz statt zu schweben · Team Tom (Spike) · 03.11., 13:22
 
+[Bild von 03.11., 13:22](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/03-1322-501-Spike.png) (eingetragen von meldung.sh, Spike)
+
 B Innenräume
 Kurz: Flamme beginnt jetzt an den Scheiten, in Schänke, Laden und beim Ältesten; links dein Bild aus Build 204
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41629412745 (Lauf 2, Commit d7d25e450)
