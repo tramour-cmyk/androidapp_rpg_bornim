@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [512](entscheiden/512-vergleich-vor-testbitte.md) | **Muss** | B Abläufe | 03.11., 14:17 | Heute hast du 9 Fehler als Erster gefunden, alle im Vergleich alte gegen neue Fassung; keiner stand in der Prüfliste. | Perikles |
-| [348.12c](entscheiden/34812c-gegner-kauf.md) | **Muss** | G Geld | 03.11., 08:56 | Für 6 der 18 Gegner von Kapitel 1 haben wir kein Modell; der Warenkorb vom 27.10. deckt genau diese sechs. | Sokrates |
 | [427.2a](entscheiden/4272a-zweites-rauchbuendel.md) | **Muss** | D Design | 03.11., 08:14 | Zweites Rauchbündel nach einer Niederlage gegen Krogg? | Homer |
 | [447.4](entscheiden/4474-lehrmeister.md) | **Muss** | C Texte | 03.11., 08:09 | Lehrmeister fragen nach „Noch nicht“ noch einmal? Wechsel als Anwärter in Kapitel 1 ohne Verlust? | Homer |
 
@@ -170,7 +169,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 385.2 | M | von Chef (Archiv 385.1): Feuer aus dem Stab | ruht |
 | 348.13a | M | von Team Tom (Chef 08:09, Archiv: r9 ja): Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13 | wartet auf Test/Build (gebaut) |
 | 397 | M | von Chef: Tiere, Monster mind. drei Ruhebewegungen | ruht |
-| 348.12c | M | von Sokrates: Untote und Gewürm übernehmen Fähigkeiten der Vorgänger | Chef (Datei in der Chefsache) |
+| 348.12c | M | von Sokrates: Untote und Gewürm übernehmen Fähigkeiten der Vorgänger | ruht |
 | 348.7 | M | von Sokrates: Umzug Godot, Kampfort Wolfsrudel in MARS | ruht |
 | 390 | M | von Perikles: Funktionen ohne Bild | ruht |
 | 304 | M | von Chef: Klassisch, Konter nach Abwehr regelrecht? | ruht |
@@ -244,13 +243,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 39, Muss 28, startbar 18
+**Sokrates** – offen 39, Muss 28, startbar 19
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 508 | M? | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
 | 488 | M | von Chef (02.11., 22:44, „dann frieren wir das mal ab einem gewissen Punkt ein … kümmern u | wartet auf Perikles |
-| 348.12c | M | von Chef (03.11., 08:50, „Aber müssen wir dazu nicht auch was kaufen?“, zu 494 Gegner): Ka | Chef (Datei in der Chefsache) |
+| 348.12c | M | von Chef (03.11., 08:50, „Aber müssen wir dazu nicht auch was kaufen?“, zu 494 Gegner): Ka | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 461b.4 | M | von Perikles (deine Liste 461b, 02.11., 19:1x, Punkte 7, 9): Köpfe von DESIGN-SPIELSYSTEM- | startbar |
 | 468 | M | von Chef (02.11., 07:33, Bild „Nutzung“: 36 %): weiter mit Wächter bis Sa 19:59 (ja 11:13, | startbar |
 | 415d | M | von Chef (02.11., 20:05, „Hatten wir nicht weitere Effekte vorgesehen?“): Kauf der zwei Ef | wartet auf Jerry |
@@ -291,9 +290,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 407 (Projekt)
+Nicht gestellt: 348.12c (Beratung), 407 (Projekt)
 
-Ohne Datei: 3402 (Projekt), 275 (Projekt)
+Ohne Datei: 3402 (Projekt), 275 (Projekt), 26 (Team Tom)
 
 ## So geht's
 
