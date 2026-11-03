@@ -14,6 +14,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 548 | M | **von Sokrates (Chef 04.11., 00:03, Build 249, Bild; Zu 548):** „Gegen Ratten gespielt. Die starben ohne mein Zutun alle drei?!? Habe nicht einen Knopf gedrückt …“ | startbar: braucht die Welt mit Daten (Kartenratten), am Rechner ohne Welt nicht nachstellbar; mit 545 zusammen (Zu 548) | – |
 | 551 | M | **von Sokrates (Chef 04.11., 00:21, Build 249):** „MARS Kasten links und rechts unten wird unterbrochen angezeigt …“ Goldrahmen des Bedienkastens; nachstellen am Handyformat (Bilder des Chefs 23:49–00:03 im Probekampf und im Wald) | startbar | – |
 | 552 | M | **von Sokrates (Chef 04.11., 00:22, Build 249):** „MARS Zugreihenfolge oben fehlt“. Laut Abgleich gibt es eine Zugleiste im Code; in den Bildern des Chefs ist oben nur ein leerer schwarzer Streifen: liegt sie unter der Kamera des Handys (vgl. `Rand.oben`, 399.4)? Nachstellen | startbar | – |
+| 553 | M | **von Sokrates (Chef 04.11., 00:26, Build 249, Bild):** „Was ist das für ein graues Tier??????“ Flüsterwald bei Garricks Feuer, Tag 2 13:47: graues, hochbeiniges Tier mit langem Hals, buschigem Schwanz, flach wirkend; dazu ein Wildschwein. Welche Art (Riesenratte mit Fell „grau“ und `ART_GROESSE` 2×, `figur.gd` 33, 47? Wolf?) feststellen; erkennbar machen oder ersetzen | startbar | – |
 | 545 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS-Probekampf: Testknöpfe „Gegner besiegen“ (✓) und „Held fällt“ (✗) ohne Funktion | startbar: am Rechner ohne Welt nicht nachgestellt (beide Wege wirken, testende_545); in der Welt mit Daten nachstellen (Zu 545); claude/jerry-545-testknoepfe | – |
 | 546 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS: Wölfe weichen viel zu träge aus („wie Schlaftabletten“) | startbar | – |
 | 547 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS: Text sagt „geht in die Knie“, Sturz ist aus (438a eingefroren): Text und Bild in Einklang bringen | startbar | – |
@@ -37,7 +38,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 439 | M | **von Sokrates:** Reihenfolge Angriff, Treffer, Tod, Neuformation | wartet auf Test: t249 | – |
 | 440 | M | **von Sokrates:** Wolf-Tod zu schnell weg | wartet auf Test: t249 | – |
 | 416.6 | M | **von Sokrates:** Spuren (`core/Tracks.kt`): Blut, Staub, Fußspuren | wartet auf Perikles: Probebild nur auf dem Bauserver (511); mit 416.4 b31b7a85d lokal gut | `claude/jerry-416-6-blut` |
-| 415 | M | **von Sokrates:** Probe Beams Free Sample im Kampfort; nichts kaufen | in Arbeit: Build 250 mit Messung „Ohne Strahl“ läuft (claude/jerry-415-ohne-strahl, c2ae46be1) | – |
+| 415 | M | **von Sokrates:** Probe Beams Free Sample im Kampfort; nichts kaufen | wartet auf Test: t250 (Ohne Strahl je Renderer), dann Renderer vorschlagen; claude/jerry-415-ohne-strahl | – |
 | 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34):** Kampfort aufrufbar | wartet auf Test: Build 146 (ansehen/t146-befunde.md; Befunde als 416.x) | `claude/jerry-348-kampf` |
 | 403 | M | **von Team Tom:** Kampfort: Held je Klasse wie im Dorf | wartet auf Test: t249 | – |
 | 461.1 | M | **von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461):** Grundstand mit Tom: Kampfort, Wölfe, Helden (`LISTE-GRUNDSTAND-461.md`); vor 460 und 406.1 | ruht: nach dem Durchspielen (488) | `claude/grundstand-461` |
@@ -83,7 +84,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht: SRD (Chef 31.10.) | – |
 | 469 | M | **von Sokrates:** Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 406.1 | – |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht: Klang zieht nach Godot; Rest `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
-| Pflege | K | **von Werkzeug (340.3, 04.11.):** 21800 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | **von Werkzeug (340.3, 04.11.):** 22680 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 ## Einzelheiten
 
@@ -93,7 +94,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 - **Zu 544 (Jerry 23:57):** `kampf_ui.gd` las die rohe .ttf (`load_dynamic_font`), im APK steht nur die importierte .fontdata (`include_filter`); nachgestellt ohne rohe Datei: leere Schrift ohne Namen. Jetzt `load()`.
 - **Zu 527–536, von Sokrates (Helfer, Code gelesen):** Alt lief der Weltkampf klassisch (`Battle.kt`), MARS nur als Probekampf; neu jeder Kampf MARS, `regeln/klassisch.gd` ungenutzt. Besser neu: Reihen, Platztausch, Waffenwechsel, Decken, Absichten, Automatik je Figur, Kampfbericht, Zugleiste.
 - **Zu 532, von Sokrates:** `aufruf.gd` 178, 203–209, `spiel.gd` 489, 529, `mars.gd` 333–335 (je Rast voll zu jedem Kampf); alt `Battle.kt` 160–176, 576–605, `Game.kt` 764–773, 1496. Test: Kampf, dann Rast, ZP und Tasche prüfen.
-- **Zu 533, von Sokrates:** `aufruf.gd` 34, `tabellen.json` „wolf“, `mars.gd` 939, 1525; alt `Monsters.kt` 133–137, `Packs.kt` 64.
+- **Zu 533, von Sokrates:** `aufruf.gd` 34, `tabellen.json` „wolf“, `mars.gd` 939, 1525; alt `Monsters.kt` 133–137, `Packs.kt` 64. **Chef 04.11., 00:33, Bild Tiefer Flüsterwald:** „Ist Grimmzahn groß???“ Auf der Karte reicht sein Rücken bis an den Kopf des Helden, der Kopf darüber; Story: „groß wie ein Pony“ (`STORY-PLAN-K1.md` 194, `STORY-K1-WELT.md` 55, 160), Pony Widerrist etwa 1,2–1,4 m: wirkt größer als ein Pony. Maß auf Karte und im Kampfort (`figur.gd` 47 `dire_wolf` 1,75) danach festlegen, Größe am Helden messen. Neben ihm ein Kobold mit Speer (Leibwache?). **Chef 00:36, Bild Kampf:** „Warum sieht Grimmzahn so viel schlechter aus als die anderen Wölfe?“ Code: Grimmzahn ist noch unser eigener Wolf (`wolf.py` ART=dire_wolf, `figur.gd` 44–47), die Rudelwölfe sind der gekaufte Wolf (Janpec, `kaufwolf`). Vorschlag: Grimmzahn auf dem Kaufwolf mit eigenem Fell (grau-silbern, Narben), glühenden Augen, Pony-Größe; Lizenz des Kaufs für Abwandlung prüfen; Standbild neben Rudelwolf vorlegen.
 - **Zu 534, von Sokrates:** `mars.gd` 83–86, 1494 `_hurt`; alt `Battle.kt` 221–227, 407–410, 478–560, 1036–1042. Gegen BRS (451) prüfen, was bleiben soll.
 - **Zu 535, von Sokrates:** `aufruf.gd` 29–36, 178 (kein „over“), `lohn.gd` 31–43; alt `Game.kt` 1267–1276, `Battle.kt` 101–116, 658–683, 1069–1071, `Packs.kt` 51, 68. Grinden lohnt neu nicht (Leitbild). Was absichtlich anders ist (MARS, BRS), als Chefsache vorlegen, nicht still angleichen.
 - **Zu 536, von Sokrates:** `kampf_ui.gd` 589–702, `mars.gd` 669 `quick()`; alt `SkirmishScreen.kt` 1340–1475, `BattleScreen.kt` 1650–1730. **Chef 23:56, Bild Zielwahl im Probekampf:** „Tip durch Drücken funktioniert nicht. Aber ein Wolf hat Namen eingeblendet. Hier ebenfalls kein Vergleich mit Vorgängerversion erfolgt …“ Dazu im Bild: drei Wölfe, Zielwahl bietet nur Wolf 1 und Wolf 2 (Reichweite? prüfen und, wenn gewollt, erklären).
