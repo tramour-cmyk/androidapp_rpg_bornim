@@ -10,7 +10,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 527 | M | **von Sokrates (512, Abgleich Build 249 im Code; Zu 527):** System: Schalter „Tempo“ und „Kampftext“ wirken im Kampf nicht; anschließen oder ausblenden, bis sie wirken | startbar | – |
+| 527 | M | **von Sokrates (512, Abgleich Build 249 im Code; Zu 527):** System: Schalter „Tempo“ und „Kampftext“ wirken im Kampf nicht; anschließen oder ausblenden, bis sie wirken | in Arbeit bei Jerry (Zweig claude/jerry-527-tempo-kampftext) | – |
 | 478 | M | **von Sokrates (Chef 02.11., 17:59 „470a C“):** Rechenkern des Kampfs in Stufe 1 auf BRS (Modell D) | ruht: 470a B (3–4 Sitzungen, Wortlaut in Git) | – |
 | 481.1 | M | **von Sokrates (427):** Tränke in sim444, Herkünfte neu messen, Zahlen an Sokrates | gebaut: sim444 Abschnitt 6 (claude/jerry-481-1-traenke); Geprüft an: 4bb60ba5e | – |
 | 467 | M | **von Sokrates (Chef 01.11., 21:52):** `regeln/ausdauer.gd` rechnet nach SRD; BRS: Ausdauer aus Zähigkeit, Wille, Stufe; nach der Formel aus 427 umstellen | wartet auf Sokrates: Formel Ausdauer fehlt in 427 (Hinweis Beratung) | – |
