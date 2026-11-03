@@ -337,11 +337,20 @@ func kurz(t: String) -> void:
 	notiz_feld.custom_minimum_size = Vector2(0, 0)
 	notiz_feld.size = Vector2(0, 0)
 	lb.custom_minimum_size.x = minf(vs.x * 0.8, lb.get_theme_font("font").get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, lb.get_theme_font_size("font_size")).x + 4)
-	notiz_feld.reset_size()
-	notiz_feld.position = Vector2((vs.x - notiz_feld.size.x) / 2, maxf(0.0, Rand.beim_start) + 72 * AktionsKnopf.DP)
+	_notiz_stellen()
+	# 550 (Chef 04.11., 00:19: „erstes Mal … ein riesen Kasten“): ein neues Label bricht beim ersten Text mit Breite 1 um, ein
+	# Zeichen je Zeile, und der Kasten waechst mit; schrumpfen tut er nicht von selbst. Darum noch einmal, wenn das Label seine
+	# Breite hat, vor dem Zeichnen (Test hinweis_550)
+	_notiz_stellen.call_deferred()
 	notiz_feld.visible = true
 	notiz_bis = Time.get_ticks_msec() + 1800
 	get_tree().create_timer(1.85).timeout.connect(func(): if Time.get_ticks_msec() >= notiz_bis and notiz_feld: notiz_feld.visible = false)
+
+func _notiz_stellen() -> void:
+	if notiz_feld == null: return
+	var vs := get_viewport().get_visible_rect().size
+	notiz_feld.reset_size()
+	notiz_feld.position = Vector2((vs.x - notiz_feld.size.x) / 2, maxf(0.0, Rand.beim_start) + 72 * AktionsKnopf.DP)
 
 # ---------------------------------------------------------------- Wahlfeld (390, RestScreen): Titel gold, Zeilen darunter,
 # je Wahl ein Knopf und darunter matt, was sie tut oder warum nicht; unten „Weiter“
