@@ -1,5 +1,7 @@
 # 406.2a · Angriff im Rennen wie im Dorf, drei Waffen (Film, Lauf 2 von 2) · Team Jerry · 03.11., 13:2x
 
+[Film von 03.11., 13:22](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261103-132233-406.2a/2026-11/03-1322-406.2a-Jerry.mp4) (eingetragen von meldung.sh, Jerry)
+
 E Kampf
 Kurz: 32 s, je Held drei Anläufe auf einen Wolf: Kämpfer mit Langschwert und Rundschild, Magier mit Kampfstab, Kämpfer mit Kriegsaxt; der Held rennt hin wie im Dorf, schlägt, geht zurück
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41627268298 (Lauf 2, Commit auf claude/jerry-406-2a-rennen)
