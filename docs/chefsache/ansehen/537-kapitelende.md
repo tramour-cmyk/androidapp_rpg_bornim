@@ -17,6 +17,8 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/8ebfd7
 4. Morgen im Tempel, nächster Tag 6:30, der Held ganz geheilt, Wiederkehrort Tempel; brannte ein Funke, heißt die erste Zeile, dass er erloschen ist; dann Lyras drei Sätze.
 5. In der Chronik unter „Bisher geschehen“ neu der Knopf „Die Morgenandacht ansehen“.
 
+**Befund des Prüfers (00:38, nach dem Versand):** untere Hälfte des Goldkastens leer, wirkt unfertig (alt füllt der Kasten ebenso den Platz bis zum Knopf); Heldenzeile kleiner als der Text, kaum fett, dicht unter dem letzten Satz; „WEITER“ unauffällig; Titel eher halbfett. Nichts abgeschnitten, keine Platzhalter, Ränder gleich.
+
 **Bekannt:** Die Kerzen auf den Tempelbildern flackern noch nicht (alt: `leben.txt`, `IntroScreen.kt` 90); sonst wie alt.
 
 Erledigt: nach deinem Test im nächsten Build Datei löschen (Spike oder Tom).
