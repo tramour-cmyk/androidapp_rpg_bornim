@@ -21,6 +21,11 @@ const HOEHLE_GESEHEN := 0.5        # MapLight.CAVE_SEEN_DIM, bis die Hoehle komm
 ## Formen zur Wahl: Kegel (cos der halben Oeffnung) und Kreis ringsum (Kacheln); alt: 160° plus 2 Kacheln
 const FORMEN := {"kegel": [0.17, 2.0], "kreis": [-1.0, 0.0], "breit": [-0.5, 2.0]}
 static var form := "kreis"     # Chef 03.11., 10:08 „505 C“ (Archiv): rundum gleich weit; FORMEN bleiben für den Bildlauf
+## Baeume ausser Sicht (Chef 03.11., 16:13: „… ich sehe trotzdem die Baeume dahinter … da müsste … halt auch das dunkel sein,
+## wenn ich es nicht sehe“): "alt" wie Fog.kt (t732: draussen nie schwarz, immer gedaempft); "boden": ein Baum zeigt, was der
+## Held vom naechsten freien Boden weiss (im tiefen Wald vom naechsten in jeder Entfernung, sonst blieben dort Inseln fuer immer
+## schwarz, der Grund fuer t732); jenseits des Rands so wie der Rand. Zur Wahl im Bildlauf (fassung), bis der Chef entscheidet.
+static var baeume := "alt"
 
 var spiel                          # spiel.gd
 var karte: Karte
@@ -41,6 +46,7 @@ var tex: ImageTexture
 var flaeche: MeshInstance3D
 var mat: ShaderMaterial
 var neu := true
+var naechster := {}                # "boden": Baumkachel -> Kacheln des naechsten freien Bodens
 
 func _init(s, k: Karte) -> void:
 	spiel = s
@@ -71,10 +77,39 @@ func _ready() -> void:
 	mat.set_shader_parameter("nebel", tex)
 	mat.set_shader_parameter("groesse", Vector2(breite, hoehe) * Karte.TS)
 	mat.set_shader_parameter("teile", Vector2(breite, hoehe))
-	mat.set_shader_parameter("rand_hoechstens", 1.0 if String(karte.daten.get("art", "")) == "CAVE" else 0.5)
+	mat.set_shader_parameter("rand_hoechstens", rand())
 	flaeche.material_override = mat
 	flaeche.position = Vector3(0, 0, -0.9)
 	spiel.kamera.add_child(flaeche)
+	if String(karte.daten.get("art", "")) == "FOREST": boden_suchen()
+
+## jenseits des Kartenrands hoechstens so dunkel (Hoehle und "boden": wie der Rand selbst; alt: nie dunkler als gesehen, t732)
+func rand() -> float:
+	return 1.0 if String(karte.daten.get("art", "")) == "CAVE" or baeume == "boden" else 0.5
+
+## "boden": je Baum die freien Kacheln im kleinsten Abstand (Schachbrett), alle gleich nahen
+func boden_suchen() -> void:
+	naechster.clear()
+	for ty in hoehe:
+		for tx in breite:
+			if zeichen_name(tx, ty) != "TREE": continue
+			var r := 1
+			var hier := PackedInt32Array()
+			while hier.is_empty() and r <= maxi(breite, hoehe):
+				for dy in range(-r, r + 1):
+					for dx in range(-r, r + 1):
+						if maxi(absi(dx), absi(dy)) != r: continue
+						var x := tx + dx; var y := ty + dy
+						if innen(x, y) and zeichen_name(x, y) != "TREE": hier.append(y * breite + x)
+				r += 1
+			naechster[ty * breite + tx] = hier
+
+## Bildlauf: Fassung der Baeume wechseln und alles sofort neu zeichnen (ohne Blenden)
+func fassung(b: String) -> void:
+	baeume = b
+	if mat: mat.set_shader_parameter("rand_hoechstens", rand())
+	schluessel = ""
+	neu = true
 
 func _exit_tree() -> void:
 	if is_instance_valid(flaeche): flaeche.queue_free()
@@ -174,7 +209,11 @@ func nebel(x: int, y: int) -> int:
 	var eigen := roh(y * breite + x)
 	var hoehle := String(karte.daten.get("art", "")) == "CAVE"
 	if not fest(x, y): return eigen
-	if not hoehle: return eigen if eigen == 2 else 1   # draussen ist ein Baum nie schwarz (t732)
+	if not hoehle:
+		if eigen == 2 or baeume != "boden": return eigen if eigen == 2 else 1   # alt: draussen ist ein Baum nie schwarz (t732)
+		var bb := eigen
+		for i in naechster.get(y * breite + x, PackedInt32Array()): bb = maxi(bb, roh(i))
+		return bb
 	var best := eigen
 	for dy in range(-2, 3):
 		for dx in range(-2, 3):

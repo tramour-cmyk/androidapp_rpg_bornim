@@ -57,6 +57,17 @@ func _lauf() -> void:
 			aus_sicht += 1
 			if s.visible: falsch += 1
 	pruefe(aus_sicht > 0 and falsch == 0, "Monster ausser Sicht unsichtbar (%d ausser Sicht, %d falsch)" % [aus_sicht, falsch])
+	# Fassung B (Chef 16:13: „… ich sehe trotzdem die Baeume dahinter“): ein Baum zeigt, was der Held vom naechsten Boden weiss
+	spiel.held.setze(Vector2i(9, 26), "UP")
+	for i in 3: await process_frame
+	n.fassung("boden")
+	pruefe(n.nebel(0, 26) == 0, "B: Baum (0, 26) neben nie gesehenem Boden schwarz: %d" % n.nebel(0, 26))
+	pruefe(n.nebel(13, 23) >= 1, "B: Baum (13, 23) neben gesehenem Weg nicht schwarz: %d" % n.nebel(13, 23))
+	var tief := 0
+	for i in n.naechster: if (n.naechster[i] as PackedInt32Array).is_empty(): tief += 1
+	pruefe(n.naechster.size() > 0 and tief == 0, "B: jeder Baum hat einen naechsten Boden (%d Baeume, %d ohne)" % [n.naechster.size(), tief])
+	n.fassung("alt")
+	pruefe(n.nebel(0, 26) == 1, "A: Baum ausser Sicht wieder gedaempft (t732): %d" % n.nebel(0, 26))
 	# die alte Form (Kegel 160°, Bildlauf --nebel) sieht nicht hinter sich
 	Nebel.form = "kegel"
 	spiel.held.setze(Vector2i(9, 26), "UP")
