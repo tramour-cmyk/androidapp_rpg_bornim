@@ -954,6 +954,62 @@ func _gang_ss(nm: String) -> String:
 	return g if _ss() and anim.has_animation(g) else nm
 
 
+## 406.2a (Chef 03.11., 09:03, Archiv 406.2a: „Auf jeden Fall nicht das Hopsen aus dem Sword and Shield Paket“; 09:06: „auch mit Stab
+## oder mit Axt“): zum Angriff rennt der Held wie im Dorf, mit dem Rennen der UAL (HeldFigur „Rennen“, Jog_Fwd_Loop wie unterwegs):
+## Becken, Beine, Rumpf und Kopf aus dem Rennen, beide Arme mit Waffe und Schild in der Ruhehaltung des Kampfs (erstes Bild von
+## SS_IdleCombat, Kampfstehen oder Stehen, _ruhe_name), so wie _arm_kauf Waffe und Schild in die Hände gesetzt hat. Der Schild bleibt
+## erhoben vor der Brust, die Klinge in Kampfhaltung; nichts schwingt mit dem Arm durch den Körper. OHNE_KAMPFRENNEN=1: wie 406.2
+const KAMPFRENNEN := "Kampfrennen"
+const ARM_TEILE := ["clavicle", "upperarm", "lowerarm", "hand", "thumb", "index", "middle", "ring", "pinky"]
+
+func _ruhe_name() -> String:
+	if _ss():
+		return "SS_IdleCombat"
+	if kauf and anim.has_animation("Kampfstehen") and not _stab():
+		return "Kampfstehen"
+	return "Stehen"
+
+
+static func _arm_knochen(bn: String) -> bool:
+	if not (bn.ends_with("_l") or bn.ends_with("_r")):
+		return false
+	for t in ARM_TEILE:
+		if bn.begins_with(t):
+			return true
+	return false
+
+
+func _kampfrennen() -> String:
+	if not kauf or anim == null or not anim.has_animation("Rennen") or OS.get_environment("OHNE_KAMPFRENNEN") != "":
+		return ""
+	var halt := _ruhe_name()
+	if not anim.has_animation(halt):
+		return ""
+	var nm := KAMPFRENNEN + "_" + halt
+	if anim.has_animation(nm):
+		return nm
+	var lauf := anim.get_animation("Rennen").duplicate(true) as Animation
+	var ruhe := anim.get_animation(halt)
+	for t in range(lauf.get_track_count() - 1, -1, -1):
+		if _arm_knochen(String(lauf.track_get_path(t)).get_slice(":", 1)):
+			lauf.remove_track(t)
+	var n := 0
+	for t in ruhe.get_track_count():
+		if ruhe.track_get_type(t) != Animation.TYPE_ROTATION_3D or ruhe.track_get_key_count(t) == 0:
+			continue
+		if not _arm_knochen(String(ruhe.track_get_path(t)).get_slice(":", 1)):
+			continue
+		var nt := lauf.add_track(Animation.TYPE_ROTATION_3D)
+		lauf.track_set_path(nt, ruhe.track_get_path(t))
+		lauf.rotation_track_insert_key(nt, 0.0, ruhe.track_get_key_value(t, 0))
+		n += 1
+	lauf.loop_mode = Animation.LOOP_LINEAR
+	anim.get_animation_library("").add_animation(nm, lauf)
+	if OS.get_environment("MESS") != "":
+		print("Kampfrennen %s: Rennen %.2f s, Arme aus %s (%d Spuren), %.2f m/s" % [fighter.id, lauf.length, halt, n, _held_mps(nm)])
+	return nm
+
+
 var _schleifen := 0     # 453 r3: wie oft die Grundschleife neu begann (Versatz je Wolf, für Prüfläufe fest)
 
 func _idle() -> void:
@@ -2021,8 +2077,9 @@ func _stab() -> bool:
 func _held_mps(nm: String) -> float:
 	if nm.begins_with("SS_") and float(kampf_info.get("tempo", {}).get(nm, 0.0)) > 0.1:     # 406: aus held_kampf.py, am Fuß gemessen
 		return float(kampf_info["tempo"][nm]) * ss_f
-	var v: float = float(model.get_meta("rennen_m_je_s" if nm == "Rennen" else "gehen_m_je_s", 0.0))
-	return v if v > 0.1 else (WALK_MPS * 2.0 if nm == "Rennen" else WALK_MPS)
+	var rennt := nm == "Rennen" or nm.begins_with(KAMPFRENNEN)     # 406.2a: Kampfrennen im Schritt des Rennens
+	var v: float = float(model.get_meta("rennen_m_je_s" if rennt else "gehen_m_je_s", 0.0))
+	return v if v > 0.1 else (WALK_MPS * 2.0 if rennt else WALK_MPS)
 
 
 const ANGRIFF_GANG := 1.3     # 406.2: Gehen zum Angriff so viel schneller als das Gehen des Satzes (Bewegung und Weg)
@@ -2067,7 +2124,11 @@ func _held_schlag(other, weiter := 0.0) -> int:
 		# sondern gehen … ein bisschen schneller gehen“): mit Schild geht der Held zum Angriff, Bewegung und Weg um ANGRIFF_GANG schneller
 		# (beide gleich, sonst rutschen die Füße)
 		var gf := 1.0
-		if _ss() and anim.has_animation("SS_WalkForward"):
+		# 406.2a (Chef 03.11., 09:03): weiter als RUN_FROM rennt er wie im Dorf (Kampfrennen, jede Waffe), sonst geht er
+		var kr := _kampfrennen() if way > RUN_FROM else ""
+		if kr != "":
+			gn = kr
+		elif _ss() and anim.has_animation("SS_WalkForward"):
 			gn = "SS_WalkForward"
 			gf = ANGRIFF_GANG
 		var von := position
