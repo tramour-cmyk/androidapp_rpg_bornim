@@ -26,7 +26,7 @@ ROWS = K['zeilen']; NR = len(ROWS); NC = K['breite']
 TS = 116.0                                           # cm je Kachel wie dorf.py, raum.py
 FELS = set('XGt')                                    # alt caveRock: CAVE_WALL, CRYSTAL, TORCH (Fog.kt, MapLight opaque)
 TALL = 240.0                                         # alt MapCaveIso TALL 138 / 57 je m
-MID = 102.0                                          # alt MID 58: dünne Wand zwischen zwei Räumen
+MID = 80.0                                           # alt MID 58 (1 m); Lauf 1 Strahltest: bei 1 m Knie des Helden hinter der Ecke verdeckt
 RIM = 38.0                                           # alt RIM 22
 MUND = [c for c in range(NC) if ROWS[NR - 1][c] == '+']   # Ausgang am unteren Rand: dort geht der Gang hinaus weiter
 WALK = {c for c, t in KARTEN['kacheln'].items() if t['begehbar']}
@@ -124,10 +124,12 @@ def klumpen(P, c, r, col, m, seed=0, squash=1.0, rau=0.25, n=8, lagen=5):
             elif j == lagen - 1: add_face(P, [a, d, b], col, m)
             else: add_face(P, [a, d, cc, b], col, m)
 
-ROCK = lin(0x5E564C); ROCK_D = lin(0x3E3832); SINTER = lin(0x7A7062); MOOS = lin(0x3E4A2A)
-BODEN_T = lin(0x544C42); BODEN_D = lin(0x3A342E)
-HOLZ = lin(0x5E4C3A); HOLZ_D = lin(0x40322A); EISEN = lin(0x4A4440); ROST = lin(0x5A3E2C)
-KNOCHEN = lin(0xA89A7C); KNOCHEN_D = lin(0x7A6C54); FELL = lin(0x3A322C); STROH = lin(0x5E4E30); SACK = lin(0x6E5E44)
+# Lauf 1 (Pruefer 16:08: fern der Lichter nichts, Truhen nur Linien; gemessen Eckfarbe x Textur rund 1 %): Farben aus MapCave sind
+# fertige Bildfarben, hier Albedo eine Stufe heller (wie kampfort_hoehle.py FELS_H 8A8076); auf Texturen nur Toenung nahe Weiss wie raum.py
+ROCK = lin(0x8A8076); ROCK_D = lin(0x5E564C); SINTER = lin(0xA89C88); MOOS = lin(0x56643A)
+BODEN_T = (0.95, 0.93, 0.92); BODEN_D = (0.62, 0.6, 0.62)        # Toenung auf 'erde'
+HOLZ = (0.95, 0.85, 0.72); HOLZ_D = (0.6, 0.52, 0.45); EISEN = lin(0x5A5450); ROST = lin(0x6A4A34)   # Holz: Toenung auf 'bretter', 'holz'
+KNOCHEN = lin(0xB8AA8C); KNOCHEN_D = lin(0x8A7C64); FELL = (0.5, 0.44, 0.38); STROH = (1.0, 0.95, 0.8); SACK = (0.92, 0.82, 0.66)
 PILZ_STIEL = lin(0x8C9A90); PILZ_HUT = lin(0x2E8C88); KRISTALL = lin(0x6A5296)
 VERKOHLT = lin(0x2A2220); GLUT = lin(0xE06A2A)
 
@@ -142,7 +144,7 @@ def wand_naehe(p):
             else: d = min(d, abs(-p.y - (r + (1 if dr > 0 else 0)) * TS))
     return d
 def boden_ton(p, n):
-    k = (0.82 + 0.3 * fbm(p.x / 90, p.y / 90, 3)) * (0.7 + 0.3 * ss(0, 70, wand_naehe(p)))    # an der Wand dunkler, feucht
+    k = (0.78 + 0.22 * fbm(p.x / 90, p.y / 90, 3)) * (0.75 + 0.25 * ss(0, 70, wand_naehe(p)))    # an der Wand dunkler, feucht
     c = mixc(BODEN_D, BODEN_T, 0.4 + 0.6 * vn(p.x / 40, p.y / 40, 4))
     return sc(c, k)
 def boden_z(x, y): return 2.5 * fbm(x / 60, y / 60, 9)                                      # kaum uneben, die Fuesse stehen
@@ -191,10 +193,11 @@ for r in range(NR + 2):
             nb = (c + d[0], r + d[1])
             if not fels(*nb): continue
             a, b = linie(c, r)
-            dicke = 1
-            while dicke < 3 and fels(nb[0] + d[0] * dicke, nb[1] + d[1] * dicke): dicke += 1
-            # alt MapCaveIso MID: zwischen zwei Raeumen (Boden hinter hoechstens zwei Felskacheln) nur etwa ein Meter
-            duenn = dicke <= 2 and 0 <= nb[0] + d[0] * dicke < NC and 0 <= nb[1] + d[1] * dicke < NR and not fels(nb[0] + d[0] * dicke, nb[1] + d[1] * dicke)
+            # alt MapCaveIso.capCell MID: Boden auch jenseits der Felskachel (bis zwei Kacheln, seitlich und schraeg: „a wall two
+            # tiles thick between two rooms counts as thin“) -> etwa ein Meter. Lauf 1 (Pruefer 16:08, Strahltest): nur senkrecht
+            # gemessen stand 2 Kacheln neben dem Gang eine 2,4-m-Wand zur Kamera und verdeckte den Helden ganz
+            duenn = any(0 <= nb[0] + a_ < NC and 0 <= nb[1] + b_ < NR and not fels(nb[0] + a_, nb[1] + b_) and a_ * d[0] + b_ * d[1] >= 0
+                        and (a_, b_) != (-d[0], -d[1]) for a_ in range(-2, 3) for b_ in range(-2, 3) if (a_, b_) != (0, 0))
             schluessel = (s, round(a.y if s in 'NS' else a.x))
             kanten.setdefault(schluessel, []).append(dict(c=c, r=r, a=a, b=b, nb=nb, hoch=MID if duenn else TALL))
 
@@ -246,13 +249,13 @@ def flaeche(P, a, e, n, L, hoehen, ton, seed, deckel=True):
         pts.append(col)
     for i in range(nu):
         for j in range(nz):
-            quad(P, pts[i][j], pts[i + 1][j], pts[i + 1][j + 1], pts[i][j + 1], ton, 'erde', n)
+            quad(P, pts[i][j], pts[i + 1][j], pts[i + 1][j + 1], pts[i][j + 1], ton, 'weiss', n)
     if deckel:                                               # dunkler Deckel ueber dem Fels dahinter (die Decke liegt im Dunkel)
         for i in range(nu):
             p0, p1 = pts[i][nz], pts[i + 1][nz]
             q0 = p0 - n * (TS * 0.95); q1 = p1 - n * (TS * 0.95)
             add = Vector((0, 0, 6 * vn(i * 0.7, 1.1, seed + 9)))
-            quad(P, p0, p1, q1 + add, q0 + add, deckel_ton, 'erde', Vector((0, 0, 1)))
+            quad(P, p0, p1, q1 + add, q0 + add, deckel_ton, 'weiss', Vector((0, 0, 1)))
     return pts
 
 for nr_, (s, lauf) in enumerate(laeufe()):
@@ -332,8 +335,8 @@ def tropfstein(c, r):
         ton = lambda q, nn: sc(mixc(SINTER, ROCK, 0.5 + 0.5 * vn(q.z / 18, q.x / 30, 60)), (0.75 + 0.35 * ss(0, 160, q.z)))
         for j in range(lagen):
             for i in range(seg):
-                add_face(P, [ring[j][i], ring[j][(i + 1) % seg], ring[j + 1][(i + 1) % seg], ring[j + 1][i]], ton, 'erde')
-        klumpen(P, p, rb * 1.2, lambda q, nn: sc(SINTER, 0.6), 'erde', seed=c * 3 + k, squash=0.18)   # Sinterfuss
+                add_face(P, [ring[j][i], ring[j][(i + 1) % seg], ring[j + 1][(i + 1) % seg], ring[j + 1][i]], ton, 'weiss')
+        klumpen(P, p, rb * 1.2, lambda q, nn: sc(SINTER, 0.6), 'weiss', seed=c * 3 + k, squash=0.18)   # Sinterfuss
 
 def geroell(c, r):
     """Geroell (RUBBLE): acht bis zwoelf runde Steine, der groesste kniehoch"""
@@ -341,7 +344,7 @@ def geroell(c, r):
     for k in range(8 + int(h1(c, r, 61) * 5)):
         g = 6 + 20 * h1(c * 13 + k, r, 62) ** 2 * (1.6 if k == 0 else 1.0)
         p = mitte(c, r) + Vector(((h1(c, r * 7 + k, 63) - 0.5) * 95, (h1(c * 7 + k, r, 64) - 0.5) * 95, 0))
-        klumpen(P, p, g, lambda q, nn: sc(mixc(ROCK_D, SINTER, vn(q.x / 12, q.y / 12, 65)), 0.95), 'erde', seed=c * 31 + r + k, squash=0.6, rau=0.35)
+        klumpen(P, p, g, lambda q, nn: sc(mixc(ROCK_D, SINTER, vn(q.x / 12, q.y / 12, 65)), 0.95), 'weiss', seed=c * 31 + r + k, squash=0.6, rau=0.35)
 
 def knochen(c, r):
     """Knochen (BONES): lange Knochen kreuz und quer, Rippen, ein Schaedel"""
@@ -413,14 +416,14 @@ def lagerfeuer(c, r):
     """Lagerfeuer im Lager (CAMPFIRE): Steinkranz, Asche, Scheite als Zelt, Glut; Flammen und Licht raumlicht.gd („kamin“)"""
     P = part('Ding_' + stueck(c, r))
     p = mitte(c, r)
-    klumpen(P, p + Vector((0, 0, 1)), 34, lambda q, nn: sc(lin(0x3A3632), 0.8 + 0.3 * vn(q.x / 9, q.y / 9, 121)), 'erde', seed=c + r, squash=0.06, rau=0.1)
+    klumpen(P, p + Vector((0, 0, 1)), 34, lambda q, nn: sc(lin(0x3A3632), 0.8 + 0.3 * vn(q.x / 9, q.y / 9, 121)), 'weiss', seed=c + r, squash=0.06, rau=0.1)
     for k in range(9):
         a = 2 * math.pi * k / 9 + 0.3 * h1(c, k, 122)
-        klumpen(P, p + Vector((math.cos(a) * 42, math.sin(a) * 42, 0)), 11 + 4 * h1(c, k, 123), lambda q, nn: sc(ROCK, 0.8), 'erde', seed=k, squash=0.65)
+        klumpen(P, p + Vector((math.cos(a) * 42, math.sin(a) * 42, 0)), 11 + 4 * h1(c, k, 123), lambda q, nn: sc(ROCK, 0.8 + 0.3 * vn(q.x / 8, q.z / 8, k)), 'weiss', seed=k, squash=0.65)
     for k in range(4):
         a = 2 * math.pi * (k + 0.2 * h1(r, k, 124)) / 4
         q0 = p + Vector((math.cos(a) * 30, math.sin(a) * 30, 2)); q1 = p + Vector((math.cos(a) * 3, math.sin(a) * 3, 36))
-        zylinder(P, q0, 4.5, (q1 - q0).length, 6, lambda q, nn: mixc(VERKOHLT, lin(0x5A4430), ss(4, 30, q.z)), 'holz', r2=3.0, achse=q1 - q0)
+        zylinder(P, q0, 4.5, (q1 - q0).length, 6, lambda q, nn: mixc(VERKOHLT, lin(0x5A4430), ss(4, 30, q.z)), 'weiss', r2=3.0, achse=q1 - q0)
     for k in range(6):
         klumpen(P, p + Vector(((h1(c, k, 125) - 0.5) * 30, (h1(r, k, 126) - 0.5) * 30, 3)), 5 + 3 * h1(c, r + k, 127), GLUT, 'glut', seed=k, squash=0.6, n=6, lagen=4)
     LICHTER.append(dict(art='kamin', pos=list(p + Vector((0, 0, 40))), reich=4.4, kraft=0.75, flammen=[list(p + Vector((0, 0, 6)))]))
@@ -476,18 +479,34 @@ def lichtschacht(c, r):
     m = mitte(c, r)
     for k in range(5):
         p = m + Vector(((h1(c, k, 151) - 0.5) * 80, (h1(r, k, 152) - 0.5) * 80, 0))
-        klumpen(P, p, 14 + 10 * h1(c + k, r, 153), lambda q, nn: sc(MOOS, 0.9 + 0.4 * vn(q.x / 6, q.y / 6, 154)), 'stoff', seed=k, squash=0.12, rau=0.3)
+        klumpen(P, p, 14 + 10 * h1(c + k, r, 153), lambda q, nn: sc(MOOS, 0.9 + 0.4 * vn(q.x / 6, q.y / 6, 154)), 'weiss', seed=k, squash=0.12, rau=0.3)
     LICHTER.append(dict(art='tageslicht', pos=list(m + Vector((25, 40, 650))), ziel=list(m), kraft=0.7))
+    # Lauf 1 (Pruefer: kein Spalt, kein Tageslicht von oben zu sehen): Lichtsaeule aus dem Dunkel bis zum Boden (Strahl_…, gebiet.gd:
+    # durchscheinend, leuchtet tags); oben ein heller Spalt
+    S = part('Strahl_' + stueck(c, r))
+    for k in range(3):
+        rr = 34 - 9 * k
+        zylinder(S, m + Vector((6 * k, 4 * k, 0)), rr, 520, 10, (1.0, 0.97, 0.88), 'weiss', r2=rr * 0.55, deckel=False)
+    H = part('Himmel_Spalt')
+    klumpen(H, m + Vector((25, 40, 525)), 30, (0.95, 0.97, 1.0), 'weiss', seed=c, squash=0.2, rau=0.5)
 
 def ausgang():
     """Ausgang (CAVE_EXIT) zum Wald: Tageslicht faellt von draussen herein (alt EXIT FFF4D8 3,4 Kacheln), nachts Mond"""
     if not MUND: return
     x = (tx(min(MUND)) + tx(max(MUND) + 1)) / 2
-    LICHTER.append(dict(art='tuer', pos=[x, ty(NR + 2), 260], ziel=[x, ty(NR - 3), 0], kraft=0.9))
+    # Lauf 1 (Pruefer: Lichtfleck ohne Quelle, Ausgang nicht zu sehen): Licht mit Schatten (faellt nicht durch den Fels in andere
+    # Raeume), dazu draussen hell der Ausblick: Himmel_… leuchtet tags (gebiet.gd), nachts nur schwach
+    LICHTER.append(dict(art='tageslicht', pos=[x, ty(NR + 3), 300], ziel=[x, ty(NR - 2), 0], kraft=0.8))
+    H = part('Himmel_Ausgang')
+    y = ty(NR + 2)
+    for k in range(6):
+        x0 = tx(min(MUND)) - 60 + (TS * len(MUND) + 120) * k / 6; x1 = tx(min(MUND)) - 60 + (TS * len(MUND) + 120) * (k + 1) / 6
+        quad(H, Vector((x0, y, -5)), Vector((x1, y, -5)), Vector((x1, y, 330)), Vector((x0, y, 330)),
+             lambda q, nn: mixc(lin(0x6E8A4A), lin(0xD8E4C8), ss(20, 300, q.z)), 'weiss', Vector((0, 1, 0)))
     P = part('Ding_' + stueck(MUND[0], NR - 1))
     for k in range(10):                                                                       # Laub, vom Wind hereingeweht
         p = Vector((x + (h1(k, 1, 161) - 0.5) * 200, ty(NR - 1) - TS * (0.2 + 1.8 * h1(k, 2, 162)), 0.8))
-        klumpen(P, p, 5 + 4 * h1(k, 3, 163), lambda q, nn: mixc(lin(0x5A4A20), lin(0x3E4A2A), vn(q.x / 7, q.y / 7, 164)), 'stoff', seed=k, squash=0.1, n=6, lagen=3)
+        klumpen(P, p, 5 + 4 * h1(k, 3, 163), lambda q, nn: mixc(lin(0x5A4A20), lin(0x56643A), vn(q.x / 7, q.y / 7, 164)), 'weiss', seed=k, squash=0.1, n=6, lagen=3)
 
 DINGE = {'t': fackel, 'G': kristalle, 'i': tropfstein, '%': geroell, 'j': knochen, 'u': kisten, 'e': schlaflager, 'C': truhe,
          'g': pilze, 'F': lagerfeuer, '*': lichtschacht}

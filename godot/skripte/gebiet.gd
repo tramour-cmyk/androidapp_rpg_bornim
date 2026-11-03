@@ -29,6 +29,7 @@ var kraut_netz: MeshInstance3D        # 490 Vorlage des Heilkrauts (dorf.py „K
 var kraeuter := {}                    # Vector2i -> MeshInstance3D
 var feuer: Array = []                 # 490 Lagerfeuer: {licht, flammen, rauch, basis}
 var glut: Array[ShaderMaterial] = []  # 490 Glut im Feuer
+var himmel: Array[StandardMaterial3D] = []   # 492 Ausblick, Spalt und Lichtstrahl der Hoehle
 
 func _init(k: Karte) -> void:
 	karte = k
@@ -246,13 +247,27 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 					g.durchsicht(m)
 				if g and nm.contains("Glas"): g.glas.append(m)
 				if rn.begins_with("leucht"):   # 492 Hoehle: Kristalle violett, Leuchtpilze tuerkis (alt MapCave crystal, cap), Tag und Nacht
-					m.set_shader_parameter("glow", 0.55)
+					m.set_shader_parameter("glow", 0.3)   # Lauf 1 (Pruefer: Kristalle weiss statt violett): 0,55 war zu viel
 					m.set_shader_parameter("glow_col", Vector3(0.69, 0.53, 1.0) if rn.contains("kristall") else Vector3(0.38, 0.91, 0.85))
 				if rn.begins_with("glut"):   # 490 Glut im Lagerfeuer: leuchtet von selbst, nachts staerker (nacht())
 					m.set_shader_parameter("glow", 0.6)
 					m.set_shader_parameter("glow_col", Vector3(1.0, 0.45, 0.15))
 					if g: g.glut.append(m)
 			mi.set_surface_override_material(i, m)
+		# 492 Hoehle (Lauf 1, Pruefer: Ausgang und Lichtschacht ohne sichtbare Quelle): Ausblick und Spalt leuchten (Himmel_…), der
+		# Lichtstrahl ist durchscheinend (Strahl_…); beide tags hell, nachts schwach (nacht())
+		if g and (nm.begins_with("Himmel") or nm.begins_with("Strahl")):
+			var sm := StandardMaterial3D.new()
+			sm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+			sm.vertex_color_use_as_albedo = true
+			if nm.begins_with("Strahl"):
+				sm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+				sm.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
+				sm.cull_mode = BaseMaterial3D.CULL_DISABLED
+				sm.albedo_color = Color(1, 1, 1, 0.05)
+			mi.material_override = sm
+			mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+			g.himmel.append(sm)
 	for c in n.get_children(): male(c, g, mark, aus)
 
 func nacht(k: float) -> void:
@@ -260,6 +275,10 @@ func nacht(k: float) -> void:
 	# 348.9: nachts wie alt geeicht (Laternen, Fenster, Lichtinseln am Boden kleiner; alt p90 46)
 	for o in lampen: o.light_energy = 1.4 * k   # 348.6: alt nur ein kleiner Hof um die Laterne (Helfer: neu 4-mal zu hell, zu weit)
 	for m in glut: m.set_shader_parameter("glow", 1.0 if info.get("hoehle", false) else 0.35 + 0.65 * k)   # 492: in der Hoehle ist immer Nacht
+	for m in himmel:   # 492: tags hell, nachts Mond (alt SKYLIGHT, CAVE_EXIT: When.SUN / When.MOON)
+		var hell := lerpf(1.0, 0.18, k)
+		if m.transparency == BaseMaterial3D.TRANSPARENCY_DISABLED: m.albedo_color = Color(hell, hell, hell * lerpf(1.0, 1.4, k))
+		else: m.albedo_color = Color(1, 1, 1, lerpf(0.06, 0.015, k))
 	for f in feuer: f["basis"] = 0.5 + 1.6 * k   # 490: Garricks Feuer, nachts die einzige warme Insel (LISTE-UMZUG-348 Stimmung)
 	for m in glas: m.set_shader_parameter("glow", 0.5 * k)
 	if wasser: wasser.set_shader_parameter("night", k)
