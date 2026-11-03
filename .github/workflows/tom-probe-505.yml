@@ -4,6 +4,7 @@ name: Tom Probe Nebel (505)
 # Leute, Kampfort, Kaufmodelle), Skripte und Tests (nebel_505), dann --nebel (Fassung A und B, Stufen beschriftet, Karte im Menue).
 # Nur bei Commits, die mit „505 Nebelbilder“ beginnen (der Haken probelauf.py zaehlt den Push); Kaufmodelle nur ueber diesen Ablauf, Lauf 41681959813 verlor den Rechner nach 4 min (ohne Protokoll), Lauf nach Freigabe 20:20 ohne Codeaenderung.
 # ins Artefakt nur Bilder (348.12c a). Lauf 41673918432 brach beim CC0-Download ab (curl 18), Laden jetzt mit Wiederholung.
+# Lauf 41704330009 (Prüfer 21:28): Wald ohne Bäume, Ursache 518 (toon.gdshader setzte POSITION nur am Helden), behoben 1b8dca04e.
 on:
   push:
     branches: ["claude/spike-505-**"]
