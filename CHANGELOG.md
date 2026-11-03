@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Build 204 auf `main` (Chef 03.11., 07:45 freigegeben; PR #178, 8b4a254b6):** Erschaffung nach BRS im Testmenü (470, Tom); Vergleich im Laden als Tabelle (416.9), Thessa dreht sich zum Helden (416.8, gleitet noch), Platzwechsel mit der Ziege (416.2); Preise und Beute aus dem Gegenstandskatalog (458.2, Jerry); im Hintergrund Monsterwerte nach BRS (473) und Heldenstufe aus Erfahrung (472). Strahlenprobe 415 nicht bestanden, kommt mit Build 214.
+
 - **Build 146 auf `main` (Chef 02.11., 10:52 freigegeben; PR #177, 183efabd7):** Godot-Fassung mit Tasten, die beim ersten Tippen wirken, und Android-Zurück, das nur das oberste Fenster schließt (416.1); Menüs mit Zeichen statt Text wie in der alten Fassung (425); oben Rand für die Handykamera auf allen Schirmen (399.4); dazu Platzwechsel mit Leuten (416.2), Aktionsknopf am Tresen (416.7), Zuwenden der Leute (416.8), Laden mit allen Plätzen (416.9), Kampflog schließt (416.5), Blende vor dem Kampf (402), Tierlaute (401), Rudel (399.2b). Anmerkungen des Chefs laufen weiter: Zuwenden schneller (416.8), Vergleichstabelle im Laden (416.9), Platztausch mit der Ziege (416.2), Gesichter der Leute (475).
 
 - **447.3 (Perikles, Archiv 447; Werkzeug ohne Gerätetest auf `main` wie 444a):** Simulation 444 rechnet die Wirtschaft (Stufe 3): Gold und Beute, Zerlegen mit Jagd, Abnutzung und Reparatur, Tränke kaufen, brauen, trinken, Tiere beruhigen; Zahlen im Block `wirtschaft` von `werte.json`, Ergebnis und Befund in `docs/LISTE-SIMULATION-444.md` Abschnitt 5; Abschnitte 1–4 unverändert.
