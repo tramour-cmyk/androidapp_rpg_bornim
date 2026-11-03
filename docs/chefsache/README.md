@@ -73,7 +73,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | wartet auf Tom |
 | 455.1 | M | von Sokrates (Chef 01.11., 11:24, „Abzug von … unterschiedlichen Roben, Umhängen oder Stie | wartet auf Tom |
 | 463 | M | von Sokrates (Chef 01.11., 20:3x, Zu 463): Umhang und lange Robe geschlossen: eine Ursache | Chef |
-| 470 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.1 Erschaffung: sechs Grundwerte, 21 P | wartet auf Test/Build (gebaut) |
+| 470 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.1 Erschaffung: sechs Grundwerte, 21 P | wartet auf Test (Build) |
 | 470.1 | K | von Sokrates (Idee Chef 02.11., 18:37: Held in der Erschaffung „auf Klick groß … damit man | wartet auf 431e (Chef) |
 | 471 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.2 Fertigkeiten durch Tun, vier Ränge, | wartet auf Test/Build (gebaut) |
 | 474 | M? | von Team Jerry (Tuffy, 02.11., 02:4x; aus 399.1a): Debug-Schlüssel nur im Cache, verdrängt | ruht |
