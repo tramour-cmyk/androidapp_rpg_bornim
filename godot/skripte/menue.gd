@@ -286,18 +286,14 @@ func erklaere(a: String) -> void:
 func frage_verteilen() -> void:
 	var de := Sprache.aktiv() == "de"
 	var d := Heldwerte.lade()
-	var schleier := ColorRect.new()
-	schleier.color = Color(0, 0, 0, 0.82)
-	schleier.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(schleier)
-	Zurueck.melde(schleier, func(): schleier.queue_free())   # 416.1: Android-Zurück wie „Abbrechen“
+	var schleier := Rueckfrage.schleier(self)   # 526: Tippen daneben und Android-Zurück wie „Abbrechen“ (416.1)
 	var mitte := CenterContainer.new()
 	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	schleier.add_child(mitte)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(8 * DP))
 	v.custom_minimum_size.x = get_viewport_rect().size.x - 48 * DP
-	mitte.add_child(Erschaffung.kasten(v))
+	mitte.add_child(Rueckfrage.halte(Erschaffung.kasten(v)))
 	v.add_child(Stil.zeile(("Punkte verteilen?" if de else "Spend points?").to_upper(), 14, Stil.GOLD, 3.0))
 	for a in geplant:
 		v.add_child(Erschaffung.txt("%s: %d → %d" % [Sprache.t(d["attribute"][a]["name"]), hw.wert(a), hw.wert(a) + int(geplant[a])], 17))
@@ -379,18 +375,14 @@ func tippbar(c: Control, was: Callable) -> void:
 
 # DialogSpec: Titel in der Farbe des Dings, Zeilen, Knoepfe [Text, Tat, an]; jeder Knopf schliesst erst den Kasten
 func dialog(titel: String, farbe: Color, zeilen: Array, knoepfe: Array) -> Control:
-	var schleier := ColorRect.new()
-	schleier.color = Color(0, 0, 0, 0.82)
-	schleier.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(schleier)
-	Zurueck.melde(schleier, func(): schleier.queue_free())   # 416.1: Android-Zurück wie „Abbrechen“
+	var schleier := Rueckfrage.schleier(self)   # 526: Tippen daneben und Android-Zurück wie „Abbrechen“ (416.1)
 	var mitte := CenterContainer.new()
 	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	schleier.add_child(mitte)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(8 * DP))
 	v.custom_minimum_size.x = get_viewport_rect().size.x - 48 * DP
-	mitte.add_child(Erschaffung.kasten(v))
+	mitte.add_child(Rueckfrage.halte(Erschaffung.kasten(v)))
 	v.add_child(Stil.zeile(titel.to_upper(), 14, farbe, 3.0))
 	for c in zeilen: v.add_child(c)
 	# 503 (Chef 03.11., 07:40, „genau wie alt“): ConfirmDialog (Dialogs.kt 86–104): weitere Knoepfe nebeneinander in einer Reihe,
