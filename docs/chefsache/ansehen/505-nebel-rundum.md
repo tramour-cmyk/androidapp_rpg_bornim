@@ -1,5 +1,7 @@
 # 505 · Nebel im Wald: Sicht rundum eingebaut · Team Tom (Spike) · 03.11., 11:24
 
+[Bild von 03.11., 11:24](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/03-1124-505-Spike.png) (eingetragen von meldung.sh, Spike)
+
 W Welt
 Kurz: Sicht rundum (Chef 10:08 „505 C“), Kanten weich, Lauf 1 von 2 nach dem Urteil
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41613223081 (Lauf 1, Commit 697fbe7a5)
