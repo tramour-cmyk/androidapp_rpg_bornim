@@ -33,7 +33,7 @@ Nichts offen.
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.348.221](ansehen/t221-build-496a.md) | [Build 221](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41600865079/artifacts/13216458791) | Grundstand Kampf, Strahlenprobe 415, Klangschalter 489 | Tom und Jerry | 03.11., 09:57 |
+| 1 | [0.348.245](ansehen/t245-build-496a.md) | [Build 245](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41638592828/artifacts/13233169355) | Grundstand Kampf, Waffen in der Hand (417), Strahlenprobe 415, Klangschalter 489 | Tom und Jerry | 03.11., 14:31 |
 
 ## Zu tun
 
@@ -130,7 +130,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 38587 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Jerry** – offen 60, Muss 48, startbar 7
+**Jerry** – offen 60, Muss 48, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -161,7 +161,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 509 | M | von Sokrates (Chef 03.11., 09:21, „glaube ich, habe ich gesehen, dass Frösche und Libellen | startbar |
 | 494 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Gegner von Kapitel 1 im Kampf (Liste und St | startbar |
 | 507 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; aus 492): Kampforte Höhle wie alt: Eingang, | startbar |
-| 496a | M | Rückfrage: abgenommene Kampfbilder (Grundstand 461) schon in den Durchspiel-Build? | startbar |
+| 496a | M | Rückfrage: abgenommene Kampfbilder (Grundstand 461) schon in den Durchspiel-Build? | wartet auf Test (Build) |
 | 496 | M | von Perikles (Wochenziel 03.11. Reihe 5, 488): Durchspiel-Build aus 490–495: der Chef spie | wartet auf 490 (Chef) |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | wartet auf Test/Build (gebaut) |
