@@ -9,8 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [511](entscheiden/511-film-vorpruefung.md) | **Muss** | B Werkzeuge | 03.11., 13:50 | Heute sind 6 von 6 Film-Vorgängen der Teams kaputt beim Chef angekommen; Ursache ist immer dieselbe: erst nach dem teuren Lauf hingesehen. | Sokrates |
-| [509a](entscheiden/509a-dritter-lauf.md) | **Muss** | E Klang | 03.11., 11:02 | Der Teichfilm aus Lauf 228 zeigt nur Logo und Hauptmenü; ein dritter Lauf? | Jerry |
-| [494a](entscheiden/494a-dritter-lauf.md) | **Muss** | E Kampf | 03.11., 10:59 | Beide Läufe zu 494 brachen beim Bauen ab, es gibt keinen Film; ein dritter Lauf? | Jerry |
 | [348.12c](entscheiden/34812c-gegner-kauf.md) | **Muss** | G Geld | 03.11., 08:56 | Für 6 der 18 Gegner von Kapitel 1 haben wir kein Modell; der Warenkorb vom 27.10. deckt genau diese sechs. | Sokrates |
 | [427.2a](entscheiden/4272a-zweites-rauchbuendel.md) | **Muss** | D Design | 03.11., 08:14 | Zweites Rauchbündel nach einer Niederlage gegen Krogg? | Homer |
 | [447.4](entscheiden/4474-lehrmeister.md) | **Muss** | C Texte | 03.11., 08:09 | Lehrmeister fragen nach „Noch nicht“ noch einmal? Wechsel als Anwärter in Kapitel 1 ohne Verlust? | Homer |
@@ -25,14 +23,10 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [406.2a](ansehen/4062a-rennen.md) | Angriff im Rennen wie im Dorf, drei Waffen (Film, Lauf 2 von 2) | – | 03.11., 13:22 |
-| [416.6](ansehen/4166-staubfilm.md) | Staub beim Rennen auf trockenem Weg (Film, Lauf 2 von 2) | – | 03.11., 11:03 |
 | [490](ansehen/490-fluesterwald.md) | Flüsterwald begehbar wie alt: Standbilder aus Sicht des Helden | – | 03.11., 08:58 |
 | [491](ansehen/491-tiefer-wald.md) | Tiefer Flüsterwald begehbar wie alt: Standbilder aus Sicht des Helden | – | 03.11., 10:05 |
 | [493](ansehen/493-kampforte-wald.md) | Kampforte im Wald wie alt: Lichtung, Waldrand, Teich, Baum, Felsen, Steinkreis | – | 03.11., 10:37 |
 | [505](ansehen/505-nebel-rundum.md) | Nebel im Wald: Sicht rundum eingebaut | – | 03.11., 11:24 |
-| [506](ansehen/506-skelette.md) | Skelette im Kampf: Film, Skelette fehlen im Bild | – | 03.11., 12:45 |
-| [509](ansehen/509-teichfilm.md) | Frösche und Libellen am Teich (Film, Lauf 2 von 2) | – | 03.11., 11:03 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -64,7 +58,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 66, Muss 47, startbar 13
+**Tom** – offen 66, Muss 47, startbar 14
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -73,7 +67,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 491 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Tiefer Flüsterwald begehbar w | Chef |
 | 505 | M | von Perikles (Archiv 502, Chef 03.11., 07:30, Zu 502 in ARBEIT-PROJEKT): Nebel des Krieges | Chef |
 | 493 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; Spike, von Jerry übernommen, Chef 07:54): Ka | Chef |
-| 506 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; Spike, aus 494): Untote im Kampf: Skelett, Z | Chef |
+| 506 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; Spike, aus 494): Untote im Kampf: Skelett, Z | startbar |
 | 492 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; Tom, von Jerry übernommen, Chef 07:54): Blut | startbar |
 | 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | wartet auf Sokrates |
 | 417 | M | von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“): Tragart je Waffenklasse (Zu 417), | startbar |
@@ -135,7 +129,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 37739 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Jerry** – offen 63, Muss 51, startbar 6
+**Jerry** – offen 63, Muss 51, startbar 11
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -151,7 +145,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 438a | M | von Sokrates (Archiv 438a): Hinfallen/Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe | ruht |
 | 439 | M | von Sokrates (Archiv 438): Reihenfolge Angriff, Treffer, Tod, Neuformation | wartet auf Test (Build) |
 | 440 | M | von Sokrates (Archiv 438): Wolf-Tod zu schnell weg | wartet auf Test (Build) |
-| 416.6 | M | von Sokrates (Chef 31.10., 20:4x; M seit Chef 03.11., 07:31 „Blutspuren in der Welt bitte | Chef |
+| 416.6 | M | von Sokrates (Chef 31.10., 20:4x; M seit Chef 03.11., 07:31 „Blutspuren in der Welt bitte | startbar |
 | 415 | M | von Sokrates („jetzt“ 02.11., 22:05, Chef: „415d muss ins nächste Build“; Archiv 415): Pro | wartet auf Test (Build) |
 | 399.2 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv): Kampfort aufrufbar | wartet auf Test (Build) |
 | 403 | M | von Team Tom (Archiv 403): Kampfort: Held je Klasse wie im Dorf | wartet auf Test (Build) |
@@ -159,14 +153,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 460 | M | von Sokrates (Chef 01.11., 20:2x, Archiv 460): Probefilm Kamerafahrten: Eröffnung je Blend | ruht |
 | 406.1 | M | von Sokrates (Archiv 406.1): Schildstoß ins MARS/BRS, Bau mit ShieldAttack1–3S&S | wartet auf 481 (startbar) |
 | 489 | M | von Sokrates (Chef 03.11., 07:07, Test Build 204; Zu 489): Hauptmenü: Schalter Musik und E | wartet auf Test (Build) |
-| 406.2a | M | von Sokrates (Chef 03.11., 09:03, Archiv 406.2a; „jetzt“ 03.11., 09:03): Angriffsweg im Ka | Chef |
+| 406.2a | M | von Sokrates (Chef 03.11., 09:03, Archiv 406.2a; „jetzt“ 03.11., 09:03): Angriffsweg im Ka | startbar |
 | 406.2 | M | von Sokrates (Chef 03.11., 06:59, Zu 406.2; „jetzt“ 03.11., 06:59): im Kampf zum Angriff g | wartet auf Test/Build (gebaut) |
 | 406 | M | von Team Tom (Archiv 376.1): Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Son | wartet auf Test (Build) |
 | 510 | M | von Sokrates (Chef 03.11., 10:28–10:57, aus 494, „ein Lauf“): Fledermaus: freies Modell OG | startbar |
-| 509 | M | von Sokrates (Chef 03.11., 09:21, „glaube ich, habe ich gesehen, dass Frösche und Libellen | Chef |
-| 494 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Gegner von Kapitel 1 im Kampf (Liste und St | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
-| 509a | M | Rückfrage: dritter Lauf für den Teichfilm (Lauf 228 zeigt nur das Hauptmenü) | Chef (Datei in der Chefsache) |
-| 494a | M | Rückfrage: dritter Lauf für Wildschwein und Hundertfüßer (Läufe 225, 229 brachen beim Bau | Chef (Datei in der Chefsache) |
+| 509 | M | von Sokrates (Chef 03.11., 09:21, „glaube ich, habe ich gesehen, dass Frösche und Libellen | startbar |
+| 494 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Gegner von Kapitel 1 im Kampf (Liste und St | startbar |
+| 509a | M | Rückfrage: dritter Lauf für den Teichfilm (Lauf 228 zeigt nur das Hauptmenü) | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
+| 494a | M | Rückfrage: dritter Lauf für Wildschwein und Hundertfüßer (Läufe 225, 229 brachen beim Bau | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 510a | M | Rückfrage: zweiter Lauf für den Fledermaus-Vergleich (Lauf 235: freies Modell leer) | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 507 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; aus 492): Kampforte Höhle wie alt: Eingang, | startbar |
 | 496a | M | Rückfrage: abgenommene Kampfbilder (Grundstand 461) schon in den Durchspiel-Build? | startbar |
@@ -299,8 +293,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 510a (Team Jerry)
-
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/4062a-rennen.md, ansehen/4166-staubfilm.md, ansehen/509-teichfilm.md
 
 Ohne Datei: 3402 (Projekt), 275 (Projekt)
 
