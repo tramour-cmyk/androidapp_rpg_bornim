@@ -10,6 +10,9 @@ extends Node
 
 const Probe = preload("res://kampf/probe.gd")
 const STRAHLEN := [["laser_blue", "Blauer Laser"], ["fire_stream", "Feuerstrom"], ["lightning_arc", "Blitzbogen"]]
+## Chef 03.11., 23:05 „Jerry soll ohne Strahlen messen“: vor jeder Runde dieselbe Stelle ohne Strahl (gleiche Zauberbewegung, gleiche
+## Dauer, kein Strahl), Mittel als Vergleich je Renderer; nicht im Film
+const OHNE := ["", "Ohne Strahl"]
 ## r4 (Tor 461a, Lauf 181: alle Strahlen am Schirm über dem grauen Wolf, im Raum 0,4–1,1 m an jedem Körper vorbei): halbe Breite je
 ## Strahl in m (Feuerstrom breit, Blitz mit Seitenästen bis an den Kopf des Söldners)
 const HALB := {"laser_blue": 0.05, "fire_stream": 0.3, "lightning_arc": 0.35}
@@ -82,7 +85,7 @@ func _lauf() -> void:
 	await _bis_still()
 	await _kampf_ruht()
 	while true:
-		for s in STRAHLEN:
+		for s in ([] if film else [OHNE]) + STRAHLEN:
 			await _feuer(s[0], s[1])
 			await get_tree().create_timer(PAUSE_S).timeout
 		if film:
@@ -156,6 +159,13 @@ func _feuer(art: String, name_: String) -> void:
 	_drehen((w.global_position - held.global_position).rotated(Vector3.UP, deg_to_rad(dreh_grad)))
 	held._play("Ausholen")
 	await get_tree().create_timer(AUSHOLEN_S).timeout
+	if art == "":     # ohne Strahl: dieselbe Zeit messen, nichts zeichnen
+		await get_tree().create_timer(STRAHL_S + 0.8).timeout
+		jetzt = ""
+		wolf_jetzt = null
+		_drehen(Vector3.ZERO)
+		held._idle()
+		return
 	strahl = (load(PFAD % art) as PackedScene).instantiate()
 	strahl.auto_raycast = false
 	strahl.target = ziel
@@ -238,7 +248,7 @@ func _process(_dt: float) -> void:
 		lb.text = z[0]
 		return
 	z.append("%d Bilder/s · Renderer %s" % [fps, RenderingServer.get_current_rendering_method()])
-	for s in STRAHLEN:
+	for s in [OHNE] + STRAHLEN:
 		if mittel.has(s[1]):
 			z.append("%s: Mittel %.0f Bilder/s" % [s[1], mittel[s[1]][0] / maxf(mittel[s[1]][1], 1)])
 	lb.text = "\n".join(z)
