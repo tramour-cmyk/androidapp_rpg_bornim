@@ -45,10 +45,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 74, Muss 52, startbar 14
+**Tom** – offen 75, Muss 53, startbar 15
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 520 | M | von Sokrates (Chef 03.11., 23:19, Build 249, Bild; Zu 520): Ausrüstung: „Warum ist der Hel | startbar |
 | 519 | M | von Sokrates (Chef 03.11., 23:13, Build 249, Bild): Ausrüstung, Fenster eines Gegenstands | startbar |
 | 518 | M | von Sokrates (Chef 03.11., 20:47, Build 248, Bild): Dorf leer: keine Häuser, nur Wege und | wartet auf Test (Build) |
 | 490 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488): Flüsterwald begehbar wie alt (Story.kt:524, | wartet auf Test (Build) |
