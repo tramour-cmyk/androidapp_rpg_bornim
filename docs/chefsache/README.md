@@ -19,7 +19,6 @@ Nichts offen.
 | [406](ansehen/406-schildfilm.md) | Schildfilm nach der Änderung an der Schildhand | Jerry | 03.11., 02:28 |
 | [417](ansehen/417-dorf-film.md) | Dorf-Film: Kämpfer mit Schwert in der Hand, Schild auf dem Rücken | Tom | 03.11., 00:13 |
 | [447.4](ansehen/4474-lehrmeister-texte.md) | Texte Lehrmeister und Ruf, Kapitel 1 | Homer | 01.11., 20:51 |
-| [463](ansehen/463-umhang-robe.md) | Umhang und Robe geschlossen, letzter Lauf (eingefroren) | Tom | 02.11., 22:59 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -54,7 +53,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 52, Muss 33, startbar 3
+**Tom** – offen 52, Muss 33, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -69,7 +68,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 410 | M | von Sokrates (Chef 29.10., 10:52, 11:40; aus 376.1): Waffen am Körper wegstecken, alle Waf | ruht |
 | 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | wartet auf Tom |
 | 455.1 | M | von Sokrates (Chef 01.11., 11:24, „Abzug von … unterschiedlichen Roben, Umhängen oder Stie | wartet auf Tom |
-| 463 | M | von Sokrates (Chef 01.11., 20:3x, Zu 463): Umhang und lange Robe geschlossen: eine Ursache | Chef |
+| 463 | M | von Sokrates (Chef 01.11., 20:3x, Zu 463): Umhang und lange Robe geschlossen: eine Ursache | startbar |
 | 470 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.1 Erschaffung: sechs Grundwerte, 21 P | wartet auf Test (Build) |
 | 470.1 | K | von Sokrates (Idee Chef 02.11., 18:37: Held in der Erschaffung „auf Klick groß … damit man | wartet auf 431e (Chef) |
 | 471 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.2 Fertigkeiten durch Tun, vier Ränge, | wartet auf Test/Build (gebaut) |
@@ -141,7 +140,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 406 | M | von Team Tom (Archiv 376.1): Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Son | Chef |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | wartet auf Test/Build (gebaut) |
-| 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | wartet auf 463 (Chef) |
+| 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | wartet auf 463 (startbar) |
 | 385.2 | M | von Chef (Archiv 385.1): Feuer aus dem Stab | ruht |
 | 348.13a | M | von Team Tom (Chef 08:09, Archiv: r9 ja): Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13 | wartet auf Test/Build (gebaut) |
 | 397 | M | von Chef: Tiere, Monster mind. drei Ruhebewegungen | ruht |
@@ -268,7 +267,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 407 (Projekt)
 
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/406-schildfilm.md, ansehen/417-dorf-film.md, ansehen/4474-lehrmeister-texte.md, ansehen/463-umhang-robe.md
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/406-schildfilm.md, ansehen/417-dorf-film.md, ansehen/4474-lehrmeister-texte.md
 
 Ohne Datei: 3402 (Projekt), 275 (Projekt)
 
