@@ -10,10 +10,22 @@ uniform float cut_on = 0.0;        // Durchsicht (DESIGN-STIL „Karte und Räum
 uniform vec3 cut_pos = vec3(0.0);  // Brust des Helden
 uniform float cut_ab = 0.0;        // Rinde: erst ab dieser Hoehe (Stamm in der Krone), Laub: ganz
 uniform vec3 glow_col : source_color = vec3(1.0, 0.72, 0.38);          // Glas: nachts leuchtend
+uniform float vorrang = 0.0;       // 463 wie shader/toon.gdshader: Umhang (UV2.x > 0,5) so viele Meter zur Kamera
+uniform float rueck = 0.0;         // 463: Rueckseiten (Normale von der Kamera weg) so viele Meter laengs des Blickstrahls zurueck; Lagen in Falten
+uniform float nach = 0.0;          // 463: Aermel (UV2.y > 0,5, held_klassen.py vorrang_marke) so viele Meter zurueck; verlieren gegen Umhang und Kette
 uniform float weg = 0.0;           // 348.7: Ausblenden des Toten (0 da, 1 weg), als Raster, damit Tiefe und Tusche bleiben
 varying vec3 wpos;
 void vertex() {
 	wpos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	if (rueck > 0.0 || (nach > 0.0 && UV2.y > 0.5) || (vorrang > 0.0 && UV2.x > 0.5)) {   // laengs des Blickstrahls: Lage im Bild bleibt, nur die Tiefe
+		vec4 vv = MODELVIEW_MATRIX * vec4(VERTEX, 1.0);
+		vec3 blick = PROJECTION_MATRIX[3][3] > 0.5 ? vec3(0.0, 0.0, -1.0) : normalize(vv.xyz);   // Dorf orthogonal (kamera.gd), Kampfort perspektivisch
+		if (vorrang > 0.0 && UV2.x > 0.5) vv.xyz -= blick * vorrang;
+		// 463 (pruef_flecken RUECK): Innenseite einer Lage verliert gegen eine Vorderseite bis rueck dahinter; Vorderseiten bleiben
+		if (rueck > 0.0) vv.xyz += blick * rueck * smoothstep(0.0, 0.2, dot(normalize((MODELVIEW_MATRIX * vec4(NORMAL, 0.0)).xyz), blick));
+		if (nach > 0.0 && UV2.y > 0.5) vv.xyz += blick * nach;
+		POSITION = PROJECTION_MATRIX * vv;
+	}
 	if (sway > 0.0) {
 		float h = clamp((wpos.y - 1.6) / 2.5, 0.0, 1.0);
 		float t = TIME * 1.3 + wpos.x * 0.35 + wpos.z * 0.27;
