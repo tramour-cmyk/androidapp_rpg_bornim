@@ -116,7 +116,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 24515 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 62, Muss 50, startbar 7
+**Jerry** – offen 61, Muss 49, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -170,7 +170,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 296.3 | K | von Sokrates: MARS-Schmuck (Todesschrei, Siegerpose …) | ruht |
 | 344.2 | K | von Sokrates: Kampf mit der Fackel | ruht |
 | 168.1 | K | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab 3 | wartet auf 38 (ruht) |
-| D23.3 | M | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte | ruht |
 | 133 | K | Umsetzung 133: Charisma-Proben, Erfahrung für Konflikte | ruht |
 | 212 | M | Umsetzung 212: Schalter MARS oder klassisch | ruht |
