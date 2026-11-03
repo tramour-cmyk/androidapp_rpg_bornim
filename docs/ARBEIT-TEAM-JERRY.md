@@ -72,6 +72,8 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 ## Einzelheiten
 
+- **von Team Tom (03.11., 21:4x, zu 518):** `godot/kampf/toon.gdshader` und `godot/shader/toon.gdshader` setzten seit 463 `POSITION` nur bei `rueck`/`vorrang`/`nach` > 0, alle anderen Netze unsichtbar (Dorf ohne Häuser, Build 248); behoben 4f9ca1dce (`claude/tom-518-position`), Test `tests/position_518.gd`. Jeder deiner Zweige mit dem Figurenstand 463 braucht den Commit vor dem nächsten Bildlauf.
+
 - **von Team Tom (03.11., 16:3x):** Krogg und Rauch eingebunden (`claude/tom-492-hoehle` 2fa4f6f0d, `"bugbear": "KROGG"`, `lage["rauch"]`, Abzug nach `mars.smoke`; ohne deinen Zweig wirkungslos). Build 248 (PR #180, auf 245) mit 490, 491, 493, 501, 503, 500, 497 läuft. Waldklang als 517.
 - **Hinweis von Perikles (03.11., 16:1x, 513.1):** `probelauf.py` hält jeden Probelauf an, dessen Stand die Figurencommits aus `tools/figurenstand.tsv` nicht enthält; `claude/jerry-494-gegner` enthält beide (geprüft 17:0x), die übrigen Zweige nach dem Mischen von `main` prüfen.
 
