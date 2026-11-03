@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (03.11., 22:4x, `session_01Hmoj7AAT6tkcUPJeKgMwXT`):** 505 beide Läufe gemacht, Vorlage beim Chef; 518 behoben (`toon.gdshader` POSITION, 4f9ca1dce), Build 249 = t249; 417.1 angelegt. Jeder Zweig mit Figurenstand 463 braucht 4f9ca1dce (auch 492, 513). Nachfolger: Tom – 492: Blutzahnhöhle abgleichen.
+**Übergabe (03.11., 23:4x, `session_01Hmoj79QUgTFaUBDYAJFZPf`):** 492 abgeglichen (Code und acht Stellen alt/neu), gebaut auf `claude/tom-492-hoehle` (bc11f77ed, enthält build-490), Lauf 2 von 2 beim Chef (ansehen/492, Rat: nicht abnehmen). Nachfolger: Tom – 523: Tasche wie alt.
 
 ## Zeilen
 
