@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [503a](entscheiden/503a-laden-rueckfrage.md) | **Muss** | E Oberfläche | 04.11., 00:08 | Am Rechner mit echtem Antippen nachgestellt (Rückfragen an): Der Knopf „Gewöhnliche verkaufen“ unter „Ausrüstung“ fragt „Alle gewöhnlichen verkaufen?“ und verkauft vorher nichts. Ohne Rückfrage verkauft das Spiel, wie die alte Fassung, einen einzelnen Gegenstand unter „selten“ (Gegenstand antippen, dann „Verkaufen“); gefragt wird dort erst ab „selten“. | Team Tom (Spike) |
 | [532a](entscheiden/532a-kampf-tasche-metrausch.md) | **Muss** | E Kampf | 03.11., 23:53 | Im Kampf gibt es nur den einfachen Heiltrank; Metrausch wirkt dort nicht. Beides gab es nur im alten klassischen Kampf, nie im MARS. | Team Jerry |
 
 ## Zu billigen
@@ -51,14 +52,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 93, Muss 71, startbar 29
+**Tom** – offen 92, Muss 70, startbar 28
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 531 | M | von Sokrates (Chef 03.11., 23:42, Build 249; Zu 531): Garrick: „Gesicht wirkt sonderbar, B | startbar |
 | 530 | M | von Sokrates (Chef 03.11., 23:40, Build 249): „Schlagbaum öffnet sich nicht visuell.“ Merk | wartet auf Test/Build (gebaut) |
 | 522 | M | von Sokrates (Chef 03.11., 23:33, Build 249; Zu 522): „im Testmenü Ausrüstung des Helden g | wartet auf Test/Build (gebaut) |
-| 521 | M | von Sokrates (Chef 03.11., 23:23, Build 249, Bild; Zu 521): Wechselschirm (Platz antippen) | startbar |
+| 521 | M | von Sokrates (Chef 03.11., 23:23, Build 249, Bild; Zu 521): Wechselschirm (Platz antippen) | in Arbeit bei Spike |
 | 520 | M | von Sokrates (Chef 03.11., 23:19, Build 249, Bild; Zu 520): Ausrüstung: „Warum ist der Hel | wartet auf Test/Build (gebaut) |
 | 519 | M | von Sokrates (Chef 03.11., 23:13, Build 249, Bild): Ausrüstung, Fenster eines Gegenstands | wartet auf Test/Build (gebaut) |
 | 518 | M | von Sokrates (Chef 03.11., 20:47, Build 248, Bild): Dorf leer: keine Häuser, nur Wege und | wartet auf Test (Build) |
@@ -96,8 +97,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 410 | M | von Sokrates (Chef 29.10., 10:52, 11:40; aus 376.1): Waffen am Körper wegstecken, alle Waf | ruht |
 | 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | wartet auf Tom |
 | 455.1 | M | von Sokrates (Chef 01.11., 11:24, „Abzug von … unterschiedlichen Roben, Umhängen oder Stie | wartet auf Tom |
-| 503 | M | von Sokrates (Chef 03.11., 07:40, Build 204; Zu 503): Laden, Verkaufen: Knopf „Gewöhnliche | in Arbeit bei Spike |
-| 501 | M | von Sokrates (Chef 03.11., 07:26, Build 204; Zu 501): Schänke: Feuer im Kamin schwebt; Fla | wartet auf Test (Build) |
+| 503 | M | von Sokrates (Chef 03.11., 07:40, Build 204; Zu 503): Laden, Verkaufen: Knopf „Gewöhnliche | wartet auf Test (Build) |
 | 500 | M | von Sokrates (Chef 03.11., 07:24, Build 204; Zu 500): Probeknöpfe rechts in der Welt entfe | wartet auf Test (Build) |
 | 499 | M | von Sokrates (Chef 03.11., 07:14, Build 204; „jetzt“ 03.11., 07:14; Zu 499): Erschaffung: | startbar |
 | 513 | M | von Sokrates (Chef 03.11., 15:56, „513 B“, „jetzt“ 03.11., 15:56; Archiv): Figurenstand 41 | startbar |
