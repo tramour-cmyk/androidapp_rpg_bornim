@@ -52,9 +52,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 490 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Flüsterwald begehbar wie alt | startbar |
+| 490 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488): Flüsterwald begehbar wie alt (Story.kt:524, | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 495 | M | von Perikles (Wochenziel 03.11. Reihe 4, 488): Zufallsspieler spielt Kapitel 1 in Godot bi | Termin 04.11. |
-| 491 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Tiefer Flüsterwald begehbar w | startbar |
+| 491 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Tiefer Flüsterwald begehbar w | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 505 | M | von Perikles (Archiv 502, Chef 03.11., 07:30, Zu 502 in ARBEIT-PROJEKT): Nebel des Krieges | startbar |
 | 514 | M | von Sokrates (Chef 03.11., 16:01, zu 490: „Gibt es nachts vernünftige Glühwürmchen überall | startbar |
 | 515 | M? | von Sokrates (Chef 03.11., 16:07, zu 491: „3 bis 4 können auch halbwegs versteckt sein unt | startbar |
@@ -155,7 +155,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 494 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Gegner von Kapitel 1 im Kampf (Liste und St | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 507 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; aus 492): Kampforte Höhle wie alt: Eingang, | wartet auf Sokrates |
 | 496a | M | Rückfrage: abgenommene Kampfbilder (Grundstand 461) schon in den Durchspiel-Build? | wartet auf Test (Build) |
-| 496 | M | von Perikles (Wochenziel 03.11. Reihe 5, 488): Durchspiel-Build aus 490–495: der Chef spie | wartet auf 490 (startbar) |
+| 496 | M | von Perikles (Wochenziel 03.11. Reihe 5, 488): Durchspiel-Build aus 490–495: der Chef spie | wartet auf 490 (Chef) |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | wartet auf Test/Build (gebaut) |
 | 385.2 | M | von Chef (Archiv 385.1): Feuer aus dem Stab | ruht |
@@ -284,7 +284,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 348.12c (Beratung), 407 (Projekt), 477 (Team Tom)
+Nicht gestellt: 348.12c (Beratung), 407 (Projekt), 490 (Team Tom), 491 (Team Tom), 477 (Team Tom)
 
 Ohne Datei: 3402 (Projekt), 275 (Projekt), 26 (Team Tom)
 
