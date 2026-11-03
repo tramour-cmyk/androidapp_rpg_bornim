@@ -12,7 +12,6 @@ const Probe = preload("res://kampf/probe.gd")
 const Signatur = preload("res://kampf/signatur.gd")
 const FORMAT := Vector2(1080, 2340)
 const BLENDE_BILDER := 8
-const RAND_M := 1.9          # m quer im Bild neben Held und Wolf (Waffe, Schwanz, Rand)
 const ABSTAND := 4.4          # m vom Helden zum Wolf, deutlich über RUN_FROM (1,2 m)
 const WINKEL := [55.0, 40.0, 70.0]     # drei Anläufe schräg zur Seite: Weg quer im Bild der Spielkamera, Lichtung frei (film_406)
 const HELDEN := [
@@ -134,20 +133,18 @@ func _held(h: Dictionary) -> void:
 	wolf._face(held.home - wolf.position)
 	# Kamera aus Richtung der Spielkamera (dort ist die Lichtung frei, film_406), etwas zur Seite des Wegs gedreht: der Held rennt quer
 	# durchs Bild, Brust und Schild zur Kamera
+	# Lauf 237 (DIAG2): in der Spielrichtung zeichnen Wolf (487 Punkte), Schwert (284), Schild (245) mit; die Filmkamera 20° daneben
+	# aus 15 m sah Schwert und Schild kaum (11, 18 Punkte). Darum Richtung der Spielkamera, fov 30 und folgen wie film_406 (_folgen):
+	# so nah, dass Held und Wolf ganz im Bild sind (G1), Held groß; weiter weg sofort, näher langsam
 	var von: Vector3 = kf.cam.global_position - held.home
 	von.y = 0.0
-	von = von.normalized().rotated(Vector3.UP, deg_to_rad(-20.0))
+	von = von.normalized()
 	var cam := Camera3D.new()
 	kf.add_child(cam)
-	cam.fov = 40.0
-	var hfov := 2.0 * atan(tan(deg_to_rad(cam.fov) / 2.0) * FORMAT.x / FORMAT.y)
-	# so weit weg, dass Held und Wolf quer mit Rand ganz ins Bild passen (G1); kommt der Held näher, fährt sie mit heran (Helden groß)
-	var rechts := von.cross(Vector3.UP).normalized()
-	var abstand := func() -> float:
-		return clampf(absf((wolf.position - held.position).dot(rechts)) + RAND_M, 2.6, 5.2) / 2.0 / tan(hfov / 2.0)
-	var d_cam: float = abstand.call()
-	var mitte: Vector3 = held.position.lerp(wolf.position, 0.5)
-	_kamera_auf(cam, kf, mitte, von, d_cam)
+	cam.fov = 30.0
+	var folge := {"mitte": Vector3.ZERO, "d": -1.0, "aus": 0}
+	_kamera_auf(cam, kf, held.position.lerp(wolf.position, 0.5), von, 8.0)
+	_folgen(cam, kf, held, wolf, folge, true)
 	cam.make_current()
 	await process_frame
 	if not mess and not Signatur.wache(kf, self, "Film 406.2a " + String(h.name)):
@@ -182,15 +179,14 @@ func _held(h: Dictionary) -> void:
 				lauf = c
 			if diag and i == 0 and t >= 0.5 and t < 0.5 + 1.0 / 30.0:
 				await _diag(kf, cam, held, wolf, String(h.name) + " Anlauf 1 bei 0,5 s")
-			mitte = mitte.lerp(held.position.lerp(wolf.position, 0.5), 0.12)
-			d_cam = lerpf(d_cam, abstand.call(), 0.06)
-			_kamera_auf(cam, kf, mitte, von, d_cam)
+			_folgen(cam, kf, held, wolf, folge, false)
 		var gut := lauf.begins_with("Kampfrennen")
 		print("Film 406.2a %s Anlauf %d: Bewegung %s, Aufschlag %d ms, Schild „%s“, Stab %s, %s" % [h.name, i + 1, lauf, ms, held._schild(), held._stab(), "gut" if gut else "FEHLER kein Kampfrennen"])
 		if not gut:
 			fehler += 1
 		if lauf == "SS_RunForward":
 			print("FEHLER 406.2a: SS_RunForward (Chef: nie das Hopsen)")
+	print("Film 406.2a %s: Bilder mit angeschnittener Figur %d (G1)" % [h.name, folge.aus])
 	await create_timer(0.4).timeout
 	await _blende(1.0)
 	kf.queue_free()
@@ -204,6 +200,50 @@ func _kamera_auf(cam: Camera3D, kf, ziel: Vector3, von: Vector3, d: float) -> vo
 	cam.position = z + von * d + Vector3(0, d * 0.22, 0)     # etwa 12° von oben wie die Spielkamera, nicht flach
 	cam.look_at(z)
 	kf.ink_ziel = z     # Tusche nach Licht nach dieser Kamera (kampfort.gd _ink_licht)
+
+
+## wie film_406 _folgen, nur Held und Wolf: Richtung und Neigung fest (_kamera_auf), Abstand so, dass beide ganz im Bild sind
+const RAND_X := 0.88
+const RAND_OBEN := 0.66      # oben die Schrift
+const RAND_UNTEN := 0.9
+func _folgen(cam: Camera3D, kf, held, wolf, folge: Dictionary, erst: bool) -> void:
+	var ty := tan(deg_to_rad(cam.fov) / 2.0)
+	var tx := ty * FORMAT.x / FORMAT.y
+	var b := cam.global_transform.basis
+	var fw := -b.z
+	var pts := []
+	var mitte := Vector3.ZERO
+	for f in [held, wolf]:
+		var h: float = (1.85 if f.fighter.monster == null else 0.9) * f.scale.y
+		var r: float = f.body_r() + (0.5 if f == held else 0.15)     # Waffe weit ausgeholt
+		for q in [Vector3.ZERO, Vector3(0, h + (0.4 if f == held else 0.0), 0)]:
+			for sx in [-1.0, 1.0]:
+				pts.append(f.global_position + q + b.x * r * sx)
+		mitte += f.global_position + Vector3(0, h * 0.5, 0)
+	mitte /= 2.0
+	folge.mitte = mitte if erst else (folge.mitte as Vector3).lerp(mitte, 0.08)
+	var c: Vector3 = folge.mitte
+	var d_noetig := 3.0
+	for p in pts:
+		var rel: Vector3 = p - c
+		var x := absf(rel.dot(b.x))
+		var y := rel.dot(b.y)
+		var z := rel.dot(fw)
+		d_noetig = maxf(d_noetig, x / (tx * RAND_X) - z)
+		d_noetig = maxf(d_noetig, (y / (ty * RAND_OBEN) if y > 0.0 else -y / (ty * RAND_UNTEN)) - z)
+	var d: float = folge.d
+	d = d_noetig if erst or d < 0.0 or d_noetig > d else lerpf(d, d_noetig, 0.03)
+	folge.d = d
+	cam.global_position = c - fw * d
+	kf.ink_ziel = c
+	for f in [held, wolf]:
+		var h: float = (1.85 if f.fighter.monster == null else 0.9) * f.scale.y
+		for q in [f.global_position, f.global_position + Vector3(0, h, 0)]:
+			var rel: Vector3 = q - cam.global_position
+			var z := rel.dot(fw)
+			if z <= 0.1 or absf(rel.dot(b.x)) > tx * z or absf(rel.dot(b.y)) > ty * z:
+				folge.aus += 1
+				return
 
 
 ## DIAG=1 (Lauf 223, Prüfer: Wolf unsichtbar, nur sein Schatten; keine Waffe, kein Schild in der Hand): was liegt wo, was ist
