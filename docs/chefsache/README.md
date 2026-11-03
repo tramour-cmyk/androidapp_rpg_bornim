@@ -17,7 +17,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [406.2](ansehen/4062-parade.md) | Parade-Film: Angriff gehen, gelungene Abwehr als Parade | Jerry | 03.11., 08:28 |
 
 ## Zu tun
 
@@ -270,7 +274,9 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 407 (Projekt)
 
-Ohne Datei: 3402 (Projekt), 275 (Projekt), 26 (Team Tom)
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/4062-parade.md
+
+Ohne Datei: 3402 (Projekt), 275 (Projekt)
 
 ## So geht's
 
