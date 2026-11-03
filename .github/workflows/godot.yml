@@ -24,7 +24,7 @@ on:
         description: "Strahlenfilm 415 (Jerry, Beams-Probe im Kampfort): ja"
         default: ""
       gegner:
-        description: "Gegnerfilm 494 (Jerry): Gegner der Probe, mit Komma (BOARS, …)"
+        description: "Gegnerfilm 494 (Jerry): Gegner der Probe, mit Komma (BOARS, …); FLEDERMAUS: Vergleich 510"
         default: ""
 
 jobs:
@@ -470,7 +470,7 @@ jobs:
           ls -l $B
       # 494 (Wochenziel 03.11. Reihe 3): je Gegner ein kurzer Film (tests/film_gegner_494.gd), nur von Hand mit gegner=<FOES,…>
       - name: Gegnerfilm 494 (nur von Hand mit gegner=…)
-        if: ${{ !cancelled() && github.event.inputs.gegner != '' }}
+        if: ${{ !cancelled() && github.event.inputs.gegner != '' && github.event.inputs.gegner != 'FLEDERMAUS' }}
         continue-on-error: true
         env:
           GEGNER: ${{ github.event.inputs.gegner }}
@@ -483,6 +483,33 @@ jobs:
             --write-movie $RUNNER_TEMP/gegner494.avi --fixed-fps 30 -s res://tests/film_gegner_494.gd > $B/gegner494.log 2>&1 || true
           grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER" $B/gegner494.log | head -16 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/gegner494.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/494-gegner.mp4 || true
+          ls -l $B
+      # 510 (Chef 03.11., 10:28–10:57, aus 494): freie Fledermaus (OGA „Vampire Bat (Animated)“, rubberduck, CC0) mit unseren Fellen neben
+      # der eigenen (fledermaus.py), je vorhandene Bewegung, beide drehen sich; nur von Hand mit gegner=FLEDERMAUS. Quelle und Lizenz:
+      # https://opengameart.org/content/vampire-bat-animated (CC0, Texturen CC0 von yughues), Paket per Prüfsumme festgehalten
+      - name: Fledermaus-Vergleich 510 (nur von Hand mit gegner=FLEDERMAUS)
+        if: ${{ !cancelled() && github.event.inputs.gegner == 'FLEDERMAUS' }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/fledermaus510; mkdir -p $B
+          O=$RUNNER_TEMP/oga; mkdir -p $O
+          curl -sSL -o $O/bat.zip https://opengameart.org/sites/default/files/animated_vampire_bat.zip
+          echo "2670593426d1c2cbb428b62afc80d1df159113f104461a1e0ddf958a7f64a148  $O/bat.zip" | sha256sum -c
+          (cd $O && unzip -q -o bat.zip)
+          D=godot/kampf/daten; mkdir -p $D
+          OUT=$RUNNER_TEMP/fm timeout 900 bl/bin/python -I tools/blender348/fledermaus.py > $B/fledermaus-bau.log 2>&1 || tail -30 $B/fledermaus-bau.log
+          for f in braun schwarz grau; do cp $RUNNER_TEMP/fm/giant_bat-$f.glb $D/giant_bat-$f.bin || true; done
+          OGA=$O OUT=$RUNNER_TEMP/oga_out timeout 900 bl/bin/python -I tools/blender348/oga_fledermaus.py > $B/oga-bau.log 2>&1 || tail -40 $B/oga-bau.log
+          grep -E "^(OBJ|AKTION|BILD|STOFF|BILDRATE|GERUEST|RUHE|SPANNWEITE|TEXTUR|GLB|FEHLT|OGA_)" $B/oga-bau.log | cut -c1-300 || true
+          for f in braun schwarz grau; do cp $RUNNER_TEMP/oga_out/oga_bat-$f.glb $D/oga_bat-$f.bin || true; done
+          cp $RUNNER_TEMP/oga_out/oga_bat-*.png $B/ 2>/dev/null || true
+          cd godot
+          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          MESS=1 timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_fledermaus_510.gd 2>&1 | grep -E "^(Film|MASS|BEWEGUNGEN|ABSCHNITT)|FEHLER|SCRIPT ERROR" | tee $B/messung.log || true
+          timeout 900 xvfb-run -a -s "-screen 0 1920x1080x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1920x1080 \
+            --write-movie $RUNNER_TEMP/fm510.avi --fixed-fps 30 -s res://tests/film_fledermaus_510.gd > $B/film.log 2>&1 || true
+          grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER" $B/film.log | head -16 || true
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/fm510.avi -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast $B/510-fledermaus.mp4 || true
           ls -l $B
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # 453: Filme auch nach rotem Prüfschritt; nie mit bild=nein
