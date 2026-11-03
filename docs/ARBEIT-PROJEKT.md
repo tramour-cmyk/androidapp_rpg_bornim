@@ -9,7 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 512 | M | **von Sokrates (Hinweis 03.11., 07:45, zu 488):** vor jeder Testbitte berührte Schirme alt gegen neu vergleichen (beide Teams) | Chef: `entscheiden/512-vergleich-vor-testbitte.md` | – |
+| 512 | M | **von Sokrates (Hinweis 03.11., 07:45, zu 488):** vor jeder Testbitte berührte Schirme alt gegen neu vergleichen (beide Teams) | startbar: ja (Chef 03.11., 15:41, Archiv); Satz in LISTE-UMZUG-348 „Abgleich“ und LISTE-BAUEN-TESTEN, beide Teams ab nächster Testbitte | – |
 | 511 | M | **von Sokrates (Chef 03.11., 13:50, „511 ja“, Archiv; „jetzt“ 03.11., 13:50):** `probelauf.py` startet einen Filmlauf nur mit geprüftem Probebild (Zu 511) | gebaut 03.11., 14:03, Geprüft an: d6d9eca8c; Diogenes prüft | – |
 | 502 | M | **von Sokrates (Chef 03.11., 07:28; Zu 502):** Nebel des Krieges und Sichtfeld des Helden in „Orte und Welt“ (neben W15) und Abnahmeliste aufnehmen, Bau an Tom nach Vorrang 488 | gebaut 03.11., 07:5x: Welt W24, W25, Bau 505 bei Tom; Geprüft an: b3cc2e427 | – |
 | 488 | M | **von Sokrates (Chef 03.11., 06:44, „488 ja“, Archiv 488; „jetzt“ 03.11., 06:44):** Wochenziel nach Durchspielbarkeit von Kapitel 1 ordnen; Mängelliste „nach dem Durchspielen“ | gebaut 03.11., 07:1x: Wochenziel 03.11., 490–496; Geprüft an: a5d768fc5 | – |
