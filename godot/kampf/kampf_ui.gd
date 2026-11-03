@@ -1697,7 +1697,7 @@ func _stroke_from(r: Rect2, fx: float, head: float) -> Vector2:
 ## Fledermaus Runde 4c (Prüfer 4b: der Strich endete im Gesicht und deckte Maul und Augen): sie hängt aufrecht, das Gesicht liegt
 ## knapp unter den Ohrspitzen; der Strich endet darum an den Ohrspitzen
 func _bat(fig) -> bool:
-	return fig.fighter.monster != null and fig.fighter.monster.id == Mars.WOLF and fig.ersatz() == "giant_bat"
+	return Figur.vier(fig.fighter) and fig.ersatz() == "giant_bat"     # 494: auch die Fledermaus mit eigenen Regeln (giant_bat)
 
 
 func _stroke_to(r: Rect2, s: Dictionary) -> Vector2:

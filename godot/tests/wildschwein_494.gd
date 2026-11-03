@@ -1,7 +1,8 @@
 extends SceneTree
 # 494 ohne Bild: Probekampf „Wildschwein“ (aufruf.gd BOARS): ein Wildschwein mit seinen eigenen Regeln aus tabellen.json (Monsters.kt boar:
 # Name, Trefferpunkte 2W8+2, Hauer), MARS spielt es auf Autopilot zu Ende; im Bild ein Vierbeiner (Figur.vier), mit Kaufmodell der Keiler.
-# Dazu der Riesen-Hundertfüßer (CENTIPEDES, Monsters.kt giant_centipede, 2W6+1), Riesenegel (LEECHES) und Säureschnecke (SLUGS).
+# Dazu der Riesen-Hundertfüßer (CENTIPEDES, Monsters.kt giant_centipede, 2W6+1), Riesenegel (LEECHES), Säureschnecke (SLUGS),
+# Riesenratte (RATTE) und Riesenfledermaus (FLEDERMAUS).
 # Aufruf: im Ordner godot mit -s res://tests/wildschwein_494.gd
 
 const Probe = preload("res://kampf/probe.gd")
@@ -22,6 +23,9 @@ func _lauf() -> void:
 	# Kauf 348.12c: Riesenegel (Regeln der Stirge, 2W4+1) und Säureschnecke (Regeln der Ockergallerte, 5W10+5), Namen nach LISTE-FIGUREN
 	await _kampf("FIGHTER", "LEECHES", "stirge", "Riesenegel", 3, 9)
 	await _kampf("FIGHTER", "SLUGS", "ochre_jelly", "Säureschnecke", 10, 55)
+	# Jerry 18:4x: Riesenratte (2W6) und Riesenfledermaus (4W10) je allein mit eigenen Regeln wie im alten Spiel
+	await _kampf("FIGHTER", "RATTE", "giant_rat", "Riesenratte", 2, 12)
+	await _kampf("WIZARD", "FLEDERMAUS", "giant_bat", "Riesenfledermaus", 4, 40)
 	print("WILDSCHWEIN 494 %s" % ("gut" if fehler == 0 else "%d FEHLER" % fehler))
 	quit(1 if fehler > 0 else 0)
 
@@ -80,8 +84,11 @@ const KAMPF_BEW := ["Stehen", "Gehen", "Rennen", "Treffer", "Tod"]
 func _bild(fig) -> void:
 	var a: String = Figur.ersatz()
 	var ip := "res://kampf/daten/%s-info.json" % a
-	if not a.begins_with("kauf_") or not FileAccess.file_exists(ip):
+	if not FileAccess.file_exists(ip):
 		print("Wildschwein 494 %s: ohne Kaufmodell (Platzhalter)" % a)
+		return
+	if a == "giant_bat":     # fliegt ohne Schritte (kein Gehen am Boden, kein Weg); welches Modell, wählt der Chef in 510
+		print("Wildschwein 494 giant_bat: Flieger, Bewegungen %s" % [fig.anim.get_animation_list() if fig.anim else []])
 		return
 	var j: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(ip))
 	for fell in j:
@@ -104,4 +111,7 @@ func _bild(fig) -> void:
 	if hoch > 0.0 and (kopf < hoch or kopf > hoch + 0.3):
 		fehler += 1
 		print("FEHLER %s: Balken %.2f m über dem Boden, Tier %.2f m hoch" % [a, kopf, hoch])
-	print("Wildschwein 494 %s: Bewegungen %s, Balken %.2f m, Tier %.2f m" % [a, fig.anim.get_animation_list() if fig.anim else [], kopf, hoch])
+	if fig.weg.is_empty():
+		fehler += 1
+		print("FEHLER %s: ohne Weg (gleitet beim Platzwechsel)" % a)
+	print("Wildschwein 494 %s: Bewegungen %s, Weg %s, Balken %.2f m, Tier %.2f m" % [a, fig.anim.get_animation_list() if fig.anim else [], fig.weg.keys(), kopf, hoch])

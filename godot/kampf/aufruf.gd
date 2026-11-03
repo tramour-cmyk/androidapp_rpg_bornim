@@ -56,8 +56,14 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 		# Regeln aus Monsters.kt (stirge, ochre_jelly), Namen nach LISTE-FIGUREN; im Bild die gekauften (kauftier.py TIER=egel, schnecke)
 		"LEECHES": [["leech", "stirge", Vector2i(0, 0)]],
 		"SLUGS": [["slug", "ochre_jelly", Vector2i(0, 0)]],
+		# 494 (Jerry 03.11., 18:4x): Riesenratte, Riesenfledermaus, Riesenspinne je allein mit ihren eigenen Regeln wie im alten Spiel
+		# (Roamers.kt: ein Monster, Packs.kt ohne Rudel für sie; Monsters.kt giant_rat, giant_bat, giant_spider). RATS, BATS, SPIDER
+		# bleiben die Probekämpfe von 348.7/348.9 (drei Felle mit Regeln des Wolfs, Spinne neben einem Wolf)
+		"RATTE": [["rat", "giant_rat", Vector2i(0, 0)]],
+		"FLEDERMAUS": [["bat", "giant_bat", Vector2i(0, 0)]],
+		"SPINNE": [["spider", Mars.SPIDER, Vector2i(0, 0)]],
 	}.get(foe, [])
-	Figur.ersatz_art = {"RATS": "giant_rat", "BATS": "giant_bat", "SHAMANS": Figur.SHAMAN, "KOBOLDS": Figur.KOBOLD, "BOARS": "kauf_keiler", "CENTIPEDES": "kauf_hundertfuesser", "LEECHES": "kauf_egel", "SLUGS": "kauf_schnecke"}.get(foe, "")
+	Figur.ersatz_art = {"RATS": "giant_rat", "BATS": "giant_bat", "SHAMANS": Figur.SHAMAN, "KOBOLDS": Figur.KOBOLD, "BOARS": "kauf_keiler", "CENTIPEDES": "kauf_hundertfuesser", "LEECHES": "kauf_egel", "SLUGS": "kauf_schnecke", "RATTE": "giant_rat", "FLEDERMAUS": "giant_bat"}.get(foe, "")
 	# 348.12f eingebaut (Chef 28.10., 11:50: Kaufwolf abgenommen, Archiv 27.10., 21:51: „eigener entfällt“): Wölfe sind der gekaufte
 	# Wolf, sobald er gebaut beiliegt (godot-kampf.yml „Modelle bauen“); ERSATZ geht weiter vor
 	if foe in ["WOLVES", "GRIMM", "SPIDER", "RUDEL"] and FileAccess.file_exists("res://kampf/daten/kaufwolf-info.json"):

@@ -196,7 +196,7 @@ class MarsGoldenTest {
         val potion = Items["potion"]
         val kinds = listOf(Skirmish.WOLF, Skirmish.GRAK, Skirmish.CALLED, Skirmish.SCOUT, Skirmish.SPIDER).map { Monsters[it] } +
             // 494 (Wochenziel 03.11. Reihe 3): die Gegner von Kapitel 1 mit eigenen Werten, MARS spielt sie mit den allgemeinen Absichten
-            listOf("boar", "giant_centipede", "bugbear", "stirge", "ochre_jelly").map { Monsters[it] }   // 494: Krogg (von Tom, 492 Höhle); Riesenegel (Stirge), Säureschnecke (Ockergallerte), 348.12c
+            listOf("boar", "giant_centipede", "bugbear", "stirge", "ochre_jelly", "giant_rat", "giant_bat").map { Monsters[it] }   // 494: Krogg (von Tom, 492 Höhle); Riesenegel (Stirge), Säureschnecke (Ockergallerte), 348.12c; Riesenratte, Riesenfledermaus mit eigenen Werten statt des Wolfs
         // 296.2: the items the foes may leave, by name
         val left = kinds.flatMap { k -> k.loot.map { it.item } }.distinct().filter { Items.exists(it) && it != potion.id }.map { Items[it] }
         val tables = mapOf(

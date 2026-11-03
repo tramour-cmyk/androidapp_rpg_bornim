@@ -43,7 +43,7 @@ static func ersatz() -> String:
 	return OS.get_environment("ERSATZ") if OS.has_environment("ERSATZ") else ersatz_art
 ## 494 (Wochenziel 03.11. Reihe 3): Vierbeiner mit eigenen Regeln (tabellen.json, MARS allgemein), im Bild wie der Wolf: Körper,
 ## Schatten, Kopfhöhe, Größe aus dem Kaufmodell (ersatz_art „kauf_<tier>“, aufruf.gd)
-const VIERBEINER := ["wolf", "boar", "giant_centipede", "stirge", "ochre_jelly"]     # Hundertfüßer, Riesenegel, Säureschnecke (494): langer Körper am Boden wie ein Vierbeiner
+const VIERBEINER := ["wolf", "boar", "giant_centipede", "stirge", "ochre_jelly", "giant_rat", "giant_bat"]     # Hundertfüßer, Riesenegel, Säureschnecke (494): langer Körper am Boden wie ein Vierbeiner; Ratte, Fledermaus mit eigenen Regeln wie bisher als Ersatz des Wolfs
 static func vier(fi) -> bool:
 	return fi != null and fi.monster != null and String(fi.monster.id) in VIERBEINER
 ## 348.7 Grimmzahn: im Probekampf „Grimmzahn“ trägt der Wolf „grimm“ dessen Modell (Regeln noch die des Wolfs)

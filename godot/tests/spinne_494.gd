@@ -20,6 +20,7 @@ func _lauf() -> void:
 	_regeln()
 	_haeute()
 	await _kampf()
+	await _kampf("SPINNE")     # 494 (Jerry 18:4x): allein wie im alten Spiel (Roamers.kt), ohne Wolf daneben
 	print("SPINNE 494 %s" % ("gut" if fehler == 0 else "%d FEHLER" % fehler))
 	quit(1 if fehler > 0 else 0)
 
@@ -85,11 +86,11 @@ func _haeute() -> void:
 	print("Spinne 494 Häute: %s" % [j.keys()])
 
 
-func _kampf() -> void:
+func _kampf(foe := "SPIDER") -> void:
 	var p = Probe.new()
 	p.hero_cls = "FIGHTER"
 	p.merc_cls = "CLERIC"
-	p.foe = "SPIDER"
+	p.foe = foe
 	root.add_child(p)
 	await process_frame
 	p._start(3)
