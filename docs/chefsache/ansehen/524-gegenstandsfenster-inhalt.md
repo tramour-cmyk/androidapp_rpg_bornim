@@ -1,5 +1,7 @@
 # 524 · Fenster eines Gegenstands: Inhalt wie in der alten Fassung · Team Tom (Spike) · 04.11., 00:1x
 
+[Bild von 04.11., 00:15](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/04-0015-524-Spike.png) (eingetragen von meldung.sh, Spike)
+
 A Spiel
 Kurz: Das Fenster (519) zeigt jetzt alles, was die alte Fassung zeigte; kommt mit dem nächsten Testbuild. Das ist die Untergrenze; was darüber hinaus besser werden soll (Chef 23:26), lege ich erst nach deinem Blick darauf vor.
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/043e1b907 (Test gegenstand_524 ohne Fehler)
