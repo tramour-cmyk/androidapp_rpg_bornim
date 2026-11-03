@@ -314,6 +314,21 @@ func tasche() -> void:
 	var de := Sprache.aktiv() == "de"
 	zeile(("Vorräte" if de else "Supplies").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))
 	inhalt.add_child(posten(Sprache.u("gold"), str(z.gold), Stil.BRIGHT, Menue.vorrat_bild("gold")))   # 171: Gold zuerst, eine Zeile fuer sich
+	# 523 (Abgleich 512) wie alt (84.5): der Funke brennt bis zur naechsten Rast; „Löschen“, weg ist weg
+	if z.funke:
+		var fr := HBoxContainer.new()
+		var fn := Erschaffung.txt(Laden.name("spark_potion"), 15)
+		fn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		fr.add_child(fn)
+		var be: Dictionary = Sprache.texte.get("benutzen", {})
+		var kn := Erschaffung.knopf(Sprache.t(be.get("sparkOut", {"de": "Löschen", "en": "Put out"})), func():
+			z.funke = false
+			meldung(Sprache.t(be.get("sparkGone", {"de": "Der Funke verglimmt. Weg ist weg.", "en": "The spark fades. Gone is gone."})))
+			baue())
+		kn.custom_minimum_size = Vector2(110, 36) * DP
+		kn.size_flags_horizontal = Control.SIZE_SHRINK_END
+		fr.add_child(kn)
+		inhalt.add_child(fr)
 	if z.taschen.is_empty(): zeile(Sprache.u("nothing"), 16, Stil.DIM)
 	for id in z.taschen:
 		var dd := Laden.ding(String(id))
@@ -333,17 +348,58 @@ func tasche() -> void:
 		zeile("Besiege Monster und öffne Truhen, um Ausrüstung zu finden." if de else "Defeat monsters and open chests to find equipment.", 14, Stil.DIM)
 	for g in dinge:
 		# ▲ besser in allem, ▼ schlechter; nichts, wenn gemischt oder gleich (GearUi.kt upgradeVerdict)
-		var u = Vergleich.von(hw, g).urteil() if hw.kann_tragen(g) else null
-		var pfeil := "▲ " if u == 1 else ("▼ " if u == -1 else "")
-		var p := posten(Beute.name(g), pfeil + Beute.kennwert(g), Color(SELTEN.get(String(g["rarity"]), "e6ddcb")), Menue.stueck_rahmen(g, 42))
+		var p := ausruestungszeile(g)
 		inhalt.add_child(p)
 		tippbar(p, func(): frage_stueck(g))
 
 # nach Seltenheit, dann Gegenstandsstufe, absteigend (alt: rarity, slot, ilvl)
 const REIHE := ["COMMON", "UNCOMMON", "RARE", "VERY_RARE", "EPIC", "DIVINE"]
+# 523 (Abgleich 512): dazwischen nach Platz wie alt (GearSlot.ordinal: Kopf, Umhang, Oberkoerper, Arme, Beine, Amulett, Ring, Haupthand, Nebenhand)
+const PLATZ_REIHE := ["HEAD", "CLOAK", "CHEST", "ARMS", "LEGS", "AMULET", "RING", "MAIN_HAND", "OFF_HAND"]
 static func vor(a: Dictionary, b: Dictionary) -> bool:
 	var ra := REIHE.find(String(a["rarity"])); var rb := REIHE.find(String(b["rarity"]))
-	return ra > rb or (ra == rb and int(a["ilvl"]) > int(b["ilvl"]))
+	if ra != rb: return ra > rb
+	var pa := PLATZ_REIHE.find(String(Beute.grundform(String(a["base"]))["slot"])); var pb := PLATZ_REIHE.find(String(Beute.grundform(String(b["base"]))["slot"]))
+	if pa != pb: return pa < pb
+	return int(a["ilvl"]) > int(b["ilvl"])
+
+# 521, 523 (Chef 03.11., 23:23: „Leider kann man da die Items null unterscheiden … Zweihänder? Was überhaupt? Sind gesperrte
+# Gegenstände darunter?“; 23:26 „besser machen“): wie alt GearRow (GearUi.kt 119) in Tasche und Wechselschirm: Bild 42 dp, Name in
+# der Farbe der Seltenheit (bis zwei Zeilen), darunter listLine (Art, Waffe oder Platz, Kennwert), besser als alt dazu „zweihändig“;
+# nicht Tragbares „· nicht tragbar“ in Rot; rechts ▲ gruen besser in allem, ▼ rot schlechter (upgradeVerdict; Angelegtes nie)
+const BESSER := Color("2a8a3a")
+const AKZENT := Color("e05a3a")       # Colors.accent
+func ausruestungszeile(g: Dictionary) -> HBoxContainer:
+	var de := de_()
+	var r := HBoxContainer.new()
+	r.add_theme_constant_override("separation", int(8 * DP))
+	r.add_child(Menue.stueck_rahmen(g, 42))
+	var s := VBoxContainer.new()
+	s.add_theme_constant_override("separation", 0)
+	s.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	s.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	var n := Erschaffung.txt(Beute.name(g), 16, farbe_von(g))
+	n.max_lines_visible = 2
+	s.add_child(n)
+	var ok := hw.kann_tragen(g)
+	var unten := Beute.listen_zeile(g)
+	if unten == "": unten = Testmodus.gross_anfang(Sprache.t(Heldwerte.lade()["seltenheiten"][String(g["rarity"])].get("name", g["rarity"])))   # Ring, Amulett ohne Kennwert: alt leer
+	if zweihaendig(g) and not unten.containsn("zweih") and not Beute.name(g).containsn("zweih"): unten += " · " + ("zweihändig" if de else "two-handed")
+	if not ok: unten += " · " + ("nicht tragbar" if de else "can't wear")
+	s.add_child(Erschaffung.txt(unten, 12, Stil.DIM if ok else AKZENT))
+	r.add_child(s)
+	var angelegt := false
+	for pl in PLATZ_REIHE:
+		var x = hw.ding(pl)
+		if x != null and int(x["uid"]) == int(g["uid"]): angelegt = true
+	var u = Vergleich.von(hw, g).urteil() if ok and not angelegt else null
+	if u == 1 or u == -1:
+		var pf := Erschaffung.txt("▲" if u == 1 else "▼", 18, BESSER if u == 1 else AKZENT)
+		pf.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		r.add_child(pf)
+	r.set_meta("tragbar", ok)
+	r.set_meta("pfeil", 0 if u == null else int(u))
+	return r
 
 # ItemRow, GearRow: Bild, Name (in der Farbe der Seltenheit), rechts die Anzahl oder der Kennwert
 func posten(n: String, rechts: String, farbe: Color, bild: Control = null) -> HBoxContainer:
@@ -742,8 +798,16 @@ func waehle(platz: String) -> void:
 	if l.is_empty(): zeilen.append(Erschaffung.txt("Nichts Passendes im Beutel." if de else "Nothing in the bag fits.", 15, Stil.DIM))
 	var schleier := {}   # 399.1 (Test 139.10): ein Lambda haelt den Wert von damals; die Liste wird erst unten zum Kasten
 	for g in l:
-		var p := posten(Beute.name(g), Beute.kennwert(g), farbe_von(g))
-		if not hw.kann_tragen(g): p.modulate.a = 0.45
+		# 521: Zeile wie in der Tasche; nicht Tragbares matt mit dem Grund darunter wie alt (MenuScreen choose)
+		var p: Control = ausruestungszeile(g)
+		if not hw.kann_tragen(g):
+			var v := VBoxContainer.new()
+			v.add_theme_constant_override("separation", 0)
+			v.add_child(p)
+			var kl := Sprache.t(hw.klassendaten()["name"])
+			v.add_child(Erschaffung.txt(("Als %s kannst du das nicht tragen." if de else "As a %s you cannot wear this.") % kl, 13, Stil.DIM))
+			v.modulate.a = 0.45
+			p = v
 		tippbar(p, func():
 			schleier["k"].queue_free()
 			dialog(Beute.name(g), farbe_von(g), stueck_zeilen(g), [[Sprache.u("equip"), func(): meldung(lege_an(g, platz == "OFF_HAND" and String(Beute.grundform(String(g["base"]))["slot"]) != "OFF_HAND")); baue(), hw.kann_tragen(g)],
