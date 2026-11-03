@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (03.11., 16:34, `session_01Hmoj78nj7tVahyFi7ZSRkw`):** Chefrunde Nachmittag: 348.12c A gekauft, Inventur in LISTE-BESTAND; 512, 427.2a, 447.4 (BRS-Wechselregel), 499, 513 B, 493, 490, 491, 505, 477 entschieden (Archiv); neu 513.1, 514, 515; 516 geprüft (Ford misst); 492 Abgleich, Besseres, Signatur an Tom; Grimmzahn an Jerry; Lehre Grimmzahn in ROLLE. Kosten auf: 348.12c, 447.4, 513, 491, 492, 516. Nachfolger: Sokrates – Chefrunde: 492 und Build 245 (auf Zuruf).
+**Übergabe (04.11., 00:4x, `session_01Hmoj79Gp4tguvUNPrLid5B`):** Chefbefunde Build 248/249 (518–555) in Vorräte Tom/Jerry; 512 übernommen (Chef 23:28): Regel „Abgleich“ geschärft, Abgleich Menü, Kampf, Welt, Höhle im Code → 523–543, Höhle zu 492; 512a beim Chef; t249 teils freigegeben (Chef 00:41, „du bist in der Verantwortung“), Nachtplan an Ford. Nachfolger: Sokrates – 512: Abgleich nachhalten, Nachtverantwortung.
 
 ## Zeilen
 
@@ -14,7 +14,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 512a | M | Rückfrage: Abgleichsfunde 535, 543 bis 478 zurückstellen? | wartet auf Chef: entscheiden/512a |
 | 508 | M? | **von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5):** Einladung der Lehrmeister in Kapitel 1 erreichbar? (Simulation 444: keine Fertigkeit Geselle bis Stufe 6); Regelfrage: Magie-Kernfertigkeit Pflicht für Paladin und Kriegsmagier?; Wachsoldat startet mit Mittlerer, Wächter verlangt Schwere Rüstung | startbar |
 | 488 | M | **von Chef (02.11., 22:44, „dann frieren wir das mal ab einem gewissen Punkt ein … kümmern uns um wichtige Dinge, dass irgendwann das Spiel an sich fertig wird und ich durchspielen kann. Und dann können wir wieder polieren“):** Feinarbeit einfrieren | wartet auf Perikles: ja (Chef 03.11., 06:44, Archiv); Wochenziel nach Durchspielbarkeit (488 in ARBEIT-PROJEKT) |
-| 461b.4 | M | **von Perikles (deine Liste 461b, 02.11., 19:1x, Punkte 7, 9):** Köpfe von `DESIGN-SPIELSYSTEM-2-0.md` (Zeile 3, Nr. 24), `LISTE-BESTIARIUM.md` (Zeile 3), `DESIGN-KAMPF.md` (Zeile 3) gegen Entscheidung 84 nachziehen; Säureschnecke mit Jerry (461b.1); Anhänge „→ ersetzt durch …“ im Archiv, wo dein Helfer den Ersatz fand: 376.1 (11:19), 72o, 72o.1, 348.12 (26.10.), 348.9 (13:26), 72.8, 414, F3/F4 Datum (Zu 461b; 415c, 480, 362, 418 hat Perikles gesetzt) | startbar (nur Notizen) |
+| 461b.4 | M | **von Perikles (deine Liste 461b, 02.11., 19:1x, Punkte 7, 9; Zu 461b.4):** Köpfe der Design-Dateien gegen Entscheidung 84 nachziehen, Ersatz-Anhänge im Archiv | startbar (nur Notizen) |
 | 468 | M | **von Chef (02.11., 07:33, Bild „Nutzung“: 36 %):** weiter mit Wächter bis Sa 19:59 (ja 11:13, Archiv, ARBEIT-BETRIEB) | Dauer: 468a ja mit Spike (22:01, Archiv); Ford liest 18 Uhr ab; Sokrates prüft Sa 07.11. |
 | 415d | M | **von Chef (02.11., 20:05, „Hatten wir nicht weitere Effekte vorgesehen?“):** Kauf der zwei Effektpakete nach Handytest | wartet auf Jerry: 415d ja (Chef 22:04, Archiv); Kauf nach Handytest 415, Termin bei Jerry (Zu 415) |
 | 483 | M | **von Chef (02.11., 19:08, „Das mit den Filmen klappt nicht, da ich konstant wieder Fehler aus der Repo bekomme... Für was habe ich das Skript angelegt?“):** Film-Links über jsDelivr scheitern (Zweig über 50 MB) | wartet auf Perikles: ja 19:21 (Archiv), Bau Perikles; Skript-Frage offen |
@@ -66,4 +66,5 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 ## Einzelheiten
 
+- **Zu 461b.4:** Köpfe von `DESIGN-SPIELSYSTEM-2-0.md` (Zeile 3, Nr. 24), `LISTE-BESTIARIUM.md` (Zeile 3), `DESIGN-KAMPF.md` (Zeile 3) gegen Entscheidung 84; Säureschnecke mit Jerry (461b.1); Anhänge „→ ersetzt durch …“ im Archiv, wo dein Helfer den Ersatz fand: 376.1 (11:19), 72o, 72o.1, 348.12 (26.10.), 348.9 (13:26), 72.8, 414, F3/F4 Datum (Zu 461b; 415c, 480, 362, 418 hat Perikles gesetzt).
 - **Zu 512 (Chef 23:26–23:28):** „Den angewiesenen Vergleich mit der alten Fassung hat ja eh keiner gemacht …“, „Sonst wäre es ja vorher aufgefallen, dass es nicht passt …“. Ursachen: Regel nur für berührte Schirme, nie berührte (Ausrüstung) vergleicht keiner; Abgleich 248 nur Bilder, Laden berührt und Rückfrage trotzdem übersehen. Schritt 1 Regel: Fenster und jede Bedienung mit, Zeile „verglichen“ in der Prüfliste. Schritt 2: einmal alle Menüschirme alt gegen neu, Funde als Vorgänge an Team Tom.
