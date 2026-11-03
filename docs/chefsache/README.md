@@ -117,7 +117,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 29360 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 62, Muss 50, startbar 8
+**Jerry** – offen 62, Muss 50, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -144,7 +144,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 461.1 | M | von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461): Grundstand mit Tom: Kampfort, Wölfe, Hel | ruht |
 | 460 | M | von Sokrates (Chef 01.11., 20:2x, Archiv 460): Probefilm Kamerafahrten: Eröffnung je Blend | ruht |
 | 406.1 | M | von Sokrates (Archiv 406.1): Schildstoß ins MARS/BRS, Bau mit ShieldAttack1–3S&S | wartet auf 481 (startbar) |
-| 489 | M | von Sokrates (Chef 03.11., 07:07, Test Build 204; Zu 489): Hauptmenü: Schalter Musik und E | startbar |
+| 489 | M | von Sokrates (Chef 03.11., 07:07, Test Build 204; Zu 489): Hauptmenü: Schalter Musik und E | wartet auf Test/Build (gebaut) |
 | 406.2 | M | von Sokrates (Chef 03.11., 06:59, Zu 406.2; „jetzt“ 03.11., 06:59): im Kampf zum Angriff g | startbar |
 | 406 | M | von Team Tom (Archiv 376.1): Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Son | wartet auf Test/Build (gebaut) |
 | 493 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Kampforte Wald wie alt: Waldrand, Teich, Ba | startbar |
