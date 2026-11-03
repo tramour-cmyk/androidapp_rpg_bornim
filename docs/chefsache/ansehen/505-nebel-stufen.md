@@ -15,7 +15,10 @@ Großbild: Telegram 03.11. 22:3x
 - **B:** Bäume übernehmen die Stufe des Bodens vor ihnen; der Wald um den nie gesehenen Teich ist dann schwarz.
 - **Teich:** Der Teich war auf dem Weg nie in Sicht, darum ist er schwarz. Das ist kein Zeichenfehler; der halbe Teich vom letzten Mal war der Rand der Sicht.
 
-**Prüfer:** folgt nach dem Versand.
+**Prüfer (03.11., 22:37, gemessen):** Bäume wieder da; A etwa 15 Kronen, außer Sicht gedämpft, nicht schwarz; B außer Sicht schwarz, nur hell und schwarz, keine abgedunkelte Stufe erkennbar. Held ganz, mit Haar, Schild auf dem Rücken, Waffe in der Hand.
+- Der Punkt „erkundet: abgedunkelt“ liegt auf Gras, fast so hell wie beim Helden (57 gegen 65); „in Sicht: hell“ liegt auf einer dunkleren Baumkrone.
+- Die Überschrift ist klein und steht unter der oberen Leiste.
+- B: ein einzelner senkrechter dunkler Strich ragt aus dem Schwarz.
 
 **Stärkstes Gegenargument:** B ist ehrlicher („wenn ich es nicht sehe, dunkel“), aber der Wald zerfällt in schwarze Löcher, und man erkennt seine Form nicht mehr; A behält die Form, verrät aber Bäume, die der Held nie gesehen hat.
 
