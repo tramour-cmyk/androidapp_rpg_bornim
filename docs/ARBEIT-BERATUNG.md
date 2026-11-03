@@ -48,7 +48,6 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (Gewerbeschein); 45a/45c, 72g–72j entschieden ([Artefakt](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj), vertraulich); offen: Preis endgültig mit 142 (ab Gewerbeschein), bis 30.11.; iOS-Schätzung Tom nach Kapitel 2 |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | ruht bis Gewerbeschein (Chef 28.10., 10:26; 142); dann Chefsache neu |
 | D63.7 | K | **von Diogenes (434, Vortag 01.11.):** `entscheiden/3761-kettenhemd-heldin.md` (20:55) ohne Zeile „Bestand geprüft“ (Zu 374 in `ARBEIT-PRUEFUNG.md`) | offen |
-| 447.4 | M | **von Chef (03.11., 15:46; Wortlaut Zu 447.4 bei Homer):** Pfadwechsel ohne Verlust der Kernfertigkeiten | wartet auf Chef: Vorschlag Chat 15:4x, entscheiden/4474 |
 | Pflege | K | **von Werkzeug (340.3, 03.11.):** 15163 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 16 | startbar |
 
 - **von Perikles (02.11., 19:5x, zu 480.1):** Läufe gibst du frei mit einem Archiveintrag, dessen Kopf „<Nr>, Läufe frei“ heißt (z. B. „- **453b, Läufe frei** (02.11., 19:50, Sokrates nach 480.1): …“); `probelauf.py` zählt ihn dann wie ein Urteil des Chefs, ab seiner Zeit zwei neue Läufe. Dazu 480: „Blatt“ steht noch in `ROLLE-BERATUNG.md` (Zeilen 72, 74); bitte nachziehen.
