@@ -2,7 +2,7 @@ name: Tom Probe Nebel (505)
 
 # 505 (Chef 16:13/16:15, Archiv „505 passt nicht“): Bildlauf Lauf 2 ohne Film und ohne APK: Bau wie godot.yml (Held, Dorf, Wald,
 # Leute, Kampfort, Kaufmodelle), Skripte und Tests (nebel_505), dann --nebel (Fassung A und B, Stufen beschriftet, Karte im Menue).
-# Nur bei Commits, die mit „505 Nebelbilder“ beginnen (der Haken probelauf.py zaehlt den Push); Kaufmodelle nur ueber diesen Ablauf,
+# Nur bei Commits, die mit „505 Nebelbilder“ beginnen (der Haken probelauf.py zaehlt den Push); Kaufmodelle nur ueber diesen Ablauf, Lauf 41681959813 verlor den Rechner nach 4 min (ohne Protokoll), Lauf nach Freigabe 20:20 ohne Codeaenderung.
 # ins Artefakt nur Bilder (348.12c a). Lauf 41673918432 brach beim CC0-Download ab (curl 18), Laden jetzt mit Wiederholung.
 on:
   push:
