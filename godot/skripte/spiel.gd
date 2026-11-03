@@ -746,6 +746,7 @@ func oeffne_menue() -> void:
 # 399.1 Reiter „Test“ (Testmodus.gd) wie alt: cheatWarp, cheatChapterEnd, cheatFight, startProbe
 func test_tat(was: String, mit: Array) -> void:
 	match was:
+		"nacht", "tiere": _knopf(was)   # 500: aus dem Testmenue statt der Probeknoepfe
 		"teleport":
 			await abblenden(1.0)
 			var von := karte.id
