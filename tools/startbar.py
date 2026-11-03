@@ -206,7 +206,10 @@ def entschieden(x):
     global _ARCHIV
     if _ARCHIV is None: _ARCHIV = lesen("VORGANGSARCHIV.md")
     st = stand_von(x)[1]
-    return bool(st and (FERTIG.search(st) or LISTE_FERTIG.match(st))) or re.search(r"\*\*" + re.escape(x) + r"[ ,.*:]", _ARCHIV) is not None
+    # D46.3: nur „erledigt“/„fertig“ in der Liste (nicht „gebaut“, das wartet auf den Test des Chefs); im Archiv nur der Kopf
+    # „**X“ selbst, nicht „**X.1“ (Unternummer)
+    return bool(st and re.match(r"(erledigt|fertig)\b", st, re.I)) or \
+        re.search(r"\*\*" + re.escape(x) + r"(?:[ ,*:]|\.(?!\d))", _ARCHIV) is not None
 
 def leiche(nr, rest, sperre):
     """275 Stufe 1: Stand, der nachweislich überholt ist; Grund oder None. Nur sichere Fälle, keine Vermutung."""
@@ -353,8 +356,15 @@ def main():
             if erstes[art] is None: erstes[art] = (nr, kl, thema)
         if rolle in UEBERNAHME:
             info[rolle] = ([z for z in zs if not sperr[z[0]] and z[1] != "–"], sum(1 for n, b in sperren if b.startswith("wartet auf Test")), erstes["M"] or erstes["K"] or erstes["N"])
+        tote = [nr for nr, *_ in zs if nr in LEICHE and sperr.get(nr) != "ERLEDIGT"] if LEICHEN_START else []
+        if tote:  # D47.2: wie lauf.py eine Muss-Zeile „Leichen“ vor allem anderen, nicht je Klasse
+            erstes["M"] = ("Leichen", "M", "Stand berichtigen (275): " + "; ".join("%s %s" % (n, LEICHE[n][1]) for n in tote))
+            for k in ("K", "N"):
+                if erstes[k] and erstes[k][0] in LEICHE: erstes[k] = next(((z[0], z[1], z[2]) for z in zs if z[0] not in LEICHE
+                                                                         and not sperr[z[0]] and (z[1] != "M") == (k == "K")), None)
         def kurz(e):
             if not e: return "–"
+            if e[0] == "Leichen": return "Leichen: " + e[2][:160]
             if e[0] in LEICHE and LEICHEN_START: return "%s Stand berichtigen (Leiche 275: %s)" % (e[0], LEICHE[e[0]][1])
             return "%s %s%s" % (e[0], re.sub(r"\*\*|`", "", e[2])[:70], (" ↑ Muss: %s wartet" % ", ".join(fremd_wartend()[e[0]])) if e[0] in fremd_wartend() else "")
         print("  %s: Muss %s | Kür %s%s%s" % (rolle, kurz(erstes["M"]), kurz(erstes["K"]), (" | nach dem Meilenstein " + kurz(erstes["N"])) if erstes["N"] else "", warn))

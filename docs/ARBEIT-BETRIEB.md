@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (03.11., 03:1x, Ford `session_01Hmoj76TkJDAHTy5crCj9QH`, Tiefe 3):** Geltend: 468a (Chef 02.11., 22:01, Zeile unten) bis Sa 07.11., 20:00: nur Tom, Jerry, Spike (ab 03.11.) starten, Tuffy ruht, Homer, Perikles, Diogenes, Sokrates nur auf Zuruf; Wochenwarnung `allowed_warning` seit 03.11.: nur Muss. Läuft: Tom `78SZ` (470), Jerry `79Wf` (438a/406, PR #178), Homer `78Ga` (macht fertig), Sokrates `78Ud`. Alle älteren Sitzungen archiviert und gebucht (bei Mehrfachvorgängen gleichmäßig verteilt); `archive_session` ging nach Chefwort durch. Offen: 18-Uhr-Ablesung braucht das Bild des Chefs (gestern keins). Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 509** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 514** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford“ (Selbstneustart, Tiefe 4) `session_01Hmoj798rLzu8SK9Qiix4zr`; Stundenuhr „Ford-Lauf“ `trig_01KN4aZ4h2xQJ9JS8UDv6dK4` (:03, angelegt 03.11., 03:04); alte Uhren gelöscht. Vorgänger `session_01Hmoj76TkJDAHTy5crCj9QH` ruht (idle), Archivieren vom Klassifizierer abgelehnt (03.11., 03:05, einmal gemeldet), Kosten 9,29 $ gebucht. `01Hmoj78Yo` gebucht (9,57 $), ruht. Ältere archiviert.
+- **Ford lebt in einer Sitzung** „Ford“ (Selbstneustart, Tiefe 4) `session_01Hmoj798rLzu8SK9Qiix4zr`; Stundenuhr „Ford-Lauf“ `trig_01KN4aZ4h2xQJ9JS8UDv6dK4` (:03, angelegt 03.11., 03:04); alte Uhren gelöscht. Vorgänger `01Hmoj76TkJ` archiviert 03.11., 14:09 (Chefwort), Kosten 11,05 $ (9,29 $ gebucht). `01Hmoj78Yo` gebucht (9,57 $), ruht. Ältere archiviert.
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus; Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
 
@@ -58,6 +58,20 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 15:55 03.11.: Neustart Jerry 27c9a18f8 → `fWZc` „494 Grak, Krogg“; alter `ZwvU` archiviert, 8,01 $ auf 507; Kosten von `gwo8` (15:03, 507) weiter nicht lesbar.
+- 15:33 03.11.: Neustart Jerry e9369fd9c → `ZwvU` „507 Probe“; alter `gwo8` archiviert, Kosten nicht lesbar (usage fehlt).
+- 15:26 03.11.: Diogenes `ppa1` „275, D69“ (Chefwort 15:17); Neustart Tom c496f2108 → `wm1A` „492 Blutzahnhöhle“, alter Tom `SZRh` archiviert, 20,03 $ auf 470.
+- 15:03 03.11.: Neustart Jerry 9eccbe6f3 → `gwo8` „507 Höhle“; alter `nM3u` archiviert, 15,80 $ auf 496a.
+- 14:30 03.11.: Neustart Sokrates 2ac0fe42d → `j7tV` „Chefrunde 348.12c Kauf“; alter `Hm6D` archiviert, 22,75 $ auf 348.12c.
+- 14:09 03.11.: alter Ford `76TkJ` archiviert (Chefwort 14:08 „archivieren, Kosten erheben, das ist dein Job“), Kosten 11,05 $, davon 9,29 $ gebucht (Rest 1,76 $ nicht buchbar: eine Buchung je Sitzung).
+- 13:54 03.11.: Perikles `diLb` „511“ gestartet (Chef 13:52, Zuruf, Sokrates 13:53); alter Perikles `rAxm` archiviert, 10,79 $ auf 488.
+- 13:36 03.11.: Neustart Jerry a2b58218e → `nM3u` „496a, 510, 507, 406.2a“; alter `zYoY` archiviert, 17,92 $ auf 510.
+- 13:24 03.11.: Neustart Spike bbf658d61 → `PQkk` „499“; alter `QEGk` archiviert, 26,61 $ auf 506.
+- 11:55 03.11.: Neustart Jerry 975ce2c1a → `zYoY` „507, 406.2a, 510“; alter `QAqZ` archiviert, 16,93 $ auf 507.
+- 11:26 03.11.: Neustarts angenommen: Jerry 1d182abbc → `QAqZ` „406.2a, 507“ (11:05, alter `76uC` archiviert, Kosten nicht lesbar); Spike 87ea802b2 → `QEGk` „506“ (11:26), alter `9N43` archiviert, 29,56 $ auf 491.
+- 10:20 03.11.: Neustarts angenommen: Spike bbec4b439 → `9N43` „491“ (09:44, alter `EdZ1` archiviert); Jerry a1e61a9c4 → `Nsyp` (09:55), 2688b0c97 → `76uC` „406.2a, 509, 494, 416.6“ (10:20); alte Jerry `Q5NS`, `Nsyp` archiviert, `Nsyp` 12,11 $ auf 496a.
+- 08:55 03.11.: Neustart Jerry ffbf1ebe3 → `79Q5` „496a, 416.6“, alter Jerry `79f7` archiviert, 22,98 $ auf 406.2.
+- 08:53 03.11.: Neustart Jerry eb1f72c66 → `79f7` „406.2, 496a“, alter Jerry `79vC` archiviert (Kosten nicht lesbar); Neustart Sokrates a7c5cc0de → `78Hm` „348.12c“ (Chefwort 08:50), alter `78Ud` archiviert, 19,88 $ auf 466.
 - 08:02 03.11.: Homer `768H` „504, 447.4“ (07:58, Chefwort 07:56) und Jerry-Nachfolger `79vC` (07:39) gestartet; Spike-Neustart f916466f3 angenommen, Nachfolger `77Ed`, alter Spike `76Te` archiviert (Kosten nicht lesbar); alter Jerry `79Wf` archiviert, 10,48 $ auf 406 (Rest 10,47 $ nicht buchbar: eine Buchung je Sitzung); alter Ford `76TkJ` weiter abgelehnt.
 - 07:05 03.11.: Perikles `77rA` „488, 448“ gestartet (Chef „488 ja“, Ausnahme zu 468a, Sokrates 06:45); Morgenmeldung 07:04 laut; Starts Tom 417, Spike 463, Tuffy 406.2, Homer 427.2, Diogenes 374 aus lauf.py nicht ausgeführt (468a, 488 friert 417/463/406 ein); alter Ford `76TkJ` unarchiviert (Klassifizierer), 9,29 $ gebucht.
 - 08:21 01.11.: Neustart Jerry 0df217a41 angenommen: Nachfolger `01Hmoj77wY` „438 Prüferbefunde Wölfe“; alter Jerry `79d2` archiviert, 20,94 $ auf 403,406,438; Diogenes 374/434 `76ve` 08:05 gestartet; Sokrates (`7725`) per Nachricht auf 416.4a-Stellungnahme und D54 (422/427)
