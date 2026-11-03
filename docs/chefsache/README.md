@@ -32,12 +32,12 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 6, Muss 2, startbar 1
+**Homer** – offen 6, Muss 2, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 447.4 | M | von Perikles (Chef 01.11., Archiv 447; Chef 03.11., 07:52 zurück, Zu 447.4): Texte für Stu | Chef (Datei in der Chefsache) |
-| 427.2 | M | von Sokrates (Chef 02.11., 20:22, „427.1 A mit 1 und 2“, Archiv 427.1): Hinweis auf Morwen | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
+| 427.2 | M | von Sokrates (Chef 02.11., 20:22, „427.1 A mit 1 und 2“, Archiv 427.1): Hinweis auf Morwen | wartet auf Tom |
 | 432 | K | von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt | ruht |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
@@ -114,11 +114,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 34017 Bytes (Grenze 15000), Erledigtes streichen; Zeile 470 | startbar |
 
-**Jerry** – offen 61, Muss 49, startbar 8
+**Jerry** – offen 60, Muss 48, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 487 | M | von Perikles (Wochenziel 02.11. Reihe 6): gemeinsamer Build, höchstens 6 Punkte, Figuren ü | Leiche: in LISTE-VORGAENGE.md „erledigt“, Zeile noch im Vorrat |
 | 478 | M | von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv): Rechenkern des Kampfs schon in Stufe | ruht |
 | 481.1 | M | von Sokrates (Archiv 427): Tränke in sim444 (Zu 481 in ARBEIT-BERATUNG.md), Herkünfte neu | wartet auf Test/Build (gebaut) |
 | 473 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.4 Monsterwerte Kapitel 1 nach Rechenm | wartet auf Test (Build) |
@@ -135,7 +134,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 439 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Reihenfolge Angriff, Treffer, Tod, Neuformati | wartet auf Test/Build (gebaut) |
 | 440 | M | von Sokrates (Chef 31.10., 23:34, Film 403): Wolf-Tod zu schnell weg (Zu 438) | wartet auf Test/Build (gebaut) |
 | 416.6 | M | von Sokrates (Chef 31.10., 20:4x; M seit Chef 03.11., 07:31 „Blutspuren in der Welt bitte | startbar |
-| 415 | M | von Sokrates („jetzt“ 02.11., 22:05, Chef: „415d muss ins nächste Build“; Archiv 415): Pro | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
+| 415 | M | von Sokrates („jetzt“ 02.11., 22:05, Chef: „415d muss ins nächste Build“; Archiv 415): Pro | startbar |
 | 399.2 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv): Kampfort aufrufbar | wartet auf Test (Build) |
 | 403 | M | von Team Tom (23:1x, zu 376.1; M Perikles: Held gleitet im Kampf, Fehler): Kampfort: Held | wartet auf Test/Build (gebaut) |
 | 461.1 | M | von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461): Grundstand mit Tom: Kampfort, Wölfe, Hel | ruht |
@@ -272,7 +271,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 407 (Projekt), 415 (Team Jerry)
+Nicht gestellt: 407 (Projekt)
 
 Ohne Datei: 3402 (Projekt), 275 (Projekt), 26 (Team Tom)
 
