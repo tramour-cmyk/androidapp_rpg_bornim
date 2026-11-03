@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 512.1 | M? | **von Sokrates (512, Chef 03.11., 23:28, „Kümmer du dich um 512.“):** Regel „Abgleich“ wirkt nur mit Wächter: `commit-pruefung.py` warnt bei neuer `chefsache/ansehen/t*.md` ohne Zeile „Verglichen:“ (Schirme, Fenster, Bedienungen; t250 von 00:28 hat keine) | startbar |
 | 516 | K | **von Ford (Chef 03.11., 16:20, „gab es nicht ein Tool oder einen Haken für die Kostenerfassung?“):** `cost_usd` fehlt bei archivierten Sitzungen; selbst lesen und buchen? | ruht bis 05.11.: Befund Ford 16:33 (in Git): alle 7 liefen beim Archivieren noch; Regel „nur archivieren, wenn idle“, kein Haken nötig; fehlt die Zahl trotz idle, wird es Muss (Perikles 20:3x, Zu 516) | – |
 | 513.1 | M | **von Sokrates (Chef 03.11., 15:56, „513 B“, Archiv; „jetzt“ 03.11., 15:56):** `probelauf.py` lässt keinen Bild- oder Filmlauf zu, dessen Zweig einen abgenommenen Figurencommit (417, 463, künftig je Abnahme) nicht enthält | gebaut 03.11., 16:1x: Sperre und tools/figurenstand.tsv (417 3b29ac0cb, 463 e3789d130); Geprüft an: 45351ef1d (12 Zweige: nur build-496a frei) | – |
 | 511 | M | **von Sokrates (Chef 03.11., 13:50, „511 ja“, Archiv; „jetzt“ 03.11., 13:50):** `probelauf.py` startet einen Filmlauf nur mit geprüftem Probebild (Zu 511) | gebaut 03.11., 14:03, Geprüft an: d6d9eca8c; Diogenes prüft | – |
