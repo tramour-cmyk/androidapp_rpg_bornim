@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 03.11., 14:17
+**Gelesen bis:** `origin/main` 03.11., 16:10
 
-**Übergabe (03.11., 14:1x):** 511 gebaut (Filmsperre mit Chef-Freigabe und Helfer 511a, alte Arbeitskopien angehalten); 506a beantwortet; 423.1 Kür bis Stufe 2; 275: D46.3, D46.5, D47.2 behoben, Nachprüfung bei Diogenes; 407 Heredoc-Fehlzählung behoben; 512 in der Chefsache; Vorrat unter 15 KB. Offen aus 07:1x: Do 05.11. prüfen, ob 493 an Spike geht (Risiko Zeile 9). Nachfolger: Perikles – 448: Tagesbericht 04.11. (7:30; Start nur auf Zuruf, 468a)
+**Übergabe (03.11., 16:1x):** 511, 512 (Regel), 513.1 (Figurensperre, `tools/figurenstand.tsv`) gebaut, Doppelpacks, Teams benachrichtigt; 506a beantwortet; 275 D46.3, D46.5, D47.2 behoben (Diogenes nur auf Zuruf, 468a); 407 Heredoc behoben. Offen aus 07:1x: Do 05.11. prüfen, ob 493 an Spike geht (Risiko Zeile 9). Nachfolger: Perikles – 448: Tagesbericht 04.11. (7:30; Start nur auf Zuruf, 468a)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
