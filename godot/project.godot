@@ -6,6 +6,8 @@ config/name="Chroniken von Bornim"
 run/main_scene="res://spiel.tscn"
 config/features=PackedStringArray("4.7", "Mobile")
 config/quit_on_go_back=false
+; 415 (Jerry): Testmenü „Strahlen“ schreibt hier den Renderer (Mobile oder Kompatibilität) für den nächsten Start; ohne Datei wie oben
+config/project_settings_override="user://renderer_415.cfg"
 
 [autoload]
 

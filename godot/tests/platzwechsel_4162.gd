@@ -62,7 +62,8 @@ func _lauf() -> void:
 			var t: Vector2i = weit[0]; var h: Vector2i = t - weit[1]
 			stelle(spiel, wer, t, h)
 			await spiel._schiebt(t)
-			pruefe(wer.ziel.x >= 0 and wer.ziel != h, "mit Platz tritt sie zur Seite: Ziel %s (Held %s)" % [wer.ziel, h])
-			pruefe(not spiel.held.frei(wer.position), "beim Seitenschritt sperrt sie weiter")
+			# 416.2 (Chef 02.11., 10:52, Build 146: „Ziege wird geschoben, kein Platztausch“): auch mit Platz zur Seite tauscht sie
+			pruefe(wer.ziel == h, "auch mit Platz zur Seite tauscht sie: Ziel %s (Held %s)" % [wer.ziel, h])
+			pruefe(spiel.held.frei(wer.position), "waehrend des Tauschs geht der Held durch sie hindurch")
 	print("PLATZWECHSEL %d Fehler" % fehler)
 	quit(1 if fehler else 0)
