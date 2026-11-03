@@ -2,7 +2,7 @@ name: Tom Probe Glühwürmchen (514)
 
 # 514 (Chef 03.11., 16:01 „Gibt es nachts vernünftige Glühwürmchen überall auf den Karten?“): Bildlauf ohne Film und APK, Bau wie
 # godot.yml (Dorf, Wald), dann --gluehen (je Gebietskarte der groesste Schwarm nachts, zwei Augenblicke). Nur bei Commits, die mit
-# „514 Glühbilder“ beginnen (probelauf.py zaehlt den Push); ins Artefakt nur Bilder (348.12c a).
+# „514 Glühbilder“ beginnen (probelauf.py zaehlt den Push); ins Artefakt nur Bilder (348.12c a). Lauf 2: Bodenschein weicher.
 on:
   push:
     branches: ["claude/tom-514-**"]
