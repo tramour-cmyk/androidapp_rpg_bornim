@@ -92,11 +92,10 @@ func _ready() -> void:
 	var vs: Vector2 = get_viewport().get_visible_rect().size
 	dp = vs.x / 412.0
 	font_px = sp(15)
-	var ff := FontFile.new()
-	if ff.load_dynamic_font("res://kampf/schrift/alegreya_regular.ttf") == OK:
-		font = ff
-	else:
-		font = ThemeDB.fallback_font
+	# 544 (Chef 03.11., 23:49 „Stimmt die Schrift?“): load_dynamic_font liest die rohe .ttf, die im APK fehlt (dort steht nur die
+	# importierte .fontdata, export_presets include_filter); der Kampf zeigte die Ersatzschrift. Jetzt über den Import wie stil.gd
+	var ff = load("res://kampf/schrift/alegreya_regular.ttf")
+	font = ff if ff is Font else ThemeDB.fallback_font
 	root = Control.new()
 	root.set_anchors_preset(Control.PRESET_FULL_RECT)
 	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
