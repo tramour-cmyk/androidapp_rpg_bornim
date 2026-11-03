@@ -124,9 +124,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 |---|---|---|---|
 | 478 | M | von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv): Rechenkern des Kampfs schon in Stufe | ruht |
 | 481.1 | M | von Sokrates (Archiv 427): Tränke in sim444 (Zu 481 in ARBEIT-BERATUNG.md), Herkünfte neu | wartet auf Test/Build (gebaut) |
-| 467 | M | von Sokrates (Chef 01.11., 21:52, Frage „Wie steigert sich die Ausdauer?“): godot/regeln/a | wartet auf Sokrates |
+| 467 | M | von Sokrates (Chef 01.11., 21:52): regeln/ausdauer.gd rechnet nach SRD; BRS: Ausdauer aus | wartet auf Sokrates |
 | 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Wölfe gleiten (Angriff, Tempo, aneinander vor | wartet auf Test/Build (gebaut) |
-| 457.2 | M | von Perikles (Chef 01.11., 11:49, „unsere Signatur muss sich wiederfinden“): eigene Probes | wartet auf Test/Build (gebaut) |
+| 457.2 | M | von Perikles (Chef 01.11., 11:49): Probeskripte zeichnen standardmäßig mit Toon-Licht, Tus | wartet auf Test/Build (gebaut) |
 | 453.1 | M | von Sokrates (Archiv 453.1a): Helden im Kampf atmen ruhiger, je Figur eigener Takt | wartet auf Test/Build (gebaut) |
 | 453 | M | von Sokrates (Archiv 453): Ruhebewegungen der Wölfe | wartet auf Test/Build (gebaut) |
 | 453a | M | Wolfsatem B (Archiv) | wartet auf Test/Build (gebaut) |
