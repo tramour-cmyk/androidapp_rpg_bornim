@@ -1,5 +1,7 @@
 # 505 · Nebel im Wald: welche Form hat das Sichtfeld des Helden? · Team Tom (Spike) · 03.11., 09:41
 
+[Bild von 03.11., 09:41](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/03-0941-505-Spike.png) (eingetragen von meldung.sh, Spike)
+
 W Welt
 Kurz: Nebel wie alt gebaut, Form des Sichtfelds zur Wahl, Lauf 2 von 2
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41601615757 (Lauf 2, Commit d8bb53ffb)
