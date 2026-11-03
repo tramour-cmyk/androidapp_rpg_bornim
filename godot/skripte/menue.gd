@@ -389,25 +389,30 @@ func dialog(titel: String, farbe: Color, zeilen: Array, knoepfe: Array) -> Contr
 	schleier.add_child(mitte)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(8 * DP))
-	v.custom_minimum_size.x = get_viewport_rect().size.x - 48 * DP
+	# 519 (Chef 03.11., 23:13: Fenster ragte rechts hinaus): wie ConfirmDialog alt der Kasten 16 dp vom Rand, innen 14 dp;
+	# kein Kind darf breiter sein (Titel bricht um, Knoepfe passen sich an), sonst schiebt es den Kasten aus dem Bild
+	var breite := get_viewport_rect().size.x - 2 * 16 * DP - 2 * 14 * DP
+	v.custom_minimum_size.x = breite
 	mitte.add_child(Erschaffung.kasten(v))
-	v.add_child(Stil.zeile(titel.to_upper(), 14, farbe, 3.0))
-	for c in zeilen: v.add_child(c)
+	v.add_child(Menue.dialog_kopf(titel, farbe, zeilen))
+	for c in zeilen:
+		if c.get_parent() == null: v.add_child(c)
 	# 503 (Chef 03.11., 07:40, „genau wie alt“): ConfirmDialog (Dialogs.kt 86–104): weitere Knoepfe nebeneinander in einer Reihe,
-	# darunter „Abbrechen“ (oder „Schliessen“) links und der erste Knopf rechts, je halb so breit, Schrift 15 sp; ein einzelner
-	# Knopf (OK, Schliessen) ueber die ganze Breite
-	var mach := func(k: Array) -> Button:
+	# darunter „Abbrechen“ (oder „Schliessen“) links und der erste Knopf rechts, je halb so breit; ein einzelner
+	# Knopf (OK, Schliessen) ueber die ganze Breite. 519: Schrift wie PixelButton(size = 15.sp) alt 13 sp (15 × 0,7, mindestens 13),
+	# zu lang: zwei Zeilen oder kleiner (Menue.passe_knopf)
+	var mach := func(k: Array, b_breite: float) -> Button:
 		var tat: Callable = k[1]
 		var b := Erschaffung.knopf(String(k[0]), func(): schleier.queue_free(); tat.call())
 		if k.size() > 2: b.disabled = not bool(k[2])
-		b.add_theme_font_size_override("font_size", int(round(15 * Stil.SP)))
-		b.clip_text = false
+		Menue.passe_knopf(b, b_breite)
 		return b
 	var reihe := func(ks: Array) -> void:
 		var r := HBoxContainer.new()
 		r.add_theme_constant_override("separation", int(8 * DP))
+		var b_breite := (breite - 8 * DP * (ks.size() - 1)) / ks.size()
 		for k in ks:
-			r.add_child(mach.call(k))
+			r.add_child(mach.call(k, b_breite))
 		v.add_child(r)
 	var ab := knoepfe.size() > 1 and String(knoepfe[-1][0]) in [abbrechen(), Sprache.u("close")]
 	if ab:
@@ -417,6 +422,63 @@ func dialog(titel: String, farbe: Color, zeilen: Array, knoepfe: Array) -> Contr
 	else:
 		for k in knoepfe: reihe.call([k])
 	return schleier
+
+# 519 Kopf wie ConfirmDialog alt (Dialogs.kt 65–77): das Bild des Dings (erste Zeile, 48 dp) links, 10 dp Abstand, daneben der Titel;
+# in der Farbe eines Dings 20 sp halbfett, bricht um (Txt mit titleColor); ohne eigene Farbe (Gold) MenuHead: Versalien 14 sp gesperrt
+static func dialog_kopf(titel: String, farbe: Color, zeilen: Array) -> Control:
+	var kopf := HBoxContainer.new()
+	kopf.add_theme_constant_override("separation", int(10 * DP))
+	if not zeilen.is_empty() and zeilen[0] is TextureRect:
+		var bild: Control = zeilen[0]
+		bild.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		kopf.add_child(bild)
+	var t: Label
+	if farbe == Stil.GOLD:
+		t = Stil.zeile(titel.to_upper(), 14, farbe, 3.0)
+	else:
+		t = Stil.zeile(titel, 20 * 0.95, farbe, 0.2)   # wie Erschaffung.txt (Txt-Groesse × 0,95)
+		t.add_theme_constant_override("outline_size", int(DP * 0.6)); t.add_theme_color_override("font_outline_color", farbe)
+	t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	t.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	kopf.add_child(t)
+	return kopf
+
+# 519 wie PixelButton alt (Theme.kt 304–315): Versalien, gesperrt 1,2 sp, ein Wort bricht nie; mit Leerzeichen bis zwei Zeilen,
+# sonst kleiner (je 0,9, bis 0,55), bis es in die Breite passt (innen 6 dp Rand je Seite)
+static func passe_knopf(b: Button, breite: float, sp := 13.0) -> void:
+	var innen := breite - 12 * DP
+	var worte := b.text.split(" ", false)
+	var f := 1.0
+	while true:
+		var g := int(round(sp * Stil.SP * f))
+		var schrift := Stil.variante(1.2 * f)
+		var w := func(t: String) -> float: return schrift.get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, g).x
+		var ganz: float = w.call(b.text)
+		var passt := ganz <= innen
+		var zwei := false
+		if not passt and worte.size() > 1:
+			# zwei Zeilen: gierig umbrechen wie Compose, jedes Wort ganz
+			var n := 1
+			var zeile := ""
+			var wort_passt := true
+			for x in worte:
+				wort_passt = wort_passt and w.call(x) <= innen
+				var probe: String = x if zeile == "" else zeile + " " + x
+				if w.call(probe) <= innen or zeile == "":
+					zeile = probe
+				else:
+					n += 1
+					zeile = x
+			zwei = wort_passt and n <= 2
+			passt = zwei
+		if passt or f <= 0.56:
+			b.add_theme_font_override("font", schrift)
+			b.add_theme_font_size_override("font_size", g)
+			b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART if zwei else TextServer.AUTOWRAP_OFF
+			b.clip_text = not passt   # passt es selbst bei 0,55 nicht, schneidet der Knopf ab, statt den Kasten zu sprengen
+			return
+		f *= 0.9
 
 const ABBRECHEN := {"de": "Abbrechen", "en": "Cancel"}
 func abbrechen() -> String: return Sprache.t(ABBRECHEN)
@@ -548,6 +610,12 @@ static func vergleich_tabelle(zeilen: Array, de: bool) -> Control:
 		h.add_child(spalte.call(String(r["vorher"]), 15.0, Stil.DIM, 0.9))
 		h.add_child(spalte.call(String(r["nachher"]), 15.0, {1: GRUEN, -1: Stil.WARN}.get(besser, Stil.DIM), 0.9, besser != 0))
 		t.add_child(h)
+		# 519 GearDetails: der Hinweis der Zeile (Obergrenze, Schnitt) darunter, 10 dp eingerueckt, matt
+		if String(r.get("notiz", "")) != "":
+			var n := MarginContainer.new()
+			n.add_theme_constant_override("margin_left", int(10 * DP))
+			n.add_child(Erschaffung.txt(String(r["notiz"]), 12, Stil.DIM))
+			t.add_child(n)
 	return t
 
 func im_beutel(g: Dictionary) -> int:
