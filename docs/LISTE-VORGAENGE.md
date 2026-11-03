@@ -147,7 +147,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 489 | Hauptmenü: runde Schalter für Musik und Effekte an/aus wie in der alten Fassung (Chef 03.11., 07:07, Test Build 204) | C Klang | M | – | Team Jerry | zu testen |
 | 490 | Flüsterwald begehbar wie alt (Orte O6, 479 A; Wochenziel 03.11., 488) | B Umzug | M | 50,92 $ | Team Tom | zu testen |
 | 491 | Tiefer Flüsterwald mit Morwens Hütte und Grimmzahn begehbar (Orte O7, 479 A; Wochenziel 03.11., 488) | B Umzug | M | 29,56 $ | Team Tom | zu testen |
-| 492 | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry an Tom, Chef 07:54) | B Umzug | M | 15,84 $ | Team Tom | Chef |
+| 492 | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry an Tom, Chef 07:54) | B Umzug | M | 15,84 $ | Team Tom | startbar |
 | 493 | Kampforte Wald: Waldrand, Teich, Baum, Felsen, Steinkreis (Orte O9; Wochenziel 03.11., 488; von Jerry an Spike) | E Kampf | M | – | Team Tom | zu testen |
 | 494 | Gegner von Kapitel 1 im Kampf außer den Untoten (506), je Gegner höchstens ein Lauf (Wochenziel 03.11., 488) | E Kampf | M | 69,83 $ | Team Jerry | wartet |
 | 495 | Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2; Wochenziel 03.11., 488) | E Technik | M | – | Team Tom | wartet |
@@ -228,7 +228,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 431c | Rückfrage: Völker Runde 4 am Tor angehalten, neue Läufe frei? | E Figuren | M | – | Team Tom | Chef |
 | 431d | Rückfrage: Völker Lauf 3 am Tor angehalten (B1 Elf, C3, G3, A1/A3 Grak, A2), neue Läufe frei, Weg A2? | E Figuren | M | – | Team Tom | Chef |
 | 431e | Rückfrage: Gesicht des Helden im Dorflicht fast weiß, Hauteichung nach Messung? | E Figuren | M | – | Team Tom | Chef |
-| 431f | Rückfrage: Haut der Orkblütigen Frau, zwei weitere Probeläufe zum Nachstellen und Beheben? | E Figuren | M | – | Team Tom | Chef |
+| 431f | Rückfrage: Haut der Orkblütigen Frau, zwei weitere Probeläufe zum Nachstellen und Beheben? | E Figuren | M | – | Team Tom | erledigt |
 | 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | C Texte | K | 0,79 $ | Homer | ruht |
 | 432.2 | Aschgeborene: Grundwerte und Merkmal (Chef 02.11., 16:29) | E Regeln | M? | – | Sokrates | erledigt |
 | 432.3 | Aschgeborene: Abnahmeliste in LISTE-FIGUREN, Erschaffungstext (Chef 02.11., 16:29) | C Texte | M? | – | Homer | erledigt |
