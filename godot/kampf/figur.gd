@@ -65,6 +65,9 @@ const KOBOLD_KITS := ["kappe", "schild", "fell"]
 ## 348.12 Grak (goblin.py ART=hobgoblin_captain, CC0-Gerüst): ein Kit, Großaxt in beiden Händen (waffen.py greataxe-grak, für
 ## ihn gebaut, Größe 1); in Stehen der Stiel steil vor dem Körper, der Kopf der Axt über der rechten Schulter (ual_lauer.py GRAK_HALT)
 const GRAK_KITS := ["hauptmann"]
+## 506 Skelett (untote.py, CC0-Gerüst wie Grak): Kurzschwert und Helm, Kurzschwert und Rundschild, Speer und Helm (MonsterKit.kt)
+const SKELETT := "skeleton"
+const SKELETT_KITS := ["helm", "schild", "speer"]
 ## Kurzbogen wie Dress.bow: 0,58 der Größe des Schützen (waffen.py baut ihn 101 cm, für den Menschen)
 ## Späher Runde 2 (Prüfer 1: „von der Schulter bis auf Fußhöhe, für einen Kurzbogen groß“): 0,48
 const GOB_BOGEN := 0.48 / 1.01
@@ -147,7 +150,7 @@ func setup(f, k) -> void:
 		_arm_kauf()
 	elif fighter.monster == null:
 		_arm()
-	elif fighter.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK]:
+	elif fighter.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, SKELETT]:
 		_arm_goblin()
 	if fighter.monster != null:
 		var sk: Skeleton3D = _find(model, "Skeleton3D")
@@ -342,7 +345,7 @@ func _model_path() -> String:
 		if ERSATZ_FELLE.has(art):
 			return "res://kampf/daten/%s-%s.bin" % [art, ERSATZ_FELLE[art][n % ERSATZ_FELLE[art].size()]]
 		return "res://kampf/daten/wolf-%s.bin" % WOLF_COATS[n % WOLF_COATS.size()]
-	if fighter.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK]:     # 348.7: Goblin, Späher je Nummer eines der drei Kits (goblin.py, MonsterKits)
+	if fighter.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, SKELETT]:     # 348.7: Goblin, Späher je Nummer eines der drei Kits (goblin.py, MonsterKits)
 		return "res://kampf/daten/%s-%s.bin" % [_gob_art(), _gob_kit()]
 	return "res://kampf/daten/%s.bin" % fighter.monster.id
 
@@ -502,7 +505,7 @@ func _arm() -> void:
 
 ## Goblin, Späher, Grak: Zweibeiner auf dem Gerüst aus goblin.py oder grak_gestalt.py
 func _zweibeiner() -> bool:
-	return fighter.monster != null and fighter.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK]
+	return fighter.monster != null and fighter.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, SKELETT]
 
 
 ## 403: Waffe und Schild am Kaufkörper. Der Kaufkörper ruht in der T-Pose, darum wie beim Goblin nach der Haltung in Stehen
@@ -560,6 +563,8 @@ func _gob_art() -> String:
 func _gob_kit() -> String:
 	if fighter.monster.id == Mars.GRAK:
 		return GRAK_KITS[0]
+	if fighter.monster.id == SKELETT:
+		return SKELETT_KITS[(maxi(fighter.nr, 1) - 1) % SKELETT_KITS.size()]
 	var kits: Array = SCOUT_KITS if fighter.monster.id == Mars.SCOUT else (SHAMAN_KITS if _gob_art() == SHAMAN else (KOBOLD_KITS if _gob_art() == KOBOLD else GOBLIN_KITS))
 	return kits[(maxi(fighter.nr, 1) - 1) % kits.size()]
 
@@ -593,9 +598,14 @@ func _arm_goblin() -> void:
 			sz *= info.get("koerper_cm", 80.0) / 108.0
 		if String(w[i]) == "greataxe-grak":
 			sz = 1.0
+		if _gob_art() == SKELETT:     # 506: menschengroß, Waffen und Schild in voller Größe (waffen.py baut für den Menschen)
+			sz = 1.0
 		# 348.12 Probe CC0-Gerüst (goblin.py GERUEST=cc0): der Handknochen beginnt am Handgelenk, der Griff liegt näher
 		var grip: float = info.get("griff_hand_m", 0.0) if info.get("geruest", "") == "cc0" else info.get("griff_m", GRIP_CM * CM)
 		_hold(sk, "R" if i == 0 else "L", w[i], grip, info.get("handflaeche_m", PALM_CM * CM), sz, info.get("axt", {}))
+	if _gob_art() == SKELETT:     # 506: die Augen in den Höhlen glimmen (untote.py: Eckfarbe mit Alpha 0)
+		for m in mats:
+			m.set_shader_parameter("glut", 1.8)
 	if _gob_art() == SHAMAN:     # Augen und der Schädel am Stab glimmen grün (Eckfarbe mit Alpha 0; goblin.py, waffen.py)
 		for m in mats:
 			m.set_shader_parameter("glut", 1.8)     # Runde 1b (Prüfer 1a: nicht zu sehen) 2,5; 1c (Prüfer 1b: gelb statt grün) 1,8

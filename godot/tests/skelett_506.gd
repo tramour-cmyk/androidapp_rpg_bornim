@@ -45,6 +45,24 @@ func _kampf(k: String, bis_ende: bool) -> void:
 		if f.max_hp < 6 or f.max_hp > 20:
 			fehler += 1
 			print("FEHLER Trefferpunkte %d (6–20)" % f.max_hp)
+	# mit Modell (untote.py im Bau): je Skelett eines der drei Kits, Bewegungen da, Waffe in der Hand
+	if FileAccess.file_exists("res://kampf/daten/skeleton-info.json"):
+		for i in 6: await process_frame
+		var kits := []
+		for f in feinde:
+			var fig = kf.figures.get(String(f.id))
+			var pfad: String = fig._model_path() if fig != null else ""
+			kits.append(pfad.get_file())
+			var fehlt: Array = ["Stehen", "Gehen", "Hieb", "Treffer", "Tod"].filter(func(a): return fig == null or fig.anim == null or not fig.anim.has_animation(a))
+			var sk: Skeleton3D = fig._find(fig.model, "Skeleton3D") if fig != null else null
+			var griffe := sk.find_children("*", "BoneAttachment3D", false, false).size() if sk else 0
+			if not pfad.begins_with("res://kampf/daten/skeleton-") or not fehlt.is_empty() or griffe < 1:
+				fehler += 1
+				print("FEHLER Modell %s: Bewegungen fehlen %s, %d in der Hand" % [pfad, fehlt, griffe])
+		if kits.size() == 3 and (kits[0] == kits[1] or kits[1] == kits[2] or kits[0] == kits[2]):
+			fehler += 1
+			print("FEHLER Kits nicht verschieden: %s" % [kits])
+		print("Skelett 506 Modelle: %s" % [kits])
 	if not bis_ende:
 		print("Skelett 506 %s gegen drei Skelette: aufgestellt, TP %s" % [k, feinde.map(func(f): return f.max_hp)])
 		kf.queue_free()
