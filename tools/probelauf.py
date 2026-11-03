@@ -35,8 +35,10 @@ Mensch sicher besser sehen.“): der Chef hat es gesehen, Eintrag im Vorgangsarc
   `python3 tools/probelauf.py --probebild <Nr> <Bild.png|Link> <Filmskript> "<was zu sehen sein muss>"`, dann an den Chef
   (13:56: „das Probebild kann man mir vorlegen. Mit dem Hinweis, was zu prüfen ist.“): `meldung.sh --bild` mit dieser Liste
   und Datei `docs/chefsache/ansehen/<Nr>-probebild.md`. Freigabe: Archiveintrag mit „<Nr> Probebild passt“ in der fetten
-  Kopfzeile (deren Zeit) oder im Text mit „(Chef [TT.MM.,] HH:MM“ dahinter. Am Rechner muss der Name des Filmskripts im
-  Filmbefehl stehen. Jeder Filmlauf verbraucht das Probebild.
+  Kopfzeile (deren Zeit) oder im Text mit „(Chef [TT.MM.,] HH:MM“ dahinter. Danach (511a, Chef 13:59: „1“) prüft ein
+  Helfer das Probebild genau: `python3 tools/probelauf.py --helfer <Nr> "ok: <was zu sehen ist>"`; erst dann der Film.
+  Am Rechner muss der Name des Filmskripts im Filmbefehl stehen. Jeder Filmlauf verbraucht das Probebild.
+  Push: filmt, wenn ein Schritt mit `--write-movie` bei dieser Commit-Nachricht läuft (`if: contains(…head_commit.message…)`).
 """
 import datetime
 import json
@@ -290,8 +292,35 @@ def loest_aus(wo, zweig, pfade, nachricht):
         if bed and jobs and all("startsWith(github.event.head_commit.message" in str((j or {}).get("if", "")) for j in jobs.values()) \
                 and not any(nachricht.lstrip().startswith(b) for b in bed):
             continue
-        los = max(los, FILMT if "--write-movie" in text else 1)
+        los = max(los, FILMT if filmt_bei(jobs, nachricht) else 1)
     return los
+
+
+def filmt_bei(jobs, nachricht):
+    """511: ruft ein Schritt, der bei dieser Commit-Nachricht läuft, `--write-movie`? Bedingungen aus
+    contains(github.event.head_commit.message, '…') mit &&, ||, ! werden ausgewertet; andere gelten als erfüllt
+    (lieber sperren als durchlassen)."""
+    def laeuft(bed):
+        bed = re.sub(r"\$\{\{|\}\}", "", str(bed or "")).strip()
+        if not bed:
+            return True
+        ausdruck = re.sub(r"contains\(\s*github\.event\.head_commit\.message\s*,\s*'([^']+)'\s*\)",
+                          lambda m: " True " if m.group(1) in nachricht else " False ", bed)
+        if re.sub(r"True|False|&&|\|\||!|[()\s]", "", ausdruck):
+            return True
+        ausdruck = ausdruck.replace("&&", " and ").replace("||", " or ").replace("!", " not ")
+        try:
+            return bool(eval(ausdruck, {"__builtins__": {}}, {}))
+        except Exception:
+            return True
+
+    for job in (jobs or {}).values():
+        if not isinstance(job, dict) or not laeuft(job.get("if")):
+            continue
+        for schritt in job.get("steps") or []:
+            if isinstance(schritt, dict) and "--write-movie" in str(schritt.get("run", "")) and laeuft(schritt.get("if")):
+                return True
+    return False
 
 
 RERUN = ("407 (Chef 02.11., 07:18: „die ganze Nacht über jetzt 1000 Filmchen gedreht“): einen Lauf neu starten zählt der Haken "
@@ -453,7 +482,15 @@ def probebilder(nr):
     """511: eingetragene Probebilder zu nr, [(Zeit, Bild, Filmskript, Befund)], aus Zweig und lokaler Datei."""
     _, text = zweig_lesen(BILDER)
     lokal = open(LOKAL_BILDER, encoding="utf-8").read() if os.path.exists(LOKAL_BILDER) else ""
-    return sorted({(z[0], z[5], z[6], z[7]) for z in zeilen(text) + zeilen(lokal) if len(z) >= 8 and z[1] == nr})
+    return sorted({(z[0], z[5], z[6], z[7]) for z in zeilen(text) + zeilen(lokal)
+                   if len(z) >= 8 and z[1] == nr and z[3] == "probebild"})
+
+
+def helfer_ok(nr):
+    """511a: Zeit des jüngsten Helferbefunds „ok“ zum Probebild von nr, sonst ""."""
+    _, text = zweig_lesen(BILDER)
+    lokal = open(LOKAL_BILDER, encoding="utf-8").read() if os.path.exists(LOKAL_BILDER) else ""
+    return max((z[0] for z in zeilen(text) + zeilen(lokal) if len(z) >= 8 and z[1] == nr and z[3] == "helfer"), default="")
 
 
 def letzter_film(nr):
@@ -505,11 +542,33 @@ def film_sperre(nr, art, befehl):
                 f"freigegeben. Vorlegen: `meldung.sh <Name> --bild <Bild> \"{nr}: Probebild; zu prüfen: {bilder[-1][3]}\"` und "
                 f"Datei docs/chefsache/ansehen/{nr}-probebild.md; Filmlauf erst nach Archiveintrag „{nr} Probebild passt“. "
                 "Bis dahin an einem anderen Vorgang weiter.")
+    if helfer_ok(nr)[:16] < passt[:16]:
+        return (f"511a (Chef 13:59: „1“): Chef hat das Probebild zu {nr} freigegeben ({passt}); jetzt prüft ein Helfer es "
+                "genau gegen die Liste, dann `python3 tools/probelauf.py --helfer " + nr + " \"ok: <was zu sehen ist>\"`. "
+                "Fehlt etwas: Ursache nachstellen, neues Probebild.")
     skript = os.path.basename(bilder[-1][2].rstrip("/"))
     if art == "rechner" and skript not in ("", "-") and skript not in befehl:
         return (f"511: das Probebild zu {nr} ({bilder[-1][1]}) kommt aus „{skript}“, der Filmlauf ruft ein anderes Skript. "
                 "Probebild aus demselben Filmskript eintragen.")
     return None
+
+
+def helfer_eintragen(args):
+    """511a: `--helfer <Nr> "ok: <was zu sehen ist>"` nach dem „Probebild passt“ des Chefs."""
+    if len(args) != 2:
+        sys.exit("Aufruf: python3 tools/probelauf.py --helfer <Nr> \"ok: <was zu sehen ist>\"")
+    nr, befund = (a.replace("\t", " ").replace("\n", " ").strip() for a in args)
+    seit = letzter_film(nr)
+    bilder = [b for b in probebilder(nr) if b[0] > seit]
+    passt = probebild_passt(nr)
+    if not bilder or not passt or passt[:16] < bilder[-1][0][:16]:
+        sys.exit(f"511a: erst Probebild zu {nr} eintragen und vom Chef „{nr} Probebild passt“ abwarten.")
+    if not re.match(r"ok:\s*\S.{10,}", befund, re.I) or re.search(r"\bfehlt|nicht zu sehen|unsichtbar|\bleer\b", befund, re.I):
+        sys.exit("511a: Befund muss mit „ok:“ beginnen und nennen, was zu sehen ist; fehlt etwas: kein Eintrag, Ursache "
+                 "nachstellen, neues Probebild.")
+    wer = os.environ.get("CLAUDE_SESSION_ID", "hand")[:20]
+    zaehlen(nr, wer, "helfer", BILDER, LOKAL_BILDER, ("-", "-", befund[:300]))
+    print(f"511a: Helferbefund zu {nr} eingetragen; ein Filmlauf zu {nr} darf starten.")
 
 
 def probebild_eintragen(args):
@@ -551,9 +610,12 @@ def main():
             frei = [b for b in probebilder(nr) if b[0] > seit]
             passt = probebild_passt(nr)
             print(f"{nr}: Probebild (511) " + ("fehlt, kein Filmlauf" if not frei else
-                  f"{frei[-1][0]} ({frei[-1][2]}), " + ("vom Chef freigegeben " + passt + ", Filmlauf frei"
-                                                         if passt and passt[:16] >= frei[-1][0][:16] else "wartet auf den Chef")))
+                  f"{frei[-1][0]} ({frei[-1][2]}), " + ("wartet auf den Chef" if not passt or passt[:16] < frei[-1][0][:16]
+                                                         else "Chef " + passt + (", wartet auf den Helfer (511a)"
+                                                         if helfer_ok(nr)[:16] < passt[:16] else ", Helfer ok, Filmlauf frei"))))
         return
+    if sys.argv[1:2] == ["--helfer"]:
+        return helfer_eintragen(sys.argv[2:])
     if sys.argv[1:2] == ["--probebild"]:
         return probebild_eintragen(sys.argv[2:])
     try:
