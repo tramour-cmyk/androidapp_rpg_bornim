@@ -164,6 +164,7 @@ func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := 
 		monsters[m.id] = m
 	var party := [_kaempfer("hero", held, held_tp, Vector2i(Mars.FRONT, 0), skills)]
 	party[0].hero["look"] = lage.get("aussehen", {})     # 403: Kopf, Haar, Haut wie im Dorf (Zustand.aussehen, HeldFigur)
+	leiden_auf(party[0], lage.get("leiden", {}))     # 532
 	if soeldner != null:
 		var sb := _als_blatt(soeldner)
 		var hinten: bool = sb.main.ranged or sb.cls == "WIZARD" or sb.cls == "CLERIC"
@@ -198,7 +199,34 @@ func _kaempfer(id: String, x, tp: int, platz: Vector2i, skills: Dictionary):
 	var f = Mars.hero_fighter(id, "PARTY", platz, b, max_tp, b.second, skills)
 	if not (x is Dictionary):
 		f.hp = clampi(int(x.tp), 0, max_tp)
+		# 532 (Abgleich 512, alt Battle.kt init): einmal je Rast nur, was seit der letzten Rast übrig ist (Hero.spent)
+		for s in skills.values():
+			if s.id in b.skills and s.cost == "PER_REST":
+				f.uses[s.id] = maxi(0, int(s.amount) - int(x.verbraucht.get(String(s.id), 0)))
 	return f
+
+
+## 532 (alt Battle.kt init, GameState.ailments): die Zustände, die der Held aus dem letzten Kampf mitbringt; nur, was MARS kennt
+## (Metrausch DRUNK fehlt in MARS, Zu 532)
+static func leiden_auf(f, leiden: Dictionary) -> void:
+	for st in leiden:
+		if Mars.STATUS.has(String(st)) and int(leiden[st]) > 0:
+			f.status[String(st)] = int(leiden[st])
+
+
+## 532 (alt Game.keepAilments): was nach dem Kampf bleibt: Gift, Blutung, Schwäche; ein Fluch (Schwäche) bis zur Heilung, Gift
+## und Blutung um den Konstitutionsbonus kürzer (Perks.ailmentShortening); verloren: nichts
+static func leiden_nach(f, ergebnis: String, kon_bonus: int) -> Dictionary:
+	var bleibt := {}
+	if f == null or ergebnis == "LOST":
+		return bleibt
+	for st in f.status:
+		if not String(st) in ["POISON", "BLEED", "WEAK"]:
+			continue
+		var rest: int = Mars.LASTING if st == "WEAK" else int(f.status[st]) - maxi(0, kon_bonus)
+		if rest > 0:
+			bleibt[String(st)] = rest
+	return bleibt
 
 
 func _fertig(ergebnis: String) -> void:

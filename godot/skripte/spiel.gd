@@ -458,12 +458,14 @@ func tageszeit() -> String:   # Kampfort.tageszeit: tag, abend, nacht
 func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeffnung := "") -> String:
 	var hw := held_werte() if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
 	var soeldner = null if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
-	var erg := {"ende": "", "tp": {}, "lohn": {}, "rest": zustand.anzahl("potion")}
+	var erg := {"ende": "", "tp": {}, "lohn": {}, "rest": zustand.anzahl("potion"), "held": null}
 	var aufruf := AufrufS.new()
 	add_child(aufruf)
 	aufruf.ende.connect(func(o, tp, lohn):
 		erg["tp"] = tp; erg["lohn"] = lohn
-		if aufruf.kampf and aufruf.kampf.mars: erg["rest"] = int(aufruf.kampf.mars.potions.get("potion", 0))
+		if aufruf.kampf and aufruf.kampf.mars:
+			erg["rest"] = int(aufruf.kampf.mars.potions.get("potion", 0))
+			erg["held"] = aufruf.kampf.mars.find("hero")     # 532: ZP, Verbrauchtes, Zustände nach dem Kampf
 		erg["ende"] = String(o))
 	held.halt(); held.richtung = Vector3.ZERO
 	# die Welt ruht unsichtbar; Kamera und Umgebung des Kampforts gelten (sonst zeichnet unsere Kamera, unsere Umgebung zuerst)
@@ -484,6 +486,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	if eroeffnung != "": lage["eroeffnung"] = eroeffnung   # 490: Ueberfall, Held zuerst (Opening) vom Monster auf der Karte
 	lage["blende"] = true   # 402 (Jerry): die Blende vor dem Kampf wie alt, auch im Probekampf
 	if probe.is_empty(): lage["aussehen"] = zustand.aussehen   # 403 (Jerry): der Held im Kampf wie im Dorf (HeldFigur)
+	if probe.is_empty(): lage["leiden"] = zustand.leiden.duplicate()   # 532 (Jerry): Zustände aus dem letzten Kampf (GameState.ailments)
 	# 493 (Jerry): Kampfort im Wald nach dem, was um den Helden steht (wie alt BattleScene.spotFor); im Testmodus wählbar
 	lage["platz"] = Testmodus.kampfort if Testmodus.ist_an() and Testmodus.kampfort != "" else load("res://kampf/kampfort.gd").platz_fuer(karte, held.kachel)
 	var gestartet: bool = aufruf.starte(gegner, hw, soeldner, "wald", tageszeit(), zustand.anzahl("potion") if probe.is_empty() else 2, -1, -1, -1, beute, lage)
@@ -508,9 +511,20 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 		held.setze(zurueck, "DOWN"); kamera.springe(); await abblenden(0.0)
 		return ende[0]
 	var tp_nach := int(erg["tp"].get("hero", hw.tp))
+	# 532 (Jerry, Abgleich 512; alt Battle.kt 487–489, Game.keepAilments): Zauberpunkte und „einmal je Rast“ verbraucht, Zustände bleiben
+	var hf = erg["held"]
+	if hf != null:
+		hw.zp = clampi(int(hf.sp), 0, hw.max_zp())
+		var tabelle: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+		for s in tabelle.skills:
+			if s.cost == "PER_REST" and hf.uses.has(s.id):
+				var weg := int(s.amount) - int(hf.uses[s.id])
+				if weg > 0: hw.verbraucht[String(s.id)] = weg
+				else: hw.verbraucht.erase(String(s.id))
+	zustand.leiden = AufrufS.leiden_nach(hf, ende[0], hw.mod("CON"))
 	if ende[0] == "LOST":
 		Rast.vergeht(zustand, 4 * 60)   # Game.DEATH_HOURS
-		hw.tp = hw.max_tp()
+		hw.voll()   # 532: Hero.restoreFully (TP, ZP, Verbrauchtes)
 		var wk: Dictionary = zustand.wiederkehr
 		var alle: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json"))
 		# Test 132 (Chef 16:09: „Bei Heilung bin ich nicht vor der Schenke, sondern vor dem Tempel“): wie Game.kt state.place =
