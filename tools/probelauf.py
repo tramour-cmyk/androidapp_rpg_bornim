@@ -596,6 +596,24 @@ def probebild_eintragen(args):
           f"{befund}“, Datei docs/chefsache/ansehen/{nr}-probebild.md); Filmlauf erst nach Archiveintrag „{nr} Probebild passt“.")
 
 
+def alte_einstellungen(befehl, cwd):
+    """511 (Spike 03.11., 13:4x: Lauf 244 über `actions_run_trigger` nicht gezählt): die Sitzung liest Haken aus
+    `.claude/settings.json` ihrer Arbeitskopie; ein Zweig von vor ff8821827 (02.11., 11:19) kennt den Haken für Starts über
+    den GitHub-Server nicht, Zählung und Filmsperre greifen dort nicht. Grund zum Anhalten oder None; git-Befehle gehen
+    immer durch (zum Mischen)."""
+    if re.match(r"\s*(?:cd\s+\S+\s*&&\s*)?git\b", befehl):
+        return None
+    wurzel = os.environ.get("CLAUDE_PROJECT_DIR") or git("rev-parse", "--show-toplevel", cwd=cwd).stdout.strip()
+    datei = os.path.join(wurzel, ".claude", "settings.json") if wurzel else ""
+    if not datei or not os.path.isfile(datei) or "probelauf" not in open(datei, encoding="utf-8").read():
+        return None
+    if "actions_run_trigger" in open(datei, encoding="utf-8").read():
+        return None
+    return ("511: diese Arbeitskopie hat eine alte `.claude/settings.json` ohne den Haken für Abläufe über den GitHub-Server "
+            "(Starts von Hand würden nicht gezählt und nicht gesperrt). Erst `git fetch origin main && git merge origin/main`, "
+            "dann weiter; greift der Haken danach nicht, Sitzung über Ford neu starten.")
+
+
 def anhalten(text):
     print(text, file=sys.stderr)
     sys.exit(2)
@@ -635,6 +653,12 @@ def main():
         if hand:
             pruefen_und_zaehlen(*hand, wer, film=True)
         return
+    try:
+        alt = alte_einstellungen(befehl, cwd)
+    except (OSError, subprocess.SubprocessError, ValueError):
+        alt = None
+    if alt:
+        anhalten(alt)
     try:
         grund = parse_pruefen(befehl, cwd)  # 464: vor dem Zählen, ein angehaltener Push ist kein Lauf
     except (OSError, subprocess.SubprocessError, ValueError):
