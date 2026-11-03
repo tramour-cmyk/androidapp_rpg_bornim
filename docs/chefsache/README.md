@@ -4,7 +4,12 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [468b](entscheiden/468b-sokrates-505.md) | **Muss** | B Abläufe | 03.11., 19:20 | Tom braucht für 505 (Nebel des Krieges) die Freigabe „Läufe frei“; die gibt Sokrates oder du. Nach 468a startet Sokrates nur auf dein Wort. | Ford |
+| [516a](entscheiden/516a-archivieren-erlaubnis.md) | M? | B Abläufe | 03.11., 19:20 | Der Auto-Modus lehnt `archive_session` für Ford ab; seitdem bleiben alte Sitzungen und ihre Kosten offen. | Ford |
 
 ## Zu billigen
 
@@ -125,7 +130,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | D71.1 | K | von Diogenes (374/434, Vortag 02.11.): ohne „Bestand geprüft“ (434): 417 00:53, 02:24, 03: | startbar |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 46595 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Jerry** – offen 60, Muss 48, startbar 3
+**Jerry** – offen 60, Muss 48, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -155,7 +160,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 510 | M | von Sokrates: Fledermaus: freies OGA-Modell „Vampire Bat“ (CC0) mit unseren Fellen neben d | wartet auf Perikles |
 | 509 | M | von Sokrates (Chef 03.11., 09:21): Frösche und Libellen an den Teichen wie alt (PondLife.k | wartet auf Perikles |
 | 494 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Gegner von Kapitel 1 im Kampf (Liste und St | startbar |
-| 517 | M | von Team Tom (03.11., 16:3x, Abgleich 512): Waldklang wie alt: Vögel am Tag, Eule und Gril | startbar |
+| 517 | M | von Team Tom (03.11., 16:3x, Abgleich 512): Waldklang wie alt: Vögel am Tag, Eule und Gril | wartet auf Test/Build (gebaut) |
 | 507 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; aus 492): Kampforte Höhle wie alt: Eingang, | wartet auf Sokrates |
 | 496a | M | Rückfrage: abgenommene Kampfbilder schon in den Durchspiel-Build? | wartet auf Test (Build) |
 | 496 | M | von Perikles (Wochenziel 03.11. Reihe 5, 488): Durchspiel-Build aus 490–495: der Chef spie | wartet auf 490 (zu testen) |
