@@ -5,7 +5,7 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 ## Zehn Zeilen
 
 <!-- zahlen -->
-**Stand 03.11., 07:17** (Werkzeug `tools/tagesbericht.py`)
+**Stand 03.11., 07:18** (Werkzeug `tools/tagesbericht.py`)
 
 | # | Kennzahl | heute | Bemerkung |
 |---|---|---|---|
@@ -22,7 +22,7 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 
 | Rolle | offen | davon Muss | startbar | erledigt 24 h | erledigt 7 Tage |
 |---|---|---|---|---|---|
-| Tom | 58 | 39 | 10 | 5 | 15 |
+| Tom | 58 | 39 | 9 | 5 | 15 |
 | Jerry | 62 | 49 | 5 | 13 | 19 |
 | Homer | 9 | 3 | 3 | 1 | 10 |
 | Sokrates | 36 | 26 | 16 | 3 | 24 |
@@ -52,7 +52,7 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 
 1. **Build 204 fertig testen** (t204): Stufe 1 (Erschaffung, Heldenstufe, Monsterwerte) wird erst mit deinem Test abnehmbar.
 2. **Wochenziel 03.11. „Kapitel 1 durchspielbar“** ([Projektplan](PROJEKTPLAN.md)): erst Flüsterwald, Tiefer Flüsterwald, Kampforte, Gegner, Blutzahnhöhle, dann der Durchspiel-Build; der Kampf darin rechnet noch alt, das BRS (2.3) folgt gleich danach. Sagst du „2.3 vorher“, kommen etwa 3–4 Sitzungen vor dein erstes Durchspielen.
-3. **Guthaben (dein Bild 07:16, 53 %):** der Durchspiel-Build (etwa 45 Sitzungen) passt nicht in diese Woche; er kommt in der Woche ab Sa 20:00. Bis dahin Flüsterwald und Waldgegner zuerst.
+3. **Guthaben (dein Bild 07:16, 53 %):** kein Termin, das Guthaben setzt nur das Tempo: höchstens etwa 10 % je Tag, damit es bis Sa 20:00 ohne Stillstand reicht. Der Durchspiel-Build (etwa 45 Sitzungen) kommt, wenn er fertig ist; Flüsterwald und Waldgegner zuerst.
 
 *Stärkstes Gegenargument:* Befunde zum Kampf aus dem ersten Durchspielen gelten nur bedingt, weil 2.3 die Zahlen ändert. *Wie es zu entkräften ist:* Orte, Wege, Geschichte und Gegner hängen nicht an den Regeln, und Stufe 4 verlangt ohnehin ein zweites Durchspielen.
 
