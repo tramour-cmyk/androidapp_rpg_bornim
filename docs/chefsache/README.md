@@ -147,7 +147,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 406.2 | M | von Sokrates (Chef 03.11., 06:59, Zu 406.2; „jetzt“ 03.11., 06:59): im Kampf zum Angriff g | startbar |
 | 406 | M | von Team Tom (Archiv 376.1): Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Son | wartet auf Test/Build (gebaut) |
 | 509 | M | von Sokrates (Chef 03.11., 09:21, „glaube ich, habe ich gesehen, dass Frösche und Libellen | startbar |
-| 494 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; neu aufgeteilt Chef 07:54): Gegner von Kapit | startbar |
+| 494 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Gegner von Kapitel 1 im Kampf (Liste und St | startbar |
 | 507 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; aus 492): Kampforte Höhle wie alt: Eingang, | startbar |
 | 496a | M | Rückfrage: abgenommene Kampfbilder (Grundstand 461) schon in den Durchspiel-Build? | startbar |
 | 496 | M | von Perikles (Wochenziel 03.11. Reihe 5, 488): Durchspiel-Build aus 490–495: der Chef spie | wartet auf 490 (Chef) |
