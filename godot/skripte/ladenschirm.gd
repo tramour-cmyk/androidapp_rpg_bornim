@@ -227,7 +227,8 @@ func verkaufen() -> void:
 			preis_text(Laden.verkaufspreis(hw, id)), func(): menge(id, false, 1))
 	if laden.brauen: return
 	luecke(8)
-	var dinge: Array = z.beutel.duplicate()
+	# 458.2a: Einzelstuecke (Preis 0 im Katalog) erscheinen nicht, wie Handlungsgegenstaende
+	var dinge: Array = z.beutel.filter(func(g): return Laden.ausruestung_verkaeuflich(g))
 	dinge.sort_custom(func(a, b):   # ShopScreen: Seltenheit absteigend, dann Platz
 		var ra := Beute.stufe_von(String(a["rarity"])); var rb := Beute.stufe_von(String(b["rarity"]))
 		if ra != rb: return ra > rb

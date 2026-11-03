@@ -161,6 +161,9 @@ static func reiter(m: Menue) -> void:
 		zk.call(t.call("Andere Hand", "Other hand"), name_von(nb) if nb != "" else t.call("leer", "empty"),
 			t.call("Wechselt die andere Hand: leer, Schild, Rundschild, Dolch.", "Cycles the other hand: empty, shield, round shield, dagger."),
 			func(): waffe(hw, z, NEBENHAND[(maxi(NEBENHAND.find(nb), 0) + 1) % NEBENHAND.size()] if NEBENHAND.has(nb) else "", true), "SHIELD")])
+	# 470a B: die Seite „Neues Spiel“ nach BRS 1.1 bis 2.3 nur hier; „Abenteuer beginnen“ und „Zurück“ fuehren in die Welt zurueck
+	m.zeichenreihe([zk.call(t.call("Erschaffung BRS", "Creation BRS"), null, t.call("Zeigt die neue Seite „Neues Spiel“ nach BRS 1.1. Ins Spiel kommt sie mit dem Kampf nach BRS (2.3); bis dahin ändert sie den Helden nicht.",
+		"Shows the new “New game” page after BRS 1.1. It enters the game with BRS combat (2.3); until then it does not change the hero."), func(): m.test.emit("erschaffung_brs", []), "RULES")])
 	if waffen_auf:
 		var alle: Array = [""]
 		for id in Beute.grundformen():
@@ -180,6 +183,9 @@ static func reiter(m: Menue) -> void:
 			func(): m.test.emit("teleport", ["village", 11, 7, "DOWN"]), "HOME"),
 		zk.call(t.call("Kapitelende", "Chapter end"), null, t.call("Kapitel 1 bis kurz vor Ende: Höhle geschafft, Lyra frei, Amulett in der Tasche; sprich mit Aldric.",
 			"Chapter 1 to just before its end: cave done, Lyra free, amulet in the bag; talk to Aldric."), func(): m.test.emit("kapitelende", []), "FLAG")])
+	# 415 (Jerry, Chef „415 jetzt“ 02.11., 10:55): Handyprobe der Beams-Probe im Kampfort (kampf/strahlprobe.gd)
+	m.zeichenreihe([zk.call(t.call("Strahlen", "Beams"), null, t.call("415: drei Strahlen der Beams-Probe im Kampfort, mit Bildern je Sekunde; Renderer umschaltbar.",
+		"415: three beams of the Beams sample in the battle place, with frames per second; renderer switchable."), func(): m.test.emit("strahlen", []), "FPS")])
 	var fs := feinde()
 	if not fs.is_empty():
 		m.gruppe(t.call("Kampf beschwören", "Summon a fight"))

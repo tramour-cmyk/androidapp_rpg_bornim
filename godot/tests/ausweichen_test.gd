@@ -18,6 +18,11 @@ func _lauf() -> void:
 	if not l.weicht(): fehler += 1; print("FEHLER weicht nicht")
 	if not l.weiche(Vector2i(1, 0)): fehler += 1; print("FEHLER kein Platz")
 	print("Ausweichen: von ", l.kachel, " nach ", l.ziel, ", wartet ", l.warte)
+	# 416.2 (Chef 02.11., 10:52): zuerst Platztausch mit dem Helden
+	if l.ziel != Vector2i(19, 13): fehler += 1; print("FEHLER kein Platztausch, Ziel ", l.ziel)
+	# Held nicht daneben: zur Seite, sonst voran (alt makeWay)
+	held.position = k.kachel_pos(Vector2i(17, 13)); l.ziel = Vector2i(-1, -1)
+	if not l.weiche(Vector2i(1, 0)): fehler += 1; print("FEHLER kein Platz")
 	if l.ziel not in [Vector2i(20, 12), Vector2i(20, 14), Vector2i(21, 13)]: fehler += 1; print("FEHLER Ziel ", l.ziel)
 	if l.ziel == Vector2i(21, 13) and (k.begehbar(Vector2i(20, 12)) or k.begehbar(Vector2i(20, 14))): fehler += 1; print("FEHLER voran statt zur Seite")
 	var wache := Leute.new(k, {"id": "wache", "x": 20, "y": 14, "runde": [[20, 14], [22, 14]]}, held)
