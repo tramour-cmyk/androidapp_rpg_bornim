@@ -11,6 +11,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
+| 275 | M | **von Perikles (Doppelpack 421, 03.11., 14:1x, `334ec650d`):** Nachprüfung D46.3 (`entschieden()`: nur Kopf „**X“, nicht X.1; Liste nur erledigt/fertig), D46.5 (`vorgang.py` kennt offen, aufgeteilt, Idee wie 4a), D47.2 (`startbar.py` zeigt Leichen als eine Muss-Zeile wie `lauf.py`); zählst du keinen Werkzeugfehler, beginnt Perikles Stufe 2 | startbar |
 | 511 | M | **von Perikles (Doppelpack 421, 03.11., 14:0x, `d6d9eca8c`):** `probelauf.py` hält jeden Filmlauf an bis Probebild, „<Nr> Probebild passt“ im Archiv, Helfer ok (511a); `LISTE-BAUEN-TESTEN.md` Prüftreppe 4 ersetzt Ausnahme 461a/480. Prüfen: greift am ersten echten Filmlauf, Test-Pushes ohne Film frei; dazu `b3562a719`: Arbeitskopie mit `settings.json` von vor ff8821827 (ohne MCP-Haken, Spike Lauf 244 ungezählt) wird angehalten, bis `main` gemischt ist | am ersten Filmlauf nach 14:03 |
 | D69 | M | **von Perikles (Doppelpack 421, 02.11., 20:0x, `45468a5d7`):** Nachprüfung D69.1 (`meldung.sh`: Dateinamen gehen durch, Kürzel halten weiter an) und D70.1 (Archiv 480, 415c „teils ersetzt“) | startbar |
 | 340.2 | M | **von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv):** Wirkung 340.3–340.5 zählen (Tabelle „Änderungen“ in `LISTE-ROLLENSPIEGEL.md`, Spalte „gewirkt“) | ruht bis Mo 09.11. |
