@@ -18,8 +18,8 @@ Zählung je Sitzung, geschrieben vom Stop-Haken `tools/zug-haken.py` in `~/.born
 
 Befund: Wörter der Teams −43 % gegen A (Ziel −30 % erreicht); Stempel schlechter (42 %, Ziel unter 5 %), fast immer vorgerechnet, der Stop-Haken zählt nur (Chef 24.10., 21:15); Zwischenstände unverändert; Sokrates bleibt lang (darf begründen). Vorschlag: Chefsache 318.1.
 
-| Zeit | Rolle | Sitzung | Züge | Wörter Median | Wörter max | Entschuldigungen | Stempel daneben/gesamt | Kontext Tsd. | Haken 63 nachgeprüft: gehalten/„Keine Chefsache“/durch (383, ab 27.10., 19:15) |
-|---|---|---|---|---|---|---|---|---|---|
+| Zeit | Rolle | Sitzung | Züge | Wörter Median | Wörter max | Entschuldigungen | Stempel daneben/gesamt | Kontext Tsd. | Haken 63 nachgeprüft: gehalten/„Keine Chefsache“/durch (383, ab 27.10., 19:15) | Texte ohne Kopf/gesamt (462.1, ab 02.11., 11:3x) |
+|---|---|---|---|---|---|---|---|---|---|---|
 | 24.10., 16:57 | Perikles | 9440fe84-e09 | 1 | 22 | 22 | 0 | 1/1 | 166 |
 | 24.10., 21:41 | Homer | 11bcbe06-db2 | 4 | 43 | 69 | 0 | 1/4 | 189 |
 | 24.10., 21:56 | Jerry | 89e59e50-e44 | 1 | 107 | 107 | 0 | 1/1 | 199 |
@@ -91,3 +91,22 @@ Befund: Wörter der Teams −43 % gegen A (Ziel −30 % erreicht); Stempel schle
 | 01.11., 14:28 | Jerry | 50f5ae73-0a0 | 1 | 59 | 59 | 0 | 1/1 | 298 | 0/0/0 |
 | 01.11., 15:40 | Jerry | 9355ab05-54f | 1 | 31 | 31 | 0 | 0/0 | 260 | 0/0/0 |
 | 01.11., 20:40 | Sokrates | d49e338c-8d4 | 29 | 120 | 393 | 0 | 8/29 | 364 | 0/5/0 |
+| 02.11., 00:29 | Jerry | d0ce712b-3bf | 1 | 102 | 102 | 0 | 0/1 | 189 | 0/0/0 |
+| 01.11., 22:49 | Tom | b1ed3f7f-b68 | 4 | 31 | 36 | 0 | 1/4 | 460 | 0/0/0 |
+| 02.11., 01:00 | Tom | dc1bec21-579 | 8 | 15 | 37 | 0 | 1/5 | 312 | 0/0/0 |
+| 02.11., 03:42 | Tom | ea189b7c-221 | 5 | 11 | 13 | 0 | 0/3 | 372 | 0/0/0 |
+| 02.11., 06:43 | Tom | aa2ce284-978 | 4 | 25 | 29 | 0 | 0/3 | 395 | 0/0/0 |
+| 02.11., 11:29 | Diogenes | d4e904c3-694 | 2 | 222 | 317 | 0 | 0/2 | 252 | 0/0/0 |
+| 02.11., 12:12 | Tom | b486b373-c82 | 4 | 14 | 19 | 0 | 0/4 | 429 | 0/0/0 | 2/10 |
+| 02.11., 16:11 | Jerry | a997cfc9-577 | 1 | 216 | 216 | 0 | 0/1 | 314 | 1/0/1 | 4/12 |
+| 02.11., 20:49 | Jerry | d7bb8d01-299 | 2 | 85 | 140 | 0 | 0/2 | 290 | 0/1/0 | 8/11 |
+| 02.11., 21:27 | Sokrates | e5bd15b6-4c3 | 23 | 76 | 367 | 0 | 1/21 | 419 | 0/2/0 | 2/26 |
+| 02.11., 21:31 | Jerry | 32dfdfdc-4fb | 1 | 21 | 21 | 0 | 0/1 | 151 | 0/0/0 | 3/5 |
+| 02.11., 22:58 | Jerry | 5d30d5c3-6df | 5 | 32 | 79 | 0 | 0/4 | 331 | 0/0/0 | 2/8 |
+| 03.11., 02:28 | Jerry | c12e3163-735 | 11 | 35 | 117 | 0 | 3/11 | 477 | 0/0/0 | 3/18 |
+| 03.11., 07:37 | Jerry | 2b1a55e3-a78 | 12 | 56 | 158 | 0 | 3/12 | 379 | 0/0/0 | 0/13 |
+| 03.11., 08:53 | Jerry | 39353626-b43 | 5 | 46 | 79 | 0 | 0/5 | 384 | 0/1/0 | 2/10 |
+| 03.11., 09:53 | Jerry | 9c4c85f6-333 | 2 | 108 | 203 | 0 | 0/0 | 484 | 0/0/0 | 7/10 |
+| 03.11., 11:03 | Jerry | e4c734e8-ab0 | 1 | 249 | 249 | 0 | 0/1 | 409 | 0/0/0 | 4/6 |
+| 03.11., 11:24 | Spike | 89eaa3af-e7d | 4 | 13 | 16 | 0 | 0/4 | 502 | 0/0/0 | 3/10 |
+| 03.11., 15:01 | Jerry | 155bcdb9-d96 | 8 | 74 | 112 | 0 | 0/6 | 335 | 0/2/0 | 4/12 |

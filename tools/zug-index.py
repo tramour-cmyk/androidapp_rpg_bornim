@@ -32,8 +32,25 @@ def seit_text(m, pfad):
     for t, uhr in zeiten[::-1]:  # älteste passende zuerst: seit wann es so dasteht
         if t == tag and uhr.startswith(vorn):
             return f"{tag}, {uhr}"
+    # 465.1 (D60.1): passt die geschätzte Minute zu keinem Commit, gilt der älteste Commit des Tages (Git vor Schätzung)
+    for t, uhr in zeiten[::-1]:
+        if t == tag:
+            return f"{tag}, {uhr}"
     return m.group(0)
 BEREICH = re.compile(r"^[EGQBM] [A-ZÄÖÜ]\w+$")
+WER = re.compile(r"^(?:Team )?(?:Tom|Jerry|Spike|Tuffy|Homer|Sokrates|Perikles|Diogenes|Ford)(?:\b.*)?$")
+
+
+def anlage_zeit(pfad):
+    """465 (474a): ohne Datum in der Datei gilt die Zeit des Commits, der sie angelegt hat."""
+    try:
+        r = subprocess.run(["git", "-C", os.path.dirname(pfad), "log", "--diff-filter=A", "--format=%cd",
+                            "--date=format-local:%d.%m., %H:%M", "--", os.path.basename(pfad)],
+                           capture_output=True, text=True, timeout=10, env={**os.environ, "TZ": "Europe/Berlin"})
+        z = [x for x in r.stdout.split("\n") if x.strip()]
+        return z[-1] if z else ""
+    except (OSError, subprocess.SubprocessError):
+        return ""
 
 def vorgaenge():
     """Bereich und Klasse je Nummer aus LISTE-VORGAENGE.md (124, 126, 136)."""
@@ -84,7 +101,16 @@ def eintrag(ordner, name):
     meta = next((z for z in zeilen[1:] if not z.startswith("Kurz:")), "")
     wer = meta.split(" · ")[0] if " · " in meta else ""
     m = re.search(SEIT, meta)
-    seit = seit_text(m, os.path.join(ZUG, ordner, name))
+    if not m or not WER.match(wer):  # 465 (Chef 02.11., 14:39, 474a): Wer und Zeit in der Titelzeile statt in Zeile 2
+        teile = [t.strip() for t in was.split(" · ")]
+        w = next((t for t in teile if WER.match(t)), "")
+        z = next((re.search(SEIT, t) for t in teile if re.search(SEIT, t)), None)
+        if w or z:
+            was = " · ".join(t for t in teile if t != w and not (z and z.group(0) in t)) or was
+            wer, m = (w or wer), (m or z)
+    if not WER.match(wer):
+        wer = ""
+    seit = seit_text(m, os.path.join(ZUG, ordner, name)) if m else anlage_zeit(os.path.join(ZUG, ordner, name))
     kurz = next((z[5:].strip() for z in zeilen if z.startswith("Kurz:")), None)
     if kurz: was = kurz
     else:

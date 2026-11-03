@@ -1,0 +1,144 @@
+#!/usr/bin/env python3
+"""Pflegehinweise als Vorratszeile (340.3, Chef 02.11., 19:44, „340.2 ja“, Variante A).
+
+Was `notiz.sh` beim Start meldet (Größe, lange Zeilen, Übergabe zu lang; `regelcheck.py --kurz`), steht täglich als eine Zeile
+„Pflege“ „von Werkzeug“ im Vorrat des Besitzers und ersetzt die vom Vortag; ohne Befund fällt die Zeile weg.
+Dazu der Rollenspiegel als fester Freitagstermin: ab Freitag steht in jedem Vorrat ohne Antwort der Woche die Zeile „Spiegel“,
+bis `tools/rollenspiegel.sh <Rolle> --antwort …` angehängt hat (auch wenn am Freitag keine Sitzung der Rolle lief).
+
+Schreibt nicht in die Arbeitskopie: liest `origin/main`, baut den Commit mit eigenem Index und pusht (wie `meldung.sh`),
+darum stört es offene Änderungen nicht. `notiz.sh` ruft es einmal am Tag je Rechner im Hintergrund.
+Aufruf: python3 tools/pflegehinweis.py [--probe]   (--probe: nur zeigen, nichts pushen)
+"""
+import datetime, os, re, subprocess, sys, tempfile, zoneinfo
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BERLIN = zoneinfo.ZoneInfo("Europe/Berlin")
+JETZT = datetime.datetime.now(BERLIN)
+VORRAT = {"Sokrates": "ARBEIT-BERATUNG.md", "Perikles": "ARBEIT-PROJEKT.md", "Homer": "ARBEIT-KREATIV.md",
+          "Ford": "ARBEIT-BETRIEB.md", "Diogenes": "ARBEIT-PRUEFUNG.md", "Team Tom": "ARBEIT-TEAM-TOM.md",
+          "Team Jerry": "ARBEIT-TEAM-JERRY.md"}
+# Befunde ohne eigenen Vorrat: wer die Datei pflegt
+FREMD = {"CLAUDE.md": "ARBEIT-PROJEKT.md", "LISTE-VORGAENGE.md": "ARBEIT-PROJEKT.md", "ARBEIT-TAGESBERICHT.md": "ARBEIT-PROJEKT.md",
+         "Block": "ARBEIT-PROJEKT.md", "Testbuilds": "ARBEIT-BETRIEB.md", "startbar.py": "ARBEIT-BETRIEB.md"}
+
+
+def git(*a, eingabe=None, env=None):
+    return subprocess.run(["git", "-C", ROOT, *a], capture_output=True, text=True, input=eingabe, env=env, timeout=60)
+
+
+def befunde():
+    """{Vorratsdatei: [Befund, …]} aus regelcheck --kurz."""
+    r = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "regelcheck.py"), "--kurz"], capture_output=True, text=True)
+    je = {}
+    for z in r.stdout.splitlines():
+        if not z.startswith("  - "):
+            continue
+        f = z[4:].strip()
+        ziel = next((v for k, v in FREMD.items() if f.startswith(k) or f.startswith("docs/" + k)), None)
+        m = re.match(r"(?:docs/)?(ARBEIT-[A-Z-]+\.md)", f)
+        ziel = ziel or (m.group(1) if m else "ARBEIT-PROJEKT.md")
+        je.setdefault(ziel, []).append(re.sub(r"^(?:docs/)?ARBEIT-[A-Z-]+\.md: ", "", f))
+    return je
+
+
+def freitag(tag):
+    return tag + datetime.timedelta(days=4 - tag.weekday())  # wie rollenspiegel.sh: Mo–Do der kommende, Sa/So der vergangene
+
+
+def spiegel_faellig(text_spiegel):
+    """Rollen, deren Rollenspiegel fällig ist: ab Freitag ohne Antwort unter „## Woche <Freitag>“; Mo–Do, wenn die Vorwoche fehlte
+    und die laufende Woche noch keine Antwort hat."""
+    wochen = {m.group(1): m.end() for m in re.finditer(r"(?m)^## Woche (\d\d\.\d\d\.)", text_spiegel)}
+
+    def hat(rolle, tag):
+        k = tag.strftime("%d.%m.")
+        if k not in wochen:
+            return False
+        rest = text_spiegel[wochen[k]:]
+        rest = rest.split("\n## Woche ", 1)[0]
+        return re.search(r"(?m)^### " + re.escape(rolle) + r"\b", rest) is not None
+
+    heute = JETZT.date()
+    diese = freitag(heute)
+    faellig = {}
+    for rolle in VORRAT:
+        if hat(rolle, diese):
+            continue
+        if heute.weekday() >= 4:
+            faellig[rolle] = diese.strftime("%d.%m.")
+        else:
+            vorige = diese - datetime.timedelta(days=7)
+            if vorige >= datetime.date(2026, 11, 6) and not hat(rolle, vorige):  # 340.3 gilt ab dem ersten Freitag danach
+                faellig[rolle] = vorige.strftime("%d.%m.") + ", nachholen"
+    return faellig
+
+
+def neu_setzen(text, nr, zeile, unten=False):
+    """Ersetzt die Tabellenzeile `| nr |`: oben in die erste Tabelle, mit unten=True ans Ende der ersten Tabelle; zeile None: entfernen."""
+    zeilen = text.split("\n")
+    zeilen = [z for z in zeilen if not z.startswith(f"| {nr} |")]
+    if zeile:
+        for i, z in enumerate(zeilen):
+            if z.startswith("| Nr.") and i + 1 < len(zeilen) and zeilen[i + 1].startswith("|---"):
+                j = i + 2
+                if unten:
+                    while j < len(zeilen) and zeilen[j].startswith("|"):
+                        j += 1
+                zeilen.insert(j, zeile)
+                break
+    return "\n".join(zeilen)
+
+
+def berechnen(basis, je, tag):
+    spiegel = spiegel_faellig(git("show", f"{basis}:docs/LISTE-ROLLENSPIEGEL.md").stdout)
+    aenderung = {}
+    for rolle, datei in VORRAT.items():
+        pfad = "docs/" + datei
+        alt = git("show", f"{basis}:{pfad}").stdout
+        if not alt:
+            continue
+        b = je.get(datei, [])
+        pflege = None
+        if b:
+            text = "; ".join(b)
+            text = text if len(text) <= 300 else text[:297] + " …"
+            pflege = f"| Pflege | K | **von Werkzeug (340.3, {tag}):** {text.replace('|', '/')} | startbar |"
+        s = spiegel.get(rolle)
+        sp = (f"| Spiegel | M | **von Werkzeug (340.3, Rollenspiegel Woche {s}):** `tools/rollenspiegel.sh {rolle.split()[-1]}` "
+              f"zeigt die Fragen; Antwort mit `--antwort` anhängen, committen, pushen | startbar |") if s else None
+        neu = neu_setzen(neu_setzen(alt, "Pflege", pflege, unten=True), "Spiegel", sp)  # Pflege als Kür unten, kein Start dafür
+        if neu != alt:
+            aenderung[pfad] = neu
+    return aenderung
+
+
+def main():
+    probe = "--probe" in sys.argv
+    je = befunde()
+    tag = JETZT.strftime("%d.%m.")
+    for versuch in range(3):  # bei abgelehntem Push neu auf dem neuen Stand rechnen, nie fremde Änderungen überschreiben
+        if git("fetch", "-q", "origin", "main").returncode:
+            return
+        basis = git("rev-parse", "FETCH_HEAD").stdout.strip()
+        aenderung = berechnen(basis, je, tag)
+        if probe or not aenderung:
+            for p, t in aenderung.items():
+                print(p, *[z for z in t.split("\n") if z.startswith(("| Pflege |", "| Spiegel |"))], sep="\n  ")
+            return
+        idx = tempfile.mktemp()
+        env = dict(os.environ, GIT_INDEX_FILE=idx)
+        git("read-tree", basis, env=env)
+        for p, t in aenderung.items():
+            blob = git("hash-object", "-w", "--stdin", eingabe=t).stdout.strip()
+            git("update-index", "--cacheinfo", f"100644,{blob},{p}", env=env)
+        baum = git("write-tree", env=env).stdout.strip()
+        if os.path.exists(idx):
+            os.remove(idx)
+        c = git("commit-tree", baum, "-p", basis, "-m", f"Werkzeug: Pflegehinweise {tag} (340.3)").stdout.strip()
+        if c and git("push", "-q", "origin", f"{c}:refs/heads/main").returncode == 0:
+            print("pflegehinweis: %d Vorräte neu" % len(aenderung))
+            return
+
+if __name__ == "__main__":
+    main()

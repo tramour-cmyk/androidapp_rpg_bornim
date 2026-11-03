@@ -4,7 +4,7 @@ zwischen <!-- zahlen --> und <!-- /zahlen -->; was nicht zu zählen ist (Schätz
 von Hand darunter, Zeilen 3, 8, 9 aus dem Abschnitt „Eingaben“. Ersetzt den Stand zum Marktstart (338.1) und das Dashboard (339).
 Aufruf: python3 tools/tagesbericht.py [--probe]   (--probe: nur ausgeben, nichts schreiben); danach Text prüfen, pushen,
 Telegram mit Ton: python3 tools/tagesbericht.py --telegram gibt die Meldung aus.
-Quellen: LISTE-ABNAHME-KAPITEL1.md (Punkte; „· Stand: in Arbeit|gebaut“ am Zeilenende, [x] = abgenommen), LISTE-VORGAENGE.md und -ARCHIV.md
+Quellen: PROJEKTPLAN.md (Punkte; „· Stand: in Arbeit|gebaut“ am Zeilenende, [x] = abgenommen), LISTE-VORGAENGE.md und -ARCHIV.md
 (Git-Stand vor 24 h und 7 Tagen), startbar.py --stand, chefsache/README.md, Zeile „Guthaben:“ in ARBEIT-BETRIEB.md."""
 import collections, datetime, os, re, subprocess, sys, zoneinfo
 
@@ -37,6 +37,10 @@ def punkte(text):
     return p
 
 def rev_vor(spec):
+    # flache Kopie (frische Sitzung, 02.11.: nur 76 Commits, Zeile 2 zählte 0 / 0): Verlauf von 9 Tagen nachholen
+    if git("rev-parse", "--is-shallow-repository").strip() == "true":
+        subprocess.run(["git", "-C", ROOT, "fetch", "-q", "--shallow-since=9 days ago", "origin", "main"],
+                       capture_output=True, timeout=120)
     return git("rev-list", "-1", "--before=" + spec, "HEAD").strip()
 
 def tafel(rev):
@@ -94,7 +98,7 @@ def rechnen():
     for n, v in jetzt.items():
         d = v["kosten"] - gestern.get(n, {"kosten": 0})["kosten"]
         if d > 0.01: kost["Spiel" if v["bereich"] in SPIEL else "Betrieb"] += d
-    p_heute = punkte(lesen("LISTE-ABNAHME-KAPITEL1.md")); p_gestern = punkte(git("show", rev_vor("24 hours ago") + ":docs/LISTE-ABNAHME-KAPITEL1.md"))
+    p_heute = punkte(lesen("PROJEKTPLAN.md")); p_gestern = punkte(git("show", rev_vor("24 hours ago") + ":docs/PROJEKTPLAN.md"))
     seit = collections.Counter()
     for k, s in p_heute.items():
         a = p_gestern.get(k, "offen")
@@ -134,7 +138,7 @@ def zeilen(d):
          "; gestern %d $ Rechenwert, Spiel %d %%" % (ks, 100 * k["Spiel"] / ks if ks else 0), "Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal)"),
         ("Von dir zuerst gefunden", ein.get("Von dir zuerst gefunden", "–"), "Woche, zählt Diogenes montags"),
         ("Größtes Risiko", ein.get("Größtes Risiko", "–"), ""),
-        ("Ausführlich", "[Abnahmeliste und Stand](LISTE-ABNAHME-KAPITEL1.md)", ""),
+        ("Ausführlich", "[Abnahmeliste und Stand](PROJEKTPLAN.md)", ""),
     ]
 
 def zahlen_md(d):
@@ -165,7 +169,7 @@ def telegram(d):
     zs = zeilen(d)
     roh = lambda t: re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", t).replace("**", "")
     return "448: Tagesbericht %s (%sARBEIT-TAGESBERICHT.md)\n" % (JETZT.strftime("%d.%m."), GH) + "\n".join(
-        "%d. %s: %s" % (i + 1, a, roh(b)) for i, (a, b, c) in enumerate(zs[:9])) + "\n10. Ausführlich: %sLISTE-ABNAHME-KAPITEL1.md" % GH
+        "%d. %s: %s" % (i + 1, a, roh(b)) for i, (a, b, c) in enumerate(zs[:9])) + "\n10. Ausführlich: %sPROJEKTPLAN.md" % GH
 
 def main():
     d = rechnen()

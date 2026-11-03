@@ -2,6 +2,27 @@
 
 Wie gebaut und geprüft wird: die Einzelheiten zum [Leitbild](DESIGN-LEITBILD.md) (Grundsätze 5, 10, 11, 12). Wie das Spiel aussieht und klingt, steht in [Stil](DESIGN-STIL.md); Abläufe (Notizen, Builds, Nummern) in `CLAUDE.md`, seltene (Release, Neustart) in `LISTE-RELEASE-NEUSTART.md`.
 
+## Vor jeder Vorlage (461)
+
+Gilt für jede Probe, jedes Bild und jeden Film zu Figuren, Bewegung und Kampfort (Chef 01.11., 20:3x, Archiv 461; ein Ort 461d, Prüfung vor dem Versand 461a, 01.11., 22:5x; 480). Die Punkte stehen je einmal, hier nur Kennung, Stichwort und Ort.
+
+**Wie geprüft wird** (373, 396 gelten weiter, außer wo hier anders):
+- Wer vorlegt, prüft vor dem Versand jeden Punkt, der im Bild vorkommt; die Vorlage nennt „Geprüft an: <Link auf Film, Bild oder Lauf>“ (340.4, ersetzt „461 geprüft“), ein Verstoß steht dabei als „Punkt X verletzt, weil …“.
+- **Prüfung vor dem Versand (461a, 480):** Punkte mit „Prüfer: ja“ prüft der Helfer (Auftrag im Wortlaut, 300) **vor** dem Versand, nur ja/nein oder gemessen, nie die Wirkung (373). Ein Verstoß hält den Film des ersten Laufs an (Ausnahme zu 396). Nach dem zweiten Lauf geht der Film immer an den Chef, der Befund mit Zeit dabei, in einfachen Worten; keine Frage „neue Läufe?“ an ihn (480, Chef 02.11., 18:45). Weitere Läufe gibt sein Urteil oder Sokrates frei (407, 480.1). Alle anderen Befunde kommen wie bisher nach dem Versand als Text (396).
+- „Maß“ = Zahl von uns, nur Richtwert, hält nicht an; „–“ = Wirkung, nur Selbstprüfung.
+- Abweichen darf nur der Chef; dann die Zeile an ihrem Ort ändern, mit Wortlaut und Zeit, am alten Archiveintrag „→ ersetzt durch …“ (461b). Perikles gleicht montags mit dem Wochenziel gegen das Archiv ab, Diogenes zählt Widersprüche (461b).
+
+**Kennungen** (Prüfer ja, außer – und Maß):
+- `DESIGN-STIL.md` „Figuren und Bewegung“: A1 Spielshader · A2 Tusche nach Licht · A3 Signatur auch an Kaufmodellen · A4 Schatten unter dem Körper · A5 Held überall gleich (–) · A6 Ausrüstung räumlich (–) · B1 Kaufkörper, Köpfe, Hauttöne · B2 Grundkörper je Volk · B3 Tracht, Haar, Frisuren · B4 Kleidung geschlossen · B5 Schilde Kleriker und Krieger · B6 ruhend vor bewegt (–) · B7 Größen · C1 Atmen immer · C2 kein Stillstand (1 s Maß) · C3 kein Gleichtakt · C4 Ruhebewegungen wechseln (–) · D1 Übergänge weich (–) · D2 Gang aus dem Waffenpaket · D3 Gehen aufrecht, langsamer (–) · D4 Ortswechsel gelaufen, kein Gleiten · D5 Boss schreitet (–) · D6 nicht durcheinander.
+- `DESIGN-KAMPF.md` „Waffe, Schild und Kampf im Bild“: E1 Waffe in der Hand · E2 nach Paketvorlage · E3 nichts durch etwas (2 cm Maß) · E4 Sword & Shield · E5 Hinfallen, Aufstehen · E6 Kriegsaxt, Zweihänder · E7 Waffenformen nach Stufe · E8 Schild hängend · F1 Schild vor dem Biss · F2 trifft das Ziel · F3 Reihenfolge · F4 Zusammenbruch · F5 Ausweichen · F6 Zauber nicht aus dem Körper.
+- Hier, G Film und Vorlage:
+
+| Nr. | Prüfpunkt | Woher | Prüfer |
+|---|---|---|---|
+| G1 | Ausschnitt so, dass jede Figur ganz im Bild ist | 385.1 (28.10.) | ja |
+| G2 | Keine fremden Bilder an den Schnitten | Prüferbefund (d) zu 406, kein Chefwort | Maß |
+| G3 | Text der Vorlage im generischen Maskulinum („Held“, nie „Heldin“) | 348.12f (28.10.), 408 (29.10.) | ja |
+
 ## Ansicht
 
 - **Nur diagonal (13u, 13t):** jeder Ort und Raum diagonal (Vorlagen `MapRoomIso`, `MapTownIso`); die alte gerade Ansicht ist ausgebaut (13t, 0.1.709).

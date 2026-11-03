@@ -39,6 +39,21 @@ Ein Bündel beißender Kräuter von Morwen. Krogg vor die Füße werfen: Der Rau
 **Rauch gegen Krogg**
 Garrick riet {name}, vor dem Kampf gegen Krogg die Kräuterfrau Morwen im Tiefen Flüsterwald aufzusuchen. Sie kenne ein Mittel gegen den ersten Hieb eines Grottenschrats.
 
+`[427.2.rauch]` (Vorschlag Homer 03.11., Vorgang 427.2; Erzähler direkt nach dem Erwachen `[504.erwachen]`, wenn der Kampf gegen Krogg verloren ging; jede Niederlage, drei Wortlaute nach 504, erster beim ersten Mal)
+Erkennbar am Gegner „bugbear“ im Zweig nach der Niederlage (`spiel.gd`), als zweite Zeile nach `[504.erwachen]`.
+Mit Garricks Rat (Garrick getroffen):
+1. Kroggs erster Hieb aus dem Dunkel hat dich gebrochen, bevor der Kampf richtig begann. Garrick hat dich gewarnt: Geh nicht mit leeren Händen zu ihm. Morwen im Tiefen Flüsterwald weiß, wie man so einem den ersten Hieb nimmt. — EN: Krogg's first blow from the dark broke you before the fight had truly begun. Garrick warned you: don't go to him empty-handed. Morwen in the Deep Whisperwood knows how to rob one like him of his first strike.
+2. Kroggs erster Hieb sitzt dir noch in den Knochen. Garrick sprach von Morwen, der Kräuterfrau im Tiefen Flüsterwald. Vielleicht ist es Zeit, auf ihn zu hören. — EN: Krogg's first blow is still in your bones. Garrick spoke of Morwen, the herbalist in the Deep Whisperwood. Perhaps it's time to listen to him.
+3. Gegen Kroggs ersten Hieb hilft kein Mut. Morwen im Tiefen Flüsterwald weiß Rat dagegen, hat Garrick gesagt. — EN: Courage is no help against Krogg's first strike. Morwen in the Deep Whisperwood knows a way around it, Garrick said.
+Mit Rauchbündel verloren (Bündel verbraucht, `klassisch.gd`); ob Morwen ein zweites gibt, fragt `entscheiden/4272a`:
+1. Der Rauch hat ihm den ersten Hieb genommen, aber nicht die übrigen. Krogg ist stärker als du, noch. — EN: The smoke robbed him of his first strike, but not of the others. Krogg is stronger than you. For now.
+2. Morwens Rauch hat gewirkt; du warst es, der nicht gereicht hat. Werde stärker, bevor du wieder in den Ostflügel gehst. — EN: Morwen's smoke worked; you were the one who fell short. Grow stronger before you go back to the east wing.
+3. Ohne den ersten Hieb blieb Krogg noch genug. Ein paar Narben mehr, dann versuchst du es wieder. — EN: Even without his first strike, Krogg had enough left. A few more scars, then you'll try again.
+Ohne Garricks Rat (Garrick nicht getroffen):
+1. Kroggs erster Hieb aus dem Dunkel hat dich gebrochen, bevor der Kampf richtig begann. Wer weiß, wie man so einem den ersten Hieb nimmt? Vielleicht jemand, der den Wald kennt. Am Lagerfeuer im Flüsterwald sitzt ein Jäger. — EN: Krogg's first blow from the dark broke you before the fight had truly begun. Who knows how to rob one like him of his first strike? Perhaps someone who knows the woods. A hunter sits by the campfire in the Whisperwood.
+2. Kroggs erster Hieb sitzt dir noch in den Knochen. Allein und mit leeren Händen kommst du an ihm nicht vorbei. Der Jäger am Lagerfeuer im Flüsterwald weiß vielleicht Rat. — EN: Krogg's first blow is still in your bones. Alone and empty-handed, you won't get past him. The hunter by the campfire in the Whisperwood may have advice.
+3. Gegen Kroggs ersten Hieb hilft kein Mut. Frag im Flüsterwald nach, beim Jäger am Lagerfeuer. — EN: Courage is no help against Krogg's first blow. Ask around in the Whisperwood, at the hunter's campfire.
+
 ### Rund um die Tempelszene (68)
 
 Vor und nach der Szene (Ablauf unter K1-Z).

@@ -3,3 +3,5 @@ daten/
 kampf/daten/
 .godot/
 *.import
+# 415 (Jerry): Beams Free Sample (reeboolabs), Lizenz verbietet Weitergabe; im Bau aus bornim-kaufmodelle (godot.yml)
+addons/reeboo_beams/

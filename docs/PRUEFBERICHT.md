@@ -4,26 +4,147 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 ## Wochenzählung (QM, 106.1; nur Zahlen, Bewertung Perikles)
 
-| Kennzahl | 18.–24.10. (gezählt 26.10., 00:5x) | Quelle |
-|---|---|---|
-| Kosten je Bereich (Liste) | 1703,90 $: B 789,02 (davon Zeile „Betrieb“ 564,16) · E 607,59 · G 171,54 · Q 92,36 · M 21,45; ohne Bereichsbuchstaben der Liste: D 10,33, A 5,50, O 4,85, F 1,26 | `LISTE-VORGAENGE.md` + `-ARCHIV.md`, `62ca83ee8` → `b17da0aea`; ein Teil kann vom 17.10. stammen |
-| Anteil Muss | 43 % (735,66 $); ohne „Betrieb“ 65 %; M? 114,67, K 125,71, „–“ 727,86 | Spalte „Kl.“ |
-| Kosten je Rolle, Anteil Spiel | 1813,92 $ (370 Sitzungen, 20 ohne Kosten): Jerry 543 (30 %), Sokrates 489 (27 %), Tom 383 (21 %), Ford 156 (9 %), Perikles 118 (7 %), Homer 102 (6 %), Diogenes 23 (1 %); **Anteil Spiel 57 %** (Stufe 50 %) | `kosten.py`, Starttag der Sitzung |
-| Guthaben Max | Woche 5 % (18.10.) → 41 % (20.10.) → 77 % (22.10., 12:45) → 94 % (23.10., 07:16) → 100 % 23.10., 10:1x; danach Credits 79,38 → 54,03 $ (24.10., 17:21); 80/95 % genau: fehlt | „Guthaben:“ in `ARBEIT-BETRIEB.md` (Git); Monatsangabe 4,31 → 248,62 $ passt nicht zum Rückgang 41,66 $ (Nachkauf nicht eingetragen) |
-| Wochenziel / Meilenstein | Wochenziel nein (38 offen, 39 wartet; erledigt 13e, 112/68, 26); Pflicht Block (a) 3 von 4 offen; marktreif 5 von 6 Blöcken gelb | `LISTE-ABNAHME-KAPITEL1.md` |
-| Testrunden Chef, Rückläufer | 63 Builds (19–87) im CHANGELOG; Rückläufer laut Feld „Rückläufer:“ 6 (Build 81: 1, 82: 3, 83: 1, 84: 1; Feld erst ab 81); über alle Builds der Woche aus den Einträgen gezählt 66 (Tom 23, Jerry 43, Lauf 45) | `CHANGELOG.md`; 101 Löschungen in `ansehen/` |
-| Ersparte Fragen (Vorentscheid) | 3 (59e.1, 84.1T.1, 261.5), alle gebilligt | `VORGANGSARCHIV.md` |
-| Stillstand | Fehler: Homer 8,4 h (bis 18.10., 08:24); Guthaben: 0 Zeilen (ab 23.10. über Credits) | Protokoll `ARBEIT-BETRIEB.md` |
-| „von Team“ an Homer > 1 Tag | 0 | `ARBEIT-KREATIV.md` |
-| Empfehlungen Sokrates (17./18.10.) noch gültig | 11 von 13, 2 teilweise abgelöst (167 durch 192.4; 99h.6 durch 261.5) | `VORGANGSARCHIV.md` |
-| Verwerfquote Diogenes | 0 von 49 (D26.1–D41.5), 2 teilweise (D29.1, D29.4) | Prüfbericht, Archiv |
-| Erst der Chef am Gerät | 6 laut Feld, 66 über alle Builds (Rückläufer) | `CHANGELOG.md` |
-| Perikles Z3 / Z4 / Z6 | Z3 1 (23.10., 13e); Z4 14 neue Chefsache-Dateien: 11 ja, 1 ja, aber (186), 1 anders (287), 1 unklar (234); Z6 nein, Muss 43 % | `ARBEIT-PROJEKT.md`, `git log --diff-filter=A`; Zielvereinbarung erst seit 23.10. |
-| Z5 Anteil Tom, Jerry, Homer | 57 % | wie Kosten je Rolle |
+| Kennzahl | 25.10.–01.11. (8 Tage, gezählt 02.11., 11:2x) | 18.–24.10. (gezählt 26.10., 00:5x) | Quelle |
+|---|---|---|---|
+| Kosten je Bereich (Liste) | 3841,36 $: E 2571,63 · B 1085,08 (davon Zeile „Betrieb“ 181,77) · M 56,36 · G 51,44 · Q 0; ohne Bereichsbuchstaben D 38,04, A 22,10, C 16,71 (`b17da0aea` → `2c67df6`) | 1703,90 $: B 789,02 (davon Zeile „Betrieb“ 564,16) · E 607,59 · G 171,54 · Q 92,36 · M 21,45; ohne Bereichsbuchstaben der Liste: D 10,33, A 5,50, O 4,85, F 1,26 | `LISTE-VORGAENGE.md` + `-ARCHIV.md`, `62ca83ee8` → `b17da0aea`; ein Teil kann vom 17.10. stammen |
+| Anteil Muss | 95 % (3630,52 $); ohne „Betrieb“ 99 %; K 3,80, „–“ 207,04 (davon Betrieb 181,77), M? 0 | 43 % (735,66 $); ohne „Betrieb“ 65 %; M? 114,67, K 125,71, „–“ 727,86 | Spalte „Kl.“ |
+| Kosten je Rolle, Anteil Spiel | 3978,41 $ (424 Sitzungen, Starttag MEZ; 26 ohne Kosten, Tom 11, Jerry 15; 7 vom 25.10. nicht einzeln abgefragt): Tom mit Spike 1547 (39 %), Jerry mit Tuffy 1376 (35 %), Sokrates 573 (14 %), Perikles 173 (4 %), Ford 123 (3 %), Diogenes 121 (3 %), Homer 65 (2 %); **Anteil Spiel 75 %**. Je Tag: 744 · 616 · 846 · 747 · 172 · 0 (30.10.) · 152 · 701. `list_sessions` ohne `cost_usd`: Quelle `KOSTEN-GEBUCHT.tsv` und `get_session` | 1813,92 $ (370 Sitzungen, 20 ohne Kosten): Jerry 543 (30 %), Sokrates 489 (27 %), Tom 383 (21 %), Ford 156 (9 %), Perikles 118 (7 %), Homer 102 (6 %), Diogenes 23 (1 %); **Anteil Spiel 57 %** (Stufe 50 %) | `kosten.py`, Starttag der Sitzung |
+| Guthaben Max | Max 20x seit 25.10., ~11:00: Woche 0 % (25.10., 11:05) → 27 % (26.10., 11:43) → 51 % (27.10., 09:47); danach kein Bild bis zur Zurücksetzung 31.10., 20:00; neue Woche 13 % (01.11., 11:25); 80/95/100 % genau: fehlt | Woche 5 % (18.10.) → 41 % (20.10.) → 77 % (22.10., 12:45) → 94 % (23.10., 07:16) → 100 % 23.10., 10:1x; danach Credits 79,38 → 54,03 $ (24.10., 17:21); 80/95 % genau: fehlt | „Guthaben:“ in `ARBEIT-BETRIEB.md` (Git); Monatsangabe 4,31 → 248,62 $ passt nicht zum Rückgang 41,66 $ (Nachkauf nicht eingetragen) |
+| Wochenziel / Meilenstein | Wochenziel (Umzug Woche 1) nein: erledigt 348.8 (25.10.), 348.14 (26.10.); 348.6 zu testen, 348.7 ruht (Chef 31.10.), 348.9 wartet, 142 beim Chef; Stufen 1–6 (447, ab 01.11.): 0 von 36 Punkten abgehakt | Wochenziel nein (38 offen, 39 wartet; erledigt 13e, 112/68, 26); Pflicht Block (a) 3 von 4 offen; marktreif 5 von 6 Blöcken gelb | `LISTE-ABNAHME-KAPITEL1.md` |
+| Testrunden Chef, Rückläufer | CHANGELOG 9 Einträge: mit Gerätetest Build 89 (25.10.) und Test 132 (399); ohne Gerätetest 388 (Build 90), 142.1 ×2, 444, 447.3, 389; Godot-Testbuilds in Commits 130–146; 118 Löschungen in `ansehen/`; Rückläufer laut Feld 0 (nur 2 Felder: 89, 444) | 63 Builds (19–87) im CHANGELOG; Rückläufer laut Feld „Rückläufer:“ 6 (Build 81: 1, 82: 3, 83: 1, 84: 1; Feld erst ab 81); über alle Builds der Woche aus den Einträgen gezählt 66 (Tom 23, Jerry 43, Lauf 45) | `CHANGELOG.md`; 101 Löschungen in `ansehen/` |
+| Ersparte Fragen (Vorentscheid) | 13, alle gebilligt: 9 Nachturteile 26.10. (348.6, 348.7; gebilligt 11:14), 383.1 (27.10.), 461a, 461d (23:01), 348.12k (02.11., 11:08) | 3 (59e.1, 84.1T.1, 261.5), alle gebilligt | `VORGANGSARCHIV.md` |
+| Stillstand | Protokoll 0 Zeilen; aus Git: kein Commit von 29.10., 11:58 bis 31.10., 20:4x (rund 57 h), 30.10. keine Sitzung; Ursache nicht eingetragen | Fehler: Homer 8,4 h (bis 18.10., 08:24); Guthaben: 0 Zeilen (ab 23.10. über Credits) | Protokoll `ARBEIT-BETRIEB.md` |
+| „von Team“ an Homer > 1 Tag | 0 | 0 | `ARBEIT-KREATIV.md` |
+| Empfehlungen Sokrates (17./18.10.) noch gültig | fehlt (nicht gezählt) | 11 von 13, 2 teilweise abgelöst (167 durch 192.4; 99h.6 durch 261.5) | `VORGANGSARCHIV.md` |
+| Verwerfquote Diogenes | 0 von 62 (D43.1–D62.2) | 0 von 49 (D26.1–D41.5), 2 teilweise (D29.1, D29.4) | Prüfbericht, Archiv |
+| Erst der Chef am Gerät | 0 laut Feld; Chef-Erstfund 398 (28.10., 11:15: Ruhebewegungen fehlen, 15 Lücken) 1; weitere ohne Zählquelle: fehlt | 6 laut Feld, 66 über alle Builds (Rückläufer) | `CHANGELOG.md` |
+| Perikles Z3 / Z4 / Z6 | Z3 2 (25.10., 00:36 Hauskürzel; 07:55 Chefsache 361 trotz 287); Z4 11 neue Dateien von Perikles, davon 9 Vorschläge: 6 ja (270, 338b, 373a, 383.1, 396a, 461a über Sokrates), 1 „wie Sokrates“ (418), 1 anders (338a: B statt A), 1 zurückgezogen (361); Z6 nein, Muss 95 % | Z3 1 (23.10., 13e); Z4 14 neue Chefsache-Dateien: 11 ja, 1 ja, aber (186), 1 anders (287), 1 unklar (234); Z6 nein, Muss 43 % | `ARBEIT-PROJEKT.md`, `git log --diff-filter=A`; Zielvereinbarung erst seit 23.10. |
+| Z5 Anteil Tom, Jerry, Homer | 75 % | 57 % | wie Kosten je Rolle |
+| Nächte Teams (371; Basis 27.10.: 207 $/9 h) | Kosten (Start 21–7 Uhr) 25./26. 184 $ · 26./27. 267 · 27./28. 203 · 28./29. 180 · 29./30. 0 · 30./31. 0 · 31./01. 101 · 01./02. 194; Bilder und Filme an den Chef 27./28. 28 · 28./29. 22 · 31./01. 12 · 01./02. 15, vorher fehlt | – | Sitzungen; `meldungen.tsv` (ab 27.10., 19:14) |
+| Rote Läufe (464) | 02.11. bis 11:17: 11 von 175 abgeschlossenen (01.11.: 14) | – | `actions_list` |
+| Widersprüche (461b) | 3 in 38 Archiveinträgen (02.11., 02:4x) | – | `ARBEIT-PRUEFUNG.md` „Zu 461b“ |
+| Wochentermine gelaufen (485, nachgezählt 02.11., 19:4x) | Rollenspiegel Fr 30.10. nein · Ideenspeicher Homer So 25.10. und 01.11. nein, nein (nur Einträge von Sokrates) · Wochenziel Perikles Mo 26.10. ja · Tagesbericht 448 ab 01.11. ja · Stichprobe 374 um 8 Uhr 28.10.–01.11.: 3 von 5 (30. und 31.10. erst 31.10., 21:37 nachgeholt) · Ford-Meldung 6–10 Uhr 28.10.–02.11.: 1 von 6 (29.10., 09:05) · Wochenzählung Diogenes Mo 26.10. ja | – | Git `main` (Datei je Termin), `meldungen.tsv` |
+| Ohne Kopf (462) | fehlt: `zug-haken.py --summe` schrieb die Spalten von 462.1 nicht nach `LISTE-REGELTREUE.md` (D63.4, behoben 11:3x, ab 09.11. zählbar) | – | `LISTE-REGELTREUE.md` |
 
 ## Offen für den Chef
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
+
+## Lauf 68 · Nachprüfung D67.1, D68.1, D68.2 (Doppelpack 421; `main` nach `4c0174b29`; 02.11., 20:0x; `meldung.sh --probe` mit 17 Texten, darunter meine Meldung 447.4 von 19:3x; `urteil()` gegen das Archiv)
+
+- **D67.1 behoben:** „K1“, „HP-Balken“, „s. o.“, „u.U.“, „m. E.“, „H1“, „V2“ halten an; „OK“, „JPG“, „GIF“ und Zitate in „…“ gehen durch; Kennungen (A1, G2, O3, W1, D67.1, t146) gehen durch.
+- **D68.1 behoben:** `urteil("453b")` und `urteil("463a")` = 02.11. 18:46.
+- **D68.2 behoben:** „Tor 461a“ steht nur noch in der Regel „nie ‚Tor 461a‘“ (`ROLLE-ENTWICKLUNG.md:41`); „Chefsache-Blätter“ in `ROLLE-BERATUNG.md:74` bleibt (Sokrates' Datei).
+
+**Befund**
+- **D69.1 (D67.1, mittel, sicher, Klasse 1 Perikles) neuer Fehlalarm bei Dateinamen:** seit `(?!\w)` statt `(?![\w-])` halten Dateinamen ohne Backticks an: „DESIGN-SPIELSYSTEM-2-0-ENTWURF.md“ → „DESIGN“, „ARBEIT-TEAM-TOM.md“ → „ARBEIT“, „LISTE-ABNAHME-KAPITEL1.md“ → „LISTE“. Meine echte Meldung 447.4 von 19:3x ginge so nicht mehr durch.
+- **461b-Teil (`0e2a2e2cd`):** 461b.1–4 stehen bei Jerry, Tom, Homer, Sokrates; Anhänge 362 (→ 373) und 418 („Gliederung ersetzt“) passen. **D70.1 (461b, klein, sicher, Klasse 1 Perikles):** 480 und 415c tragen „→ ersetzt durch 480.1“ ohne „teils“, obwohl 480.1 nur die Freigabe weiterer Läufe ändert; 480 (1) einfache Worte und (2) „nach dem zweiten Lauf geht der Film immer an den Chef“ sowie 415c „Film jetzt an den Chef“ gelten weiter. Wie bei 396 („teils ersetzt durch 461a“) gehört „teils“ davor, sonst liest man beide als überholt.
+
+## Lauf 67 · Auftrag 340.4 „Geprüft an“, 340.5 Uhrzeit (Doppelpack 421; `main` nach `6dc0d9880`; 02.11., 19:5x; `commit-pruefung.py` mit 4 Probedateien in einer Kopie, Muster mit 12 Zeilen)
+
+**Ergebnis:** 340.4 greift: neue Datei in `ansehen/` und `billigen/` ohne „Geprüft an:“ hält an, mit „Lauf 176“, Link oder `bilder:` geht sie durch; „Geprüft an: Messung“ und „Lauf 17“ halten an; `t999-…` (Build) und `tun/` sind ausgenommen. `DESIGN-ABNAHME.md` ersetzt „461 geprüft“ (Satz fällt weg, wie entschieden). 340.5: Haken in `.claude/settings.json`, bekannter Fehler 1 in `CLAUDE.md` gekürzt.
+
+**Befund (ohne Nummer, eigener Fehler, zählt als Beleg für 340.5):** meine Probedateien trugen „20:10“, die Commit-Prüfung hielt an: „liegt nach jetzt (19:58)“. Ich hatte in Lauf 65 und 66 und in D67.1, D68.1 „20:0x“, „20:1x“ geschätzt; berichtigt auf 19:4x, 19:5x. Diese Sitzung startete vor dem Haken, sie bekommt keine Zeile „Uhr:“ nach jedem Schritt.
+
+**Grenzen:** jede Hex-Folge ab 7 Zeichen gilt als Commit, auch ein Wort wie „facade1“ oder eine Kennung, die es nicht gibt; ob der Link zum Vorgang gehört, prüft niemand. Den Haken „Uhr:“ an neuen Sitzungen nicht gesehen.
+
+## Lauf 66 · Auftrag 480 und 480.1 Begriffe, Läufe frei, Push ohne Ablauf; 340.3 Pflegezeilen (Doppelpack 421; `main` `e6bcd00ca`; 02.11., 19:5x; `urteil()` gegen das Archiv, `loest_aus()` mit 11 Zweig- und Pfadproben gegen die 8 Abläufe, `pflegehinweis.py --probe`, Suche nach „Blatt“ und „Tor“ in den Regeldateien)
+
+**Ergebnis:** Push ohne Ablauf zählt nicht: `claude/tom-431-voelker` nein, `claude/tom-348-fundament` ja, `claude/jerry-415-beams` (kein Ablauf auf Push) nein, `bilder` und `meldungen` nein. Grenze 389 nennt Sokrates als Freigabe. `pflegehinweis.py --probe` setzt je Vorrat eine Zeile „Pflege“ (Kür), ohne Befund keine (Diogenes keine).
+
+**Befunde**
+- **D68.1 (480.1, mittel, sicher, Klasse 1 Perikles) die echte Freigabe greift nicht:** `urteil()` erkennt nur einen Archivkopf „<Nr>, Läufe frei“. Sokrates' Eintrag lautet „480.1, Läufe gibt Sokrates frei … 453b und 463a … zwei Läufe frei“: `urteil("453b")` und `urteil("463a")` = None. Heute ohne Folge (beide 0 von 2 seit Beginn), aber jede Freigabe in dieser Form gibt nichts frei.
+- **D68.2 (480, klein, sicher, Klasse 1 Perikles) Reste „Tor 461a“:** `ROLLE-ENTWICKLUNG.md:19` „(Tor 461a)“, `LISTE-BAUEN-TESTEN.md:14` „Ausnahme Tor 461a“; „Blatt“ noch in `meldung.sh:116–117` (Kommentar) und `ROLLE-BERATUNG.md:74` „Chefsache-Blätter“ (Sokrates).
+
+**Nicht geprüft / Grenzen:** `loest_aus()` liest kein `paths-ignore` (Push auf `main` mit nur `tools/blender348/` zählt, obwohl `android.yml` ihn auslässt) und keine Job-Bedingung `contains(…)` (nur `startsWith`); beides zählt eher zu viel. `pflegehinweis.py` läuft einmal je Container statt je Tag: heute 3 eigene Commits, jeder kann einen gerade gekürzten Vorrat beim Zusammenführen wieder mit der Zeile „Pflege“ füllen (bei mir 19:5x). 480 (2), nach dem zweiten Lauf geht der Film immer zum Chef: nur im Text, kein Werkzeug geprüft.
+
+## Lauf 65 · Auftrag 484 Abkürzungen in Telegram, 465 Titelzeile (Doppelpack 421; `main` nach `57afc1ee6`; 02.11., 19:4x; `meldung.sh --probe` mit 16 Probetexten und den 4 echten Diogenes-Meldungen des Tages; `eintrag()` aus `zug-index.py` mit 4 Probedateien in einer Kopie)
+
+**Ergebnis:** 484 greift für „NW 2“, „E 7“, BRS, KI, RK, TP, „z. B.“, „z.B.“, „ca.“, „Nr.“; die 4 echten Meldungen des Tages gehen durch (kein Fehlalarm); Vorgangsnummern, Kennungen (A1, t146), Dateinamen, Würfel (2W4+2), Sprungmarken gehen durch. 465: Wer und Zeit aus der Titelzeile gelesen (auch „19:1x“, „Team Tom“), Zeile 2 geht weiter vor.
+
+**Befunde**
+- **D67.1 (484, mittel, sicher, Klasse 1 Perikles) Lücken:** gehen durch: „K1“ (Buchstabe mit Ziffer gilt als Kennung), Kürzel vor Bindestrich („HP-Balken“, „EP-Anzeige“), „s. o.“, „u.U.“. Fehlalarm, klein: „OK“, „JPG“, „GIF“ halten an (PNG und MP4 sind frei); ebenso ein Kürzel, das als Beispiel in „…“ zitiert wird (meine Meldung zu 484 um 19:4x hielt an, ging mit `…` durch).
+
+**Nebenbei:** `zug-index.py` schreibt beim Laden als Modul `docs/chefsache/README.md` neu (Import ruft das Hauptprogramm); in der Kopie bemerkt und zurückgesetzt, nichts gepusht. **Nicht geprüft:** Meldungstexte der anderen Rollen (`meldungen.tsv` hat keinen Text).
+
+## Lauf 63 · Nachprüfung D63.1–D63.4, D64.1 (Doppelpack 421; `main` `036b48029`; 02.11., 11:5x; `commit-pruefung.py` mit 6 Probecommits in einer Scratch-Kopie, `urteil()` gegen das Archiv und gegen Auszüge, `zug-haken.py --summe` mit Probedatei, `handlauf_bash()` mit 13 Befehlen)
+
+- **D63.1 behoben:** Archiv-Kopf nennt die DESIGN-Dateien (461d); 461 und 461b tragen „→ ersetzt durch 461d“, 396 „→ teils ersetzt durch 461a“; `LISTE-GRUNDSTAND-461.md` ist nur Verweis.
+- **D63.2 behoben, mit Rest (D65.1):** fremde Zeile A1 hält an (vorher Exit 0); C1 geändert ohne Anhang hält an; Anhang am falschen Eintrag (453a) hält an; mit Anhang am alten 453.1 Exit 0.
+- **D63.3 behoben:** `urteil("348.12k")` = 02.11. 11:08; 461a, 461d = 01.11. 23:01; ungebilligte „→ **Vorentscheid (Sokrates)**“ (348.6, 348.7, 383.1) = None.
+- **D63.4 behoben:** Summenzeile mit letzter Spalte „1/5“ aus Probedatei (Zeilen ohne Spalten 9/10 und Zweitstopps übergangen); Kopf in `LISTE-REGELTREUE.md` hat die Spalte.
+- **D64.1 behoben:** `-f`, `-F`, `--field`, `--raw-field=`, mit und ohne Anführung → 415; `inputs[bild]=nein` zählt nicht; `ref=main` → „main“.
+
+**Befunde**
+- **D65.1 (461b, klein, sicher, Klasse 1 Perikles) Fehlstopp beim zweiten Anhang:** `commit-pruefung.py` zählt einen Anhang nur, wenn die alte Zeile noch kein „ersetzt durch“ trug (`"ersetzt durch" not in a`). Probe: neuer 461b-Eintrag mit „461 C1“, C1 geändert, am alten 461b (trägt schon „→ Ort … ersetzt durch 461d“) richtig „→ ersetzt durch 461b Probe, 02.11.“ angehängt: Exit 1. Ausweg wäre nur das falsche „ersetzt nichts“.
+  - **Behoben** (Nachprüfung 02.11., 12:1x, `a208e916f`): dieselbe Probe Exit 0; Gegenproben A1 fremd, ohne Anhang, falscher Eintrag (453a), nur Archiv halten weiter an. Zugleich 461.2 (D58.1–5, Lauf 56) nachgesehen: E1 mit Woher 410/417, F6 nimmt den Arkanpfeil aus, G2 „kein Chefwort“ als Maß statt Tor, D3 „Oberkörper aufrecht“, Tor durch 461a gebilligt: behoben.
+
+**Nicht geprüft / Grenzen:** `gh api … --input body.json` und `-fref=` ohne Leerzeichen zählen unter „godot.yml“ (Datei nicht lesbar; selten). Berührt ein Entscheid C1 und C2 und ändert nur C1, geht er durch. „→ **Vorentscheid, gebilligt 21.10.**“ ohne Uhrzeit (261.5, 59e.1, 84.1T.1) erkennt `urteil()` nicht; nur alte Einträge mit eigenem Chefeintrag, ohne Wirkung. Echte Zähldatei dieser Sitzung (fehlte vor dem ersten Zugende).
+
+## Lauf 62 · Auftrag 407 Probelauf-Haken (`main` `bb1205e31`; 02.11., 11:2x; `probelauf.py` mit 10 Probeeingaben, `BORNIM_PROBELAUF_TROCKEN=1`, Zählung in eine Scratch-Datei, kein Push in `probelaeufe`)
+
+**Ergebnis: Der Haken greift.**
+- `actions_run_trigger` run_workflow auf `claude/tom-417-film` zählt „417“ (Nummer aus der Commit-Nachricht). Mit 2 Läufen hält der nächste Start an (Exit 2, Text 389). Beleg: 415 auf `claude/jerry-415-beams` über drei Wege (Server, `gh workflow run`, `curl …/dispatches`), der dritte angehalten.
+- Rerun über den Server und `gh run rerun` halten an. `bild: nein` zählt nicht (390a).
+- Keine Fehlzählung bei `gh workflow run` im Text einer Commit-Nachricht oder bei „gh run rerun“ in einem `echo` (782e96f21).
+- Gegen die Nacht 01.11., 20:4x bis 02.11., 07:14: `--stand 417` zeigt 0 Läufe seit dem Urteil 01.11., 20:49. Die 20 Filme zu 417 wurden damals also nicht gezählt. Mit dem neuen Haken wäre der dritte Start angehalten worden.
+
+**Befunde**
+- **D64.1 (407, mittel, sicher, Klasse 1 Perikles) `gh api …/dispatches -f ref=…` zählt unter dem Ablaufnamen statt unter dem Vorgang:** Probe `gh api -X POST repos/o/r/actions/workflows/godot.yml/dispatches -f ref=claude/jerry-415-beams` ergibt „Probelauf 1 von 2 für godot.yml“, obwohl 415 schon 2 hatte. Ursache: `handlauf_bash` liest `ref` nur in JSON-Form (`"ref":"…"`). Über diesen Weg sind so je Ablauf 2 weitere Läufe möglich.
+- **Hinweis (kein Befund):** Der Server-Haken steht nur in `.claude/settings.json` auf `main`; die 15 jüngsten `claude/`-Zweige haben ihn nicht. Sitzungen starten auf `main` (`lauf.py` REVISION), haben ihn also ab Start. Sitzungen, die vor 11:19 gestartet sind, haben ihn erst nach einem Neustart (so auch Perikles, Zu 407). Ob ein späterer Wechsel auf einen alten Zweig die Haken neu lädt, ist nicht geprüft.
+- D63.3 bestätigt: `--stand 348.12k` zeigt „seit Beginn der Zählung“, obwohl der Chef um 11:08 gebilligt hat.
+
+**Nicht geprüft:** Push auf einen beliebigen `claude/`-Zweig (dafür wäre ein echter Push nötig); ob die Zeile im Zweig `probelaeufe` geschrieben wird (Trockenlauf).
+
+## Lauf 61 · Wochenzählung 25.10.–01.11., 464.1 Rest, 374 und 434 für 01.11. (`main` `73ab91995`; 02.11., 11:2x; Probeeingaben an `commit-pruefung.py` in einer Kopie, `urteil()` aufgerufen)
+
+**Ergebnis 464.1:** 461a erfüllt (Widerspruch 1 behoben: Tor in `DESIGN-ABNAHME.md:11`, Ausnahme in `LISTE-BAUEN-TESTEN.md:14`, `ROLLE-ENTWICKLUNG.md:41`). 461d größtenteils: alle 40 Kennungen in DESIGN-STIL (A–D), -KAMPF (E–F), -ABNAHME (G), Wortlaut gleich bis auf Zusätze A2, C3, D1, E3. 407 D50.5 c behoben („x“ = :x9; Docstring `probelauf.py:96` sagt noch :x0). 461b Commit-Prüfung hält bei Kennung ohne DESIGN-Änderung richtig an.
+
+**Befunde**
+
+- **D63.1 (461b/461d, mittel, sicher, Klasse 2 Perikles) Widerspruch 2 offen:** `VORGANGSARCHIV.md:3` „was gilt, steht im Grundstand (`LISTE-GRUNDSTAND-461.md`)“; die Datei ist seit `fa43a030e` nur Verweis. Einträge 461 (Z. 25) und 461b (Z. 16, „Grundstand gilt“) ohne „→ ersetzt durch 461d einsortieren“; 396 (Z. 131, „hält nichts mehr auf“) ohne Hinweis auf die Ausnahme 461a. Regel 461b „neu ersetzt alt im selben Commit“.
+- **D63.2 (461b, mittel, sicher, Klasse 1 Perikles) Commit-Prüfung zu grob:** (a) jede Änderung an DESIGN-STIL/-KAMPF/-ABNAHME reicht (`geaendert = any(p in GILT …)`); Probe: neuer 453.1-Entscheid mit fremder Zeile in DESIGN-STIL geht mit Exit 0 durch, die Zeile C1 blieb unberührt. (b) Ob am alten Eintrag „→ ersetzt durch …“ hängt, prüft sie nicht; 461b: „hält an, wenn das fehlt“. Grenze: Entscheid ohne Kennung im Text nicht prüfbar.
+- **D63.3 (407 D50.5 b, mittel, sicher, Klasse 1 Perikles) gebilligter Vorentscheid gilt nicht als Urteil:** `probelauf.py:107` überspringt jeden Kopf mit „Vorentscheid“, auch wenn „gebilligt“ dahinter steht. `urteil("348.12k")` = None, obwohl der Chef 02.11., 11:08 billigte (Archiv Z. 12): die Läufe zu 348.12k zählen seit Beginn, nach zwei sperrt 389. Umgekehrt erkennt es „→ **Vorentscheid (Sokrates)**“ hinter der Klammer nicht (Z. 221–227, heute durch Z. 220 gedeckt).
+- **D63.4 (462, klein, sicher, Klasse 1 Perikles) Anteil ohne Kopf nicht zählbar:** `zug-haken.py --summe` (Z. 174–178) schreibt die Spalten von 462.1 (Texte, ohne Kopf) nicht in die Summenzeile; `LISTE-REGELTREUE.md` hat keine Spalte, die Container-Datei geht mit der Sitzung verloren.
+- **374 und 434 (01.11.):** Zeile „Zu 374, 02.11.“ in `ARBEIT-PRUEFUNG.md`; Abweichungen als D63.5 an Tom, D63.6 an Jerry, D63.7 an Sokrates (Klasse 1, Hinweis).
+
+**Nicht geprüft:** Empfehlungen Sokrates noch gültig (Aufwand); Rückläufer der Godot-Tests 130–146 (kein Feld im CHANGELOG); ob `notiz.sh` den Commit-Haken in jeder Sitzung einrichtet; 7 Sitzungen vom 25.10. ohne Einzelabfrage der Kosten.
+
+## Lauf 60 · Nachprüfung 464.1 und 465.1, Zählung 461b (`main` `6cbb97adf`; 02.11., 02:5x; `seit_text()` an der Übersicht nach dem Lauf, `hinweis_geben()` mit eigener Liste aufgerufen, Haken mit Nicht-Push-Befehl)
+
+- **D60.1 behoben:** 348.12j zeigt 22:03, 431b 21:29, beides die Zeit des Commits, der die Datei anlegte. Feste Minuten ohne „x“ (348.12b 21:00, angelegt 20:58) bleiben, wie sie in der Datei stehen.
+- **D61.2 behoben:** Der Haken liest alle geänderten `.gd`, bis noch 5 s Hakenzeit bleiben. Den Rest nennt er als Hinweis mit Dateinamen. Bei einem Befehl ohne Push gibt er nichts aus.
+- **D61.1:** Perikles hat es an Ford gegeben (`ARBEIT-BETRIEB.md` Eingang). Gebaut ist es noch nicht.
+- **461b (Kennzahl Widersprüche, erste Zählung):** 3 in 38 Archiveinträgen; Einzelheiten in `ARBEIT-PRUEFUNG.md` „Zu 461b“. Zwei liegen offen bei Perikles (461a, 461d), einer ging als D62.1 an Sokrates.
+- **D62.2 an Ford:** `lauf.py` liest die Uhrzeit im Nachfolger nicht. Diese Sitzung wurde deshalb um 02:38 statt um 8 Uhr gestartet.
+- Nicht geprüft: 374, 434, 464 Tageszahl, Woche (erst ab 8 Uhr).
+
+## Lauf 59 · Auftrag 464 Doppelpack zu den roten Läufen (`main` nach `8cb4400b6`; 01.11., 22:13; `parse_pruefen()` mit Godot 4.7.2 (Scratch, nicht `~/godot`) an einem Probezweig aufgerufen; Ford-Commits `8fd2d5e82`, `525f87ff9`; Lauf 150 auf `claude/jerry-348-12-grak-schreitet` (Log))
+
+**Ergebnis:** Der Haken tut, was er soll.
+- Ein eingebauter Parsefehler in `kampf/aufruf.gd` hält den Push an, mit Datei und Zeile, nach 8 s.
+- Kein Fehlalarm: Alle 60 `.gd` auf `main` geändert ergeben „None“, auch einzeln mit `--check-only` (0 Treffer); Dauer 14 s.
+- Der Arbeitsbaum bleibt danach sauber.
+- Ein angehaltener Push wird nicht gezählt, weil die Prüfung vor dem Zählen kommt (Z. 262–267).
+- Ford meldet rote Läufe (21:04 an Jerry, 22:05 an Tom mit Lauf, Commit und Link).
+- Grenze: Der Haken fängt nur Parsefehler. `wolf_mess_438.gd` parst fehlerfrei. Lauf 150 scheiterte später an „Befunde: 5“ im Test, und das fängt der Haken nicht. Das deckt sich mit Perikles: 2 von 14 Läufen wären am Lesen gescheitert. Ohne Godot in der Sitzung prüft der Haken nichts; offen ist die Chefsache tun/464.
+
+**Befunde**
+
+- **D61.1 Die Zahl der roten Läufe des Tages fehlt im Protokoll:** `ROLLE-BETRIEB.md` verlangt „Zahl des Tages ins Protokoll (für den Tagesbericht)“. In `ARBEIT-BETRIEB.md` steht keine. Ford schreibt nur die Zeilen in die Vorräte. Die Zählung ab 02.11. gegen 01.11. (14) hat damit nur `actions_list` als Quelle.
+- **D61.2 Was über der Grenze liegt, wird ohne Hinweis nicht geprüft (gering):** Geprüft werden nur die ersten 25 geänderten Dateien (`gd[:25]`). Dateien, bei denen Godot länger als 20 s braucht, werden übersprungen (`continue`). Ein Zusammenführen wie 453 r3 kann über 25 Dateien ändern; der Push geht dann ohne Hinweis durch.
+
+**Nicht geprüft:** Ob der Hinweis an den Chef bei 3 oder mehr roten Läufen je Stunde kommt; der Fall trat seit 20:51 nicht ein (21:04 und 22:05 je höchstens 2). Der Fall „git push origin main“ von einem Zweig `claude/…` aus prüft den Zweig, das ist harmlos.
+
+## Lauf 58 · Auftrag 465 Doppelpack zu 465 und 462.1 (`main` `f26bc1db5`; 01.11., 22:07; Übersicht nach dem Lauf von `zug-index.yml` um 22:03 (`a2c8fd34d`) gegen die Zeit des Commits, der jede Datei anlegte; `seit_text()` und `texte_im_zug()` mit eigenen Eingaben aufgerufen)
+
+**Ergebnis:** 462.1 ist erfüllt. D59.1: `texte_im_zug` zählt Zwischenmeldungen und lässt Werkzeugergebnisse, Metatexte und Helfer aus. Probe mit 3 Texten, davon 2 ohne Kopf, ergibt (3, 2); diese Sitzung ergibt (1, 0). D59.2: Ein Kopf ohne Namen zählt nicht mehr. D59.3: Ohne erkannte Rolle steht kein „<Name>“ mehr im Kopf. Bei 465 rechnet das Werkzeug richtig, wenn die Minute passt: „22:0x“ wird 22:03, ein fehlendes Feld wird 22:03.
+
+**Befunde**
+
+- **D60.1 Im Lauf hat 465 noch keine „x“-Zeit ersetzt:** Alle vier x-Zeiten der Übersicht stehen unverändert da, weil die geschätzte Zeit nicht zur Anlage-Zeit passt. Das Werkzeug ersetzt nur, wenn die Commit-Zeit mit „22:1“ usw. beginnt; sonst bleibt der Text der Datei. 348.12j: Datei „22:1x“, angelegt 22:03; die Übersicht zeigte um 22:05 eine Zeit in der Zukunft. 431b: „21:4x“, angelegt 21:29. Ansehen 348.12: „21:5x“, angelegt 21:49. 447.4: „21:0x“, angelegt 20:51. Bei den anderen zwei „Zu entscheiden“ weicht die Minute ebenfalls ab: 348.12b steht auf 21:00, angelegt 20:58; 461a steht auf 20:56, angelegt 20:57. Ursache ist die geschätzte Uhrzeit in Zeile 1 oder 2 (Bekannte Fehler 1). Das Werkzeug vertraut ihr, statt die Git-Zeit zu nehmen.
+
+**Nicht geprüft:** ob der Lauf auf GitHub die Zeit wirklich aus dem vollen Verlauf holt (es gab keinen Fall, der zur Minute passte); Zählzeilen aus einem echten Stop (in dieser Sitzung gibt es noch keine `~/.bornim-regeltreue.tsv`).
 
 ## Lauf 57 · Auftrag 462 Doppelpack zum Zeitstempel (`main` nach `b851fb635`; 01.11., 20:4x; `name()` aus `neustart-haken.py` mit 14 gebauten Protokollen aufgerufen, Haken mit leerem Protokoll aufgerufen, `zug-haken.py` und eigene Zählzeile gelesen)
 

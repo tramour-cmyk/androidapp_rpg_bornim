@@ -47,41 +47,38 @@ Stand der Spalten „Angriff“, „Beute“ und „Merkmal“: aus `core/src/ma
 | Grimmzahn, der Leitwolf | Tier | Reißzähne | Umreißen, führt das Rudel | Grimmzahn-Amulett, großer Heiltrank, Wolfsfell, Fleisch | unten | ebenda |
 | Hauptmann Grak (Goblin-Hauptmann) | Goblinvolk | Kriegsaxt | Kampfgeschick (stärker neben Verbündeten) | Sonnenamulett, Brief des Propheten, Graks Schlüssel, Graks Kriegsaxt | unten | ebenda |
 
-## Werte 2.0 (Startwerte, 427)
+## Werte 2.0 (427)
 
-Vorschlag Sokrates (01.11.2026), Startwerte für die Simulation „Zeit bis Stufe“ (M1); geändert wird nach Messung, nicht nach Gefühl. Umgerechnet aus den alten Werten, damit die Reihenfolge der Gefahr bleibt, die das Spiel heute hat:
+**Gilt** (Chef 02.11., 18:54: „427 ja, Herkünfte auch, Grimmzahn und Krogg nachmessen“): Werte gemessen mit Simulation 444 (Messung im Vorgangsarchiv 427, Chefsache in Git). Krogg und Grimmzahn mit Überfall, Leibwache und Umreißen nachgemessen und bestätigt (427.1 A, Chef 02.11., 20:22): Kroggs Werte gelten mit Morwens Rauchbündel (D4.1); der Hinweis darauf kommt spätestens nach der ersten Niederlage gegen Krogg; Krogg wird erst abgenommen, wenn der Rauch im Spiel zu bekommen ist (Tiefer Flüsterwald). Geändert wird nach Messung, nicht nach Gefühl.
 
 - **Stufe:** Kapitel 1 hat die Grenze 6. Flüsterwald 1–3, Tiefer Flüsterwald 1–5, Blutzahnhöhle 1–6 (schwache Arten kommen überall vor, die Stärkeren nur tiefer).
-- **Leben** = alter Durchschnitt × 1,5. **Rüstung** = (alte Rüstungsklasse − 10) ÷ 2, abgerundet. **Grundschaden** = alter Durchschnittsschaden.
-- **Angriff** (Fertigkeit, zählt auch im Schaden) = 5 × Stufe + 5 × (alter Angriffsbonus − 4) + 5. **Abwehr** = 5 × Stufe + 2 × (alte Rüstungsklasse − 12).
-- **Wachsamkeit** gegen Schleichen = 10 × Stufe + 10 × alter Weisheitswurf, Bosse +20. Der Held schleicht in Kapitel 1 höchstens mit 49 (Geselle).
-- **Rundung:** auf ganze Zahlen, halbe auf die gerade (4,5 → 4, 5,5 → 6); kein Wert unter 0.
+- **Herkunft der Zahlen:** Startwerte (Vorschlag Sokrates 01.11., aus den alten Werten umgerechnet, Rechenweg in Git vor 02.11., 18:5x), dann gewöhnliche Arten Leben × 2,0 / 1,8 / 1,4 / 1,1 / 0,9 (Stufe 1–5) und Schaden × 0,8 (Stufe 1–2) / 0,9 (3) / 0,85 (4–5); Zombie Leben 44, Riesenspinne Angriff 25; Bosse einzeln. **Abwehr** und **Wachsamkeit** wie die Startwerte; der Held schleicht in Kapitel 1 höchstens mit 49 (Geselle).
 - **Erfahrung** = 10 × Stufe², Boss × 3, dann Faktor aus Modell D (Nachschlagewerk Abschnitt 4). Schwächen und Widerstände (Skelett gegen Stumpfes, Schleim gegen Klingen) bleiben als Merkmal, Zahl ±50 % Schaden.
 
 | Art | Gebiet | Stufe | Leben | Rüstung | Schaden | Angriff | Abwehr | Wachsamkeit |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Riesenratte | Wald, Höhle | 1 | 10 | 1 | 4 | 10 | 5 | 10 |
-| Kobold | Wald, Tiefer Wald | 1 | 12 | 1 | 4 | 10 | 5 | 0 |
-| Blutflügler | Wald, Tiefer Wald | 1 | 9 | 2 | 4 | 15 | 9 | 0 |
-| Wolf | Wald, Tiefer Wald | 2 | 14 | 1 | 7 | 15 | 12 | 30 |
-| Wildschwein | Wald, Tiefer Wald | 2 | 16 | 0 | 4 | 10 | 8 | 10 |
-| Riesen-Hundertfüßer | Wald, Tiefer Wald | 2 | 12 | 1 | 4 | 15 | 12 | 0 |
-| Goblin | Wald, Tiefer Wald, Höhle | 2 | 10 | 2 | 6 | 15 | 16 | 10 |
-| Goblin-Späher | Wald, Tiefer Wald, Höhle | 2 | 12 | 1 | 6 | 15 | 12 | 20 |
-| Skelett | beide Wälder (Nacht), Höhle | 2 | 20 | 1 | 6 | 15 | 12 | 10 |
-| Zombie | beide Wälder (Nacht), Höhle | 2 | 34 | 0 | 4 | 10 | 2 | 0 |
-| Riesenfledermaus | beide Wälder (Nacht), Höhle | 3 | 33 | 1 | 6 | 20 | 17 | 40 |
-| Goblin-Schamane | Tiefer Wald, Höhle | 3 | 21 | 1 | 4 | 15 | 15 | 50 |
-| Riesenspinne | Tiefer Wald, Höhle | 4 | 39 | 2 | 8 | 30 | 24 | 40 |
-| Ghul | Tiefer Wald (Nacht), Höhle | 4 | 34 | 1 | 7 | 25 | 20 | 40 |
-| Ockerschleim | Höhle | 5 | 49 | 0 | 6 | 30 | 17 | 10 |
-| Krogg (Boss) | Höhle | 4 | 41 | 3 | 11 | 25 | 28 | 60 |
-| Grimmzahn (Boss) | Tiefer Wald | 5 | 39 | 2 | 8 | 30 | 29 | 80 |
-| Grak (Boss) | Höhle | 6 | 58 | 3 | 8 | 40 | 38 | 90 |
+| Riesenratte | Wald, Höhle | 1 | 20 | 1 | 3 | 10 | 5 | 10 |
+| Kobold | Wald, Tiefer Wald | 1 | 24 | 1 | 3 | 10 | 5 | 0 |
+| Blutflügler | Wald, Tiefer Wald | 1 | 18 | 2 | 3 | 15 | 9 | 0 |
+| Wolf | Wald, Tiefer Wald | 2 | 25 | 1 | 6 | 15 | 12 | 30 |
+| Wildschwein | Wald, Tiefer Wald | 2 | 29 | 0 | 3 | 10 | 8 | 10 |
+| Riesen-Hundertfüßer | Wald, Tiefer Wald | 2 | 22 | 1 | 3 | 15 | 12 | 0 |
+| Goblin | Wald, Tiefer Wald, Höhle | 2 | 18 | 2 | 5 | 15 | 16 | 10 |
+| Goblin-Späher | Wald, Tiefer Wald, Höhle | 2 | 22 | 1 | 5 | 15 | 12 | 20 |
+| Skelett | beide Wälder (Nacht), Höhle | 2 | 36 | 1 | 5 | 15 | 12 | 10 |
+| Zombie | beide Wälder (Nacht), Höhle | 2 | 44 | 0 | 3 | 10 | 2 | 0 |
+| Riesenfledermaus | beide Wälder (Nacht), Höhle | 3 | 46 | 1 | 5 | 20 | 17 | 40 |
+| Goblin-Schamane | Tiefer Wald, Höhle | 3 | 29 | 1 | 4 | 15 | 15 | 50 |
+| Riesenspinne | Tiefer Wald, Höhle | 4 | 43 | 2 | 7 | 25 | 24 | 40 |
+| Ghul | Tiefer Wald (Nacht), Höhle | 4 | 37 | 1 | 6 | 25 | 20 | 40 |
+| Ockerschleim | Höhle | 5 | 44 | 0 | 5 | 30 | 17 | 10 |
+| Krogg (Boss) | Höhle | 4 | 55 | 2 | 7 | 20 | 28 | 60 |
+| Grimmzahn (Boss) | Tiefer Wald | 5 | 55 | 2 | 7 | 22 | 29 | 80 |
+| Grak (Boss) | Höhle | 6 | 75 | 2 | 7 | 25 | 38 | 90 |
 
-Nachfolger nach der Monsterwahl (348.12c, 26.10.): Wiedergänger statt Zombie, Grabhund statt Ghul, Riesenegel statt Blutflügler, Säureschnecke statt Ockerschleim, je mit derselben Rolle und denselben Werten; der Kauf der Modelle ruht (348.12c). Bis dahin gelten die alten Arten.
+Nachfolger nach der Monsterwahl (348.12c, 26.10.): Wiedergänger statt Zombie, Grabhund statt Ghul, Riesenegel statt Blutflügler, Säureschnecke statt Ockerschleim, je mit derselben Rolle und denselben Werten (die Säureschnecke ohne Klingenwiderstand, Archiv 348.12c Werte, 26.10., 21:33); der Kauf der Modelle ruht (348.12c). Bis dahin gelten die alten Arten.
 
-*Für die Simulation zu prüfen:* (1) Bosse haben nur das Leben ihrer alten Werte; der Kampf gegen Grak könnte mit vier Treffern zu kurz sein (Vorschlag dann Leben × 2). (2) Zombie und Fledermaus sind zäh für ihre Stufe, wie heute. (3) Gebiet aus `Story.kt` gelesen (Begegnungen), Krogg und Grimmzahn aus der Handlung.
+*Gebiet* aus `Story.kt` gelesen (Begegnungen), Krogg und Grimmzahn aus der Handlung. Was die Simulation noch nicht rechnet (Rudel, Hinterhalt, Merkmale, Tränke), wird im Spiel mit dem Kampflog nachgemessen.
 
 ## Hintergrund (428)
 

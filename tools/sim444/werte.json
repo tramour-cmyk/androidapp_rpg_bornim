@@ -62,7 +62,12 @@
     "_fertigkeit_schritt": "A: je 5 Punkte Fertigkeitsaufstieg 20 x Heldenstufe Erfahrung (bei Stufe 1 also 20 von 100)",
     "fertigkeit_deckel": 0.4,
     "probe_erfahrung_je_heldenstufe": 25,
-    "_probe": "A: Bewaehrungsprobe bestanden = 25 x Heldenstufe Erfahrung (Tat)"
+    "_probe": "A: Bewaehrungsprobe bestanden = 25 x Heldenstufe Erfahrung (Tat)",
+    "weich_stufen": 2,
+    "weich_faktor": 0.25,
+    "_weich": "N 4, E 18: ab der Kapitelgrenze bis zu 2 Stufen darueber, dort nur ein Viertel der Erfahrung (472; die Simulation rechnet noch mit harter Grenze)",
+    "topf_rest_anteil": 0.1,
+    "_topf": "E 19, E 21: Topf je Gebiet = 10 x Stufe^2 jeder Art des Gebiets einmal (ohne Bosse, A); leer: nur noch dieser Anteil (A, 'kleiner Anteil', 'kaum'); 472"
   },
 
   "ueben": {
@@ -159,25 +164,35 @@
   },
 
   "monster": {
-    "_quelle": "B 'Werte 2.0' (01.11.); art nah/fern/zauber und Schwaechen A nach B-Spalte 'Angriff' und Hinweis Schwaechen +-50 %",
-    "Riesenratte":        {"stufe": 1, "leben": 10, "ruestung": 1, "schaden": 4,  "angriff": 10, "abwehr": 5,  "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Höhle"]},
-    "Kobold":             {"stufe": 1, "leben": 12, "ruestung": 1, "schaden": 4,  "angriff": 10, "abwehr": 5,  "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald"]},
-    "Blutflügler":        {"stufe": 1, "leben": 9,  "ruestung": 2, "schaden": 4,  "angriff": 15, "abwehr": 9,  "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald"]},
-    "Wolf":               {"stufe": 2, "leben": 14, "ruestung": 1, "schaden": 7,  "angriff": 15, "abwehr": 12, "wachsamkeit": 30, "art": "nah", "gebiet": ["Wald", "Tiefer Wald"]},
-    "Wildschwein":        {"stufe": 2, "leben": 16, "ruestung": 0, "schaden": 4,  "angriff": 10, "abwehr": 8,  "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Tiefer Wald"]},
-    "Riesen-Hundertfüßer":{"stufe": 2, "leben": 12, "ruestung": 1, "schaden": 4,  "angriff": 15, "abwehr": 12, "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald"]},
-    "Goblin":             {"stufe": 2, "leben": 10, "ruestung": 2, "schaden": 6,  "angriff": 15, "abwehr": 16, "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"]},
-    "Goblin-Späher":      {"stufe": 2, "leben": 12, "ruestung": 1, "schaden": 6,  "angriff": 15, "abwehr": 12, "wachsamkeit": 20, "art": "fern", "gebiet": ["Wald", "Tiefer Wald", "Höhle"]},
-    "Skelett":            {"stufe": 2, "leben": 20, "ruestung": 1, "schaden": 6,  "angriff": 15, "abwehr": 12, "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"], "schwaeche": {"stumpf": 1.5}},
-    "Zombie":             {"stufe": 2, "leben": 34, "ruestung": 0, "schaden": 4,  "angriff": 10, "abwehr": 2,  "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"]},
-    "Riesenfledermaus":   {"stufe": 3, "leben": 33, "ruestung": 1, "schaden": 6,  "angriff": 20, "abwehr": 17, "wachsamkeit": 40, "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"]},
-    "Goblin-Schamane":    {"stufe": 3, "leben": 21, "ruestung": 1, "schaden": 4,  "angriff": 15, "abwehr": 15, "wachsamkeit": 50, "art": "zauber", "gebiet": ["Tiefer Wald", "Höhle"]},
-    "Riesenspinne":       {"stufe": 4, "leben": 39, "ruestung": 2, "schaden": 8,  "angriff": 30, "abwehr": 24, "wachsamkeit": 40, "art": "nah", "gebiet": ["Tiefer Wald", "Höhle"]},
-    "Ghul":               {"stufe": 4, "leben": 34, "ruestung": 1, "schaden": 7,  "angriff": 25, "abwehr": 20, "wachsamkeit": 40, "art": "nah", "gebiet": ["Tiefer Wald", "Höhle"]},
-    "Ockerschleim":       {"stufe": 5, "leben": 49, "ruestung": 0, "schaden": 6,  "angriff": 30, "abwehr": 17, "wachsamkeit": 10, "art": "nah", "gebiet": ["Höhle"], "schwaeche": {"klinge": 0.5}},
-    "Krogg":              {"stufe": 4, "leben": 41, "ruestung": 3, "schaden": 11, "angriff": 25, "abwehr": 28, "wachsamkeit": 60, "art": "nah", "gebiet": ["Höhle"], "boss": true},
-    "Grimmzahn":          {"stufe": 5, "leben": 39, "ruestung": 2, "schaden": 8,  "angriff": 30, "abwehr": 29, "wachsamkeit": 80, "art": "nah", "gebiet": ["Tiefer Wald"], "boss": true},
-    "Grak":               {"stufe": 6, "leben": 58, "ruestung": 3, "schaden": 8,  "angriff": 40, "abwehr": 38, "wachsamkeit": 90, "art": "nah", "gebiet": ["Höhle"], "boss": true}
+    "_quelle": "B 'Werte 2.0' (427, Chef 02.11., 18:54; Krogg, Grimmzahn vorlaeufig bis 427.1); art nah/fern/zauber und Schwaechen A nach B-Spalte 'Angriff' und Hinweis Schwaechen +-50 %",
+    "Riesenratte":        {"stufe": 1, "leben": 20, "ruestung": 1, "schaden": 3,  "angriff": 10, "abwehr": 5,  "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Höhle"]},
+    "Kobold":             {"stufe": 1, "leben": 24, "ruestung": 1, "schaden": 3,  "angriff": 10, "abwehr": 5,  "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald"]},
+    "Blutflügler":        {"stufe": 1, "leben": 18, "ruestung": 2, "schaden": 3,  "angriff": 15, "abwehr": 9,  "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald"]},
+    "Wolf":               {"stufe": 2, "leben": 25, "ruestung": 1, "schaden": 6,  "angriff": 15, "abwehr": 12, "wachsamkeit": 30, "art": "nah", "gebiet": ["Wald", "Tiefer Wald"]},
+    "Wildschwein":        {"stufe": 2, "leben": 29, "ruestung": 0, "schaden": 3,  "angriff": 10, "abwehr": 8,  "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Tiefer Wald"]},
+    "Riesen-Hundertfüßer":{"stufe": 2, "leben": 22, "ruestung": 1, "schaden": 3,  "angriff": 15, "abwehr": 12, "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald"]},
+    "Goblin":             {"stufe": 2, "leben": 18, "ruestung": 2, "schaden": 5,  "angriff": 15, "abwehr": 16, "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"]},
+    "Goblin-Späher":      {"stufe": 2, "leben": 22, "ruestung": 1, "schaden": 5,  "angriff": 15, "abwehr": 12, "wachsamkeit": 20, "art": "fern", "gebiet": ["Wald", "Tiefer Wald", "Höhle"]},
+    "Skelett":            {"stufe": 2, "leben": 36, "ruestung": 1, "schaden": 5,  "angriff": 15, "abwehr": 12, "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"], "schwaeche": {"stumpf": 1.5}},
+    "Zombie":             {"stufe": 2, "leben": 44, "ruestung": 0, "schaden": 3,  "angriff": 10, "abwehr": 2,  "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"]},
+    "Riesenfledermaus":   {"stufe": 3, "leben": 46, "ruestung": 1, "schaden": 5,  "angriff": 20, "abwehr": 17, "wachsamkeit": 40, "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"]},
+    "Goblin-Schamane":    {"stufe": 3, "leben": 29, "ruestung": 1, "schaden": 4,  "angriff": 15, "abwehr": 15, "wachsamkeit": 50, "art": "zauber", "gebiet": ["Tiefer Wald", "Höhle"]},
+    "Riesenspinne":       {"stufe": 4, "leben": 43, "ruestung": 2, "schaden": 7,  "angriff": 25, "abwehr": 24, "wachsamkeit": 40, "art": "nah", "gebiet": ["Tiefer Wald", "Höhle"]},
+    "Ghul":               {"stufe": 4, "leben": 37, "ruestung": 1, "schaden": 6,  "angriff": 25, "abwehr": 20, "wachsamkeit": 40, "art": "nah", "gebiet": ["Tiefer Wald", "Höhle"]},
+    "Ockerschleim":       {"stufe": 5, "leben": 44, "ruestung": 0, "schaden": 5,  "angriff": 30, "abwehr": 17, "wachsamkeit": 10, "art": "nah", "gebiet": ["Höhle"], "schwaeche": {"klinge": 0.5}},
+    "Krogg":              {"stufe": 4, "leben": 55, "ruestung": 2, "schaden": 7,  "angriff": 20, "abwehr": 28, "wachsamkeit": 60, "art": "nah", "gebiet": ["Höhle"], "boss": true, "ueberfall": true},
+    "Grimmzahn":          {"stufe": 5, "leben": 55, "ruestung": 2, "schaden": 7,  "angriff": 22, "abwehr": 29, "wachsamkeit": 80, "art": "nah", "gebiet": ["Tiefer Wald"], "boss": true, "rudel": "Leibwache", "umreissen": true},
+    "Grak":               {"stufe": 6, "leben": 75, "ruestung": 2, "schaden": 7,  "angriff": 25, "abwehr": 38, "wachsamkeit": 90, "art": "nah", "gebiet": ["Höhle"], "boss": true}
+  },
+
+  "merkmale": {
+    "_quelle": "427.1 (Jerry 02.11.): aus dem alten Spiel umgerechnet (core Packs.kt, Battle.kt, Monsters.kt), A; 1 Punkt W20 = 5 % = 10 Punkte Angriff (trefferchance_je_punkt 0,5)",
+    "rudel": {
+      "_info": "A: Begleiter stehen hinter dem Anfuehrer, jeder greift je Runde nach ihm mit 'chance' an, nicht angreifbar, fliehen, wenn er faellt (wie im alten Spiel). Angriff = Anfuehrer + angriff_verschiebung, Schaden = Anfuehrer x schaden_anteil",
+      "Leibwache": {"_quelle": "Packs.kt guard: 2 Woelfe, 55 %, -1 auf W20, 1W4 gegen 2W6+1 des Leitwolfs", "anzahl": 2, "chance": 0.55, "angriff_verschiebung": -10, "schaden_anteil": 0.31}
+    },
+    "umreissen": {"_quelle": "Monsters.kt KNOCKDOWN: bei Treffer Rettungswurf Staerke 11 (etwa die Haelfte), sonst liegt der Held, sein naechster Angriff mit Nachteil", "chance_bei_treffer": 0.5, "naechster_angriff_treffer": -25},
+    "ueberfall": {"_quelle": "Monsters.kt SURPRISE_ATTACK, Battle.kt: erster Treffer +2W6 (zu 2W8+2 also x1,6) und betaeubt (Konstitution 12, etwa die Haelfte) fuer einen Zug; Sokrates 02.11., 19:0x: Held beginnt im Nachteil (Gegner zuerst); Morwens Rauch (D4.1): der erste Hieb geht fehl", "gegner_zuerst": true, "erster_treffer_faktor": 1.6, "betaeubt_chance": 0.5, "betaeubt_zuege": 1}
   },
 
   "wirtschaft": {
@@ -302,5 +317,37 @@
     "gegner_band_oben": 1,
     "_band": "Gegnerstufe von Heldenstufe - 2 bis Heldenstufe + 1, gleich verteilt ueber die Arten (ohne Bosse)",
     "max_kaempfe": 2000
+  },
+
+  "erschaffung": {
+    "_quelle": "470 (Abnahme 1.1): N 2 'Heldenerschaffung', E 68-72, 77, 78; die Simulation rechnet die Voelker nicht. Grenzen 3 bis 8 und Startwert der Fertigkeiten stehen unter 'held'; die Herkunft verteilt 'plus' und 'plus_variante' vor (zusammen die 9 freien Punkte, Spalte '21' der Simulation)",
+    "grundwerte": ["kraft", "gewandtheit", "zaehigkeit", "verstand", "wille", "wahrnehmung"],
+    "start": 1,
+    "punkte": 21,
+    "_punkte": "E 77: jeder Grundwert beginnt bei 1, 21 Punkte, danach jeder zwischen 3 und 8 (12 gebunden, 9 frei)",
+    "volk_max": 9,
+    "volk_min": 3,
+    "_volk": "E 78: das Volk hebt bis 9, senkt nie unter 3",
+    "wanderer_fertigkeiten": 2,
+    "voelker": {
+      "Mensch": {"plus": {}, "frei": 1, "fertigkeit_extra": 1, "merkmal": "Wandelbar"},
+      "Elf": {"plus": {"gewandtheit": 1, "wahrnehmung": 1, "zaehigkeit": -1}, "merkmal": "Wachsame Sinne"},
+      "Zwerg": {"plus": {"zaehigkeit": 1, "verstand": 1, "gewandtheit": -1}, "merkmal": "Steinblut"},
+      "Hügelvolk": {"plus": {"gewandtheit": 1, "wille": 1, "kraft": -1}, "merkmal": "Glückskind"},
+      "Orkblütiger": {"plus": {"kraft": 1, "zaehigkeit": 1, "wille": -1}, "merkmal": "Letzter Atemzug"},
+      "_voelker": "E 72: Mensch +1 frei und eine Startfertigkeit mehr (Wandelbar); sonst je +1, +1, -1 und ein Merkmal"
+    },
+    "fertigkeiten": {
+      "Waffen": ["Einhänder", "Zweihänder", "Stangenwaffen", "Stumpfe Waffen", "Dolche", "Faustkampf", "Schild", "Bogen", "Armbrust", "Wurfwaffen"],
+      "Rüstung": ["Leichte Rüstung", "Mittlere Rüstung", "Schwere Rüstung", "Ausweichen"],
+      "Schatten": ["Schleichen", "Spähen", "Schlösser knacken", "Fallen entschärfen"],
+      "Magie": ["Evokation", "Schutzmagie", "Heilmagie", "Illusion", "Beschwörung"],
+      "Wildnis": ["Tiere beruhigen"],
+      "Gesellschaft": ["Überreden", "Einschüchtern", "Handeln"],
+      "Sammeln": ["Kräuterkunde", "Bergbau", "Angeln", "Jagd"],
+      "Meisterschaften": ["Schmieden", "Lederarbeit", "Alchemie", "Kochen", "Runenkunde", "Heilkunde"],
+      "_fertigkeiten": "N 3: 37 Fertigkeiten in acht Gruppen; Bergbau zeigt sich ab Kapitel 2 (461c), zur Wahl erst dann"
+    },
+    "nicht_waehlbar": ["Bergbau"]
   }
 }

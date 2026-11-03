@@ -173,10 +173,12 @@ def summe(rolle, sitzung=None):
         zz = [z for z in zz if not (len(z) > 8 and z[8])] or zz
         w = [int(z[3]) for z in zz]
         st = [z for z in zz if z[5] == "1"]
-        print("| %s | %s | %s | %d | %d | %d | %d | %d/%d | %d | %d/%d/%d |" % (
+        mit = [z for z in zz if len(z) > 10 and z[9].isdigit() and z[10].isdigit()]  # D63.4: Spalten aus 462.1
+        print("| %s | %s | %s | %d | %d | %d | %d | %d/%d | %d | %d/%d/%d | %s |" % (
             datetime.datetime.now(BERLIN).strftime("%d.%m., %H:%M"), rolle, sid[:12], len(zz), int(statistics.median(w)),
             max(w), sum(int(z[4]) for z in zz), sum(1 for z in st if z[6] != "0"), len(st), max(int(z[2]) for z in zz) // 1000,
-            zweit.count("gehalten"), zweit.count("ausnahme"), zweit.count("durch")))
+            zweit.count("gehalten"), zweit.count("ausnahme"), zweit.count("durch"),
+            "%d/%d" % (sum(int(z[10]) for z in mit), sum(int(z[9]) for z in mit)) if mit else "–"))
 
 
 def main():

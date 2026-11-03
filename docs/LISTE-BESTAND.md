@@ -105,6 +105,8 @@ Alles Quaternius, CC0 (`License_Source.txt`/`License_Standard.txt` geprüft), Ge
 
 **Protofactor Riesenratte** (privat, siehe oben; im Einsatz Probe 348.12f, `kaufratte.py`): Idle, Walk, Run, Taunt, DodgeLeft/Right/Backwards, JumpBite, GetHitFront/Left/Right, Death; Walk, Run, Dodge*, JumpBite auch `_RM`; dazu `GIANT_RAT@AllAnimations.FBX`. Texturen Fell (tga, png).
 
+**OGA „Vampire Bat (Animated)“** (frei, rubberduck, CC0 laut https://opengameart.org/content/vampire-bat-animated, geprüft 03.11.; Texturen CC0 von yughues; nicht im Repository, der Ablauf lädt `animated_vampire_bat.zip`, sha256 2670593426d1…a148; 510): `bat_v5.blend` (4004 Punkte), `bat_tex.jpg`, `bat_tex_n.jpg`, Frostvariante `frost_bat_tex.jpg`, Rohdaten `raw/`, HDRI. Bewegungen laut Auftrag Bat_Idle, Bat_Flying, Bat_Attack, Bat_Die (Liste im Log von `oga_fledermaus.py`, Zeilen AKTION).
+
 **MadeCG Hundertfüßer** (privat): idle, walk, alert, attack, hit, die (6).
 
 **Animated3D Leopard-Mischwesen** (privat, Chef 28.10., 16:38; Idee Gegner ab Kapitel 2, `LISTE-IDEEN.md`): Atk1, Atk2, Idle1, Idle2, Jump, Run, Walk, Walkback (8, 60 fps, laut Herstellerblatt); Treffer und Tod fehlen. 22.848 Punkte, 20.820 Flächen (Regel höchstens 6000, ausdünnen).
@@ -195,6 +197,12 @@ Quaternius, itch, CC0 (`License_Standard.txt`), glTF/FBX/OBJ; laut 376 herunterg
 Ebenfalls geprüft, **nicht verwenden** (Chef 27.10., 12:42 „nein“): 150 Lowpoly Nature Models; Lowpoly Modular Dungeon Pack (höchstens Fackel, Gitter, Truhe als Rohform nach dem Meilenstein).
 
 Dungeon: kein fremder Bausatz im Bestand.
+
+## Effekte
+
+| Paket | Datei | Ort | Lizenz | Inhalt |
+|---|---|---|---|---|
+| Beams & Lasers VFX Free Sample v1.0 (reeboolabs, gratis; 415, geladen 02.11.) | `anhang/beams/Beams_Lasers_VFX_Godot_Free_Sample.zip` | privat | eigene (`LICENSE.txt`): im Spiel kommerziell, Dateien nie weitergeben; Maskottchen „Oho“ nie ins Spiel | Godot-Addon `reeboo_beams` (Knoten ReebooBeam3D/2D, 11 Shader): Blauer Laser, Feuerstrom, Blitzbogen, je 3D und 2D; im Bau nach `godot/addons/` (godot.yml) |
 
 ## Eigenbau im Zweig (nicht fremd)
 
