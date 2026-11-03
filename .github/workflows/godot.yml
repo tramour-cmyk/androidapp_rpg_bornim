@@ -20,6 +20,9 @@ on:
       bild:
         description: "Messlauf ohne Bilder und Filme (Perikles 02.11., 389/390a): nein"
         default: ""
+      strahlen:
+        description: "Strahlenfilm 415 (Jerry, Beams-Probe im Kampfort): ja"
+        default: ""
 
 jobs:
   apk:
@@ -271,6 +274,8 @@ jobs:
           # 406a G1 (Jerry): Kampfkamera des Schlussfilms ohne Bild, angeschnittene Figuren je Kampf; meldet nur
           MESS=1 TEIL=kampf timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_406.gd 2>&1 | grep -E "^Film 406|AUSSERHALB|SCRIPT ERROR" || true
           set -o pipefail; timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wolf_mess_438.gd 2>&1 | grep -E "^(— |  |Befunde|Wolf 438|Kampf )|SCRIPT ERROR"   # 438, 439, 440 (Jerry): Wölfe ohne Gleiten, Reihenfolge, Tod
+          # 415 r3 (Jerry): Strahlenprobe ohne Bild, Stabspitze hinter dem Körper (F6), Strahl durch eine Figur (E3), Richtung (F2); meldet nur
+          timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/strahl_mess_415.gd 2>&1 | grep -E "^(Strahl|STRAHL)|SCRIPT ERROR" || true
           timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_test.gd 2>&1 | grep -E "^(gut|FALSCH)|KLANG|SCRIPT ERROR"   # 399.3
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_473.gd 2>&1 | grep -E "FALSCH|BRS473|SCRIPT ERROR"   # 473 Monsterwerte BRS wie sim444
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_472.gd 2>&1 | grep -E "FALSCH|BRS472|SCRIPT ERROR"   # 472 Heldenstufe aus Erfahrung
@@ -437,6 +442,18 @@ jobs:
             --write-movie $RUNNER_TEMP/schild406.avi --fixed-fps 30 -s res://tests/film_406.gd > $B/schild406.log 2>&1 || true
           grep -E "SCRIPT ERROR|^Film|^Schild|^Signatur" $B/schild406.log | head -12 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/schild406.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/406-schluss.mp4 || true
+      # 415: Strahlenprobe im Kampfort (kampf/strahlprobe.gd, tests/film_415.gd), nur von Hand mit strahlen=ja
+      - name: Strahlenfilm 415 (nur von Hand mit strahlen=ja)
+        if: ${{ !cancelled() && github.event.inputs.strahlen != '' }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/strahlen415; mkdir -p $B
+          cd godot
+          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+            --write-movie $RUNNER_TEMP/strahlen415.avi --fixed-fps 30 -s res://tests/film_415.gd > $B/strahlen415.log 2>&1 || true
+          grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER" $B/strahlen415.log | head -12 || true
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/strahlen415.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/415-strahlen.mp4 || true
           ls -l $B
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # 453: Filme auch nach rotem Prüfschritt; nie mit bild=nein
