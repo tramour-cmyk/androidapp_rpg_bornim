@@ -2025,6 +2025,7 @@ func _held_mps(nm: String) -> float:
 	return v if v > 0.1 else (WALK_MPS * 2.0 if nm == "Rennen" else WALK_MPS)
 
 
+const ANGRIFF_GANG := 1.3     # 406.2: Gehen zum Angriff so viel schneller als das Gehen des Satzes (Bewegung und Weg)
 const VERFEHLT_M := 0.3
 const HIEB_VOR := 0.12
 const HIEB_ZURUECK_M := 0.3
@@ -2062,11 +2063,22 @@ func _held_schlag(other, weiter := 0.0) -> int:
 		# 406 c (Chef 01.11., 20:2x, Film 406: der Stabkämpfer ist „zum Wolfangriff … eher hingehoppelt … Er sollte einfach hingehen“):
 		# mit Stab geht der Held zum Ziel, auch weiter als RUN_FROM (das Rennen mit Schild aus Sword & Shield ist für die Klinge gemacht)
 		var gn := _gang_ss("Rennen" if way > RUN_FROM and anim.has_animation("Rennen") and not _stab() else "Gehen")
+		# 406.2 (Chef 03.11., 06:59, Schildfilm: „das Rennen … ist ein Gehopse nach vorne. Also bitte dann beim Angriff nicht rennen,
+		# sondern gehen … ein bisschen schneller gehen“): mit Schild geht der Held zum Angriff, Bewegung und Weg um ANGRIFF_GANG schneller
+		# (beide gleich, sonst rutschen die Füße)
+		var gf := 1.0
+		if _ss() and anim.has_animation("SS_WalkForward"):
+			gn = "SS_WalkForward"
+			gf = ANGRIFF_GANG
 		var von := position
 		for q in pts:
 			var a: Vector3 = q - von
-			tween.tween_callback(func(): _face(a); _play(gn, 0.12))
-			var t: float = von.distance_to(q) / _held_mps(gn)
+			tween.tween_callback(func():
+				_face(a)
+				_play(gn, 0.12)
+				if gf != 1.0:
+					anim.play(gn, 0.12, float(tempo.get(gn, 1.0)) * gf))
+			var t: float = von.distance_to(q) / (_held_mps(gn) * gf)
 			tween.tween_property(self, "position", q, t)
 			t_run += t
 			von = q
@@ -2567,23 +2579,62 @@ const ABWEHR := {"sprung": ["SS_BlockHeavy1", "SS_BlockHeavy2", "SS_BlockMedium1
 	"nah": ["SS_BlockLight", "SS_BlockMedium1", "SS_BlockMedium2", "SS_ParryLow"]}
 var abwehr_nr := 0
 
+var _abwehr_letzt := ""
+
+## 406.2 (Chef 03.11., 06:59: „Wenn dem Parieren gelingt … eine Abwehrbewegung … beim Angriff mit Schild … muss man ja auch nicht
+## ausweichen … beim Wolf wäre das so eine Abwehr tief … oder Abwehr Mitte oder mal links, rechts … variieren … wenn der Wolf von links
+## angreift“): die gelungene Abwehr nach der Seite, von der der Angriff kommt (im Blick des Helden; Modell: links = +X), gegen tiefe
+## Gegner (Wolf, Ratte) tief oder Mitte; je Seite zwei von drei zur Seite, eine zur Mitte, damit es wechselt
+const PARADE_SEITE := 30.0     # Grad aus der Blickrichtung, ab denen die Parade zur Seite geht
+func _parade_liste(von: Vector3, art: String, tief: bool) -> Array:
+	var l := global_transform.basis.inverse() * (von - global_position)
+	var ang := rad_to_deg(atan2(l.x, l.z))
+	var mitte := "SS_ParryLow" if tief else "SS_BlockMedium1"
+	if ang > PARADE_SEITE:
+		return ["SS_ParryLeft", mitte, "SS_ParryLeft"]
+	if ang < -PARADE_SEITE:
+		return ["SS_ParryRight", mitte, "SS_ParryRight"]
+	if art == "sprung":
+		return ["SS_ParryHigh1", "SS_BlockHeavy1", "SS_ParryHigh2"]
+	if tief:
+		return ["SS_ParryLow", "SS_BlockMedium1", "SS_ParryLow", "SS_BlockMedium2"]
+	return ["SS_ParryHigh1", "SS_BlockMedium1", "SS_ParryHigh2", "SS_BlockMedium2"]
+
+
+## 406.2: tiefer Gegner (vierbeinig, nicht fliegend): die Parade geht tief oder zur Mitte
+func niedrig() -> bool:
+	return fighter.monster != null and not _zweibeiner() and ersatz() != "giant_bat"
+
+
 func blockt() -> bool:
 	return _ss() and not down
 
 
-func abwehr(lands_ms: int, art: String) -> void:
+func abwehr(lands_ms: int, art: String, von := Vector3.INF, gelungen := false, tief := false) -> void:
 	if not _ss():
 		return
 	var liste: Array = (ABWEHR.get(art, ABWEHR["nah"]) as Array).filter(func(x): return anim.has_animation(x))
+	if gelungen and von != Vector3.INF and art != "fern":
+		var pl := _parade_liste(von, art, tief).filter(func(x): return anim.has_animation(x))
+		if not pl.is_empty():
+			liste = pl
 	if liste.is_empty():
 		return
 	# reihum statt Zufall: nie zweimal dieselbe hintereinander (mindestens drei Varianten, DESIGN-LEITBILD 2)
 	var nm: String = liste[(abwehr_nr + hash(String(fighter.id))) % liste.size()]
+	if nm == _abwehr_letzt and liste.size() > 1:
+		abwehr_nr += 1
+		nm = liste[(abwehr_nr + hash(String(fighter.id))) % liste.size()]
+	_abwehr_letzt = nm
 	abwehr_nr += 1
 	var k: float = float(kampf_info.get("kontakt", {}).get(nm, 0.25))
 	var vor_ms := lands_ms - int(k * 1000.0)
 	if OS.get_environment("MESS") != "":     # film_406 MESS: Schild steht beim Aufschlag (Kontakt gegen Aufschlag)
-		print("ABWEHR %s %s: Aufschlag in %d ms, Kontakt nach %d ms, Beginn in %d ms" % [fighter.id, nm, lands_ms, int(k * 1000.0), vor_ms])
+		var seite := ""
+		if von != Vector3.INF:
+			var lv := global_transform.basis.inverse() * (von - global_position)
+			seite = ", Angreifer %.0f° (links +)%s" % [rad_to_deg(atan2(lv.x, lv.z)), ", tief" if tief else ""]
+		print("ABWEHR %s %s%s%s: Aufschlag in %d ms, Kontakt nach %d ms, Beginn in %d ms" % [fighter.id, nm, " gelungen" if gelungen else "", seite, lands_ms, int(k * 1000.0), vor_ms])
 	if vor_ms > 0:
 		await get_tree().create_timer(vor_ms / 1000.0).timeout
 	if down or not _ss() or (not weg.is_empty() and lunging()):
