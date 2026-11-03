@@ -52,6 +52,8 @@ func _kampf(k: String, foe: String, id: String, de: String, lo: int, hi: int) ->
 	if fig == null or not Figur.vier(fig.fighter):
 		fehler += 1
 		print("FEHLER Figur %s kein Vierbeiner" % de)
+	if fig != null:
+		_bild(fig)
 	kf.mars.find("merc").auto = true
 	kf.mars.set_autopilot(true)
 	if not kf.busy:
@@ -68,3 +70,38 @@ func _kampf(k: String, foe: String, id: String, de: String, lo: int, hi: int) ->
 	p.queue_free()
 	for i in 3:
 		await process_frame
+
+
+## 494 Prüfung Keiler und Hundertfüßer (Jerry 03.11., 18:2x): mit Kaufmodell jede Kampfbewegung da (der Keiler hatte keinen Treffer,
+## im Kampf nur das Zittern), keine im Boden (kauftier.py misst tiefster_punkt_m), Name und Balken über dem Tier statt in Wolfshöhe
+## (Hundertfüßer 0,26 m hoch, Balken stand bei 1,12 m)
+const KAMPF_BEW := ["Stehen", "Gehen", "Rennen", "Treffer", "Tod"]
+
+func _bild(fig) -> void:
+	var a: String = Figur.ersatz()
+	var ip := "res://kampf/daten/%s-info.json" % a
+	if not a.begins_with("kauf_") or not FileAccess.file_exists(ip):
+		print("Wildschwein 494 %s: ohne Kaufmodell (Platzhalter)" % a)
+		return
+	var j: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(ip))
+	for fell in j:
+		var d: Dictionary = j[fell]
+		for nm in KAMPF_BEW + [("Hauer" if d.has("Hauer") else "Biss")]:
+			if not d.has(nm):
+				fehler += 1
+				print("FEHLER %s %s: Bewegung %s fehlt" % [a, fell, nm])
+		for nm in d.get("tiefster_punkt_m", {}):
+			if nm != "Fressen" and float(d.tiefster_punkt_m[nm]) < -0.01:     # Fressen spielt der Kampf nicht
+				fehler += 1
+				print("FEHLER %s %s: %s %.3f m im Boden" % [a, fell, nm, d.tiefster_punkt_m[nm]])
+		if not d.has("tiefster_punkt_m"):
+			print("Hinweis %s %s: ohne tiefster_punkt_m (älterer Bau)" % [a, fell])
+	if fig.anim == null or not fig.anim.has_animation("Treffer"):
+		fehler += 1
+		print("FEHLER %s: Figur ohne Treffer" % a)
+	var hoch: float = float(fig.mass.get("hoehe_m", 0.0))
+	var kopf: float = fig.head().y - fig.position.y
+	if hoch > 0.0 and (kopf < hoch or kopf > hoch + 0.3):
+		fehler += 1
+		print("FEHLER %s: Balken %.2f m über dem Boden, Tier %.2f m hoch" % [a, kopf, hoch])
+	print("Wildschwein 494 %s: Bewegungen %s, Balken %.2f m, Tier %.2f m" % [a, fig.anim.get_animation_list() if fig.anim else [], kopf, hoch])

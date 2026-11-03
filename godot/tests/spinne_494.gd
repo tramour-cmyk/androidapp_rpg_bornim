@@ -105,8 +105,26 @@ func _kampf() -> void:
 		fehler += 1
 		print("FEHLER keine Spinne im Probekampf „Spinne“")
 	else:
-		var fig = kf.figur(spinnen[0].id) if kf.has_method("figur") else null
+		var fig = kf.figures.get(String(spinnen[0].id))
 		print("Spinne 494 Kampf: %d Spinne(n), %d TP" % [spinnen.size(), spinnen[0].max_hp])
+		# Verdacht Jerry 17:4x (bestätigt 18:2x): neben dem Kaufwolf las die Spinne dessen Weg (kaufwolf-info.json) und glitt;
+		# dazu stand sie 1,5-fach (Spannweite 2,5 m) und der Balken in Menschenhöhe
+		if fig != null and FileAccess.file_exists("res://kampf/daten/giant_spider-info.json"):
+			Figur.ersatz_art = "kaufwolf"     # wie aufruf.gd im Spiel-Build mit Kaufwolf
+			if fig.art() != "":
+				fehler += 1
+				print("FEHLER Spinne als Ersatz „%s“" % fig.art())
+			if fig._weg().is_empty():
+				fehler += 1
+				print("FEHLER Spinne ohne Weg neben dem Kaufwolf")
+			if absf(kf.foe_scale(fig.fighter) - 1.0) > 0.01:
+				fehler += 1
+				print("FEHLER Spinne %.2f-fach statt echter Größe" % kf.foe_scale(fig.fighter))
+			var kopf: float = fig.head().y - fig.position.y
+			if kopf > 1.0:
+				fehler += 1
+				print("FEHLER Balken der Spinne %.2f m hoch" % kopf)
+			print("Spinne 494 neben Kaufwolf: Weg %s, Größe %.2f, Balken %.2f m" % [fig._weg().keys(), kf.foe_scale(fig.fighter), kopf])
 	kf.mars.find("merc").auto = true
 	var t0 := Time.get_ticks_msec()
 	while Time.get_ticks_msec() - t0 < 90000:

@@ -29,6 +29,9 @@ ENTSAETTIGT, DUNKLER = 0.35, 0.8
 TIERE = {
     'keiler': {'rig': 'WildBoar_Rig.fbx', 'anim': 'WildBoar_%s.fbx', 'tex': 'wild_boar_col*',
                'namen': {'Stehen': 'Idle', 'Gehen': 'Walk', 'Rennen': 'Run', 'Hauer': 'Attack', 'Fressen': 'Eat', 'Tod': 'Die'},
+               # 494 (im Kampf): der Kauf hat keinen Treffer; wie bei der Spinne (kaufspinne.py) aus Stehen und dem Anfang des Todes
+               # gedämpft gebaut: zuckt und fängt sich (vorher im Kampf nur das Zittern)
+               'treffer_aus_tod': 0.45,
                # wildschwein.py COATS (fur, saddle, belly)
                'felle': {'dunkel': (0x3A302A, 0x141010, 0x2E2622), 'grau': (0x5E5248, 0x221C18, 0x4A3E36), 'rost': (0x5A3A26, 0x1E1410, 0x463024)}},
     'hundertfuesser': {'rig': 'skin.FBX', 'anim': '%s.FBX', 'tex': 'centipede*',
@@ -345,6 +348,42 @@ def hub(rig, a, h):
     print('HUB %s %s: Wurzel %.2f-%.2f m, im Hoch bis %.2f m gehoben' % (TIER, a.name, lo, hi, h))
 
 
+def treffer_aus_tod(rig, akt, staerke, bilder_n=9, knick=30.0):
+    """494: Treffer, wo der Kauf keinen hat (Keiler): aus dem ersten Bild von Stehen und dem Anfang des Todes, hin und zurück,
+    höchstens `staerke` des Todesanfangs (wie kaufspinne.treffer_bauen); endet wieder im Stehen. Der Anfang reicht, bis ein Knochen
+    `knick` Grad aus der Ruhe ist (gemessen: in den ersten 5 Bildern des Keilertods höchstens 7°, der Treffer zuckte nur 3°)."""
+    from kaufspinne import bilder, setze_bilder
+    s0 = int(akt['Stehen'].frame_range[0]); t0, t1 = (int(x) for x in akt['Tod'].frame_range)
+    ruhe = bilder(rig, akt['Stehen'], s0, s0)[0]
+    alle = bilder(rig, akt['Tod'], t0, t1)
+    ab = [max(math.degrees(ruhe[b][0].rotation_difference(f[b][0]).angle) for b in ruhe) for f in alle]
+    tod_bilder = next((i for i, w in enumerate(ab) if w >= knick), len(alle) - 1)
+    tod = alle[:tod_bilder + 1]
+    folge = []
+    for i in range(bilder_n):
+        t = i / (bilder_n - 1)
+        w = math.sin(math.pi * min(1.0, t * 1.15)) * staerke
+        q = tod[-1]     # zur Haltung am Ende des Anfangs hin und zurück (mit der Zeit durch den Anfang blieb der Gipfel bei 4°)
+        folge.append({b: (rq.slerp(q[b][0], w), lc.lerp(q[b][1], w), sc) for b, (rq, lc, sc) in ruhe.items()})
+    a = setze_bilder(rig, 'q_Treffer', folge)
+    rig.animation_data.action = None
+    wmax = max(math.degrees(ruhe[b][0].rotation_difference(f[b][0]).angle) for f in folge for b in ruhe)
+    print('TREFFER %s: aus Stehen und Tod (Bild %d-%d), %.0f %%, %d Bilder, Knochen bis %.0f° aus der Ruhe' % (
+        TIER, t0, t0 + tod_bilder, staerke * 100, bilder_n, wmax))
+    return a
+
+
+def tiefster(rig, akt, meshes):
+    """494 (wie kaufspinne.py): tiefster Punkt des Netzes je Bewegung über alle Bilder; nie im Boden (figur.gd, Test wildschwein_494)"""
+    aus = {}
+    for nm, a in akt.items():
+        setze(rig, a); a0, a1 = (int(x) for x in a.frame_range)
+        aus[nm] = round(min(float(welt_netz(meshes, f)[:, 2].min()) for f in range(a0, a1 + 1)), 3)
+    rig.animation_data.action = None
+    print('TIEFSTER %s: %s' % (TIER, ' '.join('%s %.3f' % kv for kv in aus.items())))
+    return aus
+
+
 def koerper(meshes, ohne):
     """Maske über welt_netz: Ecken, die nicht vor allem an Knochen mit diesem Namensanfang hängen"""
     m = []
@@ -391,6 +430,8 @@ def baue(fell):
             bpy.ops.object.modifier_apply(modifier='duenn')
         print('DUENN %s: %d -> %d Dreiecke' % (TIER, t0, tris(meshes)))
     rig.animation_data_create()
+    if 'treffer_aus_tod' in T and 'Treffer' not in akt and 'Stehen' in akt and 'Tod' in akt:
+        akt['Treffer'] = treffer_aus_tod(rig, akt, T['treffer_aus_tod'])
     if 'Stehen' in akt:
         setze(rig, akt['Stehen'])
     f0 = int(akt['Stehen'].frame_range[0]) if 'Stehen' in akt else 1
@@ -438,7 +479,7 @@ def baue(fell):
     for nm in ('Gehen', 'Rennen'):
         if nm in akt and not ('hoppeln' in T and nm == 'Rennen') and not (nm == 'Rennen' and akt[nm] is akt.get('Gehen')):
             boden_halten(rig, akt[nm], meshes, kleben=True)
-    for nm in ('Biss', 'Hauer', 'Stoss'):
+    for nm in ('Biss', 'Hauer', 'Stoss', 'Treffer'):
         if nm in akt:
             boden_halten(rig, akt[nm], meshes)
     if 'hoppeln' in T and 'Rennen' in akt:     # Runde 5: eigenes Hoppeln aus dem Rennen des Kaufs
@@ -501,6 +542,8 @@ def baue(fell):
             INFO['biss'] = [round(float(-best[1] - 0.07), 3), round((best[0] - a0) / FPS, 3), round(-math.degrees(math.atan2(best[2], -best[1])), 1)]
             print('BISS %s %s: vorn %.2f m bei %.2f s, seitlich %.2f m -> %s' % (TIER, nm, -best[1], (best[0] - a0) / FPS, best[2], INFO['biss']))
             break
+    INFO['tiefster_punkt_m'] = tiefster(rig, akt, meshes)
+    INFO['bewegungen'] = sorted(akt)
     rig.animation_data.action = None
     for nm, a in akt.items():
         a2 = a.copy(); a2.name = nm; a2.use_fake_user = True

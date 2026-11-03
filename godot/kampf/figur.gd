@@ -203,7 +203,7 @@ void fragment() {
 	if wolf and ERSATZ_SCHATTEN.has(ersatz()):
 		var es: Array = ERSATZ_SCHATTEN[ersatz()]
 		pm.size = Vector2(es[0], es[1]) * _scale(); vor = es[2]
-	elif wolf and mass.has("laenge_m"):     # 387 Runde 2 (Prüfer: Schatten in Wolfsgröße, bei Huhn und Kaninchen doppelt so breit): nach dem Kauftier
+	elif (wolf or eigene_haut(fighter)) and mass.has("laenge_m"):     # 494: auch die gekaufte Spinne (vorher 0,95 rund unter 1,69 m Beinen); 387 Runde 2 (Prüfer: Schatten in Wolfsgröße, bei Huhn und Kaninchen doppelt so breit): nach dem Kauftier
 		pm.size = Vector2(mass.get("breite_m", 0.4) * 1.3, mass.laenge_m * 0.9) * _scale(); vor = 0.0
 	mi.mesh = pm
 	var m := ShaderMaterial.new()
@@ -326,6 +326,10 @@ func art() -> String:
 		return ""
 	if fighter.monster != null and fighter.id == GRIMM:
 		return "dire_wolf"
+	# 494 (Verdacht Jerry 17:4x, nachgestellt 18:2x): wer eigene gekaufte Häute hat und kein Vierbeiner ist (Riesenspinne), ist kein
+	# Ersatz; im Probekampf „Spinne“ setzt aufruf.gd für den Wolf daneben „kaufwolf“, die Spinne las dann kaufwolf-info.json: ohne Weg
+	if eigene_haut(fighter):
+		return ""
 	return ersatz()
 
 
@@ -374,13 +378,25 @@ static func lade_bin(p: String) -> PackedByteArray:
 	return d.slice(0, d.size() - pad)
 
 
-## 387: Felle eines gekauften Tiers (Schlüssel in <art>-info.json, wie kauftier.py sie baut)
+## 387: Felle eines gekauften Tiers (Schlüssel in <art>-info.json, wie kauftier.py sie baut); einmal gelesen je Art
+static var _felle_von := {}
 static func _kauf_felle(a: String) -> Array:
+	if _felle_von.has(a):
+		return _felle_von[a]
 	var ip := "res://kampf/daten/%s-info.json" % a
-	if not FileAccess.file_exists(ip):
-		return []
-	var j = JSON.parse_string(FileAccess.get_file_as_string(ip))
-	return j.keys() if j is Dictionary else []
+	var fl := []
+	if FileAccess.file_exists(ip):
+		var j = JSON.parse_string(FileAccess.get_file_as_string(ip))
+		fl = j.keys() if j is Dictionary else []
+	_felle_von[a] = fl
+	return fl
+
+
+## 494: gekaufter Gegner mit eigenen Häuten in <id>-info.json (kaufspinne.py), weder Vierbeiner noch Zweibeiner (die haben dort
+## Felle oder Kits), in echter Größe wie die Kauftiere
+static func eigene_haut(fi) -> bool:
+	return fi != null and fi.monster != null and not vier(fi) and not fi.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG] \
+			and not _kauf_felle(String(fi.monster.id)).is_empty()
 
 
 ## 403 (von Team Tom zu 376.1; Chef 31.10.: nur Modell und Bewegungen): der Held je Klasse auf dem Kaufkörper wie im Dorf
@@ -1240,7 +1256,7 @@ func _weg() -> Dictionary:
 			hieb = j[fell].hieb
 		if j[fell].get("tempo") is Dictionary:
 			tempo = j[fell].tempo
-		for k in ["breite_m", "laenge_m"]:
+		for k in ["breite_m", "laenge_m", "koerper_hoch_m", "hoehe_m"]:
 			if (art().begins_with("kauf_") or art() == "") and j[fell].get(k) != null:     # 494: auch die gekaufte Spinne
 				mass[k] = float(j[fell][k])
 		return j[fell].weg
@@ -2873,8 +2889,12 @@ func howl() -> void:
 ## Where to put the name and bar above the figure (world).
 func head() -> Vector3:
 	var h := 1.12 if vier(fighter) else 1.9     # Ohrspitzen des Wolfs (0,9 lag seit den größeren Ohren, Runde 1 nach Chef, unter dem Balken; davor 60 px darüber)
-	if vier(fighter):
+	if vier(fighter) and not ERSATZ_KOPF.has(ersatz()) and ersatz().begins_with("kauf_") and mass.has("hoehe_m"):
+		h = float(mass.hoehe_m) + 0.15     # 494: Keiler (0,97 m), Hundertfüßer (0,26 m: der Balken stand 0,9 m über ihm) nach dem Kauf
+	elif vier(fighter):
 		h = ERSATZ_KOPF.get(ersatz(), h)
+	elif mass.has("koerper_hoch_m"):     # 494 Riesenspinne: Name und Balken über dem Körper (0,40 m), nicht in Menschenhöhe 1,9 m
+		h = float(mass.koerper_hoch_m) + 0.25
 	if gob_h > 0.0:     # Goblin Runde 2 (Prüfer Runde 1: Ansage fern der Goblins): Scheitel aus goblin.py, gebückt etwas tiefer
 		h = gob_h * 0.85
 	return position + Vector3(0, h * (_scale() if fighter.monster != null else 1.0), 0)
