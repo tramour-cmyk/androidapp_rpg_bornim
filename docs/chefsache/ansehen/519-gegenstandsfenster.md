@@ -6,7 +6,9 @@ A Spiel
 Kurz: dein Befund von 23:13 (Build 249) am Rechner nachgestellt (Fenster 1128 statt höchstens 1080 Bildpunkte breit) und behoben; kommt mit dem nächsten Testbuild. Nur ansehen, nichts zu entscheiden.
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/fd80a395a (Test fenster_519 ohne Fehler; vorher 5 Fehler)
 
-![Links dein Ring von 23:13 (Werte nachgestellt), rechts ein Schwert mit vier Knöpfen](../bilder/519-fenster.webp)
+![Links dein Ring von 23:13 (Werte nachgestellt), rechts ein Kettenpanzer (nicht, wie zuerst gemeldet, ein Schwert)](../bilder/519-fenster.webp)
+
+**Prüfer (03.11., 23:52, gemessen):** nichts ragt über Bild- oder Kastenrand, Kasten links und rechts je etwa 43 Bildpunkte vom Rand; alle Knopfaufschriften ganz, kein Wort getrennt; Name neben dem Bild, bricht sauber in zwei Zeilen; Hinweis im Ring wörtlich „Geschicklichkeit: Bonus wirkt nicht, Obergrenze für dieses Kapitel erreicht“, im Panzer „Stärke, Geschicklichkeit: …“. Auffällig: die Zeile „Schadensreduktion“ steht unter dem Hinweis zu den Attributen (Reihenfolge wie alt); das Bild des Panzers ist eine graue, schwer erkennbare Fläche.
 
 **Wo:** Spielmenü, Reiter Ausrüstung oder Tasche, einen Gegenstand antippen.
 
