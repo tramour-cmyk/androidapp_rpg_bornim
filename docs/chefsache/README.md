@@ -50,17 +50,17 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 522 | M | von Sokrates (Chef 03.11., 23:33, Build 249; Zu 522): „im Testmenü Ausrüstung des Helden g | startbar |
+| 521 | M | von Sokrates (Chef 03.11., 23:23, Build 249, Bild; Zu 521): Wechselschirm (Platz antippen) | startbar |
+| 520 | M | von Sokrates (Chef 03.11., 23:19, Build 249, Bild; Zu 520): Ausrüstung: „Warum ist der Hel | startbar |
+| 519 | M | von Sokrates (Chef 03.11., 23:13, Build 249, Bild): Ausrüstung, Fenster eines Gegenstands | in Arbeit bei Spike |
+| 518 | M | von Sokrates (Chef 03.11., 20:47, Build 248, Bild): Dorf leer: keine Häuser, nur Wege und | wartet auf Test (Build) |
 | 523 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 523): Tasche wie alt und besser: „Funke | startbar |
 | 524 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 524): Gegenstandsfenster, Inhalt wie alt | startbar |
 | 525 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 525): Laden, Morwen, Rast wie alt und be | startbar |
 | 526 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 526): Rückfragen und Fenster einheitlich | startbar |
 | 528 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 528): Held, Karte, Chronik wie alt: Satz | startbar |
 | 529 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 529): Spielstände: Heldenbild und Spielz | startbar |
-| 522 | M | von Sokrates (Chef 03.11., 23:33, Build 249; Zu 522): „im Testmenü Ausrüstung des Helden g | startbar |
-| 521 | M | von Sokrates (Chef 03.11., 23:23, Build 249, Bild; Zu 521): Wechselschirm (Platz antippen) | startbar |
-| 520 | M | von Sokrates (Chef 03.11., 23:19, Build 249, Bild; Zu 520): Ausrüstung: „Warum ist der Hel | startbar |
-| 519 | M | von Sokrates (Chef 03.11., 23:13, Build 249, Bild): Ausrüstung, Fenster eines Gegenstands | in Arbeit bei Spike |
-| 518 | M | von Sokrates (Chef 03.11., 20:47, Build 248, Bild): Dorf leer: keine Häuser, nur Wege und | wartet auf Test (Build) |
 | 490 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488): Flüsterwald begehbar wie alt (Story.kt:524, | wartet auf Test (Build) |
 | 495 | M | von Perikles (Wochenziel 03.11. Reihe 4, 488): Zufallsspieler spielt Kapitel 1 in Godot bi | Termin 04.11. |
 | 491 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Tiefer Flüsterwald begehbar w | wartet auf Test (Build) |
