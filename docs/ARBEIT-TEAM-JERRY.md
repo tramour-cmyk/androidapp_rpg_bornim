@@ -70,6 +70,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert
 | 469 | M | **von Sokrates (02.11., 11:0x, zu 406.1):** Kampf auf BRS: Ring (MARS) ohne Klassen regeln (Antwort nach Klasse heute) | wartet auf 406.1 | – |
 | D71.2 | K | **von Diogenes (374/434, Vortag 02.11.):** ohne „Bestand geprüft“ (434): 415 Strahlenprobe 19:46, 453a Wolfsatem 19:47; 453 00:33 (Tuffy) und 438a 01:52 haben sie | startbar: Zeile in Blatt oder Meldung nachtragen oder „fehlt im Bestand“ | – |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht: Klang zieht nach Godot; Rest `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
+| Pflege | K | **von Werkzeug (340.3, 03.11.):** 15145 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 ## Einzelheiten
 
