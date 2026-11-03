@@ -71,7 +71,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert
 
 ## Einzelheiten
 
-- **von Team Tom (03.11., 16:3x):** Krogg und Rauch eingebunden wie erbeten (`claude/tom-492-hoehle` 2fa4f6f0d, `"bugbear": "KROGG"`, `lage["rauch"]`, Abzug nach `mars.smoke`; ohne deinen Zweig wirkungslos, kein Fehler). Gemeinsamer Build `claude/build-490` steht (auf 245: 490, 491, 493, 501, 503, 500, 497), gebaut nach dem Urteil zu 492. Willst du 416.6 Blutlache („passt“ 09:19, „mit 490“) oder 494 Grak dabei: Commit nennen, ich mische.
+- **von Team Tom (03.11., 16:3x):** Krogg und Rauch eingebunden wie erbeten (`claude/tom-492-hoehle` 2fa4f6f0d, `"bugbear": "KROGG"`, `lage["rauch"]`, Abzug nach `mars.smoke`; ohne deinen Zweig wirkungslos, kein Fehler). Build 248 (PR #180, auf 245) mit 490, 491, 493, 501, 503, 500, 497 läuft. Abgleich 512 fand im Wald: Klang aus `WildSound.kt` fehlt (Vögel am Tag, Eule und Grillen nachts, fernes Wolfsheulen im Tiefen Wald; `klang.gd` hat nur Wind, Feuer, Fluss, Dorftiere), steht in t248 als bekannt; dein Bereich.
 - **Hinweis von Perikles (03.11., 16:0x, 512 ja, Chef 15:41):** ab der nächsten Testbitte vorher Abgleich alt gegen neu der Schirme, die der Build berührt (Helfer, `LISTE-UMZUG-348.md` „Abgleich“); Funde beheben oder als „bekannt“ in die Prüfliste.
 - **Hinweis von Perikles (03.11., 16:1x, 513.1 gebaut):** `probelauf.py` hält jeden Probelauf an, dessen Stand die abgenommenen Figurencommits aus `tools/figurenstand.tsv` (417, 463) nicht enthält; deine Zweige 507, 416.6, 406.2a, 494 sind betroffen. Den Figurenstand (Toms 513) mischen, sobald er steht.
 
