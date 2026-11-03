@@ -1112,6 +1112,7 @@ func zeige(e: Dictionary) -> void:
 # nach einer neuen Flagge: Wege (Schlagbaum, Tor) und wer zu sehen ist (Story.kt visible)
 func flaggen_neu() -> void:
 	karte.baue_wege()
+	if gebiet: gebiet.schlagbaum(karte.flaggen.has("barrier_open"))   # 530
 	sichtbar_neu()
 
 func sichtbar_neu() -> void:
