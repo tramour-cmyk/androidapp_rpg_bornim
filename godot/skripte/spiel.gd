@@ -36,6 +36,7 @@ var rufe_karte := ""
 var naechster_ruf := 0                           # 134.3 Game.nextCallAt: vorher ruft kein anderer
 var spricht_mit := ""                            # bis das Gespraech vorbei ist, dann gilt gehoert (Game.talkingTo)                        # 399.1 Anschlagbrett (Mode.Board)
 var herde: Herde                                 # 490 Monster auf der Karte (herde.gd, streuner.gd)
+var blutspur: Blutspur                           # 416.6 (Jerry): Blutspuren der Karte (blutspur.gd)
 var im_kampf := false                            # 490: vom Angriff bis zurueck auf der Karte
 var kraut_tag := -1                              # 490 Heilkraeuter: fuer welchen Tag sie stehen (Game.herbDay)
 
@@ -127,6 +128,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	if leute: leute.queue_free()
 	if herde: herde.queue_free()
 	herde = null
+	if blutspur: blutspur.queue_free()
 	karte = Karte.lade(id, zustand.flaggen)   # 390: Schlagbaum, Tor, Ausgaenge und Wege lesen den Spielstand
 	zustand.setze("besucht:" + id)   # 399.1 Chronik „Die Blutzahnhöhle“ (alt GameState.explored)
 	licht.innen = String(karte.daten.get("art", "")) == "INTERIOR"   # 399.1 Grundriss
@@ -153,6 +155,8 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 		add_child(herde)
 		herde.kampf.connect(_kampf_auf_karte)
 		herde.gemeldet.connect(func(t): ui.kurz(t))
+	blutspur = Blutspur.new(id)   # 416.6 (Jerry): Blut, wo ein Gegner fiel (Tracks.kt), bleibt über Kartenwechsel im Speicher
+	add_child(blutspur)
 	kraut_tag = -1
 	kraeuter_neu()
 	sichtbar_neu()
@@ -537,8 +541,11 @@ func _kampf_auf_karte(monster: String, eroeffnung: String, wer: Streuner) -> voi
 	ziel_person = null; ziel_stoss = Vector2i(-1, -1)
 	var hier := karte.id
 	blick_nach = held.blick()
+	var wo := wer.kachel if is_instance_valid(wer) else Blutspur.vor(held.kachel, blick_nach)
+	var form := (wer.get_instance_id() if is_instance_valid(wer) else int(zustand.schritte)) & 0x7fffffff
 	var ende := await kampf_im_wald(held.kachel, String(Streuner.GRUPPE[monster]), [], eroeffnung)
 	blick_nach = "DOWN"
+	if ende == "WON" and karte.id == hier: Blutspur.blut(hier, wo, form)   # 416.6 (Jerry): Game.kt endBattle, Blut wo er fiel
 	if herde and karte.id == hier: herde.nach_kampf(wer, ende)
 	im_kampf = false
 
@@ -1152,7 +1159,39 @@ func bilder() -> void:
 	held.rotation.y = atan2(zu.x, zu.z)
 	await get_tree().create_timer(2.0).timeout
 	await knips(dir + "/nah.png")
+	kamera.nah_fern()
+	await blut_bilder(dir)
 	get_tree().quit()
+
+# 416.6 (Jerry): Blutspuren im Wald, Grundansicht, nah und nachts: vor dem Helden frisch, rechts nach 2,4 min getrocknet, links nach
+# 5 min halb verblasst (Zeiten wie Spuren.BLOOD_MS); ohne Weg in den Wald keine Bilder
+func blut_bilder(dir: String) -> void:
+	var weg: Dictionary = {}
+	for a in karte.daten.get("ausgaenge", []):
+		if String(a["ziel"]["karte"]) == "forest": weg = a
+	if weg.is_empty(): return
+	await geh_hinaus(weg)
+	await get_tree().create_timer(1.0).timeout
+	if karte.id != "forest" or blutspur == null: return
+	if herde: herde.frieden_bis = 1 << 40   # kein Angriff, solange die Bilder entstehen
+	var t := held.kachel
+	var jetzt := Time.get_ticks_msec()
+	Blutspur.blut(karte.id, Blutspur.vor(t, "UP") + Vector2i(0, -1), 11, jetzt)
+	Blutspur.blut(karte.id, t + Vector2i(2, -1), 23, jetzt - int(Blutspur.Spuren.BLOOD_MS * 0.4))
+	Blutspur.blut(karte.id, t + Vector2i(-2, -1), 37, jetzt - int(Blutspur.Spuren.BLOOD_MS * 0.8))
+	blutspur.stelle(jetzt)
+	print("BLUT %s Held %s, %d Lachen" % [karte.id, t, blutspur.anzahl()])
+	ui.sage([])
+	await get_tree().create_timer(1.0).timeout
+	await knips(dir + "/blut.png")
+	kamera.nah_fern()
+	await get_tree().create_timer(2.0).timeout
+	await knips(dir + "/blut_nah.png")
+	kamera.nah_fern()
+	licht.umschalten()
+	await get_tree().create_timer(2.5).timeout
+	await knips(dir + "/blut_nacht.png")
+	licht.umschalten()
 
 # 348.6 Leute: --gang=<ordner> stellt die Leute nebeneinander auf den Platz, seitlich zur Kamera, und legt je 0,1 s
 # ein Bild eines Doppelschritts ab (Gang je Figur pruefen, Chef 17:03); die Figuren gehen auf der Stelle
