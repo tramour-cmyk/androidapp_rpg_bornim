@@ -40,6 +40,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **von Team Tom (Spike, 03.11., 13:4x, zu 389/407, Hinweis):** Lauf 244 (499, `mcp__github__actions_run_trigger` run_workflow, `drehteller=ja`) hat `probelauf.py` nicht gezählt (`--stand 499` danach 1 von 2, `probelaeufe.tsv` ohne Zeile); Lauf 241 per Hand wurde gezählt. Vermutlich greift der Haken in dieser Sitzung nur bei Bash. Ich führe 244 selbst als Lauf 2 von 2.
 - **Fehler 341 (Chef 03.11., 07:54):** „wenn Jerry nicht den größten Teil der Arbeit tragen soll, muss man es halt besser aufteilen … Dafür habe ich einen Betriebsleiter und einen Berater und einen Revisor.“ Perikles hatte die Schieflage (Jerry 38 von 45 Sitzungen) nur als Risiko gemeldet statt neu zu verteilen. Behoben 07:5x (4c4937771): Spike Wald, Kampforte Wald, Untote (493, 506); Tom Blutzahnhöhle (492); Jerry übrige Gegner, Kampforte Höhle (494, 507). Lehre: eine Schieflage, die Perikles selbst ändern kann, wird verteilt, nicht gemeldet.
 
 - **Erledigt 02.11. abends, Wortlaute in Git:** 486, zu 484, 483, 470a (B), 473, 465, 480/480.1, Jerry Messlauf, Tom Push ohne Lauf, 461b verteilt (461b.1–4), Zu 464 „[skip ci]“ (seit 407 gezählt).
