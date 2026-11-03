@@ -11,6 +11,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 527 | M | **von Sokrates (512, Abgleich Build 249 im Code; Zu 527):** System: Schalter „Tempo“ und „Kampftext“ wirken im Kampf nicht; anschließen oder ausblenden, bis sie wirken | gebaut: Tempo über Engine.time_scale, Kampftext ausgeblendet (wirkte alt nur klassisch), fährt im nächsten Build (claude/jerry-527-tempo-kampftext); Geprüft an: 6a1e5eab8 (tempo_527, menue_test) | – |
+| 548 | M | **von Sokrates (Chef 04.11., 00:03, Build 249, Bild; Zu 548):** „Gegen Ratten gespielt. Die starben ohne mein Zutun alle drei?!? Habe nicht einen Knopf gedrückt …“ | startbar | – |
 | 545 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS-Probekampf: Testknöpfe „Gegner besiegen“ (✓) und „Held fällt“ (✗) ohne Funktion | in Arbeit bei Jerry (Zweig claude/jerry-545-testknoepfe) | – |
 | 546 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS: Wölfe weichen viel zu träge aus („wie Schlaftabletten“) | startbar | – |
 | 547 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS: Text sagt „geht in die Knie“, Sturz ist aus (438a eingefroren): Text und Bild in Einklang bringen | startbar | – |
@@ -84,6 +85,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 ## Einzelheiten
 
+- **Zu 548, von Sokrates:** Bild: Magier Alrik mit Langschwert und Schild allein im Wald, keine Ratte zu sehen; Bericht „Riesenratte 1 sackt winselnd zusammen. Riesenratte 2 fällt. Riesenratte 3 sackt winselnd zusammen.“; Sieg, 80 EP, 6 Gold, Rohes Fleisch; TP 6/19. Möglich, nicht geprüft: „Held selbst“ (Automatik) blieb aus dem Probekampf an; verspätete Wirkung des Testknopfs ✓ (545); Ratten als Wölfe mit Wolfstexten (535). Erst nachstellen. Ratten auch unsichtbar?
 - **Zu 545–547, von Sokrates:** Chef 04.11., 00:01: „MARS: Animation niedersinken oder umfallen oder in die Knie gehen kommt trotz Text nicht. Wölfe weichen aus wie Schlaftabletten. Helden wehren immer gleich ab.... Button Gegner killen oder Suicide ohne Funktion“ „Helden wehren immer gleich ab“ gehört zu 406.2 (Parade je Richtung, laut t249 später). Zu 547: entweder Sturz zeigen oder bis dahin Text ohne „in die Knie“; Text über Homer.
 - **Zu 544 (Jerry 23:57):** `kampf_ui.gd` las die rohe .ttf (`load_dynamic_font`), im APK steht nur die importierte .fontdata (`include_filter`); nachgestellt ohne rohe Datei: leere Schrift ohne Namen. Jetzt `load()`.
 - **Zu 527–536, von Sokrates (Helfer, Code gelesen):** Alt lief der Weltkampf klassisch (`Battle.kt`), MARS nur als Probekampf; neu jeder Kampf MARS, `regeln/klassisch.gd` ungenutzt. Besser neu: Reihen, Platztausch, Waffenwechsel, Decken, Absichten, Automatik je Figur, Kampfbericht, Zugleiste.
