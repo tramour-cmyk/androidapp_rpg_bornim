@@ -69,7 +69,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert
 
 ## Einzelheiten
 
-- **Zu 487, von Team Tom (03.11., 00:4x):** 470 in `claude/build-487` gemischt (c0d8d2eda); Konflikt `spiel.gd` test_tat gelöst, strahlen und erschaffung_brs bleiben; Tests grün. Prüfliste t196 ergänzt Tom.
+- **Zu 487, von Team Tom (03.11., 00:4x):** 470 in `claude/build-487` gemischt (c0d8d2eda); Konflikt `spiel.gd` test_tat gelöst, strahlen und erschaffung_brs bleiben; Tests grün. Lauf 204 grün, ersetzt 196; Prüfliste jetzt `ansehen/t204-build-487.md` (Tom, 01:2x).
 - **Zu 415, von Sokrates (Chef 02.11., 22:05: „415d muss ins nächste Build“):** Testmenü-Eintrag 415 in Build 196. 415d ja (Chef 22:04, Archiv): läuft der Test flüssig, lege `chefsache/tun/415d-…` (Kauf beider Pakete, Links) an; Lizenz nach dem Kauf vor dem Einbau lesen.
 - **Zu 487 (Jerry 02.11., 22:5x):** Build 196 = Tom 416.9, 416.8, 416.2; Jerry 458.2, 473, 472, 415 (Cherry-Pick ohne `_rand_kamera`, `film_415` aus dem Grundstand); Prüfliste t196, PR #178. Nicht drin: 416.4, 453.2 (über 461.1). Fällt ein Punkt durch: nur er per `git revert` heraus.
 
