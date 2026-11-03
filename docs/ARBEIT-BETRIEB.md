@@ -58,6 +58,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 13:36 03.11.: Neustart Jerry a2b58218e → `nM3u` „496a, 510, 507, 406.2a“; alter `zYoY` archiviert, 17,92 $ auf 510.
 - 13:24 03.11.: Neustart Spike bbf658d61 → `PQkk` „499“; alter `QEGk` archiviert, 26,61 $ auf 506.
 - 11:55 03.11.: Neustart Jerry 975ce2c1a → `zYoY` „507, 406.2a, 510“; alter `QAqZ` archiviert, 16,93 $ auf 507.
 - 11:26 03.11.: Neustarts angenommen: Jerry 1d182abbc → `QAqZ` „406.2a, 507“ (11:05, alter `76uC` archiviert, Kosten nicht lesbar); Spike 87ea802b2 → `QEGk` „506“ (11:26), alter `9N43` archiviert, 29,56 $ auf 491.
