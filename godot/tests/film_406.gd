@@ -32,6 +32,17 @@ const FOLGE := [
 	["SS_SwordAttack3", "Schwerthieb 3"], ["drehen", "Drehung: Schild von allen Seiten"]]
 
 var mess := OS.get_environment("MESS") != ""
+# 406 d (Prüfer Film 406, 01.11., 16:4x: an den Schnitten fremde Bilder, Spielansicht, graues Bild, Testmenü; Grundstand G2): schwarz
+# über allem wie film_403 (699c3a035), bis der Kampfort steht; am Ende jedes Teils abblenden, erst dann abbauen
+const BLENDE_BILDER := 8     # 0,27 s bei 30 Bildern
+const RUHIG_BILDER := 6
+var schwarz: ColorRect
+# 406 a (Chef 01.11., 20:2x: „der Hälfte des Videos völlig parallele Bewegungsabläufe“): in der Sichtung beginnt der rechte Held
+# jede Bewegung VERSATZ s später, im Gehen und in der Kampfhaltung eine halbe Bewegung versetzt
+const VERSATZ := 0.4
+# 406 d (Prüfer: von der Wolfsseite stehen Kämpfer und Kleriker hintereinander „wie eine Figur mit zwei Köpfen“): Kamera um SCHRAEG
+# Grad um die Mitte gedreht
+const SCHRAEG := 40.0
 var lb: Label
 var lz: Label
 var fehler := 0
@@ -41,7 +52,29 @@ func _initialize() -> void:
 	_run.call_deferred()
 
 
+func _blende(ziel: float) -> void:
+	if schwarz == null:
+		return
+	if ziel < 0.5:
+		schwarz.color.a = 1.0
+		for i in RUHIG_BILDER:
+			await process_frame
+	var von := schwarz.color.a
+	for i in BLENDE_BILDER:
+		await process_frame
+		schwarz.color.a = lerpf(von, ziel, float(i + 1) / BLENDE_BILDER)
+
+
 func _run() -> void:
+	if not mess:
+		var deck := CanvasLayer.new()
+		deck.layer = 128
+		schwarz = ColorRect.new()
+		schwarz.color = Color.BLACK
+		schwarz.set_anchors_preset(Control.PRESET_FULL_RECT)
+		schwarz.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		deck.add_child(schwarz)
+		root.add_child(deck)
 	var teil := OS.get_environment("TEIL")
 	if teil != "kampf":
 		await _sichtung()
@@ -130,7 +163,9 @@ func _sichtung() -> void:
 		f.position = plaetze[i]
 		f.rotation = Vector3(0, atan2(vorn.x, vorn.z) + deg_to_rad(18.0), 0)     # etwas zur eigenen Rechten: Schild halb von der Seite
 		f.anim.play("SS_IdleCombat", 0.0)
-	var cam := _kamera(kf, mitte + Vector3(0, 1.05, 0), vorn, 2.1, 2.3)
+	# 406 Lauf 198 (Prüfer G1: Schild und Stab des Klerikers rechts, Schwert und Umhang des Kämpfers links angeschnitten, in der Drehung
+	# fast durchgehend): 3,2 m statt 2,3 m quer im Bild (Plätze ±0,62 m, Schild und Stab reichen bis 0,8 m darüber hinaus)
+	var cam := _kamera(kf, mitte + Vector3(0, 1.05, 0), vorn, 2.1, 3.2)
 	await process_frame
 	if mess:
 		_ausschnitt(cam, helden, "Sichtung")
@@ -142,6 +177,8 @@ func _sichtung() -> void:
 		return
 	_labels()
 	lb.text = "Sichtung · Sword & Shield"
+	helden[1].anim.seek(helden[1].anim.current_animation_length * 0.5, true)
+	await _blende(0.0)
 	for e in FOLGE:
 		lz.text = "%s\nlinks Kämpfer, Schild 15 · rechts Kleriker, Schild 2" % e[1]
 		match e[0]:
@@ -153,22 +190,34 @@ func _sichtung() -> void:
 			"drehen":
 				for f in helden:
 					f.anim.play("SS_IdleCombat", 0.2)
+				helden[1].anim.seek(helden[1].anim.current_animation_length * 0.5)
 				var t := 0.0
 				var r0: float = helden[0].rotation.y
+				var r1: float = helden[1].rotation.y
 				while t < 8.0:
 					await process_frame
 					t += 1.0 / 30.0
-					for f in helden:
-						f.rotation.y = r0 + TAU * t / 8.0
+					# 406 Lauf 198 (Prüfer C3: beide Drehungen zugleich): der rechte dreht andersherum
+					helden[0].rotation.y = r0 + TAU * t / 8.0
+					helden[1].rotation.y = r1 - TAU * t / 8.0
 			_:
 				var lang := 0.0
 				for f in helden:
-					f.anim.play(e[0], 0.15)
 					lang = maxf(lang, f.anim.get_animation(e[0]).length)
-				await create_timer(lang if e[0] != "SS_IdleCombat" else 2.5).timeout
-				for f in helden:
-					f.anim.play("SS_IdleCombat", 0.2)
-				await create_timer(0.35).timeout
+				if e[0] == "SS_IdleCombat":
+					await create_timer(2.5).timeout
+				else:
+					# 406 Lauf 198 (Prüfer C3: mit 0,4 s Versatz dieselbe Bewegung sichtbar zugleich): der rechte eine halbe Bewegung später
+					var v := maxf(VERSATZ, lang * 0.5)
+					helden[0].anim.play(e[0], 0.15)
+					await create_timer(v).timeout
+					helden[1].anim.play(e[0], 0.15)
+					await create_timer(lang - v).timeout
+					helden[0].anim.play("SS_IdleCombat", 0.2)
+					await create_timer(v).timeout
+					helden[1].anim.play("SS_IdleCombat", 0.2)
+					await create_timer(0.35).timeout
+	await _blende(1.0)
 	lb.text = ""
 	lz.text = ""
 	kf.queue_free()
@@ -182,6 +231,8 @@ func _weg(helden: Array, ziele: Array, nm: String) -> void:
 	for f in helden:
 		f.anim.play(nm, 0.15)
 		von.append(f.position)
+	# 406 Lauf 198 (Prüfer C3: um einen halben Schritt versetzt sah es aus wie beide Schritte zugleich): ein Viertel
+	helden[1].anim.seek(helden[1].anim.current_animation_length * 0.25)
 	var s: float = von[0].distance_to(ziele[0]) / helden[0]._held_mps(nm)
 	var t := 0.0
 	while t < s:
@@ -218,7 +269,39 @@ func _kampf(k: String) -> void:
 	var ziel: Vector3 = hm.lerp(wm, 0.35) + Vector3(0, 0.9, 0)
 	var von: Vector3 = wm - hm
 	von.y = 0.0
+	# zur Seite, auf der die Helden im Bild am weitesten auseinander stehen
+	var hs := []
+	for id in kf.figures:
+		if kf.figures[id].fighter.monster == null:
+			hs.append(kf.figures[id].home)
+	# 406 Lauf 198 (Prüfer G1: im Kampf des Kämpfers 52–79 s beide Helden hinter Tannen und Stämmen vor der Kamera, der Kleriker halb
+	# hinter dem schwarzen Wolf): je Richtung zählen, was zwischen Kamera und Helden steht (Ecken des Walds, Wölfe); die freieste nehmen,
+	# bei Gleichstand die, in der die Helden am weitesten auseinander stehen
+	var wald := _wald_ecken(kf)
+	print("Film 406 Kampf %s: Wald %d Dreiecke über dem Boden" % [k, (wald[1] as PackedVector3Array).size()])
+	var best_v := von
+	var best_a := -1.0
+	var best_z := INF
+	var zeile := PackedStringArray()
+	for grad in [SCHRAEG, -SCHRAEG, 20.0, -20.0, 55.0, -55.0, 0.0]:
+		var v := von.rotated(Vector3.UP, deg_to_rad(grad))
+		var quer := v.cross(Vector3.UP).normalized()
+		var a := absf((hs[0] - hs[-1]).dot(quer)) if hs.size() > 1 else 0.0
+		var probe_cam := _kamera(kf, ziel, v, 3.2, 4.2)
+		var pf := {"mitte": ziel, "d": -1.0, "aus": 0, "aus_wo": ""}
+		_folgen(probe_cam, kf, pf, true)
+		var z := _verdeckt(probe_cam.global_position, kf, wald)
+		probe_cam.queue_free()
+		zeile.append("%+.0f° %d" % [grad, z])
+		if z < best_z or (z == best_z and a > best_a):
+			best_z = z
+			best_a = a
+			best_v = v
+	von = best_v
+	print("Film 406 Kampf %s: verdeckt je Richtung %s; genommen %d" % [k, ", ".join(zeile), best_z])
 	var cam := _kamera(kf, ziel, von, 3.2, 4.2)
+	var folge := {"mitte": ziel, "d": -1.0, "aus": 0, "aus_wo": ""}
+	_folgen(cam, kf, folge, true)
 	if kf.ui != null:
 		kf.ui.visible = false
 	await process_frame
@@ -229,6 +312,7 @@ func _kampf(k: String) -> void:
 	_labels()
 	lb.text = "Kampf · " + NAMEN[k]
 	lz.text = "Kamera auf der Seite der Wölfe; Autopilot, Echtzeit"
+	await _blende(0.0)
 	kf.mars.find("merc").auto = true
 	kf.mars.set_autopilot(true)
 	if not kf.busy:
@@ -239,6 +323,12 @@ func _kampf(k: String) -> void:
 	while n < dauer * 30 / 1000:     # Bilder bei --fixed-fps 30
 		await process_frame
 		n += 1
+		_folgen(cam, kf, folge, false)
+		if mess and n % 15 == 0:     # 406 G1: was im Lauf des Kampfs vor die Helden kommt
+			var vz := _verdeckt(cam.global_position, kf, wald)
+			if vz > 0:
+				folge.verdeckt = int(folge.get("verdeckt", 0)) + 1
+				folge.verdeckt_max = maxi(int(folge.get("verdeckt_max", 0)), vz)
 		if mess:
 			var jetzt := ""
 			for id in kf.figures:
@@ -257,12 +347,147 @@ func _kampf(k: String) -> void:
 				var c = kf.mars.current()
 				var ts: Array = kf.mars.targets(c)
 				kf.order(["attack", ts[0].id] if not ts.is_empty() else ["wait"])
-	print("Film 406 Kampf %s: %s nach %d Bildern" % [k, kf.mars.outcome, n])
+	print("Film 406 Kampf %s: %s nach %d Bildern; G1 Figur angeschnitten in %d Bildern %s; verdeckt in %d von %d Messbildern (höchstens %d)" % [
+		k, kf.mars.outcome, n, folge.aus, folge.aus_wo, int(folge.get("verdeckt", 0)), n / 15, int(folge.get("verdeckt_max", 0))])
+	if mess and folge.aus > 0:
+		fehler += 1
+	await _blende(1.0)
 	lb.text = ""
 	lz.text = ""
 	kf.queue_free()
 	p.queue_free()
 	await process_frame
+
+
+## G1 (Tor 461a, Lauf 170: Schild, Kämpfer und Wolf am Rand angeschnitten, 5, 22, 52–76, 79–106 s; die Kamera stand fest auf 4,2 m
+## Breite): die Kampfkamera folgt allen Figuren in derselben Richtung und Neigung, so nah, dass jede ganz im Bild ist (Rand oben für
+## die Schrift); weiter weg sofort, näher langsam. Zählt Bilder, in denen trotzdem eine Figur über den Rand ragt.
+const RAND_X := 0.90         # Anteil der halben Breite
+const RAND_OBEN := 0.66      # oben die Schrift (bis 13 % der Höhe) und Luft
+const RAND_UNTEN := 0.92
+const NAEHER := 0.03         # je Bild so viel zum nötigen Abstand, wenn er kleiner wird
+func _folgen(cam: Camera3D, kf, folge: Dictionary, erst: bool) -> void:
+	var vs := FORMAT
+	var ty := tan(deg_to_rad(cam.fov) / 2.0)
+	var tx := ty * vs.x / vs.y
+	var b := cam.global_transform.basis
+	var fw := -b.z
+	var pts := []
+	var mitte := Vector3.ZERO
+	var n := 0
+	for id in kf.figures:
+		var f = kf.figures[id]
+		if not f.visible:
+			continue
+		var h: float = (1.85 if f.fighter.monster == null else 0.9) * f.scale.y
+		var r: float = f.body_r() + 0.15     # Schild, Waffe, Rute
+		for q in [Vector3.ZERO, Vector3(0, h, 0)]:
+			for sx in [-1.0, 1.0]:
+				pts.append(f.global_position + q + b.x * r * sx)
+		mitte += f.global_position + Vector3(0, h * 0.5, 0)
+		n += 1
+	if n == 0:
+		return
+	mitte /= n
+	folge.mitte = mitte if erst else (folge.mitte as Vector3).lerp(mitte, 0.08)
+	var c: Vector3 = folge.mitte
+	var d_noetig := 2.0
+	for p in pts:
+		var rel: Vector3 = p - c
+		var x := absf(rel.dot(b.x))
+		var y := rel.dot(b.y)
+		var z := rel.dot(fw)
+		d_noetig = maxf(d_noetig, x / (tx * RAND_X) - z)
+		d_noetig = maxf(d_noetig, (y / (ty * RAND_OBEN) if y > 0.0 else -y / (ty * RAND_UNTEN)) - z)
+	var d: float = folge.d
+	d = d_noetig if erst or d < 0.0 or d_noetig > d else lerpf(d, d_noetig, NAEHER)
+	folge.d = d
+	cam.global_position = c - fw * d
+	kf.ink_ziel = c
+	# angeschnitten: Fuß oder Kopf einer Figur außerhalb des Bilds
+	for id in kf.figures:
+		var f = kf.figures[id]
+		if not f.visible:
+			continue
+		var h: float = (1.85 if f.fighter.monster == null else 0.9) * f.scale.y
+		for q in [f.global_position, f.global_position + Vector3(0, h, 0)]:
+			var rel: Vector3 = q - cam.global_position
+			var z := rel.dot(fw)
+			if z <= 0.1 or absf(rel.dot(b.x)) > tx * z or absf(rel.dot(b.y)) > ty * z:
+				folge.aus += 1
+				if folge.aus_wo == "":
+					folge.aus_wo = "(zuerst %s)" % id
+				return
+
+
+## 406 G1 (Lauf 205, Prüfer: Held 78–80 s ganz hinter einem Stamm, _verdeckt sah 0): Dreiecke des Walds im Kampfort über dem Boden,
+## einmal je Kampf: [Ecken a, b, c je Dreieck, Mitten, Halbmesser]. Vorher zählten Ecken nahe der Blicklinie; ein Stamm hat Ecken nur
+## unten und oben, eine Krone nur außen, die Linie quer hindurch traf keine
+func _wald_ecken(kf) -> Array:
+	var tri := PackedVector3Array()
+	var mitte := PackedVector3Array()
+	var rad := PackedFloat32Array()
+	var wald = kf.get("forest")
+	if wald == null:
+		return [tri, mitte, rad]
+	for mi in (wald as Node).find_children("*", "MeshInstance3D", true, false):
+		var m := mi as MeshInstance3D
+		if m.mesh == null or m.mesh is PlaneMesh or not m.visible:
+			continue
+		var tr := m.global_transform
+		for s in m.mesh.get_surface_count():
+			var ar := m.mesh.surface_get_arrays(s)
+			var vs: PackedVector3Array = ar[Mesh.ARRAY_VERTEX]
+			var idx = ar[Mesh.ARRAY_INDEX]
+			var n: int = idx.size() if idx != null else vs.size()
+			for t in range(0, n - 2, 3):
+				var pa: Vector3 = tr * vs[idx[t] if idx != null else t]
+				var pb: Vector3 = tr * vs[idx[t + 1] if idx != null else t + 1]
+				var pc: Vector3 = tr * vs[idx[t + 2] if idx != null else t + 2]
+				if maxf(pa.y, maxf(pb.y, pc.y)) <= 0.25:
+					continue
+				var c := (pa + pb + pc) / 3.0
+				tri.append(pa)
+				tri.append(pb)
+				tri.append(pc)
+				mitte.append(c)
+				rad.append(maxf(c.distance_to(pa), maxf(c.distance_to(pb), c.distance_to(pc))))
+	return [tri, mitte, rad]
+
+
+## 406 G1: wie viel zwischen [auge] und den Helden steht: Dreiecke des Walds, die die Linie vom Auge zur Brust (und zum Kopf) eines
+## Helden schneiden, und Wölfe (je 50) näher als 0,35 m an ihr, außer im letzten Meter vor ihm
+func _verdeckt(auge: Vector3, kf, wald: Array) -> int:
+	var ziele := []
+	var woelfe := []
+	for id in kf.figures:
+		var f = kf.figures[id]
+		if not f.visible:
+			continue
+		if f.fighter.monster == null:
+			ziele.append(f.global_position + Vector3(0, 1.1, 0))
+			ziele.append(f.global_position + Vector3(0, 1.6, 0))
+		else:
+			woelfe.append(f.global_position + Vector3(0, 0.45, 0))
+	var tri: PackedVector3Array = wald[0]
+	var mitte: PackedVector3Array = wald[1]
+	var rad: PackedFloat32Array = wald[2]
+	var n := 0
+	for z in ziele:
+		var l: float = auge.distance_to(z)
+		var r: Vector3 = (z - auge) / maxf(l, 0.001)
+		var ende: Vector3 = auge + r * maxf(l - 1.0, 0.0)
+		for i in mitte.size():
+			var c: Vector3 = mitte[i]
+			if c.distance_to(Geometry3D.get_closest_point_to_segment(c, auge, ende)) > rad[i]:
+				continue
+			if Geometry3D.segment_intersects_triangle(auge, ende, tri[3 * i], tri[3 * i + 1], tri[3 * i + 2]) != null:
+				n += 1
+		for w in woelfe:
+			var s: float = (w - auge).dot(r)
+			if s > 0.0 and s < l - 0.6 and (w - auge - r * s).length() < 0.35:
+				n += 50
+	return n
 
 
 ## MESS: steht jede Figur ganz im Bild (Füße und Kopf, mit Rand), wie groß der Held

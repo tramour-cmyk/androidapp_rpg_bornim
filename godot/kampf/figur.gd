@@ -472,6 +472,12 @@ func _load_model() -> Node3D:
 ## 406: der Schild, den der Held trägt (aufruf.gd blatt „schild“), sonst der der Startausrüstung (Rules.kt: Kämpfer Rundschild,
 ## Kleriker Drachenschild als „Schild“; Kaufschilde 15 und 2, Chef 31.10., 23:22)
 const OFF_HAND := {"FIGHTER": "round_shield", "CLERIC": "shield"}
+## 406 b: Schild im Kampf gegen die Lage aus dem Prefab [tiefer m, vorn m, Oberkante vor Grad, Seite +x vor Grad], gedreht um die
+## Fessel (wie tests/schild_406.gd _neigung). Lauf 167 (Messung an der Fläche): Rundschild vorn 3 cm, Schulter und Oberarm -0,7 statt
+## 2,3 cm; Drachenschild mit der Schulter bei Abwehr bis 7,7 cm durch den oberen Innenrand, Verschieben allein half nicht.
+## Lauf 168 (geneigt): Rundschild dazu Seite 20° vor: Körper -0,7, Schulter -4,1 cm (vorher kreuzte der Schwertarm 8,4 cm davor);
+## Drachenschild Oberkante 15° und Seite 15° vor: Körper -2,1 (vorher 1,6), Schulter -3,6 cm (vorher 7,4)
+const SCHILD_LAGE := {"shield": [0.0, 0.0, 15.0, 15.0], "round_shield": [0.0, 0.03, 0.0, 20.0]}
 const GRIP_CM := 15.7
 const PALM_CM := 2.4
 const CM := 0.01
@@ -521,6 +527,14 @@ func _arm_kauf() -> void:
 	var off: String = _schild()
 	if off != "":
 		_hold(sk, "L", off)
+		if _ss() and schild_faust == null:     # 406a E3: die Finger der Schildhand zur Faust, nicht außen auf dem Schild
+			schild_faust = SchildFaust.new()
+			schild_faust.name = "SchildFaust"
+			sk.add_child(schild_faust)
+		if schild_faust != null:     # 406a E3: Knick im Handgelenk, wie _hold den Schild dagegen gesetzt hat
+			schild_faust.knick = knick_quat
+			schild_faust.achse = knick_achse
+			schild_faust.hand = knick_knochen
 	if anim:
 		_idle()
 
@@ -632,6 +646,20 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		up = (up - front * up.dot(front)).normalized()
 		b = Basis(up.cross(front), up, front)
 		o = h0 + rb * (v3.call("griff") * lang)
+		# 406 b (Chef 01.11., 20:2x: „bei beiden Schultern … Draufsicht, links am Schild … eine leichte Irritation“): der Schild sitzt
+		# je Art um [tiefer, weiter vorn] m anders an der Fessel (SCHILD_LAGE; gemessen tests/schild_406.gd FASSUNG)
+		var lage: Array = SCHILD_LAGE.get(what, [0.0, 0.0, 0.0, 0.0])
+		o += b * Vector3(0.0, -lage[0], lage[1])
+		b = b * Basis(Vector3.UP, deg_to_rad(-lage[3])) * Basis(Vector3.RIGHT, deg_to_rad(lage[2]))
+		# 406a E3 Lauf 190 (Faust −50°: Finger noch 2,1–2,7 cm, Kleriker 3,7–4,0 cm vor der Vorderseite; Schild weiter vor schiebt den
+		# Schwertarm hinein, Lauf 179): die Hand im Handgelenk um KNICK_GRAD nach hinten knicken, Knöchel weg von der Vorderseite; der
+		# Schild bleibt, wo er war (hier um dieselbe Drehung zurück), die Faust dreht SchildFaust nach jeder Pose
+		knick_achse = b.z.normalized().cross(hx).normalized()
+		knick_knochen = bi
+		var knick := Basis(knick_achse, deg_to_rad(KNICK_GRAD.get(fighter.hero.get("cls", ""), 0.0)))
+		knick_quat = knick.get_rotation_quaternion()
+		b = knick.inverse() * b
+		o = knick.inverse() * o
 	elif what.contains("shield"):
 		# Schild am Unterarm außen: Vorderseite nach außen, oben nach oben, die Fessel um den Unterarm
 		b = Basis(fwd, -down, -inward)
@@ -1997,6 +2025,7 @@ func _held_mps(nm: String) -> float:
 	return v if v > 0.1 else (WALK_MPS * 2.0 if nm == "Rennen" else WALK_MPS)
 
 
+const ANGRIFF_GANG := 1.3     # 406.2: Gehen zum Angriff so viel schneller als das Gehen des Satzes (Bewegung und Weg)
 const VERFEHLT_M := 0.3
 const HIEB_VOR := 0.12
 const HIEB_ZURUECK_M := 0.3
@@ -2031,12 +2060,25 @@ func _held_schlag(other, weiter := 0.0) -> int:
 		var via := _detour(position, start, other)
 		var pts := [start] if via == position else [via, start]
 		var way := run if via == position else position.distance_to(via) + via.distance_to(start)
-		var gn := _gang_ss("Rennen" if way > RUN_FROM and anim.has_animation("Rennen") else "Gehen")
+		# 406 c (Chef 01.11., 20:2x, Film 406: der Stabkämpfer ist „zum Wolfangriff … eher hingehoppelt … Er sollte einfach hingehen“):
+		# mit Stab geht der Held zum Ziel, auch weiter als RUN_FROM (das Rennen mit Schild aus Sword & Shield ist für die Klinge gemacht)
+		var gn := _gang_ss("Rennen" if way > RUN_FROM and anim.has_animation("Rennen") and not _stab() else "Gehen")
+		# 406.2 (Chef 03.11., 06:59, Schildfilm: „das Rennen … ist ein Gehopse nach vorne. Also bitte dann beim Angriff nicht rennen,
+		# sondern gehen … ein bisschen schneller gehen“): mit Schild geht der Held zum Angriff, Bewegung und Weg um ANGRIFF_GANG schneller
+		# (beide gleich, sonst rutschen die Füße)
+		var gf := 1.0
+		if _ss() and anim.has_animation("SS_WalkForward"):
+			gn = "SS_WalkForward"
+			gf = ANGRIFF_GANG
 		var von := position
 		for q in pts:
 			var a: Vector3 = q - von
-			tween.tween_callback(func(): _face(a); _play(gn, 0.12))
-			var t: float = von.distance_to(q) / _held_mps(gn)
+			tween.tween_callback(func():
+				_face(a)
+				_play(gn, 0.12)
+				if gf != 1.0:
+					anim.play(gn, 0.12, float(tempo.get(gn, 1.0)) * gf))
+			var t: float = von.distance_to(q) / (_held_mps(gn) * gf)
 			tween.tween_property(self, "position", q, t)
 			t_run += t
 			von = q
@@ -2193,6 +2235,50 @@ class ArmHold extends SkeletonModifier3D:
 			sk.set_bone_pose(bi, poses[bi])
 
 var arm_hold: ArmHold
+
+
+## 406a E3 (Tor 461a; Lauf 170: Finger der Schildhand liegen außen auf dem Schild, 3 bis 8,6 cm vor der Vorderseite; Lauf 182 und 184:
+## schild_406 beugt Zeige- bis kleinen Finger je Glied um die Achse quer über die Knöchel, −50° am besten: Kämpfer 1,7–2,3 cm,
+## Kleriker 3,5–3,8 cm, −75° und −90° nicht besser): nach jeder Pose aus dem Satz die Finger der linken Hand um FAUST_GRAD weiter
+## zur Faust, so wie schild_406 _beugen_finger gemessen hat
+const FAUST_GRAD := -50.0
+## 406a E3 Lauf 190 (Faust −50°, gemessen in skeleton_updated): Kämpfer 2,1–2,7 cm, Kleriker 3,7–4,0 cm vor der Vorderseite, vor allem
+## Ring- und kleiner Finger; Knick im Handgelenk nach hinten je Klasse (Knöchel etwa 9 cm vom Gelenk: 3 cm ≈ 20°, 4,5 cm ≈ 30°),
+## gemessen mit schild_406 KNICK (je ±10° dazu)
+const KNICK_GRAD := {"FIGHTER": 20.0, "CLERIC": 30.0}
+var knick_achse := Vector3.ZERO
+var knick_quat := Quaternion.IDENTITY
+var knick_knochen := -1
+class SchildFaust extends SkeletonModifier3D:
+	var glieder := PackedInt32Array()
+	var zf := -1
+	var kf := -1
+	var hand := -1
+	var knick := Quaternion.IDENTITY     # im Raum der Hand, um das Handgelenk (figur.gd _hold)
+	var achse := Vector3.ZERO     # Achse des Knicks im Raum der Hand (schild_406 misst damit weitere Winkel)
+	func _process_modification_with_delta(_delta: float) -> void:
+		var sk := get_skeleton()
+		if sk == null:
+			return
+		if hand >= 0 and knick != Quaternion.IDENTITY:
+			sk.set_bone_pose_rotation(hand, sk.get_bone_pose_rotation(hand) * knick)
+		if glieder.is_empty():
+			for f in ["index", "middle", "ring", "pinky"]:
+				for n in ["01", "02", "03"]:
+					var b := sk.find_bone("%s_%s_l" % [f, n])
+					if b >= 0:
+						glieder.append(b)
+			zf = sk.find_bone("index_01_l")
+			kf = sk.find_bone("pinky_01_l")
+		if zf < 0 or kf < 0:
+			return
+		var quer := (sk.get_bone_global_pose(zf).origin - sk.get_bone_global_pose(kf).origin).normalized()
+		for b in glieder:
+			var pg := sk.get_bone_global_pose(sk.get_bone_parent(b))
+			var achse := (pg.basis.inverse() * quer).normalized()
+			sk.set_bone_pose_rotation(b, Quaternion(achse, deg_to_rad(FAUST_GRAD)) * sk.get_bone_pose_rotation(b))
+
+var schild_faust: SchildFaust
 
 func _guard(on: bool) -> void:
 	var sk := _find(model, "Skeleton3D") as Skeleton3D
@@ -2510,23 +2596,62 @@ const ABWEHR := {"sprung": ["SS_BlockHeavy1", "SS_BlockHeavy2", "SS_BlockMedium1
 	"nah": ["SS_BlockLight", "SS_BlockMedium1", "SS_BlockMedium2", "SS_ParryLow"]}
 var abwehr_nr := 0
 
+var _abwehr_letzt := ""
+
+## 406.2 (Chef 03.11., 06:59: „Wenn dem Parieren gelingt … eine Abwehrbewegung … beim Angriff mit Schild … muss man ja auch nicht
+## ausweichen … beim Wolf wäre das so eine Abwehr tief … oder Abwehr Mitte oder mal links, rechts … variieren … wenn der Wolf von links
+## angreift“): die gelungene Abwehr nach der Seite, von der der Angriff kommt (im Blick des Helden; Modell: links = +X), gegen tiefe
+## Gegner (Wolf, Ratte) tief oder Mitte; je Seite zwei von drei zur Seite, eine zur Mitte, damit es wechselt
+const PARADE_SEITE := 30.0     # Grad aus der Blickrichtung, ab denen die Parade zur Seite geht
+func _parade_liste(von: Vector3, art: String, tief: bool) -> Array:
+	var l := global_transform.basis.inverse() * (von - global_position)
+	var ang := rad_to_deg(atan2(l.x, l.z))
+	var mitte := "SS_ParryLow" if tief else "SS_BlockMedium1"
+	if ang > PARADE_SEITE:
+		return ["SS_ParryLeft", mitte, "SS_ParryLeft"]
+	if ang < -PARADE_SEITE:
+		return ["SS_ParryRight", mitte, "SS_ParryRight"]
+	if art == "sprung":
+		return ["SS_ParryHigh1", "SS_BlockHeavy1", "SS_ParryHigh2"]
+	if tief:
+		return ["SS_ParryLow", "SS_BlockMedium1", "SS_ParryLow", "SS_BlockMedium2"]
+	return ["SS_ParryHigh1", "SS_BlockMedium1", "SS_ParryHigh2", "SS_BlockMedium2"]
+
+
+## 406.2: tiefer Gegner (vierbeinig, nicht fliegend): die Parade geht tief oder zur Mitte
+func niedrig() -> bool:
+	return fighter.monster != null and not _zweibeiner() and ersatz() != "giant_bat"
+
+
 func blockt() -> bool:
 	return _ss() and not down
 
 
-func abwehr(lands_ms: int, art: String) -> void:
+func abwehr(lands_ms: int, art: String, von := Vector3.INF, gelungen := false, tief := false) -> void:
 	if not _ss():
 		return
 	var liste: Array = (ABWEHR.get(art, ABWEHR["nah"]) as Array).filter(func(x): return anim.has_animation(x))
+	if gelungen and von != Vector3.INF and art != "fern":
+		var pl := _parade_liste(von, art, tief).filter(func(x): return anim.has_animation(x))
+		if not pl.is_empty():
+			liste = pl
 	if liste.is_empty():
 		return
 	# reihum statt Zufall: nie zweimal dieselbe hintereinander (mindestens drei Varianten, DESIGN-LEITBILD 2)
 	var nm: String = liste[(abwehr_nr + hash(String(fighter.id))) % liste.size()]
+	if nm == _abwehr_letzt and liste.size() > 1:
+		abwehr_nr += 1
+		nm = liste[(abwehr_nr + hash(String(fighter.id))) % liste.size()]
+	_abwehr_letzt = nm
 	abwehr_nr += 1
 	var k: float = float(kampf_info.get("kontakt", {}).get(nm, 0.25))
 	var vor_ms := lands_ms - int(k * 1000.0)
 	if OS.get_environment("MESS") != "":     # film_406 MESS: Schild steht beim Aufschlag (Kontakt gegen Aufschlag)
-		print("ABWEHR %s %s: Aufschlag in %d ms, Kontakt nach %d ms, Beginn in %d ms" % [fighter.id, nm, lands_ms, int(k * 1000.0), vor_ms])
+		var seite := ""
+		if von != Vector3.INF:
+			var lv := global_transform.basis.inverse() * (von - global_position)
+			seite = ", Angreifer %.0f° (links +)%s" % [rad_to_deg(atan2(lv.x, lv.z)), ", tief" if tief else ""]
+		print("ABWEHR %s %s%s%s: Aufschlag in %d ms, Kontakt nach %d ms, Beginn in %d ms" % [fighter.id, nm, " gelungen" if gelungen else "", seite, lands_ms, int(k * 1000.0), vor_ms])
 	if vor_ms > 0:
 		await get_tree().create_timer(vor_ms / 1000.0).timeout
 	if down or not _ss() or (not weg.is_empty() and lunging()):
