@@ -82,6 +82,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 ## Einzelheiten
 
 - **Zu 492 (Tom):** Vermutungen zu Lauf 2, erst nachstellen: `Himmel_Ausgang` von hinten gesehen; `Strahl_` deckend (Alpha der Eckfarbe); weiße Wände = Spot des Ausgangs.
+- **Zu 492, von Team Jerry (03.11., 16:1x, 494 auf `claude/jerry-494-gegner` b2262f0cf):** Grak und Krogg kämpfen: Gruppen `GRAK` und `KROGG` in `aufruf.gd`; bitte in `Streuner.GRUPPE` `"hobgoblin_captain": "GRAK", "bugbear": "KROGG"`. Morwens Rauch: in `kampf_im_wald` `lage["rauch"] = zustand.anzahl("smoke_bundle")`, nach dem Kampf `zustand.weg("smoke_bundle", anzahl − kampf.mars.smoke)` wie die Tränke. Krogg hat noch keine Figur (Platzhalterkörper, Jerry baut sie); `kampf_im_wald` ruft Ort „wald“, die Höhlen-Kampforte kommen mit 507.
 
 - **Hinweis von Perikles (03.11., 16:0x, 512 ja, Chef 15:41):** ab der nächsten Testbitte vorher Abgleich alt gegen neu der Schirme, die der Build berührt (Helfer, `LISTE-UMZUG-348.md` „Abgleich“); Funde beheben oder als „bekannt“ in die Prüfliste.
 - **Hinweis von Perikles (03.11., 16:1x, 513.1 gebaut):** `probelauf.py` hält ab sofort jeden Probelauf und jedes Probebild an, dessen Stand 417 (`3b29ac0cb`) und 463 (`e3789d130`) nicht enthält (`tools/figurenstand.tsv` auf `main`); von 12 Zweigen ist nur `build-496a` frei. Tom: steht der Zweig Figurenstand (513), seinen Commit in `tools/figurenstand.tsv` eintragen (er ersetzt die Zeilen, die er enthält); alle Figurenzweige mischen ihn.
