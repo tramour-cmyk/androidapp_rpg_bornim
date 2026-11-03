@@ -17,6 +17,7 @@ var renn := 0.0                        # m/s, mit denen „Rennen“ ohne Gleite
 var waffengang := ""                   # 417 Runde 4: Gehen_<gang>, Rennen_<gang> aus den Paketen (heldfigur.gd bewaffne), leer: ohne
 var gang_w := 0.0                      # m/s ohne Gleiten der Paketbewegungen
 var renn_w := 0.0
+static var schnell := 1.0              # 555 Testmenue „Schnell“: Gehen und Laufen dreifach, damit das Durchspielen flott geht
 var tempo_jetzt := 0.0                 # Chef 25.10., 18:20: „Übergang von Gehen zu Rennen ist zu krass“: das Tempo steigt und faellt weich
 const BESCHL := 5.0                    # m/s²: von Gehen (2,1) auf Rennen (4,3) in gut 0,4 s
 var weg: Array[Vector3] = []
@@ -297,9 +298,9 @@ func _process(dt: float) -> void:
 	var tempo := 0.0
 	if moving:
 		var kps := karte.laufen if laeuft else karte.gehen
-		tempo = kps * Karte.TS / karte.schritt(karte.pos_kachel(position)) * clampf(dir.length(), 0.5, 1.0)
+		tempo = kps * Karte.TS / karte.schritt(karte.pos_kachel(position)) * clampf(dir.length(), 0.5, 1.0) * schnell
 		# aus dem Stand mit ANLAUF los (416.4), schneller oder langsamer werden weich
-		var geh_t := karte.gehen * Karte.TS / karte.schritt(karte.pos_kachel(position))
+		var geh_t := karte.gehen * Karte.TS / karte.schritt(karte.pos_kachel(position)) * schnell
 		var ab := ABBREMS   # 416.4: langsamer werden ohne Halt (Rennen -> Gehen) gut 1 s
 		if richtung.length() <= 0.15 and weg.size() > 0:   # 416.4: vor dem Ende des Wegs langsamer
 			var bis := Vector2(weg[0].x - position.x, weg[0].z - position.z).length()
