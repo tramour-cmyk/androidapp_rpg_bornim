@@ -33,14 +33,14 @@ func _ready() -> void:
 	if fliegen.is_empty(): return
 	hof = netz(0.34, true)             # alt Radius 6 px: weicher Hof
 	kern = netz(0.07, true)            # heller Kern
-	schein = netz(0.6, false)          # alt: das schwache Licht auf dem Gras darunter (20 x 8 px)
+	schein = netz(0.9, false)          # alt: das schwache Licht auf dem Gras darunter (20 x 8 px); Bild 1 (Pruefer 18:16): scharfe helle Ellipsen, jetzt groesser und schwaecher
 
 func netz(groesse: float, aufrecht: bool) -> MultiMesh:
 	var mm := MultiMesh.new()
 	mm.transform_format = MultiMesh.TRANSFORM_3D
 	mm.use_colors = true
 	var qm := QuadMesh.new()
-	qm.size = Vector2(groesse, groesse * (1.0 if aufrecht else 0.4))
+	qm.size = Vector2(groesse, groesse * (1.0 if aufrecht else 0.7))
 	if not aufrecht: qm.orientation = PlaneMesh.FACE_Y
 	mm.mesh = qm
 	mm.instance_count = fliegen.size()
@@ -171,4 +171,4 @@ func _process(dt: float) -> void:
 		schein.set_instance_transform(i, Transform3D(Basis(), Vector3(p.x, 0.03, p.z)))
 		kern.set_instance_color(i, Color(KERN, g))
 		hof.set_instance_color(i, Color(HOF, 0.45 * g))
-		schein.set_instance_color(i, Color(BODEN, 0.16 * g))
+		schein.set_instance_color(i, Color(BODEN, 0.06 * g))   # additiv auf dunklem Boden: 0,16 wie alt war zu hart (Bild 1)
