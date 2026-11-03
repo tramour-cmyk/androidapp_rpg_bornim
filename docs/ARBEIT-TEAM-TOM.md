@@ -77,6 +77,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Hinweis von Sokrates (03.11., 13:50, Chef 13:47: „Warum werden so viele sinnlose und kaputte Filme gemacht? … Wieso kann das nicht sauber gearbeitet werden???“):** bis zum Urteil über `entscheiden/511-film-vorpruefung` keinen neuen Filmlauf starten (506 Skelette); vorher Probebild aus demselben Filmskript, von einem Helfer gegen „was muss zu sehen sein“ geprüft.
 - **Zu 493, von Team Jerry (03.11., 08:0x):** sechs Orte in `kampfort_wald.py` (`SPOT=`), Auswahl nach der Kachel (`Kampfort.platz_fuer`), Test `kampforte_493.gd`. **Spike:** `claude/spike-493-kampforte`, Lauf 2 vorgelegt 10:37.
 - **Zu 490, von Spike (03.11., 09:2x):** vorgelegt `ansehen/490`; ohne Bild: `tools/godot/wald_daten.sh`.
 - **Zu 505, von Sokrates (Chef 03.11., 09:58, Frage an Sokrates, noch kein Urteil):** „Im alten Spiel hat man noch 160 Grad Sicht. Das war zum Teil ein bisschen komisch. Wenn ein Monster nachlief, hat es gar nicht mehr gesehen … Oder 240 oder Vollsicht … Ich war nicht ganz zufrieden mit den 160 Grad … wenn ich auf ein Monster zugehe, sehe es und drehe mich leicht weg und dann ist es irgendwie ganz weg gewesen. Oder man könnte das auch noch als Schatten sozusagen stehen lassen.“ Votum Sokrates im Chat 10:0x: C (rundum); Hinterhalt hängt nicht am Kegel (`Game.kt:710` Zufall, `:674` Blickrichtung des Monsters).
