@@ -188,7 +188,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 464.1 | Befunde D61.1–2 zu 464 nachbessern: Tageszahl roter Läufe im Protokoll, Grenze 25 Dateien mit Hinweis (Diogenes Lauf 59) | B Abläufe | M | 9,74 $ | Perikles | erledigt |
 | 465.1 | Befund D60.1 zu 465 nachbessern: „Seit“ aus Git statt geschätzter x-Zeit (Diogenes Lauf 58) | B Abläufe | M | – | Perikles | erledigt |
 | 462.1 | Befunde D59.1–3 zum Zeitstempel nachbessern: Zwischenmeldungen, Spalte stempel ohne Namen, „<Name>“ (Diogenes Lauf 57) | B Abläufe | M | – | Perikles | erledigt |
-| 461.2 | Befunde D58.1–5 zum Grundstand nachbessern: E1, F6, G2/C2/E3, Gehen aufrecht, Tor vor dem Versand (Diogenes Lauf 56) | B Abläufe | M | – | Perikles | gebaut |
+| 461.2 | Befunde D58.1–5 zum Grundstand nachbessern: E1, F6, G2/C2/E3, Gehen aufrecht, Tor vor dem Versand (Diogenes Lauf 56) | B Abläufe | M | – | Perikles | erledigt |
 | 460 | Kamerafahrten im Kampfort: Eröffnung wie Drohnenflug je Blende, Wechsel der Perspektive ohne Eingabe; erst Probefilm (Chef 01.11., 20:2x) | E Kampf | M | – | Team Jerry | ruht |
 | 406.1 | Schildstoß im MARS: Reaktion oder Konter am Ring, vielleicht Angriff; Regelvorschlag, dann Bau (Chef 01.11., 20:2x) | E Kampf | M | – | Team Jerry | wartet |
 | 406 | Ausrüstung der Helden je Stück als eigenes Modell mit Abnahme, „noch steril“ (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe); zuerst Rundschild des Klerikers hell mit goldener Sonne wie alt | E Kampf | M | 139,88 $ | Team Jerry | gebaut |
