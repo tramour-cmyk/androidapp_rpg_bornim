@@ -221,6 +221,13 @@ jobs:
             for f in braun grau schwarz; do cp $RUNNER_TEMP/kr/giant_rat-$f.glb $D/giant_rat-$f.bin; done; cp $RUNNER_TEMP/kr/giant_rat-info.json $D/
             KAUF=$KAUF OUT=$RUNNER_TEMP/kw timeout 1200 bl/bin/python -I tools/blender348/kaufwolf.py > kaufwolf.log 2>&1 || { tail -60 kaufwolf.log; exit 1; }
             for f in grau dunkel rost asche; do cp $RUNNER_TEMP/kw/kaufwolf-$f.glb $D/kaufwolf-$f.bin; done; cp $RUNNER_TEMP/kw/kaufwolf-info.json $D/
+            # 494 (Chef 03.11., 16:08, Grimmzahn „nicht wie unsere Wölfe aus dem Kampf“): Grimmzahn auf dem Kaufwolf (kaufwolf.py
+            # ART=dire_wolf) statt wolf.py; misslingt er, bleibt der eigene (Lauf 229: ein Fehler kostete den ganzen Bau)
+            if ART=dire_wolf KAUF=$KAUF OUT=$RUNNER_TEMP/kg timeout 1200 bl/bin/python -I tools/blender348/kaufwolf.py > kaufgrimm.log 2>&1; then
+              grep -E "^(GLUT|FEHLT|GLB|MASS neu)" kaufgrimm.log | cut -c1-200 || true
+              for f in schwarz schimmer; do cp $RUNNER_TEMP/kg/dire_wolf-$f.glb $D/dire_wolf-$f.bin; done; cp $RUNNER_TEMP/kg/dire_wolf-info.json $D/
+              GRIMM_KAUF=1
+            else echo "FEHLER 494: Grimmzahn auf dem Kaufwolf nicht gebaut, der eigene bleibt"; tail -40 kaufgrimm.log; fi
             # 494 (Wochenziel 03.11. Reihe 3): Gegner von Kapitel 1 aus dem Bestand, gekauft: Wildschwein (Janpec, kauftier.py wie die Dorftiere)
             # und Riesen-Hundertfüßer (MadeCG)
             for t in keiler hundertfuesser; do
@@ -230,6 +237,7 @@ jobs:
               for f in $RUNNER_TEMP/kt/kauf_$t-*.glb; do cp $f $D/$(basename $f .glb).bin; done; cp $RUNNER_TEMP/kt/kauf_$t-info.json $D/
             done
             (cd godot && ls kampf/daten/giant_rat-*.bin kampf/daten/kaufwolf-*.bin kampf/daten/kauf_keiler-*.bin kampf/daten/kauf_hundertfuesser-*.bin > kampf/daten/kauf.txt 2>/dev/null || true)
+            [ -n "${GRIMM_KAUF:-}" ] && (cd godot && ls kampf/daten/dire_wolf-*.bin >> kampf/daten/kauf.txt) || true
             # 406 (Chef 31.10., 23:22): Kaufschilde 2 (Kleriker, „shield“) und 15 (Kaempfer, „round_shield“) statt der eigenen aus
             # waffen.py, im Kampf und unterwegs auf dem Ruecken (daten/waffen); gekauft, also verschluesselt
             KAUF=$KAUF OUT=$RUNNER_TEMP/ks timeout 600 bl/bin/python -I tools/blender348/kaufschild.py > kaufschild.log 2>&1 || { tail -40 kaufschild.log; exit 1; }
