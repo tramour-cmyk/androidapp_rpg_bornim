@@ -22,6 +22,7 @@ var sicht := Callable()                # spiel.gd (505): Kachel -> in Sicht; lee
 var kern: MultiMesh
 var hof: MultiMesh
 var schein: MultiMesh
+static var uhr_fest := -1              # Bildlauf (--gluehen): ein fester Augenblick statt der Uhr
 
 func _init(k: Karte) -> void:
 	karte = k
@@ -152,7 +153,7 @@ func _process(dt: float) -> void:
 	visible = an
 	if not an: return
 	var fade := clampf(1.0 - tagl / 0.4, 0.0, 1.0)
-	var uhr := Time.get_ticks_msec()
+	var uhr := uhr_fest if uhr_fest >= 0 else Time.get_ticks_msec()
 	var ts := Karte.TS
 	for i in fliegen.size():
 		var f: Dictionary = fliegen[i]

@@ -87,6 +87,7 @@ func _ready() -> void:
 	tusche_nacht()
 	rast_probe()
 	raeume_bilder()
+	gluehen_bilder()
 	if FigurenProbe.an(): add_child(FigurenProbe.new(self))   # 376.1 Probeblatt Quaternius-Figuren (figurenprobe.gd)
 
 # 399: Spielbeginn aus dem Hauptmenue: geladen an den gespeicherten Ort, sonst ein neues Spiel mit frischem Zustand (Test 139: das neue
@@ -1463,6 +1464,51 @@ func knips(p: String) -> void:
 	print("ZEICHNEN ", RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_DRAW_CALLS_IN_FRAME), " Aufrufe ", RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_PRIMITIVES_IN_FRAME), " Dreiecke")
 	if leute: print("LEUTE ", leute.get_children().map(func(l): return "%s %s %s" % [l.daten["id"], l.kachel, l.anim.current_animation if l.anim else "-"]))
 	print("BILD ", p, " Held ", held.kachel, " ", held.position, " Kamera ", kamera.position, " Text ", ui.textfeld.visible, " '", ui.text.text, "' Knopf ", ui.aktion_knopf.visible, " ", ui.aktion_knopf.zeichen, " '", ui.ort_schild.text, "' durchsichtig ", gebiet.gruppen.keys().filter(func(k): return gebiet.gruppen[k]["a"] < 1.0))
+
+# 514 Gluehwuermchen am Rechner: --gluehen=<ordner> knipst nachts (23 Uhr, eine Nacht mit Gluehwuermchen) je Gebietskarte den
+# groessten Schwarm aus Sicht des Helden, zwei Kacheln suedlich davon; im Augenblick, in dem die meisten dieses Schwarms leuchten
+# (fester Augenblick), dazu derselbe Ort 0,8 s spaeter (Takt, Nachbar antwortet). Wald nur, wenn seine Daten im Bau sind (490).
+func gluehen_bilder() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--gluehen="): dir = a.substr(10)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	zustand.tag = 1
+	while not Gluehwuermchen.heute(zustand.tag, 23 * 60): zustand.tag += 1
+	for id in ["village", "forest"]:
+		if not FileAccess.file_exists("res://daten/" + Gebiet.datei(id) + ".bin"): continue
+		var k := Karte.lade(id)
+		var fl := Gluehwuermchen.schwaerme(k)
+		var zahl := {}
+		for f in fl: zahl[f["mitte"]] = int(zahl.get(f["mitte"], 0)) + 1
+		var best := Vector2i(-1, -1)
+		for m in zahl:
+			var st: Vector2i = m + Vector2i(0, 2)
+			if k.begehbar(st) and (best.x < 0 or zahl[m] > zahl[best]): best = m
+		if best.x < 0: continue
+		var uhr := 0; var meist := -1.0
+		for ms in range(0, 60000, 100):
+			var s := 0.0
+			for f in fl: if f["mitte"] == best: s += Gluehwuermchen.glanz(f, ms)
+			if s > meist: meist = s; uhr = ms
+		print("GLUEHEN %s Schwarm %s mit %d, Augenblick %d ms" % [id, best, zahl[best], uhr])
+		zustand.minuten = 23 * 60
+		betrete(id, best + Vector2i(0, 2), "UP")
+		var hd = get("herde")   # 490 (eigener Zweig): Monster ruhig
+		if hd: hd.aus = true
+		licht.ziel = 1.0
+		licht.stelle(1.0)
+		for t in [[uhr, "a"], [uhr + 800, "b"]]:
+			Gluehwuermchen.uhr_fest = t[0]
+			await get_tree().create_timer(1.5).timeout
+			ui.textfeld.visible = false
+			await knips("%s/%s_%s.png" % [dir, id, t[1]])
+	Gluehwuermchen.uhr_fest = -1
+	print("GLUEHBILDER fertig")
+	get_tree().quit()
 
 # 399.5 Grundrisse am Rechner: --raeume=<ordner> knipst je Grundriss aus der Grundansicht wie die alten Vergleichsbilder (Held wie
 # HELDORT inn:4:6, sonst 4:4, Blick nach oben) Tag und Nacht, dazu um 180 Grad gedreht (die Waende vor dem Raum werden zur Bruestung)

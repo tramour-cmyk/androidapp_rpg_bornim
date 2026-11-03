@@ -311,6 +311,17 @@ jobs:
             ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/dorftiere.avi --fixed-fps 30 -- --dorftierfilm 2>&1 | grep -E "SCRIPT ERROR|^DORFTIERE" || true
           ffmpeg -loglevel error -y -ss 1.5 -i $RUNNER_TEMP/dorftiere.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $GITHUB_WORKSPACE/bilder/dorftiere/dorftiere.mp4 || true
           ls -l $GITHUB_WORKSPACE/bilder/dorftiere
+      # 514 Gluehwuermchen: je Gebietskarte der groesste Schwarm nachts aus Sicht des Helden, zwei Augenblicke; nur bei „514 Glühbilder“
+      # im Commit oder von Hand auf einem Zweig mit „514“
+      - name: Glühwürmchenbilder (514)
+        if: contains(github.event.head_commit.message, '514 Glühbilder') || (github.event_name == 'workflow_dispatch' && contains(github.ref, '514'))
+        continue-on-error: true
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/bilder/gluehen514
+          cd godot
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --gluehen=$GITHUB_WORKSPACE/bilder/gluehen514 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^BILD|^GLUEH" | cut -c1-400 || true
+          ls -l $GITHUB_WORKSPACE/bilder/gluehen514
       - uses: actions/upload-artifact@v4
         with:
           name: bornim-godot-bilder
