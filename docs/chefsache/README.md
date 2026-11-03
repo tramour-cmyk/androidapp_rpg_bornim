@@ -20,6 +20,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [406](ansehen/406-schildfilm.md) | Schildfilm nach der Änderung an der Schildhand | Jerry | 03.11., 02:17 |
 | [417](ansehen/417-dorf-film.md) | Dorf-Film: Kämpfer mit Schwert in der Hand, Schild auf dem Rücken | Tom | 03.11., 00:13 |
 | [447.4](ansehen/4474-lehrmeister-texte.md) | Texte Lehrmeister und Ruf, Kapitel 1 | Homer | 01.11., 20:51 |
 | [463](ansehen/463-umhang-robe.md) | Umhang und Robe geschlossen, letzter Lauf (eingefroren) | Tom | 02.11., 22:59 |
@@ -269,7 +270,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/417-dorf-film.md, ansehen/4474-lehrmeister-texte.md, ansehen/463-umhang-robe.md
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/406-schildfilm.md, ansehen/417-dorf-film.md, ansehen/4474-lehrmeister-texte.md, ansehen/463-umhang-robe.md
 
 Ohne Datei: 3402 (Projekt), 275 (Projekt)
 
