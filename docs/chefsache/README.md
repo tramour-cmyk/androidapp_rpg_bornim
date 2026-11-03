@@ -50,13 +50,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 61, Muss 43, startbar 15
+**Tom** – offen 62, Muss 44, startbar 15
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 490 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Flüsterwald begehbar wie alt | in Arbeit bei Spike |
 | 495 | M | von Perikles (Wochenziel 03.11. Reihe 4, 488): Zufallsspieler spielt Kapitel 1 in Godot bi | Termin 04.11. |
 | 491 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Tiefer Flüsterwald begehbar w | wartet auf 490 (in Arbeit) |
+| 505 | M | von Perikles (Archiv 502, Chef 03.11., 07:30, Zu 502 in ARBEIT-PROJEKT): Nebel des Krieges | wartet auf 490 (in Arbeit) |
 | 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | wartet auf Sokrates |
 | 417 | M | von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“): Tragart je Waffenklasse (Zu 417), | startbar |
 | 416.9 | M | von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“): Laden, Verkaufen, „angelegt“ mit | wartet auf Test/Build (gebaut) |
@@ -183,11 +184,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 19208 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
 
-**Perikles** – offen 32, Muss 29, startbar 3
+**Perikles** – offen 32, Muss 29, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 502 | M | von Sokrates (Chef 03.11., 07:28; Zu 502): Nebel des Krieges und Sichtfeld des Helden in „ | startbar |
+| 502 | M | von Sokrates (Chef 03.11., 07:28; Zu 502): Nebel des Krieges und Sichtfeld des Helden in „ | wartet auf Test/Build (gebaut) |
 | 488 | M | von Sokrates (Chef 03.11., 06:44, „488 ja“, Archiv 488; „jetzt“ 03.11., 06:44): Wochenziel | wartet auf Test/Build (gebaut) |
 | D67.1 | M | von Diogenes (Doppelpack 421, Lauf 65, 02.11., 19:4x): meldung.sh lässt „K1“, Kürzel vor B | wartet auf Test/Build (gebaut) |
 | D69.1 | M | von Diogenes (Doppelpack 421, Lauf 68, 02.11., 20:0x): meldung.sh hält seit D67.1 Dateinam | wartet auf Test/Build (gebaut) |
