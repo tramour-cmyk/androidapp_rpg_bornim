@@ -170,6 +170,7 @@ func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := 
 		party.append(_kaempfer("merc", soeldner, soeldner_tp, Vector2i(Mars.BACK, 0) if hinten else Vector2i(Mars.FRONT, 1), skills))
 	var foes := gegner(gegner_, monsters, dice)
 	kampf = Kampfort.new()
+	kampf.tempo = Bedienung.tempo_faktor()     # 527: Tempo aus dem Menue System
 	kampf.tageszeit = tageszeit
 	kampf.ort = ort
 	kampf.platz = String(lage.get("platz", "lichtung"))     # 493: Kampfort im Wald nach der Kachel (Kampfort.platz_fuer)
