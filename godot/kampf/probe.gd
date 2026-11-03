@@ -374,7 +374,11 @@ func _still(path: String) -> void:
 ## je Merkpunkt (hoehle-info-<ort>.json „merk“: Teich, Feuer, Kisten, Pilze …) gegen seine Umgebung. Kein Bild wird gespeichert.
 func _hell_mess() -> void:
 	var img := get_viewport().get_texture().get_image()
+	# Messlauf 238: Bild 540 breit, Schirmkoordinaten (scene_rect, unproject) in der Grundgröße 1080; alles ins Bild umrechnen
+	var kb: float = img.get_width() / get_viewport().get_visible_rect().size.x
 	var sr: Rect2 = fight.scene_rect()
+	sr = Rect2(sr.position * kb, sr.size * kb)
+	print("HELL Bild %s, Schirm %s, Faktor %.2f" % [img.get_size(), get_viewport().get_visible_rect().size, kb])
 	var tag := "%s/%s Licht %s" % [fight.ort, fight.platz, OS.get_environment("HOEHLE_LICHT") if OS.get_environment("HOEHLE_LICHT") != "" else "1"]
 	var werte: Array = []
 	for y in range(int(sr.position.y), int(sr.end.y), 3):
@@ -397,11 +401,11 @@ func _hell_mess() -> void:
 				var q: Vector2 = fight.cam.unproject_position(bb.get_endpoint(k))
 				lo = lo.min(q)
 				hi = hi.max(q)
-		var r := Rect2(lo, hi - lo).intersection(Rect2(Vector2.ZERO, Vector2(img.get_size())))
+		var r := Rect2(lo * kb, (hi - lo) * kb).intersection(Rect2(Vector2.ZERO, Vector2(img.get_size())))
 		var innen := _feld(img, r.grow(-r.size.x * 0.2))
 		var links := _feld(img, Rect2(r.position.x - r.size.x * 0.5, r.position.y, r.size.x * 0.4, r.size.y))
 		var rechts := _feld(img, Rect2(r.end.x + r.size.x * 0.1, r.position.y, r.size.x * 0.4, r.size.y))
-		var fuss: Vector2 = fight.screen_of(fg.position)
+		var fuss: Vector2 = fight.screen_of(fg.position) * kb
 		var schatten := _feld(img, Rect2(fuss - Vector2(6, 3), Vector2(12, 6)))
 		var boden := (_feld(img, Rect2(fuss + Vector2(-r.size.x * 0.9, -3), Vector2(12, 6))) + _feld(img, Rect2(fuss + Vector2(r.size.x * 0.9 - 12, -3), Vector2(12, 6)))) / 2.0
 		print("HELL %s Figur %s: innen %.1f, Grund links %.1f, rechts %.1f; unter den Füßen %.1f, Boden daneben %.1f (Rechteck %d,%d-%d,%d)" % [
@@ -411,7 +415,7 @@ func _hell_mess() -> void:
 		var info = JSON.parse_string(FileAccess.get_file_as_string(ip))
 		for m in info.get("merk", []):
 			var w: Vector3 = fight.forest.to_global(Vector3(m.pos[0], m.pos[1], m.pos[2]))
-			var q: Vector2 = fight.cam.unproject_position(w)
+			var q: Vector2 = fight.cam.unproject_position(w) * kb
 			var kern := _feld(img, Rect2(q - Vector2(5, 5), Vector2(10, 10)))
 			var um := (_feld(img, Rect2(q + Vector2(-30, -5), Vector2(10, 10))) + _feld(img, Rect2(q + Vector2(20, -5), Vector2(10, 10))) +
 				_feld(img, Rect2(q + Vector2(-5, -30), Vector2(10, 10))) + _feld(img, Rect2(q + Vector2(-5, 20), Vector2(10, 10)))) / 4.0
