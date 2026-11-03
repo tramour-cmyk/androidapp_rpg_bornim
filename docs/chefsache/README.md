@@ -55,11 +55,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 93, Muss 71, startbar 29
+**Tom** – offen 93, Muss 71, startbar 28
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 531 | M | von Sokrates (Chef 03.11., 23:42, Build 249; Zu 531): Garrick: „Gesicht wirkt sonderbar, B | startbar |
+| 531 | M | von Sokrates (Chef 03.11., 23:42, Build 249; Zu 531): Garrick: „Gesicht wirkt sonderbar, B | Chef |
 | 530 | M | von Sokrates (Chef 03.11., 23:40, Build 249): „Schlagbaum öffnet sich nicht visuell.“ Merk | wartet auf Test/Build (gebaut) |
 | 522 | M | von Sokrates (Chef 03.11., 23:33, Build 249; Zu 522): „im Testmenü Ausrüstung des Helden g | wartet auf Test/Build (gebaut) |
 | 521 | M | von Sokrates (Chef 03.11., 23:23, Build 249, Bild; Zu 521): Wechselschirm (Platz antippen) | startbar |
