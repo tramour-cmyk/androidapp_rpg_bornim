@@ -152,9 +152,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 494 | Gegner von Kapitel 1 im Kampf außer den Untoten (506), je Gegner höchstens ein Lauf (Wochenziel 03.11., 488) | E Kampf | M | – | Team Jerry | wartet |
 | 495 | Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2; Wochenziel 03.11., 488) | E Technik | M | – | Team Tom | wartet |
 | 496 | Durchspiel-Build: Kapitel 1 von Anfang bis Ende am Handy (Wochenziel 03.11., 488) | E Technik | M | – | Team Jerry | wartet |
-| 509a | Rückfrage: dritter Lauf für den Teichfilm (Lauf 228 zeigt nur das Hauptmenü) | E Klang | M | – | Team Jerry | Chef |
-| 494a | Rückfrage: dritter Lauf für Wildschwein und Hundertfüßer (Läufe 225, 229 brachen beim Bau ab) | E Kampf | M | – | Team Jerry | Chef |
-| 510a | Rückfrage: zweiter Lauf für den Fledermaus-Vergleich (Lauf 235: freies Modell leer, Film nur mit unserer) | E Kampf | M | – | Team Jerry | Chef |
+| 509a | Rückfrage: dritter Lauf für den Teichfilm (Lauf 228 zeigt nur das Hauptmenü) | E Klang | M | – | Team Jerry | erledigt |
+| 494a | Rückfrage: dritter Lauf für Wildschwein und Hundertfüßer (Läufe 225, 229 brachen beim Bau ab) | E Kampf | M | – | Team Jerry | erledigt |
+| 510a | Rückfrage: zweiter Lauf für den Fledermaus-Vergleich (Lauf 235: freies Modell leer, Film nur mit unserer) | E Kampf | M | – | Team Jerry | erledigt |
 | 496a | Rückfrage: abgenommene Kampfbilder (Grundstand 461) schon in den Durchspiel-Build? | E Technik | M | 12,11 $ | Team Jerry | in Arbeit |
 | 497 | „Über das Spiel“: Lizenzhinweis der Godot Engine (MIT) und ihrer Drittteile fehlt (Chef 03.11., 07:09, Frage nach Schriften, Build 204) | M Veröffentlichung | M | – | Team Tom | gebaut |
 | 498 | Schriftbild wie in der Kotlin-Fassung: Größe, Sperrung, Halbfett (Chef 03.11., 07:13, „Über das Spiel“ wirkt kleiner) | E Oberfläche | M | – | Team Tom | startbar |
@@ -203,7 +203,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 406.1 | Schildstoß im MARS: Reaktion oder Konter am Ring, vielleicht Angriff; Regelvorschlag, dann Bau (Chef 01.11., 20:2x) | E Kampf | M | – | Team Jerry | wartet |
 | 406 | Ausrüstung der Helden je Stück als eigenes Modell mit Abnahme, „noch steril“ (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe); zuerst Rundschild des Klerikers hell mit goldener Sonne wie alt | E Kampf | M | 150,36 $ | Team Jerry | zu testen |
 | 406.2 | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | C Kampf | M | 22,98 $ | Team Jerry | gebaut |
-| 406.2a | Im Kampf zum Angriff rennen wie im Dorf (UAL), sonst schnelles Gehen; jetzt (Chef 03.11., 09:03) | E Kampf | M | – | Team Jerry | wartet |
+| 406.2a | Im Kampf zum Angriff rennen wie im Dorf (UAL), sonst schnelles Gehen; jetzt (Chef 03.11., 09:03) | E Kampf | M | – | Team Jerry | in Arbeit |
 | 407 | Probelauf-Grenze 389 greift nicht: neue Runde erst nach Urteil des Chefs, jeder Zweig zählt („jetzt“ 29.10., 10:05) | B Abläufe | M | 41,23 $ | Perikles | gebaut |
 | 410 | Waffen am Körper wegstecken, alle Waffenarten (aus 376.1, Chef 29.10., 10:52, 11:40) | E Figuren | M | – | Team Tom | ruht |
 | 415 | Handyprobe Beams-Free-Sample (aus 414, Chef 31.10., 20:3x; „jetzt“ 01.11.) | C Kampf | M | 32,03 $ | Team Jerry | zu testen |
