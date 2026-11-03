@@ -22,7 +22,6 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [406.2](ansehen/4062-parade.md) | Parade-Film: Angriff gehen, gelungene Abwehr als Parade | Jerry | 03.11., 08:28 |
 | [490](ansehen/490-fluesterwald.md) | Flüsterwald begehbar wie alt: Standbilder aus Sicht des Helden | – | 03.11., 08:58 |
 
 ## Zu tun
@@ -120,7 +119,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 35338 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Jerry** – offen 59, Muss 47, startbar 7
+**Jerry** – offen 59, Muss 47, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -145,7 +144,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 406.1 | M | von Sokrates (Archiv 406.1): Schildstoß ins MARS/BRS, Bau mit ShieldAttack1–3S&S | wartet auf 481 (startbar) |
 | 489 | M | von Sokrates (Chef 03.11., 07:07, Test Build 204; Zu 489): Hauptmenü: Schalter Musik und E | wartet auf Test/Build (gebaut) |
 | 406.2a | M | von Sokrates (Chef 03.11., 09:03, Archiv 406.2a; „jetzt“ 03.11., 09:03): Angriffsweg im Ka | startbar |
-| 406.2 | M | von Sokrates (Chef 03.11., 06:59, Zu 406.2; „jetzt“ 03.11., 06:59): im Kampf zum Angriff g | Chef |
+| 406.2 | M | von Sokrates (Chef 03.11., 06:59, Zu 406.2; „jetzt“ 03.11., 06:59): im Kampf zum Angriff g | startbar |
 | 406 | M | von Team Tom (Archiv 376.1): Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Son | wartet auf Test/Build (gebaut) |
 | 509 | M | von Sokrates (Chef 03.11., 09:21, „glaube ich, habe ich gesehen, dass Frösche und Libellen | startbar |
 | 494 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; neu aufgeteilt Chef 07:54): Gegner von Kapit | startbar |
@@ -278,8 +277,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 407 (Projekt)
-
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/4062-parade.md
 
 Ohne Datei: 3402 (Projekt), 275 (Projekt)
 
