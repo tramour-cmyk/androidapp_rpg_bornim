@@ -152,13 +152,15 @@ func _run() -> void:
 	var gleich: float = float(beide) / sh.tiefe.size()
 	_check(gleich < 0.45, "kein Gleichtakt: beide zugleich eingeatmet in %.0f %% der Bilder" % (gleich * 100.0))
 	var ruhe_sch := _spanne(sh.schulter)
-	# 2) nach Anstrengung: wie ein Hieb (der Held bleibt in der Ruhebewegung, damit die Schulter nur den Atem zeigt), dann 10 s messen
+	# 2) nach Anstrengung: wie ein Hieb (der Held bleibt in der Ruhebewegung, damit die Schulter nur den Atem zeigt), dann 13 s messen
+	# (Lauf 214: in 10 s endete der letzte Atemzug bei 7,8 s, der nächste nach 8 s erst bei etwa 10,9 s; das Fenster muss mindestens
+	# 8 s plus einen Ruheatemzug mit Spielraum fassen, 8 + 1,15 · 4,2 s)
 	held.atem.anstrengen(1.0)
 	var t0 := t
 	sh.zuege.clear()
 	var weit := 0.0     # Atemzüge in den ersten 3 s (Phase ohne Umbruch)
 	var sch_an: Array = []     # Schulterhöhe in den ersten 4 s
-	for i in 300:
+	for i in 390:
 		var p0: float = held.atem.phase
 		await process_frame
 		t += 1.0 / 30.0
