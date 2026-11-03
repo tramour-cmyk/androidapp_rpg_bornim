@@ -15,6 +15,10 @@ const AXT_FASSUNGEN := [["bisher", 0.40, false], ["A", 0.15, true], ["B", 0.0, t
 # (held.gd: Gehen 1,84, Rennen 3,68 Kacheln/s, speed_scale wie dort), damit man sieht, wie es im Spiel aussieht
 const PAKET_FIGUREN := [["axt", "FIGHTER", {"MAIN_HAND": {"base": "greataxe"}}], ["einhand", "FIGHTER", {"MAIN_HAND": {"base": "longsword"}}],
 	["schild", "FIGHTER", {"MAIN_HAND": {"base": "longsword"}, "OFF_HAND": {"base": "round_shield"}}], ["bogen", "ROGUE", {"MAIN_HAND": {"base": "shortbow"}}]]
+# Rennen beide Fassungen (Chef 02.11., 14:46 Rennen zu vorgebeugt; 14:50/14:52 Rennen A „vernünftig“): je Waffe ausser Bogen (passt)
+# eine zweite Figur „pkA_<art>“ mit HeldFigur.WAFFEN_RENNEN „A“ (Beine und Rumpf aus Rennen A, Arme aus dem Paket); Film nur von der
+# Seite der Waffe, ohne Standbilder
+const PAKET_A := ["axt", "einhand", "schild"]
 # Runde 6 (Chef 01.11., 13:4x: „Das Gehen muss langsamer sein … eher ein Staxen, ein schnelles Staxen“): Gehtempo im Spiel senken statt
 # die Pakete schneller abzuspielen; Vorschlag 1,5 m/s (Mensch etwa 1,3-1,5; heute 1,84 Kacheln/s = 2,13 m/s). Film und Standbilder mit dem
 # Vorschlag, GEHEN_M_S=<m/s> setzt einen anderen (2.13 wie heute)
@@ -53,6 +57,10 @@ func figuren_bauen(axt := false, pakete := false) -> void:
 				fp.protokoll.append("GANG %s: %s, Tempo %.2f / %.2f m/s" % [e[0], mm.get_meta("gang", "FEHLT"), float(mm.get_meta("gang_gehen_m_je_s", 0.0)),
 					float(mm.get_meta("gang_rennen_m_je_s", 0.0))])
 				print(fp.protokoll[-1])
+		for e in PAKET_FIGUREN:
+			if e[0] not in PAKET_A: continue
+			liste.append(["pkA_" + e[0], e[1] + "_" + e[0] + "_A", e[1], String(e[2]["MAIN_HAND"]["base"]), e[0], "A"])
+			fp.klasse_figur("pkA_" + e[0], {"klasse": e[1], "volk": "HUMAN", "aussehen": HeldFigur.vorgabe(e[1]), "ausruestung": e[2], "waffen_rennen": "A"})
 		cam = fp.spiel.kamera
 		return
 	if axt:
@@ -96,7 +104,7 @@ func standbilder(axt := false, pakete := false) -> void:
 	DirAccess.make_dir_recursive_absolute(fp.aus + "/tragen")
 	for e in liste:
 		var k: String = e[0]
-		if not fp.figuren.has(k): continue
+		if not fp.figuren.has(k) or e.size() > 5: continue   # Fassung A: nur im Film
 		zeige_nur(k)
 		var w: Node3D = fp.figuren[k]
 		var m := modell(k)
@@ -138,7 +146,7 @@ func standbilder(axt := false, pakete := false) -> void:
 	for e in liste:
 		var s0 := "links" if e[3] == "shortbow" or (e.size() > 4 and e[4] == "schild") else "rechts"
 		folgen.append([e, s0])
-		if e.size() > 4 and e[4] in ["schild", "axt"]: folgen.append([e, "rechts" if s0 == "links" else "links"])
+		if e.size() == 5 and e[4] in ["schild", "axt"] and OS.has_environment("ZWEI_SEITEN"): folgen.append([e, "rechts" if s0 == "links" else "links"])
 	for fe in folgen:
 		var e: Array = fe[0]
 		var seite: String = fe[1]
@@ -181,8 +189,9 @@ func standbilder(axt := false, pakete := false) -> void:
 				if moving:
 					var mit := want != b0
 					vb = float(m.get_meta(("gang_" if mit else "") + ("gehen" if b0 == "Gehen" else "rennen") + "_m_je_s", 1.0))
-				if ap.current_animation != want: Held.wechsel(ap, want, moving, tempo / maxf(0.01, vb) if moving else 1.0)   # 416.4
-				ap.speed_scale = Held.takt(ap, tempo, vb, 1.0 / FPS) if moving else 1.0
+				if ap.current_animation != want: Held.wechsel(ap, want, moving, tempo / maxf(0.01, vb) if moving else 1.0, true)   # sanft wie held.gd   # 416.4
+				if moving and ap.has_meta("halt"): ap.remove_meta("halt")
+				ap.speed_scale = Held.takt(ap, tempo, vb, 1.0 / FPS) if moving else Held.stand_takt(ap, 1.0 / FPS)
 				ap.advance(1.0 / FPS)
 				p += Vector3(0, 0, 1) * tempo / FPS
 				w.position = p

@@ -24,7 +24,7 @@ jobs:
   probe:
     if: github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, '417')
     runs-on: ubuntu-24.04
-    timeout-minutes: 60
+    timeout-minutes: 90
     env:
       GODOT: "4.7.2"
     steps:
@@ -122,7 +122,7 @@ jobs:
           timeout 300 ~/godot/godot --headless --import --path . > import.log 2>&1 || true
           set -o pipefail
           timeout 120 ~/godot/godot --headless --path . -s res://tests/skripte_pruefen.gd 2>&1 | grep -E "SKRIPTE|FALSCH|SCRIPT ERROR|Parse Error" | tee $GITHUB_WORKSPACE/probe/skripte.log || true
-          timeout 900 ~/godot/godot --headless --path . -s res://tests/tragen_pakete_417.gd 2>&1 | grep -E "^(MESS|ORT|FASSUNG|FEHLER|PAKETE|GLEIT|FILMNACH|HALTUNG|AXTGRIFF)|SCRIPT ERROR|^ +at: " | cut -c1-600 | tee $GITHUB_WORKSPACE/probe/messung.log || true   # Runde 5: Waffen der Pakete
+          timeout 1500 ~/godot/godot --headless --path . -s res://tests/tragen_pakete_417.gd 2>&1 | grep -E "^(MESS|ORT|FASSUNG|FEHLER|PAKETE|GLEIT|TAKT|FILMNACH|FILMBILD|HALTUNG|AXTGRIFF)|SCRIPT ERROR|^ +at: " | cut -c1-600 | tee $GITHUB_WORKSPACE/probe/messung.log || true   # Runde 5: Waffen der Pakete
       - name: Bilder und Film
         if: always() && inputs.bild != 'nein'
         run: |
@@ -149,9 +149,11 @@ jobs:
           # Film: Waffen im Raster 3x2, Bild fuer Bild (Gehen, dann Rennen; kuerzere Felder stehen am Ende still); Pruefer 00:53: Axt und
           # Schild auch von der anderen Seite (Hand und Schwert hinter dem Koerper), Beschriftung mit Waffe und Seite statt Kennung
           mkdir -p film/raster
-          FF="FIGHTER_axt_rechts FIGHTER_axt_links FIGHTER_einhand_rechts FIGHTER_schild_links FIGHTER_schild_rechts ROGUE_bogen_links"
+          # Rennen beide Fassungen (Chef 02.11., 14:46, 14:50/14:52): oben 1 Paket (Sprint aufgerichtet), unten 2 Beine und Rumpf aus
+          # Rennen A, Arme aus dem Paket; Bogen passt (ohne)
+          FF="FIGHTER_axt_rechts FIGHTER_einhand_rechts FIGHTER_schild_links FIGHTER_axt_A_rechts FIGHTER_einhand_A_rechts FIGHTER_schild_A_links"
           wort() { case $1 in FIGHTER_axt_*) w="Kriegsaxt";; FIGHTER_einhand_*) w="Schwert";; FIGHTER_schild_*) w="Schwert und Schild";; *) w="Bogen";; esac
-                   case $1 in *_rechts) echo "$w, von rechts";; *) echo "$w, von links";; esac; }
+                   case $1 in *_A_*) echo "2 Rennen A: $w";; *) echo "1 Paket: $w";; esac; }
           n=0; for f in $FF; do c=$(ls film/$f | wc -l); [ $c -gt $n ] && n=$c; done
           for i in $(seq -f "%03g" 0 $((n - 1))); do
             set --; for f in $FF; do b=film/$f/$i.png; [ -f $b ] || b=$(ls film/$f/*.png | tail -1); set -- "$@" -label "$(wort $f)" $b; done

@@ -40,7 +40,16 @@ func standbilder_nach(ap: AnimationPlayer, gang: String) -> void:
 			TragProbe.standbild_lage(ap, f / FPS, 1.0, lang)
 			await process_frame
 
-func film_nach(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, gang: String, wer: String) -> void:
+# 417 (Uebergabe 02.11.: Anlaufgleiten 0,65-1,2 m/s, Held.schub half nicht): je Bild der ersten 0,8 s des Anlaufens (Abschnitt 1)
+# FILMBILD: Anteil w der Ueberblendung, speed_scale, Tempo, wie weit der Koerper vorankommt; Standfuss (der tiefere Ballen) gegen die
+# Figur (rel) zerlegt in A = -w * speed_scale * Tempo ohne Gleiten (Schritt traegt mit seinem Anteil) und B = Rest (Pose wandert vom
+# Stehen in den Schritt), dazu Fuss im Raum und Hoehe beider Ballen; fest: der Koerper kommt nur so weit voran, wie der Standfuss
+# gegen die Figur zurueckgeht (Fuss steht nach Bauart), zum Vergleich
+func ballen_rel(sk: Skeleton3D, w: Node3D) -> Array:
+	return [sk.global_transform * sk.get_bone_global_pose(sk.find_bone("ball_l")).origin - w.global_position,
+		sk.global_transform * sk.get_bone_global_pose(sk.find_bone("ball_r")).origin - w.global_position]
+
+func film_nach(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, gang: String, wer: String, fest := false) -> void:
 	var g := "_" + gang
 	var w := m.get_parent() as Node3D
 	var p := Vector3.ZERO
@@ -69,6 +78,8 @@ func film_nach(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, gang: String, wer
 	var t_film := 0.0
 	var haltung := PackedStringArray()
 	haltung.append("Anfang %.1f" % n_alt)
+	var rel_alt := ballen_rel(sk, w)
+	var abw := 0.0   # m: Ballen nach advance gegen nach dem Bild (ob die Lage nach advance schon gilt)
 	for ai in TragProbe.FILM_FOLGE.size():
 		var b0: String = TragProbe.FILM_FOLGE[ai][0]
 		var nf := int(round(float(TragProbe.FILM_FOLGE[ai][1]) * FPS))
@@ -84,12 +95,34 @@ func film_nach(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, gang: String, wer
 			if moving and ap.has_animation(b0 + g): want = b0 + g
 			var vb := 1.0
 			if moving: vb = float(m.get_meta(("gang_" if want != b0 else "") + ("gehen" if b0 == "Gehen" else "rennen") + "_m_je_s", 1.0))
-			if ap.current_animation != want: Held.wechsel(ap, want, moving, tempo / maxf(0.01, vb) if moving else 1.0)
-			ap.speed_scale = Held.takt(ap, tempo, vb, 1.0 / FPS) if moving else 1.0
+			if ap.current_animation != want: Held.wechsel(ap, want, moving, tempo / maxf(0.01, vb) if moving else 1.0, true)   # sanft wie held.gd
+			if moving and ap.has_meta("halt"): ap.remove_meta("halt")
+			ap.speed_scale = Held.takt(ap, tempo, vb, 1.0 / FPS) if moving else Held.stand_takt(ap, 1.0 / FPS)
 			ap.advance(1.0 / FPS)
-			p += Vector3(0, 0, 1) * tempo / FPS
+			var rel_neu := ballen_rel(sk, w)
+			var dz := tempo / FPS
+			var bild := moving and ai == 1 and f < int(0.8 * FPS)
+			var s_i := 0 if (rel_neu[0] as Vector3).y <= (rel_neu[1] as Vector3).y else 1
+			var d_st := (rel_neu[s_i] as Vector3).z - (rel_alt[s_i] as Vector3).z
+			if fest and bild: dz = maxf(0.0, -d_st)
+			p += Vector3(0, 0, 1) * dz
 			w.position = p
 			await process_frame
+			var rel_bild := ballen_rel(sk, w)
+			for k in 2: abw = maxf(abw, ((rel_bild[k] as Vector3) - (rel_neu[k] as Vector3)).length())
+			if bild:
+				var wb := 1.0
+				if ap.has_meta("blende"):
+					var bm: Array = ap.get_meta("blende")
+					wb = clampf(float(bm[0]) / maxf(0.01, float(bm[1])), 0.0, 1.0)
+				var a_t := -wb * ap.speed_scale * vb
+				var vrel := d_st * FPS
+				var o_i := 1 - s_i
+				var d_o := (rel_neu[o_i] as Vector3).z - (rel_alt[o_i] as Vector3).z
+				print("FILMBILD %s%s %d: w %.2f, speed_scale %.2f, Tempo %.2f, Koerper %.2f m/s; Stand %s %.1f cm hoch, gegen Figur %+.2f = A %+.2f + B %+.2f, im Raum %+.2f m/s; anderer %.1f cm hoch, im Raum %+.2f m/s (%s)" % [
+					wer, " fest" if fest else "", f, wb, ap.speed_scale, tempo, dz * FPS, "L" if s_i == 0 else "R", 100.0 * (rel_neu[s_i] as Vector3).y,
+					vrel, a_t, vrel - a_t, vrel + dz * FPS, 100.0 * (rel_neu[o_i] as Vector3).y, d_o * FPS + dz * FPS, ap.current_animation])
+			rel_alt = rel_bild
 			t_film += 1.0 / FPS
 			var n_neu: float = neig.call()
 			if t_film < 1.3: bilder.append("%d:%.0f/%.0f%s" % [int(round(t_film * FPS)), n_neu, 100.0 * float(kopf_vor.call()),
@@ -124,6 +157,7 @@ func film_nach(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, gang: String, wer
 			var ab := vs.map(func(v): return absf(v)); ab.sort()
 			print("FILMNACH %s %s%s (Abschnitt %d, %s): Standfuss %+.2f m/s (Median mit Vorzeichen), Betrag %.2f, Figur %.2f m/s, speed_scale %.2f, %d Proben; gegen Tempo Median %.0f %%, groesster %.0f %%" % [wer, b0,
 				teil[0], ai, zz[-1][4], vs[vs.size() / 2], ab[ab.size() / 2], tm, sp, vs.size(), rel[rel.size() / 2], rel[-1]])
+	print("FILMBILD %s%s: Ballen nach advance gegen nach dem Bild hoechstens %.1f mm" % [wer, " fest" if fest else "", abw * 1000.0])
 	print("HALTUNG %s: Brust Grad vor: %s; groesster Sprung %+.1f Grad in einem Bild bei %.2f s (%s)" % [wer, ", ".join(haltung), sprung[0], sprung[1], sprung[2]])
 	print("HALTUNGBILD %s (Bild:Brust Grad/Kopf vor Becken cm%s): %s" % [wer, "" if haar else ", ohne Haar", " ".join(bilder)])
 	ap.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_IDLE
@@ -164,14 +198,23 @@ func _initialize() -> void:
 		return
 	var welt := Node3D.new()
 	root.add_child(welt)
-	for e in TragProbe.PAKET_FIGUREN:
+	# 417 Rennen Fassung A (heldfigur.gd WAFFEN_RENNEN): Beine und Rumpf aus Rennen A, Arme aus dem Paket; gemessen nur das Rennen,
+	# Kennung „<Klasse>/A“, Wer „<gang> A“
+	var faelle := []
+	for e in TragProbe.PAKET_FIGUREN: faelle.append([e, false])
+	for e in TragProbe.PAKET_FIGUREN: if e[0] in TragProbe.PAKET_A: faelle.append([e, true])
+	for fall in faelle:
+		var e: Array = (fall[0] as Array).duplicate()
+		var fA: bool = fall[1]
 		var gang: String = e[0]
 		if not HeldFigur.da(e[1]):
 			print("PAKETE ohne ", e[1]); continue
 		var w := Node3D.new()
 		welt.add_child(w)
-		var m := HeldFigur.baue({"klasse": e[1], "volk": "HUMAN", "aussehen": HeldFigur.vorgabe(e[1]), "ausruestung": e[2]}, [])
+		var m := HeldFigur.baue({"klasse": e[1], "volk": "HUMAN", "aussehen": HeldFigur.vorgabe(e[1]), "ausruestung": e[2],
+			"waffen_rennen": "A" if fA else "paket"}, [])
 		w.add_child(m)
+		if fA: e[1] = String(e[1]) + "/A"
 		var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
 		var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
 		pruefe(String(m.get_meta("gang", "")) == gang, "%s: Gang %s statt %s" % [e[1], m.get_meta("gang", ""), gang])
@@ -187,10 +230,14 @@ func _initialize() -> void:
 		var fehlt := PackedStringArray()
 		for x in spuren.call("Rennen_" + gang): if not x in st: fehlt.append(x)
 		print("HALTUNGSPUR %s: deterministic %s, Stehen %d Spuren, im Rennen mehr: %s" % [gang, ap.deterministic, st.size(), ", ".join(fehlt)])
-		await film_nach(m, sk, ap, gang, gang + " frisch")
+		var wer := gang + (" A" if fA else "")
+		await film_nach(m, sk, ap, gang, wer + " frisch")
 		var frisch := haltung_anfang
 		await standbilder_nach(ap, gang)
-		await film_nach(m, sk, ap, gang, gang + " nach Standbildern")
+		await film_nach(m, sk, ap, gang, wer + " nach Standbildern")
+		var h_a := haltung_anfang; var h_s := haltung_sprung
+		await film_nach(m, sk, ap, gang, wer, true)   # 417: Vergleich Koerper nach dem Standfuss (FILMBILD … fest)
+		haltung_anfang = h_a; haltung_sprung = h_s
 		pruefe(absf(haltung_anfang - frisch) < 2.0 and haltung_sprung < SPRUNG_ERLAUBT, "%s: Haltung nach Standbildern %.1f statt %.1f Grad, Sprung %.1f Grad" % [gang, haltung_anfang, frisch, haltung_sprung])
 		# Lauf 41315361680 und 41320044677: der Schild wurde nie gemessen; Godot benennt den zweiten Knoten „@Tragen@…“ um, darum nach Typ
 		var tl: Array = sk.get_children().filter(func(c): return c is Tragen)
@@ -201,7 +248,7 @@ func _initialize() -> void:
 		await process_frame
 		await process_frame
 		var netze := TragProbe.netze_von(m)
-		for b0 in ["Gehen", "Rennen"]:
+		for b0 in (["Rennen"] if fA else ["Gehen", "Rennen"]):
 			var bew: String = b0 + "_" + gang
 			if not ap.has_animation(bew):
 				pruefe(false, "%s: Bewegung %s fehlt" % [e[1], bew]); continue
@@ -219,8 +266,22 @@ func _initialize() -> void:
 			print("GLEIT %s %s: Standfuss %.2f m/s, Figur kommt %.2f m/s voran, Fuss %+.0f %% gegen den Boden; Quelle %.2f, an der Figur %.2f m/s (vorher %+.0f %%)" % [e[1], bew,
 				vst, vsoll, gl, vq, vf, 100.0 * (vf / maxf(0.01, vq) - 1.0)])
 			pruefe(absf(gl) <= GLEIT_ERLAUBT, "%s %s: Standfuss %+.0f %% gegen den Boden" % [e[1], bew, gl])
+			# 417 Rennen beide Fassungen: Schritte je Sekunde im Spieltempo und Neigung Becken -> Hals (Grad vor, Blick +Z), wie waffengang.py
+			var sp := HeldFigur._spuren(an0)
+			var raum := HeldFigur.im_raum(m, sk)
+			var nz := []
+			for j in 24:
+				var tj := an0.length * j / 24.0
+				var pb := HeldFigur.knochen_lage(an0, sp, sk, raum, sk.find_bone("pelvis"), tj).origin
+				var hb := HeldFigur.knochen_lage(an0, sp, sk, raum, sk.find_bone("neck_01"), tj).origin
+				nz.append(rad_to_deg(atan2((hb - pb).z, (hb - pb).y)))
+			var nm := 0.0
+			for x in nz: nm += float(x) / nz.size()
+			print("TAKT %s %s: %.1f Schritte/s bei %.2f m/s, Oberkoerper im Mittel %.1f Grad vor, hoechstens %.1f" % [e[1], bew, 2.0 / maxf(0.01, an0.length), vsoll, nm, nz.max()])
 			var laeufe := []
 			for t in tl:
+				if fA:
+					laeufe.append([t, null]); continue
 				if gang == "axt":
 					for fa in AXT_FASSUNGEN: laeufe.append([t, fa])
 				if (t as Tragen).gang == "schildarm":
