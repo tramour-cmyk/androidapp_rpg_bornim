@@ -129,7 +129,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | D71.1 | K | von Diogenes (374/434, Vortag 02.11.): ohne „Bestand geprüft“ (434): 417 00:53, 02:24, 03: | startbar |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 39286 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Jerry** – offen 61, Muss 48, startbar 4
+**Jerry** – offen 60, Muss 48, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -157,7 +157,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 406.2 | M | von Sokrates (Chef 03.11., 06:59, Zu 406.2; „jetzt“ 03.11., 06:59): im Kampf zum Angriff g | wartet auf Test/Build (gebaut) |
 | 406 | M | von Team Tom (Archiv 376.1): Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Son | wartet auf Test (Build) |
 | 510 | M | von Sokrates (Chef 03.11., 10:28–10:57, aus 494, „ein Lauf“): Fledermaus: freies Modell OG | wartet auf Perikles |
-| 509 | M | von Sokrates (Chef 03.11., 09:21, „glaube ich, habe ich gesehen, dass Frösche und Libellen | startbar |
+| 509 | M | von Sokrates (Chef 03.11., 09:21, „glaube ich, habe ich gesehen, dass Frösche und Libellen | wartet auf Perikles |
 | 494 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Gegner von Kapitel 1 im Kampf (Liste und St | startbar |
 | 507 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; aus 492): Kampforte Höhle wie alt: Eingang, | wartet auf Sokrates |
 | 496a | M | Rückfrage: abgenommene Kampfbilder (Grundstand 461) schon in den Durchspiel-Build? | wartet auf Test (Build) |
@@ -191,7 +191,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 59e | K | Händler: Vorrat je Laden | ruht |
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | 469 | M | von Sokrates (02.11., 11:0x, zu 406.1): Kampf auf BRS: Ring (MARS) ohne Klassen regeln (An | wartet auf 406.1 (wartet) |
-| D71.2 | K | von Diogenes (374/434, Vortag 02.11.): ohne „Bestand geprüft“ (434): 415 Strahlenprobe 19: | startbar |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 15202 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
