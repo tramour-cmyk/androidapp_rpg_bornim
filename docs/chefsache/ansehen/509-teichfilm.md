@@ -1,5 +1,7 @@
 # 509 · Frösche und Libellen am Teich (Film, Lauf 2 von 2) · Team Jerry · 03.11., 11:03
 
+[Film von 03.11., 11:03](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261103-110331-509/2026-11/03-1103-509-Jerry.mp4) (eingetragen von meldung.sh, Jerry)
+
 E Klang
 Kurz: Teichfilm aus Lauf 228 zeigt nur Logo und Hauptmenü, keinen Teich
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41608880723 (Lauf 2, Commit f6f12b109)
