@@ -198,7 +198,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 528 | Held, Karte, Chronik wie alt: Satz zur Höchststufe des Kapitels am EP-Balken, Kartenzeichen in der oberen Leiste, „Auf der Karte“ bei Nebenaufträgen (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | startbar |
 | 529 | Spielstände: Heldenbild und Spielzeit auf der Karte des Spielstands, Uhrzeit „Gespeichert“ nach Zeitumstellung prüfen (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | startbar |
 | 522 | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Chef 03.11., 23:33) | A Spiel | M | – | Team Tom | gebaut |
-| 521 | Build 249, Ausrüstung: Wechselschirm eines Platzes wie alt (Bild, Art und Wert, ▲/▼, „nicht tragbar“ matt) (Chef 03.11., 23:23, Bild) | A Spiel | M | – | Team Tom | startbar |
+| 521 | Build 249, Ausrüstung: Wechselschirm eines Platzes wie alt (Bild, Art und Wert, ▲/▼, „nicht tragbar“ matt) (Chef 03.11., 23:23, Bild) | A Spiel | M | – | Team Tom | in Arbeit |
 | 520 | Build 249, Ausrüstung: Held zwischen den Fächern zu klein und ohne die angelegten Sachen; alt `HeroTurntable` mit Getragenem (Chef 03.11., 23:19, Bild) | A Spiel | M | – | Team Tom | gebaut |
 | 519 | Build 249, Ausrüstung: Gegenstandsfenster („Göttlicher Ring des Eisernen Richters“) passt nicht auf den Bildschirm, rechts abgeschnitten (Chef 03.11., 23:13, Bild) | A Spiel | M | – | Team Tom | gebaut |
 | 518 | Build 248, Dorf: keine Häuser, nur Wege und Pflaster, dazu ständiges schwarzes Flackern (Chef 03.11., 20:47, Bild) | A Spiel | M | – | Team Tom | zu testen |
