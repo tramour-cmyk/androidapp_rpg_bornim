@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [488](entscheiden/488-einfrieren.md) | **Muss** | B Abläufe | 02.11., 22:45 | Feinarbeit einfrieren, erst durchspielbar, dann polieren: richtig verstanden? | Sokrates |
+Nichts offen.
 
 ## Zu billigen
 
@@ -175,10 +171,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 469 | M | von Sokrates (02.11., 11:0x, zu 406.1): Kampf auf BRS: Ring (MARS) ohne Klassen regeln (An | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 
-**Perikles** – offen 30, Muss 27, startbar 3
+**Perikles** – offen 31, Muss 28, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 488 | M | von Sokrates (Chef 03.11., 06:44, „488 ja“, Archiv 488; „jetzt“ 03.11., 06:44): Wochenziel | startbar |
 | D67.1 | M | von Diogenes (Doppelpack 421, Lauf 65, 02.11., 19:4x): meldung.sh lässt „K1“, Kürzel vor B | wartet auf Test/Build (gebaut) |
 | D69.1 | M | von Diogenes (Doppelpack 421, Lauf 68, 02.11., 20:0x): meldung.sh hält seit D67.1 Dateinam | wartet auf Test/Build (gebaut) |
 | D70.1 | M | von Diogenes (Doppelpack 421, Lauf 68, zu 461b): Archiv 480 und 415c tragen „→ ersetzt dur | wartet auf Test/Build (gebaut) |
@@ -229,7 +226,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 488 | M | von Chef (02.11., 22:44, „dann frieren wir das mal ab einem gewissen Punkt ein … kümmern u | Chef (Datei in der Chefsache) |
+| 488 | M | von Chef (02.11., 22:44, „dann frieren wir das mal ab einem gewissen Punkt ein … kümmern u | wartet auf Perikles |
 | 461b.4 | M | von Perikles (deine Liste 461b, 02.11., 19:1x, Punkte 7, 9): Köpfe von DESIGN-SPIELSYSTEM- | startbar |
 | 468 | M | von Chef (02.11., 07:33, Bild „Nutzung“: 36 %): weiter mit Wächter bis Sa 19:59 (ja 11:13, | startbar |
 | 415d | M | von Chef (02.11., 20:05, „Hatten wir nicht weitere Effekte vorgesehen?“): Kauf der zwei Ef | wartet auf Jerry |
@@ -268,6 +265,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
+
+Nicht gestellt: 407 (Projekt), 438a (Team Jerry)
 
 Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/406-schildfilm.md, ansehen/417-dorf-film.md, ansehen/4474-lehrmeister-texte.md, ansehen/463-umhang-robe.md
 
