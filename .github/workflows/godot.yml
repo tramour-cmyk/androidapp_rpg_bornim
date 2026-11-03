@@ -230,13 +230,14 @@ jobs:
             else echo "FEHLER 494: Grimmzahn auf dem Kaufwolf nicht gebaut, der eigene bleibt"; tail -40 kaufgrimm.log; fi
             # 494 (Wochenziel 03.11. Reihe 3): Gegner von Kapitel 1 aus dem Bestand, gekauft: Wildschwein (Janpec, kauftier.py wie die Dorftiere)
             # und Riesen-Hundertfüßer (MadeCG)
-            for t in keiler hundertfuesser; do
+            # Riesenegel (Game Ready Studios) und Säureschnecke (Protofactor), Kauf 348.12c
+            for t in keiler hundertfuesser egel schnecke; do
               # Lauf 229: brach ein Tier ab, fehlte der ganze Bau (kein Film); jetzt fehlt nur dieses Tier, der Rest baut weiter
               TIER=$t KAUF=$KAUF OUT=$RUNNER_TEMP/kt timeout 900 bl/bin/python -I tools/blender348/kauftier.py > kauftier-$t.log 2>&1 || { echo "FEHLER 494: $t nicht gebaut"; tail -40 kauftier-$t.log; continue; }
               grep -E "AUSPACKEN|BEWEGUNG|MASS|TEMPO|FEHLT|FERTIG" kauftier-$t.log | cut -c1-200 || true
               for f in $RUNNER_TEMP/kt/kauf_$t-*.glb; do cp $f $D/$(basename $f .glb).bin; done; cp $RUNNER_TEMP/kt/kauf_$t-info.json $D/
             done
-            (cd godot && ls kampf/daten/giant_rat-*.bin kampf/daten/kaufwolf-*.bin kampf/daten/kauf_keiler-*.bin kampf/daten/kauf_hundertfuesser-*.bin > kampf/daten/kauf.txt 2>/dev/null || true)
+            (cd godot && ls kampf/daten/giant_rat-*.bin kampf/daten/kaufwolf-*.bin kampf/daten/kauf_keiler-*.bin kampf/daten/kauf_hundertfuesser-*.bin kampf/daten/kauf_egel-*.bin kampf/daten/kauf_schnecke-*.bin > kampf/daten/kauf.txt 2>/dev/null || true)
             [ -n "${GRIMM_KAUF:-}" ] && (cd godot && ls kampf/daten/dire_wolf-*.bin >> kampf/daten/kauf.txt) || true
             # 406 (Chef 31.10., 23:22): Kaufschilde 2 (Kleriker, „shield“) und 15 (Kaempfer, „round_shield“) statt der eigenen aus
             # waffen.py, im Kampf und unterwegs auf dem Ruecken (daten/waffen); gekauft, also verschluesselt

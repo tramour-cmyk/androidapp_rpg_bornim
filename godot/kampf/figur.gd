@@ -35,7 +35,7 @@ const ERSATZ_FELLE := {"boar": ["dunkel", "grau", "rost"], "giant_rat": ["braun"
 ## Bewegungen eines Vierbeiners, die beim Wolf anders heißen (wildschwein.py: Hauerstoß statt Biss, Rammen statt Sprung)
 ## Kopfhöhe (Ohrspitzen) und Bodenschatten (Breite, Länge, Mitte vor dem Ursprung) des Ersatzes in Modellmetern (Ratte Runde 2:
 ## Balken 200 px über der Ratte, Schatten größer als das Tier)
-const ERSATZ_KOPF := {"giant_rat": 0.4, "giant_bat": 0.98, "kaufwolf": 1.06}     # Kaufwolf: Ohren 1,175 m (unser Wolf 1,24 m bei 1,12)
+const ERSATZ_KOPF := {"giant_rat": 0.4, "giant_bat": 0.98, "kaufwolf": 1.06, "kauf_egel": 0.45, "kauf_schnecke": 0.85}     # Kaufwolf: Ohren 1,175 m (unser Wolf 1,24 m bei 1,12)
 const ERSATZ_SCHATTEN := {"giant_rat": [0.3, 0.85, -0.08], "giant_bat": [0.9, 0.5, -0.04]}
 ## Ersatz ohne Umgebungsvariable (Prüf-APK: Probekampf „Ratten“ setzt giant_rat); ERSATZ geht vor
 static var ersatz_art := ""
@@ -43,7 +43,7 @@ static func ersatz() -> String:
 	return OS.get_environment("ERSATZ") if OS.has_environment("ERSATZ") else ersatz_art
 ## 494 (Wochenziel 03.11. Reihe 3): Vierbeiner mit eigenen Regeln (tabellen.json, MARS allgemein), im Bild wie der Wolf: Körper,
 ## Schatten, Kopfhöhe, Größe aus dem Kaufmodell (ersatz_art „kauf_<tier>“, aufruf.gd)
-const VIERBEINER := ["wolf", "boar", "giant_centipede"]     # Hundertfüßer: langer Körper am Boden wie ein Vierbeiner
+const VIERBEINER := ["wolf", "boar", "giant_centipede", "stirge", "ochre_jelly"]     # Hundertfüßer, Riesenegel, Säureschnecke (494): langer Körper am Boden wie ein Vierbeiner
 static func vier(fi) -> bool:
 	return fi != null and fi.monster != null and String(fi.monster.id) in VIERBEINER
 ## 348.7 Grimmzahn: im Probekampf „Grimmzahn“ trägt der Wolf „grimm“ dessen Modell (Regeln noch die des Wolfs)

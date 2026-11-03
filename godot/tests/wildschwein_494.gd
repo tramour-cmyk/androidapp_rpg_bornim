@@ -1,7 +1,7 @@
 extends SceneTree
 # 494 ohne Bild: Probekampf „Wildschwein“ (aufruf.gd BOARS): ein Wildschwein mit seinen eigenen Regeln aus tabellen.json (Monsters.kt boar:
 # Name, Trefferpunkte 2W8+2, Hauer), MARS spielt es auf Autopilot zu Ende; im Bild ein Vierbeiner (Figur.vier), mit Kaufmodell der Keiler.
-# Dazu der Riesen-Hundertfüßer (CENTIPEDES, Monsters.kt giant_centipede, 2W6+1).
+# Dazu der Riesen-Hundertfüßer (CENTIPEDES, Monsters.kt giant_centipede, 2W6+1), Riesenegel (LEECHES) und Säureschnecke (SLUGS).
 # Aufruf: im Ordner godot mit -s res://tests/wildschwein_494.gd
 
 const Probe = preload("res://kampf/probe.gd")
@@ -19,6 +19,9 @@ func _lauf() -> void:
 	for k in ["FIGHTER", "WIZARD"]:
 		await _kampf(k, "BOARS", "boar", "Wildschwein", 4, 18)
 	await _kampf("FIGHTER", "CENTIPEDES", "giant_centipede", "Riesen-Hundertfüßer", 3, 13)
+	# Kauf 348.12c: Riesenegel (Regeln der Stirge, 2W4+1) und Säureschnecke (Regeln der Ockergallerte, 5W10+5), Namen nach LISTE-FIGUREN
+	await _kampf("FIGHTER", "LEECHES", "stirge", "Riesenegel", 3, 9)
+	await _kampf("FIGHTER", "SLUGS", "ochre_jelly", "Säureschnecke", 10, 55)
 	print("WILDSCHWEIN 494 %s" % ("gut" if fehler == 0 else "%d FEHLER" % fehler))
 	quit(1 if fehler > 0 else 0)
 

@@ -77,6 +77,27 @@ TIERE = {
                   # Runde 4 (Prüfer r3: kippt im Tod kopfüber und schwebt; gemessen in der Quelle: der Rücken neigt sich 34° nach vorn, der Kopf
                   # liegt 0,26 m unter dem Boden, Boden halten hob alles um 0,32 m): Rücken waagerecht, erst dann den Boden halten
                   'waagerecht': {'Tod': ('ROOTSHJnt', 'Spine_TopSHJnt')}},
+    # 494 (Kauf 348.12c; LISTE-FIGUREN „Riesenegel“, ersetzt die Stirge): Game Ready Studios Mobile Leeches, vier Formen (812–988 Dreiecke,
+    # 1,05 m lang, Maul −Y); Form 01 trägt nur ein türkises Bild (Liste: nie türkis) und bleibt weg; je Fell eine Form. Die Bewegungen
+    # liegen auf der Stelle (Move ohne Weg), das Tempo ist fest. Bilder: *_a.png (Farbe); *_RGBA ist eine Maske, *_emissive leuchtet (weg).
+    'egel': {'rig': 'SK_MobileLeech_02.FBX', 'anim': 'Anim_MobileLeeches_%s.fbx', 'tex': 'T_MobileLeech_02_Skin2_a', 'zip': 'MobileLeeches_FBX',
+             'formen': {'braun': ('SK_MobileLeech_02.FBX', 'T_MobileLeech_02_Skin2_a'), 'grau': ('SK_MobileLeech_03.FBX', 'T_MobileLeech_03_Skin2_a'),
+                        'ocker': ('SK_MobileLeech_04.FBX', 'T_MobileLeech_04_Skin2_a')},
+             'namen': {'Stehen': 'Idle_01', 'Umsehen': 'Idle_02', 'Drohen': 'Idle_03', 'Gehen': 'Move', 'Biss': 'AttackEat_01',
+                       'Treffer': 'Gethit', 'Tod': 'Death'},
+             'kopf': 'Bone006', 'laenge': 1.0, 'weg_tempo': 0.4, 'rennen_aus_gehen': 1.6,
+             # Liste 4: nur dunkle Häute, braun, grau, ocker; nie türkis, nie glühend rot
+             'felle': {'braun': (0x4A3424, 0x1E140E, 0x6A5038), 'grau': (0x4E4C48, 0x201E1C, 0x6E6A64), 'ocker': (0x6E5026, 0x2A1C0E, 0x8C6C3A)}},
+    # 494 (Kauf 348.12c; LISTE-FIGUREN „Säureschnecke“, ersetzt die Ockergallerte): Protofactor Giant Slug, Netz nur in AllAnimations,
+    # 11.240 Dreiecke (ausgedünnt). Liste 1 will 2,0–2,4 m Länge und den Kopf aufgerichtet auf Brusthöhe; der Kauf ist flach (bei 2,4 m
+    # Kopf 0,4 m, Stielaugen 0,66 m), im Zungenstoß richtet er sich bis 1,3 m auf: darum 2,4 m. Die Zunge liegt in Ruhe vor dem Maul und
+    # zählt nicht zur Länge. Rosa Beulen und Zungenperlen verschwinden mit unseren Farben (Liste 4). Tempo aus CrawlForward_RM (0,6 m/s).
+    'schnecke': {'rig': 'GiantSlug@AllAnimations.FBX', 'anim': 'GiantSlug@%s.FBX', 'tex': 'T_GiantSlug_BaseColor*', 'pfad': 'raw files',
+                 'namen': {'Stehen': 'IdleBreathe', 'Umsehen': 'IdleLookAround', 'Gehen': 'CrawlForward', 'Biss': 'TongueAttackStraight',
+                           'Spucken': 'SpittersAttack', 'Treffer': 'GetHitFront', 'Tod': 'Death'},
+                 'laenge': 2.4, 'laenge_ohne': 'GiantSlug_Tongue', 'dreiecke': 5800, 'weg_tempo': 0.6, 'rennen_aus_gehen': 1.4,
+                 # Liste 4: schlammbraun, kränklich gelbgrau, dunkel ocker; nirgends rosa
+                 'felle': {'schlamm': (0x4E3E2C, 0x221A12, 0x6E5A42), 'gelbgrau': (0x7E7A5E, 0x3A3628, 0x9C9678), 'ocker': (0x664624, 0x281A0C, 0x86663A)}},
 }
 # Runde 2: Bewegungen, die in der Quelle rückwärts liegen (gemessen: Tod des Keilers beginnt liegend, 0,44 m unter dem Boden, und
 # endet stehend)
@@ -92,7 +113,9 @@ def suche(d, muster):
     """494 (Lauf 225: der Hundertfüßer kam als unitypackage, „skin.FBX nicht gefunden“): Dateinamen ohne Rücksicht auf Groß- und
     Kleinschreibung; bei Unity auch „<Tier>@<Bewegung>.fbx“"""
     m = muster.lower()
-    return sorted(os.path.join(w, f) for w, _, fs in os.walk(d) for f in fs if fnmatch.fnmatch(f.lower(), m) and '/.git' not in w)
+    r = sorted(os.path.join(w, f) for w, _, fs in os.walk(d) for f in fs if fnmatch.fnmatch(f.lower(), m) and '/.git' not in w)
+    # 494 Säureschnecke: Rohdateien und Unity-Paket tragen dieselben Namen; „pfad“ zieht die Treffer mit diesem Teil im Ordner vor
+    return [p for p in r if T.get('pfad', '') in p.lower().replace('.', ' ')] or r
 
 
 def auspacken():
@@ -100,7 +123,7 @@ def auspacken():
     Unity-.anim, für Blender unbrauchbar): die Zips des Tiers mit „fbx“ (sonst alle) in einen eigenen Ordner außerhalb des Kaufs
     auspacken und dort suchen. Nur auf dem Läufer, nichts davon kommt ins Repo."""
     import zipfile, tempfile
-    stamm = T['tex'].rstrip('*').lower()
+    stamm = T.get('zip', T['tex'].rstrip('*')).lower()     # 494 Riesenegel: Bild und Zip heißen verschieden („zip“)
     zips = [z for z in suche(KAUF, '*.zip') if stamm in z.lower()]
     zips = [z for z in zips if 'fbx' in os.path.basename(z).lower()] or zips
     if not zips:
@@ -127,9 +150,9 @@ def quelle():
                 if stamm in os.path.join(w, f).lower() and '/.git' not in w: print('  ', os.path.relpath(os.path.join(w, f), KAUF))
         sys.exit('%s nicht gefunden unter %s' % (T['rig'], KAUF))
     d = os.path.dirname(os.path.dirname(t[0]))
-    tex = suche(d, T['tex'] + '.tga') + suche(d, T['tex'] + '.png')
+    tex = suche(d, T['tex'] + '.tga') + suche(d, T['tex'] + '.png') + suche(d, T['tex'] + '.jpg')     # 494: Protofactor liefert jpg
     if not tex:     # ausgepackt ohne Bild: das Bild aus dem Kauf (Unity Assets/Textures)
-        tex = suche(KAUF, T['tex'] + '.tga') + suche(KAUF, T['tex'] + '.png')
+        tex = suche(KAUF, T['tex'] + '.tga') + suche(KAUF, T['tex'] + '.png') + suche(KAUF, T['tex'] + '.jpg')
     return t[0], d, tex[0] if tex else None
 
 
@@ -322,7 +345,18 @@ def hub(rig, a, h):
     print('HUB %s %s: Wurzel %.2f-%.2f m, im Hoch bis %.2f m gehoben' % (TIER, a.name, lo, hi, h))
 
 
+def koerper(meshes, ohne):
+    """Maske über welt_netz: Ecken, die nicht vor allem an Knochen mit diesem Namensanfang hängen"""
+    m = []
+    for o in meshes:
+        gn = [g.name for g in o.vertex_groups]
+        m += [not (len(v.groups) and gn[max(v.groups, key=lambda g: g.weight).group].startswith(ohne)) for v in o.data.vertices]
+    return np.array(m, bool)
+
+
 def baue(fell):
+    if 'formen' in T:     # 494 Riesenegel: je Fell eine andere der vier Formen des Kaufs (Netz, Gerüst, Bild)
+        T['rig'], T['tex'] = T['formen'][fell]
     fbx, d, tex = quelle()
     bpy.ops.wm.read_factory_settings(use_empty=True)
     scn = bpy.context.scene; scn.render.fps = FPS
@@ -347,6 +381,15 @@ def baue(fell):
     for nm in RUECKWAERTS.get(TIER, []):
         if nm in akt:
             spiegeln(akt[nm]); print('RUECKWAERTS', nm, 'gespiegelt')
+    if T.get('dreiecke') and tris(meshes) > T['dreiecke']:     # 494 Säureschnecke: 11.240 Dreiecke, Regel unter 6.000 (Modellregel 7)
+        t0 = tris(meshes)
+        for o in meshes:
+            if o.data.shape_keys: o.shape_key_clear()
+            bpy.ops.object.select_all(action='DESELECT'); o.select_set(True); bpy.context.view_layer.objects.active = o
+            m = o.modifiers.new('duenn', 'DECIMATE'); m.ratio = T['dreiecke'] / t0
+            bpy.ops.object.modifier_move_to_index(modifier='duenn', index=0)
+            bpy.ops.object.modifier_apply(modifier='duenn')
+        print('DUENN %s: %d -> %d Dreiecke' % (TIER, t0, tris(meshes)))
     rig.animation_data_create()
     if 'Stehen' in akt:
         setze(rig, akt['Stehen'])
@@ -365,7 +408,7 @@ def baue(fell):
         o.data.materials.clear(); o.data.materials.append(mat)
     # Blick: Kopf zur langen Achse; Janpec und MadeCG schauen nach −Y oder +Y (Blender), gewünscht −Y (glTF +Z). Runde 2: Maß, Boden
     # und Mitte im Stehen, vor den NLA-Spuren (sonst zählt die oberste Spur)
-    kb = [b for b in rig.pose.bones if 'head' in b.name.lower()]
+    kb = [rig.pose.bones[T['kopf']]] if 'kopf' in T else [b for b in rig.pose.bones if 'head' in b.name.lower()]
     lang = 0 if (hi - lo)[0] > (hi - lo)[1] else 1
     vor = np.sign((rig.matrix_world @ kb[0].head)[lang] - (lo + hi)[lang] / 2) if kb else -1.0
     blick = [0.0, 0.0]; blick[lang] = vor
@@ -374,7 +417,10 @@ def baue(fell):
     rig.parent = aussen
     aussen.rotation_euler = (0, 0, dreh)
     bpy.context.view_layer.update()
-    P = welt_netz(meshes, f0); lo, hi = P.min(0), P.max(0)
+    P = welt_netz(meshes, f0)
+    if 'laenge_ohne' in T:     # 494 Säureschnecke: die Zunge liegt in Ruhe 0,55 m vor dem Maul; Länge und Mitte ohne sie
+        P = P[koerper(meshes, T['laenge_ohne'])]
+    lo, hi = P.min(0), P.max(0)
     k = (T['laenge'] / float(hi[1] - lo[1]) if 'laenge' in T else 1.0) * T.get('groesser', 1.0)
     aussen.scale = (k, k, k)
     aussen.location = (-(lo[0] + hi[0]) / 2 * k, -(lo[1] + hi[1]) / 2 * k, -lo[2] * k)
@@ -420,6 +466,8 @@ def baue(fell):
     for nm in ('Gehen', 'Rennen'):
         if nm in akt:
             v = am_boden(rig, akt[nm], meshes, beine)
+            if 'weg_tempo' in T:     # 494 Egel, Schnecke: ohne Beine kein Tempo aus den Füßen; fest (Schnecke aus CrawlForward_RM)
+                v = T['weg_tempo']; print('TEMPO %s %s: fest %.2f m/s' % (TIER, nm, v))
             if nm in T.get('tempo_ziel', {}) and v > 0.0:
                 tempo[nm] = round(max(1.0, T['tempo_ziel'][nm] / v), 2)
             if nm == 'Rennen' and akt['Rennen'] is akt.get('Gehen'):

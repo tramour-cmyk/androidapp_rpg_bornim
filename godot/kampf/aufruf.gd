@@ -17,6 +17,10 @@ var kampf: Node
 var tabellen: Dictionary
 
 
+## 494 (Kauf 348.12c, LISTE-FIGUREN): der Riesenegel ersetzt die Stirge, die Säureschnecke die Ockergallerte
+const NAMEN_494 := {"LEECHES": ["Riesenegel", "Giant Leech"], "SLUGS": ["Säureschnecke", "Acid Slug"]}
+
+
 ## Die Gegner einer Gruppe (Aufstellung, Namen und Aussehen wie im Probekampf; probe.gd ruft das auch)
 static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 	var foes := []
@@ -48,8 +52,12 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 		# 494 (von Tom, 492: Krogg bewacht in der Höhle den rostigen Schlüssel): Krogg allein wie im alten Spiel (Packs.kt ohne Rudel für
 		# bugbear), seine Regeln aus Monsters.kt (tabellen.json, Überraschungsschlag), Morwens Rauch in MARS (lage „rauch“)
 		"KROGG": [["krogg", "bugbear", Vector2i(0, 0)]],
+		# 494 (Kauf 348.12c): Riesenegel statt der Stirge, Säureschnecke statt der Ockergallerte, je allein wie im alten Spiel (kein Rudel),
+		# Regeln aus Monsters.kt (stirge, ochre_jelly), Namen nach LISTE-FIGUREN; im Bild die gekauften (kauftier.py TIER=egel, schnecke)
+		"LEECHES": [["leech", "stirge", Vector2i(0, 0)]],
+		"SLUGS": [["slug", "ochre_jelly", Vector2i(0, 0)]],
 	}.get(foe, [])
-	Figur.ersatz_art = {"RATS": "giant_rat", "BATS": "giant_bat", "SHAMANS": Figur.SHAMAN, "KOBOLDS": Figur.KOBOLD, "BOARS": "kauf_keiler", "CENTIPEDES": "kauf_hundertfuesser"}.get(foe, "")
+	Figur.ersatz_art = {"RATS": "giant_rat", "BATS": "giant_bat", "SHAMANS": Figur.SHAMAN, "KOBOLDS": Figur.KOBOLD, "BOARS": "kauf_keiler", "CENTIPEDES": "kauf_hundertfuesser", "LEECHES": "kauf_egel", "SLUGS": "kauf_schnecke"}.get(foe, "")
 	# 348.12f eingebaut (Chef 28.10., 11:50: Kaufwolf abgenommen, Archiv 27.10., 21:51: „eigener entfällt“): Wölfe sind der gekaufte
 	# Wolf, sobald er gebaut beiliegt (godot-kampf.yml „Modelle bauen“); ERSATZ geht weiter vor
 	if foe in ["WOLVES", "GRIMM", "SPIDER", "RUDEL"] and FileAccess.file_exists("res://kampf/daten/kaufwolf-info.json"):
@@ -74,6 +82,10 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 			m = m.duplicate()
 			m.de = "Riesenfledermaus"
 			m.en = "Giant Bat"
+		elif foe in NAMEN_494:     # 494: Name nach LISTE-FIGUREN (Regeln noch unter dem alten Namen)
+			m = m.duplicate()
+			m.de = NAMEN_494[foe][0]
+			m.en = NAMEN_494[foe][1]
 		elif foe == "SHAMANS":     # Name aus den Regeln (Monsters.kt goblin_shaman)
 			m = m.duplicate()
 			m.de = "Goblin-Schamane"
