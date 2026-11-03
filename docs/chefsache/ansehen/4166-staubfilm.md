@@ -10,6 +10,6 @@ Film: Telegram 03.11., 11:03
 
 **Befund Prüfer (11:02):** der Held geht in allen Bildern, rennt nicht; ein einziges Staubwölkchen bei 1,1 s, sonst keins. Signatur (Tusche, Toon), Schatten unter dem Körper, Bildausschnitt in Ordnung.
 
-**Ursache, soweit bekannt:** Lauf 1 (226): das Filmskript setzte nur das Laufen des Helden, das Spiel überschrieb es jedes Bild. Lauf 2 setzt den Rennwunsch wie Ring oder Renntaste; er geht trotzdem. Noch nicht nachgestellt; der Test ohne Bild (blut_4166) zeigt Staub beim Rennen.
+**Ursache (nachgestellt 11:12, Test rennen_weg_4166):** der Held läuft im Film zu einem Ziel wie nach Tippen; dabei fiel er an jedem Feld wieder ins Gehen zurück, darum kaum Staub. Das hat Tom unter 416.4 (Ruckeln zum angetippten Ziel) schon behoben, noch nicht im Build; mit seiner Behebung rennt er im Test durch. Ein neuer Film erst, wenn 416.4 drin ist, und nur mit deinem Wort.
 
 Antwort im Gespräch: „passt“, oder was anders sein soll; weitere Läufe nur mit deinem Wort.
