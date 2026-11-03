@@ -58,6 +58,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 08:53 03.11.: Neustart Jerry eb1f72c66 → `79f7` „406.2, 496a“, alter Jerry `79vC` archiviert (Kosten nicht lesbar); Neustart Sokrates a7c5cc0de → `78Hm` „348.12c“ (Chefwort 08:50), alter `78Ud` archiviert, 19,88 $ auf 466.
 - 08:02 03.11.: Homer `768H` „504, 447.4“ (07:58, Chefwort 07:56) und Jerry-Nachfolger `79vC` (07:39) gestartet; Spike-Neustart f916466f3 angenommen, Nachfolger `77Ed`, alter Spike `76Te` archiviert (Kosten nicht lesbar); alter Jerry `79Wf` archiviert, 10,48 $ auf 406 (Rest 10,47 $ nicht buchbar: eine Buchung je Sitzung); alter Ford `76TkJ` weiter abgelehnt.
 - 07:05 03.11.: Perikles `77rA` „488, 448“ gestartet (Chef „488 ja“, Ausnahme zu 468a, Sokrates 06:45); Morgenmeldung 07:04 laut; Starts Tom 417, Spike 463, Tuffy 406.2, Homer 427.2, Diogenes 374 aus lauf.py nicht ausgeführt (468a, 488 friert 417/463/406 ein); alter Ford `76TkJ` unarchiviert (Klassifizierer), 9,29 $ gebucht.
 - 08:21 01.11.: Neustart Jerry 0df217a41 angenommen: Nachfolger `01Hmoj77wY` „438 Prüferbefunde Wölfe“; alter Jerry `79d2` archiviert, 20,94 $ auf 403,406,438; Diogenes 374/434 `76ve` 08:05 gestartet; Sokrates (`7725`) per Nachricht auf 416.4a-Stellungnahme und D54 (422/427)
