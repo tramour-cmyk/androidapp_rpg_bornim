@@ -8,6 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 530 | M | **von Sokrates (Chef 03.11., 23:40, Build 249):** „Schlagbaum öffnet sich nicht visuell.“ Merker `barrier_open` (`geschichte.gd` 58) und Erzähltext kommen, das Modell bleibt zu; nachstellen, auch nach Laden eines Spielstands | startbar | – |
 | 522 | M | **von Sokrates (Chef 03.11., 23:33, Build 249; Zu 522):** „im Testmenü Ausrüstung des Helden geändert (Schild gegeben), aber im Spiel kein Schild“; Ursache nachstellen, auch nach Anlegen im Ausrüstungsschirm | startbar | – |
 | 521 | M | **von Sokrates (Chef 03.11., 23:23, Build 249, Bild; Zu 521):** Wechselschirm (Platz antippen): Gegenstände kaum zu unterscheiden; Zeile wie alt `GearRow` | startbar | – |
 | 520 | M | **von Sokrates (Chef 03.11., 23:19, Build 249, Bild; Zu 520):** Ausrüstung: „Warum ist der Held so klein? Warum hat er nichts an von den Sachen?“ Chef 23:21: nur Größe wie alt jetzt; Kleidung mit 455 | startbar: „jetzt“ 03.11., 23:21 | – |
