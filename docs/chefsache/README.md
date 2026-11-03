@@ -12,14 +12,6 @@ Nichts offen.
 
 ## Anzusehen
 
-**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
-
-| Nr. | Was | Wer | Seit |
-|---|---|---|---|
-| [492](ansehen/492-hoehle.md) | Blutzahnhöhle begehbar wie alt: Standbilder aus Sicht des Helden | – | 03.11., 16:15 |
-| [513](ansehen/513-figurenstand.md) | Ein Figurenstand: Schild am Rücken, Robe des Magiers, Umhang | – | 03.11., 19:28 |
-| [514](ansehen/514-gluehwuermchen.md) | Glühwürmchen nachts wie im alten Spiel | – | 03.11., 19:10 |
-
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
 | Folge | Version | Build | Was | Wer | Seit |
@@ -51,19 +43,19 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 70, Muss 49, startbar 12
+**Tom** – offen 70, Muss 49, startbar 16
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 490 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488): Flüsterwald begehbar wie alt (Story.kt:524, | wartet auf Test (Build) |
 | 495 | M | von Perikles (Wochenziel 03.11. Reihe 4, 488): Zufallsspieler spielt Kapitel 1 in Godot bi | Termin 04.11. |
 | 491 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Tiefer Flüsterwald begehbar w | wartet auf Test (Build) |
-| 505 | M | von Perikles (Archiv 502, Chef 03.11., 07:30, Zu 502 in ARBEIT-PROJEKT): Nebel des Krieges | wartet auf Sokrates |
-| 514 | M | von Sokrates (Chef 03.11., 16:01, zu 490: „Gibt es nachts vernünftige Glühwürmchen überall | Chef |
+| 505 | M | von Perikles (Archiv 502, Chef 03.11., 07:30, Zu 502 in ARBEIT-PROJEKT): Nebel des Krieges | startbar |
+| 514 | M | von Sokrates (Chef 03.11., 16:01, zu 490: „Gibt es nachts vernünftige Glühwürmchen überall | startbar |
 | 515 | M? | von Sokrates (Chef 03.11., 16:07, zu 491: „3 bis 4 können auch halbwegs versteckt sein unt | startbar |
 | 493 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; Spike, von Jerry übernommen, Chef 07:54): Ka | wartet auf Test (Build) |
 | 506 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; Spike, aus 494): Untote im Kampf: Skelett, Z | wartet auf Jerry |
-| 492 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Blutzahnhöhle begehbar wie alt (Story.kt:73 | Chef |
+| 492 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Blutzahnhöhle begehbar wie alt (Story.kt:73 | startbar |
 | 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | wartet auf Sokrates |
 | 417 | M | von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“): Tragart je Waffenklasse (Zu 417), | startbar |
 | 416.9 | M | von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“): Laden, Verkaufen, „angelegt“ mit | wartet auf Test/Build (gebaut) |
@@ -79,7 +71,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 501 | M | von Sokrates (Chef 03.11., 07:26, Build 204; Zu 501): Schänke: Feuer im Kamin schwebt; Fla | wartet auf Test (Build) |
 | 500 | M | von Sokrates (Chef 03.11., 07:24, Build 204; Zu 500): Probeknöpfe rechts in der Welt entfe | wartet auf Test (Build) |
 | 499 | M | von Sokrates (Chef 03.11., 07:14, Build 204; „jetzt“ 03.11., 07:14; Zu 499): Erschaffung: | startbar |
-| 513 | M | von Sokrates (Chef 03.11., 15:56, „513 B“, „jetzt“ 03.11., 15:56; Archiv): Figurenstand 41 | wartet auf Sokrates |
+| 513 | M | von Sokrates (Chef 03.11., 15:56, „513 B“, „jetzt“ 03.11., 15:56; Archiv): Figurenstand 41 | startbar |
 | 498 | M | von Sokrates (Chef 03.11., 07:13; Zu 498): Schriftbild wie in der Kotlin-Fassung (Größe, S | wartet auf Test/Build (gebaut) |
 | 497 | M | von Sokrates (Chef 03.11., 07:09, Build 204; Zu 497): „Über das Spiel“: Lizenzhinweis der | wartet auf Test (Build) |
 | 463 | M | von Sokrates (Chef 01.11., 20:3x, Zu 463): Umhang und lange Robe geschlossen: eine Ursache | startbar |
@@ -124,9 +116,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 | D71.1 | K | von Diogenes (374/434, Vortag 02.11.): ohne „Bestand geprüft“ (434): 417 00:53, 02:24, 03: | startbar |
-| Pflege | K | von Werkzeug (340.3, 03.11.): 46595 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
+| Pflege | K | von Werkzeug (340.3, 03.11.): 47403 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Jerry** – offen 60, Muss 48, startbar 2
+**Jerry** – offen 59, Muss 48, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -157,7 +149,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 509 | M | von Sokrates (Chef 03.11., 09:21): Frösche und Libellen an den Teichen wie alt (PondLife.k | wartet auf Perikles |
 | 494 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Gegner von Kapitel 1 im Kampf (Liste und St | startbar |
 | 517 | M | von Team Tom (03.11., 16:3x, Abgleich 512): Waldklang wie alt: Vögel am Tag, Eule und Gril | wartet auf Test/Build (gebaut) |
-| 507 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; aus 492): Kampforte Höhle wie alt: Eingang, | wartet auf Sokrates |
+| 507 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; aus 492): Kampforte Höhle wie alt: Eingang, | startbar |
 | 496a | M | Rückfrage: abgenommene Kampfbilder schon in den Durchspiel-Build? | wartet auf Test (Build) |
 | 496 | M | von Perikles (Wochenziel 03.11. Reihe 5, 488): Durchspiel-Build aus 490–495: der Chef spie | wartet auf 490 (zu testen) |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
@@ -189,7 +181,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | 469 | M | von Sokrates: Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
-| Pflege | K | von Werkzeug (340.3, 03.11.): 15064 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 31, Muss 27, startbar 2
 
@@ -242,19 +233,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 40, Muss 29, startbar 20
+**Sokrates** – offen 36, Muss 25, startbar 16
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 513 | M | von Team Tom (Spike, 03.11., 19:3x; 480.1): zwei neue Läufe für 513: in Probe 1 und 2 fehl | startbar |
 | 508 | M? | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
 | 488 | M | von Chef (02.11., 22:44, „dann frieren wir das mal ab einem gewissen Punkt ein … kümmern u | wartet auf Perikles |
 | 461b.4 | M | von Perikles (deine Liste 461b, 02.11., 19:1x, Punkte 7, 9): Köpfe von DESIGN-SPIELSYSTEM- | startbar |
 | 468 | M | von Chef (02.11., 07:33, Bild „Nutzung“: 36 %): weiter mit Wächter bis Sa 19:59 (ja 11:13, | startbar |
 | 415d | M | von Chef (02.11., 20:05, „Hatten wir nicht weitere Effekte vorgesehen?“): Kauf der zwei Ef | wartet auf Jerry |
-| 505 | M | von Team Tom (03.11., 18:51): Bitte „505, Läufe frei“ (480.1), ein Lauf: beide Läufe nach | startbar |
-| 507 | M | von Team Jerry (03.11., 15:29): Bitte „507, Läufe frei“ (480.1): Lauf 247 (2 von 2) Prüfer | startbar |
-| 431f | M | von Team Tom (02.11., 21:5x): Bitte „431f, Läufe frei“ (480.1): beide Läufe ohne Messwert | startbar |
 | 483 | M | von Chef (02.11., 19:08, „Das mit den Filmen klappt nicht, da ich konstant wieder Fehler a | wartet auf Perikles |
 | 481 | M | von Chef (02.11., 18:54, „Herkünfte auch“; 18:55 Kräutersammler mit Tränken, Zu 481): Herk | startbar |
 | 398 | M | von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr g | wartet auf Perikles |
