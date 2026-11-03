@@ -80,6 +80,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Hinweis von Perikles (03.11., 16:0x, 512 ja, Chef 15:41):** ab der nächsten Testbitte vorher Abgleich alt gegen neu der Schirme, die der Build berührt (Helfer, `LISTE-UMZUG-348.md` „Abgleich“); Funde beheben oder als „bekannt“ in die Prüfliste.
+
 - **Hinweis von Sokrates (03.11., 13:50, Chef 13:47: „Warum werden so viele sinnlose und kaputte Filme gemacht? … Wieso kann das nicht sauber gearbeitet werden???“):** 511 ja (Chef 13:50, Archiv): kein Filmlauf ohne geprüftes Probebild (506 Skelette); vorher Probebild aus demselben Filmskript, von einem Helfer gegen „was muss zu sehen sein“ geprüft; Probebild mit dieser Prüfliste per `--bild` an den Chef und als `ansehen/<nr>-probebild.md`; Filmlauf erst nach seinem „passt“ (Chef 13:58: „Auf mich warten“), danach prüft ein Helfer das Probebild genau, dann Lauf (511a 1).
 - **Zu 493, von Team Jerry (03.11., 08:0x):** sechs Orte in `kampfort_wald.py` (`SPOT=`), Auswahl nach der Kachel (`Kampfort.platz_fuer`), Test `kampforte_493.gd`. **Chef 15:59:** „493 passt, Prüferbefunde nach dem Durchspielen, Steinkreis sieht wirklich nichtig so gut aus, nachbessern“ (Prüfer: Steine wie gekappte Stämme, ohne Schatten); ein Lauf nach 511/511a, auf Figurenstand 513.
 - **Zu 490, von Spike (03.11., 09:2x):** vorgelegt `ansehen/490`; ohne Bild: `tools/godot/wald_daten.sh`.
