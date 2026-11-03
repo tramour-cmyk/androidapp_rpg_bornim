@@ -63,6 +63,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 - **Zu 445, von Sokrates (Chef 01.11., 09:24–09:32):** Vorschlag für `CLAUDE.md` „Wie wir zusammenarbeiten“ 4 und `docs/chefsache/README.md`: „Auswertung mit stärkstem Gegenargument“ ersetzen durch „… und dem Weg, es zu entkräften (ins Votum)“; ersetzt, fügt keine Regel hinzu. Perikles entscheidet.
 - **Ältere Einzelheiten** (Zu 433, 424, 407, 412, 408, 418, 421, 436, 384, 383, 275 Stufe 1, 347.2, 378, 338, 381.1, 276, Fehler 341 Woche 19.–25.10., Wortlaute ab 234): Git, Stand vor „Perikles: 461d einsortiert, Vorrat gekürzt“; offen daraus: D51.1, D51.2, D53.1, D53.2, `tools/regeltreue/stufe2/CLAUDE.md` alte Direktive.
 - **Zu 275, offen für Stufe 2** (frühestens 03.11., wenn Diogenes keinen Werkzeugfehler zählt): Commit-Prüfung lehnt Handänderungen an `LISTE-VORGAENGE.md` ab (braucht `vorgang.py neu` und einen Weg für `lauf.py --kosten`).
+- **Zu 275, D69.1, D70.1, von Diogenes (Lauf 69, 03.11., 15:2x):** alles behoben, kein Werkzeugfehler: Stufe 2 frei; D69.1, D70.1 streichen.
 
 - **Zu 347.2, offen:** Auswertung bei Sokrates (347 in seinem Vorrat); `tools/regeltreue/stufe2/LISTE-REGELN.md` trägt noch die alte Pause-Regel (bei Stufe 2 nachziehen).
 

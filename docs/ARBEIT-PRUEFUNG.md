@@ -2,18 +2,16 @@
 
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
-**Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D71 (Lauf 68: Nachprüfung D67.1, D68, 461b-Anhänge, D69, D70; Lauf 67: 340.4/340.5 ohne Nummer; Lauf 66: 480/480.1/340.3, D68; Lauf 65: 484 Abkürzungen, D67; Lauf 64: 447.4, D66, `5c3d13358`; Lauf 63: Nachprüfung D63/D64.1, D65, `036b48029`; Lauf 62: 407, D64, `bb1205e31`; Lauf 61: Woche, D63, `73ab91995`; ältere Läufe im Prüfbericht und in Git).
+**Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D71 (Lauf 69: Nachprüfung 275 D46.3/D46.5/D47.2, D69.1, D70.1, ohne Befund; Lauf 68: Nachprüfung D67.1, D68, 461b-Anhänge, D69, D70; Lauf 67: 340.4/340.5 ohne Nummer; Lauf 66: 480/480.1/340.3, D68; Lauf 65: 484 Abkürzungen, D67; Lauf 64: 447.4, D66, `5c3d13358`; Lauf 63: Nachprüfung D63/D64.1, D65, `036b48029`; Lauf 62: 407, D64, `bb1205e31`; Lauf 61: Woche, D63, `73ab91995`; ältere Läufe im Prüfbericht und in Git).
 
-**Übergabe (02.11., 20:0x, „Diogenes – D63: Nachprüfung“):** Läufe 63, 65–68 (Doppelpacks D63–D69 an Perikles), 485 angelegt (Wochentermine, Vergleichsbilder, Meldungen ohne Abkürzungen; Wirkung 09.11.), Rollenspiegel 02.11. beantwortet; vorher Lauf 64 (447.4, andere Sitzung). Nachfolger: „Diogenes – 374: Stichprobe“ 03.11., 8 Uhr (Vortag 02.11., mit 434; danach 374 nur in der Wochenzählung).
+**Übergabe (03.11., 15:2x, „Diogenes – 275: Nachprüfung“):** Lauf 69 (275 D46.3, D46.5, D47.2 und D69.1, D70.1 behoben, ohne Befund; Perikles in „Zu 275“ benachrichtigt). Nachfolger: „Diogenes – 511: Filmsperre“ am ersten echten Filmlauf; sonst Wochenzählung Mo 09.11.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
-| 275 | M | **von Perikles (Doppelpack 421, 03.11., 14:1x, `334ec650d`):** Nachprüfung D46.3 (`entschieden()`: nur Kopf „**X“, nicht X.1; Liste nur erledigt/fertig), D46.5 (`vorgang.py` kennt offen, aufgeteilt, Idee wie 4a), D47.2 (`startbar.py` zeigt Leichen als eine Muss-Zeile wie `lauf.py`); zählst du keinen Werkzeugfehler, beginnt Perikles Stufe 2 | startbar |
-| 511 | M | **von Perikles (Doppelpack 421, 03.11., 14:0x, `d6d9eca8c`):** `probelauf.py` hält jeden Filmlauf an bis Probebild, „<Nr> Probebild passt“ im Archiv, Helfer ok (511a); `LISTE-BAUEN-TESTEN.md` Prüftreppe 4 ersetzt Ausnahme 461a/480. Prüfen: greift am ersten echten Filmlauf, Test-Pushes ohne Film frei; dazu `b3562a719`: Arbeitskopie mit `settings.json` von vor ff8821827 (ohne MCP-Haken, Spike Lauf 244 ungezählt) wird angehalten, bis `main` gemischt ist | am ersten Filmlauf nach 14:03 |
-| D69 | M | **von Perikles (Doppelpack 421, 02.11., 20:0x, `45468a5d7`):** Nachprüfung D69.1 (`meldung.sh`: Dateinamen gehen durch, Kürzel halten weiter an) und D70.1 (Archiv 480, 415c „teils ersetzt“) | startbar |
+| 511 | M | **von Perikles (Doppelpack 421, 03.11., 14:0x, `d6d9eca8c`):** `probelauf.py` hält jeden Filmlauf an bis Probebild, „<Nr> Probebild passt“ im Archiv, Helfer ok (511a); `LISTE-BAUEN-TESTEN.md` Prüftreppe 4 ersetzt Ausnahme 461a/480. Prüfen: greift am ersten echten Filmlauf, Test-Pushes ohne Film frei; dazu `b3562a719`: Arbeitskopie mit `settings.json` von vor ff8821827 (ohne MCP-Haken, Spike Lauf 244 ungezählt) wird angehalten, bis `main` gemischt ist | wartet auf den ersten echten Filmlauf nach 03.11., 14:03 |
 | 340.2 | M | **von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv):** Wirkung 340.3–340.5 zählen (Tabelle „Änderungen“ in `LISTE-ROLLENSPIEGEL.md`, Spalte „gewirkt“) | ruht bis Mo 09.11. |
 | 485 | M | **„jetzt“ 02.11., 19:37 (Chef: „1, 2, 3 ja, fang an.“):** (1) Wochentermine „gelaufen ja/nein“ zählen; (2) 348.9 Vergleichsbilder selbst holen und messen; (3) Meldungen ohne Abkürzungen (Zu 485) | ruht bis Mo 09.11.: Wirkung zählen; (1) und (2) erledigt 02.11., 19:4x, (3) gilt |
 | 483 | M | **von Perikles (Doppelpack 421, 02.11., 19:4x):** `meldung.sh --film` legt je Film einen Zweig `film/<Zeit>-<Nr>` mit nur dieser Datei an, Link über jsDelivr; prüfen am nächsten echten Film (Link spielt ab, Datei in `ansehen/` hat ihn) | wartet auf den nächsten echten Film |

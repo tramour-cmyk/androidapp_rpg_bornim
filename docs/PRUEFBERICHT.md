@@ -30,6 +30,16 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 69 · Nachprüfung D46.3, D46.5, D47.2 (275), D69.1, D70.1 (Doppelpack 421; `main` nach `334ec650d`; 03.11., 15:2x; `entschieden()` gegen das Archiv, `vorgang.wort()`, `startbar.py` und `lauf.stand()` auf einer Kopie mit zwei eingesetzten Leichen, `meldung.sh --probe` mit 11 Texten)
+
+- **D46.3 behoben:** 296 und 347.2 gelten nicht mehr als entschieden (nur Unternummern im Archiv, Liste „gebaut“); 348.13, 340.2, 480, 427 weiter ja (eigener Kopf im Archiv). Testzeile „wartet auf Urteil 296“ wird keine Leiche, „wartet auf Urteil 348.13“ wird eine. „entschieden“ und „freigegeben“ zählen in der Liste nicht mehr; alle 6 solchen Listenzeilen haben einen Archivkopf, also kein Verlust.
+- **D46.5 behoben:** `vorgang.py` kennt dieselben 13 Wörter wie `regelcheck.py` 4a („offen“, „aufgeteilt in …“, „Idee“ gehen durch).
+- **D47.2 behoben:** Kür-Leiche bei Tom (Testzeile) erscheint in `startbar.py` und `lauf.py` gleich als erste Muss-Zeile „Leichen: Stand berichtigen (275): …“; die Kür zeigt die nächste lebende Zeile (476).
+- **D69.1 behoben:** „DESIGN-SPIELSYSTEM-2-0-ENTWURF.md“, „ARBEIT-TEAM-TOM.md“, „LISTE-ABNAHME-KAPITEL1.md“, „LISTE-VORGÄNGE.md“, „02-1457-470-Spike.png“ gehen durch; „HP“, „HP-Balken“, „K1“, „NW 3“, „KI“ halten weiter an; Kennungen D69.1, t146, A1 gehen durch. Ohne Gewicht: „DESIGN-Dateien“ (Vorsilbe ohne Endung) hält an.
+- **D70.1 behoben:** 480 und 415c tragen „→ teils ersetzt durch 480.1 … das Übrige gilt“.
+
+**Befund:** keiner. Für 275 kein Werkzeugfehler gezählt: Stufe 2 frei (Bedingung Perikles). **Nicht geprüft:** 511 (wartet auf den ersten echten Filmlauf); sonst nichts seit `51707abf`.
+
 ## Lauf 68 · Nachprüfung D67.1, D68.1, D68.2 (Doppelpack 421; `main` nach `4c0174b29`; 02.11., 20:0x; `meldung.sh --probe` mit 17 Texten, darunter meine Meldung 447.4 von 19:3x; `urteil()` gegen das Archiv)
 
 - **D67.1 behoben:** „K1“, „HP-Balken“, „s. o.“, „u.U.“, „m. E.“, „H1“, „V2“ halten an; „OK“, „JPG“, „GIF“ und Zitate in „…“ gehen durch; Kennungen (A1, G2, O3, W1, D67.1, t146) gehen durch.
