@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 511 | M | **von Sokrates (Chef 03.11., 13:50, „511 ja“, Archiv; „jetzt“ 03.11., 13:50):** `probelauf.py` startet einen Filmlauf nur mit Verweis auf ein geprüftes Probebild (selbes Filmskript, Helfer gegen „was muss zu sehen sein“); Regel in `LISTE-BAUEN-TESTEN.md`, Regelbilanz | startbar | – |
 | 506a | M | **von Team Tom (Spike, 03.11., 09:5x):** 506 sagt Zombie und Ghul „auf dem CC0-Menschen“, Archiv 348.12c (26.10.) ersetzt sie durch Wiedergänger und Grabhund (Kaufmodelle, nicht gekauft); was gilt? Skelett baut Spike bis dahin (in beiden gleich) | startbar | – |
 | 502 | M | **von Sokrates (Chef 03.11., 07:28; Zu 502):** Nebel des Krieges und Sichtfeld des Helden in „Orte und Welt“ (neben W15) und Abnahmeliste aufnehmen, Bau an Tom nach Vorrang 488 | gebaut 03.11., 07:5x: Welt W24, W25, Bau 505 bei Tom; Geprüft an: b3cc2e427 | – |
 | 488 | M | **von Sokrates (Chef 03.11., 06:44, „488 ja“, Archiv 488; „jetzt“ 03.11., 06:44):** Wochenziel nach Durchspielbarkeit von Kapitel 1 ordnen; Mängelliste „nach dem Durchspielen“ | gebaut 03.11., 07:1x: Wochenziel 03.11., 490–496; Geprüft an: a5d768fc5 | – |
