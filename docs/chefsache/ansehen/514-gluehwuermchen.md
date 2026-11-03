@@ -1,5 +1,7 @@
 # 514 · Glühwürmchen nachts wie im alten Spiel · Team Tom · 03.11., 19:10
 
+[Bild von 03.11., 19:12](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/03-1911-514-Tom.jpg) (eingetragen von meldung.sh, Tom)
+
 O Orte
 Kurz: Glühwürmchen wie im alten Spiel auf allen Gebietskarten; Bild aus dem Spiel, Dorf und Flüsterwald nachts, je zwei Augenblicke; Lauf 2 von 2
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41682936902 (Lauf 2, Commit dd4cb1d1a); Test gluehwuermchen_514 ohne Fehler
