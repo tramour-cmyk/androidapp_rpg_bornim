@@ -11,6 +11,9 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 527 | M | **von Sokrates (512, Abgleich Build 249 im Code; Zu 527):** System: Schalter „Tempo“ und „Kampftext“ wirken im Kampf nicht; anschließen oder ausblenden, bis sie wirken | gebaut: Tempo über Engine.time_scale, Kampftext ausgeblendet (wirkte alt nur klassisch), fährt im nächsten Build (claude/jerry-527-tempo-kampftext); Geprüft an: 6a1e5eab8 (tempo_527, menue_test) | – |
+| 545 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS-Probekampf: Testknöpfe „Gegner besiegen“ (✓) und „Held fällt“ (✗) ohne Funktion | startbar | – |
+| 546 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS: Wölfe weichen viel zu träge aus („wie Schlaftabletten“) | startbar | – |
+| 547 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS: Text sagt „geht in die Knie“, Sturz ist aus (438a eingefroren): Text und Bild in Einklang bringen | startbar | – |
 | 544 | M | **von Sokrates (Chef 03.11., 23:49, Build 249, Bild MARS-Probekampf: „Stimmt die Schrift?“):** Kampfschirm in Ersatzschrift ohne Serifen statt Alegreya wie Menü; vermutlich `kampf_ui.gd` 95–99 `load_dynamic_font("res://…ttf")` schlägt in der APK fehl → `fallback_font`; `stil.gd` 22 nimmt `load()`. Erst nachstellen | in Arbeit bei Jerry (Zweig claude/jerry-544-kampfschrift) | – |
 | 532 | M | **von Sokrates (512, Abgleich Build 249 im Code; Zu 532):** Kampf: Held geht ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch und ohne die ganze Tasche (nur einfacher Heiltrank) in den Kampf, danach wird nur TP zurückgeschrieben; Zauber kosten nichts | gebaut: ZP, Verbrauchtes, Zustände, nächster Build (Zu 532); Rest 532a; Geprüft an: cfc2c499b | `claude/jerry-532-kampfzustand` |
 | 532a | M | Rückfrage: Tasche und Metrausch jetzt wie alt in MARS oder erst mit 478? | wartet auf Chef: entscheiden/532a | – |
@@ -81,6 +84,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 ## Einzelheiten
 
+- **Zu 545–547, von Sokrates:** Chef 04.11., 00:01: „MARS: Animation niedersinken oder umfallen oder in die Knie gehen kommt trotz Text nicht. Wölfe weichen aus wie Schlaftabletten. Helden wehren immer gleich ab.... Button Gegner killen oder Suicide ohne Funktion“ „Helden wehren immer gleich ab“ gehört zu 406.2 (Parade je Richtung, laut t249 später). Zu 547: entweder Sturz zeigen oder bis dahin Text ohne „in die Knie“; Text über Homer.
 - **Zu 527–536, von Sokrates (Helfer, Code gelesen):** Alt lief der Weltkampf klassisch (`Battle.kt`), MARS nur als Probekampf; neu jeder Kampf MARS, `regeln/klassisch.gd` ungenutzt. Besser neu: Reihen, Platztausch, Waffenwechsel, Decken, Absichten, Automatik je Figur, Kampfbericht, Zugleiste.
 - **Zu 532, von Sokrates:** `aufruf.gd` 178, 203–209, `spiel.gd` 489, 529, `mars.gd` 333–335 (je Rast voll zu jedem Kampf); alt `Battle.kt` 160–176, 576–605, `Game.kt` 764–773, 1496. Test: Kampf, dann Rast, ZP und Tasche prüfen.
 - **Zu 533, von Sokrates:** `aufruf.gd` 34, `tabellen.json` „wolf“, `mars.gd` 939, 1525; alt `Monsters.kt` 133–137, `Packs.kt` 64.
