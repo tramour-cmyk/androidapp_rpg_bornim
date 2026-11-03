@@ -257,6 +257,17 @@ jobs:
           python3 -c "import json,sys; s=json.load(open(sys.argv[1])).get('spiel',{}); d={'waffen':[],'groesse_cm':186,'geruest':'cc0'}; d.update(s); json.dump({'hauptmann':d},open(sys.argv[2],'w'))" \
             $RUNNER_TEMP/grak/grak-gestalt-info.json $D/hobgoblin_captain-info.json
           [ -n "$PRO" ] && echo kampf/daten/hobgoblin_captain-hauptmann.bin >> $D/kauf.txt || true
+          # 494 Krogg-Figur (LISTE-FIGUREN „Krogg“): Superheld (CC0) mit dem Kopf des gekauften Janpec-Bären, Morgenstern aus dem Anker-
+          # Paket (CC0, privat); nur mit Kaufpaketen, dann verschlüsselt; ohne bleibt der Platzhalterkörper (figur.gd)
+          if [ -n "$PRO" ] && [ -n "$(find ${KAUF:-/kein} -name Bear_Rig.fbx 2>/dev/null | head -1)" ]; then
+            OUT=$RUNNER_TEMP/krogg CC0=$HOME/cc0 KAUF=$KAUF UAL=$PRO TOD_QUELLE=Death02 \
+              timeout 1500 bl/bin/python -I tools/blender348/krogg_gestalt.py > krogg.log 2>&1 || { tail -40 krogg.log; exit 1; }
+            grep -E "^(KOPF|BEWEGUNG|TOD|WEG|HIEB|STEHEN)" krogg.log | cut -c1-200 || true
+            cp $RUNNER_TEMP/krogg/krogg-gestalt.glb $D/bugbear-krogg.bin
+            python3 -c "import json,sys; s=json.load(open(sys.argv[1])).get('spiel',{}); d={'waffen':[],'groesse_cm':212,'geruest':'cc0'}; d.update(s); json.dump({'krogg':d},open(sys.argv[2],'w'))" \
+              $RUNNER_TEMP/krogg/krogg-gestalt-info.json $D/bugbear-info.json
+            echo kampf/daten/bugbear-krogg.bin >> $D/kauf.txt
+          fi
           grep -q '^RUHE aus' rig.log && echo kampf/daten/held.bin >> $D/kauf.txt || true   # 397: Held mit Pro-Ruhe
           ls -l $D | wc -l
       # 348.12i (Chef 26.10., 19:41, „348.12i B“): gekaufte Modelle nur verschluesselt ins APK, Schluessel je Lauf neu, steht nur im
