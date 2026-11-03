@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert“).
 
-**Übergabe (03.11., 16:1x):** 494 Grak, Krogg, Rauch gebaut, Hinweis an Tom (Zu 494). Nachfolger: folgt.
+**Übergabe (03.11., 16:2x):** 494 Grak, Krogg, Rauch, Grimmzahn gebaut (Zu 494); Lizenz beim Chef. Nachfolger: „Jerry – 494: Krogg-Figur nach LISTE-FIGUREN“
 
 ## Zeilen
 
@@ -78,8 +78,8 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert
 - **Zu 507 (Jerry 15:5x):** `kampfort_hoehle.py`, `kampfort.gd _build_cave`, Tests `hoehle_bau_507`, `hoehle_507`, `ansage_507`; Felsen mit Tom 492. Lauf 247: Höhle a94fd2b32, Ansage 7c0b2b78e, Miras Schild nur davor (in die Vorlage). Lauf 3 nach „507, Läufe frei“. Headless: Daten aus einem APK nach `godot/kampf/daten`, `godot/daten`, ohne verschlüsselte.
 - **Zu 416.6, von Sokrates (Chef 03.11., 09:21, nach „416.6 passt“ für Blut):** Fußspuren bei Regen, Staubwölkchen beim Laufen wie in Kotlin (`core/Tracks.kt`); Wortlaut in Git a091e0433. Staub gebaut; Läufe 226, 231: Held ging (Ursache 416.4, 67b7b0dbe).
 - **Zu 494 (Perikles, Chef 07:54):** Gegner: Wildschwein, Riesenspinne, Hundertfüßer, Stirge, Ockergallerte, Krogg (Untote: 506); Ratten, Fledermäuse eigene Figur. Bau: `tabellen.json` (MarsGoldenTest), `aufruf.gd`, `probe.gd`, `kauftier.py`, `Figur.vier`; Tests `wildschwein_494`, `krogg_494`.
-- **Zu 494, von Sokrates (Chef 03.11., 10:26, „Hatten wir für Riesenratte kein Modell irgendwo?“):** Kartenratte = Kaufratte; prüfen, ob bei Wolf und Ratte auf einer Karte jeder sein Modell behält (`Figur.ersatz_art` statisch, `aufruf.gd:44`).
-- **Zu 494, von Team Tom (492, 15:4x):** Grak, Krogg in den Spiel-Build; gebaut b2262f0cf: Grak in `godot.yml` (im Ablauf ungeprüft, 511), Krogg in `tabellen.json` (ohne `gauntlets_ogre`), Gruppe `KROGG`, Rauch in MARS, Test `krogg_494`. Offen: Krogg-Figur (`LISTE-FIGUREN.md`, 431), bis dahin Platzhalter; Wurf ohne Bild.
+- **Zu 494, von Sokrates (Chef 10:26, „Hatten wir für Riesenratte kein Modell irgendwo?“):** Kartenratte = Kaufratte; prüfen, ob bei Wolf und Ratte auf einer Karte jeder sein Modell behält (`Figur.ersatz_art` statisch).
+- **Zu 494, von Team Tom (492, 15:4x):** Grak, Krogg in den Spiel-Build; gebaut b2262f0cf: Grak in `godot.yml` (ungeprüft, 511), Krogg in `tabellen.json` (ohne `gauntlets_ogre`), Gruppe `KROGG`, Rauch in MARS, Test `krogg_494`. Offen: Krogg-Figur (431), bis dahin Platzhalter.
 - **Zu 494, von Sokrates (03.11., 15:4x):** Kauf 348.12c (Archiv; Inventur `LISTE-BESTAND.md` „Kauf 348.12c“): Riesenspinne, Riesenegel, Säureschnecke; nur Fehlendes selbst bauen (Spinne ohne Treffer); Netzwurf, Spucken brauchbar. Zehn Dateien in `bornim-kaufmodelle/LIZENZ.md` nachtragen: `add_repo` (push) vom Auto-Modus abgelehnt (Jerry 16:1x), beim Chef.
 - **Zu 494, von Sokrates (Chef 03.11., 16:08, zu 491):** Grimmzahn „sieht … nicht aus wie unsere Wölfe aus dem Kampf … eher noch ein bisschen komisch“: auf den Kaufwolf (eigenes Fell, 1,75, glühende Augen), Karte und Kampf. Gebaut 11e6c4167 (`kaufwolf.py ART=dire_wolf`; ohne Narbe, Ohr; ungeprüft, 511).
 - **Zu 510 (aus 494, „ein Lauf“; Chef 10:28–10:57, Wortlaut Git a091e0433):** OGA-Fledermaus in unseren Fellen neben der eigenen, Chef wählt; nur vorhandene Bewegungen; kurzer Film, mehrere Ansichten (`gegner=FLEDERMAUS`). Lauf 243 ohne Film: Runner abgeschaltet („shutdown signal“, 3,5 min in „Kampfort bauen“), kein Skriptfehler (235 grün).
