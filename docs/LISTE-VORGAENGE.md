@@ -160,7 +160,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 501 | Schänke: Feuer im Kamin schwebt, beginnt nicht auf der Feuerstelle (Chef 03.11., 07:26, Build 204) | E Innenräume | M | – | Team Tom | startbar |
 | 502 | Nebel des Krieges und Sichtfeld des Helden in der Welt wie alt (Fog.kt), fehlt in Godot und im Plan (Chef 03.11., 07:28) | B Abläufe | M | – | Perikles | gebaut |
 | 503 | Laden, Verkaufen: Knopf „Gewöhnliche verkaufen“ leer, ohne Text (Chef 03.11., 07:40, Build 204) | E Oberfläche | M | – | Team Tom | startbar |
-| 504 | Gespräche nie gleich: jede Zeile, die man wiederholt hört, in mindestens drei Varianten (Chef 03.11., 07:52: „Lebendige Welt, keine monotone Welt“) | C Texte | M | – | Homer | in Arbeit |
+| 504 | Gespräche nie gleich: jede Zeile, die man wiederholt hört, in mindestens drei Varianten (Chef 03.11., 07:52: „Lebendige Welt, keine monotone Welt“) | C Texte | M | – | Homer | erledigt |
 | 508 | Lehrmeister in Kapitel 1 erreichbar (Geselle), Magie-Pflicht Paladin/Kriegsmagier, Wachsoldat zu Wächter (aus 447.4) | D Design | M? | – | Sokrates | startbar |
 | 504.1 | Bau der Gesprächsvarianten Kapitel 1 (`STORY-VARIANTEN-K1.md`) in `geschichte.gd` | C Texte | M? | – | Tom | startbar |
 | 505 | Bau Nebel des Krieges und Sichtfeld des Helden (Archiv 502; Welt W24, W25) | B Umzug | M | – | Team Tom | wartet |
@@ -184,7 +184,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | B Abläufe | M | – | Perikles, Diogenes, Sokrates | gebaut |
 | 461b.1 | Widersprüche aus Liste 461b nachziehen: Klassenbalance 38/399.2b/D23.3 gegen 406, Säureschnecke | E Kampf | M | – | Team Jerry | erledigt |
 | 461b.2 | Widerspruch aus Liste 461b: Eichung 431e in Grundstand B1 | E Figuren | M | – | Team Tom | erledigt |
-| 461b.3 | Widersprüche aus Liste 461b: Regelwerk gegen 466, SRD-Namen in DESIGN-STIL, B7 Wölfe | C Texte | M | – | Homer | startbar |
+| 461b.3 | Widersprüche aus Liste 461b: Regelwerk gegen 466, SRD-Namen in DESIGN-STIL, B7 Wölfe | C Texte | M | – | Homer | erledigt |
 | 461b.4 | Widersprüche aus Liste 461b: Köpfe Regelwerk, Bestiarium, DESIGN-KAMPF gegen Entscheidung 84 | D Design | M | – | Sokrates | startbar |
 | 461d | Gültige Entscheidungen an einem Ort: Grundstand in die DESIGN-Dateien einsortieren (Vorentscheid Sokrates 01.11., 22:5x) | B Abläufe | M | – | Perikles, Homer | gebaut |
 | 464.1 | Befunde D61.1–2 zu 464 nachbessern: Tageszahl roter Läufe im Protokoll, Grenze 25 Dateien mit Hinweis (Diogenes Lauf 59) | B Abläufe | M | 9,74 $ | Perikles | erledigt |
@@ -207,7 +207,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 423.1 | Spielerhandbuch BRS als Seite im Spiel, Platzhalter aus der Datendatei (Archiv 423) | A Technik | M? | – | Team Tom | wartet |
 | 427 | Bestiarium: je Monsterart Name, Gebiet und Stufenband, Verhalten, Angriffe und Waffen, Werte für Spielsystem 2.0, Beute; Aussehen verweist auf `LISTE-FIGUREN.md` (Chef 31.10., 21:3x); Werte entschieden 02.11., 18:54 | D Design | M | 13,13 $ | Sokrates | erledigt |
 | 427.1 | Monsterwerte ins Spiel, Grimmzahn und Krogg mit Rudel, Umreißen, Überfall nachmessen (Chef 02.11., 18:54) | E Kampf | M | – | Team Jerry | erledigt |
-| 427.2 | Hinweis auf Morwens Rauch spätestens nach der ersten Niederlage gegen Krogg (Chef 02.11., 20:22, aus 427.1) | C Texte | M | – | Homer | startbar |
+| 427.2 | Hinweis auf Morwens Rauch spätestens nach der ersten Niederlage gegen Krogg (Chef 02.11., 20:22, aus 427.1) | C Texte | M | – | Homer | in Arbeit |
+| 427.2a | Zweites Rauchbündel nach Niederlage gegen Krogg? (Chefsache entscheiden/4272a) | D Design | M | – | Homer | Chef |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x) | E Figuren | M | 50,10 $ | Team Tom | wartet |
 | 431c | Rückfrage: Völker Runde 4 am Tor angehalten, neue Läufe frei? | E Figuren | M | – | Team Tom | Chef |
 | 431d | Rückfrage: Völker Lauf 3 am Tor angehalten (B1 Elf, C3, G3, A1/A3 Grak, A2), neue Läufe frei, Weg A2? | E Figuren | M | – | Team Tom | Chef |
