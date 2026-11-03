@@ -150,6 +150,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	kamera.ziel = held
 	gebiet.held = held
 	gebiet.kamera = kamera
+	if gebiet.gluehwuermchen: gebiet.gluehwuermchen.zustand = zustand   # 514: nur in manchen Naechten
 	kamera.springe()
 	ui.ort.text = karte.name()
 	klang("ort", [karte, held])   # 399.3 (Jerry): Ortsmusik, Schritte nach dem Boden
