@@ -106,6 +106,32 @@ static func platz_fuer(karte, t: Vector2i) -> String:
 	return "waldrand" if baeume >= 8 else "lichtung"
 
 
+## 507 (Jerry, Perikles 03.11., Orte O10): Kampforte der Höhle wie alt (CaveScene.spotFor): Ausgang oder Eingang bis 3 Kacheln →
+## Eingang, Lagerfeuer, Kiste oder Schlaflager bis 3 → Lager, Wasser bis 3 → Teich, ein Stützbalken bis 1 → Gang; sonst mit weniger als
+## 13 begehbaren Kacheln in 5 × 5 der Gang, sonst die Halle
+const HOEHLENPLAETZE := ["eingang", "gang", "halle", "teich", "lager"]
+static func hoehlenplatz_fuer(karte, t: Vector2i) -> String:
+	if karte == null:
+		return "halle"
+	var kachel := func(c: Vector2i) -> Dictionary:
+		return karte.kacheln.get(String(karte.zeichen(c)), {})
+	var nah := func(namen: Array, r: int) -> bool:
+		for dy in range(-r, r + 1):
+			for dx in range(-r, r + 1):
+				if String(kachel.call(t + Vector2i(dx, dy)).get("name", "")) in namen:
+					return true
+		return false
+	if nah.call(["CAVE_EXIT", "CAVE_ENTRANCE"], 3): return "eingang"
+	if nah.call(["CAMPFIRE", "CRATE", "BEDROLL"], 3): return "lager"
+	if nah.call(["WATER"], 3): return "teich"
+	if nah.call(["SUPPORT"], 1): return "gang"
+	var offen := 0
+	for dy in range(-2, 3):
+		for dx in range(-2, 3):
+			if bool(kachel.call(t + Vector2i(dx, dy)).get("begehbar", false)): offen += 1
+	return "gang" if offen < 13 else "halle"
+
+
 ## 493: Dateiname des Kampforts im Bau („kampfort-wald“, „-teich“ …), auf die Lichtung zurück, wenn er fehlt
 func _platz_datei(name_: String, endung: String) -> String:
 	var p := "res://kampf/daten/%s-%s.%s" % [name_, platz, endung]
