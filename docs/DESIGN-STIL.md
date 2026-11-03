@@ -52,6 +52,7 @@ Drei feste Zwänge, an denen man unser Bild wiedererkennt (Chef 22.10., 14:15: �
 - **Kein Gegner verschwindet einfach:** Jede Gegnerart bekommt eigene Sterbeanimationen (mindestens drei), erst danach blendet sie aus (Ablauf F4 in `DESIGN-KAMPF.md`). Ein tödlicher kritischer Treffer bekommt einen eigenen Killerschlag (Erweiterungen in der [Merkliste](LISTE-IDEEN.md) „Sonstiges“).
 - **Größe und Körperbau variieren** im Rahmen des SRD, zum Beispiel Goblins 98–118 cm (Small), Skelette 160–185 cm, dazu schlank, normal oder kräftig. Größe, Körperbau, Ausrüstung und Hautton werden unabhängig voneinander gewählt.
 - Die Variante wird beim Kampfbeginn aus dem Erscheinungsbild-Zufall des Gegners gewählt und bleibt für diesen Gegner im ganzen Kampf gleich.
+- **Gespräche nie gleich (504, Chef 03.11., 07:52: „Lebendige Welt, keine monotone Welt“):** jede Zeile, die der Spieler mehr als einmal hören kann (Gruß, Abschied, Frage nach einem Nein, „noch nicht“, Hinweise, Drohung vor einem Kampf nach einer Niederlage), hat mindestens drei Wortlaute; Wechsel nach Zufall, nie derselbe zweimal hintereinander; Spielhinweise stehen in jedem Wortlaut. Einmalige Zeilen brauchen keine. Muster: `STORY-VARIANTEN-K1.md`.
 - **Ausnahme einmalige Monster:** Bosse und andere einzigartige Monster (etwa Krogg, Grak, Grimmzahn) erscheinen nur in einer Form, ohne Varianten in Aussehen und Ausrüstung, damit man sie wiedererkennt; ihre Bewegungen haben trotzdem je drei Varianten.
 - Gilt für alle künftigen Gegner, Tiere, Begleiter und Figuren.
 
