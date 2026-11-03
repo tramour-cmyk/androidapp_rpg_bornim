@@ -897,6 +897,32 @@ func test_tat(was: String, mit: Array) -> void:
 			betrete("elder", ziel[0], ziel[1])
 			await ortsworte(von, false)
 			ui.sage([{"text": Sprache.t({"de": "Höhle geschafft, Lyra frei, Amulett in der Tasche: sprich mit Aldric.", "en": "Cave cleared, Lyra free, the amulet in your bag: talk to Aldric."})}])
+		"station":   # 555: an eine Station von Kapitel 1 mit dem Stand, den ein Spieler dort hat (Testmodus.STATIONEN)
+			var ziel := Testmodus.station(String(mit[0]), zustand)
+			if ziel.is_empty(): return
+			await abblenden(1.0)
+			var von := karte.id
+			betrete(String(ziel[0]), ziel[1], String(ziel[2]))
+			await ortsworte(von, false)
+			ui.kurz(String(ziel[3]))
+		"ort_neu":   # 555: Merker, Bosse, Truhen, Kraeuter geaendert: der Ort neu aus dem Stand, der Held bleibt, wo er steht
+			await abblenden(1.0)
+			betrete(karte.id, held.kachel, held.blick())
+			await ortsworte(karte.id, false)
+			if mit.size() > 0: ui.kurz(String(mit[0]))
+		"holen":   # 555 wie alt cheatBring: ein Monster neben den Helden, 2 Minuten friedlich; auch wo sonst keine streifen
+			if herde == null:
+				herde = Herde.new(karte, self)
+				add_child(herde)
+				herde.kampf.connect(_kampf_auf_karte)
+				herde.gemeldet.connect(func(t): ui.kurz(t))
+			var de := Sprache.aktiv() == "de"
+			ui.kurz(("In der Nähe, 2 Minuten friedlich." if de else "Nearby, peaceful for 2 minutes.") if herde.hole(String(mit[0])) else ("Hier ist kein Platz." if de else "No room here."))
+		"zoom":   # 555 Kartenzoom wie alt: gleich sichtbar, auch nach Kneifen
+			kamera.fern_neu()
+			kamera.nah = false
+			kamera.zoom = kamera.fern
+			if mit.size() > 0: ui.kurz(String(mit[0]))
 		"strahlen":   # 415 (Jerry): Strahlenprobe im Kampfort (kampf/strahlprobe.gd); dort lädt „Zurück“ das Spiel neu
 			speichere()
 			var s = load("res://kampf/strahlprobe.gd").new()
