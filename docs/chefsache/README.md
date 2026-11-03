@@ -50,7 +50,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 62, Muss 44, startbar 15
+**Tom** – offen 65, Muss 47, startbar 16
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -58,6 +58,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 495 | M | von Perikles (Wochenziel 03.11. Reihe 4, 488): Zufallsspieler spielt Kapitel 1 in Godot bi | Termin 04.11. |
 | 491 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Tiefer Flüsterwald begehbar w | wartet auf 490 (in Arbeit) |
 | 505 | M | von Perikles (Archiv 502, Chef 03.11., 07:30, Zu 502 in ARBEIT-PROJEKT): Nebel des Krieges | wartet auf 490 (in Arbeit) |
+| 493 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; Spike, von Jerry übernommen, Chef 07:54): Ka | wartet auf 490 (in Arbeit) |
+| 506 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; Spike, aus 494): Untote im Kampf: Skelett, Z | wartet auf 491 (wartet) |
+| 492 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; Tom, von Jerry übernommen, Chef 07:54): Blut | startbar |
 | 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | wartet auf Sokrates |
 | 417 | M | von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“): Tragart je Waffenklasse (Zu 417), | startbar |
 | 416.9 | M | von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“): Laden, Verkaufen, „angelegt“ mit | wartet auf Test/Build (gebaut) |
@@ -117,7 +120,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 29360 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 62, Muss 50, startbar 7
+**Jerry** – offen 61, Muss 49, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -147,9 +150,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 489 | M | von Sokrates (Chef 03.11., 07:07, Test Build 204; Zu 489): Hauptmenü: Schalter Musik und E | wartet auf Test/Build (gebaut) |
 | 406.2 | M | von Sokrates (Chef 03.11., 06:59, Zu 406.2; „jetzt“ 03.11., 06:59): im Kampf zum Angriff g | startbar |
 | 406 | M | von Team Tom (Archiv 376.1): Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Son | wartet auf Test/Build (gebaut) |
-| 493 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Kampforte Wald wie alt: Waldrand, Teich, Ba | startbar |
-| 494 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): jeder Gegner von Kapitel 1 kämpft an seinem | ruht (424: altes SRD-System) |
-| 492 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Blutzahnhöhle begehbar wie alt (Story.kt:73 | startbar |
+| 494 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; neu aufgeteilt Chef 07:54): Gegner von Kapit | startbar |
+| 507 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; aus 492): Kampforte Höhle wie alt: Eingang, | startbar |
 | 496a | M | Rückfrage: abgenommene Kampfbilder (Grundstand 461) schon in den Durchspiel-Build? | Chef (Datei in der Chefsache) |
 | 496 | M | von Perikles (Wochenziel 03.11. Reihe 5, 488): Durchspiel-Build aus 490–495: der Chef spie | wartet auf 490 (in Arbeit) |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
