@@ -505,6 +505,8 @@ jobs:
           cp $RUNNER_TEMP/oga_out/oga_bat-*.png $B/ 2>/dev/null || true
           cd godot
           sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          # Lauf 235: die freie kam leer (132 Byte) und ohne Maßstab; erst prüfen, ob sie da ist (Netz, Gerüst, Bewegungen, Größe)
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/oga_fledermaus_510.gd 2>&1 | grep -E "FALSCH|OGA510|SCRIPT ERROR" | tee $B/oga-test.log || true
           MESS=1 timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_fledermaus_510.gd 2>&1 | grep -E "^(Film|MASS|BEWEGUNGEN|ABSCHNITT)|FEHLER|SCRIPT ERROR" | tee $B/messung.log || true
           timeout 900 xvfb-run -a -s "-screen 0 1920x1080x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1920x1080 \
             --write-movie $RUNNER_TEMP/fm510.avi --fixed-fps 30 -s res://tests/film_fledermaus_510.gd > $B/film.log 2>&1 || true

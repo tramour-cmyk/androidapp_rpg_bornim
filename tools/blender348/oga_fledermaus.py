@@ -103,7 +103,20 @@ def neuer_stoff(name, bild=None, farbe=None):
 
 
 def main():
-    bpy.ops.wm.open_mainfile(filepath=blend_datei(), load_ui=False, use_scripts=False)
+    # Lauf 235 nachgestellt: nach open_mainfile rechnet das Bpy-Modul die Szene nicht nach (Spannweite in jeder Bewegung 10,322 wie
+    # in Ruhe, der Maßstab am Gerüst kam nicht in die Datei, die Auswahl blieb leer); darum leere Szene, alles aus bat_v5.blend
+    # hineinladen (ohne Skripte), Bildpfade der Datei auf ihren Ordner
+    src = blend_datei()
+    bpy.ops.wm.read_factory_settings(use_empty=True)
+    with bpy.data.libraries.load(src, link=False) as (von, nach):
+        nach.objects = list(von.objects)
+        nach.actions = list(von.actions)
+    for o in nach.objects:
+        if o is not None:
+            bpy.context.scene.collection.objects.link(o)
+    for im in bpy.data.images:
+        if im.filepath.startswith('//'):
+            im.filepath = os.path.join(os.path.dirname(src), im.filepath[2:])
     inhalt()
     rigs = [o for o in bpy.data.objects if o.type == 'ARMATURE']
     if not rigs:
@@ -131,7 +144,15 @@ def main():
     rig.data.pose_position = 'POSE'
     for tr in list(rig.animation_data.nla_tracks):
         rig.animation_data.nla_tracks.remove(tr)
-    acts = [a for a in bpy.data.actions if not any(w in a.name.lower() for w in ('cam', 'light', 'lamp'))]
+    # Lauf 235 nachgestellt (Knochen in Godot 8 m weit, Maßstab 1): „SunAction“ und „Frost_Bat_preview_position“ gehören der Sonne und
+    # der Frostfledermaus und setzen Ort, Drehung, Maßstab des Objekts; als Spur am Gerüst hoben sie dessen Maßstab auf. Nur
+    # Bewegungen, die allein Knochen dieses Gerüsts bewegen
+    def nur_knochen(a):
+        pfade = [f.data_path for L in getattr(a, 'layers', []) for st in L.strips for cb in getattr(st, 'channelbags', []) for f in cb.fcurves]
+        pfade += [f.data_path for f in getattr(a, 'fcurves', []) or []] if not hasattr(a, 'layers') else []
+        return bool(pfade) and all(p.startswith('pose.bones["') and p.split('"')[1] in rig.data.bones for p in pfade)
+    acts = [a for a in bpy.data.actions if not any(w in a.name.lower() for w in ('cam', 'light', 'lamp')) and nur_knochen(a)]
+    print('BEWEGUNGEN genommen', [a.name for a in acts], 'weggelassen', [a.name for a in bpy.data.actions if a not in acts])
     fps = bpy.context.scene.render.fps / bpy.context.scene.render.fps_base
     dauer = {a.name: round((a.frame_range[1] - a.frame_range[0]) / fps, 3) for a in acts}
     # Spannweite je Bewegung (an 7 Stellen), vor den NLA-Spuren, damit nur diese Bewegung wirkt
@@ -180,11 +201,10 @@ def main():
                     sl.material = haupt
                 elif alt is not None and not alt.use_nodes:
                     sl.material = neuer_stoff(alt.name + '-' + fell, farbe=alt.diffuse_color)
-        bpy.ops.object.select_all(action='DESELECT')
-        for o in [rig] + meshes:
-            o.select_set(True)
+        # Lauf 235: mit use_selection=True kam eine leere Datei (132 Byte): ohne Fenster bleibt die Auswahl des Bpy-Moduls leer
+        # (context.selected_objects = []); alles andere ist oben schon entfernt, darum die ganze Szene
         path = os.path.join(OUT, '%s-%s.glb' % (ID, fell))
-        bpy.ops.export_scene.gltf(filepath=path, export_format='GLB', use_selection=True, export_animations=True, export_skins=True,
+        bpy.ops.export_scene.gltf(filepath=path, export_format='GLB', use_selection=False, export_animations=True, export_skins=True,
                                   export_animation_mode='NLA_TRACKS', export_yup=True, export_apply=False, export_image_format='JPEG',
                                   export_jpeg_quality=88)
         try:
@@ -194,6 +214,8 @@ def main():
             print('GLBQUAT', e)
         info[fell] = {'massstab': round(s, 4), 'spannweite': round(SPANNWEITE * GROESSE[fell], 3)}
         print('GLB', path, os.path.getsize(path), 'Maßstab %.4f' % s)
+        if os.path.getsize(path) < 20000:
+            sys.exit('FEHLT Inhalt in %s (%d Byte)' % (path, os.path.getsize(path)))
     json.dump(info, open(os.path.join(OUT, '%s-info.json' % ID), 'w'), indent=1)
     print('OGA_FLEDERMAUS FERTIG %.1f s' % (time.time() - T0), json.dumps(info, ensure_ascii=False))
 
