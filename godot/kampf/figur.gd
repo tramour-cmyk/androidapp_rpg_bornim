@@ -938,7 +938,7 @@ func _boden_schutz() -> void:
 		# Beine selbst, gemessen wie sturz_438a (je Punkt der Achse die nächste Ecke, ihre Normale)
 		var haut := []
 		if t[5] == "R" and (sturz or korrigiert or stab_frei) and t.size() > 8:
-			haut = _haut_nah(sk, g, t, schutz_variante in [2, 3])
+			haut = _haut_nah(sk, g, t, schutz_variante in [2, 3, 5])
 		var vor_h := _haut_tiefe(g, t, haut) if messen else 0.0
 		var r1: Array = _loesen(g, t, nah, frei, y0, 24, 20, haut)
 		if schutz_variante == 1 and not haut.is_empty():
@@ -1320,6 +1320,20 @@ func _loesen(g: Transform3D, t: Array, nah: Array, frei: float, y0: float, n: in
 	var beste := schutz_variante >= 3 and boden_ab > 0
 	var best := g
 	var best_tief := INF
+	# 438a V5 (Lauf 203: V3 sah 11,3 cm im Kleid beim Aufstehen, kein Schritt nach der Normale der nächsten Ecke machte es besser,
+	# „gedreht 0°“): erst feste Drehungen um den Griff ausprobieren (quer, vor, hoch je ±15/30/45°), von der besten aus weiter
+	if schutz_variante == 5 and boden_ab > 0 and not haut.is_empty():
+		var g0 := g
+		var t0: float = _loesen_stelle(g0, t, nah, frei, y0, false, haut, griff)[0]
+		if t0 > HAUT_FREI:
+			for achse in [global_transform.basis.x, global_transform.basis.z, Vector3.UP]:
+				for grad in [15.0, -15.0, 30.0, -30.0, 45.0, -45.0]:
+					var gv := Transform3D(Basis((achse as Vector3).normalized(), deg_to_rad(grad)) * g0.basis, griff)
+					var tv: float = _loesen_stelle(gv, t, nah, frei, y0, false, haut, griff)[0]
+					if tv < t0:
+						t0 = tv
+						g = gv
+						neu = true
 	for i in n:     # die schlimmste Ecke heraus; schiebt das eine Ende das andere hinein, die nächste; zuletzt nur der Boden
 		var nur_boden := i >= boden_ab
 		var m: Array = []
