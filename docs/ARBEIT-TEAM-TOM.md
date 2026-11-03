@@ -8,6 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 518 | M | **von Sokrates (Chef 03.11., 20:47, Build 248, Bild):** Dorf leer: keine Häuser, nur Wege und Pflaster; ständiges schwarzes Flackern (schwarze Striche); t248 so nicht testbar. Ursache erst in Vorschau nachstellen | offen: „jetzt“ 03.11., 20:47 | – |
 | 490 | M | **von Perikles (Wochenziel 03.11. Reihe 2, 488):** Flüsterwald begehbar wie alt (`Story.kt:524`, Orte O6) | wartet auf Test: Build 248 (t248) | `claude/build-490` |
 | 495 | M | **von Perikles (Wochenziel 03.11. Reihe 4, 488):** Zufallsspieler spielt Kapitel 1 in Godot bis „chapter1_done“ durch und meldet, wo er hängenbleibt (Abnahme 2.2) | wartet auf Guthaben: heute eine Sitzung weniger (468a, Bild Chef 07:16, 53 %), frühestens 04.11. | – |
 | 491 | M | **von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike):** Tiefer Flüsterwald begehbar wie alt (`Story.kt:619`): Morwens Hütte, Grimmzahn mit Leibwache, Sicht 353a (Orte O7) | wartet auf Test: Build 248 (t248) | – |
