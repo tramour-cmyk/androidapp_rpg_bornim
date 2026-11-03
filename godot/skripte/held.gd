@@ -50,6 +50,17 @@ func _init(k: Karte, w: Dictionary = {}) -> void:
 	name = "Held"
 
 func _ready() -> void:
+	kleide(wahl)
+
+# 522 (Chef 03.11., 23:33: Schild im Testmenü gegeben, im Spiel kein Schild; 23:46 „nach Mapwechsel da“): die Figur neu bauen, wenn
+# sich Klasse, Aussehen oder Ausruestung aendern (spiel.gd figur_neu nach Menue und Testmenue), nicht erst beim Kartenwechsel.
+# Fackel, Atem und Bewegungen haengen am Modell und kommen mit; Ort, Blick, Weg und Nacht bleiben
+func kleide(w: Dictionary) -> void:
+	wahl = w.duplicate(true)   # Abschrift: HeldFigur.wahl reicht hw.ausruestung selbst, sonst saehe figur_neu nie einen Unterschied
+	if modell:
+		remove_child(modell)
+		modell.queue_free()
+	mats.clear(); fackel = null; flamme = null; anim = null; atem = null; waffengang = ""
 	# 376.1: je Klasse der Held auf dem Kaufkoerper (heldfigur.gd), sonst der bisherige (held.bin, rig.py)
 	modell = HeldFigur.baue(wahl, mats) if not wahl.is_empty() else null
 	var kauf := modell != null
@@ -82,6 +93,7 @@ func _ready() -> void:
 	if anim: anim.play("Stehen")
 	atem = Gebiet.atem_an(modell, anim, 4532)   # 453.2: eigene Atemschicht (gebiet.gd atem_an)
 	baue_fackel()
+	if is_inside_tree(): nacht(nacht_k)   # 522: neue Figur wie die alte im Licht (Fuellung, Fackel)
 
 func setze(t: Vector2i, blick := "DOWN") -> void:
 	position = karte.kachel_pos(t)

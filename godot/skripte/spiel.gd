@@ -961,7 +961,15 @@ func im_dunkeln() -> bool:
 	return (licht.nacht > 0.5 and art != "INTERIOR") or art == "CAVE"
 
 func fackel_neu() -> void:
+	figur_neu()
 	if held: held.fackel_neu(Menue.fackel(held_werte()), String(karte.daten.get("art", "")) == "INTERIOR")
+
+# 522 (Chef 03.11., 23:33, 23:46): nach Menue, Testmenue, Laden (alle rufen fackel_neu) die Figur neu einkleiden, wenn sich Klasse,
+# Aussehen oder Ausruestung geaendert haben; vorher erst beim naechsten Kartenwechsel
+func figur_neu() -> void:
+	if held == null or not held.is_inside_tree(): return
+	var w := HeldFigur.wahl(held_werte(), zustand)
+	if w != held.wahl: held.kleide(w)
 
 func held_werte() -> Heldwerte:
 	if werte == null: werte = Heldwerte.erschaffe(zustand.name, "HUMAN", "FIGHTER")
