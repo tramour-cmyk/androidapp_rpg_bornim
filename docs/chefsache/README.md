@@ -115,7 +115,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 487 | M | von Perikles (Wochenziel 02.11. Reihe 6): gemeinsamer Build, höchstens 6 Punkte, Figuren ü | startbar |
+| 487 | M | von Perikles (Wochenziel 02.11. Reihe 6): gemeinsamer Build, höchstens 6 Punkte, Figuren ü | Leiche: in LISTE-VORGAENGE.md „erledigt“, Zeile noch im Vorrat |
 | 478 | M | von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv): Rechenkern des Kampfs schon in Stufe | ruht |
 | 481.1 | M | von Sokrates (Archiv 427): Tränke in sim444 (Zu 481 in ARBEIT-BERATUNG.md), Herkünfte neu | wartet auf Test/Build (gebaut) |
 | 473 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.4 Monsterwerte Kapitel 1 nach Rechenm | wartet auf Test (Build) |
