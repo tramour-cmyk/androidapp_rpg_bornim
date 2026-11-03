@@ -8,7 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 519 | M | **von Sokrates (Chef 03.11., 23:13, Build 249, Bild):** Ausrüstung, Fenster eines Gegenstands passt nicht auf den Bildschirm: Name, Spalte „Neu“, Knöpfe rechts abgeschnitten; alte Fassung vergleichen (512) | startbar | – |
+| 519 | M | **von Sokrates (Chef 03.11., 23:13, Build 249, Bild):** Ausrüstung, Fenster eines Gegenstands passt nicht auf den Bildschirm: Name, Spalte „Neu“, Knöpfe rechts abgeschnitten; alte Fassung vergleichen (512) | in Arbeit bei Spike | – |
 | 518 | M | **von Sokrates (Chef 03.11., 20:47, Build 248, Bild):** Dorf leer: keine Häuser, nur Wege und Pflaster; ständiges schwarzes Flackern (schwarze Striche); t248 so nicht testbar. Ursache erst in Vorschau nachstellen | wartet auf Test: Build 249 (t249); behoben 4f9ca1dce | – |
 | 490 | M | **von Perikles (Wochenziel 03.11. Reihe 2, 488):** Flüsterwald begehbar wie alt (`Story.kt:524`, Orte O6) | wartet auf Test: Build 249 (t249) | `claude/build-490` |
 | 495 | M | **von Perikles (Wochenziel 03.11. Reihe 4, 488):** Zufallsspieler spielt Kapitel 1 in Godot bis „chapter1_done“ durch und meldet, wo er hängenbleibt (Abnahme 2.2) | wartet auf Guthaben: heute eine Sitzung weniger (468a, Bild Chef 07:16, 53 %), frühestens 04.11. | – |
