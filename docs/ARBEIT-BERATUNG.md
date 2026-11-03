@@ -10,6 +10,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 512 | M | **von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles):** Abgleich alt gegen neu wirkt nicht: Funde des Chefs in Build 249 (503, 519, 520, 521) | in Arbeit: Regel geschärft (LISTE-UMZUG-348 „Abgleich“); einmaliger Abgleich aller Menüschirme läuft |
 | 508 | M? | **von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5):** Einladung der Lehrmeister in Kapitel 1 erreichbar? (Simulation 444: keine Fertigkeit Geselle bis Stufe 6); Regelfrage: Magie-Kernfertigkeit Pflicht für Paladin und Kriegsmagier?; Wachsoldat startet mit Mittlerer, Wächter verlangt Schwere Rüstung | startbar |
 | 488 | M | **von Chef (02.11., 22:44, „dann frieren wir das mal ab einem gewissen Punkt ein … kümmern uns um wichtige Dinge, dass irgendwann das Spiel an sich fertig wird und ich durchspielen kann. Und dann können wir wieder polieren“):** Feinarbeit einfrieren | wartet auf Perikles: ja (Chef 03.11., 06:44, Archiv); Wochenziel nach Durchspielbarkeit (488 in ARBEIT-PROJEKT) |
 | 461b.4 | M | **von Perikles (deine Liste 461b, 02.11., 19:1x, Punkte 7, 9):** Köpfe von `DESIGN-SPIELSYSTEM-2-0.md` (Zeile 3, Nr. 24), `LISTE-BESTIARIUM.md` (Zeile 3), `DESIGN-KAMPF.md` (Zeile 3) gegen Entscheidung 84 nachziehen; Säureschnecke mit Jerry (461b.1); Anhänge „→ ersetzt durch …“ im Archiv, wo dein Helfer den Ersatz fand: 376.1 (11:19), 72o, 72o.1, 348.12 (26.10.), 348.9 (13:26), 72.8, 414, F3/F4 Datum (Zu 461b; 415c, 480, 362, 418 hat Perikles gesetzt) | startbar (nur Notizen) |
@@ -61,3 +62,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 461b:** 16 Funde (02.11., 19:1x) in Git vor 03.11., 08:50; verteilt Perikles; meine Punkte in 461b.4.
 - **Zu 253:** Name BornWire TCS (Verlauf in Git vor `2e6ab39a`, Fahrplan-Dokument); Gewerbeschein auf „Wirestorm TCS“ beantragt.
 - **Zu 142** (17.–20.10. in Git): Fahrplan im vertraulichen [Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM); offen: Anschrift vor dem Zahlungsprofil
+
+## Einzelheiten
+
+- **Zu 512 (Chef 23:26–23:28):** „Den angewiesenen Vergleich mit der alten Fassung hat ja eh keiner gemacht …“, „Sonst wäre es ja vorher aufgefallen, dass es nicht passt …“. Ursachen: Regel nur für berührte Schirme, nie berührte (Ausrüstung) vergleicht keiner; Abgleich 248 nur Bilder, Laden berührt und Rückfrage trotzdem übersehen. Schritt 1 Regel: Fenster und jede Bedienung mit, Zeile „verglichen“ in der Prüfliste. Schritt 2: einmal alle Menüschirme alt gegen neu, Funde als Vorgänge an Team Tom.
