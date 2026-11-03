@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (03.11., 14:30, `session_01Hmoj78Hm6D1d4DCjyV3tTr`):** Chefrunde 03.11.: 348.12c vorgelegt (Chef 09:07 „frühestens heute Nachmittag“, Rückfrage ob A offen); 406.2a, 406.2 (Parade nach Trefferhöhe), 416.6, 503, 501, 505 C, 510a, 511, 511a entschieden; 509 neu; kaputte Filme aus der Chefsache; Chefsache aufgeräumt (107 Bilder); 416.6 ein Lauf frei. Kosten auf: 348.12c, 406.2, 505, 509, 510, 511. Nachfolger: Sokrates – Chefrunde: 348.12c Kauf (Chef nachmittags).
+**Übergabe (03.11., 16:31, `session_01Hmoj78nj7tVahyFi7ZSRkw`):** Chefrunde Nachmittag: 348.12c A gekauft, Inventur in LISTE-BESTAND; 512, 427.2a, 447.4 (BRS-Wechselregel), 499, 513 B, 493, 490, 491, 505, 477 entschieden (Archiv); neu 513.1, 514, 515; 516 geprüft (Ford misst); 492 Abgleich an Tom; Chef beim Abendessen. Kosten auf: 348.12c, 447.4, 513, 491, 516. Nachfolger: Sokrates – Chefrunde: 492 und Build 245 (auf Zuruf).
 
 ## Zeilen
 
@@ -12,7 +12,6 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 |---|---|---|---|
 | 508 | M? | **von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5):** Einladung der Lehrmeister in Kapitel 1 erreichbar? (Simulation 444: keine Fertigkeit Geselle bis Stufe 6); Regelfrage: Magie-Kernfertigkeit Pflicht für Paladin und Kriegsmagier?; Wachsoldat startet mit Mittlerer, Wächter verlangt Schwere Rüstung | startbar |
 | 488 | M | **von Chef (02.11., 22:44, „dann frieren wir das mal ab einem gewissen Punkt ein … kümmern uns um wichtige Dinge, dass irgendwann das Spiel an sich fertig wird und ich durchspielen kann. Und dann können wir wieder polieren“):** Feinarbeit einfrieren | wartet auf Perikles: ja (Chef 03.11., 06:44, Archiv); Wochenziel nach Durchspielbarkeit (488 in ARBEIT-PROJEKT) |
-| 348.12c | M | **von Chef (03.11., 08:50, „Aber müssen wir dazu nicht auch was kaufen?“, zu 494 Gegner):** Kaufliste Gegner Kapitel 1 neu vorlegen (Warenkorb „noch nicht“ 27.10. bis 387 durch; 348.12i gebaut) | wartet auf Chef: Upload ins private Repo (A gekauft 15:40, Archiv); dann Inventur `LISTE-BESTAND.md`, Hinweis an alle (Chef 15:40) |
 | 461b.4 | M | **von Perikles (deine Liste 461b, 02.11., 19:1x, Punkte 7, 9):** Köpfe von `DESIGN-SPIELSYSTEM-2-0.md` (Zeile 3, Nr. 24), `LISTE-BESTIARIUM.md` (Zeile 3), `DESIGN-KAMPF.md` (Zeile 3) gegen Entscheidung 84 nachziehen; Säureschnecke mit Jerry (461b.1); Anhänge „→ ersetzt durch …“ im Archiv, wo dein Helfer den Ersatz fand: 376.1 (11:19), 72o, 72o.1, 348.12 (26.10.), 348.9 (13:26), 72.8, 414, F3/F4 Datum (Zu 461b; 415c, 480, 362, 418 hat Perikles gesetzt) | startbar (nur Notizen) |
 | 468 | M | **von Chef (02.11., 07:33, Bild „Nutzung“: 36 %):** weiter mit Wächter bis Sa 19:59 (ja 11:13, Archiv, ARBEIT-BETRIEB) | Dauer: 468a ja mit Spike (22:01, Archiv); Ford liest 18 Uhr ab; Sokrates prüft Sa 07.11. |
 | 415d | M | **von Chef (02.11., 20:05, „Hatten wir nicht weitere Effekte vorgesehen?“):** Kauf der zwei Effektpakete nach Handytest | wartet auf Jerry: 415d ja (Chef 22:04, Archiv); Kauf nach Handytest 415, Termin bei Jerry (Zu 415) |

@@ -2,9 +2,9 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (03.11., 03:1x, Ford `session_01Hmoj76TkJDAHTy5crCj9QH`, Tiefe 3):** Geltend: 468a (Chef 02.11., 22:01, Zeile unten) bis Sa 07.11., 20:00: nur Tom, Jerry, Spike (ab 03.11.) starten, Tuffy ruht, Homer, Perikles, Diogenes, Sokrates nur auf Zuruf; Wochenwarnung `allowed_warning` seit 03.11.: nur Muss. Läuft: Tom `78SZ` (470), Jerry `79Wf` (438a/406, PR #178), Homer `78Ga` (macht fertig), Sokrates `78Ud`. Alle älteren Sitzungen archiviert und gebucht (bei Mehrfachvorgängen gleichmäßig verteilt); `archive_session` ging nach Chefwort durch. Offen: 18-Uhr-Ablesung braucht das Bild des Chefs (gestern keins). Nachfolger: Ford – Betriebsleiter.
+**Übergabe (03.11., 16:3x, Ford `session_01Hmoj798rLzu8SK9Qiix4zr`, Tiefe 4):** Geltend: 468a (Chef 02.11., 22:01) bis Sa 07.11., 20:00: nur Tom, Jerry, Spike starten, Tuffy ruht; Homer, Perikles, Diogenes, Sokrates nur auf Zuruf des Chefs (heute auf Chefwort gestartet: Perikles 488/511/512, Homer 504, Sokrates 348.12c, Diogenes 275, alle erledigt oder laufend); `lauf.py` kennt 468a nicht: seine START-Zeilen für Tom 417, Spike 463, Tuffy, Homer, Diogenes **nicht ausführen** (488 friert 417/463/406/438a ein). Wochenwarnung `allowed_warning`: nur Muss. Läuft: Jerry `nQJK` (494 Krogg-Figur), Tom `QoAx` (490 Flüsterwald Build), Spike `PQkk` (499, idle), Perikles `diLb` (511/512, bekam „Weiter: 512“), Sokrates `j7tV` (348.12c Chefrunde), Homer `768H` (wartet auf Chef 447.4/427.2a). **Archivieren** (Chefwort 14:08 „Du musst archivieren und Kosten erheben, das ist dein Job“): geht jetzt durch, aber **nur wenn `session_status` idle und letztes Ereignis älter als 60 s**, sonst fehlt die Kostenzahl (516, geprüft 16:33); Kosten dann `lauf.py --kosten <Vorgang> <USD> <Kennung>` (eine Buchung je Sitzung), fehlt die Zahl: letztes `result` (`list_events`), zuletzt schätzen. Noch zu archivieren: der alte Ford `798r`; bei Neustart-Meldungen den Vorgänger erst nach dessen Ende. Offen: Guthaben Woche 53 % (Bild Chef 03.11., 07:16), 18-Uhr-Ablesung braucht das Bild des Chefs; Schätzungen in den Kosten stehen im Protokoll (16:19, 16:24). Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 516** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 517** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford“ (Selbstneustart, Tiefe 4) `session_01Hmoj798rLzu8SK9Qiix4zr`; Stundenuhr „Ford-Lauf“ `trig_01KN4aZ4h2xQJ9JS8UDv6dK4` (:03, angelegt 03.11., 03:04); alte Uhren gelöscht. Vorgänger `01Hmoj76TkJ` archiviert 03.11., 14:09 (Chefwort), Kosten 11,05 $ (9,29 $ gebucht). `01Hmoj78Yo` gebucht (9,57 $), ruht. Ältere archiviert.
+- **Ford lebt in einer Sitzung** „Ford“ (Selbstneustart, Tiefe 5) `session_01Hmoj76vuwGguJJYw9HWky8`; Stundenuhr „Ford-Lauf“ `trig_014jVQcyMeXEUFbF1PbPc4ar` (:03, angelegt 03.11., 16:35); alte Uhren gelöscht. Vorgänger `01Hmoj798r` (Kosten 11,01 $, nicht gebucht) idle, `archive_session` vom Auto-Modus abgelehnt, wartet auf Chef. Davor `01Hmoj76TkJ` archiviert 03.11., 14:09 (Chefwort), Kosten 11,05 $ (9,29 $ gebucht). `01Hmoj78Yo` gebucht (9,57 $), ruht. Ältere archiviert.
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus; Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
 
@@ -58,6 +58,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 16:24 03.11.: Neustart Jerry 8e133b464 → `nQJK` „494 Krogg-Figur“; alter `fWZc` archiviert **mitten im Turn** (Datensatz unverändert seit Start, kein `result`-Ereignis, Kosten 10 $ **Schätzung** nach 28 Min Laufzeit auf 494). Vermutung zur fehlenden Kostenzahl: Archivieren, solange die Sitzung ihren letzten Turn noch abschließt; Probe: ab jetzt erst archivieren, wenn `session_status` idle ist (dann Datensatz prüfen).
 - 16:19 03.11.: Neustart Tom af7df0686 → `QoAx` „490 Flüsterwald Build“; alter Tom `wm1A` archiviert, 15,84 $ auf 492. Schätzungen (Chef 16:05): 490 12+25 $ (Spike `Tec7`, `EdZ1`), 507 10 $ (`gwo8`), 438a 10,47 $ (Rest `79Wf`), Betrieb 1,76 $ (Rest alter Ford); ersetzt durch `result`-Werte: 406.2 18,39 $, 496a 23,27 $, 406.2a 18,74 $.
 - 16:05 03.11.: Diogenes `ppa1` fertig (Vorrat leer), archiviert, 4,07 $ auf 275; kein Nachfolger (468a).
 - 15:55 03.11.: Neustart Jerry 27c9a18f8 → `fWZc` „494 Grak, Krogg“; alter `ZwvU` archiviert, 8,01 $ auf 507; Kosten von `gwo8` (15:03, 507) weiter nicht lesbar.

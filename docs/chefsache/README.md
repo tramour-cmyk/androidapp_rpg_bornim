@@ -31,7 +31,6 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [142](tun/142-pflichttest.md) | **Muss** | M Veröffentlichung | 27.10., 20:07 | Pflichttest Play Store: Gewerbeschein melden | Sokrates |
-| [477](tun/477-mumu.md) | M? | E Technik | 03.11., 00:53 | Godot-Build im MuMu Player: einmal genau ansehen, was passiert | Tom |
 
 ## Offen je Rolle
 
@@ -49,11 +48,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 70, Muss 49, startbar 20
+**Tom** – offen 70, Muss 49, startbar 21
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 490 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Flüsterwald begehbar wie alt | startbar |
+| 490 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488): Flüsterwald begehbar wie alt (Story.kt:524, | startbar |
 | 495 | M | von Perikles (Wochenziel 03.11. Reihe 4, 488): Zufallsspieler spielt Kapitel 1 in Godot bi | Termin 04.11. |
 | 491 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Tiefer Flüsterwald begehbar w | startbar |
 | 505 | M | von Perikles (Archiv 502, Chef 03.11., 07:30, Zu 502 in ARBEIT-PROJEKT): Nebel des Krieges | startbar |
@@ -87,7 +86,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 474 | M? | von Team Jerry (Tuffy, 02.11., 02:4x; aus 399.1a): Debug-Schlüssel nur im Cache, verdrängt | ruht |
 | 475 | M | von Sokrates (Chef 02.11., 10:52, Build 146; erneut 03.11., 07:45, Build 204, Zu 475): Row | startbar |
 | 476 | M? | von Sokrates (Chef 02.11., 14:43: „Werden … die Symbole der Ausrüstungsgegenstände … durch | startbar |
-| 477 | M? | von Sokrates (Chef 02.11., 14:59: „Die APK lässt sich nicht unter MumuPlayer abspielen … G | Chef |
+| 477 | M? | von Sokrates (Chef 02.11., 14:59, Zu 477): Godot-APKs zeigen im MuMu Player am Rechner nur | startbar |
 | 461.1 | M | von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461): Grundstand: alles Entschiedene zu Figure | ruht |
 | 458.3 | M | von Sokrates (Chef 01.11., 13:1x, Archiv 458): Gegenstandskatalog: je Gegenstand Netz × Ma | ruht |
 | 457.1 | M | von Perikles (Chef 01.11., 11:49, „unsere Signatur muss sich wiederfinden“): godot/probe/b | wartet auf Test/Build (gebaut) |
@@ -122,9 +121,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 | D71.1 | K | von Diogenes (374/434, Vortag 02.11.): ohne „Bestand geprüft“ (434): 417 00:53, 02:24, 03: | startbar |
-| Pflege | K | von Werkzeug (340.3, 03.11.): 45963 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
+| Pflege | K | von Werkzeug (340.3, 03.11.): 46524 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Jerry** – offen 59, Muss 47, startbar 2
+**Jerry** – offen 58, Muss 47, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -156,7 +155,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 494 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Gegner von Kapitel 1 im Kampf (Liste und St | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 507 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; aus 492): Kampforte Höhle wie alt: Eingang, | wartet auf Sokrates |
 | 496a | M | Rückfrage: abgenommene Kampfbilder (Grundstand 461) schon in den Durchspiel-Build? | wartet auf Test (Build) |
-| 496 | M | von Perikles (Wochenziel 03.11. Reihe 5, 488): Durchspiel-Build aus 490–495: der Chef spie | wartet auf 490 (startbar) |
+| 496 | M | von Perikles (Wochenziel 03.11. Reihe 5, 488): Durchspiel-Build aus 490–495: der Chef spie | wartet auf 490 (wartet) |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | wartet auf Test/Build (gebaut) |
 | 385.2 | M | von Chef (Archiv 385.1): Feuer aus dem Stab | ruht |
@@ -186,12 +185,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | 469 | M | von Sokrates (02.11., 11:0x, zu 406.1): Kampf auf BRS: Ring (MARS) ohne Klassen regeln (An | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
-| Pflege | K | von Werkzeug (340.3, 03.11.): 15021 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 30, Muss 27, startbar 1
+**Perikles** – offen 31, Muss 27, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 516 | M? | von Ford (Chef 03.11., 16:20, Frage „gab es nicht ein Tool oder einen Haken für die Kosten | startbar |
 | 512 | M | von Sokrates (Hinweis 03.11., 07:45, zu 488): vor jeder Testbitte berührte Schirme alt geg | wartet auf Test/Build (gebaut) |
 | 513.1 | M | von Sokrates (Chef 03.11., 15:56, „513 B“, Archiv; „jetzt“ 03.11., 15:56): probelauf.py lä | wartet auf Test/Build (gebaut) |
 | 511 | M | von Sokrates (Chef 03.11., 13:50, „511 ja“, Archiv; „jetzt“ 03.11., 13:50): probelauf.py s | wartet auf Test/Build (gebaut) |
@@ -221,7 +220,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | wartet auf Test/Build (gebaut) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
-| Pflege | K | von Werkzeug (340.3, 03.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
+| Pflege | K | von Werkzeug (340.3, 03.11.): 17386 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
 **Diogenes** – offen 10, Muss 8, startbar 1
 
@@ -238,13 +237,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 39, Muss 28, startbar 19
+**Sokrates** – offen 38, Muss 27, startbar 18
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 508 | M? | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
 | 488 | M | von Chef (02.11., 22:44, „dann frieren wir das mal ab einem gewissen Punkt ein … kümmern u | wartet auf Perikles |
-| 348.12c | M | von Chef (03.11., 08:50, „Aber müssen wir dazu nicht auch was kaufen?“, zu 494 Gegner): Ka | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 461b.4 | M | von Perikles (deine Liste 461b, 02.11., 19:1x, Punkte 7, 9): Köpfe von DESIGN-SPIELSYSTEM- | startbar |
 | 468 | M | von Chef (02.11., 07:33, Bild „Nutzung“: 36 %): weiter mit Wächter bis Sa 19:59 (ja 11:13, | startbar |
 | 415d | M | von Chef (02.11., 20:05, „Hatten wir nicht weitere Effekte vorgesehen?“): Kauf der zwei Ef | wartet auf Jerry |
@@ -285,7 +283,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 348.12c (Beratung), 407 (Projekt)
+Nicht gestellt: 407 (Projekt)
 
 Ohne Datei: 3402 (Projekt), 275 (Projekt), 26 (Team Tom)
 
