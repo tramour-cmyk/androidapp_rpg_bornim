@@ -79,12 +79,8 @@ func _ready() -> void:
 	oben.position = Vector2(-300, oy + Windrose.GROESSE + 16 * AktionsKnopf.DP)
 	oben.add_theme_constant_override("separation", 12)
 	add_child(oben)
-	var knoepfe := [["Tag / Nacht", "nacht"], ["Nah / Fern", "nah"], ["Drehen ◀", "links"], ["Drehen ▶", "rechts"], ["Deutsch / English", "sprache"]]   # 390: Sprache wie alt im Systemmenue, hier nur zum Testen
-	if DirAccess.dir_exists_absolute("res://daten/tiere"): knoepfe.append(["Tiere", "tiere"])   # 348.6: Tiere zum Anschauen (Chef 16:52), nur Test
-	for spec in knoepfe:
-		var b := knopf_neu(spec[0], Vector2(260, 84), 28)
-		b.pressed.connect(func(): knopf.emit(spec[1]))
-		oben.add_child(b)
+	# 500 (Chef 03.11., 07:24): die Probeknoepfe (Tag/Nacht, Nah/Fern, Drehen, Sprache, Tiere) sind weg; Tag/Nacht und Tiere im
+	# Testmenue (Reiter „Test“, Welt), Sprache im Hauptmenue, Drehen und Zoomen mit zwei Fingern; „Karte Näher/Normal“ im System bleibt
 	# 348.6 (Befund 7): rund mit Zeichen wie alt (76 dp, 22 dp vom Rand), das Schild links daneben (106 dp, 46 dp)
 	aktion_knopf = AktionsKnopf.new()
 	aktion_knopf.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)

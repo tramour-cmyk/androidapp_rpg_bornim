@@ -183,6 +183,13 @@ static func reiter(m: Menue) -> void:
 			func(): m.test.emit("teleport", ["village", 11, 7, "DOWN"]), "HOME"),
 		zk.call(t.call("Kapitelende", "Chapter end"), null, t.call("Kapitel 1 bis kurz vor Ende: Höhle geschafft, Lyra frei, Amulett in der Tasche; sprich mit Aldric.",
 			"Chapter 1 to just before its end: cave done, Lyra free, amulet in the bag; talk to Aldric."), func(): m.test.emit("kapitelende", []), "FLAG")])
+	# 500 (Chef 03.11., 07:24): was nur die Probeknoepfe rechts in der Welt schalteten, hier
+	var welt2 := [zk.call(t.call("Tag / Nacht", "Day / night"), null, t.call("Schaltet zwischen Mittag und 23 Uhr; die Leute folgen der Uhr.", "Switches between noon and 11 pm; the people follow the clock."),
+		func(): m.test.emit("nacht", []), "", "☾")]
+	if DirAccess.dir_exists_absolute("res://daten/tiere"):
+		welt2.append(zk.call(t.call("Tiere", "Animals"), null, t.call("Stellt alle Tiermodelle zum Anschauen um den Helden; noch einmal: weg.", "Puts every animal model around the hero to look at; again: gone."),
+			func(): m.test.emit("tiere", []), "STEPS"))
+	m.zeichenreihe(welt2)
 	# 415 (Jerry, Chef „415 jetzt“ 02.11., 10:55): Handyprobe der Beams-Probe im Kampfort (kampf/strahlprobe.gd)
 	m.zeichenreihe([zk.call(t.call("Strahlen", "Beams"), null, t.call("415: drei Strahlen der Beams-Probe im Kampfort, mit Bildern je Sekunde; Renderer umschaltbar.",
 		"415: three beams of the Beams sample in the battle place, with frames per second; renderer switchable."), func(): m.test.emit("strahlen", []), "FPS")])
