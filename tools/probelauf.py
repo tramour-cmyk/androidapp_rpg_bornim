@@ -39,6 +39,11 @@ Mensch sicher besser sehen.“): der Chef hat es gesehen, Eintrag im Vorgangsarc
   Helfer das Probebild genau: `python3 tools/probelauf.py --helfer <Nr> "ok: <was zu sehen ist>"`; erst dann der Film.
   Am Rechner muss der Name des Filmskripts im Filmbefehl stehen. Jeder Filmlauf verbraucht das Probebild.
   Push: filmt, wenn ein Schritt mit `--write-movie` bei dieser Commit-Nachricht läuft (`if: contains(…head_commit.message…)`).
+
+513.1 (Chef 03.11., 15:56: „513 B“; Leitlinie: was der Chef an einer Figur abnimmt, gilt in jedem Zweig, der Figuren zeigt):
+jeder Probelauf und jedes Probebild hält an, wenn der Stand (Rechner: HEAD der Arbeitskopie; Push: HEAD; Start von Hand: der
+Zweig) einen abgenommenen Figurencommit aus `tools/figurenstand.tsv` auf `main` nicht enthält. Eine Zeile je Abnahme
+(Commit, Vorgang, Chefwort); trägt ein, wer das „passt“ des Chefs zu einer Figur ins Archiv schreibt.
 """
 import datetime
 import json
@@ -234,6 +239,7 @@ def push_lauf(befehl, cwd):
             return None
     else:
         pfade = None
+    STAND_REF.update(wo=wo, rev="HEAD")
     los = loest_aus(wo, zweig, pfade, nachricht)
     if not los:  # Tom 02.11., 16:3x: Push ohne Lauf zählte als Probelauf
         return None
@@ -242,6 +248,7 @@ def push_lauf(befehl, cwd):
 
 
 FILMT = 2
+STAND_REF = {}  # 513.1: Arbeitskopie und Stand des zuletzt erkannten Laufs (wo, rev)
 
 
 def _glob(muster, text):
@@ -334,6 +341,7 @@ def vorgang_aus_ref(ref, ablauf):
     ref = (ref or "").removeprefix("refs/heads/")
     nachricht, name = "", ""
     if ref and git("fetch", "-q", "origin", ref).returncode == 0:
+        STAND_REF.update(wo=REPO, rev=git("rev-parse", "FETCH_HEAD").stdout.strip())
         nachricht = git("log", "-1", "--format=%B", "FETCH_HEAD").stdout
         if ablauf and not ablauf.isdigit():
             datei = ablauf if "/" in ablauf else ".github/workflows/" + ablauf
@@ -634,6 +642,43 @@ def ohne_heredoc(befehl):
     return "".join(aus) + befehl[pos:]
 
 
+def arbeitskopie(befehl, cwd):
+    cds = CD.findall(befehl)
+    return os.path.join(cwd, os.path.expanduser(cds[0].strip("\"'"))) if cds else cwd
+
+
+def figur_sperre(wo, rev):
+    """513.1: Grund zum Anhalten oder None. Jeder abgenommene Figurencommit aus tools/figurenstand.tsv (main) muss in rev
+    enthalten sein; Arbeitskopie ohne godot/: keine Figuren, nichts zu prüfen."""
+    if not wo or not rev:
+        return None
+    wurzel = git("rev-parse", "--show-toplevel", cwd=wo).stdout.strip()
+    if not wurzel or not os.path.isdir(os.path.join(wurzel, "godot")):
+        return None
+    _, liste = zweig_lesen("tools/figurenstand.tsv", "main")
+    if not liste:
+        p = os.path.join(REPO, "tools", "figurenstand.tsv")
+        liste = open(p, encoding="utf-8").read() if os.path.exists(p) else ""
+    fehlt = []
+    for z in liste.splitlines():
+        t = z.split("\t")
+        if z.startswith("#") or len(t) < 2 or not re.fullmatch(r"[0-9a-f]{7,40}", t[0].strip()):
+            continue
+        c = t[0].strip()
+        if git("cat-file", "-e", c + "^{commit}", cwd=wurzel).returncode:
+            git("fetch", "-q", "origin", c, cwd=wurzel, timeout=30)
+        r = git("merge-base", "--is-ancestor", c, rev, cwd=wurzel)
+        if r.returncode:
+            fehlt.append(f"{c} ({t[1].strip()})")
+    if not fehlt:
+        return None
+    flach = git("rev-parse", "--is-shallow-repository", cwd=wurzel).stdout.strip() == "true"
+    return ("513.1 (Chef 03.11., 15:56: „513 B“): dieser Stand enthält den abgenommenen Figurenstand nicht: "
+            + ", ".join(fehlt) + ". Erst den Figurenstand hineinmischen (Zweig mit allen Abnahmen, Toms 513; `git fetch origin "
+            "<Zweig> && git merge FETCH_HEAD`), dann laufen lassen." + (" Die Arbeitskopie ist flach geklont: vorher "
+            "`git fetch --unshallow`, sonst sieht der Haken die Vorfahren nicht." if flach else ""))
+
+
 def anhalten(text):
     print(text, file=sys.stderr)
     sys.exit(2)
@@ -689,6 +734,8 @@ def main():
     film = False
     try:
         if bildlauf(befehl, cwd) and not PROBE.search(befehl) and (pb := PROBEBILD.search(befehl)):
+            if (fs := figur_sperre(arbeitskopie(befehl, cwd), "HEAD")):
+                anhalten(fs)
             if filmlauf_rechner(befehl, cwd):  # 511: Probebild ist ein Einzelbild, kein Film
                 anhalten(f"511: `PROBEBILD={pb.group(1)}` gilt nur für ein Einzelbild; dieser Befehl filmt. Für den Film "
                          f"`PROBE={pb.group(1)}` mit eingetragenem Probebild.")
@@ -700,6 +747,7 @@ def main():
                 anhalten("389 (Chef 27.10., 23:55, höchstens zwei Probeläufe je Vorlage): Bildlauf erkannt. "
                          "Vorgang davorsetzen: `PROBE=<Nr> <Befehl>`; der Haken zählt je Vorgang.")
             nr, art, film = m.group(1), "rechner", filmlauf_rechner(befehl, cwd)
+            STAND_REF.update(wo=arbeitskopie(befehl, cwd), rev="HEAD")
         elif (hand := handlauf_bash(befehl)):
             if hand == RERUN:
                 anhalten(RERUN)
@@ -717,7 +765,7 @@ def main():
 def pruefen_und_zaehlen(nr, art, wer, film=False, befehl=""):
     try:
         n, vorlage = stand(nr)
-        sperre = film_sperre(nr, art, befehl) if film else None
+        sperre = figur_sperre(STAND_REF.get("wo"), STAND_REF.get("rev")) or (film_sperre(nr, art, befehl) if film else None)
     except (OSError, subprocess.SubprocessError, ValueError):
         return hinweis_geben()
     if n >= GRENZE:
