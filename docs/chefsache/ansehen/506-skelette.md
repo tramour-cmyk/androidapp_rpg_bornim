@@ -1,5 +1,7 @@
 # 506 · Skelette im Kampf: Film, Skelette fehlen im Bild · Team Tom (Spike) · 03.11., 12:45
 
+[Film von 03.11., 12:44](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261103-124445-506/2026-11/03-1244-506-Spike.mp4) (eingetragen von meldung.sh, Spike)
+
 E Kampf
 Kurz: zweiter Lauf, Film geht nach der Regel an dich; die Skelette sind nicht zu sehen, Ursache suche ich ohne neuen Lauf
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41620499067 (Lauf 2, Commit c3888eba5)
