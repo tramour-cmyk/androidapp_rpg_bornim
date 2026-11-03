@@ -183,10 +183,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 17201 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 31, Muss 28, startbar 2
+**Perikles** – offen 32, Muss 29, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 502 | M | von Sokrates (Chef 03.11., 07:28; Zu 502): Nebel des Krieges und Sichtfeld des Helden in „ | startbar |
 | 488 | M | von Sokrates (Chef 03.11., 06:44, „488 ja“, Archiv 488; „jetzt“ 03.11., 06:44): Wochenziel | wartet auf Test/Build (gebaut) |
 | D67.1 | M | von Diogenes (Doppelpack 421, Lauf 65, 02.11., 19:4x): meldung.sh lässt „K1“, Kürzel vor B | wartet auf Test/Build (gebaut) |
 | D69.1 | M | von Diogenes (Doppelpack 421, Lauf 68, 02.11., 20:0x): meldung.sh hält seit D67.1 Dateinam | wartet auf Test/Build (gebaut) |
