@@ -25,13 +25,18 @@ Auch von Hand: `python3 tools/probelauf.py --stand <Nr>` zeigt die Zählung.
 
 511 (Chef 03.11., 13:50: „511 ja“; Anlass 13:47: „Warum werden so viele sinnlose und kaputte Filme gemacht?“): ein Filmlauf
 startet nur mit Verweis auf ein geprüftes Probebild, das nach dem letzten Filmlauf zu diesem Vorgang eingetragen ist.
+Geprüft heißt (Chef 13:58: „Auf mich warten. Die Helfer können gerne sonstwas prüfen, aber ob Inhalt da ist, kann ich als
+Mensch sicher besser sehen.“): der Chef hat es gesehen, Eintrag im Vorgangsarchiv „<Nr> Probebild passt“ nach dem Probebild.
 - Filmlauf: Bildlauf am Rechner mit `--write-movie`, `FILM=`/`WALKFILM=`/`IDLEFILM=`/`FOEFILM=`/`FILMBATCH=`, `tools/t film`
   `.mp4`, `ffmpeg` oder einem Laufskript, dessen Name „film“ enthält oder das so filmt; jeder von Hand gestartete Ablauf mit
   Bild; jeder Push, der einen Ablauf mit `--write-movie` auslöst (unlesbar: zählt als Filmlauf).
 - Probebild: ein Einzelbild aus demselben Filmskript und derselben Szene, am Rechner mit `PROBEBILD=<Nr> <Befehl>` (ohne
-  Film; zählt nicht als Probelauf 389). Ein Helfer prüft es gegen „was muss zu sehen sein“ (Figur, Waffe, Gegner, kein Menü);
-  dann `python3 tools/probelauf.py --probebild <Nr> <Bild.png|Link> <Filmskript> "ok: <was zu sehen ist>"`.
-  Am Rechner muss der Name des Filmskripts im Filmbefehl stehen. Jeder Filmlauf verbraucht das Probebild.
+  Film; zählt nicht als Probelauf 389); eintragen mit
+  `python3 tools/probelauf.py --probebild <Nr> <Bild.png|Link> <Filmskript> "<was zu sehen sein muss>"`, dann an den Chef
+  (13:56: „das Probebild kann man mir vorlegen. Mit dem Hinweis, was zu prüfen ist.“): `meldung.sh --bild` mit dieser Liste
+  und Datei `docs/chefsache/ansehen/<Nr>-probebild.md`. Freigabe: Archiveintrag mit „<Nr> Probebild passt“ in der fetten
+  Kopfzeile (deren Zeit) oder im Text mit „(Chef [TT.MM.,] HH:MM“ dahinter. Am Rechner muss der Name des Filmskripts im
+  Filmbefehl stehen. Jeder Filmlauf verbraucht das Probebild.
 """
 import datetime
 import json
@@ -139,6 +144,8 @@ def urteil(nr):
             continue
         klammer = eintrag[:eintrag.find(")")] if ")" in eintrag else ""
         vorentscheid = "Vorentscheid" in m.group(1) or "Vorentscheid" in klammer or "→ **Vorentscheid" in eintrag
+        if "Probebild passt" in m.group(1):  # 511: Freigabe des Probebilds gibt nur den Film frei, keine zwei neuen Läufe
+            continue
         if "Läufe frei" in m.group(1):  # 480.1 (Chef 02.11., 18:46): weitere Läufe gibt Sokrates frei, Kopf „<Nr>, Läufe frei“
             vorentscheid = False
         if not re.search(r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)", m.group(1)):
@@ -455,16 +462,49 @@ def letzter_film(nr):
     return max((z[0] for z in zeilen(laeufe) + zeilen(lokal) if z[1] == nr and z[3].endswith("-film")), default="")
 
 
+def probebild_passt(nr):
+    """511 (Chef 13:58): Zeit des jüngsten Archiveintrags „<nr> Probebild passt“, sonst ""; „13:5x“ zählt als 13:59."""
+    _, archiv = zweig_lesen("docs/VORGANGSARCHIV.md", "main")
+    if not archiv:
+        p = os.path.join(REPO, "docs", "VORGANGSARCHIV.md")
+        archiv = open(p, encoding="utf-8").read() if os.path.exists(p) else ""
+    heute = datetime.datetime.now(BERLIN)
+    nrx = r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)"
+    beste = ""
+
+    def zeit(tag, monat, std, m1, m2):
+        tag, monat = int(tag), int(monat)
+        jahr = heute.year if (monat, tag) <= (heute.month, heute.day) else heute.year - 1
+        return f"{jahr}-{monat:02d}-{tag:02d} {std}:{m1}{'9' if m2 == 'x' else m2}:59"
+
+    for m in ARCHIV_KOPF.finditer(archiv):
+        ende = archiv.find("\n- **", m.end())
+        eintrag = archiv[m.end():ende if ende >= 0 else len(archiv)]
+        if re.search(nrx + r"[^;:]{0,30}?Probebild passt", m.group(1)):
+            beste = max(beste, zeit(m.group(2), m.group(3), m.group(4), m.group(5), m.group(6)))
+        for g in re.finditer(nrx + r"[^;→]{0,30}?Probebild passt\W{0,4}\(Chef\s+(?:(\d\d)\.(\d\d)\.,?\s*)?(\d\d):(\d)([\dx])",
+                             eintrag):
+            beste = max(beste, zeit(g.group(1) or m.group(2), g.group(2) or m.group(3), g.group(3), g.group(4), g.group(5)))
+    return beste
+
+
 def film_sperre(nr, art, befehl):
-    """511: Grund zum Anhalten oder None. Gilt ein Probebild, das nach dem letzten Filmlauf zu nr eingetragen wurde."""
+    """511: Grund zum Anhalten oder None. Gilt ein Probebild, das nach dem letzten Filmlauf zu nr eingetragen wurde und das
+    der Chef danach mit „<nr> Probebild passt“ freigegeben hat."""
     seit = letzter_film(nr)
     bilder = [b for b in probebilder(nr) if b[0] > seit]
     if not bilder:
-        return (f"511 (Chef 03.11., 13:50: „511 ja“): Filmlauf für {nr} ohne geprüftes Probebild"
+        return (f"511 (Chef 03.11., 13:50: „511 ja“): Filmlauf für {nr} ohne Probebild"
                 + (f" seit dem letzten Filmlauf {seit}" if seit else "") + ". Erst ein Einzelbild aus demselben Filmskript "
-                f"und derselben Szene (`PROBEBILD={nr} <Befehl ohne Film>`, zählt nicht als Probelauf), ein Helfer prüft es "
-                "gegen „was muss zu sehen sein“ (Figur, Waffe, Gegner, kein Menü); fehlt etwas: Ursache nachstellen, kein Lauf. "
-                f"Dann `python3 tools/probelauf.py --probebild {nr} <Bild.png|Link> <Filmskript> \"ok: <was zu sehen ist>\"`.")
+                f"und derselben Szene (`PROBEBILD={nr} <Befehl ohne Film>`, zählt nicht als Probelauf); fehlt sichtbar etwas: "
+                f"Ursache nachstellen. Dann `python3 tools/probelauf.py --probebild {nr} <Bild.png|Link> <Filmskript> "
+                "\"<was zu sehen sein muss>\"` und dem Chef vorlegen; Filmlauf erst nach seinem „Probebild passt“.")
+    passt = probebild_passt(nr)
+    if not passt or passt[:16] < bilder[-1][0][:16]:
+        return (f"511 (Chef 03.11., 13:58: „Auf mich warten.“): Probebild zu {nr} ({bilder[-1][0]}) ist noch nicht vom Chef "
+                f"freigegeben. Vorlegen: `meldung.sh <Name> --bild <Bild> \"{nr}: Probebild; zu prüfen: {bilder[-1][3]}\"` und "
+                f"Datei docs/chefsache/ansehen/{nr}-probebild.md; Filmlauf erst nach Archiveintrag „{nr} Probebild passt“. "
+                "Bis dahin an einem anderen Vorgang weiter.")
     skript = os.path.basename(bilder[-1][2].rstrip("/"))
     if art == "rechner" and skript not in ("", "-") and skript not in befehl:
         return (f"511: das Probebild zu {nr} ({bilder[-1][1]}) kommt aus „{skript}“, der Filmlauf ruft ein anderes Skript. "
@@ -473,9 +513,9 @@ def film_sperre(nr, art, befehl):
 
 
 def probebild_eintragen(args):
-    """511: `--probebild <Nr> <Bild.png|Link> <Filmskript> "ok: <was zu sehen ist>"`; Exit 1 mit Grund bei Fehler."""
+    """511: `--probebild <Nr> <Bild.png|Link> <Filmskript> "<was zu sehen sein muss>"`; Exit 1 mit Grund bei Fehler."""
     if len(args) != 4:
-        sys.exit("Aufruf: python3 tools/probelauf.py --probebild <Nr> <Bild.png|Link> <Filmskript> \"ok: <was zu sehen ist>\"")
+        sys.exit("Aufruf: python3 tools/probelauf.py --probebild <Nr> <Bild.png|Link> <Filmskript> \"<was zu sehen sein muss>\"")
     nr, bild, skript, befund = (a.replace("\t", " ").replace("\n", " ").strip() for a in args)
     if not re.fullmatch(NR, nr):
         sys.exit(f"511: „{nr}“ ist keine Vorgangsnummer.")
@@ -489,12 +529,12 @@ def probebild_eintragen(args):
         bild = os.path.abspath(bild)
     if not skript:
         sys.exit("511: Filmskript fehlt (Datei oder Ablauf, aus dem auch der Film kommt).")
-    if not re.match(r"ok:\s*\S.{10,}", befund, re.I) or re.search(r"\bfehlt|nicht zu sehen|unsichtbar|leer\b", befund, re.I):
-        sys.exit("511: Befund des Helfers muss mit „ok:“ beginnen und nennen, was zu sehen ist; fehlt etwas, kein Eintrag "
-                 "(Ursache nachstellen).")
+    if len(befund) < 10:
+        sys.exit("511: Prüfliste fehlt: was muss zu sehen sein (Figur, Waffe, Gegner, kein Menü …)?")
     wer = os.environ.get("CLAUDE_SESSION_ID", "hand")[:20]
     zaehlen(nr, wer, "probebild", BILDER, LOKAL_BILDER, (bild, skript, befund[:300]))
-    print(f"511: Probebild für {nr} eingetragen; der nächste Filmlauf zu {nr} darf starten (einer).")
+    print(f"511: Probebild für {nr} eingetragen. Jetzt dem Chef vorlegen (`meldung.sh --bild`, „{nr}: Probebild; zu prüfen: "
+          f"{befund}“, Datei docs/chefsache/ansehen/{nr}-probebild.md); Filmlauf erst nach Archiveintrag „{nr} Probebild passt“.")
 
 
 def anhalten(text):
@@ -509,8 +549,10 @@ def main():
             print(f"{nr}: {n} von {GRENZE} Probeläufen seit {'Urteil ' + v if v else 'Beginn der Zählung'}")
             seit = letzter_film(nr)
             frei = [b for b in probebilder(nr) if b[0] > seit]
-            print(f"{nr}: Probebild (511) " + (f"geprüft {frei[-1][0]} ({frei[-1][2]}), Filmlauf frei" if frei
-                                               else "fehlt, kein Filmlauf"))
+            passt = probebild_passt(nr)
+            print(f"{nr}: Probebild (511) " + ("fehlt, kein Filmlauf" if not frei else
+                  f"{frei[-1][0]} ({frei[-1][2]}), " + ("vom Chef freigegeben " + passt + ", Filmlauf frei"
+                                                         if passt and passt[:16] >= frei[-1][0][:16] else "wartet auf den Chef")))
         return
     if sys.argv[1:2] == ["--probebild"]:
         return probebild_eintragen(sys.argv[2:])
@@ -543,8 +585,8 @@ def main():
             if filmlauf_rechner(befehl, cwd):  # 511: Probebild ist ein Einzelbild, kein Film
                 anhalten(f"511: `PROBEBILD={pb.group(1)}` gilt nur für ein Einzelbild; dieser Befehl filmt. Für den Film "
                          f"`PROBE={pb.group(1)}` mit eingetragenem Probebild.")
-            return hinweis_geben(f"511: Probebild zu {pb.group(1)}, zählt nicht als Probelauf. Ein Helfer prüft es gegen "
-                                 "„was muss zu sehen sein“, dann `python3 tools/probelauf.py --probebild …`.")
+            return hinweis_geben(f"511: Probebild zu {pb.group(1)}, zählt nicht als Probelauf. Eintragen mit "
+                                 "`python3 tools/probelauf.py --probebild …`, dann dem Chef vorlegen.")
         if bildlauf(befehl, cwd):
             m = PROBE.search(befehl)
             if not m:
