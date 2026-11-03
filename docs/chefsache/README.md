@@ -197,7 +197,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 16547 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 28, Muss 25, startbar 2
+**Perikles** – offen 28, Muss 25, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -221,7 +221,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 399 | M | von Chef über Sokrates („jetzt“ 28.10., 12:34, Archiv): Vorrang neu: erst eine Godot-Fassu | wartet auf Tom |
 | 398 | M | von Sokrates (Chef 28.10., 11:22): Termine je Block nachrechnen mit der Schätzung der 15 Z | wartet auf Diogenes |
 | 383 | M | von Sokrates (Chef 27.10., 17:53 „ja, 383“, Archiv): Wartewächter in lauf.py, Haken 63 ver | wartet auf Test/Build (gebaut) |
-| 275 | M | von Sokrates (Chef 27.10., 15:09 ja, 15:15 „jetzt loslegen“, Archiv): Stufe 1 (Chefsache 2 | startbar |
+| 275 | M | von Sokrates (Chef 27.10., 15:09 ja, 15:15 „jetzt loslegen“, Archiv): Stufe 1 (Chefsache 2 | wartet auf Diogenes |
 | 347.2 | M | von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347): Paket Regeltreue umsetzen nach tool | wartet auf Sokrates |
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | ruht |
 | 341 | M | von Chef (23.10., 09:39): Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | Termin 06.11. |
@@ -230,10 +230,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 18919 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Diogenes** – offen 11, Muss 9, startbar 4
+**Diogenes** – offen 12, Muss 10, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 275 | M | von Perikles (Doppelpack 421, 03.11., 14:1x, 334ec650d): Nachprüfung D46.3 (entschieden(): | startbar |
 | 511 | M | von Perikles (Doppelpack 421, 03.11., 14:0x, d6d9eca8c): probelauf.py hält jeden Filmlauf | startbar |
 | D69 | M | von Perikles (Doppelpack 421, 02.11., 20:0x, 45468a5d7): Nachprüfung D69.1 (meldung.sh: Da | startbar |
 | 340.2 | M | von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv): Wirkung 340.3–340.5 zählen (Tabelle | ruht bis 09.11. |
