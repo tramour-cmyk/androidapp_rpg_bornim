@@ -238,6 +238,7 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/laden_4169.gd 2>&1 | grep -E "FEHLER|LADEN4169|SCRIPT ERROR"   # 416.9
           timeout 300 ~/godot/godot --headless --path . -s res://tests/wald_490.gd 2>&1 | tee wald490.log | grep -E "FEHLER|WALD490|SCRIPT ERROR"; grep -q "^WALD490 0 Fehler" wald490.log   # 490
           timeout 120 ~/godot/godot --headless --path . -s res://tests/blut_4166.gd 2>&1 | tee blut4166.log | grep -E "FEHLER|BLUT4166|SCRIPT ERROR"; grep -q "^BLUT4166 gut" blut4166.log   # 416.6
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/ruckeln_4164.gd 2>&1 | grep -E "^FEHLER|RUCKELN"   # 416.4 Rennen zum angetippten Ziel
       # fester Schluessel ueber alle Laeufe, sonst lehnt Android das Update ab (348.5, Build 9). 399.1a (Chef 28.10., 14:41): der Cache
       # eines Zweigs galt nur dort (Build 130 bekam einen neuen); jetzt nur lesen, angelegt wird er auf main (godot-schluessel.yml)
       - uses: actions/cache/restore@v4
