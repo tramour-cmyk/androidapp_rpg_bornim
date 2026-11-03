@@ -51,13 +51,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 57, Muss 38, startbar 10
+**Tom** – offen 57, Muss 38, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 490 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Flüsterwald begehbar wie alt | startbar |
+| 490 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Flüsterwald begehbar wie alt | in Arbeit bei Spike |
 | 495 | M | von Perikles (Wochenziel 03.11. Reihe 4, 488): Zufallsspieler spielt Kapitel 1 in Godot bi | startbar |
-| 491 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Tiefer Flüsterwald begehbar w | wartet auf 490 (startbar) |
+| 491 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Tiefer Flüsterwald begehbar w | wartet auf 490 (in Arbeit) |
 | 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | wartet auf Sokrates |
 | 417 | M | von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“): Tragart je Waffenklasse (Zu 417), | startbar |
 | 416.9 | M | von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“): Laden, Verkaufen, „angelegt“ mit | wartet auf Test/Build (gebaut) |
@@ -146,7 +146,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 493 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Kampforte Wald wie alt: Waldrand, Teich, Ba | startbar |
 | 494 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): jeder Gegner von Kapitel 1 kämpft an seinem | ruht (424: altes SRD-System) |
 | 492 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Blutzahnhöhle begehbar wie alt (Story.kt:73 | startbar |
-| 496 | M | von Perikles (Wochenziel 03.11. Reihe 5, 488): Durchspiel-Build aus 490–495: der Chef spie | wartet auf 490 (startbar) |
+| 496 | M | von Perikles (Wochenziel 03.11. Reihe 5, 488): Durchspiel-Build aus 490–495: der Chef spie | wartet auf 490 (in Arbeit) |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
 | 348.12f | M | von Sokrates (Archiv 348.12c b): gekaufte Riesenratte, unsere Haut | wartet auf Test/Build (gebaut) |
 | 348.12 | M | von Sokrates (Archiv): Goblin aufs CC0-Gerüst mit UAL | ruht |
