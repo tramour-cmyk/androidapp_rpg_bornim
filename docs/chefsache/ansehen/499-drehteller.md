@@ -1,5 +1,7 @@
 # 499 · Held im Drehteller der Erschaffung: Waffe in der Hand, Schild auf dem Rücken · Team Tom (Spike) · 03.11., 14:0x
 
+[Bild von 03.11., 14:06](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/03-1406-499-Spike.png) (eingetragen von meldung.sh, Spike)
+
 Bild: Telegram 03.11., 14:0x
 
 Kurz: nichts schwebt mehr; Schwert und Stab sind in der Hand, der Schild auf dem Rücken. Von vorn ist die Hand noch offen, und der Schild steht unten ab, beides wie im Dorf
