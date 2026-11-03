@@ -4,12 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [468b](entscheiden/468b-sokrates-505.md) | **Muss** | B Abläufe | 03.11., 19:20 | Tom braucht für 505 (Nebel des Krieges) die Freigabe „Läufe frei“; die gibt Sokrates oder du. Nach 468a startet Sokrates nur auf dein Wort. | Ford |
-| [516a](entscheiden/516a-archivieren-erlaubnis.md) | M? | B Abläufe | 03.11., 19:20 | Der Auto-Modus lehnt `archive_session` für Ford ab; seitdem bleiben alte Sitzungen und ihre Kosten offen. | Ford |
+Nichts offen.
 
 ## Zu billigen
 
