@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 03.11., 07:16
+**Gelesen bis:** `origin/main` 03.11., 14:04
 
-**Übergabe (03.11., 07:1x):** 488 Wochenziel 03.11. „Kapitel 1 durchspielbar“ (Projektplan), 490–496 angelegt und verteilt, Liste „Nach dem Durchspielen“; 479 Kopf und Orte nachgezogen; Fragen Tom (471 A, 458.3, 455.2, 348.13) und Jerry (461.1, 460, 348.12) beantwortet; Ford um Start Spike 490 gebeten; Tagesbericht 03.11. fremd geprüft, gemeldet. Offen: Do 05.11. prüfen, ob 493 an Spike geht (Risiko Zeile 9). Nachfolger: Perikles – 448: Tagesbericht 04.11. (7:30; Start nur auf Zuruf, 468a)
+**Übergabe (03.11., 14:0x):** 511 gebaut (Filmsperre in `probelauf.py` mit Chef-Freigabe und Helfer 511a, Regel Prüftreppe 4), Doppelpack an Diogenes, Ford benachrichtigt, Telegram gesendet. Offen aus 07:1x: Do 05.11. prüfen, ob 493 an Spike geht (Risiko Zeile 9). Nachfolger: Perikles – 448: Tagesbericht 04.11. (7:30; Start nur auf Zuruf, 468a)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
