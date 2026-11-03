@@ -1,5 +1,7 @@
 # 505 · Nebel im Wald: drei Stufen beschriftet, Bäume A oder B · Team Tom · 03.11., 22:3x
 
+[Bild von 03.11., 22:38](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/03-2237-505-Tom.png) (eingetragen von meldung.sh, Tom)
+
 W Welt
 Kurz: Lauf 2 nach deiner Freigabe (20:20), jetzt mit Bäumen (Fehler 518 behoben); Bilder: A, B, Karte im Menü. Das Bild von 21:24 ist überholt (ohne Bäume).
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41715601497 (Commit d9d8dc74d, Tests Nebel und Kartennebel ohne Fehler)
