@@ -10,6 +10,8 @@ Film: Telegram 03.11., 13:22
 
 **Was anders ist als Lauf 223:** Kamera aus der Richtung der Spielkamera, näher und folgt Held und Wolf; in Lauf 223 waren Wolf, Schwert und Schild kaum zu sehen. Gemessen: alle neun Anläufe rennen (nie das Hopsen aus dem Waffenpaket), Schild und Stab in der Hand, keine Figur angeschnitten.
 
-**Befund Prüfer:** folgt.
+**Befund Prüfer (13:32):** Als Erstes fällt auf: kein Wolf, nur ein schwarzer Wolfsumriss auf dem Gras; der Held schlägt mit scheinbar leeren Händen. Keine der Waffen (Schwert, Schild, Stab, Axt) ist zu sehen, darum trifft kein Schlag sichtbar. In Ordnung: Toon-Licht, Tuschelinie, Schatten unter dem Helden, Kleidung, kein Gleiten, Held immer ganz im Bild, saubere Schnitte.
+
+**Vermutung, noch nicht nachgestellt:** Wolf und Waffen werden von der Tusche ganz schwarz übermalt statt nur am Rand (sie haben eine eigene Tuschemaske); am Schatten liegt es nicht. Jerry stellt das ohne Bild nach, bevor irgendetwas neu gebaut wird; ein neuer Film nur mit deinem Wort.
 
 Antwort im Gespräch: „passt“, oder was anders sein soll; weitere Läufe nur mit deinem Wort.
