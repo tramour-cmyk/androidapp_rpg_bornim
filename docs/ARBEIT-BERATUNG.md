@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (03.11., 08:5x, `session_01Hmoj78UdwDM4ji11rqe7fk`):** Chefrunde 02.11.: 468a, 466 A, 415d, 432.3; 03.11.: 488, 463, 417, 406 (406.2), 502, 496a, Build 204 freigegeben, PR #178 zusammengeführt; neue Vorgänge aus dem Test 489, 497–501, 503; 475, 416.6 auf M; Lehre Sachaussagen. Kosten auf: 468, 466, 415, 432, 488, 463, 417, 406, 502, 487, 496. Nachfolger: Sokrates – 348.12c: Kaufliste Gegner Kapitel 1 (Chefwort 08:50, Ausnahme zu 468a); danach keiner bis Sa 20:00.
+**Übergabe (03.11., 09:05, `session_01Hmoj78Hm6D1d4DCjyV3tTr`):** 348.12c Kaufliste Gegner vorgelegt (entscheiden/34812c-gegner-kauf); 406.2a jetzt (Chef 09:03), an Jerry. Kosten auf: 348.12c, 406.2. Nachfolger: keiner bis Sa 20:00 (468a), außer der Chef antwortet auf 348.12c.
 
 ## Zeilen
 
