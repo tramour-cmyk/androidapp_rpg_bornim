@@ -24,7 +24,6 @@ Nichts offen.
 |---|---|---|---|
 | [492](ansehen/492-hoehle.md) | Blutzahnhöhle: alt gegen neu an acht Stellen | – | 03.11., 23:30 |
 | [505](ansehen/505-nebel-stufen.md) | Nebel im Wald: drei Stufen beschriftet, Bäume A oder B | – | 03.11., 22:35 |
-| [524](ansehen/524-gegenstandsfenster-inhalt.md) | Fenster eines Gegenstands: Inhalt wie in der alten Fassung | – | 04.11., 00:15 |
 | [531](ansehen/531-garrick.md) | Garrick am Feuer: wie er aussieht und wie er Tiere mit der Fackel vertreibt | – | 04.11., 00:16 |
 | [537](ansehen/537-kapitelende.md) | Kapitelende: Schirm „Ende von Kapitel 1“, Morgenandacht, Morgen im Tempel | – | 04.11., 00:37 |
 
@@ -338,7 +337,7 @@ Format (Muster: „So geht's“ unten): t249-build-490.md: 14 Vorgänge, höchst
 
 Nicht gestellt: 407 (Projekt), 523 (Team Tom)
 
-Ohne Datei: 3402 (Projekt), 275 (Projekt), 521 (Team Tom)
+Ohne Datei: 3402 (Projekt), 275 (Projekt), 521 (Team Tom), 26 (Team Tom)
 
 ## So geht's
 
