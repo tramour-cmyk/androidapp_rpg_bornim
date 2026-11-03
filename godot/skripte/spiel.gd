@@ -1560,20 +1560,24 @@ func wald_bilder() -> void:
 	for o in orte:
 		held.setze(o[1], o[2]); kamera.springe()
 		await get_tree().create_timer(1.0).timeout
+		ui.textfeld.visible = false   # Tipps beim Betreten nicht ueber dem Ort
 		await knips("%s/%s.png" % [dir, o[0]])
 	if herde and not herde.liste.is_empty():   # ein Jaeger zwei Kacheln vor dem Helden, gerade aufmerksam geworden
 		var s: Streuner = herde.liste[0]
 		for x in herde.liste:
 			if x.art == "wolf": s = x
-		held.setze(Vector2i(16, 20), "LEFT"); kamera.springe()
-		s.kachel = Vector2i(14, 20); s.von = s.kachel; s.blick = Vector2i(1, 0); s.alarm_bis = herde.jetzt + 5000
+		held.setze(Vector2i(17, 19), "LEFT"); kamera.springe()   # (14, 20) war ein Baum; Zeile 19 ist hohes Gras
+		s.kachel = Vector2i(15, 19); s.von = s.kachel; s.blick = Vector2i(1, 0); s.alarm_bis = herde.jetzt + 5000
 		await get_tree().create_timer(1.0).timeout
+		ui.textfeld.visible = false   # Tipps beim Betreten nicht ueber dem Ort
 		await knips("%s/monster.png" % dir)
 	licht.umschalten()
+	zustand.minuten = 23 * 60   # wie der Knopf „nacht“ (390): Leute und Monster nach der Uhr
 	await get_tree().create_timer(2.5).timeout
 	for o in [["nacht_feuer", Vector2i(9, 10), "RIGHT"], ["nacht_ankunft", Vector2i(9, 29), "UP"]]:
 		held.setze(o[1], o[2]); kamera.springe()
 		await get_tree().create_timer(1.0).timeout
+		ui.textfeld.visible = false   # Tipps beim Betreten nicht ueber dem Ort
 		await knips("%s/%s.png" % [dir, o[0]])
 	print("WALDBILDER fertig")
 	get_tree().quit()
