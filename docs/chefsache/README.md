@@ -24,10 +24,12 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [406.2a](ansehen/4062a-rennen.md) | Angriff im Rennen wie im Dorf, drei Waffen (Film, Lauf 2 von 2) | – | 03.11., 13:22 |
 | [416.6](ansehen/4166-staubfilm.md) | Staub beim Rennen auf trockenem Weg (Film, Lauf 2 von 2) | – | 03.11., 11:03 |
 | [490](ansehen/490-fluesterwald.md) | Flüsterwald begehbar wie alt: Standbilder aus Sicht des Helden | – | 03.11., 08:58 |
 | [491](ansehen/491-tiefer-wald.md) | Tiefer Flüsterwald begehbar wie alt: Standbilder aus Sicht des Helden | – | 03.11., 10:05 |
 | [493](ansehen/493-kampforte-wald.md) | Kampforte im Wald wie alt: Lichtung, Waldrand, Teich, Baum, Felsen, Steinkreis | – | 03.11., 10:37 |
+| [501](ansehen/501-kamin.md) | Kaminfeuer sitzt auf dem Holz statt zu schweben | – | 03.11., 13:22 |
 | [505](ansehen/505-nebel-rundum.md) | Nebel im Wald: Sicht rundum eingebaut | – | 03.11., 11:24 |
 | [506](ansehen/506-skelette.md) | Skelette im Kampf: Film, Skelette fehlen im Bild | – | 03.11., 12:45 |
 | [509](ansehen/509-teichfilm.md) | Frösche und Libellen am Teich (Film, Lauf 2 von 2) | – | 03.11., 11:03 |
@@ -85,7 +87,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | wartet auf Tom |
 | 455.1 | M | von Sokrates (Chef 01.11., 11:24, „Abzug von … unterschiedlichen Roben, Umhängen oder Stie | wartet auf Tom |
 | 503 | M | von Sokrates (Chef 03.11., 07:40, Build 204; Zu 503): Laden, Verkaufen: Knopf „Gewöhnliche | wartet auf Test/Build (gebaut) |
-| 501 | M | von Sokrates (Chef 03.11., 07:26, Build 204; Zu 501): Schänke: Feuer im Kamin schwebt; Fla | in Arbeit bei Spike |
+| 501 | M | von Sokrates (Chef 03.11., 07:26, Build 204; Zu 501): Schänke: Feuer im Kamin schwebt; Fla | Chef |
 | 500 | M | von Sokrates (Chef 03.11., 07:24, Build 204; Zu 500): Probeknöpfe rechts in der Welt entfe | wartet auf Test/Build (gebaut) |
 | 499 | M | von Sokrates (Chef 03.11., 07:14, Build 204; „jetzt“ 03.11., 07:14; Zu 499): Erschaffung: | in Arbeit bei Spike |
 | 498 | M | von Sokrates (Chef 03.11., 07:13; Zu 498): Schriftbild wie in der Kotlin-Fassung (Größe, S | startbar |
@@ -297,7 +299,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 510a (Team Jerry)
 
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/4166-staubfilm.md, ansehen/509-teichfilm.md
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/4062a-rennen.md, ansehen/4166-staubfilm.md, ansehen/509-teichfilm.md
 
 Ohne Datei: 3402 (Projekt), 275 (Projekt)
 
