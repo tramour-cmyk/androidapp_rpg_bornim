@@ -45,7 +45,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 ## Offen je Rolle
 
-Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
+Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
 **Homer** – offen 4, Muss 0, startbar 0
 
@@ -56,7 +56,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 95, Muss 73, startbar 28
+**Tom** – offen 95, Muss 73, startbar 27
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -84,7 +84,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 542 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 542): Aufträge: Jorins „Feuer am Steinkr | startbar |
 | 543 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 543): Startwerte gegen alt und BRS prüfe | startbar |
 | 490 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488): Flüsterwald begehbar wie alt (Story.kt:524, | wartet auf Test (Build) |
-| 495 | M | von Perikles (Wochenziel 03.11. Reihe 4, 488): Zufallsspieler spielt Kapitel 1 in Godot bi | startbar |
+| 495 | M | von Perikles (Wochenziel 03.11. Reihe 4, 488): Zufallsspieler spielt Kapitel 1 in Godot bi | Termin 04.11. |
 | 491 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Tiefer Flüsterwald begehbar w | wartet auf Test (Build) |
 | 505 | M | von Perikles (Archiv 502, Chef 03.11., 07:30, Zu 502 in ARBEIT-PROJEKT): Nebel des Krieges | Chef |
 | 514 | M | von Sokrates (Chef 03.11., 16:01, zu 490: „Gibt es nachts vernünftige Glühwürmchen überall | wartet auf Test/Build (gebaut) |
