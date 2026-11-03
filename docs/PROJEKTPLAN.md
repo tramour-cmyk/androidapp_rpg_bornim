@@ -104,6 +104,8 @@ Quelle: der alte Kotlin-Code (`core`, `app`), abgeglichen mit `LISTE-UMZUG-348.m
 | W21 | Kleinleben Dorf: Katze, Hund, Vögel fliegen vor dem Helden auf | fehlt (Hühner, Ziege, Kaninchen da) | [ ] | [ ] |
 | W22 | Kleinleben Wald: Frosch, Libelle, Schmetterling, Glühwürmchen | teils: Schmetterling, Glühwürmchen | [ ] | [ ] |
 | W23 | Leute auf eigenem Modell statt eines gemeinsamen Kopfs (475) | teils | [ ] | [ ] |
+| W24 | Nebel des Krieges in der Wildnis wie alt: schwarz, was nie gesehen wurde, gedämpft, was gerade nicht in Sicht ist (`Fog.kt`; 502, Chef 03.11., 07:30) | fehlt (505, Tom) | [ ] | [ ] |
+| W25 | Sichtfeld des Helden: Bäume, Felsen, Wände sperren die Sicht; Form vor dem Bau als Vorlage an dich (alt Kegel 160° plus kleiner Kreis; 502) | fehlt (505, Tom) | [ ] | [ ] |
 
 „da“ heißt nur: im Code gefunden, nicht von dir abgenommen. Geprüft nur Kopf und einzelne Stellen der Godot-Dateien; ob jedes Merkmal dem alten Stand voll entspricht, sagt erst dein Häkchen.
 
