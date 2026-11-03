@@ -1,0 +1,4 @@
+# 513.1 (Chef 03.11., 15:56, „513 B“): abgenommene Figurencommits; jeder Probelauf braucht alle in seinem Stand (probelauf.py).
+# Eine Zeile je Abnahme: Commit<TAB>Vorgang<TAB>Chefwort. Steht der gemeinsame Figurenstand (513, Tom), ersetzt sein Commit die Zeilen, die er enthält.
+3b29ac0cb	417	„417 passt“ (Chef 03.11., 06:54, Waffe in der Hand, Schild auf dem Rücken)
+e3789d130	463	„463 passt“ (Chef 03.11., 06:50, Umhang und Robe)

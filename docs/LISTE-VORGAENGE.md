@@ -8,7 +8,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 
 | Nr. | Vorgang | Bereich | Kl. | Kosten | Vorrat | Stand |
 |---|---|---|---|---|---|---|
-| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +758,03 $ | Ford | laufend |
+| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +759,79 $ | Ford | laufend |
 | 19 | Zeitablauf der Kampfbewegungen (19e Beispiel) | E Kampf | K |  | Jerry | ruht |
 | 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | E Oberfläche | K |  | Jerry (Inhalt; Technik Tom erledigt) | ruht |
 | 26.1 | Durchspielbogen auswerten, Rest von 26: Gegenprobe je Klasse, neuer Bogen auf Godot (Chef 24.10., 16:56) | Q QS | M | – | Sokrates | wartet |
@@ -57,7 +57,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 264 | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? (Chef 20.10.) | B Betrieb | K | – | Sokrates | Chef |
 | 267 | Spiel ruckelt auf dem Tablet (Chef 20.10., Build 48) | E Technik | M | –; +13,77 $ | Tom | ruht |
 | 270 | Perikles und Diogenes auf das große Modell (Chef 21.10.) | B Betrieb | M | –; +4,16 $ | Perikles | wartet |
-| 275 | Zentrale Vorgangsliste als einzige Quelle (Chef 21.10.; Stufe 1 jetzt, 27.10.) | B Werkzeuge | M | 27,62 $ | Perikles | wartet |
+| 275 | Zentrale Vorgangsliste als einzige Quelle (Chef 21.10.; Stufe 1 jetzt, 27.10.) | B Werkzeuge | M | 31,69 $ | Perikles | wartet |
 | 276 | Fords Anleitung auf eine Seite (Empfehlung Sokrates zu 274) | B Abläufe | K | – | Perikles | offen |
 | 283.1 | Hohes Gras sichtbar höher als ein Feldweg, stimmige Welt (Chef 21.10.) | G Stil | K | – | Ideenspeicher | offen |
 | 284 | Bis zum Durchspielen (26) am Kampf nur Fehlerbehebung, kein Feinschliff (Vorschlag Sokrates) | B Vorrang | M | – | Sokrates | entschieden |
@@ -99,7 +99,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 348.7a | Rückfrage: Geschosse flach oder in 3D | E Technik | M | 58,17 $ | Jerry | in Arbeit |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | B Abläufe | M | 119,56 $ | Perikles, Diogenes | wartet |
 | 348.12 | Fertige CC0-Grundmodelle prüfen, Probe Mensch (Chef 25.10., 21:21, 21:36) | E Technik | M | 186,48 $ | Sokrates, Jerry | wartet |
-| 348.12c | Modellpaket auch gegen Geld (Quaternius QAL, Dungeon Monsters Kit, andere), Vorschlag mit Preisen (Chef 26.10., 11:59) | G Geld | M | –; +9,24 $ | Sokrates | Chef |
+| 348.12c | Modellpaket auch gegen Geld (Quaternius QAL, Dungeon Monsters Kit, andere), Vorschlag mit Preisen (Chef 26.10., 11:59) | G Geld | M | 31,99 $ | Sokrates | Chef |
 | 348.12f | Probe gekaufte Riesenratte in unserem Look | E Technik | M | 199,50 $ | Jerry | gebaut |
 | 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | G Story | M | 4,29 $ | Homer | entschieden |
 | 348.12i | Kaufmodelle mit `AESContext` verschlüsseln, Bedingung für Kauf Protofactor (Chef 26.10., 19:41, B) | E Technik | M | – | Tom | gebaut |
@@ -129,7 +129,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 468 | Sparplan bis Sa 19:59: Wochenlimit 36 % nach 36 h, halbes Tempo (Chef 02.11., 07:33, Bild Nutzung) | B Abläufe | M | – | Sokrates | Dauer |
 | 469 | Kampf auf BRS: Ring (MARS) ohne Klassen regeln (aus 406.1, Sokrates 02.11.) | E Kampf | M | – | Team Jerry | wartet |
 | 467 | Ausdauer nach BRS statt SRD (ausdauer.gd: Konstitution, Stärke 13), Formel aus 427 (Chef 01.11., 21:52) | E Kampf | M | – | Team Jerry | wartet |
-| 470 | Bau BRS 1.1 Erschaffung (Wochenziel 02.11., Stufe 1) | E Regeln | M | 23,20 $ | Team Tom | zu testen |
+| 470 | Bau BRS 1.1 Erschaffung (Wochenziel 02.11., Stufe 1) | E Regeln | M | 43,23 $ | Team Tom | ruht |
 | 470a | Rückfrage: BRS-Held in Stufe 1, Brücke zum SRD-Kampf bis 2.3? | E Regeln | M | – | Team Tom | erledigt |
 | 470.1 | Erschaffung: Held auf Antippen bildschirmgroß (Idee Chef 02.11., 18:37) | E Oberfläche | K | – | Team Tom | wartet |
 | 478 | Rechenkern des Kampfs in Stufe 1 auf BRS (470a C, Chef 02.11., 17:59) | E Kampf | M | – | Team Jerry | ruht |
@@ -143,36 +143,42 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 485 | Diogenes bessert sich aus dem Rollenspiegel 02.11.: Wochentermine zählen, Vergleichsblätter selbst holen, Meldungen ohne Abkürzungen (Chef 02.11., 19:37 „1, 2, 3 ja“) | Q QS | M | – | Diogenes | ruht |
 | 486 | Homer bessert sich aus dem Rollenspiegel 02.11.: Notizen mit Regelwirkung vor „fertig“ fremd prüfen, Vorratsgrenzen anderer wöchentlich melden, Stiltext auf Godot-Fundstellen (Chef 02.11., 19:44 „Ja, mache das.“) | Q QS | M | – | Homer | erledigt |
 | 487 | Gemeinsamer Build aus den wartenden Änderungen beider Teams, ohne Figuren und Bewegung (die über den Grundstand 461.1), höchstens 6 je Build (Wochenziel 02.11. Reihe 6, Hinweis Team Tom 21:1x) | E Technik | M | 6,06 $ | Team Jerry | erledigt |
-| 488 | Feinarbeit einfrieren, erst Kapitel 1 durchspielbar, dann polieren (Chef 02.11., 22:44: „wieder 20 Durchläufe für einen Umhang, das ist halt verschwendete Rechenleistung“) | B Abläufe | M | – | Sokrates | wartet |
+| 488 | Feinarbeit einfrieren, erst Kapitel 1 durchspielbar, dann polieren (Chef 02.11., 22:44: „wieder 20 Durchläufe für einen Umhang, das ist halt verschwendete Rechenleistung“) | B Abläufe | M | 10,79 $ | Sokrates | wartet |
 | 489 | Hauptmenü: runde Schalter für Musik und Effekte an/aus wie in der alten Fassung (Chef 03.11., 07:07, Test Build 204) | C Klang | M | – | Team Jerry | zu testen |
-| 490 | Flüsterwald begehbar wie alt (Orte O6, 479 A; Wochenziel 03.11., 488) | B Umzug | M | – | Team Tom | Chef |
-| 491 | Tiefer Flüsterwald mit Morwens Hütte und Grimmzahn begehbar (Orte O7, 479 A; Wochenziel 03.11., 488) | B Umzug | M | 29,56 $ | Team Tom | Chef |
-| 492 | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry an Tom, Chef 07:54) | B Umzug | M | – | Team Tom | startbar |
+| 490 | Flüsterwald begehbar wie alt (Orte O6, 479 A; Wochenziel 03.11., 488) | B Umzug | M | 37,00 $ | Team Tom | startbar |
+| 491 | Tiefer Flüsterwald mit Morwens Hütte und Grimmzahn begehbar (Orte O7, 479 A; Wochenziel 03.11., 488) | B Umzug | M | 29,56 $ | Team Tom | startbar |
+| 492 | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry an Tom, Chef 07:54) | B Umzug | M | 15,84 $ | Team Tom | Chef |
 | 493 | Kampforte Wald: Waldrand, Teich, Baum, Felsen, Steinkreis (Orte O9; Wochenziel 03.11., 488; von Jerry an Spike) | E Kampf | M | – | Team Tom | Chef |
-| 494 | Gegner von Kapitel 1 im Kampf außer den Untoten (506), je Gegner höchstens ein Lauf (Wochenziel 03.11., 488) | E Kampf | M | – | Team Jerry | Chef |
+| 494 | Gegner von Kapitel 1 im Kampf außer den Untoten (506), je Gegner höchstens ein Lauf (Wochenziel 03.11., 488) | E Kampf | M | – | Team Jerry | startbar |
 | 495 | Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2; Wochenziel 03.11., 488) | E Technik | M | – | Team Tom | wartet |
 | 496 | Durchspiel-Build: Kapitel 1 von Anfang bis Ende am Handy (Wochenziel 03.11., 488) | E Technik | M | – | Team Jerry | wartet |
-| 509a | Rückfrage: dritter Lauf für den Teichfilm (Lauf 228 zeigt nur das Hauptmenü) | E Klang | M | – | Team Jerry | Chef |
-| 494a | Rückfrage: dritter Lauf für Wildschwein und Hundertfüßer (Läufe 225, 229 brachen beim Bau ab) | E Kampf | M | – | Team Jerry | Chef |
-| 510a | Rückfrage: zweiter Lauf für den Fledermaus-Vergleich (Lauf 235: freies Modell leer, Film nur mit unserer) | E Kampf | M | – | Team Jerry | Chef |
-| 496a | Rückfrage: abgenommene Kampfbilder (Grundstand 461) schon in den Durchspiel-Build? | E Technik | M | 12,11 $ | Team Jerry | zu testen |
+| 509a | Rückfrage: dritter Lauf für den Teichfilm (Lauf 228 zeigt nur das Hauptmenü) | E Klang | M | – | Team Jerry | erledigt |
+| 494a | Rückfrage: dritter Lauf für Wildschwein und Hundertfüßer (Läufe 225, 229 brachen beim Bau ab) | E Kampf | M | – | Team Jerry | erledigt |
+| 510a | Rückfrage: zweiter Lauf für den Fledermaus-Vergleich (Lauf 235: freies Modell leer, Film nur mit unserer) | E Kampf | M | – | Team Jerry | erledigt |
+| 496a | Rückfrage: abgenommene Kampfbilder (Grundstand 461) schon in den Durchspiel-Build? | E Technik | M | 51,18 $ | Team Jerry | zu testen |
 | 497 | „Über das Spiel“: Lizenzhinweis der Godot Engine (MIT) und ihrer Drittteile fehlt (Chef 03.11., 07:09, Frage nach Schriften, Build 204) | M Veröffentlichung | M | – | Team Tom | gebaut |
 | 498 | Schriftbild wie in der Kotlin-Fassung: Größe, Sperrung, Halbfett (Chef 03.11., 07:13, „Über das Spiel“ wirkt kleiner) | E Oberfläche | M | – | Team Tom | startbar |
-| 499 | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 (Chef 03.11., 07:14, Build 204) | E Figuren | M | – | Team Tom | in Arbeit |
+| 499 | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 (Chef 03.11., 07:14, Build 204) | E Figuren | M | – | Team Tom | Chef |
 | 500 | Welt: Probeknöpfe rechts (Tag/Nacht, Nah/Fern, Drehen, Sprache, Tiere) weg; „Karte Näher/Normal“ bleibt (Chef 03.11., 07:24 und 07:27, Build 204) | E Oberfläche | M | – | Team Tom | gebaut |
 | 501 | Schänke: Feuer im Kamin schwebt, beginnt nicht auf der Feuerstelle (Chef 03.11., 07:26, Build 204) | E Innenräume | M | – | Team Tom | Chef |
 | 502 | Nebel des Krieges und Sichtfeld des Helden in der Welt wie alt (Fog.kt), fehlt in Godot und im Plan (Chef 03.11., 07:28) | B Abläufe | M | – | Perikles | gebaut |
 | 503 | Laden, Verkaufen: Knopf „Gewöhnliche verkaufen“ leer, ohne Text (Chef 03.11., 07:40, Build 204) | E Oberfläche | M | – | Team Tom | gebaut |
 | 504 | Gespräche nie gleich: jede Zeile, die man wiederholt hört, in mindestens drei Varianten (Chef 03.11., 07:52: „Lebendige Welt, keine monotone Welt“) | C Texte | M | – | Homer | erledigt |
-| 509 | Frösche und Libellen an den Teichen im Flüsterwald fehlen in Godot (Chef 03.11., 09:21; `PondLife.kt`, Projektplan O6, W22) | E Welt | M | – | Team Jerry | Chef |
-| 510 | Fledermaus: freies Modell (OGA „Vampire Bat“, CC0) neben der eigenen im Film, Chef wählt (Chef 03.11., 10:28–10:57, aus 494) | E Kampf | M | 17,92 $ | Team Jerry | in Arbeit |
+| 509 | Frösche und Libellen an den Teichen im Flüsterwald fehlen in Godot (Chef 03.11., 09:21; `PondLife.kt`, Projektplan O6, W22) | E Welt | M | – | Team Jerry | wartet |
+| 511 | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele sinnlose und kaputte Filme gemacht?“) | B Werkzeuge | M | – | Perikles | gebaut |
+| 512 | Vor jeder Testbitte berührte Schirme alt gegen neu vergleichen (Sokrates 03.11., 07:45, nach Build 204: 9 Erstfunde des Chefs) | B Abläufe | M | – | Perikles | gebaut |
+| 513 | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „513 B“) | E Figuren | M | – | Team Tom | startbar |
+| 513.1 | probelauf.py sperrt Läufe ohne abgenommenen Figurenstand (513 B) | B Abläufe | M | – | Perikles | gebaut |
+| 514 | Glühwürmchen nachts auf allen Gebietskarten wie alt (Fireflies, Chef 03.11., 16:01) | O Orte | M | – | Team Tom | startbar |
+| 515 | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 03.11., 16:07) | O Orte | M? | – | Team Tom | startbar |
+| 510 | Fledermaus: freies Modell (OGA „Vampire Bat“, CC0) neben der eigenen im Film, Chef wählt (Chef 03.11., 10:28–10:57, aus 494) | E Kampf | M | 17,92 $ | Team Jerry | wartet |
 | 508 | Lehrmeister in Kapitel 1 erreichbar (Geselle), Magie-Pflicht Paladin/Kriegsmagier, Wachsoldat zu Wächter (aus 447.4) | D Design | M? | – | Sokrates | startbar |
 | 504.1 | Bau der Gesprächsvarianten Kapitel 1 (`STORY-VARIANTEN-K1.md`) in `geschichte.gd` | C Texte | M? | – | Tom | startbar |
-| 505 | Bau Nebel des Krieges und Sichtfeld des Helden (Archiv 502; Welt W24, W25) | B Umzug | M | – | Team Tom | Chef |
-| 506 | Untote im Kampf: Skelett, Zombie, Ghul (aus 494, Spike; Wochenziel 03.11., 488) | E Kampf | M | 26,61 $ | Team Tom | Chef |
-| 506a | Rückfrage zu 506: Zombie und Ghul auf dem CC0-Menschen oder Wiedergänger und Grabhund nach Archiv 348.12c? | B Abläufe | M | – | Perikles | startbar |
-| 507 | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) | E Kampf | M | 16,93 $ | Team Jerry | in Arbeit |
-| 471 | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | E Regeln | M | – | Team Tom | wartet |
+| 505 | Bau Nebel des Krieges und Sichtfeld des Helden (Archiv 502; Welt W24, W25) | B Umzug | M | – | Team Tom | startbar |
+| 506 | Untote im Kampf: Skelett, Zombie, Ghul (aus 494, Spike; Wochenziel 03.11., 488) | E Kampf | M | 26,61 $ | Team Tom | wartet |
+| 506a | Rückfrage zu 506: Zombie und Ghul auf dem CC0-Menschen oder Wiedergänger und Grabhund nach Archiv 348.12c? | B Abläufe | M | – | Perikles | erledigt |
+| 507 | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) | E Kampf | M | 34,94 $ | Team Jerry | startbar |
+| 471 | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | E Regeln | M | – | Team Tom | ruht |
 | 472 | Bau BRS 1.3 Heldenstufe aus Erfahrung (Wochenziel 02.11., Stufe 1) | E Regeln | M | – | Team Jerry | erledigt |
 | 473 | Bau BRS 1.4 Monsterwerte Kapitel 1 (Wochenziel 02.11., Stufe 1) | E Kampf | M | 5,89 $ | Team Jerry | erledigt |
 | 474 | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, Meldung Tuffy): nächster Build einmal deinstallieren; dauerhaft ohne Cache | E Technik | M? | 8,66 $ | Team Tom | ruht |
@@ -200,8 +206,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 460 | Kamerafahrten im Kampfort: Eröffnung wie Drohnenflug je Blende, Wechsel der Perspektive ohne Eingabe; erst Probefilm (Chef 01.11., 20:2x) | E Kampf | M | – | Team Jerry | ruht |
 | 406.1 | Schildstoß im MARS: Reaktion oder Konter am Ring, vielleicht Angriff; Regelvorschlag, dann Bau (Chef 01.11., 20:2x) | E Kampf | M | – | Team Jerry | wartet |
 | 406 | Ausrüstung der Helden je Stück als eigenes Modell mit Abnahme, „noch steril“ (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe); zuerst Rundschild des Klerikers hell mit goldener Sonne wie alt | E Kampf | M | 150,36 $ | Team Jerry | zu testen |
-| 406.2 | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | C Kampf | M | 22,98 $ | Team Jerry | gebaut |
-| 406.2a | Im Kampf zum Angriff rennen wie im Dorf (UAL), sonst schnelles Gehen; jetzt (Chef 03.11., 09:03) | E Kampf | M | – | Team Jerry | Chef |
+| 406.2 | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | C Kampf | M | 41,37 $ | Team Jerry | gebaut |
+| 406.2a | Im Kampf zum Angriff rennen wie im Dorf (UAL), sonst schnelles Gehen; jetzt (Chef 03.11., 09:03) | E Kampf | M | 18,74 $ | Team Jerry | wartet |
 | 407 | Probelauf-Grenze 389 greift nicht: neue Runde erst nach Urteil des Chefs, jeder Zweig zählt („jetzt“ 29.10., 10:05) | B Abläufe | M | 41,23 $ | Perikles | gebaut |
 | 410 | Waffen am Körper wegstecken, alle Waffenarten (aus 376.1, Chef 29.10., 10:52, 11:40) | E Figuren | M | – | Team Tom | ruht |
 | 415 | Handyprobe Beams-Free-Sample (aus 414, Chef 31.10., 20:3x; „jetzt“ 01.11.) | C Kampf | M | 32,03 $ | Team Jerry | zu testen |
@@ -209,7 +215,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 415d | Rückfrage: Status Effects VFX und Beams & Lasers kaufen, sobald der Handytest läuft? (Chef 02.11., 20:05) | C Kampf | M | – | Sokrates | wartet |
 | 416.2 | Platzwechsel mit Dorfbewohnern und Tieren, nicht stecken bleiben (Chef 31.10., 20:4x) | B Umzug | M | – | Team Tom | startbar |
 | 416.4 | Rennen des Helden wirkt wie Hochsprung (Chef 31.10., 20:4x) | B Umzug | M | 41,57 $ | Team Tom | wartet |
-| 416.6 | Spuren des Helden, auch bei Regen; Blutspuren in der Welt zuerst (Chef 31.10., 20:4x; 03.11., 07:31) | B Umzug | M | – | Team Jerry | Chef |
+| 416.6 | Spuren des Helden, auch bei Regen; Blutspuren in der Welt zuerst (Chef 31.10., 20:4x; 03.11., 07:31) | B Umzug | M | – | Team Jerry | wartet |
 | 417 | Prüfung: Waffen und Schild beim Gehen und Rennen in der Hand statt auf dem Rücken (zu 410, Chef 31.10., 21:1x) | E Figuren | M | 214,13 $ | Team Tom | startbar |
 | 423.1 | Spielerhandbuch BRS als Seite im Spiel, Platzhalter aus der Datendatei (Archiv 423) | A Technik | M? | – | Team Tom | wartet |
 | 427 | Bestiarium: je Monsterart Name, Gebiet und Stufenband, Verhalten, Angriffe und Waffen, Werte für Spielsystem 2.0, Beute; Aussehen verweist auf `LISTE-FIGUREN.md` (Chef 31.10., 21:3x); Werte entschieden 02.11., 18:54 | D Design | M | 13,13 $ | Sokrates | erledigt |
@@ -224,9 +230,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | C Texte | K | 0,79 $ | Homer | ruht |
 | 432.2 | Aschgeborene: Grundwerte und Merkmal (Chef 02.11., 16:29) | E Regeln | M? | – | Sokrates | erledigt |
 | 432.3 | Aschgeborene: Abnahmeliste in LISTE-FIGUREN, Erschaffungstext (Chef 02.11., 16:29) | C Texte | M? | – | Homer | erledigt |
-| 434 | Prüfung: jede Vorlage zu einem Eigenbau hat die Zeile „Bestand geprüft“ (377, 408); fehlt sie, an Team und Chef (Chef 31.10., 22:1x) | B Abläufe | M | 4,45 $ | Diogenes | wartet |
+| 434 | Prüfung: jede Vorlage zu einem Eigenbau hat die Zeile „Bestand geprüft“ (377, 408); fehlt sie, an Team und Chef (Chef 31.10., 22:1x) | B Abläufe | M | 4,45 $ | Diogenes | erledigt |
 | 438 | Wölfe im Kampf wirken gleitend: Angriff, Tempo, Vorbeigehen (Film 403, Chef 31.10., 23:31) | E Kampf | M | 124,52 $ | Team Jerry | gebaut |
-| 438a | Hinfallen und Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe und Schild frei (Archiv 438a) | E Kampf | M | 14,15 $ | Team Jerry | ruht |
+| 438a | Hinfallen und Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe und Schild frei (Archiv 438a) | E Kampf | M | 24,62 $ | Team Jerry | ruht |
 | 439 | Kampfablauf: Neuformation vor dem Tod, Treffer vor dem Angriff (Film 403, Chef 31.10., 23:31) | E Kampf | M | – | Team Jerry | zu testen |
 | 440 | Wolf verschwindet ohne sichtbare Sterbeanimation (Film 403, Chef 31.10., 23:34) | E Kampf | M | – | Team Jerry | zu testen |
 | 453 | Wölfe im Kampfort: Ruhebewegungen (atmen, scharren, umblicken, knurren) (Chef 01.11., 11:05) | E Kampf | M | 47,52 $ | Team Jerry | zu testen |
@@ -240,7 +246,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 455.2 | Netzliste je sichtbarem Platz, Eigenbau geschätzt, Größenfilm der Völker (Chef 01.11., 11:27, 455 ja) | E Figuren | M | – | Team Tom | ruht |
 | 458.2 | Gegenstandskatalog: Werte, Preise, Beute (Chef 01.11., 458) | D Design | M | 10,87 $ | Team Jerry | erledigt |
 | 458.3 | Gegenstandskatalog: Netze, Modelle, Läden (Chef 01.11., 458) | E Figuren | M | 12,15 $ | Team Tom | ruht |
-| 447.4 | Texte Lehrmeister-Einladungen und Ruf-Gespräche für Stufe 3 (447) | C Texte | M | 11,22 $ | Homer | Chef |
+| 447.4 | Texte Lehrmeister-Einladungen und Ruf-Gespräche für Stufe 3 (447) | C Texte | M | 11,22 $ | Homer | startbar |
 | 457.1 | Probeskripte Tom mit Spielshadern (457) | E Figuren | M | – | Team Tom | gebaut |
 | 457.2 | Probeskripte Jerry mit Spielshadern (457) | E Kampf | M | 5,56 $ | Team Jerry | gebaut |
 | 416.7 | Aktionsknopf am Tresen in Schenke und Laden (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | wartet |

@@ -157,7 +157,7 @@ So zeigt Kapitel 1 die ersten Lehrmeister und Anwärter. Der Pfad beginnt in Kap
 
 **Was ein Pfad bringt:** neue Fähigkeiten im Kampf und in der Welt, jede besser als die vorige (Riposte, Tierbegleiter, Waffenzauber), keine großen Zahlenaufschläge. Die Kraft bleibt in den Fertigkeiten.
 
-**Wechseln** geht beim Lehrmeister mit Abschlägen: Die Fähigkeiten des alten Pfads gehen verloren, seine Kernfertigkeiten sinken um einen Rang.
+**Wechseln** geht beim Lehrmeister; verloren geht nur, was der alte Pfad gegeben hat (447.4, Chef 03.11.): seine Fähigkeiten, und seine Kernfertigkeiten fallen auf den höchsten Rang ohne Pfad im jeweiligen Kapitel zurück (Tabelle oben, „höchster Rang sonst“; z. B. Kapitel 2–3 Geselle, Wert höchstens 49). Was ohne Pfad erübt ist, bleibt. Als Anwärter (Kapitel 1) kostet der Wechsel nichts; die Frage lautet nur „Du gibst den Pfad {weg} auf. Wirklich wechseln?“.
 
 **Magie und Rüstung (Entscheidung 80):** Die Sperre kommt daher, dass Metall die Aufnahme der Magiepartikel aus der Umgebung stört. Sie gilt darum für jeden, der aus der Umgebung schöpft: **Evokation, Illusion, Beschwörung** gehen nur ohne Metall (Stoff oder Leder). **Heil- und Schutzmagie** schöpfen aus dem eigenen Willen und gehen auch in Rüstung. So zaubern Paladin und Heiler ohne Ausnahmeregel; der Kriegsmagier bleibt die eine Ausnahme bei Evokation (leichte Rüstung).
 

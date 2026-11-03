@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (03.11., 03:1x, Ford `session_01Hmoj76TkJDAHTy5crCj9QH`, Tiefe 3):** Geltend: 468a (Chef 02.11., 22:01, Zeile unten) bis Sa 07.11., 20:00: nur Tom, Jerry, Spike (ab 03.11.) starten, Tuffy ruht, Homer, Perikles, Diogenes, Sokrates nur auf Zuruf; Wochenwarnung `allowed_warning` seit 03.11.: nur Muss. Läuft: Tom `78SZ` (470), Jerry `79Wf` (438a/406, PR #178), Homer `78Ga` (macht fertig), Sokrates `78Ud`. Alle älteren Sitzungen archiviert und gebucht (bei Mehrfachvorgängen gleichmäßig verteilt); `archive_session` ging nach Chefwort durch. Offen: 18-Uhr-Ablesung braucht das Bild des Chefs (gestern keins). Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 511** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 516** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford“ (Selbstneustart, Tiefe 4) `session_01Hmoj798rLzu8SK9Qiix4zr`; Stundenuhr „Ford-Lauf“ `trig_01KN4aZ4h2xQJ9JS8UDv6dK4` (:03, angelegt 03.11., 03:04); alte Uhren gelöscht. Vorgänger `session_01Hmoj76TkJDAHTy5crCj9QH` ruht (idle), Archivieren vom Klassifizierer abgelehnt (03.11., 03:05, einmal gemeldet), Kosten 9,29 $ gebucht. `01Hmoj78Yo` gebucht (9,57 $), ruht. Ältere archiviert.
+- **Ford lebt in einer Sitzung** „Ford“ (Selbstneustart, Tiefe 4) `session_01Hmoj798rLzu8SK9Qiix4zr`; Stundenuhr „Ford-Lauf“ `trig_01KN4aZ4h2xQJ9JS8UDv6dK4` (:03, angelegt 03.11., 03:04); alte Uhren gelöscht. Vorgänger `01Hmoj76TkJ` archiviert 03.11., 14:09 (Chefwort), Kosten 11,05 $ (9,29 $ gebucht). `01Hmoj78Yo` gebucht (9,57 $), ruht. Ältere archiviert.
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus; Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
 
@@ -58,6 +58,15 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 16:19 03.11.: Neustart Tom af7df0686 → `QoAx` „490 Flüsterwald Build“; alter Tom `wm1A` archiviert, 15,84 $ auf 492. Schätzungen (Chef 16:05): 490 12+25 $ (Spike `Tec7`, `EdZ1`), 507 10 $ (`gwo8`), 438a 10,47 $ (Rest `79Wf`), Betrieb 1,76 $ (Rest alter Ford); ersetzt durch `result`-Werte: 406.2 18,39 $, 496a 23,27 $, 406.2a 18,74 $.
+- 16:05 03.11.: Diogenes `ppa1` fertig (Vorrat leer), archiviert, 4,07 $ auf 275; kein Nachfolger (468a).
+- 15:55 03.11.: Neustart Jerry 27c9a18f8 → `fWZc` „494 Grak, Krogg“; alter `ZwvU` archiviert, 8,01 $ auf 507; Kosten von `gwo8` (15:03, 507) weiter nicht lesbar.
+- 15:33 03.11.: Neustart Jerry e9369fd9c → `ZwvU` „507 Probe“; alter `gwo8` archiviert, Kosten nicht lesbar (usage fehlt).
+- 15:26 03.11.: Diogenes `ppa1` „275, D69“ (Chefwort 15:17); Neustart Tom c496f2108 → `wm1A` „492 Blutzahnhöhle“, alter Tom `SZRh` archiviert, 20,03 $ auf 470.
+- 15:03 03.11.: Neustart Jerry 9eccbe6f3 → `gwo8` „507 Höhle“; alter `nM3u` archiviert, 15,80 $ auf 496a.
+- 14:30 03.11.: Neustart Sokrates 2ac0fe42d → `j7tV` „Chefrunde 348.12c Kauf“; alter `Hm6D` archiviert, 22,75 $ auf 348.12c.
+- 14:09 03.11.: alter Ford `76TkJ` archiviert (Chefwort 14:08 „archivieren, Kosten erheben, das ist dein Job“), Kosten 11,05 $, davon 9,29 $ gebucht (Rest 1,76 $ nicht buchbar: eine Buchung je Sitzung).
+- 13:54 03.11.: Perikles `diLb` „511“ gestartet (Chef 13:52, Zuruf, Sokrates 13:53); alter Perikles `rAxm` archiviert, 10,79 $ auf 488.
 - 13:36 03.11.: Neustart Jerry a2b58218e → `nM3u` „496a, 510, 507, 406.2a“; alter `zYoY` archiviert, 17,92 $ auf 510.
 - 13:24 03.11.: Neustart Spike bbf658d61 → `PQkk` „499“; alter `QEGk` archiviert, 26,61 $ auf 506.
 - 11:55 03.11.: Neustart Jerry 975ce2c1a → `zYoY` „507, 406.2a, 510“; alter `QAqZ` archiviert, 16,93 $ auf 507.

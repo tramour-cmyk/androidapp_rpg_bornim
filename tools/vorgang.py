@@ -41,7 +41,8 @@ def treffer(nr):
 
 WORT = [(r"startbar", "startbar"), (r"in Arbeit|begonnen", "in Arbeit"), (r"wartet auf (den )?Test|zu testen", "zu testen"),
         (r"wartet auf Chef|Chef|Rücksprache", "Chef"), (r"wartet|hängt|nach \d|erst |frühestens|Termin", "wartet"), (r"ruht|zurückgestellt", "ruht"),
-        (r"gebaut", "gebaut"), (r"bis \d|Dauer", "Dauer"), (r"nach dem Meilenstein|nach Meilenstein", "nach Meilenstein"), (r"erledigt|fertig", "erledigt")]
+        (r"gebaut", "gebaut"), (r"bis \d|Dauer", "Dauer"), (r"nach dem Meilenstein|nach Meilenstein", "nach Meilenstein"), (r"erledigt|fertig", "erledigt"),
+        (r"offen", "offen"), (r"aufgeteilt", "aufgeteilt"), (r"Idee", "Idee")]  # D46.5: dieselbe Liste wie regelcheck.py 4a
 
 def wort(stand):
     b = startbar.blank(stand)
