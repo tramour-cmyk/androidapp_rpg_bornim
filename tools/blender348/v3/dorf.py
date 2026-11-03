@@ -65,6 +65,7 @@ class use:
 class Part:
     def __init__(self): self.V = []; self.F = []; self.C = []; self.M = []; self.UV = []; self.S = set()   # S: rund schattierte Flaechen
 DORF = Part(); GLAS = Part(); WASSER = Part(); BODEN = Part()
+BAUM = Part()                                # 530 Balken des Schlagbaums (Gruppe_schlagbaum, dreht in gebiet.gd)
 # Durchsicht wie alt (WorldScreen.hides): jedes hohe Ding ein eigenes Netz „Gruppe_<art>_<c>_<r>“, damit Godot es als Ganzes
 # halb durchsichtig zeichnet, wenn es den Oberkoerper des Helden verdeckt (Helfer an Runde 11b: Held hinter Stand, Dach, Laterne)
 GRUPPEN = []
@@ -1613,16 +1614,19 @@ for r in range(R0, R1 + 1):
         elif t == 'z':
             # 348.6 (Befund 7): wie MapTownIso.barrier: Eichenbalken in Hufthoehe ueber zwei Kacheln, im Westen auf dem Drehpfosten
             # mit Eisenkappe und Bolzen, im Osten in der Gabel; Eisenbaender an den Enden (Masse in Kachel -1..0, Hoehe in U)
-            def B(i0, j0, i1, j1, z0, z1, col, m):
-                with use(m): box(DORF, (tx(c) + (i0 + 1) * TS, ty(r) - (j1 + 1) * TS, z0 * U), (tx(c) + (i1 + 1) * TS, ty(r) - (j0 + 1) * TS, z1 * U), col)
+            # 530 (Chef 03.11., 23:40: „Schlagbaum öffnet sich nicht visuell“): der Balken samt Eisenband am Ende ist ein eigenes Netz
+            # „Gruppe_schlagbaum“; gebiet.gd dreht ihn am Drehpfosten hoch, sobald barrier_open gilt (alt MapTownIso.barrier open)
+            if not any(g[0] == 'schlagbaum' for g in GRUPPEN): GRUPPEN.append(('schlagbaum', BAUM, Part()))
+            def B(i0, j0, i1, j1, z0, z1, col, m, P=None):
+                with use(m): box(P or DORF, (tx(c) + (i0 + 1) * TS, ty(r) - (j1 + 1) * TS, z0 * U), (tx(c) + (i1 + 1) * TS, ty(r) - (j0 + 1) * TS, z1 * U), col)
             iron = lin(0x262422); oak = ratio(0x6A5238, 0x5A4430); post = ratio(0x463424, 0x5A4430)
             if ch(c - 1, r) != 'z':
                 B(-0.86, -0.6, -0.74, -0.48, 0, 84, post, 'holz'); B(-0.87, -0.61, -0.73, -0.47, 84, 86, iron, 'weiss')
-                B(-0.73, -0.55, 0.0, -0.45, 54, 66, oak, 'holz'); B(-0.74, -0.57, -0.64, -0.43, 53.3, 66.7, iron, 'weiss')
+                B(-0.73, -0.55, 0.0, -0.45, 54, 66, oak, 'holz', BAUM); B(-0.74, -0.57, -0.64, -0.43, 53.3, 66.7, iron, 'weiss')
             else:
                 B(-0.35, -0.62, -0.25, -0.56, 0, 70, post, 'holz'); B(-0.35, -0.58, -0.25, -0.42, 0, 54, post, 'holz')
                 B(-0.35, -0.44, -0.25, -0.38, 0, 70, post, 'holz')
-                B(-1.0, -0.55, -0.16, -0.45, 54, 66, oak, 'holz'); B(-0.26, -0.56, -0.2, -0.44, 53.3, 66.7, iron, 'weiss')
+                B(-1.0, -0.55, -0.16, -0.45, 54, 66, oak, 'holz', BAUM); B(-0.26, -0.56, -0.2, -0.44, 53.3, 66.7, iron, 'weiss', BAUM)
         elif t == 'h':
             with use('bretter'): box(DORF, (p.x - TS / 2 - 1, p.y - TS / 2 - 1, -6), (p.x + TS / 2 + 1, p.y + TS / 2 + 1, 4), W1)
             with use('holz'):

@@ -28,6 +28,7 @@ var kamera: Camera3D
 var kraut_netz: MeshInstance3D        # 490 Vorlage des Heilkrauts (dorf.py „Kraut_Vorlage“), je Kraut eine Kopie
 var kraeuter := {}                    # Vector2i -> MeshInstance3D
 var feuer: Array = []                 # 490 Lagerfeuer: {licht, flammen, rauch, basis}
+var schlagbaum: Node3D                # 530 Drehpunkt des Balkens am Drehpfosten (dorf.py „Gruppe_schlagbaum“)
 var glut: Array[ShaderMaterial] = []  # 490 Glut im Feuer
 
 func _init(k: Karte) -> void:
@@ -47,6 +48,7 @@ func _ready() -> void:
 	male(netz, self)
 	if kraut_netz: male(kraut_netz, null, 1)   # Schablone 1 wie Blueten: ohne Bildschirmlinie
 	baue_gruppen(netz)
+	baue_schlagbaum(netz)
 	var wiese := MeshInstance3D.new()          # Waldboden ausserhalb der Karte: Bodenmaske am Rand fortgesetzt
 	var pm := PlaneMesh.new()
 	pm.size = Vector2(160, 160)
@@ -632,6 +634,38 @@ func _process(dt: float) -> void:
 		if v.length() > 1e-4: n.rotation.y = atan2(v.x, v.z)
 		var flap := sin(zeit * 26.0 + float(f["ph"])) * 1.1
 		for w in f["w"]: (w[0] as Node3D).rotation.z = flap * float(w[1])
+
+# ---------------------------------------------------------------- 530 Schlagbaum
+# Chef 03.11., 23:40: „Schlagbaum öffnet sich nicht visuell“; der Balken war fest ins Dorfnetz gebacken. Jetzt eigenes Netz,
+# hier an einen Drehpunkt am Westende gehaengt (Drehpfosten, Hoehe Balkenmitte); offen steht er senkrecht neben dem Pfosten
+# wie alt (MapTownIso.barrier open). Beim Laden eines Spielstands gleich offen, im Gespraech mit Jorin schwingt er hoch.
+func baue_schlagbaum(netz: Node) -> void:
+	var mi := netz.find_child("Gruppe_schlagbaum", true, false) as MeshInstance3D
+	if mi == null: return
+	var vater := mi.get_parent()
+	var bb: AABB = mi.transform * mi.get_aabb()
+	var h := bb.size.y                       # Balkenstaerke; der Balken liegt laengs x (Osten)
+	var dreh := Node3D.new()
+	dreh.name = "Schlagbaum_Dreh"
+	dreh.position = Vector3(bb.position.x + h * 0.5, bb.position.y + h * 0.5, bb.get_center().z)
+	vater.add_child(dreh)
+	vater.remove_child(mi)
+	dreh.add_child(mi)
+	mi.position -= dreh.position
+	schlagbaum = dreh
+	if karte.flaggen.has("barrier_open"): schlagbaum_auf(false)
+
+## offen: senkrecht (um z, das Ostende hebt sich); mit sanft: knarrend hoch, kurz nachfedernd
+func schlagbaum_auf(sanft: bool) -> void:
+	if schlagbaum == null or schlagbaum.has_meta("auf"): return
+	schlagbaum.set_meta("auf", true)
+	if not sanft:
+		schlagbaum.rotation.z = PI / 2
+		return
+	var tw := schlagbaum.create_tween()
+	tw.tween_property(schlagbaum, "rotation:z", PI / 2 + 0.06, 1.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tw.tween_property(schlagbaum, "rotation:z", PI / 2 - 0.025, 0.35).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tw.tween_property(schlagbaum, "rotation:z", PI / 2, 0.3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 # ---------------------------------------------------------------- 490 Lagerfeuer und Heilkraeuter
 func baue_feuer(at: Vector3) -> void:
