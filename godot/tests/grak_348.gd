@@ -1,8 +1,8 @@
 # 348.12 nachbessern (Chef 28.10., 15:23, Archiv: „warum läuft der dann nicht mit einer Animation, sondern wird wieder über den Platz
 # geschoben? … Animation beim Bewegen, beim Ausweichen … Der Axthieb trifft auch nicht … wir brauchen einen Zusammenbruch“): Grak im
 # echten Kampfort, ohne Bild, die Regeln angehalten. Geprüft je Bild:
-#  - Platzwechsel: solange er sich bewegt, spielt er Gehen oder Rennen, im Tempo des Wurzelwegs (Füße gleiten nicht);
-#  - Hieb: beim Aufschlag liegt die Axt im Rand der Heldin (nicht davor, nicht durch sie hindurch), auf Körperhöhe;
+#  - Platzwechsel: solange er sich bewegt, schreitet er (Gehen, nie Rennen; Chef 29.10., 10:55), im Tempo des Wurzelwegs;
+#  - Hieb: beim Aufschlag liegt die Axt im Rand des Helden (nicht davor, nicht durch ihn hindurch), auf Körperhöhe;
 #  - Ausweichen zu beiden Seiten mit der Bewegung der Quelle und Ortswechsel, danach wieder daheim;
 #  - Tod: er bricht zusammen (Becken unten) und bleibt sichtbar liegen, nichts ausgeblendet.
 # Nur mit dem Grak aus grak_gestalt.py (UAL=<Pro>) in kampf/daten aussagekräftig; ohne seinen Weg: übersprungen (exit 0).
@@ -10,9 +10,9 @@
 extends SceneTree
 
 const Probe = preload("res://kampf/probe.gd")
-const GLEIT := 0.12      # so weit darf das Tempo am Boden vom Tempo des Wurzelwegs abweichen (Anteil)
-const RAND_MIN := 0.0     # m: so tief liegt die Axt beim Aufschlag mindestens im Rand der Heldin …
-const RAND_MAX := 0.3     # … und höchstens (sonst schlägt sie durch die Heldin hindurch)
+const GLEIT := 0.12      # so weit darf der Weg am Boden vom Weg der gespielten Schritte abweichen (Anteil)
+const RAND_MIN := 0.0     # m: so tief liegt die Axt beim Aufschlag mindestens im Rand des Helden …
+const RAND_MAX := 0.3     # … und höchstens (sonst schlägt sie durch den Helden hindurch)
 
 var fehler := 0
 
@@ -58,7 +58,7 @@ func _all() -> void:
 	for f in k.figures.values():     # die anderen stehen still daheim
 		if f != grak and f != held and f.fighter.side == "FOES":
 			f.visible = false
-	# ---- Platzwechsel hin und zurück: Gehen (kurz) und Rennen (weit)
+	# ---- Platzwechsel hin und zurück, kurz und weit: immer Gehen (348.12, Chef 29.10., 10:55: „Gang schreitend statt kurzer Sprint“)
 	var h0: Vector3 = grak.home
 	for ziel in [h0 + k.facing(true) * -0.9, h0, h0 + k.facing(true) * -2.4, h0]:
 		grak.glide_to(ziel)
@@ -81,17 +81,20 @@ func _all() -> void:
 				continue
 			bilder += 1
 			var nm := String(grak.anim.current_animation)
-			if nm not in ["Gehen", "Rennen"]:
+			if nm != "Gehen":
 				falsch += 1
 				continue
+			# 348.12 Lauf 175 (Platzwechsel 0,9 m: 26 % „gleiten“): seit 438 fährt der Rumpf an und bremst (_lauf, RAMPE_S) und die
+			# Schritte folgen ihm (_schritt_sync, speed_scale); der Vergleich mit dem vollen Tempo zählte die Rampe als Gleiten. Jetzt
+			# Weg am Boden gegen den Weg, den die gespielten Schritte in diesem Bild machen (Tempo des Wurzelwegs mal speed_scale)
 			var s: Array = strecke.get(nm, [0.0, 0.0])
-			strecke[nm] = [s[0] + v.length(), s[1] + dt]
+			strecke[nm] = [s[0] + v.length(), s[1] + grak._mps(nm) * grak.anim.speed_scale * dt / 1000.0]
 		for nm in strecke:
-			gleit = maxf(gleit, absf(strecke[nm][0] / maxf(strecke[nm][1] / 1000.0, 0.001) / grak._mps(nm) - 1.0))
-		_gut(bilder > 3 and falsch == 0, "Platzwechsel %.1f m: %d Bilder unterwegs, %d ohne Gehen oder Rennen" % [ziel.distance_to(h0) if ziel != h0 else 0.0, bilder, falsch])
-		_gut(gleit < GLEIT or bilder <= 3, "Platzwechsel: Tempo am Boden weicht höchstens %.0f %% vom Wurzelweg ab" % (gleit * 100.0))
+			gleit = maxf(gleit, absf(strecke[nm][0] / maxf(strecke[nm][1], 0.001) - 1.0))
+		_gut(bilder > 3 and falsch == 0, "Platzwechsel %.1f m: %d Bilder unterwegs, %d ohne Gehen" % [ziel.distance_to(h0) if ziel != h0 else 0.0, bilder, falsch])
+		_gut(gleit < GLEIT or bilder <= 3, "Platzwechsel: Weg am Boden weicht höchstens %.0f %% vom Weg der Schritte ab" % (gleit * 100.0))
 		_gut(grak.position.distance_to(ziel) < 0.05, "Platzwechsel: am Ziel (%.2f m daneben)" % grak.position.distance_to(ziel))
-	# ---- Hieb aus zwei Entfernungen: Axt beim Aufschlag im Rand der Heldin
+	# ---- Hieb aus zwei Entfernungen: Axt beim Aufschlag im Rand des Helden
 	for weit in [0.0, 1.5]:
 		grak.snap_to(h0 + k.facing(true) * -weit)
 		grak._face()
@@ -112,12 +115,14 @@ func _all() -> void:
 				if r[0] > tief:
 					tief = r[0]
 					hoch = r[1]
-		_gut(tief >= RAND_MIN and tief <= RAND_MAX, "Hieb aus %.1f m weiter: Axt beim Aufschlag %.2f m im Rand der Heldin, %.2f m hoch (Bewegungen %s)" % [weit, tief, hoch, ", ".join(anims.keys())])
+		_gut(tief >= RAND_MIN and tief <= RAND_MAX, "Hieb aus %.1f m weiter: Axt beim Aufschlag %.2f m im Rand des Helden, %.2f m hoch (Bewegungen %s)" % [weit, tief, hoch, ", ".join(anims.keys())])
 		_gut(hoch > 0.4 and hoch < 1.7, "Hieb: Aufschlag auf Körperhöhe (%.2f m)" % hoch)
 		var t0 := Time.get_ticks_msec()
 		while grak.tween and grak.tween.is_running() and Time.get_ticks_msec() - t0 < 10000:
 			halt.call()
 			await process_frame
+			anims[String(grak.anim.current_animation)] = true
+		_gut(not anims.has("Rennen") and not anims.has("Zurück"), "Hieb: hin und zurück geschritten, kein Lauf (Bewegungen %s)" % ", ".join(anims.keys()))
 		for i in 20:
 			halt.call()
 			await process_frame
@@ -164,7 +169,7 @@ func _all() -> void:
 	quit(1 if fehler > 0 else 0)
 
 
-## Wie tief (m) die Axt (Netz „Waffe“) am Boden im Rand der Heldin liegt (> 0: darin) und in welcher Höhe ihr tiefster Punkt dort liegt
+## Wie tief (m) die Axt (Netz „Waffe“) am Boden im Rand des Helden liegt (> 0: darin) und in welcher Höhe ihr tiefster Punkt dort liegt
 func _axt_im_rand(grak, held) -> Array:
 	var best := -INF
 	var hoch := 0.0

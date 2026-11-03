@@ -14,6 +14,9 @@ var modell: Node3D
 var anim: AnimationPlayer
 var gang := 1.08                       # m/s, mit denen „Gehen“ ohne Gleiten laeuft (held-info.json)
 var renn := 0.0                        # m/s, mit denen „Rennen“ ohne Gleiten laeuft (held-info.json; 0: altes Modell ohne Rennen)
+var waffengang := ""                   # 417 Runde 4: Gehen_<gang>, Rennen_<gang> aus den Paketen (heldfigur.gd bewaffne), leer: ohne
+var gang_w := 0.0                      # m/s ohne Gleiten der Paketbewegungen
+var renn_w := 0.0
 var tempo_jetzt := 0.0                 # Chef 25.10., 18:20: „Übergang von Gehen zu Rennen ist zu krass“: das Tempo steigt und faellt weich
 const BESCHL := 5.0                    # m/s²: von Gehen (2,1) auf Rennen (4,3) in gut 0,4 s
 var weg: Array[Vector3] = []
@@ -29,6 +32,15 @@ var ruhe_zufall := RandomNumberGenerator.new()
 var gestossen := Vector2i(-1, -1)
 var stoss_zeit := -9.0
 var leute: Array = []                  # Leute der Karte (spiel.gd): durch sie geht er nicht
+var atem = null                        # 453.2: kampf/atem.gd (null ohne UAL-Geruest)
+var renn_s := 0.0                      # 453.2: so lange rennt er schon (s); danach atmet er schneller und beruhigt sich
+# 453.2 (Chef 13:0x: „nach Rennen schneller und abklingend“): nach RENN_VOLL s Rennen volle Anstrengung, nach Gehen etwas
+const RENN_VOLL := 6.0
+const GEH_ANSTRENGUNG := 0.15
+
+var abbremsen := false                # 416.4: wird langsamer ohne Halt (ABBREMS, auslaufen)
+var soll_jetzt := 0.0                  # 416.4: Zieltempo dieses Bilds
+var faellt := false                    # 416.4: tempo_jetzt sinkt in diesem Bild
 
 var wahl := {}                         # 376.1 Klasse, Aussehen, Ausruestung (HeldFigur.wahl); leer: der bisherige Held
 
@@ -56,6 +68,8 @@ func _ready() -> void:
 		{"gehen_m_je_s": modell.get_meta("gehen_m_je_s"), "rennen_m_je_s": modell.get_meta("rennen_m_je_s"), "faust_L": modell.get_meta("faust_L")}
 	gang = float(info.get("gehen_m_je_s", gang))
 	renn = float(info.get("rennen_m_je_s", 0.0))
+	if kauf and modell.has_meta("gang_gehen_m_je_s"):
+		waffengang = String(modell.get_meta("gang", "")); gang_w = float(modell.get_meta("gang_gehen_m_je_s")); renn_w = float(modell.get_meta("gang_rennen_m_je_s"))
 	# 348.6 CC0-Geruest (348.12): Knochen der Faust und Griff stehen in held-info.json (geruest.py), sonst das alte Skelett
 	var fa: Dictionary = info.get("faust_L", {})
 	if fa.has("knochen"):
@@ -64,7 +78,9 @@ func _ready() -> void:
 		faust_achse = fa["achse"] if fa["achse"] is Vector3 else Vector3(fa["achse"][0], fa["achse"][1], fa["achse"][2])
 	anim = Gebiet.finde(modell, "AnimationPlayer") as AnimationPlayer
 	if anim: Gebiet.bewegungen(anim, ["Gehen", "Stehen", "Rennen", "Gehen_Fackel", "Stehen_Fackel", "Rennen_Fackel", "Stehen_2", "Stehen_3", "Stehen_2_Fackel", "Stehen_3_Fackel"])
+	if anim: baue_aus(anim)   # 416.4: RennenAus… fuer das Auslaufen
 	if anim: anim.play("Stehen")
+	atem = Gebiet.atem_an(modell, anim, 4532)   # 453.2: eigene Atemschicht (gebiet.gd atem_an)
 	baue_fackel()
 
 func setze(t: Vector2i, blick := "DOWN") -> void:
@@ -104,36 +120,220 @@ func frei(p: Vector3) -> bool:
 		if is_instance_valid(l) and l.sperrt(p): return false
 	return true
 
+# Tempo und Ueberblendung fuer Held, Leute, Tiere und den Film der Tragprobe (tragprobe.gd, 417). 416.4 (Chef 01.11., 13:1x: „von
+# Stehen zu Gehen oder Laufen muss weich sein. Egal, wer sich bewegt“): aus dem Stand mit ANLAUF des Gehtempos los (bisher sofort
+# voll), dann mit BESCHL schneller oder langsamer; am Ende des Wegs bremst bremse() auf ANLAUF herunter (bisher voller Schritt bis
+# zum Halt); ohne Weg (Steuerkreuz losgelassen) haelt er sofort
+const ANLAUF := 0.35                   # Anteil des Gehtempos im ersten Bild aus dem Stand und beim letzten Schritt
+const BREMS := 3.5                     # m/s²: vor dem Ziel langsamer werden (aus dem Rennen etwa 2,5 m vorher)
+# 416.4 (Chef 01.11., 20:3x: „anlaufen, das passt … der Übergang wieder von laufen zu gehen … völlig abrupt … Von Sprint langsam über
+# langsamer über in den Gang gehen“; Stehenbleiben aus dem Sprint geht): langsamer werden, ohne anzuhalten, mit ABBREMS statt BESCHL
+# (Rennen 4,3 -> Gehen 2,1 m/s in gut 1 s statt 0,4 s; schneller werden bleibt BESCHL); vor dem Halt weiter bremse() wie bisher
+const ABBREMS := 2.0
+static func tempo_schritt(jetzt: float, soll: float, geh_t: float, dt: float, ab := BESCHL) -> float:
+	if soll <= 0.0: return 0.0
+	return minf(soll, geh_t) * ANLAUF if jetzt <= 0.0 else move_toward(jetzt, soll, (BESCHL if soll >= jetzt else ab) * dt)
+
+static func bremse(tempo: float, rest: float, geh_t: float) -> float:   # rest: m bis zum Halt
+	return minf(tempo, maxf(geh_t * ANLAUF, sqrt(2.0 * BREMS * maxf(0.0, rest))))
+
+# Runde 5 (Helfer Runde 3: „Haltung springt beim Anlaufen in 0,1 s“): Gehen <-> Rennen 0,6 s (Rumpf neigt sich weich; 0,45: in 1/15 s
+# 9 Grad), aus dem Stehen 0,5 s (397: Ruhe in Ruhe weich); 416.4: aus Gehen oder Rennen in den Stand 0,45 s statt 0,25 s
+static func ueberblendung(cur: String, moving: bool) -> float:
+	var schritt := cur.begins_with("Gehen") or cur.begins_with("Rennen")
+	if schritt: return 0.6 if moving else 0.45
+	return 0.5 if cur.begins_with("Stehen") else 0.25
+
+# 416.4 (Pruefer 15:1x: „Rennen → Gehen springt in einem Bild in die aufrechte Haltung“; Messung rennen_wechsel_4164, Lauf 41316403849):
+# Godot zaehlt die Ueberblendung in Zeit der Bewegung, also mal speed_scale. Gleich nach dem Wechsel ins Gehen ist das Tempo noch
+# 2,9 m/s, das Gehen (1,0 m/s) laeuft 2,9-fach, die 0,6 s waren 0,2 s (Neigung 25 -> 15 Grad in 4 Bildern); ins Rennen (0,57-fach)
+# gut 1 s, das blieb (Chef: „Rennen und Übergang passen“). Dazu der selbe Schritt nach den Tritten (heldfigur.gd Meta „tritt“: Zeit,
+# zu der der rechte und der linke Ballen aufsetzt) statt nach dem Anteil der Zeit: Rennen A laeuft in der Luft doppelt so schnell, der
+# Anteil traf das Gehen im falschen Schritt (Wade 69 Grad in einem Bild). sp: speed_scale der neuen Bewegung
+# sanft (held.gd, rennen_film_4164; Pruefer Film 03:55, Messung Lauf 41381478168: Fuesse gleiten beim Anlaufen 1 m, beim Halt 0,35 m,
+# in beiden Fassungen): aus dem Stehen in den Schritt (gut 0,6 s) traegt das Gehen mit kleinem Anteil die Fuesse nur zum Teil mit, der
+# Koerper laeuft schon, die Sohlen schleiften; jetzt gleitet das Tempo ohne Gleiten dabei von ANLAUF_V des Gehens herauf (takt): erst
+# kleine schnelle Schritte, der Standfuss steht. In den Stand lief das Gehen 0,45 s in vollem Takt weiter, obwohl er stand: jetzt mit HALT_TAKT (stand_takt)
+const ANLAUF_V := 0.15
+const ANLAUF_BLENDE := 0.8             # in Zeit der Bewegung: aus dem Stand wie bisher 0,6–0,7 s (Chef 20:3x: „anlaufen, das passt“)
+const HALT_TAKT := 0.12
+static func wechsel(ap: AnimationPlayer, want: String, moving: bool, sp: float, sanft := false) -> void:
+	var cur := ap.current_animation
+	var schritt := moving and (cur.begins_with("Gehen") or cur.begins_with("Rennen"))
+	var bl := ueberblendung(cur, moving)
+	var ph := 0.0
+	if schritt:
+		ph = schritt_phase(ap.get_animation(cur), ap.current_animation_position)
+		# 417 (Lauf 41372776505 FILMNACH: Gehen nach dem Rennen Standfuss +0,9 bis +1,5 m/s, Pruefer Film 02:2x „Auslaufen Fuesse gleiten
+		# deutlich“): seit dem Umtakten (TAKT_*) beginnt die Ueberblendung mit dem speed_scale der alten Bewegung (takt: v gleitet von der
+		# alten), nicht mit sp = Tempo / v der neuen; Rennen -> Gehen war sp 2, die 0,6 s wurden 1,2 s Bewegungszeit, real etwa 1,6 s halb
+		# Rennen, halb Gehen. Jetzt mit dem speed_scale, der gerade laeuft (ohne takt wie vorher sp)
+		var sp0 := ap.speed_scale if ap.has_meta("v") else sp
+		if ap.has_meta("v"): ap.set_meta("blende", [0.0, bl, float(ap.get_meta("v"))])   # takt: Tempo gleitend
+		bl *= maxf(1.0, sp0)
+	elif sanft and moving and cur.begins_with("Stehen"):
+		bl = ANLAUF_BLENDE
+		ap.set_meta("blende", [0.0, bl, -ANLAUF_V, true])   # Tempo ohne Gleiten von ANLAUF_V mal dem des Gehens herauf
+	elif sanft and not moving and (cur.begins_with("Gehen") or cur.begins_with("Rennen")):
+		if ap.has_meta("blende"): ap.remove_meta("blende")
+		ap.set_meta("halt", [0.0, bl])
+		bl *= HALT_TAKT
+	ap.play(want, bl)
+	if schritt: ap.seek(schritt_zeit(ap.get_animation(want), ph))
+
+# speed_scale im Stand: nach dem Halt (wechsel sanft) so lange HALT_TAKT, bis die Ueberblendung in den Stand vorbei ist
+static func stand_takt(ap: AnimationPlayer, dt: float) -> float:
+	if not ap.has_meta("halt"): return 1.0
+	var h: Array = ap.get_meta("halt")
+	h[0] = float(h[0]) + dt
+	if float(h[0]) >= float(h[1]):
+		ap.remove_meta("halt")
+		return 1.0
+	return HALT_TAKT
+
+# speed_scale fuer Tempo und Tempo ohne Gleiten v der laufenden Bewegung; waehrend der Ueberblendung Gehen <-> Rennen gleitet v von
+# der alten zur neuen (Nachmessung 416.4: ein speed_scale fuer beide, sonst laeuft die alte im Tempo der neuen)
+# (auslaufen: Zeit der Ueberblendung in Zeit der Bewegung wie Godot, b[3] wahr)
+static func takt(ap: AnimationPlayer, tempo: float, v: float, dt: float) -> float:
+	ap.set_meta("v", v)
+	if ap.has_meta("blende"):
+		var b: Array = ap.get_meta("blende")
+		var echt := b.size() < 4 or not bool(b[3])
+		if echt: b[0] = float(b[0]) + dt
+		var w := clampf(float(b[0]) / maxf(0.01, float(b[1])), 0.0, 1.0)
+		if w >= 1.0: ap.remove_meta("blende")
+		else: v = lerpf(float(b[2]) if float(b[2]) >= 0.0 else -float(b[2]) * v, v, w)
+		if not echt: b[0] = float(b[0]) + dt * tempo / maxf(0.01, v)
+	return tempo / maxf(0.01, v)
+
+# 416.4 Auslaufen (Chef 20:3x: „Von Sprint langsam über langsamer über in den Gang“): beim Langsamerwerden aus dem Rennen blendet die
+# Haltung ueber die ganze Bremszeit (ABBREMS) ins Gehen, Schritt kuerzer und langsamer zugleich, Fuesse im Tempo des Bodens (takt). Damit
+# beide Bewegungen der Ueberblendung im selben Schritt bleiben, laeuft das Rennen dabei als „RennenAus…“, umgetaktet auf die Laenge des
+# Gehens (ein speed_scale fuer beide; bei verschiedener Laenge liefen sie in 1 s um einen halben Schritt auseinander)
+static func aus_name(n: String) -> String:
+	return "RennenAus" + n.substr(6) if n.begins_with("Rennen") and not n.begins_with("RennenAus") else ""
+
+static func baue_aus(ap: AnimationPlayer) -> void:
+	for n in ap.get_animation_list():
+		var aus := aus_name(n)
+		var g := "Gehen" + String(n).substr(6)
+		if aus == "" or ap.has_animation(aus) or not ap.has_animation(g): continue
+		var r := ap.get_animation(n)
+		var lg := ap.get_animation(g).length
+		if r.length < 0.05 or lg < 0.05: continue
+		var a := r.duplicate(true) as Animation
+		if r.has_meta("tritt"): a.set_meta("tritt", r.get_meta("tritt"))
+		HeldFigur.umtakten(a, lg / r.length)
+		a.set_meta("aus_k", lg / r.length)
+		ap.get_animation_library(ap.find_animation_library(r)).add_animation(aus, a)
+
+# ob er rennt (Tempo ueber 1,45 Gehtempo): wird er langsamer (faellt), geht es aus dem Gehen nie zurueck ins Rennen, auch nicht, wenn vor
+# dem Ziel bremse() uebernimmt; ohne Halt (abbremsen) blendet das Rennen ueber die ganze Bremszeit ins Gehen (auslaufen). Fuer held.gd
+# und die Filme (rennen_film_4164, rennen_auslauf_4164); v_r, v_g Tempo ohne Gleiten der laufenden Bewegung und ihres Gehens
+static func rennt_jetzt(ap: AnimationPlayer, kann: bool, tempo: float, soll: float, geh_t: float, faellt: bool, abbremsen: bool,
+		v_r: float, v_g: float) -> bool:
+	var rennt := kann and tempo > geh_t * 1.45
+	if kann and faellt:
+		var cur := ap.current_animation
+		if not cur.begins_with("Rennen") or cur.begins_with("RennenAus"): return false
+		if rennt and abbremsen and auslaufen(ap, "Gehen" + cur.substr(6), tempo, soll, v_r, v_g): return false
+	return rennt
+
+# aus dem Rennen (laufende Bewegung) ins Gehen want: tempo jetzt, soll Ziel, v_r und v_g Tempo ohne Gleiten bei speed_scale 1; falsch,
+# wenn es kein RennenAus gibt (dann wie bisher wechsel)
+static func auslaufen(ap: AnimationPlayer, want: String, tempo: float, soll: float, v_r: float, v_g: float) -> bool:
+	var cur := ap.current_animation
+	var aus := aus_name(cur)
+	if aus == "" or not ap.has_animation(aus) or not ap.has_animation(want): return false
+	var v_a := v_r / float(ap.get_animation(aus).get_meta("aus_k", 1.0))
+	var ph := schritt_phase(ap.get_animation(cur), ap.current_animation_position)
+	ap.play(aus, 0.0)
+	ap.seek(schritt_zeit(ap.get_animation(aus), ph), true)
+	var bl := maxf(0.3, (tempo - soll) / ABBREMS) * 0.5 * (tempo / maxf(0.01, v_a) + soll / maxf(0.01, v_g))
+	ap.play(want, bl)
+	ap.seek(schritt_zeit(ap.get_animation(want), ph))
+	ap.set_meta("blende", [0.0, bl, v_a, true])
+	return true
+
+# Schrittphase 0 bis 1: 0 rechter Ballen setzt auf, 0,5 linker; ohne Meta „tritt“ der Anteil der Zeit
+static func schritt_phase(a: Animation, t: float) -> float:
+	var L := maxf(0.001, a.length)
+	if not a.has_meta("tritt"): return fposmod(t, L) / L
+	var tr: Vector2 = a.get_meta("tritt")
+	var d := fposmod(tr.y - tr.x, L)
+	if d < 0.01 or d > L - 0.01: return fposmod(t, L) / L
+	var u := fposmod(t - tr.x, L)
+	return 0.5 * u / d if u < d else 0.5 + 0.5 * (u - d) / (L - d)
+
+static func schritt_zeit(a: Animation, ph: float) -> float:
+	var L := maxf(0.001, a.length)
+	if not a.has_meta("tritt"): return fposmod(ph, 1.0) * L
+	var tr: Vector2 = a.get_meta("tritt")
+	var d := fposmod(tr.y - tr.x, L)
+	if d < 0.01 or d > L - 0.01: return fposmod(ph, 1.0) * L
+	ph = fposmod(ph, 1.0)
+	var u := ph * 2.0 * d if ph < 0.5 else d + (ph - 0.5) * 2.0 * (L - d)
+	return fposmod(tr.x + u, L)
+
 func _process(dt: float) -> void:
 	zeit += dt
 	var dir := Vector3.ZERO
 	if richtung.length() > 0.15:
 		dir = richtung
 		weg.clear()
-	elif weg.size() > 0:
-		var to := weg[0] - position
-		to.y = 0
-		if to.length() < 0.06:
+	else:
+		# 416.4 (Pruefer Film 4611: „Rennen zum angetippten Ziel stockt je Kachel“; nachgerechnet: an jedem Wegpunkt ein Bild ohne Schritt,
+		# das setzte tempo_jetzt auf 0, er lief je Kachel neu an und kam nie ueber 3,4 m/s): erreichte Wegpunkte im selben Bild abhaken
+		while weg.size() > 0:
+			var to := weg[0] - position
+			to.y = 0
+			if to.length() >= 0.06:
+				dir = to.normalized()
+				break
 			position = Vector3(weg[0].x, position.y, weg[0].z)
 			weg.pop_front()
-		else:
-			dir = to.normalized()
 	var moving := dir.length() > 0.05
 	var vorher := position
 	var tempo := 0.0
 	if moving:
 		var kps := karte.laufen if laeuft else karte.gehen
 		tempo = kps * Karte.TS / karte.schritt(karte.pos_kachel(position)) * clampf(dir.length(), 0.5, 1.0)
-		# aus dem Stand sofort im Gehtempo, schneller oder langsamer werden weich
+		# aus dem Stand mit ANLAUF los (416.4), schneller oder langsamer werden weich
 		var geh_t := karte.gehen * Karte.TS / karte.schritt(karte.pos_kachel(position))
-		tempo_jetzt = minf(tempo, geh_t) if tempo_jetzt <= 0.0 else move_toward(tempo_jetzt, tempo, BESCHL * dt)
+		var ab := ABBREMS   # 416.4: langsamer werden ohne Halt (Rennen -> Gehen) gut 1 s
+		if richtung.length() <= 0.15 and weg.size() > 0:   # 416.4: vor dem Ende des Wegs langsamer
+			var bis := Vector2(weg[0].x - position.x, weg[0].z - position.z).length()
+			for i in range(1, weg.size()): bis += Vector2(weg[i].x - weg[i - 1].x, weg[i].z - weg[i - 1].z).length()
+			var b := bremse(tempo, bis, geh_t)
+			if b < tempo - 0.001: ab = BESCHL   # vor dem Halt wie bisher („Stehenbleiben aus dem Sprint geht“)
+			tempo = b
+		abbremsen = ab == ABBREMS and tempo_jetzt > tempo + 0.05 and tempo <= geh_t * 1.45   # (auslaufen)
+		soll_jetzt = tempo
+		var tempo_vor := tempo_jetzt
+		tempo_jetzt = tempo_schritt(tempo_jetzt, tempo, geh_t, dt, ab)
+		faellt = tempo_jetzt < tempo_vor - 1e-5
 		tempo = tempo_jetzt
-		# in kleinen Stuecken, damit ein langes Bild (dt gross) nicht ueber Kanten springt oder zu frueh anstoesst
+		# in kleinen Stuecken, damit ein langes Bild (dt gross) nicht ueber Kanten springt oder zu frueh anstoesst; auf dem Weg ueber
+		# Wegpunkte hinweg weiter (416.4: bisher endete das Stueck am Wegpunkt, das naechste Bild stand)
 		var d := dir.normalized()
 		var rest := tempo * dt
-		if weg.size() > 0 and richtung.length() <= 0.15: rest = minf(rest, Vector2(weg[0].x - position.x, weg[0].z - position.z).length())
+		var am_weg := weg.size() > 0 and richtung.length() <= 0.15
 		while rest > 1e-4:
-			var step := d * minf(rest, 0.08)
+			var lang := 0.08
+			if am_weg:
+				var bis_p := Vector2(weg[0].x - position.x, weg[0].z - position.z).length()
+				if bis_p < 1e-4:
+					if weg.size() == 1: break   # am Ziel: oben im naechsten Bild abgehakt, dann steht er
+					position = Vector3(weg[0].x, position.y, weg[0].z)
+					weg.pop_front()
+					var nach := weg[0] - position
+					nach.y = 0
+					if nach.length() > 1e-4:
+						d = nach.normalized()
+						dir = d
+					continue
+				lang = minf(lang, bis_p)
+			var step := d * minf(rest, lang)
 			rest -= step.length()
 			var np := position + step
 			var vorn_frei := frei(np) and frei(np + d * RAND)
@@ -173,25 +373,30 @@ func _process(dt: float) -> void:
 		if moving and (position - vorher).length() < tempo * dt * 0.2: moving = false
 		if not moving: tempo_jetzt = 0.0
 		var geh_t := karte.gehen * Karte.TS / karte.schritt(karte.pos_kachel(position))
-		var rennt := moving and renn > 0.0 and tempo > geh_t * 1.45
+		var cur := anim.current_animation
+		var paket := waffengang != "" and (cur.begins_with("Rennen_" + waffengang) or cur.begins_with("Gehen_" + waffengang))
+		var rennt := rennt_jetzt(anim, moving and renn > 0.0, tempo, soll_jetzt, geh_t, faellt, abbremsen, renn_w if paket else renn,
+			gang_w if paket else gang)
+		renn_s = renn_s + dt if rennt else 0.0
+		if atem != null:
+			if rennt: atem.anstrengen(minf(1.0, renn_s / RENN_VOLL))
+			elif moving: atem.anstrengen(GEH_ANSTRENGUNG)
 		if moving: ruhe = "Stehen"; ruhe_bis = -1.0
 		elif ruhe_bis < 0.0: ruhe_bis = zeit + anim.get_animation("Stehen").length * ruhe_zufall.randi_range(2, 4)
 		elif zeit >= ruhe_bis:
 			var r := Gebiet.ruhe_naechste(anim, ruhe, ruhe_zufall)
 			ruhe = r[0]; ruhe_bis = zeit + float(r[1])
 		var want := ("Rennen" if rennt else "Gehen") if moving else ruhe
+		var mit := moving and waffengang != "" and anim.has_animation(want + "_" + waffengang) and (gang_w if not rennt else renn_w) > 0.01
+		if mit: want += "_" + waffengang
 		if fackel and traegt_fackel:
 			if anim.has_animation(want + "_Fackel"): want += "_Fackel"
 			elif not moving: want = "Stehen_Fackel" if anim.has_animation("Stehen_Fackel") else "Stehen"   # Fackel bleibt in der Hand
-		var cur := anim.current_animation
-		if cur != want:
-			# Gehen <-> Rennen im selben Schritt (beide beginnen mit dem rechten Fuss vorn) und laenger ueberblendet
-			var phase := anim.current_animation_position / maxf(0.001, anim.current_animation_length) if cur != "" else 0.0
-			var schritt := cur.begins_with("Gehen") or cur.begins_with("Rennen")
-			# Runde 5 (Helfer Runde 3: „Haltung springt beim Anlaufen in 0,1 s“): Gehen <-> Rennen 0,6 s (Rumpf neigt sich weich; 0,45: in 1/15 s 9 Grad), aus dem Stehen 0,25 s
-			anim.play(want, 0.6 if schritt and moving else (0.5 if cur.begins_with("Stehen") else 0.25))   # 397: Ruhe in Ruhe weich
-			if schritt and moving: anim.seek(phase * anim.get_animation(want).length)
-		anim.speed_scale = (tempo / (renn if rennt else gang)) if moving else 1.0
+		var v := ((renn_w if rennt else gang_w) if mit else (renn if rennt else gang))
+		# Gehen <-> Rennen im selben Schritt, Ueberblendung in echter Zeit, Tempo gleitend (416.4, wechsel, takt)
+		if anim.current_animation != want: wechsel(anim, want, moving, tempo / maxf(0.01, v) if moving else 1.0, true)
+		if moving and anim.has_meta("halt"): anim.remove_meta("halt")
+		anim.speed_scale = takt(anim, tempo, v, dt) if moving else stand_takt(anim, dt)
 	var k := karte.pos_kachel(position)
 	if k != kachel:
 		kachel = k
