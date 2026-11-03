@@ -57,7 +57,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 495 | M | von Perikles (Wochenziel 03.11. Reihe 4, 488): Zufallsspieler spielt Kapitel 1 in Godot bi | Termin 04.11. |
 | 491 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Tiefer Flüsterwald begehbar w | wartet auf Test (Build) |
 | 505 | M | von Perikles (Archiv 502, Chef 03.11., 07:30, Zu 502 in ARBEIT-PROJEKT): Nebel des Krieges | startbar |
-| 514 | M | von Sokrates (Chef 03.11., 16:01, zu 490: „Gibt es nachts vernünftige Glühwürmchen überall | in Arbeit bei Spike |
+| 514 | M | von Sokrates (Chef 03.11., 16:01, zu 490: „Gibt es nachts vernünftige Glühwürmchen überall | startbar |
 | 515 | M? | von Sokrates (Chef 03.11., 16:07, zu 491: „3 bis 4 können auch halbwegs versteckt sein unt | startbar |
 | 493 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; Spike, von Jerry übernommen, Chef 07:54): Ka | wartet auf Test (Build) |
 | 506 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; Spike, aus 494): Untote im Kampf: Skelett, Z | wartet auf Jerry |
@@ -77,7 +77,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 501 | M | von Sokrates (Chef 03.11., 07:26, Build 204; Zu 501): Schänke: Feuer im Kamin schwebt; Fla | wartet auf Test (Build) |
 | 500 | M | von Sokrates (Chef 03.11., 07:24, Build 204; Zu 500): Probeknöpfe rechts in der Welt entfe | wartet auf Test (Build) |
 | 499 | M | von Sokrates (Chef 03.11., 07:14, Build 204; „jetzt“ 03.11., 07:14; Zu 499): Erschaffung: | startbar |
-| 513 | M | von Sokrates (Chef 03.11., 15:56, „513 B“, „jetzt“ 03.11., 15:56; Archiv): Figurenstand 41 | startbar |
+| 513 | M | von Sokrates (Chef 03.11., 15:56, „513 B“, „jetzt“ 03.11., 15:56; Archiv): Figurenstand 41 | in Arbeit bei Spike |
 | 498 | M | von Sokrates (Chef 03.11., 07:13; Zu 498): Schriftbild wie in der Kotlin-Fassung (Größe, S | startbar |
 | 497 | M | von Sokrates (Chef 03.11., 07:09, Build 204; Zu 497): „Über das Spiel“: Lizenzhinweis der | wartet auf Test (Build) |
 | 463 | M | von Sokrates (Chef 01.11., 20:3x, Zu 463): Umhang und lange Robe geschlossen: eine Ursache | startbar |
