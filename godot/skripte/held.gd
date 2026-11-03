@@ -51,6 +51,25 @@ func _init(k: Karte, w: Dictionary = {}) -> void:
 	name = "Held"
 
 func _ready() -> void:
+	baue_figur()
+
+# 522 (Chef 03.11., 23:33, Build 249: „Ausrüstung geändert (Schild gegeben), aber im Spiel kein Schild“): die Figur wurde nur beim
+# Betreten einer Karte gebaut; nach einer Aenderung der Ausruestung (Testmenue, Ausruestungsschirm) baut spiel.gd sie hier neu,
+# Ort, Blick, Weg und Fackel bleiben, die Bewegung laeuft weiter
+func neu_figur(w: Dictionary) -> void:
+	var war: String = String(anim.current_animation) if anim else ""
+	if modell:
+		remove_child(modell)
+		modell.queue_free()
+	modell = null; anim = null; atem = null; fackel = null; flamme = null
+	mats.clear()
+	waffengang = ""; gang_w = 0.0; renn_w = 0.0
+	wahl = w
+	baue_figur()
+	nacht(nacht_k)
+	if anim and war != "" and anim.has_animation(war): anim.play(war, 0.0)
+
+func baue_figur() -> void:
 	# 376.1: je Klasse der Held auf dem Kaufkoerper (heldfigur.gd), sonst der bisherige (held.bin, rig.py)
 	modell = HeldFigur.baue(wahl, mats) if not wahl.is_empty() else null
 	var kauf := modell != null

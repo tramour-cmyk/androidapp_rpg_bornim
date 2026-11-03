@@ -844,6 +844,7 @@ func oeffne_menue() -> void:
 	ebene.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(ebene)
 	var m := Menue.new(held_werte(), zustand)
+	var figur_vorher := JSON.stringify(HeldFigur.wahl(held_werte(), zustand))   # 522: Ausruestung vorher
 	m.ort = platz()
 	m.dunkel = im_dunkeln()
 	ebene.add_child(m)
@@ -871,6 +872,7 @@ func oeffne_menue() -> void:
 		ebene.queue_free()
 		speichere()
 		ui.richte_ein()      # 399.1 Bedienung aus dem Menue System
+		held_figur_neu(figur_vorher)
 		fackel_neu()
 		kamera.fern_neu()
 		ui.leiste.zeige(held_werte(), zustand, licht.nacht > 0.65))
@@ -985,6 +987,12 @@ func zwischenbild(art: String) -> void:
 func im_dunkeln() -> bool:
 	var art := String(karte.daten.get("art", ""))
 	return (licht.nacht > 0.5 and art != "INTERIOR") or art == "CAVE"
+
+# 522 (Chef 03.11., 23:33): Schild, Waffe, Kleidung aus Testmenue oder Ausruestungsschirm gleich am Helden, nicht erst nach Kartenwechsel
+func held_figur_neu(vorher: String) -> void:
+	var w := HeldFigur.wahl(held_werte(), zustand)
+	if held == null or JSON.stringify(w) == vorher: return
+	held.neu_figur(w)
 
 func fackel_neu() -> void:
 	if held: held.fackel_neu(Menue.fackel(held_werte()), String(karte.daten.get("art", "")) == "INTERIOR")
