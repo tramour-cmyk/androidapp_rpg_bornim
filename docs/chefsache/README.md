@@ -18,12 +18,6 @@ Nichts offen.
 |---|---|---|---|
 | [447.4](ansehen/4474-lehrmeister-texte.md) | Texte Lehrmeister und Ruf, Kapitel 1 | Homer | 01.11., 20:51 |
 
-**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
-
-| Folge | Version | Build | Was | Wer | Seit |
-|---|---|---|---|---|---|
-| 1 | [0.348.204](ansehen/t204-build-487.md) | [Build 204](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41548422407/artifacts/13191910743) | Strahlenprobe 415, Erschaffung BRS 470, Befunde aus Build 146, Katalog, BRS | Tom und Jerry | 03.11., 01:26 |
-
 ## Zu tun
 
 Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen.
@@ -51,7 +45,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 61, Muss 42, startbar 12
+**Tom** – offen 61, Muss 43, startbar 15
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -62,8 +56,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 417 | M | von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“): Tragart je Waffenklasse (Zu 417), | startbar |
 | 416.9 | M | von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“): Laden, Verkaufen, „angelegt“ mit | wartet auf Test/Build (gebaut) |
 | 416.7 | M | von Sokrates (Chef 31.10., 20:5x, für den nächsten Build): am Tresen in Schenke und Laden | wartet auf Test/Build |
-| 416.8 | M | von Sokrates (Chef 31.10., 20:5x, allgemeiner Hinweis): NPC dreht sich bei Interaktion zum | wartet auf Test/Build |
-| 416.2 | M | von Sokrates (Chef 31.10., 20:4x): gegen Dorfbewohner und Tiere laufen: Platzwechsel statt | wartet auf Test/Build |
+| 416.8 | M | von Sokrates (Chef 31.10., 20:5x, allgemeiner Hinweis): NPC dreht sich bei Interaktion zum | startbar |
+| 416.2 | M | von Sokrates (Chef 31.10., 20:4x): gegen Dorfbewohner und Tiere laufen: Platzwechsel statt | startbar |
 | 416.4 | M | von Sokrates (Chef 31.10., 20:4x): Rennen des Helden wirkt „als würde er Hochsprung machen | wartet auf Test/Build |
 | 399.1 | M | von Perikles („jetzt“ 28.10., 12:34, Archiv 399): Spielfassung Dorf und Kampf | wartet auf Test (Build) |
 | 410 | M | von Sokrates (Chef 29.10., 10:52, 11:40; aus 376.1): Waffen am Körper wegstecken, alle Waf | ruht |
@@ -80,7 +74,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 470.1 | K | von Sokrates (Idee Chef 02.11., 18:37: Held in der Erschaffung „auf Klick groß … damit man | wartet auf 431e (Chef) |
 | 471 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.2 Fertigkeiten durch Tun, vier Ränge, | startbar |
 | 474 | M? | von Team Jerry (Tuffy, 02.11., 02:4x; aus 399.1a): Debug-Schlüssel nur im Cache, verdrängt | ruht |
-| 475 | M? | von Sokrates (Chef 02.11., 10:52, Build 146): Rowena, Borin ohne Gesicht („Kommt da noch w | wartet auf Tom |
+| 475 | M | von Sokrates (Chef 02.11., 10:52, Build 146; erneut 03.11., 07:45, Build 204, Zu 475): Row | startbar |
 | 476 | M? | von Sokrates (Chef 02.11., 14:43: „Werden … die Symbole der Ausrüstungsgegenstände … durch | startbar |
 | 477 | M? | von Sokrates (Chef 02.11., 14:59: „Die APK lässt sich nicht unter MumuPlayer abspielen … G | Chef |
 | 461.1 | M | von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461): Grundstand: alles Entschiedene zu Figure | ruht |
@@ -117,11 +111,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 29360 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 61, Muss 49, startbar 7
+**Jerry** – offen 61, Muss 49, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 487 | M | von Perikles (Wochenziel 02.11. Reihe 6): gemeinsamer Build, höchstens 6 Punkte, Figuren ü | wartet auf Test (Build) |
+| 487 | M | von Perikles (Wochenziel 02.11. Reihe 6): gemeinsamer Build, höchstens 6 Punkte, Figuren ü | startbar |
 | 478 | M | von Sokrates (Chef 02.11., 17:59: „470a C“, Archiv): Rechenkern des Kampfs schon in Stufe | ruht |
 | 481.1 | M | von Sokrates (Archiv 427): Tränke in sim444 (Zu 481 in ARBEIT-BERATUNG.md), Herkünfte neu | wartet auf Test/Build (gebaut) |
 | 473 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.4 Monsterwerte Kapitel 1 nach Rechenm | wartet auf Test (Build) |
