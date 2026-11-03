@@ -186,17 +186,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 19208 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
 
-**Perikles** – offen 32, Muss 29, startbar 2
+**Perikles** – offen 27, Muss 24, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 502 | M | von Sokrates (Chef 03.11., 07:28; Zu 502): Nebel des Krieges und Sichtfeld des Helden in „ | wartet auf Test/Build (gebaut) |
 | 488 | M | von Sokrates (Chef 03.11., 06:44, „488 ja“, Archiv 488; „jetzt“ 03.11., 06:44): Wochenziel | wartet auf Test/Build (gebaut) |
-| D67.1 | M | von Diogenes (Doppelpack 421, Lauf 65, 02.11., 19:4x): meldung.sh lässt „K1“, Kürzel vor B | wartet auf Test/Build (gebaut) |
 | D69.1 | M | von Diogenes (Doppelpack 421, Lauf 68, 02.11., 20:0x): meldung.sh hält seit D67.1 Dateinam | wartet auf Test/Build (gebaut) |
 | D70.1 | M | von Diogenes (Doppelpack 421, Lauf 68, zu 461b): Archiv 480 und 415c tragen „→ ersetzt dur | wartet auf Test/Build (gebaut) |
-| D68.1 | M | von Diogenes (Doppelpack 421, Lauf 66, 02.11., 19:5x): probelauf.py erkennt nur den Kopf „ | wartet auf Test/Build (gebaut) |
-| D68.2 | M | von Diogenes (Lauf 66): Reste „Tor 461a“ in ROLLE-ENTWICKLUNG.md:19, LISTE-BAUEN-TESTEN.md | wartet auf Test/Build (gebaut) |
 | 483 | M | von Sokrates (Chef 02.11., 19:21, „483 ja“, Archiv): Film-Links reparieren: jsDelivr liefe | wartet auf Test/Build (gebaut) |
 | 340.3 | M | von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv): A: notiz.sh-Hinweise (Größe, Zeilen | wartet auf Test/Build (gebaut) |
 | 340.4 | M | von Sokrates (Archiv 340.2): B: Pflichtzeile „Geprüft an: <Link auf Film, Bild oder Lauf>“ | wartet auf Test/Build (gebaut) |
@@ -207,8 +204,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 465 | M | von Sokrates („jetzt“ 01.11., 20:50, Chef: „Warum ist eigentlich in der Chefsache zu entsc | wartet auf Test/Build (gebaut) |
 | 464 | M | von Sokrates (Chef 01.11., 20:4x, Wortlaut Zu 464): rote Läufe senken: Haken vor jedem Pus | wartet auf Test/Build (gebaut) |
 | 461 | M | von Sokrates („jetzt“ 01.11., 20:3x, Wortlaut in der Liste): Grundstand Figuren und Kampf: | wartet auf Test/Build (gebaut) |
-| D65.1 | M | von Diogenes (Doppelpack 421, Lauf 63, 02.11., 11:5x): commit-pruefung.py hält an, wenn am | wartet auf Test/Build (gebaut) |
-| 461.2 | M | von Diogenes (Doppelpack 421, Lauf 56, 01.11., 20:4x): Befunde D58.1–5 zum Grundstand (PRU | wartet auf Test/Build (gebaut) |
 | 461a | M | von Perikles (D58.5): Rückfrage, ob ein Grundstand-Verstoß den Film anhält | wartet auf Test/Build (gebaut) |
 | 407 | M | „jetzt“ 02.11., 11:13 (468: erster Start nach dem Stopp, bis greift höchstens drei Sitzung | wartet auf Test/Build (gebaut) |
 | 399 | M | von Chef über Sokrates („jetzt“ 28.10., 12:34, Archiv): Vorrang neu: erst eine Godot-Fassu | wartet auf Tom |
