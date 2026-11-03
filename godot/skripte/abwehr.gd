@@ -15,6 +15,7 @@ const SCHWUNG_S := 0.28           # je Seite
 const OBERARM_HEBEN := 30.0       # Grad ueber der Waagerechten, zum Tier hin
 const UNTERARM_HEBEN := 62.0      # Grad: die Fackel steigt vor ihm auf
 const QUER := 0.42                # Anteil seitlich beim Schwung (etwa 23 Grad)
+const AUSSEN := 0.45              # Pruefer Lauf 1 (Bild 2, 3: Fackel 2-5 cm an der Kapuze): Arm nach rechts aussen, Fackel vom Kopf weg
 
 var t := -1.0                     # s seit Beginn; < 0: aus
 var ziel := Vector3.ZERO          # Welt: wo das Tier stand
@@ -72,8 +73,9 @@ func _process_modification_with_delta(delta: float) -> void:
 	var quer := vorn.cross(oben).normalized()
 	var seit := vorn + quer * QUER * schwung()
 	seit = seit.normalized()
-	_richte(sk, _ob, _ub, seit * cos(deg_to_rad(OBERARM_HEBEN)) + oben * sin(deg_to_rad(OBERARM_HEBEN)), w)
-	var unter := (seit * cos(deg_to_rad(UNTERARM_HEBEN)) + oben * sin(deg_to_rad(UNTERARM_HEBEN))).normalized()
+	var aussen := (seit + quer * AUSSEN).normalized()   # quer = rechte Seite der Figur (sie blickt nach vorn, links ist oben x vorn)
+	_richte(sk, _ob, _ub, aussen * cos(deg_to_rad(OBERARM_HEBEN)) + oben * sin(deg_to_rad(OBERARM_HEBEN)), w)
+	var unter := (aussen * cos(deg_to_rad(UNTERARM_HEBEN)) + oben * sin(deg_to_rad(UNTERARM_HEBEN))).normalized()
 	_richte(sk, _ub, _hb, unter, w)
 	if fackel:
 		var hand := sk.global_transform * sk.get_bone_global_pose(_hb)

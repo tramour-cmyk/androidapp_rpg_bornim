@@ -54,6 +54,7 @@ func _lauf() -> void:
 	var sk := Gebiet.finde(garrick.modell, "Skeleton3D") as Skeleton3D
 	var hand_ueber := -9.0
 	var vor := -9.0
+	var kopf_abstand := 9.0
 	var blick_fehler := 9.0
 	var seiten := [0.0, 0.0]
 	var fackel_sah := false
@@ -69,6 +70,10 @@ func _lauf() -> void:
 				hand_ueber = maxf(hand_ueber, h_.y - s_.y)
 				var zum := Vector3(a.ziel.x - s_.x, 0, a.ziel.z - s_.z).normalized()
 				vor = maxf(vor, (h_ - s_).dot(zum))
+				# E3: Stiel (0 bis 0,4 m laengs der Fackel) und Flamme nicht an Kopf und Kapuze
+				var kopf := sk.global_transform * sk.get_bone_global_pose(sk.find_bone("Head")).origin + Vector3(0, 0.1, 0)
+				var ay: Vector3 = a.fackel.global_basis.y
+				for k in 5: kopf_abstand = minf(kopf_abstand, (h_ + ay * (0.1 * k) - kopf).length())
 				var soll := atan2(a.ziel.x - garrick.global_position.x, a.ziel.z - garrick.global_position.z)
 				blick_fehler = minf(blick_fehler, absf(wrapf(garrick.rotation.y - soll, -PI, PI)))
 				var quer := a.schwung()
@@ -80,6 +85,7 @@ func _lauf() -> void:
 	pruefe(garrick.abwehr != null, "Garrick nimmt die Fackel")
 	pruefe(fackel_sah, "Fackel zu sehen")
 	pruefe(hand_ueber > 0.05, "Fackelhand ueber der Schulter (%.2f m)" % hand_ueber)
+	pruefe(kopf_abstand > 0.3, "Fackel nicht an Kopf und Kapuze (naechster Punkt %.2f m von der Kopfmitte)" % kopf_abstand)
 	pruefe(vor > 0.2, "Fackel vor ihm, zum Tier hin (%.2f m)" % vor)
 	pruefe(blick_fehler < 0.35, "Garrick schaut zum Tier (Abweichung %.0f Grad)" % rad_to_deg(blick_fehler))
 	pruefe(seiten[0] < -0.8 and seiten[1] > 0.8, "schwenkt links und rechts (%.2f, %.2f)" % seiten)
