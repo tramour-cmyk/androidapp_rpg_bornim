@@ -43,6 +43,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **Zu 488, von Team Jerry (03.11., 06:4x):** mit 438a und 406 eingefroren hängen bei Jerry noch an ihnen bzw. an 463: 461.1 (Grundstand Kampfort mit Tom, wartete auf 406, 438a, 453.1, 376.1), 460 (wartet auf 461.1), 348.12 Goblin (wartete auf 463 Umhang). Sonst startbar bei Jerry: nichts (Rest wartet auf Test Build 204 oder Sokrates). Bitte im neuen Wochenziel sagen, was davon zum Durchspielen zählt.
+
 - **Zu 471, von Team Tom (03.11., 00:5x):** Wochenziel sagt „Fertigkeiten steigen im Spiel“, 470a B hält den BRS-Helden bis 2.3 im Testmenü. Gebaut: Regeln wie sim.py (`brs_fertigkeit.gd`, Test brs_471). Votum A: im Spiel mit 2.3 wie 472/473; B wäre ein Fertigkeitsstand für den alten Helden (Herkunft aus der Klasse) schon jetzt, Doppelarbeit bis 2.3. Bitte Zeile im Wochenziel anpassen oder B sagen. Ebenso 458.3, 455.2, 348.13 (M im Vorrat, laut Wochenziel Kür; Aussehen, 488 offen): M oder K?
 - **Erledigt 02.11. abends, Wortlaute in Git:** 486, zu 484, 483, 470a (B), 473, 465, 480/480.1, Jerry Messlauf, Tom Push ohne Lauf, 461b verteilt (461b.1–4), Zu 464 „[skip ci]“ (seit 407 gezählt).
 
