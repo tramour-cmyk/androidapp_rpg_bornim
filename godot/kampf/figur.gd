@@ -346,6 +346,11 @@ func _model_path() -> String:
 		return "res://kampf/daten/wolf-%s.bin" % WOLF_COATS[n % WOLF_COATS.size()]
 	if fighter.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG]:     # 348.7: Goblin, Späher je Nummer eines der drei Kits (goblin.py, MonsterKits)
 		return "res://kampf/daten/%s-%s.bin" % [_gob_art(), _gob_kit()]
+	# 494 Riesenspinne (kaufspinne.py): gekaufte Gegner, die keine Vierbeiner sind, haben wie die Kauftiere drei Häute in
+	# <id>-info.json; je Nummer eine (drei Varianten, DESIGN-STIL „Abwechslung“)
+	var felle := _kauf_felle(fighter.monster.id)
+	if not felle.is_empty():
+		return "res://kampf/daten/%s-%s.bin" % [fighter.monster.id, felle[(maxi(fighter.nr, 1) - 1) % felle.size()]]
 	return "res://kampf/daten/%s.bin" % fighter.monster.id
 
 
@@ -1220,6 +1225,8 @@ func _weg() -> Dictionary:
 	if fighter.monster == null:
 		return {}
 	var ia := _gob_art() if _zweibeiner() else art()     # 348.12: Grak (grak_gestalt.py) hat seinen Weg in hobgoblin_captain-info.json
+	if ia == "" and not _kauf_felle(fighter.monster.id).is_empty():     # 494 Riesenspinne (kaufspinne.py): Weg in <id>-info.json
+		ia = String(fighter.monster.id)
 	var ip := "res://kampf/daten/%s-info.json" % ia
 	if ia == "" or not FileAccess.file_exists(ip):
 		return {}
@@ -1234,7 +1241,7 @@ func _weg() -> Dictionary:
 		if j[fell].get("tempo") is Dictionary:
 			tempo = j[fell].tempo
 		for k in ["breite_m", "laenge_m"]:
-			if art().begins_with("kauf_") and j[fell].get(k) != null:
+			if (art().begins_with("kauf_") or art() == "") and j[fell].get(k) != null:     # 494: auch die gekaufte Spinne
 				mass[k] = float(j[fell][k])
 		return j[fell].weg
 	return {}

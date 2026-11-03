@@ -257,6 +257,14 @@ jobs:
           python3 -c "import json,sys; s=json.load(open(sys.argv[1])).get('spiel',{}); d={'waffen':[],'groesse_cm':186,'geruest':'cc0'}; d.update(s); json.dump({'hauptmann':d},open(sys.argv[2],'w'))" \
             $RUNNER_TEMP/grak/grak-gestalt-info.json $D/hobgoblin_captain-info.json
           [ -n "$PRO" ] && echo kampf/daten/hobgoblin_captain-hauptmann.bin >> $D/kauf.txt || true
+          # 494 Riesenspinne (LISTE-FIGUREN „Riesenspinne“, Kauf 348.12c): Protofactor „Darkness Spider“ mit unseren drei Häuten,
+          # ausgedünnt auf 5.800 Dreiecke; nur mit Kaufpaketen, dann verschlüsselt (gekauft)
+          if [ -n "$(find ${KAUF:-/kein} -name DARKNESS_SPIDER.FBX 2>/dev/null | head -1)" ]; then
+            KAUF=$KAUF OUT=$RUNNER_TEMP/spinne timeout 1200 bl/bin/python -I tools/blender348/kaufspinne.py > spinne.log 2>&1 || { tail -40 spinne.log; exit 1; }
+            grep -E "^(DREIECKE|MASS|WEG|TEMPO|HALTUNG je|BODEN tiefster)" spinne.log | cut -c1-200 || true
+            for f in $RUNNER_TEMP/spinne/giant_spider-*.glb; do cp $f $D/$(basename $f .glb).bin; echo kampf/daten/$(basename $f .glb).bin >> $D/kauf.txt; done
+            cp $RUNNER_TEMP/spinne/giant_spider-info.json $D/
+          fi
           # 494 Krogg-Figur (LISTE-FIGUREN „Krogg“): Superheld (CC0) mit dem Kopf des gekauften Janpec-Bären, Morgenstern aus dem Anker-
           # Paket (CC0, privat); nur mit Kaufpaketen, dann verschlüsselt; ohne bleibt der Platzhalterkörper (figur.gd)
           if [ -n "$PRO" ] && [ -n "$(find ${KAUF:-/kein} -name Bear_Rig.fbx 2>/dev/null | head -1)" ]; then
@@ -339,6 +347,7 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4532.gd 2>&1 | grep -E "^(ok|FEHLER|ATEM)"   # 453.2 Atmen unterwegs
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/wildschwein_494.gd 2>&1 | grep -E "Wildschwein|WILDSCHWEIN|FEHLER|SCRIPT ERROR"   # 494 Wildschwein
           set -o pipefail; timeout 400 ~/godot/godot --headless --path . -s res://tests/krogg_494.gd 2>&1 | grep -E "Krogg|KROGG|FEHLER|SCRIPT ERROR"   # 494 Krogg, Morwens Rauch
+          set -o pipefail; timeout 400 ~/godot/godot --headless --path . -s res://tests/spinne_494.gd 2>&1 | grep -E "Spinne|SPINNE|FEHLER|SCRIPT ERROR"   # 494 Riesenspinne, drei Häute
       # fester Schluessel ueber alle Laeufe, sonst lehnt Android das Update ab (348.5, Build 9). 399.1a (Chef 28.10., 14:41): der Cache
       # eines Zweigs galt nur dort (Build 130 bekam einen neuen); jetzt nur lesen, angelegt wird er auf main (godot-schluessel.yml)
       - uses: actions/cache/restore@v4
