@@ -59,7 +59,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 66, Muss 47, startbar 14
+**Tom** – offen 67, Muss 47, startbar 15
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -128,9 +128,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
+| D71.1 | K | von Diogenes (374/434, Vortag 02.11.): ohne „Bestand geprüft“ (434): 417 00:53, 02:24, 03: | startbar |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 39037 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Jerry** – offen 59, Muss 48, startbar 3
+**Jerry** – offen 60, Muss 48, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -192,6 +193,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 59e | K | Händler: Vorrat je Laden | ruht |
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | 469 | M | von Sokrates (02.11., 11:0x, zu 406.1): Kampf auf BRS: Ring (MARS) ohne Klassen regeln (An | wartet auf 406.1 (wartet) |
+| D71.2 | K | von Diogenes (374/434, Vortag 02.11.): ohne „Bestand geprüft“ (434): 415 Strahlenprobe 19: | startbar |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 
 **Perikles** – offen 29, Muss 26, startbar 1
@@ -228,7 +230,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | Pflege | K | von Werkzeug (340.3, 03.11.): 15893 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Diogenes** – offen 11, Muss 8, startbar 3
+**Diogenes** – offen 9, Muss 6, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -237,8 +239,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 485 | M | „jetzt“ 02.11., 19:37 (Chef: „1, 2, 3 ja, fang an.“): (1) Wochentermine „gelaufen ja/nein“ | ruht bis 09.11. |
 | 483 | M | von Perikles (Doppelpack 421, 02.11., 19:4x): meldung.sh --film legt je Film einen Zweig f | wartet auf Eingang |
 | 461b | M | von Sokrates (Chef 01.11., 22:26, „461b ja“, Archiv): Kennzahl Widersprüche: montags Stich | ruht bis 09.11. |
-| 434 | M | von Sokrates (Chef 31.10., 22:1x): bei jeder Zählung 374 zusätzlich die Zeile „Bestand gep | startbar |
-| 374 | M | von Sokrates (Chef 27.10., 11:58, Archiv 374): täglich 8 Uhr bis 03.11. Vorlagen des Vorta | startbar |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24): Umzug Godot: jedes Vergleichsbild alt/neu messen, | wartet auf Eingang |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
