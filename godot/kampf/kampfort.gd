@@ -391,9 +391,21 @@ func _inkless_toon() -> Shader:
 ## Umgebungslicht je Ort wie CaveScene ambient (dunkel, Glühen bläulich, Lager warm)
 const HOEHLE_UMGEBUNG := {"eingang": Color(0.40, 0.40, 0.42), "gang": Color(0.34, 0.30, 0.32), "halle": Color(0.26, 0.34, 0.40),
 	"teich": Color(0.24, 0.34, 0.40), "lager": Color(0.36, 0.30, 0.28)}
-const LEUCHTEN := {"flamme": Color(1.0, 0.62, 0.22), "glut": Color(0.9, 0.32, 0.08), "himmel": Color(0.92, 0.95, 0.88),
+const LEUCHTEN := {"flamme": Color(1.0, 0.62, 0.22), "glut": Color(0.9, 0.32, 0.08),
 	"pilz": Color(0.48, 0.94, 0.88)}
 var _flackern: Array = []     # [OmniLight3D, Grundstärke, Versatz]
+## 507 Lauf 247 (Prüfer: Eingang „grüner Block statt Tageslicht“, oben weiße Zacken): Himmel leuchtete mit glow 1 und die Lampe am
+## Mund (Stärke 8) färbte Bäume und Wiese mit ihrer Moosbildtextur hell; der Dunst der Höhle (ab 24 m fast schwarz) lag darauf.
+## Draußen zeichnet darum ohne Licht und ohne Dunst seine Eckfarbe (CaveScene: glow(x, y, col, 1.0)); Tusche bleibt (Tiefe)
+const DRAUSSEN := ["himmel", "draussen"]
+var _draussen: ShaderMaterial
+func _draussen_mat() -> ShaderMaterial:
+	if _draussen == null:
+		var sh := Shader.new()
+		sh.code = "shader_type spatial;\nrender_mode unshaded, fog_disabled, cull_disabled;\nvoid fragment() { ALBEDO = COLOR.rgb; }\n"
+		_draussen = ShaderMaterial.new()
+		_draussen.shader = sh
+	return _draussen
 ## 507 Messlauf (probe.gd HELL): Faktor auf Umgebung und Lampen der Höhle. Vorgabe 3 nach Messlauf 242: bei 1 Halle, Teich, Lager
 ## Mittel 6–7 von 255, Held innen 26, Wölfe 8–10 (Prüfer 234 „fast schwarz“); bei 3 Held innen 40–54, Wölfe 16–22, Fackeln
 ## nicht ausgebrannt (97–129), Szene im Mittel 10–22 (Lichtung 91): düster, Figuren lesbar
@@ -420,7 +432,9 @@ func _build_cave() -> void:
 				for i in mi.mesh.get_surface_count():
 					var src := mi.mesh.surface_get_material(i)
 					var rn: String = src.resource_name if src else ""
-					if LEUCHTEN.has(rn):
+					if rn in DRAUSSEN:     # Lauf 247 (Eingang: grüner Block, weiße Zacken): draußen ohne Höhlenlicht, Eckfarbe wie CaveScene
+						mi.set_surface_override_material(i, _draussen_mat())
+					elif LEUCHTEN.has(rn):
 						var m := mi.get_surface_override_material(i) as ShaderMaterial
 						m.set_shader_parameter("glow", 1.0)
 						m.set_shader_parameter("glow_col", LEUCHTEN[rn])

@@ -47,6 +47,16 @@ func _alles() -> void:
 				if g != null and float(g) > 0.5: leuchtet += 1
 		_pruef("%s: etwas leuchtet (Flamme, Himmel oder Pilz)" % o, leuchtet >= 1, "%d Stoffe" % leuchtet)
 		_pruef("%s: Wand und Decke ohne Schlagschatten" % o, schatten == 0)
+		# Lauf 247 (Eingang: grüner Block, weiße Zacken): draußen ohne Höhlenlicht und Dunst, Eckfarbe; drinnen nichts davon
+		var draussen := 0
+		for mi in netze:
+			for i in mi.mesh.get_surface_count():
+				var src: Material = mi.mesh.surface_get_material(i)
+				if src != null and src.resource_name in KampfortS.DRAUSSEN:
+					var m = mi.get_surface_override_material(i)
+					if m is ShaderMaterial and (m as ShaderMaterial).shader.code.contains("unshaded, fog_disabled"):
+						draussen += 1
+		_pruef("%s: draußen ohne Höhlenlicht (Himmel, Bäume, Wiese)" % o, draussen == (2 if ziel == "eingang" else 0), "%d Stoffe" % draussen)
 		for l in lampen:
 			_pruef("%s: Lampe in der Höhle (über dem Boden, höchstens 30 m weit)" % o, l.position.y > 0.2 and l.position.length() < 30.0, "%s" % l.position)
 		k.queue_free()

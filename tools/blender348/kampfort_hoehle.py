@@ -17,6 +17,12 @@
 # oben links; Teich grün (x 0–150, y 70–240) und violett (x 230–330); Lager oranges Licht oben links ohne Feuer. Lesbarkeit: Halle und
 # Teich fast schwarz, Wölfe und Bertram verschwinden; Lager: Wölfe und Bertram kaum vom roten Boden. Eingang: Ausblick wie ein flaches
 # grünes Rechteck mit weißem Zackenrand (x 100–355, y 65–150). Koordinaten im Bild 540×1170 (Artefakt Lauf 41615106648, hoehle/*.png).
+# Lauf 247 (Prüfer vor dem Versand 03.11., 15:00; nicht versandt), nachgestellt ohne Lauf mit Strahlen durch bild(), deckt sich auf
+# den Bildpunkt mit dem Helferbefund (Wasser x 0–228, y 267–372; Tafel Halle x 96–309, y 42–123): schwarze Leerrechtecke = Tafel am
+# Ende eines Gangs ohne Boden und Decke, daneben Löcher (Hintergrund); Eingang = Moosbild der Bäume von der Lampe am Mund hell,
+# Himmel glow 1; Gangbalken = Kopfhölzer in der Wand, hinteres Joch hinter der Wand. Behoben siehe „Hinter dem Mund“, „Stützbalken“,
+# Lochprüfung. Nicht der Ort, sondern Probe und Oberfläche (für alle Kampforte gleich, offen): Ansage des braunen Wolfs ohne Strich,
+# Miras Schild vor dem Gesicht; Zugleiste nicht abgeschnitten (Helfer: „…“ gekürzt, Absicht); Tusche an Figuren da (Helfer gemessen).
 import bpy, bmesh, math, os, json, random, glob
 from mathutils import Vector
 
@@ -157,7 +163,7 @@ def rock_col(base_d=FELS_D, base_h=FELS_H, moos=0.0):
 WEIT = {'eingang': 8.5, 'gang': 5.2, 'halle': 11.0, 'teich': 9.0, 'lager': 8.0}[SPOT]          # m quer bis zur Wand (Kampfmitte)
 HINTEN = {'eingang': 9.0, 'gang': 8.0, 'halle': 11.0, 'teich': 10.0, 'lager': 8.5}[SPOT]      # m hinter der Kampfmitte bis zur Rückwand
 HOCH = {'eingang': 8.0, 'gang': 6.0, 'halle': 11.0, 'teich': 8.5, 'lager': 7.5}[SPOT]          # Wandhöhe bis zum Überhang
-MUND = {'eingang': (-1.2, 3.4, 3.6), 'gang': (0.0, 1.9, 2.4), 'halle': (-1.0, 3.6, 3.8),
+MUND = {'eingang': (-1.2, 3.4, 3.6), 'gang': (0.8, 1.4, 2.5), 'halle': (-1.0, 3.6, 3.8),
         'teich': (3.4, 1.8, 2.3), 'lager': (-0.6, 1.8, 2.3)}[SPOT]       # Mund in der Rückwand: quer (+ rechts), halbe Breite, Höhe
 FLACH = lambda a, b: ss(0.0, 1.0, max((abs(a) - 5.0) / 2.0, (abs(b) - 3.6) / 1.6))   # 0 auf den Plätzen, 1 weit weg
 
@@ -234,34 +240,77 @@ with use('feldstein'):
     mid = [fight(HINTEN * 0.15, 0, HOCH * 1.5) + (p - fight(HINTEN * 0.15, 0, HOCH * 1.5)) * 0.25 for p in top]
     grid([top, mid], col)
 
-# Hinter dem Mund: ein kurzer Gang (Eingang: draußen, Himmel und Wald im Licht; sonst Dunkel)
+# Hinter dem Mund: ein Gang, der sich ins Dunkel verliert (Eingang: kurz, dahinter draußen Himmel, Bäume, Wiese; CaveScene mouth).
+# Lauf 247 (Prüfer: schwarze Leerrechtecke in Halle, Teich, Lager; Eingang ein grüner Block mit weißem Zackenrand), nachgestellt
+# mit Strahlen vom Auge (bild()) durch jeden 3. Bildpunkt: hinter dem Mund standen nur zwei Seitenwände und eine schwarze Tafel
+# (Stoff dunkel, 0x050506), ohne Boden und Decke; Halle 2,2 % des Bilds Tafel und 0,2 % gar nichts (Hintergrund schwarz) über
+# und neben ihr (Mund 3,6 m halb breit, Tafel nur 3), Teich 0,8 % und 0,1 %, Lager 0,4 %. Jetzt ein geschlossener Gang (Boden,
+# Wände, Decke) ab der Wand, der Fels wird nach hinten dunkler (CaveScene: „the passage recedes: darker towards the middle“), am
+# Mund ein heller Rand; die Prüfung am Ende bricht ab, wenn ein Strahl nichts trifft.
 cx, hb, hh = MUND
-mitte_mund = from_view(D0 + HINTEN + 1.0, cx)
-tief = (mitte_mund - CAM); tief.z = 0; tief = tief.normalized()
+s_mund = min(((abs(view(wand_punkt(k / 200.0, 0.0))[1] - cx), k / 200.0) for k in range(-150, 151)
+              if view(wand_punkt(k / 200.0, 0.0))[0] > 17.0))[1]
+wand_mund = wand_punkt(s_mund, 0.0); wand_mund.z = 0.0
+tief = (wand_mund - CAM); tief.z = 0; tief = tief.normalized()
 quer = Vector((tief.y, -tief.x, 0))
+GANG_L = 2.6 if SPOT == 'eingang' else 7.0
+anfang = wand_mund - tief * 0.9                  # vor der Wand beginnen: die Wand ist rau (±0,5 m) und das Loch grob (Rasterzellen)
+mitte_mund = wand_mund + tief * 1.0              # für Licht und Merkpunkt wie vorher
+boden_mund = boden_z(anfang.x, -anfang.y) - 0.12
+def gang_punkt(d, th):
+    """Querschnitt des Gangs d m hinter dem Anfang: Bogen über dem Boden, th 0 (links) bis pi (rechts); er wird enger und biegt ab"""
+    k = d / GANG_L
+    w = (hb + 0.9) * (1 - 0.35 * k); h = (hh * 1.3 + 0.5) * (1 - 0.3 * k)
+    biege = quer * (0.0 if SPOT == 'eingang' else (hb + 0.9) * 1.4 * k * k)     # biegt so weit ab, dass man das Ende nicht sieht
+    rau = 1 + 0.06 * (fbm(d * 0.9, th * 2.0, 41) - 0.5)
+    return anfang + tief * d + biege + quer * (-math.cos(th) * w * rau) + Vector((0, 0, boden_mund + math.sin(th) * h * rau))
+def gang_col(hell_d, hell_h, ende):
+    base = rock_col(hell_d, hell_h)
+    def col(p, n):
+        d = (p - anfang).dot(tief)
+        c = base(p, n)
+        if d < 1.2:                              # Rand am Mund, der das Licht der Höhle fängt (CaveScene „a rim of rock“)
+            c = mixc(c, lin(0x9A8E80), 0.25 * (1 - ss(0.4, 1.2, d)))
+        return mixc(c, ende, ss(1.0, GANG_L, d) ** 0.8 * (0.0 if SPOT == 'eingang' else 0.92))
+    return col
+DS = [GANG_L * i / 7 for i in range(8)]
 with use('feldstein'):
-    for side in (-1, 1):
-        a0 = mitte_mund + quer * side * (hb + 0.3)
-        grid([[a0 + tief * d + Vector((0, 0, z)) - quer * side * 0.4 * ss(0, 1, d / 6) for d in (0, 2, 4, 6)] for z in (0, hh * 0.6, hh * 1.1)],
-             rock_col(lin(0x221E1C), lin(0x4A4440)))
-    back = mitte_mund + tief * 6.0
-    if SPOT == 'eingang':
-        # draußen: heller Himmel über einer grünen Baumreihe, ein Streifen Wiese (CaveScene mouth daylight)
-        with use('himmel'):
-            add_face([back - quer * 6 + Vector((0, 0, -0.2)), back + quer * 6 + Vector((0, 0, -0.2)),
-                      back + quer * 6 + Vector((0, 0, hh * 1.6)), back - quer * 6 + Vector((0, 0, hh * 1.6))],
-                     lambda p, n: mixc(lin(0xD8E4C8), lin(0xF4F6EC), ss(0.0, hh * 1.4, p.z)))
-        with use('laub'):
-            for k in range(9):
-                q = back - tief * 0.6 + quer * (-4 + k) + Vector((0, 0, hh * 0.25 + 0.4 * h1(k, 2)))
-                blob(q, 0.9 + 0.4 * h1(k, 3), lambda p, n: mixc(lin(0x4A6A34), lin(0x9CBC5C), 0.4 + 0.4 * n.z), sub=1, squash=1.1, seed=k)
-        with use('gras'):
-            add_face([mitte_mund + tief * 1.5 - quer * (hb + 1), mitte_mund + tief * 1.5 + quer * (hb + 1),
-                      back + quer * (hb + 2), back - quer * (hb + 2)], lin(0x7A9A4A))
-    else:
-        with use('dunkel'):
-            add_face([back - quer * 3, back + quer * 3, back + quer * 3 + Vector((0, 0, hh * 1.4)), back - quer * 3 + Vector((0, 0, hh * 1.4))],
-                     lin(0x050506))
+    bogen = [[gang_punkt(d, math.pi * j / 12) for j in range(13)] for d in DS]
+    grid(bogen, gang_col(FELS_D, FELS_H, lin(0x0A0908)))
+with use('erde'):
+    grid([[r[0] + (r[-1] - r[0]) * t for t in (0, 0.25, 0.5, 0.75, 1.0)] for r in bogen], gang_col(BODEN_D, BODEN_H, lin(0x0C0A08)))
+if SPOT != 'eingang':
+    with use('dunkel'):      # Abschluss tief im Gang, kaum noch zu sehen (der Gang biegt ab)
+        e = bogen[-1]
+        add_face([e[0] - Vector((0, 0, 0.3)), e[-1] - Vector((0, 0, 0.3)), e[-1] + Vector((0, 0, hh * 2.0)), e[0] + Vector((0, 0, hh * 2.0))],
+                 lin(0x060505))
+else:
+    # draußen wie CaveScene: blasser Himmel (oben bläulich), Baumreihe mit unruhiger Krone, ein Streifen Wiese; Godot zeichnet
+    # Himmel und draußen ohne Licht der Höhle (kampfort.gd, Stoffe „himmel“, „draussen“), sonst färbte die Lampe am Mund alles hell
+    aus_ = anfang + tief * GANG_L
+    weit = 9.0
+    with use('draussen'):    # Wiese steigt leicht an
+        grid([[aus_ + tief * d + quer * q + Vector((0, 0, boden_mund + 0.03 * d * d / weit)) for q in (-9, -4.5, 0, 4.5, 9)]
+              for d in (-0.4, 2.0, 4.5, 7.0, weit)],
+             lambda p, n: mixc(lin(0x8CB060), lin(0x5E8A44), ss(0.0, weit, (p - aus_).dot(tief))))
+    def krone(d, n_, dunkel_, hoch_, seed):
+        for k in range(n_):
+            q = -8.0 + 16.0 * (k + 0.5 * h1(k, seed)) / n_
+            f = aus_ + tief * (d + 0.8 * h1(k, seed + 1)) + quer * q
+            fz = boden_mund + 0.03 * d * d / weit
+            hk = hoch_ * (0.75 + 0.5 * h1(k, seed + 2))
+            if d < 6:                            # vordere Reihe: Stämme unter den Kronen
+                cylinder(f + Vector((0, 0, fz - 0.1)), 0.13, hk * 0.55, 6, lin(0x2E2A20))
+            blob(f + Vector((0, 0, fz + hk * 0.7)), hk * 0.42, lambda p, n, c=dunkel_: mixc(c, lin(0x5E8C58), 0.25 + 0.35 * max(0.0, n.z)),
+                 sub=1, squash=1.25, seed=k + seed)
+    with use('draussen'):
+        krone(weit - 1.5, 9, mixc(lin(0x3E6A44), lin(0xB8D0E4), 0.35), 4.6, 70)     # hinten, im Dunst
+        krone(4.5, 7, lin(0x34603C), 4.0, 80)                                      # vorn, dunkler
+    with use('himmel'):
+        hz = boden_mund + hh * 2.6
+        add_face([aus_ + tief * (weit + 1) - quer * 14 + Vector((0, 0, boden_mund - 0.5)), aus_ + tief * (weit + 1) + quer * 14 + Vector((0, 0, boden_mund - 0.5)),
+                  aus_ + tief * (weit + 1) + quer * 14 + Vector((0, 0, hz)), aus_ + tief * (weit + 1) - quer * 14 + Vector((0, 0, hz))],
+                 lambda p, n: mixc(lin(0xE8F0F0), lin(0xB8D0E4), ss(boden_mund + hh * 0.4, hz, p.z)))
 
 # Boden: eben auf den Plätzen, nach außen buckelig und zur Wand hin ansteigend; Kies, Pfützen (CaveScene floor, gravel, puddles)
 with use('erde'):
@@ -395,20 +444,25 @@ def pilze(fx, cyan):
     merk('Pilze', p + Vector((0, 0, 0.15)))
 def auf_boden(a, b, dz=0.0): return fight(a, b, boden_z(a, b) + dz)
 
+JOCHE = []
 if SPOT == 'gang':
-    # Stützbalken (CaveScene beams): drei Joche quer über den Gang, das hinterste vor dem Mund
+    # Stützbalken (CaveScene beams: zwei Pfosten, oben ein Querholz, um den Gang ins Dunkel). Lauf 247 (Prüfer: „Gangbalken frei“),
+    # nachgestellt mit bild(): von den drei Jochen standen vorn nur Pfosten im Bild (x 139), ihre Kopfhölzer führten in die Wand;
+    # das hintere stand 0,2 m hinter der Wand (Wandellipse bei b 2,7 nur bis a 6,84), sein Querbalken steckte im Fels. Jetzt zwei
+    # ganze Joche vor dem Mund, quer zum Blick, Pfosten auf dem Boden, Querholz darauf, beide ganz im Bild (Prüfung unten).
     with use('balken'):
-        for a in (-1.5, 3.5, 7.0):
-            wb = WEIT * 0.82 if a < 6 else MUND[1] + 0.8
+        holz = lambda q, n: tuple(x * (0.75 + 0.25 * n.z + 0.1) for x in lin(0x6A4A30))
+        for vor, breit_, hoch_ in ((0.5, hb + 0.4, hh + 0.2), (2.4, hb + 0.8, hh + 1.25)):     # vorn höher: Querhölzer nicht übereinander
+            mitte = anfang - tief * (vor - 0.9)
             for side in (-1, 1):
-                fuss = auf_boden(a, side * wb, -0.1)
-                cylinder(fuss, 0.16, 3.7, 7, lambda q, n: tuple(x * (0.75 + 0.25 * n.z + 0.1) for x in lin(0x6A4A30)), r2=0.14)
-            if a > 5.5:     # Querbalken nur hinter den Gegnern; vorn tragen die Pfosten ein Kopfholz zur Wand
-                tube(fight(a, -wb - 0.3, 3.6), fight(a, wb + 0.3, 3.6), 0.17, 7, lin(0x5A3E28))
-            else:
-                for side in (-1, 1):
-                    tube(fight(a, side * wb, 3.5), fight(a, side * (wb + 1.2), 3.9), 0.15, 7, lin(0x5A3E28))
-    merk('Stützbalken', fight(3.5, -WEIT * 0.82, 1.8), 0.3)
+                f = mitte + quer * side * breit_; f.z = boden_z(f.x, -f.y) - 0.1
+                cylinder(f, 0.16, hoch_ - f.z + 0.05, 7, holz, r2=0.14)
+                JOCHE.append(f.copy()); JOCHE.append(f + Vector((0, 0, hoch_ - f.z + 0.05)))
+            tube(mitte - quer * (breit_ + 0.35) + Vector((0, 0, hoch_ + 0.1)), mitte + quer * (breit_ + 0.35) + Vector((0, 0, hoch_ + 0.1)),
+                 0.17, 7, lin(0x5A3E28))
+            merk('Querholz', mitte + Vector((0, 0, hoch_ + 0.1)), 0.2)
+    merk('Stützbalken', JOCHE[4] * 0.7 + JOCHE[5] * 0.3, 0.2)
+    merk('Stützbalken', JOCHE[6] * 0.7 + JOCHE[7] * 0.3, 0.2)
     fackel(s_bei(0.13, 2.4), 2.4); fackel(s_bei(0.76, 2.2), 2.2)
 elif SPOT == 'halle':
     # Säulen, wo Tropfstein und Stalagmit zusammengewachsen sind (CaveScene pillars): schmale Taille, unten und oben breit;
@@ -554,6 +608,28 @@ for name, q, r in MERK:
     wo = '' if treffer[0] is None else ' von %s bei %.1f m (%.1f, %.1f, %.1f)' % (P.M[treffer[2]], treffer[3], treffer[0].x, -treffer[0].y, treffer[0].z)
     print('BLICK %s %s: %.0f, %.0f, %.1f m %s%s' % (SPOT, name, x, y, t, stand, wo))
     if stand != 'sichtbar': blick_fehler.append(name + ' ' + stand)
+# Lochprüfung (Lauf 247: schwarze Leerrechtecke): Strahlen vom Auge durch jeden 4. Bildpunkt der Szene; trifft einer nichts,
+# sähe man dort den schwarzen Hintergrund. Dazu der Anteil je Stoff (dunkel = Abschluss des Gangs, soll kaum zu sehen sein)
+VOR, RECHTS, OBEN = Vector((0.866, 0.5, 0)), Vector((0.5, -0.866, 0)), Vector((0, 0, 1))
+anteil = {}; leer = []
+for y in range(0, int(GH), 4):
+    for x in range(0, int(GW), 4):
+        d = (VOR + RECHTS * ((x - GW / 2) / GF) - OBEN * ((y - GHOR) / GF)).normalized()
+        h = bvh.ray_cast(AUGE, d, 150.0)
+        m = 'nichts' if h[0] is None else P.M[h[2]]
+        anteil[m] = anteil.get(m, 0) + 1
+        if h[0] is None: leer.append((x, y))
+n_ = sum(anteil.values())
+print('LOCH %s %s' % (SPOT, ', '.join('%s %.1f %%' % (m, 100.0 * k / n_) for m, k in sorted(anteil.items(), key=lambda kv: -kv[1]))))
+if leer:
+    blick_fehler.append('Loch im Bild (%d Strahlen, x %d-%d, y %d-%d)' % (len(leer), min(q[0] for q in leer), max(q[0] for q in leer),
+                                                                       min(q[1] for q in leer), max(q[1] for q in leer)))
+if anteil.get('dunkel', 0) > 0.003 * n_:
+    blick_fehler.append('Abschluss des Gangs zu sehen (%.1f %%)' % (100.0 * anteil['dunkel'] / n_))
+for q in JOCHE:     # Lauf 247: Pfosten ohne Querholz; jedes Joch ganz im Bild
+    x, y, _t = bild(q)
+    if not (8 < x < GW - 8 and 30 < y < GH):
+        blick_fehler.append('Joch außerhalb (%.0f, %.0f)' % (x, y))
 if blick_fehler:
     print('FEHLER 507: nicht im Bild', blick_fehler)
     raise SystemExit(1)
