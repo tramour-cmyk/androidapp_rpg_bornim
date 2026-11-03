@@ -11,7 +11,7 @@
 # Kaninchen unsere Felle, gesättigte Stellen (Kamm, Schnabel, Beine) behalten die Farbe des Kaufs (BEHALTEN); Wurzelweg „weg“ für
 # Gehen und Rennen im Tempo der Pfoten am Boden und „biss“ wie kaufwolf.py; Pfoten der Vierbeiner heißen wie beim Wolf (vpfoteL …,
 # figur.gd Pfotenschatten und Pfotenhalt).
-import os, sys, glob, json, math, time
+import os, sys, glob, json, math, time, fnmatch
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 T0 = time.time()
 import bpy
@@ -88,14 +88,26 @@ T = TIERE[TIER]
 ID = 'kauf_' + TIER
 
 
+def suche(d, muster):
+    """494 (Lauf 225: der Hundertfüßer kam als unitypackage, „skin.FBX nicht gefunden“): Dateinamen ohne Rücksicht auf Groß- und
+    Kleinschreibung; bei Unity auch „<Tier>@<Bewegung>.fbx“"""
+    m = muster.lower()
+    return sorted(os.path.join(w, f) for w, _, fs in os.walk(d) for f in fs if fnmatch.fnmatch(f.lower(), m) and '/.git' not in w)
+
+
 def quelle():
     if not KAUF:
         sys.exit('KAUF fehlt (Ordner mit den gekauften Modellen)')
-    t = sorted(glob.glob(os.path.join(KAUF, '**', T['rig']), recursive=True))
+    t = suche(KAUF, T['rig'])
     if not t:
+        stamm = T['tex'].rstrip('*').lower()
+        print('DATEIEN mit „%s“ unter %s:' % (stamm, KAUF))
+        for w, _, fs in os.walk(KAUF):
+            for f in fs:
+                if stamm in os.path.join(w, f).lower() and '/.git' not in w: print('  ', os.path.relpath(os.path.join(w, f), KAUF))
         sys.exit('%s nicht gefunden unter %s' % (T['rig'], KAUF))
     d = os.path.dirname(os.path.dirname(t[0]))
-    tex = sorted(glob.glob(os.path.join(d, '**', T['tex'] + '.tga'), recursive=True) + glob.glob(os.path.join(d, '**', T['tex'] + '.png'), recursive=True))
+    tex = suche(d, T['tex'] + '.tga') + suche(d, T['tex'] + '.png')
     return t[0], d, tex[0] if tex else None
 
 
@@ -301,7 +313,7 @@ def baue(fell):
     print('IMPORT', TIER, os.path.basename(fbx), 'Netze', len(meshes), 'Dreiecke', tris(meshes), 'Knochen', len(rig.data.bones), 'Textur', tex and os.path.basename(tex))
     akt = {}
     for nm, q in T['namen'].items():
-        f = sorted(glob.glob(os.path.join(d, '**', T['anim'] % q), recursive=True))
+        f = suche(d, T['anim'] % q) or suche(d, '*@' + T['anim'] % q)
         if not f:
             print('FEHLT', nm, q); continue
         n = importiere(f[0]); a = aktion_von(n)
