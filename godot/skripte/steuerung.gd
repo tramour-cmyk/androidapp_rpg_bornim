@@ -317,6 +317,36 @@ func sage(neu: Array) -> void:
 
 func spricht() -> bool: return textfeld.visible
 
+# 490: kurze Notiz oben in der Mitte wie alt (App.kt toast, Game.notices): schwarz mit Goldrand, 1,8 s, die naechste ersetzt sie
+var notiz_feld: PanelContainer
+var notiz_bis := 0
+func kurz(t: String) -> void:
+	if notiz_feld == null:
+		notiz_feld = PanelContainer.new()
+		var k := Stil.kasten(Color.BLACK, Stil.RIM, 1.0)
+		k.content_margin_left = 14 * AktionsKnopf.DP; k.content_margin_right = 14 * AktionsKnopf.DP
+		k.content_margin_top = 8 * AktionsKnopf.DP; k.content_margin_bottom = 8 * AktionsKnopf.DP
+		notiz_feld.add_theme_stylebox_override("panel", k)
+		notiz_feld.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var l := Label.new()
+		l.add_theme_font_size_override("font_size", int(16 * Stil.SP))
+		l.add_theme_color_override("font_color", Stil.TEXT)
+		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		notiz_feld.add_child(l)
+		add_child(notiz_feld)
+	var lb := notiz_feld.get_child(0) as Label
+	lb.text = t
+	var vs := get_viewport().get_visible_rect().size
+	notiz_feld.custom_minimum_size = Vector2(0, 0)
+	notiz_feld.size = Vector2(0, 0)
+	lb.custom_minimum_size.x = minf(vs.x * 0.8, lb.get_theme_font("font").get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, lb.get_theme_font_size("font_size")).x + 4)
+	notiz_feld.reset_size()
+	notiz_feld.position = Vector2((vs.x - notiz_feld.size.x) / 2, maxf(0.0, Rand.beim_start) + 72 * AktionsKnopf.DP)
+	notiz_feld.visible = true
+	notiz_bis = Time.get_ticks_msec() + 1800
+	get_tree().create_timer(1.85).timeout.connect(func(): if Time.get_ticks_msec() >= notiz_bis and notiz_feld: notiz_feld.visible = false)
+
 # ---------------------------------------------------------------- Wahlfeld (390, RestScreen): Titel gold, Zeilen darunter,
 # je Wahl ein Knopf und darunter matt, was sie tut oder warum nicht; unten „Weiter“
 # knoepfe: [{text, info, an, id}]; notiz: Antwort auf die letzte Wahl (Met, kein Gold)

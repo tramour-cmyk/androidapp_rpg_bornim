@@ -121,7 +121,20 @@ object MapExport {
             }
         }
         putJsonArray("schutz") {
-            for (z in m.safeZones) add(buildJsonObject { put("x", z.x); put("y", z.y); put("radius", z.radius) })
+            for (z in m.safeZones) add(buildJsonObject {
+                put("x", z.x); put("y", z.y); put("radius", z.radius)
+                z.notice?.let { put("text", text(it)) }   // 490: Garrick schwenkt die Fackel
+            })
+        }
+        // 490 (Flüsterwald begehbar wie alt): Monster auf der Karte (Game.herd, updateRoamers) und Überfall im hohen Gras (afterStep)
+        m.encounters?.let { e ->
+            put("begegnungen", buildJsonObject {
+                put("rate", e.rate)
+                put("streuner", e.roamers)
+                putJsonArray("kacheln") { for (t in e.tiles) add(JsonPrimitive(t.ch.toString())) }
+                put("tabelle", buildJsonArray { for ((mo, w) in e.table) add(buildJsonArray { add(JsonPrimitive(mo)); add(JsonPrimitive(w)) }) })
+                e.night?.let { n -> put("nacht", buildJsonArray { for ((mo, w) in n) add(buildJsonArray { add(JsonPrimitive(mo)); add(JsonPrimitive(w)) }) }) }
+            })
         }
     }
 

@@ -15,6 +15,10 @@ TS = 116.0
 # 348.6: Karte aus dem Export von core (./gradlew -p core exportMaps -Pout=...; MapExport.kt), nicht mehr aus Story.kt gelesen
 KARTEN = json.load(open(os.environ.get('KARTEN', ROOT + '/godot/daten/karten.json')))
 K = KARTEN['karten'][os.environ.get('KARTE', 'village')]
+KARTE = os.environ.get('KARTE', 'village')
+# 490: jede Gebietskarte mit eigenem Namen (gebiet.gd datei, maske): das Dorf bleibt dorf.glb, dorf-info.json, boden-maske.png
+AUSGABE = 'dorf' if KARTE == 'village' else KARTE
+MASKE = OUT + ('/boden-maske.png' if KARTE == 'village' else '/%s-boden-maske.png' % KARTE)
 ROWS = K['zeilen']
 R0, R1, C0, C1 = 0, len(ROWS) - 1, 0, K['breite'] - 1
 WALK = {c for c, t in KARTEN['kacheln'].items() if t['begehbar']} # begehbar wie World.kt (Tile(..., true))
@@ -269,8 +273,9 @@ bank = sst(0.22, 0.4, WF)                                 # alt: Schlamm ab 0,36
 earth = np.clip(np.maximum.reduce([path, yard * 0.85, bare, field, bank]), 0, 1) * (1 - cob)
 shade = wup(tilemask('T'), 14) * 0.6 + 0.25 * sst(0.55, 0.8, fbm2(1.5, 11))
 shade = np.maximum(shade, sst(0.3, 0.5, WF) * 0.95)
+if KARTE != 'village': shade = np.maximum(shade, wup(tilemask(','), 8) * 0.3)   # 490: hohes Gras dunkler (MapGround TALL_GRASS)
 mask = np.stack([earth, cob, np.clip(shade, 0, 1), np.clip(WF, 0, 1)], 2)
-Image.fromarray((mask * 255).astype(np.uint8)).save(OUT + '/boden-maske.png')
+Image.fromarray((mask * 255).astype(np.uint8)).save(MASKE)
 
 # Wasser: Flaeche knapp unter dem Ufer, auch eine Kachel um den Fluss (das Ufer folgt dem Rauschen, der Boden deckt den Rest)
 for r in range(R0 - AUS, R1 + AUS + 1):         # Helfer: Fluss lief am Kartenrand spitz aus; jetzt unter dem Waldring weiter
@@ -1583,7 +1588,7 @@ def dinge_mehr():
                 n_kies += 1
     print('KIESEL %d' % n_kies)
 # Sonderlaternen (MapTownIso.BRIDGE_LANTERN, KAEL_LANTERN; Licht wie MapLight.kt:104-105)
-if os.environ.get('KARTE', 'village') == 'village':
+if KARTE == 'village':
     # Runde 11 (Urteil Chef 12:11: Laternenpfahl am Steg reichte bis ins Wasser): Pfahl steht auf dem Steg
     gruppe('laterne', 18, 27, lamp, 18, 27, Vector((tx(18) + TS / 2 + 54, ty(27) - 0.5 * TS, 0)), eiche=True, reich=2.4, kraft=0.8, fuss=10)   # auf dem Gelaenderpfosten des Stegs (Helfer: 19/27 ist Wasser)
     gruppe('laterne', 24, 6, kael_lantern, 24, 6)
@@ -1635,14 +1640,155 @@ for r in range(R0, R1 + 1):
         elif t == 'c':
             LIGHTS.append(dict(art='korn', pos=[p.x, p.y, 0]))
 
+# ---------------------------------------------------------------- 490 Flüsterwald begehbar wie alt (Story.kt:524; MapWoodIso, MapFlora)
+# Bestand geprueft (LISTE-BESTAND.md): Felsen, Kiesel, Pilze, Pflanze aus dem Naturbausatz (Chef 27.10.: Felsen, Kiesel, Pilze, Farn ja;
+# Baeume nein); Baeume wie im Dorf (spruce, oak_crown); liegender Stamm, Lagerfeuer, Kiste, Hoehlenmund selbst (fehlen im Bestand)
+EIGENE = []                                   # eigene Netze (Name, Part): Vorlage des Heilkrauts fuer gebiet.gd (wechselt taeglich)
+def eigenes(name, fn, *a):
+    global DORF
+    alt = DORF; DORF = Part()
+    try: fn(*a)
+    finally: EIGENE.append((name, DORF)); DORF = alt
+MASS = {}
+def kit_mass(name):
+    """Groesse (cm, x y z) und Fussmitte (cm) eines Teils des Naturbausatzes, wie fremd_teil es einsetzt"""
+    if name in MASS: return MASS[name]
+    import glob
+    d = glob.glob(glob.escape(os.path.expanduser(os.environ.get('CC0', '~/cc0'))) + '/stylized-nature-megakit/glTF')[0]
+    vor = set(bpy.data.objects)
+    bpy.ops.import_scene.gltf(filepath=d + '/' + name + '.gltf')
+    neu = [o for o in bpy.data.objects if o not in vor]
+    pts = [Matrix.Scale(100.0, 4) @ o.matrix_world @ v.co for o in neu if o.type == 'MESH' for v in o.data.vertices]
+    for o in neu: bpy.data.objects.remove(o, do_unlink=True)
+    lo = Vector([min(q[k] for q in pts) for k in range(3)]); hi = Vector([max(q[k] for q in pts) for k in range(3)])
+    MASS[name] = (hi - lo, Vector(((lo.x + hi.x) / 2, (lo.y + hi.y) / 2, lo.z)))
+    return MASS[name]
+def teil(name, at, breite, hoehe=None, dreh=0.0, kipp=(0.0, 0.0), farbe=None):
+    """Teil des Naturbausatzes mit Fussmitte auf at, breiteste Seite breite cm, Hoehe hoehe cm (sonst im Verhaeltnis)"""
+    g, m = kit_mass(name)
+    s = breite / max(g.x, g.y, 1e-3); sz = (hoehe / max(g.z, 1e-3)) if hoehe else s
+    M = (Matrix.Translation(at) @ Matrix.Rotation(kipp[0], 4, 'X') @ Matrix.Rotation(kipp[1], 4, 'Y') @ Matrix.Rotation(dreh, 4, 'Z')
+         @ Matrix.Diagonal((s, s, sz, 1.0)) @ Matrix.Translation(-m))
+    fremd_teil(name, M, farbe=farbe)
+def wstein(moos=12.0, dunkel=1.0):
+    """Feldstein kuehl grau, unten Moos (wie dinge_mehr), dunkel < 1 russig"""
+    return lambda p, nn: sc(mixc(lin(0x84848A), lin(0x6E7A3C), ss(moos, 2, p.z) * (0.55 + 0.45 * vn(p.x / 25, p.y / 25, 92))),
+                            (0.85 + 0.3 * vn(p.x / 18 + p.z / 18, p.y / 18, 93)) * (0.85 + 0.3 * max(0.0, nn.z)) * dunkel)
+def stab(P, a, b, r, n, col, r2=None):
+    """Zylinder von a nach b (Ast, Stamm), Rinde laengs"""
+    r2 = r if r2 is None else r2; ax = (b - a); L = ax.length; ax.normalize()
+    u = ax.cross(Vector((0, 0, 1)) if abs(ax.z) < 0.9 else Vector((1, 0, 0))).normalized(); v = ax.cross(u)
+    m = CUR[0]; sca = SCALE.get(m, 100.0); circ = 2 * math.pi * r
+    for k in range(n):
+        a0 = 2 * math.pi * k / n; a1 = 2 * math.pi * (k + 1) / n
+        d0 = u * math.cos(a0) + v * math.sin(a0); d1 = u * math.cos(a1) + v * math.sin(a1)
+        u0, u1 = circ * k / n / sca, circ * (k + 1) / n / sca
+        uvs = [(0, u0), (0, u1), (L / sca, u1), (L / sca, u0)] if m in GRAIN else [(u0, 0), (u1, 0), (u1, L / sca), (u0, L / sca)]
+        add_face(P, [a + d0 * r, a + d1 * r, b + d1 * r2, b + d0 * r2], col, uvs)
+    return u, v
+def stamm_liegend(c, r):
+    """umgestuerzter Stamm wie MapWoodIso LOG ueber die zusammenhaengenden Kacheln, Schnittflaechen hell, Moos und Baumpilz"""
+    n = 1
+    while ch(c + n, r) == 'O': n += 1
+    mid = (tile_c(c, r) + tile_c(c + n - 1, r)) / 2
+    half = (n * TS) / 2 - 12; rad = 24 + 5 * h1(c, r, 601)
+    a_ = math.radians(-9 + 18 * h1(c, r, 602))
+    d = Vector((math.cos(a_), math.sin(a_), 0))
+    a = trocken(mid - d * half) + Vector((0, 0, rad * 0.8)); b = trocken(mid + d * half) + Vector((0, 0, rad * 0.75))
+    rinde = lambda q, nn: sc(W1, 0.6 + 0.35 * max(0.0, nn.z))
+    with use('rinde'): u, v = stab(DORF, a, b, rad, 10, rinde, r2=rad * 0.92)
+    with use('weiss'):
+        for e, rr, sg in ((a, rad, -1), (b, rad * 0.92, 1)):
+            pts = [e + (u * math.cos(2 * math.pi * k / 10) + v * math.sin(2 * math.pi * k / 10)) * rr for k in range(10)]
+            add_face(DORF, pts if sg > 0 else pts[::-1], lambda q, nn, e=e: sc(lin(0xA88456), 0.7 + 0.3 * abs(math.sin((q - e).length * 0.6))))
+    with use('laub_busch'):                                        # Moos obenauf, ungleich
+        for k in range(2 + int(h1(c, r, 603) * 2)):
+            t = 0.15 + 0.7 * h1(c, r, 604 + k)
+            q = a + (b - a) * t + Vector((0, 0, rad * 0.75))
+            blob(DORF, q, rad * (0.45 + 0.25 * h1(c, r, 610 + k)), lambda vv, nn: mixc((0.12, 0.2, 0.06), (0.36, 0.48, 0.16), max(0.0, nn.z)), sub=1, squash=0.35, seed=c * 7 + r + k, smooth=True)
+    sg = 1 if h1(c, r, 620) < 0.5 else -1                           # Baumpilz an der Seite zur Kamera
+    q = a + (b - a) * (0.3 + 0.4 * h1(c, r, 621)) + Vector((ZUR_KAMERA[0], -ZUR_KAMERA[1], 0)) * rad * 0.95
+    teil('Mushroom_Laetiporus', q - Vector((0, 0, 8)), 26, dreh=math.atan2(-ZUR_KAMERA[1], ZUR_KAMERA[0]) + sg * 0.3)
+def fels(c, r):
+    """Fels wie MapWoodIso ROCK: Felsbrocken, der die Kachel sperrt"""
+    p = trocken(tile_c(c, r) + Vector(((h1(c, r, 631) - 0.5) * 20, (h1(c, r, 632) - 0.5) * 20, 0)))
+    teil('Rock_Medium_%d' % (1 + int(h1(c, r, 633) * 3)), p - Vector((0, 0, 6)), 100 + 25 * h1(c, r, 634), 70 + 30 * h1(c, r, 635),
+         dreh=h1(c, r, 636) * 6.283, farbe=wstein(18))
+def menhir(c, r):
+    """Hinkelstein wie MapWoodIso MENHIR: aufrecht, leicht schief, unten bemoost"""
+    p = trocken(tile_c(c, r))
+    teil('Rock_Medium_%d' % (1 + int(h1(c, r, 641) * 3)), p - Vector((0, 0, 8)), 62 + 12 * h1(c, r, 642), 175 + 35 * h1(c, r, 643),
+         dreh=h1(c, r, 644) * 6.283, kipp=(math.radians(-5 + 10 * h1(c, r, 645)), math.radians(-5 + 10 * h1(c, r, 646))), farbe=wstein(32))
+def lagerfeuer(c, r):
+    """Garricks Feuer wie MapWoodIso CAMPFIRE: Steinkranz, Asche, Scheite als Zelt, Glut; Licht und Flammen in gebiet.gd ('feuer')"""
+    p = tile_c(c, r)
+    with use('weiss'): blob(DORF, p + Vector((0, 0, 1)), 34, lambda q, nn: sc(lin(0x3A3632), 0.8 + 0.3 * vn(q.x / 9, q.y / 9, 651)), sub=2, squash=0.08, seed=c + r)
+    for k in range(9):
+        a = 2 * math.pi * k / 9 + 0.3 * h1(c, k, 652)
+        teil('Pebble_Round_%d' % (1 + int(h1(c * 9 + k, r, 653) * 5)), p + Vector((math.cos(a) * 40, math.sin(a) * 40, -3)),
+             22 + 6 * h1(c, k, 654), 15 + 5 * h1(c, k, 655), dreh=h1(c, k, 656) * 6.283, farbe=wstein(0, 0.75))
+    verkohlt = lambda q, nn: mixc(lin(0x1A1410), lin(0x5A4430), ss(4, 30, q.z))
+    with use('holz'):
+        for k in range(4):
+            a = 2 * math.pi * (k + 0.2 * h1(r, k, 657)) / 4
+            stab(DORF, p + Vector((math.cos(a) * 30, math.sin(a) * 30, 2)), p + Vector((math.cos(a) * 3, math.sin(a) * 3, 36)), 4.5, 6, verkohlt, r2=3.0)
+    with use('glut'):
+        for k in range(6):
+            q = p + Vector(((h1(c, k, 658) - 0.5) * 30, (h1(r, k, 659) - 0.5) * 30, 3))
+            blob(DORF, q, 5 + 3 * h1(c, r + k, 660), lin(0xE06A2A if k % 2 else 0xB83A1A), sub=1, squash=0.6, seed=k)
+    LIGHTS.append(dict(art='feuer', pos=[p.x, p.y, 32]))
+def kiste(c, r):
+    """Truhe wie MapWoodIso CHEST: Bretter, Eisenbaender, Schloss; steht schraeg in der Kachel"""
+    p = trocken(tile_c(c, r)); a = math.radians(-14 + 28 * h1(c, r, 671))
+    M = Matrix.Translation(p) @ Matrix.Rotation(a, 4, 'Z')
+    eisen = lin(0x2A2622)
+    with use('bretter'):
+        box(DORF, (-36, -23, 0), (36, 23, 30), (0.95, 0.85, 0.72), M=M)
+        box(DORF, (-37, -24, 30), (37, 24, 43), (1.0, 0.9, 0.76), M=M)
+    with use('weiss'):
+        for x in (-25, 21):
+            box(DORF, (x, -24.5, -0.5), (x + 4, 24.5, 43.8), eisen, M=M)
+        box(DORF, (-5, -25.5, 22), (5, -24, 34), lin(0x6A5A3A), M=M)
+def hoehlenfels(c, r):
+    """Felswand um den Hoehlenmund (CAVE_WALL): hohe Brocken, dahinter weiter Fels"""
+    p = tile_c(c, r)
+    for k, (dy, b_, h_) in enumerate(((-15, 170, 230), (55, 230, 330), (140, 260, 300))):
+        q = p + Vector(((h1(c, r + k, 681) - 0.5) * 40, dy, -10))
+        teil('Rock_Medium_%d' % (1 + int(h1(c, r + k, 682) * 3)), q, b_ + 30 * h1(c, k, 683), h_ + 60 * h1(c, k, 684),
+             dreh=h1(c, k, 685) * 6.283, farbe=wstein(30, 0.85))
+def hoehlenmund(c, r):
+    """Eingang der Blutzahnhoehle (CAVE_ENTRANCE): dunkler Bogen in der Felswand, Sturz aus Fels darueber"""
+    p = tile_c(c, r); y = p.y + 10
+    with use('weiss'):
+        front_face(DORF, arch_pts(p.x, 52, 0, 120, 45, 14), y, lin(0x07060A))
+        front_face(DORF, arch_pts(p.x, 62, 0, 126, 52, 14), y + 6, lin(0x161210))
+    teil('Rock_Medium_2', p + Vector((0, 45, 150)), 210, 110, dreh=0.4, farbe=wstein(0, 0.8))
+    for s in (-1, 1): teil('Rock_Medium_%d' % (2 + s), p + Vector((s * 78, 30, -10)), 120, 240, dreh=1.0 + s, farbe=wstein(25, 0.85))
+    for dx in (-2, -1, 1, 2):                                             # Fels auch ueber dem Kartenrand weiter
+        hoehlenfels(c + dx, r - 1)
+def kraut_vorlage():
+    """Heilkraut (Game.herbAt: hellgruene Pflanze auf Blumenwiesen, taeglich anders, verschwindet beim Pfluecken), am Ursprung"""
+    teil('Plant_7', Vector((0, 0, 0)), 38, 30, farbe=lambda q, nn: sc(mixc(lin(0x5E9A3A), lin(0xB6E27A), ss(0, 28, q.z)), 0.8 + 0.3 * max(0.0, nn.z)))
+if KARTE != 'village':
+    for r in range(R0, R1 + 1):
+        for c in range(C0, C1 + 1):
+            t = ch(c, r)
+            if t == 'O' and ch(c - 1, r) != 'O': stamm_liegend(c, r)
+            elif t == 'r': fels(c, r)
+            elif t == 'I': menhir(c, r)
+            elif t == 'F': lagerfeuer(c, r)
+            elif t == 'C': kiste(c, r)
+            elif t == 'X': hoehlenfels(c, r)
+            elif t == 'E': hoehlenmund(c, r)
+    eigenes('Kraut_Vorlage', kraut_vorlage)
 # 348.6 Lauf 4: Dinge zuletzt, damit der Sichttest der Felsen alles davor kennt
-if os.environ.get('DINGE', '1') != '0' and os.environ.get('KARTE', 'village') == 'village': dinge_mehr()
+if os.environ.get('DINGE', '1') != '0' and KARTE in ('village', 'forest', 'deep_forest'): dinge_mehr()
 # Fussschatten der Saecke weich in den Schattenkanal der Bodenmaske (16 Punkte je Kachel, im Shader bis 42 % dunkler), zur Mitte dunkel
 if SACKSCHATTEN:
     for (sx, sy), br in SACKSCHATTEN:
         sg = 0.28 * br
         mask[..., 2] = np.maximum(mask[..., 2], 1.0 * np.exp(-0.5 * ((X - sx) ** 2 + (Y - sy) ** 2) / sg ** 2))
-    Image.fromarray((np.clip(mask, 0, 1) * 255).astype(np.uint8)).save(OUT + '/boden-maske.png')
+    Image.fromarray((np.clip(mask, 0, 1) * 255).astype(np.uint8)).save(MASKE)
 # ---------------------------------------------------------------- Netze bauen: je Teil ein Netz, je Textur ein Material
 TEX = os.path.join(OUT, 'tex')
 def material(name):
@@ -1669,6 +1815,7 @@ def build(P, name):
     print('NETZ', name, len(me.polygons), 'Flaechen', names)
     return o
 objs = [build(DORF, 'Dorf_Netz'), build(GLAS, 'Dorf_Glas'), build(WASSER, 'Dorf_Wasser'), build(BODEN, 'Dorf_Boden')]
+for nm, Pe in (EIGENE if KARTE != 'village' else []): objs.append(build(Pe, nm))   # 490 Vorlage des Heilkrauts
 for nm, Pd, Pg in GRUPPEN:
     if Pd.F: objs.append(build(Pd, 'Gruppe_' + nm))
     if Pg.F: objs.append(build(Pg, 'Gruppe_' + nm + '_Glas'))
@@ -1678,8 +1825,8 @@ LICHTER_M = [dict(l, pos=[x * 0.01 for x in l['pos']]) for l in LIGHTS]
 info = dict(kachel_m=TS / 100.0, spalten=NC, zeilen=NR, ursprung=dict(spalte=C0, zeile=R0), begehbar=walk,
             karte=[ROWS[r][C0:C1 + 1] for r in range(R0, R1 + 1)], lichter=LICHTER_M,
             hinweis='Meter; Blender: x = Spalte * Kachel, y = -Zeile * Kachel (Norden +Y); in glTF/Godot: x gleich, z = +Zeile * Kachel')
-json.dump(info, open(OUT + '/dorf-info.json', 'w'), indent=0)
+json.dump(info, open(OUT + '/%s-info.json' % AUSGABE, 'w'), indent=0)
 bpy.ops.object.select_all(action='SELECT')
-bpy.ops.export_scene.gltf(filepath=OUT + '/dorf.glb', export_format='GLB', use_selection=True, export_vertex_color='ACTIVE',
+bpy.ops.export_scene.gltf(filepath=OUT + '/%s.glb' % AUSGABE, export_format='GLB', use_selection=True, export_vertex_color='ACTIVE',
                           export_yup=True, export_image_format='AUTO')
-print('GLB OK', os.path.getsize(OUT + '/dorf.glb'))
+print('GLB OK', os.path.getsize(OUT + '/%s.glb' % AUSGABE))
