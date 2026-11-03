@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [427.2a](entscheiden/4272a-zweites-rauchbuendel.md) | **Muss** | D Design | 03.11., 08:14 | Zweites Rauchbündel nach einer Niederlage gegen Krogg? | Homer |
 | [447.4](entscheiden/4474-lehrmeister.md) | **Muss** | C Texte | 03.11., 08:09 | Lehrmeister fragen nach „Noch nicht“ noch einmal? Wechsel als Anwärter in Kapitel 1 ohne Verlust? | Homer |
 
 ## Zu billigen
@@ -31,14 +32,12 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 10, Muss 4, startbar 4
+**Homer** – offen 8, Muss 2, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 447.4 | M | von Perikles (Chef 01.11., Archiv 447; Chef 03.11., 07:52 zurück, Zu 447.4): Texte für Stu | Chef (Datei in der Chefsache) |
-| 504 | M | von Perikles (Chef 03.11., 07:52, Zu 504): Gespräche nie gleich: jede Zeile, die man wiede | startbar |
-| 427.2 | M | von Sokrates (Chef 02.11., 20:22, „427.1 A mit 1 und 2“, Archiv 427.1): Hinweis auf Morwen | startbar |
-| 461b.3 | M | von Perikles (Liste Sokrates 461b, 02.11., 19:1x, Punkte 5, 6, 16): Widersprüche nachziehe | ruht (424: altes SRD-System) |
+| 427.2 | M | von Sokrates (Chef 02.11., 20:22, „427.1 A mit 1 und 2“, Archiv 427.1): Hinweis auf Morwen | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 466 | M? | von Sokrates (Chef 01.11., 21:13, Zu 466): neues Wort für „Handlung“ eines Pfads, dazu Nam | startbar |
 | 432 | K | von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt | ruht |
 | 432.3 | M? | von Sokrates (Chef 02.11., 16:29; „ja“ 16:35): Aschgeborene eintragen wie alle Völker: Abn | startbar |
