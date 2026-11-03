@@ -68,6 +68,10 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.: „Jerry immer noch gendert
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht: SRD (Chef 31.10.) | – |
 | 469 | M | **von Sokrates (02.11., 11:0x, zu 406.1):** Kampf auf BRS: Ring (MARS) ohne Klassen regeln (Antwort nach Klasse heute) | wartet auf 406.1 | – |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht: Klang zieht nach Godot; Rest `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
+<<<<<<< HEAD
+=======
+| Pflege | K | **von Werkzeug (340.3, 03.11.):** 15003 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+>>>>>>> b07d0cbd526656b4a984222882da999473c97d31
 
 ## Einzelheiten
 
