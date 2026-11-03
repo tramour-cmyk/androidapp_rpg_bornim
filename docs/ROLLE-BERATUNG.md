@@ -77,7 +77,7 @@
 
 - Einen Umbau, den ich begleite, an den DESIGN-Grundsätzen messen, nicht nur am Bestand: beim Umzug 348 fehlten Ruhebewegungen, Klang, Niederlage, Grinden; gefunden hat es der Chef (28.10., 397, 398).
 
-- Sachaussagen im schnellen Gespräch gelten wie Vorlagen: am gebauten Stand prüfen (was der Bau hineinkopiert, nicht nur der Zweig), Chefworte nur aus dem Archiv, nie aus einer DESIGN-Zusammenfassung, und vor dem Senden fremd prüfen; sonst „nicht geprüft“ sagen (03.11., 07:09: „Godot nur Alegreya“ falsch, Fondamento übersehen; „eine Schrift überall“ als Chefwort ausgegeben; Chef: „heute schon wieder zwei Fehler … wieder auf Hinweise von mir“).
+- Sachaussagen im schnellen Gespräch gelten wie Vorlagen: am gebauten Stand prüfen (was der Bau hineinkopiert, nicht nur der Zweig), Chefworte nur aus dem Archiv, nie aus einer DESIGN-Zusammenfassung, und vor dem Senden fremd prüfen; sonst „nicht geprüft“ sagen (03.11., 07:09: „Godot nur Alegreya“ falsch, Fondamento übersehen; „eine Schrift überall“ als Chefwort ausgegeben; Chef: „heute schon wieder zwei Fehler … wieder auf Hinweise von mir“). Ebenso Behauptungen einer Vorlage („Grimmzahn wie im Kampf“) erst am Code prüfen, bevor ich sie als Erklärung weitergebe (03.11., 16:08: Grimmzahn war der alte Eigenbau, Chef fand es: „Den ihr mir unterjubeln wolltet“).
 
 - Auch eigene Vorschläge an den Chef erst durch einen fremden Prüfer (338.2), selbst im Gespräch unter Druck: drei Sperren vorgelegt, Prüfer verwarf zwei (27.10., 383).
 
