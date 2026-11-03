@@ -647,7 +647,9 @@ func ausruestung() -> void:
 		for platz in seite: spalte.add_child(fach(platz))
 		puppe.add_child(spalte)
 		if seite[0] == "HEAD":
-			var t := Drehteller.new(HeldFigur.wahl(hw, z))
+			# 520 (Chef 03.11., 23:19 „Warum ist der Held so klein?“, 23:21 „Größe jetzt“): wie PaperDoll alt (GearUi.kt 274)
+			# HeroTurntable mit 1,1 dp je Bildpunkt (150 × 230), nicht 0,62 wie im Reiter Held
+			var t := Drehteller.new(HeldFigur.wahl(hw, z), 1.1)
 			t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			puppe.add_child(t)
 	inhalt.add_child(puppe)
