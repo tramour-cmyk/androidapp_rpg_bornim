@@ -57,8 +57,8 @@ func _lauf() -> void:
 	var start := Vector2i(-1, -1)
 	for d in [3.2, 3.6, 2.8, 4.0, 2.4]:
 		for dreh in [0.0, 0.4, -0.4, 0.8, -0.8]:
-			var p := u + weg.rotated(dreh) * d
-			var kt := k.pos_kachel(Vector3(p.x, 0, p.y))
+			var p: Vector2 = u + weg.rotated(float(dreh)) * float(d)
+			var kt: Vector2i = k.pos_kachel(Vector3(p.x, 0, p.y))
 			if k.begehbar(kt): start = kt; break
 		if start.x >= 0: break
 	if start.x < 0:
