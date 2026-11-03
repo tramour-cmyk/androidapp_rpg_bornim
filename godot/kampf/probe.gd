@@ -1161,6 +1161,8 @@ func _start(seed := -1) -> void:
 	var foes: Array = Aufruf.gegner(foe, monsters, dice)
 	visible = false
 	fight = Kampfort.new()
+	if OS.get_environment("PLATZ") != "":     # 493: Standbild je Kampfort im Wald (PLATZ=teich …)
+		fight.platz = OS.get_environment("PLATZ")
 	# 296.2: der Held der Probe steht am Anfang seiner Stufe; ohne LP kein Kampf
 	var xp := int(tables.xpForLevel[int(hs.hero.level)])
 	if not fight.setup(party, foes, tables, {"potion": 2}, func(_outcome): visible = true, seed, {"xp": xp}):
