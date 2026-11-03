@@ -8,7 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 520 | M | **von Sokrates (Chef 03.11., 23:19, Build 249, Bild; Zu 520):** Ausrüstung: „Warum ist der Held so klein? Warum hat er nichts an von den Sachen?“ Größe wie alt; Getragenes zeigen, soweit ohne 455 möglich | startbar | – |
+| 520 | M | **von Sokrates (Chef 03.11., 23:19, Build 249, Bild; Zu 520):** Ausrüstung: „Warum ist der Held so klein? Warum hat er nichts an von den Sachen?“ Chef 23:21: nur Größe wie alt jetzt; Kleidung mit 455 | startbar: „jetzt“ 03.11., 23:21 | – |
 | 519 | M | **von Sokrates (Chef 03.11., 23:13, Build 249, Bild):** Ausrüstung, Fenster eines Gegenstands passt nicht auf den Bildschirm: Name, Spalte „Neu“, Knöpfe rechts abgeschnitten; alte Fassung vergleichen (512) | startbar | – |
 | 518 | M | **von Sokrates (Chef 03.11., 20:47, Build 248, Bild):** Dorf leer: keine Häuser, nur Wege und Pflaster; ständiges schwarzes Flackern (schwarze Striche); t248 so nicht testbar. Ursache erst in Vorschau nachstellen | wartet auf Test: Build 249 (t249); behoben 4f9ca1dce | – |
 | 490 | M | **von Perikles (Wochenziel 03.11. Reihe 2, 488):** Flüsterwald begehbar wie alt (`Story.kt:524`, Orte O6) | wartet auf Test: Build 249 (t249) | `claude/build-490` |
@@ -86,7 +86,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
-- **Zu 520, von Sokrates (03.11., 23:20):** Bild: Magier in blauer Robe mit Stab, etwa ein Viertel der Fachhöhe; angelegt sind Umhang Aschensang, Schattenwache, Armwickel, Beinkleider, Kampfstab. Code: alt `GearUi.kt` 249 `HeroTurntable(hero, worn …)` zeichnet Getragenes; neu `menue.gd` 650 `Drehteller.new(HeldFigur.wahl(hw, z))`. Was davon ohne Baukasten 455 geht (455.2 ruht bis 488), dem Chef vorlegen.
+- **Zu 520, von Sokrates (03.11., 23:20):** Bild: Magier in blauer Robe mit Stab, etwa ein Viertel der Fachhöhe; angelegt sind Umhang Aschensang, Schattenwache, Armwickel, Beinkleider, Kampfstab. Code: alt `GearUi.kt` 249 `HeroTurntable(hero, worn …)` zeichnet Getragenes; neu `menue.gd` 650 `Drehteller.new(HeldFigur.wahl(hw, z))`. **Chef 23:21: „Größe jetzt beheben, Kleidung später mit 455“**: nur die Größe wie alt; Getragenes kommt mit 455, nicht vorher.
 
 - **Zu 519, von Sokrates (gesehen, nicht vom Chef):** Ring zeigt „+1 alle Attribute“, „+2 Geschicklichkeit“, „+2 Charisma“, Vergleich aber Charisma 11 → 12, Geschicklichkeit und Stärke fehlen; nachrechnen, ob Anzeige oder Wert falsch.
 
