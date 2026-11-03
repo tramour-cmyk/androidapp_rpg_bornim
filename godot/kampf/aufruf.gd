@@ -40,8 +40,13 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 		"SHAMANS": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["gob2", Mars.CALLED, Vector2i(0, 1)], ["gob3", Mars.CALLED, Vector2i(1, 0)]],
 		# 348.7: drei Kobolde im Aussehen (goblin.py ART=kobold), Regeln noch die des Goblins (Kobold in MARS fehlt)
 		"KOBOLDS": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["gob2", Mars.CALLED, Vector2i(0, 1)], ["gob3", Mars.CALLED, Vector2i(1, 0)]],
+		# 494 (Wochenziel 03.11. Reihe 3): das Wildschwein allein wie im alten Spiel (Roamers.kt, kein Rudel), mit seinen eigenen Regeln
+		# (Monsters.kt boar in tabellen.json, MARS allgemein), im Bild der gekaufte Keiler (kauftier.py TIER=keiler)
+		"BOARS": [["boar", "boar", Vector2i(0, 0)]],
+		# 494: der Riesen-Hundertfüßer allein (Monsters.kt giant_centipede), im Bild der gekaufte (kauftier.py TIER=hundertfuesser)
+		"CENTIPEDES": [["centipede", "giant_centipede", Vector2i(0, 0)]],
 	}.get(foe, [])
-	Figur.ersatz_art = {"RATS": "giant_rat", "BATS": "giant_bat", "SHAMANS": Figur.SHAMAN, "KOBOLDS": Figur.KOBOLD}.get(foe, "")
+	Figur.ersatz_art = {"RATS": "giant_rat", "BATS": "giant_bat", "SHAMANS": Figur.SHAMAN, "KOBOLDS": Figur.KOBOLD, "BOARS": "kauf_keiler", "CENTIPEDES": "kauf_hundertfuesser"}.get(foe, "")
 	# 348.12f eingebaut (Chef 28.10., 11:50: Kaufwolf abgenommen, Archiv 27.10., 21:51: „eigener entfällt“): Wölfe sind der gekaufte
 	# Wolf, sobald er gebaut beiliegt (godot-kampf.yml „Modelle bauen“); ERSATZ geht weiter vor
 	if foe in ["WOLVES", "GRIMM", "SPIDER", "RUDEL"] and FileAccess.file_exists("res://kampf/daten/kaufwolf-info.json"):

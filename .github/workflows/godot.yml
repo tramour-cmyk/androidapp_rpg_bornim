@@ -23,6 +23,9 @@ on:
       strahlen:
         description: "Strahlenfilm 415 (Jerry, Beams-Probe im Kampfort): ja"
         default: ""
+      gegner:
+        description: "Gegnerfilm 494 (Jerry): Gegner der Probe, mit Komma (BOARS, …)"
+        default: ""
 
 jobs:
   apk:
@@ -213,7 +216,14 @@ jobs:
             for f in braun grau schwarz; do cp $RUNNER_TEMP/kr/giant_rat-$f.glb $D/giant_rat-$f.bin; done; cp $RUNNER_TEMP/kr/giant_rat-info.json $D/
             KAUF=$KAUF OUT=$RUNNER_TEMP/kw timeout 1200 bl/bin/python -I tools/blender348/kaufwolf.py > kaufwolf.log 2>&1 || { tail -60 kaufwolf.log; exit 1; }
             for f in grau dunkel rost asche; do cp $RUNNER_TEMP/kw/kaufwolf-$f.glb $D/kaufwolf-$f.bin; done; cp $RUNNER_TEMP/kw/kaufwolf-info.json $D/
-            (cd godot && ls kampf/daten/giant_rat-*.bin kampf/daten/kaufwolf-*.bin > kampf/daten/kauf.txt)
+            # 494 (Wochenziel 03.11. Reihe 3): Gegner von Kapitel 1 aus dem Bestand, gekauft: Wildschwein (Janpec, kauftier.py wie die Dorftiere)
+            # und Riesen-Hundertfüßer (MadeCG)
+            for t in keiler hundertfuesser; do
+              TIER=$t KAUF=$KAUF OUT=$RUNNER_TEMP/kt timeout 900 bl/bin/python -I tools/blender348/kauftier.py > kauftier-$t.log 2>&1 || { tail -40 kauftier-$t.log; exit 1; }
+              grep -E "MASS|TEMPO|FEHLT|FERTIG" kauftier-$t.log | cut -c1-200 || true
+              for f in $RUNNER_TEMP/kt/kauf_$t-*.glb; do cp $f $D/$(basename $f .glb).bin; done; cp $RUNNER_TEMP/kt/kauf_$t-info.json $D/
+            done
+            (cd godot && ls kampf/daten/giant_rat-*.bin kampf/daten/kaufwolf-*.bin kampf/daten/kauf_keiler-*.bin kampf/daten/kauf_hundertfuesser-*.bin > kampf/daten/kauf.txt)
             # 406 (Chef 31.10., 23:22): Kaufschilde 2 (Kleriker, „shield“) und 15 (Kaempfer, „round_shield“) statt der eigenen aus
             # waffen.py, im Kampf und unterwegs auf dem Ruecken (daten/waffen); gekauft, also verschluesselt
             KAUF=$KAUF OUT=$RUNNER_TEMP/ks timeout 600 bl/bin/python -I tools/blender348/kaufschild.py > kaufschild.log 2>&1 || { tail -40 kaufschild.log; exit 1; }
@@ -291,6 +301,7 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_470.gd 2>&1 | grep -E "FALSCH|BRS470|SCRIPT ERROR"   # 470 Erschaffung BRS 1.1
           timeout 120 ~/godot/godot --headless --path . -s res://tests/testmenue_470.gd 2>&1 | grep -E "FEHLER|TESTMENUE470"   # 470a B: Erschaffung BRS nur im Testmenue
           timeout 120 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4532.gd 2>&1 | grep -E "^(ok|FEHLER|ATEM)"   # 453.2 Atmen unterwegs
+          set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/wildschwein_494.gd 2>&1 | grep -E "Wildschwein|WILDSCHWEIN|FEHLER|SCRIPT ERROR"   # 494 Wildschwein
       # fester Schluessel ueber alle Laeufe, sonst lehnt Android das Update ab (348.5, Build 9). 399.1a (Chef 28.10., 14:41): der Cache
       # eines Zweigs galt nur dort (Build 130 bekam einen neuen); jetzt nur lesen, angelegt wird er auf main (godot-schluessel.yml)
       - uses: actions/cache/restore@v4
@@ -455,6 +466,22 @@ jobs:
             --write-movie $RUNNER_TEMP/strahlen415.avi --fixed-fps 30 -s res://tests/film_415.gd > $B/strahlen415.log 2>&1 || true
           grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER" $B/strahlen415.log | head -12 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/strahlen415.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/415-strahlen.mp4 || true
+          ls -l $B
+      # 494 (Wochenziel 03.11. Reihe 3): je Gegner ein kurzer Film (tests/film_gegner_494.gd), nur von Hand mit gegner=<FOES,…>
+      - name: Gegnerfilm 494 (nur von Hand mit gegner=…)
+        if: ${{ !cancelled() && github.event.inputs.gegner != '' }}
+        continue-on-error: true
+        env:
+          GEGNER: ${{ github.event.inputs.gegner }}
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/gegner494; mkdir -p $B
+          cd godot
+          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          MESS=1 timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_gegner_494.gd 2>&1 | grep -E "^Film|FEHLER|SCRIPT ERROR" | tee $B/messung.log || true
+          timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+            --write-movie $RUNNER_TEMP/gegner494.avi --fixed-fps 30 -s res://tests/film_gegner_494.gd > $B/gegner494.log 2>&1 || true
+          grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER" $B/gegner494.log | head -16 || true
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/gegner494.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/494-gegner.mp4 || true
           ls -l $B
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # 453: Filme auch nach rotem Prüfschritt; nie mit bild=nein

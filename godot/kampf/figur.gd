@@ -41,6 +41,11 @@ const ERSATZ_SCHATTEN := {"giant_rat": [0.3, 0.85, -0.08], "giant_bat": [0.9, 0.
 static var ersatz_art := ""
 static func ersatz() -> String:
 	return OS.get_environment("ERSATZ") if OS.has_environment("ERSATZ") else ersatz_art
+## 494 (Wochenziel 03.11. Reihe 3): Vierbeiner mit eigenen Regeln (tabellen.json, MARS allgemein), im Bild wie der Wolf: Körper,
+## Schatten, Kopfhöhe, Größe aus dem Kaufmodell (ersatz_art „kauf_<tier>“, aufruf.gd)
+const VIERBEINER := ["wolf", "boar", "giant_centipede"]     # Hundertfüßer: langer Körper am Boden wie ein Vierbeiner
+static func vier(fi) -> bool:
+	return fi != null and fi.monster != null and String(fi.monster.id) in VIERBEINER
 ## 348.7 Grimmzahn: im Probekampf „Grimmzahn“ trägt der Wolf „grimm“ dessen Modell (Regeln noch die des Wolfs)
 const GRIMM := "grimm"
 ## Größe im Modell gegen den Wolf (Knotenmaßstab der .glb, wolf.py ART=dire_wolf): Schatten, Kopf, Mitte wachsen mit, das Modell nicht noch einmal
@@ -188,7 +193,7 @@ void fragment() {
 }"""
 	var mi := MeshInstance3D.new()
 	var pm := PlaneMesh.new()
-	var wolf: bool = fighter.monster != null and fighter.monster.id == Mars.WOLF
+	var wolf: bool = vier(fighter)
 	# Wolf: Rumpf 1,1 m lang, 0,4 m breit (mal Größe); Mensch: 0,7 m rund
 	# Runde 15 (Prüfer Runde 14: Pfotenschatten „unsichtbar im Rumpfschatten“): schmaler (0,7 statt 1,0), die Pfoten stehen am weichen Rand
 	pm.size = Vector2(0.7, 1.5) * _scale() if wolf else Vector2(0.95, 0.95)
@@ -325,7 +330,7 @@ func art() -> String:
 func _model_path() -> String:
 	if fighter.monster == null:
 		return "res://kampf/daten/held.bin"
-	if fighter.monster.id == Mars.WOLF:
+	if vier(fighter):
 		if art() == "dire_wolf":     # GRIMMFELL=schimmer: die seltene Schimmervariante
 			return "res://kampf/daten/dire_wolf-%s.bin" % (OS.get_environment("GRIMMFELL") if OS.has_environment("GRIMMFELL") else "schwarz")
 		var n: int = maxi(fighter.nr, 1) - 1
@@ -838,7 +843,7 @@ func _face(dir := Vector3.ZERO) -> void:
 	var d: Vector3 = dir if dir != Vector3.ZERO else kampfort.facing(fighter.side == "FOES")
 	# Wölfe in Ruhe halb seitlich wie im alten Bild: von vorn verkürzt las sich der Rumpf als Buckel ohne Hals (Prüfer Runde 10)
 	var look := 0.0
-	if dir == Vector3.ZERO and fighter.monster != null and fighter.monster.id == Mars.WOLF:
+	if dir == Vector3.ZERO and vier(fighter):
 		var turn: float = float(OS.get_environment("WOLFDREH")) if OS.has_environment("WOLFDREH") else WOLF_TURN
 		if aim != null and is_instance_valid(aim) and not aim.down and aim.dead_at < 0:
 			# Mit Ziel: Rumpf zum Ziel, aber nur im Bereich, in dem die Kamera ihn halb seitlich sieht (zur Kamera hin gedreht
@@ -1889,7 +1894,7 @@ func _hieb(other) -> int:
 
 ## Ground under the figure where no grass grows (halm.gdshader spots): x, z, radius.
 func grass_spot() -> Vector3:
-	var wolf: bool = fighter.monster != null and fighter.monster.id == Mars.WOLF
+	var wolf: bool = vier(fighter)
 	var c := to_global(Vector3(0, 0, 0.15 * _scale() if wolf else 0.0))
 	return Vector3(c.x, c.z, 0.5 * _scale() if wolf else 0.3)
 
@@ -2298,7 +2303,7 @@ func _guard(on: bool) -> void:
 
 ## Halbe Breite am Boden, wie der Bodenschatten (Wolf 1,1 m lang, halb seitlich gesehen; Mensch 0,3 m)
 func body_r() -> float:
-	if fighter.monster != null and fighter.monster.id == Mars.WOLF:
+	if vier(fighter):
 		if mass.has("laenge_m"):     # 387: Kauftier, wie der Wolf (1,1 m lang, 0,45 m) nach seiner Länge
 			return 0.45 / 1.1 * mass.laenge_m * _scale()
 		return 0.45 * _scale()
@@ -2856,8 +2861,8 @@ func howl() -> void:
 
 ## Where to put the name and bar above the figure (world).
 func head() -> Vector3:
-	var h := 1.12 if fighter.monster != null and fighter.monster.id == Mars.WOLF else 1.9     # Ohrspitzen des Wolfs (0,9 lag seit den größeren Ohren, Runde 1 nach Chef, unter dem Balken; davor 60 px darüber)
-	if fighter.monster != null and fighter.monster.id == Mars.WOLF:
+	var h := 1.12 if vier(fighter) else 1.9     # Ohrspitzen des Wolfs (0,9 lag seit den größeren Ohren, Runde 1 nach Chef, unter dem Balken; davor 60 px darüber)
+	if vier(fighter):
 		h = ERSATZ_KOPF.get(ersatz(), h)
 	if gob_h > 0.0:     # Goblin Runde 2 (Prüfer Runde 1: Ansage fern der Goblins): Scheitel aus goblin.py, gebückt etwas tiefer
 		h = gob_h * 0.85
