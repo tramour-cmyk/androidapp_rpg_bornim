@@ -8,7 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 518 | M | **von Sokrates (Chef 03.11., 20:47, Build 248, Bild):** Dorf leer: keine Häuser, nur Wege und Pflaster; ständiges schwarzes Flackern (schwarze Striche); t248 so nicht testbar. Ursache erst in Vorschau nachstellen | offen: „jetzt“ 03.11., 20:47 | – |
+| 518 | M | **von Sokrates (Chef 03.11., 20:47, Build 248, Bild):** Dorf leer: keine Häuser, nur Wege und Pflaster; ständiges schwarzes Flackern (schwarze Striche); t248 so nicht testbar. Ursache erst in Vorschau nachstellen | startbar: „jetzt“ 03.11., 21:32 (Build 248 liegen lassen) | – |
 | 490 | M | **von Perikles (Wochenziel 03.11. Reihe 2, 488):** Flüsterwald begehbar wie alt (`Story.kt:524`, Orte O6) | wartet auf Test: Build 248 (t248) | `claude/build-490` |
 | 495 | M | **von Perikles (Wochenziel 03.11. Reihe 4, 488):** Zufallsspieler spielt Kapitel 1 in Godot bis „chapter1_done“ durch und meldet, wo er hängenbleibt (Abnahme 2.2) | wartet auf Guthaben: heute eine Sitzung weniger (468a, Bild Chef 07:16, 53 %), frühestens 04.11. | – |
 | 491 | M | **von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike):** Tiefer Flüsterwald begehbar wie alt (`Story.kt:619`): Morwens Hütte, Grimmzahn mit Leibwache, Sicht 353a (Orte O7) | wartet auf Test: Build 248 (t248) | – |
@@ -83,6 +83,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Pflege | K | **von Werkzeug (340.3, 03.11.):** 47390 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 16, 75; Zeile Pflege wartet auf t204, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile Pflege wartet auf t204, aber keine Datei in docs/chefsache … | startbar |
 
 ## Einzelheiten
+
+- **Zu 518, von Sokrates (Chef 03.11., 21:32):** „Liegen lassen, Tom soll 518 jetzt beheben“: t248 wartet auf den Build mit 518. Bild: Dorf ohne Häuser, schwarze Striche wie Hausumrisse im Gras.
 
 - **Zu 504.1, von Homer:** `[504.…]` aus `STORY-VARIANTEN-K1.md` und `-K1-WALD.md` in `geschichte.gd`, Türen (`Story.kt`/Export), Schlagbaum, `rast.gd`, Erwachen; Wahl je Marke im Spielstand (Regeln oben in der Datei); Chef urteilt beim Gerätetest. Dazu aus `STORY-K1-HANDLUNG.md`: `[427.2.rauch]` (Hinweis nach Niederlage gegen Krogg, Chef 02.11. aus 427.1) und `[427.2a.morwen.rauch]` (Morwen gibt nach jeder Niederlage gegen Krogg beim nächsten Besuch ein neues Rauchbündel, Chef 03.11., 15:44; heute verhindert `SMOKE_GIVEN` in `wants_smoke` das).
 - **Zu 513 (Spike 03.11., 17:4x):** Probe 1 (41673495083): Schild aus „Stehen“: unten 5,4 / 0,9 cm; Robe: Kittel 4 mm durch; Umhang: Gürtel, Ärmel. Probe 2: Kittel, Gürtel, Ärmel weiter weg.
