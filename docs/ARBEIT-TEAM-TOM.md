@@ -8,7 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 531 | M | **von Sokrates (Chef 03.11., 23:42, Build 249; Zu 531):** Garrick: „Gesicht wirkt sonderbar, Bogen fehlt, vertreibt keine Mobs. Hat er schon Animation?“ | startbar | – |
+| 531 | M | **von Sokrates (Chef 03.11., 23:42, Build 249; Zu 531):** Garrick: „Gesicht wirkt sonderbar, Bogen fehlt, vertreibt keine Mobs. Hat er schon Animation?“ | in Arbeit bei Tom: Fackelabwehr gebaut (claude/tom-531-garrick), Gesicht und Bogen für den Morgen | – |
 | 530 | M | **von Sokrates (Chef 03.11., 23:40, Build 249):** „Schlagbaum öffnet sich nicht visuell.“ Merker `barrier_open` (`geschichte.gd` 58) und Erzähltext kommen, das Modell bleibt zu; nachstellen, auch nach Laden eines Spielstands | gebaut, fährt im nächsten Build (Balken zu/auf eigene Netze, Sicht erst im Lauf mit Dorfmodell prüfen); Geprüft an: 9f76d5215 | `claude/spike-530-schlagbaum` |
 | 522 | M | **von Sokrates (Chef 03.11., 23:33, Build 249; Zu 522):** „im Testmenü Ausrüstung des Helden geändert (Schild gegeben), aber im Spiel kein Schild“; Ursache nachstellen, auch nach Anlegen im Ausrüstungsschirm | in Arbeit bei Spike | – |
 | 521 | M | **von Sokrates (Chef 03.11., 23:23, Build 249, Bild; Zu 521):** Wechselschirm (Platz antippen): Gegenstände kaum zu unterscheiden; Zeile wie alt `GearRow` | startbar | – |
