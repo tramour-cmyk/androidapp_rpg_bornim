@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (03.11., 16:31, `session_01Hmoj78nj7tVahyFi7ZSRkw`):** Chefrunde Nachmittag: 348.12c A gekauft, Inventur in LISTE-BESTAND; 512, 427.2a, 447.4 (BRS-Wechselregel), 499, 513 B, 493, 490, 491, 505, 477 entschieden (Archiv); neu 513.1, 514, 515; 516 geprüft (Ford misst); 492 Abgleich an Tom; Chef beim Abendessen. Kosten auf: 348.12c, 447.4, 513, 491, 516. Nachfolger: Sokrates – Chefrunde: 492 und Build 245 (auf Zuruf).
+**Übergabe (03.11., 16:34, `session_01Hmoj78nj7tVahyFi7ZSRkw`):** Chefrunde Nachmittag: 348.12c A gekauft, Inventur in LISTE-BESTAND; 512, 427.2a, 447.4 (BRS-Wechselregel), 499, 513 B, 493, 490, 491, 505, 477 entschieden (Archiv); neu 513.1, 514, 515; 516 geprüft (Ford misst); 492 Abgleich, Besseres, Signatur an Tom; Grimmzahn an Jerry; Lehre Grimmzahn in ROLLE. Kosten auf: 348.12c, 447.4, 513, 491, 492, 516. Nachfolger: Sokrates – Chefrunde: 492 und Build 245 (auf Zuruf).
 
 ## Zeilen
 
