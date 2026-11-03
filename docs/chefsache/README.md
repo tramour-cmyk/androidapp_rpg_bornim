@@ -49,14 +49,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 70, Muss 49, startbar 14
+**Tom** – offen 70, Muss 49, startbar 13
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 490 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488): Flüsterwald begehbar wie alt (Story.kt:524, | wartet auf Test (Build) |
 | 495 | M | von Perikles (Wochenziel 03.11. Reihe 4, 488): Zufallsspieler spielt Kapitel 1 in Godot bi | Termin 04.11. |
 | 491 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Tiefer Flüsterwald begehbar w | wartet auf Test (Build) |
-| 505 | M | von Perikles (Archiv 502, Chef 03.11., 07:30, Zu 502 in ARBEIT-PROJEKT): Nebel des Krieges | startbar |
+| 505 | M | von Perikles (Archiv 502, Chef 03.11., 07:30, Zu 502 in ARBEIT-PROJEKT): Nebel des Krieges | wartet auf Sokrates |
 | 514 | M | von Sokrates (Chef 03.11., 16:01, zu 490: „Gibt es nachts vernünftige Glühwürmchen überall | startbar |
 | 515 | M? | von Sokrates (Chef 03.11., 16:07, zu 491: „3 bis 4 können auch halbwegs versteckt sein unt | startbar |
 | 493 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; Spike, von Jerry übernommen, Chef 07:54): Ka | wartet auf Test (Build) |
@@ -240,7 +240,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 38, Muss 27, startbar 18
+**Sokrates** – offen 39, Muss 28, startbar 19
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -249,6 +249,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 03.11.; „star
 | 461b.4 | M | von Perikles (deine Liste 461b, 02.11., 19:1x, Punkte 7, 9): Köpfe von DESIGN-SPIELSYSTEM- | startbar |
 | 468 | M | von Chef (02.11., 07:33, Bild „Nutzung“: 36 %): weiter mit Wächter bis Sa 19:59 (ja 11:13, | startbar |
 | 415d | M | von Chef (02.11., 20:05, „Hatten wir nicht weitere Effekte vorgesehen?“): Kauf der zwei Ef | wartet auf Jerry |
+| 505 | M | von Team Tom (03.11., 18:51): Bitte „505, Läufe frei“ (480.1), ein Lauf: beide Läufe nach | startbar |
 | 507 | M | von Team Jerry (03.11., 15:29): Bitte „507, Läufe frei“ (480.1): Lauf 247 (2 von 2) Prüfer | startbar |
 | 431f | M | von Team Tom (02.11., 21:5x): Bitte „431f, Läufe frei“ (480.1): beide Läufe ohne Messwert | startbar |
 | 483 | M | von Chef (02.11., 19:08, „Das mit den Filmen klappt nicht, da ich konstant wieder Fehler a | wartet auf Perikles |
