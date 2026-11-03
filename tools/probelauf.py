@@ -22,6 +22,16 @@ Jeder Lauf wird gezählt, auch einer, der abbricht. Die Zählung steht im Zweig 
 Neustart) und hilfsweise in ~/.bornim-probelaeufe.tsv. Bei eigenem Fehler (kein Git, kein Netz) lässt der Haken durch.
 
 Auch von Hand: `python3 tools/probelauf.py --stand <Nr>` zeigt die Zählung.
+
+511 (Chef 03.11., 13:50: „511 ja“; Anlass 13:47: „Warum werden so viele sinnlose und kaputte Filme gemacht?“): ein Filmlauf
+startet nur mit Verweis auf ein geprüftes Probebild, das nach dem letzten Filmlauf zu diesem Vorgang eingetragen ist.
+- Filmlauf: Bildlauf am Rechner mit `--write-movie`, `FILM=`/`WALKFILM=`/`IDLEFILM=`/`FOEFILM=`/`FILMBATCH=`, `tools/t film`
+  `.mp4`, `ffmpeg` oder einem Laufskript, dessen Name „film“ enthält oder das so filmt; jeder von Hand gestartete Ablauf mit
+  Bild; jeder Push, der einen Ablauf mit `--write-movie` auslöst (unlesbar: zählt als Filmlauf).
+- Probebild: ein Einzelbild aus demselben Filmskript und derselben Szene, am Rechner mit `PROBEBILD=<Nr> <Befehl>` (ohne
+  Film; zählt nicht als Probelauf 389). Ein Helfer prüft es gegen „was muss zu sehen sein“ (Figur, Waffe, Gegner, kein Menü);
+  dann `python3 tools/probelauf.py --probebild <Nr> <Bild.png|Link> <Filmskript> "ok: <was zu sehen ist>"`.
+  Am Rechner muss der Name des Filmskripts im Filmbefehl stehen. Jeder Filmlauf verbraucht das Probebild.
 """
 import datetime
 import json
@@ -40,9 +50,13 @@ REPO = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 LOKAL = os.environ.get("BORNIM_PROBELAEUFE") or os.path.expanduser("~/.bornim-probelaeufe.tsv")
 ZWEIG = "probelaeufe"  # eigener Zweig: meldung.sh schreibt „meldungen“ mit nur einer Datei
 DATEI = "probelaeufe.tsv"
+BILDER = "probebilder.tsv"  # 511: geprüfte Probebilder, gleicher Zweig
+LOKAL_BILDER = os.environ.get("BORNIM_PROBEBILDER") or os.path.expanduser("~/.bornim-probebilder.tsv")
 
 NR = r"[A-Za-z]?\d+[a-z]?(?:\.\d+[a-z]?)*"
 PROBE = re.compile(r"\bPROBE=(" + NR + r")\b")
+PROBEBILD = re.compile(r"\bPROBEBILD=(" + NR + r")\b")
+FILM = re.compile(r"--write-movie|\.mp4\b|\bffmpeg\b|\b(?:WALK|IDLE|FOE)?FILM(?:BATCH)?=|\btools/t\s+film\b|[\w./-]*film[\w-]*\.(?:sh|py)\b", re.I)
 GODOT_LAUF = re.compile(r"xvfb-run[^\n|;&]*godot[^\n|;&]*|\bgodot(?:\.\S+)?\s[^\n|;&]*--path[^\n|;&]*")
 SKRIPT = re.compile(r"tools/pruef348/(?!rechner\.sh)[\w.-]+\.sh|\b\w+_lauf\.sh")
 PUSH = re.compile(r"\bgit\s+(?:-C\s+(\S+)\s+)?push\b([^\n|;&]*)")
@@ -157,14 +171,14 @@ def stand(nr):
     return len(gesehen), frei
 
 
-def zaehlen(nr, wer, art):
-    zeile = f"{jetzt()}\t{nr}\t{wer}\t{art}\t{uuid.uuid4().hex[:8]}"  # Kennung: Zweig und Datei doppeln Zeilen
-    with open(LOKAL, "a", encoding="utf-8") as f:
+def zaehlen(nr, wer, art, datei=DATEI, lokal=LOKAL, extra=()):
+    zeile = "\t".join([jetzt(), nr, wer, art, uuid.uuid4().hex[:8], *extra])  # Kennung: Zweig und Datei doppeln Zeilen
+    with open(lokal, "a", encoding="utf-8") as f:
         f.write(zeile + "\n")
     if os.environ.get("BORNIM_PROBELAUF_TROCKEN"):
         return
     for versuch in range(3):
-        kopf, alt = zweig_lesen(DATEI)
+        kopf, alt = zweig_lesen(datei)
         neu = "\n".join(alt.splitlines()[-2000:] + [zeile]) + "\n"
         blob = subprocess.run(["git", "-C", REPO, "hash-object", "-w", "--stdin"], input=neu, capture_output=True,
                               text=True, timeout=20).stdout.strip()
@@ -173,7 +187,7 @@ def zaehlen(nr, wer, art):
         baum = ""
         if kopf:
             subprocess.run(["git", "-C", REPO, "read-tree", kopf], env=env, capture_output=True, timeout=20)
-        subprocess.run(["git", "-C", REPO, "update-index", "--add", "--cacheinfo", f"100644,{blob},{DATEI}"], env=env,
+        subprocess.run(["git", "-C", REPO, "update-index", "--add", "--cacheinfo", f"100644,{blob},{datei}"], env=env,
                        capture_output=True, timeout=20)
         baum = subprocess.run(["git", "-C", REPO, "write-tree"], env=env, capture_output=True, text=True, timeout=20).stdout.strip()
         if os.path.exists(idx):
@@ -185,7 +199,7 @@ def zaehlen(nr, wer, art):
 
 
 def push_lauf(befehl, cwd):
-    """Vorgang eines Pushes, der godot.yml auslöst, sonst None."""
+    """(Vorgang, Film?) eines Pushes, der einen Ablauf auslöst, sonst None; Film: der Ablauf ruft `--write-movie` (511)."""
     m = PUSH.search(befehl)
     if not m:
         return None
@@ -211,10 +225,14 @@ def push_lauf(befehl, cwd):
             return None
     else:
         pfade = None
-    if not loest_aus(wo, zweig, pfade, nachricht):  # Tom 02.11., 16:3x: Push ohne Lauf zählte als Probelauf
+    los = loest_aus(wo, zweig, pfade, nachricht)
+    if not los:  # Tom 02.11., 16:3x: Push ohne Lauf zählte als Probelauf
         return None
     nr = re.match(r"\s*(?:\w+:\s*)?(" + NR + r")\b", nachricht)
-    return nr.group(1) if nr else zweig
+    return (nr.group(1) if nr else zweig), los == FILMT
+
+
+FILMT = 2
 
 
 def _glob(muster, text):
@@ -225,15 +243,17 @@ def _glob(muster, text):
 
 def loest_aus(wo, zweig, pfade, nachricht):
     """Startet ein Ablauf unter .github/workflows/ bei einem Push auf zweig? (on.push.branches/paths; Job-Bedingung
-    startsWith(github.event.head_commit.message, '…')). Unlesbar oder unklar: ja, lieber zählen als durchlassen."""
+    startsWith(github.event.head_commit.message, '…')). 0 nein, 1 ja, FILMT ja und er filmt (`--write-movie`, 511).
+    Unlesbar oder unklar: FILMT, lieber zählen und sperren als durchlassen."""
     try:
         import yaml
     except ImportError:
-        return True
+        return FILMT
     wurzel = git("rev-parse", "--show-toplevel", cwd=wo).stdout.strip()
     ordner = os.path.join(wurzel, ".github", "workflows")
     if not wurzel or not os.path.isdir(ordner):
-        return True
+        return FILMT
+    los = 0
     for datei in os.listdir(ordner):
         if not datei.endswith((".yml", ".yaml")):
             continue
@@ -241,7 +261,7 @@ def loest_aus(wo, zweig, pfade, nachricht):
             text = open(os.path.join(ordner, datei), encoding="utf-8").read()
             d = yaml.safe_load(text) or {}
         except Exception:
-            return True
+            return FILMT
         an = d.get("on", d.get(True))  # YAML liest „on“ als True
         if isinstance(an, str):
             an = {an: None}
@@ -263,8 +283,8 @@ def loest_aus(wo, zweig, pfade, nachricht):
         if bed and jobs and all("startsWith(github.event.head_commit.message" in str((j or {}).get("if", "")) for j in jobs.values()) \
                 and not any(nachricht.lstrip().startswith(b) for b in bed):
             continue
-        return True
-    return False
+        los = max(los, FILMT if "--write-movie" in text else 1)
+    return los
 
 
 RERUN = ("407 (Chef 02.11., 07:18: „die ganze Nacht über jetzt 1000 Filmchen gedreht“): einen Lauf neu starten zählt der Haken "
@@ -408,6 +428,75 @@ def parse_pruefen(befehl, cwd):
     return None
 
 
+def filmlauf_rechner(befehl, cwd):
+    """511: filmt dieser Bildlauf am Rechner? Marke im Befehl oder ein Laufskript, das filmt (`--write-movie`, mp4, ffmpeg)."""
+    if FILM.search(befehl):
+        return True
+    for m in SKRIPT.finditer(befehl):
+        for basis in [cwd, REPO] + [os.path.join(cwd, os.path.expanduser(c)) for c in CD.findall(befehl)]:
+            datei = os.path.join(basis, m.group(0))
+            if os.path.isfile(datei):
+                if FILM.search(open(datei, encoding="utf-8", errors="replace").read()):
+                    return True
+                break
+    return False
+
+
+def probebilder(nr):
+    """511: eingetragene Probebilder zu nr, [(Zeit, Bild, Filmskript, Befund)], aus Zweig und lokaler Datei."""
+    _, text = zweig_lesen(BILDER)
+    lokal = open(LOKAL_BILDER, encoding="utf-8").read() if os.path.exists(LOKAL_BILDER) else ""
+    return sorted({(z[0], z[5], z[6], z[7]) for z in zeilen(text) + zeilen(lokal) if len(z) >= 8 and z[1] == nr})
+
+
+def letzter_film(nr):
+    _, laeufe = zweig_lesen(DATEI)
+    lokal = open(LOKAL, encoding="utf-8").read() if os.path.exists(LOKAL) else ""
+    return max((z[0] for z in zeilen(laeufe) + zeilen(lokal) if z[1] == nr and z[3].endswith("-film")), default="")
+
+
+def film_sperre(nr, art, befehl):
+    """511: Grund zum Anhalten oder None. Gilt ein Probebild, das nach dem letzten Filmlauf zu nr eingetragen wurde."""
+    seit = letzter_film(nr)
+    bilder = [b for b in probebilder(nr) if b[0] > seit]
+    if not bilder:
+        return (f"511 (Chef 03.11., 13:50: „511 ja“): Filmlauf für {nr} ohne geprüftes Probebild"
+                + (f" seit dem letzten Filmlauf {seit}" if seit else "") + ". Erst ein Einzelbild aus demselben Filmskript "
+                f"und derselben Szene (`PROBEBILD={nr} <Befehl ohne Film>`, zählt nicht als Probelauf), ein Helfer prüft es "
+                "gegen „was muss zu sehen sein“ (Figur, Waffe, Gegner, kein Menü); fehlt etwas: Ursache nachstellen, kein Lauf. "
+                f"Dann `python3 tools/probelauf.py --probebild {nr} <Bild.png|Link> <Filmskript> \"ok: <was zu sehen ist>\"`.")
+    skript = os.path.basename(bilder[-1][2].rstrip("/"))
+    if art == "rechner" and skript not in ("", "-") and skript not in befehl:
+        return (f"511: das Probebild zu {nr} ({bilder[-1][1]}) kommt aus „{skript}“, der Filmlauf ruft ein anderes Skript. "
+                "Probebild aus demselben Filmskript eintragen.")
+    return None
+
+
+def probebild_eintragen(args):
+    """511: `--probebild <Nr> <Bild.png|Link> <Filmskript> "ok: <was zu sehen ist>"`; Exit 1 mit Grund bei Fehler."""
+    if len(args) != 4:
+        sys.exit("Aufruf: python3 tools/probelauf.py --probebild <Nr> <Bild.png|Link> <Filmskript> \"ok: <was zu sehen ist>\"")
+    nr, bild, skript, befund = (a.replace("\t", " ").replace("\n", " ").strip() for a in args)
+    if not re.fullmatch(NR, nr):
+        sys.exit(f"511: „{nr}“ ist keine Vorgangsnummer.")
+    if not re.match(r"https?://", bild):
+        if not os.path.isfile(bild):
+            sys.exit(f"511: Bild „{bild}“ nicht gefunden.")
+        with open(bild, "rb") as f:
+            kopf = f.read(8)
+        if kopf != b"\x89PNG\r\n\x1a\n" or os.path.getsize(bild) < 1000:
+            sys.exit(f"511: „{bild}“ ist kein PNG oder fast leer (unter 1000 Bytes).")
+        bild = os.path.abspath(bild)
+    if not skript:
+        sys.exit("511: Filmskript fehlt (Datei oder Ablauf, aus dem auch der Film kommt).")
+    if not re.match(r"ok:\s*\S.{10,}", befund, re.I) or re.search(r"\bfehlt|nicht zu sehen|unsichtbar|leer\b", befund, re.I):
+        sys.exit("511: Befund des Helfers muss mit „ok:“ beginnen und nennen, was zu sehen ist; fehlt etwas, kein Eintrag "
+                 "(Ursache nachstellen).")
+    wer = os.environ.get("CLAUDE_SESSION_ID", "hand")[:20]
+    zaehlen(nr, wer, "probebild", BILDER, LOKAL_BILDER, (bild, skript, befund[:300]))
+    print(f"511: Probebild für {nr} eingetragen; der nächste Filmlauf zu {nr} darf starten (einer).")
+
+
 def anhalten(text):
     print(text, file=sys.stderr)
     sys.exit(2)
@@ -418,7 +507,13 @@ def main():
         for nr in sys.argv[2:]:
             n, v = stand(nr)
             print(f"{nr}: {n} von {GRENZE} Probeläufen seit {'Urteil ' + v if v else 'Beginn der Zählung'}")
+            seit = letzter_film(nr)
+            frei = [b for b in probebilder(nr) if b[0] > seit]
+            print(f"{nr}: Probebild (511) " + (f"geprüft {frei[-1][0]} ({frei[-1][2]}), Filmlauf frei" if frei
+                                               else "fehlt, kein Filmlauf"))
         return
+    if sys.argv[1:2] == ["--probebild"]:
+        return probebild_eintragen(sys.argv[2:])
     try:
         d = json.load(sys.stdin)
     except ValueError:
@@ -434,7 +529,7 @@ def main():
         if hand == RERUN:
             anhalten(RERUN)
         if hand:
-            pruefen_und_zaehlen(*hand, wer)
+            pruefen_und_zaehlen(*hand, wer, film=True)
         return
     try:
         grund = parse_pruefen(befehl, cwd)  # 464: vor dem Zählen, ein angehaltener Push ist kein Lauf
@@ -442,29 +537,38 @@ def main():
         grund = None
     if grund:
         anhalten(grund)
+    film = False
     try:
+        if bildlauf(befehl, cwd) and not PROBE.search(befehl) and (pb := PROBEBILD.search(befehl)):
+            if filmlauf_rechner(befehl, cwd):  # 511: Probebild ist ein Einzelbild, kein Film
+                anhalten(f"511: `PROBEBILD={pb.group(1)}` gilt nur für ein Einzelbild; dieser Befehl filmt. Für den Film "
+                         f"`PROBE={pb.group(1)}` mit eingetragenem Probebild.")
+            return hinweis_geben(f"511: Probebild zu {pb.group(1)}, zählt nicht als Probelauf. Ein Helfer prüft es gegen "
+                                 "„was muss zu sehen sein“, dann `python3 tools/probelauf.py --probebild …`.")
         if bildlauf(befehl, cwd):
             m = PROBE.search(befehl)
             if not m:
                 anhalten("389 (Chef 27.10., 23:55, höchstens zwei Probeläufe je Vorlage): Bildlauf erkannt. "
                          "Vorgang davorsetzen: `PROBE=<Nr> <Befehl>`; der Haken zählt je Vorgang.")
-            nr, art = m.group(1), "rechner"
+            nr, art, film = m.group(1), "rechner", filmlauf_rechner(befehl, cwd)
         elif (hand := handlauf_bash(befehl)):
             if hand == RERUN:
                 anhalten(RERUN)
-            nr, art = hand
+            (nr, art), film = hand, True
         else:
-            nr, art = push_lauf(befehl, cwd), "ci"
-            if not nr:
+            push = push_lauf(befehl, cwd)
+            if not push:
                 return hinweis_geben()
+            (nr, film), art = push, "ci"
     except (OSError, subprocess.SubprocessError, ValueError):
         return hinweis_geben()
-    pruefen_und_zaehlen(nr, art, wer)
+    pruefen_und_zaehlen(nr, art, wer, film, befehl)
 
 
-def pruefen_und_zaehlen(nr, art, wer):
+def pruefen_und_zaehlen(nr, art, wer, film=False, befehl=""):
     try:
         n, vorlage = stand(nr)
+        sperre = film_sperre(nr, art, befehl) if film else None
     except (OSError, subprocess.SubprocessError, ValueError):
         return hinweis_geben()
     if n >= GRENZE:
@@ -474,7 +578,9 @@ def pruefen_und_zaehlen(nr, art, wer):
                  "Befund der Fehlerprüfung danach als Text (396). Erst das Urteil des Chefs (Eintrag im Vorgangsarchiv) gibt zwei neue "
                  "Läufe frei (407), oder Sokrates mit einem Archiveintrag „<Nr>, Läufe frei“ (480.1; Bitte an ihn per Vorrat, nie "
                  "Chefsache); bis dahin an einem anderen Vorgang weiter.")
-    zaehlen(nr, wer, art)
+    if sperre:
+        anhalten(sperre)
+    zaehlen(nr, wer, art + ("-film" if film else ""))
     hinweis_geben(f"389: Probelauf {n + 1} von {GRENZE} für {nr}" + ("; danach vorlegen." if n + 1 == GRENZE else "."))
 
 
