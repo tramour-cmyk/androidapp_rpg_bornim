@@ -290,3 +290,69 @@ Siegquote % · Züge bis Sieg, Heldenstufe = Gegnerstufe; Spalte „21“ = Mitt
 | Herumtreiber | 100 · 1,6 | 100 · 2,1 | 100 · 1,6 | 98 · 2,6 | 100 · 2,7 | 100 · 2,2 | 99 · 1,9 | 100 · 2,1 | 99 · 2,9 | 100 · 4,1 | 93 · 4,3 | 100 · 3,0 | 53 · 4,8 | 88 · 4,4 | 28 · 9,0 | 90 | 93 |
 | Wanderer | 100 · 1,3 | 100 · 1,6 | 100 · 1,4 | 99 · 2,1 | 100 · 2,3 | 100 · 1,7 | 100 · 1,5 | 100 · 1,7 | 100 · 2,8 | 100 · 4,0 | 98 · 4,2 | 100 · 2,9 | 77 · 4,6 | 94 · 4,2 | 52 · 8,5 | 95 | 95 |
 
+## 5. Wirtschaft: Gold, Beute, Zerlegen, Abnutzung, Reparatur, Tränke, Tiere beruhigen (Stufe 3, 447.3)
+
+**Befund (Jerry, 01.11., 14:3x; nur Zahlen, Einstellen bei Sokrates; neu rechnen: `python3 tools/sim444/sim.py --nur-wirtschaft`):**
+
+1. **Einnahmen Kapitel 1: 155 bis 180 Gold** je Lauf bis Stufe 6 (ohne Quests; alte Aufträge brachten 40–60 Gold je Auftrag). Davon Beute-Gold rund 70 %, Zerlegen 25–27 %, Verkauf von Beute 4 %.
+2. **Gold am Ende: Median 68 (Herumtreiber, beruhigt) bis 163 (Wachsoldat)**, bei 10 % der Läufe unter 11 bis 119. Gegen die alten Preise: ein Langbogen (50) ist für alle drin, ein Kettenpanzer (75) für alle außer dem Herumtreiber, die Brustplatte (400, Stufe 4) für keinen.
+3. **Reparatur kostet fast nichts:** 0 bis 14 Gold je Kapitel (höchstens 8 % der Einnahmen), kein Kampf mit Warnung oder Defekt, weil der Held alle 8 Kämpfe ins Dorf geht. Mit dreifacher Abnutzung (Probelauf) 0 bis 42 Gold, Wachsoldat 31 % seines Endgolds. Für „spürbare Wirkung“ (Stufe 3.5) sind die Abnutzungszahlen der Hebel.
+4. **Tränke sind der größte Posten:** 15 Gold (Wachsoldat, trinkt 0,4) bis 106 Gold (Herumtreiber, trinkt 5,8). Der Kräutersammler braut 6,4 Heiltränke (51 Gold), trinkt 8 und verliert trotzdem 10 % seiner Kämpfe.
+5. **Tiere beruhigen spielt in Kapitel 1 kaum mit:** rund 4 Versuche je Kapitel, 42 % gelingen, die Fertigkeit bleibt bei 1 (keine Herkunft beginnt damit); spart 1 bis 2 Kämpfe und kostet 5 bis 15 Gold Endgold (keine Beute, kein Zerlegen).
+6. **Jagd steigt nur auf 3 bis 4** (Start 0), Ausbeute damit 0,45 statt 0,4; die Fertigkeit merkt man in Kapitel 1 am Erlös kaum.
+
+Was die Zahlen wenig belastbar macht: Abnutzung, Reparaturanteil, Trankwirkung, Teilepreise ohne alten Preis und das Dorf alle 8 Kämpfe sind Annahmen; Kopf, Arme, Beine, Umhang und Ruf fehlen; Preise wie alt bis 458.2a.
+
+Fortschritt wie Abschnitt 1, aber mit 21 Punkten (Entscheidung 77), Gold und Beutel; 400 Läufe je Herkunft und Spielweise. „kämpft“: jede Begegnung wird gekämpft; „beruhigt“: bei Tieren (Riesenratte, Wolf, Wildschwein, Riesenfledermaus) erst Tiere beruhigen, misslingt es, Kampf mit Erstschlag des Tiers. Gold: Mittel je Lauf bis Stufe 6, Gold am Ende: Median (10 % der Läufe haben weniger als „p10“).
+
+**Annahmen** (alle in `werte.json`, Block `wirtschaft`, Quelle je Zeile):
+
+- **Gold und Beute** wie in der alten Fassung (Gold als Würfelspanne, Tränke, Alchemistenfeuer, Weihwasser mit Chance); Tierteile nur noch über Zerlegen. Start 20 Gold und 2 Heiltränke; Händler zahlt 50 % des Ladenpreises.
+- **Zerlegen** nach jedem Sieg über Tier, Kriechtier, Skelett, Schleim (Teile nach Bestiarium): erstes Teil immer, weitere mit Chance = Ausbeute, Erlös × Ausbeute; Ausbeute = 0,4 + 0,6 × Jagd/49; übt Jagd (Start 0 bei allen Herkünften).
+- **Tiere beruhigen:** Chance = 50 % + (Fertigkeit − Wachsamkeit des Tiers) × 0,5, 5 bis 95 %; Anfänger bis Tierstufe 2, Geselle bis 4; gelungen: Erfahrung wie Sieg, keine Beute, kein Zerlegen, keine Abnutzung; übt bei jedem Versuch.
+- **Abnutzung:** Zustand 100; −1,0 je eigenem Waffentreffer, −1,0 je erlittenem Treffer (Rüstung und Schild), −1,0 je Abwehr mit dem Schild, × (1 + (Gegnerstufe − Heldenstufe)/5). Makellos ab 90, Benutzt ab 50 (Leistung 0,95), Beschädigt (Leistung 0,75), Defekt bei 0 (wirkt nicht).
+- **Dorf und Reparatur:** alle 8 Kämpfe ins Dorf, sofort nach dem Kampf, in dem ein Stück „Beschädigt“ wird; dort verkaufen, „Alles reparieren“, Tränke auffüllen. Handwerker: von 0 auf 100 kostet 50 % des Ladenpreises; selbst (Schmieden bzw. Lederarbeit mit Rang nach Abschnitt 11): 20 % als Material. Ladenpreise alt: Langschwert 15, Kurzbogen 25, Dolch 2, Streitkolben 5, Kettenhemd 50, Lederrüstung 10, Schild 10.
+- **Tränke:** Heiltrank heilt 12, großer 30 (Preis 25 und 75); getrunken statt Angriff unter 35 % Leben; im Dorf bis 3 im Beutel, wer Alchemie hat, braut für 8 Gold.
+
+### 5.1 Gold je Lauf bis Stufe 6
+
+| Herkunft | Spielweise | Kämpfe | Beute-Gold | Verkauf Beute | Zerlegen | Reparatur | davon selbst | Tränke | Gold am Ende (p10) | Gold bei Stufe 3 | Niederl. % |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| Wachsoldat | kämpft | 20 | 120 | 6 | 44 | 13 | 0 | 15 | 163 (119) | 65 | 0 |
+| Wachsoldat | beruhigt | 19 | 117 | 6 | 37 | 14 | 0 | 15 | 153 (105) | 64 | 0 |
+| Jägerkind | kämpft | 21 | 124 | 6 | 45 | 6 | 0 | 52 | 139 (65) | 65 | 1 |
+| Jägerkind | beruhigt | 20 | 120 | 5 | 39 | 6 | 0 | 53 | 127 (51) | 62 | 1 |
+| Zauberlehrling | kämpft | 22 | 126 | 6 | 47 | 0 | 0 | 57 | 144 (77) | 65 | 1 |
+| Zauberlehrling | beruhigt | 21 | 128 | 7 | 40 | 0 | 0 | 60 | 140 (62) | 63 | 1 |
+| Klosterschüler | kämpft | 19 | 116 | 6 | 40 | 3 | 0 | 52 | 130 (58) | 62 | 0 |
+| Klosterschüler | beruhigt | 18 | 109 | 6 | 35 | 3 | 0 | 52 | 115 (52) | 59 | 0 |
+| Kräutersammler | kämpft | 22 | 111 | 5 | 39 | 4 | 0 | 51 | 117 (82) | 60 | 10 |
+| Kräutersammler | beruhigt | 21 | 111 | 6 | 33 | 3 | 0 | 51 | 113 (77) | 58 | 11 |
+| Schmiedelehrling | kämpft | 21 | 118 | 6 | 41 | 2 | 0 | 83 | 100 (24) | 63 | 3 |
+| Schmiedelehrling | beruhigt | 19 | 114 | 5 | 34 | 2 | 0 | 80 | 88 (20) | 60 | 3 |
+| Herumtreiber | kämpft | 22 | 120 | 6 | 42 | 3 | 0 | 106 | 74 (18) | 66 | 4 |
+| Herumtreiber | beruhigt | 20 | 117 | 7 | 36 | 2 | 0 | 102 | 68 (11) | 62 | 4 |
+| Wanderer | kämpft | 21 | 125 | 7 | 45 | 5 | 0 | 79 | 109 (31) | 67 | 2 |
+| Wanderer | beruhigt | 20 | 121 | 6 | 38 | 5 | 0 | 81 | 98 (25) | 63 | 2 |
+
+### 5.2 Tränke, Zustand, Fertigkeiten
+
+| Herkunft | Spielweise | getrunken | gefunden | gekauft | gebraut | Dorfbesuche | Kämpfe mit Warnung % | mit Defekt % | Jagd am Ende | zerlegt | Tiere beruhigt (gelungen %) | Tiere beruhigen am Ende |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Wachsoldat | kämpft | 0,4 | 2,6 | 0,6 | 0,0 | 3,1 | 0 | 0 | 4 | 10,9 | – | – |
+| Wachsoldat | beruhigt | 0,5 | 2,5 | 0,6 | 0,0 | 3,0 | 0 | 0 | 3 | 9,2 | 1,6 (41) | 1 |
+| Jägerkind | kämpft | 2,9 | 2,9 | 2,1 | 0,0 | 3,2 | 0 | 0 | 4 | 11,2 | – | – |
+| Jägerkind | beruhigt | 2,9 | 2,5 | 2,1 | 0,0 | 3,1 | 0 | 0 | 3 | 9,7 | 1,8 (42) | 1 |
+| Zauberlehrling | kämpft | 3,2 | 2,8 | 2,3 | 0,0 | 3,3 | 0 | 0 | 4 | 11,6 | – | – |
+| Zauberlehrling | beruhigt | 3,2 | 2,8 | 2,4 | 0,0 | 3,1 | 0 | 0 | 3 | 9,9 | 1,8 (42) | 1 |
+| Klosterschüler | kämpft | 2,7 | 2,5 | 2,1 | 0,0 | 3,0 | 0 | 0 | 3 | 10,1 | – | – |
+| Klosterschüler | beruhigt | 2,8 | 2,4 | 2,1 | 0,0 | 2,8 | 0 | 0 | 3 | 8,6 | 1,6 (42) | 1 |
+| Kräutersammler | kämpft | 8,0 | 2,7 | 0,0 | 6,4 | 3,4 | 0 | 0 | 3 | 10,3 | – | – |
+| Kräutersammler | beruhigt | 7,8 | 2,5 | 0,0 | 6,4 | 3,2 | 0 | 0 | 3 | 8,6 | 1,8 (43) | 1 |
+| Schmiedelehrling | kämpft | 4,6 | 2,7 | 3,3 | 0,0 | 3,1 | 0 | 0 | 4 | 10,6 | – | – |
+| Schmiedelehrling | beruhigt | 4,3 | 2,5 | 3,2 | 0,0 | 3,0 | 0 | 0 | 3 | 8,9 | 1,6 (41) | 1 |
+| Herumtreiber | kämpft | 5,8 | 2,7 | 4,2 | 0,0 | 3,3 | 0 | 0 | 4 | 10,7 | – | – |
+| Herumtreiber | beruhigt | 5,5 | 2,6 | 4,1 | 0,0 | 3,1 | 0 | 0 | 3 | 9,2 | 1,8 (42) | 1 |
+| Wanderer | kämpft | 4,5 | 2,8 | 3,1 | 0,0 | 3,3 | 0 | 0 | 4 | 11,1 | – | – |
+| Wanderer | beruhigt | 4,5 | 2,6 | 3,3 | 0,0 | 3,1 | 0 | 0 | 3 | 9,6 | 1,8 (42) | 1 |
+

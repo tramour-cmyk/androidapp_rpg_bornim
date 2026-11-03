@@ -23,8 +23,25 @@ static func _sammle(d: String, endung: String, aus: Array) -> void:
 		if not u.begins_with("."): _sammle(d.path_join(u), endung, aus)
 
 
+# 457.1 (Chef 01.11., 11:49: „unsere Signatur muss sich wiederfinden“): jedes geladene Modell standardmaessig mit dem Toon-Zeichner des
+# Spiels (Gebiet.male, Schablone 2 wie der Held: feinere Tusche, Licht nach Licht.richtung); ohne nur mit --ohnetoon oder toon=false
+static func spielbild(n: Node3D) -> Node3D:
+	if n == null or "--ohnetoon" in OS.get_cmdline_user_args(): return n
+	var mats := []
+	Gebiet.male(n, null, 2, mats)
+	for m in mats:
+		(m as ShaderMaterial).set_shader_parameter("metall", 1.0)
+		(m as ShaderMaterial).set_shader_parameter("licht_dir", Licht.richtung())
+	return n
+
+
 # wurzel: Paketordner, in dem die Bilder gesucht werden
-static func lade(pfad: String, wurzel: String) -> Node3D:
+static func lade(pfad: String, wurzel: String, toon := true) -> Node3D:
+	var n := _lade(pfad, wurzel)
+	return spielbild(n) if toon else n
+
+
+static func _lade(pfad: String, wurzel: String) -> Node3D:
 	var d := GLTFDocument.new()
 	var s := GLTFState.new()
 	if pfad.ends_with(".glb"):
@@ -72,9 +89,17 @@ static func spieler(n: Node) -> AnimationPlayer:
 
 
 # Bewegung der UAL auf eine Figur gleichen Geruests (65 Knochen, gleiche Namen): Spuren auf deren Skelett umschreiben; Lagen nur fuer
-# Becken und Wurzel, damit die Knochenlaengen der Figur bleiben
-static func bewegung(figur: Node3D, quellen: Dictionary) -> AnimationPlayer:
+# Becken und Wurzel, damit die Knochenlaengen der Figur bleiben. Die Beckenlage der Quelle (Puppe der UAL) passt nur zu deren
+# Beinlaenge: mit dem Verhaeltnis der Beckenhoehen in Ruhe skaliert (Helfer 01.11., Film 431: Erwachsene 4 cm im Boden,
+# Jugend 10 cm darueber, weil die Lage der Puppe unveraendert galt)
+static func bewegung(figur: Node3D, quellen: Dictionary, quelle_sk: Skeleton3D = null) -> AnimationPlayer:
 	var sk := skelett(figur)
+	var k := 1.0
+	if quelle_sk:
+		var pq := quelle_sk.find_bone("pelvis")
+		var pz := sk.find_bone("pelvis")
+		if pq >= 0 and pz >= 0 and quelle_sk.get_bone_global_rest(pq).origin.y > 0.01:
+			k = sk.get_bone_global_rest(pz).origin.y / quelle_sk.get_bone_global_rest(pq).origin.y
 	var weg := str(figur.get_path_to(sk))
 	var lib := AnimationLibrary.new()
 	for name in quellen:
@@ -84,6 +109,8 @@ static func bewegung(figur: Node3D, quellen: Dictionary) -> AnimationPlayer:
 			if knochen == "" or sk.find_bone(knochen) < 0: a.remove_track(i); continue
 			if a.track_get_type(i) == Animation.TYPE_POSITION_3D and not knochen in ["pelvis", "root"]: a.remove_track(i); continue
 			a.track_set_path(i, NodePath(weg + ":" + knochen))
+			if a.track_get_type(i) == Animation.TYPE_POSITION_3D and k != 1.0:
+				for j in a.track_get_key_count(i): a.track_set_key_value(i, j, (a.track_get_key_value(i, j) as Vector3) * k)
 		a.loop_mode = Animation.LOOP_LINEAR
 		lib.add_animation(name, a)
 	var ap := AnimationPlayer.new()

@@ -1,11 +1,11 @@
 # Chroniken von Bornim
 
-Android-Rollenspiel (Godot; alte Fassung Kotlin), Regeln nach unserem eigenen Spielsystem 2.0 (`DESIGN-SPIELSYSTEM-2-0-ENTWURF.md`); der Hinweis „SRD 5.1 · CC BY 4.0“ bleibt, bis alles SRD-Abgeleitete ersetzt ist. Module: `core` (Regeln, Kampf, Karten, Zeichnung), `app` (Oberfläche), `tools/preview` (Vorschau/Test am Rechner). Notizen unter `docs/` (Inhalt: `docs/README.md`). Vorsilben: ROLLE (wer ich bin), ARBEIT (Vorrat), DESIGN (wie das Spiel sein soll), STORY (Spieltexte), LISTE (Nachschlagen, Handwerk). Firmenhandbuch `docs/FIRMA.md` nur bei Anlass.
+Android-Rollenspiel (Godot; alte Fassung Kotlin), Regeln nach unserem eigenen Bornimer Rollenspielsystem, kurz BRS (451; `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md`); der Hinweis „SRD 5.1 · CC BY 4.0“ bleibt, bis alles SRD-Abgeleitete ersetzt ist. Module: `core` (Regeln, Kampf, Karten, Zeichnung), `app` (Oberfläche), `tools/preview` (Vorschau/Test am Rechner). Notizen unter `docs/` (Inhalt: `docs/README.md`). Vorsilben: ROLLE (wer ich bin), ARBEIT (Vorrat), DESIGN (wie das Spiel sein soll), STORY (Spieltexte), LISTE (Nachschlagen, Handwerk). Firmenhandbuch `docs/FIRMA.md` nur bei Anlass.
 
 ## Wer wir sind
 
 - **BornWire TCS**, kleine, aufstrebende Software-Schmiede; wir bauen „Chroniken von Bornim“ fürs Handy. Chef = Nutzer; alle anderen sind Sitzungen mit fester Rolle. **Wie in einer Firma** (Chef 21.10.): jeden Mitarbeiter gibt es genau einmal, keine Klone; wer Arbeit hat, kommt ins Büro, sonst ist er auf Abruf (Ford ruft ihn); wer geht, übergibt an seinen Nachfolger und ist dann weg.
-- **Oberste Direktive (Chef 31.10.):** Kapitel 1 in der Godot-Fassung mit Spielsystem 2.0 fertigstellen: ohne technische Fehler, gut aussehend, nach unserer Signatur, düster, professionell und immersiv durch Klang, Musik, Kampfsystem und die Möglichkeiten des Spielers. Qualität vor Quantität und vor Eile; es gibt keinen Termin. Fertig ist, was die Abnahmeliste erfüllt. Geht jeder Kür und jedem Neuen vor.
+- **Oberste Direktive (Chef 31.10.):** Kapitel 1 in der Godot-Fassung mit dem BRS fertigstellen: ohne technische Fehler, gut aussehend, nach unserer Signatur, düster, professionell und immersiv durch Klang, Musik, Kampfsystem und die Möglichkeiten des Spielers. Qualität vor Quantität und vor Eile; es gibt keinen Termin. Fertig ist, was die Abnahmeliste erfüllt. Geht jeder Kür und jedem Neuen vor.
 - Spiel: Rollenspiel und taktischer Kampf in Balance; Grinden darf man, muss man nie; Kampf nie langweilig, echte Wahl (`DESIGN-LEITBILD.md`). Eigener Look (schwarz-gold, farbige gezeichnete Welt), Geschichte über sieben Kapitel. Nie Werbung, Beutekisten, Wartezeiten gegen Geld.
 - Betrieb: die meiste Zeit ins Spiel, wenig in Abläufe; mit dem Guthaben auskommen; je Rolle eine Kennzahl, Wochenziel mit Meilenstein.
 
@@ -74,7 +74,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 ## Notizen nur auf `main`
 
 - Notizen = `CLAUDE.md`, `CHANGELOG.md`, `docs/`: nur auf `main`, direkt committen und pushen (baut keine APK); Arbeitszweige nur Code.
-- Bearbeiten in `../bornim-main` nur mit Edit/Write, nie mit Bash-Skripten, die Notizen umschreiben (einzige Ausnahme `tools/vorgang.py`, 275); sofort pushen. Push abgelehnt: `git pull`, erneut pushen.
+- Bearbeiten in `../bornim-main` nur mit Edit/Write, nie mit Bash-Skripten, die Notizen umschreiben (Ausnahmen `tools/vorgang.py`, 275; Bildlink von `meldung.sh`, 450); sofort pushen. Push abgelehnt: `git pull`, erneut pushen.
 - Vor jeder Antwort an den Chef `tools/notiz.sh`.
 
 ## Feste Regeln

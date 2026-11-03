@@ -75,7 +75,7 @@ jobs:
         run: |
           Z=$(find $KAUF -path '*Unreal-Godot*' -name UAL1.glb | sort | head -1); [ -n "$Z" ] || Z=$(find ~/cc0 -name UAL1_Standard.glb | sort | head -1)
           echo "Ziel: ${Z#$KAUF/}"
-          VERGLEICH=${{ inputs.vergleich || '0' }} KAUF=$KAUF ZIEL=$Z OUT=$RUNNER_TEMP/gang BL=$GITHUB_WORKSPACE/bl/bin/python bl/bin/python -I tools/blender348/v3/waffengang.py > mess/waffengang.log 2>&1 || true
+          VERGLEICH=${{ inputs.vergleich || '1' }} VERGLEICH_WORTE=Run KAUF=$KAUF ZIEL=$Z OUT=$RUNNER_TEMP/gang BL=$GITHUB_WORKSPACE/bl/bin/python bl/bin/python -I tools/blender348/v3/waffengang.py > mess/waffengang.log 2>&1 || true
           grep -E "^(PAKET|FEHLT|GANG|KNOCHEN|  WAFFENKNOCHEN|PROP|MESS|NEIGUNG|AUFRICHTEN|HAND|WAFFENGANG)|^   |Traceback|Error" mess/waffengang.log | sed "s|$KAUF/||g" | cut -c1-500 | head -160
           cp $RUNNER_TEMP/gang/waffengang.json mess/ 2>/dev/null || true
       - name: Kaempfer mit Waffengang in bewegungen.glb

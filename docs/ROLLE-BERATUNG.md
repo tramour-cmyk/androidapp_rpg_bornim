@@ -68,7 +68,7 @@
 
 ## Lehren
 
-- Zum stärksten Gegenargument gleich den Weg vorlegen, der es entkräftet, und ihn ins Votum nehmen; ein Gegenargument nur zu nennen, ist halbe Arbeit: bei 422 „alle Zahlen ungemessen“ genannt, die Rechensimulation vor dem Bau erst auf Nachfrage vorgeschlagen (Chef 01.11., 09:24: „Genau dafür bist du da!!!“).
+- Zum stärksten Gegenargument gleich den Weg vorlegen, der es entkräftet, und ihn ins Votum nehmen; ein Gegenargument nur zu nennen, ist halbe Arbeit. Vor dem Votum prüfen: wer im Spiel nutzt das noch (Bestiarium, Figuren, Leute, spätere Kapitel), was liegt schon im Bestand; ein Prüfauftrag nennt, wann er als Chefsache kommt. Zweimal am selben Tag verfehlt: 422 Rechensimulation erst auf Nachfrage (Chef 01.11., 09:24: „Genau dafür bist du da!!!“); 431 Superheld nur für ein Volk gerechnet, Grak und Krogg übersehen (Chef 11:39: „ich nicht wieder die Lösungen präsentieren muss“).
 
 - Einen Umbau, den ich begleite, an den DESIGN-Grundsätzen messen, nicht nur am Bestand: beim Umzug 348 fehlten Ruhebewegungen, Klang, Niederlage, Grinden; gefunden hat es der Chef (28.10., 397, 398).
 

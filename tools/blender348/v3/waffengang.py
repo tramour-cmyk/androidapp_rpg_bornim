@@ -17,10 +17,15 @@ os.makedirs(OUT, exist_ok=True)
 GAENGE = {
     'axt': ('2.HANDED', 'WalkForwardNormal2HandMelee', 'Sprint2HandMelee'),
     'einhand': ('1.HANDED', 'WalkForwardHold1hMelee', 'SprintHold1hMelee'),
-    'schild': ('SWORD.SHIELD', 'WalkForwardS&S', 'RunFastNormalS&S'),
+    # 417 Runde 5 (Chef 01.11., 20:4x: Schild „beim normalen Gehen … ganz einfach an der Seite tragen … so wie er steht“; WalkForwardS&S
+    # ist der Kampfgang, Schild vorn): das entspannte Gehen des Pakets, WalkNormal2S&S (0,79 m/s, Messung 2b; WalkNormal1 18 % ohne Boden)
+    'schild': ('SWORD.SHIELD', os.environ.get('SCHILD_GEHEN', 'WalkNormal2S&S'), 'RunFastNormalS&S'),
     'bogen': ('BOW.ARROW', 'WalkBow', 'RunFastBow'),
 }
 VERGLEICHEN = os.environ.get('VERGLEICH', '') == '1'   # Messung 2: alle Vorwaerts-Bewegungen je Paket dazu
+# 417 (Chef 02.11., 14:46: Rennen „deutlich zu viel nach vorne gebeugt“, ausser Bogen): VERGLEICH_WORTE=Run nur die Rennclips je Paket,
+# Neigung wie beim Bogen (RunFastBow) gesucht
+VERGLEICH_WORTE = tuple(w for w in os.environ.get('VERGLEICH_WORTE', 'Walk,Run,Sprint').split(',') if w)
 
 
 def finde(paket, name):
@@ -32,6 +37,10 @@ def finde(paket, name):
     return (teil[0] if teil else None), alle
 
 
+# Schweben im Rennen (Pruefer Film 417, 01.11., 23:0x: Fuesse 7-16 Bildpunkte ueber dem Boden). Lauf 41355090887: zauber385 setzte das
+# Becken im Verhaeltnis der Beckenhoehen im ersten Bild (Rennen x1,05-1,10), tiefster Ballen Rennen 8,4-10,6 cm, Gehen 3,9-6,0, Stehen
+# 1,5; mit BECKEN=bein (wie Jerry im Kampf, 438a) Rennen -0,4 bis 4,0, Gehen 2,8-5,0. Darum BECKEN=bein fuer alle Gaenge (BECKEN= setzt es ab)
+os.environ.setdefault('BECKEN', 'bein')
 ergebnis = {}
 for art, (paket, geh, renn) in GAENGE.items():
     for wort, name in (('Gehen', geh), ('Rennen', renn)):
@@ -56,7 +65,7 @@ os.makedirs(VERGLEICH, exist_ok=True)
 for art, (paket, geh, renn) in (GAENGE.items() if VERGLEICHEN else []):
     _, alle = finde(paket, geh)
     namen = sorted({os.path.basename(p)[9:-4] for p in alle if os.path.basename(p).startswith('Humanoid@')
-                    and any(w in os.path.basename(p) for w in ('Walk', 'Run', 'Sprint'))
+                    and any(w in os.path.basename(p) for w in VERGLEICH_WORTE)
                     and not any(w in os.path.basename(p) for w in ('Left', 'Right', 'Backward', 'Crouch', 'Strafe', '_RM', 'Combat', 'Aim', 'Draw'))})
     print('VORWAERTS %s: %s' % (paket, ', '.join(namen)))
     for n in namen:
@@ -150,7 +159,9 @@ def messen(p, aktion=None):
     v = max(vs[len(vs) // 2], 0.0) if vs else 0.0
     b = [x.z for x in lage['pelvis']]
     vor = lage['pelvis'][-1].y - lage['pelvis'][0].y
-    return {'bilder': f1 - f0 + 1, 's': round((f1 - f0) / fps, 3), 'tempo': round(v, 3), 'hub_cm': round((max(b) - min(b)) * 100, 1),
+    # Pruefer Film 417 (01.11., 23:0x: „Rennen: die Fuesse kommen nie auf Bodenhoehe … 7 bis 16 Bildpunkte“): tiefster Ballen ueber den Umlauf, cm
+    boden = min(min(v.z for v in lage['ball_l']), min(v.z for v in lage['ball_r'])) * 100
+    return {'boden_cm': round(boden, 1), 'bilder': f1 - f0 + 1, 's': round((f1 - f0) / fps, 3), 'tempo': round(v, 3), 'hub_cm': round((max(b) - min(b)) * 100, 1),
             'luft_pct': int(100 * luft / len(b)), 'wurzelweg_m': round(-vor, 3), 'hand': hand,
             # Chef 01.11., 13:4x: „der Oberkoerper beim normalen Gehen zum Teil zu weit vorgeneigt“: Becken -> Hals gegen senkrecht, Grad
             # (positiv nach vorn, Blick -Y), Mittel und Hoechstwert ueber den Umlauf
@@ -164,18 +175,29 @@ def messen(p, aktion=None):
 # Becken -> Hals misst auch die Kruemmung des Rueckens, darum gegen das Stehen); NEIGUNG_ZIEL=<Grad> setzt sie von Hand
 NEIGUNG_GEHEN = float(os.environ.get('NEIGUNG_GEHEN', '3'))
 try:
-    stehen_n = messen(ZIEL, 'Idle_Loop')['neigung'][0]
+    stehen_m = messen(ZIEL, 'Idle_Loop'); stehen_n = stehen_m['neigung'][0]
+    print('BODEN Stehen (Idle_Loop): tiefster Ballen %.1f cm' % stehen_m['boden_cm'])
     print('NEIGUNG Stehen (Idle_Loop): %.1f, Gehen ohne Waffe (Walk_Loop): %.1f' % (stehen_n, messen(ZIEL, 'Walk_Loop')['neigung'][0]))
     ziel_n = float(os.environ['NEIGUNG_ZIEL']) if os.environ.get('NEIGUNG_ZIEL') else stehen_n + NEIGUNG_GEHEN
 except Exception as e:
     ziel_n = None; print('NEIGUNG Idle_Loop nicht messbar:', e)
 print('NEIGUNG Ziel (Stehen + %.1f):' % NEIGUNG_GEHEN, ziel_n)
-for art, (paket, geh, _) in GAENGE.items():
-    n = 'Gehen_' + art; p = os.path.join(OUT, n + '.glb')
+# 417 (Chef 02.11., 14:46: Rennen bei allen ausser Bogen „deutlich zu viel nach vorne gebeugt“; Ziel Neigung wie beim Bogen): die normalen
+# Rennclips der Pakete stehen aufrecht (15-18 Grad), laufen aber 2,3-2,7 m/s, im Spiel (4,27) 4,5-5,2 Schritte/s (Lauf 41456531260,
+# Staxen). Darum die Sprints wie das Gehen aufrichten, Ziel die Neigung von Rennen_bogen (RunFastBow, 14,7); NEIGUNG_RENNEN=<Grad> von Hand,
+# AUFRICHTEN_RENNEN=0 schaltet es ab
+ziel_r = None
+if os.environ.get('AUFRICHTEN_RENNEN', '1') != '0' and os.path.exists(os.path.join(OUT, 'Rennen_bogen.glb')):
+    ziel_r = float(os.environ['NEIGUNG_RENNEN']) if os.environ.get('NEIGUNG_RENNEN') else messen(os.path.join(OUT, 'Rennen_bogen.glb'))['neigung'][0]
+print('NEIGUNG Ziel Rennen (wie Rennen_bogen):', ziel_r)
+ziel_g = ziel_n
+for art, (paket, geh, renn) in GAENGE.items():
+  for wort, quelle, ziel_n in (('Gehen', geh, ziel_g), ('Rennen', renn, ziel_r)):
+    n = wort + '_' + art; p = os.path.join(OUT, n + '.glb')
     if ziel_n is None or not os.path.exists(p): continue
     vor = messen(p)['neigung'][0]
     if vor <= ziel_n + 0.5: continue
-    q, _ = finde(paket, geh)
+    q, _ = finde(paket, quelle)
     # Lauf 41318025517: 2,7 Grad am starren Ruecken senken Becken -> Hals nur um 2,0 (schild 13,7 auf 11,7, Ziel 11,0);
     # darum nachregeln: Wirkung messen, Winkel um den Rest geteilt durch die Wirkung erhoehen, hoechstens drei Durchgaenge
     winkel, jetzt = vor - ziel_n, vor
@@ -185,7 +207,7 @@ for art, (paket, geh, _) in GAENGE.items():
         neu = messen(p)['neigung'][0]
         print('AUFRICHTEN %s: %.1f Grad zurueck, Neigung %.1f -> %.1f (Ziel %.1f)' % (n, winkel, vor, neu, ziel_n))
         if abs(neu - ziel_n) <= 0.3 or vor - neu < 0.1: break
-        winkel = min(winkel + (neu - ziel_n) * winkel / (vor - neu), 25.0)
+        winkel = min(winkel + (neu - ziel_n) * winkel / (vor - neu), 40.0)   # Sprint 37 -> 15 Grad braucht mehr als 25
     ergebnis[n]['aufgerichtet'] = round(winkel, 1)
 
 # Gehtempo im Spiel (417 Runde 6, Chef 01.11., 13:4x „schnelles Staxen“): GEHEN_M_S, sonst 1,5 m/s statt 2,13
@@ -200,6 +222,7 @@ for n in sorted(ergebnis):
     print('NEIGUNG %s: Oberkoerper im Mittel %.1f Grad vor, hoechstens %.1f' % (n, m['neigung'][0], m['neigung'][1]))
     print('MESS %s: %d Bilder, %.2f s, Tempo %.2f m/s (im Spiel %.2f-fach, %.1f Schritte/s), Beckenhub %.1f cm, ohne Boden %d %%, Wurzelweg %.2f m'
           % (n, m['bilder'], m['s'], m['tempo'], fach, sps, m['hub_cm'], m['luft_pct'], m['wurzelweg_m']))
+    print('BODEN %s: tiefster Ballen %.1f cm' % (n, m['boden_cm']))
     if '__' not in n:
         for h in m['hand']: print('HAND %s %s' % (n, h))
 json.dump(ergebnis, open(os.path.join(OUT, 'waffengang.json'), 'w'), indent=1, ensure_ascii=False)

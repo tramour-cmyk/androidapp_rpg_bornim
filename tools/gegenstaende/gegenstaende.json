@@ -1,0 +1,3068 @@
+{
+ "_aufbau": "Gegenstandskatalog 458: eine Zeile je Gegenstand; Spalten und Werte in tools/gegenstaende.py (AUFBAU); Uebersicht docs/LISTE-GEGENSTAENDE.md wird erzeugt (python3 tools/gegenstaende.py).",
+ "gegenstaende": [
+  {
+   "id": "hood",
+   "name": {
+    "de": "Kapuze",
+    "en": "Hood"
+   },
+   "art": "ruestung",
+   "platz": "kopf",
+   "stufe": 1,
+   "preis": 2,
+   "netz": "Kapuze (Ranger Head_Hood)",
+   "material": "Stoff",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Grobes Wolltuch, tief ins Gesicht gezogen.",
+    "en": "Coarse wool, pulled low over the face."
+   },
+   "alt": {
+    "preis": 2,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "circlet",
+   "name": {
+    "de": "Stirnreif",
+    "en": "Circlet"
+   },
+   "art": "ruestung",
+   "platz": "kopf",
+   "stufe": 2,
+   "preis": 15,
+   "netz": "Reif (Noble Head_Crown)",
+   "material": "Eisen",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein schmaler Reif aus Metall, mehr Zeichen als Schutz.",
+    "en": "A slim band of metal, more sign than shelter."
+   },
+   "alt": {
+    "preis": 15,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "leather_cap",
+   "name": {
+    "de": "Lederkappe",
+    "en": "Leather Cap"
+   },
+   "art": "ruestung",
+   "platz": "kopf",
+   "stufe": 1,
+   "preis": 5,
+   "netz": "Kappe",
+   "material": "Leder",
+   "zeichen": "Farbe",
+   "modell": "Eigenbau, fehlt (LISTE-NETZE.md)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Gehärtetes Leder, eng um den Schädel geschnürt.",
+    "en": "Hardened leather, laced tight about the skull."
+   },
+   "alt": {
+    "preis": 5,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "helmet",
+   "name": {
+    "de": "Helm",
+    "en": "Helmet"
+   },
+   "art": "ruestung",
+   "platz": "kopf",
+   "stufe": 2,
+   "preis": 15,
+   "netz": "Kappe",
+   "material": "Eisen",
+   "zeichen": "Farbe",
+   "modell": "Eigenbau, fehlt (LISTE-NETZE.md)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein schlichter Eisenhelm mit Nasenschutz.",
+    "en": "A plain iron helm with a nose guard."
+   },
+   "alt": {
+    "preis": 15,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "great_helm",
+   "name": {
+    "de": "Topfhelm",
+    "en": "Great Helm"
+   },
+   "art": "ruestung",
+   "platz": "kopf",
+   "stufe": 4,
+   "preis": 40,
+   "netz": "Topfhelm (Knight Head_Armet)",
+   "material": "Platte",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein geschlossener Eisentopf mit Sehschlitz; darin klingt der eigene Atem laut.",
+    "en": "A closed iron pot with an eye slit; inside it your own breath sounds loud."
+   },
+   "alt": {
+    "preis": 40,
+    "stufe": 4,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "robe",
+   "name": {
+    "de": "Robe",
+    "en": "Robe"
+   },
+   "art": "ruestung",
+   "platz": "oberkoerper",
+   "stufe": 1,
+   "preis": 5,
+   "netz": "Lange Robe (held_wizard)",
+   "material": "Stoff",
+   "zeichen": "Farbe, Borte",
+   "modell": "unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Langes, schweres Tuch, wie es Gelehrte und Priester tragen.",
+    "en": "Long, heavy cloth, such as scholars and priests wear."
+   },
+   "alt": {
+    "preis": 5,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "leather",
+   "name": {
+    "de": "Lederrüstung",
+    "en": "Leather Armor"
+   },
+   "art": "ruestung",
+   "platz": "oberkoerper",
+   "stufe": 1,
+   "preis": 10,
+   "netz": "Wams (Ranger Body)",
+   "material": "Leder",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Gekochtes Leder über Brust und Schultern, steif, bis es sich an seinen Träger gewöhnt.",
+    "en": "Boiled leather over chest and shoulders, stiff until it learns its wearer."
+   },
+   "alt": {
+    "preis": 10,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "studded_leather",
+   "name": {
+    "de": "Nietenleder",
+    "en": "Studded Leather"
+   },
+   "art": "ruestung",
+   "platz": "oberkoerper",
+   "stufe": 2,
+   "preis": 45,
+   "netz": "Wams (Ranger Body)",
+   "material": "Leder",
+   "zeichen": "Nieten",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Leder, dicht mit Eisennieten beschlagen.",
+    "en": "Leather, thickly set with iron rivets."
+   },
+   "alt": {
+    "preis": 45,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "chain_shirt",
+   "name": {
+    "de": "Kettenhemd",
+    "en": "Chain Shirt"
+   },
+   "art": "ruestung",
+   "platz": "oberkoerper",
+   "stufe": 1,
+   "preis": 50,
+   "netz": "Kettenhemd (Wachsoldat)",
+   "material": "Kette",
+   "zeichen": "Farbe",
+   "modell": "unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein Hemd aus kleinen Eisenringen, das unter dem Mantel verschwindet.",
+    "en": "A shirt of small iron rings that hides beneath a coat."
+   },
+   "alt": {
+    "preis": 50,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "scale_mail",
+   "name": {
+    "de": "Schuppenpanzer",
+    "en": "Scale Mail"
+   },
+   "art": "ruestung",
+   "platz": "oberkoerper",
+   "stufe": 2,
+   "preis": 50,
+   "netz": "Kettenhemd (Wachsoldat)",
+   "material": "Schuppe",
+   "zeichen": "Farbe",
+   "modell": "unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Eisenschuppen auf Leder genäht, übereinander wie bei einem Fisch.",
+    "en": "Iron scales sewn onto leather, overlapping like a fish's."
+   },
+   "alt": {
+    "preis": 50,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "breastplate",
+   "name": {
+    "de": "Brustplatte",
+    "en": "Breastplate"
+   },
+   "art": "ruestung",
+   "platz": "oberkoerper",
+   "stufe": 4,
+   "preis": 400,
+   "netz": "Brustplatte (Knight Body_Armor)",
+   "material": "Platte",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Eine gewölbte Stahlplatte für Brust und Rücken, von Riemen gehalten.",
+    "en": "A curved steel plate for chest and back, held by straps."
+   },
+   "alt": {
+    "preis": 400,
+    "stufe": 4,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "half_plate",
+   "name": {
+    "de": "Halbplatte",
+    "en": "Half Plate"
+   },
+   "art": "ruestung",
+   "platz": "oberkoerper",
+   "stufe": 6,
+   "preis": 750,
+   "netz": "Plattenrüstung (Knight Body_Armor, Pauldron_Round)",
+   "material": "Platte",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Platten über Brust, Schultern und Schenkeln, dazwischen Kette und Leder.",
+    "en": "Plates over chest, shoulders and thighs, with mail and leather between."
+   },
+   "alt": {
+    "preis": 750,
+    "stufe": 6,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "chain_mail",
+   "name": {
+    "de": "Kettenpanzer",
+    "en": "Chain Mail"
+   },
+   "art": "ruestung",
+   "platz": "oberkoerper",
+   "stufe": 2,
+   "preis": 75,
+   "netz": "Kettenhemd (Wachsoldat)",
+   "material": "Kette",
+   "zeichen": "Wappenrock",
+   "modell": "unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein langer Kettenpanzer bis über die Knie, über dicker Wattierung getragen.",
+    "en": "Long mail down past the knees, worn over thick padding."
+   },
+   "alt": {
+    "preis": 75,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "splint",
+   "name": {
+    "de": "Schienenpanzer",
+    "en": "Splint Armor"
+   },
+   "art": "ruestung",
+   "platz": "oberkoerper",
+   "stufe": 4,
+   "preis": 200,
+   "netz": "Brustplatte (Knight Body_Armor)",
+   "material": "Schiene",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Senkrechte Eisenschienen, auf Leder genietet, eine alte Machart aus Kriegszeiten.",
+    "en": "Upright iron splints riveted to leather, an old make from times of war."
+   },
+   "alt": {
+    "preis": 200,
+    "stufe": 4,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "plate",
+   "name": {
+    "de": "Plattenpanzer",
+    "en": "Plate Armor"
+   },
+   "art": "ruestung",
+   "platz": "oberkoerper",
+   "stufe": 7,
+   "preis": 1500,
+   "netz": "Plattenrüstung (Knight Body_Armor, Pauldrons_Round, Noble Gorget)",
+   "material": "Platte",
+   "zeichen": "Farbe, Borte",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Geschmiedeter Stahl für Brust, Rücken und Schultern, Stück für Stück auf den Leib gepasst.",
+    "en": "Forged steel for chest, back and shoulders, fitted piece by piece to the body."
+   },
+   "alt": {
+    "preis": 1500,
+    "stufe": 7,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "wraps",
+   "name": {
+    "de": "Armwickel",
+    "en": "Arm Wraps"
+   },
+   "art": "ruestung",
+   "platz": "arme",
+   "stufe": 1,
+   "preis": 2,
+   "netz": "Ärmel (Peasant Arms)",
+   "material": "Stoff",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Leinenbinden, fest um Unterarme und Hände gewickelt.",
+    "en": "Linen strips wound tight about forearms and hands."
+   },
+   "alt": {
+    "preis": 2,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "gloves",
+   "name": {
+    "de": "Lederhandschuhe",
+    "en": "Leather Gloves"
+   },
+   "art": "ruestung",
+   "platz": "arme",
+   "stufe": 1,
+   "preis": 5,
+   "netz": "Handschuh (Ranger Arms)",
+   "material": "Leder",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Weiches Leder, eng um Finger und Handfläche.",
+    "en": "Soft leather, snug about fingers and palm."
+   },
+   "alt": {
+    "preis": 5,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "bracers",
+   "name": {
+    "de": "Armschienen",
+    "en": "Bracers"
+   },
+   "art": "ruestung",
+   "platz": "arme",
+   "stufe": 2,
+   "preis": 20,
+   "netz": "Armschiene (Knight_Cloth Arms)",
+   "material": "Leder mit Eisen",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Schienen für die Unterarme, die einen Hieb zur Seite lenken sollen.",
+    "en": "Guards for the forearms, meant to turn a blow aside."
+   },
+   "alt": {
+    "preis": 20,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "gauntlets",
+   "name": {
+    "de": "Panzerhandschuhe",
+    "en": "Gauntlets"
+   },
+   "art": "ruestung",
+   "platz": "arme",
+   "stufe": 3,
+   "preis": 40,
+   "netz": "Panzerhandschuh (Knight Arms)",
+   "material": "Platte",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Handschuhe aus Eisenplatten, gegliedert wie die Finger darin.",
+    "en": "Gloves of iron plates, jointed like the fingers inside."
+   },
+   "alt": {
+    "preis": 40,
+    "stufe": 3,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "leggings",
+   "name": {
+    "de": "Beinkleider",
+    "en": "Leggings"
+   },
+   "art": "ruestung",
+   "platz": "beine",
+   "stufe": 1,
+   "preis": 2,
+   "netz": "Hose mit Schuh (Peasant Legs, Feet)",
+   "material": "Stoff",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Hosen aus festem Tuch, für lange Wege gemacht.",
+    "en": "Trousers of stout cloth, made for long roads."
+   },
+   "alt": {
+    "preis": 2,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "boots",
+   "name": {
+    "de": "Lederstiefel",
+    "en": "Leather Boots"
+   },
+   "art": "ruestung",
+   "platz": "beine",
+   "stufe": 1,
+   "preis": 5,
+   "netz": "Hose mit Stiefel (Ranger Legs, Feet_Boots)",
+   "material": "Leder",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Lederstiefel mit dicker Sohle, für Schlamm und Stein.",
+    "en": "Leather boots with thick soles, for mud and stone."
+   },
+   "alt": {
+    "preis": 5,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "chain_leggings",
+   "name": {
+    "de": "Kettenbeinlinge",
+    "en": "Chain Leggings"
+   },
+   "art": "ruestung",
+   "platz": "beine",
+   "stufe": 2,
+   "preis": 20,
+   "netz": "Hose mit Stiefel (Ranger Legs, Feet_Boots)",
+   "material": "Kette",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren); Eigenbau, falls Kette dort nicht trägt (455.1)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Beinlinge aus Kettengeflecht, unter dem Rock geschnürt.",
+    "en": "Leggings of mail, laced beneath the coat."
+   },
+   "alt": {
+    "preis": 20,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "greaves",
+   "name": {
+    "de": "Beinschienen",
+    "en": "Greaves"
+   },
+   "art": "ruestung",
+   "platz": "beine",
+   "stufe": 3,
+   "preis": 40,
+   "netz": "Beinschiene (Knight Legs, Feet)",
+   "material": "Platte",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Eisenschienen für Schienbein und Knie.",
+    "en": "Iron guards for shin and knee."
+   },
+   "alt": {
+    "preis": 40,
+    "stufe": 3,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "cloak",
+   "name": {
+    "de": "Umhang",
+    "en": "Cloak"
+   },
+   "art": "ruestung",
+   "platz": "umhang",
+   "stufe": 1,
+   "preis": 5,
+   "netz": "Umhang (Wachsoldat)",
+   "material": "Stoff",
+   "zeichen": "Farbe",
+   "modell": "unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein Umhang aus dunkler Wolle mit tiefer Kapuze.",
+    "en": "A cloak of dark wool with a deep hood."
+   },
+   "alt": {
+    "preis": 5,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "mantle",
+   "name": {
+    "de": "Mantel",
+    "en": "Mantle"
+   },
+   "art": "ruestung",
+   "platz": "umhang",
+   "stufe": 3,
+   "preis": 30,
+   "netz": "Mantel",
+   "material": "Wolle, Fell am Kragen",
+   "zeichen": "Farbe",
+   "modell": "Eigenbau, fehlt (LISTE-NETZE.md)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein schwerer Mantel mit breitem Kragen, wie ihn Reisende von Stand tragen.",
+    "en": "A heavy mantle with a broad collar, such as travelers of rank wear."
+   },
+   "alt": {
+    "preis": 30,
+    "stufe": 3,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "dagger",
+   "name": {
+    "de": "Dolch",
+    "en": "Dagger"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": 1,
+   "preis": 2,
+   "netz": "waffen.py dagger",
+   "material": null,
+   "zeichen": null,
+   "modell": "unser Netz (waffen.py, Jerry)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Eine kurze, spitze Klinge für Gürtel oder Stiefel.",
+    "en": "A short, keen blade for belt or boot."
+   },
+   "alt": {
+    "preis": 2,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "shortsword",
+   "name": {
+    "de": "Kurzschwert",
+    "en": "Shortsword"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": 1,
+   "preis": 10,
+   "netz": "waffen.py shortsword",
+   "material": null,
+   "zeichen": null,
+   "modell": "unser Netz (waffen.py, Jerry)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Eine kurze, breite Klinge für den engen Kampf.",
+    "en": "A short, broad blade for close fighting."
+   },
+   "alt": {
+    "preis": 10,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "scimitar",
+   "name": {
+    "de": "Krummsäbel",
+    "en": "Scimitar"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": 1,
+   "preis": 25,
+   "netz": "waffen.py scimitar",
+   "material": null,
+   "zeichen": null,
+   "modell": "unser Netz (waffen.py, Jerry)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Eine gebogene Klinge, die eher schneidet als sticht.",
+    "en": "A curved blade that cuts rather than stabs."
+   },
+   "alt": {
+    "preis": 25,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "handaxe",
+   "name": {
+    "de": "Handbeil",
+    "en": "Handaxe"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": 1,
+   "preis": 5,
+   "netz": "waffen.py handaxe",
+   "material": null,
+   "zeichen": null,
+   "modell": "unser Netz (waffen.py, Jerry)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein Beil für Holz und für Schlimmeres.",
+    "en": "A hatchet for wood, and for worse."
+   },
+   "alt": {
+    "preis": 5,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "mace",
+   "name": {
+    "de": "Streitkolben",
+    "en": "Mace"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": 1,
+   "preis": 5,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein gerippter Eisenkopf auf kurzem Schaft, gemacht, um Knochen zu brechen.",
+    "en": "A ribbed iron head on a short haft, made to break bone."
+   },
+   "alt": {
+    "preis": 5,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "spear",
+   "name": {
+    "de": "Speer",
+    "en": "Spear"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": 1,
+   "preis": 1,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein Eschenschaft mit Eisenspitze, die älteste Waffe der Bauern.",
+    "en": "An ash shaft with an iron head, the peasant's oldest weapon."
+   },
+   "alt": {
+    "preis": 1,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "quarterstaff",
+   "name": {
+    "de": "Kampfstab",
+    "en": "Quarterstaff"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": 1,
+   "preis": 1,
+   "netz": "waffen.py quarterstaff",
+   "material": null,
+   "zeichen": null,
+   "modell": "unser Netz (waffen.py, Jerry)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein mannshoher Stab aus Hartholz, an beiden Enden mit Eisen beschlagen.",
+    "en": "A man-high staff of hardwood, shod with iron at both ends."
+   },
+   "alt": {
+    "preis": 1,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "rapier",
+   "name": {
+    "de": "Rapier",
+    "en": "Rapier"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": 2,
+   "preis": 25,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Eine lange, schmale Klinge mit Korb, gemacht für den Stich.",
+    "en": "A long, slender blade with a basket hilt, made for the thrust."
+   },
+   "alt": {
+    "preis": 25,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "longsword",
+   "name": {
+    "de": "Langschwert",
+    "en": "Longsword"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": 1,
+   "preis": 15,
+   "netz": "waffen.py longsword",
+   "material": null,
+   "zeichen": null,
+   "modell": "unser Netz (waffen.py, Jerry)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Eine gerade, zweischneidige Klinge, das Schwert der Wachen.",
+    "en": "A straight, double-edged blade, the sword of the watch."
+   },
+   "alt": {
+    "preis": 15,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "battleaxe",
+   "name": {
+    "de": "Streitaxt",
+    "en": "Battleaxe"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": 1,
+   "preis": 10,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein breites Axtblatt auf einem Schaft, zu schwer für Feuerholz.",
+    "en": "A broad axe blade on a haft, too heavy for firewood."
+   },
+   "alt": {
+    "preis": 10,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "morningstar",
+   "name": {
+    "de": "Morgenstern",
+    "en": "Morningstar"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": 3,
+   "preis": 15,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Eine Eisenkugel voller Dornen auf einem Stiel.",
+    "en": "An iron ball full of spikes on a haft."
+   },
+   "alt": {
+    "preis": 15,
+    "stufe": 3,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "warhammer",
+   "name": {
+    "de": "Kriegshammer",
+    "en": "Warhammer"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": 2,
+   "preis": 15,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein Hammer mit einem Dorn auf der Rückseite, gegen Helme geschmiedet.",
+    "en": "A hammer with a spike behind, forged against helmets."
+   },
+   "alt": {
+    "preis": 15,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "wand",
+   "name": {
+    "de": "Zauberstab",
+    "en": "Wand"
+   },
+   "art": "waffe",
+   "platz": "haupthand",
+   "stufe": 2,
+   "preis": 30,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein Stab aus dunklem Holz, kaum länger als eine Elle, in dem etwas summt.",
+    "en": "A rod of dark wood, barely a forearm long, in which something hums."
+   },
+   "alt": {
+    "preis": 30,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "greatsword",
+   "name": {
+    "de": "Zweihänder",
+    "en": "Greatsword"
+   },
+   "art": "waffe",
+   "platz": "beide_haende",
+   "stufe": 3,
+   "preis": 50,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Eine Klinge, so lang wie ein Mann, nur mit beiden Händen zu führen.",
+    "en": "A blade as long as a man, wielded only with both hands."
+   },
+   "alt": {
+    "preis": 50,
+    "stufe": 3,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "greataxe",
+   "name": {
+    "de": "Großaxt",
+    "en": "Greataxe"
+   },
+   "art": "waffe",
+   "platz": "beide_haende",
+   "stufe": 3,
+   "preis": 30,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein doppeltes Axtblatt auf langem Schaft, schwer wie ein Urteil.",
+    "en": "A double axe blade on a long haft, heavy as a verdict."
+   },
+   "alt": {
+    "preis": 30,
+    "stufe": 3,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "maul",
+   "name": {
+    "de": "Zweihandhammer",
+    "en": "Maul"
+   },
+   "art": "waffe",
+   "platz": "beide_haende",
+   "stufe": 4,
+   "preis": 10,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein Eisenklotz auf langem Stiel; was er trifft, gibt nach.",
+    "en": "A block of iron on a long haft; what it strikes gives way."
+   },
+   "alt": {
+    "preis": 10,
+    "stufe": 4,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "halberd",
+   "name": {
+    "de": "Hellebarde",
+    "en": "Halberd"
+   },
+   "art": "waffe",
+   "platz": "beide_haende",
+   "stufe": 2,
+   "preis": 20,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Axt, Spitze und Haken auf einem langen Schaft.",
+    "en": "Axe, spike and hook on one long shaft."
+   },
+   "alt": {
+    "preis": 20,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "staff",
+   "name": {
+    "de": "Magierstab",
+    "en": "Arcane Staff"
+   },
+   "art": "waffe",
+   "platz": "beide_haende",
+   "stufe": 2,
+   "preis": 40,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein Stab aus altem Holz, in dessen Kopf Zeichen geschnitten sind.",
+    "en": "A staff of old wood with signs carved into its head."
+   },
+   "alt": {
+    "preis": 40,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "shortbow",
+   "name": {
+    "de": "Kurzbogen",
+    "en": "Shortbow"
+   },
+   "art": "waffe",
+   "platz": "beide_haende",
+   "stufe": 1,
+   "preis": 25,
+   "netz": "waffen.py shortbow",
+   "material": null,
+   "zeichen": null,
+   "modell": "unser Netz (waffen.py, Jerry)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein kurzer Bogen aus Eibe, wie ihn Jäger tragen.",
+    "en": "A short yew bow, such as hunters carry."
+   },
+   "alt": {
+    "preis": 25,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "longbow",
+   "name": {
+    "de": "Langbogen",
+    "en": "Longbow"
+   },
+   "art": "waffe",
+   "platz": "beide_haende",
+   "stufe": 3,
+   "preis": 50,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein Bogen, so hoch wie sein Schütze, aus einem Stück Eibe.",
+    "en": "A bow as tall as its archer, from a single stave of yew."
+   },
+   "alt": {
+    "preis": 50,
+    "stufe": 3,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "light_crossbow",
+   "name": {
+    "de": "Armbrust",
+    "en": "Light Crossbow"
+   },
+   "art": "waffe",
+   "platz": "beide_haende",
+   "stufe": 2,
+   "preis": 25,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Eine Armbrust mit Holzschaft und Spannhebel.",
+    "en": "A crossbow with a wooden stock and a cocking lever."
+   },
+   "alt": {
+    "preis": 25,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "amulet",
+   "name": {
+    "de": "Amulett",
+    "en": "Amulet"
+   },
+   "art": "schmuck",
+   "platz": "hals",
+   "stufe": 1,
+   "preis": 25,
+   "netz": "keins: nur Bild im Inventar (455)",
+   "material": null,
+   "zeichen": null,
+   "modell": "keins: nur Bild im Inventar (455)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Ein Anhänger an einer schmalen Kette.",
+    "en": "A pendant on a slender chain."
+   },
+   "alt": {
+    "preis": 25,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "talisman",
+   "name": {
+    "de": "Talisman",
+    "en": "Talisman"
+   },
+   "art": "schmuck",
+   "platz": "hals",
+   "stufe": 3,
+   "preis": 60,
+   "netz": "keins: nur Bild im Inventar (455)",
+   "material": null,
+   "zeichen": null,
+   "modell": "keins: nur Bild im Inventar (455)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Ein geschnitztes Zeichen an einer Schnur, gegen das, was man fürchtet.",
+    "en": "A carved token on a cord, against whatever you fear."
+   },
+   "alt": {
+    "preis": 60,
+    "stufe": 3,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "ring",
+   "name": {
+    "de": "Ring",
+    "en": "Ring"
+   },
+   "art": "schmuck",
+   "platz": "finger",
+   "stufe": 1,
+   "preis": 25,
+   "netz": "keins: nur Bild im Inventar (455)",
+   "material": null,
+   "zeichen": null,
+   "modell": "keins: nur Bild im Inventar (455)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Ein schlichter Ring aus Metall.",
+    "en": "A plain ring of metal."
+   },
+   "alt": {
+    "preis": 25,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "signet",
+   "name": {
+    "de": "Siegelring",
+    "en": "Signet Ring"
+   },
+   "art": "schmuck",
+   "platz": "finger",
+   "stufe": 3,
+   "preis": 60,
+   "netz": "keins: nur Bild im Inventar (455)",
+   "material": null,
+   "zeichen": null,
+   "modell": "keins: nur Bild im Inventar (455)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Ein Ring mit eingeschnittenem Wappen; einst hat er Briefe gesiegelt.",
+    "en": "A ring with a carved crest; once it sealed letters."
+   },
+   "alt": {
+    "preis": 60,
+    "stufe": 3,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "shield",
+   "name": {
+    "de": "Schild",
+    "en": "Shield"
+   },
+   "art": "schild",
+   "platz": "nebenhand",
+   "stufe": 1,
+   "preis": 10,
+   "netz": "waffen.py shield",
+   "material": null,
+   "zeichen": null,
+   "modell": "unser Netz (waffen.py, Jerry)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein Schild aus Holz, mit Leder bezogen und mit Eisen gerandet.",
+    "en": "A wooden shield, covered in leather and rimmed with iron."
+   },
+   "alt": {
+    "preis": 10,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "round_shield",
+   "name": {
+    "de": "Rundschild",
+    "en": "Round Shield"
+   },
+   "art": "schild",
+   "platz": "nebenhand",
+   "stufe": 1,
+   "preis": 10,
+   "netz": "waffen.py round_shield",
+   "material": null,
+   "zeichen": null,
+   "modell": "unser Netz (waffen.py, Jerry)",
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein runder Holzschild mit eisernem Buckel.",
+    "en": "A round wooden shield with an iron boss."
+   },
+   "alt": {
+    "preis": 10,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "tower_shield",
+   "name": {
+    "de": "Turmschild",
+    "en": "Tower Shield"
+   },
+   "art": "schild",
+   "platz": "nebenhand",
+   "stufe": 5,
+   "preis": 60,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein Schild, hinter dem ein Mann fast ganz verschwindet.",
+    "en": "A shield a man can almost vanish behind."
+   },
+   "alt": {
+    "preis": 60,
+    "stufe": 5,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "torch",
+   "name": {
+    "de": "Fackel",
+    "en": "Torch"
+   },
+   "art": "licht",
+   "platz": "nebenhand",
+   "stufe": 1,
+   "preis": 2,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Pech und Lumpen auf einem Stock: das Licht, das du mitbringst.",
+    "en": "Pitch and rags on a stick: the light you bring with you."
+   },
+   "alt": {
+    "preis": 2,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "orb",
+   "name": {
+    "de": "Zauberkugel",
+    "en": "Orb"
+   },
+   "art": "fokus",
+   "platz": "nebenhand",
+   "stufe": 1,
+   "preis": 20,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Eine Kugel aus trübem Glas, in der ein Licht zu wandern scheint.",
+    "en": "A sphere of clouded glass in which a light seems to wander."
+   },
+   "alt": {
+    "preis": 20,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "tome",
+   "name": {
+    "de": "Foliant",
+    "en": "Tome"
+   },
+   "art": "fokus",
+   "platz": "nebenhand",
+   "stufe": 2,
+   "preis": 25,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein schweres Buch mit Eisenecken, voll fremder Zeichen.",
+    "en": "A heavy book with iron corners, full of strange signs."
+   },
+   "alt": {
+    "preis": 25,
+    "stufe": 2,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "holy_symbol",
+   "name": {
+    "de": "Heiligensymbol",
+    "en": "Holy Symbol"
+   },
+   "art": "fokus",
+   "platz": "nebenhand",
+   "stufe": 1,
+   "preis": 5,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "beute"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein geweihtes Zeichen aus Messing, an einer Kette getragen.",
+    "en": "A consecrated token of brass, worn on a chain."
+   },
+   "alt": {
+    "preis": 5,
+    "stufe": 1,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "ring_protection",
+   "name": {
+    "de": "Ring des Ältesten",
+    "en": "Elder's Ring"
+   },
+   "art": "einzelstueck",
+   "platz": "finger",
+   "stufe": 6,
+   "preis": 0,
+   "netz": "keins: nur Bild im Inventar (455)",
+   "material": null,
+   "zeichen": null,
+   "modell": "keins: nur Bild im Inventar (455)",
+   "bezug": [
+    {
+     "weg": "fund"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Der Ring des Ältesten Aldric; er hat schon dessen Vater gute Dienste geleistet.",
+    "en": "Elder Aldric's ring; it served his father well before him."
+   },
+   "alt": {
+    "preis": null,
+    "stufe": null,
+    "quelle": "Kotlin"
+   },
+   "grundform": "ring"
+  },
+  {
+   "id": "gauntlets_ogre",
+   "name": {
+    "de": "Handschuhe der Ogerkraft",
+    "en": "Gauntlets of Ogre Power"
+   },
+   "art": "einzelstueck",
+   "platz": "arme",
+   "stufe": 4,
+   "preis": 0,
+   "netz": "Panzerhandschuh (Knight Arms)",
+   "material": "Platte",
+   "zeichen": "Runen",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
+   "bezug": [
+    {
+     "weg": "beute",
+     "wo": "Krogg"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Kroggs schwere Handschuhe, gemacht für Fäuste, die gern zuschlagen.",
+    "en": "Krogg's heavy gloves, made for fists that like to strike."
+   },
+   "alt": {
+    "preis": null,
+    "stufe": null,
+    "quelle": "Kotlin"
+   },
+   "grundform": "gloves"
+  },
+  {
+   "id": "greataxe_grak",
+   "name": {
+    "de": "Graks Kriegsaxt",
+    "en": "Grak's War Axe"
+   },
+   "art": "einzelstueck",
+   "platz": "beide_haende",
+   "stufe": 6,
+   "preis": 0,
+   "netz": "waffen.py greataxe-grak",
+   "material": null,
+   "zeichen": "Einzelstück",
+   "modell": "unser Netz (waffen.py, Jerry)",
+   "bezug": [
+    {
+     "weg": "beute",
+     "wo": "Grak"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Graks Kriegsaxt; die Kerben im Blatt zählen seine Kämpfe.",
+    "en": "Grak's war axe; the notches in its blade count his fights."
+   },
+   "alt": {
+    "preis": null,
+    "stufe": null,
+    "quelle": "Kotlin"
+   },
+   "grundform": "greataxe"
+  },
+  {
+   "id": "longsword_oakford",
+   "name": {
+    "de": "Klinge von Bornim",
+    "en": "Blade of Bornim"
+   },
+   "art": "einzelstueck",
+   "platz": "haupthand",
+   "stufe": 4,
+   "preis": 0,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "fund"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Eine alte Klinge aus einer Truhe in der Blutzahnhöhle.",
+    "en": "An old blade from a chest in the Bloodfang Cave."
+   },
+   "alt": {
+    "preis": null,
+    "stufe": null,
+    "quelle": "Kotlin"
+   },
+   "grundform": "longsword"
+  },
+  {
+   "id": "staff_of_embers",
+   "name": {
+    "de": "Glutstab",
+    "en": "Staff of Embers"
+   },
+   "art": "einzelstueck",
+   "platz": "beide_haende",
+   "stufe": 4,
+   "preis": 0,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "fund"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein Stab aus verkohltem Holz, in dessen Rissen noch Glut schimmert.",
+    "en": "A staff of charred wood, embers still glowing in its cracks."
+   },
+   "alt": {
+    "preis": null,
+    "stufe": null,
+    "quelle": "Kotlin"
+   },
+   "grundform": "staff"
+  },
+  {
+   "id": "rapier_whisper",
+   "name": {
+    "de": "Flüsterklinge",
+    "en": "Whisperblade"
+   },
+   "art": "einzelstueck",
+   "platz": "haupthand",
+   "stufe": 4,
+   "preis": 0,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "fund"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Eine schmale Klinge, die beim Ziehen kaum ein Geräusch macht.",
+    "en": "A slender blade that makes barely a sound when drawn."
+   },
+   "alt": {
+    "preis": null,
+    "stufe": null,
+    "quelle": "Kotlin"
+   },
+   "grundform": "rapier"
+  },
+  {
+   "id": "mace_of_dawn",
+   "name": {
+    "de": "Morgenröte",
+    "en": "Dawnbringer"
+   },
+   "art": "einzelstueck",
+   "platz": "haupthand",
+   "stufe": 4,
+   "preis": 0,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "fund"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein Streitkolben, in dessen Eisenkopf eine aufgehende Sonne geschlagen ist.",
+    "en": "A mace with a rising sun struck into its iron head."
+   },
+   "alt": {
+    "preis": null,
+    "stufe": null,
+    "quelle": "Kotlin"
+   },
+   "grundform": "mace"
+  },
+  {
+   "id": "amulet_grimfang",
+   "name": {
+    "de": "Grimmzahns Fang",
+    "en": "Grimfang's Tooth"
+   },
+   "art": "einzelstueck",
+   "platz": "hals",
+   "stufe": 5,
+   "preis": 0,
+   "netz": "keins: nur Bild im Inventar (455)",
+   "material": null,
+   "zeichen": null,
+   "modell": "keins: nur Bild im Inventar (455)",
+   "bezug": [
+    {
+     "weg": "beute",
+     "wo": "Grimmzahn"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Ein Fangzahn des Leitwolfs Grimmzahn an einem Lederband.",
+    "en": "A fang of Grimfang the pack leader on a leather cord."
+   },
+   "alt": {
+    "preis": null,
+    "stufe": null,
+    "quelle": "Kotlin"
+   },
+   "grundform": "amulet"
+  },
+  {
+   "id": "cloak_protection",
+   "name": {
+    "de": "Umhang des Schutzes",
+    "en": "Cloak of Protection"
+   },
+   "art": "einzelstueck",
+   "platz": "umhang",
+   "stufe": 4,
+   "preis": 0,
+   "netz": "Umhang (Wachsoldat)",
+   "material": "Stoff",
+   "zeichen": "Runen",
+   "modell": "unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1)",
+   "bezug": [
+    {
+     "weg": "beute",
+     "wo": "Riesenspinne"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein dunkler Umhang, in dessen Saum feine Schutzzeichen gestickt sind.",
+    "en": "A dark cloak with fine warding signs stitched into its hem."
+   },
+   "alt": {
+    "preis": null,
+    "stufe": null,
+    "quelle": "Kotlin"
+   },
+   "grundform": "cloak"
+  },
+  {
+   "id": "potion",
+   "name": {
+    "de": "Heiltrank",
+    "en": "Potion of Healing"
+   },
+   "art": "trank",
+   "platz": null,
+   "stufe": 1,
+   "preis": 25,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "laden",
+     "wo": "Morwen"
+    },
+    {
+     "weg": "herstellen",
+     "wo": "Morwen",
+     "rezept": {
+      "herbs": 2
+     },
+     "gold": 5
+    },
+    {
+     "weg": "beute",
+     "wo": "Riesenratte"
+    },
+    {
+     "weg": "beute",
+     "wo": "Wolf"
+    },
+    {
+     "weg": "beute",
+     "wo": "Wildschwein"
+    },
+    {
+     "weg": "beute",
+     "wo": "Riesen-Hundertfüßer"
+    },
+    {
+     "weg": "beute",
+     "wo": "Riesenfledermaus"
+    },
+    {
+     "weg": "beute",
+     "wo": "Blutflügler"
+    },
+    {
+     "weg": "beute",
+     "wo": "Goblin"
+    },
+    {
+     "weg": "beute",
+     "wo": "Goblin-Späher"
+    },
+    {
+     "weg": "beute",
+     "wo": "Goblin-Schamane"
+    },
+    {
+     "weg": "beute",
+     "wo": "Kobold"
+    },
+    {
+     "weg": "beute",
+     "wo": "Skelett"
+    },
+    {
+     "weg": "beute",
+     "wo": "Zombie"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Ein roter Heiltrank; er wirkt sofort, auch im Kampf.",
+    "en": "A red healing potion; it works at once, even in battle."
+   },
+   "alt": {
+    "preis": 25,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "greater_potion",
+   "name": {
+    "de": "Großer Heiltrank",
+    "en": "Potion of Greater Healing"
+   },
+   "art": "trank",
+   "platz": null,
+   "stufe": 1,
+   "preis": 75,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "laden",
+     "wo": "Morwen"
+    },
+    {
+     "weg": "herstellen",
+     "wo": "Morwen",
+     "rezept": {
+      "herbs": 3,
+      "bat_wing": 1
+     },
+     "gold": 15
+    },
+    {
+     "weg": "beute",
+     "wo": "Riesenspinne"
+    },
+    {
+     "weg": "beute",
+     "wo": "Goblin-Schamane"
+    },
+    {
+     "weg": "beute",
+     "wo": "Ghul"
+    },
+    {
+     "weg": "beute",
+     "wo": "Ockerschleim"
+    },
+    {
+     "weg": "beute",
+     "wo": "Grimmzahn"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Stärker als der einfache Heiltrank; er wirkt sofort, auch im Kampf.",
+    "en": "Stronger than the plain healing potion; it works at once, even in battle."
+   },
+   "alt": {
+    "preis": 75,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "superior_potion",
+   "name": {
+    "de": "Überragender Heiltrank",
+    "en": "Potion of Superior Healing"
+   },
+   "art": "trank",
+   "platz": null,
+   "stufe": 1,
+   "preis": 200,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Ein seltenes Elixier für schwere Wunden; es wirkt sofort, auch im Kampf.",
+    "en": "A rare elixir for grave wounds; it works at once, even in battle."
+   },
+   "alt": {
+    "preis": 200,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "remedy",
+   "name": {
+    "de": "Kräutertrank",
+    "en": "Herbal Remedy"
+   },
+   "art": "trank",
+   "platz": null,
+   "stufe": 1,
+   "preis": 20,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "laden",
+     "wo": "Morwen"
+    },
+    {
+     "weg": "herstellen",
+     "wo": "Morwen",
+     "rezept": {
+      "herbs": 2
+     },
+     "gold": 2
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Löst Gift, Brand, Blutung, Betäubung und Flüche; auch unverletzt trinkbar.",
+    "en": "Cures poison, burning, bleeding, stun and curses; can be drunk even when unhurt."
+   },
+   "alt": {
+    "preis": 20,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "stamina_potion",
+   "name": {
+    "de": "Ausdauertrank",
+    "en": "Stamina Draught"
+   },
+   "art": "trank",
+   "platz": null,
+   "stufe": 1,
+   "preis": 25,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "laden",
+     "wo": "Morwen"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Bis zur nächsten Rast reicht der Atem beim Rennen doppelt so lange; nicht im Kampf.",
+    "en": "Until the next rest, your breath for running lasts twice as long; not in battle."
+   },
+   "alt": {
+    "preis": 25,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "spark_potion",
+   "name": {
+    "de": "Leuchtfunke",
+    "en": "Lightspark"
+   },
+   "art": "trank",
+   "platz": null,
+   "stufe": 1,
+   "preis": 25,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Von Morwen gebraut, nicht im Kampf zu trinken: Ein Funke steigt auf und leuchtet über dir bis zur nächsten Rast; du siehst im Dunkeln weiter, aber Monster bemerken dich früher.",
+    "en": "Brewed by Morwen, not to be drunk in battle: a spark rises to glow above you until your next rest; in the dark you see further, but monsters notice you sooner."
+   },
+   "alt": {
+    "preis": 25,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "alchemist_fire",
+   "name": {
+    "de": "Alchemistenfeuer",
+    "en": "Alchemist's Fire"
+   },
+   "art": "wurf",
+   "platz": null,
+   "stufe": 1,
+   "preis": 30,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "herstellen",
+     "wo": "Morwen",
+     "rezept": {
+      "spider_gland": 1
+     },
+     "gold": 5
+    },
+    {
+     "weg": "beute",
+     "wo": "Goblin"
+    },
+    {
+     "weg": "beute",
+     "wo": "Goblin-Späher"
+    },
+    {
+     "weg": "beute",
+     "wo": "Kobold"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Ein Wurfgeschoss, das immer trifft und den Gegner in Brand setzt.",
+    "en": "Thrown, it always hits and sets the foe on fire."
+   },
+   "alt": {
+    "preis": 30,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "holy_water",
+   "name": {
+    "de": "Weihwasser",
+    "en": "Holy Water"
+   },
+   "art": "wurf",
+   "platz": null,
+   "stufe": 1,
+   "preis": 25,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    },
+    {
+     "weg": "laden",
+     "wo": "Morwen"
+    },
+    {
+     "weg": "beute",
+     "wo": "Skelett"
+    },
+    {
+     "weg": "beute",
+     "wo": "Zombie"
+    },
+    {
+     "weg": "beute",
+     "wo": "Ghul"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Ein Wurfgeschoss, das immer trifft, aber nur Untoten schadet.",
+    "en": "Thrown, it always hits, but harms only the undead."
+   },
+   "alt": {
+    "preis": 25,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "raw_meat",
+   "name": {
+    "de": "Rohes Fleisch",
+    "en": "Raw Meat"
+   },
+   "art": "rohstoff",
+   "platz": null,
+   "stufe": 1,
+   "preis": 6,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "beute",
+     "wo": "Riesenratte"
+    },
+    {
+     "weg": "beute",
+     "wo": "Wolf"
+    },
+    {
+     "weg": "beute",
+     "wo": "Wildschwein"
+    },
+    {
+     "weg": "beute",
+     "wo": "Grimmzahn"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Am Lagerfeuer lässt es sich braten, oder man verkauft es.",
+    "en": "It can be roasted at a campfire, or sold."
+   },
+   "alt": {
+    "preis": 6,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "roast_meat",
+   "name": {
+    "de": "Gebratenes Fleisch",
+    "en": "Roast Meat"
+   },
+   "art": "nahrung",
+   "platz": null,
+   "stufe": 1,
+   "preis": 16,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "herstellen",
+     "wo": "Lagerfeuer",
+     "rezept": {
+      "raw_meat": 1
+     }
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Stärkt dich für den nächsten Kampf.",
+    "en": "Fortifies you for the next fight."
+   },
+   "alt": {
+    "preis": 16,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "herbs",
+   "name": {
+    "de": "Heilkräuter",
+    "en": "Healing Herbs"
+   },
+   "art": "rohstoff",
+   "platz": null,
+   "stufe": 1,
+   "preis": 8,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "sammeln"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Sie wachsen auf Blumenwiesen in der Wildnis; Morwen braut daraus Tränke.",
+    "en": "They grow in wild flower meadows; Morwen brews potions from them."
+   },
+   "alt": {
+    "preis": 8,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "wolf_pelt",
+   "name": {
+    "de": "Wolfsfell",
+    "en": "Wolf Pelt"
+   },
+   "art": "rohstoff",
+   "platz": null,
+   "stufe": 1,
+   "preis": 24,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "beute",
+     "wo": "Wolf"
+    },
+    {
+     "weg": "beute",
+     "wo": "Grimmzahn"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Ein dichtes graues Fell; Händler zahlen gut dafür.",
+    "en": "A thick gray pelt; traders pay well for it."
+   },
+   "alt": {
+    "preis": 24,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "boar_tusk",
+   "name": {
+    "de": "Keilerhauer",
+    "en": "Boar Tusk"
+   },
+   "art": "rohstoff",
+   "platz": null,
+   "stufe": 1,
+   "preis": 20,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "beute",
+     "wo": "Wildschwein"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Ein gebogener Hauer; Händler zahlen gut dafür.",
+    "en": "A curved tusk; traders pay well for it."
+   },
+   "alt": {
+    "preis": 20,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "spider_gland",
+   "name": {
+    "de": "Giftdrüse",
+    "en": "Venom Gland"
+   },
+   "art": "rohstoff",
+   "platz": null,
+   "stufe": 1,
+   "preis": 30,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "beute",
+     "wo": "Riesenspinne"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Aus einer Riesenspinne; Morwen kann daraus Alchemistenfeuer mischen.",
+    "en": "From a giant spider; Morwen can mix alchemist's fire from it."
+   },
+   "alt": {
+    "preis": 30,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "bat_wing",
+   "name": {
+    "de": "Fledermausflügel",
+    "en": "Bat Wing"
+   },
+   "art": "rohstoff",
+   "platz": null,
+   "stufe": 1,
+   "preis": 16,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "beute",
+     "wo": "Riesenfledermaus"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Ledrig und zäh, eine Zutat für starke Heiltränke.",
+    "en": "Leathery and tough, an ingredient for strong healing potions."
+   },
+   "alt": {
+    "preis": 16,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "gwenna_ring",
+   "name": {
+    "de": "Gwennas Ring",
+    "en": "Gwenna's Ring"
+   },
+   "art": "handlung",
+   "platz": null,
+   "stufe": 1,
+   "preis": 0,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "handlung"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Ein schmaler Ring aus angelaufenem Silber; Gwenna wartet am Fluss darauf.",
+    "en": "A slim ring of tarnished silver; Gwenna is waiting for it by the river."
+   },
+   "alt": {
+    "preis": 0,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "grey_rag",
+   "name": {
+    "de": "Grauer Fetzen",
+    "en": "Gray Rag"
+   },
+   "art": "handlung",
+   "platz": null,
+   "stufe": 1,
+   "preis": 0,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "handlung"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Grobes graues Tuch, ein offenes Auge hineingestickt; Jorin will es sehen.",
+    "en": "Coarse gray cloth, an open eye stitched into it; Jorin wants to see it."
+   },
+   "alt": {
+    "preis": 0,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "smoke_bundle",
+   "name": {
+    "de": "Rauchbündel",
+    "en": "Smoke Bundle"
+   },
+   "art": "handlung",
+   "platz": null,
+   "stufe": 1,
+   "preis": 0,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "handlung"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Ein Bündel beißender Kräuter von Morwen. Krogg vor die Füße werfen: Der Rauch nimmt ihm den ersten Hieb. Nur im Kampf.",
+    "en": "A bundle of acrid herbs from Morwen. Throw it at Krogg's feet: the smoke takes away his first blow. Only in battle."
+   },
+   "alt": {
+    "preis": 0,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "rusty_key",
+   "name": {
+    "de": "Rostiger Schlüssel",
+    "en": "Rusty Key"
+   },
+   "art": "handlung",
+   "platz": null,
+   "stufe": 1,
+   "preis": 0,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "beute",
+     "wo": "Krogg"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Er gehörte Krogg dem Grobian.",
+    "en": "It belonged to Krogg the Brute."
+   },
+   "alt": {
+    "preis": 0,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "grak_key",
+   "name": {
+    "de": "Graks Schlüssel",
+    "en": "Grak's Key"
+   },
+   "art": "handlung",
+   "platz": null,
+   "stufe": 1,
+   "preis": 0,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "beute",
+     "wo": "Grak"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Ein kleiner, blanker Schlüssel. Er passt nicht zu den Türen.",
+    "en": "A small, bright key. It fits none of the doors."
+   },
+   "alt": {
+    "preis": 0,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "sun_amulet",
+   "name": {
+    "de": "Sonnenamulett",
+    "en": "Sun Amulet"
+   },
+   "art": "handlung",
+   "platz": null,
+   "stufe": 1,
+   "preis": 0,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "beute",
+     "wo": "Grak"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Das heilige Amulett aus dem Tempel von Bornim; es ist warm.",
+    "en": "The holy amulet of the Bornim temple; it feels warm."
+   },
+   "alt": {
+    "preis": 0,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "prophet_letter",
+   "name": {
+    "de": "Versiegelter Brief",
+    "en": "Sealed Letter"
+   },
+   "art": "handlung",
+   "platz": null,
+   "stufe": 1,
+   "preis": 0,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "beute",
+     "wo": "Grak"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Ein Brief, gesiegelt mit einem grauen Auge.",
+    "en": "A letter, sealed with a gray eye."
+   },
+   "alt": {
+    "preis": 0,
+    "stufe": null,
+    "quelle": "Kotlin"
+   }
+  }
+ ]
+}

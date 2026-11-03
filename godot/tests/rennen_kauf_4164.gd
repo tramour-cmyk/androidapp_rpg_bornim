@@ -22,7 +22,7 @@ func _lauf() -> void:
 		var m := HeldFigur.baue(w, [])
 		var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
 		var a := ap.get_animation("Rennen")
-		var f := float(m.get_meta("rennen_m_je_s")) / maxf(0.001, float(HeldFigur.lade_info().get("rennen_m_je_s", 1.0)))   # Groesse Figur/UAL
+		var f := float(m.get_meta("massstab", 1.0))   # Groesse Figur/UAL (416.4: rennen_m_je_s ist jetzt umgetaktet)
 		var quelle: Animation = HeldFigur.renn_lib[art] if HeldFigur.renn_lib.has(art) else HeldFigur.bew_lib.get_animation("Rennen")
 		var h := HeldFigur.renn_hoehen(quelle, HeldFigur.bew_sk, HeldFigur.bew_raum)
 		var tl: float = h["l"].min(); var tr: float = h["r"].min()

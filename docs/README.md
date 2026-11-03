@@ -7,26 +7,32 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 - [Chefsache](chefsache/): was der Chef entscheiden oder ansehen soll
 - [Wochenplan](LISTE-WOCHENPLAN.md): Termine und Routinen, wer meldet wann wohin
 - [Besetzung](ARBEIT-BESETZUNG.md): wer gerade woran
-- [Tagesbericht](ARBEIT-TAGESBERICHT.md): eine Seite am Tag, was du tun musst, Wochenziel, was hakt
+- [Tagesbericht](ARBEIT-TAGESBERICHT.md): ein Bericht am Morgen: zehn Kennzahlen, Roadmap und Meilensteine, je Rolle offen und erledigt, wer hinkt (erster 01.11., 448.1; täglich nach Chefsache 448)
 - [Betrieb](ARBEIT-BETRIEB.md): Guthaben, Protokoll der Läufe
 - [Vorgangsarchiv](VORGANGSARCHIV.md): was entschieden ist, neueste oben
 - [Prüfbericht](PRUEFBERICHT.md): offene Befunde von Diogenes und Kennzahlen der Woche; erledigte Läufe im [Archiv](PRUEFBERICHT-ARCHIV.md)
-- [Vorgänge](LISTE-VORGAENGE.md): jede Nummer mit Bereich, Muss oder Kür, Kosten
+- [Vorgänge](LISTE-VORGAENGE.md): jede Nummer mit Bereich, Muss oder Kür, Kosten; abgeschlossene im [Archiv](LISTE-VORGAENGE-ARCHIV.md)
 - [Checkliste MARS](LISTE-MARS.md): was im Kampfsystem steht, was fehlt, klassisch ↔ MARS (296)
 - [Testgeräte](LISTE-TESTGERAETE.md): Geräteangaben und Messwerte der Tester (388)
-- [Abnahme Kapitel 1](LISTE-ABNAHME-KAPITEL1.md): Meilenstein und Wochenziel
+- [Abnahme Kapitel 1](LISTE-ABNAHME-KAPITEL1.md): Meilenstein, Wochenziel, Stand zum Marktstart (Meilensteine neu: 447)
+- [Umzug nach Godot](LISTE-UMZUG-348.md): was aus der alten Fassung übernommen ist und was fehlt (348, 398)
+- [Grundstand](LISTE-GRUNDSTAND-461.md): was zu Figuren und Kampf entschieden ist; jede Vorlage wird dagegen geprüft (461)
+- [Netzliste](LISTE-NETZE.md): je sichtbarem Platz die Netze (Bestand, unser, Eigenbau) und welche Gegenstände sie tragen (455.2)
 
 ## Spiel
 
 - [Leitbild](DESIGN-LEITBILD.md): roter Faden, gilt bei Widerspruch
 - [Stil](DESIGN-STIL.md): Aussehen, Klang, Spielgefühl
 - [Abnahme](DESIGN-ABNAHME.md): „Ort fertig“, selbst prüfen
-- [Kampf](DESIGN-KAMPF.md), [Balance](DESIGN-BALANCE.md), [Heldenbau](DESIGN-HELDENBAU.md), [Blende](DESIGN-BLENDE.md), [Spielsystem 2.0](DESIGN-SPIELSYSTEM-2-0.md) (Entwurf, 413), [Nachschlagewerk](DESIGN-SPIELSYSTEM-2-0-ENTWURF.md) (Entwurf 422)
+- [Kampf](DESIGN-KAMPF.md), [Balance](DESIGN-BALANCE.md), [Heldenbau](DESIGN-HELDENBAU.md), [Blende](DESIGN-BLENDE.md), [Nachschlagewerk Bornimer Rollenspielsystem (BRS)](DESIGN-SPIELSYSTEM-2-0-ENTWURF.md) (gilt seit 01.11., 422; Zahlen nach 444), [Verlauf und Begründungen](DESIGN-SPIELSYSTEM-2-0.md) (413)
+- [Spielerhandbuch](STORY-HANDBUCH-1.md) (Entwurf 423, Teile [2](STORY-HANDBUCH-2.md), [3](STORY-HANDBUCH-3.md)): das Spielsystem für den Spieler erklärt, das gebündelte Lesestück
 - [Storyplan](STORY-PLAN.md): Plot und Figuren je Kapitel, Kapitel 2 mit Karte und [Textentwurf](STORY-K2-ENTWURF.md)
 - [Story-Verzeichnis](STORY-REGELN.md): alle Spieltexte mit Marken; Kapitel 1 [Handlung](STORY-K1-HANDLUNG.md) und [Welt](STORY-K1-WELT.md), [Blende](STORY-BLENDE.md)
 - Aus Artefakten übernommen (246.1): [Roter Faden](STORY-ROTER-FADEN.md), [Chronik-Texte Kapitel 1](STORY-CHRONIK-TEXTE-K1.md), [Kapitel-2-Landkarte](STORY-K2-LANDKARTE.md), [Spielanleitung MARS 72.10a](DESIGN-KAMPF-SPIELANLEITUNG-72-10A.md), [MARS-Aufstellung](DESIGN-MARS-AUFSTELLUNG.md), [Prüfbogen Tester](LISTE-PRUEFBOGEN-TESTER.md)
+- [Durchspielbogen](LISTE-DURCHSPIELBOGEN.md): Vorlage für Durchspiele (26); [Englisch-Korrekturliste](LISTE-ENGLISCH-338-1B.md) (338.1b, alte Fassung)
 - [Figuren](LISTE-FIGUREN.md): festes Aussehen wiederkehrender Leute und Monster
-- [Bestiarium](LISTE-BESTIARIUM.md): Monsterarten mit Angriffen, Beute, Werten für Spielsystem 2.0 (427)
+- [Gegenstände](LISTE-GEGENSTAENDE.md): alles, was es gibt, nach Art und Bezugsweg; erzeugt aus `tools/gegenstaende/gegenstaende.json` mit `tools/gegenstaende.py` (458)
+- [Bestiarium](LISTE-BESTIARIUM.md): Monsterarten mit Angriffen, Beute, Werten für das BRS (427)
 - [Simulation 2.0](LISTE-SIMULATION-444.md): Rechensimulation Herkunft × Art × Stufe, Fortschritt bis Stufe 6, Befund (444)
 - [Grafikweg](LISTE-GRAFIKWEG.md): Engine, Grafikkerne, Blender-Modelle, Baukästen (348)
 - [Bestand](LISTE-BESTAND.md): Inventur aller gekauften und geladenen Bewegungen, Figuren, Tiere, Dinge, Bauteile; vor jedem Eigenbau lesen (377)

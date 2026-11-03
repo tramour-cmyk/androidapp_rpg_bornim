@@ -11,8 +11,8 @@ const RENNEN := 3.68 * Karte.TS
 const BESCHL := 5.0
 const FPS := 30.0
 # Abschnitte: [Titel, Sekunden, Ansicht, Zeitfaktor]
-const TEILE := [["Spielansicht · Echtzeit", 7.0, "spiel", 1.0], ["von der Seite · Echtzeit", 4.0, "seite", 1.0],
-	["von der Seite · halbe Geschwindigkeit", 5.0, "seite", 0.5]]
+const TEILE := [["Spielansicht · Echtzeit", 7.0, "spiel", 1.0], ["von der Seite · Echtzeit", 7.0, "seite", 1.0],
+	["von der Seite · halbe Geschwindigkeit", 14.0, "seite", 0.5]]
 
 var felder := []
 var kopf: Label
@@ -40,7 +40,11 @@ func _bau() -> void:
 	reihe.add_child(rand)
 	for e in helde:
 		var teil := e.split("|")
-		felder.append(_feld(reihe, teil[0], teil[1], Vector2i(breite, hoehe)))
+		var fd := _feld(reihe, teil[0], teil[1], Vector2i(breite, hoehe))
+		fd["alt"] = teil.size() > 2 and teil[2] == "alt"   # 416.4: Uebergaenge wie vor dem 01.11. (sofort los, ohne Bremsen, 0,25 s in den Stand)
+		fd["bisher"] = teil.size() > 2 and teil[2] == "bisher"   # 416.4 vor dem Abbremsen in Stufen (Chef 20:3x): Rennen -> Gehen mit BESCHL
+		if not fd["alt"] and not fd["bisher"]: Held.baue_aus(fd["anim"])
+		felder.append(fd)
 	kopf = Label.new()
 	kopf.position = Vector2(0, 12)
 	kopf.size = Vector2(fenster.x, 50)
@@ -74,6 +78,7 @@ func _feld(reihe: VBoxContainer, titel: String, ordner: String, px: Vector2i) ->
 	sonne.shadow_enabled = true
 	sonne.light_energy = 1.2
 	vp.add_child(sonne)
+	Licht.zur_sonne = sonne.basis.z.normalized()   # 416.4 Grundstand A1: Tusche nach dieser Sonne (Kamera)
 	vp.add_child(_boden())
 	var held := Node3D.new()
 	held.rotation.y = PI / 2   # läuft nach +X
@@ -108,11 +113,8 @@ func _feld(reihe: VBoxContainer, titel: String, ordner: String, px: Vector2i) ->
 		Gebiet.bewegungen(anim, ["Gehen", "Stehen", "Rennen"])
 	anim.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 	anim.play("Stehen")
-	var cam := Camera3D.new()
-	cam.projection = Camera3D.PROJECTION_ORTHOGONAL
-	cam.keep_aspect = Camera3D.KEEP_WIDTH
-	cam.near = 0.5
-	cam.far = 120.0
+	# 416.4 Grundstand A1 (457.1): Spielkamera mit Tusche nach Licht (Welt Schablone 0, Held 2) statt einer blanken Camera3D
+	var cam := Kamera.new()
 	vp.add_child(cam)
 	var schild := Label.new()
 	schild.text = titel
@@ -168,24 +170,49 @@ func _schritt() -> void:
 	t_sim += dt
 	for f in felder: _held(f, dt, e[2])
 
-# wie held.gd _process: Stehen 0,5 s, Gehen bis 1,6 s, dann Anlauf auf Rennen
+# wie held.gd _process (416.4, Chef 01.11., 13:1x: „von Stehen zu Gehen oder Laufen muss weich sein“): je ZYKLUS Stehen, Gehen,
+# Rennen, Gehen, Bremsen am Ende des Wegs, Stehen; Tempo und Ueberblendung aus held.gd (Held.tempo_schritt, Held.bremse,
+# Held.ueberblendung), Feld „alt“ wie vorher
+const ZYKLUS := 7.0
+const FOLGE := [[0.8, 0.0], [2.4, 1.0], [4.4, 2.0], [6.2, 1.0], [7.0, 0.0]]   # bis Sekunde, 0 Stehen, 1 Gehen, 2 Rennen
 func _held(f: Dictionary, dt: float, ansicht: String) -> void:
 	var held: Node3D = f["held"]
 	var anim: AnimationPlayer = f["anim"]
-	var soll := 0.0 if t_sim < 0.5 else (GEHEN if t_sim < 1.6 else RENNEN)
+	var z := fmod(t_sim, ZYKLUS)
+	var art := 0.0; var bis := 0.0; var naechste := 0.0
+	for i in FOLGE.size():
+		if z < FOLGE[i][0]:
+			art = FOLGE[i][1]; bis = FOLGE[i][0]; naechste = FOLGE[i + 1][1] if i + 1 < FOLGE.size() else 0.0
+			break
+	var soll: float = [0.0, GEHEN, RENNEN][int(art)]
 	var moving := soll > 0.0
-	f["tempo"] = 0.0 if not moving else (minf(soll, GEHEN) if f["tempo"] <= 0.0 else move_toward(f["tempo"], soll, BESCHL * dt))
+	var alt: bool = f.get("alt", false)
+	var neu: bool = not alt and not f.get("bisher", false)
+	var ab := Held.ABBREMS if neu else BESCHL   # 416.4 wie held.gd: langsamer werden ohne Halt gut 1 s
+	if moving and naechste == 0.0 and not alt:   # Ende des Wegs: so weit, wie er noch im Gehtempo kaeme
+		var b := Held.bremse(soll, (bis - z) * GEHEN, GEHEN)
+		if b < soll - 0.001: ab = BESCHL
+		soll = b
+	var vor: float = f["tempo"]
+	var abbremsen: bool = neu and ab == Held.ABBREMS and vor > soll + 0.05 and soll <= GEHEN * 1.45
+	if alt: f["tempo"] = 0.0 if not moving else (minf(soll, GEHEN) if f["tempo"] <= 0.0 else move_toward(f["tempo"], soll, BESCHL * dt))
+	else: f["tempo"] = Held.tempo_schritt(f["tempo"], soll, GEHEN, dt, ab)
 	var tempo: float = f["tempo"]
 	held.position.x += tempo * dt
 	var rennt := moving and tempo > GEHEN * 1.45
+	if neu: rennt = Held.rennt_jetzt(anim, moving, tempo, soll, GEHEN, tempo < vor - 1e-5, abbremsen, f["renn"], f["gang"])
 	var want := ("Rennen" if rennt else "Gehen") if moving else "Stehen"
 	var cur := anim.current_animation
-	if cur != want:
+	var v: float = f["renn"] if rennt else f["gang"]
+	var sp := (tempo / v) if moving else 1.0
+	if cur != want and not alt: Held.wechsel(anim, want, moving, sp, neu)   # 416.4: Ueberblendung in echter Zeit, Schritt nach Tritten; neu: sanft
+	elif cur != want:
 		var phase := anim.current_animation_position / maxf(0.001, anim.current_animation_length) if cur != "" else 0.0
 		var schritt := cur.begins_with("Gehen") or cur.begins_with("Rennen")
 		anim.play(want, 0.6 if schritt and moving else (0.5 if cur.begins_with("Stehen") else 0.25))
 		if schritt and moving: anim.seek(phase * anim.get_animation(want).length)
-	anim.speed_scale = (tempo / (f["renn"] if rennt else f["gang"])) if moving else 1.0
+	if moving and anim.has_meta("halt"): anim.remove_meta("halt")
+	anim.speed_scale = (Held.takt(anim, tempo, v, dt) if not alt else sp) if moving else (Held.stand_takt(anim, dt) if neu else 1.0)
 	anim.advance(dt)
 	var cam: Camera3D = f["cam"]
 	var ziel := held.position + Vector3(0, 0.9, 0)

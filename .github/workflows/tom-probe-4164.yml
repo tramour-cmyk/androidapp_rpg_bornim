@@ -9,6 +9,10 @@ on:
     branches: ["claude/tom-416-4-**"]
     paths: ["godot/skripte/heldfigur.gd", "godot/tests/rennen_*", ".github/workflows/tom-probe-4164.yml"]
   workflow_dispatch:
+    inputs:
+      film:
+        description: "Film drehen (ja/nein; nein: nur Messung ohne Bild, kein Probelauf)"
+        default: "ja"
 
 jobs:
   probe:
@@ -95,21 +99,25 @@ jobs:
           timeout 300 ~/godot/godot --headless --import --path . > import.log 2>&1 || true
           timeout 120 ~/godot/godot --headless --path . -s res://tests/skripte_pruefen.gd 2>&1 | grep -E "SKRIPTE|FALSCH|SCRIPT ERROR|Parse Error" | tee $GITHUB_WORKSPACE/probe/skripte.log || true
           set -o pipefail
-          timeout 300 ~/godot/godot --headless --path . -s res://tests/rennen_kauf_4164.gd 2>&1 | grep -E "^(RENNEN|FEHLER)|SCRIPT ERROR|^ +at: " | cut -c1-600 | tee $GITHUB_WORKSPACE/probe/messung.log
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/rennen_kauf_4164.gd 2>&1 | grep -E "^(RENNEN|FEHLER)|SCRIPT ERROR|^ +at: " | cut -c1-600 | tee $GITHUB_WORKSPACE/probe/messung.log || true
+          # 416.4 (Chef 20:3x Abbremsen in Stufen; Pruefer 4611 Stocken je Kachel): am echten Held (held.gd) im Dorf, Ergebnis in auslauf.log
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/rennen_auslauf_4164.gd 2>&1 | grep -E "^(AUSLAUF|FEHLER)|SCRIPT ERROR|^ +at: " | cut -c1-700 | tee $GITHUB_WORKSPACE/probe/auslauf.log || true
+          # Pruefer 15:1x: Rennen -> Gehen springt; je Bild Neigung und groesste Knochendrehung um den Wechsel
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/rennen_wechsel_4164.gd 2>&1 | grep -E "^(WECHSEL|SCHLEIFE|BILD|FEHLER)|SCRIPT ERROR|^ +at: " | cut -c1-600 | tee $GITHUB_WORKSPACE/probe/wechsel.log
       - name: Film
-        if: always()
+        if: always() && inputs.film != 'nein'
         run: |
           sudo apt-get install -y -qq xvfb libgl1-mesa-dri > /dev/null
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; }
           export PATH=~/ffbin:$PATH
           mkdir -p $GITHUB_WORKSPACE/probe
           cd godot
-          export HELDE="heute|kauf:heute;A · halb so lange in der Luft|kauf:A;B · noch flacher|kauf:B"
+          export HELDE="bisher|kauf:A|bisher;Abbremsen in Stufen (416.4)|kauf:A"   # 416.4 Chef 20:3x Abbremsen in Stufen, Rennen A
           timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 \
             --write-movie $RUNNER_TEMP/film.avi --fixed-fps 30 -s res://tests/rennen_film_4164.gd > $GITHUB_WORKSPACE/probe/film.log 2>&1 || true
           grep -E "^FILM|SCRIPT ERROR|^ +at: " $GITHUB_WORKSPACE/probe/film.log | cut -c1-400 | head -40
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/film.avi -vf "scale=720:-2" -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast -movflags +faststart $GITHUB_WORKSPACE/probe/4164-rennen.mp4
-          ffmpeg -loglevel error -y -ss 4 -i $GITHUB_WORKSPACE/probe/4164-rennen.mp4 -frames:v 1 $GITHUB_WORKSPACE/probe/4164-rennen.png
+          ffmpeg -loglevel error -y -ss 1 -i $GITHUB_WORKSPACE/probe/4164-rennen.mp4 -frames:v 1 $GITHUB_WORKSPACE/probe/4164-rennen.png
           ls -l $GITHUB_WORKSPACE/probe
           ! grep -qE "SCRIPT ERROR|FILM FEHLER" $GITHUB_WORKSPACE/probe/film.log
       - uses: actions/upload-artifact@v4

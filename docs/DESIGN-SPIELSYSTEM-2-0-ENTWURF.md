@@ -1,6 +1,6 @@
-# Spielsystem 2.0 – Anleitung und Nachschlagewerk
+# Bornimer Rollenspielsystem (BRS) – Anleitung und Nachschlagewerk
 
-Gültige Fassung (Vorgang 422, abgenommen vom Chef 01.11.2026; Zahlen erst nach der Rechensimulation 444). Hier steht nur, was gilt, und am Ende, was noch offen ist. Verlauf und Begründungen stehen in [`DESIGN-SPIELSYSTEM-2-0.md`](DESIGN-SPIELSYSTEM-2-0.md). Alle Zahlen sind Startwerte; sie werden mit einer Simulation in der Godot-Fassung gemessen und angepasst.
+Name seit 01.11.2026 (451; vorher Arbeitstitel „Spielsystem 2.0“, Dateinamen bleiben). „BRS“ als Kürzel im Text und im Spiel, nie als eigener Schriftzug oder Logo. Gültige Fassung (Vorgang 422, abgenommen vom Chef 01.11.2026; Zahlen erst nach der Rechensimulation 444). Hier steht nur, was gilt, und am Ende, was noch offen ist. Verlauf und Begründungen stehen in [`DESIGN-SPIELSYSTEM-2-0.md`](DESIGN-SPIELSYSTEM-2-0.md). Alle Zahlen sind Startwerte; sie werden mit einer Simulation in der Godot-Fassung gemessen und angepasst.
 
 ## Auf einen Blick
 

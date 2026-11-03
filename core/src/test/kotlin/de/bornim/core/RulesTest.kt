@@ -63,7 +63,7 @@ class RulesTest {
         val gs = s.addGear(Gear(0, "greatsword", Rarity.COMMON, 1))
         assertTrue(s.equipFromBag(gs))
         assertNull(s.hero.item(GearSlot.OFF_HAND))
-        assertEquals(setOf("shield", "longsword"), s.bag.map { it.base }.toSet())
+        assertEquals(setOf("round_shield", "longsword"), s.bag.map { it.base }.toSet())   // 406: Kämpfer mit Rundschild
     }
 
     @Test

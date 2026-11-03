@@ -186,7 +186,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | D1 | Befunde Diogenes Lauf 1 (Verdachte Klang) | Q QS | K |  | Jerry | erledigt |
 | D3 | Befunde Diogenes Lauf 3 (Klang, Absprache `WorldScreen.kt`) | Q QS | K | 0,72 | Jerry | erledigt |
 | D23 | Befunde Diogenes Lauf 23 (D4.1 gemessen); Entscheidung D23.1 | G Balance | K | 2,42 $ | Jerry, Tom | erledigt |
-| 146 | Figurenübersicht: Fähigkeiten, Charakterzug, Schlüsselsatz (Idee Chef) | G Story | M | 1,18 $ | Homer | erledigt |
+| 146 | Figurenübersicht: Fähigkeiten, Charakterzug, Schlüsselsatz (Idee Chef) | G Story | M | 8,38 $ | Homer | erledigt |
 | 149.1 | Kür-Starts Jerry nach 159b mitzählen | Q QM | M | 0,71 $ | Diogenes | erledigt |
 | 150 | Spielzeit im Menü? (Frage Chef) | B Technik | K |  | Tom | erledigt |
 | 155 | Lagerfeuer in der Höhle: bleibt, Rast gesperrt (Feedback Chef Build 16) | G Höhle | M | Perikles 0,30 $, Jerry 0,43 $ | Jerry | erledigt |
@@ -502,11 +502,40 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 428 | Bestiarium: kurze Hintergrundgeschichte je Monsterart (zu 427, Chef 31.10., 21:3x) | C Texte | M | – | Homer | erledigt |
 | 430 | Abnahmelisten für Elf, Zwerg, Hügelvolk, Orkblütiger (Größe, Umriss, Merkmal, Farbe, Haltung) in `LISTE-FIGUREN.md` (Chef 31.10., 22:0x) | D Design | M | 5,42 $ | Homer | erledigt |
 | 441 | Prüfung im Doppelpack: Nachschlagewerk Spielsystem 2.0 (Entscheidungen bis 75) quergelesen (Chef 31.10., 23:40) | D Design | M | – | Diogenes | erledigt |
-| 413 | Spielsystem 2.0: Entwurf `DESIGN-SPIELSYSTEM-2-0.md`, Auseinandersetzung, Meilensteine (Chef 31.10., 20:1x) | D Design | M | 1,17 $ | Sokrates | erledigt |
+| 413 | Spielsystem 2.0: Entwurf `DESIGN-SPIELSYSTEM-2-0.md`, Auseinandersetzung, Meilensteine (Chef 31.10., 20:1x) | D Design | M | 4,90 $ | Sokrates | erledigt |
 | 418 | Oberste Direktive neu in `CLAUDE.md`, Abnahmeliste Kapitel 1 darauf und auf Spielsystem 2.0 umschreiben („jetzt“ 31.10., 21:21) | B Abläufe | M | 3,43 $ | Perikles | erledigt |
-| 422 | Spielsystem 2.0 als Anleitung und Nachschlagewerk: Dokument eindampfen, liest sich wie eine Anleitung, Verlauf der Entscheidungen getrennt (Chef 31.10., 21:2x) | D Design | M | – | Sokrates | erledigt |
+| 422 | Spielsystem 2.0 als Anleitung und Nachschlagewerk: Dokument eindampfen, liest sich wie eine Anleitung, Verlauf der Entscheidungen getrennt (Chef 31.10., 21:2x) | D Design | M | 3,73 $ | Sokrates | erledigt |
 | 432.1 | Stellungnahme Sokrates zu Chefsache 432 (Chef 01.11., 09:13) | C Texte | K | – | Sokrates | erledigt |
-| 442 | Modellzuordnung der Sitzungen nach der Startzuordnung, Startprüfung je Sitzung (Chef 31.10., 23:52) | B Abläufe | M | – | Sokrates | erledigt |
+| 442 | Modellzuordnung der Sitzungen nach der Startzuordnung, Startprüfung je Sitzung (Chef 31.10., 23:52) | B Abläufe | M | 3,73 $ | Sokrates | erledigt |
 | 443a | Rückfrage: gilt die Namensform 436 auch für Ford (D52.3)? | B Abläufe | M | – | Diogenes | erledigt |
-| 445 | Alle offenen Chefsachen mit Lösung zum stärksten Gegenargument neu bewerten (Chef 01.11., 09:32) | B Abläufe | M | – | Sokrates | erledigt |
+| 445 | Alle offenen Chefsachen mit Lösung zum stärksten Gegenargument neu bewerten (Chef 01.11., 09:32) | B Abläufe | M | 3,73 $ | Sokrates | erledigt |
 | 413b | Rückfrage: Leitbild „baut auf SRD 5.1 auf“ und CLAUDE.md „Kotlin, Jetpack Compose“ nachziehen? | D Design | M | – | Sokrates | erledigt |
+| 418.1 | Abnahmeliste nach Entscheid 418 nachziehen: Umfang A mit Datenfeldern und je Herkunft einer Handlung (Chef 01.11., 09:43) | B Abläufe | M | – | Perikles | erledigt |
+| 446 | Wächter Lizenzhinweis SRD: `regelcheck` meldet, solange SRD-Abgeleitetes im Spiel ist; Hinweis fällt erst bei leerer Inventur (Chef 01.11., 09:41, 413a) | B Werkzeuge | M | 2,86 $ | Perikles | erledigt |
+| 449 | Commit-Haken weist gekaufte Rohdateien ab (aus 416.4a, 01.11.) | B Werkzeuge | M | 5,10 $ | Perikles | erledigt |
+| 450 | Jedes Blatt in der Chefsache mit Link auf Bild und Film; `meldung.sh` trägt ihn selbst ein (Chef 01.11., 10:55) | B Werkzeuge | M | 0,78 $ | Perikles | erledigt |
+| 448 | Tagesbericht mit Zahlen statt Ampeln (Chef 01.11., 10:46) | B Abläufe | M | 3,73 $ | Sokrates | erledigt |
+| 448.1 | Erster Tagesbericht jetzt, mit Zahlen und den Meilensteinen (Chef 01.11., 10:59, „jetzt“) | B Abläufe | M | – | Perikles | erledigt |
+| 448.2 | Tagesbericht dauerhaft mit Werkzeug, ersetzt Stand zum Marktstart (Chef 01.11., 11:09) | B Werkzeuge | M | 5,10 $ | Perikles | erledigt |
+| 455 | Ausrüstung am Modell als Baukasten (Netz × Material × Zeichen), nur sichtbare Plätze mit Netz (Chef 01.11., 11:15) | D Design | M | – | Sokrates | erledigt |
+| 444 | Rechensimulation Spielsystem 2.0 am Rechner (ohne Godot): Herkunft × Monsterart × Stufe 1–6, Zahlen aus einer Tabelle (Chef 01.11., 09:24) | E Kampf | M | 4,41 $ | Team Jerry | erledigt |
+| 456 | Prüfung im Doppelpack (421): 448.2 Tagesbericht-Werkzeug und Ford-Meldung, 449 Commit-Haken Kaufdateien, 450 Bildlinks | B Abläufe | M | 0,78 $ | Diogenes | erledigt |
+| 431a | Rückfrage: dritten Probelauf für 431 freigeben (Lauf 2 ohne Spiel-Look, Füße und Schulter falsch) | E Figuren | M | – | Team Tom | erledigt |
+| 447 | Meilensteine neu: Stufen K1–K4 bis marktreif, W1–W3 danach (Chef 01.11., 09:51, 10:46) | B Abläufe | M | 3,73 $ | Sokrates | erledigt |
+| 451 | Name für das Spielsystem statt „2.0“ (Chef 01.11., 10:59) | D Design | M | 3,73 $ | Sokrates | erledigt |
+| 458 | Katalog aller Gegenstände: eine Datendatei, Übersicht `LISTE-GEGENSTAENDE.md` daraus erzeugt (Chef 01.11., 13:0x) | D Design | M | – | Sokrates | erledigt |
+| 452 | Notizen-Übersicht `docs/README.md` aktualisieren, gebündeltes Dokument für den Chef (Chef 01.11., 10:59, 11:00) | B Abläufe | M | – | Sokrates | erledigt |
+| 423 | Spielerhandbuch aus dem Nachschlagewerk 422: was der Spieler wissen muss, in unserem Ton, Deutsch und Englisch (Chef 31.10., 21:2x) | C Texte | M | 4,14 $ | Homer | erledigt |
+| 453.3 | Grundsatz „lebende Figuren atmen immer“ in `DESIGN-STIL.md` (Chef 01.11., 13:0x) | G Stil | M | – | Homer | erledigt |
+| 451.1 | Name „Bornimer Rollenspielsystem“ in CLAUDE.md, Leitbild, Rollendateien, Werkzeugtexten (Chef 01.11., 451) | B Abläufe | M | – | Perikles | erledigt |
+| 451.2 | Name „Bornimer Rollenspielsystem“ im Handbuch 423 und in Spieltexten (Chef 01.11., 451) | C Texte | M | 7,87 $ | Homer | erledigt |
+| 458.1 | Gegenstandskatalog: Datendatei festlegen, Werkzeug für `LISTE-GEGENSTAENDE.md` (Chef 01.11., 458 ja) | B Abläufe | M | 11,08 $ | Perikles | erledigt |
+| 447.1 | Abnahmeliste auf Stufen 1–6 umstellen, Block G erweitern, Schätzung je Stufe (Chef 01.11., 447 ja mit K2b) | B Abläufe | M | – | Perikles | erledigt |
+| 458.4 | Gegenstandskatalog: Namen und Kurztexte (Chef 01.11., 458) | C Texte | M | – | Homer | erledigt |
+| 447.1 | Abnahmeliste auf Stufen 1–6 umstellen, Block G erweitern, Schätzung je Stufe (Chef 01.11., 447 ja mit K2b) | B Abläufe | M | – | Perikles | erledigt |
+| 459 | Doppelpack 421: Prüfung 458.1, 451.1, 447.1, 457 (Perikles 01.11.) | B Abläufe | M | 4,71 $ | Diogenes | erledigt |
+| 459.1 | Befunde D56.1–4 nachbessern: Wächter 457, alter Plan im Tagesbericht, Katalog-Haken (Diogenes Lauf 55) | B Abläufe | M? | – | Perikles | erledigt |
+| 447.3 | Schätzung je Stufe, Bereich Jerry; Stufe 3 in Simulation 444 (447) | B Abläufe | M | 5,89 $ | Team Jerry | erledigt |
+| 447.5 | Abgleich Abnahmeliste 3.1 (erste Prüfung je Pfad) mit E 79 (447) | D Design | M | – | Sokrates | erledigt |
+| 457 | Signatur in jeder Probe: Wächter für Vorlagen ohne Toon/Tusche, Probeskripte mit Spielshadern (Chef 01.11., 11:49) | B Abläufe | M | – | Perikles | erledigt |
+| 447.2 | Schätzung je Stufe, Bereich Tom (447) | B Abläufe | M | – | Team Tom | erledigt |
