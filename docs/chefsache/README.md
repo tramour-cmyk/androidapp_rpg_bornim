@@ -44,12 +44,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 102, Muss 81, startbar 10
+**Tom** – offen 102, Muss 81, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | startbar |
-| 569 | M | von Sokrates (Chef 04.11., 19:44, Bild 558 Probe 4 Wald Tag; Zu 569): Baumkronen ohne Umri | startbar |
+| 569 | M | von Sokrates (Chef 04.11., 19:44, Bild 558 Probe 4 Wald Tag; Zu 569): Baumkronen ohne Umri | wartet auf Sokrates |
 | 568 | M? | von Sokrates (Chef 04.11., 19:42, „grundsätzlich bei 568. Für A.“; DESIGN-SPIELSYSTEM-2-0. | startbar |
 | 571 | M | von Sokrates (Chef 04.11., 20:13, Build 257, „Ganz wichtig“; Zu 571): Wischen auf einer Sc | startbar |
 | 557 | M | von Sokrates (Chef 04.11., 11:15; Zu 557): Spielstände als Entwurf im Stil „ohne Kasten“ ( | startbar |
@@ -289,11 +289,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 | Pflege | K | von Werkzeug (340.3, 04.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
-**Sokrates** – offen 39, Muss 29, startbar 17
+**Sokrates** – offen 40, Muss 30, startbar 17
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 531 | M | von Team Tom (04.11., 20:12; 480.1, Chef 19:27 „Film statt Bild“): Bitte Archiveintrag „53 | wartet auf Sokrates |
+| 569 | M | von Team Tom (04.11., 20:20; 480.1): deine Freigabe 19:5x steht nur in ARBEIT-TEAM-TOM.md | wartet auf Sokrates |
 | 512 | M | von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles): Abgleich alt gegen ne | startbar |
 | 415d.1 | M | von Chef (04.11., 19:56, „Brauchen wir das jetzt? Brauchen wir es nicht? Wir haben noch ga | Chef (Datei in der Chefsache) |
 | 508 | M | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
