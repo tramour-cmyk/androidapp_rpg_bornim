@@ -17,4 +17,12 @@ Neu gegenüber Probe 2:
 - Makellos ohne Spuren; Benutzt Staub am Saum und einzelne Flecken; Beschädigt schmutzig und ausgeblichen; Defekt dazu ausgefranster Saum und ein Riss vorn am Knie.
 - Die alten Flecken der Kleidung folgen demselben Zustand.
 
+Befund des Prüfers (17:26, nach dem Versand; nicht behoben):
+- Lebendiger nur zum Teil: bei Dorf nah ist der Rock keine glatte Fläche mehr, Oberkörper und Ärmel bei Makellos aber fast so flach wie heute. Bei Dorf Tag und Wald (Held etwa 120 px hoch) sieht man die Falten kaum, der Rock wirkt weiter wie eine blaue Fläche.
+- Falten nicht erfüllt: statt Streifen sehr dichte, gleichmäßig wellige Linien, alle gleich breit und gleich weit auseinander, wie Holzmaserung oder Wasserriffel; Muster statt Stoff. Es fehlen wenige tiefe Falten, die vom Gürtel aus breiter werden; der Saum bleibt glatt. Die hellen Wellen können wie Seidenglanz wirken (Signatur: nur Gold glänzt).
+- Zustände bei Spielgröße: Makellos, Benutzt, Beschädigt unterscheidbar; Beschädigt und Defekt kaum zu trennen (Unterschied je Bildpunkt 0,7–1,4 gegen 4–5,6 zwischen den anderen), bei Nacht alle vier kaum. Die Abstände sind fein statt groß.
+- Riss und Fransen nur bei Dorf nah und schwach: Riss ein dünner dunkler Strich am Knie, Saum ein gleichmäßiger grauer Streifen statt ausgefranst.
+- Schmutz bei Beschädigt ein gleichmäßiger grauvioletter Verlauf am Saum, wie getaucht, nicht nach Erde.
+- Im Wald verdeckt ein Stamm vor dem Helden den unteren Rock (schon heute so). Nachts ist die Robe zu kräftig blau (Sättigung etwa 60 %, schon heute so). Gesicht und Hände dunkelrot wie eine Maske (Altbestand).
+
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/a58787341 (Zweig `claude/tom-558-robe`, Lauf [41852228803](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41852228803)).
