@@ -60,6 +60,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 16:46 04.11.: Neustart Sokrates dade115c3 → `X5Ac` „Chefrunde: 557 Rückfragen und Rast, dann 549a“ (nach idle); alter Sokrates `xVie` archiviert, 18,38 $ auf 512.
 - 16:20 04.11.: Perikles `U6AU` „559: Prüfung wartet auf Chef“ gestartet auf Zuruf des Chefs (Sokrates 16:19, Chef 16:18), Ausnahme zu 468a.
 - 15:33 04.11.: Neustart Tom aea27c713 → `ueHQ` „505: Vorlage Nebel, Rand, Ausgänge aus Lauf 1“ (nach idle); alter Tom `RCQS` archiviert, 15,38 $ auf 505.
 - 15:05 04.11.: Diogenes 513.1 (2,17 $) und Perikles Tagesbericht (4,84 $) fertig, archiviert und gebucht; kein Nachfolger (468a). Homer `777B` idle, wartet auf Wahl zu 547 (Zwischentexte gelten ohne Antwort), bleibt stehen. Tom `RCQS` läuft (505).
