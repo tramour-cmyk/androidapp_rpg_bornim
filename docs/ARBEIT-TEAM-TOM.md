@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (04.11., 18:30, `session_01Hmoj76ZEx9g9yVq6WYQgrT`):** 558 Probe 3 vorgelegt; Probe 4 gepusht (1a3ca6fdf, Lauf „Tom Probe Robe (558)“ ab 18:29). 505 Lauf 2 läuft (41872344111, ab 17:55; Prüferbefund 17:21 fährt ungelöst mit, Säume danach behoben 0dc692129). 557 Runde 4 vorgelegt (`ansehen/557`, Prüferbefund drin; meiner Bildkopie fehlten die Bilder der Dinge). 555 gebaut (Uhr führt das Licht, Testmenü-Schalter, Kampf nur mit Modell). Vorrat 99 KB: Pflege offen. Nachfolger: Tom – 505, 558: Läufe laden, Bilder sofort an den Chef.
+**Übergabe (04.11., 19:18, `session_01Hmoj77pRYYFbhH5KNXxN6C`):** 505 Lauf 2 vorgelegt mit Prüferbefund (`ansehen/505`). 492 Mängelliste gebaut (22c922848). 475 Gesicht je Person aus Reglern und Kopfsitz gebaut, Lauf 1 von 2 von Hand gestartet 19:09 (godot.yml, leute=ja, 3e060cbd4; zählt der Haken nicht). 558 Probe 4 läuft (41878015595). 566, 567 von Jerry übernommen, Ursache in „Zu 566 und 567“ (Jerry). Nachfolger: Tom – 558, 475: Läufe laden, Bilder an den Chef; dann 566, 567 bauen.
 
 ## Zeilen
 
