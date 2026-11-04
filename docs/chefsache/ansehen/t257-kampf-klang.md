@@ -9,7 +9,7 @@ Die Nummern (251.x, 252.x, 255.x, 257.x) bleiben die der Teams, damit Antworten 
 
 Verglichen (alt gegen neu): Reiter „Test“ (`TestTab.kt`); `SkirmishScreen.kt`, `MarsTips.kt`, `Monsters.kt`, `Packs.kt`, `DeviceInfo.kt`; `GearUi.kt`, `GearCompare.kt`, `MenuScreen.kt`, `Dialogs.kt`, `SlotsScreen.kt`, `App.kt`; `Battle.kt`, `WildSound.kt`, `WorldScreen.kt` (Fireflies), `TypeLook`, `Story.kt` (levelCap); übrige Punkte nach deinen Befunden zu Build 249.
 
-## A · Hauptmenü
+## A · Hauptmenü — bestanden (Chef 04.11., 11:47: „der komplette Bereich A funktioniert“)
 
 | # | Team | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|---|
