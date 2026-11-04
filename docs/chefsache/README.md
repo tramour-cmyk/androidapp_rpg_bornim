@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [531a](entscheiden/531a-campfire.md) | **Muss** | A Spiel | 04.11., 19:28 | Protofactor „Campfire“ kaufen für Garrick und die Rast? | Sokrates |
 | [549a](entscheiden/549a-ohne-kasten.md) | **Muss** | A Spiel | 04.11., 11:12 | Oberfläche „ohne Kasten“ als Grundsatz: Linien trennen, ein Rahmen nur für die Entscheidung? | Sokrates |
 
 ## Zu billigen
@@ -15,12 +16,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 Nichts offen.
 
 ## Anzusehen
-
-**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
-
-| Nr. | Was | Wer | Seit |
-|---|---|---|---|
-| [531](ansehen/531-garrick.md) | Garrick am Feuer: wie er aussieht und wie er Tiere mit der Fackel vertreibt | – | 04.11., 00:16 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -49,7 +44,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 99, Muss 79, startbar 5
+**Tom** – offen 99, Muss 79, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -57,7 +52,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 557 | M | von Sokrates (Chef 04.11., 11:15; Zu 557): Spielstände als Entwurf im Stil „ohne Kasten“ ( | startbar |
 | 558 | M | von Sokrates (Chef 04.11., 11:31, Bild Build 257; Zu 558): Robe des Magiers zu glatt: Stof | wartet auf Test/Build |
 | 556 | M | von Sokrates (Chef 04.11., 07:52; Zu 556): Blenden reines Schwarz statt Leuchten, Lesezeit | wartet auf Test/Build (gebaut) |
-| 531 | M | von Sokrates (Chef 03.11., 23:42, Build 249; Zu 531): Garrick: „Gesicht wirkt sonderbar, B | Chef |
+| 531 | M | von Sokrates (Chef 03.11., 23:42, Build 249; Zu 531): Garrick: „Gesicht wirkt sonderbar, B | startbar |
 | 530 | M | von Sokrates (Chef 03.11., 23:40, Build 249): „Schlagbaum öffnet sich nicht visuell.“ Merk | wartet auf Test (Build) |
 | 522 | M | von Sokrates (Chef 03.11., 23:33, Build 249; Zu 522): „im Testmenü Ausrüstung des Helden g | wartet auf Test (Build) |
 | 521 | M | von Sokrates (Chef 03.11., 23:23, Build 249, Bild; Zu 521): Wechselschirm (Platz antippen) | wartet auf Test (Build) |
@@ -290,10 +285,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 | Pflege | K | von Werkzeug (340.3, 04.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
-**Sokrates** – offen 37, Muss 28, startbar 16
+**Sokrates** – offen 38, Muss 29, startbar 16
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 531a | M | Rückfrage: Bewegungspaket „Campfire“ (14,99 $) für Garrick und Rast kaufen? (Chef 19:27) | Chef (Datei in der Chefsache) |
 | 549a | M | Rückfrage: Oberfläche ohne Kasten (549 B) als Grundsatz, Spielstände als zweiter Schirm? ( | Chef (Datei in der Chefsache) |
 | 512 | M | von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles): Abgleich alt gegen ne | startbar |
 | 508 | M | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
