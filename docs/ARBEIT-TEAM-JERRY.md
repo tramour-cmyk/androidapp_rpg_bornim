@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
-**Übergabe (04.11., 02:2x):** Build 252 (`claude/build-252` = Build 251 + 546, 551, 552, 553, 533, 536, PR #182, Lauf 41753201022, t252) läuft; 548, 545 am Rechner mit Daten aus Build 249 nicht nachgestellt, Rückfrage 548a; 547 an Homer. Nachfolger: Jerry – Build 252 prüfen, dann 535: Gegnerstufe, Gruppen, Lohn gegen alt.
+**Übergabe (04.11., 03:2x):** Build 252 grün, t252 mit Link beim Chef (Telegram 03:21). 535 gebaut (`claude/jerry-535-gruppen` auf 533), 534 gebaut (`claude/jerry-534-faehigkeiten` auf 535), Rückfrage 534a; Schamanen-Ansagen an Homer (535). 507-Zweig mit main und Figurenstand, Lauf vom Haken 511 gehalten. Hinweis an Tom: Build 249 auf main. Keine Weckrufe offen. Nachfolger: Jerry – nächster gemeinsamer Build: 535, 534, 517 mit Punkten von Tom.
 
 ## Zeilen
 
