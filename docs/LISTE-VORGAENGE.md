@@ -179,7 +179,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 548a | Rückfrage: wo hat der Chef im Rattenkampf und im Probekampf getippt (Ring, Haken)? | E Kampf | M | – | Team Jerry | wartet auf Chef |
 | 551 | MARS: Rahmen des unteren Kastens links und rechts unterbrochen (Chef 04.11., 00:21) | E Kampf | M | – | Team Jerry | gebaut |
 | 552 | MARS: Zugreihenfolge oben fehlt am Gerät (Chef 04.11., 00:22) | E Kampf | M | – | Team Jerry | gebaut |
-| 553 | Flüsterwald: unbekanntes graues Tier auf der Karte, verzerrt (Chef 04.11., 00:26, Bild) | E Figuren | M | – | Team Jerry | startbar |
+| 553 | Flüsterwald: unbekanntes graues Tier auf der Karte, verzerrt (Chef 04.11., 00:26, Bild) | E Figuren | M | – | Team Jerry | gebaut |
 | 545 | MARS-Probekampf: Testknöpfe „Gegner besiegen“ (✓) und „Held fällt“ (✗) ohne Funktion (Chef 04.11., 00:01) | E Kampf | M | – | Team Jerry | Chef |
 | 546 | MARS: Wölfe weichen viel zu träge aus („wie Schlaftabletten“) (Chef 04.11., 00:01) | E Kampf | M | – | Team Jerry | startbar |
 | 547 | MARS: Text sagt „geht in die Knie“, Sturz ist aus (438a eingefroren): Text und Bild in Einklang bringen (Chef 04.11., 00:01) | E Kampf | M | – | Team Jerry | startbar |
