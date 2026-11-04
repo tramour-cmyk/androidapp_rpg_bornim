@@ -80,15 +80,16 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:33 03.11.: Neustart Jerry e9369fd9c → `ZwvU` „507 Probe“; alter `gwo8` archiviert, Kosten nicht lesbar (usage fehlt).
 - 15:26 03.11.: Diogenes `ppa1` „275, D69“ (Chefwort 15:17); Neustart Tom c496f2108 → `wm1A` „492 Blutzahnhöhle“, alter Tom `SZRh` archiviert, 20,03 $ auf 470.
 - 15:03 03.11.: Neustart Jerry 9eccbe6f3 → `gwo8` „507 Höhle“; alter `nM3u` archiviert, 15,80 $ auf 496a.
-- 14:30 03.11.: Neustart Sokrates 2ac0fe42d → `j7tV` „Chefrunde 348.12c Kauf“; alter `Hm6D` archiviert, 22,75 $ auf 348.12c.
-- 14:09 03.11.: alter Ford `76TkJ` archiviert (Chefwort 14:08 „archivieren, Kosten erheben, das ist dein Job“), Kosten 11,05 $, davon 9,29 $ gebucht (Rest 1,76 $ nicht buchbar: eine Buchung je Sitzung).
-- 13:54 03.11.: Perikles `diLb` „511“ gestartet (Chef 13:52, Zuruf, Sokrates 13:53); alter Perikles `rAxm` archiviert, 10,79 $ auf 488.
-- 13:36 03.11.: Neustart Jerry a2b58218e → `nM3u` „496a, 510, 507, 406.2a“; alter `zYoY` archiviert, 17,92 $ auf 510.
-- 13:24 03.11.: Neustart Spike bbf658d61 → `PQkk` „499“; alter `QEGk` archiviert, 26,61 $ auf 506.
-- 11:55 03.11.: Neustart Jerry 975ce2c1a → `zYoY` „507, 406.2a, 510“; alter `QAqZ` archiviert, 16,93 $ auf 507.
-- 11:26 03.11.: Neustarts angenommen: Jerry 1d182abbc → `QAqZ` „406.2a, 507“ (11:05, alter `76uC` archiviert, Kosten nicht lesbar); Spike 87ea802b2 → `QEGk` „506“ (11:26), alter `9N43` archiviert, 29,56 $ auf 491.
-- 10:20 03.11.: Neustarts angenommen: Spike bbec4b439 → `9N43` „491“ (09:44, alter `EdZ1` archiviert); Jerry a1e61a9c4 → `Nsyp` (09:55), 2688b0c97 → `76uC` „406.2a, 509, 494, 416.6“ (10:20); alte Jerry `Q5NS`, `Nsyp` archiviert, `Nsyp` 12,11 $ auf 496a.
-- 08:55 03.11.: Neustart Jerry ffbf1ebe3 → `79Q5` „496a, 416.6“, alter Jerry `79f7` archiviert, 22,98 $ auf 406.2.
-- 08:53 03.11.: Neustart Jerry eb1f72c66 → `79f7` „406.2, 496a“, alter Jerry `79vC` archiviert (Kosten nicht lesbar); Neustart Sokrates a7c5cc0de → `78Hm` „348.12c“ (Chefwort 08:50), alter `78Ud` archiviert, 19,88 $ auf 466.
-- 08:02 03.11.: Homer `768H` „504, 447.4“ (07:58, Chefwort 07:56) und Jerry-Nachfolger `79vC` (07:39) gestartet; Spike-Neustart f916466f3 angenommen, Nachfolger `77Ed`, alter Spike `76Te` archiviert (Kosten nicht lesbar); alter Jerry `79Wf` archiviert, 10,48 $ auf 406 (Rest 10,47 $ nicht buchbar: eine Buchung je Sitzung); alter Ford `76TkJ` weiter abgelehnt.
-- 07:05 03.11.: Perikles `77rA` „488, 448“ gestartet (Chef „488 ja“, Ausnahme zu 468a, Sokrates 06:45); Morgenmeldung 07:04 laut; Starts Tom 417, Spike 463, Tuffy 406.2, Homer 427.2, Diogenes 374 aus lauf.py nicht ausgeführt (468a, 488 friert 417/463/406 ein); alter Ford `76TkJ` unarchiviert (Klassifizierer), 9,29 $ gebucht.
+- 13:58 04.11.: Startsperre 13:58 Start Tom, Jerry, Diogenes, Homer, Perikles, Spike (lauf.py)
+- 13:58 04.11.: Marke Tagesbericht 04.11. (lauf.py)
+- 13:58 04.11.: Marke Tagesbericht fehlt 04.11. (lauf.py)
+- 13:58 04.11.: Marke Wächter 513.1 03.11. 15:56 (lauf.py)
+- 13:58 04.11.: Marke Wächter 511 03.11. 13:50 (lauf.py)
+- 13:58 04.11.: Marke Wächter 465 01.11. 20:50 (lauf.py)
+- 13:58 04.11.: Marke Wächter 407 02.11. 11:13 (lauf.py)
+- 13:58 04.11.: Marke Archiv session_01Hmoj76gUXcSQWWhKE3LVJm (lauf.py)
+- 13:58 04.11.: Marke Archiv session_01Hmoj75wfZL4VSLMGHvtGFa (lauf.py)
+- 13:58 04.11.: Marke Archiv session_01Hmoj78Ga9V6Fx9myzwYsVe (lauf.py)
+- 13:58 04.11.: Marke Archiv session_01Hmoj76diLbY3sMkPCUwT1D (lauf.py)
+- 13:58 04.11.: Marke Archiv session_01Hmoj76JLm6RreiKJ2eQNiN (lauf.py)
+- 13:58 04.11.: Nachfolger-Warnung Diogenes (Übergabe 03.11., 15:29) (lauf.py)
