@@ -97,6 +97,10 @@ func _draw() -> void:
 			kern.append_array(qb.call(Vector2(12, 14), Vector2(9.5, 12), Vector2(12, 8.5)))
 			zug.call(kern, false, duenn)
 			l.call(5, 20.5, 19, 16.5); l.call(5, 16.5, 19, 20.5)
+		"UNLOCK":
+			# 492 (ActionSign.UNLOCK): ein Schluessel, Ring, Schaft, zwei Barte
+			draw_arc(P.call(7, 12), 3.5 * u, 0, TAU, 32, c, dick, true)
+			l.call(10.5, 12, 21, 12); l.call(17, 12, 17, 15.5); l.call(20, 12, 20, 15)
 		"OPEN":
 			# eine Truhe: Kasten, gewoelbter Deckel, Baender, Schloss
 			zug.call([Vector2(3, 11.5), Vector2(21, 11.5), Vector2(21, 20.5), Vector2(3, 20.5)], true)

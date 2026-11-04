@@ -288,6 +288,8 @@ func naechster_nachbar(b: Vector2i) -> Vector2i:
 func zeichen_lesbar(t: Vector2i) -> bool:
 	return karte.zeichen(t) == "S" and schild(t) != ""
 
+func gitter_zu(t: Vector2i) -> bool: return karte.zeichen(t) == "L" and not karte.flaggen.has("gate_open")   # 492 Tile.GATE
+
 func brett(t: Vector2i) -> bool: return karte.zeichen(t) == "!"   # 399.1 Tile.NOTICE (Navigation: READ)
 
 func schild(t: Vector2i) -> String:
@@ -311,7 +313,7 @@ func vor_ihm(t: Vector2i) -> Vector2i:
 	if not karte.ausgang(t).is_empty(): return t
 	var vorn := Vector2i(roundi(sin(held.rotation.y)), roundi(cos(held.rotation.y)))
 	for d in [vorn] + NACHBARN:
-		if karte.tuer(t + d) or zeichen_lesbar(t + d) or brett(t + d) or rast_kachel(t + d) != "" or kiste(t + d) != {}: return t + d
+		if karte.tuer(t + d) or zeichen_lesbar(t + d) or brett(t + d) or rast_kachel(t + d) != "" or kiste(t + d) != {} or gitter_zu(t + d): return t + d
 	return Vector2i(-1, -1)
 
 # wie Navigation.actionAt: Ausgang und Tuer (auch verschlossen) ENTER, Schild READ; dazu actionPlace: wohin, wenn offen
@@ -323,6 +325,7 @@ func angebot(t: Vector2i) -> Array:
 	if z.x < 0: return ["TALK", ""] if pv[0] else ["", ""]
 	if zeichen_lesbar(z) or brett(z): return ["READ", ""]
 	if kiste(z) != {}: return ["OPEN", ""]   # 490 Tile.CHEST (Navigation: OPEN)
+	if gitter_zu(z): return ["UNLOCK", ""]   # 492 Tile.GATE (Navigation: UNLOCK), bis gate_open
 	var rk := rast_kachel(z)
 	if rk != "": return ["REST" if rk in ["feuer", "zimmer"] else "LOOK", ""]
 	var a := karte.ausgang(z)
@@ -345,6 +348,9 @@ func _aktion() -> void:
 		return
 	if kiste(z) != {}:
 		oeffne_kiste(kiste(z))
+		return
+	if gitter_zu(z):   # 492 Game.gate: mit dem rostigen Schluessel auf, sonst „verschlossen“
+		spiele(Geschichte.gitter(zustand))
 		return
 	match rast_kachel(z):
 		"feuer", "zimmer": oeffne_rast(rast_kachel(z)); return
@@ -525,7 +531,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	kamera.make_current()
 	visible = true; ui.visible = true
 	if probe.is_empty() and int(erg["rest"]) < zustand.anzahl("potion"): zustand.weg("potion", zustand.anzahl("potion") - int(erg["rest"]))   # getrunken
-	if probe.is_empty() and int(erg["rauch"]) < zustand.anzahl("smoke_bundle"): zustand.weg("smoke_bundle", zustand.anzahl("smoke_bundle") - int(erg["rauch"]))   # 494: geworfen
+	if probe.is_empty() and String(erg["ende"]) != "LOST" and int(erg["rauch"]) < zustand.anzahl("smoke_bundle"): zustand.weg("smoke_bundle", zustand.anzahl("smoke_bundle") - int(erg["rauch"]))   # 494: geworfen; 492 Game.kt 1503 (D4.1): verloren kostet das Buendel nicht
 	var lohn: Dictionary = erg["lohn"]
 	var ende := [String(erg["ende"])]
 	klang("nach_kampf", [ende[0] == "WON", karte])   # 399.3 (Jerry): Sieg mit sieg_, sonst Ortsmusik nach 10 s
@@ -563,7 +569,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 		ui.sage([{"text": Sprache.t({"de": "Du erwachst an einem sicheren Ort … Der Heimweg hat Stunden gedauert.", "en": "You wake up somewhere safe… The way home took hours."})}])
 		return ende[0]
 	hw.tp = clampi(tp_nach, 1, hw.max_tp())
-	if ende[0] == "WON": zustand.siege += 1   # 399.1: GameState.battlesWon (System „Siege“, Thessas Ware); zaehlte bisher nie
+	if ende[0] in ["WON", "ENEMY_FLED"]: zustand.siege += 1   # 399.1: GameState.battlesWon (System „Siege“, Thessas Ware); zaehlte bisher nie
 	if not lohn.is_empty():
 		zustand.gold += int(lohn.get("gold", 0))
 		for d in lohn.get("items", []): zustand.dazu(String(d))   # Beute (Felle, Zaehne)
@@ -601,7 +607,7 @@ func _szenenkampf(monster: String, flagge: String) -> void:
 	var ende := await kampf_im_wald(held.kachel, String(Streuner.GRUPPE[monster]))
 	blick_nach = "DOWN"
 	im_kampf = false
-	if ende != "WON":
+	if ende != "WON" and ende != "ENEMY_FLED":   # 492 Game.kt 1498: auch wenn der Gegner flieht, gilt der Sieg (winFlag)
 		szene.clear()
 		return
 	if flagge != "":

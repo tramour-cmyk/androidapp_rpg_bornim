@@ -58,13 +58,15 @@ func _lauf() -> void:
 	pruefe(zu.size() == 1 and String(zu[0]["art"]) == "sagen" and not spiel.zustand.has(Geschichte.GATE_OPEN), "ohne Schluessel: „Ein schweres Eisengitter. Es ist verschlossen.“")
 	spiel.zustand.dazu("rusty_key")
 	spiel.held.setze(Vector2i(10, 6), "UP")
-	spiel._stoesst(Vector2i(10, 5))
+	pruefe(spiel.angebot(Vector2i(10, 6))[0] == "UNLOCK", "vor dem Gitter bietet der Knopf „Aufschließen“ (Navigation UNLOCK): %s" % [spiel.angebot(Vector2i(10, 6))])
+	spiel._aktion()   # 492: mit dem Knopf, wie alt Game.gate
 	await durch(spiel)
 	for i in 3: await process_frame
 	pruefe(spiel.zustand.has(Geschichte.GATE_OPEN) and spiel.zustand.anzahl("rusty_key") == 0, "mit dem rostigen Schluessel: Gitter offen, Schluessel weg")
 	await create_timer(1.6).timeout
 	pruefe(gl != null and gl.rotation.y > 1.5, "Fluegel aufgeschwenkt: %.2f" % (gl.rotation.y if gl else 0.0))
 	pruefe(spiel.karte.begehbar(Vector2i(10, 5)) and spiel.karte.begehbar(Vector2i(11, 5)), "durch das offene Gitter")
+	pruefe(spiel.angebot(Vector2i(10, 6))[0] != "UNLOCK", "offenes Gitter ohne „Aufschließen“")
 	# Grak vor seiner Halle
 	var vor: Array = Geschichte.ausloeser("cave", Vector2i(10, 4), spiel.zustand)
 	var kampf: Array = vor.filter(func(c): return String(c["art"]) == "kampf")
