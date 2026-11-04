@@ -60,6 +60,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 00:13 05.11.: Neustart-Meldung Jerry 80f16571d (Übergabe da, Nachfolger „Jerry – 572 Urteil, Kampf-Build“); Nachtpause 468d: Nachfolger NICHT gestartet, startet `lauf.py` ab 7 Uhr. Alter Jerry `zop1` archiviert, 22,93 $ auf 572.
 - 23:05 04.11.: Nachtpause 468d. Tom `ArQnx` (475, nichts mehr startbar, idle) archiviert, 3,78 $ auf 475; Nachfolger Tom ab 7 Uhr (lauf.py). Jerry `2zop` (572) idle/wartet, unberührt. Kein Start bis 7 Uhr.
 - 22:28 04.11.: Neustart Tom 40ea02630 → `UCbYo7ArQnx` „475: Grün am Hals, Tusche an den Kaufleuten“ (vor 22:30, mit Hinweis 468d: Übergabe bis 23 Uhr); alter Tom `4jyCYv` archiviert, 21,98 $ auf 475 und 558.
 - 20:55 04.11.: Neustart Tom d011dc8cb → `4jyCYv` „475, 558: Prüferbefund 475 bauen (Lauf 2), Probe 5“ (nach idle); alter Tom `Bhmo` archiviert, 18,55 $ auf 475 und 531.
