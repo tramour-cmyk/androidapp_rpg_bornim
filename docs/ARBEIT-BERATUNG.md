@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (04.11., 12:4x, `session_01Hmoj77Djy9YD9THrbXfiMk`):** Nacht und Vormittag: 521, 524 passt, 524a → 524.1, 475 jetzt, 512.1 an Perikles; 468c, 549a gestellt; 556, 557, 558 an Tom; t251–t257 zu einer Liste t257 zusammengelegt, Chefbefunde A, 251.1/.4/.6, 255.3/.4/.5 eingetragen; 415 beide Renderer gemessen; 557 B mit 2 (Archiv), START an Ford. Kosten auf: 512, 468, 549, 557. Nachfolger: Sokrates – Chefrunde: Test Build 257 begleiten (t257 ab Bereich C).
+**Übergabe (04.11., 16:4x, `session_01Hmoj77xVieLSZxfQAe6k48`):** Chefrunde 12:45–16:45: Durchspielregel (488; 512a, 532a, 534a, 513a), 548a, 503a, 475 Richtung ja und 475a 1, 524.1 nach B, 468c, 468d Nachtpause, 537 geteilt, Gruppe 557 (525, 549, 531-Gesicht), 492 Sicht wie alt, 505 C und Richtung gut, 558 Form voll, 559 Prüfung (Perikles), 560 Monster drehen (Jerry), 549 in 557; 557 Vorlage 16:39: Bilder 4, 5, 6 passen, Prüferbefund 16:43 bei Tom, Gegenstandsfenster ohne Rahmen (549a nachgezogen); Rast und Rückfragen, Abbrechen offen bis Toms nächstem Durchgang. Kosten auf: 488, 475, 557, 505, 468. Nachfolger: Sokrates – Chefrunde: 557 Rückfragen und Rast, dann 549a; t257 ab Bereich C.
 
 ## Zeilen
 
