@@ -432,47 +432,6 @@ jobs:
             ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/dorftiere.avi --fixed-fps 30 -- --dorftierfilm 2>&1 | grep -E "SCRIPT ERROR|^DORFTIERE" || true
           ffmpeg -loglevel error -y -ss 1.5 -i $RUNNER_TEMP/dorftiere.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $GITHUB_WORKSPACE/bilder/dorftiere/dorftiere.mp4 || true
           ls -l $GITHUB_WORKSPACE/bilder/dorftiere
-      # 572 (Chef 04.11., 20:27, „ganz flott“): Effektprobe vor dem Kauf (415d.1), nach dem APK (die Pakete kommen nicht hinein).
-      # REEBOO Stylized VFX und Status Effects Free Sample aus bornim-kaufmodelle (Version stufe1, kauf_laden.sh hat sie entpackt);
-      # Lizenz verbietet die Weitergabe: nie ins Repo, nie ins Artefakt (nur Bilder, Film, Protokoll).
-      # Probebild (511) bei jedem Commit mit „572“, Film nur mit „572 Film“ (nach „572 Probebild passt“ des Chefs)
-      - name: Effektprobe (572, privat)
-        if: contains(github.event.head_commit.message, '572')
-        continue-on-error: true
-        run: |
-          P=$GITHUB_WORKSPACE/bilder/effekte572; mkdir -p $P
-          # beide Zips: Wurzel <Paket>/ mit addons/reeboo_vfx (gemeinsamer Kern bytegleich), Demo und Test bleiben draußen
-          for z in "$KAUF"/anhang/*/REEBOO_Stylized_VFX_Free_Sample* "$KAUF"/anhang/*/Stylized_Status_Effects_VFX_Free_Sample*; do
-            [ -d "$z" ] || continue
-            a=$(find "$z" -type d -path '*/addons/reeboo_vfx' | head -1); [ -n "$a" ] || { echo "kein addons/reeboo_vfx in ${z##*/}"; continue; }
-            mkdir -p godot/addons/reeboo_vfx && cp -rn "$a"/. godot/addons/reeboo_vfx/ && echo "Effekte aus ${z##*/}"
-          done
-          (cd godot && find addons/reeboo_vfx -name '*.tscn' | sed 's|^|res://|' | sort) > godot/daten/vfx572.txt; cat godot/daten/vfx572.txt
-          sudo apt-get install -y -q mesa-vulkan-drivers xvfb > /dev/null
-          cd godot
-          timeout 300 ~/godot/godot --headless --import --path . > $P/import.log 2>&1 || true
-          grep -E "ERROR" $P/import.log | head -20 || true
-          export VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json
-          EFFEKT_BILDER=$P/probe timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile \
-            --resolution 540x1170 res://kampf/effektprobe.tscn > $P/probebild.log 2>&1 || true
-          grep -E "^572|SCRIPT ERROR|^ +at: |SHADER ERROR" $P/probebild.log | cut -c1-300 | head -60 || true
-          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
-          n=$(ls $P/probe/*.png 2>/dev/null | wc -l)
-          [ $n -gt 0 ] && ffmpeg -loglevel error -y -pattern_type glob -i "$P/probe/*.png" -vf "scale=270:-2,tile=4x$(( (n + 3) / 4 ))" -frames:v 1 $P/572-probebild.png || true
-          ls -l $P $P/probe || true
-      - name: Effektprobe Film (572, nur mit „572 Film“)
-        if: contains(github.event.head_commit.message, '572 Film')
-        continue-on-error: true
-        run: |
-          P=$GITHUB_WORKSPACE/bilder/effekte572
-          cd godot
-          export VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json
-          timeout 2400 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile \
-            --resolution 540x1170 res://kampf/effektprobe.tscn --write-movie $RUNNER_TEMP/effekte.avi --fixed-fps 30 > $P/film.log 2>&1 || true
-          grep -E "^572|SCRIPT ERROR|^ +at: " $P/film.log | cut -c1-300 | head -60 || true
-          export PATH=~/ffbin:$PATH
-          ffmpeg -loglevel error -y -ss 0.5 -i $RUNNER_TEMP/effekte.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $P/572-effekte.mp4 || true
-          ls -l $P
       # 461.1 Grundstand (Chef 01.11., 20:3x): Film des Helden im Dorf wie im Spiel (Kämpfer, Klerikerin: Stehen, Gehen, Rennen,
       # Loslassen, Rennen zum Ziel, Gehen bei den Tieren), gegen LISTE-GRUNDSTAND-461.md
       - name: Dorf-Film Grundstand (461.1)
