@@ -245,13 +245,16 @@ func _einstellbar(ps: PackedScene) -> String:
 	var n := ps.instantiate()
 	var z := PackedStringArray()
 	for p in n.get_property_list():
-		if p.usage & PROPERTY_USAGE_SCRIPT_VARIABLE and p.usage & PROPERTY_USAGE_EDITOR:
+		if p.usage & PROPERTY_USAGE_SCRIPT_VARIABLE and p.usage & PROPERTY_USAGE_EDITOR and p.type in [TYPE_BOOL, TYPE_INT, TYPE_FLOAT, TYPE_COLOR]:
 			var v = n.get(p.name)
 			z.append("%s=%s" % [p.name, ("%.2f" % v) if v is float else str(v).left(18)])
 	var tl := n.find_children("*", "GPUParticles3D", true, false).size() + n.find_children("*", "CPUParticles3D", true, false).size()
+	var n2_tempo = n.get("time_scale") if "time_scale" in n else 1.0
 	n.free()
 	print("572 einstellbar %s: %s; Partikelsysteme %d" % [ps.resource_path.get_file(), ", ".join(z), tl])
-	return ("Einstellbar: " + ", ".join(z) if not z.is_empty() else "Einstellbar: nur Stoffe/Partikel") + " · %d Partikelsysteme" % tl
+	# README des Pakets: „Colors, sizes and timings are normal settings in the Inspector“ (je Schicht), Größe über den Maßstab des Knotens
+	return "Einstellbar: Tempo (time_scale %.2f) · Farbe, Größe, Dauer je Schicht (%d Schichten) · Gesamtgröße über Maßstab" % [
+		float(n2_tempo), tl]
 
 
 ## Größe am Schirm: Ausdehnung aller sichtbaren Teile (m) gegen den Helden (1,8 m)
