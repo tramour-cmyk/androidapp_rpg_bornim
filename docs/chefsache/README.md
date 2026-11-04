@@ -153,10 +153,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | Pflege | K | von Werkzeug (340.3, 04.11.): 92681 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 73, Muss 61, startbar 8
+**Jerry** – offen 74, Muss 61, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 560 | M? | von Sokrates (Chef 04.11., 16:22, allgemeiner Hinweis; Zu 560): Monster auf der Karte dreh | startbar |
 | 527 | M | von Sokrates (512): System: Schalter „Tempo“ und „Kampftext“ wirken im Kampf nicht | wartet auf Test/Build |
 | 548 | M | von Sokrates (Chef 04.11., 00:03, Build 249, Bild; Zu 548): „Gegen Ratten gespielt. Die st | startbar |
 | 551 | M | von Sokrates (Chef 04.11., 00:21, Build 249): „MARS Kasten links und rechts unten wird unt | wartet auf Test (Build) |
