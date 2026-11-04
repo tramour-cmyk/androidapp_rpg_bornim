@@ -11,8 +11,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 527 | M | **von Sokrates (512):** System: Schalter „Tempo“ und „Kampftext“ wirken im Kampf nicht | wartet auf Build: 251 (t251, PR #181) | – |
-| 548 | M | **von Sokrates (Chef 04.11., 00:03, Build 249, Bild; Zu 548):** „Gegen Ratten gespielt. Die starben ohne mein Zutun alle drei?!? …“ | ruht bis zur Antwort auf 548a (Chefsache): am Rechner mit Daten aus Build 249 nicht nachgestellt (Zu 548) | – |
-| 548a | M | Rückfrage: wo hast du im Rattenkampf und im Probekampf getippt (Ring, Haken)? | wartet auf Chef: entscheiden/548a | – |
+| 548 | M | **von Sokrates (Chef 04.11., 00:03, Build 249, Bild; Zu 548):** „Gegen Ratten gespielt. Die starben ohne mein Zutun alle drei?!? …“ | startbar: Chef 04.11., 13:20 zu 548a: „gar nichts gedrückt, es lief wie ein Film ab. Und plötzlich waren die Ratten tot.“ Kampf lief ohne Eingabe; Ursache nachstellen, nicht raten | – |
 | 551 | M | **von Sokrates (Chef 04.11., 00:21, Build 249):** „MARS Kasten links und rechts unten wird unterbrochen angezeigt …“ | wartet auf Test: t252 (Build 252 grün 03:17, PR #182) | – |
 | 552 | M | **von Sokrates (Chef 04.11., 00:22, Build 249):** „MARS Zugreihenfolge oben fehlt“ | wartet auf Test: t252 (Build 252 grün 03:17, PR #182) | – |
 | 553 | M | **von Sokrates (Chef 04.11., 00:26, Build 249, Bild; Zu 553):** „Was ist das für ein graues Tier??????“ Flüsterwald bei Garricks Feuer | wartet auf Test: t252 (Build 252 grün 03:17, PR #182) | – |
