@@ -303,16 +303,19 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/lizenz_497.gd 2>&1 | grep -E "FEHLER|LIZENZ497|ENGINE|SCRIPT ERROR"   # 497 Lizenzen der Engine
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tresen_4167.gd 2>&1 | grep -E "FEHLER|TRESEN|SCRIPT ERROR"   # 416.7
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/wende_4168.gd 2>&1 | grep -E "FEHLER|WENDE|RUTSCHEN|ohne gebaute|SCRIPT ERROR"   # 416.8 Wenden mit Schritten
+          set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/ausruestung_522.gd 2>&1 | grep -E "^(gut|FEHLER|AUSRUESTUNG522|ohne)|SCRIPT ERROR"   # 522 Figur nach Ausruestungswechsel
           timeout 120 ~/godot/godot --headless --path . -s res://tests/platzwechsel_4162.gd 2>&1 | grep -E "FEHLER|PLATZWECHSEL|SCRIPT ERROR"   # 416.2
           timeout 120 ~/godot/godot --headless --path . -s res://tests/ziege_4162.gd 2>&1 | grep -E "FEHLER|ZIEGE|SCRIPT ERROR"   # 416.2 Ziege (146.5)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/zeichen_425.gd 2>&1 | grep -E "FEHLER|ZEICHEN|SCRIPT ERROR"   # 425
           timeout 120 ~/godot/godot --headless --path . -s res://tests/testmenue_mass_425.gd 2>&1 | grep -E "FEHLER|TESTMENUE|SCRIPT ERROR"   # 425 Befunde Testmenue
           timeout 120 ~/godot/godot --headless --path . -s res://tests/laden_4169.gd 2>&1 | grep -E "FEHLER|LADEN4169|SCRIPT ERROR"   # 416.9
           timeout 120 ~/godot/godot --headless --path . -s res://tests/laden_503.gd 2>&1 | grep -E "FEHLER|LADEN503|SCRIPT ERROR"   # 503 Knopf und Rueckfrage wie alt
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/schlagbaum_530.gd 2>&1 | tee schlagbaum530.log | grep -E "FEHLER|SCHLAGBAUM530|SCRIPT ERROR"; grep -q "^SCHLAGBAUM530 0 Fehler" schlagbaum530.log   # 530 Schlagbaum offen sichtbar
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/klangschalter_489.gd 2>&1 | grep -E "FALSCH|KLANGSCHALTER489|SCRIPT ERROR"   # 489 Musik, Effekte im Hauptmenue
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/kampforte_493.gd 2>&1 | grep -E "FALSCH|KAMPFORTE493|Kampforte|SCRIPT ERROR"   # 493 Kampforte im Wald
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_470.gd 2>&1 | grep -E "FALSCH|BRS470|SCRIPT ERROR"   # 470 Erschaffung BRS 1.1
           timeout 120 ~/godot/godot --headless --path . -s res://tests/testmenue_470.gd 2>&1 | grep -E "FEHLER|TESTMENUE470"   # 470a B: Erschaffung BRS nur im Testmenue
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/testmenue_555.gd 2>&1 | tee testmenue555.log | grep -E "FEHLER|TESTMENUE555|SCRIPT ERROR"; grep -q "^TESTMENUE555 0 Fehler" testmenue555.log   # 555, 554 Testmenue wie alt und schneller
           timeout 120 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4532.gd 2>&1 | grep -E "^(ok|FEHLER|ATEM)"   # 453.2 Atmen unterwegs
           timeout 300 ~/godot/godot --headless --path . -s res://tests/wald_490.gd 2>&1 | tee wald490.log | grep -E "FEHLER|WALD490|SCRIPT ERROR"; grep -q "^WALD490 0 Fehler" wald490.log   # 490
           timeout 120 ~/godot/godot --headless --path . -s res://tests/position_518.gd 2>&1 | tee position518.log | grep -E "FEHLER|POSITION518|SCRIPT ERROR"; grep -q "^POSITION518 0 Fehler" position518.log   # 518 Shader setzen POSITION immer
@@ -529,7 +532,7 @@ jobs:
       # 416.8 Wenden mit Schritten: Probebild (511) mitten in der ersten Wende, nur von Hand auf claude/tom-416-8-…; der Film erst nach
       # „416.8 Probebild passt“ (Chef)
       - name: Wendebild (416.8)
-        if: github.event_name == 'workflow_dispatch' && contains(github.ref, 'tom-416-8')
+        if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && contains(github.ref, 'tom-416-8') }}     # auch nach rotem Prüfschritt (Lauf 253: atem_4531 rot, Bild fiel aus)
         continue-on-error: true
         run: |
           mkdir -p $GITHUB_WORKSPACE/bilder/wende4168

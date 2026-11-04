@@ -68,6 +68,14 @@ DORF = Part(); GLAS = Part(); WASSER = Part(); BODEN = Part()
 # Durchsicht wie alt (WorldScreen.hides): jedes hohe Ding ein eigenes Netz „Gruppe_<art>_<c>_<r>“, damit Godot es als Ganzes
 # halb durchsichtig zeichnet, wenn es den Oberkoerper des Helden verdeckt (Helfer an Runde 11b: Held hinter Stand, Dach, Laterne)
 GRUPPEN = []
+# eigene Netze (Name, Part), die gebiet.gd einzeln braucht: Vorlage des Heilkrauts (490, wechselt taeglich), Balken des Schlagbaums
+# zu und offen (530, wechselt mit barrier_open)
+EIGENE = []
+def eigenes(name, fn, *a):
+    global DORF
+    alt = DORF; DORF = Part()
+    try: fn(*a)
+    finally: EIGENE.append((name, DORF)); DORF = alt
 def gruppe(art, c, r, fn, *a, **kw):
     global DORF, GLAS
     alt = DORF, GLAS
@@ -1616,13 +1624,19 @@ for r in range(R0, R1 + 1):
             def B(i0, j0, i1, j1, z0, z1, col, m):
                 with use(m): box(DORF, (tx(c) + (i0 + 1) * TS, ty(r) - (j1 + 1) * TS, z0 * U), (tx(c) + (i1 + 1) * TS, ty(r) - (j0 + 1) * TS, z1 * U), col)
             iron = lin(0x262422); oak = ratio(0x6A5238, 0x5A4430); post = ratio(0x463424, 0x5A4430)
+            # 530 (Chef 03.11., 23:40 „Schlagbaum öffnet sich nicht visuell“): der Balken als eigene Netze „Schlagbaum_zu_<c>_<r>“ und
+            # „Schlagbaum_auf_<c>_<r>“, gebiet.gd zeigt je nach barrier_open eines; offen steht er wie alt aufrecht am Drehpfosten
+            # (MapTownIso.barrier open: 40–200 U, Eisenband 58–64), in der Gabel liegt dann nichts
             if ch(c - 1, r) != 'z':
                 B(-0.86, -0.6, -0.74, -0.48, 0, 84, post, 'holz'); B(-0.87, -0.61, -0.73, -0.47, 84, 86, iron, 'weiss')
-                B(-0.73, -0.55, 0.0, -0.45, 54, 66, oak, 'holz'); B(-0.74, -0.57, -0.64, -0.43, 53.3, 66.7, iron, 'weiss')
+                def zu(): B(-0.73, -0.55, 0.0, -0.45, 54, 66, oak, 'holz'); B(-0.74, -0.57, -0.64, -0.43, 53.3, 66.7, iron, 'weiss')
+                def auf(): B(-0.73, -0.55, -0.65, -0.45, 40, 200, oak, 'holz'); B(-0.74, -0.57, -0.64, -0.43, 58, 64, iron, 'weiss')
+                eigenes('Schlagbaum_auf_%d_%d' % (c, r), auf)
             else:
                 B(-0.35, -0.62, -0.25, -0.56, 0, 70, post, 'holz'); B(-0.35, -0.58, -0.25, -0.42, 0, 54, post, 'holz')
                 B(-0.35, -0.44, -0.25, -0.38, 0, 70, post, 'holz')
-                B(-1.0, -0.55, -0.16, -0.45, 54, 66, oak, 'holz'); B(-0.26, -0.56, -0.2, -0.44, 53.3, 66.7, iron, 'weiss')
+                def zu(): B(-1.0, -0.55, -0.16, -0.45, 54, 66, oak, 'holz'); B(-0.26, -0.56, -0.2, -0.44, 53.3, 66.7, iron, 'weiss')
+            eigenes('Schlagbaum_zu_%d_%d' % (c, r), zu)
         elif t == 'h':
             with use('bretter'): box(DORF, (p.x - TS / 2 - 1, p.y - TS / 2 - 1, -6), (p.x + TS / 2 + 1, p.y + TS / 2 + 1, 4), W1)
             with use('holz'):
@@ -1652,12 +1666,6 @@ for r in range(R0, R1 + 1):
 # ---------------------------------------------------------------- 490 Flüsterwald begehbar wie alt (Story.kt:524; MapWoodIso, MapFlora)
 # Bestand geprueft (LISTE-BESTAND.md): Felsen, Kiesel, Pilze, Pflanze aus dem Naturbausatz (Chef 27.10.: Felsen, Kiesel, Pilze, Farn ja;
 # Baeume nein); Baeume wie im Dorf (spruce, oak_crown); liegender Stamm, Lagerfeuer, Kiste, Hoehlenmund selbst (fehlen im Bestand)
-EIGENE = []                                   # eigene Netze (Name, Part): Vorlage des Heilkrauts fuer gebiet.gd (wechselt taeglich)
-def eigenes(name, fn, *a):
-    global DORF
-    alt = DORF; DORF = Part()
-    try: fn(*a)
-    finally: EIGENE.append((name, DORF)); DORF = alt
 MASS = {}
 def kit_mass(name):
     """Groesse (cm, x y z) und Fussmitte (cm) eines Teils des Naturbausatzes, wie fremd_teil es einsetzt"""
@@ -1824,7 +1832,8 @@ def build(P, name):
     print('NETZ', name, len(me.polygons), 'Flaechen', names)
     return o
 objs = [build(DORF, 'Dorf_Netz'), build(GLAS, 'Dorf_Glas'), build(WASSER, 'Dorf_Wasser'), build(BODEN, 'Dorf_Boden')]
-for nm, Pe in (EIGENE if KARTE != 'village' else []): objs.append(build(Pe, nm))   # 490 Vorlage des Heilkrauts
+for nm, Pe in EIGENE:
+    if Pe.F: objs.append(build(Pe, nm))   # 490 Vorlage des Heilkrauts, 530 Balken des Schlagbaums
 for nm, Pd, Pg in GRUPPEN:
     if Pd.F: objs.append(build(Pd, 'Gruppe_' + nm))
     if Pg.F: objs.append(build(Pg, 'Gruppe_' + nm + '_Glas'))

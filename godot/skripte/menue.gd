@@ -803,13 +803,12 @@ func system() -> void:
 	gruppe(t.call("Kampf", "Combat"))
 	var blut := ["Aus", "Dezent", "Deutlich"] if de else ["Off", "Subtle", "Strong"]
 	var tempo := ["Ruhig", "Normal", "Schnell"] if de else ["Calm", "Normal", "Fast"]
-	var text := ["Antippen", "Von selbst"] if de else ["Tap", "Auto"]
 	zeichenreihe([z_.call(t.call("Blut", "Blood"), blut[Bedienung.blut], t.call("Wie viel Blut Treffer zeigen. Antippen wechselt: Aus, Dezent, Deutlich.",
 			"How much blood hits show. Tap to change: off, subtle, strong."), spar.call(func(): Bedienung.blut = (Bedienung.blut + 1) % 3), Bedienung.blut > 0, "BLOOD"),
 		z_.call(t.call("Tempo", "Pace"), tempo[Bedienung.tempo], t.call("Wie schnell Züge und Zeilen im Kampf ablaufen. Antippen wechselt: Ruhig, Normal, Schnell.",
 			"How fast turns and text play out in battle. Tap to change: calm, normal, fast."), spar.call(func(): Bedienung.tempo = (Bedienung.tempo + 1) % 3), true, "TEMPO"),
-		z_.call(t.call("Kampftext", "Battle text"), text[1 if Bedienung.kampftext else 0], t.call("Ob die Zeilen im Kampf auf dein Antippen warten oder nach einer Lesepause von selbst weiterlaufen.",
-			"Whether the lines in a fight wait for your tap or advance automatically after a pause for reading."), spar.call(func(): Bedienung.kampftext = not Bedienung.kampftext), true, "TEXT"),
+		# 527 (Abgleich 512): „Kampftext“ (Antippen oder von selbst) wirkte alt nur im klassischen Kampf; im MARS laufen die Zeilen
+		# immer von selbst. Ausgeblendet, bis der Kampf auf ein Antippen warten kann; die Einstellung bleibt gespeichert
 		z_.call(t.call("Rückfragen", "Confirmations"), an.call(Bedienung.rueckfragen), Sprache.u("confirmHint"), spar.call(func(): Bedienung.rueckfragen = not Bedienung.rueckfragen),
 			Bedienung.rueckfragen, "", "?")])
 	luecke(4)

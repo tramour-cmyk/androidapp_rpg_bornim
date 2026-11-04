@@ -51,9 +51,22 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 	for e in lineup:
 		var m: Dictionary = monsters[e[1]]
 		if e[0] == Figur.GRIMM:     # Name aus den Regeln (Monsters.kt dire_wolf)
-			m = m.duplicate()
+			# 533 (Abgleich 512, Sokrates; alt Monsters.kt dire_wolf): Grimmzahn mit seinen eigenen Werten (RK 14, 4W10+4 TP,
+			# Reißzähne +4, 2W6+1, Boss: keine Flucht, kein Autopilot; 450 EP, 4W10 Gold, großer Heiltrank zu 50 %); Bewegung,
+			# Texte und Modell bleiben die des Wolfs (id „wolf“), der Lohn zählt die Leibwache wie alt (pack „dire_wolf“, je 0,25)
+			m = (monsters.get("dire_wolf", m) as Dictionary).duplicate(true)
+			m.id = Mars.WOLF
+			m.pack = "dire_wolf"
 			m.de = "Grimmzahn, der Leitwolf"
 			m.en = "Grimfang the Alpha"
+		elif foe == "GRIMM":     # 533: seine Leibwache wie alt (Packs.kt guard)
+			m = m.duplicate(true)
+			var fuehrer: Dictionary = monsters.get("dire_wolf", m)
+			m.atk = int(fuehrer.atk) + int(LEIBWACHE.atk_shift)
+			m.dmg = LEIBWACHE.dmg
+			m.chance = LEIBWACHE.chance
+			m.xp = 0     # lohn.gd zählt sie als Leibwache des Leitwolfs (xpShare), nicht einzeln
+			m.flee = LEIBWACHE.flee
 		elif foe == "KOBOLDS":     # Name aus den Regeln (Monsters.kt kobold)
 			m = m.duplicate()
 			m.de = "Kobold"
@@ -71,6 +84,8 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 			m.de = "Goblin-Schamane"
 			m.en = "Goblin Shaman"
 		foes.append(Mars.monster_fighter(e[0], e[2], m, dice.roll_expr(m.hp)))
+		if foe == "GRIMM" and e[0] != Figur.GRIMM:
+			foes[foes.size() - 1].follows = Figur.GRIMM     # 533: fällt Grimmzahn, flieht die Leibwache (mars.gd _pack_flees)
 	return foes
 
 
@@ -80,6 +95,11 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 ## Erfahrung wie alt über lohn.gd (Leitwolf, je Jungwolf 0,3 dazu)
 const JUNGWOLF := {"de": "Jungwolf", "en": "Young wolf", "scale": 0.55, "atk_shift": -1, "dmg": [1, 3, 0], "hp_share": 0.5, "chance": 0.5,
 	"flee": ["Mit eingezogenem Schwanz fliehen die Jungwölfe ins Unterholz!", "Tails tucked, the young wolves flee into the undergrowth!"]}
+
+## 533 (alt Packs.kt guard): Grimmzahns Leibwache, zwei Wölfe; Biss 1W4, Angriff eins unter Grimmzahn, beißt zu 55 % je Runde;
+## fällt er, verschwinden sie heulend. Größe (alt 0,78) bleibt, bis der Chef Grimmzahn neu sieht (Chef 04.11., 00:33, 00:39).
+const LEIBWACHE := {"atk_shift": -1, "dmg": [1, 4, 0], "chance": 0.55,
+	"flee": ["Ihr Leitwolf ist gefallen – die Wölfe verschwinden heulend im Wald!", "Their alpha has fallen – the wolves vanish howling into the forest!"]}
 
 static func rudel(monsters: Dictionary, dice) -> Array:
 	var wolf: Dictionary = monsters[Mars.WOLF]
@@ -164,12 +184,14 @@ func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := 
 		monsters[m.id] = m
 	var party := [_kaempfer("hero", held, held_tp, Vector2i(Mars.FRONT, 0), skills)]
 	party[0].hero["look"] = lage.get("aussehen", {})     # 403: Kopf, Haar, Haut wie im Dorf (Zustand.aussehen, HeldFigur)
+	leiden_auf(party[0], lage.get("leiden", {}))     # 532
 	if soeldner != null:
 		var sb := _als_blatt(soeldner)
 		var hinten: bool = sb.main.ranged or sb.cls == "WIZARD" or sb.cls == "CLERIC"
 		party.append(_kaempfer("merc", soeldner, soeldner_tp, Vector2i(Mars.BACK, 0) if hinten else Vector2i(Mars.FRONT, 1), skills))
 	var foes := gegner(gegner_, monsters, dice)
 	kampf = Kampfort.new()
+	kampf.tempo = Bedienung.tempo_faktor()     # 527: Tempo aus dem Menue System
 	kampf.tageszeit = tageszeit
 	kampf.ort = ort
 	kampf.platz = String(lage.get("platz", "lichtung"))     # 493: Kampfort im Wald nach der Kachel (Kampfort.platz_fuer)
@@ -197,7 +219,34 @@ func _kaempfer(id: String, x, tp: int, platz: Vector2i, skills: Dictionary):
 	var f = Mars.hero_fighter(id, "PARTY", platz, b, max_tp, b.second, skills)
 	if not (x is Dictionary):
 		f.hp = clampi(int(x.tp), 0, max_tp)
+		# 532 (Abgleich 512, alt Battle.kt init): einmal je Rast nur, was seit der letzten Rast übrig ist (Hero.spent)
+		for s in skills.values():
+			if s.id in b.skills and s.cost == "PER_REST":
+				f.uses[s.id] = maxi(0, int(s.amount) - int(x.verbraucht.get(String(s.id), 0)))
 	return f
+
+
+## 532 (alt Battle.kt init, GameState.ailments): die Zustände, die der Held aus dem letzten Kampf mitbringt; nur, was MARS kennt
+## (Metrausch DRUNK fehlt in MARS, Zu 532)
+static func leiden_auf(f, leiden: Dictionary) -> void:
+	for st in leiden:
+		if Mars.STATUS.has(String(st)) and int(leiden[st]) > 0:
+			f.status[String(st)] = int(leiden[st])
+
+
+## 532 (alt Game.keepAilments): was nach dem Kampf bleibt: Gift, Blutung, Schwäche; ein Fluch (Schwäche) bis zur Heilung, Gift
+## und Blutung um den Konstitutionsbonus kürzer (Perks.ailmentShortening); verloren: nichts
+static func leiden_nach(f, ergebnis: String, kon_bonus: int) -> Dictionary:
+	var bleibt := {}
+	if f == null or ergebnis == "LOST":
+		return bleibt
+	for st in f.status:
+		if not String(st) in ["POISON", "BLEED", "WEAK"]:
+			continue
+		var rest: int = Mars.LASTING if st == "WEAK" else int(f.status[st]) - maxi(0, kon_bonus)
+		if rest > 0:
+			bleibt[String(st)] = rest
+	return bleibt
 
 
 func _fertig(ergebnis: String) -> void:

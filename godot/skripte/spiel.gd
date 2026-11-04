@@ -459,12 +459,14 @@ func tageszeit() -> String:   # Kampfort.tageszeit: tag, abend, nacht
 func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeffnung := "") -> String:
 	var hw := held_werte() if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
 	var soeldner = null if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
-	var erg := {"ende": "", "tp": {}, "lohn": {}, "rest": zustand.anzahl("potion")}
+	var erg := {"ende": "", "tp": {}, "lohn": {}, "rest": zustand.anzahl("potion"), "held": null}
 	var aufruf := AufrufS.new()
 	add_child(aufruf)
 	aufruf.ende.connect(func(o, tp, lohn):
 		erg["tp"] = tp; erg["lohn"] = lohn
-		if aufruf.kampf and aufruf.kampf.mars: erg["rest"] = int(aufruf.kampf.mars.potions.get("potion", 0))
+		if aufruf.kampf and aufruf.kampf.mars:
+			erg["rest"] = int(aufruf.kampf.mars.potions.get("potion", 0))
+			erg["held"] = aufruf.kampf.mars.find("hero")     # 532: ZP, Verbrauchtes, Zustände nach dem Kampf
 		erg["ende"] = String(o))
 	held.halt(); held.richtung = Vector3.ZERO
 	# die Welt ruht unsichtbar; Kamera und Umgebung des Kampforts gelten (sonst zeichnet unsere Kamera, unsere Umgebung zuerst)
@@ -485,6 +487,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	if eroeffnung != "": lage["eroeffnung"] = eroeffnung   # 490: Ueberfall, Held zuerst (Opening) vom Monster auf der Karte
 	lage["blende"] = true   # 402 (Jerry): die Blende vor dem Kampf wie alt, auch im Probekampf
 	if probe.is_empty(): lage["aussehen"] = zustand.aussehen   # 403 (Jerry): der Held im Kampf wie im Dorf (HeldFigur)
+	if probe.is_empty(): lage["leiden"] = zustand.leiden.duplicate()   # 532 (Jerry): Zustände aus dem letzten Kampf (GameState.ailments)
 	# 493 (Jerry): Kampfort im Wald nach dem, was um den Helden steht (wie alt BattleScene.spotFor); im Testmodus wählbar
 	lage["platz"] = Testmodus.kampfort if Testmodus.ist_an() and Testmodus.kampfort != "" else load("res://kampf/kampfort.gd").platz_fuer(karte, held.kachel)
 	var gestartet: bool = aufruf.starte(gegner, hw, soeldner, "wald", tageszeit(), zustand.anzahl("potion") if probe.is_empty() else 2, -1, -1, -1, beute, lage)
@@ -509,9 +512,20 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 		held.setze(zurueck, "DOWN"); kamera.springe(); await abblenden(0.0)
 		return ende[0]
 	var tp_nach := int(erg["tp"].get("hero", hw.tp))
+	# 532 (Jerry, Abgleich 512; alt Battle.kt 487–489, Game.keepAilments): Zauberpunkte und „einmal je Rast“ verbraucht, Zustände bleiben
+	var hf = erg["held"]
+	if hf != null:
+		hw.zp = clampi(int(hf.sp), 0, hw.max_zp())
+		var tabelle: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+		for s in tabelle.skills:
+			if s.cost == "PER_REST" and hf.uses.has(s.id):
+				var weg := int(s.amount) - int(hf.uses[s.id])
+				if weg > 0: hw.verbraucht[String(s.id)] = weg
+				else: hw.verbraucht.erase(String(s.id))
+	zustand.leiden = AufrufS.leiden_nach(hf, ende[0], hw.mod("CON"))
 	if ende[0] == "LOST":
 		Rast.vergeht(zustand, 4 * 60)   # Game.DEATH_HOURS
-		hw.tp = hw.max_tp()
+		hw.voll()   # 532: Hero.restoreFully (TP, ZP, Verbrauchtes)
 		var wk: Dictionary = zustand.wiederkehr
 		var alle: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json"))
 		# Test 132 (Chef 16:09: „Bei Heilung bin ich nicht vor der Schenke, sondern vor dem Tempel“): wie Game.kt state.place =
@@ -845,6 +859,7 @@ func oeffne_menue() -> void:
 	ebene.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(ebene)
 	var m := Menue.new(held_werte(), zustand)
+	var figur_vorher := JSON.stringify(HeldFigur.wahl(held_werte(), zustand))   # 522: Ausruestung vorher
 	m.ort = platz()
 	m.dunkel = im_dunkeln()
 	ebene.add_child(m)
@@ -872,6 +887,7 @@ func oeffne_menue() -> void:
 		ebene.queue_free()
 		speichere()
 		ui.richte_ein()      # 399.1 Bedienung aus dem Menue System
+		held_figur_neu(figur_vorher)
 		fackel_neu()
 		kamera.fern_neu()
 		ui.leiste.zeige(held_werte(), zustand, licht.nacht > 0.65))
@@ -898,6 +914,32 @@ func test_tat(was: String, mit: Array) -> void:
 			betrete("elder", ziel[0], ziel[1])
 			await ortsworte(von, false)
 			ui.sage([{"text": Sprache.t({"de": "Höhle geschafft, Lyra frei, Amulett in der Tasche: sprich mit Aldric.", "en": "Cave cleared, Lyra free, the amulet in your bag: talk to Aldric."})}])
+		"station":   # 555: an eine Station von Kapitel 1 mit dem Stand, den ein Spieler dort hat (Testmodus.STATIONEN)
+			var ziel := Testmodus.station(String(mit[0]), zustand)
+			if ziel.is_empty(): return
+			await abblenden(1.0)
+			var von := karte.id
+			betrete(String(ziel[0]), ziel[1], String(ziel[2]))
+			await ortsworte(von, false)
+			ui.kurz(String(ziel[3]))
+		"ort_neu":   # 555: Merker, Bosse, Truhen, Kraeuter geaendert: der Ort neu aus dem Stand, der Held bleibt, wo er steht
+			await abblenden(1.0)
+			betrete(karte.id, held.kachel, held.blick())
+			await ortsworte(karte.id, false)
+			if mit.size() > 0: ui.kurz(String(mit[0]))
+		"holen":   # 555 wie alt cheatBring: ein Monster neben den Helden, 2 Minuten friedlich; auch wo sonst keine streifen
+			if herde == null:
+				herde = Herde.new(karte, self)
+				add_child(herde)
+				herde.kampf.connect(_kampf_auf_karte)
+				herde.gemeldet.connect(func(t): ui.kurz(t))
+			var de := Sprache.aktiv() == "de"
+			ui.kurz(("In der Nähe, 2 Minuten friedlich." if de else "Nearby, peaceful for 2 minutes.") if herde.hole(String(mit[0])) else ("Hier ist kein Platz." if de else "No room here."))
+		"zoom":   # 555 Kartenzoom wie alt: gleich sichtbar, auch nach Kneifen
+			kamera.fern_neu()
+			kamera.nah = false
+			kamera.zoom = kamera.fern
+			if mit.size() > 0: ui.kurz(String(mit[0]))
 		"strahlen":   # 415 (Jerry): Strahlenprobe im Kampfort (kampf/strahlprobe.gd); dort lädt „Zurück“ das Spiel neu
 			speichere()
 			var s = load("res://kampf/strahlprobe.gd").new()
@@ -960,6 +1002,12 @@ func zwischenbild(art: String) -> void:
 func im_dunkeln() -> bool:
 	var art := String(karte.daten.get("art", ""))
 	return (licht.nacht > 0.5 and art != "INTERIOR") or art == "CAVE"
+
+# 522 (Chef 03.11., 23:33): Schild, Waffe, Kleidung aus Testmenue oder Ausruestungsschirm gleich am Helden, nicht erst nach Kartenwechsel
+func held_figur_neu(vorher: String) -> void:
+	var w := HeldFigur.wahl(held_werte(), zustand)
+	if held == null or JSON.stringify(w) == vorher: return
+	held.neu_figur(w)
 
 func fackel_neu() -> void:
 	if held: held.fackel_neu(Menue.fackel(held_werte()), String(karte.daten.get("art", "")) == "INTERIOR")
@@ -1079,6 +1127,7 @@ func zeige(e: Dictionary) -> void:
 # nach einer neuen Flagge: Wege (Schlagbaum, Tor) und wer zu sehen ist (Story.kt visible)
 func flaggen_neu() -> void:
 	karte.baue_wege()
+	if gebiet: gebiet.schlagbaum(karte.flaggen.has("barrier_open"))   # 530
 	sichtbar_neu()
 
 func sichtbar_neu() -> void:
