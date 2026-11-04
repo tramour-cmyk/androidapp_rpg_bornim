@@ -157,7 +157,7 @@ def _sat(nt, x): return _m(nt, 'MINIMUM', _m(nt, 'MAXIMUM', x, 0.0), 1.0)
 # gebaut ist (478, Jerry), fest BENUTZT. STOFF=1 schaltet die Schicht ein (0 aus, wie bisher), ZUSTAND=<Stufe> waehlt die Spuren.
 STOFF = float(os.environ.get('STOFF', '0'))
 STOFF_TEILE = ('tabard', 'sleeve', 'pants', 'cloak', 'apron', 'tuch')
-ZUSTAENDE = {'MAKELLOS': 0.0, 'BENUTZT': 0.6, 'BESCHAEDIGT': 1.0, 'DEFEKT': 1.0}
+ZUSTAENDE = {'MAKELLOS': 0.0, 'BENUTZT': 0.6, 'BESCHAEDIGT': 1.0, 'DEFEKT': 1.35}   # Probe 4 (Pruefer 17:26: Beschaedigt und Defekt kaum zu trennen): Defekt noch abgenutzter
 ZUSTAND = os.environ.get('ZUSTAND', 'BENUTZT').upper()
 SPUREN = ZUSTAENDE.get(ZUSTAND, 0.6)
 def _noise_v(nt, vec, scale, detail=2.0, rough=0.5):
@@ -177,25 +177,21 @@ def stoff(nt, col, name):
     # wird von weitem Rauschen verschoben (Falten laufen schraeg zusammen und auseinander), die Tiefe wechselt von Falte zu Falte, und
     # eine zweite, engere Faltenschar liegt nur stellenweise darueber. Taeler schmal und dunkel, Grate breit und etwas heller
     if name in ('tabard', 'cloak', 'apron'):
+        # Probe 4 (Pruefer 17:26 an Probe 3: „sehr dichte, gleichmaessig wellige Linien … wie Holzmaserung“; die Welle mit Verzerrung
+        # ist genau das Holzmuster, 22 und 50 Baender rundum): wenige tiefe Falten, 9 rundum (vorn 4 bis 5), ohne Verzerrung; der Rock
+        # wird nach unten weiter, so werden die Falten vom Guertel abwaerts von selbst breiter. Unregelmaessig: die Lage der Falten
+        # wandert mit weitem Rauschen (bis 1,4 Bogen), die Tiefe wechselt von Falte zu Falte. Taeler schmal und dunkel, Grate kaum
+        # heller (nur Gold glaenzt)
         ang = _m(nt, 'ARCTAN2', X, Y)
-        warp = _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, _m_vec(nt, pos, 1.0), 0.045, 2.0, 0.5), 0.5), 2.6)
-        cb = nt.nodes.new('ShaderNodeCombineXYZ')
-        nt.links.new(_m(nt, 'ADD', _m(nt, 'MULTIPLY', ang, 2.2), warp), cb.inputs[0]); nt.links.new(_m(nt, 'MULTIPLY', Z, 0.018), cb.inputs[1])
-        def schar(scale, dist):
-            wv = nt.nodes.new('ShaderNodeTexWave'); wv.wave_type = 'BANDS'; wv.bands_direction = 'X'; wv.wave_profile = 'SIN'
-            wv.inputs['Scale'].default_value = scale; wv.inputs['Distortion'].default_value = dist
-            wv.inputs['Detail'].default_value = 2.0; wv.inputs['Detail Scale'].default_value = 1.5
-            nt.links.new(cb.outputs[0], wv.inputs['Vector'])
-            return wv.outputs['Fac']
-        w1 = schar(1.0, 4.5); w2 = schar(2.3, 6.0)
-        tief = _sat(nt, _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', beltY + 4.0, Z), 45.0))       # unter dem Guertel zunehmend
-        tief = _m(nt, 'ADD', 0.25, _m(nt, 'MULTIPLY', tief, 0.75))
-        tief = _m(nt, 'MULTIPLY', tief, _m(nt, 'ADD', 0.45, _m(nt, 'MULTIPLY', _noise_v(nt, _m_vec(nt, pos, 1.3), 0.08, 1.0), 1.1)))   # Falte zu Falte
-        eng = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, _m_vec(nt, pos, 0.7), 0.05, 1.0), 0.5), 4.0))     # zweite Schar stellenweise
-        tal = _m(nt, 'ADD', _m(nt, 'POWER', _sat(nt, _m(nt, 'SUBTRACT', 1.0, w1)), 2.5),
-                 _m(nt, 'MULTIPLY', eng, _m(nt, 'POWER', _sat(nt, _m(nt, 'SUBTRACT', 1.0, w2)), 3.0)))
-        grat = _m(nt, 'POWER', w1, 3.0)
-        f = _m(nt, 'ADD', 1.0, _m(nt, 'MULTIPLY', tief, _m(nt, 'SUBTRACT', _m(nt, 'MULTIPLY', grat, 0.14 * F), _m(nt, 'MULTIPLY', _sat(nt, tal), 0.48 * F))))
+        warp = _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, _m_vec(nt, pos, 1.0), 0.03, 1.0, 0.4), 0.5), 2.8)
+        phase = _m(nt, 'ADD', _m(nt, 'ADD', _m(nt, 'MULTIPLY', ang, 9.0), warp), _m(nt, 'MULTIPLY', Z, 0.012))
+        w1 = _m(nt, 'ADD', 0.5, _m(nt, 'MULTIPLY', _m(nt, 'SINE', phase), 0.5))
+        tief = _sat(nt, _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', beltY + 4.0, Z), 40.0))       # unter dem Guertel zunehmend
+        tief = _m(nt, 'ADD', 0.3, _m(nt, 'MULTIPLY', tief, 0.7))
+        tief = _m(nt, 'MULTIPLY', tief, _m(nt, 'ADD', 0.55, _m(nt, 'MULTIPLY', _noise_v(nt, _m_vec(nt, pos, 1.3), 0.06, 1.0), 0.9)))   # Falte zu Falte
+        tal = _m(nt, 'POWER', _sat(nt, _m(nt, 'SUBTRACT', 1.0, w1)), 2.2)
+        grat = _m(nt, 'POWER', w1, 4.0)
+        f = _m(nt, 'ADD', 1.0, _m(nt, 'MULTIPLY', tief, _m(nt, 'SUBTRACT', _m(nt, 'MULTIPLY', grat, 0.06 * F), _m(nt, 'MULTIPLY', tal, 0.62 * F))))
         col = _scale(nt, col, f)
         # unter dem Guertel staut sich der Stoff: dunkles Band 2 bis 10 cm darunter
         gb = _sat(nt, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'ABSOLUTE', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', Z, beltY - 6.0), 6.0))))
@@ -212,26 +208,30 @@ def stoff(nt, col, name):
     col = _mix(nt, _m(nt, 'MULTIPLY', fl, 0.30 + 0.25 * S), col, lin(hx(0x231C16)))
     # Spuren am Saum: BENUTZT heller Strassenstaub, BESCHAEDIGT Schlamm hoeher hinauf, unregelmaessig; die Kante dunkel
     if name in ('tabard', 'cloak', 'apron', 'pants'):
-        rnd = _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, pos, 0.12, 3.0, 0.6), 0.5), 1.6)
-        dr = _sat(nt, _m(nt, 'ADD', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', 8.0 + 26.0 * S, Z), 14.0), rnd))
-        schmutz = hx(0x8A7A64) if S < 0.8 else hx(0x4E4032)
-        col = _mix(nt, _m(nt, 'MULTIPLY', dr, min(0.85, 0.75 * S)), col, lin(schmutz))
+        # Probe 4 (Pruefer 17:26: „gleichmaessiger grauvioletter Verlauf am Saum, wie getaucht, nicht nach Erde“): Spritzer und Flecken
+        # statt Verlauf (Rauschen staerker, Kante hart), Erde braun; ueber Blau gemischt ergab das Grau Violett, darum wird der Stoff
+        # dort zuerst entsaettigt (nass, verdreckt) und dann erdbraun
+        rnd = _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, pos, 0.2, 3.0, 0.65), 0.5), 3.2)
+        dr = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'ADD', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', 8.0 + 24.0 * S, Z), 14.0), rnd), 2.2))
+        schmutz = hx(0x7A6040) if S < 0.8 else hx(0x4A3218)
+        col = _mix(nt, _m(nt, 'MULTIPLY', dr, min(0.5, 0.45 * S)), col, lin(hx(0x5A5248)))
+        col = _mix(nt, _m(nt, 'MULTIPLY', dr, min(0.9, 0.8 * S)), col, lin(schmutz))
         ka = _sat(nt, _m(nt, 'ADD', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', ankleY + 7.0, Z), 3.0), _m(nt, 'MULTIPLY', rnd, 0.6)))
         col = _mix(nt, _m(nt, 'MULTIPLY', ka, 0.6 * S), col, lin(hx(0x2A221A)))
     if ZUSTAND != 'DEFEKT' or name not in ('tabard', 'cloak', 'apron'): return col
     # DEFEKT, Saum ausgefranst: unten zerrissene Kante, Zacken 2 bis 6 cm hoch, dazwischen das Dunkel unter dem Rock (gemalt)
-    zk = _m(nt, 'ADD', _m(nt, 'SUBTRACT', Z, ankleY + 6.0), _m(nt, 'MULTIPLY', _noise_v(nt, _m_vec(nt, pos, 2.1), 0.45, 1.0, 0.4), 7.0))
-    loch = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', 4.2, zk), 1.5))
+    zk = _m(nt, 'ADD', _m(nt, 'SUBTRACT', Z, ankleY + 9.0), _m(nt, 'MULTIPLY', _noise_v(nt, _m_vec(nt, pos, 2.1), 0.3, 1.0, 0.4), 14.0))   # Probe 4: Zacken 4 bis 12 cm (Pruefer: Saum wie ein Streifen)
+    loch = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', 7.0, zk), 1.2))
     col = _mix(nt, loch, col, lin(hx(0x120E0B)))
-    faden = _sat(nt, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'ABSOLUTE', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', zk, 5.4), 1.2))))
+    faden = _sat(nt, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'ABSOLUTE', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', zk, 8.6), 1.8))))
     col = _mix(nt, _m(nt, 'MULTIPLY', faden, 0.55), col, lin(hx(0x9A9080)))   # helle, ausgefranste Faeden an der Rissgrenze
     # DEFEKT, ein Riss vorn seitlich (y < 0 ist vorn), vom Knie aufwaerts, gezackt; dunkler Spalt, helle Raender
     vorn = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', -2.0, Y), 0.5))
-    hoch = _sat(nt, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'ABSOLUTE', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', Z, kneeY + 3.0), 11.0))))
+    hoch = _sat(nt, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'ABSOLUTE', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', Z, kneeY + 8.0), 18.0))))   # Probe 4: Riss 36 cm lang, 3 cm breit
     xl = _m(nt, 'ADD', _m(nt, 'SUBTRACT', X, 5.0), _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, pos, 0.35, 2.0, 0.6), 0.5), 2.4))
     d = _m(nt, 'ABSOLUTE', xl)
-    spalt = _m(nt, 'MULTIPLY', _m(nt, 'MULTIPLY', vorn, _m(nt, 'POWER', hoch, 0.4)), _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', 0.55 * 1.0, d), 3.0)))
-    rand = _m(nt, 'MULTIPLY', _m(nt, 'MULTIPLY', vorn, hoch), _sat(nt, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'ABSOLUTE', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', d, 1.1), 0.6)))))
+    spalt = _m(nt, 'MULTIPLY', _m(nt, 'MULTIPLY', vorn, _m(nt, 'POWER', hoch, 0.4)), _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', 1.5, d), 1.6)))
+    rand = _m(nt, 'MULTIPLY', _m(nt, 'MULTIPLY', vorn, hoch), _sat(nt, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'ABSOLUTE', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', d, 2.4), 0.9)))))
     col = _mix(nt, _m(nt, 'MULTIPLY', rand, 0.5), col, lin(hx(0x9A9080)))
     col = _mix(nt, spalt, col, lin(hx(0x0E0B09)))
     return col
