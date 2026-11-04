@@ -180,7 +180,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 544 | M | von Sokrates (Chef 03.11., 23:49, Build 249, Bild MARS-Probekampf: „Stimmt die Schrift?“): | wartet auf Test/Build |
 | 532 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 532): Kampf: Held geht ohne Zauberpunkte | wartet auf Test/Build |
 | 532a | M | Rückfrage: Tasche und Metrausch jetzt wie alt in MARS oder erst mit 478? | Chef (Datei in der Chefsache) |
-| 533 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 533): Kampf: Grimmzahn ist ein Wolf, kei | startbar |
+| 533 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 533): Kampf: Grimmzahn ist ein Wolf, kei | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 534 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 534): Kampf: Zauber und Fähigkeiten fehl | ruht (424: altes SRD-System) |
 | 535 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 535): Kampf: Gegnerstufe, Elite, schimme | startbar |
 | 536 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 536): Kampf: Erklärungen bei langem Drüc | startbar |
