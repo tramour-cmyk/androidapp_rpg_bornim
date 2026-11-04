@@ -10,6 +10,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 475 | M | **von Team Tom (22:25):** 475 Lauf 2 vor dem Versand angehalten (576: Grün der Kapuze am Hals bei Garrick, Morwen); zwei neue Läufe frei? (480.1; Zu 475 in ARBEIT-TEAM-TOM) | startbar |
 | 512 | M | **von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles):** Abgleich alt gegen neu wirkt nicht: Funde des Chefs in Build 249 (503, 519, 520, 521) | in Arbeit: wirkt nicht, Chef 16:56 t257 C: Gegnernamen, Zugkreis (561) wieder nicht verglichen; Abgleich je Schirm vor Build prüfen |
 | 415d.1 | M | **von Chef (04.11., 19:56, „Brauchen wir das jetzt? Brauchen wir es nicht? Wir haben noch ganz viele Gegner, wir haben viele Zauber“):** Effektpakete jetzt kaufen, Einbau nach Bedarf | wartet auf Chef: entscheiden/415d1 |
 | 508 | M? | **von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5):** Einladung der Lehrmeister in Kapitel 1 erreichbar? (Simulation 444: keine Fertigkeit Geselle bis Stufe 6); Regelfrage: Magie-Kernfertigkeit Pflicht für Paladin und Kriegsmagier?; Wachsoldat startet mit Mittlerer, Wächter verlangt Schwere Rüstung | startbar |
