@@ -184,7 +184,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 558 | Robe des Magiers zu glatt, wie eine blaue Fläche: Stoff lebendiger (Falten, Schatten, Schmutz, Abnutzung) (Chef 04.11., 11:31, Bild) | E Figuren | M | 15,79 $ | Team Tom | wartet |
 | 559 | Prüfung „wartet auf Chef“: Stand gegen neuere Rückmeldung des Chefs (Chef 04.11., 16:18) | B Werkzeuge | M | – | Perikles | erledigt |
 | 560 | Monster auf der Karte drehen sich zum Helden, wenn sie ihn wahrnehmen, mit Schritten statt auf der Stelle (Chef 04.11., 16:22) | E Monster | M? | – | Team Jerry | startbar |
-| 557 | Spielstände: Entwurf ohne Kasten (549a) als Bild, Inhalt wie alt mit Spieldauer und Heldenbild (Chef 04.11., 11:15) | A Spiel | M | 32,62 $ | Team Tom | Chef |
+| 557 | Spielstände: Entwurf ohne Kasten (549a) als Bild, Inhalt wie alt mit Spieldauer und Heldenbild (Chef 04.11., 11:15) | A Spiel | M | 32,62 $ | Team Tom | startbar |
 | 556 | Blenden reines Schwarz statt Leuchten in der Mitte (Ringe), lang genug zum Lesen (Chef 04.11., 07:52) | A Spiel | M | – | Team Tom | gebaut |
 | 555 | Testmenü wie alt und schneller: fehlende Einträge der alten Fassung, dazu Sprünge an jede Station von Kapitel 1 (Chef 04.11., 00:30) | B Werkzeuge | M | 15,00 $ | Team Tom | zu testen |
 | 554 | Testmenü: Schalter „Monster beachten mich nicht“ fehlt (Chef 04.11., 00:27) | B Werkzeuge | M | – | Team Tom | zu testen |
