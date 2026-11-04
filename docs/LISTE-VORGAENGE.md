@@ -170,8 +170,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 544 | Build 249, Kampf: Schrift ist Ersatzschrift ohne Serifen statt Alegreya (Chef 03.11., 23:49, Bild) | E Kampf | M | – | Team Jerry | startbar |
 | 532 | Kampf: Held geht ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch und ohne die ganze Tasche (nur einfacher Heiltrank) in den Kampf, danach wird nur TP zurückgeschrieben; Zauber kosten nichts (Abgleich 512, Sokrates 03.11., 23:4x) | E Kampf | M | – | Team Jerry | startbar |
 | 533 | Kampf: Grimmzahn ist ein Wolf, kein Boss: Werte, „Grimmzahns Fang“, keine Flucht, Leibwache flieht nach seinem Fall (Abgleich 512, Sokrates 03.11., 23:4x) | E Kampf | M | – | Team Jerry | zu testen |
-| 534 | Kampf: Zauber und Fähigkeiten fehlen in „Können“ (Magierrüstung, Untote vertreiben, Spirituelle Waffe, Geisterwächter) oder wirken nicht (Unglaubliches Ausweichen, Unerbittlichkeit, Lebensraub, Schadensminderung der Ausrüstung); Talente zu Kampfbeginn (Einschüchtern, Schwächen kennen) (Abgleich 512, Sokrates 03.11., 23:4x) | E Kampf | M | – | Team Jerry | zu testen |
-| 535 | Kampf: Gegnerstufe, Elite, schimmernde Gegner, Gruppen (Ratten und Fledermäuse als Wölfe, Schamane ohne Heilen), EP und Gold je Gegner, Nachlass in Stufe 1; gegen BRS klären, Balance entscheidet der Chef (Abgleich 512, Sokrates 03.11., 23:4x) | E Kampf | M | 15,87 $ | Team Jerry | zu testen |
+| 534 | Kampf: Zauber und Fähigkeiten fehlen in „Können“ (Magierrüstung, Untote vertreiben, Spirituelle Waffe, Geisterwächter) oder wirken nicht (Unglaubliches Ausweichen, Unerbittlichkeit, Lebensraub, Schadensminderung der Ausrüstung); Talente zu Kampfbeginn (Einschüchtern, Schwächen kennen) (Abgleich 512, Sokrates 03.11., 23:4x) | E Kampf | M | 2,32 $ | Team Jerry | zu testen |
+| 535 | Kampf: Gegnerstufe, Elite, schimmernde Gegner, Gruppen (Ratten und Fledermäuse als Wölfe, Schamane ohne Heilen), EP und Gold je Gegner, Nachlass in Stufe 1; gegen BRS klären, Balance entscheidet der Chef (Abgleich 512, Sokrates 03.11., 23:4x) | E Kampf | M | 18,19 $ | Team Jerry | zu testen |
 | 536 | Kampf: Erklärungen bei langem Drücken (MarsTips), Grund bei gesperrtem Zauber, „Kein Ziel in Sicht“, Knopf „Schnell“, Stufe und EP im Gruppenkasten, Seltenheitsfarbe der Beute (Abgleich 512, Sokrates 03.11., 23:4x) | E Kampf | M | – | Team Jerry | zu testen |
 | 537 | Kapitelende fehlt: nach Aldric kein „ENDE VON KAPITEL 1“, keine Tempelszene, keine Nacht, kein Morgen im Tempel; `TEMPLE_SEEN`, Lyras Lager-Sätze fehlen (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | gebaut |
 | 538 | Heldenstufe kommt in Gesprächen nie an (Garrick warnt immer), Stufengrenze 6 für Kapitel 1 fehlt (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | gebaut |
@@ -199,6 +199,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 569 | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 Probe 4) | A Spiel | M | – | Team Tom | wartet |
 | 570 | Theke: Wahl „Fleisch verkaufen · 12 Gold“ liest sich wie ein Preis (Prüfer 557 Runde 4) | A Spiel | M? | – | Homer | startbar |
 | 571 | Wischen auf Schaltflächen rollt Listen nicht (Testmenü, Erschaffung; Chef 04.11., 20:13) | A Spiel | M | – | Team Tom | startbar |
+| 572 | Effektprobe: zwei REEBOO-Gratisstücke (Stylized VFX, Status Effects) an einem eigenen Helden im Film, vor dem Kauf (Chef 04.11., 20:27) | C Kampf | M | – | Team Jerry | startbar |
+| 573 | Kampf: gefallener Gegner wird in die Mitte gezogen, wenn er als Letzter fällt (Chef 04.11., 20:33, Build 257) | C Kampf | M | – | Team Jerry | startbar |
 | 557 | Spielstände: Entwurf ohne Kasten (549a) als Bild, Inhalt wie alt mit Spieldauer und Heldenbild (Chef 04.11., 11:15) | A Spiel | M | 32,62 $ | Team Tom | startbar |
 | 556 | Blenden reines Schwarz statt Leuchten in der Mitte (Ringe), lang genug zum Lesen (Chef 04.11., 07:52) | A Spiel | M | – | Team Tom | gebaut |
 | 555 | Testmenü wie alt und schneller: fehlende Einträge der alten Fassung, dazu Sprünge an jede Station von Kapitel 1 (Chef 04.11., 00:30) | B Werkzeuge | M | 15,00 $ | Team Tom | gebaut |
@@ -215,7 +217,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 520 | Build 249, Ausrüstung: Held zwischen den Fächern zu klein und ohne die angelegten Sachen; alt `HeroTurntable` mit Getragenem (Chef 03.11., 23:19, Bild) | A Spiel | M | – | Team Tom | zu testen |
 | 519 | Build 249, Ausrüstung: Gegenstandsfenster („Göttlicher Ring des Eisernen Richters“) passt nicht auf den Bildschirm, rechts abgeschnitten (Chef 03.11., 23:13, Bild) | A Spiel | M | 21,91 $ | Team Tom | zu testen |
 | 518 | Build 248, Dorf: keine Häuser, nur Wege und Pflaster, dazu ständiges schwarzes Flackern (Chef 03.11., 20:47, Bild) | A Spiel | M | – | Team Tom | gebaut |
-| 517 | Waldklang wie alt: Vögel am Tag, Eule und Grillen nachts, fernes Wolfsheulen im Tiefen Wald (`WildSound.kt`; Abgleich 512, von Team Tom) | A Spiel | M | – | Jerry | wartet |
+| 517 | Waldklang wie alt: Vögel am Tag, Eule und Grillen nachts, fernes Wolfsheulen im Tiefen Wald (`WildSound.kt`; Abgleich 512, von Team Tom) | A Spiel | M | 2,32 $ | Jerry | wartet |
 | 513 | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „513 B“) | E Figuren | M | 14,01 $ | Team Tom | ruht |
 | 513.1 | probelauf.py sperrt Läufe ohne abgenommenen Figurenstand (513 B) | B Abläufe | M | 2,17 $ | Perikles | gebaut |
 | 514 | Glühwürmchen nachts auf allen Gebietskarten wie alt (Fireflies, Chef 03.11., 16:01) | O Orte | M | 22,90 $ | Team Tom | gebaut |

@@ -16,6 +16,6 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/main/doc
 
 ## Stärkstes Gegenargument
 
-Status Effects braucht das Leuchten im ganzen Bild, und das ist auf dem Handy nicht gemessen; dazu sagt 488, Feinarbeit einzufrieren. **Entkräftet:** das Risiko sind 5,59 $; Leuchten wird vor dem Einbau gemessen, läuft es nicht, bleibt es bei den Strahlen. Zustände sind Kampfinhalt, keine Politur.
+Status Effects braucht das Leuchten im ganzen Bild, und das ist auf dem Handy nicht gemessen; dazu sagt 488, Feinarbeit einzufrieren. **Entkräftet:** das Risiko sind 6,99 $ (Preis laut Gratisstück 04.11., Angebot vorbei); vorher zeigt der Film 572 die Gratiseffekte am eigenen Helden; Leuchten wird vor dem Einbau gemessen, läuft es nicht, bleibt es bei den Strahlen. Zustände sind Kampfinhalt, keine Politur.
 
 **Zu sagen:** „415d.1 ja“, „415d.1 nur Strahlen“ oder „noch nicht“ (dann bleibt 415d: Kauf erst nach dem Renderervorschlag von Jerry).

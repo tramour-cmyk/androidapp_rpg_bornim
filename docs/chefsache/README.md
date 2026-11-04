@@ -44,7 +44,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 102, Muss 81, startbar 9
+**Tom** – offen 102, Muss 81, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -53,7 +53,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 568 | M? | von Sokrates (Chef 04.11., 19:42, „grundsätzlich bei 568. Für A.“; DESIGN-SPIELSYSTEM-2-0. | startbar |
 | 571 | M | von Sokrates (Chef 04.11., 20:13, Build 257, „Ganz wichtig“; Zu 571): Wischen auf einer Sc | startbar |
 | 557 | M | von Sokrates (Chef 04.11., 11:15; Zu 557): Spielstände als Entwurf im Stil „ohne Kasten“ ( | startbar |
-| 558 | M | von Sokrates (Chef 04.11., 11:31, Bild Build 257; Zu 558): Robe des Magiers zu glatt: Stof | startbar |
+| 558 | M | von Sokrates (Chef 04.11., 11:31, Bild Build 257; Zu 558): Robe des Magiers zu glatt: Stof | wartet auf Test/Build |
 | 556 | M | von Sokrates (Chef 04.11., 07:52; Zu 556): Blenden reines Schwarz statt Leuchten, Lesezeit | wartet auf Test/Build (gebaut) |
 | 531 | M | von Sokrates (Chef 03.11., 23:42, Build 249; Zu 531): Garrick: „Gesicht wirkt sonderbar, B | wartet auf Sokrates |
 | 530 | M | von Sokrates (Chef 03.11., 23:40, Build 249): „Schlagbaum öffnet sich nicht visuell.“ Merk | wartet auf Test/Build (gebaut) |
@@ -149,12 +149,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 447.4.1 | M | von Homer (447.4, Chef 03.11., 15:50 „1B 2A“): Lehrmeister, Meisterschaften, Ruf in Kapite | wartet auf 508 (startbar) |
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
-| Pflege | K | von Werkzeug (340.3, 04.11.): 107110 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 04.11.): 110141 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 82, Muss 69, startbar 19
+**Jerry** – offen 84, Muss 71, startbar 21
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 572 | M | von Sokrates (Chef 04.11., 20:27; „jetzt“ 04.11., 20:27; Zu 572): Effektprobe vor dem Kauf | startbar |
+| 573 | M | von Sokrates (Chef 04.11., 20:33, Build 257; Zu 573): Tote bleiben liegen: der zuletzt gef | startbar |
 | 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | startbar |
 | 566 | M | von Sokrates (Chef 04.11., 17:15, Bild; Zu 566 und 567): „Beim Goblin steht in den Schatte | wartet auf Test/Build (gebaut) |
 | 567 | M | von Sokrates (Bilder Chef 04.11., 17:00–17:15; Zu 566 und 567): Gegner stehen im Kampfort | wartet auf Test/Build (gebaut) |
@@ -236,7 +238,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | 469 | M | von Sokrates: Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
-| Pflege | K | von Werkzeug (340.3, 04.11.): 31777 Bytes (Grenze 15000), Erledigtes streichen; Zeile 552 | startbar |
+| Pflege | K | von Werkzeug (340.3, 04.11.): 35088 Bytes (Grenze 15000), Erledigtes streichen; Zeile 552 | startbar |
 
 **Perikles** – offen 29, Muss 23, startbar 3
 
@@ -332,7 +334,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (Chef) |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | ruht |
 | D63.7 | K | von Diogenes (434, Vortag 01.11.): entscheiden/3761-kettenhemd-heldin.md (20:55) ohne Zeil | startbar |
-| Pflege | K | von Werkzeug (340.3, 04.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
+| Pflege | K | von Werkzeug (340.3, 04.11.): 15310 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.

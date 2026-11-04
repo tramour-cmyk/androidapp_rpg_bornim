@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (04.11., 00:5x, Ford `session_01Hmoj76vuwGguJJYw9HWky8`, Tiefe 5):** Getan: Teams neu gestartet, Vorgänger archiviert und Kosten gebucht (Chef 20:19: archivieren und buchen ohne Fragen; nur idle und >60 s). Geltend 468a bis Sa 07.11., 20:00 (nur Tom, Jerry, Spike, Muss); Chef 00:41 gab Sokrates die Nachtverantwortung. Vor jedem Start „in Arbeit“ auf main prüfen (Doppelbau 520/522/530). Offen: Tom `rG9H` (531) hängt auf Bash-Berechtigung, Chefsache 531a. Guthaben Woche 69 % (Bild 20:19). Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 572** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 574** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -60,6 +60,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 20:31 04.11.: Jerry `zop1` „572: Effektprobe REEBOO-Gratisstücke“ gestartet auf Chefwort „jetzt“ 20:27 (Sokrates 20:29); Ausnahme zu 468c (Tom läuft 475/531 zugleich), weil das Chefwort jünger ist und die Zeile „zwei Läufe frei“ trägt. Alter Jerry `wfZL` (idle seit 03:31, Chef-Test t257 inzwischen als 562/563/565 im Vorrat) archiviert, 6,97 $ auf 535, 534, 517.
 - 20:00 04.11.: Neustart Tom 9650baf00 → `Bhmo` „475, 531: Lauf laden, Gesichter an den Chef; dann 531 Film“ (nach idle); alter Tom `vd1jVA` archiviert, 18,67 $ auf 558 und 475.
 - 19:51 04.11.: Neustart Sokrates c4753355c → `a1aM` „Chefrunde: 557 Runde 5, dann t257 ab D“ (nach idle); alter Sokrates `X5Ac` archiviert, 19,78 $ auf 512.
 - 19:20 04.11.: Neustart Tom dc5f2c355 → `vd1jVA` „558, 475: Läufe laden, Bilder an den Chef; dann 566, 567 bauen“ (nach idle); alter Tom `NXxN` archiviert, 19,13 $ auf 558 und 505.
