@@ -105,7 +105,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 447.4.1 | M | **von Homer (447.4, Chef 03.11., 15:50 „1B 2A“):** Lehrmeister, Meisterschaften, Ruf in Kapitel 1 bauen nach `STORY-LEHRMEISTER-K1.md` und `STORY-RUF-K1.md` („Für Tom“, Varianten), Lehrmeister in der Karte | wartet auf 508 (Sokrates: Einladung in Kapitel 1 erreichbar?) | – |
 | 133 | K | Charisma-Wahlen Kapitel 2 (`STORY-WAHLEN.md`) | ruht: altes SRD-System (Chef 31.10.) | – |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (Kapitel 2 nicht im Spiel) | – |
-| Pflege | K | **von Werkzeug (340.3, 04.11.):** 95781 Bytes (Grenze 15000), Erledigtes streichen; Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | startbar |
+| Pflege | K | **von Werkzeug (340.3, 04.11.):** 99056 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 ## Einzelheiten
 
