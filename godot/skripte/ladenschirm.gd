@@ -216,7 +216,9 @@ func verkaufen() -> void:
 			var g = s.get("ausruestung")
 			var bild := Menue.stueck_rahmen(g, 42) if g is Dictionary else Menue.vorrat_bild(String(s.get("ding", "")))
 			var nr := i
-			reihe(bild, Laden.verkauft_name(s), Color.WHITE if z.gold >= p else Stil.DIM, [], preis_text(p), func(): sage(laden.zurueck(z, nr)); baue())
+			# 525: wie alt (ShopScreen.kt 219) in der Farbe der Seltenheit, ohne Gold matt
+			var farbe := (farbe_von(g) if g is Dictionary else farbe_ding(String(s.get("ding", "")))) if z.gold >= p else Stil.DIM
+			reihe(bild, Laden.verkauft_name(s), farbe, [], preis_text(p), func(): sage(laden.zurueck(z, nr)); baue())
 		luecke(8)
 	kopfzeile(Sprache.t(Laden.VORRAETE))
 	var verk := z.taschen.keys().filter(func(id): return Laden.verkaeuflich(String(id)))
@@ -259,7 +261,7 @@ static func leer_rahmen(dp: float) -> Control:
 func alle_gewoehnlichen(gew: Array) -> void:
 	var de := de_()
 	var tu := func():
-		sage(Sprache.t(Laden.GEWOEHNLICHE_WEG) % laden.verkaufe_gewoehnliches(z, hw))
+		sage(Laden.gewoehnliche_text(laden.verkaufe_gewoehnliches(z, hw)))
 		baue()
 	if not Bedienung.rueckfragen:
 		tu.call()
@@ -267,21 +269,86 @@ func alle_gewoehnlichen(gew: Array) -> void:
 	var summe := 0
 	for g in gew: summe += Laden.verkaufspreis_von(hw, g)
 	dialog("Alle gewöhnlichen verkaufen?" if de else "Sell all common items?", Stil.GOLD,
-		[Stil.zeile((("%d Gegenstände:" if de else "%d items:") % gew.size()).to_upper(), 14, Stil.GOLD, 3.0), Erschaffung.txt(", ".join(PackedStringArray(gew.map(func(g): return Beute.name(g)))), 14, Stil.DIM)],
+		[Stil.zeile((("%d Gegenstände:" if de else "%d items:") % gew.size()).to_upper(), 14, Stil.GOLD, 3.0), Erschaffung.txt(", ".join(PackedStringArray(gew.map(func(g): return Beute.name(g)))), 14, Stil.DIM),
+		Erschaffung.txt("%s: %d → %d" % [Sprache.u("gold"), z.gold, z.gold + summe], 15, Stil.DIM)],   # 525 (Helfer): Gold vorher → nachher
 		[[("Verkaufen · " if de else "Sell · ") + preis_text(summe), tu], [abbrechen(), func(): pass]])
 
 # ---------------------------------------------------------------- Brauen (Morwen)
+# 525 (Chef 04.11., 00:31: „Kann kenntlich gemacht werden, was für einen Trank fehlt oder sonstige sinnvolle Verbesserungen?“):
+# wie alt BrewList (ShopScreen.kt 384–408) je Zutat Bild und „hat/braucht“, Fehlendes und zu wenig Gold in Warnfarbe; dazu
+# Nicht-Brauares matt mit „Fehlt: …“, der Bestand des Tranks und wie oft es reicht; der Kraeuterhinweis wie alt unter der Ueberschrift.
 func brauen() -> void:
 	kopfzeile(Sprache.t(Laden.REZEPTE))
+	zeile(Sprache.t(Laden.KRAEUTER), 12, Stil.DIM)
 	var rz := Laden.rezepte()
 	for i in rz.size():
 		var r: Dictionary = rz[i]
 		var aus := String(r["ergebnis"])
-		var ok := Laden.bezahlbar(z, r)
-		reihe(Menue.vorrat_bild(aus), Laden.name(aus), farbe_ding(aus) if ok else Stil.DIM, [Laden.kosten(r)], "", func():
-			dialog(Laden.name(aus), farbe_ding(aus), [Erschaffung.txt(Sprache.t(Laden.ding(aus).get("info", "")), 15),
-				Erschaffung.txt(("Zutaten: " if de_() else "Ingredients: ") + Laden.kosten(r), 15, Stil.DIM if ok else Stil.WARN)],
-				[["Brauen" if de_() else "Brew", func(): sage(laden.braue(z, hw, r)); baue(), ok], [abbrechen(), func(): pass]]))
+		var oft := Laden.wie_oft(z, r)
+		var rechts := Sprache.t(Laden.REICHT) % oft if oft > 0 else ""
+		var p := posten(Laden.name(aus), rechts, farbe_ding(aus) if oft > 0 else Stil.DIM, Menue.vorrat_bild(aus))
+		var sp: VBoxContainer = p.get_child(1)
+		sp.add_child(zutaten_reihe(r, 18, 12))
+		if z.anzahl(aus) > 0: sp.add_child(Erschaffung.txt(Sprache.t(Laden.BESITZ) + str(z.anzahl(aus)), 12, Stil.DIM))
+		if oft < 1:
+			sp.add_child(Erschaffung.txt(Sprache.t(Laden.FEHLT) + Laden.fehlt(z, r), 12, Stil.WARN))
+			for c in [p.get_child(0), sp.get_child(0)]: (c as CanvasItem).modulate.a = 0.5
+		p.set_meta("rezept", aus)   # fuer brauen_525
+		inhalt.add_child(p)
+		tippbar(p, func(): braukasten(r, 1))
+
+# je Zutat Bild und „hat/braucht“, dann das Gold; was fehlt, in Warnfarbe (BrewList)
+func zutaten_reihe(r: Dictionary, bild_dp: float, sp: float) -> HBoxContainer:
+	var h := HBoxContainer.new()
+	h.add_theme_constant_override("separation", int(4 * DP))
+	for id_ in r["zutaten"]:
+		var id := String(id_)
+		var hat := z.anzahl(id)
+		var braucht := int(r["zutaten"][id])
+		h.add_child(Menue.bild_feld("ding-" + id, bild_dp))
+		var l := Stil.zeile("%d/%d" % [hat, braucht], sp, Stil.TEXT if hat >= braucht else Stil.WARN)
+		l.set_meta("zutat", id)
+		h.add_child(l)
+		h.add_child(Erschaffung.luecke(0, 6))
+	if int(r["gold"]) > 0:
+		var g := Stil.zeile("%d G" % int(r["gold"]), sp, Stil.TEXT if z.gold >= int(r["gold"]) else Stil.WARN)
+		g.set_meta("zutat", "gold")
+		h.add_child(g)
+	return h
+
+# 525: der Kasten wie alt (Bild, Wirkung, Zutaten) und dazu die Menge wie beim Kaufen: −, Zahl, +, ×1, ×5, „Alle“ (so oft es reicht);
+# Bestand und Gold vorher → nachher; „Brauen ×n“
+func braukasten(r: Dictionary, n_: int, alle := false) -> void:
+	var de := de_()
+	var aus := String(r["ergebnis"])
+	var oft := Laden.wie_oft(z, r)
+	var n := clampi(n_, 1, maxi(1, oft))
+	var halter := {}   # der Kasten entsteht erst unten (wie menge)
+	var bild := Menue.bild_feld("ding-" + aus, 48)
+	bild.name = "DingBild"
+	bild.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	var zl: Array = [bild, Erschaffung.txt(Sprache.t(Laden.ding(aus).get("info", "")), 14, Stil.DIM),
+		Erschaffung.txt(("Zutaten je Trank:" if de else "Ingredients per potion:"), 15, Stil.DIM), zutaten_reihe(r, 24, 15)]
+	if oft < 1:
+		zl.append(Erschaffung.txt(Sprache.t(Laden.FEHLT) + Laden.fehlt(z, r), 15, Stil.WARN))
+	else:
+		zl.append(Erschaffung.txt("%s: %d" % [Sprache.t(Laden.MENGE), n], 16))
+		var reihe_ := HBoxContainer.new()
+		reihe_.add_theme_constant_override("separation", int(6 * DP))
+		for k in [["−", n - 1, n > 1, false, false], ["+", n + 1, n < oft, false, false], ["×1", 1, true, not alle and n == 1, false],
+				["×5", 5, oft >= 5, not alle and n == 5, false], [Sprache.t(Laden.ALLE), oft, true, alle, true]]:
+			var nn: int = k[1]
+			var ist_alle: bool = k[4]
+			var b := Erschaffung.knopf(String(k[0]), func(): (halter["kasten"] as Node).queue_free(); braukasten(r, nn, ist_alle), bool(k[3]))
+			b.disabled = not bool(k[2])
+			reihe_.add_child(b)
+		zl.append(reihe_)
+		zl.append(Erschaffung.txt(Sprache.t(Laden.REICHT) % oft, 15, Stil.DIM))
+		zl.append(Erschaffung.txt(Sprache.t(Laden.BESITZ) + "%d → %d" % [z.anzahl(aus), z.anzahl(aus) + n], 15, Stil.DIM))
+		if int(r["gold"]) > 0:
+			zl.append(Erschaffung.txt("%s: %d → %d" % [Sprache.u("gold"), z.gold, z.gold - int(r["gold"]) * n], 15, Stil.DIM))
+	var brau := ("Brauen" if de else "Brew") + (" ×%d" % n if n > 1 else "")
+	halter["kasten"] = dialog(Laden.name(aus), farbe_ding(aus), zl, [[brau, func(): sage(laden.braue_mehr(z, hw, r, n)); baue(), oft >= 1], [abbrechen(), func(): pass]])
 
 # ---------------------------------------------------------------- Kaesten
 # 59.5 supplyDialog: Werte, Menge, Besitz vorher → nachher, Gold vorher → nachher; −, +, ×1, ×5, beim Verkauf Alle; der Preis folgt
@@ -301,19 +368,20 @@ func menge(id: String, kauf: bool, n_: int, alle := false) -> void:
 	if most < 1: zl.append(Erschaffung.txt(Sprache.u("notEnoughGold") if kauf else Sprache.u("nothing"), 15, Stil.WARN))
 	var reihe_ := HBoxContainer.new()
 	reihe_.add_theme_constant_override("separation", int(6 * DP))
-	var knoepfe := [["−", n - 1, n > 1], ["+", n + 1, n < most], ["×1", 1, most >= 1], ["×5", 5, most >= 5]]
-	if not kauf: knoepfe.append([Sprache.t(Laden.ALLE), most, most >= 1])
+	# 525 (ShopScreen.kt 347–349): die gewaehlte Schnellwahl bleibt markiert, „Alle“ als solche, auch wenn es 1 oder 5 sind
+	var knoepfe := [["−", n - 1, n > 1, false], ["+", n + 1, n < most, false], ["×1", 1, most >= 1, not alle and n == 1], ["×5", 5, most >= 5, not alle and n == 5]]
+	if not kauf: knoepfe.append([Sprache.t(Laden.ALLE), most, most >= 1, alle])
 	var halter := {}   # der Kasten entsteht erst unten; Lambdas fassen Werte beim Anlegen, ein Dictionary aber als Verweis
 	for k in knoepfe:
 		var nn: int = k[1]
 		var ist_alle: bool = String(k[0]) == Sprache.t(Laden.ALLE)
-		var b := Erschaffung.knopf(String(k[0]), func(): (halter["kasten"] as Node).queue_free(); menge(id, kauf, nn, ist_alle))
+		var b := Erschaffung.knopf(String(k[0]), func(): (halter["kasten"] as Node).queue_free(); menge(id, kauf, nn, ist_alle), bool(k[3]))
 		b.disabled = not bool(k[2])
 		reihe_.add_child(b)
 	zl.append(reihe_)
 	var tu := func():
 		if alle and not kauf and n >= 2 and Bedienung.rueckfragen:   # 59e: alles von einem Ding verkaufen fragt noch einmal
-			dialog("Alle verkaufen?" if de_() else "Sell all?", farbe_ding(id), [Erschaffung.txt("%s ×%d" % [Laden.name(id), n], 16)],
+			dialog("Alle verkaufen?" if de_() else "Sell all?", farbe_ding(id), [Menue.bild_feld("ding-" + id, 48), Erschaffung.txt("%s ×%d" % [Laden.name(id), n], 16)],
 				[["%s ×%d · %s" % [Sprache.u("sell"), n, preis_text(preis)], func(): sage(laden.verkaufe(z, hw, id, n)); baue()], [abbrechen(), func(): pass]])
 			return
 		sage(laden.kaufe(z, hw, id, n) if kauf else laden.verkaufe(z, hw, id, n))
