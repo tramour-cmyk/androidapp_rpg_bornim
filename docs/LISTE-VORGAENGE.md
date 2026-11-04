@@ -194,7 +194,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 567 | MARS: Gegner stehen im Kampfort fast übereinander, Ansage hängt neben keinem (Bilder Chef 04.11., 17:00–17:15) | E Kampf | M | – | Team Jerry | startbar |
 | 557 | Spielstände: Entwurf ohne Kasten (549a) als Bild, Inhalt wie alt mit Spieldauer und Heldenbild (Chef 04.11., 11:15) | A Spiel | M | 32,62 $ | Team Tom | Chef |
 | 556 | Blenden reines Schwarz statt Leuchten in der Mitte (Ringe), lang genug zum Lesen (Chef 04.11., 07:52) | A Spiel | M | – | Team Tom | gebaut |
-| 555 | Testmenü wie alt und schneller: fehlende Einträge der alten Fassung, dazu Sprünge an jede Station von Kapitel 1 (Chef 04.11., 00:30) | B Werkzeuge | M | 15,00 $ | Team Tom | zu testen |
+| 555 | Testmenü wie alt und schneller: fehlende Einträge der alten Fassung, dazu Sprünge an jede Station von Kapitel 1 (Chef 04.11., 00:30) | B Werkzeuge | M | 15,00 $ | Team Tom | startbar |
 | 554 | Testmenü: Schalter „Monster beachten mich nicht“ fehlt (Chef 04.11., 00:27) | B Werkzeuge | M | – | Team Tom | zu testen |
 | 523 | Tasche wie alt und besser: „Funke löschen“, Seltenheit und Kurzangabe der Vorräte, Ausrüstungszeile mit Art, Platz, Wert, „nicht tragbar“, ▲/▼ farbig, Sortierung nach Platz, Klang beim Benutzen (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | zu testen |
 | 524 | Gegenstandsfenster, Inhalt wie alt und besser: Grundwerte (Seltenheit, Tragort, Gewicht, Schaden je Griffart, Angriff, RK + GES), Warnungen „Ungeübt“, „Zauberkraft nützt nur Zauberwirkern“, Vergleich mit „im Schnitt“ und Kapiteldeckel (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | zu testen |
