@@ -20,6 +20,9 @@ on:
       bild:
         description: "Messlauf ohne Bilder und Filme (Perikles 02.11., 389/390a): nein"
         default: ""
+      film:
+        description: "Nur Bilder, kein Film (511: Probebild auf dem Bauserver, 390a): nein"
+        default: ""
       strahlen:
         description: "Strahlenfilm 415 (Jerry, Beams-Probe im Kampfort): ja"
         default: ""
