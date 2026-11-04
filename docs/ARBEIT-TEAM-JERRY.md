@@ -10,7 +10,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 572 | M | **von Sokrates (Chef 04.11., 20:27; „jetzt“ 04.11., 20:27; Zu 572):** Effektprobe vor dem Kauf: die 6 Effekte der zwei REEBOO-Gratisstücke an einem eigenen Helden (Klerikerin o. ä.) im Kampfort, ein Film | startbar: gleich Film ohne Probebild (Chef 21:03, Archiv), zwei Läufe | `claude/jerry-572-effekte` |
+| 572 | M | **von Sokrates (Chef 04.11., 20:27; „jetzt“ 04.11., 20:27; Zu 572):** Effektprobe vor dem Kauf: die 6 Effekte der zwei REEBOO-Gratisstücke an einem eigenen Helden (Klerikerin o. ä.) im Kampfort, ein Film | wartet auf Chef: Probebild (Filmwächter 511), Film vorbereitet | `claude/jerry-572-effekte` |
 | 577 | M | **von Sokrates (Chef 04.11., 21:00: „Wie wär's denn, wenn die Dinger die Kennung kriegen, die sie verdienen?“; Zu 575 und 533):** jedes Tier im Kampf mit eigener Kennung, Körper nur für Modell und Bewegung; alle Aufrufer von `monster.id` durchsehen, Test je Art | gebaut, fährt im nächsten Build; Geprüft an: a80fcc606 | `claude/jerry-577-kennung` |
 | 575 | M | **von Sokrates (Chef 04.11., 20:42, Build 257; Zu 575):** Rattenkampf: welches Knurren spielt, Wolf oder Ratte? Nachstellen, Ergebnis an den Chef als Text | gebaut, fährt mit 577; Geprüft an: bb87168d0 | `claude/jerry-575-rattenstimme` |
 | 573 | M | **von Sokrates (Chef 04.11., 20:33, Build 257; Zu 573):** Tote bleiben liegen: der zuletzt gefallene Gegner wird in die Mitte gezogen (Nachrücken auch für Tote); Ursache nachstellen, Tote nie mehr verschieben | gebaut, fährt im nächsten Build; Geprüft an: 8c90276bc | `claude/jerry-573-tote` |
