@@ -1,5 +1,7 @@
 # 557 · Stil B an sechs Schirmen, vorher und nachher · Team Tom · 04.11., 14:15
 
+[Bild von 04.11., 14:16](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/04-1416-557-Tom.png) (eingetragen von meldung.sh, Tom)
+
 [Bild von 04.11., 14:15](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/04-1415-557-Tom.png) (eingetragen von meldung.sh, Tom)
 
 A Spiel
