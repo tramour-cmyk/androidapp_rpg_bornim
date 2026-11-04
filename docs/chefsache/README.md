@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [512b](entscheiden/512b-nachweis.md) | **Muss** | B Abläufe | 04.11., 17:05 | Abgleich nachweisen statt behaupten: fremder Helfer vor jeder Testbitte | Sokrates |
 | [549a](entscheiden/549a-ohne-kasten.md) | **Muss** | A Spiel | 04.11., 11:12 | Oberfläche „ohne Kasten“ als Grundsatz: Linien trennen, ein Rahmen nur für die Entscheidung? | Sokrates |
 
 ## Zu billigen
@@ -282,11 +283,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 | Pflege | K | von Werkzeug (340.3, 04.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
-**Sokrates** – offen 38, Muss 29, startbar 17
+**Sokrates** – offen 38, Muss 29, startbar 16
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 557 | M | von Team Tom (04.11., 17:04, 480.1): Chefworte 16:42–16:51 zu 557 (Gegenstand ohne Kasten, | startbar |
+| 512b | M | Rückfrage: Testbitte nur mit Nachweis eines fremden Helfers? (Chef 17:03) | Chef (Datei in der Chefsache) |
 | 549a | M | Rückfrage: Oberfläche ohne Kasten (549 B) als Grundsatz, Spielstände als zweiter Schirm? ( | Chef (Datei in der Chefsache) |
 | 512 | M | von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles): Abgleich alt gegen ne | startbar |
 | 508 | M | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
