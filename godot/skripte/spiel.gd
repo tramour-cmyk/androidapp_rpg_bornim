@@ -794,9 +794,18 @@ func weiter() -> void:
 			"schenke":   # Cmd.Tavern: Rowenas Theke; die Szene geht weiter, wenn das Feld zu ist (Game.advance)
 				oeffne_rast("schenke")
 				return
+			"kapitelende":   # 537 Cmd.ChapterEnd: der Schirm bleibt, bis „Weiter“
+				kapitelende()
+				return
+			"tempelszene":   # 537 Cmd.TempleScene: die Bilder der Morgenandacht, bis vorbei oder uebersprungen
+				tempelszene()
+				return
+			"morgen":   # 537 Cmd.Morning: die Nacht ist vorbei, der Held erwacht am Ort des Morgens
+				morgen(c["ort"])
+				return
 			_:
-				# Kampf (Jerry 348.7), Laden, Schenke, Kapitelende, Tempelszene, Morgen: in Kotlin wartet die Szene dort; bis sie
-				# gebaut sind, endet sie hier, damit nichts danach (Flaggen, Saetze) ohne das Ereignis geschieht (Pruefer)
+				# Kampf (Jerry 348.7): in Kotlin wartet die Szene dort; bis er
+				# gebaut ist, endet sie hier, damit nichts danach (Flaggen, Saetze) ohne das Ereignis geschieht (Pruefer)
 				szene.clear()
 	if spricht_mit != "" and not ui.spricht():   # Hail.heard nach dem Gespraech
 		Ruf.gehoert(zustand, spricht_mit, true)
@@ -888,6 +897,13 @@ func oeffne_menue() -> void:
 		m.zu.emit()
 		get_tree().paused = true
 		await zwischenbild("intro")
+		get_tree().paused = false
+		klang("ort", [karte, held]))
+	m.andacht.connect(func():   # 537 Chronik „Die Morgenandacht ansehen“ (68, vm.watchTemple): danach zurueck ins Spiel
+		m.zu.emit()
+		klang("spiele_szene", ["TEMPLE"])
+		get_tree().paused = true
+		await zwischenbild("tempel")
 		get_tree().paused = false
 		klang("ort", [karte, held]))
 	m.sprache.connect(sprache_wechseln)
@@ -1007,6 +1023,59 @@ func ortsworte(von: String, erster: bool) -> void:
 	klang("verhuelle", [false])   # 319: Effekte und Musik erst, wenn der Ort da ist
 
 # 399.1 Zwischensequenz (Zwischenbild, 69): ueber allem, laeuft auch, wenn das Spiel steht; ohne daten/intro.json gleich vorbei
+# ---------------------------------------------------------------- Kapitelende (537, Game.kt Cmd.ChapterEnd, TempleScene, Morning)
+const SONNENAUFGANG := 6 * 60 + 30               # Game.SUNRISE_MIN
+
+# Mode.ChapterEnd (ChapterEndScreen): schwarz bis „Weiter“, dann speichern (vm.save) und weiter (Game.advance); Musik CHAPTER_END
+# (App.kt). Die Welt dahinter wird schon schwarz, damit nach Schirm und Tempelszene der Morgen aus dem Schwarz aufsteigt.
+func kapitelende() -> void:
+	held.halt(); held.richtung = Vector3.ZERO
+	blende.color.a = 1.0
+	klang("spiele_szene", ["CHAPTER_END"])
+	var ebene := CanvasLayer.new()
+	ebene.layer = 40
+	ebene.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(ebene)
+	var s := KapitelSchirm.new(held_werte(), Geschichte.CHAPTER_END_TEXT)
+	ebene.add_child(s)
+	get_tree().paused = true
+	await s.weiter
+	get_tree().paused = false
+	ebene.queue_free()
+	speichere()
+	weiter()
+
+# Mode.TempleScene (TempleSceneScreen, 68): die Bilder der Morgenandacht ueber dieselbe Uhr wie das Intro, Musik TEMPLE (App.kt);
+# vorbei oder uebersprungen: weiter (vm.endTemple)
+func tempelszene() -> void:
+	klang("spiele_szene", ["TEMPLE"])
+	get_tree().paused = true
+	await zwischenbild("tempel")
+	get_tree().paused = false
+	weiter()
+
+# Cmd.Morning: die Nacht zaehlt als Rast (68g): ganz geheilt, Rast vorbei, die Uhr bei Sonnenaufgang des naechsten Tages, der Held
+# dort, wo ihn der Morgen findet (auch Wiederkehrort), lange Rast fuer heute verbraucht; brannte der Funke, ist die erste Zeile
+# nach dem Erwachen, dass er erloschen ist (84.5). Was die Szene danach sagt (Lyra), kommt erst, wenn der Ort aufgeblendet ist.
+func morgen(ort: Dictionary) -> void:
+	Rast.heilen(zustand, held_werte())
+	var funkte := zustand.funke
+	Rast.endet(zustand)
+	if zustand.minuten >= SONNENAUFGANG: zustand.tag += 1
+	zustand.minuten = SONNENAUFGANG
+	zustand.wiederkehr = ort.duplicate()
+	zustand.lange_rast_tag = zustand.tag
+	var rest := szene.duplicate()
+	szene.clear()
+	if funkte: rest.push_front({"art": "sagen", "text": Sprache.r("sparkFaded")})
+	klang("verhuelle", [true])
+	blende.color.a = 1.0
+	var nachts := zustand.minuten >= 21 * 60 or zustand.minuten < 5 * 60   # Licht zur neuen Stunde wie raste()
+	if (licht.ziel > 0.5) != nachts: licht.umschalten()
+	betrete(String(ort["karte"]), Vector2i(int(ort["x"]), int(ort["y"])), String(ort.get("blick", "DOWN")))
+	await abblenden(0.0)
+	spiele(rest)
+
 func zwischenbild(art: String) -> void:
 	if not Zwischenbild.da(): return
 	var ebene := CanvasLayer.new()

@@ -25,6 +25,7 @@ signal sprache                     # die Welt wechselt die Sprache (spiel.gd spr
 signal hauptmenue                  # speichern und zum Hauptmenue (spiel.gd)
 signal ueber                       # 399.1 „Über“: wie hauptmenue, dort gleich „Über das Spiel“
 signal ankunft                     # 399.1 Chronik: die Ankunft (Intro) noch einmal ansehen (spiel.gd zwischenbild)
+signal andacht                     # 537 Chronik: die Morgenandacht (Tempelszene, 68) nach Kapitel 1 noch einmal ansehen
 signal test(was: String, mit: Array)   # 399.1 Reiter „Test“: teleport, kapitelende, kampf, probe (spiel.gd test_tat)
 
 const DP := AktionsKnopf.DP
@@ -1517,6 +1518,13 @@ func chronik() -> void:
 			if i > 0: luecke(12)
 			zeile(Sprache.t(l[i]["titel"]), 17, Stil.BRIGHT if i == 0 else Stil.GOLD)
 			zeile(Sprache.t(l[i]["text"]).replace("{name}", hw.name), 15, Stil.TEXT if i == 0 else Stil.DIM)
+		# 68: die Morgenandacht am Ende von Kapitel 1 kann man wieder ansehen, sobald das Kapitel vorbei ist (ChronicleTab onTemple)
+		if Zwischenbild.da() and z.has(Geschichte.CHAPTER1_DONE):
+			luecke(12)
+			var t := Erschaffung.knopf("Die Morgenandacht ansehen" if de else "Watch the dawn service", func(): andacht.emit())
+			t.custom_minimum_size.y = 36 * DP
+			t.add_theme_font_size_override("font_size", int(round(14 * Stil.SP)))
+			inhalt.add_child(t)
 		# 69d: die Ankunft bei Nacht gehoert vor den ersten Eintrag; man kann sie wieder ansehen (ChronicleTab onIntro)
 		if Zwischenbild.da():
 			luecke(12)
