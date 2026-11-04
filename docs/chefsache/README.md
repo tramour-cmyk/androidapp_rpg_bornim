@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [468c](entscheiden/468c-nur-eine-sitzung.md) | **Muss** | B Abläufe | 04.11., 07:12 | Wochenlimit 79 % am Mittwoch: bis Sa 19:59 nur noch eine Entwicklersitzung zugleich? | Sokrates |
 | [534a](entscheiden/534a-zauber-mars.md) | **Muss** | E Kampf | 04.11., 02:49 | Magierrüstung, Untote vertreiben, Spirituelle Waffe und Geisterwächter fehlen im Kampf; Unglaubliches Ausweichen wirkt nicht. Alt gab es sie nur im klassischen Kampf, nie im MARS. | Team Jerry |
 | [548a](entscheiden/548a-ratten-haken.md) | **Muss** | E Kampf | 04.11., 01:16 | Am Rechner mit den Daten aus Build 249 im Handyformat warten die Ratten immer auf den Helden, und der Haken gewinnt den Probekampf. Ich finde den Fehler nicht ohne deine Hilfe. | Team Jerry |
 | [512a](entscheiden/512a-abgleich-bis-brs.md) | **Muss** | E Kampf | 04.11., 00:14 | Abgleichsfunde, die das BRS ohnehin ändert: jetzt nach alten Regeln bauen oder bis 478 zurückstellen? | Sokrates |
@@ -300,10 +301,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 38, Muss 29, startbar 17
+**Sokrates** – offen 39, Muss 30, startbar 17
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 468c | M | Rückfrage: Wochenlimit 79 % (Bild Chef 04.11., 07:11), bis Sa nur eine Entwicklersitzung z | Chef (Datei in der Chefsache) |
 | 513 | M | von Team Tom (04.11., 05:38, 480.1): Bitte um einen Probelauf für 513: Probe 3 (deine Frei | startbar |
 | 512 | M | von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles): Abgleich alt gegen ne | startbar |
 | 512a | M | Rückfrage: Abgleichsfunde 535, 543 bis 478 zurückstellen? | Chef (Datei in der Chefsache) |
