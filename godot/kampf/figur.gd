@@ -41,6 +41,17 @@ const ERSATZ_SCHATTEN := {"giant_rat": [0.3, 0.85, -0.08], "giant_bat": [0.9, 0.
 static var ersatz_art := ""
 static func ersatz() -> String:
 	return OS.get_environment("ERSATZ") if OS.has_environment("ERSATZ") else ersatz_art
+## 553 (Chef 04.11., 00:26, Build 249: „Was ist das für ein graues Tier??????“ im Flüsterwald): ersatz_art ist eine für alle
+## Figuren; jeder Streuner der Karte und jeder Kampfbeginn setzt sie neu (aufruf.gd gegner). Die Figur las sie laufend, also nahm
+## eine Kartenratte nach dem nächsten Wolf dessen Maße (Wenden, Absetzen, Kopf) und ein Wolf nach der nächsten Ratte deren
+## doppelte Größe. Jetzt merkt sich jede Figur beim Aufbau, welches Tier sie ist, und ihren Maßstab.
+var _art_fest := ""
+var _art_da := false
+func _mein_ersatz() -> String:
+	if not _art_da:
+		_art_fest = ersatz()
+		_art_da = true
+	return _art_fest
 ## 348.7 Grimmzahn: im Probekampf „Grimmzahn“ trägt der Wolf „grimm“ dessen Modell (Regeln noch die des Wolfs)
 const GRIMM := "grimm"
 ## Größe im Modell gegen den Wolf (Knotenmaßstab der .glb, wolf.py ART=dire_wolf): Schatten, Kopf, Mitte wachsen mit, das Modell nicht noch einmal
@@ -193,8 +204,8 @@ void fragment() {
 	# Runde 15 (Prüfer Runde 14: Pfotenschatten „unsichtbar im Rumpfschatten“): schmaler (0,7 statt 1,0), die Pfoten stehen am weichen Rand
 	pm.size = Vector2(0.7, 1.5) * _scale() if wolf else Vector2(0.95, 0.95)
 	var vor := 0.15
-	if wolf and ERSATZ_SCHATTEN.has(ersatz()):
-		var es: Array = ERSATZ_SCHATTEN[ersatz()]
+	if wolf and ERSATZ_SCHATTEN.has(_mein_ersatz()):
+		var es: Array = ERSATZ_SCHATTEN[_mein_ersatz()]
 		pm.size = Vector2(es[0], es[1]) * _scale(); vor = es[2]
 	elif wolf and mass.has("laenge_m"):     # 387 Runde 2 (Prüfer: Schatten in Wolfsgröße, bei Huhn und Kaninchen doppelt so breit): nach dem Kauftier
 		pm.size = Vector2(mass.get("breite_m", 0.4) * 1.3, mass.laenge_m * 0.9) * _scale(); vor = 0.0
@@ -299,7 +310,7 @@ func _paws_in_blob() -> void:
 	if OS.get_environment("SCHAU_MESS") != "":
 		var sun: DirectionalLight3D = kampfort._sun
 		var d: Vector3 = sun.global_transform.basis.z     # zur Sonne hin
-		var hoch: float = ERSATZ_KOPF.get(ersatz(), 1.24) * _scale() if fighter.monster != null else 1.8
+		var hoch: float = ERSATZ_KOPF.get(_mein_ersatz(), 1.24) * _scale() if fighter.monster != null else 1.8
 		var fall := Vector2(-d.x, -d.z).normalized() * hoch * Vector2(d.x, d.z).length() / maxf(d.y, 0.01)
 		print("Schattenmess %s %s: Bodenschatten %.2f × %.2f m (vorher %.2f × %.2f), Pfote außen %.2f/%.2f m, Fleck %.2f × %.2f m, Sonne %.0f° hoch, Schlagschatten des Kopfes %.2f m nach (%.2f, %.2f)" % [
 			fighter.id, art(), pm.size.x, pm.size.y, vorher.x, vorher.y, bx, bz,
@@ -307,10 +318,13 @@ func _paws_in_blob() -> void:
 			rad_to_deg(asin(clampf(d.y, -1.0, 1.0))), fall.length(), fall.x, fall.y])
 
 
+var _skala := -1.0
 func _scale() -> float:
 	if fighter.monster == null:
 		return 1.0      # held.glb in Metern (Toms rig.py, 348.6, Modellregel 1)
-	return kampfort.foe_scale(fighter) * ART_GROESSE.get(art(), 1.0)
+	if _skala < 0.0:     # 553: kampfort.foe_scale liest ersatz_art; einmal beim Aufbau, solange sie noch diesem Tier gilt
+		_skala = kampfort.foe_scale(fighter) * ART_GROESSE.get(art(), 1.0)
+	return _skala
 
 
 ## Welches Tier diese Figur zeigt: Grimmzahn, sonst der Ersatz der Probe („“ = Wolf)
@@ -319,7 +333,7 @@ func art() -> String:
 		return ""
 	if fighter.monster != null and fighter.id == GRIMM:
 		return "dire_wolf"
-	return ersatz()
+	return _mein_ersatz()
 
 
 func _model_path() -> String:
@@ -329,7 +343,7 @@ func _model_path() -> String:
 		if art() == "dire_wolf":     # GRIMMFELL=schimmer: die seltene Schimmervariante
 			return "res://kampf/daten/dire_wolf-%s.bin" % (OS.get_environment("GRIMMFELL") if OS.has_environment("GRIMMFELL") else "schwarz")
 		var n: int = maxi(fighter.nr, 1) - 1
-		var art := ersatz()
+		var art := _mein_ersatz()
 		if art.begins_with("kauf_"):     # 387: gekaufte Tiere (kauftier.py), Felle aus <art>-info.json
 			var fl := _kauf_felle(art)
 			if not fl.is_empty():
@@ -472,6 +486,12 @@ func _load_model() -> Node3D:
 ## 406: der Schild, den der Held trägt (aufruf.gd blatt „schild“), sonst der der Startausrüstung (Rules.kt: Kämpfer Rundschild,
 ## Kleriker Drachenschild als „Schild“; Kaufschilde 15 und 2, Chef 31.10., 23:22)
 const OFF_HAND := {"FIGHTER": "round_shield", "CLERIC": "shield"}
+## 406 b: Schild im Kampf gegen die Lage aus dem Prefab [tiefer m, vorn m, Oberkante vor Grad, Seite +x vor Grad], gedreht um die
+## Fessel (wie tests/schild_406.gd _neigung). Lauf 167 (Messung an der Fläche): Rundschild vorn 3 cm, Schulter und Oberarm -0,7 statt
+## 2,3 cm; Drachenschild mit der Schulter bei Abwehr bis 7,7 cm durch den oberen Innenrand, Verschieben allein half nicht.
+## Lauf 168 (geneigt): Rundschild dazu Seite 20° vor: Körper -0,7, Schulter -4,1 cm (vorher kreuzte der Schwertarm 8,4 cm davor);
+## Drachenschild Oberkante 15° und Seite 15° vor: Körper -2,1 (vorher 1,6), Schulter -3,6 cm (vorher 7,4)
+const SCHILD_LAGE := {"shield": [0.0, 0.0, 15.0, 15.0], "round_shield": [0.0, 0.03, 0.0, 20.0]}
 const GRIP_CM := 15.7
 const PALM_CM := 2.4
 const CM := 0.01
@@ -521,6 +541,14 @@ func _arm_kauf() -> void:
 	var off: String = _schild()
 	if off != "":
 		_hold(sk, "L", off)
+		if _ss() and schild_faust == null:     # 406a E3: die Finger der Schildhand zur Faust, nicht außen auf dem Schild
+			schild_faust = SchildFaust.new()
+			schild_faust.name = "SchildFaust"
+			sk.add_child(schild_faust)
+		if schild_faust != null:     # 406a E3: Knick im Handgelenk, wie _hold den Schild dagegen gesetzt hat
+			schild_faust.knick = knick_quat
+			schild_faust.achse = knick_achse
+			schild_faust.hand = knick_knochen
 	if anim:
 		_idle()
 
@@ -533,8 +561,8 @@ func _schild() -> String:
 
 ## Goblin, Späher oder (Probe „Schamanen“) Schamane: Kennung der Modelle und der info.json
 func _gob_art() -> String:
-	if fighter.monster.id == Mars.CALLED and ersatz() in [SHAMAN, KOBOLD]:
-		return ersatz()
+	if fighter.monster.id == Mars.CALLED and _mein_ersatz() in [SHAMAN, KOBOLD]:
+		return _mein_ersatz()
 	return fighter.monster.id
 
 
@@ -632,6 +660,20 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		up = (up - front * up.dot(front)).normalized()
 		b = Basis(up.cross(front), up, front)
 		o = h0 + rb * (v3.call("griff") * lang)
+		# 406 b (Chef 01.11., 20:2x: „bei beiden Schultern … Draufsicht, links am Schild … eine leichte Irritation“): der Schild sitzt
+		# je Art um [tiefer, weiter vorn] m anders an der Fessel (SCHILD_LAGE; gemessen tests/schild_406.gd FASSUNG)
+		var lage: Array = SCHILD_LAGE.get(what, [0.0, 0.0, 0.0, 0.0])
+		o += b * Vector3(0.0, -lage[0], lage[1])
+		b = b * Basis(Vector3.UP, deg_to_rad(-lage[3])) * Basis(Vector3.RIGHT, deg_to_rad(lage[2]))
+		# 406a E3 Lauf 190 (Faust −50°: Finger noch 2,1–2,7 cm, Kleriker 3,7–4,0 cm vor der Vorderseite; Schild weiter vor schiebt den
+		# Schwertarm hinein, Lauf 179): die Hand im Handgelenk um KNICK_GRAD nach hinten knicken, Knöchel weg von der Vorderseite; der
+		# Schild bleibt, wo er war (hier um dieselbe Drehung zurück), die Faust dreht SchildFaust nach jeder Pose
+		knick_achse = b.z.normalized().cross(hx).normalized()
+		knick_knochen = bi
+		var knick := Basis(knick_achse, deg_to_rad(KNICK_GRAD.get(fighter.hero.get("cls", ""), 0.0)))
+		knick_quat = knick.get_rotation_quaternion()
+		b = knick.inverse() * b
+		o = knick.inverse() * o
 	elif what.contains("shield"):
 		# Schild am Unterarm außen: Vorderseite nach außen, oben nach oben, die Fessel um den Unterarm
 		b = Basis(fwd, -down, -inward)
@@ -822,7 +864,7 @@ func _face(dir := Vector3.ZERO) -> void:
 		# Fledermaus Runde 4 (Prüfer 3b: die Schwarze hing 35° schräg „wie abstürzend“, Flügelkeil über dem Kopf): der zum Ziel gedrehte
 		# Rumpf kippte die gespreizten Flügel am Schirm (gemessen 28° bei 29° Drehung). Sie hält den Rumpf zur Kamera, der Kopf blickt
 		var cam: Camera3D = get_viewport().get_camera_3d() if is_inside_tree() else null
-		if ersatz() == "giant_bat" and cam != null:
+		if _mein_ersatz() == "giant_bat" and cam != null:
 			var zc := cam.global_position - global_position
 			zc.y = 0.0
 			var front: float = rad_to_deg(d.signed_angle_to(zc, Vector3.UP))
@@ -886,7 +928,7 @@ func _atem_an() -> void:
 			_ohne_atem(anim.get_animation(n))
 	atem = preload("res://kampf/atem.gd").new()
 	atem.name = "Atem"
-	atem.eigen(hash(String(fighter.id)))
+	atem.eigen_kampf(hash(String(fighter.id)))     # 453.1 Feld 2: im Kampf „einen Tick schneller“, Steigerung sichtbar
 	atem.ausgleich = true     # 453.1 (Chef 19:5x): der fernere Held atmet im Bild so deutlich wie der nähere
 	sk.add_child(atem)
 
@@ -1458,18 +1500,19 @@ var _pfad_anim := ""
 
 ## Neuer tween, der [pfad] abfährt: Bögen im Schritt (Gehen mal BOGEN_TEMPO; die Pfoten treten beim Wenden), Geraden über RUN_FROM
 ## im Lauf; [eilig]: alles im Lauf (Ausweichen). Gibt die Dauer (s) zurück; je Punkt hängt die Zeit an (pfad[i][4]).
-func _pfad_fahren(pfad: Array, eilig: bool) -> float:
+func _pfad_fahren(pfad: Array, eilig: bool, bogen_im_lauf := 0.0) -> float:
 	var gerade := 0.0
 	for i in range(1, pfad.size()):
 		if eilig:
 			pfad[i][3] = "G"
 		if pfad[i][3] == "G":
 			gerade += pfad[i][1] - pfad[i - 1][1]
-	var lauf := "Rennen" if (eilig or gerade > RUN_FROM) and weg.has("Rennen") else "Gehen"
+	var lauf := "Rennen" if (eilig or gerade > RUN_FROM or bogen_im_lauf > 0.0) and weg.has("Rennen") else "Gehen"
+	_bogen_lauf = bogen_im_lauf if lauf == "Rennen" else 0.0
 	var t := 0.0
 	pfad[0].append(0.0)
 	for i in range(1, pfad.size()):
-		var v: float = _mps(lauf) if pfad[i][3] == "G" else _mps("Gehen") * BOGEN_TEMPO
+		var v: float = _mps(lauf) if pfad[i][3] == "G" else (_mps(lauf) * _bogen_lauf if _bogen_lauf > 0.0 else _mps("Gehen") * BOGEN_TEMPO)
 		t += (pfad[i][1] - pfad[i - 1][1]) / v
 		pfad[i].append(t)
 	_pfad_anim = ""
@@ -1479,6 +1522,11 @@ func _pfad_fahren(pfad: Array, eilig: bool) -> float:
 ## Bögen im Schritt, aber so viel schneller (Bewegung und Schrittfolge zugleich, die Pfoten treten weiter auf; r3b: im Schritt
 ## dauerte der Biss mit Heimweg 7,3 s statt 4,4 s)
 const BOGEN_TEMPO := 1.8
+## 546 (Chef 04.11., 00:01, Build 249: „Wölfe weichen aus wie Schlaftabletten“): der Satz beim Ausweichen lief seine Bögen im
+## Schritt (Gehen × 1,8: 1,6 m in 0,93 s, ausweichen_546), ganz im Lauf drehte er bis 28° je Bild (438). Jetzt im Lauf mit diesem
+## Anteil des Lauftempos auch im Bogen (Bewegung und Schrittfolge zugleich): 1,6 m in etwa 0,5 s, höchstens etwa 18° je Bild.
+const AUSWEICH_BOGEN := 0.55
+var _bogen_lauf := 0.0
 
 
 ## Ort und Drehung auf dem Pfad nach [t] s (Zeit je Punkt in pts[i][4]); wechselt zwischen Gehen (Bogen) und [lauf] (Gerade)
@@ -1491,11 +1539,11 @@ func _auf_zeit(pts: Array, t: float, lauf: String) -> void:
 	var f := clampf((t - a[4]) / maxf(b[4] - a[4], 1e-5), 0.0, 1.0)
 	position = a[0].lerp(b[0], f)
 	rotation.y = a[2] + wrapf(b[2] - a[2], -PI, PI) * f
-	var nm: String = lauf if b[3] == "G" else "Gehen"
+	var nm: String = lauf if b[3] == "G" or _bogen_lauf > 0.0 else "Gehen"
 	if nm + b[3] != _pfad_anim:     # Prüfer r3c: Gehen im Bogen und auf der Geraden hatten dieselbe Schrittfolge
 		_pfad_anim = nm + b[3]
 		if anim and anim.has_animation(nm):
-			anim.play(nm, 0.15, (1.0 if b[3] == "G" else BOGEN_TEMPO) * float(tempo.get(nm, 1.0)))
+			anim.play(nm, 0.15, (1.0 if b[3] == "G" else (_bogen_lauf if _bogen_lauf > 0.0 else BOGEN_TEMPO)) * float(tempo.get(nm, 1.0)))
 
 
 ## Grad je Sekunde, mit denen ein Tier mit Wurzelweg sich umdreht (180° in 0,4 s)
@@ -1997,6 +2045,7 @@ func _held_mps(nm: String) -> float:
 	return v if v > 0.1 else (WALK_MPS * 2.0 if nm == "Rennen" else WALK_MPS)
 
 
+const ANGRIFF_GANG := 1.3     # 406.2: Gehen zum Angriff so viel schneller als das Gehen des Satzes (Bewegung und Weg)
 const VERFEHLT_M := 0.3
 const HIEB_VOR := 0.12
 const HIEB_ZURUECK_M := 0.3
@@ -2031,12 +2080,25 @@ func _held_schlag(other, weiter := 0.0) -> int:
 		var via := _detour(position, start, other)
 		var pts := [start] if via == position else [via, start]
 		var way := run if via == position else position.distance_to(via) + via.distance_to(start)
-		var gn := _gang_ss("Rennen" if way > RUN_FROM and anim.has_animation("Rennen") else "Gehen")
+		# 406 c (Chef 01.11., 20:2x, Film 406: der Stabkämpfer ist „zum Wolfangriff … eher hingehoppelt … Er sollte einfach hingehen“):
+		# mit Stab geht der Held zum Ziel, auch weiter als RUN_FROM (das Rennen mit Schild aus Sword & Shield ist für die Klinge gemacht)
+		var gn := _gang_ss("Rennen" if way > RUN_FROM and anim.has_animation("Rennen") and not _stab() else "Gehen")
+		# 406.2 (Chef 03.11., 06:59, Schildfilm: „das Rennen … ist ein Gehopse nach vorne. Also bitte dann beim Angriff nicht rennen,
+		# sondern gehen … ein bisschen schneller gehen“): mit Schild geht der Held zum Angriff, Bewegung und Weg um ANGRIFF_GANG schneller
+		# (beide gleich, sonst rutschen die Füße)
+		var gf := 1.0
+		if _ss() and anim.has_animation("SS_WalkForward"):
+			gn = "SS_WalkForward"
+			gf = ANGRIFF_GANG
 		var von := position
 		for q in pts:
 			var a: Vector3 = q - von
-			tween.tween_callback(func(): _face(a); _play(gn, 0.12))
-			var t: float = von.distance_to(q) / _held_mps(gn)
+			tween.tween_callback(func():
+				_face(a)
+				_play(gn, 0.12)
+				if gf != 1.0:
+					anim.play(gn, 0.12, float(tempo.get(gn, 1.0)) * gf))
+			var t: float = von.distance_to(q) / (_held_mps(gn) * gf)
 			tween.tween_property(self, "position", q, t)
 			t_run += t
 			von = q
@@ -2193,6 +2255,50 @@ class ArmHold extends SkeletonModifier3D:
 			sk.set_bone_pose(bi, poses[bi])
 
 var arm_hold: ArmHold
+
+
+## 406a E3 (Tor 461a; Lauf 170: Finger der Schildhand liegen außen auf dem Schild, 3 bis 8,6 cm vor der Vorderseite; Lauf 182 und 184:
+## schild_406 beugt Zeige- bis kleinen Finger je Glied um die Achse quer über die Knöchel, −50° am besten: Kämpfer 1,7–2,3 cm,
+## Kleriker 3,5–3,8 cm, −75° und −90° nicht besser): nach jeder Pose aus dem Satz die Finger der linken Hand um FAUST_GRAD weiter
+## zur Faust, so wie schild_406 _beugen_finger gemessen hat
+const FAUST_GRAD := -50.0
+## 406a E3 Lauf 190 (Faust −50°, gemessen in skeleton_updated): Kämpfer 2,1–2,7 cm, Kleriker 3,7–4,0 cm vor der Vorderseite, vor allem
+## Ring- und kleiner Finger; Knick im Handgelenk nach hinten je Klasse (Knöchel etwa 9 cm vom Gelenk: 3 cm ≈ 20°, 4,5 cm ≈ 30°),
+## gemessen mit schild_406 KNICK (je ±10° dazu)
+const KNICK_GRAD := {"FIGHTER": 20.0, "CLERIC": 30.0}
+var knick_achse := Vector3.ZERO
+var knick_quat := Quaternion.IDENTITY
+var knick_knochen := -1
+class SchildFaust extends SkeletonModifier3D:
+	var glieder := PackedInt32Array()
+	var zf := -1
+	var kf := -1
+	var hand := -1
+	var knick := Quaternion.IDENTITY     # im Raum der Hand, um das Handgelenk (figur.gd _hold)
+	var achse := Vector3.ZERO     # Achse des Knicks im Raum der Hand (schild_406 misst damit weitere Winkel)
+	func _process_modification_with_delta(_delta: float) -> void:
+		var sk := get_skeleton()
+		if sk == null:
+			return
+		if hand >= 0 and knick != Quaternion.IDENTITY:
+			sk.set_bone_pose_rotation(hand, sk.get_bone_pose_rotation(hand) * knick)
+		if glieder.is_empty():
+			for f in ["index", "middle", "ring", "pinky"]:
+				for n in ["01", "02", "03"]:
+					var b := sk.find_bone("%s_%s_l" % [f, n])
+					if b >= 0:
+						glieder.append(b)
+			zf = sk.find_bone("index_01_l")
+			kf = sk.find_bone("pinky_01_l")
+		if zf < 0 or kf < 0:
+			return
+		var quer := (sk.get_bone_global_pose(zf).origin - sk.get_bone_global_pose(kf).origin).normalized()
+		for b in glieder:
+			var pg := sk.get_bone_global_pose(sk.get_bone_parent(b))
+			var achse := (pg.basis.inverse() * quer).normalized()
+			sk.set_bone_pose_rotation(b, Quaternion(achse, deg_to_rad(FAUST_GRAD)) * sk.get_bone_pose_rotation(b))
+
+var schild_faust: SchildFaust
 
 func _guard(on: bool) -> void:
 	var sk := _find(model, "Skeleton3D") as Skeleton3D
@@ -2510,23 +2616,62 @@ const ABWEHR := {"sprung": ["SS_BlockHeavy1", "SS_BlockHeavy2", "SS_BlockMedium1
 	"nah": ["SS_BlockLight", "SS_BlockMedium1", "SS_BlockMedium2", "SS_ParryLow"]}
 var abwehr_nr := 0
 
+var _abwehr_letzt := ""
+
+## 406.2 (Chef 03.11., 06:59: „Wenn dem Parieren gelingt … eine Abwehrbewegung … beim Angriff mit Schild … muss man ja auch nicht
+## ausweichen … beim Wolf wäre das so eine Abwehr tief … oder Abwehr Mitte oder mal links, rechts … variieren … wenn der Wolf von links
+## angreift“): die gelungene Abwehr nach der Seite, von der der Angriff kommt (im Blick des Helden; Modell: links = +X), gegen tiefe
+## Gegner (Wolf, Ratte) tief oder Mitte; je Seite zwei von drei zur Seite, eine zur Mitte, damit es wechselt
+const PARADE_SEITE := 30.0     # Grad aus der Blickrichtung, ab denen die Parade zur Seite geht
+func _parade_liste(von: Vector3, art: String, tief: bool) -> Array:
+	var l := global_transform.basis.inverse() * (von - global_position)
+	var ang := rad_to_deg(atan2(l.x, l.z))
+	var mitte := "SS_ParryLow" if tief else "SS_BlockMedium1"
+	if ang > PARADE_SEITE:
+		return ["SS_ParryLeft", mitte, "SS_ParryLeft"]
+	if ang < -PARADE_SEITE:
+		return ["SS_ParryRight", mitte, "SS_ParryRight"]
+	if art == "sprung":
+		return ["SS_ParryHigh1", "SS_BlockHeavy1", "SS_ParryHigh2"]
+	if tief:
+		return ["SS_ParryLow", "SS_BlockMedium1", "SS_ParryLow", "SS_BlockMedium2"]
+	return ["SS_ParryHigh1", "SS_BlockMedium1", "SS_ParryHigh2", "SS_BlockMedium2"]
+
+
+## 406.2: tiefer Gegner (vierbeinig, nicht fliegend): die Parade geht tief oder zur Mitte
+func niedrig() -> bool:
+	return fighter.monster != null and not _zweibeiner() and _mein_ersatz() != "giant_bat"
+
+
 func blockt() -> bool:
 	return _ss() and not down
 
 
-func abwehr(lands_ms: int, art: String) -> void:
+func abwehr(lands_ms: int, art: String, von := Vector3.INF, gelungen := false, tief := false) -> void:
 	if not _ss():
 		return
 	var liste: Array = (ABWEHR.get(art, ABWEHR["nah"]) as Array).filter(func(x): return anim.has_animation(x))
+	if gelungen and von != Vector3.INF and art != "fern":
+		var pl := _parade_liste(von, art, tief).filter(func(x): return anim.has_animation(x))
+		if not pl.is_empty():
+			liste = pl
 	if liste.is_empty():
 		return
 	# reihum statt Zufall: nie zweimal dieselbe hintereinander (mindestens drei Varianten, DESIGN-LEITBILD 2)
 	var nm: String = liste[(abwehr_nr + hash(String(fighter.id))) % liste.size()]
+	if nm == _abwehr_letzt and liste.size() > 1:
+		abwehr_nr += 1
+		nm = liste[(abwehr_nr + hash(String(fighter.id))) % liste.size()]
+	_abwehr_letzt = nm
 	abwehr_nr += 1
 	var k: float = float(kampf_info.get("kontakt", {}).get(nm, 0.25))
 	var vor_ms := lands_ms - int(k * 1000.0)
 	if OS.get_environment("MESS") != "":     # film_406 MESS: Schild steht beim Aufschlag (Kontakt gegen Aufschlag)
-		print("ABWEHR %s %s: Aufschlag in %d ms, Kontakt nach %d ms, Beginn in %d ms" % [fighter.id, nm, lands_ms, int(k * 1000.0), vor_ms])
+		var seite := ""
+		if von != Vector3.INF:
+			var lv := global_transform.basis.inverse() * (von - global_position)
+			seite = ", Angreifer %.0f° (links +)%s" % [rad_to_deg(atan2(lv.x, lv.z)), ", tief" if tief else ""]
+		print("ABWEHR %s %s%s%s: Aufschlag in %d ms, Kontakt nach %d ms, Beginn in %d ms" % [fighter.id, nm, " gelungen" if gelungen else "", seite, lands_ms, int(k * 1000.0), vor_ms])
 	if vor_ms > 0:
 		await get_tree().create_timer(vor_ms / 1000.0).timeout
 	if down or not _ss() or (not weg.is_empty() and lunging()):
@@ -2644,7 +2789,7 @@ func dodge(after_ms: int, nm := "") -> void:
 			if OS.get_environment("SCHAU_MESS") != "":
 				print("Ausweichen %s %s Länge %.2f m, Wert %.2f, Grenze %.2f, Start %s" % [fighter.id, nm, best[best.size() - 1][1], luft, g0, position])
 			bahn = [best[best.size() - 1][0], home]
-			_pfad_fahren(best, false)     # 438: Bögen im Schritt (im Lauf drehte er 28° je Bild), Geraden im Lauf
+			_pfad_fahren(best, false, AUSWEICH_BOGEN)     # 438: im Lauf drehte er 28° je Bild; 546: im Schritt zu träge
 			tween.tween_callback(_walk_home)
 			return
 	_play("Ausweichen", 0.05)
@@ -2733,7 +2878,7 @@ func howl() -> void:
 func head() -> Vector3:
 	var h := 1.12 if fighter.monster != null and fighter.monster.id == Mars.WOLF else 1.9     # Ohrspitzen des Wolfs (0,9 lag seit den größeren Ohren, Runde 1 nach Chef, unter dem Balken; davor 60 px darüber)
 	if fighter.monster != null and fighter.monster.id == Mars.WOLF:
-		h = ERSATZ_KOPF.get(ersatz(), h)
+		h = ERSATZ_KOPF.get(_mein_ersatz(), h)
 	if gob_h > 0.0:     # Goblin Runde 2 (Prüfer Runde 1: Ansage fern der Goblins): Scheitel aus goblin.py, gebückt etwas tiefer
 		h = gob_h * 0.85
 	return position + Vector3(0, h * (_scale() if fighter.monster != null else 1.0), 0)

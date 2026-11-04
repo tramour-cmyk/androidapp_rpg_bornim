@@ -194,7 +194,8 @@ class MarsGoldenTest {
             cls.name to mapOf("hero" to sheet(sk.byId("hero")), "merc" to sheet(sk.byId("merc")))
         }
         val potion = Items["potion"]
-        val kinds = listOf(Skirmish.WOLF, Skirmish.GRAK, Skirmish.CALLED, Skirmish.SCOUT, Skirmish.SPIDER).map { Monsters[it] }
+        // 533: Grimmzahn (dire_wolf) mit seinen eigenen Werten statt denen des Wolfs (Kampf mit Leibwache, aufruf.gd GRIMM)
+        val kinds = listOf(Skirmish.WOLF, Skirmish.GRAK, Skirmish.CALLED, Skirmish.SCOUT, Skirmish.SPIDER, "dire_wolf").map { Monsters[it] }
         // 296.2: the items the foes may leave, by name
         val left = kinds.flatMap { k -> k.loot.map { it.item } }.distinct().filter { Items.exists(it) && it != potion.id }.map { Items[it] }
         val tables = mapOf(

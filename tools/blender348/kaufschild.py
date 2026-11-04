@@ -21,10 +21,111 @@ os.makedirs(OUT, exist_ok=True)
 # PolyMech Buckel vorn bis 0,094, Brett 0,03 bis 0,0, Griff bis -0,03.
 # Größe: Drachenschild 72 cm hoch wie unser bisheriger Kampfschild (waffen.py build_shield 56 × 72), rund 60 cm wie der Rundschild.
 SCHILDE = [
-    dict(kennung='shield', nr=2, paket='Omie', datei='sm_shield_kite.obj', vorn=(0, -1), oben=(2, 1), ruecken=-0.05, groesse=0.72),
+    dict(kennung='shield', nr=2, paket='Omie', datei='sm_shield_kite.obj', vorn=(0, -1), oben=(2, 1), ruecken=-0.05, groesse=0.72,
+         sonne=True),
     dict(kennung='round_shield', nr=15, paket='PolyMech', datei='open_sides_round_Shield.fbx', vorn=(2, 1), oben=(1, 1), ruecken=0.0,
          groesse=0.60),
 ]
+
+
+# 406, B5 (Chef 01.11., 22:35, Archiv 461c: „Schild 2 als Form, darauf die goldene Sonne in unseren Farben“): die Sonne des alten
+# Kleriker-Rundschilds (Dress.kt: vergoldeter Buckel, Ring um ihn, acht Strahlen) als eigene dünne Fläche 2 mm vor der Vorderseite
+# des Drachenschilds, aus der Ebene von vorn auf das Brett gelegt (folgt Wölbung und Buckel); Gold wie Wappenrock (held_klassen.py
+# SONNE_GOLD, Dress.kt gold B8904A), als Eckfarbe linear wie die Grundfarben der PolyMech-Schilde. Maße wie Dress.kt (Ring bei 0,07,
+# Strahlen bis 0,13, halbe Breite 0,012 der Körperhöhe) im Verhältnis zur Strahlenlänge, die 0,8 der halben Breite des Schilds an
+# der Höhe des Buckels misst. Material „sonne“ (tests/schild_406.gd zählt es getrennt).
+SONNE_GOLD_LIN = (0.477, 0.279, 0.069, 1.0)     # sRGB B8904A
+SONNE_ABSTAND = 0.002
+
+
+def sonne(o):
+    import bmesh
+    from math import pi, cos, sin
+    from mathutils.bvhtree import BVHTree
+    me = o.data
+    bm0 = bmesh.new(); bm0.from_mesh(me)
+    bvh = BVHTree.FromBMesh(bm0)
+    vs = [v.co.copy() for v in me.vertices]
+
+    def vorn_auf(x, z):     # vorderste Stelle des Schilds bei (x, z), 2 mm davor; None außerhalb
+        loc, nrm, _, _ = bvh.ray_cast(Vector((x, -1.0, z)), Vector((0.0, 1.0, 0.0)))
+        if loc is None: return None
+        n = nrm if nrm.y < 0 else -nrm
+        return loc + n.normalized() * SONNE_ABSTAND
+
+    # Mitte: der Buckel, die vordersten Ecken im mittleren Feld
+    mitte = [v for v in vs if abs(v.x) < 0.12 and abs(v.z) < 0.15]
+    ymin = min(v.y for v in mitte)
+    spitze = [v for v in mitte if v.y < ymin + 0.004]
+    cx = sum(v.x for v in spitze) / len(spitze); cz = sum(v.z for v in spitze) / len(spitze)
+    halb = max(abs(v.x - cx) for v in vs if abs(v.z - cz) < 0.02)
+    # Buckel: Profil der Vorderseite über den Abstand von der Mitte (16 Richtungen); Rand, wo sie das Brett erreicht
+    def tiefe(r):
+        ys = [p.y for p in (vorn_auf(cx + r * cos(a * pi / 8), cz + r * sin(a * pi / 8)) for a in range(16)) if p is not None]
+        return sum(ys) / len(ys) if ys else 0.0
+    brett = tiefe(0.6 * halb)
+    buckel = 0.0
+    if tiefe(0.0) < brett - 0.01:
+        r = 0.0
+        while r < 0.5 * halb and tiefe(r) < brett - 0.003: r += 0.005
+        buckel = r
+    lang = 0.8 * halb
+    ring = 0.54 * lang; w = 0.092 * lang
+    scheibe = buckel + 0.005 if buckel > 0 else 0.27 * lang
+    ring = max(ring, scheibe + 0.01 + w)
+
+    bm = bmesh.new()
+    def gitter(punkt, nu, nv):     # punkt(u, v) in [0,1]^2 -> (x, z); Vierecke, außerhalb des Schilds weggelassen
+        ecken = []
+        for i in range(nu + 1):
+            reihe = []
+            for j in range(nv + 1):
+                x, z = punkt(i / nu, j / nv)
+                p = vorn_auf(x, z)
+                reihe.append(bm.verts.new(p) if p is not None else None)
+            ecken.append(reihe)
+        for i in range(nu):
+            for j in range(nv):
+                q = [ecken[i][j], ecken[i + 1][j], ecken[i + 1][j + 1], ecken[i][j + 1]]
+                if all(q) and len(set(q)) == 4: bm.faces.new(q)
+    def kreis(r0, r1, nr, ns):
+        if r0 <= 0.0:     # Scheibe: Mitte als Fächer
+            mp = vorn_auf(cx, cz)
+            m = bm.verts.new(mp)
+            rand = [bm.verts.new(vorn_auf(cx + r1 / nr * cos(2 * pi * k / ns), cz + r1 / nr * sin(2 * pi * k / ns))) for k in range(ns)]
+            for k in range(ns): bm.faces.new([m, rand[k], rand[(k + 1) % ns]])
+            r0 = r1 / nr; nr -= 1
+            if nr <= 0: return
+        gitter(lambda u, v: (cx + (r0 + (r1 - r0) * u) * cos(2 * pi * v), cz + (r0 + (r1 - r0) * u) * sin(2 * pi * v)), nr, ns)
+    kreis(0.0, scheibe, 4, 48)
+    kreis(ring - w, ring + w, 2, 96)
+    for k in range(8):
+        a = k * pi / 4; dx, dz = cos(a), sin(a)
+        r0 = ring + 0.9 * w
+        gitter(lambda u, v, dx=dx, dz=dz, r0=r0: (cx + dx * (r0 + (lang - r0) * u) - dz * w * (2 * v - 1),
+                                                  cz + dz * (r0 + (lang - r0) * u) + dx * w * (2 * v - 1)), 12, 2)
+    bmesh.ops.remove_doubles(bm, verts=[v for v in bm.verts if v.is_valid], dist=1e-6)
+    for f in bm.faces:
+        f.normal_update()
+        if f.normal.y > 0: f.normal_flip()
+    neu = bpy.data.meshes.new('sonne'); bm.to_mesh(neu); bm.free(); bm0.free()
+    mat = bpy.data.materials.new('sonne'); mat.use_nodes = True
+    bsdf = next((n for n in mat.node_tree.nodes if n.type == 'BSDF_PRINCIPLED'), None)
+    if bsdf: bsdf.inputs['Base Color'].default_value = SONNE_GOLD_LIN
+    neu.materials.append(mat)
+    so = bpy.data.objects.new('sonne', neu); bpy.context.scene.collection.objects.link(so)
+    # Eckfarbe: Schild weiß (Textur × 1), Sonne Gold
+    for m_, c in ((me, (1.0, 1.0, 1.0, 1.0)), (neu, SONNE_GOLD_LIN)):
+        ca = m_.color_attributes.new('albedo', 'FLOAT_COLOR', 'CORNER')
+        for d in ca.data: d.color = c
+        m_.color_attributes.active_color = ca
+    bpy.ops.object.select_all(action='DESELECT'); so.select_set(True); o.select_set(True)
+    bpy.context.view_layer.objects.active = o
+    bpy.ops.object.join()
+    print('SONNE', dict(mitte_cm=(round(cx * 100, 1), round(cz * 100, 1)), halbe_breite_cm=round(halb * 100, 1),
+                        buckel_cm=round(buckel * 100, 1), scheibe_cm=round(scheibe * 100, 1), ring_cm=round(ring * 100, 1),
+                        ring_halb_cm=round(w * 100, 1), strahlen_cm=round(lang * 100, 1)))
+    return o
 
 
 def finde(muster):
@@ -103,15 +204,19 @@ def bau(e):
     neu = [v.co for v in me.vertices]
     lo = [min(v[i] for v in neu) for i in range(3)]; hi = [max(v[i] for v in neu) for i in range(3)]
     dr = sum(len(pg.vertices) - 2 for pg in me.polygons)
+    if e.get('sonne'):
+        o = sonne(o); me = o.data
+        sonne_dr = sum(len(pg.vertices) - 2 for pg in me.polygons) - dr
     bpy.ops.object.select_all(action='DESELECT'); o.select_set(True)
     pfad = os.path.join(OUT, e['kennung'] + '.glb')
     bpy.ops.export_scene.gltf(filepath=pfad, export_format='GLB', use_selection=True, export_yup=True,
-                              export_vertex_color='ACTIVE' if not textur else 'NONE')
+                              export_vertex_color='ACTIVE' if not textur or e.get('sonne') else 'NONE')
     # Maße in cm (Blender: X Breite, Y Dicke, vorn negativ, Z Höhe; Ursprung an der Fessel)
     info = dict(nr=e['nr'], paket=e['paket'], datei=os.path.relpath(p, KAUF), dreiecke=dr, textur=textur,
                 breite_cm=round((hi[0] - lo[0]) * 100, 1), hoehe_cm=round((hi[2] - lo[2]) * 100, 1),
                 vorn_cm=round(-lo[1] * 100, 1), hinten_cm=round(hi[1] * 100, 1),
                 oben_cm=round(hi[2] * 100, 1), unten_cm=round(-lo[2] * 100, 1), griff_hinten=len(hinten))
+    if e.get('sonne'): info['sonne_dreiecke'] = sonne_dr
     print('SCHILD', e['kennung'], info)
     return info
 
