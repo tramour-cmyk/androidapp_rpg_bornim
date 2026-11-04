@@ -202,7 +202,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 572 | Effektprobe: zwei REEBOO-Gratisstücke (Stylized VFX, Status Effects) an einem eigenen Helden im Film, vor dem Kauf (Chef 04.11., 20:27) | C Kampf | M | – | Team Jerry | wartet |
 | 573 | Kampf: gefallener Gegner wird in die Mitte gezogen, wenn er als Letzter fällt (Chef 04.11., 20:33, Build 257) | C Kampf | M | – | Team Jerry | startbar |
 | 574 | Laufprotokoll Build 257 (Handy): „Lambda capture … was freed“ dreimal, „buffer_size == 0“ (Chef 04.11., 20:40) | E Technik | M | – | Team Tom | startbar |
-| 575 | Klang: Knurren im Rattenkampf klingt nach Wolf? (Chef 04.11., 20:42, unsicher) | C Kampf | M | – | Team Jerry | startbar |
+| 575 | Klang: Knurren im Rattenkampf klingt nach Wolf? (Chef 04.11., 20:42, unsicher) | C Kampf | M | – | Team Jerry | gebaut |
 | 576 | Vorentscheid: Auflagen des letzten Chefurteils prüft der Helfer vor dem Versand (Chef 04.11., 20:49, 475 Kopfbedeckungen) | B Werkzeuge | M | – | Sokrates | erledigt |
 | 557 | Spielstände: Entwurf ohne Kasten (549a) als Bild, Inhalt wie alt mit Spieldauer und Heldenbild (Chef 04.11., 11:15) | A Spiel | M | 32,62 $ | Team Tom | startbar |
 | 557a | Rückfrage: senkrechte Lage auf Fenstern und Schirmen, mittig, oben oder unten (Chef 04.11., 20:52) | A Spiel | M | – | Sokrates | erledigt |

@@ -4,14 +4,14 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
-**Übergabe (04.11., 04:31):** Build 257 grün, t257 mit Link beim Chef. atem_4531 robuster (4a4110dab). Keine Weckrufe. Nachfolger: Jerry – Urteil zu t257.
+**Übergabe (04.11., 04:31):** Build 257 grün, t257 beim Chef. Nachfolger: Jerry – Urteil zu t257.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 572 | M | **von Sokrates (Chef 04.11., 20:27; „jetzt“ 04.11., 20:27; Zu 572):** Effektprobe vor dem Kauf: die 6 Effekte der zwei REEBOO-Gratisstücke an einem eigenen Helden (Klerikerin o. ä.) im Kampfort, ein Film | wartet: auf Lauf 1 (Probebild, Ablauf effektprobe-572.yml, Zweig claude/jerry-572-effekte), Weckruf gesetzt | – |
-| 575 | M | **von Sokrates (Chef 04.11., 20:42, Build 257; Zu 575):** Rattenkampf: welches Knurren spielt, Wolf oder Ratte? Nachstellen, Ergebnis an den Chef als Text | startbar | `claude/jerry-575-rattenstimme` |
+| 572 | M | **von Sokrates (Chef 04.11., 20:27; „jetzt“ 04.11., 20:27; Zu 572):** Effektprobe vor dem Kauf: die 6 Effekte der zwei REEBOO-Gratisstücke an einem eigenen Helden (Klerikerin o. ä.) im Kampfort, ein Film | wartet: Lauf 1 (Probebild) | `claude/jerry-572-effekte` |
+| 575 | M | **von Sokrates (Chef 04.11., 20:42, Build 257; Zu 575):** Rattenkampf: welches Knurren spielt, Wolf oder Ratte? Nachstellen, Ergebnis an den Chef als Text | gebaut, fährt im nächsten Build: Stimme nach der Art, nicht nach dem Wolfskörper; Geprüft an: bb87168d0 | `claude/jerry-575-rattenstimme` |
 | 573 | M | **von Sokrates (Chef 04.11., 20:33, Build 257; Zu 573):** Tote bleiben liegen: der zuletzt gefallene Gegner wird in die Mitte gezogen (Nachrücken auch für Tote); Ursache nachstellen, Tote nie mehr verschieben | startbar | – |
 | 512b | M | **von Sokrates (Chef 04.11., 19:21: „512b ja“; `chefsache/entscheiden/512b-nachweis.md` in Git):** vor dem nächsten Kampf-Build: fremder Helfer spielt den Kampfschirm alt und neu durch und die Spalte „Richtig“ jeder Prüfzeile nach, meldet Fehlendes und Güte (Größe, Überlappung, Tempo) | startbar: vor dem nächsten Kampf-Build | – |
 | 566 | M | **von Sokrates (Chef 04.11., 17:15, Bild; Zu 566 und 567):** „Beim Goblin steht in den Schatten, aber er schaut nicht aus, als würde er im Schatten stehen. Könnten Bugs sein.“ | gebaut, fährt im nächsten Build (Tom, Übernahme): im Schatten blass wie alt (Raster 0,6, Bodenschatten), am nächsten Zug zurück; Test schatten_566; Geprüft an: e1bbd6a36 | `claude/tom-567-abstand` |
