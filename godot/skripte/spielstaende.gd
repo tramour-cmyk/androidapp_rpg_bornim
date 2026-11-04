@@ -168,6 +168,7 @@ func frage_loeschen(d: Dictionary) -> void:
 	v.custom_minimum_size.x = get_viewport_rect().size.x - (110 if entwurf == "B" else 48) * DP
 	var k := Rueckfrage.halte(Erschaffung.kasten(v))
 	mitte.add_child(k)
+	if entwurf == "B": schleier.color = Color(0, 0, 0, 0.93)   # Helfer 13:04: „Neues Spiel“ schien am Rand der Rueckfrage durch
 	v.add_child(Stil.zeile(("Spielstand löschen?" if de else "Delete saved game?").to_upper(), 14, Stil.GOLD, 3.0))
 	var t := Erschaffung.txt(("%s (Stufe %d) wird endgültig gelöscht." if de else "%s (level %d) will be deleted for good.") % [String(h.get("name", "")), int(h.get("stufe", 1))], 15)
 	v.add_child(t)
@@ -290,8 +291,9 @@ func _voll_zeile(d: Dictionary, de: bool) -> Control:
 	var m := int(z.get("minuten", 0))
 	# Helfer 11:28: „Tag 1 · 09:40“ brach hinter dem Ort um, die Uhr stand allein: Tag und Uhr bleiben zusammen (geschuetzte Leerzeichen)
 	var tag_uhr := ("%s %d · %02d:%02d" % ["Tag" if de else "Day", int(z.get("tag", 1)), m / 60, m % 60]).replace(" ", "\u00a0")
-	# Helfer 11:36: „Zum Schlafenden Greif ·“ endete mit dem Punkt, Tag und Uhr standen darunter: der Punkt haengt fest am Tag
-	v.add_child(_satz(ort + "\u00a0·\u00a0" + tag_uhr, 14, Stil.DIM))
+	# Helfer 11:36: „Zum Schlafenden Greif ·“ endete mit dem Punkt; 13:04 mit festem Punkt brach der Name selbst um: Ort und Tag je eine Zeile
+	v.add_child(_satz(ort, 14, Stil.DIM))
+	v.add_child(_satz(tag_uhr, 13, Stil.DIM))
 	var t := gespeichert_um(d)
 	if not t.is_empty():
 		var s := ("%02d.%02d.%04d, %02d:%02d" % [t.day, t.month, t.year, t.hour, t.minute]) if de else ("%04d-%02d-%02d, %02d:%02d" % [t.year, t.month, t.day, t.hour, t.minute])

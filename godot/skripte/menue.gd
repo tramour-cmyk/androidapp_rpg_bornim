@@ -862,7 +862,16 @@ func _waehle_b(platz: String) -> void:
 	jn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	jn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	jn.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	jetzt.add_child(jn)
+	if an != null:   # Helfer 13:04: angelegt nur der Name; darunter Art, Platz, Wert wie in den Zeilen
+		var jv := VBoxContainer.new()
+		jv.add_theme_constant_override("separation", int(2 * DP))
+		jv.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		jv.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		jv.add_child(jn)
+		var ju := Beute.listen_zeile(an)
+		if ju != "": jv.add_child(Stil.zeile(ju, 13, Stil.DIM))
+		jetzt.add_child(jv)
+	else: jetzt.add_child(jn)
 	spalte.add_child(jetzt)
 	spalte.add_child(Spielstaende.linie())
 	var rolle := ScrollContainer.new()
@@ -895,13 +904,14 @@ func _wechsel_zeile_b(g: Dictionary, platz: String, zu: Callable, de: bool) -> C
 	r.custom_minimum_size.y = 64 * DP
 	var bild := Menue.stueck_rahmen(g, 46)
 	bild.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	if not ok: bild.modulate.a = 0.5
 	r.add_child(bild)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(2 * DP))
 	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	v.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var n := Stil.zeile(Beute.name(g), 16, farbe_von(g))
+	var n := Stil.zeile(Beute.name(g), 16, farbe_von(g) if ok else Color(farbe_von(g), 0.5))
 	n.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	n.custom_minimum_size.x = 60 * DP
 	v.add_child(n)
@@ -914,13 +924,14 @@ func _wechsel_zeile_b(g: Dictionary, platz: String, zu: Callable, de: bool) -> C
 	elif u == -1: wort = "schlechter" if de else "worse"
 	elif u == 0: wort = "gemischt" if de else "mixed"
 	if wort != "": unten += " · " + wort
-	var ul := Stil.zeile(unten, 13, Stil.DIM)
+	var ul := Stil.zeile(unten, 13, Stil.DIM if ok else Color(Stil.DIM, 0.6))
 	ul.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	ul.custom_minimum_size.x = 60 * DP
 	v.add_child(ul)
 	if not ok:
 		var kl := Sprache.t(hw.klassendaten()["name"])
-		v.add_child(Stil.zeile(("Als %s kannst du das nicht tragen." if de else "As a %s you cannot wear this.") % kl, 13, AKZENT))
+		# Helfer 13:04: in der matten Zeile war der rote Grund auf Schwarz kaum lesbar: nur Bild, Name, Angaben matt, der Grund in Warnfarbe voll
+		v.add_child(Stil.zeile(("Als %s kannst du das nicht tragen." if de else "As a %s you cannot wear this.") % kl, 13, Stil.WARN))
 	r.add_child(v)
 	if u != null:
 		var pf := Stil.zeile("▲" if u == 1 else ("▼" if u == -1 else "◆"), 18, BESSER if u == 1 else (AKZENT if u == -1 else Stil.BRIGHT))
@@ -933,13 +944,12 @@ func _wechsel_zeile_b(g: Dictionary, platz: String, zu: Callable, de: bool) -> C
 	c.draw.connect(func():
 		var m := c.size / 2
 		var a := 4.0 * DP
-		c.draw_polyline(PackedVector2Array([m + Vector2(-a * 0.55, -a * 1.5), m + Vector2(a * 0.75, 0), m + Vector2(-a * 0.55, a * 1.5)]), Stil.BRIGHT, 1.8 * DP, true))
+		c.draw_polyline(PackedVector2Array([m + Vector2(-a * 0.55, -a * 1.5), m + Vector2(a * 0.75, 0), m + Vector2(-a * 0.55, a * 1.5)]), Stil.BRIGHT if ok else Color(Stil.DIM, 0.6), 1.8 * DP, true))
 	r.add_child(c)
 	var rand := MarginContainer.new()
 	rand.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	rand.add_theme_constant_override("margin_top", int(6 * DP)); rand.add_theme_constant_override("margin_bottom", int(6 * DP))
 	rand.add_child(r)
-	if not ok: rand.modulate.a = 0.55
 	return Spielstaende.tippbar(rand, func():
 		zu.call()
 		dialog(Beute.name(g), farbe_von(g), stueck_zeilen(g), [[Sprache.u("equip"), func(): meldung(lege_an(g, platz == "OFF_HAND" and String(Beute.grundform(String(g["base"]))["slot"]) != "OFF_HAND")); baue(), ok],
