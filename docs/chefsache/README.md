@@ -13,11 +13,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 ## Zu billigen
 
-Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [576](billigen/576-auflagen-vor-versand.md) | **Muss** | B Werkzeuge | 04.11., 20:50 | Auflagen des letzten Urteils prüft der Helfer vor dem Versand | Sokrates |
+Nichts offen.
 
 ## Anzusehen
 
@@ -294,13 +290,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 | Pflege | K | von Werkzeug (340.3, 04.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
-**Sokrates** – offen 39, Muss 29, startbar 17
+**Sokrates** – offen 38, Muss 28, startbar 17
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 512 | M | von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles): Abgleich alt gegen ne | startbar |
 | 557a | M | von Chef (04.11., 20:52, „wenn wir es durchgängig machen“): senkrechte Lage einheitlich | Chef (Datei in der Chefsache) |
-| 576 | M | von Chef (04.11., 20:49, „wieso wird mir so eine Grütze nochmal vorgelegt?“): Auflagen des | Chef |
 | 415d.1 | M | von Chef (04.11., 19:56, „Brauchen wir das jetzt? Brauchen wir es nicht? Wir haben noch ga | Chef (Datei in der Chefsache) |
 | 508 | M | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
 | 488 | M | von Chef (02.11., 22:44, „dann frieren wir das mal ab einem gewissen Punkt ein … kümmern u | wartet auf Perikles |
