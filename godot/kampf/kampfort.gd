@@ -850,7 +850,7 @@ func _state_now() -> Dictionary:
 		hp[f.id] = f.hp
 		places[f.id] = f.place
 		sp[f.id] = f.sp
-	return {"hp": hp, "places": places, "intents": mars.intents.duplicate(), "queue": mars.queue(), "sp": sp, "status": mars._statuses()}
+	return {"hp": hp, "places": places, "intents": mars.intents.duplicate(), "queue": mars.queue(), "sp": sp, "status": mars._statuses(), "hidden": mars._hidden()}
 
 
 # ---------------------------------------------------------------- playing the beats one after another
@@ -882,6 +882,10 @@ func _process(_dt: float) -> void:
 func _play_say(e: Dictionary) -> void:
 	var before: Dictionary = shown.hp
 	shown = e
+	# 566: wer im Schatten steht, ist nur schwach zu sehen (figur.gd im_schatten)
+	var im_schatten: Dictionary = e.get("hidden", {})
+	for id in figures:
+		figures[id].im_schatten(im_schatten.has(id))
 	for f in mars.fighters():
 		# called to the fight (Rudel rufen); the rules' thread may already hold one this message does not know yet
 		if not figures.has(f.id) and e.places.has(f.id):
