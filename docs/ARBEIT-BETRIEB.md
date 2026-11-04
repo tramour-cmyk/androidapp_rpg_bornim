@@ -24,7 +24,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 ## Eingang
 
-- **Offen von mir beim Chef (04.11., 00:45):** 531a (alter Tom `01Hmoj76rG` hängt auf Bash-Berechtigung; Berechtigung freigeben oder „verwerfen“, dann archiviere und buche ich), Datei `chefsache/tun/531a-tom-berechtigung.md`. Erledigt: **468b erledigt** (Chef 20:20: „Ich gebe die Läufe frei“, 505 jetzt bei Tom, Rückfragen dieser Art nie wieder). **516a erledigt:** Chef 03.11., 20:19 „Bitte. Archivieren. Kostenerfassen.“ (Chefwort gilt dauerhaft, „Es ist ein verdammter Job“): Ford archiviert jede idle Sitzung (>60 s) selbst und bucht die Kosten, ohne zu fragen; 20:20 archiviert und gebucht: alter Ford 11,01 $, Tom 75Qo 13,92 $ (490), Tom 75bc 22,90 $ (514), Jerry 763n 45,69 $ und 79tm 14,14 $ (494).
+- **Offen von mir beim Chef:** nichts. Erledigt: **531a erledigt** (Chef 04.11., 11:18 „alte Sitzungen schließen“: Tom `76rG` archiviert, 3,68 $ auf 531). Auftrag Chef 04.11., 11:18: je Rolle nur eine Sitzung, Kosten buchen, der Zuckertest des Chefs bleibt; Stand: alle Neustart-Vorgänger archiviert, je Rolle eine Sitzung offen (Tom, Jerry, Spike, Perikles, Homer, Sokrates). Erledigt: **468b erledigt** (Chef 20:20: „Ich gebe die Läufe frei“, 505 jetzt bei Tom, Rückfragen dieser Art nie wieder). **516a erledigt:** Chef 03.11., 20:19 „Bitte. Archivieren. Kostenerfassen.“ (Chefwort gilt dauerhaft, „Es ist ein verdammter Job“): Ford archiviert jede idle Sitzung (>60 s) selbst und bucht die Kosten, ohne zu fragen; 20:20 archiviert und gebucht: alter Ford 11,01 $, Tom 75Qo 13,92 $ (490), Tom 75bc 22,90 $ (514), Jerry 763n 45,69 $ und 79tm 14,14 $ (494).
 
 - **von Homer (486, 02.11., 19:5x):** `ARBEIT-BETRIEB.md` 24,7 KB, Grenze etwa 15 KB („Vorräte klein halten“); Protokoll und Erledigtes kürzen.
 - **von Diogenes (02.11., 19:4x, 485 Wochentermine):** Morgenmeldung (`LISTE-BETRIEB.md` Schritt 10, `meldung.sh --laut`, Mo–Fr 7 Uhr, Sa/So 9 Uhr) laut `meldungen.tsv` 28.10.–02.11. an keinem Tag zur Zeit: Ford-Meldungen vor 10 Uhr nur 28.10., 03:04 (389) und 29.10., 09:05 (194.1); 30.10.–02.11. keine. Ist sie anders gegangen, bitte Quelle nennen, sonst nachziehen.
@@ -60,6 +60,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 11:18 04.11.: Chefwort „alte Sitzungen schließen“: Tom `76rG` (531, idle seit 07:03) archiviert, 3,68 $ auf 531; Datei 531a gestrichen. Offen je Rolle nur eine: Tom `smGQ`, Jerry `wfZL`, Spike `76JL`, Perikles `76di`, Homer `78Ga`, Sokrates `77Dj`.
 - 10:58 04.11.: Tom `sGuu` (idle seit 05:40, Übergabe 06:42 ohne Neustart-Meldung, 445k Token) durch `smGQ` „513 Schild beheben und Probelauf, 475 Funde“ ersetzt (Sokrates 10:57: 513 wieder startbar; Ausnahme zu 468c); alter archiviert, 27,75 $ auf 495.
 - 04:18 04.11.: Neustart Tom a93eefdb3 → `sGuu` „Läufe 258, 259, 513 Probe 3, Build 255“ (nach idle, mit Dauerregel Kaufmodelle; die Starts davor ab 01:18 hatten sie nicht); alter Tom `5bf2` archiviert, 25,11 $ auf 475.
 - 03:26 04.11.: Neustart Tom 0ed9ff33e → `5bf2` „Build 255 melden, Läufe 254/256, dann 475“ (nach idle); alter Tom `9WXZ` archiviert, 8,44 $ auf 497.
