@@ -33,7 +33,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 438 | M | **von Sokrates (Chef 31.10., 23:31, Film 403):** Wölfe gleiten (Angriff, Tempo, aneinander vorbei); echte Schritte, Zahlen (Zu 438) | gebaut: wolf_mess_438 grün (Zu 438) | `claude/jerry-438-wolf-kampf` |
 | 457.2 | M | **von Perikles (Chef 01.11., 11:49):** Probeskripte zeichnen standardmäßig mit Toon-Licht, Tusche, Schatten | gebaut e87815dc8, fährt mit den nächsten Filmen | `claude/jerry-457-2-signatur` |
 | 453.1 | M | **von Sokrates:** Helden im Kampf atmen ruhiger, je Figur eigener Takt | wartet auf Test: t249 | – |
-| 453 | M | **von Sokrates:** Ruhebewegungen der Wölfe | startbar: t249 bei Grimmzahn durchgefallen; nur am neuen Grimmzahn (Kaufwolf) beheben, alten nicht anfassen (Chef 00:39, Zu 533) | – |
+| 453 | M | **von Sokrates:** Ruhebewegungen der Wölfe | wartet auf Perikles: Probebild nur auf dem Bauserver (511); t249 bei Grimmzahn durchgefallen; nur am neuen Grimmzahn (Kaufwolf) beheben, alten nicht anfassen (Chef 00:39, Zu 533) | – |
 | 453a | M | Wolfsatem B | wartet auf Test: t249 | – |
 | 454 | M | **von Sokrates:** Bissachse des Wolfs | wartet auf Test: t249 | – |
 | 438a | M | **von Sokrates (438a):** Hinfallen und Aufstehen des Kaufhelden, Waffe und Schild frei | ruht: eingefroren (488); Klinge quer im Kleid, Hand ruckt; im Spiel aus | `claude/jerry-438a-sturz-2` |
