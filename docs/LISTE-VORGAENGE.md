@@ -151,7 +151,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 503 | Laden, Verkaufen: Knopf „Gewöhnliche verkaufen“ leer, ohne Text (Chef 03.11., 07:40, Build 204) | E Oberfläche | M | – | Team Tom | wartet |
 | 509 | Frösche und Libellen an den Teichen im Flüsterwald fehlen in Godot (Chef 03.11., 09:21; `PondLife.kt`, Projektplan O6, W22) | E Welt | M | – | Team Jerry | wartet |
 | 511 | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele sinnlose und kaputte Filme gemacht?“) | B Werkzeuge | M | 17,15 $ | Perikles | gebaut |
-| 512.1 | Wächter: Testbitte ohne Zeile „Verglichen:“ warnt (zu 512) | B Werkzeuge | M? | – | Perikles | startbar |
+| 512.1 | Wächter: Testbitte ohne Zeile „Verglichen:“ warnt (zu 512) | B Werkzeuge | M? | – | Perikles | gebaut |
 | 524.1 | Gegenstandsfenster besser als alt und spielerfreundlicher: Vorschlag (Chef 04.11., 00:52) | A Spiel | M | – | Team Tom | in Arbeit |
 | 512 | Vor jeder Testbitte berührte Schirme alt gegen neu vergleichen (Sokrates 03.11., 07:45, nach Build 204: 9 Erstfunde des Chefs; Chef 23:28 an Sokrates) | B Abläufe | M | 20,77 $ | Sokrates | in Arbeit |
 | 516 | Kostenerfassung ohne Handarbeit: Haken oder Werkzeug liest beim Archivieren `total_cost_usd` des letzten result-Ereignisses und bucht (Chef 03.11., 16:20, Ford) | B Abläufe | K | – | Perikles | ruht |
