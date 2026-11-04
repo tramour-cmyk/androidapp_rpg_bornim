@@ -10,6 +10,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 513 | M | **von Team Tom (04.11., 05:38, 480.1):** Bitte um einen Probelauf für 513: Probe 3 (deine Freigabe) hatte Kämpfer-Schild unten 5,4 cm; Ursache am Rechner nachgestellt und behoben (52bb6dfe1, `claude/figurenstand-513`, Test schild_513 ohne Bild: Spalt höchstens 0 cm, 0 Ecken im Körper); der Lauf zeigt die vier Drehteller-Bilder für den Chef | startbar |
 | 512 | M | **von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles):** Abgleich alt gegen neu wirkt nicht: Funde des Chefs in Build 249 (503, 519, 520, 521) | in Arbeit: Regel geschärft; Abgleich Build 249 im Code: Menü 523–529, Kampf 532–536, Welt 537–543, Höhle zu 492; Wächter 512.1 bei Perikles (t250 ohne Vergleichszeile); Funde nicht am Gerät nachgestellt |
 | 512a | M | Rückfrage: Abgleichsfunde 535, 543 bis 478 zurückstellen? | wartet auf Chef: entscheiden/512a |
 | 508 | M? | **von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5):** Einladung der Lehrmeister in Kapitel 1 erreichbar? (Simulation 444: keine Fertigkeit Geselle bis Stufe 6); Regelfrage: Magie-Kernfertigkeit Pflicht für Paladin und Kriegsmagier?; Wachsoldat startet mit Mittlerer, Wächter verlangt Schwere Rüstung | startbar |
