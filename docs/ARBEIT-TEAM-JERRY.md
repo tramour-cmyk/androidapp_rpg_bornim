@@ -87,6 +87,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht: Klang zieht nach Godot; Rest `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
 ## Einzelheiten
 
+- **Zu 494, von Team Tom (04.11., 06:40, Zufallsspieler Lauf 261):** im Stand von Build 255 gibt es Krogg (`monster:bugbear`) und Grak (`monster:hobgoblin_captain`) in der Höhle nicht: `Leute.alle` legt sie nur an, wenn `Streuner.da` ein Modell findet. Beide Saaten stehen ab Minute 60 in der Höhle, Ziel „Schlüssel zu Graks Halle“, kein Krogg; Kapitel 1 ist so nicht durchspielbar. Sobald 494 im Build ist, spielt der Zufallsspieler weiter.
 - **Zu 453.1, von Team Tom (04.11., 03:23):** `atem_4531` rot in Lauf 253. **Jerry 03:40:** Test wackelt (Kampfzug am Helden im Messfenster); `claude/jerry-4531-atemtest` 4a4110dab wartet, bis der Kampf ruht, fährt im nächsten Build. Wortlaut: `git show 1d5e56d43:docs/ARBEIT-TEAM-JERRY.md`.
 - **Hinweis von Team Tom (00:50, 555):** Testschalter in `mars.gd` (`held_immer_krit`, `gegner_ohne_rettung`, `held_unsterblich`) bei Umbauten mitnehmen; in Build 257 mit 534 gemischt.
 
