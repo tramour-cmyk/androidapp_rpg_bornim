@@ -67,9 +67,23 @@ const STATIONEN := [["Garrick", "forest", "garrick", 3], ["Morwen", "deep_forest
 	["Höhle", "forest", [Vector2i(10, 1), "UP"], 8], ["Krogg", "cave", "krogg", 9], ["Grak", "cave", [Vector2i(10, 7), "UP"], 11],
 	["Lyra", "cave", "lyra_cave", 12]]
 
-static func feinde() -> Dictionary:
+## 555 (Chef 04.11., 11:52, t257 251.1: „wenn ich auf eine Spinne klicke, dann kommt die nicht“): die Spinne hat noch kein Modell
+## (Streuner.da), der Kampf zeigte statt ihrer einen zweiten Wolf; ebenso Fledermaeuse. Nur Gruppen, deren Monster ein Modell haben;
+## die anderen nennt ohne_modell() als Zeile
+static func feinde(alle := false) -> Dictionary:
 	var s = load("res://kampf/probe.gd") if ResourceLoader.exists("res://kampf/probe.gd") else null
-	return s.FOES if s else {}
+	if s == null: return {}
+	var r := {}
+	for g in s.FOES:
+		if alle or gruppe_da(String(g)): r[g] = s.FOES[g]
+	return r
+static func gruppe_da(g: String) -> bool:
+	for mo in Streuner.GRUPPE:
+		if String(Streuner.GRUPPE[mo]) == g and not Streuner.da(String(mo)): return false
+	return true
+static func ohne_modell() -> Array:
+	var alle := feinde(true)
+	return alle.keys().filter(func(g): return not gruppe_da(String(g))).map(func(g): return String(alle[g]))
 
 # Held und Soeldner der MARS-Probe: Mensch der Klasse auf der Stufe, Werte wie vorgeschlagen
 static func probeheld(klasse: String, stufe: int) -> Heldwerte:
@@ -289,6 +303,8 @@ static func reiter(m: Menue) -> void:
 		var ids: Array = fs.keys()
 		for i in range(0, ids.size(), 2):
 			reihe.call(ids.slice(i, i + 2).map(func(id): return [String(fs[id]), func(): m.test.emit("kampf", [id])]))
+		var ohne := ohne_modell()
+		if not ohne.is_empty(): m.zeile(t.call("Noch ohne Modell: ", "No model yet: ") + ", ".join(ohne), 13, Stil.DIM)
 		m.luecke(6)
 		# 555 wie alt („Antippen: neben den Helden holen“): ein Monster der Karte neben den Helden, 2 Minuten friedlich, um ihm zuzusehen
 		var holbar := monster_namen()

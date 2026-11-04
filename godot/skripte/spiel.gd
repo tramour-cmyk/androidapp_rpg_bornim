@@ -875,6 +875,16 @@ func oeffne_menue() -> void:
 		klang("ort", [karte, held]))
 	m.sprache.connect(sprache_wechseln)
 	m.test.connect(func(was: String, mit: Array):   # 399.1 Reiter „Test“: erst das Menue zu, dann in der Welt
+		# 555 (Chef 11:52: „Wenn ich auf Kartenzoom klicke, dann bin ich sofort aus dem Testmenü draußen“): Schalter bleiben wie alt im
+		# Menue, die Wirkung steht als kurze Meldung; nur Orts-, Kampf- und Schirmwechsel schliessen
+		if was in ["zoom", "nacht", "tiere"]:
+			test_tat(was, [])
+			var de := Sprache.aktiv() == "de"
+			match was:
+				"zoom": m.meldung(String(mit[0]) if mit.size() > 0 else ("Kartenzoom gestellt" if de else "Map zoom set"))
+				"nacht": m.meldung(("Nacht, 23:00 Uhr" if de else "Night, 11 pm") if licht.ziel > 0.5 else ("Tag, 12:00 Uhr" if de else "Day, noon"))
+				"tiere": m.meldung("Tiere umgeschaltet" if de else "Animals toggled")
+			return
 		m.zu.emit()
 		test_tat(was, mit))
 	m.ueber.connect(func():   # 399.1 System „Über“ wie alt: vm.toMenu, dann Screen.ABOUT
