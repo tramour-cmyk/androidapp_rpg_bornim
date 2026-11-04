@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [549b](entscheiden/549b-rastzeile.md) | **Muss** | A Spiel | 04.11., 19:34 | Rast: leise Zeile „Tag · Uhr · TP“ unter dem Titel behalten? | Sokrates |
 | [568](entscheiden/568-ernten.md) | M? | A Spiel | 04.11., 19:33 | Ernten als Handlung statt Einsaugen im Vorbeilaufen | Sokrates |
 
 ## Zu billigen
@@ -292,12 +291,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 | Pflege | K | von Werkzeug (340.3, 04.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
-**Sokrates** – offen 38, Muss 28, startbar 16
+**Sokrates** – offen 37, Muss 27, startbar 16
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 568 | M? | Rückfrage: Ernten als Handlung statt Einsaugen? (Chef 19:32) | Chef (Datei in der Chefsache) |
-| 549b | M | Rückfrage: Rast mit leiser Zeile „Tag · Uhr · TP“? (549 Frage 2) | Chef (Datei in der Chefsache) |
 | 512 | M | von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles): Abgleich alt gegen ne | startbar |
 | 508 | M | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
 | 488 | M | von Chef (02.11., 22:44, „dann frieren wir das mal ab einem gewissen Punkt ein … kümmern u | wartet auf Perikles |
