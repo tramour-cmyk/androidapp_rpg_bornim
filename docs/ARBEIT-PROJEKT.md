@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 549a.1 | M? | **von Sokrates (549a ja, Chef 04.11., 19:28: „so aufschreiben, dass der nächste … das richtig macht“):** `ROLLE-ENTWICKLUNG.md` Start Punkt 2 lässt nur „Auf einen Blick“ lesen; ergänzen: wer einen Menüschirm oder ein Fenster anfasst, liest vorher `DESIGN-STIL.md` „Fenster und Schirme ohne Kasten“ | startbar |
 | 512b | M | **von Sokrates (Chef 04.11., 19:21: „512b ja“; `chefsache/entscheiden/512b-nachweis.md` in Git):** Regel „Abgleich“ (`LISTE-UMZUG-348.md`) um die Form des Nachweises schärfen: Zeile „Verglichen“ nennt Schirm, Bedienung, Helfer (nicht der Bauende), Bild oder Film; ersetzt „Verglichen: <Dateien>“; Wächter 512.1 warnt ohne Helfer und Bild/Film | startbar |
 | 512.1 | M? | **von Sokrates (512, Chef 03.11., 23:28, „Kümmer du dich um 512.“):** Regel „Abgleich“ wirkt nur mit Wächter: `commit-pruefung.py` warnt bei neuer `chefsache/ansehen/t*.md` ohne Zeile „Verglichen:“ | gebaut 04.11., 14:0x: Warnung bei neuer Prüfliste ohne „Verglichen“; Geprüft an: bdf83b0f6; Diogenes prüft |
 | 516 | K | **von Ford (Chef 03.11., 16:20, „gab es nicht ein Tool oder einen Haken für die Kostenerfassung?“):** `cost_usd` fehlt bei archivierten Sitzungen; selbst lesen und buchen? | ruht bis 05.11.: Befund Ford 16:33 (in Git): alle 7 liefen beim Archivieren noch; Regel „nur archivieren, wenn idle“; fehlt die Zahl trotz idle: Muss (Zu 516) | – |

@@ -141,15 +141,17 @@ Im Vorschlag an den Nutzer stehen die vier Antworten kurz neben dem Abgleich mit
 
 ## Oberfläche (Thema 60)
 
-- Alle Oberflächen sehen aus wie Blende und Textkasten (42b, **teils ersetzt** durch 549a, 04.11.: Menüs, Fenster und Schirme ohne Goldrand nach „Fenster und Schirme“ unten; der Goldrand bleibt nur im Kampf und an Behältern): schwarz, Überschriften und Hervorhebungen in gedämpftem Gold, Text in gebrochenem Weiß, Serife (mitgeliefert, OFL); keine hellen Tafeln mehr (Nutzer 12.10., 23:20).
-- **Eine Schrift überall** (292.3, Chef 22.10., 16:43: „292.3 ja“): Alegreya (mitgeliefert, OFL) für alles, Titel und Knöpfe in gesperrten Versalien. Cinzel nicht mehr (löst 60f ab). Keine Pixelschrift, auch nicht im Kampf (löst 60i ab): Lebens- und Zauberpunkte, Würfelzeile und Zahlen in MARS und im klassischen Kampf in Alegreya mit gleich breiten Ziffern, mindestens 13 sp. Ausnahmen: Ortsnamen auf den Karten bleiben in Handschrift (62g, Chef 14:02); der Schriftzug im Firmenzeichen ist Teil des Logos.
+- Alle Oberflächen sehen aus wie Blende und Textkasten (42b, **teils ersetzt** durch 549a, 04.11.: Menüs, Fenster und Schirme ohne Goldrand nach „Fenster und Schirme“ unten; der Goldrand bleibt nur im Kampf und an Behältern): schwarz, Text in gebrochenem Weiß, Farben und Gewichte nach „Fenster und Schirme“ (Überschriften gedämpftes Gold, Hervorhebungen hell golden), Serife (mitgeliefert, OFL); keine hellen Tafeln mehr (Nutzer 12.10., 23:20).
+- **Eine Schrift überall** (292.3, Chef 22.10., 16:43: „292.3 ja“): Alegreya (mitgeliefert, OFL) für alles; Versalien und Sperrung nach „Fenster und Schirme“ (nur Titel, Zwischenüberschriften, Knöpfe). Cinzel nicht mehr (löst 60f ab). Keine Pixelschrift, auch nicht im Kampf (löst 60i ab): Lebens- und Zauberpunkte, Würfelzeile und Zahlen in MARS und im klassischen Kampf in Alegreya mit gleich breiten Ziffern, mindestens 13 sp. Ausnahmen: Ortsnamen auf den Karten bleiben in Handschrift (62g, Chef 14:02); der Schriftzug im Firmenzeichen ist Teil des Logos.
 - **Kästen im Kampf** (292.3): deckend schwarz mit dünnem Rand wie der Textkasten; wer am Zug ist, golden umrandet, wenn Held, rot, wenn Gegner.
-- Farben, die auf Schwarz stehen (Seltenheit, Warnung), hell genug zum Lesen.
+- Farben, die auf Schwarz stehen (Seltenheit, Warnfarbe), hell genug zum Lesen; Warnfarbe nur für Zerstörendes („Fenster und Schirme“).
 - **Zeichen statt Textwände** (426, Chef 31.10., 21:30 zu Build 143: alte Menüs mit Icons „super klasse“, neue „viel zu viel Text“): Menüs, auch Menü „System“ und Testmenü, zeigen jeden Eintrag als Zeichen mit kurzer Beschriftung (ein bis zwei Wörter), nie als Satz oder Absatz; Erklärung nur, wenn der Spieler sie aufruft. Maß sind die Menüs der alten Fassung: was dort mit Zeichen ging, übernimmt die neue möglichst eins zu eins (425, Tom). Neue Zeichen nach „Zeichen“ unten.
 
 ### Fenster und Schirme ohne Kasten (549a, Chef 04.11., 19:28: „549a ja … damit wir nicht jedes Mal wieder neu anfangen“)
 
 Gilt für jeden neuen oder umgebauten Menüschirm und jedes Fenster außerhalb des Kampfs. Gebaut wird Schirm für Schirm, wenn er ohnehin angefasst wird; kein Umbau aller Schirme vor dem Durchspielen. Bausteine in Godot: `godot/skripte/spielstaende.gd` (`frage`, `fuss`, `knopf`, `knopfzeile`, `folge_inhalt`, `zier`, `linie`, `tippbar`, `pfeil`), Farben `godot/skripte/stil.gd` (bis 557 auf `main` ist, liegen die Bausteine auf Zweig `claude/tom-557-spielstaende`; `ANGABE` steht dort in `spielstaende.gd` und zieht mit dem Einbau nach `stil.gd`). Wer baut, nimmt diese Bausteine und keine eigenen; weicht ein Wert hier vom Code ab, gilt dieser Abschnitt, der Code wird nachgezogen.
+
+**Geltung.** Gilt für Menüs, Schirme und Fenster. Nicht dafür gilt, mit eigenen Regeln: Kampf (MARS, 292.3), Blende, Vorspann, Zwischenbildschirm und Hauptmenü (`DESIGN-BLENDE.md`), Dialog-Textkasten der Gespräche (42b, unverändert), runde Knöpfe auf der Karte („Zeichen“ unten). Soll eines davon auch ohne Kasten werden, entscheidet der Chef.
 
 **Begriffe.** *Schirm*: füllt den ganzen Bildschirm (Spielstände, Laden, Brauen, Rast, Kapitelende, Wechselliste). *Fenster*: liegt über einem Schirm oder der Karte (Rückfrage, Gegenstand, Mengenkasten, Erklärung, ganzer Bericht).
 
@@ -196,8 +198,8 @@ Versalien mit Sperrung nur für Titel, Zwischenüberschriften und Knöpfe; nie f
 ### Zeichen (326; Muster: Reiterzeichen; Godot `godot/skripte/reiterzeichen.gd`, Kartenknopf `aktionsknopf.gd`, Menü „System“ `zeichenknopf.gd`, Farben `stil.gd`; Kotlin-Zeit `MenuTabs.kt` `glyph()`)
 
 - **Art:** Raster 24 × 24, nutzbar 1,5–22,5; Linie 1,6 (`line`), fein 1,1 (`thin`), runde Enden und Ecken; nie gefüllt außer Punkten (r ≤ 1,4); nie Pixelbilder. Alle Zeichen gleich kräftig: keine Linie unter 1,2 dp am Bildschirm, darum kein Zeichen unter 16 dp (Sonne, Mond an der Uhr heute 13 dp).
-- **Farbe:** im Menü `Veil.gold`, gewählt `Veil.bright`; auf der Karte `Veil.bright`; aus oder gesperrt `Veil.dim`.
-- **Knopf auf der Karte** (ersetzt den Look von `ActionButton`): Kreis, Grund Schwarz zu 70 % deckend, Rand 1,5 dp `Veil.gold`, bei allen Knöpfen gleich (Rennen wie Aktion); gedrückt Grund `Veil.raised`, Rand `Veil.bright`; aus Rand `Veil.rim`, Zeichen `Veil.dim`. Zeichen = halber Knopfdurchmesser, mittig. Probe (Rechnung, 23.10.): hebt sich bei Tag, Nacht und im Wald ab.
+- **Farbe** (Namen aus `stil.gd`, Kotlin-Zeit `Veil.*`): im Menü `GOLD`, gewählt `BRIGHT`; auf der Karte `BRIGHT`; aus oder gesperrt `DIM`.
+- **Knopf auf der Karte** (ersetzt den Look von `ActionButton`): Kreis, Grund Schwarz zu 70 % deckend, Rand 1,5 dp `GOLD`, bei allen Knöpfen gleich (Rennen wie Aktion); gedrückt Grund `RAISED`, Rand `BRIGHT`; aus Rand `RIM`, Zeichen `DIM`. Zeichen = halber Knopfdurchmesser, mittig. Probe (Rechnung, 23.10.): hebt sich bei Tag, Nacht und im Wald ab.
 - **Die 14 Zeichen** (Punkte im Raster als x,y; L Linie, F fein, P Punkt mit Radius):
   - **Reden** `TALK`: Sprechblase L, Rechteck 3,4–21,16 mit Ecken r 3, Zipfel unten links 11,16 → 7,20.5 → 8,16; P r 0.9 bei 8,10 · 12,10 · 16,10.
   - **Öffnen** `OPEN`: Truhe L, Kasten 3,11.5–21,20.5; Deckel als halbe Ellipse über 3–21, Scheitel y 4.5; F Bänder 7.5,5.6–7.5,11.5 und 16.5,5.6–16.5,11.5; Schloss L 10,10–14,15, P r 0.9 bei 12,12.6.
