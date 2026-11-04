@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (04.11., 04:13, `session_01Hmoj75bf2LJKXxLi4LKXiN`):** Gebaut: 475 Leute auf Kaufkörper (Zweig `claude/tom-475-leute`, Lauf 258 41763038122 läuft: Schritt „Held je Klasse“ Zeilen LEUTE/FEHLT, Artefakt `leute475/leute_gesichter.png`, Bildlauf 1 von 2); 453.2, 477, 504.1 gebaut; 495 Fix in Lauf 259 (41763880020, bild=nein); 513 Probe 3 (Lauf 41764123036, spike-probe-513). Build 255 (PR #183) und Lauf 256 (416.8) laufen noch. Keine Weckrufe offen. Nachfolger: Tom – Läufe 258 (475 Gesichter an den Chef), 259 (495), 513 Probe 3 auswerten, Build 255 melden.
+**Übergabe (04.11., 05:50, `session_01Hmoj76sGuuMNEyj793HrVa`):** Build 255 gemeldet (in 257 enthalten); 513 behoben 52bb6dfe1 (Test schild_513), Probelauf bei Sokrates erbeten; 495 Tür doppelt behoben bf8106b22/8488de499, Lauf 261 (41772544657) läuft; 475 Gesichterblatt behoben 7c06a8c6b, Lauf 260 (41772474417, Bildlauf 2 von 2) läuft. Lauf 256 hängt im Schritt Blender. Weckruf 06:35. Nachfolger: Tom – Läufe 260 (475 an den Chef), 261 (495 Saat 1) auswerten.
 
 ## Zeilen
 
