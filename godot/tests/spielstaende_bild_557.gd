@@ -7,6 +7,8 @@ extends SceneTree
 #                    „Oberkörper“ eines Magiers mit epischer Robe an, im Beutel drei Roben (besser, schlechter, gemischt) und ein Plattenpanzer
 #   557_b_loeschen   die Rueckfrage zum Loeschen (der einzige Rahmen)
 #   557_jetzt_zwei   der Stand von heute (Karten wie alt, 529) mit denselben zwei Plaetzen, zum Vergleich
+# Vorlage 2 (Chef 14:21–14:26, Zu 557): dazu je „_b2“: Rueckfragen ohne Kasten (Loeschen, Wegwerfen), sichtbares „‹ ABBRECHEN“ im
+#   Gegenstandsfenster und Mengenkasten, Mengenkasten neu, Weiter und Schliessen folgen dem Inhalt (Kapitelende, Brauen)
 # Gruppe 557 (Chef 04.11., 13:32, 13:42, 13:44), je heute und B:
 #   557_fenster_ring_jetzt/_b, 557_fenster_panzer_jetzt/_b   Gegenstandsfenster 524.1 (Ring, Kettenpanzer wie Bild 524.1)
 #   557_kapitel_jetzt/_b     Schirm „Ende von Kapitel 1“ (537)
@@ -35,7 +37,8 @@ func _speichere(n: int, name_: String, volk: String, klasse: String, stufe: int,
 	Spielstand.speichere(z, hw, {"karte": karte, "x": 4, "y": 6, "blick": "UP"})
 
 func _zeige(entwurf: String, n: String, loeschen := false) -> void:
-	Spielstaende.entwurf = entwurf
+	Spielstaende.vorlage2 = entwurf == "B2"
+	Spielstaende.entwurf = "B" if entwurf == "B2" else entwurf
 	var s := Spielstaende.new()
 	root.add_child(s)
 	if loeschen:
@@ -89,10 +92,12 @@ func _lauf() -> void:
 	_speichere(1, "Mira", "ELF", "WIZARD", 4, "deep_forest", 3, 21 * 60 + 5, (2 * 60 + 14) * 60000, [Geschichte.QUEST_STARTED, Geschichte.BARRIER_OPEN], 37)
 	await _zeige("B", "557_b_eins")
 	await _zeige("B", "557_b_loeschen", true)
+	await _zeige("B2", "557_b2_loeschen", true)   # Vorlage 2 (Chef 14:21): Rueckfrage ohne Kasten
 	_speichere(3, "Borin", "DWARF", "FIGHTER", 2, "inn", 1, 9 * 60 + 40, 38 * 60000, [Geschichte.QUEST_STARTED], 12)
 	await _zeige("B", "557_b_zwei")
 	await _zeige("", "557_jetzt_zwei")
 	Spielstaende.entwurf = ""
+	Spielstaende.vorlage2 = false
 	await _wechsel()
 	await _fenster()
 	await _kapitel()
@@ -125,13 +130,19 @@ func _fenster() -> void:
 	var m := Menue.new(hw, z)
 	ebene.add_child(m)
 	await process_frame
-	for entwurf in ["", "B"]:
-		Menue.entwurf = entwurf
+	for entwurf in ["", "B", "B2"]:
+		Menue.entwurf = "B" if entwurf == "B2" else entwurf
+		Spielstaende.vorlage2 = entwurf == "B2"
 		for paar in [["ring", neu], ["panzer", panzer]]:
 			m.frage_stueck(paar[1])
-			await _bild("557_fenster_%s_%s" % [paar[0], "b" if entwurf == "B" else "jetzt"])
+			await _bild("557_fenster_%s_%s" % [paar[0], _endung(entwurf)])
+			m.get_child(m.get_child_count() - 1).free()
+		if entwurf != "":   # Vorlage 2: auch die Rueckfrage zum Wegwerfen, heute B (Kasten) neben ohne Kasten
+			m.frage_wegwerfen(neu)
+			await _bild("557_wegwerfen_" + _endung(entwurf))
 			m.get_child(m.get_child_count() - 1).free()
 	Menue.entwurf = ""
+	Spielstaende.vorlage2 = false
 	ebene.queue_free()
 	await process_frame
 
@@ -139,20 +150,23 @@ func _kapitel() -> void:
 	var z := Zustand.new()
 	var hw := Heldwerte.erschaffe("Thora", "ELF", "WIZARD", {}, z.neue_uid)
 	hw.ep_dazu(int(Heldwerte.regel("ep_fuer_stufe")[5]))
-	for entwurf in ["", "B"]:
-		KapitelSchirm.entwurf = entwurf
+	for entwurf in ["", "B", "B2"]:
+		KapitelSchirm.entwurf = "B" if entwurf == "B2" else entwurf
+		Spielstaende.vorlage2 = entwurf == "B2"
 		var ebene := CanvasLayer.new()
 		root.add_child(ebene)
 		ebene.add_child(KapitelSchirm.new(hw, Geschichte.CHAPTER_END_TEXT))
-		await _bild("557_kapitel_" + ("b" if entwurf == "B" else "jetzt"))
+		await _bild("557_kapitel_" + _endung(entwurf))
 		ebene.queue_free()
 		await process_frame
 	KapitelSchirm.entwurf = ""
+	Spielstaende.vorlage2 = false
 
 # wie tests/laden_bild_525.gd: 23 Gold, 7 Kräuter, 2 Heiltränke
 func _brauen() -> void:
-	for entwurf in ["", "B"]:
-		LadenSchirm.entwurf_b = entwurf
+	for entwurf in ["", "B", "B2"]:
+		LadenSchirm.entwurf_b = "B" if entwurf == "B2" else entwurf
+		Spielstaende.vorlage2 = entwurf == "B2"
 		var z := Zustand.new()
 		z.name = "Thora"; z.gold = 23
 		z.dazu("herbs", 7)
@@ -165,12 +179,16 @@ func _brauen() -> void:
 		ebene.add_child(l)
 		await process_frame
 		l.seite = "brauen"; l.baue()
-		var e := "b" if entwurf == "B" else "jetzt"
+		var e := _endung(entwurf)
 		await _bild("557_brauen_" + e)
 		var heil: Dictionary = Laden.rezepte().filter(func(r): return String(r["ergebnis"]) == "potion")[0]
-		if entwurf == "B": l.braukasten_b(heil, 3, true)
+		if entwurf != "": l.braukasten_b(heil, 3, true)
 		else: l.braukasten(heil, 3, true)
 		await _bild("557_braukasten_" + e)
 		ebene.queue_free()
 		await process_frame
 	LadenSchirm.entwurf_b = ""
+	Spielstaende.vorlage2 = false
+
+# Vorlage 2: heute „jetzt“, Entwurf B (Vorlage 14:15) „b“, B mit den Punkten von 14:21–14:26 „b2“
+func _endung(entwurf: String) -> String: return {"": "jetzt", "B": "b", "B2": "b2"}[entwurf]

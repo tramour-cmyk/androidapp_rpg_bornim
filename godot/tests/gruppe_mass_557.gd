@@ -28,14 +28,40 @@ func _messe(wo: String, wurzel: Node) -> void:
 			pruefe("Tippflaeche " + wo, p.size.y >= 48 * DP - 1, "%.0f" % p.size.y)
 	print("%s: %d Texte" % [wo, labels.size()])
 
+# Vorlage 2 (Chef 14:21–14:26): dieselben Schirme mit Spielstaende.vorlage2; dazu Abbrechen sichtbar, Knopf am Inhalt
 func _lauf() -> void:
 	root.size = Vector2i(1080, 2340)
 	Sprache.lade()
 	if Sprache.aktiv() != "de": Sprache.wechsle()
+	for v2 in [false, true]:
+		Spielstaende.vorlage2 = v2
+		print("— Vorlage 2" if v2 else "— B")
+		await _runde(v2)
+	Spielstaende.vorlage2 = false
+	print("GRUPPE557 %d Fehler" % fehler)
+	quit(1 if fehler else 0)
+
+func _abbrechen(w: Node) -> bool:
+	return w.find_children("*", "Label", true, false).any(func(l): return l.is_visible_in_tree() and l.text.contains("ABBRECHEN"))
+
+func _runde(v2: bool) -> void:
 	Spielstaende.entwurf = "B"; Menue.entwurf = "B"; KapitelSchirm.entwurf = "B"; LadenSchirm.entwurf_b = "B"
 	var s := Spielstaende.new()
 	root.add_child(s)
 	await _messe("Spielstaende", s)
+	if v2:
+		Spielstand.platz = 1
+		var probe := Zustand.new(); probe.name = "Mira"
+		var gesichert := Spielstand.liste()
+		if gesichert[0].is_empty():
+			Spielstand.speichere(probe, Heldwerte.erschaffe("Mira", "ELF", "WIZARD", {}, probe.neue_uid), {"karte": "village", "x": 4, "y": 6, "blick": "UP"})
+		s.frage_loeschen(Spielstand.liste()[0])
+		var f: Node = s.get_child(s.get_child_count() - 1)
+		await _messe("Rueckfrage Loeschen", f)
+		pruefe("Rueckfrage ohne Kasten", f.find_children("*", "PanelContainer", true, false).all(func(p): return p.get_theme_stylebox("panel") is StyleBoxEmpty), "")
+		pruefe("Rueckfrage mit Abbrechen", _abbrechen(f))
+		f.free()
+		if gesichert[0].is_empty(): Spielstand.loesche(1)
 	s.queue_free()
 	var z := Zustand.new()
 	var hw := Heldwerte.erschaffe("Mira", "ELF", "WIZARD", {}, z.neue_uid)
@@ -52,6 +78,12 @@ func _lauf() -> void:
 	for g in z.beutel:
 		m.frage_stueck(g)
 		await _messe("Fenster " + Beute.name(g), m.get_child(m.get_child_count() - 1))
+		if v2: pruefe("Fenster mit Abbrechen", _abbrechen(m.get_child(m.get_child_count() - 1)))
+		m.get_child(m.get_child_count() - 1).free()
+	if v2:
+		m.frage_wegwerfen(z.beutel[0])
+		await _messe("Rueckfrage Wegwerfen", m.get_child(m.get_child_count() - 1))
+		pruefe("Wegwerfen mit Abbrechen", _abbrechen(m.get_child(m.get_child_count() - 1)))
 		m.get_child(m.get_child_count() - 1).free()
 	var wk := Vergleich.wirkung(hw, z.beutel[0])
 	print("Wirkung ", wk)
@@ -61,6 +93,9 @@ func _lauf() -> void:
 	root.add_child(k)
 	await _messe("Kapitelende", k)
 	pruefe("Weiter da", k.find_child("Weiter", true, false) != null)
+	var wy: float = (k.find_child("Weiter", true, false) as Control).get_global_rect().position.y
+	print("Kapitelende: Weiter bei %.0f von 2340" % wy)
+	if v2: pruefe("Weiter folgt dem Text (Vorlage 2)", wy < 2340 - 160 * DP, "%.0f" % wy)
 	k.queue_free()
 	z.gold = 23; z.dazu("herbs", 7); z.dazu("potion", 2)
 	var l := LadenSchirm.new(hw, z, Laden.new(["herbs", "potion", "remedy"], true))
@@ -68,10 +103,14 @@ func _lauf() -> void:
 	await process_frame
 	l.seite = "brauen"; l.baue()
 	await _messe("Brauen", l)
+	var sch: Array = l.find_children("*", "Label", true, false).filter(func(x): return x.text.contains("SCHLIESSEN"))
+	if not sch.is_empty():
+		print("Brauen: Schliessen bei %.0f von 2340" % sch[0].get_global_rect().position.y)
+		if v2: pruefe("Schliessen folgt der Liste (Vorlage 2)", sch[0].get_global_rect().position.y < 2340 - 160 * DP, "%.0f" % sch[0].get_global_rect().position.y)
 	var heil: Dictionary = Laden.rezepte().filter(func(r): return String(r["ergebnis"]) == "potion")[0]
 	l.braukasten_b(heil, 3, true)
 	await _messe("Mengenkasten", l.get_child(l.get_child_count() - 1))
+	if v2: pruefe("Mengenkasten mit Abbrechen", _abbrechen(l.get_child(l.get_child_count() - 1)))
 	l.queue_free()
+	await process_frame
 	Spielstaende.entwurf = ""; Menue.entwurf = ""; KapitelSchirm.entwurf = ""; LadenSchirm.entwurf_b = ""
-	print("GRUPPE557 %d Fehler" % fehler)
-	quit(1 if fehler else 0)

@@ -772,6 +772,12 @@ func frage_wegwerfen(g: Dictionary) -> void:
 	if not Bedienung.rueckfragen:   # 399.1 Rückfragen aus (MenuScreen.kt: if (!vm.confirmations) discard())
 		wirf_weg(g)
 		return
+	if entwurf == "B" and Spielstaende.vorlage2:   # 557 Vorlage 2: Rueckfrage ohne Rahmen
+		Spielstaende.frage(self, "Wirklich wegwerfen?" if de else "Really discard?", [
+			Erschaffung.txt("%s (%s)" % [Beute.name(g), Sprache.t(Heldwerte.lade()["seltenheiten"][String(g["rarity"])].get("name", g["rarity"]))], 16, farbe_von(g)),
+			Erschaffung.txt(("Der Gegenstand ist danach verloren. Beim Händler bekämst du dafür %d Gold." if de else "The item will be gone for good. A trader would pay you %d gold for it.") % preis, 15)],
+			"KREUZ", "Wegwerfen" if de else "Discard", Stil.WARN, func(): wirf_weg(g))
+		return
 	dialog("Wirklich wegwerfen?" if de else "Really discard?", farbe_von(g), [
 		Erschaffung.txt("%s (%s)" % [Beute.name(g), Sprache.t(Heldwerte.lade()["seltenheiten"][String(g["rarity"])].get("name", g["rarity"]))], 16, farbe_von(g)),
 		Erschaffung.txt(("Der Gegenstand ist danach verloren. Beim Händler bekämst du dafür %d Gold." if de else "The item will be gone for good. A trader would pay you %d gold for it.") % preis, 15)],
@@ -1007,9 +1013,19 @@ func fenster_b(g: Dictionary, anlegen := Callable(), zurueck := Callable()) -> C
 	mitte.add_child(Rueckfrage.halte(rahmen))
 	for c in Menue.stueck_zeilen_b(hw, g): v.add_child(c)
 	v.add_child(Spielstaende.linie())
+	var zu := func(): schleier.queue_free()
+	var an_c := anlegen if anlegen.is_valid() else func(): meldung(lege_an(g)); baue()
+	if Spielstaende.vorlage2:   # 557 Vorlage 2 (Chef 14:26): „‹ ABBRECHEN“ links, ANLEGEN rechts; Wegwerfen und Nebenhand leise darueber
+		var neben := HBoxContainer.new()
+		neben.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		neben.add_child(Spielstaende.nebenwahl("KREUZ", "Wegwerfen" if de else "Discard", func(): zu.call(); frage_wegwerfen(g)))
+		if ok and einhandwaffe(g) and not anlegen.is_valid():
+			neben.add_child(Spielstaende.nebenwahl("", "Nebenhand" if de else "Off hand", func(): zu.call(); meldung(lege_an(g, true)); baue()))
+		v.add_child(neben)
+		v.add_child(Spielstaende.fuss(func(): schleier.queue_free(); if zurueck.is_valid(): zurueck.call(), "", Sprache.u("equip"), Stil.BRIGHT, func(): zu.call(); an_c.call(), ok))
+		return schleier
 	var unten := HBoxContainer.new()
 	unten.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var zu := func(): schleier.queue_free()
 	unten.add_child(Spielstaende.nebenwahl("KREUZ", "Wegwerfen" if de else "Discard", func(): zu.call(); frage_wegwerfen(g)))
 	var mitte_ := Control.new()
 	mitte_.size_flags_horizontal = Control.SIZE_EXPAND_FILL

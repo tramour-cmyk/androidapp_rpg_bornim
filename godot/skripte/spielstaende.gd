@@ -19,6 +19,10 @@ const DP := AktionsKnopf.DP
 # 12:35) und 3 entfallen. Schaltflaechen in drei Stufen (549a Punkt 4): Hauptwahl „LADEN ›“ hell golden, Nebenwahl gleich gesetzt
 # (Versalien, gesperrt), kleiner, gedaempftes Gold, eigenes Zeichen („× LÖSCHEN“, „‹ ZURÜCK“), Gefahr in Warnfarbe erst in der Rueckfrage
 static var entwurf := ""
+# 557 Vorlage 2 (Chef 04.11., 14:21–14:26, Zu 557): zuschaltbar neben B, damit jedes Bild heute (B) neben neu zeigt: Rueckfragen
+# und Mengenkasten ohne Rahmen, sichtbares „‹ ABBRECHEN“ links in jedem Fenster mit einer Wahl, der Knopf unten folgt dem Inhalt,
+# solange alles auf einen Schirm passt (fest unten nur, wenn die Liste rollt; Votum Perikles 14:2x)
+static var vorlage2 := false
 static var mit := {"ziel": true}
 
 var liste: VBoxContainer
@@ -158,6 +162,15 @@ static func gespielt(ms: int, de: bool) -> String:
 func frage_loeschen(d: Dictionary) -> void:
 	var de := Sprache.aktiv() == "de"
 	var h: Dictionary = d.get("held", {})
+	if entwurf == "B" and vorlage2:   # Chef 14:21: „Warum ist der Löschdialog dann wieder so kastelig?“
+		var f := Spielstaende.frage(self, ("Spielstand löschen?" if de else "Delete saved game?"),
+			[Erschaffung.txt(("%s (Stufe %d) wird endgültig gelöscht." if de else "%s (level %d) will be deleted for good.") % [String(h.get("name", "")), int(h.get("stufe", 1))], 15)],
+			"KREUZ", "Löschen" if de else "Delete", Stil.WARN, func():
+				Spielstand.loesche(int(d["platz"]))
+				baue())
+		liste.modulate.a = 0.0
+		f.tree_exited.connect(func(): if is_instance_valid(liste): liste.modulate.a = 1.0)
+		return
 	var schleier := Rueckfrage.schleier(self)   # 526: Tippen daneben und Android-Zurück wie „Abbrechen“ (alt SlotsScreen BackHandler)
 	var mitte := CenterContainer.new()
 	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -320,6 +333,82 @@ func _voll_zeile(d: Dictionary, de: bool) -> Control:
 	weg.size_flags_horizontal = Control.SIZE_SHRINK_END
 	aussen.add_child(weg)
 	return aussen
+
+# 557 Vorlage 2: Fenster ohne Rahmen (Chef 14:21, 14:25): fast schwarzer Grund, Titel in Gold zwischen Zierlinie und Linie, Zeilen,
+# Linie, unten „‹ ABBRECHEN“ links (Nebenwahl), die Wahl rechts (Gefahr in Warnfarbe mit Zeichen); Zurueck und Tippen daneben
+# schliessen wie Abbrechen (526). Gibt den Schleier zurueck; [tat] laeuft nach dem Schliessen
+static func frage(eltern: Control, titel: String, zeilen: Array, zeichen: String, wahl: String, farbe: Color, tat: Callable, an := true) -> ColorRect:
+	var de := Sprache.aktiv() == "de"
+	var schleier := Rueckfrage.schleier(eltern)
+	schleier.color = Color(0, 0, 0, 0.97)
+	var mitte := CenterContainer.new()
+	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	schleier.add_child(mitte)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", int(10 * DP))
+	v.custom_minimum_size.x = eltern.get_viewport_rect().size.x - 48 * DP
+	mitte.add_child(Rueckfrage.halte(v))
+	v.add_child(zier())
+	var t := Stil.zeile(titel.to_upper().replace("ß", "SS"), 15, Stil.GOLD, 3.0)
+	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	v.add_child(t)
+	v.add_child(linie())
+	for z in zeilen: v.add_child(z)
+	v.add_child(linie())
+	v.add_child(fuss(func(): schleier.queue_free(), zeichen, wahl, farbe, func(): schleier.queue_free(); tat.call(), an))
+	return schleier
+
+# unten in einem Fenster: „‹ ABBRECHEN“ links, die Wahl rechts (Chef 14:26: „vor allem fehlt bei Bild 8 das Abbrechen“)
+static func fuss(abbrechen: Callable, zeichen: String, wahl: String, farbe: Color, tat: Callable, an := true) -> HBoxContainer:
+	var de := Sprache.aktiv() == "de"
+	var unten := HBoxContainer.new()
+	unten.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	unten.add_child(nebenwahl("", "‹  " + ("Abbrechen" if de else "Cancel"), abbrechen))
+	var luecke_ := Control.new()
+	luecke_.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	luecke_.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	unten.add_child(luecke_)
+	if farbe == Stil.BRIGHT and zeichen == "":
+		unten.add_child(hauptwahl(wahl, tat, an))
+		return unten
+	var h := HBoxContainer.new()
+	h.add_theme_constant_override("separation", int(6 * DP))
+	h.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	h.custom_minimum_size.y = 48 * DP
+	h.alignment = BoxContainer.ALIGNMENT_CENTER
+	h.add_child(Erschaffung.luecke(0, 8))
+	if zeichen != "":
+		var kr := Rastzeichen.neu(zeichen, 15, farbe)
+		kr.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		h.add_child(kr)
+	h.add_child(wahl_b(wahl, farbe))
+	h.add_child(Erschaffung.luecke(0, 8))
+	var p := tippbar(h, tat if an else func(): pass)
+	p.size_flags_horizontal = Control.SIZE_SHRINK_END
+	unten.add_child(p)
+	return unten
+
+# 557 Vorlage 2 (Votum Perikles 14:2x, Chef 14:21 zu Bild 6 und 7): der Teil unter der Liste folgt dem Inhalt, solange alles passt;
+# rollt die Liste, steht er fest unten. [rolle] liegt in [spalte]; dahinter kommt ein dehnbarer Rest, der die Luecke unten nimmt
+static func folge_inhalt(spalte: VBoxContainer, rolle: ScrollContainer, innen: Control) -> void:
+	rolle.size_flags_vertical = Control.SIZE_FILL
+	var rest := Control.new()
+	rest.name = "Rest"
+	rest.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	rest.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	spalte.add_child(rest)
+	var passe := func():
+		var andere := 0.0
+		for c in spalte.get_children():
+			if c != rolle and c != rest and c is Control and (c as Control).visible: andere += (c as Control).get_combined_minimum_size().y
+		var frei := spalte.size.y - andere - spalte.get_theme_constant("separation") * maxi(0, spalte.get_child_count() - 1)
+		var h := minf(innen.get_combined_minimum_size().y, maxf(0.0, frei))
+		if absf(rolle.custom_minimum_size.y - h) > 0.5: rolle.custom_minimum_size.y = h
+	innen.minimum_size_changed.connect(passe)
+	spalte.resized.connect(passe)
+	passe.call_deferred()
 
 # Nebenwahl (549a Punkt 4): Versalien gesperrt wie die Hauptwahl, kleiner, gedaempftes Gold, eigenes Zeichen, Flaeche 48 dp
 static func nebenwahl(zeichen: String, text: String, tat: Callable, an := true) -> PanelContainer:

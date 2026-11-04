@@ -136,3 +136,4 @@ func _ready_b() -> void:
 	k.name = "Weiter"
 	k.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	spalte.add_child(k)
+	if Spielstaende.vorlage2: Spielstaende.folge_inhalt(spalte, rolle, innen)   # 557 Vorlage 2: Weiter folgt dem Text (Chef 14:21, Bild 6)

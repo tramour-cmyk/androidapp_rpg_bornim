@@ -480,6 +480,7 @@ func _ready_b() -> void:
 	var sch := Spielstaende.nebenwahl("", "‹  " + Sprache.u("close"), func(): zu.emit())
 	sch.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	spalte.add_child(sch)
+	if Spielstaende.vorlage2: Spielstaende.folge_inhalt(spalte, rolle, inhalt)   # 557 Vorlage 2: Schliessen folgt der Liste (Chef 14:21, Bild 7)
 	baue()
 
 # eine Seite als Wort; die gewaehlte hell mit goldenem Strich darunter, die anderen gedaempft; Flaeche 48 dp
@@ -558,6 +559,9 @@ func braukasten_b(r: Dictionary, n_: int, alle := false) -> void:
 	var aus := String(r["ergebnis"])
 	var oft := Laden.wie_oft(z, r)
 	var n := clampi(n_, 1, maxi(1, oft))
+	if Spielstaende.vorlage2:
+		braukasten_c(r, n, alle)
+		return
 	var schleier := Rueckfrage.schleier(self)
 	schleier.color = Color(0, 0, 0, 0.86)
 	var mitte := CenterContainer.new()
@@ -611,3 +615,82 @@ func braukasten_b(r: Dictionary, n_: int, alle := false) -> void:
 	var brau := ("Brauen" if de else "Brew") + (" ×%d" % n if n > 1 else "")
 	var hw_ := Spielstaende.hauptwahl(brau, func(): schleier.queue_free(); sage(laden.braue_mehr(z, hw, r, n)); baue(), oft >= 1)
 	v.add_child(hw_)
+
+# 557 Vorlage 2 (Chef 14:25–14:26, Bild 8: „designtechnisch komisch … vor allem fehlt … das Abbrechen“; Sokrates (2)): der Mengenkasten
+# ohne Rahmen wie die Rueckfrage: fast schwarzer Grund, Kopf mit Bild und Name zwischen zwei Goldlinien; die Menge gross in der Mitte
+# „−  3  +“ mit grossen Tippflaechen ohne eigene Rahmen; darunter ×1 · ×5 · ALLE als Woerter, die gewaehlte hell mit Goldstrich wie die
+# Seiten; Bestand und Gold vorher → nachher als zwei Zeilen; unten „‹ ABBRECHEN“ links, „BRAUEN ×3 ›“ rechts
+func braukasten_c(r: Dictionary, n: int, alle := false) -> void:
+	var de := de_()
+	var aus := String(r["ergebnis"])
+	var oft := Laden.wie_oft(z, r)
+	var schleier := Rueckfrage.schleier(self)
+	schleier.color = Color(0, 0, 0, 0.97)
+	var mitte := CenterContainer.new()
+	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	schleier.add_child(mitte)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", int(10 * DP))
+	v.custom_minimum_size.x = get_viewport_rect().size.x - 48 * DP
+	mitte.add_child(Rueckfrage.halte(v))
+	v.add_child(Spielstaende.zier())
+	var kopf_ := HBoxContainer.new()
+	kopf_.add_theme_constant_override("separation", int(12 * DP))
+	var bild := Menue.bild_feld("ding-" + aus, 48)
+	bild.name = "DingBild"
+	kopf_.add_child(bild)
+	var nv := VBoxContainer.new()
+	nv.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	nv.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	var nm := Stil.zeile(Laden.name(aus), 19, farbe_ding(aus))
+	nm.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	nv.add_child(nm)
+	nv.add_child(Erschaffung.txt(Sprache.t(Laden.ding(aus).get("info", "")), 13, Stil.DIM))
+	kopf_.add_child(nv)
+	v.add_child(kopf_)
+	v.add_child(Spielstaende.linie())
+	v.add_child(zutaten_reihe(r, 24, 15))
+	if oft < 1:
+		v.add_child(Erschaffung.txt(Sprache.t(Laden.FEHLT) + Laden.fehlt(z, r), 15, Stil.WARN))
+	else:
+		var neu_ := func(nn: int, ist_alle: bool): schleier.queue_free(); braukasten_c(r, clampi(nn, 1, oft), ist_alle)
+		var mr := HBoxContainer.new()
+		mr.alignment = BoxContainer.ALIGNMENT_CENTER
+		mr.add_theme_constant_override("separation", int(10 * DP))
+		mr.add_child(_zahl_knopf("−", func(): neu_.call(n - 1, false), n > 1))
+		var zahl := Stil.zeile(str(n), 34, Stil.BRIGHT)
+		zahl.name = "Menge"
+		zahl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		zahl.custom_minimum_size.x = 64 * DP
+		zahl.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		mr.add_child(zahl)
+		mr.add_child(_zahl_knopf("+", func(): neu_.call(n + 1, false), n < oft))
+		v.add_child(mr)
+		var wr := HBoxContainer.new()
+		wr.add_theme_constant_override("separation", 0)
+		for k in [["×1", 1, not alle and n == 1, true, false], ["×5", 5, not alle and n == 5, oft >= 5, false], [Sprache.t(Laden.ALLE), oft, alle, true, true]]:
+			var nn: int = k[1]
+			var ia: bool = k[4]
+			var w := _seite_b(String(k[0]), bool(k[2]), (func(): neu_.call(nn, ia)) if bool(k[3]) else func(): pass)
+			if not bool(k[3]): w.modulate.a = 0.4
+			wr.add_child(w)
+		v.add_child(wr)
+		v.add_child(Stil.zeile(Sprache.t(Laden.REICHT) % oft, 13, Stil.GOLD))
+		v.add_child(Erschaffung.txt(Sprache.t(Laden.BESITZ) + "%d → %d" % [z.anzahl(aus), z.anzahl(aus) + n], 14, Stil.DIM))
+		if int(r["gold"]) > 0:
+			v.add_child(Erschaffung.txt("%s: %d → %d" % [Sprache.u("gold"), z.gold, z.gold - int(r["gold"]) * n], 14, Stil.DIM))
+	v.add_child(Spielstaende.linie())
+	var brau := ("Brauen" if de else "Brew") + (" ×%d" % n if n > 1 else "")
+	v.add_child(Spielstaende.fuss(func(): schleier.queue_free(), "", brau, Stil.BRIGHT, func(): schleier.queue_free(); sage(laden.braue_mehr(z, hw, r, n)); baue(), oft >= 1))
+
+# grosse Tippflaeche fuer − und + ohne eigenen Rahmen (56 dp), aus: matt
+func _zahl_knopf(t: String, tat: Callable, an: bool) -> Control:
+	var l := Stil.zeile(t, 30, Stil.GOLD if an else Color(Stil.DIM, 0.4))
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	l.custom_minimum_size = Vector2(56, 56) * DP
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var p := Spielstaende.tippbar(l, tat if an else func(): pass)
+	p.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	return p
