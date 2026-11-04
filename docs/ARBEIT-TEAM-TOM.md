@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (04.11., 14:16, `session_01Hmoj78Zfp2vo4RRP3F9b18`):** 557 Vorlage 3 beim Chef (ddce14bdf). 558: Probe 2 von 2 (41826697107), Artefakt `bornim-probe-558` als ansehen/558 und `meldung.sh --bild`. Keine Weckrufe. Nachfolger: Tom – 558: Robe Probebild vorlegen.
+**Übergabe (04.11., 14:22, `session_01Hmoj78Zfp2vo4RRP3F9b18`):** 557, 558 beim Chef. Keine Weckrufe. Nachfolger: Tom – 505: Nebel B, Randwald, Kamera, Ausgänge.
 
 ## Zeilen
 
@@ -39,7 +39,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 490 | M | **von Perikles (Wochenziel 03.11. Reihe 2, 488):** Flüsterwald begehbar wie alt (`Story.kt:524`, Orte O6) | gebaut: bestanden t249 (Chef 04.11., 00:41, Zu t249), fährt mit dem nächsten Build nach main; Geprüft an: bd160d405 | `claude/build-490` |
 | 495 | M | **von Perikles (Wochenziel 03.11. Reihe 4, 488):** Zufallsspieler spielt Kapitel 1 in Godot bis „chapter1_done“ durch und meldet, wo er hängenbleibt (Abnahme 2.2) | wartet auf Jerry: Lauf 261: Tür-Fix wirkt (beide Saaten in 60 min in der Höhle), dann fehlen Krogg und Grak ohne Modelle aus 494 (Zu 494 bei Jerry) | – |
 | 491 | M | **von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike):** Tiefer Flüsterwald begehbar wie alt (`Story.kt:619`): Morwens Hütte, Grimmzahn mit Leibwache, Sicht 353a (Orte O7) | gebaut: bestanden t249 (Chef 04.11., 00:41, Zu t249), fährt mit dem nächsten Build nach main; Geprüft an: bd160d405 | – |
-| 505 | M | **von Perikles (Archiv 502, Chef 03.11., 07:30, Zu 502 in ARBEIT-PROJEKT):** Nebel des Krieges in der Wildnis wie alt (`Fog.kt`, `WorldScreen.kt` 1426), zuerst im Flüsterwald; Sichtfeld des Helden erst nach Vorlage der Form an den Chef (Welt W24, W25) | startbar: 505 C Rand (Chef 04.11., 14:06, Zu 505 (Rand)): Nebel B, Randwald, Kamera, Ausgänge | – |
+| 505 | M | **von Perikles (Archiv 502, Chef 03.11., 07:30, Zu 502 in ARBEIT-PROJEKT):** Nebel des Krieges in der Wildnis wie alt (`Fog.kt`, `WorldScreen.kt` 1426), zuerst im Flüsterwald; Sichtfeld des Helden erst nach Vorlage der Form an den Chef (Welt W24, W25) | startbar: 505c (Chef 14:06, Zu 505 (Rand)): Nebel B, Randwald, Kamera, Ausgänge; Vorlage mit 492 | – |
 | 514 | M | **von Sokrates (Chef 03.11., 16:01, zu 490: „Gibt es nachts vernünftige Glühwürmchen überall auf den Karten?“):** wie alt (`WorldScreen.kt` `Fireflies`, Zu 514) | gebaut: passt (Chef 20:2x), fährt im nächsten Build; Testfrage Blinken am Gerät; Geprüft an: dd4cb1d1a | `claude/tom-514-gluehwuermchen` |
 | 515 | M? | **von Sokrates (Chef 03.11., 16:07, zu 491; Zu 515):** Truhen je Karte, einige verschlossen nach BRS „Truhen und Schlösser“ (Schlossstufe, Dietrich, Aufbrechen, Spähen); Godot hat noch keine Schlösser (`spiel.gd` `oeffne_kiste`); Regelteil mit Jerry; Zeitpunkt Perikles (488) | wartet auf Perikles: Zeitpunkt (488), Regelteil mit Jerry | – |
 | 493 | M | **von Perikles (Wochenziel 03.11. Reihe 2, 488; Spike, von Jerry übernommen, Chef 07:54):** Kampforte Wald wie alt: Waldrand, Teich, Baum, Felsen, Steinkreis (Orte O9), mit Jerrys Kampfort-Schnittstelle | gebaut: bestanden t249 (Chef 04.11., 00:41, Zu t249), fährt mit dem nächsten Build nach main; Geprüft an: bd160d405 | `claude/spike-493-kampforte` |
