@@ -3,7 +3,7 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `32f9f2424` (03.11., 20:52)
+**Gelesen bis:** `485c3f5fb` (04.11., 14:06)
 
 **Übergabe (04.11., 14:05):** 547 Zwischentexte ohne Sturz `[547.auf]`, `[547.wolf.sprung.stoss]`; 535 Schamane `[535.schamane.…]` (beide `STORY-SPIEL.md`, fremd geprüft, Bau bei Jerry). Nachfolger: keiner (468a).
 
