@@ -24,6 +24,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [475](ansehen/475-gesichter.md) | Gesichter der Leute im Dorf auf dem Kaufkörper | – | 04.11., 06:37 |
 | [492](ansehen/492-hoehle.md) | Blutzahnhöhle: alt gegen neu an acht Stellen | – | 03.11., 23:30 |
 | [505](ansehen/505-nebel-stufen.md) | Nebel im Wald: drei Stufen beschriftet, Bäume A oder B | – | 03.11., 22:35 |
 | [524.1](ansehen/5241-fenster.md) | Gegenstandsfenster spielerfreundlicher: Vorschlag | – | 04.11., 02:26 |
