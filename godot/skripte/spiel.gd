@@ -113,6 +113,7 @@ func starte(w: Dictionary) -> void:
 	zustand.name = String(w.get("name", zustand.name))
 	zustand.aussehen = (w.get("aussehen", {}) as Dictionary).duplicate()   # 376.1
 	werte = Heldwerte.erschaffe(zustand.name, String(w.get("volk", "HUMAN")), String(w.get("klasse", "FIGHTER")), w.get("werte", {}), zustand.neue_uid)   # 399.1 Punktekauf
+	startvorrat(zustand, werte.klasse)
 	# 470: Held nach BRS (Erschaffung 1.1) im Spielstand; bis 2.3 kaempft er mit den SRD-Werten der Bruecke (BrsHeld.alt, Rueckfrage 470a)
 	zustand.brs = (w.get("brs", {}) as Dictionary).duplicate(true)
 	if w.has("srd"):
@@ -475,7 +476,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	# 399.2 (Jerry 3b9fb3116): Ausruestung als Beute nach einem Sieg wie Battle.finishWin (Loot.drops, einmal je Kampf, Gebietsstufe)
 	var beute := func() -> Array:
 		var w := KotlinZufall.new(randi())
-		var ilvl := int(Karte.lade("forest").daten.get("stufe", 1))
+		var ilvl := int(karte.daten.get("stufe", 1))   # 543 Battle.finishWin: Stufe des Gebiets, in dem gekaempft wird (Tiefer Wald 2, Hoehle 3)
 		var st: Dictionary = Heldwerte.lade()["seltenheiten"]
 		return Beute.beute(hw, w, ilvl, false, false, zustand.neue_uid).map(func(g): return {"gear": g, "name": Beute.name(g), "rarity": Sprache.t(st[String(g["rarity"])]["name"])})
 	var k0 := Time.get_ticks_msec()
@@ -962,6 +963,14 @@ func im_dunkeln() -> bool:
 
 func fackel_neu() -> void:
 	if held: held.fackel_neu(Menue.fackel(held_werte()), String(karte.daten.get("art", "")) == "INTERIOR")
+
+# 543 GameState.newGame: Startgold der Klasse (15–25) und was von ihren Startdingen keine Ausruestung ist (Heiltraenke) in die Tasche
+static func startvorrat(z: Zustand, klasse: String) -> void:
+	var d := Heldwerte.lade()
+	var k: Dictionary = d["klassen"].get(klasse, {})
+	z.gold = int(k.get("startgold", 0))
+	for id in k.get("start", []):
+		if not d["grundformen"].has(id) and not Laden.ding(String(id)).is_empty(): z.dazu(String(id))
 
 func held_werte() -> Heldwerte:
 	if werte == null: werte = Heldwerte.erschaffe(zustand.name, "HUMAN", "FIGHTER")
