@@ -174,6 +174,9 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	gitter_neu()
 	nebel = Nebel.new(self, karte)   # 505
 	add_child(nebel)
+	# 505c (3): die Kamera haelt am Randwald (kamera.gd am_rand); Grundriss wie bisher
+	var rand_an := String(karte.daten.get("art", "")) in ["FOREST", "TOWN", "CAVE"]
+	kamera.rand(Rect2(0, 0, karte.breite * Karte.TS, karte.hoehe * Karte.TS), Nebel.RAND_SCHWARZ * Karte.TS if rand_an else 0.0)
 	kamera.ziel = held
 	gebiet.held = held
 	gebiet.kamera = kamera

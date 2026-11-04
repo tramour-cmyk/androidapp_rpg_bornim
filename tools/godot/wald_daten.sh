@@ -21,9 +21,9 @@ for a in goblin goblin_archer kobold; do bau goblin.py ART=$a V3=tools/blender34
 rm -rf $G && mkdir -p $G && cp -r $R/godot/. $G/ && D=$G/daten && mkdir -p $D/leute
 cp $O/karten.json $D/; cp $O/held.glb $D/held.bin; cp $O/held-info.json $D/
 cp $O/dorf.glb $D/dorf.bin; cp $O/dorf-info.json $D/
-for g in forest deep_forest; do cp $O/$g.glb $D/$g.bin; cp $O/$g-info.json $D/; cp $O/$g-boden-maske.png $D/$g-boden-maske.bild; done
+for g in forest deep_forest; do cp $O/$g.glb $D/$g.bin; cp $O/$g-info.json $D/; cp $O/$g-boden-maske.png $D/$g-boden-maske.bild; cp $O/$g-boden-rand.png $D/$g-boden-rand.bild; done
 for t in gras erde pflaster halme korn weiss; do cp $O/tex/$t.png $D/$t.bild; done
-cp $O/boden-maske.png $D/boden-maske.bild
+cp $O/boden-maske.png $D/boden-maske.bild; cp $O/boden-rand.png $D/boden-rand.bild
 cp $O/cave.glb $D/cave.bin; cp $O/cave-info.json $D/; cp $O/cave-boden-maske.png $D/cave-boden-maske.bild
 for i in garrick morwen lyra; do cp $O/leute/$i/held.glb $D/leute/$i.bin; cp $O/leute/$i/held-info.json $D/leute/$i-info.json; done; cp tools/blender348/v3/leute.json $D/leute/
 K=$G/kampf/daten; mkdir -p $K

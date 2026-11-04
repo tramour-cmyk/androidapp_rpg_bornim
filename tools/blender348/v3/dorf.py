@@ -158,6 +158,54 @@ def blob(P, c, r, col, sub=2, squash=1.0, seed=0, smooth=False, bump=0.22):
 
 # ---------------------------------------------------------------- Boden: Netz (Hoehe am Wasser) und Maske 16 px je Kachel
 NC, NR = C1 - C0 + 1, R1 - R0 + 1
+
+# ---------------------------------------------------------------- 505c Randwald und Ausgaenge (Chef 04.11., 14:01, 14:06, „Vorgang 505c“;
+# Zu 505 (Rand), Zu 505 (Ausgaenge) bei Tom): hinter dem Kartenrand steht Wald bis RAND_WEIT Kacheln (dort ist es schwarz: nebel.gd
+# RAND_SCHWARZ, die Kamera haelt davor: kamera.gd am_rand); jeder Weg ueber den Rand laeuft weiter, biegt zur Seite und verliert sich
+# unter den Kronen (alt endete er an einer Baumreihe, 27m.1), Baeche laufen gerade ins Dunkel (alt), ueber dem Hoehlenmund steigt Fels an.
+RAND_WEIT = 11                       # Baeume bis hier (Kacheln hinter dem Rand)
+RAND_E = 12                          # Bodenmaske so weit hinter dem Rand (wie AUS)
+BIEG = 2.4                           # so viele Kacheln biegt ein Weg bis Tiefe 7 zur Seite
+def rand_tiefe(c, r): return max(C0 - c, c - C1, R0 - r, r - R1)
+def ausgaenge_rand():
+    """Wege ueber den Kartenrand: je Lauf benachbarter Wegkacheln auf einer Randzeile (Seite, u0, u1), u in Kacheln laengs des Rands"""
+    out = []
+    for seite in 'NSWO':
+        if seite in 'NS': cells = [(c, R0 if seite == 'N' else R1) for c in range(C0, C1 + 1)]
+        else: cells = [(C0 if seite == 'W' else C1, r) for r in range(R0, R1 + 1)]
+        lauf = []
+        for (c, r) in cells + [(None, None)]:
+            if c is not None and ch(c, r) == '=': lauf.append(c - C0 if seite in 'NS' else r - R0)
+            elif lauf: out.append((seite, min(lauf), max(lauf) + 1)); lauf = []
+    return out
+AUSG = ausgaenge_rand() if KARTE in ('village', 'forest', 'deep_forest') else []
+print('AUSGAENGE', KARTE, AUSG)
+def rand_lage(seite, X, Y):
+    """(u laengs des Rands, d Tiefe hinter dem Rand) in Kacheln aus X, Y (Kacheln ab C0, R0; Zahlen oder numpy)"""
+    if seite == 'N': return X, -Y
+    if seite == 'S': return X, Y - NR
+    if seite == 'W': return Y, -X
+    return Y, X - NC
+def ss_np(a, b, x):
+    t = np.clip((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t)
+def bahn(seite, u0, u1, d):
+    """Mitte und halbe Breite des Wegs hinter dem Rand bei Tiefe d (Zahl oder numpy): ab Tiefe 1 zur Kartenmitte hin gebogen,
+    schmaler; Staerke vergeht ab Tiefe 6,5 (verliert sich unter den Kronen)"""
+    laenge = NC if seite in 'NS' else NR
+    m = (u0 + u1) / 2.0
+    sg = 1.0 if m < laenge / 2.0 else -1.0
+    mitte = m + sg * BIEG * ss_np(1.0, 7.0, d)
+    hb = ((u1 - u0) - 1) / 2.0 + 0.52
+    return mitte, hb * (1 - 0.25 * ss_np(2.0, 8.0, d)), 1 - ss_np(6.5, 9.5, d)
+def im_gang(c, r, frei=0.9):
+    """Kachel (c, r) hinter dem Rand liegt auf oder neben einem weiterlaufenden Weg (kein Baum)"""
+    X, Y = c - C0 + 0.5, r - R0 + 0.5
+    for seite, u0, u1 in AUSG:
+        u, d = rand_lage(seite, X, Y)
+        if d <= 0 or d > 9.5: continue
+        mi, hb, _ = bahn(seite, u0, u1, d)
+        if abs(u - float(mi)) < float(hb) + frei: return True
+    return False
 WATER = set('~h')                    # unter der Bruecke fliesst der Fluss weiter
 def hv(ix, iy, s):
     n = (ix * 374761393 + iy * 668265263 + s * 1442695041) & 0xFFFFFFFF
@@ -1395,10 +1443,11 @@ def yard(c, r):
             with use('bluete_korb'): cylinder(DORF, P(ki, kj), 0.1 * TS, 12 * U, 10, lin(0xA08050), r2=0.12 * TS)
         if v == 2 and kp:
             with use('bluete_korb'): cylinder(DORF, P(ki, kj), 0.1 * TS, 5 * U, 10, lin(0x9A8A64))
-def outer_tree(c, r, at=None):
+def outer_tree(c, r, at=None, gen=None):
     """Baum im Waldring; 348.6 (Befund 6: Klumpen, Staemme in Reihe): wie MapFlora.objects ein Drittel Fichten, Eichen in
-    drei Groessen, in der Kachel um 0,35 versetzt"""
-    zufall = Vector((rnd.uniform(-0.35, 0.35) * TS, rnd.uniform(-0.35, 0.35) * TS, 0))
+    drei Groessen, in der Kachel um 0,35 versetzt. 505c: gen = eigener Zufall fuer neue Baeume (rnd bleibt fuer den Rest gleich)"""
+    gen = gen or rnd
+    zufall = Vector((gen.uniform(-0.35, 0.35) * TS, gen.uniform(-0.35, 0.35) * TS, 0))
     # 491 (Sicht 353a: Weg voraus erkennbar, Held ganz zu sehen): im Wald ruecken Baeume am Weg von den begehbaren Nachbarn weg,
     # ihre Kronen etwas kleiner; das Dorf bleibt, wie es ist
     weg_nah = []
@@ -1457,19 +1506,30 @@ def low(c, r, art, rand=False):
 # 348.6 (Befund 4, Fluss an der Kirche unter Kronen): Bewuchs und Waldring wie das alte Spiel aus dem Export
 # (MapFlora.shades: niedrig, wo eine hohe Krone Wichtiges verdeckt; MapEdge.spot: frei vor Wegen und Wasser, Hecke vor Feldern)
 LOW = {(x, y): a for x, y, a in K.get('bewuchs', [])}
+rnd2 = random.Random(505)                                                   # 505c: Zufall der neuen Randbaeume (rnd bleibt gleich)
+RING_BAUM = set()                                                           # 505c: Kacheln mit Baum (Randwald dahinter, Schatten der Maske)
 for x, y, art in K.get('ring', []):                                         # Waldrand: Baeume um die Karte (Rahmen wie im Spiel)
     d = max(C0 - x, x - C1, R0 - y, y - R1)
     if art.startswith('baum'):
         # weiter draussen sieht die Kamera nicht hin; Runde 11 (Urteil Chef 12:11: suedlicher Ortsrand ohne Abschluss): im Sueden und
         # Osten (zur Kamera hin, unten im Bild; Grundansicht wie alt, 3486 a) der ganze Ring und dahinter weiter Wald bis 9 Kacheln
-        if d > (6 if (y > R1 or x > C1) else 4): continue
-        outer_tree(x, y)
+        # 505c (Kamera dreht frei, haelt am Randwald): ringsum bis 6; neue Baeume (Norden, Westen 5 und 6) mit eigenem Zufall
+        alt = d <= (6 if (y > R1 or x > C1) else 4)
+        if d > 6: continue
+        gen = rnd if alt else rnd2
+        if im_gang(x, y):                                                   # 505c: der Weg laeuft hier weiter (gebogen)
+            if alt:
+                rnd.uniform(0, 1); rnd.uniform(0, 1)
+                if art == 'baum2' and d <= 2: rnd.uniform(0, 1); rnd.uniform(0, 1)
+            continue
+        outer_tree(x, y, gen=gen); RING_BAUM.add((x, y))
         if art == 'baum2' and d <= 2:                                                      # dichter als innen: zweiter Baum, halbe Kachel versetzt (nur vorn: Dreiecke)
-            p0 = tile_c(x, y); outer_tree(x, y, p0 + Vector((-TS / 2, TS / 2, 0)))
+            p0 = tile_c(x, y); outer_tree(x, y, p0 + Vector((-TS / 2, TS / 2, 0)), gen=gen)
     else: low(x, y, art, rand=True)
-for y in range(R1 + 7, R1 + 10):                                            # dahinter weiter Wald, unten im Bild (Sueden)
+RING_ART = {(x, y): art for x, y, art in K.get('ring', [])}
+for y in range(R1 + 7, R1 + 10):                                            # 505c: ersetzt durch den Randwald ringsum (randwald_aussen)
     for x in range(C0 - 6, C1 + 7):
-        if h1(x, y, 41) < 0.85: outer_tree(x, y)
+        if h1(x, y, 41) < 0.85: rnd.uniform(0, 1); rnd.uniform(0, 1)       # Zufall wie vorher verbraucht, der Rest bleibt gleich
 qq = []
 for r in range(R0, R1 + 1):
     for c in range(C0, C1 + 1):
@@ -1806,6 +1866,115 @@ if SACKSCHATTEN:
         sg = 0.28 * br
         mask[..., 2] = np.maximum(mask[..., 2], 1.0 * np.exp(-0.5 * ((X - sx) ** 2 + (Y - sy) ** 2) / sg ** 2))
     Image.fromarray((np.clip(mask, 0, 1) * 255).astype(np.uint8)).save(MASKE)
+# ---------------------------------------------------------------- 505c Randwald aussen: einfache Baeume ohne Wind (gebiet.gd: Netze
+# „Randwald_…“ ohne sway), Tiefe 7 bis RAND_WEIT ringsum, je Seite ein Netz (Godot laesst nicht Sichtbares weg); hinter offenem Feld
+# des Dorfs (Ring dort ohne Baum) erst ab 8; nie auf dem Weg, der weiterlaeuft, nie im Bach
+def rand_fichte(P, p, R, seed, stufen):
+    with use('rinde'): cylinder(P, p, R * 0.12, R * 2.2, 5, (0.55, 0.55, 0.55), cap=False, r2=R * 0.04)
+    with use('laub_nadel'):
+        for k in range(stufen):
+            f = k / (stufen - 1.0)
+            z0 = R * (0.42 + f * 2.38) * (1 + 0.1 * (h1(seed, k, 41) - 0.5))
+            half = R * (1.0 - f * 0.62) * (0.92 + 0.16 * h1(seed, k, 42))
+            hh = R * (1.25 - f * 0.35) * (0.85 + 0.3 * h1(seed, k, 46))
+            n = 6; a0 = h1(seed, k, 43) * 6.3
+            top = p + Vector((0, 0, z0 + hh)); ring = []
+            for j in range(2 * n):
+                a = a0 + math.pi * j / n; tip = j % 2 == 0
+                rr = half * (1.0 if tip else 0.72); dz = -R * 0.34 * (0.5 + h1(seed, k * 31 + j, 45)) if tip else R * 0.1
+                ring.append(p + Vector((math.cos(a) * rr, math.sin(a) * rr, z0 + dz)))
+            for j in range(2 * n):
+                add_face(P, [ring[j], ring[(j + 1) % (2 * n)], top], pine_col)
+def rand_eiche(P, p, g, seed):
+    with use('rinde'): cylinder(P, p, 16 * g, 230 * g, 5, (0.6, 0.6, 0.6), cap=False, r2=10 * g)
+    light = sc(LEAF_OL if h1(seed, 1, 4) < 0.25 else LEAF_L, 0.9); dark = sc(light, 0.28); cen = p + Vector((0, 0, 240 * g)); r = 110 * g
+    def col(v, n, cz=cen.z):
+        return mixc(dark, light, max(0.0, n.x * 0.55 - n.y * 0.2 + n.z * 0.7) * 0.75 + 0.25 * ss(cz - r, cz + r, v.z))
+    with use('laub'):
+        blob(P, cen, r * 0.85, col, sub=1, squash=0.78, seed=seed, smooth=True)
+        for k in range(3):
+            a = 2 * math.pi * (k + 0.4 * h1(seed, k, 51)) / 3
+            blob(P, cen + Vector((math.cos(a), math.sin(a), 0.15)) * r * 0.6, r * 0.45, col, sub=1, squash=0.9, seed=seed + k, smooth=True)
+def randwald_aussen(seite):
+    n = 0
+    for y in range(R0 - RAND_WEIT, R1 + RAND_WEIT + 1):
+        for x in range(C0 - RAND_WEIT, C1 + RAND_WEIT + 1):
+            d = rand_tiefe(x, y)
+            if d < 7 or d > RAND_WEIT: continue
+            # Seite: die Tiefe zaehlt nach dem naechsten Rand (Ecken zur Seite mit der groesseren Tiefe)
+            sx = C0 - x if x < C0 else (x - C1 if x > C1 else 0); sy = R0 - y if y < R0 else (y - R1 if y > R1 else 0)
+            hier = ('W' if x < C0 else 'O') if sx >= sy else ('N' if y < R0 else 'S')
+            if hier != seite: continue
+            if im_gang(x, y) or any(chk(x + i, y + j) in WATER for i in (-1, 0, 1) for j in (-1, 0, 1)): continue
+            if KARTE == 'village' and d < 8:
+                cx_, cy_ = min(max(x, C0 - 6), C1 + 6), min(max(y, R0 - 6), R1 + 6)
+                if not RING_ART.get((cx_, cy_), '').startswith('baum'): continue
+            p = tile_c(x, y) + Vector(((h1(x, y, 601) - 0.5) * 0.7 * TS, (h1(x, y, 602) - 0.5) * 0.7 * TS, 0))
+            g = (0.85, 1.0, 1.15)[int(h1(x, y, 603) * 3)]
+            if d >= 10 or h1(x, y, 604) < 0.45: rand_fichte(DORF, p, 82 * g, x * 41 + y * 7 + 505, 3 if d < 10 else 2)
+            else: rand_eiche(DORF, p, g, x * 7 + y * 3 + 505)
+            RING_BAUM.add((x, y)); n += 1
+    print('RANDWALD', seite, n, 'Baeume')
+if KARTE in ('village', 'forest', 'deep_forest'):
+    for seite_ in 'NSWO': eigenes('Randwald_' + seite_, randwald_aussen, seite_)
+    # ueber dem Hoehlenmund steigt der Fels an (Huegel, 505c (4)): zwei weitere Reihen Fels ueber dem Rand, dahinter Wald (Tiefe 4 bis 6)
+    mund = [c for c in range(C0, C1 + 1) if ch(c, R0) == 'E']
+    for c_ in mund:
+        for dr in (2, 3):
+            for dx in range(-3 + dr, 4 - dr):
+                hoehlenfels(c_ + dx, R0 - dr)
+        def huegelwald(c_=c_):
+            for y in range(R0 - 6, R0 - 3):
+                for x in range(c_ - 4, c_ + 5):
+                    if (x, y) in RING_BAUM: continue
+                    p = tile_c(x, y) + Vector(((h1(x, y, 611) - 0.5) * 0.6 * TS, (h1(x, y, 612) - 0.5) * 0.6 * TS, 0))
+                    rand_fichte(DORF, p, 82 * (0.9 + 0.2 * h1(x, y, 613)), x * 41 + y * 7 + 611, 3); RING_BAUM.add((x, y))
+        eigenes('Randwald_Huegel', huegelwald)
+
+# 505c Bodenmaske ueber den Rand (gebiet.gd: <maske>-rand, boden.gdshader rand): innen wie die Karte, hinter dem Rand Waldboden mit
+# Schatten unter den Baeumen, Baeche gerade weiter (Wasser wie vorher), Wege gebogen und vergehend (bahn)
+if KARTE in ('village', 'forest', 'deep_forest'):
+    EP = RAND_E * PX
+    EMW, EMH = MW + 2 * EP, MH + 2 * EP
+    ey_, ex_ = np.mgrid[0:EMH, 0:EMW].astype(np.float32)
+    EX = (ex_ + 0.5) / PX - RAND_E; EY = (ey_ + 0.5) / PX - RAND_E            # Kacheln ab C0, R0
+    ix_ = np.clip(ex_.astype(int) - EP, 0, MW - 1); iy_ = np.clip(ey_.astype(int) - EP, 0, MH - 1)
+    rmask = mask[iy_, ix_].copy()
+    innen_ = (EX >= 0) & (EX < NC) & (EY >= 0) & (EY < NR)
+    def hnp(ix, iy, sd):
+        n = (ix.astype(np.int64) * 374761393 + iy.astype(np.int64) * 668265263 + sd * 1442695041) & 0xFFFFFFFF
+        n = ((n ^ (n >> 13)) * 1274126177) & 0xFFFFFFFF
+        return ((n ^ (n >> 16)) & 0xFFFFFF).astype(np.float32) / float(0xFFFFFF)
+    def vnp(x, y, sd):
+        ix, iy = np.floor(x), np.floor(y); u, v = x - ix, y - iy
+        u = u * u * (3 - 2 * u); v = v * v * (3 - 2 * v)
+        return (hnp(ix, iy, sd) * (1 - u) + hnp(ix + 1, iy, sd) * u) * (1 - v) + (hnp(ix, iy + 1, sd) * (1 - u) + hnp(ix + 1, iy + 1, sd) * u) * v
+    tiefe_ = np.maximum.reduce([-EX, EX - NC, -EY, EY - NR])
+    kahl = ss_np(0.62, 0.78, 0.6 * vnp(EX * 0.7, EY * 0.7, 610) + 0.4 * vnp(EX * 1.9, EY * 1.9, 611)) * 0.7
+    ufer_ = ss_np(0.22, 0.4, rmask[..., 3])
+    feld_ = field[iy_, ix_] * (1 - ss_np(0.0, 3.0, tiefe_)) if KARTE == 'village' else 0 * kahl   # Felder am Dorfrand laufen kurz weiter
+    weg_ = np.zeros_like(kahl)
+    for seite_, u0_, u1_ in AUSG:
+        u_, d_ = rand_lage(seite_, EX, EY)
+        mi_, hb_, st_ = bahn(seite_, u0_, u1_, d_)
+        wob_ = (vnp(d_ * 1.3, u0_ * 3.0 + 0.5, 612) - 0.5) * 0.3
+        w_ = (1 - ss_np(hb_ - 0.06 + wob_, hb_ + 0.06 + wob_, np.abs(u_ - mi_))) * st_ * (d_ > -0.5)
+        weg_ = np.maximum(weg_, w_)
+    baum_ = np.zeros((NR + 2 * RAND_E, NC + 2 * RAND_E), np.float32)
+    for (x, y) in RING_BAUM:
+        if 0 <= x - C0 + RAND_E < NC + 2 * RAND_E and 0 <= y - R0 + RAND_E < NR + 2 * RAND_E: baum_[y - R0 + RAND_E, x - C0 + RAND_E] = 1
+    for y in range(R0 - RAND_E, R1 + RAND_E + 1):                           # hinter dem Randwald (bis RAND_E) weiter Wald
+        for x in range(C0 - RAND_E, C1 + RAND_E + 1):
+            if rand_tiefe(x, y) > RAND_WEIT: baum_[y - R0 + RAND_E, x - C0 + RAND_E] = 1
+    schatten_ = np.asarray(Image.fromarray((baum_ * 255).astype(np.uint8)).resize((EMW, EMH), Image.NEAREST).filter(ImageFilter.GaussianBlur(12))).astype(np.float32) / 255
+    aussen_ = ~innen_
+    rmask[..., 0] = np.where(aussen_, np.clip(np.maximum.reduce([kahl, ufer_, feld_, weg_]), 0, 1), rmask[..., 0])
+    rmask[..., 1] = np.where(aussen_, 0.0, rmask[..., 1])
+    rmask[..., 2] = np.where(aussen_, np.clip(np.maximum(schatten_ * 0.6 * (1 - weg_ * 0.6), ss_np(0.3, 0.5, rmask[..., 3]) * 0.95), 0, 1), rmask[..., 2])
+    RANDMASKE = MASKE[:-len('-maske.png')] + '-rand.png'
+    Image.fromarray((np.clip(rmask, 0, 1) * 255).astype(np.uint8)).save(RANDMASKE)
+    print('RANDMASKE', RANDMASKE, EMW, EMH, 'Rand', RAND_E)
+
 # ---------------------------------------------------------------- Netze bauen: je Teil ein Netz, je Textur ein Material
 TEX = os.path.join(OUT, 'tex')
 def material(name):
@@ -1841,6 +2010,7 @@ for nm, Pd, Pg in GRUPPEN:
 walk = [[1 if ch(c, r) in WALK else 0 for c in range(C0, C1 + 1)] for r in range(R0, R1 + 1)]
 LICHTER_M = [dict(l, pos=[x * 0.01 for x in l['pos']]) for l in LIGHTS]
 info = dict(kachel_m=TS / 100.0, spalten=NC, zeilen=NR, ursprung=dict(spalte=C0, zeile=R0), begehbar=walk,
+            rand_kacheln=(RAND_E if KARTE in ('village', 'forest', 'deep_forest') else 0), rand_weit=RAND_WEIT,
             karte=[ROWS[r][C0:C1 + 1] for r in range(R0, R1 + 1)], lichter=LICHTER_M,
             hinweis='Meter; Blender: x = Spalte * Kachel, y = -Zeile * Kachel (Norden +Y); in glTF/Godot: x gleich, z = +Zeile * Kachel')
 json.dump(info, open(OUT + '/%s-info.json' % AUSGABE, 'w'), indent=0)

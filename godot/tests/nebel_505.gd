@@ -18,11 +18,16 @@ func _lauf() -> void:
 	root.add_child(spiel)
 	for i in 5: await process_frame
 	pruefe(spiel.nebel != null and not spiel.nebel.an, "im Dorf kein Nebel")
+	pruefe(spiel.nebel.rand_an and spiel.nebel.flaeche != null, "505c: im Dorf der Rand ins Dunkel (Nebelflaeche ohne Nebel)")
 	spiel.betrete("forest", Vector2i(9, 26), "UP")
 	if spiel.herde: spiel.herde.aus = true
 	for i in 3: await process_frame
 	var n: Nebel = spiel.nebel
 	pruefe(n.an, "im Wald Nebel")
+	# 505c (Chef 04.11., 14:06, Zu 505 (Rand)): B gilt, ueber dem Randwald kein Nebel, das Dorf hat nur den Rand ins Dunkel
+	pruefe(Nebel.baeume == "boden" and n.rand() == 0.0, "505c: Fassung B und kein Nebel hinter dem Rand (%s, %.2f)" % [Nebel.baeume, n.rand()])
+	pruefe(n.flaeche != null and float(n.mat.get_shader_parameter("rand_schwarz")) > 5.0, "505c: Randdunkel im Wald")
+	n.fassung("alt")   # die alten Pruefungen unten mit A, B folgt weiter unten
 	pruefe(n.nebel(9, 26) == 2, "Kachel des Helden in Sicht")
 	pruefe(n.nebel(9, 23) == 2, "drei vor ihm (Weg nach Norden) in Sicht")
 	pruefe(n.nebel(9, 29) == 2, "drei hinter ihm in Sicht (rundum, Chef 10:08 „505 C“): %d" % n.nebel(9, 29))
@@ -37,6 +42,8 @@ func _lauf() -> void:
 	var w := n.breite * Nebel.SUB
 	var j := (26 * Nebel.SUB + 1) * w + 9 * Nebel.SUB + 1
 	pruefe(n.ist[j] == 0.0 and n.bild.get_pixel(j % w, j / w).r < 0.02, "Nebelbild klar am Helden")
+	# 505c: „erkundet“ deutlich dunkler (GESEHEN statt 0,5): ein Teil zwei Kacheln neben dem Weg ausser Sicht, gesehen
+	pruefe(Nebel.GESEHEN >= 0.65 and Nebel.GESEHEN < 0.9, "505c: gesehen %.2f (alt 0,5 zu hell)" % Nebel.GESEHEN)
 	var k := (3 * Nebel.SUB + 1) * w + 9 * Nebel.SUB + 1
 	pruefe(n.bild.get_pixel(k % w, k / w).r > 0.98, "Nebelbild schwarz weit weg")
 	# weitergehen: was gesehen war, bleibt gesehen

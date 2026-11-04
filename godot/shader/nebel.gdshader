@@ -1,13 +1,21 @@
 // 505 Nebel des Krieges wie alt (WorldScreen.drawFog, Fog.kt): ueber das ganze Bild, je Bildpunkt die Lage in der Welt aus der Tiefe,
-// daraus die Stelle in der Nebelkarte (nebel.gd: je Kachel 4 x 4 Teile, 1 nie gesehen, 0,5 gesehen, 0 in Sicht); Farbe 0x080A12,
-// gedaempft mit 92 % Deckung, schwarz voll. Jenseits des Kartenrands so bekannt wie der Rand, nie dunkler als gesehen (MapEdge, t732).
+// daraus die Stelle in der Nebelkarte (nebel.gd: je Kachel 4 x 4 Teile, 1 nie gesehen, GESEHEN gesehen, 0 in Sicht); Farbe 0x080A12,
+// gedaempft mit 92 % Deckung, schwarz voll.
+// 505c (Chef 04.11., 14:06, Zu 505 (Rand)): jenseits des Kartenrands kein Nebel (klingt in rand_nebel aus), dafuer laeuft der
+// Randwald nach aussen ins Dunkel wie alt (MapEdge.fade, 27m): rand_hell Meter hell, bis rand_schwarz schwarz, weich; gilt fuer
+// alles, was dort steht (Boden, Baeume, Fels), weil es nach der Lage jedes Bildpunkts geht. Der Gang aus der Hoehle bleibt hell.
 shader_type spatial;
 render_mode unshaded, cull_disabled, depth_draw_never, depth_test_disabled, blend_mix, fog_disabled, shadows_disabled;
 uniform sampler2D depth_tex : hint_depth_texture, filter_nearest;
 uniform sampler2D nebel : filter_linear, repeat_disable;
 uniform vec2 groesse = vec2(1.0);   // Karte in Metern (Breite, Hoehe)
 uniform vec2 teile = vec2(1.0);     // Karte in Kacheln (Breite, Hoehe)
-uniform float rand_hoechstens = 0.5; // jenseits des Rands hoechstens so dunkel (Hoehle: 1)
+uniform float rand_hoechstens = 0.0; // jenseits des Rands hoechstens so dunkel (Vergleich alt: 0,5)
+uniform float rand_nebel = 1.16;     // in so vielen Metern hinter dem Rand klingt der Nebel aus
+uniform float rand_hell = 2.32;      // so weit hinter dem Rand bleibt das Licht
+uniform float rand_schwarz = 1.0e6;  // ab hier schwarz (ohne Rand: weit weg)
+uniform float hoehle = 0.0;
+uniform vec4 licht_gang = vec4(0.0); // Hoehle: Mitte x, Rand z, halbe Breite, an (1)
 uniform vec3 farbe : source_color = vec3(0.031, 0.039, 0.071);
 void vertex() { POSITION = vec4(VERTEX.xy, 1.0, 1.0); }
 void fragment() {
@@ -30,7 +38,18 @@ void fragment() {
 		}
 	}
 	a /= 16.0;
-	if (uv.x < 0.0 || uv.y < 0.0 || uv.x > 1.0 || uv.y > 1.0) a = min(a, rand_hoechstens);
-	ALBEDO = farbe;
-	ALPHA = a * (a > 0.95 ? 1.0 : 0.92);
+	// Meter hinter dem Kartenrand (0 auf der Karte)
+	float aus = max(max(-w.x, w.x - groesse.x), max(-w.z, w.z - groesse.y));
+	aus = max(aus, 0.0);
+	if (aus > 0.0) a = mix(a, min(a, rand_hoechstens), smoothstep(0.0, rand_nebel, aus));
+	a = a * (a > 0.95 ? 1.0 : 0.92);
+	// Randwald ins Dunkel (MapEdge.fade: Licht u * u * (3 - 2u)); in der Hoehle bleibt der Gang zum Ausgang hell
+	float licht = 1.0 - smoothstep(rand_hell, rand_schwarz, aus);
+	if (hoehle > 0.5) {
+		licht = 1.0 - smoothstep(0.0, rand_hell, aus);
+		if (licht_gang.w > 0.5 && w.z > licht_gang.y && abs(w.x - licht_gang.x) < licht_gang.z + 0.3) licht = 1.0;
+	}
+	a = max(a, 1.0 - licht);
+	ALBEDO = farbe * licht;
+	ALPHA = a;
 }

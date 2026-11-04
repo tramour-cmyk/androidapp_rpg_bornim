@@ -17,7 +17,14 @@ const DAY_SIGHT := 5.2
 const SPARK_SIGHT := 5.5
 const TORCH_SIGHT := 6.5
 const FADE_MS := 450.0
-const HOEHLE_GESEHEN := 0.5        # MapLight.CAVE_SEEN_DIM, bis die Hoehle kommt (492) wie draussen
+## 505c (Chef 04.11., 14:06, Zu 505 (Rand) (1): „erkundet“ deutlich dunkler als „in Sicht“, aber erkennbar; alt 0,5, gemessen 57
+## gegen 65 zu hell): Wert der Nebelkarte fuer gesehen, ausser Sicht (Deckung im Shader 0,92 davon), Wald und Hoehle gleich
+const GESEHEN := 0.72
+## 505c (2): jenseits des Kartenrands kein Nebel; der Randwald laeuft nach aussen ins Dunkel wie alt (MapEdge.fade, 27m): so viele
+## Kacheln bleibt sein Licht, bis RAND_SCHWARZ ist er schwarz (randwald in dorf.py RING_WEIT, die Kamera haelt davor, kamera.gd)
+const RAND_HELL := 2.0
+const RAND_SCHWARZ := 11.0
+const RAND_NEBEL := 1.0            # Kacheln, in denen der Nebel der Randkachel ausklingt (sonst harte Kante am Kartenrand)
 ## Formen zur Wahl: Kegel (cos der halben Oeffnung) und Kreis ringsum (Kacheln); alt: 160° plus 2 Kacheln
 const FORMEN := {"kegel": [0.17, 2.0], "kreis": [-1.0, 0.0], "breit": [-0.5, 2.0]}
 static var form := "kreis"     # Chef 03.11., 10:08 „505 C“ (Archiv): rundum gleich weit; FORMEN bleiben für den Bildlauf
@@ -25,11 +32,13 @@ static var form := "kreis"     # Chef 03.11., 10:08 „505 C“ (Archiv): rundum
 ## wenn ich es nicht sehe“): "alt" wie Fog.kt (t732: draussen nie schwarz, immer gedaempft); "boden": ein Baum zeigt, was der
 ## Held vom naechsten freien Boden weiss (im tiefen Wald vom naechsten in jeder Entfernung, sonst blieben dort Inseln fuer immer
 ## schwarz, der Grund fuer t732); jenseits des Rands so wie der Rand. Zur Wahl im Bildlauf (fassung), bis der Chef entscheidet.
-static var baeume := "alt"
+## Entschieden B (Chef 04.11., 14:06, „Vorgang 505c“, Zu 505 (Rand) (1)); "alt" bleibt fuer den Vergleich im Test.
+static var baeume := "boden"
 
 var spiel                          # spiel.gd
 var karte: Karte
 var an := false
+var rand_an := false               # 505c: Rand ins Dunkel (auch ohne Nebel, Dorf)
 var breite := 0
 var hoehe := 0
 var sichtbar := PackedByteArray()  # Kachel jetzt in Sicht
@@ -53,17 +62,22 @@ func _init(s, k: Karte) -> void:
 	karte = k
 	var art := String(k.daten.get("art", ""))
 	an = art == "FOREST" or art == "CAVE"   # Game.fogged
+	rand_an = art in ["FOREST", "CAVE", "TOWN"]   # 505c: Randdunkel auch um das Dorf (MapEdge.applies)
 	breite = k.breite; hoehe = k.hoehe
 	name = "Nebel"
 
 func _ready() -> void:
-	if not an: return
-	sichtbar.resize(breite * hoehe); frei.resize(breite * hoehe)
-	erkundet = lade(spiel.zustand, karte.id, breite * hoehe)
-	ist.resize(breite * hoehe * SUB * SUB); ist.fill(1.0)
-	soll.resize(ist.size()); soll.fill(1.0)
-	bild = Image.create(breite * SUB, hoehe * SUB, false, Image.FORMAT_L8)
-	bild.fill(Color(1, 1, 1))
+	if not an and not rand_an: return
+	if an:
+		sichtbar.resize(breite * hoehe); frei.resize(breite * hoehe)
+		erkundet = lade(spiel.zustand, karte.id, breite * hoehe)
+		ist.resize(breite * hoehe * SUB * SUB); ist.fill(1.0)
+		soll.resize(ist.size()); soll.fill(1.0)
+		bild = Image.create(breite * SUB, hoehe * SUB, false, Image.FORMAT_L8)
+		bild.fill(Color(1, 1, 1))
+	else:   # Dorf: nur der Rand, die Nebelkarte bleibt klar
+		bild = Image.create(1, 1, false, Image.FORMAT_L8)
+		bild.fill(Color(0, 0, 0))
 	tex = ImageTexture.create_from_image(bild)
 	flaeche = MeshInstance3D.new()
 	var qm := QuadMesh.new()
@@ -78,14 +92,31 @@ func _ready() -> void:
 	mat.set_shader_parameter("groesse", Vector2(breite, hoehe) * Karte.TS)
 	mat.set_shader_parameter("teile", Vector2(breite, hoehe))
 	mat.set_shader_parameter("rand_hoechstens", rand())
+	mat.set_shader_parameter("rand_nebel", RAND_NEBEL * Karte.TS)
+	mat.set_shader_parameter("rand_hell", RAND_HELL * Karte.TS)
+	mat.set_shader_parameter("rand_schwarz", RAND_SCHWARZ * Karte.TS if rand_an else 1.0e6)
+	mat.set_shader_parameter("hoehle", 1.0 if String(karte.daten.get("art", "")) == "CAVE" else 0.0)
+	mat.set_shader_parameter("licht_gang", hoehlen_ausgang())
 	flaeche.material_override = mat
 	flaeche.position = Vector3(0, 0, -0.9)
 	spiel.kamera.add_child(flaeche)
 	if String(karte.daten.get("art", "")) == "FOREST": boden_suchen()
 
-## jenseits des Kartenrands hoechstens so dunkel (Hoehle und "boden": wie der Rand selbst; alt: nie dunkler als gesehen, t732)
+## jenseits des Kartenrands hoechstens so dunkel: 505c (2) kein Nebel ueber dem Randwald (klingt in RAND_NEBEL aus); alt (Vergleich)
+## nie dunkler als gesehen (t732)
 func rand() -> float:
-	return 1.0 if String(karte.daten.get("art", "")) == "CAVE" or baeume == "boden" else 0.5
+	return 0.5 if baeume == "alt" else 0.0
+
+## 505c (4), alt MapEdge.fade (13e.5, D1.6): der Gang aus der Hoehle bleibt hell, das Tageslicht kommt von dort; Mitte und halbe
+## Breite der Ausgangskacheln am Rand in Metern (x, z, halbe Breite, 1 = Suedrand), sonst 0
+func hoehlen_ausgang() -> Vector4:
+	if String(karte.daten.get("art", "")) != "CAVE": return Vector4.ZERO
+	var xs: Array = []
+	for t in karte.ausgaenge:
+		if (t as Vector2i).y == hoehe - 1: xs.append((t as Vector2i).x)
+	if xs.is_empty(): return Vector4.ZERO
+	var a: float = float(xs.min()) * Karte.TS; var b: float = float(xs.max() + 1) * Karte.TS
+	return Vector4((a + b) / 2.0, hoehe * Karte.TS, (b - a) / 2.0, 1.0)
 
 ## "boden": je Baum die freien Kacheln im kleinsten Abstand (Schachbrett), alle gleich nahen
 func boden_suchen() -> void:
@@ -265,7 +296,7 @@ func schritt(dt: float) -> void:
 		# Lauf 1 zeigte harte Rautenkanten), in Sicht 0 mit der Kegelkante als Linie (13e)
 		var kw := PackedFloat32Array(); kw.resize(breite * hoehe)
 		for ty in hoehe:
-			for tx in breite: kw[ty * breite + tx] = 1.0 if nebel(tx, ty) == 0 else 0.5
+			for tx in breite: kw[ty * breite + tx] = 1.0 if nebel(tx, ty) == 0 else GESEHEN
 		var sw := breite * SUB
 		# nur um den Helden aendert sich etwas (Sicht bis reich, die weiche Kante eine Kachel weiter); beim Betreten alles
 		var r := int(reich) + 4

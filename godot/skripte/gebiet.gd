@@ -68,7 +68,8 @@ func _ready() -> void:
 		add_child(raumlicht)
 	else: baue_lampen()
 	baue_leben()
-	if String(karte.daten.get("art", "")) == "FOREST": baue_dunkel()
+	# 505c: der Rand laeuft jetzt im Nebelbild ins Dunkel (nebel.gdshader, ueber Boden und Baeume); baue_dunkel nur noch zum Vergleich
+	if String(karte.daten.get("art", "")) == "FOREST" and "--dunkelalt" in OS.get_cmdline_user_args(): baue_dunkel()
 
 # 490 Kartenrand (Orte und Welt W19, alt MapEdge): hinter dem Waldring laeuft der Wald ins Dunkel; ab 3 Kacheln vor dem Rand
 # weich dunkler, ab 12 schwarz (liegt knapp ueber dem Boden, Baeume des Rings stehen darin)
@@ -98,6 +99,16 @@ func baue_dunkel() -> void:
 	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	mi.name = "Dunkel"
 	add_child(mi)
+
+# 505c (Zu 505 (Rand)): Bodenmaske samt Rand (dorf.py <maske>-rand: Waldboden, gebogene Wege, Baeche), sonst die der Karte
+func rand_maske(m: ShaderMaterial) -> void:
+	var rk := int(info.get("rand_kacheln", 0)) if info else 0
+	if rk > 0 and FileAccess.file_exists("res://daten/%s-rand.bild" % maske(karte.id).trim_suffix("-maske")):
+		m.set_shader_parameter("maske", bild(maske(karte.id).trim_suffix("-maske") + "-rand"))
+		m.set_shader_parameter("rand_m", rk * Karte.TS)
+	else:
+		m.set_shader_parameter("maske", bild(maske(karte.id)))
+		m.set_shader_parameter("rand_m", 0.0)
 
 # Blender-Datei je Karte; weitere Gebietskarten kommen nach der Bestandsliste (348.8)
 static func datei(id: String) -> String:
@@ -240,14 +251,14 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 			var m := ShaderMaterial.new()
 			if g and nm.contains("Boden"):
 				m.shader = load("res://shader/boden.gdshader")
-				m.set_shader_parameter("maske", bild(maske(g.karte.id)))
+				g.rand_maske(m)
 				for k in ["gras", "erde", "pflaster"]: m.set_shader_parameter(k, bild(k))
 				m.set_shader_parameter("karte", Vector2(g.karte.breite, g.karte.hoehe) * Karte.TS)
 				g.boden = m
 				mi.layers = BODEN_SCHICHT
 			elif g and nm.contains("Wasser"):
 				m.shader = load("res://shader/wasser.gdshader")
-				m.set_shader_parameter("maske", bild(maske(g.karte.id)))   # Alpha: Wassertiefe (dorf.py)
+				g.rand_maske(m)   # Alpha: Wassertiefe (dorf.py)
 				m.set_shader_parameter("karte", Vector2(g.karte.breite, g.karte.hoehe) * Karte.TS)
 				g.wasser = m
 			else:
@@ -266,7 +277,7 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 				if src is BaseMaterial3D: tex = (src as BaseMaterial3D).albedo_texture
 				m.set_shader_parameter("tex", mip(tex) if tex else bild("weiss"))
 				if src and String(src.resource_name).begins_with("laub"):
-					m.set_shader_parameter("sway", 1.0)
+					m.set_shader_parameter("sway", 0.0 if nm.begins_with("Randwald") else 1.0)   # 505c: aeussere Reihen ohne Wind
 					if g and not busch: g.durchsicht(m, 2 if nadel else (1 if krone else 0))   # Busch kniehoch: keine Durchsicht (ersetzte sonst den Shader mit Schablone)
 				elif g and src and String(src.resource_name).begins_with("rinde"):
 					m.set_shader_parameter("cut_ab", 1.4)
