@@ -611,8 +611,10 @@ def ausgang():
                 for j in range(4):
                     x0 = tx(c) + TS * i / 4; x1 = x0 + TS / 4; y0 = ty(r) - TS * j / 4; y1 = y0 - TS / 4
                     q = [Vector((x0, y1, 1.2)), Vector((x1, y1, 1.2)), Vector((x1, y0, 1.2)), Vector((x0, y0, 1.2))]
-                    add_face(H, q, lambda p, n: sc(mixc(lin(0x8A7A50), lin(0xFFF4D8), mund_naehe(p)), 0.012 + 0.07 * mund_naehe(p) ** 1.5
-                                                  * (0.8 + 0.4 * vn(p.x / 20, p.y / 20, 165))), 'weiss')
+                    # 505 (Pruefer 16:01: „hart umrandetes Rechteck mit fleckigem Muster, wie eine kaputte Textur“): ohne Rauschen, nach
+                    # aussen gleichmaessig heller, zu den Seiten weich ins Dunkel (keine Kante an den Waenden des Gangs)
+                    add_face(H, q, lambda p, n: sc(mixc(lin(0x8A7A50), lin(0xFFF4D8), mund_naehe(p)), (0.012 + 0.07 * mund_naehe(p) ** 1.5)
+                                                  * (1.0 - ss(0.35, 1.0, abs(p.x - x) / (TS * len(MUND) / 2)))), 'weiss')
     P = part('Ding_' + stueck(MUND[0], NR - 1))
     for k in range(40 * len(MUND)):                                                           # Laub, vom Wind hereingeweht (alt 40 je Kachel)
         p = Vector((x + (h1(k, 1, 161) - 0.5) * TS * len(MUND), ty(NR - 2) - TS * (AUSSEN + 1.6) * h1(k, 2, 162) ** 0.7, 0.8))
