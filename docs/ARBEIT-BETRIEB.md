@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (04.11., 00:5x, Ford `session_01Hmoj76vuwGguJJYw9HWky8`, Tiefe 5):** Getan: Teams neu gestartet, Vorgänger archiviert und Kosten gebucht (Chef 20:19: archivieren und buchen ohne Fragen; nur idle und >60 s). Geltend 468a bis Sa 07.11., 20:00 (nur Tom, Jerry, Spike, Muss); Chef 00:41 gab Sokrates die Nachtverantwortung. Vor jedem Start „in Arbeit“ auf main prüfen (Doppelbau 520/522/530). Offen: Tom `rG9H` (531) hängt auf Bash-Berechtigung, Chefsache 531a. Guthaben Woche 69 % (Bild 20:19). Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 565** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 566** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
