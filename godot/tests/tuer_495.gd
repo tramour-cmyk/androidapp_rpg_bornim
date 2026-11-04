@@ -34,10 +34,11 @@ func _lauf() -> void:
 			spiel.geh_hinaus(a)   # ein Spieler tippt zweimal
 			for i in 3: await process_frame
 			await spiel.geh_hinaus(a)
-			for i in 240:
+			for i in 200:   # Blende und Ortsblende (Name des Orts) dauern einige Sekunden
 				if not spiel.geht_hinaus: break
-				await process_frame
-			for i in 30: await process_frame   # Ortsworte, Blende
+				await create_timer(0.1).timeout
+			for i in 30: await process_frame
+			if spiel.geht_hinaus: print("FEHLER %s: der Weg hinaus endet nicht" % von); fehler += 1
 			var k: Karte = spiel.karte
 			var h: Vector2i = spiel.held.kachel
 			var drin: bool = h.x >= 0 and h.y >= 0 and h.x < k.breite and h.y < k.hoehe and k.begehbar(h)
