@@ -168,11 +168,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | D71.1 | K | von Diogenes (374/434, Vortag 02.11.): ohne „Bestand geprüft“ (434): 417 00:53, 02:24, 03: | startbar |
 | Pflege | K | von Werkzeug (340.3, 04.11.): 70148 Bytes (Grenze 15000), Erledigtes streichen; Zeile Pfle | startbar |
 
-**Jerry** – offen 77, Muss 65, startbar 1
+**Jerry** – offen 76, Muss 64, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 527 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 527): System: Schalter „Tempo“ und „Kamp | wartet auf Test/Build |
+| 527 | M | von Sokrates (512): System: Schalter „Tempo“ und „Kampftext“ wirken im Kampf nicht | wartet auf Test/Build |
 | 548 | M | von Sokrates (Chef 04.11., 00:03, Build 249, Bild; Zu 548): „Gegen Ratten gespielt. Die st | ruht |
 | 548a | M | Rückfrage: wo hast du im Rattenkampf und im Probekampf getippt (Ring, Haken)? | Chef (Datei in der Chefsache) |
 | 551 | M | von Sokrates (Chef 04.11., 00:21, Build 249): „MARS Kasten links und rechts unten wird unt | wartet auf Test/Build |
@@ -181,14 +181,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 545 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS-Probekampf: Testknöpfe „Gegner | ruht |
 | 546 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS: Wölfe weichen viel zu träge au | wartet auf Test/Build |
 | 547 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS: Text sagt „geht in die Knie“, | wartet auf Homer |
-| 544 | M | von Sokrates (Chef 03.11., 23:49, Build 249, Bild MARS-Probekampf: „Stimmt die Schrift?“): | wartet auf Test/Build |
-| 532 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 532): Kampf: Held geht ohne Zauberpunkte | wartet auf Test/Build |
+| 544 | M | von Sokrates (Chef 03.11., 23:49, Build 249: „Stimmt die Schrift?“): Kampfschirm ohne Seri | wartet auf Test/Build |
+| 532 | M | von Sokrates (512; Zu 532): Kampf: Held ohne Zauberpunkte, Verbrauchtes, Zustände, Metraus | wartet auf Test/Build |
 | 532a | M | Rückfrage: Tasche und Metrausch jetzt wie alt in MARS oder erst mit 478? | Chef (Datei in der Chefsache) |
-| 533 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 533): Kampf: Grimmzahn ist ein Wolf, kei | wartet auf Test/Build |
+| 533 | M | von Sokrates (512; Zu 533): Kampf: Grimmzahn ist ein Wolf, kein Boss (Werte, Flucht, Leibw | wartet auf Test/Build |
 | 534 | M | von Sokrates (512; Zu 534): Kampf: Zauber und Fähigkeiten fehlen in „Können“ oder wirken n | wartet auf Test/Build (gebaut) |
 | 534a | M | Rückfrage: vier Zauber und Unglaubliches Ausweichen jetzt wie alt in MARS oder mit 478? | Chef (Datei in der Chefsache) |
 | 535 | M | von Sokrates (512; Zu 535): Kampf: Gegnerstufe, Elite, schimmernde Gegner, Gruppen, EP und | wartet auf Test/Build (gebaut) |
-| 536 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 536): Kampf: Erklärungen bei langem Drüc | wartet auf Test/Build |
+| 536 | M | von Sokrates (512; Zu 527–536): Kampf: Erklärungen bei langem Drücken (MarsTips) und Klein | wartet auf Test/Build |
 | 478 | M | von Sokrates (Chef 02.11., 17:59 „470a C“): Rechenkern des Kampfs in Stufe 1 auf BRS (Mode | ruht |
 | 481.1 | M | von Sokrates (427): Tränke in sim444, Herkünfte neu messen, Zahlen an Sokrates | wartet auf Test/Build (gebaut) |
 | 467 | M | von Sokrates (Chef 01.11., 21:52): regeln/ausdauer.gd rechnet nach SRD; BRS: Ausdauer aus | wartet auf Sokrates |
@@ -203,7 +203,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 440 | M | von Sokrates: Wolf-Tod zu schnell weg | wartet auf Test (Build) |
 | 416.6 | M | von Sokrates: Spuren (core/Tracks.kt): Blut, Staub, Fußspuren | wartet auf Perikles |
 | 415 | M | von Sokrates: Probe Beams Free Sample im Kampfort; nichts kaufen | wartet auf Test (Build) |
-| 399.2 | M | von Perikles („jetzt“ 28.10., 12:34): Kampfort aufrufbar | wartet auf Test (Build) |
 | 403 | M | von Team Tom: Kampfort: Held je Klasse wie im Dorf | wartet auf Tom |
 | 461.1 | M | von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461): Grundstand mit Tom: Kampfort, Wölfe, Hel | ruht |
 | 460 | M | von Sokrates (Chef 01.11., 20:2x, Archiv 460): Probefilm Kamerafahrten: Eröffnung je Blend | ruht |
@@ -214,9 +213,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 406 | M | von Team Tom: Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Sonne | wartet auf Tom |
 | 510 | M | von Sokrates: Fledermaus: freies OGA-Modell „Vampire Bat“ (CC0) mit unseren Fellen neben d | wartet auf Perikles |
 | 509 | M | von Sokrates (Chef 03.11., 09:21): Frösche und Libellen an den Teichen wie alt (PondLife.k | wartet auf Perikles |
-| 494 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Gegner von Kapitel 1 im Kampf (Liste und St | wartet auf Perikles |
-| 517 | M | von Team Tom (03.11., 16:3x, Abgleich 512): Waldklang wie alt: Vögel am Tag, Eule und Gril | wartet auf Test/Build (gebaut) |
-| 507 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; aus 492): Kampforte Höhle wie alt: Eingang, | wartet auf Perikles |
+| 494 | M | von Perikles (488): Gegner von Kapitel 1 im Kampf (Zu 494), je Gegner höchstens ein Lauf | wartet auf Perikles |
+| 517 | M | von Team Tom (03.11., 16:3x, 512): Waldklang wie alt (WildSound.kt): Vögel am Tag, Eule un | wartet auf Test/Build (gebaut) |
+| 507 | M | von Perikles (488; aus 492): Kampforte Höhle wie alt: Eingang, Gang, Halle, Teich, Lager | wartet auf Perikles |
 | 496a | M | Rückfrage: abgenommene Kampfbilder schon in den Durchspiel-Build? | wartet auf Test (Build) |
 | 496 | M | von Perikles (Wochenziel 03.11. Reihe 5, 488): Durchspiel-Build aus 490–495: der Chef spie | wartet auf 490 (zu testen) |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
@@ -248,7 +247,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | 469 | M | von Sokrates: Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
-| Pflege | K | von Werkzeug (340.3, 04.11.): 19357 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 04.11.): 19357 Bytes (Grenze 15000), Erledigtes streichen | ruht |
 
 **Perikles** – offen 31, Muss 26, startbar 2
 
