@@ -84,7 +84,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 528 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 528): Held, Karte, Chronik wie alt: Satz | wartet auf Test/Build (gebaut) |
 | 529 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 529): Spielstände: Heldenbild und Spielz | startbar |
 | 538 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 538): Heldenstufe kommt in Gesprächen ni | wartet auf Test/Build (gebaut) |
-| 539 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 539): Licht folgt der Uhr nicht: wechsel | in Arbeit bei Spike |
+| 539 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 539): Licht folgt der Uhr nicht: wechsel | wartet auf Test/Build (gebaut) |
 | 540 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 540): Texte hängen am Spielbeginn: Südra | wartet auf Test/Build (gebaut) |
 | 541 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 541): Welt-Bedienung: Untersuchen fehlt | wartet auf Test/Build (gebaut) |
 | 542 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 542): Aufträge: Jorins „Feuer am Steinkr | wartet auf Test/Build (gebaut) |
@@ -162,15 +162,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | D71.1 | K | von Diogenes (374/434, Vortag 02.11.): ohne „Bestand geprüft“ (434): 417 00:53, 02:24, 03: | startbar |
 | Pflege | K | von Werkzeug (340.3, 04.11.): 69321 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Jerry** – offen 76, Muss 64, startbar 14
+**Jerry** – offen 76, Muss 64, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 527 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 527): System: Schalter „Tempo“ und „Kamp | wartet auf Test/Build |
 | 548 | M | von Sokrates (Chef 04.11., 00:03, Build 249, Bild; Zu 548): „Gegen Ratten gespielt. Die st | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 548a | M | Rückfrage: wo hast du im Rattenkampf und im Probekampf getippt (Ring, Haken)? | Chef (Datei in der Chefsache) |
-| 551 | M | von Sokrates (Chef 04.11., 00:21, Build 249): „MARS Kasten links und rechts unten wird unt | startbar |
-| 552 | M | von Sokrates (Chef 04.11., 00:22, Build 249): „MARS Zugreihenfolge oben fehlt“. Laut Abgle | startbar |
+| 551 | M | von Sokrates (Chef 04.11., 00:21, Build 249): „MARS Kasten links und rechts unten wird unt | wartet auf Test/Build (gebaut) |
+| 552 | M | von Sokrates (Chef 04.11., 00:22, Build 249): „MARS Zugreihenfolge oben fehlt“ | wartet auf Test/Build (gebaut) |
 | 553 | M | von Sokrates (Chef 04.11., 00:26, Build 249, Bild): „Was ist das für ein graues Tier?????? | startbar |
 | 545 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS-Probekampf: Testknöpfe „Gegner | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 546 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS: Wölfe weichen viel zu träge au | startbar |
