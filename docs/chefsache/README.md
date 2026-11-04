@@ -17,7 +17,6 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [557](ansehen/557-spielstaende.md) | Stil B, fünfte Runde: Bilder der Dinge, Rückfragen zentriert, „+x“ am Namen | – | 04.11., 19:46 |
-| [558](ansehen/558-robe.md) | Robe des Magiers, Probe 4: tiefe Falten, Zustände klar getrennt | – | 04.11., 19:36 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -47,7 +46,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 101, Muss 80, startbar 7
+**Tom** – offen 101, Muss 80, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -55,7 +54,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 569 | M | von Sokrates (Chef 04.11., 19:44, Bild 558 Probe 4 Wald Tag; Zu 569): Baumkronen ohne Umri | startbar |
 | 568 | M? | von Sokrates (Chef 04.11., 19:42, „grundsätzlich bei 568. Für A.“; DESIGN-SPIELSYSTEM-2-0. | startbar |
 | 557 | M | von Sokrates (Chef 04.11., 11:15; Zu 557): Spielstände als Entwurf im Stil „ohne Kasten“ ( | Chef |
-| 558 | M | von Sokrates (Chef 04.11., 11:31, Bild Build 257; Zu 558): Robe des Magiers zu glatt: Stof | Chef |
+| 558 | M | von Sokrates (Chef 04.11., 11:31, Bild Build 257; Zu 558): Robe des Magiers zu glatt: Stof | startbar |
 | 556 | M | von Sokrates (Chef 04.11., 07:52; Zu 556): Blenden reines Schwarz statt Leuchten, Lesezeit | wartet auf Test/Build (gebaut) |
 | 531 | M | von Sokrates (Chef 03.11., 23:42, Build 249; Zu 531): Garrick: „Gesicht wirkt sonderbar, B | startbar |
 | 530 | M | von Sokrates (Chef 03.11., 23:40, Build 249): „Schlagbaum öffnet sich nicht visuell.“ Merk | wartet auf Test (Build) |
