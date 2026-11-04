@@ -300,6 +300,7 @@ jobs:
           grep -E "^572|SCRIPT ERROR|^ +at: " $P/film.log | cut -c1-300 | head -60 || true
           export PATH=~/ffbin:$PATH
           ffmpeg -loglevel error -y -ss 0.5 -i $RUNNER_TEMP/effekte.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $P/572-effekte.mp4 || true
+          ffmpeg -i $P/572-effekte.mp4 2>&1 | grep -E "Duration|Stream" || true     # Länge und Größe für die Meldung (höchstens 50 MB)
           ls -l $P
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
