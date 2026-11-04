@@ -48,7 +48,6 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [513](tun/513-kaufmodelle-zugang.md) | **Muss** | E Figuren | 04.11., 11:00 | Tom braucht Zugang zu den Kaufmodellen (Schild Magier nachstellen) | Tom |
-| [531a](tun/531a-tom-berechtigung.md) | **Muss** | B Abläufe | 04.11., 00:45 | Alter Tom wartet auf eine Bash-Berechtigung (Push offen) | Ford |
 | [142](tun/142-pflichttest.md) | **Muss** | M Veröffentlichung | 27.10., 20:07 | Pflichttest Play Store: Gewerbeschein melden | Sokrates |
 
 ## Offen je Rolle
