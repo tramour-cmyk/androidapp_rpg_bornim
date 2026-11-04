@@ -1120,7 +1120,7 @@ func oeffne_rast(ort: String) -> void:
 	held.richtung = Vector3.ZERO
 	zeige_rast()
 
-# RestBody: Feuer kurz und lang; Theke Met und Zimmer; Bett Zimmer. Fleisch an Rowena verkaufen kommt mit dem Laden (Preis)
+# RestBody: Feuer kurz und lang; Theke Met, Fleisch (525, solange der Held welches traegt) und Zimmer; Bett Zimmer
 func zeige_rast() -> void:
 	var z := zustand
 	var lang_ok := Rast.lange_erlaubt(z)
@@ -1136,6 +1136,8 @@ func zeige_rast() -> void:
 		if rast_ort == "schenke" and not z.betrunken():
 			var preis := Rast.met_preis(z)
 			k.append({"text": Sprache.r("meadBuy", [preis]), "info": Sprache.r("meadDoes"), "an": z.gold >= preis, "id": "met"})
+		if rast_ort == "schenke" and z.anzahl("raw_meat") > 0:   # 525 (RestScreen.kt 113–122): Rowena kauft rohes Fleisch
+			k.append({"text": Sprache.r("meatSell", [Rast.fleisch_preis(z, held_werte())]), "info": "%d× %s" % [z.anzahl("raw_meat"), Laden.name("raw_meat")], "id": "fleisch"})
 		k.append({"text": Sprache.r("roomBuy", [Rast.ZIMMER_PREIS]), "info": Sprache.r("roomDoes" if lang_ok else "longDone"),
 			"an": lang_ok and z.gold >= Rast.ZIMMER_PREIS, "id": "lang"})
 	ui.zeige_wahl(titel, zeilen_, k, Sprache.r("leave"), rast_notiz)
@@ -1150,6 +1152,11 @@ func _rast_wahl(id: String) -> void:
 			_steht_auf(held.kachel)
 		"met":
 			rast_notiz = Rast.met_trinken(zustand, held_werte().name)
+			speichere()   # 525: wie alt vm.save() nach dem Met
+			zeige_rast()
+		"fleisch":
+			rast_notiz = Rast.fleisch_verkaufen(zustand, held_werte())
+			speichere()
 			zeige_rast()
 		"kurz", "lang":
 			await raste(id)
