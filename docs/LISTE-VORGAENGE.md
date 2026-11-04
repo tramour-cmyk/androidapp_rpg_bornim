@@ -157,7 +157,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 512 | Vor jeder Testbitte berührte Schirme alt gegen neu vergleichen (Sokrates 03.11., 07:45, nach Build 204: 9 Erstfunde des Chefs; Chef 23:28 an Sokrates) | B Abläufe | M | 58,93 $ | Sokrates | in Arbeit |
 | 512b | Testbitte nur mit Nachweis eines fremden Helfers (Chef 04.11., 19:21: ja) | B Abläufe | M | – | Perikles, Jerry, Tom, Diogenes | startbar |
 | 516 | Kostenerfassung ohne Handarbeit: Haken oder Werkzeug liest beim Archivieren `total_cost_usd` des letzten result-Ereignisses und bucht (Chef 03.11., 16:20, Ford) | B Abläufe | K | – | Perikles | ruht |
-| 531 | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere sichtbar mit der Fackel, Ruhebewegungen (Chef 03.11., 23:42) | A Spiel | M | 3,68 $ | Team Tom | wartet |
+| 531 | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere sichtbar mit der Fackel, Ruhebewegungen (Chef 03.11., 23:42) | A Spiel | M | 3,68 $ | Team Tom | startbar |
 | 531a | Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast kaufen? (Chef 04.11., 19:27) | A Spiel | M | – | Team Tom | wartet |
 | 530 | Build 249: Schlagbaum am Nordweg öffnet sich nicht sichtbar (Chef 03.11., 23:40) | A Spiel | M | – | Team Tom | gebaut |
 | 548 | MARS im Wald: drei Riesenratten sterben ohne Zutun des Spielers, Sieg ohne einen Knopf (Chef 04.11., 00:03, Bild) | E Kampf | M | – | Team Jerry | startbar |
@@ -196,7 +196,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 566 | MARS: Goblin-Späher „In den Schatten“ ist im Bild nicht zu sehen (Chef 04.11., 17:15) | E Kampf | M | – | Team Jerry | gebaut |
 | 567 | MARS: Gegner stehen im Kampfort fast übereinander, Ansage hängt neben keinem (Bilder Chef 04.11., 17:00–17:15) | E Kampf | M | – | Team Jerry | gebaut |
 | 568 | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | A Spiel | M? | – | Team Tom | wartet |
-| 569 | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 Probe 4) | A Spiel | M | – | Team Tom | wartet |
+| 569 | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 Probe 4) | A Spiel | M | – | Team Tom | startbar |
 | 570 | Theke: Wahl „Fleisch verkaufen · 12 Gold“ liest sich wie ein Preis (Prüfer 557 Runde 4) | A Spiel | M? | – | Homer | startbar |
 | 571 | Wischen auf Schaltflächen rollt Listen nicht (Testmenü, Erschaffung; Chef 04.11., 20:13) | A Spiel | M | – | Team Tom | startbar |
 | 572 | Effektprobe: zwei REEBOO-Gratisstücke (Stylized VFX, Status Effects) an einem eigenen Helden im Film, vor dem Kauf (Chef 04.11., 20:27) | C Kampf | M | – | Team Jerry | in Arbeit |
