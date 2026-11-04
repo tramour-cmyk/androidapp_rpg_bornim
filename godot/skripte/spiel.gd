@@ -1891,16 +1891,20 @@ func nebel_bilder() -> void:
 		if y == 22:   # dieselbe Kachel in Sicht und spaeter erkundet: Verhaeltnis der Helligkeit (Zu 505 (Rand) (1): Werte messen)
 			await get_tree().create_timer(1.0).timeout
 			ui.textfeld.visible = false
-			print("NEBELMASS Wald (9, 25) in Sicht Helligkeit %.0f" % await nebel_hell(Vector2i(9, 25)))
+			# Lauf 1: (9, 25) lag bei (9, 18) unter dem Bildrand (Messung 0); (9, 21) liegt vor dem Helden und spaeter 3 Kacheln hinter ihm
+			print("NEBELMASS Wald (9, 21) Stufe %d Helligkeit %.0f" % [nebel.nebel(9, 21), await nebel_hell(Vector2i(9, 21))])
 	await get_tree().create_timer(1.0).timeout
-	print("NEBELMASS Wald (9, 25) erkundet Helligkeit %.0f" % await nebel_hell(Vector2i(9, 25)))
+	print("NEBELMASS Wald (9, 21) Stufe %d Helligkeit %.0f" % [nebel.nebel(9, 21), await nebel_hell(Vector2i(9, 21))])
 	await nebel_stufen(schilder, "Wald: Fassung B, drei Stufen", [[0, "unbekannt: schwarz", Vector2i(3, 14)], [1, "erkundet: abgedunkelt", Vector2i(9, 25)], [2, "in Sicht: hell", Vector2i(10, 19)]])
 	await knips("%s/1_wald_stufen.png" % dir)
 	for c in schilder.get_children(): c.queue_free()
 	# Ausgaenge mit Blick zum Rand (Drehung: 0 Norden oben, 180 Sueden oben, 270 Osten oben)
 	for b in [["2_wald_sued", "forest", Vector2i(9, 30), 180.0, "Wald, Süden: Weg zum Dorf"], ["3_wald_ost", "forest", Vector2i(18, 10), 270.0, "Wald, Osten: Weg zum Tiefen Wald"],
 			["4_wald_hoehlenmund", "forest", Vector2i(10, 2), 0.0, "Wald, Norden: Höhlenmund"], ["6_dorf_sued", "village", Vector2i(17, 30), 180.0, "Dorf, Süden: Feldweg"],
-			["7_dorf_nord", "village", Vector2i(17, 1), 0.0, "Dorf, Norden: Weg zum Wald"]]:
+			["7_dorf_nord", "village", Vector2i(17, 1), 0.0, "Dorf, Norden: Weg zum Wald"],
+			# Lauf 2 (Pruefer der Vorlage 15:58): alle Ausgaenge der Liste, auch der Bach im Westen und Osten und der Weg aus dem Tiefen Wald
+			["10_dorf_west", "village", Vector2i(1, 24), 90.0, "Dorf, Westen: Bach"], ["11_dorf_ost", "village", Vector2i(34, 24), 270.0, "Dorf, Osten: Bach"],
+			["12_tiefwald_west", "deep_forest", Vector2i(1, 18), 90.0, "Tiefer Wald, Westen: Weg zum Wald"]]:
 		if karte.id != b[1]:
 			betrete(b[1], b[2], "UP")
 			if herde: herde.aus = true
@@ -1971,7 +1975,7 @@ func nebel_hell(t: Vector2i) -> float:
 			if x < 0 or y < 0 or x >= img.get_width() or y >= img.get_height(): continue
 			var c := img.get_pixel(x, y)
 			summe += (0.299 * c.r + 0.587 * c.g + 0.114 * c.b) * 255.0; n += 1
-	return summe / maxf(1.0, n)
+	return summe / n if n > 0 else -1.0   # -1: Kachel nicht im Bild (Lauf 1 meldete 0)
 
 ## je Stufe die naechste Kachel im Bild beschriften; Helligkeit des Bilds dort (9 x 9 Punkte um die Kachelmitte) messen, vor den Schildern
 func nebel_stufen(e: CanvasLayer, titel: String, stufen: Array) -> void:
@@ -2006,6 +2010,14 @@ func nebel_kachel(stufe: int, gern: Vector2i) -> Vector2i:
 		for tx in karte.breite:
 			var t := Vector2i(tx, ty)
 			if nebel.nebel(tx, ty) != stufe or nebel.zeichen_name(tx, ty) in ["TREE"] + Nebel.HOEHLENFELS: continue
+			# Lauf 1: am Uebergang mischt der Nebel weich mit den Nachbarn (nie gesehen 24 und 31 statt etwa 10); nur Kacheln, deren
+			# Nachbarn dieselbe Stufe haben; in der Hoehle nicht am Ausgang (Tageslicht, „erkundet“ 64 heller als „in Sicht“)
+			var rein := true
+			for d in NACHBARN + [Vector2i(1, 1), Vector2i(-1, 1), Vector2i(1, -1), Vector2i(-1, -1)]:
+				var u: Vector2i = t + d
+				if u.x >= 0 and u.y >= 0 and u.x < karte.breite and u.y < karte.hoehe and nebel.nebel(u.x, u.y) != stufe: rein = false
+			if not rein: continue
+			if karte.id == "cave" and ty >= karte.hoehe - 3: continue
 			var p := karte.kachel_pos(t)
 			if kamera.is_position_behind(p): continue
 			var q := kamera.unproject_position(p)
