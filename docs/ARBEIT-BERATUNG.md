@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (04.11., 06:4x, `session_01Hmoj77Djy9YD9THrbXfiMk`):** Nacht: 521, 524 passt, 524a → 524.1 (Spike), 475 „jetzt“ an Ford, 512.1 Wächter an Perikles, Antwort 551 an Jerry; t251–t257 tragen „Verglichen“; Morgenmeldung 06:42 gesendet. Kosten auf: 512, 475, 524. Nachfolger: Sokrates – Chefrunde (auf Zuruf).
+**Übergabe (04.11., 12:4x, `session_01Hmoj77Djy9YD9THrbXfiMk`):** Nacht und Vormittag: 521, 524 passt, 524a → 524.1, 475 jetzt, 512.1 an Perikles; 468c, 549a gestellt; 556, 557, 558 an Tom; t251–t257 zu einer Liste t257 zusammengelegt, Chefbefunde A, 251.1/.4/.6, 255.3/.4/.5 eingetragen; 415 beide Renderer gemessen; 557 B mit 2 (Archiv), START an Ford. Kosten auf: 512, 468, 549, 557. Nachfolger: Sokrates – Chefrunde: Test Build 257 begleiten (t257 ab Bereich C).
 
 ## Zeilen
 
