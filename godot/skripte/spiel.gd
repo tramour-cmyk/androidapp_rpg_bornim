@@ -88,6 +88,7 @@ func _ready() -> void:
 	haeuser_blatt()
 	dorftiere_blatt()
 	tusche_nacht()
+	wende_film()
 	rast_probe()
 	raeume_bilder()
 	wald_bilder()
@@ -1546,6 +1547,67 @@ func dorftiere_blatt() -> void:
 		licht.umschalten()
 		await get_tree().create_timer(2.5).timeout
 		await knips(dir + "/wiese_nacht.png")
+	get_tree().quit()
+
+# 416.8 (Chef 03.11., 07:44: „… auf der Stelle drehen, wie als ob sie auf Eis wären … Wie eine Schachfigur“): --wendefilm (mit
+# --write-movie) zeigt eine Person in Hosen (Bram, sonst Pim), vom Helden abgewandt; der Held spricht sie an (ohne Text, nur
+# wende_zu): sie wendet sich mit Schritten um (180 Grad), der Held geht eine Kachel zur Seite, ihr Blick folgt; danach wendet sie
+# sich wieder ab. --wendebild=<png> ist das Probebild (511) aus derselben Szene, mitten in der ersten Wende
+func wende_film() -> void:
+	var film := false
+	var bild := ""
+	for a in OS.get_cmdline_user_args():
+		if a == "--wendefilm": film = true
+		if a.begins_with("--wendebild="): bild = a.substr(12)
+	if not film and bild == "": return
+	ui.mess.visible = false
+	ui.oben.visible = false
+	ui.leiste.visible = false
+	betrete("village", Vector2i(11, 7), "DOWN")
+	await get_tree().create_timer(0.5).timeout
+	var wer: Leute = null
+	for id in ["bram", "pim"]:
+		for l in leute_liste():
+			if wer == null and String(l.daten.get("id", "")) == id: wer = l
+	if wer == null:
+		print("WENDE keine Person"); get_tree().quit(); return
+	wer.warte = 999.0
+	wer.ziel = Vector2i(-1, -1)
+	wer.weg.clear()
+	wer.position = karte.kachel_pos(wer.kachel)
+	var stand := Vector2i(-1, -1)
+	var seite := Vector2i.ZERO
+	for d in [Vector2i(0, 1), Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, -1)]:
+		var q := Vector2i(d.y, d.x)
+		for sq in [q, -q]:
+			if stand.x < 0 and karte.begehbar(wer.kachel + d) and karte.begehbar(wer.kachel + d + sq): stand = wer.kachel + d; seite = sq
+	if stand.x < 0:
+		print("WENDE kein Platz neben ", wer.daten["id"]); get_tree().quit(); return
+	var weg_vom := atan2(float(wer.kachel.x - stand.x), float(wer.kachel.y - stand.y))
+	wer.blick = weg_vom
+	wer.rotation.y = weg_vom
+	held.setze(stand, "UP")
+	held.rotation.y = atan2(wer.position.x - held.position.x, wer.position.z - held.position.z)
+	kamera.zoom = Kamera.NAH
+	kamera.nah = true
+	kamera.springe()
+	print("WENDE %s auf %s, Held %s, Seite %s, Wenden %s" % [wer.daten["id"], wer.kachel, stand, seite, wer.wende_kurve.keys()])
+	await get_tree().create_timer(1.5).timeout
+	wer.wende_zu()
+	if bild != "":
+		await get_tree().create_timer(0.55).timeout
+		print("WENDE Bild bei %s, %.0f Grad gedreht" % [wer.wende, rad_to_deg(absf(angle_difference(wer.rotation.y, weg_vom)))])
+		await knips(bild)
+		get_tree().quit()
+		return
+	await get_tree().create_timer(2.5).timeout
+	held.geh_zu(karte.kachel_pos(stand + seite))
+	await get_tree().create_timer(2.5).timeout
+	held.rotation.y = atan2(wer.position.x - held.position.x, wer.position.z - held.position.z)
+	await get_tree().create_timer(1.0).timeout
+	wer.zugewandt_bis = Time.get_ticks_msec() + 100   # Gespraech vorbei (sonst nach ZUGEWANDT s): wieder wie vorher
+	await get_tree().create_timer(3.5).timeout
+	print("WENDE Ende, %.0f Grad vom Anfang" % rad_to_deg(absf(angle_difference(wer.rotation.y, weg_vom))))
 	get_tree().quit()
 
 # 348.13b (Chef 28.10., 08:09: Tusche nach Fackel, Feuer, Fenster; Dorf zuerst, Kosten messen): --tuschenacht=<ordner> legt nachts
