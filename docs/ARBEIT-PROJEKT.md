@@ -39,7 +39,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 338.1 | M | **von Sokrates (Chef 23.10., 09:01/09:05):** „wird es mir nie vorgelegt, wie weit wir da eigentlich stehen“; „dazu brauche ich auch regelmäßige Feedback“. „Stand zum Marktstart“ in `PROJEKTPLAN.md` | gebaut 02.11., 20:02, Geprüft an: 4f3bacbda; Stand je Stufe im Projektplan |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 06.11.: behalten (Chef 26.10., 11:15, Archiv); Zahlen mit Zielvereinbarung 341 |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
-| Pflege | K | **von Werkzeug (340.3, 04.11.):** 19253 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14; Tagesbericht 30 Stunden alt (höchstens 26, 341 Z1, 448): Perikles setzt ihn neu; CLAUDE.md: 15468 Bytes (Grenze 15000), kürzen; docs/LISTE-VORGAENGE.md: 48484 Bytes (Grenze … | startbar |
+| Pflege | K | **von Werkzeug (340.3, 04.11.):** 19253 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14; Tagesbericht 30 Stunden alt (höchstens 26, 341 Z1, 448): Perikles setzt ihn neu; CLAUDE.md: 15468 Bytes (Grenze 15000), kürzen; docs/LISTE-VORGAENGE.md: 41215 Bytes (Grenze … | startbar |
 
 ## Einzelheiten
 
