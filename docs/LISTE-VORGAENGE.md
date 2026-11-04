@@ -168,49 +168,51 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 509 | Frösche und Libellen an den Teichen im Flüsterwald fehlen in Godot (Chef 03.11., 09:21; `PondLife.kt`, Projektplan O6, W22) | E Welt | M | – | Team Jerry | wartet |
 | 511 | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele sinnlose und kaputte Filme gemacht?“) | B Werkzeuge | M | – | Perikles | gebaut |
 | 512.1 | Wächter: Testbitte ohne Zeile „Verglichen:“ warnt (zu 512) | B Werkzeuge | M? | – | Perikles | startbar |
-| 524a | Rückfrage: Gegenstandsfenster, Vorschlag „besser als alt“ noch? | A Spiel | M | – | Sokrates | wartet auf Chef |
+| 524.1 | Gegenstandsfenster besser als alt und spielerfreundlicher: Vorschlag (Chef 04.11., 00:52) | A Spiel | M | – | Team Tom | startbar |
+| 524a | Rückfrage: Gegenstandsfenster, Vorschlag „besser als alt“ noch? | A Spiel | M | – | Sokrates | erledigt |
 | 512a | Rückfrage: Abgleichsfunde 535, 543 bis zum BRS-Rechenkern (478) zurückstellen? | E Kampf | M | – | Sokrates | wartet auf Chef |
 | 512 | Vor jeder Testbitte berührte Schirme alt gegen neu vergleichen (Sokrates 03.11., 07:45, nach Build 204: 9 Erstfunde des Chefs; Chef 23:28 an Sokrates) | B Abläufe | M | – | Sokrates | in Arbeit |
 | 516 | Kostenerfassung ohne Handarbeit: Haken oder Werkzeug liest beim Archivieren `total_cost_usd` des letzten result-Ereignisses und bucht (Chef 03.11., 16:20, Ford) | B Abläufe | K | – | Perikles | ruht |
 | 531 | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere sichtbar mit der Fackel, Ruhebewegungen (Chef 03.11., 23:42) | A Spiel | M | – | Team Tom | Chef |
-| 530 | Build 249: Schlagbaum am Nordweg öffnet sich nicht sichtbar (Chef 03.11., 23:40) | A Spiel | M | – | Team Tom | gebaut |
-| 548 | MARS im Wald: drei Riesenratten sterben ohne Zutun des Spielers, Sieg ohne einen Knopf (Chef 04.11., 00:03, Bild) | E Kampf | M | – | Team Jerry | startbar |
-| 551 | MARS: Rahmen des unteren Kastens links und rechts unterbrochen (Chef 04.11., 00:21) | E Kampf | M | – | Team Jerry | startbar |
-| 552 | MARS: Zugreihenfolge oben fehlt am Gerät (Chef 04.11., 00:22) | E Kampf | M | – | Team Jerry | startbar |
-| 553 | Flüsterwald: unbekanntes graues Tier auf der Karte, verzerrt (Chef 04.11., 00:26, Bild) | E Figuren | M | – | Team Jerry | startbar |
-| 545 | MARS-Probekampf: Testknöpfe „Gegner besiegen“ (✓) und „Held fällt“ (✗) ohne Funktion (Chef 04.11., 00:01) | E Kampf | M | – | Team Jerry | startbar |
-| 546 | MARS: Wölfe weichen viel zu träge aus („wie Schlaftabletten“) (Chef 04.11., 00:01) | E Kampf | M | – | Team Jerry | startbar |
+| 530 | Build 249: Schlagbaum am Nordweg öffnet sich nicht sichtbar (Chef 03.11., 23:40) | A Spiel | M | – | Team Tom | zu testen |
+| 548 | MARS im Wald: drei Riesenratten sterben ohne Zutun des Spielers, Sieg ohne einen Knopf (Chef 04.11., 00:03, Bild) | E Kampf | M | – | Team Jerry | Chef |
+| 548a | Rückfrage: wo hat der Chef im Rattenkampf und im Probekampf getippt (Ring, Haken)? | E Kampf | M | – | Team Jerry | wartet auf Chef |
+| 551 | MARS: Rahmen des unteren Kastens links und rechts unterbrochen (Chef 04.11., 00:21) | E Kampf | M | – | Team Jerry | gebaut |
+| 552 | MARS: Zugreihenfolge oben fehlt am Gerät (Chef 04.11., 00:22) | E Kampf | M | – | Team Jerry | gebaut |
+| 553 | Flüsterwald: unbekanntes graues Tier auf der Karte, verzerrt (Chef 04.11., 00:26, Bild) | E Figuren | M | – | Team Jerry | gebaut |
+| 545 | MARS-Probekampf: Testknöpfe „Gegner besiegen“ (✓) und „Held fällt“ (✗) ohne Funktion (Chef 04.11., 00:01) | E Kampf | M | – | Team Jerry | Chef |
+| 546 | MARS: Wölfe weichen viel zu träge aus („wie Schlaftabletten“) (Chef 04.11., 00:01) | E Kampf | M | – | Team Jerry | gebaut |
 | 547 | MARS: Text sagt „geht in die Knie“, Sturz ist aus (438a eingefroren): Text und Bild in Einklang bringen (Chef 04.11., 00:01) | E Kampf | M | – | Team Jerry | startbar |
-| 544 | Build 249, Kampf: Schrift ist Ersatzschrift ohne Serifen statt Alegreya (Chef 03.11., 23:49, Bild) | E Kampf | M | – | Team Jerry | gebaut |
-| 532 | Kampf: Held geht ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch und ohne die ganze Tasche (nur einfacher Heiltrank) in den Kampf, danach wird nur TP zurückgeschrieben; Zauber kosten nichts (Abgleich 512, Sokrates 03.11., 23:4x) | E Kampf | M | – | Team Jerry | gebaut |
+| 544 | Build 249, Kampf: Schrift ist Ersatzschrift ohne Serifen statt Alegreya (Chef 03.11., 23:49, Bild) | E Kampf | M | – | Team Jerry | wartet |
+| 532 | Kampf: Held geht ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch und ohne die ganze Tasche (nur einfacher Heiltrank) in den Kampf, danach wird nur TP zurückgeschrieben; Zauber kosten nichts (Abgleich 512, Sokrates 03.11., 23:4x) | E Kampf | M | – | Team Jerry | wartet |
 | 532a | Rückfrage: Tasche und Metrausch jetzt wie alt in MARS oder erst mit dem BRS-Rechenkern (478)? | E Kampf | M | – | Team Jerry | wartet auf Chef |
-| 533 | Kampf: Grimmzahn ist ein Wolf, kein Boss: Werte, „Grimmzahns Fang“, keine Flucht, Leibwache flieht nach seinem Fall (Abgleich 512, Sokrates 03.11., 23:4x) | E Kampf | M | – | Team Jerry | startbar |
+| 533 | Kampf: Grimmzahn ist ein Wolf, kein Boss: Werte, „Grimmzahns Fang“, keine Flucht, Leibwache flieht nach seinem Fall (Abgleich 512, Sokrates 03.11., 23:4x) | E Kampf | M | – | Team Jerry | gebaut |
 | 534 | Kampf: Zauber und Fähigkeiten fehlen in „Können“ (Magierrüstung, Untote vertreiben, Spirituelle Waffe, Geisterwächter) oder wirken nicht (Unglaubliches Ausweichen, Unerbittlichkeit, Lebensraub, Schadensminderung der Ausrüstung); Talente zu Kampfbeginn (Einschüchtern, Schwächen kennen) (Abgleich 512, Sokrates 03.11., 23:4x) | E Kampf | M | – | Team Jerry | startbar |
 | 535 | Kampf: Gegnerstufe, Elite, schimmernde Gegner, Gruppen (Ratten und Fledermäuse als Wölfe, Schamane ohne Heilen), EP und Gold je Gegner, Nachlass in Stufe 1; gegen BRS klären, Balance entscheidet der Chef (Abgleich 512, Sokrates 03.11., 23:4x) | E Kampf | M | – | Team Jerry | startbar |
-| 536 | Kampf: Erklärungen bei langem Drücken (MarsTips), Grund bei gesperrtem Zauber, „Kein Ziel in Sicht“, Knopf „Schnell“, Stufe und EP im Gruppenkasten, Seltenheitsfarbe der Beute (Abgleich 512, Sokrates 03.11., 23:4x) | E Kampf | M | – | Team Jerry | startbar |
+| 536 | Kampf: Erklärungen bei langem Drücken (MarsTips), Grund bei gesperrtem Zauber, „Kein Ziel in Sicht“, Knopf „Schnell“, Stufe und EP im Gruppenkasten, Seltenheitsfarbe der Beute (Abgleich 512, Sokrates 03.11., 23:4x) | E Kampf | M | – | Team Jerry | gebaut |
 | 537 | Kapitelende fehlt: nach Aldric kein „ENDE VON KAPITEL 1“, keine Tempelszene, keine Nacht, kein Morgen im Tempel; `TEMPLE_SEEN`, Lyras Lager-Sätze fehlen (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | gebaut |
-| 538 | Heldenstufe kommt in Gesprächen nie an (Garrick warnt immer), Stufengrenze 6 für Kapitel 1 fehlt (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | startbar |
-| 539 | Licht folgt der Uhr nicht: wechselt nur bei Rast oder Testknopf; nachts gespeichert lädt als Tag; Nachtmonster, Nachtstimmen, Fackel hängen daran; Kampf rechnet mit der Uhr (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | startbar |
-| 540 | Texte hängen am Spielbeginn: Südrand (immer Text vor dem Auftrag, „Kapitel 2 folgt“ fehlt, nichts gemerkt), Schlagbaum nach dem Auftrag, Klopfen an 12/5 nach Kapitel 1, Tipp beim Erwachen auch bei klassischer Steuerung (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | startbar |
-| 541 | Welt-Bedienung: Untersuchen fehlt ganz (Brunnen, Regal, Altar mit Stand der Geschichte …), Angriff mit dem Aktionsknopf fehlt, „Aufgeben“ bei Nebenaufträgen fehlt (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | startbar |
-| 542 | Aufträge: Jorins „Feuer am Steinkreis“ nicht abschließbar (Fetzen fehlt), Gwennas Ring am Brett ohne Höhle nicht findbar, Aldrics Ring als Ding statt Einzelstück (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | startbar |
-| 543 | Startwerte gegen alt und BRS prüfen: Startgold 15–25 und Start-Heiltränke fehlen, Wiederkehrort Schenke statt Tempel, Beute im Tiefen Wald Stufe 1 statt 2 (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | startbar |
-| 549 | Rastfenster am Feuer wirkt klein, zu viele Kästen; besser als alt gestalten (Chef 04.11., 00:07, Bild) | A Spiel | M | – | Team Tom | startbar |
+| 538 | Heldenstufe kommt in Gesprächen nie an (Garrick warnt immer), Stufengrenze 6 für Kapitel 1 fehlt (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | gebaut |
+| 539 | Licht folgt der Uhr nicht: wechselt nur bei Rast oder Testknopf; nachts gespeichert lädt als Tag; Nachtmonster, Nachtstimmen, Fackel hängen daran; Kampf rechnet mit der Uhr (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | gebaut |
+| 540 | Texte hängen am Spielbeginn: Südrand (immer Text vor dem Auftrag, „Kapitel 2 folgt“ fehlt, nichts gemerkt), Schlagbaum nach dem Auftrag, Klopfen an 12/5 nach Kapitel 1, Tipp beim Erwachen auch bei klassischer Steuerung (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | gebaut |
+| 541 | Welt-Bedienung: Untersuchen fehlt ganz (Brunnen, Regal, Altar mit Stand der Geschichte …), Angriff mit dem Aktionsknopf fehlt, „Aufgeben“ bei Nebenaufträgen fehlt (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | gebaut |
+| 542 | Aufträge: Jorins „Feuer am Steinkreis“ nicht abschließbar (Fetzen fehlt), Gwennas Ring am Brett ohne Höhle nicht findbar, Aldrics Ring als Ding statt Einzelstück (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | gebaut |
+| 543 | Startwerte gegen alt und BRS prüfen: Startgold 15–25 und Start-Heiltränke fehlen, Wiederkehrort Schenke statt Tempel, Beute im Tiefen Wald Stufe 1 statt 2 (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | gebaut |
+| 549 | Rastfenster am Feuer wirkt klein, zu viele Kästen; besser als alt gestalten (Chef 04.11., 00:07, Bild) | A Spiel | M | – | Team Tom | Chef |
 | 550 | Flüsterwald: erstes Heilkraut zeigt einen riesigen Einblendkasten, ab dem zweiten normale Größe (Chef 04.11., 00:19) | A Spiel | M | – | Team Tom | gebaut |
-| 555 | Testmenü wie alt und schneller: fehlende Einträge der alten Fassung, dazu Sprünge an jede Station von Kapitel 1 (Chef 04.11., 00:30) | B Werkzeuge | M | – | Team Tom | gebaut |
-| 554 | Testmenü: Schalter „Monster beachten mich nicht“ fehlt (Chef 04.11., 00:27) | B Werkzeuge | M | – | Team Tom | gebaut |
-| 523 | Tasche wie alt und besser: „Funke löschen“, Seltenheit und Kurzangabe der Vorräte, Ausrüstungszeile mit Art, Platz, Wert, „nicht tragbar“, ▲/▼ farbig, Sortierung nach Platz, Klang beim Benutzen (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | Chef |
+| 555 | Testmenü wie alt und schneller: fehlende Einträge der alten Fassung, dazu Sprünge an jede Station von Kapitel 1 (Chef 04.11., 00:30) | B Werkzeuge | M | 15,00 $ | Team Tom | zu testen |
+| 554 | Testmenü: Schalter „Monster beachten mich nicht“ fehlt (Chef 04.11., 00:27) | B Werkzeuge | M | – | Team Tom | zu testen |
+| 523 | Tasche wie alt und besser: „Funke löschen“, Seltenheit und Kurzangabe der Vorräte, Ausrüstungszeile mit Art, Platz, Wert, „nicht tragbar“, ▲/▼ farbig, Sortierung nach Platz, Klang beim Benutzen (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | gebaut |
 | 524 | Gegenstandsfenster, Inhalt wie alt und besser: Grundwerte (Seltenheit, Tragort, Gewicht, Schaden je Griffart, Angriff, RK + GES), Warnungen „Ungeübt“, „Zauberkraft nützt nur Zauberwirkern“, Vergleich mit „im Schnitt“ und Kapiteldeckel (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | gebaut |
-| 525 | Laden, Morwen, Rast wie alt und besser: Fleisch an Rowena verkaufen, Brauen mit hat/braucht je Zutat, Kräuterhinweis, Bilder in Brauen- und Verkaufskasten, Farbe beim Zurückkaufen, Mengenfenster mit markiertem „Alle“, Speichern nach dem Met (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | startbar |
-| 526 | Rückfragen und Fenster einheitlich: Tippen daneben schließt, Android-Zurück schließt erst das Fenster (Spielstand löschen, „Über das Spiel“) (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | in Arbeit |
-| 527 | System: Schalter „Tempo“ und „Kampftext“ wirken im Kampf nicht; anschließen oder ausblenden, bis sie wirken (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Jerry | gebaut |
-| 528 | Held, Karte, Chronik wie alt: Satz zur Höchststufe des Kapitels am EP-Balken, Kartenzeichen in der oberen Leiste, „Auf der Karte“ bei Nebenaufträgen (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | startbar |
-| 529 | Spielstände: Heldenbild und Spielzeit auf der Karte des Spielstands, Uhrzeit „Gespeichert“ nach Zeitumstellung prüfen (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | startbar |
-| 522 | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Chef 03.11., 23:33) | A Spiel | M | – | Team Tom | gebaut |
+| 525 | Laden, Morwen, Rast wie alt und besser: Fleisch an Rowena verkaufen, Brauen mit hat/braucht je Zutat, Kräuterhinweis, Bilder in Brauen- und Verkaufskasten, Farbe beim Zurückkaufen, Mengenfenster mit markiertem „Alle“, Speichern nach dem Met (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | 14,17 $ | Team Tom | gebaut |
+| 526 | Rückfragen und Fenster einheitlich: Tippen daneben schließt, Android-Zurück schließt erst das Fenster (Spielstand löschen, „Über das Spiel“) (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | gebaut |
+| 527 | System: Schalter „Tempo“ und „Kampftext“ wirken im Kampf nicht; anschließen oder ausblenden, bis sie wirken (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Jerry | wartet |
+| 528 | Held, Karte, Chronik wie alt: Satz zur Höchststufe des Kapitels am EP-Balken, Kartenzeichen in der oberen Leiste, „Auf der Karte“ bei Nebenaufträgen (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | gebaut |
+| 529 | Spielstände: Heldenbild und Spielzeit auf der Karte des Spielstands, Uhrzeit „Gespeichert“ nach Zeitumstellung prüfen (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | gebaut |
+| 522 | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Chef 03.11., 23:33) | A Spiel | M | – | Team Tom | zu testen |
 | 521 | Build 249, Ausrüstung: Wechselschirm eines Platzes wie alt (Bild, Art und Wert, ▲/▼, „nicht tragbar“ matt) (Chef 03.11., 23:23, Bild) | A Spiel | M | – | Team Tom | gebaut |
 | 520 | Build 249, Ausrüstung: Held zwischen den Fächern zu klein und ohne die angelegten Sachen; alt `HeroTurntable` mit Getragenem (Chef 03.11., 23:19, Bild) | A Spiel | M | – | Team Tom | gebaut |
 | 519 | Build 249, Ausrüstung: Gegenstandsfenster („Göttlicher Ring des Eisernen Richters“) passt nicht auf den Bildschirm, rechts abgeschnitten (Chef 03.11., 23:13, Bild) | A Spiel | M | 21,91 $ | Team Tom | gebaut |
-| 518 | Build 248, Dorf: keine Häuser, nur Wege und Pflaster, dazu ständiges schwarzes Flackern (Chef 03.11., 20:47, Bild) | A Spiel | M | – | Team Tom | zu testen |
+| 518 | Build 248, Dorf: keine Häuser, nur Wege und Pflaster, dazu ständiges schwarzes Flackern (Chef 03.11., 20:47, Bild) | A Spiel | M | – | Team Tom | gebaut |
 | 517 | Waldklang wie alt: Vögel am Tag, Eule und Grillen nachts, fernes Wolfsheulen im Tiefen Wald (`WildSound.kt`; Abgleich 512, von Team Tom) | A Spiel | M | – | Jerry | gebaut |
 | 513 | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „513 B“) | E Figuren | M | 14,01 $ | Team Tom | startbar |
 | 513.1 | probelauf.py sperrt Läufe ohne abgenommenen Figurenstand (513 B) | B Abläufe | M | – | Perikles | gebaut |
@@ -297,7 +299,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 457.1 | Probeskripte Tom mit Spielshadern (457) | E Figuren | M | – | Team Tom | gebaut |
 | 457.2 | Probeskripte Jerry mit Spielshadern (457) | E Kampf | M | 5,56 $ | Team Jerry | gebaut |
 | 416.7 | Aktionsknopf am Tresen in Schenke und Laden (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | wartet |
-| 416.8 | NPC dreht sich zum Helden, nach etwa 10 s Leerlauf (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | startbar |
+| 416.8 | NPC dreht sich zum Helden, nach etwa 10 s Leerlauf (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | in Arbeit |
 | 416.9 | Laden Verkaufen: Reiter bei „angelegt“, Vergleichswerte, nicht tragbare Gegenstände, Icon bei Menge (aus 416.3, Chef 31.10., 22:20) | B Umzug | M | 38,00 $ | Team Tom | gebaut |
 | 390 | Umzug: Punkte ohne Bilderrunde weiterbauen, solange Blätter beim Chef liegen (Perikles 28.10., Wochenziel 348) | E Technik | M | 39,54 $ | Team Tom, Team Jerry | gebaut |
 | 383.2 | Kosten: dieselbe Aufgabe frisch gegen groß messen (Chef 27.10., 19:24) | B Werkzeuge | M | – | Sokrates | wartet |
