@@ -1,5 +1,5 @@
 # Tom und Jerry · Build 252 · Godot 0.348.252 · Build 251 und sechs Kampfbefunde zu Build 249 · [PR #182](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/182)
-E Kampf · Team Jerry · 04.11., 02:20 · [Lauf 252](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41753201022) (Artefakt bornim-godot-apk, sobald grün) · Geprüft an: Rechner ohne Kaufmodelle, Daten aus dem APK von Build 249: tier_553 0, grimm_533 0, tips_536 0, zugleiste_552 0, ausweichen_546 0, mars_golden 0, mars_regeln 0, kampfzustand_532, tempo_527, testmenue_555 grün
+E Kampf · Team Jerry · 04.11., 02:20 · [Lauf 252, bornim-godot-apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41753201022/artifacts/13288854895) (grün 03:17) · Geprüft an: Rechner ohne Kaufmodelle, Daten aus dem APK von Build 249: tier_553 0, grimm_533 0, tips_536 0, zugleiste_552 0, ausweichen_546 0, mars_golden 0, mars_regeln 0, kampfzustand_532, tempo_527, testmenue_555 grün
 
 Build 252 enthält alles aus Build 251: gleich 252 installieren, die Prüfliste [t251](t251-testmenue.md) gilt dort ebenso. Neu sind nur die Zeilen unten, Vorgänge 546, 551, 552, 553, 533, 536. Verglichen: alt `SkirmishScreen.kt` und `MarsTips.kt` (langes Drücken), `Monsters.kt` und `Packs.kt` (Grimmzahn), `DeviceInfo.kt` (Bildschirmecken) gegen neu.
 
