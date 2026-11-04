@@ -164,7 +164,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 563 | M | von Sokrates (Chef 04.11., 17:02, t257 Bereich C, Bild; Zu 562 und 563): Zustandsschilder | startbar |
 | 561 | M | von Sokrates (Chef 04.11., 16:56, t257 Bereich C, Bild; Zu 561): goldener Zugkreis liegt ü | startbar |
 | 560 | M? | von Sokrates (Chef 04.11., 16:22, allgemeiner Hinweis; Zu 560): Monster auf der Karte dreh | startbar |
-| 527 | M | von Sokrates (512): System: Schalter „Tempo“ und „Kampftext“ wirken im Kampf nicht | wartet auf Test/Build |
+| 527 | M | von Sokrates (512): System: Schalter „Tempo“ und „Kampftext“ wirken im Kampf nicht | wartet auf Test/Build (gebaut) |
 | 548 | M | von Sokrates (Chef 04.11., 00:03, Build 249, Bild; Zu 548): „Gegen Ratten gespielt. Die st | startbar |
 | 551 | M | von Sokrates (Chef 04.11., 00:21, Build 249): „MARS Kasten links und rechts unten wird unt | startbar |
 | 552 | M | von Sokrates (Chef 04.11., 00:22, Build 249): „MARS Zugreihenfolge oben fehlt“ | wartet auf Test (Build) |
