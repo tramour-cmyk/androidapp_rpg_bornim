@@ -79,6 +79,31 @@ func t(de: String, en: String) -> String:
 	return de if lang == 0 else en
 
 
+## 551: Halbmesser der unteren Bildschirmecken in dp wie alt DeviceInfo.cornerDp() (Display.getRoundedCorner, unten links
+## und rechts, das größere), über das Plugin AndroidRuntime; ohne Gerät, vor Android 12 oder ohne Antwort 13 dp wie bisher.
+static var ecke := -1.0
+static func ecke_dp(_vp: Viewport) -> float:
+	if ecke >= 0.0:
+		return ecke
+	ecke = 13.0
+	if OS.get_name() != "Android" or not Engine.has_singleton("AndroidRuntime"):
+		return ecke
+	var act = Engine.get_singleton("AndroidRuntime").getActivity()
+	var d = act.getDisplay() if act != null else null
+	if d == null:
+		return ecke
+	var px := 0
+	for pos in [3, 2]:     # RoundedCorner.POSITION_BOTTOM_LEFT, POSITION_BOTTOM_RIGHT
+		var rc = d.getRoundedCorner(pos)
+		if rc != null:
+			px = maxi(px, int(rc.getRadius()))
+	var w := DisplayServer.window_get_size()
+	if w.x > 0:
+		ecke = float(px) * 412.0 / float(w.x)     # dp wie dp = Breite / 412 (Gerät ohne runde Ecken: 0 wie alt)
+	print("551: Bildschirmecke unten %d px, %.1f dp" % [px, ecke])
+	return ecke
+
+
 ## Schriftgröße wie Theme.kt im schwarzen Stil: sp × 0,95 × 1,04, mindestens 13,7 sp.
 func sp(v: float) -> int:
 	return int(maxf(v * 0.95 * 1.04, 13.7) * dp)
@@ -114,9 +139,10 @@ func _ready() -> void:
 	panel = PanelContainer.new()
 	panel.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
 	panel.grow_vertical = Control.GROW_DIRECTION_BEGIN
-	# SkirmishScreen: full width, only clear of the screen's rounded corners (a third of their radius, 335); Godot does
-	# not know the radius, so on the phone the A56's (about 13 dp), at the desk none
-	var m := (13.0 * 0.3 + 2.0) * dp if OS.get_name() == "Android" else 0.0
+	# SkirmishScreen: full width, only clear of the screen's rounded corners (a third of their radius, 335); 551 (Chef 04.11.,
+	# 00:21, Build 249: „MARS Kasten links und rechts unten wird unterbrochen angezeigt“, wie alt 335 am 23.10.): Godot nahm
+	# geschätzte 13 dp, alt fragte DeviceInfo.cornerDp() das Gerät; jetzt ebenso über AndroidRuntime, am Rechner keine Ecke
+	var m := (ecke_dp(get_viewport()) * 0.3 + 2.0) * dp if OS.get_name() == "Android" else 0.0
 	panel.offset_left = m
 	panel.offset_right = -m
 	panel.offset_bottom = -m
