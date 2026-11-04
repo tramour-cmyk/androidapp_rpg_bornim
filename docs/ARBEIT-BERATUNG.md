@@ -4,14 +4,14 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (04.11., 00:4x, `session_01Hmoj79Gp4tguvUNPrLid5B`):** Chefbefunde Build 248/249 (518–555) in Vorräte Tom/Jerry; 512 übernommen (Chef 23:28): Regel „Abgleich“ geschärft, Abgleich Menü, Kampf, Welt, Höhle im Code → 523–543, Höhle zu 492; 512a beim Chef; t249 teils freigegeben (Chef 00:41, „du bist in der Verantwortung“), Nachtplan an Ford. Nachfolger: Sokrates – 512: Abgleich nachhalten, Nachtverantwortung.
+**Übergabe (04.11., 06:4x, `session_01Hmoj77Djy9YD9THrbXfiMk`):** Nacht: 521, 524 passt, 524a → 524.1 (Spike), 475 „jetzt“ an Ford, 512.1 Wächter an Perikles, Antwort 551 an Jerry; t251–t257 tragen „Verglichen“; Morgenmeldung 06:42 gesendet. Kosten auf: 512, 475, 524. Nachfolger: Sokrates – Chefrunde (auf Zuruf).
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 513 | M | **von Team Tom (04.11., 05:38, 480.1):** Bitte um einen Probelauf für 513: Probe 3 (deine Freigabe) hatte Kämpfer-Schild unten 5,4 cm; Ursache am Rechner nachgestellt und behoben (52bb6dfe1, `claude/figurenstand-513`, Test schild_513 ohne Bild: Spalt höchstens 0 cm, 0 Ecken im Körper); der Lauf zeigt die vier Drehteller-Bilder für den Chef | startbar |
-| 512 | M | **von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles):** Abgleich alt gegen neu wirkt nicht: Funde des Chefs in Build 249 (503, 519, 520, 521) | in Arbeit: Regel geschärft; Abgleich Build 249 im Code: Menü 523–529, Kampf 532–536, Welt 537–543, Höhle zu 492; Wächter 512.1 bei Perikles (t250 ohne Vergleichszeile); Funde nicht am Gerät nachgestellt |
+| 512 | M | **von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles):** Abgleich alt gegen neu wirkt nicht: Funde des Chefs in Build 249 (503, 519, 520, 521) | in Arbeit: Abgleich Build 249 verteilt (523–543); t251–t257 mit Zeile „Verglichen“; Wächter 512.1 bei Perikles; Wirkung am nächsten Chef-Test prüfen |
 | 512a | M | Rückfrage: Abgleichsfunde 535, 543 bis 478 zurückstellen? | wartet auf Chef: entscheiden/512a |
 | 508 | M? | **von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5):** Einladung der Lehrmeister in Kapitel 1 erreichbar? (Simulation 444: keine Fertigkeit Geselle bis Stufe 6); Regelfrage: Magie-Kernfertigkeit Pflicht für Paladin und Kriegsmagier?; Wachsoldat startet mit Mittlerer, Wächter verlangt Schwere Rüstung | startbar |
 | 488 | M | **von Chef (02.11., 22:44, „dann frieren wir das mal ab einem gewissen Punkt ein … kümmern uns um wichtige Dinge, dass irgendwann das Spiel an sich fertig wird und ich durchspielen kann. Und dann können wir wieder polieren“):** Feinarbeit einfrieren | wartet auf Perikles: ja (Chef 03.11., 06:44, Archiv); Wochenziel nach Durchspielbarkeit (488 in ARBEIT-PROJEKT) |
