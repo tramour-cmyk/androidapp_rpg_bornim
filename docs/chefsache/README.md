@@ -21,6 +21,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [475](ansehen/475-gesichter.md) | Gesichter der Leute: jedes an der Form unterscheidbar? | – | 04.11., 20:37 |
+| [557](ansehen/557-ausgebessert.md) | Stil B ausgebessert, zur Kenntnis | – | 04.11., 20:40 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
