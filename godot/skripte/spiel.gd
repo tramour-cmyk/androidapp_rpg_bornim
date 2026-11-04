@@ -160,6 +160,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 		add_child(herde)
 		herde.kampf.connect(_kampf_auf_karte)
 		herde.gemeldet.connect(func(t): ui.kurz(t))
+		herde.abgewehrt.connect(_abwehr)
 	kraut_tag = -1
 	kraeuter_neu()
 	sichtbar_neu()
@@ -1007,6 +1008,18 @@ func held_figur_neu(vorher: String) -> void:
 	var w := HeldFigur.wahl(held_werte(), zustand)
 	if held == null or JSON.stringify(w) == vorher: return
 	held.neu_figur(w)
+
+# 531 (wie alt WorldScreen lastWardOff: wer am Schutzort steht, npc.x == wo.x): die Person naechst der Mitte nimmt die Fackel
+func _abwehr(schutz: Dictionary, wo: Vector3) -> void:
+	var mitte := Vector2i(int(schutz.get("x", -99)), int(schutz.get("y", -99)))
+	var r := int(schutz.get("radius", 0)) + 1
+	var wer: Leute = null
+	var best := 999
+	for l in leute.get_children():
+		if not (l is Leute) or not l.da or l.drinnen: continue
+		var d := absi(l.kachel.x - mitte.x) + absi(l.kachel.y - mitte.y)
+		if d <= r and d < best: best = d; wer = l
+	if wer: wer.wehre_ab(wo)
 
 func fackel_neu() -> void:
 	if held: held.fackel_neu(Menue.fackel(held_werte()), String(karte.daten.get("art", "")) == "INTERIOR")

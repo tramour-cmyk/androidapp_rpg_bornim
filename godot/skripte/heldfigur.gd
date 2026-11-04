@@ -34,7 +34,7 @@ const KLASSEN_VORGABE := {
 const HAUT_EICHUNG := Vector3(0.355, 0.219, 0.270)
 const HAUT_FARBE := 0.5
 # Bewegungen, die sich wiederholen (wie held.gd Gebiet.bewegungen)
-const SCHLEIFEN := ["Stehen", "Gehen", "Rennen", "Stehen_2", "Stehen_3", "Sitzen", "Gesten"]
+const SCHLEIFEN := ["Stehen", "Gehen", "Rennen", "Stehen_2", "Stehen_3", "Sitzen", "Gesten", "Bodensitz", "Nicken", "Hocken"]
 
 static var info := {}
 static var haare_szenen := {}   # Geschlecht -> haare.bin (m), haare_w.bin

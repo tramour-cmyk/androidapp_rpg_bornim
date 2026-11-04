@@ -7,6 +7,7 @@ extends Node3D
 
 signal kampf(monster: String, eroeffnung: String, wer: Streuner)
 signal gemeldet(text: String)     # Schutzort: Garrick schwenkt die Fackel (SafeZone.notice)
+signal abgewehrt(schutz: Dictionary, wo: Vector3)   # 531: wer dort steht, schwenkt die Fackel gegen das Tier (lastWardOff)
 
 static var bestand := {}          # Karte -> [Daten je Monster] (Game.herds; neues Spiel: leeren)
 static var wiederkehr := {}       # Karte -> [Schritte, ab denen eines wiederkommt] (Game.respawns)
@@ -141,6 +142,7 @@ func schritt(dt: float) -> void:
 				s.heimweg = true
 				if not am_schutz.is_empty() and dist <= 7:
 					if am_schutz.has("text"): gemeldet.emit(Sprache.t(am_schutz["text"]))
+					abgewehrt.emit(am_schutz, s.position)
 					s.naechst_ms = jetzt + 1100     # haelt kurz inne, waehrend die Fackel aus dem Feuer kommt, dann weicht es
 				else: s.naechst_ms = jetzt + 600
 			elif dist == 1:

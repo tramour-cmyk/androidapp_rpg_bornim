@@ -598,7 +598,11 @@ def haare(g):
 # Bewegungen fuer held.gd (Namen wie held.bin): aus der UAL (gekauft Pro, sonst Standard), nur Geruest und diese Bewegungen. Die von
 # rig.py (held.bin) passen nicht: sie sind auf unsere Ruhelage (Arme haengend) umgerechnet, der Kaufkoerper ruht in der T-Pose
 BEWEGUNGEN = [('Stehen', 'Idle_Loop'), ('Gehen', 'Walk_Loop'), ('Rennen', 'Jog_Fwd_Loop'), ('Stehen_2', 'Idle_LookAround_Loop'),
-              ('Stehen_3', 'Idle_Tired_Loop'), ('Sitzen', 'Sitting_Idle_Loop'), ('Gesten', 'Idle_Talking_Loop')]
+              ('Stehen_3', 'Idle_Tired_Loop'), ('Sitzen', 'Sitting_Idle_Loop'), ('Gesten', 'Idle_Talking_Loop'),
+              # 531 (Chef 04.11., 19:27, Film): Garricks Ruhe am Feuer aus dem Bestand (UAL Pro): am Boden sitzen, einnicken, hocken;
+              # Name der Quelle ohne Endung, gilt auch mit _Loop (der genaue Name steht im Protokoll „UAL531“)
+              ('Bodensitz_rein', 'GroundSit_Enter'), ('Bodensitz', 'GroundSit_Idle'), ('Bodensitz_raus', 'GroundSit_Exit'),
+              ('Sitzen_rein', 'Sitting_Enter'), ('Sitzen_raus', 'Sitting_Exit'), ('Nicken', 'Sitting_Nodding'), ('Hocken', 'Crouch_Idle')]
 
 
 def schritt_tempo(arm, a, fuesse=('foot_l', 'foot_r'), toleranz=0.02):
@@ -631,9 +635,12 @@ def bewegungen():
     arm = next(o for o in bpy.data.objects if o.type == 'ARMATURE')
     for o in [o for o in bpy.data.objects if o != arm]: bpy.data.objects.remove(o)
     namen = dict((q, n) for n, q in BEWEGUNGEN)
+    print('UAL531', sorted(a.name for a in bpy.data.actions if any(k in a.name for k in ('Sit', 'Crouch', 'Kneel', 'Warm', 'Fire'))))
     for a in list(bpy.data.actions):
-        if a.name in namen: a.name = namen[a.name]; a.use_fake_user = True
+        q = a.name if a.name in namen else next((k for k in namen if a.name in (k + '_Loop', k + '_Anim')), None)
+        if q and namen[q] not in bpy.data.actions: a.name = namen[q]; a.use_fake_user = True
         else: bpy.data.actions.remove(a)
+    print('UAL531 fehlt', [n for n, q in BEWEGUNGEN if n not in bpy.data.actions])
     # 417 Runde 4 (Chef 01.11., 12:21; 348.12c): Gehen und Rennen je Waffenart aus den Protofactor-Paketen (waffengang.py, GANG=<ordner>
     # mit Gehen_<art>.glb, Rennen_<art>.glb auf demselben UAL-Geruest), Name wie die Datei
     gang = sorted(glob.glob(os.path.join(os.environ.get('GANG', ''), '*_*.glb'))) if os.environ.get('GANG') else []

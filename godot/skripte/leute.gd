@@ -383,7 +383,10 @@ func richte_ding() -> void:
 		p = stab_fuss + y * ding_unten   # der Schaft laeuft durch den Griff, das untere Ende steht auf stab_fuss
 	ding.global_position = p
 
+var nacht_k := 0.0
 func nacht(k: float) -> void:
+	nacht_k = k
+	if abwehr: abwehr.nacht_k = k
 	for m in mats: (m as ShaderMaterial).set_shader_parameter("fill", 0.42 * (1.0 - k))
 
 # fuer Held.frei: steht hier jemand?
@@ -454,7 +457,25 @@ func _process(dt: float) -> void:
 		anim.play(pause, Held.ueberblendung(anim.current_animation, false))
 		anim.speed_scale = 1.0
 
+# 531: Garrick wehrt am Schutzort ein Tier mit der Fackel ab (herde.gd abgewehrt, abwehr.gd); so lange steht er und schaut zum Tier
+var abwehr: Abwehr
+func wehre_ab(wo: Vector3) -> void:
+	if abwehr == null:
+		var sk := Gebiet.finde(modell, "Skeleton3D") as Skeleton3D if modell else null
+		if sk == null: return
+		abwehr = Abwehr.baue(sk, self)
+		abwehr.nacht_k = nacht_k
+	if abwehr.laeuft(): return
+	# 531 Film: das Feuer liegt eine Kachel in seiner Blickrichtung (Story.kt: Garrick links vom Feuer, Blick RECHTS)
+	var k := (karte.kachel_pos(Vector2i(1, 0)) - karte.kachel_pos(Vector2i(0, 0))).length()
+	abwehr.los(wo, global_position + Vector3(sin(blick), 0, cos(blick)) * k)
+
 func stehen(dt: float) -> void:
+	if abwehr and abwehr.laeuft():
+		var soll := atan2(abwehr.ziel.x - global_position.x, abwehr.ziel.z - global_position.z) if abwehr.zum_tier() else blick
+		rotation.y = drehe(rotation.y, soll, DREH_ZU * dt)
+		warte = maxf(warte, 1.0)
+		return
 	if zugewandt_bis > 0:
 		if still: zugewandt_bis = Time.get_ticks_msec() + int(ZUGEWANDT * 1000)   # waehrend des Gespraechs zaehlt die Zeit nicht
 		if Time.get_ticks_msec() < zugewandt_bis and held:
