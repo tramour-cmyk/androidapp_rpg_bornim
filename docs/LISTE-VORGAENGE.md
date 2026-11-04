@@ -230,7 +230,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 472 | Bau BRS 1.3 Heldenstufe aus Erfahrung (Wochenziel 02.11., Stufe 1) | E Regeln | M | – | Team Jerry | erledigt |
 | 473 | Bau BRS 1.4 Monsterwerte Kapitel 1 (Wochenziel 02.11., Stufe 1) | E Kampf | M | 5,89 $ | Team Jerry | erledigt |
 | 474 | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, Meldung Tuffy): nächster Build einmal deinstallieren; dauerhaft ohne Cache | E Technik | M? | 8,66 $ | Team Tom | ruht |
-| 475 | Leute des Dorfs (Rowena, Borin …) auf Kaufkörper ihres Volks mit Gesicht, statt der alten Figuren (Chef 02.11., 10:52, Build 146: „Kommt da noch was?“) | E Figuren | M | – | Team Tom | wartet |
+| 475 | Leute des Dorfs (Rowena, Borin …) auf Kaufkörper ihres Volks mit Gesicht, statt der alten Figuren (Chef 02.11., 10:52, Build 146: „Kommt da noch was?“) | E Figuren | M | 25,11 $ | Team Tom | wartet |
 | 476 | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild (Chef 02.11., 14:43) | E Oberfläche | M? | – | Team Tom | wartet |
 | 477 | Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59) | E Technik | M? | – | Team Tom | gebaut |
 | 466 | Neues Wort für „Handlung“ eines Pfads (Chef 01.11., 21:13: „Handlung ist alles“) | C Texte | M? | 23,56 $ | Homer | erledigt |
