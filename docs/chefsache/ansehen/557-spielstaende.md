@@ -1,5 +1,7 @@
 # 557 · Stil B, neue Vorlage: Rückfragen ohne Kasten, Abbrechen, Mengenkasten, Knopf am Inhalt · Team Tom · 04.11., 16:39
 
+[Bild von 04.11., 16:38](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/04-1638-557-Tom.png) (eingetragen von meldung.sh, Tom)
+
 A Spiel
 Kurz: Deine Punkte von 14:21 bis 14:26 sind umgesetzt. Jedes Bild zeigt links B (Vorlage 14:15), rechts neu. Bild 1 war dort Bild 2, Bild 4 war Bild 8, Bild 5 und 6 waren Bild 6 und 7. Sag je Punkt (Rückfragen, Abbrechen, Mengenkasten, Knopf) „passt“ oder was anders sein soll. Danach entscheidest du 557, 549a und 524.1 zusammen; eingeschaltet wird erst dann. Spielstände, Wechselliste und Rast sind unverändert wie in der Vorlage 14:15.
 
