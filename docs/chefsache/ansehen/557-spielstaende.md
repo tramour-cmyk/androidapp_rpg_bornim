@@ -45,6 +45,16 @@ Bekannt:
 - Im Laden sind nur die Seiten zum Brauen in B gebaut, Kaufen und Verkaufen noch nicht.
 - Rast: das Bild von 01:10 (Frage 2 dort bleibt offen).
 
+Befund des Prüfers (Helfer, 14:18, nach dem Versand):
+- Ring: bei den Boni „+2 Geschicklichkeit – wirkt +1“, in der Tabelle darunter „Geschicklichkeit: Bonus wirkt nicht“. Beides stimmt (oben: was der Ring selbst bringt; unten: gegen den Ring, den er ersetzt), liest sich aber als Widerspruch. Im Zweig behoben, noch nicht im Bild: die Sammelzeile unten fällt weg; „wirkt nur teils“ heißt jetzt „wirkt +0 bis +1“.
+- „‹ SCHLIEßEN“ mit ß in Versalien; im Zweig behoben (SCHLIESSEN).
+- Gegenstandsfenster und Mengenkasten haben keine Wahl „Abbrechen“ mehr (so bestellt: Zurück oder Tippen daneben); sehen kann man das nicht.
+- Rückfrage: dahinter ist jetzt alles schwarz, auch Kopf und Zurück nur noch zu ahnen.
+- Spielstände: links bei vollen Plätzen eine leere Fläche (am Rechner fehlt die Figur); „× LÖSCHEN“ steht weit unter „LADEN ›“.
+- Wechselliste: Werte enden mit „…“, wenn ein Stück mehr als zwei Boni hat; „Standhafte Robe“ in Hellblau (Farbe der Seltenheit); nicht Tragbares hat ein mattes „›“ (antippbar, zeigt das Fenster).
+- Mengenkasten: die Knöpfe −, +, ×1, ×5, Alle haben eigene Goldrahmen im Fenster.
+- Kettenpanzer: das hohe Fenster reicht über die Reiterleiste.
+
 Stil-Abgleich (88): Oberfläche (schwarz, Goldrahmen nur an Fenstern und Rückfragen, Alegreya, Versalien gesperrt für Titel und Wahlen), Zeichen ▲ ▼ ◆ › ×. Übergänge: Antippen hebt die Zeile dunkel ab, sonst wie bisher. Spielerfreundlich: die Hauptwahl steht immer rechts in Gold, die Nebenwahl leise links oder darunter.
 
 Bitte ansehen:
