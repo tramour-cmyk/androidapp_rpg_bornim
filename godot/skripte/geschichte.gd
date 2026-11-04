@@ -246,6 +246,26 @@ static func intro(k: Skript, s: Zustand) -> void:
 	k.narrate("Tipp: Zieh den Finger über das Bild, um zu laufen, oder tippe dorthin, wo du hinwillst. Tippe auf Leute und Dinge, um mit ihnen zu sprechen oder sie zu untersuchen. Der Beutel oben öffnet das Menü.", "Tip: drag your finger across the screen to walk, or tap where you want to go. Tap people and things to talk to them or examine them. The bag at the top opens the menu.")
 	k.flag(INTRO_DONE)
 
+# 541 (Game.interact): was der Held sieht, wenn er ein Ding der Karte mit dem Knopf untersucht (Navigation.actionAt LOOK); {} = nichts.
+# Zeichen wie Tile.ch; t fuer den Marktstand (drei Saetze je Lage), nachts fuer die Laterne, innen fuer die Bank
+static func ansehen(zeichen: String, t: Vector2i, s: Zustand, nachts: bool, innen: bool) -> Dictionary:
+	match zeichen:
+		"w": return {"de": "Ein alter Brunnen. Das Wasser ist klar und kalt.", "en": "An old well. The water is clear and cold."}
+		"Q": return {"de": "Regale voller Krimskrams.", "en": "Shelves full of odds and ends."}
+		"m": return [{"de": "Ein Marktstand mit rotbackigen Äpfeln und frischem Gemüse.", "en": "A market stall with rosy apples and fresh vegetables."},
+			{"de": "Bunte Stoffe und Wollknäuel liegen auf dem Stand aus.", "en": "Colorful cloth and balls of wool are laid out on the stall."},
+			{"de": "Der Stand duftet nach Kräutern und getrockneten Pilzen.", "en": "The stall smells of herbs and dried mushrooms."}][posmod(t.x * 7 + t.y * 3, 3)]
+		"l": return {"de": "Die Laterne brennt warm und hell.", "en": "The lantern burns warm and bright."} if nachts else {"de": "Eine Laterne. Abends zündet Jorin sie an.", "en": "A lantern. Jorin lights it in the evening."}
+		"b": return {"de": "Ein Fass. Es riecht nach Apfelmost.", "en": "A barrel. It smells of cider."}
+		"c": return {"de": "Das Korn steht hoch und golden. Bald ist Erntezeit.", "en": "The grain stands tall and golden. Harvest time is near."}
+		"v": return {"de": "Kohl und Möhren, sorgfältig in Reihen gepflanzt.", "en": "Cabbages and carrots, carefully planted in rows."}
+		"y": return {"de": "Ein Heuballen. Die Hühner scharren drumherum.", "en": "A bale of hay. The chickens scratch around it."}
+		"q": return {"de": "Frisch gewaschene Wäsche flattert im Wind.", "en": "Freshly washed laundry flutters in the wind."}
+		"Z": return {"de": "Das Feuer knackt im Herd. Über der Glut hängt ein rußiger Kessel.", "en": "The fire crackles in the hearth. A sooty pot hangs over the embers."}
+		"n": return {"de": "Eine Bank, blank gesessen. Im Holz sind Namen eingeritzt.", "en": "A bench, worn smooth. Names are carved into the wood."} if innen else {"de": "Eine Bank zum Ausruhen. Von hier hat man den ganzen Dorfplatz im Blick.", "en": "A bench to rest on. From here you can see the whole village square."}
+		"A": return {"de": "Das Sonnenamulett strahlt auf dem Altar.", "en": "The Sun Amulet shines on the altar."} if s.has(CHAPTER1_DONE) else {"de": "Auf dem Altar ist eine leere Halterung. Hier lag das Sonnenamulett.", "en": "There's an empty mount on the altar. This is where the Sun Amulet lay."}
+	return {}
+
 static func ziel(s: Zustand) -> Dictionary:
 	if s.has(CHAPTER1_DONE): return {"de": "Kapitel 1 abgeschlossen! Erkunde die Welt und stärke deinen Helden.", "en": "Chapter 1 complete! Explore the world and strengthen your hero."}
 	if s.has(GRAK_DEFEATED) and s.has(LYRA_RESCUED): return {"de": "Bring das Sonnenamulett zu Ältestem Aldric nach Bornim.", "en": "Bring the Sun Amulet to Elder Aldric in Bornim."}
