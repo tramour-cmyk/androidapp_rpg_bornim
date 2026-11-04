@@ -10,6 +10,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 512b | M | **von Sokrates (Chef 04.11., 19:21: „512b ja“; `chefsache/entscheiden/512b-nachweis.md` in Git):** vor dem nächsten Kampf-Build: fremder Helfer spielt den Kampfschirm alt und neu durch und die Spalte „Richtig“ jeder Prüfzeile nach, meldet Fehlendes und Güte (Größe, Überlappung, Tempo) | startbar: vor dem nächsten Kampf-Build | – |
 | 566 | M | **von Sokrates (Chef 04.11., 17:15, Bild; Zu 566 und 567):** „Beim Goblin steht in den Schatten, aber er schaut nicht aus, als würde er im Schatten stehen. Könnten Bugs sein.“ | startbar: Ursache gefunden (Zu 566 und 567, Tom 19:16), bauen | – |
 | 567 | M | **von Sokrates (Bilder Chef 04.11., 17:00–17:15; Zu 566 und 567):** Gegner stehen im Kampfort fast übereinander (zwei Wölfe, zwei Goblins), die Ansage „+ In den Schatten“ hängt neben keinem | startbar: Ursache gefunden (Zu 566 und 567, Tom 19:16), bauen | – |
 | 565 | M | **von Sokrates (Chef 04.11., 17:10, t257 Bereich C, Bild; Zu 565):** im Gruppenkasten unten ist nicht zu sehen, welcher Held am Zug ist | startbar: Vorschlag als Bild vorher/nachher in `chefsache/ansehen/`, nichts einschalten | – |

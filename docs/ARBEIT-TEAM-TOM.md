@@ -8,6 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 512b | M | **von Sokrates (Chef 04.11., 19:21: „512b ja“; `chefsache/entscheiden/512b-nachweis.md` in Git):** vor jeder Testbitte: fremder Helfer spielt die Menüschirme alt und neu durch (Schritt 2 aus 512) und die Spalte „Richtig“ nach; Nachweis in der Zeile „Verglichen“ | startbar: vor der nächsten Testbitte | – |
 | 557 | M | **von Sokrates (Chef 04.11., 11:15; Zu 557):** Spielstände als Entwurf im Stil „ohne Kasten“ (549a), ein Bild aus Godot zum Ansehen; Inhalt mit der alten Fassung abgleichen (`SlotsScreen.kt` `SlotCard`), Spieldauer wieder dabei; nichts bauen außer dem Entwurf | startbar: Runde 5 nach Zu 557 (Chef 19:19), Zentrieren und +3 erst nach Chefwort | `claude/tom-557-spielstaende` |
 | 558 | M | **von Sokrates (Chef 04.11., 11:31, Bild Build 257; Zu 558):** Robe des Magiers zu glatt: Stoff mit Falten, Schatten, Schmutz, Abnutzung; erst Probebild neben dem jetzigen, gilt für alle Trachten | wartet auf Build: Probe 4 (1a3ca6fdf, 18:29, Lauf 1 von 2 nach 17:40), Bilder sofort an den Chef | – |
 | 556 | M | **von Sokrates (Chef 04.11., 07:52; Zu 556):** Blenden reines Schwarz statt Leuchten, Lesezeit jeder Blende gegen alt (`InterludeClock`) | gebaut, fährt im nächsten Build: Kampf 0,65 s → 2–6,6 s, Orte 1,9 → 2,1–4,8 s; Geprüft an: abda486d3 | `claude/tom-556-blende` |
