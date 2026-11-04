@@ -30,6 +30,8 @@ os.makedirs(ZIEL, exist_ok=True)
 
 # Teile unseres Helden, die Kleidung sind (Helm, Schild, Schwert, Scheide nicht: Kleidung, kein Geraet)
 KLEID = {'belt', 'buckle', 'boots', 'chain', 'cuff', 'clasp', 'cloak', 'pants', 'sleeves', 'tabard', 'robe'}   # robe: Magier (trachten.json)
+# 475: KLEID_MEHR=<teile> (Liste mit Komma): weitere Teile der Leute (Schuerze, Schal, Kopftuch, Reif, Sonne …, held_klassen.py LEUTE_KLEID)
+KLEID |= {t for t in os.environ.get('KLEID_MEHR', '').split(',') if t}
 # eng anliegend: Gewichte vom fremden Koerper darunter (bewegt sich wie er; mit unseren Gewichten stach er in jeder Haltung ausser
 # der Probe durch, pruef_tracht.py); Wappenrock und Umhang behalten unsere (folgen den Oberschenkeln nur zum Teil)
 ENG = {'belt', 'buckle', 'boots', 'chain', 'cuff', 'clasp', 'pants', 'sleeves'}

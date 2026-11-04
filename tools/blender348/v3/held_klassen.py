@@ -243,12 +243,12 @@ def beine_weg(o):
     print('BEINE WEG', len(weg), 'Ecken')
 
 
-def held3_tracht(figur, sex='m'):
+def held3_tracht(figur, sex='m', liste='trachten.json'):
     # Tracht aus held3.py und rig.py (FIGUR aus trachten.json, „held“: unser Held) in einem eigenen Ordner; Texturen und Karten aus OUT;
-    # sex w: dieselbe Tracht auf unserem Frauenkoerper (held3.py SEX)
+    # sex w: dieselbe Tracht auf unserem Frauenkoerper (held3.py SEX); 475: liste leute.json fuer die Leute des Dorfs
     o = os.path.join(ZIEL, 'roh_%s_%s' % (figur, sex)); os.makedirs(o, exist_ok=True)
     if not os.path.exists(os.path.join(o, 'tex')): os.symlink(os.path.join(OUT, 'tex'), os.path.join(o, 'tex'))
-    env = dict(os.environ, OUT=o, FIGUR=figur, LEUTE=os.path.join(HIER, 'trachten.json'), SEX=sex)
+    env = dict(os.environ, OUT=o, FIGUR=figur, LEUTE=os.path.join(HIER, liste), SEX=sex)
     # 376.1 Urteil Tracht (Chef 01.11., 20:2x: Farbstreifen durch den Umhang, Flecken in der Robe): rig.py baute auf 6000 Dreiecke fuer die
     # ganze alte Figur ab; der Kauffigur blieben Umhang 418, Robe 500 Dreiecke, die Lagen kreuzten sich (pruef_flecken.py). Hier ohne Abbau,
     # Umhang, Robe und Wappenrock als Gitter ausgeduennt (rig.py GITTER): Umhang 3028, Robe 3600 Dreiecke, Figur 25 000 bis 34 000
@@ -260,15 +260,25 @@ def held3_tracht(figur, sex='m'):
     return o
 
 
-def kaempfer(k, g, figur='', fuesse='', stiefel_bis=0.0):
+def kaempfer(k, g, figur='', fuesse='', stiefel_bis=0.0, liste='trachten.json', kopfteile=()):
     # unsere Tracht auf dem Kaufkoerper (kauf_kleid.py), dann Formschluessel am Kopf; figur: andere Tracht aus trachten.json;
     # fuesse: Stiefel aus den Kauftrachten statt unserer; g: Geschlecht (GESCHLECHTER)
+    # 475: liste leute.json (Leute des Dorfs, Kleidung und Kopfbedeckung aus held3 mit uebertragen, LEUTE_KLEID); kopfteile: Teile der
+    # Kauftrachten (Helm, Kapuze, Schal) statt unserer, wenn im Bestand
     G = GESCHLECHTER[g]
     roh = os.path.join(ZIEL, 'roh'); os.makedirs(roh, exist_ok=True)
     env = dict(os.environ, KOERPER=G['koerper'], KOPF='', HAAR='', BART='', FARBE='keine', STOPPELN='0', HAUT='mittel', FORM='',
                KENNUNG='held_' + k, ZIEL=roh)
     ohne = []
-    if figur:
+    kauf_kopf = []
+    for t in kopfteile:   # 475: Kaufteil je Geschlecht (Male_…_Head_Hood); fehlt es, bleibt unser Teil aus held3
+        n = sorted(x for x in QT.DATEIEN if x.startswith(G['v'] + '_') and x.endswith(t['kauf']))
+        if n: kauf_kopf.append(n[0]); ohne += t['statt']
+        else: print('FEHLT', G['v'], t['kauf'], '(bleibt', t['statt'], ')')
+    if liste != 'trachten.json':
+        env['OUT'] = held3_tracht(figur, G['sex'], liste)
+        env['KLEID_MEHR'] = ','.join(LEUTE_KLEID)
+    elif figur:
         env['OUT'] = held3_tracht(figur, G['sex'])
         ohne = json.load(open(os.path.join(HIER, 'trachten.json')))[figur].get('ohne', [])
     else:
@@ -295,6 +305,15 @@ def kaempfer(k, g, figur='', fuesse='', stiefel_bis=0.0):
                 bmesh.ops.delete(bm, geom=weg, context='VERTS'); bm.to_mesh(o.data); bm.free()
                 print('STIEFEL BIS', stiefel_bis, 'm,', len(weg), 'Ecken weg')
         netze += fm
+    for kt in kauf_kopf:   # 475: Helm, Kapuze, Schal aus den Kauftrachten
+        kn, kp = QT.datei(kt)
+        ko = [o for o in QT.importiere(kp)]
+        km = [o for o in ko if o.type == 'MESH']
+        a2 = next((o for o in ko if o.type == 'ARMATURE'), None)
+        vs = (QT.kopf_pos(arm) - QT.kopf_pos(a2)) if a2 and 'Head' in a2.data.bones else Vector()
+        QT.an_geruest(ko, arm, vs)
+        netze += km
+        print('KOPFTEIL', k, kt, len(km), 'Netze')
     haut, augen, brauen = kopfnetze(netze)
     beine_weg(haut)
     p = KO.merkpunkte(haut, augen)
@@ -589,6 +608,36 @@ def bewegungen():
             'gehen_m_je_s': tempo.get('Gehen', 0.0), 'rennen_m_je_s': tempo.get('Rennen', 0.0), 'becken_m': round(arm.data.bones['pelvis'].head_local.z, 4),
             'bewegungen': sorted(a.name for a in bpy.data.actions), 'ual': os.path.basename(pro) if pro else 'UAL1_Standard.glb', 'gekauft': bool(pro)}
 
+
+# 475 (Chef 03.11., 07:45/07:47): die Leute des Dorfs auf dem Kaufkoerper, je Person ihre Kleidung aus held3 (leute.json) und ein
+# eigenes Gesicht (Godot: heldfigur.gd person); LEUTE_KAUF=alle oder Kennungen mit Komma -> <ZIEL>/held_L_<id>_<M|W>.glb, leute-kauf.json
+# (nur trachten; Haare und Bewegungen kommen aus dem Heldenlauf). Uebertragen werden ausser der Kleidung des Helden (kauf_kleid KLEID):
+LEUTE_KLEID = ['apron', 'schal', 'latz', 'sun', 'sun_grund', 'sun_strahl', 'circlet', 'circlet_stein', 'tuch', 'tuch_zipfel',
+               'tuch_knoten', 'helm', 'helmrim', 'nasal', 'hood', 'kapuze', 'gugel']
+# Kopfbedeckung aus dem Bestand (LISTE-BESTAND, Modular Character Outfits): Kaufteil (Ende des Namens) statt unserer Teile
+LEUTE_KOPF = {'helm': {'kauf': 'Knight_Head_Armet', 'statt': ['helm', 'helmrim', 'nasal']},
+              'kapuze': {'kauf': 'Ranger_Head_Hood', 'statt': ['hood', 'kapuze', 'gugel']}}
+LEUTE_KAUF = [s for s in os.environ.get('LEUTE_KAUF', '').split(',') if s]
+if LEUTE_KAUF:
+    L = json.load(open(os.path.join(HIER, 'leute.json')))
+    ids = [i for i in L if i != '_liesmich'] if LEUTE_KAUF == ['alle'] else LEUTE_KAUF
+    lk = {'trachten': {}}
+    for i in ids:
+        f = L[i]
+        g = 'W' if f.get('sex') == 'w' else 'M'
+        k = 'L_%s_%s' % (i, g)
+        robe = f.get('rock') == 'robe'
+        kt = [LEUTE_KOPF[f['kopf']]] if f.get('kopf') in LEUTE_KOPF else []
+        try:
+            arm, netze = kaempfer(k, g, i, GESCHLECHTER[g]['fuesse'], 0.18 if robe else 0.0, 'leute.json', kt)
+        except SystemExit as e:
+            print('LEUTE FEHLER', i, e); continue
+        lk['trachten'][k] = {'kleid': 'leute:' + i, 'geschlecht': g, 'kopf': godot(QT.kopf_pos(arm)), 'dreiecke': dreiecke(netze),
+                             'netze': sorted(o.name for o in netze)}
+        print('LEUTE', k, lk['trachten'][k]['dreiecke'], 'Dreiecke')
+    json.dump(lk, open(os.path.join(ZIEL, 'leute-kauf.json'), 'w'), indent=1, ensure_ascii=False)
+    print('LEUTE KAUF OK', sorted(lk['trachten']))
+    raise SystemExit(0)
 
 info = {'formen': FORMEN, 'statur': list(STATUR), 'haut': {k: list(v) for k, v in KO.HAUT.items()},
         'haarfarben': {k: list(v) for k, v in QT.HAAR.items()}, 'herkuenfte': HERKUENFTE, 'klasse_herkunft': KLASSE_HERKUNFT,
