@@ -378,6 +378,7 @@ func ueber() -> void:
 	var seite := Control.new()
 	seite.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(seite)
+	Zurueck.melde(seite, func(): seite.queue_free())   # 526: Android-Zurück wie „Zurück“ (alt AboutScreen BackHandler)
 	var bg := ColorRect.new()
 	bg.color = Color.BLACK
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
