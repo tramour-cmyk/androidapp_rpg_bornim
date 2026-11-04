@@ -78,6 +78,10 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/signatur_457.gd > signatur.log 2>&1 || true
           grep -E "^FEHLER|Signatur 457|SCRIPT ERROR" signatur.log | head -40
           grep -q "Signatur 457: 0 Fehler" signatur.log
+      - name: Tote bleiben liegen (573)
+        run: |
+          cd godot
+          set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/tote_573.gd 2>&1 | grep -E "^(FEHLER|tote_573)|SCRIPT ERROR"
       - name: Kampfort aus einem Aufruf (399.2, wie aus dem Dorf)
         run: |
           cd godot
