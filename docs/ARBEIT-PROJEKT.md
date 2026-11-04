@@ -37,7 +37,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 338.1 | M | **von Sokrates (Chef 23.10., 09:01/09:05):** „wird es mir nie vorgelegt, wie weit wir da eigentlich stehen“; „dazu brauche ich auch regelmäßige Feedback“. „Stand zum Marktstart“ in `PROJEKTPLAN.md` | gebaut 02.11., 20:02, Geprüft an: 4f3bacbda; Stand je Stufe im Projektplan |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 06.11.: behalten (Chef 26.10., 11:15, Archiv); Zahlen mit Zielvereinbarung 341 |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
-| Pflege | K | **von Werkzeug (340.3, 04.11.):** 17721 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14, 19, 38; CLAUDE.md: 15468 Bytes (Grenze 15000), kürzen; docs/LISTE-VORGAENGE.md: 41219 Bytes (Grenze 15000), Erledigtes ins Archiv | startbar |
+| Pflege | K | **von Werkzeug (340.3, 04.11.):** 17721 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14, 19, 38; CLAUDE.md: 15468 Bytes (Grenze 15000), kürzen; docs/LISTE-VORGAENGE.md: 41219 Bytes (Grenze 15000), Erledigtes ins Archiv | ruht bis Sa 07.11., 20:00: Guthaben 79 %, nur Spiel (468c, 287) |
 
 ## Einzelheiten
 
@@ -52,7 +52,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 - **Fehler 341 (Chef 03.11., 07:54):** „wenn Jerry nicht den größten Teil der Arbeit tragen soll, muss man es halt besser aufteilen … Dafür habe ich einen Betriebsleiter und einen Berater und einen Revisor.“ Perikles hatte die Schieflage (Jerry 38 von 45 Sitzungen) nur als Risiko gemeldet statt neu zu verteilen. Behoben 07:5x (4c4937771): Spike Wald, Kampforte Wald, Untote (493, 506); Tom Blutzahnhöhle (492); Jerry übrige Gegner, Kampforte Höhle (494, 507). Lehre: eine Schieflage, die Perikles selbst ändern kann, wird verteilt, nicht gemeldet.
 
 - **von Sokrates (Chef 02.11., 20:22, „427.1 A mit 1 und 2“, Archiv 427.1):** im Projektplan bei O8 (Blutzahnhöhle) vermerken: Krogg erst abnehmen, wenn Morwens Rauch im Spiel zu bekommen ist (O7); Hinweistext 427.2 bei Homer.
-- **Zu 479, von Sokrates (Chef 02.11., 18:34–18:41):** Wortlaute in Git (Stand bb5e43735); umgesetzt im Projektplan (je Ort und Weltmerkmal eine Zeile, Quelle alter Code und `LISTE-UMZUG-348.md`, 490–493).
 
 - **von Team Jerry (02.11., 19:4x, zu 479):** 416.6 Spuren des Helden (Regel `spuren.gd` fertig) hängt an Regen in Godot; Wetter steht in `LISTE-UMZUG-348.md` bei Tom ohne Zeile in seinem Vorrat. **03.11., 09:5x:** Blut passt, Staub und Fußspuren gebaut (693d333c1); Fußspuren zeigen sich erst mit Regen (Abnahme W3 „fehlt“, weiter ohne Vorgang).
 
