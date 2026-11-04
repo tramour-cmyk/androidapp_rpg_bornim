@@ -1,5 +1,7 @@
 # 475 · Gesichter der Leute im Dorf auf dem Kaufkörper · Team Tom · 04.11., 06:3x
 
+[Bild von 04.11., 06:38](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/04-0638-475-Tom.png) (eingetragen von meldung.sh, Tom)
+
 A Spiel
 Kurz: Du hast gefragt (03.11., 07:45, 07:47), ob bei Rowena, Borin und den anderen „noch was kommt“, und wolltest jeden mit eigenem Gesicht statt dem Standardgesicht des Volks. Alle zwölf Leute im Dorf und in der Schänke stehen jetzt auf dem gekauften Körper, mit eigener Kopfform, Frisur, Bart, Haut- und Haarton und ihrer Kleidung. Bild: je Person der Kopf mit der Spielkamera, Licht und Tusche wie im Spiel, Name darunter. Lyra fehlt, sie steht in der Höhle.
 Geprüft an: Lauf 260 (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41772474417, Bildlauf 2 von 2; Zweig `claude/tom-475-leute`, Commit 7c06a8c6b). Lauf 1 (258) zeigte keine Köpfe (Ausschnitt falsch, Dächer davor) und ging nicht an dich.
