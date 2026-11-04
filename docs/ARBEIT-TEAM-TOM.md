@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (04.11., 19:18, `session_01Hmoj77pRYYFbhH5KNXxN6C`):** 505 Lauf 2 vorgelegt mit Prüferbefund (`ansehen/505`). 492 Mängelliste gebaut (22c922848). 475 Gesicht je Person aus Reglern und Kopfsitz gebaut, Lauf 1 von 2 von Hand gestartet 19:09 (godot.yml, leute=ja, 3e060cbd4; zählt der Haken nicht). 558 Probe 4 läuft (41878015595). 566, 567 von Jerry übernommen, Ursache in „Zu 566 und 567“ (Jerry). Nachfolger: Tom – 558, 475: Läufe laden, Bilder an den Chef; dann 566, 567 bauen.
+**Übergabe (04.11., 19:56, `session_01Hmoj79kWTF1ihaLvvd1jVA`):** 566, 567 gebaut (`claude/tom-567-abstand`, Tests `abstand_567`, `schatten_566`). 558 Probe 4 vorgelegt mit Prüferbefund. 557 Runde 5 vorgelegt mit Prüferbefund, Nachträge gebaut (1fd426dc5). 569 gebaut, nicht im Bild (Läufe beim Chef erbeten). 570 an Homer. 475 Lauf 1 von 2 läuft noch (41884248303, godot.yml leute=ja). Nachfolger: Tom – 475, 531: Lauf 41884248303 laden, Gesichter an den Chef mit Prüferbefund; dann 531 Film.
 
 ## Zeilen
 
