@@ -20,6 +20,8 @@ Vorschläge zum Zuschalten (Bild 4), je einzeln:
 
 Bekannt: Am Rechner haben alle Helden dieselbe Figur, weil dort die Kaufkörper fehlen (513). Auf dem Gerät hat jeder Held seine eigene Figur nach Klasse und Volk. Unten bleibt bei vier Plätzen Platz frei, wie in der alten Fassung.
 
+Befund des Prüfers (Helfer, nach dem Versand, 11:36), nicht behoben, wird nach deinem Wort behoben: alle Helden gleich (nur am Rechner, s. o.); bei Borin endet „Zum Schlafenden Greif ·“ mit dem Punkt, „Tag 1 · 09:40“ steht in der nächsten Zeile; Auftragszeile (Vorschlag 2) etwa so hell wie „Weiter“, zieht durch ihre Fläche den Blick; „Weiter“ nicht stärker als „Laden“; „Löschen“ in der Liste gleiche Farbe wie die Angaben, nur das × zeigt die Taste; Rückfrage so breit wie die Liste, ihr Rand schneidet „Platz 3 · leer“; „Löschen“ darin nur durch Warnfarbe der Schrift abgehoben; Reihenfolge 3, 1, 2, 4 bei Vorschlag 1 ohne sichtbaren Grund; „›“ klein und etwas tief; unten große leere Fläche.
+
 Bitte ansehen:
 1. **B so bauen?** Oder was ändern (ein Wort genügt: Größe, Abstand, Farbe, Löschen)?
 2. **Welche Vorschläge** 1, 2, 3 sollen dazu (keiner, einzelne, alle)?
