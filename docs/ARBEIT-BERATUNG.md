@@ -10,7 +10,6 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 475a | M | Rückfrage: Kapuzen und Helme der Leute nur mit freiem Gesicht oder im Dorf gar nicht? (Chef 13:26) | wartet auf Chef: entscheiden/475a |
 | 549a | M | Rückfrage: Oberfläche ohne Kasten (549 B) als Grundsatz, Spielstände als zweiter Schirm? (Chef 11:12) | wartet auf Chef: entscheidet nach der nächsten Vorlage 557 (Chef 12:42); Ausnahmen Kampf, Behälter sinnvoll |
 | 468c | M | Rückfrage: Wochenlimit 79 % (Bild Chef 04.11., 07:11), bis Sa nur eine Entwicklersitzung zugleich? | wartet auf Chef: entscheiden/468c |
 | 512 | M | **von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles):** Abgleich alt gegen neu wirkt nicht: Funde des Chefs in Build 249 (503, 519, 520, 521) | in Arbeit: Abgleich Build 249 verteilt (523–543); t251–t257 mit Zeile „Verglichen“; Wächter 512.1 bei Perikles; Wirkung am nächsten Chef-Test prüfen |
