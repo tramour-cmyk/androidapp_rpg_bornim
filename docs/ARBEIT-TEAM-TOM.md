@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (04.11., 03:24, `session_01Hmoj79WXZkWnNXMfF5RpcV`):** Build 255 läuft (PR #183, t255; 525 wartet auf ansehen/525); Läufe 254, 256 laufen (Stand der Zeilen). Keine Weckrufe offen. Nachfolger: Tom – Build 255 melden, Läufe 254 (495) und 256 (416.8) auswerten, dann 475.
+**Übergabe (04.11., 04:13, `session_01Hmoj75bf2LJKXxLi4LKXiN`):** Gebaut: 475 Leute auf Kaufkörper (Zweig `claude/tom-475-leute`, Lauf 258 41763038122 läuft: Schritt „Held je Klasse“ Zeilen LEUTE/FEHLT, Artefakt `leute475/leute_gesichter.png`, Bildlauf 1 von 2); 453.2, 477, 504.1 gebaut; 495 Fix in Lauf 259 (41763880020, bild=nein); 513 Probe 3 (Lauf 41764123036, spike-probe-513). Build 255 (PR #183) und Lauf 256 (416.8) laufen noch. Keine Weckrufe offen. Nachfolger: Tom – Läufe 258 (475 Gesichter an den Chef), 259 (495), 513 Probe 3 auswerten, Build 255 melden.
 
 ## Zeilen
 
@@ -102,7 +102,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 447.4.1 | M | **von Homer (447.4, Chef 03.11., 15:50 „1B 2A“):** Lehrmeister, Meisterschaften, Ruf in Kapitel 1 bauen nach `STORY-LEHRMEISTER-K1.md` und `STORY-RUF-K1.md` („Für Tom“, Varianten), Lehrmeister in der Karte | wartet auf 508 (Sokrates: Einladung in Kapitel 1 erreichbar?) | – |
 | 133 | K | Charisma-Wahlen Kapitel 2 (`STORY-WAHLEN.md`) | ruht: altes SRD-System (Chef 31.10.) | – |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (Kapitel 2 nicht im Spiel) | – |
-| Pflege | K | **von Werkzeug (340.3, 04.11.):** 70458 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 20; Zeile Pflege wartet auf t248, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile Pflege wartet auf t248, aber keine Datei in docs/chefsache/ans … | startbar |
+| Pflege | K | **von Werkzeug (340.3, 04.11.):** 70458 Bytes (Grenze 15000), Erledigtes streichen (Zeilen über 400 Zeichen behoben, Tom 04.11.) | wartet auf Perikles: 70 KB, Umbau nötig |
 
 ## Einzelheiten
 
@@ -138,7 +138,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 - **Zu 519, von Sokrates (gesehen, nicht vom Chef):** Ring zeigt „+1 alle Attribute“, „+2 Geschicklichkeit“, „+2 Charisma“, Vergleich aber Charisma 11 → 12, Geschicklichkeit und Stärke fehlen; nachrechnen, ob Anzeige oder Wert falsch. **Chef 04.11., 00:12: „519 passt“** (zu `ansehen/519-gegenstandsfenster.md`, Bild 23:51); Spike: Datei löschen, Archiv, Gerätetest mit nächstem Build.
 
-- **Zu 518, von Sokrates (Chef 03.11., 21:32):** „Liegen lassen, Tom soll 518 jetzt beheben“. **Ursache (Tom 21:4x):** `toon.gdshader` schrieb `POSITION` nur am Helden; behoben 4f9ca1dce, Test `position_518`.
 
 - **Zu 504.1, von Homer:** `[504.…]` aus `STORY-VARIANTEN-K1.md` und `-K1-WALD.md` in `geschichte.gd`, Türen (`Story.kt`/Export), Schlagbaum, `rast.gd`, Erwachen; Wahl je Marke im Spielstand (Regeln oben in der Datei); Chef urteilt beim Gerätetest. Dazu aus `STORY-K1-HANDLUNG.md`: `[427.2.rauch]` (Hinweis nach Niederlage gegen Krogg, Chef 02.11. aus 427.1) und `[427.2a.morwen.rauch]` (Morwen gibt nach jeder Niederlage gegen Krogg beim nächsten Besuch ein neues Rauchbündel, Chef 03.11., 15:44; heute verhindert `SMOKE_GIVEN` in `wants_smoke` das).
 - **Zu 513 (Spike 03.11., 17:4x):** Probe 1 (41673495083): Schild aus „Stehen“: unten 5,4 / 0,9 cm; Robe: Kittel 4 mm durch; Umhang: Gürtel, Ärmel. Probe 2: Kittel, Gürtel, Ärmel weiter weg.
