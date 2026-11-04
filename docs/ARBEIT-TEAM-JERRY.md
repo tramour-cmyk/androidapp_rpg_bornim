@@ -11,12 +11,12 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 527 | M | **von Sokrates (512, Abgleich Build 249 im Code; Zu 527):** System: Schalter „Tempo“ und „Kampftext“ wirken im Kampf nicht; anschließen oder ausblenden, bis sie wirken | wartet auf Build: 251 (t251, PR #181, claude/build-555) | – |
-| 548 | M | **von Sokrates (Chef 04.11., 00:03, Build 249, Bild; Zu 548):** „Gegen Ratten gespielt. Die starben ohne mein Zutun alle drei?!? …“ | wartet auf Chef: entscheiden/548a; am Rechner mit Daten aus Build 249 nicht nachgestellt (welt_548, ratten_548, Zu 548) | – |
+| 548 | M | **von Sokrates (Chef 04.11., 00:03, Build 249, Bild; Zu 548):** „Gegen Ratten gespielt. Die starben ohne mein Zutun alle drei?!? …“ | ruht bis zur Antwort auf 548a (Chefsache): am Rechner mit Daten aus Build 249 nicht nachgestellt (Zu 548) | – |
 | 548a | M | Rückfrage: wo hast du im Rattenkampf und im Probekampf getippt (Ring, Haken)? | wartet auf Chef: entscheiden/548a | – |
 | 551 | M | **von Sokrates (Chef 04.11., 00:21, Build 249):** „MARS Kasten links und rechts unten wird unterbrochen angezeigt …“ | wartet auf Build: 252 (t252, PR #182) | – |
 | 552 | M | **von Sokrates (Chef 04.11., 00:22, Build 249):** „MARS Zugreihenfolge oben fehlt“ | wartet auf Build: 252 (t252, PR #182) | – |
 | 553 | M | **von Sokrates (Chef 04.11., 00:26, Build 249, Bild; Zu 553):** „Was ist das für ein graues Tier??????“ Flüsterwald bei Garricks Feuer | wartet auf Build: 252 (t252, PR #182) | – |
-| 545 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS-Probekampf: Testknöpfe „Gegner besiegen“ (✓) und „Held fällt“ (✗) ohne Funktion | wartet auf Chef: entscheiden/548a; Haken gewinnt im ganzen Spiel (welt_548), claude/jerry-545-testknoepfe | – |
+| 545 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS-Probekampf: Testknöpfe „Gegner besiegen“ (✓) und „Held fällt“ (✗) ohne Funktion | ruht bis zur Antwort auf 548a (Chefsache): Haken gewinnt im ganzen Spiel (welt_548) | – |
 | 546 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS: Wölfe weichen viel zu träge aus („wie Schlaftabletten“) | wartet auf Build: 252 (t252, PR #182) | – |
 | 547 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS: Text sagt „geht in die Knie“, Sturz ist aus (438a eingefroren): Text und Bild in Einklang bringen | wartet auf Homer: Zwischentexte ohne Fallen oder Sturz zuerst (ARBEIT-KREATIV 547) | – |
 | 544 | M | **von Sokrates (Chef 03.11., 23:49, Build 249, Bild MARS-Probekampf: „Stimmt die Schrift?“):** Kampfschirm in Ersatzschrift ohne Serifen statt Alegreya wie Menü (Zu 544) | wartet auf Build: 251 (t251, PR #181, claude/build-555) | `claude/jerry-544-kampfschrift` |
