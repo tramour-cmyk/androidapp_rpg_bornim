@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (04.11., 05:50, `session_01Hmoj76sGuuMNEyj793HrVa`):** Build 255 gemeldet (in 257 enthalten); 513 behoben 52bb6dfe1 (Test schild_513), Probelauf bei Sokrates erbeten; 495 Tür doppelt behoben bf8106b22/8488de499, Lauf 261 (41772544657) läuft; 475 Gesichterblatt behoben 7c06a8c6b, Lauf 260 (41772474417, Bildlauf 2 von 2) läuft. Lauf 256 hängt im Schritt Blender. Weckruf 06:35. Nachfolger: Tom – Läufe 260 (475 an den Chef), 261 (495 Saat 1) auswerten.
+**Übergabe (04.11., 06:42, `session_01Hmoj76sGuuMNEyj793HrVa`):** Build 255 gemeldet; 513 behoben 52bb6dfe1, Probelauf bei Sokrates erbeten; 495 Tür behoben (Lauf 261: Höhle in 60 min, dann fehlt Krogg ohne 494, Hinweis bei Jerry); 475 Gesichter an den Chef (ansehen/475, Prüferfunde dort). Lauf 256 hängt im Schritt Blender. Keine Weckrufe offen. Nachfolger: Tom – 475 Funde beheben nach Wort des Chefs, 513 Probelauf nach Freigabe.
 
 ## Zeilen
 
