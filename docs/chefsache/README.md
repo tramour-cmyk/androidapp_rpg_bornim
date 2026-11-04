@@ -44,7 +44,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 101, Muss 80, startbar 10
+**Tom** – offen 101, Muss 80, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -54,7 +54,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 557 | M | von Sokrates (Chef 04.11., 11:15; Zu 557): Spielstände als Entwurf im Stil „ohne Kasten“ ( | startbar |
 | 558 | M | von Sokrates (Chef 04.11., 11:31, Bild Build 257; Zu 558): Robe des Magiers zu glatt: Stof | startbar |
 | 556 | M | von Sokrates (Chef 04.11., 07:52; Zu 556): Blenden reines Schwarz statt Leuchten, Lesezeit | wartet auf Test/Build (gebaut) |
-| 531 | M | von Sokrates (Chef 03.11., 23:42, Build 249; Zu 531): Garrick: „Gesicht wirkt sonderbar, B | startbar |
+| 531 | M | von Sokrates (Chef 03.11., 23:42, Build 249; Zu 531): Garrick: „Gesicht wirkt sonderbar, B | wartet auf Sokrates |
 | 530 | M | von Sokrates (Chef 03.11., 23:40, Build 249): „Schlagbaum öffnet sich nicht visuell.“ Merk | wartet auf Test/Build (gebaut) |
 | 522 | M | von Sokrates (Chef 03.11., 23:33, Build 249; Zu 522): „im Testmenü Ausrüstung des Helden g | wartet auf Test (Build) |
 | 521 | M | von Sokrates (Chef 03.11., 23:23, Build 249, Bild; Zu 521): Wechselschirm (Platz antippen) | wartet auf Test (Build) |
@@ -288,10 +288,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 | Pflege | K | von Werkzeug (340.3, 04.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
-**Sokrates** – offen 38, Muss 28, startbar 17
+**Sokrates** – offen 39, Muss 29, startbar 17
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 531 | M | von Team Tom (04.11., 20:12; 480.1, Chef 19:27 „Film statt Bild“): Bitte Archiveintrag „53 | wartet auf Sokrates |
 | 512 | M | von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles): Abgleich alt gegen ne | startbar |
 | 415d.1 | M | von Chef (04.11., 19:56, „Brauchen wir das jetzt? Brauchen wir es nicht? Wir haben noch ga | Chef (Datei in der Chefsache) |
 | 508 | M | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
