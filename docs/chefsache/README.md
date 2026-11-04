@@ -22,6 +22,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [531](ansehen/531-garrick.md) | Garrick am Feuer: wie er aussieht und wie er Tiere mit der Fackel vertreibt | – | 04.11., 00:16 |
+| [557](ansehen/557-spielstaende.md) | Stil B, vierte Runde: alle Knöpfe gleich groß, Seite nach Bedeutung | – | 04.11., 18:20 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
