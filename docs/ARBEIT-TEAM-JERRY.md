@@ -94,7 +94,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht: SRD (Chef 31.10.) | – |
 | 469 | M | **von Sokrates:** Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 406.1 | – |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht: Klang zieht nach Godot; Rest `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
-| Pflege | K | **von Werkzeug (340.3, 04.11.):** 35088 Bytes (Grenze 15000), Erledigtes streichen; Zeile 552 wartet auf t252, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 533 wartet auf t252, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 453.1 wartet auf t249, aber keine Datei … | startbar |
+| Pflege | K | **von Werkzeug (340.3, 04.11.):** 39787 Bytes (Grenze 15000), Erledigtes streichen; Zeile 552 wartet auf t252, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 533 wartet auf t252, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 534 wartet auf t257, aber keine Datei i … | startbar |
 ## Einzelheiten
 
 - **Zu 415, von Sokrates (Chef 04.11., 10:48, Bild ohne Worte, Build 250, 250.1):** Renderer mobile: Ohne Strahl Mittel 26 Bilder/s, Blauer Laser 24, Feuerstrom 24, Blitzbogen 25 (Kopfzeile „25 Bilder/s · Renderer mobile“). Strahlen kosten also 1–2 Bilder/s; die Grenze setzt der Kampfort selbst. Bild: `chefsache/bilder/415-strahlen-mobile.webp`. **10:51 gl_compatibility:** Ohne Strahl 44, Blauer Laser 33, Feuerstrom 34, Blitzbogen 34 (Bild `415-strahlen-gl.webp`): Grundlast deutlich niedriger, Strahlen kosten dort 10–11 Bilder/s. t250 damit erledigt; dein Renderervorschlag an den Chef (mit Bildvergleich beider Renderer, über das Aussehen urteilt er).
