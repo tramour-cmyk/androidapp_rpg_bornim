@@ -37,7 +37,7 @@ Verglichen (alt gegen neu): Reiter „Test“ (`TestTab.kt`); `SkirmishScreen.kt
 | 252.4 ✗ (Chef 16:56, Gegnernamen fehlen; Zugkreis 561) | Jerry | 536 | lang auf das Zeichen über einem Wolf drücken (die Ansage), dann lang auf einen Wolf selbst | Ansage: was sie heißt und was hilft; Wolf: Name, Absicht und auf wen | nichts erscheint |
 | 252.5 ✓ (Chef 17:06) | Jerry | 546 | Probekampf, zusehen, wenn ein Wolf einem Schlag ausweicht | er springt flink im Lauf zur Seite und kehrt dann zurück | er schleicht im Schritt weg („Schlaftabletten“) |
 | 251.8 ✓ (Chef 17:11) | Jerry | 527 | System „Tempo“ schnell, dann noch ein Probekampf | der Kampf läuft schneller; „Kampftext“ ist ausgeblendet | Tempo ohne Wirkung |
-| 251.9 | Jerry | 532 | Zauberwirker: einen Zauber wirken, Kampf beenden, gleich noch einen Kampf; danach rasten | Zauberpunkte und Verbrauchtes kommen aus dem ersten Kampf mit, Zustände bleiben; nach der Rast voll | jeder Kampf beginnt voll |
+| 251.9 – im Probekampf nicht prüfbar (Chef 17:12: Stufe frei wählbar, Werte simuliert); mit eigenem Helden in E | Jerry | 532 | **Im Flüsterwald (E) mit dem eigenen Helden**, wenn er zaubern kann (Zauberwirker, Kleriker, Paladin): einen Zauber wirken, Kampf beenden, gleich noch einen Kampf; danach rasten | Zauberpunkte und Verbrauchtes kommen aus dem ersten Kampf mit, Zustände bleiben; nach der Rast voll | jeder Kampf beginnt voll |
 
 ## D · Dorf
 
