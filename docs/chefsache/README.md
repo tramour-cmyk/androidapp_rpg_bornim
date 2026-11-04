@@ -23,6 +23,7 @@ Nichts offen.
 |---|---|---|---|
 | [531](ansehen/531-garrick.md) | Garrick am Feuer: wie er aussieht und wie er Tiere mit der Fackel vertreibt | – | 04.11., 00:16 |
 | [557](ansehen/557-spielstaende.md) | Stil B, dritte Runde: Gegenstand ohne Rahmen, Kopf mit Zierlinie, Rast | – | 04.11., 17:11 |
+| [558](ansehen/558-robe.md) | Robe des Magiers, Probe 3: Falten voll, Spuren nach Zustand | – | 04.11., 17:23 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
