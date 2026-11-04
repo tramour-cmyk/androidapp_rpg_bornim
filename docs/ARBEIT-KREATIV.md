@@ -5,14 +5,13 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `32f9f2424` (03.11., 20:52)
 
-**Übergabe (03.11., 20:53):** 427.2a `[427.2a.morwen.rauch]` (`STORY-K1-HANDLUNG.md`, Niederlagezeilen mit Hinweis auf Morwen); 447.4 nach „1B 2A“: Varianten, Nachfrage, Karte, Wechselzeile in `STORY-LEHRMEISTER-K1.md` und `STORY-RUF-K1.md`; beides fremd geprüft, Befunde eingearbeitet; Bau bei Tom (504.1, neu 447.4.1 wartet auf 508). Nachfolger: keiner (468a).
+**Übergabe (04.11., 14:05):** 547 Zwischentexte ohne Sturz `[547.auf]`, `[547.wolf.sprung.stoss]`; 535 Schamane `[535.schamane.…]` (beide `STORY-SPIEL.md`, fremd geprüft, Bau bei Jerry). Nachfolger: keiner (468a).
 
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 535 | M | **von Team Jerry (04.11., 02:4x; Abgleich 512 „Schamane ohne Heilen“):** MARS-Ansagen des Goblin-Schamanen de/en wie die übrigen („Schwerer Hieb“, „Rudel rufen“): Heilzauber, Fluch (Schwäche), Feuerstoß; alte Kampfzeilen in `Battle.kt` (Msg.shamanHeals, shamanCurse, shamanBolt) | startbar |
 | 432 | K | **von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt mir sehr gut“):** eigenes Volk prüfen, mit der Geschichte ab Kapitel 2 | ruht: Storyplan, Kult-Antwort und Abgleich K2 fertig (STORY-PLAN.md, Aschgeborene); Chefsache erst nach dem Meilenstein, vor dem Bau; Volk selbst in 432.3 |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |
