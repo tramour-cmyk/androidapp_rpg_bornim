@@ -1,5 +1,7 @@
 # 505 · Nebel, Randwald, Kamera und Ausgänge in Wald, Dorf und Höhle · Team Tom · 04.11., 15:59
 
+[Bild von 04.11., 15:59](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/04-1559-505-Tom.png) (eingetragen von meldung.sh, Tom)
+
 A Spiel
 Kurz: Dein Urteil von 14:06 („505c“) umgesetzt, erster von zwei Durchgängen. Nebel nach B, dahinter ein Randwald ohne Nebel, der ins Dunkel ausläuft, die Kamera bleibt über der Karte, die Wege laufen über den Rand hinaus weiter. Sag „passt“ (dann kommt es nach dem zweiten Durchgang, der die Punkte unter „Bekannt“ behebt, in den nächsten Build) oder was anders sein soll.
 
