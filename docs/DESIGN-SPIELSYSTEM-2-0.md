@@ -663,7 +663,8 @@ Ausgangslage im Code (gelesen am 30.10.2026):
 | Holz, Pflanzenfasern | Wald | (frei) | Eschenholz, Hanf |
 | Beuteteile | Monster | (frei) | Krallen, Zähne |
 
-- **Ernten ist eine kurze Aktion am Fundort.** Auf dem Handy ohne Minispiel: tippen, kurz warten, Ergebnis. Das ist angenehm kurz und passt zum bestehenden Pflücken auf Blumenwiesen.
+- **Ernten ist eine sichtbare Handlung am Fundort** (entschieden 568, Chef 04.11., 19:42): die Pflanze steht sichtbar in der Welt; der Held geht hin, der Aktionsknopf zeigt „Ernten“; Tippen: er geht in die Hocke und pflückt (höchstens 1,5 s, Weiterlaufen bricht ab); danach ist die Stelle sichtbar abgeerntet und wächst nach. Kein Einsaugen im Vorbeilaufen mehr. Weniger, dafür ergiebigere Stellen (ein Griff 1–3, nach Kräuterkunde). Erz, Holz, Zerlegen je mit eigener kurzer Bewegung, sobald der Rohstoff ins Spiel kommt.
+- **Angeln** (568 A, Chef 19:42): Fischstellen erkennt man am unruhigen Wasser (Ringe, Kräuseln, springender Fisch); Auswerfen, die Pose treibt, 3–12 s bis zum Biss (Ort, Tageszeit, Köder), vorher manchmal Fehlbisse (Zucken); taucht die Pose unter, Platschen und der Ring aus dem Kampf: zu früh oder zu spät Fisch weg, gut Fisch, perfekt größer oder seltener; große Fische zwei bis drei Ringe (Drill). Angeln macht den Ring breiter, Wahrnehmung zeigt Fehlbisse. Ein Wurf, ein Fisch; eine Stelle gibt wenige Fische, dann ist das Wasser ruhig. Jederzeit abbrechen.
 - **Menge und Qualität** wachsen mit dem Rang der passenden Fertigkeit. Ernten übt sie.
 - **Nachwachsen:** Fundorte erneuern sich nach einer Zeit (zum Beispiel nach einer langen Rast oder einem Spieltag).
 - **Seltene Stellen:** Wahrnehmung entdeckt versteckte Fundorte. Gefundene Stellen stehen auf der Karte.
