@@ -69,6 +69,7 @@
 
 ## Lehren
 
+- Jede Rückmeldung des Chefs zu einer Vorlage, auch ohne Entscheid und auch, wenn sie über eine andere Rolle kam: im selben Commit Datei in `ansehen/` löschen und Stand auf „startbar“ setzen (`vorgang.py stand`); eine Zeile „Zu …“ allein startet nichts (04.11., 16:15: 557 lag nach 14:26 zwei Stunden auf „wartet auf Chef“; Chef: „wieso passiert das wieder?“).
 - Fasst der Chef Vorgänge zusammen, sofort alle offenen der Chefsache auf dieselbe Frage prüfen, nicht nur den genannten (04.11., 13:43: 524.1, 537, 525 einzeln gefunden; Chef: „bevor ich jetzt jedes Mal nachfragen muss … Echt nervig wieder heute“).
 - Beim Start jede offene Datei der Chefsache gegen das Archiv halten: steht der Entscheid schon dort, Datei sofort löschen; und vor dem ersten Wort an den Chef die letzte Sitzung lesen (`list_sessions`), was der Chef dort schon entschieden hat (02.11., 19:0x: 417 zum zweiten Mal vorgelegt, „Blatt“ trotz Chef 18:49 benutzt, Auftrag doppelt als 482; Chef: „jetzt langsam völlig irre“). Jede Rückmeldung des Chefs sofort im Chat beantworten, erst dann eintragen (Chef: „4 Sachen geäußert und nirgends … Feedback“).
 - Beispiele des Chefs sind keine Liste: einen Auftrag immer mit der vollständigen Quelle (alter Code, Umzugsliste, DESIGN) weitergeben, nie nur seine Beispiele (02.11., 479: Chef 18:41 „kann nicht sein, dass ich mir das alles einfallen muss“). Vor einer Aufzählung alle Quellen lesen, nicht eine (Völker: Aschgeborene übersehen, 16:27).
