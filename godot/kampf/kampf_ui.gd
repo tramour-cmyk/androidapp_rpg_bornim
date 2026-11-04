@@ -79,6 +79,14 @@ func t(de: String, en: String) -> String:
 	return de if lang == 0 else en
 
 
+## 552 (Chef 04.11., 00:22, Build 249: „MARS Zugreihenfolge oben fehlt“; oben nur ein schwarzer Streifen): die Welt legt über
+## alles ein schwarzes Band, so hoch wie die Kamera des Handys (Rand, 399.4, Ebene 119 über dem Kampf); der Kampf kannte es nicht
+## und zeichnete die Zugleiste darunter. Dieselbe Höhe wie das Band (beim Start der Welt), sonst die sichere Fläche jetzt.
+var turns_top := 0.0     # Oberkante der Zugleiste (Test zugleiste_552)
+func rand_oben() -> float:
+	return Rand.beim_start if Rand.beim_start >= 0.0 else Rand.oben(get_viewport())
+
+
 ## Schriftgröße wie Theme.kt im schwarzen Stil: sp × 0,95 × 1,04, mindestens 13,7 sp.
 func sp(v: float) -> int:
 	return int(maxf(v * 0.95 * 1.04, 13.7) * dp)
@@ -175,6 +183,7 @@ func _ready() -> void:
 	root.add_child(verdict)
 	full_log = PanelContainer.new()
 	full_log.set_anchors_preset(Control.PRESET_FULL_RECT)
+	full_log.offset_top = rand_oben()     # 552: der ganze Bericht beginnt unter dem Band über der Kamera
 	full_log.add_theme_stylebox_override("panel", _box(Color.BLACK, GOLD, 10, 10, 1.0))
 	full_log.visible = false
 	full_log.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -1598,7 +1607,8 @@ func _draw_turns(sr: Rect2) -> void:
 	var m = k.mars
 	var fs := sp(13)
 	var x := 6 * dp
-	var y := 6 * dp
+	var y := 6 * dp + rand_oben()     # 552: unter dem schwarzen Band über der Kamera des Handys (Rand, 399.4)
+	turns_top = y
 	var h := fs * 1.35 + 4 * dp
 	var q: Array = []
 	for id in k.shown.get("queue", []):
