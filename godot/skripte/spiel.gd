@@ -37,6 +37,7 @@ var naechster_ruf := 0                           # 134.3 Game.nextCallAt: vorher
 var spricht_mit := ""                            # bis das Gespraech vorbei ist, dann gilt gehoert (Game.talkingTo)                        # 399.1 Anschlagbrett (Mode.Board)
 var herde: Herde                                 # 490 Monster auf der Karte (herde.gd, streuner.gd)
 var im_kampf := false                            # 490: vom Angriff bis zurueck auf der Karte
+var nebel: Nebel                                 # 505 Nebel des Krieges in der Wildnis (nebel.gd)
 var kraut_tag := -1                              # 490 Heilkraeuter: fuer welchen Tag sie stehen (Game.herbDay)
 
 func _ready() -> void:
@@ -94,6 +95,7 @@ func _ready() -> void:
 	tiefwald_bilder()
 	gluehen_bilder()
 	hoehle_bilder()
+	nebel_bilder()
 	if FigurenProbe.an(): add_child(FigurenProbe.new(self))   # 376.1 Probeblatt Quaternius-Figuren (figurenprobe.gd)
 
 # 399: Spielbeginn aus dem Hauptmenue: geladen an den gespeicherten Ort, sonst ein neues Spiel mit frischem Zustand (Test 139: das neue
@@ -138,6 +140,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	if leute: leute.queue_free()
 	if herde: herde.queue_free()
 	herde = null
+	if nebel: nebel.queue_free()
 	karte = Karte.lade(id, zustand.flaggen)   # 390: Schlagbaum, Tor, Ausgaenge und Wege lesen den Spielstand
 	zustand.setze("besucht:" + id)   # 399.1 Chronik „Die Blutzahnhöhle“ (alt GameState.explored)
 	licht.innen = String(karte.daten.get("art", "")) in ["INTERIOR", "CAVE"]   # 399.1 Grundriss; 492 die Hoehle wie ein Grundriss
@@ -169,6 +172,8 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	kraeuter_neu()
 	sichtbar_neu()
 	gitter_neu()
+	nebel = Nebel.new(self, karte)   # 505
+	add_child(nebel)
 	kamera.ziel = held
 	gebiet.held = held
 	gebiet.kamera = kamera
@@ -1205,6 +1210,12 @@ func _process(dt: float) -> void:
 	# 490: Monster ziehen, solange der Held frei unterwegs ist (Mode.Explore); Kraeuter wachsen bei Sonnenaufgang nach
 	if herde and not im_kampf and not ui.spricht() and rast_ort == "" and laden == null and not brett_offen and not get_tree().paused: herde.schritt(dt)
 	if kraut_tag != kraut_heute(): kraeuter_neu()
+	if nebel and nebel.an:   # 505: Nebel nachziehen; Leute und Monster nur in Sicht (WorldScreen: fog != VISIBLE nicht gezeichnet)
+		nebel.schritt(dt)
+		if herde:
+			for s in herde.liste: s.visible = nebel.zeigt(s.kachel)
+		for l in leute.get_children():
+			if l is Leute: l.visible = l.da and not l.drinnen and nebel.zeigt(l.kachel)
 	leiste_uhr -= dt
 	if leiste_uhr <= 0.0:   # 399.1 Leiste: viermal je Sekunde reicht fuer Uhr und Werte
 		leiste_uhr = 0.25
@@ -1834,6 +1845,88 @@ func hoehle_bilder() -> void:
 	await knips("%s/gang_gedreht.png" % dir)
 	print("HOEHLENBILDER fertig")
 	get_tree().quit()
+
+# 505 Nebel am Rechner: --nebel=<ordner>. Lauf 2 nach dem Urteil 16:15 (Chef 16:13: „ob ich es halt schon entdeckt habe oder ob
+# es komplett neu ist, das kann ich an diesen Bildern leider nicht erkennen“): der Weg vom Dorf nach Norden bis vor Garricks
+# Lichtung (Teich links), rundum; dieselbe Stelle in Fassung A (Baeume alt, t732) und B (Baeume wie der Boden davor), je Stufe
+# eine Beschriftung auf einer Kachel dieser Stufe (gesucht, nicht geraten); dann die Karte im Menue als Ortsangabe. Monster ruhig.
+func nebel_bilder() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--nebel="): dir = a.substr(8)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	zustand.minuten = 10 * 60
+	betrete("forest", Vector2i(9, 29), "UP")
+	if herde: herde.aus = true
+	await get_tree().create_timer(1.0).timeout
+	nebel.vergiss()
+	for y in range(29, 17, -1):   # der Weg nach Norden, Kachel fuer Kachel
+		held.setze(Vector2i(9, y), "UP"); kamera.springe()
+		await get_tree().create_timer(0.25).timeout
+	await get_tree().create_timer(1.0).timeout
+	var schilder := CanvasLayer.new()
+	schilder.layer = 30
+	add_child(schilder)
+	for f in [["alt", "A: Bäume außer Sicht nie schwarz (wie alt)"], ["boden", "B: Bäume wie der Boden vor ihnen"]]:
+		nebel.fassung(f[0])
+		await get_tree().create_timer(0.5).timeout
+		for c in schilder.get_children(): c.queue_free()
+		nebel_schild(schilder, f[1], Vector2(get_viewport().get_visible_rect().size.x / 2.0, 60), 26)
+		for st in [[0, "unbekannt: schwarz", Vector2i(3, 14)], [1, "erkundet: abgedunkelt", Vector2i(9, 25)], [2, "in Sicht: hell", Vector2i(12, 18)]]:
+			var t := nebel_kachel(int(st[0]), st[2])
+			print("NEBELSTUFE %s %s %s Bild %s" % [f[0], st[1], t, kamera.unproject_position(karte.kachel_pos(t))])
+			if t.x >= 0: nebel_schild(schilder, st[1], kamera.unproject_position(karte.kachel_pos(t)), 20)
+		ui.textfeld.visible = false
+		await knips("%s/stufen_%s.png" % [dir, f[0]])
+	schilder.queue_free()
+	oeffne_menue()
+	await get_tree().create_timer(0.5).timeout
+	for e in get_children():
+		if e is CanvasLayer and e.layer == 40:
+			for m in e.get_children():
+				if m is Menue: m.reiter = "karte"; m.baue()
+	await get_tree().create_timer(1.0).timeout
+	await knips("%s/karte.png" % dir)
+	Nebel.baeume = "alt"
+	print("NEBELBILDER fertig")
+	get_tree().quit()
+
+## naechste Kachel mit dieser Stufe (kein Baum), die im Bild liegt; sonst (-1, -1)
+func nebel_kachel(stufe: int, gern: Vector2i) -> Vector2i:
+	var r := get_viewport().get_visible_rect().size
+	var best := Vector2i(-1, -1); var bd := 1e9
+	for ty in karte.hoehe:
+		for tx in karte.breite:
+			var t := Vector2i(tx, ty)
+			if nebel.nebel(tx, ty) != stufe or nebel.zeichen_name(tx, ty) == "TREE": continue
+			var p := karte.kachel_pos(t)
+			if kamera.is_position_behind(p): continue
+			var q := kamera.unproject_position(p)
+			if q.x < 90 or q.x > r.x - 90 or q.y < 120 or q.y > r.y - 120: continue
+			var d := Vector2(t - gern).length()
+			if d < bd: bd = d; best = t
+	return best
+
+func nebel_schild(e: CanvasLayer, text: String, p: Vector2, groesse: int) -> void:
+	var l := Label.new()
+	l.text = text
+	l.add_theme_font_size_override("font_size", groesse)
+	l.add_theme_color_override("font_color", Color(0.96, 0.93, 0.85))
+	l.add_theme_color_override("font_outline_color", Color(0, 0, 0))
+	l.add_theme_constant_override("outline_size", 8)
+	e.add_child(l)
+	l.reset_size()
+	l.position = p - Vector2(l.size.x / 2.0, l.size.y / 2.0)
+	if groesse < 26:   # Punkt auf der Kachel, Schrift darueber
+		var punkt := ColorRect.new()
+		punkt.color = Color(0.85, 0.68, 0.25)
+		punkt.size = Vector2(10, 10)
+		punkt.position = p - Vector2(5, 5)
+		e.add_child(punkt)
+		l.position.y -= l.size.y * 0.8
 
 # 399.5 Grundrisse am Rechner: --raeume=<ordner> knipst je Grundriss aus der Grundansicht wie die alten Vergleichsbilder (Held wie
 # HELDORT inn:4:6, sonst 4:4, Blick nach oben) Tag und Nacht, dazu um 180 Grad gedreht (die Waende vor dem Raum werden zur Bruestung)

@@ -329,6 +329,8 @@ jobs:
           timeout 300 ~/godot/godot --headless --path . -s res://tests/wald_490.gd 2>&1 | tee wald490.log | grep -E "FEHLER|WALD490|SCRIPT ERROR"; grep -q "^WALD490 0 Fehler" wald490.log   # 490
           timeout 120 ~/godot/godot --headless --path . -s res://tests/position_518.gd 2>&1 | tee position518.log | grep -E "FEHLER|POSITION518|SCRIPT ERROR"; grep -q "^POSITION518 0 Fehler" position518.log   # 518 Shader setzen POSITION immer
           timeout 300 ~/godot/godot --headless --path . -s res://tests/wald_491.gd 2>&1 | tee wald491.log | grep -E "FEHLER|WALD491|SCRIPT ERROR"; grep -q "^WALD491 0 Fehler" wald491.log   # 491
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/nebel_505.gd 2>&1 | tee nebel505.log | grep -E "FEHLER|NEBEL505|SCRIPT ERROR"; grep -q "^NEBEL505 0 Fehler" nebel505.log   # 505
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/kartennebel_505.gd 2>&1 | tee kartennebel505.log | grep -E "FEHLER|KARTENNEBEL505|SCRIPT ERROR"; grep -q "^KARTENNEBEL505 0 Fehler" kartennebel505.log   # 505 Karte im Menü
       # fester Schluessel ueber alle Laeufe, sonst lehnt Android das Update ab (348.5, Build 9). 399.1a (Chef 28.10., 14:41): der Cache
       # eines Zweigs galt nur dort (Build 130 bekam einen neuen); jetzt nur lesen, angelegt wird er auf main (godot-schluessel.yml)
       - uses: actions/cache/restore@v4
@@ -414,6 +416,17 @@ jobs:
             ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/dorftiere.avi --fixed-fps 30 -- --dorftierfilm 2>&1 | grep -E "SCRIPT ERROR|^DORFTIERE" || true
           ffmpeg -loglevel error -y -ss 1.5 -i $RUNNER_TEMP/dorftiere.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $GITHUB_WORKSPACE/bilder/dorftiere/dorftiere.mp4 || true
           ls -l $GITHUB_WORKSPACE/bilder/dorftiere
+      # 505 Sichtfeld zur Wahl: dieselbe Stelle im Wald je Form (alt Kegel, breiter Kegel, rundum), alt nachts; nur bei „505 Nebelbilder“
+      # im Commit oder von Hand auf dem Zweig claude/spike-505-…
+      - name: Nebelbilder (505)
+        if: contains(github.event.head_commit.message, '505 Nebelbilder') || (github.event_name == 'workflow_dispatch' && contains(github.ref, 'spike-505'))
+        continue-on-error: true
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/bilder/nebel505
+          cd godot
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --nebel=$GITHUB_WORKSPACE/bilder/nebel505 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^BILD|^NEBELBILDER" | cut -c1-400 || true
+          ls -l $GITHUB_WORKSPACE/bilder/nebel505
       # 461.1 Grundstand (Chef 01.11., 20:3x): Film des Helden im Dorf wie im Spiel (Kämpfer, Klerikerin: Stehen, Gehen, Rennen,
       # Loslassen, Rennen zum Ziel, Gehen bei den Tieren), gegen LISTE-GRUNDSTAND-461.md
       - name: Dorf-Film Grundstand (461.1)
