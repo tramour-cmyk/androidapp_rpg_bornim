@@ -10,8 +10,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 |---|---|---|---|---|---|
 | [549a](entscheiden/549a-ohne-kasten.md) | **Muss** | A Spiel | 04.11., 11:12 | Oberfläche „ohne Kasten“ als Grundsatz: Linien trennen, ein Rahmen nur für die Entscheidung? | Sokrates |
 | [468c](entscheiden/468c-nur-eine-sitzung.md) | **Muss** | B Abläufe | 04.11., 07:12 | Wochenlimit 79 % am Mittwoch: bis Sa 19:59 nur noch eine Entwicklersitzung zugleich? | Sokrates |
-| [548a](entscheiden/548a-ratten-haken.md) | **Muss** | E Kampf | 04.11., 01:16 | Am Rechner mit den Daten aus Build 249 im Handyformat warten die Ratten immer auf den Helden, und der Haken gewinnt den Probekampf. Ich finde den Fehler nicht ohne deine Hilfe. | Team Jerry |
-| [503a](entscheiden/503a-laden-rueckfrage.md) | **Muss** | E Oberfläche | 04.11., 00:08 | Am Rechner mit echtem Antippen nachgestellt (Rückfragen an): Der Knopf „Gewöhnliche verkaufen“ unter „Ausrüstung“ fragt „Alle gewöhnlichen verkaufen?“ und verkauft vorher nichts. Ohne Rückfrage verkauft das Spiel, wie die alte Fassung, einen einzelnen Gegenstand unter „selten“ (Gegenstand antippen, dann „Verkaufen“); gefragt wird dort erst ab „selten“. | Team Tom (Spike) |
 | [110](entscheiden/110-ford-von-hand-starten.md) | – | B Abläufe | 04.11., 13:17 | Ford läuft auf Tiefe 6: bitte neuen Ford von Hand starten | Ford |
 
 ## Zu billigen
@@ -116,7 +114,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 410 | M | von Sokrates (Chef 29.10., 10:52, 11:40; aus 376.1): Waffen am Körper wegstecken, alle Waf | ruht |
 | 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | wartet auf Tom |
 | 455.1 | M | von Sokrates (Chef 01.11., 11:24, „Abzug von … unterschiedlichen Roben, Umhängen oder Stie | wartet auf Tom |
-| 503 | M | von Sokrates (Chef 03.11., 07:40, Build 204; Zu 503): Laden, Verkaufen: Knopf „Gewöhnliche | Chef |
+| 503 | M | von Sokrates (Chef 03.11., 07:40, Build 204; Zu 503): Laden, Verkaufen: Knopf „Gewöhnliche | wartet auf Tom |
 | 501 | M | von Sokrates (Chef 03.11., 07:26, Build 204; Zu 501): Schänke: Feuer im Kamin schwebt; Fla | wartet auf Test/Build (gebaut) |
 | 500 | M | von Sokrates (Chef 03.11., 07:24, Build 204; Zu 500): Probeknöpfe rechts in der Welt entfe | wartet auf Test/Build (gebaut) |
 | 499 | M | von Sokrates (Chef 03.11., 07:14, Build 204; „jetzt“ 03.11., 07:14; Zu 499): Erschaffung: | wartet auf 513 (ruht) |
@@ -167,13 +165,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | Pflege | K | von Werkzeug (340.3, 04.11.): 80256 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 74, Muss 62, startbar 4
+**Jerry** – offen 73, Muss 61, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 527 | M | von Sokrates (512): System: Schalter „Tempo“ und „Kampftext“ wirken im Kampf nicht | wartet auf Test/Build |
-| 548 | M | von Sokrates (Chef 04.11., 00:03, Build 249, Bild; Zu 548): „Gegen Ratten gespielt. Die st | ruht |
-| 548a | M | Rückfrage: wo hast du im Rattenkampf und im Probekampf getippt (Ring, Haken)? | Chef (Datei in der Chefsache) |
+| 548 | M | von Sokrates (Chef 04.11., 00:03, Build 249, Bild; Zu 548): „Gegen Ratten gespielt. Die st | startbar |
 | 551 | M | von Sokrates (Chef 04.11., 00:21, Build 249): „MARS Kasten links und rechts unten wird unt | wartet auf Test (Build) |
 | 552 | M | von Sokrates (Chef 04.11., 00:22, Build 249): „MARS Zugreihenfolge oben fehlt“ | wartet auf Test (Build) |
 | 553 | M | von Sokrates (Chef 04.11., 00:26, Build 249, Bild; Zu 553): „Was ist das für ein graues Ti | wartet auf Test (Build) |
