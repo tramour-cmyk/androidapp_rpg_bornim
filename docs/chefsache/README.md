@@ -232,7 +232,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | Pflege | K | von Werkzeug (340.3, 04.11.): 19339 Bytes (Grenze 15000), Erledigtes streichen; Zeile 527 | startbar |
 
-**Perikles** – offen 29, Muss 24, startbar 1
+**Perikles** – offen 26, Muss 22, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -241,8 +241,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 513.1 | M | von Sokrates (Chef 03.11., 15:56, „513 B“, Archiv; „jetzt“ 03.11., 15:56): probelauf.py lä | wartet auf Test/Build (gebaut) |
 | 511 | M | von Sokrates (Chef 03.11., 13:50, „511 ja“, Archiv; „jetzt“ 03.11., 13:50): probelauf.py s | wartet auf Test/Build (gebaut) |
 | 488 | M | von Sokrates (Chef 03.11., 06:44, „488 ja“, Archiv 488; „jetzt“ 03.11., 06:44): Wochenziel | wartet auf Test/Build (gebaut) |
-| D69.1 | M | von Diogenes (Doppelpack 421, Lauf 68, 02.11., 20:0x): meldung.sh hält seit D67.1 Dateinam | wartet auf Test/Build (gebaut) |
-| D70.1 | M | von Diogenes (Doppelpack 421, Lauf 68, zu 461b): Archiv 480 und 415c tragen „→ ersetzt dur | wartet auf Test/Build (gebaut) |
 | 483 | M | von Sokrates (Chef 02.11., 19:21, „483 ja“, Archiv): Film-Links reparieren: jsDelivr liefe | wartet auf Test/Build (gebaut) |
 | 340.3 | M | von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv): A: notiz.sh-Hinweise (Größe, Zeilen | wartet auf Test/Build (gebaut) |
 | 340.4 | M | von Sokrates (Archiv 340.2): B: Pflichtzeile „Geprüft an: <Link auf Film, Bild oder Lauf>“ | wartet auf Test/Build (gebaut) |
@@ -264,7 +262,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | wartet auf Test/Build (gebaut) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
-| Pflege | K | von Werkzeug (340.3, 04.11.): 18659 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
 **Diogenes** – offen 11, Muss 8, startbar 1
 
