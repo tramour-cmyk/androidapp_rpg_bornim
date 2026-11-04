@@ -262,6 +262,8 @@ jobs:
       # Probebild (511) bei jedem Commit mit „572“, Film nur mit „572 Film“ (nach „572 Probebild passt“ des Chefs)
       - name: Effektprobe (572, privat)
         continue-on-error: true
+        env:
+          NACHRICHT: ${{ github.event.head_commit.message }}
         run: |
           P=$GITHUB_WORKSPACE/bilder/effekte572; mkdir -p $P
           # beide Zips: Wurzel <Paket>/ mit addons/reeboo_vfx (gemeinsamer Kern bytegleich), Demo und Test bleiben draußen
@@ -276,6 +278,8 @@ jobs:
           timeout 300 ~/godot/godot --headless --import --path . > $P/import.log 2>&1 || true
           grep -E "ERROR" $P/import.log | head -20 || true
           export VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json
+          # Chef 21:03 (Archiv 572): „Effekte kann man ja eh nicht am Standbild beurteilen … ich brauche den Film“: mit „572 Film“ kein Probebild
+          if echo "$NACHRICHT" | grep -q "572 Film"; then exit 0; fi
           EFFEKT_BILDER=$P/probe timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile \
             --resolution 540x1170 res://kampf/effektprobe.tscn > $P/probebild.log 2>&1 || true
           grep -E "^572|SCRIPT ERROR|^ +at: |SHADER ERROR" $P/probebild.log | cut -c1-300 | head -60 || true
@@ -289,8 +293,9 @@ jobs:
         run: |
           P=$GITHUB_WORKSPACE/bilder/effekte572
           cd godot
-          export VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json
-          timeout 2400 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile \
+          # Sokrates 21:03: das Handy des Chefs läuft auf Compatibility (OpenGL), darum der Film mit diesem Renderer
+          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
+          timeout 2400 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --path . --rendering-driver opengl3 --rendering-method gl_compatibility \
             --resolution 540x1170 res://kampf/effektprobe.tscn --write-movie $RUNNER_TEMP/effekte.avi --fixed-fps 30 > $P/film.log 2>&1 || true
           grep -E "^572|SCRIPT ERROR|^ +at: " $P/film.log | cut -c1-300 | head -60 || true
           export PATH=~/ffbin:$PATH
