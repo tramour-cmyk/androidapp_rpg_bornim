@@ -89,6 +89,7 @@ func schild_spalt(modell: Node3D, ba: Node3D) -> Array:
 				var p: Vector3 = t * v
 				ecken.append(p); lo = minf(lo, p.y); hi = maxf(hi, p.y)
 	var oben := 9.0; var unten := 9.0; var drin := 0
+	var zeile := {}   # wie heldfigur._schild_neigen: Seitenansicht je Zeile
 	var h := hi - lo
 	var xl := INF; var xh := -INF
 	for p in ecken: xl = minf(xl, p.x); xh = maxf(xh, p.x)
@@ -99,9 +100,24 @@ func schild_spalt(modell: Node3D, ba: Node3D) -> Array:
 		if z > 8.0: continue
 		var spalt: float = z - p.z
 		if spalt < -0.01: drin += 1
-		if p.y > hi - h * 0.25: oben = minf(oben, spalt)
-		elif p.y < lo + h * 0.25: unten = minf(unten, spalt)
+	for p in ecken:
+		if ((Vector2(p.x, p.y) - mitte) / halb).length() <= HeldFigur.SCHILD_RAND: continue
+		var fy := floori(p.y / 0.02)
+		var zl: Array = zeile.get(fy, [-9.0, p.y, floori(p.x / 0.03), floori(p.x / 0.03)])
+		if p.z > float(zl[0]): zl[0] = p.z; zl[1] = p.y
+		zl[2] = mini(zl[2], floori(p.x / 0.03)); zl[3] = maxi(zl[3], floori(p.x / 0.03))
+		zeile[fy] = zl
+	for fy in zeile:
+		var zl: Array = zeile[fy]
+		var koerper := 9.0
+		for fx in range(int(zl[2]), int(zl[3]) + 1): koerper = minf(koerper, feld.get(Vector2i(fx, fy), 9.0))
+		if koerper > 8.0: continue
+		var spalt: float = koerper - float(zl[0])
+		if float(zl[1]) > hi - h * 0.25: oben = minf(oben, spalt)
+		elif float(zl[1]) < lo + h * 0.25: unten = minf(unten, spalt)
 	return [oben, unten, drin]
+
+const ZEITEN := 12
 
 func _lauf() -> void:
 	Sprache.lade()
@@ -130,6 +146,10 @@ func _lauf() -> void:
 			var tr := t as Tragen
 			if tr.waffe == null: continue
 			var d := tr.waffe.global_position.distance_to(tr.faust_welt)
+			# 513 Probe 3 (Helfer 05:23): der Stab laeuft durch die Faust, sein Ursprung liegt 16 cm tiefer am Schaft; quer zur Schaftlinie messen
+			if tr.art == "stab":
+				var v: Vector3 = tr.faust_welt - tr.waffe.global_position
+				d = (v - tr.schaft_welt * v.dot(tr.schaft_welt)).length()
 			var ws := tr.waffe.global_basis.get_scale().y
 			print("  in der Hand (%s, %s): %s, %.3f m von der Faust, Größe %.3f gegen Figur %.3f" % [tr.seite, tr.gang if tr.gang != "" else tr.art, tr.waffe.name, d, ws, ms])
 			pruefe(d <= FAUST_M, "%s: Waffe %.0f cm neben der Faust" % [k, d * 100])

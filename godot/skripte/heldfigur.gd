@@ -447,6 +447,7 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 	if not lage.is_empty():
 		_haenge(m, sk, bi, lage["brust"], schild, lage["t"], "RueckenSchild")
 		m.set_meta("schild_spalt", lage["spalt"])
+		m.set_meta("schild_gier", lage.get("gier", 0.0))
 		aussen = minf(aussen, float(lage["hinten"])) - 0.10
 	elif schild != "":
 		# Pruefer Lauf 2 (Kaempfer: Schild ragt von vorn ueber die Schultern; Schild 0,72 m, Oberkante 1,54 m, Schultern 1,46 m):
@@ -550,9 +551,24 @@ static func rand_hinten(was: String) -> float:
 # Haltung), spalt [oben, unten] in m, hinten}; leer ohne Haltung oder Schildmodell (dann wie bisher aus der Ruhelage)
 const SCHILD_LUFT := 0.012
 const SCHILD_RAND := 0.6
+# 513: je Figur (Netze, Ecken) und Schild einmal gerechnet (zwoelf Zeiten kosten am Rechner 0,3 bis 0,5 s, jeder Ortswechsel baut den Helden neu)
+static var schild_cache := {}
 static func schild_anlegen(m: Node3D, sk: Skeleton3D, bi: int, was: String) -> Dictionary:
 	var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
 	if ap == null or not ap.has_animation("Stehen"): return {}
+	var schluessel := [was, sk.get_bone_count()]
+	for mi in m.find_children("*", "MeshInstance3D", true, false):
+		var x := mi as MeshInstance3D
+		if x.skin == null or x.mesh == null: continue
+		schluessel.append(String(x.name))
+		for s in x.mesh.get_surface_count(): schluessel.append(x.mesh.surface_get_array_len(s))
+	var sch := str(schluessel)
+	if schild_cache.has(sch): return schild_cache[sch]
+	var erg := _schild_anlegen(m, sk, bi, was, ap)
+	schild_cache[sch] = erg
+	return erg
+
+static func _schild_anlegen(m: Node3D, sk: Skeleton3D, bi: int, was: String, ap: AnimationPlayer) -> Dictionary:
 	var P := haltung(sk, ap.get_animation("Stehen"), im_raum(m, sk), 0.0)
 	var brust: Transform3D = P[bi]
 	var yc := brust.origin.y - 0.29        # Mitte 29 cm unter spine_03 wie bisher (Oberkante etwa 1,32 m, 376.1 Lauf 1)
@@ -565,7 +581,7 @@ static func schild_anlegen(m: Node3D, sk: Skeleton3D, bi: int, was: String) -> D
 		var me := (mi as MeshInstance3D).mesh
 		for s in me.get_surface_count():
 			var vs: PackedVector3Array = me.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]
-			for i in range(0, vs.size(), 4): sv.append(tr * vs[i])
+			for v in vs: sv.append(tr * v)   # 513 Probe 3 (Helfer 05:23): jede vierte traf am Rand nur die Aussenseite, der Rand ist 3,4 cm dick
 	d.free()
 	if sv.is_empty(): return {}
 	var hy := 0.0; var hx := 0.0; var ylo := INF; var yhi := -INF
@@ -584,7 +600,31 @@ static func schild_anlegen(m: Node3D, sk: Skeleton3D, bi: int, was: String) -> D
 	# Ruecken: hinterste z je Feld (3 cm breit, 2 cm hoch) im Bereich des Schilds
 	var x0 := -hx - 0.03; var y0 := yc - hy * 1.3 - 0.05; var y1 := yc + hy * 1.3 + 0.05
 	var nx := int(ceil((2.0 * hx + 0.06) / 0.03)); var ny := int(ceil((y1 - y0) / 0.02))
-	var feld := PackedFloat32Array(); feld.resize(nx * ny); feld.fill(9.0)
+	var felder: Array = []
+	# 513 Probe 3 (Helfer 05:23, Messung am Rechner): der Schild haengt an spine_03 und geht mit der Brust; Ruecken, Becken, Arme und Umhang
+	# bewegen sich im Stehen gegen sie (unten 3,0 bis 8,6 cm je nach Zeit). Darum der Ruecken zu SCHILD_ZEITEN Zeiten der Bewegung, jeweils
+	# im Rahmen der Brust zur Zeit 0 (wie der Schild ihn sieht); gewaehlt wird die Neigung mit dem kleinsten Spalt zur schlechtesten Zeit,
+	# so nah, dass er zu keiner Zeit hineinragt (Vereinigung aller Zeiten: Kleriker unten bis 13 cm, weil die Hinterste nie zugleich liegt)
+	var an: Animation = ap.get_animation("Stehen")
+	var raum := im_raum(m, sk)
+	for zi in SCHILD_ZEITEN:
+		var Pz: Array = P if zi == 0 else haltung(sk, an, raum, an.length * zi / float(SCHILD_ZEITEN))
+		var zur: Transform3D = brust * (Pz[bi] as Transform3D).affine_inverse()
+		var feld := PackedFloat32Array(); feld.resize(nx * ny); feld.fill(9.0)
+		felder.append(_ruecken_feld(m, sk, Pz, zur, feld, x0, y0, nx, ny, hx, y1))   # gepackte Felder gehen als Kopie
+	# Probe 3: im Stehen ist der ganze Koerper um die Senkrechte gedreht (Kaempfer -13,3 Grad gegen die Ruhelage); der Schild drehte nicht
+	# mit, die rechte Rueckenseite lag 9,5 cm tiefer als die linke, der Umhang rechts in Hueft-Hoehe hielt ihn oben und unten 4,6 cm ab
+	var ruhe_b := raum * sk.get_bone_global_rest(bi)
+	var dz := (brust.basis * ruhe_b.basis.inverse()) * Vector3.BACK
+	var gier := atan2(dz.x, dz.z)
+	var best := _schild_neigen(sv, felder, x0, y0, nx, ny, yc, yhi, ylo, viertel, gier)
+	if best.is_empty(): return {}
+	var t: Transform3D = best["t"]
+	return {"t": t, "brust": brust, "spalt": best["spalt"], "hinten": t.origin.z, "gier": rad_to_deg(gier)}
+
+const SCHILD_ZEITEN := 12
+# hinterste z je Feld (3 cm breit, 2 cm hoch) der gehaeuteten Netze in der Haltung P, umgerechnet mit zur (Brust dieser Zeit -> Brust zur Zeit 0)
+static func _ruecken_feld(m: Node3D, sk: Skeleton3D, P: Array, zur: Transform3D, feld: PackedFloat32Array, x0: float, y0: float, nx: int, ny: int, hx: float, y1: float) -> PackedFloat32Array:
 	for mi in m.find_children("*", "MeshInstance3D", true, false):
 		var x := mi as MeshInstance3D
 		if x.skin == null: continue
@@ -593,7 +633,7 @@ static func schild_anlegen(m: Node3D, sk: Skeleton3D, bi: int, was: String) -> D
 		for b in x.skin.get_bind_count():
 			var k := x.skin.get_bind_bone(b)
 			if k < 0: k = sk.find_bone(x.skin.get_bind_name(b))
-			mb.append(P[k] * x.skin.get_bind_pose(b) if k >= 0 else Transform3D.IDENTITY)
+			mb.append(zur * P[k] * x.skin.get_bind_pose(b) if k >= 0 else Transform3D.IDENTITY)
 		var ruhe := im_raum(m, x)
 		for s in me.get_surface_count():
 			var arr := me.surface_get_arrays(s)
@@ -603,7 +643,8 @@ static func schild_anlegen(m: Node3D, sk: Skeleton3D, bi: int, was: String) -> D
 			var n := int(bo.size() / vs.size())
 			for i in vs.size():
 				var r := ruhe * vs[i]   # grob vorsortiert an der Ruhelage
-				if r.z > 0.05 or absf(r.x) > hx + 0.15 or r.y < y0 - 0.25 or r.y > y1 + 0.25: continue
+				# Probe 3: bei hx + 0,15 fiel der rechte Unterarm (Ruhelage x -0,48) heraus, im Teller lag er oben am Schild
+				if r.z > 0.05 or absf(r.x) > hx + 0.35 or r.y < y0 - 0.25 or r.y > y1 + 0.25: continue
 				var p := Vector3.ZERO
 				for j in n:
 					var g: float = we[i * n + j]
@@ -611,36 +652,55 @@ static func schild_anlegen(m: Node3D, sk: Skeleton3D, bi: int, was: String) -> D
 				var fx := int((p.x - x0) / 0.03); var fy := int((p.y - y0) / 0.02)
 				if fx < 0 or fx >= nx or fy < 0 or fy >= ny: continue
 				feld[fy * nx + fx] = minf(feld[fy * nx + fx], p.z)
-	# Neigung: je Winkel so nah heran, bis die erste Ecke SCHILD_LUFT vor dem Ruecken liegt; Spalt oben und unten (je die naechste Ecke im
-	# obersten und untersten Viertel); gewaehlt der Winkel mit dem kleinsten groesseren der beiden Spalte
+	return feld
+
+static func _schild_neigen(sv: PackedVector3Array, felder: Array, x0: float, y0: float, nx: int, ny: int, yc: float, yhi: float, ylo: float, viertel: float, gier: float) -> Dictionary:
+	# Neigung: je Winkel so nah heran, bis zu irgendeiner Zeit die erste Ecke SCHILD_LUFT vor dem Ruecken liegt (je Feld, nirgends hinein).
+	# Spalt oben und unten wie in der Seitenansicht (Chef 15:51 „Seitenansicht … unten steht's weg“): je Zeile (2 cm) der hinterste Punkt
+	# des Koerpers ueber die Breite des Schilds gegen den Rand des Schilds, der ihm am naechsten ist; oben der kleinste im obersten, unten
+	# im untersten Viertel; gewaehlt der Winkel mit dem kleinsten groessten Spalt ueber alle Zeiten. (Probe 3, Messung am Rechner 05:27:
+	# je Ecke und Feld gemessen sprang „unten“ beim Kleriker zwischen 1 und 12 cm, je nachdem ob hinter der Ecke gerade ein Bein lag)
 	var best := {}
 	for gr in range(-35, 36):
 		var w := deg_to_rad(float(gr))
 		var hoch := Vector3(0, cos(w), sin(w))   # +w: Oberkante zum Koerper hin (nach +z), Unterkante weg
-		var bas := Basis(Vector3.LEFT, hoch, Vector3.LEFT.cross(hoch))
-		var platz := 9.0
-		var sp := []   # [Feld, z] der Ecken ueber dem Ruecken
+		var bas := Basis(Vector3.UP, gier) * Basis(Vector3.LEFT, hoch, Vector3.LEFT.cross(hoch))   # mit dem Koerper gedreht (Probe 3)
+		var ecken := []   # je Ecke [Schild-y, Feldindex, z]
+		var zeile := {}   # Zeile -> [z des Schilds am naechsten zum Koerper, Schild-y, kleinstes fx, groesstes fx]
 		for v in sv:
 			var p := bas * v + Vector3(0, yc, 0)
 			var fx := int((p.x - x0) / 0.03); var fy := int((p.y - y0) / 0.02)
 			if fx < 0 or fx >= nx or fy < 0 or fy >= ny: continue
-			var z := feld[fy * nx + fx]
-			if z > 8.0: continue
-			platz = minf(platz, z - SCHILD_LUFT - p.z)
-			sp.append(Vector3(v.y, z, p.z))
+			ecken.append(Vector3(v.y, fy * nx + fx, p.z))
+			var zl: Array = zeile.get(fy, [-9.0, v.y, fx, fx])
+			if p.z > float(zl[0]): zl[0] = p.z; zl[1] = v.y
+			zl[2] = mini(zl[2], fx); zl[3] = maxi(zl[3], fx)
+			zeile[fy] = zl
+		var platz := 9.0
+		for feld in felder:
+			for e in ecken:
+				var z: float = feld[int(e.y)]
+				if z < 8.0: platz = minf(platz, z - SCHILD_LUFT - e.z)
 		if platz > 8.0: continue
-		var oben := 9.0; var unten := 9.0
-		for e in sp:
-			var spalt: float = e.y - (e.z + platz)
-			if e.x > yhi - viertel: oben = minf(oben, spalt)
-			elif e.x < ylo + viertel: unten = minf(unten, spalt)
-		if oben > 8.0 or unten > 8.0: continue
-		var wert := maxf(oben, unten) + absf(float(gr)) * 0.0001
+		var oben_max := -9.0; var unten_max := -9.0; var leer := false
+		for feld in felder:
+			var oben := 9.0; var unten := 9.0
+			for fy in zeile:
+				var zl: Array = zeile[fy]
+				var koerper := 9.0
+				for fx in range(int(zl[2]), int(zl[3]) + 1): koerper = minf(koerper, feld[fy * nx + fx])
+				if koerper > 8.0: continue
+				var spalt: float = koerper - (float(zl[0]) + platz)
+				if float(zl[1]) > yhi - viertel: oben = minf(oben, spalt)
+				elif float(zl[1]) < ylo + viertel: unten = minf(unten, spalt)
+			if oben > 8.0 or unten > 8.0: leer = true; break
+			oben_max = maxf(oben_max, oben); unten_max = maxf(unten_max, unten)
+		if leer: continue
+		# unter 0: in der Seitenansicht liegt der Rand vor dem Umriss des Koerpers, kein Licht dazwischen; dann gilt die kleinste Neigung
+		var wert := maxf(maxf(oben_max, unten_max), 0.0) + absf(float(gr)) * 0.0001
 		if best.is_empty() or wert < float(best["wert"]):
-			best = {"wert": wert, "t": Transform3D(bas, Vector3(0, yc, platz)), "spalt": [oben, unten]}
-	if best.is_empty(): return {}
-	var t: Transform3D = best["t"]
-	return {"t": t, "brust": brust, "spalt": best["spalt"], "hinten": t.origin.z}
+			best = {"wert": wert, "t": Transform3D(bas, Vector3(0, yc, platz)), "spalt": [oben_max, unten_max]}
+	return best
 
 # Lage aller Knochen im Raum der Figur (raum = Skelett in der Figur) in der Bewegung an zur Zeit zeit
 static func haltung(sk: Skeleton3D, an: Animation, raum: Transform3D, zeit: float) -> Array:
