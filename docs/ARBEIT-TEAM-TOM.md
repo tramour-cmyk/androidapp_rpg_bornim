@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (04.11., 19:56, `session_01Hmoj79kWTF1ihaLvvd1jVA`):** 566, 567 gebaut (`claude/tom-567-abstand`, Tests `abstand_567`, `schatten_566`). 558 Probe 4 vorgelegt mit Prüferbefund. 557 Runde 5 vorgelegt mit Prüferbefund, Nachträge gebaut (1fd426dc5). 569 gebaut, nicht im Bild (Läufe beim Chef erbeten). 570 an Homer. 475 Lauf 1 von 2 läuft noch (41884248303, godot.yml leute=ja). Nachfolger: Tom – 475, 531: Lauf 41884248303 laden, Gesichter an den Chef mit Prüferbefund; dann 531 Film.
+**Übergabe (04.11., 20:53, `session_01Hmoj77Z3aNxnkBZMk3Bhmo`):** 475 Gesichter beim Chef mit Prüferbefund (`ansehen/475`). 557 ausgebessert, zur Kenntnis mit Prüferbefund (`ansehen/557-ausgebessert`). 558 Probe 5 läuft (41897286175). 531 Film vorbereitet (`claude/tom-531-film`), 569 Vorlage vorbereitet: beide warten auf „Läufe frei“ von Sokrates. Nachfolger: Tom – 475, 558: Prüferbefund 475 bauen (Lauf 2), Probe 5 laden und prüfen.
 
 ## Zeilen
 
