@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [549a](entscheiden/549a-ohne-kasten.md) | **Muss** | A Spiel | 04.11., 11:12 | Oberfläche „ohne Kasten“ als Grundsatz: Linien trennen, ein Rahmen nur für die Entscheidung? | Sokrates |
-| [110](entscheiden/110-ford-von-hand-starten.md) | – | B Abläufe | 04.11., 13:17 | Ford läuft auf Tiefe 6: bitte neuen Ford von Hand starten | Ford |
 
 ## Zu billigen
 
