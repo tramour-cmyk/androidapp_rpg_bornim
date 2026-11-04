@@ -144,14 +144,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | Pflege | K | von Werkzeug (340.3, 04.11.): 114773 Bytes (Grenze 15000), Erledigtes streichen; Zeile 522 | startbar |
 
-**Jerry** – offen 86, Muss 73, startbar 22
+**Jerry** – offen 86, Muss 73, startbar 21
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 572 | M | von Sokrates (Chef 04.11., 20:27; „jetzt“ 04.11., 20:27; Zu 572): Effektprobe vor dem Kauf | startbar |
 | 577 | M | von Sokrates (Chef 04.11., 21:00: „Wie wär's denn, wenn die Dinger die Kennung kriegen, di | startbar |
 | 575 | M | von Sokrates (Chef 04.11., 20:42, Build 257; Zu 575): Rattenkampf: welches Knurren spielt, | wartet auf Test/Build (gebaut) |
-| 573 | M | von Sokrates (Chef 04.11., 20:33, Build 257; Zu 573): Tote bleiben liegen: der zuletzt gef | startbar |
+| 573 | M | von Sokrates (Chef 04.11., 20:33, Build 257; Zu 573): Tote bleiben liegen: der zuletzt gef | wartet auf Test/Build (gebaut) |
 | 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | startbar |
 | 566 | M | von Sokrates (Chef 04.11., 17:15, Bild; Zu 566 und 567): „Beim Goblin steht in den Schatte | wartet auf Test/Build (gebaut) |
 | 567 | M | von Sokrates (Bilder Chef 04.11., 17:00–17:15; Zu 566 und 567): Gegner stehen im Kampfort | wartet auf Test/Build (gebaut) |
@@ -233,7 +233,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | 469 | M | von Sokrates: Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
-| Pflege | K | von Werkzeug (340.3, 04.11.): 39787 Bytes (Grenze 15000), Erledigtes streichen; Zeile 552 | startbar |
+| Pflege | K | von Werkzeug (340.3, 04.11.): Vorrat über 15 KB kürzen; Stände der Zeilen „wartet auf Test | startbar |
 
 **Perikles** – offen 29, Muss 23, startbar 3
 
