@@ -207,7 +207,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 526 | Rückfragen und Fenster einheitlich: Tippen daneben schließt, Android-Zurück schließt erst das Fenster (Spielstand löschen, „Über das Spiel“) (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | gebaut |
 | 527 | System: Schalter „Tempo“ und „Kampftext“ wirken im Kampf nicht; anschließen oder ausblenden, bis sie wirken (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Jerry | wartet |
 | 528 | Held, Karte, Chronik wie alt: Satz zur Höchststufe des Kapitels am EP-Balken, Kartenzeichen in der oberen Leiste, „Auf der Karte“ bei Nebenaufträgen (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | gebaut |
-| 529 | Spielstände: Heldenbild und Spielzeit auf der Karte des Spielstands, Uhrzeit „Gespeichert“ nach Zeitumstellung prüfen (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | startbar |
+| 529 | Spielstände: Heldenbild und Spielzeit auf der Karte des Spielstands, Uhrzeit „Gespeichert“ nach Zeitumstellung prüfen (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | gebaut |
 | 522 | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Chef 03.11., 23:33) | A Spiel | M | – | Team Tom | wartet |
 | 521 | Build 249, Ausrüstung: Wechselschirm eines Platzes wie alt (Bild, Art und Wert, ▲/▼, „nicht tragbar“ matt) (Chef 03.11., 23:23, Bild) | A Spiel | M | – | Team Tom | gebaut |
 | 520 | Build 249, Ausrüstung: Held zwischen den Fächern zu klein und ohne die angelegten Sachen; alt `HeroTurntable` mit Getragenem (Chef 03.11., 23:19, Bild) | A Spiel | M | – | Team Tom | gebaut |
