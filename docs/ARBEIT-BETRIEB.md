@@ -60,6 +60,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 01:18 04.11.: Neustart Tom 4319c6716 → `78QN` „Build 251 prüfen, dann 525“; alter Tom `6TuJ` archiviert mitten im Turn (Stop-Haken hätte ihn auf 524.1 weiterarbeiten lassen), Kosten 15 $ **Schätzung** auf 555 (usage fehlt).
 - 00:49 04.11.: Selbstneustart Ford (Tiefe 6, c3a9183b4), neue Uhr `trig_01AAvm…`, alte gelöscht, alter Ford archiviert, 7,43 $ gebucht; Datei von 32 auf 17 KB gekürzt (Marken-Zeilen des Werkzeugs und Protokoll vor 03.11., 07 Uhr gestrichen).
 - 16:24 03.11.: Neustart Jerry 8e133b464 → `nQJK` „494 Krogg-Figur“; alter `fWZc` archiviert **mitten im Turn** (Datensatz unverändert seit Start, kein `result`-Ereignis, Kosten 10 $ **Schätzung** nach 28 Min Laufzeit auf 494). Vermutung zur fehlenden Kostenzahl: Archivieren, solange die Sitzung ihren letzten Turn noch abschließt; Probe: ab jetzt erst archivieren, wenn `session_status` idle ist (dann Datensatz prüfen).
 - 16:19 03.11.: Neustart Tom af7df0686 → `QoAx` „490 Flüsterwald Build“; alter Tom `wm1A` archiviert, 15,84 $ auf 492. Schätzungen (Chef 16:05): 490 12+25 $ (Spike `Tec7`, `EdZ1`), 507 10 $ (`gwo8`), 438a 10,47 $ (Rest `79Wf`), Betrieb 1,76 $ (Rest alter Ford); ersetzt durch `result`-Werte: 406.2 18,39 $, 496a 23,27 $, 406.2a 18,74 $.
