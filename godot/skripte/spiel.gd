@@ -1389,6 +1389,10 @@ func gesichter(dir: String) -> void:
 	var zoom_vorher: float = kamera.zoom
 	kamera.neigung = -12.0
 	kamera.zoom = GESICHT_BREITE
+	# Lauf 258 (Pruefer 05:16: fuenf von zwoelf Bildern zeigten nur Dachziegel): die Kamera steht 40 m zurueck (kamera.gd folge), Haeuser
+	# davor verdeckten den Kopf; die Nahebene kurz vor die Person, was davor steht, faellt weg
+	var near_vorher: float = kamera.near
+	kamera.near = 40.0 - 1.5
 	var name_l := Label.new()
 	name_l.add_theme_font_override("font", Stil.schrift())
 	name_l.add_theme_font_size_override("font_size", 30)
@@ -1402,7 +1406,9 @@ func gesichter(dir: String) -> void:
 	ebene.add_child(name_l)
 	var vp := get_viewport().get_visible_rect().size
 	name_l.size = Vector2(GESICHT_KACHEL, 40)
-	name_l.position = Vector2((vp.x - GESICHT_KACHEL) * 0.5, vp.y * 0.5 + GESICHT_KACHEL * 0.5 - 44)
+	name_l.size = Vector2(vp.x, 60)
+	name_l.add_theme_font_size_override("font_size", 64)   # das Quadrat wird von der Bildbreite auf 420 Punkte verkleinert
+	name_l.position = Vector2(0, vp.y * 0.5 + vp.x * 0.5 - 90)
 	var kacheln: Array[Image] = []
 	for l in alle:
 		if l == mk: continue
@@ -1412,14 +1418,24 @@ func gesichter(dir: String) -> void:
 		if sk and sk.find_bone("Head") >= 0:
 			kopf = sk.global_transform * sk.get_bone_global_pose(sk.find_bone("Head")).origin + Vector3.UP * 0.09
 		mk.position = leute.to_local(kopf)
+		# zur Kamera gewandt (Lauf 258: Gesichter nicht zu sehen); die Kamera sitzt auf ihrer +Z-Seite, die Person blickt nach +Z (leute.gd)
+		var blick_vorher: float = l.blick
+		l.blick = deg_to_rad(kamera.gieren_ziel); l.rotation.y = l.blick
 		kamera.ziel = mk
 		kamera.springe()
 		name_l.text = String(l.daten["id"]).capitalize()
 		await get_tree().create_timer(0.6).timeout
 		await RenderingServer.frame_post_draw
 		var im := get_viewport().get_texture().get_image()
-		var c := Vector2i(int(vp.x * 0.5) - GESICHT_KACHEL / 2, int(vp.y * 0.5) - GESICHT_KACHEL / 2)
-		kacheln.append(im.get_region(Rect2i(c, Vector2i(GESICHT_KACHEL, GESICHT_KACHEL))))
+		# Lauf 258 (Pruefer 05:16: je Bild nur das Viertel oben links, Rest schwarz): vp ist die Flaeche der Oberflaeche (1080 x 2340,
+		# canvas_items), das Bild hat die Fenstergroesse (--resolution 540x1170); Ausschnitt in Bildpunkten des Bilds
+		# und das Quadrat ueber die ganze Bildbreite (GESICHT_BREITE 0,55 m), 420 von 1080 Punkten waren nur 0,21 m, enger als ein Kopf
+		var kk := im.get_width()
+		var c := Vector2i(im.get_width() / 2 - kk / 2, im.get_height() / 2 - kk / 2)
+		var stueck := im.get_region(Rect2i(c, Vector2i(kk, kk)))
+		if kk != GESICHT_KACHEL: stueck.resize(GESICHT_KACHEL, GESICHT_KACHEL, Image.INTERPOLATE_LANCZOS)
+		kacheln.append(stueck)
+		l.blick = blick_vorher; l.rotation.y = blick_vorher
 		print("GESICHT ", l.daten["id"], " ", "Kaufkoerper" if String(l.modell.name).begins_with("Person_") else "alt", " Kopf ", kopf)
 	var sp := 4
 	var zeilen := ceili(kacheln.size() / float(sp))
@@ -1431,6 +1447,7 @@ func gesichter(dir: String) -> void:
 	print("GESICHTER ", kacheln.size(), " ", dir + "/leute_gesichter.png")
 	ebene.queue_free()
 	mk.queue_free()
+	kamera.near = near_vorher
 	for x in alle: x.visible = true
 	kamera.neigung = neig_vorher
 	kamera.zoom = zoom_vorher
