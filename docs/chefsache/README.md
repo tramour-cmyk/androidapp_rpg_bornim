@@ -231,10 +231,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | Pflege | K | von Werkzeug (340.3, 04.11.): 18305 Bytes (Grenze 15000), Erledigtes streichen; Zeile 527 | startbar |
 
-**Perikles** – offen 29, Muss 24, startbar 1
+**Perikles** – offen 30, Muss 25, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 559 | M | von Sokrates (Chef 04.11., 16:18: „Prüfung wartet auf Chef, ja.“; Zu 559): regelcheck meld | startbar |
 | 512.1 | M? | von Sokrates (512, Chef 03.11., 23:28, „Kümmer du dich um 512.“): Regel „Abgleich“ wirkt n | wartet auf Test/Build (gebaut) |
 | 516 | K | von Ford (Chef 03.11., 16:20, „gab es nicht ein Tool oder einen Haken für die Kostenerfass | ruht bis 05.11. |
 | 513.1 | M | von Sokrates (Chef 03.11., 15:56, „513 B“, Archiv; „jetzt“ 03.11., 15:56): probelauf.py lä | wartet auf Test/Build (gebaut) |
@@ -328,7 +329,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Format (Muster: „So geht's“ unten): t257-kampf-klang.md: 26 Vorgänge, höchstens 6 je Build (317)
 
-Nicht gestellt: 407 (Projekt)
+Nicht gestellt: 559 (Projekt), 407 (Projekt)
 
 Ohne Datei: 3402 (Projekt), 275 (Projekt)
 
