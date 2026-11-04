@@ -366,19 +366,38 @@ static func frage(eltern: Control, titel: String, zeilen: Array, zeichen: String
 	return schleier
 
 # unten in einem Fenster: „‹ ABBRECHEN“ links, die Wahl rechts (Chef 14:26: „vor allem fehlt bei Bild 8 das Abbrechen“)
-static func fuss(abbrechen: Callable, zeichen: String, wahl: String, farbe: Color, tat: Callable, an := true, mitte: Array = []) -> HBoxContainer:
+static func fuss(abbrechen: Callable, zeichen: String, wahl: String, farbe: Color, tat: Callable, an := true, mitte: Array = [], breite := 0.0) -> Control:
 	var de := Sprache.aktiv() == "de"
 	var unten := HBoxContainer.new()
 	unten.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	unten.add_child(nebenwahl("", "‹  " + ("Abbrechen" if de else "Cancel"), abbrechen))
 	for m in mitte: unten.add_child(m)   # leise Nebenwahlen zwischen Abbrechen und der Wahl (Gegenstandsfenster: Wegwerfen)
+	if not mitte.is_empty() and breite > 0.0:   # Zu 557 (4): passt die Zeile nicht in [breite], stehen die leisen darunter
+		var v := VBoxContainer.new()
+		v.add_theme_constant_override("separation", 0)
+		v.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		v.add_child(unten)
+		unten.ready.connect(func():
+			if unten.get_combined_minimum_size().x <= breite: return
+			var l := HBoxContainer.new()
+			l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			for m in mitte:
+				unten.remove_child(m)
+				l.add_child(m)
+			v.add_child(l), CONNECT_ONE_SHOT | CONNECT_DEFERRED)
+		_fuss_rechts(unten, zeichen, wahl, farbe, tat, an)
+		return v
+	_fuss_rechts(unten, zeichen, wahl, farbe, tat, an)
+	return unten
+
+static func _fuss_rechts(unten: HBoxContainer, zeichen: String, wahl: String, farbe: Color, tat: Callable, an: bool) -> void:
 	var luecke_ := Control.new()
 	luecke_.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	luecke_.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	unten.add_child(luecke_)
 	if farbe == Stil.BRIGHT and zeichen == "":
 		unten.add_child(hauptwahl(wahl, tat, an))
-		return unten
+		return
 	var h := HBoxContainer.new()
 	h.add_theme_constant_override("separation", int(6 * DP))
 	h.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -394,7 +413,6 @@ static func fuss(abbrechen: Callable, zeichen: String, wahl: String, farbe: Colo
 	var p := tippbar(h, tat if an else func(): pass)
 	p.size_flags_horizontal = Control.SIZE_SHRINK_END
 	unten.add_child(p)
-	return unten
 
 # 557 Vorlage 2 (Votum Perikles 14:2x, Chef 14:21 zu Bild 6 und 7): der Teil unter der Liste folgt dem Inhalt, solange alles passt;
 # rollt die Liste, steht er fest unten. [rolle] liegt in [spalte]; dahinter kommt ein dehnbarer Rest, der die Luecke unten nimmt
@@ -426,6 +444,7 @@ static func nebenwahl(zeichen: String, text: String, tat: Callable, an := true, 
 	lz.add_child(Erschaffung.luecke(0, 8))
 	var f := (Stil.DIM if leise else Stil.GOLD) if an else Color(Stil.DIM, 0.6)   # leise: Pruefer 16:40, Wegwerfen wie Abbrechen
 	if vorlage2 and leise and an: f = ANGABE   # Zu 557 (8): leise, aber lesbar
+	if vorlage2 and leise: lz.get_child(0).custom_minimum_size.x = 4 * DP   # Zu 557 (4): mehr Platz in der Zeile unten
 	# Zu 557 (3) (Pruefer 16:43: „‹“ ein winziger Punkt): das Zeichen gezeichnet wie „›“ der Hauptwahl, gespiegelt; die Schrift
 	# hoechstens eine Stufe kleiner als die Hauptwahl (15), die Flaeche 48 dp
 	if vorlage2 and text.begins_with("‹"):

@@ -1024,7 +1024,7 @@ func fenster_b(g: Dictionary, anlegen := Callable(), zurueck := Callable()) -> C
 		var leise_: Array = [Spielstaende.nebenwahl("KREUZ", "Wegwerfen" if de else "Discard", func(): zu.call(); frage_wegwerfen(g), true, true)]
 		if ok and einhandwaffe(g) and not anlegen.is_valid():
 			leise_.append(Spielstaende.nebenwahl("", "Nebenhand" if de else "Off hand", func(): zu.call(); meldung(lege_an(g, true)); baue(), true, true))
-		v.add_child(Spielstaende.fuss(func(): schleier.queue_free(); if zurueck.is_valid(): zurueck.call(), "", Sprache.u("equip"), Stil.BRIGHT, func(): zu.call(); an_c.call(), ok, leise_))
+		v.add_child(Spielstaende.fuss(func(): schleier.queue_free(); if zurueck.is_valid(): zurueck.call(), "", Sprache.u("equip"), Stil.BRIGHT, func(): zu.call(); an_c.call(), ok, leise_, breite))
 		return schleier
 	var unten := HBoxContainer.new()
 	unten.mouse_filter = Control.MOUSE_FILTER_IGNORE
