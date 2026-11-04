@@ -490,7 +490,8 @@ func _seite_b(t: String, an: bool, tat: Callable) -> Control:
 	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	v.custom_minimum_size.y = 48 * DP
 	v.alignment = BoxContainer.ALIGNMENT_END
-	var l := Stil.zeile(t.to_upper(), 14, Stil.BRIGHT if an else Stil.GOLD, 2.0)
+	# Zu 557 (8) (Pruefer 16:43: ×1 · ×5 · ALLE kaum lesbar): die nicht gewaehlten in hellerem Gold, die gewaehlte hell mit Strich
+	var l := Stil.zeile(t.to_upper(), 14, Stil.BRIGHT if an else (Color("cdb88c") if Spielstaende.vorlage2 else Stil.GOLD), 2.0)
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(l)
 	var strich := ColorRect.new()
@@ -531,14 +532,14 @@ func brauen_b() -> void:
 		v.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		v.add_child(Stil.zeile(Laden.name(aus), 16, farbe_ding(aus) if oft > 0 else Stil.DIM))
 		v.add_child(zutaten_reihe(r, 20, 13))
-		if z.anzahl(aus) > 0: v.add_child(Stil.zeile(Sprache.t(Laden.BESITZ) + str(z.anzahl(aus)), 13, Stil.DIM))
+		if z.anzahl(aus) > 0: v.add_child(Stil.zeile(Sprache.t(Laden.BESITZ) + str(z.anzahl(aus)), 13.5 if Spielstaende.vorlage2 else 13.0, Spielstaende.ANGABE if Spielstaende.vorlage2 else Stil.DIM))   # Zu 557 (8)
 		if oft < 1:
 			var f := Erschaffung.txt(Sprache.t(Laden.FEHLT) + Laden.fehlt(z, r), 13, Stil.WARN)
 			f.custom_minimum_size.x = 60 * DP
 			v.add_child(f)
 		zeile_.add_child(v)
 		if oft > 0:
-			var re := Stil.zeile(Sprache.t(Laden.REICHT) % oft, 13, Stil.GOLD)
+			var re := Stil.zeile(Sprache.t(Laden.REICHT) % oft, 13.5 if Spielstaende.vorlage2 else 13.0, Stil.BRIGHT if Spielstaende.vorlage2 else Stil.GOLD)   # Zu 557 (8)
 			re.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 			zeile_.add_child(re)
 		var pf := Spielstaende.wahl_b("", Stil.BRIGHT if oft > 0 else Color(Stil.DIM, 0.6))
@@ -634,7 +635,6 @@ func braukasten_c(r: Dictionary, n: int, alle := false) -> void:
 	v.add_theme_constant_override("separation", int(10 * DP))
 	v.custom_minimum_size.x = get_viewport_rect().size.x - 48 * DP
 	mitte.add_child(Rueckfrage.halte(v))
-	v.add_child(Spielstaende.zier())
 	var kopf_ := HBoxContainer.new()
 	kopf_.add_theme_constant_override("separation", int(12 * DP))
 	var bild := Menue.bild_feld("ding-" + aus, 48)
@@ -649,7 +649,7 @@ func braukasten_c(r: Dictionary, n: int, alle := false) -> void:
 	nv.add_child(Erschaffung.txt(Sprache.t(Laden.ding(aus).get("info", "")), 13, Stil.DIM))
 	kopf_.add_child(nv)
 	v.add_child(kopf_)
-	v.add_child(Spielstaende.linie())
+	v.add_child(Spielstaende.zier())   # Chef 16:51 (549a (8)): Kopf zuerst, darunter genau eine Zierlinie, keine zweite schlichte
 	v.add_child(Stil.zeile(("Zutaten je Trank" if de else "Ingredients per potion").to_upper(), 13, Stil.GOLD, 2.0))   # Pruefer 16:40: „7/2“ ohne Ueberschrift
 	v.add_child(zutaten_reihe(r, 24, 15))
 	if oft < 1:
@@ -677,17 +677,17 @@ func braukasten_c(r: Dictionary, n: int, alle := false) -> void:
 			if not bool(k[3]): w.modulate.a = 0.4
 			wr.add_child(w)
 		v.add_child(wr)
-		v.add_child(Stil.zeile(Sprache.t(Laden.REICHT) % oft, 13, Stil.GOLD))
-		v.add_child(Erschaffung.txt(Sprache.t(Laden.BESITZ) + "%d → %d" % [z.anzahl(aus), z.anzahl(aus) + n], 14, Stil.DIM))
+		v.add_child(Stil.zeile(Sprache.t(Laden.REICHT) % oft, 13.5, Stil.BRIGHT))   # Zu 557 (8): kleine Angaben heller
+		v.add_child(Erschaffung.txt(Sprache.t(Laden.BESITZ) + "%d → %d" % [z.anzahl(aus), z.anzahl(aus) + n], 14, Spielstaende.ANGABE))
 		if int(r["gold"]) > 0:
-			v.add_child(Erschaffung.txt("%s: %d → %d" % [Sprache.u("gold"), z.gold, z.gold - int(r["gold"]) * n], 14, Stil.DIM))
+			v.add_child(Erschaffung.txt("%s: %d → %d" % [Sprache.u("gold"), z.gold, z.gold - int(r["gold"]) * n], 14, Spielstaende.ANGABE))
 	v.add_child(Spielstaende.linie())
 	var brau := ("Brauen" if de else "Brew") + (" ×%d" % n if n > 1 else "")
 	v.add_child(Spielstaende.fuss(func(): schleier.queue_free(), "", brau, Stil.BRIGHT, func(): schleier.queue_free(); sage(laden.braue_mehr(z, hw, r, n)); baue(), oft >= 1))
 
 # grosse Tippflaeche fuer − und + ohne eigenen Rahmen (56 dp), aus: matt
 func _zahl_knopf(t: String, tat: Callable, an: bool) -> Control:
-	var l := Stil.zeile(t, 30, Stil.GOLD if an else Color(Stil.DIM, 0.4))
+	var l := Stil.zeile(t, 30, Stil.BRIGHT if an else Color(Stil.DIM, 0.75))   # Zu 557 (8) (Pruefer 16:43: „+“ kaum zu sehen)
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	l.custom_minimum_size = Vector2(56, 56) * DP

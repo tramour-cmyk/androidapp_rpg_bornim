@@ -24,6 +24,9 @@ static var entwurf := ""
 # solange alles auf einen Schirm passt (fest unten nur, wenn die Liste rollt; Votum Perikles 14:2x)
 static var vorlage2 := false
 static var mit := {"ziel": true}
+# 557 (Chef 16:42, 16:51; Zu 557 (8)): kleine Angaben (Reicht für, Im Besitz, Gold, Stufe, Händler zahlt, Angelegt) mindestens 13 sp
+# und deutlich heller als Veil.dim (948a78), aber unter dem Text (e6ddcb)
+const ANGABE := Color("cfc3ab")
 
 var liste: VBoxContainer
 
@@ -240,7 +243,8 @@ func _ready_b() -> void:
 	z.custom_minimum_size.y = 52 * DP
 	z.alignment = BoxContainer.ALIGNMENT_CENTER
 	z.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	z.add_child(Stil.zeile("‹  " + Sprache.u("back").to_upper(), 14, Stil.GOLD, 2.0))   # Nebenwahl (549a Punkt 4)
+	if vorlage2: z.add_child(pfeil(Stil.GOLD, true))   # Zu 557 (3): „‹“ als Zeichen
+	z.add_child(Stil.zeile(("" if vorlage2 else "‹  ") + Sprache.u("back").to_upper(), 14, Stil.GOLD, 2.0))   # Nebenwahl (549a Punkt 4)
 	spalte.add_child(tippbar(z, func(): zurueck.emit()))
 	baue()
 
@@ -349,12 +353,13 @@ static func frage(eltern: Control, titel: String, zeilen: Array, zeichen: String
 	v.add_theme_constant_override("separation", int(10 * DP))
 	v.custom_minimum_size.x = eltern.get_viewport_rect().size.x - 48 * DP
 	mitte.add_child(Rueckfrage.halte(v))
-	v.add_child(zier())
+	# Chef 16:51 (549a (8): „für jedes Fenster gleich“): oben der Titel, darunter genau eine Zierlinie mit Raute, keine Linie darueber
+	# und keine zweite schlichte darunter; dann Inhalt, schlichte Linie, Knoepfe
 	var t := Stil.zeile(titel.to_upper().replace("ß", "SS"), 15, Stil.GOLD, 3.0)
 	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	v.add_child(t)
-	v.add_child(linie())
+	v.add_child(zier())
 	for z in zeilen: v.add_child(z)
 	v.add_child(linie())
 	v.add_child(fuss(func(): schleier.queue_free(), zeichen, wahl, farbe, func(): schleier.queue_free(); tat.call(), an))
@@ -420,11 +425,17 @@ static func nebenwahl(zeichen: String, text: String, tat: Callable, an := true, 
 	lz.alignment = BoxContainer.ALIGNMENT_CENTER
 	lz.add_child(Erschaffung.luecke(0, 8))
 	var f := (Stil.DIM if leise else Stil.GOLD) if an else Color(Stil.DIM, 0.6)   # leise: Pruefer 16:40, Wegwerfen wie Abbrechen
+	if vorlage2 and leise and an: f = ANGABE   # Zu 557 (8): leise, aber lesbar
+	# Zu 557 (3) (Pruefer 16:43: „‹“ ein winziger Punkt): das Zeichen gezeichnet wie „›“ der Hauptwahl, gespiegelt; die Schrift
+	# hoechstens eine Stufe kleiner als die Hauptwahl (15), die Flaeche 48 dp
+	if vorlage2 and text.begins_with("‹"):
+		text = text.substr(1).strip_edges()
+		lz.add_child(pfeil(f, true))
 	if zeichen != "":
 		var kr := Rastzeichen.neu(zeichen, 14, f)
 		kr.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		lz.add_child(kr)
-	var lt := Stil.zeile(text.to_upper().replace("ß", "SS"), 12.5, f, 2.0)   # Helfer 14:18: „SCHLIEßEN“
+	var lt := Stil.zeile(text.to_upper().replace("ß", "SS"), (13.5 if leise else 14.0) if vorlage2 else 12.5, f, 2.0)   # Helfer 14:18: „SCHLIEßEN“
 	lt.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	lz.add_child(lt)
 	lz.add_child(Erschaffung.luecke(0, 8))
@@ -457,16 +468,21 @@ static func wahl_b(text: String, farbe: Color) -> Control:
 	var l := Stil.zeile(text.to_upper().replace("ß", "SS"), 15, farbe, 2.0)
 	l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(l)
+	h.add_child(pfeil(farbe, false))
+	return h
+
+# „›“ (links: „‹“) als gezeichnetes Zeichen, mittig zur Schrift
+static func pfeil(farbe: Color, links: bool) -> Control:
 	var c := Control.new()
 	c.custom_minimum_size = Vector2(9 * DP, 16 * DP)
 	c.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	c.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var s := -1.0 if links else 1.0
 	c.draw.connect(func():
 		var m := c.size / 2
 		var a := 4.0 * DP
-		c.draw_polyline(PackedVector2Array([m + Vector2(-a * 0.55, -a * 1.5), m + Vector2(a * 0.75, 0), m + Vector2(-a * 0.55, a * 1.5)]), farbe, 1.8 * DP, true))
-	h.add_child(c)
-	return h
+		c.draw_polyline(PackedVector2Array([m + Vector2(-a * 0.55 * s, -a * 1.5), m + Vector2(a * 0.75 * s, 0), m + Vector2(-a * 0.55 * s, a * 1.5)]), farbe, 1.8 * DP, true))
+	return c
 
 func _satz(t: String, sp_: float, farbe: Color, schraeg := false) -> Label:
 	var l := Stil.zeile(t, sp_, farbe, 0.0, schraeg)

@@ -701,7 +701,7 @@ static func vergleich_tabelle(zeilen: Array, de: bool) -> Control:
 		return l
 	var kopf := HBoxContainer.new()
 	kopf.add_child(spalte.call("Vergleich" if de else "Compare", 15.0, Stil.TEXT, 1.8, true))
-	kopf.add_child(spalte.call("Angelegt" if de else "Equipped", 13.7, Stil.DIM, 0.9))
+	kopf.add_child(spalte.call("Angelegt" if de else "Equipped", 13.7, Spielstaende.ANGABE if Spielstaende.vorlage2 else Stil.DIM, 0.9))   # Zu 557 (8)
 	kopf.add_child(spalte.call("Neu" if de else "New", 13.7, Stil.DIM, 0.9))
 	t.add_child(kopf)
 	var strich := ColorRect.new()
@@ -864,7 +864,7 @@ func _waehle_b(platz: String) -> void:
 	var jetzt := HBoxContainer.new()
 	jetzt.add_theme_constant_override("separation", int(14 * DP))
 	jetzt.custom_minimum_size.y = 56 * DP
-	var jt := Stil.zeile(("Angelegt" if de else "Equipped").to_upper(), 13, Stil.DIM, 2.0)
+	var jt := Stil.zeile(("Angelegt" if de else "Equipped").to_upper(), 13, Spielstaende.ANGABE if Spielstaende.vorlage2 else Stil.DIM, 2.0)   # Zu 557 (8)
 	jt.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	jt.custom_minimum_size.x = 60 * DP
 	jetzt.add_child(jt)
@@ -903,7 +903,8 @@ func _waehle_b(platz: String) -> void:
 	z.custom_minimum_size.y = 52 * DP
 	z.alignment = BoxContainer.ALIGNMENT_CENTER
 	z.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	z.add_child(Stil.zeile("‹  " + Sprache.u("back").to_upper(), 14, Stil.GOLD, 2.0))   # Nebenwahl (549a Punkt 4)
+	if Spielstaende.vorlage2: z.add_child(Spielstaende.pfeil(Stil.GOLD, true))   # Zu 557 (3): „‹“ als Zeichen
+	z.add_child(Stil.zeile(("" if Spielstaende.vorlage2 else "‹  ") + Sprache.u("back").to_upper(), 14, Stil.GOLD, 2.0))   # Nebenwahl (549a Punkt 4)
 	spalte.add_child(Spielstaende.tippbar(z, zu))
 
 # 557 (Helfer 13:07: Roben zeigten keinen Wert, nur der Plattenpanzer „RK 18“): ohne Kennwert (Roben, Ringe, Umhaenge …) stehen die zwei
@@ -1008,34 +1009,22 @@ func fenster_b(g: Dictionary, anlegen := Callable(), zurueck := Callable()) -> C
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(8 * DP))
 	var breite := get_viewport_rect().size.x - 2 * 16 * DP - 2 * 14 * DP
+	if Spielstaende.vorlage2:   # Zu 557 (1), (2) (Chef 16:42: „beim Gegenstand neu, da ist er noch rum“): ohne Rahmen wie Rueckfrage
+		# und Mengenkasten, so breit wie sie, Grund deckend (Pruefer 16:43: Reiterkacheln, Seitenkasten, SCHLIESSEN schienen durch)
+		schleier.color = Color.BLACK
+		breite = get_viewport_rect().size.x - 48 * DP
 	v.custom_minimum_size.x = breite
-	var rahmen := Erschaffung.kasten(v)
-	mitte.add_child(Rueckfrage.halte(rahmen))
+	mitte.add_child(Rueckfrage.halte(v if Spielstaende.vorlage2 else Erschaffung.kasten(v)))
 	for c in Menue.stueck_zeilen_b(hw, g): v.add_child(c)
 	v.add_child(Spielstaende.linie())
 	var zu := func(): schleier.queue_free()
 	var an_c := anlegen if anlegen.is_valid() else func(): meldung(lege_an(g)); baue()
 	if Spielstaende.vorlage2:   # 557 Vorlage 2 (Chef 14:26): „‹ ABBRECHEN“ links, ANLEGEN rechts; Wegwerfen und Nebenhand leise darueber
-		# Pruefer 16:40: eine eigene Zeile streckte das Fenster (Kettenpanzer bis in die Reiter); Wegwerfen leise in der Zeile unten,
-		# nur die Nebenhand (selten) bekommt eine Zeile darueber
+		# Zu 557 (4) (Chef 16:42): „× WEGWERFEN“ und „Nebenhand“ leise in derselben Zeile wie „‹ ABBRECHEN“, keine eigene dritte Stufe
+		var leise_: Array = [Spielstaende.nebenwahl("KREUZ", "Wegwerfen" if de else "Discard", func(): zu.call(); frage_wegwerfen(g), true, true)]
 		if ok and einhandwaffe(g) and not anlegen.is_valid():
-			v.add_child(Spielstaende.nebenwahl("", "Nebenhand" if de else "Off hand", func(): zu.call(); meldung(lege_an(g, true)); baue()))
-		var weg_ := Spielstaende.nebenwahl("KREUZ", "Wegwerfen" if de else "Discard", func(): zu.call(); frage_wegwerfen(g), true, true)
-		weg_.size_flags_horizontal = Control.SIZE_SHRINK_END
-		var preis_ := v.get_child(v.get_child_count() - 2)   # „Händler zahlt n Gold“ vor der Linie: Wegwerfen leise rechts daneben
-		if preis_ is Label and String((preis_ as Label).text).contains("Gold"):
-			var pz := HBoxContainer.new()
-			pz.mouse_filter = Control.MOUSE_FILTER_IGNORE
-			v.remove_child(preis_)
-			(preis_ as Label).size_flags_horizontal = Control.SIZE_EXPAND_FILL
-			(preis_ as Label).size_flags_vertical = Control.SIZE_SHRINK_CENTER
-			pz.add_child(preis_)
-			pz.add_child(weg_)
-			v.add_child(pz)
-			v.move_child(pz, v.get_child_count() - 2)
-		else:
-			v.add_child(weg_)
-		v.add_child(Spielstaende.fuss(func(): schleier.queue_free(); if zurueck.is_valid(): zurueck.call(), "", Sprache.u("equip"), Stil.BRIGHT, func(): zu.call(); an_c.call(), ok))
+			leise_.append(Spielstaende.nebenwahl("", "Nebenhand" if de else "Off hand", func(): zu.call(); meldung(lege_an(g, true)); baue(), true, true))
+		v.add_child(Spielstaende.fuss(func(): schleier.queue_free(); if zurueck.is_valid(): zurueck.call(), "", Sprache.u("equip"), Stil.BRIGHT, func(): zu.call(); an_c.call(), ok, leise_))
 		return schleier
 	var unten := HBoxContainer.new()
 	unten.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -1069,7 +1058,11 @@ static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
 	# Kopf
 	var kopf := HBoxContainer.new()
 	kopf.add_theme_constant_override("separation", int(12 * DP))
-	kopf.add_child(Menue.stueck_rahmen(g, 52))
+	if Spielstaende.vorlage2:   # Zu 557 (1): Bild im Kopf frei, ohne Goldkaestchen (wie der Mengenkasten)
+		var bf := Menue.bild_feld("stueck-%s-%s" % [g["base"], g["rarity"]], 48)
+		bf.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		kopf.add_child(bf)
+	else: kopf.add_child(Menue.stueck_rahmen(g, 52))
 	var kv := VBoxContainer.new()
 	kv.add_theme_constant_override("separation", int(2 * DP))
 	kv.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -1083,6 +1076,7 @@ static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
 	kv.add_child(satz.call(art_z, 13, Color(farbe, 0.8)))
 	kopf.add_child(kv)
 	z_.append(kopf)
+	if Spielstaende.vorlage2: z_.append(Spielstaende.zier())   # Chef 16:51 (549a (8)): Kopf zuerst, gleich darunter die Zierlinie
 	# Urteil als Zeile (statt Band): Zeichen und Satz in der Farbe des Urteils, darunter was abgelegt wird
 	var v: Vergleich = Vergleich.von(hw, g) if hw.kann_tragen(g) and not hw.ausruestung.values().any(func(x): return x != null and int(x["uid"]) == int(g["uid"])) else null
 	if v:
@@ -1101,7 +1095,8 @@ static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
 		if not v.ersetzt.is_empty():
 			var anderer := v.ersetzt.any(func(x): return String(Beute.grundform(String(x["base"]))["slot"]) != String(b["slot"]))
 			z_.append(satz.call(("Ersetzt: " if de else "Replaces: ") + ", ".join(PackedStringArray(v.ersetzt.map(func(x): return Beute.name(x)))), 13, Stil.WARN if anderer else Stil.DIM))
-	z_.append(Spielstaende.linie())
+	# 549a (8): keine zweite schlichte Linie unter der Zierlinie; Abstand statt Linie
+	z_.append(Erschaffung.luecke(4) if Spielstaende.vorlage2 else Spielstaende.linie())
 	# Grundzahlen
 	var waffe := Beute.ist_waffe(b)
 	var zwei := waffe and bool(b["zweihaendig"])
@@ -1112,7 +1107,7 @@ static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
 	wo += (" · Stufe " if de else " · Level ") + str(int(g["ilvl"]))
 	var gewicht := String(b.get("gewicht", "NONE"))
 	if gewicht != "NONE": wo += " · " + Sprache.t(d["ruestungsarten"].get(gewicht, {"de": "Stoff", "en": "cloth"}))
-	var wl: Label = satz.call(wo, 13, Stil.WARN if zwei else Stil.DIM)
+	var wl: Label = satz.call(wo, 13.5 if Spielstaende.vorlage2 else 13.0, Stil.WARN if zwei else (Spielstaende.ANGABE if Spielstaende.vorlage2 else Stil.DIM))   # Zu 557 (8)
 	z_.append(fett.call(wl) if zwei else wl)
 	if String(b["art"]) == "LIGHT":
 		z_.append(satz.call("Pech und Werg auf einem Stock. In der Nebenhand, statt eines Schilds. Im Dunkeln siehst du weiter als mit einem Leuchtfunken. Brennt, solange du sie trägst." if de else
@@ -1161,7 +1156,7 @@ static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
 		z_.append(Spielstaende.linie())
 		z_.append(vergleich_tabelle(tz, de))
 	if Laden.ausruestung_verkaeuflich(g):
-		z_.append(satz.call(("Händler zahlt %d Gold" if de else "A trader pays %d gold") % Laden.verkaufspreis_von(hw, g), 13, Stil.GOLD))
+		z_.append(satz.call(("Händler zahlt %d Gold" if de else "A trader pays %d gold") % Laden.verkaufspreis_von(hw, g), 13.5 if Spielstaende.vorlage2 else 13.0, Stil.BRIGHT if Spielstaende.vorlage2 else Stil.GOLD))   # Zu 557 (8)
 	return z_
 
 # PaperDoll: links Kopf, Umhang, Oberkoerper, Arme, Beine; rechts Amulett, Ring, Haupthand, Nebenhand; der Held dazwischen

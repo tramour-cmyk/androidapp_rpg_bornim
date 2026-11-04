@@ -98,15 +98,17 @@ func _ohne_kasten(titel: String, unter: String, wahlen: Array, weiter_text: Stri
 	var t := Stil.zeile(titel.to_upper(), 26, Stil.GOLD, 3.0)
 	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	sp.add_child(t)
+	# 557 (Chef 16:51, 549a (8): „für jedes Fenster gleich“): Kopf zuerst, gleich darunter die Zierlinie, dann der Inhalt
+	if Spielstaende.vorlage2: sp.add_child(_zier())
 	if unter != "":
-		var u := Stil.zeile(unter, 14, Stil.DIM)
+		var u := Stil.zeile(unter, 14, Spielstaende.ANGABE if Spielstaende.vorlage2 else Stil.DIM)   # 557 (8) kleine Angaben heller
 		u.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		sp.add_child(u)
 	for z in zeilen:
 		var l := _satz(String(z), 15, Stil.TEXT)
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		sp.add_child(l)
-	sp.add_child(_zier())
+	if not Spielstaende.vorlage2: sp.add_child(_zier())
 	for w in wahlen:
 		sp.add_child(_wahl_zeile(w))
 		sp.add_child(_linie(Stil.RIM))

@@ -125,6 +125,9 @@ func _fenster() -> void:
 	z.beutel.append(neu)
 	var panzer := Beute.erzeuge_mit_uid(KotlinZufall.new(5), z.neue_uid, 9, "DIVINE", "FIGHTER")
 	z.beutel.append(panzer)
+	# Zu 557 (4) (Chef 16:42; Pruefer 16:43: „Nebenhand fehlt im Bild“): eine Einhandwaffe, damit „Nebenhand“ in der Zeile unten steht
+	var schwert := {"uid": z.neue_uid.call(), "base": "shortsword", "rarity": "RARE", "ilvl": 5, "plus": 0, "rolls": [["STR", 1]], "unique": null, "name_seed": 3}
+	z.beutel.append(schwert)
 	var ebene := CanvasLayer.new()
 	root.add_child(ebene)
 	var m := Menue.new(hw, z)
@@ -133,7 +136,7 @@ func _fenster() -> void:
 	for entwurf in ["", "B", "B2"]:
 		Menue.entwurf = "B" if entwurf == "B2" else entwurf
 		Spielstaende.vorlage2 = entwurf == "B2"
-		for paar in [["ring", neu], ["panzer", panzer]]:
+		for paar in [["ring", neu], ["panzer", panzer]] + ([["schwert", schwert]] if entwurf == "B2" else []):
 			m.frage_stueck(paar[1])
 			await _bild("557_fenster_%s_%s" % [paar[0], _endung(entwurf)])
 			m.get_child(m.get_child_count() - 1).free()
