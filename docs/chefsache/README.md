@@ -8,8 +8,8 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [531a](entscheiden/531a-campfire.md) | **Muss** | A Spiel | 04.11., 19:28 | Protofactor „Campfire“ kaufen für Garrick und die Rast? | Sokrates |
 | [549a](entscheiden/549a-ohne-kasten.md) | **Muss** | A Spiel | 04.11., 11:12 | Oberfläche „ohne Kasten“ als Grundsatz: Linien trennen, ein Rahmen nur für die Entscheidung? | Sokrates |
+| [568](entscheiden/568-ernten.md) | M? | A Spiel | 04.11., 19:33 | Ernten als Handlung statt Einsaugen im Vorbeilaufen | Sokrates |
 
 ## Zu billigen
 
@@ -285,11 +285,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 | Pflege | K | von Werkzeug (340.3, 04.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
-**Sokrates** – offen 38, Muss 29, startbar 16
+**Sokrates** – offen 38, Muss 28, startbar 16
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 531a | M | Rückfrage: Bewegungspaket „Campfire“ (14,99 $) für Garrick und Rast kaufen? (Chef 19:27) | Chef (Datei in der Chefsache) |
+| 568 | M? | Rückfrage: Ernten als Handlung statt Einsaugen? (Chef 19:32) | Chef (Datei in der Chefsache) |
 | 549a | M | Rückfrage: Oberfläche ohne Kasten (549 B) als Grundsatz, Spielstände als zweiter Schirm? ( | Chef (Datei in der Chefsache) |
 | 512 | M | von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles): Abgleich alt gegen ne | startbar |
 | 508 | M | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
