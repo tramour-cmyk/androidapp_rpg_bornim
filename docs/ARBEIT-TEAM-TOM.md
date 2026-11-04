@@ -8,7 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 557 | M | **von Sokrates (Chef 04.11., 11:15; Zu 557):** Spielstände als Entwurf im Stil „ohne Kasten“ (549a), ein Bild aus Godot zum Ansehen; Inhalt mit der alten Fassung abgleichen (`SlotsScreen.kt` `SlotCard`), Spieldauer wieder dabei; nichts bauen außer dem Entwurf | startbar | – |
+| 557 | M | **von Sokrates (Chef 04.11., 11:15; Zu 557):** Spielstände als Entwurf im Stil „ohne Kasten“ (549a), ein Bild aus Godot zum Ansehen; Inhalt mit der alten Fassung abgleichen (`SlotsScreen.kt` `SlotCard`), Spieldauer wieder dabei; nichts bauen außer dem Entwurf | wartet auf Chef: ansehen/557 (B, Vorschläge 1–3); Geprüft an: 69a5744e4 | `claude/tom-557-spielstaende` |
 | 556 | M | **von Sokrates (Chef 04.11., 07:52; Zu 556):** Blenden reines Schwarz statt Leuchten, Lesezeit jeder Blende gegen alt (`InterludeClock`) | gebaut, fährt im nächsten Build: Kampf 0,65 s → 2–6,6 s, Orte 1,9 → 2,1–4,8 s; Geprüft an: abda486d3 | `claude/tom-556-blende` |
 | 531 | M | **von Sokrates (Chef 03.11., 23:42, Build 249; Zu 531):** Garrick: „Gesicht wirkt sonderbar, Bogen fehlt, vertreibt keine Mobs. Hat er schon Animation?“ | wartet auf Chef: ansehen/531; Geprüft an: cac2a27f4 | – |
 | 530 | M | **von Sokrates (Chef 03.11., 23:40, Build 249):** „Schlagbaum öffnet sich nicht visuell.“ Merker `barrier_open` (`geschichte.gd` 58) und Erzähltext kommen, das Modell bleibt zu; nachstellen, auch nach Laden eines Spielstands | wartet auf Test: Build 251 (t251, PR #181) | `claude/spike-530-schlagbaum` |
