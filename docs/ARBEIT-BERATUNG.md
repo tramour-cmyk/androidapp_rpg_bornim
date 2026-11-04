@@ -10,6 +10,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 468c | M | Rückfrage: Wochenlimit 79 % (Bild Chef 04.11., 07:11), bis Sa nur eine Entwicklersitzung zugleich? | wartet auf Chef: entscheiden/468c |
 | 513 | M | **von Team Tom (04.11., 05:38, 480.1):** Bitte um einen Probelauf für 513: Probe 3 (deine Freigabe) hatte Kämpfer-Schild unten 5,4 cm; Ursache am Rechner nachgestellt und behoben (52bb6dfe1, `claude/figurenstand-513`, Test schild_513 ohne Bild: Spalt höchstens 0 cm, 0 Ecken im Körper); der Lauf zeigt die vier Drehteller-Bilder für den Chef | startbar |
 | 512 | M | **von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles):** Abgleich alt gegen neu wirkt nicht: Funde des Chefs in Build 249 (503, 519, 520, 521) | in Arbeit: Abgleich Build 249 verteilt (523–543); t251–t257 mit Zeile „Verglichen“; Wächter 512.1 bei Perikles; Wirkung am nächsten Chef-Test prüfen |
 | 512a | M | Rückfrage: Abgleichsfunde 535, 543 bis 478 zurückstellen? | wartet auf Chef: entscheiden/512a |
@@ -56,12 +57,11 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 481 (Chef 02.11., 18:55):** „Kräutersammler. Oder grundsätzlich das Brauen von Tränken … Berserker-Modus geben. Durch Tränke … spezielle Tränke, die nur er verwenden kann. Andere werden sie giftig … zwei Runden unverwundbar … kann sich ja da auch spezialisieren … selbst vielleicht irgendwas herstellen und so kriegt er halt von Morwen oder Tränke, die ein anderer nicht bekäme“. Mein Vorschlag (Chat 18:58): Kampftränke mit Preis (Berserkertrank, Steinhaut, Alchemistenfeuer; je ein Zug), Wirkung nach Rang in Kräuterkunde statt Sperre, Starttränke und Morwen gegen Sammelzwang; Ziel gegen Bosse etwa wie die mittlere Herkunft. Offen: Wachsoldat 100 %, Klosterschüler lange Kämpfe, Bewährungsprobe (Chefsache 427 in Git); abstimmen mit 470.
 - **von Team Jerry (02.11., 19:5x, zu 481):** 481.1 gerechnet, `LISTE-SIMULATION-444.md` Abschnitt 6 (Befund dort): 2 Heiltränke heben am meisten (ab 50 % je Boss 2–5 → 6–7 Herkünfte); Kampftränke ohne Kräuterkunde kosten nur Züge; Kräutersammler 8–27 % mit Satz, weil seine Kräuterkunde in der Simulation bei 10 bleibt (Sammeln nicht gerechnet); mit Kräuterkunde 24 und 6 Feuer (230 Gold) 49–64 %, mit Rauch 81 %. Annahmen (Wirkung 0,5 + 0,05 × Kräuterkunde, Preise, Satz) in `werte.json` „kampftraenke“ auf `claude/jerry-481-1-traenke`; ändern und neu rechnen auf Zuruf.
 - **von Team Jerry (02.11., 20:0x, zu 467):** Ausdauer rechnet in Godot noch nach SRD; laut Zeile sollte die Formel (Zähigkeit, Wille, Stufe) mit 427 zum Chef, 427 ist ohne sie entschieden (Archiv 18:54). Ich warte auf die Formel.
-- **Zu 366:** Bau, Vorschau und Prüfbogen in Git vor 03.11., 08:51.
 - **Zu 142, Stand:** AAB 142.1 im internen Test (Chef 25.10., 12:38 erledigt); Konto geprüft, App angelegt 25.10. (Zu 142, Konto); Entwickler-E-Mail info@bornwire.de bestätigt (25.10., 12:51); Datenschutz-URL für den Store `https://bornwire.de/datenschutz.html` (252 online 25.10., 13:12; Godot-Fassung mit INTERNET-Recht: Datenschutz vorher anpassen).
 - **Zu 142, Konto und 142.3 C (Organisationskonto, D-U-N-S):** Einzelheiten in Git vor 03.11., 08:52.
 - **Zu 142:** vor Marktstart Klangmarken DPMA/EUIPO suchen (292.1).
 - **Zu 461b:** 16 Funde (02.11., 19:1x) in Git vor 03.11., 08:50; verteilt Perikles; meine Punkte in 461b.4.
-- **Zu 253:** Name BornWire TCS (Verlauf in Git vor `2e6ab39a`, Fahrplan-Dokument); Gewerbeschein auf „Wirestorm TCS“ beantragt.
+- **Zu 253:** in Git vor 04.11., 07:12.
 - **Zu 142** (17.–20.10. in Git): Fahrplan im vertraulichen [Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM); offen: Anschrift vor dem Zahlungsprofil
 
 ## Einzelheiten
