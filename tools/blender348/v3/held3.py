@@ -147,6 +147,63 @@ def _noise(nt, scale, src='Object', detail=2.0):
     else: nt.links.new(tc.outputs['Object'], no.inputs['Vector'])
     return no.outputs['Fac']
 def _sat(nt, x): return _m(nt, 'MINIMUM', _m(nt, 'MAXIMUM', x, 0.0), 1.0)
+# 558 (Chef 04.11., 11:31: Robe „viel zu clean … als ob er irgendwie eine blaue Fläche … Schattenstruktur, schmutzig, abgenutzt“):
+# im Spiel steht der Held etwa 300 Bildpunkte hoch (gut 1,5 px je cm); das Gewebe (4 mm) und die Koernung gehen dort unter (im Bild
+# lokal 3 bis 5 von 255). Was ankommen soll, liegt zwischen 3 und 20 cm: Falten senkrecht im Rock, Schatten in Winkeln (AO, Guertel,
+# Achseln, Lagen), Schmutz am Saum, ausgeblichene und dunkle Stellen, grobe Farbschwankung. STOFF=<staerke> (0 aus, wie bisher)
+STOFF = float(os.environ.get('STOFF', '0'))
+STOFF_TEILE = ('tabard', 'sleeve', 'pants', 'cloak', 'apron', 'tuch')
+def _noise_v(nt, vec, scale, detail=2.0, rough=0.5):
+    no = nt.nodes.new('ShaderNodeTexNoise'); no.inputs['Scale'].default_value = scale; no.inputs['Detail'].default_value = detail
+    no.inputs['Roughness'].default_value = rough; nt.links.new(vec, no.inputs['Vector'])
+    return no.outputs['Fac']
+def stoff(nt, col, name):
+    S = STOFF
+    geo = nt.nodes.new('ShaderNodeNewGeometry'); sp = nt.nodes.new('ShaderNodeSeparateXYZ'); nt.links.new(geo.outputs['Position'], sp.inputs[0])
+    X, Y, Z = sp.outputs['X'], sp.outputs['Y'], sp.outputs['Z']
+    pos = geo.outputs['Position']
+    # grobe Farbschwankung (etwa 4 cm), dazu weite Wolken (etwa 15 cm): Stoff ungleich gefaerbt und getragen
+    col = _scale(nt, col, _m(nt, 'ADD', 1.0, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, pos, 0.25, 3.0, 0.6), 0.5), 0.30 * S)))
+    col = _scale(nt, col, _m(nt, 'ADD', 1.0, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, pos, 0.065, 2.0), 0.5), 0.26 * S)))
+    # Falten: senkrechte Baender um die Koerperachse (Winkel), unten breiter und tiefer (Rock faellt vom Guertel), leicht gewellt;
+    # Taeler schmal und dunkel, Grate breit und etwas heller, wie gemalter Faltenwurf unter Licht von oben
+    if name in ('tabard', 'cloak', 'apron'):
+        ang = _m(nt, 'ARCTAN2', X, Y)
+        cb = nt.nodes.new('ShaderNodeCombineXYZ')
+        nt.links.new(_m(nt, 'MULTIPLY', ang, 2.2), cb.inputs[0]); nt.links.new(_m(nt, 'MULTIPLY', Z, 0.018), cb.inputs[1])
+        wv = nt.nodes.new('ShaderNodeTexWave'); wv.wave_type = 'BANDS'; wv.bands_direction = 'X'; wv.wave_profile = 'SIN'
+        wv.inputs['Scale'].default_value = 1.0; wv.inputs['Distortion'].default_value = 3.0
+        wv.inputs['Detail'].default_value = 2.0; wv.inputs['Detail Scale'].default_value = 1.5
+        nt.links.new(cb.outputs[0], wv.inputs['Vector'])
+        tief = _sat(nt, _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', beltY + 4.0, Z), 45.0))       # unter dem Guertel zunehmend
+        tief = _m(nt, 'ADD', 0.25, _m(nt, 'MULTIPLY', tief, 0.75))
+        tal = _m(nt, 'POWER', _sat(nt, _m(nt, 'SUBTRACT', 1.0, wv.outputs['Fac'])), 2.5)      # schmal, dunkel
+        grat = _m(nt, 'POWER', wv.outputs['Fac'], 3.0)
+        f = _m(nt, 'ADD', 1.0, _m(nt, 'MULTIPLY', tief, _m(nt, 'SUBTRACT', _m(nt, 'MULTIPLY', grat, 0.14 * S), _m(nt, 'MULTIPLY', tal, 0.48 * S))))
+        col = _scale(nt, col, f)
+        # unter dem Guertel staut sich der Stoff: dunkles Band 2 bis 10 cm darunter
+        gb = _sat(nt, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'ABSOLUTE', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', Z, beltY - 6.0), 6.0))))
+        col = _scale(nt, col, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'MULTIPLY', gb, 0.30 * S)))
+    # Schatten in Winkeln (Achsel, unter dem Guertel, zwischen Aermel und Rumpf, Lagen uebereinander): Umgebungsverdeckung im Bild
+    ao = nt.nodes.new('ShaderNodeAmbientOcclusion'); ao.inputs['Distance'].default_value = float(os.environ.get('STOFF_AO', '9'))
+    ao.samples = 16
+    col = _scale(nt, col, _m(nt, 'ADD', 1.0 - 0.6 * min(S, 1.0), _m(nt, 'MULTIPLY', ao.outputs['AO'], 0.6 * min(S, 1.0))))
+    # ausgeblichen (Sonne, Waesche) und abgewetzt: helle, graue Stellen an Knie, Ellbogen, Saumkante; dunkle Flecken (Fett, Ruß, Regen)
+    bl = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, pos, 0.11, 3.0, 0.55), 0.55), 5.0))
+    col = _mix(nt, _m(nt, 'MULTIPLY', bl, 0.30 * S), col, lin(hx(0x8C8478)))
+    fl = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, _m_vec(nt, pos, 1.7), 0.09, 3.0, 0.6), 0.58), 6.0))
+    col = _mix(nt, _m(nt, 'MULTIPLY', fl, 0.45 * S), col, lin(hx(0x231C16)))
+    # Schmutz am Saum: Strassenstaub und Schlamm bis etwa 28 cm, unregelmaessig, darunter die Kante dunkel und ausgefranst
+    if name in ('tabard', 'cloak', 'apron', 'pants'):
+        rnd = _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, pos, 0.12, 3.0, 0.6), 0.5), 1.6)
+        dr = _sat(nt, _m(nt, 'ADD', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', 16.0 + 12.0 * S, Z), 14.0), rnd))
+        col = _mix(nt, _m(nt, 'MULTIPLY', dr, min(0.85, 0.7 * S)), col, lin(hx(0x5A4C3C)))
+        ka = _sat(nt, _m(nt, 'ADD', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', ankleY + 7.0, Z), 3.0), _m(nt, 'MULTIPLY', rnd, 0.6)))
+        col = _mix(nt, _m(nt, 'MULTIPLY', ka, 0.6 * min(S, 1.0)), col, lin(hx(0x2A221A)))
+    return col
+def _m_vec(nt, v, f):
+    n = nt.nodes.new('ShaderNodeVectorMath'); n.operation = 'SCALE'; nt.links.new(v, n.inputs[0]); n.inputs['Scale'].default_value = f
+    return n.outputs[0]
 def finish(nt, col, name):
     g = GRAIN.get(name, 0.03)
     # Koernung (fein) und Farbschwankung je Flaeche (grob)
@@ -172,6 +229,7 @@ def finish(nt, col, name):
         no = nt.nodes.new('ShaderNodeTexNoise'); no.inputs['Scale'].default_value = 1.6; no.inputs['Detail'].default_value = 3.0
         nt.links.new(cb.outputs[0], no.inputs['Vector'])
         col = _scale(nt, col, _m(nt, 'ADD', 0.62, _m(nt, 'MULTIPLY', no.outputs['Fac'], 0.75)))
+    if STOFF > 0 and name in STOFF_TEILE: col = stoff(nt, col, name)
     W = WEAR
     if W <= 0: return col
     geo = nt.nodes.new('ShaderNodeNewGeometry')

@@ -93,6 +93,7 @@ func _ready() -> void:
 	wald_bilder()
 	tiefwald_bilder()
 	gluehen_bilder()
+	robe_bilder()
 	if FigurenProbe.an(): add_child(FigurenProbe.new(self))   # 376.1 Probeblatt Quaternius-Figuren (figurenprobe.gd)
 
 # 399: Spielbeginn aus dem Hauptmenue: geladen an den gespeicherten Ort, sonst ein neues Spiel mit frischem Zustand (Test 139: das neue
@@ -1775,6 +1776,40 @@ func gluehen_bilder() -> void:
 			await knips("%s/%s_%s.png" % [dir, id, t[1]])
 	Gluehwuermchen.uhr_fest = -1
 	print("GLUEHBILDER fertig")
+	get_tree().quit()
+
+# 558 Robe am Rechner (Chef 04.11., 11:31, Bild Build 257 im Tiefen Fluesterwald): --robe558=<ordner> knipst den Magier wie im Spiel,
+# zur Kamera gewandt: Tiefer Fluesterwald am Weg Tag und Nacht (wie das Bild des Chefs), Dorfplatz Tag, Nahstufe; der Ablauf
+# tom-probe-558.yml ruft es einmal mit der Robe von jetzt und einmal mit der neuen (held3.py STOFF) und setzt beide nebeneinander
+func robe_bilder() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--robe558="): dir = a.substr(10)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	ui.leiste.visible = false
+	werte = Heldwerte.erschaffe(zustand.name, "HUMAN", "WIZARD")
+	var orte := [["wald_tag", "deep_forest", Vector2i(21, 14), 10 * 60, false], ["wald_nacht", "deep_forest", Vector2i(21, 14), 22 * 60 + 25, true],
+		["dorf_tag", "village", Vector2i(6, 8), 11 * 60, false], ["dorf_nah", "village", Vector2i(6, 8), 11 * 60, false]]
+	var nacht := false
+	for o in orte:
+		zustand.minuten = int(o[3])
+		if karte == null or karte.id != String(o[1]): betrete(String(o[1]), o[2], "DOWN")
+		if herde: herde.aus = true   # Bilder ohne Angriff
+		if bool(o[4]) != nacht:
+			licht.umschalten(); nacht = bool(o[4])
+		held.neu_figur(HeldFigur.wahl(werte, zustand))
+		held.setze(o[2], "DOWN")
+		if String(o[0]) == "dorf_nah": kamera.nah_fern()
+		kamera.springe()
+		var zu: Vector3 = kamera.global_basis.z   # zur Kamera gewandt (wie --bilder nah)
+		held.rotation.y = atan2(zu.x, zu.z)
+		await get_tree().create_timer(2.5).timeout
+		ui.textfeld.visible = false
+		await knips("%s/%s.png" % [dir, o[0]])
+	print("ROBE558 fertig")
 	get_tree().quit()
 
 # 399.5 Grundrisse am Rechner: --raeume=<ordner> knipst je Grundriss aus der Grundansicht wie die alten Vergleichsbilder (Held wie
