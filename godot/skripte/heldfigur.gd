@@ -623,6 +623,11 @@ static func _schild_anlegen(m: Node3D, sk: Skeleton3D, bi: int, was: String, ap:
 	return {"t": t, "brust": brust, "spalt": best["spalt"], "hinten": t.origin.z, "gier": rad_to_deg(gier)}
 
 const SCHILD_ZEITEN := 12
+## 513: Knochen der Arme, Haende, Finger und Beine (UAL-Namen): schild_513 misst den Spalt zum Rumpf ohne sie
+static func ist_glied(n: String) -> bool:
+	for t in ["clavicle", "upperarm", "lowerarm", "hand", "thumb", "index", "middle", "ring", "pinky", "thigh", "calf", "foot", "ball"]:
+		if n.begins_with(t): return true
+	return false
 # hinterste z je Feld (3 cm breit, 2 cm hoch) der gehaeuteten Netze in der Haltung P, umgerechnet mit zur (Brust dieser Zeit -> Brust zur Zeit 0)
 static func _ruecken_feld(m: Node3D, sk: Skeleton3D, P: Array, zur: Transform3D, feld: PackedFloat32Array, x0: float, y0: float, nx: int, ny: int, hx: float, y1: float) -> PackedFloat32Array:
 	for mi in m.find_children("*", "MeshInstance3D", true, false):
