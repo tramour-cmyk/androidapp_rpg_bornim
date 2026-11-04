@@ -49,6 +49,13 @@ def vn(x, y, s=0):
     u = u * u * (3 - 2 * u); v = v * v * (3 - 2 * v)
     a = h1(ix, iy, s) * (1 - u) + h1(ix + 1, iy, s) * u; b = h1(ix, iy + 1, s) * (1 - u) + h1(ix + 1, iy + 1, s) * u
     return a * (1 - v) + b * v
+def hash_alt(a, b, s):
+    """alt MapCaveIso.hash (Kotlin Int, 32 Bit mit Ueberlauf): dieselbe Art je Kachel wie alt (Abgleich 492, Kisten, Truhe, Kristalle)"""
+    def i32(n): n &= 0xFFFFFFFF; return n - (1 << 32) if n & 0x80000000 else n
+    n = i32(a * 374761393 + b * 668265263 + s * 1442695041)
+    n = i32((n ^ ((n & 0xFFFFFFFF) >> 13)) * 1274126177)
+    return (n ^ ((n & 0xFFFFFFFF) >> 16)) & 0x7FFFFFFF
+def art_alt(c, r): return (hash_alt(c, r, 41) // 7) % 3        # alt MapCaveIso 1071: CHEST, CRATE
 def fbm(x, y, s=0): return 0.55 * vn(x, y, s) + 0.3 * vn(x * 2.3, y * 2.3, s + 1) + 0.15 * vn(x * 5.1, y * 5.1, s + 2)
 def ss(a, b, x): t = min(1.0, max(0.0, (x - a) / (b - a))); return t * t * (3 - 2 * t)
 def hx(c): return ((c >> 16) & 255) / 255, ((c >> 8) & 255) / 255, (c & 255) / 255
@@ -336,21 +343,31 @@ def fackel(c, r):
     LICHTER.append(dict(art='fackel', pos=list(kopf + n * 4 + Vector((0, 0, 12))), reich=3.6, kraft=1.15, flammen=[list(kopf + Vector((0, 0, 2)))], wand=hoch))
 
 def kristalle(c, r):
-    """Kristalle (CRYSTAL) wachsen violett aus der Wand, leuchten schwach (lichter „schein“), gehen mit der hohen Wand"""
+    """Kristalle (CRYSTAL) wachsen violett vom Fuss der Wand auf, leuchten schwach (lichter „schein“), gehen mit der hohen Wand.
+    492 Abgleich (Pruefer 03.11., 23:3x: „flache Splitter an der Wand; alt hohe lila Saeulen“): wie alt MapCaveIso.crystals
+    vom Fuss der Felsflaeche zum Boden, meist aufrecht, etwas in den Raum und zur Seite geneigt; sechsseitige Prismen mit Spitze,
+    drei Arten: 7 mit einer grossen (167 cm, alt 95 Einheiten bei 57 je m), 4 eng mit einer grossen, 9 kleinere (x0,7);
+    die kleinen 56-126 cm, Radius alt 0,06-0,1 x TILE_Z (8-14 cm), die grosse 17 cm; Lichtseite heller, Spitzen fast weiss"""
     f, s = an_der_wand(c, r)
     if f is None: return
-    v = int(h1(c, r, 40) * 3)                                    # Abgleich: drei Arten wie alt (Faecher, Buendel am Fuss, einzelne grosse)
-    for k in range(5 + int(h1(r, c, 39) * 4)):
-        t = 0.15 + 0.7 * h1(c * 9 + k, r, 41)
-        z = (5 + 50 * h1(c, r * 9 + k, 42)) if v == 1 else (25 + 140 * h1(c, r * 9 + k, 42))
-        p, n, hoch = wandpunkt(f, s, t, z)
+    v = hash_alt(c, r, 47) % 3                                  # alt MapCaveIso 1114
+    n_ = (7, 4, 9)[v]
+    dunkel = lin(0x3E2E5E); glanz = lin(0xD8C8FF)
+    def ton(q, nn):                                              # alt: lit, wenn die Flaeche nach rechts im Bild zeigt
+        k = max(0.0, min(1.0, (nn.x - nn.y) * 0.707 + 0.1 + 0.4 * max(0.0, nn.z)))
+        return mixc(dunkel, sc(KRISTALL, 1.25), 0.3 + 0.7 * k)
+    for k in range(n_):
+        t = (0.3 + k * 0.14 + (h1(k, c, 41) - 0.5) * 0.1) if v == 1 else (0.1 + (k + h1(k, c, 41)) / n_ * 0.8)
+        p, n, hoch = wandpunkt(f, s, t, 0)
         e = n.cross(Vector((0, 0, 1)))
-        ax = (n * 0.8 + e * (h1(k, c, 43) - 0.5) * 1.2 + Vector((0, 0, 0.3 + 0.6 * h1(k, r, 44)))).normalized()
-        L_ = (38 + 40 * h1(c + k, r, 45)) * (1.5 if v == 2 and k == 0 else 1.0)    # Lauf 2: nur kleine weisse Splitter
-        rr = 6 + 6 * h1(c, k, 46)
-        base = p - n * 6
-        zylinder(part(hoch), base, rr, L_ * 0.78, 6, lambda q, nn: sc(KRISTALL, 0.7 + 0.6 * max(0.0, nn.z)), 'leucht_kristall', r2=rr * 0.8, deckel=False, achse=ax)
-        zylinder(part(hoch), base + ax * L_ * 0.78, rr * 0.8, L_ * 0.22, 6, lambda q, nn: sc(KRISTALL, 1.05), 'leucht_kristall', r2=0.8, achse=ax)
+        aus = 0.12 + 0.3 * h1(k, r, 42); seite = (h1(c + k, r, 43) - 0.5) * 0.6
+        ax = (n * aus + e * seite + Vector((0, 0, 1))).normalized()
+        gross = (k == 1) if v == 1 else (k == 0)
+        L_ = (167.0 if gross else 56 + 70 * h1(c + k, r, 45)) * (0.7 if v == 2 else 1.0)
+        rr = 17.0 if gross else 8.4 + 5.6 * h1(c, k, 46)
+        base = p - n * 4 + Vector((0, 0, -4))
+        zylinder(part(hoch), base, rr, L_ * 0.78, 6, ton, 'leucht_kristall', r2=rr * 0.92, deckel=False, achse=ax)
+        zylinder(part(hoch), base + ax * L_ * 0.78, rr * 0.92, L_ * 0.22, 6, lambda q, nn: mixc(sc(KRISTALL, 1.3), glanz, 0.45), 'leucht_kristall', r2=0.6, achse=ax)
     for k in range(4):                                           # Geroell und Staub am Fuss (alt MapCave 525)
         p, n, hoch = wandpunkt(f, s, 0.2 + 0.6 * h1(c, k, 47), 0)
         klumpen(part(hoch), p + n * (6 + 10 * h1(k, r, 48)), 7 + 6 * h1(c + k, r, 49), lambda q, nn: sc(ROCK_D, 0.9), 'weiss', seed=k, squash=0.5, rau=0.35)
@@ -443,7 +460,7 @@ def knochen(c, r):
 def kisten(c, r):
     """Kisten und Fass (CRATE, 13e.2): zwei gestapelt, eine zerschlagen mit Sack, oder ein Fass"""
     P = part('Ding_' + stueck(c, r))
-    m = mitte(c, r); v = int(h1(c, r, 81) * 3)
+    m = mitte(c, r); v = art_alt(c, r)
     def kiste_(lo, hi, a, seed):
         M = Matrix.Translation(m) @ Matrix.Rotation(a, 4, 'Z')
         box(P, lo, hi, lambda q, nn: sc(HOLZ, 0.75 + 0.35 * vn(q.x / 9 + q.z / 9, q.y / 9, seed)), 'bretter', M=M)
@@ -472,15 +489,47 @@ def schlaflager(c, r):
     zylinder(P, M @ Vector((40, -24, 10)), 9, 50, 8, lambda q, nn: sc(SACK, 0.9), 'stoff', achse=(M.to_3x3() @ Vector((0, 1, 0))))
 
 def truhe(c, r):
-    """Truhe (CHEST) wie im Wald (dorf.py kiste): Bretter, Eisenbaender, Schloss; steht schraeg"""
+    """Truhe (CHEST) steht schraeg; 492 Abgleich (Pruefer 03.11., 23:3x: „Truhe schlicht, alt mit Schaedel, Nieten“): drei Arten wie
+    alt MapCaveIso.chest: 0 Bretter mit Eisenbaendern rundum und ueber den Deckel, Eckband, verbogenes Schlossblech mit Loch;
+    1 dunkles Holz ohne Eisen, ein Strick um die Truhe, wo das Schloss aufgebrochen ist; 2 Eisen, rote Hand vorn, Schaedel auf dem Deckel"""
     P = part('Ding_' + stueck(c, r))
+    v = art_alt(c, r)
     a = math.radians(-14 + 28 * h1(c, r, 101))
     M = Matrix.Translation(mitte(c, r)) @ Matrix.Rotation(a, 4, 'Z')
-    schatten(mitte(c, r), 50, 38)
-    box(P, (-36, -23, 0), (36, 23, 30), lambda q, nn: sc(HOLZ, 1.2), 'bretter', M=M)
-    box(P, (-37, -24, 30), (37, 24, 43), lambda q, nn: sc(HOLZ, 1.3), 'bretter', M=M)
-    for x in (-25, 21): box(P, (x, -24.5, -0.5), (x + 4, 24.5, 43.8), EISEN, 'weiss', M=M)
-    box(P, (-5, -25.5, 22), (5, -24, 34), lin(0x6A5A3A), 'weiss', M=M)
+    schatten(mitte(c, r), 56, 42, 0.25)                         # alt: weit um die Kiste, damit sie sich vom dunklen Boden abhebt
+    hz = 1.0 if v != 1 else 0.7
+    box(P, (-36, -23, 0), (36, 23, 30), lambda q, nn: sc(HOLZ, 1.2 * hz * (0.85 + 0.3 * vn(q.x / 7, q.z / 3, 103))), 'bretter', M=M)
+    box(P, (-37, -24, 30), (37, 24, 36), lambda q, nn: sc(HOLZ, 1.3 * hz), 'bretter', M=M)               # Rand des Deckels
+    box(P, (-36, -20, 36), (36, 20, 43), lambda q, nn: sc(HOLZ, 1.3 * hz * (0.85 + 0.3 * vn(q.x / 7, q.y / 3, 104))), 'bretter', M=M)
+    for z in (10, 20): box(P, (-36.6, -23.6, z - 0.6), (36.6, 23.6, z + 0.6), sc(HOLZ_D, 0.7 * hz), 'holz', M=M)   # Fugen der Bretter
+    if v != 1:
+        for x in (-26, 22):                                      # Eisenbaender rundum und ueber den Deckel, mit Nieten
+            box(P, (x, -24.5, -0.5), (x + 4, 24.5, 36.6), EISEN, 'weiss', M=M)
+            box(P, (x, -20.6, 36), (x + 4, 20.6, 43.8), EISEN, 'weiss', M=M)
+            for z in (6, 16, 26):
+                klumpen(P, M @ Vector((x + 2, -24.8, z)), 1.3, lambda q, nn: sc(EISEN, 1.4), 'weiss', seed=z, n=6, lagen=3)
+        box(P, (35.5, -24.5, -0.5), (37.2, -18, 36.6), EISEN, 'weiss', M=M)                           # Eckband
+        box(P, (-5, -25.5, 22), (5, -24, 34), sc(ROST, 1.1), 'weiss', M=M)                             # Schlossblech, verbogen
+        box(P, (-1.2, -25.9, 25), (1.2, -25.4, 28), lin(0x0C0A08), 'weiss', M=M)                       # Loch
+    else:
+        for x in (-14, 14):                                      # Strick statt Schloss
+            box(P, (x - 1.2, -24.6, -0.4), (x + 1.2, -23.8, 36.4), lin(0x8A7450), 'stoff', M=M)
+            box(P, (x - 1.2, -24.6, 36), (x + 1.2, 20.6, 43.6), lin(0x8A7450), 'stoff', M=M)
+        klumpen(P, M @ Vector((0, -25, 33)), 3.4, lambda q, nn: sc(lin(0x8A7450), 0.9), 'stoff', seed=5, squash=0.8)
+        for sg in (-1, 1): zylinder(P, M @ Vector((sg * 1.5, -25.4, 31)), 0.9, 10, 4, lin(0x7A6646), 'stoff', achse=Vector((sg * 0.25, 0, -1)))
+    if v == 2:
+        for k in range(5):                                       # rote Hand auf der Vorderseite
+            dx = (-1.5 + k) * 2.4; h = 4 if k else 2.5
+            box(P, (-26 + dx - 0.9, -24.2, 15 - (0 if k else 2)), (-26 + dx + 0.9, -23.8, 15 + h + (1 if k in (2, 3) else 0)), lin(0x7A1E14), 'weiss', M=M)
+        box(P, (-30, -24.2, 9), (-20, -23.8, 15.5), lin(0x7A1E14), 'weiss', M=M)
+        sp = M @ Vector((10, 2, 52))                             # Schaedel auf dem Deckel
+        ton = lambda q, nn: sc(mixc(KNOCHEN_D, KNOCHEN, 0.5 + 0.5 * max(0.0, nn.z)), 0.95)
+        klumpen(P, sp, 9, ton, 'weiss', seed=c + r, squash=0.85, rau=0.1)
+        klumpen(P, sp + Vector((0, -5.5, -5)), 5.4, ton, 'weiss', seed=3, squash=0.5, rau=0.1)
+        for sg in (-1, 1): klumpen(P, sp + Vector((sg * 3.6, -7.2, 1)), 2.5, lin(0x14100C), 'weiss', seed=sg, n=6, lagen=4)
+    for k in range(4):                                           # Schleifspuren, wo sie hereingezogen wurde
+        q = mitte(c, r) + M.to_3x3() @ Vector((-28 + k * 18, -34, 0))
+        schatten(q, 7, 2.5, 0.75)
 
 def pilze(c, r):
     """Leuchtpilze (GLOWSHROOM): drei bis sechs, Huete tuerkis leuchtend (lichter „schein“ 60E8D8)"""
@@ -578,12 +627,31 @@ def lichtschacht(c, r):
     S = part('Strahl_' + stueck(c, r))
     # Abgleich (Pruefer Lauf 2: wie ein weisser Steinpfeiler): schraeg wie alt (WorldScreen 2315, vier Lagen), oben und unten
     # ausgeblendet (additiv: dunkel = durchsichtig), am Boden ein weicher Fleck; Staub im Strahl (gebiet.gd „staub“)
+    # 492 Abgleich (Pruefer 03.11., 23:3x: „blasser Balken mit gerader Oberkante; alt breiter weicher Kegel“): ein Zylinder hatte nur
+    # Farben an Fuss und Kopf, dazwischen linear, oben bei 40 % hart abgeschnitten. Jetzt wie alt drawCaveShaft: vier Lagen, unten
+    # breit (alt 19 Bildpunkte bei 32 je Kachel = 69 cm), oben schmal (7 = 25 cm), Helligkeit in Stufen der Hoehe: oben im Dunkel 0,
+    # 0,15 bei drei Vierteln, 0,6 bei gut der Haelfte, am staerksten tief unten, zum Boden hin weg in den Fleck (alt 0.1.667)
+    H_ = 300.0                                                   # sichtbare Hoehe (alt top 120 bei 57 je m ≈ 2,1 m, hier ueber der Wand 2,4 m)
     oben = m + Vector((25, 40, 520))
+    def glanz_(z):
+        u = 1.0 - min(1.0, max(0.0, z / H_))                     # 0 oben, 1 am Boden
+        for (u0, g0), (u1, g1) in zip(((0, 0.0), (0.25, 0.15), (0.55, 0.6), (0.8, 1.0)), ((0.25, 0.15), (0.55, 0.6), (0.8, 1.0), (1.0, 0.0))):
+            if u <= u1: return g0 + (g1 - g0) * ss(u0, u1, u) if u1 > u0 else g1
+        return 0.0
     for k in range(4):
-        rr = 38 - 8 * k
+        w = 1.0 - k * 0.2
         fuss = m + Vector((5 * k - 8, 3 * k - 6, 0))
-        zylinder(S, fuss, rr, (oben - fuss).length, 12, lambda q, nn: sc((1.0, 0.97, 0.88), 0.25 + 0.75 * ss(0, 260, q.z) * (1 - 0.6 * ss(380, 520, q.z))), 'weiss',
-                 r2=rr * 0.5, deckel=False, achse=oben - fuss)
+        ax = oben - fuss; L_ = ax.length; ax = ax.normalized()
+        e1 = ax.cross(Vector((0, 0, 1))).normalized(); e2 = ax.cross(e1)
+        ringe = []
+        for j in range(11):                                      # in Stufen, damit die Farbe der Hoehe folgt
+            t = L_ * (j / 10) ** 1.4                             # unten dichter
+            r_ = (69 - 44 * min(1.0, t / H_)) * w
+            ringe.append([fuss + ax * t + (e1 * math.cos(2 * math.pi * i / 14) + e2 * math.sin(2 * math.pi * i / 14)) * r_ for i in range(14)])
+        for j in range(10):
+            for i in range(14):
+                a_, b_ = ringe[j][i], ringe[j][(i + 1) % 14]; c_, d_ = ringe[j + 1][(i + 1) % 14], ringe[j + 1][i]
+                add_face(S, [a_, b_, c_, d_], lambda q, nn: sc((1.0, 0.97, 0.88), glanz_(q.z)), 'weiss')
     for i in range(16):
         a0 = 2 * math.pi * i / 16; a1 = 2 * math.pi * (i + 1) / 16
         pts = [m + Vector((0, 0, 1.5)), m + Vector((math.cos(a1) * 75, math.sin(a1) * 60, 1.5)), m + Vector((math.cos(a0) * 75, math.sin(a0) * 60, 1.5))]

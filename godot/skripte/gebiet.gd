@@ -261,6 +261,10 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 				g.rand_maske(m)   # Alpha: Wassertiefe (dorf.py)
 				m.set_shader_parameter("karte", Vector2(g.karte.breite, g.karte.hoehe) * Karte.TS)
 				g.wasser = m
+				if g.info.get("hoehle", false):   # 492 Abgleich (Pruefer 03.11.: Teich hell tuerkis, heller als ringsum, glaenzt): alt MapCave POOL_S, POOL_D, GLINT, tief und schwarz
+					m.set_shader_parameter("rim", Color.html("1E2A2C"))
+					m.set_shader_parameter("deep", Color.html("06090A"))
+					m.set_shader_parameter("glint_c", Color.html("5E8A88"))
 			else:
 				var rn := String(src.resource_name) if src else ""
 				var busch := rn.begins_with("laub_busch")   # Tusche im Zeichner (toon kontur), nicht als Bildschirmlinie
