@@ -1,4 +1,4 @@
-# 513b · Tom braucht Zugang zu den Kaufmodellen (Schild Magier nachstellen)
+# 513 · Tom braucht Zugang zu den Kaufmodellen (Schild Magier nachstellen)
 Tom · 04.11., 11:00 · A Spiel
 
 Geprüft an: Bild `bilder/513-schild-257.webp` (Helferbefund 10:59), Zweig `claude/figurenstand-513` 52bb6dfe1
