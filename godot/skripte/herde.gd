@@ -53,7 +53,7 @@ func _zeige(d: Dictionary) -> Streuner:
 	return s
 
 # ---------------------------------------------------------------- wie spawnRoamer
-func nacht() -> bool: return spiel.licht.nacht > 0.5
+func nacht() -> bool: return spiel.nachts()   # 539: Game.isNight
 
 ## die Tabelle, aus der jetzt gezogen wird (nachts eigene), nur Monster mit Kampfgruppe und Modell (Streuner.da)
 func tabelle() -> Array:

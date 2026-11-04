@@ -63,6 +63,7 @@ func _ready() -> void:
 	ui.gewaehlt.connect(_rast_wahl)
 	licht.nacht_geaendert.connect(_nacht)
 	Leute.uhr = func(): return zustand.minuten   # 390 Tagesablauf
+	uhr_ziel = Licht.nacht_um(zustand.minuten)   # 539: Probelaeufe, die das Licht selbst stellen, behalten es, bis die Uhr weiterzieht
 	Rand.beim_start = Rand.oben(get_viewport())
 	add_child(Rand.band(Rand.beim_start))   # 399.4: schwarz, was die Kamera des Handys verdeckt
 	# 399: Hauptmenue und Erschaffung zuerst, ausser bei Probelaeufen am Rechner (--bilder, --figuren …, Tests ohne Fenster)
@@ -104,6 +105,7 @@ func starte(w: Dictionary) -> void:
 		zustand = Zustand.aus_daten(stand["zustand"])
 		werte = Heldwerte.aus_daten(stand["held"])
 		var o: Dictionary = stand["ort"]
+		licht_nach_uhr(true)   # 539: nachts gespeichert laedt als Nacht
 		blende.color.a = 1.0
 		klang("verhuelle", [true])
 		betrete(String(o["karte"]), Vector2i(int(o["x"]), int(o["y"])), String(o["blick"]))
@@ -124,6 +126,7 @@ func starte(w: Dictionary) -> void:
 	await zwischenbild("intro")
 	blende.color.a = 1.0
 	klang("verhuelle", [true])
+	licht_nach_uhr(true)   # 539: Licht der Startstunde
 	betrete(String(Rast.START["karte"]), Vector2i(int(Rast.START["x"]), int(Rast.START["y"])), String(Rast.START["blick"]))
 	ortsworte("", true)   # 24.1 Spielbeginn: Name und Satz
 
@@ -334,9 +337,8 @@ func _aktion() -> void:
 		"bett": ui.sage([{"text": Sprache.t(Rast.FREMDES_BETT)}]); return
 	var a := karte.ausgang(z)
 	if bool(a["verschlossen"]):
-		var nachts := licht.nacht > 0.5
 		if a.has("klopfen"):
-			ui.sage(zeilen(a["klopfen"]["nacht" if nachts else "tag"]))
+			ui.sage(zeilen(a["klopfen"]["nacht" if nachts() else "tag"]))
 			zustand.setze("heard_%d_%d" % [z.x, z.y])   # 399.1 Karte: wer hier wohnt (MapPeople.heard)
 		return
 	if a.has("braucht") and not karte.flaggen.has(a["braucht"]):
@@ -448,6 +450,19 @@ var leiste_uhr := 0.0
 func klang(was: String, mit := []) -> void:
 	var k := get_node_or_null("/root/Klang")
 	if k: k.callv(was, mit)
+
+# 539 (Game.daylight, Chef-Befund ueber 512): das Licht folgt der Uhr, nicht nur Rast und Testknopf; Nachtmonster, Nachtstimmen,
+# Fackel und Kampfort haengen daran. sofort: ohne Ueberblendung (Spielstand laden, nach der Rast im Schwarz)
+var uhr_ziel := -1.0
+func licht_nach_uhr(sofort := false) -> void:
+	var n := Licht.nacht_um(zustand.minuten)
+	if not sofort and is_equal_approx(n, uhr_ziel): return
+	uhr_ziel = n
+	licht.ziel = n
+	if sofort: licht.stelle(n)
+
+# Game.isNight: Tageslicht unter 0,35
+func nachts() -> bool: return licht.nacht > 0.65
 
 func tageszeit() -> String:   # Kampfort.tageszeit: tag, abend, nacht
 	var m := zustand.minuten
@@ -1000,7 +1015,7 @@ func zwischenbild(art: String) -> void:
 # 399.1 Game.heroInDark: nachts draussen, in der Hoehle immer
 func im_dunkeln() -> bool:
 	var art := String(karte.daten.get("art", ""))
-	return (licht.nacht > 0.5 and art != "INTERIOR") or art == "CAVE"
+	return (nachts() and art != "INTERIOR") or art == "CAVE"   # 539: isNight wie alt (vorher halbe Nacht)
 
 # 522 (Chef 03.11., 23:33): Schild, Waffe, Kleidung aus Testmenue oder Ausruestungsschirm gleich am Helden, nicht erst nach Kartenwechsel
 func held_figur_neu(vorher: String) -> void:
@@ -1083,9 +1098,7 @@ func raste(art: String) -> void:
 	rast_ort = ""
 	var neu: Dictionary = r.get("ort", {})
 	if not neu.is_empty() and String(neu["karte"]) == karte.id: held.setze(Vector2i(int(neu["x"]), int(neu["y"])), String(neu["blick"]))
-	# Licht zur neuen Stunde (bis die Uhr das Licht fuehrt: Nacht 21-5 wie LISTE-UMZUG-348 „Stimmung“)
-	var nachts := zustand.minuten >= 21 * 60 or zustand.minuten < 5 * 60
-	if (licht.ziel > 0.5) != nachts: licht.umschalten()
+	licht_nach_uhr(true)   # 539: Licht der neuen Stunde, noch im Schwarz
 	kamera.springe()
 	await abblenden(0.0)
 	var zeilen_: Array = []
@@ -1163,6 +1176,7 @@ func _process(dt: float) -> void:
 			if karte.tuer(s) or zeichen_lesbar(s) or rast_kachel(s) != "" or kiste(s) != {}: ui.biete_an.callv(angebot(held.kachel))
 			else: _stoesst(s)
 	if rast_ort == "" and laden == null: zustand.uhr(dt)   # 390: in Rast und Laden steht die Uhr; die Rast stellt sie selbst weiter
+	licht_nach_uhr()   # 539
 	# 490: Monster ziehen, solange der Held frei unterwegs ist (Mode.Explore); Kraeuter wachsen bei Sonnenaufgang nach
 	if herde and not im_kampf and not ui.spricht() and rast_ort == "" and laden == null and not brett_offen and not get_tree().paused: herde.schritt(dt)
 	if kraut_tag != kraut_heute(): kraeuter_neu()

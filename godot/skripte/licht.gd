@@ -55,6 +55,16 @@ var stimmung: ShaderMaterial
 # zur Sonne (Welt), fuer Materialien, die das Licht selbst auswerten (Busch-Tusche)
 static func richtung() -> Vector3: return zur_sonne
 
+# 539 (Game.daylight): 1 am Tag (7–19 Uhr), 0 in der Nacht (21–5 Uhr), dazwischen Daemmerung ueber zwei Stunden
+static func tageslicht(minute: int) -> float:
+	var m := posmod(minute, 24 * 60)
+	if m >= 7 * 60 and m < 19 * 60: return 1.0
+	if m >= 19 * 60 and m < 21 * 60: return 1.0 - (m - 19 * 60) / 120.0
+	if m >= 5 * 60 and m < 7 * 60: return (m - 5 * 60) / 120.0
+	return 0.0
+
+static func nacht_um(minute: int) -> float: return 1.0 - tageslicht(minute)
+
 static func stand_um(minute: int) -> Stand:
 	var h := posmod(minute, 24 * 60) / 60
 	return Stand.MORGEN if h < 10 else (Stand.MITTAG if h < 15 else Stand.ABEND)
