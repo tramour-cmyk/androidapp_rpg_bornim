@@ -292,7 +292,7 @@ func brauen() -> void:
 		if z.anzahl(aus) > 0: sp.add_child(Erschaffung.txt(Sprache.t(Laden.BESITZ) + str(z.anzahl(aus)), 12, Stil.DIM))
 		if oft < 1:
 			sp.add_child(Erschaffung.txt(Sprache.t(Laden.FEHLT) + Laden.fehlt(z, r), 12, Stil.WARN))
-			for c in [p.get_child(0), sp.get_child(0)]: (c as CanvasItem).modulate.a = 0.5
+			(p.get_child(0) as CanvasItem).modulate.a = 0.5   # Bild matt; der Name ist schon Veil.dim (Helfer 01:28: doppelt gedaempft kaum lesbar)
 		p.set_meta("rezept", aus)   # fuer brauen_525
 		inhalt.add_child(p)
 		tippbar(p, func(): braukasten(r, 1))
