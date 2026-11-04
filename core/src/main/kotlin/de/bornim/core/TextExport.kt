@@ -78,8 +78,16 @@ object TextExport {
             }
         }
         putJsonObject("einzelstuecke") {
-            for (id in Uniques.ids) putJsonObject(id) { put("name", text(Uniques.name(id))); put("seltenheit", text(Uniques.rarity(id).title)) }
+            for (id in Uniques.ids) putJsonObject(id) {
+                put("name", text(Uniques.name(id))); put("seltenheit", text(Uniques.rarity(id).title))
+                // 492 (Uniques.make): Grundform, Seltenheit, Plus und Werte, damit Godot das Stueck baut (Truhe, Aldrics Ring, Graks Axt)
+                val g = Uniques.make(id, 0, 1)
+                put("grund", g.base); put("rarity", g.rarity.name); put("plus", g.plus)
+                putJsonArray("rolls") { for (r in g.rolls) addJsonObject { put("affix", r.affix.name); put("wert", r.value) } }
+            }
         }
+        // 492 Story.classWeapon: die Truhe cave_3 (CLASS_WEAPON) gibt jeder Klasse ihre Waffe
+        putJsonObject("klassenwaffe") { for (c in CharClass.entries) put(c.name, Story.classWeapon(c)) }
         // 399.1 Anschlagbrett (29): die Aushaenge wortgleich aus [Jobs], mit Lohn, Wunsch, Abgabe und Welle; die Regeln in auftraege.gd
         putJsonArray("auftraege") {
             for (j in Jobs.all) addJsonObject {

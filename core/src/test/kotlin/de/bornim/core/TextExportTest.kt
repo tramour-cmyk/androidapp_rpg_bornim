@@ -69,6 +69,13 @@ class TextExportTest {
         val einzel = j["einzelstuecke"]!!.jsonObject
         assertEquals("Heiltrank", dinge["potion"]!!.jsonObject["name"]!!.jsonObject["de"]!!.jsonPrimitive.content)
         assertEquals("Elder's Ring", einzel["ring_protection"]!!.jsonObject["name"]!!.jsonObject["en"]!!.jsonPrimitive.content)
+        // 492: Godot baut die Stuecke wie Uniques.make
+        val axt = einzel["greataxe_grak"]!!.jsonObject
+        assertEquals("greataxe", axt["grund"]!!.jsonPrimitive.content)
+        assertEquals("RARE", axt["rarity"]!!.jsonPrimitive.content)
+        assertEquals("1", axt["plus"]!!.jsonPrimitive.content)
+        assertEquals("DAMAGE", axt["rolls"]!!.jsonArray[1].jsonObject["affix"]!!.jsonPrimitive.content)
+        assertEquals("staff_of_embers", j["klassenwaffe"]!!.jsonObject["WIZARD"]!!.jsonPrimitive.content)
         // was Story.kt gibt oder nimmt, steht in dinge oder einzelstuecke
         val story = java.io.File("src/main/kotlin/de/bornim/core/Story.kt").readText()
         for (m in Regex("""(?:give|take)\("(\w+)"""").findAll(story)) assertTrue(m.groupValues[1] in dinge || m.groupValues[1] in einzel, m.groupValues[1])

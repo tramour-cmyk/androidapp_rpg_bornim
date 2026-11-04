@@ -496,7 +496,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	# 399.2 (Jerry 3b9fb3116): Ausruestung als Beute nach einem Sieg wie Battle.finishWin (Loot.drops, einmal je Kampf, Gebietsstufe)
 	var beute := func() -> Array:
 		var w := KotlinZufall.new(randi())
-		var ilvl := int(Karte.lade("forest").daten.get("stufe", 1))
+		var ilvl := int(karte.daten.get("stufe", 1)) if karte != null else int(Karte.lade("forest").daten.get("stufe", 1))   # 492: Stufe der Karte (Hoehle 3, Story.kt areaLevel), nicht immer des Waldes
 		var st: Dictionary = Heldwerte.lade()["seltenheiten"]
 		return Beute.beute(hw, w, ilvl, false, false, zustand.neue_uid).map(func(g): return {"gear": g, "name": Beute.name(g), "rarity": Sprache.t(st[String(g["rarity"])]["name"])})
 	var k0 := Time.get_ticks_msec()
@@ -775,6 +775,13 @@ func weiter() -> void:
 			"geben":
 				if String(c["ding"]).begins_with("@gear:"):   # 399.1 Game.kt Cmd.Give „@gear:RARITY:SLOT“ (Jorins Kopfschutz)
 					zeige({"text": Sprache.u("found", [gear_gabe(String(c["ding"]))])})
+					return
+				var ding := String(c["ding"])
+				if ding == Geschichte.CLASS_WEAPON: ding = Beute.klassenwaffe(held_werte().klasse)   # 492 Game.openChest: Truhe cave_3
+				var stueck := Beute.einzelstueck(ding, 0, maxi(int(karte.daten.get("stufe", 1)), held_werte().stufe))   # 492 Uniques.make, Stufe wie Cmd.Give
+				if not stueck.is_empty():   # Aldrics Ring, Klassenwaffe: Ausruestung, nicht Tasche (Game.kt Cmd.Give Uniques.exists)
+					zustand.ausruestung_dazu(stueck)
+					zeige({"text": Sprache.u("found", [Sprache.ding(ding)])})
 					return
 				zustand.dazu(String(c["ding"]), int(c["anzahl"]))
 				zeige({"text": Sprache.u("found", [Sprache.ding(String(c["ding"]), int(c["anzahl"]))])})

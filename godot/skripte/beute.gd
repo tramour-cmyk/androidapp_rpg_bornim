@@ -130,6 +130,20 @@ static func erzeuge(w, uid: int, ilvl: int, seltenheit: String, fuer_klasse: Str
 	var id: String = w.pick(pool)
 	return wuerfle(uid, id, stufe, seltenheit, w)
 
+# 492 Uniques.make: Einzelstueck mit fester Grundform, Seltenheit, Plus und Werten aus texte.json (einzelstuecke); {} wenn unbekannt
+static func einzelstueck(id: String, uid: int, ilvl: int) -> Dictionary:
+	Sprache.lade()
+	var e: Dictionary = Sprache.texte.get("einzelstuecke", {}).get(id, {})
+	if not e.has("grund"): return {}
+	var rolls: Array = []
+	for r in e.get("rolls", []): rolls.append([String(r["affix"]), int(r["wert"])])
+	return {"uid": uid, "base": String(e["grund"]), "rarity": String(e["rarity"]), "ilvl": ilvl, "plus": int(e.get("plus", 0)), "rolls": rolls, "unique": id, "name_seed": 0}
+
+# 492 Story.classWeapon: Waffe der Klasse aus der Truhe cave_3 (CLASS_WEAPON)
+static func klassenwaffe(klasse: String) -> String:
+	Sprache.lade()
+	return String(Sprache.texte.get("klassenwaffe", {}).get(klasse, ""))
+
 # Loot.roll
 static func wuerfle(uid: int, id: String, ilvl: int, seltenheit: String, w) -> Dictionary:
 	var b := grundform(id)
