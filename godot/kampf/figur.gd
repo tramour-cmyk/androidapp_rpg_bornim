@@ -41,6 +41,17 @@ const ERSATZ_SCHATTEN := {"giant_rat": [0.3, 0.85, -0.08], "giant_bat": [0.9, 0.
 static var ersatz_art := ""
 static func ersatz() -> String:
 	return OS.get_environment("ERSATZ") if OS.has_environment("ERSATZ") else ersatz_art
+## 553 (Chef 04.11., 00:26, Build 249: „Was ist das für ein graues Tier??????“ im Flüsterwald): ersatz_art ist eine für alle
+## Figuren; jeder Streuner der Karte und jeder Kampfbeginn setzt sie neu (aufruf.gd gegner). Die Figur las sie laufend, also nahm
+## eine Kartenratte nach dem nächsten Wolf dessen Maße (Wenden, Absetzen, Kopf) und ein Wolf nach der nächsten Ratte deren
+## doppelte Größe. Jetzt merkt sich jede Figur beim Aufbau, welches Tier sie ist, und ihren Maßstab.
+var _art_fest := ""
+var _art_da := false
+func _mein_ersatz() -> String:
+	if not _art_da:
+		_art_fest = ersatz()
+		_art_da = true
+	return _art_fest
 ## 348.7 Grimmzahn: im Probekampf „Grimmzahn“ trägt der Wolf „grimm“ dessen Modell (Regeln noch die des Wolfs)
 const GRIMM := "grimm"
 ## Größe im Modell gegen den Wolf (Knotenmaßstab der .glb, wolf.py ART=dire_wolf): Schatten, Kopf, Mitte wachsen mit, das Modell nicht noch einmal
@@ -193,8 +204,8 @@ void fragment() {
 	# Runde 15 (Prüfer Runde 14: Pfotenschatten „unsichtbar im Rumpfschatten“): schmaler (0,7 statt 1,0), die Pfoten stehen am weichen Rand
 	pm.size = Vector2(0.7, 1.5) * _scale() if wolf else Vector2(0.95, 0.95)
 	var vor := 0.15
-	if wolf and ERSATZ_SCHATTEN.has(ersatz()):
-		var es: Array = ERSATZ_SCHATTEN[ersatz()]
+	if wolf and ERSATZ_SCHATTEN.has(_mein_ersatz()):
+		var es: Array = ERSATZ_SCHATTEN[_mein_ersatz()]
 		pm.size = Vector2(es[0], es[1]) * _scale(); vor = es[2]
 	elif wolf and mass.has("laenge_m"):     # 387 Runde 2 (Prüfer: Schatten in Wolfsgröße, bei Huhn und Kaninchen doppelt so breit): nach dem Kauftier
 		pm.size = Vector2(mass.get("breite_m", 0.4) * 1.3, mass.laenge_m * 0.9) * _scale(); vor = 0.0
@@ -299,7 +310,7 @@ func _paws_in_blob() -> void:
 	if OS.get_environment("SCHAU_MESS") != "":
 		var sun: DirectionalLight3D = kampfort._sun
 		var d: Vector3 = sun.global_transform.basis.z     # zur Sonne hin
-		var hoch: float = ERSATZ_KOPF.get(ersatz(), 1.24) * _scale() if fighter.monster != null else 1.8
+		var hoch: float = ERSATZ_KOPF.get(_mein_ersatz(), 1.24) * _scale() if fighter.monster != null else 1.8
 		var fall := Vector2(-d.x, -d.z).normalized() * hoch * Vector2(d.x, d.z).length() / maxf(d.y, 0.01)
 		print("Schattenmess %s %s: Bodenschatten %.2f × %.2f m (vorher %.2f × %.2f), Pfote außen %.2f/%.2f m, Fleck %.2f × %.2f m, Sonne %.0f° hoch, Schlagschatten des Kopfes %.2f m nach (%.2f, %.2f)" % [
 			fighter.id, art(), pm.size.x, pm.size.y, vorher.x, vorher.y, bx, bz,
@@ -307,10 +318,13 @@ func _paws_in_blob() -> void:
 			rad_to_deg(asin(clampf(d.y, -1.0, 1.0))), fall.length(), fall.x, fall.y])
 
 
+var _skala := -1.0
 func _scale() -> float:
 	if fighter.monster == null:
 		return 1.0      # held.glb in Metern (Toms rig.py, 348.6, Modellregel 1)
-	return kampfort.foe_scale(fighter) * ART_GROESSE.get(art(), 1.0)
+	if _skala < 0.0:     # 553: kampfort.foe_scale liest ersatz_art; einmal beim Aufbau, solange sie noch diesem Tier gilt
+		_skala = kampfort.foe_scale(fighter) * ART_GROESSE.get(art(), 1.0)
+	return _skala
 
 
 ## Welches Tier diese Figur zeigt: Grimmzahn, sonst der Ersatz der Probe („“ = Wolf)
@@ -319,7 +333,7 @@ func art() -> String:
 		return ""
 	if fighter.monster != null and fighter.id == GRIMM:
 		return "dire_wolf"
-	return ersatz()
+	return _mein_ersatz()
 
 
 func _model_path() -> String:
@@ -329,7 +343,7 @@ func _model_path() -> String:
 		if art() == "dire_wolf":     # GRIMMFELL=schimmer: die seltene Schimmervariante
 			return "res://kampf/daten/dire_wolf-%s.bin" % (OS.get_environment("GRIMMFELL") if OS.has_environment("GRIMMFELL") else "schwarz")
 		var n: int = maxi(fighter.nr, 1) - 1
-		var art := ersatz()
+		var art := _mein_ersatz()
 		if art.begins_with("kauf_"):     # 387: gekaufte Tiere (kauftier.py), Felle aus <art>-info.json
 			var fl := _kauf_felle(art)
 			if not fl.is_empty():
@@ -547,8 +561,8 @@ func _schild() -> String:
 
 ## Goblin, Späher oder (Probe „Schamanen“) Schamane: Kennung der Modelle und der info.json
 func _gob_art() -> String:
-	if fighter.monster.id == Mars.CALLED and ersatz() in [SHAMAN, KOBOLD]:
-		return ersatz()
+	if fighter.monster.id == Mars.CALLED and _mein_ersatz() in [SHAMAN, KOBOLD]:
+		return _mein_ersatz()
 	return fighter.monster.id
 
 
@@ -850,7 +864,7 @@ func _face(dir := Vector3.ZERO) -> void:
 		# Fledermaus Runde 4 (Prüfer 3b: die Schwarze hing 35° schräg „wie abstürzend“, Flügelkeil über dem Kopf): der zum Ziel gedrehte
 		# Rumpf kippte die gespreizten Flügel am Schirm (gemessen 28° bei 29° Drehung). Sie hält den Rumpf zur Kamera, der Kopf blickt
 		var cam: Camera3D = get_viewport().get_camera_3d() if is_inside_tree() else null
-		if ersatz() == "giant_bat" and cam != null:
+		if _mein_ersatz() == "giant_bat" and cam != null:
 			var zc := cam.global_position - global_position
 			zc.y = 0.0
 			var front: float = rad_to_deg(d.signed_angle_to(zc, Vector3.UP))
@@ -2620,7 +2634,7 @@ func _parade_liste(von: Vector3, art: String, tief: bool) -> Array:
 
 ## 406.2: tiefer Gegner (vierbeinig, nicht fliegend): die Parade geht tief oder zur Mitte
 func niedrig() -> bool:
-	return fighter.monster != null and not _zweibeiner() and ersatz() != "giant_bat"
+	return fighter.monster != null and not _zweibeiner() and _mein_ersatz() != "giant_bat"
 
 
 func blockt() -> bool:
@@ -2858,7 +2872,7 @@ func howl() -> void:
 func head() -> Vector3:
 	var h := 1.12 if fighter.monster != null and fighter.monster.id == Mars.WOLF else 1.9     # Ohrspitzen des Wolfs (0,9 lag seit den größeren Ohren, Runde 1 nach Chef, unter dem Balken; davor 60 px darüber)
 	if fighter.monster != null and fighter.monster.id == Mars.WOLF:
-		h = ERSATZ_KOPF.get(ersatz(), h)
+		h = ERSATZ_KOPF.get(_mein_ersatz(), h)
 	if gob_h > 0.0:     # Goblin Runde 2 (Prüfer Runde 1: Ansage fern der Goblins): Scheitel aus goblin.py, gebückt etwas tiefer
 		h = gob_h * 0.85
 	return position + Vector3(0, h * (_scale() if fighter.monster != null else 1.0), 0)
