@@ -67,7 +67,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 72 | K | Profil und Kampfsystem | ruht |
 | Pflege | K | von Werkzeug (340.3, 04.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
 
-**Tom** – offen 98, Muss 78, startbar 1
+**Tom** – offen 98, Muss 78, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -168,9 +168,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 447.4.1 | M | von Homer (447.4, Chef 03.11., 15:50 „1B 2A“): Lehrmeister, Meisterschaften, Ruf in Kapite | wartet auf 508 (startbar) |
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
-| Pflege | K | von Werkzeug (340.3, 04.11.): 70 KB, Erledigtes streichen | wartet auf Perikles |
+| Pflege | K | von Werkzeug (340.3, 04.11.): 78808 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 75, Muss 64, startbar 2
+**Jerry** – offen 76, Muss 64, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -249,6 +249,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | 469 | M | von Sokrates: Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
+| Pflege | K | von Werkzeug (340.3, 04.11.): 16657 Bytes (Grenze 15000), Erledigtes streichen; Zeile 527 | startbar |
 
 **Perikles** – offen 31, Muss 26, startbar 2
 
@@ -284,7 +285,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | wartet auf Test/Build (gebaut) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
-| Pflege | K | von Werkzeug (340.3, 04.11.): 18321 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
+| Pflege | K | von Werkzeug (340.3, 04.11.): 18792 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
 **Diogenes** – offen 10, Muss 8, startbar 1
 
