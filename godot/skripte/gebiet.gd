@@ -6,6 +6,7 @@ extends Node3D
 
 static var texcache := {}
 static var toon: Shader
+const KRONE_LICHT := 0.6   # 569
 
 var karte: Karte
 var info: Dictionary
@@ -257,6 +258,9 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 				m.shader = toon_mark(mark) if mark else (toon_mark(1) if rn.begins_with("bluete") or busch or krone else (toon_mark(2) if nadel else toon))
 				if busch or krone:
 					m.set_shader_parameter("kontur", 1.0)
+					# 569 (Chef 04.11., 19:44: „ein einziger Brei an Kronen … oben … riesengroßer grüner Schleimbatzen“): oben an der Krone
+					# liegt die Lichtseite, dort zeichnete der Umriss gar nicht; jede Krone jetzt rundum umrissen, oben 0,6 der Schattenseite
+					if krone: m.set_shader_parameter("kontur_licht", KRONE_LICHT)
 					m.set_shader_parameter("licht_dir", Licht.richtung())
 					Licht.nach_licht.append(m)
 				aus.append(m)
@@ -320,7 +324,7 @@ static func kette(m: ShaderMaterial, sh: Array) -> ShaderMaterial:
 		var d := ShaderMaterial.new()
 		d.shader = sh[i]
 		d.render_priority = i
-		for k in ["tex", "sway", "cut_ab", "kontur", "licht_dir", "glow", "glow_col"]:
+		for k in ["tex", "sway", "cut_ab", "kontur", "kontur_licht", "licht_dir", "glow", "glow_col"]:   # 569: kontur_licht
 			if m.get_shader_parameter(k) != null: d.set_shader_parameter(k, m.get_shader_parameter(k))
 		if m.get_shader_parameter("kontur"): Licht.nach_licht.append(d)
 		vor.next_pass = d

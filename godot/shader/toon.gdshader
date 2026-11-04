@@ -13,6 +13,7 @@ uniform float weg = 0.0;           // Durchsicht als Ganzes (gebiet.gd, Gruppe: 
 uniform float durch_a = 0.5;       // dabei Deckkraft (alt WorldScreen: zusammen halb)
 uniform vec3 glow_col : source_color = vec3(1.0, 0.72, 0.38);          // Glas: nachts leuchtend
 uniform float kontur = 0.0;        // Busch: Tusche im Zeichner nach dem Licht, Schattenseite kraeftig, Lichtseite keine (Chef 25.10., 10:16)
+uniform float kontur_licht = 0.0;  // 569 (Chef 04.11., 19:44: Kronen „ein einziger Brei“): Umriss auf der Lichtseite, Anteil der Schattenseite (Krone 0,6; Busch 0 wie 25.10.)
 uniform vec3 licht_dir = vec3(0.0, 1.0, 0.0);   // zur Sonne, Welt (Licht.richtung)
 uniform vec3 ink : source_color = vec3(0.07, 0.05, 0.04);              // wie tusche.gdshader
 // 348.6 Glanz (Helfer: Kettenhemd fern wie Filz, Helm wie Wollmuetze): nur am Helden (held.gd), Metall aus der Deckkraft der Eckfarben
@@ -96,8 +97,8 @@ void fragment() {
 	if (kontur > 0.0) {
 		float rim = 1.0 - abs(dot(NORMAL, VIEW));
 		float sch = 1.0 - smoothstep(-0.2, 0.35, dot(normalize((INV_VIEW_MATRIX * vec4(NORMAL, 0.0)).xyz), licht_dir));
-		float w = mix(0.88, 0.62, sch);   // im Schatten breiter; Helfer Runde 9: schwarze Keile in den Naehten zwischen den Ballen -> schmaler, nur halb deckend
-		ALBEDO = mix(ALBEDO, ink, smoothstep(w, w + 0.1, rim) * smoothstep(0.2, 0.7, sch) * 0.6 * kontur);
+		float w = mix(0.88 - 0.2 * kontur_licht, 0.62, sch);   // 569: mit Umriss auf der Lichtseite dort auch breiter (Krone 0,76: gut 3 % des Halbmessers)   // im Schatten breiter; Helfer Runde 9: schwarze Keile in den Naehten zwischen den Ballen -> schmaler, nur halb deckend
+		ALBEDO = mix(ALBEDO, ink, smoothstep(w, w + 0.1, rim) * mix(kontur_licht, 1.0, smoothstep(0.2, 0.7, sch)) * 0.6 * kontur);
 	}
 	v_eisen = metall * (1.0 - smoothstep(0.15, 0.35, COLOR.a));
 	v_kette = metall * smoothstep(0.15, 0.35, COLOR.a) * (1.0 - smoothstep(0.65, 0.85, COLOR.a));
