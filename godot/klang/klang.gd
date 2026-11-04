@@ -391,10 +391,10 @@ func kampf(e: Dictionary, mars, treffer_ms := -1) -> void:
 		_bald(landet, func(): effekt("miss"))
 
 
-## 575 (Chef 04.11., 20:42: Riesenratten knurrten wie Wölfe): Stimme und Angriffsklang nach der Art, nicht nach dem Körper; Ratten,
-## Fledermäuse, Kobolde, Schamanen tragen den Körper einer anderen Art (aufruf.gd ART: id des Körpers, „art“ der eigenen, Mars.art_of)
+## 575 (Chef 04.11., 20:42: Riesenratten knurrten wie Wölfe): Stimme und Angriffsklang nach der Art, nie nach dem Körper; Ratten,
+## Fledermäuse, Kobolde, Schamanen tragen den Körper einer anderen Art (577: id die eigene Art, „koerper“ nur für Modell und Bewegung)
 static func art_von(m) -> String:
-	return "" if m == null else String(m.get("art", m.id))
+	return "" if m == null else String(m.id)
 
 
 ## MarsSound.music: das Bossstück nur gegen einen Boss

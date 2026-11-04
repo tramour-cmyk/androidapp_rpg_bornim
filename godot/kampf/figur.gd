@@ -153,7 +153,7 @@ func setup(f, k) -> void:
 		_arm_kauf()
 	elif fighter.monster == null:
 		_arm()
-	elif fighter.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK]:
+	elif Mars.koerper_of(fighter.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK]:
 		_arm_goblin()
 	if fighter.monster != null:
 		var sk: Skeleton3D = _find(model, "Skeleton3D")
@@ -199,7 +199,7 @@ void fragment() {
 }"""
 	var mi := MeshInstance3D.new()
 	var pm := PlaneMesh.new()
-	var wolf: bool = fighter.monster != null and fighter.monster.id == Mars.WOLF
+	var wolf: bool = fighter.monster != null and Mars.koerper_of(fighter.monster) == Mars.WOLF
 	# Wolf: Rumpf 1,1 m lang, 0,4 m breit (mal Größe); Mensch: 0,7 m rund
 	# Runde 15 (Prüfer Runde 14: Pfotenschatten „unsichtbar im Rumpfschatten“): schmaler (0,7 statt 1,0), die Pfoten stehen am weichen Rand
 	pm.size = Vector2(0.7, 1.5) * _scale() if wolf else Vector2(0.95, 0.95)
@@ -339,7 +339,7 @@ func art() -> String:
 func _model_path() -> String:
 	if fighter.monster == null:
 		return "res://kampf/daten/held.bin"
-	if fighter.monster.id == Mars.WOLF:
+	if Mars.koerper_of(fighter.monster) == Mars.WOLF:
 		if art() == "dire_wolf":     # GRIMMFELL=schimmer: die seltene Schimmervariante
 			return "res://kampf/daten/dire_wolf-%s.bin" % (OS.get_environment("GRIMMFELL") if OS.has_environment("GRIMMFELL") else "schwarz")
 		var n: int = maxi(fighter.nr, 1) - 1
@@ -351,9 +351,9 @@ func _model_path() -> String:
 		if ERSATZ_FELLE.has(art):
 			return "res://kampf/daten/%s-%s.bin" % [art, ERSATZ_FELLE[art][n % ERSATZ_FELLE[art].size()]]
 		return "res://kampf/daten/wolf-%s.bin" % WOLF_COATS[n % WOLF_COATS.size()]
-	if fighter.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK]:     # 348.7: Goblin, Späher je Nummer eines der drei Kits (goblin.py, MonsterKits)
+	if Mars.koerper_of(fighter.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK]:     # 348.7: Goblin, Späher je Nummer eines der drei Kits (goblin.py, MonsterKits)
 		return "res://kampf/daten/%s-%s.bin" % [_gob_art(), _gob_kit()]
-	return "res://kampf/daten/%s.bin" % fighter.monster.id
+	return "res://kampf/daten/%s.bin" % Mars.koerper_of(fighter.monster)
 
 
 ## 348.12f eingebaut (Chef 28.10., 11:50, Archiv: Kaufwolf und Ratte abgenommen): gekaufte Modelle liegen im APK nur verschlüsselt
@@ -511,7 +511,7 @@ func _arm() -> void:
 
 ## Goblin, Späher, Grak: Zweibeiner auf dem Gerüst aus goblin.py oder grak_gestalt.py
 func _zweibeiner() -> bool:
-	return fighter.monster != null and fighter.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK]
+	return fighter.monster != null and Mars.koerper_of(fighter.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK]
 
 
 ## 403: Waffe und Schild am Kaufkörper. Der Kaufkörper ruht in der T-Pose, darum wie beim Goblin nach der Haltung in Stehen
@@ -561,15 +561,15 @@ func _schild() -> String:
 
 ## Goblin, Späher oder (Probe „Schamanen“) Schamane: Kennung der Modelle und der info.json
 func _gob_art() -> String:
-	if fighter.monster.id == Mars.CALLED and _mein_ersatz() in [SHAMAN, KOBOLD]:
+	if Mars.koerper_of(fighter.monster) == Mars.CALLED and _mein_ersatz() in [SHAMAN, KOBOLD]:
 		return _mein_ersatz()
-	return fighter.monster.id
+	return Mars.koerper_of(fighter.monster)
 
 
 func _gob_kit() -> String:
-	if fighter.monster.id == Mars.GRAK:
+	if Mars.koerper_of(fighter.monster) == Mars.GRAK:
 		return GRAK_KITS[0]
-	var kits: Array = SCOUT_KITS if fighter.monster.id == Mars.SCOUT else (SHAMAN_KITS if _gob_art() == SHAMAN else (KOBOLD_KITS if _gob_art() == KOBOLD else GOBLIN_KITS))
+	var kits: Array = SCOUT_KITS if Mars.koerper_of(fighter.monster) == Mars.SCOUT else (SHAMAN_KITS if _gob_art() == SHAMAN else (KOBOLD_KITS if _gob_art() == KOBOLD else GOBLIN_KITS))
 	return kits[(maxi(fighter.nr, 1) - 1) % kits.size()]
 
 
@@ -810,7 +810,7 @@ func _toon(c: Color) -> ShaderMaterial:
 	elif load("res://kampf/kampfort.gd").tusche() == "licht":     # 348.13a: Vorgabe Tusche nach Licht
 		m.shader = toon_gegner()
 		# 348.13a (Prüfer r9: der hintere Goblin hebt sich vom Weg kaum ab; Tom: Goblins aufhellen): Mindesthelligkeit im Schatten
-		if GOB_FILL > 0.0 and fighter != null and fighter.monster != null and String(fighter.monster.id).begins_with("goblin"):
+		if GOB_FILL > 0.0 and fighter != null and fighter.monster != null and String(Mars.koerper_of(fighter.monster)).begins_with("goblin"):
 			m.set_shader_parameter("fill", GOB_FILL)
 	else:
 		m.shader = load("res://kampf/toon.gdshader")
@@ -852,7 +852,7 @@ func _face(dir := Vector3.ZERO) -> void:
 	var d: Vector3 = dir if dir != Vector3.ZERO else kampfort.facing(fighter.side == "FOES")
 	# Wölfe in Ruhe halb seitlich wie im alten Bild: von vorn verkürzt las sich der Rumpf als Buckel ohne Hals (Prüfer Runde 10)
 	var look := 0.0
-	if dir == Vector3.ZERO and fighter.monster != null and fighter.monster.id == Mars.WOLF:
+	if dir == Vector3.ZERO and fighter.monster != null and Mars.koerper_of(fighter.monster) == Mars.WOLF:
 		var turn: float = float(OS.get_environment("WOLFDREH")) if OS.has_environment("WOLFDREH") else WOLF_TURN
 		if aim != null and is_instance_valid(aim) and not aim.down and aim.dead_at < 0:
 			# Mit Ziel: Rumpf zum Ziel, aber nur im Bereich, in dem die Kamera ihn halb seitlich sieht (zur Kamera hin gedreht
@@ -1909,7 +1909,7 @@ func _hieb(other) -> int:
 
 ## Ground under the figure where no grass grows (halm.gdshader spots): x, z, radius.
 func grass_spot() -> Vector3:
-	var wolf: bool = fighter.monster != null and fighter.monster.id == Mars.WOLF
+	var wolf: bool = fighter.monster != null and Mars.koerper_of(fighter.monster) == Mars.WOLF
 	var c := to_global(Vector3(0, 0, 0.15 * _scale() if wolf else 0.0))
 	return Vector3(c.x, c.z, 0.5 * _scale() if wolf else 0.3)
 
@@ -1964,7 +1964,7 @@ func strike(other, e: Dictionary) -> int:
 		get_tree().create_timer(0.6).timeout.connect(func(): _face(); _idle())
 		busy_ms = 700
 		return 700
-	var leap: bool = fighter.monster != null and pouncing and fighter.monster.id == Mars.WOLF
+	var leap: bool = fighter.monster != null and pouncing and Mars.koerper_of(fighter.monster) == Mars.WOLF
 	letzter_sprung = leap or (sprung_bereit and fighter.monster != null)
 	sprung_bereit = false
 	if kauf:
@@ -2318,7 +2318,7 @@ func _guard(on: bool) -> void:
 
 ## Halbe Breite am Boden, wie der Bodenschatten (Wolf 1,1 m lang, halb seitlich gesehen; Mensch 0,3 m)
 func body_r() -> float:
-	if fighter.monster != null and fighter.monster.id == Mars.WOLF:
+	if fighter.monster != null and Mars.koerper_of(fighter.monster) == Mars.WOLF:
 		if mass.has("laenge_m"):     # 387: Kauftier, wie der Wolf (1,1 m lang, 0,45 m) nach seiner Länge
 			return 0.45 / 1.1 * mass.laenge_m * _scale()
 		return 0.45 * _scale()
@@ -2836,7 +2836,7 @@ func die() -> void:
 		t.tween_property(model, "rotation:z", deg_to_rad(80), FALL_MS / 1000.0)
 	# 348.12 (Chef 28.10., 15:23: „Krag ist ein Hauptheld, der muss fulminant sterben am Schluss. Nicht einfach ausgeblendet werden,
 	# wir brauchen einen Zusammenbruch“): Grak bricht zusammen (Tod aus Death02: in die Knie, dann vornüber) und bleibt liegen
-	if fighter.side == "FOES" and fighter.monster.id != Mars.GRAK:
+	if fighter.side == "FOES" and Mars.koerper_of(fighter.monster) != Mars.GRAK:
 		# MARS: eigene Sterbebilder, dann ausgeblendet (LISTE-MARS.md); Körper und Bodenschatten zusammen (Helfer Lauf 126: der
 		# Schatten lag noch allein auf dem Weg)
 		await get_tree().create_timer((sterbe_ms() + LIEGT_MS) / 1000.0).timeout
@@ -2876,8 +2876,8 @@ func howl() -> void:
 
 ## Where to put the name and bar above the figure (world).
 func head() -> Vector3:
-	var h := 1.12 if fighter.monster != null and fighter.monster.id == Mars.WOLF else 1.9     # Ohrspitzen des Wolfs (0,9 lag seit den größeren Ohren, Runde 1 nach Chef, unter dem Balken; davor 60 px darüber)
-	if fighter.monster != null and fighter.monster.id == Mars.WOLF:
+	var h := 1.12 if fighter.monster != null and Mars.koerper_of(fighter.monster) == Mars.WOLF else 1.9     # Ohrspitzen des Wolfs (0,9 lag seit den größeren Ohren, Runde 1 nach Chef, unter dem Balken; davor 60 px darüber)
+	if fighter.monster != null and Mars.koerper_of(fighter.monster) == Mars.WOLF:
 		h = ERSATZ_KOPF.get(_mein_ersatz(), h)
 	if gob_h > 0.0:     # Goblin Runde 2 (Prüfer Runde 1: Ansage fern der Goblins): Scheitel aus goblin.py, gebückt etwas tiefer
 		h = gob_h * 0.85

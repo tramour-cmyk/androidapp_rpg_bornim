@@ -70,10 +70,10 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 		elif ART.has(foe) and monsters.has(ART[foe]):
 			# 535 (Abgleich 512, Sokrates: „Ratten und Fledermäuse als Wölfe, Schamane ohne Heilen“): Werte, Name, Lohn und Regeln
 			# der eigenen Art (Monsters.kt giant_rat, giant_bat, kobold, goblin_shaman); Bewegung und Modell bleiben die des Körpers
-			# (id), die Regeln fragen „art“ (Mars.art_of); das Rudel zählt nach der Art (Kobolde wie alt Packs.kt kobolds, je 0,4)
+			# („koerper“, Mars.koerper_of); 577: die id bleibt die eigene Art (Regeln, Texte, Klang, Lohn); das Rudel zählt nach der Art
+			# (Kobolde wie alt Packs.kt kobolds, je 0,4)
 			m = (monsters[ART[foe]] as Dictionary).duplicate(true)
-			m.id = e[1]
-			m.art = ART[foe]
+			m.koerper = e[1]
 			m.pack = ART[foe]
 		foes.append(Mars.monster_fighter(e[0], e[2], m, dice.roll_expr(m.hp)))
 		if foe == "GRIMM" and e[0] != Figur.GRIMM:

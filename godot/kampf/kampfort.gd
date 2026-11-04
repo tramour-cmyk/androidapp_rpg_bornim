@@ -644,7 +644,7 @@ func _pivot_range(p: Vector2, z: float, k: float, lo: Vector2, hi: Vector2, only
 			continue
 		var foot := _near_of(fig.position)
 		var top := _near_of(fig.head())
-		var wolf: bool = fig.fighter.monster != null and fig.fighter.monster.id == Mars.WOLF
+		var wolf: bool = fig.fighter.monster != null and Mars.koerper_of(fig.fighter.monster) == Mars.WOLF
 		var w: float = (top.y - foot.y) * (0.8 if wolf else 0.45)
 		for q in [Vector2(foot.x - w, foot.y), Vector2(foot.x + w, top.y)]:
 			# sichtbar bei Zoom z um c: lo ≤ c + (q - c)·z … umgestellt nach c
@@ -758,11 +758,11 @@ func foe_scale(f) -> float:
 
 
 func _foe_scale(f) -> float:
-	if f.monster.id == Mars.WOLF:
+	if Mars.koerper_of(f.monster) == Mars.WOLF:
 		if Figur.ersatz().begins_with("kauf_"):     # 387: gekaufte Tiere (kauftier.py) in echter Größe wie im Kauf
 			return 1.0
 		return FOE_SIZE * WOLF_SIZE * ART_SIZE.get(Figur.ersatz(), 1.0)
-	if f.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK]:     # 348.7: Goblin in echter Größe (goblin.py), im Bild wie FoeArt (PX 0,66 wie BeastArt, Held 0,75); 348.12 Grak ebenso
+	if Mars.koerper_of(f.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK]:     # 348.7: Goblin in echter Größe (goblin.py), im Bild wie FoeArt (PX 0,66 wie BeastArt, Held 0,75); 348.12 Grak ebenso
 		return FOE_SIZE * WOLF_SIZE
 	return FOE_SIZE
 

@@ -93,7 +93,7 @@ func _alles() -> void:
 	_pruef("Klang je Effekt", k._fx_klang("BITE") == "bite" and k._fx_klang("SLASH", true) == "crit" and k._fx_klang("FIRE_BOLT") == "fire" and k._fx_klang("ARROW", true) == "arrow")
 	_pruef("Wolfsstimme", k.liste.get("sfx", []).has("wolf_angriff_1") and k.liste.get("sfx", []).has("wolf_tod_3"))
 	# 575: Ratte im Wolfskörper (aufruf.gd ART) spricht und beißt als Ratte
-	_pruef("Art statt Körper", KlangS.art_von({"id": "wolf", "art": "giant_rat"}) == "giant_rat" and KlangS.art_von({"id": "wolf"}) == "wolf")
+	_pruef("Art statt Körper", KlangS.art_von({"id": "giant_rat", "koerper": "wolf"}) == "giant_rat" and KlangS.art_von({"id": "wolf"}) == "wolf")
 	_pruef("Rattenstimme da", String(k.kampftabelle.get("stimme", {}).get("giant_rat", {}).get("stimme", "")) == "giant_rat" and k.liste.get("sfx", []).has("giant_rat_angriff_1"))
 	_pruef("Mischung", is_equal_approx(KlangS.gain(100, 50), 0.25) and is_equal_approx(KlangS.gain(50, 50), 0.0625))
 	# Ortsklang (PlaceSound.kt, Ambience.kt, RiverSound.kt) und Raumklang (Room.kt)

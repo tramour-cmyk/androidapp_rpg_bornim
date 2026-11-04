@@ -877,7 +877,7 @@ func _draw_overlay() -> void:
 		var fig = k.figures[id]
 		if not fig.visible or k.shown.hp.get(id, fig.fighter.hp) <= 0:
 			continue
-		var beast: bool = fig.fighter.monster != null and fig.fighter.monster.id == Mars.WOLF
+		var beast: bool = fig.fighter.monster != null and Mars.koerper_of(fig.fighter.monster) == Mars.WOLF
 		if fig.fighter == current:
 			_ground_ring(fig.position, 0.75 if beast else 0.55, BRIGHT, 2.5 * dp)
 		elif pick == "target" and current != null and m.targets(current).has(fig.fighter):
@@ -942,7 +942,7 @@ func _draw_overlay() -> void:
 			if oid != id and o.visible and k.shown.hp.get(oid, o.fighter.hp) > 0:
 				var of := _foot(o)
 				var ot := _tall(o)
-				var half: float = ot * (0.8 if o.fighter.monster != null and o.fighter.monster.id == Mars.WOLF else 0.45)
+				var half: float = ot * (0.8 if o.fighter.monster != null and Mars.koerper_of(o.fighter.monster) == Mars.WOLF else 0.45)
 				if r.grow(3 * dp).intersects(Rect2(of.x - half, of.y - ot, half * 2.0, ot + 6 * dp)):
 					unten = below + r.size.y <= sr.size.y - 4 * dp
 					break
@@ -1322,7 +1322,7 @@ func _miss_point(by, on, flying: bool) -> Vector3:
 
 ## Wie weit eine Figur um ihre Mitte reicht (m): Wölfe sind lang und stehen mit der Brust zur Gruppe
 func _girth(fig) -> float:
-	var beast: bool = fig.fighter.monster != null and fig.fighter.monster.id == Mars.WOLF
+	var beast: bool = fig.fighter.monster != null and Mars.koerper_of(fig.fighter.monster) == Mars.WOLF
 	return (0.4 if beast else 0.25) * (kampfort.foe_scale(fig.fighter) if fig.fighter.monster != null else 1.0)
 
 
@@ -1438,7 +1438,7 @@ func _status_clash(r: Rect2, own: String) -> bool:
 			continue
 		var of := _foot(o)
 		var ot := _tall(o)
-		var half: float = ot * (0.8 if o.fighter.monster != null and o.fighter.monster.id == Mars.WOLF else 0.45)
+		var half: float = ot * (0.8 if o.fighter.monster != null and Mars.koerper_of(o.fighter.monster) == Mars.WOLF else 0.45)
 		if r.intersects(Rect2(of.x - half, of.y - ot - 8 * dp, half * 2.0, ot + 12 * dp)):
 			return true
 	return false
@@ -1470,7 +1470,7 @@ func _draw_statuses(sr: Rect2) -> void:
 		var x := clampf(foot.x - width / 2, 4 * dp, sr.size.x - width - 4 * dp)
 		var y := foot.y + 8 * dp + _tall(fig) * 0.12
 		# Prüfer: unter dem grauen Wolf lagen sie auf dem schwarzen davor; dann seitlich am eigenen Rumpf, sonst über dem Kopf
-		var half: float = _tall(fig) * (0.8 if fig.fighter.monster != null and fig.fighter.monster.id == Mars.WOLF else 0.45)
+		var half: float = _tall(fig) * (0.8 if fig.fighter.monster != null and Mars.koerper_of(fig.fighter.monster) == Mars.WOLF else 0.45)
 		var mid := foot.y - _tall(fig) * 0.5 - h / 2
 		# Prüfer Runde 2: seitlich lag „Betäubt“ noch auf dem eigenen Hinterteil; weiter weg, und nie an den Rand gedrückt
 		var spots := [Vector2(x, y), Vector2(foot.x + half * 1.15 + gap, mid), Vector2(foot.x - half * 1.15 - gap - width, mid),
@@ -1551,7 +1551,7 @@ func _draw_intents(sr: Rect2) -> void:
 		var want_y := head_y - 6 * dp - h
 		var x := clampf(foot.x - w / 2, 4 * dp, sr.size.x - w - 4 * dp)
 		# Prüfer Stand 9: Ansagen der vorderen Wölfe lagen auf dem hinteren; daneben am eigenen Kopf, wenn darüber ein anderer steht
-		var side := _tall(fig) * (0.8 if fig.fighter.monster != null and fig.fighter.monster.id == Mars.WOLF else 0.42) + 4 * dp
+		var side := _tall(fig) * (0.8 if fig.fighter.monster != null and Mars.koerper_of(fig.fighter.monster) == Mars.WOLF else 0.42) + 4 * dp
 		var head_mid := head_y + 10 * dp - h
 		signs.append({"x": x, "y": want_y, "w": w, "h": h, "ch": ch, "mark": mark, "label": label, "border": border, "bw": bw, "tc": tc, "ring": ring,
 			"fx": foot.x, "head": head_y, "top": foot.y - _tall(fig) * (1.0 if _bat(fig) else 0.88), "hx": kampfort.screen_of(fig.head()).x, "id": id, "alts": [
@@ -1570,7 +1570,7 @@ func _draw_intents(sr: Rect2) -> void:
 			var of := _foot(o)
 			var ot := _tall(o)
 			# ein Wolf ist länger als hoch: im Bild etwa 1,6 mal so breit (Prüfer: Ansage lag auf dem Hinterteil des grauen)
-			var half: float = ot * (0.8 if o.fighter.monster != null and o.fighter.monster.id == Mars.WOLF else 0.45)
+			var half: float = ot * (0.8 if o.fighter.monster != null and Mars.koerper_of(o.fighter.monster) == Mars.WOLF else 0.45)
 			bodies[id] = Rect2(of.x - half, of.y - ot - 12 * dp, half * 2.0, ot + 12 * dp)
 	var placed := []
 	var step := 26 * dp
@@ -1788,7 +1788,7 @@ func _stroke_from(r: Rect2, fx: float, head: float) -> Vector2:
 ## Fledermaus Runde 4c (Prüfer 4b: der Strich endete im Gesicht und deckte Maul und Augen): sie hängt aufrecht, das Gesicht liegt
 ## knapp unter den Ohrspitzen; der Strich endet darum an den Ohrspitzen
 func _bat(fig) -> bool:
-	return fig.fighter.monster != null and fig.fighter.monster.id == Mars.WOLF and fig._mein_ersatz() == "giant_bat"
+	return fig.fighter.monster != null and Mars.koerper_of(fig.fighter.monster) == Mars.WOLF and fig._mein_ersatz() == "giant_bat"
 
 
 func _stroke_to(r: Rect2, s: Dictionary) -> Vector2:
@@ -1843,7 +1843,7 @@ func _roll_tag(sr: Rect2, fig, r: Array, actor_id, alpha: float) -> void:
 			continue
 		var of := _foot(o)
 		var ot := _tall(o)
-		var half: float = ot * (0.8 if o.fighter.monster != null and o.fighter.monster.id == Mars.WOLF else 0.4)   # Wolf breiter als hoch
+		var half: float = ot * (0.8 if o.fighter.monster != null and Mars.koerper_of(o.fighter.monster) == Mars.WOLF else 0.4)   # Wolf breiter als hoch
 		block.append(Rect2(of.x - half, of.y - ot, half * 2.0, ot))
 	var top := foot.y - _tall(fig) - 12 * dp - h
 	var bodies := block.slice(sign_rects.size())

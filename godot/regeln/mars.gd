@@ -32,7 +32,8 @@ const SCOUT := "goblin_archer"
 const WOLF := "wolf"
 const SPIDER := "giant_spider"
 ## 535 (Abgleich 512, Sokrates): Arten mit eigenen Regeln im Körper einer anderen (aufruf.gd ART): Ratte und Fledermaus bewegen
-## sich als Wolf, Kobold und Schamane als Goblin; die Regeln fragen die Art (art_of), Bild und Bewegung weiter die id
+## sich als Wolf, Kobold und Schamane als Goblin. 577 (Chef 04.11., 21:00: „Wie wär's denn, wenn die Dinger die Kennung kriegen, die
+## sie verdienen?“): die id ist die eigene Art (Regeln, Texte, Klang, Lohn), „koerper“ nur Modell und Bewegung (koerper_of)
 const RAT := "giant_rat"
 const BAT := "giant_bat"
 const KOBOLD := "kobold"
@@ -399,9 +400,14 @@ func pick(key: String) -> Array:
 	return l[i]
 
 
-## 535: die Art, nach der die Regeln eine Figur behandeln (ohne „art“ die id)
+## 535, 577: die Art, nach der die Regeln eine Figur behandeln: ihre id
 static func art_of(m) -> String:
-	return "" if m == null else String(m.get("art", m.id))
+	return "" if m == null else String(m.id)
+
+
+## 577: der Körper, dessen Modell und Bewegungen eine Figur trägt (ohne „koerper“ ihre id)
+static func koerper_of(m) -> String:
+	return "" if m == null else String(m.get("koerper", m.id))
 
 
 func wolf(f: Fighter, own: String, general: String) -> Array:
