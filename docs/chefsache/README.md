@@ -53,11 +53,12 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 6, Muss 1, startbar 2
+**Homer** – offen 7, Muss 2, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 547 | M | von Team Jerry (04.11., 01:4x; Chef 04.11., 00:01: „Animation niedersinken oder umfallen o | startbar |
+| 535 | M | von Team Jerry (04.11., 02:4x; Abgleich 512 „Schamane ohne Heilen“): MARS-Ansagen des Gobl | startbar |
 | 432 | K | von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt | ruht |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
@@ -166,7 +167,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | D71.1 | K | von Diogenes (374/434, Vortag 02.11.): ohne „Bestand geprüft“ (434): 417 00:53, 02:24, 03: | startbar |
 | Pflege | K | von Werkzeug (340.3, 04.11.): 70081 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Jerry** – offen 76, Muss 64, startbar 5
+**Jerry** – offen 76, Muss 64, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -184,7 +185,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 532a | M | Rückfrage: Tasche und Metrausch jetzt wie alt in MARS oder erst mit 478? | Chef (Datei in der Chefsache) |
 | 533 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 533): Kampf: Grimmzahn ist ein Wolf, kei | wartet auf Test/Build |
 | 534 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 534): Kampf: Zauber und Fähigkeiten fehl | ruht (424: altes SRD-System) |
-| 535 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 535): Kampf: Gegnerstufe, Elite, schimme | startbar |
+| 535 | M | von Sokrates (512; Zu 535): Kampf: Gegnerstufe, Elite, schimmernde Gegner, Gruppen, EP und | wartet auf Test/Build (gebaut) |
 | 536 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 536): Kampf: Erklärungen bei langem Drüc | wartet auf Test/Build |
 | 478 | M | von Sokrates (Chef 02.11., 17:59 „470a C“): Rechenkern des Kampfs in Stufe 1 auf BRS (Mode | ruht |
 | 481.1 | M | von Sokrates (427): Tränke in sim444, Herkünfte neu messen, Zahlen an Sokrates | wartet auf Test/Build (gebaut) |
