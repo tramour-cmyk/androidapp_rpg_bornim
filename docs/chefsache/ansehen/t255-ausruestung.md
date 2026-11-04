@@ -1,0 +1,17 @@
+# Tom · Build 255 · Godot 0.348.255 · Build 252 und sechs Befunde zu Build 249: Ausrüstung, Fenster, Hinweis, Lizenz · [PR #183](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/183)
+E Technik · Team Tom · 04.11., 03:20 · [Lauf 255](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41759990649) (Artefakt bornim-godot-apk, sobald grün) · Geprüft an: Rechner ohne Kaufmodelle, Daten aus core: fenster_519 0, gegenstand_524 0, groesse_520 0, notiz_550 0, rueckfrage_526 0, tasche_521 0, lizenz_497 0, skripte_pruefen 0, Kerntests grün
+
+Build 255 enthält alles aus Build 252 (und damit 251): gleich 255 installieren, die Prüflisten [t251](t251-testmenue.md) und [t252](t252-kampf.md) gelten dort ebenso. Neu sind nur die Zeilen unten, Vorgänge 519, 524, 520, 521, 523, 526, 550, 497. Verglichen: alt `GearUi.kt` (GearRow, GearDetails, HeroTurntable), `GearCompare.kt`, `MenuScreen.kt` (Tasche, Wechseln), `Dialogs.kt` (ConfirmDialog), `SlotsScreen.kt`, `App.kt` (Über das Spiel) gegen neu.
+
+Ein Weg: Hauptmenü „Über das Spiel“, dann Spielstand laden, Spielmenü Reiter „Ausrüstung“ und „Tasche“, dann im Wald Heilkräuter pflücken.
+
+| # | Team | Nr. | Wo und wie | Richtig | Falsch |
+|---|---|---|---|---|---|
+| 255.1 | Tom | 497 | Hauptmenü, „Über das Spiel“, „Lizenzen der Engine“ antippen, durchrollen | die englischen Lizenztexte laufen in ganzen Absätzen über die Breite; eigene Zeile nur bei Aufzählung („1.“, „(a)“), „Copyright …“ und Überschrift | Zeilen brechen mitten im Satz ab, kurze Stummelzeilen, Sternrahmen, „Â©“ |
+| 255.2 | Tom | 526 | Hauptmenü, Spielstände, bei einem Spielstand „Löschen“; dann im Spiel eine Rückfrage des Spielmenüs; jeweils: einmal in den Kasten, einmal daneben tippen, einmal Android-Zurück | in den Kasten tippen tut nichts; daneben tippen oder Zurück schließt nur die Rückfrage | Tippen in den Kasten schließt, Zurück verlässt den ganzen Schirm |
+| 255.3 | Tom | 520 | Spielmenü, Reiter „Ausrüstung“ | der Held auf dem Drehteller ist so groß wie in der alten Fassung (165 × 253 dp, bisher 143 dp hoch); Kleidung zeigt er noch nicht (kommt mit 455) | Held klein wie in Build 249 |
+| 255.4 | Tom | 521, 523 | Reiter „Ausrüstung“, einen Platz antippen (Wechseln); dann Reiter „Tasche“ | je Gegenstand Bild, Name in der Farbe der Seltenheit, darunter Art, Waffe oder Platz, Wert, bei Bedarf „zweihändig“; nicht Tragbares mit „· nicht tragbar“ in Rot; rechts ▲ grün besser, ▼ rot schlechter; in der Tasche nach Platz sortiert; brennt ein Leuchtfunke: Zeile mit „Löschen“ | nur Name und Schaden, alles gleich aussehend |
+| 255.5 | Tom | 519, 524 | in der Tasche einen Ring und einen Kettenpanzer antippen | das Fenster passt ganz auf den Schirm, Name bricht neben dem Bild um, Knöpfe ganz lesbar; darin Seltenheit und Art, Tragort · Stufe · Gewicht, Schaden je Griff, RK mit GES, Eigenschaften blau, „Ungeübt“ oder „Zauberkraft nützt nur Zauberwirkern“, wenn es zutrifft | rechts abgeschnitten, Knöpfe ragen hinaus, nur Name und eine Zahl |
+| 255.6 | Tom | 550 | neues Spiel oder Spielstand ohne Kräuter: im Wald zum ersten Mal Heilkräuter pflücken, dann ein zweites Mal | der kurze Hinweis oben ist beide Male gleich klein, eine Zeile | beim ersten Mal ein riesiger Kasten über den halben Schirm |
+
+Bekannt, nicht in diesem Build: Laden, Morwen, Rast (525) wartet auf dein Wort zu [525](525-brauen.md); Kleidung am Drehteller kommt mit 455; Gegenstandsfenster besser als alt (524.1) wartet auf [5241](5241-fenster.md).

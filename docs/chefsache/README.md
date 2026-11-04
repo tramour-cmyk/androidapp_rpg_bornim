@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [534a](entscheiden/534a-zauber-mars.md) | **Muss** | E Kampf | 04.11., 02:49 | Magierrüstung, Untote vertreiben, Spirituelle Waffe und Geisterwächter fehlen im Kampf; Unglaubliches Ausweichen wirkt nicht. Alt gab es sie nur im klassischen Kampf, nie im MARS. | Team Jerry |
 | [548a](entscheiden/548a-ratten-haken.md) | **Muss** | E Kampf | 04.11., 01:16 | Am Rechner mit den Daten aus Build 249 im Handyformat warten die Ratten immer auf den Helden, und der Haken gewinnt den Probekampf. Ich finde den Fehler nicht ohne deine Hilfe. | Team Jerry |
 | [512a](entscheiden/512a-abgleich-bis-brs.md) | **Muss** | E Kampf | 04.11., 00:14 | Abgleichsfunde, die das BRS ohnehin ändert: jetzt nach alten Regeln bauen oder bis 478 zurückstellen? | Sokrates |
 | [503a](entscheiden/503a-laden-rueckfrage.md) | **Muss** | E Oberfläche | 04.11., 00:08 | Am Rechner mit echtem Antippen nachgestellt (Rückfragen an): Der Knopf „Gewöhnliche verkaufen“ unter „Ausrüstung“ fragt „Alle gewöhnlichen verkaufen?“ und verkauft vorher nichts. Ohne Rückfrage verkauft das Spiel, wie die alte Fassung, einen einzelnen Gegenstand unter „selten“ (Gegenstand antippen, dann „Verkaufen“); gefragt wird dort erst ab „selten“. | Team Tom (Spike) |
@@ -25,6 +26,7 @@ Nichts offen.
 |---|---|---|---|
 | [492](ansehen/492-hoehle.md) | Blutzahnhöhle: alt gegen neu an acht Stellen | – | 03.11., 23:30 |
 | [505](ansehen/505-nebel-stufen.md) | Nebel im Wald: drei Stufen beschriftet, Bäume A oder B | – | 03.11., 22:35 |
+| [524.1](ansehen/5241-fenster.md) | Gegenstandsfenster spielerfreundlicher: Vorschlag | – | 04.11., 02:26 |
 | [525](ansehen/525-brauen.md) | Brauen bei Morwen: was fehlt, wie oft es reicht | – | 04.11., 01:29 |
 | [531](ansehen/531-garrick.md) | Garrick am Feuer: wie er aussieht und wie er Tiere mit der Fackel vertreibt | – | 04.11., 00:16 |
 | [537](ansehen/537-kapitelende.md) | Kapitelende: Schirm „Ende von Kapitel 1“, Morgenandacht, Morgen im Tempel | – | 04.11., 00:37 |
@@ -37,6 +39,8 @@ Nichts offen.
 | 1 | [0.348.249](ansehen/t249-build-490.md) | [Build 249](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41716913206/artifacts/13272872179) | Dorf mit Häusern wieder (518); Flüsterwald, Tiefer Flüsterwald, Kampforte Wald, Kamin, Laden; dazu alles aus Build 245 (Grundstand Kampf, Waffen in der Hand, Strahlenprobe, Klangschalter) | Tom und Jerry | 03.11., 21:55 |
 | 2 | [0.348.250](ansehen/t250-strahlen-ohne.md) | [Build 250](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41730202915/artifacts/13279477341) | Strahlenprobe mit Messung ohne Strahl (415) | Jerry | 04.11., 00:28 |
 | 3 | [0.348.251](ansehen/t251-testmenue.md) | [Build 251](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41743553745/artifacts/13284903250) | Testmenü wie alt und schneller, Figur nach Ausrüstung, Schlagbaum, Kampf | Tom und Jerry | 04.11., 01:00 |
+| 4 | [0.348.252](ansehen/t252-kampf.md) | [Build 252](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41753201022/artifacts/13288854895) | Build 251 und sechs Kampfbefunde zu Build 249 | Tom und Jerry | 04.11., 02:20 |
+| 5 | [0.348.255](ansehen/t255-ausruestung.md) | [Build 255](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41759990649) | Build 252 und sechs Befunde zu Build 249: Ausrüstung, Fenster, Hinweis, Lizenz | Tom | 04.11., 03:20 |
 
 ## Zu tun
 
@@ -51,38 +55,39 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 6, Muss 1, startbar 2
+**Homer** – offen 7, Muss 2, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 547 | M | von Team Jerry (04.11., 01:4x; Chef 04.11., 00:01: „Animation niedersinken oder umfallen o | startbar |
+| 535 | M | von Team Jerry (04.11., 02:4x; Abgleich 512 „Schamane ohne Heilen“): MARS-Ansagen des Gobl | startbar |
 | 432 | K | von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt | ruht |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 | Pflege | K | von Werkzeug (340.3, 04.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
 
-**Tom** – offen 97, Muss 75, startbar 15
+**Tom** – offen 97, Muss 75, startbar 13
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 531 | M | von Sokrates (Chef 03.11., 23:42, Build 249; Zu 531): Garrick: „Gesicht wirkt sonderbar, B | Chef |
 | 530 | M | von Sokrates (Chef 03.11., 23:40, Build 249): „Schlagbaum öffnet sich nicht visuell.“ Merk | wartet auf Test (Build) |
 | 522 | M | von Sokrates (Chef 03.11., 23:33, Build 249; Zu 522): „im Testmenü Ausrüstung des Helden g | wartet auf Test (Build) |
-| 521 | M | von Sokrates (Chef 03.11., 23:23, Build 249, Bild; Zu 521): Wechselschirm (Platz antippen) | wartet auf Test/Build (gebaut) |
-| 520 | M | von Sokrates (Chef 03.11., 23:19, Build 249, Bild; Zu 520): Ausrüstung: „Warum ist der Hel | wartet auf Test/Build (gebaut) |
-| 519 | M | von Sokrates (Chef 03.11., 23:13, Build 249, Bild): Ausrüstung, Fenster eines Gegenstands | wartet auf Test/Build (gebaut) |
+| 521 | M | von Sokrates (Chef 03.11., 23:23, Build 249, Bild; Zu 521): Wechselschirm (Platz antippen) | wartet auf Test/Build |
+| 520 | M | von Sokrates (Chef 03.11., 23:19, Build 249, Bild; Zu 520): Ausrüstung: „Warum ist der Hel | wartet auf Test/Build |
+| 519 | M | von Sokrates (Chef 03.11., 23:13, Build 249, Bild): Ausrüstung, Fenster eines Gegenstands | wartet auf Test/Build |
 | 518 | M | von Sokrates (Chef 03.11., 20:47, Build 248, Bild): Dorf leer: keine Häuser, nur Wege und | wartet auf Test/Build (gebaut) |
 | 537 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 537): Kapitelende fehlt: nach Aldric kei | wartet auf Test/Build (gebaut) |
 | 549 | M | von Sokrates (Chef 04.11., 00:07, Build 249, Bild; Zu 549): „Rastscreen wirkt sehr klein u | Chef |
-| 550 | M | von Sokrates (Chef 04.11., 00:19, Build 249): „erstes Mal Heilkräuter gepflückt ein riesen | wartet auf Test/Build (gebaut) |
+| 550 | M | von Sokrates (Chef 04.11., 00:19, Build 249): „erstes Mal Heilkräuter gepflückt ein riesen | wartet auf Test/Build |
 | 555 | M | von Sokrates (Chef 04.11., 00:30, „Fehlt vielleicht noch mehr im Testmenü??? Wäre zum Test | wartet auf Test (Build) |
 | 554 | M | von Sokrates (Chef 04.11., 00:27, Build 249): „Im Testmenü fehlt, dass Tiere mich ignorier | wartet auf Test (Build) |
-| 523 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 523): Tasche wie alt und besser: „Funke | wartet auf Test/Build (gebaut) |
-| 524.1 | M | von Sokrates (Chef 04.11., 00:52, „Vorschlag zum Verbessern und spielerfreundlicher machen | startbar |
-| 524 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 524): Gegenstandsfenster, Inhalt wie alt | wartet auf Test/Build (gebaut) |
+| 523 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 523): Tasche wie alt und besser: „Funke | wartet auf Test/Build |
+| 524.1 | M | von Sokrates (Chef 04.11., 00:52, „Vorschlag zum Verbessern und spielerfreundlicher machen | Chef |
+| 524 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 524): Gegenstandsfenster, Inhalt wie alt | wartet auf Test/Build |
 | 525 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 525): Laden, Morwen, Rast wie alt und be | wartet auf Test/Build (gebaut) |
-| 526 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 526): Rückfragen und Fenster einheitlich | wartet auf Test/Build (gebaut) |
+| 526 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 526): Rückfragen und Fenster einheitlich | wartet auf Test/Build |
 | 528 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 528): Held, Karte, Chronik wie alt: Satz | wartet auf Test/Build (gebaut) |
 | 529 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 529): Spielstände: Heldenbild und Spielz | wartet auf Test/Build (gebaut) |
 | 538 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 538): Heldenstufe kommt in Gesprächen ni | wartet auf Test/Build (gebaut) |
@@ -96,7 +101,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 491 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Tiefer Flüsterwald begehbar w | wartet auf Test (Build) |
 | 505 | M | von Perikles (Archiv 502, Chef 03.11., 07:30, Zu 502 in ARBEIT-PROJEKT): Nebel des Krieges | Chef |
 | 514 | M | von Sokrates (Chef 03.11., 16:01, zu 490: „Gibt es nachts vernünftige Glühwürmchen überall | wartet auf Test/Build (gebaut) |
-| 515 | M? | von Sokrates (Chef 03.11., 16:07, zu 491: „3 bis 4 können auch halbwegs versteckt sein unt | startbar |
+| 515 | M? | von Sokrates (Chef 03.11., 16:07, zu 491; Zu 515): Truhen je Karte, einige verschlossen na | startbar |
 | 493 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; Spike, von Jerry übernommen, Chef 07:54): Ka | wartet auf Test (Build) |
 | 506 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; Spike, aus 494): Untote im Kampf: Skelett, Z | wartet auf Jerry |
 | 492 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Blutzahnhöhle begehbar wie alt (Story.kt:73 | Chef |
@@ -117,7 +122,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 499 | M | von Sokrates (Chef 03.11., 07:14, Build 204; „jetzt“ 03.11., 07:14; Zu 499): Erschaffung: | startbar |
 | 513 | M | von Sokrates (Chef 03.11., 15:56, „513 B“, „jetzt“ 03.11., 15:56; Archiv): Figurenstand 41 | startbar |
 | 498 | M | von Sokrates (Chef 03.11., 07:13; Zu 498): Schriftbild wie in der Kotlin-Fassung (Größe, S | wartet auf Test/Build (gebaut) |
-| 497 | M | von Sokrates (Chef 03.11., 07:09, Build 204; Zu 497): „Über das Spiel“: Lizenzhinweis der | startbar |
+| 497 | M | von Sokrates (Chef 03.11., 07:09, Build 204; Zu 497): „Über das Spiel“: Lizenzhinweis der | wartet auf Test/Build |
 | 463 | M | von Sokrates (Chef 01.11., 20:3x, Zu 463): Umhang und lange Robe geschlossen: eine Ursache | wartet auf Test/Build (gebaut) |
 | 470 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.1 Erschaffung: sechs Grundwerte, 21 P | ruht |
 | 470.1 | K | von Sokrates (Idee Chef 02.11., 18:37: Held in der Erschaffung „auf Klick groß … damit man | wartet auf 431e (Chef) |
@@ -162,35 +167,36 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 | D71.1 | K | von Diogenes (374/434, Vortag 02.11.): ohne „Bestand geprüft“ (434): 417 00:53, 02:24, 03: | startbar |
-| Pflege | K | von Werkzeug (340.3, 04.11.): 69851 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
+| Pflege | K | von Werkzeug (340.3, 04.11.): 70432 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Jerry** – offen 76, Muss 64, startbar 8
+**Jerry** – offen 76, Muss 64, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 527 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 527): System: Schalter „Tempo“ und „Kamp | wartet auf Test/Build |
-| 548 | M | von Sokrates (Chef 04.11., 00:03, Build 249, Bild; Zu 548): „Gegen Ratten gespielt. Die st | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
+| 527 | M | von Sokrates (512): System: Schalter „Tempo“ und „Kampftext“ wirken im Kampf nicht | wartet auf Test/Build |
+| 548 | M | von Sokrates (Chef 04.11., 00:03, Build 249, Bild; Zu 548): „Gegen Ratten gespielt. Die st | ruht |
 | 548a | M | Rückfrage: wo hast du im Rattenkampf und im Probekampf getippt (Ring, Haken)? | Chef (Datei in der Chefsache) |
-| 551 | M | von Sokrates (Chef 04.11., 00:21, Build 249): „MARS Kasten links und rechts unten wird unt | wartet auf Test/Build (gebaut) |
-| 552 | M | von Sokrates (Chef 04.11., 00:22, Build 249): „MARS Zugreihenfolge oben fehlt“ | wartet auf Test/Build (gebaut) |
-| 553 | M | von Sokrates (Chef 04.11., 00:26, Build 249, Bild; Zu 553): „Was ist das für ein graues Ti | wartet auf Test/Build (gebaut) |
-| 545 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS-Probekampf: Testknöpfe „Gegner | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
-| 546 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS: Wölfe weichen viel zu träge au | wartet auf Test/Build (gebaut) |
+| 551 | M | von Sokrates (Chef 04.11., 00:21, Build 249): „MARS Kasten links und rechts unten wird unt | wartet auf Test (Build) |
+| 552 | M | von Sokrates (Chef 04.11., 00:22, Build 249): „MARS Zugreihenfolge oben fehlt“ | wartet auf Test (Build) |
+| 553 | M | von Sokrates (Chef 04.11., 00:26, Build 249, Bild; Zu 553): „Was ist das für ein graues Ti | wartet auf Test (Build) |
+| 545 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS-Probekampf: Testknöpfe „Gegner | ruht |
+| 546 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS: Wölfe weichen viel zu träge au | wartet auf Test (Build) |
 | 547 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS: Text sagt „geht in die Knie“, | wartet auf Homer |
-| 544 | M | von Sokrates (Chef 03.11., 23:49, Build 249, Bild MARS-Probekampf: „Stimmt die Schrift?“): | wartet auf Test/Build |
-| 532 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 532): Kampf: Held geht ohne Zauberpunkte | wartet auf Test/Build |
+| 544 | M | von Sokrates (Chef 03.11., 23:49, Build 249: „Stimmt die Schrift?“): Kampfschirm ohne Seri | wartet auf Test/Build |
+| 532 | M | von Sokrates (512; Zu 532): Kampf: Held ohne Zauberpunkte, Verbrauchtes, Zustände, Metraus | wartet auf Test/Build |
 | 532a | M | Rückfrage: Tasche und Metrausch jetzt wie alt in MARS oder erst mit 478? | Chef (Datei in der Chefsache) |
-| 533 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 533): Kampf: Grimmzahn ist ein Wolf, kei | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
-| 534 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 534): Kampf: Zauber und Fähigkeiten fehl | ruht (424: altes SRD-System) |
-| 535 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 535): Kampf: Gegnerstufe, Elite, schimme | startbar |
-| 536 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 536): Kampf: Erklärungen bei langem Drüc | wartet auf Test/Build (gebaut) |
+| 533 | M | von Sokrates (512; Zu 533): Kampf: Grimmzahn ist ein Wolf, kein Boss (Werte, Flucht, Leibw | wartet auf Test (Build) |
+| 534 | M | von Sokrates (512; Zu 534): Kampf: Zauber und Fähigkeiten fehlen in „Können“ oder wirken n | wartet auf Test/Build (gebaut) |
+| 534a | M | Rückfrage: vier Zauber und Unglaubliches Ausweichen jetzt wie alt in MARS oder mit 478? | Chef (Datei in der Chefsache) |
+| 535 | M | von Sokrates (512; Zu 535): Kampf: Gegnerstufe, Elite, schimmernde Gegner, Gruppen, EP und | wartet auf Test/Build (gebaut) |
+| 536 | M | von Sokrates (512; Zu 527–536): Kampf: Erklärungen bei langem Drücken (MarsTips) und Klein | wartet auf Test (Build) |
 | 478 | M | von Sokrates (Chef 02.11., 17:59 „470a C“): Rechenkern des Kampfs in Stufe 1 auf BRS (Mode | ruht |
 | 481.1 | M | von Sokrates (427): Tränke in sim444, Herkünfte neu messen, Zahlen an Sokrates | wartet auf Test/Build (gebaut) |
 | 467 | M | von Sokrates (Chef 01.11., 21:52): regeln/ausdauer.gd rechnet nach SRD; BRS: Ausdauer aus | wartet auf Sokrates |
 | 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Wölfe gleiten (Angriff, Tempo, aneinander vor | wartet auf Test/Build (gebaut) |
 | 457.2 | M | von Perikles (Chef 01.11., 11:49): Probeskripte zeichnen standardmäßig mit Toon-Licht, Tus | wartet auf Test/Build (gebaut) |
 | 453.1 | M | von Sokrates: Helden im Kampf atmen ruhiger, je Figur eigener Takt | wartet auf Test (Build) |
-| 453 | M | von Sokrates: Ruhebewegungen der Wölfe | startbar |
+| 453 | M | von Sokrates: Ruhebewegungen der Wölfe | wartet auf Perikles |
 | 453a | M | Wolfsatem B | wartet auf Test (Build) |
 | 454 | M | von Sokrates: Bissachse des Wolfs | wartet auf Test (Build) |
 | 438a | M | von Sokrates (438a): Hinfallen und Aufstehen des Kaufhelden, Waffe und Schild frei | ruht |
@@ -198,20 +204,19 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 440 | M | von Sokrates: Wolf-Tod zu schnell weg | wartet auf Test (Build) |
 | 416.6 | M | von Sokrates: Spuren (core/Tracks.kt): Blut, Staub, Fußspuren | wartet auf Perikles |
 | 415 | M | von Sokrates: Probe Beams Free Sample im Kampfort; nichts kaufen | wartet auf Test (Build) |
-| 399.2 | M | von Perikles („jetzt“ 28.10., 12:34): Kampfort aufrufbar | wartet auf Test (Build) |
-| 403 | M | von Team Tom: Kampfort: Held je Klasse wie im Dorf | wartet auf Test (Build) |
+| 403 | M | von Team Tom: Kampfort: Held je Klasse wie im Dorf | wartet auf Tom |
 | 461.1 | M | von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461): Grundstand mit Tom: Kampfort, Wölfe, Hel | ruht |
 | 460 | M | von Sokrates (Chef 01.11., 20:2x, Archiv 460): Probefilm Kamerafahrten: Eröffnung je Blend | ruht |
 | 406.1 | M | von Sokrates (406.1): Schildstoß ins MARS/BRS, Bau mit ShieldAttack1–3S&S | wartet auf 481 (startbar) |
-| 489 | M | von Sokrates: Hauptmenü: Schalter Musik und Effekte wie alt | wartet auf Test (Build) |
+| 489 | M | von Sokrates: Hauptmenü: Schalter Musik und Effekte wie alt | wartet auf Tom |
 | 406.2a | M | von Sokrates: Angriffsweg im Kampf mit UAL-Rennen wie im Dorf, alle Waffen (Zu 406.2a) | wartet auf Perikles |
 | 406.2 | M | von Sokrates (Chef 03.11., 06:59, „jetzt“; Zu 406.2): im Kampf zum Angriff gehen statt ren | wartet auf Test/Build (gebaut) |
-| 406 | M | von Team Tom: Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Sonne | wartet auf Test (Build) |
+| 406 | M | von Team Tom: Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Sonne | wartet auf Tom |
 | 510 | M | von Sokrates: Fledermaus: freies OGA-Modell „Vampire Bat“ (CC0) mit unseren Fellen neben d | wartet auf Perikles |
 | 509 | M | von Sokrates (Chef 03.11., 09:21): Frösche und Libellen an den Teichen wie alt (PondLife.k | wartet auf Perikles |
-| 494 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Gegner von Kapitel 1 im Kampf (Liste und St | startbar |
-| 517 | M | von Team Tom (03.11., 16:3x, Abgleich 512): Waldklang wie alt: Vögel am Tag, Eule und Gril | wartet auf Test/Build (gebaut) |
-| 507 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488; aus 492): Kampforte Höhle wie alt: Eingang, | startbar |
+| 494 | M | von Perikles (488): Gegner von Kapitel 1 im Kampf (Zu 494), je Gegner höchstens ein Lauf | wartet auf Perikles |
+| 517 | M | von Team Tom (03.11., 16:3x, 512): Waldklang wie alt (WildSound.kt): Vögel am Tag, Eule un | wartet auf Test/Build (gebaut) |
+| 507 | M | von Perikles (488; aus 492): Kampforte Höhle wie alt: Eingang, Gang, Halle, Teich, Lager | wartet auf Perikles |
 | 496a | M | Rückfrage: abgenommene Kampfbilder schon in den Durchspiel-Build? | wartet auf Test (Build) |
 | 496 | M | von Perikles (Wochenziel 03.11. Reihe 5, 488): Durchspiel-Build aus 490–495: der Chef spie | wartet auf 490 (zu testen) |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
@@ -243,7 +248,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | 469 | M | von Sokrates: Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
-| Pflege | K | von Werkzeug (340.3, 04.11.): 22516 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 04.11.): 18513 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 31, Muss 26, startbar 2
 
@@ -345,7 +350,7 @@ Format (Muster: „So geht's“ unten): t249-build-490.md: 14 Vorgänge, höchst
 
 Nicht gestellt: 407 (Projekt)
 
-Ohne Datei: 3402 (Projekt), 275 (Projekt), 521 (Team Tom), 26 (Team Tom)
+Ohne Datei: 3402 (Projekt), 275 (Projekt)
 
 ## So geht's
 
