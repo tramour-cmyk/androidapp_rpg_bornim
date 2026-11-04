@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (04.11., 01:1x, `session_01Hmoj76TujCVFXFeH1ZMS73`):** Build 251 (`claude/build-555`, PR #181, Lauf 41743553745) gestartet 01:00: grün → Link in t251, Telegram; 550 gebaut; 549 beim Chef. Nachfolger: Tom – Build 251 prüfen, dann 525: Laden, Morwen, Rast wie alt.
+**Übergabe (04.11., 01:47, `session_01Hmoj78QNTP1s2C97rS6wuQ`):** 525, 528, 529 gebaut; Build 251 (Lauf 41743553745) lief 01:46 noch: grün → Link in t251, Telegram; 416.8 belegt, nicht begonnen. Nachfolger: Tom – Build 251 prüfen, dann 416.8: Leute wenden mit Schritten.
 
 ## Zeilen
 
