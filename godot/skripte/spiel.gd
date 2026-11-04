@@ -176,10 +176,22 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	Messung.geladen(id, (Time.get_ticks_usec() - t0) / 1000.0)
 
 func speichere() -> void:
-	if held and karte and not OS.get_cmdline_user_args().size(): Spielstand.speichere(zustand, held_werte(), platz())
+	if held and karte and not OS.get_cmdline_user_args().size():
+		buche_spielzeit()
+		Spielstand.speichere(zustand, held_werte(), platz())
+
+# 529 (PlayClock.book): die Zeit seit dem letzten Buchen zur gespielten Zeit; laeuft, solange die App vorn ist (alt: Screen.PLAYING)
+var spiel_seit := -1
+func buche_spielzeit() -> void:
+	var jetzt := Time.get_ticks_msec()
+	if spiel_seit >= 0 and jetzt > spiel_seit: zustand.gespielt_ms += jetzt - spiel_seit
+	spiel_seit = jetzt
 
 func _notification(what: int) -> void:   # 399: auch beim Verlassen der App (alt: onPause)
-	if what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_WM_CLOSE_REQUEST: speichere()
+	if what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_WM_CLOSE_REQUEST:
+		speichere()
+		spiel_seit = -1   # 529: im Hintergrund zaehlt nichts (alt pausePlayClock)
+	if what == NOTIFICATION_APPLICATION_RESUMED and spiel_seit < 0: spiel_seit = Time.get_ticks_msec()
 	# 416.1: Android-Zurück schliesst das oberste Fenster (zurueck.gd); ohne Fenster nichts (vorher beendete es das Spiel)
 	if what == NOTIFICATION_WM_GO_BACK_REQUEST: Zurueck.taste(get_tree())
 	# Build 145 (Tests mit spiel.tscn brachen beim Beenden ab, „corrupted size vs. prev_size“): die statische Uhr der Leute hielt eine

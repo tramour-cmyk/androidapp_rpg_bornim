@@ -2,8 +2,8 @@ class_name Spielstaende
 extends Control
 # 399.1 Spielstaende wie im alten Spiel (SlotsScreen.kt, Chef 28.10., 14:38 „Einfach mal das alte Spiel nehmen“): oben der Kopf
 # „Spielstaende“, darunter rollend die vier Plaetze: belegt mit Name, Volk, Klasse, Stufe, Ort, Tag und Uhrzeit, wann gespeichert,
-# „Loeschen“ (mit Rueckfrage) und „Laden“; leer mit „Neues Spiel“ in diesen Platz; unten „Zurueck“. Noch nicht wie alt: das
-# Bild des Helden und die Spielzeit (Hero still, PlayClock).
+# „Loeschen“ (mit Rueckfrage) und „Laden“; leer mit „Neues Spiel“ in diesen Platz; unten „Zurueck“. 529: links das Bild des Helden
+# (HeroStill: seine Figur mit Aussehen und Ausruestung, stehend) und unten die Spielzeit (PlayClock.played).
 
 signal zurueck
 signal laden(platz: int)
@@ -68,12 +68,12 @@ func baue() -> void:
 		los.size_flags_stretch_ratio = 2.0
 		knoepfe.add_child(weg)
 		knoepfe.add_child(los)
-		var innen: VBoxContainer = k.get_child(0)
+		var innen: VBoxContainer = k.get_child(0)   # 529: aussen (Bild und Zeilen), darunter die Knoepfe
 		innen.add_child(Erschaffung.luecke(8))
 		innen.add_child(knoepfe)
 		liste.add_child(k)
 
-# SlotCard ohne Bild: Platz und Name, Volk · Klasse · Stufe, Ort · Tag · Uhrzeit, gespeichert am
+# SlotCard: Bild, Platz und Name, Volk · Klasse · Stufe, Ort · Tag · Uhrzeit, gespeichert am, gespielt
 static func karte(d: Dictionary) -> PanelContainer:
 	var de := Sprache.aktiv() == "de"
 	var h: Dictionary = d.get("held", {})
@@ -93,12 +93,50 @@ static func karte(d: Dictionary) -> PanelContainer:
 	if alle is Dictionary and alle["karten"].has(ort): ort = Sprache.t(alle["karten"][ort]["name"])
 	var m := int(z.get("minuten", 0))
 	v.add_child(Erschaffung.txt("%s · %s %d · %02d:%02d" % [ort, "Tag" if de else "Day", int(z.get("tag", 1)), m / 60, m % 60], 13, Stil.DIM))
-	var wann := int(d.get("gespeichert", 0))
-	if wann > 0:
-		var t := Time.get_datetime_dict_from_unix_time(wann / 1000 + int(Time.get_time_zone_from_system().get("bias", 0)) * 60)
+	var t := gespeichert_um(d)
+	if not t.is_empty():
 		var s := ("%02d.%02d.%04d, %02d:%02d" % [t.day, t.month, t.year, t.hour, t.minute]) if de else ("%04d-%02d-%02d, %02d:%02d" % [t.year, t.month, t.day, t.hour, t.minute])
 		v.add_child(Erschaffung.txt(("Gespeichert: " if de else "Saved: ") + s, 12, Stil.DIM))
-	return Erschaffung.kasten(v)
+	var g := gespielt(int(z.get("gespielt_ms", 0)), de)
+	var gl := Erschaffung.txt(g, 12, Stil.DIM)
+	gl.name = "Gespielt"
+	v.add_child(gl)
+	# HeroStill links neben den Zeilen (alt 10 dp Abstand); die Knoepfe haengt baue() unter beides
+	var aussen := VBoxContainer.new()
+	aussen.add_theme_constant_override("separation", 0)
+	var reihe := HBoxContainer.new()
+	reihe.add_theme_constant_override("separation", int(10 * DP))
+	var bild := Drehteller.new(heldbild(d), 0.4, false)
+	bild.name = "Heldbild"
+	bild.mouse_filter = Control.MOUSE_FILTER_IGNORE   # Antippen gehoert der Karte (Erschaffung: Platz waehlen)
+	reihe.add_child(bild)
+	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	v.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	reihe.add_child(v)
+	aussen.add_child(reihe)
+	return Erschaffung.kasten(aussen)
+
+# HeldFigur.wahl aus dem gespeicherten Helden; {} wenn der Spielstand nichts hergibt (dann der Grundheld)
+static func heldbild(d: Dictionary) -> Dictionary:
+	if not (d.get("held") is Dictionary and d.get("zustand") is Dictionary): return {}
+	return HeldFigur.wahl(Heldwerte.aus_daten(d["held"]), Zustand.aus_daten(d["zustand"]))
+
+# 529: Ortszeit beim Speichern (seit 529 mitgespeichert); aeltere Spielstaende rechnen aus der Unix-Zeit mit dem heutigen Abstand zu UTC
+# (der Fehler, den Sokrates vermutete: nach einer Zeitumstellung eine Stunde daneben)
+static func gespeichert_um(d: Dictionary) -> Dictionary:
+	var o = d.get("gespeichert_ortszeit")
+	if o is Dictionary and o.has("year"): return {"year": int(o["year"]), "month": int(o["month"]), "day": int(o["day"]), "hour": int(o["hour"]), "minute": int(o["minute"])}
+	var wann := int(d.get("gespeichert", 0))
+	if wann <= 0: return {}
+	return Time.get_datetime_dict_from_unix_time(wann / 1000 + int(Time.get_time_zone_from_system().get("bias", 0)) * 60)
+
+# PlayClock.played: „Gespielt: 2 Std. 14 Min.“
+static func gespielt(ms: int, de: bool) -> String:
+	var mi := maxi(0, ms / 60000)
+	var h := mi / 60
+	var m := mi % 60
+	var zeit := ("%d Min." % m if de else "%d min" % m) if h == 0 else ("%d Std. %d Min." % [h, m] if de else "%d h %d min" % [h, m])
+	return ("Gespielt: " if de else "Played: ") + zeit
 
 # ConfirmDialog: „Spielstand löschen?“, wer wird geloescht, Abbrechen und Loeschen
 func frage_loeschen(d: Dictionary) -> void:
