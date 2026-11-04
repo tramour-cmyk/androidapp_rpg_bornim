@@ -1,5 +1,5 @@
 extends SceneTree
-# 505 ohne Bild: Nebel des Krieges wie alt (Fog.kt). Im Dorf kein Nebel; im Wald: die Kachel des Helden und die vor ihm in Sicht,
+# 505 ohne Bild: Nebel des Krieges wie alt (Fog.kt). Im Dorf Nebel (505 Lauf 2), Haeuser als Ganzes; im Wald: die Kachel des Helden und die vor ihm in Sicht,
 # hinter ihm (ausserhalb des kleinen Kreises) nicht, weit weg nie gesehen; ein Baum zwischen Held und Ziel sperrt; Gesehenes bleibt
 # nach dem Weitergehen gesehen und kommt aus dem Spielstand wieder; Monster ausser Sicht unsichtbar; Nebelbild blendet zu den Zielen.
 # Braucht godot/daten wie im Bau (tools/godot/wald_daten.sh). Massgeblich ist die Zeile NEBEL505.
@@ -17,15 +17,31 @@ func _lauf() -> void:
 	var spiel = load("res://spiel.tscn").instantiate()
 	root.add_child(spiel)
 	for i in 5: await process_frame
-	pruefe(spiel.nebel != null and not spiel.nebel.an, "im Dorf kein Nebel")
-	pruefe(spiel.nebel.rand_an and spiel.nebel.flaeche != null, "505c: im Dorf der Rand ins Dunkel (Nebelflaeche ohne Nebel)")
+	# 505 Lauf 2 (Chef 16:12, 505c (1) Wald, Dorf und Hoehle): auch im Dorf Nebel; ein Haus ist ganz bekannt oder ganz unbekannt
+	var nd: Nebel = spiel.nebel
+	pruefe(nd != null and nd.an and nd.dorf, "505 Lauf 2: im Dorf Nebel")
+	pruefe(nd.rand_an and nd.flaeche != null, "505c: im Dorf der Rand ins Dunkel")
+	var gemischt := 0; var bekannt := 0
+	for teile in nd.haeuser:
+		var st := {}
+		for j in teile: st[nd.nebel(j % nd.breite, j / nd.breite)] = true
+		if st.size() > 1: gemischt += 1
+		if not st.has(0): bekannt += 1
+	pruefe(nd.haeuser.size() >= 5 and gemischt == 0 and bekannt >= 1, "Dorf: %d Haeuser, %d gemischt, %d bekannt" % [nd.haeuser.size(), gemischt, bekannt])
+	# Chef 16:12 (1): Schwarz ist 0: die Farbkorrektur zieht den Fuss, den Kontrast 0,87 hebt (16,6 von 255), auf 0
+	var env: Environment = spiel.licht.env
+	var cc = env.adjustment_color_correction
+	var fuss := 0.5 * (1.0 - env.adjustment_contrast)
+	pruefe(cc is GradientTexture1D and fuss > 0.05 and (cc as GradientTexture1D).gradient.sample(fuss).r < 0.002 and absf((cc as GradientTexture1D).gradient.sample(0.5).r - 0.5) < 0.002,
+		"505 Lauf 2: Schwarzfuss %.3f auf 0, Mitte unveraendert" % fuss)
 	spiel.betrete("forest", Vector2i(9, 26), "UP")
 	if spiel.herde: spiel.herde.aus = true
 	for i in 3: await process_frame
 	var n: Nebel = spiel.nebel
 	pruefe(n.an, "im Wald Nebel")
 	# 505c (Chef 04.11., 14:06, Zu 505 (Rand)): B gilt, ueber dem Randwald kein Nebel, das Dorf hat nur den Rand ins Dunkel
-	pruefe(Nebel.baeume == "boden" and n.rand() == 0.0, "505c: Fassung B und kein Nebel hinter dem Rand (%s, %.2f)" % [Nebel.baeume, n.rand()])
+	# 505 Lauf 2 (Pruefer 16:01, Chef 16:12 (2)): hinter dem Rand der Nebel der Randkachel (keine Kappe), kein heller Wald hinter Schwarz
+	pruefe(Nebel.baeume == "boden" and n.rand() == 1.0, "505 Lauf 2: Fassung B, Randwald mit dem Nebel der Randkachel (%s, %.2f)" % [Nebel.baeume, n.rand()])
 	pruefe(n.flaeche != null and float(n.mat.get_shader_parameter("rand_schwarz")) > 5.0, "505c: Randdunkel im Wald")
 	n.fassung("alt")   # die alten Pruefungen unten mit A, B folgt weiter unten
 	pruefe(n.nebel(9, 26) == 2, "Kachel des Helden in Sicht")

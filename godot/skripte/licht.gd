@@ -157,7 +157,32 @@ func stelle(k: float) -> void:
 			stimmung.set_shader_parameter("anteil", 0.5)
 			stimmung.set_shader_parameter("rand", 0.26)
 	else: toene(1.0 - k)
+	schwarz_fuss()
 	nacht_geaendert.emit(k)
+
+## 505 Lauf 2 (Chef 16:12, Zu 505, zweiter Durchgang (1): „nie gesehen“ wirklich schwarz, Wert 0): Kontrast unter 1 hebt Schwarz
+## nach dem Tonemapping auf 0,5 (1 − Kontrast) (Tag 0,87: 16,6 von 255), auch den Nebel, die Tusche und das Randdunkel. Die
+## Farbkorrektur danach (je Kanal, Godot: nach Helligkeit, Kontrast, Saettigung) zieht diesen Fuss auf 0 und laeuft bis
+## SCHWARZ_FUSS darueber in die Kurve zurueck; alles Hellere bleibt, wie es war
+const SCHWARZ_FUSS := 0.035
+var fuss_bei := -1.0
+func schwarz_fuss() -> void:
+	var f := 0.5 * (1.0 - env.adjustment_contrast) if env.adjustment_contrast < 1.0 else 0.0
+	if absf(f - fuss_bei) < 0.002: return
+	fuss_bei = f
+	if f <= 0.0:
+		env.adjustment_color_correction = null
+		return
+	var g := Gradient.new()
+	g.interpolation_mode = Gradient.GRADIENT_INTERPOLATE_LINEAR
+	g.set_offset(0, 0.0); g.set_color(0, Color(0, 0, 0))
+	g.set_offset(1, 1.0); g.set_color(1, Color(1, 1, 1))
+	g.add_point(f, Color(0, 0, 0))
+	g.add_point(f + SCHWARZ_FUSS, Color(f + SCHWARZ_FUSS, f + SCHWARZ_FUSS, f + SCHWARZ_FUSS))
+	var t := GradientTexture1D.new()
+	t.gradient = g
+	t.width = 1024
+	env.adjustment_color_correction = t
 
 # MapGrade.of fuer das Dorf (daylight 1 Tag, 0,5 Daemmerung, 0 Nacht); Wald und Hoehle beim Bau je Ort
 func toene(tag: float) -> void:

@@ -1946,6 +1946,21 @@ func nebel_bilder() -> void:
 		await get_tree().create_timer(0.5).timeout
 		await RenderingServer.frame_post_draw
 		print("NEBELRAND Dreiecke %s Randwald %d, Zeichenaufrufe %d" % ["mit" if mit else "ohne", RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_PRIMITIVES_IN_FRAME), RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_DRAW_CALLS_IN_FRAME)])
+	# 505 Lauf 2 (Chef 16:12: „Dorf mit Nebel zeigen“): vom Nordtor den Weg hinab, Stufen beschriftet (Haeuser als Ganzes)
+	for n in gebiet.find_children("Randwald_*", "", true, false): n.visible = true
+	betrete("village", Vector2i(17, 1), "DOWN")
+	if herde: herde.aus = true
+	await get_tree().create_timer(1.0).timeout
+	nebel.vergiss()
+	for y in range(1, 11):
+		held.setze(Vector2i(17, y), "DOWN"); kamera.springe()
+		await get_tree().create_timer(0.25).timeout
+	kamera.zoom = Kamera.FERN; kamera.size = Kamera.FERN; kamera.nah = false; kamera.gieren_ziel = 0.0
+	for i in 3: kamera.springe()
+	await get_tree().create_timer(1.2).timeout
+	await nebel_stufen(schilder, "Dorf: drei Stufen", [[0, "unbekannt: schwarz", Vector2i(26, 16)], [1, "erkundet: abgedunkelt", Vector2i(17, 3)], [2, "in Sicht: hell", Vector2i(17, 12)]])
+	await knips("%s/13_dorf_stufen.png" % dir)
+	for c in schilder.get_children(): c.queue_free()
 	# Hoehle: vom Eingang in den Gang, Stufen beschriftet; dann der Ausgang mit Blick hinaus
 	betrete("cave", Vector2i(10, 18), "UP")
 	if herde: herde.aus = true
@@ -1997,6 +2012,9 @@ func nebel_hell(t: Vector2i) -> float:
 
 ## je Stufe die naechste Kachel im Bild beschriften; Helligkeit des Bilds dort (9 x 9 Punkte um die Kachelmitte) messen, vor den Schildern
 func nebel_stufen(e: CanvasLayer, titel: String, stufen: Array) -> void:
+	# 505 Lauf 2 (Pruefer 16:01, Bild 2: „Titel doppelt übereinander“): der Titel des vorigen Bilds stand noch
+	for c in e.get_children(): c.queue_free()
+	await get_tree().process_frame
 	ui.textfeld.visible = false
 	await RenderingServer.frame_post_draw
 	var img := get_viewport().get_texture().get_image()

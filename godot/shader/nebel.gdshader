@@ -20,6 +20,7 @@ uniform vec4 licht_gang = vec4(0.0); // Hoehle: Mitte x, Rand z, halbe Breite, a
 // Anpassung der Umgebung (licht.gd: Kontrast 0,87 am Tag hebt Schwarz auf etwa 14, Hoehle Helligkeit x2,1); 0x080A12 wurde so
 // blaugrau. Schwarz wird dort zum dunkelsten Ton des Spiels (wie Tusche und Randdunkel, 14,14,14), in der Hoehle zu 0
 uniform vec3 farbe : source_color = vec3(0.0);
+uniform float ohne = 0.0;            // 555 Testmenue „Sichtlinie aus“: kein Nebel auf der Karte, der Rand bleibt
 void vertex() { POSITION = vec4(VERTEX.xy, 1.0, 1.0); }
 void fragment() {
 	float d = texture(depth_tex, SCREEN_UV).r;
@@ -46,6 +47,7 @@ void fragment() {
 	aus = max(aus, 0.0);
 	if (aus > 0.0) a = mix(a, min(a, rand_hoechstens), smoothstep(0.0, rand_nebel, aus));
 	a = a * (a > 0.95 ? 1.0 : 0.92);
+	a *= 1.0 - ohne;
 	// Randwald ins Dunkel (MapEdge.fade: Licht u * u * (3 - 2u)); in der Hoehle bleibt der Gang zum Ausgang hell
 	float licht = 1.0 - smoothstep(rand_hell, rand_schwarz, aus);
 	if (hoehle > 0.5) {

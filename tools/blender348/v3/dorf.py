@@ -1747,10 +1747,17 @@ def teil(name, at, breite, hoehe=None, dreh=0.0, kipp=(0.0, 0.0), farbe=None):
     M = (Matrix.Translation(at) @ Matrix.Rotation(kipp[0], 4, 'X') @ Matrix.Rotation(kipp[1], 4, 'Y') @ Matrix.Rotation(dreh, 4, 'Z')
          @ Matrix.Diagonal((s, s, sz, 1.0)) @ Matrix.Translation(-m))
     fremd_teil(name, M, farbe=farbe)
-def wstein(moos=12.0, dunkel=1.0):
-    """Feldstein kuehl grau, unten Moos (wie dinge_mehr), dunkel < 1 russig"""
-    return lambda p, nn: sc(mixc(lin(0x84848A), lin(0x6E7A3C), ss(moos, 2, p.z) * (0.55 + 0.45 * vn(p.x / 25, p.y / 25, 92))),
-                            (0.85 + 0.3 * vn(p.x / 18 + p.z / 18, p.y / 18, 93)) * (0.85 + 0.3 * max(0.0, nn.z)) * dunkel)
+def wstein(moos=12.0, dunkel=1.0, risse=0.0):
+    """Feldstein kuehl grau, unten Moos bis moos cm (wie dinge_mehr), dunkel < 1 russig; risse > 0: Kerben und Flecken (Hoehlenfels)
+    505 Lauf 2 (Pruefer 16:01, Chef 16:04: „grüner Fleck über dem Eingang“): moos=0 hiess ss(0, 2, z), also Moos auf allem ueber 2 cm
+    (Sturz ueber dem Hoehlenmund, Kiesel am Lagerfeuer); 0 heisst jetzt kein Moos"""
+    def f(p, nn):
+        m = ss(moos, 2, p.z) * (0.55 + 0.45 * vn(p.x / 25, p.y / 25, 92)) if moos > 2 else 0.0
+        k = (0.85 + 0.3 * vn(p.x / 18 + p.z / 18, p.y / 18, 93)) * (0.85 + 0.3 * max(0.0, nn.z)) * dunkel
+        if risse > 0:   # „glattes Grau“: Kerben dunkel, Flaechen fleckig, wie der Fels im alten Spiel (MapWoodIso CAVE_WALL)
+            k *= 1.0 - risse * (0.45 * ss(0.62, 0.78, vn(p.x / 7 + p.z / 11, p.y / 7 - p.z / 9, 94)) + 0.2 * vn(p.x / 40, p.z / 40, 95))
+        return sc(mixc(lin(0x84848A), lin(0x6E7A3C), m), k)
+    return f
 def stab(P, a, b, r, n, col, r2=None):
     """Zylinder von a nach b (Ast, Stamm), Rinde laengs"""
     r2 = r if r2 is None else r2; ax = (b - a); L = ax.length; ax.normalize()
@@ -1827,20 +1834,73 @@ def kiste(c, r):
             box(DORF, (x, -24.5, -0.5), (x + 4, 24.5, 43.8), eisen, M=M)
         box(DORF, (-5, -25.5, 22), (5, -24, 34), lin(0x6A5A3A), M=M)
 def hoehlenfels(c, r):
-    """Felswand um den Hoehlenmund (CAVE_WALL): hohe Brocken, dahinter weiter Fels"""
+    """Felswand um den Hoehlenmund (CAVE_WALL): hohe Brocken, dahinter weiter Fels
+    505 Lauf 2 (Pruefer 16:01: „Höhlenmund nur ein schmaler Schlitz“): neben dem Mund ruecken die vorderen Brocken vom Mund weg und
+    werden schmaler (vorher reichten sie bis 4 cm an seine Mitte); alle sitzen 30 cm im Boden (Chef 16:04: „an der Front schwebt“)"""
     p = tile_c(c, r)
+    weg = 1 if ch(c - 1, r) == 'E' else (-1 if ch(c + 1, r) == 'E' else 0)
     for k, (dy, b_, h_) in enumerate(((-15, 170, 230), (55, 230, 330), (140, 260, 300))):
-        q = p + Vector(((h1(c, r + k, 681) - 0.5) * 40, dy, -10))
-        teil('Rock_Medium_%d' % (1 + int(h1(c, r + k, 682) * 3)), q, b_ + 30 * h1(c, k, 683), h_ + 60 * h1(c, k, 684),
-             dreh=h1(c, k, 685) * 6.283, farbe=wstein(30, 0.85))
+        dx = (h1(c, r + k, 681) - 0.5) * 40
+        b = b_ + 30 * h1(c, k, 683)
+        if weg and k < 2: dx = weg * 40; b = min(b, 150)
+        q = p + Vector((dx, dy, -30))
+        teil('Rock_Medium_%d' % (1 + int(h1(c, r + k, 682) * 3)), q, b, h_ + 60 * h1(c, k, 684) + 20,
+             dreh=h1(c, k, 685) * 6.283, farbe=wstein(30, 0.85, 0.6))
+        if k == 0 and r == R0: fuss(q + Vector((0, -b * 0.3, 30)), b * 0.55)   # nur vorn auf der Karte sichtbar
+GRAS = {}
+def kit_erster(*namen):
+    """erster vorhandener Teil des Naturbausatzes (Namen ohne .gltf), sonst None"""
+    import glob
+    for n in namen:
+        if n not in GRAS:
+            d = glob.glob(glob.escape(os.path.expanduser(os.environ.get('CC0', '~/cc0'))) + '/stylized-nature-megakit/glTF')
+            GRAS[n] = bool(d) and os.path.exists(d[0] + '/' + n + '.gltf')
+        if GRAS[n]: return n
+    return None
+def fuss(q, br):
+    """505 Lauf 2 (Chef 16:04: „dass die Höhle auch zum Teil an der Front schwebt und nicht auf dem Boden aufliegt“): Fuss eines
+    Felsens im Boden: Kontaktschatten in der Bodenmaske, Geroell davor, Gras und Farn am Fuss"""
+    SACKSCHATTEN.append((kx(q), br / TS * 1.1))
+    for k in range(3 + int(br / 40)):
+        a = (k + 0.5) / (3 + int(br / 40)) - 0.5
+        g = q + Vector((a * br * 1.6 + (h1(int(q.x), k, 701) - 0.5) * 20, -18 - 22 * h1(int(q.y), k, 702), -3))
+        teil('Pebble_Round_%d' % (1 + int(h1(int(q.x), k, 703) * 5)), g, 14 + 16 * h1(k, int(q.x), 704), 9 + 8 * h1(k, int(q.y), 705),
+             dreh=h1(k, int(q.x), 706) * 6.283, farbe=wstein(0, 0.8, 0.4))
+    gras = kit_erster('Grass_Common_Short', 'Grass_Wispy_Short', 'Grass_Common_Tall')
+    farn = kit_erster('Fern_1', 'Fern')
+    for k in range(4):
+        n = farn if (k == 1 and farn) else gras
+        if not n: continue
+        a = (k + 0.25 + 0.5 * h1(int(q.x), k, 711)) / 4 - 0.5
+        g = q + Vector((a * br * 1.9, -8 - 16 * h1(int(q.y), k, 712), -2))
+        teil(n, g, 40 + 25 * h1(k, int(q.x), 713), 26 + 18 * h1(k, int(q.y), 714), dreh=h1(k, int(q.y), 715) * 6.283,
+             farbe=lambda v, nn: sc(mixc(lin(0x3E5A24), lin(0x8AA848), ss(0, 30, v.z)), 0.8 + 0.3 * max(0.0, nn.z)))
 def hoehlenmund(c, r):
-    """Eingang der Blutzahnhoehle (CAVE_ENTRANCE): dunkler Bogen in der Felswand, Sturz aus Fels darueber"""
+    """Eingang der Blutzahnhoehle (CAVE_ENTRANCE): Bogen in der Felswand, Sturz aus Fels darueber
+    505 Lauf 2 (Chef 16:04, Pruefer 16:01: Schlitz, glatter grauer Fels mit gruenem Fleck, schwebt vorn): der Mund 1,4 m breit und
+    1,9 m hoch, dahinter ein Gang 1 m tief (Laibung und Boden laufen ins Schwarz), der Sturz ragt vor (Unterseite im Schatten, dort
+    zieht die Tusche), die Wangen sitzen im Boden, davor Geroell, Gras, Kontaktschatten"""
     p = tile_c(c, r); y = p.y + 10
+    hw, spring, rise, tief = 70, 125, 62, 100
+    aussen = arch_pts(p.x, hw, 0, spring, rise, 14); innen_ = arch_pts(p.x, hw * 0.72, 0, spring * 0.86, rise * 0.8, 14)
+    po = [aussen[1]] + aussen[2:] + [aussen[0]]; pi = [innen_[1]] + innen_[2:] + [innen_[0]]
+    def V(q, yy): return Vector((q[0], yy, q[1]))
+    dunkel = lambda q, nn: sc(mixc(lin(0x3A342E), lin(0x060507), ss(0, tief * 0.8, q.y - y)), 0.9 + 0.2 * vn(q.x / 9, q.z / 9, 721))
     with use('weiss'):
-        front_face(DORF, arch_pts(p.x, 52, 0, 120, 45, 14), y, lin(0x07060A))
-        front_face(DORF, arch_pts(p.x, 62, 0, 126, 52, 14), y + 6, lin(0x161210))
-    teil('Rock_Medium_2', p + Vector((0, 45, 150)), 210, 110, dreh=0.4, farbe=wstein(0, 0.8))
-    for s in (-1, 1): teil('Rock_Medium_%d' % (2 + s), p + Vector((s * 78, 30, -10)), 120, 240, dreh=1.0 + s, farbe=wstein(25, 0.85))
+        for k in range(len(po) - 1):                                      # Laibung: vom Mund nach hinten ins Dunkel
+            ctr = Vector(((po[k][0] + po[k + 1][0]) / 2 - p.x, 0, (po[k][1] + po[k + 1][1]) / 2 - spring * 0.5))
+            add_face(DORF, facing([V(po[k], y), V(po[k + 1], y), V(pi[k + 1], y + tief), V(pi[k], y + tief)], -ctr), dunkel)
+        front_face(DORF, innen_, y + tief, lin(0x050406))                 # hinten schwarz
+        add_face(DORF, facing([Vector((p.x - hw, y - 25, 1.5)), Vector((p.x + hw, y - 25, 1.5)), Vector((p.x + hw * 0.72, y + tief, 1.5)),
+                               Vector((p.x - hw * 0.72, y + tief, 1.5))], Vector((0, 0, 1))),
+                 lambda q, nn: sc(mixc(lin(0x4A3E30), lin(0x070608), ss(-10, tief * 0.9, q.y - y)), 0.9 + 0.2 * vn(q.x / 7, q.y / 7, 722)))
+    # Sturz: ragt 25 cm vor den Mund, Unterseite ueber dem Bogen
+    teil('Rock_Medium_2', p + Vector((0, -15, spring + rise - 35)), 250, 125, dreh=0.4, farbe=wstein(0, 0.8, 0.8))
+    for s in (-1, 1):                                                     # Wangen neben dem Mund, 30 cm im Boden
+        q = p + Vector((s * (hw + 55), 15, -30))
+        teil('Rock_Medium_%d' % (2 + s), q, 115, 270, dreh=1.0 + s, farbe=wstein(25, 0.85, 0.7))
+        fuss(q + Vector((0, -40, 30)), 70)
+    fuss(p + Vector((0, -35, 0)), 60)                                   # Geroell und Gras vor der Schwelle
     for dx in (-2, -1, 1, 2):                                             # Fels auch ueber dem Kartenrand weiter
         hoehlenfels(c + dx, r - 1)
 def kraut_vorlage():

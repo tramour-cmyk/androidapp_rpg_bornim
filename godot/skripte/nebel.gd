@@ -12,6 +12,10 @@ extends Node
 const SUB := 4
 const UNDURCHSICHTIG := ["TREE", "ROCK", "WALL", "CAVE_WALL", "ROOF", "ROOF_BLUE", "WINDOW", "TORCH", "SHELF", "CRYSTAL"]
 const HOEHLENFELS := ["CAVE_WALL", "CRYSTAL", "TORCH"]
+## 505 Lauf 2 (Chef 16:12, Zu 505, zweiter Durchgang: „Dorf mit Nebel zeigen“; 505c (1) gilt fuer Wald, Dorf und Hoehle): im Dorf
+## ist ein Haus ganz bekannt, sobald ein Teil davon gesehen ist, und ganz in Sicht, wenn ein Teil in Sicht ist (sonst blieben die
+## Daecher hinter der Vorderwand fuer immer schwarz, die Sicht endet an der ersten Wand)
+const HAUS := ["ROOF", "ROOF_BLUE", "WALL", "WINDOW"]
 const DARK_SIGHT := 4.2            # Light.kt
 const DAY_SIGHT := 5.2
 const SPARK_SIGHT := 5.5
@@ -22,7 +26,7 @@ const FADE_MS := 450.0
 const GESEHEN := 0.72
 ## 505c (2): jenseits des Kartenrands kein Nebel; der Randwald laeuft nach aussen ins Dunkel wie alt (MapEdge.fade, 27m): so viele
 ## Kacheln bleibt sein Licht, bis RAND_SCHWARZ ist er schwarz (randwald in dorf.py RING_WEIT, die Kamera haelt davor, kamera.gd)
-const RAND_HELL := 2.0
+const RAND_HELL := 1.0              # 505 Lauf 2 (Chef 16:12 (2): „nach außen dunkler“): ab einer Kachel hinter dem Rand (vorher 2)
 const RAND_SCHWARZ := 11.0
 const RAND_NEBEL := 1.0            # Kacheln, in denen der Nebel der Randkachel ausklingt (sonst harte Kante am Kartenrand)
 ## Formen zur Wahl: Kegel (cos der halben Oeffnung) und Kreis ringsum (Kacheln); alt: 160° plus 2 Kacheln
@@ -56,12 +60,17 @@ var flaeche: MeshInstance3D
 var mat: ShaderMaterial
 var neu := true
 var naechster := {}                # "boden": Baumkachel -> Kacheln des naechsten freien Bodens
+var dorf := false
+var haus_von := PackedInt32Array()  # Dorf: je Kachel das Haus (-1 keins)
+var haeuser: Array = []             # je Haus seine Kacheln
+var haus_wert := PackedInt32Array() # je Haus: hoechste Stufe seiner Kacheln (nach jedem neu_sehen)
+var dinge: Array = []               # [Node3D, Kachel]: Lichter, Rauch, Flammen, Staub, Lichtstrahl der Karte
 
 func _init(s, k: Karte) -> void:
 	spiel = s
 	karte = k
 	var art := String(k.daten.get("art", ""))
-	an = art == "FOREST" or art == "CAVE"   # Game.fogged
+	an = art == "FOREST" or art == "CAVE" or art == "TOWN"   # Game.fogged; 505 Lauf 2 auch das Dorf
 	rand_an = art in ["FOREST", "CAVE", "TOWN"]   # 505c: Randdunkel auch um das Dorf (MapEdge.applies)
 	breite = k.breite; hoehe = k.hoehe
 	name = "Nebel"
@@ -100,12 +109,39 @@ func _ready() -> void:
 	flaeche.material_override = mat
 	flaeche.position = Vector3(0, 0, -0.9)
 	spiel.kamera.add_child(flaeche)
-	if String(karte.daten.get("art", "")) == "FOREST": boden_suchen()
+	dorf = String(karte.daten.get("art", "")) == "TOWN"
+	if dorf: haeuser_suchen()
+	if String(karte.daten.get("art", "")) in ["FOREST", "TOWN"]: boden_suchen()
+	haeuser_werten()
+	dinge_sammeln()
+
+## 505 Lauf 2 (Pruefer 16:01: „Lichtscheine … auch Rauch und Glut eines Feuers“ im Unbekannten, „rötlicher und türkiser Schein“
+## der Nachbarraeume; Chef 16:12 (1): nichts scheint durch): Rauch steigt ueber Gesehenes, ein Licht leuchtet ueber die Wand in
+## den Nachbarraum; darum gibt es Lichter, Teilchen und Lichtstrahlen auf nie gesehenen Kacheln nicht, bis der Held dort war
+func dinge_sammeln() -> void:
+	dinge.clear()
+	var g = spiel.get("gebiet")
+	if g == null or not an: return
+	var liste: Array = g.find_children("*", "Light3D", true, false) + g.find_children("*", "CPUParticles3D", true, false) \
+		+ g.find_children("*", "GPUParticles3D", true, false)
+	for m in g.find_children("Strahl*", "MeshInstance3D", true, false): liste.append(m)
+	for n in liste:
+		if n is Node3D and (n as Node3D).is_inside_tree(): dinge.append([n, karte.pos_kachel((n as Node3D).global_position)])
+	dinge_zeigen()
+
+func dinge_zeigen() -> void:
+	for d in dinge:
+		if not is_instance_valid(d[0]): continue
+		var t: Vector2i = d[1]
+		(d[0] as Node3D).visible = Testmodus.alles_sichtbar or not innen(t.x, t.y) or nebel(t.x, t.y) > 0
 
 ## jenseits des Kartenrands hoechstens so dunkel: 505c (2) kein Nebel ueber dem Randwald (klingt in RAND_NEBEL aus); alt (Vergleich)
 ## nie dunkler als gesehen (t732)
+## 505 Lauf 2 (Pruefer 16:01: „dunkles Nebelband mit harter Kante, wie ein See vor einem leuchtenden Wald“; Chef 16:12 (2): gleiches
+## Schwarz, keine harte Kante): der Randwald traegt den Nebel der naechsten Randkachel (der Shader greift am Rand ab), hinter
+## Unbekanntem also schwarz, hinter Gesehenem gedaempft; nach aussen laeuft er dazu ins Dunkel
 func rand() -> float:
-	return 0.5 if baeume == "alt" else 0.0
+	return 0.5 if baeume == "alt" else 1.0
 
 ## 505c (4), alt MapEdge.fade (13e.5, D1.6): der Gang aus der Hoehle bleibt hell, das Tageslicht kommt von dort; Mitte und halbe
 ## Breite der Ausgangskacheln am Rand in Metern (x, z, halbe Breite, 1 = Suedrand), sonst 0
@@ -117,6 +153,34 @@ func hoehlen_ausgang() -> Vector4:
 	if xs.is_empty(): return Vector4.ZERO
 	var a: float = float(xs.min()) * Karte.TS; var b: float = float(xs.max() + 1) * Karte.TS
 	return Vector4((a + b) / 2.0, hoehe * Karte.TS, (b - a) / 2.0, 1.0)
+
+## Dorf: zusammenhaengende Hauskacheln (Dach, Wand, Fenster) je Haus
+func haeuser_suchen() -> void:
+	haus_von.resize(breite * hoehe); haus_von.fill(-1)
+	haeuser.clear()
+	for i in breite * hoehe:
+		if haus_von[i] >= 0 or not zeichen_name(i % breite, i / breite) in HAUS: continue
+		var teile := PackedInt32Array()
+		var offen := [i]
+		haus_von[i] = haeuser.size()
+		while not offen.is_empty():
+			var j: int = offen.pop_back()
+			teile.append(j)
+			for d in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+				var x: int = j % breite + d.x; var y: int = j / breite + d.y
+				if not innen(x, y): continue
+				var k := y * breite + x
+				if haus_von[k] < 0 and zeichen_name(x, y) in HAUS:
+					haus_von[k] = haeuser.size(); offen.append(k)
+		haeuser.append(teile)
+	haus_wert.resize(haeuser.size())
+
+func haeuser_werten() -> void:
+	if not dorf or sichtbar.is_empty(): return
+	for h in haeuser.size():
+		var b := 0
+		for j in haeuser[h]: b = maxi(b, roh(j))
+		haus_wert[h] = b
 
 ## "boden": je Baum die freien Kacheln im kleinsten Abstand (Schachbrett), alle gleich nahen
 func boden_suchen() -> void:
@@ -209,6 +273,7 @@ func neu_sehen(h: Vector2i, gier: float) -> bool:
 		if sichtbar[i] == 1 and erkundet[i] == 0:
 			erkundet[i] = 1; geaendert = true
 	if geaendert: speichere()
+	haeuser_werten()
 	return true
 
 ## nichts Undurchsichtiges zwischen den Kacheln (die letzte darf ein Baum sein); Hoehle: niedrige Waende spaeter (492, MapCaveIso.low)
@@ -232,6 +297,7 @@ func roh(i: int) -> int:   # 0 verborgen, 1 gesehen, 2 in Sicht (Fog)
 
 func fest(x: int, y: int) -> bool:
 	var n := zeichen_name(x, y)
+	if dorf and n in HAUS: return true
 	return n in HOEHLENFELS if String(karte.daten.get("art", "")) == "CAVE" else n == "TREE"
 
 ## Sight.fog(view = true): 0 verborgen, 1 gesehen, 2 in Sicht
@@ -240,6 +306,7 @@ func nebel(x: int, y: int) -> int:
 	var eigen := roh(y * breite + x)
 	var hoehle := String(karte.daten.get("art", "")) == "CAVE"
 	if not fest(x, y): return eigen
+	if dorf and haus_von.size() > 0 and haus_von[y * breite + x] >= 0: return haus_wert[haus_von[y * breite + x]]
 	if not hoehle:
 		if eigen == 2 or baeume != "boden": return eigen if eigen == 2 else 1   # alt: draussen ist ein Baum nie schwarz (t732)
 		var bb := eigen
@@ -259,6 +326,7 @@ func in_sicht_punkt(px: float, py: float) -> bool:
 	var tx := floori(px); var ty := floori(py)
 	if not innen(tx, ty): return false
 	if String(karte.daten.get("art", "")) == "CAVE" and zeichen_name(tx, ty) in HOEHLENFELS: return nebel(tx, ty) == 2
+	if dorf and haus_von[ty * breite + tx] >= 0: return nebel(tx, ty) == 2
 	if frei[ty * breite + tx] == 0: return false
 	var h: Vector2i = spiel.held.kachel
 	var dx := px - (h.x + 0.5); var dy := py - (h.y + 0.5)
@@ -281,16 +349,19 @@ func kw_bei(kw: PackedFloat32Array, tx: int, ty: int) -> float:
 ## fuer den Bildlauf (--nebel): alles vergessen, wie beim ersten Betreten
 func vergiss() -> void:
 	erkundet.fill(0)
+	haeuser_werten()
 	schluessel = ""
 	neu = true
 
 ## Leute und Monster: gezeichnet nur auf einer Kachel in Sicht (WorldScreen: fog(npc) != VISIBLE → nicht gezeichnet)
 func zeigt(t: Vector2i) -> bool:
-	return not an or nebel(t.x, t.y) == 2
+	return not an or Testmodus.alles_sichtbar or nebel(t.x, t.y) == 2
 
 # ---------------------------------------------------------------- je Bild: Ziele neu, wenn der Held geht oder sich dreht, dann blenden
 func schritt(dt: float) -> void:
 	if not an or spiel.held == null: return
+	# 555 Testmenue „Sichtlinie aus“ (alt Game.seeAll): kein Nebel auf der Karte, erkundet wird wie sonst
+	if mat: mat.set_shader_parameter("ohne", 1.0 if Testmodus.alles_sichtbar else 0.0)
 	if neu_sehen(spiel.held.kachel, spiel.held.rotation.y) or neu:
 		# je Kachel 1 nie gesehen, sonst 0,5; die Teile dazwischen weich aus den vier naechsten Kachelmitten (drawFog: weiche Kanten,
 		# Lauf 1 zeigte harte Rautenkanten), in Sicht 0 mit der Kegelkante als Linie (13e)
@@ -317,6 +388,7 @@ func schritt(dt: float) -> void:
 						if soll[j] != g:
 							soll[j] = g
 							aktiv[j] = true
+		dinge_zeigen()
 		if neu:   # beim Betreten sofort, ohne Blenden
 			neu = false
 			for j in aktiv: ist[j] = soll[j]
