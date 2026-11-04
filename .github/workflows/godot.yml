@@ -292,6 +292,7 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_test.gd 2>&1 | grep -E "^(gut|FALSCH)|KLANG|SCRIPT ERROR"   # 399.3
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_473.gd 2>&1 | grep -E "FALSCH|BRS473|SCRIPT ERROR"   # 473 Monsterwerte BRS wie sim444
           timeout 60 ~/godot/godot --headless --path . -s res://tests/masse_498.gd 2>&1 | tee masse498.log | grep -E "FEHLER|MASSE498|SCRIPT ERROR"; grep -q "^MASSE498 0 Fehler" masse498.log   # 498 Schrift wie alt
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/gluehwuermchen_514.gd 2>&1 | tee glueh514.log | grep -E "FEHLER|GLUEH514|SCRIPT ERROR"; grep -q "^GLUEH514 0 Fehler" glueh514.log   # 514 Gluehwuermchen wie alt
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_472.gd 2>&1 | grep -E "FALSCH|BRS472|SCRIPT ERROR"   # 472 Heldenstufe aus Erfahrung
           timeout 120 ~/godot/godot --headless --path . -s res://tests/zwischenbild_test.gd 2>&1 | grep -E "FALSCH|ZWISCHENBILD|SCRIPT ERROR"   # 399.1 Intro
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tasten_4161.gd 2>&1 | grep -E "FEHLER|TASTEN|SCRIPT ERROR"   # 416.1
@@ -533,6 +534,17 @@ jobs:
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --tiefwald=$GITHUB_WORKSPACE/bilder/tiefwald491 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^BILD|^LEUTE|^TIEFWALDBILDER" | cut -c1-400 || true
           ls -l $GITHUB_WORKSPACE/bilder/tiefwald491
+      # 514 Gluehwuermchen: je Gebietskarte der groesste Schwarm nachts aus Sicht des Helden, zwei Augenblicke; nur bei „514 Glühbilder“
+      # im Commit oder von Hand auf einem Zweig mit „514“
+      - name: Glühwürmchenbilder (514)
+        if: contains(github.event.head_commit.message, '514 Glühbilder') || (github.event_name == 'workflow_dispatch' && contains(github.ref, '514'))
+        continue-on-error: true
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/bilder/gluehen514
+          cd godot
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --gluehen=$GITHUB_WORKSPACE/bilder/gluehen514 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^BILD|^GLUEH" | cut -c1-400 || true
+          ls -l $GITHUB_WORKSPACE/bilder/gluehen514
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # 453: Filme auch nach rotem Prüfschritt; nie mit bild=nein
         with:
