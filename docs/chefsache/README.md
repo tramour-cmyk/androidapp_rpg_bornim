@@ -68,7 +68,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 72 | K | Profil und Kampfsystem | ruht |
 | Pflege | K | von Werkzeug (340.3, 04.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
 
-**Tom** – offen 95, Muss 75, startbar 0
+**Tom** – offen 95, Muss 75, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -166,7 +166,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 447.4.1 | M | von Homer (447.4, Chef 03.11., 15:50 „1B 2A“): Lehrmeister, Meisterschaften, Ruf in Kapite | wartet auf 508 (startbar) |
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
-| Pflege | K | von Werkzeug (340.3, 04.11.): 70458 Bytes (Grenze 15000), Erledigtes streichen (Zeilen übe | wartet auf Perikles |
+| Pflege | K | von Werkzeug (340.3, 04.11.): 70419 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 75, Muss 64, startbar 0
 
