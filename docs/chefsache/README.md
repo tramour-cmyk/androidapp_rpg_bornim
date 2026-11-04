@@ -66,7 +66,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 72 | K | Profil und Kampfsystem | ruht |
 | Pflege | K | von Werkzeug (340.3, 04.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
 
-**Tom** – offen 98, Muss 78, startbar 5
+**Tom** – offen 98, Muss 78, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -87,7 +87,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 554 | M | von Sokrates (Chef 04.11., 00:27, Build 249): „Im Testmenü fehlt, dass Tiere mich ignorier | wartet auf Test (Build) |
 | 523 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 523): Tasche wie alt und besser: „Funke | wartet auf Test (Build) |
 | 524.1 | M | von Sokrates (Chef 04.11., 00:52, „Vorschlag zum Verbessern und spielerfreundlicher machen | Chef |
-| 524 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 524): Gegenstandsfenster, Inhalt wie alt | wartet auf Test (Build) |
+| 524 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 524): Gegenstandsfenster, Inhalt wie alt | startbar |
 | 525 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 525): Laden, Morwen, Rast wie alt und be | wartet auf Test/Build (gebaut) |
 | 526 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 526): Rückfragen und Fenster einheitlich | wartet auf Test/Build (gebaut) |
 | 528 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 528): Held, Karte, Chronik wie alt: Satz | wartet auf Test/Build (gebaut) |
