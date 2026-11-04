@@ -82,7 +82,7 @@ func baue() -> void:
 	var y := rolle.scroll_vertical
 	var de := de_()
 	kopf.text = (Sprache.t(Laden.HUETTE) if laden.brauen else Sprache.u("shop")).to_upper()
-	gold_.text = "%d G" % z.gold
+	gold_.text = "%d %s" % [z.gold, Sprache.u("gold")]   # 557 (Chef 19:54): Gold überall „23 Gold“
 	for c in leiste.get_children():
 		leiste.remove_child(c)
 		c.queue_free()
@@ -317,12 +317,13 @@ func zutaten_reihe(r: Dictionary, bild_dp: float, sp: float) -> HBoxContainer:
 		var hat := z.anzahl(id)
 		var braucht := int(r["zutaten"][id])
 		h.add_child(Menue.bild_feld("ding-" + id, bild_dp))
-		var l := Stil.zeile("%d/%d" % [hat, braucht], sp, Stil.TEXT if hat >= braucht else Spielstaende.mangel())
+		# 557 (Chef 19:54, Pruefer 19:47: „7/2“ ohne Erklaerung): erst was der Trank braucht, dahinter was da ist („2× (7 da)“)
+		var l := Stil.zeile(("%d× (%d da)" if de_() else "%d× (%d owned)") % [braucht, hat], sp, Stil.TEXT if hat >= braucht else Spielstaende.mangel())
 		l.set_meta("zutat", id)
 		h.add_child(l)
 		h.add_child(Erschaffung.luecke(0, 6))
 	if int(r["gold"]) > 0:
-		var g := Stil.zeile("%d G" % int(r["gold"]), sp, Stil.TEXT if z.gold >= int(r["gold"]) else Spielstaende.mangel())
+		var g := Stil.zeile("%d %s" % [int(r["gold"]), Sprache.u("gold")], sp, Stil.TEXT if z.gold >= int(r["gold"]) else Spielstaende.mangel())
 		g.set_meta("zutat", "gold")
 		h.add_child(g)
 	return h
@@ -441,15 +442,16 @@ func _ready_b() -> void:
 	var spalte := VBoxContainer.new()
 	spalte.add_theme_constant_override("separation", 0)
 	rand.add_child(spalte)
-	var reihe := HBoxContainer.new()
-	kopf = Stil.zeile("", 20, Stil.GOLD, 3.0)
-	kopf.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	reihe.add_child(kopf)
-	gold_ = Stil.zeile("", 20, Stil.BRIGHT)
-	reihe.add_child(gold_)
-	spalte.add_child(reihe)
+	# 557 (Chef 19:54, Pruefer 19:47: „MORWENS HÜTTE kleiner und linksbündig“): Titel wie die anderen Schirme (Spielstaende: 22 sp,
+	# mittig, darunter die Zierlinie); das Gold rechts unter der Linie
+	kopf = Stil.zeile("", 22, Stil.GOLD, 3.0)
+	kopf.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	spalte.add_child(kopf)
 	spalte.add_child(Erschaffung.luecke(6))
 	spalte.add_child(Spielstaende.zier())
+	gold_ = Stil.zeile("", 15, Stil.BRIGHT)
+	gold_.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	spalte.add_child(gold_)
 	spalte.add_child(Erschaffung.luecke(4))
 	leiste = HBoxContainer.new()
 	leiste.add_theme_constant_override("separation", 0)
@@ -687,7 +689,7 @@ func braukasten_c(r: Dictionary, n: int, alle := false) -> void:
 		v.add_child(Stil.zeile(Sprache.t(Laden.REICHT) % oft, 13.5, Stil.BRIGHT))   # Zu 557 (8): kleine Angaben heller
 		v.add_child(Erschaffung.txt(Sprache.t(Laden.BESITZ) + "%d → %d" % [z.anzahl(aus), z.anzahl(aus) + n], 14, Spielstaende.ANGABE))
 		if int(r["gold"]) > 0:
-			v.add_child(Erschaffung.txt("%s: %d → %d" % [Sprache.u("gold"), z.gold, z.gold - int(r["gold"]) * n], 14, Spielstaende.ANGABE))
+			v.add_child(Erschaffung.txt("%d %s → %d %s" % [z.gold, Sprache.u("gold"), z.gold - int(r["gold"]) * n, Sprache.u("gold")], 14, Spielstaende.ANGABE))
 	v.add_child(Spielstaende.linie())
 	var brau := ("Brauen" if de else "Brew") + (" ×%d" % n if n > 1 else "")
 	v.add_child(Spielstaende.fuss(func(): schleier.queue_free(), "", brau, Stil.BRIGHT, func(): schleier.queue_free(); sage(laden.braue_mehr(z, hw, r, n)); baue(), oft >= 1))

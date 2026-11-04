@@ -1125,7 +1125,7 @@ func zeige_rast() -> void:
 	var lang_ok := Rast.lange_erlaubt(z)
 	var titel := Sprache.r({"feuer": "ask", "schenke": "tavern", "zimmer": "room"}[rast_ort])
 	var zeilen_: Array = []
-	if rast_ort != "feuer": zeilen_.append("%s: %d" % [Sprache.u("gold"), z.gold])
+	if rast_ort != "feuer": zeilen_.append("%d %s" % [z.gold, Sprache.u("gold")])   # 557 (Chef 19:54): „23 Gold“
 	if rast_ort == "schenke": zeilen_.append(Rast.rowena_sagt(z, held_werte().name, rast_zweites))
 	var k: Array = []
 	if rast_ort == "feuer":

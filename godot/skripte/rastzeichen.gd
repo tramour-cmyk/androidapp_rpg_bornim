@@ -2,7 +2,7 @@ class_name Rastzeichen
 extends Control
 # 549: Zeichen des Rastfensters nach DESIGN-STIL „Zeichen“ (Raster 24 × 24, Linie 1,6, fein 1,1, runde Enden, nie gefüllt ausser Punkten):
 # REST (Flamme über gekreuzten Scheiten, wie aktionsknopf.gd), MOON (Sichel), CLOCK (Uhr wie zeichenknopf.gd), NEXT (zwei Winkel),
-# BED (Bett: Zimmer), MUG (Krug: Met), COIN (Münze: Fleisch verkaufen), SCHENKE (Wirtshausschild: Rast an der Theke)
+# BED (Bett: Zimmer), MUG (Krug: Met), MEAT (Keule: Fleisch verkaufen, 557), COIN (Münze), SCHENKE (Wirtshausschild: Rast an der Theke)
 
 var art := "REST"
 var farbe := Stil.GOLD
@@ -80,6 +80,16 @@ func _draw() -> void:
 			zug.call([Vector2(5.5, 8), Vector2(20.5, 8), Vector2(20.5, 20.5), Vector2(5.5, 20.5)], true)
 			zug.call([Vector2(9.5, 11.5), Vector2(9.5, 17.5), Vector2(14.5, 17.5), Vector2(14.5, 11.5)], false, duenn)
 			zug.call([Vector2(14.5, 12.8), Vector2(16.8, 12.8), Vector2(16.8, 16), Vector2(14.5, 16)], false, duenn)
+		"MEAT":   # 557 (Chef 19:54, Pruefer 19:47: Bild zu „Fleisch verkaufen“ ein Doppelring): Keule, Fleisch schraeg mit Knochen und Knauf
+			var fl: Array = [Vector2(13.5, 14.5)]
+			fl.append_array(qb.call(Vector2(13.5, 14.5), Vector2(3.0, 16.0), Vector2(5.0, 7.0)))
+			fl.append_array(qb.call(Vector2(5.0, 7.0), Vector2(9.0, 2.0), Vector2(15.0, 5.5)))
+			fl.append_array(qb.call(Vector2(15.0, 5.5), Vector2(17.5, 9.5), Vector2(13.5, 14.5)))
+			zug.call(fl)
+			zug.call(qb.call(Vector2(7.5, 8.0), Vector2(9.0, 5.5), Vector2(12.0, 6.0)), false, duenn)   # Glanz der Haut
+			l.call(13.5, 14.5, 17.5, 18.5)   # Knochen
+			draw_arc(P.call(18.6, 18.0), 1.6 * u, 0, TAU, 20, c, duenn, true)
+			draw_arc(P.call(18.0, 19.6), 1.6 * u, 0, TAU, 20, c, duenn, true)
 		"COIN":
 			draw_arc(P.call(12, 12), 8.5 * u, 0, TAU, 48, c, dick, true)
 			draw_arc(P.call(12, 12), 5.5 * u, 0, TAU, 40, c, duenn, true)

@@ -23,7 +23,8 @@ static func neu(entwurf_: String, titel: String, unter: String, wahlen: Array, w
 	r.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	r.mouse_filter = Control.MOUSE_FILTER_STOP   # die Welt dahinter ist nicht zu erreichen (wie alt .tap {})
 	var dunkel := ColorRect.new()
-	dunkel.color = Color(0, 0, 0, 0.6 if entwurf_ == "A" else 0.74)   # alt 0x99000000
+	# 557 (Chef 04.11., 19:38/19:54: Rast 7, 8 „diesen Halo … mit dem Dunkelverlauf … das muss noch weg“): B rein schwarz wie alle Schirme
+	dunkel.color = Color(0, 0, 0, 0.6) if entwurf_ == "A" else Color(0, 0, 0, 1.0)   # alt 0x99000000
 	dunkel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	dunkel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	r.add_child(dunkel)

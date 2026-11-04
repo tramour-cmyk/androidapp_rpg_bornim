@@ -46,7 +46,7 @@ func _lauf() -> void:
 	var zimmer: Array = teile.call(Sprache.r("roomBuy", [Rast.ZIMMER_PREIS]))
 	var fleisch: Array = teile.call(Sprache.r("meatSell", [12]))
 	var theke := [{"id": "met", "name": met[0], "dauer": met[1], "tut": Sprache.r("meadDoes"), "zeichen": "MUG"},
-		{"id": "fleisch", "name": fleisch[0], "dauer": fleisch[1], "tut": "2× " + Sprache.t(Sprache.texte["dinge"]["raw_meat"]["name"]), "zeichen": "COIN"},
+		{"id": "fleisch", "name": fleisch[0], "dauer": fleisch[1], "tut": "2× " + Sprache.t(Sprache.texte["dinge"]["raw_meat"]["name"]), "zeichen": "MEAT"},
 		{"id": "lang", "name": zimmer[0], "dauer": zimmer[1], "tut": Sprache.r("roomDoes"), "zeichen": "BED"}]
 	for e_ in ["A", "B", "B2"]:   # B2: 557 Vorlage 2 (Chef 16:37: Rast „mit denselben Bausteinen“ wie die anderen Schirme)
 		var e: String = "B" if e_ == "B2" else e_

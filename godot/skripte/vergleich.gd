@@ -60,15 +60,17 @@ static func von(hw: Heldwerte, g: Dictionary, nebenhand := false) -> Vergleich:
 		zahl.call("Zauberangriff" if de else "Spell attack", a["zauber"], b["zauber"], true, falls.call(a["zauber"] == b["zauber"], ["SPELL"]))
 		zahl.call("Zauberpunkte" if de else "Spell points", a["zp"], b["zp"])
 	var d := Heldwerte.lade()
-	# Attribute: was aus den Werten wird; einen Bonus, den die Obergrenze schluckt, nennt eine Zeile fuer alle
-	var weg_: Array = []
+	# Attribute: was aus den Werten wird. 557 (Chef 04.11., 19:54; Pruefer 19:47: Ring „+1 alle, +2 GES“ gegen angelegt „+2 GES, +2 STAE“,
+	# im Vergleich fehlten Geschicklichkeit und Staerke): jedes Attribut, dessen Bonus sich aendert, hat seine eigene Zeile, auch wenn die
+	# Obergrenze des Kapitels den Wert haelt (vorher eine Sammelzeile „Attribute“ nur fuer gestiegene); darunter warum er gleich bleibt
+	var gleich_mehr := "mehr Bonus, wirkt nicht: Obergrenze für dieses Kapitel erreicht" if de else "more bonus, no effect: this chapter's limit is reached"
+	var gleich_weniger := "weniger Bonus, Wert bleibt: Obergrenze für dieses Kapitel" if de else "less bonus, same value: this chapter's limit"
 	for at in a["werte"]:
-		var hoch: bool = b["roh"][at] + b["roh"]["ALL_STATS"] > a["roh"][at] + a["roh"]["ALL_STATS"]
-		if hoch and b["ausr"][at] == a["ausr"][at]: weg_.append(Sprache.t(d["attribute"][at]["name"]))
-		else: zahl.call(Sprache.t(d["attribute"][at]["name"]), a["werte"][at], b["werte"][at])
-	if not weg_.is_empty():
-		v.zeilen.append({"wort": "Attribute" if de else "Abilities", "vorher": "", "nachher": "", "besser": 0,
-			"notiz": ", ".join(PackedStringArray(weg_)) + (": Bonus wirkt nicht, Obergrenze für dieses Kapitel erreicht" if de else ": no effect, this chapter's limit is reached")})
+		var r0: int = a["roh"][at] + a["roh"]["ALL_STATS"]
+		var r1: int = b["roh"][at] + b["roh"]["ALL_STATS"]
+		var notiz := ""
+		if a["werte"][at] == b["werte"][at] and r1 != r0: notiz = gleich_mehr if r1 > r0 else gleich_weniger
+		zahl.call(Sprache.t(d["attribute"][at]["name"]), a["werte"][at], b["werte"][at], false, notiz)
 	for af in EIGENE:
 		var x: int = a["eig"][af]; var y: int = b["eig"][af]
 		var geschluckt: bool = b["roh"][af] > a["roh"][af] and x == y
