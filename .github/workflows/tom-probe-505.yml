@@ -7,6 +7,7 @@ name: Tom Probe Nebel (505)
 # Lauf 41704330009 (Prüfer 21:28): Wald ohne Bäume, Ursache 518 (toon.gdshader setzte POSITION nur am Helden), behoben 1b8dca04e.
 # 505c (Chef 04.11., 14:06): Zweig claude/tom-505-rand; dazu die Hoehle (hoehle.py, Lyra), Tests rand_505 und hoehle_492; --nebel
 # knipst Wald, Dorf, Hoehle mit Rand und Ausgaengen, misst die Nebelstufen (NEBELMASS) und die Dreiecke des Randwalds (NEBELRAND).
+# Lauf 1 nach dem Urteil 14:06 (505c): Tests lokal gruen (nebel_505, rand_505, wald_490, hoehle_492, skripte_pruefen).
 on:
   push:
     branches: ["claude/spike-505-**", "claude/tom-505-**"]
