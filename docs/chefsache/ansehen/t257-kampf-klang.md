@@ -1,9 +1,7 @@
 # Tom und Jerry · Build 257 · Godot 0.348.257 · eine Prüfliste für die Builds 251, 252, 255, 257 · [PR #184](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/184)
 E Technik · Tom und Jerry · 04.11., 03:33; zusammengelegt von Sokrates 04.11., 07:5x (Chef 07:57: „bitte die Builds und Fragen konsolidieren“) · [Lauf 257, bornim-godot-apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41761514918/artifacts/13292971716) (grün 04:18) · Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41761514918 (Tests der Einzelbuilds 251, 252, 255, 257 je grün, Listen in Git)
 
-**Was installieren:** zwei Builds.
-1. **Build 250** ([t250](t250-strahlen-ohne.md), ein Punkt, Strahlenmessung 415): diese Messung steckt in keinem späteren Build.
-2. Danach **Build 257** darüber installieren. Er enthält alles aus 251, 252 und 255; diese drei musst du nicht installieren, alle ihre Punkte stehen unten.
+**Was installieren:** nur **Build 257** (t250 erledigt, 415 gemessen 04.11., 10:51). Er enthält alles aus 251, 252 und 255; alle ihre Punkte stehen unten.
 
 Die Nummern (251.x, 252.x, 255.x, 257.x) bleiben die der Teams, damit Antworten eindeutig sind. Reihenfolge = ein Weg durchs Spiel.
 
