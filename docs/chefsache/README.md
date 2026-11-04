@@ -238,7 +238,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | 469 | M | von Sokrates: Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
-| Pflege | K | von Werkzeug (340.3, 04.11.): 41275 Bytes (Grenze 15000), Erledigtes streichen; Zeile 552 | startbar |
+| Pflege | K | von Werkzeug (340.3, 04.11.): Vorrat über 15 KB kürzen; Zeilen „wartet auf t249/t252/t257“ | startbar |
 
 **Perikles** – offen 30, Muss 24, startbar 4
 
