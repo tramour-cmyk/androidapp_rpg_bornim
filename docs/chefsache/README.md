@@ -23,12 +23,6 @@ Nichts offen.
 | [475](ansehen/475-gesichter.md) | Gesichter der Leute: jedes an der Form unterscheidbar? | – | 04.11., 20:37 |
 | [557](ansehen/557-ausgebessert.md) | Stil B ausgebessert, zur Kenntnis | – | 04.11., 20:40 |
 
-**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
-
-| Folge | Version | Build | Was | Wer | Seit |
-|---|---|---|---|---|---|
-| 1 | [0.348.257](ansehen/t257-kampf-klang.md) | [Build 257](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41761514918/artifacts/13292971716) | eine Prüfliste für die Builds 251, 252, 255, 257 | Tom und Jerry | 04.11., 03:33 |
-
 ## Zu tun
 
 Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen.
@@ -347,8 +341,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
-
-Format (Muster: „So geht's“ unten): t257-kampf-klang.md: 26 Vorgänge, höchstens 6 je Build (317)
 
 Nicht gestellt: 407 (Projekt)
 
