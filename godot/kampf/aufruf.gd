@@ -25,9 +25,9 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 		"GRAK": [["grak", Mars.GRAK, Vector2i(0, 0)]],
 		"SPIDER": [["wolf1", Mars.WOLF, Vector2i(0, 0)], ["spider", Mars.SPIDER, Vector2i(1, 0)]],
 		"SCOUT": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["scout", Mars.SCOUT, Vector2i(1, 0)]],
-		# 348.9: drei Riesenratten im Aussehen, Regeln noch die des Wolfs (Ratte in MARS fehlt noch)
+		# 348.9: drei Riesenratten im Körper des Wolfs; 535: mit eigenen Regeln (ART)
 		"RATS": [["wolf1", Mars.WOLF, Vector2i(0, 0)], ["wolf2", Mars.WOLF, Vector2i(0, 1)], ["wolf3", Mars.WOLF, Vector2i(1, 0)]],
-		# 348.7: drei Riesenfledermäuse im Aussehen (fledermaus.py), Regeln noch die des Wolfs (Fledermaus in MARS fehlt noch)
+		# 348.7: drei Riesenfledermäuse (fledermaus.py) im Körper des Wolfs; 535: mit eigenen Regeln (ART)
 		"BATS": [["wolf1", Mars.WOLF, Vector2i(0, 0)], ["wolf2", Mars.WOLF, Vector2i(0, 1)], ["wolf3", Mars.WOLF, Vector2i(1, 0)]],
 		# 348.7: Grimmzahn allein vorn, zwei Wölfe seiner Leibwache (Packs.kt guard) hinten an den Seiten; im Aussehen, Regeln
 		# noch die des Wolfs (vorn rechts stand ihm der hintere Wolf auf dem Rücken, hinten verschwand er hinter der Wache: Prüfer Runden 2, 3)
@@ -36,9 +36,9 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 		"GOBLINS": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["gob2", Mars.CALLED, Vector2i(0, 1)], ["gob3", Mars.CALLED, Vector2i(1, 0)]],
 		# 348.7: drei Goblin-Späher, je eines der Kits (goblin.py ART=goblin_archer), mit den Regeln des Spähers
 		"SCOUTS": [["gob1", Mars.SCOUT, Vector2i(0, 0)], ["gob2", Mars.SCOUT, Vector2i(0, 1)], ["gob3", Mars.SCOUT, Vector2i(1, 0)]],
-		# 348.7: drei Goblin-Schamanen im Aussehen (goblin.py ART=goblin_shaman), Regeln noch die des Goblins (Schamane in MARS fehlt)
+		# 348.7: drei Goblin-Schamanen (goblin.py ART=goblin_shaman) im Körper des Goblins; 535: eigene Werte, Ansagen noch die des Goblins
 		"SHAMANS": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["gob2", Mars.CALLED, Vector2i(0, 1)], ["gob3", Mars.CALLED, Vector2i(1, 0)]],
-		# 348.7: drei Kobolde im Aussehen (goblin.py ART=kobold), Regeln noch die des Goblins (Kobold in MARS fehlt)
+		# 348.7: drei Kobolde (goblin.py ART=kobold) im Körper des Goblins; 535: mit eigenen Regeln (ART)
 		"KOBOLDS": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["gob2", Mars.CALLED, Vector2i(0, 1)], ["gob3", Mars.CALLED, Vector2i(1, 0)]],
 	}.get(foe, [])
 	Figur.ersatz_art = {"RATS": "giant_rat", "BATS": "giant_bat", "SHAMANS": Figur.SHAMAN, "KOBOLDS": Figur.KOBOLD}.get(foe, "")
@@ -67,26 +67,22 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 			m.chance = LEIBWACHE.chance
 			m.xp = 0     # lohn.gd zählt sie als Leibwache des Leitwolfs (xpShare), nicht einzeln
 			m.flee = LEIBWACHE.flee
-		elif foe == "KOBOLDS":     # Name aus den Regeln (Monsters.kt kobold)
-			m = m.duplicate()
-			m.de = "Kobold"
-			m.en = "Kobold"
-		elif foe == "RATS":     # Name aus den Regeln (Monsters.kt giant_rat; Helfer Lauf 126: Ratten hießen „Wolf“)
-			m = m.duplicate()
-			m.de = "Riesenratte"
-			m.en = "Giant Rat"
-		elif foe == "BATS":     # Name aus den Regeln (Monsters.kt giant_bat)
-			m = m.duplicate()
-			m.de = "Riesenfledermaus"
-			m.en = "Giant Bat"
-		elif foe == "SHAMANS":     # Name aus den Regeln (Monsters.kt goblin_shaman)
-			m = m.duplicate()
-			m.de = "Goblin-Schamane"
-			m.en = "Goblin Shaman"
+		elif ART.has(foe) and monsters.has(ART[foe]):
+			# 535 (Abgleich 512, Sokrates: „Ratten und Fledermäuse als Wölfe, Schamane ohne Heilen“): Werte, Name, Lohn und Regeln
+			# der eigenen Art (Monsters.kt giant_rat, giant_bat, kobold, goblin_shaman); Bewegung und Modell bleiben die des Körpers
+			# (id), die Regeln fragen „art“ (Mars.art_of); das Rudel zählt nach der Art (Kobolde wie alt Packs.kt kobolds, je 0,4)
+			m = (monsters[ART[foe]] as Dictionary).duplicate(true)
+			m.id = e[1]
+			m.art = ART[foe]
+			m.pack = ART[foe]
 		foes.append(Mars.monster_fighter(e[0], e[2], m, dice.roll_expr(m.hp)))
 		if foe == "GRIMM" and e[0] != Figur.GRIMM:
 			foes[foes.size() - 1].follows = Figur.GRIMM     # 533: fällt Grimmzahn, flieht die Leibwache (mars.gd _pack_flees)
 	return foes
+
+
+## 535: Gruppen, deren Tiere eigene Regeln haben, aber den Körper einer anderen Art tragen (gegner)
+const ART := {"RATS": Mars.RAT, "BATS": Mars.BAT, "KOBOLDS": Mars.KOBOLD, "SHAMANS": Mars.SHAMAN}
 
 
 ## 399.2a (Chef 28.10., 14:19, Archiv: „Wolf mit 1 bis 2 Jungwölfen“, der Held allein): der Waldkampf wie im alten Spiel
@@ -158,7 +154,9 @@ static func blatt(h, zweite = null) -> Dictionary:
 		"off": _waffe(h, h.nebenwaffe(), true) if h.nebenwaffe() != null else null,
 		"con": h.mod("CON"), "prof": h.uebung(), "saves": RETTUNG.get(h.klasse, []),
 		"tenacity": h.standhaft(), "schild": String(schild["base"]) if schild != null else "",   # 406: Modell in der Hand (figur.gd)
-		"hits": {"POISON": h.bonus("POISON_HIT"), "BLEED": h.bonus("BLEED_HIT"), "STUN": h.bonus("STUN_HIT")}}
+		"hits": {"POISON": h.bonus("POISON_HIT"), "BLEED": h.bonus("BLEED_HIT"), "STUN": h.bonus("STUN_HIT")},
+		# 534 (alt Hero.lifeSteal, damageReduction, Perks.cowChance): Lebensraub, Schadensminderung, Charisma für mars.gd
+		"lifesteal": mini(h.bonus("LIFESTEAL"), 30), "reduction": h.bonus("RESIST"), "cha": h.mod("CHA")}
 
 
 static func _waffe(h, w, nebenhand := false) -> Dictionary:
