@@ -10,7 +10,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 572 | M | **von Sokrates (Chef 04.11., 20:27; „jetzt“ 04.11., 20:27; Zu 572):** Effektprobe vor dem Kauf: die 6 Effekte der zwei REEBOO-Gratisstücke an einem eigenen Helden (Klerikerin o. ä.) im Kampfort, ein Film | in Arbeit: Probebild-Lauf 1 (Ablauf effektprobe-572.yml, eigener Bau ohne andere Filme; Kleriker gegen Wölfe, mobile) | – |
+| 572 | M | **von Sokrates (Chef 04.11., 20:27; „jetzt“ 04.11., 20:27; Zu 572):** Effektprobe vor dem Kauf: die 6 Effekte der zwei REEBOO-Gratisstücke an einem eigenen Helden (Klerikerin o. ä.) im Kampfort, ein Film | wartet: auf Lauf 1 (Probebild, Ablauf effektprobe-572.yml, Zweig claude/jerry-572-effekte), Weckruf gesetzt | – |
 | 575 | M | **von Sokrates (Chef 04.11., 20:42, Build 257; Zu 575):** Rattenkampf: welches Knurren spielt, Wolf oder Ratte? Nachstellen, Ergebnis an den Chef als Text | startbar | – |
 | 573 | M | **von Sokrates (Chef 04.11., 20:33, Build 257; Zu 573):** Tote bleiben liegen: der zuletzt gefallene Gegner wird in die Mitte gezogen (Nachrücken auch für Tote); Ursache nachstellen, Tote nie mehr verschieben | startbar | – |
 | 512b | M | **von Sokrates (Chef 04.11., 19:21: „512b ja“; `chefsache/entscheiden/512b-nachweis.md` in Git):** vor dem nächsten Kampf-Build: fremder Helfer spielt den Kampfschirm alt und neu durch und die Spalte „Richtig“ jeder Prüfzeile nach, meldet Fehlendes und Güte (Größe, Überlappung, Tempo) | startbar: vor dem nächsten Kampf-Build | – |
