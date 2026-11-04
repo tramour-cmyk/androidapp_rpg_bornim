@@ -16,6 +16,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [512a](entscheiden/512a-abgleich-bis-brs.md) | **Muss** | E Kampf | 04.11., 00:14 | Abgleichsfunde, die das BRS ohnehin ändert: jetzt nach alten Regeln bauen oder bis 478 zurückstellen? | Sokrates |
 | [503a](entscheiden/503a-laden-rueckfrage.md) | **Muss** | E Oberfläche | 04.11., 00:08 | Am Rechner mit echtem Antippen nachgestellt (Rückfragen an): Der Knopf „Gewöhnliche verkaufen“ unter „Ausrüstung“ fragt „Alle gewöhnlichen verkaufen?“ und verkauft vorher nichts. Ohne Rückfrage verkauft das Spiel, wie die alte Fassung, einen einzelnen Gegenstand unter „selten“ (Gegenstand antippen, dann „Verkaufen“); gefragt wird dort erst ab „selten“. | Team Tom (Spike) |
 | [532a](entscheiden/532a-kampf-tasche-metrausch.md) | **Muss** | E Kampf | 03.11., 23:53 | Im Kampf gibt es nur den einfachen Heiltrank; Metrausch wirkt dort nicht. Beides gab es nur im alten klassischen Kampf, nie im MARS. | Team Jerry |
+| [110](entscheiden/110-ford-von-hand-starten.md) | – | B Abläufe | 04.11., 13:17 | Ford läuft auf Tiefe 6: bitte neuen Ford von Hand starten | Ford |
 
 ## Zu billigen
 
