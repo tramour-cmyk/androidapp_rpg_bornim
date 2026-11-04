@@ -291,6 +291,7 @@ jobs:
           timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/strahl_mess_415.gd 2>&1 | grep -E "^(Strahl|STRAHL)|SCRIPT ERROR" || true
           timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_test.gd 2>&1 | grep -E "^(gut|FALSCH)|KLANG|SCRIPT ERROR"   # 399.3
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_473.gd 2>&1 | grep -E "FALSCH|BRS473|SCRIPT ERROR"   # 473 Monsterwerte BRS wie sim444
+          timeout 60 ~/godot/godot --headless --path . -s res://tests/masse_498.gd 2>&1 | tee masse498.log | grep -E "FEHLER|MASSE498|SCRIPT ERROR"; grep -q "^MASSE498 0 Fehler" masse498.log   # 498 Schrift wie alt
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_472.gd 2>&1 | grep -E "FALSCH|BRS472|SCRIPT ERROR"   # 472 Heldenstufe aus Erfahrung
           timeout 120 ~/godot/godot --headless --path . -s res://tests/zwischenbild_test.gd 2>&1 | grep -E "FALSCH|ZWISCHENBILD|SCRIPT ERROR"   # 399.1 Intro
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tasten_4161.gd 2>&1 | grep -E "FEHLER|TASTEN|SCRIPT ERROR"   # 416.1
