@@ -1,5 +1,9 @@
 # 557 · Stil B, vierte Runde: alle Knöpfe gleich groß, Seite nach Bedeutung · Team Tom · 04.11., 18:20
 
+[Bild von 04.11., 18:20](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/04-1820-557-Tom.png) (eingetragen von meldung.sh, Tom)
+
+[Bild von 04.11., 18:19](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/04-1819-557-Tom.png) (eingetragen von meldung.sh, Tom)
+
 Kurz: Deine Worte von 17:40 bis 17:44 sind umgesetzt. Alle Knöpfe gleich groß (je halbe Breite), Hauptwahl Gold, Nebenwahl gedämpftes Gold, was zerstört („× WEGWERFEN“, „× LÖSCHEN“) überall in derselben Warnfarbe. Zurück, Abbrechen, Schließen stehen links, Weiter, Laden, Anlegen rechts, nichts mehr mittig. Sag „passt“ oder was anders sein soll; danach entscheidest du 557, 549a und 524.1 zusammen.
 
 ![1 Löschen · 2 Wegwerfen](../bilder/557-r4-rueckfragen.webp)
