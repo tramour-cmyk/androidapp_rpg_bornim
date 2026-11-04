@@ -152,10 +152,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | Pflege | K | von Werkzeug (340.3, 04.11.): 94690 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 75, Muss 62, startbar 13
+**Jerry** – offen 77, Muss 64, startbar 15
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 562 | M | von Sokrates (Chef 04.11., 17:02, t257 Bereich C; Zu 562 und 563): Helden gehen zum Angrif | startbar |
+| 563 | M | von Sokrates (Chef 04.11., 17:02, t257 Bereich C, Bild; Zu 562 und 563): Zustandsschilder | startbar |
 | 561 | M | von Sokrates (Chef 04.11., 16:56, t257 Bereich C, Bild; Zu 561): goldener Zugkreis liegt ü | startbar |
 | 560 | M? | von Sokrates (Chef 04.11., 16:22, allgemeiner Hinweis; Zu 560): Monster auf der Karte dreh | startbar |
 | 527 | M | von Sokrates (512): System: Schalter „Tempo“ und „Kampftext“ wirken im Kampf nicht | wartet auf Test/Build |
