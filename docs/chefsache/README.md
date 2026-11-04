@@ -17,6 +17,12 @@ Nichts offen.
 
 ## Anzusehen
 
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [558](ansehen/558-robe.md) | Robe des Magiers, Probe 4: tiefe Falten, Zustände klar getrennt | – | 04.11., 19:36 |
+
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
 | Folge | Version | Build | Was | Wer | Seit |
@@ -335,7 +341,7 @@ Format (Muster: „So geht's“ unten): t257-kampf-klang.md: 26 Vorgänge, höch
 
 Nicht gestellt: 407 (Projekt)
 
-Ohne Datei: 3402 (Projekt), 275 (Projekt), 26 (Team Tom)
+Ohne Datei: 3402 (Projekt), 275 (Projekt)
 
 ## So geht's
 
