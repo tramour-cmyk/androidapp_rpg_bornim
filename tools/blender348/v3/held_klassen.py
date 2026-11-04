@@ -92,14 +92,63 @@ def kopfnetze(netze):
     return haut, augen, brauen
 
 
+KOPFTEILE = ('hood', 'kapuze', 'gugel', 'helm', 'armet', 'tuch', 'scarf', 'schal', 'circlet', 'reif')
+
+
+def kopfsitz(netze, haut, p):
+    """475 (Prueferbefund 04.11., 06:37; 475a 1, Chef 13:32: „das Gesicht bleibt frei und erkennbar: Visier offen, Tuch auf dem Kopf,
+    Kapuze zurueck oder hoeher, nichts scheint durch“): Kopfbedeckungen der Leute auf dem Kaufkopf setzen, mit Zahlen im Protokoll.
+    Kopftuch (unser Teil aus held3, fuer unseren Kopf gebaut): so weit hoch, dass es 1,2 cm ueber dem Scheitel liegt (Pruefer: ueber Mund
+    und Kinn). Visier des Kaufhelms (Armet): Flaechen vor dem Gesicht zwischen Kinn und 2,5 cm ueber den Augen weg. Dann jede Ecke einer
+    Kopfbedeckung, die weniger als 6 mm ueber der Haut liegt (oder darunter), entlang der Hautnormale hinaus (Kapuze scheint durch).
+    Gibt die Netze zurueck: sie bekommen die Formschluessel des Kopfs (sonst stiesse das Gesicht der Person durch)."""
+    import bmesh
+    from mathutils.kdtree import KDTree
+    teile = [o for o in netze if o is not haut and any(k in o.name.lower() for k in KOPFTEILE)]
+    if not teile: return []
+    W = KO._welt(haut)
+    me = haut.data; N = np.empty(len(me.vertices) * 3); me.vertices.foreach_get('normal', N)
+    N = N.reshape(-1, 3) @ np.array(haut.matrix_world.to_3x3().inverted().transposed()).T
+    N /= np.maximum(np.linalg.norm(N, axis=1, keepdims=True), 1e-9)
+    kopf = np.where((W[:, 2] > p['kinn_z'] - 0.04) & (np.linalg.norm(W - p['mitte'], axis=1) < 0.2))[0]
+    kd = KDTree(len(kopf))
+    for j, i in enumerate(kopf): kd.insert(Vector(W[i]), j)
+    kd.balance()
+    for o in teile:
+        n = o.name.lower()
+        if 'tuch' in n:
+            V = KO._welt(o)
+            dz = p['oben'] + 0.012 - float(V[:, 2].max())
+            if dz > 0.003:
+                KO._zurueck(o, V + np.array([0.0, 0.0, dz])); print('KOPFSITZ', o.name, 'Tuch hoch um %.3f m' % dz)
+        if 'armet' in n:
+            bm = bmesh.new(); bm.from_mesh(o.data); mw = o.matrix_world
+            weg = [f for f in bm.faces if all(((mw @ v.co).y < p['mitte'][1] - 0.02) and (p['kinn_z'] - 0.01 < (mw @ v.co).z < p['augen_z'] + 0.025)
+                                               for v in f.verts)]
+            bmesh.ops.delete(bm, geom=weg, context='FACES'); bm.to_mesh(o.data); bm.free(); o.data.update()
+            print('KOPFSITZ', o.name, 'Visier offen:', len(weg), 'Flaechen weg')
+        V = KO._welt(o); durch = 0; tief = 0.0
+        for k in range(len(V)):
+            q, j, d = kd.find(Vector(V[k]))
+            if q is None or d > 0.05: continue
+            i = kopf[j]; h = float(np.dot(V[k] - W[i], N[i]))
+            if h < 0.006:
+                durch += h < 0.0; tief = min(tief, h)
+                V[k] = V[k] + N[i] * (0.006 - h)
+        KO._zurueck(o, V)
+        print('KOPFSITZ', o.name, 'unter der Haut vorher %d Ecken (tiefste %.1f mm), alle jetzt 6 mm darueber' % (durch, -tief * 1000))
+    return teile
+
+
 def schluessel(netze, p, augen=None):
     # je Form ein Formschluessel: Verschiebung aus kopf.feld (Augen je Seite als Ganzes, wie kopf.forme)
     for o in netze:
         W = KO._welt(o)
         if not o.data.shape_keys: o.shape_key_add(name='Basis', from_mix=False)
         Mi = np.array(o.matrix_world.inverted())
-        for n in FORMEN:
-            f = KO.FORMEN[n]
+        # 475 (Chef 04.11., 13:26: Gesichter nicht „wie geklont“): dazu je Regler ein Schluessel „r_<regler>“ mit KO.EINHEIT; feld ist
+        # linear, Godot mischt daraus das Gesicht jeder Person (heldfigur.gd gesicht, leute.json kauf.gesicht), auch an Haar und Bart
+        for n, f in [(n, KO.FORMEN[n]) for n in FORMEN] + [('r_' + r, {r: KO.EINHEIT[r]}) for r in KO.REGLER]:
             if o is augen:
                 D = np.zeros_like(W)
                 for s in (W[:, 0] < 0, W[:, 0] >= 0):
@@ -317,7 +366,8 @@ def kaempfer(k, g, figur='', fuesse='', stiefel_bis=0.0, liste='trachten.json', 
     haut, augen, brauen = kopfnetze(netze)
     beine_weg(haut)
     p = KO.merkpunkte(haut, augen)
-    schluessel([haut, augen] + brauen if augen else [haut] + brauen, p, augen)
+    kopfteile = kopfsitz(netze, haut, p) if liste != 'trachten.json' else []
+    schluessel(([haut, augen] if augen else [haut]) + brauen + kopfteile, p, augen)
     statur(arm, netze)
     vorrang_marke(netze, os.path.join(env['OUT'], 'teile.json'))
     exportiere(os.path.join(ZIEL, 'held_%s.glb' % k), [arm] + netze, farbe=True)

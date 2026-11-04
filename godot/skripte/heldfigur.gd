@@ -760,6 +760,7 @@ static func person(id: String, mats: Array) -> Node3D:
 		"ausruestung": {"MAIN_HAND": String(p["traegt"])} if String(p.get("traegt", "")) != "" else {}}
 	var m := baue(w, mats)
 	if m == null: return null
+	gesicht(m, ka.get("gesicht", {}))
 	m.name = "Person_" + id
 	m.scale = Vector3.ONE * float(ka.get("groesse", p.get("groesse", 1.0)))
 	var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
@@ -771,6 +772,20 @@ static func person(id: String, mats: Array) -> Node3D:
 	h.kopf_gross = float(ka.get("kopf", 1.0))
 	sk.add_child(h)
 	return m
+
+# 475 (Chef 04.11., 13:26: „Borik, Bran und Ostik sehen sich aus, als ob sie eineiige Zwillinge wären … ein Gesicht definiert sich über die
+# Form des Gesichts“): Gesicht je Person aus den Reglern des Kopfs (kopf.py REGLER, EINHEIT; held_klassen.py Schluessel „r_<regler>“),
+# an Haut, Augen, Brauen, Haar und Bart gleich; g = {regler: Wert} wie kopf.form_aus
+const EINHEIT := {"breite": 0.1, "kiefer": 0.1, "laenge": 0.1, "kinn": 0.01, "nase": 0.1, "wangen": 0.01, "brauen": 0.01, "ohren": 0.1, "augen": 0.01}
+static func gesicht(m: Node3D, g: Dictionary) -> void:
+	if g.is_empty(): return
+	for mi in m.find_children("*", "MeshInstance3D", true, false):
+		var me := (mi as MeshInstance3D).mesh as ArrayMesh
+		if me == null: continue
+		for i in me.get_blend_shape_count():
+			var bn := String(me.get_blend_shape_name(i))
+			if bn.begins_with("r_") and EINHEIT.has(bn.substr(2)):
+				(mi as MeshInstance3D).set_blend_shape_value(i, float(g.get(bn.substr(2), 0.0)) / float(EINHEIT[bn.substr(2)]))
 
 # 475: Haltung der Person nach der Bewegung: gebeugt (Grad, auf spine_01..03 verteilt, nach vorn), Kopf [nicken, drehen, neigen] (Grad,
 # auf neck_01 und Head), Kopfgroesse (Kind, Zwerg). Figur blickt nach +Z: nach vorn beugen = um +X
