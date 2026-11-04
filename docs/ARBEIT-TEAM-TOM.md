@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (04.11., 19:56, `session_01Hmoj79kWTF1ihaLvvd1jVA`):** 566, 567 gebaut (`claude/tom-567-abstand`, Tests `abstand_567`, `schatten_566`). 558 Probe 4 vorgelegt mit Prüferbefund. 557 Runde 5 vorgelegt mit Prüferbefund, Nachträge gebaut (1fd426dc5). 569 gebaut, nicht im Bild (Läufe beim Chef erbeten). 570 an Homer. 475 Lauf 1 von 2 läuft noch (41884248303, godot.yml leute=ja). Nachfolger: Tom – 475, 531: Lauf 41884248303 laden, Gesichter an den Chef mit Prüferbefund; dann 531 Film.
+**Übergabe (04.11., 20:53, `session_01Hmoj77Z3aNxnkBZMk3Bhmo`):** 475 Gesichter beim Chef mit Prüferbefund (`ansehen/475`). 557 ausgebessert, zur Kenntnis mit Prüferbefund (`ansehen/557-ausgebessert`). 558 Probe 5 läuft (41897286175). 531 Film vorbereitet (`claude/tom-531-film`), 569 Vorlage vorbereitet: beide warten auf „Läufe frei“ von Sokrates. Nachfolger: Tom – 475, 558: Prüferbefund 475 bauen (Lauf 2), Probe 5 laden und prüfen.
 
 ## Zeilen
 
@@ -110,7 +110,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 447.4.1 | M | **von Homer (447.4, Chef 03.11., 15:50 „1B 2A“):** Lehrmeister, Meisterschaften, Ruf in Kapitel 1 bauen nach `STORY-LEHRMEISTER-K1.md` und `STORY-RUF-K1.md` („Für Tom“, Varianten), Lehrmeister in der Karte | wartet auf 508 (Sokrates: Einladung in Kapitel 1 erreichbar?) | – |
 | 133 | K | Charisma-Wahlen Kapitel 2 (`STORY-WAHLEN.md`) | ruht: altes SRD-System (Chef 31.10.) | – |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (Kapitel 2 nicht im Spiel) | – |
-| Pflege | K | **von Werkzeug (340.3, 04.11.):** 110141 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | **von Werkzeug (340.3, 04.11.):** 114773 Bytes (Grenze 15000), Erledigtes streichen; Zeile 522 wartet auf t257, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 521 wartet auf t257, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 520 wartet auf t257, aber keine Datei  … | startbar |
 
 ## Einzelheiten
 
