@@ -49,6 +49,7 @@ func _ready() -> void:
 	male(netz, self)
 	if kraut_netz: male(kraut_netz, null, 1)   # Schablone 1 wie Blueten: ohne Bildschirmlinie
 	baue_gruppen(netz)
+	schlagbaum(karte.flaggen.has("barrier_open"))
 	var wiese := MeshInstance3D.new()          # Waldboden ausserhalb der Karte: Bodenmaske am Rand fortgesetzt
 	var pm := PlaneMesh.new()
 	pm.size = Vector2(160, 160)
@@ -368,6 +369,13 @@ func nah(_an: bool, held_pos: Vector3) -> void:
 # wird es als Ganzes halb durchsichtig, weich in 0,3 s; was nur bis zur Huefte reicht (Bank, Theke, Fass), bleibt deckend.
 const DURCH_SCHICHT := 1 << 19         # nur fuer die Strahlen; der Held geht nach Karte.begehbar, nicht nach Koerpern
 const DURCH_A := 0.5                   # alt: zusammen halb (Test 0.1.576: 0,2 zu stark; 27e.1: 35 % zu schwach)
+
+# 530 (Chef 03.11., 23:40 „Schlagbaum öffnet sich nicht visuell“): der Balken ist zu oder steht offen aufrecht am Pfosten wie alt
+# (MapTownIso.barrier open; dorf.py „Schlagbaum_zu_…“, „Schlagbaum_auf_…“); beim Laden und nach jeder neuen Flagge (spiel.gd flaggen_neu)
+func schlagbaum(offen: bool) -> void:
+	for n in find_children("Schlagbaum_*", "", true, false):
+		var nm := String(n.name)
+		if n is Node3D: (n as Node3D).visible = nm.begins_with("Schlagbaum_auf") == offen
 
 func baue_gruppen(n: Node) -> void:
 	if n is MeshInstance3D and String(n.name).begins_with("Gruppe_"):

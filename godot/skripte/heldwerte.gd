@@ -329,8 +329,10 @@ static func aus_daten(d: Dictionary) -> Heldwerte:
 		h.basis[a] = int(d["basis"][a])
 		if d.has("start"): h.start[a] = int(d["start"][a])
 	for p in d.get("ausruestung", {}): h.ausruestung[String(p)] = d["ausruestung"][p]
+	for f in d.get("verbraucht", {}): h.verbraucht[String(f)] = int(d["verbraucht"][f])   # 532: Hero.spent im Spielstand
 	return h
 
 func als_daten() -> Dictionary:
 	return {"name": name, "volk": volk, "klasse": klasse, "stufe": stufe, "ep": ep, "basis": basis.duplicate(), "start": start.duplicate(),
-		"tp": tp, "zp": zp, "offen": offen, "kapitel": kapitel, "ausruestung": ausruestung.duplicate(true)}
+		"tp": tp, "zp": zp, "offen": offen, "kapitel": kapitel, "ausruestung": ausruestung.duplicate(true),
+		"verbraucht": verbraucht.duplicate()}

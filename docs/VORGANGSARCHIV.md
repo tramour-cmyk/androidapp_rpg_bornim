@@ -2,6 +2,26 @@
 
 Was der Chef entschieden hat, neueste oben (99g.1). Je Vorgang: Nummer, Datum, Entscheidung, *Leitlinien*, Antwort des Chefs und wessen Empfehlung („Nutzer“ = Chef). **Neue Einträge ab 21.10. höchstens etwa 250 Zeichen** (274): Wortlaut des Chefs, soweit er die Entscheidung trägt, steht hier; Begründung in der Rollendatei dessen, der empfiehlt (`CLAUDE.md` „Jeder Text an einem Ort“); Anlass und langer Wortlaut nur in der Chefsache-Datei und „Zu ‹Nr›“, nach dem Löschen in Git. Ältere Einträge bleiben. Einträge werden nicht geändert, außer dem Anhang „→ ersetzt durch <Nr., Datum>“ am alten Eintrag, wenn ein neuer ihn ablöst (461b); was gilt, steht in den DESIGN-Dateien je Thema (461d: Punkte mit Kennung in `DESIGN-STIL.md`, `DESIGN-KAMPF.md`, `DESIGN-ABNAHME.md`), das Archiv ist Verlauf; wer einen Punkt aus der Chefsache entscheiden lässt, trägt ihn hier oben ein und löscht im selben Schritt die Datei in `docs/chefsache/`. Nur Text: Bilder und Hörproben der Einträge bis 16.10. stehen in den [alten Beschlüssen](https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM) (abgelöst 16.10.); Dateinamen in älteren Einträgen sind die damaligen.
 
+- **524, Gegenstandsfenster Inhalt wie alt** (04.11., 00:50, Chef an Sokrates: „524 passt“; Chefsache `ansehen/524-gegenstandsfenster-inhalt.md` in Git, Bild 00:15, Spike, Commit 043e1b907): Inhalt der alten Fassung als Untergrenze gilt; Gerätetest mit dem nächsten Build → **passt (Nutzer)**
+
+- **521, Tasche und Wechselfenster** (04.11., 00:49, Chef an Sokrates: „521 passt“; Chefsache `ansehen/521-tasche.md` in Git, Bild 00:25, Tom, Commit 569a816f1): Zeile wie alt mit Bild, Seltenheitsfarbe, Art, Platz, Wert, „zweihändig“, ▲/▼, „nicht tragbar“ matt mit Grund; Gerätetest mit dem nächsten Build → **passt (Nutzer)**
+
+- **519, Gegenstandsfenster passt auf den Schirm** (04.11., 00:12, Chef an Sokrates: „519 passt“; Chefsache `ansehen/519-gegenstandsfenster.md` in Git, Bild 23:51, Spike, Commit fd80a395a): Fenster wie alt, Hinweis zur Obergrenze; Gerätetest mit dem nächsten Build → **passt (Nutzer)**
+
+- **513, Drehteller Lauf 2 unbrauchbar** (03.11., 20:3x, Chef an Sokrates: „Vorgang 513, ja bitte, macht einen dritten Lauf. Was habe ich jetzt wieder vor dem zweiten, wo ich nichts sehen kann, weil alles falsch ist? … Hängt zusammen mit Vorgang 480.1.“; Chefsache `ansehen/513-figurenstand.md` in Git, Spike, Commit 47b09d566): dritter Lauf (Freigabe Sokrates 20:2x); ein Bild ohne Inhalt kommt nach 511 nur als eine Zeile, nie als Vorlage; 461 unverändert → **dritter Lauf (Nutzer)**
+
+- **514, Glühwürmchen** (03.11., 20:2x, Chef an Sokrates: „wie gut jetzt die Glühwürmchen leuchten, kann ich natürlich anhand von Bildern nicht wirklich beurteilen … ob sie gleichmäßig leuchten oder ob sie wieder alle gleich lang leuchten … 514 passt. Sinnwidrig, aber es passt.“; Chefsache `ansehen/514-gluehwuermchen.md` in Git, Tom): Orte gelten; Blinken (eigener Takt, Nachbar antwortet) prüft der Chef am Gerät im nächsten Build, als Testfrage in die Prüfliste; 461 unverändert → **passt (Nutzer)**
+
+- **492, Höhle mit dem Alten abgleichen** (03.11., 16:30–16:33, Chef an Sokrates: „Bitte mal mit dem ‚Original‘ abgleichen: Strukturen, Lichteffekte, Objekte, Teich, ‚Lichtstrahl‘, Sicht, Schatten auf ‚Mauern‘“; „Die Höhle darf auch gerne besser aussehen :-). Immer noch keine 1:1 Kopie“; „Und die Signature nicht vergessen.“; Chefsache `ansehen/492-hoehle.md` in Git, Tom): nicht abgenommen; neue Vorlage mit Abgleich je Punkt, das Alte als Untergrenze, Signatur geprüft (Zu 492 bei Tom); 461 unverändert → **abgleichen, besser als alt (Nutzer)**
+
+- **507, Läufe frei** (03.11., 20:2x, Sokrates nach 480.1, Bitte Jerry 15:29): ein Bildlauf; Prüferbefunde von Lauf 247 nachgestellt und behoben (a94fd2b32); Probebild vor dem Lauf nach 511a → **ein Lauf (Sokrates)**
+
+- **513, Läufe frei** (03.11., 20:2x, Sokrates nach 480.1, Bitte Spike 19:3x): ein Lauf; Probe 1 und 2 ohne Haar, Waffe, Schild, weil der Probeablauf Schritte von godot.yml ausließ (behoben 809ac6a6b); Bild nach 511a → **ein Lauf (Sokrates)**
+
+- **431f, keine Läufe** (03.11., 20:2x, Sokrates, Bitte Tom 02.11., 21:5x): 488 ersetzt die Freigabe 431f; Orkfrau-Haut bleibt bis nach dem Durchspielen → **nein (Sokrates)**
+
+- **468b, 516a, 505 Läufe frei** (03.11., 20:20, Chef an Ford: „Bitte. Archivieren. Kostenerfassen.“; „Vorgang 505. Ich gebe die Läufe frei.“; Dateien `entscheiden/468b`, `516a` gelöscht): Ford archiviert idle Sitzungen und bucht Kosten ohne Rückfrage; Rückfragen nur, wenn der Chef sie nicht gleich selbst klären könnte; 505 Läufe frei, Tom führt.
+
 - **477, MuMu-Probe erledigt** (03.11., 16:23, Chef an Sokrates: „Genug Zeit verschwendet“; Chefsache `tun/477-mumu.md` in Git, Tom): Build 245 in MuMu mit Vulkan und OpenGL, quer und hoch: Jingle hörbar, Bild schwarz; Teil des Chefs fertig, Ursache sucht Tom ohne Chef; 461 unverändert → **b in allen Fällen (Nutzer)**
 
 - **505, Nebel rundum Lauf 1** (03.11., 16:15, Chef an Sokrates: „505 passt nicht“; Anlass 16:13: Stufen gesehen, erkundet, neu „kann ich an diesen Bildern leider nicht erkennen“, Teich halb und schwarz; Chefsache `ansehen/505-nebel-rundum.md` in Git, Spike, Commit 697fbe7a5): nächste Vorlage zeigt die drei Stufen (Fog.kt) beschriftet mit Ort, Teich behoben (Zu 505 bei Tom); 461 unverändert → **passt nicht (Nutzer; Vorschlag Sokrates)**

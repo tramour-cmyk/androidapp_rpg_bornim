@@ -78,6 +78,11 @@ var tageszeit := "tag"
 ## 493: welcher Kampfort im Wald (kampfort_wald.py SPOT): lichtung, waldrand, teich, baum, felsen, steinkreis; fehlt sein Modell im
 ## Bau, die Lichtung
 var platz := "lichtung"
+## 527: Tempo aus dem Menue System (Bedienung.tempo_faktor; aufruf.gd setzt es, Proben und Tests bleiben bei 1): alle Bewegungen,
+## Wartezeiten und Zeilen des Kampfs laufen über Engine.time_scale so viel mal so lang, die Blende davor und der Reaktionsring nicht
+## (der Ring misst in Echtzeit)
+var tempo := 1.0
+var _tempo_an := false
 const PLAETZE := ["lichtung", "waldrand", "teich", "baum", "felsen", "steinkreis"]
 
 
@@ -181,12 +186,26 @@ func _ready() -> void:
 		zufall.randomize()
 		var kb := Kampfblende.new(String(progress.get("eroeffnung", "NORMAL")), Kampfblende.lage(mars), zufall)
 		verhuellt = true
-		kb.geht.connect(func(): verhuellt = false)
+		kb.geht.connect(func():
+			verhuellt = false
+			_tempo_setzen())
 		ebene.add_child(kb)
+	else:
+		_tempo_setzen()
 	_run(func(): mars.start(_react))
 
 
+func _tempo_setzen() -> void:
+	if is_equal_approx(tempo, 1.0) or tempo <= 0.0:
+		return
+	Engine.time_scale = 1.0 / tempo
+	_tempo_an = true
+
+
 func _exit_tree() -> void:
+	if _tempo_an:
+		Engine.time_scale = 1.0
+		_tempo_an = false
 	if worker and worker.is_started():
 		ring_sem.post()
 		worker.wait_to_finish()

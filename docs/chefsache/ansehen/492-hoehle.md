@@ -1,31 +1,44 @@
-# 492 · Blutzahnhöhle begehbar wie alt: Standbilder aus Sicht des Helden · Team Tom · 03.11., 16:15
+# 492 · Blutzahnhöhle: alt gegen neu an acht Stellen · Team Tom · 03.11., 23:3x
 
-[Bild von 03.11., 16:15](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/03-1615-492-Tom.jpg) (eingetragen von Tom)
+[Bild von 03.11., 23:30](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/03-2330-492-Tom.png) (eingetragen von meldung.sh, Tom)
 
 O Orte
-Kurz: Blutzahnhöhle als Grundriss, Lauf 2 von 2
-Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/eddf30cca (Lauf 2 am Rechner; Höhle wie im Build, Held ohne Kaufmodell)
+Kurz: neue Vorlage nach deinem „abgleichen“ (16:30–16:33), Lauf 2 von 2; je Stelle oben alt, darunter neu.
+Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/bc11f77ed (Lauf 2 am Rechner, Held ohne Kaufmodell; Test hoehle_492 ohne Fehler; Strahltest: Brust des Helden nirgends verdeckt, Knie an 4–8 Kacheln je Drehung)
 
-![Eingang, Gang, Gitter, Ostflügel, Lager; Teich, Westflügel, Halle, Gang gedreht](../bilder/492-hoehle.jpg)
+![Je Stelle oben alt, darunter neu: Eingang, Gitter, Ostflügel, Lager; Teich, Westflügel, Halle, Gang mit Blick nach Süden](../bilder/492-hoehle.jpg)
 
-Großbild: Telegram 03.11. 16:15
+Großbild: Telegram 03.11. 23:3x
 
-**Zu sehen:** Vom Flüsterwald durch den Höhlenmund in die Blutzahnhöhle, als Grundriss wie die Innenräume. Obere Reihe: Eingang, Gang mit Stützbalken, Gitter vor Graks Halle, Ostflügel mit Lichtschacht, Lager am Feuer; untere Reihe: Teich, Westflügel mit Kristallen und Leuchtpilzen, Graks Halle mit Lyra, der Gang mit gedrehter Karte. Licht nur aus Fackeln, Feuer, Pilzen, Kristallen, Lichtschacht und Ausgang, sonst fast schwarz wie alt; Wände hinter dem Helden hoch, vor ihm niedrig, beim Drehen wechseln sie. Spielbar und geprüft (ohne Bild): Gitter mit dem rostigen Schlüssel auf, die Flügel schwenken; Grak spricht vor seiner Halle und kämpft; Lyra befreit, geht durchs Gitter fort; drei Truhen, Monster der Höhle, Weg zurück. Ohne Feinarbeit (Orte O8).
+**Zu sehen:** dieselben acht Stellen der Höhle, der Held auf derselben Kachel, oben die alte Fassung, darunter die neue.
 
-**Lauf 1 (Prüfer 16:08, nicht versandt):** Held in einem Bild ganz, in drei teilweise von Wänden verdeckt; fern der Lichter nichts zu sehen; Ausgang und Lichtschacht ohne sichtbare Quelle. Behoben: dünne Wände niedriger wie alt, Farben heller, Ausblick am Ausgang, Lichtsäule im Schacht. Strahltest ohne Bild: Brust des Helden nirgends verdeckt, Knie an vier bis sieben Stellen je Drehung.
+**Abgleich je Punkt deiner Worte** (Prüfer 23:3x nach dem Versand, gegen alt; Lauf 1 → Lauf 2):
 
-**Prüfer Lauf 2 (03.11., 16:17, nach dem Versand):**
-- In fast jedem Bild ist unten ein großer Teil (30 bis 50 %) leer und schwarz; im Eingang sind Ausgang, Tageslicht, Ausblick und Laub nicht zu sehen.
-- Weiße Wandflächen leuchten ohne sichtbare Quelle (Eingang, Teich, Westflügel).
-- Die Lichtsäule (Ostflügel, Halle) wirkt wie ein weißer Steinpfeiler mit einem schwebenden Fleck oben, nicht wie Licht.
-- Die Wände wirken wie Kästen und Pappplatten: flache Oberseiten, Rillen, schwarze Quadrate wie Löcher, grobes Klötzchenmuster an hellen Wänden.
-- Der Held ist oft dunkel oder halb verdeckt (Gang, Ostflügel, Teich durch einen Goblin, Halle).
-- Kristalle nur kleine weiße Splitter; Teich ein schwarzes Loch; Steinkranz am Feuer flache Vierecke; im Lager keine Kisten und kein Fass; das Gitter zeigt keine zwei Flügel; in der Halle nur eine Fackel, sie steht auf einem frei stehenden Block.
+| Punkt | Urteil | Was der Prüfer sieht |
+|---|---|---|
+| Strukturen (Fels, Wände) | schlechter | niedrige Wände schwarze Blöcke, hohe Wände farbiger Dunst; alt Risse und Kanten |
+| Fackel | schlechter | Flamme ein kleiner Punkt, Wand darum grell orange |
+| Lagerfeuer | Licht besser, Ring schlechter | große Flamme, warmer Boden, Rauch; Steinkranz flache dunkle Platten |
+| Pilze | gleich | sichtbar, Wand daneben zu grün |
+| Kristalle | schlechter | flache Splitter an der Wand; alt hohe lila Säulen |
+| Objekte | schlechter | Truhe schlicht (alt mit Schädel, Nieten), Fass fehlt |
+| Teich | anders | jetzt Wasser mit Glanz statt schwarzem Loch, aber hell türkis, heller als ringsum |
+| Lichtstrahl | schlechter | blasser Balken mit gerader Oberkante; alt breiter weicher Kegel |
+| Sicht | schlechter | außerhalb hartes Schwarz mit Kante; alt weicher Verlauf |
+| Schatten auf Mauern | fehlt | Mauern fast einfarbig schwarz |
+| Lebendigkeit | teils | Rauch da, Staub und Funken nicht zu sehen |
+| Ausgang, Tageslicht | schlechter | nur matte Flecken am Rand, kein Ausgang zu sehen |
+| Gitter | anders | ein dickes Feld, keine zwei Flügel erkennbar |
+| Signatur A1 Licht aus Quelle | meist ja | Wand im Westflügel glüht ohne erkennbare Quelle |
+| Signatur A2 Tuschelinie | nein | in keinem Bild erkennbar |
+| Signatur A3 nur Gold glänzt | meist ja | Teich glänzt |
 
-**Stärkstes Gegenargument:** Krogg und Grak stehen noch nicht in der Höhle (ihre Modelle fehlen im Spiel, Jerry, Zu 494); ohne Krogg kein Schlüssel, die Höhle ist bis dahin nicht durchspielbar.
+Behoben gegen Lauf 1 (Prüfer): grüne Wand am Ausgang weg, weiße Ellipse im Strahl weg, Held überall frei und ganz im Bild. Am Rechner ist die Oberfläche Englisch (Systemsprache des Rechners), im Spiel Deutsch. Bekannt: Grak und Krogg ohne Modell (Jerry), Held ohne Kaufmodell.
 
-**Bestand geprüft:** Fels, Tropfsteine, Kristalle, Pilze, Gitter, Stützen eigene Formen wie alt (kein Höhlenfels im Bestand); Truhe wie im Wald; Lyra aus unseren Leuten; nichts neu.
+**Stärkstes Gegenargument:** die Höhle ist jetzt unter der alten Untergrenze, vor allem Felsform, Tusche, Kristalle, Ausgang; ein „passt“ würde das festschreiben. Mein Rat: nicht abnehmen; als Nächstes Felsform und Tusche an den Wänden, Kristalle, Ausgang, Strahl.
 
-**Zu sagen:** „492 passt“ (begehbar, Feinarbeit danach), oder was anders sein soll.
+**Gemessen (Helligkeit der Bildpunkte, 0–255):** Lauf 1 war ein Drittel des Bildes genau 15/16/15 statt schwarz (die Kontrastsenkung hob das Schwarz an und drückte das Licht); jetzt schwarz 62–70 % der Fläche (alt 65–75 %), hellstes Zehntel ab 44–53 (alt 30–43).
+
+**Zu sagen:** „492 passt“ (Feinarbeit danach), oder was anders sein soll.
 
 Erledigt: Antwort ins Vorgangsarchiv, Datei löschen (Tom).
