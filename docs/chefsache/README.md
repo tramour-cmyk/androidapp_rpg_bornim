@@ -168,7 +168,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | D71.1 | K | von Diogenes (374/434, Vortag 02.11.): ohne „Bestand geprüft“ (434): 417 00:53, 02:24, 03: | startbar |
 | Pflege | K | von Werkzeug (340.3, 04.11.): 70148 Bytes (Grenze 15000), Erledigtes streichen; Zeile Pfle | startbar |
 
-**Jerry** – offen 77, Muss 65, startbar 3
+**Jerry** – offen 77, Muss 65, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -204,14 +204,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 416.6 | M | von Sokrates: Spuren (core/Tracks.kt): Blut, Staub, Fußspuren | wartet auf Perikles |
 | 415 | M | von Sokrates: Probe Beams Free Sample im Kampfort; nichts kaufen | wartet auf Test (Build) |
 | 399.2 | M | von Perikles („jetzt“ 28.10., 12:34): Kampfort aufrufbar | wartet auf Test (Build) |
-| 403 | M | von Team Tom: Kampfort: Held je Klasse wie im Dorf | wartet auf Test (Build) |
+| 403 | M | von Team Tom: Kampfort: Held je Klasse wie im Dorf | startbar |
 | 461.1 | M | von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461): Grundstand mit Tom: Kampfort, Wölfe, Hel | ruht |
 | 460 | M | von Sokrates (Chef 01.11., 20:2x, Archiv 460): Probefilm Kamerafahrten: Eröffnung je Blend | ruht |
 | 406.1 | M | von Sokrates (406.1): Schildstoß ins MARS/BRS, Bau mit ShieldAttack1–3S&S | wartet auf 481 (startbar) |
-| 489 | M | von Sokrates: Hauptmenü: Schalter Musik und Effekte wie alt | wartet auf Test (Build) |
+| 489 | M | von Sokrates: Hauptmenü: Schalter Musik und Effekte wie alt | startbar |
 | 406.2a | M | von Sokrates: Angriffsweg im Kampf mit UAL-Rennen wie im Dorf, alle Waffen (Zu 406.2a) | wartet auf Perikles |
 | 406.2 | M | von Sokrates (Chef 03.11., 06:59, „jetzt“; Zu 406.2): im Kampf zum Angriff gehen statt ren | wartet auf Test/Build (gebaut) |
-| 406 | M | von Team Tom: Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Sonne | wartet auf Test (Build) |
+| 406 | M | von Team Tom: Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Sonne | startbar |
 | 510 | M | von Sokrates: Fledermaus: freies OGA-Modell „Vampire Bat“ (CC0) mit unseren Fellen neben d | wartet auf Perikles |
 | 509 | M | von Sokrates (Chef 03.11., 09:21): Frösche und Libellen an den Teichen wie alt (PondLife.k | wartet auf Perikles |
 | 494 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Gegner von Kapitel 1 im Kampf (Liste und St | startbar |
