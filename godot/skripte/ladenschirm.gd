@@ -550,7 +550,7 @@ func brauen_b() -> void:
 		var t := Spielstaende.tippbar(rand, func(): braukasten_b(r, 1))
 		t.set_meta("rezept", aus)
 		inhalt.add_child(t)
-	inhalt.add_child(Spielstaende.linie())
+	if not Spielstaende.vorlage2: inhalt.add_child(Spielstaende.linie())   # Pruefer 16:40: mit dem Knopf am Inhalt lagen zwei Linien aufeinander
 
 # der Mengenkasten: Rahmen bleibt (Entscheidung), innen Bild und Name, Wirkung, Zutaten, Menge mit −, +, ×1, ×5, Alle; vorher → nachher;
 # unten „BRAUEN ×n ›“ als Hauptwahl
@@ -625,7 +625,7 @@ func braukasten_c(r: Dictionary, n: int, alle := false) -> void:
 	var aus := String(r["ergebnis"])
 	var oft := Laden.wie_oft(z, r)
 	var schleier := Rueckfrage.schleier(self)
-	schleier.color = Color(0, 0, 0, 0.97)
+	schleier.color = Color.BLACK   # Pruefer 16:40: die Rezepte schienen durch
 	var mitte := CenterContainer.new()
 	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -650,6 +650,7 @@ func braukasten_c(r: Dictionary, n: int, alle := false) -> void:
 	kopf_.add_child(nv)
 	v.add_child(kopf_)
 	v.add_child(Spielstaende.linie())
+	v.add_child(Stil.zeile(("Zutaten je Trank" if de else "Ingredients per potion").to_upper(), 13, Stil.GOLD, 2.0))   # Pruefer 16:40: „7/2“ ohne Ueberschrift
 	v.add_child(zutaten_reihe(r, 24, 15))
 	if oft < 1:
 		v.add_child(Erschaffung.txt(Sprache.t(Laden.FEHLT) + Laden.fehlt(z, r), 15, Stil.WARN))

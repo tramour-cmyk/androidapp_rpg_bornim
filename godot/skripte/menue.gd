@@ -1016,12 +1016,25 @@ func fenster_b(g: Dictionary, anlegen := Callable(), zurueck := Callable()) -> C
 	var zu := func(): schleier.queue_free()
 	var an_c := anlegen if anlegen.is_valid() else func(): meldung(lege_an(g)); baue()
 	if Spielstaende.vorlage2:   # 557 Vorlage 2 (Chef 14:26): „‹ ABBRECHEN“ links, ANLEGEN rechts; Wegwerfen und Nebenhand leise darueber
-		var neben := HBoxContainer.new()
-		neben.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		neben.add_child(Spielstaende.nebenwahl("KREUZ", "Wegwerfen" if de else "Discard", func(): zu.call(); frage_wegwerfen(g)))
+		# Pruefer 16:40: eine eigene Zeile streckte das Fenster (Kettenpanzer bis in die Reiter); Wegwerfen leise in der Zeile unten,
+		# nur die Nebenhand (selten) bekommt eine Zeile darueber
 		if ok and einhandwaffe(g) and not anlegen.is_valid():
-			neben.add_child(Spielstaende.nebenwahl("", "Nebenhand" if de else "Off hand", func(): zu.call(); meldung(lege_an(g, true)); baue()))
-		v.add_child(neben)
+			v.add_child(Spielstaende.nebenwahl("", "Nebenhand" if de else "Off hand", func(): zu.call(); meldung(lege_an(g, true)); baue()))
+		var weg_ := Spielstaende.nebenwahl("KREUZ", "Wegwerfen" if de else "Discard", func(): zu.call(); frage_wegwerfen(g), true, true)
+		weg_.size_flags_horizontal = Control.SIZE_SHRINK_END
+		var preis_ := v.get_child(v.get_child_count() - 2)   # „Händler zahlt n Gold“ vor der Linie: Wegwerfen leise rechts daneben
+		if preis_ is Label and String((preis_ as Label).text).contains("Gold"):
+			var pz := HBoxContainer.new()
+			pz.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			v.remove_child(preis_)
+			(preis_ as Label).size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			(preis_ as Label).size_flags_vertical = Control.SIZE_SHRINK_CENTER
+			pz.add_child(preis_)
+			pz.add_child(weg_)
+			v.add_child(pz)
+			v.move_child(pz, v.get_child_count() - 2)
+		else:
+			v.add_child(weg_)
 		v.add_child(Spielstaende.fuss(func(): schleier.queue_free(); if zurueck.is_valid(): zurueck.call(), "", Sprache.u("equip"), Stil.BRIGHT, func(): zu.call(); an_c.call(), ok))
 		return schleier
 	var unten := HBoxContainer.new()

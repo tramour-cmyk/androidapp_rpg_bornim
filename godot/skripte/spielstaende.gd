@@ -340,7 +340,7 @@ func _voll_zeile(d: Dictionary, de: bool) -> Control:
 static func frage(eltern: Control, titel: String, zeilen: Array, zeichen: String, wahl: String, farbe: Color, tat: Callable, an := true) -> ColorRect:
 	var de := Sprache.aktiv() == "de"
 	var schleier := Rueckfrage.schleier(eltern)
-	schleier.color = Color(0, 0, 0, 0.97)
+	schleier.color = Color.BLACK   # Pruefer 16:40: bei 0,97 schien die Liste (Werte, Rezepte) durch und ueberlappte den Text
 	var mitte := CenterContainer.new()
 	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -361,11 +361,12 @@ static func frage(eltern: Control, titel: String, zeilen: Array, zeichen: String
 	return schleier
 
 # unten in einem Fenster: „‹ ABBRECHEN“ links, die Wahl rechts (Chef 14:26: „vor allem fehlt bei Bild 8 das Abbrechen“)
-static func fuss(abbrechen: Callable, zeichen: String, wahl: String, farbe: Color, tat: Callable, an := true) -> HBoxContainer:
+static func fuss(abbrechen: Callable, zeichen: String, wahl: String, farbe: Color, tat: Callable, an := true, mitte: Array = []) -> HBoxContainer:
 	var de := Sprache.aktiv() == "de"
 	var unten := HBoxContainer.new()
 	unten.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	unten.add_child(nebenwahl("", "‹  " + ("Abbrechen" if de else "Cancel"), abbrechen))
+	for m in mitte: unten.add_child(m)   # leise Nebenwahlen zwischen Abbrechen und der Wahl (Gegenstandsfenster: Wegwerfen)
 	var luecke_ := Control.new()
 	luecke_.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	luecke_.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -411,14 +412,14 @@ static func folge_inhalt(spalte: VBoxContainer, rolle: ScrollContainer, innen: C
 	passe.call_deferred()
 
 # Nebenwahl (549a Punkt 4): Versalien gesperrt wie die Hauptwahl, kleiner, gedaempftes Gold, eigenes Zeichen, Flaeche 48 dp
-static func nebenwahl(zeichen: String, text: String, tat: Callable, an := true) -> PanelContainer:
+static func nebenwahl(zeichen: String, text: String, tat: Callable, an := true, leise := false) -> PanelContainer:
 	var lz := HBoxContainer.new()
 	lz.add_theme_constant_override("separation", int(6 * DP))
 	lz.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	lz.custom_minimum_size.y = 48 * DP
 	lz.alignment = BoxContainer.ALIGNMENT_CENTER
 	lz.add_child(Erschaffung.luecke(0, 8))
-	var f := Stil.GOLD if an else Color(Stil.DIM, 0.6)
+	var f := (Stil.DIM if leise else Stil.GOLD) if an else Color(Stil.DIM, 0.6)   # leise: Pruefer 16:40, Wegwerfen wie Abbrechen
 	if zeichen != "":
 		var kr := Rastzeichen.neu(zeichen, 14, f)
 		kr.size_flags_vertical = Control.SIZE_SHRINK_CENTER
