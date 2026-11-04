@@ -40,7 +40,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 439 | M | **von Sokrates:** Reihenfolge Angriff, Treffer, Tod, Neuformation | wartet auf Test: t249 | – |
 | 440 | M | **von Sokrates:** Wolf-Tod zu schnell weg | wartet auf Test: t249 | – |
 | 416.6 | M | **von Sokrates:** Spuren (`core/Tracks.kt`): Blut, Staub, Fußspuren | wartet auf Perikles: Probebild (511); mit 416.4 b31b7a85d lokal gut | `claude/jerry-416-6-blut` |
-| 415 | M | **von Sokrates:** Probe Beams Free Sample im Kampfort; nichts kaufen | wartet auf Test: t250 Renderer mobile gemessen (Chef 10:48: ohne 26, Strahlen 24–25 Bilder/s, Zu 415); zweiter Renderer fehlt; claude/jerry-415-ohne-strahl | – |
+| 415 | M | **von Sokrates:** Probe Beams Free Sample im Kampfort; nichts kaufen | startbar: t250 gemessen (Chef 10:48/10:51: mobile 26/24–25, gl 44/33–34 Bilder/s, Zu 415); Renderervorschlag mit Bildvergleich an den Chef | – |
 | 403 | M | **von Team Tom:** Kampfort: Held je Klasse wie im Dorf | wartet auf Tom: t249 bestanden, nicht auf main | – |
 | 461.1 | M | **von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461):** Grundstand mit Tom: Kampfort, Wölfe, Helden (`LISTE-GRUNDSTAND-461.md`); vor 460 und 406.1 | ruht: nach dem Durchspielen (488) | `claude/grundstand-461` |
 | 460 | M | **von Sokrates (Chef 01.11., 20:2x, Archiv 460):** Probefilm Kamerafahrten: Eröffnung je Blende (402), kurze Wechsel nur ohne Eingabe | ruht: nach dem Durchspielen (488, Wochenziel 03.11.) | – |
@@ -87,7 +87,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht: Klang zieht nach Godot; Rest `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
 ## Einzelheiten
 
-- **Zu 415, von Sokrates (Chef 04.11., 10:48, Bild ohne Worte, Build 250, 250.1):** Renderer mobile: Ohne Strahl Mittel 26 Bilder/s, Blauer Laser 24, Feuerstrom 24, Blitzbogen 25 (Kopfzeile „25 Bilder/s · Renderer mobile“). Strahlen kosten also 1–2 Bilder/s; die Grenze setzt der Kampfort selbst. Zweiter Renderer noch nicht gemessen. Bild: `chefsache/bilder/415-strahlen-mobile.webp`.
+- **Zu 415, von Sokrates (Chef 04.11., 10:48, Bild ohne Worte, Build 250, 250.1):** Renderer mobile: Ohne Strahl Mittel 26 Bilder/s, Blauer Laser 24, Feuerstrom 24, Blitzbogen 25 (Kopfzeile „25 Bilder/s · Renderer mobile“). Strahlen kosten also 1–2 Bilder/s; die Grenze setzt der Kampfort selbst. Bild: `chefsache/bilder/415-strahlen-mobile.webp`. **10:51 gl_compatibility:** Ohne Strahl 44, Blauer Laser 33, Feuerstrom 34, Blitzbogen 34 (Bild `415-strahlen-gl.webp`): Grundlast deutlich niedriger, Strahlen kosten dort 10–11 Bilder/s. t250 damit erledigt; dein Renderervorschlag an den Chef (mit Bildvergleich beider Renderer, über das Aussehen urteilt er).
 
 - **Zu t251, t252, t255, t257, von Sokrates (Chef 04.11., 07:57, „bitte die Builds und Fragen konsolidieren“):** alle 29 Punkte stehen jetzt in einer Liste `chefsache/ansehen/t257-kampf-klang.md` (Nummern unverändert); t251, t252, t255 gelöscht, t249 auch (Chef 00:41 durch, Zu t249 bei Tom). Stände „wartet auf Test: t252“, „t251“, „t249“ bitte auf t257 bzw. Ergebnis nachziehen. Nächste Testbitte: gleich in t257 ergänzen oder neuer Build mit einer Liste, die alles Ungetestete enthält.
 
