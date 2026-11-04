@@ -1,5 +1,7 @@
 # 572 · Probebild Effektprobe (REEBOO-Gratisstücke), Freigabe für den Film · Team Jerry · 04.11., 21:44
 
+[Bild von 04.11., 21:44](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/04-2144-572-Jerry.png) (eingetragen von meldung.sh, Jerry)
+
 Großbild: Telegram 04.11. 21:4x (8 Kacheln, 1080 px breit).
 
 Kurz: Der Film ist vorbereitet (Compatibility wie dein Handy, ohne und mit Glow, am Ende poisoned grün und blau). Dein Wort von 21:03 („ich brauche den Film“) kennt der Filmwächter (511) nicht; er lässt den Film erst nach „572 Probebild passt“ los. Das Bild ist ohnehin schon aus demselben Filmskript gerendert (Renderer mobile).
