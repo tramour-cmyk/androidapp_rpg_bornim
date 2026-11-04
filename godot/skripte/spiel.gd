@@ -1335,6 +1335,9 @@ func leute_blatt() -> void:
 	held.leute = leute.get_children()
 	print("LEUTE BLATT ", ids)
 	if "--gesichter" in OS.get_cmdline_user_args():   # 475: zuerst alle Gesichter nebeneinander
+		if "--gesichtervergleich" in OS.get_cmdline_user_args():   # Lauf 2: wie Lauf 1 (Nahebene) und doppelt so weit (Zoom), zum Vergleich
+			await gesichter(dir, true, "leute_gesichter_nah.png")
+			await gesichter(dir, false, "leute_gesichter_weit.png", 2.0)
 		await gesichter(dir)
 	kamera.ziel = mitte_n
 	kamera.springe()
@@ -1381,18 +1384,24 @@ func leute_blatt() -> void:
 # in leute_gesichter.png (4 Spalten, Name darunter). Zeilen GESICHT: Person, Kaufkoerper oder alt
 const GESICHT_BREITE := 0.55          # m Bildbreite der Kamera
 const GESICHT_KACHEL := 420           # Punkte je Bild (Quadrat um den Kopf)
-func gesichter(dir: String) -> void:
-	var alle: Array = leute.get_children()
+# 475 Lauf 2 (Pruefer 20:39: „Im ganzen Blatt fehlt die Tuschelinie“): nah = wie Lauf 1 (Nahebene kurz vor die Person); sonst bleibt die
+# Nahebene, und statt dessen sind Dorf und Held ausgeblendet (was vor dem Kopf stand, waren Haeuser); Licht und Kamera wie im Spiel
+func gesichter(dir: String, nah := false, datei := "leute_gesichter.png", weit := 1.0) -> void:
+	var alle: Array = leute.get_children().filter(func(x): return x is Leute and not x.is_queued_for_deletion())
 	var mk := Node3D.new()
 	leute.add_child(mk)
 	var neig_vorher: float = kamera.neigung
 	var zoom_vorher: float = kamera.zoom
 	kamera.neigung = -12.0
-	kamera.zoom = GESICHT_BREITE
+	kamera.zoom = GESICHT_BREITE * weit
 	# Lauf 258 (Pruefer 05:16: fuenf von zwoelf Bildern zeigten nur Dachziegel): die Kamera steht 40 m zurueck (kamera.gd folge), Haeuser
 	# davor verdeckten den Kopf; die Nahebene kurz vor die Person, was davor steht, faellt weg
 	var near_vorher: float = kamera.near
-	kamera.near = 40.0 - 1.5
+	if nah: kamera.near = 40.0 - 1.5
+	var welt_sichtbar: Array = []
+	if not nah:
+		for n in [gebiet, held]:
+			if n is Node3D: welt_sichtbar.append([n, (n as Node3D).visible]); (n as Node3D).visible = false
 	var name_l := Label.new()
 	name_l.add_theme_font_override("font", Stil.schrift())
 	name_l.add_theme_font_size_override("font_size", 30)
@@ -1443,8 +1452,9 @@ func gesichter(dir: String) -> void:
 	blatt.fill(Color("0e0b08"))
 	for i in kacheln.size():
 		blatt.blit_rect(kacheln[i], Rect2i(Vector2i.ZERO, kacheln[i].get_size()), Vector2i((i % sp) * GESICHT_KACHEL, (i / sp) * GESICHT_KACHEL))
-	blatt.save_png(dir + "/leute_gesichter.png")
-	print("GESICHTER ", kacheln.size(), " ", dir + "/leute_gesichter.png")
+	blatt.save_png(dir + "/" + datei)
+	print("GESICHTER ", kacheln.size(), " ", dir + "/" + datei, " nah" if nah else " ohne Dorf")
+	for w in welt_sichtbar: (w[0] as Node3D).visible = w[1]
 	ebene.queue_free()
 	mk.queue_free()
 	kamera.near = near_vorher

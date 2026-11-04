@@ -343,7 +343,8 @@ static func haare(m: Node3D, sk: Skeleton3D, k: String, a: Dictionary, mats: Arr
 	var ich: Array = info.get("trachten", {}).get(k, {}).get("kopf", ref)
 	var vers := Vector3(ich[0] - ref[0], ich[1] - ref[1], ich[2] - ref[2])
 	var ruhe := im_raum(m, sk) * sk.get_bone_global_rest(kb)
-	for n in [String(a.get("frisur", "")), String(a.get("bart", ""))]:
+	# 475 Lauf 2: Bart auch als Liste mit Komma (Schnauzer und Kinnbart), weitere Formen aus held_klassen.py baerte_mehr
+	for n in [String(a.get("frisur", ""))] + Array(String(a.get("bart", "")).split(",", false)):
 		if n == "": continue
 		var q := hs.find_child(n, true, false) as MeshInstance3D
 		if q == null: continue
@@ -776,7 +777,8 @@ static func person(id: String, mats: Array) -> Node3D:
 # 475 (Chef 04.11., 13:26: „Borik, Bran und Ostik sehen sich aus, als ob sie eineiige Zwillinge wären … ein Gesicht definiert sich über die
 # Form des Gesichts“): Gesicht je Person aus den Reglern des Kopfs (kopf.py REGLER, EINHEIT; held_klassen.py Schluessel „r_<regler>“),
 # an Haut, Augen, Brauen, Haar und Bart gleich; g = {regler: Wert} wie kopf.form_aus
-const EINHEIT := {"breite": 0.1, "kiefer": 0.1, "laenge": 0.1, "kinn": 0.01, "nase": 0.1, "wangen": 0.01, "brauen": 0.01, "ohren": 0.1, "augen": 0.01}
+const EINHEIT := {"breite": 0.1, "kiefer": 0.1, "laenge": 0.1, "kinn": 0.01, "nase": 0.1, "wangen": 0.01, "brauen": 0.01, "ohren": 0.1, "augen": 0.01,
+	"hoecker": 0.01, "nasenbreite": 0.1, "spitze": 0.01, "augen_gross": 0.1, "augen_schmal": 0.1, "augen_tief": 0.01, "bdick": 0.1, "bwinkel": 0.01}   # Lauf 2: Form (kopf.py)
 static func gesicht(m: Node3D, g: Dictionary) -> void:
 	if g.is_empty(): return
 	for mi in m.find_children("*", "MeshInstance3D", true, false):

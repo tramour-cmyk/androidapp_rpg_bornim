@@ -71,6 +71,9 @@ HAARE_M = ['Hair_SimpleParted', 'Hair_Buzzed', 'Hair_SlickBack', 'Hair_Ponytail'
 HAARE_W = ['Hair_Long', 'Hair_LongDreads', 'Hair_Ponytail_2', 'Hair_Bob', 'Hair_Buns']
 HAARE = HAARE_M + HAARE_W
 BAERTE = ['Hair_Beard', 'Hair_Moustache', 'Hair_MuttonChops']
+# 475 Lauf 2 (Chef 04.11., 20:47: „Borin und Bram. Den gleichen Bart“): weitere Bartformen aus dem Vollbart (baerte_mehr); Godot nimmt
+# auch mehrere mit Komma (leute.json kauf.bart, z. B. Schnauzer und Kinnbart)
+BAERTE_MEHR = ['Bart_Kurz', 'Bart_Kinn', 'Bart_Lang', 'Bart_Breit']
 FORMEN = [k for k, f in KO.FORMEN.items() if f]
 # Haare: „Rigged to Head Bone“ (Godot) vor „Origin at 0“ (wie kauf_kleid.py; quaternius.py nimmt die erste nach Namen)
 RIGGED = {}
@@ -110,7 +113,8 @@ def kopfsitz(netze, haut, p):
     me = haut.data; N = np.empty(len(me.vertices) * 3); me.vertices.foreach_get('normal', N)
     N = N.reshape(-1, 3) @ np.array(haut.matrix_world.to_3x3().inverted().transposed()).T
     N /= np.maximum(np.linalg.norm(N, axis=1, keepdims=True), 1e-9)
-    kopf = np.where((W[:, 2] > p['kinn_z'] - 0.04) & (np.linalg.norm(W - p['mitte'], axis=1) < 0.2))[0]
+    # Lauf 2 (Pruefer lokal 21:57: Gruen der Kapuze scheint an Hals und Kinnrand durch): auch der Hals bis 12 cm unter dem Kinn
+    kopf = np.where((W[:, 2] > p['kinn_z'] - 0.12) & (np.linalg.norm(W - p['mitte'], axis=1) < 0.24))[0]
     kd = KDTree(len(kopf))
     for j, i in enumerate(kopf): kd.insert(Vector(W[i]), j)
     kd.balance()
@@ -121,10 +125,17 @@ def kopfsitz(netze, haut, p):
             dz = p['oben'] + 0.012 - float(V[:, 2].max())
             if dz > 0.003:
                 KO._zurueck(o, V + np.array([0.0, 0.0, dz])); print('KOPFSITZ', o.name, 'Tuch hoch um %.3f m' % dz)
+        if 'tuch' in n or 'hood' in n:   # 475 Lauf 2 (Chef 20:49): Gesicht ganz frei, Stirn bis Kinn, so breit wie das Gesicht
+            bm = bmesh.new(); bm.from_mesh(o.data); mw = o.matrix_world; bx = p['augen_x'] / 0.6 * 1.05
+            weg = [f for f in bm.faces if (lambda c: c.y < p['mitte'][1] - 0.03 and abs(c.x) < bx and p['kinn_z'] - 0.03 < c.z < p['augen_z'] + 0.03)(mw @ f.calc_center_median())]
+            bmesh.ops.delete(bm, geom=weg, context='FACES'); bm.to_mesh(o.data); bm.free(); o.data.update()
+            print('KOPFSITZ', o.name, 'Gesicht frei:', len(weg), 'Flaechen weg')
         if 'armet' in n:
             bm = bmesh.new(); bm.from_mesh(o.data); mw = o.matrix_world
-            weg = [f for f in bm.faces if all(((mw @ v.co).y < p['mitte'][1] - 0.02) and (p['kinn_z'] - 0.01 < (mw @ v.co).z < p['augen_z'] + 0.025)
-                                               for v in f.verts)]
+            # Lauf 2 (Pruefer 21:26: Wangenklappen bis neben die Mundwinkel): nach der Flaechenmitte, auch die Wangenklappen vor dem Gesicht
+            # Pruefer lokal 21:57: graublaues Band quer ueber das Kinn unter der Unterlippe (Kinnschutz): vorn bis 7 cm unter das Kinn
+            weg = [f for f in bm.faces if (lambda c: (c.y < p['mitte'][1] - 0.02 and p['kinn_z'] - 0.04 < c.z < p['augen_z'] + 0.025)
+                                           or (c.y < p['mitte'][1] - 0.04 and p['kinn_z'] - 0.07 < c.z <= p['kinn_z'] - 0.04))(mw @ f.calc_center_median())]
             bmesh.ops.delete(bm, geom=weg, context='FACES'); bm.to_mesh(o.data); bm.free(); o.data.update()
             print('KOPFSITZ', o.name, 'Visier offen:', len(weg), 'Flaechen weg')
         V = KO._welt(o); durch = 0; tief = 0.0
@@ -140,6 +151,127 @@ def kopfsitz(netze, haut, p):
     return teile
 
 
+TUCHTEILE = ('tuch', 'tuch_knoten', 'tuch_zipfel')
+KOPF_BLEIBT = ('circlet', 'circlet_stein')   # Reif (Lyra) bleibt, wie gebaut
+
+
+def tuch_haube(haut, p, t, tn):
+    """475 Lauf 2 (Pruefer am Kopfbild 21:26: unser Kopftuch steht am Kaufkopf als Ballon ab, Lappen ueber Wange, Mund und Kinn, Zipfel
+    sticht hinten heraus): das Tuch aus der Kopfhaut des Kaufkopfs selbst, 9 mm ueber der Haut: Scheitel und Stirn ab 3 cm ueber den
+    Augen, hinten ab der Kopfmitte (Ohren, Hinterkopf) bis 3 cm ueber dem Kinn; Farbe, Bild und Kennung wie unser Tuch, der Knoten
+    unseres Tuchs hinten an die Haube, der Zipfel faellt weg. t: unser Tuch (eigenes Netz), wird zur Haube."""
+    import bmesh
+    lt = np.zeros(len(t.data.vertices), dtype=int); t.data.attributes['teil'].data.foreach_get('value', lt)
+    nm = np.array([tn[i] if 0 <= i < len(tn) else '?' for i in lt])
+    T = KO._welt(t)
+    uv0 = {l.vertex_index: tuple(t.data.uv_layers.active.data[l.index].uv) for l in t.data.loops}
+    ti = np.where(nm == 'tuch')[0]
+    uv_t = uv0.get(int(ti[len(ti) // 2]), (0.5, 0.5)) if len(ti) else (0.5, 0.5)
+    alb = np.zeros((len(T), 4)); t.data.color_attributes['albedo'].data.foreach_get('color', alb.ravel()) if 'albedo' in t.data.color_attributes else None
+    farbe = alb[ti].mean(0) if len(ti) and alb.any() else np.array([0.6, 0.55, 0.45, 1.0])
+    knoten = T[nm == 'tuch_knoten']
+    # Haube: Kopie der Haut, nur die Flaechen des Bereichs
+    h = haut.copy(); h.data = haut.data.copy(); h.name = 'tuch'
+    for c in haut.users_collection: c.objects.link(h)
+    W = KO._welt(h)
+    me = h.data; N = np.empty(len(me.vertices) * 3); me.vertices.foreach_get('normal', N)
+    N = N.reshape(-1, 3) @ np.array(h.matrix_world.to_3x3().inverted().transposed()).T
+    N /= np.maximum(np.linalg.norm(N, axis=1, keepdims=True), 1e-9)
+    kopf = (np.linalg.norm(W - p['mitte'], axis=1) < 0.16) & (W[:, 2] > p['kinn_z'])
+    drin = kopf & ((W[:, 2] > p['augen_z'] + 0.03) | ((W[:, 1] > p['mitte'][1] + 0.005) & (W[:, 2] > p['kinn_z'] + 0.03)))
+
+    bm = bmesh.new(); bm.from_mesh(me); bm.verts.ensure_lookup_table()
+    alt = bm.verts.layers.int.new('alt')
+    for v in bm.verts: v[alt] = v.index
+    bmesh.ops.delete(bm, geom=[f for f in bm.faces if not all(drin[v.index] for v in f.verts)], context='FACES')
+    bmesh.ops.delete(bm, geom=[v for v in bm.verts if not v.link_faces], context='VERTS')
+    bm.verts.ensure_lookup_table(); idx = np.array([v[alt] for v in bm.verts], dtype=int)   # alte Ecke je neuer
+    bm.verts.layers.int.remove(alt); bm.to_mesh(me); bm.free()
+    # Pruefer lokal 21:57 („glatte Glatzenkappe“): Stoff mit Volumen, oben 9 mm, zum Hinterkopf und Nacken bis 2,2 cm (Tuch faellt locker)
+    Wi = W[idx]; hinten = np.clip((Wi[:, 1] - p['mitte'][1]) / 0.08, 0, 1) * np.clip((p['augen_z'] + 0.04 - Wi[:, 2]) / 0.08, 0, 1)
+    Wn = Wi + N[idx] * (0.012 + 0.012 * hinten)[:, None]
+    # Pruefer lokal 21:57 (Ohr sticht durchs Tuch, Ohrform sichtbar): ueber dem Ohr liegt das Tuch glatt darueber, nicht in seiner Form
+    ohr = (np.abs(Wi[:, 0]) > 0.06) & (Wi[:, 2] > p['augen_z'] - 0.055) & (Wi[:, 2] < p['augen_z'] + 0.02)
+    ox = max(abs(float(p['ohr_r'][0])), abs(float(p['ohr_l'][0]))) + 0.01   # Ohrspitze (Merkpunkt) und 1 cm Stoff
+    Wn[ohr, 0] = np.sign(Wi[ohr, 0]) * np.maximum(np.abs(Wn[ohr, 0]), ox)
+    KO._zurueck(h, Wn)
+    me.materials.clear(); me.materials.append(t.data.materials[0])
+    for u in list(me.uv_layers): me.uv_layers.remove(u)
+    uv = me.uv_layers.new(name='UVMap')
+    for l in me.loops: uv.data[l.index].uv = uv_t
+    for a in [a.name for a in me.color_attributes]: me.color_attributes.remove(me.color_attributes[a])
+    ca = me.color_attributes.new('albedo', 'FLOAT_COLOR', 'POINT'); ca.data.foreach_set('color', np.tile(farbe, len(me.vertices)).ravel())
+    if 'teil' not in me.attributes: me.attributes.new('teil', 'INT', 'POINT')
+    me.attributes['teil'].data.foreach_set('value', [tn.index('tuch')] * len(me.vertices))
+    if 'custom_normal' in me.attributes: me.attributes.remove(me.attributes['custom_normal'])
+    me.update()
+    # Knoten unseres Tuchs: hinten an die Haube (Mitte, Augenhoehe), sonst weg
+    bm = bmesh.new(); bm.from_mesh(t.data); bm.verts.ensure_lookup_table()
+    bmesh.ops.delete(bm, geom=[bm.verts[i] for i in np.where(nm != 'tuch_knoten')[0]], context='VERTS'); bm.to_mesh(t.data); bm.free()
+    if len(knoten) and len(me.vertices):
+        H = KO._welt(h); hinten = H[np.argmax(H[:, 1] - 0.5 * np.abs(H[:, 2] - p['augen_z']))]
+        KO._zurueck(t, KO._welt(t) + (hinten + np.array([0.0, 0.012, 0.0]) - knoten.mean(0)))
+        bpy.ops.object.select_all(action='DESELECT'); t.select_set(True); h.select_set(True); bpy.context.view_layer.objects.active = h
+        bpy.ops.object.join()
+    else:
+        bpy.data.objects.remove(t)
+    print('TUCH Haube aus der Kopfhaut', len(h.data.vertices), 'Ecken, Knoten', len(knoten), 'Ecken')
+    return h
+
+
+def kopf_frei(netze, haut, p, gesicht, teile):
+    """475 Lauf 2 (Chef 04.11., 20:49: „Garrick, Jorin, Liska, Morwen … mit irgendwelchen Verhüllungen im Gesicht … genau der gleiche
+    Scheiß“): unsere Kleidung aus held3 (ein Netz „Kleid“, Kennung „teil“ je Ecke) ist fuer unseren Kopf gebaut, nicht fuer den Kaufkopf.
+    Was davon im Kopf liegt (ueber dem Kinn, im Umkreis des Kopfs; Ringpanzer am Helm, Kapuzenreste, Kragen), faellt weg; das Kopftuch
+    wird ein eigenes Netz „tuch“ (kopfsitz setzt es auf den Scheitel und schneidet das Gesicht frei; vorher lag es im Kleid, kopfsitz sah
+    es nie: Lauf 1 ohne Zeile KOPFSITZ fuer Liska). Kragen und Halsteile unter dem Kinn: jede Ecke unter 6 mm ueber der Haut, mit dem
+    Gesicht der Person gemessen (Godot mischt es ueber die Formschluessel, das Kleid hat keine), entlang der Hautnormale hinaus.
+    Gibt die neuen Netze zurueck (Tuch)."""
+    import bmesh
+    from mathutils.kdtree import KDTree
+    tn = json.load(open(teile)) if os.path.exists(teile) else []
+    W = KO._welt(haut); Wg = W + KO.feld(W, p, gesicht or {})
+    me = haut.data; N = np.empty(len(me.vertices) * 3); me.vertices.foreach_get('normal', N)
+    N = N.reshape(-1, 3) @ np.array(haut.matrix_world.to_3x3().inverted().transposed()).T
+    N /= np.maximum(np.linalg.norm(N, axis=1, keepdims=True), 1e-9)
+    kopf = np.where((Wg[:, 2] > p['kinn_z'] - 0.12) & (np.linalg.norm(Wg - p['mitte'], axis=1) < 0.24))[0]
+    kd = KDTree(len(kopf))
+    for j, i in enumerate(kopf): kd.insert(Vector(Wg[i]), j)
+    kd.balance()
+    neu = []
+    for o in [o for o in netze if o is not haut and 'teil' in o.data.attributes]:
+        lt = np.zeros(len(o.data.vertices), dtype=int); o.data.attributes['teil'].data.foreach_get('value', lt)
+        nm = np.array([tn[i] if 0 <= i < len(tn) else '?' for i in lt])
+        V = KO._welt(o)
+        im_kopf = (V[:, 2] > p['kinn_z'] + 0.005) & (np.linalg.norm(V - p['mitte'], axis=1) < 0.17) \
+            & ((V[:, 1] < p['mitte'][1]) | (V[:, 2] > p['kinn_z'] + 0.045))   # Kragen hinter dem Hals bleibt (wie kauf_kleid.py KOPF_FREI)
+        tuch = np.isin(nm, TUCHTEILE)
+        weg = im_kopf & ~tuch & ~np.isin(nm, KOPF_BLEIBT)
+        for t in sorted(set(nm[weg])): print('KOPFFREI', o.name, t, int((weg & (nm == t)).sum()), 'Ecken im Kopf weg')
+        if tuch.any():   # Tuch als eigenes Netz (Kopie ohne den Rest)
+            t = o.copy(); t.data = o.data.copy(); t.name = 'tuch'
+            for c in o.users_collection: c.objects.link(t)
+            bm = bmesh.new(); bm.from_mesh(t.data); bm.verts.ensure_lookup_table()
+            bmesh.ops.delete(bm, geom=[bm.verts[i] for i in np.where(~tuch)[0]], context='VERTS'); bm.to_mesh(t.data); bm.free()
+            print('KOPFFREI Tuch eigenes Netz', len(t.data.vertices), 'Ecken')
+            neu.append(tuch_haube(haut, p, t, tn))
+        # Kragen: unter 6 mm ueber der Haut (Gesicht der Person) hinaus, nur am Hals und unter dem Kinn
+        hals = ~weg & ~tuch & (V[:, 2] > p['kinn_z'] - 0.10) & (V[:, 2] < p['kinn_z'] + 0.03)
+        raus = 0
+        for k in np.where(hals)[0]:
+            q, j, d = kd.find(Vector(V[k]))
+            if q is None or d > 0.04: continue
+            i = kopf[j]; h = float(np.dot(V[k] - Wg[i], N[i]))
+            if h < 0.006: V[k] = V[k] + N[i] * (0.006 - h); raus += 1
+        KO._zurueck(o, V)
+        print('KOPFFREI', o.name, 'Kragen:', raus, 'Ecken auf 6 mm ueber die Haut')
+        rest = weg | tuch
+        if rest.any():
+            bm = bmesh.new(); bm.from_mesh(o.data); bm.verts.ensure_lookup_table()
+            bmesh.ops.delete(bm, geom=[bm.verts[i] for i in np.where(rest)[0]], context='VERTS'); bm.to_mesh(o.data); bm.free(); o.data.update()
+    return neu
+
+
 def schluessel(netze, p, augen=None):
     # je Form ein Formschluessel: Verschiebung aus kopf.feld (Augen je Seite als Ganzes, wie kopf.forme)
     for o in netze:
@@ -152,8 +284,8 @@ def schluessel(netze, p, augen=None):
             if o is augen:
                 D = np.zeros_like(W)
                 for s in (W[:, 0] < 0, W[:, 0] >= 0):
-                    if s.any(): D[s] = KO.feld(W[s].mean(0, keepdims=True), p, f)[0]
-            else: D = KO.feld(W, p, f)
+                    if s.any(): D[s] = KO.augen_netz_D(W[s], p, f)
+            else: D = KO.feld(W, p, f, 'brauen' if o.name.startswith('Eyebrows') else None)
             sk = o.shape_key_add(name=n, from_mix=False)
             sk.data.foreach_set('co', ((W + D) @ Mi[:3, :3].T + Mi[:3, 3]).ravel())
 
@@ -327,6 +459,7 @@ def kaempfer(k, g, figur='', fuesse='', stiefel_bis=0.0, liste='trachten.json', 
     if liste != 'trachten.json':
         env['OUT'] = held3_tracht(figur, G['sex'], liste)
         env['KLEID_MEHR'] = ','.join(LEUTE_KLEID)
+        env['KOPF_FREI'] = '1'   # 475 Lauf 2: unsere Kopfteile weg, bevor sie die Gesichtshaut wegnehmen (kauf_kleid.py)
     elif figur:
         env['OUT'] = held3_tracht(figur, G['sex'])
         ohne = json.load(open(os.path.join(HIER, 'trachten.json')))[figur].get('ohne', [])
@@ -366,6 +499,9 @@ def kaempfer(k, g, figur='', fuesse='', stiefel_bis=0.0, liste='trachten.json', 
     haut, augen, brauen = kopfnetze(netze)
     beine_weg(haut)
     p = KO.merkpunkte(haut, augen)
+    if liste != 'trachten.json':   # 475 Lauf 2: Kleid aus dem Kopf, Tuch eigenes Netz, Kragen ueber der Haut (kopf_frei)
+        ge = json.load(open(os.path.join(HIER, liste))).get(figur, {}).get('kauf', {}).get('gesicht', {})
+        netze += kopf_frei(netze, haut, p, ge, os.path.join(env['OUT'], 'teile.json'))
     kopfteile = kopfsitz(netze, haut, p) if liste != 'trachten.json' else []
     schluessel(([haut, augen] if augen else [haut]) + brauen + kopfteile, p, augen)
     statur(arm, netze)
@@ -516,6 +652,48 @@ def bildfarbe(netze, wahl=lambda o, W: np.ones(len(W), bool)):
     return [round(float(x), 4) for x in np.median(np.array(werte), axis=0)] if werte else [1.0, 1.0, 1.0]
 
 
+def baerte_mehr(voll, haut, p):
+    """475 Lauf 2: aus dem Vollbart (Hair_Beard, Welt in der Ruhelage der Bezugsfigur) vier weitere Formen, je Mann eine eigene:
+    Bart_Kurz  kurz geschnitten: Abstand zur Haut 40 %, nichts haengt unter das Kinn (Jaeger)
+    Bart_Kinn  Kinn- und Spitzbart: nur die Mitte (|x| < 2,4 cm) unter dem Mund, unter dem Kinn spitz zulaufend und 1,8-mal laenger
+    Bart_Lang  langer Greisenbart: unter dem Kinn 4-mal laenger, nach unten schmaler, vor die Brust
+    Bart_Breit Zwergenvollbart: Abstand zur Haut 1,8-mal, 15 % breiter, unter dem Kinn 2,6-mal laenger, vor die Brust"""
+    import bmesh
+    from mathutils.kdtree import KDTree
+    H = KO._welt(haut)
+    kd = KDTree(len(H))
+    for i, v in enumerate(H): kd.insert(Vector(v), i)
+    kd.balance()
+    W0 = KO._welt(voll)
+    S = np.array([tuple(kd.find(Vector(v))[0]) for v in W0])   # naechster Hautpunkt je Ecke
+    kz, mz = p['kinn_z'], p['mund_z']
+    def kopie(name):
+        o = voll.copy(); o.data = voll.data.copy(); o.name = name
+        for c in voll.users_collection: c.objects.link(o)
+        return o
+    def weg(o, maske):
+        bm = bmesh.new(); bm.from_mesh(o.data); bm.verts.ensure_lookup_table()
+        bmesh.ops.delete(bm, geom=[bm.verts[i] for i in np.where(maske)[0]], context='VERTS'); bm.to_mesh(o.data); bm.free(); o.data.update()
+    def haengen(W, faktor, schmal, vor):
+        # unter dem Kinn: laenger (faktor), nach unten schmaler (schmal: Anteil weniger Breite je 10 cm), nach vorn (vor m je m nach unten)
+        W = W.copy(); t = np.clip(kz - W[:, 2], 0.0, None)
+        dz = t * (faktor - 1.0)
+        W[:, 2] -= dz
+        W[:, 0] *= np.clip(1.0 - schmal * (t + dz) / 0.1, 0.25, 1.0)
+        W[:, 1] -= vor * dz
+        return W
+    neu = []
+    o = kopie('Bart_Kurz'); W = S + (W0 - S) * 0.4
+    KO._zurueck(o, W); weg(o, W0[:, 2] < kz - 0.012); neu.append(o)
+    o = kopie('Bart_Kinn'); m = (np.abs(W0[:, 0]) < 0.024) & (W0[:, 2] < mz - 0.004)
+    KO._zurueck(o, haengen(W0, 1.4, 0.45, 0.12)); weg(o, ~m); neu.append(o)   # Pruefer lokal 21:57: Zapfen schwebte vor dem Kragen
+    o = kopie('Bart_Lang'); KO._zurueck(o, haengen(W0, 4.0, 0.22, 0.45)); neu.append(o)
+    o = kopie('Bart_Breit'); W = S + (W0 - S) * 1.8; W[:, 0] *= np.where(W0[:, 2] < mz, 1.15, 1.0)
+    KO._zurueck(o, haengen(W, 2.6, 0.05, 0.5)); neu.append(o)
+    for o in neu: print('BART', o.name, len(o.data.vertices), 'Ecken')
+    return neu
+
+
 def schaedel(netz, kz):
     # Mitte und Masse des Schaedels: Ecken der Kopfhaut ueber dem Kopfknochen (Welt)
     W = KO._welt(netz)
@@ -587,6 +765,7 @@ def haare(g):
             bpy.context.view_layer.objects.active = o
             bpy.ops.object.select_all(action='DESELECT'); o.select_set(True)
             bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+        if n == 'Hair_Beard' and neu: neu += baerte_mehr(neu[0], haut, p)
         schluessel(neu, p)
         alle += neu
     haar_ref = bildfarbe([o for o in alle if o.name in HAARE])
