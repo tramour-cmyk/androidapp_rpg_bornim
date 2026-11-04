@@ -28,6 +28,13 @@ Bekannt, kommt mit dem zweiten Durchgang:
 - Nicht im Bild: Dorf West und Ost (Bach), Tiefer Wald West.
 - Die Bildrate am Gerät fehlt, entgegen deinem Auftrag vor der Vorlage; messen kannst nur du, mit dem Testmenü „FPS“ im nächsten Build.
 
+Befund des Prüfers (16:01, nach dem Versand; alles kommt in den zweiten Durchgang):
+- „Nie gesehen“ ist nirgends schwarz, sondern blaugrau (Wald) bzw. blau (Höhle); Steine, Stämme, Felspfeiler und Lichtscheine bleiben darin sichtbar, auch Rauch und Glut eines Feuers (Bild 4, 5).
+- Der Randwald wird zum Rand hin teils heller statt dunkler (Bild 1, 5, 3); dazwischen liegt ein dunkles Nebelband mit harter Kante, wie ein See vor einem leuchtenden Wald. In der Ecke stehen ein graues Schwarz (Rand) und ein blaues (Nebel) nebeneinander.
+- Bild 2: der Weg nach Süden verschwindet in einem dunklen Streifen, ob er weiterläuft, sieht man nicht. Bild 4: Höhlenmund nur ein schmaler Schlitz, darüber glatter grauer Fels mit grünem Fleck, dem Fels fehlt die Tuschelinie.
+- Höhle (Bild 8, 9): der Ausgang zeigt ein hart umrandetes, fleckiges Rechteck statt Tageslicht, unten eine harte Kante; rötlicher und türkiser Schein im Unbekannten (sieht nach Nachbarräumen aus); der Schild schwebt über dem Kopf des Helden.
+- Dorf (Bild 6, 7): Wege und Bach laufen gut weiter, aber im Bild ist gar kein Nebel; Bild 8: Titel doppelt übereinander gedruckt.
+
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41844009083 (Commit 92b43b3ae auf `claude/tom-505-rand`); Tests `nebel_505`, `rand_505`, `kartennebel_505`, `wald_490`, Skripte ohne Fehler.
 
 Antwort:
