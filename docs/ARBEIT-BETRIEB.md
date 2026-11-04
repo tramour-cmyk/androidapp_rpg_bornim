@@ -60,6 +60,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 13:16 04.11.: Neustart Tom bade90a46 → `gUXc` „558: Robe Probebild vorlegen“ (nach idle, mit Dauerregel); alter Tom `TjcN` archiviert, 14,86 $ auf 558.
 - 12:44 04.11.: Neustart Sokrates 9ffdbca78 → `xVie` „Chefrunde: Test Build 257 begleiten“ (nach idle); alter Sokrates `77Dj` archiviert, 20,77 $ auf 512. 12:39 „Weiter: 557“ an Tom `TjcN` (statt zweiter Tom, eine Sitzung je Rolle).
 - 12:36 04.11.: Neustart Tom 405839b6b → `TjcN` „558: Robe lebendiger“ (nach idle, mit Dauerregel); alter Tom `smGQ` (513/557) archiviert, 20,56 $ auf 557.
 - 11:18 04.11.: Chefwort „alte Sitzungen schließen“: Tom `76rG` (531, idle seit 07:03) archiviert, 3,68 $ auf 531; Datei 531a gestrichen. Offen je Rolle nur eine: Tom `smGQ`, Jerry `wfZL`, Spike `76JL`, Perikles `76di`, Homer `78Ga`, Sokrates `77Dj`.
