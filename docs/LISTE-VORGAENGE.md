@@ -144,7 +144,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 496 | Durchspiel-Build: Kapitel 1 von Anfang bis Ende am Handy (Wochenziel 03.11., 488) | E Technik | M | – | Team Jerry | wartet |
 | 496a | Rückfrage: abgenommene Kampfbilder (Grundstand 461) schon in den Durchspiel-Build? | E Technik | M | 51,18 $ | Team Jerry | zu testen |
 | 497 | „Über das Spiel“: Lizenzhinweis der Godot Engine (MIT) und ihrer Drittteile fehlt (Chef 03.11., 07:09, Frage nach Schriften, Build 204) | M Veröffentlichung | M | 8,44 $ | Team Tom | zu testen |
-| 498 | Schriftbild wie in der Kotlin-Fassung: Größe, Sperrung, Halbfett (Chef 03.11., 07:13, „Über das Spiel“ wirkt kleiner) | E Oberfläche | M | – | Team Tom | gebaut |
+| 498 | Schriftbild wie in der Kotlin-Fassung: Größe, Sperrung, Halbfett (Chef 03.11., 07:13, „Über das Spiel“ wirkt kleiner) | E Oberfläche | M | – | Team Tom | erledigt |
 | 499 | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 (Chef 03.11., 07:14, Build 204) | E Figuren | M | 9,32 $ | Team Tom | wartet |
 | 500 | Welt: Probeknöpfe rechts (Tag/Nacht, Nah/Fern, Drehen, Sprache, Tiere) weg; „Karte Näher/Normal“ bleibt (Chef 03.11., 07:24 und 07:27, Build 204) | E Oberfläche | M | – | Team Tom | gebaut |
 | 501 | Schänke: Feuer im Kamin schwebt, beginnt nicht auf der Feuerstelle (Chef 03.11., 07:26, Build 204) | E Innenräume | M | – | Team Tom | gebaut |
@@ -159,7 +159,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 516 | Kostenerfassung ohne Handarbeit: Haken oder Werkzeug liest beim Archivieren `total_cost_usd` des letzten result-Ereignisses und bucht (Chef 03.11., 16:20, Ford) | B Abläufe | K | – | Perikles | ruht |
 | 531 | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere sichtbar mit der Fackel, Ruhebewegungen (Chef 03.11., 23:42) | A Spiel | M | 12,96 $ | Team Tom | startbar |
 | 531a | Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast kaufen? (Chef 04.11., 19:27) | A Spiel | M | – | Team Tom | wartet |
-| 530 | Build 249: Schlagbaum am Nordweg öffnet sich nicht sichtbar (Chef 03.11., 23:40) | A Spiel | M | – | Team Tom | gebaut |
+| 530 | Build 249: Schlagbaum am Nordweg öffnet sich nicht sichtbar (Chef 03.11., 23:40) | A Spiel | M | – | Team Tom | erledigt |
 | 548 | MARS im Wald: drei Riesenratten sterben ohne Zutun des Spielers, Sieg ohne einen Knopf (Chef 04.11., 00:03, Bild) | E Kampf | M | – | Team Jerry | startbar |
 | 551 | MARS: Rahmen des unteren Kastens links und rechts unterbrochen (Chef 04.11., 00:21) | E Kampf | M | – | Team Jerry | startbar |
 | 552 | MARS: Zugreihenfolge oben fehlt am Gerät (Chef 04.11., 00:22) | E Kampf | M | – | Team Jerry | zu testen |
@@ -174,7 +174,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 535 | Kampf: Gegnerstufe, Elite, schimmernde Gegner, Gruppen (Ratten und Fledermäuse als Wölfe, Schamane ohne Heilen), EP und Gold je Gegner, Nachlass in Stufe 1; gegen BRS klären, Balance entscheidet der Chef (Abgleich 512, Sokrates 03.11., 23:4x) | E Kampf | M | 18,19 $ | Team Jerry | zu testen |
 | 536 | Kampf: Erklärungen bei langem Drücken (MarsTips), Grund bei gesperrtem Zauber, „Kein Ziel in Sicht“, Knopf „Schnell“, Stufe und EP im Gruppenkasten, Seltenheitsfarbe der Beute (Abgleich 512, Sokrates 03.11., 23:4x) | E Kampf | M | – | Team Jerry | zu testen |
 | 537 | Kapitelende fehlt: nach Aldric kein „ENDE VON KAPITEL 1“, keine Tempelszene, keine Nacht, kein Morgen im Tempel; `TEMPLE_SEEN`, Lyras Lager-Sätze fehlen (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | gebaut |
-| 538 | Heldenstufe kommt in Gesprächen nie an (Garrick warnt immer), Stufengrenze 6 für Kapitel 1 fehlt (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | gebaut |
+| 538 | Heldenstufe kommt in Gesprächen nie an (Garrick warnt immer), Stufengrenze 6 für Kapitel 1 fehlt (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | erledigt |
 | 539 | Licht folgt der Uhr nicht: wechselt nur bei Rast oder Testknopf; nachts gespeichert lädt als Tag; Nachtmonster, Nachtstimmen, Fackel hängen daran; Kampf rechnet mit der Uhr (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | gebaut |
 | 540 | Texte hängen am Spielbeginn: Südrand (immer Text vor dem Auftrag, „Kapitel 2 folgt“ fehlt, nichts gemerkt), Schlagbaum nach dem Auftrag, Klopfen an 12/5 nach Kapitel 1, Tipp beim Erwachen auch bei klassischer Steuerung (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | gebaut |
 | 541 | Welt-Bedienung: Untersuchen fehlt ganz (Brunnen, Regal, Altar mit Stand der Geschichte …), Angriff mit dem Aktionsknopf fehlt, „Aufgeben“ bei Nebenaufträgen fehlt (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | gebaut |
@@ -209,7 +209,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 557a | Rückfrage: senkrechte Lage auf Fenstern und Schirmen, mittig, oben oder unten (Chef 04.11., 20:52) | A Spiel | M | – | Sokrates | erledigt |
 | 556 | Blenden reines Schwarz statt Leuchten in der Mitte (Ringe), lang genug zum Lesen (Chef 04.11., 07:52) | A Spiel | M | – | Team Tom | gebaut |
 | 555 | Testmenü wie alt und schneller: fehlende Einträge der alten Fassung, dazu Sprünge an jede Station von Kapitel 1 (Chef 04.11., 00:30) | B Werkzeuge | M | 15,00 $ | Team Tom | gebaut |
-| 554 | Testmenü: Schalter „Monster beachten mich nicht“ fehlt (Chef 04.11., 00:27) | B Werkzeuge | M | – | Team Tom | gebaut |
+| 554 | Testmenü: Schalter „Monster beachten mich nicht“ fehlt (Chef 04.11., 00:27) | B Werkzeuge | M | – | Team Tom | erledigt |
 | 523 | Tasche wie alt und besser: „Funke löschen“, Seltenheit und Kurzangabe der Vorräte, Ausrüstungszeile mit Art, Platz, Wert, „nicht tragbar“, ▲/▼ farbig, Sortierung nach Platz, Klang beim Benutzen (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | zu testen |
 | 524 | Gegenstandsfenster, Inhalt wie alt und besser: Grundwerte (Seltenheit, Tragort, Gewicht, Schaden je Griffart, Angriff, RK + GES), Warnungen „Ungeübt“, „Zauberkraft nützt nur Zauberwirkern“, Vergleich mit „im Schnitt“ und Kapiteldeckel (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | zu testen |
 | 525 | Laden, Morwen, Rast wie alt und besser: Fleisch an Rowena verkaufen, Brauen mit hat/braucht je Zutat, Kräuterhinweis, Bilder in Brauen- und Verkaufskasten, Farbe beim Zurückkaufen, Mengenfenster mit markiertem „Alle“, Speichern nach dem Met (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | 14,17 $ | Team Tom | gebaut |
