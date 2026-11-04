@@ -306,6 +306,7 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/laden_503.gd 2>&1 | grep -E "FEHLER|LADEN503|SCRIPT ERROR"   # 503 Knopf und Rueckfrage wie alt
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/klangschalter_489.gd 2>&1 | grep -E "FALSCH|KLANGSCHALTER489|SCRIPT ERROR"   # 489 Musik, Effekte im Hauptmenue
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/kampforte_493.gd 2>&1 | grep -E "FALSCH|KAMPFORTE493|Kampforte|SCRIPT ERROR"   # 493 Kampforte im Wald
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/gruppen_535.gd 2>&1 | grep -E "FEHLER|GRUPPEN_535|SCRIPT ERROR"   # 535 Ratten, Fledermäuse, Kobolde, Schamanen mit eigenen Regeln
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_470.gd 2>&1 | grep -E "FALSCH|BRS470|SCRIPT ERROR"   # 470 Erschaffung BRS 1.1
           timeout 120 ~/godot/godot --headless --path . -s res://tests/testmenue_470.gd 2>&1 | grep -E "FEHLER|TESTMENUE470"   # 470a B: Erschaffung BRS nur im Testmenue
           timeout 120 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4532.gd 2>&1 | grep -E "^(ok|FEHLER|ATEM)"   # 453.2 Atmen unterwegs

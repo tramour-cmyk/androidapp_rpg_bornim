@@ -26,6 +26,15 @@ const CALLED := "goblin"
 const SCOUT := "goblin_archer"
 const WOLF := "wolf"
 const SPIDER := "giant_spider"
+## 535 (Abgleich 512, Sokrates): Arten mit eigenen Regeln im Körper einer anderen (aufruf.gd ART): Ratte und Fledermaus bewegen
+## sich als Wolf, Kobold und Schamane als Goblin; die Regeln fragen die Art (art_of), Bild und Bewegung weiter die id
+const RAT := "giant_rat"
+const BAT := "giant_bat"
+const KOBOLD := "kobold"
+const SHAMAN := "goblin_shaman"
+## 535 (alt Battle.kt Msg.flutters, EVASIVE): die Riesenfledermaus weicht einem Nahkampfhieb zu 20 % flatternd aus
+const MSG535_FLUTTERS = ["{0} flattert davon – daneben!", "{0} flutters away – a miss!"]
+const FLUTTER := 0.2
 const BREAK_SHARE := 5
 ## 296.2: the lines of the old fight, the same words in MARS (Skirmish.kt Msg296, Zweig claude/build-89).
 const MSG296_STILLSURPRISED = ["{0} ist noch überrascht und kann nicht reagieren!", "{0} is still caught off guard!"]
@@ -103,6 +112,8 @@ var I_GATHER := _intent("gather", "Kraft sammeln", "Gather strength", "GATHER", 
 var I_STAB := _intent("stab", "Stich", "Stab", "STRIKE", null, false, false)
 ## 348.12 (Chef 27.10., 09:49; Homer [210T.hieb]): Goblin mit Krummsäbel oder Beil sagt „Hieb“ an; gewollte Abweichung vom alten MARS
 var I_SLASH := _intent("slash", "Hieb", "Slash", "STRIKE", null, false, false)
+## 535 (alt Monsters.kt giant_rat, giant_bat: Angriff „Biss“): Ratte und Fledermaus beißen nur, ohne Sprung und Einkreisen
+var I_BITE := _intent("bite", "Biss", "Bite", "STRIKE", null, false, false)
 var I_POUNCE := _intent("pounce", "Anspringen", "Pounce", "STRIKE", null, false, false, false, "POUNCE")
 ## 399.2b: ein Jungwolf knurrt nur, kein Angriff (Homer [210T.growl])
 var I_GROWL := _intent("growl", "Knurren", "Growl", "WAIT", null, false, false, false, "GROWL")
@@ -373,6 +384,11 @@ func pick(key: String) -> Array:
 		i = words.pick(free)
 	last_wording[key] = i
 	return l[i]
+
+
+## 535: die Art, nach der die Regeln eine Figur behandeln (ohne „art“ die id)
+static func art_of(m) -> String:
+	return "" if m == null else String(m.get("art", m.id))
 
 
 func wolf(f: Fighter, own: String, general: String) -> Array:
@@ -994,7 +1010,14 @@ func _weapon_attack(f: Fighter, t: Fighter, advantage := false, cover := true, w
 	var wsheet: Dictionary = w if w != null else f.hero.main
 	var bonus: int = int(wsheet.atk) + _bless(f) - _penalty(f) + _fed(f)
 	var hit := r != 1 and (crit or r + bonus >= t.ac())
+	# 535 (alt Battle.weaponAttack, EVASIVE): einem Nahkampfhieb weicht die Fledermaus zu 20 % aus, ein Schuss trifft sie wie sonst
+	var flattert: bool = hit and t.monster != null and art_of(t.monster) == BAT and not bool(wsheet.get("ranged", false)) and dice.chance(FLUTTER)
+	if flattert:
+		hit = false
 	var info := ["ATTACK", r, bonus, t.ac(), hit, mode, cover and from_back(f)]
+	if flattert:
+		_say(fmt(MSG535_FLUTTERS, lang, [t.name(lang)]), f.id, t.id, 0, info)
+		return
 	if not hit:
 		_say(fmt(wolf(f, "MSG279_WOLFMISSES", "MSG72_MISSES"), lang, [f.name(lang), t.name(lang)]), f.id, t.id, 0, info)
 		return
@@ -1120,7 +1143,7 @@ func _foe_wounds(foe: Fighter, t: Fighter, crit: bool) -> void:
 		_inflict(t, "BLEED", 2)
 	if crit and type == "BLUDGEONING":
 		_inflict(t, "STUN", 1, ["CON", 12])
-	if m.id in OWN_INTENTS:
+	if art_of(m) in OWN_INTENTS:
 		return
 	match str(m.get("special", "NONE")):
 		"POISON":
@@ -1186,7 +1209,7 @@ func _foe_turn(foe: Fighter, react: Callable) -> void:
 		var t = first_aimed
 		if t != null:
 			_say(fmt(pick("MSG130_CIRCLECLOSED"), lang, [foe.name(lang)]), foe.id)
-			for w in all.filter(func(x): return x.side == "FOES" and x.standing() and x.monster != null and x.monster.id == WOLF):
+			for w in all.filter(func(x): return x.side == "FOES" and x.standing() and art_of(x.monster) == WOLF):
 				if outcome != "ONGOING" or not t.standing():
 					break
 				_strike(w, t, I_STAB, NONE)
@@ -1410,9 +1433,13 @@ func _free_foe_spot(back := false):
 
 
 func _pick_intent(foe: Fighter) -> Dictionary:
-	var id = foe.monster.id if foe.monster != null else ""
+	var id := art_of(foe.monster)
+	if id == RAT or id == BAT:     # 535
+		return I_BITE
+	if id == SHAMAN:     # 535: Heilen, Fluch, Feuerstoß des Schamanen fehlen noch (Ansagen über Homer); bis dahin kämpft er wie ein Goblin
+		id = CALLED
 	if id == WOLF:
-		var others := all.filter(func(x): return x.side == "FOES" and x.standing() and x.monster != null and x.monster.id == WOLF).size()
+		var others := all.filter(func(x): return x.side == "FOES" and x.standing() and art_of(x.monster) == WOLF).size()
 		var circling := intents.values().any(func(p): return p[0].effect == "CIRCLE")
 		var can := [I_POUNCE, I_POUNCE]
 		if others >= 2 and not circling and chosen:
