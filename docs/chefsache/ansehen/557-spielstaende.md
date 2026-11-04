@@ -20,6 +20,13 @@ Neu:
 
 Geprüft: alles auf dem Schirm, kein Text überlappt, keine Schrift zu klein, jede Tippfläche groß genug für den Finger, Abbrechen in jedem Fenster da (für B und neu).
 
+Befund des Prüfers (16:40, nach dem Versand), behebe ich für die nächste Runde:
+- Wegwerfen und Mengenkasten (Bild 2, 4): der Grund ist nicht deckend genug, die Liste dahinter scheint durch und überlappt den Text. Löschen (Bild 1) wirkt dagegen „ruhig und klar, besser“.
+- Gegenstandsfenster: durch die zusätzliche Zeile reicht der Rahmen beim Kettenpanzer bis in die Reiter oben; „× WEGWERFEN“ ist nicht leise (gleiche Farbe wie Abbrechen).
+- Mengenkasten: die Überschrift „Zutaten je Trank“ fehlt, ohne sie ist „7/2“ unverständlich.
+- Brauen (Bild 6): unter der letzten Zeile liegen zwei Linien übereinander. Kapitelende: oben voll, unten leer.
+- Die Rast neu im Stil B (deine Frage 16:37) ist hier noch nicht drin; sie kam nach dem Bildlauf und kommt in die nächste Runde, sobald du hierzu geurteilt hast.
+
 Bekannt: ein Test zum Laden meldet am Rechner drei Fehler beim Verkauf von Fleisch und beim Zurückkaufen, schon vor dieser Änderung; das prüfe ich beim nächsten Bauen nach.
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/f53aef228 (Zweig `claude/tom-557-spielstaende`, Bildskript `spielstaende_bild_557`, Maßtest `gruppe_mass_557`, Lauf 2 von 2 am Rechner).
