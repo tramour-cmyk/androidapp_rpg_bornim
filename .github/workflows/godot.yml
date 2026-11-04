@@ -20,6 +20,9 @@ on:
       bild:
         description: "Messlauf ohne Bilder und Filme (Perikles 02.11., 389/390a): nein"
         default: ""
+      film:
+        description: "Nur Bilder, kein Film (511: Probebild auf dem Bauserver, 390a): nein"
+        default: ""
       strahlen:
         description: "Strahlenfilm 415 (Jerry, Beams-Probe im Kampfort): ja"
         default: ""
@@ -385,7 +388,7 @@ jobs:
           ls -l $GITHUB_WORKSPACE/bilder/tuschenacht
       # 348.6 Dorftiere: Grundansicht und nah an jedem Ort, nachts, dazu ein Film (Tiere bewegen sich), nur bei Commits mit „Dorftiere“
       - name: Dorftiere Bilder und Film
-        if: contains(github.event.head_commit.message, 'Dorftiere')
+        if: contains(github.event.head_commit.message, 'Dorftiere') && github.event.inputs.film != 'nein'
         continue-on-error: true
         run: |
           mkdir -p $GITHUB_WORKSPACE/bilder/dorftiere
@@ -402,7 +405,7 @@ jobs:
       # 461.1 Grundstand (Chef 01.11., 20:3x): Film des Helden im Dorf wie im Spiel (Kämpfer, Klerikerin: Stehen, Gehen, Rennen,
       # Loslassen, Rennen zum Ziel, Gehen bei den Tieren), gegen LISTE-GRUNDSTAND-461.md
       - name: Dorf-Film Grundstand (461.1)
-        if: ${{ !cancelled() && github.event.inputs.dorf != '' }}     # nur von Hand mit dorf=ja, auch nach rotem Prüfschritt (wie 453)
+        if: ${{ !cancelled() && github.event.inputs.dorf != '' && github.event.inputs.film != 'nein' }}     # nur von Hand mit dorf=ja, auch nach rotem Prüfschritt (wie 453)
         continue-on-error: true
         run: |
           mkdir -p $GITHUB_WORKSPACE/bilder/grundstand
@@ -420,7 +423,7 @@ jobs:
       # Kandidat seit Film 403 an: Atemschicht (ATEM_ALT), Schwert-und-Schild-Bewegungen (OHNE_SS), Signatur (OHNE_SIGNATUR).
       # Nur von Hand mit kampf=ja; läuft auch nach rotem Prüfschritt (wolf_mess_438)
       - name: Kampfort-Filme Grundstand (453 r3, 453.1; nur von Hand mit kampf=ja)
-        if: ${{ !cancelled() && github.event.inputs.kampf != '' }}
+        if: ${{ !cancelled() && github.event.inputs.kampf != '' && github.event.inputs.film != 'nein' }}
         continue-on-error: true
         run: |
           B=$GITHUB_WORKSPACE/bilder/kampf461; mkdir -p $B
@@ -478,7 +481,7 @@ jobs:
       # 406 (Chef 01.11., 20:2x: „Nachbessern ohne neue Vorlage, nur kurzer Film zum Schluss“): film_406 wie die Vorlage (Sichtung
       # beider Helden, dann Kampf je Held), nur von Hand mit schild=ja; auch nach rotem Prüfschritt
       - name: Schildfilm 406 (nur von Hand mit schild=ja)
-        if: ${{ !cancelled() && github.event.inputs.schild != '' }}
+        if: ${{ !cancelled() && github.event.inputs.schild != '' && github.event.inputs.film != 'nein' }}
         continue-on-error: true
         run: |
           B=$GITHUB_WORKSPACE/bilder/schild406; mkdir -p $B
@@ -490,7 +493,7 @@ jobs:
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/schild406.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/406-schluss.mp4 || true
       # 415: Strahlenprobe im Kampfort (kampf/strahlprobe.gd, tests/film_415.gd), nur von Hand mit strahlen=ja
       - name: Strahlenfilm 415 (nur von Hand mit strahlen=ja)
-        if: ${{ !cancelled() && github.event.inputs.strahlen != '' }}
+        if: ${{ !cancelled() && github.event.inputs.strahlen != '' && github.event.inputs.film != 'nein' }}
         continue-on-error: true
         run: |
           B=$GITHUB_WORKSPACE/bilder/strahlen415; mkdir -p $B
