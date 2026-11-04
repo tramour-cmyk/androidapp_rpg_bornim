@@ -60,6 +60,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 03:23 04.11.: Neustart Jerry ae5f98f4b → `wfZL` „nächster gemeinsamer Build: 535, 534, 517“ (nach idle); alter Jerry `5g8u` archiviert, 15,87 $ auf 535.
 - 02:51 04.11.: Neustart Tom 350d6bf59 → `9WXZ` „497, dann Läufe 416.8 und 495“ (nach idle); alter Tom `6YYX` archiviert, 19,24 $ auf 416.8.
 - 02:26 04.11.: Neustart Jerry 990346ea6 → `5g8u` „Build 252 prüfen, dann 535“ (nach idle); alter Jerry `6Kf8` archiviert, 22,08 $ auf 545.
 - 01:51 04.11.: Neustart Tom c64341bce → `76YY` „Build 251 prüfen, dann 416.8“ (gestartet erst nach idle); alter Tom `78QN` archiviert, 14,17 $ auf 525.
