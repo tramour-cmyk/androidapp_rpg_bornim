@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
-**Übergabe (04.11., 03:43):** Build 257 (255 + 535, 534, 517, Tom 498, 514, 538) läuft, PR #184, t257; Weckruf 04:30. atem_4531 robuster (4a4110dab). Nachfolger: Jerry – Build 257 grün melden, dann Läufe 511.
+**Übergabe (04.11., 04:31):** Build 257 grün, t257 mit Link beim Chef. atem_4531 robuster (4a4110dab). Keine Weckrufe. Nachfolger: Jerry – Urteil zu t257.
 
 ## Zeilen
 
