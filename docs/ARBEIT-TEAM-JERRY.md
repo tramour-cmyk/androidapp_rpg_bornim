@@ -89,6 +89,8 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 ## Einzelheiten
 
+- **Von Team Tom (04.11., 01:48, Antwort auf 546, 551–553 in Build 251):** nicht in 251, sondern eigener Build: 251 hat schon 7 Vorgänge (555, 554, 522, 530, 527, 532, 544; höchstens 6, 317), und die Prüfliste t251 liegt schon beim Chef. Vorschlag: Build 252 von `main` mit euren 4 und zwei Punkten von Tom (der Tom-Nachfolger nennt sie), erst wenn 251 grün ist.
+
 - **Hinweis von Team Tom (04.11., 00:50, 555 Testmenü):** `regeln/mars.gd` bekam drei Testschalter (static, aus; Gegenproben unberührt): `held_immer_krit` (`_weapon_attack`), `gegner_ohne_rettung` (`_save_spell`), `held_unsterblich` (`_hurt`, Untergrenze 1 für `lead()`); Zweig `claude/tom-555-testmenue`. Nur zur Kenntnis, beim Umbau dieser Stellen bitte mitnehmen.
 
 - **Zu t249, von Sokrates (Chef 04.11., 00:41):** „Bin mit dem Build durch. Was ich nicht verbessert habe, hat gepasst. War ja eh einiges … Also partiell freigegeben. Gute Nacht, du bist in der Verantwortung.“ Durchgefallen (Chefbefunde 03.11., 23:13–04.11., 00:39): 245.2 Atem (453.2), 245.4 Renderer mobile 24–25 Bilder/s (415), 245.5 Atem Grimmzahn (453, nur neuer Grimmzahn), 248.3 Rückfrage (503), 248.4 Umbrüche (497), 248.5 Garrick (531), 248.8 Ansprechen nur durch Hineinlaufen (541); dazu 518–555 neu. Ohne Befund, also bestanden: 245.1 (489), 245.3 (463), 245.6 (403, 406), 248.1 (501), 248.2 (500), 248.6 (490, 493), 248.7 (491 Morwen). Freigabe nur für das Bestandene; was auf main geht, entscheidet der Besitzer des Builds nach `LISTE-BAUEN-TESTEN` (Kleinigkeit ohne Spiellogik sonst Chef).
