@@ -13,7 +13,7 @@ Diese Datei ist das Stilhandbuch: jede gültige Design-Regel steht hier oder hat
 | Bild | Signatur: Licht aus Quelle, Tuschelinie, Gold einziger Glanz | 302 | „Signatur“ unten |
 | Richtung | erwachsene, etwas düstere Fantasy; lebendige Diagonalwelt | – | „Richtung“ |
 | Schrift | eine Schrift (Alegreya) überall, Pixelschrift und Cinzel nicht mehr | 292.3 | „Oberfläche“ |
-| Kästen, Farben | schwarz, dünner Goldrand, Text gebrochenes Weiß; Held golden, Gegner rot | 60, 292.3 | „Oberfläche“ |
+| Kästen, Farben | Menüs und Fenster ohne Kasten (549a, Aufbau „Fenster und Schirme“); Goldrand nur im Kampf und an Behältern; Text gebrochenes Weiß; Held golden, Gegner rot | 60, 292.3, 549a | „Oberfläche“ |
 | Hauptmenü | schwarz, warmer Lichtkegel von oben, vier Helden zur Mitte gedreht (Entwurf A); Feuer (B) zurückgestellt | 292, 292.2, 292.3 | [Blende](DESIGN-BLENDE.md) „Vorspann und Hauptmenü“ |
 | Logo | Leiterbahn mit Lötaugen auf Schwarz | 251 | [Blende](DESIGN-BLENDE.md) Punkt 7 |
 | Zwischensequenzen | fünf Standbilder, Überblendung, Maß ist das Intro | 70, 112 | „Zwischensequenzen“ |
@@ -149,7 +149,7 @@ Im Vorschlag an den Nutzer stehen die vier Antworten kurz neben dem Abgleich mit
 
 ### Fenster und Schirme ohne Kasten (549a, Chef 04.11., 19:28: „549a ja … damit wir nicht jedes Mal wieder neu anfangen“)
 
-Gilt für jeden neuen oder umgebauten Menüschirm und jedes Fenster außerhalb des Kampfs. Gebaut wird Schirm für Schirm, wenn er ohnehin angefasst wird; kein Umbau aller Schirme vor dem Durchspielen. Bausteine in Godot: `godot/skripte/spielstaende.gd` (`frage`, `fuss`, `knopf`, `knopfzeile`, `folge_inhalt`, `zier`, `linie`, `tippbar`, `pfeil`), Farben `godot/skripte/stil.gd`. Wer baut, nimmt diese Bausteine und keine eigenen; weicht ein Wert hier vom Code ab, gilt dieser Abschnitt, der Code wird nachgezogen.
+Gilt für jeden neuen oder umgebauten Menüschirm und jedes Fenster außerhalb des Kampfs. Gebaut wird Schirm für Schirm, wenn er ohnehin angefasst wird; kein Umbau aller Schirme vor dem Durchspielen. Bausteine in Godot: `godot/skripte/spielstaende.gd` (`frage`, `fuss`, `knopf`, `knopfzeile`, `folge_inhalt`, `zier`, `linie`, `tippbar`, `pfeil`), Farben `godot/skripte/stil.gd` (bis 557 auf `main` ist, liegen die Bausteine auf Zweig `claude/tom-557-spielstaende`; `ANGABE` steht dort in `spielstaende.gd` und zieht mit dem Einbau nach `stil.gd`). Wer baut, nimmt diese Bausteine und keine eigenen; weicht ein Wert hier vom Code ab, gilt dieser Abschnitt, der Code wird nachgezogen.
 
 **Begriffe.** *Schirm*: füllt den ganzen Bildschirm (Spielstände, Laden, Brauen, Rast, Kapitelende, Wechselliste). *Fenster*: liegt über einem Schirm oder der Karte (Rückfrage, Gegenstand, Mengenkasten, Erklärung, ganzer Bericht).
 
@@ -160,15 +160,18 @@ Gilt für jeden neuen oder umgebauten Menüschirm und jedes Fenster außerhalb d
 4. **Schlichte Linie** über den Knöpfen (eine, nicht doppelt unter der letzten Listenzeile).
 5. **Knöpfe** (unten).
 
-**Grund und Rahmen.** Fenster: schwarz und ganz deckend über den ganzen Bildschirm, nichts scheint durch; Inhalt senkrecht mittig, Breite Bildschirm minus 48 dp (24 dp je Seite); Abstand zwischen den Teilen 10 dp. Kein Rahmen um Fenster, Zeilen oder Knöpfe. Rahmen nur im Kampf (Zugleiste, Gruppenkästen, wer am Zug ist; 292.3) und an Behältern (Ausrüstungsplatz, Feld der Tasche), nie an einem Fenster.
+**Antippbar erkennt man ohne Kasten so:** jede antippbare Zeile nimmt die ganze Breite ein, ist mindestens 48 dp hoch, hat links ein Zeichen oder Bild und rechts ein goldenes „›“ und wird beim Antippen dunkel (`RAISED`, `tippbar`); Text, der nur informiert, hat weder Zeichen noch „›“. Gewählte Zeile oder gewählter Wert: Schrift `BRIGHT` auf `RAISED`, kein Rahmen. Wahlen in einer Listenzeile (Spielstände „LADEN ›“) stehen rechtsbündig in der Zeile, Schrift wie Knöpfe.
 
-**Ausrichtung.** Titel immer zentriert. Rückfragen ganz zentriert (Titel, Text bis drei Zeilen, Name des Dings); hat eine Rückfrage mehr als drei Zeilen Text, steht der Text linksbündig. Alles andere linksbündig (Gegenstand, Rast, Brauen, Spielstände, Wechselliste, Kapitelende, Erklärungen), damit Zeilen an derselben Stelle beginnen und Zahlen untereinander stehen.
+**Grund und Rahmen.** Fenster: schwarz und ganz deckend über den ganzen Bildschirm, nichts scheint durch; Inhalt senkrecht mittig, Breite Bildschirm minus 48 dp (24 dp je Seite); Abstand zwischen den Teilen 10 dp. „Neben das Fenster tippen“ heißt: außerhalb dieser Inhaltsspalte. Schirm: Grund schwarz oder das Bild des Ortes abgedunkelt (Rast am Feuer, an der Theke), Seitenrand 24 dp, Inhalt beginnt oben unter Titel und Zierlinie. Zwischenüberschriften (Platz, Rezept, „Angelegt“) werden durch eine schlichte Linie getrennt, nie durch eine zweite Zierlinie. Kein Rahmen um Fenster, Zeilen oder Knöpfe. Rahmen nur im Kampf (Zugleiste, Gruppenkästen, wer am Zug ist; 292.3) und an Behältern (Ausrüstungsplatz, Feld der Tasche), nie an einem Fenster.
+
+**Ausrichtung.** Titel immer zentriert. Rückfragen zentriert (Titel, Text bis drei Zeilen, Name des Dings), ihre Knöpfe aber wie überall links und rechts außen; hat eine Rückfrage mehr als drei Zeilen Text, steht der Text linksbündig. Alles andere linksbündig (Gegenstand, Rast, Brauen, Spielstände, Wechselliste, Kapitelende, Erklärungen), damit Zeilen an derselben Stelle beginnen und Zahlen untereinander stehen. Ausnahme Mengenkasten (abgenommen 16:44, Bild 4): die Menge groß in der Mitte „− 3 +“ mit großen Tippflächen ohne Rahmen, darunter mittig ×1 · ×5 · ALLE als Wörter (je mindestens 48 dp Tippfläche), das gewählte hell mit Goldstrich darunter, nicht wählbare gedämpft lesbar.
 
 **Knöpfe.**
 - Alle Knöpfe gleich groß: je die halbe Breite (`knopfzeile`, 8 dp Abstand), Tippfläche 48 dp hoch, Schrift 15 sp, Versalien, Sperrung 2 sp, ß als SS. Kein Rahmen; beim Antippen wird die Fläche dunkel (`RAISED`), ausgelöst beim Loslassen.
 - **Seite nach Bedeutung, nie mittig, auch ein einzelner Knopf nicht:** was zurückführt oder schließt links mit „‹“ vorn (‹ ZURÜCK, ‹ ABBRECHEN, ‹ SCHLIESSEN); was weiterführt oder ausführt rechts mit „›“ hinten (WEITER ›, LADEN ›, ANLEGEN ›, BRAUEN ×3 ›, NEBENHAND ›). „‹“ und „›“ sind gezeichnete Winkel (`pfeil`), kein Schriftzeichen.
 - **Farbe statt Größe:** Hauptwahl hell golden (`BRIGHT`), Nebenwahl gedämpftes Gold (`GOLD`), was etwas zerstört (× WEGWERFEN, × LÖSCHEN) überall in Warnfarbe (`WARN`) mit „×“ vorn, im Fenster wie in der Rückfrage; nicht wählbar gedämpft (`DIM` zu 75 %), lesbar.
-- **Abbrechen sichtbar** in jedem Fenster mit einer Wahl; Android-Zurück und Tippen neben das Fenster schließen zusätzlich, Tippen ins Fenster nicht (526).
+- **Begriffe:** *Hauptwahl* = was das Fenster tut (rechts unten, `BRIGHT`); *Nebenwahl* = Zurück, Abbrechen, Schließen (links unten, `GOLD`); *Gefahr* = was zerstört (`WARN` mit „×“). In einer Rückfrage ist die Gefahr die Hauptwahl und steht rechts unten (× LÖSCHEN). In einem Fenster mit eigener Hauptwahl steht sie in der Reihe darüber links (Gegenstand: oben „× WEGWERFEN“ links, „NEBENHAND ›“ rechts; unten „‹ ABBRECHEN“, „ANLEGEN ›“). Ein freier Platz in einer Reihe bleibt leer, die anderen Knöpfe werden nicht breiter.
+- **Abbrechen sichtbar** in jedem Fenster mit einer Wahl; ein Fenster ohne Wahl (Erklärung, ganzer Bericht) hat links unten „‹ SCHLIESSEN“; Android-Zurück und Tippen neben das Fenster schließen zusätzlich, Tippen ins Fenster nicht (526).
 - Mehr als zwei Knöpfe: Reihen zu je zwei; die unterste Reihe ist immer „‹ Nebenwahl“ links, „Hauptwahl ›“ rechts.
 - **Lage:** die Knöpfe stehen direkt unter dem Inhalt, solange alles auf einen Schirm passt; nur wenn die Liste rollt, fest unten (`folge_inhalt`).
 
@@ -181,12 +184,12 @@ Gilt für jeden neuen oder umgebauten Menüschirm und jedes Fenster außerhalb d
 | Name eines Dings | 16 sp | normal, keine Versalien | Farbe der Seltenheit |
 | Fließtext | 15 sp | normal | `TEXT` |
 | Erzählter Text (Chronik, Kapitelende) | 16 sp | schräg erlaubt | `TEXT` |
-| Kleine Angaben (Reicht für, Im Besitz, Gold, Stufe, Händler zahlt, Tag · Uhr) | 13,5 sp, nie unter 13 sp | normal | `ANGABE` (cfc3ab) |
+| Kleine Angaben (Reicht für, Im Besitz, Gold, Stufe, Händler zahlt; in der Rast „Tag · Uhr · TP“, ob sie bleibt, ist offen: 549b) | 13,5 sp, nie unter 13 sp | normal | `ANGABE` (cfc3ab) |
 | Knöpfe | 15 sp | Versalien, Sperrung 2 sp | siehe Knöpfe |
 
 Versalien mit Sperrung nur für Titel, Zwischenüberschriften und Knöpfe; nie für Sätze, Namen oder Zahlen.
 
-**Farben** (`stil.gd`): `TEXT` e6ddcb gebrochenes Weiß für Text; `GOLD` b59a6a für Titel, Nebenwahl, Raute; `BRIGHT` d9bc82 für Hauptwahl, gewählten Wert und wirksame Boni; `ANGABE` cfc3ab für kleine Angaben; `DIM` 948a78 für Gesperrtes; `RIM` b59a6a zu 67 % für Linien; `WARN` d9785a **nur** für Zerstörendes; Urteil ▲ grün „Besser“, ▼ „Schlechter“, ◆ Gold „Gemischt“. Offen (Prüfer 18:21, Vorschlag in 557 Runde 5): „Schlechter“, „Fehlt“, „kannst du nicht tragen“ in einem eigenen Ton, nicht in der Warnfarbe; Seltenheit Orange nicht wie `WARN`.
+**Farben** (`stil.gd`): `TEXT` e6ddcb gebrochenes Weiß für Text; `GOLD` b59a6a für Titel, Nebenwahl, Raute; `BRIGHT` d9bc82 für Hauptwahl, gewählten Wert und wirksame Boni; `ANGABE` cfc3ab für kleine Angaben; `DIM` 948a78 für Gesperrtes; `RIM` b59a6a zu 67 % für Linien; `WARN` d9785a **nur** für Zerstörendes; Urteil ▲ grün (`GRUEN` 86c46e) „Besser“, ▼ „Schlechter“, ◆ `BRIGHT` „Gemischt“; Seltenheit (`menue.gd` `SELTEN`): gewöhnlich bdb6a8, ungewöhnlich 86c46e, selten 82aaf2, sehr selten bc8ef2, episch f29e50, göttlich eac650. Inhalt und Reihenfolge des Gegenstandsfensters nach 524.1 (Archiv 04.11., 13:32). Offen (Prüfer 18:21, Vorschlag in 557 Runde 5): „Schlechter“, „Fehlt“, „kannst du nicht tragen“ in einem eigenen Ton, nicht in der Warnfarbe; Seltenheit Orange nicht wie `WARN`.
 
 **Prüfen vor jeder Vorlage** (Maßtest `gruppe_mass_557` und Helfer, 512b): alles auf 360 dp sichtbar, nichts überlappt, Schrift mindestens 13 sp, Tippfläche mindestens 48 dp, jedes Bildfeld gefüllt (Gegenstand, Trank, Kraut), jede Regel dieses Abschnitts eingehalten.
 
