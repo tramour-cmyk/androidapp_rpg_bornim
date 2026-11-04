@@ -36,12 +36,15 @@ func _lauf() -> void:
 		if st.size() > 1: gemischt += 1
 		if not st.has(0): bekannt += 1
 	pruefe(nd.haeuser.size() >= 5 and gemischt == 0 and bekannt >= 1, "Dorf: %d Haeuser, %d gemischt, %d bekannt" % [nd.haeuser.size(), gemischt, bekannt])
-	# Chef 16:12 (1): Schwarz ist 0: die Farbkorrektur zieht den Fuss, den Kontrast 0,87 hebt (16,6 von 255), auf 0
+	# Chef 16:12 (1): Schwarz ist 0; Pruefer 17:21: keine Saeume in einem Kanal. Die Umgebung steht auf Kontrast 1, die Farbkorrektur
+	# macht den Kontrast oberhalb des Knies nach und laeuft darunter gerade auf 0 (nichts abgeschnitten)
 	var env: Environment = spiel.licht.env
 	var cc = env.adjustment_color_correction
-	var fuss := 0.5 * (1.0 - env.adjustment_contrast)
-	pruefe(cc is GradientTexture1D and fuss > 0.05 and (cc as GradientTexture1D).gradient.sample(fuss).r < 0.002 and absf((cc as GradientTexture1D).gradient.sample(0.5).r - 0.5) < 0.002,
-		"505 Lauf 2: Schwarzfuss %.3f auf 0, Mitte unveraendert" % fuss)
+	var kw: float = spiel.licht.kontrast
+	var gr: Gradient = (cc as GradientTexture1D).gradient if cc is GradientTexture1D else null
+	pruefe(gr != null and env.adjustment_contrast == 1.0 and kw < 0.95 and gr.sample(0.0).r < 0.002 and gr.sample(0.03).r > 0.03
+		and absf(gr.sample(0.5).r - 0.5) < 0.002 and absf(gr.sample(0.8).r - (0.5 + 0.3 * kw)) < 0.003,
+		"505 Lauf 2: Schwarz 0, dunkles Gruen 0,03 bleibt %.3f (vorher 0 oder 0,075), Kontrast %.2f darueber" % [gr.sample(0.03).r if gr else -1.0, kw])
 	spiel.betrete("forest", Vector2i(9, 26), "UP")
 	if spiel.herde: spiel.herde.aus = true
 	for i in 3: await process_frame

@@ -161,24 +161,30 @@ func stelle(k: float) -> void:
 	nacht_geaendert.emit(k)
 
 ## 505 Lauf 2 (Chef 16:12, Zu 505, zweiter Durchgang (1): „nie gesehen“ wirklich schwarz, Wert 0): Kontrast unter 1 hebt Schwarz
-## nach dem Tonemapping auf 0,5 (1 − Kontrast) (Tag 0,87: 16,6 von 255), auch den Nebel, die Tusche und das Randdunkel. Die
-## Farbkorrektur danach (je Kanal, Godot: nach Helligkeit, Kontrast, Saettigung) zieht diesen Fuss auf 0 und laeuft bis
-## SCHWARZ_FUSS darueber in die Kurve zurueck; alles Hellere bleibt, wie es war
-const SCHWARZ_FUSS := 0.035
+## nach dem Tonemapping auf 0,5 (1 − Kontrast) (Tag 0,87: 16,6 von 255), auch den Nebel, die Tusche und das Randdunkel.
+## Pruefer 17:21 an der Probe am Rechner: an allen Nebelkanten Saeume in einem Kanal (0, 18, 0): die erste Fassung zog den Fuss je
+## Kanal auf 0 und lief mit Steigung 2,9 zurueck, ein dunkles Gruen (0; 0,03; 0) wurde so (0, 19, 0). Jetzt bleibt der Kontrast der
+## Umgebung 1 und die Farbkorrektur (je Kanal) macht ihn nach: oberhalb KNIE genau wie Kontrast k (0,5 + (v − 0,5) k), darunter
+## gerade auf 0 (Steigung 1,4 bei k 0,87); nichts wird abgeschnitten, Schwarz bleibt 0
+const KNIE := 0.12
+var kontrast := 1.0   # gewollter Kontrast (stelle); die Umgebung selbst steht auf 1, wenn er unter 1 liegt
 var fuss_bei := -1.0
 func schwarz_fuss() -> void:
-	var f := 0.5 * (1.0 - env.adjustment_contrast) if env.adjustment_contrast < 1.0 else 0.0
-	if absf(f - fuss_bei) < 0.002: return
-	fuss_bei = f
-	if f <= 0.0:
+	var k := env.adjustment_contrast
+	if k < 1.0: env.adjustment_contrast = 1.0
+	kontrast = k
+	if absf(k - fuss_bei) < 0.002: return
+	fuss_bei = k
+	if k >= 1.0:
 		env.adjustment_color_correction = null
 		return
 	var g := Gradient.new()
 	g.interpolation_mode = Gradient.GRADIENT_INTERPOLATE_LINEAR
+	var knie := 0.5 + (KNIE - 0.5) * k
+	var hell := 0.5 + 0.5 * k
 	g.set_offset(0, 0.0); g.set_color(0, Color(0, 0, 0))
-	g.set_offset(1, 1.0); g.set_color(1, Color(1, 1, 1))
-	g.add_point(f, Color(0, 0, 0))
-	g.add_point(f + SCHWARZ_FUSS, Color(f + SCHWARZ_FUSS, f + SCHWARZ_FUSS, f + SCHWARZ_FUSS))
+	g.set_offset(1, 1.0); g.set_color(1, Color(hell, hell, hell))
+	g.add_point(KNIE, Color(knie, knie, knie))
 	var t := GradientTexture1D.new()
 	t.gradient = g
 	t.width = 1024
