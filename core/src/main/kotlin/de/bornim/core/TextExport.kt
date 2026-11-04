@@ -7,6 +7,7 @@ import kotlinx.serialization.json.put
 import kotlinx.serialization.json.putJsonObject
 import kotlinx.serialization.json.putJsonArray
 import kotlinx.serialization.json.addJsonObject
+import kotlinx.serialization.json.addJsonArray
 import kotlinx.serialization.json.add
 import java.io.File
 
@@ -77,7 +78,13 @@ object TextExport {
             }
         }
         putJsonObject("einzelstuecke") {
-            for (id in Uniques.ids) putJsonObject(id) { put("name", text(Uniques.name(id))); put("seltenheit", text(Uniques.rarity(id).title)) }
+            for (id in Uniques.ids) putJsonObject(id) {
+                put("name", text(Uniques.name(id))); put("seltenheit", text(Uniques.rarity(id).title))
+                // 542: Grundform, Seltenheit, Plus und Werte wie Uniques.make, damit Godot das Einzelstueck als Ausruestung gibt
+                val u = Uniques.get(id)
+                put("grundform", u.base); put("rarity", u.rarity.name); put("plus", u.plus)
+                putJsonArray("rolls") { for (r in u.rolls) addJsonArray { add(r.affix.name); add(r.value) } }
+            }
         }
         // 399.1 Anschlagbrett (29): die Aushaenge wortgleich aus [Jobs], mit Lohn, Wunsch, Abgabe und Welle; die Regeln in auftraege.gd
         putJsonArray("auftraege") {
