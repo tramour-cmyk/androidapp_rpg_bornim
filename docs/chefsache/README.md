@@ -16,6 +16,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [557](ansehen/557-spielstaende.md) | Stil B, fünfte Runde: Bilder der Dinge, Rückfragen zentriert, „+x“ am Namen | – | 04.11., 19:46 |
 | [558](ansehen/558-robe.md) | Robe des Magiers, Probe 4: tiefe Falten, Zustände klar getrennt | – | 04.11., 19:36 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
