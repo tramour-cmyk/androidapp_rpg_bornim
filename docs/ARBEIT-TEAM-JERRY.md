@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
-**Übergabe (04.11., 00:1x):** 415 Build 250 (Strahlenprobe mit „Ohne Strahl“, `claude/jerry-415-ohne-strahl`); gebaut für den nächsten Build: 527, 532, 544 (je eigener Zweig von `claude/build-490`); 532a beim Chef; 545 Test ohne Befund. Nachfolger: Jerry – 545/548: Testknöpfe und Rattenkampf in der Welt nachstellen.
+**Übergabe (04.11., 02:2x):** Build 252 (`claude/build-252` = Build 251 + 546, 551, 552, 553, 533, 536, PR #182, Lauf 41753201022, t252) läuft; 548, 545 am Rechner mit Daten aus Build 249 nicht nachgestellt, Rückfrage 548a; 547 an Homer. Nachfolger: Jerry – Build 252 prüfen, dann 535: Gegnerstufe, Gruppen, Lohn gegen alt.
 
 ## Zeilen
 
@@ -93,7 +93,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 - **Hinweis von Team Tom (04.11., 00:50, 555 Testmenü):** `regeln/mars.gd` bekam drei Testschalter (static, aus; Gegenproben unberührt): `held_immer_krit` (`_weapon_attack`), `gegner_ohne_rettung` (`_save_spell`), `held_unsterblich` (`_hurt`, Untergrenze 1 für `lead()`); Zweig `claude/tom-555-testmenue`. Nur zur Kenntnis, beim Umbau dieser Stellen bitte mitnehmen.
 
-- **Zu t249, von Sokrates (Chef 04.11., 00:41):** „Bin mit dem Build durch. Was ich nicht verbessert habe, hat gepasst. War ja eh einiges … Also partiell freigegeben. Gute Nacht, du bist in der Verantwortung.“ Durchgefallen (Chefbefunde 03.11., 23:13–04.11., 00:39): 245.2 Atem (453.2), 245.4 Renderer mobile 24–25 Bilder/s (415), 245.5 Atem Grimmzahn (453, nur neuer Grimmzahn), 248.3 Rückfrage (503), 248.4 Umbrüche (497), 248.5 Garrick (531), 248.8 Ansprechen nur durch Hineinlaufen (541); dazu 518–555 neu. Ohne Befund, also bestanden: 245.1 (489), 245.3 (463), 245.6 (403, 406), 248.1 (501), 248.2 (500), 248.6 (490, 493), 248.7 (491 Morwen). Freigabe nur für das Bestandene; was auf main geht, entscheidet der Besitzer des Builds nach `LISTE-BAUEN-TESTEN` (Kleinigkeit ohne Spiellogik sonst Chef).
+- **Zu t249, von Sokrates (Chef 04.11., 00:41):** Build 249 partiell freigegeben (Bestandenes); Wortlaut und Liste: `git show fd817c131:docs/ARBEIT-TEAM-JERRY.md`.
 - **Zu 551, von Sokrates (01:2x, auf deine Fragen 01:20):** Die Meldung 00:21 („MARS Kasten links und rechts unten wird unterbrochen angezeigt...“) hatte **kein Bild**; 00:22 ebenso („MARS Zugreihenfolge oben fehlt“). Kampfbilder davor: 23:49 „MARS-Test: Stimmt die Schrift ?“ und 00:03 (Ratten, 548); ob sie den Rahmen zeigen, ist offen: Bilder hängen nur als Anhang an der archivierten Sitzung, ein Helfer kam nicht heran. Deine drei Fragen also unbeantwortet; nicht raten. Weg: deine Eckenursache (335) am Rechner mit dem Eckenhalbmesser eines Handys nachstellen und als Testpunkt mit „Bildschirmfoto bitte“ in die nächste Prüfliste; trifft sie nicht, fragt der Chef morgens nach einem Bildschirmfoto.
 - **Zu 551 (Jerry 01:3x):** Kasten 5,9 dp vom Rand: eine Bildschirmecke über etwa 20 dp Halbmesser schneidet seine Ecken ab. Prüfliste: „Bildschirmfoto bitte“; Lücke auch im Bildschirmfoto: andere Ursache.
 - **Zu 553, von Sokrates:** Tag 2 13:47: graues, hochbeiniges Tier mit langem Hals, buschigem Schwanz, flach wirkend; dazu ein Wildschwein. **Jerry 01:4x:** `Figur.ersatz_art` galt für alle Figuren; nach dem Rattenkampf (00:03) hielt sich jeder Kartenwolf für eine Ratte (Maßstab 2,0 statt 1,32: Wenden, Pfoten, Kopf). Also vermutlich ein Wolf mit den Maßen der Ratte. Aussehen urteilt der Chef im Build.
