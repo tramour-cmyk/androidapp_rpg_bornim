@@ -43,12 +43,10 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 7, Muss 2, startbar 3
+**Homer** – offen 5, Muss 0, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 547 | M | von Team Jerry (04.11., 01:4x; Chef 04.11., 00:01: „Animation niedersinken oder umfallen o | startbar |
-| 535 | M | von Team Jerry (04.11., 02:4x; Abgleich 512 „Schamane ohne Heilen“): MARS-Ansagen des Gobl | startbar |
 | 432 | K | von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt | ruht |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
@@ -158,7 +156,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | Pflege | K | von Werkzeug (340.3, 04.11.): 86168 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 73, Muss 61, startbar 5
+**Jerry** – offen 73, Muss 61, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -169,7 +167,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 553 | M | von Sokrates (Chef 04.11., 00:26, Build 249, Bild; Zu 553): „Was ist das für ein graues Ti | wartet auf Test (Build) |
 | 545 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS-Probekampf: Testknöpfe „Gegner | ruht |
 | 546 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS: Wölfe weichen viel zu träge au | wartet auf Test (Build) |
-| 547 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS: Text sagt „geht in die Knie“, | wartet auf Homer |
+| 547 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS: Text sagt „geht in die Knie“, | startbar |
 | 544 | M | von Sokrates (Chef 03.11., 23:49, Build 249: „Stimmt die Schrift?“): Kampfschirm ohne Seri | wartet auf Test/Build |
 | 532 | M | von Sokrates (512; Zu 532): Kampf: Held ohne Zauberpunkte, Verbrauchtes, Zustände, Metraus | startbar |
 | 533 | M | von Sokrates (512; Zu 533): Kampf: Grimmzahn ist ein Wolf, kein Boss (Werte, Flucht, Leibw | wartet auf Test (Build) |
@@ -272,11 +270,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | Pflege | K | von Werkzeug (340.3, 04.11.): 19253 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Diogenes** – offen 10, Muss 8, startbar 1
+**Diogenes** – offen 9, Muss 7, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 513.1 | M | von Perikles (Doppelpack 421, 03.11., 16:1x, 45351ef1d): probelauf.py hält Probeläufe an, | startbar |
 | 512 | M | von Perikles (Doppelpack 421, 03.11., 16:0x, e823b0ee7): Abgleich alt/neu vor jeder Testbi | wartet auf Eingang |
 | 511 | M | von Perikles (Doppelpack 421, 03.11., 14:0x, d6d9eca8c): Filmsperre probelauf.py am ersten | wartet auf Eingang |
 | 340.2 | M | von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv): Wirkung 340.3–340.5 zählen (Tabelle | ruht bis 09.11. |
