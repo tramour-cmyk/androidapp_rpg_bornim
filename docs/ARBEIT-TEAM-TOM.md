@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (04.11., 02:46, `session_01Hmoj76YYXR9ActyJKYD8Mp`):** Build 251 grün (t251); 416.8 und 495 gebaut, Läufe 253 und 254 laufen (Stand der Zeilen); 524.1 Vorschlag in `ansehen/5241`. Keine Weckrufe offen. Nachfolger: Tom – 497: Godot-Lizenztext umbrechen, dann Läufe 416.8 und 495 auswerten.
+**Übergabe (04.11., 03:24, `session_01Hmoj79WXZkWnNXMfF5RpcV`):** Build 255 läuft (PR #183, t255; 525 wartet auf ansehen/525); Läufe 254, 256 laufen (Stand der Zeilen). Keine Weckrufe offen. Nachfolger: Tom – Build 255 melden, Läufe 254 (495) und 256 (416.8) auswerten, dann 475.
 
 ## Zeilen
 
