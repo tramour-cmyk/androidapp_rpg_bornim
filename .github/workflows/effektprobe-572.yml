@@ -298,7 +298,10 @@ jobs:
           timeout 2400 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --path . --rendering-driver opengl3 --rendering-method gl_compatibility \
             --resolution 540x1170 res://kampf/effektprobe.tscn --write-movie $RUNNER_TEMP/effekte.avi --fixed-fps 30 > $P/film.log 2>&1 || true
           grep -E "^572|SCRIPT ERROR|^ +at: " $P/film.log | cut -c1-300 | head -60 || true
+          # Lauf 2 (41912439909): der Film entstand, aber ffmpeg fehlte (nur der Probebild-Schritt holte es, der ist bei „572 Film“ aus)
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; }
           export PATH=~/ffbin:$PATH
+          command -v ffmpeg
           ffmpeg -loglevel error -y -ss 0.5 -i $RUNNER_TEMP/effekte.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $P/572-effekte.mp4 || true
           ffmpeg -i $P/572-effekte.mp4 2>&1 | grep -E "Duration|Stream" || true     # Länge und Größe für die Meldung (höchstens 50 MB)
           ls -l $P
