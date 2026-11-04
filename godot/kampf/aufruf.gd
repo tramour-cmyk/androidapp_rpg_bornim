@@ -51,9 +51,22 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 	for e in lineup:
 		var m: Dictionary = monsters[e[1]]
 		if e[0] == Figur.GRIMM:     # Name aus den Regeln (Monsters.kt dire_wolf)
-			m = m.duplicate()
+			# 533 (Abgleich 512, Sokrates; alt Monsters.kt dire_wolf): Grimmzahn mit seinen eigenen Werten (RK 14, 4W10+4 TP,
+			# Reißzähne +4, 2W6+1, Boss: keine Flucht, kein Autopilot; 450 EP, 4W10 Gold, großer Heiltrank zu 50 %); Bewegung,
+			# Texte und Modell bleiben die des Wolfs (id „wolf“), der Lohn zählt die Leibwache wie alt (pack „dire_wolf“, je 0,25)
+			m = (monsters.get("dire_wolf", m) as Dictionary).duplicate(true)
+			m.id = Mars.WOLF
+			m.pack = "dire_wolf"
 			m.de = "Grimmzahn, der Leitwolf"
 			m.en = "Grimfang the Alpha"
+		elif foe == "GRIMM":     # 533: seine Leibwache wie alt (Packs.kt guard)
+			m = m.duplicate(true)
+			var fuehrer: Dictionary = monsters.get("dire_wolf", m)
+			m.atk = int(fuehrer.atk) + int(LEIBWACHE.atk_shift)
+			m.dmg = LEIBWACHE.dmg
+			m.chance = LEIBWACHE.chance
+			m.xp = 0     # lohn.gd zählt sie als Leibwache des Leitwolfs (xpShare), nicht einzeln
+			m.flee = LEIBWACHE.flee
 		elif foe == "KOBOLDS":     # Name aus den Regeln (Monsters.kt kobold)
 			m = m.duplicate()
 			m.de = "Kobold"
@@ -71,6 +84,8 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 			m.de = "Goblin-Schamane"
 			m.en = "Goblin Shaman"
 		foes.append(Mars.monster_fighter(e[0], e[2], m, dice.roll_expr(m.hp)))
+		if foe == "GRIMM" and e[0] != Figur.GRIMM:
+			foes[foes.size() - 1].follows = Figur.GRIMM     # 533: fällt Grimmzahn, flieht die Leibwache (mars.gd _pack_flees)
 	return foes
 
 
@@ -80,6 +95,11 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 ## Erfahrung wie alt über lohn.gd (Leitwolf, je Jungwolf 0,3 dazu)
 const JUNGWOLF := {"de": "Jungwolf", "en": "Young wolf", "scale": 0.55, "atk_shift": -1, "dmg": [1, 3, 0], "hp_share": 0.5, "chance": 0.5,
 	"flee": ["Mit eingezogenem Schwanz fliehen die Jungwölfe ins Unterholz!", "Tails tucked, the young wolves flee into the undergrowth!"]}
+
+## 533 (alt Packs.kt guard): Grimmzahns Leibwache, zwei Wölfe; Biss 1W4, Angriff eins unter Grimmzahn, beißt zu 55 % je Runde;
+## fällt er, verschwinden sie heulend. Größe (alt 0,78) bleibt, bis der Chef Grimmzahn neu sieht (Chef 04.11., 00:33, 00:39).
+const LEIBWACHE := {"atk_shift": -1, "dmg": [1, 4, 0], "chance": 0.55,
+	"flee": ["Ihr Leitwolf ist gefallen – die Wölfe verschwinden heulend im Wald!", "Their alpha has fallen – the wolves vanish howling into the forest!"]}
 
 static func rudel(monsters: Dictionary, dice) -> Array:
 	var wolf: Dictionary = monsters[Mars.WOLF]
