@@ -172,7 +172,7 @@ def stoff(nt, col, name):
     pos = geo.outputs['Position']
     # Form: leichte Farbschwankung (etwa 15 cm), Stoff faellt nie ganz gleich; getragen ungleicher (Spuren)
     col = _scale(nt, col, _m(nt, 'ADD', 1.0, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, pos, 0.065, 2.0), 0.5), 0.10 * F + 0.16 * S)))
-    col = _scale(nt, col, _m(nt, 'ADD', 1.0, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, pos, 0.25, 3.0, 0.6), 0.5), 0.30 * S)))
+    col = _scale(nt, col, _m(nt, 'ADD', 1.0, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, pos, 0.25, 3.0, 0.6), 0.5), 0.12 * S)))   # Pruefer 18:15: Wolken ueberall schon bei Benutzt
     # Form, Falten: Baender um die Koerperachse (Winkel), unten breiter und tiefer (Rock faellt vom Guertel); unregelmaessig: der Winkel
     # wird von weitem Rauschen verschoben (Falten laufen schraeg zusammen und auseinander), die Tiefe wechselt von Falte zu Falte, und
     # eine zweite, engere Faltenschar liegt nur stellenweise darueber. Taeler schmal und dunkel, Grate breit und etwas heller
@@ -204,37 +204,45 @@ def stoff(nt, col, name):
     # Spuren, ausgeblichen (Sonne, Waesche) und abgewetzt: helle, graue Stellen; dunkle Flecken (Fett, Russ, Regen), bei BENUTZT einzelne
     # Probe 4 (Chef 17:40: „kaum zu differenzieren … Das erkennt kein Mensch“; Mass: bei 120 px jeder Zustand ohne Vergleich):
     # der ganze Stoff bleicht mit dem Zustand aus (grauer, matter), nicht nur in Flecken
-    col = _mix(nt, min(0.45, 0.3 * S), col, lin(hx(0x7A7C84)))
+    SB = max(0.0, S - 0.6) / 0.4   # Pruefer 18:15 an Probe 4 vorab: Benutzt war schon ausgeblichen und fleckig, ab hier erst Beschaedigt
+    # Pruefer 18:25: das feste Blassblau machte auch den braunen Wappenrock blaugrau; jetzt bleicht jede Farbe zu ihrem eigenen Grau
+    bw = nt.nodes.new('ShaderNodeRGBToBW'); nt.links.new(col, bw.inputs[0])
+    col = _mix(nt, min(0.6, 0.5 * SB), col, _m(nt, 'MULTIPLY', bw.outputs[0], 1.35))
     bl = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, pos, 0.11, 3.0, 0.55), 0.62 - 0.07 * S), 5.0))
-    col = _mix(nt, _m(nt, 'MULTIPLY', bl, min(0.6, 0.45 * S)), col, lin(hx(0x8C8478)))
-    fl = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, _m_vec(nt, pos, 1.7), 0.09, 3.0, 0.6), 0.66 - 0.08 * S), 6.0))
+    bw2 = nt.nodes.new('ShaderNodeRGBToBW'); nt.links.new(col, bw2.inputs[0])
+    col = _mix(nt, _m(nt, 'MULTIPLY', bl, min(0.6, 0.4 * SB)), col, _m(nt, 'MULTIPLY', bw2.outputs[0], 1.5))
+    fl = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, _m_vec(nt, pos, 1.7), 0.09, 3.0, 0.6), 0.74 - 0.12 * S), 8.0))   # Benutzt: einzelne Flecken
     col = _mix(nt, _m(nt, 'MULTIPLY', fl, 0.30 + 0.25 * S), col, lin(hx(0x231C16)))
     # Spuren am Saum: BENUTZT heller Strassenstaub, BESCHAEDIGT Schlamm hoeher hinauf, unregelmaessig; die Kante dunkel
     if name in ('tabard', 'cloak', 'apron', 'pants'):
         # Probe 4 (Pruefer 17:26: „gleichmaessiger grauvioletter Verlauf am Saum, wie getaucht, nicht nach Erde“): Spritzer und Flecken
         # statt Verlauf (Rauschen staerker, Kante hart), Erde braun; ueber Blau gemischt ergab das Grau Violett, darum wird der Stoff
         # dort zuerst entsaettigt (nass, verdreckt) und dann erdbraun
-        rnd = _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, pos, 0.2, 3.0, 0.65), 0.5), 3.2)
+        rnd = _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, pos, 0.2, 3.0, 0.65), 0.5), 1.1)   # Pruefer 18:15: bei 3,2 lag der Schmutz ueberall
         dr = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'ADD', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', 8.0 + 24.0 * S, Z), 14.0), rnd), 2.2))
         schmutz = hx(0x7A6040) if S < 0.8 else hx(0x4A3218)
         col = _mix(nt, _m(nt, 'MULTIPLY', dr, min(0.5, 0.45 * S)), col, lin(hx(0x5A5248)))
-        col = _mix(nt, _m(nt, 'MULTIPLY', dr, min(0.9, 0.8 * S)), col, lin(schmutz))
+        col = _mix(nt, _m(nt, 'MULTIPLY', dr, min(0.9, 0.95 * S)), col, lin(schmutz))   # Pruefer 18:25: Benutzt ohne sichtbaren Staub
+        # Spritzer ueber der Schmutzkante (ab Beschaedigt): einzelne Tropfen bis 20 cm hoeher
+        spr = _m(nt, 'MULTIPLY', _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, _m_vec(nt, pos, 2.7), 0.6, 1.0, 0.5), 0.68), 9.0)),
+                 _sat(nt, _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', 28.0 + 24.0 * S, Z), 20.0)))
+        col = _mix(nt, _m(nt, 'MULTIPLY', spr, min(0.85, 0.85 * SB)), col, lin(hx(0x4A3218)))
         ka = _sat(nt, _m(nt, 'ADD', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', ankleY + 7.0, Z), 3.0), _m(nt, 'MULTIPLY', rnd, 0.6)))
-        col = _mix(nt, _m(nt, 'MULTIPLY', ka, 0.6 * S), col, lin(hx(0x2A221A)))
+        col = _mix(nt, _m(nt, 'MULTIPLY', ka, min(0.7, 0.6 * SB)), col, lin(hx(0x2A221A)))   # dunkle Kante erst ab Beschaedigt (Pruefer: Keile schon bei Benutzt)
     if ZUSTAND != 'DEFEKT' or name not in ('tabard', 'cloak', 'apron'): return col
     # DEFEKT, Saum ausgefranst: unten zerrissene Kante, Zacken 2 bis 6 cm hoch, dazwischen das Dunkel unter dem Rock (gemalt)
-    zk = _m(nt, 'ADD', _m(nt, 'SUBTRACT', Z, ankleY + 9.0), _m(nt, 'MULTIPLY', _noise_v(nt, _m_vec(nt, pos, 2.1), 0.3, 1.0, 0.4), 14.0))   # Probe 4: Zacken 4 bis 12 cm (Pruefer: Saum wie ein Streifen)
-    loch = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', 7.0, zk), 1.2))
+    zk = _m(nt, 'ADD', _m(nt, 'SUBTRACT', Z, ankleY + 12.0), _m(nt, 'MULTIPLY', _noise_v(nt, _m_vec(nt, pos, 2.1), 0.22, 1.0, 0.4), 20.0))   # Probe 4: Zacken 4 bis 12 cm (Pruefer: Saum wie ein Streifen)
+    loch = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', 10.0, zk), 1.0))
     col = _mix(nt, loch, col, lin(hx(0x120E0B)))
-    faden = _sat(nt, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'ABSOLUTE', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', zk, 8.6), 1.8))))
+    faden = _sat(nt, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'ABSOLUTE', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', zk, 12.0), 2.2))))
     col = _mix(nt, _m(nt, 'MULTIPLY', faden, 0.55), col, lin(hx(0x9A9080)))   # helle, ausgefranste Faeden an der Rissgrenze
     # DEFEKT, ein Riss vorn seitlich (y < 0 ist vorn), vom Knie aufwaerts, gezackt; dunkler Spalt, helle Raender
     vorn = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', -2.0, Y), 0.5))
-    hoch = _sat(nt, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'ABSOLUTE', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', Z, kneeY + 8.0), 18.0))))   # Probe 4: Riss 36 cm lang, 3 cm breit
+    hoch = _sat(nt, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'ABSOLUTE', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', Z, kneeY + 10.0), 24.0))))   # Probe 4: Riss 36 cm lang, 3 cm breit
     xl = _m(nt, 'ADD', _m(nt, 'SUBTRACT', X, 5.0), _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, pos, 0.35, 2.0, 0.6), 0.5), 2.4))
     d = _m(nt, 'ABSOLUTE', xl)
-    spalt = _m(nt, 'MULTIPLY', _m(nt, 'MULTIPLY', vorn, _m(nt, 'POWER', hoch, 0.4)), _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', 2.5, d), 1.4)))   # Probe 4: Spalt 5 cm (bei 120 px gut 3 Bildpunkte)
-    rand = _m(nt, 'MULTIPLY', _m(nt, 'MULTIPLY', vorn, hoch), _sat(nt, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'ABSOLUTE', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', d, 3.6), 1.1)))))
+    spalt = _m(nt, 'MULTIPLY', _m(nt, 'MULTIPLY', vorn, _m(nt, 'POWER', hoch, 0.4)), _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', 3.5, d), 1.2)))   # Probe 4: Spalt 5 cm (bei 120 px gut 3 Bildpunkte)
+    rand = _m(nt, 'MULTIPLY', _m(nt, 'MULTIPLY', vorn, hoch), _sat(nt, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'ABSOLUTE', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', d, 4.8), 1.3)))))
     col = _mix(nt, _m(nt, 'MULTIPLY', rand, 0.5), col, lin(hx(0x9A9080)))
     col = _mix(nt, spalt, col, lin(hx(0x0E0B09)))
     return col
@@ -274,9 +282,9 @@ def finish(nt, col, name):
     blot = _noise(nt, 0.09, 'World')
     if name in ('tabard', 'cloak', 'sleeve', 'pants'):
         bl_ = float(os.environ.get('HOSE_BLEICH', '0.4')) if (name == 'pants' and FIGUR == 'held') else 1.0
-        Wc = W * (SPUREN / 0.6 if STOFF > 0 else 1.0)   # 558: mit der Stoffschicht folgen die alten Flecken dem Zustand (MAKELLOS sauber)
+        Wc = W * (min(1.6, max(0.0, SPUREN - 0.3) / 0.7) if STOFF > 0 else 1.0)   # 558: mit der Stoffschicht folgen die alten Flecken dem Zustand (MAKELLOS sauber)
         col = _mix(nt, min(1.0, 0.22 * Wc * bl_), col, lin(hx(0x8A8076)))                # ausgeblichen (348.5: lebendiger)
-        st = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', blot, 0.46), 5.0))
+        st = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', blot, 0.58 if STOFF > 0 else 0.46), 5.0))   # 558: mit Stoff einzelne Flecken statt Wolken (Pruefer 18:15)
         col = _mix(nt, _m(nt, 'MULTIPLY', st, min(1.0, 0.95 * Wc)), col, lin(hx(0x3A2E26)))  # Flecken
     if name == 'chain':
         rs = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise(nt, 0.11, 'World'), 0.48), 6.0))
