@@ -13,20 +13,20 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 527 | M | **von Sokrates (512):** System: Schalter „Tempo“ und „Kampftext“ wirken im Kampf nicht | wartet auf Build: 251 (t251, PR #181) | – |
 | 548 | M | **von Sokrates (Chef 04.11., 00:03, Build 249, Bild; Zu 548):** „Gegen Ratten gespielt. Die starben ohne mein Zutun alle drei?!? …“ | ruht bis zur Antwort auf 548a (Chefsache): am Rechner mit Daten aus Build 249 nicht nachgestellt (Zu 548) | – |
 | 548a | M | Rückfrage: wo hast du im Rattenkampf und im Probekampf getippt (Ring, Haken)? | wartet auf Chef: entscheiden/548a | – |
-| 551 | M | **von Sokrates (Chef 04.11., 00:21, Build 249):** „MARS Kasten links und rechts unten wird unterbrochen angezeigt …“ | wartet auf Build: 252 (t252, PR #182) | – |
-| 552 | M | **von Sokrates (Chef 04.11., 00:22, Build 249):** „MARS Zugreihenfolge oben fehlt“ | wartet auf Build: 252 (t252, PR #182) | – |
-| 553 | M | **von Sokrates (Chef 04.11., 00:26, Build 249, Bild; Zu 553):** „Was ist das für ein graues Tier??????“ Flüsterwald bei Garricks Feuer | wartet auf Build: 252 (t252, PR #182) | – |
+| 551 | M | **von Sokrates (Chef 04.11., 00:21, Build 249):** „MARS Kasten links und rechts unten wird unterbrochen angezeigt …“ | wartet auf Test: t252 (Build 252 grün 03:17, PR #182) | – |
+| 552 | M | **von Sokrates (Chef 04.11., 00:22, Build 249):** „MARS Zugreihenfolge oben fehlt“ | wartet auf Test: t252 (Build 252 grün 03:17, PR #182) | – |
+| 553 | M | **von Sokrates (Chef 04.11., 00:26, Build 249, Bild; Zu 553):** „Was ist das für ein graues Tier??????“ Flüsterwald bei Garricks Feuer | wartet auf Test: t252 (Build 252 grün 03:17, PR #182) | – |
 | 545 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS-Probekampf: Testknöpfe „Gegner besiegen“ (✓) und „Held fällt“ (✗) ohne Funktion | ruht bis zur Antwort auf 548a (Chefsache): Haken gewinnt im ganzen Spiel (welt_548) | – |
-| 546 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS: Wölfe weichen viel zu träge aus („wie Schlaftabletten“) | wartet auf Build: 252 (t252, PR #182) | – |
+| 546 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS: Wölfe weichen viel zu träge aus („wie Schlaftabletten“) | wartet auf Test: t252 (Build 252 grün 03:17, PR #182) | – |
 | 547 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS: Text sagt „geht in die Knie“, Sturz ist aus (438a eingefroren): Text und Bild in Einklang bringen | wartet auf Homer: Zwischentexte ohne Fallen oder Sturz zuerst (ARBEIT-KREATIV 547) | – |
 | 544 | M | **von Sokrates (Chef 03.11., 23:49, Build 249: „Stimmt die Schrift?“):** Kampfschirm ohne Serifen statt Alegreya | wartet auf Build: 251 (t251, PR #181) | `claude/jerry-544-kampfschrift` |
 | 532 | M | **von Sokrates (512; Zu 532):** Kampf: Held ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch, Tasche; Zauber kosten nichts | wartet auf Build: 251 (t251, PR #181) | `claude/jerry-532-kampfzustand` |
 | 532a | M | Rückfrage: Tasche und Metrausch jetzt wie alt in MARS oder erst mit 478? | wartet auf Chef: entscheiden/532a | – |
-| 533 | M | **von Sokrates (512; Zu 533):** Kampf: Grimmzahn ist ein Wolf, kein Boss (Werte, Flucht, Leibwache) | wartet auf Build: 252 (t252, PR #182) | – |
+| 533 | M | **von Sokrates (512; Zu 533):** Kampf: Grimmzahn ist ein Wolf, kein Boss (Werte, Flucht, Leibwache) | wartet auf Test: t252 (Build 252 grün 03:17, PR #182) | – |
 | 534 | M | **von Sokrates (512; Zu 534):** Kampf: Zauber und Fähigkeiten fehlen in „Können“ oder wirken nicht; Talente zu Kampfbeginn | gebaut: Lebensraub, Schadensminderung, Unerbittlich, Einschüchtern, fährt im nächsten Build; Geprüft an: 157c13e26 (faehigkeiten_534); vier Zauber und Ausweichen warten auf 534a (Zu 534) | `claude/jerry-534-faehigkeiten` |
 | 534a | M | Rückfrage: vier Zauber und Unglaubliches Ausweichen jetzt wie alt in MARS oder mit 478? | wartet auf Chef: entscheiden/534a | – |
 | 535 | M | **von Sokrates (512; Zu 535):** Kampf: Gegnerstufe, Elite, schimmernde Gegner, Gruppen, EP und Gold je Gegner, Nachlass in Stufe 1 gegen alt | gebaut: Gruppen mit eigener Art, fährt im nächsten Build; Geprüft an: ba7dfd3d5 (gruppen_535); Stufe, Elite, EP je Gegner warten auf 512a (Zu 535) | `claude/jerry-535-gruppen` |
-| 536 | M | **von Sokrates (512; Zu 527–536):** Kampf: Erklärungen bei langem Drücken (MarsTips) und Kleines wie alt | wartet auf Build: 252 (t252, PR #182) | – |
+| 536 | M | **von Sokrates (512; Zu 527–536):** Kampf: Erklärungen bei langem Drücken (MarsTips) und Kleines wie alt | wartet auf Test: t252 (Build 252 grün 03:17, PR #182) | – |
 | 478 | M | **von Sokrates (Chef 02.11., 17:59 „470a C“):** Rechenkern des Kampfs in Stufe 1 auf BRS (Modell D) | ruht: 470a B (3–4 Sitzungen, Wortlaut in Git) | – |
 | 481.1 | M | **von Sokrates (427):** Tränke in sim444, Herkünfte neu messen, Zahlen an Sokrates | gebaut: sim444 Abschnitt 6 (claude/jerry-481-1-traenke); Geprüft an: 4bb60ba5e | – |
 | 467 | M | **von Sokrates (Chef 01.11., 21:52):** `regeln/ausdauer.gd` rechnet nach SRD; BRS: Ausdauer aus Zähigkeit, Wille, Stufe; nach der Formel aus 427 umstellen | wartet auf Sokrates: Formel Ausdauer fehlt in 427 (Hinweis Beratung) | – |
