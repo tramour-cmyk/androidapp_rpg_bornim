@@ -152,7 +152,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 509 | Frösche und Libellen an den Teichen im Flüsterwald fehlen in Godot (Chef 03.11., 09:21; `PondLife.kt`, Projektplan O6, W22) | E Welt | M | – | Team Jerry | wartet |
 | 511 | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele sinnlose und kaputte Filme gemacht?“) | B Werkzeuge | M | 17,15 $ | Perikles | gebaut |
 | 512.1 | Wächter: Testbitte ohne Zeile „Verglichen:“ warnt (zu 512) | B Werkzeuge | M? | – | Perikles | gebaut |
-| 524.1 | Gegenstandsfenster besser als alt und spielerfreundlicher: Vorschlag (Chef 04.11., 00:52) | A Spiel | M | – | Team Tom | in Arbeit |
+| 524.1 | Gegenstandsfenster besser als alt und spielerfreundlicher: Vorschlag (Chef 04.11., 00:52) | A Spiel | M | – | Team Tom | Chef |
 | 512 | Vor jeder Testbitte berührte Schirme alt gegen neu vergleichen (Sokrates 03.11., 07:45, nach Build 204: 9 Erstfunde des Chefs; Chef 23:28 an Sokrates) | B Abläufe | M | 20,77 $ | Sokrates | in Arbeit |
 | 516 | Kostenerfassung ohne Handarbeit: Haken oder Werkzeug liest beim Archivieren `total_cost_usd` des letzten result-Ereignisses und bucht (Chef 03.11., 16:20, Ford) | B Abläufe | K | – | Perikles | ruht |
 | 531 | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere sichtbar mit der Fackel, Ruhebewegungen (Chef 03.11., 23:42) | A Spiel | M | 3,68 $ | Team Tom | Chef |
@@ -181,7 +181,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 549 | Rastfenster am Feuer wirkt klein, zu viele Kästen; besser als alt gestalten (Chef 04.11., 00:07, Bild) | A Spiel | M | – | Team Tom | Chef |
 | 550 | Flüsterwald: erstes Heilkraut zeigt einen riesigen Einblendkasten, ab dem zweiten normale Größe (Chef 04.11., 00:19) | A Spiel | M | – | Team Tom | zu testen |
 | 558 | Robe des Magiers zu glatt, wie eine blaue Fläche: Stoff lebendiger (Falten, Schatten, Schmutz, Abnutzung) (Chef 04.11., 11:31, Bild) | E Figuren | M | 15,79 $ | Team Tom | in Arbeit |
-| 557 | Spielstände: Entwurf ohne Kasten (549a) als Bild, Inhalt wie alt mit Spieldauer und Heldenbild (Chef 04.11., 11:15) | A Spiel | M | 20,56 $ | Team Tom | startbar |
+| 557 | Spielstände: Entwurf ohne Kasten (549a) als Bild, Inhalt wie alt mit Spieldauer und Heldenbild (Chef 04.11., 11:15) | A Spiel | M | 20,56 $ | Team Tom | Chef |
 | 556 | Blenden reines Schwarz statt Leuchten in der Mitte (Ringe), lang genug zum Lesen (Chef 04.11., 07:52) | A Spiel | M | – | Team Tom | gebaut |
 | 555 | Testmenü wie alt und schneller: fehlende Einträge der alten Fassung, dazu Sprünge an jede Station von Kapitel 1 (Chef 04.11., 00:30) | B Werkzeuge | M | 15,00 $ | Team Tom | zu testen |
 | 554 | Testmenü: Schalter „Monster beachten mich nicht“ fehlt (Chef 04.11., 00:27) | B Werkzeuge | M | – | Team Tom | zu testen |

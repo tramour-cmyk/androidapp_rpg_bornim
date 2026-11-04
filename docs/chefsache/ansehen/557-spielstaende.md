@@ -1,32 +1,48 @@
-# 557 · Spielstände B und Wechselliste, vorher und nachher · Team Tom · 04.11., 13:06
-
-[Bild von 04.11., 13:06](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/04-1306-557-Tom.jpg) (eingetragen von meldung.sh, Tom)
+# 557 · Stil B an sechs Schirmen, vorher und nachher · Team Tom · 04.11., 14:15
 
 A Spiel
-Kurz: Du hast B mit Vorschlag 2 gewählt, Löschen nach den drei Stufen (549a Punkt 4) und eine zweite Stelle im neuen Stil gewünscht (12:38). Beides ist in Godot gebaut, so wie es ins Spiel käme, aber noch nicht eingeschaltet. Als zweite Stelle habe ich die Wechselliste der Ausrüstung genommen (Platz antippen, „Wechseln“), weil du sie um 12:01 bemängelt hast.
+Kurz: Du wolltest den Stil B an allen Schirmen der Gruppe sehen, je vorher und nachher, in einem Bildlauf (13:32, 13:42, 13:44). Alles ist in Godot gebaut, so wie es ins Spiel käme, aber nicht eingeschaltet. In jedem Bild links heute, rechts B.
 
-Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/9bba5679d (Zweig `claude/tom-557-spielstaende`, Stand Build 257), Bilder `spielstaende_bild_557` (Godot am Rechner, Lauf 2 von 2)
+Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/ddce14bdf (Zweig `claude/tom-557-spielstaende`), Bilder `spielstaende_bild_557` (Godot am Rechner, Lauf 1 von 2), Maßtest `gruppe_mass_557` ohne Fehler (alles auf dem Schirm, kein Text überlappt, keine Schrift unter 13 sp, jede Tippfläche mindestens 48 dp).
 
-![Spielstände: links heute (Build 257), rechts B](../bilder/557-spiel.webp)
+![1 Spielstände](../bilder/557-spiel.webp)
 
-![B mit einem Spielstand; Rückfrage beim Löschen](../bilder/557-loeschen.webp)
+![2 B mit einem Spielstand; Rückfrage beim Löschen](../bilder/557-loeschen.webp)
 
-![Wechselliste Oberkörper: links heute, rechts B](../bilder/557-wechsel.webp)
+![3 Wechselliste Oberkörper](../bilder/557-wechsel.webp)
 
-So ist es jetzt gebaut:
-- Spielstände: unter Volk, Klasse, Stufe steht „Kapitel 1 · <Hauptauftrag>“ schräg und etwas gedämpft. „LADEN ›“ ist die Hauptwahl, hell golden. „× LÖSCHEN“ steht darunter als Nebenwahl: ebenfalls in Versalien, aber kleiner und in gedämpftem Gold. „‹ ZURÜCK“ unten ist auch Nebenwahl. Ort und Tag stehen je in einer eigenen Zeile.
-- Rückfrage: schmaler als die Liste, dahinter fast schwarz. „× LÖSCHEN“ in Warnfarbe mit Warnrand, „ABBRECHEN“ als Nebenwahl.
-- Wechselliste: ganzer Schirm ohne Kasten. Oben steht, was angelegt ist. Darunter je Stück eine Zeile: Bild, Name in der Farbe der Seltenheit, darunter Art, Platz, Wert und ein Wort (besser, schlechter, gemischt). Rechts ▲ besser, ▼ schlechter, ◆ gemischt, dann „›“. Was der Held nicht tragen kann, ist matt, mit dem Grund in Warnfarbe.
+![4 Gegenstandsfenster: Ring](../bilder/557-ring.webp)
+
+![5 Gegenstandsfenster: Kettenpanzer](../bilder/557-panzer.webp)
+
+![6 Ende von Kapitel 1](../bilder/557-kapitel.webp)
+
+![7 Morwens Hütte, Brauen](../bilder/557-brauen.webp)
+
+![8 Mengenkasten beim Brauen nach „Alle“](../bilder/557-braukasten.webp)
+
+![9 Rast am Feuer: links A, rechts B (Bild von 01:10)](../bilder/549-rast-feuer.webp)
+
+Geändert seit 13:06 (Befund des Prüfers von 13:07):
+- Rückfrage: dahinter jetzt ganz dunkel, die Liste ist ausgeblendet.
+- Zeile Kapitel und Hauptauftrag: schräg in gedämpftem Gold, mit etwas Abstand.
+- „× LÖSCHEN“ steht rechts unter „LADEN ›“.
+- Das fehlende Bild der Robe war ein Fehler im Bildskript, nicht im Spiel.
+- Stücke ohne eigene Zahl (Roben, Ringe) zeigen in der Liste ihre ersten zwei Boni, etwa „+2 GES · +2 RK“.
+
+Neu in B:
+- Gegenstandsfenster: außen bleibt der Goldrahmen, innen nur Linien. Das Urteil steht als Zeile unter dem Namen (▲ grün „Besser“, ▼ rot „Schlechter“, ◆ gold „Gemischt“), dieselben Zeichen wie in der Liste. Boni in Gold; was die Obergrenze des Kapitels schluckt, matt mit „wirkt nicht“ oder „wirkt +1 (Obergrenze)“. Unten „Händler zahlt n Gold“, links leise „× WEGWERFEN“, rechts „ANLEGEN ›“ in Gold. Abbrechen mit Zurück oder Tippen daneben.
+- Kapitelende: kein Kasten mehr. Titel in Versalien mit Zierlinie, der Text frei, „ENDE VON KAPITEL 1“ zwischen zwei Linien, der Held zwischen Linien, unten „WEITER ›“ in Gold.
+- Brauen: Kopf ohne Kasten, die Seiten als Wörter mit Goldstrich unter der gewählten, die Rezepte als Zeilen zwischen Linien mit „Reicht für n×“ und „›“. Der Mengenkasten behält seinen Rahmen, unten „BRAUEN ×3 ›“ in Gold.
 
 Bekannt:
-- Am Rechner haben alle Helden dieselbe Figur, weil dort die Kaufkörper fehlen. Auf dem Gerät hat jeder Held seine eigene.
-- Welche Werte im Vergleich zählen (RK, GES, STR fehlen heute), ist 524. Die Liste zeigt das Urteil derselben Rechnung wie heute. Der volle Vergleich kommt mit 524 und 521.
-- Bei vier Plätzen bleibt unten Platz frei, wie in der alten Fassung.
+- Am Rechner haben alle Helden dieselbe Figur, weil dort die Kaufkörper fehlen.
+- „Heute“ im Gegenstandsfenster ist der Stand von Build 257; das Band aus dem Vorschlag 524.1 ist in B durch die Zeile ersetzt.
+- Im Laden sind nur die Seiten zum Brauen in B gebaut, Kaufen und Verkaufen noch nicht.
+- Rast: das Bild von 01:10 (Frage 2 dort bleibt offen).
 
-Befund des Prüfers (Helfer, 13:04, am ersten Lauf; im zweiten Lauf geändert): Ortsname brach mitten im Namen um; „Neues Spiel“ schien am Rand der Rückfrage durch; der rote Grund beim Plattenpanzer war in der matten Zeile kaum lesbar; angelegt stand nur der Name; Bilder der Stücke fehlten am Rechner.
-
-Befund des Prüfers zu diesen Bildern (Helfer, 13:07, nach dem Versand, nicht behoben): hinter der Rückfrage scheint die Liste noch lesbar durch („Platz 4 · leer“, „Neues Spiel“); die Kapitelzeile ist kaum als schräg und gedämpft zu erkennen; bei „Flinke Robe der Bastion“ fehlt das Bild (auch heute im Spiel); Roben zeigen keinen Wert, nur der Plattenpanzer „RK 18“ (Roben haben keinen Rüstungswert); „× LÖSCHEN“ steht unter den Angaben links, nicht unter „LADEN“.
+Stil-Abgleich (88): Oberfläche (schwarz, Goldrahmen nur an Fenstern und Rückfragen, Alegreya, Versalien gesperrt für Titel und Wahlen), Zeichen ▲ ▼ ◆ › ×. Übergänge: Antippen hebt die Zeile dunkel ab, sonst wie bisher. Spielerfreundlich: die Hauptwahl steht immer rechts in Gold, die Nebenwahl leise links oder darunter.
 
 Bitte ansehen:
-1. **Spielstände B so bauen?** Oder was ändern (ein Wort genügt)?
-2. **Wechselliste B: gefällt der Stil an dieser Stelle?** Danach entscheidet ihr 549a (12:42).
+1. **Stil B an diesen Schirmen so?** Ja heißt: 549a gilt, die Schirme werden so gebaut, wenn sie ohnehin angefasst werden.
+2. **Ein Schirm anders?** Ein Wort je Bild genügt („4 Band behalten“, „7 Kasten zurück“ …).
