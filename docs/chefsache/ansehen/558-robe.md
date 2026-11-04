@@ -1,5 +1,7 @@
 # 558 · Robe des Magiers mit Stoff: Probebild · Team Tom · 04.11., 14:21
 
+[Bild von 04.11., 14:21](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/04-1421-558-Tom.png) (eingetragen von meldung.sh, Tom)
+
 [Bild von 04.11., 14:20](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/04-1420-558-Tom.png) (eingetragen von meldung.sh, Tom)
 
 A Spiel
