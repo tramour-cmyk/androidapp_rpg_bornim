@@ -73,6 +73,7 @@ func _lauf() -> void:
 				for b in ks:
 					pruefe(breit_genug(b), "%s schmaler als sein Text" % b.text)
 					pruefe(b.get_global_rect().end.x <= l.get_viewport_rect().size.x, "%s ragt aus dem Bild" % b.text)
-				pruefe(ks[1].get_theme_font_size("font_size") == int(round(15 * Stil.SP)), "Knopfschrift nicht 15 sp")
+				# 519: PixelButton(size = 15.sp) zeichnet 15 × 0,7, mindestens 13 sp (Theme.kt 309), zu lang kleiner
+				pruefe(ks[1].get_theme_font_size("font_size") <= int(round(13 * Stil.SP)), "Knopfschrift über 13 sp")
 	print("LADEN503 %d Fehler" % fehler)
 	quit(1 if fehler else 0)
