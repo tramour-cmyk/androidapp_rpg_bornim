@@ -10,7 +10,7 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2
 
 Bitte ansehen:
 1. **Vertreiben mit der Fackel** (Mitte, rechts): so bauen, oder anders halten?
-2. **Gesicht** (links): was wirkt sonderbar? Ein Wort genügt (Augen, Nase, Bart, Hautton, Kapuze …); ich baue es dann nach deinem Wort.
+2. ~~Gesicht~~ entfällt hier: Garricks Gesicht kommt mit 475 (Formen je Person, Kapuze mit freiem Gesicht, 475a 1; Gruppe 557, Chef 04.11., 13:44; von Sokrates).
 3. **Bogen**: wie alt ein Langbogen quer über dem Köcher auf dem Rücken. Bestand: Kurzbogen aus `waffen.py`, Langbogen fehlt im Bestand; ich lege dir Bestand und Netz nebeneinander vor, bevor ich baue.
 
 Zu „Hat er schon Animation?“: Er hat Stehen, Gehen, Umsehen, Müde (mit der gekauften Bewegungsbibliothek), eigenes Atmen und das Zuwenden, wenn du ihn ansprichst; jetzt dazu das Vertreiben. Wie im alten Spiel fehlen noch: Hände am Feuer wärmen, sich ans Feuer setzen, nachts einnicken. Die baue ich nach deinem Wort zu 1.

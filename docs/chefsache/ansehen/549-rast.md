@@ -9,7 +9,7 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2
 ![An Rowenas Theke: links A, rechts B (Met, Fleisch verkaufen, Zimmer)](../bilder/549-rast-theke.webp)
 
 Bitte ansehen:
-1. **A oder B?** Oder was ändern (ein Wort genügt: Größe, Abstand, Zeichen, Farbe)?
+1. ~~A oder B?~~ entfällt hier: wird mit 549a an der Vorlage 557 entschieden (Gruppe 557, Chef 04.11., 13:44; von Sokrates).
 2. **Zeile Tag, Uhr, TP** unter dem Titel: behalten oder weglassen?
 
 Stil-Abgleich (88): Oberfläche (schwarz, Goldrand, Alegreya, Versalien gesperrt nur im Titel und „Weiter“), Zeichen (Raster 24, Linie 1,6; Flamme, Mond, Weiter wie DESIGN-STIL; Uhr wie Menü; neu Bett, Krug, Münze für Zimmer, Met, Fleisch). Übergänge: Antippen hebt die Wahl dunkel ab, dann wie bisher Schwarzblende mit „Eine Stunde vergeht.“; aus deaktiviert matt mit Grund („Heute hast du schon lange gerastet.“). Spielerfreundlich: eine Wahl je Tippen, Zurück wie „Weiter“.
