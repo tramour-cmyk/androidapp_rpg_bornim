@@ -594,25 +594,26 @@ def gitter():
     r = ls[0][1]; c0 = min(c for c, _ in ls); c1 = max(c for c, _ in ls)
     y = ty(r) - TS / 2
     P = part('Ding_' + stueck(c0, r))
-    for x in (tx(c0) + 6, tx(c1 + 1) - 6):
-        box(P, (x - 7, y - 7, 0), (x + 7, y + 7, 248), EISEN, 'weiss')
-    box(P, (tx(c0), y - 6, 236), (tx(c1 + 1), y + 6, 248), ROST, 'weiss')
-    breite = (tx(c1 + 1) - tx(c0) - 26) / 2 - 6                 # Abgleich: Spalt zwischen den Fluegeln (Pruefer Lauf 1: keine zwei Fluegel)
-    for name, angel, sg in (('Gitter_L', tx(c0) + 13, 1), ('Gitter_R', tx(c1 + 1) - 13, -1)):
+    # 492 Abgleich (Pruefer 03.11., 23:3x: „ein dickes Feld, keine zwei Fluegel erkennbar“): wie alt MapCaveIso.gate je Kachel fuenf
+    # Staebe (23 cm Abstand statt 15), 5,8 cm stark, 204 cm hoch mit Spitze 18 cm (alt 116 + 10 Einheiten bei 57 je m), zwei Baender
+    # (alt 24, 92: 42 und 161 cm), Steinpfosten (alt 132: 232 cm) statt Eisen; zwischen den Fluegeln ein Spalt von 16 cm
+    for x in (tx(c0) + 8, tx(c1 + 1) - 8):
+        box(P, (x - 9, y - 11, 0), (x + 9, y + 11, 232), lambda q, nn: sc(ROCK, 0.7 + 0.35 * vn(q.x / 6, q.z / 9, 140)), 'weiss')
+        klumpen(P, Vector((x, y, 232)), 10, lambda q, nn: sc(ROCK, 0.8), 'weiss', seed=int(x), squash=0.5, rau=0.3)
+    breite = (tx(c1 + 1) - tx(c0) - 34) / 2 - 8
+    for name, angel, sg in (('Gitter_L', tx(c0) + 17, 1), ('Gitter_R', tx(c1 + 1) - 17, -1)):
         G = part(name); G.O = Vector((angel, y, 0))
         ton = lambda q, nn: mixc(EISEN, ROST, vn(q.x / 20, q.z / 25, 141))
-        n = int(breite // 15)
+        n = max(2, int(round(breite / 23.0)))
         for k in range(n + 1):
-            x = angel + sg * (4 + (breite - 8) * k / n)
-            box(G, (x - 1.8, y - 1.8, 4), (x + 1.8, y + 1.8, 228), ton, 'weiss')
-            klumpen(G, Vector((x, y, 230)), 2.6, ton, 'weiss', seed=k, n=5, lagen=3)                # Spitzen
-        for z in (18, 112, 210):
+            x = angel + sg * (3 + (breite - 6) * k / n)
+            box(G, (x - 2.9, y - 2.9, 2), (x + 2.9, y + 2.9, 204), ton, 'weiss')
+            zylinder(G, Vector((x, y, 204)), 2.9, 18, 4, ton, 'weiss', r2=0.4)                            # Spitze
+        for z in (42, 161):
             x0, x1 = sorted((angel, angel + sg * breite))
-            box(G, (x0, y - 2.5, z - 3), (x1, y + 2.5, z + 3), ton, 'weiss')
-        for x in (angel + sg * 2, angel + sg * (breite - 2)):        # Rahmen je Fluegel: Angelstab und Schlagstab, kraeftig
-            box(G, (x - 3.5, y - 3.5, 2), (x + 3.5, y + 3.5, 232), ton, 'weiss')
-        x = angel + sg * (breite - 6)                                                         # Schloss am freien Ende
-        box(G, (x - 7, y - 5, 100), (x + 7, y + 5, 124), lin(0x2A2622), 'weiss')
+            box(G, (x0, y - 3.4, z), (x1, y + 3.4, z + 10), ton, 'weiss')
+        x = angel + sg * (breite - 8)                                                         # Schloss am freien Ende
+        box(G, (x - 8, y - 6, 95), (x + 8, y + 6, 122), lin(0x2A2622), 'weiss')
 
 def lichtschacht(c, r):
     """Lichtschacht (SKYLIGHT, 27o): durch einen Spalt im Fels faellt tags Licht, nachts schwach der Mond; Moos und Laub darunter"""
