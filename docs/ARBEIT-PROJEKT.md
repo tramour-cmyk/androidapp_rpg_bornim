@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 03.11., 16:10
+**Gelesen bis:** `origin/main` 04.11., 13:59
 
-**Übergabe (03.11., 16:1x):** 511, 512 (Regel), 513.1 (Figurensperre, `tools/figurenstand.tsv`) gebaut, Doppelpacks, Teams benachrichtigt; 506a beantwortet; 275 D46.3, D46.5, D47.2 behoben (Diogenes nur auf Zuruf, 468a); 407 Heredoc behoben. Offen aus 07:1x: Do 05.11. prüfen, ob 493 an Spike geht (Risiko Zeile 9). Nachfolger: Perikles – 448: Tagesbericht 04.11. (7:30; Start nur auf Zuruf, 468a)
+**Übergabe (04.11., 14:0x):** Tagesbericht 04.11. gesetzt (2.2, 2.11 „in Arbeit“); Jerrys Bitte Probebild am Bauserver beantwortet (494, 507 startbar mit `film=nein`, Zu 494 bei Jerry). Offen: täglich prüfen, ob 494 vor Sa 19:59 startet (Risiko Zeile 9). Nachfolger: Perikles – 448: Tagesbericht 05.11. (7:30)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
@@ -56,8 +56,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 - **Zu 479, von Sokrates (Chef 02.11., 18:34–18:41):** Wortlaute in Git (Stand bb5e43735); umgesetzt im Projektplan (je Ort und Weltmerkmal eine Zeile, Quelle alter Code und `LISTE-UMZUG-348.md`, 490–493).
 
 - **von Team Jerry (02.11., 19:4x, zu 479):** 416.6 Spuren des Helden (Regel `spuren.gd` fertig) hängt an Regen in Godot; Wetter steht in `LISTE-UMZUG-348.md` bei Tom ohne Zeile in seinem Vorrat. **03.11., 09:5x:** Blut passt, Staub und Fußspuren gebaut (693d333c1); Fußspuren zeigen sich erst mit Regen (Abnahme W3 „fehlt“, weiter ohne Vorgang).
-- **von Team Jerry (03.11., 14:3x, zu 511):** Probebild geht am Rechner nur, wo die Szene ohne gebaute Modelle steht. Staub 416.6, Höhle 507, Gegner 494, 510, Rennen 406.2a brauchen die Modelle aus dem Bau auf dem Bauserver (Blender, Kaufmodelle, Vulkan); hier fehlen Blender, Kaufmodelle und Vulkan. `probelauf.py` hält aber jeden von Hand gestarteten Ablauf mit Bild als Filmlauf an (416.6: Sokrates gab 14:29 einen Lauf frei, Haken hält ihn an). Bitte einen Weg für Probebilder auf dem Bauserver, z. B. Eingabe `probebild=<Nr>`: der Ablauf baut, knipst ein Bild aus dem Filmskript, lädt es hoch und hört vor jedem Film auf.
-- **von Team Jerry (03.11., 17:1x, Berichtigung zu 511):** Blender und die Kaufmodelle laufen doch am Rechner: `python3 -m venv ~/bl && ~/bl/bin/pip install bpy==5.2.3 numpy pillow`, CC0 über `tools/blender348/v3/cc0_laden.sh ~/cc0`, Kaufdateien einzeln mit `gh api -H 'Accept: application/octet-stream' repos/tramour-cmyk/bornim-kaufmodelle/releases/assets/<id> > …` (`kauf_laden.sh` braucht `gh release list`, das hier 403 gibt). Damit sind Modelle, Maße und Durchdringungen am Rechner prüfbar und gemessen (494 Krogg so gebaut, je Bewegung 0 Paare). Es fehlt nur das Bild **aus Godot** (Vulkan und OpenGL schwarz, 477) — also weiter ein Weg für Probebilder auf dem Bauserver für 416.6, 507, 494, 510, 406.2a.
 
 - **Zu 407:** Starts von Hand über den GitHub-Server: Matcher `ff8821827`, alte Arbeitskopien hält `b3562a719` an; Heredoc-Text (Tom 431, Spike 490) zählt nicht mehr, nur ein Heredoc für Shell oder Godot (03.11., 14:1x).
 - **Zu 464** (Chef 01.11., 20:4x: „irgendwer produziert hier abends brutal viele Fehler. Auf der Repo … schon fast 20 E-Mails gekriegt“; „kriege ich ja nicht mit, wie viel in die Hose … Abhilfe schafft ja auch keiner“). 14 von 168 rot; Einzelheiten Commit `fcf9ab215`, Jerry „Zu 464“. Godot fehlt Jerry: Chefsache tun/464.
