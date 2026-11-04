@@ -141,6 +141,7 @@ Im Vorschlag an den Nutzer stehen die vier Antworten kurz neben dem Abgleich mit
 
 ## Oberfläche (Thema 60)
 
+- **Maßgabe für Menüs** (549a, Chef 04.11., 14:33: „Oberste Maßgabe: einheitlich, spielerfreundlich, designtechnisch ansprechend. Einfach. … bei Menüs müssen nicht düster sein. Menüs dürfen einfach schön ausschauen“): jeder Menüschirm wird daran gemessen, in dieser Reihenfolge; düster ist die Welt, nicht das Menü. Die Einzelregeln (ohne Kasten, Wahlstufen, Abbrechen) folgen mit dem Entscheid zu 549a.
 - Alle Oberflächen sehen aus wie Blende und Textkasten (42b): schwarz, dünner Goldrand, Überschriften und Hervorhebungen in gedämpftem Gold, Text in gebrochenem Weiß, Serife (mitgeliefert, OFL); keine hellen Tafeln mehr (Nutzer 12.10., 23:20).
 - **Eine Schrift überall** (292.3, Chef 22.10., 16:43: „292.3 ja“): Alegreya (mitgeliefert, OFL) für alles, Titel und Knöpfe in gesperrten Versalien. Cinzel nicht mehr (löst 60f ab). Keine Pixelschrift, auch nicht im Kampf (löst 60i ab): Lebens- und Zauberpunkte, Würfelzeile und Zahlen in MARS und im klassischen Kampf in Alegreya mit gleich breiten Ziffern, mindestens 13 sp. Ausnahmen: Ortsnamen auf den Karten bleiben in Handschrift (62g, Chef 14:02); der Schriftzug im Firmenzeichen ist Teil des Logos.
 - **Kästen im Kampf** (292.3): deckend schwarz mit dünnem Rand wie der Textkasten; wer am Zug ist, golden umrandet, wenn Held, rot, wenn Gegner.
