@@ -199,7 +199,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 569 | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 Probe 4) | A Spiel | M | – | Team Tom | startbar |
 | 570 | Theke: Wahl „Fleisch verkaufen · 12 Gold“ liest sich wie ein Preis (Prüfer 557 Runde 4) | A Spiel | M? | – | Homer | startbar |
 | 571 | Wischen auf Schaltflächen rollt Listen nicht (Testmenü, Erschaffung; Chef 04.11., 20:13) | A Spiel | M | – | Team Tom | startbar |
-| 572 | Effektprobe: zwei REEBOO-Gratisstücke (Stylized VFX, Status Effects) an einem eigenen Helden im Film, vor dem Kauf (Chef 04.11., 20:27) | C Kampf | M | – | Team Jerry | wartet |
+| 572 | Effektprobe: zwei REEBOO-Gratisstücke (Stylized VFX, Status Effects) an einem eigenen Helden im Film, vor dem Kauf (Chef 04.11., 20:27) | C Kampf | M | – | Team Jerry | startbar |
 | 573 | Kampf: gefallener Gegner wird in die Mitte gezogen, wenn er als Letzter fällt (Chef 04.11., 20:33, Build 257) | C Kampf | M | – | Team Jerry | gebaut |
 | 574 | Laufprotokoll Build 257 (Handy): „Lambda capture … was freed“ dreimal, „buffer_size == 0“ (Chef 04.11., 20:40) | E Technik | M | – | Team Tom | startbar |
 | 575 | Klang: Knurren im Rattenkampf klingt nach Wolf? (Chef 04.11., 20:42, unsicher) | C Kampf | M | – | Team Jerry | gebaut |
