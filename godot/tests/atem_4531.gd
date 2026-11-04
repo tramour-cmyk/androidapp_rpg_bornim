@@ -155,29 +155,52 @@ func _run() -> void:
 	# 2) nach Anstrengung: wie ein Hieb (der Held bleibt in der Ruhebewegung, damit die Schulter nur den Atem zeigt), dann 13 s messen
 	# (Lauf 214: in 10 s endete der letzte Atemzug bei 7,8 s, der nächste nach 8 s erst bei etwa 10,9 s; das Fenster muss mindestens
 	# 8 s plus einen Ruheatemzug mit Spielraum fassen, 8 + 1,15 · 4,2 s)
-	held.atem.anstrengen(1.0)
-	var t0 := t
-	sh.zuege.clear()
-	var weit := 0.0     # Atemzüge in den ersten 3 s (Phase ohne Umbruch)
-	var sch_an: Array = []     # Schulterhöhe in den ersten 4 s
-	for i in 390:
-		var p0: float = held.atem.phase
-		await process_frame
-		t += 1.0 / 30.0
-		_messe(sh, t, false)
-		if i < 90:
-			weit += fposmod(held.atem.phase - p0, 1.0)
-		if i < 120:
-			sch_an.append(sh.sch_y)
-	var steig: float = _spanne(sch_an) / maxf(ruhe_sch, 0.0001)
-	print("nach Anstrengung: Schulter %.1f cm (Ruhe %.1f cm), %.2f-mal" % [_spanne(sch_an) * 100.0, ruhe_sch * 100.0, steig])
-	_check(steig >= 1.8, "Steigerung sichtbar: Schulter in den ersten 4 s %.2f-mal so hoch wie in Ruhe" % steig)
-	var ruhe_s: float = held.atem.takt
-	var spaete: Array = sh.zuege.filter(func(z): return z[0] - t0 >= 8.0).map(func(z): return z[1])
-	print("nach Anstrengung: Atemzüge %s s (Ruhe %.2f)" % [", ".join(sh.zuege.map(func(z): return "%.2f@%.1f" % [z[1], z[0] - t0])), ruhe_s])
-	var mal: float = weit / (3.0 / ruhe_s)
-	_check(mal >= 1.6, "in den ersten 3 s nach Anstrengung %.2f-mal so schnell wie in Ruhe" % mal)
-	_check(not spaete.is_empty() and spaete.max() < 1.15 * ruhe_s and spaete.max() > 0.85 * ruhe_s, "nach 8 s wieder fast Ruhe (%s)" % str(spaete))
+	# Lauf 253 (Tom 04.11.): 2,17 s @ 8,9 s; ohne neuen Zug wäre die Anstrengung dort 0,06 (Atemzug etwa 3,1 s). Ein Kampfzug am
+	# Helden (Abwehr, Treffer, Ausweichen, figur.gd _schnaufen) im Fenster strengt neu an; darum erst warten, bis der Kampf ruht,
+	# jeden fremden Anstieg melden und das Fenster dann einmal wiederholen
+	var versuch := 0
+	while true:
+		versuch += 1
+		var w := 0
+		while (kf.busy or kf.playing or not kf.beats.is_empty()) and w < 900:
+			await process_frame
+			t += 1.0 / 30.0
+			w += 1
+		held.atem.anstrengen(1.0)
+		var t0 := t
+		sh.zuege.clear()
+		sh.start_s = -1.0
+		var weit := 0.0     # Atemzüge in den ersten 3 s (Phase ohne Umbruch)
+		var sch_an: Array = []     # Schulterhöhe in den ersten 4 s
+		var fremd: Array = []      # Zeitpunkte (s nach t0), an denen die Anstrengung von außen stieg
+		var a_vor: float = held.atem.anstrengung
+		for i in 390:
+			var p0: float = held.atem.phase
+			await process_frame
+			t += 1.0 / 30.0
+			_messe(sh, t, false)
+			if held.atem.anstrengung > a_vor + 0.01:
+				fremd.append("%.1f" % (t - t0))
+			a_vor = held.atem.anstrengung
+			if i < 90:
+				weit += fposmod(held.atem.phase - p0, 1.0)
+			if i < 120:
+				sch_an.append(sh.sch_y)
+		if not fremd.is_empty():
+			print("nach Anstrengung: Versuch %d, Kampfzug am Helden bei %s s (Warten %.1f s)" % [versuch, ", ".join(fremd), w / 30.0])
+			if versuch < 2:
+				continue
+		var steig: float = _spanne(sch_an) / maxf(ruhe_sch, 0.0001)
+		print("nach Anstrengung: Schulter %.1f cm (Ruhe %.1f cm), %.2f-mal" % [_spanne(sch_an) * 100.0, ruhe_sch * 100.0, steig])
+		_check(steig >= 1.8, "Steigerung sichtbar: Schulter in den ersten 4 s %.2f-mal so hoch wie in Ruhe" % steig)
+		var ruhe_s: float = held.atem.takt
+		var spaete: Array = sh.zuege.filter(func(z): return z[0] - t0 >= 8.0).map(func(z): return z[1])
+		print("nach Anstrengung: Atemzüge %s s (Ruhe %.2f)" % [", ".join(sh.zuege.map(func(z): return "%.2f@%.1f" % [z[1], z[0] - t0])), ruhe_s])
+		var mal: float = weit / (3.0 / ruhe_s)
+		_check(mal >= 1.6, "in den ersten 3 s nach Anstrengung %.2f-mal so schnell wie in Ruhe" % mal)
+		_check(fremd.is_empty(), "kein Kampfzug am Helden im Messfenster (%s)" % str(fremd))
+		_check(not spaete.is_empty() and spaete.max() < 1.15 * ruhe_s and spaete.max() > 0.85 * ruhe_s, "nach 8 s wieder fast Ruhe (%s)" % str(spaete))
+		break
 	# 3) Kampf zu Ende auf Autopilot; der Hieb strengt an
 	var vorher_a: float = 0.0
 	var hieb_a := 0.0
