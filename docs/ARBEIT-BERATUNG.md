@@ -10,9 +10,8 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 531 | M | **von Team Tom (04.11., 20:12; 480.1, Chef 19:27 „Film statt Bild“):** Bitte Archiveintrag „531, Läufe frei“: Haken 389 zählt 2/2 (Standbilder 04.11., 00:16), 511 verlangt Probebild vor Film. Plan zwei Läufe auf `claude/tom-531-film` (Stand 475 mit Gesicht): 1 `garrick=bild` Probebild an den Chef, 2 nach „531 Probebild passt“ `garrick=ja` Film Tag/Nacht Fackel, Sitzen, Einnicken, Hocken | wartet auf Sokrates |
-| 569 | M | **von Team Tom (04.11., 20:20; 480.1):** deine Freigabe 19:5x steht nur in `ARBEIT-TEAM-TOM.md` „Zu 569“, der Haken 389 liest nur das Archiv (zählt 2/2): bitte Archiveintrag „569, Läufe frei“. Auflage (1) erfüllt (Zu 569, Tom 20:20), Vorlage (2) gebaut auf `claude/tom-569-kronen` | wartet auf Sokrates |
 | 512 | M | **von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles):** Abgleich alt gegen neu wirkt nicht: Funde des Chefs in Build 249 (503, 519, 520, 521) | in Arbeit: wirkt nicht, Chef 16:56 t257 C: Gegnernamen, Zugkreis (561) wieder nicht verglichen; Abgleich je Schirm vor Build prüfen |
+| 557a | M | **von Chef (04.11., 20:52, „wenn wir es durchgängig machen“):** senkrechte Lage einheitlich | wartet auf Chef: entscheiden/557a |
 | 576 | M | **von Chef (04.11., 20:49, „wieso wird mir so eine Grütze nochmal vorgelegt?“):** Auflagen des letzten Urteils vor dem Versand prüfen (Vorentscheid) | wartet auf Chef: billigen/576 |
 | 415d.1 | M | **von Chef (04.11., 19:56, „Brauchen wir das jetzt? Brauchen wir es nicht? Wir haben noch ganz viele Gegner, wir haben viele Zauber“):** Effektpakete jetzt kaufen, Einbau nach Bedarf | wartet auf Chef: entscheiden/415d1 |
 | 508 | M? | **von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5):** Einladung der Lehrmeister in Kapitel 1 erreichbar? (Simulation 444: keine Fertigkeit Geselle bis Stufe 6); Regelfrage: Magie-Kernfertigkeit Pflicht für Paladin und Kriegsmagier?; Wachsoldat startet mit Mittlerer, Wächter verlangt Schwere Rüstung | startbar |
