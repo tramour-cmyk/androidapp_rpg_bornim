@@ -40,7 +40,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 99, Muss 78, startbar 12
+**Tom** – offen 100, Muss 78, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -138,6 +138,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | 463.1 | K | nach dem Durchspielen (aus 463, eingefroren Chef 22:44): Ärmel an der Schulter durch den U | ruht |
 | 417.1 | K | nach dem Durchspielen (aus 417, „417 passt“ Chef 03.11., 06:54): offene Prüferbefunde Lauf | ruht |
+| 558.1 | K | von Sokrates, nach dem Durchspielen (Chef 04.11., 22:23: „was der Prüfer noch anmerkt, kön | ruht |
 | 504.1 | M? | von Homer (504, Chef 03.11., 07:52: „Mindestens 3 … Lebendige Welt“): Gespräche in Kapitel | wartet auf Test/Build (gebaut) |
 | 447.4.1 | M | von Homer (447.4, Chef 03.11., 15:50 „1B 2A“): Lehrmeister, Meisterschaften, Ruf in Kapite | wartet auf 508 (startbar) |
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
