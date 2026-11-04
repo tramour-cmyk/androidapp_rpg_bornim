@@ -10,8 +10,8 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 566 | M | **von Sokrates (Chef 04.11., 17:15, Bild; Zu 566 und 567):** „Beim Goblin steht in den Schatten, aber er schaut nicht aus, als würde er im Schatten stehen. Könnten Bugs sein.“ | startbar: gegen alt prüfen, Ansage und Wirkung im Bild zeigen | – |
-| 567 | M | **von Sokrates (Bilder Chef 04.11., 17:00–17:15; Zu 566 und 567):** Gegner stehen im Kampfort fast übereinander (zwei Wölfe, zwei Goblins), die Ansage „+ In den Schatten“ hängt neben keinem | startbar: Plätze gegen alt prüfen | – |
+| 566 | M | **von Sokrates (Chef 04.11., 17:15, Bild; Zu 566 und 567):** „Beim Goblin steht in den Schatten, aber er schaut nicht aus, als würde er im Schatten stehen. Könnten Bugs sein.“ | in Arbeit bei Tom (übernommen 19:10): gegen alt prüfen, Ansage und Wirkung im Bild zeigen | – |
+| 567 | M | **von Sokrates (Bilder Chef 04.11., 17:00–17:15; Zu 566 und 567):** Gegner stehen im Kampfort fast übereinander (zwei Wölfe, zwei Goblins), die Ansage „+ In den Schatten“ hängt neben keinem | in Arbeit bei Tom (übernommen 19:10): Plätze gegen alt prüfen | – |
 | 565 | M | **von Sokrates (Chef 04.11., 17:10, t257 Bereich C, Bild; Zu 565):** im Gruppenkasten unten ist nicht zu sehen, welcher Held am Zug ist | startbar: Vorschlag als Bild vorher/nachher in `chefsache/ansehen/`, nichts einschalten | – |
 | 564 | M | **von Sokrates (Chef 04.11., 17:06, Testreiter „Seit Start, Fehler“, Build 257; Zu 564):** viermal „ERROR: Lambda capture at index 0 was freed. Passed \"null\" instead.“ | startbar: Ursache nachstellen (welches Lambda, welcher Knoten freigegeben); gehört es Tom, Übernahme | – |
 | 562 | M | **von Sokrates (Chef 04.11., 17:02, t257 Bereich C; Zu 562 und 563):** Helden gehen zum Angriff im „Schlaftabletten-Modus“, zurück gleiten sie flott; echte Schritte, Tempo wie alt | startbar: Ursache nachstellen, gegen alt und 438 vergleichen | – |
