@@ -5,7 +5,7 @@
 A Spiel
 Kurz: Du hast B mit Vorschlag 2 gewählt, Löschen nach den drei Stufen (549a Punkt 4) und eine zweite Stelle im neuen Stil gewünscht (12:38). Beides ist in Godot gebaut, so wie es ins Spiel käme, aber noch nicht eingeschaltet. Als zweite Stelle habe ich die Wechselliste der Ausrüstung genommen (Platz antippen, „Wechseln“), weil du sie um 12:01 bemängelt hast.
 
-Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/c8c192b70 (Zweig `claude/tom-557-spielstaende`, Stand Build 257), Bilder `spielstaende_bild_557` (Godot am Rechner, Lauf 2 von 2)
+Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/9bba5679d (Zweig `claude/tom-557-spielstaende`, Stand Build 257), Bilder `spielstaende_bild_557` (Godot am Rechner, Lauf 2 von 2)
 
 ![Spielstände: links heute (Build 257), rechts B](../bilder/557-spiel.webp)
 
@@ -23,7 +23,9 @@ Bekannt:
 - Welche Werte im Vergleich zählen (RK, GES, STR fehlen heute), ist 524. Die Liste zeigt das Urteil derselben Rechnung wie heute. Der volle Vergleich kommt mit 524 und 521.
 - Bei vier Plätzen bleibt unten Platz frei, wie in der alten Fassung.
 
-Befund des Prüfers (Helfer, 13:04, am ersten Lauf; im zweiten Lauf geändert, Nachprüfung folgt als Text): Ortsname brach mitten im Namen um; „Neues Spiel“ schien am Rand der Rückfrage durch; der rote Grund beim Plattenpanzer war in der matten Zeile kaum lesbar; angelegt stand nur der Name; Bilder der Stücke fehlten am Rechner.
+Befund des Prüfers (Helfer, 13:04, am ersten Lauf; im zweiten Lauf geändert): Ortsname brach mitten im Namen um; „Neues Spiel“ schien am Rand der Rückfrage durch; der rote Grund beim Plattenpanzer war in der matten Zeile kaum lesbar; angelegt stand nur der Name; Bilder der Stücke fehlten am Rechner.
+
+Befund des Prüfers zu diesen Bildern (Helfer, 13:07, nach dem Versand, nicht behoben): hinter der Rückfrage scheint die Liste noch lesbar durch („Platz 4 · leer“, „Neues Spiel“); die Kapitelzeile ist kaum als schräg und gedämpft zu erkennen; bei „Flinke Robe der Bastion“ fehlt das Bild (auch heute im Spiel); Roben zeigen keinen Wert, nur der Plattenpanzer „RK 18“ (Roben haben keinen Rüstungswert); „× LÖSCHEN“ steht unter den Angaben links, nicht unter „LADEN“.
 
 Bitte ansehen:
 1. **Spielstände B so bauen?** Oder was ändern (ein Wort genügt)?
