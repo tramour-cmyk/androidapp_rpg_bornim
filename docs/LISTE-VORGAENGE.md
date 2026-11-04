@@ -185,7 +185,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 549a.1 | ROLLE-ENTWICKLUNG: vor jedem Menüschirm „Fenster und Schirme“ lesen (zu 549a) | B Abläufe | M? | – | Perikles | startbar |
 | 549 | Rastfenster am Feuer wirkt klein, zu viele Kästen; besser als alt gestalten (Chef 04.11., 00:07, Bild) | A Spiel | M | – | Team Tom | wartet |
 | 550 | Flüsterwald: erstes Heilkraut zeigt einen riesigen Einblendkasten, ab dem zweiten normale Größe (Chef 04.11., 00:19) | A Spiel | M | – | Team Tom | zu testen |
-| 558 | Robe des Magiers zu glatt, wie eine blaue Fläche: Stoff lebendiger (Falten, Schatten, Schmutz, Abnutzung) (Chef 04.11., 11:31, Bild) | E Figuren | M | 79,46 $ | Team Tom | startbar |
+| 558 | Robe des Magiers zu glatt, wie eine blaue Fläche: Stoff lebendiger (Falten, Schatten, Schmutz, Abnutzung) (Chef 04.11., 11:31, Bild) | E Figuren | M | 79,46 $ | Team Tom | wartet |
 | 559 | Prüfung „wartet auf Chef“: Stand gegen neuere Rückmeldung des Chefs (Chef 04.11., 16:18) | B Werkzeuge | M | 3,53 $ | Perikles | erledigt |
 | 560 | Monster auf der Karte drehen sich zum Helden, wenn sie ihn wahrnehmen, mit Schritten statt auf der Stelle (Chef 04.11., 16:22) | E Monster | M? | – | Team Jerry | startbar |
 | 561 | MARS: goldener Zugkreis wird von der Figur darin nicht verdeckt, wie alt (Chef 04.11., 16:56, t257 C) | E Kampf | M | – | Team Jerry | startbar |
