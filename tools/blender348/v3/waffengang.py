@@ -23,6 +23,9 @@ GAENGE = {
     'bogen': ('BOW.ARROW', 'WalkBow', 'RunFastBow'),
 }
 VERGLEICHEN = os.environ.get('VERGLEICH', '') == '1'   # Messung 2: alle Vorwaerts-Bewegungen je Paket dazu
+# 417 (Chef 02.11., 14:46: Rennen „deutlich zu viel nach vorne gebeugt“, ausser Bogen): VERGLEICH_WORTE=Run nur die Rennclips je Paket,
+# Neigung wie beim Bogen (RunFastBow) gesucht
+VERGLEICH_WORTE = tuple(w for w in os.environ.get('VERGLEICH_WORTE', 'Walk,Run,Sprint').split(',') if w)
 
 
 def finde(paket, name):
@@ -62,7 +65,7 @@ os.makedirs(VERGLEICH, exist_ok=True)
 for art, (paket, geh, renn) in (GAENGE.items() if VERGLEICHEN else []):
     _, alle = finde(paket, geh)
     namen = sorted({os.path.basename(p)[9:-4] for p in alle if os.path.basename(p).startswith('Humanoid@')
-                    and any(w in os.path.basename(p) for w in ('Walk', 'Run', 'Sprint'))
+                    and any(w in os.path.basename(p) for w in VERGLEICH_WORTE)
                     and not any(w in os.path.basename(p) for w in ('Left', 'Right', 'Backward', 'Crouch', 'Strafe', '_RM', 'Combat', 'Aim', 'Draw'))})
     print('VORWAERTS %s: %s' % (paket, ', '.join(namen)))
     for n in namen:
@@ -179,12 +182,22 @@ try:
 except Exception as e:
     ziel_n = None; print('NEIGUNG Idle_Loop nicht messbar:', e)
 print('NEIGUNG Ziel (Stehen + %.1f):' % NEIGUNG_GEHEN, ziel_n)
-for art, (paket, geh, _) in GAENGE.items():
-    n = 'Gehen_' + art; p = os.path.join(OUT, n + '.glb')
+# 417 (Chef 02.11., 14:46: Rennen bei allen ausser Bogen „deutlich zu viel nach vorne gebeugt“; Ziel Neigung wie beim Bogen): die normalen
+# Rennclips der Pakete stehen aufrecht (15-18 Grad), laufen aber 2,3-2,7 m/s, im Spiel (4,27) 4,5-5,2 Schritte/s (Lauf 41456531260,
+# Staxen). Darum die Sprints wie das Gehen aufrichten, Ziel die Neigung von Rennen_bogen (RunFastBow, 14,7); NEIGUNG_RENNEN=<Grad> von Hand,
+# AUFRICHTEN_RENNEN=0 schaltet es ab
+ziel_r = None
+if os.environ.get('AUFRICHTEN_RENNEN', '1') != '0' and os.path.exists(os.path.join(OUT, 'Rennen_bogen.glb')):
+    ziel_r = float(os.environ['NEIGUNG_RENNEN']) if os.environ.get('NEIGUNG_RENNEN') else messen(os.path.join(OUT, 'Rennen_bogen.glb'))['neigung'][0]
+print('NEIGUNG Ziel Rennen (wie Rennen_bogen):', ziel_r)
+ziel_g = ziel_n
+for art, (paket, geh, renn) in GAENGE.items():
+  for wort, quelle, ziel_n in (('Gehen', geh, ziel_g), ('Rennen', renn, ziel_r)):
+    n = wort + '_' + art; p = os.path.join(OUT, n + '.glb')
     if ziel_n is None or not os.path.exists(p): continue
     vor = messen(p)['neigung'][0]
     if vor <= ziel_n + 0.5: continue
-    q, _ = finde(paket, geh)
+    q, _ = finde(paket, quelle)
     # Lauf 41318025517: 2,7 Grad am starren Ruecken senken Becken -> Hals nur um 2,0 (schild 13,7 auf 11,7, Ziel 11,0);
     # darum nachregeln: Wirkung messen, Winkel um den Rest geteilt durch die Wirkung erhoehen, hoechstens drei Durchgaenge
     winkel, jetzt = vor - ziel_n, vor
@@ -194,7 +207,7 @@ for art, (paket, geh, _) in GAENGE.items():
         neu = messen(p)['neigung'][0]
         print('AUFRICHTEN %s: %.1f Grad zurueck, Neigung %.1f -> %.1f (Ziel %.1f)' % (n, winkel, vor, neu, ziel_n))
         if abs(neu - ziel_n) <= 0.3 or vor - neu < 0.1: break
-        winkel = min(winkel + (neu - ziel_n) * winkel / (vor - neu), 25.0)
+        winkel = min(winkel + (neu - ziel_n) * winkel / (vor - neu), 40.0)   # Sprint 37 -> 15 Grad braucht mehr als 25
     ergebnis[n]['aufgerichtet'] = round(winkel, 1)
 
 # Gehtempo im Spiel (417 Runde 6, Chef 01.11., 13:4x „schnelles Staxen“): GEHEN_M_S, sonst 1,5 m/s statt 2,13

@@ -196,6 +196,20 @@ def je_knochen(V, W):
 rig_eltern = {}
 VK1 = je_knochen(VK0, WK); VB1 = je_knochen(VB0, WB)
 
+def umhang_dbg(V, tag):
+    # 376.1 (SCHALE_DBG=1): Strahlen von hinten auf den Umhang allein, wie oft trifft der erste Strahl die Innenseite (je 10 cm Hoehe)
+    if os.environ.get('SCHALE_DBG') != '1' or 'cloak' not in TEILNAMEN: return
+    _lt = tl[ist_kleid]; _ic = TEILNAMEN.index('cloak')
+    fs = [f for f in KF0 if _lt[f[0]] == _ic]
+    bv = BVHTree.FromPolygons([Vector(v) for v in V], fs); d = Vector((0, -1, 0)); h_ = {}
+    for z in np.arange(0.4, 1.6, 0.01):
+        for x in np.arange(-0.3, 0.3, 0.01):
+            h = bv.ray_cast(Vector((x, 2, z)), d, 5)
+            if h[0] is not None and h[1].dot(d) > 0: h_[round(float(z), 1)] = h_.get(round(float(z), 1), 0) + 1
+    print('SCHALE DBG', tag, sum(h_.values()), dict(sorted(h_.items())))
+KF0 = [tuple(p.vertices) for p in kleid.data.polygons]
+umhang_dbg(VK0, 'unser'); umhang_dbg(VK1, 'je Knochen')
+
 # ---------------------------------------------------------------- 5. Restunterschied der Koerper als Feld
 D = np.zeros_like(VB1)
 for i, v in enumerate(VB1):
@@ -237,6 +251,7 @@ rr = np.clip((np.linalg.norm(VK2[:, :2] - np.array([0.0, hals_y]), axis=1) - 0.0
 fz = 1.0 + vorn * rr * (f - 1.0)
 neu_z = np.where(z > basis, basis + (z - basis) * fz, z)
 print('KRAGEN gestaucht', int((np.abs(neu_z - z) > 0.002).sum()), 'Ecken, Kinn %.3f, Halsansatz %.3f, oben %.3f, Faktor vorn %.2f' % (KINN_Z, basis, oben, f))
+umhang_dbg(VK2, 'Feld')
 VK2_VOR = VK2.copy()   # 376.1 Halszacken: Lage vor Stauchen und Hinausschieben, zum Messen gekippter Flaechen (unten)
 if os.environ.get('KANTE_DBG'):   # 376.1 Halszacken: Stauchen an der Oberkante je Winkel (Stufe bei +-50 Grad, kante.py)
     _w = np.degrees(np.arctan2(VK2[:, 0], -(VK2[:, 1] - hals_y)))
@@ -247,16 +262,37 @@ if os.environ.get('KANTE_DBG'):   # 376.1 Halszacken: Stauchen an der Oberkante 
             print('KANTE_DBG %+d z %.0f -> %.0f mm, vorn %.2f rr %.2f fz %.2f, Abstand %.0f mm' % (a0, (z[i] - basis) * 1000, (neu_z[i] - basis) * 1000, vorn[i], rr[i], fz[i], np.linalg.norm(VK2[i, :2] - np.array([0.0, hals_y])) * 1000))
 VK2[:, 2] = neu_z
 # ---------------------------------------------------------------- 6. was noch im fremden Koerper liegt, hinaus
+umhang_dbg(VK2, 'Kragen')
 raus = 0
+# 376.1 Urteil Tracht (Chef 01.11., 20:2x, Wachsoldat: Umhang „nicht richtig durchgaengig“): lagen beide Lagen des Umhangs im Kaufkoerper
+# (Schultern), setzte dieser Schritt beide auf dieselbe Stelle (Koerper + RAND): keine Dicke, die Innenlage mal vorn (SCHALE_DBG=1, Strahlen
+# von hinten auf den Umhang allein, Innenseite zuerst: vorher 9, danach 389). Umhang und Robe gehen darum als Ganzes: jede Ecke wird um
+# die groesste noetige Verschiebung ihrer Nachbarn binnen SCHALE_R verschoben (beide Lagen gleich, die Dicke bleibt)
+SCHALE_R = float(os.environ.get('SCHALE_R', '0.04'))   # Lagenpaare liegen nach GITTER bis 3 cm schraeg auseinander (0,015: 386, 0,04: 50)
+_lt = tl[ist_kleid]
+HUELLE = np.isin(_lt, [TEILNAMEN.index(t) for t in ('cloak', 'robe') if t in TEILNAMEN]) if SCHALE_R > 0 else np.zeros(len(VK2), bool)
+_noetig = {}
 for i, v in enumerate(VK2):
     c, nrm, _, _ = qbvh.find_nearest(Vector(v))
     if c is None: continue
     a = (Vector(v) - c).dot(nrm)
     if a < RAND:
-        VK2[i] = np.array(c + nrm * RAND); raus += 1
+        if HUELLE[i]: _noetig[i] = np.array(nrm) * (RAND - a)
+        else: VK2[i] = np.array(c + nrm * RAND)
+        raus += 1
+if HUELLE.any():
+    _sch = np.where(HUELLE)[0]; _kd = KDTree(len(_sch))
+    for i in _sch: _kd.insert(Vector(VK2[i]), int(i))
+    _kd.balance(); _mit = 0; _neu = {}
+    for i in _sch:
+        nb = [k for _, k, _ in _kd.find_range(Vector(VK2[i]), SCHALE_R) if k in _noetig]
+        if not nb: continue
+        k = max(nb, key=lambda k: float(np.linalg.norm(_noetig[k])))
+        _neu[i] = _noetig[k]; _mit += i not in _noetig
+    for i, d in _neu.items(): VK2[i] = VK2[i] + d
+    print('SCHALE HINAUS', len(_noetig), 'Ecken der Huelle im Koerper,', _mit, 'mitgeschoben')
 print('KLEIDUNG HINAUS', raus, 'von', len(VK2))
-
-
+umhang_dbg(VK2, 'hinaus')
 # ---------------------------------------------------------------- 7. Koerper unter der Kleidung weg
 kme = kleid.data
 KF = [tuple(p.vertices) for p in kme.polygons]
@@ -337,7 +373,9 @@ WKq[:, iHals] += WKq[:, iKopf]; WKq[:, iKopf] = 0.0
 # und Umhang haben unsere Gewichte, das Kettenhemd die des Koerpers, in Bewegung laufen sie auseinander. Ueber der Huefte folgen sie
 # darum der Lage darunter (deren Gewichte an der Stelle, die der Strahl nach innen trifft), darunter gleitend die eigenen (Saum frei)
 FOLGT_AB = float(os.environ.get('FOLGT_AB', '0.05')); FOLGT_BREIT = float(os.environ.get('FOLGT_BREIT', '0.17'))
-FOLGT = [('tabard', ('chain', 'sleeves')), ('robe', ('chain', 'sleeves')), ('cloak', ('tabard', 'robe', 'chain', 'belt', 'buckle', 'sleeves', 'clasp'))]
+FOLGT = [('tabard', ('chain', 'sleeves')), ('robe', ('chain', 'sleeves')), ('cloak', ('tabard', 'robe', 'chain', 'belt', 'buckle', 'sleeves', 'clasp') + tuple(t for t in os.environ.get('UMHANG_FOLGT', 'pants').split(',') if t))]
+# 376.1 (pruef_flecken.py, Rennen von hinten: Hose am Gesaess 2-3 cm durch den Umhang): der Umhang folgt auch der Hose, bis UMHANG_FOLGT_AB unter der Huefte
+FOLGT_AB_U = float(os.environ.get('UMHANG_FOLGT_AB', '0.15'))
 LTk = tl[ist_kleid]; TID = {n: i for i, n in enumerate(TEILNAMEN)}
 kme.vertices.foreach_set('co', VK2.ravel()); kme.update()
 NK2 = np.empty(len(VK2) * 3); kme.vertices.foreach_get('normal', NK2); NK2 = NK2.reshape(-1, 3)
@@ -350,7 +388,7 @@ for a_teil, unter in FOLGT:
     bv = BVHTree.FromPolygons([Vector(v) for v in VK2], [KF[j] for j in fl])
     n_ok = 0
     for i in np.where(LTk == TID[a_teil])[0]:
-        a = float(np.clip((VK2[i, 2] - (hz - FOLGT_AB)) / FOLGT_BREIT, 0, 1)); a = a * a * (3 - 2 * a)
+        a = float(np.clip((VK2[i, 2] - (hz - (FOLGT_AB_U if a_teil == 'cloak' else FOLGT_AB))) / FOLGT_BREIT, 0, 1)); a = a * a * (3 - 2 * a)
         if a <= 0: continue
         n = Vector(NK2[i])
         h = bv.ray_cast(Vector(VK2[i]) - n * 0.001, -n, 0.06)
@@ -363,10 +401,69 @@ for a_teil, unter in FOLGT:
     gefolgt[a_teil] = n_ok
 WKq /= WKq.sum(1, keepdims=True)
 print('LAGEN FOLGEN', gefolgt)
+# 376.1 (SCHALE_DBG Ruhelage: Umhang am Saum, Knie- und Wadenhoehe, Innenlage vorn): die Gewichte beider Lagen von Umhang und Robe kamen je
+# Ecke aus unserem Geruest und wichen am Saum voneinander ab (Oberschenkel); zurueck in die Ruhelage und in jeder Bewegung liefen die Lagen
+# dann auseinander und kreuzten sich. Jede Ecke des Umhangs nimmt das Mittel der Umhangecken binnen SCHALE_R (beide Lagen gleich); Robe nicht
+# (SCHALE_GEW=cloak,robe: Innenseite der Robe sichtbar 1618 -> 3526, die Robe folgt beiden Oberschenkeln, das Mittel vermischte sie)
+_GEW = np.isin(_lt, [TEILNAMEN.index(t) for t in os.environ.get('SCHALE_GEW', 'cloak').split(',') if t in TEILNAMEN])
+if (HUELLE & _GEW).any():
+    _sch = np.where(HUELLE & _GEW)[0]; _kd = KDTree(len(_sch))
+    for i in _sch: _kd.insert(Vector(VK2[i]), int(i))
+    _kd.balance(); _W = WKq.copy()
+    for i in _sch:
+        nb = [k for _, k, _ in _kd.find_range(Vector(VK2[i]), SCHALE_R)]
+        _W[i] = WKq[nb].mean(0)
+    WKq = _W / _W.sum(1, keepdims=True)
+    print('SCHALE GEWICHTE', len(_sch), 'Ecken gemittelt')
+# 463 (Pruefer Film 23:03: „roter Aermel schneidet seitlich durch den Umhang, Oberarm, Ellbogen“; Lauf 41366192062, pruef_tracht ORT:
+# sleeves>cloak schon in Ruhe, 1,1-1,3 m hoch, hinten, beide Seiten, 5-25 mm tief): der Umhang liegt hinten am Oberarm nicht ueber dem
+# Aermel, und er folgt dem Arm nicht (der Strahl nach innen trifft den Ruecken, nicht den Arm; FOLGT). Darum (1) jede Umhangecke binnen
+# ARM_R am Aermel mindestens ARM_LUFT m vor die Aermelflaeche (entlang deren Normale), (2) bis ARM_GEW der Aermelgewichte (naeher mehr,
+# Oberarm schiebt den Umhang). Beide Lagen gleich: je Ecke die staerkste Verschiebung und Gewichtung binnen SCHALE_R (wie SCHALE GEWICHTE)
+# Lauf 41368485277 (ARM_LUFT 0,012, ARM_GEW 0,6): schlechter, darum aus (ARM_LUFT=0): sleeves>cloak Ruhe Mann 104 -> 104, Frau 48 -> 112,
+# Gehen 256 -> 215, 238 -> 233; Flecken Mann chain 368 -> 4865, sleeves 1372 -> 2903; in Ruhe liegt der Durchstoss jetzt auf 1,4 m (Schulter)
+# Versuch 2 (Lauf 41374143498, nur Aermelgewichte ARM_GEW 0,6, ARM_LUFT 0): kaum Wirkung (Ruhe 104/48 unveraendert, Flecken mehr).
+# Ursache (Tom 02.11., 03:2x): beide Versuche liefen auf VK3, der Kleidung schon zurueck in der T-Pose der Kauffigur; dort liegen die Arme
+# waagerecht, der Umhang beruehrt den Aermel nur an der Schulter (darum Durchstoss danach auf 1,4 m). Jetzt auf VK2, in unserer Haltung mit
+# haengenden Armen, wo der Aermel hinten am Ellbogen durch den Umhang sticht, vor der Rueckrechnung in die Ruhelage (Gewichte gelten mit)
+# Lauf 41377342833 (auf VK2, 12 mm, 60 %): Ruhe Mann sleeves>cloak 104 -> 32, Frau 48 -> 56; in Bewegung kaum anders (Gehen 231/222 statt
+# 256/238, Idle 283/469, Jog 235/301); Flecken Kette Mann 368 -> 2893. Der Arm schwingt in Bewegung in den Umhang, den die Form in Ruhe
+# nicht erreicht: darum wieder aus (ARM_LUFT=0.012 ARM_GEW=0.6 zum Nachstellen); naechster Ansatz im Zeichnen (Umhang gewinnt die Tiefe)
+ARM_LUFT = float(os.environ.get('ARM_LUFT', '0')); ARM_GEW = float(os.environ.get('ARM_GEW', '0')); ARM_R = float(os.environ.get('ARM_R', '0.06'))
+if (ARM_LUFT > 0 or ARM_GEW > 0) and 'cloak' in TEILNAMEN and 'sleeves' in TEILNAMEN:
+    _ic = TEILNAMEN.index('cloak'); _is = TEILNAMEN.index('sleeves')
+    _sf = [f for f in KF if _lt[f[0]] == _is]
+    kme.vertices.foreach_set('co', VK2.ravel()); kme.update()   # Normalen wie normalen() unten (dort erst spaeter definiert)
+    _NA = np.empty(len(VK2) * 3); kme.vertices.foreach_get('normal', _NA); _NA = _NA.reshape(-1, 3)
+    _bv = BVHTree.FromPolygons([Vector(v) for v in VK2], _sf)
+    _cl = np.where(_lt == _ic)[0]
+    _dv = np.zeros((len(VK2), 3)); _a = np.zeros(len(VK2)); _neu = {}
+    for i in _cl:
+        h = _bv.find_nearest(Vector(VK2[i]), ARM_R)
+        if h[0] is None: continue
+        ecken = list(_sf[h[2]]); d = np.linalg.norm(VK2[ecken] - np.array(h[0]), axis=1)
+        n = Vector(_NA[ecken].mean(0)).normalized()   # Normale der Aermelecken (nach aussen wie pruef_tracht), nicht die Wicklung der Flaeche
+        sd = (Vector(VK2[i]) - h[0]).dot(n)
+        if ARM_LUFT > 0 and -0.035 < sd < ARM_LUFT: _dv[i] = np.array(n) * (ARM_LUFT - sd)   # tiefer als 3,5 cm: kein Umhang am Aermel
+        w = 1.0 / np.maximum(d, 1e-4); _neu[i] = (w[:, None] * WKq[ecken]).sum(0) / w.sum()
+        a = float(np.clip(1.0 - h[3] / ARM_R, 0, 1)); _a[i] = ARM_GEW * a * a * (3 - 2 * a)
+    _kd = KDTree(len(_cl))
+    for i in _cl: _kd.insert(Vector(VK2[i]), int(i))
+    _kd.balance()
+    _dv2 = _dv.copy(); _W = WKq.copy(); n_auf = n_gew = 0
+    for i in _cl:
+        nb = [k for _, k, _ in _kd.find_range(Vector(VK2[i]), SCHALE_R)]
+        kv = max(nb, key=lambda k: float(np.linalg.norm(_dv[k]))); _dv2[i] = _dv[kv]; n_auf += bool(np.linalg.norm(_dv[kv]) > 0)
+        ka = max(nb, key=lambda k: _a[k])
+        if _a[ka] > 0 and ka in _neu: _W[i] = (1 - _a[ka]) * WKq[i] + _a[ka] * _neu[ka]; n_gew += 1
+    tief = float(np.linalg.norm(_dv, axis=1).max()) if len(_cl) else 0.0
+    VK2 = VK2 + _dv2; WKq = _W / _W.sum(1, keepdims=True)
+    print('UMHANG UEBER AERMEL', n_auf, 'Ecken vor (hoechstens %.1f cm), %d folgen dem Arm (bis %.0f %%)' % (tief * 100, n_gew, ARM_GEW * 100))
 VK3 = np.empty_like(VK2)
 for i, v in enumerate(VK2):
     A = np.tensordot(WKq[i], SA, axes=1)
     VK3[i] = (np.linalg.inv(A) @ np.r_[v, 1.0])[:3]
+umhang_dbg(VK3, 'Ruhelage')
 for pb in qa.pose.bones:
     pb.matrix_basis = Matrix()
 bpy.context.view_layer.update()
@@ -389,7 +486,7 @@ for i in range(len(VK2)):
         if t == LT[i]: continue
         h = bv.ray_cast(Vector(VK2[i] + NP[i] * 0.001), Vector(NP[i]), 0.08)
         if h[0] is not None and (best is None or h[3] < best[1]): best = (t, h[3])
-    if best: UNTER[i] = best[0]
+    if best and not HUELLE[i]: UNTER[i] = best[0]   # 376.1: die Innenlage von Umhang und Robe „liegt unter“ Wappenrock und Kette (Normale zum Koerper); zurueck schob sie vor die Aussenlage (SCHALE_DBG Ende: Huefte 1 -> 47)
 zurueck = 0
 for _ in range(2):
     NR = normalen(VK3); BR = je_teil(VK3)
@@ -407,6 +504,7 @@ if UA > 0 and 'cloak' in TEILNAMEN:
     m = np.isin(LT, [TEILNAMEN.index(t) for t in ('cloak', 'clasp') if t in TEILNAMEN]) & (VK3[:, 2] > cz - 0.05)
     VK3[m] += NR[m] * UA * np.clip((VK3[m, 2:3] - (cz - 0.05)) / 0.1, 0, 1)
     print('UMHANG AUF', int(m.sum()), 'Ecken')
+umhang_dbg(VK3, 'Ende')
 kme.vertices.foreach_set('co', VK3.ravel())
 for g in list(kleid.vertex_groups): kleid.vertex_groups.remove(g)
 for j, n in enumerate(Q_KN):
@@ -423,6 +521,49 @@ if ohne:
     bm = bmesh.new(); bm.from_mesh(kme); bm.verts.ensure_lookup_table()
     bmesh.ops.delete(bm, geom=[bm.verts[i] for i in np.where(np.isin(LT, [TEILNAMEN.index(t) for t in ohne]))[0]], context='VERTS')
     bm.to_mesh(kme); bm.free(); print('OHNE', ohne)
+# 376.1 Urteil Tracht (Chef 01.11., 20:2x, Wachsoldat: „da kommt immer ein Farbstreifen durch den Umhang durch“): die hintere Bahn des
+# Wappenrocks folgt den Oberschenkeln, der Umhang nicht; sie stach auf Gesaesshoehe 1-2 cm durch (pruef_flecken.py, Strahl von hinten:
+# Wappenrock vor dem Umhang, in jeder Bewegung, auch ohne Abbau). Unter dem Umhang sieht sie niemand: mit Umhang faellt sie weg
+if 'cloak' in TEILNAMEN and 'tabard' in TEILNAMEN and os.environ.get('RUECKBAHN') != '1':
+    bm = bmesh.new(); bm.from_mesh(kme); bm.verts.ensure_lookup_table(); LT2 = np.zeros(len(kme.vertices), dtype=int)
+    kme.attributes['teil'].data.foreach_get('value', LT2)
+    py = QR_MAT['pelvis'].translation.y if 'pelvis' in QR_MAT else 0.0
+    hinten = [v for v in bm.verts if LT2[v.index] == TEILNAMEN.index('tabard') and v.co.y > py]
+    bmesh.ops.delete(bm, geom=hinten, context='VERTS'); bm.to_mesh(kme); bm.free()
+    print('RUECKBAHN WEG', len(hinten), 'Ecken')
+# 463 (Chef 01.11., 20:3x: „der Umhang wieder überall durchschimmert … DAUERPROBLEM“): wie der Koerper unter der Kleidung (7) fallen auch
+# Unterlagen weg, die eine Oberlage in der Ruhelage binnen 3 cm laengs ihrer Normale deckt; sonst stechen sie in Bewegung durch
+# (Umhang liegt 5-25 mm am Arm). Gemessen mit pruef_flecken WEG, Laeufe 41442266720, 41445338659: nur Aermel weg, dann sticht die Kette
+# durch (Wache Mann 624 -> 1414); Aermel und Kette weg: Wache Mann 6909 -> 5701, Frau 5441 -> 4940, Aermel 2958 -> 1118, keine Loecher.
+# UNTER_WEG=<teil>:<oben+oben>:<m>&… (leer: aus)
+# 463 Messlauf 41517895812 (pruef_flecken WEG1..5, am gebauten Modell mit RUECK 0,04): Robe unter Guertel weg Robe Mann 12347 -> 10707,
+# Frau 17382 -> 15058; Hose und Guertel unter dem Umhang weg Wache Frau 4832 -> 4208, Mann 5844 -> 5556; Aermel und Kette 5 statt 3 cm
+# Wache Mann 5556 -> 4367 (Aermel 1353 -> 387), Frau 4208 -> 4131; keine Loecher dazu. Stiefel unter der Robe und Haut unter Kette und
+# Kragen: kaum Wirkung (Robe Stiefel 1130 -> 1067), nicht eingebaut. „:beide“ hinten: auch Oberlage hinter der Flaeche (Guertel in der Robe)
+UNTER_WEG = os.environ.get('UNTER_WEG', 'sleeves:chain+cloak+robe:0.05&chain:cloak:0.05&pants:cloak+robe+tabard:0.03&belt:cloak:0.03'
+                           '&robe:belt+buckle+cuff:0.03:beide&sleeves:cuff:0.03')
+if UNTER_WEG:
+    LT3 = np.zeros(len(kme.vertices), dtype=int); kme.attributes['teil'].data.foreach_get('value', LT3)
+    _W = [kleid.matrix_world @ v.co for v in kme.vertices]; _N = kleid.matrix_world.to_3x3()
+    unter_weg = set()
+    for _a in [x for x in UNTER_WEG.split('&') if x]:
+        _t, _o, _m = _a.split(':')[:3]; _m = float(_m); _beide = _a.endswith(':beide')
+        if _t not in TEILNAMEN: continue
+        _ti = TEILNAMEN.index(_t); _oi = [TEILNAMEN.index(x) for x in _o.split('+') if x in TEILNAMEN]
+        _ob = [p_ for p_ in kme.polygons if LT3[p_.vertices[0]] in _oi]
+        if not _ob: continue
+        _bv = BVHTree.FromPolygons(_W, [tuple(p_.vertices) for p_ in _ob])
+        _n0 = len(unter_weg)
+        for p_ in kme.polygons:
+            if LT3[p_.vertices[0]] != _ti: continue
+            c_ = sum((_W[i] for i in p_.vertices), Vector()) / len(p_.vertices)
+            n_ = (_N @ p_.normal).normalized()
+            if _bv.ray_cast(c_ + n_ * 0.0005, n_, _m)[0] is not None or (_beide and _bv.ray_cast(c_ - n_ * 0.0005, -n_, _m)[0] is not None):
+                unter_weg.add(p_.index)
+        print('UNTER WEG', _a, len(unter_weg) - _n0, 'Flaechen')
+    if unter_weg:
+        bm = bmesh.new(); bm.from_mesh(kme); bm.faces.ensure_lookup_table()
+        bmesh.ops.delete(bm, geom=[bm.faces[i] for i in sorted(unter_weg)], context='FACES'); bm.to_mesh(kme); bm.free()
 
 dr = sum(len(o.data.polygons) for o in qnetze + [kleid])
 info = {'kennung': KENNUNG, 'koerper': KOERPER, 'kopf': KOPF or KOERPER, 'haar': HAAR, 'bart': BART, 'form': KO.form_aus(FORM), 'haut': HAUT, 'stoppeln': STOPPELN, 'farbe': FARBE,

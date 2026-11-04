@@ -15,6 +15,10 @@ const AXT_FASSUNGEN := [["bisher", 0.40, false], ["A", 0.15, true], ["B", 0.0, t
 # (held.gd: Gehen 1,84, Rennen 3,68 Kacheln/s, speed_scale wie dort), damit man sieht, wie es im Spiel aussieht
 const PAKET_FIGUREN := [["axt", "FIGHTER", {"MAIN_HAND": {"base": "greataxe"}}], ["einhand", "FIGHTER", {"MAIN_HAND": {"base": "longsword"}}],
 	["schild", "FIGHTER", {"MAIN_HAND": {"base": "longsword"}, "OFF_HAND": {"base": "round_shield"}}], ["bogen", "ROGUE", {"MAIN_HAND": {"base": "shortbow"}}]]
+# Rennen beide Fassungen (Chef 02.11., 14:46 Rennen zu vorgebeugt; 14:50/14:52 Rennen A „vernünftig“): je Waffe ausser Bogen (passt)
+# eine zweite Figur „pkA_<art>“ mit HeldFigur.WAFFEN_RENNEN „A“ (Beine und Rumpf aus Rennen A, Arme aus dem Paket); Film nur von der
+# Seite der Waffe, ohne Standbilder
+const PAKET_A := ["axt", "einhand", "schild"]
 # Runde 6 (Chef 01.11., 13:4x: „Das Gehen muss langsamer sein … eher ein Staxen, ein schnelles Staxen“): Gehtempo im Spiel senken statt
 # die Pakete schneller abzuspielen; Vorschlag 1,5 m/s (Mensch etwa 1,3-1,5; heute 1,84 Kacheln/s = 2,13 m/s). Film und Standbilder mit dem
 # Vorschlag, GEHEN_M_S=<m/s> setzt einen anderen (2.13 wie heute)
@@ -53,6 +57,10 @@ func figuren_bauen(axt := false, pakete := false) -> void:
 				fp.protokoll.append("GANG %s: %s, Tempo %.2f / %.2f m/s" % [e[0], mm.get_meta("gang", "FEHLT"), float(mm.get_meta("gang_gehen_m_je_s", 0.0)),
 					float(mm.get_meta("gang_rennen_m_je_s", 0.0))])
 				print(fp.protokoll[-1])
+		for e in PAKET_FIGUREN:
+			if e[0] not in PAKET_A: continue
+			liste.append(["pkA_" + e[0], e[1] + "_" + e[0] + "_A", e[1], String(e[2]["MAIN_HAND"]["base"]), e[0], "A"])
+			fp.klasse_figur("pkA_" + e[0], {"klasse": e[1], "volk": "HUMAN", "aussehen": HeldFigur.vorgabe(e[1]), "ausruestung": e[2], "waffen_rennen": "A"})
 		cam = fp.spiel.kamera
 		return
 	if axt:
@@ -96,7 +104,7 @@ func standbilder(axt := false, pakete := false) -> void:
 	DirAccess.make_dir_recursive_absolute(fp.aus + "/tragen")
 	for e in liste:
 		var k: String = e[0]
-		if not fp.figuren.has(k): continue
+		if not fp.figuren.has(k) or e.size() > 5: continue   # Fassung A: nur im Film
 		zeige_nur(k)
 		var w: Node3D = fp.figuren[k]
 		var m := modell(k)
@@ -120,8 +128,7 @@ func standbilder(axt := false, pakete := false) -> void:
 			var n := maxi(8, int(round(lang / zeit * FPS)))
 			for f in 3 * n:
 				var t := f / FPS
-				ap.pause()   # erst anhalten, dann springen (umgekehrt wirkt seek nicht, die Figur stand)
-				ap.seek(fmod(t * zeit, lang), true)
+				standbild_lage(ap, t, zeit, lang)
 				w.position = ort + Vector3(0, 0, 1) * v * t
 				await fp.get_tree().process_frame   # angehalten wirkt seek erst im naechsten Bild
 				var ph := f - 2 * n
@@ -139,7 +146,7 @@ func standbilder(axt := false, pakete := false) -> void:
 	for e in liste:
 		var s0 := "links" if e[3] == "shortbow" or (e.size() > 4 and e[4] == "schild") else "rechts"
 		folgen.append([e, s0])
-		if e.size() > 4 and e[4] in ["schild", "axt"]: folgen.append([e, "rechts" if s0 == "links" else "links"])
+		if e.size() == 5 and e[4] in ["schild", "axt"] and OS.has_environment("ZWEI_SEITEN"): folgen.append([e, "rechts" if s0 == "links" else "links"])
 	for fe in folgen:
 		var e: Array = fe[0]
 		var seite: String = fe[1]
@@ -159,14 +166,11 @@ func standbilder(axt := false, pakete := false) -> void:
 		# Pruefer 13:3x (Runde 4): bei 2,5 s sprang die Pose, der Film schaltete ohne Ueberblendung um. Jetzt wie im Spiel (held.gd): die
 		# Bewegung laeuft von selbst weiter (advance je Bild), Wechsel mit Held.ueberblendung, Gehen <-> Rennen im selben Schritt, Tempo
 		# steigt mit Held.BESCHL; Folge FILM_FOLGE mit Anlaufen und Anhalten (416.4, Chef 13:1x: „muss immer weich sein“)
-		ap.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 		# Pruefer Film 02:2x („bei 1,0 s springt die Haltung in einem Bild von stark vorgebeugt in aufrecht“, „Stand am Anfang und Ende
 		# verschieden“): die Standbilder davor liessen den Spieler angehalten im Rennen (pause, seek); play("Stehen") setzte ihn nicht
 		# zurueck, die erste Sekunde stand das Rennen (Brust 45-54 Grad vor), erst der Wechsel ins Gehen spielte. Die Messung ohne
 		# Standbilder (tests/tragen_pakete_417.gd HALTUNG) steht 13 Grad und springt nicht. Darum erst anhalten, dann Stehen von vorn
-		ap.stop()
-		ap.speed_scale = 1.0
-		ap.play("Stehen"); ap.seek(0.0, true); ap.advance(0.0)
+		film_anfang(ap)
 		await fp.get_tree().process_frame
 		var tempo := 0.0
 		var spur := []   # Pruefer 00:53 („Rennen: Fuss 17-28 % langsamer als der Boden“): je Bild Abschnitt, Zeit darin, Ballen im Raum, Tempo
@@ -185,8 +189,9 @@ func standbilder(axt := false, pakete := false) -> void:
 				if moving:
 					var mit := want != b0
 					vb = float(m.get_meta(("gang_" if mit else "") + ("gehen" if b0 == "Gehen" else "rennen") + "_m_je_s", 1.0))
-				if ap.current_animation != want: Held.wechsel(ap, want, moving, tempo / maxf(0.01, vb) if moving else 1.0)   # 416.4
-				ap.speed_scale = Held.takt(ap, tempo, vb, 1.0 / FPS) if moving else 1.0
+				if ap.current_animation != want: Held.wechsel(ap, want, moving, tempo / maxf(0.01, vb) if moving else 1.0, true)   # sanft wie held.gd   # 416.4
+				if moving and ap.has_meta("halt"): ap.remove_meta("halt")
+				ap.speed_scale = Held.takt(ap, tempo, vb, 1.0 / FPS) if moving else Held.stand_takt(ap, 1.0 / FPS)
 				ap.advance(1.0 / FPS)
 				p += Vector3(0, 0, 1) * tempo / FPS
 				w.position = p
@@ -201,6 +206,17 @@ func standbilder(axt := false, pakete := false) -> void:
 		film_gleit(String(e[1]) + " von " + seite, spur)
 		fp.protokoll.append("FILM %s %s von %s, %d Bilder" % [e[1], e[3], seite, nr])
 		print(fp.protokoll[-1])
+
+# Lage eines Standbilds und Anfang des Films; ein Ort fuer Probe und Messung (tests/tragen_pakete_417.gd stellt beides nach, 417)
+static func standbild_lage(ap: AnimationPlayer, t: float, zeit: float, lang: float) -> void:
+	ap.pause()   # erst anhalten, dann springen (umgekehrt wirkt seek nicht, die Figur stand)
+	ap.seek(fmod(t * zeit, lang), true)
+
+static func film_anfang(ap: AnimationPlayer) -> void:
+	ap.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
+	ap.stop()
+	ap.speed_scale = 1.0
+	ap.play("Stehen"); ap.seek(0.0, true); ap.advance(0.0)
 
 # Standfuss im Raum des Films (Boden steht): je Abschnitt Gehen/Rennen ab 0,8 s (nach Ueberblendung und Anlauf) die Geschwindigkeit des
 # Ballens in den Bildern hoechstens 2 cm ueber seinem Tiefstand, Median, gegen das Tempo der Figur; 0 = kein Rutschen

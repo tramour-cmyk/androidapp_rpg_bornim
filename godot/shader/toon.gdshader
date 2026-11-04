@@ -27,6 +27,9 @@ uniform vec3 toenung = vec3(1.0);   // 376.1 Held: Haut und Haar getoent (heldfi
 uniform float toen_hell = 0.0;     // > 0: Helligkeit des Bildes am Zielton (Bildhelligkeit / toen_hell), sonst Faktor toenung
 uniform vec3 toen_bild = vec3(1.0); // 376.1 Haut (Chef 28.10., 23:0x „klinisch tot“): Bildfarbe am Zielton (linear); toen_farbe davon
 uniform float toen_farbe = 0.0;    // Anteil der eigenen Farbschwankung des Bildes (Wangen, Lippen roeter) um den Zielton
+uniform float vorrang = 0.0;       // 463: Umhang (UV2.x > 0,5, held_klassen.py vorrang_marke) so viele Meter zur Kamera; gewinnt die Tiefe gegen den Aermel
+uniform float rueck = 0.0;         // 463: Rueckseiten (Normale von der Kamera weg) so viele Meter laengs des Blickstrahls zurueck; Lagen in Falten
+uniform float nach = 0.0;          // 463: Aermel (UV2.y > 0,5, held_klassen.py vorrang_marke) so viele Meter zurueck; verlieren gegen Umhang und Kette
 uniform float teil = 0.0;          // nur zum Messen (held.gd --teilfarbe): Eisen gruen, Kette rot, Haut (rig.py TEILMASKE) blau, Rest schwarz
 varying vec3 wpos;
 varying float v_eisen;
@@ -35,6 +38,15 @@ varying float v_hinten;
 void vertex() {
 	if (kette_aus > 0.0 && COLOR.a >= 0.25 && COLOR.a < 0.7) VERTEX += NORMAL * kette_aus;
 	wpos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	if (rueck > 0.0 || (nach > 0.0 && UV2.y > 0.5) || (vorrang > 0.0 && UV2.x > 0.5)) {   // laengs des Blickstrahls: Lage im Bild bleibt, nur die Tiefe
+		vec4 vv = MODELVIEW_MATRIX * vec4(VERTEX, 1.0);
+		vec3 blick = PROJECTION_MATRIX[3][3] > 0.5 ? vec3(0.0, 0.0, -1.0) : normalize(vv.xyz);   // Dorf orthogonal (kamera.gd), Kampfort perspektivisch
+		if (vorrang > 0.0 && UV2.x > 0.5) vv.xyz -= blick * vorrang;
+		// 463 (pruef_flecken RUECK): Innenseite einer Lage verliert gegen eine Vorderseite bis rueck dahinter; Vorderseiten bleiben
+		if (rueck > 0.0) vv.xyz += blick * rueck * smoothstep(0.0, 0.2, dot(normalize((MODELVIEW_MATRIX * vec4(NORMAL, 0.0)).xyz), blick));
+		if (nach > 0.0 && UV2.y > 0.5) vv.xyz += blick * nach;
+		POSITION = PROJECTION_MATRIX * vv;
+	}
 	if (sway > 0.0) {
 		float h = clamp((wpos.y - 1.6) / 2.5, 0.0, 1.0);
 		float t = TIME * 1.3 + wpos.x * 0.35 + wpos.z * 0.27;
@@ -71,7 +83,10 @@ void fragment() {
 	if (toen_hell > 0.0) {   // 376.1: Zeichnung des Bildes, Farbe des Tons, dazu ein Teil der Farbschwankung des Bildes (toen_farbe)
 		float hl = dot(ALBEDO, vec3(0.2126, 0.7152, 0.0722));
 		vec3 rel = (ALBEDO / max(hl, 0.001)) / max(toen_bild / toen_hell, vec3(0.001));
-		ALBEDO = toenung * hl / toen_hell * mix(vec3(1.0), rel, toen_farbe);
+		// 431c B1 (Pruefer Lauf 41439148830: Waesche ausgebleicht): nur hautfarbene Stellen toenen. Graue Waesche liegt weit vom
+		// Farbton des Bezugs (rel etwa 0,5/1,3/2,5, Abstand 1,6), Lippen und Wangen nah (Abstand unter 0,4); dazwischen weich
+		float haut = (toen_farbe > 0.0) ? 1.0 - smoothstep(0.6, 1.0, length(rel - vec3(1.0))) : 1.0;
+		ALBEDO = mix(ALBEDO, toenung * hl / toen_hell * mix(vec3(1.0), rel, toen_farbe), haut);
 	}
 	else ALBEDO *= toenung;
 	if (kontur > 0.0) {
