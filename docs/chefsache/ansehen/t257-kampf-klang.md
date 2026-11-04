@@ -43,7 +43,7 @@ Verglichen (alt gegen neu): Reiter „Test“ (`TestTab.kt`); `SkirmishScreen.kt
 
 | # | Team | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|---|
-| 251.7 | Tom | 530 | Station „1 Garrick“ oder bei Aldric den Auftrag holen, zum Schlagbaum im Norden; dann speichern, Spielstand laden | der Schlagbaum steht offen, auch nach dem Laden | Balken bleibt zu |
+| 251.7 ✓ (Chef 19:59) | Tom | 530 | Station „1 Garrick“ oder bei Aldric den Auftrag holen, zum Schlagbaum im Norden; dann speichern, Spielstand laden | der Schlagbaum steht offen, auch nach dem Laden | Balken bleibt zu |
 | 257.2 – nicht prüfbar (Chef 17:20: Zeit im Testmenü auf Nacht, bleibt taghell; Zu 555) | Tom | 514 | nachts (Testmenü ☾) im Dorf und im Flüsterwald an Blumen, Wiesen, Wasser- und Waldrand stehen; mehrere Nächte | in manchen Nächten Schwärme von Glühwürmchen, treiben langsam, blinken einzeln, ein Nachbar antwortet; im tiefen Wald wenige | keine, oder gleichmäßig leuchtende Punkte, die nicht blinken |
 
 ## E · Flüsterwald
