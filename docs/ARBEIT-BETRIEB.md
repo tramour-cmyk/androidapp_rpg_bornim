@@ -60,6 +60,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 22:28 04.11.: Neustart Tom 40ea02630 → `UCbYo7ArQnx` „475: Grün am Hals, Tusche an den Kaufleuten“ (vor 22:30, mit Hinweis 468d: Übergabe bis 23 Uhr); alter Tom `4jyCYv` archiviert, 21,98 $ auf 475 und 558.
 - 20:55 04.11.: Neustart Tom d011dc8cb → `4jyCYv` „475, 558: Prüferbefund 475 bauen (Lauf 2), Probe 5“ (nach idle); alter Tom `Bhmo` archiviert, 18,55 $ auf 475 und 531.
 - 20:31 04.11.: Jerry `zop1` „572: Effektprobe REEBOO-Gratisstücke“ gestartet auf Chefwort „jetzt“ 20:27 (Sokrates 20:29); Ausnahme zu 468c (Tom läuft 475/531 zugleich), weil das Chefwort jünger ist und die Zeile „zwei Läufe frei“ trägt. Alter Jerry `wfZL` (idle seit 03:31, Chef-Test t257 inzwischen als 562/563/565 im Vorrat) archiviert, 6,97 $ auf 535, 534, 517.
 - 20:00 04.11.: Neustart Tom 9650baf00 → `Bhmo` „475, 531: Lauf laden, Gesichter an den Chef; dann 531 Film“ (nach idle); alter Tom `vd1jVA` archiviert, 18,67 $ auf 558 und 475.
