@@ -65,7 +65,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 519 | M | von Sokrates (Chef 03.11., 23:13, Build 249, Bild): Ausrüstung, Fenster eines Gegenstands | wartet auf Test (Build) |
 | 518 | M | von Sokrates (Chef 03.11., 20:47, Build 248, Bild): Dorf leer: keine Häuser, nur Wege und | wartet auf Test/Build (gebaut) |
 | 537 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 537): Kapitelende fehlt: nach Aldric kei | wartet auf Test/Build (gebaut) |
-| 549 | M | von Sokrates (Chef 04.11., 00:07, Build 249, Bild; Zu 549): „Rastscreen wirkt sehr klein u | wartet auf 557 (startbar) |
+| 549 | M | von Sokrates (Chef 04.11., 00:07, Build 249, Bild; Zu 549): „Rastscreen wirkt sehr klein u | wartet auf 557 (in Arbeit) |
 | 550 | M | von Sokrates (Chef 04.11., 00:19, Build 249): „erstes Mal Heilkräuter gepflückt ein riesen | wartet auf Test (Build) |
 | 555 | M | von Sokrates (Chef 04.11., 00:30, „Fehlt vielleicht noch mehr im Testmenü??? Wäre zum Test | startbar |
 | 554 | M | von Sokrates (Chef 04.11., 00:27, Build 249): „Im Testmenü fehlt, dass Tiere mich ignorier | wartet auf Test (Build) |
