@@ -201,6 +201,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 571 | Wischen auf Schaltflächen rollt Listen nicht (Testmenü, Erschaffung; Chef 04.11., 20:13) | A Spiel | M | – | Team Tom | startbar |
 | 572 | Effektprobe: zwei REEBOO-Gratisstücke (Stylized VFX, Status Effects) an einem eigenen Helden im Film, vor dem Kauf (Chef 04.11., 20:27) | C Kampf | M | – | Team Jerry | startbar |
 | 573 | Kampf: gefallener Gegner wird in die Mitte gezogen, wenn er als Letzter fällt (Chef 04.11., 20:33, Build 257) | C Kampf | M | – | Team Jerry | startbar |
+| 574 | Laufprotokoll Build 257 (Handy): „Lambda capture … was freed“ dreimal, „buffer_size == 0“ (Chef 04.11., 20:40) | E Technik | M | – | Team Tom | startbar |
 | 557 | Spielstände: Entwurf ohne Kasten (549a) als Bild, Inhalt wie alt mit Spieldauer und Heldenbild (Chef 04.11., 11:15) | A Spiel | M | 32,62 $ | Team Tom | startbar |
 | 556 | Blenden reines Schwarz statt Leuchten in der Mitte (Ringe), lang genug zum Lesen (Chef 04.11., 07:52) | A Spiel | M | – | Team Tom | gebaut |
 | 555 | Testmenü wie alt und schneller: fehlende Einträge der alten Fassung, dazu Sprünge an jede Station von Kapitel 1 (Chef 04.11., 00:30) | B Werkzeuge | M | 15,00 $ | Team Tom | gebaut |
