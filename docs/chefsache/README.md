@@ -22,7 +22,7 @@ Nichts offen.
 |---|---|---|---|
 | [531](ansehen/531-garrick.md) | Garrick am Feuer: wie er aussieht und wie er Tiere mit der Fackel vertreibt | – | 04.11., 00:16 |
 | [549](ansehen/549-rast.md) | Rastfenster neu: zwei Entwürfe, am Feuer und an der Theke | – | 04.11., 01:10 |
-| [557](ansehen/557-spielstaende.md) | Spielstände B und Wechselliste, vorher und nachher | – | 04.11., 13:06 |
+| [557](ansehen/557-spielstaende.md) | Stil B an sechs Schirmen, vorher und nachher | – | 04.11., 14:15 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -51,11 +51,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 98, Muss 78, startbar 7
+**Tom** – offen 98, Muss 78, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 557 | M | von Sokrates (Chef 04.11., 11:15; Zu 557): Spielstände als Entwurf im Stil „ohne Kasten“ ( | startbar |
+| 557 | M | von Sokrates (Chef 04.11., 11:15; Zu 557): Spielstände als Entwurf im Stil „ohne Kasten“ ( | Chef |
 | 558 | M | von Sokrates (Chef 04.11., 11:31, Bild Build 257; Zu 558): Robe des Magiers zu glatt: Stof | startbar |
 | 556 | M | von Sokrates (Chef 04.11., 07:52; Zu 556): Blenden reines Schwarz statt Leuchten, Lesezeit | wartet auf Test/Build (gebaut) |
 | 531 | M | von Sokrates (Chef 03.11., 23:42, Build 249; Zu 531): Garrick: „Gesicht wirkt sonderbar, B | Chef |
@@ -71,7 +71,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 555 | M | von Sokrates (Chef 04.11., 00:30, „Fehlt vielleicht noch mehr im Testmenü??? Wäre zum Test | wartet auf Test (Build) |
 | 554 | M | von Sokrates (Chef 04.11., 00:27, Build 249): „Im Testmenü fehlt, dass Tiere mich ignorier | wartet auf Test (Build) |
 | 523 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 523): Tasche wie alt und besser: „Funke | wartet auf Test (Build) |
-| 524.1 | M | von Sokrates (Chef 04.11., 00:52, „Vorschlag zum Verbessern und spielerfreundlicher machen | startbar |
+| 524.1 | M | von Sokrates (Chef 04.11., 00:52, „Vorschlag zum Verbessern und spielerfreundlicher machen | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 524 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 524): Gegenstandsfenster, Inhalt wie alt | wartet auf Test (Build) |
 | 525 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 525): Laden, Morwen, Rast wie alt und be | wartet auf Test/Build (gebaut) |
 | 526 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 526): Rückfragen und Fenster einheitlich | wartet auf Test (Build) |
