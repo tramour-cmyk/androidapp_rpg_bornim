@@ -59,7 +59,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 97, Muss 75, startbar 20
+**Tom** – offen 97, Muss 75, startbar 19
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -85,7 +85,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 538 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 538): Heldenstufe kommt in Gesprächen ni | wartet auf Test/Build (gebaut) |
 | 539 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 539): Licht folgt der Uhr nicht: wechsel | startbar |
 | 540 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 540): Texte hängen am Spielbeginn: Südra | wartet auf Test/Build (gebaut) |
-| 541 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 541): Welt-Bedienung: Untersuchen fehlt | startbar |
+| 541 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 541): Welt-Bedienung: Untersuchen fehlt | in Arbeit bei Spike |
 | 542 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 542): Aufträge: Jorins „Feuer am Steinkr | wartet auf Test/Build (gebaut) |
 | 543 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 543): Startwerte gegen alt und BRS prüfe | wartet auf Test/Build (gebaut) |
 | 490 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488): Flüsterwald begehbar wie alt (Story.kt:524, | wartet auf Test (Build) |
