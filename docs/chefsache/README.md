@@ -68,7 +68,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 72 | K | Profil und Kampfsystem | ruht |
 | Pflege | K | von Werkzeug (340.3, 04.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
 
-**Tom** – offen 95, Muss 75, startbar 0
+**Tom** – offen 95, Muss 75, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -120,8 +120,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 503 | M | von Sokrates (Chef 03.11., 07:40, Build 204; Zu 503): Laden, Verkaufen: Knopf „Gewöhnliche | Chef |
 | 501 | M | von Sokrates (Chef 03.11., 07:26, Build 204; Zu 501): Schänke: Feuer im Kamin schwebt; Fla | wartet auf Test (Build) |
 | 500 | M | von Sokrates (Chef 03.11., 07:24, Build 204; Zu 500): Probeknöpfe rechts in der Welt entfe | wartet auf Test (Build) |
-| 499 | M | von Sokrates (Chef 03.11., 07:14, Build 204; „jetzt“ 03.11., 07:14; Zu 499): Erschaffung: | wartet auf 513 (wartet) |
-| 513 | M | von Sokrates (Chef 03.11., 15:56, „513 B“, „jetzt“ 03.11., 15:56; Archiv): Figurenstand 41 | wartet auf Test/Build |
+| 499 | M | von Sokrates (Chef 03.11., 07:14, Build 204; „jetzt“ 03.11., 07:14; Zu 499): Erschaffung: | wartet auf 513 (in Arbeit) |
+| 513 | M | von Sokrates (Chef 03.11., 15:56, „513 B“, „jetzt“ 03.11., 15:56; Archiv): Figurenstand 41 | startbar |
 | 498 | M | von Sokrates (Chef 03.11., 07:13; Zu 498): Schriftbild wie in der Kotlin-Fassung (Größe, S | wartet auf Test/Build (gebaut) |
 | 497 | M | von Sokrates (Chef 03.11., 07:09, Build 204; Zu 497): „Über das Spiel“: Lizenzhinweis der | wartet auf Test (Build) |
 | 463 | M | von Sokrates (Chef 01.11., 20:3x, Zu 463): Umhang und lange Robe geschlossen: eine Ursache | wartet auf Test/Build (gebaut) |
