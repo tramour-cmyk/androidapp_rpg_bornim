@@ -791,7 +791,14 @@ func passend(platz: String) -> Array:
 
 func platzname(platz: String) -> String: return Sprache.t(Heldwerte.lade()["plaetze"][platz])
 
+# 557 (Chef 04.11., 12:38: „noch eine andere Stelle im Spiel im neuen Design dazupacken, um einen besseren Eindruck (vorher-nachher)
+# zu gewinnen“): Wechselliste eines Platzes als Entwurf B „ohne Kasten“ (549a), im Spiel weiter „“ (Kasten wie alt) bis zum Urteil
+static var entwurf := ""
+
 func waehle(platz: String) -> void:
+	if entwurf == "B":
+		_waehle_b(platz)
+		return
 	var de := Sprache.aktiv() == "de"
 	var l := passend(platz)
 	var zeilen: Array = []
@@ -814,6 +821,129 @@ func waehle(platz: String) -> void:
 				[Sprache.u("back"), func(): waehle(platz)]]))
 		zeilen.append(p)
 	schleier["k"] = dialog(platzname(platz), Stil.GOLD, zeilen, [[Sprache.u("close"), func(): pass]])
+
+# 557 Entwurf B: ganzer Schirm schwarz, Titel ohne Rahmen mit Zierlinie, oben was angelegt ist (nur Auskunft, ohne „›“), darunter je
+# Stueck eine Zeile zwischen feinen Goldlinien, ueber die ganze Breite antippbar (mindestens 56 dp, dunkel beim Antippen): links das
+# Bild (Behaelter, Rahmen bleibt: 549a Punkt 5), Name in der Farbe der Seltenheit, darunter Art, Platz, Wert; rechts das Urteil
+# (▲ besser, ▼ schlechter, ◆ gemischt: Chef 12:01 „das in der Mitte … wird gar nicht bewertet“) und goldenes „›“; nicht Tragbares
+# matt mit dem Grund. Unten „‹ ZURÜCK“ als Nebenwahl. Antippen oeffnet das Fenster des Stuecks wie bisher (Anlegen, Zurueck).
+func _waehle_b(platz: String) -> void:
+	var de := Sprache.aktiv() == "de"
+	var schirm := ColorRect.new()
+	schirm.color = Color.BLACK
+	schirm.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	schirm.mouse_filter = Control.MOUSE_FILTER_STOP
+	add_child(schirm)
+	var zu := func(): schirm.queue_free()
+	Zurueck.melde(schirm, zu)
+	var rand := MarginContainer.new()
+	rand.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	for sd in ["left", "right"]: rand.add_theme_constant_override("margin_" + sd, int(20 * DP))
+	rand.add_theme_constant_override("margin_top", int(36 * DP)); rand.add_theme_constant_override("margin_bottom", int(16 * DP))
+	schirm.add_child(rand)
+	var spalte := VBoxContainer.new()
+	spalte.add_theme_constant_override("separation", 0)
+	rand.add_child(spalte)
+	var kopf := Stil.zeile(platzname(platz).to_upper(), 22, Stil.GOLD, 3.0)
+	kopf.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	spalte.add_child(kopf)
+	spalte.add_child(Erschaffung.luecke(6))
+	spalte.add_child(Spielstaende.zier())
+	spalte.add_child(Erschaffung.luecke(8))
+	var an = hw.ding(platz)
+	var jetzt := HBoxContainer.new()
+	jetzt.add_theme_constant_override("separation", int(14 * DP))
+	jetzt.custom_minimum_size.y = 56 * DP
+	var jt := Stil.zeile(("Angelegt" if de else "Equipped").to_upper(), 11, Stil.DIM, 2.0)
+	jt.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	jt.custom_minimum_size.x = 60 * DP
+	jetzt.add_child(jt)
+	var jn := Stil.zeile(Beute.name(an) if an != null else ("nichts" if de else "nothing"), 16, farbe_von(an) if an != null else Stil.DIM)
+	jn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	jn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	jn.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	jetzt.add_child(jn)
+	spalte.add_child(jetzt)
+	spalte.add_child(Spielstaende.linie())
+	var rolle := ScrollContainer.new()
+	rolle.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	rolle.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
+	rolle.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	spalte.add_child(rolle)
+	var liste := VBoxContainer.new()
+	liste.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	liste.add_theme_constant_override("separation", 0)
+	rolle.add_child(liste)
+	var l := passend(platz)
+	if l.is_empty(): liste.add_child(Erschaffung.txt("Nichts Passendes im Beutel." if de else "Nothing in the bag fits.", 15, Stil.DIM))
+	for g in l:
+		if liste.get_child_count() > 0: liste.add_child(Spielstaende.linie())
+		liste.add_child(_wechsel_zeile_b(g, platz, zu, de))
+	spalte.add_child(Spielstaende.linie())
+	var z := HBoxContainer.new()
+	z.custom_minimum_size.y = 52 * DP
+	z.alignment = BoxContainer.ALIGNMENT_CENTER
+	z.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	z.add_child(Stil.zeile("‹  " + Sprache.u("back").to_upper(), 14, Stil.GOLD, 2.0))   # Nebenwahl (549a Punkt 4)
+	spalte.add_child(Spielstaende.tippbar(z, zu))
+
+func _wechsel_zeile_b(g: Dictionary, platz: String, zu: Callable, de: bool) -> Control:
+	var ok := hw.kann_tragen(g)
+	var r := HBoxContainer.new()
+	r.add_theme_constant_override("separation", int(14 * DP))
+	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	r.custom_minimum_size.y = 64 * DP
+	var bild := Menue.stueck_rahmen(g, 46)
+	bild.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	r.add_child(bild)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", int(2 * DP))
+	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	v.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var n := Stil.zeile(Beute.name(g), 16, farbe_von(g))
+	n.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	n.custom_minimum_size.x = 60 * DP
+	v.add_child(n)
+	var unten := Beute.listen_zeile(g)
+	if unten == "": unten = Testmodus.gross_anfang(Sprache.t(Heldwerte.lade()["seltenheiten"][String(g["rarity"])].get("name", g["rarity"])))
+	if zweihaendig(g) and not unten.containsn("zweih") and not Beute.name(g).containsn("zweih"): unten += " · " + ("zweihändig" if de else "two-handed")
+	var u = Vergleich.von(hw, g).urteil() if ok else null
+	var wort := ""
+	if u == 1: wort = "besser" if de else "better"
+	elif u == -1: wort = "schlechter" if de else "worse"
+	elif u == 0: wort = "gemischt" if de else "mixed"
+	if wort != "": unten += " · " + wort
+	var ul := Stil.zeile(unten, 13, Stil.DIM)
+	ul.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	ul.custom_minimum_size.x = 60 * DP
+	v.add_child(ul)
+	if not ok:
+		var kl := Sprache.t(hw.klassendaten()["name"])
+		v.add_child(Stil.zeile(("Als %s kannst du das nicht tragen." if de else "As a %s you cannot wear this.") % kl, 13, AKZENT))
+	r.add_child(v)
+	if u != null:
+		var pf := Stil.zeile("▲" if u == 1 else ("▼" if u == -1 else "◆"), 18, BESSER if u == 1 else (AKZENT if u == -1 else Stil.BRIGHT))
+		pf.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		r.add_child(pf)
+	var c := Control.new()   # goldenes „›“ wie die Hauptwahl der Spielstaende
+	c.custom_minimum_size = Vector2(9 * DP, 16 * DP)
+	c.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	c.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	c.draw.connect(func():
+		var m := c.size / 2
+		var a := 4.0 * DP
+		c.draw_polyline(PackedVector2Array([m + Vector2(-a * 0.55, -a * 1.5), m + Vector2(a * 0.75, 0), m + Vector2(-a * 0.55, a * 1.5)]), Stil.BRIGHT, 1.8 * DP, true))
+	r.add_child(c)
+	var rand := MarginContainer.new()
+	rand.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	rand.add_theme_constant_override("margin_top", int(6 * DP)); rand.add_theme_constant_override("margin_bottom", int(6 * DP))
+	rand.add_child(r)
+	if not ok: rand.modulate.a = 0.55
+	return Spielstaende.tippbar(rand, func():
+		zu.call()
+		dialog(Beute.name(g), farbe_von(g), stueck_zeilen(g), [[Sprache.u("equip"), func(): meldung(lege_an(g, platz == "OFF_HAND" and String(Beute.grundform(String(g["base"]))["slot"]) != "OFF_HAND")); baue(), ok],
+			[Sprache.u("back"), func(): waehle(platz)]]))
 
 # PaperDoll: links Kopf, Umhang, Oberkoerper, Arme, Beine; rechts Amulett, Ring, Haupthand, Nebenhand; der Held dazwischen
 func ausruestung() -> void:

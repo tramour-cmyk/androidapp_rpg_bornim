@@ -3,7 +3,8 @@ extends SceneTree
 # Bilder des Entwurfs B „ohne Kasten“ (Spielstaende.entwurf = "B") am Rechner, mit Fenster (xvfb-run), 1080 × 2340:
 #   557_b_eins       ein voller Platz, drei leere
 #   557_b_zwei       zwei volle Plaetze (1 und 3), zwei leere
-#   557_b_vorschlag  wie zwei, mit den Vorschlaegen zum Zuschalten (11:17): zuletzt gespielt oben mit „Weiter“, Kapitel und Auftrag, Gold und TP
+#   557_wechsel_jetzt, 557_wechsel_b  Chef 12:38 („noch eine andere Stelle im Spiel im neuen Design … vorher-nachher“): Wechselliste
+#                    „Oberkörper“ eines Magiers mit epischer Robe an, im Beutel drei Roben (besser, schlechter, gemischt) und ein Plattenpanzer
 #   557_b_loeschen   die Rueckfrage zum Loeschen (der einzige Rahmen)
 #   557_jetzt_zwei   der Stand von heute (Karten wie alt, 529) mit denselben zwei Plaetzen, zum Vergleich
 # PNG nach BILD557_AUS (Vorgabe user://). Die Spielstaende des Rechners werden gesichert und danach wiederhergestellt.
@@ -40,6 +41,41 @@ func _zeige(entwurf: String, n: String, loeschen := false) -> void:
 	s.queue_free()
 	await process_frame
 
+func _ding(z: Zustand, base: String, rar: String, ilvl: int, rolls: Array, seed_: int) -> Dictionary:
+	return z.ausruestung_dazu({"uid": 0, "base": base, "rarity": rar, "ilvl": ilvl, "plus": 0, "rolls": rolls, "unique": null, "name_seed": seed_})
+
+func _wechsel() -> void:
+	var z := Zustand.new()
+	var hw := Heldwerte.erschaffe("Mira", "ELF", "WIZARD", {}, z.neue_uid)
+	var ad: Dictionary = Heldwerte.lade()["affixdaten"]
+	var a := func(n: String, w: int) -> Array: return [n, w]
+	var roll := func(xs: Array) -> Array: return xs.filter(func(r): return ad.has(String(r[0])))
+	var an := _ding(z, "robe", "EPIC", 4, roll.call([a.call("DEX", 2), a.call("AC", 2), a.call("RESIST", 2), a.call("STR", 2)]), 7)
+	z.beutel.erase(an)
+	for x in hw.anlegen(an): z.beutel.append(x)
+	_ding(z, "robe", "LEGENDARY", 6, roll.call([a.call("DEX", 3), a.call("AC", 3), a.call("RESIST", 3), a.call("STR", 3), a.call("CON", 2)]), 3)
+	_ding(z, "robe", "UNCOMMON", 2, roll.call([a.call("AC", 1)]), 11)
+	_ding(z, "robe", "RARE", 3, roll.call([a.call("TENACITY", 18)]), 5)
+	_ding(z, "plate", "COMMON", 2, [], 2)
+	var m := Menue.new(hw, z)
+	root.add_child(m)
+	await process_frame
+	m.reiter = "ausruestung"
+	m.baue()
+	await process_frame
+	for entwurf in ["", "B"]:
+		Menue.entwurf = entwurf
+		m.baue()
+		await process_frame
+		m.waehle("CHEST")
+		await _bild("557_wechsel_" + ("b" if entwurf == "B" else "jetzt"))
+		for c in m.get_children():
+			if c is ColorRect: c.queue_free()
+		await process_frame
+	Menue.entwurf = ""
+	m.queue_free()
+	await process_frame
+
 func _lauf() -> void:
 	Sprache.lade()
 	if Sprache.aktiv() != "de": Sprache.wechsle()
@@ -52,10 +88,8 @@ func _lauf() -> void:
 	_speichere(3, "Borin", "DWARF", "FIGHTER", 2, "inn", 1, 9 * 60 + 40, 38 * 60000, [Geschichte.QUEST_STARTED], 12)
 	await _zeige("B", "557_b_zwei")
 	await _zeige("", "557_jetzt_zwei")
-	Spielstaende.mit = {"weiter": true, "ziel": true, "werte": true}
-	await _zeige("B", "557_b_vorschlag")
-	Spielstaende.mit = {"weiter": false, "ziel": false, "werte": false}
 	Spielstaende.entwurf = ""
+	await _wechsel()
 	for n in range(1, gesichert.size() + 1):
 		Spielstand.loesche(n)
 		if not gesichert[n - 1].is_empty():

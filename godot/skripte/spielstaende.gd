@@ -15,8 +15,11 @@ const DP := AktionsKnopf.DP
 # im Spiel weiter „“ (die Karten wie alt), bis der Chef entscheidet. B: Titel ohne Rahmen, je Platz eine Zeile zwischen feinen Goldlinien,
 # antippbar ueber die ganze Breite (mindestens 48 dp, dunkel beim Antippen), links ein Zeichen (das Bild des Helden), rechts goldenes „›“;
 # Laden ist die Hauptwahl, Loeschen leise grau darunter, mit Rueckfrage (der einzige Rahmen). [mit]: Vorschlaege zum Zuschalten (11:17)
+# Chef 12:38 („557 B, mit 2, Löschen wie Sokrates“): Zeile Kapitel und Hauptauftrag immer; Vorschlaege 1 (Weiter steht im Hauptmenue,
+# 12:35) und 3 entfallen. Schaltflaechen in drei Stufen (549a Punkt 4): Hauptwahl „LADEN ›“ hell golden, Nebenwahl gleich gesetzt
+# (Versalien, gesperrt), kleiner, gedaempftes Gold, eigenes Zeichen („× LÖSCHEN“, „‹ ZURÜCK“), Gefahr in Warnfarbe erst in der Rueckfrage
 static var entwurf := ""
-static var mit := {"weiter": false, "ziel": false, "werte": false}
+static var mit := {"ziel": true}
 
 var liste: VBoxContainer
 
@@ -161,7 +164,8 @@ func frage_loeschen(d: Dictionary) -> void:
 	schleier.add_child(mitte)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(10 * DP))
-	v.custom_minimum_size.x = get_viewport_rect().size.x - (68 if entwurf == "B" else 48) * DP   # 557: schmaler als die Liste (Helfer 11:28)
+	# 557: schmaler als die Liste (Helfer 11:28; 11:36: so breit wie die Liste, ihr Rand schnitt „Platz 3 · leer“): B deutlich schmaler
+	v.custom_minimum_size.x = get_viewport_rect().size.x - (110 if entwurf == "B" else 48) * DP
 	var k := Rueckfrage.halte(Erschaffung.kasten(v))
 	mitte.add_child(k)
 	v.add_child(Stil.zeile(("Spielstand löschen?" if de else "Delete saved game?").to_upper(), 14, Stil.GOLD, 3.0))
@@ -174,8 +178,13 @@ func frage_loeschen(d: Dictionary) -> void:
 		Spielstand.loesche(int(d["platz"]))
 		schleier.queue_free()
 		baue())
-	if entwurf == "B":   # 557 (Helfer 11:28: beide Knoepfe gleich): die gefaehrliche Wahl in Warnfarbe
+	if entwurf == "B":   # 557 (Helfer 11:28: beide Knoepfe gleich; 11:36: nur die Schrift abgehoben): Gefahr in Warnfarbe mit Rand und Zeichen,
+		# Abbrechen als Nebenwahl in gedaempftem Gold (549a Punkt 4)
+		weg.text = "×  " + weg.text
 		for f in ["font_color", "font_hover_color", "font_focus_color", "font_pressed_color", "font_hover_pressed_color"]: weg.add_theme_color_override(f, Stil.WARN)
+		for st in ["normal", "hover", "focus"]: weg.add_theme_stylebox_override(st, Stil.kasten(Color.BLACK, Stil.WARN, 1.5))
+		var ab: Button = knoepfe.get_child(0)
+		for f in ["font_color", "font_hover_color", "font_focus_color", "font_hover_pressed_color"]: ab.add_theme_color_override(f, Stil.GOLD)
 	knoepfe.add_child(weg)
 	v.add_child(knoepfe)
 
@@ -198,7 +207,7 @@ func _ready_b() -> void:
 	kopf.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	spalte.add_child(kopf)
 	spalte.add_child(Erschaffung.luecke(6))
-	spalte.add_child(_zier())
+	spalte.add_child(zier())
 	spalte.add_child(Erschaffung.luecke(10))
 	var rolle := ScrollContainer.new()
 	rolle.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
@@ -209,27 +218,22 @@ func _ready_b() -> void:
 	liste.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	liste.add_theme_constant_override("separation", 0)
 	rolle.add_child(liste)
-	spalte.add_child(_linie())
+	spalte.add_child(linie())
 	var z := HBoxContainer.new()
 	z.custom_minimum_size.y = 52 * DP
 	z.alignment = BoxContainer.ALIGNMENT_CENTER
 	z.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	z.add_child(Stil.zeile("‹  " + Sprache.u("back").to_upper(), 16, Stil.GOLD, 2.0))
+	z.add_child(Stil.zeile("‹  " + Sprache.u("back").to_upper(), 14, Stil.GOLD, 2.0))   # Nebenwahl (549a Punkt 4)
 	spalte.add_child(tippbar(z, func(): zurueck.emit()))
 	baue()
 
 func _baue_b(de: bool) -> void:
 	var plaetze := []   # [Nummer, Spielstand oder {}]
 	for d in Spielstand.liste(): plaetze.append([plaetze.size() + 1, d])
-	var zuletzt := Spielstand.letzter() if mit["weiter"] else 0
-	if zuletzt > 0:   # Vorschlag 1: der zuletzt gespielte Platz oben, Hauptwahl „Weiter“
-		var p0 = plaetze[zuletzt - 1]
-		plaetze.remove_at(zuletzt - 1)
-		plaetze.push_front(p0)
 	for p in plaetze:
-		if liste.get_child_count() > 0: liste.add_child(_linie())
+		if liste.get_child_count() > 0: liste.add_child(linie())
 		var d: Dictionary = p[1]
-		liste.add_child(_leer_zeile(int(p[0]), de) if d.is_empty() else _voll_zeile(d, de, int(p[0]) == zuletzt))
+		liste.add_child(_leer_zeile(int(p[0]), de) if d.is_empty() else _voll_zeile(d, de))
 
 func _leer_zeile(platz: int, de: bool) -> Control:
 	var r := HBoxContainer.new()
@@ -250,7 +254,7 @@ func _leer_zeile(platz: int, de: bool) -> Control:
 	r.add_child(_wahl(Sprache.u("newGame")))
 	return tippbar(r, func(): neu.emit(platz))
 
-func _voll_zeile(d: Dictionary, de: bool, weiter: bool) -> Control:
+func _voll_zeile(d: Dictionary, de: bool) -> Control:
 	var h: Dictionary = d.get("held", {})
 	var z: Dictionary = d.get("zustand", {})
 	var hd := Heldwerte.lade()
@@ -269,27 +273,25 @@ func _voll_zeile(d: Dictionary, de: bool, weiter: bool) -> Control:
 	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	v.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var kopf := Stil.zeile((("Platz %d · " if de else "Slot %d · ") % platz + String(h.get("name", ""))).to_upper(), 14, Stil.BRIGHT if weiter else Stil.GOLD, 2.5)
+	var kopf := Stil.zeile((("Platz %d · " if de else "Slot %d · ") % platz + String(h.get("name", ""))).to_upper(), 14, Stil.GOLD, 2.5)
 	kopf.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	v.add_child(kopf)
 	var volk := String(h.get("volk", "HUMAN"))
 	var klasse := String(h.get("klasse", "FIGHTER"))
 	v.add_child(_satz("%s · %s · %s %d" % [Sprache.t(hd["voelker"][volk]["name"]) if hd["voelker"].has(volk) else volk,
 		Sprache.t(hd["klassen"][klasse]["name"]) if hd["klassen"].has(klasse) else klasse, Sprache.u("level"), int(h.get("stufe", 1))], 16, Stil.TEXT))
-	if mit["ziel"]:   # Vorschlag 2: wo man steht, damit man nach Tagen weiss, was zu tun ist (Hauptauftrag der Chronik)
+	if mit["ziel"]:   # Vorschlag 2 (Chef 12:38 „mit 2“): wo man steht, damit man nach Tagen weiss, was zu tun ist (Hauptauftrag der Chronik)
 		var zs := Zustand.aus_daten(z)
-		# Helfer 11:28: in BRIGHT heller als „Laden“ und zog den Blick weg; gebrochenes Weiss, gedaempft
-		v.add_child(_satz(("Kapitel %d · " if de else "Chapter %d · ") % Geschichte.kapitel(zs) + Sprache.t(Geschichte.ziel(zs)), 14, Color(Stil.TEXT, 0.72)))
+		# Helfer 11:28, 11:36: in BRIGHT, dann gedaempftem Weiss noch so hell wie die Wahl und zog den Blick: schraeg, gedaempfter, kleiner
+		v.add_child(_satz(("Kapitel %d · " if de else "Chapter %d · ") % Geschichte.kapitel(zs) + Sprache.t(Geschichte.ziel(zs)), 13, Color(Stil.TEXT, 0.62), true))
 	var ort := String(d.get("ort", {}).get("karte", ""))
 	var karten = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json")) if FileAccess.file_exists("res://daten/karten.json") else null
 	if karten is Dictionary and karten["karten"].has(ort): ort = Sprache.t(karten["karten"][ort]["name"])
 	var m := int(z.get("minuten", 0))
 	# Helfer 11:28: „Tag 1 · 09:40“ brach hinter dem Ort um, die Uhr stand allein: Tag und Uhr bleiben zusammen (geschuetzte Leerzeichen)
 	var tag_uhr := ("%s %d · %02d:%02d" % ["Tag" if de else "Day", int(z.get("tag", 1)), m / 60, m % 60]).replace(" ", "\u00a0")
-	v.add_child(_satz(ort + " · " + tag_uhr, 14, Stil.DIM))
-	if mit["werte"]:   # Vorschlag 3: Gold und Trefferpunkte klein
-		var hw := Heldwerte.aus_daten(h)
-		v.add_child(_satz("%d %s · %s %d/%d" % [int(z.get("gold", 0)), "Gold", "TP" if de else "HP", hw.tp, hw.max_tp()], 14, Stil.DIM))
+	# Helfer 11:36: „Zum Schlafenden Greif ·“ endete mit dem Punkt, Tag und Uhr standen darunter: der Punkt haengt fest am Tag
+	v.add_child(_satz(ort + "\u00a0·\u00a0" + tag_uhr, 14, Stil.DIM))
 	var t := gespeichert_um(d)
 	if not t.is_empty():
 		var s := ("%02d.%02d.%04d, %02d:%02d" % [t.day, t.month, t.year, t.hour, t.minute]) if de else ("%04d-%02d-%02d, %02d:%02d" % [t.year, t.month, t.day, t.hour, t.minute])
@@ -298,7 +300,7 @@ func _voll_zeile(d: Dictionary, de: bool, weiter: bool) -> Control:
 	g.name = "Gespielt"
 	v.add_child(g)
 	r.add_child(v)
-	r.add_child(_wahl(("Weiter" if de else "Continue") if weiter else ("Laden" if de else "Load")))
+	r.add_child(_wahl("Laden" if de else "Load"))
 	var rand := MarginContainer.new()
 	rand.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	rand.add_theme_constant_override("margin_top", int(12 * DP)); rand.add_theme_constant_override("margin_bottom", int(4 * DP))
@@ -310,10 +312,11 @@ func _voll_zeile(d: Dictionary, de: bool, weiter: bool) -> Control:
 	lz.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	lz.custom_minimum_size.y = 48 * DP
 	lz.add_child(Erschaffung.luecke(0, 150 * 0.4 + 14 - 6))
-	var kr := Rastzeichen.neu("KREUZ", 16, Stil.DIM)
+	# Nebenwahl (549a Punkt 4): Versalien gesperrt wie die Hauptwahl, kleiner, gedaempftes Gold, eigenes Zeichen
+	var kr := Rastzeichen.neu("KREUZ", 14, Stil.GOLD)
 	kr.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	lz.add_child(kr)
-	var lt := Stil.zeile("Löschen" if de else "Delete", 14, Stil.DIM)
+	var lt := Stil.zeile(("Löschen" if de else "Delete").to_upper(), 12.5, Stil.GOLD, 2.0)
 	lt.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	lz.add_child(lt)
 	var weg := tippbar(lz, func(): frage_loeschen(d))
@@ -321,20 +324,34 @@ func _voll_zeile(d: Dictionary, de: bool, weiter: bool) -> Control:
 	aussen.add_child(weg)
 	return aussen
 
-# rechts die Wahl in Gold mit „›“ (Hauptwahl)
+# rechts die Hauptwahl hell golden mit „›“; Helfer 11:36: „›“ klein und etwas tief, darum eigenes Zeichen, groesser, mittig zur Schrift
 func _wahl(text: String) -> Control:
-	var l := Stil.zeile(text.to_upper() + "  ›", 15, Stil.GOLD, 2.0)
+	var h := HBoxContainer.new()
+	h.add_theme_constant_override("separation", int(8 * DP))
+	h.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	h.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	var l := Stil.zeile(text.to_upper(), 15, Stil.BRIGHT, 2.0)
 	l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	return l
+	h.add_child(l)
+	var c := Control.new()
+	c.custom_minimum_size = Vector2(9 * DP, 16 * DP)
+	c.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	c.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	c.draw.connect(func():
+		var m := c.size / 2
+		var a := 4.0 * DP
+		c.draw_polyline(PackedVector2Array([m + Vector2(-a * 0.55, -a * 1.5), m + Vector2(a * 0.75, 0), m + Vector2(-a * 0.55, a * 1.5)]), Stil.BRIGHT, 1.8 * DP, true))
+	h.add_child(c)
+	return h
 
-func _satz(t: String, sp_: float, farbe: Color) -> Label:
-	var l := Stil.zeile(t, sp_, farbe)
+func _satz(t: String, sp_: float, farbe: Color, schraeg := false) -> Label:
+	var l := Stil.zeile(t, sp_, farbe, 0.0, schraeg)
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	l.custom_minimum_size.x = 60 * DP
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return l
 
-func _linie() -> Control:
+static func linie() -> Control:
 	var c := ColorRect.new()
 	c.color = Stil.RIM
 	c.custom_minimum_size = Vector2(0, maxf(1.0, round(DP * 0.6)))
@@ -342,7 +359,7 @@ func _linie() -> Control:
 	return c
 
 # feine Goldlinie mit einer Raute in der Mitte (wie 549 B)
-func _zier() -> Control:
+static func zier() -> Control:
 	var c := Control.new()
 	c.custom_minimum_size = Vector2(0, 14 * DP)
 	c.mouse_filter = Control.MOUSE_FILTER_IGNORE
