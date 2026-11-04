@@ -22,6 +22,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [531](ansehen/531-garrick.md) | Garrick am Feuer: wie er aussieht und wie er Tiere mit der Fackel vertreibt | – | 04.11., 00:16 |
+| [557](ansehen/557-spielstaende.md) | Stil B, dritte Runde: Gegenstand ohne Rahmen, Kopf mit Zierlinie, Rast | – | 04.11., 17:11 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -54,7 +55,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 557 | M | von Sokrates (Chef 04.11., 11:15; Zu 557): Spielstände als Entwurf im Stil „ohne Kasten“ ( | wartet auf Sokrates |
+| 557 | M | von Sokrates (Chef 04.11., 11:15; Zu 557): Spielstände als Entwurf im Stil „ohne Kasten“ ( | Chef |
 | 558 | M | von Sokrates (Chef 04.11., 11:31, Bild Build 257; Zu 558): Robe des Magiers zu glatt: Stof | wartet auf Test/Build |
 | 556 | M | von Sokrates (Chef 04.11., 07:52; Zu 556): Blenden reines Schwarz statt Leuchten, Lesezeit | wartet auf Test/Build (gebaut) |
 | 531 | M | von Sokrates (Chef 03.11., 23:42, Build 249; Zu 531): Garrick: „Gesicht wirkt sonderbar, B | Chef |
@@ -65,7 +66,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 519 | M | von Sokrates (Chef 03.11., 23:13, Build 249, Bild): Ausrüstung, Fenster eines Gegenstands | wartet auf Test (Build) |
 | 518 | M | von Sokrates (Chef 03.11., 20:47, Build 248, Bild): Dorf leer: keine Häuser, nur Wege und | wartet auf Test/Build (gebaut) |
 | 537 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 537): Kapitelende fehlt: nach Aldric kei | wartet auf Test/Build (gebaut) |
-| 549 | M | von Sokrates (Chef 04.11., 00:07, Build 249, Bild; Zu 549): „Rastscreen wirkt sehr klein u | wartet auf 557 (wartet) |
+| 549 | M | von Sokrates (Chef 04.11., 00:07, Build 249, Bild; Zu 549): „Rastscreen wirkt sehr klein u | wartet auf 557 (Chef) |
 | 550 | M | von Sokrates (Chef 04.11., 00:19, Build 249): „erstes Mal Heilkräuter gepflückt ein riesen | wartet auf Test (Build) |
 | 555 | M | von Sokrates (Chef 04.11., 00:30, „Fehlt vielleicht noch mehr im Testmenü??? Wäre zum Test | wartet auf Test (Build) |
 | 554 | M | von Sokrates (Chef 04.11., 00:27, Build 249): „Im Testmenü fehlt, dass Tiere mich ignorier | wartet auf Test (Build) |
@@ -153,10 +154,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | Pflege | K | von Werkzeug (340.3, 04.11.): 94690 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 78, Muss 65, startbar 16
+**Jerry** – offen 79, Muss 66, startbar 17
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 565 | M | von Sokrates (Chef 04.11., 17:10, t257 Bereich C, Bild; Zu 565): im Gruppenkasten unten is | startbar |
 | 564 | M | von Sokrates (Chef 04.11., 17:06, Testreiter „Seit Start, Fehler“, Build 257; Zu 564): vie | startbar |
 | 562 | M | von Sokrates (Chef 04.11., 17:02, t257 Bereich C; Zu 562 und 563): Helden gehen zum Angrif | startbar |
 | 563 | M | von Sokrates (Chef 04.11., 17:02, t257 Bereich C, Bild; Zu 562 und 563): Zustandsschilder | startbar |
