@@ -170,7 +170,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | D71.1 | K | von Diogenes (374/434, Vortag 02.11.): ohne „Bestand geprüft“ (434): 417 00:53, 02:24, 03: | startbar |
 | Pflege | K | von Werkzeug (340.3, 04.11.): 70458 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Jerry** – offen 76, Muss 64, startbar 1
+**Jerry** – offen 75, Muss 64, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -249,7 +249,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | 469 | M | von Sokrates: Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
-| Pflege | K | von Werkzeug (340.3, 04.11.): 18356 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 31, Muss 26, startbar 2
 
