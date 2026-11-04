@@ -159,7 +159,7 @@ func _abschnitt(z: Array, farbton := -1.0) -> void:
 					gegangen = true
 					held.glide_to(heim + _seite() * 1.4)
 					get_tree().create_timer(1.6).timeout.connect(func(): held.glide_to(heim))
-				if not gemessen and t >= 1.0:
+				if not gemessen and t >= (0.4 if einmal else 1.0):     # Prüfer Probebild 572: buff_gain (einmalig) bei 1 s schon vorbei
 					gemessen = true
 					_messen(z[0], fx)
 					_bild()
@@ -189,9 +189,13 @@ func _schlag(ps: PackedScene, treffer: bool, bild: bool) -> void:
 	if treffer:     # Ursprung des Funkens in seiner Mitte (Demo: 1 m über dem Boden)
 		fx.global_position = punkt
 		wolf.hurt(0, false)
-	else:     # Ursprung des Hiebs am Boden, Bogen in der Ebene quer zur Blickrichtung (Demo): vor dem Helden, zu ihm gedreht
-		var b: Basis = held.global_transform.basis.orthonormalized()
-		fx.global_transform = Transform3D(b, held.global_position + b.z * 0.45)
+	else:     # Ursprung des Hiebs am Boden, Bogen in der Ebene quer zur Kamera (Demo: Kamera vorn auf +Z): zwischen Held und Wolf,
+		# Bogenfläche zur Kamera (Prüfer Probebild 572: von der Seite nur ein Strich, nach links vom Wolf weg)
+		var cam := get_viewport().get_camera_3d()
+		var zur: Vector3 = cam.global_transform.basis.z if cam else Vector3.BACK
+		zur.y = 0.0
+		var ort: Vector3 = held.global_position + zu.normalized() * minf(0.7, zu.length() * 0.5)
+		fx.global_transform = Transform3D(Basis.looking_at(-zur.normalized(), Vector3.UP), ort)
 	_spielen(fx)
 	if bild:
 		await get_tree().create_timer(0.12).timeout
