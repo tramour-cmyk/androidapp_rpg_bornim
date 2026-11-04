@@ -68,7 +68,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 72 | K | Profil und Kampfsystem | ruht |
 | Pflege | K | von Werkzeug (340.3, 04.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
 
-**Tom** – offen 97, Muss 75, startbar 13
+**Tom** – offen 97, Muss 75, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -136,7 +136,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 458.3 | M | von Sokrates (Chef 01.11., 13:1x, Archiv 458): Gegenstandskatalog: je Gegenstand Netz × Ma | ruht |
 | 457.1 | M | von Perikles (Chef 01.11., 11:49, „unsere Signatur muss sich wiederfinden“): godot/probe/b | wartet auf Test/Build (gebaut) |
 | 423.1 | K | von Homer (Archiv 423, 01.11.): Spielerhandbuch BRS (STORY-HANDBUCH-1.md bis -3.md) als Se | ruht |
-| 453.2 | M | von Sokrates (Chef 01.11., 13:0x, Archiv 453.1): Atmen-Schicht wie 453.1 für Held unterweg | startbar |
+| 453.2 | M | von Sokrates (Chef 01.11., 13:0x, Archiv 453.1): Atmen-Schicht wie 453.1 für Held unterweg | wartet auf Test/Build (gebaut) |
 | 455.2 | M | von Sokrates (Chef 01.11., 11:27, „455 ja, wie Sokrates“, Archiv): Netzliste je Platz mit | ruht |
 | 399.5 | M | von Chef („jetzt“ 28.10., 21:5x, Archiv): Innenräume wie alt: Lichtquellen, Licht und Scha | wartet auf Test (Build) |
 | 399.3.1 | M | von Team Jerry (16:5x): Klang: Haken in spiel.gd (Jerry, claude/jerry-348-klang) übernehme | wartet auf Test (Build) |
