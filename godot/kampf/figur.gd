@@ -1486,18 +1486,19 @@ var _pfad_anim := ""
 
 ## Neuer tween, der [pfad] abfährt: Bögen im Schritt (Gehen mal BOGEN_TEMPO; die Pfoten treten beim Wenden), Geraden über RUN_FROM
 ## im Lauf; [eilig]: alles im Lauf (Ausweichen). Gibt die Dauer (s) zurück; je Punkt hängt die Zeit an (pfad[i][4]).
-func _pfad_fahren(pfad: Array, eilig: bool) -> float:
+func _pfad_fahren(pfad: Array, eilig: bool, bogen_im_lauf := 0.0) -> float:
 	var gerade := 0.0
 	for i in range(1, pfad.size()):
 		if eilig:
 			pfad[i][3] = "G"
 		if pfad[i][3] == "G":
 			gerade += pfad[i][1] - pfad[i - 1][1]
-	var lauf := "Rennen" if (eilig or gerade > RUN_FROM) and weg.has("Rennen") else "Gehen"
+	var lauf := "Rennen" if (eilig or gerade > RUN_FROM or bogen_im_lauf > 0.0) and weg.has("Rennen") else "Gehen"
+	_bogen_lauf = bogen_im_lauf if lauf == "Rennen" else 0.0
 	var t := 0.0
 	pfad[0].append(0.0)
 	for i in range(1, pfad.size()):
-		var v: float = _mps(lauf) if pfad[i][3] == "G" else _mps("Gehen") * BOGEN_TEMPO
+		var v: float = _mps(lauf) if pfad[i][3] == "G" else (_mps(lauf) * _bogen_lauf if _bogen_lauf > 0.0 else _mps("Gehen") * BOGEN_TEMPO)
 		t += (pfad[i][1] - pfad[i - 1][1]) / v
 		pfad[i].append(t)
 	_pfad_anim = ""
@@ -1507,6 +1508,11 @@ func _pfad_fahren(pfad: Array, eilig: bool) -> float:
 ## Bögen im Schritt, aber so viel schneller (Bewegung und Schrittfolge zugleich, die Pfoten treten weiter auf; r3b: im Schritt
 ## dauerte der Biss mit Heimweg 7,3 s statt 4,4 s)
 const BOGEN_TEMPO := 1.8
+## 546 (Chef 04.11., 00:01, Build 249: „Wölfe weichen aus wie Schlaftabletten“): der Satz beim Ausweichen lief seine Bögen im
+## Schritt (Gehen × 1,8: 1,6 m in 0,93 s, ausweichen_546), ganz im Lauf drehte er bis 28° je Bild (438). Jetzt im Lauf mit diesem
+## Anteil des Lauftempos auch im Bogen (Bewegung und Schrittfolge zugleich): 1,6 m in etwa 0,5 s, höchstens etwa 18° je Bild.
+const AUSWEICH_BOGEN := 0.55
+var _bogen_lauf := 0.0
 
 
 ## Ort und Drehung auf dem Pfad nach [t] s (Zeit je Punkt in pts[i][4]); wechselt zwischen Gehen (Bogen) und [lauf] (Gerade)
@@ -1519,11 +1525,11 @@ func _auf_zeit(pts: Array, t: float, lauf: String) -> void:
 	var f := clampf((t - a[4]) / maxf(b[4] - a[4], 1e-5), 0.0, 1.0)
 	position = a[0].lerp(b[0], f)
 	rotation.y = a[2] + wrapf(b[2] - a[2], -PI, PI) * f
-	var nm: String = lauf if b[3] == "G" else "Gehen"
+	var nm: String = lauf if b[3] == "G" or _bogen_lauf > 0.0 else "Gehen"
 	if nm + b[3] != _pfad_anim:     # Prüfer r3c: Gehen im Bogen und auf der Geraden hatten dieselbe Schrittfolge
 		_pfad_anim = nm + b[3]
 		if anim and anim.has_animation(nm):
-			anim.play(nm, 0.15, (1.0 if b[3] == "G" else BOGEN_TEMPO) * float(tempo.get(nm, 1.0)))
+			anim.play(nm, 0.15, (1.0 if b[3] == "G" else (_bogen_lauf if _bogen_lauf > 0.0 else BOGEN_TEMPO)) * float(tempo.get(nm, 1.0)))
 
 
 ## Grad je Sekunde, mit denen ein Tier mit Wurzelweg sich umdreht (180° in 0,4 s)
@@ -2769,7 +2775,7 @@ func dodge(after_ms: int, nm := "") -> void:
 			if OS.get_environment("SCHAU_MESS") != "":
 				print("Ausweichen %s %s Länge %.2f m, Wert %.2f, Grenze %.2f, Start %s" % [fighter.id, nm, best[best.size() - 1][1], luft, g0, position])
 			bahn = [best[best.size() - 1][0], home]
-			_pfad_fahren(best, false)     # 438: Bögen im Schritt (im Lauf drehte er 28° je Bild), Geraden im Lauf
+			_pfad_fahren(best, false, AUSWEICH_BOGEN)     # 438: im Lauf drehte er 28° je Bild; 546: im Schritt zu träge
 			tween.tween_callback(_walk_home)
 			return
 	_play("Ausweichen", 0.05)
