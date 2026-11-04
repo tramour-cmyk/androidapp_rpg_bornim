@@ -4,6 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **559 Wächter „wartet auf Chef“** (Perikles, Werkzeug): Fords Stundenlauf meldet Besitzer und Ford, wenn ein Vorgang auf den Chef wartet, obwohl seine Rückmeldung („Zu <Nr>“ mit Chefzeit oder Archiveintrag) neuer ist als die Chefsache-Datei (`regelcheck.py --rueckmeldung`).
 - **517 Waldklang wie im alten Spiel** (Jerry): draußen leise Vögel am Tag, nachts Grillen und im Wald die Eule; im Tiefen Wald keine Vögel, dafür selten und fern von einer Seite ein heulender Wolf; in der Höhle grollt ab und zu der Berg. Test `klang_test`.
 - **494 Riesenspinne wirft ihr Netz** (Jerry): bisher stand die Spinne bei jedem Angriff still und ein Pfeil flog; jetzt läuft sie zum Biss wie im alten Spiel, und wenn sie „Netz werfen“ ansagt, hebt sie sich und wirft ein Netz aus grauweißen Fäden, das sich im Flug aufspannt. Riesenratte, Riesenfledermaus und Riesenspinne kämpfen je allein mit ihren eigenen Werten wie im alten Spiel (Probekämpfe „Ratte“, „Fledermaus“, „Spinne allein“).
 - **494 Wildschwein, Hundertfüßer, Riesenspinne im Kampf** (Jerry): das Wildschwein zuckt bei einem Treffer (der Kauf hat keine Bewegung dafür); Name und Lebensbalken stehen über dem Tier statt in Wolfshöhe (Hundertfüßer); die Riesenspinne gleitet neben dem Wolf nicht mehr, steht in echter Größe (vorher anderthalbfach) mit Balken über dem Körper. Tests `wildschwein_494`, `spinne_494`.

@@ -22,7 +22,7 @@ Ausgabe, Zeile für Zeile auszuführen:
   WOCHENSTART TT.MM. | Rolle | Titel | erste Nachricht                  → Ford startet wie START (Schritt 11, 192.2); Marke „Wochenstart TT.MM. Rolle“ schreibt --sperre
   TAGESBERICHT TT.MM. | Perikles | Titel | erste Nachricht                → dasselbe für den Tagesbericht ab 7:30, Sa, So 9:30 (247.1, Marke „Tagesbericht TT.MM.“)
   TAGESBERICHT-FEHLT TT.MM.: …                                      → Ford meldet laut eine Zeile an den Chef (448); die TAGESBERICHT-Zeile daneben startet Perikles erneut
-  WÄCHTER <Nr> | <Rollen> | <session_id|-> | <Text>                  → Ford: meldung.sh --laut Ford "<Text>" und send_message <Text> an die Sitzung (383; einmal je „jetzt“, Marke schreibt --sperre)
+  WÄCHTER <Nr> | <Rollen> | <session_id|-> | <Text>                  → Ford: meldung.sh --laut Ford "<Text>" und send_message <Text> an die Sitzung (383; einmal je „jetzt“, Marke schreibt --sperre; auch 559: „wartet auf Chef“ trotz neuerer Rückmeldung, einmal je Rückmeldung)
   AUSGESCHLOSSEN NR: Grund                                          → Ford hat die Zeile mit --ohne ausgeschlossen; Ford meldet Grund lautlos (190.2)
 --ohne NR:Grund  (mehrfach) schließt die Zeile NR für diesen Lauf aus; lauf.py nimmt dann die nächste startbare Zeile derselben Rolle (190.2). Ohne Grund gilt es nicht.
 --ohne-pull  lässt das Vorspulen der Notizen aus (380: sonst zieht lauf.py bornim-main auf origin/main und bricht ab, wenn das nicht geht).
@@ -607,6 +607,20 @@ def main():
         ww, wm = waechter(je_rolle, marke_text); ausgabe += ww; wochen += wm
     except Exception as e:
         ausgabe.append("WARNUNG Wartewächter fehlgeschlagen: %s (383, Perikles)" % e)
+    try:  # 559: „wartet auf Chef“, obwohl eine neuere Rückmeldung des Chefs da ist (regelcheck.py --rueckmeldung); einmal je Rückmeldung
+        r = subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "regelcheck.py"), "--rueckmeldung"],
+                           capture_output=True, text=True, timeout=120)
+        for l in r.stdout.splitlines():
+            if not l.startswith("RÜCKMELDUNG "): continue
+            nr, rollen, zeit, text = [x.strip() for x in l[len("RÜCKMELDUNG "):].split(" | ", 3)]
+            marke = "Rückmeldung %s %s" % (nr, zeit)
+            if marke in marke_text: continue
+            sitz = [s for rl in rollen.split(", ") for s in je_rolle.get(rl, [])]
+            ausgabe.append("WÄCHTER %s | %s | %s | %s; %s und Ford: Stand setzen, damit die Zeile startet" % (nr, rollen, juengste(sitz)["id"] if sitz else "-", text, rollen))
+            wochen.append(marke)
+        if r.returncode: ausgabe.append("WARNUNG regelcheck.py --rueckmeldung Exit %d: %s (559, Perikles)" % (r.returncode, r.stderr.strip()[-200:]))
+    except Exception as e:
+        ausgabe.append("WARNUNG Rückmeldungswächter fehlgeschlagen: %s (559, Perikles)" % e)
     wochen += vorentscheid_marken + neue_marken
     for l in ausgabe: print(l)
     if not ausgabe: print("NICHTS: nichts zu tun")
