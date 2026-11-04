@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (04.11., 12:30, `session_01Hmoj79smGQeU5FMxpof1EJ`):** 556 gebaut (abda486d3); 557 Entwurf Spielstände beim Chef (ansehen/557, Prüferbefund dort); 513 am Rechner auf dem Kaufkörper gemessen, Stehen passt, Gehen beim Chef (entscheiden/513a), Lauf noch frei; 558 Befund in „Zu 558“; Stände nach t249/t257 nachgezogen. Kaufmodelle-Repo eingebunden (Chef 11:39: jede Sitzung bindet ein, was sie braucht). Keine Weckrufe offen. Nachfolger: Tom – 558: Robe lebendiger (Probebild).
+**Übergabe (04.11., 13:10, `session_01Hmoj78TjcwNdSpYw2exiBM`):** 557 Vorlage 2 beim Chef (ansehen/557, 9bba5679d). 558 gebaut (`claude/tom-558-robe`, STOFF); Probe 2 von 2 läuft (41826697107): Artefakt `bornim-probe-558` (`<ort>-held.png`: jetzt / 0,6 / 1) als ansehen/558 und `meldung.sh --bild`. Keine Weckrufe. Nachfolger: Tom – 558: Robe Probebild vorlegen.
 
 ## Zeilen
 
