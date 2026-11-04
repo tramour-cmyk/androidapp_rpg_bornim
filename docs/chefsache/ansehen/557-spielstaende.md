@@ -1,5 +1,7 @@
 # 557 · Stil B, fünfte Runde: Bilder der Dinge, Rückfragen zentriert, „+x“ am Namen · Team Tom · 04.11., 19:46
 
+[Bild von 04.11., 19:46](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/04-1946-557-Tom.png) (eingetragen von meldung.sh, Tom)
+
 Kurz: Deine Worte von 19:19 bis 19:28 sind umgesetzt. Jedes Bildfeld zeigt das Ding (Gegenstand, Trank, Kraut, Zutat). Rückfragen stehen mittig wie der Titel, ab vier Zeilen Text linksbündig. „+3“ steht am Namen. Die Warnfarbe steht nur noch an dem, was etwas zerstört. Sag „passt“ oder was anders sein soll; danach entscheidest du 557, 549a und 524.1 zusammen.
 
 ![1 Löschen · 2 Wegwerfen](../bilder/557-r5-rueckfragen.webp)
