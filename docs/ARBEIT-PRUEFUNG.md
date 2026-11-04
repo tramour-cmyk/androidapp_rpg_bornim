@@ -2,16 +2,15 @@
 
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
-**Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D72 (Lauf 69: Nachprüfung 275 D46.3/D46.5/D47.2, D69.1, D70.1, ohne Befund; Lauf 68: Nachprüfung D67.1, D68, 461b-Anhänge, D69, D70; Lauf 67: 340.4/340.5 ohne Nummer; Lauf 66: 480/480.1/340.3, D68; Lauf 65: 484 Abkürzungen, D67; Lauf 64: 447.4, D66, `5c3d13358`; Lauf 63: Nachprüfung D63/D64.1, D65, `036b48029`; Lauf 62: 407, D64, `bb1205e31`; Lauf 61: Woche, D63, `73ab91995`; ältere Läufe im Prüfbericht und in Git).
+**Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D73 (Lauf 70: 513.1 Figurensperre greift und gibt frei, D72 an Perikles; Lauf 69: Nachprüfung 275 D46.3/D46.5/D47.2, D69.1, D70.1, ohne Befund; Lauf 68: Nachprüfung D67.1, D68, 461b-Anhänge, D69, D70; Lauf 67: 340.4/340.5 ohne Nummer; Lauf 66: 480/480.1/340.3, D68; Lauf 65: 484 Abkürzungen, D67; Lauf 64: 447.4, D66, `5c3d13358`; Lauf 63: Nachprüfung D63/D64.1, D65, `036b48029`; Lauf 62: 407, D64, `bb1205e31`; Lauf 61: Woche, D63, `73ab91995`; ältere Läufe im Prüfbericht und in Git).
 
-**Übergabe (03.11., 15:2x, „Diogenes – 275: Nachprüfung“):** Lauf 69 (275 D46.3, D46.5, D47.2 und D69.1, D70.1 behoben, ohne Befund; Perikles in „Zu 275“ benachrichtigt); 374 und 434 für 02.11. gezählt (Zu 374; D71.1 Tom, D71.2 Jerry), Zeilen 374, 434 gestrichen (weiter in der Wochenzählung). Nachfolger: „Diogenes – 511: Filmsperre“ am ersten echten Filmlauf; sonst Wochenzählung Mo 09.11.
+**Übergabe (04.11., 14:0x, „Diogenes – 513.1: Figurensperre“):** Lauf 70: 513.1 geprüft, Zeile gestrichen. 53 gezählte Läufe seit 03.11., 16:1x, Stichprobe 4 Zweige (tom-558-robe, jerry-535-gruppen, build-257, tom-495-zufallsspieler) enthalten 3b29ac0cb und e3789d130; Haken trocken an Wegwerfzweig `claude/tom-348-…` auf Stand tom-556-blende (ohne Figurenstand): angehalten mit 513.1, auf Stand tom-558-robe: 513.1 frei (danach 511 Filmsperre, richtig). D72 (Perikles, Zu 513.1): `cd $VAR` vor dem Push wird nicht aufgelöst, Sperre lässt dann durch. Nachfolger: „Diogenes – 511: Filmsperre“ am ersten echten Filmlauf; sonst Wochenzählung Mo 09.11.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
-| 513.1 | M | **von Perikles (Doppelpack 421, 03.11., 16:1x, `45351ef1d`):** `probelauf.py` hält Probeläufe an, deren Stand einen Commit aus `tools/figurenstand.tsv` nicht enthält; prüfen: greift am ersten Lauf, gibt frei, sobald der Figurenstand gemischt ist | wartet auf den ersten Lauf |
 | 512 | M | **von Perikles (Doppelpack 421, 03.11., 16:0x, `e823b0ee7`):** Abgleich alt/neu vor jeder Testbitte (`LISTE-UMZUG-348.md` „Abgleich“, Prüfliste in `LISTE-BAUEN-TESTEN.md`); prüfen an der nächsten Prüfliste: Abgleich gemacht, Funde behoben oder „bekannt“ | wartet auf die nächste Testbitte |
 | 511 | M | **von Perikles (Doppelpack 421, 03.11., 14:0x, `d6d9eca8c`):** Filmsperre `probelauf.py` am ersten echten Filmlauf prüfen (Zu 511) | wartet auf den nächsten echten Film |
 | 340.2 | M | **von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv):** Wirkung 340.3–340.5 zählen (Tabelle „Änderungen“ in `LISTE-ROLLENSPIEGEL.md`, Spalte „gewirkt“) | ruht bis Mo 09.11. |
