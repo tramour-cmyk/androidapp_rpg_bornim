@@ -302,7 +302,7 @@ func brauen() -> void:
 		sp.add_child(zutaten_reihe(r, 18, 12))
 		if z.anzahl(aus) > 0: sp.add_child(Erschaffung.txt(Sprache.t(Laden.BESITZ) + str(z.anzahl(aus)), 12, Stil.DIM))
 		if oft < 1:
-			sp.add_child(Erschaffung.txt(Sprache.t(Laden.FEHLT) + Laden.fehlt(z, r), 12, Stil.WARN))
+			sp.add_child(Erschaffung.txt(Sprache.t(Laden.FEHLT) + Laden.fehlt(z, r), 12, Spielstaende.mangel()))
 			(p.get_child(0) as CanvasItem).modulate.a = 0.5   # Bild matt; der Name ist schon Veil.dim (Helfer 01:28: doppelt gedaempft kaum lesbar)
 		p.set_meta("rezept", aus)   # fuer brauen_525
 		inhalt.add_child(p)
@@ -317,12 +317,12 @@ func zutaten_reihe(r: Dictionary, bild_dp: float, sp: float) -> HBoxContainer:
 		var hat := z.anzahl(id)
 		var braucht := int(r["zutaten"][id])
 		h.add_child(Menue.bild_feld("ding-" + id, bild_dp))
-		var l := Stil.zeile("%d/%d" % [hat, braucht], sp, Stil.TEXT if hat >= braucht else Stil.WARN)
+		var l := Stil.zeile("%d/%d" % [hat, braucht], sp, Stil.TEXT if hat >= braucht else Spielstaende.mangel())
 		l.set_meta("zutat", id)
 		h.add_child(l)
 		h.add_child(Erschaffung.luecke(0, 6))
 	if int(r["gold"]) > 0:
-		var g := Stil.zeile("%d G" % int(r["gold"]), sp, Stil.TEXT if z.gold >= int(r["gold"]) else Stil.WARN)
+		var g := Stil.zeile("%d G" % int(r["gold"]), sp, Stil.TEXT if z.gold >= int(r["gold"]) else Spielstaende.mangel())
 		g.set_meta("zutat", "gold")
 		h.add_child(g)
 	return h
@@ -341,7 +341,7 @@ func braukasten(r: Dictionary, n_: int, alle := false) -> void:
 	var zl: Array = [bild, Erschaffung.txt(Sprache.t(Laden.ding(aus).get("info", "")), 14, Stil.DIM),
 		Erschaffung.txt(("Zutaten je Trank:" if de else "Ingredients per potion:"), 15, Stil.DIM), zutaten_reihe(r, 24, 15)]
 	if oft < 1:
-		zl.append(Erschaffung.txt(Sprache.t(Laden.FEHLT) + Laden.fehlt(z, r), 15, Stil.WARN))
+		zl.append(Erschaffung.txt(Sprache.t(Laden.FEHLT) + Laden.fehlt(z, r), 15, Spielstaende.mangel()))
 	else:
 		zl.append(Erschaffung.txt("%s: %d" % [Sprache.t(Laden.MENGE), n], 16))
 		var reihe_ := HBoxContainer.new()
@@ -375,8 +375,8 @@ func menge(id: String, kauf: bool, n_: int, alle := false) -> void:
 	var zl: Array = [bild, Erschaffung.txt(Sprache.t(Laden.ding(id).get("info", "")), 14, Stil.DIM),
 		Erschaffung.txt("%s: %d" % [Sprache.t(Laden.MENGE), n], 16),
 		Erschaffung.txt(Sprache.t(Laden.BESITZ) + "%d → %d" % [z.anzahl(id), z.anzahl(id) + (n if kauf else -n)], 15, Stil.DIM),
-		Erschaffung.txt("%s: %d → %d" % [Sprache.u("gold"), z.gold, z.gold - preis if kauf else z.gold + preis], 15, Stil.DIM if most >= 1 else Stil.WARN)]
-	if most < 1: zl.append(Erschaffung.txt(Sprache.u("notEnoughGold") if kauf else Sprache.u("nothing"), 15, Stil.WARN))
+		Erschaffung.txt("%s: %d → %d" % [Sprache.u("gold"), z.gold, z.gold - preis if kauf else z.gold + preis], 15, Stil.DIM if most >= 1 else Spielstaende.mangel())]
+	if most < 1: zl.append(Erschaffung.txt(Sprache.u("notEnoughGold") if kauf else Sprache.u("nothing"), 15, Spielstaende.mangel()))
 	var reihe_ := HBoxContainer.new()
 	reihe_.add_theme_constant_override("separation", int(6 * DP))
 	# 525 (ShopScreen.kt 347–349): die gewaehlte Schnellwahl bleibt markiert, „Alle“ als solche, auch wenn es 1 oder 5 sind
@@ -407,8 +407,8 @@ func stueck(g: Dictionary, kauf: bool) -> void:
 	var p := Laden.kaufpreis_von(hw, g) if kauf else Laden.verkaufspreis_von(hw, g)
 	var ok := not kauf or z.gold >= p
 	var zl: Array = stueck_zeilen(g)
-	zl.append(Erschaffung.txt("%s: %d → %d" % [Sprache.u("gold"), z.gold, z.gold - p if kauf else z.gold + p], 15, Stil.DIM if ok else Stil.WARN))
-	if not ok: zl.append(Erschaffung.txt(Sprache.u("notEnoughGold"), 15, Stil.WARN))
+	zl.append(Erschaffung.txt("%s: %d → %d" % [Sprache.u("gold"), z.gold, z.gold - p if kauf else z.gold + p], 15, Stil.DIM if ok else Spielstaende.mangel()))
+	if not ok: zl.append(Erschaffung.txt(Sprache.u("notEnoughGold"), 15, Spielstaende.mangel()))
 	var tu := func():
 		if kauf: sage(laden.kaufe_ausruestung(z, hw, g))
 		else:
@@ -510,7 +510,7 @@ func _seite_b(t: String, an: bool, tat: Callable, waehlbar := true) -> Control:
 func brauen_b() -> void:
 	var de := de_()
 	inhalt.add_child(Erschaffung.luecke(12))
-	var h := Stil.zeile(Sprache.t(Laden.REZEPTE).to_upper(), 13, Stil.GOLD, 2.5)
+	var h := Stil.zeile(Sprache.t(Laden.REZEPTE).to_upper(), 14 if Spielstaende.vorlage2 else 13, Stil.GOLD, 3.0 if Spielstaende.vorlage2 else 2.5)   # 557 Runde 5: Zwischenüberschrift 14 sp (549a)
 	inhalt.add_child(h)
 	inhalt.add_child(Erschaffung.luecke(4))
 	var kr := Erschaffung.txt(Sprache.t(Laden.KRAEUTER), 13, Stil.DIM)
@@ -538,9 +538,14 @@ func brauen_b() -> void:
 		v.add_child(zutaten_reihe(r, 20, 13))
 		if z.anzahl(aus) > 0: v.add_child(Stil.zeile(Sprache.t(Laden.BESITZ) + str(z.anzahl(aus)), 13.5 if Spielstaende.vorlage2 else 13.0, Spielstaende.ANGABE if Spielstaende.vorlage2 else Stil.DIM))   # Zu 557 (8)
 		if oft < 1:
-			var f := Erschaffung.txt(Sprache.t(Laden.FEHLT) + Laden.fehlt(z, r), 13, Stil.WARN)
+			var f := Erschaffung.txt(Sprache.t(Laden.FEHLT) + Laden.fehlt(z, r), 13, Spielstaende.mangel())
 			f.custom_minimum_size.x = 60 * DP
 			v.add_child(f)
+		# 557 Runde 5 (Prüfer 18:21, Bild 9: Zeilen verschieden hoch): jede Rezeptzeile hat die dritte Zeile, ohne „Im Besitz“ und
+		# „Fehlt“ leer, so stehen alle gleich hoch
+		if Spielstaende.vorlage2 and z.anzahl(aus) <= 0 and oft >= 1:
+			var leer := Stil.zeile(" ", 13.5, Color(0, 0, 0, 0))
+			v.add_child(leer)
 		zeile_.add_child(v)
 		if oft > 0:
 			var re := Stil.zeile(Sprache.t(Laden.REICHT) % oft, 13.5 if Spielstaende.vorlage2 else 13.0, Stil.BRIGHT if Spielstaende.vorlage2 else Stil.GOLD)   # Zu 557 (8)
@@ -587,13 +592,13 @@ func braukasten_b(r: Dictionary, n_: int, alle := false) -> void:
 	nm.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	kopf_.add_child(nm)
 	v.add_child(kopf_)
-	v.add_child(Erschaffung.txt(Sprache.t(Laden.ding(aus).get("info", "")), 14, Stil.DIM))
+	v.add_child(Erschaffung.txt(Sprache.t(Laden.ding(aus).get("info", "")), 15 if Spielstaende.vorlage2 else 14, Stil.TEXT if Spielstaende.vorlage2 else Stil.DIM))   # 557 Runde 5: Fließtext 15 sp
 	v.add_child(Spielstaende.linie())
-	v.add_child(Stil.zeile(("Zutaten je Trank" if de else "Ingredients per potion").to_upper(), 13, Stil.GOLD, 2.0))
+	v.add_child(Stil.zeile(("Zutaten je Trank" if de else "Ingredients per potion").to_upper(), 14 if Spielstaende.vorlage2 else 13, Stil.GOLD, 3.0 if Spielstaende.vorlage2 else 2.0))
 	v.add_child(zutaten_reihe(r, 24, 15))
 	v.add_child(Spielstaende.linie())
 	if oft < 1:
-		v.add_child(Erschaffung.txt(Sprache.t(Laden.FEHLT) + Laden.fehlt(z, r), 15, Stil.WARN))
+		v.add_child(Erschaffung.txt(Sprache.t(Laden.FEHLT) + Laden.fehlt(z, r), 15, Spielstaende.mangel()))
 	else:
 		var mr := HBoxContainer.new()
 		mr.add_theme_constant_override("separation", int(6 * DP))
@@ -654,10 +659,10 @@ func braukasten_c(r: Dictionary, n: int, alle := false) -> void:
 	kopf_.add_child(nv)
 	v.add_child(kopf_)
 	v.add_child(Spielstaende.zier())   # Chef 16:51 (549a (8)): Kopf zuerst, darunter genau eine Zierlinie, keine zweite schlichte
-	v.add_child(Stil.zeile(("Zutaten je Trank" if de else "Ingredients per potion").to_upper(), 13, Stil.GOLD, 2.0))   # Pruefer 16:40: „7/2“ ohne Ueberschrift
+	v.add_child(Stil.zeile(("Zutaten je Trank" if de else "Ingredients per potion").to_upper(), 14 if Spielstaende.vorlage2 else 13, Stil.GOLD, 3.0 if Spielstaende.vorlage2 else 2.0))   # Pruefer 16:40: „7/2“ ohne Ueberschrift
 	v.add_child(zutaten_reihe(r, 24, 15))
 	if oft < 1:
-		v.add_child(Erschaffung.txt(Sprache.t(Laden.FEHLT) + Laden.fehlt(z, r), 15, Stil.WARN))
+		v.add_child(Erschaffung.txt(Sprache.t(Laden.FEHLT) + Laden.fehlt(z, r), 15, Spielstaende.mangel()))
 	else:
 		var neu_ := func(nn: int, ist_alle: bool): schleier.queue_free(); braukasten_c(r, clampi(nn, 1, oft), ist_alle)
 		var mr := HBoxContainer.new()

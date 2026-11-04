@@ -34,6 +34,11 @@ func _messe(wo: String, wurzel: Node) -> void:
 			pruefe("Tippflaeche " + wo, p.size.y >= 48 * DP - 1, "%.0f" % p.size.y)
 			var r: Rect2 = p.get_global_rect()
 			pruefe("Tippflaeche auf dem Schirm " + wo, r.position.x >= -1 and r.end.x <= w + 1, "%s" % r)
+	# 557 Runde 5 (Chef 19:19: „da fehlen die Gegenstände mal ganz platt“): jedes Bildfeld (Gegenstand, Trank, Kraut, Zutat) gefüllt;
+	# ohne Bilder der Dinge (godot/daten, im Bau aus core exportThingArt) keine Vorlage
+	for t in wurzel.find_children("*", "TextureRect", true, false):
+		if t.is_visible_in_tree() and t.custom_minimum_size.x >= 16 * DP:
+			pruefe("Bildfeld gefüllt " + wo, t.texture != null, "%s %s" % [t.get_parent().name, t.get_global_rect()])
 	print("%s: %d Texte" % [wo, labels.size()])
 
 const ZURUECK := ["ZURÜCK", "ABBRECHEN", "SCHLIESSEN", "BACK", "CANCEL", "CLOSE"]
@@ -134,6 +139,7 @@ func _runde(v2: bool) -> void:
 	# Runde 4: eine Einhandwaffe (Nebenhand, „1W6“) und ein goettlicher Ring (der Name sagt „Göttlich“ schon)
 	var schwert := z.ausruestung_dazu({"uid": 0, "base": "shortsword", "rarity": "RARE", "ilvl": 5, "plus": 0, "rolls": [["STR", 1]], "unique": null, "name_seed": 3})
 	var ring := z.ausruestung_dazu({"uid": 0, "base": "ring", "rarity": "DIVINE", "ilvl": 9, "plus": 0, "rolls": [["DEX", 2]], "unique": null, "name_seed": 4})
+	var panzer := z.ausruestung_dazu({"uid": 0, "base": "chain_mail", "rarity": "COMMON", "ilvl": 4, "plus": 3, "rolls": [], "unique": null, "name_seed": 5})   # 557 Runde 5: „+3“ am Namen
 	var m := Menue.new(hw, z)
 	root.add_child(m)
 	await process_frame
@@ -164,6 +170,10 @@ func _runde(v2: bool) -> void:
 					pruefe("Wegwerfen und Nebenhand eine Reihe, getrennt " + wo, absf(a.position.y - b.position.y) < 1 and b.position.x - a.end.x >= 8 * DP - 1, "%s / %s" % [a, b])
 			for l in f.find_children("*", "Label", true, false):
 				pruefe("1W6 mit Abstand " + wo, wuerfel.search(l.text) == null, "„%s“" % l.text)
+			if g == panzer:   # 557 Runde 5 (Chef 19:23): „+x“ in der Namenszeile, nicht allein darunter
+				var allein: Array = f.find_children("*", "Label", true, false).filter(func(l): return l.text.strip_edges() == "+3")
+				var am_namen: Array = f.find_children("*", "Label", true, false).filter(func(l): return l.text.ends_with("\u00a0+3"))
+				pruefe("+3 am Namen " + wo, allein.is_empty() and not am_namen.is_empty(), str(f.find_children("*", "Label", true, false).slice(0, 3).map(func(l): return l.text)))
 			if g == ring:
 				var doppelt: Array = f.find_children("*", "Label", true, false).filter(func(l): return l.text.strip_edges() == "Göttlich" or l.text.containsn("(göttlich)"))
 				pruefe("Seltenheit nicht doppelt " + wo, doppelt.is_empty(), str(doppelt.map(func(l): return l.text)))
@@ -177,6 +187,11 @@ func _runde(v2: bool) -> void:
 			var k := _knoepfe("Rueckfrage Wegwerfen", f, 2)
 			pruefe("Rueckfrage Wegwerfen: ABBRECHEN, WEGWERFEN", k.has("ABBRECHEN") and k.has("WEGWERFEN"), str(k.keys()))
 			pruefe("Ring nicht doppelt göttlich", not f.find_children("*", "Label", true, false).any(func(l): return l.text.containsn("(göttlich)")), "")
+			# 557 Runde 5 (Chef 19:23: Rückfragen zentriert, Text bis drei Zeilen; mehr linksbündig)
+			for l in f.find_children("*", "Label", true, false):
+				if l.autowrap_mode != TextServer.AUTOWRAP_OFF and l.text.strip_edges() != "":
+					var soll := HORIZONTAL_ALIGNMENT_CENTER if l.get_line_count() <= 3 else HORIZONTAL_ALIGNMENT_LEFT
+					pruefe("Rueckfrage zentriert", l.horizontal_alignment == soll, "„%s“ %d Zeilen" % [l.text.left(30), l.get_line_count()])
 			f.free()
 	var wk := Vergleich.wirkung(hw, z.beutel[0])
 	print("Wirkung ", wk)

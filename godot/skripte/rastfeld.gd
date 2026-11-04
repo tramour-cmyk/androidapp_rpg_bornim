@@ -99,7 +99,7 @@ func _ohne_kasten(titel: String, unter: String, wahlen: Array, weiter_text: Stri
 	fl.name = "Kopfzeichen"
 	fl.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	sp.add_child(fl)
-	var t := Stil.zeile(titel.to_upper(), 26, Stil.GOLD, 3.0)
+	var t := Stil.zeile(titel.to_upper(), 22 if Spielstaende.vorlage2 else 26, Stil.GOLD, 3.0)   # 557 Runde 5 (549a ja, 19:28): Titel eines Schirms 22 sp
 	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	sp.add_child(t)
 	# 557 (Chef 16:51, 549a (8): „für jedes Fenster gleich“): Kopf zuerst, gleich darunter die Zierlinie, dann der Inhalt

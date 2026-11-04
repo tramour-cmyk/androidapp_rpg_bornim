@@ -965,10 +965,10 @@ func _wechsel_zeile_b(g: Dictionary, platz: String, zu: Callable, de: bool) -> C
 	if not ok:
 		var kl := Sprache.t(hw.klassendaten()["name"])
 		# Helfer 13:04: in der matten Zeile war der rote Grund auf Schwarz kaum lesbar: nur Bild, Name, Angaben matt, der Grund in Warnfarbe voll
-		v.add_child(Stil.zeile(("Als %s kannst du das nicht tragen." if de else "As a %s you cannot wear this.") % kl, 13, Stil.WARN))
+		v.add_child(Stil.zeile(("Als %s kannst du das nicht tragen." if de else "As a %s you cannot wear this.") % kl, 13, Spielstaende.mangel()))
 	r.add_child(v)
 	if u != null:
-		var pf := Stil.zeile("▲" if u == 1 else ("▼" if u == -1 else "◆"), 18, GRUEN if u == 1 else (Stil.WARN if u == -1 else Stil.BRIGHT))   # wie das Fenster
+		var pf := Stil.zeile("▲" if u == 1 else ("▼" if u == -1 else "◆"), 18, GRUEN if u == 1 else (Spielstaende.mangel() if u == -1 else Stil.BRIGHT))   # wie das Fenster
 		pf.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		r.add_child(pf)
 	var c := Control.new()   # goldenes „›“ wie die Hauptwahl der Spielstaende
@@ -1071,7 +1071,7 @@ static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
 		l.add_theme_constant_override("outline_size", int(DP * 0.6)); l.add_theme_color_override("font_outline_color", l.get_theme_color("font_color"))
 		return l
 	var satz := func(t: String, gr: float, f: Color) -> Label:
-		var l := Stil.zeile(t, gr, f)
+		var l := Stil.zeile(Spielstaende.ohne_waise(t), gr, f)
 		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		l.custom_minimum_size.x = 60 * DP
 		return l
@@ -1088,14 +1088,18 @@ static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
 	kv.add_theme_constant_override("separation", int(2 * DP))
 	kv.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	kv.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	var nl: Label = fett.call(satz.call(Beute.name(g), 19, farbe))
-	kv.add_child(nl)
 	var plus := int(g.get("plus", 0))
+	# 557 Runde 5 (Chef 19:23: „die plus x beim Gegenstand mit zum Namen dazu packen“): „Kettenpanzer +3“ in der Namenszeile, mit festem
+	# Leerzeichen, damit es mit dem letzten Wort umbricht (Bild 4: „+3“ stand allein unter dem Namen)
+	var nl: Label = fett.call(satz.call(Beute.name(g) + (("\u00a0+%d" % plus) if Spielstaende.vorlage2 and plus > 0 else ""), 19, farbe))
+	kv.add_child(nl)
 	var selten := Testmodus.gross_anfang(Sprache.t(d["seltenheiten"][String(g["rarity"])]["name"]))
 	var art := String(b[sp])
 	var art_z := selten + ((String(d["endungen"][String(b["geschlecht"])]) if de else "") + " " + art if not Beute.name(g).containsn(art) else "") + ((" +%d" % plus) if plus > 0 else "")
 	if Spielstaende.vorlage2 and Beute.name(g).containsn(art) and Beute.name(g).containsn(selten):   # Pruefer 17:12: „Göttlicher Ring …“, darunter
 		art_z = ("+%d" % plus) if plus > 0 else ""   # noch einmal „Göttlich“: was der Name sagt, steht nicht doppelt da (wie stueck_zeilen, 524)
+	if Spielstaende.vorlage2 and plus > 0:   # 557 Runde 5: „+x“ steht schon am Namen
+		art_z = art_z.trim_suffix(" +%d" % plus).trim_suffix("+%d" % plus).strip_edges()
 	if art_z != "": kv.add_child(satz.call(art_z, 13, Color(farbe, 0.8)))
 	kopf.add_child(kv)
 	z_.append(kopf)
@@ -1104,7 +1108,7 @@ static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
 	var v: Vergleich = Vergleich.von(hw, g) if hw.kann_tragen(g) and not hw.ausruestung.values().any(func(x): return x != null and int(x["uid"]) == int(g["uid"])) else null
 	if v:
 		var u = v.urteil()
-		var uf: Color = {1: GRUEN, -1: Stil.WARN, 0: Stil.BRIGHT}.get(u, Stil.DIM)
+		var uf: Color = {1: GRUEN, -1: Spielstaende.mangel(), 0: Stil.BRIGHT}.get(u, Stil.DIM)
 		var ur := HBoxContainer.new()
 		ur.add_theme_constant_override("separation", int(8 * DP))
 		if u != null:
@@ -1117,7 +1121,7 @@ static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
 		z_.append(ur)
 		if not v.ersetzt.is_empty():
 			var anderer := v.ersetzt.any(func(x): return String(Beute.grundform(String(x["base"]))["slot"]) != String(b["slot"]))
-			z_.append(satz.call(("Ersetzt: " if de else "Replaces: ") + ", ".join(PackedStringArray(v.ersetzt.map(func(x): return Beute.name(x)))), 13, Stil.WARN if anderer else Stil.DIM))
+			z_.append(satz.call(("Ersetzt: " if de else "Replaces: ") + ", ".join(PackedStringArray(v.ersetzt.map(func(x): return Beute.name(x)))), 13, Spielstaende.mangel() if anderer else Stil.DIM))
 	# 549a (8): keine zweite schlichte Linie unter der Zierlinie; Abstand statt Linie
 	z_.append(Erschaffung.luecke(4) if Spielstaende.vorlage2 else Spielstaende.linie())
 	# Grundzahlen
@@ -1130,7 +1134,7 @@ static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
 	wo += (" · Stufe " if de else " · Level ") + str(int(g["ilvl"]))
 	var gewicht := String(b.get("gewicht", "NONE"))
 	if gewicht != "NONE": wo += " · " + Sprache.t(d["ruestungsarten"].get(gewicht, {"de": "Stoff", "en": "cloth"}))
-	var wl: Label = satz.call(wo, 13.5 if Spielstaende.vorlage2 else 13.0, Stil.WARN if zwei else (Spielstaende.ANGABE if Spielstaende.vorlage2 else Stil.DIM))   # Zu 557 (8)
+	var wl: Label = satz.call(wo, 13.5 if Spielstaende.vorlage2 else 13.0, Spielstaende.mangel() if zwei else (Spielstaende.ANGABE if Spielstaende.vorlage2 else Stil.DIM))   # Zu 557 (8)
 	z_.append(fett.call(wl) if zwei else wl)
 	if String(b["art"]) == "LIGHT":
 		z_.append(satz.call("Pech und Werg auf einem Stock. In der Nebenhand, statt eines Schilds. Im Dunkeln siehst du weiter als mit einem Leuchtfunken. Brennt, solange du sie trägst." if de else
@@ -1167,9 +1171,9 @@ static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
 			else: z_.append(satz.call(t, 16, Stil.BRIGHT))
 	# Warnungen
 	if not hw.kann_tragen(g):
-		z_.append(satz.call(("Als %s kannst du das nicht tragen." if de else "As a %s you cannot wear this.") % Sprache.t(hw.klassendaten()["name"]), 15, Stil.WARN))
+		z_.append(satz.call(("Als %s kannst du das nicht tragen." if de else "As a %s you cannot wear this.") % Sprache.t(hw.klassendaten()["name"]), 15, Spielstaende.mangel()))
 	elif waffe and not hw.geuebt(g):
-		z_.append(satz.call("Ungeübt: kein Übungsbonus auf Angriffe." if de else "Not proficient: no proficiency bonus to attacks.", 15, Stil.WARN))
+		z_.append(satz.call("Ungeübt: kein Übungsbonus auf Angriffe." if de else "Not proficient: no proficiency bonus to attacks.", 15, Spielstaende.mangel()))
 	if int(b.get("fokus", 0)) > 0 and not bool(hw.klassendaten()["zauberer"]):
 		z_.append(satz.call("Zauberkraft nützt nur Zauberwirkern." if de else "Spell power only helps spellcasters.", 13, Stil.DIM))
 	# Helfer 14:18: die Sammelzeile „Attribute: … Bonus wirkt nicht“ der Tabelle widersprach den Bonuszeilen („wirkt +1“: was das Stueck

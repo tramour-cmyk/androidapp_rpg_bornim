@@ -27,6 +27,16 @@ static var mit := {"ziel": true}
 # 557 (Chef 16:42, 16:51; Zu 557 (8)): kleine Angaben (Reicht für, Im Besitz, Gold, Stufe, Händler zahlt, Angelegt) mindestens 13 sp
 # und deutlich heller als Veil.dim (948a78), aber unter dem Text (e6ddcb)
 const ANGABE := Color("cfc3ab")
+# 557 Runde 5 (Chef 19:19, Prüfer 18:21: dieselbe Warnfarbe stand auch bei „Schlechter“, „Fehlt“, „nicht tragen“): die Warnfarbe nur
+# für das, was etwas zerstört (× WEGWERFEN, × LÖSCHEN); Mängel und Fehlendes in einem stillen, grauen Rot
+const MANGEL := Color("b08a80")
+static func mangel() -> Color: return MANGEL if vorlage2 else Stil.WARN
+# 557 Runde 5 (Prüfer 18:21, Bilder 3, 4: einzelne Wörter allein in der zweiten Zeile): die letzten zwei Wörter fest verbunden, so bricht
+# nie ein Wort allein um (nur bei mehr als drei Wörtern, sonst bliebe eine kurze Zeile ganz stehen)
+static func ohne_waise(t: String) -> String:
+	if not vorlage2 or t.count(" ") < 3: return t
+	var i := t.rfind(" ")
+	return t.substr(0, i) + "\u00a0" + t.substr(i + 1)
 
 var liste: VBoxContainer
 
@@ -366,7 +376,13 @@ static func frage(eltern: Control, titel: String, zeilen: Array, zeichen: String
 	t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	v.add_child(t)
 	v.add_child(zier())
-	for z in zeilen: v.add_child(z)
+	for z in zeilen:
+		v.add_child(z)
+		# 557 Runde 5 (Chef 19:23: „zentrieren“): Rückfragen mittig wie der Titel, Text bis drei Zeilen; mehr linksbündig
+		if z is Label:
+			var l := z as Label
+			l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			l.resized.connect(func(): l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER if l.get_line_count() <= 3 else HORIZONTAL_ALIGNMENT_LEFT)
 	v.add_child(linie())
 	v.add_child(fuss(func(): schleier.queue_free(), zeichen, wahl, farbe, func(): schleier.queue_free(); tat.call(), an))
 	return schleier
