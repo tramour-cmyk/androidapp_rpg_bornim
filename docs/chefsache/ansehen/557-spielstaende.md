@@ -1,5 +1,7 @@
 # 557 · Spielstände als Entwurf „ohne Kasten“ · Team Tom · 04.11., 11:31
 
+[Bild von 04.11., 11:34](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/04-1133-557-Tom.png) (eingetragen von meldung.sh, Tom)
+
 A Spiel
 Kurz: Du wolltest (11:15, 11:17) einen Entwurf der Spielstände im neuen Stil (549a), mit der Spieldauer und abgeglichen mit der alten Fassung. Er ist in Godot so gebaut, wie er ins Spiel käme, aber noch nicht eingeschaltet. Alles, was alt je Platz stand, steht auch im Entwurf: Bild des Helden, Platz und Name, Volk · Klasse · Stufe, Ort · Tag · Uhr, „Gespeichert“, „Gespielt“. In Build 257 fehlten Bild und Spieldauer, weil 529 noch nicht im Build war.
 
