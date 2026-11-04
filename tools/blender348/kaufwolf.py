@@ -44,14 +44,17 @@ UMBENENNEN = {HALS: 'hals', NACKEN: 'kopf', J('l_FrontLeg_Ball'): 'vpfoteL', J('
               J('l_HindLeg_Ball'): 'hpfoteL', J('r_HindLeg_Ball'): 'hpfoteR'}
 QUELLEN = ['IdleA', 'IdleC', 'Walk', 'Run', 'Attack', 'Die', 'Howl']
 # Tod: Die dauert 4,1 s, figur.gd blendet nach FALL_MS + FADE_MS = 1,5 s aus; die Quelle sinkt bei Bild 64–78 -> ab Bild 52
-TOD_AB, TOD_BIS = 60, 110     # Prüfer r1 (ab 52): Ausblenden begann noch im Fall, liegend nur 0,4 s; ab 60 fällt er bei 0,13–0,6 s
+# 438 (Prüfer Film 08:18: „Tod fällt gestreckt statt einzuknicken“; Wolf_Die gemessen, Läufe Hüfte–Knöchel gegen Stand: Bild 36–56
+# knicken sie ein, vorn bis 0,62, hinten bis 0,71, Rumpf 0,96–0,92; Bild 62–80 sinkt der Rumpf auf 0,30; ab 86 liegt er still): ab 40,
+# bis 90, gleich lang wie vorher (1,67 s); figur.gd lässt ihn danach LIEGT_MS liegen, erst dann aus (440)
+TOD_AB, TOD_BIS = 40, 90
 # Prüfer r1 (Blatt, Wolfspixel eigen/gekauft): grau 62/82, dunkel 44/73, rost 31/70, Unterbeine und Bauch fast weiß (Quelle dort
 # hell; Leitbild „nie heller als alt“): Zeichnung nur noch von Sattel bis Fell (TMAX), Bauchfarbe nicht mehr; je Fell HELL
 TMAX = float(os.environ.get('TMAX', '0.5'))
 HELL = {'grau': 0.9, 'dunkel': 1.0, 'rost': 0.75, 'asche': 0.9}
 # Biss nachgemessen (probe.gd SCHAU=ort SCHAU_MESS=1, lokal 27.10.): mit Schnauze am weitesten vorn minus 0,07 m blieb die Nase
 # 0,04–0,08 m vor dem Rand der Heldin, zugebissen 0,77–1,03 s, Winkel +2 bis +5°: Abstand −0,06 m (Modell), Zeit, Winkel −4°
-BISS_KORR = (-0.03, 0.8, -4.0)     # Prüfer r1: Kopf verschwindet am Rumpf der Heldin; Nase dort 0,01–0,05 m im Rand: 3 cm zurück
+BISS_KORR = (-0.03, 0.8, 0.0)     # Prüfer r1: Kopf verschwindet am Rumpf der Heldin; Nase dort 0,01–0,05 m im Rand: 3 cm zurück
 KOPF_KNOCHEN = ('neck_top', 'head', 'jaw', 'tongue', 'ear')
 # Augen nach Lage im Netz (Ruhe, Quelle): erster Lauf färbte nach Farbe 4,9 % der Textur als Auge (das Fell der Quelle ist braun
 # gesättigt); gemessen: Iris um (±0,047, −0,832, 0,890) m, Radius 0,010; darum ein weißer Ring (Lid, bis 0,019), wird dunkel
@@ -73,6 +76,38 @@ def importiere(fbx):
     vorher = {o.name for o in bpy.data.objects}
     bpy.ops.import_scene.fbx(filepath=fbx, use_anim=True, ignore_leaf_bones=True, automatic_bone_orientation=False)
     return [o for o in bpy.data.objects if o.name not in vorher]
+
+
+def umtragen(rig, quelle, name):
+    """438 (Chef 31.10., 23:31: Wölfe „wie als ob sie wieder gleiten würden“): jede Bewegungsdatei der Quelle hat ihre eigene Ruhelage
+    (gemessen: Läufe bis 32°, Wurzel bis 2,9 cm anders als in Wolf_Rig.fbx); die Aktion, so wie sie ist, auf das Modell gelegt, hob im
+    Gehen alle vier Pfoten zugleich (bis 0,33 m), die Quelle hat stets zwei am Boden. Darum je Bild die Lage jedes Knochens im Raum des
+    Gerüsts aus der Quelle übernehmen und als Schlüssel des Modells setzen (beide Gerüste haben dieselbe Lage in der Welt)."""
+    a = quelle.animation_data.action
+    a0, a1 = int(a.frame_range[0]), int(a.frame_range[1])
+    neu = bpy.data.actions.new(name); neu.use_fake_user = True
+    rig.animation_data_create(); rig.animation_data.action = neu
+    pb = rig.pose.bones
+    for b in pb:
+        b.rotation_mode = 'QUATERNION'
+    reihe = [b for b in rig.data.bones]     # Eltern vor Kindern
+    reihe.sort(key=lambda b: len(b.parent_recursive))
+    scn = bpy.context.scene
+    for f in range(a0, a1 + 1):
+        scn.frame_set(f)
+        M = {b.name: quelle.pose.bones[b.name].matrix.copy() for b in reihe if b.name in quelle.pose.bones}
+        for b in reihe:
+            if b.name not in M:
+                continue
+            if b.parent is not None and b.parent.name in M:
+                basis = b.matrix_local.inverted() @ b.parent.matrix_local @ M[b.parent.name].inverted() @ M[b.name]
+            else:
+                basis = b.matrix_local.inverted() @ M[b.name]
+            loc, rot, _ = basis.decompose()
+            pb[b.name].location = loc; pb[b.name].rotation_quaternion = rot
+            pb[b.name].keyframe_insert('location', frame=f); pb[b.name].keyframe_insert('rotation_quaternion', frame=f)
+    rig.animation_data.action = None
+    return neu
 
 
 def setze(rig, a):
@@ -97,7 +132,10 @@ def gehalten(a, name, n):
 
 def haltung(rig, a, fn):
     """Je Bild fn(t) -> (Versatz des Rumpfs in Welt-Metern (x links, y hinten, z oben), Nicken des Halses (Grad, + hebt den Kopf),
-    Wenden des Halses (Grad, + nach links), Rollen des Rumpfs (Grad)); Pfoten bleiben, wo sie in `a` waren (Läufe neu gebeugt)."""
+    Wenden des Halses (Grad, + nach links), Rollen des Rumpfs (Grad)[, mehr]); Pfoten bleiben, wo sie in `a` waren (Läufe neu gebeugt).
+    453: `mehr` (dict) wahlweise 'pfote': {Lauf in BEINE: Versatz (Welt-Meter wie oben)} hebt oder schiebt eine Pfote (Scharren),
+    'kiefer': Grad (+ öffnet das Maul: Knurren, Hecheln); 453 r2: 'gier': Grad (+ nach links) dreht den Rumpf um die Hochachse
+    (Umblicken mit dem Rumpf), die Pfoten bleiben stehen."""
     setze(rig, a)
     a0, a1 = int(a.frame_range[0]), int(a.frame_range[1])
     W = rig.matrix_world; W3i = W.to_3x3().inverted()
@@ -107,6 +145,7 @@ def haltung(rig, a, fn):
     pb = rig.pose.bones; vl = bpy.context.view_layer
     com, hals = pb[COM], pb[HALS]
     alle = {n for b in BEINE for n in b}
+    kiefer = pb.get(J('Head_Jaw')); kiefer_ende = pb.get(J('Head_JawEnd'))
     q = {}
     for f in range(a0, a1 + 1):
         bpy.context.scene.frame_set(f)
@@ -114,30 +153,111 @@ def haltung(rig, a, fn):
     gross = 0.0
     for f in range(a0, a1 + 1):
         bpy.context.scene.frame_set(f)
-        d, nick, wend, roll = fn((f - a0) / max(1, a1 - a0))
+        r_ = fn((f - a0) / max(1, a1 - a0))
+        d, nick, wend, roll = r_[:4]
+        mehr = r_[4] if len(r_) > 4 else {}
         Q = q[f]
         h = Q[HALS].to_translation()
         R = Matrix.Rotation(math.radians(-nick), 4, quer) @ Matrix.Rotation(math.radians(wend), 4, hoch)
         hals.matrix = Matrix.Translation(h) @ R @ Matrix.Translation(-h) @ Q[HALS]
         c = Q[COM].to_translation()
         dv = (W3i @ Vector(d)) * 1.0
-        com.matrix = Matrix.Translation(dv) @ Matrix.Translation(c) @ Matrix.Rotation(math.radians(roll), 4, laengs) @ Matrix.Translation(-c) @ Q[COM]
+        gier = Matrix.Rotation(math.radians(mehr.get('gier', 0.0)), 4, hoch)
+        com.matrix = Matrix.Translation(dv) @ Matrix.Translation(c) @ Matrix.Rotation(math.radians(roll), 4, laengs) @ gier @ Matrix.Translation(-c) @ Q[COM]
         vl.update()
-        for o, m, u, p in BEINE:
+        for i, (o, m, u, p) in enumerate(BEINE):
             H0, K0, A0 = (Q[n].to_translation() for n in (o, m, u))
+            off = W3i @ Vector(mehr.get('pfote', {}).get(i, (0.0, 0.0, 0.0)))
             H1 = pb[o].head.copy()
-            K1 = _zwei_knochen(H1, A0, H0, K0)
+            K1 = _knie(H1, A0 + off, H0, K0, A0)
             r = (K0 - H0).rotation_difference(K1 - H1).to_matrix().to_4x4()
             pb[o].matrix = Matrix.Translation(H1) @ r @ Matrix.Translation(-H0) @ Q[o]; vl.update()
             Ak = pb[u].head.copy()
-            r = (Ak - K1).rotation_difference(A0 - K1).to_matrix().to_4x4()
+            r = (Ak - K1).rotation_difference(A0 + off - K1).to_matrix().to_4x4()
             pb[m].matrix = Matrix.Translation(K1) @ r @ Matrix.Translation(-K1) @ pb[m].matrix; vl.update()
             for n in (u, p):
-                pb[n].matrix = Q[n]; vl.update()
-            gross = max(gross, (pb[p].head - Q[p].to_translation()).length / m_je_einheit)
+                pb[n].matrix = Matrix.Translation(off) @ Q[n]; vl.update()
+            if off.length < 1e-9:
+                gross = max(gross, (pb[p].head - Q[p].to_translation()).length / m_je_einheit)
+        if kiefer is not None and kiefer_ende is not None and mehr.get('kiefer'):
+            # 453: um die Querachse durch das Kiefergelenk; + senkt das Kinn (die Achse v × hoch hebt es bei + an)
+            kh = kiefer.head.copy(); v = kiefer_ende.head - kh
+            ax_ = v.cross(hoch)
+            if ax_.length > 1e-9:
+                kiefer.matrix = Matrix.Translation(kh) @ Matrix.Rotation(math.radians(-mehr['kiefer']), 4, ax_.normalized()) @ Matrix.Translation(-kh) @ kiefer.matrix
+                vl.update()
         for n in alle | {COM, HALS}:
             pb[n].keyframe_insert('location', frame=f); pb[n].keyframe_insert('rotation_quaternion', frame=f)
+        if kiefer is not None:
+            kiefer.keyframe_insert('location', frame=f); kiefer.keyframe_insert('rotation_quaternion', frame=f)
     print('HALTUNG', a.name, a0, a1, 'Pfote höchstens %.3f m verrückt' % gross)
+
+
+def _knie(H1, A, H0, K0, A0):
+    """453: wie _zwei_knochen, die Längen aber aus der Quelle (A0); das Ziel A darf woanders liegen (Pfote gehoben)."""
+    l1, l2 = (K0 - H0).length, (A0 - K0).length
+    D = A - H1; dist = min(max(D.length, 1e-6), (l1 + l2) * 0.999); Dn = D.normalized()
+    a = (l1 * l1 - l2 * l2 + dist * dist) / (2 * dist); h = math.sqrt(max(l1 * l1 - a * a, 0.0))
+    n = (A0 - H0).cross(K0 - H0)
+    if n.length < 1e-9: return K0 - H0 + H1
+    n.normalize()
+    seite = 1.0 if n.cross((A0 - H0).normalized()).dot(K0 - H0) >= 0 else -1.0
+    return H1 + Dn * a + n.cross(Dn) * h * seite
+
+
+def huelle(t, an=0.2, ab=0.8):
+    """453: 0 -> 1 weich bis an, gehalten, weich zurück auf 0 ab ab"""
+    if t < an:
+        u = t / an
+    elif t > ab:
+        u = (1 - t) / (1 - ab)
+    else:
+        return 1.0
+    u = min(max(u, 0.0), 1.0); return u * u * (3 - 2 * u)
+
+
+def atem(t, zuege, hub):
+    """453 Atmen: Heben und Senken des Rumpfs (m) mit ganzen Zügen je Schleife, damit Anfang und Ende gleich sind"""
+    return hub * 0.5 * (1 - math.cos(2 * math.pi * zuege * t))
+
+
+def scharr_pfote(t, zuege=3, vor=0.13, zurueck=0.20, hoch=0.10):
+    """453 Scharren: je Zug Pfote heben und vor (bis 0,3), über den Boden zurückziehen (bis 0,75), heben und heim; (y hinten, z oben).
+    r2 (Prüfer r1: Pfote 12–26 px, auf dem Handy 1–2 mm): drei lange Züge, 13 cm vor, 33 cm über den Boden zurück, 10 cm hoch"""
+    s = (t * zuege) % 1.0 if t < 1.0 else 0.0
+    if s < 0.3:
+        u = s / 0.3; return 0.0, -vor * (u * u * (3 - 2 * u)), hoch * math.sin(math.pi * u)
+    if s < 0.75:
+        u = (s - 0.3) / 0.45; return 0.0, -vor + (vor + zurueck) * (u * u * (3 - 2 * u)), 0.006
+    u = (s - 0.75) / 0.25; return 0.0, zurueck * (1 - u * u * (3 - 2 * u)), 0.006 + 0.6 * hoch * math.sin(math.pi * u)
+
+
+def gerade(rig, a):
+    """454 (Chef 01.11., 11:05: „wenn ich seine Achse betrachte, dass die gar nicht auf dem Helden geht … rechts daneben“): der Biss
+    der Quelle schlägt den Kopf seitlich (gemessen, Schnauze quer zur Achse: erst 0,11 m nach rechts, dann 0,18 m nach links; figur.gd
+    drehte den Rumpf 8,5° weg, damit die Schnauze im Augenblick des Zubeißens traf, danach wischte sie links am Ziel vorbei). Kopie von
+    `a`, je Bild den Hals um die Hochachse durch seinen Ansatz so gedreht, dass die Schnauze auf der Achse des Rumpfs bleibt; Nicken
+    und Strecken der Quelle bleiben."""
+    g = a.copy(); g.name = a.name + '_gerade'; g.use_fake_user = True
+    setze(rig, g)
+    a0, a1 = int(g.frame_range[0]), int(g.frame_range[1])
+    W = rig.matrix_world
+    hoch = (W.to_3x3().inverted() @ Vector((0, 0, 1))).normalized()
+    pb = rig.pose.bones; vl = bpy.context.view_layer
+    hals, maul = pb[HALS], pb[J('Head_JawEnd')]
+    vor = nach = 0.0
+    for f in range(a0, a1 + 1):
+        bpy.context.scene.frame_set(f)
+        h, s = W @ hals.head, W @ maul.head
+        w = math.atan2(s.x - h.x, -(s.y - h.y))     # + = Schnauze links der Achse (Blick -Y, links +X)
+        vor = max(vor, abs(s.x))
+        hp = hals.head.copy()
+        hals.matrix = Matrix.Translation(hp) @ Matrix.Rotation(-w, 4, hoch) @ Matrix.Translation(-hp) @ hals.matrix.copy()
+        vl.update()
+        nach = max(nach, abs((W @ maul.head).x))
+        hals.keyframe_insert('location', frame=f); hals.keyframe_insert('rotation_quaternion', frame=f)
+    print('GERADE %s: Schnauze quer höchstens %.3f, danach %.3f (Quelle, Einheiten der Quelle)' % (a.name, vor, nach))
+    return g
 
 
 def stoss(t, an=0.22):
@@ -248,7 +368,8 @@ def baue(fell):
         n = importiere(f); a = aktion_von(n)
         if a is None:
             print('KEINE BEWEGUNG in', os.path.basename(f)); entferne(n); continue
-        a.use_fake_user = True; a.name = 'q_' + q; akt[q] = a
+        qr = next(o for o in n if o.type == 'ARMATURE')
+        a = umtragen(rig, qr, 'q_' + q); akt[q] = a     # 438: in Lage im Raum, nicht die Aktion der fremden Ruhelage
         entferne(n)
         print('BEWEGUNG', q, 'Bilder', tuple(round(x, 1) for x in a.frame_range))
     rig.animation_data_create()
@@ -266,6 +387,7 @@ def baue(fell):
         hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2], widerrist, rumpf_y, s))
     # ------------------------------------------------ Tempo der Pfoten (vor dem Ableiten), Biss: Zeitpunkt und Reichweite
     v_geh, v_renn = tempo(rig, akt['Walk']), tempo(rig, akt['Run'])
+    akt['Attack'] = gerade(rig, akt['Attack'])     # 454: Biss und Sprung ohne Seitenschlag des Kopfs
     setze(rig, akt['Attack'])
     a0, a1 = int(akt['Attack'].frame_range[0]), int(akt['Attack'].frame_range[1])
     zb = []
@@ -274,8 +396,48 @@ def baue(fell):
     zb = np.array(zb); fb = int(np.argmin(zb[:, 1]))
     # ------------------------------------------------ abgeleitete Bewegungen aus der Ruhe (die Quelle hat keine)
     idle = akt['IdleA']
-    akt['Hocke'] = gehalten(idle, 'Hocke', 31)     # Schleife 1 s: lauernd, Kopf tief vor
-    haltung(rig, akt['Hocke'], lambda t: ((0, 0.04, -0.11), -14.0, 0.0, 0.0))
+    # 453 (Chef 01.11., 11:05: „Was mir aber völlig fehlt, sind diese Ruheanimationen … ob die Wölfe atmen, ob die mal ab und zu
+    # scharren oder sich umblicken oder knurren“; wolf_ruhe_453: 96 % der Ruhe in Hocke, die war ein gehaltenes Standbild): die Hocke
+    # ist IdleC der Quelle (7 s, Kopf tief, wendet langsam) tief geduckt; Stehen ist IdleA (blickt sich um).
+    # r2 (Chef 01.11., 13:0x: „nicht im Gleichtakt … atmen kann man nicht aussetzen“): das Atmen nicht mehr hier eingebaut (sonst
+    # atmeten alle Wölfe im Takt der Schleife), sondern als Schicht im Spiel unter jeder Bewegung, je Wolf eigener Takt (atem_tier.gd)
+    akt['Stehen'] = idle.copy(); akt['Stehen'].name = 'Stehen'; akt['Stehen'].use_fake_user = True
+    hocke = lambda t: ((0, 0.04, -0.11), -8.0, 0.0, 0.0)
+    if 'IdleC' in akt:
+        akt['Hocke'] = akt['IdleC'].copy(); akt['Hocke'].name = 'Hocke'; akt['Hocke'].use_fake_user = True
+    else:
+        akt['Hocke'] = gehalten(idle, 'Hocke', 211)
+    haltung(rig, akt['Hocke'], hocke)
+    # Ruhebewegungen je Grundhaltung (stehend 0, geduckt 1): Knurren (tiefer, Kopf vor, Lefzen weg vom Zahn), Umblicken nach
+    # links und rechts (Kopf hoch, horcht), Hecheln (nach dem Angriff: Maul offen, schnelles Atmen), Scharren (nur stehend, Vorderpfote).
+    # r2 (Prüfer r1 aus der Kampfkamera: nur Umblicken rechts und Ducken erkennbar; Zittern wirkte als 1-px-Flimmern): alles größer,
+    # Knurren Kopf tief vor und Maul 25° ohne Zittern, Umblicken ±60° mit dem Rumpf
+    for b, vor in ((0, ''), (1, 'Hocke')):
+        g = lambda t, b=b: ((0, 0.04 * b, -0.11 * b), -8.0 * b) if b else ((0, 0, 0), 0.0)
+        def knurr(t, g=g):
+            (dx, dy, dz), nk = g(t); e = huelle(t, 0.18, 0.82)
+            return ((dx, dy + 0.06 * e, dz - 0.09 * e), nk - 24.0 * e, 0.0, 0.0, {'kiefer': 25.0 * e})
+        akt[vor + 'Knurren'] = gehalten(idle, vor + 'Knurren', 70)     # 2,3 s
+        haltung(rig, akt[vor + 'Knurren'], knurr)
+        for sei, w in (('L', 1.0), ('R', -1.0)):
+            def umsehen(t, g=g, w=w):
+                (dx, dy, dz), nk = g(t); e = huelle(t, 0.28, 0.72)
+                return ((dx, dy, dz), nk + 12.0 * e, 48.0 * w * e, -4.0 * w * e, {'gier': 12.0 * w * e})
+            akt[vor + 'Umsehen' + sei] = gehalten(idle, vor + 'Umsehen' + sei, 75)     # 2,5 s
+            haltung(rig, akt[vor + 'Umsehen' + sei], umsehen)
+        def hecheln(t, g=g):
+            (dx, dy, dz), nk = g(t); e = huelle(t, 0.12, 0.85)
+            return ((dx, dy, dz + atem(t, 9, 0.012) * e), nk - 4.0 * e, 0.0, 0.0, {'kiefer': 16.0 * e})
+        akt[vor + 'Hecheln'] = gehalten(idle, vor + 'Hecheln', 81)     # 2,7 s, neun Züge
+        haltung(rig, akt[vor + 'Hecheln'], hecheln)
+    # Scharren: die Pfote zur Kamera (figur.gd scharren_name: Scharren links, ScharrenR rechts; l liegt bei +X), zwei Züge in 1,8 s,
+    # Rumpf weg von der Pfote und zurück, Kopf schaut auf den Boden
+    for nm, i, w in (('Scharren', 0, 1.0), ('ScharrenR', 1, -1.0)):
+        def scharr(t, i=i, w=w):
+            e = huelle(t, 0.1, 0.92); px, py, pz = scharr_pfote(t)
+            return ((-0.035 * w * e, 0.03 * e, -0.025 * e), -22.0 * e, 12.0 * w * e, 0.0, {'pfote': {i: (px, py, pz)}})
+        akt[nm] = gehalten(idle, nm, 84)     # r2: 2,8 s, drei Züge
+        haltung(rig, akt[nm], scharr)
     akt['Treffer'] = gehalten(idle, 'Treffer', 15)     # 0,5 s: Ruck zurück, Kopf hoch und zur Seite
     haltung(rig, akt['Treffer'], lambda t: ((0, 0.07 * stoss(t), -0.04 * stoss(t)), 18.0 * stoss(t), -12.0 * stoss(t), 6.0 * stoss(t)))
     akt['Ausweichen'] = gehalten(idle, 'Ausweichen', 13)     # 0,4 s wie wolf.py: Rumpf zur Seite und tief, Kopf weg
@@ -301,8 +463,9 @@ def baue(fell):
         if start is not None:
             st.action_frame_start, st.action_frame_end = start, ende
         INFO[nm] = round((st.action_frame_end - st.action_frame_start) / FPS, 3)
-    for nm, q in (('Stehen', 'IdleA'), ('Gehen', 'Walk'), ('Rennen', 'Run'), ('Biss', 'Attack'), ('Sprung', 'Attack'),
-                  ('Heulen', 'Howl'), ('Lefzen', 'IdleC'), ('Hocke', 'Hocke'), ('Treffer', 'Treffer'), ('Ausweichen', 'Ausweichen')):
+    RUHE = ['Knurren', 'UmsehenL', 'UmsehenR', 'Hecheln', 'HockeKnurren', 'HockeUmsehenL', 'HockeUmsehenR', 'HockeHecheln', 'Scharren', 'ScharrenR']
+    for nm, q in [('Stehen', 'Stehen'), ('Gehen', 'Walk'), ('Rennen', 'Run'), ('Biss', 'Attack'), ('Sprung', 'Attack'),
+                  ('Heulen', 'Howl'), ('Lefzen', 'IdleC'), ('Hocke', 'Hocke'), ('Treffer', 'Treffer'), ('Ausweichen', 'Ausweichen')] + [(r, r) for r in RUHE]:
         if q in akt: spur(nm, akt[q], *((akt[q].frame_start, akt[q].frame_end) if akt[q].use_frame_range else ()))
     if 'Die' in akt: spur('Tod', akt['Die'], TOD_AB, TOD_BIS)
     # ------------------------------------------------ Größe, Boden, Ursprung zwischen den Pfoten wie wolf.py (Blick ist schon -Y = glTF +Z);

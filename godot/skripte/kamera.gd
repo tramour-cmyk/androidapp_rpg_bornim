@@ -13,6 +13,7 @@ var gieren_ziel := NORD
 var zoom := FERN
 var fern := FERN                       # 399.1 Bedienung „Karte“: Normal oder Näher (MapZoom 6,75 oder 5,6 Kacheln quer)
 var nah := false
+static var test_kacheln := 0.0          # 555: 0 = wie unter Bedienung „Karte“
 var tusche: MeshInstance3D
 var tusche_mats: Array[ShaderMaterial] = []   # 348.13: bekommen die Sonnenrichtung (Tusche nach der Lichtrichtung)
 var neigung := -30.0     # 376.1 Kopfblatt (figurenprobe.gd): flacher auf Gesichtshoehe
@@ -122,6 +123,7 @@ func fern_neu() -> void:
 	Bedienung.lade()
 	var war := fern
 	fern = FERN * (Bedienung.NAEHER if Bedienung.karte_nah else 1.0)
+	if test_kacheln > 0.0: fern = test_kacheln * Karte.TS   # 555 Testmenue „Kartenzoom“ wie alt MapZoom.levels (Kacheln quer)
 	if not nah and is_equal_approx(zoom, war): zoom = fern
 
 func kneifen(faktor: float) -> void:

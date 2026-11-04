@@ -212,10 +212,19 @@ func hauptknopf(t: String, unter: String, was: Callable) -> void:
 	b.pressed.connect(was)
 	mittig(b)
 
-# RoundSign: rundes Zeichen 46 dp mit duennem Goldrand
-func rundzeichen(t: String, was: Callable) -> void:
+# RoundSign: rundes Zeichen 46 dp mit duennem Goldrand; mit [glyphe] (Zeichenknopf.glyphe, Raster 22) statt Text ein Zeichen 22 dp,
+# durchgestrichen und matt, wenn [an] falsch ist (App.kt SignGlyph)
+func rundzeichen(t: String, was: Callable, glyphe := "", an := true) -> Button:
 	var b := Button.new()
 	b.text = t
+	if glyphe != "":
+		var z := Control.new()
+		z.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		z.set_anchors_preset(Control.PRESET_FULL_RECT)
+		z.draw.connect(func():
+			var s := 22 * DP
+			Zeichenknopf.glyphe(z, glyphe, (z.size - Vector2(s, s)) / 2, s / 22.0, Stil.TEXT if an else Stil.DIM, an))
+		b.add_child(z)
 	b.custom_minimum_size = Vector2(46, 46) * DP
 	b.add_theme_font_override("font", Stil.variante(1.0))
 	b.add_theme_font_size_override("font_size", int(round(14 * Stil.SP)))
@@ -224,7 +233,7 @@ func rundzeichen(t: String, was: Callable) -> void:
 	s.set_corner_radius_all(int(23 * DP))
 	for z in ["normal", "hover", "focus", "pressed"]: b.add_theme_stylebox_override(z, s)
 	b.pressed.connect(was)
-	mittig(b)
+	return b
 
 func bild(pfad: String, breite_dp: float) -> TextureRect:
 	var tex: Texture2D = null
@@ -275,7 +284,16 @@ func titel() -> void:
 	ue.custom_minimum_size.x = 280 * DP
 	mittig(ue)
 	abstand(18)
-	rundzeichen("DE" if Sprache.aktiv() == "de" else "EN", func(): Sprache.wechsle(); titel())
+	# 489 (Chef 03.11., 07:07): wie alt (App.kt) Sprache, Musik und Effekte als drei kleine Zeichen, 22 dp Abstand; Musik und Effekte
+	# schalten stumm (Klang.schalte), die Regler im Spielmenü bleiben
+	var zeichen := HBoxContainer.new()
+	zeichen.add_theme_constant_override("separation", int(22 * DP))
+	zeichen.add_child(rundzeichen("DE" if Sprache.aktiv() == "de" else "EN", func(): Sprache.wechsle(); titel()))
+	var k := klang()
+	if k:
+		zeichen.add_child(rundzeichen("", func(): k.schalte("music"); titel(), "MUSIC", k.musik_an))
+		zeichen.add_child(rundzeichen("", func(): k.schalte("fx"); titel(), "SOUND", k.effekte_an))
+	mittig(zeichen)
 	abstand(22)
 	var lg := bild(LOGO, 130)
 	abstand(6)
@@ -333,10 +351,65 @@ func spielstaende() -> void:
 
 # 399.1 Ueber das Spiel wie alt (App.kt AboutScreen): ein Kasten mit Titel, Text ([312.ueber], [312.srd], [312.eigen]), Schrift,
 # Firmenzeichen, Jahr und Version; unten Zurueck. Schriften: nur noch Alegreya (DESIGN-STIL.md „Oberfläche“)
+# 497: Lizenztext der Engine, je Drittteil Name, Urheber und Lizenz, dann die Lizenztexte (Engine.get_license_text,
+# get_copyright_info, get_license_info), klein und matt; der Wortlaut bleibt englisch wie geliefert
+# 497 (Chef 03.11., 23:43: „nicht saubere Umbrüche“): die Texte sind fuer 80 Spalten fest umbrochen; am Handy bricht das Label
+# davor schon um, es entstehen Zeilenstummel. Darum: Zeilen eines Absatzes zusammenziehen, Absatz bei Leerzeile; eigene Zeile
+# fuer Aufzaehlung („1.“, „1.1.“, „(a)“, „a.“, „iv.“, „o“, „-“), „Copyright …“, „License: …“ und kurze Ueberschrift in Versalien; Unterstreichungen
+# (----, ====) und der Sternrahmen der MPL fallen weg; doppelte Leerzeichen einfach; „Â©“ (Kodierfehler der Engine) wird „©“.
+const AUFZAEHLUNG := "^(\\d+(\\.\\d+)*\\.|\\([a-zA-Z0-9]{1,4}\\)|[a-zA-Z]\\.|[ivx]{1,4}\\.|[o*•-])\\s|^(Copyright|©|License:)"
+
+static func umbrechen(t: String) -> String:
+	var punkt := RegEx.create_from_string(AUFZAEHLUNG)
+	var strich := RegEx.create_from_string("^[-=*_~]{3,}$")
+	var leer := RegEx.create_from_string("\\s+")
+	var absaetze: Array[String] = []
+	var zeilen: Array[String] = []
+	var schliessen := func() -> void:   # Arrays sind Verweise, das Lambda sieht dieselben
+		if not zeilen.is_empty(): absaetze.append("\n".join(zeilen))
+		zeilen.clear()
+	for roh in t.replace("Â©", "©").replace("\r", "").split("\n"):
+		var z := roh.strip_edges()
+		if z.length() >= 3 and z.begins_with("*") and z.ends_with("*"): z = z.substr(1, z.length() - 2).strip_edges()
+		z = leer.sub(z, " ", true)
+		if z == "" or strich.search(z):
+			schliessen.call()
+			continue
+		var kopf := zeilen.is_empty() and z.length() <= 60 and z == z.to_upper() and z != z.to_lower() and not z.ends_with(".")
+		if zeilen.is_empty() or punkt.search(z) or kopf:
+			zeilen.append(z)
+		else:
+			zeilen[zeilen.size() - 1] += " " + z
+		if kopf: schliessen.call()
+	schliessen.call()
+	return "\n\n".join(absaetze)
+
+static func lizenz_texte(box: VBoxContainer, de: bool) -> void:
+	var kopf := func(t: String) -> void:
+		box.add_child(Erschaffung.luecke(8))
+		box.add_child(Stil.zeile(t.to_upper(), 12, Stil.GOLD, 3.0))
+	var klein := func(t: String) -> void: box.add_child(Erschaffung.txt(umbrechen(t), 12, Stil.DIM))
+	kopf.call("Godot Engine")
+	klein.call(("Dieses Spiel nutzt die Godot Engine unter folgender Lizenz:" if de else "This game uses Godot Engine, available under the following license:"))
+	klein.call(Engine.get_license_text().strip_edges())
+	kopf.call("Drittteile der Engine" if de else "Engine third-party components")
+	for c in Engine.get_copyright_info():
+		var zeilen := PackedStringArray([String(c["name"])])
+		for teil in c["parts"]:
+			for cr in teil["copyright"]: zeilen.append("© " + String(cr))
+			zeilen.append("License: " + String(teil["license"]))
+		klein.call("\n".join(zeilen))
+	kopf.call("Lizenztexte" if de else "License texts")
+	var li := Engine.get_license_info()
+	for k in li:
+		klein.call(String(k))
+		klein.call(String(li[k]).strip_edges())
+
 func ueber() -> void:
 	var seite := Control.new()
 	seite.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(seite)
+	Zurueck.melde(seite, func(): seite.queue_free())   # 526: Android-Zurück wie „Zurück“ (alt AboutScreen BackHandler)
 	var bg := ColorRect.new()
 	bg.color = Color.BLACK
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -362,7 +435,24 @@ func ueber() -> void:
 	v.add_child(Erschaffung.luecke(12))
 	v.add_child(Erschaffung.txt(Sprache.u("aboutText"), 16))
 	v.add_child(Erschaffung.luecke(12))
-	v.add_child(Erschaffung.txt(("Schrift" if Sprache.aktiv() == "de" else "Font") + ": Alegreya – SIL Open Font License 1.1", 14, Stil.DIM))
+	var de := Sprache.aktiv() == "de"
+	# 497 (Chef 03.11., 07:09): beide mitgelieferten Schriften (Fondamento fuer die Ortsnamen der Karte, kartenreiter.gd)
+	v.add_child(Erschaffung.txt(("Schriften" if de else "Fonts") + ": Alegreya, Fondamento – SIL Open Font License 1.1", 14, Stil.DIM))
+	# 497: Godot Engine (MIT) mit Drittteilen, Wortlaut aus der Engine selbst (Godot-Doku „Complying with licenses“); erst auf Tippen
+	v.add_child(Erschaffung.luecke(6))
+	v.add_child(Erschaffung.txt("Godot Engine – MIT License · godotengine.org/license", 14, Stil.DIM))
+	v.add_child(Erschaffung.luecke(6))
+	var lizenzen := VBoxContainer.new()
+	lizenzen.add_theme_constant_override("separation", int(4 * DP))
+	lizenzen.visible = false
+	var auf := Erschaffung.knopf("Lizenzen der Engine" if de else "Engine licences", func():
+		if lizenzen.get_child_count() == 0: lizenz_texte(lizenzen, de)
+		lizenzen.visible = not lizenzen.visible)
+	auf.custom_minimum_size.y = 36 * DP
+	auf.clip_text = false
+	auf.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	v.add_child(auf)
+	v.add_child(lizenzen)
 	v.add_child(Erschaffung.luecke(18))
 	var tex: Texture2D = load(LOGO) if ResourceLoader.exists(LOGO) else null
 	if tex:

@@ -68,9 +68,10 @@ func schritt(t: Vector2i) -> float:
 func ausgang(t: Vector2i) -> Dictionary:
 	return ausgaenge.get(t, {})
 
-# Tuer mit Ausgang: in Godot Teil der Hauswand; man steht davor und nimmt sie mit dem Knopf (215)
+# Tuer mit Ausgang: in Godot Teil der Hauswand; man steht davor und nimmt sie mit dem Knopf (215); ebenso der Hoehlenmund im Wald
+# (Game.door, 331, Chef 23.10.: „schaut eben aus, als ob er halb schon reingelaufen wäre“)
 func tuer(t: Vector2i) -> bool:
-	return zeichen(t) == "D" and ausgaenge.has(t)
+	return zeichen(t) in ["D", "E"] and ausgaenge.has(t)
 
 func sperrt(t: Vector2i) -> Dictionary:
 	var a: Dictionary = ausgaenge.get(t, {})

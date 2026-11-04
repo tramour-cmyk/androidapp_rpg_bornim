@@ -584,7 +584,7 @@ for s, zs, n, e, hoch, tief in HERDE:
         f = leuchter(PH, sims[3], a)
         kerze_licht(f + Vector((0, 0, 10)), 1.4, 0.4, [f], 'kerze', wand=hoch)   # Lauf 2: gedreht brannte die Flamme frei
     else: stelle(PH, 'Book_Stack_2', sims[3], a, 0.8, z=0)
-    feuer = M @ Vector((0, -18, 18))
+    feuer = M @ Vector((0, -18, 10))   # 501: Fuss der Flamme 2 cm in den Scheiten (Oberkante 12 cm), vorher 18 (schwebte)
     LICHTER.append(dict(art='kamin', pos=list(M @ Vector((0, -70, 55))), reich=3.6, kraft=1.05, flammen=[list(feuer)], breite=mw * 0.7,
                         wand=hoch))   # Pruefer Lauf 3: gedreht ragte der Feuerkasten ueber die Bruestung; Herd, Feuer, Licht gehen mit der Wand
     HERD_VON[hoch] = 'Herd_' + stueck(zs[0]['c'], zs[0]['r'])
