@@ -126,7 +126,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 385.2 | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball (aus 385.1, Chef 28.10., 19:1x) | E Kampf | M | 9,99 $ | Team Jerry | ruht |
 | 387 | Gekaufte Tiere schnell auf Bewegungen und unsere Haut prüfen, vor Eigenbau (Chef 27.10., 21:27) | E Monster | M | 98,99 $ | Team Jerry | ruht |
 | 403 | Kampfort: Held je Klasse auf dem Kaufkörper (heldfigur.gd aus 376.1) statt held.bin, Kampfbewegungen aus der UAL | E Kampf | M | 24,71 $ | Team Jerry | wartet |
-| 468c | Rückfrage: Wochenlimit 79 % am Mittwoch, nur eine Entwicklersitzung zugleich? | B Abläufe | M | – | Sokrates | wartet auf Chef |
+| 468c | Rückfrage: Wochenlimit 79 % am Mittwoch, nur eine Entwicklersitzung zugleich? | B Abläufe | M | – | Sokrates | erledigt |
 | 468 | Sparplan bis Sa 19:59: Wochenlimit 36 % nach 36 h, halbes Tempo (Chef 02.11., 07:33, Bild Nutzung) | B Abläufe | M | – | Sokrates | Dauer |
 | 469 | Kampf auf BRS: Ring (MARS) ohne Klassen regeln (aus 406.1, Sokrates 02.11.) | E Kampf | M | – | Team Jerry | wartet |
 | 467 | Ausdauer nach BRS statt SRD (ausdauer.gd: Konstitution, Stärke 13), Formel aus 427 (Chef 01.11., 21:52) | E Kampf | M | – | Team Jerry | wartet |
