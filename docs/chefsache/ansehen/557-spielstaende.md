@@ -1,5 +1,7 @@
 # 557 · Stil B, dritte Runde: Gegenstand ohne Rahmen, Kopf mit Zierlinie, Rast · Team Tom · 04.11., 17:11
 
+[Bild von 04.11., 17:11](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/04-1711-557-Tom.png) (eingetragen von meldung.sh, Tom)
+
 A Spiel
 Kurz: Deine Worte von 16:42 bis 16:51 sind umgesetzt. Mengenkasten, Kapitelende und Brauen bleiben wie im Bild von 16:39; geändert ist dort nur, was alle Fenster gemeinsam haben (Kopf mit Zierlinie, Zeichen „‹“, hellere kleine Angaben). Die Rast ist neu im selben Stil, links jeweils die Rast von heute. Sag „passt“ oder was anders sein soll; danach entscheidest du 557, 549a und 524.1 zusammen, eingeschaltet wird erst dann.
 
