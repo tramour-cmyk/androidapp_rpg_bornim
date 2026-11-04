@@ -9,7 +9,11 @@ Kurz: Du hast gesagt (00:52): „Vorschlag zum Verbessern und spielerfreundliche
 5. **„Anlegen“ hervorgehoben** (heller Rahmen), wenn das Stück besser ist.
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/2df4df4d4 (Bild `fenster_bild_519`, Godot, Rechner, Probelauf 1 von 2; Tests `gegenstand_524`, `fenster_519`, `menue_test` ohne Fehler; Zweig `claude/tom-524-1-fenster`).
 
-![Links der Ring (ein Bonus wirkt wegen der Obergrenze nicht), rechts ein Schwert](../bilder/524-1-fenster.webp)
+![Links der Ring, rechts der Kettenpanzer (je ein Bonus wirkt wegen der Obergrenze nicht)](../bilder/524-1-fenster.webp)
+
+Korrektur (02:29): rechts steht der Kettenpanzer, kein Schwert (in der Meldung falsch); Punkt 3 (Finesse, Fernkampf) ist darum nicht im Bild.
+
+Befund des Prüfers (Helfer, nach dem Versand, 02:29): Band, „Ersetzt“, graue „wirkt nicht“-Zeilen, „Händler zahlt 3674 Gold“ (Ring) und „8925 Gold“ (Panzer), hervorgehobenes ANLEGEN da; ▲ wird gezeichnet; nichts abgeschnitten, nichts überlappt; ▼ und ◆ nicht im Bild. Was nicht passt: Boni, die die Obergrenze nur zum Teil schluckt, stehen weiter blau („+4 Konstitution“, Tabelle 15 → 16; „+3 alle Attribute“, alle nur +1), ohne Hinweis; Geschicklichkeit steckt in „+3 alle Attribute“, die Zeile ist blau, die Notiz nennt sie; das kräftige Hellblau wirkt neben dem Gold am ehesten fremd; „RK 19“ reinweiß; das Bildchen des Panzers liest sich eher als Helm; WEGWERFEN bleibt der breiteste Knopf. Bei Ja zu Punkt 2 käme dazu: „+4 Konstitution – wirkt +1 (Obergrenze)“.
 
 Bitte ansehen:
 1. **Die fünf Punkte so bauen?** Ein Wort je Punkt genügt („1 ja, 2 nein …“).
