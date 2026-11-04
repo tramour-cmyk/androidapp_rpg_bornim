@@ -33,6 +33,7 @@ Nichts offen.
 |---|---|---|---|---|---|
 | 1 | [0.348.249](ansehen/t249-build-490.md) | [Build 249](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41716913206/artifacts/13272872179) | Dorf mit Häusern wieder (518); Flüsterwald, Tiefer Flüsterwald, Kampforte Wald, Kamin, Laden; dazu alles aus Build 245 (Grundstand Kampf, Waffen in der Hand, Strahlenprobe, Klangschalter) | Tom und Jerry | 03.11., 21:55 |
 | 2 | [0.348.250](ansehen/t250-strahlen-ohne.md) | [Build 250](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41730202915/artifacts/13279477341) | Strahlenprobe mit Messung ohne Strahl (415) | Jerry | 04.11., 00:28 |
+| 3 | [0.348.251](ansehen/t251-testmenue.md) | [Build 251](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41743553745) | Testmenü wie alt und schneller, Figur nach Ausrüstung, Schlagbaum, Kampf | Tom und Jerry | 04.11., 01:00 |
 
 ## Zu tun
 
@@ -61,8 +62,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 531 | M | von Sokrates (Chef 03.11., 23:42, Build 249; Zu 531): Garrick: „Gesicht wirkt sonderbar, B | Chef |
-| 530 | M | von Sokrates (Chef 03.11., 23:40, Build 249): „Schlagbaum öffnet sich nicht visuell.“ Merk | wartet auf Test/Build (gebaut) |
-| 522 | M | von Sokrates (Chef 03.11., 23:33, Build 249; Zu 522): „im Testmenü Ausrüstung des Helden g | wartet auf Test/Build (gebaut) |
+| 530 | M | von Sokrates (Chef 03.11., 23:40, Build 249): „Schlagbaum öffnet sich nicht visuell.“ Merk | wartet auf Test/Build |
+| 522 | M | von Sokrates (Chef 03.11., 23:33, Build 249; Zu 522): „im Testmenü Ausrüstung des Helden g | wartet auf Test/Build |
 | 521 | M | von Sokrates (Chef 03.11., 23:23, Build 249, Bild; Zu 521): Wechselschirm (Platz antippen) | wartet auf Test/Build (gebaut) |
 | 520 | M | von Sokrates (Chef 03.11., 23:19, Build 249, Bild; Zu 520): Ausrüstung: „Warum ist der Hel | wartet auf Test/Build (gebaut) |
 | 519 | M | von Sokrates (Chef 03.11., 23:13, Build 249, Bild): Ausrüstung, Fenster eines Gegenstands | wartet auf Test/Build (gebaut) |
@@ -70,8 +71,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 537 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 537): Kapitelende fehlt: nach Aldric kei | wartet auf Test/Build (gebaut) |
 | 549 | M | von Sokrates (Chef 04.11., 00:07, Build 249, Bild; Zu 549): „Rastscreen wirkt sehr klein u | startbar |
 | 550 | M | von Sokrates (Chef 04.11., 00:19, Build 249): „erstes Mal Heilkräuter gepflückt ein riesen | wartet auf Test/Build (gebaut) |
-| 555 | M | von Sokrates (Chef 04.11., 00:30, „Fehlt vielleicht noch mehr im Testmenü??? Wäre zum Test | wartet auf Test/Build (gebaut) |
-| 554 | M | von Sokrates (Chef 04.11., 00:27, Build 249): „Im Testmenü fehlt, dass Tiere mich ignorier | wartet auf Test/Build (gebaut) |
+| 555 | M | von Sokrates (Chef 04.11., 00:30, „Fehlt vielleicht noch mehr im Testmenü??? Wäre zum Test | wartet auf Test/Build |
+| 554 | M | von Sokrates (Chef 04.11., 00:27, Build 249): „Im Testmenü fehlt, dass Tiere mich ignorier | wartet auf Test/Build |
 | 523 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 523): Tasche wie alt und besser: „Funke | wartet auf Test/Build (gebaut) |
 | 524.1 | M | von Sokrates (Chef 04.11., 00:52, „Vorschlag zum Verbessern und spielerfreundlicher machen | startbar |
 | 524 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 524): Gegenstandsfenster, Inhalt wie alt | wartet auf Test/Build (gebaut) |
@@ -162,7 +163,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 527 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 527): System: Schalter „Tempo“ und „Kamp | wartet auf Test/Build (gebaut) |
+| 527 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 527): System: Schalter „Tempo“ und „Kamp | wartet auf Test/Build |
 | 548 | M | von Sokrates (Chef 04.11., 00:03, Build 249, Bild; Zu 548): „Gegen Ratten gespielt. Die st | startbar |
 | 551 | M | von Sokrates (Chef 04.11., 00:21, Build 249): „MARS Kasten links und rechts unten wird unt | startbar |
 | 552 | M | von Sokrates (Chef 04.11., 00:22, Build 249): „MARS Zugreihenfolge oben fehlt“. Laut Abgle | startbar |
@@ -170,8 +171,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 545 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS-Probekampf: Testknöpfe „Gegner | startbar |
 | 546 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS: Wölfe weichen viel zu träge au | startbar |
 | 547 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS: Text sagt „geht in die Knie“, | startbar |
-| 544 | M | von Sokrates (Chef 03.11., 23:49, Build 249, Bild MARS-Probekampf: „Stimmt die Schrift?“): | wartet auf Test/Build (gebaut) |
-| 532 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 532): Kampf: Held geht ohne Zauberpunkte | wartet auf Test/Build (gebaut) |
+| 544 | M | von Sokrates (Chef 03.11., 23:49, Build 249, Bild MARS-Probekampf: „Stimmt die Schrift?“): | wartet auf Test/Build |
+| 532 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 532): Kampf: Held geht ohne Zauberpunkte | wartet auf Test/Build |
 | 532a | M | Rückfrage: Tasche und Metrausch jetzt wie alt in MARS oder erst mit 478? | Chef (Datei in der Chefsache) |
 | 533 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 533): Kampf: Grimmzahn ist ein Wolf, kei | startbar |
 | 534 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 534): Kampf: Zauber und Fähigkeiten fehl | ruht (424: altes SRD-System) |
@@ -334,7 +335,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): t249-build-490.md: 14 Vorgänge, höchstens 6 je Build (317)
+Format (Muster: „So geht's“ unten): t249-build-490.md: 14 Vorgänge, höchstens 6 je Build (317); t251-testmenue.md: 7 Vorgänge, höchstens 6 je Build (317)
 
 Nicht gestellt: 407 (Projekt)
 
