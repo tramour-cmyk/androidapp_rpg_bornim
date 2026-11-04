@@ -1,5 +1,7 @@
 # 557 · Stil B an sechs Schirmen, vorher und nachher · Team Tom · 04.11., 14:15
 
+[Bild von 04.11., 14:15](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/04-1415-557-Tom.png) (eingetragen von meldung.sh, Tom)
+
 A Spiel
 Kurz: Du wolltest den Stil B an allen Schirmen der Gruppe sehen, je vorher und nachher, in einem Bildlauf (13:32, 13:42, 13:44). Alles ist in Godot gebaut, so wie es ins Spiel käme, aber nicht eingeschaltet. In jedem Bild links heute, rechts B.
 
