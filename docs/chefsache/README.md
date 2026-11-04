@@ -41,6 +41,7 @@ Nichts offen.
 | 3 | [0.348.251](ansehen/t251-testmenue.md) | [Build 251](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41743553745/artifacts/13284903250) | Testmenü wie alt und schneller, Figur nach Ausrüstung, Schlagbaum, Kampf | Tom und Jerry | 04.11., 01:00 |
 | 4 | [0.348.252](ansehen/t252-kampf.md) | [Build 252](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41753201022/artifacts/13288854895) | Build 251 und sechs Kampfbefunde zu Build 249 | Tom und Jerry | 04.11., 02:20 |
 | 5 | [0.348.255](ansehen/t255-ausruestung.md) | [Build 255](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41759990649) | Build 252 und sechs Befunde zu Build 249: Ausrüstung, Fenster, Hinweis, Lizenz | Tom | 04.11., 03:20 |
+| 6 | [0.348.257](ansehen/t257-kampf-klang.md) | [Build 257](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41761514918) | Build 255 und sechs Punkte: Kampfgegner, Fähigkeiten, Waldklang, Schrift, Glühwürmchen, Stufe | Tom und Jerry | 04.11., 03:33 |
 
 ## Zu tun
 
@@ -186,9 +187,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 532 | M | von Sokrates (512; Zu 532): Kampf: Held ohne Zauberpunkte, Verbrauchtes, Zustände, Metraus | wartet auf Test/Build |
 | 532a | M | Rückfrage: Tasche und Metrausch jetzt wie alt in MARS oder erst mit 478? | Chef (Datei in der Chefsache) |
 | 533 | M | von Sokrates (512; Zu 533): Kampf: Grimmzahn ist ein Wolf, kein Boss (Werte, Flucht, Leibw | wartet auf Test (Build) |
-| 534 | M | von Sokrates (512; Zu 534): Kampf: Zauber und Fähigkeiten fehlen in „Können“ oder wirken n | wartet auf Test/Build (gebaut) |
+| 534 | M | von Sokrates (512; Zu 534): Kampf: Zauber und Fähigkeiten fehlen in „Können“ oder wirken n | wartet auf Test/Build |
 | 534a | M | Rückfrage: vier Zauber und Unglaubliches Ausweichen jetzt wie alt in MARS oder mit 478? | Chef (Datei in der Chefsache) |
-| 535 | M | von Sokrates (512; Zu 535): Kampf: Gegnerstufe, Elite, schimmernde Gegner, Gruppen, EP und | wartet auf Test/Build (gebaut) |
+| 535 | M | von Sokrates (512; Zu 535): Kampf: Gegnerstufe, Elite, schimmernde Gegner, Gruppen, EP und | wartet auf Test/Build |
 | 536 | M | von Sokrates (512; Zu 527–536): Kampf: Erklärungen bei langem Drücken (MarsTips) und Klein | wartet auf Test (Build) |
 | 478 | M | von Sokrates (Chef 02.11., 17:59 „470a C“): Rechenkern des Kampfs in Stufe 1 auf BRS (Mode | ruht |
 | 481.1 | M | von Sokrates (427): Tränke in sim444, Herkünfte neu messen, Zahlen an Sokrates | wartet auf Test/Build (gebaut) |
@@ -215,7 +216,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 510 | M | von Sokrates: Fledermaus: freies OGA-Modell „Vampire Bat“ (CC0) mit unseren Fellen neben d | wartet auf Perikles |
 | 509 | M | von Sokrates (Chef 03.11., 09:21): Frösche und Libellen an den Teichen wie alt (PondLife.k | wartet auf Perikles |
 | 494 | M | von Perikles (488): Gegner von Kapitel 1 im Kampf (Zu 494), je Gegner höchstens ein Lauf | wartet auf Perikles |
-| 517 | M | von Team Tom (03.11., 16:3x, 512): Waldklang wie alt (WildSound.kt): Vögel am Tag, Eule un | wartet auf Test/Build (gebaut) |
+| 517 | M | von Team Tom (03.11., 16:3x, 512): Waldklang wie alt (WildSound.kt): Vögel am Tag, Eule un | wartet auf Test/Build |
 | 507 | M | von Perikles (488; aus 492): Kampforte Höhle wie alt: Eingang, Gang, Halle, Teich, Lager | wartet auf Perikles |
 | 496a | M | Rückfrage: abgenommene Kampfbilder schon in den Durchspiel-Build? | wartet auf Test (Build) |
 | 496 | M | von Perikles (Wochenziel 03.11. Reihe 5, 488): Durchspiel-Build aus 490–495: der Chef spie | wartet auf 490 (zu testen) |
