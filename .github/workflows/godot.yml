@@ -325,6 +325,14 @@ jobs:
         with:
           path: ~/bornim-godot-schluessel
           key: bornim-godot-schluessel-2
+      # 495 (Abnahme 2.2): ein Zufallsspieler spielt Kapitel 1 bis „chapter1_done“ und meldet, wo er haengt; zwei Saaten zugleich
+      # (Kaempfer, Magier), je hoechstens 9 Minuten; nur zur Auskunft, faerbt den Bau nicht
+      - name: Zufallsspieler (495)
+        continue-on-error: true
+        run: |
+          cd godot
+          for s in 4 1; do (timeout 600 ~/godot/godot --headless --path . -s res://tests/zufallsspieler_495.gd -- --saat=$s --sekunden=540 > $RUNNER_TEMP/zufall-$s.log 2>&1 || true) & done; wait
+          for s in 4 1; do grep -E "^ZUFALLSSPIELER|SCRIPT ERROR" $RUNNER_TEMP/zufall-$s.log | sort | uniq -c | sort -rn | cut -c1-900 | head -30; done
       - name: Android-Export
         run: |
           K=~/bornim-godot-schluessel/debug.keystore

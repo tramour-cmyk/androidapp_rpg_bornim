@@ -1010,7 +1010,6 @@ func ortsworte(von: String, erster: bool) -> void:
 
 # 399.1 Zwischensequenz (Zwischenbild, 69): ueber allem, laeuft auch, wenn das Spiel steht; ohne daten/intro.json gleich vorbei
 # ---------------------------------------------------------------- Kapitelende (537, Game.kt Cmd.ChapterEnd, TempleScene, Morning)
-const SONNENAUFGANG := 6 * 60 + 30               # Game.SUNRISE_MIN
 
 # Mode.ChapterEnd (ChapterEndScreen): schwarz bis „Weiter“, dann speichern (vm.save) und weiter (Game.advance); Musik CHAPTER_END
 # (App.kt). Die Welt dahinter wird schon schwarz, damit nach Schirm und Tempelszene der Morgen aus dem Schwarz aufsteigt.
