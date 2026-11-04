@@ -968,6 +968,15 @@ fun main() {
             shot("59_morwen_neu", settle = 60) { vm -> shop(vm); val g = vm.game!!; g.advance(); g.enqueue(listOf(Cmd.OpenShop(listOf("potion", "remedy"), brewing = true))); vm.refresh() }
             System.exit(0)
         }
+        if (System.getenv("HAENDLER") == "503") {
+            // 503: Verkaufen, Knopf „Gewöhnliche verkaufen“ unter „Ausrüstung“, dann seine Rueckfrage (Tippen je Kandidat)
+            de.bornim.game.ui.ShopLook.previewTab = 1; de.bornim.game.ui.ShopLook.previewDialog = -1
+            val wenig = { vm: GameViewModel -> shop(vm); val st = vm.game!!.state; st.inventory.keys.toList().forEach { if (it != "potion") st.inventory.remove(it) }; vm.refresh() }
+            shot("503_knopf_alt", settle = 60) { vm -> wenig(vm) }
+            // die Hoehe des Knopfs steht erst im Bild: je Kandidat ein Bild, das mit der Rueckfrage zeigt sie
+            for (y in 700..2000 step 100) shot("503_rueckfrage_alt_$y", settle = 60, taps = listOf(Offset(200f, y.toFloat()))) { vm -> wenig(vm) }
+            System.exit(0)
+        }
         if (System.getenv("HAENDLER") == "alle") {
             // 59e: selling all of a supply, then the safety question after "Sell"
             de.bornim.game.ui.ShopLook.previewTab = 1; de.bornim.game.ui.ShopLook.previewDialog = 101

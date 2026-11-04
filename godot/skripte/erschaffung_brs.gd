@@ -211,11 +211,7 @@ func beginne(p: int = 0) -> void:
 # SlotChooser: alle Plaetze belegt; der gewaehlte Spielstand geht verloren
 func platzwahl() -> void:
 	var de := Sprache.aktiv() == "de"
-	var schleier := ColorRect.new()
-	schleier.color = Color(0, 0, 0, 0.82)
-	schleier.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	schleier.gui_input.connect(func(e): if e is InputEventMouseButton and e.pressed: schleier.queue_free())
-	add_child(schleier)
+	var schleier := Rueckfrage.schleier(self)   # 526: Tippen daneben und Android-Zurück schliessen; ein Tippen in den Kasten nicht mehr
 	var rand := MarginContainer.new()
 	rand.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	for s in ["left", "right", "top", "bottom"]: rand.add_theme_constant_override("margin_" + s, int(16 * DP))
@@ -223,7 +219,7 @@ func platzwahl() -> void:
 	schleier.add_child(rand)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(8 * DP))
-	var k := kasten(v)
+	var k := Rueckfrage.halte(kasten(v))
 	k.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	rand.add_child(k)
 	v.add_child(txt("Alle Spielstand-Plätze sind belegt" if de else "All save slots are taken", 19))

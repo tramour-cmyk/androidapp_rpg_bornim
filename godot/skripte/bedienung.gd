@@ -62,6 +62,12 @@ static func blut_stufe() -> int:
 	lade()
 	return blut
 
+## 527 (Abgleich 512, Chef 03.11., 23:26 „besser machen“): Tempo wie alt (BattlePace.set): jede Bewegung im Kampf dauert so viel mal
+## so lang; Ruhig 1,35, Normal 1, Schnell 0,7
+static func tempo_faktor() -> float:
+	lade()
+	return [1.35, 1.0, 0.7][tempo]
+
 static func ring_dp() -> float:
 	lade()
 	return RING_DP[ring]

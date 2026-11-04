@@ -104,17 +104,14 @@ static func karte(d: Dictionary) -> PanelContainer:
 func frage_loeschen(d: Dictionary) -> void:
 	var de := Sprache.aktiv() == "de"
 	var h: Dictionary = d.get("held", {})
-	var schleier := ColorRect.new()
-	schleier.color = Color(0, 0, 0, 0.82)
-	schleier.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(schleier)
+	var schleier := Rueckfrage.schleier(self)   # 526: Tippen daneben und Android-Zurück wie „Abbrechen“ (alt SlotsScreen BackHandler)
 	var mitte := CenterContainer.new()
 	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	schleier.add_child(mitte)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(10 * DP))
 	v.custom_minimum_size.x = get_viewport_rect().size.x - 48 * DP
-	var k := Erschaffung.kasten(v)
+	var k := Rueckfrage.halte(Erschaffung.kasten(v))
 	mitte.add_child(k)
 	v.add_child(Stil.zeile(("Spielstand löschen?" if de else "Delete saved game?").to_upper(), 14, Stil.GOLD, 3.0))
 	var t := Erschaffung.txt(("%s (Stufe %d) wird endgültig gelöscht." if de else "%s (level %d) will be deleted for good.") % [String(h.get("name", "")), int(h.get("stufe", 1))], 15)

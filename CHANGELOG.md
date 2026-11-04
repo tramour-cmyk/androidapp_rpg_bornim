@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Build 257 auf `main`** (04.11., 20:46, PR #184, vom Chef getestet und freigegeben): enthält 251, 252, 255; bestanden u. a. Hauptmenü und Lizenzen, Schriftgröße, Schlagbaum, „Monster beachten mich nicht“, Ausweichen der Wölfe, Kampftempo, Zugreihe, Rattenlohn, Wölfe nach Rattenkampf, Grimmzahn ohne Flucht, Stufengrenze 6, Heilkraut-Hinweis; offene Funde stehen in den Vorräten (t257 in Git).
+
 - **559 Wächter „wartet auf Chef“** (Perikles, Werkzeug): Fords Stundenlauf meldet Besitzer und Ford, wenn ein Vorgang auf den Chef wartet, obwohl seine Rückmeldung („Zu <Nr>“ mit Chefzeit oder Archiveintrag) neuer ist als die Chefsache-Datei (`regelcheck.py --rueckmeldung`).
 - **517 Waldklang wie im alten Spiel** (Jerry): draußen leise Vögel am Tag, nachts Grillen und im Wald die Eule; im Tiefen Wald keine Vögel, dafür selten und fern von einer Seite ein heulender Wolf; in der Höhle grollt ab und zu der Berg. Test `klang_test`.
 - **494 Riesenspinne wirft ihr Netz** (Jerry): bisher stand die Spinne bei jedem Angriff still und ein Pfeil flog; jetzt läuft sie zum Biss wie im alten Spiel, und wenn sie „Netz werfen“ ansagt, hebt sie sich und wirft ein Netz aus grauweißen Fäden, das sich im Flug aufspannt. Riesenratte, Riesenfledermaus und Riesenspinne kämpfen je allein mit ihren eigenen Werten wie im alten Spiel (Probekämpfe „Ratte“, „Fledermaus“, „Spinne allein“).
