@@ -334,7 +334,7 @@ static func nebenwahl(zeichen: String, text: String, tat: Callable, an := true) 
 		var kr := Rastzeichen.neu(zeichen, 14, f)
 		kr.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		lz.add_child(kr)
-	var lt := Stil.zeile(text.to_upper(), 12.5, f, 2.0)
+	var lt := Stil.zeile(text.to_upper().replace("ß", "SS"), 12.5, f, 2.0)   # Helfer 14:18: „SCHLIEßEN“
 	lt.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	lz.add_child(lt)
 	lz.add_child(Erschaffung.luecke(0, 8))
@@ -364,7 +364,7 @@ static func wahl_b(text: String, farbe: Color) -> Control:
 	h.add_theme_constant_override("separation", int(8 * DP))
 	h.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	h.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	var l := Stil.zeile(text.to_upper(), 15, farbe, 2.0)
+	var l := Stil.zeile(text.to_upper().replace("ß", "SS"), 15, farbe, 2.0)
 	l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(l)
 	var c := Control.new()

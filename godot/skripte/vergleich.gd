@@ -126,5 +126,5 @@ static func wirkung(hw: Heldwerte, g: Dictionary) -> Dictionary:
 		if String(roll[0]) != "ALL_STATS": continue
 		var w := int(roll[1])
 		var je := Heldwerte.ATTRIBUTE.map(func(at): return clampi(at_mehr[at], 0, w))
-		r["ALL_STATS"] = [w, je.min() if je.min() == je.max() else -1]
+		r["ALL_STATS"] = [w, je.min(), je.max()]   # wirkt bei jedem Attribut von … bis
 	return r

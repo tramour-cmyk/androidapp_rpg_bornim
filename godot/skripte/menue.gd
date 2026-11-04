@@ -1111,8 +1111,9 @@ static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
 			var t := ("Kritisch ab %d" % (20 - w) if de else "Critical on %d–20" % (20 - w)) if a == "CRIT" else \
 				"+%d%s %s" % [w, "%" if bool(ad["prozent"]) else "", Sprache.t(ad["name"])]
 			var e: Array = wk.get(a, [w, w])
-			if int(e[1]) == 0: z_.append(satz.call(t + (" – wirkt nicht (Obergrenze)" if de else " – no effect (limit)"), 15, Stil.DIM))
-			elif int(e[1]) < 0: z_.append(satz.call(t + (" – wirkt nur teils (Obergrenze)" if de else " – partly (limit)"), 15, Stil.DIM))
+			if e.size() > 2 and int(e[1]) != int(e[2]):   # alle Attribute: je Attribut verschieden viel (Helfer 14:18: „wirkt nur teils“ sagte zu wenig)
+				z_.append(satz.call(t + (" – wirkt +%d bis +%d (Obergrenze)" if de else " – gives +%d to +%d (limit)") % [int(e[1]), int(e[2])], 15, Stil.DIM))
+			elif int(e[1]) == 0: z_.append(satz.call(t + (" – wirkt nicht (Obergrenze)" if de else " – no effect (limit)"), 15, Stil.DIM))
 			elif int(e[1]) < w:
 				var pz := "%" if bool(ad["prozent"]) else ""
 				z_.append(satz.call(t + (" – wirkt +%d%s (Obergrenze)" if de else " – gives +%d%s (limit)") % [int(e[1]), pz], 15, Stil.DIM))
@@ -1124,9 +1125,12 @@ static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
 		z_.append(satz.call("Ungeübt: kein Übungsbonus auf Angriffe." if de else "Not proficient: no proficiency bonus to attacks.", 15, Stil.WARN))
 	if int(b.get("fokus", 0)) > 0 and not bool(hw.klassendaten()["zauberer"]):
 		z_.append(satz.call("Zauberkraft nützt nur Zauberwirkern." if de else "Spell power only helps spellcasters.", 13, Stil.DIM))
-	if v and not v.zeilen.is_empty():
+	# Helfer 14:18: die Sammelzeile „Attribute: … Bonus wirkt nicht“ der Tabelle widersprach den Bonuszeilen („wirkt +1“: was das Stueck
+	# selbst bringt; die Sammelzeile: gegen das, was es ersetzt). Jede Bonuszeile sagt schon, was die Obergrenze schluckt: hier ohne sie
+	var tz: Array = v.zeilen.filter(func(x): return not (String(x["vorher"]) == "" and String(x["nachher"]) == "")) if v else []
+	if not tz.is_empty():
 		z_.append(Spielstaende.linie())
-		z_.append(vergleich_tabelle(v.zeilen, de))
+		z_.append(vergleich_tabelle(tz, de))
 	if Laden.ausruestung_verkaeuflich(g):
 		z_.append(satz.call(("Händler zahlt %d Gold" if de else "A trader pays %d gold") % Laden.verkaufspreis_von(hw, g), 13, Stil.GOLD))
 	return z_
