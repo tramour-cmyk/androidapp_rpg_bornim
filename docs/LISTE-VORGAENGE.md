@@ -181,7 +181,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 542 | Aufträge: Jorins „Feuer am Steinkreis“ nicht abschließbar (Fetzen fehlt), Gwennas Ring am Brett ohne Höhle nicht findbar, Aldrics Ring als Ding statt Einzelstück (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | gebaut |
 | 543 | Startwerte gegen alt und BRS prüfen: Startgold 15–25 und Start-Heiltränke fehlen, Wiederkehrort Schenke statt Tempel, Beute im Tiefen Wald Stufe 1 statt 2 (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | gebaut |
 | 549a | Rückfrage: Oberfläche ohne Kasten als Grundsatz (Linien trennen, Rahmen nur für die Entscheidung)? | A Spiel | M | – | Sokrates | erledigt |
-| 549b | Rückfrage: Rast mit leiser Zeile „Tag · Uhr · TP“? (Chef 04.11., 549 Frage 2) | A Spiel | M | – | Sokrates | Chef |
+| 549b | Rückfrage: Rast mit leiser Zeile „Tag · Uhr · TP“? (Chef 04.11., 549 Frage 2) | A Spiel | M | – | Sokrates | erledigt |
 | 549a.1 | ROLLE-ENTWICKLUNG: vor jedem Menüschirm „Fenster und Schirme“ lesen (zu 549a) | B Abläufe | M? | – | Perikles | startbar |
 | 549 | Rastfenster am Feuer wirkt klein, zu viele Kästen; besser als alt gestalten (Chef 04.11., 00:07, Bild) | A Spiel | M | – | Team Tom | wartet |
 | 550 | Flüsterwald: erstes Heilkraut zeigt einen riesigen Einblendkasten, ab dem zweiten normale Größe (Chef 04.11., 00:19) | A Spiel | M | – | Team Tom | zu testen |
