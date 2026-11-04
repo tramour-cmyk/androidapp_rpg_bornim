@@ -28,7 +28,7 @@ Neu gegenüber Runde 4:
 **Frage:** Der neue Ton für Mängel ist b08a80 (stilles, graues Rot). Passt er, oder lieber Grau?
 
 Bekannt, nicht geändert:
-- Theke (8) „Fleisch verkaufen · 12 Gold“ liest sich wie ein Preis: das ist Spieltext, geht an Homer.
+- Theke (8) „Fleisch verkaufen · 12 Gold“ liest sich wie ein Preis: das ist Spieltext, geht an Homer (570).
 - Seltenheit „episch“ (Aschenbrecher, 12) bleibt Orange wie im alten Spiel; die Warnfarbe steht jetzt nur noch an Knöpfen, darum treffen beide kaum noch aufeinander.
 - Ring (3): ob in der Vergleichszeile „Geschicklichkeit“ fehlt, prüft der Helfer am Bild.
 
