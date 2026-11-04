@@ -38,8 +38,7 @@ Nichts offen.
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.348.250](ansehen/t250-strahlen-ohne.md) | [Build 250](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41730202915/artifacts/13279477341) | Strahlenprobe mit Messung ohne Strahl (415) | Jerry | 04.11., 00:28 |
-| 2 | [0.348.257](ansehen/t257-kampf-klang.md) | [Build 257](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41761514918/artifacts/13292971716) | eine Prüfliste für die Builds 251, 252, 255, 257 | Tom und Jerry | 04.11., 03:33 |
+| 1 | [0.348.257](ansehen/t257-kampf-klang.md) | [Build 257](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41761514918/artifacts/13292971716) | eine Prüfliste für die Builds 251, 252, 255, 257 | Tom und Jerry | 04.11., 03:33 |
 
 ## Zu tun
 
@@ -167,7 +166,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | Pflege | K | von Werkzeug (340.3, 04.11.): 70 KB, Erledigtes streichen | wartet auf Perikles |
 
-**Jerry** – offen 75, Muss 64, startbar 0
+**Jerry** – offen 75, Muss 64, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -201,7 +200,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 439 | M | von Sokrates: Reihenfolge Angriff, Treffer, Tod, Neuformation | wartet auf Test (Build) |
 | 440 | M | von Sokrates: Wolf-Tod zu schnell weg | wartet auf Test (Build) |
 | 416.6 | M | von Sokrates: Spuren (core/Tracks.kt): Blut, Staub, Fußspuren | wartet auf Perikles |
-| 415 | M | von Sokrates: Probe Beams Free Sample im Kampfort; nichts kaufen | wartet auf Test (Build) |
+| 415 | M | von Sokrates: Probe Beams Free Sample im Kampfort; nichts kaufen | startbar |
 | 403 | M | von Team Tom: Kampfort: Held je Klasse wie im Dorf | wartet auf Tom |
 | 461.1 | M | von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461): Grundstand mit Tom: Kampfort, Wölfe, Hel | ruht |
 | 460 | M | von Sokrates (Chef 01.11., 20:2x, Archiv 460): Probefilm Kamerafahrten: Eröffnung je Blend | ruht |
