@@ -37,23 +37,24 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 4, Muss 0, startbar 0
+**Homer** – offen 5, Muss 0, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 570 | M? | von Team Tom (Prüfer 557 Runde 4, 04.11., 18:21): Rast an der Theke, Wahl „Fleisch verkauf | startbar |
 | 432 | K | von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt | ruht |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 101, Muss 80, startbar 8
+**Tom** – offen 101, Muss 80, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | startbar |
 | 569 | M | von Sokrates (Chef 04.11., 19:44, Bild 558 Probe 4 Wald Tag; Zu 569): Baumkronen ohne Umri | startbar |
 | 568 | M? | von Sokrates (Chef 04.11., 19:42, „grundsätzlich bei 568. Für A.“; DESIGN-SPIELSYSTEM-2-0. | startbar |
-| 557 | M | von Sokrates (Chef 04.11., 11:15; Zu 557): Spielstände als Entwurf im Stil „ohne Kasten“ ( | startbar |
+| 557 | M | von Sokrates (Chef 04.11., 11:15; Zu 557): Spielstände als Entwurf im Stil „ohne Kasten“ ( | Chef |
 | 558 | M | von Sokrates (Chef 04.11., 11:31, Bild Build 257; Zu 558): Robe des Magiers zu glatt: Stof | Chef |
 | 556 | M | von Sokrates (Chef 04.11., 07:52; Zu 556): Blenden reines Schwarz statt Leuchten, Lesezeit | wartet auf Test/Build (gebaut) |
 | 531 | M | von Sokrates (Chef 03.11., 23:42, Build 249; Zu 531): Garrick: „Gesicht wirkt sonderbar, B | startbar |
@@ -64,7 +65,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 519 | M | von Sokrates (Chef 03.11., 23:13, Build 249, Bild): Ausrüstung, Fenster eines Gegenstands | wartet auf Test (Build) |
 | 518 | M | von Sokrates (Chef 03.11., 20:47, Build 248, Bild): Dorf leer: keine Häuser, nur Wege und | wartet auf Test/Build (gebaut) |
 | 537 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 537): Kapitelende fehlt: nach Aldric kei | wartet auf Test/Build (gebaut) |
-| 549 | M | von Sokrates (Chef 04.11., 00:07, Build 249, Bild; Zu 549): „Rastscreen wirkt sehr klein u | wartet auf 557 (startbar) |
+| 549 | M | von Sokrates (Chef 04.11., 00:07, Build 249, Bild; Zu 549): „Rastscreen wirkt sehr klein u | wartet auf 557 (Chef) |
 | 550 | M | von Sokrates (Chef 04.11., 00:19, Build 249): „erstes Mal Heilkräuter gepflückt ein riesen | wartet auf Test (Build) |
 | 555 | M | von Sokrates (Chef 04.11., 00:30, „Fehlt vielleicht noch mehr im Testmenü??? Wäre zum Test | wartet auf Test/Build (gebaut) |
 | 554 | M | von Sokrates (Chef 04.11., 00:27, Build 249): „Im Testmenü fehlt, dass Tiere mich ignorier | wartet auf Test (Build) |
