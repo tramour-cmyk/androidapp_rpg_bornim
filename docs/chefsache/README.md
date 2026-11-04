@@ -148,12 +148,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | Pflege | K | von Werkzeug (340.3, 04.11.): 114773 Bytes (Grenze 15000), Erledigtes streichen; Zeile 522 | startbar |
 
-**Jerry** – offen 85, Muss 72, startbar 22
+**Jerry** – offen 85, Muss 72, startbar 21
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 572 | M | von Sokrates (Chef 04.11., 20:27; „jetzt“ 04.11., 20:27; Zu 572): Effektprobe vor dem Kauf | startbar |
-| 575 | M | von Sokrates (Chef 04.11., 20:42, Build 257; Zu 575): Rattenkampf: welches Knurren spielt, | startbar |
+| 575 | M | von Sokrates (Chef 04.11., 20:42, Build 257; Zu 575): Rattenkampf: welches Knurren spielt, | wartet auf Test/Build (gebaut) |
 | 573 | M | von Sokrates (Chef 04.11., 20:33, Build 257; Zu 573): Tote bleiben liegen: der zuletzt gef | startbar |
 | 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | startbar |
 | 566 | M | von Sokrates (Chef 04.11., 17:15, Bild; Zu 566 und 567): „Beim Goblin steht in den Schatte | wartet auf Test/Build (gebaut) |
