@@ -29,6 +29,13 @@ Geprüft: Maßtest der Gruppe ohne Fehler (alles auf dem Schirm, keine Überlapp
 
 Bekannt: zwei Tests zum Laden melden am Rechner Fehler (Fleisch verkaufen, Zurückkaufen), unverändert gegenüber vorher; das gehört zu 525 und wird vor dem Build nachgestellt.
 
+Befund des Prüfers (17:12, nach dem Versand; nicht behoben):
+- Erfüllt: ohne Rahmen und ohne Kästchen (3–5), Grund überall rein schwarz, „‹“ klar sichtbar, Kopf mit genau einer Zierlinie in jedem Fenster.
+- Wegwerfen und Nebenhand passten nicht in die Zeile von Abbrechen; sie stehen leise direkt darunter (3–5). In Bild 5 stehen „× WEGWERFEN“ und „NEBENHAND“ nah beieinander und lesen sich leicht in einem Zug.
+- Mengenkasten (6): „×5“ wirkt fast unsichtbar (bei 3 Tränken nicht wählbar), das „+“ ist blasser als das „−“ (die Menge ist am Höchstwert).
+- Rast (7, 8): „‹ WEITERGEHEN“ zeigt nach links, „WEITER ›“ beim Kapitelende nach rechts; an der Theke dasselbe Feuerzeichen wie am Feuer.
+- Sonst: Kettenpanzer-Bild dunkel und klein; „1W6“ liest sich in dieser Schrift wie „IW6“; Ring heißt „Göttlicher Ring … (göttlich)“ (doppelt).
+
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/05bcedaa8 (Zweig `claude/tom-557-spielstaende`, Bildskripte `spielstaende_bild_557` und `rast_bild_549`, Lauf 1 von 2 am Rechner).
 
 Antwort:
