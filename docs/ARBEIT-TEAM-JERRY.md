@@ -10,7 +10,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 527 | M | **von Sokrates (512, Abgleich Build 249 im Code; Zu 527):** System: Schalter „Tempo“ und „Kampftext“ wirken im Kampf nicht; anschließen oder ausblenden, bis sie wirken | wartet auf Build: 251 (t251, PR #181, claude/build-555) | – |
+| 527 | M | **von Sokrates (512):** System: Schalter „Tempo“ und „Kampftext“ wirken im Kampf nicht | wartet auf Build: 251 (t251, PR #181) | – |
 | 548 | M | **von Sokrates (Chef 04.11., 00:03, Build 249, Bild; Zu 548):** „Gegen Ratten gespielt. Die starben ohne mein Zutun alle drei?!? …“ | ruht bis zur Antwort auf 548a (Chefsache): am Rechner mit Daten aus Build 249 nicht nachgestellt (Zu 548) | – |
 | 548a | M | Rückfrage: wo hast du im Rattenkampf und im Probekampf getippt (Ring, Haken)? | wartet auf Chef: entscheiden/548a | – |
 | 551 | M | **von Sokrates (Chef 04.11., 00:21, Build 249):** „MARS Kasten links und rechts unten wird unterbrochen angezeigt …“ | wartet auf Build: 252 (t252, PR #182) | – |
@@ -19,14 +19,14 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 545 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS-Probekampf: Testknöpfe „Gegner besiegen“ (✓) und „Held fällt“ (✗) ohne Funktion | ruht bis zur Antwort auf 548a (Chefsache): Haken gewinnt im ganzen Spiel (welt_548) | – |
 | 546 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS: Wölfe weichen viel zu träge aus („wie Schlaftabletten“) | wartet auf Build: 252 (t252, PR #182) | – |
 | 547 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS: Text sagt „geht in die Knie“, Sturz ist aus (438a eingefroren): Text und Bild in Einklang bringen | wartet auf Homer: Zwischentexte ohne Fallen oder Sturz zuerst (ARBEIT-KREATIV 547) | – |
-| 544 | M | **von Sokrates (Chef 03.11., 23:49, Build 249, Bild MARS-Probekampf: „Stimmt die Schrift?“):** Kampfschirm in Ersatzschrift ohne Serifen statt Alegreya wie Menü (Zu 544) | wartet auf Build: 251 (t251, PR #181, claude/build-555) | `claude/jerry-544-kampfschrift` |
-| 532 | M | **von Sokrates (512, Abgleich Build 249 im Code; Zu 532):** Kampf: Held geht ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch und ohne die ganze Tasche (nur einfacher Heiltrank) in den Kampf, danach wird nur TP zurückgeschrieben; Zauber kosten nichts | wartet auf Build: 251 (t251, PR #181, claude/build-555) | `claude/jerry-532-kampfzustand` |
+| 544 | M | **von Sokrates (Chef 03.11., 23:49, Build 249: „Stimmt die Schrift?“):** Kampfschirm ohne Serifen statt Alegreya | wartet auf Build: 251 (t251, PR #181) | `claude/jerry-544-kampfschrift` |
+| 532 | M | **von Sokrates (512; Zu 532):** Kampf: Held ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch, Tasche; Zauber kosten nichts | wartet auf Build: 251 (t251, PR #181) | `claude/jerry-532-kampfzustand` |
 | 532a | M | Rückfrage: Tasche und Metrausch jetzt wie alt in MARS oder erst mit 478? | wartet auf Chef: entscheiden/532a | – |
-| 533 | M | **von Sokrates (512, Abgleich Build 249 im Code; Zu 533):** Kampf: Grimmzahn ist ein Wolf, kein Boss: Werte, „Grimmzahns Fang“, keine Flucht, Leibwache flieht nach seinem Fall | wartet auf Build: 252 (t252, PR #182) | – |
+| 533 | M | **von Sokrates (512; Zu 533):** Kampf: Grimmzahn ist ein Wolf, kein Boss (Werte, Flucht, Leibwache) | wartet auf Build: 252 (t252, PR #182) | – |
 | 534 | M | **von Sokrates (512; Zu 534):** Kampf: Zauber und Fähigkeiten fehlen in „Können“ oder wirken nicht; Talente zu Kampfbeginn | gebaut: Lebensraub, Schadensminderung, Unerbittlich, Einschüchtern, fährt im nächsten Build; Geprüft an: 157c13e26 (faehigkeiten_534); vier Zauber und Ausweichen warten auf 534a (Zu 534) | `claude/jerry-534-faehigkeiten` |
 | 534a | M | Rückfrage: vier Zauber und Unglaubliches Ausweichen jetzt wie alt in MARS oder mit 478? | wartet auf Chef: entscheiden/534a | – |
 | 535 | M | **von Sokrates (512; Zu 535):** Kampf: Gegnerstufe, Elite, schimmernde Gegner, Gruppen, EP und Gold je Gegner, Nachlass in Stufe 1 gegen alt | gebaut: Gruppen mit eigener Art, fährt im nächsten Build; Geprüft an: ba7dfd3d5 (gruppen_535); Stufe, Elite, EP je Gegner warten auf 512a (Zu 535) | `claude/jerry-535-gruppen` |
-| 536 | M | **von Sokrates (512, Abgleich Build 249 im Code; Zu 536):** Kampf: Erklärungen bei langem Drücken (MarsTips), Grund bei gesperrtem Zauber, „Kein Ziel in Sicht“, Knopf „Schnell“, Stufe und EP im Gruppenkasten, Seltenheitsfarbe der Beute | wartet auf Build: 252 (t252, PR #182) | – |
+| 536 | M | **von Sokrates (512; Zu 527–536):** Kampf: Erklärungen bei langem Drücken (MarsTips) und Kleines wie alt | wartet auf Build: 252 (t252, PR #182) | – |
 | 478 | M | **von Sokrates (Chef 02.11., 17:59 „470a C“):** Rechenkern des Kampfs in Stufe 1 auf BRS (Modell D) | ruht: 470a B (3–4 Sitzungen, Wortlaut in Git) | – |
 | 481.1 | M | **von Sokrates (427):** Tränke in sim444, Herkünfte neu messen, Zahlen an Sokrates | gebaut: sim444 Abschnitt 6 (claude/jerry-481-1-traenke); Geprüft an: 4bb60ba5e | – |
 | 467 | M | **von Sokrates (Chef 01.11., 21:52):** `regeln/ausdauer.gd` rechnet nach SRD; BRS: Ausdauer aus Zähigkeit, Wille, Stufe; nach der Formel aus 427 umstellen | wartet auf Sokrates: Formel Ausdauer fehlt in 427 (Hinweis Beratung) | – |
@@ -41,20 +41,19 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 440 | M | **von Sokrates:** Wolf-Tod zu schnell weg | wartet auf Test: t249 | – |
 | 416.6 | M | **von Sokrates:** Spuren (`core/Tracks.kt`): Blut, Staub, Fußspuren | wartet auf Perikles: Probebild nur auf dem Bauserver (511); mit 416.4 b31b7a85d lokal gut | `claude/jerry-416-6-blut` |
 | 415 | M | **von Sokrates:** Probe Beams Free Sample im Kampfort; nichts kaufen | wartet auf Test: t250 (Ohne Strahl je Renderer), dann Renderer vorschlagen; claude/jerry-415-ohne-strahl | – |
-| 399.2 | M | **von Perikles („jetzt“ 28.10., 12:34):** Kampfort aufrufbar | wartet auf Test: Build 146 (ansehen/t146-befunde.md; Befunde als 416.x) | `claude/jerry-348-kampf` |
-| 403 | M | **von Team Tom:** Kampfort: Held je Klasse wie im Dorf | wartet auf Tom: t249 bestanden (Chef 04.11., 00:41, partiell freigegeben), Build 249 noch nicht auf main (Hinweis an Tom) | – |
+| 403 | M | **von Team Tom:** Kampfort: Held je Klasse wie im Dorf | wartet auf Tom: t249 bestanden (Chef 00:41), Build 249 nicht auf main | – |
 | 461.1 | M | **von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461):** Grundstand mit Tom: Kampfort, Wölfe, Helden (`LISTE-GRUNDSTAND-461.md`); vor 460 und 406.1 | ruht: nach dem Durchspielen (488) | `claude/grundstand-461` |
 | 460 | M | **von Sokrates (Chef 01.11., 20:2x, Archiv 460):** Probefilm Kamerafahrten: Eröffnung je Blende (402), kurze Wechsel nur ohne Eingabe | ruht: nach dem Durchspielen (488, Wochenziel 03.11.) | – |
 | 406.1 | M | **von Sokrates (406.1):** Schildstoß ins MARS/BRS, Bau mit `ShieldAttack1–3S&S` | wartet auf 481 (Herkünfte): Bedingung Chef 11:21 mit Werten 427 nicht erfüllt (Zu 427.1) | – |
-| 489 | M | **von Sokrates:** Hauptmenü: Schalter Musik und Effekte wie alt | wartet auf Tom: t249 bestanden (Chef 04.11., 00:41, partiell freigegeben), Build 249 noch nicht auf main (Hinweis an Tom) | – |
+| 489 | M | **von Sokrates:** Hauptmenü: Schalter Musik und Effekte wie alt | wartet auf Tom: t249 bestanden (Chef 00:41), Build 249 nicht auf main | – |
 | 406.2a | M | **von Sokrates:** Angriffsweg im Kampf mit UAL-Rennen wie im Dorf, alle Waffen (Zu 406.2a) | wartet auf Perikles: Probebild nur auf dem Bauserver (511); Messlauf 246 (Zu 406.2a) | `claude/jerry-406-2a-rennen` |
 | 406.2 | M | **von Sokrates (Chef 03.11., 06:59, „jetzt“; Zu 406.2):** im Kampf zum Angriff gehen statt rennen, Parade mit Schild je Richtung; ein Lauf, dann eingefroren (488) | gebaut: Parade nach Trefferhöhe, nächster Build; Geprüft an: 9bb94fd69 | – |
-| 406 | M | **von Team Tom:** Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Sonne | wartet auf Tom: t249 bestanden (Chef 04.11., 00:41, partiell freigegeben), Build 249 noch nicht auf main (Hinweis an Tom) | – |
+| 406 | M | **von Team Tom:** Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Sonne | wartet auf Tom: t249 bestanden (Chef 00:41), Build 249 nicht auf main | – |
 | 510 | M | **von Sokrates:** Fledermaus: freies OGA-Modell „Vampire Bat“ (CC0) mit unseren Fellen neben der eigenen, Film, Chef wählt (Zu 510) | wartet auf Perikles: Probebild nur auf dem Bauserver (511); Lauf 243: Runner abgeschaltet (Zu 510) | `claude/jerry-494-gegner` |
 | 509 | M | **von Sokrates (Chef 03.11., 09:21):** Frösche und Libellen an den Teichen wie alt (`PondLife.kt`, `PondSound.kt`; O6, W22) | wartet auf Perikles: Probebild nur auf dem Bauserver (511); Film kaputt, aus der Chefsache (Chef 13:49) | `claude/jerry-509-teich` |
-| 494 | M | **von Perikles (Wochenziel 03.11. Reihe 3, 488):** Gegner von Kapitel 1 im Kampf (Liste und Stand Zu 494), je Gegner höchstens ein Lauf; 348.12 Goblin geht hierin auf | wartet auf Perikles: Probebild nur auf dem Bauserver (511); alle Gegner außer Fledermaus gebaut, Bilder ungeprüft; zuletzt 6a155992b, f0f9ea09d (Zu 494) | `claude/jerry-494-gegner` |
-| 517 | M | **von Team Tom (03.11., 16:3x, Abgleich 512):** Waldklang wie alt: Vögel am Tag, Eule und Grillen nachts, fernes Wolfsheulen im Tiefen Wald (`WildSound.kt`; `klang.gd` hat nur Wind, Feuer, Fluss, Dorftiere), steht in t248 als bekannt | gebaut: fährt im nächsten Build; Geprüft an: c12991504 (klang_test) | `claude/jerry-517-waldklang` |
-| 507 | M | **von Perikles (Wochenziel 03.11. Reihe 3, 488; aus 492):** Kampforte Höhle wie alt: Eingang, Gang, Halle, Teich, Lager (Orte O10); die Höhle als Ort baut Tom (492) | wartet auf Perikles: Probebild nur auf dem Bauserver (511); Zweig mit main und Figurenstand fe870d19c, hoehle_507 grün; ein Lauf frei (Sokrates 20:2x) | `claude/jerry-507-hoehle` |
+| 494 | M | **von Perikles (488):** Gegner von Kapitel 1 im Kampf (Zu 494), je Gegner höchstens ein Lauf | wartet auf Perikles: Probebild nur auf dem Bauserver (511); alle Gegner außer Fledermaus gebaut, Bilder ungeprüft; zuletzt 6a155992b, f0f9ea09d (Zu 494) | `claude/jerry-494-gegner` |
+| 517 | M | **von Team Tom (03.11., 16:3x, 512):** Waldklang wie alt (`WildSound.kt`): Vögel am Tag, Eule und Grillen nachts, fernes Wolfsheulen | gebaut: fährt im nächsten Build; Geprüft an: c12991504 (klang_test) | `claude/jerry-517-waldklang` |
+| 507 | M | **von Perikles (488; aus 492):** Kampforte Höhle wie alt: Eingang, Gang, Halle, Teich, Lager | wartet auf Perikles: Probebild nur auf dem Bauserver (511); fe870d19c mit main und Figurenstand, hoehle_507 grün; ein Lauf frei | `claude/jerry-507-hoehle` |
 | 496a | M | Rückfrage: abgenommene Kampfbilder schon in den Durchspiel-Build? | wartet auf Test: t249 | – |
 | 496 | M | **von Perikles (Wochenziel 03.11. Reihe 5, 488):** Durchspiel-Build aus 490–495: der Chef spielt Kapitel 1 von Anfang bis Ende am Handy | wartet auf 490, 491, 492, 493, 494, 495, 506, 507 | – |
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: Feintuning nach 399 (Hühner hoppeln, Rind 78 s Fleck, 150°-Sprung) |
@@ -86,7 +85,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht: SRD (Chef 31.10.) | – |
 | 469 | M | **von Sokrates:** Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 406.1 | – |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht: Klang zieht nach Godot; Rest `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
-| Pflege | K | **von Werkzeug (340.3, 04.11.):** 19357 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | **von Werkzeug (340.3, 04.11.):** 19357 Bytes (Grenze 15000), Erledigtes streichen | ruht: auf 17,8 KB gekürzt (Jerry 03:00); Rest sind offene oder auf Chefwort ruhende Zeilen, Streichen nur mit Entscheid; weiter, wenn Builds 249–252 auf main sind |
 
 ## Einzelheiten
 
