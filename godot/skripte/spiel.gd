@@ -92,6 +92,7 @@ func _ready() -> void:
 	raeume_bilder()
 	wald_bilder()
 	tiefwald_bilder()
+	gluehen_bilder()
 	if FigurenProbe.an(): add_child(FigurenProbe.new(self))   # 376.1 Probeblatt Quaternius-Figuren (figurenprobe.gd)
 
 # 399: Spielbeginn aus dem Hauptmenue: geladen an den gespeicherten Ort, sonst ein neues Spiel mit frischem Zustand (Test 139: das neue
@@ -103,6 +104,8 @@ func starte(w: Dictionary) -> void:
 	if not stand.is_empty():
 		zustand = Zustand.aus_daten(stand["zustand"])
 		werte = Heldwerte.aus_daten(stand["held"])
+		werte.ep_dazu(0, Geschichte.stufendeckel(zustand))   # 538 Game.begin: Erfahrung ueber dem Kapiteldeckel (aeltere Spielstaende) zurueck auf den Deckel
+		stufe_abgleichen()
 		var o: Dictionary = stand["ort"]
 		blende.color.a = 1.0
 		klang("verhuelle", [true])
@@ -166,6 +169,10 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	kamera.ziel = held
 	gebiet.held = held
 	gebiet.kamera = kamera
+	if gebiet.gluehwuermchen:
+		gebiet.gluehwuermchen.zustand = zustand   # 514: nur in manchen Naechten
+		var nb = get("nebel")   # 505 (eigener Zweig): ausser Sicht vergehen sie mit dem Nebel
+		if nb: gebiet.gluehwuermchen.sicht = nb.zeigt
 	kamera.springe()
 	ui.ort.text = karte.name()
 	klang("ort", [karte, held])   # 399.3 (Jerry): Ortsmusik, Schritte nach dem Boden
@@ -558,7 +565,8 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 		zustand.gold += int(lohn.get("gold", 0))
 		for d in lohn.get("items", []): zustand.dazu(String(d))   # Beute (Felle, Zaehne)
 		for g in lohn.get("gear", []): zustand.ausruestung_dazu(g)   # 399.2 Ausruestung aus dem Kampflohn
-		hw.ep_dazu(int(lohn.get("xp", 0)))   # Hero.gainXp: Stufe hoeher heilt ganz
+		hw.ep_dazu(int(lohn.get("xp", 0)), Geschichte.stufendeckel(zustand))   # Hero.gainXp mit Story.levelCap (538): Stufe hoeher heilt ganz
+		stufe_abgleichen()
 	held.setze(zurueck, blick_nach)
 	kamera.springe()
 	await abblenden(0.0)
@@ -739,6 +747,7 @@ func sprich(l: Leute) -> void:
 	Ruf.gehoert(zustand, String(l.daten["id"]), false)   # 399.1 Hail.heard vor dem Gespraech
 	spricht_mit = String(l.daten["id"])
 	rufe.erase(spricht_mit)
+	stufe_abgleichen()   # 538: auch nach dem Testmenue (Stufe) sprechen die Leute zur wahren Stufe
 	var abgabe := Auftraege.abgabe(zustand, String(l.daten["id"]))   # 399.1 Game.talk: Jobs.handIn vor dem Gespraech
 	spiele(abgabe if not abgabe.is_empty() else Geschichte.gespraech(String(l.daten["id"]), zustand))
 
@@ -1022,6 +1031,10 @@ func held_figur_neu(vorher: String) -> void:
 
 func fackel_neu() -> void:
 	if held: held.fackel_neu(Menue.fackel(held_werte()), String(karte.daten.get("art", "")) == "INTERIOR")
+
+# 538: die Gespraeche (Geschichte, s.stufe(): Garrick vor Krogg) fragen den Spielstand nach der Stufe des Helden (alt s.hero.level)
+func stufe_abgleichen() -> void:
+	zustand.stufe_held = held_werte().stufe
 
 func held_werte() -> Heldwerte:
 	if werte == null: werte = Heldwerte.erschaffe(zustand.name, "HUMAN", "FIGHTER")
@@ -1729,6 +1742,51 @@ func tiefwald_bilder() -> void:
 		ui.textfeld.visible = false
 		await knips("%s/%s.png" % [dir, o[0]])
 	print("TIEFWALDBILDER fertig")
+	get_tree().quit()
+
+# 514 Gluehwuermchen am Rechner: --gluehen=<ordner> knipst nachts (23 Uhr, eine Nacht mit Gluehwuermchen) je Gebietskarte den
+# groessten Schwarm aus Sicht des Helden, zwei Kacheln suedlich davon; im Augenblick, in dem die meisten dieses Schwarms leuchten
+# (fester Augenblick), dazu derselbe Ort 0,8 s spaeter (Takt, Nachbar antwortet). Wald nur, wenn seine Daten im Bau sind (490).
+func gluehen_bilder() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--gluehen="): dir = a.substr(10)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	zustand.tag = 1
+	while not Gluehwuermchen.heute(zustand.tag, 23 * 60): zustand.tag += 1
+	for id in ["village", "forest"]:
+		if not FileAccess.file_exists("res://daten/" + Gebiet.datei(id) + ".bin"): continue
+		var k := Karte.lade(id)
+		var fl := Gluehwuermchen.schwaerme(k)
+		var zahl := {}
+		for f in fl: zahl[f["mitte"]] = int(zahl.get(f["mitte"], 0)) + 1
+		var best := Vector2i(-1, -1)
+		for m in zahl:
+			var st: Vector2i = m + Vector2i(0, 2)
+			if k.begehbar(st) and (best.x < 0 or zahl[m] > zahl[best]): best = m
+		if best.x < 0: continue
+		var uhr := 0; var meist := -1.0
+		for ms in range(0, 60000, 100):
+			var s := 0.0
+			for f in fl: if f["mitte"] == best: s += Gluehwuermchen.glanz(f, ms)
+			if s > meist: meist = s; uhr = ms
+		print("GLUEHEN %s Schwarm %s mit %d, Augenblick %d ms" % [id, best, zahl[best], uhr])
+		zustand.minuten = 23 * 60
+		betrete(id, best + Vector2i(0, 2), "UP")
+		var hd = get("herde")   # 490 (eigener Zweig): Monster ruhig
+		if hd: hd.aus = true
+		licht.ziel = 1.0
+		licht.stelle(1.0)
+		for t in [[uhr, "a"], [uhr + 800, "b"]]:
+			Gluehwuermchen.uhr_fest = t[0]
+			await get_tree().create_timer(1.5).timeout
+			ui.textfeld.visible = false
+			await knips("%s/%s_%s.png" % [dir, id, t[1]])
+	Gluehwuermchen.uhr_fest = -1
+	print("GLUEHBILDER fertig")
 	get_tree().quit()
 
 # 399.5 Grundrisse am Rechner: --raeume=<ordner> knipst je Grundriss aus der Grundansicht wie die alten Vergleichsbilder (Held wie
