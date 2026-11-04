@@ -13,10 +13,13 @@ signal gewaehlt(id: String)
 const DP := AktionsKnopf.DP
 
 var entwurf := "A"
+var kopf_zeichen := "REST"
 
-static func neu(entwurf_: String, titel: String, unter: String, wahlen: Array, weiter_text: String, notiz := "", zeilen: Array = []) -> Rastfeld:
+# [kopf]: das grosse Zeichen oben (REST: Flamme am Lagerfeuer; SCHENKE: Wirtshausschild an der Theke, Pruefer 17:12)
+static func neu(entwurf_: String, titel: String, unter: String, wahlen: Array, weiter_text: String, notiz := "", zeilen: Array = [], kopf := "REST") -> Rastfeld:
 	var r := Rastfeld.new()
 	r.entwurf = entwurf_
+	r.kopf_zeichen = kopf
 	r.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	r.mouse_filter = Control.MOUSE_FILTER_STOP   # die Welt dahinter ist nicht zu erreichen (wie alt .tap {})
 	var dunkel := ColorRect.new()
@@ -44,7 +47,7 @@ func _tafel(titel: String, unter: String, wahlen: Array, weiter_text: String, no
 	tafel.add_child(sp)
 	var kopf := HBoxContainer.new()
 	kopf.add_theme_constant_override("separation", int(12 * DP))
-	kopf.add_child(Rastzeichen.neu("REST", 34, Stil.BRIGHT))
+	kopf.add_child(Rastzeichen.neu(kopf_zeichen, 34, Stil.BRIGHT))
 	var kt := VBoxContainer.new()
 	kt.add_theme_constant_override("separation", 0)
 	kt.add_child(Stil.zeile(titel.to_upper(), 22, Stil.GOLD, 2.0))
@@ -92,7 +95,8 @@ func _ohne_kasten(titel: String, unter: String, wahlen: Array, weiter_text: Stri
 	sp.offset_left = 28 * DP; sp.offset_right = -28 * DP; sp.offset_bottom = -40 * DP
 	sp.grow_vertical = Control.GROW_DIRECTION_BEGIN
 	add_child(sp)
-	var fl := Rastzeichen.neu("REST", 64, Stil.BRIGHT)
+	var fl := Rastzeichen.neu(kopf_zeichen, 64, Stil.BRIGHT)
+	fl.name = "Kopfzeichen"
 	fl.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	sp.add_child(fl)
 	var t := Stil.zeile(titel.to_upper(), 26, Stil.GOLD, 3.0)
@@ -117,9 +121,11 @@ func _ohne_kasten(titel: String, unter: String, wahlen: Array, weiter_text: Stri
 		n.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		sp.add_child(n)
 	sp.add_child(Erschaffung.luecke(6))
-	if Spielstaende.vorlage2:   # 557/549 (Chef 16:37: „mit denselben Bausteinen“): „‹ WEITERGEHEN“ als Nebenwahl links wie Abbrechen
-		var neben := Spielstaende.nebenwahl("", "‹  " + weiter_text, func(): gewaehlt.emit(""))
-		sp.add_child(neben)
+	if Spielstaende.vorlage2:   # 557/549 (Chef 16:37: „mit denselben Bausteinen“): die Nebenwahl links wie Abbrechen;
+		# 557 Runde 4 (Chef 17:40: „sinnvoller wäre ein Zurück oder ein Abbrechen“): „‹ ZURÜCK“ statt „‹ WEITERGEHEN“, so gross wie jeder Knopf
+		var neben := Spielstaende.knopf("neben", Sprache.u("back"), func(): gewaehlt.emit(""), true)
+		neben.set_meta("id", "")
+		sp.add_child(Spielstaende.knopfzeile(neben, null))
 	else:
 		sp.add_child(_weiter(weiter_text))
 

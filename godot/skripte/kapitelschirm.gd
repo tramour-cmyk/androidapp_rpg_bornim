@@ -132,8 +132,13 @@ func _ready_b() -> void:
 	spalte.add_child(held)
 	spalte.add_child(Spielstaende.linie())
 	spalte.add_child(Erschaffung.luecke(8))
-	var k := Spielstaende.hauptwahl(Sprache.u("next"), func(): weiter.emit())
-	k.name = "Weiter"
-	k.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	spalte.add_child(k)
+	if Spielstaende.vorlage2:   # 557 Runde 4 (Chef 17:40: „ein Weiter, wenn dann rechts“): „WEITER ›“ rechts, so gross wie jeder Knopf
+		var kw := Spielstaende.knopf("haupt", Sprache.u("next"), func(): weiter.emit())
+		kw.name = "Weiter"
+		spalte.add_child(Spielstaende.knopfzeile(null, kw))
+	else:
+		var k := Spielstaende.hauptwahl(Sprache.u("next"), func(): weiter.emit())
+		k.name = "Weiter"
+		k.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		spalte.add_child(k)
 	if Spielstaende.vorlage2: Spielstaende.folge_inhalt(spalte, rolle, innen)   # 557 Vorlage 2: Weiter folgt dem Text (Chef 14:21, Bild 6)

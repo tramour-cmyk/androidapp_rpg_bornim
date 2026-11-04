@@ -70,16 +70,18 @@ func _wechsel() -> void:
 	m.reiter = "ausruestung"
 	m.baue()
 	await process_frame
-	for entwurf in ["", "B"]:
-		Menue.entwurf = entwurf
+	for entwurf in ["", "B", "B2"]:   # B2: 557 Runde 4 („‹ ZURÜCK“ links)
+		Menue.entwurf = "B" if entwurf == "B2" else entwurf
+		Spielstaende.vorlage2 = entwurf == "B2"
 		m.baue()
 		await process_frame
 		m.waehle("CHEST")
-		await _bild("557_wechsel_" + ("b" if entwurf == "B" else "jetzt"))
+		await _bild("557_wechsel_" + {"": "jetzt", "B": "b", "B2": "b2"}[entwurf])
 		for c in m.get_children():
 			if c is ColorRect: c.queue_free()
 		await process_frame
 	Menue.entwurf = ""
+	Spielstaende.vorlage2 = false
 	m.queue_free()
 	await process_frame
 
@@ -95,6 +97,7 @@ func _lauf() -> void:
 	await _zeige("B2", "557_b2_loeschen", true)   # Vorlage 2 (Chef 14:21): Rueckfrage ohne Kasten
 	_speichere(3, "Borin", "DWARF", "FIGHTER", 2, "inn", 1, 9 * 60 + 40, 38 * 60000, [Geschichte.QUEST_STARTED], 12)
 	await _zeige("B", "557_b_zwei")
+	await _zeige("B2", "557_b2_zwei")   # 557 Runde 4: „× LÖSCHEN“ in Warnfarbe, „‹ ZURÜCK“ links
 	await _zeige("", "557_jetzt_zwei")
 	Spielstaende.entwurf = ""
 	Spielstaende.vorlage2 = false

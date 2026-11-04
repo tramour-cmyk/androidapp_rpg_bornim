@@ -774,7 +774,7 @@ func frage_wegwerfen(g: Dictionary) -> void:
 		return
 	if entwurf == "B" and Spielstaende.vorlage2:   # 557 Vorlage 2: Rueckfrage ohne Rahmen
 		Spielstaende.frage(self, "Wirklich wegwerfen?" if de else "Really discard?", [
-			Erschaffung.txt("%s (%s)" % [Beute.name(g), Sprache.t(Heldwerte.lade()["seltenheiten"][String(g["rarity"])].get("name", g["rarity"]))], 16, farbe_von(g)),
+			Erschaffung.txt(Menue.name_mit_seltenheit(g), 16, farbe_von(g)),
 			Erschaffung.txt(("Der Gegenstand ist danach verloren. Beim Händler bekämst du dafür %d Gold." if de else "The item will be gone for good. A trader would pay you %d gold for it.") % preis, 15)],
 			"KREUZ", "Wegwerfen" if de else "Discard", Stil.WARN, func(): wirf_weg(g))
 		return
@@ -899,12 +899,15 @@ func _waehle_b(platz: String) -> void:
 		if liste.get_child_count() > 0: liste.add_child(Spielstaende.linie())
 		liste.add_child(_wechsel_zeile_b(g, platz, zu, de))
 	spalte.add_child(Spielstaende.linie())
+	if Spielstaende.vorlage2:   # 557 Runde 4 (Chef 17:40, 549a (9)): „‹ ZURÜCK“ links, nicht mittig, so gross wie jeder Knopf
+		spalte.add_child(Spielstaende.knopfzeile(Spielstaende.knopf("neben", Sprache.u("back"), zu, true), null))
+		Menue.wuerfel_lesbar(spalte)
+		return
 	var z := HBoxContainer.new()
 	z.custom_minimum_size.y = 52 * DP
 	z.alignment = BoxContainer.ALIGNMENT_CENTER
 	z.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	if Spielstaende.vorlage2: z.add_child(Spielstaende.pfeil(Stil.GOLD, true))   # Zu 557 (3): „‹“ als Zeichen
-	z.add_child(Stil.zeile(("" if Spielstaende.vorlage2 else "‹  ") + Sprache.u("back").to_upper(), 14, Stil.GOLD, 2.0))   # Nebenwahl (549a Punkt 4)
+	z.add_child(Stil.zeile("‹  " + Sprache.u("back").to_upper(), 14, Stil.GOLD, 2.0))   # Nebenwahl (549a Punkt 4)
 	spalte.add_child(Spielstaende.tippbar(z, zu))
 
 # 557 (Helfer 13:07: Roben zeigten keinen Wert, nur der Plattenpanzer „RK 18“): ohne Kennwert (Roben, Ringe, Umhaenge …) stehen die zwei
@@ -1019,12 +1022,15 @@ func fenster_b(g: Dictionary, anlegen := Callable(), zurueck := Callable()) -> C
 	v.add_child(Spielstaende.linie())
 	var zu := func(): schleier.queue_free()
 	var an_c := anlegen if anlegen.is_valid() else func(): meldung(lege_an(g)); baue()
-	if Spielstaende.vorlage2:   # 557 Vorlage 2 (Chef 14:26): „‹ ABBRECHEN“ links, ANLEGEN rechts; Wegwerfen und Nebenhand leise darueber
-		# Zu 557 (4) (Chef 16:42): „× WEGWERFEN“ und „Nebenhand“ leise in derselben Zeile wie „‹ ABBRECHEN“, keine eigene dritte Stufe
-		var leise_: Array = [Spielstaende.nebenwahl("KREUZ", "Wegwerfen" if de else "Discard", func(): zu.call(); frage_wegwerfen(g), true, true)]
+	if Spielstaende.vorlage2:   # 557 Vorlage 2 (Chef 14:26): „‹ ABBRECHEN“ links, ANLEGEN rechts
+		# 557 Runde 4 (Chef 17:44, Variante B): Wegwerfen und Nebenhand echte Knoepfe, so gross wie Abbrechen und Anlegen, in zwei Reihen
+		# zu je zwei: oben „× WEGWERFEN“ (Warnfarbe wie in der Rueckfrage, Chef 17:43) links und „NEBENHAND ›“ rechts, unten „‹ ABBRECHEN“
+		# und „ANLEGEN ›“ (Pruefer 17:12: Wegwerfen und Nebenhand standen zu nah beieinander)
+		var oben: Array = [Spielstaende.knopf("gefahr", "Wegwerfen" if de else "Discard", func(): zu.call(); frage_wegwerfen(g), true)]
 		if ok and einhandwaffe(g) and not anlegen.is_valid():
-			leise_.append(Spielstaende.nebenwahl("", "Nebenhand" if de else "Off hand", func(): zu.call(); meldung(lege_an(g, true)); baue(), true, true))
-		v.add_child(Spielstaende.fuss(func(): schleier.queue_free(); if zurueck.is_valid(): zurueck.call(), "", Sprache.u("equip"), Stil.BRIGHT, func(): zu.call(); an_c.call(), ok, leise_, breite))
+			oben.append(Spielstaende.knopf("neben", "Nebenhand" if de else "Off hand", func(): zu.call(); meldung(lege_an(g, true)); baue()))
+		v.add_child(Spielstaende.fuss(func(): schleier.queue_free(); if zurueck.is_valid(): zurueck.call(), "", Sprache.u("equip"), Stil.BRIGHT, func(): zu.call(); an_c.call(), ok, oben))
+		Menue.wuerfel_lesbar(v)
 		return schleier
 	var unten := HBoxContainer.new()
 	unten.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -1039,6 +1045,21 @@ func fenster_b(g: Dictionary, anlegen := Callable(), zurueck := Callable()) -> C
 	unten.add_child(Spielstaende.hauptwahl(Sprache.u("equip"), func(): zu.call(); an_.call(), ok))
 	v.add_child(unten)
 	return schleier
+
+# Name mit Seltenheit in Klammern, „Göttlicher Ring Thors“ ohne „(göttlich)“ dahinter: steht sie schon im Namen, nicht doppelt
+# (Pruefer 17:12 zur Rueckfrage Wegwerfen)
+static func name_mit_seltenheit(g: Dictionary) -> String:
+	var n := Beute.name(g)
+	var s := Sprache.t(Heldwerte.lade()["seltenheiten"][String(g["rarity"])].get("name", g["rarity"]))
+	return n if n.containsn(s) else "%s (%s)" % [n, s]
+
+# Pruefer 17:12: „1W6“ liest sich in Alegreya wie „IW6“ (die Eins ist dort ein I mit Faehnchen, auch in den Ziffernformen lnum, tnum):
+# nur in der Darstellung ein festes Leerzeichen zwischen Anzahl und W („1 W6“), der Wuerfeltext aus den Daten bleibt
+const _WUERFEL := "(\\d)W(\\d)"
+static func wuerfel_lesbar(wurzel: Node) -> void:
+	var re := RegEx.create_from_string(_WUERFEL)
+	for l in wurzel.find_children("*", "Label", true, false):
+		if re.search(l.text): l.text = re.sub(l.text, "$1\u00a0W$2", true)
 
 static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
 	var de := Sprache.aktiv() == "de"
@@ -1073,7 +1094,9 @@ static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
 	var selten := Testmodus.gross_anfang(Sprache.t(d["seltenheiten"][String(g["rarity"])]["name"]))
 	var art := String(b[sp])
 	var art_z := selten + ((String(d["endungen"][String(b["geschlecht"])]) if de else "") + " " + art if not Beute.name(g).containsn(art) else "") + ((" +%d" % plus) if plus > 0 else "")
-	kv.add_child(satz.call(art_z, 13, Color(farbe, 0.8)))
+	if Spielstaende.vorlage2 and Beute.name(g).containsn(art) and Beute.name(g).containsn(selten):   # Pruefer 17:12: „Göttlicher Ring …“, darunter
+		art_z = ("+%d" % plus) if plus > 0 else ""   # noch einmal „Göttlich“: was der Name sagt, steht nicht doppelt da (wie stueck_zeilen, 524)
+	if art_z != "": kv.add_child(satz.call(art_z, 13, Color(farbe, 0.8)))
 	kopf.add_child(kv)
 	z_.append(kopf)
 	if Spielstaende.vorlage2: z_.append(Spielstaende.zier())   # Chef 16:51 (549a (8)): Kopf zuerst, gleich darunter die Zierlinie

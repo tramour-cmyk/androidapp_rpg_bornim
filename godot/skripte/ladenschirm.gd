@@ -477,14 +477,17 @@ func _ready_b() -> void:
 	notiz.set_meta("kasten", nk)
 	spalte.add_child(nk)
 	spalte.add_child(Spielstaende.linie())
-	var sch := Spielstaende.nebenwahl("", "‹  " + Sprache.u("close"), func(): zu.emit())
-	sch.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	spalte.add_child(sch)
+	if Spielstaende.vorlage2:   # 557 Runde 4 (Chef 17:40: „Bei 9 steht Schließen, steht aber mittig“): „‹ SCHLIESSEN“ links, gleich gross
+		spalte.add_child(Spielstaende.knopfzeile(Spielstaende.knopf("neben", Sprache.u("close"), func(): zu.emit(), true), null))
+	else:
+		var sch := Spielstaende.nebenwahl("", "‹  " + Sprache.u("close"), func(): zu.emit())
+		sch.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		spalte.add_child(sch)
 	if Spielstaende.vorlage2: Spielstaende.folge_inhalt(spalte, rolle, inhalt)   # 557 Vorlage 2: Schliessen folgt der Liste (Chef 14:21, Bild 7)
 	baue()
 
 # eine Seite als Wort; die gewaehlte hell mit goldenem Strich darunter, die anderen gedaempft; Flaeche 48 dp
-func _seite_b(t: String, an: bool, tat: Callable) -> Control:
+func _seite_b(t: String, an: bool, tat: Callable, waehlbar := true) -> Control:
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(6 * DP))
 	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -492,6 +495,7 @@ func _seite_b(t: String, an: bool, tat: Callable) -> Control:
 	v.alignment = BoxContainer.ALIGNMENT_END
 	# Zu 557 (8) (Pruefer 16:43: ×1 · ×5 · ALLE kaum lesbar): die nicht gewaehlten in hellerem Gold, die gewaehlte hell mit Strich
 	var l := Stil.zeile(t.to_upper(), 14, Stil.BRIGHT if an else (Color("cdb88c") if Spielstaende.vorlage2 else Stil.GOLD), 2.0)
+	if not waehlbar: l.add_theme_color_override("font_color", AUS)   # Pruefer 17:12: „×5“ bei 3 Traenken fast unsichtbar
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(l)
 	var strich := ColorRect.new()
@@ -673,9 +677,7 @@ func braukasten_c(r: Dictionary, n: int, alle := false) -> void:
 		for k in [["×1", 1, not alle and n == 1, true, false], ["×5", 5, not alle and n == 5, oft >= 5, false], [Sprache.t(Laden.ALLE), oft, alle, true, true]]:
 			var nn: int = k[1]
 			var ia: bool = k[4]
-			var w := _seite_b(String(k[0]), bool(k[2]), (func(): neu_.call(nn, ia)) if bool(k[3]) else func(): pass)
-			if not bool(k[3]): w.modulate.a = 0.4
-			wr.add_child(w)
+			wr.add_child(_seite_b(String(k[0]), bool(k[2]), (func(): neu_.call(nn, ia)) if bool(k[3]) else func(): pass, bool(k[3])))
 		v.add_child(wr)
 		v.add_child(Stil.zeile(Sprache.t(Laden.REICHT) % oft, 13.5, Stil.BRIGHT))   # Zu 557 (8): kleine Angaben heller
 		v.add_child(Erschaffung.txt(Sprache.t(Laden.BESITZ) + "%d → %d" % [z.anzahl(aus), z.anzahl(aus) + n], 14, Spielstaende.ANGABE))
@@ -685,9 +687,13 @@ func braukasten_c(r: Dictionary, n: int, alle := false) -> void:
 	var brau := ("Brauen" if de else "Brew") + (" ×%d" % n if n > 1 else "")
 	v.add_child(Spielstaende.fuss(func(): schleier.queue_free(), "", brau, Stil.BRIGHT, func(): schleier.queue_free(); sage(laden.braue_mehr(z, hw, r, n)); baue(), oft >= 1))
 
-# grosse Tippflaeche fuer − und + ohne eigenen Rahmen (56 dp), aus: matt
+# 557 Runde 4 (Pruefer 17:12): was gerade nicht zu waehlen ist (×5 bei 3 Traenken, „+“ am Hoechstwert), lesbar gedaempft in Veil.dim
+# ohne Durchsicht statt fast unsichtbar; was zu waehlen ist, gleich hell („−“ und „+“ beide hell)
+const AUS := Stil.DIM
+
+# grosse Tippflaeche fuer − und + ohne eigenen Rahmen (56 dp), aus: gedaempft (AUS)
 func _zahl_knopf(t: String, tat: Callable, an: bool) -> Control:
-	var l := Stil.zeile(t, 30, Stil.BRIGHT if an else Color(Stil.DIM, 0.75))   # Zu 557 (8) (Pruefer 16:43: „+“ kaum zu sehen)
+	var l := Stil.zeile(t, 30, Stil.BRIGHT if an else AUS)   # Zu 557 (8) (Pruefer 16:43: „+“ kaum zu sehen; 17:12: am Hoechstwert blasser als „−“)
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	l.custom_minimum_size = Vector2(56, 56) * DP

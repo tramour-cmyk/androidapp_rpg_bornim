@@ -239,12 +239,15 @@ func _ready_b() -> void:
 	liste.add_theme_constant_override("separation", 0)
 	rolle.add_child(liste)
 	spalte.add_child(linie())
+	if vorlage2:   # 557 Runde 4 (Chef 17:40, 549a (9)): „‹ ZURÜCK“ links, nicht mittig, so gross wie jeder Knopf
+		spalte.add_child(knopfzeile(knopf("neben", Sprache.u("back"), func(): zurueck.emit(), true), null))
+		baue()
+		return
 	var z := HBoxContainer.new()
 	z.custom_minimum_size.y = 52 * DP
 	z.alignment = BoxContainer.ALIGNMENT_CENTER
 	z.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	if vorlage2: z.add_child(pfeil(Stil.GOLD, true))   # Zu 557 (3): „‹“ als Zeichen
-	z.add_child(Stil.zeile(("" if vorlage2 else "‹  ") + Sprache.u("back").to_upper(), 14, Stil.GOLD, 2.0))   # Nebenwahl (549a Punkt 4)
+	z.add_child(Stil.zeile("‹  " + Sprache.u("back").to_upper(), 14, Stil.GOLD, 2.0))   # Nebenwahl (549a Punkt 4)
 	spalte.add_child(tippbar(z, func(): zurueck.emit()))
 	baue()
 
@@ -333,6 +336,9 @@ func _voll_zeile(d: Dictionary, de: bool) -> Control:
 	aussen.add_child(tippbar(rand, func(): laden.emit(platz)))
 	# Loeschen leise darunter, rechts unter „Laden“ (Helfer 13:07: stand links unter den Angaben), mit eigener Flaeche von 48 dp und
 	# Abstand nach oben, damit es kein Fehlgriff wird; mit Rueckfrage
+	if vorlage2:   # 557 Runde 4 (Chef 17:43): „× LÖSCHEN“ wie Wegwerfen in Warnfarbe, gleich gross wie jeder Knopf, rechts unter „LADEN ›“
+		aussen.add_child(knopfzeile(null, knopf("gefahr", "Löschen" if de else "Delete", func(): frage_loeschen(d))))
+		return aussen
 	var weg := nebenwahl("KREUZ", "Löschen" if de else "Delete", func(): frage_loeschen(d))
 	weg.size_flags_horizontal = Control.SIZE_SHRINK_END
 	aussen.add_child(weg)
@@ -365,54 +371,69 @@ static func frage(eltern: Control, titel: String, zeilen: Array, zeichen: String
 	v.add_child(fuss(func(): schleier.queue_free(), zeichen, wahl, farbe, func(): schleier.queue_free(); tat.call(), an))
 	return schleier
 
-# unten in einem Fenster: „‹ ABBRECHEN“ links, die Wahl rechts (Chef 14:26: „vor allem fehlt bei Bild 8 das Abbrechen“)
-static func fuss(abbrechen: Callable, zeichen: String, wahl: String, farbe: Color, tat: Callable, an := true, mitte: Array = [], breite := 0.0) -> Control:
+# unten in einem Fenster: „‹ ABBRECHEN“ links, die Wahl rechts (Chef 14:26: „vor allem fehlt bei Bild 8 das Abbrechen“).
+# 557 Runde 4 (Chef 17:40–17:44, 549a (4), (9)): alle Knoepfe gleich gross (knopf, knopfzeile); [oben]: weitere Knoepfe (Gegenstands-
+# fenster: „× WEGWERFEN“ links, „NEBENHAND ›“ rechts) stehen als eigene Reihe darueber, denn drei passen auf 360 dp nicht in eine
+# Zeile (je Knopf etwa 130–145 dp, Fenster 312 dp); die Wahl in Warnfarbe mit „×“, wenn [farbe] die Warnfarbe ist
+static func fuss(abbrechen: Callable, _zeichen: String, wahl: String, farbe: Color, tat: Callable, an := true, oben: Array = []) -> Control:
 	var de := Sprache.aktiv() == "de"
-	var unten := HBoxContainer.new()
-	unten.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	unten.add_child(nebenwahl("", "‹  " + ("Abbrechen" if de else "Cancel"), abbrechen))
-	for m in mitte: unten.add_child(m)   # leise Nebenwahlen zwischen Abbrechen und der Wahl (Gegenstandsfenster: Wegwerfen)
-	if not mitte.is_empty() and breite > 0.0:   # Zu 557 (4): passt die Zeile nicht in [breite], stehen die leisen darunter
-		var v := VBoxContainer.new()
-		v.add_theme_constant_override("separation", 0)
-		v.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		v.add_child(unten)
-		unten.ready.connect(func():
-			if unten.get_combined_minimum_size().x <= breite: return
-			var l := HBoxContainer.new()
-			l.mouse_filter = Control.MOUSE_FILTER_IGNORE
-			for m in mitte:
-				unten.remove_child(m)
-				l.add_child(m)
-			v.add_child(l), CONNECT_ONE_SHOT | CONNECT_DEFERRED)
-		_fuss_rechts(unten, zeichen, wahl, farbe, tat, an)
-		return v
-	_fuss_rechts(unten, zeichen, wahl, farbe, tat, an)
-	return unten
+	var unten := knopfzeile(knopf("neben", "Abbrechen" if de else "Cancel", abbrechen, true),
+		knopf("gefahr" if farbe == Stil.WARN else "haupt", wahl, tat, false, an))
+	if oben.is_empty(): return unten
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 0)
+	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var l: Array = oben.filter(func(k): return bool(k.get_meta("links", false)))
+	var r: Array = oben.filter(func(k): return not bool(k.get_meta("links", false)))
+	v.add_child(knopfzeile(l[0] if not l.is_empty() else null, r[0] if not r.is_empty() else null))
+	v.add_child(unten)
+	return v
 
-static func _fuss_rechts(unten: HBoxContainer, zeichen: String, wahl: String, farbe: Color, tat: Callable, an: bool) -> void:
-	var luecke_ := Control.new()
-	luecke_.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	luecke_.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	unten.add_child(luecke_)
-	if farbe == Stil.BRIGHT and zeichen == "":
-		unten.add_child(hauptwahl(wahl, tat, an))
-		return
+# 557 Runde 4 (Chef 17:44: „dass wir die Knöpfe gleich groß machen“; 17:40: „ein Weiter, wenn dann rechts und ein Zurück auf der
+# linken Seite“; 17:43: Wegwerfen in Bild 2 rot, in Bild 5 nicht): eine Schaltflaeche fuer jedes Fenster, alle gleich gross: 15 sp in
+# gesperrten Versalien, Flaeche 48 dp, in der Reihe je die halbe Breite (knopfzeile); Unterschied nur Farbe und Seite. [art]: "haupt"
+# Gold mit „›“; "neben" gedaempftes Gold, mit „‹“ vorn, wenn [links] (zurueck, abbrechen, schliessen), sonst mit „›“; "gefahr" (was
+# etwas zerstoert: Wegwerfen, Loeschen) ueberall in Warnfarbe mit „×“. [links]: steht links, Inhalt buendig links; sonst rechts,
+# buendig rechts; nie mittig
+static func knopf(art: String, text: String, tat: Callable, links := false, an := true) -> PanelContainer:
+	var farbe: Color = {"haupt": Stil.BRIGHT, "neben": Stil.GOLD, "gefahr": Stil.WARN}.get(art, Stil.GOLD)
+	if not an: farbe = Color(Stil.DIM, 0.75)
 	var h := HBoxContainer.new()
 	h.add_theme_constant_override("separation", int(6 * DP))
 	h.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	h.custom_minimum_size.y = 48 * DP
-	h.alignment = BoxContainer.ALIGNMENT_CENTER
-	h.add_child(Erschaffung.luecke(0, 8))
-	if zeichen != "":
-		var kr := Rastzeichen.neu(zeichen, 15, farbe)
+	h.alignment = BoxContainer.ALIGNMENT_BEGIN if links else BoxContainer.ALIGNMENT_END
+	# ohne Innenrand: das Zeichen steht buendig mit dem Text darueber, und „× WEGWERFEN“ passt auf 360 dp in die halbe Breite
+	if art == "gefahr":
+		var kr := Rastzeichen.neu("KREUZ", 15, farbe)
 		kr.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		h.add_child(kr)
-	h.add_child(wahl_b(wahl, farbe))
-	h.add_child(Erschaffung.luecke(0, 8))
+	elif links: h.add_child(pfeil(farbe, true))
+	var l := Stil.zeile(text.trim_prefix("‹").strip_edges().to_upper().replace("ß", "SS"), 15, farbe, 2.0)   # Helfer 14:18: „SCHLIEßEN“
+	l.name = "Text"
+	l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	h.add_child(l)
+	if art != "gefahr" and not links: h.add_child(pfeil(farbe, false))
 	var p := tippbar(h, tat if an else func(): pass)
-	p.size_flags_horizontal = Control.SIZE_SHRINK_END
-	unten.add_child(p)
+	p.set_meta("knopf", art)
+	p.set_meta("links", links)
+	return p
+
+# eine Reihe Knoepfe: [links] links, [rechts] rechts (null: frei), jeder die halbe Breite, damit alle Knoepfe eines Fensters gleich
+# gross sind, auch einer allein (Brauen „‹ SCHLIESSEN“, Kapitelende „WEITER ›“)
+static func knopfzeile(links: Control, rechts: Control) -> HBoxContainer:
+	var r := HBoxContainer.new()
+	r.add_theme_constant_override("separation", int(8 * DP))
+	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	for k in [links, rechts]:
+		var c: Control = k
+		if c == null:
+			c = Control.new()
+			c.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		c.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		c.size_flags_stretch_ratio = 1.0
+		r.add_child(c)
+	return r
 
 # 557 Vorlage 2 (Votum Perikles 14:2x, Chef 14:21 zu Bild 6 und 7): der Teil unter der Liste folgt dem Inhalt, solange alles passt;
 # rollt die Liste, steht er fest unten. [rolle] liegt in [spalte]; dahinter kommt ein dehnbarer Rest, der die Luecke unten nimmt
@@ -435,26 +456,20 @@ static func folge_inhalt(spalte: VBoxContainer, rolle: ScrollContainer, innen: C
 	passe.call_deferred()
 
 # Nebenwahl (549a Punkt 4): Versalien gesperrt wie die Hauptwahl, kleiner, gedaempftes Gold, eigenes Zeichen, Flaeche 48 dp
-static func nebenwahl(zeichen: String, text: String, tat: Callable, an := true, leise := false) -> PanelContainer:
+static func nebenwahl(zeichen: String, text: String, tat: Callable, an := true) -> PanelContainer:
+	# nur noch Entwurf B ohne Vorlage 2; mit Vorlage 2 gilt knopf (557 Runde 4: alle Knoepfe gleich gross, keine leise Stufe)
 	var lz := HBoxContainer.new()
 	lz.add_theme_constant_override("separation", int(6 * DP))
 	lz.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	lz.custom_minimum_size.y = 48 * DP
 	lz.alignment = BoxContainer.ALIGNMENT_CENTER
 	lz.add_child(Erschaffung.luecke(0, 8))
-	var f := (Stil.DIM if leise else Stil.GOLD) if an else Color(Stil.DIM, 0.6)   # leise: Pruefer 16:40, Wegwerfen wie Abbrechen
-	if vorlage2 and leise and an: f = ANGABE   # Zu 557 (8): leise, aber lesbar
-	if vorlage2 and leise: lz.get_child(0).custom_minimum_size.x = 4 * DP   # Zu 557 (4): mehr Platz in der Zeile unten
-	# Zu 557 (3) (Pruefer 16:43: „‹“ ein winziger Punkt): das Zeichen gezeichnet wie „›“ der Hauptwahl, gespiegelt; die Schrift
-	# hoechstens eine Stufe kleiner als die Hauptwahl (15), die Flaeche 48 dp
-	if vorlage2 and text.begins_with("‹"):
-		text = text.substr(1).strip_edges()
-		lz.add_child(pfeil(f, true))
+	var f := Stil.GOLD if an else Color(Stil.DIM, 0.6)
 	if zeichen != "":
 		var kr := Rastzeichen.neu(zeichen, 14, f)
 		kr.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		lz.add_child(kr)
-	var lt := Stil.zeile(text.to_upper().replace("ß", "SS"), (13.5 if leise else 14.0) if vorlage2 else 12.5, f, 2.0)   # Helfer 14:18: „SCHLIEßEN“
+	var lt := Stil.zeile(text.to_upper().replace("ß", "SS"), 12.5, f, 2.0)   # Helfer 14:18: „SCHLIEßEN“
 	lt.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	lz.add_child(lt)
 	lz.add_child(Erschaffung.luecke(0, 8))

@@ -2,7 +2,7 @@ class_name Rastzeichen
 extends Control
 # 549: Zeichen des Rastfensters nach DESIGN-STIL „Zeichen“ (Raster 24 × 24, Linie 1,6, fein 1,1, runde Enden, nie gefüllt ausser Punkten):
 # REST (Flamme über gekreuzten Scheiten, wie aktionsknopf.gd), MOON (Sichel), CLOCK (Uhr wie zeichenknopf.gd), NEXT (zwei Winkel),
-# BED (Bett: Zimmer), MUG (Krug: Met), COIN (Münze: Fleisch verkaufen)
+# BED (Bett: Zimmer), MUG (Krug: Met), COIN (Münze: Fleisch verkaufen), SCHENKE (Wirtshausschild: Rast an der Theke)
 
 var art := "REST"
 var farbe := Stil.GOLD
@@ -74,6 +74,12 @@ func _draw() -> void:
 			l.call(12, 7.5, 12, 16.5); l.call(7.5, 12, 16.5, 12)
 		"KREUZ":   # 557: Löschen, leise
 			l.call(7, 7, 17, 17, duenn); l.call(17, 7, 7, 17, duenn)
+		"SCHENKE":   # 557 Runde 4 (Pruefer 17:12: an der Theke die Flamme vom Lagerfeuer): Wirtshausschild, am Arm haengend, darin ein Krug
+			l.call(2.5, 3, 2.5, 9.5); l.call(2.5, 4, 21.5, 4); l.call(2.5, 8.5, 7, 4, duenn)
+			l.call(8, 4, 8, 8, duenn); l.call(18, 4, 18, 8, duenn)
+			zug.call([Vector2(5.5, 8), Vector2(20.5, 8), Vector2(20.5, 20.5), Vector2(5.5, 20.5)], true)
+			zug.call([Vector2(9.5, 11.5), Vector2(9.5, 17.5), Vector2(14.5, 17.5), Vector2(14.5, 11.5)], false, duenn)
+			zug.call([Vector2(14.5, 12.8), Vector2(16.8, 12.8), Vector2(16.8, 16), Vector2(14.5, 16)], false, duenn)
 		"COIN":
 			draw_arc(P.call(12, 12), 8.5 * u, 0, TAU, 48, c, dick, true)
 			draw_arc(P.call(12, 12), 5.5 * u, 0, TAU, 40, c, duenn, true)
