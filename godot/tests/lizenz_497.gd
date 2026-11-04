@@ -1,7 +1,7 @@
 extends SceneTree
 # 497 (Chef 03.11., 07:09, Build 204): „Über das Spiel“ nennt die Godot Engine mit ihrer Lizenz (MIT) und ihre Drittteile; die
 # Texte kommen aus der Engine selbst (Engine.get_license_text, get_copyright_info, get_license_info; Godot-Doku „Complying with
-# licenses“), Schrift nennt Alegreya und Fondamento. Ohne Bild.
+# licenses“), Schrift nennt Alegreya und Fondamento; Absaetze zusammengezogen statt 80-Spalten-Umbruch (Chef 23:43). Ohne Bild.
 # Aufruf: im Ordner godot mit -s res://tests/lizenz_497.gd -> „LIZENZ497 n Fehler“
 
 var fehler := 0
@@ -50,8 +50,17 @@ func _lauf() -> void:
 		var li := Engine.get_license_info()
 		var ohne := []
 		for k in li:
-			if not t.contains(String(li[k]).strip_edges().split("\n")[0]): ohne.append(k)
+			if not t.contains(Hauptmenue.umbrechen(String(li[k]).strip_edges().split("\n")[0])): ohne.append(k)
 		pruefe(ohne.is_empty(), "Lizenztexte fehlen: %s" % [ohne])
+		# 497 (Chef 03.11., 23:43): kein fester Umbruch mitten im Satz (Zeile endet klein oder mit Komma, naechste beginnt klein)
+		var stummel := RegEx.create_from_string("[a-z,;]\n[a-z]")
+		var mitten := []
+		for l in hm.find_children("*", "Label", true, false):
+			var m := stummel.search(String(l.text))
+			if m: mitten.append(String(l.text).substr(maxi(0, m.get_start() - 30), 60).c_escape())
+		pruefe(mitten.is_empty(), "%d Texte mit festem Umbruch mitten im Satz, z. B. %s" % [mitten.size(), mitten.slice(0, 3)])
+		pruefe(not t.contains("Â©") and not t.contains("  "), "Kodierfehler „Â©“ oder doppelte Leerzeichen")
+		pruefe(t.contains("Permission is hereby granted, free of charge, to any person obtaining a copy of this software"), "MIT-Absatz nicht zusammengezogen")
 		knopf.pressed.emit()
 		await process_frame
 		pruefe(not texte(hm).contains("Permission is hereby granted"), "zweites Tippen schliesst nicht")
