@@ -28,7 +28,7 @@ var ziel_text := ""
 
 func notiere(s: String) -> void:
 	log_.append("%d:%s" % [int(minuten), s])
-	if log_.size() > 30: log_.pop_front()
+	if log_.size() > 60: log_.pop_front()
 
 func _initialize() -> void:
 	_lauf.call_deferred()
@@ -85,7 +85,14 @@ func _lauf() -> void:
 	print("ZUFALLSSPIELER %s nach %d Spielminuten (Tag %d): Ziel „%s“; Ort %s %s; Stufe %d, TP %d/%d, Gold %d; Kaempfe %s" % [ende, int(minuten), z.tag,
 		Sprache.t(G.ziel(z)), spiel.karte.id if spiel.karte else "-", spiel.held.kachel if spiel.held else "-", hw.stufe, hw.tp, hw.max_tp(), z.gold, kaempfe])
 	print("ZUFALLSSPIELER offen: %s" % offen())
-	print("ZUFALLSSPIELER letzte Eingaben: %s" % " ".join(PackedStringArray(log_)))
+	# Lauf 259: in einer Zeile schnitt der Ablauf (cut -c1-900) die letzten 20 Eingaben ab; je zehn eine Zeile, die Nummer haelt die Folge
+	for i in range(0, log_.size(), 10):
+		print("ZUFALLSSPIELER Eingaben %02d: %s" % [i / 10 + 1, " ".join(PackedStringArray(log_.slice(i, i + 10)))])
+	# Lauf 259 Saat 1: „offen: Kampf“ in der Schenke nach zwei Niederlagen; was vom Kampf noch steht
+	if spiel.im_kampf:
+		var kf = kampfort()
+		print("ZUFALLSSPIELER Kampf: spiel.kampf %s, Kampfort %s, busy %s, Ausgang %s, Aufrufe %d" % [spiel.kampf != null and is_instance_valid(spiel.kampf),
+			kf != null, kf.busy if kf else "-", kf.mars.outcome if kf and kf.mars else "-", spiel.find_children("*", "", false, false).filter(func(n): return n.has_signal("ende")).size()])
 	quit(0 if ende == "fertig" else 1)
 
 # was gerade offen ist (Text, Laden, Rast, Brett, Kampf, Pause)
