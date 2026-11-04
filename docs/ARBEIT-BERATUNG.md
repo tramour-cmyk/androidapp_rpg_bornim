@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (04.11., 16:4x, `session_01Hmoj77xVieLSZxfQAe6k48`):** Chefrunde 12:45–16:45: Durchspielregel (488; 512a, 532a, 534a, 513a), 548a, 503a, 475 Richtung ja und 475a 1, 524.1 nach B, 468c, 468d Nachtpause, 537 geteilt, Gruppe 557 (525, 549, 531-Gesicht), 492 Sicht wie alt, 505 C und Richtung gut, 558 Form voll, 559 Prüfung (Perikles), 560 Monster drehen (Jerry), 549 in 557; 557 Vorlage 16:39: Bilder 4, 5, 6 passen, Prüferbefund 16:43 bei Tom, Gegenstandsfenster ohne Rahmen (549a nachgezogen); Rast und Rückfragen, Abbrechen offen bis Toms nächstem Durchgang. Kosten auf: 488, 475, 557, 505, 468. Nachfolger: Sokrates – Chefrunde: 557 Rückfragen und Rast, dann 549a; t257 ab Bereich C.
+**Übergabe (04.11., 19:49, `session_01Hmoj76tX5AcuwXNce8Fk7U`):** Chefrunde 16:46–19:49: 549a ja mit Aufbau in `DESIGN-STIL.md` „Fenster und Schirme ohne Kasten“ (fremd geprüft, mit allen Regeln abgeglichen; 549a.1 bei Perikles), 549b ja, 557 Runden 3/4 beantwortet (Knöpfe gleich groß, Seite nach Bedeutung, Warnfarbe, Zentrieren, +x, Rast ohne Lichthof), 505 Lauf 2 ja mit Auflagen, Höhle in 492, 512b ja (verteilt), 531 Film statt Bild, 531a nach dem Film, 558 passt mit Auflage, 568 ja mit Angeln A, t257 C an Jerry (536, 544, 545, 546, 551, 561–567), D/E (555 Nacht fehlt, 517, 505 Nordausgang), 569 Baumkronen bei Tom. Offen beim Chef: `ansehen/557` Runde 5 (neu von Tom), t257 D–G. Kosten auf: 557, 549a, 512, 505, 558, 568. Nachfolger: Sokrates – Chefrunde: 557 Runde 5, dann t257 ab D.
 
 ## Zeilen
 

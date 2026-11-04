@@ -69,6 +69,7 @@
 
 ## Lehren
 
+- Fragt der Chef „sieht es besser aus? Ich weiß es nicht“, ist das eine Frage an mein Urteil, kein Auftrag: Votum mit Gegenargument geben, nie gleich als Bauauftrag eintragen; und im Votum nichts sagen, was dem eben Vereinbarten widerspricht (04.11., 17:41 Knopfgröße als Auftrag weitergegeben; 17:44 „leise Zeile“ gegen „gleich große Knöpfe“; Chef: „Du sollst mitdenken“, „heute ist es sehr anstrengend mit dir“).
 - Jede Rückmeldung des Chefs zu einer Vorlage, auch ohne Entscheid und auch, wenn sie über eine andere Rolle kam: im selben Commit Datei in `ansehen/` löschen und Stand auf „startbar“ setzen (`vorgang.py stand`); eine Zeile „Zu …“ allein startet nichts (04.11., 16:15: 557 lag nach 14:26 zwei Stunden auf „wartet auf Chef“; Chef: „wieso passiert das wieder?“).
 - Fasst der Chef Vorgänge zusammen, sofort alle offenen der Chefsache auf dieselbe Frage prüfen, nicht nur den genannten (04.11., 13:43: 524.1, 537, 525 einzeln gefunden; Chef: „bevor ich jetzt jedes Mal nachfragen muss … Echt nervig wieder heute“).
 - Beim Start jede offene Datei der Chefsache gegen das Archiv halten: steht der Entscheid schon dort, Datei sofort löschen; und vor dem ersten Wort an den Chef die letzte Sitzung lesen (`list_sessions`), was der Chef dort schon entschieden hat (02.11., 19:0x: 417 zum zweiten Mal vorgelegt, „Blatt“ trotz Chef 18:49 benutzt, Auftrag doppelt als 482; Chef: „jetzt langsam völlig irre“). Jede Rückmeldung des Chefs sofort im Chat beantworten, erst dann eintragen (Chef: „4 Sachen geäußert und nirgends … Feedback“).
