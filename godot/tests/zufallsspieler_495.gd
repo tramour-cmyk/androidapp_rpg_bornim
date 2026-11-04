@@ -129,8 +129,12 @@ func schritt() -> void:
 		return
 	ziel_zug()
 
+# Lauf 254: der Kampfort haengt nicht unter dem Spiel, sondern an der Wurzel (aufruf.gd starte: root.add_child); unter spiel gesucht,
+# fand der Spieler ihn nie und wartete im ersten Kampf ewig („offen: Kampf“, 0 Kaempfe gewertet)
 func kampfort():
-	for n in spiel.find_children("*", "", true, false):
+	var k = spiel.get("kampf")
+	if k != null and is_instance_valid(k) and k.has_method("order") and k.get("mars") != null: return k
+	for n in spiel.get_tree().root.find_children("*", "", true, false):
 		if n.has_method("order") and n.get("mars") != null: return n
 	return null
 
