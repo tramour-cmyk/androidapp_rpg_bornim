@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [549a](entscheiden/549a-ohne-kasten.md) | **Muss** | A Spiel | 04.11., 11:12 | Oberfläche „ohne Kasten“ als Grundsatz: Linien trennen, ein Rahmen nur für die Entscheidung? | Sokrates |
-| [468c](entscheiden/468c-nur-eine-sitzung.md) | **Muss** | B Abläufe | 04.11., 07:12 | Wochenlimit 79 % am Mittwoch: bis Sa 19:59 nur noch eine Entwicklersitzung zugleich? | Sokrates |
 | [110](entscheiden/110-ford-von-hand-starten.md) | – | B Abläufe | 04.11., 13:17 | Ford läuft auf Tiefe 6: bitte neuen Ford von Hand starten | Ford |
 
 ## Zu billigen
@@ -292,12 +291,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 38, Muss 29, startbar 16
+**Sokrates** – offen 37, Muss 28, startbar 16
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 549a | M | Rückfrage: Oberfläche ohne Kasten (549 B) als Grundsatz, Spielstände als zweiter Schirm? ( | Chef (Datei in der Chefsache) |
-| 468c | M | Rückfrage: Wochenlimit 79 % (Bild Chef 04.11., 07:11), bis Sa nur eine Entwicklersitzung z | Chef (Datei in der Chefsache) |
 | 512 | M | von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles): Abgleich alt gegen ne | startbar |
 | 508 | M | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
 | 488 | M | von Chef (02.11., 22:44, „dann frieren wir das mal ab einem gewissen Punkt ein … kümmern u | wartet auf Perikles |
@@ -342,7 +340,7 @@ Format (Muster: „So geht's“ unten): t257-kampf-klang.md: 26 Vorgänge, höch
 
 Nicht gestellt: 407 (Projekt)
 
-Ohne Datei: 3402 (Projekt), 275 (Projekt)
+Ohne Datei: 3402 (Projekt), 275 (Projekt), 26 (Team Tom)
 
 ## So geht's
 
