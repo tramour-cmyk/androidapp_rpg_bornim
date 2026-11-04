@@ -22,7 +22,6 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [475](ansehen/475-gesichter.md) | Gesichter der Leute im Dorf auf dem Kaufkörper | – | 04.11., 06:37 |
 | [492](ansehen/492-hoehle.md) | Blutzahnhöhle: alt gegen neu an acht Stellen | – | 03.11., 23:30 |
 | [505](ansehen/505-nebel-stufen.md) | Nebel im Wald: drei Stufen beschriftet, Bäume A oder B | – | 03.11., 22:35 |
 | [524.1](ansehen/5241-fenster.md) | Gegenstandsfenster spielerfreundlicher: Vorschlag | – | 04.11., 02:26 |
@@ -62,7 +61,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 72 | K | Profil und Kampfsystem | ruht |
 | Pflege | K | von Werkzeug (340.3, 04.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
 
-**Tom** – offen 98, Muss 78, startbar 2
+**Tom** – offen 98, Muss 78, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -126,7 +125,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 470.1 | K | von Sokrates (Idee Chef 02.11., 18:37: Held in der Erschaffung „auf Klick groß … damit man | wartet auf 431e (Chef) |
 | 471 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.2 Fertigkeiten durch Tun, vier Ränge, | ruht |
 | 474 | M? | von Team Jerry (Tuffy, 02.11., 02:4x; aus 399.1a): Debug-Schlüssel nur im Cache, verdrängt | ruht |
-| 475 | M | von Sokrates (Chef 02.11., 10:52, Build 146; erneut 03.11., 07:45, Build 204, Zu 475): Row | Chef |
+| 475 | M | von Sokrates (Chef 02.11., 10:52, Build 146; erneut 03.11., 07:45, Build 204, Zu 475): Row | startbar |
 | 476 | M? | von Sokrates (Chef 02.11., 14:43: „Werden … die Symbole der Ausrüstungsgegenstände … durch | wartet auf 458.3 (ruht) |
 | 477 | M? | von Sokrates (Chef 02.11., 14:59, Zu 477): Godot-APKs zeigen im MuMu Player am Rechner nur | wartet auf Test/Build (gebaut) |
 | 461.1 | M | von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461): Grundstand: alles Entschiedene zu Figure | ruht |
