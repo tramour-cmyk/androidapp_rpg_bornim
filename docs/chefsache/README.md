@@ -235,10 +235,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | Pflege | K | von Werkzeug (340.3, 04.11.): Vorrat über 15 KB kürzen; Stände der Zeilen „wartet auf Test | startbar |
 
-**Perikles** – offen 29, Muss 23, startbar 3
+**Perikles** – offen 30, Muss 24, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 578 | M | von Sokrates (Chef 04.11., 21:03 „Also ich brauche den Film“, Archiv „572, gleich Film“): | startbar |
 | 549a.1 | M? | von Sokrates (549a ja, Chef 04.11., 19:28: „so aufschreiben, dass der nächste … das richti | startbar |
 | 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | startbar |
 | 512.1 | M? | von Sokrates (512, Chef 03.11., 23:28, „Kümmer du dich um 512.“): Regel „Abgleich“ wirkt n | wartet auf Test/Build (gebaut) |
