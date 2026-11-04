@@ -168,7 +168,10 @@ func frage_loeschen(d: Dictionary) -> void:
 	v.custom_minimum_size.x = get_viewport_rect().size.x - (110 if entwurf == "B" else 48) * DP
 	var k := Rueckfrage.halte(Erschaffung.kasten(v))
 	mitte.add_child(k)
-	if entwurf == "B": schleier.color = Color(0, 0, 0, 0.93)   # Helfer 13:04: „Neues Spiel“ schien am Rand der Rueckfrage durch
+	if entwurf == "B":   # Helfer 13:04: „Neues Spiel“ schien am Rand durch; 13:07 bei 93 % noch lesbar: deckend, die Liste wird ausgeblendet
+		schleier.color = Color(0, 0, 0, 0.97)
+		liste.modulate.a = 0.0
+		schleier.tree_exited.connect(func(): if is_instance_valid(liste): liste.modulate.a = 1.0)
 	v.add_child(Stil.zeile(("Spielstand löschen?" if de else "Delete saved game?").to_upper(), 14, Stil.GOLD, 3.0))
 	var t := Erschaffung.txt(("%s (Stufe %d) wird endgültig gelöscht." if de else "%s (level %d) will be deleted for good.") % [String(h.get("name", "")), int(h.get("stufe", 1))], 15)
 	v.add_child(t)
@@ -283,8 +286,11 @@ func _voll_zeile(d: Dictionary, de: bool) -> Control:
 		Sprache.t(hd["klassen"][klasse]["name"]) if hd["klassen"].has(klasse) else klasse, Sprache.u("level"), int(h.get("stufe", 1))], 16, Stil.TEXT))
 	if mit["ziel"]:   # Vorschlag 2 (Chef 12:38 „mit 2“): wo man steht, damit man nach Tagen weiss, was zu tun ist (Hauptauftrag der Chronik)
 		var zs := Zustand.aus_daten(z)
-		# Helfer 11:28, 11:36: in BRIGHT, dann gedaempftem Weiss noch so hell wie die Wahl und zog den Blick: schraeg, gedaempfter, kleiner
-		v.add_child(_satz(("Kapitel %d · " if de else "Chapter %d · ") % Geschichte.kapitel(zs) + Sprache.t(Geschichte.ziel(zs)), 13, Color(Stil.TEXT, 0.62), true))
+		# Helfer 11:28, 11:36: in BRIGHT, dann gedaempftem Weiss noch so hell wie die Wahl und zog den Blick; 13:07 bei 62 % Weiss kaum als
+		# gedaempft zu erkennen: in gedaempftem Gold (eigene Farbe, nicht die der Angaben), schraeg, mit Abstand davor und danach
+		v.add_child(Erschaffung.luecke(3))
+		v.add_child(_satz(("Kapitel %d · " if de else "Chapter %d · ") % Geschichte.kapitel(zs) + Sprache.t(Geschichte.ziel(zs)), 14, Stil.GOLD, true))
+		v.add_child(Erschaffung.luecke(3))
 	var ort := String(d.get("ort", {}).get("karte", ""))
 	var karten = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json")) if FileAccess.file_exists("res://daten/karten.json") else null
 	if karten is Dictionary and karten["karten"].has(ort): ort = Sprache.t(karten["karten"][ort]["name"])
@@ -308,31 +314,57 @@ func _voll_zeile(d: Dictionary, de: bool) -> Control:
 	rand.add_theme_constant_override("margin_top", int(12 * DP)); rand.add_theme_constant_override("margin_bottom", int(4 * DP))
 	rand.add_child(r)
 	aussen.add_child(tippbar(rand, func(): laden.emit(platz)))
-	# Loeschen leise darunter, eingerueckt unter die Zeilen (weit weg von „Laden“), eigene Flaeche von 48 dp, mit Rueckfrage
+	# Loeschen leise darunter, rechts unter „Laden“ (Helfer 13:07: stand links unter den Angaben), mit eigener Flaeche von 48 dp und
+	# Abstand nach oben, damit es kein Fehlgriff wird; mit Rueckfrage
+	var weg := nebenwahl("KREUZ", "Löschen" if de else "Delete", func(): frage_loeschen(d))
+	weg.size_flags_horizontal = Control.SIZE_SHRINK_END
+	aussen.add_child(weg)
+	return aussen
+
+# Nebenwahl (549a Punkt 4): Versalien gesperrt wie die Hauptwahl, kleiner, gedaempftes Gold, eigenes Zeichen, Flaeche 48 dp
+static func nebenwahl(zeichen: String, text: String, tat: Callable, an := true) -> PanelContainer:
 	var lz := HBoxContainer.new()
 	lz.add_theme_constant_override("separation", int(6 * DP))
 	lz.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	lz.custom_minimum_size.y = 48 * DP
-	lz.add_child(Erschaffung.luecke(0, 150 * 0.4 + 14 - 6))
-	# Nebenwahl (549a Punkt 4): Versalien gesperrt wie die Hauptwahl, kleiner, gedaempftes Gold, eigenes Zeichen
-	var kr := Rastzeichen.neu("KREUZ", 14, Stil.GOLD)
-	kr.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	lz.add_child(kr)
-	var lt := Stil.zeile(("Löschen" if de else "Delete").to_upper(), 12.5, Stil.GOLD, 2.0)
+	lz.alignment = BoxContainer.ALIGNMENT_CENTER
+	lz.add_child(Erschaffung.luecke(0, 8))
+	var f := Stil.GOLD if an else Color(Stil.DIM, 0.6)
+	if zeichen != "":
+		var kr := Rastzeichen.neu(zeichen, 14, f)
+		kr.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		lz.add_child(kr)
+	var lt := Stil.zeile(text.to_upper(), 12.5, f, 2.0)
 	lt.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	lz.add_child(lt)
-	var weg := tippbar(lz, func(): frage_loeschen(d))
-	weg.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-	aussen.add_child(weg)
-	return aussen
+	lz.add_child(Erschaffung.luecke(0, 8))
+	var p := tippbar(lz, tat if an else func(): pass)
+	p.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	return p
+
+# Hauptwahl als eigene Flaeche (48 dp), hell golden mit „›“; aus: matt ohne Wirkung
+static func hauptwahl(text: String, tat: Callable, an := true) -> PanelContainer:
+	var h := HBoxContainer.new()
+	h.add_theme_constant_override("separation", int(8 * DP))
+	h.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	h.custom_minimum_size.y = 48 * DP
+	h.alignment = BoxContainer.ALIGNMENT_CENTER
+	h.add_child(Erschaffung.luecke(0, 8))
+	h.add_child(wahl_b(text, Stil.BRIGHT if an else Color(Stil.DIM, 0.6)))
+	h.add_child(Erschaffung.luecke(0, 8))
+	var p := tippbar(h, tat if an else func(): pass)
+	p.size_flags_horizontal = Control.SIZE_SHRINK_END
+	return p
 
 # rechts die Hauptwahl hell golden mit „›“; Helfer 11:36: „›“ klein und etwas tief, darum eigenes Zeichen, groesser, mittig zur Schrift
-func _wahl(text: String) -> Control:
+func _wahl(text: String) -> Control: return wahl_b(text, Stil.BRIGHT)
+
+static func wahl_b(text: String, farbe: Color) -> Control:
 	var h := HBoxContainer.new()
 	h.add_theme_constant_override("separation", int(8 * DP))
 	h.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	h.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	var l := Stil.zeile(text.to_upper(), 15, Stil.BRIGHT, 2.0)
+	var l := Stil.zeile(text.to_upper(), 15, farbe, 2.0)
 	l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(l)
 	var c := Control.new()
@@ -342,7 +374,7 @@ func _wahl(text: String) -> Control:
 	c.draw.connect(func():
 		var m := c.size / 2
 		var a := 4.0 * DP
-		c.draw_polyline(PackedVector2Array([m + Vector2(-a * 0.55, -a * 1.5), m + Vector2(a * 0.75, 0), m + Vector2(-a * 0.55, a * 1.5)]), Stil.BRIGHT, 1.8 * DP, true))
+		c.draw_polyline(PackedVector2Array([m + Vector2(-a * 0.55, -a * 1.5), m + Vector2(a * 0.75, 0), m + Vector2(-a * 0.55, a * 1.5)]), farbe, 1.8 * DP, true))
 	h.add_child(c)
 	return h
 

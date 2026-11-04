@@ -7,6 +7,10 @@ extends SceneTree
 #                    „Oberkörper“ eines Magiers mit epischer Robe an, im Beutel drei Roben (besser, schlechter, gemischt) und ein Plattenpanzer
 #   557_b_loeschen   die Rueckfrage zum Loeschen (der einzige Rahmen)
 #   557_jetzt_zwei   der Stand von heute (Karten wie alt, 529) mit denselben zwei Plaetzen, zum Vergleich
+# Gruppe 557 (Chef 04.11., 13:32, 13:42, 13:44), je heute und B:
+#   557_fenster_ring_jetzt/_b, 557_fenster_panzer_jetzt/_b   Gegenstandsfenster 524.1 (Ring, Kettenpanzer wie Bild 524.1)
+#   557_kapitel_jetzt/_b     Schirm „Ende von Kapitel 1“ (537)
+#   557_brauen_jetzt/_b, 557_braukasten_jetzt/_b   Morwens Hütte, Brauen und Mengenkasten nach „Alle“ (525)
 # PNG nach BILD557_AUS (Vorgabe user://). Die Spielstaende des Rechners werden gesichert und danach wiederhergestellt.
 
 func _initialize() -> void:
@@ -53,7 +57,7 @@ func _wechsel() -> void:
 	var an := _ding(z, "robe", "EPIC", 4, roll.call([a.call("DEX", 2), a.call("AC", 2), a.call("RESIST", 2), a.call("STR", 2)]), 7)
 	z.beutel.erase(an)
 	for x in hw.anlegen(an): z.beutel.append(x)
-	_ding(z, "robe", "LEGENDARY", 6, roll.call([a.call("DEX", 3), a.call("AC", 3), a.call("RESIST", 3), a.call("STR", 3), a.call("CON", 2)]), 3)
+	_ding(z, "robe", "VERY_RARE", 6, roll.call([a.call("DEX", 3), a.call("AC", 3), a.call("RESIST", 3), a.call("STR", 3), a.call("CON", 2)]), 3)
 	_ding(z, "robe", "UNCOMMON", 2, roll.call([a.call("AC", 1)]), 11)
 	_ding(z, "robe", "RARE", 3, roll.call([a.call("TENACITY", 18)]), 5)
 	_ding(z, "plate", "COMMON", 2, [], 2)
@@ -90,9 +94,83 @@ func _lauf() -> void:
 	await _zeige("", "557_jetzt_zwei")
 	Spielstaende.entwurf = ""
 	await _wechsel()
+	await _fenster()
+	await _kapitel()
+	await _brauen()
 	for n in range(1, gesichert.size() + 1):
 		Spielstand.loesche(n)
 		if not gesichert[n - 1].is_empty():
 			var f := FileAccess.open(Spielstand.datei(n), FileAccess.WRITE); f.store_string(JSON.stringify(gesichert[n - 1])); f.close()
 	Spielstand.platz = alt_platz
 	quit(0)
+
+func _ring(z: Zustand, saat: int, rolls: Array) -> Dictionary:
+	return {"uid": z.neue_uid.call(), "base": "ring", "rarity": "DIVINE", "ilvl": 9, "plus": 0, "rolls": rolls, "unique": null, "name_seed": saat}
+
+# wie tests/fenster_bild_519.gd (Bild 524.1): Krieger Thora, angelegt ein Ring mit +2 GES, +2 STÄ; im Beutel ein Ring und ein Kettenpanzer
+func _fenster() -> void:
+	var z := Zustand.new()
+	z.name = "Thora"; z.gold = 100
+	var hw := Heldwerte.erschaffe("Thora", "HUMAN", "FIGHTER", {}, z.neue_uid)
+	var saat := 0
+	for s_ in 200:
+		if Beute.name(_ring(z, s_, [])).ends_with("Eisernen Richters"): saat = s_; break
+	hw.anlegen(_ring(z, saat + 1, [["DEX", 2], ["STR", 2]]))
+	var neu := _ring(z, saat, [["ALL_STATS", 1], ["DEX", 2], ["CHA", 2]])
+	z.beutel.append(neu)
+	var panzer := Beute.erzeuge_mit_uid(KotlinZufall.new(5), z.neue_uid, 9, "DIVINE", "FIGHTER")
+	z.beutel.append(panzer)
+	var ebene := CanvasLayer.new()
+	root.add_child(ebene)
+	var m := Menue.new(hw, z)
+	ebene.add_child(m)
+	await process_frame
+	for entwurf in ["", "B"]:
+		Menue.entwurf = entwurf
+		for paar in [["ring", neu], ["panzer", panzer]]:
+			m.frage_stueck(paar[1])
+			await _bild("557_fenster_%s_%s" % [paar[0], "b" if entwurf == "B" else "jetzt"])
+			m.get_child(m.get_child_count() - 1).free()
+	Menue.entwurf = ""
+	ebene.queue_free()
+	await process_frame
+
+func _kapitel() -> void:
+	var z := Zustand.new()
+	var hw := Heldwerte.erschaffe("Thora", "ELF", "WIZARD", {}, z.neue_uid)
+	hw.ep_dazu(int(Heldwerte.regel("ep_fuer_stufe")[5]))
+	for entwurf in ["", "B"]:
+		KapitelSchirm.entwurf = entwurf
+		var ebene := CanvasLayer.new()
+		root.add_child(ebene)
+		ebene.add_child(KapitelSchirm.new(hw, Geschichte.CHAPTER_END_TEXT))
+		await _bild("557_kapitel_" + ("b" if entwurf == "B" else "jetzt"))
+		ebene.queue_free()
+		await process_frame
+	KapitelSchirm.entwurf = ""
+
+# wie tests/laden_bild_525.gd: 23 Gold, 7 Kräuter, 2 Heiltränke
+func _brauen() -> void:
+	for entwurf in ["", "B"]:
+		LadenSchirm.entwurf_b = entwurf
+		var z := Zustand.new()
+		z.name = "Thora"; z.gold = 23
+		z.dazu("herbs", 7)
+		z.dazu("potion", 2)
+		z.dazu("bat_wing", 0)
+		var hw := Heldwerte.erschaffe("Thora", "HUMAN", "FIGHTER", {}, z.neue_uid)
+		var ebene := CanvasLayer.new()
+		root.add_child(ebene)
+		var l := LadenSchirm.new(hw, z, Laden.new(["herbs", "potion", "remedy"], true))
+		ebene.add_child(l)
+		await process_frame
+		l.seite = "brauen"; l.baue()
+		var e := "b" if entwurf == "B" else "jetzt"
+		await _bild("557_brauen_" + e)
+		var heil: Dictionary = Laden.rezepte().filter(func(r): return String(r["ergebnis"]) == "potion")[0]
+		if entwurf == "B": l.braukasten_b(heil, 3, true)
+		else: l.braukasten(heil, 3, true)
+		await _bild("557_braukasten_" + e)
+		ebene.queue_free()
+		await process_frame
+	LadenSchirm.entwurf_b = ""

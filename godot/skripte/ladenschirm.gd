@@ -17,10 +17,20 @@ func _init(h: Heldwerte, zu_: Zustand, l: Laden) -> void:
 	laden = l
 	name = "Laden"
 
+# 557 (Chef 04.11., 13:44, Gruppe 557: „Brauen 525“ im Stil B, 549a): nur Entwurf, im Spiel weiter „“. B: Kopf ohne Kasten (Name in
+# gesperrten Versalien, Gold rechts, Zierlinie), die Seiten als Woerter mit goldenem Strich unter der gewaehlten, die Liste frei auf
+# Schwarz; Rezepte als Zeilen zwischen feinen Goldlinien, ueber die ganze Breite antippbar, rechts „Reicht für n×“ und „›“; was nicht
+# reicht, matt mit „Fehlt: …“ in Warnfarbe. Der Mengenkasten behaelt seinen Rahmen (549a (3), dort wird entschieden), innen Linien,
+# „BRAUEN ×n ›“ als Hauptwahl; Abbrechen ueber Zurueck oder Tippen daneben (526). Unten „‹ SCHLIESSEN“ als Nebenwahl.
+static var entwurf_b := ""
+
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	Rand.ruecke(self, Rand.oben(get_viewport()))   # 399.4: unter der Kamera des Handys
 	Zurueck.melde(self, func(): zu.emit())   # 416.1
+	if entwurf_b == "B":
+		_ready_b()
+		return
 	var bg := ColorRect.new()
 	bg.color = Color.BLACK
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -80,12 +90,13 @@ func baue() -> void:
 	if laden.brauen: seiten.append(["brauen", "Brauen" if de else "Brew"])
 	for s in seiten:
 		var w: String = s[0]
-		leiste.add_child(Erschaffung.knopf(String(s[1]), func(): seite = w; baue(), w == seite))
+		if entwurf_b == "B": leiste.add_child(_seite_b(String(s[1]), w == seite, func(): seite = w; baue()))
+		else: leiste.add_child(Erschaffung.knopf(String(s[1]), func(): seite = w; baue(), w == seite))
 	for c in inhalt.get_children():
 		inhalt.remove_child(c)
 		c.queue_free()
 	match seite:
-		"brauen": brauen()
+		"brauen": brauen_b() if entwurf_b == "B" else brauen()
 		"verkaufen": verkaufen()
 		_: kaufen()
 	await get_tree().process_frame
@@ -415,3 +426,188 @@ func stueck(g: Dictionary, kauf: bool) -> void:
 
 func farbe_ding(id: String) -> Color:
 	return Color(SELTEN.get(String(Laden.ding(id).get("seltenheit", "COMMON")), "e6ddcb"))
+
+# ---------------------------------------------------------------- 557 Entwurf B
+func _ready_b() -> void:
+	var bg := ColorRect.new()
+	bg.color = Color.BLACK
+	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	add_child(bg)
+	var rand := MarginContainer.new()
+	rand.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	for sd in ["left", "right"]: rand.add_theme_constant_override("margin_" + sd, int(20 * DP))
+	rand.add_theme_constant_override("margin_top", int(28 * DP)); rand.add_theme_constant_override("margin_bottom", int(12 * DP))
+	add_child(rand)
+	var spalte := VBoxContainer.new()
+	spalte.add_theme_constant_override("separation", 0)
+	rand.add_child(spalte)
+	var reihe := HBoxContainer.new()
+	kopf = Stil.zeile("", 20, Stil.GOLD, 3.0)
+	kopf.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	reihe.add_child(kopf)
+	gold_ = Stil.zeile("", 20, Stil.BRIGHT)
+	reihe.add_child(gold_)
+	spalte.add_child(reihe)
+	spalte.add_child(Erschaffung.luecke(6))
+	spalte.add_child(Spielstaende.zier())
+	spalte.add_child(Erschaffung.luecke(4))
+	leiste = HBoxContainer.new()
+	leiste.add_theme_constant_override("separation", 0)
+	spalte.add_child(leiste)
+	spalte.add_child(Spielstaende.linie())
+	meldung_ = Erschaffung.txt("", 15, Stil.BRIGHT)
+	meldung_.visible = false
+	spalte.add_child(meldung_)
+	rolle = ScrollContainer.new()
+	rolle.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	rolle.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
+	rolle.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	spalte.add_child(rolle)
+	inhalt = VBoxContainer.new()
+	inhalt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	inhalt.add_theme_constant_override("separation", 0)
+	rolle.add_child(inhalt)
+	notiz = Erschaffung.txt("", 15, Stil.BRIGHT)   # die letzte Meldung, ohne Kasten, zwischen Linien
+	var nk := VBoxContainer.new()
+	nk.add_child(Spielstaende.linie())
+	nk.add_child(Erschaffung.luecke(8))
+	nk.add_child(notiz)
+	nk.add_child(Erschaffung.luecke(8))
+	nk.visible = false
+	notiz.set_meta("kasten", nk)
+	spalte.add_child(nk)
+	spalte.add_child(Spielstaende.linie())
+	var sch := Spielstaende.nebenwahl("", "‹  " + Sprache.u("close"), func(): zu.emit())
+	sch.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	spalte.add_child(sch)
+	baue()
+
+# eine Seite als Wort; die gewaehlte hell mit goldenem Strich darunter, die anderen gedaempft; Flaeche 48 dp
+func _seite_b(t: String, an: bool, tat: Callable) -> Control:
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", int(6 * DP))
+	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	v.custom_minimum_size.y = 48 * DP
+	v.alignment = BoxContainer.ALIGNMENT_END
+	var l := Stil.zeile(t.to_upper(), 14, Stil.BRIGHT if an else Stil.GOLD, 2.0)
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	v.add_child(l)
+	var strich := ColorRect.new()
+	strich.color = Stil.BRIGHT if an else Color(0, 0, 0, 0)
+	strich.custom_minimum_size.y = maxf(2.0, round(2 * DP))
+	strich.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	v.add_child(strich)
+	var p := Spielstaende.tippbar(v, tat)
+	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	return p
+
+func brauen_b() -> void:
+	var de := de_()
+	inhalt.add_child(Erschaffung.luecke(12))
+	var h := Stil.zeile(Sprache.t(Laden.REZEPTE).to_upper(), 13, Stil.GOLD, 2.5)
+	inhalt.add_child(h)
+	inhalt.add_child(Erschaffung.luecke(4))
+	var kr := Erschaffung.txt(Sprache.t(Laden.KRAEUTER), 13, Stil.DIM)
+	kr.add_theme_font_override("font", Stil.variante(0.0, true))
+	inhalt.add_child(kr)
+	inhalt.add_child(Erschaffung.luecke(10))
+	var rz := Laden.rezepte()
+	for i in rz.size():
+		var r: Dictionary = rz[i]
+		inhalt.add_child(Spielstaende.linie())
+		var aus := String(r["ergebnis"])
+		var oft := Laden.wie_oft(z, r)
+		var zeile_ := HBoxContainer.new()
+		zeile_.add_theme_constant_override("separation", int(12 * DP))
+		zeile_.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var bild := Menue.vorrat_bild(aus)
+		if oft < 1: bild.modulate.a = 0.5
+		zeile_.add_child(bild)
+		var v := VBoxContainer.new()
+		v.add_theme_constant_override("separation", int(3 * DP))
+		v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		v.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		v.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		v.add_child(Stil.zeile(Laden.name(aus), 16, farbe_ding(aus) if oft > 0 else Stil.DIM))
+		v.add_child(zutaten_reihe(r, 20, 13))
+		if z.anzahl(aus) > 0: v.add_child(Stil.zeile(Sprache.t(Laden.BESITZ) + str(z.anzahl(aus)), 13, Stil.DIM))
+		if oft < 1:
+			var f := Erschaffung.txt(Sprache.t(Laden.FEHLT) + Laden.fehlt(z, r), 13, Stil.WARN)
+			f.custom_minimum_size.x = 60 * DP
+			v.add_child(f)
+		zeile_.add_child(v)
+		if oft > 0:
+			var re := Stil.zeile(Sprache.t(Laden.REICHT) % oft, 13, Stil.GOLD)
+			re.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+			zeile_.add_child(re)
+		var pf := Spielstaende.wahl_b("", Stil.BRIGHT if oft > 0 else Color(Stil.DIM, 0.6))
+		zeile_.add_child(pf)
+		var rand := MarginContainer.new()
+		rand.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		rand.add_theme_constant_override("margin_top", int(10 * DP)); rand.add_theme_constant_override("margin_bottom", int(10 * DP))
+		rand.add_child(zeile_)
+		var t := Spielstaende.tippbar(rand, func(): braukasten_b(r, 1))
+		t.set_meta("rezept", aus)
+		inhalt.add_child(t)
+	inhalt.add_child(Spielstaende.linie())
+
+# der Mengenkasten: Rahmen bleibt (Entscheidung), innen Bild und Name, Wirkung, Zutaten, Menge mit −, +, ×1, ×5, Alle; vorher → nachher;
+# unten „BRAUEN ×n ›“ als Hauptwahl
+func braukasten_b(r: Dictionary, n_: int, alle := false) -> void:
+	var de := de_()
+	var aus := String(r["ergebnis"])
+	var oft := Laden.wie_oft(z, r)
+	var n := clampi(n_, 1, maxi(1, oft))
+	var schleier := Rueckfrage.schleier(self)
+	schleier.color = Color(0, 0, 0, 0.86)
+	var mitte := CenterContainer.new()
+	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	schleier.add_child(mitte)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", int(8 * DP))
+	v.custom_minimum_size.x = get_viewport_rect().size.x - 2 * 16 * DP - 2 * 14 * DP
+	mitte.add_child(Rueckfrage.halte(Erschaffung.kasten(v)))
+	var kopf_ := HBoxContainer.new()
+	kopf_.add_theme_constant_override("separation", int(12 * DP))
+	var bild := Menue.bild_feld("ding-" + aus, 48)
+	bild.name = "DingBild"
+	kopf_.add_child(bild)
+	var nm := Stil.zeile(Laden.name(aus), 19, farbe_ding(aus))
+	nm.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	nm.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	kopf_.add_child(nm)
+	v.add_child(kopf_)
+	v.add_child(Erschaffung.txt(Sprache.t(Laden.ding(aus).get("info", "")), 14, Stil.DIM))
+	v.add_child(Spielstaende.linie())
+	v.add_child(Stil.zeile(("Zutaten je Trank" if de else "Ingredients per potion").to_upper(), 13, Stil.GOLD, 2.0))
+	v.add_child(zutaten_reihe(r, 24, 15))
+	v.add_child(Spielstaende.linie())
+	if oft < 1:
+		v.add_child(Erschaffung.txt(Sprache.t(Laden.FEHLT) + Laden.fehlt(z, r), 15, Stil.WARN))
+	else:
+		var mr := HBoxContainer.new()
+		mr.add_theme_constant_override("separation", int(6 * DP))
+		var ml := Stil.zeile(("%s  %d" % [Sprache.t(Laden.MENGE).to_upper(), n]), 15, Stil.TEXT, 2.0)
+		ml.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		ml.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		mr.add_child(ml)
+		mr.add_child(Stil.zeile(Sprache.t(Laden.REICHT) % oft, 13, Stil.GOLD))
+		v.add_child(mr)
+		var reihe_ := HBoxContainer.new()
+		reihe_.add_theme_constant_override("separation", int(6 * DP))
+		for k in [["−", n - 1, n > 1, false, false], ["+", n + 1, n < oft, false, false], ["×1", 1, true, not alle and n == 1, false],
+				["×5", 5, oft >= 5, not alle and n == 5, false], [Sprache.t(Laden.ALLE), oft, true, alle, true]]:
+			var nn: int = k[1]
+			var ist_alle: bool = k[4]
+			var b := Erschaffung.knopf(String(k[0]), func(): schleier.queue_free(); braukasten_b(r, nn, ist_alle), bool(k[3]))
+			b.disabled = not bool(k[2])
+			reihe_.add_child(b)
+		v.add_child(reihe_)
+		v.add_child(Erschaffung.txt(Sprache.t(Laden.BESITZ) + "%d → %d" % [z.anzahl(aus), z.anzahl(aus) + n], 14, Stil.DIM))
+		if int(r["gold"]) > 0:
+			v.add_child(Erschaffung.txt("%s: %d → %d" % [Sprache.u("gold"), z.gold, z.gold - int(r["gold"]) * n], 14, Stil.DIM))
+	v.add_child(Spielstaende.linie())
+	var brau := ("Brauen" if de else "Brew") + (" ×%d" % n if n > 1 else "")
+	var hw_ := Spielstaende.hauptwahl(brau, func(): schleier.queue_free(); sage(laden.braue_mehr(z, hw, r, n)); baue(), oft >= 1)
+	v.add_child(hw_)

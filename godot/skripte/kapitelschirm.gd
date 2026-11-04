@@ -20,10 +20,19 @@ static func fett(l: Label, farbe: Color) -> Label:   # wie menue.gd: es gibt nur
 	l.add_theme_color_override("font_outline_color", farbe)
 	return l
 
+# 557 (Chef 04.11., 13:42, Gruppe 557): Entwurf B „ohne Kasten“ (549a), im Spiel weiter „“ bis zum Urteil: reiner Textschirm ohne
+# Goldkasten; oben der Titel in gesperrten Versalien mit Zierlinie (nicht halbfett), der Text frei auf Schwarz, „Ende von Kapitel 1“
+# als eigene Zeile zwischen Linien, die Heldenzeile zwischen Linien in Gold und groesser, unten „WEITER ›“ als Hauptwahl in Gold
+# (Prueferbefunde 00:38: leere Kastenhaelfte, Heldenzeile klein, Weiter unauffaellig, Titel halbfett)
+static var entwurf := ""
+
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	Rand.ruecke(self, Rand.oben(get_viewport()))   # 399.4: unter der Kamera des Handys
+	if entwurf == "B":
+		_ready_b()
+		return
 	var bg := ColorRect.new()
 	bg.color = Color.BLACK
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -60,4 +69,70 @@ func _ready() -> void:
 	spalte.add_child(Erschaffung.luecke(12))
 	var k := Erschaffung.knopf(Sprache.u("next"), func(): weiter.emit())
 	k.name = "Weiter"
+	spalte.add_child(k)
+
+func _ready_b() -> void:
+	var bg := ColorRect.new()
+	bg.color = Color.BLACK
+	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	add_child(bg)
+	var rand := MarginContainer.new()
+	rand.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	for s in ["left", "right"]: rand.add_theme_constant_override("margin_" + s, int(24 * DP))
+	rand.add_theme_constant_override("margin_top", int(36 * DP)); rand.add_theme_constant_override("margin_bottom", int(16 * DP))
+	add_child(rand)
+	var spalte := VBoxContainer.new()
+	spalte.add_theme_constant_override("separation", 0)
+	rand.add_child(spalte)
+	var titel := Stil.zeile(Sprache.u("title").to_upper(), 22, Stil.GOLD, 3.0)
+	titel.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	titel.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	spalte.add_child(titel)
+	spalte.add_child(Erschaffung.luecke(6))
+	spalte.add_child(Spielstaende.zier())
+	spalte.add_child(Erschaffung.luecke(18))
+	var rolle := ScrollContainer.new()
+	rolle.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	rolle.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
+	rolle.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	spalte.add_child(rolle)
+	var innen := VBoxContainer.new()
+	innen.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	innen.add_theme_constant_override("separation", 0)
+	rolle.add_child(innen)
+	# der Text in Absaetzen; die Zeile „ENDE VON KAPITEL 1“ (in Versalien im Text) steht fuer sich zwischen Linien in Gold
+	for absatz in Sprache.t(text).split("\n\n"):
+		if absatz == absatz.to_upper() and absatz.strip_edges() != "":
+			innen.add_child(Erschaffung.luecke(8))
+			innen.add_child(Spielstaende.linie())
+			innen.add_child(Erschaffung.luecke(14))
+			var e := Stil.zeile(absatz, 17, Stil.BRIGHT, 3.0)
+			e.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			e.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			innen.add_child(e)
+			innen.add_child(Erschaffung.luecke(14))
+			innen.add_child(Spielstaende.linie())
+			innen.add_child(Erschaffung.luecke(22))
+			continue
+		innen.add_child(Erschaffung.txt(absatz, 18))
+		innen.add_child(Erschaffung.luecke(14))
+	var d := Heldwerte.lade()
+	spalte.add_child(Spielstaende.linie())
+	var held := VBoxContainer.new()
+	held.add_theme_constant_override("separation", int(2 * DP))
+	var nm := Stil.zeile(hw.name.to_upper(), 17, Stil.GOLD, 2.5)
+	nm.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	held.add_child(Erschaffung.luecke(10))
+	held.add_child(nm)
+	var wer := Stil.zeile("%s · %s · %s %d" % [Sprache.t(d["voelker"][hw.volk]["name"]), Sprache.t(d["klassen"][hw.klasse]["name"]), Sprache.u("level"), hw.stufe], 16, Stil.TEXT)
+	wer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	wer.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	held.add_child(wer)
+	held.add_child(Erschaffung.luecke(10))
+	spalte.add_child(held)
+	spalte.add_child(Spielstaende.linie())
+	spalte.add_child(Erschaffung.luecke(8))
+	var k := Spielstaende.hauptwahl(Sprache.u("next"), func(): weiter.emit())
+	k.name = "Weiter"
+	k.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	spalte.add_child(k)

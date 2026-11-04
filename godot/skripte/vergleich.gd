@@ -102,3 +102,29 @@ func satz() -> String:
 		-1: return ("Schlechter: " if de else "Worse: ") + liste.call(minus) + "."
 		0: return ("Gemischt: mehr " if de else "Mixed: more ") + liste.call(plus) + (", aber weniger " if de else ", but less ") + liste.call(minus) + "."
 	return "Bringt nichts, was du nicht schon hast." if de else "Adds nothing you don't already have."
+
+# 557/524.1 (Chef 04.11., 13:32): was jeder Bonus eines Stuecks am Helden wirklich bringt, mit allem anderen, was er traegt: [Bonus, wirkt].
+# Gerechnet an zwei Abschriften (mit dem Stueck, ohne es); die Obergrenze des Kapitels kann einen Bonus ganz oder zum Teil schlucken.
+# Fuer ALL_STATS gilt das Kleinste ueber alle Attribute, „teils“ (-1), wenn die Attribute verschieden viel bekommen.
+static func wirkung(hw: Heldwerte, g: Dictionary) -> Dictionary:
+	var mit := Heldwerte.aus_daten(hw.als_daten())
+	if not mit.ausruestung.values().any(func(x): return x != null and int(x["uid"]) == int(g["uid"])): mit.anlegen(g)
+	var ohne := Heldwerte.aus_daten(mit.als_daten())
+	for p in ohne.ausruestung.keys():
+		if int(ohne.ausruestung[p]["uid"]) == int(g["uid"]): ohne.ablegen(p); break
+	var at_mehr := {}
+	for at in Heldwerte.ATTRIBUTE: at_mehr[at] = mit.ausruestungs_bonus(at) - ohne.ausruestungs_bonus(at)
+	var r := {}
+	for roll in g.get("rolls", []):
+		var a := String(roll[0]); var w := int(roll[1])
+		if a in Heldwerte.ATTRIBUTE:
+			r[a] = [w, clampi(at_mehr[a], 0, w)]
+			at_mehr[a] = maxi(0, at_mehr[a] - w)   # der eigene Bonus zuerst, der Rest gehoert ALL_STATS
+		elif a != "ALL_STATS":
+			r[a] = [w, clampi(mit.bonus(a) - ohne.bonus(a), 0, w)]
+	for roll in g.get("rolls", []):
+		if String(roll[0]) != "ALL_STATS": continue
+		var w := int(roll[1])
+		var je := Heldwerte.ATTRIBUTE.map(func(at): return clampi(at_mehr[at], 0, w))
+		r["ALL_STATS"] = [w, je.min() if je.min() == je.max() else -1]
+	return r

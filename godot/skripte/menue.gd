@@ -757,6 +757,9 @@ func fackel_satz(war: bool) -> String:
 func frage_stueck(g: Dictionary) -> void:
 	var de := Sprache.aktiv() == "de"
 	var ok := hw.kann_tragen(g)
+	if entwurf == "B":   # 557: Entwurf B, im Spiel weiter „“
+		fenster_b(g)
+		return
 	var k: Array = [[Sprache.u("equip"), func(): meldung(lege_an(g)); baue(), ok]]
 	if ok and einhandwaffe(g): k.append(["Nebenhand" if de else "Off hand", func(): meldung(lege_an(g, true)); baue()])
 	k.append(["Wegwerfen" if de else "Discard", func(): frage_wegwerfen(g)])
@@ -855,7 +858,7 @@ func _waehle_b(platz: String) -> void:
 	var jetzt := HBoxContainer.new()
 	jetzt.add_theme_constant_override("separation", int(14 * DP))
 	jetzt.custom_minimum_size.y = 56 * DP
-	var jt := Stil.zeile(("Angelegt" if de else "Equipped").to_upper(), 11, Stil.DIM, 2.0)
+	var jt := Stil.zeile(("Angelegt" if de else "Equipped").to_upper(), 13, Stil.DIM, 2.0)
 	jt.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	jt.custom_minimum_size.x = 60 * DP
 	jetzt.add_child(jt)
@@ -869,7 +872,7 @@ func _waehle_b(platz: String) -> void:
 		jv.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		jv.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		jv.add_child(jn)
-		var ju := Beute.listen_zeile(an)
+		var ju := Menue.listen_zeile_b(an)
 		if ju != "": jv.add_child(Stil.zeile(ju, 13, Stil.DIM))
 		jetzt.add_child(jv)
 	else: jetzt.add_child(jn)
@@ -897,6 +900,26 @@ func _waehle_b(platz: String) -> void:
 	z.add_child(Stil.zeile("‹  " + Sprache.u("back").to_upper(), 14, Stil.GOLD, 2.0))   # Nebenwahl (549a Punkt 4)
 	spalte.add_child(Spielstaende.tippbar(z, zu))
 
+# 557 (Helfer 13:07: Roben zeigten keinen Wert, nur der Plattenpanzer „RK 18“): ohne Kennwert (Roben, Ringe, Umhaenge …) stehen die zwei
+# ersten Boni kurz an seiner Stelle („+2 GES · +2 RK“), damit jede Zeile eine Zahl hat; sonst wie Gear.listLine
+static func listen_zeile_b(g: Dictionary) -> String:
+	var t := Beute.listen_zeile(g)
+	if Beute.kennwert(g) != "" or g.get("rolls", []).is_empty(): return t
+	var d := Heldwerte.lade()
+	var de := Sprache.aktiv() == "de"
+	var teile: Array = []
+	for r in g["rolls"]:
+		var a := String(r[0]); var w := int(r[1])
+		var ad: Dictionary = d["affixdaten"].get(a, {})
+		if d["attribute"].has(a): teile.append("+%d %s" % [w, Sprache.t(d["attribute"][a]["kurz"])])
+		elif a == "AC": teile.append(("+%d RK" if de else "+%d AC") % w)
+		elif a == "ALL_STATS": teile.append(("+%d alle" if de else "+%d all") % w)
+		elif a == "CRIT": teile.append(("Krit. ab %d" if de else "Crit %d+") % (20 - w))
+		elif not ad.is_empty(): teile.append("+%d%s %s" % [w, "%" if bool(ad["prozent"]) else "", Sprache.t(ad["name"])])
+		if teile.size() == 2: break
+	var k := " · ".join(PackedStringArray(teile)) + (" …" if g["rolls"].size() > 2 else "")
+	return k if t == "" else t + " · " + k
+
 func _wechsel_zeile_b(g: Dictionary, platz: String, zu: Callable, de: bool) -> Control:
 	var ok := hw.kann_tragen(g)
 	var r := HBoxContainer.new()
@@ -916,7 +939,7 @@ func _wechsel_zeile_b(g: Dictionary, platz: String, zu: Callable, de: bool) -> C
 	n.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	n.custom_minimum_size.x = 60 * DP
 	v.add_child(n)
-	var unten := Beute.listen_zeile(g)
+	var unten := Menue.listen_zeile_b(g)
 	if unten == "": unten = Testmodus.gross_anfang(Sprache.t(Heldwerte.lade()["seltenheiten"][String(g["rarity"])].get("name", g["rarity"])))
 	if zweihaendig(g) and not unten.containsn("zweih") and not Beute.name(g).containsn("zweih"): unten += " · " + ("zweihändig" if de else "two-handed")
 	var u = Vergleich.von(hw, g).urteil() if ok else null
@@ -935,7 +958,7 @@ func _wechsel_zeile_b(g: Dictionary, platz: String, zu: Callable, de: bool) -> C
 		v.add_child(Stil.zeile(("Als %s kannst du das nicht tragen." if de else "As a %s you cannot wear this.") % kl, 13, Stil.WARN))
 	r.add_child(v)
 	if u != null:
-		var pf := Stil.zeile("▲" if u == 1 else ("▼" if u == -1 else "◆"), 18, BESSER if u == 1 else (AKZENT if u == -1 else Stil.BRIGHT))
+		var pf := Stil.zeile("▲" if u == 1 else ("▼" if u == -1 else "◆"), 18, GRUEN if u == 1 else (Stil.WARN if u == -1 else Stil.BRIGHT))   # wie das Fenster
 		pf.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		r.add_child(pf)
 	var c := Control.new()   # goldenes „›“ wie die Hauptwahl der Spielstaende
@@ -953,8 +976,160 @@ func _wechsel_zeile_b(g: Dictionary, platz: String, zu: Callable, de: bool) -> C
 	rand.add_child(r)
 	return Spielstaende.tippbar(rand, func():
 		zu.call()
-		dialog(Beute.name(g), farbe_von(g), stueck_zeilen(g), [[Sprache.u("equip"), func(): meldung(lege_an(g, platz == "OFF_HAND" and String(Beute.grundform(String(g["base"]))["slot"]) != "OFF_HAND")); baue(), ok],
-			[Sprache.u("back"), func(): waehle(platz)]]))
+		fenster_b(g, func(): meldung(lege_an(g, platz == "OFF_HAND" and String(Beute.grundform(String(g["base"]))["slot"]) != "OFF_HAND")); baue(), func(): waehle(platz)))
+
+# ---------------------------------------------------------------- 557 / 524.1 Gegenstandsfenster im Stil B
+# Chef 04.11., 13:32 („524.1 nach B in 557“): der aeussere Goldrahmen bleibt (Entscheidung, 549a (3)), innen nur Linien und Abstand.
+# Kopf: Bild (Behaelter mit Rahmen der Seltenheit, 549a (5)), Name in seiner Farbe, darunter Seltenheit und Art; gleich darunter das Urteil
+# als Zeile (▲ gruen „Besser“, ▼ rot „Schlechter“, ◆ gold „Gemischt“, dieselben Zeichen wie die Wechselliste) und was abgelegt wird.
+# Dann die Grundzahlen (Tragort, Schaden oder RK, Finesse und Fernkampf erklaert), die Boni in Gold (kein Hellblau), verpuffte und zum
+# Teil verpuffte matt mit „wirkt nicht“ oder „wirkt +n (Obergrenze)“, die Warnungen, die Tabelle, „Händler zahlt n Gold“. Unten
+# „× WEGWERFEN“ als Nebenwahl links, „ANLEGEN ›“ als Hauptwahl rechts; Abbrechen ueber Zurueck oder Tippen daneben (526).
+# [anlegen]: was „Anlegen“ tut (Tasche: lege_an; Wechselliste: an den gewaehlten Platz); [zurueck]: wohin Zurueck fuehrt (sonst nur zu)
+func fenster_b(g: Dictionary, anlegen := Callable(), zurueck := Callable()) -> Control:
+	var de := Sprache.aktiv() == "de"
+	var ok := hw.kann_tragen(g)
+	var h := {}
+	var schleier := Rueckfrage.schleier(self, func():
+		(h["s"] as Node).queue_free()
+		if zurueck.is_valid(): zurueck.call())
+	h["s"] = schleier
+	schleier.color = Color(0, 0, 0, 0.86)
+	var mitte := CenterContainer.new()
+	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	schleier.add_child(mitte)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", int(8 * DP))
+	var breite := get_viewport_rect().size.x - 2 * 16 * DP - 2 * 14 * DP
+	v.custom_minimum_size.x = breite
+	var rahmen := Erschaffung.kasten(v)
+	mitte.add_child(Rueckfrage.halte(rahmen))
+	for c in Menue.stueck_zeilen_b(hw, g): v.add_child(c)
+	v.add_child(Spielstaende.linie())
+	var unten := HBoxContainer.new()
+	unten.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var zu := func(): schleier.queue_free()
+	unten.add_child(Spielstaende.nebenwahl("KREUZ", "Wegwerfen" if de else "Discard", func(): zu.call(); frage_wegwerfen(g)))
+	var mitte_ := Control.new()
+	mitte_.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	mitte_.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	unten.add_child(mitte_)
+	var an_ := anlegen if anlegen.is_valid() else func(): meldung(lege_an(g)); baue()
+	if ok and einhandwaffe(g) and not anlegen.is_valid():
+		unten.add_child(Spielstaende.nebenwahl("", "Nebenhand" if de else "Off hand", func(): zu.call(); meldung(lege_an(g, true)); baue()))
+	unten.add_child(Spielstaende.hauptwahl(Sprache.u("equip"), func(): zu.call(); an_.call(), ok))
+	v.add_child(unten)
+	return schleier
+
+static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
+	var de := Sprache.aktiv() == "de"
+	var sp := "de" if de else "en"
+	var d := Heldwerte.lade()
+	var b := Beute.grundform(String(g["base"]))
+	var farbe := Color(SELTEN.get(String(g["rarity"]), "e6ddcb"))
+	var fett := func(l: Label) -> Label:
+		l.add_theme_constant_override("outline_size", int(DP * 0.6)); l.add_theme_color_override("font_outline_color", l.get_theme_color("font_color"))
+		return l
+	var satz := func(t: String, gr: float, f: Color) -> Label:
+		var l := Stil.zeile(t, gr, f)
+		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		l.custom_minimum_size.x = 60 * DP
+		return l
+	var z_: Array = []
+	# Kopf
+	var kopf := HBoxContainer.new()
+	kopf.add_theme_constant_override("separation", int(12 * DP))
+	kopf.add_child(Menue.stueck_rahmen(g, 52))
+	var kv := VBoxContainer.new()
+	kv.add_theme_constant_override("separation", int(2 * DP))
+	kv.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	kv.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	var nl: Label = fett.call(satz.call(Beute.name(g), 19, farbe))
+	kv.add_child(nl)
+	var plus := int(g.get("plus", 0))
+	var selten := Testmodus.gross_anfang(Sprache.t(d["seltenheiten"][String(g["rarity"])]["name"]))
+	var art := String(b[sp])
+	var art_z := selten + ((String(d["endungen"][String(b["geschlecht"])]) if de else "") + " " + art if not Beute.name(g).containsn(art) else "") + ((" +%d" % plus) if plus > 0 else "")
+	kv.add_child(satz.call(art_z, 13, Color(farbe, 0.8)))
+	kopf.add_child(kv)
+	z_.append(kopf)
+	# Urteil als Zeile (statt Band): Zeichen und Satz in der Farbe des Urteils, darunter was abgelegt wird
+	var v: Vergleich = Vergleich.von(hw, g) if hw.kann_tragen(g) and not hw.ausruestung.values().any(func(x): return x != null and int(x["uid"]) == int(g["uid"])) else null
+	if v:
+		var u = v.urteil()
+		var uf: Color = {1: GRUEN, -1: Stil.WARN, 0: Stil.BRIGHT}.get(u, Stil.DIM)
+		var ur := HBoxContainer.new()
+		ur.add_theme_constant_override("separation", int(8 * DP))
+		if u != null:
+			var zl := Stil.zeile({1: "▲", -1: "▼", 0: "◆"}[u], 17, uf)
+			zl.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+			ur.add_child(zl)
+		var ut: Label = fett.call(satz.call(v.satz(), 15, uf))
+		ut.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		ur.add_child(ut)
+		z_.append(ur)
+		if not v.ersetzt.is_empty():
+			var anderer := v.ersetzt.any(func(x): return String(Beute.grundform(String(x["base"]))["slot"]) != String(b["slot"]))
+			z_.append(satz.call(("Ersetzt: " if de else "Replaces: ") + ", ".join(PackedStringArray(v.ersetzt.map(func(x): return Beute.name(x)))), 13, Stil.WARN if anderer else Stil.DIM))
+	z_.append(Spielstaende.linie())
+	# Grundzahlen
+	var waffe := Beute.ist_waffe(b)
+	var zwei := waffe and bool(b["zweihaendig"])
+	var wo := String(d["plaetze"][String(b["slot"])][sp])
+	if zwei: wo = "Beide Hände" if de else "Both hands"
+	elif b.get("vielseitig") != null: wo = "Vielseitig: eine oder beide Hände" if de else "Versatile: one or both hands"
+	elif waffe: wo = "Haupt- oder Nebenhand" if de else "Main or off hand"
+	wo += (" · Stufe " if de else " · Level ") + str(int(g["ilvl"]))
+	var gewicht := String(b.get("gewicht", "NONE"))
+	if gewicht != "NONE": wo += " · " + Sprache.t(d["ruestungsarten"].get(gewicht, {"de": "Stoff", "en": "cloth"}))
+	var wl: Label = satz.call(wo, 13, Stil.WARN if zwei else Stil.DIM)
+	z_.append(fett.call(wl) if zwei else wl)
+	if String(b["art"]) == "LIGHT":
+		z_.append(satz.call("Pech und Werg auf einem Stock. In der Nebenhand, statt eines Schilds. Im Dunkeln siehst du weiter als mit einem Leuchtfunken. Brennt, solange du sie trägst." if de else
+			"Pitch and tow on a stick. Held in the off hand, instead of a shield. In the dark you see further than with a Lightspark. Burns as long as you carry it.", 14, Stil.TEXT))
+	if b.get("schaden") != null:
+		var viel = b.get("vielseitig")
+		var art_s := Sprache.t(d["schadensarten"].get(String(b["schadensart"]), {"de": "", "en": ""}))
+		z_.append(fett.call(satz.call("%s: %s %s" % [Sprache.u("damage"), Beute.wuerfel_text(b["schaden"], plus, de), art_s], 16, Stil.TEXT)))
+		if viel != null: z_.append(satz.call(("Mit beiden Händen (andere Hand leer): " if de else "In both hands (other hand empty): ") + Beute.wuerfel_text(viel, plus, de), 14, Stil.DIM))
+		if plus > 0: z_.append(fett.call(satz.call("%s +%d" % [Sprache.u("attack"), plus], 15, Stil.TEXT)))
+		if bool(b.get("finesse", false)): z_.append(satz.call("Finesse: trifft mit GES oder STÄ, was höher ist" if de else "Finesse: hits with DEX or STR, whichever is higher", 13, Stil.DIM))
+		if bool(b.get("fern", false)): z_.append(satz.call("Fernkampf: trifft mit GES" if de else "Ranged: hits with DEX", 13, Stil.DIM))
+	if String(b["slot"]) == "CHEST" and int(b.get("ruestung", 0)) > 0:
+		var ges: String = {"LIGHT": " + GES" if de else " + DEX", "MEDIUM": " + GES (max 2)" if de else " + DEX (max 2)"}.get(gewicht, "")
+		z_.append(fett.call(satz.call("%s %d%s" % [Sprache.u("ac"), int(b["ruestung"]) + plus, ges], 16, Stil.TEXT)))
+	if String(b["art"]) == "SHIELD": z_.append(fett.call(satz.call("%s +%d" % [Sprache.u("ac"), int(b["ruestung"]) + plus], 16, Stil.TEXT)))
+	if int(b.get("fokus", 0)) > 0: z_.append(fett.call(satz.call(("Zauberkraft +%d" if de else "Spell power +%d") % int(b["fokus"]), 16, Stil.TEXT)))
+	# Boni: wirksam in Gold; was die Obergrenze ganz oder zum Teil schluckt, matt mit dem, was wirkt
+	if not g.get("rolls", []).is_empty():
+		z_.append(Spielstaende.linie())
+		var wk := Vergleich.wirkung(hw, g) if hw.kann_tragen(g) else {}
+		for r in g["rolls"]:
+			var a := String(r[0]); var w := int(r[1])
+			var ad: Dictionary = d["affixdaten"][a]
+			var t := ("Kritisch ab %d" % (20 - w) if de else "Critical on %d–20" % (20 - w)) if a == "CRIT" else \
+				"+%d%s %s" % [w, "%" if bool(ad["prozent"]) else "", Sprache.t(ad["name"])]
+			var e: Array = wk.get(a, [w, w])
+			if int(e[1]) == 0: z_.append(satz.call(t + (" – wirkt nicht (Obergrenze)" if de else " – no effect (limit)"), 15, Stil.DIM))
+			elif int(e[1]) < 0: z_.append(satz.call(t + (" – wirkt nur teils (Obergrenze)" if de else " – partly (limit)"), 15, Stil.DIM))
+			elif int(e[1]) < w:
+				var pz := "%" if bool(ad["prozent"]) else ""
+				z_.append(satz.call(t + (" – wirkt +%d%s (Obergrenze)" if de else " – gives +%d%s (limit)") % [int(e[1]), pz], 15, Stil.DIM))
+			else: z_.append(satz.call(t, 16, Stil.BRIGHT))
+	# Warnungen
+	if not hw.kann_tragen(g):
+		z_.append(satz.call(("Als %s kannst du das nicht tragen." if de else "As a %s you cannot wear this.") % Sprache.t(hw.klassendaten()["name"]), 15, Stil.WARN))
+	elif waffe and not hw.geuebt(g):
+		z_.append(satz.call("Ungeübt: kein Übungsbonus auf Angriffe." if de else "Not proficient: no proficiency bonus to attacks.", 15, Stil.WARN))
+	if int(b.get("fokus", 0)) > 0 and not bool(hw.klassendaten()["zauberer"]):
+		z_.append(satz.call("Zauberkraft nützt nur Zauberwirkern." if de else "Spell power only helps spellcasters.", 13, Stil.DIM))
+	if v and not v.zeilen.is_empty():
+		z_.append(Spielstaende.linie())
+		z_.append(vergleich_tabelle(v.zeilen, de))
+	if Laden.ausruestung_verkaeuflich(g):
+		z_.append(satz.call(("Händler zahlt %d Gold" if de else "A trader pays %d gold") % Laden.verkaufspreis_von(hw, g), 13, Stil.GOLD))
+	return z_
 
 # PaperDoll: links Kopf, Umhang, Oberkoerper, Arme, Beine; rechts Amulett, Ring, Haupthand, Nebenhand; der Held dazwischen
 func ausruestung() -> void:
