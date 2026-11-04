@@ -147,7 +147,7 @@ jobs:
           # 475 (Chef 03.11., 07:45/07:47): die Leute des Dorfs auf dem Kaufkoerper in ihrer Kleidung (held_klassen.py LEUTE_KAUF), Gesicht
           # je Person waehlt Godot (heldfigur.gd person, leute.json kauf); scheitert eine Person, bleibt ihre alte Figur
           LEUTE_KAUF=alle OUT=$RUNNER_TEMP/out ZIEL=$RUNNER_TEMP/leutekauf Q=~/cc0 timeout 2400 bl/bin/python -I tools/blender348/v3/held_klassen.py > leutekauf.log 2>&1 || { echo "LEUTE KAUF abgebrochen"; tail -40 leutekauf.log; }
-          grep -E "^LEUTE|^KOPFTEIL|^FEHLT|^KAUFKLEID OK|^OHNE" leutekauf.log | cut -c1-240 || true
+          grep -E "^LEUTE|^KOPFTEIL|^KOPFSITZ|^FEHLT|^KAUFKLEID OK|^OHNE" leutekauf.log | cut -c1-240 || true
           if [ -f $RUNNER_TEMP/leutekauf/leute-kauf.json ]; then
             for f in $RUNNER_TEMP/leutekauf/held_L_*.glb; do [ -f "$f" ] || continue; n=$(basename $f .glb); cp $f $D/$n.bin; echo daten/$n.bin >> $D/kauf.txt; done
             cp $RUNNER_TEMP/leutekauf/leute-kauf.json $D/
