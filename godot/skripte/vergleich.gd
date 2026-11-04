@@ -10,7 +10,6 @@ const EIGENE := ["CRIT", "FIRE", "RADIANT", "LIFESTEAL", "RESIST", "POISON_HIT",
 
 var ersetzt: Array = []
 var zeilen: Array = []        # {wort, vorher, nachher, besser (1, -1, 0), notiz (fehlt oder Satz darunter)}
-var wirkungslos: Array = []   # 524.1: Eigenschaften (Affix, Attribut), deren Bonus die Obergrenze des Kapitels schluckt
 
 static func schnitt(e: Array) -> float: return int(e[0]) * (int(e[1]) + 1) / 2.0 + int(e[2])
 
@@ -65,9 +64,7 @@ static func von(hw: Heldwerte, g: Dictionary, nebenhand := false) -> Vergleich:
 	var weg_: Array = []
 	for at in a["werte"]:
 		var hoch: bool = b["roh"][at] + b["roh"]["ALL_STATS"] > a["roh"][at] + a["roh"]["ALL_STATS"]
-		if hoch and b["ausr"][at] == a["ausr"][at]:
-			weg_.append(Sprache.t(d["attribute"][at]["name"]))
-			v.wirkungslos.append(at)
+		if hoch and b["ausr"][at] == a["ausr"][at]: weg_.append(Sprache.t(d["attribute"][at]["name"]))
 		else: zahl.call(Sprache.t(d["attribute"][at]["name"]), a["werte"][at], b["werte"][at])
 	if not weg_.is_empty():
 		v.zeilen.append({"wort": "Attribute" if de else "Abilities", "vorher": "", "nachher": "", "besser": 0,
@@ -75,7 +72,6 @@ static func von(hw: Heldwerte, g: Dictionary, nebenhand := false) -> Vergleich:
 	for af in EIGENE:
 		var x: int = a["eig"][af]; var y: int = b["eig"][af]
 		var geschluckt: bool = b["roh"][af] > a["roh"][af] and x == y
-		if geschluckt: v.wirkungslos.append(af)
 		if x == y and not geschluckt: continue
 		var f := func(n: int) -> String:
 			if n == 0: return "–"
