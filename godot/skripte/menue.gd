@@ -713,7 +713,7 @@ static func vergleich_tabelle(zeilen: Array, de: bool) -> Control:
 		var besser := int(r["besser"])
 		h.add_child(spalte.call(String(r["wort"]), 15.0, Stil.TEXT, 1.8))
 		h.add_child(spalte.call(String(r["vorher"]), 15.0, Stil.DIM, 0.9))
-		h.add_child(spalte.call(String(r["nachher"]), 15.0, {1: GRUEN, -1: Stil.WARN}.get(besser, Stil.DIM), 0.9, besser != 0))
+		h.add_child(spalte.call(String(r["nachher"]), 15.0, {1: GRUEN, -1: Spielstaende.mangel()}.get(besser, Stil.DIM), 0.9, besser != 0))   # 557 Runde 5 (Prüfer 19:47: „1 W6+3“ in Warnfarbe)
 		t.add_child(h)
 		# 519 GearDetails: der Hinweis der Zeile (Obergrenze, Schnitt) darunter, 10 dp eingerueckt, matt
 		if String(r.get("notiz", "")) != "":

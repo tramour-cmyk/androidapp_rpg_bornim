@@ -186,7 +186,7 @@ func _weiter(text: String) -> Control:
 	return _tippbar(r, "", true)
 
 func _satz(t: String, sp_: float, farbe: Color) -> Label:
-	var l := Stil.zeile(t, sp_, farbe)
+	var l := Stil.zeile(Spielstaende.ohne_waise(t), sp_, farbe)   # 557 Runde 5 (Prüfer 19:47: „zurück“ allein)
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	l.custom_minimum_size.x = 60 * DP
 	return l

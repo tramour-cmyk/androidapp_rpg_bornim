@@ -535,7 +535,7 @@ static func pfeil(farbe: Color, links: bool) -> Control:
 	return c
 
 func _satz(t: String, sp_: float, farbe: Color, schraeg := false) -> Label:
-	var l := Stil.zeile(t, sp_, farbe, 0.0, schraeg)
+	var l := Stil.zeile(ohne_waise(t), sp_, farbe, 0.0, schraeg)   # 557 Runde 5 (Prüfer 19:47: „öffnen.“ allein)
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	l.custom_minimum_size.x = 60 * DP
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
