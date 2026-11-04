@@ -186,7 +186,7 @@ Gilt für jeden neuen oder umgebauten Menüschirm und jedes Fenster außerhalb d
 | Name eines Dings | 16 sp | normal, keine Versalien | Farbe der Seltenheit |
 | Fließtext | 15 sp | normal | `TEXT` |
 | Erzählter Text (Chronik, Kapitelende) | 16 sp | schräg erlaubt | `TEXT` |
-| Kleine Angaben (Reicht für, Im Besitz, Gold, Stufe, Händler zahlt; in der Rast „Tag · Uhr · TP“, ob sie bleibt, ist offen: 549b) | 13,5 sp, nie unter 13 sp | normal | `ANGABE` (cfc3ab) |
+| Kleine Angaben (Reicht für, Im Besitz, Gold, Stufe, Händler zahlt; in der Rast „Tag · Uhr · TP“ direkt unter der Zierlinie, 549b ja) | 13,5 sp, nie unter 13 sp | normal | `ANGABE` (cfc3ab) |
 | Knöpfe | 15 sp | Versalien, Sperrung 2 sp | siehe Knöpfe |
 
 Versalien mit Sperrung nur für Titel, Zwischenüberschriften und Knöpfe; nie für Sätze, Namen oder Zahlen.
