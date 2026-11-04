@@ -1,5 +1,7 @@
 # 558 · Robe des Magiers mit Stoff: Probebild · Team Tom · 04.11., 14:21
 
+[Bild von 04.11., 14:20](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/04-1420-558-Tom.png) (eingetragen von meldung.sh, Tom)
+
 A Spiel
 Kurz: Du hast gesagt (11:31): „Robe des Magiers … sieht einfach viel zu clean aus … Das muss irgendwie lebendiger sein … Schattenstruktur, schmutzig, abgenutzt.“ Ursache: das feine Gewebe der Robe ist kleiner als ein Bildpunkt im Spiel, darum wirkte sie wie eine Fläche. Neu ist eine Stoffschicht in Spielgröße: Falten im Rock, ein dunkles Band unter dem Gürtel, Schatten in den Falten, ausgeblichene Stellen, Flecken, Schmutz am Saum. In jedem Bild links die Robe heute, in der Mitte der Stoff halb stark (0,6), rechts voll (1). Nur Probe, nichts eingebaut.
 
