@@ -1,5 +1,7 @@
 # 557 · Spielstände B und Wechselliste, vorher und nachher · Team Tom · 04.11., 13:06
 
+[Bild von 04.11., 13:06](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/04-1306-557-Tom.jpg) (eingetragen von meldung.sh, Tom)
+
 A Spiel
 Kurz: Du hast B mit Vorschlag 2 gewählt, Löschen nach den drei Stufen (549a Punkt 4) und eine zweite Stelle im neuen Stil gewünscht (12:38). Beides ist in Godot gebaut, so wie es ins Spiel käme, aber noch nicht eingeschaltet. Als zweite Stelle habe ich die Wechselliste der Ausrüstung genommen (Platz antippen, „Wechseln“), weil du sie um 12:01 bemängelt hast.
 
