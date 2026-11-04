@@ -1898,10 +1898,11 @@ func nebel_bilder() -> void:
 		if y == 22:   # dieselbe Kachel in Sicht und spaeter erkundet: Verhaeltnis der Helligkeit (Zu 505 (Rand) (1): Werte messen)
 			await get_tree().create_timer(1.0).timeout
 			ui.textfeld.visible = false
-			# Lauf 1: (9, 25) lag bei (9, 18) unter dem Bildrand (Messung 0); (9, 21) liegt vor dem Helden und spaeter 3 Kacheln hinter ihm
-			print("NEBELMASS Wald (9, 21) Stufe %d Helligkeit %.0f" % [nebel.nebel(9, 21), await nebel_hell(Vector2i(9, 21))])
+			# Lauf 1: (9, 25) lag bei (9, 18) unter dem Bildrand (Messung 0); am Rechner blieb (9, 21) bei (9, 18) in Sicht (rundum 5,2);
+			# (11, 23): bei (9, 22) in Sicht, bei (9, 18) 5,4 Kacheln weit, also erkundet, und noch im Bild
+			print("NEBELMASS Wald (11, 23) Stufe %d Helligkeit %.0f" % [nebel.nebel(11, 23), await nebel_hell(Vector2i(11, 23))])
 	await get_tree().create_timer(1.0).timeout
-	print("NEBELMASS Wald (9, 21) Stufe %d Helligkeit %.0f" % [nebel.nebel(9, 21), await nebel_hell(Vector2i(9, 21))])
+	print("NEBELMASS Wald (11, 23) Stufe %d Helligkeit %.0f" % [nebel.nebel(11, 23), await nebel_hell(Vector2i(11, 23))])
 	await nebel_stufen(schilder, "Wald: Fassung B, drei Stufen", [[0, "unbekannt: schwarz", Vector2i(3, 14)], [1, "erkundet: abgedunkelt", Vector2i(9, 25)], [2, "in Sicht: hell", Vector2i(10, 19)]])
 	await knips("%s/1_wald_stufen.png" % dir)
 	for c in schilder.get_children(): c.queue_free()
@@ -2022,7 +2023,7 @@ func nebel_kachel(stufe: int, gern: Vector2i) -> Vector2i:
 			var rein := true
 			for d in NACHBARN + [Vector2i(1, 1), Vector2i(-1, 1), Vector2i(1, -1), Vector2i(-1, -1)]:
 				var u: Vector2i = t + d
-				if u.x >= 0 and u.y >= 0 and u.x < karte.breite and u.y < karte.hoehe and nebel.nebel(u.x, u.y) != stufe: rein = false
+				if u.x >= 0 and u.y >= 0 and u.x < karte.breite and u.y < karte.hoehe and not nebel.fest(u.x, u.y) and nebel.nebel(u.x, u.y) != stufe: rein = false
 			if not rein: continue
 			if karte.id == "cave" and ty >= karte.hoehe - 3: continue
 			var p := karte.kachel_pos(t)

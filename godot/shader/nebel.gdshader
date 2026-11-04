@@ -16,7 +16,10 @@ uniform float rand_hell = 2.32;      // so weit hinter dem Rand bleibt das Licht
 uniform float rand_schwarz = 1.0e6;  // ab hier schwarz (ohne Rand: weit weg)
 uniform float hoehle = 0.0;
 uniform vec4 licht_gang = vec4(0.0); // Hoehle: Mitte x, Rand z, halbe Breite, an (1)
-uniform vec3 farbe : source_color = vec3(0.031, 0.039, 0.071);
+// 505 Lauf 2 (Pruefer 16:01: „nie gesehen“ blaugrau 23,23,34, in der Hoehle 27,29,51): das Bild laeuft nach dem Nebel durch die
+// Anpassung der Umgebung (licht.gd: Kontrast 0,87 am Tag hebt Schwarz auf etwa 14, Hoehle Helligkeit x2,1); 0x080A12 wurde so
+// blaugrau. Schwarz wird dort zum dunkelsten Ton des Spiels (wie Tusche und Randdunkel, 14,14,14), in der Hoehle zu 0
+uniform vec3 farbe : source_color = vec3(0.0);
 void vertex() { POSITION = vec4(VERTEX.xy, 1.0, 1.0); }
 void fragment() {
 	float d = texture(depth_tex, SCREEN_UV).r;
