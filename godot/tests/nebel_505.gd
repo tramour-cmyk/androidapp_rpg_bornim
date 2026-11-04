@@ -21,6 +21,14 @@ func _lauf() -> void:
 	var nd: Nebel = spiel.nebel
 	pruefe(nd != null and nd.an and nd.dorf, "505 Lauf 2: im Dorf Nebel")
 	pruefe(nd.rand_an and nd.flaeche != null, "505c: im Dorf der Rand ins Dunkel")
+	# neben das erste Haus stellen (vom Start aus ist keins in Sicht)
+	var ht: int = nd.haeuser[0][0]
+	var neben := Vector2i(-1, -1)
+	for d in [Vector2i(0, 1), Vector2i(0, 2), Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, -1), Vector2i(1, 1), Vector2i(-1, 1)]:
+		var t: Vector2i = Vector2i(ht % nd.breite, ht / nd.breite) + d
+		if neben.x < 0 and nd.innen(t.x, t.y) and spiel.karte.begehbar(t): neben = t
+	spiel.held.setze(neben, "UP")
+	for i in 10: await process_frame
 	var gemischt := 0; var bekannt := 0
 	for teile in nd.haeuser:
 		var st := {}
