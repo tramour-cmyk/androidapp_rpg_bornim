@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [512b](entscheiden/512b-nachweis.md) | **Muss** | B Abläufe | 04.11., 17:05 | Abgleich nachweisen statt behaupten: fremder Helfer vor jeder Testbitte | Sokrates |
 | [549a](entscheiden/549a-ohne-kasten.md) | **Muss** | A Spiel | 04.11., 11:12 | Oberfläche „ohne Kasten“ als Grundsatz: Linien trennen, ein Rahmen nur für die Entscheidung? | Sokrates |
 
 ## Zu billigen
@@ -50,10 +49,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 98, Muss 78, startbar 4
+**Tom** – offen 99, Muss 79, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | startbar |
 | 557 | M | von Sokrates (Chef 04.11., 11:15; Zu 557): Spielstände als Entwurf im Stil „ohne Kasten“ ( | startbar |
 | 558 | M | von Sokrates (Chef 04.11., 11:31, Bild Build 257; Zu 558): Robe des Magiers zu glatt: Stof | wartet auf Test/Build |
 | 556 | M | von Sokrates (Chef 04.11., 07:52; Zu 556): Blenden reines Schwarz statt Leuchten, Lesezeit | wartet auf Test/Build (gebaut) |
@@ -153,10 +153,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | Pflege | K | von Werkzeug (340.3, 04.11.): 96856 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 81, Muss 68, startbar 20
+**Jerry** – offen 82, Muss 69, startbar 21
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | startbar |
 | 566 | M | von Sokrates (Chef 04.11., 17:15, Bild; Zu 566 und 567): „Beim Goblin steht in den Schatte | startbar |
 | 567 | M | von Sokrates (Bilder Chef 04.11., 17:00–17:15; Zu 566 und 567): Gegner stehen im Kampfort | startbar |
 | 565 | M | von Sokrates (Chef 04.11., 17:10, t257 Bereich C, Bild; Zu 565): im Gruppenkasten unten is | startbar |
@@ -239,10 +240,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | Pflege | K | von Werkzeug (340.3, 04.11.): 30629 Bytes (Grenze 15000), Erledigtes streichen; Zeile 552 | startbar |
 
-**Perikles** – offen 27, Muss 22, startbar 1
+**Perikles** – offen 28, Muss 23, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | startbar |
 | 512.1 | M? | von Sokrates (512, Chef 03.11., 23:28, „Kümmer du dich um 512.“): Regel „Abgleich“ wirkt n | wartet auf Test/Build (gebaut) |
 | 516 | K | von Ford (Chef 03.11., 16:20, „gab es nicht ein Tool oder einen Haken für die Kostenerfass | ruht bis 05.11. |
 | 513.1 | M | von Sokrates (Chef 03.11., 15:56, „513 B“, Archiv; „jetzt“ 03.11., 15:56): probelauf.py lä | wartet auf Test/Build (gebaut) |
@@ -271,10 +273,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | Pflege | K | von Werkzeug (340.3, 04.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
 
-**Diogenes** – offen 11, Muss 8, startbar 1
+**Diogenes** – offen 12, Muss 9, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | wartet auf Eingang |
 | 512.1 | M | von Perikles (Doppelpack 421, 04.11., 14:0x, bdf83b0f6): commit-pruefung.py warnt bei neue | wartet auf Eingang |
 | 512 | M | von Perikles (Doppelpack 421, 03.11., 16:0x, e823b0ee7): Abgleich alt/neu vor jeder Testbi | wartet auf Eingang |
 | 511 | M | von Perikles (Doppelpack 421, 03.11., 14:0x, d6d9eca8c): Filmsperre probelauf.py am ersten | wartet auf Eingang |
@@ -287,11 +290,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 | Pflege | K | von Werkzeug (340.3, 04.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
-**Sokrates** – offen 38, Muss 29, startbar 16
+**Sokrates** – offen 37, Muss 28, startbar 16
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 512b | M | Rückfrage: Testbitte nur mit Nachweis eines fremden Helfers? (Chef 17:03) | Chef (Datei in der Chefsache) |
 | 549a | M | Rückfrage: Oberfläche ohne Kasten (549 B) als Grundsatz, Spielstände als zweiter Schirm? ( | Chef (Datei in der Chefsache) |
 | 512 | M | von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles): Abgleich alt gegen ne | startbar |
 | 508 | M | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
