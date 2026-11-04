@@ -26,6 +26,12 @@ const SCHNELLER_KAMPF := 0.5
 const TIEFER_KAMPF := 1.6
 ## so lange nach der letzten Anstrengung bleibt sie oben (s; Feld 2: 0)
 const HALTEN_S := 2.0
+## 453.2 unterwegs (Chef 03.11., 23:37, t249 245.2: „Atmung … sehr gleichmäßig und unabhängig vom gehen oder rennen“; nachgestellt
+## tests/atem_4532.gd: Schulter in Ruhe 0,8 cm, nach 6 s Rennen 1,5 cm, nach 5 s schon fast Ruhe, also etwa ein Bildpunkt in der
+## Grundansicht und nur ein bis zwei Atemzüge lang): nach dem Rennen tiefer, bleibt oben und klingt langsamer ab (wie Feld 2 im Kampfort)
+const TIEFER_UNTERWEGS := 1.8
+const HALTEN_UNTERWEGS_S := 3.0
+const ABKLINGEN_UNTERWEGS_S := 4.0
 ## dann klingt sie mit dieser Zeitkonstante ab (s); 7 s nach dem Zug bleibt etwa ein Siebtel, nach 9 s ein Zwanzigstel
 const ABKLINGEN_S := 2.5
 ## die Tiefe folgt der Anstrengung weich (s), sonst springen die Schultern mitten im Atemzug
@@ -108,6 +114,7 @@ func anstrengen(wie_sehr := 1.0) -> void:
 	var w := clampf(wie_sehr, 0.0, 1.0)
 	if not kampf:
 		anstrengung = maxf(anstrengung, w)
+		halten = maxf(halten, HALTEN_UNTERWEGS_S * w)
 		return
 	anstrengung = clampf(anstrengung + w * (1.0 - anstrengung), 0.0, 1.0)
 	halten = HALTEN_S
@@ -126,8 +133,8 @@ func schritt(dt: float) -> void:
 	if halten > 0.0:
 		ab = maxf(0.0, dt - halten)
 		halten = maxf(0.0, halten - dt)
-	anstrengung *= exp(-ab / ABKLINGEN_S)
-	var ziel := 1.0 + (TIEFER_KAMPF if kampf else TIEFER) * anstrengung
+	anstrengung *= exp(-ab / (ABKLINGEN_S if kampf else ABKLINGEN_UNTERWEGS_S))
+	var ziel := 1.0 + (TIEFER_KAMPF if kampf else TIEFER_UNTERWEGS) * anstrengung
 	tief_glatt = ziel if not kampf else lerpf(tief_glatt, ziel, 1.0 - exp(-dt / TIEF_S))
 
 

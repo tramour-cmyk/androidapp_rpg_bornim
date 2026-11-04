@@ -3,7 +3,8 @@
 #  - Ruhe: Atemzug 3,5-5 s, die Schulter hebt sich 0,3-2 cm; nie Stillstand: in jeder Sekunde bewegt sich die Schulter
 #  - eigener Takt: die Atemzuege beider unterscheiden sich um mindestens 5 %
 #  - „Stehen“ hat danach je Spur einen Schluessel (der UAL-Atem ist heraus), „Stehen_2“ bleibt
-#  - nach Anstrengung (Rennen) in den ersten 3 s mindestens 1,35-mal so viele Atemzuege, nach 8 s fast Ruhe
+#  - nach Anstrengung (Rennen) in den ersten 3 s mindestens 1,35-mal so viele Atemzuege, Schulter in den ersten 6 s mindestens 1,8-mal
+#    so hoch wie in Ruhe, nach 8 s noch ein Viertel angestrengt, nach 20 s fast Ruhe (Chef 03.11., 23:37)
 #  - ohne UAL-Geruest (Dorftier) kein Atem
 # Run: godot --headless --path godot --fixed-fps 30 -s res://tests/atem_4532.gd   (Ende 0 = alles richtig)
 extends SceneTree
@@ -96,12 +97,21 @@ func _lauf() -> void:
 	var ruhe_n := zuege(ph, 0, ph.size())
 	atem_a.anstrengen(1.0)
 	ph.clear()
-	for i in 11 * fps:
+	var y0 := sp.y.size()
+	var stark := []   # Anstrengung je Sekunde
+	for i in 20 * fps:
 		await process_frame
 		ph.append(atem_a.phase)
+		if i % fps == 0: stark.append(atem_a.anstrengung)
 	var schnell := zuege(ph, 0, 3 * fps) / 3.0
 	var ruhe := ruhe_n / 20.0
 	pruefe(schnell >= 1.35 * ruhe, "nach Anstrengung %.2f Zuege/s gegen %.2f in Ruhe" % [schnell, ruhe])
-	pruefe(atem_a.anstrengung < 0.05, "nach 11 s fast Ruhe (Anstrengung %.3f)" % atem_a.anstrengung)
+	# Chef 03.11., 23:37 (t249 245.2: nach dem Rennen nicht zu sehen): deutlich tiefer und mehrere Atemzuege lang
+	var y_r: Array = sp.y.slice(y0, y0 + 6 * fps)
+	var hub_r: float = (y_r.max() - y_r.min()) * 100.0
+	pruefe(hub_r >= 1.8 * hub, "nach Rennen Schulter %.2f cm, mindestens 1,8-mal Ruhe (%.2f)" % [hub_r, hub])
+	pruefe(float(stark[8]) >= 0.25, "nach 8 s noch ein Viertel angestrengt (%.2f)" % float(stark[8]))
+	pruefe(atem_a.anstrengung < 0.05, "nach 20 s fast Ruhe (Anstrengung %.3f)" % atem_a.anstrengung)
+	print("ATEM ANSTRENGUNG je s ", stark.map(func(x): return snappedf(x, 0.01)))
 	print("ATEM 4532 " + ("gut" if fehler == 0 else "%d Fehler" % fehler))
 	quit(1 if fehler > 0 else 0)
