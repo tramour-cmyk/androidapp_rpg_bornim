@@ -60,6 +60,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 15:33 04.11.: Neustart Tom aea27c713 → `ueHQ` „505: Vorlage Nebel, Rand, Ausgänge aus Lauf 1“ (nach idle); alter Tom `RCQS` archiviert, 15,38 $ auf 505.
 - 15:05 04.11.: Diogenes 513.1 (2,17 $) und Perikles Tagesbericht (4,84 $) fertig, archiviert und gebucht; kein Nachfolger (468a). Homer `777B` idle, wartet auf Wahl zu 547 (Zwischentexte gelten ohne Antwort), bleibt stehen. Tom `RCQS` läuft (505).
 - 14:46 04.11.: Fehler Ford: 13:58 Homer, Diogenes, Perikles gestartet, obwohl 468a bis Sa 20:00 nur Tom, Jerry, Spike und Ford arbeiten lässt (Hinweis Sokrates 14:44); `lauf.py` kennt 468a nicht. Folge: Homer 547, Diogenes 513.1/512.1, Perikles-Tagesbericht laufen zu Ende, **kein Nachfolger** für sie bis Sa 20:00; künftig jeden Lauf `--ohne` für Homer, Perikles, Diogenes, Sokrates (außer Chef-Zuruf/Ausnahmen in 468a). 468d (23–7 Uhr keine Entwicklersitzung, nach 22:30 kein Start) vermerkt.
 - 14:24 04.11.: Neustart Tom c6ac78ffb → `RCQS` „505: Nebel B, Randwald, Kamera, Ausgänge“ (nach idle); alter Tom `Zfp2` archiviert, 12,06 $ auf 557.
