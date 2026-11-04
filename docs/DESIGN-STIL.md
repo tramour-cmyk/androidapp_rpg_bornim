@@ -141,11 +141,54 @@ Im Vorschlag an den Nutzer stehen die vier Antworten kurz neben dem Abgleich mit
 
 ## Oberfläche (Thema 60)
 
-- Alle Oberflächen sehen aus wie Blende und Textkasten (42b): schwarz, dünner Goldrand, Überschriften und Hervorhebungen in gedämpftem Gold, Text in gebrochenem Weiß, Serife (mitgeliefert, OFL); keine hellen Tafeln mehr (Nutzer 12.10., 23:20).
+- Alle Oberflächen sehen aus wie Blende und Textkasten (42b, **teils ersetzt** durch 549a, 04.11.: Menüs, Fenster und Schirme ohne Goldrand nach „Fenster und Schirme“ unten; der Goldrand bleibt nur im Kampf und an Behältern): schwarz, Überschriften und Hervorhebungen in gedämpftem Gold, Text in gebrochenem Weiß, Serife (mitgeliefert, OFL); keine hellen Tafeln mehr (Nutzer 12.10., 23:20).
 - **Eine Schrift überall** (292.3, Chef 22.10., 16:43: „292.3 ja“): Alegreya (mitgeliefert, OFL) für alles, Titel und Knöpfe in gesperrten Versalien. Cinzel nicht mehr (löst 60f ab). Keine Pixelschrift, auch nicht im Kampf (löst 60i ab): Lebens- und Zauberpunkte, Würfelzeile und Zahlen in MARS und im klassischen Kampf in Alegreya mit gleich breiten Ziffern, mindestens 13 sp. Ausnahmen: Ortsnamen auf den Karten bleiben in Handschrift (62g, Chef 14:02); der Schriftzug im Firmenzeichen ist Teil des Logos.
 - **Kästen im Kampf** (292.3): deckend schwarz mit dünnem Rand wie der Textkasten; wer am Zug ist, golden umrandet, wenn Held, rot, wenn Gegner.
 - Farben, die auf Schwarz stehen (Seltenheit, Warnung), hell genug zum Lesen.
 - **Zeichen statt Textwände** (426, Chef 31.10., 21:30 zu Build 143: alte Menüs mit Icons „super klasse“, neue „viel zu viel Text“): Menüs, auch Menü „System“ und Testmenü, zeigen jeden Eintrag als Zeichen mit kurzer Beschriftung (ein bis zwei Wörter), nie als Satz oder Absatz; Erklärung nur, wenn der Spieler sie aufruft. Maß sind die Menüs der alten Fassung: was dort mit Zeichen ging, übernimmt die neue möglichst eins zu eins (425, Tom). Neue Zeichen nach „Zeichen“ unten.
+
+### Fenster und Schirme ohne Kasten (549a, Chef 04.11., 19:28: „549a ja … damit wir nicht jedes Mal wieder neu anfangen“)
+
+Gilt für jeden neuen oder umgebauten Menüschirm und jedes Fenster außerhalb des Kampfs. Gebaut wird Schirm für Schirm, wenn er ohnehin angefasst wird; kein Umbau aller Schirme vor dem Durchspielen. Bausteine in Godot: `godot/skripte/spielstaende.gd` (`frage`, `fuss`, `knopf`, `knopfzeile`, `folge_inhalt`, `zier`, `linie`, `tippbar`, `pfeil`), Farben `godot/skripte/stil.gd`. Wer baut, nimmt diese Bausteine und keine eigenen; weicht ein Wert hier vom Code ab, gilt dieser Abschnitt, der Code wird nachgezogen.
+
+**Begriffe.** *Schirm*: füllt den ganzen Bildschirm (Spielstände, Laden, Brauen, Rast, Kapitelende, Wechselliste). *Fenster*: liegt über einem Schirm oder der Karte (Rückfrage, Gegenstand, Mengenkasten, Erklärung, ganzer Bericht).
+
+**Aufbau, von oben nach unten, immer gleich:**
+1. **Kopf:** Titel; oder beim Ding Bild links und Name daneben, „+x“ in derselben Zeile wie der Name („Kettenpanzer +3“, bricht mit dem letzten Wort um). Über dem Kopf steht nichts: keine Linie, kein Rahmen.
+2. **Zierlinie** direkt unter dem Kopf: feine Goldlinie mit Raute in der Mitte (`zier`, 76 % der Breite, Raute 9 dp, Linie 1 dp). Genau eine je Fenster oder Schirm, keine zweite schlichte Linie darunter.
+3. **Inhalt.** Listen als Zeilen zwischen schlichten Linien (`linie`: 0,6 dp, `RIM`), keine Kästen um Zeilen.
+4. **Schlichte Linie** über den Knöpfen (eine, nicht doppelt unter der letzten Listenzeile).
+5. **Knöpfe** (unten).
+
+**Grund und Rahmen.** Fenster: schwarz und ganz deckend über den ganzen Bildschirm, nichts scheint durch; Inhalt senkrecht mittig, Breite Bildschirm minus 48 dp (24 dp je Seite); Abstand zwischen den Teilen 10 dp. Kein Rahmen um Fenster, Zeilen oder Knöpfe. Rahmen nur im Kampf (Zugleiste, Gruppenkästen, wer am Zug ist; 292.3) und an Behältern (Ausrüstungsplatz, Feld der Tasche), nie an einem Fenster.
+
+**Ausrichtung.** Titel immer zentriert. Rückfragen ganz zentriert (Titel, Text bis drei Zeilen, Name des Dings); hat eine Rückfrage mehr als drei Zeilen Text, steht der Text linksbündig. Alles andere linksbündig (Gegenstand, Rast, Brauen, Spielstände, Wechselliste, Kapitelende, Erklärungen), damit Zeilen an derselben Stelle beginnen und Zahlen untereinander stehen.
+
+**Knöpfe.**
+- Alle Knöpfe gleich groß: je die halbe Breite (`knopfzeile`, 8 dp Abstand), Tippfläche 48 dp hoch, Schrift 15 sp, Versalien, Sperrung 2 sp, ß als SS. Kein Rahmen; beim Antippen wird die Fläche dunkel (`RAISED`), ausgelöst beim Loslassen.
+- **Seite nach Bedeutung, nie mittig, auch ein einzelner Knopf nicht:** was zurückführt oder schließt links mit „‹“ vorn (‹ ZURÜCK, ‹ ABBRECHEN, ‹ SCHLIESSEN); was weiterführt oder ausführt rechts mit „›“ hinten (WEITER ›, LADEN ›, ANLEGEN ›, BRAUEN ×3 ›, NEBENHAND ›). „‹“ und „›“ sind gezeichnete Winkel (`pfeil`), kein Schriftzeichen.
+- **Farbe statt Größe:** Hauptwahl hell golden (`BRIGHT`), Nebenwahl gedämpftes Gold (`GOLD`), was etwas zerstört (× WEGWERFEN, × LÖSCHEN) überall in Warnfarbe (`WARN`) mit „×“ vorn, im Fenster wie in der Rückfrage; nicht wählbar gedämpft (`DIM` zu 75 %), lesbar.
+- **Abbrechen sichtbar** in jedem Fenster mit einer Wahl; Android-Zurück und Tippen neben das Fenster schließen zusätzlich, Tippen ins Fenster nicht (526).
+- Mehr als zwei Knöpfe: Reihen zu je zwei; die unterste Reihe ist immer „‹ Nebenwahl“ links, „Hauptwahl ›“ rechts.
+- **Lage:** die Knöpfe stehen direkt unter dem Inhalt, solange alles auf einen Schirm passt; nur wenn die Liste rollt, fest unten (`folge_inhalt`).
+
+**Schrift** (eine Schrift: Alegreya, Ziffern auf der Linie; sp nach der Schriftgröße des Handys, 498):
+
+| Was | Größe | Schnitt | Farbe |
+|---|---|---|---|
+| Titel eines Schirms | 22 sp | Versalien, Sperrung 3 sp | `GOLD` |
+| Titel eines Fensters, Zwischenüberschrift (Platz, Rezept, „Angelegt“-Kopf) | 15 sp (Zwischenüberschrift 14 sp) | Versalien, Sperrung 3 sp | `GOLD` |
+| Name eines Dings | 16 sp | normal, keine Versalien | Farbe der Seltenheit |
+| Fließtext | 15 sp | normal | `TEXT` |
+| Erzählter Text (Chronik, Kapitelende) | 16 sp | schräg erlaubt | `TEXT` |
+| Kleine Angaben (Reicht für, Im Besitz, Gold, Stufe, Händler zahlt, Tag · Uhr) | 13,5 sp, nie unter 13 sp | normal | `ANGABE` (cfc3ab) |
+| Knöpfe | 15 sp | Versalien, Sperrung 2 sp | siehe Knöpfe |
+
+Versalien mit Sperrung nur für Titel, Zwischenüberschriften und Knöpfe; nie für Sätze, Namen oder Zahlen.
+
+**Farben** (`stil.gd`): `TEXT` e6ddcb gebrochenes Weiß für Text; `GOLD` b59a6a für Titel, Nebenwahl, Raute; `BRIGHT` d9bc82 für Hauptwahl, gewählten Wert und wirksame Boni; `ANGABE` cfc3ab für kleine Angaben; `DIM` 948a78 für Gesperrtes; `RIM` b59a6a zu 67 % für Linien; `WARN` d9785a **nur** für Zerstörendes; Urteil ▲ grün „Besser“, ▼ „Schlechter“, ◆ Gold „Gemischt“. Offen (Prüfer 18:21, Vorschlag in 557 Runde 5): „Schlechter“, „Fehlt“, „kannst du nicht tragen“ in einem eigenen Ton, nicht in der Warnfarbe; Seltenheit Orange nicht wie `WARN`.
+
+**Prüfen vor jeder Vorlage** (Maßtest `gruppe_mass_557` und Helfer, 512b): alles auf 360 dp sichtbar, nichts überlappt, Schrift mindestens 13 sp, Tippfläche mindestens 48 dp, jedes Bildfeld gefüllt (Gegenstand, Trank, Kraut), jede Regel dieses Abschnitts eingehalten.
 
 ### Zeichen (326; Muster: Reiterzeichen; Godot `godot/skripte/reiterzeichen.gd`, Kartenknopf `aktionsknopf.gd`, Menü „System“ `zeichenknopf.gd`, Farben `stil.gd`; Kotlin-Zeit `MenuTabs.kt` `glyph()`)
 

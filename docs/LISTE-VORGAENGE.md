@@ -158,7 +158,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 512b | Testbitte nur mit Nachweis eines fremden Helfers (Chef 04.11., 19:21: ja) | B Abläufe | M | – | Perikles, Jerry, Tom, Diogenes | startbar |
 | 516 | Kostenerfassung ohne Handarbeit: Haken oder Werkzeug liest beim Archivieren `total_cost_usd` des letzten result-Ereignisses und bucht (Chef 03.11., 16:20, Ford) | B Abläufe | K | – | Perikles | ruht |
 | 531 | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere sichtbar mit der Fackel, Ruhebewegungen (Chef 03.11., 23:42) | A Spiel | M | 3,68 $ | Team Tom | startbar |
-| 531a | Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast kaufen? (Chef 04.11., 19:27) | A Spiel | M | – | Sokrates | Chef |
+| 531a | Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast kaufen? (Chef 04.11., 19:27) | A Spiel | M | – | Team Tom | wartet |
 | 530 | Build 249: Schlagbaum am Nordweg öffnet sich nicht sichtbar (Chef 03.11., 23:40) | A Spiel | M | – | Team Tom | zu testen |
 | 548 | MARS im Wald: drei Riesenratten sterben ohne Zutun des Spielers, Sieg ohne einen Knopf (Chef 04.11., 00:03, Bild) | E Kampf | M | – | Team Jerry | startbar |
 | 551 | MARS: Rahmen des unteren Kastens links und rechts unterbrochen (Chef 04.11., 00:21) | E Kampf | M | – | Team Jerry | startbar |
@@ -193,6 +193,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 565 | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, t257 C) | E Kampf | M | – | Team Jerry | startbar |
 | 566 | MARS: Goblin-Späher „In den Schatten“ ist im Bild nicht zu sehen (Chef 04.11., 17:15) | E Kampf | M | – | Team Jerry | startbar |
 | 567 | MARS: Gegner stehen im Kampfort fast übereinander, Ansage hängt neben keinem (Bilder Chef 04.11., 17:00–17:15) | E Kampf | M | – | Team Jerry | startbar |
+| 568 | Ernten als Handlung (hingehen, tippen, bücken) statt Einsaugen im Vorbeilaufen (Chef 04.11., 19:32) | A Spiel | M? | – | Sokrates | Chef |
 | 557 | Spielstände: Entwurf ohne Kasten (549a) als Bild, Inhalt wie alt mit Spieldauer und Heldenbild (Chef 04.11., 11:15) | A Spiel | M | 32,62 $ | Team Tom | startbar |
 | 556 | Blenden reines Schwarz statt Leuchten in der Mitte (Ringe), lang genug zum Lesen (Chef 04.11., 07:52) | A Spiel | M | – | Team Tom | gebaut |
 | 555 | Testmenü wie alt und schneller: fehlende Einträge der alten Fassung, dazu Sprünge an jede Station von Kapitel 1 (Chef 04.11., 00:30) | B Werkzeuge | M | 15,00 $ | Team Tom | gebaut |
