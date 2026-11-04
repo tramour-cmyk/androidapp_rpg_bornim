@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [475a](entscheiden/475a-kapuzen-helme.md) | **Muss** | E Figuren | 04.11., 13:29 | Kapuzen und Helme der Leute: nur das Gesicht frei, oder im Dorf gar nicht? | Sokrates |
 | [549a](entscheiden/549a-ohne-kasten.md) | **Muss** | A Spiel | 04.11., 11:12 | Oberfläche „ohne Kasten“ als Grundsatz: Linien trennen, ein Rahmen nur für die Entscheidung? | Sokrates |
 | [468c](entscheiden/468c-nur-eine-sitzung.md) | **Muss** | B Abläufe | 04.11., 07:12 | Wochenlimit 79 % am Mittwoch: bis Sa 19:59 nur noch eine Entwicklersitzung zugleich? | Sokrates |
 | [110](entscheiden/110-ford-von-hand-starten.md) | – | B Abläufe | 04.11., 13:17 | Ford läuft auf Tiefe 6: bitte neuen Ford von Hand starten | Ford |
@@ -293,10 +294,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 38, Muss 29, startbar 16
+**Sokrates** – offen 39, Muss 30, startbar 16
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 475a | M | Rückfrage: Kapuzen und Helme der Leute nur mit freiem Gesicht oder im Dorf gar nicht? (Che | Chef (Datei in der Chefsache) |
 | 549a | M | Rückfrage: Oberfläche ohne Kasten (549 B) als Grundsatz, Spielstände als zweiter Schirm? ( | Chef (Datei in der Chefsache) |
 | 468c | M | Rückfrage: Wochenlimit 79 % (Bild Chef 04.11., 07:11), bis Sa nur eine Entwicklersitzung z | Chef (Datei in der Chefsache) |
 | 512 | M | von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles): Abgleich alt gegen ne | startbar |
