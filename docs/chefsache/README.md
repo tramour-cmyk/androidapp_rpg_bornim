@@ -332,7 +332,7 @@ Format (Muster: „So geht's“ unten): t257-kampf-klang.md: 26 Vorgänge, höch
 
 Nicht gestellt: 407 (Projekt)
 
-Ohne Datei: 3402 (Projekt), 275 (Projekt), 26 (Team Tom)
+Ohne Datei: 3402 (Projekt), 275 (Projekt)
 
 ## So geht's
 
