@@ -4,13 +4,14 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (04.11., 19:49, `session_01Hmoj76tX5AcuwXNce8Fk7U`):** Chefrunde 16:46–19:49: 549a ja mit Aufbau in `DESIGN-STIL.md` „Fenster und Schirme ohne Kasten“ (fremd geprüft, mit allen Regeln abgeglichen; 549a.1 bei Perikles), 549b ja, 557 Runden 3/4 beantwortet (Knöpfe gleich groß, Seite nach Bedeutung, Warnfarbe, Zentrieren, +x, Rast ohne Lichthof), 505 Lauf 2 ja mit Auflagen, Höhle in 492, 512b ja (verteilt), 531 Film statt Bild, 531a nach dem Film, 558 passt mit Auflage, 568 ja mit Angeln A, t257 C an Jerry (536, 544, 545, 546, 551, 561–567), D/E (555 Nacht fehlt, 517, 505 Nordausgang), 569 Baumkronen bei Tom. Offen beim Chef: `ansehen/557` Runde 5 (neu von Tom), t257 D–G. Kosten auf: 557, 549a, 512, 505, 558, 568. Nachfolger: Sokrates – Chefrunde: 557 Runde 5, dann t257 ab D.
+**Übergabe (04.11., 19:49, `session_01Hmoj76tX5AcuwXNce8Fk7U`):** Chefrunde 16:46–19:49: 549a, 549b, 557 Runden 3/4, 505 Lauf 2, 512b, 531, 531a, 558, 568, t257 C–E entschieden und verteilt (Archiv), 569 bei Tom. Kosten auf: 557, 549a, 512, 505, 558, 568. Nachfolger: Sokrates – Chefrunde: 557 Runde 5, dann t257 ab D.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 512 | M | **von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles):** Abgleich alt gegen neu wirkt nicht: Funde des Chefs in Build 249 (503, 519, 520, 521) | in Arbeit: wirkt nicht, Chef 16:56 t257 C: Gegnernamen, Zugkreis (561) wieder nicht verglichen; Abgleich je Schirm vor Build prüfen |
+| 415d.1 | M | **von Chef (04.11., 19:56, „Brauchen wir das jetzt? Brauchen wir es nicht? Wir haben noch ganz viele Gegner, wir haben viele Zauber“):** Effektpakete jetzt kaufen, Einbau nach Bedarf | wartet auf Chef: entscheiden/415d1 |
 | 508 | M? | **von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5):** Einladung der Lehrmeister in Kapitel 1 erreichbar? (Simulation 444: keine Fertigkeit Geselle bis Stufe 6); Regelfrage: Magie-Kernfertigkeit Pflicht für Paladin und Kriegsmagier?; Wachsoldat startet mit Mittlerer, Wächter verlangt Schwere Rüstung | startbar |
 | 488 | M | **von Chef (02.11., 22:44, „dann frieren wir das mal ab einem gewissen Punkt ein … kümmern uns um wichtige Dinge, dass irgendwann das Spiel an sich fertig wird und ich durchspielen kann. Und dann können wir wieder polieren“):** Feinarbeit einfrieren | wartet auf Perikles: ja (Chef 03.11., 06:44, Archiv); Wochenziel nach Durchspielbarkeit (488 in ARBEIT-PROJEKT) |
 | 461b.4 | M | **von Perikles (deine Liste 461b, 02.11., 19:1x, Punkte 7, 9; Zu 461b.4):** Köpfe der Design-Dateien gegen Entscheidung 84 nachziehen, Ersatz-Anhänge im Archiv | startbar (nur Notizen) |
