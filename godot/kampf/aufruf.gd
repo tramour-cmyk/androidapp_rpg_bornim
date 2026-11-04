@@ -154,7 +154,9 @@ static func blatt(h, zweite = null) -> Dictionary:
 		"off": _waffe(h, h.nebenwaffe(), true) if h.nebenwaffe() != null else null,
 		"con": h.mod("CON"), "prof": h.uebung(), "saves": RETTUNG.get(h.klasse, []),
 		"tenacity": h.standhaft(), "schild": String(schild["base"]) if schild != null else "",   # 406: Modell in der Hand (figur.gd)
-		"hits": {"POISON": h.bonus("POISON_HIT"), "BLEED": h.bonus("BLEED_HIT"), "STUN": h.bonus("STUN_HIT")}}
+		"hits": {"POISON": h.bonus("POISON_HIT"), "BLEED": h.bonus("BLEED_HIT"), "STUN": h.bonus("STUN_HIT")},
+		# 534 (alt Hero.lifeSteal, damageReduction, Perks.cowChance): Lebensraub, Schadensminderung, Charisma für mars.gd
+		"lifesteal": mini(h.bonus("LIFESTEAL"), 30), "reduction": h.bonus("RESIST"), "cha": h.mod("CHA")}
 
 
 static func _waffe(h, w, nebenhand := false) -> Dictionary:

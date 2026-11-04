@@ -35,6 +35,12 @@ const SHAMAN := "goblin_shaman"
 ## 535 (alt Battle.kt Msg.flutters, EVASIVE): die Riesenfledermaus weicht einem Nahkampfhieb zu 20 % flatternd aus
 const MSG535_FLUTTERS = ["{0} flattert davon – daneben!", "{0} flutters away – a miss!"]
 const FLUTTER := 0.2
+## 534 (Abgleich 512, Sokrates: im alten Weltkampf Battle.kt, in MARS fehlend): Lebensraub und Schadensminderung der
+## Ausrüstung, Unerbittlichkeit der Orkblütigen, Einschüchtern zu Kampfbeginn (Perks.cowChance); Wortlaut aus Battle.kt Msg
+const MSG534_LIFESTEAL = ["{0} saugt {1} TP ab.", "{0} drains {1} HP."]
+const MSG534_RELENTLESS = ["{0} bleibt mit eisernem Willen stehen!", "{0} stays standing through sheer will!"]
+const MSG534_COWED = ["{0} zögert, eingeschüchtert von {1}!", "{0} hesitates, cowed by {1}!"]
+const COW_PER_CHA := 0.08
 const BREAK_SHARE := 5
 ## 296.2: the lines of the old fight, the same words in MARS (Skirmish.kt Msg296, Zweig claude/build-89).
 const MSG296_STILLSURPRISED = ["{0} ist noch überrascht und kann nicht reagieren!", "{0} is still caught off guard!"]
@@ -244,6 +250,8 @@ var outcome := "ONGOING"
 ## 296.2: who strikes first, as on the map: "AMBUSHED" the foes before the party, "HERO_FIRST" the party first and the
 ## foes lose their first turn, else "NORMAL".
 var opening := "NORMAL"
+## 534: wer seine Unerbittlichkeit in diesem Kampf schon gebraucht hat (alt Battle.relentlessUsed)
+var relentless_used := {}
 var surprised := {}
 var intents := {}
 var autopilot := false
@@ -677,8 +685,26 @@ func _opening() -> void:
 		_say(fmt(X.MSG72_WINDED, lang, [lead().name(lang)]))
 	if fed:
 		_say(fmt(MSG399_FED, lang, [lead().name(lang)]))
+	_cow()
 	for foe in intents.keys():
 		_say_announce(by_id(foe))
+
+
+## 534 (alt Battle.init, Perks.cowChance): wer Charisma hat, schüchtert zu Kampfbeginn einen gewöhnlichen Gegner ein (8 % je
+## Punkt), der dann seinen ersten Zug verliert; nie im Hinterhalt, nie einen Boss. Alt gab es einen Gegner, hier den ersten im Zug.
+func _cow() -> void:
+	var h := lead()
+	var cow := COW_PER_CHA * maxi(0, int(h.hero.get("cha", 0))) if h.hero != null else 0.0
+	if opening == "AMBUSHED" or cow <= 0.0:
+		return
+	var foe = null
+	for f in order:
+		if f.side == "FOES" and f.standing() and not f.boss() and not surprised.has(f.id):
+			foe = f
+			break
+	if foe != null and dice.chance(cow):
+		surprised[foe.id] = true
+		_say(fmt(MSG534_COWED, lang, [foe.name(lang), h.name(lang)]), foe.id, h.id)
 
 
 ## 259: plays a light fight through in one go. Returns {lost, stopped, events}.
@@ -1028,6 +1054,7 @@ func _weapon_attack(f: Fighter, t: Fighter, advantage := false, cover := true, w
 	f.sneaked = true
 	dmg = maxi(1, dmg - _weakness(f) + _fed(f))
 	_hurt(t, dmg, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), dmg]), info, true)
+	_life_steal(f, dmg)
 	if not statuses or outcome != "ONGOING" or not t.standing():
 		return
 	# 296.2: critical hits wound as in the old fight, blades make bleed, blunt weapons can stun; and the gear's own
@@ -1046,6 +1073,21 @@ func _weapon_attack(f: Fighter, t: Fighter, advantage := false, cover := true, w
 ## 296.2: slowed or weakened, −2 on the attack each (the old fight).
 func _penalty(f: Fighter) -> int:
 	return (2 if f.status.has("SLOW") else 0) + _weakness(f)
+
+
+## 534 (alt Battle.weaponAttack, Hero.lifeSteal): wer mit Lebensraub trifft, heilt sich um den Anteil des Schadens (höchstens 30 %)
+func _life_steal(f: Fighter, dealt: int) -> void:
+	var steal: int = mini(30, int(f.hero.get("lifesteal", 0))) if f.hero != null else 0
+	if steal <= 0 or dealt <= 0 or not f.standing() or f.hp >= f.max_hp:
+		return
+	var n := mini(f.max_hp - f.hp, maxi(1, dealt * steal / 100))
+	f.hp += n
+	_say(fmt(MSG534_LIFESTEAL, lang, [f.name(lang), n]), f.id, f.id, 0, null, false, false, "HEAL")
+
+
+## 534 (alt Battle.hitHero, Hero.damageReduction): Schadensminderung der Ausrüstung gegen jeden Treffer eines Gegners
+func _reduction(t: Fighter) -> int:
+	return maxi(0, int(t.hero.get("reduction", 0))) if t.hero != null else 0
 
 
 func _weakness(f: Fighter) -> int:
@@ -1308,7 +1350,7 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 		_say(fmt(pick("MSG72_EVADES" if re == PERFECT else "MSG72_GOOD"), lang, [t.name(lang)]), t.id)
 	dmg = int(dmg * SHARE[re])
 	if dmg > 0:
-		dmg = maxi(1, dmg - _weakness(foe))
+		dmg = maxi(1, dmg - _weakness(foe) - _reduction(t))
 	if intent.id == "venom":
 		_say(fmt(pick("MSG130_VENOMHITS"), lang, [foe.name(lang), t.name(lang)]), foe.id, t.id, 0, null, false, false, "VENOM")
 	if dmg > 0:
@@ -1521,8 +1563,16 @@ func _summon(by: Fighter) -> void:
 func _hurt(t: Fighter, full: int, by: String, text: String, roll = null, wound := false) -> void:
 	var dmg := int(full * quick_harm()) if quick_run and t.side == "PARTY" else full
 	var floor_hp := 1 if not chosen and t.side == "PARTY" and t.hp > 0 else 0
+	# 534 (alt Battle.hitHero, Rasse Orkblütig): einmal je Kampf bleibt er mit 1 TP stehen
+	var unerbittlich := floor_hp == 0 and t.side == "PARTY" and t.hero != null and String(t.hero.get("race", "")) == "HALF_ORC" \
+			and t.hp > 0 and t.hp <= dmg and not relentless_used.has(t.id)
+	if unerbittlich:
+		relentless_used[t.id] = true
+		floor_hp = 1
 	t.hp = maxi(t.hp - dmg, floor_hp)
 	_say(text, by if by != "" else null, t.id, dmg, roll, false, wound)
+	if unerbittlich:
+		_say(fmt(MSG534_RELENTLESS, lang, [t.name(lang)]), t.id)
 	if t.standing():
 		# 296.2: no one's blow (a status hurting at the turn's start) breaks no intent
 		if by == "" or not intents.has(t.id):
