@@ -16,6 +16,12 @@ Nichts offen.
 
 ## Anzusehen
 
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [475](ansehen/475-gesichter.md) | Gesichter der Leute: jedes an der Form unterscheidbar? | – | 04.11., 20:37 |
+
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
 | Folge | Version | Build | Was | Wer | Seit |
@@ -342,6 +348,8 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 Format (Muster: „So geht's“ unten): t257-kampf-klang.md: 26 Vorgänge, höchstens 6 je Build (317)
 
 Nicht gestellt: 407 (Projekt)
+
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/475-gesichter.md
 
 Ohne Datei: 3402 (Projekt), 275 (Projekt)
 
