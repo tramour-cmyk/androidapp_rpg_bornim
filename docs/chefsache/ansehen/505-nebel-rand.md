@@ -34,6 +34,14 @@ Bekannt (vom Prüfer am Rechner um 17:21 gesehen, in diesem Lauf noch nicht beho
 - Dorf: Häuser am Nebelrand waagerecht durchgeschnitten, der Brunnen als schwarze Schablone.
 - Die Höhle selbst (Kristalle, Truhe, Lichtstrahl, Teich, Gitter nach dem alten Spiel) ist nach diesem Lauf gebaut und kommt mit Vorgang 492.
 
+Befund des Prüfers (19:07, nach dem Versand; nicht behoben):
+- Signatur: Licht aus einer Quelle ja in allen Bildern außer der Höhle (3, 12: Wände hell lila ohne Quelle, leichter Lilaglanz an Felskanten). Tuschelinie bei dieser Bildgröße kaum zu beurteilen, am Höhlenmund (7) fehlt sie. Nur Gold glänzt: ja, außer Höhle fraglich.
+- Nebel: nie gesehen schwarz, erkundet etwa 0,6 von in Sicht. Höhle (3): an einer Messstelle ist eine Wand zu sehen, am linken Rand scheint ein türkiser Schein ins Schwarz. Bei 7, 10, 11 liegt ein schwarzes Band mit harten Kanten zwischen zwei gesehenen Flächen (Verdeckung oder Fehler, offen). Bei 6, 9, 14 und am Tiefen Wald harte Sichtgrenze ohne Übergang.
+- Randwald: bei 4 und 6 eine harte senkrechte Kante ins Schwarz, bei 5 unten eine harte Kante, der Weg läuft gerade hinein.
+- Höhlenmund (7): kein grüner Fleck mehr, Geröll und Gras am Fuß. Fels weiter hellgrau, heller als das Gras, ohne Umrisslinie; der Mund innen blaugrau, wirkt wie ein Vorhang. Höhlenausgang (12): weiter ein fleckiges Rechteck, kein Tageslicht.
+- Ausgänge: Nordausgang (14) ohne die geraden Streifen, Weg biegt ab, Fichten beidseits, rechts vom Schlagbaum aber noch etwa 2 m freies Gras. Wald Süden (5) Weg gerade ins Schwarz; Bach im Dorf (10, 11) läuft gerade bis zum Rand.
+- Weitere Fehler: Brunnen (2) und ein Haus (9), ein Dach (10) als schwarze Schablone auf sichtbarem Boden; Hauswand abgeschnitten (11); Höhle mit helleren Flecken auf den Wänden und Lilastich; bei 4 ein runder Ausschnitt um den Helden mit sichtbarer Kante.
+
 Die Bildrate misst du im nächsten Build (Testmenü „FPS“, Wald am Kartenrand).
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/99edbd609 (Zweig `claude/tom-505-rand`, Lauf [41872344111](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41872344111), Bildlauf 2 von 2; Tests nebel_505, rand_505, wald_490, hoehle_492, kartennebel_505 ohne Fehler).
