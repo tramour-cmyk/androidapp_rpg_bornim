@@ -153,10 +153,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | Pflege | K | von Werkzeug (340.3, 04.11.): 94690 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 77, Muss 64, startbar 15
+**Jerry** – offen 78, Muss 65, startbar 16
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 564 | M | von Sokrates (Chef 04.11., 17:06, Testreiter „Seit Start, Fehler“, Build 257; Zu 564): vie | startbar |
 | 562 | M | von Sokrates (Chef 04.11., 17:02, t257 Bereich C; Zu 562 und 563): Helden gehen zum Angrif | startbar |
 | 563 | M | von Sokrates (Chef 04.11., 17:02, t257 Bereich C, Bild; Zu 562 und 563): Zustandsschilder | startbar |
 | 561 | M | von Sokrates (Chef 04.11., 16:56, t257 Bereich C, Bild; Zu 561): goldener Zugkreis liegt ü | startbar |
@@ -167,7 +168,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 552 | M | von Sokrates (Chef 04.11., 00:22, Build 249): „MARS Zugreihenfolge oben fehlt“ | wartet auf Test (Build) |
 | 553 | M | von Sokrates (Chef 04.11., 00:26, Build 249, Bild; Zu 553): „Was ist das für ein graues Ti | wartet auf Test (Build) |
 | 545 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS-Probekampf: Testknöpfe „Gegner | ruht |
-| 546 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS: Wölfe weichen viel zu träge au | wartet auf Test (Build) |
+| 546 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS: Wölfe weichen viel zu träge au | wartet auf Test/Build (gebaut) |
 | 547 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS: Text sagt „geht in die Knie“, | startbar |
 | 544 | M | von Sokrates (Chef 03.11., 23:49, Build 249: „Stimmt die Schrift?“): Kampfschirm ohne Seri | startbar |
 | 532 | M | von Sokrates (512; Zu 532): Kampf: Held ohne Zauberpunkte, Verbrauchtes, Zustände, Metraus | startbar |
