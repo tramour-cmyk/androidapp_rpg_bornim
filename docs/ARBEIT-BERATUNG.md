@@ -10,6 +10,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 549a | M | Rückfrage: Oberfläche ohne Kasten (549 B) als Grundsatz, Spielstände als zweiter Schirm? (Chef 11:12) | wartet auf Chef: entscheiden/549a |
 | 468c | M | Rückfrage: Wochenlimit 79 % (Bild Chef 04.11., 07:11), bis Sa nur eine Entwicklersitzung zugleich? | wartet auf Chef: entscheiden/468c |
 | 512 | M | **von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles):** Abgleich alt gegen neu wirkt nicht: Funde des Chefs in Build 249 (503, 519, 520, 521) | in Arbeit: Abgleich Build 249 verteilt (523–543); t251–t257 mit Zeile „Verglichen“; Wächter 512.1 bei Perikles; Wirkung am nächsten Chef-Test prüfen |
 | 512a | M | Rückfrage: Abgleichsfunde 535, 543 bis 478 zurückstellen? | wartet auf Chef: entscheiden/512a |
