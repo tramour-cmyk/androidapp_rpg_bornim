@@ -69,6 +69,11 @@ func _draw() -> void:
 			zug.call([Vector2(5, 7), Vector2(5, 20.5), Vector2(16, 20.5), Vector2(16, 7)])
 			zug.call([Vector2(16, 10), Vector2(19.5, 10), Vector2(19.5, 16.5), Vector2(16, 16.5)])
 			zug.call([Vector2(4.5, 7), Vector2(6.5, 4.5), Vector2(9.5, 5.5), Vector2(12, 3.8), Vector2(14.5, 5.5), Vector2(16.5, 7)], false, duenn)
+		"PLUS":   # 557: neues Spiel in einen leeren Platz (Kreis mit Kreuz, wie MOON nur Umriss)
+			draw_arc(P.call(12, 12), 9.0 * u, 0, TAU, 48, c, duenn, true)
+			l.call(12, 7.5, 12, 16.5); l.call(7.5, 12, 16.5, 12)
+		"KREUZ":   # 557: Löschen, leise
+			l.call(7, 7, 17, 17, duenn); l.call(17, 7, 7, 17, duenn)
 		"COIN":
 			draw_arc(P.call(12, 12), 8.5 * u, 0, TAU, 48, c, dick, true)
 			draw_arc(P.call(12, 12), 5.5 * u, 0, TAU, 40, c, duenn, true)
