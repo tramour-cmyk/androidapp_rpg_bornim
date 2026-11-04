@@ -166,9 +166,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | D63.5 | K | von Diogenes (374/434, Vortag 01.11.): ohne „Bestand geprüft“ (434): 417 R2, R4, R5, 22:53 | startbar |
 | D71.1 | K | von Diogenes (374/434, Vortag 02.11.): ohne „Bestand geprüft“ (434): 417 00:53, 02:24, 03: | startbar |
-| Pflege | K | von Werkzeug (340.3, 04.11.): 70081 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
+| Pflege | K | von Werkzeug (340.3, 04.11.): 70148 Bytes (Grenze 15000), Erledigtes streichen; Zeile Pfle | startbar |
 
-**Jerry** – offen 77, Muss 65, startbar 4
+**Jerry** – offen 77, Muss 65, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -195,7 +195,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Wölfe gleiten (Angriff, Tempo, aneinander vor | wartet auf Test/Build (gebaut) |
 | 457.2 | M | von Perikles (Chef 01.11., 11:49): Probeskripte zeichnen standardmäßig mit Toon-Licht, Tus | wartet auf Test/Build (gebaut) |
 | 453.1 | M | von Sokrates: Helden im Kampf atmen ruhiger, je Figur eigener Takt | wartet auf Test (Build) |
-| 453 | M | von Sokrates: Ruhebewegungen der Wölfe | startbar |
+| 453 | M | von Sokrates: Ruhebewegungen der Wölfe | wartet auf Perikles |
 | 453a | M | Wolfsatem B | wartet auf Test (Build) |
 | 454 | M | von Sokrates: Bissachse des Wolfs | wartet auf Test (Build) |
 | 438a | M | von Sokrates (438a): Hinfallen und Aufstehen des Kaufhelden, Waffe und Schild frei | ruht |
@@ -248,7 +248,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | 469 | M | von Sokrates: Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
-| Pflege | K | von Werkzeug (340.3, 04.11.): 21530 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 04.11.): 19357 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 31, Muss 26, startbar 2
 
