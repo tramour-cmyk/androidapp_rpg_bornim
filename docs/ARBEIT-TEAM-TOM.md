@@ -8,7 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 557 | M | **von Sokrates (Chef 04.11., 11:15; Zu 557):** Spielstände als Entwurf im Stil „ohne Kasten“ (549a), ein Bild aus Godot zum Ansehen; Inhalt mit der alten Fassung abgleichen (`SlotsScreen.kt` `SlotCard`), Spieldauer wieder dabei; nichts bauen außer dem Entwurf | wartet auf Chef: ansehen/557 (Spielstände B, Wechselliste B); Geprüft an: 9bba5679d | `claude/tom-557-spielstaende` |
+| 557 | M | **von Sokrates (Chef 04.11., 11:15; Zu 557):** Spielstände als Entwurf im Stil „ohne Kasten“ (549a), ein Bild aus Godot zum Ansehen; Inhalt mit der alten Fassung abgleichen (`SlotsScreen.kt` `SlotCard`), Spieldauer wieder dabei; nichts bauen außer dem Entwurf | startbar: neue Vorlage mit 524.1 im Stil B (Chef 13:32, Zu 557 und 524.1) | `claude/tom-557-spielstaende` |
 | 558 | M | **von Sokrates (Chef 04.11., 11:31, Bild Build 257; Zu 558):** Robe des Magiers zu glatt: Stoff mit Falten, Schatten, Schmutz, Abnutzung; erst Probebild neben dem jetzigen, gilt für alle Trachten | in Arbeit: Probelauf 2 von 2 läuft (tom-probe-558.yml; Lauf 1 brach beim Einrichten ab): Robe jetzt, Stoff 0,6, Stoff 1 im Spiel | – |
 | 556 | M | **von Sokrates (Chef 04.11., 07:52; Zu 556):** Blenden reines Schwarz statt Leuchten, Lesezeit jeder Blende gegen alt (`InterludeClock`) | gebaut, fährt im nächsten Build: Kampf 0,65 s → 2–6,6 s, Orte 1,9 → 2,1–4,8 s; Geprüft an: abda486d3 | `claude/tom-556-blende` |
 | 531 | M | **von Sokrates (Chef 03.11., 23:42, Build 249; Zu 531):** Garrick: „Gesicht wirkt sonderbar, Bogen fehlt, vertreibt keine Mobs. Hat er schon Animation?“ | wartet auf Chef: ansehen/531; Geprüft an: cac2a27f4 | – |
