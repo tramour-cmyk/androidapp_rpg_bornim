@@ -164,7 +164,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 552 | MARS: Zugreihenfolge oben fehlt am Gerät (Chef 04.11., 00:22) | E Kampf | M | – | Team Jerry | zu testen |
 | 553 | Flüsterwald: unbekanntes graues Tier auf der Karte, verzerrt (Chef 04.11., 00:26, Bild) | E Figuren | M | – | Team Jerry | zu testen |
 | 545 | MARS-Probekampf: Testknöpfe „Gegner besiegen“ (✓) und „Held fällt“ (✗) ohne Funktion (Chef 04.11., 00:01) | E Kampf | M | 22,08 $ | Team Jerry | ruht |
-| 546 | MARS: Wölfe weichen viel zu träge aus („wie Schlaftabletten“) (Chef 04.11., 00:01) | E Kampf | M | – | Team Jerry | zu testen |
+| 546 | MARS: Wölfe weichen viel zu träge aus („wie Schlaftabletten“) (Chef 04.11., 00:01) | E Kampf | M | – | Team Jerry | gebaut |
 | 547 | MARS: Text sagt „geht in die Knie“, Sturz ist aus (438a eingefroren): Text und Bild in Einklang bringen (Chef 04.11., 00:01) | E Kampf | M | – | Team Jerry | startbar |
 | 544 | Build 249, Kampf: Schrift ist Ersatzschrift ohne Serifen statt Alegreya (Chef 03.11., 23:49, Bild) | E Kampf | M | – | Team Jerry | startbar |
 | 532 | Kampf: Held geht ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch und ohne die ganze Tasche (nur einfacher Heiltrank) in den Kampf, danach wird nur TP zurückgeschrieben; Zauber kosten nichts (Abgleich 512, Sokrates 03.11., 23:4x) | E Kampf | M | – | Team Jerry | startbar |
@@ -188,6 +188,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 561 | MARS: goldener Zugkreis wird von der Figur darin nicht verdeckt, wie alt (Chef 04.11., 16:56, t257 C) | E Kampf | M | – | Team Jerry | startbar |
 | 562 | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17:02, t257 C) | E Kampf | M | – | Team Jerry | startbar |
 | 563 | MARS: Zustandsschilder über Gegnern („Blut 3“) überlagern Ansage und Leisten, wirken grob (Chef 04.11., 17:02, t257 C) | E Kampf | M | – | Team Jerry | startbar |
+| 564 | Godot meldet im Lauf am Handy viermal „Lambda capture at index 0 was freed“ (Chef 04.11., 17:06, Testreiter) | E Technik | M | – | Team Jerry | startbar |
 | 557 | Spielstände: Entwurf ohne Kasten (549a) als Bild, Inhalt wie alt mit Spieldauer und Heldenbild (Chef 04.11., 11:15) | A Spiel | M | 32,62 $ | Team Tom | startbar |
 | 556 | Blenden reines Schwarz statt Leuchten in der Mitte (Ringe), lang genug zum Lesen (Chef 04.11., 07:52) | A Spiel | M | – | Team Tom | gebaut |
 | 555 | Testmenü wie alt und schneller: fehlende Einträge der alten Fassung, dazu Sprünge an jede Station von Kapitel 1 (Chef 04.11., 00:30) | B Werkzeuge | M | 15,00 $ | Team Tom | zu testen |
