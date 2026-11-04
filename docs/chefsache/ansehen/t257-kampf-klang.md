@@ -30,9 +30,9 @@ Verglichen (alt gegen neu): Reiter „Test“ (`TestTab.kt`); `SkirmishScreen.kt
 
 | # | Team | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|---|
-| 251.10 | Jerry | 544 | Probekampf: Schrift im Kampfschirm | Alegreya mit Serifen wie im Menü | Ersatzschrift ohne Serifen |
+| 251.10 ✓ Art, ✗ Größe (Chef 16:58: „relativ klein“) | Jerry | 544 | Probekampf: Schrift im Kampfschirm | Alegreya mit Serifen wie im Menü | Ersatzschrift ohne Serifen |
 | 252.1 ✓ (Chef 16:56) | Jerry | 552 | Probekampf, oben am Bildschirm | die Zugreihenfolge steht unter der Kamera, ganz lesbar | oben nur ein leerer schwarzer Streifen |
-| 252.2 | Jerry | 551 | Probekampf, der Goldrahmen um den Kasten unten, besonders unten links und rechts; bitte ein **Bildschirmfoto** | der Rahmen läuft rundum durch | an den unteren Ecken unterbrochen (zeigt das Bildschirmfoto die Lücke auch, ist es eine andere Ursache) |
+| 252.2 ✗ (Chef 16:58, auch im Bildschirmfoto [551](../bilder/551-kampf-257.webp)) | Jerry | 551 | Probekampf, der Goldrahmen um den Kasten unten, besonders unten links und rechts; bitte ein **Bildschirmfoto** | der Rahmen läuft rundum durch | an den unteren Ecken unterbrochen (zeigt das Bildschirmfoto die Lücke auch, ist es eine andere Ursache) |
 | 252.3 ✗ (Chef 16:56, erstes Fenster riesig; Zu 536) | Jerry | 536 | Probekampf, eine halbe Sekunde auf „Angriff“ drücken, dann loslassen; ebenso auf „Abwehr“, „Held“ | unten erscheint eine Erklärung, was der Knopf tut; losgelassen passiert nichts | keine Erklärung, oder der Held greift an |
 | 252.4 ✗ (Chef 16:56, Gegnernamen fehlen; Zugkreis 561) | Jerry | 536 | lang auf das Zeichen über einem Wolf drücken (die Ansage), dann lang auf einen Wolf selbst | Ansage: was sie heißt und was hilft; Wolf: Name, Absicht und auf wen | nichts erscheint |
 | 252.5 | Jerry | 546 | Probekampf, zusehen, wenn ein Wolf einem Schlag ausweicht | er springt flink im Lauf zur Seite und kehrt dann zurück | er schleicht im Schritt weg („Schlaftabletten“) |
