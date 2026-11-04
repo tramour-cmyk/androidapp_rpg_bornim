@@ -1849,10 +1849,11 @@ func hoehle_bilder() -> void:
 	print("HOEHLENBILDER fertig")
 	get_tree().quit()
 
-# 505 Nebel am Rechner: --nebel=<ordner>. Lauf 2 nach dem Urteil 16:15 (Chef 16:13: „ob ich es halt schon entdeckt habe oder ob
-# es komplett neu ist, das kann ich an diesen Bildern leider nicht erkennen“): der Weg vom Dorf nach Norden bis vor Garricks
-# Lichtung (Teich links), rundum; dieselbe Stelle in Fassung A (Baeume alt, t732) und B (Baeume wie der Boden davor), je Stufe
-# eine Beschriftung auf einer Kachel dieser Stufe (gesucht, nicht geraten); dann die Karte im Menue als Ortsangabe. Monster ruhig.
+# 505c Nebel, Rand, Ausgaenge am Rechner: --nebel=<ordner> (Chef 04.11., 14:06 „Vorgang 505c“, Zu 505 (Rand)): eine Vorlage fuer
+# Wald, Dorf und Hoehle. Wald: der Weg vom Dorf nach Norden, die drei Stufen beschriftet und gemessen (Fassung B); die Ausgaenge mit
+# Blick zum Rand (Sueden zum Dorf, Osten zum Tiefen Wald, Norden der Hoehlenmund); eine Ecke ganz herausgezoomt (Kamera haelt). Dorf:
+# Sued- und Nordausgang. Hoehle: Nebel im Gang, beschriftet, und der Ausgang zum Tageslicht. Dazu Dreiecke mit und ohne Randwald.
+# Monster ruhig, Tag (10 Uhr).
 func nebel_bilder() -> void:
 	var dir := ""
 	for a in OS.get_cmdline_user_args():
@@ -1862,40 +1863,127 @@ func nebel_bilder() -> void:
 	ui.mess.visible = false
 	ui.oben.visible = false
 	zustand.minuten = 10 * 60
+	zustand.setze("quest_started"); zustand.setze("cave_seen")
+	var schilder := CanvasLayer.new()
+	schilder.layer = 30
+	add_child(schilder)
+	# Wald, Stufen: Kachel fuer Kachel nach Norden bis vor Garricks Lichtung
 	betrete("forest", Vector2i(9, 29), "UP")
 	if herde: herde.aus = true
 	await get_tree().create_timer(1.0).timeout
 	nebel.vergiss()
-	for y in range(29, 17, -1):   # der Weg nach Norden, Kachel fuer Kachel
+	for y in range(29, 17, -1):
 		held.setze(Vector2i(9, y), "UP"); kamera.springe()
 		await get_tree().create_timer(0.25).timeout
+		if y == 22:   # dieselbe Kachel in Sicht und spaeter erkundet: Verhaeltnis der Helligkeit (Zu 505 (Rand) (1): Werte messen)
+			await get_tree().create_timer(1.0).timeout
+			ui.textfeld.visible = false
+			print("NEBELMASS Wald (9, 25) in Sicht Helligkeit %.0f" % await nebel_hell(Vector2i(9, 25)))
 	await get_tree().create_timer(1.0).timeout
-	var schilder := CanvasLayer.new()
-	schilder.layer = 30
-	add_child(schilder)
-	for f in [["alt", "A: Bäume außer Sicht nie schwarz (wie alt)"], ["boden", "B: Bäume wie der Boden vor ihnen"]]:
-		nebel.fassung(f[0])
+	print("NEBELMASS Wald (9, 25) erkundet Helligkeit %.0f" % await nebel_hell(Vector2i(9, 25)))
+	await nebel_stufen(schilder, "Wald: Fassung B, drei Stufen", [[0, "unbekannt: schwarz", Vector2i(3, 14)], [1, "erkundet: abgedunkelt", Vector2i(9, 25)], [2, "in Sicht: hell", Vector2i(10, 19)]])
+	await knips("%s/1_wald_stufen.png" % dir)
+	for c in schilder.get_children(): c.queue_free()
+	# Ausgaenge mit Blick zum Rand (Drehung: 0 Norden oben, 180 Sueden oben, 270 Osten oben)
+	for b in [["2_wald_sued", "forest", Vector2i(9, 30), 180.0, "Wald, Süden: Weg zum Dorf"], ["3_wald_ost", "forest", Vector2i(18, 10), 270.0, "Wald, Osten: Weg zum Tiefen Wald"],
+			["4_wald_hoehlenmund", "forest", Vector2i(10, 2), 0.0, "Wald, Norden: Höhlenmund"], ["6_dorf_sued", "village", Vector2i(17, 30), 180.0, "Dorf, Süden: Feldweg"],
+			["7_dorf_nord", "village", Vector2i(17, 1), 0.0, "Dorf, Norden: Weg zum Wald"]]:
+		if karte.id != b[1]:
+			betrete(b[1], b[2], "UP")
+			if herde: herde.aus = true
+		await nebel_blick(b[2], b[3], Kamera.FERN)
+		await nebel_titel(schilder, b[4])
+		await knips("%s/%s.png" % [dir, b[0]])
+		print("NEBELRAND %s Ausschnitt %.2f m (gewaehlt %.2f) verkleinert %s" % [b[0], kamera.size, Kamera.FERN, kamera.rand_klein])
+	# Ecke ganz herausgezoomt: die Kamera haelt am Randwald, der Ausschnitt wird kleiner
+	betrete("forest", Vector2i(1, 30), "UP")
+	if herde: herde.aus = true
+	await nebel_blick(Vector2i(1, 30), 135.0, Kamera.FERN * 1.6)
+	await nebel_titel(schilder, "Wald, Ecke Südwest, ganz herausgezoomt")
+	await knips("%s/5_wald_ecke_weit.png" % dir)
+	print("NEBELRAND Ecke Ausschnitt %.2f m (gewaehlt %.2f) verkleinert %s" % [kamera.size, Kamera.FERN * 1.6, kamera.rand_klein])
+	# Dreiecke mit und ohne Randwald (Dorf, Suedrand)
+	betrete("village", Vector2i(17, 28), "UP")
+	if herde: herde.aus = true
+	await nebel_blick(Vector2i(17, 28), 180.0, Kamera.FERN)
+	for mit in [true, false]:
+		for n in gebiet.find_children("Randwald_*", "", true, false): n.visible = mit
 		await get_tree().create_timer(0.5).timeout
-		for c in schilder.get_children(): c.queue_free()
-		nebel_schild(schilder, f[1], Vector2(get_viewport().get_visible_rect().size.x / 2.0, 60), 26)
-		for st in [[0, "unbekannt: schwarz", Vector2i(3, 14)], [1, "erkundet: abgedunkelt", Vector2i(9, 25)], [2, "in Sicht: hell", Vector2i(12, 18)]]:
-			var t := nebel_kachel(int(st[0]), st[2])
-			print("NEBELSTUFE %s %s %s Bild %s" % [f[0], st[1], t, kamera.unproject_position(karte.kachel_pos(t))])
-			if t.x >= 0: nebel_schild(schilder, st[1], kamera.unproject_position(karte.kachel_pos(t)), 20)
-		ui.textfeld.visible = false
-		await knips("%s/stufen_%s.png" % [dir, f[0]])
-	schilder.queue_free()
-	oeffne_menue()
-	await get_tree().create_timer(0.5).timeout
-	for e in get_children():
-		if e is CanvasLayer and e.layer == 40:
-			for m in e.get_children():
-				if m is Menue: m.reiter = "karte"; m.baue()
+		await RenderingServer.frame_post_draw
+		print("NEBELRAND Dreiecke %s Randwald %d, Zeichenaufrufe %d" % ["mit" if mit else "ohne", RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_PRIMITIVES_IN_FRAME), RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_DRAW_CALLS_IN_FRAME)])
+	# Hoehle: vom Eingang in den Gang, Stufen beschriftet; dann der Ausgang mit Blick hinaus
+	betrete("cave", Vector2i(10, 18), "UP")
+	if herde: herde.aus = true
 	await get_tree().create_timer(1.0).timeout
-	await knips("%s/karte.png" % dir)
-	Nebel.baeume = "alt"
+	nebel.vergiss()
+	for t in [Vector2i(10, 18), Vector2i(10, 17), Vector2i(10, 16), Vector2i(11, 15), Vector2i(11, 14)]:
+		held.setze(t, "UP"); kamera.springe()
+		await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(1.0).timeout
+	await nebel_stufen(schilder, "Höhle: drei Stufen", [[0, "unbekannt: schwarz", Vector2i(5, 9)], [1, "erkundet: abgedunkelt", Vector2i(10, 18)], [2, "in Sicht: hell", Vector2i(11, 12)]])
+	await knips("%s/8_hoehle_stufen.png" % dir)
+	for c in schilder.get_children(): c.queue_free()
+	await nebel_blick(Vector2i(10, 17), 180.0, Kamera.FERN)
+	await nebel_titel(schilder, "Höhle: Ausgang zum Tageslicht")
+	await knips("%s/9_hoehle_ausgang.png" % dir)
+	schilder.queue_free()
 	print("NEBELBILDER fertig")
 	get_tree().quit()
+
+## Held auf t, Kamera mit Blick dorthin (Drehung wie kamera.gieren ab Norden), Zoom, ohne Text
+func nebel_blick(t: Vector2i, drehung: float, zoom: float) -> void:
+	held.setze(t, "UP")
+	kamera.zoom = zoom; kamera.size = zoom; kamera.nah = false
+	kamera.gieren_ziel = drehung; kamera.springe()
+	for i in 3: kamera.springe()
+	await get_tree().create_timer(1.2).timeout
+	ui.textfeld.visible = false
+
+func nebel_titel(e: CanvasLayer, text: String) -> void:
+	for c in e.get_children(): c.queue_free()
+	nebel_schild(e, text, Vector2(get_viewport().get_visible_rect().size.x / 2.0, 60), 26)
+	await get_tree().create_timer(0.3).timeout
+	ui.textfeld.visible = false
+
+## mittlere Helligkeit (0-255) des Bilds um die Mitte der Kachel t (9 x 9 Punkte)
+func nebel_hell(t: Vector2i) -> float:
+	await RenderingServer.frame_post_draw
+	var img := get_viewport().get_texture().get_image()
+	var q := kamera.unproject_position(karte.kachel_pos(t))
+	var sk := Vector2(img.get_width(), img.get_height()) / get_viewport().get_visible_rect().size
+	var summe := 0.0; var n := 0
+	for dy in range(-4, 5):
+		for dx in range(-4, 5):
+			var x := int(q.x * sk.x) + dx * 2; var y := int(q.y * sk.y) + dy * 2
+			if x < 0 or y < 0 or x >= img.get_width() or y >= img.get_height(): continue
+			var c := img.get_pixel(x, y)
+			summe += (0.299 * c.r + 0.587 * c.g + 0.114 * c.b) * 255.0; n += 1
+	return summe / maxf(1.0, n)
+
+## je Stufe die naechste Kachel im Bild beschriften; Helligkeit des Bilds dort (9 x 9 Punkte um die Kachelmitte) messen, vor den Schildern
+func nebel_stufen(e: CanvasLayer, titel: String, stufen: Array) -> void:
+	ui.textfeld.visible = false
+	await RenderingServer.frame_post_draw
+	var img := get_viewport().get_texture().get_image()
+	var orte := []
+	for st in stufen:
+		var t := nebel_kachel(int(st[0]), st[2])
+		if t.x < 0: print("NEBELMASS %s %s: keine Kachel im Bild" % [titel, st[1]]); continue
+		var q := kamera.unproject_position(karte.kachel_pos(t))
+		var sk := Vector2(img.get_width(), img.get_height()) / get_viewport().get_visible_rect().size
+		var summe := 0.0; var n := 0
+		for dy in range(-4, 5):
+			for dx in range(-4, 5):
+				var x := int(q.x * sk.x) + dx * 2; var y := int(q.y * sk.y) + dy * 2
+				if x < 0 or y < 0 or x >= img.get_width() or y >= img.get_height(): continue
+				var c := img.get_pixel(x, y)
+				summe += (0.299 * c.r + 0.587 * c.g + 0.114 * c.b) * 255.0; n += 1
+		print("NEBELMASS %s %s Kachel %s Helligkeit %.0f" % [titel, st[1], t, summe / maxf(1.0, n)])
+		orte.append([st[1], q])
+	nebel_schild(e, titel, Vector2(get_viewport().get_visible_rect().size.x / 2.0, 60), 26)
+	for o in orte: nebel_schild(e, o[0], o[1], 20)
+	await get_tree().create_timer(0.3).timeout
+	ui.textfeld.visible = false
 
 ## naechste Kachel mit dieser Stufe (kein Baum), die im Bild liegt; sonst (-1, -1)
 func nebel_kachel(stufe: int, gern: Vector2i) -> Vector2i:
@@ -1904,7 +1992,7 @@ func nebel_kachel(stufe: int, gern: Vector2i) -> Vector2i:
 	for ty in karte.hoehe:
 		for tx in karte.breite:
 			var t := Vector2i(tx, ty)
-			if nebel.nebel(tx, ty) != stufe or nebel.zeichen_name(tx, ty) == "TREE": continue
+			if nebel.nebel(tx, ty) != stufe or nebel.zeichen_name(tx, ty) in ["TREE"] + Nebel.HOEHLENFELS: continue
 			var p := karte.kachel_pos(t)
 			if kamera.is_position_behind(p): continue
 			var q := kamera.unproject_position(p)
