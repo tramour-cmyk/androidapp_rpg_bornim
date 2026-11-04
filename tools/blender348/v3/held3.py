@@ -149,57 +149,91 @@ def _noise(nt, scale, src='Object', detail=2.0):
 def _sat(nt, x): return _m(nt, 'MINIMUM', _m(nt, 'MAXIMUM', x, 0.0), 1.0)
 # 558 (Chef 04.11., 11:31: Robe „viel zu clean … als ob er irgendwie eine blaue Fläche … Schattenstruktur, schmutzig, abgenutzt“):
 # im Spiel steht der Held etwa 300 Bildpunkte hoch (gut 1,5 px je cm); das Gewebe (4 mm) und die Koernung gehen dort unter (im Bild
-# lokal 3 bis 5 von 255). Was ankommen soll, liegt zwischen 3 und 20 cm: Falten senkrecht im Rock, Schatten in Winkeln (AO, Guertel,
-# Achseln, Lagen), Schmutz am Saum, ausgeblichene und dunkle Stellen, grobe Farbschwankung. STOFF=<staerke> (0 aus, wie bisher)
+# lokal 3 bis 5 von 255). Was ankommen soll, liegt zwischen 3 und 20 cm.
+# Chef 15:46 („558 Form voll, Spuren nach Zustand“, Archiv 558): zwei Schichten. FORM (Falten, Schatten in den Falten, Band unter
+# dem Guertel, Verdeckung) immer voll, Falten unregelmaessig (Pruefer 14:20: gleichmaessige senkrechte Streifen); SPUREN (Schmutz,
+# Flecken, ausgeblichen, Saum) nach dem Zustand des BRS (NW 11): MAKELLOS sauber, BENUTZT Staub am Saum und einzelne Flecken (etwa
+# Probe 2 bei 0,6), BESCHAEDIGT schmutzig und ausgeblichen (etwa 1,0), DEFEKT dazu Saum ausgefranst und ein Riss. Bis die Abnutzung
+# gebaut ist (478, Jerry), fest BENUTZT. STOFF=1 schaltet die Schicht ein (0 aus, wie bisher), ZUSTAND=<Stufe> waehlt die Spuren.
 STOFF = float(os.environ.get('STOFF', '0'))
 STOFF_TEILE = ('tabard', 'sleeve', 'pants', 'cloak', 'apron', 'tuch')
+ZUSTAENDE = {'MAKELLOS': 0.0, 'BENUTZT': 0.6, 'BESCHAEDIGT': 1.0, 'DEFEKT': 1.0}
+ZUSTAND = os.environ.get('ZUSTAND', 'BENUTZT').upper()
+SPUREN = ZUSTAENDE.get(ZUSTAND, 0.6)
 def _noise_v(nt, vec, scale, detail=2.0, rough=0.5):
     no = nt.nodes.new('ShaderNodeTexNoise'); no.inputs['Scale'].default_value = scale; no.inputs['Detail'].default_value = detail
     no.inputs['Roughness'].default_value = rough; nt.links.new(vec, no.inputs['Vector'])
     return no.outputs['Fac']
 def stoff(nt, col, name):
-    S = STOFF
+    F = min(STOFF, 1.0)   # Form: voll, sobald die Schicht an ist
+    S = SPUREN
     geo = nt.nodes.new('ShaderNodeNewGeometry'); sp = nt.nodes.new('ShaderNodeSeparateXYZ'); nt.links.new(geo.outputs['Position'], sp.inputs[0])
     X, Y, Z = sp.outputs['X'], sp.outputs['Y'], sp.outputs['Z']
     pos = geo.outputs['Position']
-    # grobe Farbschwankung (etwa 4 cm), dazu weite Wolken (etwa 15 cm): Stoff ungleich gefaerbt und getragen
+    # Form: leichte Farbschwankung (etwa 15 cm), Stoff faellt nie ganz gleich; getragen ungleicher (Spuren)
+    col = _scale(nt, col, _m(nt, 'ADD', 1.0, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, pos, 0.065, 2.0), 0.5), 0.10 * F + 0.16 * S)))
     col = _scale(nt, col, _m(nt, 'ADD', 1.0, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, pos, 0.25, 3.0, 0.6), 0.5), 0.30 * S)))
-    col = _scale(nt, col, _m(nt, 'ADD', 1.0, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, pos, 0.065, 2.0), 0.5), 0.26 * S)))
-    # Falten: senkrechte Baender um die Koerperachse (Winkel), unten breiter und tiefer (Rock faellt vom Guertel), leicht gewellt;
-    # Taeler schmal und dunkel, Grate breit und etwas heller, wie gemalter Faltenwurf unter Licht von oben
+    # Form, Falten: Baender um die Koerperachse (Winkel), unten breiter und tiefer (Rock faellt vom Guertel); unregelmaessig: der Winkel
+    # wird von weitem Rauschen verschoben (Falten laufen schraeg zusammen und auseinander), die Tiefe wechselt von Falte zu Falte, und
+    # eine zweite, engere Faltenschar liegt nur stellenweise darueber. Taeler schmal und dunkel, Grate breit und etwas heller
     if name in ('tabard', 'cloak', 'apron'):
         ang = _m(nt, 'ARCTAN2', X, Y)
+        warp = _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, _m_vec(nt, pos, 1.0), 0.045, 2.0, 0.5), 0.5), 2.6)
         cb = nt.nodes.new('ShaderNodeCombineXYZ')
-        nt.links.new(_m(nt, 'MULTIPLY', ang, 2.2), cb.inputs[0]); nt.links.new(_m(nt, 'MULTIPLY', Z, 0.018), cb.inputs[1])
-        wv = nt.nodes.new('ShaderNodeTexWave'); wv.wave_type = 'BANDS'; wv.bands_direction = 'X'; wv.wave_profile = 'SIN'
-        wv.inputs['Scale'].default_value = 1.0; wv.inputs['Distortion'].default_value = 3.0
-        wv.inputs['Detail'].default_value = 2.0; wv.inputs['Detail Scale'].default_value = 1.5
-        nt.links.new(cb.outputs[0], wv.inputs['Vector'])
+        nt.links.new(_m(nt, 'ADD', _m(nt, 'MULTIPLY', ang, 2.2), warp), cb.inputs[0]); nt.links.new(_m(nt, 'MULTIPLY', Z, 0.018), cb.inputs[1])
+        def schar(scale, dist):
+            wv = nt.nodes.new('ShaderNodeTexWave'); wv.wave_type = 'BANDS'; wv.bands_direction = 'X'; wv.wave_profile = 'SIN'
+            wv.inputs['Scale'].default_value = scale; wv.inputs['Distortion'].default_value = dist
+            wv.inputs['Detail'].default_value = 2.0; wv.inputs['Detail Scale'].default_value = 1.5
+            nt.links.new(cb.outputs[0], wv.inputs['Vector'])
+            return wv.outputs['Fac']
+        w1 = schar(1.0, 4.5); w2 = schar(2.3, 6.0)
         tief = _sat(nt, _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', beltY + 4.0, Z), 45.0))       # unter dem Guertel zunehmend
         tief = _m(nt, 'ADD', 0.25, _m(nt, 'MULTIPLY', tief, 0.75))
-        tal = _m(nt, 'POWER', _sat(nt, _m(nt, 'SUBTRACT', 1.0, wv.outputs['Fac'])), 2.5)      # schmal, dunkel
-        grat = _m(nt, 'POWER', wv.outputs['Fac'], 3.0)
-        f = _m(nt, 'ADD', 1.0, _m(nt, 'MULTIPLY', tief, _m(nt, 'SUBTRACT', _m(nt, 'MULTIPLY', grat, 0.14 * S), _m(nt, 'MULTIPLY', tal, 0.48 * S))))
+        tief = _m(nt, 'MULTIPLY', tief, _m(nt, 'ADD', 0.45, _m(nt, 'MULTIPLY', _noise_v(nt, _m_vec(nt, pos, 1.3), 0.08, 1.0), 1.1)))   # Falte zu Falte
+        eng = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, _m_vec(nt, pos, 0.7), 0.05, 1.0), 0.5), 4.0))     # zweite Schar stellenweise
+        tal = _m(nt, 'ADD', _m(nt, 'POWER', _sat(nt, _m(nt, 'SUBTRACT', 1.0, w1)), 2.5),
+                 _m(nt, 'MULTIPLY', eng, _m(nt, 'POWER', _sat(nt, _m(nt, 'SUBTRACT', 1.0, w2)), 3.0)))
+        grat = _m(nt, 'POWER', w1, 3.0)
+        f = _m(nt, 'ADD', 1.0, _m(nt, 'MULTIPLY', tief, _m(nt, 'SUBTRACT', _m(nt, 'MULTIPLY', grat, 0.14 * F), _m(nt, 'MULTIPLY', _sat(nt, tal), 0.48 * F))))
         col = _scale(nt, col, f)
         # unter dem Guertel staut sich der Stoff: dunkles Band 2 bis 10 cm darunter
         gb = _sat(nt, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'ABSOLUTE', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', Z, beltY - 6.0), 6.0))))
-        col = _scale(nt, col, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'MULTIPLY', gb, 0.30 * S)))
-    # Schatten in Winkeln (Achsel, unter dem Guertel, zwischen Aermel und Rumpf, Lagen uebereinander): Umgebungsverdeckung im Bild
+        col = _scale(nt, col, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'MULTIPLY', gb, 0.30 * F)))
+    # Form, Schatten in Winkeln (Achsel, unter dem Guertel, zwischen Aermel und Rumpf, Lagen uebereinander): Umgebungsverdeckung im Bild
     ao = nt.nodes.new('ShaderNodeAmbientOcclusion'); ao.inputs['Distance'].default_value = float(os.environ.get('STOFF_AO', '9'))
     ao.samples = 16
-    col = _scale(nt, col, _m(nt, 'ADD', 1.0 - 0.6 * min(S, 1.0), _m(nt, 'MULTIPLY', ao.outputs['AO'], 0.6 * min(S, 1.0))))
-    # ausgeblichen (Sonne, Waesche) und abgewetzt: helle, graue Stellen an Knie, Ellbogen, Saumkante; dunkle Flecken (Fett, Ruß, Regen)
-    bl = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, pos, 0.11, 3.0, 0.55), 0.55), 5.0))
-    col = _mix(nt, _m(nt, 'MULTIPLY', bl, 0.30 * S), col, lin(hx(0x8C8478)))
-    fl = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, _m_vec(nt, pos, 1.7), 0.09, 3.0, 0.6), 0.58), 6.0))
-    col = _mix(nt, _m(nt, 'MULTIPLY', fl, 0.45 * S), col, lin(hx(0x231C16)))
-    # Schmutz am Saum: Strassenstaub und Schlamm bis etwa 28 cm, unregelmaessig, darunter die Kante dunkel und ausgefranst
+    col = _scale(nt, col, _m(nt, 'ADD', 1.0 - 0.6 * F, _m(nt, 'MULTIPLY', ao.outputs['AO'], 0.6 * F)))
+    if S <= 0: return col
+    # Spuren, ausgeblichen (Sonne, Waesche) und abgewetzt: helle, graue Stellen; dunkle Flecken (Fett, Russ, Regen), bei BENUTZT einzelne
+    bl = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, pos, 0.11, 3.0, 0.55), 0.62 - 0.07 * S), 5.0))
+    col = _mix(nt, _m(nt, 'MULTIPLY', bl, 0.34 * S), col, lin(hx(0x8C8478)))
+    fl = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, _m_vec(nt, pos, 1.7), 0.09, 3.0, 0.6), 0.66 - 0.08 * S), 6.0))
+    col = _mix(nt, _m(nt, 'MULTIPLY', fl, 0.30 + 0.25 * S), col, lin(hx(0x231C16)))
+    # Spuren am Saum: BENUTZT heller Strassenstaub, BESCHAEDIGT Schlamm hoeher hinauf, unregelmaessig; die Kante dunkel
     if name in ('tabard', 'cloak', 'apron', 'pants'):
         rnd = _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, pos, 0.12, 3.0, 0.6), 0.5), 1.6)
-        dr = _sat(nt, _m(nt, 'ADD', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', 16.0 + 12.0 * S, Z), 14.0), rnd))
-        col = _mix(nt, _m(nt, 'MULTIPLY', dr, min(0.85, 0.7 * S)), col, lin(hx(0x5A4C3C)))
+        dr = _sat(nt, _m(nt, 'ADD', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', 8.0 + 26.0 * S, Z), 14.0), rnd))
+        schmutz = hx(0x8A7A64) if S < 0.8 else hx(0x4E4032)
+        col = _mix(nt, _m(nt, 'MULTIPLY', dr, min(0.85, 0.75 * S)), col, lin(schmutz))
         ka = _sat(nt, _m(nt, 'ADD', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', ankleY + 7.0, Z), 3.0), _m(nt, 'MULTIPLY', rnd, 0.6)))
-        col = _mix(nt, _m(nt, 'MULTIPLY', ka, 0.6 * min(S, 1.0)), col, lin(hx(0x2A221A)))
+        col = _mix(nt, _m(nt, 'MULTIPLY', ka, 0.6 * S), col, lin(hx(0x2A221A)))
+    if ZUSTAND != 'DEFEKT' or name not in ('tabard', 'cloak', 'apron'): return col
+    # DEFEKT, Saum ausgefranst: unten zerrissene Kante, Zacken 2 bis 6 cm hoch, dazwischen das Dunkel unter dem Rock (gemalt)
+    zk = _m(nt, 'ADD', _m(nt, 'SUBTRACT', Z, ankleY + 6.0), _m(nt, 'MULTIPLY', _noise_v(nt, _m_vec(nt, pos, 2.1), 0.45, 1.0, 0.4), 7.0))
+    loch = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', 4.2, zk), 1.5))
+    col = _mix(nt, loch, col, lin(hx(0x120E0B)))
+    faden = _sat(nt, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'ABSOLUTE', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', zk, 5.4), 1.2))))
+    col = _mix(nt, _m(nt, 'MULTIPLY', faden, 0.55), col, lin(hx(0x9A9080)))   # helle, ausgefranste Faeden an der Rissgrenze
+    # DEFEKT, ein Riss vorn seitlich (y < 0 ist vorn), vom Knie aufwaerts, gezackt; dunkler Spalt, helle Raender
+    vorn = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', -2.0, Y), 0.5))
+    hoch = _sat(nt, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'ABSOLUTE', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', Z, kneeY + 3.0), 11.0))))
+    xl = _m(nt, 'ADD', _m(nt, 'SUBTRACT', X, 5.0), _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, pos, 0.35, 2.0, 0.6), 0.5), 2.4))
+    d = _m(nt, 'ABSOLUTE', xl)
+    spalt = _m(nt, 'MULTIPLY', _m(nt, 'MULTIPLY', vorn, _m(nt, 'POWER', hoch, 0.4)), _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', 0.55 * 1.0, d), 3.0)))
+    rand = _m(nt, 'MULTIPLY', _m(nt, 'MULTIPLY', vorn, hoch), _sat(nt, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'ABSOLUTE', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', d, 1.1), 0.6)))))
+    col = _mix(nt, _m(nt, 'MULTIPLY', rand, 0.5), col, lin(hx(0x9A9080)))
+    col = _mix(nt, spalt, col, lin(hx(0x0E0B09)))
     return col
 def _m_vec(nt, v, f):
     n = nt.nodes.new('ShaderNodeVectorMath'); n.operation = 'SCALE'; nt.links.new(v, n.inputs[0]); n.inputs['Scale'].default_value = f
@@ -237,9 +271,10 @@ def finish(nt, col, name):
     blot = _noise(nt, 0.09, 'World')
     if name in ('tabard', 'cloak', 'sleeve', 'pants'):
         bl_ = float(os.environ.get('HOSE_BLEICH', '0.4')) if (name == 'pants' and FIGUR == 'held') else 1.0
-        col = _mix(nt, 0.22 * W * bl_, col, lin(hx(0x8A8076)))                # ausgeblichen (348.5: lebendiger)
+        Wc = W * (SPUREN / 0.6 if STOFF > 0 else 1.0)   # 558: mit der Stoffschicht folgen die alten Flecken dem Zustand (MAKELLOS sauber)
+        col = _mix(nt, min(1.0, 0.22 * Wc * bl_), col, lin(hx(0x8A8076)))                # ausgeblichen (348.5: lebendiger)
         st = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', blot, 0.46), 5.0))
-        col = _mix(nt, _m(nt, 'MULTIPLY', st, 0.95 * W), col, lin(hx(0x3A2E26)))  # Flecken
+        col = _mix(nt, _m(nt, 'MULTIPLY', st, min(1.0, 0.95 * Wc)), col, lin(hx(0x3A2E26)))  # Flecken
     if name == 'chain':
         rs = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise(nt, 0.11, 'World'), 0.48), 6.0))
         ro_ = float(os.environ.get('KETTE_ROST', '0.4')) if FIGUR == 'held' else 1.0

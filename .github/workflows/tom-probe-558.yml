@@ -1,8 +1,8 @@
 name: Tom Probe Robe (558)
 
 # 558 (Chef 04.11., 11:31, Bild Build 257: Robe des Magiers „viel zu clean … Schattenstruktur, schmutzig, abgenutzt“): Bau wie godot.yml
-# (Stand Build 257) ohne APK, die Robe wie jetzt und mit der Stoffschicht (held3.py STOFF 0,6 und 1); dann das Spiel dreimal mit
-# --robe558 (Tiefer Fluesterwald Tag und Nacht, Dorf, Nahstufe), alle drei nebeneinander. Kaufmodelle nur ueber diesen Ablauf, ins
+# (Stand Build 257) ohne APK, die Robe wie jetzt und mit der Stoffschicht (held3.py STOFF=1, Form voll; Probe 3: Spuren in den vier
+# Zustaenden ZUSTAND MAKELLOS, BENUTZT, BESCHAEDIGT, DEFEKT); dann das Spiel je Fassung mit --robe558 (Wald, Dorf, Nahstufe), nebeneinander. Kaufmodelle nur ueber diesen Ablauf, ins
 # Artefakt nur Bilder (348.12c a). Nur bei Commits, die mit „558 Probe“ beginnen (Haken probelauf.py zaehlt den Push).
 on:
   push:
@@ -131,9 +131,10 @@ jobs:
           cp $RUNNER_TEMP/klassen/kampf-bewegungen.glb $D/kampf-bewegungen.bin && echo daten/kampf-bewegungen.bin >> $D/kauf.txt
           # 406 (Tuffy): Tempo, Griff und Kontaktzeiten der Bewegungen aus Sword & Shield (figur.gd kampf_info); nur Zahlen
           cp $RUNNER_TEMP/klassen/kampf-bewegungen.json $D/
-          # 558: dieselbe Robe noch zweimal mit der Stoffschicht (held3.py STOFF 0,6 und 1), je eigener Ordner, gekauft wie die andere
-          for st in 06:0.6 10:1.0; do IFS=: read k v <<< "$st"
-            STOFF=$v TRACHTEN=ROBE GANG=$RUNNER_TEMP/gang OUT=$RUNNER_TEMP/out ZIEL=$RUNNER_TEMP/klassen558_$k Q=~/cc0 bl/bin/python -I tools/blender348/v3/held_klassen.py > klassen558_$k.log 2>&1 || { tail -40 klassen558_$k.log; exit 1; }
+          # 558 Probe 3 (Chef 15:46 „Form voll, Spuren nach Zustand“): dieselbe Robe mit der Stoffschicht (held3.py STOFF=1, Form voll) in
+          # den vier Zustaenden des BRS (ZUSTAND MAKELLOS, BENUTZT, BESCHAEDIGT, DEFEKT), je eigener Ordner, gekauft wie die andere
+          for k in MAKELLOS BENUTZT BESCHAEDIGT DEFEKT; do
+            ZUSTAND=$k STOFF=1 TRACHTEN=ROBE GANG=$RUNNER_TEMP/gang OUT=$RUNNER_TEMP/out ZIEL=$RUNNER_TEMP/klassen558_$k Q=~/cc0 bl/bin/python -I tools/blender348/v3/held_klassen.py > klassen558_$k.log 2>&1 || { tail -40 klassen558_$k.log; exit 1; }
             grep -E "^TRACHT|HELD TRACHTEN|FEHLT" klassen558_$k.log
             mkdir -p $D/robe558_$k
             for f in $RUNNER_TEMP/klassen558_$k/held_ROBE*.glb; do n=$(basename $f .glb); cp $f $D/robe558_$k/$n.bin; echo daten/robe558_$k/$n.bin >> $D/kauf.txt; done
@@ -275,22 +276,26 @@ jobs:
       - name: Robe jetzt und neu (558)
         run: |
           sudo apt-get install -y -q mesa-vulkan-drivers xvfb imagemagick > /dev/null
-          B=$GITHUB_WORKSPACE/bilder; mkdir -p $B/jetzt $B/06 $B/10
+          B=$GITHUB_WORKSPACE/bilder; mkdir -p $B/jetzt $B/MAKELLOS $B/BENUTZT $B/BESCHAEDIGT $B/DEFEKT
           cd godot
           lauf() { VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --robe558=$1 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^BILD|^ROBE558" | cut -c1-300 || true; }
           lauf $B/jetzt
-          for k in 06 10; do
+          Z="MAKELLOS BENUTZT BESCHAEDIGT DEFEKT"
+          for k in $Z; do
             for f in daten/robe558_$k/held_ROBE*.bin; do cp $f daten/$(basename $f); done
             lauf $B/$k
           done
-          ls -l $B/jetzt $B/06 $B/10
-          # je Ort nebeneinander: jetzt, Stoff 0,6, Stoff 1; ganz und auf den Helden zugeschnitten (Bildmitte, doppelt)
-          for b in wald_tag wald_nacht dorf_tag dorf_nah; do
-            [ -f $B/jetzt/$b.png ] && [ -f $B/06/$b.png ] && [ -f $B/10/$b.png ] || continue
-            montage $B/jetzt/$b.png $B/06/$b.png $B/10/$b.png -tile 3x1 -geometry +6+0 -background black $B/$b-ganz.png
-            for v in jetzt 06 10; do convert $B/$v/$b.png -gravity center -crop 300x420+0+0 +repage -resize 200% $B/$b-$v-held.png; done
-            montage $B/$b-jetzt-held.png $B/$b-06-held.png $B/$b-10-held.png -tile 3x1 -geometry +6+0 -background black $B/$b-held.png
+          ls -l $B/jetzt $B/MAKELLOS $B/BENUTZT $B/BESCHAEDIGT $B/DEFEKT
+          # je Ort die vier Zustaende nebeneinander (ganz und auf den Helden zugeschnitten, doppelt), beschriftet; jetzt nur als Vergleich
+          for b in wald_tag dorf_tag dorf_nah wald_nacht; do
+            ok=1; for k in jetzt $Z; do [ -f $B/$k/$b.png ] || ok=0; done; [ $ok = 1 ] || continue
+            for k in jetzt $Z; do
+              convert $B/$k/$b.png -gravity center -crop 300x420+0+0 +repage -resize 200% \
+                -gravity north -fill '#E8C66A' -undercolor '#000000A0' -pointsize 34 -annotate +0+12 "$k" $B/$b-$k-held.png
+            done
+            montage $(for k in $Z; do echo $B/$k/$b.png; done) -tile 4x1 -geometry +6+0 -background black $B/$b-ganz.png
+            montage $(for k in $Z; do echo $B/$b-$k-held.png; done) -tile 4x1 -geometry +6+0 -background black $B/$b-held.png
           done
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
