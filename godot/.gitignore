@@ -5,3 +5,5 @@ kampf/daten/
 *.import
 # 415 (Jerry): Beams Free Sample (reeboolabs), Lizenz verbietet Weitergabe; im Bau aus bornim-kaufmodelle (godot.yml)
 addons/reeboo_beams/
+# 572 (Jerry): REEBOO Stylized VFX und Status Effects Free Sample, Lizenz verbietet Weitergabe; nur im Probeschritt (godot.yml)
+addons/reeboo_vfx/
