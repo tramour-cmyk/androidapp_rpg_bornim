@@ -202,8 +202,11 @@ def stoff(nt, col, name):
     col = _scale(nt, col, _m(nt, 'ADD', 1.0 - 0.6 * F, _m(nt, 'MULTIPLY', ao.outputs['AO'], 0.6 * F)))
     if S <= 0: return col
     # Spuren, ausgeblichen (Sonne, Waesche) und abgewetzt: helle, graue Stellen; dunkle Flecken (Fett, Russ, Regen), bei BENUTZT einzelne
+    # Probe 4 (Chef 17:40: „kaum zu differenzieren … Das erkennt kein Mensch“; Mass: bei 120 px jeder Zustand ohne Vergleich):
+    # der ganze Stoff bleicht mit dem Zustand aus (grauer, matter), nicht nur in Flecken
+    col = _mix(nt, min(0.45, 0.3 * S), col, lin(hx(0x7A7C84)))
     bl = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, pos, 0.11, 3.0, 0.55), 0.62 - 0.07 * S), 5.0))
-    col = _mix(nt, _m(nt, 'MULTIPLY', bl, 0.34 * S), col, lin(hx(0x8C8478)))
+    col = _mix(nt, _m(nt, 'MULTIPLY', bl, min(0.6, 0.45 * S)), col, lin(hx(0x8C8478)))
     fl = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, _m_vec(nt, pos, 1.7), 0.09, 3.0, 0.6), 0.66 - 0.08 * S), 6.0))
     col = _mix(nt, _m(nt, 'MULTIPLY', fl, 0.30 + 0.25 * S), col, lin(hx(0x231C16)))
     # Spuren am Saum: BENUTZT heller Strassenstaub, BESCHAEDIGT Schlamm hoeher hinauf, unregelmaessig; die Kante dunkel
@@ -230,8 +233,8 @@ def stoff(nt, col, name):
     hoch = _sat(nt, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'ABSOLUTE', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', Z, kneeY + 8.0), 18.0))))   # Probe 4: Riss 36 cm lang, 3 cm breit
     xl = _m(nt, 'ADD', _m(nt, 'SUBTRACT', X, 5.0), _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise_v(nt, pos, 0.35, 2.0, 0.6), 0.5), 2.4))
     d = _m(nt, 'ABSOLUTE', xl)
-    spalt = _m(nt, 'MULTIPLY', _m(nt, 'MULTIPLY', vorn, _m(nt, 'POWER', hoch, 0.4)), _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', 1.5, d), 1.6)))
-    rand = _m(nt, 'MULTIPLY', _m(nt, 'MULTIPLY', vorn, hoch), _sat(nt, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'ABSOLUTE', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', d, 2.4), 0.9)))))
+    spalt = _m(nt, 'MULTIPLY', _m(nt, 'MULTIPLY', vorn, _m(nt, 'POWER', hoch, 0.4)), _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', 2.5, d), 1.4)))   # Probe 4: Spalt 5 cm (bei 120 px gut 3 Bildpunkte)
+    rand = _m(nt, 'MULTIPLY', _m(nt, 'MULTIPLY', vorn, hoch), _sat(nt, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'ABSOLUTE', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', d, 3.6), 1.1)))))
     col = _mix(nt, _m(nt, 'MULTIPLY', rand, 0.5), col, lin(hx(0x9A9080)))
     col = _mix(nt, spalt, col, lin(hx(0x0E0B09)))
     return col
