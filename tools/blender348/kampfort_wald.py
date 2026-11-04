@@ -6,6 +6,7 @@
 #                       Ursprung = Mitte des Kampfs; in Godot um 60° gedreht, siehe kampfort.gd _setup_world)
 #   wald-maske.png      Bodenmaske wie boden-maske.png (R Erde/Weg, G Steine, B Schatten, A Sonnentupfen), 140 m, 10 px je m
 #   wald-info.json      Maskengröße, Lage, Zahl der Dreiecke
+#   493: mit SPOT=<ort> je Kampfort im Wald dieselben Dateien mit „-<ort>“ (siehe SPOT unten)
 # Aufruf: OUT=<ordner> python -I kampfort_wald.py   (vorher tex.py mit demselben OUT)
 import bpy, bmesh, math, os, json, random
 import numpy as np
@@ -195,22 +196,39 @@ class use:
 
 # ---------------------------------------------------------------- Aufstellung
 A_FAR = 14.0       # Prüfer Stand 9: Lichtung beginnt bei 26 % der Höhe (alt 20 %); Waldrand hinter den Gegnern 12 m
+# 493 (Wochenziel 03.11.): Kampforte im Wald wie alt (BattleScene.Spot, ForestCam.kt 211.13): SPOT = lichtung (Vorgabe), waldrand
+# (die Bäume stehen näher), teich, baum (umgestürzter Stamm), felsen, steinkreis; was den Ort ausmacht, steht hinter dem Kampf oder
+# an seiner Seite, nie auf den Plätzen. Ausgabe je Ort kampfort-wald-<spot>.glb und wald-maske-<spot>.png (Lichtung ohne Zusatz)
+SPOT = os.environ.get('SPOT', 'lichtung')
+assert SPOT in ('lichtung', 'waldrand', 'teich', 'baum', 'felsen', 'steinkreis'), SPOT
+NAME = '' if SPOT == 'lichtung' else '-' + SPOT
+B_SEITE = 4.8      # Halbachse der Lichtung quer
+if SPOT == 'waldrand':
+    # ForestCam EDGE: der Wald steht näher (alt „among many trees the edge of the wood“, Wand 3,8 statt 7 m hinter dem fernsten
+    # Gegner). Lauf 1: nur A_FAR 8,5 sah aus wie die Lichtung, weil in der Bildmitte die Querachse die Kante setzt; darum auch
+    # quer enger (Kante in der Bildmitte etwa 1,5 m hinter dem hinteren Wolf statt 3 m) und eine dichte Reihe an der Kante
+    A_FAR = 8.0; B_SEITE = 3.8
+ZONEN = []         # (x, y, r): dort steht kein Baum, Busch oder Stein (der Ort selbst)
+SCHATTEN = []      # (x, y, r, stärke): weicher Schatten der Dinge des Orts in der Maske
+def fight(a, b): return Vector((a, -b, 0))     # Kampfrahmen: a zu den Gegnern, b quer nach rechts
 def clearing(p):
     """innerhalb der Lichtung (Kampf von a = -4,5 bis 4,5, quer ±3), gewellt"""
     a, b = p.x, -p.y
     wob = 1.0 + 0.12 * math.sin(math.atan2(b, a) * 5 + 1.3)
     # hinter den Gegnern weiter (10 m statt 7): Prüfer Lauf 14, Wald oben zu dunkel; im alten Bild beginnt die Lichtung
     # bei 20 % der Höhe, hier erst bei 28 %
-    return (a / (A_FAR if a > 0 else 7.0)) ** 2 + (b / 4.8) ** 2 < wob
+    return (a / (A_FAR if a > 0 else 7.0)) ** 2 + (b / B_SEITE) ** 2 < wob
 def crown_over(p, r=2.8):
     """hinge eine Krone (Halbmesser r) über die Lichtung hinter den Gegnern?"""
     a, b = p.x, -p.y
-    return a > 0 and (a / (A_FAR + r)) ** 2 + (b / (4.8 + r * 0.5)) ** 2 < 1.0
+    return a > 0 and (a / (A_FAR + r)) ** 2 + (b / (B_SEITE + r * 0.5)) ** 2 < 1.0
 def in_view(fwd, lat, margin=2.0):
     return 7 < fwd < 90 and abs(lat) < 0.22 * fwd + margin
 placed = []
+def in_zone(p, rand=0.0):
+    return any((Vector((p.x, p.y, 0)) - Vector((x, y, 0))).length < r + rand for (x, y, r) in ZONEN)
 def free(p, d):
-    return all((p - q).length > d for q in placed) and path_dist(p) > PATH_W * 0.5 + 0.6
+    return all((p - q).length > d for q in placed) and path_dist(p) > PATH_W * 0.5 + 0.6 and not in_zone(p, 1.6)
 def put(fn, p, d, *a, **k):
     placed.append(p); INKLESS[0] = view(p)[0] > FERN; fn(p, *a, **k); INKLESS[0] = False
 
@@ -219,6 +237,134 @@ def put(fn, p, d, *a, **k):
 # Weg und Wiese (Prüfer Boden 2, Chef 21:03 „Kante unten links“); den weichen Kronenschatten malt die Maske (SHADE)
 put(oak, from_view(11.5, -3.6), 2.0, size=1.15)
 RAHMEN_F, RAHMEN_V = len(P.F), len(P.V)
+
+# 493: was den Ort ausmacht (ForestCam.kt 211.13, in Metern), mit eigenem Zufall: die Lichtung bleibt Baum für Baum wie bisher.
+# ForestCam misst im Blick der Kamera (x quer, d Tiefe ab dem fernsten Gegner „far“), nicht entlang der Kampflinie: Lauf 1 hatte
+# die alten Maße als (a, b) genommen, so lagen Stamm, Steine rechts und der halbe Steinkreis rechts außerhalb des Bildes, der
+# Teich hinter dem hinteren Wolf. vor(tiefe, quer): Tiefe hinter dem fernsten Gegner (a 5,3, b −1 nach kampfort.gd, im Blick
+# 5,1 m hinter der Kampfmitte), quer zur Bildmitte (+ rechts); quer etwas enger als alt, damit alles im Bild steht (sichtbar
+# etwa ±0,19 m je Meter Entfernung)
+FAR = 5.1
+def vor(tiefe, quer):
+    F = FAR + tiefe
+    return 0.866 * F + 0.5 * quer, -0.5 * F + 0.866 * quer
+PR = random.Random(493)
+TEICH = None        # (Mitte a, b, Halbachse im Blick tief, quer) für die Maske
+def stamm(a0, b0, a1, b1, r, s):
+    """umgestürzter Stamm (ForestCam log): liegend, oben Moos, am abgebrochenen Ende Jahresringe, ein Aststummel"""
+    p0, p1 = fight(a0, b0), fight(a1, b1)
+    ax = (p1 - p0).normalized(); up = Vector((0, 0, 1)); qx = ax.cross(up).normalized()
+    n = 10; ringe = []
+    steps = 8
+    for i in range(steps + 1):
+        t = i / steps; rr = r * (1 - 0.25 * t) * (1 + 0.06 * math.sin(i * 1.7 + s))
+        c = p0.lerp(p1, t) + Vector((0, 0, rr * 0.82))
+        ringe.append([c + (qx * math.cos(2 * math.pi * k / n) + up * math.sin(2 * math.pi * k / n)) * rr for k in range(n)])
+    moos, rinde_ = lin(0x5A7A34), lin(0x6A5440)
+    def col(v, nn):
+        return mixc(rinde_, moos, ss(0.35, 0.8, nn.z)) if nn.z > 0.35 else tuple(x * (0.75 + 0.25 * max(0.0, nn.z + 0.5)) for x in rinde_)
+    with use('rinde'):
+        for i in range(steps):
+            for k in range(n):
+                add_face([ringe[i][k], ringe[i][(k + 1) % n], ringe[i + 1][(k + 1) % n], ringe[i + 1][k]], col)
+        add_face(list(reversed(ringe[0])), lin(0x5A4634))
+        add_face(ringe[-1], lin(0xB89A6A))       # Bruchstelle hell, Ringe malt die Rinde-Textur
+        mid = p0.lerp(p1, 0.4) + Vector((0, 0, r * 1.5))
+        cylinder(mid, 0.07, 0.6, 5, bark_col(0.9), r2=0.03, lean=Vector((qx.x * 0.2, qx.y * 0.2, 0)))
+    for i in range(5):
+        q = p0.lerp(p1, i / 4)
+        ZONEN.append((q.x, q.y, r + 0.4)); SCHATTEN.append((q.x + 0.15, q.y - 0.1, r * 1.6, 0.6))
+def bestand_teil(name, p, r, dreh, farbe):
+    """Bestand geprüft (LISTE-BESTAND.md, Stylized Nature MegaKit, CC0, Chef: „Felsen ja“; wie dorf.py fremd_teil): Teil aus dem
+    Naturbausatz, waagerecht auf Halbmesser [r] m gebracht, um [dreh] gedreht, ein Fünftel im Boden; Eckfarbe aus [farbe]. Ohne
+    Paket (CC0 fehlt): False"""
+    import glob
+    from mathutils import Matrix
+    d = glob.glob(glob.escape(os.path.expanduser(os.environ.get('CC0', '~/cc0'))) + '/stylized-nature-megakit/glTF')
+    if not d or not os.path.exists(d[0] + '/' + name + '.gltf'): return False
+    vor = set(bpy.data.objects)
+    bpy.ops.import_scene.gltf(filepath=d[0] + '/' + name + '.gltf')
+    neu = [o for o in bpy.data.objects if o not in vor]
+    pts_all = [o.matrix_world @ v.co for o in neu if o.type == 'MESH' for v in o.data.vertices]
+    lo = Vector((min(q.x for q in pts_all), min(q.y for q in pts_all), min(q.z for q in pts_all)))
+    hi = Vector((max(q.x for q in pts_all), max(q.y for q in pts_all), max(q.z for q in pts_all)))
+    k = r / max((hi.x - lo.x) / 2, (hi.y - lo.y) / 2, 1e-6)
+    M = Matrix.Translation(p + Vector((0, 0, -(hi.z - lo.z) * k * 0.2))) @ Matrix.Rotation(dreh, 4, 'Z') @ Matrix.Scale(k, 4) \
+        @ Matrix.Translation(-Vector(((lo.x + hi.x) / 2, (lo.y + hi.y) / 2, lo.z)))
+    for o in neu:
+        if o.type != 'MESH': continue
+        me = o.data; W = M @ o.matrix_world
+        for poly in me.polygons:
+            pts = [W @ me.vertices[me.loops[li].vertex_index].co for li in poly.loop_indices]
+            add_face(pts, farbe)
+            P.S[-1] = poly.use_smooth
+    for o in neu: bpy.data.objects.remove(o, do_unlink=True)
+    return True
+def fels(a, b, r, s):
+    """Felsblock (ForestCam boulder) aus dem Bestand (Rock_Medium 1–3), oben Moos; ohne Paket ein eigener Ballen"""
+    p = fight(a, b)
+    hoch = r * 1.6
+    farbe = lambda v, n: mixc(mixc(lin(0x4A4A46), lin(0xC4C2B6), 0.25 + 0.6 * max(0.0, n.z)), lin(0x56723A),
+                              0.55 * ss(0.55, 0.9, n.z) * ss(hoch * 0.35, hoch * 0.7, v.z))
+    with use('feldstein'):
+        if not bestand_teil('Rock_Medium_%d' % (1 + s % 3), p, r, PR.uniform(0, 2 * math.pi), farbe):
+            blob(p + Vector((0, 0, r * 0.25)), r, farbe, sub=3, squash=0.78, seed=s, bump=0.2)
+    ZONEN.append((p.x, p.y, r + 0.3)); SCHATTEN.append((p.x + 0.2, p.y - 0.15, r * 1.5, 0.7))
+def menhir(a, b, h, r, s):
+    """stehender Stein (ForestCam menhir): kantig, oben schmaler, leicht geneigt; manche abgebrochen"""
+    p = fight(a, b)
+    if PR.random() < 0.3: h *= 0.55
+    lean = Vector((PR.uniform(-0.08, 0.08), PR.uniform(-0.08, 0.08), 0))
+    col = lambda v, n: mixc(lin(0x48484A), lin(0xB4B2AA), 0.3 + 0.5 * max(0.0, n.x * 0.3 - n.y * 0.4 + n.z * 0.5))
+    with use('feldstein'):
+        cylinder(p, r, h, 6, col, r2=r * 0.7, lean=lean)
+        top = [p + lean + Vector((math.cos(2 * math.pi * k / 6) * r * 0.7, math.sin(2 * math.pi * k / 6) * r * 0.7, h)) for k in range(6)]
+        add_face(top, col)
+    ZONEN.append((p.x, p.y, r + 0.3)); SCHATTEN.append((p.x + 0.25, p.y - 0.2, r * 2.2, 0.65))
+def schilf(p, h, s):
+    with use('laub'):
+        for k in range(3):
+            a = 2 * math.pi * (k / 3 + PR.random() * 0.2)
+            q = p + Vector((math.cos(a) * 0.06, math.sin(a) * 0.06, 0))
+            cylinder(q, 0.018, h * PR.uniform(0.75, 1.0), 3, lambda v, n: mixc(lin(0x3E5A2A), lin(0x8C9A5A), ss(0, h, v.z)), r2=0.006,
+                     lean=Vector((PR.uniform(-0.12, 0.12), PR.uniform(-0.12, 0.12), 0)))
+if SPOT == 'teich':
+    # stilles Wasser mit schlammigem Rand hinter den Gegnern links (ForestCam: pondX = midX − 2,9, pondD = far + 2,6, 2,4 × 1,5 m);
+    # hier quer −1,0 und 1,6 m tief, Halbachsen 1,9 quer und 1,4 tief: im Bild links der Mitte zwischen dem linken und dem
+    # hinteren Wolf, noch auf der Lichtung (weiter links beginnt dort der Wald); Schilf am fernen Ufer
+    TEICH = vor(1.6, -1.0) + (1.4, 1.9)     # Mitte a, b; Halbachse im Blick tief, quer
+    ca, cb, ra, rb = TEICH
+    def ufer(t, k=1.0):
+        F, L = math.cos(t) * ra * k, math.sin(t) * rb * k     # im Blick: tief, quer
+        return fight(ca + 0.866 * F + 0.5 * L, cb - 0.5 * F + 0.866 * L)
+    rand = []
+    for k in range(48):
+        t = 2 * math.pi * k / 48
+        w = 1 + 0.07 * math.sin(t * 3 + 1.1) + 0.04 * math.sin(t * 7)
+        rand.append(ufer(t, w) + Vector((0, 0, 0.015)))
+    with use('wasser'):
+        mitte = fight(ca, cb) + Vector((0, 0, 0.015))
+        for k in range(48):
+            add_face([mitte, rand[k], rand[(k + 1) % 48]], lambda v, n: lin(0x3A5260))
+    for k in range(46):
+        t = math.pi * (PR.random() - 0.5)     # fernes Ufer: tiefer als die Mitte
+        schilf(ufer(t, 1.04), PR.uniform(0.7, 1.3), k)
+    ZONEN.append((fight(ca, cb).x, fight(ca, cb).y, max(ra, rb) + 0.6))
+elif SPOT == 'baum':
+    # ForestCam log(midX + 2,4, far + 1,2, midX + 4,6, far + 4,4): rechts hinter dem Kampf, schräg in die Tiefe; hier quer 3,0 bis
+    # 4,5 (rechts am hinteren Wolf vorbei), Tiefe 1,2 bis 4,6
+    stamm(*vor(1.2, 3.0), *vor(4.6, 4.5), 0.34, 7)
+elif SPOT == 'felsen':
+    # ForestCam boulder (quer, Tiefe): (−2,8, 1,8) 0,75 · (−3,9, 2,9) 0,55 · (3,2, 2,4) 0,6 · (−3,3, 0,6) 0,35; quer enger
+    for (q, t, r, s_) in ((-2.4, 1.6, 0.75, 81), (-3.3, 2.8, 0.55, 82), (3.4, 2.2, 0.6, 83), (-2.6, 0.6, 0.35, 84)):
+        fels(*vor(t, q), r, s_)
+elif SPOT == 'steinkreis':
+    # ForestCam: x = midX − 3,6·cos t, d = far + 1,3 + 2,6·sin t; hier Halbmesser quer 3,4, um 0,3 nach rechts, Tiefe 1,6 + 2,4·sin t
+    for i in range(6):
+        t = math.pi * (0.12 + 0.76 * i / 5)
+        menhir(*vor(1.6 + 2.4 * math.sin(t), 0.3 - 3.4 * math.cos(t)), 1.3 + 0.6 * PR.random(), 0.3 + 0.08 * PR.random(), 90 + i)
+print('ORT', SPOT, 'Zonen', len(ZONEN))
+
 # Waldrand etwa 7 m hinter den Gegnern und an den Seiten der Lichtung: dicht, gewellt
 for k in range(260):
     fwd = rnd.uniform(9, 85); lat = rnd.uniform(-0.24 * fwd - 3, 0.24 * fwd + 3)
@@ -235,6 +381,18 @@ for k in range(260):
     elif r < 0.82: put(spruce, p, 0, size=rnd.uniform(0.85, 1.25), far=far)
     elif r < 0.88 and not far: put(dead, p, 0, size=rnd.uniform(0.8, 1.1))
     else: placed.append(p)
+# 493 Waldrand (ForestCam: „a close row along the edge“): eine dichte Reihe knapp hinter der Kante, eigener Zufall; Kronen dürfen
+# näher an die Lichtung (1 m statt 2,8), sonst bliebe die Reihe so weit weg wie auf der Lichtung
+if SPOT == 'waldrand':
+    for k in range(90):
+        th = PR.uniform(-1.45, 1.45); kk = PR.uniform(1.08, 1.4)
+        p = fight(A_FAR * math.cos(th) * kk, B_SEITE * math.sin(th) * kk)
+        fwd, lat = view(p)
+        if clearing(p) or not in_view(fwd, lat, 3) or fwd < 17: continue
+        if fwd < D0 + 4 and abs(lat) < 0.2 * fwd - 0.6: continue
+        if crown_over(p, 1.0) or not free(p, 1.9): continue
+        if PR.random() < 0.62: put(oak, p, 0, size=PR.uniform(0.8, 1.1), beech=PR.random() < 0.35)
+        else: put(spruce, p, 0, size=PR.uniform(0.85, 1.15))
 # Unterholz am Rand der Lichtung, Steine, ein Stumpf
 for k in range(140):
     fwd = rnd.uniform(9, 45); lat = rnd.uniform(-0.24 * fwd - 2, 0.24 * fwd + 2)
@@ -243,6 +401,7 @@ for k in range(140):
     if fwd < D0 + 3 and abs(lat) < 0.2 * fwd - 0.8: continue
     if path_dist(p) < PATH_W * 0.5 + 0.3: continue
     if fwd < 32 and lat < -0.12 * fwd: continue      # Prüfer Runde 5: links oben ein klumpiger Busch, alt dort Wiese
+    if in_zone(p, 0.8): continue                     # 493: nicht im Teich, nicht auf Stamm und Steinen
     INKLESS[0] = view(p)[0] > FERN; bush(p, rnd.uniform(0.8, 1.3), fern=rnd.random() < 0.4); INKLESS[0] = False
 for k in range(10):
     a = rnd.uniform(-5.5, 6.5); b = rnd.uniform(-4.5, 4.5)
@@ -273,7 +432,7 @@ for k in range(400):
     am_rand = not clearing(p) and clearing(p + (p - Vector((0, 0, 0))).normalized() * -1.2)
     if not (am_weg or am_rand): continue
     if abs(p.x) < 4.2 and abs(p.y) < 2.6: continue                            # nicht unter den Füßen
-    if not all((p - q).length > 1.4 for q in placed): continue
+    if not all((p - q).length > 1.4 for q in placed) or in_zone(p, 0.5): continue
     placed.append(p)
     n = 1 + (SROLL.random() < 0.6) + (SROLL.random() < 0.3)                  # Gruppen von ein bis drei
     for j in range(n):
@@ -312,9 +471,9 @@ tris = sum(len(f) - 2 for f in P.F)
 obs = [netz('Rahmen', 0, RAHMEN_F, 0, RAHMEN_V), netz('Wald', RAHMEN_F, len(P.F), RAHMEN_V, len(P.V))]
 bpy.ops.object.select_all(action='DESELECT')
 for ob in obs: ob.select_set(True)
-bpy.ops.export_scene.gltf(filepath=OUT + '/kampfort-wald.glb', export_format='GLB', use_selection=True,
+bpy.ops.export_scene.gltf(filepath=OUT + '/kampfort-wald%s.glb' % NAME, export_format='GLB', use_selection=True,
                           export_vertex_color='ACTIVE', export_yup=True, export_image_format='AUTO')
-print('GLB OK', os.path.getsize(OUT + '/kampfort-wald.glb'))
+print('GLB OK', SPOT, os.path.getsize(OUT + '/kampfort-wald%s.glb' % NAME))
 
 # Bodenmaske: Pixel (u, v) <- Godot-örtlich x = Blender x, z = -Blender y; Mitte = Kampfmitte
 S = 140.0; PX = 10; N = int(S * PX)     # Runde 2 Boden: 10 px je m (vorher 6), damit der ausgefranste Rand nicht verschwimmt
@@ -343,7 +502,7 @@ R *= 1.0 - 0.9 * np.clip((0.3 - noise(220, 9)) * 8.0, 0, 1)                     
 # Waldboden außerhalb der Lichtung: kahle, dunkle Erde in Flecken (Laub), Schatten
 A_ = X; B_ = -BY
 wob = 1.0 + 0.12 * np.sin(np.arctan2(B_, A_) * 5 + 1.3)
-inside = (A_ / np.where(A_ > 0, A_FAR, 7.0)) ** 2 + (B_ / 4.8) ** 2      # wie clearing(): Waldboden erst, wo der Wald steht
+inside = (A_ / np.where(A_ > 0, A_FAR, 7.0)) ** 2 + (B_ / B_SEITE) ** 2      # wie clearing(): Waldboden erst, wo der Wald steht
 edge = np.clip((inside - wob) / 1.2, 0, 1)                                     # 0 Lichtung, 1 Wald
 R = np.maximum(R, edge * np.clip((noise(40, 3) - 0.35) * 2.0, 0, 0.75))
 B = edge * 0.78      # Chef 21:03 „dunklen Waldrand“ (Diogenes: fehlt): Waldboden unter den Bäumen dunkler (vorher 0,55)
@@ -355,6 +514,21 @@ for (sx, sy, sr) in STEIN_ORTE:
     G = np.maximum(G, (np.sqrt((X - sx) ** 2 + (BY - sy) ** 2) < sr + 0.12).astype(np.float32))
 for (sx, sy, sr) in SHADE:
     B = np.maximum(B, np.clip(1.0 - np.sqrt((X - sx) ** 2 + (BY - sy) ** 2) / sr, 0, 1) * 0.75)
+for (sx, sy, sr, st) in SCHATTEN:      # 493: Stamm, Felsen, stehende Steine
+    B = np.maximum(B, np.clip(1.0 - np.sqrt((X - sx) ** 2 + (BY - sy) ** 2) / sr, 0, 1) ** 0.7 * st)
+for (sx, sy, sr) in ZONEN:              # 493: kein Gras unter Stamm und Steinen
+    if SPOT != 'teich': G = np.maximum(G, (np.sqrt((X - sx) ** 2 + (BY - sy) ** 2) < sr - 0.25).astype(np.float32))
+if TEICH:   # 493: im Wasser kein Weg, kein Gras; am Ufer ein Saum aus Schlamm (Erde), 0,3–0,5 m breit
+    ca, cb, ra, rb = TEICH
+    dA, dB = X - ca, -BY - cb
+    tief, quer = 0.866 * dA - 0.5 * dB, 0.5 * dA + 0.866 * dB     # im Blick der Kamera wie ufer()
+    t = np.arctan2(quer / rb, tief / ra)
+    w = 1 + 0.07 * np.sin(t * 3 + 1.1) + 0.04 * np.sin(t * 7)
+    q = np.sqrt((tief / ra) ** 2 + (quer / rb) ** 2) / w
+    nass = q < 1.0
+    ufer = np.clip(1.0 - (q - 1.0) / (0.18 + 0.08 * noise(80, 12)), 0, 1) * (q >= 1.0)
+    R = np.where(nass, 0.0, np.maximum(R, ufer)); G = np.maximum(G, (q < 1.12).astype(np.float32))
+    B = np.maximum(B, ufer * 0.35)
 B = np.clip(B * (0.85 + 0.3 * noise(90, 4)), 0, 1)
 # Sonnentupfen: auf der Lichtung und Lücken im Wald (ForestCam: Lichtlücken #D8E4A0)
 A = np.zeros((N, N), np.float32)
@@ -365,8 +539,8 @@ for k in range(70):
     A = np.maximum(A, np.clip(1.0 - np.sqrt(((X - cx) / 1.6) ** 2 + (Z - cy) ** 2) / r, 0, 1) ** 0.6)
 A *= np.clip(1.0 - B * 1.2, 0, 1)
 img = np.stack([R, G, B, A], 2)
-Image.fromarray((img * 255 + 0.5).astype(np.uint8), 'RGBA').filter(ImageFilter.GaussianBlur(0.8)).save(OUT + '/wald-maske.png')
+Image.fromarray((img * 255 + 0.5).astype(np.uint8), 'RGBA').filter(ImageFilter.GaussianBlur(0.8)).save(OUT + '/wald-maske%s.png' % NAME)
 json.dump(dict(groesse_m=S, px_je_m=PX, dreiecke=tris, baeume=len(SHADE),
                hinweis='Maske: u = (x + S/2) / S, v = (z + S/2) / S in Godot-örtlich (Wald-Knoten); R Weg, B Schatten, A Sonnentupfen'),
-          open(OUT + '/wald-info.json', 'w'), indent=1)
+          open(OUT + '/wald-info%s.json' % NAME, 'w'), indent=1)
 print('MASKE OK', N, 'px; Baeume', len(SHADE), 'Dreiecke', tris)

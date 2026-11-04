@@ -439,17 +439,15 @@ func _gui_input(e: InputEvent) -> void:
 
 func frage() -> void:
 	var de := Sprache.aktiv() == "de"
-	fragt = ColorRect.new()
-	(fragt as ColorRect).color = Color(0, 0, 0, 0.82)
-	fragt.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(fragt)
+	# 526: Tippen daneben und Android-Zurück wie „Weiter ansehen“ (alt ConfirmDialog onDismiss)
+	fragt = Rueckfrage.schleier(self, func(): if fragt != null: fragt.queue_free(); fragt = null)
 	var mitte := CenterContainer.new()
 	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	fragt.add_child(mitte)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(8 * DP))
 	v.custom_minimum_size.x = get_viewport_rect().size.x - 48 * DP
-	mitte.add_child(Erschaffung.kasten(v))
+	mitte.add_child(Rueckfrage.halte(Erschaffung.kasten(v)))
 	v.add_child(Stil.zeile(("Überspringen?" if de else "Skip?").to_upper(), 14, Stil.TEXT, 3.0))
 	v.add_child(Erschaffung.txt("Die Zwischensequenz endet, du kannst sie in der Chronik wieder ansehen." if de else "This ends the cutscene; you can watch it again in the Chronicle.", 16))
 	v.add_child(Erschaffung.knopf("Überspringen" if de else "Skip", func(): beende()))

@@ -116,8 +116,17 @@ func _ready() -> void:
 	DirAccess.make_dir_recursive_absolute(aus)
 	spiel.ui.visible = false
 	if spiel.leute: spiel.leute.visible = false
-	if teil == "klassen":   # 376.1 Held je Klasse (heldfigur.gd): ohne UAL-Datei und Probefiguren
-		await klassen()
+	if teil in ["klassen", "voelker", "tragen", "tragenfilm", "tragenaxt", "tragenpakete"]:   # 376.1 Held je Klasse (heldfigur.gd), 431 Voelker (voelkerprobe.gd), 417 Tragart: ohne UAL-Datei und Probefiguren
+		if teil == "voelker": await VoelkerProbe.new(self).film()
+		elif teil == "klassen": await klassen()
+		elif teil == "tragenaxt": await TragProbe.new(self).standbilder(true)   # 417 Runde 3: Kriegsaxt in drei Fassungen
+		elif teil == "tragenpakete": await TragProbe.new(self).standbilder(false, true)   # 417 Runde 4: Gehen und Rennen aus den Paketen
+		else: await TragProbe.new(self).standbilder()
+		FileAccess.open(aus + "/probe.txt", FileAccess.WRITE).store_string("\n".join(protokoll) + "\n")
+		get_tree().quit()
+		return
+	if teil == "trachten":   # 376.1 Tracht je Herkunft, Heldin, Statur (trachtprobe.gd): ohne UAL-Datei und Probefiguren
+		await TrachtProbe.new(self).film()
 		FileAccess.open(aus + "/probe.txt", FileAccess.WRITE).store_string("\n".join(protokoll) + "\n")
 		get_tree().quit()
 		return
@@ -284,12 +293,12 @@ func stab(k: String, an: bool) -> void:
 func freie_wiese() -> void:
 	spiel.gebiet.visible = false
 	var boden := MeshInstance3D.new()
-	var st := SurfaceTool.new()   # 30 m, Gras je 2 m wiederholt (PlaneMesh dehnte das Bild ueber die ganze Flaeche)
+	var st := SurfaceTool.new()   # 60 m (417: Film Gehen und Rennen gut 20 m), Gras je 2 m wiederholt (PlaneMesh dehnte das Bild ueber die ganze Flaeche)
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 	st.set_normal(Vector3.UP)
 	for e in [[-1, -1], [1, -1], [1, 1], [-1, -1], [1, 1], [-1, 1]]:
-		st.set_uv(Vector2(e[0], e[1]) * 7.5)
-		st.add_vertex(Vector3(e[0] * 15.0, 0.0, e[1] * 15.0))
+		st.set_uv(Vector2(e[0], e[1]) * 15.0)
+		st.add_vertex(Vector3(e[0] * 30.0, 0.0, e[1] * 30.0))
 	boden.mesh = st.commit()
 	var bm := ShaderMaterial.new(); bm.shader = load("res://shader/toon.gdshader")
 	bm.set_shader_parameter("tex", Gebiet.bild("gras"))

@@ -159,7 +159,7 @@ func _knochen(sk: Skeleton3D) -> bool:
 	return true
 
 
-func _hoch(sk: Skeleton3D, i: int) -> int:
+static func _hoch(sk: Skeleton3D, i: int) -> int:
 	var o := sk.get_bone_global_pose(i).origin
 	var p := sk.get_bone_parent(i)
 	while p >= 0 and sk.get_bone_global_pose(p).origin.distance_to(o) < 0.005:
@@ -168,7 +168,7 @@ func _hoch(sk: Skeleton3D, i: int) -> int:
 
 
 ## Beugt die zwei Glieder [e][2] (oben) und [e][1] so, dass die Pfote [e][0] auf [ziel] (Welt) steht, so weit die Glieder reichen
-func _ik(sk: Skeleton3D, xs: Transform3D, e: Array, ziel: Vector3) -> void:
+static func _ik(sk: Skeleton3D, xs: Transform3D, e: Array, ziel: Vector3) -> void:
 	var t: Vector3 = xs.affine_inverse() * ziel
 	var ga := sk.get_bone_global_pose(e[2])
 	var gb := sk.get_bone_global_pose(e[1])

@@ -85,6 +85,7 @@ for bn in BEW:
         f0, f1 = a.frame_range
     zahl = {}
     schlimm = 0
+    ort = {}   # 463: wo (Hoehe auf 10 cm, Seite, vorn/hinten; Figur blickt -Y, links +X) und in welcher Lage
     for f in np.linspace(f0, f1, 8):
         bpy.context.scene.frame_set(int(round(f)))
         V, F, L, N = lage(); B = je_lage(V, F, L); RK = raender(V, L)
@@ -95,6 +96,9 @@ for bn in BEW:
             # Rand von B (Kragen, Aermel, Saum: darunter darf der Koerper weitergehen)
             if h[0] is not None and h[1].dot(N[i]) > 0 and h[3] > 0.005 and RK[t].find(h[0])[2] > 0.03:
                 k = name(L[i]) + '>' + name(t); zahl[k] = zahl.get(k, 0) + 1; n += 1
+                o = (k, '%.1f m' % V[i][2], 'li' if V[i][0] > 0 else 're', 'vorn' if V[i][1] < 0 else 'hinten', 'tief %d mm' % min(30, int(round(h[3] * 200)) * 5))
+                ort[o] = ort.get(o, 0) + 1
                 if os.environ.get('WO') and bn == os.environ['WO']: print('WO', k, tuple(round(x, 3) for x in V[i]), round(h[3], 3))
         schlimm = max(schlimm, n)
     print('DURCH', bn, 'hoechstens', schlimm, 'Ecken je Bild;', dict(sorted(zahl.items(), key=lambda x: -x[1])[:6]))
+    print('ORT', bn, '; '.join('%s %s %s %s %s: %d' % (o + (c,)) for o, c in sorted(ort.items(), key=lambda x: -x[1])[:10]))

@@ -851,6 +851,25 @@ func stelle(regler: String, wert: int) -> void:
 	if wert > 0 and regler == "fx":
 		effekte_an = true
 	_mische()
+	_speichere()
+
+
+## 489 (Chef 03.11., 07:07): Schalter im Hauptmenü wie alt (GameViewModel toggleMusic, toggleSfx): "music" oder "fx" stumm oder
+## wieder an, die Regler bleiben. Musik an: läuft noch ein Stück (stumm), klingt es weiter, sonst beginnt die Szene neu
+func schalte(art: String) -> void:
+	if art == "music":
+		musik_an = not musik_an
+		if musik_an and szene != "" and not _spieler.any(func(p): return p.playing):
+			var sz := szene
+			szene = ""
+			spiele_szene(sz)
+	else:
+		effekte_an = not effekte_an
+	_mische()
+	_speichere()
+
+
+func _speichere() -> void:
 	var c := ConfigFile.new()
 	for k in lautstaerke:
 		c.set_value("klang", "volume_" + k, lautstaerke[k])

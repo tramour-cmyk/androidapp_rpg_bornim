@@ -7,6 +7,7 @@ uniform float fill = 0.0;          // Held: Mindesthelligkeit im Schatten
 uniform float sway = 0.0;          // Laub: im Wind wiegen
 uniform float cut_on = 0.0;        // Durchsicht (DESIGN-STIL „Karte und Räume“, 353a): Laub vor dem Helden weich ausblenden
 uniform vec3 cut_pos = vec3(0.0);  // Brust des Helden
+uniform float cut_weit = 1.0;      // 491 (353a, Tiefer Wald: Held halb unter Laub): Loch weiter und freier (Wald 1,3, Dorf 1)
 uniform float cut_ab = 0.0;        // Rinde: erst ab dieser Hoehe (Stamm in der Krone), Laub: ganz
 uniform float weg = 0.0;           // Durchsicht als Ganzes (gebiet.gd, Gruppe: Haus, Stand, Laterne verdeckt den Helden): deckend aus, nur DURCH
 uniform float durch_a = 0.5;       // dabei Deckkraft (alt WorldScreen: zusammen halb)
@@ -27,6 +28,9 @@ uniform vec3 toenung = vec3(1.0);   // 376.1 Held: Haut und Haar getoent (heldfi
 uniform float toen_hell = 0.0;     // > 0: Helligkeit des Bildes am Zielton (Bildhelligkeit / toen_hell), sonst Faktor toenung
 uniform vec3 toen_bild = vec3(1.0); // 376.1 Haut (Chef 28.10., 23:0x „klinisch tot“): Bildfarbe am Zielton (linear); toen_farbe davon
 uniform float toen_farbe = 0.0;    // Anteil der eigenen Farbschwankung des Bildes (Wangen, Lippen roeter) um den Zielton
+uniform float vorrang = 0.0;       // 463: Umhang (UV2.x > 0,5, held_klassen.py vorrang_marke) so viele Meter zur Kamera; gewinnt die Tiefe gegen den Aermel
+uniform float rueck = 0.0;         // 463: Rueckseiten (Normale von der Kamera weg) so viele Meter laengs des Blickstrahls zurueck; Lagen in Falten
+uniform float nach = 0.0;          // 463: Aermel (UV2.y > 0,5, held_klassen.py vorrang_marke) so viele Meter zurueck; verlieren gegen Umhang und Kette
 uniform float teil = 0.0;          // nur zum Messen (held.gd --teilfarbe): Eisen gruen, Kette rot, Haut (rig.py TEILMASKE) blau, Rest schwarz
 varying vec3 wpos;
 varying float v_eisen;
@@ -41,6 +45,18 @@ void vertex() {
 		vec3 d = vec3(sin(t) + 0.4 * sin(t * 2.7), 0.0, cos(t * 0.8) * 0.6) * 0.045 * h * sway;
 		VERTEX += (inverse(MODEL_MATRIX) * vec4(d, 0.0)).xyz;
 	}
+	// 518 (Build 248, Chef 20:47: Dorf ohne Haeuser): schreibt der Shader POSITION irgendwo, nimmt Godot es fuer jede Ecke; ungeschrieben
+	// fielen alle Ecken auf einen Punkt (Haeuser, Baeume, Haar, Waffe unsichtbar, nur Tusche und Schatten blieben). Darum immer setzen,
+	// zuletzt (nach dem Wiegen), ohne Versatz genau wie Godot selbst
+	vec4 vv = MODELVIEW_MATRIX * vec4(VERTEX, 1.0);
+	if (rueck > 0.0 || (nach > 0.0 && UV2.y > 0.5) || (vorrang > 0.0 && UV2.x > 0.5)) {   // laengs des Blickstrahls: Lage im Bild bleibt, nur die Tiefe
+		vec3 blick = PROJECTION_MATRIX[3][3] > 0.5 ? vec3(0.0, 0.0, -1.0) : normalize(vv.xyz);   // Dorf orthogonal (kamera.gd), Kampfort perspektivisch
+		if (vorrang > 0.0 && UV2.x > 0.5) vv.xyz -= blick * vorrang;
+		// 463 (pruef_flecken RUECK): Innenseite einer Lage verliert gegen eine Vorderseite bis rueck dahinter; Vorderseiten bleiben
+		if (rueck > 0.0) vv.xyz += blick * rueck * smoothstep(0.0, 0.2, dot(normalize((MODELVIEW_MATRIX * vec4(NORMAL, 0.0)).xyz), blick));
+		if (nach > 0.0 && UV2.y > 0.5) vv.xyz += blick * nach;
+	}
+	POSITION = PROJECTION_MATRIX * vv;
 }
 void fragment() {
 	// Laub zwischen Kamera und Held: innen fast frei, nach aussen weich dicht. Der deckende Durchgang laesst das Loch aus (Schatten bleibt),
@@ -52,9 +68,9 @@ void fragment() {
 		float along = dot(d, CAMERA_DIRECTION_WORLD);   // > 0: zur Kamera hin (nachgestellt 25.10.)
 		float side = length(d - CAMERA_DIRECTION_WORLD * along);
 		// weich nur ueber den Abstand quer zur Blickachse; die Tiefe (along) weit gestaffelt, sonst harte Kante, wo die Krone sich wegkruemmt
-		durch = (1.0 - smoothstep(0.7, 1.6, side)) * smoothstep(-0.9, 0.3, along) * smoothstep(cut_ab, cut_ab + 0.8, wpos.y);
-		loch = step(side, 1.65) * step(-0.95, along);
-		deck = step(side, 2.0) * step(-1.15, along);
+		durch = (1.0 - smoothstep(0.7 * cut_weit, 1.6 * cut_weit, side)) * smoothstep(-0.9, 0.3, along) * smoothstep(cut_ab, cut_ab + 0.8, wpos.y);
+		loch = step(side, 1.65 * cut_weit) * step(-0.95, along);
+		deck = step(side, 2.0 * cut_weit) * step(-1.15, along);
 	}
 	if (weg > 0.5) { loch = 1.0; deck = 1.0; }
 #ifdef DURCH
@@ -62,7 +78,7 @@ void fragment() {
 #ifdef TIEFE
 	ALPHA = 0.0;
 #else
-	ALPHA = weg > 0.5 ? durch_a : 1.0 - 0.85 * durch;
+	ALPHA = weg > 0.5 ? durch_a : 1.0 - (cut_weit > 1.0 ? 0.95 : 0.85) * durch;
 #endif
 #else
 	if (loch > 0.5 && !IN_SHADOW_PASS) discard;
@@ -71,7 +87,10 @@ void fragment() {
 	if (toen_hell > 0.0) {   // 376.1: Zeichnung des Bildes, Farbe des Tons, dazu ein Teil der Farbschwankung des Bildes (toen_farbe)
 		float hl = dot(ALBEDO, vec3(0.2126, 0.7152, 0.0722));
 		vec3 rel = (ALBEDO / max(hl, 0.001)) / max(toen_bild / toen_hell, vec3(0.001));
-		ALBEDO = toenung * hl / toen_hell * mix(vec3(1.0), rel, toen_farbe);
+		// 431c B1 (Pruefer Lauf 41439148830: Waesche ausgebleicht): nur hautfarbene Stellen toenen. Graue Waesche liegt weit vom
+		// Farbton des Bezugs (rel etwa 0,5/1,3/2,5, Abstand 1,6), Lippen und Wangen nah (Abstand unter 0,4); dazwischen weich
+		float haut = (toen_farbe > 0.0) ? 1.0 - smoothstep(0.6, 1.0, length(rel - vec3(1.0))) : 1.0;
+		ALBEDO = mix(ALBEDO, toenung * hl / toen_hell * mix(vec3(1.0), rel, toen_farbe), haut);
 	}
 	else ALBEDO *= toenung;
 	if (kontur > 0.0) {

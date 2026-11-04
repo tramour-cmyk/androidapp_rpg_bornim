@@ -3,19 +3,26 @@ extends RefCounted
 # 399.1 Vergleich mit dem Getragenen wie alt (GearCompare.kt): was das Anlegen eines Stuecks aendert, Zeile fuer Zeile (RK, Angriff,
 # Schaden im Schnitt, TP, bei Zauberern Zauberangriff und ZP, Attribute, die Eigenschaften mit eigener Zeile); daraus das Urteil fuer
 # den Pfeil in der Tasche (▲ besser, ▼ schlechter) und der Satz im Kasten. Am Helden aendert es nichts (rechnet an einer Abschrift).
-# Noch nicht wie alt: der Hinweis, wenn eine Obergrenze des Kapitels einen Bonus schluckt.
+# 519 (Zu 519, Sokrates: Ring „+1 alle Attribute, +2 Geschicklichkeit“, im Vergleich fehlte Geschicklichkeit): wie alt ein Hinweis
+# („notiz“), wenn eine Obergrenze des Kapitels einen Bonus schluckt, und beim Schaden der Schnitt (GearCompare.kt 79–122).
 
 const EIGENE := ["CRIT", "FIRE", "RADIANT", "LIFESTEAL", "RESIST", "POISON_HIT", "BLEED_HIT", "STUN_HIT", "TENACITY", "GOLD_FIND", "MAGIC_FIND", "XP"]
 
 var ersetzt: Array = []
-var zeilen: Array = []        # {wort, vorher, nachher, besser (1, -1, 0)}
+var zeilen: Array = []        # {wort, vorher, nachher, besser (1, -1, 0), notiz (fehlt oder Satz darunter)}
 
 static func schnitt(e: Array) -> float: return int(e[0]) * (int(e[1]) + 1) / 2.0 + int(e[2])
 
 static func bild(h: Heldwerte) -> Dictionary:
-	var b := {"rk": h.rk(), "angriff": h.angriff(), "schaden": h.schaden(), "tp": h.max_tp(), "zauber": h.zauberangriff(), "zp": h.max_zp(), "werte": {}, "eig": {}}
-	for a in ["STR", "DEX", "CON", "INT", "WIS", "CHA"]: b["werte"][a] = h.wert(a)
+	var b := {"rk": h.rk(), "angriff": h.angriff(), "schaden": h.schaden(), "tp": h.max_tp(), "zauber": h.zauberangriff(), "zp": h.max_zp(),
+		"werte": {}, "eig": {}, "roh": {}, "wirkt": {}, "ausr": {}}
+	for a in ["STR", "DEX", "CON", "INT", "WIS", "CHA"]:
+		b["werte"][a] = h.wert(a)
+		b["ausr"][a] = h.ausruestungs_bonus(a)
 	for a in EIGENE: b["eig"][a] = h.bonus(a)
+	for a in Heldwerte.lade()["affixdaten"]:
+		b["roh"][a] = h.roh_bonus(a)
+		b["wirkt"][a] = h.bonus(a)
 	return b
 
 # wie GearCompare.of: hw bleibt, wie es ist
@@ -28,29 +35,51 @@ static func von(hw: Heldwerte, g: Dictionary, nebenhand := false) -> Vergleich:
 	v.ersetzt = weg.filter(func(x): return x.get("uid", -1) != g.get("uid", -2))
 	var de := Sprache.aktiv() == "de"
 	var vz := func(n: int) -> String: return ("+%d" % n) if n >= 0 else str(n)
-	var zahl := func(wort: String, x: int, y: int, mit_vz := false) -> void:
-		if x == y: return
-		v.zeilen.append({"wort": wort, "vorher": vz.call(x) if mit_vz else str(x), "nachher": vz.call(y) if mit_vz else str(y), "besser": 1 if y > x else -1})
-	zahl.call("Rüstungsklasse" if de else "Armor Class", a["rk"], b["rk"])
-	zahl.call(Sprache.u("attack"), a["angriff"], b["angriff"], true)
+	# GearCompare.capped: ein Bonus steigt roh, wirkt aber nicht mehr
+	var gedeckelt := func(afs: Array) -> bool: return afs.any(func(af): return b["roh"][af] > a["roh"][af] and b["wirkt"][af] == a["wirkt"][af])
+	var deckel := "Bonus wirkt nicht: Obergrenze für dieses Kapitel erreicht" if de else "Bonus has no effect: this chapter's limit is reached"
+	var zahl := func(wort: String, x: int, y: int, mit_vz := false, notiz := "") -> void:
+		if x == y and notiz == "": return
+		var r := {"wort": wort, "vorher": vz.call(x) if mit_vz else str(x), "nachher": vz.call(y) if mit_vz else str(y), "besser": 0 if x == y else (1 if y > x else -1)}
+		if notiz != "": r["notiz"] = notiz
+		v.zeilen.append(r)
+	var falls := func(gleich: bool, afs: Array) -> String: return deckel if gleich and gedeckelt.call(afs) else ""
+	zahl.call("Rüstungsklasse" if de else "Armor Class", a["rk"], b["rk"], false, falls.call(a["rk"] == b["rk"], ["AC"]))
+	zahl.call(Sprache.u("attack"), a["angriff"], b["angriff"], true, falls.call(a["angriff"] == b["angriff"], ["ATTACK"]))
 	if a["schaden"] != b["schaden"]:
 		var x := schnitt(a["schaden"]); var y := schnitt(b["schaden"])
+		var eins := func(n: float) -> String:
+			var t := str(int(n)) if is_equal_approx(n, roundf(n)) else "%.1f" % n
+			return t.replace(".", ",") if de else t
 		v.zeilen.append({"wort": Sprache.u("damage"), "vorher": Beute.wuerfel_text(a["schaden"], 0, de), "nachher": Beute.wuerfel_text(b["schaden"], 0, de),
-			"besser": 0 if x == y else (1 if y > x else -1)})
-	zahl.call("Trefferpunkte" if de else "Hit points", a["tp"], b["tp"])
+			"besser": 0 if x == y else (1 if y > x else -1), "notiz": ("im Schnitt %s statt %s" if de else "on average %s instead of %s") % [eins.call(y), eins.call(x)]})
+	elif gedeckelt.call(["DAMAGE", "FIRE", "RADIANT"]):
+		v.zeilen.append({"wort": Sprache.u("damage"), "vorher": Beute.wuerfel_text(a["schaden"], 0, de), "nachher": Beute.wuerfel_text(b["schaden"], 0, de), "besser": 0, "notiz": deckel})
+	zahl.call("Trefferpunkte" if de else "Hit points", a["tp"], b["tp"], false, falls.call(a["tp"] == b["tp"], ["HP"]))
 	if bool(hw.klassendaten()["zauberer"]):
-		zahl.call("Zauberangriff" if de else "Spell attack", a["zauber"], b["zauber"], true)
+		zahl.call("Zauberangriff" if de else "Spell attack", a["zauber"], b["zauber"], true, falls.call(a["zauber"] == b["zauber"], ["SPELL"]))
 		zahl.call("Zauberpunkte" if de else "Spell points", a["zp"], b["zp"])
 	var d := Heldwerte.lade()
-	for at in a["werte"]: zahl.call(Sprache.t(d["attribute"][at]["name"]), a["werte"][at], b["werte"][at])
+	# Attribute: was aus den Werten wird; einen Bonus, den die Obergrenze schluckt, nennt eine Zeile fuer alle
+	var weg_: Array = []
+	for at in a["werte"]:
+		var hoch: bool = b["roh"][at] + b["roh"]["ALL_STATS"] > a["roh"][at] + a["roh"]["ALL_STATS"]
+		if hoch and b["ausr"][at] == a["ausr"][at]: weg_.append(Sprache.t(d["attribute"][at]["name"]))
+		else: zahl.call(Sprache.t(d["attribute"][at]["name"]), a["werte"][at], b["werte"][at])
+	if not weg_.is_empty():
+		v.zeilen.append({"wort": "Attribute" if de else "Abilities", "vorher": "", "nachher": "", "besser": 0,
+			"notiz": ", ".join(PackedStringArray(weg_)) + (": Bonus wirkt nicht, Obergrenze für dieses Kapitel erreicht" if de else ": no effect, this chapter's limit is reached")})
 	for af in EIGENE:
 		var x: int = a["eig"][af]; var y: int = b["eig"][af]
-		if x == y: continue
+		var geschluckt: bool = b["roh"][af] > a["roh"][af] and x == y
+		if x == y and not geschluckt: continue
 		var f := func(n: int) -> String:
 			if n == 0: return "–"
 			if af == "CRIT": return ("ab %d" if de else "%d+") % (20 - n)
 			return ("%d %%" % n) if bool(d["affixdaten"][af]["prozent"]) else "+%d" % n
-		v.zeilen.append({"wort": Sprache.t(d["affixdaten"][af]["name"]), "vorher": f.call(x), "nachher": f.call(y), "besser": 1 if y > x else -1})
+		var r := {"wort": Sprache.t(d["affixdaten"][af]["name"]), "vorher": f.call(x), "nachher": f.call(y), "besser": 0 if x == y else (1 if y > x else -1)}
+		if geschluckt: r["notiz"] = deckel
+		v.zeilen.append(r)
 	return v
 
 # +1 besser, -1 schlechter, 0 gemischt, null aendert nichts

@@ -25,6 +25,10 @@ var zeit := 0.0
 var gruppen := {}                     # Durchsicht als Ganzes: Name -> {mats, a, ziel} (dorf.py „Gruppe_…“)
 var held: Node3D                      # spiel.gd: wessen Oberkoerper frei bleibt, und von wo man blickt
 var kamera: Camera3D
+var kraut_netz: MeshInstance3D        # 490 Vorlage des Heilkrauts (dorf.py „Kraut_Vorlage“), je Kraut eine Kopie
+var kraeuter := {}                    # Vector2i -> MeshInstance3D
+var feuer: Array = []                 # 490 Lagerfeuer: {licht, flammen, rauch, basis}
+var glut: Array[ShaderMaterial] = []  # 490 Glut im Feuer
 
 func _init(k: Karte) -> void:
 	karte = k
@@ -35,9 +39,15 @@ func _ready() -> void:
 	var stamm := "res://daten/" + datei(karte.id)
 	info = JSON.parse_string(FileAccess.get_file_as_string(stamm + "-info.json"))
 	var netz := lade_glb(stamm + ".bin")
+	var vorlage := netz.find_child("Kraut_Vorlage", true, false)   # 490: nicht auf der Karte, nur als Vorlage
+	if vorlage:
+		vorlage.get_parent().remove_child(vorlage)
+		kraut_netz = vorlage as MeshInstance3D
 	add_child(netz)
 	male(netz, self)
+	if kraut_netz: male(kraut_netz, null, 1)   # Schablone 1 wie Blueten: ohne Bildschirmlinie
 	baue_gruppen(netz)
+	schlagbaum(karte.flaggen.has("barrier_open"))
 	var wiese := MeshInstance3D.new()          # Waldboden ausserhalb der Karte: Bodenmaske am Rand fortgesetzt
 	var pm := PlaneMesh.new()
 	pm.size = Vector2(160, 160)
@@ -56,10 +66,44 @@ func _ready() -> void:
 		add_child(raumlicht)
 	else: baue_lampen()
 	baue_leben()
+	if String(karte.daten.get("art", "")) == "FOREST": baue_dunkel()
+
+# 490 Kartenrand (Orte und Welt W19, alt MapEdge): hinter dem Waldring laeuft der Wald ins Dunkel; ab 3 Kacheln vor dem Rand
+# weich dunkler, ab 12 schwarz (liegt knapp ueber dem Boden, Baeume des Rings stehen darin)
+func baue_dunkel() -> void:
+	var ts := Karte.TS
+	var w := karte.breite * ts; var h := karte.hoehe * ts
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var lagen := [[3.0, 0.0], [7.0, 0.7], [12.0, 1.0], [70.0, 1.0]]   # Kacheln ausserhalb, Deckung
+	for i in lagen.size() - 1:
+		var a: float = lagen[i][0] * ts; var b: float = lagen[i + 1][0] * ts
+		var ca := Color(0, 0, 0, lagen[i][1]); var cb := Color(0, 0, 0, lagen[i + 1][1])
+		var innen := [Vector3(-a, 0, -a), Vector3(w + a, 0, -a), Vector3(w + a, 0, h + a), Vector3(-a, 0, h + a)]
+		var aussen := [Vector3(-b, 0, -b), Vector3(w + b, 0, -b), Vector3(w + b, 0, h + b), Vector3(-b, 0, h + b)]
+		for k in 4:
+			var p0: Vector3 = innen[k]; var p1: Vector3 = innen[(k + 1) % 4]; var q0: Vector3 = aussen[k]; var q1: Vector3 = aussen[(k + 1) % 4]
+			for e in [[p0, ca], [q0, cb], [q1, cb], [p0, ca], [q1, cb], [p1, ca]]:
+				st.set_color(e[1]); st.add_vertex(e[0] + Vector3(0, 0.04, 0))
+	var mi := MeshInstance3D.new()
+	mi.mesh = st.commit()
+	var m := StandardMaterial3D.new()
+	m.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	m.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	m.vertex_color_use_as_albedo = true
+	m.cull_mode = BaseMaterial3D.CULL_DISABLED
+	mi.material_override = m
+	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	mi.name = "Dunkel"
+	add_child(mi)
 
 # Blender-Datei je Karte; weitere Gebietskarten kommen nach der Bestandsliste (348.8)
 static func datei(id: String) -> String:
 	return {"village": "dorf"}.get(id, id)
+
+# 490: Bodenmaske je Karte (dorf.py MASKE): das Dorf hat boden-maske, jede weitere <karte>-boden-maske
+static func maske(id: String) -> String:
+	return "boden-maske" if id == "village" else id + "-boden-maske"
 
 static func lade_glb(p: String) -> Node3D:
 	var doc := GLTFDocument.new()
@@ -93,6 +137,30 @@ static func ruhe_naechste(anim: AnimationPlayer, jetzt: String, z: RandomNumberG
 	if jetzt != "Stehen" or da.size() < 2: return ["Stehen", anim.get_animation("Stehen").length * z.randi_range(2, 4)]
 	var n: String = da[z.randi_range(1, da.size() - 1)]
 	return [n, anim.get_animation(n).length]
+
+# 453.2 (Chef 01.11., 13:0x, Archiv 453.1: „aufs ganze Spiel übertragen … als ob die Leute halt wirklich leben“): Held und Leute atmen
+# als eigene Schicht wie Held und Soeldner im Kampfort (kampf/atem.gd, Tuffy 453.1, dieselbe Datei): ruhig, je Figur eigener Takt und
+# Versatz (seed), nach Anstrengung schneller und abklingend. Die Ruhe der UAL (Idle_Loop = Stehen) atmet selbst zweimal in 2,5 s und bei
+# allen im selben Takt: in ATEM_RUHE bleibt darum ihr erstes Bild stehen (wie figur.gd _ohne_atem), nur die Schicht atmet; Stehen_2,
+# Stehen_3 (Umsehen, Muede) bleiben. Ohne UAL-Geruest (Dorftiere, altes Modell) kein Atem, Rueckgabe null.
+const ATEM_RUHE := ["Stehen", "Stehen_Fackel"]
+static func atem_an(modell: Node3D, anim: AnimationPlayer, seed: int) -> Node:
+	var sk := finde(modell, "Skeleton3D") as Skeleton3D
+	if sk == null or anim == null or OS.get_environment("ATEM_ALT") != "": return null   # ATEM_ALT=1: wie vorher (Vergleich)
+	for k in ["spine_02", "spine_03", "clavicle_l", "clavicle_r", "upperarm_l", "upperarm_r"]:
+		if sk.find_bone(k) < 0: return null
+	for n in ATEM_RUHE:
+		if not anim.has_animation(n): continue
+		var a := anim.get_animation(n)
+		for t in a.get_track_count():
+			var ty := a.track_get_type(t)
+			if ty != Animation.TYPE_ROTATION_3D and ty != Animation.TYPE_POSITION_3D: continue
+			while a.track_get_key_count(t) > 1: a.track_remove_key(t, a.track_get_key_count(t) - 1)
+	var atem = load("res://kampf/atem.gd").new()
+	atem.name = "Atem"
+	atem.eigen(seed)
+	sk.add_child(atem)
+	return atem
 
 # 348.6 (Helfer: Held stand nachts nach dem Rennen gegraetscht; Chef 18:20 „glitscht … und zuckt“): beim Laden verwirft Godot
 # Spuren von Knochen, die in einer Bewegung ruhen (Stehen hat keine Beine); beim Wechsel blieben sie in der Pose der Bewegung
@@ -170,14 +238,14 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 			var m := ShaderMaterial.new()
 			if g and nm.contains("Boden"):
 				m.shader = load("res://shader/boden.gdshader")
-				m.set_shader_parameter("maske", bild("boden-maske"))
+				m.set_shader_parameter("maske", bild(maske(g.karte.id)))
 				for k in ["gras", "erde", "pflaster"]: m.set_shader_parameter(k, bild(k))
 				m.set_shader_parameter("karte", Vector2(g.karte.breite, g.karte.hoehe) * Karte.TS)
 				g.boden = m
 				mi.layers = BODEN_SCHICHT
 			elif g and nm.contains("Wasser"):
 				m.shader = load("res://shader/wasser.gdshader")
-				m.set_shader_parameter("maske", bild("boden-maske"))   # Alpha: Wassertiefe (dorf.py)
+				m.set_shader_parameter("maske", bild(maske(g.karte.id)))   # Alpha: Wassertiefe (dorf.py)
 				m.set_shader_parameter("karte", Vector2(g.karte.breite, g.karte.hoehe) * Karte.TS)
 				g.wasser = m
 			else:
@@ -202,6 +270,10 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 					m.set_shader_parameter("cut_ab", 1.4)
 					g.durchsicht(m)
 				if g and nm.contains("Glas"): g.glas.append(m)
+				if rn.begins_with("glut"):   # 490 Glut im Lagerfeuer: leuchtet von selbst, nachts staerker (nacht())
+					m.set_shader_parameter("glow", 0.6)
+					m.set_shader_parameter("glow_col", Vector3(1.0, 0.45, 0.15))
+					if g: g.glut.append(m)
 			mi.set_surface_override_material(i, m)
 	for c in n.get_children(): male(c, g, mark, aus)
 
@@ -209,6 +281,8 @@ func nacht(k: float) -> void:
 	if raumlicht: raumlicht.nacht(k)
 	# 348.9: nachts wie alt geeicht (Laternen, Fenster, Lichtinseln am Boden kleiner; alt p90 46)
 	for o in lampen: o.light_energy = 1.4 * k   # 348.6: alt nur ein kleiner Hof um die Laterne (Helfer: neu 4-mal zu hell, zu weit)
+	for m in glut: m.set_shader_parameter("glow", 0.35 + 0.65 * k)
+	for f in feuer: f["basis"] = 0.5 + 1.6 * k   # 490: Garricks Feuer, nachts die einzige warme Insel (LISTE-UMZUG-348 Stimmung)
 	for m in glas: m.set_shader_parameter("glow", 0.5 * k)
 	if wasser: wasser.set_shader_parameter("night", k)
 	if boden: boden.set_shader_parameter("night", k)
@@ -260,6 +334,7 @@ func durchsicht(m: ShaderMaterial, mark := 0) -> void:
 	var x := m
 	while x:
 		x.set_shader_parameter("cut_on", 1.0)
+		if String(karte.daten.get("art", "")) == "FOREST": x.set_shader_parameter("cut_weit", 1.3)   # 491 (353a): Held ganz zu sehen
 		laub.append(x)
 		x = x.next_pass as ShaderMaterial
 
@@ -271,6 +346,13 @@ func nah(_an: bool, held_pos: Vector3) -> void:
 # wird es als Ganzes halb durchsichtig, weich in 0,3 s; was nur bis zur Huefte reicht (Bank, Theke, Fass), bleibt deckend.
 const DURCH_SCHICHT := 1 << 19         # nur fuer die Strahlen; der Held geht nach Karte.begehbar, nicht nach Koerpern
 const DURCH_A := 0.5                   # alt: zusammen halb (Test 0.1.576: 0,2 zu stark; 27e.1: 35 % zu schwach)
+
+# 530 (Chef 03.11., 23:40 „Schlagbaum öffnet sich nicht visuell“): der Balken ist zu oder steht offen aufrecht am Pfosten wie alt
+# (MapTownIso.barrier open; dorf.py „Schlagbaum_zu_…“, „Schlagbaum_auf_…“); beim Laden und nach jeder neuen Flagge (spiel.gd flaggen_neu)
+func schlagbaum(offen: bool) -> void:
+	for n in find_children("Schlagbaum_*", "", true, false):
+		var nm := String(n.name)
+		if n is Node3D: (n as Node3D).visible = nm.begins_with("Schlagbaum_auf") == offen
 
 func baue_gruppen(n: Node) -> void:
 	if n is MeshInstance3D and String(n.name).begins_with("Gruppe_"):
@@ -345,6 +427,11 @@ func baue_lampen() -> void:
 	var inseln := PackedVector4Array()
 	for l in info["lichter"]:
 		var art: String = l["art"]
+		if art == "feuer":   # 490 Lagerfeuer (dorf.py lagerfeuer): Licht flackert, Flammen und Rauch, Tag und Nacht
+			var fq := gpos(l["pos"])
+			inseln.append(Vector4(fq.x, fq.z, 3.2 * Karte.TS, 1.0))
+			baue_feuer(fq)
+			continue
 		if art != "laterne" and art != "fenster": continue
 		var q := gpos(l["pos"])
 		if art == "fenster":   # wie MapLight WINDOW: vor dem Haus auf den Boden, Reichweite 1,6 Kacheln, Staerke 0,7
@@ -396,16 +483,19 @@ static func kreuz() -> ArrayMesh:
 func baue_leben() -> void:
 	var ts := Karte.TS
 	var mimg := Image.new()
-	mimg.load_png_from_buffer(FileAccess.get_file_as_bytes("res://daten/boden-maske.bild"))
+	mimg.load_png_from_buffer(FileAccess.get_file_as_bytes("res://daten/%s.bild" % maske(karte.id)))
 	var rng := RandomNumberGenerator.new(); rng.seed = 348
 	var xf: Array[Transform3D] = []; var cu: Array[Color] = []
 	var kxf: Array[Transform3D] = []; var kcu: Array[Color] = []
+	var wald := String(karte.daten.get("art", "")) == "FOREST"
 	for r in karte.hoehe:
 		for c in karte.breite:
 			var t := karte.zeichen(Vector2i(c, r))
 			var n := 0
 			var korn := t == "c"
+			var hoch := t == "," and wald   # 490 hohes Gras (Tile.TALL_GRASS) im Wald: dichter und hoeher, dort lauern Ratten und Woelfe
 			if t == "." or t == "f": n = 9
+			elif hoch: n = 22
 			elif t == "T": n = 5
 			elif korn: n = 36
 			for k in n:
@@ -423,10 +513,10 @@ func baue_leben() -> void:
 					var gk := rng.randf_range(0.92, 1.08)
 					kcu.append(Color(gk, gk, gk, 1))
 					continue
-				var s := rng.randf_range(0.16, 0.34)
-				var b := Basis(Vector3.UP, rng.randf() * TAU).scaled(Vector3(s, s * rng.randf_range(0.75, 1.2), s))
+				var s := rng.randf_range(0.16, 0.34) if not hoch else rng.randf_range(0.3, 0.5)
+				var b := Basis(Vector3.UP, rng.randf() * TAU).scaled(Vector3(s, s * (rng.randf_range(0.75, 1.2) if not hoch else rng.randf_range(1.3, 1.8)), s))
 				xf.append(Transform3D(b, Vector3(x, 0.0, z)))
-				var g := rng.randf_range(0.85, 1.2)
+				var g := rng.randf_range(0.85, 1.2) * (0.8 if hoch else 1.0)
 				cu.append(Color(0.95 * g, 1.0 * g, 0.85 * g, 1))
 	halme = halm_netz(xf, cu, "halme", 0.0)
 	korn_mat = halm_netz(kxf, kcu, "korn", 1.0)
@@ -535,6 +625,9 @@ static func punkt_mat(leuchtet: bool) -> StandardMaterial3D:
 func _process(dt: float) -> void:
 	zeit += dt
 	blende_gruppen(dt)
+	for f in feuer:   # 490: Flackern wie MapLight FIRE (zwei Wellen und Rauschen)
+		var o: OmniLight3D = f["licht"]
+		o.light_energy = float(f["basis"]) * (0.85 + 0.1 * sin(zeit * 9.0) + 0.07 * sin(zeit * 23.0 + 1.3) + 0.05 * randf())
 	for f in falter:
 		var n: Node3D = f["n"]
 		if not n.visible: continue
@@ -547,3 +640,50 @@ func _process(dt: float) -> void:
 		if v.length() > 1e-4: n.rotation.y = atan2(v.x, v.z)
 		var flap := sin(zeit * 26.0 + float(f["ph"])) * 1.1
 		for w in f["w"]: (w[0] as Node3D).rotation.z = flap * float(w[1])
+
+# ---------------------------------------------------------------- 490 Lagerfeuer und Heilkraeuter
+func baue_feuer(at: Vector3) -> void:
+	var o := OmniLight3D.new()
+	o.position = at + Vector3(0, 0.35, 0)
+	o.omni_range = 4.5
+	o.light_color = Color(1.0, 0.62, 0.3)
+	o.omni_attenuation = 0.9
+	o.light_cull_mask = 0xFFFFF & ~BODEN_SCHICHT
+	o.shadow_enabled = false
+	add_child(o)
+	o.set_meta("reich", 3.2 * Karte.TS)
+	o.set_meta("kraft", 1.0)
+	o.add_to_group("tuschelicht")
+	var fl := CPUParticles3D.new()   # Flammen: kurze, aufsteigende Funken in Orange bis Gelb, nach oben schmaler
+	fl.amount = 26; fl.lifetime = 0.7; fl.preprocess = 1.0
+	fl.emission_shape = CPUParticles3D.EMISSION_SHAPE_SPHERE; fl.emission_sphere_radius = 0.12
+	fl.direction = Vector3.UP; fl.spread = 14.0; fl.gravity = Vector3(0, 0.6, 0)
+	fl.initial_velocity_min = 0.35; fl.initial_velocity_max = 0.7
+	fl.scale_amount_min = 1.6; fl.scale_amount_max = 2.6
+	var cv := Curve.new(); cv.add_point(Vector2(0, 1.0)); cv.add_point(Vector2(1, 0.15)); fl.scale_amount_curve = cv
+	var gr := Gradient.new(); gr.set_color(0, Color(1.0, 0.85, 0.45, 0.9)); gr.add_point(0.4, Color(1.0, 0.5, 0.15, 0.8)); gr.set_color(gr.get_point_count() - 1, Color(0.6, 0.15, 0.05, 0))
+	fl.color_ramp = gr
+	var qm := QuadMesh.new(); qm.size = Vector2(0.14, 0.18)
+	qm.material = punkt_mat(true)
+	fl.mesh = qm
+	fl.position = at + Vector3(0, 0.08, 0)
+	add_child(fl)
+	var r := baue_rauch(at + Vector3(0, 0.5, 0))
+	rauch.append(r)
+	feuer.append({"licht": o, "flammen": fl, "rauch": r, "basis": 1.0})
+
+## die Heilkraeuter von heute (spiel.gd kraut_da): je Kachel ein Kraut, etwas versetzt und gedreht; gepflueckte verschwinden
+func zeige_kraeuter(da: Array[Vector2i]) -> void:
+	for t in kraeuter.keys():
+		if not t in da:
+			(kraeuter[t] as Node).queue_free()
+			kraeuter.erase(t)
+	if kraut_netz == null: return
+	for t in da:
+		if kraeuter.has(t): continue
+		var m := kraut_netz.duplicate() as MeshInstance3D
+		var h := hash(t)
+		m.position = karte.kachel_pos(t) + Vector3(((h & 255) / 255.0 - 0.5) * 0.4, 0.0, (((h >> 8) & 255) / 255.0 - 0.5) * 0.4)
+		m.rotation.y = ((h >> 16) & 255) / 255.0 * TAU
+		add_child(m)
+		kraeuter[t] = m

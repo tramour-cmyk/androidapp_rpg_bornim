@@ -8,6 +8,11 @@ extends RefCounted
 const Wuerfel = preload("res://regeln/wuerfel.gd")
 const X = preload("res://regeln/mars_texte.gd")
 const Zustaende = preload("res://regeln/zustaende.gd")
+## 555 Testmenue „Kampfhilfen“ wie alt (Battle.heroCritsAlways, foesFailSaves), dazu „unsterblich“: der Held faellt nie unter 1 TP;
+## von Hand an, sonst immer aus (die Gegenproben laufen ohne sie)
+static var held_immer_krit := false
+static var gegner_ohne_rettung := false
+static var held_unsterblich := false
 ## The lines by name, for the ones picked in several wordings.
 ## 399.2b (Homer [399.2b.knurrt]): die Zeile im Zug, wenn ein Jungwolf nur knurrt; gibt es im alten MARS nicht, darum nicht in mars_texte.gd
 ## Battle.kt Msg.fed (399.2, satt)
@@ -910,7 +915,7 @@ func _save_spell(f: Fighter, t: Fighter, amount: int, half: bool) -> void:
 	var dc: int = int(f.hero.spellDc)
 	var mod: int = int(t.hero.dex) if t.hero != null else int(t.monster.dex)
 	var r: int = dice.d20(1 if t.waited else 0)
-	var saved := r + mod >= dc
+	var saved := r + mod >= dc and not (gegner_ohne_rettung and t.side == "FOES")
 	var info := ["SAVE", r, mod, dc, saved, 0, false]
 	if saved and not half:
 		_say(fmt(X.MSG72_DODGES, lang, [t.name(lang)]), f.id, t.id, 0, info)
@@ -989,7 +994,7 @@ func _off_hand_attack(f: Fighter, t: Fighter) -> void:
 func _weapon_attack(f: Fighter, t: Fighter, advantage := false, cover := true, with_weapon = null) -> void:
 	var mode := _row_mode(f, t, true, 1 if advantage else 0, cover)
 	var r: int = dice.d20(mode)
-	var crit := r >= int(f.hero.crit)
+	var crit := r >= int(f.hero.crit) or (held_immer_krit and r != 1 and f == lead())
 	var w = with_weapon if with_weapon != null else f.weapon()
 	var wsheet: Dictionary = w if w != null else f.hero.main
 	var bonus: int = int(wsheet.atk) + _bless(f) - _penalty(f) + _fed(f)
@@ -1493,7 +1498,7 @@ func _summon(by: Fighter) -> void:
 
 func _hurt(t: Fighter, full: int, by: String, text: String, roll = null, wound := false) -> void:
 	var dmg := int(full * quick_harm()) if quick_run and t.side == "PARTY" else full
-	var floor_hp := 1 if not chosen and t.side == "PARTY" and t.hp > 0 else 0
+	var floor_hp := 1 if (not chosen and t.side == "PARTY" and t.hp > 0) or (held_unsterblich and t == lead()) else 0
 	t.hp = maxi(t.hp - dmg, floor_hp)
 	_say(text, by if by != "" else null, t.id, dmg, roll, false, wound)
 	if t.standing():

@@ -85,10 +85,11 @@ func _lauf() -> void:
 	pruefe("Beute selten", [z.beutel.size(), String(z.beutel[-1]["rarity"]) if z.beutel.size() > stuecke else ""], [stuecke + 1, "RARE"])
 	await druecke(m, "Dorf")
 	await druecke(m, "Kapitelende")
+	await druecke(m, "Tag / Nacht")   # 500: statt des Probeknopfs rechts in der Welt
 	await druecke(m, "Wolfsrudel")
 	await druecke(m, "Kämpfer")
-	pruefe("an die Welt", taten.map(func(x): return x[0]), ["teleport", "kapitelende", "kampf", "probe"])
-	pruefe("Probe", taten[-1][1] if taten.size() == 4 else [], ["GRAK", "FIGHTER", 3])
+	pruefe("an die Welt", taten.map(func(x): return x[0]), ["teleport", "kapitelende", "nacht", "kampf", "probe"])
+	pruefe("Probe", taten[-1][1] if taten.size() == 5 else [], ["GRAK", "FIGHTER", 3])
 	pruefe("vor Aldric", Testmodus.vor_aldric().size(), 2)
 	var ph := Testmodus.probeheld("WIZARD", 5)
 	pruefe("Probeheld", [ph.stufe, ph.tp == ph.max_tp(), ph.zp == ph.max_zp()], [5, true, true])
