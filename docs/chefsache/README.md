@@ -57,7 +57,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 97, Muss 75, startbar 23
+**Tom** – offen 97, Muss 75, startbar 22
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -84,8 +84,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 | 539 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 539): Licht folgt der Uhr nicht: wechsel | startbar |
 | 540 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 540): Texte hängen am Spielbeginn: Südra | startbar |
 | 541 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 541): Welt-Bedienung: Untersuchen fehlt | startbar |
-| 542 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 542): Aufträge: Jorins „Feuer am Steinkr | startbar |
-| 543 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 543): Startwerte gegen alt und BRS prüfe | in Arbeit bei Spike |
+| 542 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 542): Aufträge: Jorins „Feuer am Steinkr | in Arbeit bei Spike |
+| 543 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 543): Startwerte gegen alt und BRS prüfe | wartet auf Test/Build (gebaut) |
 | 490 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488): Flüsterwald begehbar wie alt (Story.kt:524, | wartet auf Test (Build) |
 | 495 | M | von Perikles (Wochenziel 03.11. Reihe 4, 488): Zufallsspieler spielt Kapitel 1 in Godot bi | startbar |
 | 491 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Tiefer Flüsterwald begehbar w | wartet auf Test (Build) |
