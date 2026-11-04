@@ -51,81 +51,75 @@ static func gespraech(id: String, s: Zustand) -> Array:
 	match id:
 		"jorin":
 			if not s.has(QUEST_STARTED):
-				k.say(jorin, "Halt! Der Flüsterwald ist zu gefährlich geworden.", "Halt! The Whisperwood has become too dangerous.")
-				k.say(jorin, "Ohne Erlaubnis des Ältesten lasse ich niemanden hinaus.", "I'm not letting anyone out without the Elder's permission.")
+				k.variante(s, "504.jorin.vor", jorin, [["Halt! Der Flüsterwald ist zu gefährlich geworden.", "Halt! The Whisperwood has become too dangerous."], ["Ohne Erlaubnis des Ältesten lasse ich niemanden hinaus.", "I'm not letting anyone out without the Elder's permission."]])
 			elif not s.has(BARRIER_OPEN):
 				k.say(jorin, "Der Älteste hat mir Bescheid gegeben. Dann wollen wir mal.", "The Elder told me about you. Well then, let's go.")
 				k.flag(BARRIER_OPEN)
 				k.narrate("Jorin löst das Seil, und der Schlagbaum schwingt knarrend nach oben. Der Weg nach Norden ist frei.", "Jorin releases the rope and the barrier swings up with a creak. The road north is open.")
 				k.say(jorin, "Viel Glück da draußen, {name}! Tipp: Im hohen Gras lauern Monster. Bleib auf dem Weg, wenn du verletzt bist.", "Good luck out there, {name}! Tip: monsters lurk in the tall grass. Stay on the path when you're hurt.")
 			elif not s.has(CHAPTER1_DONE):
-				k.say(jorin, "Der Älteste hat mir Bescheid gegeben. Viel Glück da draußen, {name}!", "The Elder told me about you. Good luck out there, {name}!")
-				k.say(jorin, "Tipp: Im hohen Gras lauern Monster. Bleib auf dem Weg, wenn du verletzt bist.", "Tip: monsters lurk in the tall grass. Stay on the path when you're hurt.")
+				k.variante(s, "504.jorin.offen", jorin, [["Der Älteste hat mir Bescheid gegeben. Viel Glück da draußen, {name}!", "The Elder told me about you. Good luck out there, {name}!"], ["Tipp: Im hohen Gras lauern Monster. Bleib auf dem Weg, wenn du verletzt bist.", "Tip: monsters lurk in the tall grass. Stay on the path when you're hurt."]])
 			else:
-				k.say(jorin, "Seit du Grak besiegt hast, schlafe ich wieder ruhig. Danke, {name}!", "Since you beat Grak, I've been sleeping soundly again. Thanks, {name}!")
+				k.variante(s, "504.jorin.danach", jorin, [["Seit du Grak besiegt hast, schlafe ich wieder ruhig. Danke, {name}!", "Since you beat Grak, I've been sleeping soundly again. Thanks, {name}!"]])
 		"pim":
 			if not s.has(CHAPTER1_DONE):
-				k.say(pim, "Papa sagt, Goblins haben Angst vor Feuer! Stimmt das?", "Dad says goblins are scared of fire! Is that true?")
-				k.say(pim, "Thessa verkauft Alchemistenfeuer. Damit kann man sogar zaubern, ohne Magier zu sein!", "Thessa sells alchemist's fire. You can do magic with it without even being a wizard!")
+				k.variante(s, "504.pim.vor", pim, [["Papa sagt, Goblins haben Angst vor Feuer! Stimmt das?", "Dad says goblins are scared of fire! Is that true?"], ["Thessa verkauft Alchemistenfeuer. Damit kann man sogar zaubern, ohne Magier zu sein!", "Thessa sells alchemist's fire. You can do magic with it without even being a wizard!"]])
 			else:
-				k.say(pim, "Wenn ich groß bin, werde ich auch ein Held! Genau wie du!", "When I grow up I'll be a hero too! Just like you!")
+				k.variante(s, "504.pim.danach", pim, [["Wenn ich groß bin, werde ich auch ein Held! Genau wie du!", "When I grow up I'll be a hero too! Just like you!"]])
 		"bram":
 			if not s.has(CHAPTER1_DONE):
-				k.say(bram, "Das Korn steht gut dieses Jahr. Wenn nur die Wölfe nicht wären – letzte Woche haben sie mir zwei Hühner geholt.", "The grain is doing well this year. If only it weren't for the wolves – last week they took two of my hens.")
-				k.say(bram, "Wenn du im Wald Fleisch erbeutest: Am Lagerfeuer gebraten schmeckt es am besten. Und es macht stark!", "If you get meat in the forest, roast it over a campfire – that's when it tastes best. And it makes you strong!")
+				k.variante(s, "504.bram.vor", bram, [["Das Korn steht gut dieses Jahr. Wenn nur die Wölfe nicht wären – letzte Woche haben sie mir zwei Hühner geholt.", "The grain is doing well this year. If only it weren't for the wolves – last week they took two of my hens."], ["Wenn du im Wald Fleisch erbeutest: Am Lagerfeuer gebraten schmeckt es am besten. Und es macht stark!", "If you get meat in the forest, roast it over a campfire – that's when it tastes best. And it makes you strong!"]])
 			else:
-				k.say(bram, "Seit die Goblins fort sind, schlafen sogar meine Hühner wieder ruhig.", "Now that the goblins are gone, even my hens sleep soundly again.")
+				k.variante(s, "504.bram.danach", bram, [["Seit die Goblins fort sind, schlafen sogar meine Hühner wieder ruhig.", "Now that the goblins are gone, even my hens sleep soundly again."]])
 		"liska":
 			if not s.has(CHAPTER1_DONE):
-				k.say(liska, "Bei dem Wetter trocknet die Wäsche im Nu. Hast du schon Thessas neue Ware gesehen?", "In this weather the laundry dries in no time. Have you seen Thessa's new goods yet?")
-				k.say(liska, "Auf dem Markt am Brunnen gibt es frisches Obst. Und die Kräuterstände riechen herrlich.", "There's fresh fruit at the market by the well. And the herb stalls smell wonderful.")
+				k.variante(s, "504.liska.vor", liska, [["Bei dem Wetter trocknet die Wäsche im Nu. Hast du schon Thessas neue Ware gesehen?", "In this weather the laundry dries in no time. Have you seen Thessa's new goods yet?"], ["Auf dem Markt am Brunnen gibt es frisches Obst. Und die Kräuterstände riechen herrlich.", "There's fresh fruit at the market by the well. And the herb stalls smell wonderful."]])
 			else:
-				k.say(liska, "Ganz Bornim spricht von dir! Ich habe gehört, du hast Grak mit bloßen Händen besiegt.", "All of Bornim is talking about you! I heard you beat Grak with your bare hands.")
+				k.variante(s, "504.liska.danach", liska, [["Ganz Bornim spricht von dir! Ich habe gehört, du hast Grak mit bloßen Händen besiegt.", "All of Bornim is talking about you! I heard you beat Grak with your bare hands."]])
 		"gwenna":
 			if not s.has(CHAPTER1_DONE):
-				k.say(gwenna, "Früher konnte man nachts in Ruhe fischen. Jetzt heulen die Wölfe bis zum Morgengrauen.", "We used to fish here in peace at night. Now the wolves howl until dawn.")
+				k.variante(s, "504.gwenna.vor", gwenna, [["Früher konnte man nachts in Ruhe fischen. Jetzt heulen die Wölfe bis zum Morgengrauen.", "We used to fish here in peace at night. Now the wolves howl until dawn."]])
 			else:
-				k.say(gwenna, "Der Held von Bornim! Ich hab's ja immer gewusst.", "The hero of Bornim! I always knew it.")
+				k.variante(s, "504.gwenna.danach", gwenna, [["Der Held von Bornim! Ich hab's ja immer gewusst.", "The hero of Bornim! I always knew it."]])
 		"rowena":
 			if not s.has(QUEST_STARTED):
-				k.say(rowena, "Ältester Aldric wartet auf dich. Sein Haus liegt unten links am Dorfplatz.", "Elder Aldric is waiting for you. His house is at the bottom left of the village square.")
+				k.variante(s, "504.rowena.vor", rowena, [["Ältester Aldric wartet auf dich. Sein Haus liegt unten links am Dorfplatz.", "Elder Aldric is waiting for you. His house is at the bottom left of the village square."]])
 				counter(k, s)
 			elif not s.has(CHAPTER1_DONE):
-				k.say(rowena, "Pass auf dich auf, {name}. Wenn du verletzt bist: Bruder Osric im Tempel heilt jeden, der darum bittet.", "Take care, {name}. If you're hurt, Brother Osric at the temple heals anyone who asks.")
+				k.variante(s, "504.rowena.unterwegs", rowena, [["Pass auf dich auf, {name}. Wenn du verletzt bist: Bruder Osric im Tempel heilt jeden, der darum bittet.", "Take care, {name}. If you're hurt, Brother Osric at the temple heals anyone who asks."]])
 				counter(k, s)
 			# [68.rowena.lager]
 			elif s.has(CAMP_TOLD):
-				k.say(rowena, "Ein Lager im Süden? Die Fuhrleute meiden die Südstraße seit dem Frühjahr. Jetzt weiß ich vielleicht, warum.", "A camp in the south? The carters have avoided the south road since spring. Now I may know why.")
+				k.variante(s, "504.rowena.lager", rowena, [["Ein Lager im Süden? Die Fuhrleute meiden die Südstraße seit dem Frühjahr. Jetzt weiß ich vielleicht, warum.", "A camp in the south? The carters have avoided the south road since spring. Now I may know why."]])
 				counter(k, s)
 			else:
-				k.say(rowena, "Für den Helden von Bornim geht das Bier heute aufs Haus!", "Drinks are on the house for the hero of Bornim tonight!")
+				k.variante(s, "504.rowena.held", rowena, [["Für den Helden von Bornim geht das Bier heute aufs Haus!", "Drinks are on the house for the hero of Bornim tonight!"]])
 				counter(k, s)
 		"borin":
-			k.say(borin, "Hrmpf. Ein Zwerg weiß so etwas: Skelette hassen Wuchtwaffen!", "Hrmph. A dwarf knows these things: skeletons hate bludgeoning weapons!")
-			k.say(borin, "Streitkolben, Hammer, sogar ein Stab – das zerschmettert ihre Knochen. Und heiliges Licht verbrennt alles Untote.", "Mace, hammer, even a staff will shatter their bones. And holy light burns all undead.")
+			k.variante(s, "504.borin", borin, [["Hrmpf. Ein Zwerg weiß so etwas: Skelette hassen Wuchtwaffen!", "Hrmph. A dwarf knows these things: skeletons hate bludgeoning weapons!"], ["Streitkolben, Hammer, sogar ein Stab – das zerschmettert ihre Knochen. Und heiliges Licht verbrennt alles Untote.", "Mace, hammer, even a staff will shatter their bones. And holy light burns all undead."]])
 		"thessa":
-			k.say(thessa, "Willkommen in Thessas Kramladen! Was darf's sein?", "Welcome to Thessa's General Store! What can I get you?")
+			k.variante(s, "504.thessa.gruss", thessa, [["Willkommen in Thessas Kramladen! Was darf's sein?", "Welcome to Thessa's General Store! What can I get you?"]])
 			k.shop(SHOP_STOCK)
-			k.say(thessa, "Komm bald wieder!", "Come again soon!")
+			k.variante(s, "504.thessa.abschied", thessa, [["Komm bald wieder!", "Come again soon!"]])
 		"aldric":
 			elder_talk(k, s)
 		"osric":
 			if not s.has(LYRA_RESCUED):
-				k.say(osric, "Willkommen im Tempel des Morgenlichts. Lass mich deine Wunden versorgen.", "Welcome to the Temple of the Dawnlight. Let me tend to your wounds.")
+				k.variante(s, "504.osric.gruss", osric, [["Willkommen im Tempel des Morgenlichts. Lass mich deine Wunden versorgen.", "Welcome to the Temple of the Dawnlight. Let me tend to your wounds."]])
 			else:
-				k.say(osric, "Gesegnet seist du, {name}. Lass mich deine Wunden versorgen.", "Blessings upon you, {name}. Let me tend to your wounds.")
+				k.variante(s, "504.osric.gruss.danach", osric, [["Gesegnet seist du, {name}. Lass mich deine Wunden versorgen.", "Blessings upon you, {name}. Let me tend to your wounds."]])
 			k.rest()
-			k.narrate("Ein warmes Licht umhüllt dich. TP und ZP sind vollständig wiederhergestellt.", "A warm light surrounds you. HP and SP are fully restored.")
+			k.variante(s, "504.osric.heilung", {}, [["Ein warmes Licht umhüllt dich. TP und ZP sind vollständig wiederhergestellt.", "A warm light surrounds you. HP and SP are fully restored."]])
 			if not s.has(LYRA_RESCUED):
-				k.say(osric, "Bitte … finde Schwester Lyra. Ohne sie und das Amulett ist dieser Tempel nur ein kalter Steinhaufen.", "Please… find Sister Lyra. Without her and the amulet, this temple is just a cold pile of stones.")
+				k.variante(s, "504.osric.bitte", osric, [["Bitte … finde Schwester Lyra. Ohne sie und das Amulett ist dieser Tempel nur ein kalter Steinhaufen.", "Please… find Sister Lyra. Without her and the amulet, this temple is just a cold pile of stones."]])
 		"lyra_temple":
 			if not s.has(CHAPTER1_DONE):
-				k.say(lyra, "Danke, dass du mich gerettet hast, {name}. Bitte bring das Amulett zu Ältestem Aldric!", "Thank you for rescuing me, {name}. Please take the amulet to Elder Aldric!")
+				k.variante(s, "504.lyra.tempel", lyra, [["Danke, dass du mich gerettet hast, {name}. Bitte bring das Amulett zu Ältestem Aldric!", "Thank you for rescuing me, {name}. Please take the amulet to Elder Aldric!"]])
 			elif not s.has(CAMP_TOLD):
 				# the morning was cut short (the game closed during the scene) or the chapter ended before 68: Lyra tells it now
 				camp_lines(k, s)
 			else:
-				k.say(lyra, "Der Graue Prophet … Ich habe seine Stimme in meinen Träumen gehört. Wir müssen vorbereitet sein.", "The Gray Prophet… I've heard his voice in my dreams. We must be prepared.")
+				k.variante(s, "504.lyra.tempel.danach", lyra, [["Der Graue Prophet … Ich habe seine Stimme in meinen Träumen gehört. Wir müssen vorbereitet sein.", "The Gray Prophet… I've heard his voice in my dreams. We must be prepared."]])
 		"garrick":
 			if not s.has(HUNTER_MET):
 				k.say(garrick, "Ein Abenteurer? Setz dich ans Feuer. Ich bin Garrick, Jäger aus Bornim.", "An adventurer? Sit by the fire. I'm Garrick, a hunter from Bornim.")
@@ -138,7 +132,7 @@ static func gespraech(id: String, s: Zustand) -> Array:
 			elif not s.has(KROGG_DEFEATED):
 				krogg_tip(k, s)
 			else:
-				k.say(garrick, "Du siehst aus, als könntest du eine Rast gebrauchen. Das Feuer brennt noch.", "You look like you could use a rest. The fire's still burning.")
+				k.variante(s, "504.garrick.rast", garrick, [["Du siehst aus, als könntest du eine Rast gebrauchen. Das Feuer brennt noch.", "You look like you could use a rest. The fire's still burning."]])
 		"morwen":
 			if not s.has(HERBALIST_MET):
 				k.say(morwen, "Na sieh an, jemand wagt sich so tief in den Wald. Ich bin Morwen, ich sammle hier Kräuter.", "Well, well, someone dares to come this deep into the woods. I'm Morwen, I gather herbs here.")
@@ -147,24 +141,23 @@ static func gespraech(id: String, s: Zustand) -> Array:
 				k.give("remedy", 1)
 				k.flag(HERBALIST_MET)
 				smoke_against_krogg(k, s)
-				k.say_t(morwen, HERBALIST_HERBS)
+				k.variante(s, "504.morwen.kraeuter", morwen, [[HERBALIST_HERBS["de"], HERBALIST_HERBS["en"]]])
 				k.shop(HERBALIST_STOCK, true)
 			elif wants_smoke(s):
 				smoke_against_krogg(k, s)
-				k.say_t(morwen, HERBALIST_HERBS)
+				k.variante(s, "504.morwen.kraeuter", morwen, [[HERBALIST_HERBS["de"], HERBALIST_HERBS["en"]]])
 				k.shop(HERBALIST_STOCK, true)
 			else:
-				if s.has(GRIMFANG_DEFEATED): k.say(morwen, "Ohne Grimmzahn ist der Wald ruhiger geworden. Brauchst du Tränke?", "The woods are quieter without Grimfang. Need potions?")
-				else: k.say(morwen, "Brauchst du Tränke? Für Grimmzahn wirst du sie brauchen.", "Need potions? You'll need them for Grimfang.")
-				k.say_t(morwen, HERBALIST_HERBS)
+				if s.has(GRIMFANG_DEFEATED): k.variante(s, "504.morwen.wieder.danach", morwen, [["Ohne Grimmzahn ist der Wald ruhiger geworden. Brauchst du Tränke?", "The woods are quieter without Grimfang. Need potions?"]])
+				else: k.variante(s, "504.morwen.wieder", morwen, [["Brauchst du Tränke? Für Grimmzahn wirst du sie brauchen.", "Need potions? You'll need them for Grimfang."]])
+				k.variante(s, "504.morwen.kraeuter", morwen, [[HERBALIST_HERBS["de"], HERBALIST_HERBS["en"]]])
 				k.shop(HERBALIST_STOCK, true)
 		"grimfang":
-			k.narrate("Ein gewaltiger Wolf mit narbigem Fell tritt aus dem Schatten. Seine Augen glühen rot.", "A huge wolf with a scarred coat steps out of the shadows. Its eyes glow red.")
+			k.variante(s, "504.grimmzahn", {}, [["Ein gewaltiger Wolf mit narbigem Fell tritt aus dem Schatten. Seine Augen glühen rot.", "A huge wolf with a scarred coat steps out of the shadows. Its eyes glow red."]])
 			k.fight("dire_wolf", GRIMFANG_DEFEATED)
 			k.narrate("Grimmzahn bricht zusammen. Für einen Moment wird es ganz still im Wald.", "Grimfang collapses. For a moment the forest falls completely silent.")
 		"krogg":
-			k.say(krogg, "WER STÖRT KROGG? Krogg zermalmt dich!", "WHO DISTURBS KROGG? Krogg will crush you!")
-			k.say(krogg, "Schlüssel gehört Krogg! Grak sagt: niemand kommt durch!", "Key belongs to Krogg! Grak says: nobody gets through!")
+			k.variante(s, "504.krogg", krogg, [["WER STÖRT KROGG? Krogg zermalmt dich!", "WHO DISTURBS KROGG? Krogg will crush you!"], ["Schlüssel gehört Krogg! Grak sagt: niemand kommt durch!", "Key belongs to Krogg! Grak says: nobody gets through!"]])
 			k.fight("bugbear", KROGG_DEFEATED)
 			k.narrate("Krogg sinkt zu Boden. Ein rostiger Schlüssel fällt aus seinem Gürtel.", "Krogg sinks to the ground. A rusty key falls from his belt.")
 		"grak":
@@ -190,7 +183,7 @@ static func gespraech(id: String, s: Zustand) -> Array:
 
 # [139.rowena.fleisch] vor der Theke, wenn der Held rohes Fleisch traegt
 static func counter(k: Skript, s: Zustand) -> void:
-	if s.anzahl("raw_meat") > 0: k.say(rowena, "Frisches Fleisch aus dem Wald? Gib her, daraus wird morgen der Eintopf im Greif.", "Fresh meat from the woods? Hand it over – it'll be tomorrow's stew at the Griffin.")
+	if s.anzahl("raw_meat") > 0: k.variante(s, "504.rowena.fleisch", rowena, [["Frisches Fleisch aus dem Wald? Gib her, daraus wird morgen der Eintopf im Greif.", "Fresh meat from the woods? Hand it over – it'll be tomorrow's stew at the Griffin."]])
 	k.tavern()
 
 # wer zu sehen ist (Npc.visible in Story.kt); Lyras Abgang aus der Halle (Leave 10/7 -> LYRA_GONE) folgt mit der Hoehle
@@ -211,7 +204,7 @@ static func gitter(s: Zustand) -> Array:
 		k.take("rusty_key")
 		k.flag(GATE_OPEN)
 		k.narrate("Du steckst den rostigen Schlüssel ins Schloss. Mit lautem Quietschen öffnet sich das Gitter.", "You put the rusty key into the lock. With a loud screech, the gate swings open.")
-	else: k.narrate("Ein schweres Eisengitter. Es ist verschlossen.", "A heavy iron gate. It's locked.")
+	else: k.variante(s, "504.gitter", {}, [["Ein schweres Eisengitter. Es ist verschlossen.", "A heavy iron gate. It's locked."]])
 	return k.befehle
 
 static func wants_smoke(s: Zustand) -> bool: return s.has(HUNTER_MET) and not s.has(KROGG_DEFEATED) and not s.has(SMOKE_GIVEN)
@@ -270,9 +263,9 @@ static func elder_talk(k: Skript, s: Zustand) -> void:
 		k.flag(QUEST_STARTED)
 	# [68.aldric.lager]
 	elif s.has(CAMP_TOLD):
-		k.say(aldric, "Lyra hat mir vom Lager erzählt. Wenn dort Leute aus der Gegend festsitzen, kann Bornim nicht einfach wegsehen.", "Lyra told me about the camp. If people from these parts are held there, Bornim cannot simply look away.")
+		k.variante(s, "504.aldric.lager", aldric, [["Lyra hat mir vom Lager erzählt. Wenn dort Leute aus der Gegend festsitzen, kann Bornim nicht einfach wegsehen.", "Lyra told me about the camp. If people from these parts are held there, Bornim cannot simply look away."]])
 	elif s.has(CHAPTER1_DONE):
-		k.say(aldric, "Ruh dich aus, {name}. Der Graue Prophet wird nicht lange warten …", "Rest now, {name}. The Gray Prophet won't wait long…")
+		k.variante(s, "504.aldric.ende", aldric, [["Ruh dich aus, {name}. Der Graue Prophet wird nicht lange warten …", "Rest now, {name}. The Gray Prophet won't wait long…"]])
 	elif s.has(GRAK_DEFEATED) and s.has(LYRA_RESCUED):
 		k.say(aldric, "{name}! Lyra ist zurück, und du bringst das Sonnenamulett! Du hast es tatsächlich geschafft!", "{name}! Lyra is back, and you've brought the Sun Amulet! You actually did it!")
 		k.take("sun_amulet")
@@ -288,27 +281,22 @@ static func elder_talk(k: Skript, s: Zustand) -> void:
 		k.chapter_end()
 		temple_morning(k, s)
 	elif s.has(GRAK_DEFEATED):
-		k.say(aldric, "Grak ist besiegt? Wunderbar! Aber … wo ist Lyra? Hast du sie in der Höhle nicht gefunden?", "Grak is defeated? Wonderful! But… where is Lyra? Didn't you find her in the cave?")
+		k.variante(s, "504.aldric.ohne.lyra", aldric, [["Grak ist besiegt? Wunderbar! Aber … wo ist Lyra? Hast du sie in der Höhle nicht gefunden?", "Grak is defeated? Wonderful! But… where is Lyra? Didn't you find her in the cave?"]])
 	else:
-		k.say(aldric, "Die Blutzahnhöhle liegt am Nordende des Flüsterwalds. Sei vorsichtig, {name}.", "The Bloodfang Cave lies at the northern end of the Whisperwood. Be careful, {name}.")
-		k.say(aldric, "Wenn du verletzt bist, geh zu Bruder Osric in den Tempel. Und Thessa verkauft gute Ausrüstung.", "If you're hurt, go to Brother Osric at the temple. And Thessa sells good equipment.")
+		k.variante(s, "504.aldric.unterwegs", aldric, [["Die Blutzahnhöhle liegt am Nordende des Flüsterwalds. Sei vorsichtig, {name}.", "The Bloodfang Cave lies at the northern end of the Whisperwood. Be careful, {name}."], ["Wenn du verletzt bist, geh zu Bruder Osric in den Tempel. Und Thessa verkauft gute Ausrüstung.", "If you're hurt, go to Brother Osric at the temple. And Thessa sells good equipment."]])
 
 static func grak_talk(k: Skript, s: Zustand) -> void:
-	k.say(grak, "Ein Menschlein? In MEINER Halle?", "A little human? In MY hall?")
-	k.say(grak, "Der Prophet zahlt in Gold für jede Seele, die ich ihm bringe. Die Priesterin gehört schon ihm.", "The Prophet pays in gold for every soul I bring him. The priestess already belongs to him.")
-	k.say(grak, "Und du wirst die nächste sein!", "And you'll be next!")
+	k.variante(s, "504.grak", grak, [["Ein Menschlein? In MEINER Halle?", "A little human? In MY hall?"], ["Der Prophet zahlt in Gold für jede Seele, die ich ihm bringe. Die Priesterin gehört schon ihm.", "The Prophet pays in gold for every soul I bring him. The priestess already belongs to him."], ["Und du wirst die nächste sein!", "And you'll be next!"]])
 	k.fight("hobgoblin_captain", GRAK_DEFEATED)
 	k.say(grak, "Unmöglich … der Prophet … wird euch … alle …", "Impossible… the Prophet… will… all of you…")
 	k.narrate("Grak bricht zusammen. Bei ihm findest du das Sonnenamulett und einen versiegelten Brief.", "Grak collapses. On him you find the Sun Amulet and a sealed letter.")
 	k.say(lyra, "Hier drüben! Bitte, hilf mir!", "Over here! Please, help me!")
 
 static func krogg_tip(k: Skript, s: Zustand) -> void:
-	k.say(garrick, "Ich habe Goblins belauscht. Ihr Grottenschrat Krogg trägt den Schlüssel zu Graks Halle.", "I overheard some goblins. Their bugbear Krogg carries the key to Grak's hall.")
-	k.say(garrick, "Er haust im Ostflügel der Höhle. Ruh dich vorher gut aus!", "He lurks in the east wing of the cave. Rest well before you face him!")
 	# D4.1: the way to Krogg leads past Morwen
-	k.say(garrick, "Geh nicht mit leeren Händen zu ihm. Morwen, die Kräuterfrau im Tiefen Flüsterwald, weiß, wie man so einem den ersten Hieb nimmt.", "Don't go to him empty-handed. Morwen, the herbalist in the Deep Whisperwood, knows how to rob one like him of his first strike.")
+	k.variante(s, "504.garrick.krogg", garrick, [["Ich habe Goblins belauscht. Ihr Grottenschrat Krogg trägt den Schlüssel zu Graks Halle.", "I overheard some goblins. Their bugbear Krogg carries the key to Grak's hall."], ["Er haust im Ostflügel der Höhle. Ruh dich vorher gut aus!", "He lurks in the east wing of the cave. Rest well before you face him!"], ["Geh nicht mit leeren Händen zu ihm. Morwen, die Kräuterfrau im Tiefen Flüsterwald, weiß, wie man so einem den ersten Hieb nimmt.", "Don't go to him empty-handed. Morwen, the herbalist in the Deep Whisperwood, knows how to rob one like him of his first strike."]])
 	if s.stufe() < KROGG_WARN_BELOW:
-		k.say(garrick, "Und ehrlich, {name}: So wie du jetzt aussiehst, legt Krogg dich mit einem Schlag um. Sammel erst ein paar Narben im Tiefen Flüsterwald.", "And honestly, {name}: the way you look now, Krogg will knock you down with a single blow. Gather a few scars in the Deep Whisperwood first.")
+		k.variante(s, "504.garrick.warnung", garrick, [["Und ehrlich, {name}: So wie du jetzt aussiehst, legt Krogg dich mit einem Schlag um. Sammel erst ein paar Narben im Tiefen Flüsterwald.", "And honestly, {name}: the way you look now, Krogg will knock you down with a single blow. Gather a few scars in the Deep Whisperwood first."]])
 	k.flag(KROGG_HINT)
 
 static func smoke_against_krogg(k: Skript, s: Zustand) -> void:
