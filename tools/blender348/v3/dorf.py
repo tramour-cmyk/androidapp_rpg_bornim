@@ -1527,6 +1527,25 @@ for x, y, art in K.get('ring', []):                                         # Wa
             p0 = tile_c(x, y); outer_tree(x, y, p0 + Vector((-TS / 2, TS / 2, 0)), gen=gen)
     else: low(x, y, art, rand=True)
 RING_ART = {(x, y): art for x, y, art in K.get('ring', [])}
+# 505 Lauf 2 (Chef 04.11., 17:18, Bild 505-nord-257: „der enge Wald am Schlagbaum fehlt ein bisschen. Oder Sträucher“): die Gasse
+# hinter dem Rand war so breit wie alt (MapEdge.spot: frei bis 3 Kacheln neben dem Weg, Tiefe unter 5) und dort leer; jetzt stehen
+# auf den freien Kacheln neben dem Weg Straeucher (Tiefe 1, 2) und junge Fichten (3 bis 6), der Weg selbst bleibt frei.
+# Eigener Zufall: rnd laeuft danach weiter wie vorher, der Rest der Karte bleibt gleich
+GASSE = 0
+if KARTE in ('village', 'forest', 'deep_forest'):
+    rnd_st = rnd.getstate()
+    for y in range(R0 - 6, R1 + 7):
+        for x in range(C0 - 6, C1 + 7):
+            d = rand_tiefe(x, y)
+            # frei: kein Baum, kein Busch aus dem Ring (ein Baum des Rings, der dem Weg wich, macht hier Platz fuer den Strauch)
+            if d < 1 or d > 6 or (x, y) in RING_BAUM or not RING_ART.get((x, y), 'baum').startswith('baum'): continue
+            if im_gang(x, y, 0.35) or not im_gang(x, y, 2.4): continue
+            if any(chk(x + i, y + j) in WATER for i in (-1, 0, 1) for j in (-1, 0, 1)): continue
+            if d <= 2: bush(x, y)
+            else: young(x, y, 0)
+            GASSE += 1
+    rnd.setstate(rnd_st)
+print('GASSE', KARTE, GASSE, 'Kacheln mit Strauch oder junger Fichte neben den Ausgaengen')
 for y in range(R1 + 7, R1 + 10):                                            # 505c: ersetzt durch den Randwald ringsum (randwald_aussen)
     for x in range(C0 - 6, C1 + 7):
         if h1(x, y, 41) < 0.85: rnd.uniform(0, 1); rnd.uniform(0, 1)       # Zufall wie vorher verbraucht, der Rest bleibt gleich

@@ -38,4 +38,6 @@ for k in kappe schild fell; do cp $O/kobold-$k.glb $K/kobold-$k.bin; done; cp $O
 for t in gras erde halme; do cp $O/tex/$t.png $K/$t.bild; done
 ./gradlew -p core exportTexts -Pout=$D/texte.json -q
 ./gradlew -p core exportHero -Pout=$D/held.json -q
+# 505 (Rechner 04.11.: kartennebel_505 hing ohne Kartenblaetter, am Bauserver liegen sie da): Kartenblaetter wie godot.yml
+./gradlew -p core exportMapSheets -Pout=$D -q
 (cd $G && ~/godot/godot --headless --import --path . > $A/import.log 2>&1 || true)

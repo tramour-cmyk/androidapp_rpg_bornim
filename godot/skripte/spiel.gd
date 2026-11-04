@@ -2010,6 +2010,19 @@ func nebel_hell(t: Vector2i) -> float:
 			summe += (0.299 * c.r + 0.587 * c.g + 0.114 * c.b) * 255.0; n += 1
 	return summe / n if n > 0 else -1.0   # -1: Kachel nicht im Bild (Lauf 1 meldete 0)
 
+## mittlere Helligkeit (0-255) von img um die Mitte der Kachel t (9 x 9 Punkte), wie nebel_hell
+func bild_hell(img: Image, t: Vector2i) -> float:
+	var q := kamera.unproject_position(karte.kachel_pos(t))
+	var sk := Vector2(img.get_width(), img.get_height()) / get_viewport().get_visible_rect().size
+	var summe := 0.0; var n := 0
+	for dy in range(-4, 5):
+		for dx in range(-4, 5):
+			var x := int(q.x * sk.x) + dx * 2; var y := int(q.y * sk.y) + dy * 2
+			if x < 0 or y < 0 or x >= img.get_width() or y >= img.get_height(): continue
+			var c := img.get_pixel(x, y)
+			summe += (0.299 * c.r + 0.587 * c.g + 0.114 * c.b) * 255.0; n += 1
+	return summe / n if n > 0 else -1.0
+
 ## je Stufe die naechste Kachel im Bild beschriften; Helligkeit des Bilds dort (9 x 9 Punkte um die Kachelmitte) messen, vor den Schildern
 func nebel_stufen(e: CanvasLayer, titel: String, stufen: Array) -> void:
 	# 505 Lauf 2 (Pruefer 16:01, Bild 2: „Titel doppelt übereinander“): der Titel des vorigen Bilds stand noch
@@ -2033,13 +2046,19 @@ func nebel_stufen(e: CanvasLayer, titel: String, stufen: Array) -> void:
 				summe += (0.299 * c.r + 0.587 * c.g + 0.114 * c.b) * 255.0; n += 1
 		print("NEBELMASS %s %s Kachel %s Helligkeit %.0f" % [titel, st[1], t, summe / maxf(1.0, n)])
 		orte.append([st[1], q])
+		# 505 Lauf 2 (Uebergabe 17:20: Hoehle „nie gesehen“ 27 statt 0, Ursache offen): Fels gilt bis 2 Kacheln vom gesehenen Boden
+		# als gesehen und ragt im Bild nach oben ueber die Kachel dahinter; streng misst eine Kachel, um die bis 2 Kacheln (nach Sueden,
+		# zur Kamera, bis 4) auch Fels und Baeume dieselbe Stufe haben. Gleich dunkel wie oben: der Wert ist echt; 0: die Messung traf Fels
+		var ts := nebel_kachel(int(st[0]), st[2], true)
+		if ts.x >= 0: print("NEBELMASS %s %s streng Kachel %s Helligkeit %.0f" % [titel, st[1], ts, bild_hell(img, ts)])
+		elif ts.x < 0: print("NEBELMASS %s %s streng: keine Kachel im Bild" % [titel, st[1]])
 	nebel_schild(e, titel, Vector2(get_viewport().get_visible_rect().size.x / 2.0, 60), 26)
 	for o in orte: nebel_schild(e, o[0], o[1], 20)
 	await get_tree().create_timer(0.3).timeout
 	ui.textfeld.visible = false
 
 ## naechste Kachel mit dieser Stufe (kein Baum), die im Bild liegt; sonst (-1, -1)
-func nebel_kachel(stufe: int, gern: Vector2i) -> Vector2i:
+func nebel_kachel(stufe: int, gern: Vector2i, streng := false) -> Vector2i:
 	var r := get_viewport().get_visible_rect().size
 	var best := Vector2i(-1, -1); var bd := 1e9
 	for ty in karte.hoehe:
@@ -2052,6 +2071,11 @@ func nebel_kachel(stufe: int, gern: Vector2i) -> Vector2i:
 			for d in NACHBARN + [Vector2i(1, 1), Vector2i(-1, 1), Vector2i(1, -1), Vector2i(-1, -1)]:
 				var u: Vector2i = t + d
 				if u.x >= 0 and u.y >= 0 and u.x < karte.breite and u.y < karte.hoehe and not nebel.fest(u.x, u.y) and nebel.nebel(u.x, u.y) != stufe: rein = false
+			if rein and streng:
+				for dy in range(-2, 5):
+					for dx in range(-2, 3):
+						var u := t + Vector2i(dx, dy)
+						if u.x >= 0 and u.y >= 0 and u.x < karte.breite and u.y < karte.hoehe and nebel.nebel(u.x, u.y) != stufe: rein = false
 			if not rein: continue
 			if karte.id == "cave" and ty >= karte.hoehe - 3: continue
 			var p := karte.kachel_pos(t)

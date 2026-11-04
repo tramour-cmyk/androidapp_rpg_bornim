@@ -8,6 +8,8 @@ name: Tom Probe Nebel (505)
 # 505c (Chef 04.11., 14:06): Zweig claude/tom-505-rand; dazu die Hoehle (hoehle.py, Lyra), Tests rand_505 und hoehle_492; --nebel
 # knipst Wald, Dorf, Hoehle mit Rand und Ausgaengen, misst die Nebelstufen (NEBELMASS) und die Dreiecke des Randwalds (NEBELRAND).
 # Lauf 1 nach dem Urteil 14:06 (505c): Tests lokal gruen (nebel_505, rand_505, wald_490, hoehle_492, skripte_pruefen).
+# Lauf 2 nach Chef 16:04/16:12 und 17:18 (Nordausgang): Tests lokal gruen (nebel_505, rand_505, wald_490, hoehle_492, kartennebel_505,
+# skripte_pruefen, core); NEBELMASS zusaetzlich „streng“ (Fels und Baeume rundum dieselbe Stufe), Gasse mit Straeuchern (GASSE).
 on:
   push:
     branches: ["claude/spike-505-**", "claude/tom-505-**"]
@@ -97,8 +99,8 @@ jobs:
           # 505 Lauf 2: auch der Tiefe Wald (Ausgang West im Bild)
           # 490 Gebietskarten des Walds (dorf.py KARTE=<karte>): <karte>.bin, -info.json, -boden-maske.bild (gebiet.gd datei, maske)
           for g in forest deep_forest; do KARTE=$g bl/bin/python -I tools/blender348/v3/dorf.py > dorf-$g.log 2>&1 || { tail -30 dorf-$g.log; exit 1; }
-            grep -h "GLB OK\|NETZ\|RANDWALD\|AUSGAENGE\|RANDMASKE" dorf-$g.log; cp $OUT/$g.glb $D/$g.bin && cp $OUT/$g-info.json $D/ && cp $OUT/$g-boden-maske.png $D/$g-boden-maske.bild && cp $OUT/$g-boden-rand.png $D/$g-boden-rand.bild; done
-          grep -h "RANDWALD\|AUSGAENGE\|RANDMASKE" dorf.log
+            grep -h "GLB OK\|NETZ\|RANDWALD\|AUSGAENGE\|RANDMASKE\|GASSE" dorf-$g.log; cp $OUT/$g.glb $D/$g.bin && cp $OUT/$g-info.json $D/ && cp $OUT/$g-boden-maske.png $D/$g-boden-maske.bild && cp $OUT/$g-boden-rand.png $D/$g-boden-rand.bild; done
+          grep -h "RANDWALD\|AUSGAENGE\|RANDMASKE\|GASSE" dorf.log
           # 505c, 492: die Blutzahnhoehle (hoehle.py KARTE=cave) wie godot.yml
           KARTE=cave bl/bin/python -I tools/blender348/v3/hoehle.py > hoehle.log 2>&1 || { tail -30 hoehle.log; exit 1; }
           grep -h "GLB OK\|^NETZE" hoehle.log; cp $OUT/cave.glb $D/cave.bin && cp $OUT/cave-info.json $D/ && cp $OUT/cave-boden-maske.png $D/cave-boden-maske.bild
