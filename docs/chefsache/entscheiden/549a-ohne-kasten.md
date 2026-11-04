@@ -17,6 +17,8 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2
 
 **Folgerungen:** Bei Ja trägt Sokrates die Regel in `DESIGN-STIL.md` „Oberfläche“ ein und vermerkt 42b „teils ersetzt“. Tom baut 549 nach B mit den Merkmalen für Antippbares, danach die Spielstände. Bei Nein bleibt es bei 42b, und 549 wird nach A oder B einzeln entschieden.
 
-**Zu sagen:** „549a ja“, „549a nur Rast“ oder „549a nein“.
+**Stand 19:24:** alle Bausteine entschieden (Archiv 04.11.), offen nur der Grundsatz und die Rastzeile „Tag · Uhr · TP“ (549 Frage 2; Votum behalten: die Rast lässt Zeit vergehen und heilt).
+
+**Zu sagen:** „549a ja“, „549a nur Rast“ oder „549a nein“; dazu „Rastzeile ja“ oder „nein“.
 
 Erledigt: Antwort ins Vorgangsarchiv, Datei löschen (Sokrates).
