@@ -73,7 +73,7 @@ Quelle: der alte Kotlin-Code (`core`, `app`), abgeglichen mit `LISTE-UMZUG-348.m
 | O5 | Tempel des Morgenlichts (Osric, Lyra nach der Rettung) | da | [ ] | [ ] |
 | O6 | **Flüsterwald** (Garrick, 11 Gegnerarten, Teiche, Frösche, Libellen) | **fehlt**: der Weg in den Wald startet nur einen Kampf (490, Spike) | [ ] | [ ] |
 | O7 | **Tiefer Flüsterwald** mit Morwens Hütte, Endgegner Grimmzahn | **fehlt** (491, Spike) | [ ] | [ ] |
-| O8 | **Blutzahnhöhle** (Lyra gefangen, Endgegner Krogg und Grak, 10 Gegnerarten) | **fehlt** (492, Tom) | [ ] | [ ] |
+| O8 | **Blutzahnhöhle** (Lyra gefangen, Endgegner Krogg und Grak, 10 Gegnerarten; Krogg erst abnehmen, wenn Morwens Rauch aus O7 im Spiel zu bekommen ist, 427.1) | **fehlt** (492, Tom) | [ ] | [ ] |
 | O9 | Kampforte Wald (Lichtung, Waldrand, Teich, Baum, Felsen, Steinkreis) | teils: nur die Lichtung (493, Spike) | [ ] | [ ] |
 | O10 | Kampforte Höhle (Eingang, Gang, Halle, Teich, Lager) | fehlt (507, Jerry) | [ ] | [ ] |
 
