@@ -16,7 +16,6 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [557](ansehen/557-spielstaende.md) | Stil B, fünfte Runde: Bilder der Dinge, Rückfragen zentriert, „+x“ am Namen | – | 04.11., 19:46 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
