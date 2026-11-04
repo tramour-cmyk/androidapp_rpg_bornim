@@ -91,6 +91,7 @@ func _ready() -> void:
 	rast_probe()
 	raeume_bilder()
 	wald_bilder()
+	kronen_bilder()
 	tiefwald_bilder()
 	gluehen_bilder()
 	if FigurenProbe.an(): add_child(FigurenProbe.new(self))   # 376.1 Probeblatt Quaternius-Figuren (figurenprobe.gd)
@@ -1697,6 +1698,60 @@ func wald_bilder() -> void:
 		ui.textfeld.visible = false   # Tipps beim Betreten nicht ueber dem Ort
 		await knips("%s/%s.png" % [dir, o[0]])
 	print("WALDBILDER fertig")
+	get_tree().quit()
+
+# 569 Vorlage (Sokrates 04.11., 19:5x, Chef 19:55: „Vielleicht eine Kombi aus beiden“): --kronen569=<ordner> knipst Wald Tag in
+# Spielgroesse an zwei Stellen, je in drei Fassungen des Umrisses oben auf der Lichtseite, fuer Buesche und Kronen zugleich: ohne
+# Linie (Busch-Regel 25.10.), duenn 0,25, etwa 0,6; Linie zwischen sich ueberdeckenden Kronen kommt in allen drei vom Umriss jeder
+# Krone. Je Stelle ein Bild mit den drei Fassungen nebeneinander, Titel oben (<ordner>/<stelle>.png)
+const KRONEN_FASSUNGEN := [[0.0, "ohne Linie oben"], [0.25, "dünn 0,25"], [0.6, "kräftig 0,6"]]
+func kronen_bilder() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--kronen569="): dir = a.substr(12)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	zustand.minuten = 10 * 60
+	betrete("forest", Vector2i(9, 30), "UP")
+	if herde: herde.aus = true
+	await get_tree().create_timer(1.5).timeout
+	var cl := CanvasLayer.new()
+	cl.layer = 100
+	add_child(cl)
+	var bg := ColorRect.new()
+	bg.color = Color(0, 0, 0, 0.75)
+	bg.size = Vector2(get_viewport().get_visible_rect().size.x, 90)
+	cl.add_child(bg)
+	var lb := Label.new()
+	lb.position = Vector2(16, 14)
+	lb.add_theme_font_size_override("font_size", 48)
+	lb.add_theme_color_override("font_color", Color(0.93, 0.8, 0.45))
+	cl.add_child(lb)
+	for o in [["ankunft", Vector2i(9, 29), "UP"], ["teich", Vector2i(6, 15), "LEFT"]]:
+		held.setze(o[1], o[2]); kamera.springe()
+		await get_tree().create_timer(1.0).timeout
+		var teile := []
+		for i in KRONEN_FASSUNGEN.size():
+			var f: Array = KRONEN_FASSUNGEN[i]
+			for m in Licht.nach_licht:
+				if m.get_shader_parameter("kontur"): m.set_shader_parameter("kontur_licht", float(f[0]))
+			lb.text = "%d · %s" % [i + 1, f[1]]
+			ui.textfeld.visible = false
+			for k in 3: await get_tree().process_frame
+			await RenderingServer.frame_post_draw
+			teile.append(get_viewport().get_texture().get_image())
+		var w: int = teile[0].get_width()
+		var h: int = teile[0].get_height()
+		var alle := Image.create(w * 3 + 8, h, false, teile[0].get_format())
+		alle.fill(Color(0, 0, 0))
+		for i in 3: alle.blit_rect(teile[i], Rect2i(0, 0, w, h), Vector2i(i * (w + 4), 0))
+		alle.save_png("%s/%s.png" % [dir, o[0]])
+		print("BILD ", dir, "/", o[0], ".png ", alle.get_size())
+	for m in Licht.nach_licht:
+		if m.get_shader_parameter("kontur"): m.set_shader_parameter("kontur_licht", 0.0)
+	print("KRONEN569 fertig")
 	get_tree().quit()
 
 # 491 Tiefer Flüsterwald am Rechner: --tiefwald=<ordner> knipst aus Sicht des Helden: Ankunft vom Flüsterwald, Weg zwischen den

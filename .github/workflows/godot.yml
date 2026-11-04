@@ -524,6 +524,19 @@ jobs:
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --wald=$GITHUB_WORKSPACE/bilder/wald490 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^BILD|^LEUTE|^WALDBILDER" | cut -c1-400 || true
           ls -l $GITHUB_WORKSPACE/bilder/wald490
+      # 569 (Sokrates 04.11., 19:5x): Wald Tag, Buesche und Kronen in drei Fassungen des Umrisses oben (spiel.gd kronen_bilder); nur bei
+      # „569 Kronenbilder“ im Commit oder von Hand auf dem Zweig claude/tom-569-…
+      - name: Kronenbilder (569)
+        if: contains(github.event.head_commit.message, '569 Kronenbilder') || (github.event_name == 'workflow_dispatch' && contains(github.ref, 'tom-569'))
+        continue-on-error: true
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/bilder/kronen569
+          cd godot
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --kronen569=$GITHUB_WORKSPACE/bilder/kronen569 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^BILD|^KRONEN569" | cut -c1-400 || true
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 300 xvfb-run -a -s "-screen 0 800x800x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 800x800 -s res://tests/krone_569.gd 2>&1 | grep -E "^(gut|FALSCH|Mitte|kontur_licht|KRONE569)|SCRIPT ERROR" | tee $GITHUB_WORKSPACE/bilder/kronen569/krone_569.log || true
+          ls -l $GITHUB_WORKSPACE/bilder/kronen569
       # 491 Tiefer Flüsterwald: Ankunft, Weg zwischen den Baeumen, Morwen mit Huette, Grimmzahn, nachts Morwen und Grimmzahn; nur bei
       # „491 Tiefwaldbilder“ im Commit oder von Hand auf dem Zweig claude/spike-491-…
       - name: Tiefwaldbilder (491)
