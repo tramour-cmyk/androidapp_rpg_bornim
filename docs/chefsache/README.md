@@ -38,12 +38,8 @@ Nichts offen.
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.348.249](ansehen/t249-build-490.md) | [Build 249](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41716913206/artifacts/13272872179) | Dorf mit Häusern wieder (518); Flüsterwald, Tiefer Flüsterwald, Kampforte Wald, Kamin, Laden; dazu alles aus Build 245 (Grundstand Kampf, Waffen in der Hand, Strahlenprobe, Klangschalter) | Tom und Jerry | 03.11., 21:55 |
-| 2 | [0.348.250](ansehen/t250-strahlen-ohne.md) | [Build 250](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41730202915/artifacts/13279477341) | Strahlenprobe mit Messung ohne Strahl (415) | Jerry | 04.11., 00:28 |
-| 3 | [0.348.251](ansehen/t251-testmenue.md) | [Build 251](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41743553745/artifacts/13284903250) | Testmenü wie alt und schneller, Figur nach Ausrüstung, Schlagbaum, Kampf | Tom und Jerry | 04.11., 01:00 |
-| 4 | [0.348.252](ansehen/t252-kampf.md) | [Build 252](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41753201022/artifacts/13288854895) | Build 251 und sechs Kampfbefunde zu Build 249 | Tom und Jerry | 04.11., 02:20 |
-| 5 | [0.348.255](ansehen/t255-ausruestung.md) | [Build 255](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41759990649) | Build 252 und sechs Befunde zu Build 249: Ausrüstung, Fenster, Hinweis, Lizenz | Tom | 04.11., 03:20 |
-| 6 | [0.348.257](ansehen/t257-kampf-klang.md) | [Build 257](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41761514918/artifacts/13292971716) | Build 255 und sechs Punkte: Kampfgegner, Fähigkeiten, Waldklang, Schrift, Glühwürmchen, Stufe | Tom und Jerry | 04.11., 03:33 |
+| 1 | [0.348.250](ansehen/t250-strahlen-ohne.md) | [Build 250](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41730202915/artifacts/13279477341) | Strahlenprobe mit Messung ohne Strahl (415) | Jerry | 04.11., 00:28 |
+| 2 | [0.348.257](ansehen/t257-kampf-klang.md) | [Build 257](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/41761514918/artifacts/13292971716) | eine Prüfliste für die Builds 251, 252, 255, 257 | Tom und Jerry | 04.11., 03:33 |
 
 ## Zu tun
 
@@ -349,7 +345,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 04.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): t249-build-490.md: 14 Vorgänge, höchstens 6 je Build (317); t251-testmenue.md: 7 Vorgänge, höchstens 6 je Build (317)
+Format (Muster: „So geht's“ unten): t257-kampf-klang.md: 26 Vorgänge, höchstens 6 je Build (317)
 
 Nicht gestellt: 407 (Projekt)
 
