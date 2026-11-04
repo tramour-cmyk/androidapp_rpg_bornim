@@ -15,6 +15,6 @@ Ausgebessert:
 - Kein Wort allein in der letzten Zeile (schon 19:49); „1 W6+3“ im stillen Rot (schon 19:49).
 - Wegwerfen steht in 3 und 5 an derselben Stelle (links oben).
 
-Der Befund eines fremden Prüfers folgt nach dem Versand.
+**Prüferbefund (fremder Helfer, 20:51, nach dem Versand):** erfüllt: Rast rein schwarz; kein Wort allein in Zeile 2; Ring mit eigenen Zeilen Stärke, Geschicklichkeit; Rüstungsklasse 18 → 23; „2× (7 da)“; „MORWENS HÜTTE“ wie „SPIELSTÄNDE“; Wegwerfen in 3 und 5 an derselben Stelle. Nicht erfüllt: Theke (8) zeigte im Bild noch „Gold: 42“ (nur das Bildskript, im Spiel schon „42 Gold“; behoben). Bedingt: die Keule liest sich eher als Lupe; „1 W6+3“ im Mängelton b08a80 (rosé), nicht grau. Sonst: Ring oben „+2 Geschicklichkeit, wirkt +1“, im Vergleich „wirkt nicht“ (der angelegte Ring gibt das +1 schon); Panzer oben „RK 19“, Vergleich 23 ohne sichtbare Rechnung; „+2 Schadensreduktion“ groß und gold, andere Bonuszeilen klein und grau; Brauen: Heil- und Kräutertrank je „Reicht für 3×“ aus denselben 7 Kräutern, beim Kräutertrank fehlt „Im Besitz“; Zeile 2 mit zwei kurzen Wörtern in 3, 4, 5 („und mehr.“, „Kapitel erreicht“).
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/claude/tom-557-spielstaende (Bildskripte `spielstaende_bild_557`, `rast_bild_549`, Lauf 1 von 2 am Rechner).
