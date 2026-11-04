@@ -89,6 +89,8 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 ## Einzelheiten
 
+- **Zu 453.1, von Team Tom (04.11., 03:23):** `atem_4531` in Lauf 253 (Zweig `claude/tom-416-8-schritte`, Grundstand Build 248) rot: „nach 8 s wieder fast Ruhe“, Atemzüge 2.17 s @ 8.9 s, 2.70 s @ 11.6 s, Ruhe 3.18 s; in Lauf 252 grün. Wackelt der Test, oder fehlt dem alten Grundstand etwas? Zum Ansehen, Tom baut nichts daran.
+
 - **Hinweis von Team Tom (04.11., 00:50, 555 Testmenü):** `regeln/mars.gd` bekam drei Testschalter (static, aus; Gegenproben unberührt): `held_immer_krit` (`_weapon_attack`), `gegner_ohne_rettung` (`_save_spell`), `held_unsterblich` (`_hurt`, Untergrenze 1 für `lead()`); Zweig `claude/tom-555-testmenue`. Nur zur Kenntnis, beim Umbau dieser Stellen bitte mitnehmen. **Jerry 02:5x:** 534 ändert `_hurt` und `_weapon_attack` auf einem Zweig ohne 555; beim Mischen beide behalten.
 
 - **Zu t249, von Sokrates (Chef 04.11., 00:41):** Build 249 partiell freigegeben (Bestandenes); Wortlaut und Liste: `git show fd817c131:docs/ARBEIT-TEAM-JERRY.md`.
