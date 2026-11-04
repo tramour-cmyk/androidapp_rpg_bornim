@@ -235,7 +235,7 @@ static func ausloeser(karte_id: String, t: Vector2i, s: Zustand) -> Array:
 	if karte_id == "cave" and t.y == 4 and t.x in [10, 11] and not s.has(GRAK_DEFEATED): grak_talk(k, s)
 	return k.befehle
 
-# Gasthaus beim Betreten (Story.inn onEnter): Rowena weckt den Helden; Tipp nur fuer Touch (Godot hat kein Steuerkreuz, 280)
+# Gasthaus beim Betreten (Story.inn onEnter): Rowena weckt den Helden; der Tipp nach der Steuerung (280, 540: auch Klassisch)
 static func intro(k: Skript, s: Zustand) -> void:
 	if s.has(INTRO_DONE): return
 	k.say(rowena, "Na, endlich wach, {name}? Du hast geschlafen wie ein Stein.", "Well, finally awake, {name}? You slept like a log.")
@@ -243,8 +243,48 @@ static func intro(k: Skript, s: Zustand) -> void:
 	k.say(rowena, "Und letzte Nacht haben sie Schwester Lyra aus dem Tempel verschleppt – und das heilige Sonnenamulett gleich mit!", "And last night they dragged Sister Lyra out of the temple, and took the holy Sun Amulet too!")
 	k.say(rowena, "Ältester Aldric sucht verzweifelt nach Hilfe. Sein Haus liegt unten links am Dorfplatz. Geh zu ihm!", "Elder Aldric is desperate for help. His house is at the bottom left of the village square. Go and see him!")
 	# [280.tipp]
-	k.narrate("Tipp: Zieh den Finger über das Bild, um zu laufen, oder tippe dorthin, wo du hinwillst. Tippe auf Leute und Dinge, um mit ihnen zu sprechen oder sie zu untersuchen. Der Beutel oben öffnet das Menü.", "Tip: drag your finger across the screen to walk, or tap where you want to go. Tap people and things to talk to them or examine them. The bag at the top opens the menu.")
+	if Bedienung.klassisch: k.narrate("Tipp: Mit dem Steuerkreuz läufst du, der große Knopf spricht mit Leuten und untersucht Dinge. Der Beutel oben öffnet das Menü.",
+		"Tip: the D-pad moves you; the big button talks to people and examines things. The bag at the top opens the menu.")
+	else: k.narrate("Tipp: Zieh den Finger über das Bild, um zu laufen, oder tippe dorthin, wo du hinwillst. Tippe auf Leute und Dinge, um mit ihnen zu sprechen oder sie zu untersuchen. Der Beutel oben öffnet das Menü.", "Tip: drag your finger across the screen to walk, or tap where you want to go. Tap people and things to talk to them or examine them. The bag at the top opens the menu.")
 	k.flag(INTRO_DONE)
+
+# 540 (Story.southEdge, 67, 68p): was der Held am Suedrand des Dorfs denkt, nach dem Stand der Geschichte; je Abschnitt beim ersten
+# Mal der lange Satz, danach der kurze; nach Lyras Lager (CAMP_TOLD) immer derselbe: Kapitel 2 folgt. Gemerkt im Spielstand
+static func suedrand(s: Zustand) -> Dictionary:
+	var teil: String; var lang: Dictionary; var kurz: Dictionary
+	if s.has(CAMP_TOLD):
+		teil = "camp"
+		lang = {"de": "Der Weg nach Süden ist noch nicht begehbar. Kapitel 2 folgt mit einem späteren Update.", "en": "The road south is not passable yet. Chapter 2 is coming in a later update."}
+		kurz = lang
+	elif s.has(CHAPTER1_DONE):
+		teil = "after"
+		lang = {"de": "Der Brief mit dem grauen Siegel lässt dich nicht los. Die Antwort liegt nicht im Süden.", "en": "The letter with the gray seal won't leave your mind. The answer doesn't lie in the south."}
+		kurz = {"de": "Die Antwort liegt nicht im Süden.", "en": "The answer doesn't lie in the south."}
+	elif s.has(QUEST_STARTED):
+		teil = "quest"
+		lang = {"de": "Lyra ist irgendwo im Norden. Der Weg nach Süden kann warten.", "en": "Lyra is somewhere in the north. The road south can wait."}
+		kurz = {"de": "Der Weg nach Süden kann warten.", "en": "The road south can wait."}
+	else:
+		teil = "before"
+		lang = {"de": "Du bist von Süden gekommen, um hier zu rasten. Weiterziehen kannst du später – erst willst du wissen, was in Bornim geschehen ist.",
+			"en": "You came from the south to rest here. You can move on later – first you want to know what happened in Bornim."}
+		kurz = {"de": "Erst willst du wissen, was in Bornim geschehen ist.", "en": "First you want to know what happened in Bornim."}
+	var gesehen := "south_edge_" + teil
+	if s.has(gesehen): return {"text": kurz, "kurz": true}
+	s.setze(gesehen)
+	return {"text": lang, "kurz": false}
+
+# 540 (Game.barrier): Anstossen am Schlagbaum, vor und nach Aldrics Erlaubnis
+const BARRIER_DOWN := {"de": "Der Schlagbaum ist unten. Ohne Erlaubnis des Ältesten kommst du hier nicht durch.", "en": "The barrier is down. You can't pass without the Elder's permission."}
+const BARRIER_QUEST := {"de": "Der Schlagbaum ist unten. Sprich mit Wache Jorin, damit er ihn öffnet.", "en": "The barrier is down. Talk to Jorin the guard so he raises it."}
+static func schlagbaum(s: Zustand) -> Dictionary: return BARRIER_QUEST if s.has(QUEST_STARTED) else BARRIER_DOWN
+
+# 540 (Story.village lockedDoor, 73b): was hinter einer Tuer gesagt wird, wenn es vom Stand der Geschichte abhaengt; {} = wie in
+# karten.json (Stand zu Beginn). Bisher nur 12/5 nach Kapitel 1
+static func klopfen(karte_id: String, t: Vector2i, s: Zustand) -> Dictionary:
+	if karte_id == "village" and t == Vector2i(12, 5) and s.has(CHAPTER1_DONE):
+		return {"de": "„Du hast die Goblins vertrieben? … Morgen vielleicht. Heute nicht.“", "en": "“You drove off the goblins? … Tomorrow, maybe. Not today.”"}
+	return {}
 
 static func ziel(s: Zustand) -> Dictionary:
 	if s.has(CHAPTER1_DONE): return {"de": "Kapitel 1 abgeschlossen! Erkunde die Welt und stärke deinen Helden.", "en": "Chapter 1 complete! Explore the world and strengthen your hero."}

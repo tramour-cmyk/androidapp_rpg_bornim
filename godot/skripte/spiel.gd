@@ -15,7 +15,6 @@ var kamera: Kamera
 var licht: Licht
 var ui: Steuerung
 var blende: ColorRect
-var gedacht := {}                                # Rand (67): erster Gedanke lang, danach kurz
 var zeiten: Array = []
 var ziel_stoss := Vector2i(-1, -1)               # angetippter gesperrter Ausgang: beim Ankommen Text zeigen
 var zustand := Zustand.new()                     # 390: Flaggen, Taschen, Gold (GameState)
@@ -336,7 +335,8 @@ func _aktion() -> void:
 	if bool(a["verschlossen"]):
 		var nachts := licht.nacht > 0.5
 		if a.has("klopfen"):
-			ui.sage(zeilen(a["klopfen"]["nacht" if nachts else "tag"]))
+			var anders := Geschichte.klopfen(karte.id, z, zustand)   # 540: nach Kapitel 1 sagt 12/5 etwas anderes
+			ui.sage([{"text": Sprache.t(anders)}] if not anders.is_empty() else zeilen(a["klopfen"]["nacht" if nachts else "tag"]))
 			zustand.setze("heard_%d_%d" % [z.x, z.y])   # 399.1 Karte: wer hier wohnt (MapPeople.heard)
 		return
 	if a.has("braucht") and not karte.flaggen.has(a["braucht"]):
@@ -347,17 +347,15 @@ func _aktion() -> void:
 func _stoesst(t: Vector2i) -> void:
 	if await _schiebt(t): return
 	if karte.zeichen(t) == "z" and not karte.flaggen.has("barrier_open"):
-		ui.sage([{"text": Sprache.t(karte.schlagbaum)}])
+		ui.sage([{"text": Sprache.t(Geschichte.schlagbaum(zustand))}])   # 540: nach dem Auftrag „Sprich mit Wache Jorin“
 		return
 	if karte.zeichen(t) == "L" and not karte.flaggen.has("gate_open"):   # 390: Game.gate
 		spiele(Geschichte.gitter(zustand))
 		return
 	var a := karte.sperrt(t)
 	if a.is_empty(): return
-	if bool(a["umkehren"]):
-		var k := "gedanke_kurz" if gedacht.has(karte.id) else "gedanke"
-		gedacht[karte.id] = true
-		if a.has(k): ui.sage([{"text": Sprache.t(a[k])}])
+	if bool(a["umkehren"]):   # 540 Story.southEdge: nach dem Stand der Geschichte, gemerkt im Spielstand
+		ui.sage([{"text": Sprache.t(Geschichte.suedrand(zustand)["text"])}])
 	else:
 		ui.sage(zeilen(a.get("abgewiesen", [])))
 
