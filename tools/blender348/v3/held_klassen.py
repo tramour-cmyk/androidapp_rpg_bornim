@@ -178,7 +178,9 @@ def tuch_haube(haut, p, t, tn):
     N = N.reshape(-1, 3) @ np.array(h.matrix_world.to_3x3().inverted().transposed()).T
     N /= np.maximum(np.linalg.norm(N, axis=1, keepdims=True), 1e-9)
     kopf = (np.linalg.norm(W - p['mitte'], axis=1) < 0.16) & (W[:, 2] > p['kinn_z'])
-    drin = kopf & ((W[:, 2] > p['augen_z'] + 0.03) | ((W[:, 1] > p['mitte'][1] + 0.005) & (W[:, 2] > p['kinn_z'] + 0.03)))
+    # Pruefer lokal 22:16 (Fetzen vor dem Ohr bis zum Kiefer): seitlich nur bis 4,5 cm unter die Augen, bis zum Nacken erst hinter dem Ohr
+    drin = kopf & ((W[:, 2] > p['augen_z'] + 0.03) | ((W[:, 1] > p['mitte'][1] + 0.03) & (W[:, 2] > p['kinn_z'] + 0.03))
+                   | ((W[:, 1] > p['mitte'][1] + 0.005) & (W[:, 2] > p['augen_z'] - 0.045)))
 
     bm = bmesh.new(); bm.from_mesh(me); bm.verts.ensure_lookup_table()
     alt = bm.verts.layers.int.new('alt')
@@ -189,11 +191,30 @@ def tuch_haube(haut, p, t, tn):
     bm.verts.layers.int.remove(alt); bm.to_mesh(me); bm.free()
     # Pruefer lokal 21:57 („glatte Glatzenkappe“): Stoff mit Volumen, oben 9 mm, zum Hinterkopf und Nacken bis 2,2 cm (Tuch faellt locker)
     Wi = W[idx]; hinten = np.clip((Wi[:, 1] - p['mitte'][1]) / 0.08, 0, 1) * np.clip((p['augen_z'] + 0.04 - Wi[:, 2]) / 0.08, 0, 1)
-    Wn = Wi + N[idx] * (0.012 + 0.012 * hinten)[:, None]
-    # Pruefer lokal 21:57 (Ohr sticht durchs Tuch, Ohrform sichtbar): ueber dem Ohr liegt das Tuch glatt darueber, nicht in seiner Form
-    ohr = (np.abs(Wi[:, 0]) > 0.06) & (Wi[:, 2] > p['augen_z'] - 0.055) & (Wi[:, 2] < p['augen_z'] + 0.02)
-    ox = max(abs(float(p['ohr_r'][0])), abs(float(p['ohr_l'][0]))) + 0.01   # Ohrspitze (Merkpunkt) und 1 cm Stoff
-    Wn[ohr, 0] = np.sign(Wi[ohr, 0]) * np.maximum(np.abs(Wn[ohr, 0]), ox)
+    # Rand der Haube (Pruefer lokal 22:14: Spalten zwischen Tuch und Wange): Ringe ab dem Rand, aussen 2 mm, ab dem dritten Ring voll
+    ring = np.full(len(me.vertices), 99)
+    nb = [[] for _ in range(len(me.vertices))]; anz = {}
+    for e in me.edges:
+        a_, b_ = e.vertices; nb[a_].append(b_); nb[b_].append(a_)
+    for poly in me.polygons:
+        for k in poly.edge_keys: anz[k] = anz.get(k, 0) + 1
+    rand = {v for k, n in anz.items() if n == 1 for v in k}
+    front = list(rand)
+    for v in front: ring[v] = 0
+    for r in range(1, 4):
+        neu_ = [w for v in front for w in nb[v] if ring[w] > r]
+        for w in neu_: ring[w] = r
+        front = neu_
+    voll = np.clip(ring / 3.0, 0.15, 1.0)
+    Wn = Wi + N[idx] * ((0.012 + 0.012 * hinten) * voll)[:, None]
+    # Ohr (Pruefer 22:14: Ohrmuschel sticht plastisch durch): um das Ohr auf eine glatte Kugel um die Kopfmitte, Halbmesser Ohrspitze + 1 cm
+    c = p['mitte']
+    for ok in ('ohr_r', 'ohr_l'):
+        oh = np.asarray(p[ok]); R = float(np.linalg.norm(oh - c)) + 0.01
+        g = np.exp(-np.sum(((Wn - oh) / np.array([0.03, 0.035, 0.04])) ** 2, axis=1)) * (np.sign(Wn[:, 0]) == np.sign(oh[0]))
+        d = Wn - c; r_ = np.linalg.norm(d, axis=1, keepdims=True)
+        kugel = c + d / np.maximum(r_, 1e-6) * np.maximum(r_, R)
+        Wn = Wn + (kugel - Wn) * (g * voll)[:, None]
     KO._zurueck(h, Wn)
     me.materials.clear(); me.materials.append(t.data.materials[0])
     for u in list(me.uv_layers): me.uv_layers.remove(u)
