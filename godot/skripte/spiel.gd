@@ -1856,8 +1856,18 @@ func hoehle_bilder() -> void:
 	var orte := [["eingang", Vector2i(10, 18), "UP"], ["gang", Vector2i(11, 14), "UP"], ["gitter", Vector2i(10, 7), "UP"],
 		["krogg", Vector2i(15, 11), "UP"], ["lager", Vector2i(14, 16), "RIGHT"], ["teich", Vector2i(5, 14), "LEFT"],
 		["westfluegel", Vector2i(5, 9), "UP"], ["halle", Vector2i(10, 3), "UP"]]
+	# 492 (Chef 04.11., 13:54, Zu 492 und 505: „Und wenn ich schon mal was gesehen habe … dann sehe ich das halt abgedunkelt“): der Held
+	# geht den echten Weg Kachel fuer Kachel (Nebel: nur Betretenes und Gesehenes gedaempft, der Rest schwarz), das Gitter steht offen
+	zustand.setze(Geschichte.GATE_OPEN); flaggen_neu()
+	if nebel: nebel.vergiss()
 	for o in orte:
-		held.setze(o[1], o[2]); kamera.springe()
+		var ziel: Vector2i = o[1]
+		for t in karte.weg(held.kachel, ziel):
+			var d: Vector2i = t - held.kachel
+			held.setze(t, "UP" if d.y < 0 else ("DOWN" if d.y > 0 else ("LEFT" if d.x < 0 else ("RIGHT" if d.x > 0 else String(o[2])))))
+			kamera.springe()
+			await get_tree().create_timer(0.12).timeout
+		held.setze(ziel, o[2]); kamera.springe()
 		await get_tree().create_timer(1.0).timeout
 		ui.textfeld.visible = false
 		await knips("%s/%s.png" % [dir, o[0]])
