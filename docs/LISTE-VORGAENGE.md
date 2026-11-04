@@ -211,7 +211,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 521 | Build 249, Ausrüstung: Wechselschirm eines Platzes wie alt (Bild, Art und Wert, ▲/▼, „nicht tragbar“ matt) (Chef 03.11., 23:23, Bild) | A Spiel | M | – | Team Tom | gebaut |
 | 520 | Build 249, Ausrüstung: Held zwischen den Fächern zu klein und ohne die angelegten Sachen; alt `HeroTurntable` mit Getragenem (Chef 03.11., 23:19, Bild) | A Spiel | M | – | Team Tom | gebaut |
 | 519 | Build 249, Ausrüstung: Gegenstandsfenster („Göttlicher Ring des Eisernen Richters“) passt nicht auf den Bildschirm, rechts abgeschnitten (Chef 03.11., 23:13, Bild) | A Spiel | M | 21,91 $ | Team Tom | gebaut |
-| 518 | Build 248, Dorf: keine Häuser, nur Wege und Pflaster, dazu ständiges schwarzes Flackern (Chef 03.11., 20:47, Bild) | A Spiel | M | – | Team Tom | zu testen |
+| 518 | Build 248, Dorf: keine Häuser, nur Wege und Pflaster, dazu ständiges schwarzes Flackern (Chef 03.11., 20:47, Bild) | A Spiel | M | – | Team Tom | gebaut |
 | 517 | Waldklang wie alt: Vögel am Tag, Eule und Grillen nachts, fernes Wolfsheulen im Tiefen Wald (`WildSound.kt`; Abgleich 512, von Team Tom) | A Spiel | M | – | Jerry | gebaut |
 | 513 | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „513 B“) | E Figuren | M | 14,01 $ | Team Tom | startbar |
 | 513.1 | probelauf.py sperrt Läufe ohne abgenommenen Figurenstand (513 B) | B Abläufe | M | – | Perikles | gebaut |

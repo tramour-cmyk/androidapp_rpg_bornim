@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (04.11., 00:2x, `session_01Hmoj76rG9H5efSpvFMJwEV`):** 531, 521/523 gebaut auf `claude/tom-531-garrick` (569a816f1), beim Chef (ansehen/531, /521); 530, 520, 522 hat Spike. Nachfolger: Tom – 525: Laden, Morwen, Rast wie alt.
+**Übergabe (04.11., 01:1x, `session_01Hmoj76TujCVFXFeH1ZMS73`):** Build 251 (`claude/build-555`, PR #181, Lauf 41743553745) gestartet 01:00: grün → Link in t251, Telegram; 550 gebaut; 549 beim Chef. Nachfolger: Tom – Build 251 prüfen, dann 525: Laden, Morwen, Rast wie alt.
 
 ## Zeilen
 
@@ -14,7 +14,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 521 | M | **von Sokrates (Chef 03.11., 23:23, Build 249, Bild; Zu 521):** Wechselschirm (Platz antippen): Gegenstände kaum zu unterscheiden; Zeile wie alt `GearRow` | gebaut: passt (Chef 04.11., 00:49, Archiv), Gerätetest im nächsten Build; Geprüft an: 569a816f1 | – |
 | 520 | M | **von Sokrates (Chef 03.11., 23:19, Build 249, Bild; Zu 520):** Ausrüstung: „Warum ist der Held so klein? Warum hat er nichts an von den Sachen?“ Chef 23:21: nur Größe wie alt jetzt; Kleidung mit 455 | gebaut, fährt im nächsten Build (Held 165 × 253 dp wie alt, ohne Kleidung, 455); Geprüft an: c179dfbb0 | `claude/spike-520-heldgroesse` |
 | 519 | M | **von Sokrates (Chef 03.11., 23:13, Build 249, Bild):** Ausrüstung, Fenster eines Gegenstands passt nicht auf den Bildschirm: Name, Spalte „Neu“, Knöpfe rechts abgeschnitten; alte Fassung vergleichen (512) | gebaut: passt (Chef 04.11., 00:12), fährt im nächsten Build; Geprüft an: fd80a395a | `claude/spike-519-fenster` |
-| 518 | M | **von Sokrates (Chef 03.11., 20:47, Build 248, Bild):** Dorf leer: keine Häuser, nur Wege und Pflaster; ständiges schwarzes Flackern (schwarze Striche); t248 so nicht testbar. Ursache erst in Vorschau nachstellen | wartet auf Test: Build 249 (t249); behoben 4f9ca1dce | – |
+| 518 | M | **von Sokrates (Chef 03.11., 20:47, Build 248, Bild):** Dorf leer: keine Häuser, nur Wege und Pflaster; ständiges schwarzes Flackern (schwarze Striche); t248 so nicht testbar. Ursache erst in Vorschau nachstellen | gebaut: bestanden t249 (Chef 00:41); Geprüft an: 4f9ca1dce | – |
 | 537 | M | **von Sokrates (512, Abgleich Build 249 im Code; Zu 537):** Kapitelende fehlt: nach Aldric kein „ENDE VON KAPITEL 1“, keine Tempelszene, keine Nacht, kein Morgen im Tempel; `TEMPLE_SEEN`, Lyras Lager-Sätze fehlen | gebaut: ansehen/537; Geprüft an: 8ebfd78ab | `claude/spike-537-kapitelende` |
 | 549 | M | **von Sokrates (Chef 04.11., 00:07, Build 249, Bild; Zu 549):** „Rastscreen wirkt sehr klein und viele Kästen …“ Rastfenster an Garricks Feuer; mit alt `RestScreen.kt` vergleichen, besser machen (Chef 23:26), Standbild vorlegen | wartet auf Chef: ansehen/549 (A oder B); Geprüft an: c7d7dbf13 | – |
 | 550 | M | **von Sokrates (Chef 04.11., 00:19, Build 249):** „erstes Mal Heilkräuter gepflückt ein riesen Kasten als Einblendung. Dann ab dem 2. Mal normale Größe für den Text.“ Nachstellen: Ersthinweis gewollt (dann Größe und Gestalt wie andere Hinweise) oder Größenfehler beim ersten Aufbau | gebaut, fährt im nächsten Build; Geprüft an: 840a2b6cc | `claude/spike-550-hinweis` |
@@ -136,7 +136,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 - **Zu 519, von Sokrates (gesehen, nicht vom Chef):** Ring zeigt „+1 alle Attribute“, „+2 Geschicklichkeit“, „+2 Charisma“, Vergleich aber Charisma 11 → 12, Geschicklichkeit und Stärke fehlen; nachrechnen, ob Anzeige oder Wert falsch. **Chef 04.11., 00:12: „519 passt“** (zu `ansehen/519-gegenstandsfenster.md`, Bild 23:51); Spike: Datei löschen, Archiv, Gerätetest mit nächstem Build.
 
-- **Zu 518, von Sokrates (Chef 03.11., 21:32):** „Liegen lassen, Tom soll 518 jetzt beheben“: t248 wartet auf den Build mit 518. **Ursache (Tom 21:4x):** `toon.gdshader` (Dorf und Kampf) schrieb seit 463 `POSITION` nur am Helden, alle anderen Netze unsichtbar; nachgestellt, behoben 4f9ca1dce, Test `position_518`; auch Ursache für 505 ohne Bäume und wohl 513 „ohne Haar, Waffe, Schild“.
+- **Zu 518, von Sokrates (Chef 03.11., 21:32):** „Liegen lassen, Tom soll 518 jetzt beheben“. **Ursache (Tom 21:4x):** `toon.gdshader` schrieb `POSITION` nur am Helden; behoben 4f9ca1dce, Test `position_518`.
 
 - **Zu 504.1, von Homer:** `[504.…]` aus `STORY-VARIANTEN-K1.md` und `-K1-WALD.md` in `geschichte.gd`, Türen (`Story.kt`/Export), Schlagbaum, `rast.gd`, Erwachen; Wahl je Marke im Spielstand (Regeln oben in der Datei); Chef urteilt beim Gerätetest. Dazu aus `STORY-K1-HANDLUNG.md`: `[427.2.rauch]` (Hinweis nach Niederlage gegen Krogg, Chef 02.11. aus 427.1) und `[427.2a.morwen.rauch]` (Morwen gibt nach jeder Niederlage gegen Krogg beim nächsten Besuch ein neues Rauchbündel, Chef 03.11., 15:44; heute verhindert `SMOKE_GIVEN` in `wants_smoke` das).
 - **Zu 513 (Spike 03.11., 17:4x):** Probe 1 (41673495083): Schild aus „Stehen“: unten 5,4 / 0,9 cm; Robe: Kittel 4 mm durch; Umhang: Gürtel, Ärmel. Probe 2: Kittel, Gürtel, Ärmel weiter weg.
