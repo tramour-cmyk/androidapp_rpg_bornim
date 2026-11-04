@@ -48,7 +48,9 @@ func _lauf() -> void:
 	var theke := [{"id": "met", "name": met[0], "dauer": met[1], "tut": Sprache.r("meadDoes"), "zeichen": "MUG"},
 		{"id": "fleisch", "name": fleisch[0], "dauer": fleisch[1], "tut": "2× " + Sprache.t(Sprache.texte["dinge"]["raw_meat"]["name"]), "zeichen": "COIN"},
 		{"id": "lang", "name": zimmer[0], "dauer": zimmer[1], "tut": Sprache.r("roomDoes"), "zeichen": "BED"}]
-	for e in ["A", "B"]:
+	for e_ in ["A", "B", "B2"]:   # B2: 557 Vorlage 2 (Chef 16:37: Rast „mit denselben Bausteinen“ wie die anderen Schirme)
+		var e: String = "B" if e_ == "B2" else e_
+		Spielstaende.vorlage2 = e_ == "B2"
 		for ort in ["feuer", "theke"]:
 			var g := _grund()
 			root.add_child(g)
@@ -60,8 +62,9 @@ func _lauf() -> void:
 			var oben := 2340.0; var unten := 0.0
 			for l in f.find_children("*", "Label", true, false):
 				oben = minf(oben, l.get_global_rect().position.y); unten = maxf(unten, l.get_global_rect().end.y)
-			print("TEXT %s %s von %.0f bis %.0f" % [e, ort, oben, unten])
-			await _bild("549_%s_%s" % [e, ort])
+			print("TEXT %s %s von %.0f bis %.0f" % [e_, ort, oben, unten])
+			await _bild("549_%s_%s" % [e_, ort])
 			f.free(); g.free()
 			await process_frame
+	Spielstaende.vorlage2 = false
 	quit(0)

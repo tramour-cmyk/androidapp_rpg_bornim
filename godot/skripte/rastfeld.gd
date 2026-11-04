@@ -115,7 +115,11 @@ func _ohne_kasten(titel: String, unter: String, wahlen: Array, weiter_text: Stri
 		n.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		sp.add_child(n)
 	sp.add_child(Erschaffung.luecke(6))
-	sp.add_child(_weiter(weiter_text))
+	if Spielstaende.vorlage2:   # 557/549 (Chef 16:37: „mit denselben Bausteinen“): „‹ WEITERGEHEN“ als Nebenwahl links wie Abbrechen
+		var neben := Spielstaende.nebenwahl("", "‹  " + weiter_text, func(): gewaehlt.emit(""))
+		sp.add_child(neben)
+	else:
+		sp.add_child(_weiter(weiter_text))
 
 func _wahl_zeile(w: Dictionary) -> Control:
 	var an := bool(w.get("an", true))
@@ -136,6 +140,7 @@ func _wahl_zeile(w: Dictionary) -> Control:
 		var d := Stil.zeile(String(w["dauer"]), 17, Stil.GOLD if an else Stil.DIM)
 		d.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		r.add_child(d)
+	if Spielstaende.vorlage2: r.add_child(Spielstaende.wahl_b("", Stil.BRIGHT if an else Color(Stil.DIM, 0.6)))   # „›“ wie jede Zeile zum Antippen
 	var rand := MarginContainer.new()
 	rand.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	rand.add_theme_constant_override("margin_top", int(12 * DP)); rand.add_theme_constant_override("margin_bottom", int(12 * DP))
