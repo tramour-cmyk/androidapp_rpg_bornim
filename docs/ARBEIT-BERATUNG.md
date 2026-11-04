@@ -10,6 +10,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 557 | M | **von Team Tom (04.11., 17:04, 480.1):** Chefworte 16:42–16:51 zu 557 (Gegenstand ohne Kasten, Bilder 4, 5, 6 passen, Kopf zuerst je Fenster; Zu 557 bei Tom) fehlen im Vorgangsarchiv; ohne Eintrag hält `probelauf.py` den nächsten Lauf an (2 von 2 seit 13:44); nächste Vorlage ist gebaut (`claude/tom-557-spielstaende`) | startbar |
 | 549a | M | Rückfrage: Oberfläche ohne Kasten (549 B) als Grundsatz, Spielstände als zweiter Schirm? (Chef 11:12) | wartet auf Chef: entscheidet nach der nächsten Vorlage 557 (Chef 12:42); Ausnahmen Kampf, Behälter sinnvoll |
 | 512 | M | **von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles):** Abgleich alt gegen neu wirkt nicht: Funde des Chefs in Build 249 (503, 519, 520, 521) | in Arbeit: wirkt nicht, Chef 16:56 t257 C: Gegnernamen, Zugkreis (561) wieder nicht verglichen; Abgleich je Schirm vor Build prüfen |
 | 508 | M? | **von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5):** Einladung der Lehrmeister in Kapitel 1 erreichbar? (Simulation 444: keine Fertigkeit Geselle bis Stufe 6); Regelfrage: Magie-Kernfertigkeit Pflicht für Paladin und Kriegsmagier?; Wachsoldat startet mit Mittlerer, Wächter verlangt Schwere Rüstung | startbar |
