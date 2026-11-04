@@ -451,7 +451,7 @@ func dialog(titel: String, farbe: Color, zeilen: Array, knoepfe: Array) -> Contr
 	# zu lang: zwei Zeilen oder kleiner (Menue.passe_knopf)
 	var mach := func(k: Array, b_breite: float) -> Button:
 		var tat: Callable = k[1]
-		var b := Erschaffung.knopf(String(k[0]), func(): schleier.queue_free(); tat.call())
+		var b := Erschaffung.knopf(String(k[0]), func(): schleier.queue_free(); tat.call(), k.size() > 3 and bool(k[3]))
 		if k.size() > 2: b.disabled = not bool(k[2])
 		Menue.passe_knopf(b, b_breite)
 		return b
@@ -642,11 +642,9 @@ static func stueck_zeilen_von(hw: Heldwerte, g: Dictionary) -> Array:
 	# was dafuer abgelegt wird und das Urteil gleich oben, ohne Rollen; die Tabelle unten sagt warum (59.3: nie fuer Getragenes)
 	var v: Vergleich = Vergleich.von(hw, g) if hw.kann_tragen(g) and not hw.ausruestung.values().any(func(x): return x != null and int(x["uid"]) == int(g["uid"])) else null
 	if v:
-		if not v.ersetzt.is_empty():
-			var anderer := v.ersetzt.any(func(x): return String(Beute.grundform(String(x["base"]))["slot"]) != String(b["slot"]))
-			var el := Erschaffung.txt(("Ersetzt: " if de else "Replaces: ") + ", ".join(PackedStringArray(v.ersetzt.map(func(x): return Beute.name(x)))), 13, Stil.WARN if anderer else Stil.DIM)
-			z_.append(fett.call(el) if anderer else el)
-		z_.append(fett.call(Erschaffung.txt(v.satz(), 14, {1: GRUEN, -1: Stil.WARN}.get(v.urteil(), Stil.TEXT))))
+		# 524.1 (Chef 04.11., 00:52: „Vorschlag zum Verbessern und spielerfreundlicher machen“): das Urteil als Band gleich unter dem
+		# Kopf, mit Zeichen und Farbe (▲ besser, ▼ schlechter, ◆ gemischt), vor allen Zahlen; was abgelegt wird, darin
+		z_.insert(1, urteil_band(v, b, de))
 	# Grundzahlen: Schaden je Griff, Angriff, Eigenschaften der Waffe; RK der Ruestung mit GES; Schild; Zauberkraft
 	if b.get("schaden") != null:
 		var viel = b.get("vielseitig")
@@ -659,10 +657,10 @@ static func stueck_zeilen_von(hw: Heldwerte, g: Dictionary) -> Array:
 			z_.append(Erschaffung.txt(((("Mit einer Hand (Schild oder Zweitwaffe): " if de else "In one hand (shield or second weapon): ") + Beute.wuerfel_text(b["schaden"], plus, de)) if beide else
 				(("Mit beiden Händen (andere Hand leer): " if de else "In both hands (other hand empty): ") + Beute.wuerfel_text(viel, plus, de))), 14, Stil.DIM))
 		if plus > 0: z_.append(fett.call(Erschaffung.txt("%s +%d" % [Sprache.u("attack"), plus], 15)))
-		var zuege: Array = []
-		if bool(b.get("finesse", false)): zuege.append("Finesse")
-		if bool(b.get("fern", false)): zuege.append("Fernkampf" if de else "Ranged")
-		if not zuege.is_empty(): z_.append(Erschaffung.txt(" · ".join(PackedStringArray(zuege)), 13, Stil.DIM))
+		var zuege: Array = []   # 524.1: was der Begriff fuer den Wurf heisst
+		if bool(b.get("finesse", false)): zuege.append("Finesse: trifft mit GES oder STÄ, was höher ist" if de else "Finesse: hits with DEX or STR, whichever is higher")
+		if bool(b.get("fern", false)): zuege.append("Fernkampf: trifft mit GES" if de else "Ranged: hits with DEX")
+		for zg in zuege: z_.append(Erschaffung.txt(zg, 13, Stil.DIM))
 	if String(b["slot"]) == "CHEST" and int(b.get("ruestung", 0)) > 0:
 		var ges: String = {"LIGHT": " + GES" if de else " + DEX", "MEDIUM": " + GES (max 2)" if de else " + DEX (max 2)"}.get(gewicht, "")
 		z_.append(fett.call(Erschaffung.txt("%s %d%s" % [Sprache.u("ac"), int(b["ruestung"]) + plus, ges], 16)))
@@ -674,7 +672,10 @@ static func stueck_zeilen_von(hw: Heldwerte, g: Dictionary) -> Array:
 		var ad: Dictionary = d["affixdaten"][a]
 		var t := ("Kritisch ab %d" % (20 - w) if de else "Critical on %d–20" % (20 - w)) if a == "CRIT" else \
 			"+%d%s %s" % [w, "%" if bool(ad["prozent"]) else "", Sprache.t(ad["name"])]
-		z_.append(Erschaffung.txt(t, 16, Color(SELTEN["RARE"])))
+		# 524.1 (Helfer zu 524: verpuffte Boni standen blau wie wirksame, der Grund erst unten klein): matt mit Grund in der Zeile
+		if v and (a in v.wirkungslos or (a == "ALL_STATS" and Heldwerte.ATTRIBUTE.all(func(x): return x in v.wirkungslos))):
+			z_.append(Erschaffung.txt(t + (" – wirkt nicht (Obergrenze)" if de else " – no effect (limit)"), 15, Stil.DIM))
+		else: z_.append(Erschaffung.txt(t, 16, Color(SELTEN["RARE"])))
 	# Warnungen
 	if not hw.kann_tragen(g):
 		z_.append(Erschaffung.txt("Deine Klasse kann das nicht tragen." if de else "Your class can't wear this.", 15, Stil.WARN))
@@ -684,7 +685,35 @@ static func stueck_zeilen_von(hw: Heldwerte, g: Dictionary) -> Array:
 		z_.append(Erschaffung.txt("Zauberkraft nützt nur Zauberwirkern." if de else "Spell power only helps spellcasters.", 13, Stil.DIM))
 	# Vergleich: alles, was sich aendert, Getragenes neben dem Neuen, Gewinn gruen, Verlust rot, Hinweise darunter
 	if v and not v.zeilen.is_empty(): z_.append(vergleich_tabelle(v.zeilen, de))
+	# 524.1: was ein Haendler zahlt (sonst erst in der Rueckfrage zum Wegwerfen): behalten, verkaufen oder wegwerfen auf einen Blick
+	if Laden.ausruestung_verkaeuflich(g):
+		z_.append(Erschaffung.txt(("Händler zahlt %d Gold" if de else "A trader pays %d gold") % Laden.verkaufspreis_von(hw, g), 13, Stil.DIM))
 	return z_
+
+# 524.1: Urteil als Band: links ein Streifen in der Farbe des Urteils, darin Zeichen und Satz (fett), darunter, was abgelegt wird
+# (Gold-Warnfarbe, wenn es an einem anderen Platz sitzt, etwa der Schild fuer eine beidhaendige Waffe)
+static func urteil_band(v: Vergleich, b: Dictionary, de: bool) -> Control:
+	var u = v.urteil()
+	var farbe: Color = {1: GRUEN, -1: Stil.WARN, 0: Stil.GOLD}.get(u, Stil.DIM)
+	var zeichen: String = {1: "▲ ", -1: "▼ ", 0: "◆ "}.get(u, "")
+	var grund := StyleBoxFlat.new()
+	grund.bg_color = Color(farbe, 0.12)
+	grund.border_color = farbe
+	grund.border_width_left = maxi(2, int(round(3 * DP)))
+	grund.content_margin_left = 10 * DP; grund.content_margin_right = 8 * DP
+	grund.content_margin_top = 6 * DP; grund.content_margin_bottom = 6 * DP
+	var band := PanelContainer.new()
+	band.add_theme_stylebox_override("panel", grund)
+	var innen := VBoxContainer.new()
+	innen.add_theme_constant_override("separation", int(2 * DP))
+	band.add_child(innen)
+	var satz := Erschaffung.txt(zeichen + v.satz(), 16, farbe)
+	satz.add_theme_constant_override("outline_size", int(DP * 0.6)); satz.add_theme_color_override("font_outline_color", farbe)
+	innen.add_child(satz)
+	if not v.ersetzt.is_empty():
+		var anderer := v.ersetzt.any(func(x): return String(Beute.grundform(String(x["base"]))["slot"]) != String(b["slot"]))
+		innen.add_child(Erschaffung.txt(("Ersetzt: " if de else "Replaces: ") + ", ".join(PackedStringArray(v.ersetzt.map(func(x): return Beute.name(x)))), 13, Stil.WARN if anderer else Stil.DIM))
+	return band
 
 # 416.9 (Chef 01.11., 11:30 „pseudotabellarisch“, 02.11., 10:52 „tabellarische Gegenüberstellung“): wie GearDetails alt,
 # Kopf „Vergleich | Angelegt | Neu“ (1,8 : 0,9 : 0,9), Strich, je Wert eine Zeile; vorher matt, nachher fett in Gruen oder Rot
@@ -756,7 +785,8 @@ func fackel_satz(war: bool) -> String:
 func frage_stueck(g: Dictionary) -> void:
 	var de := Sprache.aktiv() == "de"
 	var ok := hw.kann_tragen(g)
-	var k: Array = [[Sprache.u("equip"), func(): meldung(lege_an(g)); baue(), ok]]
+	var vg: Vergleich = Vergleich.von(hw, g) if ok else null
+	var k: Array = [[Sprache.u("equip"), func(): meldung(lege_an(g)); baue(), ok, vg != null and vg.urteil() == 1]]   # 524.1: besser: Knopf hervorgehoben
 	if ok and einhandwaffe(g): k.append(["Nebenhand" if de else "Off hand", func(): meldung(lege_an(g, true)); baue()])
 	k.append(["Wegwerfen" if de else "Discard", func(): frage_wegwerfen(g)])
 	k.append([abbrechen(), func(): pass])
