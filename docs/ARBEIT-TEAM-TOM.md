@@ -8,6 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 556 | M | **von Sokrates (Chef 04.11., 07:52):** „Die Blenden in Godot sind teilweise zu kurz zum Lesen und nicht komplett schwarz im Hintergrund, sondern haben ein ‚Leuchten‘ in der Mitte. Bitte klassische schwarz. Das andere wirft Ringe.“ Radialverlauf (Ringe) in `ortsblende.gd`, `kampf/kampfblende.gd`, `zwischenbild.gd` → reines Schwarz; Lesezeit jeder Blende gegen alt (`InterludeClock`) | startbar | – |
 | 531 | M | **von Sokrates (Chef 03.11., 23:42, Build 249; Zu 531):** Garrick: „Gesicht wirkt sonderbar, Bogen fehlt, vertreibt keine Mobs. Hat er schon Animation?“ | wartet auf Chef: ansehen/531; Geprüft an: cac2a27f4 | – |
 | 530 | M | **von Sokrates (Chef 03.11., 23:40, Build 249):** „Schlagbaum öffnet sich nicht visuell.“ Merker `barrier_open` (`geschichte.gd` 58) und Erzähltext kommen, das Modell bleibt zu; nachstellen, auch nach Laden eines Spielstands | wartet auf Test: Build 251 (t251, PR #181) | `claude/spike-530-schlagbaum` |
 | 522 | M | **von Sokrates (Chef 03.11., 23:33, Build 249; Zu 522):** „im Testmenü Ausrüstung des Helden geändert (Schild gegeben), aber im Spiel kein Schild“; Ursache nachstellen, auch nach Anlegen im Ausrüstungsschirm | wartet auf Test: Build 251 (t251, PR #181) | `claude/tom-522-figur` |
