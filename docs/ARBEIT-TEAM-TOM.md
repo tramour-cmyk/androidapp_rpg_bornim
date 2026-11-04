@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (04.11., 13:10, `session_01Hmoj78TjcwNdSpYw2exiBM`):** 557 Vorlage 2 beim Chef (ansehen/557, 9bba5679d). 558 gebaut (`claude/tom-558-robe`, STOFF); Probe 2 von 2 läuft (41826697107): Artefakt `bornim-probe-558` (`<ort>-held.png`: jetzt / 0,6 / 1) als ansehen/558 und `meldung.sh --bild`. Keine Weckrufe. Nachfolger: Tom – 558: Robe Probebild vorlegen.
+**Übergabe (04.11., 14:16, `session_01Hmoj78Zfp2vo4RRP3F9b18`):** 557 Vorlage 3 beim Chef (ddce14bdf). 558: Probe 2 von 2 (41826697107), Artefakt `bornim-probe-558` als ansehen/558 und `meldung.sh --bild`. Keine Weckrufe. Nachfolger: Tom – 558: Robe Probebild vorlegen.
 
 ## Zeilen
 
