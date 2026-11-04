@@ -60,6 +60,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 19:20 04.11.: Neustart Tom dc5f2c355 → `vd1jVA` „558, 475: Läufe laden, Bilder an den Chef; dann 566, 567 bauen“ (nach idle); alter Tom `NXxN` archiviert, 19,13 $ auf 558 und 505.
 - 18:33 04.11.: Neustart Tom 3613eaa94 → `NXxN` „505, 558: Läufe laden, Bilder sofort an den Chef“ (nach idle); alter Tom `Ex9g` archiviert, 25,22 $ auf 558.
 - 17:24 04.11.: Neustart Tom 7fd69dfc9 → `Ex9g` „558: Robe Probe 3 vorlegen, dann 505 Lauf 2“ (nach idle); alter Tom `egcj` archiviert, 19,55 $ auf 558.
 - 17:05 04.11.: Perikles `U6AU` (559) fertig, archiviert, 3,53 $ auf 559. Tom 558 und Sokrates (idle, Chefrunde) laufen. Perikles-Befund: Toms Vorratsumbau (93 KB) ohne Vorgang offen, liegt bei Tom.
