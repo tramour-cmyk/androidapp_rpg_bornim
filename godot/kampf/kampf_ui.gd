@@ -841,6 +841,11 @@ func scene_tip(p: Vector2) -> String:
 	return ""
 
 
+## 567: die Plätze links und rechts neben dem Kopf (spots 1 und 2 in _draw_intents)
+static func _seitlich(qi: int) -> bool:
+	return qi == 1 or qi == 2
+
+
 ## Foot point and height on the screen of a figure.
 func _foot(fig) -> Vector2:
 	return kampfort.screen_of(fig.position)
@@ -1594,7 +1599,8 @@ func _draw_intents(sr: Rect2) -> void:
 		# 438 (Prüfer Film r2: Ansagen springen über und unter, 21,6–25 s): der Platz vom letzten Bild bleibt, solange er frei ist;
 		# erst wenn nicht, wird neu gesucht (sonst wechselte es mit jedem Schritt eines Nachbarn hin und her)
 		var alt = sign_wahl.get(s.id)
-		if alt != null and alt[0] < spots.size():
+		# 567 (Chef 04.11., Build 257: „+ In den Schatten“ hing rechts neben keinem): ohne Strich nie neben dem Kopf
+		if alt != null and alt[0] < spots.size() and not (not alt[1] and _seitlich(alt[0])):
 			var q: Vector2 = spots[alt[0]] if alt[0] >= 0 else Vector2(s.x, s.y + alt[2])
 			if q.y >= 34 * dp and q.y + s.h <= sr.size.y - 4 * dp and not clash.call(Rect2(q.x, q.y, s.w, s.h), alt[1]):
 				x = q.x
@@ -1604,6 +1610,9 @@ func _draw_intents(sr: Rect2) -> void:
 		# erst mit freiem Strich; geht das nirgends, lieber ohne Strich als auf einem anderen (Prüfer Runde 5: Schild auf dem grauen)
 		for strict in ([] if done else [true, false]):
 			for qi in spots.size():
+				# 567: neben dem Kopf nur mit Strich zu ihm; ohne Strich darüber (höher) oder unter den Pfoten, sonst wirkt sie herrenlos
+				if not strict and _seitlich(qi):
+					continue
 				var q: Vector2 = spots[qi]
 				# Runde 16: unter den Pfoten ragte es unten ins Bedienfeld (abgeschnitten); nur ganz in der Szene
 				if q.y >= 34 * dp and q.y + s.h <= sr.size.y - 4 * dp and not clash.call(Rect2(q.x, q.y, s.w, s.h), strict):

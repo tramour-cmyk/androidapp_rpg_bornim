@@ -28,11 +28,15 @@ const FOE_HALF_M := 1.2         # Wölfe sind lang: mit 0,9 klebten sie aneinand
 const NEAR_M := 1.0
 const ALONE_HERO_B := 0.35
 const BACK_GAP_A := 2.4          # 0,8 wie alt; der Wolf hinten stand im Rumpf des vorderen (Prüfer Runde 7); 1,6: Pfoten im Bild auf dem Ohr des rechten vorderen (Prüfer 25.10. Runde 10; Tiefe wirkt im Bild wenig, 2,4 m: 16 px Luft)
-const BACK_GAP_B := -1.0
+const BACK_GAP_B := -2.0         # 567 (Chef 04.11., Build 257): mit −1,0 stand der hintere im Bild genau hinter dem rechten vorderen, jetzt mittig dahinter (tests/abstand_567.gd)
 # einer vorn, zwei hinten (Grimmzahn Runde 7): vorn 0,3 m nach rechts, hinten 1 m zurück, 0,45 m weiter auseinander und 0,85 m
 # nach links (Grimmzahn hinten rechts lief sonst über den Bildrand); gemessen: Deckung der Wache 36 % → 1 %
 const SOLO_BACK_A := 0.6       # 438: einer vorn, einer hinten: hinten 0,6 m weiter zurück und 1,3 m zur Seite
-const SOLO_BACK_B := -1.3
+# 567 (Chef 04.11., 17:00–17:15, Build 257: zwei Goblins, zwei Wölfe „fast übereinander“): −1,3 nach links hob die Schräge der
+# 30°-Linie auf, der hintere stand im Bild 10 dp neben dem vorderen, Füße auf dessen Kopfhöhe (72 % Deckung). Jetzt der vordere
+# 0,7 m nach links, der hintere 0,6 m nach rechts: wieder 1,3 m quer (438, Wölfe nicht ineinander), im Bild 126 dp, 6–9 %
+const SOLO_BACK_B := 0.6
+const SOLO_FRONT_B := -0.7
 const PAIR_FRONT_B := 0.3
 const PAIR_BACK_A := 1.0
 const PAIR_BACK_B := 0.45
@@ -712,6 +716,8 @@ func _spot_pos(f, spot: Vector2i) -> Vector3:
 	# dann schräg versetzt wie das Paar hinten (PAIR_BACK_*), um eine Wolfslänge
 	elif f.side == "FOES" and spot.x == Mars.BACK and alone and _count(Mars.FRONT, "FOES") == 1:
 		ab = Vector2(ab.x + SOLO_BACK_A, SOLO_BACK_B)
+	elif f.side == "FOES" and spot.x == Mars.FRONT and alone and _count(Mars.BACK, "FOES") == 1:
+		ab.y += SOLO_FRONT_B
 	# 348.7 Grimmzahn Runde 7 (Prüfer Runde 6: „Wolf auf Wolf“, „zweiköpfiger Wolf“): einer allein vorn vor zweien hinten stand
 	# im Bild genau vor dem linken hinteren (37 % verdeckt); vorn ein Stück nach rechts, hinten weiter auseinander und zurück
 	if f.side == "FOES" and _alone(null, Mars.FRONT, "FOES") and not _alone(null, Mars.BACK, "FOES") and _count(Mars.FRONT, "FOES") == 1:
