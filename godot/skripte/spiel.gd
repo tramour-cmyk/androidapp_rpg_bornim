@@ -41,6 +41,13 @@ var nebel: Nebel                                 # 505 Nebel des Krieges in der 
 var kraut_tag := -1                              # 490 Heilkraeuter: fuer welchen Tag sie stehen (Game.herbDay)
 
 func _ready() -> void:
+	# 492 (Diogenes 04.11., 14:0x: „HP/XP“, „Day 1“, „Bloodfang Cave“ in den Vergleichsbildern): Bildlaeufe am Bauserver laufen mit
+	# englischem Gebietsschema; Bilder fuer den Chef immer deutsch, ausser --sprache=en
+	var bildlauf := false
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--sprache="): Sprache.lang = a.substr(10)
+		elif a.begins_with("--") and a.contains("="): bildlauf = true
+	if bildlauf and Sprache.lang == "": Sprache.lang = "de"
 	licht = Licht.new()
 	add_child(licht)
 	kamera = Kamera.new()
