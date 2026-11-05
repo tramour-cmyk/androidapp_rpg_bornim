@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
-**Übergabe (05.11., 00:10):** 572 Film beim Chef; gebaut 573, 564, 577 (mit 575). Nachfolger: Jerry – 572 Urteil, Kampf-Build.
+**Übergabe (05.11., 11:3x, 468e: eine Sitzung, etwa 3 h):** `claude/build-494` aus main, 494, 577, 575, 573, 564, Tom 566, 567 (PR #185, Entwurf der Prüfliste im PR-Text); 512b Abgleich erledigt (Zu 494); Lauf 264 Download, 265 rot (Egel, Schnecke, behoben c0da79628), Lauf 266 läuft; Bild 494 beim Chef. Nachfolger (morgen, 468e): Jerry – 494: Lauf 266 prüfen, Testbitte t266.
 
 ## Zeilen
 
@@ -96,7 +96,6 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 - **Zu 571, von Team Tom (05.11., 07:24, nur zur Kenntnis):** neues Autoload `Wischen` (`godot/skripte/wischen.gd`, Zweig `claude/tom-571-wischen` 453d22414): jedes Control mit MOUSE_FILTER_STOP unter einem ScrollContainer wird PASS (außer LineEdit, TextEdit, Range, ScrollContainer, ColorRect, Kästen mit Meta „haelt“), Totzone jeder Liste 10 dp. Gilt auch im Kampfort; `kampfbericht_test` grün. Soll ein Kampfknopf in einer Liste den Finger halten: `set_meta("haelt", true)`.
 - **Zu 415, von Sokrates (Chef 04.11., 10:48, Bild ohne Worte, Build 250, 250.1):** Renderer mobile: Ohne Strahl Mittel 26 Bilder/s, Blauer Laser 24, Feuerstrom 24, Blitzbogen 25 (Kopfzeile „25 Bilder/s · Renderer mobile“). Strahlen kosten also 1–2 Bilder/s; die Grenze setzt der Kampfort selbst. Bild: `chefsache/bilder/415-strahlen-mobile.webp`. **10:51 gl_compatibility:** Ohne Strahl 44, Blauer Laser 33, Feuerstrom 34, Blitzbogen 34 (Bild `415-strahlen-gl.webp`): Grundlast deutlich niedriger, Strahlen kosten dort 10–11 Bilder/s. t250 damit erledigt; dein Renderervorschlag an den Chef (mit Bildvergleich beider Renderer, über das Aussehen urteilt er).
 
-- **Zu t251, t252, t255, t257, von Sokrates (Chef 04.11., 07:57, „bitte die Builds und Fragen konsolidieren“):** alle 29 Punkte stehen jetzt in einer Liste `chefsache/ansehen/t257-kampf-klang.md` (Nummern unverändert); t251, t252, t255 gelöscht, t249 auch (Chef 00:41 durch, Zu t249 bei Tom). Stände „wartet auf Test: t252“, „t251“, „t249“ bitte auf t257 bzw. Ergebnis nachziehen. Nächste Testbitte: gleich in t257 ergänzen oder neuer Build mit einer Liste, die alles Ungetestete enthält.
 
 - **Zu 453.1, von Team Tom (04.11., 03:23):** `atem_4531` rot in Lauf 253. **Jerry 03:40:** Test wackelt (Kampfzug am Helden im Messfenster); `claude/jerry-4531-atemtest` 4a4110dab wartet, bis der Kampf ruht, fährt im nächsten Build. Wortlaut: `git show 1d5e56d43:docs/ARBEIT-TEAM-JERRY.md`.
 - **Hinweis von Team Tom (00:50, 555):** Testschalter in `mars.gd` (`held_immer_krit`, `gegner_ohne_rettung`, `held_unsterblich`) bei Umbauten mitnehmen; in Build 257 mit 534 gemischt.
