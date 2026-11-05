@@ -46,6 +46,17 @@ static func ersatz() -> String:
 const VIERBEINER := ["wolf", "boar", "giant_centipede", "stirge", "ochre_jelly", "giant_rat", "giant_bat"]     # Hundertfüßer, Riesenegel, Säureschnecke (494): langer Körper am Boden wie ein Vierbeiner; Ratte, Fledermaus mit eigenen Regeln wie bisher als Ersatz des Wolfs
 static func vier(fi) -> bool:
 	return fi != null and fi.monster != null and String(fi.monster.id) in VIERBEINER
+## 553 (Chef 04.11., 00:26, Build 249: „Was ist das für ein graues Tier??????“ im Flüsterwald): ersatz_art ist eine für alle
+## Figuren; jeder Streuner der Karte und jeder Kampfbeginn setzt sie neu (aufruf.gd gegner). Die Figur las sie laufend, also nahm
+## eine Kartenratte nach dem nächsten Wolf dessen Maße (Wenden, Absetzen, Kopf) und ein Wolf nach der nächsten Ratte deren
+## doppelte Größe. Jetzt merkt sich jede Figur beim Aufbau, welches Tier sie ist, und ihren Maßstab.
+var _art_fest := ""
+var _art_da := false
+func _mein_ersatz() -> String:
+	if not _art_da:
+		_art_fest = ersatz()
+		_art_da = true
+	return _art_fest
 ## 348.7 Grimmzahn: im Probekampf „Grimmzahn“ trägt der Wolf „grimm“ dessen Modell (Regeln noch die des Wolfs)
 const GRIMM := "grimm"
 ## Größe im Modell gegen den Wolf (Knotenmaßstab der .glb, wolf.py ART=dire_wolf): Schatten, Kopf, Mitte wachsen mit, das Modell nicht noch einmal
@@ -200,8 +211,8 @@ void fragment() {
 	# Runde 15 (Prüfer Runde 14: Pfotenschatten „unsichtbar im Rumpfschatten“): schmaler (0,7 statt 1,0), die Pfoten stehen am weichen Rand
 	pm.size = Vector2(0.7, 1.5) * _scale() if wolf else Vector2(0.95, 0.95)
 	var vor := 0.15
-	if wolf and ERSATZ_SCHATTEN.has(ersatz()):
-		var es: Array = ERSATZ_SCHATTEN[ersatz()]
+	if wolf and ERSATZ_SCHATTEN.has(_mein_ersatz()):
+		var es: Array = ERSATZ_SCHATTEN[_mein_ersatz()]
 		pm.size = Vector2(es[0], es[1]) * _scale(); vor = es[2]
 	elif (wolf or eigene_haut(fighter)) and mass.has("laenge_m"):     # 494: auch die gekaufte Spinne (vorher 0,95 rund unter 1,69 m Beinen); 387 Runde 2 (Prüfer: Schatten in Wolfsgröße, bei Huhn und Kaninchen doppelt so breit): nach dem Kauftier
 		pm.size = Vector2(mass.get("breite_m", 0.4) * 1.3, mass.laenge_m * 0.9) * _scale(); vor = 0.0
@@ -306,7 +317,7 @@ func _paws_in_blob() -> void:
 	if OS.get_environment("SCHAU_MESS") != "":
 		var sun: DirectionalLight3D = kampfort._sun
 		var d: Vector3 = sun.global_transform.basis.z     # zur Sonne hin
-		var hoch: float = ERSATZ_KOPF.get(ersatz(), 1.24) * _scale() if fighter.monster != null else 1.8
+		var hoch: float = ERSATZ_KOPF.get(_mein_ersatz(), 1.24) * _scale() if fighter.monster != null else 1.8
 		var fall := Vector2(-d.x, -d.z).normalized() * hoch * Vector2(d.x, d.z).length() / maxf(d.y, 0.01)
 		print("Schattenmess %s %s: Bodenschatten %.2f × %.2f m (vorher %.2f × %.2f), Pfote außen %.2f/%.2f m, Fleck %.2f × %.2f m, Sonne %.0f° hoch, Schlagschatten des Kopfes %.2f m nach (%.2f, %.2f)" % [
 			fighter.id, art(), pm.size.x, pm.size.y, vorher.x, vorher.y, bx, bz,
@@ -314,10 +325,13 @@ func _paws_in_blob() -> void:
 			rad_to_deg(asin(clampf(d.y, -1.0, 1.0))), fall.length(), fall.x, fall.y])
 
 
+var _skala := -1.0
 func _scale() -> float:
 	if fighter.monster == null:
 		return 1.0      # held.glb in Metern (Toms rig.py, 348.6, Modellregel 1)
-	return kampfort.foe_scale(fighter) * ART_GROESSE.get(art(), 1.0)
+	if _skala < 0.0:     # 553: kampfort.foe_scale liest ersatz_art; einmal beim Aufbau, solange sie noch diesem Tier gilt
+		_skala = kampfort.foe_scale(fighter) * ART_GROESSE.get(art(), 1.0)
+	return _skala
 
 
 ## Welches Tier diese Figur zeigt: Grimmzahn, sonst der Ersatz der Probe („“ = Wolf)
@@ -330,7 +344,7 @@ func art() -> String:
 	# Ersatz; im Probekampf „Spinne“ setzt aufruf.gd für den Wolf daneben „kaufwolf“, die Spinne las dann kaufwolf-info.json: ohne Weg
 	if eigene_haut(fighter):
 		return ""
-	return ersatz()
+	return _mein_ersatz()
 
 
 func _model_path() -> String:
@@ -340,7 +354,7 @@ func _model_path() -> String:
 		if art() == "dire_wolf":     # GRIMMFELL=schimmer: die seltene Schimmervariante
 			return "res://kampf/daten/dire_wolf-%s.bin" % (OS.get_environment("GRIMMFELL") if OS.has_environment("GRIMMFELL") else "schwarz")
 		var n: int = maxi(fighter.nr, 1) - 1
-		var art := ersatz()
+		var art := _mein_ersatz()
 		if art.begins_with("kauf_"):     # 387: gekaufte Tiere (kauftier.py), Felle aus <art>-info.json
 			var fl := _kauf_felle(art)
 			if not fl.is_empty():
@@ -575,8 +589,8 @@ func _schild() -> String:
 
 ## Goblin, Späher oder (Probe „Schamanen“) Schamane: Kennung der Modelle und der info.json
 func _gob_art() -> String:
-	if fighter.monster.id == Mars.CALLED and ersatz() in [SHAMAN, KOBOLD]:
-		return ersatz()
+	if fighter.monster.id == Mars.CALLED and _mein_ersatz() in [SHAMAN, KOBOLD]:
+		return _mein_ersatz()
 	return fighter.monster.id
 
 
@@ -880,7 +894,7 @@ func _face(dir := Vector3.ZERO) -> void:
 		# Fledermaus Runde 4 (Prüfer 3b: die Schwarze hing 35° schräg „wie abstürzend“, Flügelkeil über dem Kopf): der zum Ziel gedrehte
 		# Rumpf kippte die gespreizten Flügel am Schirm (gemessen 28° bei 29° Drehung). Sie hält den Rumpf zur Kamera, der Kopf blickt
 		var cam: Camera3D = get_viewport().get_camera_3d() if is_inside_tree() else null
-		if ersatz() == "giant_bat" and cam != null:
+		if _mein_ersatz() == "giant_bat" and cam != null:
 			var zc := cam.global_position - global_position
 			zc.y = 0.0
 			var front: float = rad_to_deg(d.signed_angle_to(zc, Vector3.UP))
@@ -1518,18 +1532,19 @@ var _pfad_anim := ""
 
 ## Neuer tween, der [pfad] abfährt: Bögen im Schritt (Gehen mal BOGEN_TEMPO; die Pfoten treten beim Wenden), Geraden über RUN_FROM
 ## im Lauf; [eilig]: alles im Lauf (Ausweichen). Gibt die Dauer (s) zurück; je Punkt hängt die Zeit an (pfad[i][4]).
-func _pfad_fahren(pfad: Array, eilig: bool) -> float:
+func _pfad_fahren(pfad: Array, eilig: bool, bogen_im_lauf := 0.0) -> float:
 	var gerade := 0.0
 	for i in range(1, pfad.size()):
 		if eilig:
 			pfad[i][3] = "G"
 		if pfad[i][3] == "G":
 			gerade += pfad[i][1] - pfad[i - 1][1]
-	var lauf := "Rennen" if (eilig or gerade > RUN_FROM) and weg.has("Rennen") else "Gehen"
+	var lauf := "Rennen" if (eilig or gerade > RUN_FROM or bogen_im_lauf > 0.0) and weg.has("Rennen") else "Gehen"
+	_bogen_lauf = bogen_im_lauf if lauf == "Rennen" else 0.0
 	var t := 0.0
 	pfad[0].append(0.0)
 	for i in range(1, pfad.size()):
-		var v: float = _mps(lauf) if pfad[i][3] == "G" else _mps("Gehen") * BOGEN_TEMPO
+		var v: float = _mps(lauf) if pfad[i][3] == "G" else (_mps(lauf) * _bogen_lauf if _bogen_lauf > 0.0 else _mps("Gehen") * BOGEN_TEMPO)
 		t += (pfad[i][1] - pfad[i - 1][1]) / v
 		pfad[i].append(t)
 	_pfad_anim = ""
@@ -1539,6 +1554,11 @@ func _pfad_fahren(pfad: Array, eilig: bool) -> float:
 ## Bögen im Schritt, aber so viel schneller (Bewegung und Schrittfolge zugleich, die Pfoten treten weiter auf; r3b: im Schritt
 ## dauerte der Biss mit Heimweg 7,3 s statt 4,4 s)
 const BOGEN_TEMPO := 1.8
+## 546 (Chef 04.11., 00:01, Build 249: „Wölfe weichen aus wie Schlaftabletten“): der Satz beim Ausweichen lief seine Bögen im
+## Schritt (Gehen × 1,8: 1,6 m in 0,93 s, ausweichen_546), ganz im Lauf drehte er bis 28° je Bild (438). Jetzt im Lauf mit diesem
+## Anteil des Lauftempos auch im Bogen (Bewegung und Schrittfolge zugleich): 1,6 m in etwa 0,5 s, höchstens etwa 18° je Bild.
+const AUSWEICH_BOGEN := 0.55
+var _bogen_lauf := 0.0
 
 
 ## Ort und Drehung auf dem Pfad nach [t] s (Zeit je Punkt in pts[i][4]); wechselt zwischen Gehen (Bogen) und [lauf] (Gerade)
@@ -1551,11 +1571,11 @@ func _auf_zeit(pts: Array, t: float, lauf: String) -> void:
 	var f := clampf((t - a[4]) / maxf(b[4] - a[4], 1e-5), 0.0, 1.0)
 	position = a[0].lerp(b[0], f)
 	rotation.y = a[2] + wrapf(b[2] - a[2], -PI, PI) * f
-	var nm: String = lauf if b[3] == "G" else "Gehen"
+	var nm: String = lauf if b[3] == "G" or _bogen_lauf > 0.0 else "Gehen"
 	if nm + b[3] != _pfad_anim:     # Prüfer r3c: Gehen im Bogen und auf der Geraden hatten dieselbe Schrittfolge
 		_pfad_anim = nm + b[3]
 		if anim and anim.has_animation(nm):
-			anim.play(nm, 0.15, (1.0 if b[3] == "G" else BOGEN_TEMPO) * float(tempo.get(nm, 1.0)))
+			anim.play(nm, 0.15, (1.0 if b[3] == "G" else (_bogen_lauf if _bogen_lauf > 0.0 else BOGEN_TEMPO)) * float(tempo.get(nm, 1.0)))
 
 
 ## Grad je Sekunde, mit denen ein Tier mit Wurzelweg sich umdreht (180° in 0,4 s)
@@ -2676,7 +2696,7 @@ func _parade_liste(von: Vector3, art: String, tief: bool) -> Array:
 
 ## 406.2: tiefer Gegner (vierbeinig, nicht fliegend): die Parade geht tief oder zur Mitte
 func niedrig() -> bool:
-	return fighter.monster != null and not _zweibeiner() and ersatz() != "giant_bat"
+	return fighter.monster != null and not _zweibeiner() and _mein_ersatz() != "giant_bat"
 
 
 func blockt() -> bool:
@@ -2825,7 +2845,7 @@ func dodge(after_ms: int, nm := "") -> void:
 			if OS.get_environment("SCHAU_MESS") != "":
 				print("Ausweichen %s %s Länge %.2f m, Wert %.2f, Grenze %.2f, Start %s" % [fighter.id, nm, best[best.size() - 1][1], luft, g0, position])
 			bahn = [best[best.size() - 1][0], home]
-			_pfad_fahren(best, false)     # 438: Bögen im Schritt (im Lauf drehte er 28° je Bild), Geraden im Lauf
+			_pfad_fahren(best, false, AUSWEICH_BOGEN)     # 438: im Lauf drehte er 28° je Bild; 546: im Schritt zu träge
 			tween.tween_callback(_walk_home)
 			return
 	_play("Ausweichen", 0.05)
@@ -2913,10 +2933,10 @@ func howl() -> void:
 ## Where to put the name and bar above the figure (world).
 func head() -> Vector3:
 	var h := 1.12 if vier(fighter) else 1.9     # Ohrspitzen des Wolfs (0,9 lag seit den größeren Ohren, Runde 1 nach Chef, unter dem Balken; davor 60 px darüber)
-	if vier(fighter) and not ERSATZ_KOPF.has(ersatz()) and ersatz().begins_with("kauf_") and mass.has("hoehe_m"):
+	if vier(fighter) and not ERSATZ_KOPF.has(_mein_ersatz()) and _mein_ersatz().begins_with("kauf_") and mass.has("hoehe_m"):
 		h = float(mass.hoehe_m) + 0.15     # 494: Keiler (0,97 m), Hundertfüßer (0,26 m: der Balken stand 0,9 m über ihm) nach dem Kauf
 	elif vier(fighter):
-		h = ERSATZ_KOPF.get(ersatz(), h)
+		h = ERSATZ_KOPF.get(_mein_ersatz(), h)
 	elif mass.has("koerper_hoch_m"):     # 494 Riesenspinne: Name und Balken über dem Körper (0,40 m), nicht in Menschenhöhe 1,9 m
 		h = float(mass.koerper_hoch_m) + 0.25
 	if gob_h > 0.0:     # Goblin Runde 2 (Prüfer Runde 1: Ansage fern der Goblins): Scheitel aus goblin.py, gebückt etwas tiefer

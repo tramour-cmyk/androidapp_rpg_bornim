@@ -76,6 +76,48 @@ var reward := {}
 ## 399.2 (aufruf.gd): Kampfort und Tageszeit aus dem Aufruf; heute gibt es nur den Wald, die Tageszeit dämpft das Licht
 var ort := "wald"
 var tageszeit := "tag"
+## 493: welcher Kampfort im Wald (kampfort_wald.py SPOT): lichtung, waldrand, teich, baum, felsen, steinkreis; fehlt sein Modell im
+## Bau, die Lichtung
+var platz := "lichtung"
+## 527: Tempo aus dem Menue System (Bedienung.tempo_faktor; aufruf.gd setzt es, Proben und Tests bleiben bei 1): alle Bewegungen,
+## Wartezeiten und Zeilen des Kampfs laufen über Engine.time_scale so viel mal so lang, die Blende davor und der Reaktionsring nicht
+## (der Ring misst in Echtzeit)
+var tempo := 1.0
+var _tempo_an := false
+const PLAETZE := ["lichtung", "waldrand", "teich", "baum", "felsen", "steinkreis"]
+
+
+## 493 wie alt (BattleScene.spotFor): was um die Kachel [t] auf [karte] steht: Wasser bis 4 Kacheln → Teich, stehende Steine bis 3 →
+## Steinkreis, ein liegender Stamm bis 3 → Baum, Felsen bis 3 → Felsen; sonst mit 8 Bäumen in 5 × 5 der Waldrand, sonst die Lichtung
+static func platz_fuer(karte, t: Vector2i) -> String:
+	if karte == null:
+		return "lichtung"
+	var art := func(c: Vector2i) -> String:
+		var z: String = karte.zeichen(c)
+		return String(karte.kacheln.get(z, {}).get("name", ""))
+	var nah := func(name_: String, r: int) -> bool:
+		for dy in range(-r, r + 1):
+			for dx in range(-r, r + 1):
+				if art.call(t + Vector2i(dx, dy)) == name_:
+					return true
+		return false
+	if nah.call("WATER", 4): return "teich"
+	if nah.call("MENHIR", 3): return "steinkreis"
+	if nah.call("LOG", 3): return "baum"
+	if nah.call("ROCK", 3): return "felsen"
+	var baeume := 0
+	for dy in range(-2, 3):
+		for dx in range(-2, 3):
+			if art.call(t + Vector2i(dx, dy)) == "TREE": baeume += 1
+	return "waldrand" if baeume >= 8 else "lichtung"
+
+
+## 493: Dateiname des Kampforts im Bau („kampfort-wald“, „-teich“ …), auf die Lichtung zurück, wenn er fehlt
+func _platz_datei(name_: String, endung: String) -> String:
+	var p := "res://kampf/daten/%s-%s.%s" % [name_, platz, endung]
+	if platz != "lichtung" and FileAccess.file_exists(p):
+		return p
+	return "res://kampf/daten/%s.%s" % [name_, endung]
 var lang := 0
 
 # the rules' thread and its beats (ProbeRun)
@@ -146,12 +188,26 @@ func _ready() -> void:
 		zufall.randomize()
 		var kb := Kampfblende.new(String(progress.get("eroeffnung", "NORMAL")), Kampfblende.lage(mars), zufall)
 		verhuellt = true
-		kb.geht.connect(func(): verhuellt = false)
+		kb.geht.connect(func():
+			verhuellt = false
+			_tempo_setzen())
 		ebene.add_child(kb)
+	else:
+		_tempo_setzen()
 	_run(func(): mars.start(_react))
 
 
+func _tempo_setzen() -> void:
+	if is_equal_approx(tempo, 1.0) or tempo <= 0.0:
+		return
+	Engine.time_scale = 1.0 / tempo
+	_tempo_an = true
+
+
 func _exit_tree() -> void:
+	if _tempo_an:
+		Engine.time_scale = 1.0
+		_tempo_an = false
 	if worker and worker.is_started():
 		ring_sem.post()
 		worker.wait_to_finish()
@@ -252,7 +308,7 @@ func _build_forest() -> void:
 	forest = Node3D.new()
 	forest.rotation.y = deg_to_rad(90.0 - AXIS)
 	add_child(forest)
-	var p := "res://kampf/daten/kampfort-wald.bin"
+	var p := _platz_datei("kampfort-wald", "bin")     # 493
 	if FileAccess.file_exists(p):
 		var doc := GLTFDocument.new()
 		var st := GLTFState.new()
@@ -272,7 +328,7 @@ func _build_forest() -> void:
 	ground.mesh = pm
 	var gm := ShaderMaterial.new()
 	gm.shader = load("res://kampf/wald_boden.gdshader")
-	gm.set_shader_parameter("maske", _picture("wald-maske", Color(0, 0, 0, 0)))
+	gm.set_shader_parameter("maske", _picture(_platz_datei("wald-maske", "bild").get_file().get_basename(), Color(0, 0, 0, 0)))     # 493
 	gm.set_shader_parameter("gras", _picture("gras", Color(0.30, 0.38, 0.20)))
 	gm.set_shader_parameter("erde", _picture("erde", Color(0.42, 0.34, 0.24)))
 	ground.material_override = gm
@@ -326,7 +382,7 @@ func _grass() -> void:
 	if OS.get_environment("HALME") == "0":     # Prüflauf: ohne Büschel
 		return
 	var mask := Image.new()
-	var mp := "res://kampf/daten/wald-maske.bild"
+	var mp := _platz_datei("wald-maske", "bild")     # 493
 	if not FileAccess.file_exists(mp) or mask.load_png_from_buffer(FileAccess.get_file_as_bytes(mp)) != OK:
 		return
 	var rng := RandomNumberGenerator.new()

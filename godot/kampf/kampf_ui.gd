@@ -10,6 +10,7 @@ const Mars = preload("res://regeln/mars.gd")
 const Figur = preload("res://kampf/figur.gd")     # 494: Figur.vier
 const Zauber = preload("res://kampf/zauber.gd")
 const Tafel = preload("res://kampf/tafel.gd")
+const Tips = preload("res://kampf/marstips.gd")     # 536: Texte für langes Drücken (MarsTips.kt)
 
 # Theme.kt, Veil
 const TEXT := Color("#E6DDCB")
@@ -80,6 +81,39 @@ func t(de: String, en: String) -> String:
 	return de if lang == 0 else en
 
 
+## 551: Halbmesser der unteren Bildschirmecken in dp wie alt DeviceInfo.cornerDp() (Display.getRoundedCorner, unten links
+## und rechts, das größere), über das Plugin AndroidRuntime; ohne Gerät, vor Android 12 oder ohne Antwort 13 dp wie bisher.
+static var ecke := -1.0
+static func ecke_dp(_vp: Viewport) -> float:
+	if ecke >= 0.0:
+		return ecke
+	ecke = 13.0
+	if OS.get_name() != "Android" or not Engine.has_singleton("AndroidRuntime"):
+		return ecke
+	var act = Engine.get_singleton("AndroidRuntime").getActivity()
+	var d = act.getDisplay() if act != null else null
+	if d == null:
+		return ecke
+	var px := 0
+	for pos in [3, 2]:     # RoundedCorner.POSITION_BOTTOM_LEFT, POSITION_BOTTOM_RIGHT
+		var rc = d.getRoundedCorner(pos)
+		if rc != null:
+			px = maxi(px, int(rc.getRadius()))
+	var w := DisplayServer.window_get_size()
+	if w.x > 0:
+		ecke = float(px) * 412.0 / float(w.x)     # dp wie dp = Breite / 412 (Gerät ohne runde Ecken: 0 wie alt)
+	print("551: Bildschirmecke unten %d px, %.1f dp" % [px, ecke])
+	return ecke
+
+
+## 552 (Chef 04.11., 00:22, Build 249: „MARS Zugreihenfolge oben fehlt“; oben nur ein schwarzer Streifen): die Welt legt über
+## alles ein schwarzes Band, so hoch wie die Kamera des Handys (Rand, 399.4, Ebene 119 über dem Kampf); der Kampf kannte es nicht
+## und zeichnete die Zugleiste darunter. Dieselbe Höhe wie das Band (beim Start der Welt), sonst die sichere Fläche jetzt.
+var turns_top := 0.0     # Oberkante der Zugleiste (Test zugleiste_552)
+func rand_oben() -> float:
+	return Rand.beim_start if Rand.beim_start >= 0.0 else Rand.oben(get_viewport())
+
+
 ## Schriftgröße wie Theme.kt im schwarzen Stil: sp × 0,95 × 1,04, mindestens 13,7 sp.
 func sp(v: float) -> int:
 	return int(maxf(v * 0.95 * 1.04, 13.7) * dp)
@@ -93,11 +127,10 @@ func _ready() -> void:
 	var vs: Vector2 = get_viewport().get_visible_rect().size
 	dp = vs.x / 412.0
 	font_px = sp(15)
-	var ff := FontFile.new()
-	if ff.load_dynamic_font("res://kampf/schrift/alegreya_regular.ttf") == OK:
-		font = ff
-	else:
-		font = ThemeDB.fallback_font
+	# 544 (Chef 03.11., 23:49 „Stimmt die Schrift?“): load_dynamic_font liest die rohe .ttf, die im APK fehlt (dort steht nur die
+	# importierte .fontdata, export_presets include_filter); der Kampf zeigte die Ersatzschrift. Jetzt über den Import wie stil.gd
+	var ff = load("res://kampf/schrift/alegreya_regular.ttf")
+	font = ff if ff is Font else ThemeDB.fallback_font
 	root = Control.new()
 	root.set_anchors_preset(Control.PRESET_FULL_RECT)
 	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -115,9 +148,10 @@ func _ready() -> void:
 	panel = PanelContainer.new()
 	panel.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
 	panel.grow_vertical = Control.GROW_DIRECTION_BEGIN
-	# SkirmishScreen: full width, only clear of the screen's rounded corners (a third of their radius, 335); Godot does
-	# not know the radius, so on the phone the A56's (about 13 dp), at the desk none
-	var m := (13.0 * 0.3 + 2.0) * dp if OS.get_name() == "Android" else 0.0
+	# SkirmishScreen: full width, only clear of the screen's rounded corners (a third of their radius, 335); 551 (Chef 04.11.,
+	# 00:21, Build 249: „MARS Kasten links und rechts unten wird unterbrochen angezeigt“, wie alt 335 am 23.10.): Godot nahm
+	# geschätzte 13 dp, alt fragte DeviceInfo.cornerDp() das Gerät; jetzt ebenso über AndroidRuntime, am Rechner keine Ecke
+	var m := (ecke_dp(get_viewport()) * 0.3 + 2.0) * dp if OS.get_name() == "Android" else 0.0
 	panel.offset_left = m
 	panel.offset_right = -m
 	panel.offset_bottom = -m
@@ -176,6 +210,7 @@ func _ready() -> void:
 	root.add_child(verdict)
 	full_log = PanelContainer.new()
 	full_log.set_anchors_preset(Control.PRESET_FULL_RECT)
+	full_log.offset_top = rand_oben()     # 552: der ganze Bericht beginnt unter dem Band über der Kamera
 	full_log.add_theme_stylebox_override("panel", _box(Color.BLACK, GOLD, 10, 10, 1.0))
 	full_log.visible = false
 	full_log.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -195,6 +230,8 @@ func _pressed(ev) -> bool:
 
 
 func _scene_input(ev) -> void:
+	if (ev is InputEventScreenTouch or ev is InputEventMouseButton) and ev.device != InputEvent.DEVICE_ID_EMULATION and not ev.pressed:
+		druck_t0 = 0     # 536: losgelassen vor der halben Sekunde: kein Hinweis
 	if not _pressed(ev):
 		return
 	var p: Vector2 = ev.position
@@ -208,6 +245,8 @@ func _scene_input(ev) -> void:
 		kampfort.test_end(true)
 	else:
 		kampfort.tap()
+		druck_t0 = Time.get_ticks_msec()     # 536: lange gedrückt auf eine Ansage oder einen Gegner sagt, was er vorhat
+		druck_pos = p
 
 
 ## A black box with a thin rim; padding in dp (across, up and down), rim width in dp.
@@ -231,7 +270,16 @@ func panel_height() -> float:
 	return panel.size.y - panel.offset_bottom if panel and panel.size.y > 0 else get_viewport().get_visible_rect().size.y * 0.33
 
 
+var druck_t0 := 0
+var druck_pos := Vector2.ZERO
+
+
 func _process(_dt: float) -> void:
+	if druck_t0 > 0 and Time.get_ticks_msec() - druck_t0 >= int(LANG_S * 1000.0):
+		druck_t0 = 0
+		var was := scene_tip(druck_pos)
+		if was != "":
+			show_tip(was)
 	overlay.queue_redraw()
 
 
@@ -452,7 +500,11 @@ func _party_box(f) -> Control:
 
 
 ## PixelButton im schwarzen Stil: eckig, Rahmen 1 dp, Großbuchstaben mit Laufweite; an: erhaben mit hellem Rahmen.
-func _button(label: String, enabled := true, go: Callable = Callable(), selected := false, small := false) -> Button:
+## 536 (SkirmishScreen detectTapGestures onLongPress): so lange gedrückt (s, Spielzeit egal), dann sagt der Knopf, was er tut
+const LANG_S := 0.5
+
+
+func _button(label: String, enabled := true, go: Callable = Callable(), selected := false, small := false, tip := []) -> Button:
 	var b := Button.new()
 	b.text = label.to_upper()
 	b.disabled = not enabled
@@ -473,8 +525,20 @@ func _button(label: String, enabled := true, go: Callable = Callable(), selected
 	b.add_theme_color_override("font_hover_color", BRIGHT if selected else TEXT)
 	b.add_theme_color_override("font_pressed_color", BRIGHT)
 	b.add_theme_color_override("font_disabled_color", Color(DIM, 0.6))
+	if not tip.is_empty():     # 536: langes Drücken zeigt, was der Knopf tut; losgelassen danach tut er nichts
+		b.button_down.connect(func():
+			var t0 := Time.get_ticks_msec()
+			b.set_meta("unten", t0)
+			get_tree().create_timer(LANG_S, true, false, true).timeout.connect(func():
+				if is_instance_valid(b) and b.is_pressed() and int(b.get_meta("unten", -1)) == t0:
+					b.set_meta("lang", true)
+					show_tip(str(tip[lang]))))
 	if go.is_valid():
-		b.pressed.connect(go)
+		b.pressed.connect(func():
+			if b.get_meta("lang", false):
+				b.set_meta("lang", false)
+				return
+			go.call())
 	return b
 
 
@@ -591,24 +655,24 @@ func _build_orders() -> void:
 					if reach.size() == 1:
 						k.order(["attack", reach[0].id])
 					else:
-						_set_pick("target")),
-				_button(t("Können", "Skills"), not m.moves(f).is_empty(), func(): _set_pick("skills")),
-				_button(t("Tasche", "Bag"), not m.drinkable().is_empty(), func(): _set_pick("bag")),
-				_button(t("Wechsel", "Switch"), m.can_swap(f) or m.can_draw(f), func(): _set_pick("place")),
+						_set_pick("target"), false, false, Tips.ATTACK),
+				_button(t("Können", "Skills"), not m.moves(f).is_empty(), func(): _set_pick("skills"), false, false, Tips.SKILLS),
+				_button(t("Tasche", "Bag"), not m.drinkable().is_empty(), func(): _set_pick("bag"), false, false, Tips.BAG),
+				_button(t("Wechsel", "Switch"), m.can_swap(f) or m.can_draw(f), func(): _set_pick("place"), false, false, Tips.PLACE),
 			]
-			var low := [_button(t("Abwehr", "Defend"), true, func(): k.order(["wait"]), false, true)]
+			var low := [_button(t("Abwehr", "Defend"), true, func(): k.order(["wait"]), false, true, Tips.DEFEND)]
 			# 296.2: fliehen wie im klassischen Kampf, nie vor einem Boss
 			if not m.all.any(func(x): return x.side == "FOES" and x.boss()):
 				low.append(_button(t("Flucht", "Run"), m.can_flee(f), func(): k.order(["flee"]), false, true))
 			if f.hero != null and f.hero.cls == "FIGHTER":
-				low.append(_button(t("Decken", "Cover"), not m.guardable(f).is_empty(), func(): k.order(["guard"]), false, true))
+				low.append(_button(t("Decken", "Cover"), not m.guardable(f).is_empty(), func(): k.order(["guard"]), false, true, Tips.COVER))
 			var merc = m.find("merc")
 			if merc != null:
 				low.append(_button(t("Söldner ", "Mercenary ") + (t("Auto", "auto") if merc.auto else t("selbst", "manual")), true, func():
 					merc.auto = not merc.auto
 					if merc.auto and m.current() == merc:
 						k.go_on()
-					refresh(), merc.auto, true))
+					refresh(), merc.auto, true, Tips.MERC))
 			low.append(_button(t("Held ", "Hero ") + (t("Auto", "auto") if m.autopilot else t("selbst", "manual")), true, func():
 				if m.autopilot:
 					m.set_autopilot(false)
@@ -619,7 +683,7 @@ func _build_orders() -> void:
 						show_tip(why[lang])
 					elif m.set_autopilot(true, k.shown.hp.get(lead.id, lead.hp)) and m.pilot_next():
 						k.go_on()
-				refresh(), m.autopilot, true))
+				refresh(), m.autopilot, true, Tips.AUTOPILOT))
 			# beide Zeilen in einer Schriftgröße
 			var fs := mini(_row_size(top), _row_size(low))
 			orders.add_child(_row(top, fs))
@@ -751,6 +815,33 @@ func show_roll(e: Dictionary) -> void:
 
 
 # ---------------------------------------------------------------- drawing over the scene
+## 536: was langes Drücken an [p] in der Szene sagt: auf einer Ansage, was sie heißt und was hilft (MarsTips intent, 210T);
+## auf einem Gegner sein Name, seine Absicht und ihr Ziel (SkirmishScreen whoIs); sonst nichts.
+func scene_tip(p: Vector2) -> String:
+	var k = kampfort
+	for id in sign_of:
+		if (sign_of[id] as Rect2).grow(6 * dp).has_point(p) and k.shown.intents.has(id):
+			var tx = Tips.INTENTS.get(String(k.shown.intents[id][0].id))
+			if tx != null:
+				return str(tx[lang])
+	for id in k.figures:
+		var fig = k.figures[id]
+		var f = k.mars.find(id)
+		if f == null or f.side != "FOES" or not fig.visible or fig.down:
+			continue
+		var h := _tall(fig)
+		var ft := _foot(fig)
+		if Rect2(ft.x - h * 0.5, ft.y - h * 1.1, h, h * 1.2).has_point(p):
+			var s: String = f.name(lang)
+			if k.shown.intents.has(id):
+				var plan: Array = k.shown.intents[id]
+				s += ": " + str(plan[0].name[lang])
+				if plan.size() > 1 and not (plan[1] as Array).is_empty() and k.mars.find(plan[1][0]) != null:
+					s += " → " + k.mars.find(plan[1][0]).name(lang)
+			return s
+	return ""
+
+
 ## Foot point and height on the screen of a figure.
 func _foot(fig) -> Vector2:
 	return kampfort.screen_of(fig.position)
@@ -1599,7 +1690,8 @@ func _draw_turns(sr: Rect2) -> void:
 	var m = k.mars
 	var fs := sp(13)
 	var x := 6 * dp
-	var y := 6 * dp
+	var y := 6 * dp + rand_oben()     # 552: unter dem schwarzen Band über der Kamera des Handys (Rand, 399.4)
+	turns_top = y
 	var h := fs * 1.35 + 4 * dp
 	var q: Array = []
 	for id in k.shown.get("queue", []):
@@ -1697,7 +1789,7 @@ func _stroke_from(r: Rect2, fx: float, head: float) -> Vector2:
 ## Fledermaus Runde 4c (Prüfer 4b: der Strich endete im Gesicht und deckte Maul und Augen): sie hängt aufrecht, das Gesicht liegt
 ## knapp unter den Ohrspitzen; der Strich endet darum an den Ohrspitzen
 func _bat(fig) -> bool:
-	return Figur.vier(fig.fighter) and fig.ersatz() == "giant_bat"     # 494: auch die Fledermaus mit eigenen Regeln (giant_bat)
+	return Figur.vier(fig.fighter) and fig._mein_ersatz() == "giant_bat"     # 494: auch die Fledermaus mit eigenen Regeln (giant_bat)
 
 
 func _stroke_to(r: Rect2, s: Dictionary) -> Vector2:

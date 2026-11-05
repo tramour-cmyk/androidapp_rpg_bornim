@@ -25,6 +25,8 @@ on:
         default: ""
       gegner:
         description: "Gegnerfilm 494 (Jerry): Gegner der Probe, mit Komma (BOARS, …); FLEDERMAUS: Vergleich 510"
+      kamin:
+        description: "Kamine 501 (Spike): ja = Grundrisse am Tag und nachts (--raeume), Lage der Kaminflammen"
         default: ""
 
 jobs:
@@ -116,6 +118,9 @@ jobs:
           for g in inn shop elder temple; do KARTE=$g bl/bin/python -I tools/blender348/v3/raum.py > raum-$g.log 2>&1 || { tail -30 raum-$g.log; exit 1; }; cp $OUT/$g.glb $D/$g.bin && cp $OUT/$g-info.json $D/; done
           for t in gras erde pflaster halme korn weiss; do cp $OUT/tex/$t.png $D/$t.bild; done
           cp $OUT/boden-maske.png $D/boden-maske.bild
+          # 490, 491 Gebietskarten des Walds (dorf.py KARTE=<karte>): <karte>.bin, -info.json, -boden-maske.bild (gebiet.gd datei, maske)
+          for g in forest deep_forest; do KARTE=$g bl/bin/python -I tools/blender348/v3/dorf.py > dorf-$g.log 2>&1 || { tail -30 dorf-$g.log; exit 1; }
+            grep -h "GLB OK\|NETZ" dorf-$g.log; cp $OUT/$g.glb $D/$g.bin && cp $OUT/$g-info.json $D/ && cp $OUT/$g-boden-maske.png $D/$g-boden-maske.bild; done
           ls -l $D
       # 376.1 (Chef 28.10., 22:0x): der Held je Klasse auf Kaufkoerper und Kaufkopf (held_klassen.py), Haare, Bewegungen aus der UAL;
       # seit 01.11. je Tracht der Herkunft und Geschlecht (held_<TRACHT>_<M|W>), mit Statur;
@@ -145,7 +150,7 @@ jobs:
       - name: Leute bauen (Dorf)
         run: |
           # 348.6 Leute: jede Person des Dorfs, die leute.json kennt, als Figur (held3 FIGUR=<id>, rig), 4 zugleich
-          ids=$(python3 -c "import json; k=json.load(open('godot/daten/karten.json'))['karten']; l=json.load(open('tools/blender348/v3/leute.json')); print(' '.join(sorted({n['id'] for m in ('village', 'inn', 'shop', 'elder', 'temple') for n in k[m]['leute'] if n['id'] in l})))")   # 399.1: auch die Leute der Grundrisse
+          ids=$(python3 -c "import json; k=json.load(open('godot/daten/karten.json'))['karten']; l=json.load(open('tools/blender348/v3/leute.json')); print(' '.join(sorted({n['id'] for m in ('village', 'inn', 'shop', 'elder', 'temple', 'forest', 'deep_forest') for n in k[m]['leute'] if n['id'] in l})))")   # 399.1: auch die Leute der Grundrisse
           echo "Leute: $ids"
           bau() { o=$RUNNER_TEMP/leute/$1; mkdir -p $o
             for s in held3 rig; do OUT=$o FIGUR=$1 bl/bin/python -I tools/blender348/v3/$s.py > $o/$s.log 2>&1 || { echo "$1 $s"; tail -30 $o/$s.log; return 1; }; done; }
@@ -205,6 +210,7 @@ jobs:
           # 494 (Jerry 03.11., 19:1x): die Riesenfledermaus fehlte im Spiel-Build (nur im Film 510 gebaut), Fledermäuse auf der Karte
           # standen als Platzhalter; die eigene (fledermaus.py), bis der Chef in 510 wählt
           bau fledermaus.py
+          for o in waldrand teich baum felsen steinkreis; do bau kampfort_wald.py SPOT=$o; done   # 493 Kampforte im Wald wie alt
           for a in goblin goblin_archer goblin_shaman kobold; do bau goblin.py ART=$a V3=tools/blender348/v3_kampf; done   # v3_kampf/LIESMICH.md
           D=godot/kampf/daten; mkdir -p $D
           cp $OUT/held.glb $D/held.bin
@@ -213,6 +219,7 @@ jobs:
           for f in braun grau schwarz; do cp $OUT/giant_rat-$f.glb $D/giant_rat-$f.bin; done; cp $OUT/giant_rat-info.json $D/
           for f in braun schwarz grau; do cp $OUT/giant_bat-$f.glb $D/giant_bat-$f.bin; done; cp $OUT/giant_bat-info.json $D/
           cp $OUT/kampfort-wald.glb $D/kampfort-wald.bin; cp $OUT/wald-maske.png $D/wald-maske.bild
+          for o in waldrand teich baum felsen steinkreis; do cp $OUT/kampfort-wald-$o.glb $D/kampfort-wald-$o.bin; cp $OUT/wald-maske-$o.png $D/wald-maske-$o.bild; done
           for w in dagger shortsword longsword quarterstaff shield round_shield scimitar handaxe scimitar-rost handaxe-rost dagger-rost dagger-kobold round_shield-grob shortbow staff-schamane spear-rost; do cp $OUT/$w.glb $D/$w.bin; done
           for k in leder kappe helm; do cp $OUT/goblin-$k.glb $D/goblin-$k.bin; done; cp $OUT/goblin-info.json $D/
           for k in kapuze kappe fell; do cp $OUT/goblin_archer-$k.glb $D/goblin_archer-$k.bin; done; cp $OUT/goblin_archer-info.json $D/
@@ -337,22 +344,44 @@ jobs:
           timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/strahl_mess_415.gd 2>&1 | grep -E "^(Strahl|STRAHL)|SCRIPT ERROR" || true
           timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_test.gd 2>&1 | grep -E "^(gut|FALSCH)|KLANG|SCRIPT ERROR"   # 399.3
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_473.gd 2>&1 | grep -E "FALSCH|BRS473|SCRIPT ERROR"   # 473 Monsterwerte BRS wie sim444
+          timeout 60 ~/godot/godot --headless --path . -s res://tests/masse_498.gd 2>&1 | tee masse498.log | grep -E "FEHLER|MASSE498|SCRIPT ERROR"; grep -q "^MASSE498 0 Fehler" masse498.log   # 498 Schrift wie alt
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/gluehwuermchen_514.gd 2>&1 | tee glueh514.log | grep -E "FEHLER|GLUEH514|SCRIPT ERROR"; grep -q "^GLUEH514 0 Fehler" glueh514.log   # 514 Gluehwuermchen wie alt
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_472.gd 2>&1 | grep -E "FALSCH|BRS472|SCRIPT ERROR"   # 472 Heldenstufe aus Erfahrung
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/stufe_538.gd 2>&1 | grep -E "FEHLER|STUFE|SCRIPT ERROR"   # 538 Stufengrenze Kapitel 1, Stufe in Gespraechen
           timeout 120 ~/godot/godot --headless --path . -s res://tests/zwischenbild_test.gd 2>&1 | grep -E "FALSCH|ZWISCHENBILD|SCRIPT ERROR"   # 399.1 Intro
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tasten_4161.gd 2>&1 | grep -E "FEHLER|TASTEN|SCRIPT ERROR"   # 416.1
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/rueckfrage_526.gd 2>&1 | grep -E "FEHLER|RUECKFRAGE|SCRIPT ERROR"   # 526 Rückfragen: daneben tippen, Zurück
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/kamin_501.gd 2>&1 | grep -E "FEHLER|KAMIN501|Kamin|SCRIPT ERROR"   # 501 Flamme auf den Scheiten
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/probeknoepfe_500.gd 2>&1 | grep -E "FEHLER|PROBEKNOEPFE500|SCRIPT ERROR"   # 500 Probeknoepfe weg
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/lizenz_497.gd 2>&1 | grep -E "FEHLER|LIZENZ497|ENGINE|SCRIPT ERROR"   # 497 Lizenzen der Engine
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tresen_4167.gd 2>&1 | grep -E "FEHLER|TRESEN|SCRIPT ERROR"   # 416.7
+          set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/ausruestung_522.gd 2>&1 | grep -E "^(gut|FEHLER|AUSRUESTUNG522|ohne)|SCRIPT ERROR"   # 522 Figur nach Ausruestungswechsel
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/tasche_521.gd 2>&1 | grep -E "^(gut|FEHLER|TASCHE521)|SCRIPT ERROR"   # 521, 523 Ausruestungszeile wie alt
           timeout 120 ~/godot/godot --headless --path . -s res://tests/platzwechsel_4162.gd 2>&1 | grep -E "FEHLER|PLATZWECHSEL|SCRIPT ERROR"   # 416.2
           timeout 120 ~/godot/godot --headless --path . -s res://tests/ziege_4162.gd 2>&1 | grep -E "FEHLER|ZIEGE|SCRIPT ERROR"   # 416.2 Ziege (146.5)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/zeichen_425.gd 2>&1 | grep -E "FEHLER|ZEICHEN|SCRIPT ERROR"   # 425
           timeout 120 ~/godot/godot --headless --path . -s res://tests/testmenue_mass_425.gd 2>&1 | grep -E "FEHLER|TESTMENUE|SCRIPT ERROR"   # 425 Befunde Testmenue
           timeout 120 ~/godot/godot --headless --path . -s res://tests/laden_4169.gd 2>&1 | grep -E "FEHLER|LADEN4169|SCRIPT ERROR"   # 416.9
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/laden_503.gd 2>&1 | grep -E "FEHLER|LADEN503|SCRIPT ERROR"   # 503 Knopf und Rueckfrage wie alt
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/schlagbaum_530.gd 2>&1 | tee schlagbaum530.log | grep -E "FEHLER|SCHLAGBAUM530|SCRIPT ERROR"; grep -q "^SCHLAGBAUM530 0 Fehler" schlagbaum530.log   # 530 Schlagbaum offen sichtbar
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/fenster_519.gd 2>&1 | tee fenster519.log | grep -E "FEHLER|FENSTER519|SCRIPT ERROR"; grep -q "^FENSTER519 0 Fehler" fenster519.log   # 519 Gegenstandsfenster passt auf den Schirm
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/gegenstand_524.gd 2>&1 | tee gegenstand524.log | grep -E "FEHLER|GEGENSTAND524|SCRIPT ERROR"; grep -q "^GEGENSTAND524 0 Fehler" gegenstand524.log   # 524 Inhalt wie GearDetails alt
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/groesse_520.gd 2>&1 | tee groesse520.log | grep -E "FEHLER|GROESSE520|SCRIPT ERROR"; grep -q "^GROESSE520 0 Fehler" groesse520.log   # 520 Held im Reiter Ausruestung so gross wie alt
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/klangschalter_489.gd 2>&1 | grep -E "FALSCH|KLANGSCHALTER489|SCRIPT ERROR"   # 489 Musik, Effekte im Hauptmenue
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/kampforte_493.gd 2>&1 | grep -E "FALSCH|KAMPFORTE493|Kampforte|SCRIPT ERROR"   # 493 Kampforte im Wald
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/gruppen_535.gd 2>&1 | grep -E "FEHLER|GRUPPEN_535|SCRIPT ERROR"   # 535 Ratten, Fledermäuse, Kobolde, Schamanen mit eigenen Regeln
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/faehigkeiten_534.gd 2>&1 | grep -E "FEHLER|FAEHIGKEITEN_534|SCRIPT ERROR"   # 534 Lebensraub, Schadensminderung, Unerbittlich, Einschüchtern
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_470.gd 2>&1 | grep -E "FALSCH|BRS470|SCRIPT ERROR"   # 470 Erschaffung BRS 1.1
           timeout 120 ~/godot/godot --headless --path . -s res://tests/testmenue_470.gd 2>&1 | grep -E "FEHLER|TESTMENUE470"   # 470a B: Erschaffung BRS nur im Testmenue
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/testmenue_555.gd 2>&1 | tee testmenue555.log | grep -E "FEHLER|TESTMENUE555|SCRIPT ERROR"; grep -q "^TESTMENUE555 0 Fehler" testmenue555.log   # 555, 554 Testmenue wie alt und schneller
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/notiz_550.gd 2>&1 | tee notiz550.log | grep -E "FEHLER|NOTIZ550|SCRIPT ERROR"; grep -q "^NOTIZ550 0 Fehler" notiz550.log   # 550 Notiz beim ersten Mal so gross wie danach
           timeout 120 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4532.gd 2>&1 | grep -E "^(ok|FEHLER|ATEM)"   # 453.2 Atmen unterwegs
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/wildschwein_494.gd 2>&1 | grep -E "Wildschwein|WILDSCHWEIN|FEHLER|SCRIPT ERROR"   # 494 Wildschwein
           set -o pipefail; timeout 400 ~/godot/godot --headless --path . -s res://tests/krogg_494.gd 2>&1 | grep -E "Krogg|KROGG|FEHLER|SCRIPT ERROR"   # 494 Krogg, Morwens Rauch
           set -o pipefail; timeout 400 ~/godot/godot --headless --path . -s res://tests/spinne_494.gd 2>&1 | grep -E "Spinne|SPINNE|FEHLER|SCRIPT ERROR"   # 494 Riesenspinne, drei Häute
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/wald_490.gd 2>&1 | tee wald490.log | grep -E "FEHLER|WALD490|SCRIPT ERROR"; grep -q "^WALD490 0 Fehler" wald490.log   # 490
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/position_518.gd 2>&1 | tee position518.log | grep -E "FEHLER|POSITION518|SCRIPT ERROR"; grep -q "^POSITION518 0 Fehler" position518.log   # 518 Shader setzen POSITION immer
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/wald_491.gd 2>&1 | tee wald491.log | grep -E "FEHLER|WALD491|SCRIPT ERROR"; grep -q "^WALD491 0 Fehler" wald491.log   # 491
       # fester Schluessel ueber alle Laeufe, sonst lehnt Android das Update ab (348.5, Build 9). 399.1a (Chef 28.10., 14:41): der Cache
       # eines Zweigs galt nur dort (Build 130 bekam einen neuen); jetzt nur lesen, angelegt wird er auf main (godot-schluessel.yml)
       - uses: actions/cache/restore@v4
@@ -390,6 +419,28 @@ jobs:
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --bilder=$GITHUB_WORKSPACE/bilder 2>&1 | grep -E "Vulkan|SCRIPT ERROR" || true
           ls -l $GITHUB_WORKSPACE/bilder
+      # 501 (Chef 03.11., 07:26): Kamine in den Grundrissen, Renderer wie am Handy; KAMIN-Zeilen: Lage der Flamme im Bild (Ausschnitt)
+      - name: Kamine 501 (nur von Hand mit kamin=ja)
+        if: ${{ !cancelled() && github.event.inputs.kamin == 'ja' }}
+        continue-on-error: true
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/bilder/raeume
+          cd godot
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --raeume=$GITHUB_WORKSPACE/bilder/raeume 2>&1 | grep -E "SCRIPT ERROR|^BILD|^KAMIN" | cut -c1-300 | tee $GITHUB_WORKSPACE/bilder/kamin501.log || true
+          ls -l $GITHUB_WORKSPACE/bilder/raeume
+      # 493 (Jerry): je Kampfort im Wald ein Standbild wie im Spiel (Probekampf Kleriker und Kämpfer gegen das Wolfsrudel), nur bei „493“
+      - name: Kampforte Wald (493)
+        if: contains(github.event.head_commit.message, '493') || (github.event_name == 'workflow_dispatch' && contains(github.ref, '493'))   # von Hand ohne head_commit (Lauf 213: übersprungen)
+        continue-on-error: true
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/bilder/kampforte
+          cd godot
+          for o in lichtung waldrand teich baum felsen steinkreis; do
+            PLATZ=$o VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 400 xvfb-run -a -s "-screen 0 1080x2340x24" \
+              ~/godot/godot --path . res://kampf/probe.tscn --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --bild=$GITHUB_WORKSPACE/bilder/kampforte/$o.png 2>&1 | grep -E "SCRIPT ERROR|^Dran" | cut -c1-300 || true
+          done
+          ls -l $GITHUB_WORKSPACE/bilder/kampforte
       # 348.13b Tusche nach Laterne, Fenster, Fackel: nachts je Ort mit und ohne, Kosten je Bild (Renderer wie am Handy), nur bei „348.13b“
       - name: Tusche nachts (348.13b)
         if: contains(github.event.head_commit.message, '348.13b')
@@ -563,6 +614,39 @@ jobs:
           grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER" $B/film.log | head -16 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/fm510.avi -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast $B/510-fledermaus.mp4 || true
           ls -l $B
+      # 490 Flüsterwald: aus Sicht des Helden (Ankunft, Feuer, Teich, Kraeuter, Hoehle, Rand, Monster mit „!“, nachts Feuer und Ankunft),
+      # mit Kaufheld wie im Build; nur bei „490 Waldbilder“ im Commit oder von Hand auf dem Zweig claude/spike-490-…
+      - name: Waldbilder (490)
+        if: contains(github.event.head_commit.message, '490 Waldbilder') || (github.event_name == 'workflow_dispatch' && contains(github.ref, 'spike-490'))
+        continue-on-error: true
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/bilder/wald490
+          cd godot
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --wald=$GITHUB_WORKSPACE/bilder/wald490 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^BILD|^LEUTE|^WALDBILDER" | cut -c1-400 || true
+          ls -l $GITHUB_WORKSPACE/bilder/wald490
+      # 491 Tiefer Flüsterwald: Ankunft, Weg zwischen den Baeumen, Morwen mit Huette, Grimmzahn, nachts Morwen und Grimmzahn; nur bei
+      # „491 Tiefwaldbilder“ im Commit oder von Hand auf dem Zweig claude/spike-491-…
+      - name: Tiefwaldbilder (491)
+        if: contains(github.event.head_commit.message, '491 Tiefwaldbilder') || (github.event_name == 'workflow_dispatch' && contains(github.ref, 'spike-491'))
+        continue-on-error: true
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/bilder/tiefwald491
+          cd godot
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --tiefwald=$GITHUB_WORKSPACE/bilder/tiefwald491 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^BILD|^LEUTE|^TIEFWALDBILDER" | cut -c1-400 || true
+          ls -l $GITHUB_WORKSPACE/bilder/tiefwald491
+      # 514 Gluehwuermchen: je Gebietskarte der groesste Schwarm nachts aus Sicht des Helden, zwei Augenblicke; nur bei „514 Glühbilder“
+      # im Commit oder von Hand auf einem Zweig mit „514“
+      - name: Glühwürmchenbilder (514)
+        if: contains(github.event.head_commit.message, '514 Glühbilder') || (github.event_name == 'workflow_dispatch' && contains(github.ref, '514'))
+        continue-on-error: true
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/bilder/gluehen514
+          cd godot
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --gluehen=$GITHUB_WORKSPACE/bilder/gluehen514 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^BILD|^GLUEH" | cut -c1-400 || true
+          ls -l $GITHUB_WORKSPACE/bilder/gluehen514
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # 453: Filme auch nach rotem Prüfschritt; nie mit bild=nein
         with:

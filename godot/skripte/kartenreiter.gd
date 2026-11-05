@@ -86,6 +86,7 @@ func baue() -> void:
 			baue())
 		b.size_flags_horizontal = Control.SIZE_SHRINK_END
 		b.custom_minimum_size = Vector2(0, 36 * DP)
+		b.clip_text = false   # 503: mit clip_text und SHRINK 0 breit, ohne Text
 		kopf.add_child(b)
 		var reihe := HBoxContainer.new()
 		reihe.add_theme_constant_override("separation", int(6 * DP))
@@ -114,6 +115,7 @@ func tipp(text: String, chronik := false) -> void:
 		var b := Erschaffung.knopf(wort("chronik"), zur_chronik)
 		b.custom_minimum_size = Vector2(0, 32 * DP)
 		b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		b.clip_text = false   # 503
 		spalte.add_child(b)
 	tipp_kasten = Erschaffung.kasten(spalte)
 	tipp_kasten.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)

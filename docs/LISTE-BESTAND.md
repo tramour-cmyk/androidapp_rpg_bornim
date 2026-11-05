@@ -105,9 +105,13 @@ Alles Quaternius, CC0 (`License_Source.txt`/`License_Standard.txt` geprüft), Ge
 | Einzelteile je Tracht: Arms, Body, Legs, Feet; Knight: Body_Armor/Cloth, Head_Armet, Head_Horns, Pauldron(s)_Round/Spike, Scarf; Noble: Head_Crown, Gorget, Pauldron(_Lion); Ranger: Head_Hood, Pauldron(s), Feet_Boots | dasselbe Zip → `…/Modular Parts/` | privat | glTF |
 | Standardfassung (nur Peasant, Ranger) | `Modular.Character.Outfits.-.Fantasy.Standard.zip` (681370524) | privat, itch | glTF, FBX |
 
+**In Gebrauch** (494 Krogg, Jerry 03.11., `krogg_gestalt.py`): Superhero_Male_FullBody (Körper, Hände, Gerüst; Kopf weg), Textur T_Superhero_Male_Dark; UAL Standard Idle_Loop „Stehen“, Sword_Idle (Waffenarm), Walk_Loop, Hit_Chest, Sword_Attack; UAL Pro Sword_Attack_Standing „Hieb“, Death02 „Tod“, Jog_Fwd/Bwd/Right/Left_Loop
+
 **In Gebrauch** (348.12 Grak, Jerry 28.10., `grak_gestalt.py`, Abruf `cc0_laden.sh`): Superhero_Male_FullBody (nur Kopf, Hals, Brustansatz), Male_Ranger ohne Kapuze (Pauldron gespiegelt), Texturen T_Superhero_Male_Dark, T_Regular_Male_Dark_BaseColor, T_Ranger_BaseColor, T_Eye_Brown (umgefärbt); UAL Standard Idle_Loop „Stehen“, Walk_Loop „Gehen“, Hit_Chest „Treffer“; UAL Pro Death02 „Tod“, Jog_Fwd_Loop „Rennen“, Jog_Bwd_Loop „Zurück“, Jog_Right/Left_Loop „Ausweichen“ (9 Bilder), Weg am Boden aus `UAL1_RM.glb` (`UAL=`; 29.10.).
 
 ## Tiere und Monster
+
+**Janpec Braunbär** (privat, siehe oben; im Einsatz 494 Krogg, `krogg_gestalt.py`: nur Kopf mit Ohren und Kiefer aus `Models/Bear_Rig.fbx`, Farbbild `Textures/brown_bear_col4_unity.tga`): Idle, Walk, Run, Attack, Eat, Die; Netz 2.361 Ecken, Kopf 1.259.
 
 **Protofactor Riesenratte** (privat, siehe oben; im Einsatz Probe 348.12f, `kaufratte.py`): Idle, Walk, Run, Taunt, DodgeLeft/Right/Backwards, JumpBite, GetHitFront/Left/Right, Death; Walk, Run, Dodge*, JumpBite auch `_RM`; dazu `GIANT_RAT@AllAnimations.FBX`. Texturen Fell (tga, png).
 
@@ -183,6 +187,7 @@ Fehlt im Paket: Hund, Katze, Pferd, Schaf, Vögel außer Huhn und Gans.
 
 - **Omie:** Langschwert, Kurzschwert, Krummsäbel, Dolch; Handaxt, Streitaxt, große Axt; Speer, Hellebarde, Dreizack; Streitkolben, Kriegshammer, Kriegspicke, Flegel; Bogen, Armbrust; Zauberstab („Staff Magic“, ein Stück, ohne Kugel); Rund-, Kite-, Faustschild.
 - **Anker:** 8 Schwerter (Claymore, Zweihänder, Falchion, Messer …), Dolch, 4 Äxte (mit Bardiche), 5 Stangenwaffen (Lanze, Wurfspeer …), 7 Schlagwaffen (Morgenstern-Keule, Zweihandhammer …), Lang- und Reiterbogen, Armbrust, Pfeil, Bolzen, Köcher; Zauberbuch offen und zu, Schriftrolle, 6 Tränke; Schilde A–F; Heugabel, Sense, Sichel, Besen, Laute, Krug; 9 Belagerungsgeräte (über 3.000 Dreiecke). Kein Stab.
+- **In Gebrauch:** Anker `Maces/Spiked Mace.fbx` (265 Flächen, zwei Grundfarben) als Kroggs Morgenstern (494, `krogg_gestalt.py`, auf 0,92 m, Eisen mit Blutflecken).
 - **Avramania:** Schwert, Kurzschwert, Holzschwert, Dolch, Messer, Handaxt, Speer, Streitkolben, Kurzbogen, Armbrust, Pfeil, Bolzen, Köcher, Stab; Rund-, Faust-, Übungsschild; Scheide, Waffenständer.
 - **PolyMech:** Kite, vier runde (Holz, Metallrand, offen), Holz mit Metallrahmen, zwei lange (Eisen, Löwenherz), Löwenherz klein.
 - **Überschneidung:** Dolch, Streitkolben, Bogen, Armbrust, Schwert, Handaxt, Speer, Rundschild in drei Paketen. Nur Omie: Dreizack, Kriegspicke, Krummsäbel; nur Anker: Bücher, Tränke, Belagerung, Werkzeug.
@@ -217,6 +222,8 @@ Dungeon: kein fremder Bausatz im Bestand.
 | Paket | Datei | Ort | Lizenz | Inhalt |
 |---|---|---|---|---|
 | Beams & Lasers VFX Free Sample v1.0 (reeboolabs, gratis; 415, geladen 02.11.) | `anhang/beams/Beams_Lasers_VFX_Godot_Free_Sample.zip` | privat | eigene (`LICENSE.txt`): im Spiel kommerziell, Dateien nie weitergeben; Maskottchen „Oho“ nie ins Spiel | Godot-Addon `reeboo_beams` (Knoten ReebooBeam3D/2D, 11 Shader): Blauer Laser, Feuerstrom, Blitzbogen, je 3D und 2D; im Bau nach `godot/addons/` (godot.yml) |
+| REEBOO Stylized VFX Free Sample v1.5 (REEBOO Labs, gratis; 572, hochgeladen Chef 04.11., 20:26) | `REEBOO_Stylized_VFX_Free_Sample_v1.5.zip`, Asset 710646298 (55 KB) | privat (`stufe1`) | eigene (`addons/reeboo_vfx/LICENSE.txt`): unbefristet, kommerziell in eigenen Spielen, ändern erlaubt, im fertigen Spiel immer erlaubt, Nennung nicht Pflicht; Dateien nie weitergeben, auch nicht geändert; passt zu 348.12c | Addon `reeboo_vfx` (Knoten `VFXEffect`, Shader `vfx_slash`, `vfx_add`, `vfx_particle`), 3 Effekte: Hit Spark (Trefferfunken), Slash (Hiebbogen), Pickup Sparkle (Aufheben); Godot 4.4+, Demo auf 4.7; volles Paket 25 Effekte (u. a. Feuerball, Blitzschlag, Heilung, Stufenaufstieg, Schild, Giftwolke, Eisstoß, Lagerfeuer, Brennen, Teleport, Schattenstoß) `reebo0.itch.io/stylized-vfx-godot`, Pack 2 mit 61 Effekten 20 $ |
+| Stylized Status Effects VFX Free Sample v1.0 (REEBOO Labs, gratis; 572, hochgeladen Chef 04.11., 20:26) | `Stylized_Status_Effects_VFX_Free_Sample_v1.0.zip`, Asset 710646328 (67 KB) | privat (`stufe1`) | eigene (`LICENSE.txt`), gleicher Wortlaut wie oben, gilt ausdrücklich auch für das Gratisstück | Addon `reeboo_vfx` (gleicher Kern `vfx_effect.gd`, eigene Shader `vfx_status_*`), 3 Effekte: armor_up (Rüstungsplatten kreisen, dauernd), poisoned (Giftblasen, Gas, Tropfen, dauernd), buff_gain (goldene Pfeile, Lichtsäule, einmalig); GPU-Partikel und Shader, Zeichen ohne Bilder; Forward+, Mobile, Compatibility; Glow empfohlen, nicht nötig; Größe für 1,8 m; volles Paket 23 Effekte 6,99 $ `reebo0.itch.io/status-effects-vfx-godot` |
 
 ## Eigenbau im Zweig (nicht fremd)
 

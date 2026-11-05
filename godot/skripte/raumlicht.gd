@@ -21,6 +21,7 @@ const KERZE_WEIT := 2.0       # Lauf 6 (Lauf 1-5: Reichweite 1, Abfall 1)
 const KERZE_ABFALL := 2.0
 const SCHEIBE_TAG := 0.3      # Lauf 1-5: 0,85; Lauf 6: 0,45, Lauf 7 (gedreht noch die groesste helle Flaeche)
 const SCHEIBE_TAG_TON := 0.5
+const SICHTBAR_AB := 0.15     # 501: flamme.gdshader „oben = smoothstep(0, 0.3, h)“, halb sichtbar bei 15 % der Hoehe
 const TUER_ANTEIL := 0.6      # Licht durch die offene Tuer (Lauf 7: scharfer heller Keil ueber Teppich und Boden)
 
 static func baue(g: Node3D, info: Dictionary, netz: Node3D) -> Raumlicht:
@@ -96,12 +97,17 @@ func licht(l: Dictionary) -> void:
 func flamme(p: Vector3, gross: float, kamin: bool) -> Node3D:
 	if flamme_shader == null: flamme_shader = load("res://shader/flamme.gdshader")
 	var kern := Node3D.new()
-	kern.position = p + Vector3(0, 0.1 * gross, 0)   # Fuss der Flamme auf Docht oder Scheit
 	kern.scale = Vector3.ONE * gross
 	add_child(kern)
 	# wie held.gd Fackel (Runde 5b): Kern, Mantel, Zungen mit eigenem Takt; beim Kamin mehr Zungen nebeneinander
 	var form := [[0.055, 0.24, 0.0, 0.0], [0.03, 0.14, 0.0, -0.04], [0.022, 0.15, 0.022, 0.05], [0.02, 0.13, -0.024, 0.04], [0.016, 0.11, 0.0, 0.07]]
 	if kamin: form += [[0.04, 0.2, -0.05, -0.01], [0.04, 0.19, 0.05, -0.01], [0.025, 0.13, -0.08, -0.03], [0.025, 0.12, 0.08, -0.03]]
+	# Fuss der Flamme auf Docht oder Scheit: der tiefste sichtbare Punkt (flamme.gdshader blendet unten aus, sichtbar ab SICHTBAR_AB
+	# der Hoehe) liegt auf p. 501 (Chef 03.11., 07:26, Schaenke: „das scheint ja irgendwie zu schweben“): vorher p + 0,1 × Groesse,
+	# im Kamin begann die Flamme 8 cm ueber den Scheiten (Test kamin_501)
+	var tief := 0.0
+	for f_ in form: tief = minf(tief, float(f_[3]) - float(f_[1]) * (0.5 - SICHTBAR_AB))
+	kern.position = p - Vector3(0, tief * gross, 0)
 	for k in form.size() + 1:
 		var mi := MeshInstance3D.new()
 		var m := ShaderMaterial.new()

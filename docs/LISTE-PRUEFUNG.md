@@ -49,7 +49,7 @@ Eine Datei auf `main` (99g, seit 16.10.; Lauf 1–21 im abgelösten Artefakt), b
 Wiederholbar statt nach Gefühl; du pflegst sie (neue Punkte mit Datum). Grundlage „Ort fertig“ in `DESIGN-ABNAHME.md`.
 
 - **Jeder Ort:** Punkte aus „Ort fertig“; Leute, Questziele, Eingänge frei zur Kamera (43); Zufallsspieler ohne Absturz und ohne Festhängen (Kerntest); Standbild Tag und Nacht.
-- **Jede Oberfläche (60):** neues Aussehen (schwarz, Gold, Serife, keine hellen Tafeln), Farben auf Schwarz lesbar, nichts bricht um oder läuft über, Deutsch und Englisch vollständig.
+- **Jede Oberfläche (60):** neues Aussehen (schwarz, Gold, Serife, keine hellen Tafeln); Menüs, Schirme und Fenster nach `DESIGN-STIL.md` „Fenster und Schirme ohne Kasten“ (549a: Aufbau, Ausrichtung, Knöpfe, Schrift, Farben, Prüfpunkte dort), Farben auf Schwarz lesbar, nichts bricht um oder läuft über, Deutsch und Englisch vollständig.
 - **Texte (41):** Spieltexte gleich den Teildateien `docs/STORY-*.md` (Verzeichnis `STORY-REGELN.md`, Änderungen `tools/story.sh <Stand>`), keine fehlenden Übersetzungen, generisches Maskulinum.
 - **Balance (38):** Kerntest-Messungen in den Zielen aus `DESIGN-BALANCE.md`.
 - **Abläufe (Revisor):** Schlüssigkeit, Risiken, Übersehenes; jede Übernahme gegen die alte Fassung (schon da, präziser, gebraucht).

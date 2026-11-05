@@ -17,21 +17,24 @@ uniform float weg = 0.0;           // 348.7: Ausblenden des Toten (0 da, 1 weg),
 varying vec3 wpos;
 void vertex() {
 	wpos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
-	if (rueck > 0.0 || (nach > 0.0 && UV2.y > 0.5) || (vorrang > 0.0 && UV2.x > 0.5)) {   // laengs des Blickstrahls: Lage im Bild bleibt, nur die Tiefe
-		vec4 vv = MODELVIEW_MATRIX * vec4(VERTEX, 1.0);
-		vec3 blick = PROJECTION_MATRIX[3][3] > 0.5 ? vec3(0.0, 0.0, -1.0) : normalize(vv.xyz);   // Dorf orthogonal (kamera.gd), Kampfort perspektivisch
-		if (vorrang > 0.0 && UV2.x > 0.5) vv.xyz -= blick * vorrang;
-		// 463 (pruef_flecken RUECK): Innenseite einer Lage verliert gegen eine Vorderseite bis rueck dahinter; Vorderseiten bleiben
-		if (rueck > 0.0) vv.xyz += blick * rueck * smoothstep(0.0, 0.2, dot(normalize((MODELVIEW_MATRIX * vec4(NORMAL, 0.0)).xyz), blick));
-		if (nach > 0.0 && UV2.y > 0.5) vv.xyz += blick * nach;
-		POSITION = PROJECTION_MATRIX * vv;
-	}
 	if (sway > 0.0) {
 		float h = clamp((wpos.y - 1.6) / 2.5, 0.0, 1.0);
 		float t = TIME * 1.3 + wpos.x * 0.35 + wpos.z * 0.27;
 		vec3 d = vec3(sin(t) + 0.4 * sin(t * 2.7), 0.0, cos(t * 0.8) * 0.6) * 0.045 * h * sway;
 		VERTEX += (inverse(MODEL_MATRIX) * vec4(d, 0.0)).xyz;
 	}
+	// 518 (Build 248, Chef 20:47: Dorf ohne Haeuser): schreibt der Shader POSITION irgendwo, nimmt Godot es fuer jede Ecke; ungeschrieben
+	// fielen alle Ecken auf einen Punkt (Haeuser, Baeume, Haar, Waffe unsichtbar, nur Tusche und Schatten blieben). Darum immer setzen,
+	// zuletzt (nach dem Wiegen), ohne Versatz genau wie Godot selbst
+	vec4 vv = MODELVIEW_MATRIX * vec4(VERTEX, 1.0);
+	if (rueck > 0.0 || (nach > 0.0 && UV2.y > 0.5) || (vorrang > 0.0 && UV2.x > 0.5)) {   // laengs des Blickstrahls: Lage im Bild bleibt, nur die Tiefe
+		vec3 blick = PROJECTION_MATRIX[3][3] > 0.5 ? vec3(0.0, 0.0, -1.0) : normalize(vv.xyz);   // Dorf orthogonal (kamera.gd), Kampfort perspektivisch
+		if (vorrang > 0.0 && UV2.x > 0.5) vv.xyz -= blick * vorrang;
+		// 463 (pruef_flecken RUECK): Innenseite einer Lage verliert gegen eine Vorderseite bis rueck dahinter; Vorderseiten bleiben
+		if (rueck > 0.0) vv.xyz += blick * rueck * smoothstep(0.0, 0.2, dot(normalize((MODELVIEW_MATRIX * vec4(NORMAL, 0.0)).xyz), blick));
+		if (nach > 0.0 && UV2.y > 0.5) vv.xyz += blick * nach;
+	}
+	POSITION = PROJECTION_MATRIX * vv;
 }
 void fragment() {
 	// Laub zwischen Kamera und Held: innen fast frei, nach aussen weich dicht. Der deckende Durchgang laesst das Loch aus (Schatten bleibt),

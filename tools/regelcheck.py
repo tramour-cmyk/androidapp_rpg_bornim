@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Regelabgleich (167.9): was ein Skript zählen oder vergleichen kann, damit keine Sitzung es tun muss.
 
-Aufruf: python3 tools/regelcheck.py [--kurz] [--anlass SHA]   (--kurz: nur Pflegefehler der Vorräte, Teil 1 und 2; ruft notiz.sh beim Start)    (Ford ruft es im Morgenlauf, Ausgabe in die Morgenmeldung)
+Aufruf: python3 tools/regelcheck.py [--kurz] [--anlass SHA] | --rueckmeldung [--um "TT.MM. HH:MM"]   (--rueckmeldung: nur Prüfung 559, ruft lauf.py stündlich; --um: Stand aus Git zu dieser Zeit; --kurz: nur Pflegefehler der Vorräte, Teil 1 und 2; ruft notiz.sh beim Start)    (Ford ruft es im Morgenlauf, Ausgabe in die Morgenmeldung)
 Prüft: startbar.py (erledigte, nicht gestrichene, unlesbare Zeilen), Größen (Vorräte 15 KB, CLAUDE.md, LISTE-VORGAENGE.md),
 Zeilen über 1 500 Zeichen in Vorräten, Testbuilds am Tag (höchstens 6, 317), tote Verweise auf `Datei.md` / `tools/x` / `docs/…`, alte Dateinamen (notiz.sh), Lizenzhinweis SRD (446: Meldezeile, solange alte Namen im Spiel; Fund, wenn der Hinweis dann fehlt).
 --anlass SHA: nennt die Regeldateien (CLAUDE.md, ROLLE-*, LISTE-BETRIEB.md, VORGANGSARCHIV.md), die seit SHA geändert wurden;
@@ -20,6 +20,76 @@ def lesen(p):
 def gross(pfad, grenze, was):
     n = os.path.getsize(pfad)
     if n > grenze: fund.append("%s: %d Bytes (Grenze %d), %s" % (os.path.relpath(pfad, ROOT), n, grenze, was))
+
+# 559 (Chef 04.11., 16:18; Anlass 557 zwei Stunden „wartet auf Chef“ nach seiner Rückmeldung): wartet eine Zeile auf den Chef
+# (Stand „wartet auf Chef…“ im Vorrat oder „Chef“ in LISTE-VORGAENGE.md) und gibt es eine neuere Rückmeldung (Zeile „Zu <Nr>“ mit
+# „Chef TT.MM., HH:MM“, oder Archiveintrag „- **<Nr>…** (TT.MM., HH:MM“) als den letzten Commit der Chefsache-Datei zur Nummer, dann melden.
+# Ohne Datei in der Geschichte kein Bezugspunkt, keine Meldung. --rueckmeldung [--um "TT.MM. HH:MM"]: nur diese Prüfung, Zeilen für lauf.py.
+def rueckmeldung(um=None):
+    import datetime, zoneinfo
+    sys.path.insert(0, os.path.join(ROOT, "tools")); import startbar
+    tz = zoneinfo.ZoneInfo("Europe/Berlin")
+    rev = None
+    if um:
+        rev = subprocess.run(["git", "-C", ROOT, "rev-list", "-1", "--before=" + um, "HEAD"], capture_output=True, text=True,
+                             env=dict(os.environ, TZ="Europe/Berlin")).stdout.strip() or None
+    jetzt = datetime.datetime.strptime(um, "%Y-%m-%d %H:%M").replace(tzinfo=tz) if um else datetime.datetime.now(tz)
+    def inhalt(name):
+        if rev: return subprocess.run(["git", "-C", ROOT, "show", "%s:docs/%s" % (rev, name)], capture_output=True, text=True).stdout
+        p = os.path.join(DOCS, name); return lesen(p) if os.path.exists(p) else ""
+    def zt(tt, mm, hh, mi):
+        try: return datetime.datetime(jetzt.year, int(mm), int(tt), int(hh), int(mi), tzinfo=tz)
+        except ValueError: return None
+    def k(nr): return re.sub(r"[*.\s]", "", nr).lower()
+    wartend = {}  # Schlüssel → (Nr, Rollen)
+    for datei, rolle in startbar.ROLLEN:
+        for nr, kl, titel, rest in startbar.zeilen(inhalt(datei)):
+            if startbar.blank(rest).lower().startswith("wartet auf chef"):
+                e = wartend.setdefault(k(nr), (nr.strip("*"), set(), {k(nr)}))
+                e[1].add(rolle)  # Datei, auf die der Stand zeigt („Chefsache 503a“, „ansehen/490“), zählt mit (503 wartete auf 503a)
+                e[2].update(k(x) for x in re.findall(r"(?:Chefsache |ansehen/|entscheiden/|billigen/)(\d+[a-z]?(?:\.\d+[a-z]?)?)", rest.split("|")[0]))
+    for z in inhalt("LISTE-VORGAENGE.md").splitlines():
+        t = [x.strip() for x in z.split("|")]
+        if z.startswith("| ") and len(t) >= 8 and re.match(r"^\d", t[1]) and t[-2] == "Chef":
+            rollen = set(re.findall(r"Homer|Tom|Jerry|Perikles|Diogenes|Sokrates", t[-3])) or {"Ford"}
+            wartend.setdefault(k(t[1]), (t[1], set(), {k(t[1])}))[1].update(rollen)
+    if not wartend: return []
+    rueck = {}  # Schlüssel → (jüngste Zeit, Herkunft)
+    def neu(key, d, her):
+        if d and d <= jetzt and (key not in rueck or d > rueck[key][0]): rueck[key] = (d, her)
+    CHEF = re.compile(r"Chef (\d\d)\.(\d\d)\.,? (\d\d):(\d\d)(?:\s*[–-]\s*(\d\d):(\d\d))?")
+    for datei, rolle in startbar.ROLLEN + [("ARBEIT-BETRIEB.md", "Ford")]:
+        for z in inhalt(datei).splitlines():
+            m = re.match(r"^- \*\*Zu ([^:(]*?)(?:, von [^:(]*)?(?: \(|:)", z)
+            if not m: continue
+            nrn = [k(n) for n in re.findall(r"\d+[a-z]?(?:\.\d+[a-z]?)?", m.group(1))]
+            for c in CHEF.finditer(z):
+                d = zt(c.group(1), c.group(2), c.group(5) or c.group(3), c.group(6) or c.group(4))
+                for n in nrn: neu(n, d, "Zu %s in %s" % (n, datei))
+    for z in inhalt("VORGANGSARCHIV.md").splitlines():
+        m = re.match(r"^- \*\*([^*]+)\*\* \((\d\d)\.(\d\d)\.,? (\d\d):(\d\d)", z)
+        if not m: continue
+        for n in re.findall(r"(?<![\w.])\d+[a-z]?(?:\.\d+[a-z]?)?(?![\w.])", m.group(1).split(",")[0]):
+            neu(k(n), zt(*m.groups()[1:]), "Vorgangsarchiv")
+    aus = []
+    for key, (nr, rollen, dateien) in sorted(wartend.items()):
+        treffer = [rueck[x] for x in dateien if x in rueck]
+        if not treffer: continue
+        r = subprocess.run(["git", "-C", ROOT, "log", "-1", "--format=%ct"] + ([rev] if rev else []) + ["--"] + [":(glob)docs/chefsache/*/%s-*.md" % x for x in sorted(dateien)],
+                           capture_output=True, text=True).stdout.strip()
+        if not r: continue
+        datei_zeit = datetime.datetime.fromtimestamp(int(r), tz)
+        d, her = max(treffer)
+        if d > datei_zeit:
+            aus.append((nr, sorted(rollen), d, "%s: Rückmeldung des Chefs da (%s, %s; Chefsache zuletzt %s), Stand nachziehen (559)" % (
+                nr, d.strftime("%d.%m., %H:%M"), her, datei_zeit.strftime("%d.%m., %H:%M"))))
+    return aus
+
+if "--rueckmeldung" in sys.argv:
+    um = sys.argv[sys.argv.index("--um") + 1] if "--um" in sys.argv else None
+    if um and re.match(r"^\d\d\.\d\d\. \d\d:\d\d$", um): um = "2026-%s-%s %s" % (um[3:5], um[0:2], um[-5:])
+    for nr, rollen, d, text in rueckmeldung(um): print("RÜCKMELDUNG %s | %s | %s | %s" % (nr, ", ".join(rollen), d.strftime("%d.%m. %H:%M"), text))
+    sys.exit(0)
 
 # 1. startbar.py
 r = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "startbar.py")], capture_output=True, text=True)
