@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [557b](entscheiden/557b-rast-kopf.md) | **Muss** | A Spiel | 05.11., 07:48 | Rast: Titel auf derselben Höhe wie überall, Flamme daneben? | Tom |
 | [415d.1](entscheiden/415d1-effekte-jetzt.md) | **Muss** | C Kampf | 04.11., 19:57 | Effektpakete jetzt kaufen, Einbau nach Bedarf | Sokrates |
 | [468e](entscheiden/468e-90-prozent.md) | **Muss** | B Abläufe | 04.11. | 90 % der Woche verbraucht, Rest bis Sa 19:59 | Sokrates |
 
