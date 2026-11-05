@@ -1015,7 +1015,9 @@ func _play_say(e: Dictionary) -> void:
 		await get_tree().create_timer(maxi(0, tot_ms - fall_ms) / 1000.0).timeout
 		warte_ms = 0
 	for f in mars.fighters():
-		if figures.has(f.id) and e.places.has(f.id) and not f.fled:     # 399.2a: wer flieht, kommt nicht an seinen Platz zurück
+		# 573 (Chef 04.11., 20:33: „wenn jemand tot ist, bitte nicht mehr die Position verändern“; der letzte Jungwolf wurde nach dem
+		# Haken „ich gewinne“ tot in die Mitte gezogen, tote_573): wer keine Trefferpunkte mehr hat, bleibt liegen, wo er fiel
+		if figures.has(f.id) and e.places.has(f.id) and not f.fled and f.hp > 0:     # 399.2a: wer flieht, kommt nicht an seinen Platz zurück
 			var ziel := _spot_pos(f, e.places[f.id])
 			if warte_ms > 0 and f.id != actor and not figures[f.id].home.is_equal_approx(ziel):
 				get_tree().create_timer(warte_ms / 1000.0).timeout.connect(figures[f.id].glide_to.bind(ziel))
