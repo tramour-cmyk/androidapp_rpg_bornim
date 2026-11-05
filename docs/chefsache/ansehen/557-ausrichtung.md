@@ -1,4 +1,7 @@
 # 557 · Ausrichtung B gebaut, zur Kenntnis
+
+[Bild von 05.11., 07:49](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/05-0749-557-Tom.png) (eingetragen von meldung.sh, Tom)
+
 Tom · 05.11., 07:4x · A Aussehen · berührt 557, 549, 524.1, 525, 537
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/9af68a618
