@@ -151,7 +151,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 05.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | 586 | K | von Chef über Jerry (05.11., 09:35; Zu 586): Bilder 557 einheitlich: Rast am Feuer und an | startbar |
-| Pflege | K | von Werkzeug (340.3, 05.11.): 116640 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
+| Pflege | K | von Werkzeug (340.3, 05.11.): 118315 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
 
 **Jerry** – offen 83, Muss 70, startbar 19
 
@@ -239,7 +239,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 05.11.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | 469 | M | von Sokrates: Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 406.1 (wartet) |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
-| Pflege | K | von Werkzeug (340.3, 05.11.): 41970 Bytes (Grenze 15000), Erledigtes streichen; Zeile 552 | startbar |
+| Pflege | K | von Werkzeug (340.3, 05.11.): 40457 Bytes (Grenze 15000), Erledigtes streichen; Zeile 453. | startbar |
 
 **Perikles** – offen 31, Muss 25, startbar 2
 
@@ -294,7 +294,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 05.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 | Pflege | K | von Werkzeug (340.3, 05.11.): Zeile 512b wartet auf t257, aber keine Datei in docs/chefsac | startbar |
 
-**Sokrates** – offen 37, Muss 28, startbar 18
+**Sokrates** – offen 38, Muss 28, startbar 19
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -335,6 +335,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 05.11.; „star
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (Chef) |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | ruht |
 | D63.7 | K | von Diogenes (434, Vortag 01.11.): entscheiden/3761-kettenhemd-heldin.md (20:55) ohne Zeil | startbar |
+| Pflege | K | von Werkzeug (340.3, 05.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
