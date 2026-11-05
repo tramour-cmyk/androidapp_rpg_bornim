@@ -95,7 +95,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 598 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Umweltklang je Ort, Tageszeit, Wind, Wetter | startbar | – |
 | 593 | M? | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Ausweichen auch rückwärts | startbar | – |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht: Klang zieht nach Godot; Rest `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
-| Pflege | K | **von Werkzeug (340.3, 05.11.):** 40457 Bytes (Grenze 15000), Erledigtes streichen; Zeile 453.1 wartet auf t249, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 453 wartet auf t249, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 453a wartet auf t249, aber keine Date … | startbar |
+| Pflege | K | **von Werkzeug (340.3, 05.11.):** 41529 Bytes (Grenze 15000), Erledigtes streichen; Zeile 453.1 wartet auf t249, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 453 wartet auf t249, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 453a wartet auf t249, aber keine Date … | startbar |
 ## Einzelheiten
 
 - **Zu t266, von Sokrates (Chef 05.11., 19:2x, „Insofern alles getestet und mit Anmerkungen freigegeben“):** PR #185 auf main (877152f23). 577, 575, 573, 564, 566, 567 bestanden. 266.8 nicht prüfbar: „Teleport in Höhle oder Hineinlaufen nicht möglich, da es das Gebiet nicht gibt“ (Höhle kommt mit Toms 492); 266.7 Nacht nicht prüfbar (539 nicht im Build). Beides stand in der Testbitte, obwohl es im Build nicht ging: vor jeder Testbitte jeden Schritt im Build nachgehen (512). 266.6 an Ford (588).
