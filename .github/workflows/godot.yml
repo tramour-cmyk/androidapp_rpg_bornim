@@ -323,8 +323,8 @@ jobs:
         run: |
           mkdir -p ~/godot && cd ~/godot
           base=https://github.com/godotengine/godot/releases/download/$GODOT-stable
-          [ -f godot ] || { curl -sSL -o g.zip $base/Godot_v$GODOT-stable_linux.x86_64.zip && unzip -q g.zip && mv Godot_v$GODOT-stable_linux.x86_64 godot && rm g.zip; }
-          [ -d templates ] || { curl -sSL -o t.tpz $base/Godot_v$GODOT-stable_export_templates.tpz && unzip -q t.tpz && rm t.tpz; }
+          [ -f godot ] || { curl -sSL --retry 5 --retry-delay 10 --retry-all-errors -o g.zip $base/Godot_v$GODOT-stable_linux.x86_64.zip && unzip -q g.zip && mv Godot_v$GODOT-stable_linux.x86_64 godot && rm g.zip; }
+          [ -d templates ] || { curl -sSL --retry 5 --retry-delay 10 --retry-all-errors -o t.tpz $base/Godot_v$GODOT-stable_export_templates.tpz && unzip -q t.tpz && rm t.tpz; }
           mkdir -p ~/.local/share/godot/export_templates/$GODOT.stable
           cp templates/android_debug.apk templates/android_release.apk templates/version.txt ~/.local/share/godot/export_templates/$GODOT.stable/
       - name: Skripte pruefen
