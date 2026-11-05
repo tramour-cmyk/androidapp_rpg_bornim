@@ -60,6 +60,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 08:26 05.11.: Neustart Tom 10e563a7b/e5425749c → `3f5FQ` „492: Blutzahnhöhle“ (zuerst fälschlich „580–583“ gestartet, nach Berichtigung von Tom umbenannt und umgestellt); alter Tom `7cE3` archiviert, **72,19 $ auf 512b in 80 Minuten** (sonst etwa 15–25 $, 5,85 Mio Cache-Schreibtoken): Tagesbericht prüft.
 - 08:06 05.11.: Diogenes `eHWFv` (578/512b, 1,08 $) und Perikles `RRw` (Tagesbericht, 5,86 $) fertig, archiviert, gebucht; kein Nachfolger (468a). Tom 512b läuft. Morgenmeldung 07:05 gesendet; Bild der Nutzung steht aus.
 - 07:05 05.11.: Lauf `--nur-muss`: gestartet Tom 512b, Perikles Tagesbericht 05.11. Abweichung vom Plan (468a, 468c): Jerry 512b (gleiche Zeile wie Tom), Spike 569, Tuffy 565 (ruht) nicht gestartet, Sokrates-Stellungnahme nicht (Sokrates läuft, idle). Startmarken stehen trotzdem.
 - 00:13 05.11.: Neustart-Meldung Jerry 80f16571d (Übergabe da, Nachfolger „Jerry – 572 Urteil, Kampf-Build“); Nachtpause 468d: Nachfolger NICHT gestartet, startet `lauf.py` ab 7 Uhr. Alter Jerry `zop1` archiviert, 22,93 $ auf 572.
