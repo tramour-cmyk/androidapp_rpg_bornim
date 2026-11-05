@@ -35,6 +35,22 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
   - [ ] Wildschwein · [ ] Riesenhundertfüßer · [ ] Riesenspinne · [ ] Riesenegel (für Stirge) · [ ] Säureschnecke (für Ockergallerte): gebaut auf `claude/jerry-494-gegner`, in keinem Build (494)
   - [ ] Skelett · [ ] Zombie · [ ] Ghul: fehlen (506)
   - [ ] **Bosse:** [ ] Grimmzahn neu auf dem Kaufwolf (533; heute altes Modell, Kampf und Leibwache gehen) · [ ] Krogg (bugbear) · [ ] Grak (hobgoblin_captain): mit der Blutzahnhöhle (492)
+- [ ] **2.14** W · **Alle Orte von Kapitel 1 begehbar** (Chef 05.11., 08:2x). Haken = im Build begehbar wie alt, vom Chef gesehen; „Ort fertig“ (4.3) kommt danach. Stand 05.11.:
+  - [x] Bornim (Dorf) · [x] Flüsterwald · [x] Tiefer Flüsterwald (491, „passt fürs Erste“; Schild am Eingang und Morwens Hütte offen)
+  - [ ] Zum Schlafenden Greif (Schänke) · [ ] Thessas Kramladen · [ ] Haus des Ältesten · [ ] Tempel des Morgenlichts: Grundrisse im Build (399.1), vom Chef noch nicht abgehakt
+  - [ ] **Blutzahnhöhle:** fehlt im Build (492; neu nach Signatur)
+- [ ] **2.15** W · **Hauptquest von Kapitel 1 einmal durchgespielt**, Station für Station (Testmenü „Stationen“, 555; Chef 05.11., 08:2x). Haken = der Chef hat die Station im Build gespielt. Stand 05.11.:
+  - [x] 1 Garrick (Schlagbaum, t257 251.7) · [x] 2 Morwen (t257 251.2) · [x] 3 Grimmzahn (Kampf, t257 252.7; Blende, Tod offen)
+  - [ ] 4 Höhle · [ ] 5 Krogg · [ ] 6 Grak · [ ] 7 Lyra: warten auf die Höhle (492)
+  - [ ] 8 Kapitelende (Aldric, Amulett, Brief)
+- [ ] **2.16** A · **Alle Leute von Kapitel 1 mit eigenem Gesicht** (475; Chef 05.11., 08:2x). Haken = Gesicht vom Chef abgenommen, keine zwei gleich, Gesicht frei. Stand 05.11.: keiner abgenommen (Lauf 1 nein, 04.11., 20:47)
+  - [ ] Aldric · [ ] Borin · [ ] Bram · [ ] Garrick · [ ] Gwenna · [ ] Jorin · [ ] Liska · [ ] Morwen · [ ] Osric · [ ] Pim · [ ] Rowena · [ ] Thessa · [ ] Lyra (mit 492)
+- [ ] **2.17** M · **Alle Zauber und Fähigkeiten bis Stufe 6 im Kampf zu sehen** (Chef 05.11., 08:2x). Haken = im Kampf gewirkt und vom Chef gesehen. Liste heute nach den alten Klassen (`regeln/tabellen.json`); mit dem BRS-Rechenkern (478) wird sie auf Fertigkeiten umgestellt. Laut t257 ruhen vier Zauber und Unglaubliches Ausweichen bis 478, Untote vertreiben kommt mit 506.
+  - Kämpfer: [ ] Kampfstil · [ ] Zweiter Atem · [ ] Tatendrang · [ ] Verbesserter kritischer Treffer · [ ] Zusätzlicher Angriff
+  - Magier: [ ] Feuerpfeil · [ ] Magisches Geschoss · [ ] Brennende Hände · [ ] Magierrüstung · [ ] Sengender Strahl · [ ] Feuerball
+  - Schurke: [ ] Hinterhältiger Angriff · [ ] Finte · [ ] Raffinierte Aktion · [ ] Unglaubliches Ausweichen
+  - Kleriker: [ ] Heilige Flamme · [ ] Wunden heilen · [ ] Segnen · [ ] Untote vertreiben · [ ] Spirituelle Waffe · [ ] Geisterwächter
+  - Effekte dazu nach dem Kauf (415d.1, Film 572)
 
 **Stufe 3 · Alle Systeme angelegt** (447 „mit K2b“, Chef 01.11.: „alle Elemente grundsätzlich drin … die Anlagen sollen schon erkennbar sein“; je System ein kleiner, ganzer Kreislauf mit spürbarer Wirkung, kein leerer Knopf. Prüfung: je Punkt ein Spieltest „merkt man, was das kann?“; 444 rechnet Gold, Reparatur und Tränke mit)
 - [ ] **3.1** G · Pfad und Lehrmeister: Einladung, Anwärter, Hinweise und Aufgaben des Lehrmeisters, Bewährungsprobe zum Gesellen je Pfad, den Kapitel 1 trägt (Jorin Wächter, Osric Heiler und Paladin, Garrick Waldläufer und Scharfschütze, Thessa Schatzjäger, Morwen Magier und Kriegsmagier; NW 5, E 79, Archiv 447.4a); Zwischenprüfung ab Kapitel 2 (447.5).
