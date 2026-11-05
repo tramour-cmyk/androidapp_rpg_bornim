@@ -2,16 +2,15 @@
 
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
-**Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D73 (Lauf 70: 513.1 Figurensperre greift und gibt frei, D72 an Perikles; Lauf 69: Nachprüfung 275 D46.3/D46.5/D47.2, D69.1, D70.1, ohne Befund; Lauf 68: Nachprüfung D67.1, D68, 461b-Anhänge, D69, D70; Lauf 67: 340.4/340.5 ohne Nummer; Lauf 66: 480/480.1/340.3, D68; Lauf 65: 484 Abkürzungen, D67; Lauf 64: 447.4, D66, `5c3d13358`; Lauf 63: Nachprüfung D63/D64.1, D65, `036b48029`; Lauf 62: 407, D64, `bb1205e31`; Lauf 61: Woche, D63, `73ab91995`; ältere Läufe im Prüfbericht und in Git).
+**Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D74 (Lauf 71: 578 gleich Film greift, D73 an Perikles; Lauf 70: 513.1 Figurensperre greift und gibt frei, D72 an Perikles; Lauf 69: Nachprüfung 275 D46.3/D46.5/D47.2, D69.1, D70.1, ohne Befund; Lauf 68: Nachprüfung D67.1, D68, 461b-Anhänge, D69, D70; Lauf 67: 340.4/340.5 ohne Nummer; Lauf 66: 480/480.1/340.3, D68; Lauf 65: 484 Abkürzungen, D67; Lauf 64: 447.4, D66, `5c3d13358`; Lauf 63: Nachprüfung D63/D64.1, D65, `036b48029`; Lauf 62: 407, D64, `bb1205e31`; Lauf 61: Woche, D63, `73ab91995`; ältere Läufe im Prüfbericht und in Git).
 
-**Übergabe (04.11., 14:0x, „Diogenes – 513.1: Figurensperre“):** Lauf 70: 513.1 geprüft, Zeile gestrichen. 53 gezählte Läufe seit 03.11., 16:1x, Stichprobe 4 Zweige (tom-558-robe, jerry-535-gruppen, build-257, tom-495-zufallsspieler) enthalten 3b29ac0cb und e3789d130; Haken trocken an Wegwerfzweig `claude/tom-348-…` auf Stand tom-556-blende (ohne Figurenstand): angehalten mit 513.1, auf Stand tom-558-robe: 513.1 frei (danach 511 Filmsperre, richtig). D72 (Perikles, Zu 513.1): `cd $VAR` vor dem Push wird nicht aufgelöst, Sperre lässt dann durch. Nachfolger: „Diogenes – 511: Filmsperre“ am ersten echten Filmlauf; sonst Wochenzählung Mo 09.11. Nachfolger: „Diogenes – 511: Filmsperre“ am ersten echten Filmlauf; sonst Wochenzählung Mo 09.11.
+**Übergabe (05.11., 07:1x, „Diogenes – 578: Filmwächter gleich Film“):** Lauf 71: 578 geprüft (494 gesperrt, 572 frei nachgestellt), Zeile gestrichen; D73 an Perikles (Zu 578): Kopf ohne Ergebnis gibt frei. Nachfolger: „Diogenes – 511: Filmsperre“ am ersten echten Filmlauf; sonst Wochenzählung Mo 09.11.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
-| 578 | M | **von Perikles (Doppelpack 421, 05.11., 07:1x, `fb77c919e`):** `probelauf.py` gibt nach Archivkopf „<Nr>, gleich Film“ den Filmlauf ohne Probebild frei, bis ein neues Probebild eingetragen ist; Code lesen und mit 572 nachstellen (frei) und 494 (gesperrt) | startbar |
 | 512b | M | **von Sokrates (Chef 04.11., 19:21: „512b ja“; `chefsache/entscheiden/512b-nachweis.md` in Git):** Erstfunde des Chefs je Build zählen, vorher (t257: Bereich C sechs) und nachher; Zeile „Verglichen“ mit Helfer und Bild/Film prüfen | wartet auf die nächste Testbitte |
 | 512.1 | M | **von Perikles (Doppelpack 421, 04.11., 14:0x, `bdf83b0f6`):** `commit-pruefung.py` warnt bei neuer `chefsache/ansehen/t*.md` ohne Zeile „Verglichen …:“; prüfen an der nächsten neuen Prüfliste | wartet auf die nächste Testbitte |
 | 512 | M | **von Perikles (Doppelpack 421, 03.11., 16:0x, `e823b0ee7`):** Abgleich alt/neu vor jeder Testbitte (`LISTE-UMZUG-348.md` „Abgleich“, Prüfliste in `LISTE-BAUEN-TESTEN.md`); prüfen an der nächsten Prüfliste: Abgleich gemacht, Funde behoben oder „bekannt“ | wartet auf die nächste Testbitte |
