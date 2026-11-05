@@ -276,7 +276,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 05.11.; „star
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | Pflege | K | von Werkzeug (340.3, 05.11.): 15422 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Diogenes** – offen 12, Muss 9, startbar 1
+**Diogenes** – offen 11, Muss 9, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -291,7 +291,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 05.11.; „star
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24): Umzug Godot: jedes Vergleichsbild alt/neu messen, | wartet auf Eingang |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
-| Pflege | K | von Werkzeug (340.3, 05.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
 **Sokrates** – offen 38, Muss 29, startbar 17
 
