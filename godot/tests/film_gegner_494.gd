@@ -109,7 +109,7 @@ func _gegner(g: String) -> void:
 	if nah != null:
 		# Prüfer Lauf 265 (G1): Grimmzahn (1,75-fach) ohne Kopf, Fühler der Schnecke, Morgenstern Kroggs am Rand; Rand nach Größe
 		# und Länge des Tiers statt fest 1,2 m
-		var rand := 1.2 * maxf(1.0, nah._scale()) + 0.5 * float(nah.mass.get("laenge_m", 0.0)) * nah._scale()
+		var rand: float = 1.2 * maxf(1.0, nah._scale()) + 0.5 * float(nah.mass.get("laenge_m", 0.0)) * nah._scale()
 		_auf(cam, kf, [nah], von, hfov, rand)
 	cam.make_current()
 	await process_frame
