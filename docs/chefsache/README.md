@@ -9,6 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [415d.1](entscheiden/415d1-effekte-jetzt.md) | **Muss** | C Kampf | 04.11., 19:57 | Effektpakete jetzt kaufen, Einbau nach Bedarf | Sokrates |
+| [586a](entscheiden/586a-ueberschriften-mass.md) | Kür | A Spiel | 05.11., 09:37 | Größe der Überschriften 1 und 2 wie 7–10 oder wie 7–12? | Team Jerry |
 
 ## Zu billigen
 
@@ -44,7 +45,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 05.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 95, Muss 70, startbar 12
+**Tom** – offen 96, Muss 70, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -141,6 +142,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 05.11.; „star
 | 447.4.1 | M | von Homer (447.4, Chef 03.11., 15:50 „1B 2A“): Lehrmeister, Meisterschaften, Ruf in Kapite | wartet auf 508 (startbar) |
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
+| 586a | K | von Team Jerry (05.11., 09:37): Rückfrage zu 586: Maß der Überschriften „7 bis 10“ oder „7 | Chef (Datei in der Chefsache) |
 | 586 | K | von Chef über Jerry (05.11., 09:35; Zu 586): Bilder 557 einheitlich: Rast am Feuer und an | startbar |
 | Pflege | K | von Werkzeug (340.3, 05.11.): 116640 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
 
