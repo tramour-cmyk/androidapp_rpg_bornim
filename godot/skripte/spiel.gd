@@ -473,6 +473,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 		if aufruf.kampf and aufruf.kampf.mars:
 			erg["rest"] = int(aufruf.kampf.mars.potions.get("potion", 0))
 			erg["held"] = aufruf.kampf.mars.find("hero")     # 532: ZP, Verbrauchtes, Zustände nach dem Kampf
+			erg["rauch"] = aufruf.kampf.mars.smoke_thrown     # 494: Morwens Rauchbündel geworfen (Battle.smokeBundle nimmt es weg)
 		erg["ende"] = String(o))
 	held.halt(); held.richtung = Vector3.ZERO
 	# die Welt ruht unsichtbar; Kamera und Umgebung des Kampforts gelten (sonst zeichnet unsere Kamera, unsere Umgebung zuerst)
@@ -494,6 +495,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	lage["blende"] = true   # 402 (Jerry): die Blende vor dem Kampf wie alt, auch im Probekampf
 	if probe.is_empty(): lage["aussehen"] = zustand.aussehen   # 403 (Jerry): der Held im Kampf wie im Dorf (HeldFigur)
 	if probe.is_empty(): lage["leiden"] = zustand.leiden.duplicate()   # 532 (Jerry): Zustände aus dem letzten Kampf (GameState.ailments)
+	if probe.is_empty(): lage["rauch"] = zustand.anzahl(Geschichte.SMOKE_BUNDLE)   # 494 (Jerry, D4.1): Morwens Rauchbündel gegen Krogg
 	# 493 (Jerry): Kampfort im Wald nach dem, was um den Helden steht (wie alt BattleScene.spotFor); im Testmodus wählbar
 	lage["platz"] = Testmodus.kampfort if Testmodus.ist_an() and Testmodus.kampfort != "" else load("res://kampf/kampfort.gd").platz_fuer(karte, held.kachel)
 	var gestartet: bool = aufruf.starte(gegner, hw, soeldner, "wald", tageszeit(), zustand.anzahl("potion") if probe.is_empty() else 2, -1, -1, -1, beute, lage)
@@ -511,6 +513,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	kamera.make_current()
 	visible = true; ui.visible = true
 	if probe.is_empty() and int(erg["rest"]) < zustand.anzahl("potion"): zustand.weg("potion", zustand.anzahl("potion") - int(erg["rest"]))   # getrunken
+	if probe.is_empty() and bool(erg.get("rauch", false)) and zustand.anzahl(Geschichte.SMOKE_BUNDLE) > 0: zustand.weg(Geschichte.SMOKE_BUNDLE, 1)   # 494: geworfen
 	var lohn: Dictionary = erg["lohn"]
 	var ende := [String(erg["ende"])]
 	klang("nach_kampf", [ende[0] == "WON", karte])   # 399.3 (Jerry): Sieg mit sieg_, sonst Ortsmusik nach 10 s
