@@ -241,12 +241,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 05.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | Pflege | K | von Werkzeug (340.3, 05.11.): 41485 Bytes (Grenze 15000), Erledigtes streichen; Zeile 552 | startbar |
 
-**Perikles** – offen 30, Muss 24, startbar 4
+**Perikles** – offen 30, Muss 24, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 578 | M | von Sokrates (Chef 04.11., 21:03 „Also ich brauche den Film“, Archiv „572, gleich Film“): | startbar |
-| 549a.1 | M? | von Sokrates (549a ja, Chef 04.11., 19:28: „so aufschreiben, dass der nächste … das richti | startbar |
+| 578 | M | von Sokrates (Chef 04.11., 21:03, Archiv „572, gleich Film“): probelauf.py liest „<Nr>, gl | wartet auf Test/Build (gebaut) |
+| 549a.1 | M? | von Sokrates (549a ja, Chef 04.11., 19:28): ROLLE-ENTWICKLUNG.md Start 2: wer Menüschirm o | wartet auf Test/Build (gebaut) |
 | 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | startbar |
 | 512.1 | M? | von Sokrates (512, Chef 03.11., 23:28, „Kümmer du dich um 512.“): Regel „Abgleich“ wirkt n | wartet auf Test/Build (gebaut) |
 | 516 | K | von Ford (Chef 03.11., 16:20, „gab es nicht ein Tool oder einen Haken für die Kostenerfass | ruht |
@@ -276,10 +276,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 05.11.; „star
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | Pflege | K | von Werkzeug (340.3, 05.11.): 15663 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Diogenes** – offen 12, Muss 9, startbar 1
+**Diogenes** – offen 13, Muss 10, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 578 | M | von Perikles (Doppelpack 421, 05.11., 07:1x, fb77c919e): probelauf.py gibt nach Archivkopf | startbar |
 | 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | wartet auf Eingang |
 | 512.1 | M | von Perikles (Doppelpack 421, 04.11., 14:0x, bdf83b0f6): commit-pruefung.py warnt bei neue | wartet auf Eingang |
 | 512 | M | von Perikles (Doppelpack 421, 03.11., 16:0x, e823b0ee7): Abgleich alt/neu vor jeder Testbi | wartet auf Eingang |
