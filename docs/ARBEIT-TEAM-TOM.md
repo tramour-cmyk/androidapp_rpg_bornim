@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (04.11., 22:31, `session_01Hmoj794pVs8UCbYo7ArQnx`):** 475 drei Spuren aus dem Code als Messungen festgehalten (Zu 475, 22:3x), nicht nachgestellt (468d). Nachfolger (ab 7 Uhr): Tom – 475: Kapuze und Tusche nachmessen (Formschlüssel am Kinnrand, Kleidreste, Bildbreite 0,55 m).
+**Übergabe (05.11., 08:22, `session_01Hmoj79E3PRF7Vm5i1uRBwd`):** 512b Abgleich fertig (Befunde 580–585); gebaut 571, 574, 557a B (Rückfrage 557b). Nachfolger: Tom – 580–583: Abgleichsbefunde Menüs.
 
 ## Zeilen
 
