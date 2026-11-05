@@ -137,15 +137,15 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 490 | Flüsterwald begehbar wie alt (Orte O6, 479 A; Wochenziel 03.11., 488) | B Umzug | M | 50,92 $ | Team Tom | gebaut |
 | 491 | Tiefer Flüsterwald mit Morwens Hütte und Grimmzahn begehbar (Orte O7, 479 A; Wochenziel 03.11., 488) | B Umzug | M | 29,56 $ | Team Tom | gebaut |
 | 492 | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry an Tom, Chef 07:54) | B Umzug | M | 29,10 $ | Team Tom | startbar |
-| 493 | Kampforte Wald: Waldrand, Teich, Baum, Felsen, Steinkreis (Orte O9; Wochenziel 03.11., 488; von Jerry an Spike) | E Kampf | M | – | Team Tom | gebaut |
+| 493 | Kampforte Wald: Waldrand, Teich, Baum, Felsen, Steinkreis (Orte O9; Wochenziel 03.11., 488; von Jerry an Spike) | E Kampf | M | – | Team Tom | erledigt |
 | 494 | Gegner von Kapitel 1 im Kampf außer den Untoten (506), je Gegner höchstens ein Lauf (Wochenziel 03.11., 488) | E Kampf | M | 86,41 $ | Team Jerry | startbar |
 | 495 | Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2; Wochenziel 03.11., 488) | E Technik | M | 27,75 $ | Team Tom | wartet |
 | 496 | Durchspiel-Build: Kapitel 1 von Anfang bis Ende am Handy (Wochenziel 03.11., 488) | E Technik | M | – | Team Jerry | wartet |
 | 496a | Rückfrage: abgenommene Kampfbilder (Grundstand 461) schon in den Durchspiel-Build? | E Technik | M | 51,18 $ | Team Jerry | zu testen |
 | 497 | „Über das Spiel“: Lizenzhinweis der Godot Engine (MIT) und ihrer Drittteile fehlt (Chef 03.11., 07:09, Frage nach Schriften, Build 204) | M Veröffentlichung | M | 8,44 $ | Team Tom | zu testen |
 | 499 | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 (Chef 03.11., 07:14, Build 204) | E Figuren | M | 9,32 $ | Team Tom | wartet |
-| 500 | Welt: Probeknöpfe rechts (Tag/Nacht, Nah/Fern, Drehen, Sprache, Tiere) weg; „Karte Näher/Normal“ bleibt (Chef 03.11., 07:24 und 07:27, Build 204) | E Oberfläche | M | – | Team Tom | gebaut |
-| 501 | Schänke: Feuer im Kamin schwebt, beginnt nicht auf der Feuerstelle (Chef 03.11., 07:26, Build 204) | E Innenräume | M | – | Team Tom | gebaut |
+| 500 | Welt: Probeknöpfe rechts (Tag/Nacht, Nah/Fern, Drehen, Sprache, Tiere) weg; „Karte Näher/Normal“ bleibt (Chef 03.11., 07:24 und 07:27, Build 204) | E Oberfläche | M | – | Team Tom | erledigt |
+| 501 | Schänke: Feuer im Kamin schwebt, beginnt nicht auf der Feuerstelle (Chef 03.11., 07:26, Build 204) | E Innenräume | M | – | Team Tom | erledigt |
 | 503 | Laden, Verkaufen: Knopf „Gewöhnliche verkaufen“ leer, ohne Text (Chef 03.11., 07:40, Build 204) | E Oberfläche | M | – | Team Tom | wartet |
 | 509 | Frösche und Libellen an den Teichen im Flüsterwald fehlen in Godot (Chef 03.11., 09:21; `PondLife.kt`, Projektplan O6, W22) | E Welt | M | – | Team Jerry | wartet |
 | 511 | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele sinnlose und kaputte Filme gemacht?“) | B Werkzeuge | M | 17,15 $ | Perikles | gebaut |
@@ -210,9 +210,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 529 | Spielstände: Heldenbild und Spielzeit auf der Karte des Spielstands, Uhrzeit „Gespeichert“ nach Zeitumstellung prüfen (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | gebaut |
 | 522 | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Chef 03.11., 23:33) | A Spiel | M | – | Team Tom | zu testen |
 | 521 | Build 249, Ausrüstung: Wechselschirm eines Platzes wie alt (Bild, Art und Wert, ▲/▼, „nicht tragbar“ matt) (Chef 03.11., 23:23, Bild) | A Spiel | M | – | Team Tom | zu testen |
-| 520 | Build 249, Ausrüstung: Held zwischen den Fächern zu klein und ohne die angelegten Sachen; alt `HeroTurntable` mit Getragenem (Chef 03.11., 23:19, Bild) | A Spiel | M | – | Team Tom | zu testen |
+| 520 | Build 249, Ausrüstung: Held zwischen den Fächern zu klein und ohne die angelegten Sachen; alt `HeroTurntable` mit Getragenem (Chef 03.11., 23:19, Bild) | A Spiel | M | – | Team Tom | erledigt |
 | 519 | Build 249, Ausrüstung: Gegenstandsfenster („Göttlicher Ring des Eisernen Richters“) passt nicht auf den Bildschirm, rechts abgeschnitten (Chef 03.11., 23:13, Bild) | A Spiel | M | 21,91 $ | Team Tom | zu testen |
-| 518 | Build 248, Dorf: keine Häuser, nur Wege und Pflaster, dazu ständiges schwarzes Flackern (Chef 03.11., 20:47, Bild) | A Spiel | M | – | Team Tom | gebaut |
+| 518 | Build 248, Dorf: keine Häuser, nur Wege und Pflaster, dazu ständiges schwarzes Flackern (Chef 03.11., 20:47, Bild) | A Spiel | M | – | Team Tom | erledigt |
 | 517 | Waldklang wie alt: Vögel am Tag, Eule und Grillen nachts, fernes Wolfsheulen im Tiefen Wald (`WildSound.kt`; Abgleich 512, von Team Tom) | A Spiel | M | 2,32 $ | Jerry | wartet |
 | 513 | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „513 B“) | E Figuren | M | 14,01 $ | Team Tom | ruht |
 | 513.1 | probelauf.py sperrt Läufe ohne abgenommenen Figurenstand (513 B) | B Abläufe | M | 2,17 $ | Perikles | gebaut |
