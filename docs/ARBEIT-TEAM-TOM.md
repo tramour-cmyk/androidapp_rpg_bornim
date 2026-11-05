@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (05.11., 08:22, `session_01Hmoj79E3PRF7Vm5i1uRBwd`):** 512b Abgleich fertig (Befunde 580–585); gebaut 571, 574, 557a B (Rückfrage 557b). Nachfolger: Tom – 580–583: Abgleichsbefunde Menüs.
+**Übergabe (05.11., 08:22, `session_01Hmoj79E3PRF7Vm5i1uRBwd`):** 512b Abgleich fertig (Befunde 580–585); gebaut 571, 574, 557a/557b B. Nachfolger (Gegner zuerst, 579): Tom – 492: Blutzahnhöhle.
 
 ## Zeilen
 
@@ -19,7 +19,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 568 | M? | **von Sokrates (Chef 04.11., 19:42, „grundsätzlich bei 568. Für A.“; `DESIGN-SPIELSYSTEM-2-0.md` „Sammeln“):** Kräuter ernten als sichtbare Handlung (hingehen, „Ernten“, Hocke 1,5 s, Stelle abgeerntet bis zum Morgen) statt Einsaugen; erst Vorlage als Film | wartet auf Durchspielbarkeit (488); Angeln erst mit Fischen (nicht Kapitel 1) | – |
 | 574 | M | **von Sokrates (Chef 04.11., 20:40, Laufprotokoll Build 257 vom Handy; Zu 574):** Fehler „Lambda capture at index 0 was freed“ (3×) und „buffer_size == 0“ nachstellen und beheben; Jerry fragen, falls im Kampf | gebaut, fährt im nächsten Build: Lambda nachgestellt, buffer_size = Bodenmaske im Grundriss (Zu 574); Geprüft an: 0c286504a | – |
 | 571 | M | **von Sokrates (Chef 04.11., 20:13, Build 257, „Ganz wichtig“; Zu 571):** Wischen auf einer Schaltfläche rollt die Liste nicht (Testmenü Kampfliste, Erschaffung); Wischen rollt überall, Tippen wählt, langes Drücken erklärt | gebaut, fährt im nächsten Build: Baustein wischen.gd für alle Listen, Test wischen_571; Geprüft an: 453d22414 | – |
-| 557 | M | **von Sokrates (Chef 04.11., 11:15; Zu 557):** Spielstände als Entwurf im Stil „ohne Kasten“ (549a), ein Bild aus Godot zum Ansehen; Inhalt mit der alten Fassung abgleichen (`SlotsScreen.kt` `SlotCard`), Spieldauer wieder dabei; nichts bauen außer dem Entwurf | gebaut: abgeschlossen (Chef 05.11., 08:18). Geprüft an: 91f2f6527 | `claude/tom-557-spielstaende` |
+| 557 | M | **von Sokrates (Chef 04.11., 11:15; Zu 557):** Spielstände als Entwurf im Stil „ohne Kasten“ (549a), ein Bild aus Godot zum Ansehen; Inhalt mit der alten Fassung abgleichen (`SlotsScreen.kt` `SlotCard`), Spieldauer wieder dabei; nichts bauen außer dem Entwurf | gebaut, fährt im nächsten Build: 557b B dazu; Geprüft an: a91bf4d4b | `claude/tom-557-spielstaende` |
 | 558 | M | **von Sokrates (Chef 04.11., 11:31, Bild Build 257; Zu 558):** Robe des Magiers zu glatt: Stoff mit Falten, Schatten, Schmutz, Abnutzung; erst Probebild neben dem jetzigen, gilt für alle Trachten | gebaut: abgeschlossen (Chef 22:21, Archiv), keine Roben mehr vorlegen; Stand Probe 5 in den nächsten Build. Geprüft an: Lauf 41897286175 | – |
 | 556 | M | **von Sokrates (Chef 04.11., 07:52; Zu 556):** Blenden reines Schwarz statt Leuchten, Lesezeit jeder Blende gegen alt (`InterludeClock`) | gebaut, fährt im nächsten Build: Kampf 0,65 s → 2–6,6 s, Orte 1,9 → 2,1–4,8 s; Geprüft an: abda486d3 | `claude/tom-556-blende` |
 | 531 | M | **von Sokrates (Chef 03.11., 23:42, Build 249; Zu 531):** Garrick: „Gesicht wirkt sonderbar, Bogen fehlt, vertreibt keine Mobs. Hat er schon Animation?“ | startbar: zwei Läufe frei (Archiv 20:54): 1 Probebild, 2 Film | – |
