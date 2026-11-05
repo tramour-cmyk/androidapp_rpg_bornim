@@ -51,6 +51,11 @@ func _lage(wo: String, wurzel: Node) -> void:
 	var oben := INF
 	for c in sichtbar: oben = minf(oben, (c as Control).get_global_rect().position.y)
 	pruefe("Kopf oben " + wo, absf(oben - OBEN_557A * DP) <= 4 * DP, "%.0f px statt %.0f" % [oben, OBEN_557A * DP])
+	# 557b B (Chef 05.11., 08:18): auch der Titel selbst steht oben (Rast: Zeichen daneben, nicht darueber)
+	var titel_oben := INF
+	for c in sichtbar:
+		if c is Label and (c as Label).get_theme_font_size("font_size") >= int(15 * Stil.SP): titel_oben = minf(titel_oben, (c as Control).get_global_rect().position.y)
+	pruefe("Titel oben " + wo, titel_oben - OBEN_557A * DP <= 16 * DP, "%.0f px" % titel_oben)
 	var rollt := false
 	for r in wurzel.find_children("*", "ScrollContainer", true, false):
 		if r.is_visible_in_tree() and r.get_v_scroll_bar().max_value > r.get_v_scroll_bar().page + 1: rollt = true

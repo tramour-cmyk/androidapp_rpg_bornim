@@ -101,13 +101,26 @@ func _ohne_kasten(titel: String, unter: String, wahlen: Array, weiter_text: Stri
 		sp.offset_left = 28 * DP; sp.offset_right = -28 * DP; sp.offset_bottom = -40 * DP
 		sp.grow_vertical = Control.GROW_DIRECTION_BEGIN
 	add_child(sp)
-	var fl := Rastzeichen.neu(kopf_zeichen, 64, Stil.BRIGHT)
-	fl.name = "Kopfzeichen"
-	fl.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	sp.add_child(fl)
 	var t := Stil.zeile(titel.to_upper(), 22 if Spielstaende.vorlage2 else 26, Stil.GOLD, 3.0)   # 557 Runde 5 (549a ja, 19:28): Titel eines Schirms 22 sp
 	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	sp.add_child(t)
+	if Spielstaende.vorlage2:   # 557b B (Chef 05.11., 08:18, Archiv 557): Titel auf derselben Hoehe wie jeder Schirm, das Zeichen links daneben
+		var kopf := HBoxContainer.new()
+		kopf.alignment = BoxContainer.ALIGNMENT_CENTER
+		kopf.add_theme_constant_override("separation", int(12 * DP))
+		kopf.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var fz := Rastzeichen.neu(kopf_zeichen, 40, Stil.BRIGHT)
+		fz.name = "Kopfzeichen"
+		fz.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		kopf.add_child(fz)
+		t.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		kopf.add_child(t)
+		sp.add_child(kopf)
+	else:
+		var fl := Rastzeichen.neu(kopf_zeichen, 64, Stil.BRIGHT)
+		fl.name = "Kopfzeichen"
+		fl.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		sp.add_child(fl)
+		sp.add_child(t)
 	# 557 (Chef 16:51, 549a (8): „für jedes Fenster gleich“): Kopf zuerst, gleich darunter die Zierlinie, dann der Inhalt
 	if Spielstaende.vorlage2: sp.add_child(_zier())
 	if unter != "":
