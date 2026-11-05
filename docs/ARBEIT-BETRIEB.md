@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (04.11., 00:5x, Ford `session_01Hmoj76vuwGguJJYw9HWky8`, Tiefe 5):** Getan: Teams neu gestartet, Vorgänger archiviert und Kosten gebucht (Chef 20:19: archivieren und buchen ohne Fragen; nur idle und >60 s). Geltend 468a bis Sa 07.11., 20:00 (nur Tom, Jerry, Spike, Muss); Chef 00:41 gab Sokrates die Nachtverantwortung. Vor jedem Start „in Arbeit“ auf main prüfen (Doppelbau 520/522/530). Offen: Tom `rG9H` (531) hängt auf Bash-Berechtigung, Chefsache 531a. Guthaben Woche 69 % (Bild 20:19). Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 588** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 589** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -60,6 +60,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 18:25 05.11.: Chef „Zu t266 6“ (Log-Fehler Kampf im Wald, Build 266) als Vorgang 588 in Jerrys Vorrat (nur auf Zuruf, 468e), Wortlaut gekürzt in „Zu 588“.
 - 17:10 05.11.: Chef: „Homer-Sitzung 296.2 vom 25.10. liegt noch rum“: `list_sessions` bis zur letzten Seite gelesen (has_more falsch, bis 09.10.): offen war nur „Homer – 296.2 (25.10., 00:03)“ (idle seit 27.10.), archiviert, 3,50 $ (gebucht +1,32 $ Differenz, 296.2 jetzt 14,29 $). Sonst nur Ford und Ford-Wache (Wache bleibt, D13.2). Fehler Ford: bei 16:50 nur die ersten 300 Sitzungen gelesen, `has_more` ignoriert.
 - 16:50 05.11.: Chef 16:4x „archivier doch mal vernünftig oder fass die Kosten“: alle Seiten von `list_sessions` durchsucht (300 Sitzungen), offen waren nur Homer 547 (3,15 $) und Spike 537 (24,76 $, idle seit 04.11.): archiviert und gebucht. Jetzt läuft keine Sitzung außer Ford. Von Ford gebucht seit 04.11., 13:56: 485,84 $ (04.11. 296,52 $, 05.11. 189,32 $ mit Spike); darin Tom 512b 72,19 $, Jerry 494 42,36 $.
 - 12:40 05.11.: Jerry `HyeB5` (494, einzige Entwicklersitzung 468e, 08:44–12:36, 3 h 52) übergeben (896a49a8d, Nachfolger „Jerry – 587: Gegnergröße im Kampfort“ nur auf Zuruf), archiviert, 42,36 $ auf 494. Offen beim Chef: t266 (Test Build 266), 587a. Heute kein weiterer Start (468e).
