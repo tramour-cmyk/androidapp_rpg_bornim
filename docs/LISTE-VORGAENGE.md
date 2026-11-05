@@ -121,7 +121,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 385.2 | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball (aus 385.1, Chef 28.10., 19:1x) | E Kampf | M | 9,99 $ | Team Jerry | ruht |
 | 387 | Gekaufte Tiere schnell auf Bewegungen und unsere Haut prüfen, vor Eigenbau (Chef 27.10., 21:27) | E Monster | M | 98,99 $ | Team Jerry | ruht |
 | 403 | Kampfort: Held je Klasse auf dem Kaufkörper (heldfigur.gd aus 376.1) statt held.bin, Kampfbewegungen aus der UAL | E Kampf | M | 24,71 $ | Team Jerry | wartet |
-| 468 | Sparplan bis Sa 19:59: Wochenlimit 36 % nach 36 h, halbes Tempo (Chef 02.11., 07:33, Bild Nutzung) | B Abläufe | M | – | Sokrates | Dauer |
+| 468 | Sparplan bis Sa 19:59: Wochenlimit 36 % nach 36 h, halbes Tempo (Chef 02.11., 07:33, Bild Nutzung) | B Abläufe | M | 5,88 $ | Sokrates | Dauer |
 | 468e | Rückfrage: 90 % verbraucht, Rest bis Sa 19:59: Ruhe, eine Sitzung am Tag oder Guthaben kaufen? (Chef 05.11., 07:07) | B Abläufe | M | – | Sokrates | erledigt |
 | 469 | Kampf auf BRS: Ring (MARS) ohne Klassen regeln (aus 406.1, Sokrates 02.11.) | E Kampf | M | – | Team Jerry | wartet |
 | 467 | Ausdauer nach BRS statt SRD (ausdauer.gd: Konstitution, Stärke 13), Formel aus 427 (Chef 01.11., 21:52) | E Kampf | M | – | Team Jerry | wartet |
@@ -178,7 +178,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 549a.1 | ROLLE-ENTWICKLUNG: vor jedem Menüschirm „Fenster und Schirme“ lesen (zu 549a) | B Abläufe | M? | – | Perikles | gebaut |
 | 549 | Rastfenster am Feuer wirkt klein, zu viele Kästen; besser als alt gestalten (Chef 04.11., 00:07, Bild) | A Spiel | M | – | Team Tom | wartet |
 | 550 | Flüsterwald: erstes Heilkraut zeigt einen riesigen Einblendkasten, ab dem zweiten normale Größe (Chef 04.11., 00:19) | A Spiel | M | – | Team Tom | erledigt |
-| 558 | Robe des Magiers zu glatt, wie eine blaue Fläche: Stoff lebendiger (Falten, Schatten, Schmutz, Abnutzung) (Chef 04.11., 11:31, Bild) | E Figuren | M | 90,45 $ | Team Tom | gebaut |
+| 558 | Robe des Magiers zu glatt, wie eine blaue Fläche: Stoff lebendiger (Falten, Schatten, Schmutz, Abnutzung) (Chef 04.11., 11:31, Bild) | E Figuren | M | 96,33 $ | Team Tom | gebaut |
 | 558.1 | Prüferrest Robe Probe 5 nachhalten, nicht bauen; Chef sieht es nach dem Durchspielen an (Chef 04.11., 22:23) | E Figuren | K | – | Team Tom | ruht |
 | 560 | Monster auf der Karte drehen sich zum Helden, wenn sie ihn wahrnehmen, mit Schritten statt auf der Stelle (Chef 04.11., 16:22) | E Monster | M? | – | Team Jerry | startbar |
 | 561 | MARS: goldener Zugkreis wird von der Figur darin nicht verdeckt, wie alt (Chef 04.11., 16:56, t257 C) | E Kampf | M | – | Team Jerry | startbar |
@@ -192,20 +192,20 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 569 | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 Probe 4) | A Spiel | M | – | Team Tom | startbar |
 | 570 | Theke: Wahl „Fleisch verkaufen · 12 Gold“ liest sich wie ein Preis (Prüfer 557 Runde 4) | A Spiel | M? | – | Homer | startbar |
 | 571 | Wischen auf Schaltflächen rollt Listen nicht (Testmenü, Erschaffung; Chef 04.11., 20:13) | A Spiel | M | – | Team Tom | gebaut |
-| 572 | Effektprobe: zwei REEBOO-Gratisstücke (Stylized VFX, Status Effects) an einem eigenen Helden im Film, vor dem Kauf (Chef 04.11., 20:27) | C Kampf | M | 22,93 $ | Team Jerry | Chef |
+| 572 | Effektprobe: zwei REEBOO-Gratisstücke (Stylized VFX, Status Effects) an einem eigenen Helden im Film, vor dem Kauf (Chef 04.11., 20:27) | C Kampf | M | 28,81 $ | Team Jerry | Chef |
 | 573 | Kampf: gefallener Gegner wird in die Mitte gezogen, wenn er als Letzter fällt (Chef 04.11., 20:33, Build 257) | C Kampf | M | – | Team Jerry | gebaut |
 | 574 | Laufprotokoll Build 257 (Handy): „Lambda capture … was freed“ dreimal, „buffer_size == 0“ (Chef 04.11., 20:40) | E Technik | M | – | Team Tom | gebaut |
 | 575 | Klang: Knurren im Rattenkampf klingt nach Wolf? (Chef 04.11., 20:42, unsicher) | C Kampf | M | – | Team Jerry | gebaut |
 | 577 | Kampf: jedes Tier mit eigener Kennung (Ratte, Fledermaus, Kobold, Schamane, Grimmzahn), Körper nur für Modell (Chef 04.11., 21:00) | C Kampf | M | – | Team Jerry | gebaut |
 | 578 | Filmwächter 511 kennt „gleich Film“ des Chefs nicht (572: Chef 21:03, Wächter verlangte trotzdem Probebild) | B Werkzeuge | M | 0,54 $ | Perikles | gebaut |
-| 579 | Gegner zuerst: Lücke alt gegen neu in Kapitel 1, Vorrang 494, 506, 492 (Chef 05.11., 08:18) | B Abläufe | M | – | Perikles | startbar |
+| 579 | Gegner zuerst: Lücke alt gegen neu in Kapitel 1, Vorrang 494, 506, 492 (Chef 05.11., 08:18) | B Abläufe | M | 5,88 $ | Perikles | startbar |
 | 580 | Erschaffung: Attributnamen beim Punktekauf abgeschnitten („Geschic…“; Abgleich 512b) | A Spiel | M | – | Team Tom | startbar |
 | 581 | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) | A Spiel | M | – | Team Tom | startbar |
 | 582 | Laden: Vorräte ohne Kurzangabe und Seltenheitsfarbe, Ausrüstung ohne Platz, ▲/▼ in Namensfarbe statt grün/rot, Mengenfenster ohne Wirkung (Abgleich 512b) | A Spiel | M | – | Team Tom | startbar |
 | 583 | Textkasten: ▼ liegt im Text, erzählter Text ohne i-Punkte und nicht schräg (Abgleich 512b) | A Spiel | M | – | Team Tom | startbar |
 | 584 | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Brett, Test nicht hervorgehoben wie alt (Abgleich 512b) | A Spiel | M? | – | Team Tom | wartet |
 | 585 | Menüs Kleinigkeiten: Titelumbruch Hauptmenü, Knopf Lizenzen, Bild in Rückfrage Wegwerfen, Test „Variante“ (Abgleich 512b) | A Spiel | M? | – | Team Tom | wartet |
-| 557 | Spielstände: Entwurf ohne Kasten (549a) als Bild, Inhalt wie alt mit Spieldauer und Heldenbild (Chef 04.11., 11:15) | A Spiel | M | 32,62 $ | Team Tom | gebaut |
+| 557 | Spielstände: Entwurf ohne Kasten (549a) als Bild, Inhalt wie alt mit Spieldauer und Heldenbild (Chef 04.11., 11:15) | A Spiel | M | 38,50 $ | Team Tom | gebaut |
 | 556 | Blenden reines Schwarz statt Leuchten in der Mitte (Ringe), lang genug zum Lesen (Chef 04.11., 07:52) | A Spiel | M | – | Team Tom | gebaut |
 | 555 | Testmenü wie alt und schneller: fehlende Einträge der alten Fassung, dazu Sprünge an jede Station von Kapitel 1 (Chef 04.11., 00:30) | B Werkzeuge | M | 15,00 $ | Team Tom | gebaut |
 | 523 | Tasche wie alt und besser: „Funke löschen“, Seltenheit und Kurzangabe der Vorräte, Ausrüstungszeile mit Art, Platz, Wert, „nicht tragbar“, ▲/▼ farbig, Sortierung nach Platz, Klang beim Benutzen (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | zu testen |
@@ -233,7 +233,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 507 | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) | E Kampf | M | 34,94 $ | Team Jerry | startbar |
 | 471 | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | E Regeln | M | – | Team Tom | ruht |
 | 474 | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, Meldung Tuffy): nächster Build einmal deinstallieren; dauerhaft ohne Cache | E Technik | M? | 8,66 $ | Team Tom | ruht |
-| 475 | Leute des Dorfs (Rowena, Borin …) auf Kaufkörper ihres Volks mit Gesicht, statt der alten Figuren (Chef 02.11., 10:52, Build 146: „Kommt da noch was?“) | E Figuren | M | 58,50 $ | Team Tom | startbar |
+| 475 | Leute des Dorfs (Rowena, Borin …) auf Kaufkörper ihres Volks mit Gesicht, statt der alten Figuren (Chef 02.11., 10:52, Build 146: „Kommt da noch was?“) | E Figuren | M | 64,38 $ | Team Tom | startbar |
 | 476 | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild (Chef 02.11., 14:43) | E Oberfläche | M? | – | Team Tom | wartet |
 | 477 | Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59) | E Technik | M? | – | Team Tom | gebaut |
 | 465 | Chefsache „Zu entscheiden“ mit Uhrzeit in „Seit“ wie bei Anzusehen und Zu tun (Chef 01.11., 20:50) | B Abläufe | M | 2,43 $ | Perikles | gebaut |
