@@ -176,9 +176,18 @@ def main():
                 and not GEPRUEFT.search(git("show", ":" + p)):
             stop.append("%s: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort" % p)
     for s, p in dat:  # 512.1 (Chef 03.11., 23:28, „Kümmer du dich um 512.“): neue Prüfliste nennt, was alt gegen neu verglichen ist
-        if s == "A" and re.match(r"docs/chefsache/ansehen/t\d+-[^/]+\.md$", p) \
-                and not re.search(r"(?m)^\**Verglichen\b[^:\n]*:", git("show", ":" + p)):
+        if not (s == "A" and re.match(r"docs/chefsache/ansehen/t\d+-[^/]+\.md$", p)):
+            continue
+        vgl = re.search(r"(?m)^\**Verglichen\b[^:\n]*:(.*)$", git("show", ":" + p))
+        if not vgl:
             warn.append("%s: Zeile „Verglichen (alt gegen neu): <Schirme, Fenster, Bedienungen>“ fehlt (512, LISTE-BAUEN-TESTEN)" % p)
+            continue
+        zeile = vgl.group(1)  # 512b (Chef 04.11., 19:21): Nachweis mit Helfer und Bild/Film, keine Dateinamen
+        if not re.search(r"Helfer", zeile) or not re.search(r"https?://|\.(png|webp|jpe?g|mp4)\b|Film|Bild", zeile):
+            warn.append("%s: „Verglichen“ ohne Helfer (nicht der Bauende) oder ohne Bild/Film; Nachweis nach 512b "
+                        "(LISTE-UMZUG-348 „Abgleich“)" % p)
+        if re.search(r"\b\w+\.(kt|gd|py|tscn)\b", zeile):
+            warn.append("%s: „Verglichen“ nennt Dateinamen; verlangt sind Schirme und Bedienungen (512b)" % p)
     for s, p in dat:
         if s == "D" and p.startswith("docs/chefsache/entscheiden/") and not arch and os.environ.get("BORNIM_ZURUECK") != "1" \
                 and not startbar.ueberholt(os.path.basename(p), git("show", "HEAD:" + p), antwort):
