@@ -870,6 +870,10 @@ func _waehle_b(platz: String) -> void:
 	jt.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	jt.custom_minimum_size.x = 60 * DP
 	jetzt.add_child(jt)
+	if Spielstaende.vorlage2 and an != null:   # Pruefer 07:46 (557a B): nur dem Angelegten fehlte das Bild, jede Zeile darunter hat eines
+		var jb := Menue.bild_feld("stueck-%s-%s" % [an["base"], an["rarity"]], 40)
+		jb.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		jetzt.add_child(jb)
 	var jn := Stil.zeile(Beute.name(an) if an != null else ("nichts" if de else "nothing"), 16, farbe_von(an) if an != null else Stil.DIM)
 	jn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	jn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
@@ -1090,7 +1094,8 @@ static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
 	var kv := VBoxContainer.new()
 	kv.add_theme_constant_override("separation", int(2 * DP))
 	kv.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	kv.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	# Pruefer 07:46 (557a B): der Name stand mittig neben dem Bild 29 px tiefer als jeder Titel; oben wie der Kopf jedes Fensters
+	kv.size_flags_vertical = Control.SIZE_SHRINK_BEGIN if Spielstaende.vorlage2 else Control.SIZE_SHRINK_CENTER
 	var plus := int(g.get("plus", 0))
 	# 557 Runde 5 (Chef 19:23: „die plus x beim Gegenstand mit zum Namen dazu packen“): „Kettenpanzer +3“ in der Namenszeile, mit festem
 	# Leerzeichen, damit es mit dem letzten Wort umbricht (Bild 4: „+3“ stand allein unter dem Namen)
