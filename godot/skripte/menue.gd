@@ -424,8 +424,10 @@ func tippbar(c: Control, was: Callable) -> void:
 	var da := {"p": Vector2.INF}
 	c.gui_input.connect(func(e: InputEvent):
 		if e is InputEventMouseButton and e.button_index == MOUSE_BUTTON_LEFT:
-			if e.pressed: da["p"] = e.position
-			elif da["p"] != Vector2.INF and e.position.distance_to(da["p"]) < 12 * DP:
+			# 571: Weg des Fingers auf dem Schirm, nicht in der Zeile; rollt die Liste mit, bleibt die Stelle in der Zeile gleich
+			var wo: Vector2 = c.get_global_transform_with_canvas() * e.position
+			if e.pressed: da["p"] = wo
+			elif da["p"] != Vector2.INF and wo.distance_to(da["p"]) < 12 * DP:
 				da["p"] = Vector2.INF
 				was.call())
 

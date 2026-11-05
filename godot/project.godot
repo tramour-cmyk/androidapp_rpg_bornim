@@ -14,6 +14,9 @@ config/project_settings_override="user://renderer_415.cfg"
 ; 399.3 (Jerry): Musik und Klang wie im alten Spiel (klang/klang.gd)
 Klang="*res://klang/klang.gd"
 
+; 571 (Chef 04.11., 20:13): Wischen auf einem Knopf rollt jede Liste (skripte/wischen.gd)
+Wischen="*res://skripte/wischen.gd"
+
 [debug]
 
 ; 399.1 Gerät: die letzten Fehlermeldungen aus dem Protokoll (messung.gd), auch am Handy
