@@ -483,6 +483,7 @@ var eye := 6.0
 var horizon_y := 0.0
 
 func _fit_camera() -> void:
+	var g_alt := _ground(0, 0)     # 494 (Prüfer 512b, 573): Tote rücken nur mit dem Boden, nie auf ihren Platz
 	var vs := get_viewport().get_visible_rect().size
 	var sr := scene_rect()
 	var w := sr.size.x
@@ -503,7 +504,10 @@ func _fit_camera() -> void:
 	if forest:
 		forest.position = _ground(0, 0)
 	for fig in figures.values():
-		fig.snap_to(_spot_pos(fig.fighter, shown.places[fig.fighter.id]))
+		if fig.dead_at >= 0:     # 573: wer gefallen ist, bleibt liegen, wo er fiel (Krogg sprang am Ende 1,5 m, Grak 2,9 m)
+			fig.snap_to(fig.position + _ground(0, 0) - g_alt)
+		else:
+			fig.snap_to(_spot_pos(fig.fighter, shown.places[fig.fighter.id]))
 
 
 ## 249: Zoom und Ruck des Schlags in [hit] wie im alten MARS: in 110 ms (tödlich 220) heran, so lange der Halt dauert

@@ -215,6 +215,9 @@ func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := 
 		var hinten: bool = sb.main.ranged or sb.cls == "WIZARD" or sb.cls == "CLERIC"
 		party.append(_kaempfer("merc", soeldner, soeldner_tp, Vector2i(Mars.BACK, 0) if hinten else Vector2i(Mars.FRONT, 1), skills))
 	var foes := gegner(gegner_, monsters, dice)
+	if int(lage.get("nr", 0)) > 0 and not foes.is_empty():
+		foes[0].monster = (foes[0].monster as Dictionary).duplicate()     # nicht die Tabelle selbst ändern
+		foes[0].monster["fell"] = int(lage.nr)     # 494: Fell des Monsters der Karte (spiel.gd kampf_im_wald nr), Name ohne Nummer
 	kampf = Kampfort.new()
 	kampf.tempo = Bedienung.tempo_faktor()     # 527: Tempo aus dem Menue System
 	kampf.tageszeit = tageszeit

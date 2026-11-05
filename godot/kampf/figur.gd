@@ -353,7 +353,7 @@ func _model_path() -> String:
 	if vier(fighter):
 		if art() == "dire_wolf":     # GRIMMFELL=schimmer: die seltene Schimmervariante
 			return "res://kampf/daten/dire_wolf-%s.bin" % (OS.get_environment("GRIMMFELL") if OS.has_environment("GRIMMFELL") else "schwarz")
-		var n: int = maxi(fighter.nr, 1) - 1
+		var n: int = _fell_nr() - 1
 		var art := _mein_ersatz()
 		if art.begins_with("kauf_"):     # 387: gekaufte Tiere (kauftier.py), Felle aus <art>-info.json
 			var fl := _kauf_felle(art)
@@ -368,8 +368,13 @@ func _model_path() -> String:
 	# <id>-info.json; je Nummer eine (drei Varianten, DESIGN-STIL „Abwechslung“)
 	var felle := _kauf_felle(Mars.koerper_of(fighter.monster))
 	if not felle.is_empty():
-		return "res://kampf/daten/%s-%s.bin" % [Mars.koerper_of(fighter.monster), felle[(maxi(fighter.nr, 1) - 1) % felle.size()]]
+		return "res://kampf/daten/%s-%s.bin" % [Mars.koerper_of(fighter.monster), felle[(_fell_nr() - 1) % felle.size()]]
 	return "res://kampf/daten/%s.bin" % Mars.koerper_of(fighter.monster)
+
+
+## 494 (Prüfer 512b): welches Fell; ein Monster der Karte bringt seins mit („fell“, aufruf.gd lage „nr“), sonst nach der Nummer
+func _fell_nr() -> int:
+	return maxi(int(fighter.monster.get("fell", fighter.nr)) if fighter.monster != null else fighter.nr, 1)
 
 
 ## 348.12f eingebaut (Chef 28.10., 11:50, Archiv: Kaufwolf und Ratte abgenommen): gekaufte Modelle liegen im APK nur verschlüsselt

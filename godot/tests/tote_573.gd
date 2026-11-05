@@ -18,7 +18,9 @@ func _initialize() -> void:
 
 func _alle() -> void:
 	var n := 0
-	for foe in ["RUDEL", "WOLVES", "RATS"]:
+	# 494 (Prüfer 512b): Krogg und Grak bleiben liegen und sprangen beim Neueinpassen der Kamera am Ende (Ergebnisfeld) auf ihren
+	# Platz; gemessen gegen den Boden (_ground), der beim Einpassen mitrückt
+	for foe in ["RUDEL", "WOLVES", "RATS", "KROGG", "GRAK"]:
 		for kl in [["FIGHTER", "CLERIC"], ["CLERIC", "WIZARD"]]:
 			for seed in [4, 8]:
 				for haken in [false, true]:
@@ -58,17 +60,18 @@ func _einer(foe: String, hero: String, merc: String, seed: int, haken: bool) -> 
 			if not fg.down or not fg.visible:
 				continue
 			if not liegt.has(id):
-				liegt[id] = fg.global_position
-			elif fg.global_position.distance_to(liegt[id]) > WEIT and not bewegt.has(id):
-				bewegt[id] = fg.global_position.distance_to(liegt[id])
+				liegt[id] = (fg.global_position - k._ground(0, 0))
+			elif (fg.global_position - k._ground(0, 0)).distance_to(liegt[id]) > WEIT and not bewegt.has(id):
+				bewegt[id] = (fg.global_position - k._ground(0, 0)).distance_to(liegt[id])
 		var ende: bool = k.mars.outcome != "ONGOING" and not k.busy and not k.playing and k.beats.is_empty()
 		if ende:
+			k._fit_camera()     # wie beim Ergebnisfeld (kampf_ui: Bedienfeld wächst)
 			for i in 90:     # noch 3 s Spielzeit: liegen die Toten noch, wo sie fielen?
 				await process_frame
 				for id in liegt:
 					var fg = k.figures[id]
-					if fg.visible and fg.global_position.distance_to(liegt[id]) > WEIT and not bewegt.has(id):
-						bewegt[id] = fg.global_position.distance_to(liegt[id])
+					if fg.visible and (fg.global_position - k._ground(0, 0)).distance_to(liegt[id]) > WEIT and not bewegt.has(id):
+						bewegt[id] = (fg.global_position - k._ground(0, 0)).distance_to(liegt[id])
 			break
 		if haken and not liegt.is_empty() and k.mars.outcome == "ONGOING":
 			k.test_end(true)
