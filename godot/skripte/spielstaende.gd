@@ -251,6 +251,7 @@ func _ready_b() -> void:
 	spalte.add_child(linie())
 	if vorlage2:   # 557 Runde 4 (Chef 17:40, 549a (9)): „‹ ZURÜCK“ links, nicht mittig, so gross wie jeder Knopf
 		spalte.add_child(knopfzeile(knopf("neben", Sprache.u("back"), func(): zurueck.emit(), true), null))
+		folge_inhalt(spalte, rolle, liste)   # 557a B (Chef 20:52 zu Bild 12): „Zurück“ fest unten nur, wenn die Liste rollt
 		baue()
 		return
 	var z := HBoxContainer.new()
@@ -357,13 +358,27 @@ func _voll_zeile(d: Dictionary, de: bool) -> Control:
 # 557 Vorlage 2: Fenster ohne Rahmen (Chef 14:21, 14:25): fast schwarzer Grund, Titel in Gold zwischen Zierlinie und Linie, Zeilen,
 # Linie, unten „‹ ABBRECHEN“ links (Nebenwahl), die Wahl rechts (Gefahr in Warnfarbe mit Zeichen); Zurueck und Tippen daneben
 # schliessen wie Abbrechen (526). Gibt den Schleier zurueck; [tat] laeuft nach dem Schliessen
+# 557a B (Chef 04.11., 20:55, Archiv): auf jedem Fenster und Schirm beginnt der Inhalt oben, der Kopf (Titel, Bild und Name, Zeichen)
+# in derselben Hoehe wie der Titel jedes Schirms (Rand oben 36 dp), die Knoepfe direkt unter dem Inhalt; statt CenterContainer
+const OBEN_DP := 36.0
+
+static func oben() -> MarginContainer:
+	var m := MarginContainer.new()
+	m.name = "Oben"
+	m.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	m.add_theme_constant_override("margin_top", int(OBEN_DP * DP))
+	m.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	m.child_entered_tree.connect(func(k: Node):
+		if k is Control:
+			(k as Control).size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+			(k as Control).size_flags_horizontal = Control.SIZE_SHRINK_CENTER)
+	return m
+
 static func frage(eltern: Control, titel: String, zeilen: Array, zeichen: String, wahl: String, farbe: Color, tat: Callable, an := true) -> ColorRect:
 	var de := Sprache.aktiv() == "de"
 	var schleier := Rueckfrage.schleier(eltern)
 	schleier.color = Color.BLACK   # Pruefer 16:40: bei 0,97 schien die Liste (Werte, Rezepte) durch und ueberlappte den Text
-	var mitte := CenterContainer.new()
-	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var mitte := oben()   # 557a B
 	schleier.add_child(mitte)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(10 * DP))

@@ -39,7 +39,30 @@ func _messe(wo: String, wurzel: Node) -> void:
 	for t in wurzel.find_children("*", "TextureRect", true, false):
 		if t.is_visible_in_tree() and t.custom_minimum_size.x >= 16 * DP:
 			pruefe("Bildfeld gefüllt " + wo, t.texture != null, "%s %s" % [t.get_parent().name, t.get_global_rect()])
+	if Spielstaende.vorlage2: _lage(wo, wurzel)
 	print("%s: %d Texte" % [wo, labels.size()])
+
+# 557a B (Chef 04.11., 20:55): der Kopf beginnt oben in derselben Hoehe wie auf jedem Schirm (Spielstaende.OBEN_DP), die Knoepfe stehen
+# direkt unter dem Inhalt; fest unten nur, wenn die Liste rollt
+const OBEN_557A := 36.0   # Rand oben jedes Schirms (Spielstaende.OBEN_DP)
+
+func _lage(wo: String, wurzel: Node) -> void:
+	var sichtbar: Array = wurzel.find_children("*", "Control", true, false).filter(func(c): return c.is_visible_in_tree() and (c is Label and c.text.strip_edges() != "" or c is TextureRect or c.name == "Kopfzeichen"))
+	var oben := INF
+	for c in sichtbar: oben = minf(oben, (c as Control).get_global_rect().position.y)
+	pruefe("Kopf oben " + wo, absf(oben - OBEN_557A * DP) <= 4 * DP, "%.0f px statt %.0f" % [oben, OBEN_557A * DP])
+	var rollt := false
+	for r in wurzel.find_children("*", "ScrollContainer", true, false):
+		if r.is_visible_in_tree() and r.get_v_scroll_bar().max_value > r.get_v_scroll_bar().page + 1: rollt = true
+	if rollt: return
+	for k in wurzel.find_children("*", "PanelContainer", true, false).filter(func(p): return p.has_meta("knopf") and p.is_visible_in_tree()):
+		var kr: Rect2 = (k as Control).get_global_rect()
+		var drueber := -INF
+		for c in sichtbar:
+			if (k as Node).is_ancestor_of(c): continue
+			var r: Rect2 = (c as Control).get_global_rect()
+			if r.end.y <= kr.position.y + 1: drueber = maxf(drueber, r.end.y)
+		pruefe("Knopf am Inhalt " + wo, kr.position.y - drueber <= 56 * DP, "%.0f dp Luecke ueber „%s“" % [(kr.position.y - drueber) / DP, (k as Node).find_child("Text", true, false).text if (k as Node).find_child("Text", true, false) else "?"])
 
 const ZURUECK := ["ZURÜCK", "ABBRECHEN", "SCHLIESSEN", "BACK", "CANCEL", "CLOSE"]
 const VOR := ["WEITER", "LADEN", "ANLEGEN", "BRAUEN", "NEBENHAND", "NEXT", "LOAD", "EQUIP", "BREW", "OFF HAND"]

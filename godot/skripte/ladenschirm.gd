@@ -437,7 +437,7 @@ func _ready_b() -> void:
 	var rand := MarginContainer.new()
 	rand.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	for sd in ["left", "right"]: rand.add_theme_constant_override("margin_" + sd, int(20 * DP))
-	rand.add_theme_constant_override("margin_top", int(28 * DP)); rand.add_theme_constant_override("margin_bottom", int(12 * DP))
+	rand.add_theme_constant_override("margin_top", int((Spielstaende.OBEN_DP if Spielstaende.vorlage2 else 28.0) * DP)); rand.add_theme_constant_override("margin_bottom", int(12 * DP))   # 557a B: Titel wie jeder Schirm
 	add_child(rand)
 	var spalte := VBoxContainer.new()
 	spalte.add_theme_constant_override("separation", 0)
@@ -638,9 +638,7 @@ func braukasten_c(r: Dictionary, n: int, alle := false) -> void:
 	var oft := Laden.wie_oft(z, r)
 	var schleier := Rueckfrage.schleier(self)
 	schleier.color = Color.BLACK   # Pruefer 16:40: die Rezepte schienen durch
-	var mitte := CenterContainer.new()
-	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var mitte := Spielstaende.oben()   # 557a B: oben wie jeder Schirm
 	schleier.add_child(mitte)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(10 * DP))

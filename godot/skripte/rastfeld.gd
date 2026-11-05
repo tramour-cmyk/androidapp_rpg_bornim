@@ -92,9 +92,14 @@ func _wahl_spalte(w: Dictionary) -> Control:
 func _ohne_kasten(titel: String, unter: String, wahlen: Array, weiter_text: String, notiz: String, zeilen: Array) -> void:
 	var sp := VBoxContainer.new()
 	sp.add_theme_constant_override("separation", int(10 * DP))
-	sp.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
-	sp.offset_left = 28 * DP; sp.offset_right = -28 * DP; sp.offset_bottom = -40 * DP
-	sp.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	if Spielstaende.vorlage2:   # 557a B (Chef 20:52: „Sieben und acht sind unten ausgerichtet“): oben wie jeder Schirm, Kopf in derselben Hoehe
+		sp.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+		sp.offset_left = 28 * DP; sp.offset_right = -28 * DP; sp.offset_top = Spielstaende.OBEN_DP * DP
+		sp.grow_vertical = Control.GROW_DIRECTION_END
+	else:
+		sp.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+		sp.offset_left = 28 * DP; sp.offset_right = -28 * DP; sp.offset_bottom = -40 * DP
+		sp.grow_vertical = Control.GROW_DIRECTION_BEGIN
 	add_child(sp)
 	var fl := Rastzeichen.neu(kopf_zeichen, 64, Stil.BRIGHT)
 	fl.name = "Kopfzeichen"

@@ -288,8 +288,9 @@ func frage_verteilen() -> void:
 	var de := Sprache.aktiv() == "de"
 	var d := Heldwerte.lade()
 	var schleier := Rueckfrage.schleier(self)   # 526: Tippen daneben und Android-Zurück wie „Abbrechen“ (416.1)
-	var mitte := CenterContainer.new()
+	var mitte: Container = Spielstaende.oben() if Spielstaende.vorlage2 else CenterContainer.new()   # 557a B: oben wie jeder Schirm
 	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	schleier.add_child(mitte)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(8 * DP))
@@ -433,8 +434,9 @@ func tippbar(c: Control, was: Callable) -> void:
 # DialogSpec: Titel in der Farbe des Dings, Zeilen, Knoepfe [Text, Tat, an]; jeder Knopf schliesst erst den Kasten
 func dialog(titel: String, farbe: Color, zeilen: Array, knoepfe: Array) -> Control:
 	var schleier := Rueckfrage.schleier(self)   # 526: Tippen daneben und Android-Zurück wie „Abbrechen“ (416.1)
-	var mitte := CenterContainer.new()
+	var mitte: Container = Spielstaende.oben() if Spielstaende.vorlage2 else CenterContainer.new()   # 557a B: oben wie jeder Schirm
 	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	schleier.add_child(mitte)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(8 * DP))
@@ -901,6 +903,7 @@ func _waehle_b(platz: String) -> void:
 	spalte.add_child(Spielstaende.linie())
 	if Spielstaende.vorlage2:   # 557 Runde 4 (Chef 17:40, 549a (9)): „‹ ZURÜCK“ links, nicht mittig, so gross wie jeder Knopf
 		spalte.add_child(Spielstaende.knopfzeile(Spielstaende.knopf("neben", Sprache.u("back"), zu, true), null))
+		Spielstaende.folge_inhalt(spalte, rolle, liste)   # 557a B: „Zurück“ am Inhalt, fest unten nur, wenn die Liste rollt
 		Menue.wuerfel_lesbar(spalte)
 		return
 	var z := HBoxContainer.new()
@@ -1005,7 +1008,7 @@ func fenster_b(g: Dictionary, anlegen := Callable(), zurueck := Callable()) -> C
 		if zurueck.is_valid(): zurueck.call())
 	h["s"] = schleier
 	schleier.color = Color(0, 0, 0, 0.86)
-	var mitte := CenterContainer.new()
+	var mitte: Container = Spielstaende.oben() if Spielstaende.vorlage2 else CenterContainer.new()   # 557a B: oben wie jeder Schirm
 	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	schleier.add_child(mitte)
