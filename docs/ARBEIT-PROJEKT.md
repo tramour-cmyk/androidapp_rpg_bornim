@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 04.11., 16:20
+**Gelesen bis:** `origin/main` 05.11., 07:05
 
-**Übergabe (04.11., 16:2x):** 559 gebaut: `regelcheck.py --rueckmeldung` (Probe `--um "04.11. 14:30"`: 557 schlägt an, 531, 549 nicht), `lauf.py` gibt je Rückmeldung einmal `WÄCHTER` (Marke „Rückmeldung <Nr> <Zeit>“). Offen: täglich prüfen, ob 494 vor Sa 19:59 startet (Risiko Zeile 9). Nachfolger: Perikles – 448: Tagesbericht 05.11. (7:30)
+**Übergabe (05.11., 07:1x):** Tagesbericht 05.11. (448) gemeldet; Abnahmeliste 2.3 und 4.4 auf „in Arbeit“. 494 lief auch am 04.11. nicht (Risiko Zeile 9, täglich weiter prüfen). Nachfolger: Perikles – 578: Filmwächter kennt „gleich Film“
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|

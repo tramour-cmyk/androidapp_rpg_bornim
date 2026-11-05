@@ -19,7 +19,7 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 **Stufe 2 · Kapitel 1 durchspielbar** (Prüfung: Zufallsspieler spielt Kapitel 1 durch; Kollision 0; Kapitelsimulation: jede Herkunft schafft die Bosse; der Chef spielt einmal grob durch)
 - [ ] **2.1** T · Kollision und Sprungtest 0 in jedem Ort; kein Schweben nach Start und Kartenwechsel (24); Tippen trifft, was gezeichnet ist.
 - [ ] **2.2** T · Kerntests der Regeln des BRS als GDScript-Tests grün; Zufallsspieler spielt Kapitel 1 im neuen Spiel durch (26). · Stand: in Arbeit
-- [ ] **2.3** M · MARS und klassischer Kampf (212 A, 249) rund auf den Regeln des BRS: Kampf ohne W20 nach Stufen (E 7), jeder Angriff sichtbar, Ansage harter Schläge, Pechsträhne.
+- [ ] **2.3** M · MARS und klassischer Kampf (212 A, 249) rund auf den Regeln des BRS: Kampf ohne W20 nach Stufen (E 7), jeder Angriff sichtbar, Ansage harter Schläge, Pechsträhne. · Stand: in Arbeit
 - [ ] **2.4** M · Kampf nie langweilig, echte Wahl (`DESIGN-LEITBILD.md`); Schwierigkeitsgrade (39).
 - [ ] **2.5** M · Ausgleich gemessen, nicht geschätzt: Simulation „Zeit bis Stufe“ und Kapitelsimulation auf den Regeln des BRS (444); jede Herkunft und der Wanderer schaffen die Bosse in vergleichbarem Maß; Zielwert mit dem Chef festlegen (38).
 - [ ] **2.6** G · Lehrmeister spricht an, sobald zwei Kernfertigkeiten eines Pfads Geselle sind; Anwärter möglich (E 63, E 79; Takt NW 5); Bewährungsprobe zum Gesellen siehe 3.1.
@@ -44,7 +44,7 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 - [ ] **4.1** T · Kein Absturz, kein Hängenbleiben, kein Ruckeln auf den Testgeräten des Chefs (Handy und Tablet, 267); Spielstände halten über Updates.
 - [ ] **4.2** T · Jeder Fehler aus den Tests des Chefs behoben (Prüfer: Chef).
 - [ ] **4.3** A · Jeder Ort „Ort fertig“ nach `DESIGN-ABNAHME.md`, sinngemäß in Godot: Dorf, Räume, Flüsterwald, Tiefer Flüsterwald, Blutzahnhöhle.
-- [ ] **4.4** A · Jede Figur, jedes Haus, jedes Ding in `LISTE-UMZUG-348.md` auf „abgenommen“ (Prüfer: Chef; Diogenes misst nebenher, 373).
+- [ ] **4.4** A · Jede Figur, jedes Haus, jedes Ding in `LISTE-UMZUG-348.md` auf „abgenommen“ (Prüfer: Chef; Diogenes misst nebenher, 373). · Stand: in Arbeit
 - [ ] **4.5** A · Signatur nach `DESIGN-STIL.md`: schwarz-gold, Tusche, düster und lesbar; Hauptmenü, Erschaffung, Menüs, Vorspann und Zwischenbilder im selben Look (Prüfer: Chef).
 - [ ] **4.6** K · Musik je Ort, Tageszeit und Kampf; Umgebung aus echten Aufnahmen je Ort.
 - [ ] **4.7** K · Schritte je Untergrund (74), Raumklang in Innenräumen und Höhle (119), Stimmen der Gegner (18); bisher „wenn Zeit ist“, jetzt Muss, weil die Direktive Klang nennt (Prüfer: Chef).
