@@ -200,9 +200,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 578 | Filmwächter 511 kennt „gleich Film“ des Chefs nicht (572: Chef 21:03, Wächter verlangte trotzdem Probebild) | B Werkzeuge | M | 0,54 $ | Perikles | gebaut |
 | 579 | Gegner zuerst: Lücke alt gegen neu in Kapitel 1, Vorrang 494, 506, 492 (Chef 05.11., 08:18) | B Abläufe | M | 5,88 $ | Perikles | startbar |
 | 580 | Erschaffung: Attributnamen beim Punktekauf abgeschnitten („Geschic…“; Abgleich 512b) | A Spiel | M | – | Team Tom | gebaut |
-| 581 | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) | A Spiel | M | – | Team Tom | gebaut |
+| 581 | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) | A Spiel | M | 2,31 $ | Team Tom | gebaut |
 | 582 | Laden: Vorräte ohne Kurzangabe und Seltenheitsfarbe, Ausrüstung ohne Platz, ▲/▼ in Namensfarbe statt grün/rot, Mengenfenster ohne Wirkung (Abgleich 512b) | A Spiel | M | – | Team Tom | startbar |
-| 583 | Textkasten: ▼ liegt im Text, erzählter Text ohne i-Punkte und nicht schräg (Abgleich 512b) | A Spiel | M | – | Team Tom | startbar |
+| 583 | Textkasten: ▼ liegt im Text, erzählter Text ohne i-Punkte und nicht schräg (Abgleich 512b) | A Spiel | M | 2,31 $ | Team Tom | startbar |
 | 584 | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Brett, Test nicht hervorgehoben wie alt (Abgleich 512b) | A Spiel | M? | – | Team Tom | wartet |
 | 585 | Menüs Kleinigkeiten: Titelumbruch Hauptmenü, Knopf Lizenzen, Bild in Rückfrage Wegwerfen, Test „Variante“ (Abgleich 512b) | A Spiel | M? | – | Team Tom | wartet |
 | 557 | Spielstände: Entwurf ohne Kasten (549a) als Bild, Inhalt wie alt mit Spieldauer und Heldenbild (Chef 04.11., 11:15) | A Spiel | M | 38,50 $ | Team Tom | gebaut |
