@@ -144,7 +144,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 05.11.; „star
 | 586 | K | von Chef über Jerry (05.11., 09:35; Zu 586): Bilder 557 einheitlich: Rast am Feuer und an | startbar |
 | Pflege | K | von Werkzeug (340.3, 05.11.): 116640 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
 
-**Jerry** – offen 82, Muss 69, startbar 18
+**Jerry** – offen 81, Muss 68, startbar 17
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -152,7 +152,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 05.11.; „star
 | 577 | M | von Sokrates (Chef 04.11., 21:00: „Wie wär's denn, wenn die Dinger die Kennung kriegen, di | wartet auf Test/Build (gebaut) |
 | 575 | M | von Sokrates (Chef 04.11., 20:42, Build 257; Zu 575): Rattenkampf: welches Knurren spielt, | wartet auf Test/Build (gebaut) |
 | 573 | M | von Sokrates (Chef 04.11., 20:33, Build 257; Zu 573): Tote bleiben liegen: der zuletzt gef | wartet auf Test/Build (gebaut) |
-| 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | startbar |
 | 566 | M | von Sokrates (Chef 04.11., 17:15, Bild; Zu 566 und 567): „Beim Goblin steht in den Schatte | wartet auf Test/Build (gebaut) |
 | 567 | M | von Sokrates (Bilder Chef 04.11., 17:00–17:15; Zu 566 und 567): Gegner stehen im Kampfort | wartet auf Test/Build (gebaut) |
 | 565 | M | von Sokrates (Chef 04.11., 17:10, t257 Bereich C, Bild; Zu 565): im Gruppenkasten unten is | startbar |
