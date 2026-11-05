@@ -45,11 +45,17 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 05.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 95, Muss 73, startbar 10
+**Tom** – offen 94, Muss 70, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | startbar |
+| 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | wartet auf Test/Build (gebaut) |
+| 580 | M | von Tom (Abgleich 512b, Prüfer 08:17): Erschaffung Punktekauf: Attributnamen abgeschnitten | startbar |
+| 581 | M | von Tom (Abgleich 512b): Reiter Ausrüstung: Seite 16 px breiter als der Schirm (Rand 11 st | startbar |
+| 582 | M | von Tom (Abgleich 512b; Zu 582): Laden wie alt: Kurzangabe der Vorräte, Seltenheitsfarbe, | startbar |
+| 583 | M | von Tom (Abgleich 512b): Textkasten: ▼ liegt im Text („Sammel▼“), erzählter Text ohne i-Pu | startbar |
+| 584 | M? | von Tom (Abgleich 512b; Zu 584): kein halbfetter Schnitt, Köpfe wie alt (Theme.kt 216: hal | wartet auf Perikles |
+| 585 | M? | von Tom (Abgleich 512b; Zu 585): Kleinigkeiten Menüs: Titelumbruch Hauptmenü, Knopf „Lizen | wartet auf Perikles |
 | 569 | M | von Sokrates (Chef 04.11., 19:44, Bild 558 Probe 4 Wald Tag; Zu 569): Baumkronen ohne Umri | startbar |
 | 568 | M? | von Sokrates (Chef 04.11., 19:42, „grundsätzlich bei 568. Für A.“; DESIGN-SPIELSYSTEM-2-0. | startbar |
 | 574 | M | von Sokrates (Chef 04.11., 20:40, Laufprotokoll Build 257 vom Handy; Zu 574): Fehler „Lamb | wartet auf Test/Build (gebaut) |
@@ -62,14 +68,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 05.11.; „star
 | 521 | M | von Sokrates (Chef 03.11., 23:23, Build 249, Bild; Zu 521): Wechselschirm (Platz antippen) | wartet auf Test (Build) |
 | 519 | M | von Sokrates (Chef 03.11., 23:13, Build 249, Bild): Ausrüstung, Fenster eines Gegenstands | wartet auf Test (Build) |
 | 537 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 537): Kapitelende fehlt: nach Aldric kei | wartet auf Test/Build (gebaut) |
-| 549 | M | von Sokrates (Chef 04.11., 00:07, Build 249, Bild; Zu 549): „Rastscreen wirkt sehr klein u | startbar |
-| 550 | M | von Sokrates (Chef 04.11., 00:19, Build 249): „erstes Mal Heilkräuter gepflückt ein riesen | wartet auf Test (Build) |
+| 549 | M | von Sokrates (Chef 04.11., 00:07, Build 249, Bild; Zu 549): „Rastscreen wirkt sehr klein u | wartet auf 557 (Chef) |
 | 555 | M | von Sokrates (Chef 04.11., 00:30, „Fehlt vielleicht noch mehr im Testmenü??? Wäre zum Test | wartet auf Test/Build (gebaut) |
 | 523 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 523): Tasche wie alt und besser: „Funke | wartet auf Test (Build) |
 | 524.1 | M | von Sokrates (Chef 04.11., 00:52, „Vorschlag zum Verbessern und spielerfreundlicher machen | startbar |
 | 524 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 524): Gegenstandsfenster, Inhalt wie alt | wartet auf Test (Build) |
 | 525 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 525): Laden, Morwen, Rast wie alt und be | wartet auf Test/Build (gebaut) |
-| 526 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 526): Rückfragen und Fenster einheitlich | wartet auf Test (Build) |
 | 528 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 528): Held, Karte, Chronik wie alt: Satz | wartet auf Test/Build (gebaut) |
 | 529 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 529): Spielstände: Heldenbild und Spielz | wartet auf Test/Build (gebaut) |
 | 539 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 539): Licht folgt der Uhr nicht: wechsel | wartet auf Test/Build (gebaut) |
@@ -81,13 +85,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 05.11.; „star
 | 495 | M | von Perikles (Wochenziel 03.11. Reihe 4, 488): Zufallsspieler spielt Kapitel 1 in Godot bi | wartet auf Jerry |
 | 491 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Tiefer Flüsterwald begehbar w | wartet auf Test/Build (gebaut) |
 | 505 | M | von Perikles (Archiv 502, Chef 03.11., 07:30, Zu 502 in ARBEIT-PROJEKT): Nebel des Krieges | startbar |
-| 514 | M | von Sokrates (Chef 03.11., 16:01, zu 490: „Gibt es nachts vernünftige Glühwürmchen überall | wartet auf Test/Build (gebaut) |
 | 515 | M? | von Sokrates (Chef 03.11., 16:07, zu 491; Zu 515): Truhen je Karte, einige verschlossen na | wartet auf Perikles |
 | 506 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; Spike, aus 494): Untote im Kampf: Skelett, Z | wartet auf Jerry |
 | 492 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Blutzahnhöhle begehbar wie alt (Story.kt:73 | startbar |
 | 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | wartet auf Sokrates |
-| 417 | M | von Sokrates („jetzt“ 31.10., 21:12; 21:27 „so machen“): Tragart je Waffenklasse (Zu 417), | wartet auf Test/Build (gebaut) |
-| 416.9 | M | von Sokrates (Chef 31.10., 22:20, zu 416.3 „abgenommen“): Laden, Verkaufen, „angelegt“ mit | wartet auf Test/Build (gebaut) |
 | 416.7 | M | von Sokrates (Chef 31.10., 20:5x, für den nächsten Build): am Tresen in Schenke und Laden | wartet auf Test/Build |
 | 416.8 | M | von Sokrates (Chef 31.10., 20:5x, allgemeiner Hinweis): NPC dreht sich bei Interaktion zum | wartet auf Test/Build |
 | 416.2 | M | von Sokrates (Chef 31.10., 20:4x): gegen Dorfbewohner und Tiere laufen: Platzwechsel statt | ruht |
@@ -99,7 +100,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 05.11.; „star
 | 503 | M | von Sokrates (Chef 03.11., 07:40, Build 204; Zu 503): Laden, Verkaufen: Knopf „Gewöhnliche | wartet auf Tom |
 | 499 | M | von Sokrates (Chef 03.11., 07:14, Build 204; „jetzt“ 03.11., 07:14; Zu 499): Erschaffung: | wartet auf 513 (ruht) |
 | 513 | M | von Sokrates (Chef 03.11., 15:56, „513 B“, „jetzt“ 03.11., 15:56; Archiv): Figurenstand 41 | ruht |
-| 497 | M | von Sokrates (Chef 03.11., 07:09, Build 204; Zu 497): „Über das Spiel“: Lizenzhinweis der | wartet auf Test (Build) |
 | 463 | M | von Sokrates (Chef 01.11., 20:3x, Zu 463): Umhang und lange Robe geschlossen: eine Ursache | wartet auf Test/Build (gebaut) |
 | 470 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.1 Erschaffung: sechs Grundwerte, 21 P | ruht |
 | 470.1 | K | von Sokrates (Idee Chef 02.11., 18:37: Held in der Erschaffung „auf Klick groß … damit man | wartet auf 431e (Chef) |
@@ -112,7 +112,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 05.11.; „star
 | 458.3 | M | von Sokrates (Chef 01.11., 13:1x, Archiv 458): Gegenstandskatalog: je Gegenstand Netz × Ma | ruht |
 | 457.1 | M | von Perikles (Chef 01.11., 11:49, „unsere Signatur muss sich wiederfinden“): godot/probe/b | wartet auf Test/Build (gebaut) |
 | 423.1 | K | von Homer (Archiv 423, 01.11.): Spielerhandbuch BRS (STORY-HANDBUCH-1.md bis -3.md) als Se | ruht |
-| 453.2 | M | von Sokrates (Chef 01.11., 13:0x, Archiv 453.1): Atmen-Schicht wie 453.1 für Held unterweg | wartet auf Test/Build (gebaut) |
 | 455.2 | M | von Sokrates (Chef 01.11., 11:27, „455 ja, wie Sokrates“, Archiv): Netzliste je Platz mit | ruht |
 | 399.5 | M | von Chef („jetzt“ 28.10., 21:5x, Archiv): Innenräume wie alt: Lichtquellen, Licht und Scha | wartet auf Test (Build) |
 | 399.3.1 | M | von Team Jerry (16:5x): Klang: Haken in spiel.gd (Jerry, claude/jerry-348-klang) übernehme | wartet auf Test (Build) |
