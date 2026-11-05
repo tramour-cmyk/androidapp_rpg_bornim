@@ -83,7 +83,7 @@ TIERE = {
     # 494 (Kauf 348.12c; LISTE-FIGUREN „Riesenegel“, ersetzt die Stirge): Game Ready Studios Mobile Leeches, vier Formen (812–988 Dreiecke,
     # 1,05 m lang, Maul −Y); Form 01 trägt nur ein türkises Bild (Liste: nie türkis) und bleibt weg; je Fell eine Form. Die Bewegungen
     # liegen auf der Stelle (Move ohne Weg), das Tempo ist fest. Bilder: *_a.png (Farbe); *_RGBA ist eine Maske, *_emissive leuchtet (weg).
-    'egel': {'rig': 'SK_MobileLeech_02.FBX', 'anim': 'Anim_MobileLeeches_%s.fbx', 'tex': 'T_MobileLeech_02_Skin2_a', 'zip': 'MobileLeeches_FBX',
+    'egel': {'rig': 'SK_MobileLeech_02.FBX', 'anim': 'Anim_MobileLeeches_%s.fbx', 'anim_unity': '@MobileLeeches_%s.fbx', 'tex': 'T_MobileLeech_02_Skin2_a', 'zip': 'MobileLeeches_FBX',
              'formen': {'braun': ('SK_MobileLeech_02.FBX', 'T_MobileLeech_02_Skin2_a'), 'grau': ('SK_MobileLeech_03.FBX', 'T_MobileLeech_03_Skin2_a'),
                         'ocker': ('SK_MobileLeech_04.FBX', 'T_MobileLeech_04_Skin2_a')},
              'namen': {'Stehen': 'Idle_01', 'Umsehen': 'Idle_02', 'Drohen': 'Idle_03', 'Gehen': 'Move', 'Biss': 'AttackEat_01',
@@ -408,7 +408,8 @@ def baue(fell):
     print('IMPORT', TIER, os.path.basename(fbx), 'Netze', len(meshes), 'Dreiecke', tris(meshes), 'Knochen', len(rig.data.bones), 'Textur', tex and os.path.basename(tex))
     akt = {}
     for nm, q in T['namen'].items():
-        f = suche(d, T['anim'] % q) or suche(d, '*@' + T['anim'] % q) or suche(d, '*[-_]' + T['anim'] % q)
+        f = suche(d, T['anim'] % q) or suche(d, '*@' + T['anim'] % q) or suche(d, '*[-_]' + T['anim'] % q) \
+            or (suche(d, T['anim_unity'] % q) if 'anim_unity' in T else [])     # Lauf 265: Riesenegel aus dem Unity-Paket („@MobileLeeches_…“)
         if not f:
             print('FEHLT', nm, q); continue
         n = importiere(f[0]); a = aktion_von(n)
@@ -479,7 +480,8 @@ def baue(fell):
     for nm in ('Gehen', 'Rennen'):
         if nm in akt and not ('hoppeln' in T and nm == 'Rennen') and not (nm == 'Rennen' and akt[nm] is akt.get('Gehen')):
             boden_halten(rig, akt[nm], meshes, kleben=True)
-    for nm in ('Biss', 'Hauer', 'Stoss', 'Treffer'):
+    # Lauf 265 (Test wildschwein_494): die Säureschnecke lag in Stehen, Umsehen, Spucken 1–4 cm im Boden; auch die Ruhe am Boden halten
+    for nm in ('Biss', 'Hauer', 'Stoss', 'Treffer', 'Stehen', 'Umsehen', 'Drohen', 'Spucken'):
         if nm in akt:
             boden_halten(rig, akt[nm], meshes)
     if 'hoppeln' in T and 'Rennen' in akt:     # Runde 5: eigenes Hoppeln aus dem Rennen des Kaufs
