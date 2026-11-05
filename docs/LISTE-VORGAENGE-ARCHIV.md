@@ -601,3 +601,16 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 453.1a | Rückfrage: Heldenatem, Film am Tor angehalten (Kleriker), dritter Lauf, A/B/C | E Kampf | M | – | Team Jerry | erledigt |
 | 458.2 | Gegenstandskatalog: Werte, Preise, Beute (Chef 01.11., 458) | D Design | M | 10,87 $ | Team Jerry | erledigt |
 | 447.4 | Texte Lehrmeister-Einladungen und Ruf-Gespräche für Stufe 3 (447) | C Texte | M | 28,78 $ | Homer | erledigt |
+| 468d | Rückfrage: Wochenlimit 82 %, bis Sa zusätzlich Nachtpause 23–7 Uhr? | B Abläufe | M | – | Sokrates | erledigt |
+| 479 | Projektplan: Abnahmeliste umbenennen, auf Stand bringen, Orte und Welt einzeln, Flüsterwald einplanen (Chef 02.11., 18:34) | B Abläufe | M | – | Perikles | erledigt |
+| 498 | Schriftbild wie in der Kotlin-Fassung: Größe, Sperrung, Halbfett (Chef 03.11., 07:13, „Über das Spiel“ wirkt kleiner) | E Oberfläche | M | – | Team Tom | erledigt |
+| 502 | Nebel des Krieges und Sichtfeld des Helden in der Welt wie alt (Fog.kt), fehlt in Godot und im Plan (Chef 03.11., 07:28) | B Abläufe | M | – | Perikles | erledigt |
+| 530 | Build 249: Schlagbaum am Nordweg öffnet sich nicht sichtbar (Chef 03.11., 23:40) | A Spiel | M | – | Team Tom | erledigt |
+| 538 | Heldenstufe kommt in Gesprächen nie an (Garrick warnt immer), Stufengrenze 6 für Kapitel 1 fehlt (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | erledigt |
+| 549a | Rückfrage: Oberfläche ohne Kasten als Grundsatz (Linien trennen, Rahmen nur für die Entscheidung)? | A Spiel | M | – | Sokrates | erledigt |
+| 549b | Rückfrage: Rast mit leiser Zeile „Tag · Uhr · TP“? (Chef 04.11., 549 Frage 2) | A Spiel | M | – | Sokrates | erledigt |
+| 559 | Prüfung „wartet auf Chef“: Stand gegen neuere Rückmeldung des Chefs (Chef 04.11., 16:18) | B Werkzeuge | M | 3,53 $ | Perikles | erledigt |
+| 576 | Vorentscheid: Auflagen des letzten Chefurteils prüft der Helfer vor dem Versand (Chef 04.11., 20:49, 475 Kopfbedeckungen) | B Werkzeuge | M | – | Sokrates | erledigt |
+| 557a | Rückfrage: senkrechte Lage auf Fenstern und Schirmen, mittig, oben oder unten (Chef 04.11., 20:52) | A Spiel | M | – | Sokrates | erledigt |
+| 554 | Testmenü: Schalter „Monster beachten mich nicht“ fehlt (Chef 04.11., 00:27) | B Werkzeuge | M | – | Team Tom | erledigt |
+| 415d | Rückfrage: Status Effects VFX und Beams & Lasers kaufen, sobald der Handytest läuft? (Chef 02.11., 20:05) | C Kampf | M | – | Sokrates | erledigt |

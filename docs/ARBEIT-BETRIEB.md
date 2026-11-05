@@ -60,6 +60,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 07:05 05.11.: Lauf `--nur-muss`: gestartet Tom 512b, Perikles Tagesbericht 05.11. Abweichung vom Plan (468a, 468c): Jerry 512b (gleiche Zeile wie Tom), Spike 569, Tuffy 565 (ruht) nicht gestartet, Sokrates-Stellungnahme nicht (Sokrates läuft, idle). Startmarken stehen trotzdem.
 - 00:13 05.11.: Neustart-Meldung Jerry 80f16571d (Übergabe da, Nachfolger „Jerry – 572 Urteil, Kampf-Build“); Nachtpause 468d: Nachfolger NICHT gestartet, startet `lauf.py` ab 7 Uhr. Alter Jerry `zop1` archiviert, 22,93 $ auf 572.
 - 23:05 04.11.: Nachtpause 468d. Tom `ArQnx` (475, nichts mehr startbar, idle) archiviert, 3,78 $ auf 475; Nachfolger Tom ab 7 Uhr (lauf.py). Jerry `2zop` (572) idle/wartet, unberührt. Kein Start bis 7 Uhr.
 - 22:28 04.11.: Neustart Tom 40ea02630 → `UCbYo7ArQnx` „475: Grün am Hals, Tusche an den Kaufleuten“ (vor 22:30, mit Hinweis 468d: Übergabe bis 23 Uhr); alter Tom `4jyCYv` archiviert, 21,98 $ auf 475 und 558.
@@ -80,25 +81,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:24 04.11.: Neustart Tom c6ac78ffb → `RCQS` „505: Nebel B, Randwald, Kamera, Ausgänge“ (nach idle); alter Tom `Zfp2` archiviert, 12,06 $ auf 557.
 - 13:59 04.11.: Ford neu auf Tiefe 0 (Chef von Hand, 110 erledigt), Uhr `trig_01Ba5…`, alte gelöscht, alter Ford archiviert, 7,93 $ auf 110. Lauf `--nur-muss`: gestartet Tom 557 `8Zfp`, Diogenes 513.1 `6dRi`, Homer 547 `777B`, Perikles Tagesbericht `8YrwDT` (fehlte um 13:58); archiviert und gebucht Tom 558 0,93 $, Homer 461d 8,53 $, Perikles 511 17,15 $. **Abweichung vom Plan (468c, nie mehr als eine Entwicklersitzung, Woche 79 %):** Jerry „Urteil zu t257“ und Spike 524.1 nicht gestartet (Chef testet t257 gerade, Sokrates begleitet); Startmarken stehen trotzdem. Wächter 513.1, 511, 465, 407 (Perikles) mit dem Start erledigt.
 - 13:16 04.11.: Neustart Tom bade90a46 → `gUXc` „558: Robe Probebild vorlegen“ (nach idle, mit Dauerregel); alter Tom `TjcN` archiviert, 14,86 $ auf 558.
-- 12:44 04.11.: Neustart Sokrates 9ffdbca78 → `xVie` „Chefrunde: Test Build 257 begleiten“ (nach idle); alter Sokrates `77Dj` archiviert, 20,77 $ auf 512. 12:39 „Weiter: 557“ an Tom `TjcN` (statt zweiter Tom, eine Sitzung je Rolle).
-- 12:36 04.11.: Neustart Tom 405839b6b → `TjcN` „558: Robe lebendiger“ (nach idle, mit Dauerregel); alter Tom `smGQ` (513/557) archiviert, 20,56 $ auf 557.
-- 11:18 04.11.: Chefwort „alte Sitzungen schließen“: Tom `76rG` (531, idle seit 07:03) archiviert, 3,68 $ auf 531; Datei 531a gestrichen. Offen je Rolle nur eine: Tom `smGQ`, Jerry `wfZL`, Spike `76JL`, Perikles `76di`, Homer `78Ga`, Sokrates `77Dj`.
-- 10:58 04.11.: Tom `sGuu` (idle seit 05:40, Übergabe 06:42 ohne Neustart-Meldung, 445k Token) durch `smGQ` „513 Schild beheben und Probelauf, 475 Funde“ ersetzt (Sokrates 10:57: 513 wieder startbar; Ausnahme zu 468c); alter archiviert, 27,75 $ auf 495.
-- 04:18 04.11.: Neustart Tom a93eefdb3 → `sGuu` „Läufe 258, 259, 513 Probe 3, Build 255“ (nach idle, mit Dauerregel Kaufmodelle; die Starts davor ab 01:18 hatten sie nicht); alter Tom `5bf2` archiviert, 25,11 $ auf 475.
-- 03:26 04.11.: Neustart Tom 0ed9ff33e → `5bf2` „Build 255 melden, Läufe 254/256, dann 475“ (nach idle); alter Tom `9WXZ` archiviert, 8,44 $ auf 497.
-- 03:23 04.11.: Neustart Jerry ae5f98f4b → `wfZL` „nächster gemeinsamer Build: 535, 534, 517“ (nach idle); alter Jerry `5g8u` archiviert, 15,87 $ auf 535.
-- 02:51 04.11.: Neustart Tom 350d6bf59 → `9WXZ` „497, dann Läufe 416.8 und 495“ (nach idle); alter Tom `6YYX` archiviert, 19,24 $ auf 416.8.
-- 02:26 04.11.: Neustart Jerry 990346ea6 → `5g8u` „Build 252 prüfen, dann 535“ (nach idle); alter Jerry `6Kf8` archiviert, 22,08 $ auf 545.
-- 01:51 04.11.: Neustart Tom c64341bce → `76YY` „Build 251 prüfen, dann 416.8“ (gestartet erst nach idle); alter Tom `78QN` archiviert, 14,17 $ auf 525.
-- 01:18 04.11.: Neustart Tom 4319c6716 → `78QN` „Build 251 prüfen, dann 525“; alter Tom `6TuJ` archiviert mitten im Turn (Stop-Haken hätte ihn auf 524.1 weiterarbeiten lassen), Kosten 15 $ **Schätzung** auf 555 (usage fehlt).
-- 00:49 04.11.: Selbstneustart Ford (Tiefe 6, c3a9183b4), neue Uhr `trig_01AAvm…`, alte gelöscht, alter Ford archiviert, 7,43 $ gebucht; Datei von 32 auf 17 KB gekürzt (Marken-Zeilen des Werkzeugs und Protokoll vor 03.11., 07 Uhr gestrichen).
-- 16:24 03.11.: Neustart Jerry 8e133b464 → `nQJK` „494 Krogg-Figur“; alter `fWZc` archiviert **mitten im Turn** (Datensatz unverändert seit Start, kein `result`-Ereignis, Kosten 10 $ **Schätzung** nach 28 Min Laufzeit auf 494). Vermutung zur fehlenden Kostenzahl: Archivieren, solange die Sitzung ihren letzten Turn noch abschließt; Probe: ab jetzt erst archivieren, wenn `session_status` idle ist (dann Datensatz prüfen).
-- 16:19 03.11.: Neustart Tom af7df0686 → `QoAx` „490 Flüsterwald Build“; alter Tom `wm1A` archiviert, 15,84 $ auf 492. Schätzungen (Chef 16:05): 490 12+25 $ (Spike `Tec7`, `EdZ1`), 507 10 $ (`gwo8`), 438a 10,47 $ (Rest `79Wf`), Betrieb 1,76 $ (Rest alter Ford); ersetzt durch `result`-Werte: 406.2 18,39 $, 496a 23,27 $, 406.2a 18,74 $.
-- 16:05 03.11.: Diogenes `ppa1` fertig (Vorrat leer), archiviert, 4,07 $ auf 275; kein Nachfolger (468a).
-- 15:55 03.11.: Neustart Jerry 27c9a18f8 → `fWZc` „494 Grak, Krogg“; alter `ZwvU` archiviert, 8,01 $ auf 507; Kosten von `gwo8` (15:03, 507) weiter nicht lesbar.
-- 15:33 03.11.: Neustart Jerry e9369fd9c → `ZwvU` „507 Probe“; alter `gwo8` archiviert, Kosten nicht lesbar (usage fehlt).
-- 15:26 03.11.: Diogenes `ppa1` „275, D69“ (Chefwort 15:17); Neustart Tom c496f2108 → `wm1A` „492 Blutzahnhöhle“, alter Tom `SZRh` archiviert, 20,03 $ auf 470.
-- 15:03 03.11.: Neustart Jerry 9eccbe6f3 → `gwo8` „507 Höhle“; alter `nM3u` archiviert, 15,80 $ auf 496a.
 - 13:58 04.11.: Startsperre 13:58 Start Tom, Jerry, Diogenes, Homer, Perikles, Spike (lauf.py)
 - 13:58 04.11.: Marke Tagesbericht 04.11. (lauf.py)
 - 13:58 04.11.: Marke Tagesbericht fehlt 04.11. (lauf.py)
@@ -112,3 +94,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:58 04.11.: Marke Archiv session_01Hmoj76diLbY3sMkPCUwT1D (lauf.py)
 - 13:58 04.11.: Marke Archiv session_01Hmoj76JLm6RreiKJ2eQNiN (lauf.py)
 - 13:58 04.11.: Nachfolger-Warnung Diogenes (Übergabe 03.11., 15:29) (lauf.py)
+- 07:04 05.11.: Startsperre 07:04 Start Tom, Jerry, Perikles, Spike, Tuffy (lauf.py)
+- 07:04 05.11.: Marke Stellungnahme Sokrates 05.11. (lauf.py)
+- 07:04 05.11.: Nachfolger-Warnung Jerry (Übergabe 05.11., 00:10) (lauf.py)
+- 07:04 05.11.: Nachfolger-Warnung Diogenes (Übergabe 04.11., 14:09) (lauf.py)
