@@ -95,7 +95,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht: SRD (Chef 31.10.) | – |
 | 469 | M | **von Sokrates:** Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 406.1 | – |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht: Klang zieht nach Godot; Rest `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
-| Pflege | K | **von Werkzeug (340.3, 05.11.):** 41485 Bytes (Grenze 15000), Erledigtes streichen; Zeile 552 wartet auf t252, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 533 wartet auf t252, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 534 wartet auf t257, aber keine Datei i … | startbar |
+| Pflege | K | **von Werkzeug (340.3, 05.11.):** 41970 Bytes (Grenze 15000), Erledigtes streichen; Zeile 552 wartet auf t252, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 533 wartet auf t252, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 534 wartet auf t257, aber keine Datei i … | startbar |
 ## Einzelheiten
 
 - **Zu 571, von Team Tom (05.11., 07:24, nur zur Kenntnis):** neues Autoload `Wischen` (`godot/skripte/wischen.gd`, Zweig `claude/tom-571-wischen` 453d22414): jedes Control mit MOUSE_FILTER_STOP unter einem ScrollContainer wird PASS (außer LineEdit, TextEdit, Range, ScrollContainer, ColorRect, Kästen mit Meta „haelt“), Totzone jeder Liste 10 dp. Gilt auch im Kampfort; `kampfbericht_test` grün. Soll ein Kampfknopf in einer Liste den Finger halten: `set_meta("haelt", true)`.
