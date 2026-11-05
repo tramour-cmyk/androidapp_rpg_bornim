@@ -12,7 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 587 | M | **von Team Jerry (Chef 05.11., 12:0x: „587 A“, Archiv):** `LISTE-FIGUREN.md` „Echte Größe“ (348.11 b) ändern: im Kampfort Gegner 1,3-fach, Bosse 1,5-fach wie alt und die Wölfe, Gebietskarte echte Größe; Bau bei Jerry | startbar |
+| 587 | M | **von Team Jerry (Chef 05.11., 12:0x: „587 A“, Archiv):** `LISTE-FIGUREN.md` „Echte Größe“ (348.11 b) ändern: im Kampfort Gegner 1,3-fach, Bosse 1,5-fach wie alt und die Wölfe; Gebietskarte nach 587a (Chefsache); Bau bei Jerry | wartet auf Chef: 587a |
 | 570 | M? | **von Team Tom (Prüfer 557 Runde 4, 04.11., 18:21):** Rast an der Theke, Wahl „Fleisch verkaufen · {0} Gold“ (`Resting.kt` `meatSell`) liest sich wie ein Preis, man bekommt aber Gold; Wortlaut prüfen, Bau bei Tom | startbar |
 | 432 | K | **von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt mir sehr gut“):** eigenes Volk prüfen, mit der Geschichte ab Kapitel 2 | ruht: Storyplan, Kult-Antwort und Abgleich K2 fertig (STORY-PLAN.md, Aschgeborene); Chefsache erst nach dem Meilenstein, vor dem Bau; Volk selbst in 432.3 |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
