@@ -29,6 +29,12 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 - [ ] **2.10** G · **Bauweise** (Chef 01.11., 09:43): Leute, Orte und Gegenstände haben beim Bau Datenfelder für Ruf, Rezept und Zustand (in Stufe 3 gefüllt); jede Zahl steht in einer Datendatei, nicht im Code (422, 444).
 - [ ] **2.11** W · Jeder Ort, jede Hauptquest und Nebenquest, jedes Gespräch, Laden, Anschlagbrett, Tagesablauf, Hilfe aus dem alten Spiel geht in Godot mindestens so (`LISTE-UMZUG-348.md`, 348.9), außer was das BRS ersetzt. · Stand: in Arbeit
 - [ ] **2.12** W · Spielerfreundlich (`DESIGN-LEITBILD.md` 3): auf „Normal“ ohne Grinden schaffbar.
+- [ ] **2.13** M · **Alle Gegner von Kapitel 1 im Spiel** (Chef 05.11., 08:2x; 579): jeder Gegner der alten Fassung (`Story.kt` Flüsterwald, Tiefer Wald, Blutzahnhöhle, Tag und Nacht) mit Modell auf der Karte und im Kampf, eigener Kennung (577), Klang und Kampfblende. Haken = vom Chef im Build gesehen. Stand 05.11., 08:2x:
+  - [x] Wolf (gekauft) · [x] Riesenratte (gekauft) · [x] Goblin · [x] Kobold · [x] Goblin-Schamane · [x] Goblin-Bogenschütze (alle im Build 257)
+  - [ ] Riesenfledermaus: nur Kapsel, Modell in 510
+  - [ ] Wildschwein · [ ] Riesenhundertfüßer · [ ] Riesenspinne · [ ] Riesenegel (für Stirge) · [ ] Säureschnecke (für Ockergallerte): gebaut auf `claude/jerry-494-gegner`, in keinem Build (494)
+  - [ ] Skelett · [ ] Zombie · [ ] Ghul: fehlen (506)
+  - [ ] **Bosse:** [ ] Grimmzahn neu auf dem Kaufwolf (533; heute altes Modell, Kampf und Leibwache gehen) · [ ] Krogg (bugbear) · [ ] Grak (hobgoblin_captain): mit der Blutzahnhöhle (492)
 
 **Stufe 3 · Alle Systeme angelegt** (447 „mit K2b“, Chef 01.11.: „alle Elemente grundsätzlich drin … die Anlagen sollen schon erkennbar sein“; je System ein kleiner, ganzer Kreislauf mit spürbarer Wirkung, kein leerer Knopf. Prüfung: je Punkt ein Spieltest „merkt man, was das kann?“; 444 rechnet Gold, Reparatur und Tränke mit)
 - [ ] **3.1** G · Pfad und Lehrmeister: Einladung, Anwärter, Hinweise und Aufgaben des Lehrmeisters, Bewährungsprobe zum Gesellen je Pfad, den Kapitel 1 trägt (Jorin Wächter, Osric Heiler und Paladin, Garrick Waldläufer und Scharfschütze, Thessa Schatzjäger, Morwen Magier und Kriegsmagier; NW 5, E 79, Archiv 447.4a); Zwischenprüfung ab Kapitel 2 (447.5).
