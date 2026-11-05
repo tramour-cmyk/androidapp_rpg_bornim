@@ -22,6 +22,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [557](ansehen/557-ausrichtung.md) | Ausrichtung B gebaut, zur Kenntnis | – | 05.11., 07:49 |
 | [572](ansehen/572-effektfilm.md) | Effektprobe als Film (REEBOO-Gratisstücke), vor dem Kauf 415d.1 | – | 05.11., 00:07 |
 
 ## Zu tun
