@@ -8,7 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 512b | M | **von Sokrates (Chef 04.11., 19:21: „512b ja“; `chefsache/entscheiden/512b-nachweis.md` in Git):** vor jeder Testbitte: fremder Helfer spielt die Menüschirme alt und neu durch (Schritt 2 aus 512) und die Spalte „Richtig“ nach; Nachweis in der Zeile „Verglichen“ | startbar: vor der nächsten Testbitte | – |
+| 512b | M | **von Sokrates (Chef 04.11., 19:21: „512b ja“; `chefsache/entscheiden/512b-nachweis.md` in Git):** vor jeder Testbitte: fremder Helfer spielt die Menüschirme alt und neu durch (Schritt 2 aus 512) und die Spalte „Richtig“ nach; Nachweis in der Zeile „Verglichen“ | in Arbeit: Helfer nimmt alle Menüschirme alt und neu auf (Zweig claude/tom-512b-menues), dann fremder Vergleich | – |
 | 569 | M | **von Sokrates (Chef 04.11., 19:44, Bild 558 Probe 4 Wald Tag; Zu 569):** Baumkronen ohne Umriss, „ein einziger Brei an Kronen … riesengroßer grüner Schleimbatzen“: Signatur (Tuschelinie) an den Kronen sichtbar machen | startbar: zwei Läufe frei (Archiv 20:54) | – |
 | 568 | M? | **von Sokrates (Chef 04.11., 19:42, „grundsätzlich bei 568. Für A.“; `DESIGN-SPIELSYSTEM-2-0.md` „Sammeln“):** Kräuter ernten als sichtbare Handlung (hingehen, „Ernten“, Hocke 1,5 s, Stelle abgeerntet bis zum Morgen) statt Einsaugen; erst Vorlage als Film | wartet auf Durchspielbarkeit (488); Angeln erst mit Fischen (nicht Kapitel 1) | – |
 | 574 | M | **von Sokrates (Chef 04.11., 20:40, Laufprotokoll Build 257 vom Handy; Zu 574):** Fehler „Lambda capture at index 0 was freed“ (3×) und „buffer_size == 0“ nachstellen und beheben; Jerry fragen, falls im Kampf | startbar | – |
