@@ -17,8 +17,12 @@ const Wuerfel = preload("res://regeln/wuerfel.gd")
 const JAEGER := ["wolf", "goblin", "kobold", "boar", "ghoul", "skeleton", "zombie", "goblin_shaman", "goblin_archer"]
 const LAUERER := ["giant_spider", "giant_bat", "ochre_jelly"]
 ## Kampfgruppe (kampf/aufruf.gd gegner) je Monster der Karte; Jerry ergaenzt mit 494
-static var GRUPPE := {"wolf": "RUDEL", "giant_rat": "RATS", "goblin": "GOBLINS", "goblin_archer": "SCOUTS", "kobold": "KOBOLDS",
-	"goblin_shaman": "SHAMANS", "giant_bat": "BATS", "giant_spider": "SPIDER", "dire_wolf": "GRIMM"}   # 491: Grimmzahn mit Leibwache (Packs.guard)
+## 494 (Jerry): Ratte, Fledermaus, Spinne je allein wie alt (Roamers.kt ein Monster, Packs.kt ohne Rudel für sie; drei Ratten gaben
+## 75 EP statt 25), Wildschwein, Hundertfüßer, Riesenegel (stirge), Säureschnecke (ochre_jelly) allein; Krogg und Grak aus der
+## Geschichte (geschichte.gd fight, spiel.gd „kampf“ fragt GRUPPE)
+static var GRUPPE := {"wolf": "RUDEL", "giant_rat": "RATTE", "goblin": "GOBLINS", "goblin_archer": "SCOUTS", "kobold": "KOBOLDS",
+	"goblin_shaman": "SHAMANS", "giant_bat": "FLEDERMAUS", "giant_spider": "SPINNE", "dire_wolf": "GRIMM",   # 491: Grimmzahn mit Leibwache (Packs.guard)
+	"boar": "BOARS", "giant_centipede": "CENTIPEDES", "stirge": "LEECHES", "ochre_jelly": "SLUGS", "bugbear": "KROGG", "hobgoblin_captain": "GRAK"}
 const PACE := 1.6                 # Terrain.PACE
 const FLED_CALM_MS := 12000       # Game.FLED_CALM_MS
 const WIEDER_SCHRITTE := 60       # endBattle: kommt nach einem guten Weg wieder

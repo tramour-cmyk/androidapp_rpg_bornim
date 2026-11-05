@@ -35,12 +35,17 @@ const ERSATZ_FELLE := {"boar": ["dunkel", "grau", "rost"], "giant_rat": ["braun"
 ## Bewegungen eines Vierbeiners, die beim Wolf anders heißen (wildschwein.py: Hauerstoß statt Biss, Rammen statt Sprung)
 ## Kopfhöhe (Ohrspitzen) und Bodenschatten (Breite, Länge, Mitte vor dem Ursprung) des Ersatzes in Modellmetern (Ratte Runde 2:
 ## Balken 200 px über der Ratte, Schatten größer als das Tier)
-const ERSATZ_KOPF := {"giant_rat": 0.4, "giant_bat": 0.98, "kaufwolf": 1.06}     # Kaufwolf: Ohren 1,175 m (unser Wolf 1,24 m bei 1,12)
+const ERSATZ_KOPF := {"giant_rat": 0.4, "giant_bat": 0.98, "kaufwolf": 1.06, "kauf_egel": 0.45, "kauf_schnecke": 0.85}     # Kaufwolf: Ohren 1,175 m (unser Wolf 1,24 m bei 1,12)
 const ERSATZ_SCHATTEN := {"giant_rat": [0.3, 0.85, -0.08], "giant_bat": [0.9, 0.5, -0.04]}
 ## Ersatz ohne Umgebungsvariable (Prüf-APK: Probekampf „Ratten“ setzt giant_rat); ERSATZ geht vor
 static var ersatz_art := ""
 static func ersatz() -> String:
 	return OS.get_environment("ERSATZ") if OS.has_environment("ERSATZ") else ersatz_art
+## 494 (Wochenziel 03.11. Reihe 3): Vierbeiner mit eigenen Regeln (tabellen.json, MARS allgemein), im Bild wie der Wolf: Körper,
+## Schatten, Kopfhöhe, Größe aus dem Kaufmodell (ersatz_art „kauf_<tier>“, aufruf.gd)
+const VIERBEINER := ["wolf", "boar", "giant_centipede", "stirge", "ochre_jelly", "giant_rat", "giant_bat"]     # Hundertfüßer, Riesenegel, Säureschnecke (494): langer Körper am Boden wie ein Vierbeiner; Ratte, Fledermaus mit eigenen Regeln wie bisher als Ersatz des Wolfs
+static func vier(fi) -> bool:
+	return fi != null and fi.monster != null and Mars.koerper_of(fi.monster) in VIERBEINER     # 577: nach dem Körper
 ## 553 (Chef 04.11., 00:26, Build 249: „Was ist das für ein graues Tier??????“ im Flüsterwald): ersatz_art ist eine für alle
 ## Figuren; jeder Streuner der Karte und jeder Kampfbeginn setzt sie neu (aufruf.gd gegner). Die Figur las sie laufend, also nahm
 ## eine Kartenratte nach dem nächsten Wolf dessen Maße (Wenden, Absetzen, Kopf) und ein Wolf nach der nächsten Ratte deren
@@ -71,6 +76,8 @@ const KOBOLD_KITS := ["kappe", "schild", "fell"]
 ## 348.12 Grak (goblin.py ART=hobgoblin_captain, CC0-Gerüst): ein Kit, Großaxt in beiden Händen (waffen.py greataxe-grak, für
 ## ihn gebaut, Größe 1); in Stehen der Stiel steil vor dem Körper, der Kopf der Axt über der rechten Schulter (ual_lauer.py GRAK_HALT)
 const GRAK_KITS := ["hauptmann"]
+## 494 Krogg (krogg_gestalt.py, Superheld mit gekauftem Bärenkopf): ein Kit, Morgenstern in der rechten Faust im Modell (Knochen „waffe“)
+const KROGG_KITS := ["krogg"]
 ## Kurzbogen wie Dress.bow: 0,58 der Größe des Schützen (waffen.py baut ihn 101 cm, für den Menschen)
 ## Späher Runde 2 (Prüfer 1: „von der Schulter bis auf Fußhöhe, für einen Kurzbogen groß“): 0,48
 const GOB_BOGEN := 0.48 / 1.01
@@ -153,7 +160,7 @@ func setup(f, k) -> void:
 		_arm_kauf()
 	elif fighter.monster == null:
 		_arm()
-	elif fighter.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK]:
+	elif Mars.koerper_of(fighter.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG]:
 		_arm_goblin()
 	if fighter.monster != null:
 		var sk: Skeleton3D = _find(model, "Skeleton3D")
@@ -199,7 +206,7 @@ void fragment() {
 }"""
 	var mi := MeshInstance3D.new()
 	var pm := PlaneMesh.new()
-	var wolf: bool = fighter.monster != null and fighter.monster.id == Mars.WOLF
+	var wolf: bool = vier(fighter)
 	# Wolf: Rumpf 1,1 m lang, 0,4 m breit (mal Größe); Mensch: 0,7 m rund
 	# Runde 15 (Prüfer Runde 14: Pfotenschatten „unsichtbar im Rumpfschatten“): schmaler (0,7 statt 1,0), die Pfoten stehen am weichen Rand
 	pm.size = Vector2(0.7, 1.5) * _scale() if wolf else Vector2(0.95, 0.95)
@@ -207,7 +214,7 @@ void fragment() {
 	if wolf and ERSATZ_SCHATTEN.has(_mein_ersatz()):
 		var es: Array = ERSATZ_SCHATTEN[_mein_ersatz()]
 		pm.size = Vector2(es[0], es[1]) * _scale(); vor = es[2]
-	elif wolf and mass.has("laenge_m"):     # 387 Runde 2 (Prüfer: Schatten in Wolfsgröße, bei Huhn und Kaninchen doppelt so breit): nach dem Kauftier
+	elif (wolf or eigene_haut(fighter)) and mass.has("laenge_m"):     # 494: auch die gekaufte Spinne (vorher 0,95 rund unter 1,69 m Beinen); 387 Runde 2 (Prüfer: Schatten in Wolfsgröße, bei Huhn und Kaninchen doppelt so breit): nach dem Kauftier
 		pm.size = Vector2(mass.get("breite_m", 0.4) * 1.3, mass.laenge_m * 0.9) * _scale(); vor = 0.0
 	mi.mesh = pm
 	var m := ShaderMaterial.new()
@@ -333,16 +340,20 @@ func art() -> String:
 		return ""
 	if fighter.monster != null and fighter.id == GRIMM:
 		return "dire_wolf"
+	# 494 (Verdacht Jerry 17:4x, nachgestellt 18:2x): wer eigene gekaufte Häute hat und kein Vierbeiner ist (Riesenspinne), ist kein
+	# Ersatz; im Probekampf „Spinne“ setzt aufruf.gd für den Wolf daneben „kaufwolf“, die Spinne las dann kaufwolf-info.json: ohne Weg
+	if eigene_haut(fighter):
+		return ""
 	return _mein_ersatz()
 
 
 func _model_path() -> String:
 	if fighter.monster == null:
 		return "res://kampf/daten/held.bin"
-	if fighter.monster.id == Mars.WOLF:
+	if vier(fighter):
 		if art() == "dire_wolf":     # GRIMMFELL=schimmer: die seltene Schimmervariante
 			return "res://kampf/daten/dire_wolf-%s.bin" % (OS.get_environment("GRIMMFELL") if OS.has_environment("GRIMMFELL") else "schwarz")
-		var n: int = maxi(fighter.nr, 1) - 1
+		var n: int = _fell_nr() - 1
 		var art := _mein_ersatz()
 		if art.begins_with("kauf_"):     # 387: gekaufte Tiere (kauftier.py), Felle aus <art>-info.json
 			var fl := _kauf_felle(art)
@@ -351,9 +362,19 @@ func _model_path() -> String:
 		if ERSATZ_FELLE.has(art):
 			return "res://kampf/daten/%s-%s.bin" % [art, ERSATZ_FELLE[art][n % ERSATZ_FELLE[art].size()]]
 		return "res://kampf/daten/wolf-%s.bin" % WOLF_COATS[n % WOLF_COATS.size()]
-	if fighter.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK]:     # 348.7: Goblin, Späher je Nummer eines der drei Kits (goblin.py, MonsterKits)
+	if Mars.koerper_of(fighter.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG]:     # 348.7: Goblin, Späher je Nummer eines der drei Kits (goblin.py, MonsterKits)
 		return "res://kampf/daten/%s-%s.bin" % [_gob_art(), _gob_kit()]
-	return "res://kampf/daten/%s.bin" % fighter.monster.id
+	# 494 Riesenspinne (kaufspinne.py): gekaufte Gegner, die keine Vierbeiner sind, haben wie die Kauftiere drei Häute in
+	# <id>-info.json; je Nummer eine (drei Varianten, DESIGN-STIL „Abwechslung“)
+	var felle := _kauf_felle(Mars.koerper_of(fighter.monster))
+	if not felle.is_empty():
+		return "res://kampf/daten/%s-%s.bin" % [Mars.koerper_of(fighter.monster), felle[(_fell_nr() - 1) % felle.size()]]
+	return "res://kampf/daten/%s.bin" % Mars.koerper_of(fighter.monster)
+
+
+## 494 (Prüfer 512b): welches Fell; ein Monster der Karte bringt seins mit („fell“, aufruf.gd lage „nr“), sonst nach der Nummer
+func _fell_nr() -> int:
+	return maxi(int(fighter.monster.get("fell", fighter.nr)) if fighter.monster != null else fighter.nr, 1)
 
 
 ## 348.12f eingebaut (Chef 28.10., 11:50, Archiv: Kaufwolf und Ratte abgenommen): gekaufte Modelle liegen im APK nur verschlüsselt
@@ -376,13 +397,25 @@ static func lade_bin(p: String) -> PackedByteArray:
 	return d.slice(0, d.size() - pad)
 
 
-## 387: Felle eines gekauften Tiers (Schlüssel in <art>-info.json, wie kauftier.py sie baut)
+## 387: Felle eines gekauften Tiers (Schlüssel in <art>-info.json, wie kauftier.py sie baut); einmal gelesen je Art
+static var _felle_von := {}
 static func _kauf_felle(a: String) -> Array:
+	if _felle_von.has(a):
+		return _felle_von[a]
 	var ip := "res://kampf/daten/%s-info.json" % a
-	if not FileAccess.file_exists(ip):
-		return []
-	var j = JSON.parse_string(FileAccess.get_file_as_string(ip))
-	return j.keys() if j is Dictionary else []
+	var fl := []
+	if FileAccess.file_exists(ip):
+		var j = JSON.parse_string(FileAccess.get_file_as_string(ip))
+		fl = j.keys() if j is Dictionary else []
+	_felle_von[a] = fl
+	return fl
+
+
+## 494: gekaufter Gegner mit eigenen Häuten in <id>-info.json (kaufspinne.py), weder Vierbeiner noch Zweibeiner (die haben dort
+## Felle oder Kits), in echter Größe wie die Kauftiere
+static func eigene_haut(fi) -> bool:
+	return fi != null and fi.monster != null and not vier(fi) and not Mars.koerper_of(fi.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG] \
+			and not _kauf_felle(Mars.koerper_of(fi.monster)).is_empty()
 
 
 ## 403 (von Team Tom zu 376.1; Chef 31.10.: nur Modell und Bewegungen): der Held je Klasse auf dem Kaufkörper wie im Dorf
@@ -511,7 +544,7 @@ func _arm() -> void:
 
 ## Goblin, Späher, Grak: Zweibeiner auf dem Gerüst aus goblin.py oder grak_gestalt.py
 func _zweibeiner() -> bool:
-	return fighter.monster != null and fighter.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK]
+	return fighter.monster != null and Mars.koerper_of(fighter.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG]
 
 
 ## 403: Waffe und Schild am Kaufkörper. Der Kaufkörper ruht in der T-Pose, darum wie beim Goblin nach der Haltung in Stehen
@@ -561,15 +594,17 @@ func _schild() -> String:
 
 ## Goblin, Späher oder (Probe „Schamanen“) Schamane: Kennung der Modelle und der info.json
 func _gob_art() -> String:
-	if fighter.monster.id == Mars.CALLED and _mein_ersatz() in [SHAMAN, KOBOLD]:
+	if Mars.koerper_of(fighter.monster) == Mars.CALLED and _mein_ersatz() in [SHAMAN, KOBOLD]:
 		return _mein_ersatz()
-	return fighter.monster.id
+	return Mars.koerper_of(fighter.monster)
 
 
 func _gob_kit() -> String:
-	if fighter.monster.id == Mars.GRAK:
+	if Mars.koerper_of(fighter.monster) == Mars.GRAK:
 		return GRAK_KITS[0]
-	var kits: Array = SCOUT_KITS if fighter.monster.id == Mars.SCOUT else (SHAMAN_KITS if _gob_art() == SHAMAN else (KOBOLD_KITS if _gob_art() == KOBOLD else GOBLIN_KITS))
+	if Mars.koerper_of(fighter.monster) == Mars.KROGG:
+		return KROGG_KITS[0]
+	var kits: Array = SCOUT_KITS if Mars.koerper_of(fighter.monster) == Mars.SCOUT else (SHAMAN_KITS if _gob_art() == SHAMAN else (KOBOLD_KITS if _gob_art() == KOBOLD else GOBLIN_KITS))
 	return kits[(maxi(fighter.nr, 1) - 1) % kits.size()]
 
 
@@ -810,7 +845,7 @@ func _toon(c: Color) -> ShaderMaterial:
 	elif load("res://kampf/kampfort.gd").tusche() == "licht":     # 348.13a: Vorgabe Tusche nach Licht
 		m.shader = toon_gegner()
 		# 348.13a (Prüfer r9: der hintere Goblin hebt sich vom Weg kaum ab; Tom: Goblins aufhellen): Mindesthelligkeit im Schatten
-		if GOB_FILL > 0.0 and fighter != null and fighter.monster != null and String(fighter.monster.id).begins_with("goblin"):
+		if GOB_FILL > 0.0 and fighter != null and fighter.monster != null and String(Mars.koerper_of(fighter.monster)).begins_with("goblin"):
 			m.set_shader_parameter("fill", GOB_FILL)
 	else:
 		m.shader = load("res://kampf/toon.gdshader")
@@ -852,7 +887,7 @@ func _face(dir := Vector3.ZERO) -> void:
 	var d: Vector3 = dir if dir != Vector3.ZERO else kampfort.facing(fighter.side == "FOES")
 	# Wölfe in Ruhe halb seitlich wie im alten Bild: von vorn verkürzt las sich der Rumpf als Buckel ohne Hals (Prüfer Runde 10)
 	var look := 0.0
-	if dir == Vector3.ZERO and fighter.monster != null and fighter.monster.id == Mars.WOLF:
+	if dir == Vector3.ZERO and vier(fighter):
 		var turn: float = float(OS.get_environment("WOLFDREH")) if OS.has_environment("WOLFDREH") else WOLF_TURN
 		if aim != null and is_instance_valid(aim) and not aim.down and aim.dead_at < 0:
 			# Mit Ziel: Rumpf zum Ziel, aber nur im Bereich, in dem die Kamera ihn halb seitlich sieht (zur Kamera hin gedreht
@@ -1225,6 +1260,8 @@ func _weg() -> Dictionary:
 	if fighter.monster == null:
 		return {}
 	var ia := _gob_art() if _zweibeiner() else art()     # 348.12: Grak (grak_gestalt.py) hat seinen Weg in hobgoblin_captain-info.json
+	if ia == "" and not _kauf_felle(Mars.koerper_of(fighter.monster)).is_empty():     # 494 Riesenspinne (kaufspinne.py): Weg in <id>-info.json
+		ia = Mars.koerper_of(fighter.monster)
 	var ip := "res://kampf/daten/%s-info.json" % ia
 	if ia == "" or not FileAccess.file_exists(ip):
 		return {}
@@ -1238,8 +1275,8 @@ func _weg() -> Dictionary:
 			hieb = j[fell].hieb
 		if j[fell].get("tempo") is Dictionary:
 			tempo = j[fell].tempo
-		for k in ["breite_m", "laenge_m"]:
-			if art().begins_with("kauf_") and j[fell].get(k) != null:
+		for k in ["breite_m", "laenge_m", "koerper_hoch_m", "hoehe_m"]:
+			if (art().begins_with("kauf_") or art() == "") and j[fell].get(k) != null:     # 494: auch die gekaufte Spinne
 				mass[k] = float(j[fell][k])
 		return j[fell].weg
 	return {}
@@ -1909,7 +1946,7 @@ func _hieb(other) -> int:
 
 ## Ground under the figure where no grass grows (halm.gdshader spots): x, z, radius.
 func grass_spot() -> Vector3:
-	var wolf: bool = fighter.monster != null and fighter.monster.id == Mars.WOLF
+	var wolf: bool = vier(fighter)
 	var c := to_global(Vector3(0, 0, 0.15 * _scale() if wolf else 0.0))
 	return Vector3(c.x, c.z, 0.5 * _scale() if wolf else 0.3)
 
@@ -1937,6 +1974,8 @@ func sterbe_ms() -> int:
 
 ## The announced intent (or none): a wolf about to pounce crouches.
 func announce(intent, at = null) -> void:
+	if intent != null:     # 494: bleibt bis zum Zug (davor nimmt eine Meldung ohne Ansage sie weg, wie „Anspringen!“ beim Wolf)
+		angesagt = intent
 	var p: bool = intent != null and intent.effect == "POUNCE"
 	var turned: bool = at != aim
 	aim = at
@@ -1952,11 +1991,33 @@ func announce(intent, at = null) -> void:
 		_idle_wenn_frei()     # 438 (wolf_mess_438: kauerte unterwegs heim und glitt 4,8 m in Hocke): unterwegs erst daheim
 
 
+## 494 Riesenspinne: zuletzt angesagte Absicht (announce); „Netz werfen“ spielt den Netzwurf, wann das Netz losfliegt (ms)
+var angesagt = null
+var netz_los_ms := -1
+const NETZ_LOS := 0.45      # Anteil des Netzwurfs, bei dem das Netz den Hinterleib verlässt (Stichprobe im Kauf, ungeprüft: 511)
+
 ## A blow, bite, shot or spell at [other]; returns how long it takes (ms).
 func strike(other, e: Dictionary) -> int:
 	_dreh_ab()
 	var spell: bool = e.spell != null
 	var ranged: bool = fighter.ranged()
+	netz_los_ms = -1
+	# 494 (Zu 494, kein Chefentscheid): die Spinne zählt in MARS als Fernkämpfer (Netz aus der hinteren Reihe), sie beißt aber wie im
+	# alten Spiel (SkirmishScreen: Pfeil nur bei attackFx ARROW, die Spinne hat BITE); nur „Netz werfen“ wirft, mit Netz statt Pfeil.
+	# Vorher spielte sie bei jedem Angriff „Ausholen“ (hat sie nicht: stand still) und ein Pfeil flog
+	if fighter.monster != null and fighter.monster.id == Mars.SPIDER and not spell:
+		ranged = false
+		var netz: bool = angesagt != null and angesagt.get("effect", "") == "WEB"
+		angesagt = null
+		if netz and anim and anim.has_animation("Netzwurf"):
+			_schnaufen(0.6)
+			_face(other.position - position)
+			_play("Netzwurf", 0.1)
+			var l: float = anim.get_animation("Netzwurf").length / float(tempo.get("Netzwurf", 1.0))
+			netz_los_ms = int(l * NETZ_LOS * 1000.0)
+			get_tree().create_timer(l).timeout.connect(_idle_wenn_frei)
+			busy_ms = int(l * 1000.0)
+			return netz_los_ms
 	if spell or ranged:
 		_schnaufen(0.6)
 		_face(other.position - position)
@@ -1964,7 +2025,7 @@ func strike(other, e: Dictionary) -> int:
 		get_tree().create_timer(0.6).timeout.connect(func(): _face(); _idle())
 		busy_ms = 700
 		return 700
-	var leap: bool = fighter.monster != null and pouncing and fighter.monster.id == Mars.WOLF
+	var leap: bool = fighter.monster != null and pouncing and Mars.koerper_of(fighter.monster) == Mars.WOLF
 	letzter_sprung = leap or (sprung_bereit and fighter.monster != null)
 	sprung_bereit = false
 	if kauf:
@@ -2318,7 +2379,7 @@ func _guard(on: bool) -> void:
 
 ## Halbe Breite am Boden, wie der Bodenschatten (Wolf 1,1 m lang, halb seitlich gesehen; Mensch 0,3 m)
 func body_r() -> float:
-	if fighter.monster != null and fighter.monster.id == Mars.WOLF:
+	if vier(fighter):
 		if mass.has("laenge_m"):     # 387: Kauftier, wie der Wolf (1,1 m lang, 0,45 m) nach seiner Länge
 			return 0.45 / 1.1 * mass.laenge_m * _scale()
 		return 0.45 * _scale()
@@ -2829,6 +2890,8 @@ func die() -> void:
 	if not weg.is_empty() and tween and tween.is_running():
 		tween.kill()     # 348.12f: im Lauf getroffen, liegt es, wo es fällt
 	dead_at = int(kampfort.clock_ms)
+	if _schatten_tw:
+		_schatten_tw.kill()
 	if anim and anim.has_animation("Tod"):
 		anim.play("Tod", 0.05)
 	else:
@@ -2836,14 +2899,33 @@ func die() -> void:
 		t.tween_property(model, "rotation:z", deg_to_rad(80), FALL_MS / 1000.0)
 	# 348.12 (Chef 28.10., 15:23: „Krag ist ein Hauptheld, der muss fulminant sterben am Schluss. Nicht einfach ausgeblendet werden,
 	# wir brauchen einen Zusammenbruch“): Grak bricht zusammen (Tod aus Death02: in die Knie, dann vornüber) und bleibt liegen
-	if fighter.side == "FOES" and fighter.monster.id != Mars.GRAK:
+	if fighter.side == "FOES" and Mars.koerper_of(fighter.monster) not in [Mars.GRAK, Mars.KROGG]:     # 494: Krogg bricht zusammen wie Grak
 		# MARS: eigene Sterbebilder, dann ausgeblendet (LISTE-MARS.md); Körper und Bodenschatten zusammen (Helfer Lauf 126: der
 		# Schatten lag noch allein auf dem Weg)
 		await get_tree().create_timer((sterbe_ms() + LIEGT_MS) / 1000.0).timeout
 		var t := create_tween()
-		t.tween_method(_fade_out, 0.0, 1.0, FADE_MS / 1000.0)
+		t.tween_method(_fade_out, IM_SCHATTEN if schatten_an else 0.0, 1.0, FADE_MS / 1000.0)     # 566: blass im Schatten bleibt blass
 		await t.finished
 		visible = false
+
+
+## 566 (Chef 04.11., 17:15, Build 257: „steht in den Schatten, aber er schaut nicht aus, als würde er im Schatten stehen“): wer „In den
+## Schatten“ gegangen ist (Mars hidden, bis zu seinem nächsten Zug Nachteil auf Angriffe gegen ihn), ist nur schwach zu sehen, wie alt
+## (SkirmishScreen.kt 1086: Figur und Bodenschatten Alpha 0,4): Raster des Ausblendens zu IM_SCHATTEN, Bodenschatten ebenso blass
+const IM_SCHATTEN := 0.6
+var schatten_an := false
+var _schatten_tw: Tween
+
+
+func im_schatten(an: bool) -> void:
+	if an == schatten_an or dead_at >= 0:
+		return
+	schatten_an = an
+	if _schatten_tw:
+		_schatten_tw.kill()
+	var von := 0.0 if an else IM_SCHATTEN
+	_schatten_tw = create_tween()
+	_schatten_tw.tween_method(func(x: float): _fade_out(x), von, IM_SCHATTEN - von, 0.45)
 
 
 func _fade_out(x: float) -> void:
@@ -2876,9 +2958,13 @@ func howl() -> void:
 
 ## Where to put the name and bar above the figure (world).
 func head() -> Vector3:
-	var h := 1.12 if fighter.monster != null and fighter.monster.id == Mars.WOLF else 1.9     # Ohrspitzen des Wolfs (0,9 lag seit den größeren Ohren, Runde 1 nach Chef, unter dem Balken; davor 60 px darüber)
-	if fighter.monster != null and fighter.monster.id == Mars.WOLF:
+	var h := 1.12 if vier(fighter) else 1.9     # Ohrspitzen des Wolfs (0,9 lag seit den größeren Ohren, Runde 1 nach Chef, unter dem Balken; davor 60 px darüber)
+	if vier(fighter) and not ERSATZ_KOPF.has(_mein_ersatz()) and _mein_ersatz().begins_with("kauf_") and mass.has("hoehe_m"):
+		h = float(mass.hoehe_m) + 0.15     # 494: Keiler (0,97 m), Hundertfüßer (0,26 m: der Balken stand 0,9 m über ihm) nach dem Kauf
+	elif vier(fighter):
 		h = ERSATZ_KOPF.get(_mein_ersatz(), h)
+	elif mass.has("koerper_hoch_m"):     # 494 Riesenspinne: Name und Balken über dem Körper (0,40 m), nicht in Menschenhöhe 1,9 m
+		h = float(mass.koerper_hoch_m) + 0.25
 	if gob_h > 0.0:     # Goblin Runde 2 (Prüfer Runde 1: Ansage fern der Goblins): Scheitel aus goblin.py, gebückt etwas tiefer
 		h = gob_h * 0.85
 	return position + Vector3(0, h * (_scale() if fighter.monster != null else 1.0), 0)

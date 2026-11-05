@@ -28,11 +28,15 @@ const FOE_HALF_M := 1.2         # Wölfe sind lang: mit 0,9 klebten sie aneinand
 const NEAR_M := 1.0
 const ALONE_HERO_B := 0.35
 const BACK_GAP_A := 2.4          # 0,8 wie alt; der Wolf hinten stand im Rumpf des vorderen (Prüfer Runde 7); 1,6: Pfoten im Bild auf dem Ohr des rechten vorderen (Prüfer 25.10. Runde 10; Tiefe wirkt im Bild wenig, 2,4 m: 16 px Luft)
-const BACK_GAP_B := -1.0
+const BACK_GAP_B := -2.0         # 567 (Chef 04.11., Build 257): mit −1,0 stand der hintere im Bild genau hinter dem rechten vorderen, jetzt mittig dahinter (tests/abstand_567.gd)
 # einer vorn, zwei hinten (Grimmzahn Runde 7): vorn 0,3 m nach rechts, hinten 1 m zurück, 0,45 m weiter auseinander und 0,85 m
 # nach links (Grimmzahn hinten rechts lief sonst über den Bildrand); gemessen: Deckung der Wache 36 % → 1 %
 const SOLO_BACK_A := 0.6       # 438: einer vorn, einer hinten: hinten 0,6 m weiter zurück und 1,3 m zur Seite
-const SOLO_BACK_B := -1.3
+# 567 (Chef 04.11., 17:00–17:15, Build 257: zwei Goblins, zwei Wölfe „fast übereinander“): −1,3 nach links hob die Schräge der
+# 30°-Linie auf, der hintere stand im Bild 10 dp neben dem vorderen, Füße auf dessen Kopfhöhe (72 % Deckung). Jetzt der vordere
+# 0,7 m nach links, der hintere 0,6 m nach rechts: wieder 1,3 m quer (438, Wölfe nicht ineinander), im Bild 126 dp, 6–9 %
+const SOLO_BACK_B := 0.6
+const SOLO_FRONT_B := -0.7
 const PAIR_FRONT_B := 0.3
 const PAIR_BACK_A := 1.0
 const PAIR_BACK_B := 0.45
@@ -66,6 +70,7 @@ var again_fn: Callable
 var cam: Camera3D
 var ui
 var figures := {}          # id -> Figur
+var fx_zahl := {}          # 494: wie oft je Art ein Effekt flog (Test spinne_494: Netz statt Pfeil)
 var shown := {}            # the last message played: hp, places, intents, queue, sp
 ## 296.2: the hero's experience before the fight, how far above the place he stands, the level cap (null: chapter's)
 var progress := {}
@@ -152,6 +157,7 @@ func setup(party: Array, foes: Array, p_tables: Dictionary, potions: Dictionary,
 	# NORMAL, AMBUSHED Gegner zuerst, HERO_FIRST Held zuerst)
 	mars = Mars.new(party, foes, tables, dice, words, lang, bool(p_progress.get("atemlos", false)), String(p_progress.get("eroeffnung", "NORMAL")))
 	mars.fed = bool(p_progress.get("satt", false))
+	mars.smoke = int(p_progress.get("rauch", 0))     # D4.1, 494: Morwens Rauchbündel gegen Krogg (aufruf.gd lage „rauch“)
 	for k in potions:
 		mars.potions[k] = int(potions[k])
 	mars.listener = func(e): _post({"say": e})
@@ -477,6 +483,7 @@ var eye := 6.0
 var horizon_y := 0.0
 
 func _fit_camera() -> void:
+	var g_alt := _ground(0, 0)     # 494 (Prüfer 512b, 573): Tote rücken nur mit dem Boden, nie auf ihren Platz
 	var vs := get_viewport().get_visible_rect().size
 	var sr := scene_rect()
 	var w := sr.size.x
@@ -497,7 +504,10 @@ func _fit_camera() -> void:
 	if forest:
 		forest.position = _ground(0, 0)
 	for fig in figures.values():
-		fig.snap_to(_spot_pos(fig.fighter, shown.places[fig.fighter.id]))
+		if fig.dead_at >= 0:     # 573: wer gefallen ist, bleibt liegen, wo er fiel (Krogg sprang am Ende 1,5 m, Grak 2,9 m)
+			fig.snap_to(fig.position + _ground(0, 0) - g_alt)
+		else:
+			fig.snap_to(_spot_pos(fig.fighter, shown.places[fig.fighter.id]))
 
 
 ## 249: Zoom und Ruck des Schlags in [hit] wie im alten MARS: in 110 ms (tödlich 220) heran, so lange der Halt dauert
@@ -644,7 +654,7 @@ func _pivot_range(p: Vector2, z: float, k: float, lo: Vector2, hi: Vector2, only
 			continue
 		var foot := _near_of(fig.position)
 		var top := _near_of(fig.head())
-		var wolf: bool = fig.fighter.monster != null and fig.fighter.monster.id == Mars.WOLF
+		var wolf: bool = Figur.vier(fig.fighter)
 		var w: float = (top.y - foot.y) * (0.8 if wolf else 0.45)
 		for q in [Vector2(foot.x - w, foot.y), Vector2(foot.x + w, top.y)]:
 			# sichtbar bei Zoom z um c: lo ≤ c + (q - c)·z … umgestellt nach c
@@ -712,6 +722,8 @@ func _spot_pos(f, spot: Vector2i) -> Vector3:
 	# dann schräg versetzt wie das Paar hinten (PAIR_BACK_*), um eine Wolfslänge
 	elif f.side == "FOES" and spot.x == Mars.BACK and alone and _count(Mars.FRONT, "FOES") == 1:
 		ab = Vector2(ab.x + SOLO_BACK_A, SOLO_BACK_B)
+	elif f.side == "FOES" and spot.x == Mars.FRONT and alone and _count(Mars.BACK, "FOES") == 1:
+		ab.y += SOLO_FRONT_B
 	# 348.7 Grimmzahn Runde 7 (Prüfer Runde 6: „Wolf auf Wolf“, „zweiköpfiger Wolf“): einer allein vorn vor zweien hinten stand
 	# im Bild genau vor dem linken hinteren (37 % verdeckt); vorn ein Stück nach rechts, hinten weiter auseinander und zurück
 	if f.side == "FOES" and _alone(null, Mars.FRONT, "FOES") and not _alone(null, Mars.BACK, "FOES") and _count(Mars.FRONT, "FOES") == 1:
@@ -758,11 +770,13 @@ func foe_scale(f) -> float:
 
 
 func _foe_scale(f) -> float:
-	if f.monster.id == Mars.WOLF:
+	if Figur.vier(f):
 		if Figur.ersatz().begins_with("kauf_"):     # 387: gekaufte Tiere (kauftier.py) in echter Größe wie im Kauf
 			return 1.0
 		return FOE_SIZE * WOLF_SIZE * ART_SIZE.get(Figur.ersatz(), 1.0)
-	if f.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK]:     # 348.7: Goblin in echter Größe (goblin.py), im Bild wie FoeArt (PX 0,66 wie BeastArt, Held 0,75); 348.12 Grak ebenso
+	if Figur.eigene_haut(f):
+		return 1.0     # 494 Riesenspinne (kaufspinne.py, Spannweite 1,69 m wie LISTE-FIGUREN): echte Größe wie die Kauftiere, nicht 1,5-fach
+	if Mars.koerper_of(f.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG]:     # 348.7: Goblin in echter Größe (goblin.py), im Bild wie FoeArt (PX 0,66 wie BeastArt, Held 0,75); 348.12 Grak ebenso
 		return FOE_SIZE * WOLF_SIZE
 	return FOE_SIZE
 
@@ -844,7 +858,7 @@ func _state_now() -> Dictionary:
 		hp[f.id] = f.hp
 		places[f.id] = f.place
 		sp[f.id] = f.sp
-	return {"hp": hp, "places": places, "intents": mars.intents.duplicate(), "queue": mars.queue(), "sp": sp, "status": mars._statuses()}
+	return {"hp": hp, "places": places, "intents": mars.intents.duplicate(), "queue": mars.queue(), "sp": sp, "status": mars._statuses(), "hidden": mars._hidden()}
 
 
 # ---------------------------------------------------------------- playing the beats one after another
@@ -876,6 +890,10 @@ func _process(_dt: float) -> void:
 func _play_say(e: Dictionary) -> void:
 	var before: Dictionary = shown.hp
 	shown = e
+	# 566: wer im Schatten steht, ist nur schwach zu sehen (figur.gd im_schatten)
+	var im_schatten: Dictionary = e.get("hidden", {})
+	for id in figures:
+		figures[id].im_schatten(im_schatten.has(id))
 	for f in mars.fighters():
 		# called to the fight (Rudel rufen); the rules' thread may already hold one this message does not know yet
 		if not figures.has(f.id) and e.places.has(f.id):
@@ -924,8 +942,10 @@ func _play_say(e: Dictionary) -> void:
 	# 348.7 (Rest aus 249, BattleFxLayer): Zauber und Pfeile fliegen sichtbar, auch daneben; der Treffer fällt, wenn sie ankommen
 	var fx = _fx_of(e, by, tg, across)
 	if fx != null:
-		var step: float = ui.cast(fx, actor, target, _crit(e), _missed(e) or e.cue == "DUCKED")
-		lands = int(step + Zauber.arrives(fx))
+		fx_zahl[fx] = int(fx_zahl.get(fx, 0)) + 1
+		var los: float = maxf(0.0, float(figures[actor].netz_los_ms)) if fx == "WEB" else 0.0     # 494: das Netz fliegt mitten im Netzwurf los
+		var step: float = ui.cast(fx, actor, target, _crit(e), _missed(e) or e.cue == "DUCKED", los)
+		lands = int(step + los + Zauber.arrives(fx))
 		busy_ms = maxi(busy_ms, figures[actor].busy_ms)     # 348.7b: Seitenschritt hin und zurück
 	# 438 (Prüfer Film 08:18: Würfelzeile, Schaden und Leiste 0:07,9, der Wolf trifft den Helden erst 0:09,7): Meldung, Würfel,
 	# Lebensleisten und Bedienfeld erst beim Aufschlag (DESIGN-ABNAHME: „Bewegung zuerst, dann eine einzige Textzeile mit Ausgang
@@ -1009,7 +1029,9 @@ func _play_say(e: Dictionary) -> void:
 		await get_tree().create_timer(maxi(0, tot_ms - fall_ms) / 1000.0).timeout
 		warte_ms = 0
 	for f in mars.fighters():
-		if figures.has(f.id) and e.places.has(f.id) and not f.fled:     # 399.2a: wer flieht, kommt nicht an seinen Platz zurück
+		# 573 (Chef 04.11., 20:33: „wenn jemand tot ist, bitte nicht mehr die Position verändern“; der letzte Jungwolf wurde nach dem
+		# Haken „ich gewinne“ tot in die Mitte gezogen, tote_573): wer keine Trefferpunkte mehr hat, bleibt liegen, wo er fiel
+		if figures.has(f.id) and e.places.has(f.id) and not f.fled and f.hp > 0:     # 399.2a: wer flieht, kommt nicht an seinen Platz zurück
 			var ziel := _spot_pos(f, e.places[f.id])
 			if warte_ms > 0 and f.id != actor and not figures[f.id].home.is_equal_approx(ziel):
 				get_tree().create_timer(warte_ms / 1000.0).timeout.connect(figures[f.id].glide_to.bind(ziel))
@@ -1097,6 +1119,9 @@ func _fx_of(e: Dictionary, by, tg, across: bool):
 		return null
 	if e.spell != null and (across or e.spell in ["HEAL", "BLESS"]):
 		return e.spell
+	if across and e.roll != null and by.monster != null and by.monster.id == Mars.SPIDER:
+		var fs = figures.get(String(by.id))     # 494: nur der Netzwurf fliegt (Figur.strike), sonst beißt sie
+		return "WEB" if fs != null and fs.netz_los_ms >= 0 else null
 	if across and e.roll != null and by.ranged():
 		return "ARROW"
 	return null

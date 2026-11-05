@@ -462,7 +462,7 @@ func tageszeit() -> String:   # Kampfort.tageszeit: tag, abend, nacht
 
 # gegner wie kampf/probe.gd FOES; [probe] (Test „MARS-Probekampf“, Skirmish.probe): Held und Soeldner [klasse, stufe] statt des eigenen
 # Helden, danach bleibt er, wie er war (kein Lohn, keine TP, kein Tod)
-func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeffnung := "") -> String:
+func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeffnung := "", nr := 0) -> String:
 	var hw := held_werte() if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
 	var soeldner = null if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
 	var erg := {"ende": "", "tp": {}, "lohn": {}, "rest": zustand.anzahl("potion"), "held": null}
@@ -473,6 +473,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 		if aufruf.kampf and aufruf.kampf.mars:
 			erg["rest"] = int(aufruf.kampf.mars.potions.get("potion", 0))
 			erg["held"] = aufruf.kampf.mars.find("hero")     # 532: ZP, Verbrauchtes, Zustände nach dem Kampf
+			erg["rauch"] = aufruf.kampf.mars.smoke_thrown     # 494: Morwens Rauchbündel geworfen (Battle.smokeBundle nimmt es weg)
 		erg["ende"] = String(o))
 	held.halt(); held.richtung = Vector3.ZERO
 	# die Welt ruht unsichtbar; Kamera und Umgebung des Kampforts gelten (sonst zeichnet unsere Kamera, unsere Umgebung zuerst)
@@ -492,8 +493,10 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	if Testmodus.ist_an(): lage["eroeffnung"] = Testmodus.eroeffnung   # 399.2 (Jerry): Eröffnung aus dem Reiter Test
 	if eroeffnung != "": lage["eroeffnung"] = eroeffnung   # 490: Ueberfall, Held zuerst (Opening) vom Monster auf der Karte
 	lage["blende"] = true   # 402 (Jerry): die Blende vor dem Kampf wie alt, auch im Probekampf
+	if nr > 0: lage["nr"] = nr   # 494 (Prüfer 512b): im Kampf dasselbe Fell wie das Monster auf der Karte (Streuner.nr)
 	if probe.is_empty(): lage["aussehen"] = zustand.aussehen   # 403 (Jerry): der Held im Kampf wie im Dorf (HeldFigur)
 	if probe.is_empty(): lage["leiden"] = zustand.leiden.duplicate()   # 532 (Jerry): Zustände aus dem letzten Kampf (GameState.ailments)
+	if probe.is_empty(): lage["rauch"] = zustand.anzahl(Geschichte.SMOKE_BUNDLE)   # 494 (Jerry, D4.1): Morwens Rauchbündel gegen Krogg
 	# 493 (Jerry): Kampfort im Wald nach dem, was um den Helden steht (wie alt BattleScene.spotFor); im Testmodus wählbar
 	lage["platz"] = Testmodus.kampfort if Testmodus.ist_an() and Testmodus.kampfort != "" else load("res://kampf/kampfort.gd").platz_fuer(karte, held.kachel)
 	var gestartet: bool = aufruf.starte(gegner, hw, soeldner, "wald", tageszeit(), zustand.anzahl("potion") if probe.is_empty() else 2, -1, -1, -1, beute, lage)
@@ -511,6 +514,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	kamera.make_current()
 	visible = true; ui.visible = true
 	if probe.is_empty() and int(erg["rest"]) < zustand.anzahl("potion"): zustand.weg("potion", zustand.anzahl("potion") - int(erg["rest"]))   # getrunken
+	if probe.is_empty() and bool(erg.get("rauch", false)) and zustand.anzahl(Geschichte.SMOKE_BUNDLE) > 0: zustand.weg(Geschichte.SMOKE_BUNDLE, 1)   # 494: geworfen
 	var lohn: Dictionary = erg["lohn"]
 	var ende := [String(erg["ende"])]
 	klang("nach_kampf", [ende[0] == "WON", karte])   # 399.3 (Jerry): Sieg mit sieg_, sonst Ortsmusik nach 10 s
@@ -569,7 +573,7 @@ func _kampf_auf_karte(monster: String, eroeffnung: String, wer: Streuner) -> voi
 	ziel_person = null; ziel_stoss = Vector2i(-1, -1)
 	var hier := karte.id
 	blick_nach = held.blick()
-	var ende := await kampf_im_wald(held.kachel, String(Streuner.GRUPPE[monster]), [], eroeffnung)
+	var ende := await kampf_im_wald(held.kachel, String(Streuner.GRUPPE[monster]), [], eroeffnung, wer.nr if wer != null else 0)
 	blick_nach = "DOWN"
 	if herde and karte.id == hier: herde.nach_kampf(wer, ende)
 	im_kampf = false

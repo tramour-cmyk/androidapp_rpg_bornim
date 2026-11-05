@@ -355,7 +355,7 @@ func kampf(e: Dictionary, mars, treffer_ms := -1) -> void:
 		match String(e.cue):
 			"FOE_STRIKES":
 				if by != null and by.monster != null:
-					_bald(0, func(): stimme(String(by.monster.id), "angriff", _elite(by)))
+					_bald(0, func(): stimme(art_von(by.monster), "angriff", _elite(by)))
 			"CIRCLE": _bald(0, func(): effekt("howl"))
 			"HEAL", "DRINK": _bald(0, func(): effekt("heal"))
 			"GATHER": _bald(0, func(): effekt(_fx_klang("ENEMY_HEAL")))
@@ -384,11 +384,17 @@ func kampf(e: Dictionary, mars, treffer_ms := -1) -> void:
 		_bald(landet, func(): effekt(_fx_klang(art, krit)))
 		if tg.monster != null:
 			var stirbt: bool = int(e.hp.get(tg.id, 1)) <= 0
-			_bald(landet + CRY_MS - LANDS_MS, func(): stimme(String(tg.monster.id), "tod" if stirbt else "schmerz", _elite(tg)))
+			_bald(landet + CRY_MS - LANDS_MS, func(): stimme(art_von(tg.monster), "tod" if stirbt else "schmerz", _elite(tg)))
 	elif art == "ARROW":
 		_bald(0, func(): effekt("arrow"))
 	else:
 		_bald(landet, func(): effekt("miss"))
+
+
+## 575 (Chef 04.11., 20:42: Riesenratten knurrten wie Wölfe): Stimme und Angriffsklang nach der Art, nie nach dem Körper; Ratten,
+## Fledermäuse, Kobolde, Schamanen tragen den Körper einer anderen Art (577: id die eigene Art, „koerper“ nur für Modell und Bewegung)
+static func art_von(m) -> String:
+	return "" if m == null else String(m.id)
 
 
 ## MarsSound.music: das Bossstück nur gegen einen Boss
@@ -399,7 +405,7 @@ func kampfmusik(mars) -> void:
 ## Monster.attackFx, sonst Battle.weaponFx
 func _angriff(f) -> String:
 	if f.monster != null:
-		return String(kampftabelle.get("monster_fx", {}).get(String(f.monster.id), "SLASH"))
+		return String(kampftabelle.get("monster_fx", {}).get(art_von(f.monster), "SLASH"))
 	var w = f.weapon()
 	if w == null:
 		return "SMASH"
