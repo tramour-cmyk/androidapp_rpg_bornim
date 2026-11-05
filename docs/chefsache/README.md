@@ -24,6 +24,12 @@ Nichts offen.
 | [494](ansehen/494-gegnerbild.md) | Gegner von Kapitel 1 im Kampf, Bild aus dem Spiel | – | 05.11., 11:26 |
 | [572](ansehen/572-effektfilm.md) | Effektprobe als Film (REEBOO-Gratisstücke), vor dem Kauf 415d.1 | – | 05.11., 00:07 |
 
+**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [0.348.266](ansehen/t266-gegner.md) | [Build 266](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/42009917474/artifacts/13410931658) | Gegner von Kapitel 1 und Kampf | Tom und Jerry | 05.11., 12:35 |
+
 ## Zu tun
 
 Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen.
@@ -152,13 +158,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 05.11.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 572 | M | von Sokrates (Chef 04.11., 20:27; „jetzt“ 04.11., 20:27; Zu 572): Effektprobe vor dem Kauf | Chef |
-| 577 | M | von Sokrates (Chef 04.11., 21:00: „Wie wär's denn, wenn die Dinger die Kennung kriegen, di | wartet auf Test/Build (gebaut) |
-| 575 | M | von Sokrates (Chef 04.11., 20:42, Build 257; Zu 575): Rattenkampf: welches Knurren spielt, | wartet auf Test/Build (gebaut) |
-| 573 | M | von Sokrates (Chef 04.11., 20:33, Build 257; Zu 573): Tote bleiben liegen: der zuletzt gef | wartet auf Test/Build (gebaut) |
-| 566 | M | von Sokrates (Chef 04.11., 17:15, Bild; Zu 566 und 567): „Beim Goblin steht in den Schatte | wartet auf Test/Build (gebaut) |
-| 567 | M | von Sokrates (Bilder Chef 04.11., 17:00–17:15; Zu 566 und 567): Gegner stehen im Kampfort | wartet auf Test/Build (gebaut) |
+| 577 | M | von Sokrates (Chef 04.11., 21:00: „Wie wär's denn, wenn die Dinger die Kennung kriegen, di | wartet auf Test (Build) |
+| 575 | M | von Sokrates (Chef 04.11., 20:42, Build 257; Zu 575): Rattenkampf: welches Knurren spielt, | wartet auf Test (Build) |
+| 573 | M | von Sokrates (Chef 04.11., 20:33, Build 257; Zu 573): Tote bleiben liegen: der zuletzt gef | wartet auf Test (Build) |
+| 566 | M | von Sokrates (Chef 04.11., 17:15, Bild; Zu 566 und 567): „Beim Goblin steht in den Schatte | wartet auf Test (Build) |
+| 567 | M | von Sokrates (Bilder Chef 04.11., 17:00–17:15; Zu 566 und 567): Gegner stehen im Kampfort | wartet auf Test (Build) |
 | 565 | M | von Sokrates (Chef 04.11., 17:10, t257 Bereich C, Bild; Zu 565): im Gruppenkasten unten is | startbar |
-| 564 | M | von Sokrates (Chef 04.11., 17:06, Testreiter „Seit Start, Fehler“, Build 257; Zu 564): vie | wartet auf Test/Build (gebaut) |
+| 564 | M | von Sokrates (Chef 04.11., 17:06, Testreiter „Seit Start, Fehler“, Build 257; Zu 564): vie | wartet auf Test (Build) |
 | 562 | M | von Sokrates (Chef 04.11., 17:02, t257 Bereich C; Zu 562 und 563): Helden gehen zum Angrif | startbar |
 | 563 | M | von Sokrates (Chef 04.11., 17:02, t257 Bereich C, Bild; Zu 562 und 563): Zustandsschilder | startbar |
 | 561 | M | von Sokrates (Chef 04.11., 16:56, t257 Bereich C, Bild; Zu 561): goldener Zugkreis liegt ü | startbar |
@@ -198,7 +204,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 05.11.; „star
 | 510 | M | von Sokrates: Fledermaus: freies OGA-Modell „Vampire Bat“ (CC0) mit unseren Fellen neben d | wartet auf Perikles |
 | 509 | M | von Sokrates (Chef 03.11., 09:21): Frösche und Libellen an den Teichen wie alt (PondLife.k | wartet auf Perikles |
 | 587 | M | von Chef (05.11., 11:4x, zu Bild 494): Gegner im Kampfort zu klein gegen alt? 1,3-fach wie | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
-| 494 | M | von Perikles (488): Gegner von Kapitel 1 im Kampf (Zu 494), je Gegner höchstens ein Lauf | Chef |
+| 494 | M | von Perikles (488): Gegner von Kapitel 1 im Kampf (Zu 494), je Gegner höchstens ein Lauf | wartet auf Test (Build) |
 | 517 | M | von Team Tom (03.11., 16:3x, 512): Waldklang wie alt (WildSound.kt): Vögel am Tag, Eule un | wartet auf Tom |
 | 507 | M | von Perikles (488; aus 492): Kampforte Höhle wie alt: Eingang, Gang, Halle, Teich, Lager | startbar |
 | 496a | M | Rückfrage: abgenommene Kampfbilder schon in den Durchspiel-Build? | wartet auf Test (Build) |
@@ -331,6 +337,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 05.11.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
+
+Format (Muster: „So geht's“ unten): t266-gegner.md: 7 Vorgänge, höchstens 6 je Build (317)
 
 Nicht gestellt: 407 (Projekt)
 
