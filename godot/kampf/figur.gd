@@ -2885,6 +2885,8 @@ func die() -> void:
 	if not weg.is_empty() and tween and tween.is_running():
 		tween.kill()     # 348.12f: im Lauf getroffen, liegt es, wo es fällt
 	dead_at = int(kampfort.clock_ms)
+	if _schatten_tw:
+		_schatten_tw.kill()
 	if anim and anim.has_animation("Tod"):
 		anim.play("Tod", 0.05)
 	else:
@@ -2897,9 +2899,28 @@ func die() -> void:
 		# Schatten lag noch allein auf dem Weg)
 		await get_tree().create_timer((sterbe_ms() + LIEGT_MS) / 1000.0).timeout
 		var t := create_tween()
-		t.tween_method(_fade_out, 0.0, 1.0, FADE_MS / 1000.0)
+		t.tween_method(_fade_out, IM_SCHATTEN if schatten_an else 0.0, 1.0, FADE_MS / 1000.0)     # 566: blass im Schatten bleibt blass
 		await t.finished
 		visible = false
+
+
+## 566 (Chef 04.11., 17:15, Build 257: „steht in den Schatten, aber er schaut nicht aus, als würde er im Schatten stehen“): wer „In den
+## Schatten“ gegangen ist (Mars hidden, bis zu seinem nächsten Zug Nachteil auf Angriffe gegen ihn), ist nur schwach zu sehen, wie alt
+## (SkirmishScreen.kt 1086: Figur und Bodenschatten Alpha 0,4): Raster des Ausblendens zu IM_SCHATTEN, Bodenschatten ebenso blass
+const IM_SCHATTEN := 0.6
+var schatten_an := false
+var _schatten_tw: Tween
+
+
+func im_schatten(an: bool) -> void:
+	if an == schatten_an or dead_at >= 0:
+		return
+	schatten_an = an
+	if _schatten_tw:
+		_schatten_tw.kill()
+	var von := 0.0 if an else IM_SCHATTEN
+	_schatten_tw = create_tween()
+	_schatten_tw.tween_method(func(x: float): _fade_out(x), von, IM_SCHATTEN - von, 0.45)
 
 
 func _fade_out(x: float) -> void:

@@ -1660,11 +1660,20 @@ func _say(text: String, actor = null, target = null, damage := 0, roll = null, a
 		"text": text, "actor": actor, "target": target, "damage": damage, "hp": hp, "places": places,
 		"intents": intents.duplicate(), "roll": roll, "queue": queue(), "sp": sp, "answer": answer, "wound": wound,
 		"spell": casting, "cue": cue if cue != "" else null,
-		"status": _statuses(),
+		"status": _statuses(), "hidden": _hidden(),
 	}
 	_log.append(e)
 	if not quick_run and listener.is_valid():
 		listener.call(e)
+
+
+## 566: who stands in the shadows now (hidden until its next turn), for the figure seen only dimly.
+func _hidden() -> Dictionary:
+	var out := {}
+	for f in all:
+		if f.hidden:
+			out[f.id] = true
+	return out
 
 
 ## 296.2: the statuses of each figure that has any, with the turns left, for their signs on the screen.
