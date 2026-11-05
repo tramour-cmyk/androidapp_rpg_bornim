@@ -101,6 +101,8 @@ fun main() {
     de.bornim.game.ui.IntroLook.auto = false
     // 24.6: the stills and films of a fight show it at once; KAMPFBLENDE=1 shows the black screen before it
     de.bornim.game.ui.FightVeilMemory.off = System.getenv("KAMPFBLENDE") == null
+    // MENUE512B=1: 512b, every menu screen with its windows, for the comparison with Godot (Menue512b.kt)
+    if (System.getenv("MENUE512B") != null) { menue512b(); System.exit(0) }
     // MENU326=1: 326, the player's menu in the look of the main menu: every tab but the map, a long press on a sign,
     // and the action buttons by day, by night and in the forest
     if (System.getenv("MENU326") != null) {
