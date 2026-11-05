@@ -152,7 +152,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 512.1 | Wächter: Testbitte ohne Zeile „Verglichen:“ warnt (zu 512) | B Werkzeuge | M? | – | Perikles | gebaut |
 | 524.1 | Gegenstandsfenster besser als alt und spielerfreundlicher: Vorschlag (Chef 04.11., 00:52) | A Spiel | M | – | Team Tom | startbar |
 | 512 | Vor jeder Testbitte berührte Schirme alt gegen neu vergleichen (Sokrates 03.11., 07:45, nach Build 204: 9 Erstfunde des Chefs; Chef 23:28 an Sokrates) | B Abläufe | M | 58,93 $ | Sokrates | in Arbeit |
-| 512b | Testbitte nur mit Nachweis eines fremden Helfers (Chef 04.11., 19:21: ja) | B Abläufe | M | – | Perikles, Jerry, Tom, Diogenes | in Arbeit |
+| 512b | Testbitte nur mit Nachweis eines fremden Helfers (Chef 04.11., 19:21: ja) | B Abläufe | M | 0,54 $ | Perikles, Jerry, Tom, Diogenes | in Arbeit |
 | 516 | Kostenerfassung ohne Handarbeit: Haken oder Werkzeug liest beim Archivieren `total_cost_usd` des letzten result-Ereignisses und bucht (Chef 03.11., 16:20, Ford) | B Abläufe | K | – | Perikles | ruht |
 | 531 | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere sichtbar mit der Fackel, Ruhebewegungen (Chef 03.11., 23:42) | A Spiel | M | 12,96 $ | Team Tom | startbar |
 | 531a | Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast kaufen? (Chef 04.11., 19:27) | A Spiel | M | – | Team Tom | wartet |
@@ -197,7 +197,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 574 | Laufprotokoll Build 257 (Handy): „Lambda capture … was freed“ dreimal, „buffer_size == 0“ (Chef 04.11., 20:40) | E Technik | M | – | Team Tom | gebaut |
 | 575 | Klang: Knurren im Rattenkampf klingt nach Wolf? (Chef 04.11., 20:42, unsicher) | C Kampf | M | – | Team Jerry | gebaut |
 | 577 | Kampf: jedes Tier mit eigener Kennung (Ratte, Fledermaus, Kobold, Schamane, Grimmzahn), Körper nur für Modell (Chef 04.11., 21:00) | C Kampf | M | – | Team Jerry | gebaut |
-| 578 | Filmwächter 511 kennt „gleich Film“ des Chefs nicht (572: Chef 21:03, Wächter verlangte trotzdem Probebild) | B Werkzeuge | M | – | Perikles | gebaut |
+| 578 | Filmwächter 511 kennt „gleich Film“ des Chefs nicht (572: Chef 21:03, Wächter verlangte trotzdem Probebild) | B Werkzeuge | M | 0,54 $ | Perikles | gebaut |
 | 557 | Spielstände: Entwurf ohne Kasten (549a) als Bild, Inhalt wie alt mit Spieldauer und Heldenbild (Chef 04.11., 11:15) | A Spiel | M | 32,62 $ | Team Tom | Chef |
 | 556 | Blenden reines Schwarz statt Leuchten in der Mitte (Ringe), lang genug zum Lesen (Chef 04.11., 07:52) | A Spiel | M | – | Team Tom | gebaut |
 | 555 | Testmenü wie alt und schneller: fehlende Einträge der alten Fassung, dazu Sprünge an jede Station von Kapitel 1 (Chef 04.11., 00:30) | B Werkzeuge | M | 15,00 $ | Team Tom | gebaut |
