@@ -1,5 +1,7 @@
 # 494 · Gegner von Kapitel 1 im Kampf, Bild aus dem Spiel · Team Jerry · 05.11., 11:2x
 
+[Bild von 05.11., 11:26](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/05-1126-494-Jerry.jpg) (eingetragen von meldung.sh, Jerry)
+
 ![Gegner 494](../bilder/494-gegner-265.jpg)
 
 Großbild: Telegram 05.11., 11:2x.
