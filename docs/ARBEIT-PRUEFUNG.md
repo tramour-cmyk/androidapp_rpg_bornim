@@ -11,6 +11,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
+| 578 | M | **von Perikles (Doppelpack 421, 05.11., 07:1x, `fb77c919e`):** `probelauf.py` gibt nach Archivkopf „<Nr>, gleich Film“ den Filmlauf ohne Probebild frei, bis ein neues Probebild eingetragen ist; Code lesen und mit 572 nachstellen (frei) und 494 (gesperrt) | startbar |
 | 512b | M | **von Sokrates (Chef 04.11., 19:21: „512b ja“; `chefsache/entscheiden/512b-nachweis.md` in Git):** Erstfunde des Chefs je Build zählen, vorher (t257: Bereich C sechs) und nachher; Zeile „Verglichen“ mit Helfer und Bild/Film prüfen | wartet auf die nächste Testbitte |
 | 512.1 | M | **von Perikles (Doppelpack 421, 04.11., 14:0x, `bdf83b0f6`):** `commit-pruefung.py` warnt bei neuer `chefsache/ansehen/t*.md` ohne Zeile „Verglichen …:“; prüfen an der nächsten neuen Prüfliste | wartet auf die nächste Testbitte |
 | 512 | M | **von Perikles (Doppelpack 421, 03.11., 16:0x, `e823b0ee7`):** Abgleich alt/neu vor jeder Testbitte (`LISTE-UMZUG-348.md` „Abgleich“, Prüfliste in `LISTE-BAUEN-TESTEN.md`); prüfen an der nächsten Prüfliste: Abgleich gemacht, Funde behoben oder „bekannt“ | wartet auf die nächste Testbitte |
