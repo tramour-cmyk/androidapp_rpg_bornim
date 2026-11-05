@@ -4,6 +4,8 @@
 # dass alle Stehenden ganz im Bild sind (G1), Spiellicht (Signatur 457).
 # Aufruf (Bild, Probelauf nach 389): PROBE=494 GEGNER=BOARS xvfb-run godot --path godot --resolution 540x1170 --write-movie <datei>.avi
 #   --fixed-fps 30 -s res://tests/film_gegner_494.gd       DAUER_MS Kampf je Gegner (18000), MESS=1 ohne Bild: wer im Bild steht
+# Probebild (511, Bauserver mit film=nein): BILDER=<ordner> ohne --write-movie legt je Gegner zwei Bilder ab, aus demselben Skript
+#   und derselben Szene wie der Film: <ordner>/494-<GEGNER>-nah.png (Teil 1) und -spiel.png (Spielkamera mit Kampfschirm, 2 s im Kampf)
 extends SceneTree
 
 const Probe = preload("res://kampf/probe.gd")
@@ -13,6 +15,7 @@ const BLENDE_BILDER := 8
 const DAUER_MS := 18000
 
 var mess := OS.get_environment("MESS") != ""
+var bilder := OS.get_environment("BILDER")
 var schwarz: ColorRect
 var lb: Label
 var lz: Label
@@ -113,7 +116,16 @@ func _gegner(g: String) -> void:
 		lb.text = "494 · " + String(Probe.FOES[g])
 		lz.text = "Ruhe, von nah"
 	await _blende(0.0)
-	await create_timer(4.0).timeout
+	if bilder != "":
+		await _knips(bilder + "/494-%s-nah.png" % g)
+		if lb:
+			lb.text = ""
+			lz.text = ""
+		cam.current = false
+		kf.cam.make_current()
+		if kf.ui != null:
+			kf.ui.visible = true
+	await create_timer(4.0 if bilder == "" else 0.5).timeout
 	# Teil 2: Kampf auf Autopilot, Echtzeit
 	if lz:
 		lz.text = "Kampf gegen Kämpfer und Kleriker · Autopilot, Echtzeit"
@@ -123,19 +135,35 @@ func _gegner(g: String) -> void:
 		kf.go_on()
 	var n := 0
 	var dauer := int(OS.get_environment("DAUER_MS")) if OS.get_environment("DAUER_MS") != "" else DAUER_MS
+	if bilder != "":
+		dauer = 2000
 	while n < dauer * 30 / 1000 and kf.mars.outcome == "ONGOING":
 		await process_frame
 		n += 1
+		if bilder != "":
+			continue     # Probebild: Spielkamera bleibt, wie der Spieler den Kampf sieht
 		var stehen: Array = kf.figures.values().filter(func(f): return f.visible and f.dead_at < 0)
 		if not stehen.is_empty():
 			_auf(cam, kf, stehen, von, hfov, 1.6, 0.05)
 	print("Film 494 %s: Kampf %s nach %.1f s" % [g, kf.mars.outcome, n / 30.0])
+	if bilder != "":
+		await _knips(bilder + "/494-%s-spiel.png" % g)
 	await create_timer(1.5).timeout
 	await _blende(1.0)
 	kf.queue_free()
 	p.queue_free()
 	await process_frame
 	await process_frame
+
+
+func _knips(datei: String) -> void:
+	await process_frame
+	await process_frame
+	var bild := root.get_texture().get_image()
+	var e := bild.save_png(datei)
+	print("BILD 494 %s %s" % [datei.get_file(), "ok" if e == OK else "FEHLER %d" % e])
+	if e != OK:
+		fehler += 1
 
 
 ## Kamera aus [von] auf die Mitte der [figuren], so weit, dass sie quer mit [rand] m ganz ins Bild passen; [weich] < 1 folgt sanft
